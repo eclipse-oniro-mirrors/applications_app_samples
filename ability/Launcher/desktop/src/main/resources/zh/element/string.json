@@ -2,31 +2,31 @@
   "string": [
     {
       "name": "app_menu_open",
-      "value": "Open"
+      "value": "打开"
     },
     {
       "name": "add_form_to_desktop",
-      "value": "Snippets"
+      "value": "服务卡片"
     },
     {
       "name": "remove",
-      "value": "Remove"
+      "value": "移除"
     },
     {
       "name": "uninstall",
-      "value": "Uninstall"
+      "value": "卸载"
     },
     {
       "name": "uninstall_success",
-      "value": "Successfully uninstalled"
+      "value": "卸载成功"
     },
     {
       "name": "disable_uninstall",
-      "value": "Disable uninstall"
+      "value": "禁止卸载"
     },
     {
       "name": "uninstall_failed",
-      "value": "Uninstallation failed"
+      "value": "卸载失败"
     }
   ]
 }
