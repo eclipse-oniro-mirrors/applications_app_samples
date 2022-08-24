@@ -13,17 +13,18 @@
  * limitations under the License.
  */
 
-/**
- * Constants of events that will be registered to system.
- */
-const EventConstants = {
-  EVENT_PACKAGE_ADDED: 'usual.event.PACKAGE_ADDED',
-  EVENT_PACKAGE_REMOVED: 'usual.event.PACKAGE_REMOVED',
-  EVENT_BADGE_UPDATE: 'launcher.event.EVENT_BADGE_UPDATE',
-  EVENT_ENTER_HOME: 'launcher.event.EVENT_ENTER_HOME',
-  EVENT_ENTER_RECENTS: 'launcher.event.EVENT_ENTER_RECENTS',
-  EVENT_CLEAR_RECENTS: 'launcher.event.EVENT_CLEAR_RECENTS',
-  EVENT_ENTER_FROM_MANAGER: 'launcher.event.EVENT_ENTER_FROM_MANAGER'
-}
+import RecentsLayout from '../../../../../recents/src/main/ets/default/layout/RecentsLayout'
 
-export default EventConstants
+@Entry
+@Component
+struct RecentsPage {
+  build() {
+    Column() {
+      RecentsLayout()
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundImage($r('app.media.form_mgr_bg'))
+    .backgroundImageSize(ImageSize.Cover)
+  }
+}
