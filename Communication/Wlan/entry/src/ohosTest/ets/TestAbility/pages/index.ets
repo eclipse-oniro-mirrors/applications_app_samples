@@ -12,33 +12,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import router from '@ohos.router';
 
+import router from '@system.router'
+
+@Entry
 @Component
-export struct TitleBar {
+struct Index {
+  aboutToAppear() {
+    console.info('TestAbility index aboutToAppear')
+  }
+
+  @State message: string = 'Hello World'
+
   build() {
     Row() {
-      Text($r('app.string.entry_MainAbility'))
-        .fontColor(Color.White)
-        .fontSize(25)
-        .layoutWeight(1)
-      Button() {
-        Image($r('app.media.about'))
-          .size({ width: 60, height: '95%' })
-          .objectFit(ImageFit.Contain)
+      Column() {
+        Text(this.message)
+          .fontSize(50)
+          .fontWeight(FontWeight.Bold)
+        Button() {
+          Text('next page')
+            .fontSize(20)
+            .fontWeight(FontWeight.Bold)
+        }
+        .type(ButtonType.Capsule)
+        .margin({
+          top: 20
+        })
+        .backgroundColor('#0D9FFB')
+        .width('35%')
+        .height('5%')
+        .onClick(() => {
+        })
       }
-      .key('about')
-      .type(ButtonType.Normal)
-      .height('90%')
-      .backgroundColor('#0D9FFB')
-      .onClick(() => {
-        router.push({ url: 'pages/About' })
-      })
+      .width('100%')
     }
-    .width('100%')
-    .height('8%')
-    .constraintSize({ minHeight: 50 })
-    .padding({ left: 15 })
-    .backgroundColor('#0D9FFB')
+    .height('100%')
   }
 }
