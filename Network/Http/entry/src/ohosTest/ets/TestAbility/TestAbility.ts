@@ -6,6 +6,7 @@ import testsuite from '../test/List.test'
 export default class TestAbility extends Ability {
   onCreate(want, launchParam) {
     console.log('TestAbility onCreate')
+
   }
 
   onDestroy() {
