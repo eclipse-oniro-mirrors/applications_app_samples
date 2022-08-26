@@ -23,6 +23,30 @@
     {
       "name": "remove",
       "value": "移除"
+    },
+    {
+      "name": "phone",
+      "value": "电话"
+    },
+    {
+      "name": "message",
+      "value": "短信"
+    },
+    {
+      "name": "music",
+      "value": "音乐"
+    },
+    {
+      "name": "note",
+      "value": "备忘录"
+    },
+    {
+      "name": "camera",
+      "value": "相机"
+    },
+    {
+      "name": "photo",
+      "value": "相册"
     }
   ]
 }

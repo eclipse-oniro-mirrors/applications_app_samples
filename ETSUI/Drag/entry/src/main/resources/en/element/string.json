@@ -23,6 +23,30 @@
     {
       "name": "remove",
       "value": "remove"
+    },
+    {
+      "name": "phone",
+      "value": "phone"
+    },
+    {
+      "name": "message",
+      "value": "message"
+    },
+    {
+      "name": "music",
+      "value": "music"
+    },
+    {
+      "name": "note",
+      "value": "note"
+    },
+    {
+      "name": "camera",
+      "value": "camera"
+    },
+    {
+      "name": "photo",
+      "value": "photo"
     }
   ]
 }

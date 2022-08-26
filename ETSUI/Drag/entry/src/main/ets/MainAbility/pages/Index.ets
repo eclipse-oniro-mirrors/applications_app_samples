@@ -34,7 +34,7 @@ struct Index {
   @State insert: number = 0
   @State desktopIcons: Array<Icon> = iconInit().slice(4);
   @State dockIcons: Array<Icon> = iconInit().slice(0, 4);
-  @State movingIcon: Icon = { icon: $r('app.media.icon'), name: '' }
+  @State movingIcon: Icon = { icon: $r('app.media.icon'), name: $r('app.string.phone') }
   @State hanlePopup: boolean[] = [false, false, false, false]
 
   @Builder pixelMapBuilder() {
@@ -96,6 +96,10 @@ struct Index {
         if (this.desktopDragging) {
           this.desktopIcons.splice(this.select, 1)
           this.desktopIcons.splice(this.insert, 0, this.movingIcon)
+          this.dockDragging = false
+          this.desktopDragging = false
+        }
+        if (this.dockDragging) {
           this.dockDragging = false
           this.desktopDragging = false
         }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 /*
  * Copyright (c) 2022 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -84,20 +85,19 @@ export struct Contact {
             this.result = value
           })
           .onSubmit(async (enterKey: EnterKeyType) => {
-            for (let i = 0; i < this.contacts.length; i++) {
-              let phoneData = await contact.queryContactsByPhoneNumber(this.result)
-              let emailData = await contact.queryContactsByEmail(this.result)
-              if (this.contacts[i] === phoneData[0] || this.contacts[i] === emailData[0]) {
-                router.push({
-                  url: 'pages/NameCard',
-                  params: { data: this.contacts[i] }
-                })
-              } else {
-                prompt.showToast({
-                  message: 'Error!',
-                  duration: 1500 // 提示弹窗持续时间，单位ms
-                })
-              }
+            let phoneData = await contact.queryContactsByPhoneNumber(this.result)
+            let emailData = await contact.queryContactsByEmail(this.result)
+            if (phoneData[0] !== [] || emailData[0] !== []) {
+              router.push({
+                url: 'pages/NameCard',
+                params: { data: await contact.queryContact(phoneData[0].key) }
+              })
+            } else {
+              this.result = ''
+              prompt.showToast({
+                message: 'Error!',
+                duration: 1500 // 提示弹窗持续时间，单位ms
+              })
             }
           })
         Image($r('app.media.search'))

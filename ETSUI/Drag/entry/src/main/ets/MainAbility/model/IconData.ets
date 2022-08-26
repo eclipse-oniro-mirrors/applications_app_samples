@@ -15,9 +15,9 @@
 
 export class Icon {
   icon: Resource
-  name: string
+  name: Resource
 
-  constructor(icon: Resource, name: string) {
+  constructor(icon: Resource, name: Resource) {
     this.icon = icon
     this.name = name
   }
@@ -25,12 +25,12 @@ export class Icon {
 
 export function iconInit(): Array<Icon> {
   let iconList = [
-    { icon: $r('app.media.call'), name: '电话' },
-    { icon: $r('app.media.mms'), name: '短信' },
-    { icon: $r('app.media.music'), name: '音乐' },
-    { icon: $r('app.media.notes'), name: "备忘录" },
-    { icon: $r('app.media.camera'), name: "相机" },
-    { icon: $r('app.media.video'), name: "相册" }
+    { icon: $r('app.media.call'), name: $r('app.string.phone') },
+    { icon: $r('app.media.mms'), name: $r('app.string.message') },
+    { icon: $r('app.media.music'), name: $r('app.string.music') },
+    { icon: $r('app.media.notes'), name: $r('app.string.note') },
+    { icon: $r('app.media.camera'), name: $r('app.string.camera') },
+    { icon: $r('app.media.video'), name: $r('app.string.photo') }
   ]
   return iconList
 }
