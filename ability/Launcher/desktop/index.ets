@@ -13,18 +13,6 @@
  * limitations under the License.
  */
 
-import { RecentsLayout } from '@ohos/recents'
+export { WorkSpace } from './src/main/ets/default/layout/WorkSpace'
 
-@Entry
-@Component
-struct RecentsPage {
-  build() {
-    Column() {
-      RecentsLayout()
-    }
-    .width('100%')
-    .height('100%')
-    .backgroundImage($r('app.media.form_mgr_bg'))
-    .backgroundImageSize(ImageSize.Cover)
-  }
-}
+export { DesktopLayoutModel } from './src/main/ets/default/model/DesktopLayoutModel'
