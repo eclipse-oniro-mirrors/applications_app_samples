@@ -12,14 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+import appTest from './app.test'
 
-import AbilityStage from "@ohos.application.AbilityStage"
-import Logger from '../util/Logger'
-
-const TAG: string = 'MyAbilityStage'
-
-export default class MyAbilityStage extends AbilityStage {
-  onCreate() {
-    Logger.info(TAG, '[Demo] MyAbilityStage onCreate')
-  }
+export default function testsuite() {
+  appTest()
 }
