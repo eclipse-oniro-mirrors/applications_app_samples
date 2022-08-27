@@ -13,51 +13,21 @@
  * limitations under the License.
  */
 
-import Ability from '@ohos.application.Ability'
 import AbilityDelegatorRegistry from '@ohos.application.abilityDelegatorRegistry'
 import { Hypium } from '@ohos/hypium'
 import testsuite from '../test/List.test'
-import Logger from '../../../main/ets/data/Logger'
 
-const TAG: string = 'TestAbility'
-
-export default class TestAbility extends Ability {
-  onCreate(want, launchParam) {
-    Logger.info(TAG, 'TestAbility onCreate')
-  }
-
-  onDestroy() {
-    Logger.info(TAG, 'TestAbility onDestroy')
-  }
-
-  onWindowStageCreate(windowStage) {
-    Logger.info(TAG, 'TestAbility onWindowStageCreate')
-    windowStage.loadContent('TestAbility/pages/Index', (err, data) => {
-      if (err.code) {
-        Logger.error(TAG, `Failed to load the content. Cause: ${JSON.stringify(err)}`)
-        return
-      }
-      Logger.info(TAG, `Succeeded in loading the content. Data: ${JSON.stringify(data)}`)
-    })
-
-    globalThis.abilityContext = this.context
+export default {
+  onCreate() {
+    console.info('Application onCreate')
     var abilityDelegator: any
     abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
     var abilityDelegatorArguments: any
     abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
-    Logger.info(TAG, 'start run testcase!!!')
+    console.info('start run testcase!!!')
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
-  }
-
-  onWindowStageDestroy() {
-    Logger.info(TAG, 'TestAbility onWindowStageDestroy')
-  }
-
-  onForeground() {
-    Logger.info(TAG, 'TestAbility onForeground')
-  }
-
-  onBackground() {
-    Logger.info(TAG, 'TestAbility onBackground')
-  }
+  },
+  onDestroy() {
+    console.info('Application onDestroy')
+  },
 }
