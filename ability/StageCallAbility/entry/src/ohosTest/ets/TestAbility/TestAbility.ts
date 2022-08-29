@@ -36,14 +36,7 @@ export default class TestAbility extends Ability {
       }
       console.info('Succeeded in loading the content. Data: ' + JSON.stringify(data))
     });
-
     globalThis.abilityContext = this.context;
-    var abilityDelegator: any
-    abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-    var abilityDelegatorArguments: any
-    abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
-    console.info('start run testcase!!!')
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
   }
 
   onWindowStageDestroy() {
@@ -52,6 +45,12 @@ export default class TestAbility extends Ability {
 
   onForeground() {
     console.log('TestAbility onForeground')
+    var abilityDelegator: any
+    abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
+    var abilityDelegatorArguments: any
+    abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
+    console.info('start run testcase!!!')
+    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
   }
 
   onBackground() {

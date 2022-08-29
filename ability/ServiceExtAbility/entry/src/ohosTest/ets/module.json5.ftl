@@ -15,15 +15,12 @@
 
 {
   "module": {
-    "name": "entry_test",
+    "name": "${moduleName}_test",
     "type": "feature",
-    "srcEntrance": "./ets/TestAbility/TestAbility.ts",
+    "srcEntrance": "./ets/Application/AbilityStage.ts",
     "description": "$string:entry_test_desc",
     "mainElement": "TestAbility",
-    "deviceTypes": [
-      "default",
-      "tablet"
-    ],
+    "deviceTypes": [${deviceTypes ?replace("[","")?replace("]","")}],
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:test_pages",
@@ -35,8 +32,6 @@
         "description": "$string:TestAbility_desc",
         "icon": "$media:icon",
         "label": "$string:TestAbility_label",
-        "startWindowIcon": "$media:icon",
-        "startWindowBackground": "$color:white",
         "visible": true,
         "skills": [
           {
