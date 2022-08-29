@@ -17,46 +17,45 @@ import Ability from '@ohos.application.Ability'
 import AbilityDelegatorRegistry from '@ohos.application.abilityDelegatorRegistry'
 import { Hypium } from '@ohos/hypium'
 import testsuite from '../test/List.test'
-import Logger from '../../../main/ets/data/Logger'
-
-const TAG: string = 'TestAbility'
 
 export default class TestAbility extends Ability {
   onCreate(want, launchParam) {
-    Logger.info(TAG, `TestAbility onCreate`)
+    console.log('TestAbility onCreate')
+
   }
 
   onDestroy() {
-    Logger.info(TAG, `TestAbility onDestroy`)
+    console.log('TestAbility onDestroy')
   }
 
   onWindowStageCreate(windowStage) {
-    Logger.info(TAG, `TestAbility onWindowStageCreate`)
+    console.log('TestAbility onWindowStageCreate')
     windowStage.loadContent("TestAbility/pages/index", (err, data) => {
       if (err.code) {
-        Logger.info(TAG, `Failed to load the content. Cause = ${JSON.stringify(err)}`);
-        return
+        console.error('Failed to load the content. Cause:' + JSON.stringify(err));
+        return;
       }
-      Logger.info(TAG, `Succeeded in loading the content. Data = ${JSON.stringify(data)}`)
-    })
-    globalThis.abilityContext = this.context
-    let abilityDelegator: any
+      console.info('Succeeded in loading the content. Data: ' + JSON.stringify(data))
+    });
+
+    globalThis.abilityContext = this.context;
+    var abilityDelegator: any
     abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-    let abilityDelegatorArguments: any
+    var abilityDelegatorArguments: any
     abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
-    Logger.info(TAG, `start run testcase!!!`)
+    console.info('start run testcase!!!')
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
   }
 
   onWindowStageDestroy() {
-    Logger.info(TAG, `TestAbility onWindowStageDestroy`)
+    console.log('TestAbility onWindowStageDestroy')
   }
 
   onForeground() {
-    Logger.info(TAG, `TestAbility onForeground`)
+    console.log('TestAbility onForeground')
   }
 
   onBackground() {
-    Logger.info(TAG, `TestAbility onBackground`)
+    console.log('TestAbility onBackground')
   }
 };
