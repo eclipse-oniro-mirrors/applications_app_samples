@@ -64,6 +64,11 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     var cmd = 'aa start -d 0 -a ' + testAbilityName + ' -b ' + abilityDelegatorArguments.bundleName
     cmd += ' ' + translateParamsToString(abilityDelegatorArguments.parameters)
     console.info('cmd : ' + cmd)
+    var debug = abilityDelegatorArguments.parameters["-D"]
+    if (debug == 'true') {
+      cmd += ' -D'
+    }
+    console.info('cmd : ' + cmd)
     abilityDelegator.executeShellCommand(cmd,
       (err: any, d: any) => {
         console.info('executeShellCommand : err : ' + JSON.stringify(err))
