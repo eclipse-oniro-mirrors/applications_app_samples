@@ -18,9 +18,9 @@ import { UiDriver, BY, UiComponent, MatchPattern } from '@ohos.uitest'
 import featureAbility from '@ohos.ability.featureAbility'
 import hilog from '@ohos.hilog'
 
-const TAG = '[Sample_Lottie]'
+const TAG = '[Sample_DistributedGraffiti]'
 const DOMAIN = 0xF811
-const BUNDLE = 'Lottie_'
+const BUNDLE = 'DistributedGraffiti_'
 
 export default function appTest() {
   describe('appTest', function () {
@@ -28,8 +28,8 @@ export default function appTest() {
       hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbilityFunction_001 begin')
       let parameter = {
         "want": {
-          bundleName: "com.example.lottie",
-          abilityName: "com.example.lottie.MainAbility"
+          bundleName: "ohos.samples.distributedgraffiti",
+          abilityName: "ohos.samples.distributedgraffiti.MainAbility"
         }
       }
       featureAbility.startAbility(parameter, (err, data) => {
@@ -40,19 +40,19 @@ export default function appTest() {
       })
     })
     /**
-     * 点击选择，选择动画资源
+     * 点击允许进行授权
      */
-    it(BUNDLE + 'SelectAnimationAssetFunction_001', 0, async function () {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'SelectAnimationAssetFunction_001 begin')
+    it(BUNDLE + 'ClickAcceptFunction_001', 0, async function () {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'ClickAcceptFunction_001 begin')
       let driver = await UiDriver.create()
       await driver.delayMs(1000)
-      hilog.info(DOMAIN, TAG, BUNDLE + 'SelectAnimationAssetFunction_001 clickSelectAnimationBtn')
-      // 点击请选择，选择动画资源
-      await driver.assertComponentExist(BY.key('selectAnimationBtn'))
-      let selectAnimation = await driver.findComponent(BY.key('selectAnimationBtn'))
+      hilog.info(DOMAIN, TAG, BUNDLE + 'ClickAcceptFunction_001 clickAccept')
+      // 点击允许
+      await driver.assertComponentExist(BY.text('允许'))
+      let btnAccept = await driver.findComponent(BY.text('允许'))
       await driver.delayMs(1000)
-      await selectAnimation.click()
-      hilog.info(DOMAIN, TAG, BUNDLE + 'SelectAnimationAssetFunction_001 end')
+      await btnAccept.click()
+      hilog.info(DOMAIN, TAG, BUNDLE + 'ClickAcceptFunction_001 end')
     })
   })
 }
