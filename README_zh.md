@@ -13,202 +13,23 @@
 为帮助开发者快速熟悉OpenHarmony SDK所提供的API和应用开发流程，我们提供了一系列的应用示例，即Sample。每一个应用示例都是一个独立的DevEco Studio工程项目，开发者可以将工程导入到DevEco Studio开发工具，通过浏览代码、编译工程、安装和运行应用示例来了解应用示例中涉及API的使用方法。
 
 ## 目录<a name="sectionMenu"></a>
-- Basic
-  - [`Container`：线性容器ArrayList（eTS）（API8）](Basic/Container)
-  - [`Screenshot`：屏幕截图（eTS）（API9）（Full SDK）](Basic/Screenshot)
-- AppSample
-  - [`Chat`：聊天示例应用（eTS）（API8）](AppSample/Chat)
-  - [`Shopping`：购物示例应用（eTS）（API8）](AppSample/Shopping)
-- Account
-  - [`AppAccountManager`：应用帐号管理（eTS）（API8）](Account/AppAccountManager)
-  - [`DistributeAccount`：分布式帐号管理（eTS）（API8）](Account/DistributeAccount)
-- Communication
-  - [`RPC`：RPC连接（eTS）（API8）](Communication/RPC)
-  - [`Wlan`：WLAN（eTS）（API8）（Full SDK）](Communication/Wlan)
-- ability
-  - [`DMS`：分布式Demo（eTS）（API8）（Full SDK）](ability/DMS)
-  - [`JsDistributedMusicPlayer`：分布式音乐播放（JS）（API8）（Full SDK）](ability/JsDistributedMusicPlayer)
-  - [`DataAbility`：DataAbility的创建与访问（eTS）（API8）](ability/DataAbility)
-  - [`ServiceAbility`：ServiceAbility的创建与使用（eTS）（API8）](ability/ServiceAbility)
-  - [`StageCallAbility`：StageCallAbility的创建与使用（eTS）（API9）（Full SDK）](ability/StageCallAbility)
-  - [`FormAbility`：FA模型卡片（eTS）（API8）](ability/FormAbility)
-  - [`FormExtAbility`：Stage模型卡片（eTS）（API9）](ability/FormExtAbility)
-  - [`FormLauncher`：卡片使用方（eTS）（API8）（Full SDK）](ability/FormLauncher)
-  - [`ServiceExtAbility`：StageExtAbility的创建与使用（eTS）（API9）（Full SDK）](ability/ServiceExtAbility)
-  - [`DistributedGraffiti`：分布式涂鸦（eTS）（API8）（Full SDK）](ability/DistributedGraffiti)
-  - [`MissionManager`：系统任务管理（eTS）（API9）（Full SDK）](ability/MissionManager)
-  - [`GalleryForm`：图库卡片（eTS）（API9）](ability/GalleryForm)
-  - [`Launcher`：仿桌面应用（eTS）（API9）（Full SDK）](ability/Launcher)
-  - [`FaModel`：FA模型（eTS）（API9）](ability/FaModel)
-  - [`StageModel`：Stage模型（eTS）（API9）（Full SDK）](ability/StageModel)
-  - [`WindowExtAbility`：窗口扩展（eTS）（API9）（Full SDK）](ability/WindowExtAbility)
-- common
-  - [`Clock`：时钟（JS）（API8）](common/Clock)
-  - [`DistributeCalc`：分布式计算器（JS）（API8）（Full SDK）](common/DistributeCalc)
-  - [`Notification`：通知（eTS）（API8）](common/Notification)
-  - [`ResourceManager`：资源管理器（eTS）（API8）](common/ResourceManager)
-  - [`Runninglock`：运行锁（eTS）（API8）](common/Runninglock)
-  - [`JsHelloWorld`：你好世界（JS）（API8）](common/JsHelloWorld)
-  - [`PowerManager`：系统电源管理（eTS）（API8）（Full SDK）](common/PowerManager)
-  - [`International`：国际化（eTS）（API8）（Full SDK）](common/International)
-- data
-  - [`KvStore`：分布式数据库（eTS）（API8）（Full SDK）](data/Kvstore)
-  - [`LiteStorage`：轻量级存储（eTS）（API8）](data/LiteStorage)
-  - [`DDMQuery`：结果集与谓词（eTS）（API8）](data/DDMQuery)
-  - [`DistributedRdb`：分布式关系型数据库（eTS）（API8）（Full SDK）](data/DistributedRdb)
-  - [`Preferences`：首选项（eTS）（API9）](data/Preferences)
-  - [`DistributedNote`：分布式备忘录（eTS）（API9）（Full SDK）](data/DistributedNote)
-  - [`DistributedDataGobang`：分布式五子棋（eTS）（API9）（Full SDK）](data/DistributedDataGobang)
-  - [`DistributedObjectDms`：分布式跑马灯（eTS）（API9）（Full SDK）](data/DistributedObjectDms)
-- device
-  - [`DeviceManager`：设备管理（eTS）（API8）（Full SDK）](device/DeviceManager)
-  - [`Sensor`：传感器（eTS）（API8）](device/Sensor)
-  - [`Vibrator`：振动（eTS）（API8）](device/Vibrator)
-  - [`DeviceUsageStatistics`：设备使用信息统计（eTS）（API8）（Full SDK）](device/DeviceUsageStatistics)
-  - [`Browser`：浏览器（eTS）（API9）（Full SDK）](device/Browser)
-  - [`Screen`：屏幕属性（eTS）（API9）（Full SDK）](device/Screen)
-  - [`USBManager`：USB管理（eTS）（API8）](device/USBManager)
-  - [`Bluetooth`：蓝牙（eTS）（API9）（Full SDK）](device/Bluetooth)
-  - [`Location`：位置服务（eTS）（API9）](device/Location)
-- Graphics
-  - [`JsWebGL`：WebGL（JS）（API8）](Graphics/JsWebGL)
-  - [`Window`：窗口（eTS）（API9）](Graphics/Window)
-- media
-  - [`JsAudioPlayer`：音频播放和管理（JS）（API8）](media/JsAudioPlayer)
-  - [`JsVideo`：视频播放（JS）（API8）](media/JsVideo)
-  - [`Recorder`：录音机（eTS）（API8）（Full SDK）](media/Recorder)
-  - [`MultiMedia`：相机和媒体库（eTS）（API9）（Full SDK）](media/MultiMedia)
-  - [`VideoPlayer`：视频播放（eTS）（API9）（Full SDK）](media/VideoPlayer)
-  - [`JsRecorder`：录音机（JS）（API8）](media/JSRecorder)
-  - [`Image`：图片处理（eTS）（API8）](media/Image)
-  - [`GamePuzzle`：拼图（eTS）（API9）](media/GamePuzzle)
-  - [`Scan`：媒体库相机（eTS）（API9）](media/Scan)
-  - [`VideoShow`：媒体库视频（eTS）（API9）](media/VideoShow)
-  - [`ImageShow`：图片显示（eTS）（API9）](media/ImageShow)
-- DFX
-  - [`JsDotTest`：测试打点（JS）（API8）](DFX/JsDotTest)
-  - [`FaultLogger`：故障日志获取（eTS）（API8）](DFX/FaultLogger)
-  - [`Logger`：日志打印（eTS）（API9）](DFX/Logger)
-  - [`Debug`：Debug（eTS）（API9）](DFX/Debug)
-- Safety
-  - [`Cipher`：加解密（eTS）（API8）](Safety/Cipher)
-  - [`AbilityAccessCtrl`：访问权限控制（eTS）（API8）（Full SDK）](Safety/AbilityAccessCtrl)
-- Telephony
-  - [`Call`：拨打电话（eTS）（API8）](Telephony/Call)
-  - [`Message`：短信服务（eTS）（API8）（Full SDK）](Telephony/Message)
-  - [`RadioTech`：网络搜索（eTS）（API8）](Telephony/RadioTech)
-  - [`SimManager`：SIM卡管理（eTS）（API8）](Telephony/SimManager)
-  - [`MobileNetwork`：蜂窝数据（eTS）（API9）](Telephony/MobileNetwork)
-  - [`Observer`：Observer（eTS）（API9）](Telephony/Observer)
-  - [`Contact`：Contact（eTS）（API8）](Telephony/Contact)
-- thread
-  - [`JsWorker`：启动一个worker（JS）（API8）](thread/JsWorker)
-- CompleteApps
-  - [`KikaInput`：轻量级输入法（JS）（API9）（Full SDK）](CompleteApps/KikaInput)
-  - [`FlipClock`：翻页时钟（eTS）（API8）（Full SDK）](CompleteApps/FlipClock)
-- EngineeringCapability
-  - [`Npm`：npm的使用（eTS）（API9）](EngineeringCapability/Npm)
-- ETSUI
-  - [`Canvas`：画布组件（eTS）（API8）](ETSUI/Canvas)
-  - [`CustomComponent`：组件化（eTS）（API8）](ETSUI/CustomComponent)
-  - [`Process`：进程信息（eTS）（API9）（Full SDK）](ETSUI/Process)
-  - [`BuildCommonView`：创建简单视图（eTS）（API8）](ETSUI/BuildCommonView)
-  - [`DefiningPageLayoutAndConnection`：页面布局和连接（eTS）（API8）](ETSUI/DefiningPageLayoutAndConnection)
-  - [`Drag`：拖拽事件（eTS）（API8）](ETSUI/Drag)
-  - [`Component`：eTS组件测试Demo（eTS）（API8）](ETSUI/Component)
-  - [`ArkUIAnimation`：动画（eTS）（API8）](ETSUI/ArkUIAnimation)
-  - [`MediaQuery`：媒体查询（eTS）（API8）](ETSUI/MediaQuery)
-  - [`XComponent`：XComponent（eTS）（API9）](ETSUI/XComponent)
-  - [`MouseEvent`：鼠标事件（eTS）（API8）](ETSUI/MouseEvent)
-  - [`Web`：Web（eTS）（API8）](ETSUI/Web)
-  - [`Gallery`：组件集合（eTS）（API8）](ETSUI/Gallery)
-  - [`BringApp`：拉起系统应用（eTS）（API8）（Full SDK）](ETSUI/BringApp)
-  - [`Game2048`：2048游戏（eTS）（API8）](ETSUI/Game2048)
-  - [`Lottie`：Lottie（eTS）（API8）（Full SDK）](ETSUI/Lottie)
-  - [`TransitionAnimation`：转场动画（eTS）（API9）](ETSUI/TransitionAnimation)
-  - [`PatternLock`：图案密码锁组件（eTS）（API9）](ETSUI/PatternLock)
-  - [`Search`：Search组件（eTS）（API9）](ETSUI/Search)
-  - [`QRCode`：二维码（eTS）（API9）（Full SDK）](ETSUI/QRCode)
-  - [`UpgradePopup`：自定义弹窗（eTS）（API9）](ETSUI/UpgradePopup)
-- FileManager
-  - [`FileIo`：文件管理（eTS）（API8）](FileManager/FileIo)
-- Native
-  - [`NativeAPI`：NativeAPI（eTS）（API8）](Native/NativeAPI)
-- Notification
-  - [`CommonEvent`：订阅公共事件（eTS）（API8）](Notification/CommonEvent)
-  - [`Emitter`：处理进程内事件（eTS）（API8）](Notification/Emitter)
-  - [`AlarmClock`：后台代理提醒（eTS）（API8）](Notification/AlarmClock)
-  - [`Notification`：订阅、发送通知（eTS）（API9）（Full SDK）](Notification/Notification)
-- Network
-  - [`Http`：数据请求（eTS）（API9）](Network/Http)
-  - [`Socket`：Socket 连接（eTS）（API8）](Network/Socket)
-  - [`WebSocket`：WebSocket（eTS）（API9）](Network/WebSocket)
-  - [`UploadDownload`：上传下载（eTS）（API8）](Network/UploadDownload)
-- Preset
-  - [`Clock`：简单时钟（eTS）（API9）](Preset/Clock)
-  - [`DistributeCalc`：分布式计算器（eTS）（API8）（Full SDK）](Preset/DistributeCalc)
-  - [`DistributedMusicPlayer`：分布式音乐（eTS）（API9）（Full SDK）](Preset/DistributedMusicPlayer)
-- PackageManagement
-  - [`ZipLib`：压缩与解压（eTS）（API8）](PackageManagement/ZipLib)
-- ResourcesSchedule
-  - [`Flybird`：小鸟避障游戏（eTS）（API8）](ResourcesSchedule/Flybird)
-  - [`BackgroundTaskManager`：后台任务管理（eTS）（API8）](ResourcesSchedule/BackgroundTaskManager)
-  - [`WorkScheduler`：延迟任务调度（eTS）（API9）](ResourcesSchedule/WorkScheduler)
-- UI
-  - [`AtomicLayout`：原子布局（JS）（API8）](UI/AtomicLayout)
-  - [`Badge`：事件标记控件（JS）（API8）](UI/Badge)
-  - [`International`：国际化（JS）（API8）](UI/International)
-  - [`JsFA`：FA示例应用（JS）（API8）](UI/JsFA)
-  - [`JsShopping`：购物示例应用（JS）（API8）](UI/JsShopping)
-  - [`JSMenu`：菜单（JS）（API8）](UI/JSMenu)
-  - [`JSUICustomComponent`：自定义组件（JS）（API8）](UI/JSUICustomComponent)
-  - [`JsAnimation`：动效示例应用（JS）（API8）](UI/JsAnimation)
-  - [`JsAnimationStyle`：动画与自定义字体（JS）（API8）](UI/JsAnimationStyle)
-  - [`JsBasicComponents`：基础组件（JS）（API8）](UI/JsBasicComponents)
-  - [`JsBrightness`：设置屏幕亮度（JS）（API8）](UI/JsBrightness)
-  - [`JsCanvas`：画布组件（JS）（API8）](UI/JsCanvas)
-  - [`JsDevice`：设备信息（JS）（API8）](UI/JsDevice)
-  - [`JsDialog`：页面弹窗（JS）（API8）](UI/JsDialog)
-  - [`JsGrid`：栅格布局（JS）（API8）](UI/JsGrid)
-  - [`JsList`：商品列表（JS）（API8）](UI/JsList)
-  - [`JsPanel`：内容展示面板（JS）（API8）](UI/JsPanel)
-  - [`JsRouter`：页面路由（JS）（API8）](UI/JsRouter)
-  - [`JsSvg`：可缩放矢量图形（JS）（API8）](UI/JsSvg)
-  - [`JsTimer`：定时器与系统时间设置（JS）（API8）](UI/JsTimer)
-  - [`Picker`：滑动选择器（JS）（API8）](UI/Picker)
-  - [`Popup`：气泡（JS）（API8）](UI/Popup)
-  - [`RefreshContainer`：下拉刷新容器（JS）（API8）](UI/RefreshContainer)
-  - [`Slider`：滑动条（JS）（API8）](UI/Slider)
-  - [`Stack`：堆叠容器（JS）（API8）](UI/Stack)
-  - [`StepNavigator`：步骤导航器（JS）（API8）](UI/StepNavigator)
-  - [`Swiper`：内容滑动容器（JS）（API8）](UI/Swiper)
-  - [`Tabs`：页签容器（JS）（API8）](UI/Tabs)
-  - [`Toolbar`：工具栏（JS）（API8）](UI/Toolbar)
-  - [`chart`：图表组件（JS）（API8）](UI/chart)
-  - [`JsAdaptivePortalList`：多设备自适应的效率型首页（JS）（API8）](UI/JsAdaptivePortalList)
-  - [`JsAdaptivePortalPage`：多设备自适应的FA页面（JS）（API8）](UI/JsAdaptivePortalPage)
-  - [`JsImage`：基本动画（JS）（API8）](UI/JsImage)
-  - [`JsGallery`：图库示例应用（JS）（API8）](UI/JsGallery)
-  - [`JSComponments`：Js组件（JS）（API8）](UI/JSComponments)
-  - [`JsUserRegistration`：用户注册（JS）（API8）](UI/JsUserRegistration)
-  - [`JsAdaptiveServiceWidget`：多设备自适应服务卡片（JS）（API8）](UI/JsAdaptiveServiceWidget)
-  - [`JsAnimator`：动画（JS）（API8）](UI/JsAnimator)
-- Util
-  - [`UtilBase64Codec`：Base64编解码（eTS）（API8）](Util/UtilBase64Codec)
-  - [`UtilScope`：范围判断（eTS）（API8）](Util/UtilScope)
-  - [`UtilStringCodec`：字符串编解码（eTS）（API8）](Util/UtilStringCodec)
-  - [`UtilLruBuffer`：缓冲区（eTS）（API8）](Util/UtilLruBuffer)
-  - [`UtilRationalNumber`：有理数（eTS）（API8）](Util/UtilRationalNumber)
-  - [`UtilTypeCheck`：内置对象类型检查（eTS）（API8）](Util/UtilTypeCheck)
-  - [`UtilUrlString`：URL字符串解析（eTS）（API8）](Util/UtilUrlString)
-  - [`XmlTextConvert`：xml文本转换（eTS）（API8）](Util/XmlTextConvert)
-- MultiDeviceAppDev
-  - [`AdaptiveCapabilities`：多设备自适应能力（eTS）（API9）](MultiDeviceAppDev/AdaptiveCapabilities)
-  - [`JsAdaptiveCapabilities`：多设备自适应能力（JS）（API8）](MultiDeviceAppDev/JsAdaptiveCapabilities)
-  - [`AppMarket`：一多应用市场首页（eTS）（API9）](MultiDeviceAppDev/AppMarket)
-  - [`Weather`：一多天气（eTS）（API9）](MultiDeviceAppDev/Weather)
-- Share
-  - [`Share`：分享（eTS）（API9）（Full SDK）](Share/Share)
+- WebLikeUI：类web开发范式UI
+  - [`WebLikeUIComponents`：类web开发范式UI集（JS）（API9）](WebLikeUI/)
+- DeclaretiveUI：声明式开发范式UI
+  - [`DeclaretiveUIComponents`：声明式开发范式UI（eTS）（API9）](DeclaretiveUI/)
+- Feature：基础特性
+  - [`Share`：分享（eTS）（API9）（Full SDK）](Feature/Share)
+- SystemFeature：系统特性
+  - [`Launcher`：仿桌面应用（eTS）（API9）（Full SDK）](SystemFeature/Launcher)
+- SuperFeature：高级特性展示
+  - [`AdaptiveCapabilities`：多设备自适应能力（eTS）（API9）](SuperFeature/AdaptiveCapabilities)
+  - [`AppMarket`：一多应用市场首页（eTS）（API9）](SuperFeature/AppMarket)
+  - [`Weather`：一多天气（eTS）（API9）](SuperFeature/Weather)
+  - [`DistributedDataGobang`：分布式五子棋（eTS）（API9）（Full SDK）](SuperFeature/DistributedDataGobang)
+- Architecture：架构解决方案
+- EngineeringCapability：工程能力集
+- Util：工具集
+- DataMock：数据模拟
 
 
 ## 使用说明<a name="section17988202503116"></a>
