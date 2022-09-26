@@ -32,25 +32,24 @@ export default {
     selectedIndex: 0,
     isFA: false,
     isPush: false,
+    isShow: false,
     isDistributed: false,
     deviceList: []
   },
-  onInit() {
+  onShow() {
     this.grantPermission()
     this.$watch('expression', (value) => {
       if (value !== '') {
-        console.info('Calc[IndexPage] value  ' + value);
+        console.debug('Calc[IndexPage] value  ' + value);
         this.result = calc(value);
-        console.info('Calc[IndexPage] result =  ' + this.result);
+        console.debug('Calc[IndexPage] result =  ' + this.result);
         console.log('Calc[IndexPage] put key start');
         this.dataChange('expression', value);
       }
     });
     this.initKVManager();
-  },
-  onShow() {
     featureAbility.getWant((error, want) => {
-      console.info('Calc[IndexPage] featureAbility.getWant =' + JSON.stringify(want.parameters));
+      console.debug('Calc[IndexPage] featureAbility.getWant =' + JSON.stringify(want.parameters));
       if (want.parameters.isFA === 'FA') {
         this.isFA = true;
         this.isDistributed = true;
@@ -61,7 +60,7 @@ export default {
     console.info('Calc[IndexPage] grantPermission')
     let context = featureAbility.getContext()
     context.requestPermissionsFromUser(['ohos.permission.DISTRIBUTED_DATASYNC'], 666, function (result) {
-      console.info(`Calc[IndexPage] grantPermission,requestPermissionsFromUser,result.requestCode=${result}`)
+      console.debug(`Calc[IndexPage] grantPermission,requestPermissionsFromUser,result.requestCode=${result}`)
     })
   },
   dataChange(key, value) {
@@ -126,38 +125,42 @@ export default {
   },
   showDialog() {
     console.info('Calc[IndexPage] showDialog start');
-    this.deviceList = [];
-    if (remoteDeviceModel === undefined) {
-      remoteDeviceModel = new RemoteDeviceModel()
-    }
-    remoteDeviceModel.registerDeviceListCallback(() => {
-      console.info('Calc[IndexPage] registerDeviceListCallback on remote device updated, count='
-      + remoteDeviceModel.deviceList.length);
-      let list = [];
-      list.push({
-        deviceId: '0',
-        deviceName: 'Local device',
-        deviceType: 0,
-        networkId: '',
-        checked: this.selectedIndex === 0
-      });
-      let tempList = remoteDeviceModel.discoverList.length > 0 ? remoteDeviceModel.discoverList : remoteDeviceModel.deviceList;
-      for (let i = 0; i < tempList.length; i++) {
-        console.info('Calc[IndexPage] device ' + i + '/' + tempList.length
-        + ' deviceId=' + tempList[i].deviceId + ' deviceName=' + tempList[i].deviceName
-        + ' deviceType=' + tempList[i].deviceType);
-        list.push({
-          deviceId: tempList[i].deviceId,
-          deviceName: tempList[i].deviceName,
-          deviceType: tempList[i].deviceType,
-          networkId: tempList[i].networkId,
-          checked: this.selectedIndex === (i + 1)
-        });
+    this.isShow = true
+    setTimeout(()=>{
+      this.deviceList = [];
+      if (remoteDeviceModel === undefined) {
+        remoteDeviceModel = new RemoteDeviceModel()
       }
-      this.deviceList = list;
-      this.$element('showDialog').close();
-      this.$element('showDialog').show();
-    });
+      console.debug(`Calc[IndexPage] showdialog = ${typeof (this.$element('showDialog'))}`)
+      console.debug('Calc[IndexPage] registerDeviceListCallback on remote device updated, count='
+      + remoteDeviceModel.deviceList.length);
+      remoteDeviceModel.registerDeviceListCallback(() => {
+        let list = [];
+        list.push({
+          deviceId: '0',
+          deviceName: 'Local device',
+          deviceType: 0,
+          networkId: '',
+          checked: this.selectedIndex === 0
+        });
+        let tempList = remoteDeviceModel.discoverList.length > 0 ? remoteDeviceModel.discoverList : remoteDeviceModel.deviceList;
+        for (let i = 0; i < tempList.length; i++) {
+          console.debug('Calc[IndexPage] device ' + i + '/' + tempList.length
+          + ' deviceId=' + tempList[i].deviceId + ' deviceName=' + tempList[i].deviceName
+          + ' deviceType=' + tempList[i].deviceType);
+          list.push({
+            deviceId: tempList[i].deviceId,
+            deviceName: tempList[i].deviceName,
+            deviceType: tempList[i].deviceType,
+            networkId: tempList[i].networkId,
+            checked: this.selectedIndex === (i + 1)
+          });
+        }
+        this.deviceList = list;
+        this.$element('showDialog').close();
+        this.$element('showDialog').show();
+      });
+    },200)
   },
   cancelDialog() {
     this.$element('showDialog').close();
@@ -205,7 +208,7 @@ export default {
     this.$element('showDialog').close();
   },
   async startAbility(deviceId) {
-    console.log('Calc[IndexPage] startAbility deviceId:' + deviceId);
+    console.debug('Calc[IndexPage] startAbility deviceId:' + deviceId);
     await featureAbility.startAbility({
       want: {
         bundleName: 'ohos.samples.distributedcalc',
