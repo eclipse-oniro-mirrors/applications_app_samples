@@ -70,32 +70,34 @@ export default {
     }
   },
   initKVManager() {
-    kvStoreModel.setOnMessageReceivedListener('expression', (value) => {
-      console.log('Calc[IndexPage] data changed:' + value);
-      if (value === 'exit') {
-        console.info('Calc[CalcPage] app exit!');
-        app.terminate();
-        return;
-      }
-      if (value === 'clear') {
-        console.log('Calc[IndexPage] data expression:clear');
-        this.expression = '';
-        this.result = '';
-        return;
-      }
-      if (value === 'equal') {
-        if (this.result !== '') {
-          console.log('Calc[IndexPage] data expression:equal');
-          this.expression = this.result;
-          this.result = '';
-          pressedEqual = true;
+    if (kvStoreModel !== null) {
+      kvStoreModel.setOnMessageReceivedListener('expression', (value) => {
+        console.log('Calc[IndexPage] data changed:' + value);
+        if (value === 'exit') {
+          console.info('Calc[CalcPage] app exit!');
+          app.terminate();
+          return;
         }
-        return;
-      }
-      this.expression = value;
-      pressedEqual = false;
-      console.log('Calc[IndexPage] data expression:' + this.expression);
-    });
+        if (value === 'clear') {
+          console.log('Calc[IndexPage] data expression:clear');
+          this.expression = '';
+          this.result = '';
+          return;
+        }
+        if (value === 'equal') {
+          if (this.result !== '') {
+            console.log('Calc[IndexPage] data expression:equal');
+            this.expression = this.result;
+            this.result = '';
+            pressedEqual = true;
+          }
+          return;
+        }
+        this.expression = value;
+        pressedEqual = false;
+        console.log('Calc[IndexPage] data expression:' + this.expression);
+      });
+    }
     timerId = setInterval(() => {
       if (this.isDistributed) {
         let temp = this.expression;
@@ -110,7 +112,7 @@ export default {
     }
     kvStoreModel.off()
   },
-  onHide() {
+  onDestroy() {
     if (remoteDeviceModel === undefined) {
       return
     }
@@ -126,7 +128,7 @@ export default {
   showDialog() {
     console.info('Calc[IndexPage] showDialog start');
     this.isShow = true
-    setTimeout(()=>{
+    setTimeout(() => {
       this.deviceList = [];
       if (remoteDeviceModel === undefined) {
         remoteDeviceModel = new RemoteDeviceModel()
@@ -160,7 +162,7 @@ export default {
         this.$element('showDialog').close();
         this.$element('showDialog').show();
       });
-    },200)
+    }, 200)
   },
   cancelDialog() {
     this.$element('showDialog').close();
