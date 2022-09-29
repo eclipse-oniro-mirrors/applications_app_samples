@@ -36,8 +36,10 @@ export default {
     isDistributed: false,
     deviceList: []
   },
-  onShow() {
+  onInit() {
     this.grantPermission()
+  },
+  onShow() {
     this.$watch('expression', (value) => {
       if (value !== '') {
         console.debug('Calc[IndexPage] value  ' + value);
