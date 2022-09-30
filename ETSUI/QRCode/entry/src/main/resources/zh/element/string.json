@@ -31,6 +31,10 @@
     {
       "name": "create_qrcode",
       "value": "生成二维码"
+    },
+    {
+      "name": "save_picture",
+      "value": "图片保存成功"
     }
   ]
 }

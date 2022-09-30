@@ -21,9 +21,13 @@ import Logger from '../model/Logger'
 
 const TAG: string = '[MediaUtils]'
 
-class MediaUtils {
+export default class MediaUtils {
   private tag: string = 'MediaUtils'
-  private mediaTest: mediaLibrary.MediaLibrary = mediaLibrary.getMediaLibrary(globalThis.abilityContext)
+  private mediaLibrary: mediaLibrary.MediaLibrary = undefined
+
+  constructor(context: any) {
+    this.mediaLibrary = mediaLibrary.getMediaLibrary(context)
+  }
 
   async createAndGetFile() {
     let info = {
@@ -33,8 +37,8 @@ class MediaUtils {
     let name = `${dateTimeUtil.getDate()}_${dateTimeUtil.getTime()}`
     let displayName = `${info.prefix}${name}${info.suffix}`
     Logger.info(this.tag, `displayName = ${displayName}`)
-    let publicPath = await this.mediaTest.getPublicDirectory(info.directory)
-    return await this.mediaTest.createAsset(mediaLibrary.MediaType.IMAGE, displayName, publicPath)
+    let publicPath = await this.mediaLibrary.getPublicDirectory(info.directory)
+    return await this.mediaLibrary.createAsset(mediaLibrary.MediaType.IMAGE, displayName, publicPath)
   }
 
   async queryFile(uri: string) {
@@ -44,7 +48,7 @@ class MediaUtils {
       uri: uri
     }
 
-    let fileAssetsResult = await this.mediaTest.getFileAssets(fetchOp)
+    let fileAssetsResult = await this.mediaLibrary.getFileAssets(fetchOp)
     Logger.info(TAG, `queryFile fetchFileResult.getCount() = ${fileAssetsResult.getCount()}`)
     return await fileAssetsResult.getFirstObject()
   }
@@ -58,6 +62,7 @@ class MediaUtils {
       let imageResource = await image.createImageSource(fd)
       let pixelMap = await imageResource.createPixelMap()
       await imageResource.release()
+      await file.close(fd)
       return pixelMap
     }
     return null
@@ -77,9 +82,8 @@ class MediaUtils {
     await fileAsset.close(fd)
     Logger.info(TAG, `write done`)
     prompt.showToast({
-      message: '图片保存成功', duration: 1000
+      message: $r('app.string.save_picture'),
+      duration: 1000
     })
   }
 }
-
-export default new MediaUtils()

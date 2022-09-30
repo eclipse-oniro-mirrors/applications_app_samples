@@ -15,6 +15,7 @@
 
 import bundleMgr from '@ohos.bundle'
 import launcherBundleMgr from '@ohos.bundle.innerBundleManager'
+import { BundleStatusCallback } from 'bundle/bundleStatusCallback';
 import osAccount from '@ohos.account.osAccount'
 import { AppItemInfo } from '../bean/AppItemInfo'
 import { CheckEmptyUtils } from '../utils/CheckEmptyUtils'

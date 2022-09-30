@@ -31,6 +31,10 @@
     {
       "name": "create_qrcode",
       "value": "Create qrcode"
+    },
+    {
+      "name": "save_picture",
+      "value": "Image saved successfully"
     }
   ]
 }
