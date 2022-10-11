@@ -4,11 +4,14 @@
 
 【示例贡献温馨提示】感谢您关注OpenHarmony，如果您希望提交代码样例/示例/Demo，请参考知识体系的[《如何共建开发样例》](https://gitee.com/openharmony-sig/knowledge/blob/master/docs/co-construct_demos/README_zh.md)，首先提交到SIG（兴趣组）仓，知识体系SIG仓中的提交也是有效贡献。再次感谢您的关注！
 
-### 内容简介
+新Sample合入需遵循[Sample编码规范](CodeCommitChecklist.md)。
+
+**内容简介**
 
 为帮助开发者快速熟悉OpenHarmony SDK所提供的API和应用开发流程，我们提供了一系列的应用示例，即Sample。每一个应用示例都是一个独立的DevEco Studio工程项目，开发者可以将工程导入到DevEco Studio开发工具，通过浏览代码、编译工程、安装和运行应用示例来了解应用示例中涉及API的使用方法。
 
-### 架构组成
+**架构组成**
+
 - Basic
   - [`Container`：线性容器ArrayList（eTS）（API8）](Basic/Container)
   - [`Screenshot`：屏幕截图（eTS）（API9）](Basic/Screenshot)
@@ -256,10 +259,10 @@ app_samples
 
 ## Changlog<a name="section17988202503117"></a>
 
-应用修改记录：[Changlog](Changelog)
+应用修改记录：[changelog](changelog.md)
 
 ## 相关仓<a name="section17988202503118"></a>
 
 1. [app_sample](https://gitee.com/openharmony/app_samples) 已废弃
-2. [application_app_sample](https://gitee.com/openharmony/application_app_samples)
+2. [applications_app_sample](https://gitee.com/openharmony/applications_app_samples)
 
