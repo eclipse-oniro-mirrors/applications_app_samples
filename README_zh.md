@@ -248,7 +248,7 @@ app_samples
 ## 约束<a name="section18841871178"></a>
 
 1. 安装应用示例之前，请先查看"README_zh.md"文件来确认应用示例是否为stage模型，若为Stage模型需要查看entry/src/main路径下的module.json5文件中的"deviceType"字段来确认该应用支持的设备类型；否则为FA模型，查看entry/src/main路径下的config.json文件中的"deviceType"字段来确认该应用示例支持的设备类型，两种模型都可尝试通过修改该字段使其可以在相应类型的设备上运行。
-2. 应用示例仅支持SDK8版本：3.1.6.6，SDK9版本：3.2.5.5。
+2. 应用示例仅支持SDK8版本：[3.1.6.6](https://gitee.com/openharmony/docs/blob/master/zh-cn/release-notes/OpenHarmony-v3.1.1-release.md#%E9%85%8D%E5%A5%97%E5%85%B3%E7%B3%BB)，SDK9版本：[3.2.5.5](https://gitee.com/openharmony/docs/blob/master/zh-cn/release-notes/OpenHarmony-v3.2-beta2.md#从镜像站点获取)。
 3. 应用示例需要使用DevEco Studio 3.0 Beta3 (Build Version: 3.0.0.901, built on May 30, 2022)才可编译运行。
 
 ## 使用方法<a name="section17988202503116"></a>
