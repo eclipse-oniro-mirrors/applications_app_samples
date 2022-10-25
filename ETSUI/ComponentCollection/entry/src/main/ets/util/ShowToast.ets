@@ -13,19 +13,23 @@
  * limitations under the License.
  */
 
-import { ThirdLevelCategory } from '../../model/CategoricalDataType'
+import prompt from '@ohos.prompt'
 
-const TRANSITION_ANIMATION: ThirdLevelCategory =
-  {
-    image: $r('app.media.ic_transition_animation'),
-    title: $r('app.string.transition_animation')
+class ShowToastModel {
+  private longToastTime: number = 3000
+  private shortToastTime: number = 1000
+
+  showToast(message:ResourceStr, duration:number) {
+    prompt.showToast({message: message, duration: duration})
   }
 
-const INTERPOLATION_CALCULATION: ThirdLevelCategory =
-  {
-    image: $r('app.media.ic_interpolation_calculation'),
-    title: $r('app.string.interpolation_calculation')
+  shortToast(message: ResourceStr) {
+    this.showToast(message, this.shortToastTime)
   }
 
-// Animated classification data, second menu data
-export const ANIMATION_CATEGORIES: ThirdLevelCategory[] = [TRANSITION_ANIMATION, INTERPOLATION_CALCULATION]
+  longToast(message: ResourceStr) {
+    this.showToast(message, this.longToastTime)
+  }
+}
+
+export const ShowToast = new ShowToastModel()

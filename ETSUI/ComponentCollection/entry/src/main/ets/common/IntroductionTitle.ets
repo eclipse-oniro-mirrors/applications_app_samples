@@ -13,13 +13,17 @@
  * limitations under the License.
  */
 
-import { ThirdLevelCategory } from '../../model/CategoricalDataType'
+@Component
+export struct IntroductionTitle {
+  private introduction: Resource
 
-const POPUP: ThirdLevelCategory =
-  {
-    image: $r('app.media.ic_popup_window'),
-    title: $r('app.string.popup_window')
+  build() {
+    Text(this.introduction)
+      .fontSize(18)
+      .width('100%')
+      .padding({ left: 12 })
+      .direction(Direction.Ltr)
+      .margin({ top: 12, bottom: 12 })
+      .fontColor($r('app.color.font_color_shallow'))
   }
-
-// The global method categorizes data, second menu data
-export const GLOBAL_METHOD_CATEGORIES: ThirdLevelCategory[] = [POPUP]
+}
