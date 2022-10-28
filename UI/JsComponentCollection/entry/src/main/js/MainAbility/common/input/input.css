@@ -13,16 +13,25 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router'
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height:40vp;
+  align-items: center;
+}
 
-export default {
-  props: {
-    title: {
-      default: 'title',
-    }
-  },
-  
-  back() {
-    router.back()
-  }
+.input-left {
+  flex-weight: 1;
+}
+
+.input-center {
+  color: #99000000;
+  font-size: 18vp;
+}
+
+.input-right {
+  width: 150vp;
+  height:38vp;
+  font-size: 16vp;
 }

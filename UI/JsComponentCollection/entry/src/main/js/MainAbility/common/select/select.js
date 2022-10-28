@@ -13,16 +13,31 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router'
+import router from '@ohos.router';
 
 export default {
   props: {
-    title: {
-      default: 'title',
+    leftText: {
+      default: ''
+    },
+    selectOptions: {
+      default: []
     }
   },
-  
-  back() {
-    router.back()
+
+  data: {
+    selectedLeftText: '',
+    selectedOptions: ''
+  },
+
+  onInit() {
+    this.selectedLeftText = this.leftText
+    this.selectedOptions = this.selectOptions
+  },
+
+  changeSelectedValue(selectedValueObj) {
+    this.$emit('selectValue', {
+      value: selectedValueObj.newValue
+    })
   }
 }

@@ -13,16 +13,29 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router'
-
 export default {
   props: {
-    title: {
-      default: 'title',
+    leftText: {
+      default: ''
+    },
+    placeholder: {
+      default: ''
     }
   },
-  
-  back() {
-    router.back()
+
+  data: {
+    inputLeftText: '',
+    inputPlaceholder: ''
+  },
+
+  onInit() {
+    this.inputLeftText = this.leftText
+    this.inputPlaceholder = this.placeholder
+  },
+
+  changeInputValue(inputValue) {
+    this.$emit('inputValue',{
+      value: inputValue.value
+    })
   }
 }
