@@ -13,16 +13,40 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router'
-
 export default {
   props: {
-    title: {
-      default: 'title',
+    leftText: {
+      default: ''
+    },
+    min: {
+      default: 1
+    },
+    max: {
+      default: 10
+    },
+    value: {
+      default: 0
     }
   },
-  
-  back() {
-    router.back()
+
+  data: {
+    sliderLeftText: '',
+    sliderMinValue: 1,
+    sliderMaxValue: 10,
+    sliderValue: 0
+  },
+
+  onInit() {
+    this.sliderLeftText = this.leftText
+    this.sliderMinValue = this.min
+    this.sliderMaxValue = this.max
+    this.sliderValue = this.value
+  },
+
+  setValue(sliderValueData) {
+    this.Value = sliderValueData.value
+    this.$emit('sliderValue', {
+      value: this.Value
+    })
   }
 }

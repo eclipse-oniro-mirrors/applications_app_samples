@@ -13,16 +13,33 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router'
+.introduce {
+  width: 100%;
+  height: 40vp;
+  padding: 0vp 12vp;
+  margin: 12vp 0vp 8vp;
+  font-size: 18vp;
+  color: #99000000;
+}
 
-export default {
-  props: {
-    title: {
-      default: 'title',
-    }
-  },
-  
-  back() {
-    router.back()
-  }
+.white-background-color-column {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFFFFF;
+  border-radius: 24vp;
+  padding: 20vp 24vp;
+}
+
+.white-background-color-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFFFFF;
+  border-radius: 24vp;
+  padding: 20vp 24vp;
 }
