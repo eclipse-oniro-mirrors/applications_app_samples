@@ -104,7 +104,7 @@ struct Index {
           this.resultDecode = this.asciiToStr
         })
       }
-			.width('100%')
+      .width('100%')
     }
     .scrollBar(BarState.Off)
     .width('100%')
