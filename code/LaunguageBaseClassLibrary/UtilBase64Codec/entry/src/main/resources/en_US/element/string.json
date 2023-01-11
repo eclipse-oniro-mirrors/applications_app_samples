@@ -10,7 +10,7 @@
     },
     {
       "name": "EntryAbility_label",
-      "value": "Base64编解码"
+      "value": "Base64Code"
     },
     {
       "name": "change_str",
@@ -18,11 +18,11 @@
     },
     {
       "name": "encode",
-      "value": "encode"
+      "value": "Encode"
     },
     {
       "name": "decode",
-      "value": "decode"
+      "value": "Decode"
     }
   ]
 }
