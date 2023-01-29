@@ -14,15 +14,12 @@
  */
 
 {
-  "apiType": 'stageMode',
-  "buildOption": {
-  },
-  "targets": [
-    {
-      "name": "default"
-    },
-    {
-      "name": "ohosTest",
-    }
-  ]
+  "module": {
+    "name": "log",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
 }
