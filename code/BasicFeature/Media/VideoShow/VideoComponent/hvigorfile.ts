@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,33 +13,6 @@
  * limitations under the License.
  */
 
-{
-  "app": {
-    "compileSdkVersion": 9,
-    "compatibleSdkVersion": 9,
-    "products": [
-      {
-        "name": "default",
-        "signingConfig": "default"
-      }
-    ],
-  },
-  "modules": [
-    {
-      "name": "entry",
-      "srcPath": "./entry",
-      "targets": [
-        {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "VideoComponent",
-      "srcPath": "./VideoComponent"
-    }
-  ]
-}
+// Script for compiling build behavior. It is built in the build plug-in and cannot be modified currently.
+module.exports = require('@ohos/hvigor-ohos-plugin').harTasks
+
