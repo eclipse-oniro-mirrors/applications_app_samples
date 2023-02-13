@@ -2,95 +2,79 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
-    },
-    {
-      "name": "EntryAbility_desc",
-      "value": "description"
-    },
-    {
-      "name": "EntryAbility_label",
-      "value": "RPC"
-    },
-    {
-      "name": "entry_MainAbility",
-      "value": "RPC"
-    },
-    {
-      "name": "description_mainability",
-      "value": "ETS_Empty Ability"
+      "value": "模块描述"
     },
     {
       "name": "vegetable",
-      "value": "Veggie"
+      "value": "素食"
     },
     {
       "name": "vegetable_potato",
-      "value": "Potato"
+      "value": "土豆"
     },
     {
       "name": "vegetable_cabbage",
-      "value": "Cabbage"
+      "value": "卷心菜"
     },
     {
       "name": "vegetable_eggplant",
-      "value": "Eggplant"
+      "value": "茄子"
     },
     {
       "name": "fruit",
-      "value": "Fruit"
+      "value": "水果"
     },
     {
       "name": "fruit_apple",
-      "value": "Apple"
+      "value": "苹果"
     },
     {
       "name": "fruit_banana",
-      "value": "Banana"
+      "value": "香蕉"
     },
     {
       "name": "fruit_peach",
-      "value": "Peach"
+      "value": "桃子"
     },
     {
       "name": "meat",
-      "value": "Meat"
+      "value": "肉类"
     },
     {
       "name": "meat_beef",
-      "value": "Beef"
+      "value": "牛肉"
     },
     {
       "name": "meat_pork",
-      "value": "Pork"
+      "value": "猪肉"
     },
     {
       "name": "meat_chicken",
-      "value": "Chicken"
+      "value": "鸡肉"
     },
     {
       "name": "snacks",
-      "value": "Snacks"
+      "value": "零食"
     },
     {
       "name": "snacks_biscuits",
-      "value": "Biscuits"
+      "value": "饼干"
     },
     {
       "name": "snacks_chips",
-      "value": "Chips"
+      "value": "土豆条"
     },
     {
       "name": "snacks_candy",
-      "value": "Candy"
+      "value": "糖果"
     },
     {
       "name": "final_price",
-      "value": "Final price："
+      "value": "总价格："
     },
     {
       "name": "confirm",
-      "value": "Confirm an order"
+      "value": "提交订单"
     }
   ]
 }
