@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,8 +13,28 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test'
+class Logger {
+  private prefix: string
 
-export default function testsuite() {
-  abilityTest()
+  constructor(prefix: string) {
+    this.prefix = prefix
+  }
+
+  log(...args: string[]) {
+    console.log(`[${this.prefix}].${args.join(' ')}`)
+  }
+
+  info(...args: string[]) {
+    console.log(`[${this.prefix}].${args.join(' ')}`)
+  }
+
+  debug(...args: string[]) {
+    console.log(`[${this.prefix}].${args.join(' ')}`)
+  }
+
+  error(...args: string[]) {
+    console.log(`[${this.prefix}].${args.join(' ')}`)
+  }
 }
+
+export default new Logger('[Sample_Wlan]')
