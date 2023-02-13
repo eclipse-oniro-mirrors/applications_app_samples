@@ -13,17 +13,20 @@
  * limitations under the License.
  */
 
-{
-  "apiType": 'stageMode',
-  "buildOption": {
-  },
+const TITLE_BGCOLOR = '#0D9FFB'
 
-  "targets": [
-    {
-      "name": "default"
-    },
-    {
-      "name": "ohosTest",
+@Component
+export struct TitleBar {
+  build() {
+    Row() {
+      Text($r('app.string.entry_MainAbility'))
+        .fontColor(Color.White)
+        .fontSize(30)
     }
-  ]
+    .width('100%')
+    .height('8%')
+    .constraintSize({ minHeight: 50 })
+    .padding({ left: 15 })
+    .backgroundColor(TITLE_BGCOLOR)
+  }
 }
