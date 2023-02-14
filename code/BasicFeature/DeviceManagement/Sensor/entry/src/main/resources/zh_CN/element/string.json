@@ -2,19 +2,19 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "模块描述"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "描述"
     },
     {
       "name": "EntryAbility_label",
-      "value": "etsSensor"
+      "value": "传感器"
     },
     {
       "name": "north",
-      "value": "north"
+      "value": "北"
     }
   ]
 }
