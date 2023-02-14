@@ -16,7 +16,6 @@
       "name": "entryAbility_label",
       "value": "Flybird"
     },
-
     {
       "name": "connect_service",
       "value": "Connect service"
@@ -30,20 +29,21 @@
       "value": "set game alarm"
     },
     {
-      "name": "start_game",
-      "value": "start game"
-    },
-    {
-      "name": "input_placeholder",
-      "value": "Input the input string"
+      "name": "set_calendar",
+      "value": "set game calendar"
     },
     {
       "name": "entry_MainAbility",
       "value": "Fly Bird"
     },
     {
-      "name": "set_calendar",
-      "value": "set game calendar"
+      "name": "input_placeholder",
+      "value": "Input the input string"
+    },
+
+    {
+      "name": "start_game",
+      "value": "start game"
     }
   ]
 }
