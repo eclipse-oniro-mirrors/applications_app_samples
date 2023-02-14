@@ -13,41 +13,35 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog'
+import contact from '@ohos.contact'
+import router from '@ohos.router'
+import { ContactInfo } from '../component/ContactInfo'
 
 @Entry
 @Component
-struct Index {
-  aboutToAppear() {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO)
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility index aboutToAppear')
-  }
-
-  @State message: string = 'Hello World'
+struct NameCard {
+  private contact = <contact.Contact> router.getParams()['data']
 
   build() {
-    Row() {
-      Column() {
-        Text(this.message)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
-        Button() {
-          Text('next page')
-            .fontSize(20)
-            .fontWeight(FontWeight.Bold)
-        }
-        .type(ButtonType.Capsule)
-        .margin({
-          top: 20
-        })
-        .backgroundColor('#0D9FFB')
-        .width('35%')
-        .height('5%')
-        .onClick(() => {
-        })
+    Column() {
+      Row() {
+        Image($r('app.media.back'))
+          .objectFit(ImageFit.Contain)
+          .width(32)
+          .height(32)
+          .margin({ left: 32 })
       }
+      .height('6%')
       .width('100%')
+      .constraintSize({ minHeight: 50 })
+      .onClick(() => {
+        router.back()
+      })
+
+      ContactInfo({ contact: this.contact })
     }
+    .width('100%')
     .height('100%')
+    .backgroundColor($r('app.color.index_bg'))
   }
 }
