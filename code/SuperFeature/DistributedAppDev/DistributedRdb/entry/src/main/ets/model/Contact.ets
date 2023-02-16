@@ -13,16 +13,20 @@
  * limitations under the License.
  */
 
-{
-  "apiType": 'stageMode',
-  "buildOption": {
-  },
-  "targets": [
-    {
-      "name": "default"
-    },
-    {
-      "name": "ohosTest",
-    }
-  ]
+export default class Contact {
+  id: number
+  name: string
+  gender: number
+  phone: string
+  remark: string
+  isSelected: boolean
+
+  constructor(id: number, name: string, gender: number, phone: string, remark: string) {
+    this.id = id
+    this.name = name
+    this.gender = gender
+    this.phone = phone
+    this.remark = remark
+    this.isSelected = false
+  }
 }

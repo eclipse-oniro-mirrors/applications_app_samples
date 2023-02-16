@@ -13,40 +13,34 @@
  * limitations under the License.
  */
 
-import router from '@system.router';
+import router from '@ohos.router'
 
-@Entry
 @Component
-struct Index {
-  aboutToAppear() {
-    console.info('TestAbility index aboutToAppear')
-  }
-
-  @State message: string = 'Hello World'
-
+export struct SearchBar {
   build() {
     Row() {
-      Column() {
-        Text(this.message)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
-        Button() {
-          Text('next page')
-            .fontSize(20)
-            .fontWeight(FontWeight.Bold)
-        }
-        .type(ButtonType.Capsule)
-        .margin({
-          top: 20
-        })
-        .backgroundColor('#0D9FFB')
-        .width('35%')
-        .height('5%')
-        .onClick(() => {
-        })
-      }
-      .width('100%')
+      Image($r('app.media.search_gray'))
+        .height('100%').width(40)
+        .margin({ left: 16 })
+        .objectFit(ImageFit.Contain)
+
+      Text($r('app.string.search_placeholder'))
+        .height('100%')
+        .width('80%')
+        .fontSize(25)
+        .margin({ right: 10 })
+        .backgroundColor('#FAFAFA')
     }
-    .height('100%')
+    .width('100%')
+    .height('7%')
+    .backgroundColor('#FAFAFA')
+    .constraintSize({ minHeight: 60 })
+    .border({ radius: 45 })
+    .margin({ top: 10 })
+    .onClick(() => {
+      router.pushUrl({
+        url: 'pages/SearchPage'
+      })
+    })
   }
 }

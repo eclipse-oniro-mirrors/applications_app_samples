@@ -2,7 +2,7 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "eTSDistributedRdb"
+      "value": "DistributedRdb"
     },
     {
       "name": "EntryAbility_desc",
@@ -54,15 +54,15 @@
     },
     {
       "name": "name",
-      "value": "Name"
+      "value": "name"
     },
     {
       "name": "phone",
-      "value": "Phone"
+      "value": "phone"
     },
     {
       "name": "remark",
-      "value": "Remark"
+      "value": "remark"
     },
     {
       "name": "automatic",
@@ -86,11 +86,11 @@
     },
     {
       "name": "name_validate",
-      "value": "姓名不能为空"
+      "value": "Name cannot be empty"
     },
     {
       "name": "phone_validate",
-      "value": "手机不能为空"
+      "value": "Phone number cannot be empty"
     }
   ]
 }

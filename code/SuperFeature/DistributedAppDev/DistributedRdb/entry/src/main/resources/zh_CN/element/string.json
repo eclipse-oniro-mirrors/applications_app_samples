@@ -2,7 +2,7 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "eTSDistributedRdb"
+      "value": "关系型数据库"
     },
     {
       "name": "EntryAbility_desc",
@@ -14,75 +14,75 @@
     },
     {
       "name": "check_device",
-      "value": "Check device"
+      "value": "选择设备"
     },
     {
       "name": "cancel",
-      "value": "Cancel"
+      "value": "取消"
     },
     {
       "name": "search_placeholder",
-      "value": "Search contact"
+      "value": "搜索联系人"
     },
     {
       "name": "select_all",
-      "value": "Select all"
+      "value": "全选"
     },
     {
       "name": "delete",
-      "value": "Delete"
+      "value": "删除"
     },
     {
       "name": "sure",
-      "value": "OK"
+      "value": "确定"
     },
     {
       "name": "quit",
-      "value": "Quit"
+      "value": "退出"
     },
     {
       "name": "male",
-      "value": "Male"
+      "value": "男"
     },
     {
       "name": "female",
-      "value": "Female"
+      "value": "女"
     },
     {
       "name": "gender",
-      "value": "Gender:"
+      "value": "性别:"
     },
     {
       "name": "name",
-      "value": "Name"
+      "value": "姓名"
     },
     {
       "name": "phone",
-      "value": "Phone"
+      "value": "电话"
     },
     {
       "name": "remark",
-      "value": "Remark"
+      "value": "备注"
     },
     {
       "name": "automatic",
-      "value": "Automatic synchronization"
+      "value": "自动同步"
     },
     {
       "name": "manual",
-      "value": "Manual synchronization"
+      "value": "手动同步"
     },
     {
       "name": "setting",
-      "value": "Setting"
+      "value": "设置"
     },
     {
       "name": "connect",
-      "value": "Connect device"
+      "value": "连接设备"
     },
     {
       "name": "delete_contact",
-      "value": "Delete the selected contacts?"
+      "value": "删除所选联系人?"
     },
     {
       "name": "name_validate",
