@@ -13,16 +13,15 @@
  * limitations under the License.
  */
 
-{
-  "apiType": 'stageMode',
-  "buildOption": {
+import usbV9 from '@ohos.usbV9';
+
+export default {
+  isEmpty(object: Object) {
+    return (typeof object === 'undefined' || object === null || object === '')
   },
-  "targets": [
-    {
-      "name": "default"
-    },
-    {
-      "name": "ohosTest",
-    }
-  ]
+
+  isEmptyArray(array: Array<usbV9.USBDevice>) {
+    return (array.length === 0 ? true : false)
+  }
 }
+ 
