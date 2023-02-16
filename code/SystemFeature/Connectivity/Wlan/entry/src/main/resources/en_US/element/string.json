@@ -25,12 +25,12 @@
       "value": "Cancel"
     },
     {
-      "name": "sure",
-      "value": "Sure"
-    },
-    {
       "name": "wlan",
       "value": "WLAN"
+    },
+    {
+      "name": "sure",
+      "value": "Sure"
     },
     {
       "name": "available_wlan",
