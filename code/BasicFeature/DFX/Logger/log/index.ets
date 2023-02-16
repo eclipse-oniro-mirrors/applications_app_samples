@@ -13,16 +13,8 @@
  * limitations under the License.
  */
 
-{
-  "apiType": 'stageMode',
-  "buildOption": {
-  },
-  "targets": [
-    {
-      "name": "default"
-    },
-    {
-      "name": "ohosTest",
-    }
-  ]
-}
+export { Configure } from './src/main/ets/components/mainpage/Configure'
+
+export { Logger } from './src/main/ets/components/mainpage/Logger'
+
+export { LogLevel } from './src/main/ets/components/mainpage/LogLevel'

@@ -14,15 +14,32 @@
  */
 
 {
-  "apiType": 'stageMode',
-  "buildOption": {
+  "app": {
+    "compileSdkVersion": 9,
+    "compatibleSdkVersion": 9,
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default"
+      }
+    ],
   },
-  "targets": [
+  "modules": [
     {
-      "name": "default"
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     },
     {
-      "name": "ohosTest",
+      "name": "log",
+      "srcPath": "./log"
     }
   ]
 }
