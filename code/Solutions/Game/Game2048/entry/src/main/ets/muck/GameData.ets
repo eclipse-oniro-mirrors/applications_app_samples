@@ -13,29 +13,11 @@
  * limitations under the License.
  */
 
-{
-  "app": {
-    "compileSdkVersion": 9,
-    "compatibleSdkVersion": 9,
-    "products": [
-      {
-        "name": "default",
-        "signingConfig": "default"
-      }
-    ]
-  },
-  "modules": [
-    {
-      "name": "entry",
-      "srcPath": "./entry",
-      "targets": [
-        {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
-    }
-  ]
+export enum GameStatus {
+  BEFORE = -1,
+  RUNNING = 1,
+  OVER = 0
 }
+
+export const TEXT_COLOR: string[] = ['#f0fff0', '#eee3da', '#ede0c8', '#f2b179', '#f59563', '#f67c5f', '#f65e3b',
+  '#edcf72', '#edcc61', '#9c0', '#33b5e5', '#09c', '#a6c', '#93c']
