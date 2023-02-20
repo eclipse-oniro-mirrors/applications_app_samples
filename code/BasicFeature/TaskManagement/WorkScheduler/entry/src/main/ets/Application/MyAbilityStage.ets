@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test'
+import AbilityStage from '@ohos.application.AbilityStage'
 
-export default function testsuite() {
-  abilityTest()
+export default class MyAbilityStage extends AbilityStage {
 }
