@@ -12,6 +12,5 @@
   "version": "1.0.0",
   "dependencies": {
     "@ohos/notification": "file:../Notification"
-  },
-  "type": "module"
+  }
 }
