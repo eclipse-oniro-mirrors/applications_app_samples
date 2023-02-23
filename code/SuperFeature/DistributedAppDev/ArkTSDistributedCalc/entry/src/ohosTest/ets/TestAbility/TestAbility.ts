@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2022 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,41 +15,46 @@
 
 import Ability from '@ohos.application.Ability'
 import AbilityDelegatorRegistry from '@ohos.application.abilityDelegatorRegistry'
-import { Hypium } from 'hypium/index'
+import { Hypium } from '@ohos/hypium'
 import testsuite from '../test/List.test'
-import Logger from '../../../main/ets/model/Logger'
 
 export default class TestAbility extends Ability {
   onCreate(want, launchParam) {
-    Logger.info('TestAbility onCreate')
+    console.log('TestAbility onCreate')
+  }
+
+  onDestroy() {
+    console.log('TestAbility onDestroy')
+  }
+
+  onWindowStageCreate(windowStage) {
+    console.log('TestAbility onWindowStageCreate')
+    windowStage.loadContent("TestAbility/pages/index", (err, data) => {
+      if (err.code) {
+        console.error('Failed to load the content. Cause:' + JSON.stringify(err))
+        return
+      }
+      console.info('Succeeded in loading the content. Data: ' + JSON.stringify(data))
+    })
+
+    globalThis.abilityContext = this.context
     var abilityDelegator: any
     abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
     var abilityDelegatorArguments: any
     abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
-    Logger.info('start run testcase!!!')
+    console.info('start run testcase!!!')
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
   }
 
-  onDestroy() {
-    Logger.info('TestAbility onDestroy')
-  }
-
-  onWindowStageCreate(windowStage) {
-    Logger.info('TestAbility onWindowStageCreate')
-    windowStage.setUIContent(this.context, 'TestAbility/pages/Index', null)
-
-    globalThis.abilityContext = this.context
-  }
-
   onWindowStageDestroy() {
-    Logger.info('TestAbility onWindowStageDestroy')
+    console.log('TestAbility onWindowStageDestroy')
   }
 
   onForeground() {
-    Logger.info('TestAbility onForeground')
+    console.log('TestAbility onForeground')
   }
 
   onBackground() {
-    Logger.info('TestAbility onBackground')
+    console.log('TestAbility onBackground')
   }
 }
