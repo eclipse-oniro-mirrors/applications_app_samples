@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
-import Ability from '@ohos.application.Ability'
+import UIAbility from '@ohos.app.ability.UIAbility'
 import Window from '@ohos.window'
 import { Logger } from '../controller/Logger'
 
-export default class MainAbility extends Ability {
+export default class MainAbility extends UIAbility {
     onCreate(want, launchParam) {
         Logger.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
         Logger.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');

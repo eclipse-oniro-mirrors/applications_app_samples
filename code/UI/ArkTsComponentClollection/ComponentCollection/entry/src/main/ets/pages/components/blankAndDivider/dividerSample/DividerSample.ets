@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -35,7 +35,7 @@ import { TitleBar } from '../../../../common/TitleBar'
 @Component
 struct DividerSample {
   @State strokeWidth: number = 8
-  @State lineColor: ResourceColor = $r('app.color.background_blue')
+  @State lineColor: Resource = $r('app.color.background_blue')
   @State lineCapStyle: LineCapStyle = LineCapStyle.Butt
 
   build() {

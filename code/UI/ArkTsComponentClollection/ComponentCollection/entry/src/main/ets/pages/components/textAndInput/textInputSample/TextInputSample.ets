@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -34,7 +34,7 @@ struct TextInputSample {
   @State showPasswordIcon: boolean = true
   @State inputType: InputType = InputType.Normal
   @State inputContent: string = ''
-  @State typePlaceholder: ResourceStr = $r('app.string.text_input_normal_type')
+  @State typePlaceholder: Resource = $r('app.string.text_input_normal_type')
   private maxLength: number = 12
   private context: any = getContext(this)
   private inputController: TextInputController = new TextInputController()
