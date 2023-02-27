@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -41,17 +41,17 @@ struct AllSongList {
       ListItem() {
         Flex({ direction: FlexDirection.Row, justifyContent: FlexAlign.Center }) {
           Text('Songs')
-            .width('100%')
+            .width('33%')
             .fontSize(16)
             .backgroundColor('#AFEEEE')
             .textAlign(TextAlign.Center)
           Text('Local')
-            .width('100%')
+            .width('33%')
             .fontSize(16)
             .backgroundColor('#AFEEEE')
             .textAlign(TextAlign.Center)
           Text('duration')
-            .width('100%')
+            .width('33%')
             .fontSize(16)
             .backgroundColor('#AFEEEE')
             .textAlign(TextAlign.Center)
@@ -62,7 +62,7 @@ struct AllSongList {
         ListItem() {
           Flex({ direction: FlexDirection.Row, justifyContent: FlexAlign.Center }) {
             Text(item.name)
-              .width('100%')
+              .width('30%')
               .fontSize(16)
               .backgroundColor('#F5DEB3')
               .textAlign(TextAlign.Center)
@@ -72,7 +72,7 @@ struct AllSongList {
                 Logger.debug(localTag + ' click from Main jump to SongDetail')
               })
             Text(item.fileUri)
-              .width('100%')
+              .width('40%')
               .fontSize(16)
               .backgroundColor('#F5DEB3')
               .textAlign(TextAlign.Center)
@@ -82,7 +82,7 @@ struct AllSongList {
                 Logger.debug(localTag + ' click from Main jump to SongDetail')
               })
             Text('' + item.duration)
-              .width('100%')
+              .width('30%')
               .fontSize(16)
               .backgroundColor('#F5DEB3')
               .textAlign(TextAlign.Center)
