@@ -47,7 +47,7 @@ export default class AccessibilityManager {
   }
 
   onEvent(accessibilityEvent) {
-    Logger.info("AccessibilityManager onEvent")
+    Logger.info("AccessibilityManager onEvent" + accessibilityEvent.eventType)
     switch (accessibilityEvent.eventType) {
       case "rightThenDown":
         this.getCurrentPageAllElement()

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -28,7 +28,7 @@ export default class MainAbility extends UIAbility {
     // Main window is created, set main page for this ability
     console.log('[Sample_MusicAlbum] MainAbility onWindowStageCreate')
 
-    windowStage.loadContent("pages/index", (err, data) => {
+    windowStage.loadContent("pages/Index", (err, data) => {
       if (err.code) {
         console.error('[Sample_MusicAlbum] Failed to load the content. Cause:' + JSON.stringify(err))
         return
