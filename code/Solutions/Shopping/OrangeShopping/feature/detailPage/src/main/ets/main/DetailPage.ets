@@ -133,10 +133,10 @@ export struct DetailPage {
           this.shareDialog = new CustomDialogController({
             builder: ButtonDialogBuilder({
               controller: this.shareDialog,
-              detail0: this.recommend,
-              detail1: '9800',
+              detailTitleText: this.recommend,
+              detailPriceText: '9800',
               title: this.commodity,
-              srcImg: SRC_IMG
+              srcImage: SRC_IMG
             }),
             cancel: undefined,
             autoCancel: true,
