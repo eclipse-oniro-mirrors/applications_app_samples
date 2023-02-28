@@ -24,22 +24,19 @@ const TAG = 'EntryAbility'
 export default class EntryAbility extends UIAbility {
   async onCreate(want, launchParam) {
     let atManager = abilityAccessCtrl.createAtManager()
+    globalThis.abilityContext = this.context
     try {
       atManager.requestPermissionsFromUser(this.context, ['ohos.permission.WRITE_CONTACTS', 'ohos.permission.READ_CONTACTS']).then((data) => {
-        Logger.info(TAG, `data: ${JSON.stringify(data)}`)
+        // 监听是否获取到了权限
+        if (!data.authResults.includes(-1)) {
+          AppStorage.SetOrCreate('hasPermission', true)
+        }
       }).catch((err) => {
         Logger.info(TAG, `err: ${JSON.stringify(err)}`)
       })
     } catch (err) {
       Logger.info(TAG, `catch err->${JSON.stringify(err)}`);
     }
-    contact.queryContacts((err, data) => {
-      if (err) {
-        Logger.info(`queryContacts callback: err->${JSON.stringify(err)}`)
-        return
-      }
-      Logger.info(`queryContacts callback: success data->${JSON.stringify(data)}`)
-    })
   }
 
   onWindowStageCreate(windowStage: Window.WindowStage) {
