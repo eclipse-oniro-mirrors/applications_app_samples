@@ -13,31 +13,31 @@
  * limitations under the License.
  */
 
-import fileio from '@ohos.fileio'
+import fs from '@ohos.file.fs'
 import Notification from '@ohos.notification'
-import bundle from '@ohos.bundle'
+import bundle from '@ohos.bundle.installer'
 import account from '@ohos.account.osAccount'
 import workScheduler from '@ohos.resourceschedule.workScheduler'
 import http from '@ohos.net.http'
 import { Logger } from '../utils/Logger'
 
-const FILE_NAME = '/updateWorkScheduler.hap'
+const FILE_NAME = '/UpdateWorkScheduler.hap'
 const BUNDLE_NAMES = ['ohos.samples.workschedulerextensionability']
 const INSTALL_PARAMETER = 1
 
 export namespace WorkSchedulerSystem {
-  /**
-   * Store the file to the specified directory.
-   *
-   * @param pathDir Path to save the file.
-   * @param content The contents of the file to be saved.
-   */
+/**
+ * Store the file to the specified directory.
+ *
+ * @param pathDir Path to save the file.
+ * @param content The contents of the file to be saved.
+ */
   export function saveFile(pathDir: string, content: ArrayBuffer): void {
     try {
       let filePath = pathDir + FILE_NAME
-      let fd = fileio.openSync(filePath, 0o100 | 0o2, 0o664)
-      fileio.writeSync(fd, content)
-      fileio.closeSync(fd)
+      let fd = fs.openSync(filePath, 0o2 | 0o100).fd
+      fs.writeSync(fd, content)
+      fs.closeSync(fd)
     } catch (err) {
       Logger.error(`saveFile failed, code is ${err.code}, message is ${err.message}`)
     }
@@ -105,7 +105,8 @@ export namespace WorkSchedulerSystem {
         installFlag: INSTALL_PARAMETER,
         isKeepData: false
       }, (status, statusMessage) => {
-        Logger.info(`code is ${status.code}, message is ${JSON.stringify(statusMessage)}`)
+        Logger.info(`installBundle filepath is ${filePath}`)
+        Logger.info(`installBundle code is ${status.code}, message is ${JSON.stringify(statusMessage)}`)
       })
     } catch (err) {
       Logger.error(`installBundle failed, code is ${err.code}, message is ${err.message}`)
