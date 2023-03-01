@@ -20,8 +20,9 @@ import ImageModel from "../model/ImageModel"
 import ImagePicker from '../common/ImagePicker'
 import Logger from '../model/Logger'
 import PictureItem from '../model/PictureItem'
+import abilityAccessCtrl, { Permissions } from '@ohos.abilityAccessCtrl'
 
-const PERMISSIONS: Array<string> = ['ohos.permission.READ_MEDIA', 'ohos.permission.WRITE_MEDIA', 'ohos.permission.MEDIA_LOCATION']
+const PERMISSIONS: Array<Permissions> = ['ohos.permission.READ_MEDIA', 'ohos.permission.WRITE_MEDIA', 'ohos.permission.MEDIA_LOCATION']
 const IMAGE_SIZE: number = px2vp(640)
 const GAME_TIME: number = 300 // 游戏时长
 const TAG: string = 'Index'
@@ -47,8 +48,7 @@ struct Index {
 
   async aboutToAppear() {
     this.listener.on('change', this.onLand)
-    let context = getContext(this) as any
-    await context.requestPermissionsFromUser(PERMISSIONS)
+    await abilityAccessCtrl.createAtManager().requestPermissionsFromUser(getContext(this), PERMISSIONS)
     this.imgDatas = await this.ImageModel.getAllImg()
     Logger.info(TAG, `images = ${this.imgDatas.length}`)
     this.numArray = await this.ImageModel.splitPic(this.index)
@@ -65,6 +65,7 @@ struct Index {
   async onImageChange() {
     this.isRefresh = true
     this.dialogController.close()
+    this.numArray = []
     this.numArray = await this.ImageModel.splitPic(this.index)
     this.init()
     this.isRefresh = false
@@ -142,7 +143,6 @@ struct Index {
             return
           }
           if (this.isGameStart) {
-            console.info(`LSQ: xxxx`)
             this.isRefresh = true
             this.numArray = this.game.gameInit(index, this.numArray)
             this.gameOver()
