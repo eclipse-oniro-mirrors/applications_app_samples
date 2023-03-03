@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,18 +13,18 @@
  * limitations under the License.
  */
 
-import rdb from '@ohos.data.rdb'
+import rdb from '@ohos.data.relationalStore'
 import DataShareExtensionAbility from '@ohos.application.DataShareExtensionAbility'
 import { logger, SQL_CREATE_TABLE, STORE_CONFIG, TABLE_NAME } from '@ohos/common'
 
 const TAG: string = 'DataShareAbility'
-let rdbStore: rdb.RdbStoreV9 = undefined
+let rdbStore: rdb.RdbStore = undefined
 
 export default class DataShareAbility extends DataShareExtensionAbility {
   onCreate(want, callback) {
     logger.info(TAG, 'onCreate')
     try {
-      rdb.getRdbStoreV9(this.context, STORE_CONFIG, 1, (error, data) => {
+      rdb.getRdbStore(this.context, STORE_CONFIG, (error, data) => {
         logger.info(TAG, `DataShareExtAbility getRdbStore done`)
         rdbStore = data
         rdbStore.executeSql(SQL_CREATE_TABLE, [], () => {
