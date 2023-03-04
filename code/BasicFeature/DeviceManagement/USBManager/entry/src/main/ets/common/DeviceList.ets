@@ -34,7 +34,7 @@ export default struct DeviceList {
         List() {
           ForEach(this.devices, (item, index) => {
             ListItem() {
-              Text(`${this.devices[index].manufacturerName} ${this.devices[index].productName}`)
+              Text(`${item.manufacturerName} ${item.productName}`)
                 .height(50)
                 .fontSize(20)
                 .width('100%')
@@ -47,7 +47,7 @@ export default struct DeviceList {
               this.device = this.devices[index]
               this.openDialog()
             })
-          }, item => item.name)
+          })
         }
         .height('40%')
         .width('80%')
@@ -66,6 +66,7 @@ export default struct DeviceList {
       })
     }
     .width('90%')
+    .height(500)
     .borderRadius(20)
     .backgroundColor($r('app.color.list_background'))
     .margin({ top: 20, bottom: 100 })
