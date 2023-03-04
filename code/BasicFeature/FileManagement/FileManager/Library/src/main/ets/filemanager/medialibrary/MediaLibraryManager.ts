@@ -114,9 +114,8 @@ class MediaLibraryManager {
   }
 
   async deleteFileAsset(context, fileAsset: mediaLibrary.FileAsset) {
-    Logger.debug('deleteFileAsset: ' + fileAsset.displayName + ' uri: ' + fileAsset.uri)
+    Logger.debug(`deleteFileAsset: ${fileAsset.displayName}, uri: ${fileAsset.uri}`)
     let media = this.getMediaLibrary(context)
-    // @ts-ignore
     await media.deleteAsset(fileAsset.uri)
   }
 }

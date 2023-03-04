@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import prompt from '@ohos.prompt'
+import prompt from '@ohos.promptAction'
 import router from '@ohos.router'
 import { FileManager } from '@ohos/feature-file-manager'
 
@@ -79,6 +79,7 @@ export default struct FileManagerHome {
           }
         })
       }
+      .height('100%')
       .width('100%')
     }
     .height('100%')

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -132,19 +132,22 @@ export struct FileList {
         .width('100%')
       } else {
         List() {
-          LazyForEach(this.fileList, (listItem: mediaLibrary.FileAsset, index: number) => {
+          LazyForEach(this.fileList, (listItem: mediaLibrary.FileAsset) => {
             ListItem() {
               FileListItemComponent({
                 itemFileList: $fileList,
                 fileListItem: listItem,
                 itemClickFunction: this.itemClickFunction,
-                itemIndex: index,
+                itemId: listItem.id,
                 itemShowDeleteButton: $showDeleteButton,
                 itemIsNoFile: $isNoFile
               })
             }
-          }, (listItem: mediaLibrary.FileAsset) => listItem.displayName)
+          }, (listItem, index) => {
+            return JSON.stringify(listItem) + index
+          })
         }
+        .height('100%')
         .width('100%')
       }
     }
@@ -162,7 +165,7 @@ struct FileListItemComponent {
   @Link itemIsNoFile: boolean
   private fileListItem: mediaLibrary.FileAsset
   private itemClickFunction: (fileAsset: mediaLibrary.FileAsset) => void
-  private itemIndex: number
+  private itemId: number
 
   @Styles itemPressedStyles() {
     .backgroundColor($r('app.color.item_pressed'))
@@ -210,7 +213,7 @@ struct FileListItemComponent {
             })
             .onClick(() => {
               FileManager.deleteFileAsset(getContext(this), this.fileListItem)
-              this.itemFileList.deleteData(this.itemIndex)
+              this.itemFileList.deleteData(this.itemId)
               this.itemShowDeleteButton = false
               if (this.itemFileList.totalCount() === 0) {
                 this.itemIsNoFile = true
