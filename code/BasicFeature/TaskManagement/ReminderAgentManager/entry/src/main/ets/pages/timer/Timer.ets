@@ -98,7 +98,7 @@ export struct Timer {
             .objectFit(ImageFit.Contain)
             .rotate({ z: 1, angle: this.rotates })
         }
-        .height(300)
+        .height(270)
 
         Column() {
           Text(`${this.formatTime(this.hoursTime)}:${this.formatTime(this.minuteTime)}:${this.formatTime(this.secondTime)}`)

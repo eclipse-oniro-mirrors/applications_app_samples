@@ -65,9 +65,8 @@ export struct AlarmClock {
       Row() {
         DrawClock({ canvasWidth: $canvasWidth, radius: $canvasRadius })
           .margin(8)
-          .width('100%')
-          .margin({ left: 100 })
       }
+      .justifyContent(FlexAlign.Center)
       .width('100%')
 
       List({ space: 8 }) {
