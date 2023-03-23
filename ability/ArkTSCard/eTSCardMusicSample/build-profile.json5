@@ -12,14 +12,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- {
-  "apiType": 'stageMode',
-  "showInServiceCenter": true,
-  "buildOption": {
+{
+  "app": {
+    "signingConfigs": [
+    ],
+    "compileSdkVersion": 9,
+    "compatibleSdkVersion": 9,
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+      }
+    ]
   },
-  "targets": [
+  "modules": [
     {
-      "name": "default"
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     }
   ]
 }
