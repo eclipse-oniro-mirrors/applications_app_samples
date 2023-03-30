@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import dataRdb from '@ohos.data.rdb'
+import dataRdb from '@ohos.data.relationalStore'
 import { CheckEmptyUtils } from '../utils/CheckEmptyUtils'
 import { CommonConstants } from '../constants/CommonConstants'
 import { GridLayoutItemInfo } from '../bean/GridLayoutItemInfo'
@@ -42,7 +42,7 @@ export const SQL_CREATE_TABLE = 'CREATE TABLE IF NOT EXISTS launcher ' +
 export const STORE_CONFIG = { name: 'launcher.db', securityLevel: dataRdb.SecurityLevel.S1 }
 const TAG: string = 'RdbModel'
 class RdbManagerModel {
-  private mRdbStore: dataRdb.RdbStoreV9 = undefined
+  private mRdbStore: dataRdb.RdbStore = undefined
 
   constructor() {
   }
@@ -54,7 +54,7 @@ class RdbManagerModel {
    */
   async initRdbConfig(context): Promise<void> {
     Logger.info(TAG, 'initRdbConfig start')
-    this.mRdbStore = await dataRdb.getRdbStoreV9(context, STORE_CONFIG, 1)
+    this.mRdbStore = await dataRdb.getRdbStore(context, STORE_CONFIG)
     await this.mRdbStore.executeSql(SQL_CREATE_TABLE)
     Logger.info(TAG, 'create table end')
   }

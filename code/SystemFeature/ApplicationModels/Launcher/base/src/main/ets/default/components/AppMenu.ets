@@ -23,7 +23,7 @@ export struct AppMenu {
     Column() {
       ForEach(this.menuInfos, (item) => {
         Column() {
-          MenuItem({
+          MenuInfoItem({
             menuInfo: item
           })
         }
@@ -35,7 +35,7 @@ export struct AppMenu {
 }
 
 @Component
-struct MenuItem {
+struct MenuInfoItem {
   private menuInfo: MenuInfo
 
   build() {
