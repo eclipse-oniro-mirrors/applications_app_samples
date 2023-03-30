@@ -16,7 +16,7 @@ import router from '@ohos.router'
 
 @Component
 export struct VideoPage {
-  @State videoSrc: Resource = $r('app.media.videos')
+  @State videoSrc: Resource = $rawfile('video_4.mp4')
   @State controls: boolean = false
   @State isFull: boolean = false
   @State isPause: boolean = true
@@ -67,7 +67,7 @@ export struct VideoPage {
         // 空白层预览
         if(this.isHidden){
           Column() {
-            Image($r('app.media.previewImg'))
+            Image($r('app.media.preview_Img'))
               .objectFit(ImageFit.Contain)
           }
           .width('100%')
