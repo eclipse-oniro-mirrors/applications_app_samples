@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,7 +16,7 @@ import router from '@ohos.router'
 
 @Component
 export struct VideoPage {
-  @State videoSrc: Resource = $r('app.media.videos')
+  @State videoSrc: Resource = $rawfile('video_4.mp4')
   @State controls: boolean = false
   @State isFull: boolean = false
   @State isPause: boolean = true
@@ -67,7 +67,7 @@ export struct VideoPage {
         // 空白层预览
         if(this.isHidden){
           Column() {
-            Image($r('app.media.previewImg'))
+            Image($r('app.media.preview_Img'))
               .objectFit(ImageFit.Contain)
           }
           .width('100%')
