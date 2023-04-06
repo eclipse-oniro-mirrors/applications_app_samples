@@ -96,7 +96,7 @@ export struct Timer {
             .width('25%')
             .height('92%')
             .objectFit(ImageFit.Contain)
-            .rotate({ z: 1, angle: this.rotates })
+            .rotate({ z: 1, angle: -this.rotates })
         }
         .height(270)
 
