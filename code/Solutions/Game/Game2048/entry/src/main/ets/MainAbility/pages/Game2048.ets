@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -127,6 +127,7 @@ struct Game2048 {
   //restart game
   gameStart() {
     this.gameRule.init()
+    this.curScore = 0
     this.dataNumbers = this.gameRule.dataNumbers
     this.gameStatus = GameStatus.RUNNING
     this.handleLocalData('put')
@@ -140,16 +141,20 @@ struct Game2048 {
   }
 
   aboutToAppear() {
-    display.getDefaultDisplay((err, data) => {
-      if (data.height > data.width) {
-        this.screenSize = { x: px2vp(data.width), y: px2vp(data.height) }
+    let displayClass: display.Display = null
+    try {
+      displayClass = display.getDefaultDisplaySync()
+      if (displayClass.height > displayClass.width) {
+        this.screenSize = { x: px2vp(displayClass.width), y: px2vp(displayClass.height) }
       } else {
-        this.screenSize = { x: px2vp(750), y: px2vp(data.width) }
+        this.screenSize = { x: px2vp(750), y: px2vp(displayClass.width) }
       }
       Logger.info(TAG, `宽 ${this.screenSize.x}`)
       Logger.info(TAG, `高 ${this.screenSize.y}`)
-    })
-    this.handleLocalData('has')
+      this.handleLocalData('has')
+    } catch (exception) {
+      Logger.error(TAG, `Failed to obtain the default display object. Code:  ${JSON.stringify(exception)}`)
+    }
   }
 
   //handle local data
@@ -187,7 +192,7 @@ struct Game2048 {
               .fontColor('#efe1d3')
               .fontWeight(FontWeight.Bolder)
 
-            Text(`${this.gameRule.score}`)
+            Text(`${this.curScore}`)
               .fontSize('30px')
               .fontColor('#fcf8f5')
               .fontWeight(FontWeight.Bolder)
@@ -223,18 +228,17 @@ struct Game2048 {
         .width(this.screenSize.x)
 
         Grid() {
-          LazyForEach(new MyDataSource(this.dataNumbers), (item) => {
+          ForEach(this.dataNumbers, (item) => {
             GridItem() {
               Text(`${item === 0 ? '' : item}`)
                 .fontSize('85px')
                 .fontColor(item <= 4 ? '#000' : '#fcf8f5')
                 .fontWeight(FontWeight.Bolder)
-                .backgroundColor('#f0fff0')
                 .width('100%')
                 .height('100%')
                 .textAlign(TextAlign.Center)
                 .borderRadius(10)
-                .backgroundColor(this.textColor[(Math.log(item) / Math.log(2))])
+                .backgroundColor(item === 0 ? '#f0fff0' : this.textColor[(Math.log(item) / Math.log(2))])
             }
           })
         }
