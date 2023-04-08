@@ -23,6 +23,7 @@ export struct Header {
     Column() {
     }
     .backgroundImage($rawfile(this.src))
+    .zIndex(3)
     .backgroundImageSize(ImageSize.Cover)
     .position({ x: '2%', y: '2%' })
     .size({ width: 100, height: 50 })
