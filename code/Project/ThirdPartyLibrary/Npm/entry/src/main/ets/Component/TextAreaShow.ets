@@ -22,7 +22,7 @@ export struct TextAreaShow {
   build() {
     Row() {
       TextInput({ placeholder: this.placeholder })
-        .height(40)
+        .height(60)
         .width('70%')
         .fontSize(30)
         .margin({ top: 15 })
