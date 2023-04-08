@@ -19,6 +19,8 @@ import { TextTimerComponent } from '../common/TextTimerComponent'
 @Entry
 @Component
 struct Index {
+  @StorageLink('breakPoint') breakPoints: string = 'lg'
+
   build() {
     Column() {
       TitleBar()
@@ -27,7 +29,7 @@ struct Index {
       }
       .width('100%')
       .height('80%')
-      .margin({ top: '20%' })
+      .margin(this.breakPoints=='lg'? { top: '10%' } : { top: '20%' })
     }
   }
 }
