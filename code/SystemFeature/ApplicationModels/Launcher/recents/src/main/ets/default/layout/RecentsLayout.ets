@@ -58,33 +58,27 @@ export struct RecentsLayout {
     }
   }
 
-  handleOperateMission = (index: number, operate: number) => {
-    let tmpMissions = this.missionInfos
-    this.missionInfos = []
-    let mission = tmpMissions[index]
-    if (operate === MISSION_OPERATE.CHANGE_LOCK) {
-      if (mission.lockedState) {
-        MissionModel.unLockMission(mission.missionId)
-      } else {
-        MissionModel.lockMission(mission.missionId)
-      }
-      mission.lockedState = !mission.lockedState
-      tmpMissions[index] = mission
-      this.missionInfos = tmpMissions
-      this.missionsData['dataArray'] = this.missionInfos
-      this.missionsData.notifyDataReload()
-    } else {
-      MissionModel.clearMission(mission.missionId)
-      this.missionInfos = tmpMissions
-      animateTo({ duration: 700, curve: Curve.Ease }, () => {
-        this.missionInfos.splice(index, 1)
-        if (this.missionInfos.length === 0) {
-          this.showEmptyMessage = true
+  handleOperateMission = async (index: number, operate: number) => {
+    Logger.info(TAG, `handleOperateMission, index=${index}, operate=${operate}`);
+    this.missionInfos = this.missionsData['dataArray'];
+    this.missionsData['dataArray'] = [];
+    this.missionsData.notifyDataReload();
+    if (this.missionInfos[index]) {
+      if (operate === MISSION_OPERATE.CHANGE_LOCK) {
+        if (this.missionInfos[index].lockedState) {
+          await  MissionModel.unLockMission(this.missionInfos[index].missionId);
+        } else {
+          await MissionModel.lockMission(this.missionInfos[index].missionId);
         }
-        this.missionsData['dataArray'] = this.missionInfos
-        this.missionsData.notifyDataReload()
-      })
+      } else {
+        await  MissionModel.clearMission(this.missionInfos[index].missionId);
+      }
     }
+    setTimeout(() => {
+      CommonEvent.publish(EventConstants.EVENT_ENTER_RECENTS, () => {
+        Logger.info(TAG, `enter recents`);
+      })
+    }, 20)
   }
 
   async clearAllMissions() {
