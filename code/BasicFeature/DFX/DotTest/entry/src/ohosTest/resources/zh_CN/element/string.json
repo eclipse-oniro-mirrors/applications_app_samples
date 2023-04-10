@@ -14,19 +14,19 @@
     },
     {
       "name": "writeSuccess",
-      "value": "Successful write event"
+      "value": "成功写入事件"
     },
     {
       "name": "writeFailed",
-      "value": "Write event failed，"
+      "value": "写入事件失败"
     },
     {
       "name": "appDisabled",
-      "value": "Failed to write event when application log is disabled"
+      "value": "禁用应用打点，无法成功写入事件"
     },
     {
       "name": "appAble",
-      "value": "Enable application registration, at which time events can be written successfully"
+      "value": "启用应用打点，此时可成功写入事件"
     }
   ]
 }

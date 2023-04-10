@@ -14,27 +14,27 @@
     },
     {
       "name": "create_fault",
-      "value": "构造异常"
+      "value": "Create Fault"
     },
     {
       "name": "catch_js_fault",
-      "value": "获取JS_FAULT异常"
+      "value": "Catch JS_FAULT info"
     },
     {
       "name": "catch_cpp_fault",
-      "value": "获取CPP_FAULT异常"
+      "value": "Catch CPP_FAULT info"
     },
     {
       "name": "catch_app_freeze_fault",
-      "value": "获取APP_FREEZE异常"
+      "value": "Catch APP_FREEZE info"
     },
     {
       "name": "catch_all_fault",
-      "value": "获取NO_SPECIFIC异常"
+      "value": "Catch NO_SPECIFIC info"
     },
     {
       "name": "cancel",
-      "value": "取消"
+      "value": "Cancel"
     }
   ]
 }
