@@ -156,7 +156,7 @@ export struct Contact {
       Row() {
         Column() {
           if (this.contacts.length > 0) {
-            ItemContainer({ contacts: this.contacts, selected: $selected })
+            ItemContainer({ contacts: $contacts, selected: $selected })
           }
         }
         .width('90%')
