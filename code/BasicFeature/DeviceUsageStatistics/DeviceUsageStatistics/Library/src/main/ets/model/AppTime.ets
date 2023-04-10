@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,34 +13,14 @@
  * limitations under the License.
  */
 
-{
-  "app": {
-    "signingConfigs": [],
-    "compileSdkVersion": 10,
-    "compatibleSdkVersion": 10,
-    "products": [
-      {
-        "name": "default",
-        "signingConfig": "default",
-      }
-    ]
-  },
-  "modules": [
-    {
-      "name": "entry",
-      "srcPath": "./entry",
-      "targets": [
-        {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Library",
-      "srcPath": "./Library"
-    }
-  ]
+export default class AppTime {
+  bundleName: string //应用的包名
+  prevAccessTime: number //应用上一次使用时间
+  totalTime: number //应用总时长
+
+  constructor(bundleName: string, prevAccessTime: number, totalTime: number) {
+    this.bundleName = bundleName
+    this.prevAccessTime = prevAccessTime
+    this.totalTime = totalTime
+  }
 }

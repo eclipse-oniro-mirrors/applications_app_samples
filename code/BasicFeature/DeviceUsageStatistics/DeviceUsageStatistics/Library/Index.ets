@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,34 +13,10 @@
  * limitations under the License.
  */
 
-{
-  "app": {
-    "signingConfigs": [],
-    "compileSdkVersion": 10,
-    "compatibleSdkVersion": 10,
-    "products": [
-      {
-        "name": "default",
-        "signingConfig": "default",
-      }
-    ]
-  },
-  "modules": [
-    {
-      "name": "entry",
-      "srcPath": "./entry",
-      "targets": [
-        {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Library",
-      "srcPath": "./Library"
-    }
-  ]
-}
+import AppTime from './src/main/ets/model/AppTime'
+import { AppInfo, appInit } from './src/main/ets/model/AppInfo'
+import { BundleStateUtil } from './src/main/ets/utils/BundleStateUtil'
+import { hmsToString, getAppName, getAppIcon, getTimStr, getTotalTime } from './src/main/ets/utils/Util'
+
+export { AppInfo, AppTime ,appInit, BundleStateUtil }
+export { hmsToString, getAppName, getAppIcon, getTimStr, getTotalTime }
