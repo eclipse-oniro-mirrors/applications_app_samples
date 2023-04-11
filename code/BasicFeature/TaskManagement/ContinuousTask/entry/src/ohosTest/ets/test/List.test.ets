@@ -13,17 +13,8 @@
  * limitations under the License.
  */
 
-{
-  "apiType": 'stageMode',
-  "buildOption": {
-    "compileMode": "esmodule"
-  },
-  "targets": [
-    {
-      "name": "default"
-    },
-    {
-      "name": "ohosTest"
-    }
-  ]
+import abilityTest from './Ability.test';
+
+export default function testsuite() {
+  abilityTest();
 }
