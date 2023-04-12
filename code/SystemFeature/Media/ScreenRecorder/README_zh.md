@@ -60,3 +60,5 @@ ohos.permission.CAPTURE_SCREEN
 3.本示例需要使用@ohos.screen系统权限的系统接口，使用Full SDK时需要手动从镜像站点获取，并在DevEco Studio中替换，具体操作可参考[替换指南](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/quick-start/full-sdk-switch-guide.md)。
 
 4.系统权限的自动化签名指南，可通过打开DevEco Studio中菜单，File -> Project Structure -> Project -> Signing Configs(TAB页最下方蓝色字体) -> “**View the operation guide**” 跳转链接，可支持系统权限的自动签名生成。
+
+5.rk设备由于芯片限制，应用中videoFrameWidth，videoFrameHeight，videoFrameRate需同比缩小3/5, 才能实现rk上的播放效果。
