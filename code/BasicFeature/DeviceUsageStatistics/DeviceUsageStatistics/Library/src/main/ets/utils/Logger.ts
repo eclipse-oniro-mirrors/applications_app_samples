@@ -42,4 +42,4 @@ class Logger {
   }
 }
 
-export default new Logger('[Sample_UsageStatistics]')
+export default new Logger('Sample_UsageStatistics')
