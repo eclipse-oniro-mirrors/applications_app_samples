@@ -13,10 +13,26 @@
  * limitations under the License.
  */
 
-export { UsbManager } from './src/main/ets/capabilities/UsbManager';
+export class ListModel {
+  title: String;
+  function: Function;
+  value: String;
 
-export { PowerManager } from './src/main/ets/capabilities/PowerManager';
+  constructor(title: String, func: Function, value: String = '') {
+    this.title = title;
+    this.function = func;
+    this.value = value;
+  }
 
-export { BatteryInfo } from './src/main/ets/capabilities/BatteryInfo';
+  setValue(value: String) {
+    this.value = value;
+  }
 
-export { Thermal } from './src/main/ets/capabilities/Thermal';
+  getValue() {
+    if (this.function == null) {
+      return this.value;
+    }
+    this.value = this.function();
+    return this.value;
+  }
+}
