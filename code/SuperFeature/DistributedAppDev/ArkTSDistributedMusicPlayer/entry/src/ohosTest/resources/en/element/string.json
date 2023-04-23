@@ -13,60 +13,60 @@
       "value": "test label"
     },
     {
-      "name": "accept",
-      "value": "accept"
-    },
-    {
       "name": "entry_desc",
-      "value": "音乐播放和数据同步"
+      "value": "music play and data circulation"
     },
     {
       "name": "MainAbility_desc",
-      "value": "音乐播放和数据同步"
+      "value": "music play and data circulation"
     },
     {
       "name": "distributed_permission",
-      "value": "用于分布式数据迁移"
+      "value": "Used for distributed data migration"
     },
     {
       "name": "MainAbility_label",
-      "value": "音乐"
+      "value": "music"
     },
     {
       "name": "choiceDevice",
-      "value": "选择设备"
+      "value": "Select Device"
     },
     {
       "name": "cancel",
-      "value": "取消"
+      "value": "cancel"
     },
     {
       "name": "ServiceAbility_desc",
-      "value": "分布式音乐远程控制服务"
+      "value": "Distributed music remote control service"
     },
     {
       "name": "ServiceAbility_label",
-      "value": "分布式音乐服务"
+      "value": "Distributed music service"
     },
     {
       "name": "onConnectService",
-      "value": "连接成功"
+      "value": "Connection is successful"
     },
     {
       "name": "onDisconnectService",
-      "value": "连接断开"
+      "value": "Connection failed."
     },
     {
       "name": "onFailedService",
-      "value": "连接错误"
+      "value": "Connection error"
     },
     {
       "name": "ConnectRemoteDevices",
-      "value": "连接远程设备"
+      "value": "Connect remote devices"
     },
     {
       "name": "ConnectionTimeout",
-      "value": "连接超时"
+      "value": "Connection timeout"
+    },
+    {
+      "name": "accept",
+      "value": "accept"
     }
   ]
 }

@@ -13,10 +13,6 @@
       "value": "test label"
     },
     {
-      "name": "accept",
-      "value": "accept"
-    },
-    {
       "name": "entry_desc",
       "value": "音乐播放和数据同步"
     },
@@ -67,6 +63,10 @@
     {
       "name": "ConnectionTimeout",
       "value": "连接超时"
+    },
+    {
+      "name": "accept",
+      "value": "允许"
     }
   ]
 }
