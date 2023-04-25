@@ -1,22 +1,6 @@
 {
   "string": [
     {
-      "name": "module_test_desc",
-      "value": "test ability description"
-    },
-    {
-      "name": "TestAbility_desc",
-      "value": "the test ability"
-    },
-    {
-      "name": "TestAbility_label",
-      "value": "test label"
-    },
-    {
-      "name": "allow",
-      "value": "allow"
-    },
-    {
       "name": "entry_desc",
       "value": "Description"
     },
@@ -47,6 +31,10 @@
     {
       "name": "congratulations",
       "value": "Congratulations!"
+    },
+    {
+      "name": "allow",
+      "value": "allow"
     }
   ]
 }
