@@ -1,16 +1,12 @@
 {
   "string": [
     {
-      "name": "module_test_desc",
-      "value": "test ability description"
+      "name": "back",
+      "value": "back"
     },
     {
-      "name": "TestAbility_desc",
-      "value": "the test ability"
-    },
-    {
-      "name": "TestAbility_label",
-      "value": "test label"
+      "name": "test_add",
+      "value": "test_add"
     },
     {
       "name": "base_type",
