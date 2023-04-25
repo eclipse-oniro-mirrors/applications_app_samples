@@ -14,11 +14,11 @@
     },
     {
       "name": "ok",
-      "value": "yes"
+      "value": "确认"
     },
     {
       "name": "no",
-      "value": "no"
+      "value": "取消"
     }
   ]
 }
