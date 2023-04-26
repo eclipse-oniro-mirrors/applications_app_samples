@@ -12,18 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import AbilityStage from "@ohos.app.ability.AbilityStage"
 
-{
-  "apiType": 'stageMode',
-  "buildOption": {
-    "compileMode": "esmodule"
-  },
-  "targets": [
-    {
-      "name": "default"
-    },
-    {
-      "name": "ohosTest",
-    }
-  ]
+export default class TestAbilityStage extends AbilityStage {
+  onCreate() {
+    console.log("[Demo] TestAbilityStage onCreate")
+  }
 }
