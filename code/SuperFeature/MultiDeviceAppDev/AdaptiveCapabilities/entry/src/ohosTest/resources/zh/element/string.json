@@ -1,18 +1,6 @@
 {
   "string": [
     {
-      "name": "module_test_desc",
-      "value": "test ability description"
-    },
-    {
-      "name": "TestAbility_desc",
-      "value": "the test ability"
-    },
-    {
-      "name": "TestAbility_label",
-      "value": "test label"
-    },
-    {
       "name": "entry_desc",
       "value": "description"
     },
@@ -26,243 +14,243 @@
     },
     {
       "name": "my_string",
-      "value": "phone"
+      "value": "手机"
     },
     {
       "name": "home_title",
-      "value": "Page development-Adaptive Capabilities"
+      "value": "页面开发一多能力"
     },
     {
       "name": "resource_qualifier",
-      "value": "Resource qualifier"
+      "value": "资源文件使用"
     },
     {
       "name": "atomic_capability",
-      "value": "Atomic layout capability"
+      "value": "自适应布局"
     },
     {
       "name": "responsive_layout",
-      "value": "Responsive layout"
+      "value": "响应式布局"
     },
     {
       "name": "flex_capability_first",
-      "value": "Flexible capability first"
+      "value": "拉伸能力1"
     },
     {
       "name": "flex_capability_second",
-      "value": "Flexible capability second"
+      "value": "拉伸能力2"
     },
     {
       "name": "scaling_capability",
-      "value": "Scaling capability"
+      "value": "缩放能力"
     },
     {
       "name": "hidden_capability",
-      "value": "Hidden capability"
+      "value": "隐藏能力"
     },
     {
       "name": "wrap_capability",
-      "value": "Wrap capability"
+      "value": "折行能力"
     },
     {
       "name": "equally_capability",
-      "value": "Equally capability"
+      "value": "均分能力"
     },
     {
       "name": "percentage_capability",
-      "value": "Percentage capability"
+      "value": "占比能力"
     },
     {
       "name": "extension_capability_first",
-      "value": "Extension capacity first"
+      "value": "延伸能力1"
     },
     {
       "name": "extension_capability_second",
-      "value": "Extension capacity second"
+      "value": "延伸能力2"
     },
     {
       "name": "healthy_use_phone",
-      "value": "Healthy use of phone"
+      "value": "健康使用手机"
     },
     {
       "name": "media_query",
-      "value": "Media query"
+      "value": "媒体查询"
     },
     {
       "name": "grid_layout",
-      "value": "Grid layout"
+      "value": "栅格布局"
     },
     {
       "name": "grid_layout1",
-      "value": "Grid breakpoint 1"
+      "value": "栅格断点1"
     },
     {
       "name": "grid_layout2",
-      "value": "Grid breakpoint 2"
+      "value": "栅格断点2"
     },
     {
       "name": "grid_layout3",
-      "value": "Grid columns and gutter"
+      "value": "栅格columns和gutter"
     },
     {
       "name": "grid_layout4",
-      "value": "Grid margin"
+      "value": "栅格margin"
     },
     {
       "name": "grid_layout5",
-      "value": "Grid span"
+      "value": "栅格span"
     },
     {
       "name": "grid_layout6",
-      "value": "Grid offset"
+      "value": "栅格offset"
     },
     {
       "name": "grid_layout7",
-      "value": "Grid order"
+      "value": "栅格order"
     },
     {
       "name": "grid_layout8",
-      "value": "Grid inheritance of span/offset/order"
+      "value": "栅格span/offset/order继承性"
     },
     {
       "name": "grid_layout9",
-      "value": "Grid nested"
+      "value": "栅格嵌套"
     },
     {
       "name": "typical_scenario",
-      "value": "Typical scenario"
+      "value": "典型布局场景"
     },
     {
       "name": "diversion_layout",
-      "value": "Diversion layout"
+      "value": "挪移布局"
     },
     {
       "name": "repeat_layout",
-      "value": "Repeat layout"
+      "value": "重复布局"
     },
     {
       "name": "indentation_layout",
-      "value": "Indentation layout"
+      "value": "缩进布局"
     },
     {
       "name": "header",
-      "value": "header"
+      "value": "顶部布局"
     },
     {
       "name": "banner",
-      "value": "banner"
+      "value": "广告栏"
     },
     {
       "name": "operationEntries",
-      "value": "operation entries"
+      "value": "操作入口"
     },
     {
       "name": "tabs",
-      "value": "tabs layout"
+      "value": "页签布局"
     },
     {
       "name": "bigImage",
-      "value": "big image"
+      "value": "大图浏览"
     },
     {
       "name": "multiLaneList",
-      "value": "multi lane list"
+      "value": "多列列表"
     },
     {
       "name": "grid",
-      "value": "grid layout"
+      "value": "网格视图"
     },
     {
       "name": "aside",
-      "value": "aside"
+      "value": "侧边栏"
     },
     {
       "name": "user_improvement",
-      "value": "User Experience Improvement Program"
+      "value": "用户体验改进计划"
     },
     {
       "name": "user_improvement_tips",
-      "value": "The User Experience Improvement Program improves huawei's product and service quality through system, application analysis, and fault diagnosis."
+      "value": "用户体验改进计划通过系统、应用分析、故障诊断、提升华为的产品和服务质量。"
     },
     {
       "name": "show_app_name",
-      "value": "App name"
+      "value": "应用名称"
     },
     {
       "name": "left",
-      "value": "Left"
+      "value": "左"
     },
     {
       "name": "center",
-      "value": "Center"
+      "value": "中"
     },
     {
       "name": "right",
-      "value": "Right"
+      "value": "右"
     },
     {
       "name": "portrait",
-      "value": "Portrait"
+      "value": "竖屏"
     },
     {
       "name": "landscape",
-      "value": "Landscape"
+      "value": "横屏"
     },
     {
       "name": "recommended",
-      "value": "recommended"
+      "value": "推荐"
     },
     {
       "name": "operation1",
-      "value": "Private FM"
+      "value": "私人FM"
     },
     {
       "name": "operation2",
-      "value": "Singer"
+      "value": "歌手"
     },
     {
       "name": "operation3",
-      "value": "Playlist"
+      "value": "歌单"
     },
     {
       "name": "operation4",
-      "value": "Ranking List"
+      "value": "排行榜"
     },
     {
       "name": "operation5",
-      "value": "Hot"
+      "value": "热门"
     },
     {
       "name": "operation6",
-      "value": "Sports Music"
+      "value": "运动音乐"
     },
     {
       "name": "operation7",
-      "value": "Music FM"
+      "value": "音乐FM"
     },
     {
       "name": "operation8",
-      "value": "Welfare"
+      "value": "福利"
     },
     {
       "name": "playlist_collection",
-      "value": "Playlist Collection"
+      "value": "歌单集合"
     },
     {
       "name": "tabBar1",
-      "value": "Home"
+      "value": "首页"
     },
     {
       "name": "tabBar2",
-      "value": "Ranking List"
+      "value": "排行榜"
     },
     {
       "name": "tabBar3",
-      "value": "My"
+      "value": "我的"
     },
     {
       "name": "breakpoint",
-      "value": "breakpoint"
+      "value": "断点"
     }
   ]
 }
