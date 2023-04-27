@@ -13,10 +13,18 @@
  * limitations under the License.
  */
 
-import AbilityStage from "@ohos.app.ability.AbilityStage"
+@Entry
+@Component
+struct Index {
+  @State message: string = 'Hello World'
 
-export default class TestAbilityStage extends AbilityStage {
-	onCreate() {
-		console.log("[Demo] TestAbilityStage onCreate")
-	}
+  build() {
+    Row() {
+      Text(this.message)
+        .fontSize(30)
+        .fontWeight(FontWeight.Bold)
+    }
+    .width('100%')
+    .height('100%')
+  }
 }
