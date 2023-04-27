@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,24 +13,29 @@
  * limitations under the License.
  */
 
-import prompt from '@ohos.promptAction'
+import hilog from '@ohos.hilog';
 
-class ShowToast {
-  private longToastTime: number = 3000
-  private shortToastTime: number = 1000
+const DOMAIN: number = 0xF811;
+const PREFIX = 'Sample_ComponentCollection';
+const FORMAT = '%{public}s, %{public}s';
 
-  showToast(message: ResourceStr, duration: number) {
-    prompt.showToast({ message: message, duration: duration })
+class Logger {
+
+  debug(...args: string[]): void {
+    hilog.debug(DOMAIN, PREFIX, FORMAT, args);
   }
 
-  shortToast(message: ResourceStr) {
-    this.showToast(message, this.shortToastTime)
+  info(...args: string[]): void {
+    hilog.info(DOMAIN, PREFIX, FORMAT, args);
   }
 
-  longToast(message: ResourceStr) {
-    this.showToast(message, this.longToastTime)
+  warn(...args: string[]): void {
+    hilog.warn(DOMAIN, PREFIX, FORMAT, args);
   }
 
+  error(...args: string[]): void {
+    hilog.error(DOMAIN, PREFIX, FORMAT, args);
+  }
 }
 
-export default new ShowToast()
+export default new Logger();

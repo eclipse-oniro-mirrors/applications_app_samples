@@ -1,18 +1,6 @@
 {
   "string": [
     {
-      "name": "module_test_desc",
-      "value": "test ability description"
-    },
-    {
-      "name": "TestAbility_desc",
-      "value": "the test ability"
-    },
-    {
-      "name": "TestAbility_label",
-      "value": "test label"
-    },
-    {
       "name": "entry_desc",
       "value": "Component Collection"
     },
@@ -641,34 +629,6 @@
       "name": "divider_attribute",
       "value": "Divider"
     },
-    {
-      "name": "divider_color_blue",
-      "value": "Blue"
-    },
-    {
-      "name": "divider_color_green",
-      "value": "Green"
-    },
-    {
-      "name": "divider_color_orange",
-      "value": "Orange"
-    },
-    {
-      "name": "divider_color_pink",
-      "value": "Pink"
-    },
-    {
-      "name": "divider_line_type_butt",
-      "value": "Butt"
-    },
-    {
-      "name": "divider_line_type_round",
-      "value": "Round"
-    },
-    {
-      "name": "divider_line_type_square",
-      "value": "Square"
-    },
     // Font
     {
       "name": "font_color",
@@ -1026,10 +986,6 @@
       "value": "Steel is tempered in fire and sharp cooling, so it can be hard and not afraid of anything. It is also in this way that our generation has been tempered in struggles and terrible trials, learning not to succumb to life."
     },
     {
-      "name": "text_content_en",
-      "value": "Steel is tempered in fire and sharp cooling, so it can be hard and not afraid of anything. It is also in this way that our generation has been tempered in struggles and terrible trials, learning not to succumb to life."
-    },
-    {
       "name": "text_text_align_center",
       "value": "Center"
     },
@@ -1237,7 +1193,7 @@
     },
     {
       "name": "time_picker_options_usemilitarytime",
-      "value": "useMilitaryTime"
+      "value": "usemilitarytime"
     },
     {
       "name": "time_picker_dialog_timeone",
@@ -1480,7 +1436,8 @@
     {
       "name": "color_blend_change",
       "value": "Colorblend"
-    },{
+    },
+    {
       "name": "z_index",
       "value": "Z-Index"
     },
@@ -1641,7 +1598,6 @@
       "name": "scroll_horizontal_title",
       "value": "horizontal scroll"
     },
-    // 刷新
     {
       "name": "auxiliary_refresh",
       "value": "Refresh"
@@ -1891,10 +1847,6 @@
       "value": "Chen"
     },
     {
-      "name": "alphabetindexer_cheng",
-      "value": "Cheng"
-    },
-    {
       "name": "alphabetindexer_lv",
       "value": "Lv"
     },
@@ -1929,6 +1881,10 @@
     {
       "name": "alphabetindexer_cui",
       "value": "Cui"
+    },
+    {
+      "name": "alphabetindexer_cheng",
+      "value": "Cheng"
     },
     {
       "name": "alphabetindexer_list_display",
