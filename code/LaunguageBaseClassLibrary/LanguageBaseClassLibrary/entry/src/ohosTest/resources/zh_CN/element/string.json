@@ -14,155 +14,154 @@
     },
     {
       "name": "xml",
-      "value": "Xml & ConvertXml (XML Parsing,Generation and convert)"
+      "value": "Xml & ConvertXml (XML解析,生成与转换)"
     },
     {
       "name": "serializer",
-      "value": "Xml Serializer"
+      "value": "Xml 生成"
     },
     {
       "name": "parser",
-      "value": "Xml Pull Parser"
+      "value": "Xml 解析"
     },
     {
       "name": "convert",
-      "value": "Xml Convert"
+      "value": "Xml 转换"
     },
     {
       "name": "url",
-      "value": "Url (URL String Parsing)"
+      "value": "Url (Url字符串解析)"
     },
     {
       "name": "util",
-      "value": "Util (util)"
+      "value": "Util (util工具函数)"
     },
     {
       "name": "process",
-      "value": "Process (Obtaining Process Information)"
+      "value": "Process (获取进程相关的信息)"
     },
     {
       "name": "array_list",
-      "value": "ArrayList (Linear Container ArrayList)"
+      "value": "ArrayList (线性容器ArrayList)"
     },
     {
       "name": "string_code",
-      "value": "StringCode (String encoding and decoding)"
+      "value": "StringCode (字符串编解码)"
     },
     {
       "name": "rational_number",
-      "value": "RationalNumber (RationalNumber)"
+      "value": "RationalNumber (有理数)"
     },
     {
       "name": "rationalNumber",
-      "value": "Rational number:"
+      "value": "有理数:"
     },
     {
       "name": "numerator",
-      "value": "Numerator:"
+      "value": "分子:"
     },
     {
       "name": "denominator",
-      "value": "Denominator:"
+      "value": "分母:"
     },
     {
       "name": "compare",
-      "value": "Compare rational numbers"
+      "value": "有理数比较"
     },
     {
       "name": "less_than",
-      "value": "FirstRationalNumber id less than SecondRationalNumber"
+      "value": "有理数1小于有理数2"
     },
     {
       "name": "get",
-      "value": "Get rational number value"
+      "value": "获取有理数的值"
     },
     {
       "name": "get_value",
-      "value": "Get Value"
+      "value": "的值是"
     },
     {
       "name": "getDenominator",
-      "value": "Get numerator and denominator"
+      "value": "获取有理数分子分母"
     },
     {
       "name": "isZero",
-      "value": "Check for zero"
+      "value": "检查是否为0"
     },
     {
       "name": "rational_number_is",
-      "value": "Rational Number1 is"
+      "value": "有理数1 is"
     },
     {
       "name": "isNaN",
-      "value": "Check for NaN"
+      "value": "检查是否表示NaN"
     },
     {
       "name": "rational_number_is_not_nan",
-      "value": "Rational Number1 is not NaN"
+      "value": "有理数1 is not NaN"
     },
     {
       "name": "isFinite",
-      "value": "Check for finite number"
+      "value": "检查是否为有限值"
     },
     {
       "name": "lru_cache",
-      "value": "LRUCache (Lru cache)"
-    },
-    {
+      "value": "LRUCache (缓冲区)"
+    },  {
       "name": "initialize_buffer",
-      "value": "Initialize buffer"
+      "value": "初始化缓冲区"
     },
     {
       "name": "get_buffer_capacity",
-      "value": "Get buffer capacity"
+      "value": "获取缓冲区容量"
     },
     {
       "name": "update_buffer_capacity",
-      "value": "Update buffer capacity"
+      "value": "更新缓冲区容量"
     },
     {
       "name": "get_buffer_string",
-      "value": "Get buffer string"
+      "value": "获取缓冲区字符串"
     },
     {
       "name": "add_key_value",
-      "value": "Add key value pair"
+      "value": "添加键值对"
     },
     {
       "name": "get_value_with_key",
-      "value": "Get value with key"
+      "value": "获取键对应的值"
     },
     {
       "name": "get_all_key_values",
-      "value": "Get all key-values"
+      "value": "获取所有键值对"
     },
     {
       "name": "delete_key_and_value",
-      "value": "Delete the value of key"
+      "value": "删除指定键及关联值"
     },
     {
       "name": "clear_all_key_values",
-      "value": "Clear all key-values"
+      "value": "清除所有键值对"
     },
     {
       "name": "view_operation_record",
-      "value": "View operation record"
+      "value": "查看操作记录"
     },
     {
       "name": "base64",
-      "value": "Base64Helper (Base64 codec)"
+      "value": "Base64Helper (Base64编解码)"
     },
     {
       "name": "encode",
-      "value": "Encode"
+      "value": "编码"
     },
     {
       "name": "decode",
-      "value": "Decode"
+      "value": "解码"
     },
     {
       "name": "type_check",
-      "value": "TypeCheck (Type check)"
+      "value": "TypeCheck (类型检查)"
     }
   ]
 }
