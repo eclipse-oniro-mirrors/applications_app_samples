@@ -14,11 +14,11 @@
     },
     {
       "name": "app_name",
-      "value": "WorkScheduler"
+      "value": "延时任务"
     },
     {
       "name": "btn1",
-      "value": "confirm"
+      "value": "确定"
     }
   ]
 }
