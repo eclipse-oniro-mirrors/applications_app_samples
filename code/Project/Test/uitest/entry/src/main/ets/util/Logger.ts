@@ -14,7 +14,7 @@
  */
 
 import hilog from '@ohos.hilog';
-const TAG = '[Sample_UiTest]'
+const TAG = "[Sample_Test]";
 class Logger {
     private domain: number;
     private prefix: string;
