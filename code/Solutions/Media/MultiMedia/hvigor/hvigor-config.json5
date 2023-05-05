@@ -12,9 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import appTest from './app.test';
-
-export default function testsuite() {
-  appTest()
+{
+  "hvigorVersion": "2.0.0",
+  "dependencies": {
+    "@ohos/hvigor-ohos-plugin": "2.0.0"
+  }
 }
