@@ -14,179 +14,179 @@
     },
     {
       "name": "username",
-      "value": "*username: "
+      "value": "*用户名: "
     },
     {
       "name": "unusername",
-      "value": "username: "
+      "value": "用户名: "
     },
     {
       "name": "password",
-      "value": "*password: "
+      "value": "*密码: "
     },
     {
       "name": "unpassword",
-      "value": "password: "
+      "value": "密码: "
     },
     {
       "name": "register",
-      "value": "register"
+      "value": "注册"
     },
     {
       "name": "login",
-      "value": "Login"
+      "value": "登录"
     },
     {
       "name": "music",
-      "value": "Music"
+      "value": "音乐"
     },
     {
       "name": "video",
-      "value": "Video"
+      "value": "视频"
     },
     {
       "name": "map",
-      "value": "Map"
+      "value": "地图"
     },
     {
       "name": "register_login",
-      "value": "Register or Login"
+      "value": "注册/登录"
     },
     {
       "name": "appname",
-      "value": "Appname: "
+      "value": "应用名: "
     },
     {
       "name": "password_message",
-      "value": "Account or password does not match"
+      "value": "账号或者密码不符"
     },
     {
       "name": "password_error",
-      "value": "The passwords entered twice inconsistent "
+      "value": "两次输入密码不一致"
     },
     {
       "name": "close",
-      "value": "Close"
+      "value": "关闭"
     },
     {
       "name": "email",
-      "value": "Email: "
+      "value": "邮箱: "
     },
     {
       "name": "signature",
-      "value": "Signature: "
+      "value": "个性签名: "
     },
     {
       "name": "confirm_password",
-      "value": "*Confirm Password: "
+      "value": "*确认密码: "
     },
     {
       "name": "unconfirm_password",
-      "value": "Confirm Password: "
+      "value": "确认密码: "
     },
     {
       "name": "setting",
-      "value": "Setup is complete"
+      "value": "设置完成"
     },
     {
       "name": "account",
-      "value": "Account Info"
+      "value": "账户信息"
     },
     {
       "name": "modify",
-      "value": "Modify Info"
+      "value": "修改信息"
     },
     {
       "name": "application",
-      "value": "Switch APP"
+      "value": "切换应用"
     },
     {
       "name": "delete",
-      "value": "Delete Account"
+      "value": "删除账号"
     },
     {
       "name": "warning",
-      "value": "Warning"
+      "value": "警告"
     },
     {
       "name": "confirm",
-      "value": "Confirm"
+      "value": "确认"
     },
     {
       "name": "delete_account",
-      "value": "You are deleting your account"
+      "value": "您正在删除账号"
     },
     {
       "name": "cancel",
-      "value": "Cancel"
+      "value": "取消"
     },
     {
       "name": "blank",
-      "value": "Username is null"
+      "value": "用户名为空"
     },
     {
       "name": "password_blank",
-      "value": "Password is null"
+      "value": "密码为空"
     },
     {
       "name": "switch_app",
-      "value": "Switch app"
+      "value": "切换应用"
     },
     {
       "name": "has",
-      "value": "Username already exists"
+      "value": "用户名已存在"
     },
     {
       "name": "userpassword",
-      "value": "The new password is the same as before"
+      "value": "新密码与之前一样"
     },
     {
       "name": "routerback",
-      "value": "Please confirm whether to log out"
+      "value": "请确认是否退出"
     },
     {
       "name": "prompt_username",
-      "value": "Input numbers, letters or underscores, 15 digits"
+      "value": "输入数字、字母或下划线，15位"
     },
     {
       "name": "prompt_email",
-      "value": "Input mailbox format, 18 bits"
+      "value": "输入邮箱格式，18位"
     },
     {
       "name": "prompt_signature",
-      "value": "Input signature, 18 bits"
+      "value": "输入签名，18位"
     },
     {
       "name": "prompt_password",
-      "value": "Input password, 6-18 digits"
+      "value": "输入密码，6-18位"
     },
     {
       "name": "prompt_confirm_password",
-      "value": "Input the password again, 6-18 digits"
+      "value": "再次输入密码，6-18位"
     },
     {
       "name": "min_password",
-      "value": "Password length is less than 6 characters"
+      "value": "密码长度小于6位"
     },
     {
       "name": "emailinfo",
-      "value": "Email format error"
+      "value": "邮箱格式错误"
     },
     {
       "name": "register_info",
-      "value": "Successful account registration"
+      "value": "注册账号成功"
     },
     {
       "name": "modify_info",
-      "value": "Modify information successfully"
+      "value": "修改信息成功"
     },
     {
       "name": "button_confirm",
-      "value": "Confirm"
+      "value": "确认"
     },
     {
       "name": "button_cancel",
-      "value": "Cancel"
+      "value": "取消"
     }
   ]
 }
