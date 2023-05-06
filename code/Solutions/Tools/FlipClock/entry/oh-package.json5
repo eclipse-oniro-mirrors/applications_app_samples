@@ -12,9 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import appTest from './app.test';
-
-export default function testsuite() {
-  appTest()
+{
+  "license": "ISC",
+  "devDependencies": {},
+  "name": "entry",
+  "description": "example description",
+  "repository": {},
+  "version": "1.0.0",
+  "dependencies": {}
 }
