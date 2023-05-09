@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
 import TestRunner from '@ohos.application.testRunner';
 import AbilityDelegatorRegistry from '@ohos.application.abilityDelegatorRegistry';
 
@@ -25,7 +24,7 @@ function translateParamsToString(parameters) {
     '-s class', '-s notClass', '-s suite', '-s it',
     '-s level', '-s testType', '-s size', '-s timeout',
     '-s dryRun'
-  ])
+  ]);
   let targetParams = '';
   for (const key in parameters) {
     if (keySet.has(key)) {
@@ -36,13 +35,11 @@ function translateParamsToString(parameters) {
 }
 
 async function onAbilityCreateCallback() {
-  hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-  hilog.info(0x0000, 'testTag', '%{public}s', 'onAbilityCreateCallback');
+  console.log('onAbilityCreateCallback');
 }
 
 async function addAbilityMonitorCallback(err: any) {
-  hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-  hilog.info(0x0000, 'testTag', 'addAbilityMonitorCallback : %{public}s', JSON.stringify(err) ?? '');
+  console.info('addAbilityMonitorCallback : ' + JSON.stringify(err));
 }
 
 export default class OpenHarmonyTestRunner implements TestRunner {
@@ -50,13 +47,11 @@ export default class OpenHarmonyTestRunner implements TestRunner {
   }
 
   onPrepare() {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-    hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner OnPrepare ');
+    console.info('OpenHarmonyTestRunner OnPrepare ');
   }
 
   async onRun() {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-    hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner onRun run');
+    console.log('OpenHarmonyTestRunner onRun run');
     abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
     abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
     var testAbilityName = abilityDelegatorArguments.bundleName + '.TestAbility';
@@ -71,15 +66,13 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     if (debug == 'true') {
       cmd += ' -D';
     }
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-    hilog.info(0x0000, 'testTag', 'cmd : %{public}s', cmd);
+    console.info('cmd : ' + cmd);
     abilityDelegator.executeShellCommand(cmd,
       (err: any, d: any) => {
-        hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-        hilog.info(0x0000, 'testTag', 'executeShellCommand : err : %{public}s', JSON.stringify(err) ?? '');
-        hilog.info(0x0000, 'testTag', 'executeShellCommand : data : %{public}s', d.stdResult ?? '');
-        hilog.info(0x0000, 'testTag', 'executeShellCommand : data : %{public}s', d.exitCode ?? '');
+        console.info('executeShellCommand : err : ' + JSON.stringify(err));
+        console.info('executeShellCommand : data : ' + d.stdResult);
+        console.info('executeShellCommand : data : ' + d.exitCode);
       })
-    hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner onRun end');
+    console.info('OpenHarmonyTestRunner onRun end');
   }
 }
