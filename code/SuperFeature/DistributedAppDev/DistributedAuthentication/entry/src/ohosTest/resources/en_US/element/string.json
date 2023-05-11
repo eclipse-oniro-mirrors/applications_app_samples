@@ -46,15 +46,15 @@
     },
     {
       "name": "is_online",
-      "value": "Is online"
+      "value": "is online"
     },
     {
       "name": "is_trusted",
-      "value": "Is trusted"
+      "value": "is trusted"
     },
     {
       "name": "range",
-      "value": "Range"
+      "value": "range"
     },
     {
       "name": "no_filter",
