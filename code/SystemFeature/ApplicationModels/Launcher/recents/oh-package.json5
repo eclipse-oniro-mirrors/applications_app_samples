@@ -15,14 +15,14 @@
 
 {
   "license": "ISC",
-  "devDependencies": {
-    "@ohos/hypium": "1.0.6"
-  },
-  "name": "lottie",
-  "description": "example description",
+  "types": "",
+  "devDependencies": {},
+  "name": "@ohos/recents",
+  "description": "a npm package which contains arkUI2.0 page",
+  "main": "./index.ets",
   "repository": {},
   "version": "1.0.0",
   "dependencies": {
-    "@ohos/lottie": "2.0.0"
+    "@ohos/base": "file:../base"
   }
 }
