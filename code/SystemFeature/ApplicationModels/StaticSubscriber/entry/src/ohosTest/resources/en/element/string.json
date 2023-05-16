@@ -34,11 +34,11 @@
     },
     {
       "name": "static_subscriber",
-      "value": "静态订阅"
+      "value": "static_subscriber"
     },
     {
       "name": "publish",
-      "value": "发布"
+      "value": "publish"
     }
   ]
 }

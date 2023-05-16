@@ -14,31 +14,31 @@
     },
     {
       "name": "title",
-      "value": "Grant permission or not"
+      "value": "是否授予权限："
     },
     {
       "name": "confirm",
-      "value": "confirm"
+      "value": "确认"
     },
     {
       "name": "cancel",
-      "value": "cancel"
+      "value": "取消"
     },
     {
       "name": "button",
-      "value": "Detect Permissions"
+      "value": "检测权限"
     },
     {
       "name": "authorization",
-      "value": "Permissions have been granted"
+      "value": "权限已被授予"
     },
     {
       "name": "unauthorization",
-      "value": "Permissions were not granted"
+      "value": "权限未被授予"
     },
     {
       "name": "AbilityAccessCtrl",
-      "value": "AbilityAccessCtrl "
+      "value": "AbilityAccessCtrl"
     }
   ]
 }

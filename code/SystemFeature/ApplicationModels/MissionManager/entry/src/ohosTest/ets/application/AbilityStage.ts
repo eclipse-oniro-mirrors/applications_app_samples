@@ -13,8 +13,11 @@
  * limitations under the License.
  */
 
-import appTest from './App.test'
+import AbilityStage from '@ohos.app.ability.AbilityStage';
+import { logger } from '../util/Logger';
 
-export default function testsuite() {
-  appTest()
+export default class TestAbilityStage extends AbilityStage {
+  onCreate() {
+    logger.info('TestAbilityStage onCreate');
+  }
 }
