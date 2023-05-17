@@ -14,12 +14,11 @@
  */
 
 {
-  "app": {
-    "bundleName": "com.samples.debug",
-    "vendor": "samples",
-    "versionCode": 1000000,
-    "versionName": "1.0.0",
-    "icon": "$media:app_icon",
-    "label": "$string:app_name"
-  }
+  "license": "ISC",
+  "devDependencies": {},
+  "name": "entry",
+  "description": "example description",
+  "repository": {},
+  "version": "1.0.0",
+  "dependencies": {}
 }
