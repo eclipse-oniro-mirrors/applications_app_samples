@@ -14,15 +14,11 @@
  */
 
 {
-  "apiType": 'stageMode',
-  "buildOption": {
-  },
-  "targets": [
-    {
-      "name": "default",
-    },
-    {
-      "name": "ohosTest",
-    }
-  ]
+  "license": "ISC",
+  "devDependencies": {},
+  "name": "entry",
+  "description": "example description",
+  "repository": {},
+  "version": "1.0.0",
+  "dependencies": {}
 }

@@ -14,15 +14,13 @@
  */
 
 {
-  "apiType": 'stageMode',
-  "buildOption": {
+  "license": "ISC",
+  "devDependencies": {
+    "@ohos/hypium": "1.0.6"
   },
-  "targets": [
-    {
-      "name": "default",
-    },
-    {
-      "name": "ohosTest",
-    }
-  ]
+  "name": "AdaptiveCapabilities",
+  "description": "example description",
+  "repository": {},
+  "version": "1.0.0",
+  "dependencies": {}
 }
