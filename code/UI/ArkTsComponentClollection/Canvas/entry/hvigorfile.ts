@@ -13,31 +13,5 @@
  * limitations under the License.
  */
 
-{
-  "app": {
-    "signingConfigs": [
-    ],
-    "compileSdkVersion": 9,
-    "compatibleSdkVersion": 9,
-    "products": [
-      {
-        "name": "default",
-        "signingConfig": "default",
-      }
-    ]
-  },
-  "modules": [
-    {
-      "name": "entry",
-      "srcPath": "./entry",
-      "targets": [
-        {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
-    }
-  ]
-}
+// Script for compiling build behavior. It is built in the build plug-in and cannot be modified currently.
+export { legacyHapTasks } from '@ohos/hvigor-ohos-plugin';
