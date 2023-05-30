@@ -14,29 +14,8 @@
  */
 
 {
-  "app": {
-    "signingConfigs": [],
-    "compileSdkVersion": 9,
-    "compatibleSdkVersion": 9,
-    "products": [
-      {
-        "name": "default",
-        "signingConfig": "default",
-      }
-    ]
-  },
-  "modules": [
-    {
-      "name": "entry",
-      "srcPath": "./entry",
-      "targets": [
-        {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
-    }
-  ]
+  "hvigorVersion": "2.0.0",
+  "dependencies": {
+    "@ohos/hvigor-ohos-plugin": "2.0.0"
+  }
 }
