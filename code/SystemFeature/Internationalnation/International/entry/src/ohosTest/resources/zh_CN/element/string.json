@@ -10,11 +10,11 @@
     },
     {
       "name": "date_and_time",
-      "value": "Date and time"
+      "value": "日期和时间"
     },
     {
       "name": "time_zone",
-      "value": "TimeZone"
+      "value": "时区"
     }
   ]
 }
