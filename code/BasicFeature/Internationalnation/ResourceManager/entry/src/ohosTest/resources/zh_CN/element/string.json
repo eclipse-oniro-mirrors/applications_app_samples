@@ -1,26 +1,6 @@
 {
   "string": [
     {
-      "name": "module_desc",
-      "value": "模块描述"
-    },
-    {
-      "name": "entry_MainAbility",
-      "value": "eTS资源管理"
-    },
-    {
-      "name": "description_mainability",
-      "value": "eTSResourceManager Ability"
-    },
-    {
-      "name": "title",
-      "value": "资源管理"
-    },
-    {
-      "name": "get_info",
-      "value": "通过资源管理获取信息"
-    },
-    {
       "name": "stringDesc",
       "value": "字符串: "
     },
