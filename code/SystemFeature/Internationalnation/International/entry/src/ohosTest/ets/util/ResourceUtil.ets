@@ -12,15 +12,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "license": "",
-  "devDependencies": {
-    "@ohos/hypium": "1.0.6"
-  },
-  "author": "",
-  "name": "international",
-  "description": "Please describe the basic information.",
-  "main": "",
-  "version": "1.0.0",
-  "dependencies": {}
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+
+const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+
+export function getString(resource: Resource): string {
+  let manage = delegator.getAppContext().resourceManager;
+  return manage.getStringSync(resource);
+}
+
+
+export async function getStringArray(resource: Resource): Promise<Array<string>> {
+  let manage = delegator.getAppContext().resourceManager;
+  let menuList: Array<string> = await manage.getStringArrayValue(resource);
+  return menuList;
 }
