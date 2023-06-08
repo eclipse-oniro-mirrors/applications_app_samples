@@ -13,17 +13,8 @@
  * limitations under the License.
  */
 
-{
-  "apiType": 'stageMode',
-  "buildOption": {
-  },
-  "targets": [
-    {
-      "name": "default",
-      "runtimeOS": "OpenHarmony"
-    },
-    {
-      "name": "ohosTest",
-    }
-  ]
+import abilityTest from './Ability.test';
+
+export default function testsuite() {
+  abilityTest();
 }
