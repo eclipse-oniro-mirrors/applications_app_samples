@@ -14,15 +14,15 @@
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "音乐卡片"
     },
     {
       "name": "Card_Button",
-      "value": "add weight to desktop"
+      "value": "服务卡片"
     },
     {
       "name": "AddForm",
-      "value": "add to desktop"
+      "value": "添加到桌面"
     }
   ]
 }
