@@ -10,87 +10,87 @@
     },
     {
       "name": "EntryAbility_label",
-      "value": "International"
+      "value": "国际化"
     },
     {
       "name": "language",
-      "value": "Language"
+      "value": "语言"
     },
     {
       "name": "edit",
-      "value": "Edit"
+      "value": "编辑"
     },
     {
       "name": "add_language",
-      "value": "Add language"
+      "value": "添加语言"
     },
     {
       "name": "added_language",
-      "value": "Added Languages"
+      "value": "已添加语言"
     },
     {
       "name": "language_region",
-      "value": "Language and region"
+      "value": "语言和地区"
     },
     {
       "name": "all_language",
-      "value": "All language"
+      "value": "所有语言"
     },
     {
       "name": "select_region",
-      "value": "Select region"
+      "value": "选择地区"
     },
     {
       "name": "region",
-      "value": "region"
+      "value": "地区"
     },
     {
       "name": "suggest_region",
-      "value": "Suggest region"
+      "value": "建议地区"
     },
     {
       "name": "current_region",
-      "value": "Current region"
+      "value": "当前地区"
     },
     {
       "name": "all_region",
-      "value": "All region"
+      "value": "所有地区"
     },
     {
       "name": "edit_language",
-      "value": "Edit language"
+      "value": "编辑语言"
     },
     {
       "name": "date_time",
-      "value": "Date and time"
+      "value": "日期和时间"
     },
     {
       "name": "date",
-      "value": "Date"
+      "value": "日期"
     },
     {
       "name": "time",
-      "value": "Time"
+      "value": "时间"
     },
     {
       "name": "time_zone",
-      "value": "TimeZone"
+      "value": "时区"
     },
     {
       "name": "hours_24",
-      "value": "24-hour system"
+      "value": "24小时制"
     },
     {
       "name": "screen_direction",
-      "value": "Screen Direction:"
+      "value": "屏幕方向:"
     },
     {
       "name": "format_example",
-      "value": "Locale format example"
+      "value": "区域格式示例"
     },
     {
       "name": "language_switch_tips",
-      "value": "The language switch is successful. You are about to exit the application."
+      "value": "语言切换成功，即将退出应用。"
     }
   ]
 }
