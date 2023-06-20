@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2023 Fujian Newland Auto-ID Tech.Co.,Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,25 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import inputDevice from '@ohos.multimodalInput.inputDevice';
 
-{
-  "module": {
-    "name": "capabilities",
-    "type": "har",
-    "deviceTypes": [
-      "default",
-      "tablet"
-    ],
-    "requestPermissions": [
-      {
-        "name": "ohos.permission.REBOOT"
-      },
-      {
-        "name": "ohos.permission.sec.ACCESS_UDID"
-      },
-      {
-        "name": "ohos.permission.INPUT_MONITORING"
-      }
-    ]
-  }
+export interface InputDeviceInfo extends inputDevice.InputDeviceData {
+  icon_source: Resource // 设备类型图标
+  connect : boolean // 是否连接
 }
