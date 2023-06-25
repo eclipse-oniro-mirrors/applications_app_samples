@@ -14,11 +14,11 @@
     },
     {
       "name": "available_wlan",
-      "value": "available wlan"
+      "value": "可用WLAN"
     },
     {
       "name": "encrypt",
-      "value": "encrypt"
+      "value": "加密"
     }
   ]
 }
