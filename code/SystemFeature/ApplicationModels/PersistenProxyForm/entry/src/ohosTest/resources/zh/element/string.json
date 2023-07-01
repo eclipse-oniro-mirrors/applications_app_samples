@@ -18,15 +18,15 @@
     },
     {
       "name": "service_card",
-      "value": "service card"
+      "value": "服务卡片"
     },
     {
       "name": "remove",
-      "value": "remove"
+      "value": "移除"
     },
     {
       "name": "add_to_desktop",
-      "value": "Add to desktop"
+      "value": "添加到桌面"
     }
   ]
 }
