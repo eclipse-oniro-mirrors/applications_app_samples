@@ -22,9 +22,9 @@ import { UserFileDataItem } from '../base/UserFileDataItem';
 import { MediaConstants } from '../constants/MediaConstants';
 import { AlbumDataImpl } from '../common/AlbumDataImpl';
 
-const TAG = 'BatchDeleteMenuOperation';
+const TAG = 'BatchRemoveMenuOperation';
 
-export class BatchDeleteMenuOperation extends ProcessMenuOperation {
+export class BatchRemoveMenuOperation extends ProcessMenuOperation {
   private albumDataImpl: AlbumDataImpl = new AlbumDataImpl();
 
   constructor(menuContext: MenuContext) {
@@ -32,7 +32,7 @@ export class BatchDeleteMenuOperation extends ProcessMenuOperation {
   }
 
   doAction(): void {
-    Log.info(TAG, 'delete doAction');
+    Log.info(TAG, 'remove doAction');
     if (this.menuContext == null) {
       Log.warn(TAG, 'menuContext is null, return');
       return;
@@ -52,32 +52,24 @@ export class BatchDeleteMenuOperation extends ProcessMenuOperation {
     this.confirmCallback = (): void => this.confirmCallbackBindImpl();
     this.cancelCallback = (): void => this.cancelCallbackBindImpl();
 
-    let resource: Resource = this.getDeleteMessageResource(dataSource);
-    let deleteResource: Resource = this.menuContext.albumId == MediaConstants.ALBUM_ID_RECYCLE ? $r('app.string.dialog_recycle') : $r('app.string.dialog_delete');
-    this.menuContext.broadCast.emit(BroadcastConstants.SHOW_DELETE_DIALOG, [resource, deleteResource, this.confirmCallback, this.cancelCallback]);
-  }
-
-  getResourceFromBrowser(): Resource {
-    return this.menuContext.albumId == MediaConstants.ALBUM_ID_RECYCLE ? $r('app.string.recycle_single_file_tips') : $r('app.string.delete_single_file_tips')
+    let resource: Resource = this.getRemoveMessageResource(dataSource);
+    let removeResource: Resource = $r('app.string.dialog_remove');
+    this.menuContext.broadCast.emit(BroadcastConstants.SHOW_DELETE_DIALOG, [resource, removeResource, this.confirmCallback, this.cancelCallback]);
   }
 
   getResourceFromGrid(dataSource: ItemDataSource): Resource {
     if (dataSource != null && dataSource.isSelect()) {
-      return this.menuContext.albumId == MediaConstants.ALBUM_ID_RECYCLE ? $r('app.string.recycle_all_files_tips') : $r('app.string.delete_all_files_tips');
+      return $r('app.string.remove_all_files_tips')
     } else if (this.count == 1) {
-      return this.menuContext.albumId == MediaConstants.ALBUM_ID_RECYCLE ? $r('app.string.recycle_single_file_tips') : $r('app.string.delete_single_file_tips');
+      return $r('app.string.remove_single_file_tips')
     } else {
-      return this.menuContext.albumId == MediaConstants.ALBUM_ID_RECYCLE ? $r('app.string.recycle_files_tips', this.count) : $r('app.string.delete_files_tips', this.count);
+      return $r('app.string.remove_files_tips', this.count)
     }
   }
 
-  getDeleteMessageResource(dataSource: ItemDataSource): Resource {
+  getRemoveMessageResource(dataSource: ItemDataSource): Resource {
     let resource: Resource;
-    if (this.menuContext.deletePageFromType == BroadcastConstants.DELETE_FROM_BROWSER) {
-      resource = this.getResourceFromBrowser();
-    } else {
-      resource = this.getResourceFromGrid(dataSource);
-    }
+    resource = this.getResourceFromGrid(dataSource);
     return resource;
   }
 
@@ -86,20 +78,20 @@ export class BatchDeleteMenuOperation extends ProcessMenuOperation {
   }
 
   protected confirmCallbackBindImpl(): void {
-    Log.info(TAG, 'Batch delete confirm');
-    AppStorage.SetOrCreate<number>('isDelete', 1);
+    Log.info(TAG, 'Batch remove confirm');
+    AppStorage.SetOrCreate<number>('isRemove', 1);
 
     // 1. Variable initialization
     this.onOperationEnd = this.menuContext.onOperationEnd;
 
-    // 2. onDeleteStart exit selection mode
+    // 2. onRemoveStart exit selection mode
     let onOperationStart: Function = this.menuContext.onOperationStart;
     if (onOperationStart != null) {
       onOperationStart()
     }
 
     this.menuContext.broadCast.emit(BroadcastConstants.DELETE_PROGRESS_DIALOG,
-      [$r('app.string.action_delete'), this.count]);
+      [$r('app.string.action_remove'), this.count]);
 
     // 3. selectManager gets the URI of the data and starts processing deletion in the callback
     let dataSource: ItemDataSource = this.menuContext.dataSource;
@@ -114,11 +106,14 @@ export class BatchDeleteMenuOperation extends ProcessMenuOperation {
   requestOneBatchOperation(): void {
     let item = this.items[this.currentBatch] as UserFileDataItem;
     if (item != null) {
-      item.onDelete().then<void, void>((): void => {
-        this.currentBatch++;
-        this.menuContext.broadCast.emit(BroadcastConstants.UPDATE_PROGRESS, [this.getExpectProgress(), this.currentBatch]);
-        this.cyclicOperation();
-      })
+      if(this.menuContext.albumId == MediaConstants.ALBUM_ID_USER){
+        Log.error(TAG,'Remove from user album:'+this.menuContext.albumInfo.uri);
+        this.albumDataImpl.removeFileFromAlbum(this.menuContext.albumInfo.uri,item.uri).then<void, void>((): void => {
+          this.currentBatch++;
+          this.menuContext.broadCast.emit(BroadcastConstants.UPDATE_PROGRESS, [this.getExpectProgress(), this.currentBatch]);
+          this.cyclicOperation();
+        })
+      }
     }
   }
 
@@ -127,6 +122,6 @@ export class BatchDeleteMenuOperation extends ProcessMenuOperation {
   }
 
   protected cancelCallbackBindImpl(): void {
-    Log.info(TAG, 'Batch delete cancel');
+    Log.info(TAG, 'Batch remove cancel');
   }
 }
