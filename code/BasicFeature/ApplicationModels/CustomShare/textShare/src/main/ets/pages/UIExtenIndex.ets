@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,10 +13,24 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test';
-import shareTest from './Share.test';
+let storage = LocalStorage.GetShared();
 
-export default function testsuite() {
-  abilityTest();
-  shareTest();
+@Entry(storage)
+@Component
+struct Index {
+  @LocalStorageLink('messages') messages: string = ''
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.messages)
+          .fontSize(24)
+          .fontWeight(FontWeight.Bold)
+      }
+      .width('100%')
+    }
+    .height('100%')
+    .backgroundColor('#e0ffff')
+    .borderRadius(16)
+  }
 }

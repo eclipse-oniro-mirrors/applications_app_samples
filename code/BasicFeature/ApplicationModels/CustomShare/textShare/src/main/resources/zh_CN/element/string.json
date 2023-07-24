@@ -6,11 +6,11 @@
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "主页面"
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "文本分享"
     },
     {
       "name": "Return_application",
@@ -18,11 +18,11 @@
     },
     {
       "name": "Stay_application",
-      "value": "留在编辑应用"
+      "value": "留在文本分享"
     },
     {
       "name": "terminateSelf_fail",
-      "value": "返回share应用失败！"
+      "value": "返回Share失败！"
     }
   ]
 }

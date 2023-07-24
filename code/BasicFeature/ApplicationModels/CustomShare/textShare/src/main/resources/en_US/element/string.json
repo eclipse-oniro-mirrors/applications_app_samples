@@ -2,27 +2,27 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "模块描述"
+      "value": "module description"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "main Ability"
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "Text Share"
     },
     {
       "name": "Return_application",
-      "value": "返回Share"
+      "value": "Return To Share"
     },
     {
       "name": "Stay_application",
-      "value": "留在编辑应用"
+      "value": "Stay In Text Share"
     },
     {
       "name": "terminateSelf_fail",
-      "value": "返回share应用失败！"
+      "value": "Failed to return to the share application!"
     }
   ]
 }
