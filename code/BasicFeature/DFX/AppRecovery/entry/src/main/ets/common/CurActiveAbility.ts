@@ -13,17 +13,24 @@
  * limitations under the License.
  */
 
-import resourceManager from '@ohos.resourceManager';
-import Logger from './Logger';
-import { CurActiveAbility } from './CurActiveAbility';
+import UIAbility from '@ohos.app.ability.UIAbility';
 
-export class ResUtil {
-  async getString(id): Promise<string> {
-    let resourceMgr = CurActiveAbility.GetInstance().GetGlobalAbility().context.resourceManager;
-    return resourceMgr.getStringValue(id);
+export class CurActiveAbility extends UIAbility {
+  private static instance: CurActiveAbility;
+  private _object : Object;
+
+  public static GetInstance(): CurActiveAbility {
+    if (!CurActiveAbility.instance) {
+      CurActiveAbility.instance = new CurActiveAbility();
+    }
+    return CurActiveAbility.instance;
+  }
+
+  SetGlobalAbility(object: Object): void{
+      this._object = object;
+  }
+
+  GetGlobalAbility(): UIAbility {
+    return this._object as UIAbility;
   }
 }
-
-let resUtil = new ResUtil();
-
-export default resUtil as ResUtil;
