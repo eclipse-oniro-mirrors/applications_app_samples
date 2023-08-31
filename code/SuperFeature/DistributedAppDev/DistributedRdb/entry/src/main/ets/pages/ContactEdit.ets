@@ -161,14 +161,14 @@ struct ContactEdit {
           this.InputText($r('app.media.ic_remark'), $r('app.string.remark'), 'Remark', this.contact.remark, '', 50, InputType.Normal, (value: string) => {
             this.contact.remark = value;
           });
-          let ageStr: string = this.contact.age < 0 ? undefined : (this.contact.age + '');
-          this.InputText($r('app.media.age'), $r('app.string.age'), 'Age', ageStr, '', 3, InputType.Number, (value: string) => {
-            try {
-              this.contact.age = Number.parseInt(value);
-            } catch (err) {
-
-            }
-          });
+          this.InputText($r('app.media.age'), $r('app.string.age'), 'Age', this.contact.age == -1 ? "" : this.contact.age + "", '', 3,
+            InputType.Number, (value: string) => {
+              try {
+                this.contact.age = Number.parseInt(value);
+              } catch (err) {
+                Logger.error(JSON.stringify(err));
+              }
+            });
         }
       }
       .layoutWeight(1)
