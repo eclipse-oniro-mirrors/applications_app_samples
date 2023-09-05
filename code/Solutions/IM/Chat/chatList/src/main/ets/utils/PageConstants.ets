@@ -13,11 +13,8 @@
  * limitations under the License.
  */
 
-export default class Constants {
-  // cachedCount for LazyForEach
-  public static readonly CACHED_COUNT: number = 10;
-  // mock data count
-  public static readonly DATA_MOCK_COUNT: number = 10000;
-  public static readonly FRIEND_MOMENT_MOCK_DATA_COUNT: number = 100;
-  public static readonly MOCK_ELEMENT_COUNT: number = 120;
+export default class PageConstants {
+  public static readonly CHAT_DETAIL_PAGE: string = 'pages/ChatDetailPage';
+  public static readonly DETAIL_PAGE: string = 'pages/Detail';
+  public static readonly SEARCH_PAGE: string = 'pages/SearchPage';
 }
