@@ -14,23 +14,23 @@
     },
     {
       "name": "ClickAndSwitchTheme",
-      "value": "click and switch theme"
+      "value": "点击切换主题"
     },
     {
       "name": "Day",
-      "value": "day"
+      "value": "白天"
     },
     {
       "name": "Night",
-      "value": "night"
+      "value": "夜晚"
     },
     {
       "name": "Custom",
-      "value": "custom"
+      "value": "自定义"
     },
     {
       "name": "CurrentSystemTheme",
-      "value": "CurrentSystemTheme"
+      "value": "当前系统主题："
     }
   ]
 }
