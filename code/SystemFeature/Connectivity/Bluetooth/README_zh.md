@@ -39,7 +39,7 @@ entry/src/main/ets/
     * 发现设备：在foundDevices()函数中通过bluetooth.on('bluetoothDeviceFind')方法来监听设备发现事件，并且通过bluetooth.getPairedDevices()方法来更新已配对蓝牙地址，然后通过bluetooth.startBluetoothDiscovery()方法开启蓝牙扫描，去发现远端设备，并且通过bluetooth.setBluetoothScanMode()方法来被远端设备发现。
     * 蓝牙配对：通过bluetooth.on('pinRequired')方法来监听远端蓝牙设备的配对请求事件，点击配对执行bluetooth.setDevicePairingConfirmation(this.data.deviceId, true)方法，点击取消执行bluetooth.setDevicePairingConfirmation(this.data.deviceId, false)方法。
     * 取消配对：最后通过bluetooth.cancelPairedDevice()来断开指定的远端设备连接。
-  
+
 ### 相关权限
 
 [ohos.permission.USE_BLUETOOTH](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/permission-list.md#ohospermissionuse_bluetooth)
@@ -60,7 +60,7 @@ entry/src/main/ets/
 
 1.本示例仅支持标准系统上运行。
 
-2.本示例已适配API version 9版本SDK，本示例涉及使用系统接口：cancelPairedDevice()，需要手动替换Full SDK才能编译通过，具体操作可参考[替换指南](https://docs.openharmony.cn/pages/v3.2/zh-cn/application-dev/quick-start/full-sdk-switch-guide.md/) 。
+2.本示例已适配API version 9版本SDK，版本号：3.2.12.2,镜像版本号：[OpenHarmony_4.0.9.6](http://download.ci.openharmony.cn/version/Master_Version/OpenHarmony_4.0.9.6/20230801_204236/version-Master_Version-OpenHarmony_4.0.9.6-20230801_204236-dayu200_4.0-beta2_img.tar.gz)，本示例涉及使用系统接口：cancelPairedDevice()，需要手动替换Full SDK才能编译通过，具体操作可参考[替换指南](https://docs.openharmony.cn/pages/v3.2/zh-cn/application-dev/quick-start/full-sdk-switch-guide.md/) 。
 
 3.本示例需要使用DevEco Studio 3.1 Beta2 (Build Version: 3.1.0.400, built on April 7, 2023)及以上版本才可编译运行。
 

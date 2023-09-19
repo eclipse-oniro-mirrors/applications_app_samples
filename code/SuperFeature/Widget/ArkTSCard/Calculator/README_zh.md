@@ -37,6 +37,6 @@ entry/src/main/ets/
 
 1.本示例仅支持标准系统上运行。
 
-2.本示例为Stage模型，从API version 9开始支持。
+2.本示例为Stage模型，从API version 9开始支持。版本号：3.2.12.2,镜像版本号：[OpenHarmony_4.0.9.6](http://download.ci.openharmony.cn/version/Master_Version/OpenHarmony_4.0.9.6/20230801_204236/version-Master_Version-OpenHarmony_4.0.9.6-20230801_204236-dayu200_4.0-beta2_img.tar.gz)。
 
 3.本示例需要使用DevEco Studio 3.1 Beta2 (Build Version: 3.1.0.400, built on April 7, 2023)才可编译运行。

@@ -78,6 +78,8 @@ Canvas：提供画布组件，用于自定义绘制图形。
 
 2.本示例需要使用DevEco Studio 3.1 Beta2 (Build Version: 3.1.0.400 构建 2023年4月7日)才可编译运行。
 
+3.本示例已适配API version 9版本SDK，版本号：3.2.12.2，镜像版本号：[OpenHarmony_4.0.9.6](http://download.ci.openharmony.cn/version/Master_Version/OpenHarmony_4.0.9.6/20230801_204236/version-Master_Version-OpenHarmony_4.0.9.6-20230801_204236-dayu200_4.0-beta2_img.tar.gz) 。
+
 ### 下载
 
 如需单独下载本工程，执行如下命令：
