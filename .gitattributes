@@ -14,4 +14,4 @@
 *.bin filter=lfs diff=lfs merge=lfs -text
 *.dll filter=lfs diff=lfs merge=lfs -text
 *.har filter=lfs diff=lfs merge=lfs -text
-/home/ts/opworksp/vpn_sample/applications_app_samples/code/BasicFeature/Connectivity/VPN/server/server filter=lfs diff=lfs merge=lfs -text
+/code/BasicFeature/Connectivity/VPN/server/server.zip filter=lfs diff=lfs merge=lfs -text
