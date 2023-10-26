@@ -15,7 +15,7 @@
 
 @Entry
 @Component
-struct DragExample {
+struct five {
   @State numbers: string[] = ['one', 'two', 'three', 'four', 'five', 'six']
   @State text: string = ''
   @State bool: boolean = false
@@ -38,16 +38,12 @@ struct DragExample {
       Text('There are three Text elements here')
         .fontSize(12).fontColor(0xCCCCCC).width('90%')
         .textAlign(TextAlign.Start).margin(5)
-      Button("Show Item")
-        .id("show_item")
-        .onClick(()=>{
-          this.appleVisible = Visibility.Visible;
-          this.bananaVisible = Visibility.Visible;
-        })
       Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center, justifyContent: FlexAlign.SpaceAround }) {
         Text('apple').width('25%').height(35).fontSize(16)
           .textAlign(TextAlign.Center).backgroundColor(0xAFEEEE)
           .visibility(this.appleVisible)
+          .draggable(true)
+          .id("apple")
           .onDragStart(() => {
             this.bool = true
             this.text = 'apple'
@@ -57,6 +53,7 @@ struct DragExample {
         Text('orange').width('25%').height(35).fontSize(16)
           .textAlign(TextAlign.Center).backgroundColor(0xAFEEEE)
           .visibility(this.orangeVisible)
+          .draggable(true)
           .onDragStart(() => {
             this.bool = true
             this.text = 'orange'
@@ -66,7 +63,8 @@ struct DragExample {
         Text('banana').width('25%').height(35).fontSize(16)
           .textAlign(TextAlign.Center).backgroundColor(0xAFEEEE)
           .visibility(this.bananaVisible)
-          .onDragStart((event: DragEvent, extraParams: string) => {
+          .draggable(true)
+          .onDragStart((event: DragEvent | undefined, extraParams: string | undefined) => {
             console.log('Text onDragStarts, ' + extraParams)
             this.bool = true
             this.text = 'banana'
@@ -90,7 +88,7 @@ struct DragExample {
               return;
             }
             console.log('ListItem onDragStarts, ' + extraParams)
-            let jsonString: ObjTest = JSON.parse(extraParams)
+            let jsonString: extraObj = JSON.parse(extraParams)
             this.dragBool = true
             this.text = this.numbers[jsonString.selectedIndex]
             this.select = jsonString.selectedIndex
@@ -114,7 +112,7 @@ struct DragExample {
         if (extraParams == undefined) {
           return;
         }
-        let jsonString: ObjTest = JSON.parse(extraParams)
+        let jsonString: extraObj = JSON.parse(extraParams)
         if (this.bool) {
           this.numbers.splice(jsonString.insertIndex, 0, this.text)
           this.bool = false
@@ -128,7 +126,7 @@ struct DragExample {
     }.width('100%').height('100%').padding({ top: 20 }).margin({ top: 20 })
   }
 }
-interface ObjTest {
+interface extraObj {
   insertIndex: number,
   selectedIndex: number
 }
