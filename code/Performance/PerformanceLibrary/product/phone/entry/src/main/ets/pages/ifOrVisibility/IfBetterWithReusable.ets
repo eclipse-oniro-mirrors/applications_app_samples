@@ -13,23 +13,14 @@
  * limitations under the License.
  */
 
-import { PerformanceMsg } from './DataType';
+import { IfWithReusable } from '@ohos/ifOrVisibility';
 
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
-  },
-  {
-    name: 'StaticImport',
-    uri: 'pages/staticImport/StaticEntryView'
-  },
-  {
-    name: 'DynamicImport',
-    uri: 'pages/dynamicImport/DynamicEntryView'
-  },
-  {
-    name: 'IfOrVisibility',
-    uri: 'pages/ifOrVisibility/IfOrVisibilityPage'
+@Entry
+@Component
+struct IfBetterWithReusable {
+  build() {
+    Column() {
+      IfWithReusable();
+    }
   }
-]
+}

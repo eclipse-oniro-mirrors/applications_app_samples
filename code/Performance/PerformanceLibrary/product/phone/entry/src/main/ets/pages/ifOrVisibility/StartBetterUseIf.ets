@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,23 +14,14 @@
  * limitations under the License.
  */
 
-import { PerformanceMsg } from './DataType';
+import { BetterUseIf } from '@ohos/ifOrVisibility';
 
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
-  },
-  {
-    name: 'StaticImport',
-    uri: 'pages/staticImport/StaticEntryView'
-  },
-  {
-    name: 'DynamicImport',
-    uri: 'pages/dynamicImport/DynamicEntryView'
-  },
-  {
-    name: 'IfOrVisibility',
-    uri: 'pages/ifOrVisibility/IfOrVisibilityPage'
+@Entry
+@Component
+struct StartBetterUseIf {
+  build() {
+    Column() {
+      BetterUseIf();
+    }
   }
-]
+}
