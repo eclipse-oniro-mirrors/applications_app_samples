@@ -13,15 +13,14 @@
  * limitations under the License.
  */
 
-import { PerformanceMsg } from './DataType';
+import { WorseUseIf } from '@ohos/ifOrVisibility';
 
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
-  },
-  {
-    name: 'IfOrVisibility',
-    uri: 'pages/ifOrVisibility/IfOrVisibilityPage'
+@Entry
+@Component
+struct AnimateWorseUseIf {
+  build() {
+    Column() {
+      WorseUseIf();
+    }
   }
-]
+}

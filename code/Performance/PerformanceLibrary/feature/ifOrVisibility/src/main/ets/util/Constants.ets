@@ -13,15 +13,11 @@
  * limitations under the License.
  */
 
-import { PerformanceMsg } from './DataType';
-
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
-  },
-  {
-    name: 'IfOrVisibility',
-    uri: 'pages/ifOrVisibility/IfOrVisibilityPage'
-  }
-]
+export default class Constants {
+  // 用于列表中图片总数
+  public static readonly IMAGE_TOTAL_NUM: number = 1000;
+  // 用于Flex中Text总数
+  public static readonly TEXT_TOTAL_NUM: number = 200;
+  // 用于text数字循环取模
+  public static readonly TEXT_CONTENT_DIVIDER: number = 10;
+}
