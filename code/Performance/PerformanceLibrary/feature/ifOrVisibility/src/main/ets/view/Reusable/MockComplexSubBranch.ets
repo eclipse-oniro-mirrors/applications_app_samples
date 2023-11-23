@@ -13,19 +13,23 @@
  * limitations under the License.
  */
 
-import { PerformanceMsg } from './DataType';
+import { AlignContentFlex } from './AlignContentFlex';
 
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
-  },
-  {
-    name: 'IfOrVisibility',
-    uri: 'pages/ifOrVisibility/IfOrVisibilityPage'
-  },
-  {
-    name: 'SmartPerfHost',
-    uri: 'pages/smartPerfHost/SmartPerfHostPage'
+@Component
+export struct MockComplexSubBranch {
+  @State alignStyle: FlexAlign = FlexAlign.Center;
+
+  build() {
+    Column() {
+      Column({ space: 5 }) {
+        Text('ComplexSubBranch not reusable')
+          .fontSize($r('app.integer.font_size_9'))
+          .fontColor($r('app.color.hint_txt_color'))
+          .width($r('app.string.layout_90_percent'))
+        AlignContentFlex({ alignStyle: this.alignStyle });
+        AlignContentFlex({ alignStyle: this.alignStyle });
+        AlignContentFlex({ alignStyle: this.alignStyle });
+      }
+    }
   }
-]
+}

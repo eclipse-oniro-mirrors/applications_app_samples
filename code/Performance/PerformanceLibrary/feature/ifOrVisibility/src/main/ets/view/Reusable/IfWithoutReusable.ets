@@ -13,19 +13,26 @@
  * limitations under the License.
  */
 
-import { PerformanceMsg } from './DataType';
+import { MockComplexSubBranch } from './MockComplexSubBranch';
 
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
-  },
-  {
-    name: 'IfOrVisibility',
-    uri: 'pages/ifOrVisibility/IfOrVisibilityPage'
-  },
-  {
-    name: 'SmartPerfHost',
-    uri: 'pages/smartPerfHost/SmartPerfHostPage'
+@Preview
+@Component
+export struct IfWithoutReusable {
+  @State isAlignStyleStart: boolean = true;
+
+  build() {
+    Column() {
+      Button("Change FlexAlign")
+        .onClick(() => {
+          this.isAlignStyleStart = !this.isAlignStyleStart;
+        })
+      Stack() {
+        if (this.isAlignStyleStart) {
+          MockComplexSubBranch({ alignStyle: FlexAlign.Start }); // 未使用组件复用机制实现的MockComplexSubBranch
+        } else {
+          MockComplexSubBranch({ alignStyle: FlexAlign.End });
+        }
+      }
+    }
   }
-]
+}

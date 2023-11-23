@@ -13,19 +13,31 @@
  * limitations under the License.
  */
 
-import { PerformanceMsg } from './DataType';
-
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
+{
+  "apiType": "stageMode",
+  "buildOption": {
   },
-  {
-    name: 'IfOrVisibility',
-    uri: 'pages/ifOrVisibility/IfOrVisibilityPage'
-  },
-  {
-    name: 'SmartPerfHost',
-    uri: 'pages/smartPerfHost/SmartPerfHostPage'
-  }
-]
+  "buildOptionSet": [
+    {
+      "name": "release",
+      "arkOptions": {
+        "obfuscation": {
+          "ruleOptions": {
+            "enable": true,
+            "files": [
+              "./obfuscation-rules.txt"
+            ]
+          },
+          "consumerFiles": [
+            "./consumer-rules.txt"
+          ]
+        }
+      }
+    },
+  ],
+  "targets": [
+    {
+      "name": "default"
+    }
+  ]
+}
