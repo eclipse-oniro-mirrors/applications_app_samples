@@ -13,19 +13,13 @@
  * limitations under the License.
  */
 
-import { PerformanceMsg } from './DataType';
-
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
-  },
-  {
-    name: 'IfOrVisibility',
-    uri: 'pages/ifOrVisibility/IfOrVisibilityPage'
-  },
-  {
-    name: 'SmartPerfHost',
-    uri: 'pages/smartPerfHost/SmartPerfHostPage'
+{
+  "module": {
+    "name": "smartPerfHost",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
   }
-]
+}

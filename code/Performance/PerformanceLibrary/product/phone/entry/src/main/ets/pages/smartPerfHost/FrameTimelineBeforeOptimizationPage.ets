@@ -13,19 +13,14 @@
  * limitations under the License.
  */
 
-import { PerformanceMsg } from './DataType';
+import { FrameTimelineBeforeOptimization } from '@ohos/smartPerfHost';
 
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
-  },
-  {
-    name: 'IfOrVisibility',
-    uri: 'pages/ifOrVisibility/IfOrVisibilityPage'
-  },
-  {
-    name: 'SmartPerfHost',
-    uri: 'pages/smartPerfHost/SmartPerfHostPage'
+@Entry
+@Component
+struct FrameTimelineBeforeOptimizationPage {
+  build() {
+    Column() {
+      FrameTimelineBeforeOptimization()
+    }
   }
-]
+}

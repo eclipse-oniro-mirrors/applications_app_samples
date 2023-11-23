@@ -13,19 +13,32 @@
  * limitations under the License.
  */
 
-import { PerformanceMsg } from './DataType';
+const COUNT_NUMBER: number = 10000000;
 
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
-  },
-  {
-    name: 'IfOrVisibility',
-    uri: 'pages/ifOrVisibility/IfOrVisibilityPage'
-  },
-  {
-    name: 'SmartPerfHost',
-    uri: 'pages/smartPerfHost/SmartPerfHostPage'
+@Component
+export struct AppStartupAfterOptimization {
+  @State private text: string = "hello world";
+  private count: number = 0;
+
+  aboutToAppear() {
+    setTimeout(() => {
+      this.computeTask();
+    }, 0)
   }
-]
+
+  build() {
+    Column({space: 10}) {
+      Text(this.text).fontSize(50)
+    }
+    .width('100%')
+    .height('100%')
+    .padding(10)
+  }
+
+  computeTask() {
+    this.count = 0;
+    while (this.count < COUNT_NUMBER) {
+      this.count++;
+    }
+  }
+}

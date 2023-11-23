@@ -13,19 +13,8 @@
  * limitations under the License.
  */
 
-import { PerformanceMsg } from './DataType';
-
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
-  },
-  {
-    name: 'IfOrVisibility',
-    uri: 'pages/ifOrVisibility/IfOrVisibilityPage'
-  },
-  {
-    name: 'SmartPerfHost',
-    uri: 'pages/smartPerfHost/SmartPerfHostPage'
-  }
-]
+export { AppStartupAfterOptimization } from './src/main/ets/view/AppStartupAfterOptimization'
+export { AppStartupBeforeOptimization } from './src/main/ets/view/AppStartupBeforeOptimization'
+export { FrameTimelineAfterOptimization } from './src/main/ets/view/FrameTimelineAfterOptimization'
+export { FrameTimelineBeforeOptimization } from './src/main/ets/view/FrameTimelineBeforeOptimization'
+export { SmartPerfHostHomeView } from './src/main/ets/view/SmartPerfHostHomeView'
