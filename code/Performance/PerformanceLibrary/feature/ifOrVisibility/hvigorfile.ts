@@ -13,15 +13,9 @@
  * limitations under the License.
  */
 
-import { PerformanceMsg } from './DataType';
+import { harTasks } from '@ohos/hvigor-ohos-plugin';
 
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
-  },
-  {
-    name: 'IfOrVisibility',
-    uri: 'pages/ifOrVisibility/IfOrVisibilityPage'
-  }
-]
+export default {
+  system: harTasks,  /* Built-in plugin of Hvigor. It cannot be modified. */
+  plugins:[]         /* Custom plugin to extend the functionality of Hvigor. */
+}

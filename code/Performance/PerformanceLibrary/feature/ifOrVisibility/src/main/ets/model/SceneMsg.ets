@@ -13,15 +13,7 @@
  * limitations under the License.
  */
 
-import { PerformanceMsg } from './DataType';
-
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
-  },
-  {
-    name: 'IfOrVisibility',
-    uri: 'pages/ifOrVisibility/IfOrVisibilityPage'
-  }
-]
+export interface SceneMsg {
+  title: Resource
+  uri: string
+}
