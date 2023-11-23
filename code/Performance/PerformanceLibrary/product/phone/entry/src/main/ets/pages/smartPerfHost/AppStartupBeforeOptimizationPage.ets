@@ -13,15 +13,14 @@
  * limitations under the License.
  */
 
-import { PerformanceMsg } from './DataType';
+import { AppStartupBeforeOptimization } from '@ohos/smartPerfHost';
 
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
-  },
-  {
-    name: 'SmartPerfHost',
-    uri: 'pages/smartPerfHost/SmartPerfHostPage'
+@Entry
+@Component
+struct AppStartupBeforeOptimizationContainer {
+  build() {
+    Column() {
+      AppStartupBeforeOptimization()
+    }
   }
-]
+}

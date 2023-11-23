@@ -12,16 +12,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@Component
+export struct AppStartupAfterOptimization {
+  @State private text: string = "hello world";
+  private count: number = 0;
 
-import { PerformanceMsg } from './DataType';
-
-export let performanceTypeArray: Array<PerformanceMsg> = [
-  {
-    name: 'HiDumper',
-    uri: 'pages/hiDumper/HiDumperPage'
-  },
-  {
-    name: 'SmartPerfHost',
-    uri: 'pages/smartPerfHost/SmartPerfHostPage'
+  aboutToAppear() {
+    setTimeout(() => {
+      this.computeTask();
+    }, 0)
   }
-]
+
+  build() {
+    Column({space: 10}) {
+      Text(this.text).fontSize(50)
+    }
+    .width('100%')
+    .height('100%')
+    .padding(10)
+  }
+
+  computeTask() {
+    this.count = 0;
+    while (this.count < 10000000) {
+      this.count++;
+    }
+  }
+}
