@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,15 +13,24 @@
  * limitations under the License.
  */
 
-export { NavigationHomePage } from './src/main/ets/main/NavigationHomePage'
+// 注册动态回调类
+export class DynamicLoader {
+  private callback: (key: string) => void = (): void => {
+  };
+  private static instance: DynamicLoader = new DynamicLoader();
 
-export { ProductDataModel } from './src/main/ets/model/GoodsModel'
+  register(callback: (key: string) => void) {
+    this.callback = callback
+  }
 
-export { MainPage } from './src/main/ets/components/home/MainPage';
+  async fire(key: string) {
+    this.callback(key)
+  }
 
-export { NewProduct } from './src/main/ets/components/home/NewProduct';
-
-export { ShopCart } from './src/main/ets/components/home/ShopCart';
-
-export { User } from './src/main/ets/components/user/User';
-export { DynamicLoader } from './src/main/ets/common/DynamicLoader';
+  public static getInstance(): DynamicLoader {
+    if (!DynamicLoader.instance) {
+      DynamicLoader.instance = new DynamicLoader();
+    }
+    return DynamicLoader.instance;
+  }
+}

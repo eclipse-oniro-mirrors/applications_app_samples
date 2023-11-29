@@ -13,15 +13,31 @@
  * limitations under the License.
  */
 
-
 {
-  "license": "ISC",
-  "devDependencies": {
-    "@ohos/hypium": "1.0.6"
+  "apiType": "stageMode",
+  "buildOption": {
+    "arkOptions": {
+      // "apPath": "./modules.ap"  /* Profile used for profile-guided optimization (PGO), a compiler optimization technique to improve app runtime performance. */
+    }
   },
-  "name": "myapplication",
-  "description": "example description",
-  "repository": {},
-  "version": "1.0.0",
-  "dependencies": {}
+  "buildOptionSet": [
+    {
+      "name": "release",
+      "arkOptions": {
+        "obfuscation": {
+          "ruleOptions": {
+            "enable": true,
+            "files": [
+              "./obfuscation-rules.txt"
+            ]
+          }
+        }
+      }
+    },
+  ],
+  "targets": [
+    {
+      "name": "default"
+    }
+  ]
 }

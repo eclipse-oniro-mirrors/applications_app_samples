@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,15 +13,9 @@
  * limitations under the License.
  */
 
-export { NavigationHomePage } from './src/main/ets/main/NavigationHomePage'
 
-export { ProductDataModel } from './src/main/ets/model/GoodsModel'
+export { DetailPage } from './src/main/ets/main/DetailPage';
 
-export { MainPage } from './src/main/ets/components/home/MainPage';
+export { EventsDialog } from './src/main/ets/components/EventsDialog';
 
-export { NewProduct } from './src/main/ets/components/home/NewProduct';
-
-export { ShopCart } from './src/main/ets/components/home/ShopCart';
-
-export { User } from './src/main/ets/components/user/User';
-export { DynamicLoader } from './src/main/ets/common/DynamicLoader';
+export { logger } from './src/main/ets/utils/Logger';
