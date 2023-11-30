@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,15 +13,10 @@
  * limitations under the License.
  */
 
-export { NavigationHomePage } from './src/main/ets/main/NavigationHomePage'
 
-export { ProductDataModel } from './src/main/ets/model/GoodsModel'
+import { hspTasks } from '@ohos/hvigor-ohos-plugin';
 
-export { MainPage } from './src/main/ets/components/home/MainPage';
-
-export { NewProduct } from './src/main/ets/components/home/NewProduct';
-
-export { ShopCart } from './src/main/ets/components/home/ShopCart';
-
-export { User } from './src/main/ets/components/user/User';
-export { DynamicLoader } from './src/main/ets/common/DynamicLoader';
+export default {
+    system: hspTasks,  /* Built-in plugin of Hvigor. It cannot be modified. */
+    plugins:[]  /* Custom plugin to extend the functionality of Hvigor. */
+}
