@@ -24,7 +24,7 @@ import Logger from '../utils/Logger'
 import dlpPermission from '@ohos.dlpPermission';
 import picker from '@ohos.file.picker';
 
-const TAG = '[filePage]'
+const TAG = '[dlpPage]'
 const OPACITY_VALUE = 0.6; // 透明度
 
 interface myParams extends Object {
@@ -195,12 +195,12 @@ struct FilePage {
       let context = getContext() as common.UIAbilityContext; // 获取当前UIAbilityContext
       let want : Want = {
         // "uri" : "file://docs/storage/Users/currentUser/Desktop/" + this.myFileName ,
-        "uri" : this.myUri,
+        "uri" : this.myUri ,
         "parameters" : {
           "displayName" : this.myFileName
         }
       }; // 请求参数
-      Logger.info( TAG, "onEncrypt:" + JSON.stringify( want ) );
+      Logger.info( TAG , "onEncrypt:" + JSON.stringify( want ) );
       dlpPermission.startDLPManagerForResult( context , want ).then( ( res : dlpPermission.DLPManagerResult ) => {
         Logger.info( TAG , 'startDLPManagerForResult res.resultCode:' + res.resultCode );
         Logger.info( TAG , 'startDLPManagerForResult res.want:' + JSON.stringify( res.want ) );
@@ -214,7 +214,7 @@ struct FilePage {
   }
 
   onPageShow() : void {
-    this.getFileInfo();
+
   }
 
   build() {
@@ -225,7 +225,7 @@ struct FilePage {
           .height( '24vp' )
           .margin( { left : '24vp' , right : '16vp' , top : '16vp' , bottom : '16vp' } )
           .objectFit( ImageFit.Contain )
-          .id( 'filePageBack' )
+          .id( 'dlpPageBack' )
           .onClick( () => {
             router.back()
           } )
@@ -254,7 +254,7 @@ struct FilePage {
             .textAlign( TextAlign.Start )
             .fontWeight( 500 )
             .margin( { top : '10vp' , bottom : '32vp' , right : '8vp' } )
-            .id( 'fileTextArea' )
+            .id( 'dlpTextArea' )
             .padding( {
               top : 0 ,
               right : 0 ,
@@ -308,7 +308,7 @@ struct FilePage {
             .width( '136vp' )
             .height( '14vp' )
             .margin( { left : '4vp' , right : '4vp' , bottom : '7vp' } )
-            .id( 'fileEdit' )
+            .id( 'dlpEdit' )
 
         }.width( '144vp' ).height( '56vp' )
 
@@ -335,7 +335,7 @@ struct FilePage {
             .width( '136vp' )
             .height( '14vp' )
             .margin( { left : '4vp' , right : '4vp' , bottom : '7vp' } )
-            .id( 'fileSave' )
+            .id( 'dlpSave' )
         }.width( '144vp' ).height( '56vp' )
 
         Column() {
@@ -354,7 +354,7 @@ struct FilePage {
             .width( '136vp' )
             .height( '14vp' )
             .margin( { left : '4vp' , right : '4vp' , bottom : '7vp' } )
-            .id( 'fileMore' )
+            .id( 'dlpMore' )
         }.width( '144vp' ).height( '56vp' )
       }
       .align( Alignment.Bottom )
