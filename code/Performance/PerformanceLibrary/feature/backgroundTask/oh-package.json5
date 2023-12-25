@@ -13,23 +13,12 @@
  * limitations under the License.
  */
 {
-  "license": "",
+  "license": "Apache-2.0",
   "devDependencies": {},
   "author": "",
-  "name": "entry",
+  "name": "backgroundtask",
   "description": "Please describe the basic information.",
-  "main": "",
+  "main": "Index.ets",
   "version": "1.0.0",
-  "dependencies": {
-    "@ohos/backgroundTask": "file:../../../feature/backgroundTask",
-    "@ohos/grid": "file:../../../feature/grid",
-    "@ohos/smartPerfHost": "file:../../../feature/smartPerfHost",
-    "@ohos/staticImport": "file:../../../feature/staticImport",
-    "@ohos/ifOrVisibility": "file:../../../feature/ifOrVisibility",
-    "@ohos/dynamicImport": "file:../../../feature/dynamicImport",
-    "@ohos/smartPerfEditor": "file:../../../feature/smartPerfEditor",
-    "@ohos/hiDumper": "file:../../../feature/hiDumper",
-    "@ohos/trace": "file:../../../feature/trace",
-    "@ohos/backgroundTask": "file:../../../feature/backgroundTask"
-  }
+  "dependencies": {}
 }
