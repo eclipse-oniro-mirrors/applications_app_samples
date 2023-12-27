@@ -2,9 +2,9 @@
   "license": "Apache-2.0",
   "devDependencies": {},
   "author": "",
-  "name": "memoryshared",
+  "name": "dfxstatemanagement",
   "description": "Please describe the basic information.",
-  "main": "MemorySharedHome.ets",
+  "main": "Index.ets",
   "version": "1.0.0",
   "dependencies": {}
 }
