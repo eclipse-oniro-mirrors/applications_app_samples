@@ -13,13 +13,27 @@
  * limitations under the License.
  */
 
-import AbilityStage from '@ohos.app.ability.AbilityStage';
-import Logger from '../model/Logger';
+/**
+ * Drm 常量
+ */
+export default class DrmConstants {
+  /**
+   * WisePlay MediaKeySystem的名称
+   */
+  static readonly WISEPLAY_DRM_UUID: string = 'com.wiseplay.drm'
+  /**
+   * ClearPlay MediaKeySystem的名称
+   */
+  static readonly CLEAR_PLAY_DRM_UUID: string = 'com.clearplay.drm'
+}
 
-const TAG: string = 'MyAbilityStage';
-
-export default class MyAbilityStage extends AbilityStage {
-  onCreate() {
-    Logger.info(TAG, 'MyAbilityStage', '[Demo] MyAbilityStage onCreate');
-  }
+/**
+ * KeySession 回调事件
+ */
+export enum KeySessionEvents {
+  KEY_NEEDED = 'keyNeeded',
+  KEY_EXPIRED = 'keyExpired',
+  VENDOR_DEFINED = 'vendorDefined',
+  EXPIRATION_UPDATED = 'expirationUpdated',
+  KEYS_CHANGED = 'keyChanged',
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2022 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,15 +12,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "license": "ISC",
-  "devDependencies": {
-    "@ohos/hypium": "1.0.6"
-  },
-  "name": "sampledemo",
-  "description": "example description",
-  "repository": {},
-  "version": "1.0.0",
-  "dynamicDependencies": {},
-  "dependencies": {}
+
+/**
+ * AVPlayer 常量
+ */
+export default class AVPlayerConstants {
+  // 倍速
+  static readonly SPEED_ARRAY: speedObj[] = [
+    {
+      text: '0.75x', value: 0
+    },
+    {
+      text: '1.0x', value: 1
+    },
+    {
+      text: '1.25x', value: 2
+    },
+    {
+      text: '1.75x', value: 3
+    },
+    {
+      text: '2.0x', value: 4
+    }];
+}
+
+/**
+ * 倍速类型
+ */
+export interface speedObj {
+  text: string,
+  value: number
 }
