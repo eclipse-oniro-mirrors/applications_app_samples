@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,21 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "apiType": "stageMode",
-  "buildOption": {
-    "sourceOption": {
-      "workers": [
-        "./src/main/ets/pages/ThreadCommunication/workers/Worker.ts"
-      ]
-    }
-  },
-  "targets": [
-    {
-      "name": "default",
-    },
-    {
-      "name": "ohosTest",
-    }
-  ]
-}
+
+export { Scenario_1 } from './src/main/ets/pages/Scenario_1'
+export { Scenario_2 } from './src/main/ets/pages/Scenario_2'
+export { Scenario_3 } from './src/main/ets/pages/Scenario_3'
+export { Scenario_4 } from './src/main/ets/pages/Scenario_4'
+export { Scenario_5 } from './src/main/ets/pages/Scenario_5'
+export { ThreadCommunicationHomePage } from './src/main/ets/pages/ThreadCommunicationHomePage'
