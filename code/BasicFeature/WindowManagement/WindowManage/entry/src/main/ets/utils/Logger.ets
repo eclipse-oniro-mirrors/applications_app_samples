@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2024 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,18 +12,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import hilog from '@ohos.hilog';
 
-import { WindowComponent } from "@ohos/window-component";
+class Logger {
+  private domain: number = 0xFF00
+  private prefix: string = '[Sample_Window]'
 
-@Entry
-@Component
-struct VideoPlayer {
-  @State videoSrc: Resource = $rawfile('video.mp4')
+  public debug(args: string) {
+    hilog.debug(this.domain, this.prefix, args)
+  }
 
-  build() {
-    Column() {
-      WindowComponent({ videoSrc: $videoSrc })
-    }
-    .width('100%').height('100%')
+  public info(args: string) {
+    hilog.info(this.domain, this.prefix, args)
+  }
+
+  public warn(args: string) {
+    hilog.warn(this.domain, this.prefix, args)
+  }
+
+  public error(args: string) {
+    hilog.error(this.domain, this.prefix, args)
   }
 }
+
+export default new Logger();
