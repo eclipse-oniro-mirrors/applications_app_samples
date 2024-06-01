@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,23 +13,7 @@
  * limitations under the License.
  */
 
-{
-  "apiType": "stageMode",
-  "buildOption": {
-    "externalNativeOptions": {
-      "abiFilters": ["arm64-v8a", 'armeabi-v7a', 'x86_64' ],
-      "path": "./src/main/cpp/CMakeLists.txt",
-      "arguments": "",
-      "cppFlags": "",
-    }
-  },
-  "targets": [
-    {
-      "name": "default",
-      "runtimeOS": "OpenHarmony"
-    },
-    {
-      "name": "ohosTest",
-    }
-  ]
-}
+export const packToDataPixelMap: (inData: ArrayBufferLike, outPath: string) => number;
+export const packPixelMapToFile: (inPath: string, outFD: number) => number;
+export const packToFileImageSource: (inFD: number, outFD: number) => number;
+export const packToDataImageSource: (inRawFD: number, inFrom: number, inLen: number, outPath: string) => number;
