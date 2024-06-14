@@ -14,55 +14,55 @@
     },
     {
       "name": "GetBundleInfoTest",
-      "value": "获取BundleInfo"
+      "value": "GetBundleInfo"
     },
     {
       "name": "GetBundleInfoSyncTest",
-      "value": "获取BundleInfo(sync)"
+      "value": "GetBundleInfoSync"
     },
     {
       "name": "GetConfigurationJsonTest",
-      "value": "获取配置json"
+      "value": "GetConfigurationJson"
     },
     {
       "name": "GetConfigurationArrayTest",
-      "value": "获取配置数组"
+      "value": "GetConfigurationArray"
     },
     {
       "name": "GetConfigurationJsonSyncTest",
-      "value": "获取配置json(sync)"
+      "value": "GetConfigurationJsonSync"
     },
     {
       "name": "VerifyFileTest",
-      "value": "校验.abc文件"
+      "value": "VerifyFile"
     },
     {
       "name": "DeleteFileTest",
-      "value": "删除.abc文件"
+      "value": "DeleteFile"
     },
     {
       "name": "VerifyLinkOpenedTest",
-      "value": "校验链接是否可打开"
+      "value": "VerifyLinkOpened"
     },
     {
       "name": "DetermineDefaultApplicationTest",
-      "value": "判断默认应用"
+      "value": "DetermineDefaultApplication"
     },
     {
       "name": "DetermineDefaultApplicationSyncTest",
-      "value": "判断默认应用(sync)"
+      "value": "DetermineDefaultApplicationSync"
     },
     {
       "name": "SetDisableEnableStatusTest",
-      "value": "设置禁用使能状态"
+      "value": "SetDisableEnableStatus"
     },
     {
       "name": "ObtainOverlayModuleInfoInformationTest",
-      "value": "获取overlayModuleInfo信息"
+      "value": "ObtainOverlayModuleInfoInformation"
     },
     {
       "name": "ObtainMultipleOverlayModuleInfoInformationTest",
-      "value": "获取多条overlayModuleInfo信息"
+      "value": "ObtainMultipleOverlayModuleInfoInformation"
     }
   ]
 }

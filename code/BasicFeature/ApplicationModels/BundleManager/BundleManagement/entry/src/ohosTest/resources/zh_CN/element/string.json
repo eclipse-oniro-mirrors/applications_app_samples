@@ -14,55 +14,55 @@
     },
     {
       "name": "GetBundleInfoTest",
-      "value": "»ñÈ¡BundleInfo"
+      "value": "è·å–BundleInfo"
     },
     {
       "name": "GetBundleInfoSyncTest",
-      "value": "»ñÈ¡BundleInfo(sync)"
+      "value": "è·å–BundleInfo(sync)"
     },
     {
       "name": "GetConfigurationJsonTest",
-      "value": "»ñÈ¡ÅäÖÃjson"
+      "value": "è·å–é…ç½®json"
     },
     {
       "name": "GetConfigurationArrayTest",
-      "value": "»ñÈ¡ÅäÖÃÊı×é"
+      "value": "è·å–é…ç½®æ•°ç»„"
     },
     {
       "name": "GetConfigurationJsonSyncTest",
-      "value": "»ñÈ¡ÅäÖÃjson(sync)"
+      "value": "è·å–é…ç½®json(sync)"
     },
     {
       "name": "VerifyFileTest",
-      "value": "Ğ£Ñé.abcÎÄ¼ş"
+      "value": "æ ¡éªŒ.abcæ–‡ä»¶"
     },
     {
       "name": "DeleteFileTest",
-      "value": "É¾³ı.abcÎÄ¼ş"
+      "value": "åˆ é™¤.abcæ–‡ä»¶"
     },
     {
       "name": "VerifyLinkOpenedTest",
-      "value": "Ğ£ÑéÁ´½ÓÊÇ·ñ¿É´ò¿ª"
+      "value": "æ ¡éªŒé“¾æ¥æ˜¯å¦å¯æ‰“å¼€"
     },
     {
       "name": "DetermineDefaultApplicationTest",
-      "value": "ÅĞ¶ÏÄ¬ÈÏÓ¦ÓÃ"
+      "value": "åˆ¤æ–­é»˜è®¤åº”ç”¨"
     },
     {
       "name": "DetermineDefaultApplicationSyncTest",
-      "value": "ÅĞ¶ÏÄ¬ÈÏÓ¦ÓÃ(sync)"
+      "value": "åˆ¤æ–­é»˜è®¤åº”ç”¨(sync)"
     },
     {
       "name": "SetDisableEnableStatusTest",
-      "value": "ÉèÖÃ½ûÓÃÊ¹ÄÜ×´Ì¬"
+      "value": "è®¾ç½®ç¦ç”¨ä½¿èƒ½çŠ¶æ€"
     },
     {
       "name": "ObtainOverlayModuleInfoInformationTest",
-      "value": "»ñÈ¡overlayModuleInfoĞÅÏ¢"
+      "value": "è·å–overlayModuleInfoä¿¡æ¯"
     },
     {
       "name": "ObtainMultipleOverlayModuleInfoInformationTest",
-      "value": "»ñÈ¡¶àÌõoverlayModuleInfoĞÅÏ¢"
+      "value": "è·å–å¤šæ¡overlayModuleInfoä¿¡æ¯"
     }
   ]
 }
