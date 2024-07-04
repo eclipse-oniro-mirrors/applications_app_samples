@@ -85,7 +85,7 @@
   <td x:str><a href="code/BasicFeature/Notification/CustomNotificationBadge">自定义通知角标（API 10）</a></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
-  <td x:str><a href="code/BasicFeature/Notification/CustomNotificationPush">自定义通知推送（API 10）</a></td>
+  <td x:str><a href="code/SystemFeature/Notification/CustomNotificationPush">自定义通知推送（API 10）</a></td>
   <td ></td>
   <td ></td>
   <td ></td>
@@ -93,7 +93,7 @@
  <tr height="18" style='height:13.50pt;'>
   <td x:str><strong>窗口管理</strong></td>
   <td x:str><a href="code/BasicFeature/WindowManagement/WindowManage">窗口管理（API 12）</a></td>
-  <td x:str><a href="code/BasicFeature/WindowManagement/WindowRatio">悬浮窗（API 10）</a></td>
+  <td x:str><a href="code/SystemFeature/WindowManagement/WindowRatio">悬浮窗（API 10）</a></td>
   <td ></td>
   <td ></td>
  </tr>
@@ -130,7 +130,7 @@
   <td ></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
-  <td rowspan="3"><strong>安全</strong></td>
+  <td rowspan="2"><strong>安全</strong></td>
   <td x:str><a href="code/BasicFeature/Security/Cipher">加解密</a></td>
   <td x:str><a href="code/BasicFeature/Security/AppAccountManager">应用帐号管理</a></td>
   <td x:str><a href="code/BasicFeature/Security/CryptoFramework">通用密钥库系统（cryptoFramework）</a></td>
@@ -141,12 +141,6 @@
   <td x:str><a href="code/BasicFeature/Security/PaySecurely">支付</a></td>
   <td x:str><a href="code/BasicFeature/Security/CertManager">证书管理</a></td>
   <td x:str><a href="code/BasicFeature/Security/DLPManager">DLPManager</a></td>
- </tr>
- <tr height="18" style='height:13.50pt;'>
-  <td x:str><a href="code/BasicFeature/Security/CertManager">证书管理</a></td>
-  <td ></td>
-  <td ></td>
-  <td ></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
   <td rowspan="2" x:str><strong>网络与连接</strong></td>
@@ -218,12 +212,12 @@
  <tr height="18" style='height:13.50pt;'>
   <td rowspan="2" x:str><strong>任务管理</strong></td>
   <td x:str><a href="code/BasicFeature/TaskManagement/ReminderAgentManager">后台代理提醒</a></td>
-  <td x:str><a href="code/BasicFeature/TaskManagement/WorkScheduler">延迟任务调度</a></td>
-  <td x:str><a href="code/BasicFeature/TaskManagement/Flybird">资源调度接口使用</a></td>
+  <td x:str><a href="code/SystemFeature/TaskManagement/WorkScheduler">延迟任务调度</a></td>
+  <td x:str><a href="code/SystemFeature/TaskManagement/Flybird">资源调度接口使用</a></td>
   <td x:str><a href="code/BasicFeature/TaskManagement/ContinuousTask">长时任务</a></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
-  <td x:str><a href="code/BasicFeature/TaskManagement/TransientTask">短时任务</a></td>
+  <td x:str><a href="code/SystemFeature/TaskManagement/TransientTask">短时任务</a></td>
   <td ></td>
   <td ></td>
   <td ></td>
@@ -443,7 +437,7 @@
  <tr height="18" style='height:13.50pt;'>
   <td rowspan="2" x:str><strong>卡片</strong></td>
   <td x:str><a href="code/SuperFeature/Widget/AdaptiveServiceWidget">JS多设备自适应服务卡片</a></td>
-  <td x:str><a href="code/SuperFeature/Widget/FormExtAbility">Stage模型卡片</a></td>
+  <td x:str><a href="code/SystemFeature/Widget/FormExtAbility">Stage模型卡片</a></td>
   <td x:str><a href="code/SuperFeature/Widget/FormGame">Stage模型卡片JS与C++通信（API 10）</a></td>
   <td x:str><a href="code/SuperFeature/Widget/RequestAddForm">应用主动添加数据代理卡片到桌面（API 10）</a></td>
  </tr>
@@ -507,7 +501,7 @@
  <tr height="18" style='height:13.50pt;'>
   <td height="54" align="center" rowspan="4" style='height:40.50pt' x:str><strong>工程能力</strong></td>
   <td x:str><strong>资源配置</strong></td>
-  <td x:str><a href="code/Project/ResourceAllocation/ApplicationThemeSwitch">应用主题切换</a></td>
+  <td x:str><a href="code/SystemFeature/ResourceAllocation/ApplicationThemeSwitch">应用主题切换</a></td>
   <td ></td>
   <td ></td>
   <td ></td>
