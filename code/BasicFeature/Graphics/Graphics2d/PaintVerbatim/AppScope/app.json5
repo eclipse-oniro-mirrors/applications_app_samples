@@ -13,8 +13,13 @@
  * limitations under the License.
  */
 
-import TextCollapseEtsDemoTest from './TextCollapseEtsDemo.test';
-
-export default function testsuite() {
-  TextCollapseEtsDemoTest();
+{
+  "app": {
+    "bundleName": "com.samples.rendernodegraph",
+    "vendor": "example",
+    "versionCode": 1000000,
+    "versionName": "1.0.0",
+    "icon": "$media:app_icon",
+    "label": "$string:app_name"
+  }
 }

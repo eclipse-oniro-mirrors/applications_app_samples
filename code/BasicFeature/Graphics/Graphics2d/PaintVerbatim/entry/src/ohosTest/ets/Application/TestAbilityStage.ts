@@ -13,8 +13,10 @@
  * limitations under the License.
  */
 
-import TextCollapseEtsDemoTest from './TextCollapseEtsDemo.test';
+import AbilityStage from '@ohos.app.ability.AbilityStage'
 
-export default function testsuite() {
-  TextCollapseEtsDemoTest();
+export default class TestAbilityStage extends AbilityStage {
+    onCreate() {
+        console.log("[Demo] TestAbilityStage onCreate")
+    }
 }

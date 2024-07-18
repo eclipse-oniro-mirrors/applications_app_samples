@@ -13,13 +13,16 @@
  * limitations under the License.
  */
 
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
 import { Driver, ON } from '@ohos.UiTest';
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const LOG_TAG: string  = '[Sample_Graphics2D]';
-const DOMAIN = 0xF811;
-const BUNDLE = 'Graphics2d';
+const LOG_TAG: string  = '[Sample_Graphics2D]'
+const DOMAIN = 0xF811
+const BUNDLE = 'Graphics2d'
+const driver = Driver.create();
+const abilityDelegatorRegistry = AbilityDelegatorRegistry.getAbilityDelegator();
 
 export default function TextCollapseEtsDemoTest() {
   describe('TextCollapseEtsDemoTest', () => {
@@ -48,33 +51,34 @@ export default function TextCollapseEtsDemoTest() {
       // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
       expect(a).assertEqual('test')
     })
-    let step: Function = async (driver: Driver, id: string): Promise<void> => {
-      hilog.info(DOMAIN, LOG_TAG, BUNDLE + ' ' + id + ' begin');
-      await driver.assertComponentExist(ON.id(id));
-      let component = await driver.findComponent(ON.id(id));
-      if (component) {
-        console.log(LOG_TAG + " find");
-      } else {
-        console.log(LOG_TAG + "do not find");
-        return;
-      }
-      await component.click();
-      hilog.info(DOMAIN, LOG_TAG, BUNDLE + ' ' + id + ' end');
-    }
+
     /**
-     *  This test case tests the expand and collapse effects of 2D text
+     * start application
      */
-    it('Graphics2d_expand_or_collapse_function_001',0, async () => {
+    it('StartAbility_001', 0, async (done : () => void) => {
+      hilog.info(DOMAIN, LOG_TAG, BUNDLE + 'StartAbility_001 begin');
       try {
-        hilog.info(DOMAIN, LOG_TAG, BUNDLE + ' Graphics2d_Expand_Or_Collapse_Function_001' + ' begin');
-        let driver = Driver.create();
-        // test click a text
-        await step(driver, 'text_click');
-        hilog.info(DOMAIN, LOG_TAG, BUNDLE + ' Graphics2d_Expand_Or_Collapse_Function_001' + ' end');
-      } catch(error) {
-        hilog.info(DOMAIN, LOG_TAG, BUNDLE + ' Graphics2d_Expand_Or_Collapse_Function_001' +
-          `exception = ${JSON.stringify(error)}` + error);
-      };
+        await abilityDelegatorRegistry.startAbility({
+          bundleName: 'com.samples.rendernodegraph',
+          abilityName: 'EntryAbility'
+        })
+      } catch (err) {
+        expect(0).assertEqual(err.code);
+      }
+      await driver.delayMs(2000);
+      done();
+      hilog.info(DOMAIN, LOG_TAG, BUNDLE + 'StartAbility_001 end');
+    })
+
+    /**
+     *  This test case tests the paintVerbatim effects of 2D text
+     */
+    it('Graphics2d_paint_verbatim_function_001',0, async (done : () => void) => {
+      hilog.info(DOMAIN, LOG_TAG, BUNDLE + ' Graphics2d_paint_verbatim_function_001' + ' begin');
+      // test click a text
+      await driver.assertComponentExist(ON.id('paint-verbatim'));
+      hilog.info(DOMAIN, LOG_TAG, BUNDLE + ' Graphics2d_paint_verbatim_function_001' + ' end');
+      done()
     });
   })
 }

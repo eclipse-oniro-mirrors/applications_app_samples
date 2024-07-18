@@ -13,8 +13,15 @@
  * limitations under the License.
  */
 
-import TextCollapseEtsDemoTest from './TextCollapseEtsDemo.test';
-
-export default function testsuite() {
-  TextCollapseEtsDemoTest();
+{
+  "apiType": 'stageMode',
+  "buildOption": {},
+  "targets": [
+    {
+      "name": "default",
+    },
+    {
+      "name": "ohosTest",
+    }
+  ]
 }
