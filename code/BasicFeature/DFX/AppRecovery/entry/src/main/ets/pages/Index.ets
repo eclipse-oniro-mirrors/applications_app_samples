@@ -84,7 +84,7 @@ struct FirstPage {
           router.pushUrl({ url: 'pages/FaultTriggerPage' });
         })
         .width('88.9%')
-        .margin({ top: '480vp', right: '24vp', left: '24vp', bottom: '24vp' })
+        .margin({ top: '480vp', right: '24vp', left: '24vp', bottom: '34vp' })
         .height('40vp')
         .backgroundColor($r('app.color.text_blue_opacity'));
     }.backgroundColor($r('sys.color.ohos_id_color_sub_background')).width('100%').height('100%')
