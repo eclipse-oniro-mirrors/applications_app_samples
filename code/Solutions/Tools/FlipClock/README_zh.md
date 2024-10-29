@@ -92,7 +92,7 @@ entry/src/main/ets/
 
 ### 相关权限
 
-[ohos.permission.PUBLISH_AGENT_REMINDER](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/permission-list.md#ohospermissionpublish_agent_reminder)
+[ohos.permission.PUBLISH_AGENT_REMINDER](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionpublish_agent_reminder)
 
 [ohos.permission.RUNNING_LOCK](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/permission-list.md#ohospermissionrunning_lock)
 
@@ -106,9 +106,9 @@ entry/src/main/ets/
 
 1.本示例仅支持在标准系统上运行。
 
-2.本示例需要使用DevEco Studio 3.1 Beta2 (Build Version: 3.1.0.400 , built on April 7, 2023)及以上版本才可编译运行。
+2.本示例需要使用DevEco Studio NEXT Developer Preview2 (Build Version: 4.1.3.700, built on March 19, 2024)版本才可编译运行。
 
-3.本示例已适配API version 9版本SDK，版本号：3.2.11.9；
+3.本示例已适配API version 12版本SDK，版本号：5.0.0.70；
 
 ### 下载
 

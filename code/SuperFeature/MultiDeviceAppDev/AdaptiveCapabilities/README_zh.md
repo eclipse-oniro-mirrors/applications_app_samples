@@ -151,9 +151,9 @@ entry/src/main/ets/
 
 1.本示例仅支持标准系统上运行，支持设备：RK3568。
 
-2.本示例为Stage模型，支持API10版本SDK，SDK版本号(API Version 10 Release),镜像版本号(4.0 Release)
+2.本示例为Stage模型，支持API12版本SDK，SDK版本号(API Version 12 Release),镜像版本号(5.0.0 Release)
 
-3.本示例需要使用DevEco Studio 版本号(4.0 Release)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio NEXT Release 版本号(Build Version: 5.0.3.900, built on October 8, 2024)及以上版本才可编译运行。
 
 4.本示例在开发板上运行时，可以修改开发板系统配置文件以使能应用窗口能力。
 
