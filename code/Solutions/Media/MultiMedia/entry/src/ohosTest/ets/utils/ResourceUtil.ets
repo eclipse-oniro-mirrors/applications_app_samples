@@ -12,9 +12,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "hvigorVersion": "4.1.2",
-  "dependencies": {
-    "@ohos/hvigor-ohos-plugin": "4.1.2"
-  }
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+
+const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+
+export function getString(resource: Resource): string {
+  let manage = delegator.getAppContext().resourceManager;
+  return manage.getStringSync(resource);
+}
+
+
+export async function getStringArray(resource: Resource): Promise<Array<string>> {
+  let manage = delegator.getAppContext().resourceManager;
+  let menuList: Array<string> = await manage.getStringArrayValue(resource);
+  return menuList;
 }
