@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,13 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+import fileAccess from '@ohos.file.fileAccess';
 import { Logger } from '@ohos/feature-file-manager';
-import userFileManager from '@ohos.filemanagement.userFileManager';
 
-export default class FileDataSource implements IDataSource {
+export default class DocumentDataSource implements IDataSource {
   private listener: DataChangeListener | undefined = undefined;
-  private fileList: Array<userFileManager.FileAsset> = new Array<userFileManager.FileAsset>();
+  private fileList: Array<fileAccess.FileInfo> = [];
 
   totalCount(): number {
     let count = this.fileList.length;
@@ -26,18 +25,18 @@ export default class FileDataSource implements IDataSource {
     return count;
   }
 
-  getData(index: number): userFileManager.FileAsset {
+  getData(index: number): fileAccess.FileInfo {
     let file = this.fileList[index];
-    Logger.debug(`getData index: ${index}, name: ${file.displayName}`);
+    Logger.debug(`getData index: ${index}, name: ${file.fileName}`);
     return file;
   }
 
-  pushData(fileAsset: userFileManager.FileAsset): void {
+  pushData(fileAsset: fileAccess.FileInfo): void {
     this.fileList.push(fileAsset);
     this.listener?.onDataAdd(this.totalCount() - 1);
   }
 
-  pushDataList(fileAssets: Array<userFileManager.FileAsset>): void {
+  pushDataList(fileAssets: Array<fileAccess.FileInfo>): void {
     fileAssets.forEach(element => {
       this.fileList.push(element);
     })
@@ -45,7 +44,7 @@ export default class FileDataSource implements IDataSource {
   }
 
   deleteData(uri: string): void {
-    this.fileList.forEach((item: userFileManager.FileAsset, index: number) => {
+    this.fileList.forEach((item: fileAccess.FileInfo, index: number) => {
       if (item.uri === uri) {
         this.fileList.splice(index, 1);
         this.listener?.onDataDelete(index);
