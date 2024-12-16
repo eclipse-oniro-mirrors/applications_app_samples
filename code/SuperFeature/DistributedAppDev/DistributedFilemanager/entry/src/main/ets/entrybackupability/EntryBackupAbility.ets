@@ -13,8 +13,15 @@
  * limitations under the License.
  */
 
-import Logger from './src/main/ets/utils/Logger';
-import FileSystem from './src/main/ets/filemanager/fileio/FileIoManager';
-import { FileStructure, FileType } from './src/main/ets/mock/local/FileData';
+import  BackupExtensionAbility, { BundleVersion } from '@ohos.application.BackupExtensionAbility';
+import { Logger } from '@ohos/feature-file-manager';
 
-export { Logger, FileSystem, FileStructure, FileType };
+export default class EntryBackupAbility extends BackupExtensionAbility {
+  async onBackup() {
+    Logger.info('0x0000', 'testTag', 'onBackup ok');
+  }
+
+  async onRestore(bundleVersion: BundleVersion) {
+    Logger.info('0x0000', 'testTag', 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
+  }
+}
