@@ -922,6 +922,10 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/SystemFeature/Media/Recorder/screenshots/device/play.png" desc="Provided by code/SystemFeature/Media/Recorder"/>
 				<filteritem type="filepath" name="code/SystemFeature/Media/Recorder/entry/src/ohosTest/resources/base/media/icon.png" desc="Provided by code/SystemFeature/Media/Recorder"/>
 				<filteritem type="filepath" name="code/SystemFeature/Media/Recorder/entry/src/main/resources/base/media/check.png" desc="Provided by code/SystemFeature/Media/Recorder"/>
+				<filteritem type="filepath" name="code/SuperFeature/DistributedAppDev/DistributedFilemanager/screenshots/select.jpeg" desc="Provided by code/SuperFeature/DistributedAppDev/DistributedFilemanager"/>
+				<filteritem type="filepath" name="code/SuperFeature/DistributedAppDev/DistributedFilemanager/entry/src/main/resources/base/media/checked.png" desc="Provided by code/SuperFeature/DistributedAppDev/DistributedFilemanager"/>
+				<filteritem type="filepath" name="code/SuperFeature/DistributedAppDev/DistributedFilemanager/entry/src/main/resources/base/media/ic_hop_normal.png" desc="Provided by code/SuperFeature/DistributedAppDev/DistributedFilemanager"/>
+				<filteritem type="filepath" name="code/SuperFeature/DistributedAppDev/DistributedFilemanager/entry/src/main/resources/base/media/uncheck.png" desc="Provided by code/SuperFeature/DistributedAppDev/DistributedFilemanager"/>
 
 			</filefilter>
             <filefilter name="defaultPolicyFilter" desc="License文件头校验策略的过滤条件" >
