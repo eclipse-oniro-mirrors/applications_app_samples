@@ -31,7 +31,7 @@ entry/src/main/ets/
 
 * 本示例通过screenshot接口实现屏幕截图 ，通过window接口实现隐私窗口切换，通过display接口查询当前隐私窗口。
 * 源码链接：[Screenshot.ets](Feature/src/main/ets/components/utils/Screenshot.ets)，[WindowPrivacy.ets](Feature/src/main/ets/components/utils/WindowPrivacy.ets)
-* 接口参考：[@ohos.screenshot](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis/js-apis-screenshot.md)，[@ohos.window](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis/js-apis-window.md#setwindowprivacymode9)，[@ohos.display](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis/js-apis-display.md#displayhasprivatewindow9)
+* 接口参考：[@ohos.screenshot](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis/js-apis-screenshot.md)，[@ohos.window](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/js-apis-window.md#setwindowprivacymode9)，[@ohos.display](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis/js-apis-display.md#displayhasprivatewindow9)
 
 ## 相关权限
 
