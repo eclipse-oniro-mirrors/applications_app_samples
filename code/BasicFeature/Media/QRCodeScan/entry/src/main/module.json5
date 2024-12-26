@@ -30,29 +30,29 @@
     "requestPermissions": [
       {
         "name": "ohos.permission.CAMERA",
-        "reason": "$string:entry_desc",
-        "usedScene": {"abilities":["MainAbility"],
+        "reason": "$string:use_camera_permission",
+        "usedScene": {
           "when": "inuse"
         }
       },
       {
         "name": "ohos.permission.MEDIA_LOCATION",
-        "reason": "$string:entry_desc",
-        "usedScene": {"abilities":["MainAbility"],
+        "reason": "$string:media_location_permission",
+        "usedScene": {
           "when": "inuse"
         }
       },
       {
         "name": "ohos.permission.READ_IMAGEVIDEO",
         "reason": "$string:read_image_video_permission",
-        "usedScene": {"abilities":["MainAbility"],
+        "usedScene": {
           "when": "inuse"
         }
       },
       {
         "name": "ohos.permission.WRITE_IMAGEVIDEO",
         "reason": "$string:write_image_video_permission",
-        "usedScene": {"abilities":["MainAbility"],
+        "usedScene": {
           "when": "inuse"
         }
       }
