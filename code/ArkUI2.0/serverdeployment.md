@@ -296,3 +296,14 @@ export PATH=$PATH:/usr/local/bin
 source ~/.bashrc
 ```
 
+**3、报错no such file or directory, lstat './command-line-tools/ohpm/bin'，如下图**
+
+<img src="../Project/HapBuild/screenshots/problem1.png" style="zoom:150%;" />
+
+解决办法：在代码目录arkoala-arkts/shopping目录下删除command-line-tools
+
+**4、报错no such file or directory，mkdir '/home/xxxx/download/ohos-sdk-5.0.0.24-linux.zip.lock'，如下图**
+
+<img src="../Project/HapBuild/screenshots/problem2.png" style="zoom:150%;" />
+
+解决办法：commandline的工具没解压成功，重新解压工具。

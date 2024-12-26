@@ -370,7 +370,6 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/BasicFeature/Extension/Contexttest/screenshots/extension3.jpeg" desc="Provided by code/BasicFeature/Extension/Contexttest"/>
 				<filteritem type="filepath" name="code/BasicFeature/Extension/Contexttest/entry/src/ohosTest/resources/base/media/icon.png" desc="Provided by code/BasicFeature/Extension/Contexttest"/>
 				<filteritem type="filepath" name="code/BasicFeature/Extension/Contexttest/AppScope/resources/base/media/app_icon.png" desc="Provided by code/BasicFeature/Extension/Contexttest"/>
-
 				<filteritem type="filepath" name="code/DocsSample/ApplicationModels/MindSporeLiteArkTSDemo/entry/src/ohosTest/resources/base/media/icon.png" desc="Provided by code/DocsSample/ApplicationModels/MindSporeLiteArkTSDemo"/>
 				<filteritem type="filepath" name="code/DocsSample/ApplicationModels/MindSporeLiteArkTSDemo/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/ApplicationModels/MindSporeLiteArkTSDemo"/>
 				<filteritem type="filepath" name="code/DocsSample/ApplicationModels/MindSporeLiteArkTSDemo/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/ApplicationModels/MindSporeLiteArkTSDemo"/>
@@ -842,7 +841,7 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/EnterpriseAdminExtensionAbility/EnterpriseAdminExtensionAbility/screenshots/device/third.jpg" desc="Provided by code/DocsSample/EnterpriseAdminExtensionAbility"/>
 				<filteritem type="filepath" name="code/DocsSample/EnterpriseAdminExtensionAbility/EnterpriseAdminExtensionAbility/screenshots/device/fourth.jpg" desc="Provided by code/DocsSample/EnterpriseAdminExtensionAbility"/>
 				<filteritem type="filepath" name="code/Project/HapBuild/compile-tool/tool/sign_tool/OpenHarmonyProfileDebug.pem" desc="Provided by code/Project/HapBuild"/>
-	        <filteritem type="filepath" name="code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/libraryOverlay/src/main/resources/base/media/icon.png" desc="Provided by code/BasicFeature/ApplicationModels/BundleManager/BundleManagement"/>
+	        	<filteritem type="filepath" name="code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/libraryOverlay/src/main/resources/base/media/icon.png" desc="Provided by code/BasicFeature/ApplicationModels/BundleManager/BundleManagement"/>
                 <filteritem type="filepath" name="code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/sceenshots/device/snapshot_directory.png" desc="Provided by code/BasicFeature/ApplicationModels/BundleManager/BundleManagement"/>
                 <filteritem type="filepath" name="code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/libraryOverlay/src/main/resources/base/media/setting.jpeg" desc="Provided by code/BasicFeature/ApplicationModels/BundleManager/BundleManagement"/>
                 <filteritem type="filepath" name="code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/AppScope/resources/base/media/app_icon.png" desc="Provided by code/BasicFeature/ApplicationModels/BundleManager/BundleManagement"/>
@@ -853,19 +852,19 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/entry/src/main/resources/base/media/pic_empty.svg" desc="Provided by code/BasicFeature/ApplicationModels/BundleManager/BundleManagement"/>
                 <filteritem type="filepath" name="code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/entry/src/main/resources/base/media/ic_back.svg" desc="Provided by code/BasicFeature/ApplicationModels/BundleManager/BundleManagement"/>
                 <filteritem type="filepath" name="code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/libraryRuntimeOverlay/src/main/resources/base/media/icon.png" desc="Provided by code/BasicFeature/ApplicationModels/BundleManager/BundleManagement"/>
-		<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFill/entry/src/main/resources/base/media/svg.png" desc="Provided by code/SystemFeature/AutoFill/AutoFill"/>
-   		<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/AppScope/resources/base/media/app_icon.png" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
-   		<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFill/screenshots/biometricauthentication.jpg" desc="Provided by code/SystemFeature/AutoFill/AutoFill"/>
-       		<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFill/screenshots/autoFillControl.jpg" desc="Provided by code/SystemFeature/AutoFill/AutoFill"/>
-   		<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/screenshots/Index.jpg" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
-   		<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/screenshots/ReturnMainPage.jpg" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
-   		<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/screenshots/SavePage.jpg" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
-   		<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/screenshots/SelectorList.jpg" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
-   		<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/entry/src/ohosTest/resources/base/media/icon.png" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
-   		<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/entry/src/main/resources/base/media/style.png" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
-   		<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/entry/src/main/resources/base/media/icon.png" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
-   		<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/entry/src/main/resources/base/media/arrow.png" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
-		<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/screenshots/NameAssociation.jpg" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
+				<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFill/entry/src/main/resources/base/media/svg.png" desc="Provided by code/SystemFeature/AutoFill/AutoFill"/>
+   				<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/AppScope/resources/base/media/app_icon.png" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
+   				<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFill/screenshots/biometricauthentication.jpg" desc="Provided by code/SystemFeature/AutoFill/AutoFill"/>
+       			<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFill/screenshots/autoFillControl.jpg" desc="Provided by code/SystemFeature/AutoFill/AutoFill"/>
+   				<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/screenshots/Index.jpg" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
+   				<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/screenshots/ReturnMainPage.jpg" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
+   				<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/screenshots/SavePage.jpg" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
+   				<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/screenshots/SelectorList.jpg" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
+   				<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/entry/src/ohosTest/resources/base/media/icon.png" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
+   				<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/entry/src/main/resources/base/media/style.png" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
+   				<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/entry/src/main/resources/base/media/icon.png" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
+   				<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/entry/src/main/resources/base/media/arrow.png" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
+				<filteritem type="filepath" name="code/SystemFeature/AutoFill/AutoFillScenarioization/screenshots/NameAssociation.jpg" desc="Provided by code/SystemFeature/AutoFill/AutoFillScenarioization"/>
                 <filteritem type="filepath" name="code/Project/HapBuild/compile-tool/tool/sign_tool/OpenHarmonyApplication.pem" desc="Provided by code/Project/HapBuild"/>
                 <filteritem type="filepath" name="code/Project/HapBuild/compile-tool/tool/sign_tool/OpenHarmonyProfileRelease.pem" desc="Provided by code/Project/HapBuild"/>
                 <filteritem type="filepath" name="code/Project/HapBuild/compile-tool/tool/hap-sign-tool.jar" desc="Provided by code/Project/HapBuild"/>
@@ -878,26 +877,25 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/BasicFeature/Ads/OAIDSample/lib/ResetOAID-1.0.0.hap" desc="Provided by code/BasicFeature/Ads/OAIDSample"/>
                 <filteritem type="filepath" name="code/Solutions/Tools/FlipClock/lib/Brightness-1.0.0.hap" desc="Provided by code/Solutions/Tools/FlipClock"/>
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoPlay/entry/src/main/resources/rawfile/test.mp4" desc="Provided by code/BasicFeature/Media/VideoPlay"/>
-
-        <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Sensor/Capi/entry/src/main/resources/base/media/compass.png" desc="Provided by code/BasicFeature/DeviceManagement/Sensor"/>
-        <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/select.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
-		<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/AK47.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
-		<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/AssaultRifle.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
-		<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/Battle5.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
-		<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/Battle6.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
-		<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/Rifle.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
-		<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/Winchester.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
-		<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/MP5.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
-		<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/M4.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
-		<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/CZ75.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
-		<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/HK416.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
-        <filteritem type="filepath" name="code/BasicFeature/Graphics/DisplaySync/screenshots/device/animator.jpg" desc="Provided by code/BasicFeature/Graphics/DisplaySync"/>
-        <filteritem type="filepath" name="code/BasicFeature/Graphics/DisplaySoloist/screenshots/device/displaySoloist.jpg" desc="Provided by code/BasicFeature/Graphics/DisplaySoloist"/>
-        <filteritem type="filepath" name="code/BasicFeature/Graphics/DisplaySoloist/entry/src/ohosTest/resources/base/media/icon.png" desc="Provided by code/BasicFeature/Graphics/DisplaySoloist"/>
-        <filteritem type="filepath" name="code/BasicFeature/Graphics/DisplaySoloist/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/BasicFeature/Graphics/DisplaySoloist"/>
-        <filteritem type="filepath" name="code/BasicFeature/Graphics/DisplaySoloist/AppScope/resources/base/media/app_icon.png" desc="Provided by code/BasicFeature/Graphics/DisplaySoloist"/>
-        <filteritem type="filepath" name="code/BasicFeature/Graphics/DisplaySoloist/entry/src/main/resources/base/media/icon.png" desc="Provided by code/BasicFeature/Graphics/DisplaySoloist"/>
-		<filteritem type="filepath" name="code/Solutions/Social/GrapeSquare/feature/authorizedControl/src/main/resources/base/media/photo120.jpg" desc="Provided by code/Solutions/Social/GrapeSquare"/>
+        		<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Sensor/Capi/entry/src/main/resources/base/media/compass.png" desc="Provided by code/BasicFeature/DeviceManagement/Sensor"/>
+        		<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/select.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
+				<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/AK47.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
+				<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/AssaultRifle.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
+				<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/Battle5.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
+				<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/Battle6.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
+				<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/Rifle.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
+				<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/Winchester.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
+				<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/MP5.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
+				<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/M4.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
+				<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/CZ75.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
+				<filteritem type="filepath" name="code/BasicFeature/DeviceManagement/Vibrator/CustomHaptic/entry/src/main/resources/base/media/HK416.png" desc="Provided by code/BasicFeature/DeviceManagement/Vibrator"/>
+        		<filteritem type="filepath" name="code/BasicFeature/Graphics/DisplaySync/screenshots/device/animator.jpg" desc="Provided by code/BasicFeature/Graphics/DisplaySync"/>
+        		<filteritem type="filepath" name="code/BasicFeature/Graphics/DisplaySoloist/screenshots/device/displaySoloist.jpg" desc="Provided by code/BasicFeature/Graphics/DisplaySoloist"/>
+        		<filteritem type="filepath" name="code/BasicFeature/Graphics/DisplaySoloist/entry/src/ohosTest/resources/base/media/icon.png" desc="Provided by code/BasicFeature/Graphics/DisplaySoloist"/>
+        		<filteritem type="filepath" name="code/BasicFeature/Graphics/DisplaySoloist/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/BasicFeature/Graphics/DisplaySoloist"/>
+        		<filteritem type="filepath" name="code/BasicFeature/Graphics/DisplaySoloist/AppScope/resources/base/media/app_icon.png" desc="Provided by code/BasicFeature/Graphics/DisplaySoloist"/>
+        		<filteritem type="filepath" name="code/BasicFeature/Graphics/DisplaySoloist/entry/src/main/resources/base/media/icon.png" desc="Provided by code/BasicFeature/Graphics/DisplaySoloist"/>
+				<filteritem type="filepath" name="code/Solutions/Social/GrapeSquare/feature/authorizedControl/src/main/resources/base/media/photo120.jpg" desc="Provided by code/Solutions/Social/GrapeSquare"/>
 				<filteritem type="filepath" name="code/BasicFeature/Graphics/Graphics2d/PaintVerbatim/entry/src/main/resources/base/media/icon.png" desc="Provided by code/BasicFeature/Graphics/Graphics2d/PaintVerbatim"/>
 				<filteritem type="filepath" name="code/BasicFeature/Graphics/Graphics2d/PaintVerbatim/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/BasicFeature/Graphics/Graphics2d/PaintVerbatim"/>
 				<filteritem type="filepath" name="code/BasicFeature/Graphics/Graphics2d/PaintVerbatim/AppScope/resources/base/media/app_icon.png" desc="Provided by code/BasicFeature/Graphics/Graphics2d/PaintVerbatim"/>
@@ -1079,6 +1077,153 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/BasicFeature/ApplicationModels/SystemRouter/images/NavIndex.jpeg" desc="code/BasicFeature/ApplicationModels/SystemRouter"/>
 				<filteritem type="filepath" name="code/BasicFeature/ApplicationModels/SystemRouter/images/EntryPageTwo.jpeg" desc="code/BasicFeature/ApplicationModels/SystemRouter"/>
 				<filteritem type="filepath" name="code/BasicFeature/ApplicationModels/SystemRouter/images/HarAPageOne.jpeg" desc="code/BasicFeature/ApplicationModels/SystemRouter"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/shopping.har" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/arkoala.har" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/AppScope/resources/base/media/app_icon.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/swiper/swiper4.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/swiper/swiper1.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/swiper/swiper3.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/swiper/swiper2.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/deliver/deliver_type2.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/deliver/deliver_logo3.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/deliver/deliver_type5.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/deliver/deliver_logo1.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/deliver/deliver_type3.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/deliver/deliver_type1.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/evaluation/evaluation_logo3.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/evaluation/evaluation_logo1.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/evaluation/buyersShow3.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/evaluation/buyersShow4.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/evaluation/evaluation_logo.jpg" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/evaluation/buyersShow1.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/evaluation/evaluation_logo2.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/evaluation/buyersShow2.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/attention/list_3.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/attention/list_1.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/attention/list_4.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/attention/list_5.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/attention/list_2.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/attention/list_6.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/recommendImg/recommendImg1.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/recommendImg/recommendImg4.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/recommendImg/recommendImg5.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/recommendImg/recommendImg10.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/recommendImg/recommendImg6.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/recommendImg/recommendImg2.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/recommendImg/recommendImg9.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/recommendImg/recommendImg8.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/recommendImg/recommendImg7.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/recommendImg/recommendImg/recommendImg3.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/setting.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/arrow_right.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/heart.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/voice.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/back.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/install.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/edit.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/code.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/show.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/save.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/arrow_left.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/ring.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/hide.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/many.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/more.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/layout.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/collect.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/like.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/promotions.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/camera.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/collected.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/share.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/local.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/nav_classification.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/barcode.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/attention.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/comments.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/smile.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/search.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/down.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/hearted.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/up.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/phoneCall.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/scan.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/sort-down.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/highlight.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/icon/game.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/common/activity.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/common/bgImg.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/common/achievement.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/common/sales.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/common/user.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/common/person.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/common/our.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/common/gift.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/tabIcon/find.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/tabIcon/cartSelected.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/tabIcon/classification.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/tabIcon/classificationSelected.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/tabIcon/findSelected.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/tabIcon/user.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/tabIcon/cart.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/tabIcon/userSelected.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/tabIcon/home.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/tabIcon/homeSelected.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core19.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core6.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core17.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core18.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core15.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core13.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core1.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core14.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core7.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core10.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core11.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core9.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core12.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core16.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core5.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core4.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core8.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core2.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/core/core3.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/boutique/7.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/boutique/9.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/boutique/11.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/boutique/12.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/boutique/2.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/boutique/8.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/boutique/3.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/boutique/10.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/boutique/1.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/boutique/5.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/boutique/4.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/boutique/6.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/banner/banner2.jpg" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/banner/banner1.jpg" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/imgLoads/product002.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/imgLoads/product009.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/imgLoads/product007.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/imgLoads/product013.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/imgLoads/product006.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/imgLoads/product003.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/imgLoads/product010.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/imgLoads/product011.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/imgLoads/product004.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/imgLoads/product012.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/imgLoads/product005.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/imgLoads/product014.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/imgLoads/product001.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/homeImg/imgLoads/product008.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/resources/base/media/background.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/Project/HapBuild/screenshots/harName.PNG" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/Project/HapBuild/screenshots/npmrc.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/Project/HapBuild/screenshots/problem1.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/Project/HapBuild/screenshots/problem2.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/Project/HapBuild/screenshots/userName.PNG" desc="Provided by code/ArkUI2.0"/>
 			</filefilter>
             <filefilter name="defaultPolicyFilter" desc="License文件头校验策略的过滤条件" >
                 <filteritem type="filename" name="oh-package.json5" desc="OpenHarmony工程编译入口脚本，无需添加License头"/>
@@ -1088,7 +1233,13 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filename" name="hvigorfile.ts" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filename" name="hvigor-config.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filename" name="hvigor-wrapper.js" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
-                <filteritem type="filepath" name="code/Project/HapBuild/compile-tool/bin/compile-ohpm-ci.sh" desc="预测试工具脚本文件，无需添加License头"/>
+				<filteritem type="filename" name="oh-package-lock.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filename" name="module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filename" name="mock-config.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filename" name="build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filename" name="code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filename" name="app.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/Project/HapBuild/compile-tool/bin/compile-ohpm-ci.sh" desc="预测试工具脚本文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/Project/HapBuild/test-tool/LinuxContains.py" desc="预测试工具配置文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/Project/HapBuild/compile-tool/resources/echoHilog.bat" desc="预测试工具配置文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/Solutions/Shopping/OrangeShopping/libs/ohos-enter-animation-1.0.1.tgz" desc="二进制文件，无需添加License头"/>
@@ -1135,6 +1286,12 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filename" name="hvigorfile.ts" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
                 <filteritem type="filename" name="hvigor-config.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
                 <filteritem type="filename" name="hvigor-wrapper.js" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filename" name="oh-package-lock.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filename" name="module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filename" name="mock-config.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filename" name="build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filename" name="code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filename" name="app.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/Project/HapBuild/compile-tool/bin/compile-ohpm-ci.sh" desc="预测试工具脚本文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/Project/HapBuild/test-tool/LinuxContains.py" desc="预测试工具配置文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/Project/HapBuild/compile-tool/resources/echoHilog.bat" desc="预测试工具配置文件，无需添加版权头"/>
