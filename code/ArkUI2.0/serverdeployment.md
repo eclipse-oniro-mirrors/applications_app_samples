@@ -16,24 +16,24 @@ npm：11.0.0或11.0.0以上
 
 安装首先要启用windows的开发者模式，左下角搜索 `开发者设置`并启用。
 
-![image](./code/Project/HapBuild/screenshots/windev.png)
-![image](./code/Project/HapBuild/screenshots/windev2.png)
+![image](../Project/HapBuild/screenshots/windev.png)
+![image](../Project/HapBuild/screenshots/windev2.png)
 
 ### 启用windows功能
 
 左下角搜索 `启用或关闭windows功能`，勾选 `适用于Linux的windows子系统`。
 
-![image](./code/Project/HapBuild/screenshots/winfunction.png)
+![image](../Project/HapBuild/screenshots/winfunction.png)
 
 ### linux-Ubuntu 下载
 
 桌面左下角搜索 `Microsoft store`打开商店, 搜索linux，下载Ubuntu22.04.02 LTS。
 
-![image](./code/Project/HapBuild/screenshots/ubuntu.png)
+![image](../Project/HapBuild/screenshots/ubuntu.png)
 
 下载完成后直接双击启动，会自动安装，一两分钟后安装完毕，按提示设置**用户名**、**密码**。
 
-![image](./code/Project/HapBuild/screenshots/linux.png)
+![image](../Project/HapBuild/screenshots/linux.png)
 
 ## ubuntu环境配置
 
@@ -55,7 +55,7 @@ sudo apt-get install openjdk-11-jdk
 
 安装完毕后输入 `java -version`验证
 
-![image](./code/Project/HapBuild/screenshots/javaverify.png)
+![image](../Project/HapBuild/screenshots/javaverify.png)
 
 ### 安装node
 
@@ -67,7 +67,7 @@ wget https://nodejs.org/download/release/v18.20.4/node-v18.20.4-linux-x64.tar.xz
 tar -xvf node-v18.20.4-linux-x64.tar.xz
 ```
 
-![image](./code/Project/HapBuild/screenshots/nodedownload.png)
+![image](../Project/HapBuild/screenshots/nodedownload.png)
 
 ### 配置node环境变量
 
@@ -88,7 +88,7 @@ export NODE_HOME_BIN=/home/userName/Node/node-v18.20.4-linux-x64/bin
 export PATH=$NODE_HOME_BIN:$PATH
 ```
 
-![image](./code/Project/HapBuild/screenshots/setohpm.png)
+![image](../Project/HapBuild/screenshots/setohpm.png)
 
 编辑完键盘按esc 然后输入 `:wq`回车保存。
 
@@ -133,7 +133,7 @@ vim npmrcPath
 @panda:registry=https://nexus.bz-openlab.ru:10443/repository/koala-npm/
 ```
 
-<img src="./code/Project/HapBuild/screenshots/npmrc.png" alt="image" style="zoom:150%;" />
+<img src="../Project/HapBuild/screenshots/npmrc.png" alt="image" style="zoom:150%;" />
 
 ### 配置编译使用的用户名密码
 
@@ -145,7 +145,7 @@ export OPENLAB_USERNAME=koala-pub
 export OPENLAB_PASSWORD=y3t!n0therP
 ```
 
-<img src="./code/Project/HapBuild/screenshots/userName.PNG" style="zoom: 200%;" />
+<img src="../Project/HapBuild/screenshots/userName.PNG" style="zoom: 200%;" />
 
 编辑完键盘按esc 然后输入 `:wq`回车保存。
 
@@ -243,7 +243,7 @@ find -name shopping.har
 
 2.在IDE中新建工程将shopping.har和arkoala.har放到新建的工程中作为依赖添加到oh-package.json5中，此处依赖的名称@koalaui/shopping和@koalaui/arkoala-arkui名称必须与har（shopping.har和arkoala.har）包中的ohpackage.json5中的名称保持一致。
 
-![](./code/Project/HapBuild/screenshots/harName.png)
+![](../Project/HapBuild/screenshots/harName.png)
 
 ```
 "dependencies": {
