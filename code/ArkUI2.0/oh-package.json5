@@ -2,8 +2,8 @@
   "modelVersion": "5.0.1",
   "description": "Please describe the basic information.",
   "dependencies": {
-    "@koalaui/arkoala-arkui": "file:./arkoala.har",
-    "@koalaui/shopping": "file:./shopping.har",
+    "@koalaui/arkoala-arkui": "file:./arkoalaInteropAndConcurrency.har",
+    "@koalaui/shopping": "file:./shoppingInteropAndConcurrency.har"
 //    "@koalaui/user": "file:./user.har",
   },
   "devDependencies": {
