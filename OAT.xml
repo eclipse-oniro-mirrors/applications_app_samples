@@ -1219,6 +1219,11 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/ArkUI2.0"/>
 				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/ArkUI2.0"/>
 				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/resources/base/media/background.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/Project/HapBuild/screenshots/harName.PNG" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/Project/HapBuild/screenshots/npmrc.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/Project/HapBuild/screenshots/problem1.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/Project/HapBuild/screenshots/problem2.png" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/Project/HapBuild/screenshots/userName.PNG" desc="Provided by code/ArkUI2.0"/>
 			</filefilter>
             <filefilter name="defaultPolicyFilter" desc="License文件头校验策略的过滤条件" >
                 <filteritem type="filename" name="oh-package.json5" desc="OpenHarmony工程编译入口脚本，无需添加License头"/>
