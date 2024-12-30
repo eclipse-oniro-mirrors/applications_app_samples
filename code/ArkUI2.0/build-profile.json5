@@ -1,6 +1,8 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+
+    ],
     "products": [
       {
         "name": "default",
@@ -10,7 +12,7 @@
         "buildOption": {
           "strictMode": {
             "caseSensitiveCheck": true,
-            "useNormalizedOHMUrl": true
+            "useNormalizedOHMUrl": false
           }
         }
       }

@@ -1079,6 +1079,8 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/BasicFeature/ApplicationModels/SystemRouter/images/HarAPageOne.jpeg" desc="code/BasicFeature/ApplicationModels/SystemRouter"/>
 				<filteritem type="filepath" name="code/ArkUI2.0/shopping.har" desc="Provided by code/ArkUI2.0"/>
 				<filteritem type="filepath" name="code/ArkUI2.0/arkoala.har" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/shoppingInteropAndConcurrency.har" desc="Provided by code/ArkUI2.0"/>
+				<filteritem type="filepath" name="code/ArkUI2.0/arkoalaInteropAndConcurrency.har" desc="Provided by code/ArkUI2.0"/>
 				<filteritem type="filepath" name="code/ArkUI2.0/AppScope/resources/base/media/app_icon.png" desc="Provided by code/ArkUI2.0"/>
 				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/swiper/swiper4.png" desc="Provided by code/ArkUI2.0"/>
 				<filteritem type="filepath" name="code/ArkUI2.0/entry/src/main/ets/resources/detailImg/swiper/swiper1.png" desc="Provided by code/ArkUI2.0"/>
