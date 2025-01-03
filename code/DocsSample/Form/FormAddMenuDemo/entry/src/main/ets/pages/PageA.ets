@@ -13,10 +13,21 @@
 * limitations under the License.
 */
 
-import abilityTest from './Ability.test';
-import addStaticCardTest from './StaticCard.test';
+@Entry
+@Component
+struct PageA {
 
-export default function testsuite() {
-  abilityTest();
-  addStaticCardTest()
+  build() {
+    RelativeContainer() {
+      Text($r('app.string.page_a_title'))
+        .fontSize(50)
+        .fontWeight(FontWeight.Bold)
+        .alignRules({
+          center: { anchor: '__container__', align: VerticalAlign.Center },
+          middle: { anchor: '__container__', align: HorizontalAlign.Center }
+        })
+    }
+    .height('100%')
+    .width('100%')
+  }
 }
