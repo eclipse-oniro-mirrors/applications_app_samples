@@ -50,9 +50,9 @@ entry/src/main/resources
 
 * 接口参考： [EmbeddedUIExtensionAbility](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-embeddedUIExtensionAbility.md)
 
-* 提供方UIExtensionAbility页面在[Extension.ets](entry/src/main/ets/pages/Extension.ets)中实现，在页面中需要导入EmbeddedUIExtensionAbility的依赖包，自定义类继承EmbeddedUIExtensionAbility并实现onCreate、onSessionCreate、onSessionDestroy、onForeground、onBackground和onDestroy生命周期回调。
+* 提供方UIExtensionAbility页面在[Extension.ets](entry/src/main/ets/pages/extension.ets)中实现，在页面中需要导入EmbeddedUIExtensionAbility的依赖包，自定义类继承EmbeddedUIExtensionAbility并实现onCreate、onSessionCreate、onSessionDestroy、onForeground、onBackground和onDestroy生命周期回调。
 
-* 源码链接：[Extension.ets](entry/src/main/ets/pages/Extension.ets)
+* 源码链接：[Extension.ets](entry/src/main/ets/pages/extension.ets)
 
 * 接口参考：[EmbeddedUIExtensionAbility](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-embeddedUIExtensionAbility.md)
 

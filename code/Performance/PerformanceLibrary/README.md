@@ -338,31 +338,31 @@ products/phone/entry/src/main/ets
 
 * IfOrVisibility四个场景，分别正反例，八个页面：
   * 针对显示和隐藏间频繁切换的场景
-    * 反例：使用条件循环实现显示和隐藏间的切换； [WorseUseIf.ets](feature\ifOrVisibility\src\main\ets\view\VisibilityForAnimate\WorseUseIf.ets) 
-    * 正例：使用显隐控制实现显示和隐藏间的切换； [BetterUseVisibility.ets](feature\ifOrVisibility\src\main\ets\view\VisibilityForAnimate\BetterUseVisibility.ets) 
+    * 反例：使用条件循环实现显示和隐藏间的切换； [WorseUseIf.ets](feature/ifOrVisibility/src/main/ets/view/VisibilityForAnimate/WorseUseIf.ets) 
+    * 正例：使用显隐控制实现显示和隐藏间的切换； [BetterUseVisibility.ets](feature/ifOrVisibility/src/main/ets/view/VisibilityForAnimate/BetterUseVisibility.ets) 
 
   * 针对应用冷启动，加载绘制首页
-    * 反例：对于首页初始时，不需要显示的组件，通过显隐控制进行隐藏； [WorseUseVisibility.ets](feature\ifOrVisibility\src\main\ets\view\IfForStartUp\WorseUseVisibility.ets) 
-    * 正例：对于首页初始时，不需要显示的组件，通过条件渲染进行隐藏； [BetterUseIf.ets](feature\ifOrVisibility\src\main\ets\view\IfForStartUp\BetterUseIf.ets) 
+    * 反例：对于首页初始时，不需要显示的组件，通过显隐控制进行隐藏； [WorseUseVisibility.ets](feature/ifOrVisibility/src/main/ets/view/IfForStartUp/WorseUseVisibility.ets) 
+    * 正例：对于首页初始时，不需要显示的组件，通过条件渲染进行隐藏； [BetterUseIf.ets](feature/ifOrVisibility/src/main/ets/view/IfForStartUp/BetterUseIf.ets) 
   * 针对反复切换条件渲染的控制分支，但切换项仅涉及页面中少部分组件的场景
-    * 反例：没有使用容器限制条件渲染组件的刷新范围； [RenderControlWithoutStack.ets](feature\ifOrVisibility\src\main\ets\view\StackForRenderControl\RenderControlWithoutStack.ets) 
-    * 正例：使用容器限制条件渲染组件的刷新范围； [RenderControlWithStack.ets](feature\ifOrVisibility\src\main\ets\view\StackForRenderControl\RenderControlWithStack.ets) 
+    * 反例：没有使用容器限制条件渲染组件的刷新范围； [RenderControlWithoutStack.ets](feature/ifOrVisibility/src/main/ets/view/StackForRenderControl/RenderControlWithoutStack.ets) 
+    * 正例：使用容器限制条件渲染组件的刷新范围； [RenderControlWithStack.ets](feature/ifOrVisibility/src/main/ets/view/StackForRenderControl/RenderControlWithStack.ets) 
 
   * 针对反复切换条件渲染的控制分支，且控制分支中的每种分支内，组件子树结构都比较复杂的场景
-    * 反例：没有使用组件复用实现条件渲染控制分支中的复杂子组件； [IfWithoutReusable.ets](feature\ifOrVisibility\src\main\ets\view\Reusable\IfWithoutReusable.ets) 
-    * 正例：使用组件复用实现条件渲染控制分支中的复杂子组件； [IfWithReusable.ets](feature\ifOrVisibility\src\main\ets\view\Reusable\IfWithReusable.ets)
+    * 反例：没有使用组件复用实现条件渲染控制分支中的复杂子组件； [IfWithoutReusable.ets](feature/ifOrVisibility/src/main/ets/view/Reusable/IfWithoutReusable.ets) 
+    * 正例：使用组件复用实现条件渲染控制分支中的复杂子组件； [IfWithReusable.ets](feature/ifOrVisibility/src/main/ets/view/Reusable/IfWithReusable.ets)
     
 * 高性能Grid二个场景，三个页面：
   * 针对Grid中使用懒加载，cachedCount，组件复用的场景
-    * 在页面上添加Grid，GridItem使用懒加载，设置cachedCount，同时对GridItem中的子组件使用组件复用； [GridColumnStartView.ets](feature\grid\src\main\ets\view\GridLazyForEachView.ets)
+    * 在页面上添加Grid，GridItem使用懒加载，设置cachedCount，同时对GridItem中的子组件使用组件复用； [GridColumnStartView.ets](feature/grid/src/main/ets/view/GridLazyForEachView.ets)
 
   * 针对Grid中使用scrollToIndex滑动到指定位置的场景
-    * 反例：使用columnStart，columnEnd设置GridItem大小，使用scrollToIndex滑动到指定GirdItem，通过性能打点方式查看滑动耗时情况； [GridColumnStartView.ets](feature\grid\src\main\ets\view\GridColumnStartView.ets)
-    * 正例：使用GridLayoutOptions设置GridItem大小，使用scrollToIndex滑动到指定GirdItem，通过性能打点方式查看滑动耗时情况； [GridLayoutOptionsView.ets](feature\grid\src\main\ets\view\GridLayoutOptionsView.ets)
+    * 反例：使用columnStart，columnEnd设置GridItem大小，使用scrollToIndex滑动到指定GirdItem，通过性能打点方式查看滑动耗时情况； [GridColumnStartView.ets](feature/grid/src/main/ets/view/GridColumnStartView.ets)
+    * 正例：使用GridLayoutOptions设置GridItem大小，使用scrollToIndex滑动到指定GirdItem，通过性能打点方式查看滑动耗时情况； [GridLayoutOptionsView.ets](feature/grid/src/main/ets/view/GridLayoutOptionsView.ets)
 
 * SmartPerfEditor一个场景，一个页面：
   * 针对显示图片中查看是否存在冗余绘制的场景
-    * 在页面上添加显隐切换按钮，点击按钮后，显示一张图片，通过DrawingDoc录制回放功能抓取绘制信息； [SmartPerfEditorView.ets](feature\smartPerfEditor\src\main\ets\view\SmartPerfEditorView.ets)
+    * 在页面上添加显隐切换按钮，点击按钮后，显示一张图片，通过DrawingDoc录制回放功能抓取绘制信息； [SmartPerfEditorView.ets](feature/smartPerfEditor/src/main/ets/view/SmartPerfEditorView.ets)
 
 * SmartPerfHost页面模块
   * 应用冷启动，加载绘制页面
