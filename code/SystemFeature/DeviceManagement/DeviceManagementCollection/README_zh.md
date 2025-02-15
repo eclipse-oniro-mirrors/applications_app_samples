@@ -12,7 +12,7 @@
 - [@ohos.systemParameterEnhance (系统参数)](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-system-parameterEnhance-sys.md/)
 - [@ohos.batteryInfo (电量信息)](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-battery-info-sys.md)
 - [@ohos.deviceInfo (设备信息)](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-device-info.md)
-- [@ohos.multimodalInput.inputConsumer (组合按键)](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-input-kit/js-apis-inputconsumer.md)
+- [@ohos.multimodalInput.inputConsumer (组合按键)](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-input-kit/js-apis-inputconsumer.md)
 - [@ohos.multimodalInput.inputDevice (输入设备)](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-input-kit/js-apis-inputdevice.md)
 - [@ohos.multimodalInput.inputEvent (输入事件)](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-input-kit/js-apis-inputevent.md)
 - [@ohos.multimodalInput.inputEventClient (按键注入)](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-input-kit/js-apis-inputeventclient-sys.md)
@@ -154,7 +154,7 @@ DeviceManagementCollection
 
 9.设备信息：使用[@ohos.deviceInfo](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-device-info.md)获取设备相关信息。
 
-10.组合按键：使用[@ohos.multimodalInput.inputConsumer](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-input-kit/js-apis-inputconsumer.md) 订阅组合按键，当组合按键被触发时展示组合按键回调信息。
+10.组合按键：使用[@ohos.multimodalInput.inputConsumer](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-input-kit/js-apis-inputconsumer.md) 订阅组合按键，当组合按键被触发时展示组合按键回调信息。
 
 11.输入设备：使用[@ohos.multimodalInput.inputDevice](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-input-kit/js-apis-inputdevice.md) 获取输入设备列表，并显示输入设备信息，实现设备的热插拔监听。
 
