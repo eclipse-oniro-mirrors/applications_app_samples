@@ -206,7 +206,7 @@ mkdir command-line-tools.5.0.3502
 mkdir ohos-sdk-ets-5.0.0.24
 mkdir ohos-sdk-5.0.0.24-linux
 cd ..
-unzip ohos-sdk-5.0.0.24-linux.zip -d ./unzip/ohos-sdk-5.0.0.24
+unzip ohos-sdk-5.0.0.24-linux.zip -d ./unzip/ohos-sdk-5.0.0.24-linux
 unzip ohos-sdk-ets-5.0.0.24.zip -d ./unzip/ohos-sdk-ets-5.0.0.24
 unzip command-line-tools.5.0.3502.zip -d ./unzip/command-line-tools.5.0.3502
 
@@ -229,8 +229,8 @@ npm install
 // ArkTS2.0的编译工具链下载，由于工具链会持续更新，建议每次编译应用包前都要运行此命令
 cd incremental/tools/panda
 npm run panda:sdk:install
-cd ../../../arkoala-arkts/shopping
-KOALA_BZ=1 HTTP_CACHE_DIR=$HOME/download npm run har-arm64
+cd ~/code/arkcompiler_ets_frontend/arkoala-arkts
+KOALA_BZ=1 HTTP_CACHE_DIR=$HOME/download npm run shopping:har-arm64
 ```
 
 上述操作执行完生成shopping.har文件，通过下方命令找到文件路径，将这个文件下载到本地
