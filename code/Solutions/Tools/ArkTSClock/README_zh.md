@@ -47,7 +47,7 @@ entry/src/main/ets/
 
 1.本示例仅支持标准系统上运行。
 
-2.本示例已适配API14版本SDK，SDK版本号(API Version 14 Release),镜像版本号(5.0.2 Release)。
+2.本示例已适配API18版本SDK，SDK版本号(API Version 18 Release),镜像版本号(5.1.0 Release)。
 
 3.本示例需要使用DevEco Studio 版本号(5.0.2 Release)及以上版本才可编译运行。
 
