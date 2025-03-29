@@ -2,7 +2,7 @@ import UIAbility from '@ohos.app.ability.UIAbility';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import Want from '@ohos.app.ability.Want';
 import window from '@ohos.window';
-import type { BusinessError } from '@ohos.base'
+import { BusinessError } from '@ohos.base'
 import hilog from '@ohos.hilog'
 
 class EntryAbility extends UIAbility {
