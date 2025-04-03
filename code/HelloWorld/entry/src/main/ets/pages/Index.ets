@@ -1,37 +1,44 @@
-import { Text } from "@koalaui.arkts-arkui.Text"
-import { Column } from "@koalaui.arkts-arkui.Column"
-import { Button } from "@koalaui.arkts-arkui.Button"
-import { Component } from "@koalaui.arkts-arkui.Common"
-import { UserView, UserViewBuilder } from "@koalaui.arkts-arkui.UserView"
-import { __memo_context_type, __memo_id_type } from "@ohos.arkui.StateManagement.runtime"
-import { memo } from "@ohos.arkui.StateManagement.runtime"
+import { memo, __memo_context_type, __memo_id_type } from "@ohos.arkui.stateManagement" // should be insert by ui-plugins
+import { Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView } from "@ohos.arkui.component"  // TextAttribute should be insert by ui-plugins
+import { State, StateDecoratedVariable, MutableState, stateOf, observableProxy } from "@ohos.arkui.stateManagement" // should be insert by ui-plugins
 import hilog from '@ohos.hilog'
 
 @Component
 struct MyStateSample {
+  @State stateVar: string = "state var";
+  message: string = "var";
+  changeValue() {
+    this.stateVar+="~"
+  }
   build() {
-    Column() {
-      Text("Hello World!")
-      Button('change')
+    Column(undefined) {
+      Text("Hello World").fontSize(20)
+      Button(this.message).backgroundColor("#FFFF00FF")
+        .onClick((e: ClickEvent) => {
+          hilog.info(0x0000, 'testTag', 'On Click');
+          this.changeValue()
+        })
+      Text(this.stateVar).fontSize(20)
+      Child({stateVar: this.stateVar} as __Options_Child)
     }
   }
 }
 
+@Component
+struct Child {
+  @State stateVar: string = "Child";
+  build() {
+    Text(this.stateVar).fontSize(50)
+  }
+}
+
 export class ComExampleTrivialApplication extends UserView {
-  getBuilder(): UserViewBuilder {
-    hilog.info(0x0000, 'testTag', 'ComExampleTrivialApplication');
-    let wrapper = (__memo_context: __memo_context_type, __memo_id: __memo_id_type) => {
-      hilog.info(0x0000, 'testTag', 'MyStateSample.instantiateImpl');
-      MyStateSample.instantiateImpl(
-        // __memo_context,
-        // ((__memo_id) + (21211165)),
-        undefined,
-        (): MyStateSample => new MyStateSample(),
-        {} as __Options_MyStateSample,
-        undefined
-      )
+  getBuilder() {
+    hilog.info(0x0000, 'testTag', 'getBuilder');
+    let wrapper = @memo () => {
+      hilog.info(0x0000, 'testTag', 'MyStateSample');
+      MyStateSample(undefined)
     }
-    hilog.info(0x0000, 'testTag', 'getBuilder.end');
     return wrapper
   }
 }
