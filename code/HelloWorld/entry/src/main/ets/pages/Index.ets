@@ -1,22 +1,23 @@
-import { memo, __memo_context_type, __memo_id_type } from "@ohos.arkui.stateManagement" // should be insert by ui-plugins
-import { Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView } from "@ohos.arkui.component"  // TextAttribute should be insert by ui-plugins
-import { State, StateDecoratedVariable, MutableState, stateOf, observableProxy } from "@ohos.arkui.stateManagement" // should be insert by ui-plugins
+import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
+import { Entry, Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView } from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
+import { State, StateDecoratedVariable, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
 import hilog from '@ohos.hilog'
 
+@Entry
 @Component
 struct MyStateSample {
-  @State stateVar: string = "state var";
-  message: string = "var";
+  @State stateVar: string = 'state var';
+  message: string = 'var';
   changeValue() {
-    this.stateVar+="~"
+    this.stateVar+='~'
   }
   build() {
     Column(undefined) {
-      Text("Hello World").fontSize(20)
-      Button(this.message).backgroundColor("#FFFF00FF")
+      Text('Hello World').fontSize(20)
+      Button(this.message).backgroundColor('#FFFF00FF')
         .onClick((e: ClickEvent) => {
           hilog.info(0x0000, 'testTag', 'On Click');
-          this.changeValue()
+          this.changeValue();
         })
       Text(this.stateVar).fontSize(20)
       Child({stateVar: this.stateVar} as __Options_Child)
@@ -26,19 +27,8 @@ struct MyStateSample {
 
 @Component
 struct Child {
-  @State stateVar: string = "Child";
+  @State stateVar: string = 'Child';
   build() {
     Text(this.stateVar).fontSize(50)
-  }
-}
-
-export class ComExampleTrivialApplication extends UserView {
-  getBuilder() {
-    hilog.info(0x0000, 'testTag', 'getBuilder');
-    let wrapper = @memo () => {
-      hilog.info(0x0000, 'testTag', 'MyStateSample');
-      MyStateSample(undefined)
-    }
-    return wrapper
   }
 }
