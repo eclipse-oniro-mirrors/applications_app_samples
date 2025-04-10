@@ -103,6 +103,10 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="network/Bluetooth/entry/src/main/java/ohos/samples/bluetooth/adapter/" desc="Not contains 3rd code，license file is not required in this subdirectory."/>
             </filefilter>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies" >
+				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/ArkTS1.2/ThreadSafeContainersSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/entry/src/main/resources/base/media/background.png" desc="Provide by code/ArkTS1.2/ThreadSafeContainersSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/AppScope/resources/base/media/app_icon.png" desc="Provide by code/ArkTS1.2/ThreadSafeContainersSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/entry/src/main/resources/base/media/foreground.png" desc="Provide by code/ArkTS1.2/ThreadSafeContainersSample"/>
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/AppScope/resources/base/media/app_icon.png" desc="Provide by code/UI/WindowStartIcon"/>
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/entry/src/main/resources/base/media/background.png" desc="Provide by code/UI/WindowStartIcon"/>
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/entry/src/main/resources/base/media/enter_app_animation.gif" desc="Provide by code/UI/WindowStartIcon"/>
@@ -2083,6 +2087,11 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/UI/SearchComponent/searchcomponent/src/main/resources/base/media/search_component_search.svg" desc="Provide by code/UI/SearchComponent"/>
 			</filefilter>
             <filefilter name="defaultPolicyFilter" desc="License文件头校验策略的过滤条件" >
+				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filename" name="oh-package.json5" desc="OpenHarmony工程编译入口脚本，无需添加License头"/>
                 <filteritem type="filename" name="hvigorw" desc="OpenHarmony工程编译入口脚本，无需添加License头"/>
                 <filteritem type="filename" name="hvigorw.bat" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
@@ -2150,6 +2159,11 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoSwitching/entry/src/main/resources/rawfile/video_screen_direction_switching2.MP4" desc="Provide by code/BasicFeature/Media/VideoSwitching"/>
             </filefilter>
             <filefilter name="copyrightPolicyFilter" desc="Copyright文件头校验策略的过滤条件" >
+			    <filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
                 <filteritem type="filename" name="oh-package.json5" desc="OpenHarmony工程编译入口脚本，无需添加版权头"/>
                 <filteritem type="filename" name="hvigorw" desc="OpenHarmony工程编译入口脚本，无需添加版权头"/>
                 <filteritem type="filename" name="hvigorw.bat" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
