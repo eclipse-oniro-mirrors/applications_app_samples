@@ -57,6 +57,37 @@ Note:If the text contains special characters, please escape them according to th
 <configuration>
     <oatconfig>
         <licensefile></licensefile>
+        <licensematcherlist>
+            <licensematcher name="MIT" desc="License for MIT">
+                <licensetext name="
+                /**
+                *
+                * Copyright (c) 2025 Huawei Device Co., Ltd.
+                *
+                * All rights reserved.
+                * Redistribution and use in source and binary forms, with or without modification,
+                * are permitted provided that the following conditions are met:
+                *
+                * Redistributions of source code must retain the above copyright notice,this
+                * list of conditions and the following disclaimer.
+                *
+                * Redistributions in binary form must reproduce the above copyright notice,
+                * this list of conditions and the following disclaimer in the documentation
+                * and/or other materials provided with the distribution.
+                *
+                * THIS IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+                * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+                * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+                * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+                * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+                * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+                * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS,
+                *
+                * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                */
+                " desc="MIT License" />
+            </licensematcher>
+        </licensematcherlist>
         <policylist>
             <policy
                 desc=""
@@ -97,12 +128,19 @@ Note:If the text contains special characters, please escape them according to th
 			<policy name="projectPolicy" desc="">
                 <policyitem type="copyright" name="Shenzhen Kaihong Digital Industry Development Co., Ltd." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By shenzhen Kaihong Digital Industry Development Co., Ltd."/>
             </policy>
+            <policy name="projectPolicy" desc="">
+                <policyitem type="license" name="MIT" path="code/ArkTS1.2/ANISample/.*" group="defaultGroup" filefilter="defaultPolicyFilter" desc="当前项目兼容此协议" />
+            </policy>
         </policylist>
         <filefilterlist>
             <filefilter name="licenseFileNamePolicyFilter" desc="Filters for LICENSE file policies">
                 <filteritem type="filepath" name="network/Bluetooth/entry/src/main/java/ohos/samples/bluetooth/adapter/" desc="Not contains 3rd code，license file is not required in this subdirectory."/>
             </filefilter>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies" >
+			<filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/ArkTS1.2/ModuleSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/entry/src/main/resources/base/media/background.png" desc="Provide by code/ArkTS1.2/ModuleSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/AppScope/resources/base/media/app_icon.png" desc="Provide by code/ArkTS1.2/ModuleSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/entry/src/main/resources/base/media/foreground.png" desc="Provide by code/ArkTS1.2/ModuleSample"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/ArkTS1.2/ThreadSafeContainersSample"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/entry/src/main/resources/base/media/background.png" desc="Provide by code/ArkTS1.2/ThreadSafeContainersSample"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/AppScope/resources/base/media/app_icon.png" desc="Provide by code/ArkTS1.2/ThreadSafeContainersSample"/>
@@ -123,6 +161,10 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/entry/src/main/resources/xxldpi/media/icon_startwindow.png" desc="Provide by code/UI/WindowStartIcon"/>
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/entry/src/main/resources/xxxldpi/media/icon.png" desc="Provide by code/UI/WindowStartIcon"/>
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/entry/src/main/resources/xxxldpi/media/icon_startwindow.png" desc="Provide by code/UI/WindowStartIcon"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ANISample/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/ArkTS1.2/ANISample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ANISample/entry/src/main/resources/base/media/background.png" desc="Provide by code/ArkTS1.2/ANISample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ANISample/AppScope/resources/base/media/app_icon.png" desc="Provide by code/ArkTS1.2/ANISample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ANISample/entry/src/main/resources/base/media/foreground.png" desc="Provide by code/ArkTS1.2/ANISample"/>
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/screenshots/devices/create_image_asset.png" desc="Provide by code/UI/WindowStartIcon"/>
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/screenshots/devices/window_start_icon.jpeg" desc="Provide by code/UI/WindowStartIcon"/>
 				<filteritem type="filepath" name="code/UI/ListBeExchange/ListExchange/src/main/resources/base/media/list_exchange.gif" desc="code/UI/ListExchange"/>
@@ -2087,6 +2129,11 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/UI/SearchComponent/searchcomponent/src/main/resources/base/media/search_component_search.svg" desc="Provide by code/UI/SearchComponent"/>
 			</filefilter>
             <filefilter name="defaultPolicyFilter" desc="License文件头校验策略的过滤条件" >
+			<filteritem type="filepath" name="code/ArkTS1.2/ANISample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ANISample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ANISample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ANISample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ANISample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
@@ -2099,6 +2146,14 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filename" name="hvigorfile.ts" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filename" name="hvigor-config.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filename" name="hvigor-wrapper.js" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/importHar/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/importHar/src/ohosTest/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/importHar/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/Project/HapBuild/compile-tool/bin/compile-ohpm-ci.sh" desc="预测试工具脚本文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/Project/HapBuild/test-tool/LinuxContains.py" desc="预测试工具配置文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/Project/HapBuild/compile-tool/resources/echoHilog.bat" desc="预测试工具配置文件，无需添加License头"/>
@@ -2193,7 +2248,20 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/Solutions/Tools/FlipClock/lib/Brightness-1.0.0.tgz" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/SystemFeature/Security/DLP/screenshots/haps/FileEdit.tgz" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/SystemFeature/Media/VoiceCallDemo/entry/src/main/resources/rawfile/wechat_voice_ring.mp3" desc="二进制文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/importHar/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/importHar/src/ohosTest/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/importHar/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/DataManagement/UDMF/UniformTypeDescriptor/UTDType/entry/src/main/resources/rawfile/arkdata/utd/utd.json5" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ANISample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ANISample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ANISample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ANISample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/ArkTS1.2/ANISample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Graphics/Graphics3d/entry/src/main/resources/rawfile/gltf/BrainStem/glTF-Draco/BrainStem.gltf" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Graphics/Graphics3d/entry/src/main/resources/rawfile/gltf/BrainStem/glTF-Embedded/BrainStem.gltf" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Graphics/Graphics3d/entry/src/main/resources/rawfile/gltf/BrainStem/glTF-Meshopt/BrainStem.gltf" desc="二进制文件，无需添加版权头"/>
