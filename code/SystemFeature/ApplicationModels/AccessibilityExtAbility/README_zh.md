@@ -12,7 +12,7 @@
 
 ## 使用说明
 1. 在启动无障碍扩展服务前，需退出当前应用保证界面节点正常生成；
-2. 启动关闭无障碍扩展服务可参考[AccessibilityExtensionAbility开发指南](https://gitee.com/openharmony/docs/tree/master/zh-cn/application-dev/application-models/accessibilityextensionability.md), 服务连接状态将显示在屏幕上;
+2. 启动关闭无障碍扩展服务可参考[AccessibilityExtensionAbility开发指南](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/accessibility/accessibilityextensionability.md), 服务连接状态将显示在屏幕上;
 3. 启动无障碍扩展服务后，在设备屏幕上绘画右划后再下划的手势`rightThenDown`获取当前界面全部节点，之后绘画左划后再下划的手势`leftThenDown`打印所有节点的指定信息；
 4. 在设备屏幕上绘画左划手势`left`对按钮`获焦`进行聚焦，之后可通过绘画右划手势`right`取消对按钮聚焦；
 5. 在设备屏幕上绘画下划手势`down`，触发对按钮`未点击/已点击`的点击动作。
@@ -20,7 +20,7 @@
 ## 具体实现
 
 * 获取界面元素、查询元素指定信息、通过text查找元素和获取元素执行指定动作的功能封装在AccessibilityManager，源码参考: [AccessibilityManager.ts](entry/src/main/ets/AccessibilityExtAbility/AccessibilityManager.ts)
-  * 使用 [getWindowRootElement()](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis/js-apis-inner-application-accessibilityExtensionContext.md#accessibilityextensioncontextgetwindowrootelement) 获取界面根节点；
+  * 使用 [getWindowRootElement()](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-accessibility-kit/js-apis-inner-application-accessibilityExtensionContext.md#accessibilityextensioncontextgetwindowrootelementdeprecated) 获取界面根节点；
   * 获取元素属性值：使用AccessibilityUtils.getAttributeValue()；
   * 获取界面所有元素：基于获取的根元素，使用AccessibilityUtils.createElementArray()获取界面所有元素；
   * 打印界面元素指定信息：使用AccessibilityUtils.getElementWantedInfo()获取元素指定的信息；

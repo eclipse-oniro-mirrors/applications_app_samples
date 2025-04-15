@@ -16,7 +16,7 @@
 
 使用说明
 
-1.安装[WindowRatio](code/SystemFeature/WindowManagement/WindowRatio)工程hap包(即本示例)和[WindowManage](code/BasicFeature/WindowManagement/WindowManage)工程hap包
+1.安装[WindowRatio](/code/SystemFeature/WindowManagement/WindowRatio)工程hap包(即本示例)和[WindowManage](/code/SystemFeature/WindowManagement/WindowManage)工程hap包
 
 2.打开WindowManage应用sample，点击**窗口预览**进入视频播放页面，点击主窗口后拉起子窗口。
 
