@@ -2,9 +2,7 @@
 
 ### 介绍
 
-本示例主要展示了文件管理相关的功能，使用[@ohos.filemanagement.userFileManager](https://docs.openharmony.cn/pages/v4.1/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-userFileManager-sys.md) 、[@ohos.file.fileAccess](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-fileAccess-sys.md) 、[@ohos.fileio](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-fileio.md) 、[@ohos.file.fs](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-file-fs.md)、[@ohos.app.ability.contextConstant](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-contextConstant.md)
-
-等接口，实现了增添文件、删除文件、查找指定类型文件文件、复制并移动文件、切换加密分区和预览图片、监听文件的功能;
+本示例主要展示了文件管理相关的功能，使用[@ohos.filemanagement.userFileManager](https://docs.openharmony.cn/pages/v4.1/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-userFileManager-sys.md) 、[@ohos.file.fileAccess](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-fileAccess-sys.md) 、[@ohos.fileio](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-fileio.md) 、[@ohos.file.fs](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-file-fs.md)、[@ohos.app.ability.contextConstant](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-contextConstant.md)等接口，实现了增添文件、删除文件、查找指定类型文件文件、复制并移动文件、切换加密分区和预览图片、监听文件的功能。
 
 ### 效果预览
 
@@ -120,23 +118,17 @@ Library/src/main/ets/
   * 修改加密分区：修改应用上下文Context的area，实现当前加密分区的修改。
 
 * 在Library模块中通过封装FileManager向外提供功能接口，如MediaLibraryManager.getPixelMapByFileAsset()，源码参考：[FileManager.ts](Library/src/main/ets/filemanager/FileManager.ts)
-    * 如效果预览中的**图片列表**，读取指定类型的文件：在[FileList.ets](entry/src/main/ets/filemanager/pages/common/FileList.ets)
-      中调用FileManager.getFileAssets()；
-    * 创建模拟文件：在[FileList.ets](entry/src/main/ets/filemanager/pages/common/FileList.ets)
-      中调用FileManager.createTxtFileAsset()；
-    * 删除指定路径的文件：在[FileList.ets](entry/src/main/ets/filemanager/pages/common/FileList.ets)
-      中调用FileManager.deleteFileAsset()；
+    * 如效果预览中的**图片列表**，读取指定类型的文件：在[FileList.ets](entry/src/main/ets/filemanager/pages/common/FileList.ets)中调用FileManager.getFileAssets()；
+    * 创建模拟文件：在[FileList.ets](entry/src/main/ets/filemanager/pages/common/FileList.ets)中调用FileManager.createTxtFileAsset()；
+    * 删除指定路径的文件：在[FileList.ets](entry/src/main/ets/filemanager/pages/common/FileList.ets)中调用FileManager.deleteFileAsset()；
     * 获取缩略图：在[ThumbnailImage.ets](Library/src/main/ets/filemanager/components/ThumbnailImage.ets) 中调用FileManager.getThumbnail()；
     * 如效果预览中的**图片预览**，获取预览图：在[ImagePreview.ets](entry/src/main/ets/filemanager/pages/image/ImagePreview.ets) 中调用FileManager.getPixelMapByFileAsset()。
     
 * 监听文件模块中的文件增删、查找、修改、监听功能封装在MyWatcher，源码参考：[MyWatcher.ts](entry/src/main/ets/filemanager/fileFs/MyWatcher.ets)
 
-    * 增加文件、删除文件、监听文件、停止监听文件：在[WatcherFile.ets](entry/src/main/ets/pages/WatcherFile.ets)
-      中调用MyWathcer.addFileToWatcher()、MyWathcer.deleteFileToWatcher()、MyWathcer.startWatcher(watcherName)、MyWathcer.stopWatcher()；
+    * 增加文件、删除文件、监听文件、停止监听文件：在[WatcherFile.ets](entry/src/main/ets/pages/WatcherFile.ets)中调用MyWathcer.addFileToWatcher()、MyWathcer.deleteFileToWatcher()、MyWathcer.startWatcher(watcherName)、MyWathcer.stopWatcher()；
 
-    * 修改文件：在[EditFile.ets](entry/src/main/ets/pages/EditFile.ets)
-
-      中调用MyWatcher.modifyFileToWatcher()。
+    * 修改文件：在[EditFile.ets](entry/src/main/ets/pages/EditFile.ets)中调用MyWatcher.modifyFileToWatcher()。
 
 ### 相关权限
 
@@ -170,9 +162,10 @@ Library/src/main/ets/
 ### 下载
 
 如需单独下载本工程，执行如下命令：
-
-    git init
-    git config core.sparsecheckout true
-    echo code/SystemFeature/FileManager/FileManager/ > .git/info/sparse-checkout
-    git remote add origin https://gitee.com/openharmony/applications_app_samples.git
-    git pull origin master
+```
+  git init
+  git config core.sparsecheckout true
+  echo code/SystemFeature/FileManager/FileManager/ > .git/info/sparse-checkout
+  git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+  git pull origin master
+```
