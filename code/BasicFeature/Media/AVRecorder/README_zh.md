@@ -46,7 +46,7 @@ entry/src/main/ets/
 
 ### 相关权限
 
-开发者在进行录制功能开发前，需要先对所开发的应用配置相应权限，应用权限列表参考：[应用权限列表](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md)。权限配置相关内容可参考：[访问控制授权申请指导](https://docs.openharmony.cn/pages/v4.0/zh-cn/application-dev/security/accesstoken-guidelines.md)。
+开发者在进行录制功能开发前，需要先对所开发的应用配置相应权限，应用权限列表参考：[应用权限列表](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md)。权限配置相关内容可参考：[访问控制授权申请指导](https://gitee.com/openharmony/docs/blob/OpenHarmony-4.0-Release/zh-cn/application-dev/security/accesstoken-guidelines.md)。
 
 音视频录制涉及的权限包括：
 
