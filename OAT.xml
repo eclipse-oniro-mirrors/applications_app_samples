@@ -165,6 +165,10 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/ArkTS1.2/ANISample/entry/src/main/resources/base/media/background.png" desc="Provide by code/ArkTS1.2/ANISample"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ANISample/AppScope/resources/base/media/app_icon.png" desc="Provide by code/ArkTS1.2/ANISample"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ANISample/entry/src/main/resources/base/media/foreground.png" desc="Provide by code/ArkTS1.2/ANISample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ParallelSample/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/ArkTS1.2/ParallelSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ParallelSample/entry/src/main/resources/base/media/background.png" desc="Provide by code/ArkTS1.2/ParallelSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ParallelSample/AppScope/resources/base/media/app_icon.png" desc="Provide by code/ArkTS1.2/ParallelSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ParallelSample/entry/src/main/resources/base/media/foreground.png" desc="Provide by code/ArkTS1.2/ParallelSample"/>
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/screenshots/devices/create_image_asset.png" desc="Provide by code/UI/WindowStartIcon"/>
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/screenshots/devices/window_start_icon.jpeg" desc="Provide by code/UI/WindowStartIcon"/>
 				<filteritem type="filepath" name="code/UI/ListBeExchange/ListExchange/src/main/resources/base/media/list_exchange.gif" desc="code/UI/ListExchange"/>
@@ -2139,6 +2143,11 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ParallelSample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ParallelSample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ParallelSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ParallelSample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ParallelSample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filename" name="oh-package.json5" desc="OpenHarmony工程编译入口脚本，无需添加License头"/>
                 <filteritem type="filename" name="hvigorw" desc="OpenHarmony工程编译入口脚本，无需添加License头"/>
                 <filteritem type="filename" name="hvigorw.bat" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
@@ -2219,6 +2228,11 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ParallelSample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ParallelSample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ParallelSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ParallelSample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/ParallelSample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
                 <filteritem type="filename" name="oh-package.json5" desc="OpenHarmony工程编译入口脚本，无需添加版权头"/>
                 <filteritem type="filename" name="hvigorw" desc="OpenHarmony工程编译入口脚本，无需添加版权头"/>
                 <filteritem type="filename" name="hvigorw.bat" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
