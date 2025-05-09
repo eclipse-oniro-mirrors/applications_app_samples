@@ -13,8 +13,88 @@
       "value": "label"
     },
     {
-      "name": "taskPool",
+      "name": "LOW",
+      "value": "低"
+    },
+    {
+      "name": "MEDIUM",
+      "value": "中"
+    },
+    {
+      "name": "HIGH",
+      "value": "高"
+    },
+    {
+      "name": "EAWorkerButtonTest",
+      "value": "EAWorker-不同线程共同操作一个函数-加锁"
+    },
+    {
+      "name": "EAWorkerTextTest",
+      "value": "说明：不会出现交替打印的问题"
+    },
+    {
+      "name": "EAWorkerButtonTest2",
+      "value": "EAWorker-不同线程共同操作一个函数-不加锁"
+    },
+    {
+      "name": "EAWorkerTextTest2",
+      "value": "说明：资源竞争，可能会出现交替打印"
+    },
+    {
+      "name": "EAWorkerButtonTest3",
+      "value": "EAWorker-不同线程操作不同函数-加锁"
+    },
+    {
+      "name": "EAWorkerTextTest3",
+      "value": "说明：不会出现交替打印的问题"
+    },
+    {
+      "name": "EAWorkerButtonTest4",
+      "value": "EAWorker-不同线程操作不同函数-不加锁"
+    },
+    {
+      "name": "EAWorkerTextTest4",
+      "value": "说明：会出现交替打印的问题-不使用锁"
+    },
+    {
+      "name": "EAWorkerButtonTest5",
+      "value": "EAWorker-不同线程共享一个容器"
+    },
+    {
+      "name": "EAWorkerTextTest5",
+      "value": "说明：一个线程让map插入100个数据 另一个线程让map删除50个数据，并且map大小应为50,目前EAWorker子线程控制不了时序，可能会出现100(先删除空map，后加100数据)"
+    },
+    {
+      "name": "EAWorkerButtonTest6",
+      "value": "EAWorker-不同线程读写同一个文件"
+    },
+    {
+      "name": "EAWorkerTextTest6",
+      "value": "说明：一个线程在文件写入文本，另一个线程从文件中读取文本"
+    },
+    {
+      "name": "TaskPoolButtonTest",
+      "value": "taskPool-执行一组有关联的任务"
+    },
+    {
+      "name": "TaskPoolTextTest",
+      "value": "说明：任务组中任务全部执行完成后，结果数组统一返回"
+    },
+    {
+      "name": "TaskPoolButtonTest2",
       "value": "taskPool-任务优先级"
+    },
+    {
+      "name": "TaskPoolTextTest2",
+      "value": "说明：创建实例可以给第二个参数设置权重，假设有两个多线程任务，可以决定优先执行那一个多线程任务"
+    },
+    {
+      "name": "TaskPoolButtonTest3",
+      "value": "taskPool-计算两数之和"
+    },
+    {
+      "name": "TaskPoolTextTest3",
+      "value": "说明：输入2和10输出 12"
     }
   ]
 }
