@@ -13,31 +13,21 @@
  * limitations under the License.
  */
 
-{
-  "apiType": "stageMode",
-  "buildOption": {
-  },
-  "buildOptionSet": [
-    {
-      "name": "release",
-      "arkOptions": {
-        "obfuscation": {
-          "ruleOptions": {
-            "enable": false,
-            "files": [
-              "./obfuscation-rules.txt"
-            ]
-          }
-        }
+import { TitleBar } from '../common/TitleBar';
+import { TextTimerComponent } from '../common/TextTimerComponent';
+
+@Entry
+@Component
+struct Index {
+  build() {
+    Column() {
+      TitleBar()
+      Column() {
+        TextTimerComponent()
       }
-    },
-  ],
-  "targets": [
-    {
-      "name": "default"
-    },
-    {
-      "name": "ohosTest",
+      .width('100%')
+      .height('80%')
+      .margin({ top: '20%' })
     }
-  ]
+  }
 }
