@@ -13,31 +13,19 @@
  * limitations under the License.
  */
 
-{
-  "apiType": "stageMode",
-  "buildOption": {
-  },
-  "buildOptionSet": [
-    {
-      "name": "release",
-      "arkOptions": {
-        "obfuscation": {
-          "ruleOptions": {
-            "enable": false,
-            "files": [
-              "./obfuscation-rules.txt"
-            ]
-          }
-        }
-      }
-    },
-  ],
-  "targets": [
-    {
-      "name": "default"
-    },
-    {
-      "name": "ohosTest",
+@Component
+export struct TitleBar {
+  build() {
+    Row() {
+      Text($r('app.string.entry_MainAbility'))
+        .fontSize(30)
+        .layoutWeight(1)
+        .fontColor(Color.White)
     }
-  ]
+    .width('100%')
+    .height('8%')
+    .padding({ left: 16 })
+    .backgroundColor('#0D9FFB')
+    .constraintSize({ minHeight: 50 })
+  }
 }
