@@ -13,31 +13,8 @@
  * limitations under the License.
  */
 
-{
-  "apiType": "stageMode",
-  "buildOption": {
-  },
-  "buildOptionSet": [
-    {
-      "name": "release",
-      "arkOptions": {
-        "obfuscation": {
-          "ruleOptions": {
-            "enable": false,
-            "files": [
-              "./obfuscation-rules.txt"
-            ]
-          }
-        }
-      }
-    },
-  ],
-  "targets": [
-    {
-      "name": "default"
-    },
-    {
-      "name": "ohosTest",
-    }
-  ]
+import localUnitTest from './LocalUnit.test';
+
+export default function testsuite() {
+  localUnitTest();
 }
