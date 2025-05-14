@@ -38,7 +38,7 @@ import {
   ButtonAttribute,
   ClickEvent,
   UserView,
-  Row,
+  Row,$r
 } from "@ohos.arkui.component" // TextAttribute should be insert by ui-plugins
 import {
   State,
@@ -78,20 +78,20 @@ function createFileTest(fileName: string, context: string): void {
 
 @Component
 struct MyStateSample {
-  @State stringTest1LockSame: string = "预期结果";
-  @State stringTest1Unlock: string = "预期结果";
-  @State messageString: string = "加锁";
-  @State messageStringUnlock: string = "不加锁";
-  @State mapString: string = "预期结果";
-  messageStringTmp: string = "预期结果";
-  messageStringTmpUnlock: string = "预期结果";
-  stringTest1TmpLockSame: string = "预期结果";
-  stringTest1TmpUnlock: string = "预期结果";
-  @State stringTest2: string = "预期结果";
-  @State stringFile: string = "预期结果";
-  @State priorityString: string = "预期结果";
-  @State addString: string = "预期结果 ";
-  @State taskGroupString: string = "预期结果 ";
+  @State stringTest1LockSame: string = "";
+  @State stringTest1Unlock: string = "";
+  @State messageString: string = "";
+  @State messageStringUnlock: string = "";
+  @State mapString: string = "";
+  messageStringTmp: string = "";
+  messageStringTmpUnlock: string = "";
+  stringTest1TmpLockSame: string = "";
+  stringTest1TmpUnlock: string = "";
+  @State stringTest2: string = "";
+  @State stringFile: string = "";
+  @State priorityString: string = "";
+  @State addString: string = " ";
+  @State taskGroupString: string = " ";
 
   async readFile(fileName: string): Promise<void> {
     await lockFile.lockAsync(() => {
@@ -229,15 +229,15 @@ struct MyStateSample {
   }
 
   priorityLOW() {
-    this.priorityString += "低";
+    this.priorityString += "L";
   }
 
   priorityHIGH() {
-    this.priorityString += "高";
+    this.priorityString += "H";
   }
 
   priorityMEDIUM() {
-    this.priorityString += "中";
+    this.priorityString += "M";
   }
 
   concurrentFunc() {
@@ -261,7 +261,7 @@ struct MyStateSample {
     Column() {
       Column() {
         Text("-------------------EAWorker------------------").width("100%")
-        Button("EAWorker-不同线程共同操作一个函数-加锁")
+        Button($r('app.string.EAWorkerButtonTest'))
           .onClick((e: ClickEvent) => {
             let eaw: EAWorker = new EAWorker(true);
             let eaw2: EAWorker = new EAWorker(true);
@@ -282,11 +282,11 @@ struct MyStateSample {
           .backgroundColor(0x317aff)
           .width("80%")
         Column() {
-          Text("说明：资源竞争，可能会出现交替打印").height(NUM_50)
+          Text($r('app.string.EAWorkerTextTest')).height(NUM_50)
           Text(this.messageStringUnlock).width("90%")
         }
 
-        Button("EAWorker-不同线程共同操作一个函数-不加锁")
+         Button($r('app.string.EAWorkerButtonTest2'))
           .onClick((e: ClickEvent) => {
             let eaw: EAWorker = new EAWorker(true);
             let eaw2: EAWorker = new EAWorker(true);
@@ -306,13 +306,13 @@ struct MyStateSample {
           .backgroundColor(0x317aff)
           .width("80%")
         Column() {
-          Text("说明：资源竞争，可能会出现交替打印").height(NUM_50)
+          Text($r('app.string.EAWorkerTextTest2')).height(NUM_50)
           Text(this.messageStringUnlock).width("90%")
         }
       }.height(NUM_200)
 
       Column() {
-        Button("EAWorker-不同线程操作不同函数-加锁")
+        Button($r('app.string.EAWorkerButtonTest3'))
           .onClick((e: ClickEvent) => {
             let eaw: EAWorker = new EAWorker(true);
             let eaw2: EAWorker = new EAWorker(true);
@@ -329,13 +329,13 @@ struct MyStateSample {
           .backgroundColor(0x317aff)
           .width("80%")
         Column() {
-          Text("说明：不会出现交替打印的问题-使用锁").height(NUM_50)
+          Text($r('app.string.EAWorkerTextTest3')).height(NUM_50)
           Text(this.stringTest1LockSame).width("90%")
         }
       }.height(NUM_200)
 
       Column() {
-        Button("EAWorker-不同线程操作不同函数-不加锁")
+        Button($r('app.string.EAWorkerButtonTest4'))
           .onClick((e: ClickEvent) => {
             let eaw: EAWorker = new EAWorker(true);
             let eaw2: EAWorker = new EAWorker(true);
@@ -352,13 +352,13 @@ struct MyStateSample {
           .backgroundColor(0x317aff)
           .width("80%")
         Column() {
-          Text("说明：会出现交替打印的问题-不使用锁").height(NUM_50)
+          Text("$r('app.string.EAWorkerTextTest4')").height(NUM_50)
           Text(this.stringTest1Unlock).width("90%")
         }
       }.height(NUM_200)
 
       Column() {
-        Button("EAWorker-不同线程共享一个容器")
+        Button($r('app.string.EAWorkerButtonTest5'))
           .onClick((e: ClickEvent) => {
             let eaw: EAWorker = new EAWorker(true);
             let eaw2: EAWorker = new EAWorker(true);
@@ -374,14 +374,13 @@ struct MyStateSample {
           .backgroundColor(0x317aff)
           .width("80%")
         Column() {
-          Text("说明：一个线程让map插入100个数据 另一个线程让map删除NUM_50个数据，并且map大小应为NUM_50,目前EAWorker子线程控制不了时序，可能会出现100(先删除空map，后加100数据) ")
-            .height(NUM_50)
+          Text($r('app.string.EAWorkerTextTest5')).height(NUM_50)
           Text(this.mapString).width("90%")
         }
       }.height(NUM_200)
 
       Column() {
-        Button("EAWorker-不同线程读写同一个文件")
+        Button($r('app.string.EAWorkerButtonTest6'))
           .onClick((e: ClickEvent) => {
             hilog.info(0x0000, 'testTag', 'On Click');
             let path: string = "/data/storage/el2/base/haps/entry/files/test.txt";
@@ -395,14 +394,14 @@ struct MyStateSample {
           .backgroundColor(0x317aff)
           .width("80%")
         Column() {
-          Text("说明：一个线程在文件写入文本，另一个线程从文件中读取文本").height(NUM_50)
+          Text($r('app.string.EAWorkerTextTest6')).height(NUM_50)
           Text(this.stringFile).width("90%")
         }
       }.height(NUM_200)
 
       Text("-------------------taskPool------------------").width("100%")
       Column() {
-        Button("taskPool-执行一组有关联的任务")
+        Button($r('app.string.TaskPoolButtonTest'))
           .onClick((e: ClickEvent) => {
             hilog.info(0x0000, 'testTag', 'On Click');
             this.taskTest();
@@ -411,13 +410,13 @@ struct MyStateSample {
           .backgroundColor(0x317aff)
           .width("80%")
         Column() {
-          Text("说明：任务组中任务全部执行完成后，结果数组统一返回").height(NUM_50)
+          Text($r('app.string.TaskPoolTextTest')).height(NUM_50)
           Text(this.taskGroupString).width("90%")
         }
       }.height(NUM_200)
 
       Column() {
-        Button('$string:taskPool')
+        Button($r('app.string.TaskPoolButtonTest2'))
           .onClick((e: ClickEvent) => {
             this.concurrentFunc();
           })
@@ -425,14 +424,14 @@ struct MyStateSample {
           .backgroundColor(0x317aff)
           .width("80%")
         Column() {
-          Text("说明：创建实例可以给第二个参数设置权重，假设有两个多线程任务，可以决定优先执行那一个多线程任务")
+          Text($r('app.string.TaskPoolTextTest2')).height(NUM_50)
             .height(NUM_50)
           Text(this.priorityString).width("90%")
         }
       }.height(NUM_200)
 
       Column() {
-        Button("taskPool-计算两数之和")
+        Button($r('app.string.TaskPoolButtonTest3'))
           .onClick((e: ClickEvent) => {
             hilog.info(0x0000, 'testTag', 'On Click');
             this.concurrentFuncAdd();
@@ -441,7 +440,7 @@ struct MyStateSample {
           .backgroundColor(0x317aff)
           .width("80%")
         Column() {
-          Text("说明：输入2和10输出 12")
+          Text($r('app.string.TaskPoolTextTest3'))
             .height(NUM_50)
           Text(this.addString).width("90%")
         }
