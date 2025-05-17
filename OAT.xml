@@ -137,7 +137,12 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="network/Bluetooth/entry/src/main/java/ohos/samples/bluetooth/adapter/" desc="Not contains 3rd code，license file is not required in this subdirectory."/>
             </filefilter>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies" >
-			<filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/ArkTS1.2/ModuleSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/ArkTS1.2/InteropSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/entry/src/main/resources/base/media/background.png" desc="Provide by code/ArkTS1.2/InteropSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/AppScope/resources/base/media/app_icon.png" desc="Provide by code/ArkTS1.2/InteropSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/entry/src/main/resources/base/media/foreground.png" desc="Provide by code/ArkTS1.2/InteropSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/interopSample/entry/src/main/resources/base/media/RM002_preview.png" desc="Provide by code/ArkTS1.2/InteropSample"/>
+			    <filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/ArkTS1.2/ModuleSample"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/entry/src/main/resources/base/media/background.png" desc="Provide by code/ArkTS1.2/ModuleSample"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/AppScope/resources/base/media/app_icon.png" desc="Provide by code/ArkTS1.2/ModuleSample"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ModuleSample/entry/src/main/resources/base/media/foreground.png" desc="Provide by code/ArkTS1.2/ModuleSample"/>
@@ -2135,7 +2140,28 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/UI/SearchComponent/searchcomponent/src/main/resources/base/media/search_component_search.svg" desc="Provide by code/UI/SearchComponent"/>
 			</filefilter>
             <filefilter name="defaultPolicyFilter" desc="License文件头校验策略的过滤条件" >
-			<filteritem type="filepath" name="code/ArkTS1.2/ANISample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/arkts1_0har/src/ohosTest/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/arkts1_2har/src/ohosTest/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/tshar/src/ohosTest/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/jshar/src/ohosTest/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/arkts1_0har/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/arkts1_2har/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/tshar/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/jshar/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/arkts1_2har/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/tshar/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/jshar/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/entry/src/mock/mock-config.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/arkts1_0har/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/tshar/src/main/ets/components/TSTest.ts" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/entry/src/ohosTest/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/jshar/src/main/ets/components/JSTest.js" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+			    <filteritem type="filepath" name="code/ArkTS1.2/ANISample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/ArkTS1.2/ANISample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/ArkTS1.2/ANISample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/ArkTS1.2/ANISample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
@@ -2225,6 +2251,26 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/BasicFeature/Media/VideoSwitching/entry/src/main/resources/rawfile/video_screen_direction_switching2.MP4" desc="Provide by code/BasicFeature/Media/VideoSwitching"/>
             </filefilter>
             <filefilter name="copyrightPolicyFilter" desc="Copyright文件头校验策略的过滤条件" >
+				<filteritem type="filepath" name="code/ArkTS1.2/interopSample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/arkts1_0har/src/ohosTest/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/arkts1_2har/src/ohosTest/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/tshar/src/ohosTest/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/jshar/src/ohosTest/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/arkts1_0har/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/arkts1_2har/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/tshar/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+			    <filteritem type="filepath" name="code/ArkTS1.2/InteropSample/arkts1_0har/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/arkts1_2har/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/tshar/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/jshar/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/entry/src/mock/mock-config.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/jshar/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/entry/src/ohosTest/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/InteropSample/tshar/src/main/ets/components/TSTest.ts" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+			    <filteritem type="filepath" name="code/ArkTS1.2/InteropSample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
+			    <filteritem type="filepath" name="code/ArkTS1.2/InteropSample/jshar/src/main/ets/components/JSTest.js" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
 			    <filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ThreadSafeContainersSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加版权头"/>
