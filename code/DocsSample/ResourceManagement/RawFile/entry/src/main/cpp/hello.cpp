@@ -13,26 +13,29 @@
  * limitations under the License.
  */
 
+// [Start includes]
 #include <js_native_api.h>
 #include <js_native_api_types.h>
 #include <string>
 #include <vector>
-#include <iostream>
 #include <cstdlib>
 #include "napi/native_api.h"
 #include "rawfile/raw_file_manager.h"
 #include "rawfile/raw_file.h"
 #include "rawfile/raw_dir.h"
 #include "hilog/log.h"
+// [End includes]
 
+// [Start constants]
 const int GLOBAL_RESMGR = 0xFF00;
 const char *TAG = "[Sample_rawfile]";
+// [End constants]
 
+// [Start example_get_file_list]
 // 示例一：获取rawfile文件列表 GetFileList
 static napi_value GetFileList(napi_env env, napi_callback_info info)
 {
-    OH_LOG_Print(LOG_APP, LOG_ERROR, GLOBAL_RESMGR, TAG, "NDKTest Begin");
-    size_t requireArgc = 3;
+    OH_LOG_Print(LOG_APP, LOG_INFO, GLOBAL_RESMGR, TAG, "NDKTest GetFileList Begin");
     size_t argc = 2;
     napi_value argv[2] = { nullptr };
     // 获取参数信息
@@ -74,7 +77,9 @@ static napi_value GetFileList(napi_env env, napi_callback_info info)
     OH_ResourceManager_ReleaseNativeResourceManager(mNativeResMgr);
     return fileList;
 }
+// [End example_get_file_list]
 
+// [Start example_get_rawfile_content]
 // 示例二：获取rawfile文件内容 GetRawFileContent
 napi_value CreateJsArrayValue(napi_env env, std::unique_ptr<uint8_t[]> &data, long length)
 {
@@ -102,8 +107,7 @@ napi_value CreateJsArrayValue(napi_env env, std::unique_ptr<uint8_t[]> &data, lo
 
 static napi_value GetRawFileContent(napi_env env, napi_callback_info info)
 {
-    OH_LOG_Print(LOG_APP, LOG_ERROR, GLOBAL_RESMGR, TAG, "GetFileContent Begin");
-    size_t requireArgc = 3;
+    OH_LOG_Print(LOG_APP, LOG_INFO, GLOBAL_RESMGR, TAG, "GetFileContent Begin");
     size_t argc = 2;
     napi_value argv[2] = { nullptr };
     // 获取参数信息
@@ -119,7 +123,7 @@ static napi_value GetRawFileContent(napi_env env, napi_callback_info info)
     // 获取rawfile指针对象
     RawFile *rawFile = OH_ResourceManager_OpenRawFile(mNativeResMgr, filename.c_str());
     if (rawFile != nullptr) {
-        OH_LOG_Print(LOG_APP, LOG_ERROR, GLOBAL_RESMGR, TAG, "OH_ResourceManager_OpenRawFile success");
+        OH_LOG_Print(LOG_APP, LOG_INFO, GLOBAL_RESMGR, TAG, "OH_ResourceManager_OpenRawFile success");
     }
     // 获取rawfile大小并申请内存
     long len = OH_ResourceManager_GetRawFileSize(rawFile);
@@ -134,7 +138,9 @@ static napi_value GetRawFileContent(napi_env env, napi_callback_info info)
     // 转为js对象
     return CreateJsArrayValue(env, data, len);
 }
+// [End example_get_rawfile_content]
 
+// [Start example_get_rawfile_descriptor]
 // 示例三：获取rawfile文件描述符 GetRawFileDescriptor
 // 定义一个函数，将RawFileDescriptor转为js对象
 napi_value createJsFileDescriptor(napi_env env, RawFileDescriptor& descriptor)
@@ -183,16 +189,13 @@ napi_value createJsFileDescriptor(napi_env env, RawFileDescriptor& descriptor)
 
 static napi_value GetRawFileDescriptor(napi_env env, napi_callback_info info)
 {
-    OH_LOG_Print(LOG_APP, LOG_ERROR, GLOBAL_RESMGR, TAG, "NDKTest GetRawFileDescriptor Begin");
-    size_t requireArgc = 3;
+    OH_LOG_Print(LOG_APP, LOG_INFO, GLOBAL_RESMGR, TAG, "NDKTest GetRawFileDescriptor Begin");
     size_t argc = 2;
     napi_value argv[2] = { nullptr };
     // 获取参数信息
     napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr);
-    
-    napi_valuetype valueType;
-    napi_typeof(env, argv[0], &valueType);
-    // 获取native的resourceManager对象
+
+    // argv[0]即为函数第一个参数Js资源对象，OH_ResourceManager_InitNativeResourceManager转为Native对象
     NativeResourceManager *mNativeResMgr = OH_ResourceManager_InitNativeResourceManager(env, argv[0]);
     size_t strSize;
     char strBuf[256];
@@ -201,7 +204,7 @@ static napi_value GetRawFileDescriptor(napi_env env, napi_callback_info info)
     // 获取rawfile指针对象
     RawFile *rawFile = OH_ResourceManager_OpenRawFile(mNativeResMgr, filename.c_str());
     if (rawFile != nullptr) {
-        OH_LOG_Print(LOG_APP, LOG_ERROR, GLOBAL_RESMGR, TAG, "OH_ResourceManager_OpenRawFile success");
+        OH_LOG_Print(LOG_APP, LOG_INFO, GLOBAL_RESMGR, TAG, "OH_ResourceManager_OpenRawFile success");
     }
     // 获取rawfile的描述符RawFileDescriptor {fd, offset, length}
     RawFileDescriptor descriptor;
@@ -212,7 +215,10 @@ static napi_value GetRawFileDescriptor(napi_env env, napi_callback_info info)
     // 转为js对象
     return createJsFileDescriptor(env, descriptor);
 }
+// [End example_get_rawfile_descriptor]
 
+// [Start example_is_raw_dir]
+// 示例四：判断路径是否是rawfile下的目录 IsRawDir
 napi_value CreateJsBool(napi_env env, bool &bValue)
 {
     napi_value jsValue = nullptr;
@@ -224,21 +230,19 @@ napi_value CreateJsBool(napi_env env, bool &bValue)
 
 static napi_value IsRawDir(napi_env env, napi_callback_info info)
 {
-    OH_LOG_Print(LOG_APP, LOG_ERROR, GLOBAL_RESMGR, TAG, "NDKTest IsRawDir Begin");
-    size_t requireArgc = 3;
+    OH_LOG_Print(LOG_APP, LOG_INFO, GLOBAL_RESMGR, TAG, "NDKTest IsRawDir Begin");
     size_t argc = 2;
     napi_value argv[2] = { nullptr };
     // 获取参数信息
     napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr);
 
-    napi_valuetype valueType;
-    napi_typeof(env, argv[0], &valueType);
-    // 获取native的resourceManager对象
+    // argv[0]即为函数第一个参数Js资源对象，OH_ResourceManager_InitNativeResourceManager转为Native对象
     NativeResourceManager *mNativeResMgr = OH_ResourceManager_InitNativeResourceManager(env, argv[0]);
 
-    napi_valuetype valueType1;
-    napi_typeof(env, argv[1], &valueType);
-    if (valueType1 == napi_undefined || valueType1 == napi_null) {
+    napi_valuetype fileNameType;
+    napi_typeof(env, argv[1], &fileNameType);
+    if (fileNameType == napi_undefined || fileNameType == napi_null) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, GLOBAL_RESMGR, TAG, "NDKTest file name is null");
         bool temp = false;
         return CreateJsBool(env, temp);
     }
@@ -246,12 +250,14 @@ static napi_value IsRawDir(napi_env env, napi_callback_info info)
     char strBuf[256];
     napi_get_value_string_utf8(env, argv[1], strBuf, sizeof(strBuf), &strSize);
     std::string filename(strBuf, strSize);
-    // 获取rawfile指针对象
-    bool result = OH_ResourceManager_OpenRawFile(mNativeResMgr, filename.c_str());
+    // 判断是否是rawfile下的目录
+    bool result = OH_ResourceManager_IsRawDir(mNativeResMgr, filename.c_str());
     OH_ResourceManager_ReleaseNativeResourceManager(mNativeResMgr);
     return CreateJsBool(env, result);
 }
+// [End example_is_raw_dir]
 
+// [Start module_registration]
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
@@ -266,6 +272,7 @@ static napi_value Init(napi_env env, napi_value exports)
     return exports;
 }
 EXTERN_C_END
+// [End module_registration]
 
 static napi_module demoModule = {
     .nm_version = 1,
@@ -281,4 +288,3 @@ extern "C" __attribute__((constructor)) void RegisterEntryModule(void)
 {
     napi_module_register(&demoModule);
 }
-
