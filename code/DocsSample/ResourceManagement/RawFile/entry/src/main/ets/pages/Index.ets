@@ -12,32 +12,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import hilog from '@ohos.hilog';
-import testNapi from 'libentry.so';  // 导入so
-
-class RawFileDescriptor {
-  fd: number;
-  offset: number;
-  length: number;
-
-  constructor(fd: number, offset: number, length: number) {
-    this.fd = fd;
-    this.offset = offset;
-    this.length = length;
-  }
-}
+// [Start native_rawfile_guide_sample]
+import { util } from '@kit.ArkTS';
+import { resourceManager } from '@kit.LocalizationKit';
+import testNapi from 'libentry.so'; // 导入so
 
 @Entry
 @Component
 struct Index {
   @State message: string = 'Hello World';
-  private resmgr = getContext().resourceManager;  // 获取本应用包的资源对象
-  @State rawfilelistMsg: string = 'FileList = ';
+  private resMgr = this.getUIContext().getHostContext()?.resourceManager; // 获取本应用包的资源对象
+  @State rawfileListMsg: string = 'FileList = ';
   @State retMsg: string = 'isRawDir = ';
-  @State rawfileContetMsg: string = 'RawFileContent = ';
+  @State rawfileContentMsg: string = 'RawFileContent = ';
   @State rawfileDescriptorMsg: string = 'RawFileDescriptor.length = ';
-  
+
   build() {
     Row() {
       Column() {
@@ -46,28 +35,32 @@ struct Index {
           .fontSize(30)
           .fontWeight(FontWeight.Bold)
           .onClick(async () => {
-            hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-            console.log('rawfilelist');
-            let rawfilelist = testNapi.getFileList(this.resmgr, ''); // 传入资源对象，以及访问的rawfile文件夹名称
-                console.log('rawfilelist:' + rawfilelist);
-            this.rawfilelistMsg = 'FileList = ' + rawfilelist;
+            // 传入资源管理对象，以及访问的rawfile文件夹名称
+            let rawFileList: Array<String> = testNapi.getFileList(this.resMgr, '');
+            this.rawfileListMsg = 'FileList = ' + rawFileList;
+            console.log(this.rawfileListMsg);
 
-            let ret = testNapi.isRawDir(this.resmgr, 'rawfile1.txt');
-            console.log('isRawDir:' + ret);
+            let ret: boolean = testNapi.isRawDir(this.resMgr, 'subrawfile');
             this.retMsg = 'isRawDir = ' + ret;
+            console.log(this.retMsg);
 
-            let rawfileContet = testNapi.getRawFileContent(this.resmgr, 'rawfile1.txt');
-            console.log('rawfileContet:' + rawfileContet);
-            this.rawfileContetMsg = 'RawFileContent = ' + rawfileContet;
+            // 传入资源管理对象，以及访问的rawfile文件夹名称
+            let rawfileArray: Uint8Array = testNapi.getRawFileContent(this.resMgr, 'rawfile1.txt');
+            // 将Uint8Array转为字符串
+            let textDecoder: util.TextDecoder = new util.TextDecoder();
+            let rawfileContent: string = textDecoder.decodeToString(rawfileArray);
+            this.rawfileContentMsg = 'RawFileContent = ' + rawfileContent;
+            console.log(this.rawfileContentMsg);
 
-            let rawfileDescriptor = (testNapi.getRawFileDescriptor(this.resmgr, 'rawfile1.txt') as RawFileDescriptor);
-            console.log('RawFileDescriptor:' + rawfileDescriptor.fd, rawfileDescriptor.offset,
-              rawfileDescriptor.length);
+            // 传入资源管理对象，以及访问的rawfile文件名称
+            let rawfileDescriptor: resourceManager.RawFileDescriptor =
+              testNapi.getRawFileDescriptor(this.resMgr, 'rawfile1.txt');
             this.rawfileDescriptorMsg = 'RawFileDescriptor.length = ' + rawfileDescriptor.length;
+            console.log(this.rawfileDescriptorMsg);
           })
-        Text(this.rawfilelistMsg).id('get_file_list').fontSize(30);
+        Text(this.rawfileListMsg).id('get_file_list').fontSize(30);
         Text(this.retMsg).id('is_raw_dir').fontSize(30);
-        Text(this.rawfileContetMsg).id('get_raw_file_content').fontSize(30);
+        Text(this.rawfileContentMsg).id('get_raw_file_content').fontSize(30);
         Text(this.rawfileDescriptorMsg).id('get_raw_file_descriptor').fontSize(30);
       }
       .width('100%')
@@ -75,3 +68,5 @@ struct Index {
     .height('100%')
   }
 }
+
+// [End native_rawfile_guide_sample]
