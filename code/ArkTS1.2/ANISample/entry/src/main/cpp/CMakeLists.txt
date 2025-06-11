@@ -10,5 +10,5 @@ endif()
 
 include_directories(${NATIVERENDER_ROOT_PATH}
                     ${NATIVERENDER_ROOT_PATH}/include)
-add_library(entry SHARED ani_init.cpp)
-target_link_libraries(entry PUBLIC libhilog_ndk.z.so)
+add_library(aniTest SHARED ani_init.cpp)
+target_link_libraries(aniTest PUBLIC libhilog_ndk.z.so)

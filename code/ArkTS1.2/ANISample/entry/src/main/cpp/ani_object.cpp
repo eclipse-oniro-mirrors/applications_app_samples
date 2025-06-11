@@ -24,13 +24,7 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #include "ani/ani.h"
-#include "hilog/log.h"
 #include <iostream>
-
-#undef LOG_DOMAIN
-#undef LOG_TAG
-#define LOG_DOMAIN 0x3200 // 全局domain宏，标识业务领域
-#define LOG_TAG "MY_TAG"  // 全局tag宏，标识模块日志tag
 
 static ani_double HandleDoubleData([[maybe_unused]] ani_env *env, [[maybe_unused]] ani_fn_object fnObj,
                                    ani_double val_double1)
@@ -48,16 +42,13 @@ static ani_double HandleDoubleData([[maybe_unused]] ani_env *env, [[maybe_unused
     if (ANI_OK != env->Object_New(cls, ctor, &rs, val_double1)) {
         std::cerr << "Object_New fail " << std::endl;
     }
-    OH_LOG_ERROR(LOG_APP, "testTag Object_New success");
     ani_type result;
     if (ANI_OK != env->Object_GetType(rs, &result)) {
         std::cerr << "Object_GetType fail " << std::endl;
     }
-    OH_LOG_ERROR(LOG_APP, "testTag Object_GetType success");
-    ani_boolean boolresult;
-    if (ANI_OK != env->Object_InstanceOf(fnObj, cls, &boolresult)) {
+    ani_boolean boolResult;
+    if (ANI_OK != env->Object_InstanceOf(fnObj, cls, &boolResult)) {
         std::cerr << "Object_InstanceOf fail " << std::endl;
     }
-    OH_LOG_ERROR(LOG_APP, "testTag Object_InstanceOf result: %{public}d", boolresult);
     return val_double1;
 }

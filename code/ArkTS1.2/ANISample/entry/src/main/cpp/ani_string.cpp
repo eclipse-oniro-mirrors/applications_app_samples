@@ -24,26 +24,18 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #include "ani/ani.h"
-#include "hilog/log.h"
 #include <iostream>
-
-#undef LOG_DOMAIN
-#undef LOG_TAG
-#define LOG_DOMAIN 0x3200 // 全局domain宏，标识业务领域
-#define LOG_TAG "MY_TAG"  // 全局tag宏，标识模块日志tag
-//  String Operations
 
 static ani_string String_Operations(ani_env *env, [[maybe_unused]] ani_object obj)
 {
     std::string msg = "testTag this message in cpp";
     ani_string ani_str;
+    ani_size strSize;
     if (ANI_OK != env->String_NewUTF8(msg.c_str(), msg.size(), &ani_str)) {
         std::cerr << "String_NewUTF8 fail" << std::endl;
     }
-    ani_size strSize;
     if (ANI_OK != env->String_GetUTF8Size(ani_str, &strSize)) {
         std::cerr << "String_NewUTF8 fail" << std::endl;
     }
-    OH_LOG_ERROR(LOG_APP, "testTag String_GetUTF8Size result: %{public}ld", strSize);
     return ani_str;
 }

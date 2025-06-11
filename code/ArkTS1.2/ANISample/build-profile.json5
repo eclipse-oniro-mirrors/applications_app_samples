@@ -5,9 +5,9 @@
       {
         "name": "default",
         "signingConfig": "default",
-        "compatibleSdkVersion": "5.0.2(14)",
-        "runtimeOS": "HarmonyOS",
         "arkTSVersion": "1.2",
+        "compatibleSdkVersion": "6.0.0(20)",
+        "runtimeOS": "HarmonyOS",
         "buildOption": {
           "strictMode": {
             "caseSensitiveCheck": true,
@@ -37,6 +37,6 @@
           ]
         }
       ]
-    },
+    }
   ]
 }
