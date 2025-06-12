@@ -13,18 +13,6 @@
       "value": "label"
     },
     {
-      "name": "LOW",
-      "value": "低"
-    },
-    {
-      "name": "MEDIUM",
-      "value": "中"
-    },
-    {
-      "name": "HIGH",
-      "value": "高"
-    },
-    {
       "name": "EAWorkerButtonTest",
       "value": "EAWorker-不同线程共同操作一个函数-加锁"
     },

@@ -28,7 +28,7 @@ import {
   memo,
   __memo_context_type,
   __memo_id_type
-} from "@ohos.arkui.stateManagement" // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
 import {
   Text,
   TextAttribute,
@@ -38,15 +38,16 @@ import {
   ButtonAttribute,
   ClickEvent,
   UserView,
-  Row,$r
-} from "@ohos.arkui.component" // TextAttribute should be insert by ui-plugins
+  Row,
+  $r,
+  List
+} from '@ohos.arkui.component' // TextAttribute should be insert by ui-plugins
 import {
   State,
-  StateDecoratedVariable,
   MutableState,
   stateOf,
   observableProxy
-} from "@ohos.arkui.stateManagement" // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
 import hilog from '@ohos.hilog'
 import fs from '@ohos.file.fs'
 
@@ -78,20 +79,20 @@ function createFileTest(fileName: string, context: string): void {
 
 @Component
 struct MyStateSample {
-  @State stringTest1LockSame: string = "";
-  @State stringTest1Unlock: string = "";
-  @State messageString: string = "";
-  @State messageStringUnlock: string = "";
-  @State mapString: string = "";
-  messageStringTmp: string = "";
-  messageStringTmpUnlock: string = "";
-  stringTest1TmpLockSame: string = "";
-  stringTest1TmpUnlock: string = "";
-  @State stringTest2: string = "";
-  @State stringFile: string = "";
-  @State priorityString: string = "";
-  @State addString: string = " ";
-  @State taskGroupString: string = " ";
+  @State stringTest1LockSame: string = '';
+  @State stringTest1Unlock: string = '';
+  @State messageString: string = '';
+  @State messageStringUnlock: string = '';
+  @State mapString: string = '';
+  messageStringTmp: string = '';
+  messageStringTmpUnlock: string = '';
+  stringTest1TmpLockSame: string = '';
+  stringTest1TmpUnlock: string = '';
+  @State stringTest2: string = '';
+  @State stringFile: string = '';
+  @State priorityString: string = '';
+  @State addString: string = ' ';
+  @State taskGroupString: string = ' ';
 
   async readFile(fileName: string): Promise<void> {
     await lockFile.lockAsync(() => {
@@ -110,7 +111,7 @@ struct MyStateSample {
   async fooTest(): Promise<void> {
     let p1 = await lockTest.lockAsync(() => {
       for (let i = 0; i < NUM_25; ++i) {
-        this.stringTest1TmpLockSame += "1";
+        this.stringTest1TmpLockSame += '1';
       }
     });
     this.stringTest1LockSame = this.stringTest1TmpLockSame;
@@ -119,7 +120,7 @@ struct MyStateSample {
   async fooTest2(): Promise<void> {
     let p2 = await lockTest.lockAsync(() => {
       for (let i = 0; i < NUM_25; ++i) {
-        this.stringTest1TmpLockSame += "2";
+        this.stringTest1TmpLockSame += '2';
       }
     });
     this.stringTest1LockSame = this.stringTest1TmpLockSame;
@@ -128,7 +129,7 @@ struct MyStateSample {
   async fooTest3(): Promise<void> {
     let p2 = await lockTest.lockAsync(() => {
       for (let i = 0; i < NUM_25; ++i) {
-        this.stringTest1TmpLockSame += "3";
+        this.stringTest1TmpLockSame += '3';
       }
     });
     this.stringTest1LockSame = this.stringTest1TmpLockSame;
@@ -136,21 +137,21 @@ struct MyStateSample {
 
   fooTestUnlock(): void {
     for (let i = 0; i < NUM_25; ++i) {
-      this.stringTest1TmpUnlock += "1";
+      this.stringTest1TmpUnlock += '1';
     }
     this.stringTest1Unlock = this.stringTest1TmpUnlock;
   }
 
   fooTestUnlock2(): void {
     for (let i = 0; i < NUM_25; ++i) {
-      this.stringTest1TmpUnlock += "2";
+      this.stringTest1TmpUnlock += '2';
     }
     this.stringTest1Unlock = this.stringTest1TmpUnlock;
   }
 
   fooTestUnlock3(): void {
     for (let i = 0; i < NUM_25; ++i) {
-      this.stringTest1TmpUnlock += "3";
+      this.stringTest1TmpUnlock += '3';
     }
     this.stringTest1Unlock = this.stringTest1TmpUnlock;
   }
@@ -172,7 +173,7 @@ struct MyStateSample {
   fooMapTest(): void {
     lockTest3.lockAsync(() => {
       for (let i = 0; i < NUM_100; ++i) {
-        mapTest.set(i, "num " + i);
+        mapTest.set(i, 'num ' + i);
       }
     });
   }
@@ -229,15 +230,15 @@ struct MyStateSample {
   }
 
   priorityLOW() {
-    this.priorityString += "L";
+    this.priorityString += 'L';
   }
 
   priorityHIGH() {
-    this.priorityString += "H";
+    this.priorityString += 'H';
   }
 
   priorityMEDIUM() {
-    this.priorityString += "M";
+    this.priorityString += 'M';
   }
 
   concurrentFunc() {
@@ -258,60 +259,50 @@ struct MyStateSample {
   }
 
   build() {
-    Column() {
+    List() {
       Column() {
-        Text("-------------------EAWorker------------------").width("100%")
+        Text('-------------------EAWorker------------------').width('100%')
         Button($r('app.string.EAWorkerButtonTest'))
           .onClick((e: ClickEvent) => {
             let eaw: EAWorker = new EAWorker(true);
             let eaw2: EAWorker = new EAWorker(true);
             let eaw3: EAWorker = new EAWorker(true);
-            eaw.run<void>(this.foo, "&");
-            eaw2.run<void>(this.foo, "*");
-            eaw3.run<void>(this.foo, "@");
+            eaw.run<void>(this.foo, '&');
+            eaw2.run<void>(this.foo, '*');
+            eaw3.run<void>(this.foo, '@');
             eaw.join();
             eaw2.join();
             eaw3.join();
             setTimeout(() => {
               hilog.info(0x0000, 'testTag', 'messageString' + this.messageStringTmp);
               this.messageString = this.messageStringTmp;
-              this.messageStringTmp = " ";
+              this.messageStringTmp = ' ';
             }, 100)
           })
           .borderRadius(NUM_8)
-          .backgroundColor(0x317aff)
-          .width("80%")
-        Column() {
-          Text($r('app.string.EAWorkerTextTest')).height(NUM_50)
-          Text(this.messageStringUnlock).width("90%")
-        }
-
-         Button($r('app.string.EAWorkerButtonTest2'))
+          .width('80%')
+        Text($r('app.string.EAWorkerTextTest'))
+        Text(this.messageStringUnlock).width('80%')
+        Button($r('app.string.EAWorkerButtonTest2'))
           .onClick((e: ClickEvent) => {
             let eaw: EAWorker = new EAWorker(true);
             let eaw2: EAWorker = new EAWorker(true);
             let eaw3: EAWorker = new EAWorker(true);
-            eaw.run<void>(this.fooUnLock, "&");
-            eaw2.run<void>(this.fooUnLock, "*");
-            eaw3.run<void>(this.fooUnLock, "@");
+            eaw.run<void>(this.fooUnLock, '&');
+            eaw2.run<void>(this.fooUnLock, '*');
+            eaw3.run<void>(this.fooUnLock, '@');
             eaw.join();
             eaw2.join();
             eaw3.join();
             setTimeout(() => {
               this.messageStringUnlock = this.messageStringTmpUnlock;
-              this.messageStringTmpUnlock = " ";
+              this.messageStringTmpUnlock = ' ';
             }, 100)
           })
           .borderRadius(NUM_8)
-          .backgroundColor(0x317aff)
-          .width("80%")
-        Column() {
-          Text($r('app.string.EAWorkerTextTest2')).height(NUM_50)
-          Text(this.messageStringUnlock).width("90%")
-        }
-      }.height(NUM_200)
-
-      Column() {
+          .width('80%')
+        Text($r('app.string.EAWorkerTextTest2'))
+        Text(this.messageStringUnlock).width('80%')
         Button($r('app.string.EAWorkerButtonTest3'))
           .onClick((e: ClickEvent) => {
             let eaw: EAWorker = new EAWorker(true);
@@ -323,18 +314,12 @@ struct MyStateSample {
             eaw.join();
             eaw2.join();
             eaw3.join();
-            this.stringTest1TmpLockSame = " ";
+            this.stringTest1TmpLockSame = ' ';
           })
           .borderRadius(NUM_8)
-          .backgroundColor(0x317aff)
-          .width("80%")
-        Column() {
-          Text($r('app.string.EAWorkerTextTest3')).height(NUM_50)
-          Text(this.stringTest1LockSame).width("90%")
-        }
-      }.height(NUM_200)
-
-      Column() {
+          .width('80%')
+        Text($r('app.string.EAWorkerTextTest3'))
+        Text(this.stringTest1LockSame).width('80%')
         Button($r('app.string.EAWorkerButtonTest4'))
           .onClick((e: ClickEvent) => {
             let eaw: EAWorker = new EAWorker(true);
@@ -346,18 +331,12 @@ struct MyStateSample {
             eaw.join();
             eaw2.join();
             eaw3.join();
-            this.stringTest1TmpUnlock = " ";
+            this.stringTest1TmpUnlock = ' ';
           })
           .borderRadius(NUM_8)
-          .backgroundColor(0x317aff)
-          .width("80%")
-        Column() {
-          Text("$r('app.string.EAWorkerTextTest4')").height(NUM_50)
-          Text(this.stringTest1Unlock).width("90%")
-        }
-      }.height(NUM_200)
-
-      Column() {
+          .width('80%')
+        Text($r('app.string.EAWorkerTextTest4'))
+        Text(this.stringTest1Unlock).width('80%')
         Button($r('app.string.EAWorkerButtonTest5'))
           .onClick((e: ClickEvent) => {
             let eaw: EAWorker = new EAWorker(true);
@@ -371,80 +350,51 @@ struct MyStateSample {
             }, 100)
           })
           .borderRadius(NUM_8)
-          .backgroundColor(0x317aff)
-          .width("80%")
-        Column() {
-          Text($r('app.string.EAWorkerTextTest5')).height(NUM_50)
-          Text(this.mapString).width("90%")
-        }
-      }.height(NUM_200)
-
-      Column() {
+          .width('80%')
+        Text($r('app.string.EAWorkerTextTest5'))
+        Text(this.mapString).width('80%')
         Button($r('app.string.EAWorkerButtonTest6'))
           .onClick((e: ClickEvent) => {
             hilog.info(0x0000, 'testTag', 'On Click');
-            let path: string = "/data/storage/el2/base/haps/entry/files/test.txt";
-            let str: string = "com.samples.EAWorker successfully launched";
+            let path: string = '/data/storage/el2/base/haps/entry/files/test.txt';
+            let str: string = 'com.samples.EAWorker successfully launched';
             createFileTest(path, str);
             let eaw: EAWorker = new EAWorker(true);
             eaw.run<void>(this.readFile, path);
             eaw.join();
           })
           .borderRadius(NUM_8)
-          .backgroundColor(0x317aff)
-          .width("80%")
-        Column() {
-          Text($r('app.string.EAWorkerTextTest6')).height(NUM_50)
-          Text(this.stringFile).width("90%")
-        }
-      }.height(NUM_200)
-
-      Text("-------------------taskPool------------------").width("100%")
-      Column() {
+          .width('80%')
+        Text($r('app.string.EAWorkerTextTest6'))
+        Text(this.stringFile).width('80%')
+        Text('-------------------taskPool------------------').width('100%')
         Button($r('app.string.TaskPoolButtonTest'))
           .onClick((e: ClickEvent) => {
             hilog.info(0x0000, 'testTag', 'On Click');
             this.taskTest();
           })
           .borderRadius(NUM_8)
-          .backgroundColor(0x317aff)
-          .width("80%")
-        Column() {
-          Text($r('app.string.TaskPoolTextTest')).height(NUM_50)
-          Text(this.taskGroupString).width("90%")
-        }
-      }.height(NUM_200)
-
-      Column() {
+          .width('80%')
+        Text($r('app.string.TaskPoolTextTest'))
+        Text(this.taskGroupString).width('80%')
         Button($r('app.string.TaskPoolButtonTest2'))
           .onClick((e: ClickEvent) => {
             this.concurrentFunc();
           })
           .borderRadius(NUM_8)
-          .backgroundColor(0x317aff)
-          .width("80%")
-        Column() {
-          Text($r('app.string.TaskPoolTextTest2')).height(NUM_50)
-            .height(NUM_50)
-          Text(this.priorityString).width("90%")
-        }
-      }.height(NUM_200)
-
-      Column() {
+          .width('80%')
+        Text($r('app.string.TaskPoolTextTest2'))
+        Text(this.priorityString).width('80%')
         Button($r('app.string.TaskPoolButtonTest3'))
           .onClick((e: ClickEvent) => {
             hilog.info(0x0000, 'testTag', 'On Click');
             this.concurrentFuncAdd();
           })
           .borderRadius(NUM_8)
-          .backgroundColor(0x317aff)
-          .width("80%")
-        Column() {
-          Text($r('app.string.TaskPoolTextTest3'))
-            .height(NUM_50)
-          Text(this.addString).width("90%")
-        }
-      }.height(NUM_200)
+          .width('80%')
+        Text($r('app.string.TaskPoolTextTest3'))
+        Text(this.addString).width('80%')
+      }
     }
   }
 }
