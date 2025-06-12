@@ -236,7 +236,7 @@
   <td ></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
-<td height="90" align="center" rowspan="23" style='height:67.50pt;' x:str><strong>系统特性（仅对系统应用开放）</strong></td>
+<td height="90" align="center" rowspan="22" style='height:67.50pt;' x:str><strong>系统特性（仅对系统应用开放）</strong></td>
   <td x:str><strong>能力增强</strong></td>
   <td x:str><a href="code/SystemFeature/Ability/AbilityFeatureSystem">基础能力增强</a></td>
   <td ></td>
@@ -244,23 +244,17 @@
   <td ></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
-  <td rowspan="3" x:str><strong>应用模型</strong></td>
+  <td rowspan="2" x:str><strong>应用模型</strong></td>
   <td x:str><a href="code/SystemFeature/ApplicationModels/Launcher">仿桌面应用（API 10）</a></td>
   <td x:str><a href="code/SystemFeature/ApplicationModels/MissionManager">任务管理</a></td>
   <td x:str><a href="code/SystemFeature/ApplicationModels/StaticSubscriber">静态订阅（API 10）</a></td>
-  <td x:str><a href="code/SystemFeature/ApplicationModels/AccessibilityExtAbility">无障碍扩展</a></td>
+  <td x:str><a href="code/SystemFeature/ApplicationModels/CustomShare">自定义分享（API 10）</a></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
   <td x:str><a href="code/SystemFeature/ApplicationModels/EnterpriseAdminExtensionAbility">企业设备管理扩展</a></td>
   <td x:str><a href="code/SystemFeature/ApplicationModels/TestRely/LauncherTest/CrossChainBack">跨任务链返回</a></td>
   <td x:str><a href="code/SystemFeature/ApplicationModels/TestRely/LauncherTest/StartRecentAbility">启动上一次的组件实例</a></td>
   <td x:str><a href="code/SystemFeature/ApplicationModels/StageModel">Stage模型（API10）</a></td>
- </tr>
- <tr height="18" style='height:13.50pt;'>
-  <td x:str><a href="code/SystemFeature/ApplicationModels/CustomShare">自定义分享（API 10）</a></td>
-  <td ></td>
-  <td ></td>
-  <td ></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
   <td x:str><strong>自动填充</strong></td>
