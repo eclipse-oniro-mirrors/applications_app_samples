@@ -1,6 +1,5 @@
 {
   "apiType": "stageMode",
-  "arkTSVersion": "1.2",
   "buildOption": {
     "externalNativeOptions": {
       "path": "./src/main/cpp/CMakeLists.txt",
@@ -19,6 +18,12 @@
               "./obfuscation-rules.txt"
             ]
           }
+        }
+      },
+      "nativeLib": {
+        "debugSymbol": {
+          "strip": true,
+          "exclude": []
         }
       }
     },

@@ -26,45 +26,11 @@
 #include "ani/ani.h"
 #include <iostream>
 
-static ani_boolean Global_Local_References([[maybe_unused]] ani_env *env, [[maybe_unused]] ani_object object)
+static ani_boolean VMInterface([[maybe_unused]] ani_env *env, [[maybe_unused]] ani_object obj)
 {
-    ani_ref ref;
-    ani_ref result;
-    if (ANI_OK != env->GlobalReference_Create(ref, &result)) {
-        std::cerr << "GlobalReference_Create FAILED" << std::endl;
-        return false;
-    }
-    ani_boolean isNull;
-    if (ANI_OK != env->Reference_IsNull(result, &isNull)) {
-        std::cerr << "Reference_IsNull" << std::endl;
-        return false;
-    }
-    ani_ref ref0 = nullptr;
-    ani_ref ref1 = nullptr;
-    ani_boolean boolResult;
-    if (ANI_OK != env->Reference_StrictEquals(ref0, ref1, &boolResult)) {
-        std::cerr << "Reference_StrictEquals" << std::endl;
-        return false;
-    }
-
-    if (ANI_OK != env->GlobalReference_Delete(result)) {
-        std::cerr << "Reference_IsNull" << std::endl;
-        return false;
-    }
-    return true;
-}
-
-//  Weak Global References;
-static ani_boolean Weak_Global_References([[maybe_unused]] ani_env *env, [[maybe_unused]] ani_object object)
-{
-    ani_ref ref;
-    ani_wref result;
-    if (ANI_OK != env->WeakReference_Create(ref, &result)) {
-        std::cerr << "WeakReference_Create FAILED" << std::endl;
-        return false;
-    }
-    if (ANI_OK != env->WeakReference_Delete(result)) {
-        std::cerr << "WeakReference_Delete FAILED" << std::endl;
+    ani_vm *result = nullptr;
+    if (ANI_OK != env->GetVM(&result)) {
+        std::cerr << "GetVM Fail" << std::endl;
         return false;
     }
     return true;

@@ -26,204 +26,8 @@
 #include "ani/ani.h"
 #include <iostream>
 
+
 //  Calling Instance Methods
-static void NativeVoidFunc(ani_env *env, ani_object obj)
-{
-    static const char *className = "Lentry/src/main/ets/entryability/EntryAbility/Calc;";
-    ani_class cls;
-    if (ANI_OK != env->FindClass(className, &cls)) {
-        std::cerr << "Not found '" << className << "'" << std::endl;
-        return;
-    }
-    ani_method managedMethod;
-    if (ANI_OK != env->Class_FindMethod(cls, "ManagedVoidFunc", ":V", &managedMethod)) {
-        std::cerr << "Class_FindMethod Fail" << std::endl;
-        return;
-    }
-    std::cout << "Print in Native Func" << std::endl;
-    if (ANI_OK != env->Object_CallMethod_Void(obj, managedMethod)) {
-        std::cerr << "Object_CallMethod_Void Fail" << std::endl;
-        return;
-    }
-}
-
-static ani_boolean NativeBoolFunc(ani_env *env, ani_object obj)
-{
-    static const char *className = "Lentry/src/main/ets/entryability/EntryAbility/Calc;";
-    ani_class cls;
-    if (ANI_OK != env->FindClass(className, &cls)) {
-        std::cerr << "Not found '" << className << "'" << std::endl;
-        return false;
-    }
-    ani_method managedMethod;
-    if (ANI_OK != env->Class_FindMethod(cls, "ManagedBoolFunc", ":Z", &managedMethod)) {
-        std::cerr << "Class_FindMethod Fail" << std::endl;
-        return false;
-    }
-    std::cout << "Print in Native Func" << std::endl;
-    ani_boolean boolValue;
-    if (ANI_OK != env->Object_CallMethod_Boolean(obj, managedMethod, &boolValue)) {
-        std::cerr << "Object_CallMethod_Boolean Fail" << std::endl;
-        return false;
-    }
-    return boolValue;
-}
-
-static ani_int NativeIntFunc([[maybe_unused]] ani_env *env, [[maybe_unused]] ani_object obj)
-{
-    static const char *className = "Lentry/src/main/ets/entryability/EntryAbility/Calc;";
-    ani_class cls;
-    if (ANI_OK != env->FindClass(className, &cls)) {
-        std::cerr << "Not found '" << className << "'" << std::endl;
-        return 0;
-    }
-    ani_method managedMethod;
-    if (ANI_OK != env->Class_FindMethod(cls, "ManagedIntFunc", ":I", &managedMethod)) {
-        std::cerr << "Class_FindMethod Fail" << std::endl;
-        return 0;
-    }
-    std::cout << "Print in Native Func" << std::endl;
-    ani_int intValue;
-    if (ANI_OK != env->Object_CallMethod_Int(obj, managedMethod, &intValue)) {
-        std::cerr << "Object_CallMethod_Int Fail" << std::endl;
-        return 0;
-    }
-    return intValue;
-}
-
-
-static ani_short NativeShortFunc([[maybe_unused]] ani_env *env, [[maybe_unused]] ani_object obj)
-{
-    static const char *className = "Lentry/src/main/ets/entryability/EntryAbility/Calc;";
-    ani_class cls;
-    if (ANI_OK != env->FindClass(className, &cls)) {
-        std::cerr << "Not found '" << className << "'" << std::endl;
-        return 0;
-    }
-    ani_method managedMethod;
-    if (ANI_OK != env->Class_FindMethod(cls, "ManagedShortFunc", ":S", &managedMethod)) {
-        std::cerr << "Class_FindMethod Fail" << std::endl;
-        return 0;
-    }
-    std::cout << "Print in Native Func" << std::endl;
-    ani_short shortValue;
-    if (ANI_OK != env->Object_CallMethod_Short(obj, managedMethod, &shortValue)) {
-        std::cerr << "Object_CallMethod_Short Fail" << std::endl;
-        return 0;
-    }
-    return shortValue;
-}
-
-static ani_long NativeLongFunc([[maybe_unused]] ani_env *env, [[maybe_unused]] ani_object obj)
-{
-    static const char *className = "Lentry/src/main/ets/entryability/EntryAbility/Calc;";
-    ani_class cls;
-    if (ANI_OK != env->FindClass(className, &cls)) {
-        std::cerr << "Not found '" << className << "'" << std::endl;
-        return 0;
-    }
-    ani_method managedMethod;
-    if (ANI_OK != env->Class_FindMethod(cls, "ManagedLongFunc", ":J", &managedMethod)) {
-        std::cerr << "Class_FindMethod Fail" << std::endl;
-        return 0;
-    }
-    std::cout << "Print in Native Func" << std::endl;
-    ani_long longValue;
-    if (ANI_OK != env->Object_CallMethod_Long(obj, managedMethod, &longValue)) {
-        std::cerr << "Object_CallMethod_Long Fail" << std::endl;
-        return 0;
-    }
-    return longValue;
-}
-
-static ani_double NativeDoubleFunc([[maybe_unused]] ani_env *env, [[maybe_unused]] ani_object obj)
-{
-    static const char *className = "Lentry/src/main/ets/entryability/EntryAbility/Calc;";
-    ani_class cls;
-    if (ANI_OK != env->FindClass(className, &cls)) {
-        std::cerr << "Not found '" << className << "'" << std::endl;
-        return 0;
-    }
-    ani_method managedMethod;
-    if (ANI_OK != env->Class_FindMethod(cls, "ManagedDoubleFunc", ":D", &managedMethod)) {
-        std::cerr << "Class_FindMethod Fail" << std::endl;
-        return 0;
-    }
-    std::cout << "Print in Native Func" << std::endl;
-    ani_double doubleValue;
-    if (ANI_OK != env->Object_CallMethod_Double(obj, managedMethod, &doubleValue)) {
-        std::cerr << "Object_CallMethod_Double Fail" << std::endl;
-        return 0;
-    }
-    return doubleValue;
-}
-
-static ani_float NativeFloatFunc([[maybe_unused]] ani_env *env, [[maybe_unused]] ani_object obj)
-{
-    static const char *className = "Lentry/src/main/ets/entryability/EntryAbility/Calc;";
-    ani_class cls;
-    if (ANI_OK != env->FindClass(className, &cls)) {
-        std::cerr << "Not found '" << className << "'" << std::endl;
-        return 0.0;
-    }
-    ani_method managedMethod;
-    if (ANI_OK != env->Class_FindMethod(cls, "ManagedFloatFunc", ":F", &managedMethod)) {
-        std::cerr << "Class_FindMethod Fail" << std::endl;
-        return 0.0;
-    }
-    std::cout << "Print in Native Func" << std::endl;
-    ani_float floatValue;
-    if (ANI_OK != env->Object_CallMethod_Float(obj, managedMethod, &floatValue)) {
-        std::cerr << "Object_CallMethod_Float Fail" << std::endl;
-        return 0.0;
-    }
-    return floatValue;
-}
-
-static ani_char NativeCharFunc([[maybe_unused]] ani_env *env, [[maybe_unused]] ani_object obj)
-{
-    static const char *className = "Lentry/src/main/ets/entryability/EntryAbility/Calc;";
-    ani_class cls;
-    if (ANI_OK != env->FindClass(className, &cls)) {
-        std::cerr << "Not found '" << className << "'" << std::endl;
-        return 0;
-    }
-    ani_method managedMethod;
-    if (ANI_OK != env->Class_FindMethod(cls, "ManagedCharFunc", ":C", &managedMethod)) {
-        std::cerr << "Class_FindMethod Fail" << std::endl;
-        return 0;
-    }
-    std::cout << "Print in Native Func" << std::endl;
-    ani_char charValue;
-    if (ANI_OK != env->Object_CallMethod_Char(obj, managedMethod, &charValue)) {
-        std::cerr << "Object_CallMethod_Char Fail" << std::endl;
-        return 0;
-    }
-    return charValue;
-}
-
-static ani_byte NativeByteFunc([[maybe_unused]] ani_env *env, [[maybe_unused]] ani_object obj)
-{
-    static const char *className = "Lentry/src/main/ets/entryability/EntryAbility/Calc;";
-    ani_class cls;
-    if (ANI_OK != env->FindClass(className, &cls)) {
-        std::cerr << "Not found '" << className << "'" << std::endl;
-        return 0;
-    }
-    ani_method managedMethod;
-    if (ANI_OK != env->Class_FindMethod(cls, "ManagedByteFunc", ":B", &managedMethod)) {
-        std::cerr << "Class_FindMethod Fail" << std::endl;
-        return 0;
-    }
-    std::cout << "Print in Native Func" << std::endl;
-    ani_byte byteValue;
-    if (ANI_OK != env->Object_CallMethod_Byte(obj, managedMethod, &byteValue)) {
-        std::cerr << "Object_CallMethod_Byte Fail" << std::endl;
-        return 0;
-    }
-    return byteValue;
-}
-
 static void NativeByNameFunc(ani_env *env, ani_object obj)
 {
     std::cout << "Print in Native Func" << std::endl;
@@ -312,11 +116,10 @@ static ani_byte NativeByNameByteFunc([[maybe_unused]] ani_env *env, [[maybe_unus
     }
     return byteValue;
 }
-
 // todo Calling Static Methods
 static void NativeStaticFunc(ani_env *env, ani_object obj)
 {
-    static const char *className = "Lentry/src/main/ets/entryability/EntryAbility/Calc;";
+    static const char *className = "Lentry/src/main/ets/pages/Index/Calc;";
     ani_class cls;
     if (ANI_OK != env->FindClass(className, &cls)) {
         std::cerr << "Not found '" << className << "'" << std::endl;
@@ -332,4 +135,180 @@ static void NativeStaticFunc(ani_env *env, ani_object obj)
         std::cerr << "Class_CallStaticMethod_Void Fail" << std::endl;
         return;
     }
+}
+
+static ani_double NativeStaticFuncDouble(ani_env *env, ani_object obj)
+{
+    static const char *className = "Lentry/src/main/ets/pages/Index/Calc;";
+    ani_class cls;
+    if (ANI_OK != env->FindClass(className, &cls)) {
+        std::cerr << "Not found '" << className << "'" << std::endl;
+        return 0.0;
+    }
+    ani_static_method managedMethod;
+    if (ANI_OK != env->Class_FindStaticMethod(cls, "ManagedStaticFuncDouble", ":D", &managedMethod)) {
+        std::cerr << "Class_FindStaticMethod Fail" << std::endl;
+        return 0.0;
+    }
+    ani_double doubleValue;
+    std::cout << "Print in ManagedStaticFuncDouble " << std::endl;
+    if (ANI_OK != env->Class_CallStaticMethod_Double(cls, managedMethod, &doubleValue)) {
+        std::cerr << "Class_CallStaticMethod_Double Fail" << std::endl;
+        return 0.0;
+    }
+    return doubleValue;
+}
+
+static ani_float NativeStaticFuncFloat(ani_env *env, ani_object obj)
+{
+    static const char *className = "Lentry/src/main/ets/pages/Index/Calc;";
+    ani_class cls;
+    if (ANI_OK != env->FindClass(className, &cls)) {
+        std::cerr << "Not found '" << className << "'" << std::endl;
+        return 0.0;
+    }
+    ani_static_method managedMethod;
+    if (ANI_OK != env->Class_FindStaticMethod(cls, "ManagedStaticFuncFloat", ":F", &managedMethod)) {
+        std::cerr << "Class_FindStaticMethod Fail" << std::endl;
+        return 0.0;
+    }
+    ani_float floatValue;
+    std::cout << "Print in ManagedStaticFuncFloat " << std::endl;
+    if (ANI_OK != env->Class_CallStaticMethod_Float(cls, managedMethod, &floatValue)) {
+        std::cerr << "Class_CallStaticMethod_Float Fail" << std::endl;
+        return 0.0;
+    }
+    return floatValue;
+}
+
+static ani_char NativeStaticFuncChar(ani_env *env, ani_object obj)
+{
+    static const char *className = "Lentry/src/main/ets/pages/Index/Calc;";
+    ani_class cls;
+    if (ANI_OK != env->FindClass(className, &cls)) {
+        std::cerr << "Not found '" << className << "'" << std::endl;
+        return ' ';
+    }
+    ani_static_method managedMethod;
+    if (ANI_OK != env->Class_FindStaticMethod(cls, "ManagedStaticFuncChar", ":C", &managedMethod)) {
+        std::cerr << "Class_FindStaticMethod Fail" << std::endl;
+        return ' ';
+    }
+    ani_char charValue;
+    std::cout << "Print in ManagedStaticFuncChar " << std::endl;
+    if (ANI_OK != env->Class_CallStaticMethod_Char(cls, managedMethod, &charValue)) {
+        std::cerr << "Class_CallStaticMethod_Char Fail" << std::endl;
+        return ' ';
+    }
+    return charValue;
+}
+
+static ani_byte NativeStaticFuncByte(ani_env *env, ani_object obj)
+{
+    static const char *className = "Lentry/src/main/ets/pages/Index/Calc;";
+    ani_class cls;
+    if (ANI_OK != env->FindClass(className, &cls)) {
+        std::cerr << "Not found '" << className << "'" << std::endl;
+        return 0x0;
+    }
+    ani_static_method managedMethod;
+    if (ANI_OK != env->Class_FindStaticMethod(cls, "ManagedStaticFuncByte", ":B", &managedMethod)) {
+        std::cerr << "Class_FindStaticMethod Fail" << std::endl;
+        return 0x0;
+    }
+    ani_byte byteValue;
+    std::cout << "Print in ManagedStaticFuncByte " << std::endl;
+    if (ANI_OK != env->Class_CallStaticMethod_Byte(cls, managedMethod, &byteValue)) {
+        std::cerr << "Class_CallStaticMethod_Byte Fail" << std::endl;
+        return 0x0;
+    }
+    return byteValue;
+}
+
+static ani_boolean NativeStaticFuncBoolean(ani_env *env, ani_object obj)
+{
+    static const char *className = "Lentry/src/main/ets/pages/Index/Calc;";
+    ani_class cls;
+    if (ANI_OK != env->FindClass(className, &cls)) {
+        std::cerr << "Not found '" << className << "'" << std::endl;
+        return false;
+    }
+    ani_static_method managedMethod;
+    if (ANI_OK != env->Class_FindStaticMethod(cls, "ManagedStaticFuncBoolean", ":Z", &managedMethod)) {
+        std::cerr << "Class_FindStaticMethod Fail" << std::endl;
+        return false;
+    }
+    ani_boolean boolValue;
+    std::cout << "Print in ManagedStaticFuncBoolean " << std::endl;
+    if (ANI_OK != env->Class_CallStaticMethod_Boolean(cls, managedMethod, &boolValue)) {
+        std::cerr << "Class_CallStaticMethod_Boolean Fail" << std::endl;
+        return false;
+    }
+    return boolValue;
+}
+
+static ani_int NativeStaticFuncInt(ani_env *env, ani_object obj)
+{
+    static const char *className = "Lentry/src/main/ets/pages/Index/Calc;";
+    ani_class cls;
+    if (ANI_OK != env->FindClass(className, &cls)) {
+        std::cerr << "Not found '" << className << "'" << std::endl;
+        return 0;
+    }
+    ani_static_method managedMethod;
+    if (ANI_OK != env->Class_FindStaticMethod(cls, "ManagedStaticFuncInt", ":I", &managedMethod)) {
+        std::cerr << "Class_FindStaticMethod Fail" << std::endl;
+        return 0;
+    }
+    ani_int intValue;
+    std::cout << "Print in ManagedStaticFuncInt " << std::endl;
+    if (ANI_OK != env->Class_CallStaticMethod_Int(cls, managedMethod, &intValue)) {
+        std::cerr << "Class_CallStaticMethod_Double Fail" << std::endl;
+        return 0;
+    }
+    return intValue;
+}
+
+static ani_short NativeStaticFuncShort(ani_env *env, ani_object obj)
+{
+    static const char *className = "Lentry/src/main/ets/pages/Index/Calc;";
+    ani_class cls;
+    if (ANI_OK != env->FindClass(className, &cls)) {
+        std::cerr << "Not found '" << className << "'" << std::endl;
+        return 0;
+    }
+    ani_static_method managedMethod;
+    if (ANI_OK != env->Class_FindStaticMethod(cls, "ManagedStaticFuncShort", ":S", &managedMethod)) {
+        std::cerr << "Class_FindStaticMethod Fail" << std::endl;
+        return 0;
+    }
+    ani_short shortValue;
+    std::cout << "Print in ManagedStaticFuncShort " << std::endl;
+    if (ANI_OK != env->Class_CallStaticMethod_Short(cls, managedMethod, &shortValue)) {
+        std::cerr << "Class_CallStaticMethod_Short Fail" << std::endl;
+        return 0;
+    }
+    return shortValue;
+}
+
+static ani_long NativeStaticFuncLong(ani_env *env, ani_object obj)
+{
+    static const char *className = "Lentry/src/main/ets/pages/Index/Calc;";
+    ani_class cls;
+    if (ANI_OK != env->FindClass(className, &cls)) {
+        std::cerr << "Not found '" << className << "'" << std::endl;
+        return 0;
+    }
+    ani_static_method managedMethod;
+    if (ANI_OK != env->Class_FindStaticMethod(cls, "ManagedStaticFuncLong", ":J", &managedMethod)) {
+        std::cerr << "Class_FindStaticMethod Fail" << std::endl;
+        return 0;
+    }
+    ani_long longValue;
+    std::cout << "Print in ManagedStaticFuncLong " << std::endl;
+    if (ANI_OK != env->Class_CallStaticMethod_Long(cls, managedMethod, &longValue)) {
+        std::cerr << "Class_CallStaticMethod_Long Fail" << std::endl;
+        return 0;
+    }
+    return longValue;
 }

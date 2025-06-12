@@ -24,98 +24,66 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #include "ani/ani.h"
-#include "hilog/log.h"
 #include <iostream>
-
-#undef LOG_DOMAIN
-#undef LOG_TAG
-#define LOG_DOMAIN 0x3200 // 全局domain宏，标识业务领域
-#define LOG_TAG "MY_TAG"  // 全局tag宏，标识模块日志tag
 //  Array Operations
-static void ProcessArray(ani_env *env, ani_object object, ani_array_double doubleArray)
+static ani_boolean ProcessArray(ani_env *env, ani_object object, ani_array_double doubleArray)
 {
     ani_size length;
     if (ANI_OK != env->Array_GetLength(doubleArray, &length)) {
         std::cerr << "Array_GetLength FAILED" << std::endl;
-        return;
+        return false;
     }
-    OH_LOG_ERROR(LOG_APP, "testTag Array_GetLength result: %{public}d", length);
     ani_array_double doubleValue;
     if (ANI_OK != env->Array_New_Double(length, &doubleValue)) {
         std::cerr << "Array_New_Double FAILED" << std::endl;
-        return;
+        return false;
     }
-    for (ani_int i = 0; i < length; ++i) {
-        OH_LOG_ERROR(LOG_APP, "testTag Array_New_Double result: %{public}f", doubleValue[i]);
-    }
-    
     ani_array_int intValue;
     if (ANI_OK != env->Array_New_Int(length, &intValue)) {
         std::cerr << "Array_New_Int FAILED" << std::endl;
-        return;
+        return false;
     }
-    for (ani_int i = 0; i < length; ++i) {
-        OH_LOG_ERROR(LOG_APP, "testTag Array_New_Int result: %{public}d", intValue[i]);
-    }
-    
     ani_array_short shortValue;
     if (ANI_OK != env->Array_New_Short(length, &shortValue)) {
         std::cerr << "Array_New_Short FAILED" << std::endl;
-        return;
+        return false;
     }
-    for (ani_int i = 0; i < length; ++i) {
-        OH_LOG_ERROR(LOG_APP, "testTag Array_New_Short result: %{public}d", shortValue[i]);
-    }
-    
     ani_array_char charValue;
     if (ANI_OK != env->Array_New_Char(length, &charValue)) {
         std::cerr << "Array_New_Char FAILED" << std::endl;
-        return;
+        return false;
     }
     std::cout << "Array int Content:" << doubleArray << std::endl;
+    return true;
 }
 
-static void ProcessArray2(ani_env *env, ani_object object, ani_array_double doubleArray)
+static ani_boolean ProcessArray2(ani_env *env, ani_object object, ani_array_double doubleArray)
 {
     ani_size length;
     if (ANI_OK != env->Array_GetLength(doubleArray, &length)) {
         std::cerr << "Array_GetLength FAILED" << std::endl;
-        return;
+        return false;
     }
     ani_array_char charValue;
     if (ANI_OK != env->Array_New_Char(length, &charValue)) {
         std::cerr << "Array_New_Char FAILED" << std::endl;
-        return;
+        return false;
     }
-    for (ani_int i = 0; i < length; ++i) {
-        OH_LOG_ERROR(LOG_APP, "testTag Array_New_Char result: %{public}c", charValue[i]);
-    }
-
     ani_array_boolean boolValue;
     if (ANI_OK != env->Array_New_Boolean(length, &boolValue)) {
         std::cerr << "Array_New_Boolean FAILED" << std::endl;
-        return;
+        return false;
     }
-    for (ani_int i = 0; i < length; ++i) {
-        OH_LOG_ERROR(LOG_APP, "testTag Array_New_Boolean result: %{public}d", boolValue[i]);
-    }
-
     ani_array_long longValue;
     if (ANI_OK != env->Array_New_Long(length, &longValue)) {
         std::cerr << "Array_New_Long FAILED" << std::endl;
-        return;
+        return false;
     }
-    for (ani_int i = 0; i < length; ++i) {
-        OH_LOG_ERROR(LOG_APP, "testTag Array_New_Long result: %{public}ld", longValue[i]);
-    }
-
     ani_array_float floatValue;
     if (ANI_OK != env->Array_New_Float(length, &floatValue)) {
         std::cerr << "Array_New_Float FAILED" << std::endl;
-        return;
-    }
-    for (ani_int i = 0; i < length; ++i) {
-        OH_LOG_ERROR(LOG_APP, "testTag Array_New_Float result: %{public}f", floatValue[i]);
+        return false;
     }
     std::cout << "Array int Content:" << doubleArray << std::endl;
+    return true;
 }
