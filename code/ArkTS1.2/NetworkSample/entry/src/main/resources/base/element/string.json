@@ -1,0 +1,20 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "router_back",
+      "value": "←"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "NetworkSample"
+    }
+  ]
+}
