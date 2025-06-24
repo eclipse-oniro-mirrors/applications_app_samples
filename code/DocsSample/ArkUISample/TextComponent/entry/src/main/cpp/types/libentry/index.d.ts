@@ -13,14 +13,5 @@
  * limitations under the License.
  */
 
-{
-  "name": "entry",
-  "version": "1.0.0",
-  "description": "Please describe the basic information.",
-  "main": "",
-  "author": "",
-  "license": "",
-  "dependencies": {
-    "libentry.so": "file:./src/main/cpp/types/libentry"
-  }
-}
+export const createNativeNode: (content: Object) => void;
+export const createTextAreaNode: (content: Object) => void;

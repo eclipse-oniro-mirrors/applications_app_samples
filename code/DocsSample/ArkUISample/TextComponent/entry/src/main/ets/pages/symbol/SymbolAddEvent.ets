@@ -17,28 +17,22 @@ import { ComponentCard } from '../../common/Card';
 
 @Entry
 @Component
-export struct CreateText {
+export struct SymbolGlyphSpanAddEvent {
+  @State wifiColor: ResourceColor = Color.Black;
+
   build() {
     NavDestination() {
       Column({ space: 12 }) {
-        ComponentCard({ title: $r('app.string.CreatText_title_1') }) {
-          // [Start create_a_text_in_one_way]
-          Text($r('app.string.CreateText_Text_1'))
-          // [End create_a_text_in_one_way]
-        }
-
-        ComponentCard({
-          title: $r('app.string.CreatText_title_2'),
-          description: $r('app.string.CreatText_description_1')
-        }) {
-          // [Start create_a_text_in_another_way]
-          Text($r('app.string.module_desc'))
-            .baselineOffset(0)
-            .fontSize(30)
-            .border({ width: 1 })
-            .padding(10)
-            .width(300)
-          // [End create_a_text_in_another_way]
+        ComponentCard({ title: $r('app.string.SymbolGlyphSpanAddEvent_title') }) {
+          // [Start symbol_glyph_span_add_event]
+          SymbolGlyph($r('sys.symbol.ohos_wifi'))
+            .id('symbolGlyph1')
+            .fontSize(96)
+            .fontColor([this.wifiColor])
+            .onClick(() => {
+              this.wifiColor = Color.Gray;
+            })
+          // [End symbol_glyph_span_add_event]
         }
       }
       .width('100%')
@@ -46,6 +40,6 @@ export struct CreateText {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
-    .title($r('app.string.CreatText_title'))
+    .title($r('app.string.SymbolGlyphSpanAddEvent_title'))
   }
 }
