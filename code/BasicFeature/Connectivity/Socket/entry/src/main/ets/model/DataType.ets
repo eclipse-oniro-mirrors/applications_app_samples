@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-{
-  "modelVersion": "5.0.0",
-  "dependencies": {
-  }
+export interface AddrType {
+  address: string;
+  family: number;
+  port: number
 }
