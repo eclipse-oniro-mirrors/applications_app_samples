@@ -190,6 +190,25 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/ArkTS1.2/ComponentSample/entry/src/main/resources/base/media/example4.PNG" desc="Provide by code/ArkTS1.2/ComponentSample"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ComponentSample/entry/src/main/resources/base/media/icon.png" desc="Provide by code/ArkTS1.2/ComponentSample"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ComponentSample/entry/src/main/resources/base/media/train_icon.png" desc="Provide by code/ArkTS1.2/ComponentSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/CustomanimationtabSample/entry/src/main/resources/base/media/background.png" desc="Provide by code/ArkTS1.2/CustomanimationtabSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/CustomanimationtabSample/entry/src/main/resources/base/media/foreground.png" desc="Provide by code/ArkTS1.2/CustomanimationtabSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/CustomanimationtabSample/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/ArkTDS1.2/CustomanimationtabSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/CustomanimationtabSample/entry/src/main/resources/base/media/return_home_fill.svg" desc="Provide by code/ArkTS1.2/CustomanimationtabSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/CustomanimationtabSample/entry/src/main/resources/base/media/tbas.png" desc="Provide by code/ArkTDS1.2/CustomanimationtabSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/resources/base/media/background.png" desc="Provide by code/ArkTS1.2/OperaterdbintaskpoolSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/resources/base/media/foreground.png" desc="Provide by code/ArkTS1.2/OperaterdbintaskpoolSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/ArkTDS1.2/OperaterdbintaskpoolSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/resources/base/media/index.png" desc="Provide by code/ArkTDS1.2/OperaterdbintaskpoolSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/resources/base/media/index2.png" desc="Provide by code/ArkTDS1.2/OperaterdbintaskpoolSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/resources/base/media/index3.png" desc="Provide by code/ArkTDS1.2/OperaterdbintaskpoolSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/resources/base/media/operate_rdb_in_taskpool_add.svg" desc="Provide by code/ArkTDS1.2/OperaterdbintaskpoolSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/resources/base/media/operate_rdb_in_taskpool_arrow_left.svg" desc="Provide by code/ArkTDS1.2/OperaterdbintaskpoolSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/resources/base/media/operate_rdb_in_taskpool_message.svg" desc="Provide by code/ArkTDS1.2/OperaterdbintaskpoolSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/resources/base/media/operate_rdb_in_taskpool_ok.svg" desc="Provide by code/ArkTDS1.2/OperaterdbintaskpoolSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/resources/base/media/operate_rdb_in_taskpool_phone.svg" desc="Provide by code/ArkTDS1.2/OperaterdbintaskpoolSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/resources/base/media/operate_rdb_in_taskpool_portrait.svg" desc="Provide by code/ArkTDS1.2/OperaterdbintaskpoolSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/resources/base/media/operate_rdb_in_taskpool_save.svg" desc="Provide by code/ArkTDS1.2/OperaterdbintaskpoolSample"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/resources/base/media/operate_rdb_in_taskpool_video.svg" desc="Provide by code/ArkTDS1.2/OperaterdbintaskpoolSample"/>
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/screenshots/devices/create_image_asset.png" desc="Provide by code/UI/WindowStartIcon"/>
 				<filteritem type="filepath" name="code/UI/WindowStartIcon/screenshots/devices/window_start_icon.jpeg" desc="Provide by code/UI/WindowStartIcon"/>
 				<filteritem type="filepath" name="code/UI/ListBeExchange/ListExchange/src/main/resources/base/media/list_exchange.gif" desc="code/UI/ListExchange"/>
@@ -2195,6 +2214,16 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/ArkTS1.2/ComponentSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ComponentSample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
 				<filteritem type="filepath" name="code/ArkTS1.2/ComponentSample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/CustomanimationtabSample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/CustomanimationtabSample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/CustomanimationtabSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/CustomanimationtabSample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/CustomanimationtabSample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/src/main/module.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/entry/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/code-linter.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/AppScope/app.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
+				<filteritem type="filepath" name="code/ArkTS1.2/OperaterdbintaskpoolSample/build-profile.json5" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
                 <filteritem type="filename" name="oh-package.json5" desc="OpenHarmony工程编译入口脚本，无需添加License头"/>
                 <filteritem type="filename" name="hvigorw" desc="OpenHarmony工程编译入口脚本，无需添加License头"/>
                 <filteritem type="filename" name="hvigorw.bat" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
