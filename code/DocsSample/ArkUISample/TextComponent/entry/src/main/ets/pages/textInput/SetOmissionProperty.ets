@@ -17,28 +17,19 @@ import { ComponentCard } from '../../common/Card';
 
 @Entry
 @Component
-export struct CreateText {
+export struct SetOmissionProperty {
   build() {
     NavDestination() {
       Column({ space: 12 }) {
-        ComponentCard({ title: $r('app.string.CreatText_title_1') }) {
-          // [Start create_a_text_in_one_way]
-          Text($r('app.string.CreateText_Text_1'))
-          // [End create_a_text_in_one_way]
-        }
-
-        ComponentCard({
-          title: $r('app.string.CreatText_title_2'),
-          description: $r('app.string.CreatText_description_1')
-        }) {
-          // [Start create_a_text_in_another_way]
-          Text($r('app.string.module_desc'))
-            .baselineOffset(0)
+        ComponentCard({ description: $r('app.string.Set_Omission_Property_description') }) {
+          // [Start set_omission_property]
+          TextInput({ text: $r('app.string.Set_Omission_Property_textContent') })
+            .textOverflow(TextOverflow.Ellipsis)
+            .ellipsisMode(EllipsisMode.END)
+            .style(TextInputStyle.Inline)
             .fontSize(30)
-            .border({ width: 1 })
-            .padding(10)
-            .width(300)
-          // [End create_a_text_in_another_way]
+            .margin(30)
+          // [End set_omission_property]
         }
       }
       .width('100%')
@@ -46,6 +37,6 @@ export struct CreateText {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
-    .title($r('app.string.CreatText_title'))
+    .title($r('app.string.Set_Omission_Property'))
   }
 }

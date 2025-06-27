@@ -17,28 +17,18 @@ import { ComponentCard } from '../../common/Card';
 
 @Entry
 @Component
-export struct CreateText {
+export struct AutoFill {
   build() {
     NavDestination() {
       Column({ space: 12 }) {
-        ComponentCard({ title: $r('app.string.CreatText_title_1') }) {
-          // [Start create_a_text_in_one_way]
-          Text($r('app.string.CreateText_Text_1'))
-          // [End create_a_text_in_one_way]
-        }
-
-        ComponentCard({
-          title: $r('app.string.CreatText_title_2'),
-          description: $r('app.string.CreatText_description_1')
-        }) {
-          // [Start create_a_text_in_another_way]
-          Text($r('app.string.module_desc'))
-            .baselineOffset(0)
-            .fontSize(30)
-            .border({ width: 1 })
-            .padding(10)
-            .width(300)
-          // [End create_a_text_in_another_way]
+        ComponentCard({ description: $r('app.string.Auto_Fill_description') }) {
+          // [Start auto_fill]
+          TextInput({ placeholder: $r('app.string.Auto_Fill_PlaceHolder') })
+            .width('95%')
+            .height(40)
+            .margin(20)
+            .contentType(ContentType.EMAIL_ADDRESS)
+          // [End auto_fill]
         }
       }
       .width('100%')
@@ -46,6 +36,6 @@ export struct CreateText {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
-    .title($r('app.string.CreatText_title'))
+    .title($r('app.string.Auto_Fill'))
   }
 }

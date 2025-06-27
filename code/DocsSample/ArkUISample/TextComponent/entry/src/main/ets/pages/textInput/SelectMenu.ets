@@ -17,28 +17,19 @@ import { ComponentCard } from '../../common/Card';
 
 @Entry
 @Component
-export struct CreateText {
+export struct SelectMenu {
   build() {
     NavDestination() {
       Column({ space: 12 }) {
-        ComponentCard({ title: $r('app.string.CreatText_title_1') }) {
-          // [Start create_a_text_in_one_way]
-          Text($r('app.string.CreateText_Text_1'))
-          // [End create_a_text_in_one_way]
-        }
-
-        ComponentCard({
-          title: $r('app.string.CreatText_title_2'),
-          description: $r('app.string.CreatText_description_1')
-        }) {
-          // [Start create_a_text_in_another_way]
-          Text($r('app.string.module_desc'))
-            .baselineOffset(0)
-            .fontSize(30)
-            .border({ width: 1 })
-            .padding(10)
-            .width(300)
-          // [End create_a_text_in_another_way]
+        ComponentCard({ description: $r('app.string.SelectionMenu_description') }) {
+          Column({ space: 8 }) {
+            // [Start select_textinput]
+            TextInput({ text: $r('app.string.SelectMenu_textContent_1') })
+            // [End select_textinput]
+            // [Start select_textarea]
+            TextArea({ text: $r('app.string.SelectMenu_textContent_1') })
+            // [End select_textarea]
+          }
         }
       }
       .width('100%')
@@ -46,6 +37,6 @@ export struct CreateText {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
-    .title($r('app.string.CreatText_title'))
+    .title($r('app.string.SelectionMenu_title'))
   }
 }
