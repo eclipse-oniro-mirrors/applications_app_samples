@@ -28,12 +28,12 @@
  * 单个通讯录所有字段信息
  */
 export class Contact {
-  name: string; // 名字
-  phone: string; // 电话号码
-  email: string; // 邮箱
-  address: string; // 地址
-  avatar: string; // 头像
-  category: string; // 分类
+  public name: string; // 名字
+  public phone: string; // 电话号码
+  public email: string; // 邮箱
+  public address: string; // 地址
+  public avatar: string; // 头像
+  public category: string; // 分类
   constructor(name: string = '', phone: string = '', email: string = '', address: string = '',
     avatar: string = '', category: string = '') {
     this.name = name;
@@ -46,8 +46,8 @@ export class Contact {
 }
 
 export class RouterParams {
-  text: string;
-  data: Contact;
+  public text: string;
+  public data: Contact;
 
   constructor(str: string, data: Contact){
     this.text = str;
