@@ -1,3 +1,50 @@
+/**
+ *
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ *
+ * All rights reserved.
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * THIS IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS,
+ *
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+import {
+  memo,
+  __memo_context_type,
+  __memo_id_type
+} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
+import {
+  Text,
+  TextAttribute,
+  Column,
+  Component,
+  Button,
+  ButtonAttribute,
+  ClickEvent,
+  UserView
+} from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
+import {
+  State,
+  MutableState,
+  stateOf,
+  observableProxy
+} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
 import hilog from '@ohos.hilog';
 
 const MAP_CAPACITY: number = 100;
@@ -34,22 +81,50 @@ function deleteData2(map: ConcurrentHashMap<number, string>, logs: Array<string>
   }
 }
 
-function setLargeData(map: ConcurrentHashMap<number, string>, logs: ArrayBlockingQueue<string>, quantity: number) {
-  for (let i = quantity; i < quantity * 2; i++) {
+function setLargeData1(map: ConcurrentHashMap<number, string>, logs: ArrayBlockingQueue<string>) {
+  for (let i = 200; i < 400; i++) {
     map.set(i, `v${i}`);
     logs.push(`set key: ${i} value: v${i}`);
   }
 }
 
-function getLargeData(map: ConcurrentHashMap<number, string>, logs: ArrayBlockingQueue<string>, quantity: number) {
-  for (let i = quantity; i < quantity * 2; i++) {
+function setLargeData2(map: ConcurrentHashMap<number, string>, logs: ArrayBlockingQueue<string>) {
+  for (let i = 400; i < 800; i++) {
+    map.set(i, `v${i}`);
+    logs.push(`set key: ${i} value: v${i}`);
+  }
+}
+
+function setLargeData3(map: ConcurrentHashMap<number, string>, logs: ArrayBlockingQueue<string>) {
+  for (let i = 800; i < 1600; i++) {
+    map.set(i, `v${i}`);
+    logs.push(`set key: ${i} value: v${i}`);
+  }
+}
+
+function getLargeData1(map: ConcurrentHashMap<number, string>, logs: ArrayBlockingQueue<string>) {
+  for (let i = 200; i < 400; i++) {
+    let getData = map.get(i);
+    logs.push(`get key: ${i} value: ${getData}`);
+  }
+}
+
+function getLargeData2(map: ConcurrentHashMap<number, string>, logs: ArrayBlockingQueue<string>) {
+  for (let i = 200; i < 400; i++) {
+    let getData = map.get(i);
+    logs.push(`get key: ${i} value: ${getData}`);
+  }
+}
+
+function getLargeData3(map: ConcurrentHashMap<number, string>, logs: ArrayBlockingQueue<string>) {
+  for (let i = 200; i < 400; i++) {
     let getData = map.get(i);
     logs.push(`get key: ${i} value: ${getData}`);
   }
 }
 
 export class ConcurrentHashMapTest {
-  basicScene() {
+  basicScene(): Array<string> {
     let hashMapInt: ConcurrentHashMap<number, string> = new ConcurrentHashMap<number, string>();
     let logs: Array<string> = new Array<string>();
     for (let i = 0; i < 10; i++) {
@@ -72,8 +147,7 @@ export class ConcurrentHashMapTest {
       }
       let value = v.value;
       keysStr += value + ' ';
-    }
-    ;
+    };
     logs.push(`keys: ${keysStr}`);
     const values = hashMapInt.values();
     let valuesStr = '';
@@ -84,8 +158,7 @@ export class ConcurrentHashMapTest {
       }
       let value = v.value;
       valuesStr += value + ' ';
-    }
-    ;
+    };
     logs.push(`values: ${valuesStr}`);
     const entries = hashMapInt.entries();
     let entriesStr = '';
@@ -96,8 +169,7 @@ export class ConcurrentHashMapTest {
       }
       let value = v.value;
       entriesStr += value + ' ';
-    }
-    ;
+    };
     logs.push(`entries: ${entriesStr}`);
     const deleteKey = 3;
     const isDelete = hashMapInt.delete(3);
@@ -127,70 +199,74 @@ export class ConcurrentHashMapTest {
       logs.push(`hashMapInt通过clear方法清空，hashMapInt.size = ${mapSize} `);
     }
     hilog.info(0x0000, 'testTag', 'ConcurrentHashMap basicScene ' + logs);
+    return logs;
   }
 
-  concurrentInQueue() {
+  concurrentInQueue(): Array<string> {
     let hashMapInt: ConcurrentHashMap<number, string> = new ConcurrentHashMap<number, string>();
     let logs: Array<string> = new Array<string>();
-    let p1 = launch
-    setData1(hashMapInt, logs);
-    let p2 = launch
-    setData2(hashMapInt, logs);
-    await p1;
-    await p2;
+    let task1: taskpool.Task = new taskpool.Task(setData1, hashMapInt, logs);
+    let task2: taskpool.Task = new taskpool.Task(setData2, hashMapInt, logs);
+    let t1 = taskpool.execute(task1);
+    let t2 = taskpool.execute(task2);
+    await t1;
+    await t2;
     const mapSize = hashMapInt.size;
     if (MAP_CAPACITY === mapSize) {
       logs.push('测试成功');
     }
     hilog.info(0x0000, 'testTag', 'ConcurrentHashMap concurrentInQueue ' + logs);
+    return logs;
   }
 
-  concurrentOutQueue() {
+  concurrentOutQueue(): Array<string> {
     let hashMapInt: ConcurrentHashMap<number, string> = new ConcurrentHashMap<number, string>();
     let logs: Array<string> = new Array<string>();
     for (let i = 0; i < MAP_CAPACITY; i++) {
       hashMapInt.set(i, `v${i}`);
     }
-    let p1 = launch
-    deleteData1(hashMapInt, logs);
-    let p2 = launch
-    deleteData2(hashMapInt, logs);
-    await p1;
-    await p2;
+    let task1: taskpool.Task = new taskpool.Task(deleteData1, hashMapInt, logs);
+    let task2: taskpool.Task = new taskpool.Task(deleteData2, hashMapInt, logs);
+    let t1 = taskpool.execute(task1);
+    let t2 = taskpool.execute(task2);
+    await t1;
+    await t2;
     const isEmpty = hashMapInt.isEmpty();
     if (isEmpty) {
       logs.push('测试成功');
     }
     hilog.info(0x0000, 'testTag', 'ConcurrentHashMap concurrentOutQueue ' + logs);
+    return logs;
   }
 
-  hashMapBenchmark() {
+  hashMapBenchmark(): string {
     const startTime = new Date().getTime();
     let hashMapInt: ConcurrentHashMap<number, string> = new ConcurrentHashMap<number, string>();
     let logs: ArrayBlockingQueue<string> = new ArrayBlockingQueue<string>(2801);
-    let p1 = launch
-    setLargeData(hashMapInt, logs, 200);
-    let p2 = launch
-    setLargeData(hashMapInt, logs, 400);
-    let p3 = launch
-    setLargeData(hashMapInt, logs, 800);
-    let p4 = launch
-    getLargeData(hashMapInt, logs, 200);
-    let p5 = launch
-    getLargeData(hashMapInt, logs, 400);
-    let p6 = launch
-    getLargeData(hashMapInt, logs, 800);
-    await p1;
-    await p2;
-    await p3;
-    await p4;
-    await p5;
-    await p6;
-
+    let task1: taskpool.Task = new taskpool.Task(setLargeData1, hashMapInt, logs);
+    let task2: taskpool.Task = new taskpool.Task(setLargeData2, hashMapInt, logs);
+    let task3: taskpool.Task = new taskpool.Task(setLargeData3, hashMapInt, logs);
+    let task4: taskpool.Task = new taskpool.Task(getLargeData1, hashMapInt, logs);
+    let task5: taskpool.Task = new taskpool.Task(getLargeData2, hashMapInt, logs);
+    let task6: taskpool.Task = new taskpool.Task(getLargeData3, hashMapInt, logs);
+    let t1 = taskpool.execute(task1);
+    let t2 = taskpool.execute(task2);
+    let t3 = taskpool.execute(task3);
+    let t4 = taskpool.execute(task4);
+    let t5 = taskpool.execute(task5);
+    let t6 = taskpool.execute(task6);
+    await t1;
+    await t2;
+    await t3;
+    await t4;
+    await t5;
+    await t6;
     const duration = new Date().getTime() - startTime;
     if (hashMapInt.size === 1400) {
       logs.push(`测试成功 吞吐量: 6 tasks in ${duration}ms`);
     }
-    hilog.info(0x0000, 'testTag', 'ConcurrentHashMap hashMapBenchmark ' + logs.getEnd());
+    hilog.info(0x0000, 'testTag', 'ConcurrentHashMap hashMapBenchmark ' + logs);
+    return String(logs.getEnd());
   }
 }
+
