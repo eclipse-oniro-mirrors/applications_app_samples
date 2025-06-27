@@ -10,7 +10,11 @@
     },
     {
       "name": "EntryAbility_label",
-      "value": "模块化引用"
+      "value": "ModuleSample"
+    },
+    {
+      "name": "Unnecessary_class_loading",
+      "value": "不需要的类也加载了"
     }
   ]
 }
