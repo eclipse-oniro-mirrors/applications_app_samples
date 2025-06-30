@@ -27,13 +27,9 @@
 let nextID: number = 1;
 
 export class downloadFilesData {
-  // 唯一标识
   id: string;
-  // 下载地址
   url: string;
-  // 文件下载状态： 0未下载， 1下载成功， 2下载失败, 3已删除
   fileStatus: number;
-  // 下载完成的时间戳
   downloadTime: number;
 
   constructor(
