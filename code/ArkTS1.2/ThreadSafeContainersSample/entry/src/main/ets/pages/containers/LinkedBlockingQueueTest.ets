@@ -1,3 +1,29 @@
+/**
+ *
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ *
+ * All rights reserved.
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * THIS IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS,
+ *
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 import hilog from '@ohos.hilog';
 
 function pushData1(queue: LinkedBlockingQueue<int>, logs: Array<string>) {
@@ -61,7 +87,7 @@ function nullBlockingPush(queue: LinkedBlockingQueue<int>, logs: Array<string>) 
 }
 
 export class LinkedBlockingQueueTest {
-  basicScene() {
+  basicScene(): Array<String> {
     const queue = 10;
     let queueInt: LinkedBlockingQueue<int> = new LinkedBlockingQueue<int>(queue);
     let logs: Array<string> = new Array<string>();
@@ -84,71 +110,76 @@ export class LinkedBlockingQueueTest {
     logs.push(`remainingCapacity: ${remainingCapacity}`);
 
     hilog.info(0x0000, 'testTag', 'LinkedBlockingQueueTest basicScene ' + logs);
+    return logs;
   }
 
-  concurrentInQueue() {
+  concurrentInQueue(): Array<String> {
     const queueCapacity = 200;
     let queueInt: LinkedBlockingQueue<int> = new LinkedBlockingQueue<int>(queueCapacity);
     let logs: Array<string> = new Array<string>();
-    let p1 = launch
-    pushData1(queueInt, logs);
-    let p2 = launch
-    pushData2(queueInt, logs);
-    await p1;
-    await p2;
+    let task1: taskpool.Task = new taskpool.Task(pushData1, queueInt, logs);
+    let task2: taskpool.Task = new taskpool.Task(pushData2, queueInt, logs);
+    let t1 = taskpool.execute(task1);
+    let t2 = taskpool.execute(task2);
+    await t1;
+    await t2;
     const queueSize = queueInt.size;
     if (queueCapacity === queueSize) {
       logs.push('测试成功');
     }
     hilog.info(0x0000, 'testTag', 'LinkedBlockingQueueTest concurrentInQueue ' + logs);
+    return logs;
   }
 
-  concurrentOutQueue() {
+  concurrentOutQueue(): Array<String> {
     const queueCapacity = 200;
     let queueInt: LinkedBlockingQueue<int> = new LinkedBlockingQueue<int>(queueCapacity);
     let logs: Array<string> = new Array<string>();
     for (let i = 0; i < queueCapacity; i++) {
       queueInt.push(i);
     }
-    let p1 = launch
-    popData1(queueInt, logs);
-    let p2 = launch
-    popData2(queueInt, logs);
-    await p1;
-    await p2;
+    let task1: taskpool.Task = new taskpool.Task(popData1, queueInt, logs);
+    let task2: taskpool.Task = new taskpool.Task(popData2, queueInt, logs);
+    let t1 = taskpool.execute(task1);
+    let t2 = taskpool.execute(task2);
+    await t1;
+    await t2;
     const isEmpty = queueInt.isEmpty();
     if (isEmpty) {
       logs.push('测试成功');
     }
     hilog.info(0x0000, 'testTag', 'LinkedBlockingQueueTest concurrentOutQueue ' + logs);
+    return logs;
   }
 
-  fullBlocking() {
+  fullBlocking(): Array<String> {
     const queueCapacity = 3;
     let queueInt: LinkedBlockingQueue<int> = new LinkedBlockingQueue<int>(queueCapacity);
     let logs: Array<string> = new Array<string>();
     for (let i = 0; i < queueCapacity; i++) {
       queueInt.push(i);
     }
-    let p1 = launch
-    fullBlockingPush(queueInt, logs);
-    let p2 = launch
-    fullBlockingPop(queueInt, logs);
-    await p1;
-    await p2;
+    let task1: taskpool.Task = new taskpool.Task(fullBlockingPush, queueInt, logs);
+    let task2: taskpool.Task = new taskpool.Task(fullBlockingPop, queueInt, logs);
+    let t1 = taskpool.execute(task1);
+    let t2 = taskpool.execute(task2);
+    await t1;
+    await t2;
     hilog.info(0x0000, 'testTag', 'LinkedBlockingQueueTest fullBlocking ' + logs);
+    return logs;
   }
 
-  nullBlocking() {
+  nullBlocking(): Array<String> {
     const queueCapacity = 3;
     let queueInt: LinkedBlockingQueue<int> = new LinkedBlockingQueue<int>(queueCapacity);
     let logs: Array<string> = new Array<string>();
-    let p1 = launch
-    nullBlockingPop(queueInt, logs);
-    let p2 = launch
-    nullBlockingPush(queueInt, logs);
-    await p1;
-    await p2;
+    let task1: taskpool.Task = new taskpool.Task(nullBlockingPop, queueInt, logs);
+    let task2: taskpool.Task = new taskpool.Task(nullBlockingPush, queueInt, logs);
+    let t1 = taskpool.execute(task1);
+    let t2 = taskpool.execute(task2);
+    await t1;
+    await t2;
     hilog.info(0x0000, 'testTag', 'LinkedBlockingQueueTest nullBlocking ' + logs);
+    return logs;
   }
 }
