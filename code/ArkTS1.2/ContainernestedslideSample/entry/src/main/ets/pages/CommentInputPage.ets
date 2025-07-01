@@ -24,31 +24,40 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-{
-  "apiType": "stageMode",
-  "buildOption": {
-  },
-  "buildOptionSet": [
-    {
-      "name": "release",
-      "arkOptions": {
-        "obfuscation": {
-          "ruleOptions": {
-            "enable": false,
-            "files": [
-              "./obfuscation-rules.txt"
-            ]
-          }
-        }
-      }
-    },
-  ],
-  "targets": [
-    {
-      "name": "default"
-    },
-    {
-      "name": "ohosTest",
+import { UIContext } from '@ohos.arkui.UIContext';
+import { Column, Row, TextInput, EditableTextOnChangeCallback, Button, ClickEvent, Padding,
+  Margin, Entry, Component } from '@ohos.arkui.component';
+import { AppStorage, State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement';
+
+@Entry
+@Component
+struct CommentInputPage {
+  @State text: string = '';
+
+  build() {
+    Row() {
+      TextInput({ placeholder: '@', text: this.text })
+        .layoutWeight(1)
+        .height(40)
+        .padding({ left: 10, right: 50, top: 3, bottom: 3 } as Padding)
+        .onChange((textInComment: string) => {
+          this.text = textInComment;
+        } as EditableTextOnChangeCallback)
+
+      Button('发布')
+        .width(60)
+        .height(30)
+        .borderRadius(15)
+        .backgroundColor('#ed394b')
+        .fontColor('#ffffff')
+        .margin({ left: 10 } as Margin)
+        .onClick((e: ClickEvent) => {
+          AppStorage.setOrCreate('PropA', this.text);
+          this.getUIContext().getRouter().back();
+        })
     }
-  ]
+    .width('100%')
+    .padding(10)
+    .height(50)
+  }
 }
