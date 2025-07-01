@@ -130,7 +130,7 @@ export struct FileDownloadItem {
           // TODO 知识点：启动下载任务。本例在每个FileDownloadItem中使用task.start方法启动各自的下载任务。
           task.start((err: BusinessError) => {
             if (err) {
-              hilog.info(0x0000, 'TAGhttp',
+              hilog.error(0x0000, 'TAGhttp',
                 `task.start Failed to task start with error message: ${err.message}, error code: ${err.code}`);
               return;
             }
@@ -159,7 +159,7 @@ export struct FileDownloadItem {
       this.isShow = false;
       this.getFileStatusAndTime(1);
     }catch(err:Error){
-      hilog.info(0x0000, 'TAGhttp,err: ', String(err.message));
+      hilog.error(0x0000, 'TAGhttp,err: ', String(err.message));
     }
   }
 
@@ -174,7 +174,7 @@ export struct FileDownloadItem {
         this.isStartAllDownload = false;
       }
     }catch(err:Error){
-      hilog.info(0x0000, 'TAGhttp,err: ', String(err.message))
+      hilog.error(0x0000, 'TAGhttp,err: ', String(err.message))
     }
   }
 
@@ -220,7 +220,7 @@ export struct FileDownloadItem {
       // 用于显示已下载文件数据大小
       this.sCurrentDownloadSize = String(progress.processed / BYTE_CONVERSION).split('.')[0] as string + 'kb';
     }catch(err:Error){
-      hilog.info(0x0000, 'TAGhttp,err: ', String(err.message))
+      hilog.error(0x0000, 'TAGhttp,err: ', String(err.message))
     }
   }
 
@@ -231,7 +231,7 @@ export struct FileDownloadItem {
       // 切换下载状态图标
       this.downloading = false;
     }catch(err:Error){
-      hilog.info(0x0000, 'TAGhttp,err: ', String(err.message))
+      hilog.error(0x0000, 'TAGhttp,err: ', String(err.message))
     }
   }
 
@@ -241,7 +241,7 @@ export struct FileDownloadItem {
       // TODO 知识点：使用request.agent.show，根据任务id可查询任务的详细信息。本处用于查询下载任务状态
       request.agent.show(this.downloadTask!.tid, (err: Error, taskInfo: request.agent.TaskInfo) => {
         if (err.code !== 0) {
-          hilog.info(0x0000, 'TAGhttp',  `Failed to show with error message: ${err.message}, error code: ${err.code}`);
+          hilog.error(0x0000, 'TAGhttp',  `Failed to show with error message: ${err.message}, error code: ${err.code}`);
           return;
         }
         // 判断当前下载任务状态是否满足暂停条件。
@@ -251,7 +251,7 @@ export struct FileDownloadItem {
           this.downloadTask!.pause().then(() => {
             // 暂停任务成功
           }).catch((err: Error) => {
-            hilog.info(0x0000, 'TAGhttp', `Failed to pause with error message: ${err.message}, error code: ${err.code}`);
+            hilog.error(0x0000, 'TAGhttp', `Failed to pause with error message: ${err.message}, error code: ${err.code}`);
           });
         } else {
           if (this.downloadTask) {
@@ -270,7 +270,7 @@ export struct FileDownloadItem {
       // 切换下载状态图标
       this.downloading = true;
     }catch(err:Error){
-      hilog.info(0x0000, 'TAGhttp err: ', String(err.message));
+      hilog.error(0x0000, 'TAGhttp err: ', String(err.message));
     }
   }
 
@@ -280,7 +280,7 @@ export struct FileDownloadItem {
       // 查询任务状态
       request.agent.show(this.downloadTask!.tid, (err: BusinessError, taskInfo: request.agent.TaskInfo) => {
         if (err.code !== 0) {
-          hilog.info(0x0000, 'TAGhttp', `Failed to show with error message: ${err.message}, error code: ${err.code}`);
+          hilog.error(0x0000, 'TAGhttp', `Failed to show with error message: ${err.message}, error code: ${err.code}`);
           return;
         }
         // 判断如果任务是暂停状态，则重新启动下载任务
@@ -288,7 +288,7 @@ export struct FileDownloadItem {
           // TODO 知识点：使用task.resume可以重新启动任务，可恢复暂停的后台任务。
           this.downloadTask!.resume((err: BusinessError) => {
             if (err.code !== 0) {
-              hilog.info(0x0000, 'TAGhttp', `Failed to resume with error message: ${err.message}, error code: ${err.code}`);
+              hilog.error(0x0000, 'TAGhttp', `Failed to resume with error message: ${err.message}, error code: ${err.code}`);
               return;
             }
             // 重新启动下载任务成功

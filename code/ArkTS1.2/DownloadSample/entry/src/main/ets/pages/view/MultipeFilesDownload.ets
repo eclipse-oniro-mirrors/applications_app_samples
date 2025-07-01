@@ -243,9 +243,7 @@ export struct MultipleFilesDownloadComponent {
               historyArray: this.historyArray,
               downloadFileArray: this.downloadFileArray // 下载文件数据源
             })
-          }.onClick((): void => {
-            hilog.info(0x0000, 'testTag', '点击单个文件');
-          })
+          }
         }, (item: downloadFilesData) => item.id)
       }.visibility(this.historyPageVisibility)
       .enabled(this.isHistoryPageEnabled)
