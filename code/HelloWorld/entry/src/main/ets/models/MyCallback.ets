@@ -13,7 +13,7 @@ export class MyCallback {
     hilog.info(0x0000, 'testTag', 'myAsyncCallback');
     let error = new Error('Business Error', 'basicError2 message', undefined);
     let be2: BusinessError<string> = new BusinessError<string>(SYNTAX_ERROR_CODE, error);
-    callback(be2, 'yAsyncCallback');
+    callback(be2, 'myAsyncCallback');
   }
 
   static myErrorCallback(callback: ErrorCallback<BusinessError<string>>): void {
@@ -28,9 +28,9 @@ export class MyCallback {
     MyCallback.myCallback((data: string) => {
       hilog.info(0x0000, 'testTag', 'MyCallback' + data);
     })
-    MyCallback.myAsyncCallback((error: BusinessError<string>, result: string) => {
+    MyCallback.myAsyncCallback((error: BusinessError<string> | null, result: string | undefined) => {
       if (error && result) {
-        hilog.info(0x0000, 'testTag', `myAsyncCallback, error: ${error.message}, result:${result}`);
+        hilog.info(0x0000, 'testTag', `myAsyncCallback, error: ${error?.message}, result:${result}`);
       }
     })
     MyCallback.myErrorCallback((error: BusinessError<string>) => {
