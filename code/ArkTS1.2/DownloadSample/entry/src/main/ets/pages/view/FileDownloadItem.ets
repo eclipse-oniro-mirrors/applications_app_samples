@@ -239,7 +239,8 @@ export struct FileDownloadItem {
   pauseDownload(): void {
     if (this.downloadTask) {
       // TODO 知识点：使用request.agent.show，根据任务id可查询任务的详细信息。本处用于查询下载任务状态
-      request.agent.show(this.downloadTask!.tid, (err: BusinessError<void>|null, taskInfo: request.agent.TaskInfo|undefined) => {
+      request.agent.show(this.downloadTask!.tid,
+        (err: BusinessError<void>|null, taskInfo: request.agent.TaskInfo|undefined) => {
         if (err && err.code !== 0) {
           hilog.error(0x0000, 'TAGhttp',  `Failed to show with error message: ${err.message}, error code: ${err.code}`);
           return;
@@ -281,7 +282,8 @@ export struct FileDownloadItem {
   resumeDownload(): void {
     if (this.downloadTask) {
       // 查询任务状态
-      request.agent.show(this.downloadTask!.tid, (err: BusinessError<void>|null, taskInfo: request.agent.TaskInfo|undefined) => {
+      request.agent.show(this.downloadTask!.tid,
+        (err: BusinessError<void>|null, taskInfo: request.agent.TaskInfo|undefined) => {
         if (err && err.code !== 0) {
           hilog.error(0x0000, 'TAGhttp', `Failed to show with error message: ${err.message}, error code: ${err.code}`);
           return;
