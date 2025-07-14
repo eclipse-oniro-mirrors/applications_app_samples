@@ -17,7 +17,7 @@ import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateMana
 import { Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView, Entry, Tabs, TabContent, SubTabBarStyle,
   Row, ForEach, Position, Builder, Margin, BarMode, OnTabsAnimationStartCallback, TabsAnimationEvent, TabsOptions,
   Color, FlexAlign, $r, Image, SizeOptions, Position, AnimateParam, Flex,FlexDirection,FlexAlign,ItemAlign} from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
-import { State, Link, StateDecoratedVariable, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
+import { State, Link, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
 import hilog from '@ohos.hilog'
 import { UIContext, Router } from '@ohos.arkui.UIContext'
 import router from '@ohos.router'
@@ -72,10 +72,6 @@ export struct TabViewComponent {
               this.selectedIndex !== 2) ?
               -3 : 0
           } as Position)// TODO：知识点：组件的某些通用属性变化时，可以通过属性动画animation实现过渡效果。本示例的动画效果是tabBar的图片向上偏移一小段距离
-          .animation({
-            duration: 400,
-            iterations: 1,
-          } as AnimateParam)
       }
       Text(item)
         .fontColor(this.selectedIndex === index ? this.selectedFontColor : this.fontColor)

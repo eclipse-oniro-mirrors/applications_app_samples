@@ -66,7 +66,6 @@ import {
 } from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
 import {
   State,
-  StateDecoratedVariable,
   MutableState,
   stateOf,
   observableProxy,

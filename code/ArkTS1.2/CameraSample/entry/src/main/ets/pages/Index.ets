@@ -16,8 +16,8 @@ import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateMana
 import { BarState, ScrollDirection, Scroll, Scroller, AlertDialogParamWithOptions, ForEach, ListItem, BarState, TextAlign, LazyForEach, List, ScrollAlign, ListScroller, RowAttribute, FlexAlign,
   Color, EditableTextOnChangeCallback, TextInput, Margin, Row, VerticalAlign, HorizontalAlign,
   EdgeWidths, EdgeColors, AlignRuleOption, Padding, BorderOptions, $r, Image, Text,
-  TextAttribute, Column, UIRowAttribute, Component, Button, ButtonAttribute, ClickEvent, UserView, Offset, Position, ResourceStr} from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
-import { StorageLink, Consume, State, StateDecoratedVariable, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
+  TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView, Offset, Position, ResourceStr} from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
+import { StorageLink, Consume, State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
 import hilog from '@ohos.hilog'
 import common from '@ohos.app.ability.common'
 import { UIContext } from '@ohos.arkui.UIContext';

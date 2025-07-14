@@ -92,13 +92,13 @@ export struct CompressFileComponent {
       // 对目录下的文件进行压缩
       zlib.compressFile(`${this.pathDir}/${this.beCompressFileDir}`, outFilePath, options,
         (errData: BusinessError<void> | null) => {
-          if (errData && errData.code == 0) {
+          if (errData == null) {
             this.compressBundleName = outFilePath.slice(outFilePath.lastIndexOf('/') + 1, outFilePath.length);
             let isSuccess = fs.accessSync(`${outFilePath}`);
             if(isSuccess){
               let promptAction: PromptAction = this.uiContext!.getPromptAction();
               promptAction.showToast({
-                message: '压缩成功',
+                message: '压缩成功：' + this.compressBundleName,
                 duration: 2000
               });
             }

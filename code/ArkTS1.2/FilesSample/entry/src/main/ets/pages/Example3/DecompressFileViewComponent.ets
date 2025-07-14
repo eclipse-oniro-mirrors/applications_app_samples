@@ -100,8 +100,8 @@ export struct DecompressFileViewComponent {
     const pathDir: string = this.context.filesDir;
     // 沙箱目录和去掉文件名后缀的压缩文件名称拼接成解压输出目录
     const outFileDir: string = `${pathDir}/${this.rawfileZipName.split('.')[0]}`;
-    fs.access(outFileDir).then((res: boolean) => {
-      if (!res) {
+    let fileDirInfo: boolean =  fs.accessSync(outFileDir)
+      if (!fileDirInfo) {
         fs.mkdirSync(outFileDir);
         hilog.info(0x0000, 'testTag', 'mkdirSync succeed');
       }
@@ -125,9 +125,6 @@ export struct DecompressFileViewComponent {
               `decompressFile failed. code is ${err.code}, message is ${err.message}`);
           }
         })
-    }).catch((message: Error) => {
-      hilog.error(0x0000, 'testTag', `access failed with error message: ${message}`);
-    });
   }
 
   // 使用Worker子线程解压文件
@@ -151,14 +148,8 @@ export struct DecompressFileViewComponent {
           // 在指定路径以同步方法打开或创建文件
           const file = fs.openSync(this.rawfilePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
           // 使用fs.write接口将字节数组形式的rawfile的文件内容写入到指定沙箱路径filePath中
-          fs.write(file.fd, rawFile.buffer).then((writeLen: number) => {
-            hilog.info(0x0000, 'testTag', `write data to file succeed and size is: ${writeLen}`);
-          }).catch((message: Error) => {
-            hilog.info(0x0000, 'testTag', `${message}`);
-          }).finally(() => {
-            hilog.info(0x0000, 'testTag', 'write finished');
-            fs.closeSync(file);
-          });
+          fs.writeSync(file.fd, rawFile.buffer)
+          fs.closeSync(file);
         } else {
           hilog.info(0x0000, 'testTag',
             `error message value: ${value}`);

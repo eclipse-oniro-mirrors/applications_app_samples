@@ -18,7 +18,7 @@ import { Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickE
   Row, ForEach, Position, Builder, Margin, BarMode, OnTabsAnimationStartCallback, TabsAnimationEvent, TabsOptions,animateTo,Alignment,
   Color, FlexAlign, $r, Image, SizeOptions, Position, AnimateParam, Flex,FlexDirection,FlexAlign,ItemAlign,VideoController, TranslateOptions, SeekMode, VoidCallback, PlaybackInfo, PreparedInfo,
   Video,$rawfile, GestureType, PanGesture, GestureEvent, RelativeContainer, Color, HitTestMode, Visibility} from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
-import { State, Link, StateDecoratedVariable, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
+import { State, Link, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
 import {Callback} from '@ohos.arkui.component'
 import hilog from '@ohos.hilog'
 import { UIContext, Router } from '@ohos.arkui.UIContext'

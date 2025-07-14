@@ -71,10 +71,6 @@ struct MyStateSample {
             .height(60)
             .width(90)
             .margin({ left: this.backgroundBarDisplacement } as Margin)
-            .animation({
-              duration: 130,
-              curve: Curve.Linear
-            })
           }
           .alignItems(VerticalAlign.Center)
           .clip(true)

@@ -65,6 +65,7 @@ struct AddressBookEdit {
   @State isName: boolean = false;
   aboutToAppear(): void {
     setTimeout( ()=>{
+      let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
       this.data = (this.getUIContext().getRouter().getParams() as RouterParams).data;
       this.textData = (this.getUIContext().getRouter().getParams() as RouterParams).text;
       // 数据查看操作

@@ -52,7 +52,6 @@ struct CommentInputPage {
         .fontColor('#ffffff')
         .margin({ left: 10 } as Margin)
         .onClick((e: ClickEvent) => {
-          AppStorage.setOrCreate('PropA', this.text);
           this.getUIContext().getRouter().back();
         })
     }
