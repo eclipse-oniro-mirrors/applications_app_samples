@@ -15,8 +15,8 @@
 
 import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
 import { TouchEvent, TextInputController, RowAttribute, FlexAlign, EditableTextOnChangeCallback, TextInput, Margin, Row, VerticalAlign, HorizontalAlign, AlignRuleOption, Padding, $r, Image, Text,
-  TextAttribute, Column, UIRowAttribute, Component, Button, ButtonAttribute, ClickEvent, UserView, Offset, Position, ResourceStr} from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
-import { Link, StorageLink, Consume, State, StateDecoratedVariable, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
+  TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView, Offset, Position, ResourceStr} from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
+import { Link, StorageLink, Consume, State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
 import hilog from '@ohos.hilog'
 import { Comment } from '../model/CommentModel';
 import common from '@ohos.app.ability.common'
@@ -45,12 +45,12 @@ export struct Navigation {
           'callBundleName': context.abilityInfo.bundleName
         } as Record<String,Object>
       };
-      context.startAbilityForResult(want, (err: BusinessError, result: common.AbilityResult) => {
-        if (err.code) {
+      context.startAbilityForResult(want, (err: BusinessError | null , result: common.AbilityResult | undefined) => {
+        if (err && err.code) {
           hilog.error(0x0000, 'testTag', `startAbilityForResult failed, code is ${err.code}, message is ${err.message}`);
           return;
         }
-        if(result.resultCode === 0) {
+        if(result && result.resultCode === 0) {
           const param: Record<string, Object> | undefined = result.want?.parameters;
           if (param !== undefined) {
             const resourceUri: string = param[Constants.KEY_RESULT_PICKER_CAMERA] as string;

@@ -38,7 +38,6 @@ import { Row, FlexAlign, HorizontalAlign, Column, Stack, Alignment, Image, Image
 import { AppStorage, StorageProp, State, MutableState, stateOf, observableProxy } from "@ohos.arkui.stateManagement";
 
 const SEARCH_BUTTON: string = '搜索';
-AppStorage.setOrCreate('PropA', '');
 
 @Component
 struct MyStateSample {

@@ -20,7 +20,7 @@ import { Text, List, ListItem, Column, Button, Image, Row, Stack,ListItemGroup, 
   FlexAlign, BlurStyle, LazyForEach, ForEach, Builder, Margin, SafeAreaType, Entry,
   TabsController, TabsOptions ,StackOptions, ThemeColorMode, AdaptiveColor, ResourceStr, SizeOptions
 } from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
-import { State, StateDecoratedVariable, MutableState, stateOf, observableProxy,ObjectLink, Observed } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
+import { State, MutableState, stateOf, observableProxy,ObjectLink, Observed } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
 import hilog from '@ohos.hilog';
 import camera from '@ohos.multimedia.camera';
 import { TabsSample } from './backgroundblur/TabsSample';

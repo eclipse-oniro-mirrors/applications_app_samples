@@ -91,23 +91,22 @@ export struct BigFileCopyViewComponent {
 
   copyFile2Sandbox() {
     this.isCopyFinished = false;
+    // TODO：知识点：这里获取到的fd并不是目标文件的fd，而是文件所属hap包的fd
     const data: resourceManager.RawFileDescriptor = this.context.resourceManager.getRawFdSync(this.fileName);
     const targetPath: string = this.context.filesDir + '/' + this.fileName;
-    const destFile = fs.openSync(targetPath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
+    const destFile: fs.File = fs.openSync(targetPath, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE);
     let buffSize: number = BigFileCopyConstants.BUFF_SIZE;
     const buffer: ArrayBuffer = new ArrayBuffer(Math.min(buffSize, data.length));
-    // 记录读取位置的偏移（相较于文件起始偏移）
-    let off: number = 0;
-    // 本次读取内容的实际长度
-    let len: number = 0;
-    // 记录已读文件长度
-    let readedLen: number = 0;
-    let offset = data.offset + off;
-    let len = fs.readSync(data.fd, buffer, { offset: offset, length: buffSize })
+    let off: number = 0; // 记录读取位置的偏移（相较于文件起始偏移）
+    let len: number = 0; // 本次读取内容的实际长度
+    let readedLen: number = 0; // 记录已读文件长度
+    len = fs.readSync(data.fd, buffer, { offset: data.offset + off, length: buffSize })
+    // TODO：知识点：因为获取的是所属hap包的fd，这里需要通过目标文件的大小和偏移进行复制
     while (len) {
+      len = fs.readSync(data.fd, buffer, { offset: data.offset + off, length: buffSize })
       readedLen += len;
       fs.writeSync(destFile.fd, buffer, { offset: off, length: len });
-      this.progress = Math.floor((readedLen / data.length) * 100);
+      this.progress = Math.floor((readedLen / data.length) * 100); // 小数转换成百分比
       off = off + len;
       if ((data.length - readedLen) < buffSize) {
         buffSize = data.length - readedLen;

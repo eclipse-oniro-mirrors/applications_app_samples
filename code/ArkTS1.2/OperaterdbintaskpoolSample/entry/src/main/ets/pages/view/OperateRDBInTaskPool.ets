@@ -100,7 +100,7 @@ struct OperateRDBInTaskPool {
           if(this.dataArray[i].name === this.routerData.name){
             this.dataArray[i] = this.routerData
             this.dataArray = [...this.dataArray]
-            return;
+            return undefined;
           }
         }
         }).catch((err: Error)=>{

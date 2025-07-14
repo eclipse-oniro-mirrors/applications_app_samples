@@ -174,30 +174,6 @@ export struct CompressFileViewComponent {
         .justifyContent(FlexAlign.SpaceBetween)
 
         CompressFileList({ fileNames: this.beCompressFiles, iconName: 'app.media.txt' })
-
-        Text('压缩结果')
-          .fontSize(18)
-          .textAlign(TextAlign.Start)
-          .width('90%')
-          .padding(10)
-          .backgroundColor('#94c4f5')
-          .fontColor('#F1F3F5')
-          .borderRadius(12)
-
-        if (this.compressBundleName) {
-          Row() {
-            Image($r('app.media.zlib'))
-              .width(20)
-              .height(24)
-              .margin(5)
-            Text(this.compressBundleName)
-              .fontSize(14)
-          }
-          .id('compressZip')
-          .justifyContent(FlexAlign.Start)
-          .width('90%')
-          .height(50)
-        }
       }
     }
     .width('100%')

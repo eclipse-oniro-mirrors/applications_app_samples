@@ -25,7 +25,7 @@ import { Text, List, ListItem, Column, Button, Image, Row, Stack,ListItemGroup, 
   SheetSize, SheetType, ScrollSizeMode, SheetOptions, CustomBuilder, Entry,
   Position, GestureEvent, GestureType, PanGesture, FontWeight, AnimateParam, Curve, PlayMode
 } from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
-import { State, StateDecoratedVariable, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
+import { State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
 import hilog from '@ohos.hilog'
 import { UIContext, Router } from '@ohos.arkui.UIContext'
 import router from '@ohos.router'

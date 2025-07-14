@@ -25,7 +25,7 @@ import { Text, List, ListItem, Column, Button, Image, Row, Stack,ListItemGroup, 
   OnTabsAnimationStartCallback, Rating, RatingOptions, GestureGroup, GestureEvent, GestureMode, TapGesture, $$,
   SheetSize, SheetType, ScrollSizeMode, SheetOptions, CustomBuilder, Entry
 } from '@ohos.arkui.component'
-import { State, StateDecoratedVariable, MutableState, stateOf, AppStorage,
+import { State, MutableState, stateOf, AppStorage,
   observableProxy,ObjectLink, Observed, Consume, Link, Provide, Watch} from '@ohos.arkui.stateManagement'
 import display from '@ohos.display';
 import { SceneModuleInfo } from '../../model/functionalScenes/SceneModuleInfo';
@@ -105,7 +105,7 @@ export struct FunctionalScenes {
         this.getUIContext().getRouter().back();
       })
       Row() {
-        Stack() {
+        Row() {
           List({ scroller: this.scrollController } as ListOptions) {
             ForEach(TAB_DATA, (tabItem: TabDataModel) => {
               ListItem() {
@@ -116,8 +116,8 @@ export struct FunctionalScenes {
           .id('MainList')
           .margin({ top: 3 } as Margin)
           .height(38)
+          .width('83%')
           .listDirection(Axis.Horizontal)
-          .padding({ right: 46 } as Padding)
           .scrollBar(BarState.Off)
           Row() {
             Row() {
@@ -127,7 +127,7 @@ export struct FunctionalScenes {
             }
             .bindMenu(this.tabsMenu)
             .justifyContent(FlexAlign.Center)
-            .width(43)
+            .width(23)
             .height(43)
             .borderRadius(100)
             .backgroundColor('rgba(216, 216, 216, 0)')
@@ -138,10 +138,9 @@ export struct FunctionalScenes {
             colors: [['rgba(241, 241, 241, 0)', 0], ['#F1F3F5', 0.2], ['#F1F3F5', 1]]
           } as LinearGradientOptions)
           .justifyContent(FlexAlign.End)
-          .width(60)
+          .width(46)
           .height(43)
         }
-        .alignContent(Alignment.TopEnd)
       }
       .padding({
         left: 13,
@@ -222,7 +221,7 @@ struct methodPoints {
   // 当前屏幕折叠态（仅折叠屏设备下有效）
   curFoldStatus: display.FoldStatus = display.FoldStatus.FOLD_STATUS_UNKNOWN;
   // 从AppStorage中获取设别类别，判断是否为折叠屏
-  isFoldable: boolean | undefined = AppStorage.get('isFoldable');
+  isFoldable: boolean = false
   @State @Watch('onShowReadMeChange') isShowReadMe: boolean = false;
 
   aboutToAppear(): void {

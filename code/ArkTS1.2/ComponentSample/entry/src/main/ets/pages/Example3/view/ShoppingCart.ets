@@ -57,7 +57,6 @@ import {
 } from '@ohos.arkui.component';
 import {
   State,
-  StateDecoratedVariable,
   MutableState,
   stateOf,
   observableProxy,

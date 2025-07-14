@@ -128,7 +128,7 @@ export struct FileDownloadItem {
           task.on('resume', this.resumeCallback); // 重新启动任务回调
 
           // TODO 知识点：启动下载任务。本例在每个FileDownloadItem中使用task.start方法启动各自的下载任务。
-          task.start((err: BusinessError) => {
+          task.start((err: BusinessError | null) => {
             if (err) {
               hilog.error(0x0000, 'TAGhttp',
                 `task.start Failed to task start with error message: ${err.message}, error code: ${err.code}`);
@@ -239,9 +239,13 @@ export struct FileDownloadItem {
   pauseDownload(): void {
     if (this.downloadTask) {
       // TODO 知识点：使用request.agent.show，根据任务id可查询任务的详细信息。本处用于查询下载任务状态
-      request.agent.show(this.downloadTask!.tid, (err: Error, taskInfo: request.agent.TaskInfo) => {
-        if (err.code !== 0) {
+      request.agent.show(this.downloadTask!.tid,
+        (err: BusinessError<void>|null, taskInfo: request.agent.TaskInfo|undefined) => {
+        if (err && err.code !== 0) {
           hilog.error(0x0000, 'TAGhttp',  `Failed to show with error message: ${err.message}, error code: ${err.code}`);
+          return;
+        }
+        if(taskInfo == undefined){
           return;
         }
         // 判断当前下载任务状态是否满足暂停条件。
@@ -278,16 +282,20 @@ export struct FileDownloadItem {
   resumeDownload(): void {
     if (this.downloadTask) {
       // 查询任务状态
-      request.agent.show(this.downloadTask!.tid, (err: BusinessError, taskInfo: request.agent.TaskInfo) => {
-        if (err.code !== 0) {
+      request.agent.show(this.downloadTask!.tid,
+        (err: BusinessError<void>|null, taskInfo: request.agent.TaskInfo|undefined) => {
+        if (err && err.code !== 0) {
           hilog.error(0x0000, 'TAGhttp', `Failed to show with error message: ${err.message}, error code: ${err.code}`);
+          return;
+        }
+        if(taskInfo == undefined){
           return;
         }
         // 判断如果任务是暂停状态，则重新启动下载任务
         if (this.downloadTask && taskInfo.progress.state === request.agent.State.PAUSED) {
           // TODO 知识点：使用task.resume可以重新启动任务，可恢复暂停的后台任务。
-          this.downloadTask!.resume((err: BusinessError) => {
-            if (err.code !== 0) {
+          this.downloadTask!.resume((err: BusinessError<void>|null) => {
+            if (err && err.code !== 0) {
               hilog.error(0x0000, 'TAGhttp', `Failed to resume with error message: ${err.message}, error code: ${err.code}`);
               return;
             }

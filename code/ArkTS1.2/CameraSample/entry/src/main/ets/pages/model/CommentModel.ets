@@ -19,6 +19,6 @@ export class Comment {
   public name: string = '';
   public avatar: ResourceStr = '';
   public time: string = '';
-  public comment: string = '';
+  public comment: ResourceStr = '';
   public images: Array<ResourceStr> = new Array<ResourceStr>();
 }

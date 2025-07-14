@@ -54,21 +54,16 @@ export struct CustomTabsComponent {
   build() {
     Column(){
      Stack({ alignContent: Alignment.Bottom } as StackOptions) {
-      Tabs() {
+      Column() {
         ForEach(this.tabsInfoList, (item: TabInfo, index :number) => {
-          TabContent() {
+          Row() {
             MainContentBlur()
           }
-          .height('80%')
-          .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
+          .height('100%')
         })
       }
-      .vertical(false)
-      .scrollable(false)
       .layoutWeight(1)
       .backgroundColor($r('app.color.background_blur_tabs_bar_background_color'))
-      .barHeight(0) // 使用自定义TabBar，所以设置附带为0
-      .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
       Flex({ direction: FlexDirection.Row, justifyContent: FlexAlign.SpaceAround,
         alignItems: ItemAlign.Center } as FlexOptions) {
         ForEach(this.tabsInfoList, (item: TabInfo, tabIndex: number) => {
@@ -79,7 +74,6 @@ export struct CustomTabsComponent {
           })
         })
       }
-      .padding({ bottom: px2vp(this.avoidAreaBottomToModule) } as Padding)
     /**
      * 设置组件背景提亮效果
      *
@@ -108,9 +102,8 @@ export struct CustomTabsComponent {
     .width('100%')
     .height('100%')
   }
-    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
     .width('100%')
-    .height('95%')
+    .height('100%')
   }
 }
 

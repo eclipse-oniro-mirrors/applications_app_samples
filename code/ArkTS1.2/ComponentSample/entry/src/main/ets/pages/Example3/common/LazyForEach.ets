@@ -36,7 +36,7 @@ import {
   IDataSource,
   DataChangeListener
 } from '@ohos.arkui.component';
-import { State, StateDecoratedVariable, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement';
+import { State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement';
 
 class BasicDataSource implements IDataSource<string> {
   private listeners: DataChangeListener[] = [];
