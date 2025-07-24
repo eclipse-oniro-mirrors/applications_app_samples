@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -335,6 +335,11 @@ interface Params {
   };
 
   selectedIndexChange = (selectedIndex: number) => {
+    Logger.info(TAG, `selectedIndexChanged selectedIndex: ${selectedIndex}`);
+    if (selectedIndex >= this.deviceLists.length) {
+      Logger.error(TAG, `selectedIndex out of the deviceLists, deviceLists len = ${this.deviceLists.length}`);
+      return;
+    }
     Logger.info(TAG, `this.deviceLists[selectedIndex]:${JSON.stringify(this.deviceLists[selectedIndex])}`);
     Logger.info(TAG, `deviceId:${JSON.stringify(this.deviceLists[selectedIndex].deviceId)}`);
     if (this.context !== null && selectedIndex === 0) {
