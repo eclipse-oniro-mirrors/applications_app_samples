@@ -17,7 +17,7 @@ import { Text, List, ListItem, Column, Button, Image, Row, Stack,ListItemGroup, 
   Tabs, TabContent, Flex, FlexOptions, Callback, px2vp, ItemAlign, BackgroundBrightnessOptions,
   ButtonAttribute, ClickEvent, Component, BuilderParam, Padding, $r, SafeAreaEdge, BackgroundBlurStyleOptions,
   BarState, NestedScrollOptions, NestedScrollMode, Color, JSON, Alignment, FlexDirection, BarPosition,
-  FlexAlign, BlurStyle, LazyForEach, ForEach, Builder, Margin, SafeAreaType,
+  FlexAlign, BlurStyle, LazyForEach, ForEach, Builder, Margin, SafeAreaType, SystemAdaptiveOptions,
   TabsController, TabsOptions ,StackOptions, ThemeColorMode, AdaptiveColor, ResourceStr, SizeOptions
 } from '@ohos.arkui.component'
 import { Provide, State, ObjectLink, Consume, StorageLink, Prop, Link } from '@ohos.arkui.stateManagement'
@@ -95,7 +95,7 @@ export struct CustomTabsComponent {
         colorMode: ThemeColorMode.LIGHT,
         adaptiveColor: AdaptiveColor.DEFAULT,
         scale: 1.0
-      }, undefined)
+      }, {} as SystemAdaptiveOptions)
       .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
      }
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
