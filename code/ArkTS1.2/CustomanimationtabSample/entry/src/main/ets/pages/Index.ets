@@ -125,18 +125,18 @@ struct MyStateSample {
                   }
                 })
               }
-              .width($r('app.string.custom_animation_tab_one_hundred_percent'))
-              .height($r('app.string.custom_animation_tab_one_hundred_percent'))
-            }.width($r('app.string.custom_animation_tab_one_hundred_percent'))
-            .height($r('app.string.custom_animation_tab_one_hundred_percent'))
+              .width('100%')
+              .height('100%')
+            }.width('100%')
+            .height('100%')
           })
         }
         .id('tabContent')
         .loop(false)
         .indicator(false)
         .index(this.tabIndex)
-        .width($r('app.string.custom_animation_tab_one_hundred_percent'))
-        .height($r('app.string.custom_animation_tab_one_hundred_percent'))
+        .width('100%')
+        .height('100%')
         .onChange((index: number):void => {
           this.backgroundBarDisplacement = this.backgroundBarDisplacement + (index - this.tabIndex) * 95;
           this.tabIndex = index;
@@ -162,7 +162,7 @@ struct MyStateSample {
       }
       .justifyContent(FlexAlign.End)
       .height('15%')
-      .width($r('app.string.custom_animation_tab_one_hundred_percent'))
+      .width('100%')
     }
     .width('100%')
     .height('100%')

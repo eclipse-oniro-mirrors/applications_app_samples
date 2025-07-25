@@ -96,7 +96,7 @@ class DatabaseConnection {
     try {
       // 执行sql语句，联系人个各个属性设定
       if (this.rdbStore != undefined) {
-        await (this.rdbStore as relationalStore.RdbStore).executeSql(SQL_CREATE_TABLE)
+        await (this.rdbStore as relationalStore.RdbStore).execute(SQL_CREATE_TABLE)
         hilog.info(0x0000, 'testTag', 'create table succeed');
         return;
       }
@@ -184,7 +184,7 @@ class DatabaseConnection {
     }
 
     if (valueBuckets.length == 20) {
-      return (this.rdbStore as relationalStore.RdbStore).batchInsert(TABLE_NAME, valueBuckets).then((row: long)=>{
+      return (this.rdbStore as relationalStore.RdbStore).batchInsert(TABLE_NAME, valueBuckets).then((row: Double)=>{
         hilog.info(0x0000, 'testTag', `batchInsert:${row}`);
         return row as number;
       }).catch((err: Error)=>{
@@ -229,7 +229,7 @@ class DatabaseConnection {
 
     if (this.rdbStore != undefined) {
       (this.rdbStore as relationalStore.RdbStore)
-        .insert(TABLE_NAME, valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE).then((row: long)=>{
+        .insert(TABLE_NAME, valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE).then((row: Double)=>{
         hilog.info(0x0000, 'testTag', `insert done:${row}`);
         return undefined;
       }).catch((err: Error)=>{
@@ -302,7 +302,7 @@ class DatabaseConnection {
     predicates.equalTo('name', contact.name);
     if (this.rdbStore != undefined) {
       (this.rdbStore as relationalStore.RdbStore)
-        .update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE).then((row: long)=>{
+        .update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE).then((row: Double)=>{
         hilog.info(0x0000, 'testTag', `update done:${row}`);
         return undefined;
       }).catch((err: Error)=>{
@@ -321,7 +321,7 @@ class DatabaseConnection {
     // 进入结果集的第一行
     resultSet.goToFirstRow();
     // 如果没有结束就继续遍历
-    while (!resultSet.isEnded) {
+    while (!resultSet.goToNexRow()) {
       // 读取各个属性，初始化临时变量contact
       let contact: Contact = new Contact(
         resultSet.getString(resultSet.getColumnIndex('name')),

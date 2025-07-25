@@ -61,13 +61,13 @@ export struct SkeletonLayout {
           }
           .padding({ top: $r('app.float.custom_animation_tab_ske_md_padding_margin') } as Padding)
           .height($r('app.float.custom_animation_tab_ske_row_height'))
-          .width($r('app.string.custom_animation_tab_one_hundred_percent'))
+          .width('100%')
           .justifyContent(FlexAlign.SpaceBetween)
         } else {
           Row() {
             // 摄影作品标签
             Row()
-              .width($r('app.float.custom_animation_tab_ske_lg_topic_width'))
+              .width('58vp')
               .height($r('app.float.custom_animation_tab_ske_topic_height'))
               .backgroundColor($r('app.color.custom_animation_tab_skeleton_color_medium'))
               .borderRadius($r('app.float.custom_animation_tab_ske_xs_border_radius'))
@@ -81,16 +81,16 @@ export struct SkeletonLayout {
           }
           .padding({ top: $r('app.float.custom_animation_tab_ske_md_padding_margin') } as Padding)
           .height($r('app.float.custom_animation_tab_ske_row_height'))
-          .width($r('app.string.custom_animation_tab_one_hundred_percent'))
+          .width('100%')
           .justifyContent(FlexAlign.Start)
         }
       }
       .layoutWeight(1)
-      .height($r('app.string.custom_animation_tab_one_hundred_percent'))
+      .height('100%')
       Row()
         .backgroundColor($r('app.color.custom_animation_tab_skeleton_color_light'))
         .borderRadius($r('app.float.custom_animation_tab_ske_small_border_radius'))
-        .width($r('app.float.custom_animation_tab_ske_image_width'))
+        .width('128vp')
         .height($r('app.float.custom_animation_tab_ske_image_height'))
         .margin({ left: $r('app.float.custom_animation_tab_ske_md_padding_margin') } as Margin)
     }
@@ -99,7 +99,7 @@ export struct SkeletonLayout {
     .backgroundColor(Color.White)
     .alignItems(VerticalAlign.Top)
     .justifyContent(FlexAlign.SpaceAround)
-    .width($r('app.string.custom_animation_tab_one_hundred_percent'))
+    .width('100%')
     .height($r('app.float.custom_animation_tab_ske_card_height'))
   }
 }
@@ -107,7 +107,7 @@ export struct SkeletonLayout {
 @Builder
 function actionArea() {
   Row()
-    .width($r('app.float.custom_animation_tab_ske_action_area_width'))
+    .width('58vp')
     .height($r('app.float.custom_animation_tab_ske_action_area_height'))
     .backgroundColor($r('app.color.custom_animation_tab_skeleton_color_medium'))
 }
@@ -115,7 +115,7 @@ function actionArea() {
 @Builder
 function textArea(height: Length) {
   Row()
-    .width($r('app.string.custom_animation_tab_one_hundred_percent'))
+    .width('100%')
     .height(height)
     .backgroundColor($r('app.color.custom_animation_tab_skeleton_color_medium'))
 }
