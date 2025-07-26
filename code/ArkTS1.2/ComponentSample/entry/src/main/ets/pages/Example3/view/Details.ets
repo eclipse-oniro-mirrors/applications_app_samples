@@ -32,7 +32,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   Stack,
   Row,
   FlexAlign,
@@ -92,7 +91,7 @@ struct ProductInfo {
             .fontSize(15)
             .width(60)
         }
-        .width($r('app.string.dynamicattributes_max_size'))
+        .width('100%')
         .justifyContent(FlexAlign.SpaceBetween)
 
         Row() {
@@ -105,7 +104,7 @@ struct ProductInfo {
             .backgroundColor($r('app.color.dynamicattributes_red'))
         }
         .justifyContent(FlexAlign.SpaceBetween)
-        .width($r('app.string.dynamicattributes_max_size'))
+        .width('100%')
 
         Text($r('app.string.dynamicattributes_commodity_name'))
           .fontWeight(FontWeight.Bold)
@@ -122,6 +121,6 @@ struct ProductInfo {
     }
     .padding(10)
     .height('40%')
-    .width($r('app.string.dynamicattributes_max_size'))
+    .width('100%')
   }
 }

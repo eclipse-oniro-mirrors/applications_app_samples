@@ -24,7 +24,7 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { memo, __memo_context_type, __memo_id_type } from "@ohos.arkui.stateManagement";
+import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement';
 import { curUser, mockData } from '../mock/NewsDetailData';
 import { NewsCommentModel } from '../model/NewsCommentModel';
 import { CommentPage } from '../components/CommentPage';
@@ -34,11 +34,12 @@ import util from '@ohos.util';
 import { Row, FlexAlign, HorizontalAlign, Column, Stack, Alignment, Image, ImageFit, $r, Text, TextAlign, ImageSpan,
   ImageSpanAlignment, Span, Scroll, ScrollState, OnScrollFrameBeginHandlerResult, OnScrollFrameBeginCallback,
   Scroller, ScrollDirection, ScrollAlign, BarState, Search, List, ListItem, ListItemAlign, ForEach, Blank, Color,
-  Margin, Padding, Builder, ClickEvent, Component, UserView } from "@ohos.arkui.component";
-import { AppStorage, StorageProp, State, MutableState, stateOf, observableProxy } from "@ohos.arkui.stateManagement";
+  Margin, Padding, Builder, ClickEvent, Component, Entry } from '@ohos.arkui.component';
+import { AppStorage, StorageProp, State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement';
 
 const SEARCH_BUTTON: string = '搜索';
 
+@Entry
 @Component
 struct MyStateSample {
   listScroller: Scroller = new Scroller();
@@ -159,7 +160,7 @@ struct MyStateSample {
         .fontWeight(600)
         .margin({ top: 10, bottom: 10 } as Margin)
       Row() {
-        Image('https://res.hancibao.com/img/kai/05/5427.png')
+        Image($r('app.media.bar'))
           .width(40)
           .height(40)
         Column() {
@@ -186,7 +187,7 @@ struct MyStateSample {
       .width('100%')
       .height(40)
       .margin({ top: 10, bottom: 10 } as Margin)
-      Image('https://bpic.588ku.com/back_origin_min_pic/21/04/07/23c8806be022255931d5dcb04c762f37.jpg')
+      Image($r('app.media.ball'))
         .width('100%')
         .objectFit(ImageFit.Contain)
         .borderRadius(6)
@@ -212,7 +213,7 @@ struct MyStateSample {
         .width('100%')
         .fontSize(14)
       Row() {
-        Image('https://inews.gtimg.com/newsapp_bt/0/1012205723968_6694/0')
+        Image($r('app.media.icon_circle'))
           .width(40)
           .height(40)
           .margin({ right: 5 } as Margin)
@@ -299,16 +300,5 @@ struct PublishView {
     }
     .width('100%')
     .height(60)
-  }
-}
-
-export class ComExampleTrivialApplication extends UserView {
-  getBuilder() {
-    hilog.info(0x0000, 'testTag', 'getBuilder');
-    let wrapper = @memo () => {
-      hilog.info(0x0000, 'testTag', 'MyStateSample');
-      MyStateSample(undefined)
-    }
-    return wrapper
   }
 }

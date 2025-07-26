@@ -33,7 +33,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   List, Image, $r, AlphabetIndexer, Margin, ForEach, Color, TextAlign, ImageFit, JSON
 } from '@ohos.arkui.component';
 import relationalStore from '@ohos.data.relationalStore';

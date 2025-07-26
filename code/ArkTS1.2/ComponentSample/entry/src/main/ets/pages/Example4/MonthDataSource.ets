@@ -37,7 +37,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   Entry,
   IDataSource,
   DataChangeListener

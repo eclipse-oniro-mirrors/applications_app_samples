@@ -26,11 +26,11 @@
 
 import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement';
 import {
-  Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView, Builder,
+  Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Builder,
   SwiperController, Swiper, TextAlign, ForEach, Color, Margin, Scroll, Scroller, ScrollDirection, EdgeEffect, List,
   ListItem, FontWeight, ImageFit, ListItemAlign, Axis, BarState, Stack, Alignment, Row, Image, $r, VerticalAlign, Resource,
   ResourceColor, FlexAlign, SizeOptions, Area, Curve, PlayMode, SwiperAnimationEvent, ScrollState, ScrollOptions, ScrollSource,
-  ScrollOnWillScrollCallback, OffsetResult, ScrollOnScrollCallback
+  ScrollOnWillScrollCallback, OffsetResult, ScrollOnScrollCallback, Entry
 } from '@ohos.arkui.component';
 import { State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement';
 import { UIContext } from '@ohos.arkui.UIContext';
@@ -38,6 +38,7 @@ import { SkeletonLayout } from './SkeletonLayout';
 import common from '@ohos.app.ability.common';
 import hilog from '@ohos.hilog';
 
+@Entry
 @Component
 struct MyStateSample {
   @State indicatorBarColor: ResourceColor = '#C0C0C0';
@@ -166,18 +167,5 @@ struct MyStateSample {
     }
     .width('100%')
     .height('100%')
-  }
-}
-
-export class ComExampleTrivialApplication extends UserView {
-  getBuilder() {
-    hilog.info(0x0000, 'testTag', 'getBuilder');
-    let wrapper = @
-    memo() =>
-    {
-      hilog.info(0x0000, 'testTag', 'MyStateSample');
-      MyStateSample(undefined)
-    }
-    return wrapper
   }
 }

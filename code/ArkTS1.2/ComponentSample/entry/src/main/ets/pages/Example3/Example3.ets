@@ -36,7 +36,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   Row,
   TextAlign,
   Entry
@@ -70,17 +69,5 @@ struct Example3Test {
 
       ShoppingCart();
     }
-  }
-}
-
-export class ComExampleTrivialApplication extends UserView {
-  getBuilder() {
-    hilog.info(0x0000, 'testTag', 'getBuilder');
-    let wrapper = @memo() =>
-    {
-      hilog.info(0x0000, 'testTag', 'Example3Test');
-      Example3Test(undefined);
-    }
-    return wrapper;
   }
 }
