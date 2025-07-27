@@ -48,8 +48,12 @@ struct AddressBookDetail {
 
   aboutToAppear(): void {
     setTimeout(()=>{
-      if(this.getUIContext().getRouter().getParams()){
-        this.sourceData = (this.getUIContext().getRouter().getParams() as RouterParams).data;
+      if(this.getUIContext().getRouter().getParams()) {
+        const data = (this.getUIContext().getRouter().getParams() as RouterParams).data;
+        if (!data) {
+          return;
+        }
+        this.sourceData = data;
       }
     },1);
   }

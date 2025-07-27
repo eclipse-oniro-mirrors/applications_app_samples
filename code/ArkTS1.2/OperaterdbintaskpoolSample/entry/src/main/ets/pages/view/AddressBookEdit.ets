@@ -66,8 +66,13 @@ struct AddressBookEdit {
   aboutToAppear(): void {
     setTimeout( ()=>{
       let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-      this.data = (this.getUIContext().getRouter().getParams() as RouterParams).data;
-      this.textData = (this.getUIContext().getRouter().getParams() as RouterParams).text;
+      const data = (this.getUIContext().getRouter().getParams() as RouterParams).data;
+      const textData = (this.getUIContext().getRouter().getParams() as RouterParams).text;
+      if (!data || !textData) {
+        return;
+      }
+      this.data = data;
+      this.textData = textData;
       // 数据查看操作
       taskPoolExecuteQuery(context).then((arr: Array<Contact>) => {
         // 数据库查看成功

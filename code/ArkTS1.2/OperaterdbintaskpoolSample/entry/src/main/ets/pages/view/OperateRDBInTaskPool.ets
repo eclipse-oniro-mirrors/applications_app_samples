@@ -71,9 +71,14 @@ struct OperateRDBInTaskPool {
   aboutToAppear(): void {
     setTimeout(()=>{
       let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-      this.routerData = (this.getUIContext().getRouter().getParams() as RouterParams).data;
+      const data = (this.getUIContext().getRouter().getParams() as RouterParams).data;
+      const textData = (this.getUIContext().getRouter().getParams() as RouterParams).text;
+      if (!data || !textData) {
+        return;
+      }
+      this.routerData = data;
       // 数据插入操作
-      if((this.getUIContext().getRouter().getParams() as RouterParams).text === '新增联系人'){
+      if(textData === '新增联系人'){
         taskPoolExecuteInsert(context, this.routerData).then(() => {
         // 数据库插入成功
         this.dataArray = [...this.dataArray,  this.routerData];
@@ -82,7 +87,7 @@ struct OperateRDBInTaskPool {
         })
       }
       // 数据删除操作
-      if((this.getUIContext().getRouter().getParams() as RouterParams).text === '删除联系人'){
+      if(textData === '删除联系人'){
         taskPoolExecuteDelete(context, this.routerData).then(() => {
         // 数据库删除成功
         this.dataArray = this.dataArray.filter((item: Contact)=> {
@@ -93,7 +98,7 @@ struct OperateRDBInTaskPool {
         })
       }
       // 数据更新操作
-      if((this.getUIContext().getRouter().getParams() as RouterParams).text === '编辑联系人'){
+      if(textData === '编辑联系人'){
         taskPoolExecuteUpdate(context, this.routerData).then(() => {
         // 数据库更新成功
         for(let i = 0; i < this.dataArray.length; i++){

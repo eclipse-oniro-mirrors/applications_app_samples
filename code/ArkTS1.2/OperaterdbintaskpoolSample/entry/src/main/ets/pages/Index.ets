@@ -41,6 +41,7 @@ import { State, MutableState, stateOf, observableProxy } from '@ohos.arkui.state
 import hilog from '@ohos.hilog';
 import { BusinessError } from '@ohos.base';
 import { UIContext } from '@ohos.arkui.UIContext';
+import { Contact, RouterParams } from './model/Contact'
 
 @Entry
 @Component
@@ -50,7 +51,8 @@ struct MyStateSample {
       Button('126-TaskPool线程中操作关系型数据库实现案例')
         .margin(20)
         .onClick((): void => {
-          this.getUIContext().getRouter().pushUrl({ url: 'pages/view/OperateRDBInTaskPool' });
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/view/OperateRDBInTaskPool',
+            params: new RouterParams(undefined, undefined) });
         })
     }.width('100%')
     .height('100%')
