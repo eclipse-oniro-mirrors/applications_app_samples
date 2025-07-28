@@ -43,6 +43,7 @@ import { taskPoolExecuteQuery, taskPoolExecuteInsert, taskPoolExecuteDelete,
 @Entry
 @Component
 struct OperateRDBInTaskPool {
+  private static isInitialized: boolean = false;
   // 搜索值
   @State changeValue: string = '';
   // 搜索控制器
@@ -69,7 +70,11 @@ struct OperateRDBInTaskPool {
   @State routerData: Contact = new Contact();
 
   aboutToAppear(): void {
-    setTimeout(()=>{
+    if(!OperateRDBInTaskPool.isInitialized){
+      this.syncAddressBookListData()
+      OperateRDBInTaskPool.isInitialized = true;
+    }
+    setTimeout( ()=>{
       let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
       const data = (this.getUIContext().getRouter().getParams() as RouterParams).data;
       const textData = (this.getUIContext().getRouter().getParams() as RouterParams).text;
@@ -80,39 +85,58 @@ struct OperateRDBInTaskPool {
       // 数据插入操作
       if(textData === '新增联系人'){
         taskPoolExecuteInsert(context, this.routerData).then(() => {
-        // 数据库插入成功
-        this.dataArray = [...this.dataArray,  this.routerData];
+          // 数据库插入成功
+          this.dataArray = [...this.dataArray,  this.routerData];
         }).catch((err: Error)=>{
           hilog.info(0x0000, 'testTag', 'taskPoolExecuteInsert, err: ' + err)
         })
       }
-      // 数据删除操作
-      if(textData === '删除联系人'){
-        taskPoolExecuteDelete(context, this.routerData).then(() => {
-        // 数据库删除成功
-        this.dataArray = this.dataArray.filter((item: Contact)=> {
-          return item.name !== this.routerData.name
-        });
-        }).catch((err: Error)=>{
-          hilog.info(0x0000, 'testTag', 'taskPoolExecuteDelete, err: ' + err)
-        })
-      }
+
       // 数据更新操作
       if(textData === '编辑联系人'){
         taskPoolExecuteUpdate(context, this.routerData).then(() => {
-        // 数据库更新成功
-        for(let i = 0; i < this.dataArray.length; i++){
-          if(this.dataArray[i].name === this.routerData.name){
-            this.dataArray[i] = this.routerData
-            this.dataArray = [...this.dataArray]
-            return undefined;
+          // 数据库更新成功
+          for(let i = 0; i < this.dataArray.length; i++){
+            if(this.dataArray[i].name === this.routerData.name){
+              this.dataArray[i] = this.routerData
+              this.dataArray = [...this.dataArray]
+              return undefined;
+            }
           }
-        }
         }).catch((err: Error)=>{
           hilog.info(0x0000, 'testTag', 'taskPoolExecuteUpdate, err: ' + err)
         })
       }
+
+      // 数据删除操作
+      if(textData === '删除联系人'){
+        taskPoolExecuteDelete(context, this.routerData).then(() => {
+          // 数据库删除成功
+          this.dataArray = this.dataArray.filter((item: Contact)=> {
+            return item.name !== this.routerData.name
+          });
+          this.dataArray = [...this.dataArray]
+        }).catch((err: Error)=>{
+          hilog.info(0x0000, 'testTag', 'taskPoolExecuteDelete, err: ' + err)
+        })
+      }
     },1)
+  }
+  syncAddressBookListData() {
+    let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    taskPoolExecuteBatchInsert(context, this.dataArray)
+      .then((insertNum: number) => {
+        hilog.info(0x0000, 'testTag', 'taskPoolExecuteBatchInsert: ' + String(insertNum))
+        // 数据查看操作
+        taskPoolExecuteQuery(context).then((arr: Array<Contact>) => {
+          // 数据库查看成功
+          hilog.info(0x0000, 'testTag', 'taskPoolExecuteQuery, arr: ' + JSON.stringify(arr))
+        }).catch((err: Error)=>{
+          hilog.info(0x0000, 'testTag', 'taskPoolExecuteQuery, err: ' + err)
+        })
+      }).catch((err:Error)=>{
+      hilog.info(0x0000, 'testTag', 'taskPoolExecuteBatchInsert, err: ' + err)
+    })
   }
 
   build() {

@@ -66,7 +66,7 @@ export struct AddressBookList {
               this.getUIContext().getRouter().pushUrl(options);
             })
             Divider().strokeWidth('100%').height(1).color('#d9d9d9').margin({left: 15, right: 15} as Margin)
-          })
+          }, (item: Contact) => item.name)
         }.width('100%')
       }
       .id('address_book_list')

@@ -63,7 +63,7 @@ export struct CommentPage {
             .width('80%')
             .margin({ bottom: 6 } as Margin)
           Row() {
-            Text('回复 >')
+            Text($r('app.string.reply'))
               .fontSize(14)
               .fontColor('#368AEF')
               .fontWeight(FONT_WEIGHT_FOUR_HUNDRED)
