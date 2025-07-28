@@ -74,14 +74,12 @@ export struct CustomView
           .lineHeight(22)
           .onClick((e: ClickEvent) => {
             this.newPage++;
-            this.arr.push('页面' + this.newPage);
-            this.arr = [...this.arr];
+            this.arr = [...this.arr, '页面' + this.newPage];
           })
       }
       .onClick((e: ClickEvent) => {
         this.newPage++;
-        this.arr.push('页面' + this.newPage);
-        this.arr = [...this.arr];
+        this.arr = [...this.arr, '页面' + this.newPage];
       })
     }.width('50%')
   }
