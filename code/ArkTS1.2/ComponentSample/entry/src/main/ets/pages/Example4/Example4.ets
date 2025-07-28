@@ -36,7 +36,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   Row,
   Entry
 } from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
@@ -68,17 +67,5 @@ struct Example4Test {
 
       ReusePage();
     }
-  }
-}
-
-export class ComExampleTrivialApplication extends UserView {
-  getBuilder() {
-    hilog.info(0x0000, 'testTag', 'getBuilder');
-    let wrapper = @memo() =>
-    {
-      hilog.info(0x0000, 'testTag', 'Example4Test');
-      Example4Test(undefined);
-    }
-    return wrapper;
   }
 }

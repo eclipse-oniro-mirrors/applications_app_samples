@@ -164,7 +164,7 @@ export struct FunctionalScenes {
               } as NestedScrollOptions)
               .width('100%')
               .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
-              .padding({ bottom: $r('app.integer.functional_scenes_water_flow_padding_bottom') } as Padding)
+              .padding({ bottom: 53 } as Padding)
             } else {
               Column() {
                 Text(tabItem.navData).fontSize(20)
@@ -292,34 +292,34 @@ struct methodPoints {
             .textOverflow({ overflow: TextOverflow.Clip } as TextOverflowOptions)
             .fontColor(Color.White)
             .fontWeight(700)
-            .fontSize($r('app.integer.nav_destination_title_text_size'))
+            .fontSize(20)
         }
-        .width($r('app.integer.readme_sheet_text_size'))
+        .width(276)
 
         Column() {
           Stack() {
             Column() {
             }
-            .width($r('app.integer.readme_sheet_size'))
-            .height($r('app.integer.readme_sheet_size'))
-            .borderRadius($r('app.integer.nav_destination_title_image_border_radius'))
+            .width(40)
+            .height(40)
+            .borderRadius(100)
             .backgroundColor(Color.White)
             .opacity(0.05)
             Image($r('app.media.ic_public_cancel'))
               .fillColor(Color.White)
-              .width($r('app.integer.readme_sheet_cancel_image_width'))
+              .width(20)
           }
         }
         .onClick((e: ClickEvent) => {
           this.isShowReadMe = false;
         })
         .justifyContent(FlexAlign.Center)
-        .width($r('app.integer.readme_sheet_size'))
-        .height($r('app.integer.readme_sheet_size'))
-        .borderRadius($r('app.integer.nav_destination_title_image_border_radius'))
+        .width(40)
+        .height(40)
+        .borderRadius(100)
       }
-      .padding({ left: $r('app.integer.readme_sheet_padding'), right: $r('app.integer.readme_sheet_padding') } as Padding)
-      .margin({ top: $r('app.integer.readme_sheet_margin')} as Margin)
+      .padding({ left: 17, right: 17 } as Padding)
+      .margin({ top: 16 } as Margin)
       .justifyContent(FlexAlign.SpaceBetween)
       .width('100%')
     }

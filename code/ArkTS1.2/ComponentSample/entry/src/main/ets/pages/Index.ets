@@ -24,7 +24,7 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
-import { Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView, Row, TextAlign, Visibility,
+import { Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Row, TextAlign, Visibility, Entry,
   List, WordBreak,ListItem,TextInput, InputType,TextOverflow, Image, HorizontalAlign,Tabs,$r,TabContent, Progress, ProgressType} from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
 import { State, Link, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
 import hilog from '@ohos.hilog'
@@ -32,6 +32,7 @@ import common from '@ohos.app.ability.common';
 import {globalContext}  from '../entryability/GlobalContext';
 import { Context,UIContext} from '@ohos.arkui.UIContext'
 
+@Entry
 @Component
 struct MyStateSample {
   private context :common.UIAbilityContext = globalContext.getAbilityContext();
@@ -56,16 +57,5 @@ struct MyStateSample {
     }
     .padding(15)
     .width('100%')
-  }
-}
-
-export class ComExampleTrivialApplication extends UserView {
-  getBuilder() {
-    hilog.info(0x0000, 'testTag', 'getBuilder');
-    let wrapper = @memo () => {
-      hilog.info(0x0000, 'testTag', 'MyStateSample');
-      MyStateSample(undefined)
-    }
-    return wrapper;
   }
 }

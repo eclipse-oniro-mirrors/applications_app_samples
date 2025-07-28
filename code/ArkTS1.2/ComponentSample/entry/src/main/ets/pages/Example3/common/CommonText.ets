@@ -32,7 +32,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   AttributeModifier,
   RowAttribute,
   ImageAttribute,
@@ -110,7 +109,7 @@ export struct BottomBar {
         })
     }
     .height(60)
-    .width($r('app.string.dynamicattributes_max_size'))
+    .width('100%')
     .padding(15)
     .backgroundColor($r('app.color.dynamicattributes_barColor'))
     .justifyContent(FlexAlign.End)
@@ -141,17 +140,17 @@ export struct ImageText {
 
       Column() {
         Text(this.item)
-          .fontSize(20).width($r('app.string.dynamicattributes_max_size'))
+          .fontSize(20).width('100%')
         Text(this.textThreeContent)
-          .fontSize(20).width($r('app.string.dynamicattributes_max_size'))
+          .fontSize(20).width('100%')
         CommonText()
         Text(this.textOneContent)
-          .fontSize(20).width($r('app.string.dynamicattributes_max_size'))
+          .fontSize(20).width('100%')
           .fontColor($r('app.color.dynamicattributes_orange'))
       }.margin(15)
     }
-    .width($r('app.string.dynamicattributes_max_size'))
-    .height($r('app.string.dynamicattributes_max_size'))
+    .width('100%')
+    .height('100%')
   }
 }
 

@@ -25,7 +25,7 @@
  */
 import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
 import { Text, TextAttribute, Column, Component, Button, ButtonAttribute,
-  ClickEvent, UserView, Entry, JSON } from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
+  ClickEvent, Entry, JSON } from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
 import { State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
 import hilog from '@ohos.hilog';
 import {BusinessError} from '@ohos.base';
@@ -39,16 +39,5 @@ struct MyStateSample {
     Column() {
       MultipleFilesDownloadComponent();
     }
-  }
-}
-
-export class ComExampleTrivialApplication extends UserView {
-  getBuilder() {
-    hilog.info(0x0000, 'testTag', 'getBuilder');
-    let wrapper = @memo () => {
-      hilog.info(0x0000, 'testTag', 'MyStateSample');
-      MyStateSample(undefined);
-    }
-    return wrapper;
   }
 }

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 import { memo, __memo_context_type, __memo_id_type } from "@ohos.arkui.stateManagement" // should be insert by ui-plugins
-import { Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView, Entry, Tabs, TabContent,
+import { Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Entry, Tabs, TabContent,
   CustomBuilder, ComponentContent, SubTabBarStyle, BottomTabBarStyle, Resource, TabBarOptions, JSON, Flex, FlexDirection, FlexAlign, ItemAlign, Divider, TabsOptions,
   Row, ForEach, Position, Builder, Margin, BarMode, OnTabsAnimationStartCallback, TabsAnimationEvent} from "@ohos.arkui.component"  // TextAttribute should be insert by ui-plugins
 import { State, Link, MutableState, stateOf, observableProxy } from "@ohos.arkui.stateManagement" // should be insert by ui-plugins

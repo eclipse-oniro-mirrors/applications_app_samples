@@ -15,7 +15,7 @@
 
 import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
 import { TouchEvent, TextInputController, RowAttribute, FlexAlign, EditableTextOnChangeCallback, TextInput, Margin, Row, VerticalAlign, HorizontalAlign, AlignRuleOption, Padding, $r, Image, Text,
-  TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView, Offset, Position, ResourceStr} from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
+  TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Offset, Position, ResourceStr} from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
 import { Link, StorageLink, Consume, State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
 import hilog from '@ohos.hilog'
 import { Comment } from '../model/CommentModel';

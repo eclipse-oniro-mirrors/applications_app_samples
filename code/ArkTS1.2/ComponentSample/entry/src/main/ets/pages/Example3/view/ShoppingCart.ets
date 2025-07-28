@@ -32,7 +32,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   PixelMap,
   ResourceStr,
   DrawableDescriptor,
@@ -128,10 +127,10 @@ struct ShoppingInfo {
 
         Text($r('app.string.dynamicattributes_store_name'))
           .fontSize(15)
-          .margin($r('app.float.dynamicattributes_float_5'))
+          .margin('5vp')
       }
-      .width(($r('app.string.dynamicattributes_max_size')))
-      .height($r('app.float.dynamicattributes_float_20'))
+      .width('100%')
+      .height('20vp')
 
       // 商品信息
       Row() {
@@ -140,10 +139,10 @@ struct ShoppingInfo {
         this.getUIContext().getRouter().pushUrl({ url: 'pages/Example3/view/Details' });
       })
     }
-    .padding($r('app.float.dynamicattributes_float_15'))
+    .padding('15vp')
     .margin(10)
-    .height($r('app.float.dynamicattributes_float_160'))
+    .height('160vp')
     .backgroundColor($r('app.color.dynamicattributes_white'))
-    .borderRadius($r('app.float.dynamicattributes_float_20'))
+    .borderRadius('20vp')
   }
 }

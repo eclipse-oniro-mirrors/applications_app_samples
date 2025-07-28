@@ -36,7 +36,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   Entry
 } from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
 

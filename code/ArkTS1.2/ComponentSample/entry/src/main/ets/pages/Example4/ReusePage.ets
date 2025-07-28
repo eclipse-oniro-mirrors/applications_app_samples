@@ -39,7 +39,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   Flex,
   ItemAlign,
   ForEach,

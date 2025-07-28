@@ -37,7 +37,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   Row,
   TextAlign,
   Visibility,
@@ -97,8 +96,8 @@ export struct HistoryItem {
   }
 
   build() {
-    Row(){
-      Row(){
+    Row() {
+      Row() {
         Image($r('app.media.multiple_files_download_file'))
           .height(50)
           .width(50)
@@ -108,9 +107,9 @@ export struct HistoryItem {
           .opacity(this.fileStatus === 1 ? 1 : 0.7)
       }.width('17%')
 
-      Column(){
-        Row(){
-          Column(){
+      Column() {
+        Row() {
+          Column() {
             Text(this.fileDataInfo.url.split('/').pop() || '文件')
               .height(22)
               .width('100%')
@@ -125,7 +124,7 @@ export struct HistoryItem {
                 type: this.fileStatus === 1 ? TextDecorationType.None : TextDecorationType.LineThrough
               })
 
-            Row(){
+            Row() {
               Text($r('app.string.text_download'))
                 .fontSize(12)
                 .fontColor('#66182431')

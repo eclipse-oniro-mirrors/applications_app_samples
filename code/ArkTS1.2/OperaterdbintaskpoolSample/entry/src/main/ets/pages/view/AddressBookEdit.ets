@@ -25,7 +25,7 @@
  */
 
 import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement'; 
-import { Entry, Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView, Row, 
+import { Entry, Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Row,
   TextAlign, SafeAreaEdge, TextOverflow, Image ,FlexAlign, SafeAreaType, $r, Builder, Color,
   TextInput, Divider, JSON, Margin, Navigation, FontWeight, ResourceStr
 } from '@ohos.arkui.component'; 
@@ -295,17 +295,5 @@ struct AddressBookEdit {
     .height('100%')
     .backgroundColor(Color.White)
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
-  }
-}
-
-
-export class ComExampleTrivialApplication extends UserView {
-  getBuilder() {
-    hilog.info(0x0000, 'testTag', 'getBuilder');
-    let wrapper = @memo() =>{
-      hilog.info(0x0000, 'testTag', 'MyStateSample');
-      AddressBookEdit(undefined)
-    }
-    return wrapper
   }
 }
