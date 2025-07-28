@@ -392,7 +392,7 @@ struct methodPoints {
       .width('100%')
       .justifyContent(FlexAlign.Start)
     }
-    .shadow(ShadowStyle.OUTER_DEFAULT_XS)
+    //.shadow(ShadowStyle.OUTER_DEFAULT_XS)
     .backgroundColor(Color.White)
     .width('100%')
     .borderRadius(8)
