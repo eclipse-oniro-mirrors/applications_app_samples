@@ -64,7 +64,7 @@ export struct AddressBookList {
                 params: new RouterParams('编辑联系人', contact)
               } as router.RouterOptions;
               this.getUIContext().getRouter().pushUrl(options);
-            })
+            }, (item: Contact) => item.name)
             Divider().strokeWidth('100%').height(1).color('#d9d9d9').margin({left: 15, right: 15} as Margin)
           })
         }.width('100%')

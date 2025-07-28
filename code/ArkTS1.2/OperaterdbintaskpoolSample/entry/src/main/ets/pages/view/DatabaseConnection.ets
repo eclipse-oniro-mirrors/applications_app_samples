@@ -120,18 +120,10 @@ class DatabaseConnection {
       return [] as Contact[];
     }
 
-    let predicates = new relationalStore.RdbPredicates(TABLE_NAME);
-    predicates.orderByAsc('category');
-    if (predicates === null || predicates === undefined) {
-      hilog.info(0x0000, 'testTag', 'predicates is null or undefined');
-      return [] as Contact[];
-    }
-
     try {
       this.rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
       const resultSet: relationalStore.ResultSet =
-        await (this.rdbStore as relationalStore.RdbStore).query(predicates);
-      hilog.info(0x0000, 'testTag', 'result is ' + JSON.stringify(resultSet.rowCount));
+        await (this.rdbStore as relationalStore.RdbStore).querySql('select * from contact');
       // 处理查询到的结果数组
       return this.getListFromResultSet(resultSet);
     } catch (err: Error) {
@@ -147,11 +139,6 @@ class DatabaseConnection {
     hilog.info(0x0000, 'testTag', 'batch insert begin');
     if (!context) {
       hilog.info(0x0000, 'testTag', 'context is null or undefined');
-    }
-
-    const predicates = new relationalStore.RdbPredicates(TABLE_NAME);
-    if (predicates === null || predicates === undefined) {
-      hilog.info(0x0000, 'testTag', 'predicates is null or undefined');
     }
 
     if (!this.rdbStore) {
@@ -182,17 +169,16 @@ class DatabaseConnection {
       hilog.info(0x0000, 'testTag', 'valueBuckets:' + JSON.stringify(valueBuckets));
     }
 
-    if (valueBuckets.length == 20) {
-      return (this.rdbStore as relationalStore.RdbStore).batchInsert(TABLE_NAME, valueBuckets).then((row: Double)=>{
-        hilog.info(0x0000, 'testTag', `batchInsert:${row}`);
-        return row as number;
-      }).catch((err: Error)=>{
-        hilog.info(0x0000, 'testTag', 'batchInsert, err: ' + err);
-        return 0 as number;
-      })
-    }
+    return (this.rdbStore as relationalStore.RdbStore).batchInsert(TABLE_NAME, valueBuckets).then((row: number)=>{
+      hilog.info(0x0000, 'testTag', `batchInsert:${row}`);
+      return row as number;
+    }).catch((err: Error)=>{
+      hilog.info(0x0000, 'testTag', 'batchInsert, err: ' + err);
+      return 0 as number;
+    })
     return 0 as number;
   }
+
 
   /**
    * 插入数据库
@@ -201,11 +187,6 @@ class DatabaseConnection {
     hilog.info(0x0000, 'testTag', 'insert begin');
     if (!context) {
       hilog.info(0x0000, 'testTag', 'context is null or undefined');
-    }
-
-    const predicates = new relationalStore.RdbPredicates(TABLE_NAME);
-    if (predicates === null || predicates === undefined) {
-      hilog.info(0x0000, 'testTag', 'predicates is null or undefined');
     }
 
     this.rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
@@ -228,7 +209,7 @@ class DatabaseConnection {
 
     if (this.rdbStore != undefined) {
       (this.rdbStore as relationalStore.RdbStore)
-        .insert(TABLE_NAME, valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE).then((row: Double)=>{
+        .insert(TABLE_NAME, valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE).then((row: number)=>{
         hilog.info(0x0000, 'testTag', `insert done:${row}`);
         return undefined;
       }).catch((err: Error)=>{
@@ -247,21 +228,11 @@ class DatabaseConnection {
       hilog.info(0x0000, 'testTag', 'context is null or undefined');
     }
 
-    const predicates = new relationalStore.RdbPredicates(TABLE_NAME);
-    if (predicates === null || predicates === undefined) {
-      hilog.info(0x0000, 'testTag', 'predicates is null or undefined');
-    }
 
     this.rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
 
-    predicates.equalTo('name', contact.name);
-    (this.rdbStore as relationalStore.RdbStore).delete(predicates).then((row: long)=>{
-      hilog.info(0x0000, 'testTag', `delete contact success:${row}`);
-      return undefined;
-    }).catch((err: Error)=>{
-      hilog.info(0x0000, 'testTag', 'delete failed, err: ' + err);
-      return undefined;
-    })
+    hilog.info(0x0000, 'testTag', `delete name: ${contact.name}`);
+    await (this.rdbStore as relationalStore.RdbStore).execute('DELETE FROM contact WHERE name = ?;', [contact.name] )
   }
 
   /**
@@ -271,11 +242,6 @@ class DatabaseConnection {
     hilog.info(0x0000, 'testTag', 'update begin');
     if (!context) {
       hilog.info(0x0000, 'testTag', 'context is null or undefined');
-    }
-
-    const predicates = new relationalStore.RdbPredicates(TABLE_NAME);
-    if (predicates === null || predicates === undefined) {
-      hilog.info(0x0000, 'testTag', 'predicates is null or undefined');
     }
 
     if (!this.rdbStore) {
@@ -298,16 +264,10 @@ class DatabaseConnection {
       'category': value6
     }
 
-    predicates.equalTo('name', contact.name);
+
     if (this.rdbStore != undefined) {
-      (this.rdbStore as relationalStore.RdbStore)
-        .update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE).then((row: Double)=>{
-        hilog.info(0x0000, 'testTag', `update done:${row}`);
-        return undefined;
-      }).catch((err: Error)=>{
-        hilog.info(0x0000, 'testTag', 'updated failed, err: ' + err);
-        return undefined;
-      })
+      await (this.rdbStore as relationalStore.RdbStore).execute(
+        'UPDATE contact SET phone = ?, email = ?, address = ? WHERE name = ?;', [value2, value3, value4, value1] )
     }
   }
 
@@ -320,7 +280,7 @@ class DatabaseConnection {
     // 进入结果集的第一行
     resultSet.goToFirstRow();
     // 如果没有结束就继续遍历
-    while (!resultSet.goToNexRow()) {
+    while (resultSet.goToNextRow()) {
       // 读取各个属性，初始化临时变量contact
       let contact: Contact = new Contact(
         resultSet.getString(resultSet.getColumnIndex('name')),
