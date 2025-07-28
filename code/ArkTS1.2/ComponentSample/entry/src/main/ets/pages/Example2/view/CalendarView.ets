@@ -157,7 +157,7 @@ export struct CalendarView {
         Row() {
           Text($r('app.string.customcalendarpickerdialog_departure'))
             .fontSize(20)
-          Image($r('app.media.app_icon'))
+          Image($r('app.media.train_icon'))
             .height(20)
             .width(20)
           Text($r('app.string.customcalendarpickerdialog_destination'))
