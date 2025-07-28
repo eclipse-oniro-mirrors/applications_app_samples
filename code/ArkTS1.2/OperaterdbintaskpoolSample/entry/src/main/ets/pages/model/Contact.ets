@@ -46,10 +46,10 @@ export class Contact {
 }
 
 export class RouterParams {
-  public text: string;
-  public data: Contact;
+  public text: string | undefined;
+  public data: Contact | undefined;
 
-  constructor(str: string, data: Contact){
+  constructor(str: string | undefined, data: Contact | undefined) {
     this.text = str;
     this.data = data;
   }
