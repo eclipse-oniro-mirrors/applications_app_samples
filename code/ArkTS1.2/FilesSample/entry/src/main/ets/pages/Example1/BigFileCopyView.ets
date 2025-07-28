@@ -94,11 +94,11 @@ export struct BigFileCopyViewComponent {
     const data: resourceManager.RawFileDescriptor = this.context.resourceManager.getRawFdSync(this.fileName);
     const targetPath: string = this.context.filesDir + '/' + this.fileName;
     const destFile: fs.File = fs.openSync(targetPath, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE);
-    let buffSize: number = BigFileCopyConstants.BUFF_SIZE;
+    let buffSize: long = BigFileCopyConstants.BUFF_SIZE as long;
     const buffer: ArrayBuffer = new ArrayBuffer(Math.min(buffSize, data.length));
-    let off: number = 0; // 记录读取位置的偏移（相较于文件起始偏移）
-    let len: number = 0; // 本次读取内容的实际长度
-    let readedLen: number = 0; // 记录已读文件长度
+    let off: long = 0; // 记录读取位置的偏移（相较于文件起始偏移）
+    let len: long = 0; // 本次读取内容的实际长度
+    let readedLen: long = 0; // 记录已读文件长度
     len = fs.readSync(data.fd, buffer, { offset: data.offset + off, length: buffSize })
     // TODO：知识点：因为获取的是所属hap包的fd，这里需要通过目标文件的大小和偏移进行复制
     while (len) {
