@@ -23,15 +23,12 @@
  *
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 import {
   memo,
   __memo_context_type,
   __memo_id_type
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement';
 import {
-  Entry,
-  Row,
   Text,
   TextAttribute,
   Column,
@@ -39,42 +36,43 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  TextArea,
-  Scroll
-} from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
+  Entry
+} from '@ohos.arkui.component';
+
 import {
   State,
+  Link,
   MutableState,
   stateOf,
   observableProxy
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement';
 import hilog from '@ohos.hilog';
-import { Context, UIContext } from '@ohos.arkui.UIContext';
-import { DecompressFileViewComponent } from './DecompressFile/DecompressFileViewComponent';
-import { CompressFileViewComponent } from './CompressFile/CompressFile';
-import { BigFileCopyViewComponent } from './BigFileCopy/BigFileCopyView';
 
-@Entry
-@Component
-struct MyStateSample {
-  build() {
-    Scroll() {
-      Column() {
-        Button('BigFileCopyView')
-          .onClick((e: ClickEvent) => {
-            this.getUIContext().getRouter().pushUrl({ url: "pages/BigFileCopy/BigFileCopyView" })
-          }).fontSize(20).margin(15).width("100%")
-        Button('CompressFileView')
-          .onClick((e: ClickEvent) => {
-            this.getUIContext().getRouter().pushUrl({ url: "pages/CompressFile/CompressFile" })
-          }).fontSize(20).margin(15).width("100%")
-        Button('DecompressFileView')
-          .onClick((e: ClickEvent) => {
-            this.getUIContext().getRouter().pushUrl({ url: "pages/DecompressFile/DecompressFileViewComponent" })
-          }).fontSize(18).margin(15).width("100%")
-      }
-      .padding(15)
-      .width("100%")
-    }
+const SATURDAY: number = 6; // 日历表上周六对应的序列号，从周日开始算起，取值0~6
+
+/*
+ * 根据指定年份和月份获取该月在日历表上的日期排布数据
+ * @param {number} specifiedMonth - 指定月份
+ * @param {number} specifiedYear - 指定年份
+//  */
+export function getMonthDate(specifiedMonth: number, specifiedYear: number): number[] {
+  let currentFirstWeekDay: number = 0; // 初始化指定月的第一天是周几
+  let currentLastWeekDay: number = 0; // 初始化指定月的最后一天是周几
+  let currentAllDay: number[] = []; // 初始化指定月的日期排列数组
+  let totalDays = new Date(specifiedYear, specifiedMonth, 0).getDate(); // 初始化指定月总天数
+  currentFirstWeekDay = new Date(specifiedYear, specifiedMonth - 1, 1).getDay(); // 获取指定月的第一天是周几
+  currentLastWeekDay = new Date(specifiedYear, specifiedMonth - 1, totalDays).getDay(); // 获取指定月的最后一天是周几
+  // 将月份中显示上个月日期的内容置0
+  for (let item = 0; item < currentFirstWeekDay; item++) {
+    currentAllDay.push(0);
   }
+  // 将本月日期内容存入数组
+  for (let item = 1; item <= totalDays; item++) {
+    currentAllDay.push(item);
+  }
+  // 将月份中显示下个月日期的内容置0
+  for (let item = 0; item < SATURDAY - currentLastWeekDay; item++) {
+    currentAllDay.push(0);
+  }
+  return currentAllDay;
 }

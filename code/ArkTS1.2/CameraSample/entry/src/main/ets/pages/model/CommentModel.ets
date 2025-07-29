@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ResourceStr } from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
+import { ResourceStr } from '@ohos.arkui.component';
 
 export class Comment {
   public id: number = 0;

@@ -13,14 +13,50 @@
  * limitations under the License.
  */
 import { TabInfo } from '../../model/backgroundblur/TabInfo';
-import { Text, List, ListItem, Column, Button, Image, Row, Stack,ListItemGroup, Divider, Blank,
-  Tabs, TabContent, Flex, FlexOptions, Callback, px2vp, ItemAlign, BackgroundBrightnessOptions,
-  ButtonAttribute, ClickEvent, Component, BuilderParam, Padding, $r, SafeAreaEdge, BackgroundBlurStyleOptions,
-  BarState, NestedScrollOptions, NestedScrollMode, Color, JSON, Alignment, FlexDirection, BarPosition,
-  FlexAlign, BlurStyle, LazyForEach, ForEach, Builder, Margin, SafeAreaType, SystemAdaptiveOptions,
-  TabsController, TabsOptions ,StackOptions, ThemeColorMode, AdaptiveColor, ResourceStr, SizeOptions
+import {
+  $r,
+  AdaptiveColor,
+  Alignment,
+  BackgroundBlurStyleOptions,
+  BackgroundBrightnessOptions,
+  BarPosition,
+  BarState,
+  Blank,
+  BlurStyle,
+  Button,
+  ButtonAttribute,
+  Callback,
+  ClickEvent,
+  Color,
+  Column,
+  Component,
+  Divider,
+  Flex,
+  FlexAlign,
+  FlexDirection,
+  FlexOptions,
+  ForEach,
+  Image,
+  ItemAlign,
+  JSON,
+  List,
+  ListItem,
+  Margin,
+  ResourceStr,
+  Row,
+  SafeAreaEdge,
+  SafeAreaType,
+  SizeOptions,
+  Stack,
+  StackOptions,
+  SystemAdaptiveOptions,
+  TabContent,
+  Tabs,
+  TabsController,
+  Text,
+  ThemeColorMode
 } from '@ohos.arkui.component'
-import { Provide, State, ObjectLink, Consume, StorageLink, Prop, Link } from '@ohos.arkui.stateManagement'
+import { Consume, Link, ObjectLink, Prop, Provide, State, StorageLink } from '@ohos.arkui.stateManagement'
 import { UIContext } from '@ohos.arkui.UIContext'
 
 /**
@@ -41,67 +77,71 @@ export struct CustomTabsComponent {
   @Provide selectedIndex: number = 0;
   @StorageLink('avoidAreaBottomToModule') avoidAreaBottomToModule: number = 0;
   controller: TabsController = new TabsController(); // 初始化Tab控制器
-  tabsInfoList:TabInfo[] = [
+  tabsInfoList: TabInfo[] = [
     new TabInfo(0, $r('app.string.background_blur_main'), $r('app.media.backgroundblur_main_select'),
-    $r('app.media.backgroundblur_main_normal')),
+      $r('app.media.backgroundblur_main_normal')),
     new TabInfo(1, $r('app.string.background_blur_hot'), $r('app.media.backgroundblur_hot_select'),
-    $r('app.media.backgroundblur_hot_normal')),
+      $r('app.media.backgroundblur_hot_normal')),
     new TabInfo(2, $r('app.string.background_blur_discover'), $r('app.media.backgroundblur_find_select'),
-    $r('app.media.backgroundblur_find_normal')),
+      $r('app.media.backgroundblur_find_normal')),
     new TabInfo(3, $r('app.string.background_blur_my'), $r('app.media.backgroundblur_my_select'),
-    $r('app.media.backgroundblur_my_normal'))
+      $r('app.media.backgroundblur_my_normal'))
   ];
+
   build() {
-    Column(){
-     Stack({ alignContent: Alignment.Bottom } as StackOptions) {
-      Column() {
-        ForEach(this.tabsInfoList, (item: TabInfo, index :number) => {
-          Row() {
-            MainContentBlur()
-          }
-          .height('100%')
-        })
+    Column() {
+      Stack({ alignContent: Alignment.Bottom } as StackOptions) {
+        Column() {
+          ForEach(this.tabsInfoList, (item: TabInfo, index: number) => {
+            Row() {
+              MainContentBlur()
+            }
+            .height('100%')
+          }, (item: TabInfo, index: number) => index.toString())
+        }
+        .layoutWeight(1)
+        .backgroundColor($r('app.color.background_blur_tabs_bar_background_color'))
+
+        Flex({
+          direction: FlexDirection.Row, justifyContent: FlexAlign.SpaceAround,
+          alignItems: ItemAlign.Center
+        } as FlexOptions) {
+          ForEach(this.tabsInfoList, (item: TabInfo, tabIndex: number) => {
+            TabItem({
+              tabInfo: item,
+              tabBarIndex: tabIndex,
+              selectedIndex: this.selectedIndex,
+            })
+          }, (item: TabInfo, tabIndex: number) => tabIndex.toString())
+        }
+        /**
+         * 设置组件背景提亮效果
+         *
+         * rate：亮度变化速率。亮度变化速率越大，亮度下降速度越快，亮度提升程度越低。默认值：0.0，取值范围：(0.0, +∞)
+         * lightUpDegree：提亮程度。提亮程度越大，亮度提升程度越大。默认值：0.0，取值范围：[-1.0, 1.0]
+         */
+        .backgroundBrightness({
+          rate: 0.5,
+          lightUpDegree: 0.5
+        } as BackgroundBrightnessOptions)
+        /**
+         * 为当前组件提供一种在背景和内容之间的模糊能力，通过枚举值的方式封装了不同的模糊半径、蒙版颜色、蒙版透明度、饱和度、亮度。
+         * 当通过backgroundBlurStyle中的inactiveColor指定背景色时，不建议再通过backgroundColor设置背景色。
+         *
+         * 参数BlurStyle：背景模糊样式。模糊样式中封装了模糊半径、蒙版颜色、蒙版透明度、饱和度、亮度五个参数。
+         * 参数BackgroundBlurStyleOptions：背景模糊选项。
+         */
+        .backgroundBlurStyle(BlurStyle.Thin, {
+          colorMode: ThemeColorMode.LIGHT,
+          adaptiveColor: AdaptiveColor.DEFAULT,
+          scale: 1.0
+        }, {} as SystemAdaptiveOptions)
+        .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
       }
-      .layoutWeight(1)
-      .backgroundColor($r('app.color.background_blur_tabs_bar_background_color'))
-      Flex({ direction: FlexDirection.Row, justifyContent: FlexAlign.SpaceAround,
-        alignItems: ItemAlign.Center } as FlexOptions) {
-        ForEach(this.tabsInfoList, (item: TabInfo, tabIndex: number) => {
-          TabItem({
-            tabInfo: item,
-            tabBarIndex: tabIndex,
-            selectedIndex: this.selectedIndex,
-          })
-        })
-      }
-    /**
-     * 设置组件背景提亮效果
-     *
-     * rate：亮度变化速率。亮度变化速率越大，亮度下降速度越快，亮度提升程度越低。默认值：0.0，取值范围：(0.0, +∞)
-     * lightUpDegree：提亮程度。提亮程度越大，亮度提升程度越大。默认值：0.0，取值范围：[-1.0, 1.0]
-     */
-      .backgroundBrightness({
-        rate: 0.5,
-        lightUpDegree: 0.5
-      } as BackgroundBrightnessOptions)
-    /**
-     * 为当前组件提供一种在背景和内容之间的模糊能力，通过枚举值的方式封装了不同的模糊半径、蒙版颜色、蒙版透明度、饱和度、亮度。
-     * 当通过backgroundBlurStyle中的inactiveColor指定背景色时，不建议再通过backgroundColor设置背景色。
-     *
-     * 参数BlurStyle：背景模糊样式。模糊样式中封装了模糊半径、蒙版颜色、蒙版透明度、饱和度、亮度五个参数。
-     * 参数BackgroundBlurStyleOptions：背景模糊选项。
-     */
-      .backgroundBlurStyle(BlurStyle.Thin, {
-        colorMode: ThemeColorMode.LIGHT,
-        adaptiveColor: AdaptiveColor.DEFAULT,
-        scale: 1.0
-      }, {} as SystemAdaptiveOptions)
       .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
-     }
-    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
-    .width('100%')
-    .height('100%')
-  }
+      .width('100%')
+      .height('100%')
+    }
     .width('100%')
     .height('100%')
   }
@@ -116,7 +156,7 @@ export struct CustomTabsComponent {
  */
 @Component
 struct TabItem {
-  tabInfo?: TabInfo = new TabInfo(0, 'textTest',$r('app.media.layered_image'),$r('app.media.layered_image'));
+  tabInfo?: TabInfo = new TabInfo(0, 'textTest', $r('app.media.layered_image'), $r('app.media.layered_image'));
   @Prop tabBarIndex: number = 0;
   @Link selectedIndex: number = 0;
 
@@ -136,7 +176,7 @@ struct TabItem {
         .fontColor(this.selectedIndex === this.tabBarIndex ? $r('app.color.background_blur_selected_text_color') :
         Color.Black)
     }
-    .width('100%')//50
+    .width('100%') //50
     .onClick((e: ClickEvent) => {
       // 更新被选中的tabBar下标
       this.selectedIndex = this.tabBarIndex;
@@ -150,18 +190,17 @@ export struct MainContentBlur {
   LIST_IMAGE: ResourceStr[] = [$r('app.media.background_pic_1'), $r('app.media.background_pic_2'),
     $r('app.media.background_pic_3'), $r('app.media.background_pic_4')] as ResourceStr[];
   // 数据演示用
-  arr: number[] = [0, 1, 3, 4, 5, 6, 7 ,8, 9, 10] as number[];
+  arr: number[] = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10] as number[];
 
   build() {
-    List(){
+    List() {
       ForEach(this.arr, (item: number, index: number) => {
-        ListItem(){
+        ListItem() {
           Image(this.LIST_IMAGE[item % this.LIST_IMAGE.length] as ResourceStr)
-            .width('100%')
-              // 高度演示用
+            .width('100%')// 高度演示用
             .height(200)
         }
-      })
+      }, (item: number, index: number) => index.toString())
     }
   }
 }

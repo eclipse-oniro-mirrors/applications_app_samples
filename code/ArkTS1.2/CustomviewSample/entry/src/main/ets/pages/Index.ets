@@ -12,23 +12,55 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
-import { Text, List, ListItem, Column, Button, Image, Row, Stack,ListItemGroup, Divider, Blank,
-  Tabs, TabContent, Flex, FlexOptions, Callback, px2vp, ItemAlign, BackgroundBrightnessOptions,
-  ButtonAttribute, ClickEvent, Component, BuilderParam, Padding, $r, SafeAreaEdge, BackgroundBlurStyleOptions,
-  BarState, NestedScrollOptions, NestedScrollMode, Color, JSON, Alignment, FlexDirection, BarPosition,
-  FlexAlign, BlurStyle, LazyForEach, ForEach, Builder, Margin, SafeAreaType, MenuItemOptions,
-  TabsController, TabsOptions ,StackOptions, ThemeColorMode, AdaptiveColor, ResourceStr, SizeOptions,
-  Reusable, TextOverflowOptions, ListOptions, LinearGradientOptions, Menu, MenuItem, Axis, BorderRadiuses,
-  WaterFlow, FlowItem, ImageFit, TextAlign, Scroll, ScrollAlign, Scroller, TextOverflow, ShadowStyle,
-  TabsAnimationEvent, OnTabsAnimationStartCallback, Rating, RatingOptions, GestureGroup, GestureMode, TapGesture, $$,
-  SheetSize, SheetType, ScrollSizeMode, SheetOptions, CustomBuilder, Entry,
-  Position, GestureEvent, GestureType, PanGesture, FontWeight, AnimateParam, Curve, PlayMode
-} from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
-import { State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
-import hilog from '@ohos.hilog'
-import { UIContext, Router } from '@ohos.arkui.UIContext'
-import router from '@ohos.router'
+import {
+  __memo_context_type,
+  __memo_id_type,
+  memo,
+  MutableState,
+  observableProxy,
+  State,
+  stateOf
+} from '@ohos.arkui.stateManagement';
+import {
+  $$,
+  $r,
+  AnimateParam,
+  Axis,
+  BarState,
+  Button,
+  Callback,
+  ClickEvent,
+  Color,
+  Column,
+  Component,
+  Curve,
+  Entry,
+  Flex,
+  FlexAlign,
+  FontWeight,
+  ForEach,
+  GestureEvent,
+  GestureType,
+  Image,
+  LazyForEach,
+  List,
+  ListItem,
+  ListOptions,
+  PanGesture,
+  PlayMode,
+  Position,
+  Row,
+  Scroll,
+  ScrollAlign,
+  Scroller,
+  Stack,
+  Tabs,
+  Text,
+  TextAlign,
+} from '@ohos.arkui.component';
+import hilog from '@ohos.hilog';
+import { Router, UIContext } from '@ohos.arkui.UIContext';
+import router from '@ohos.router';
 
 @Entry
 @Component
@@ -57,13 +89,10 @@ export struct CustomView {
   private judgmentValue: number = 0;
   // currentIndex计算基数
   private currentIndexRadix: number = 1;
-  // 创建PanGestureOptions对象
-  // private panOption: PanGestureOptions = new PanGestureOptions({direction: PanDirection.Left | PanDirection.Right});
   // 是否开始动画标志
   isStartAction: boolean = false;
 
   aboutToAppear() {
-    hilog.info(0x0000, 'tabs', '测试初始化生命周期');
     // 获取颜色条偏移量
     this.transitionX = this.getTransitionX(this.currentIndex);
   }
@@ -80,25 +109,18 @@ export struct CustomView {
         theNumber += titleLength;
       }
     }
-    hilog.info(0x0000, 'tabs', '偏移量');
     return theNumber;
   }
-
 
   // 页签显示数据
   private titleArray: Array<string> = ['候补预测', '在线换座', '余票挖掘', '个人中心'];
 
-  changeValue() {
-  }
-
   // 实现动画效果
   achieveEffect(temIndex: number) {
     // 高性能知识点：scrollToIndex方法，开启smooth动效时，会对经过的所有item进行加载和布局计算，当大量加载item时会导致性能问题
-
     this.scroller.scrollToIndex(temIndex, true, ScrollAlign.START);
     this.wantGoIndex = temIndex;
     // 动画效果
-
     this.getUIContext()?.animateTo({
       duration: Math.abs(temIndex - this.currentIndex) * this.durationRadix,
       curve: Curve.EaseInOut,
@@ -116,20 +138,19 @@ export struct CustomView {
     Column() {
       Column() {
         Row() {
-          // TODO 高性能知识点：此处为了演示场景，列表数量只有4个，使用ForEach，列表数量较多的场景，推荐使用LazyForEach+组件复用+缓存列表项实现
+          // 此处为了演示场景，列表数量只有4个，使用ForEach，列表数量较多的场景，推荐使用LazyForEach+组件复用+缓存列表项实现
           ForEach(this.titleArray, (title: string, idx: number) => {
             Text(title)
               .id('custom_view_title_' + idx)
-                // .textAlign(TextAlign.Center)
               .height(30)
               .width(this.titleLengthRadix * title.length)
               .fontColor(this.currentIndex === idx ?
-                (this.wantGoIndex === idx ? '#111111':'#999999'):
-                (this.wantGoIndex === idx ? '#111111':'#999999'))
+                (this.wantGoIndex === idx ? '#111111' : '#999999') :
+                (this.wantGoIndex === idx ? '#111111' : '#999999'))
               .fontSize(this.currentIndex === idx ? 18 : 14)
               .fontWeight(this.currentIndex === idx ? FontWeight.Bold : FontWeight.Normal)
               .onClick((e: ClickEvent) => {
-                // TODO 知识点：页签实现：记录点击index，index变化后，获取颜色条偏移量，刷新页签颜色、字体大小，实现效果
+                // 页签实现：记录点击index，index变化后，获取颜色条偏移量，刷新页签颜色、字体大小，实现效果
                 if (this.currentIndex !== idx) {
                   // 记录点击index
                   this.wantGoIndex = idx;
@@ -150,25 +171,26 @@ export struct CustomView {
                   })
                 }
               })
-          })
+          }, (title: string, idx: number) => title)
         }
         .id('custom_view_title')
         .height(30)
         .width('100%')
+
         Row()
           .id('custom_view_title_bar')
           .width(20)
           .height(6)
           .borderRadius(3)
           .backgroundColor('#3366FF')
-          .position({x: this.transitionX, y: 30} as Position)
+          .position({ x: this.transitionX, y: 30 } as Position)
       }
       .height(40)
       .width(320)
 
       List({ scroller: this.scroller } as ListOptions) {
         // 内容区域部分
-        // TODO 高性能知识点：此处为了演示场景，列表数量只有4个，使用ForEach，列表数量较多的场景，推荐使用LazyForEach+组件复用+缓存列表项实现
+        // 此处为了演示场景，列表数量只有4个，使用ForEach，列表数量较多的场景，推荐使用LazyForEach+组件复用+缓存列表项实现
         ForEach(this.titleArray, (item: string, index: number) => {
           ListItem() {
             Text(item)
@@ -178,14 +200,13 @@ export struct CustomView {
               .fontSize(25)
               .textAlign(TextAlign.Center)
           }
-        })
+        }, (item: string, index: number) => item)
       }
       .id('custom_view_content')
       .scrollBar(BarState.Off)
       .listDirection(Axis.Horizontal)
       .priorityGesture(
-        PanGesture()
-          // TODO 知识点：内容区域实现：添加滑动手势，手势响应后，使用scrollToIndex方法来实现效果
+        PanGesture() // 内容区域实现：添加滑动手势，手势响应后，使用scrollToIndex方法来实现效果
           .onActionUpdate((event: GestureEvent) => {
             if (!this.isStartAction) {
               this.isStartAction = true;
