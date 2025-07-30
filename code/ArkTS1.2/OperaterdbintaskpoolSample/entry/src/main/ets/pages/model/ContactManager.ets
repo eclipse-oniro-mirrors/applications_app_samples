@@ -24,14 +24,48 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import { Contact } from '../model/Contact';
+import hilog from '@ohos.hilog';
 
-import rdb from '@ohos.data.relationalStore';
+export class ContactManager {
+  private static instance: ContactManager = new ContactManager();
+  private contacts: Array<Contact> = new Array<Contact>();
 
-export const TABLE_NAME = 'contact';
+  private constructor() {}
 
-export const SQL_CREATE_TABLE =
-  'CREATE TABLE IF NOT EXISTS contact(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, phone TEXT NOT NULL, email TEXT NOT NULL, address TEXT NOT NULL, avatar TEXT NOT NULL, category TEXT NOT NULL)';
+  public static getInstance(): ContactManager {
+    return ContactManager.instance;
+  }
 
-export const STORE_CONFIG: rdb.StoreConfig = { name: 'contact.db', securityLevel: rdb.SecurityLevel.S2 };
+  // 查看联系人
+  public getContacts(): Array<Contact> {
+    return [...this.contacts];
+  }
 
-export const ABILITY = 'EntryAbility';
+  // 初始化联系人数据
+  public setContacts(contacts: Array<Contact>): void {
+    this.contacts = [...contacts];
+  }
+
+  // 添加联系人
+  public addContact(contact: Contact): void {
+    this.contacts = [...this.contacts, contact];
+  }
+
+  // 更新联系人
+  public updateContact(contact: Contact): void {
+    const newContacts = [...this.contacts]; // 创建新数组
+    for (let i = 0; i < newContacts.length; i++) {
+      if (newContacts[i].name === contact.name) {
+        newContacts[i] = contact; // 直接替换对象
+        break; // 找到后退出循环
+      }
+    }
+    this.contacts = newContacts; // 更新引用
+  }
+
+  // 删除联系人
+  public deleteContact(contact: Contact): void {
+    this.contacts = this.contacts.filter(item => item.name !== contact.name);
+  }
+}

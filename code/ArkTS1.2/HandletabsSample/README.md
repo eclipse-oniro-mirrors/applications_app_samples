@@ -2,7 +2,7 @@
 
 ### 介绍
 
-本示例介绍使用了Tab组件实现自定义增删Tab页签的功能。；
+本示例介绍使用了Tab组件实现自定义增删Tab页签的功能。
 
 ### 效果预览
 
@@ -13,8 +13,8 @@
 使用说明
 
 Tab组件实现增删Tab标签
-    * 点击新增按钮，新增Tab页面。
-    * 点击删除按钮，删除Tab页面。
+* 点击新增按钮，新增Tab页面。
+* 点击删除按钮，删除Tab页面。
 
 ### 工程目录
 
@@ -27,7 +27,7 @@ entry/src/main/ets/
 ### 具体实现
 
 * Tab组件实现增删Tab标签案例，源码参考：[Index.ets](entry/src/main/ets/pages/Index.ets)
-    * 添加按钮添加TabBar的页面，自定义TabBar加入删除按钮实现TabBar的删除。
+* 添加按钮添加TabBar的页面，自定义TabBar加入删除按钮实现TabBar的删除。
 
 ### 相关权限
 
