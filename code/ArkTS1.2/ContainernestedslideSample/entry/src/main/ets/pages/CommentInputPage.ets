@@ -25,7 +25,7 @@
  */
 
 import { UIContext } from '@ohos.arkui.UIContext';
-import { Column, Row, TextInput, EditableTextOnChangeCallback, Button, ClickEvent, Padding,
+import { Column, Row, TextInput, EditableTextOnChangeCallback, $r, Button, ClickEvent, Padding,
   Margin, Entry, Component } from '@ohos.arkui.component';
 import { AppStorage, State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement';
 
@@ -44,7 +44,7 @@ struct CommentInputPage {
           this.text = textInComment;
         } as EditableTextOnChangeCallback)
 
-      Button('发布')
+      Button($r('app.string.publish'))
         .width(60)
         .height(30)
         .borderRadius(15)

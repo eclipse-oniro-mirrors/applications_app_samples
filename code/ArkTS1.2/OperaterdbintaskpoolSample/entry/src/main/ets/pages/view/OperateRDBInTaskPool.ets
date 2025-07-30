@@ -176,14 +176,3 @@ struct OperateRDBInTaskPool {
     }
   }
 }
-
-export class ComExampleTrivialApplication extends UserView {
-  getBuilder() {
-    hilog.info(0x0000, 'testTag', 'getBuilder');
-    let wrapper = @memo() =>{
-      hilog.info(0x0000, 'testTag', 'MyStateSample');
-      OperateRDBInTaskPool(undefined)
-    }
-    return wrapper
-  }
-}
