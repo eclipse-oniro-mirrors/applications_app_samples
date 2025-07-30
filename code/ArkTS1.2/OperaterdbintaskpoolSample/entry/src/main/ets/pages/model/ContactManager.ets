@@ -29,7 +29,7 @@ import hilog from '@ohos.hilog';
 
 export class ContactManager {
   private static instance: ContactManager = new ContactManager();
-  private contacts: Array<Contact> = new Array<Contact>();
+  private contacts: Contact[] = [];
 
   private constructor() {}
 

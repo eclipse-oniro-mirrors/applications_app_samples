@@ -1,4 +1,4 @@
-# 文件并行化处理场景
+# 多文件下载处理场景
 
 ### 介绍
 
@@ -8,14 +8,14 @@
 
 效果如下所示：
 
-|多文件下载监听案例|
-|--------------------------------|
-|![Alt text](entry/src/main/resources/base/media/sample1.png)|
+| 多文件下载监听案例                                                    |
+|--------------------------------------------------------------|
+| ![Alt text](entry/src/main/resources/base/media/sample1.png) |
 
 使用说明
 
-在多文件下载监听案例。
-    * 点击全部开始进行下载。
+在多文件下载监听案例。 
+* 点击全部开始进行下载。
 
 
 
@@ -36,7 +36,7 @@ entry/src/main/ets/
 
 * 多文件下载监听案例源码参考:
     * 下载历史组件。源码参考[HistoryItem.ets](entry/src/main/ets/pages/view/HistoryItem.ets)
-    * 下载列表组件。源码参考[MultipleFilesDownload.ets](entry/src/main/ets/pages/view/MultipleFilesDownload.ets)
+    * 下载列表组件。源码参考[MultipleFilesDownload.ets](entry/src/main/ets/pages/view/MultipeFilesDownload.ets)
 
 ### 相关权限
 

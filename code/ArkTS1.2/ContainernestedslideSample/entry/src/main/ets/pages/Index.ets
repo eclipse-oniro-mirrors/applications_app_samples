@@ -34,7 +34,8 @@ import util from '@ohos.util';
 import { Row, FlexAlign, HorizontalAlign, Column, Stack, Alignment, Image, ImageFit, $r, Text, TextAlign, ImageSpan,
   ImageSpanAlignment, Span, Scroll, ScrollState, OnScrollFrameBeginHandlerResult, OnScrollFrameBeginCallback,
   Scroller, ScrollDirection, ScrollAlign, BarState, Search, List, ListItem, ListItemAlign, ForEach, Blank, Color,
-  Margin, Padding, Builder, ClickEvent, Component, Entry } from '@ohos.arkui.component';
+  Margin, Padding, Builder, ClickEvent, Component, Entry, TextInput, EditableTextOnChangeCallback, Button
+} from '@ohos.arkui.component';
 import { AppStorage, StorageProp, State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement';
 
 const SEARCH_BUTTON: string = '搜索';
@@ -46,60 +47,81 @@ struct MyStateSample {
   scroller: Scroller = new Scroller();
   @State commentList: NewsCommentModel[] = new Array<NewsCommentModel>();
   curUser: string = curUser;
-  @StorageProp('PropA') storage: string = '';
+  @State text: string = '';
+  @State isVariable: boolean = true;
 
   aboutToAppear() {
     this.commentList = mockData();
   }
 
-  onPageShow() {
-    if (this.storage !== '') {
-      this.publishComment();
-    }
-  }
-
-  publishComment(): void {
-    const uuid: string = util.generateRandomUUID();
-    const comment: NewsCommentModel = new NewsCommentModel(
-      uuid, $r('app.media.news_user_select'), this.curUser, '', '', this.storage, new Date()
-    );
-    this.commentList.unshift(comment);
-    this.commentList = [...this.commentList];
-    this.listScroller.scrollToIndex(0, true, ScrollAlign.START);
-  }
-
   build() {
     Column() {
       this.title();
-
-      Scroll(this.scroller) {
+      if(this.isVariable){
         Column() {
-          this.newsBuilder();
-          this.CommentTitle();
-          this.listBuilder();
+          Scroll(this.scroller) {
+            Column() {
+              this.newsBuilder();
+              this.CommentTitle();
+              this.listBuilder();
+            }
+            .width('100%')
+          }
+          .width('100%')
+          .layoutWeight(1)
+          .scrollBar(BarState.Off)
+
+          Column() {
+            Text($r('app.string.publish_comment'))
+              .width('100%')
+              .height(40)
+              .borderRadius(30)
+              .backgroundColor(Color.White)
+              .border({ width: 1, color: '#eeeeee' })
+              .padding({ left: 15 } as Padding)
+              .onClick((e: ClickEvent) => {
+                this.isVariable = false;
+              })
+            PublishView()
+          }
+          .width('100%')
+          .padding({ left: 10, right: 10, top: 10 } as Padding)
+          .height(100)
+        }
+        .height('95%')
+        .width('100%')
+      }else{
+        Row() {
+          TextInput({ placeholder: '@', text: this.text })
+            .layoutWeight(1)
+            .height(40)
+            .padding({ left: 10, right: 50, top: 3, bottom: 3 } as Padding)
+            .onChange((textInComment: string) => {
+              this.text = textInComment;
+            } as EditableTextOnChangeCallback)
+
+          Button($r('app.string.publish'))
+            .width(60)
+            .height(30)
+            .borderRadius(15)
+            .backgroundColor('#ed394b')
+            .fontColor('#ffffff')
+            .margin({ left: 10 } as Margin)
+            .onClick((e: ClickEvent) => {
+              if (this.text !== '') {
+                const uuid: string = util.generateRandomUUID();
+                const comment: NewsCommentModel = new NewsCommentModel(
+                  uuid, $r('app.media.news_user_select'), this.curUser, '', '', this.text, '2024-11-01 23:00:00');
+                this.commentList = [...this.commentList, comment];
+                this.text = '';
+                this.isVariable = true;
+              }
+            })
         }
         .width('100%')
+        .padding(10)
+        .height(50)
       }
-      .width('100%')
-      .layoutWeight(1)
-      .scrollBar(BarState.Off)
-
-      Column() {
-        Text($r('app.string.publish_comment'))
-          .width('100%')
-          .height(40)
-          .borderRadius(30)
-          .backgroundColor(Color.White)
-          .border({ width: 1, color: '#eeeeee' })
-          .padding({ left: 15 } as Padding)
-          .onClick((e: ClickEvent) => {
-            this.getUIContext().getRouter().pushUrl({ url: "pages/CommentInputPage" });
-          })
-        PublishView()
-      }
-      .width('100%')
-      .padding({ left: 10, right: 10, top: 10 } as Padding)
-      .height(100)
     }
     .height('100%')
     .width('100%')

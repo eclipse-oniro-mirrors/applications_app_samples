@@ -43,10 +43,10 @@ export class NewsCommentModel {
   // 回复文本
   public text: string;
   // 回复时间
-  public commentTime: Date;
+  public commentTime: string;
 
   constructor(
-    id: string, url: ResourceStr, user: string, replyId: string, replyUser: string, text: string, commentTime: Date) {
+    id: string, url: ResourceStr, user: string, replyId: string, replyUser: string, text: string, commentTime: string) {
     this.id = id;
     this.url = url;
     this.user = user;

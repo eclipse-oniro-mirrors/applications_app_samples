@@ -33,13 +33,14 @@ import { State, MutableState, stateOf, observableProxy, Prop, Watch } from '@oho
 import hilog from '@ohos.hilog';
 import common from '@ohos.app.ability.common';
 import { BusinessError } from '@ohos.base';
-import { UIContext } from '@ohos.arkui.UIContext';
+import { UIContext, PromptAction } from '@ohos.arkui.UIContext';
 import { Contact, RouterParams } from '../model/Contact';
 import router from '@ohos.router';
 import { CommonConstants } from '../constant/CommonConstant';
 import json from '@ohos.util.json';
 import { taskPoolExecuteQuery } from './TaskPool';
 import { ContactManager } from '../model/ContactManager';
+import promptAction from '@ohos.promptAction';
 
 @Entry
 @Component
@@ -48,8 +49,10 @@ struct AddressBookEdit {
   @State textData: string = '';
   @State isName: boolean = false;
   private contactManager: ContactManager = ContactManager.getInstance();
+  uiContext: UIContext | undefined = undefined;
 
   aboutToAppear(): void {
+    this.uiContext = this.getUIContext();
     setTimeout( ()=>{
       let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
       const data = (this.getUIContext().getRouter().getParams() as RouterParams).data;
@@ -99,6 +102,12 @@ struct AddressBookEdit {
         } as router.RouterOptions;
         if(!this.isName){
           this.getUIContext().getRouter().pushUrl(options);
+        }else{
+          let promptAction: PromptAction = this.uiContext!.getPromptAction();
+          promptAction.showToast({
+            message: '姓名已存在，请重新输入!',
+            duration: 2000
+          });
         };
       })
       .justifyContent(FlexAlign.Center)
