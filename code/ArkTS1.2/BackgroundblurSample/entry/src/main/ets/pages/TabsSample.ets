@@ -29,11 +29,8 @@
  */
 
 import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement';
-import { TabInfo } from '../../model/backgroundblur/TabInfo';
-import { CustomTabsComponent } from '../../pages/backgroundblur/CustomTabsComponent';
-import { Component, Entry, UserView, Column } from '@ohos.arkui.component';
-import hilog from '@ohos.hilog';
-import camera from '@ohos.multimedia.camera';
+import { CustomTabsComponent } from './CustomTabsComponent';
+import { Component, Entry, Column } from '@ohos.arkui.component';
 
 @Entry
 @Component

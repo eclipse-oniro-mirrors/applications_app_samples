@@ -18,12 +18,12 @@ import { ResourceStr } from '@ohos.arkui.component'
 /**
  * TabBar data type.
  */
-
 export class TabInfo {
   public id: number;
   public title: string | ResourceStr;
   public selectedIcon: ResourceStr;
   public defaultIcon: ResourceStr;
+
   /**
    * @param id
    * @param title

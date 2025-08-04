@@ -82,7 +82,11 @@ export struct CompressFileComponent {
     this.initCompressFile(this.beCompressFileDir);
   }
 
-  childWorker(): void {
+  /**
+   * 对文件进行压缩
+   * @returns
+   */
+  doCompress(): void {
     this.pathDir = this.context.filesDir; // 沙箱目录
     const rawfileDirName: string = this.beCompressFileDir; // 被压缩文件所在目录名
     const outFilePath: string = `${this.pathDir}/${this.compressZipPath}`; // 压缩包输出路径
@@ -124,16 +128,6 @@ export struct CompressFileComponent {
   }
 
   /**
-   * 调用EAWorker对文件进行压缩
-   * @returns
-   */
-  compressByWorker(): void {
-    let worker: EAWorker = new EAWorker(true);
-    worker.run<void>(this.childWorker);
-    worker.join();
-  }
-
-  /**
    * 将待压缩文件写入到应用沙箱目录
    * @param beCompressFileDir 待压缩文件所处路径
    * @returns
@@ -163,7 +157,7 @@ export struct CompressFileComponent {
         .borderRadius(12)
         .id('compressButton')
         .onClick((): void => {
-          this.compressByWorker();
+          this.doCompress();
         })
     }
   }

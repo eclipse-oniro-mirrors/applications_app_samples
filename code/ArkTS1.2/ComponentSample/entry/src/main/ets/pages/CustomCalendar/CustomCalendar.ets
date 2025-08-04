@@ -49,9 +49,10 @@ import {
 import hilog from '@ohos.hilog';
 import { Context,UIContext} from '@ohos.arkui.UIContext';
 import { CalendarView } from './view/CalendarView';
+
 @Entry
 @Component
-struct Example2Test {
+struct CustomCalendar {
   aboutToAppear() {
   }
 

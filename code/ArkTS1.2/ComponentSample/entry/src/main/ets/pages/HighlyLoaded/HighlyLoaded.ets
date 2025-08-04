@@ -52,7 +52,7 @@ import { ReusePage } from './ReusePage';
 
 @Entry
 @Component
-struct Example4Test {
+struct HighlyLoaded {
   aboutToAppear() {
   }
 

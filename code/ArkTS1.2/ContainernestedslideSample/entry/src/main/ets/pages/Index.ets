@@ -31,10 +31,45 @@ import { CommentPage } from '../components/CommentPage';
 import { UIContext } from '@ohos.arkui.UIContext';
 import hilog from '@ohos.hilog';
 import util from '@ohos.util';
-import { Row, FlexAlign, HorizontalAlign, Column, Stack, Alignment, Image, ImageFit, $r, Text, TextAlign, ImageSpan,
-  ImageSpanAlignment, Span, Scroll, ScrollState, OnScrollFrameBeginHandlerResult, OnScrollFrameBeginCallback,
-  Scroller, ScrollDirection, ScrollAlign, BarState, Search, List, ListItem, ListItemAlign, ForEach, Blank, Color,
-  Margin, Padding, Builder, ClickEvent, Component, Entry, TextInput, EditableTextOnChangeCallback, Button
+import {
+  Row,
+  FlexAlign,
+  HorizontalAlign,
+  Column,
+  Stack,
+  Alignment,
+  Image,
+  ImageFit,
+  $r,
+  Text,
+  TextAlign,
+  ImageSpan,
+  ImageSpanAlignment,
+  Span,
+  Scroll,
+  ScrollState,
+  OnScrollFrameBeginHandlerResult,
+  OnScrollFrameBeginCallback,
+  Scroller,
+  ScrollDirection,
+  ScrollAlign,
+  BarState,
+  Search,
+  List,
+  ListItem,
+  ListItemAlign,
+  ForEach,
+  Blank,
+  Color,
+  Margin,
+  Padding,
+  Builder,
+  ClickEvent,
+  Component,
+  Entry,
+  TextInput,
+  EditableTextOnChangeCallback,
+  Button
 } from '@ohos.arkui.component';
 import { AppStorage, StorageProp, State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement';
 
@@ -57,7 +92,7 @@ struct MyStateSample {
   build() {
     Column() {
       this.title();
-      if(this.isVariable){
+      if (this.isVariable) {
         Column() {
           Scroll(this.scroller) {
             Column() {
@@ -90,12 +125,17 @@ struct MyStateSample {
         }
         .height('95%')
         .width('100%')
-      }else{
+      } else {
         Row() {
           TextInput({ placeholder: '@', text: this.text })
             .layoutWeight(1)
             .height(40)
-            .padding({ left: 10, right: 50, top: 3, bottom: 3 } as Padding)
+            .padding({
+              left: 10,
+              right: 50,
+              top: 3,
+              bottom: 3
+            } as Padding)
             .onChange((textInComment: string) => {
               this.text = textInComment;
             } as EditableTextOnChangeCallback)
@@ -144,6 +184,7 @@ struct MyStateSample {
           .backgroundColor('#ffeeee')
           .textAlign(TextAlign.Center)
       }
+
       Search({
         placeholder: $r('app.string.search_hint')
       })
@@ -196,6 +237,7 @@ struct MyStateSample {
         .alignItems(HorizontalAlign.Start)
         .height('100%')
         .margin({ left: 10 } as Margin)
+
         Text($r('app.string.follow_button'))
           .fontSize(13)
           .fontColor('#ffffff')
@@ -209,6 +251,7 @@ struct MyStateSample {
       .width('100%')
       .height(40)
       .margin({ top: 10, bottom: 10 } as Margin)
+
       Image($r('app.media.ball'))
         .width('100%')
         .objectFit(ImageFit.Contain)
@@ -279,6 +322,7 @@ struct PublishView {
           .margin({ left: 5, right: 8 } as Margin)
         Span($r('app.string.share_action'))
       }.width('25%')
+
       Text() {
         ImageSpan($r('app.media.news_comment'))
           .width(20)
@@ -288,6 +332,7 @@ struct PublishView {
           .margin({ left: 5, right: 8 } as Margin)
         Span($r('app.string.comment_action'))
       }.width('25%')
+
       Text() {
         ImageSpan($r('app.media.news_follow'))
           .width(20)
@@ -297,6 +342,7 @@ struct PublishView {
           .margin({ left: 5, right: 8 } as Margin)
         Span($r('app.string.like_action'))
       }.width('25%')
+
       Text() {
         ImageSpan($r('app.media.news_star'))
           .width(20)

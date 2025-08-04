@@ -27,8 +27,6 @@ import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateMana
 import { Text, TextAttribute, Column, Component, Button, ButtonAttribute,
   ClickEvent, Entry, JSON } from '@ohos.arkui.component';
 import { State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement';
-import hilog from '@ohos.hilog';
-import {BusinessError} from '@ohos.base';
 import { MultipleFilesDownloadComponent } from './view/MultipeFilesDownload';
 
 @Entry

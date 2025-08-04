@@ -64,16 +64,13 @@ const LINEAR_GRADIENT_START = 0;
 const LINEAR_GRADIENT_END = 1;
 
 /**
- * 功能描述: 本示例介绍在Worker 子线程使用@ohos.zlib 提供的zlib.decompressfile接口对沙箱目录中的压缩文件进行解压操作，解压成功后将解压路径返回主线程，获取解压文件列表
+ * 功能描述: 本示例介绍使用@ohos.zlib 提供的zlib.decompressfile接口对沙箱目录中的压缩文件进行解压操作，解压成功后将解压路径返回主线程，获取解压文件列表
  *
  * 推荐场景: 解压文件
  *
- * 核心组件:
- * 1. decompressFileByWorker()
- *
  * 实现步骤：
  * 1. 将项目目录rawfile下的压缩文件写入到应用的沙箱目录，用于后续介绍解压操作
- * 2. 解压按钮回调中创建EAWorker线程，在子线程中解压文件
+ * 2. 解压文件
  * 4. 根据解压后的文件所属沙箱目录，获取解压后的文件列表
  */
 @Entry
@@ -95,7 +92,11 @@ export struct DecompressFileViewComponent {
     this.initZip(this.rawfileZipName)
   }
 
-  childWorker(): void {
+  /**
+   * 对文件进行解压缩
+   * @returns
+   */
+  doDecompress(): void {
     const pathDir: string = this.context.filesDir;
     // 沙箱目录和去掉文件名后缀的压缩文件名称拼接成解压输出目录
     const outFileDir: string = `${pathDir}/${this.rawfileZipName.split('.')[0]}`;
@@ -123,13 +124,6 @@ export struct DecompressFileViewComponent {
               `decompressFile failed. code is ${err.code}, message is ${err.message}`);
           }
         })
-  }
-
-  // 使用Worker子线程解压文件
-  decompressFileByWorker(): void {
-    let worker: EAWorker = new EAWorker(true);
-    worker.run<void>(this.childWorker);
-    worker.join();
   }
 
   // 将项目目录rawfile下的压缩文件写入到应用的沙箱目录，用于后续介绍解压操作。
@@ -171,7 +165,7 @@ export struct DecompressFileViewComponent {
             .fontWeight(FontWeight.Bolder)
             .fontSize(26)
             .margin(12)
-          Text('使用@ohos.zlib在Worker子线程解压文件')
+          Text('使用@ohos.zlib解压文件')
             .fontColor('#FFFFFF')
             .margin(12)
         }
@@ -209,7 +203,7 @@ export struct DecompressFileViewComponent {
           .height(28)
           .borderRadius(12)
           .onClick((): void => {
-            this.decompressFileByWorker();
+            this.doDecompress();
           })
       }
       .padding(12)
