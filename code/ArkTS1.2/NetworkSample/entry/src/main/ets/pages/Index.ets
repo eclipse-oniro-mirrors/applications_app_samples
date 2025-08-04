@@ -102,7 +102,6 @@ struct MyStateSample {
   // 完成任务C
   completeTaskC(): void {
     this.updateProgress('C');
-    this.isTaskFinished = true; // 标记所有任务完成
   }
 
   // 检查并解锁任务C（当任务A和B都完成时）
@@ -197,23 +196,31 @@ struct MyStateSample {
 
   // 启动所有任务
   startAllTasks(): void {
-    this.isTaskFinished = false; // 标记任务未完成
+    this.isTaskFinished = false;
     let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-    // 启动任务A和B
-    this.runTaskA(context);
-    this.runTaskB(context);
-    // 设置定时器检查任务C是否可以执行
-    this.checkTaskC = setInterval(() => {
-      if (this.canRunTaskC()) {
-        this.runTaskC(context);
-        clearInterval(Double.toInt(this.checkTaskC)); // 清除定时器
+    let lock = new AsyncLock();
+    // 任务A
+    lock.lockAsync(async () => {
+      this.runTaskA(context);
+    }, AsyncLockMode.SHARED);
+    // 任务B可获取锁并开始执行，无需等待任务A
+    lock.lockAsync(async () => {
+      this.runTaskB(context);
+    }, AsyncLockMode.SHARED);
+    // 任务C需等待任务A，任务B执行完后才可获取锁并执行
+    lock.lockAsync(async () => {
+      this.checkTaskC = setInterval(() => {
+        if (this.canRunTaskC()) {
+          this.runTaskC(context);
+          clearInterval(this.checkTaskC);
+        }
+      }, 200);
+      if (this.progressValueC == 100) {
+        clearInterval(this.checkTaskC);
       }
-    }, 200);
-    // 如果任务C已完成，清除定时器
-    if (this.progressValueC == 100) {
-      clearInterval(Double.toInt(this.checkTaskC));
-    }
+    }, AsyncLockMode.EXCLUSIVE);
   }
+
   build() {
     Column(undefined) {
       // 标题
