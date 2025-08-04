@@ -28,7 +28,7 @@ import {
   memo,
   __memo_context_type,
   __memo_id_type
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement';
 import {
   Text,
   TextAttribute,
@@ -47,13 +47,13 @@ import {
   FontWeight,
   Progress,
   ProgressType
-} from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
+} from '@ohos.arkui.component';
 import {
   State,
   MutableState,
   stateOf,
   observableProxy
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement';
 import hilog from '@ohos.hilog';
 import camera from '@ohos.multimedia.camera';
 import request from '@ohos.request';
@@ -64,18 +64,17 @@ import { UIContext, Router } from '@ohos.arkui.UIContext';
 @Entry
 @Component
 struct MyStateSample {
-  @State progressValueA: number = 0;
-  @State progressValueB: number = 0;
-  @State progressValueC: number = 0;
-  @State isTaskFinished: boolean = true;
-  private lock: boolean = true;
-  private taskACompleted: boolean = false;
-  private taskBCompleted: boolean = false;
-  private checkTaskC: number;
+  @State progressValueA: number = 0; // 任务A的进度值
+  @State progressValueB: number = 0; // 任务B的进度值
+  @State progressValueC: number = 0; // 任务C的进度值
+  @State isTaskFinished: boolean = true; // 任务是否完成的标志
 
-  aboutToAppear(): void {
-  }
+  private lock: boolean = true;      // 任务C的锁，控制任务C是否可以执行
+  private taskACompleted: boolean = false; // 任务A完成状态
+  private taskBCompleted: boolean = false; // 任务B完成状态
+  private checkTaskC: number;        // 检查任务C的定时器ID
 
+  // 更新指定任务的进度值
   private updateProgress(task: string): void {
     if (task == 'A') {
       this.progressValueA = 100;
@@ -86,33 +85,35 @@ struct MyStateSample {
     }
   }
 
+  // 完成任务A
   completeTaskA(): void {
     this.taskACompleted = true;
     this.updateProgress('A');
-    this.checkAndUnlock();
+    this.checkAndUnlock(); // 检查是否可以解锁任务C
   }
 
+  // 完成任务B
   completeTaskB(): void {
     this.taskBCompleted = true;
     this.updateProgress('B');
-    this.checkAndUnlock();
+    this.checkAndUnlock(); // 检查是否可以解锁任务C
   }
 
+  // 完成任务C
   completeTaskC(): void {
     this.updateProgress('C');
-    this.isTaskFinished = true;
   }
 
-  // 检查并解锁任务C
+  // 检查并解锁任务C（当任务A和B都完成时）
   private checkAndUnlock(): void {
     if (this.taskACompleted && this.taskBCompleted && this.lock) {
-      this.lock = false;
+      this.lock = false; // 解锁任务C
     }
   }
 
   // 检查任务C是否可以执行
   canRunTaskC(): boolean {
-    return !this.lock;
+    return !this.lock; // 返回锁的状态（取反）
   }
 
   download(context: common.UIAbilityContext, taskNo: string, url: string): void {
@@ -170,18 +171,21 @@ struct MyStateSample {
       });
   }
 
+  // 运行任务A
   runTaskA(context: common.UIAbilityContext): void {
     let urlA =
       'https://gitee.com/openharmony/applications_app_samples/raw/master/code/Solutions/Shopping/OrangeShopping/feature/navigationHome/src/main/resources/base/media/favor_list_tea.png'
     this.download(context, 'A', urlA);
   }
 
+  // 运行任务B
   runTaskB(context: common.UIAbilityContext): void {
     let urlB =
       'https://gitee.com/harmonyos-cases/cases/blob/master/CommonAppDevelopment/product/entry/src/main/resources/base/media/after_cache.png'
     this.download(context, 'B', urlB);
   }
 
+  // 运行任务C
   runTaskC(context: common.UIAbilityContext): void {
     if (this.canRunTaskC()) {
       let url =
@@ -194,25 +198,37 @@ struct MyStateSample {
   startAllTasks(): void {
     this.isTaskFinished = false;
     let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-    this.runTaskA(context);
-    this.runTaskB(context);
-    // 检查任务C是否可以执行
-    this.checkTaskC = setInterval(() => {
-      if (this.canRunTaskC()) {
-        this.runTaskC(context);
+    let lock = new AsyncLock();
+    // 任务A
+    lock.lockAsync(async () => {
+      this.runTaskA(context);
+    }, AsyncLockMode.SHARED);
+    // 任务B可获取锁并开始执行，无需等待任务A
+    lock.lockAsync(async () => {
+      this.runTaskB(context);
+    }, AsyncLockMode.SHARED);
+    // 任务C需等待任务A，任务B执行完后才可获取锁并执行
+    lock.lockAsync(async () => {
+      this.checkTaskC = setInterval(() => {
+        if (this.canRunTaskC()) {
+          this.runTaskC(context);
+          clearInterval(Double.toInt(this.checkTaskC));
+        }
+      }, 200);
+      if (this.progressValueC == 100) {
         clearInterval(Double.toInt(this.checkTaskC));
       }
-    }, 200);
-    if (this.progressValueC == 100) {
-      clearInterval(Double.toInt(this.checkTaskC));
-    }
+    }, AsyncLockMode.EXCLUSIVE);
   }
+
   build() {
     Column(undefined) {
+      // 标题
       Text('网络场景')
         .fontSize(24)
         .fontWeight(FontWeight.Bold)
         .margin(20)
+      // 任务A进度显示
       Column() {
         Text(`任务A当前进度 ${this.progressValueA}%`)
           .fontSize(16)
@@ -226,6 +242,7 @@ struct MyStateSample {
           .margin(10)
       }.margin(30)
 
+      // 任务B进度显示
       Column() {
         Text(`任务B当前进度 ${this.progressValueB}%`)
           .fontSize(16)
@@ -239,6 +256,7 @@ struct MyStateSample {
           .margin(10)
       }.margin(30)
 
+      // 任务C进度显示
       Column() {
         Text(`任务C当前进度 ${this.progressValueC}%`)
           .fontSize(16)
@@ -252,16 +270,17 @@ struct MyStateSample {
           .margin(10)
       }.margin(30)
 
+      // 启动按钮
       Button('启动所有任务')
         .width('70%')
         .height(50)
         .backgroundColor('#409EFF')
         .fontColor(Color.White)
         .onClick((e: ClickEvent) => {
-          this.startAllTasks()
+          this.startAllTasks() // 点击时启动所有任务
         })
         .margin(10)
-        .enabled(this.isTaskFinished)
+        .enabled(this.isTaskFinished) // 根据任务状态启用/禁用按钮
     }
     .width('100%')
     .height('100%')

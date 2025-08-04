@@ -30,7 +30,7 @@ import { Entry, Text, TextAttribute, Column, Component, Button, ButtonAttribute,
   FlexAlign, FlexDirection, SafeAreaType,Stack, Radio, Slider, SliderStyle, SaveButton ,SaveDescription, ButtonType,
   Scroll ,Scroller, BarState, $r, Builder, Blank, Color, ImageFit, TextInput, InputType, Placement, ItemAlign, Divider,
   JSON, DialogAlignment, SearchController, Margin, NavPathStack, Navigation, Alignment
-} from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
+} from '@ohos.arkui.component';
 import { State, Link, MutableState, stateOf, observableProxy, Prop, Watch } from '@ohos.arkui.stateManagement';
 import hilog from '@ohos.hilog';
 import common from '@ohos.app.ability.common';

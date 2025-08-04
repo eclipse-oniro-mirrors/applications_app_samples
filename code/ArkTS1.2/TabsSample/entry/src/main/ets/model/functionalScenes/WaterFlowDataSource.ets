@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import { SceneModuleInfo } from './SceneModuleInfo'
-import { DataChangeListener, IDataSource } from '@ohos.arkui.component'
+import { SceneModuleInfo } from './SceneModuleInfo';
+import { DataChangeListener, IDataSource } from '@ohos.arkui.component';
 /**
  * 实现IDataSource接口的对象，用于瀑布流组件加载数据
  */

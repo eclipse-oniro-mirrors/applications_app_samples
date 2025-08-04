@@ -27,7 +27,7 @@ import {
   memo,
   __memo_context_type,
   __memo_id_type
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement';
 import {
   Entry,
   Text,
@@ -54,7 +54,7 @@ import {
   $r,
   Margin,
   TextDecorationType
-} from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
+} from '@ohos.arkui.component';
 import {
   State,
   Link,
@@ -63,37 +63,17 @@ import {
   observableProxy,
   Prop,
   Watch
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins\
+} from '@ohos.arkui.stateManagement';
 import hilog from '@ohos.hilog';
 import common from '@ohos.app.ability.common';
 import fs from '@ohos.file.fs';
 import { BusinessError } from '@ohos.base';
-import request from '@ohos.request'; // 导入上传下载模块。需要配置ohos.permission.INTERNET权限
 import { downloadFilesData } from '../model/dataType';
-const NO_TASK: number = 0; // 0个下载任务
-const INIT_PROGRESS: number = 0; // 进度条初始值
-const BYTE_CONVERSION: number = 1024; // 字节转换
 
 @Component
 export struct HistoryItem {
-  // 文件名称
+  // 文件数据
   @Prop fileDataInfo: downloadFilesData;
-  @State fileName: string = '';
-  // 待下载任务数量
-  @Link downloadCount: number;
-  // 下载历史列表
-  @Link historyArray: downloadFilesData[];
-  // 下载列表
-  @Link downloadFileArray: downloadFilesData[];
-  // 文件下载状态
-  @State fileStatus: number = -1;
-
-  aboutToAppear(): void {
-    // 从下载链接获取文件名
-    this.fileName = this.fileDataInfo.url.split('/').pop() as string;
-    // 获取文件下载状态
-    this.fileStatus = this.fileDataInfo.fileStatus;
-  }
 
   build() {
     Row() {
@@ -103,8 +83,6 @@ export struct HistoryItem {
           .width(50)
           .borderRadius(8)
           .id('fileImage')
-          .enabled(this.fileStatus === 1 ? true : false)
-          .opacity(this.fileStatus === 1 ? 1 : 0.7)
       }.width('17%')
 
       Column() {
@@ -118,33 +96,23 @@ export struct HistoryItem {
               .textAlign(TextAlign.Start)
               .maxLines(1) // 限制为单行
               .id('fileName')
-              .enabled(this.fileStatus === 1 ? true : false)
-              .opacity(this.fileStatus === 1 ? 1 : 0.7)
-              .decoration({
-                type: this.fileStatus === 1 ? TextDecorationType.None : TextDecorationType.LineThrough
-              })
 
             Row() {
               Text($r('app.string.text_download'))
                 .fontSize(12)
                 .fontColor('#66182431')
                 .id('downloadVal')
-                .enabled(this.fileStatus === 1 ? true : false)
-                .opacity(this.fileStatus === 1 ? 1 : 0.7)
             }.width('100%')
             .height(23)
           }
           .width('75%')
 
-          // 完成按钮
           Button($r('app.string.multiple_files_download_history_text_downloaded'))
             .fontSize(12)
             .height(30)
             .width('25%')
             .borderRadius(8)
             .backgroundColor($r('app.color.operate_rdb_in_taskpool_button_background_color_green'))
-            .enabled(this.fileStatus === 1 ? true : false)
-            .opacity(this.fileStatus === 1 ? 1 : 0.7)
         }
       }
       .width('83%')
@@ -153,6 +121,5 @@ export struct HistoryItem {
     }
     .width('100%')
     .height(80)
-    .id(this.fileName)
   }
 }

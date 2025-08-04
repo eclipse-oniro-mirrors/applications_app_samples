@@ -4,14 +4,14 @@
 ### 介绍
 示例一展示如何使用buffer来将大文件的rawfile复制到应用沙箱；
 
-示例二在EAWorker子线程使用@ohos.zlib模块提供的zlib.decompressfile接口对沙箱目录中的压缩文件进行解压操作，解压成功后获取解压文件列表；
+示例二在EAWorker子线程使用@ohos.zlib模块提供的zlib.compressFile接口对沙箱目录中的文件进行压缩操作，压缩成功后，弹窗提示压缩成功；
 
-示例三在EAWorker子线程使用@ohos.zlib模块提供的zlib.compressFile接口对沙箱目录中的文件进行压缩操作。
+示例三在EAWorker子线程使用@ohos.zlib模块提供的zlib.decompressfile接口对沙箱目录中的压缩文件进行解压操作，解压成功后，弹窗提示解压成功；
 
 ### 效果图预览
-| 主界面                                                 | 大文件复制前  | 大文件复制后 |    大文件复制预览 | 文件压缩前     | 文件压缩后                                                                   | 文件解压缩前                                                                      | 文件解压缩后                                                                      |
-|-------------------------------------------------------|-------------------------------------------|-------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|-------------------------------------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| ![main](entry/src/main/resources/base/media/main.png) | ![bigFileCopy](entry/src/main/resources/base/media/bigFileCopy_1.png) | ![bigFileCopy](entry/src/main/resources/base/media/bigFileCopy_2.png) | ![bigFileCopy](entry/src/main/resources/base/media/bigFileCopy_3.png) | ![compressFile](entry/src/main/resources/base/media/compressFile_1.png) | ![compressFile](entry/src/main/resources/base/media/compressFile_2.png) | ![deCompressFile](entry/src/main/resources/base/media/decompressFile_1.png) | ![deCompressFile](entry/src/main/resources/base/media/decompressFile_2.png) |
+| 主界面                                                 |  大文件复制预览 | 文件压缩   |  文件解压缩  |                                                                   
+|-------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|----------------------------------------------------------------------------
+| ![main](entry/src/main/resources/base/media/main.png) |  ![bigFileCopy](entry/src/main/resources/base/media/bigFileCopy_3.png) | ![compressFile](entry/src/main/resources/base/media/compressFile_1.png) |  ![deCompressFile](entry/src/main/resources/base/media/decompressFile_1.png) | ![deCompressFile](entry/src/main/resources/base/media/decompressFile_2.png) |
 
 **使用说明**
 1. 在主界面，点击蓝色按钮"大文件复制"
@@ -19,9 +19,9 @@
 	* 当复制进度达到100%之后，点击Preview按钮进行文件的预览，以验证文件复制的正确性
 	* 如果要反复验证本场景，请在复制完成之后，点击Reset按钮，重置进度，再进行后续验证
 2.  在主界面，点击蓝色按钮"文件压缩"
-    * 点击压缩按钮，压缩待压缩文件，显示压缩结果
+    * 点击压缩按钮，压缩待压缩文件，提示压缩成功
 3.  在主界面，点击蓝色按钮"文件解压缩"
-    * 点击解压缩按钮，解压缩压缩包，显示解压缩结果
+    * 点击解压缩按钮，解压缩压缩包，提示解压成功
 
 
 ### 工程结构&模块类型
@@ -45,20 +45,20 @@
 
 ### 具体实现
 
-* Example1(大文件拷贝案例) 源码参考: [Example1](entry/src/main/ets/pages/Example1)
+* Example1(大文件拷贝案例) 源码参考: [Example1](entry/src/main/ets/pages/BigFileCopy)
     *  根据rawfile文件名获取其所属hap包的RawFileDescriptor，其内部包含真正rawfile文件的长度、在hap包中的偏移量，hap包的fd。
 	*  打开即将写入的目标文件
 	*  创建buffer，用于读写文件内容
 	*  使用buffer进行文件内容的循环读写，只要实际读入buffer的内容长度不为0，就表示文件内容没有读取完毕，就将读到的内容写入目标文件。注意，这里使用了buffSize来控制想要读取内容的长度，因此需要注意在循环体内对其进行更新
 	*  因为复制的是图片文件，复制完毕之后使用Image组件加载该图片进行显示，以验证复制过程的正确性
-* Example2(文件压缩案例) 源码参考: [Example2](entry/src/main/ets/pages/Example2)
+* Example2(文件压缩案例) 源码参考: [Example2](entry/src/main/ets/pages/CompressFile)
     * 使用fs.access判断输出目录是否已经存在，如果不存在使用fs.mkdirSync()创建空目录用于放置压缩后的文件。
-    * 空目录创建成功后使用zlib.compressFile接口压缩文件，输出到空目录中
-    * 在页面上显示压缩包的名字
-* Example3(文件解压缩案例) 源码参考: [Example3](entry/src/main/ets/pages/Example3)
+    * 空目录创建成功后使用zlib.compressFile接口压缩文件
+    * 弹窗提示压缩成功
+* Example3(文件解压缩案例) 源码参考: [Example3](entry/src/main/ets/pages/DecompressFile)
     * 将项目目录rawfile下的压缩文件写入到应用的沙箱目录
     * 对沙箱目录下的压缩包进行解压
-    * 根据解压后的文件所属沙箱目录，获取解压后的文件列表
+    * 弹窗提示解压成功
 
 
 ### 相关权限

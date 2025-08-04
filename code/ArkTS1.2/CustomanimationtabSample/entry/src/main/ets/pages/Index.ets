@@ -108,10 +108,11 @@ struct MyStateSample {
               })
             }
           }
-          .margin({top: 10} as Margin)
+          .margin({ top: 10 } as Margin)
           .scrollable(ScrollDirection.Horizontal)
           .scrollBar(BarState.Off)
           .onDidScroll((xOffset: number, yOffset: number, scrollState: ScrollState): void => {
+            // 当页签向右滑动时，背景条向左移动；页签向左滑动时，背景条向右移动，通过取负值 -xOffset 反转方向
             this.backgroundBarDisplacement += -xOffset;
           } as ScrollOnScrollCallback)
         }.height(60)
@@ -124,13 +125,13 @@ struct MyStateSample {
                   ListItem() {
                     SkeletonLayout({ isMine: false })
                   }
-                })
+                },(data: string)=> data)
               }
               .width('100%')
               .height('100%')
             }.width('100%')
             .height('100%')
-          })
+          },(item: string)=> item)
         }
         .id('tabContent')
         .loop(false)

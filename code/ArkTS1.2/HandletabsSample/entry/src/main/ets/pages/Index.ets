@@ -12,19 +12,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { memo, __memo_context_type, __memo_id_type } from "@ohos.arkui.stateManagement" // should be insert by ui-plugins
+import { memo, __memo_context_type, __memo_id_type } from "@ohos.arkui.stateManagement"
 import { Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Entry, Tabs, TabContent,
-  CustomBuilder, ComponentContent, SubTabBarStyle, BottomTabBarStyle, Resource, TabBarOptions, JSON, Flex, FlexDirection, FlexAlign, ItemAlign, Divider, TabsOptions,
-  Row, ForEach, Position, Builder, Margin, BarMode, OnTabsAnimationStartCallback, TabsAnimationEvent} from "@ohos.arkui.component"  // TextAttribute should be insert by ui-plugins
-import { State, Link, MutableState, stateOf, observableProxy } from "@ohos.arkui.stateManagement" // should be insert by ui-plugins
+  CustomBuilder, ComponentContent, SubTabBarStyle, BottomTabBarStyle, Resource, TabBarOptions, JSON, Flex, FlexDirection,
+  FlexAlign, ItemAlign, Divider, TabsOptions, Row, ForEach, Position, Builder, Margin, BarMode,
+  OnTabsAnimationStartCallback,TabsAnimationEvent} from "@ohos.arkui.component"
+import { State, Link, MutableState, stateOf, observableProxy } from "@ohos.arkui.stateManagement"
 import hilog from '@ohos.hilog'
 import { UIContext, Router } from "@ohos.arkui.UIContext"
 import router from "@ohos.router"
 
 @Entry
 @Component
-export struct CustomView
-{
+export struct CustomView {
   @State fontColor: string = '#182431'
   @State selectedFontColor: string = '#007DFF'
   @State currentIndex: number = 0
@@ -59,7 +59,7 @@ export struct CustomView
     }.width('100%')
     .onClick((e: ClickEvent) => {
       // 更新被选中的tabBar下标
-      this.currentIndex = index
+      this.currentIndex =  index
       this.selectedIndex = index
     })
   }
@@ -74,14 +74,12 @@ export struct CustomView
           .lineHeight(22)
           .onClick((e: ClickEvent) => {
             this.newPage++;
-            this.arr.push('页面' + this.newPage);
-            this.arr = [...this.arr];
+            this.arr = [...this.arr, '页面' + this.newPage];
           })
       }
       .onClick((e: ClickEvent) => {
         this.newPage++;
-        this.arr.push('页面' + this.newPage);
-        this.arr = [...this.arr];
+        this.arr = [...this.arr, '页面' + this.newPage];
       })
     }.width('50%')
   }
@@ -118,7 +116,6 @@ export struct CustomView
         }
         // selectedIndex控制自定义TabBar内Image和Text颜色切换
         this.selectedIndex = targetIndex
-        hilog.info(0x0000, 'testTag', 'onAnimationStart');
       } as OnTabsAnimationStartCallback)
       .width(360)
       .height(296)
