@@ -24,39 +24,48 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { UIContext } from '@ohos.arkui.UIContext';
-import { Column, Row, TextInput, EditableTextOnChangeCallback, $r, Button, ClickEvent, Padding,
-  Margin, Entry, Component } from '@ohos.arkui.component';
-import { AppStorage, State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement';
+import { Contact } from '../model/Contact';
+import hilog from '@ohos.hilog';
 
-@Entry
-@Component
-struct CommentInputPage {
-  @State text: string = '';
+export class ContactManager {
+  private static instance: ContactManager = new ContactManager();
+  private contacts: Contact[] = [];
 
-  build() {
-    Row() {
-      TextInput({ placeholder: '@', text: this.text })
-        .layoutWeight(1)
-        .height(40)
-        .padding({ left: 10, right: 50, top: 3, bottom: 3 } as Padding)
-        .onChange((textInComment: string) => {
-          this.text = textInComment;
-        } as EditableTextOnChangeCallback)
+  private constructor() {}
 
-      Button($r('app.string.publish'))
-        .width(60)
-        .height(30)
-        .borderRadius(15)
-        .backgroundColor('#ed394b')
-        .fontColor('#ffffff')
-        .margin({ left: 10 } as Margin)
-        .onClick((e: ClickEvent) => {
-          this.getUIContext().getRouter().back();
-        })
+  public static getInstance(): ContactManager {
+    return ContactManager.instance;
+  }
+
+  // 查看联系人
+  public getContacts(): Array<Contact> {
+    return [...this.contacts];
+  }
+
+  // 初始化联系人数据
+  public setContacts(contacts: Array<Contact>): void {
+    this.contacts = [...contacts];
+  }
+
+  // 添加联系人
+  public addContact(contact: Contact): void {
+    this.contacts = [...this.contacts, contact];
+  }
+
+  // 更新联系人
+  public updateContact(contact: Contact): void {
+    const newContacts = [...this.contacts]; // 创建新数组
+    for (let i = 0; i < newContacts.length; i++) {
+      if (newContacts[i].name === contact.name) {
+        newContacts[i] = contact; // 直接替换对象
+        break; // 找到后退出循环
+      }
     }
-    .width('100%')
-    .padding(10)
-    .height(50)
+    this.contacts = newContacts; // 更新引用
+  }
+
+  // 删除联系人
+  public deleteContact(contact: Contact): void {
+    this.contacts = this.contacts.filter(item => item.name !== contact.name);
   }
 }

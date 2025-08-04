@@ -34,7 +34,7 @@ const FONT_WEIGHT_FOUR_HUNDRED = 400;
 
 @Component
 export struct CommentPage {
-  commonData: NewsCommentModel = new NewsCommentModel('', '', '', '', '', '', new Date());
+  commonData: NewsCommentModel = new NewsCommentModel('', '', '', '', '', '', '');
 
   build() {
     Column() {

@@ -24,46 +24,35 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement'; 
+import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement';
 import { Entry, Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Row,
   TextAlign, SafeAreaEdge, TextOverflow, Image ,FlexAlign, SafeAreaType, $r, Builder, Color,
-  TextInput, Divider, JSON, Margin, Navigation, FontWeight, ResourceStr
-} from '@ohos.arkui.component'; 
-import { State, MutableState, stateOf, observableProxy, Prop, Watch } from '@ohos.arkui.stateManagement'; 
+  TextInput, Divider, JSON, Margin, Navigation, FontWeight, ResourceStr, InputType
+} from '@ohos.arkui.component';
+import { State, MutableState, stateOf, observableProxy, Prop, Watch } from '@ohos.arkui.stateManagement';
 import hilog from '@ohos.hilog';
 import common from '@ohos.app.ability.common';
 import { BusinessError } from '@ohos.base';
-import { UIContext } from '@ohos.arkui.UIContext';
+import { UIContext, PromptAction } from '@ohos.arkui.UIContext';
 import { Contact, RouterParams } from '../model/Contact';
 import router from '@ohos.router';
 import { CommonConstants } from '../constant/CommonConstant';
 import json from '@ohos.util.json';
 import { taskPoolExecuteQuery } from './TaskPool';
+import { ContactManager } from '../model/ContactManager';
+import promptAction from '@ohos.promptAction';
 
 @Entry
 @Component
 struct AddressBookEdit {
   @State data: Contact = new Contact();
   @State textData: string = '';
-  @State dataArray: Array<Contact> = [
-    new Contact('艾德里安', '13333333333', 'aidelian@example.com', '江苏省南京市鼓楼区', 'operate_rdb_in_taskpool_photo1.jpg', 'A'),
-    new Contact('阿诺德', '16666666666', 'arnold@example.com', '上海市浦东新区', '', 'A'),
-    new Contact('贝拉', '11111111111', 'bella@example.com', '湖北省武汉市江汉区', '', 'B'),
-    new Contact('本', '12222222222', 'ben@example.com', '四川省成都市锦江区', 'operate_rdb_in_taskpool_photo22.jpg', 'B'),
-    new Contact('本杰明', '16666666666', 'benjieiming@example.com', '上海市浦东新区', 'operate_rdb_in_taskpool_photo5.jpg', 'B'),
-    new Contact('卡梅隆', '17777777777', 'cameron@example.com', '陕西省西安市雁塔区', 'operate_rdb_in_taskpool_photo11.jpg', 'C'),
-    new Contact('康纳', '10000000000', 'connor@example.com', '辽宁省沈阳市沈河区', 'operate_rdb_in_taskpool_photo7.jpg', 'C'),
-    new Contact('卡特琳娜', '11111111111', 'katrina@example.com', '吉林省长春市朝阳区', '', 'C'),
-    new Contact('丹尼尔', '17777777777', 'cameron@example.com', '陕西省西安市雁塔区', 'operate_rdb_in_taskpool_photo11.jpg', 'D'),
-    new Contact('戴维维', '11111111111', 'katrina@example.com', '吉林省长春市朝阳区', '', 'D'),
-    new Contact('艾登', '17777777777', 'cameron@example.com', '陕西省西安市雁塔区', 'operate_rdb_in_taskpool_photo11.jpg', 'E'),
-    new Contact('艾拉', '10000000000', 'connor@example.com', '辽宁省沈阳市沈河区', 'operate_rdb_in_taskpool_photo7.jpg', 'E'),
-    new Contact('艾里', '11111111111', 'katrina@example.com', '吉林省长春市朝阳区', '', 'E'),
-    new Contact('法比而', '10000000000', 'connor@example.com', '辽宁省沈阳市沈河区', 'operate_rdb_in_taskpool_photo7.jpg', 'F'),
-    new Contact('法里', '11111111111', 'katrina@example.com', '吉林省长春市朝阳区', '', 'F'),
-  ];
   @State isName: boolean = false;
+  private contactManager: ContactManager = ContactManager.getInstance();
+  uiContext: UIContext | undefined = undefined;
+
   aboutToAppear(): void {
+    this.uiContext = this.getUIContext();
     setTimeout( ()=>{
       let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
       const data = (this.getUIContext().getRouter().getParams() as RouterParams).data;
@@ -73,14 +62,6 @@ struct AddressBookEdit {
       }
       this.data = data;
       this.textData = textData;
-      // 数据查看操作
-      taskPoolExecuteQuery(context).then((arr: Array<Contact>) => {
-        // 数据库查看成功
-        hilog.info(0x0000, 'testTag', 'taskPoolExecuteQuery, arr: ' + JSON.stringify(arr))
-        this.dataArray = [...arr]
-      }).catch((err: Error)=>{
-        hilog.info(0x0000, 'testTag', 'taskPoolExecuteQuery, err: ' + err)
-      })
     }, 1)
   }
 
@@ -121,6 +102,12 @@ struct AddressBookEdit {
         } as router.RouterOptions;
         if(!this.isName){
           this.getUIContext().getRouter().pushUrl(options);
+        }else{
+          let promptAction: PromptAction = this.uiContext!.getPromptAction();
+          promptAction.showToast({
+            message: '姓名已存在，请重新输入!',
+            duration: 2000
+          });
         };
       })
       .justifyContent(FlexAlign.Center)
@@ -189,7 +176,7 @@ struct AddressBookEdit {
               .backgroundColor('#e6e6e6')
               .onChange((value: string):void => {
                 this.data.name = value;
-                this.isName = this.dataArray.some((item:Contact)=> item.name === this.data.name);
+                this.isName = this.contactManager.getContacts().some((item:Contact)=> item.name === this.data.name);
               })
           }.margin({
             top: 30
@@ -203,6 +190,7 @@ struct AddressBookEdit {
               .fontWeight(FontWeight.Bold)
               .width('15%')
             TextInput({ placeholder: $r('app.string.operate_rdb_in_taskpool_phone_prompt_text'), text: this.data.phone })
+              .type(InputType.Number)
               .placeholderColor('#999999')
               .placeholderFont({
                 size:  17,

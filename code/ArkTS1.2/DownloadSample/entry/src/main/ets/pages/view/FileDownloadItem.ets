@@ -27,20 +27,17 @@ import {
   memo,
   __memo_context_type,
   __memo_id_type
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement';
 import {Entry,Text,TextAttribute,Column,Component,
   Button,ButtonAttribute,ClickEvent,Row,TextAlign,Visibility,List,ListItem,ForEach,TextOverflow,
   Image,HorizontalAlign,Progress,ProgressType,FlexAlign,SafeAreaType,JSON,$r,Margin,TextDecorationType
-} from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
-import {State,Link,MutableState,stateOf,observableProxy,Prop,Watch} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins\
+} from '@ohos.arkui.component';
+import {State,Link,MutableState,stateOf,observableProxy,Prop,Watch} from '@ohos.arkui.stateManagement';
 import hilog from '@ohos.hilog';
 import common from '@ohos.app.ability.common';
 import { BusinessError } from '@ohos.base';
 import request from '@ohos.request'; // 导入上传下载模块。需要配置ohos.permission.INTERNET权限
 import { downloadFilesData } from '../model/dataType';
-
-const NO_TASK: number = 0; // 0个下载任务
-const INIT_PROGRESS: number = 0; // 进度条初始值
 const BYTE_CONVERSION: number = 1024; // 字节转换
 
 @Component
@@ -76,7 +73,7 @@ export struct FileDownloadItem {
   @Link downloadFileArray: downloadFilesData[];
 
   // 监听是否开始下载/暂停下载
-  onDownLoadUpdated(s: string):void {
+  onDownLoadUpdated(param: string):void {
     if (this.isStartAllDownload) {
       // 如果下载失败，则重新下载。下载失败原因一般是网络原因导致。
       if (this.state === '下载失败') {
@@ -103,9 +100,7 @@ export struct FileDownloadItem {
   startDownload() {
     // 首次下载，创建任务
     if (this.downloadTask === undefined) {
-      hilog.info(0x0000, 'TAGhttp', `点击`);
       let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-      hilog.info(0x0000, 'TAGhttp', `context创建`);
       (request.agent.create(context, {
         action: request.agent.Action.DOWNLOAD, // 配置任务选项，这里配置为下载任务
         url: this.fileDataInfo.url, // 配置下载任务url
@@ -117,9 +112,7 @@ export struct FileDownloadItem {
         retry: false, // 默认为true，如果没有网络或者网络不满足时，会自动暂停waiting，等网络满足时进行一次重试。设置为false时，没网直接走失败回调
       } as request.agent.Config) as Promise<request.agent.Task>)
         .then((task: request.agent.Task) => {
-          hilog.info(0x0000, 'TAGhttp', `create成功`);
           this.downloadTask = task as request.agent.Task;
-          hilog.info(0x0000, 'TAGhttp', 'downloadTask: ' + String(this.downloadTask!.tid));
           // 注册下载任务相关回调
           task.on('completed', this.completedCallback); // 下载任务完成回调
           task.on('failed', this.failedCallback); // 下载任务失败回调
@@ -127,7 +120,7 @@ export struct FileDownloadItem {
           task.on('pause', this.pauseCallback); // 暂停任务回调
           task.on('resume', this.resumeCallback); // 重新启动任务回调
 
-          // TODO 知识点：启动下载任务。本例在每个FileDownloadItem中使用task.start方法启动各自的下载任务。
+          // 启动下载任务。本例在每个FileDownloadItem中使用task.start方法启动各自的下载任务。
           task.start((err: BusinessError | null) => {
             if (err) {
               hilog.error(0x0000, 'TAGhttp',
@@ -192,10 +185,9 @@ export struct FileDownloadItem {
   private progressCallback: (progress: request.agent.Progress) => void = (progress: request.agent.Progress) => {
     try {
       // 性能知识点: 如果注册了progress下载进度更新监听，不建议在progress下载进度更新回调中加日志打印，减少不必要的性能损耗。
-      hilog.info(0x0000, 'TAGhttp', JSON.stringify(progress));
       this.nFileSize = progress.sizes[0];
 
-      this.state = '下载中';
+      this.state = '  下载中';
       this.downloading = true;
       // 显示下载状态图标
       this.isShow = true;
@@ -238,7 +230,7 @@ export struct FileDownloadItem {
   // 暂停下载任务
   pauseDownload(): void {
     if (this.downloadTask) {
-      // TODO 知识点：使用request.agent.show，根据任务id可查询任务的详细信息。本处用于查询下载任务状态
+      // 使用request.agent.show，根据任务id可查询任务的详细信息。本处用于查询下载任务状态
       request.agent.show(this.downloadTask!.tid,
         (err: BusinessError<void>|null, taskInfo: request.agent.TaskInfo|undefined) => {
         if (err && err.code !== 0) {
@@ -260,7 +252,7 @@ export struct FileDownloadItem {
         } else {
           if (this.downloadTask) {
             // 不满足暂停任务条件
-            hilog.info(0x0000, 'TAGhttp', `Not meeting the pause task conditions,current task state: ${taskInfo.progress.state}`);
+            hilog.error(0x0000, 'TAGhttp', `Not meeting the pause task conditions,current task state: ${taskInfo.progress.state}`);
           }
         }
       });
@@ -293,7 +285,7 @@ export struct FileDownloadItem {
         }
         // 判断如果任务是暂停状态，则重新启动下载任务
         if (this.downloadTask && taskInfo.progress.state === request.agent.State.PAUSED) {
-          // TODO 知识点：使用task.resume可以重新启动任务，可恢复暂停的后台任务。
+          // 使用task.resume可以重新启动任务，可恢复暂停的后台任务。
           this.downloadTask!.resume((err: BusinessError<void>|null) => {
             if (err && err.code !== 0) {
               hilog.error(0x0000, 'TAGhttp', `Failed to resume with error message: ${err.message}, error code: ${err.code}`);

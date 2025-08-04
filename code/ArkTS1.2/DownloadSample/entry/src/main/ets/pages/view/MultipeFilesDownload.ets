@@ -27,7 +27,7 @@ import {
   memo,
   __memo_context_type,
   __memo_id_type
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement';
 import {
   Entry,
   Text,
@@ -54,7 +54,7 @@ import {
   $r,
   Margin,
   TextDecorationType
-} from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
+} from '@ohos.arkui.component';
 import {
   State,
   Link,
@@ -63,7 +63,7 @@ import {
   observableProxy,
   Prop,
   Watch
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins\
+} from '@ohos.arkui.stateManagement';
 import hilog from '@ohos.hilog';
 import common from '@ohos.app.ability.common';
 import { BusinessError } from '@ohos.base'
@@ -86,16 +86,14 @@ export struct MultipleFilesDownloadComponent {
   @State downloadCount: number = 0;
   // 下载失败任务数量。当所有任务下载失败时，'全部暂停'状态重置为'全部开始'。
   @State downloadFailCount: number = 0;
-  // 下载列表内容透明度。用于控制是否显示下载列表相应内容
-  @State downloadPageOpacity: number = 1;
   // 下载列表内容使能控制。避免隐藏后还能点击
   @State isDownloadPageEnabled: boolean = true;
-  // 历史列表的显隐控制。
-  @State historyPageVisibility: Visibility = Visibility.None;
-  // 历史列表内容使其能控制。避免隐藏后还能点击
-  @State isHistoryPageEnabled: boolean = false;
   // 点击历史列表tab时，控制下载列表相应的内容的显隐
   @State downloadPageVisibility: Visibility = Visibility.Visible;
+  // 历史列表内容使其能控制。避免隐藏后还能点击
+  @State isHistoryPageEnabled: boolean = false;
+  // 历史列表的显隐控制。
+  @State historyPageVisibility: Visibility = Visibility.None;
   // 下载列表数据
   @State downloadFileArray: downloadFilesData[] = [
     {
@@ -143,42 +141,34 @@ export struct MultipleFilesDownloadComponent {
       Row() {
         Text($r('app.string.multiple_files_download_list'))
           .fontSize(16)
-          .fontColor(this.downloadPageOpacity === 1 ? '#FFFFFF' : '#808080')
+          .fontColor(this.isDownloadPageEnabled ? '#FFFFFF' : '#808080')
           .textAlign(TextAlign.Center)
-          .backgroundColor(this.downloadPageOpacity === 1 ? '#007DFF' : '#E8E8E8')
+          .backgroundColor(this.isDownloadPageEnabled ? '#007DFF' : '#E8E8E8')
           .width('49%')
           .height(35)
           .borderRadius(50)
           .margin(3)
           .onClick((e: ClickEvent) => {
-            this.downloadPageOpacity = 1;
             this.isDownloadPageEnabled = true;
             this.downloadPageVisibility = Visibility.Visible;
             this.historyPageVisibility = Visibility.None;
             this.isHistoryPageEnabled = false;
-            if(this.downloadCount === 0) {
-              this.isStartAllDownload = false;
-            }
           })
 
         Text($r('app.string.multiple_files_download_album_backup'))
           .fontSize(16)
-          .fontColor(this.downloadPageOpacity === 1 ? '#808080' : '#FFFFFF')
+          .fontColor(this.isDownloadPageEnabled ? '#808080' : '#FFFFFF')
           .textAlign(TextAlign.Center)
-          .backgroundColor(this.downloadPageOpacity === 1 ? '#E8E8E8' : '#007DFF')
+          .backgroundColor(this.isDownloadPageEnabled ? '#E8E8E8' : '#007DFF')
           .width('49%')
           .height(35)
           .borderRadius(50)
           .margin(3)
           .onClick((e: ClickEvent) => {
-            this.downloadPageOpacity = 0;
             this.isDownloadPageEnabled = false;
             this.downloadPageVisibility = Visibility.None;
             this.historyPageVisibility = Visibility.Visible;
             this.isHistoryPageEnabled = true;
-            if(this.downloadCount === 0) {
-              this.isStartAllDownload = false;
-            }
           })
       }
       .width('100%')
@@ -189,10 +179,11 @@ export struct MultipleFilesDownloadComponent {
       Row() {
         Row() {
           Text($r('app.string.multiple_files_download_queue')).fontSize(20)
-          Text(this.downloadCount + '').fontSize(20)
+          Text(String(this.downloadCount)).fontSize(20)
         }.width('50%')
 
         Row() {
+          // 已开始下载且有任务时为全部暂停，否则为全部开始
           Text(this.isStartAllDownload && this.downloadCount > NO_TASK ? '全部暂停' : '全部开始')
             .fontSize(20)
             .fontColor('#418AF3')
@@ -207,26 +198,25 @@ export struct MultipleFilesDownloadComponent {
             })
         }.width('50%')
       }
-      .opacity(this.downloadPageOpacity)
       .visibility(this.downloadPageVisibility)
       .enabled(this.isDownloadPageEnabled)
       .width('100%')
 
+      // 下载列表
       List() {
         ForEach(this.downloadFileArray, (item: downloadFilesData) => {
           ListItem() {
             FileDownloadItem({
-              fileDataInfo: item, // 文件下载配置
+              fileDataInfo: item, // 文件下载数据
               isStartAllDownload: this.isStartAllDownload, // 是否全部开始下载
               downloadCount: this.downloadCount, // 待下载任务数量
               downloadFailCount: this.downloadFailCount, // 下载失败任务数量
-              historyArray: this.historyArray,
+              historyArray: this.historyArray,   // 历史列表数据
               downloadFileArray: this.downloadFileArray // 下载文件数据源
             })
           }
         }, (item: downloadFilesData) => item.id)
       }
-      .opacity(this.downloadPageOpacity)
       .visibility(this.downloadPageVisibility)
       .enabled(this.isDownloadPageEnabled)
       .width('100%')
@@ -236,15 +226,11 @@ export struct MultipleFilesDownloadComponent {
       List() {
         ForEach(this.historyArray, (item: downloadFilesData) => {
           ListItem() {
-            HistoryItem({
-              fileDataInfo: item,
-              downloadCount: this.downloadCount, // 待下载任务数量
-              historyArray: this.historyArray,
-              downloadFileArray: this.downloadFileArray // 下载文件数据源
-            })
+            HistoryItem({ fileDataInfo: item })
           }
         }, (item: downloadFilesData) => item.id)
-      }.visibility(this.historyPageVisibility)
+      }
+      .visibility(this.historyPageVisibility)
       .enabled(this.isHistoryPageEnabled)
       .width('100%')
       .height('80%')
