@@ -25,7 +25,7 @@
  */
 
 import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement';
-import { Entry, Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView, Row, TextAlign,
+import { Entry, Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Row, TextAlign,
   SafeAreaEdge,Visibility, List, ListItem, ForEach, TextOverflow, Image, HorizontalAlign, Progress, ProgressType, Flex,
   FlexAlign, FlexDirection, SafeAreaType,Stack, Radio, Slider, SliderStyle, SaveButton ,SaveDescription, ButtonType,
   Scroll ,Scroller, BarState, $r, Builder, Blank, Color, ImageFit, TextInput, InputType, Placement, ItemAlign, Divider,

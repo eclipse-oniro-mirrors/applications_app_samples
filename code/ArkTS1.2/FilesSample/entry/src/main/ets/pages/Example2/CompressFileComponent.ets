@@ -91,8 +91,8 @@ export struct CompressFileComponent {
     try {
       // 对目录下的文件进行压缩
       zlib.compressFile(`${this.pathDir}/${this.beCompressFileDir}`, outFilePath, options,
-        (errData: BusinessError<void> | null) => {
-          if (errData == null) {
+        (err: BusinessError<void> | null) => {
+          if (!err || err.code == 0) {
             this.compressBundleName = outFilePath.slice(outFilePath.lastIndexOf('/') + 1, outFilePath.length);
             let isSuccess = fs.accessSync(`${outFilePath}`);
             if(isSuccess){
@@ -102,9 +102,9 @@ export struct CompressFileComponent {
                 duration: 2000
               });
             }
-          } else if(errData){
+          } else {
             hilog.error(0x0000, 'testTag',
-              `compress failed with error message: ${errData.message}, error code: ${errData.code}`);
+              `compress failed with error message: ${err.message}, error code: ${err.code}`);
           }
         })
     } catch (errData) {

@@ -40,7 +40,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   List,
   ListItem,
   Image,
@@ -267,7 +266,7 @@ export struct CalendarView {
       .height('60%')
       .margin(10)
       .opacity(this.flag === true ? 1 : 0)
-      .borderRadius($r('app.string.ohos_id_corner_radius_default_m'))
+      .borderRadius('12')
     }.height('100%')
   }
 

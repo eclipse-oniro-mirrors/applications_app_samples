@@ -36,7 +36,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   Row,
   Entry
 } from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
@@ -66,16 +65,5 @@ struct Example2Test {
       }.height('5%')
       CalendarView();
     }
-  }
-}
-
-export class ComExampleTrivialApplication extends UserView {
-  getBuilder() {
-    hilog.info(0x0000, 'testTag', 'getBuilder');
-    let wrapper = @memo() =>{
-      hilog.info(0x0000, 'testTag', 'Example2Test');
-      Example2Test(undefined);
-    }
-    return wrapper;
   }
 }

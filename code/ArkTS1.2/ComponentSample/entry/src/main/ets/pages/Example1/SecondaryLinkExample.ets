@@ -59,7 +59,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   Image,
   Row,
   CalendarPickerDialog,$r

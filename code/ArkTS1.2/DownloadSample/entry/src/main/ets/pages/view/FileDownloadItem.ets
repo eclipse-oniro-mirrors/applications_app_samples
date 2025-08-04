@@ -29,7 +29,7 @@ import {
   __memo_id_type
 } from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
 import {Entry,Text,TextAttribute,Column,Component,
-  Button,ButtonAttribute,ClickEvent,UserView,Row,TextAlign,Visibility,List,ListItem,ForEach,TextOverflow,
+  Button,ButtonAttribute,ClickEvent,Row,TextAlign,Visibility,List,ListItem,ForEach,TextOverflow,
   Image,HorizontalAlign,Progress,ProgressType,FlexAlign,SafeAreaType,JSON,$r,Margin,TextDecorationType
 } from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
 import {State,Link,MutableState,stateOf,observableProxy,Prop,Watch} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins\
@@ -136,7 +136,7 @@ export struct FileDownloadItem {
             }
           });
         });
-    }else {
+    } else {
       // 任务已存在时，继续下载
       this.resumeDownload();
     }
@@ -158,7 +158,7 @@ export struct FileDownloadItem {
       // 隐藏下载状态图标
       this.isShow = false;
       this.getFileStatusAndTime(1);
-    }catch(err:Error){
+    } catch(err:Error) {
       hilog.error(0x0000, 'TAGhttp,err: ', String(err.message));
     }
   }
@@ -173,7 +173,7 @@ export struct FileDownloadItem {
       if (this.downloadFailCount === this.downloadCount) {
         this.isStartAllDownload = false;
       }
-    }catch(err:Error){
+    } catch(err:Error) {
       hilog.error(0x0000, 'TAGhttp,err: ', String(err.message))
     }
   }
@@ -219,7 +219,7 @@ export struct FileDownloadItem {
       }
       // 用于显示已下载文件数据大小
       this.sCurrentDownloadSize = String(progress.processed / BYTE_CONVERSION).split('.')[0] as string + 'kb';
-    }catch(err:Error){
+    } catch(err:Error) {
       hilog.error(0x0000, 'TAGhttp,err: ', String(err.message))
     }
   }
@@ -230,7 +230,7 @@ export struct FileDownloadItem {
       this.state = '已暂停';
       // 切换下载状态图标
       this.downloading = false;
-    }catch(err:Error){
+    } catch(err:Error) {
       hilog.error(0x0000, 'TAGhttp,err: ', String(err.message))
     }
   }
@@ -245,7 +245,7 @@ export struct FileDownloadItem {
           hilog.error(0x0000, 'TAGhttp',  `Failed to show with error message: ${err.message}, error code: ${err.code}`);
           return;
         }
-        if(taskInfo == undefined){
+        if (taskInfo == undefined) {
           return;
         }
         // 判断当前下载任务状态是否满足暂停条件。
@@ -273,7 +273,7 @@ export struct FileDownloadItem {
       this.state = '下载中';
       // 切换下载状态图标
       this.downloading = true;
-    }catch(err:Error){
+    } catch(err:Error) {
       hilog.error(0x0000, 'TAGhttp err: ', String(err.message));
     }
   }
@@ -288,7 +288,7 @@ export struct FileDownloadItem {
           hilog.error(0x0000, 'TAGhttp', `Failed to show with error message: ${err.message}, error code: ${err.code}`);
           return;
         }
-        if(taskInfo == undefined){
+        if(taskInfo == undefined) {
           return;
         }
         // 判断如果任务是暂停状态，则重新启动下载任务

@@ -33,7 +33,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   Row,
   List,
   ListItem,
@@ -108,7 +107,7 @@ export struct DecompressFileViewComponent {
       // 如果待解压的文件或文件夹在解压后的路径下已经存在，则会直接覆盖同名文件或同名文件夹中的同名文件。
       zlib.decompressFile(`${pathDir}/${this.rawfileZipName}`, outFileDir,
         (err: BusinessError<void> | null) => {
-          if (err && err.code == 0) {
+          if (!err || err.code == 0) {
             // 根据解压后的文件所属沙箱目录，获取解压后的文件列表
             this.getFileListData(outFileDir);
             let isSuccess = fs.accessSync(`${outFileDir}`);
@@ -120,7 +119,7 @@ export struct DecompressFileViewComponent {
                 duration: 2000
               });
             }
-          } else if(err){
+          } else {
             hilog.error(0x0000, 'testTag',
               `decompressFile failed. code is ${err.code}, message is ${err.message}`);
           }

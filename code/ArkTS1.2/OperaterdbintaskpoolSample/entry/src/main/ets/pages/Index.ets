@@ -34,7 +34,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   List, Image, $r, AlphabetIndexer, Margin, ForEach, Color, TextAlign, ImageFit
 } from '@ohos.arkui.component';
 import { State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement';
@@ -54,16 +53,5 @@ struct MyStateSample {
         })
     }.width('100%')
     .height('100%')
-  }
-}
-
-export class ComExampleTrivialApplication extends UserView {
-  getBuilder() {
-    hilog.info(0x0000, 'testTag', 'getBuilder');
-    let wrapper = @memo() =>{
-      hilog.info(0x0000, 'testTag', 'MyStateSample');
-      MyStateSample(undefined)
-    }
-    return wrapper
   }
 }

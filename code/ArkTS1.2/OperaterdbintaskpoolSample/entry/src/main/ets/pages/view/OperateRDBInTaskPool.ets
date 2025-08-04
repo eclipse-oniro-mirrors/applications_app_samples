@@ -25,7 +25,7 @@
  */
 
 import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement'
-import { Entry, Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView, Row,
+import { Entry, Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Row,
   SafeAreaEdge, Image, SafeAreaType,Stack, $r, Builder, Color, Search, SearchController, Margin
 } from '@ohos.arkui.component'
 import { State, MutableState, stateOf, observableProxy, Prop, Watch } from '@ohos.arkui.stateManagement'
@@ -145,16 +145,5 @@ struct OperateRDBInTaskPool {
       .width(CommonConstants.FULL_PERCENT)
       .height(CommonConstants.FULL_PERCENT)
     }
-  }
-}
-
-export class ComExampleTrivialApplication extends UserView {
-  getBuilder() {
-    hilog.info(0x0000, 'testTag', 'getBuilder');
-    let wrapper = @memo() =>{
-      hilog.info(0x0000, 'testTag', 'MyStateSample');
-      OperateRDBInTaskPool(undefined)
-    }
-    return wrapper
   }
 }

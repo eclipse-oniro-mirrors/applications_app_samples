@@ -36,7 +36,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   Row,
   TextAlign,
   Entry
@@ -67,16 +66,5 @@ struct Example1Test {
       }.height('5%')
       SecondaryLinkExample()
     }
-  }
-}
-
-export class ComExampleTrivialApplication extends UserView {
-  getBuilder() {
-    hilog.info(0x0000, 'testTag', 'getBuilder');
-    let wrapper = @memo() =>{
-      hilog.info(0x0000, 'testTag', 'Example1Test');
-      Example1Test(undefined);
-    }
-    return wrapper;
   }
 }

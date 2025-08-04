@@ -14,7 +14,7 @@
  */
 
 import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
-import { Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView, Entry, Tabs, TabContent, SubTabBarStyle,
+import { Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Entry, Tabs, TabContent, SubTabBarStyle,
   Row, ForEach, Position, Builder, Margin, BarMode, OnTabsAnimationStartCallback, TabsAnimationEvent, TabsOptions,animateTo,Alignment,
   Color, FlexAlign, $r, Image, SizeOptions, Position, AnimateParam, Flex,FlexDirection,FlexAlign,ItemAlign,VideoController, TranslateOptions, SeekMode, VoidCallback, PlaybackInfo, PreparedInfo,
   Video,$rawfile, GestureType, PanGesture, GestureEvent, RelativeContainer, Color, HitTestMode, Visibility} from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins

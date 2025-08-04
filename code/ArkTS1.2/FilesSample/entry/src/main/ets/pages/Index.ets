@@ -28,7 +28,7 @@ import {
   memo,
   __memo_context_type,
   __memo_id_type
-} from "@ohos.arkui.stateManagement"; // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
 import {
   Entry,
   Row,
@@ -39,23 +39,22 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   TextArea,
   Scroll
-} from "@ohos.arkui.component"; // TextAttribute should be insert by ui-plugins
+} from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
 import {
   State,
   MutableState,
   stateOf,
   observableProxy
-} from "@ohos.arkui.stateManagement"; // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
 import hilog from '@ohos.hilog';
 import { Context, UIContext } from '@ohos.arkui.UIContext';
 import { DecompressFileViewComponent } from './Example3/DecompressFileViewComponent';
 import { CompressFileViewComponent } from './Example2/CompressFile';
 import { BigFileCopyViewComponent } from './Example1/BigFileCopyView';
 
-
+@Entry
 @Component
 struct MyStateSample {
   build() {
@@ -77,17 +76,5 @@ struct MyStateSample {
       .padding(15)
       .width("100%")
     }
-  }
-}
-
-export class ComExampleTrivialApplication extends UserView {
-  getBuilder() {
-    hilog.info(0x0000, 'testTag', 'getBuilder');
-    let wrapper = @memo() =>
-    {
-      hilog.info(0x0000, 'testTag', 'MyStateSample');
-      MyStateSample(undefined)
-    }
-    return wrapper
   }
 }

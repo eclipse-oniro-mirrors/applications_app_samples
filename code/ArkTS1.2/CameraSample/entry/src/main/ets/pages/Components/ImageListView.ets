@@ -13,13 +13,14 @@
  * limitations under the License.
  */
 import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
-import { RowAttribute, Padding, Axis, Resource, ListItem, ForEach, List, ResourceStr, CustomDialogController, Image, $r, ImageAttribute, Text, Row, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, UserView, Image, FlexAlign, HorizontalAlign, FlexDirection, Flex, ItemAlign } from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
+import { RowAttribute, Padding, Axis, Resource, ListItem, ForEach, List, ResourceStr, CustomDialogController, Image, $r, ImageAttribute, Text, Row, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Image, FlexAlign, HorizontalAlign, FlexDirection, Flex, ItemAlign } from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
 import { Link, StorageLink, State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins Extend,
 import hilog from '@ohos.hilog'
 
 @Component
 export struct ImageListView {
   @State selectedImages: Array<ResourceStr> = new Array<ResourceStr>();
+
   build() {
     Column() {
       Row() {
