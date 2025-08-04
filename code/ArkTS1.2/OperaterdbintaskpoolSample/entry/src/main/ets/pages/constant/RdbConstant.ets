@@ -32,10 +32,6 @@ export const TABLE_NAME = 'contact';
 export const SQL_CREATE_TABLE =
   'CREATE TABLE IF NOT EXISTS contact(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, phone TEXT NOT NULL, email TEXT NOT NULL, address TEXT NOT NULL, avatar TEXT NOT NULL, category TEXT NOT NULL)';
 
-export const COLUMNS = ['id', 'name', 'phone', 'email', 'address', 'avatar', 'category'];
-
 export const STORE_CONFIG: rdb.StoreConfig = { name: 'contact.db', securityLevel: rdb.SecurityLevel.S2 };
-
-export const BUNDLE = 'com.north.cases';
 
 export const ABILITY = 'EntryAbility';

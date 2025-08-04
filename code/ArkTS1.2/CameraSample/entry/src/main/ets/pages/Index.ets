@@ -12,14 +12,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
-import { BarState, ScrollDirection, Scroll, Scroller, AlertDialogParamWithOptions, ForEach, ListItem, BarState,
-  TextAlign, LazyForEach, List, ScrollAlign, ListScroller, RowAttribute, FlexAlign,
-  Color, EditableTextOnChangeCallback, TextInput, Margin, Row, VerticalAlign, HorizontalAlign,
-  EdgeWidths, EdgeColors, AlignRuleOption, Padding, BorderOptions, $r, Image, Text, Entry,
-  TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Offset, Position,
-  ResourceStr} from '@ohos.arkui.component'
-import { StorageLink, Consume, State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
+import {
+  __memo_context_type,
+  __memo_id_type,
+  Consume,
+  memo,
+  MutableState,
+  observableProxy,
+  State,
+  stateOf,
+  StorageLink
+} from '@ohos.arkui.stateManagement';
+import {
+  $r,
+  Button,
+  ButtonAttribute,
+  ClickEvent,
+  Color,
+  Column,
+  Component,
+  EditableTextOnChangeCallback,
+  Entry,
+  FlexAlign,
+  ForEach,
+  HorizontalAlign,
+  Image,
+  List,
+  ListItem,
+  Margin,
+  Padding,
+  Row,
+  RowAttribute,
+  Scroll,
+  ScrollDirection,
+  Text,
+  TextAlign,
+  TextAttribute,
+} from '@ohos.arkui.component';
 import hilog from '@ohos.hilog'
 import common from '@ohos.app.ability.common'
 import { UIContext } from '@ohos.arkui.UIContext';

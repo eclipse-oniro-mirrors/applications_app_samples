@@ -28,7 +28,7 @@ import {
   memo,
   __memo_context_type,
   __memo_id_type
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement';
 import {
   Entry,
   Row,
@@ -41,18 +41,17 @@ import {
   ClickEvent,
   TextArea,
   Scroll
-} from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
+} from '@ohos.arkui.component';
 import {
   State,
   MutableState,
   stateOf,
   observableProxy
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
-import hilog from '@ohos.hilog';
+} from '@ohos.arkui.stateManagement';
 import { Context, UIContext } from '@ohos.arkui.UIContext';
-import { DecompressFileViewComponent } from './Example3/DecompressFileViewComponent';
-import { CompressFileViewComponent } from './Example2/CompressFile';
-import { BigFileCopyViewComponent } from './Example1/BigFileCopyView';
+import { DecompressFileViewComponent } from './DecompressFile/DecompressFileViewComponent';
+import { CompressFileViewComponent } from './CompressFile/CompressFile';
+import { BigFileCopyViewComponent } from './BigFileCopy/BigFileCopyView';
 
 @Entry
 @Component
@@ -62,15 +61,15 @@ struct MyStateSample {
       Column() {
         Button('BigFileCopyView')
           .onClick((e: ClickEvent) => {
-            this.getUIContext().getRouter().pushUrl({ url: "pages/Example1/BigFileCopyView" })
+            this.getUIContext().getRouter().pushUrl({ url: "pages/BigFileCopy/BigFileCopyView" })
           }).fontSize(20).margin(15).width("100%")
         Button('CompressFileView')
           .onClick((e: ClickEvent) => {
-            this.getUIContext().getRouter().pushUrl({ url: "pages/Example2/CompressFile" })
+            this.getUIContext().getRouter().pushUrl({ url: "pages/CompressFile/CompressFile" })
           }).fontSize(20).margin(15).width("100%")
         Button('DecompressFileView')
           .onClick((e: ClickEvent) => {
-            this.getUIContext().getRouter().pushUrl({ url: "pages/Example3/DecompressFileViewComponent" })
+            this.getUIContext().getRouter().pushUrl({ url: "pages/DecompressFile/DecompressFileViewComponent" })
           }).fontSize(18).margin(15).width("100%")
       }
       .padding(15)
