@@ -12,17 +12,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
-import { Text, List, ListItem, Column, Button, Image, Row, Stack,ListItemGroup, Divider, Blank,
-  Tabs, TabContent, Flex, FlexOptions, Callback, px2vp, ItemAlign, BackgroundBrightnessOptions,
-  ButtonAttribute, ClickEvent, Component, BuilderParam, Padding, $r, SafeAreaEdge, BackgroundBlurStyleOptions,
-  BarState, NestedScrollOptions, NestedScrollMode, Color, JSON, Alignment, FlexDirection, BarPosition, Position,
-  FlexAlign, BlurStyle, LazyForEach, ForEach, Builder, Margin, SafeAreaType, Entry,
-  TabsController, TabsOptions ,StackOptions, ThemeColorMode, AdaptiveColor, ResourceStr, SizeOptions
-} from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
-import { State, MutableState, stateOf, observableProxy,ObjectLink, Observed } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
-import hilog from '@ohos.hilog';
-import camera from '@ohos.multimedia.camera';
+import {
+  __memo_context_type,
+  __memo_id_type,
+  memo,
+  MutableState,
+  State,
+  stateOf
+} from '@ohos.arkui.stateManagement';
+import { Component, Entry, UserView, Column } from '@ohos.arkui.component';
 import { TabsSample } from './backgroundblur/TabsSample';
 
 @Entry

@@ -13,15 +13,10 @@
  * limitations under the License.
  */
 
-import { ResourceStr, WrappedBuilder } from '@ohos.arkui.component'
+import { ResourceStr } from '@ohos.arkui.component'
 
 /**
  * TabBar data type.
- *
- * @param id
- * @param title TarBar name.
- * @param selectedIcon Selected image address.
- * @param defaultIcon Default image address.
  */
 
 export class TabInfo {
@@ -29,6 +24,12 @@ export class TabInfo {
   public title: string | ResourceStr;
   public selectedIcon: ResourceStr;
   public defaultIcon: ResourceStr;
+  /**
+   * @param id
+   * @param title
+   * @param selectedIcon
+   * @param defaultIcon
+   */
   constructor(id: number, title: string | ResourceStr, selectedIcon: ResourceStr, defaultIcon: ResourceStr
   ) {
     this.id = id;

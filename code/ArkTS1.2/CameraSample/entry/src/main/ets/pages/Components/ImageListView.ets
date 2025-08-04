@@ -12,10 +12,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
-import { RowAttribute, Padding, Axis, Resource, ListItem, ForEach, List, ResourceStr, CustomDialogController, Image, $r, ImageAttribute, Text, Row, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Image, FlexAlign, HorizontalAlign, FlexDirection, Flex, ItemAlign } from '@ohos.arkui.component'  // TextAttribute should be insert by ui-plugins
-import { Link, StorageLink, State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins Extend,
-import hilog from '@ohos.hilog'
+import {
+  __memo_context_type,
+  __memo_id_type,
+  Link,
+  memo,
+  MutableState,
+  observableProxy,
+  State,
+  stateOf,
+  StorageLink
+} from '@ohos.arkui.stateManagement';
+import {
+  ClickEvent,
+  Column,
+  Component,
+  FlexAlign,
+  ForEach,
+  Image,
+  ResourceStr,
+  Row,
+  RowAttribute,
+} from '@ohos.arkui.component';
 
 @Component
 export struct ImageListView {
@@ -24,12 +42,12 @@ export struct ImageListView {
   build() {
     Column() {
       Row() {
-        ForEach(this.selectedImages, (image: ResourceStr, index: Double) => {
+        ForEach(this.selectedImages, (image: ResourceStr, index: number) => {
           Image(image)
             .height(100)
             .width(100)
             .borderRadius(5)
-        })
+        }, (image: ResourceStr, index: number) => index.toString())
       }
       .width('100%')
       .height(110)
