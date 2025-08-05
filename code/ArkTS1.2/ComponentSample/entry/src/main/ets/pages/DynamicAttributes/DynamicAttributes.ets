@@ -53,7 +53,7 @@ import { ShoppingCart } from './view/ShoppingCart';
 
 @Entry
 @Component
-struct Example3Test {
+struct DynamicAttributes {
   aboutToAppear() {
 
   }

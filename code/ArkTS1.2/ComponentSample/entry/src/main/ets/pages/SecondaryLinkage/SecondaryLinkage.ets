@@ -52,7 +52,7 @@ import { Context,UIContext} from '@ohos.arkui.UIContext';
 import { SecondaryLinkExample } from './SecondaryLinkExample';
 @Entry
 @Component
-struct Example1Test {
+struct SecondaryLinkage {
   aboutToAppear() {
 
   }

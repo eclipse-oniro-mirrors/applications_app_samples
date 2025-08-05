@@ -28,7 +28,7 @@ import {
   memo,
   __memo_context_type,
   __memo_id_type
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement';
 import {
   Entry,
   Text,
@@ -48,7 +48,7 @@ import {
   FlexAlign,
   GradientDirection,
   ClickEvent
-} from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
+} from '@ohos.arkui.component';
 import {
   State,
   Link,
@@ -56,7 +56,7 @@ import {
   stateOf,
   observableProxy,
   Prop
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement';
 import zlib from '@ohos.zlib';
 import common from '@ohos.app.ability.common';
 import fs from '@ohos.file.fs';
@@ -69,7 +69,7 @@ const LINEAR_GRADIENT_START = 0;
 const LINEAR_GRADIENT_END = 1;
 
 /**
- * 功能描述：本示例主要介绍在EAWorker子线程中使用@ohos.zlib模块提供的zlib.compressFile接口对沙箱目录中的文件进行压缩操作。
+ * 功能描述：本示例主要介绍使用@ohos.zlib模块提供的zlib.compressFile接口对沙箱目录中的文件进行压缩操作。
  *
  * 推荐场景：文件管理中压缩文件时使用
  *
@@ -104,7 +104,7 @@ export struct CompressFileViewComponent {
   // 压缩成功后压缩包文件路径
   @State compressZipDir: string = 'bundleFile/compress_file.zip';
   // 待压缩文件所在目录名
-  @State beCompressFileDir: string = 'compressFile';
+  @State beCompressFileDir: string = 'compressfile';
   context: common.Context = this.getUIContext().getHostContext() as common.Context;
 
   aboutToAppear(): void {
@@ -126,7 +126,7 @@ export struct CompressFileViewComponent {
               .margin(10)
               .fontSize(28)
               .fontColor('#FFFFFF')
-            Text('使用@ohos.zlib在Worker子线程压缩文件')
+            Text('使用@ohos.zlib压缩文件')
               .margin(10)
               .fontColor('#FFFFFF')
           }

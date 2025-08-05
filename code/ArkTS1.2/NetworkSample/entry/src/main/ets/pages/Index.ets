@@ -212,11 +212,11 @@ struct MyStateSample {
       this.checkTaskC = setInterval(() => {
         if (this.canRunTaskC()) {
           this.runTaskC(context);
-          clearInterval(this.checkTaskC);
+          clearInterval(Double.toInt(this.checkTaskC));
         }
       }, 200);
       if (this.progressValueC == 100) {
-        clearInterval(this.checkTaskC);
+        clearInterval(Double.toInt(this.checkTaskC));
       }
     }, AsyncLockMode.EXCLUSIVE);
   }

@@ -28,7 +28,7 @@ import {
   memo,
   __memo_context_type,
   __memo_id_type
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
+} from '@ohos.arkui.stateManagement';
 import {
   Entry,
   Row,
@@ -41,14 +41,13 @@ import {
   ClickEvent,
   TextArea,
   Scroll
-} from '@ohos.arkui.component'; // TextAttribute should be insert by ui-plugins
+} from '@ohos.arkui.component';
 import {
   State,
   MutableState,
   stateOf,
   observableProxy
-} from '@ohos.arkui.stateManagement'; // should be insert by ui-plugins
-import hilog from '@ohos.hilog';
+} from '@ohos.arkui.stateManagement';
 import { Context, UIContext } from '@ohos.arkui.UIContext';
 import { DecompressFileViewComponent } from './DecompressFile/DecompressFileViewComponent';
 import { CompressFileViewComponent } from './CompressFile/CompressFile';

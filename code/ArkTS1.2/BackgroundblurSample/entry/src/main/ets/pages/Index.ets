@@ -20,8 +20,8 @@ import {
   State,
   stateOf
 } from '@ohos.arkui.stateManagement';
-import { Component, Entry, UserView, Column } from '@ohos.arkui.component';
-import { TabsSample } from './backgroundblur/TabsSample';
+import { Component, Entry, Column } from '@ohos.arkui.component';
+import { TabsSample } from './TabsSample';
 
 @Entry
 @Component

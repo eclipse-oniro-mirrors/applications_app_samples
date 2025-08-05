@@ -34,7 +34,7 @@ entry/src/main/ets/
 
 ### 具体实现
 
-* 背景模糊，源码参考：[CustomTabsComponent.ets](entry/src/main/ets/pages/backgroundblur/CustomTabsComponent.ets)
+* 背景模糊，源码参考：[CustomTabsComponent.ets](entry/src/main/ets/pages/CustomTabsComponent.ets)
 
 ### 相关权限
 
