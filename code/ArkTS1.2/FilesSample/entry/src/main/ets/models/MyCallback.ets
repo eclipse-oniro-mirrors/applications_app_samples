@@ -27,7 +27,7 @@
 import { AsyncCallback, BusinessError, Callback, ErrorCallback } from '@ohos.base';
 import hilog from '@ohos.hilog';
 
-const SYNTAX_ERROR_CODE: double = 1002;
+const SYNTAX_ERROR_CODE: int = 1002;
 
 export class MyCallback {
   static myCallback(callback: Callback<string>): void {
