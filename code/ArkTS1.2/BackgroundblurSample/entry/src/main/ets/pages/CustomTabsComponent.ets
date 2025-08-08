@@ -91,17 +91,7 @@ export struct CustomTabsComponent {
   build() {
     Column() {
       Stack({ alignContent: Alignment.Bottom } as StackOptions) {
-        Column() {
-          ForEach(this.tabsInfoList, (item: TabInfo, index: number) => {
-            Row() {
-              MainContentBlur()
-            }
-            .height('100%')
-          }, (item: TabInfo, index: number) => index.toString())
-        }
-        .layoutWeight(1)
-        .backgroundColor($r('app.color.background_blur_tabs_bar_background_color'))
-
+        MainContentBlur()
         Flex({
           direction: FlexDirection.Row, justifyContent: FlexAlign.SpaceAround,
           alignItems: ItemAlign.Center
@@ -138,12 +128,9 @@ export struct CustomTabsComponent {
         }, {} as SystemAdaptiveOptions)
         .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
       }
-      .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
       .width('100%')
       .height('100%')
     }
-    .width('100%')
-    .height('100%')
   }
 }
 
@@ -202,5 +189,9 @@ export struct MainContentBlur {
         }
       }, (item: number, index: number) => index.toString())
     }
+    .width('100%')
+    .height('100%')
+    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
+    .backgroundColor($r('app.color.background_blur_tabs_bar_background_color'))
   }
 }
