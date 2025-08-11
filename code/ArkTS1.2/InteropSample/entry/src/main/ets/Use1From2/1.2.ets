@@ -1,3 +1,4 @@
+'use static'
 /**
  *
  * Copyright (c) 2025 Huawei Device Co., Ltd.
@@ -33,7 +34,7 @@ export function test(): Array<string> {
   const SUBJECT = module.getProperty('SUBJECT');
   // 2.类实例化
   let argName: string = 'A';
-  let argSex: char = 'M';
+  let argSex: string = 'M';
   let argstudentID: short = 1001;
   let argAge: byte = 18;
   let argHeight: int = 175;
@@ -42,7 +43,7 @@ export function test(): Array<string> {
   let arggradePoint: double = 3.85;
   let argIsBoarder: boolean = false;
   let student1 =
-    student.instantiate(ESObject.wrapString(argName), argSex, ESObject.wrapShort(argstudentID),
+    student.instantiate(ESObject.wrapString(argName), ESObject.wrapString(argSex), ESObject.wrapShort(argstudentID),
       ESObject.wrapByte(argAge),
       ESObject.wrapInt(argHeight),
       ESObject.wrapLong(argPhone), ESObject.wrapFloat(argAverageGrade), ESObject.wrapDouble(arggradePoint),
@@ -79,6 +80,6 @@ export function ErrorHandle(): string {
   const module =
     ESObject.load('@normalized:N&entry&com.samples.interopsample&arkts1_0har/src/main/ets/components/ArkTSVersion_1&1.0.0');
   let referenceErr = module.getProperty('referenceErr');
-  let errorInfo = referenceErr.getProperty('message').toString();
+  let errorInfo = referenceErr.invoke().toString();
   return errorInfo;
 }

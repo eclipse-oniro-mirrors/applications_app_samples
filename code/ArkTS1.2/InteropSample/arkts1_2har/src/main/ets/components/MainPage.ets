@@ -1,3 +1,4 @@
+'use static'
 /**
  *
  * Copyright (c) 2025 Huawei Device Co., Ltd.
@@ -25,7 +26,7 @@
  */
 
 import { Row, Column, Text, TextAttribute, Component } from '@ohos.arkui.component';
-import { State, StateDecoratedVariable, } from '@ohos.arkui.stateManagement';
+import { State } from '@ohos.arkui.stateManagement';
 
 @Component
 export struct MainPage {
@@ -35,7 +36,7 @@ export struct MainPage {
     Row() {
       Column() {
         Text(this.message)
-          .onClick(() => {
+          .onClick(():void => {
             this.message = 'Welcome';
           })
       }

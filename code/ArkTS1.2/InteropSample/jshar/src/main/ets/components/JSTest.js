@@ -72,4 +72,8 @@ export function calAverageScore(totalScore, subjectCount) {
 }
 
 // 7.异常处理
-export let referenceErr = new ReferenceError('reference error');
+export function referenceErr() {
+    let referenceErr = new ReferenceError('reference error');
+    let errorInfo = referenceErr.message;
+    return errorInfo;
+}

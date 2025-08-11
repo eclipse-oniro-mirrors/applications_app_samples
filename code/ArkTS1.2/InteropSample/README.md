@@ -1,4 +1,4 @@
-    # interop配套示例
+# interop配套示例
 
 ### Interop介绍
 Interop可以实现混合开发场景的模块相互通信场景，具体场景有ArkTS1.2中使用ArkTS1.0；ArkTS1.0中使用ArkTS1.2；ArkTS1.2中使用TS；ArkTS1.2中使用JS四种

@@ -1,3 +1,4 @@
+'use static'
 /**
  *
  * Copyright (c) 2025 Huawei Device Co., Ltd.
@@ -28,7 +29,7 @@ export const SUBJECT: Set<string> = new Set<string>(['语文', '数学', '英语
 
 export class Student {
   public name: string = '';
-  public sex: char = 'M';
+  public sex: string = 'M';
   public studentID: number = 1001;
   public age: number = 18;
   public height: int = 175;
@@ -38,7 +39,7 @@ export class Student {
   public isBoarder: boolean = true;
   public transcript: Map<string, number> = new Map<string, number>();
 
-  constructor(name: string, sex: char, studentID: number, age: number, height: int, phone: long, averageGrade: float,
+  constructor(name: string, sex: string, studentID: number, age: number, height: int, phone: long, averageGrade: float,
     gradePoint: double, isBoarder: boolean) {
     this.name = name;
     this.sex = sex;

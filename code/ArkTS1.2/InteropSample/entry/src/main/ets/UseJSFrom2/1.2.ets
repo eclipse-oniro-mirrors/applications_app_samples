@@ -1,3 +1,4 @@
+'use static'
 /**
  *
  * Copyright (c) 2025 Huawei Device Co., Ltd.
@@ -24,44 +25,47 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// 1.文件导入
-import { referenceErr, Student, SUBJECT, calTotalScore, calAverageScore } from 'arkts1_2har';
-
-export function test2(): Array<string> {
+export function test3(): Array<string> {
   let logs: string[] = new Array<string>();
-  let argName = 'B';
-  let argSex = 'M';
-  let argstudentID = 1002;
-  let argAge = 18;
-  let argHeight = 175;
-  let argPhone = 13820002025;
-  let argAverageGrade = 81;
-  let arggradePoint = 3.85;
-  let argIsBoarder = false;
+  // 1.文件导入
+  const module = ESObject.load('@normalized:N&entry&com.samples.interopsample&jshar/src/main/ets/components/JSTest&1.0.0');
+  let student = module.getProperty('Student');
+  const SUBJECT = module.getProperty('SUBJECT');
   // 2.类实例化
-  let student1 = new Student('B', 'M', 1002, 18, 175, 13820002025, 81, 3.85, true);
-  let score = [70, 68, 80, 90, 92, 78];
+  let student1 = student.instantiate(ESObject.wrapString('C'), ESObject.wrapNumber(19), ESObject.wrapString('F'),
+    ESObject.wrapBoolean(false));
+  let score = [90, 68, 80, 90, 92, 78];
   let index = 0;
   for (let item of SUBJECT) {
-    student1.setSubjectScore(item, score[index]);
+    student1.invokeMethod('setSubjectScore', item, score[index]);
     index++;
   }
   // 3.属性读写
-  logs.push(`${student1.name}的年龄为${student1.age}岁。`);
-  let newAge = student1.age = 19;
-  logs.push(`更新${student1.name}的年龄为${newAge}岁。`);
-  // 5.属性方法调用
-  logs.push(`${student1.name}的个人信息: ${student1.introduce()}`);
+  let name = student1.getProperty('name').toString();
+  let age = student1.getProperty('age').toNumber();
+  let sex = student1.getProperty('sex').toString();
+  let isBoarder = student1.getProperty('isBoarder').toBoolean();
+  logs.push(`${name}的年龄为${age}岁。`);
+  student1.setProperty('age', 20);
+  let newAge = student1.getProperty('age').toNumber();
+  logs.push(`更新${name}的年龄为${newAge}岁。`);
+  // 5.对象方法调用
+  logs.push(`${name}的个人信息: ${student1.invokeMethod('introduce')}`);
   // 4.函数调用
-  let totalScore = calTotalScore(student1);
+  let calTotalScore = module.getProperty('calTotalScore');
+  let calAverageScore = module.getProperty('calAverageScore');
+  let totalScore = calTotalScore.invoke(student1).toNumber();
   // 6.参数传递
-  let averageScore = calAverageScore(totalScore, SUBJECT.size);
+  let averageScore = calAverageScore.invoke(ESObject.wrapNumber(totalScore), ESObject.wrapNumber(6));
   logs.push(`总成绩:${totalScore},平均分:${averageScore}`);
   return logs;
 }
 
 // 7.异常处理
-export function ErrorHandle2(): string {
-  let errorInfo = referenceErr.message;
+export function ErrorHandle3(): string {
+  const module =
+    ESObject.load('@normalized:N&entry&com.samples.interopsample&jshar/src/main/ets/components/JSTest&1.0.0');
+  let referenceErr = module.getProperty('referenceErr');
+  let errorInfo = referenceErr.invoke().toString();
   return errorInfo;
 }

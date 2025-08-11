@@ -1,3 +1,4 @@
+'use static'
 /**
  *
  * Copyright (c) 2025 Huawei Device Co., Ltd.
@@ -55,7 +56,7 @@ export class MyCallback {
       hilog.info(0x0000, 'testTag', 'MyCallback' + data);
     })
     MyCallback.myAsyncCallback((error: BusinessError<string> | null, result: string | undefined) => {
-      if(err){
+      if(error){
         hilog.info(0x0000, 'testTag', `myAsyncCallback, error: ${error.message}, result:${result}`);
       }
     })

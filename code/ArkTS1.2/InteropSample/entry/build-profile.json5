@@ -28,6 +28,11 @@
   "apiType": "stageMode",
   "arkTSVersion": "1.2",
   "buildOption": {
+    "arkOptions": {
+      "runtimeOnly": {
+        "packages": ['arkts1_0har', 'jshar', 'tshar']
+      }
+    },
     "sourceOption": {
       "workers": []
     }

@@ -1,3 +1,4 @@
+'use static'
 /**
  *
  * Copyright (c) 2025 Huawei Device Co., Ltd.
@@ -63,8 +64,9 @@ export function test4(): Array<string> {
 // 7.异常调用
 export function ErrorHandle4(): string {
   let errorInfo = '';
-  const module = ESObject.load('@normalized:N&entry&com.samples.interopsample&tshar/src/main/ets/components/TSTest&1.0.0');
+  const module =
+    ESObject.load('@normalized:N&entry&com.samples.interopsample&tshar/src/main/ets/components/TSTest&1.0.0');
   let referenceErr = module.getProperty('referenceErr');
-  errorInfo = referenceErr.getProperty('message').toString();
+  errorInfo = referenceErr.invoke().toString();
   return errorInfo;
 }

@@ -1,3 +1,4 @@
+'use static'
 /**
  *
  * Copyright (c) 2025 Huawei Device Co., Ltd.
@@ -24,6 +25,7 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import {
+  Entry,
   Text,
   TextAttribute,
   Column,
@@ -38,10 +40,10 @@ import {
   State
 } from '@ohos.arkui.stateManagement';
 import hilog from '@ohos.hilog';
-import { test, ErrorHandle } from './Use1From2/1.2.ets';
-import { test2, ErrorHandle2 } from './Use2From1/1.0.ets';
-import { test3, ErrorHandle3 } from './UseJSFrom2/1.2.ets';
-import { test4, ErrorHandle4 } from './UseTSFrom2/1.2.ets';
+import { test, ErrorHandle } from '../Use1From2/1.2';
+import { test2, ErrorHandle2 } from '../Use2From1/1.0';
+import { test3, ErrorHandle3 } from '../UseJSFrom2/1.2';
+import { test4, ErrorHandle4 } from '../UseTSFrom2/1.2';
 
 @Entry
 @Component
