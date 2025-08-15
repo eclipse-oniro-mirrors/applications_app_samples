@@ -55,6 +55,6 @@
 git init
 git config core.sparsecheckout true
 echo code/ArkTS1.2/NetworkSample/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull
 ```
