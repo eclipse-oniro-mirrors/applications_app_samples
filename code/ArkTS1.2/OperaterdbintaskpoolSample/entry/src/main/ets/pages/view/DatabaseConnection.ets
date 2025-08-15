@@ -169,7 +169,7 @@ class DatabaseConnection {
       hilog.info(0x0000, 'testTag', 'valueBuckets:' + JSON.stringify(valueBuckets));
     }
 
-    return (this.rdbStore as relationalStore.RdbStore).batchInsert(TABLE_NAME, valueBuckets).then((row: number)=>{
+    return (this.rdbStore as relationalStore.RdbStore).batchInsert(TABLE_NAME, valueBuckets).then((row: long)=>{
       hilog.info(0x0000, 'testTag', `batchInsert:${row}`);
       return row as number;
     }).catch((err: Error)=>{
@@ -209,7 +209,7 @@ class DatabaseConnection {
 
     if (this.rdbStore != undefined) {
       (this.rdbStore as relationalStore.RdbStore)
-        .insert(TABLE_NAME, valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE).then((row: number)=>{
+        .insert(TABLE_NAME, valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE).then((row: long)=>{
         hilog.info(0x0000, 'testTag', `insert done:${row}`);
         return undefined;
       }).catch((err: Error)=>{
