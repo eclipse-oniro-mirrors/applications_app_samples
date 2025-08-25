@@ -30,7 +30,6 @@ import {
   MutableState,
   observableProxy,
   State,
-  StateDecoratedVariable,
   stateOf
 } from '@ohos.arkui.stateManagement';
 import {
