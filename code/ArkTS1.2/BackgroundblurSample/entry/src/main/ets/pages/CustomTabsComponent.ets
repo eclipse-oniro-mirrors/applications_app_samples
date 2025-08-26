@@ -145,7 +145,7 @@ export struct CustomTabsComponent {
 struct TabItem {
   tabInfo?: TabInfo = new TabInfo(0, 'textTest', $r('app.media.layered_image'), $r('app.media.layered_image'));
   @Prop tabBarIndex: number = 0;
-  @Link selectedIndex: number = 0;
+  @Link selectedIndex: number;
 
   build() {
     Column() {
