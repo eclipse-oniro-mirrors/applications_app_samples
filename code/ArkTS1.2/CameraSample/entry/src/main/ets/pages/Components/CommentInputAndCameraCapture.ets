@@ -54,7 +54,7 @@ import image from '@ohos.multimedia.image';
 
 @Component
 export struct Navigation {
-  @Link items: Array<Comment> = new Array<Comment>();
+  @Link items: Array<Comment>;
   @State commentContent: string = ''
   @State imagePath: string = '';
   controller: TextInputController = new TextInputController();
@@ -94,7 +94,7 @@ export struct Navigation {
           }
           if (result && result.resultCode === 0) {
             // 从结果中获取参数对象
-            const param: Record<string, Object> | undefined = result.want?.parameters;
+            const param: Record<string, Object> | undefined = result.want?.parameters as Record<string, Object>;
             // 确保参数存在
             if (param !== undefined) {
               // 获取相机返回的图片URI（类型断言为字符串）
