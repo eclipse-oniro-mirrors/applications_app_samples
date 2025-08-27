@@ -62,11 +62,11 @@ const TAG: string = 'compressFileComponent';
 @Entry
 @Component
 export struct CompressFileComponent {
-  @Link compressBundleName: string = '';
+  @Link compressBundleName: string;
   // 压缩成功后压缩包路径
-  @Link compressZipPath: string = '';
+  @Link compressZipPath: string;
   // 待压缩文件所在目录名
-  @Link beCompressFileDir: string = '';
+  @Link beCompressFileDir: string;
   // rawfile被压缩文件的应用沙箱路径
   private rawfilePath: string = '';
   // 应用沙箱目录
