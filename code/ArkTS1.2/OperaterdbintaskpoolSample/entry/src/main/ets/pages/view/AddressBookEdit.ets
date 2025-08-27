@@ -37,7 +37,6 @@ import { UIContext, PromptAction } from '@ohos.arkui.UIContext';
 import { Contact, RouterParams } from '../model/Contact';
 import router from '@ohos.router';
 import { CommonConstants } from '../constant/CommonConstant';
-import json from '@ohos.util.json';
 import { taskPoolExecuteQuery } from './TaskPool';
 import { ContactManager } from '../model/ContactManager';
 import promptAction from '@ohos.promptAction';
