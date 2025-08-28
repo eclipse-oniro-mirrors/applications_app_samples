@@ -1,3 +1,4 @@
+'use static';
 /*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -80,7 +81,7 @@ export struct CustomView {
   // title宽度计算基数
   private titleLengthRadix: number = 20;
   // 循环因子初始值
-  private loopDefault: number = 0;
+  private loopDefault: int = 0;
   // duration计算基数
   private durationRadix: number = 200;
   // iterations默认值
