@@ -75,7 +75,7 @@ export class ArticleSource<T> extends BasicDataSource<T> {
   }
   // 获取指定索引数据
   public getData(index: number): T {
-    return this.articleData[index];
+    return this.articleData[index.toInt()];
   }
   // 插入单个数据
   public addData(index: number, data: T): void {

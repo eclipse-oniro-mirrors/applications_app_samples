@@ -49,7 +49,7 @@ class BasicDataSource implements IDataSource<string> {
    * @returns {string} 返回指定索引数据。
    */
   public getData(index: number): string {
-    return this.originDataArray[index];
+    return this.originDataArray[index.toInt()];
   }
 
   /**
@@ -140,7 +140,7 @@ export class MyDataSource extends BasicDataSource {
    * @returns {string} 返回指定索引数据。
    */
   public getData(index: number): string {
-    return this.dataArray[index];
+    return this.dataArray[index.toInt()];
   }
 
   /**

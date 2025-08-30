@@ -83,7 +83,7 @@ export struct TabContentOverFlowComponent {
   @State imageClickArray: string[] =
     ['app.media.tabcontentoverflow_homepage_filled', 'app.media.tabcontentoverflow_video_filled',
       'app.media.tabcontentoverflow_mall_filled', 'app.media.tabcontentoverflow_mine_filled'];
-  @State index: number = 1;
+  @State index: int = 1;
   @State offsetX: number = 0; // 用来记录实时拖动的距离
   @State positionX: number = 0; // 用来记录拖动后的距离
   @State playTime: string = ''; // 用来记录现在播放的时间
@@ -308,7 +308,8 @@ export struct TabContentOverFlowComponent {
 
       // 页签
       Row() {
-        ForEach(this.tabArray, (item: string, index: number) => {
+        ForEach(this.tabArray, (item: string, idx: number) => {
+          const index = idx.toInt();
           Column() {
             Image(this.index === index ? $r(this.imageClickArray[index]) : $r(this.imageArray[index]))
               .width(30)
