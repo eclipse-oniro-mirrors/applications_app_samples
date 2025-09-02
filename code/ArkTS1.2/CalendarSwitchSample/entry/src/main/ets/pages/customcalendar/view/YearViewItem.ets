@@ -1,3 +1,4 @@
+'use static';
 /**
  *
  * Copyright (c) 2025 Huawei Device Co., Ltd.
@@ -89,8 +90,8 @@ export struct YearViewItem {
               // 画月
               monthItem.offContext.font = Constants.YEAR_VIEW_MONTH_FONT;
               monthItem.offContext.fillStyle = Color.Black;
-              monthItem.offContext.fillText(Constants.MONTHS[monthItem.month-1], Constants.YEAR_VIEW_INIT_THREE,
-                Constants.YEAR_VIEW_MONTH_HEIGHT);
+              monthItem.offContext.fillText(Constants.MONTHS[(monthItem.month-1).toInt()], 
+				Constants.YEAR_VIEW_INIT_THREE, Constants.YEAR_VIEW_MONTH_HEIGHT);
               // 水平偏移
               let horizontalOffset = Constants.YEAR_VIEW_INIT_THREE;
               // 画星期
