@@ -35,7 +35,7 @@ export class WaterFlowDataSource<SceneModuleInfo> implements IDataSource<SceneMo
    * @returns
    */
   public getData(index: number): SceneModuleInfo {
-    return this.dataArray[index];
+    return this.dataArray[index.toInt()];
   }
 
   /**
