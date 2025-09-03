@@ -137,9 +137,6 @@ struct MyStateSample {
           }
           hilog.info(0x0000, 'testTag', `下载完成 ${taskNo}`);
         });
-        task.on('failed', (progress: request.agent.Progress) => {
-          hilog.info(0x0000, 'testTag', `下载失败`);
-        }); // 下载任务失败回调
 
         task.on('progress', (progress: request.agent.Progress) => {
           hilog.info(0x0000, 'testTag', JSON.stringify(progress));
