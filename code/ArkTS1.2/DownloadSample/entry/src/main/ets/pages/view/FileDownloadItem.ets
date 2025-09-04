@@ -110,7 +110,6 @@ export struct FileDownloadItem {
           this.downloadTask = task as request.agent.Task;
           // 注册下载任务相关回调
           task.on('completed', this.completedCallback); // 下载任务完成回调
-          task.on('failed', this.failedCallback); // 下载任务失败回调
           task.on('progress', this.progressCallback); // 下载进度更新回调
 
           // 启动下载任务。本例在每个FileDownloadItem中使用task.start方法启动各自的下载任务。
@@ -143,21 +142,6 @@ export struct FileDownloadItem {
       this.getFileStatusAndTime(1);
     } catch(err:Error) {
       hilog.error(0x0000, 'TAGhttp,err: ', String(err.message));
-    }
-  }
-
-  // 下载任务失败回调。任务下载失败一般是由于网络不好，底层重试也失败后进入该下载失败回调。如果网络没问题，建议重新下载再试。
-  private failedCallback: (progress: request.agent.Progress) => void   = (progress: request.agent.Progress) => {
-    try {
-      this.state = '下载失败';
-      this.getFileStatusAndTime(2)
-      // 当所有任务下载失败时，'全部暂停'状态重置为'全部开始'。
-      this.downloadFailCount++;
-      if (this.downloadFailCount === this.downloadCount) {
-        this.isStartAllDownload = false;
-      }
-    } catch(err:Error) {
-      hilog.error(0x0000, 'TAGhttp,err: ', String(err.message))
     }
   }
 
