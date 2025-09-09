@@ -44,7 +44,7 @@ export struct DynamicComp1 {
   @StorageLink('keyA') storageLink: string = 'temp';
 
   @State stateVar: string = '';
-  @Prop propVar: string = '';
+  @Link propVar: string;
   @Link linkVar: string;
   @Provide provideVar: string = '';
   regVar: string = '';
