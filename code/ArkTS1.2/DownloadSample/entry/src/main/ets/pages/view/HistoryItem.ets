@@ -61,7 +61,7 @@ import {
   MutableState,
   stateOf,
   observableProxy,
-  Prop,
+  PropRef,
   Watch
 } from '@ohos.arkui.stateManagement';
 import hilog from '@ohos.hilog';
@@ -73,7 +73,7 @@ import { downloadFilesData } from '../model/dataType';
 @Component
 export struct HistoryItem {
   // 文件数据
-  @Prop fileDataInfo: downloadFilesData;
+  @PropRef fileDataInfo: downloadFilesData;
 
   build() {
     Row() {

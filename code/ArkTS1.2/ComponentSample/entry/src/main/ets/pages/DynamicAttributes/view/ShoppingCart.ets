@@ -30,7 +30,7 @@ import {
   memo,
   MutableState,
   observableProxy,
-  Prop,
+  PropRef,
   State,
   stateOf
 } from '@ohos.arkui.stateManagement';
@@ -116,7 +116,7 @@ export struct ShoppingCart {
 
 @Component
 struct ShoppingInfo {
-  @Prop item: string = ' ';
+  @PropRef item: string = ' ';
 
   build() {
     Column() {

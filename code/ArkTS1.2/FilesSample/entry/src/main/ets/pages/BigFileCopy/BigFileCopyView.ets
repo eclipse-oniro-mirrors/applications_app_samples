@@ -55,7 +55,7 @@ import {
   FlexAlign,
   SafeAreaType
 } from '@ohos.arkui.component';
-import { State, Link, MutableState, stateOf, observableProxy, Prop } from '@ohos.arkui.stateManagement';
+import { State, Link, MutableState, stateOf, observableProxy, PropRef } from '@ohos.arkui.stateManagement';
 
 import { BigFileCopyConstants } from './BigFileCopyConstants';
 import { common } from '@kit.AbilityKit';

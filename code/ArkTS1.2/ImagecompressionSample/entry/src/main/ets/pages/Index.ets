@@ -32,7 +32,7 @@ import { Entry, Text, TextAttribute, Column, Component, Button, ButtonAttribute,
   Scroll, Scroller, BarState, $r, Builder, Blank, Color, ImageFit, TextInput, InputType, Placement, ItemAlign, Divider,
   JSON, DialogAlignment, Resource, JSON, ResourceStr, ImageCompleteEvent, ImageOnCompleteCallback, Margin, $rawfile }
   from '@ohos.arkui.component';
-import { State, Link, MutableState, stateOf, observableProxy, Prop, Watch } from '@ohos.arkui.stateManagement';
+import { State, Link, MutableState, stateOf, observableProxy,  Watch } from '@ohos.arkui.stateManagement';
 import hilog from '@ohos.hilog';
 import zlib from '@ohos.zlib';
 import common from '@ohos.app.ability.common';

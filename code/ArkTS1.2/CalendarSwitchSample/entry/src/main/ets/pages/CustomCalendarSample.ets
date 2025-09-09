@@ -60,7 +60,7 @@ import {
   Text,
   TextAlign,animateTo
 } from '@ohos.arkui.component';
-import { Link, Prop, State, Watch } from '@ohos.arkui.stateManagement';
+import { Link, PropRef, State, Watch } from '@ohos.arkui.stateManagement';
 import common from '@ohos.app.ability.common';
 import { UIContext } from '@ohos.arkui.UIContext';
 
