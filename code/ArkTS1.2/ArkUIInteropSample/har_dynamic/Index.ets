@@ -13,4 +13,4 @@
  * limitations under the License.
  */
  
-export { DynamicComp1, DynamicComp2, DynamicComp3, DynamicComp4, myBuilder, globalBuilder, Data } from './src/main/ets/components/MainPage';
+export { DynamicComp1, DynamicComp2, DynamicComp3, DynamicComp4, DynamicComp5, myBuilder, globalBuilder, Data } from './src/main/ets/components/MainPage';
