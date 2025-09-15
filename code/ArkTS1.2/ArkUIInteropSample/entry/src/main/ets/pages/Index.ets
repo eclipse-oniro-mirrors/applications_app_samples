@@ -14,9 +14,9 @@
  * limitations under the License.
  */
  
-import { Entry, Text, Column, Component, Button, ClickEvent, compatibleWrappedBuilder } from '@ohos.arkui.component';
+import { Entry, Text, Column, Component, Scroll, Button, ClickEvent, compatibleWrappedBuilder } from '@ohos.arkui.component';
 import { State, Link, Provide, StorageLink } from '@ohos.arkui.stateManagement';
-import { DynamicComp1, DynamicComp2, DynamicComp3, DynamicComp4, myBuilder, globalBuilder } from 'har_dynamic';
+import { DynamicComp1, DynamicComp2, DynamicComp3, DynamicComp4, DynamicComp5, myBuilder, globalBuilder } from 'har_dynamic';
 import hilog from '@ohos.hilog';
 
 @Entry
@@ -61,12 +61,15 @@ struct Child {
   @Link dateLink: Date;
 
   build() {
-    Column(){
-      DynamicComp1({ stateVar: this.primLink, propVar: this.primLink, linkVar: this.primLink,
-        provideVar: this.primLink, regVar: this.primLink})
-      DynamicComp2({ stateVar: this.arrLink, linkVar: this.arrLink, provideVar: this.arrLink, regVar: this.arrLink})
-      DynamicComp3({ stateVar: this.setLink, linkVar: this.setLink, provideVar: this.setLink, regVar: this.setLink})
-      DynamicComp4({ stateVar: this.dateLink, linkVar: this.dateLink, provideVar: this.dateLink, regVar: this.dateLink})
-    }
+    Scroll(){
+      Column(){
+        DynamicComp1({ stateVar: this.primLink, propVar: this.primLink, linkVar: this.primLink,
+          provideVar: this.primLink, regVar: this.primLink})
+        DynamicComp2({ stateVar: this.arrLink, linkVar: this.arrLink, provideVar: this.arrLink, regVar: this.arrLink})
+        DynamicComp3({ stateVar: this.setLink, linkVar: this.setLink, provideVar: this.setLink, regVar: this.setLink})
+        DynamicComp4({ stateVar: this.dateLink, linkVar: this.dateLink, provideVar: this.dateLink, regVar: this.dateLink})
+        DynamicComp5()
+      }
+    }.width('100%')
   }
 }

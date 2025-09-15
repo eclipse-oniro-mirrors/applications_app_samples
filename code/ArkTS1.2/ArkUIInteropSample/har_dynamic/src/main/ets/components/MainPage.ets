@@ -1,4 +1,4 @@
-/*
+import { MainPage01 } from 'har_static'/*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -127,6 +127,17 @@ export struct DynamicComp4 {
         Text(`linkVar: ${this.linkVar}`)
         Text(`provideVar: ${this.provideVar}`)
         Text(`regVar: ${this.regVar}`)
+      }
+    }
+  }
+}
+
+@Component
+export struct DynamicComp5{
+  build(){
+    Row(){
+      Column(){
+        MainPage01()
       }
     }
   }

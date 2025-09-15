@@ -20,5 +20,7 @@
   "main": "Index.ets",
   "author": "",
   "license": "Apache-2.0",
-  "dependencies": {}
+  "dependencies": {
+    'har_static': 'file:../har_static'
+  }
 }
