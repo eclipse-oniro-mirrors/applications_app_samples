@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 'use static';
 import { Entry, Text, Column, Component, Scroll, Button, ClickEvent, compatibleWrappedBuilder } from '@ohos.arkui.component';
 import { State, Link, Provide, StorageLink } from '@ohos.arkui.stateManagement';
