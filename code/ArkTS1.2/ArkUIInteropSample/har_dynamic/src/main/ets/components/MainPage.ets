@@ -1,4 +1,4 @@
-import { MainPage01 } from 'har_static'/*
+/*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,8 @@ import { MainPage01 } from 'har_static'/*
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+ import { MainPage01 } from 'har_static'
  
 export class Data {
   public a: string;

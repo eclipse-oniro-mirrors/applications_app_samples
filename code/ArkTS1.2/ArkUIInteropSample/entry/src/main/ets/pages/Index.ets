@@ -12,9 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+ 'use static';
  
-'use static';
-import { Entry, Text, Column, Component, Button, ClickEvent, compatibleWrappedBuilder } from '@ohos.arkui.component';
+import { Entry, Text, Column, Component, Scroll, Button, ClickEvent, compatibleWrappedBuilder } from '@ohos.arkui.component';
 import { State, Link, Provide, StorageLink } from '@ohos.arkui.stateManagement';
 import { DynamicComp1, DynamicComp2, DynamicComp3, DynamicComp4, DynamicComp5, myBuilder, globalBuilder } from 'har_dynamic';
 import hilog from '@ohos.hilog';
