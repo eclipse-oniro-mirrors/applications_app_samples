@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "page_show",
+      "value": "page from package"
+    },
+	{
+      "name": "imageresizable_product_click_toast",
+      "value": "已售磬！"
+    },
+    {
+      "name": "imageresizable_product_width",
+      "value": "90%"
+    }
+  ]
+}
