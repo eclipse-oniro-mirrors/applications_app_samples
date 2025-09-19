@@ -14,10 +14,9 @@
 
 使用说明
 
-1. 在主界面，点击蓝色按钮"provideStr：provideVar"以及"storageLink:storageVar"。
-    * 下面粉色按钮中的数据会随之改变。(其他)
-2.  在主界面，点击粉色按钮"provideStr：provideVar",蓝色按钮的数据会变为最初，点击粉色按钮"storageLink:storageVar",蓝色按钮的数据也会同步增加。
-    * 蓝色按钮(provideStr：provideVar)的数据会变为最初，蓝色按钮(storageLink:storageVar)的数据也会同步增加。
+1. 在主界面，点击蓝色按钮(provideStr：provideVar)以及(storageLink:storageVar)。
+    * 下方按钮中的数据会随之改变。(其他)
+2.  在主界面，点击粉色按钮(provideStr：provideVar)上方蓝色按钮的数据会变为最初，点击粉色按钮(storageLink:storageVar),上方蓝色按钮的数据也会同步增加。
 
 ### 工程目录
 
