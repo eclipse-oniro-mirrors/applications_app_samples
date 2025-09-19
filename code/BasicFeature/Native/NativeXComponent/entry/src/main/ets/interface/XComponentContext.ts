@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,12 +13,13 @@
  * limitations under the License.
  */
 
-import abilityTest1 from './XComponentAbility1.test'
-import abilityTest2 from './XComponentAbility2.test'
-import abilityTest3 from './XComponentAbility3.test'
+export default interface XComponentContext {
+  drawPatternX(): void;
 
-export default function testsuite() {
-  abilityTest1()
-  abilityTest2()
-  abilityTest3()
-}
+  getStatusX(): XComponentContextStatus;
+};
+
+type XComponentContextStatus = {
+  hasDraw: boolean,
+  hasChangeColor: boolean,
+};
