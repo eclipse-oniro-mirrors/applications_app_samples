@@ -38,8 +38,10 @@ har_static/src/ets/
 ### 具体实现
 
 * 1.2调用1.1: [index](entry/src/main/ets/pages/Index.ets)
-    * 使用child子组件来将引入的har_dyanmic(1.1har包)的组件展示初始化，在child使用link来初始化数据
-    * 在index页面Parent父组件将数据初始化并传递给Child子组件完成数据展示
+    * 将1.1har包的组件在1.1har包中的index.ets文件中导出，然后在1.2oh-package.json5文件中添加依赖，然后在index页面里导入
+    * 在1.2的index页面将数据初始化传递给1.2的导入的组件完成1.2调用1.1har包的场景
+* 1.1调用1.2: [index](har_dynamic/src/main/ets/components/MainPage.ets)
+    * 将har_static（1.2har包）的组件在1.2har包中的index.ets文件中导出，然后在1.1(har_dynamic包)的oh-package.json5文件中添加依赖，然后在1.1(har_dynamic包)的ManiPage.ets页面导入并作为页面子组件使用然后导出给Entry下1.2Index.ets中导入使用，完成1.2->1.1->1.2的嵌套场景
 * 1.1har包 har_dynamic包 源码参考: [MainPage](har_dynamic/src/main/ets/components/MainPage.ets)
 * 1.2har包 harStatic包 源码参考: [MainPage](har_static/src/main/ets/components/MainPage.ets)
     * (1.1har包)将不同类型的数据class、Set、Map、Date做成组件，然后在har_dynamic下面的index里导出
