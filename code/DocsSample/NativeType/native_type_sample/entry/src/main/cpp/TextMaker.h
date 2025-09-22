@@ -13,5 +13,17 @@
  * limitations under the License.
  */
 
-export const createNativeSwiperNode: (content: Object) =>void;
-export const createNativeTextNode: (content: Object) =>void;
+#ifndef NATIVE_TYPE_SAMPLE_TEXTMAKER_H
+#define NATIVE_TYPE_SAMPLE_TEXTMAKER_H
+
+#include "manager.h"
+
+class TextMaker {
+public:
+    TextMaker(){};
+    ~TextMaker(){};
+
+    static ArkUI_NodeHandle createTextPage();
+};
+
+#endif // NATIVE_TYPE_SAMPLE_SWIPERMAKER_H
