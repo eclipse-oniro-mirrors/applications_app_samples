@@ -13,9 +13,26 @@
  * limitations under the License.
  */
 
-export interface Route {
-  title: string;
-  name: string;
-  items?: Route[];
-  description?: ResourceStr;
+import entry from 'libentry.so';
+import { NodeContent } from '@kit.ArkUI';
+
+@Component
+export struct RefreshList {
+  private slot: NodeContent = new NodeContent();
+
+  build() {
+    NavDestination() {
+      Column() {
+        ContentSlot(this.slot)
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 })
+    }
+    .backgroundColor($r('sys.color.comp_background_focus'))
+    .title($r('app.string.RefreshList_title'))
+    .onAppear(() => {
+      entry.RefreshList(this.slot);
+    })
+  }
 }

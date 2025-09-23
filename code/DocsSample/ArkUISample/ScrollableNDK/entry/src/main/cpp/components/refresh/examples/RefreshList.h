@@ -13,9 +13,18 @@
  * limitations under the License.
  */
 
-export interface Route {
-  title: string;
-  name: string;
-  items?: Route[];
-  description?: ResourceStr;
-}
+#ifndef SCROLLABLENDK_EXAMPLES_REFRESH_LIST_H
+#define SCROLLABLENDK_EXAMPLES_REFRESH_LIST_H
+
+#include <napi/native_api.h>
+
+namespace ScrollableNDK::Examples {
+
+/** Refresh + List 组合示例 */
+struct RefreshListImpl {
+    static napi_value NAPI(napi_env env, napi_callback_info info);
+};
+
+} // namespace ScrollableNDK::Examples
+
+#endif // SCROLLABLENDK_EXAMPLES_REFRESH_LIST_H
