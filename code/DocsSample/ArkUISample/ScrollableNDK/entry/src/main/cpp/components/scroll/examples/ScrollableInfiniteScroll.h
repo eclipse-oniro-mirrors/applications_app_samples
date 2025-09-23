@@ -13,9 +13,17 @@
  * limitations under the License.
  */
 
-export interface Route {
-  title: string;
-  name: string;
-  items?: Route[];
-  description?: ResourceStr;
-}
+#ifndef SCROLLABLENDK_EXAMPLES_SCROLLABLE_INFINITE_SCROLL_H
+#define SCROLLABLENDK_EXAMPLES_SCROLLABLE_INFINITE_SCROLL_H
+
+#include "napi/native_api.h"
+
+namespace ScrollableNDK::Examples {
+
+struct ScrollableInfiniteScrollImpl {
+    static napi_value NAPI(napi_env env, napi_callback_info info);
+};
+
+} // namespace ScrollableNDK::Examples
+
+#endif // SCROLLABLENDK_EXAMPLES_SCROLLABLE_INFINITE_SCROLL_H
