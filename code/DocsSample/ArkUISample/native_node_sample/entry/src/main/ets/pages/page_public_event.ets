@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the "License")
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -13,10 +13,22 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test';
-import PublicTest from './Public.test';
+import Napi from 'libentry.so';
+import { NodeContent } from '@kit.ArkUI';
 
-export default function testsuite() {
-  abilityTest();
-  PublicTest();
+@Entry
+@Component
+struct PublicComponent {
+  private nodeContent = new NodeContent();
+  aboutToAppear() {
+    // 通过C-API创建节点，并添加到管理器nodeContent上
+    Napi.CreatePublicNativeNode(this.nodeContent);
+  }
+  build() {
+    Column() {
+      ContentSlot(this.nodeContent)
+    }
+    .width('100%')
+    .height('100%')
+  }
 }
