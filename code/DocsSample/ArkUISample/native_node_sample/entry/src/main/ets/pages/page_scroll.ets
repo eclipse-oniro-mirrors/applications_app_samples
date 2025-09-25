@@ -13,10 +13,22 @@
  * limitations under the License.
  */
 
-export const createNativeTextNode: (content: Object) =>void;
-export const createSwiperNativeNode: (content: Object) =>void;
-export const createWaterFlowNativeNode: (content: Object) => void;
-export const createGridNativeNode: (content: Object) => void;
-export const createScrollNativeNode: (content: Object) => void;
-export const createRefreshNativeNode: (content: Object) => void;
-export const createListNativeNode: (content: Object) => void;
+import Napi from 'libentry.so';
+import { NodeContent } from '@kit.ArkUI';
+
+@Entry
+@Component
+struct Index {
+  private nodeContent = new NodeContent();
+  aboutToAppear() {
+    // 通过C-API创建节点，并添加到管理器nodeContent上
+    Napi.createScrollNativeNode(this.nodeContent);
+  }
+  build() {
+    Column() {
+      ContentSlot(this.nodeContent)
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
