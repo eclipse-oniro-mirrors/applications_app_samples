@@ -43,13 +43,13 @@ class EntryAbility extends UIAbility {
       windowStage.loadContent('pages/Index', (err: BusinessError<void> | null): void => {
         hilog.info(0x0000, 'testTag', 'loadContent entering');
         if (err && err.code) {
-          hilog.info(0x0000, 'testTag', 'loadContent error');
+          hilog.error(0x0000, 'testTag', 'loadContent error');
           return;
         }
         hilog.info(0x0000, 'testTag', 'loadContent ok');
       });
     } catch (e: Error) {
-      hilog.info(0x0000, 'testTag', 'loadContent catch error：-----------' + e.message);
+      hilog.error(0x0000, 'testTag', 'loadContent catch error：-----------' + e.message);
     }
   }
 }

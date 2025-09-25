@@ -60,10 +60,14 @@ struct MyStateSample {
 
   aboutToAppear(): void {
     this.images = [
-      $r('app.media.custom_reusable_text_expand_img1'),
-      $r('app.media.custom_reusable_text_expand_img2'),
-      $r('app.media.custom_reusable_text_expand_img3'),
-      $r('app.media.custom_reusable_text_expand_img4')
+      $r('https://raw.gitcode.com/openharmony/applications_app_samples/raw/OpenHarmony_feature_20250702/code/ArkTS1.2/' +
+        'InformationSample/entry/src/main/resources/base/media/custom_reusable_text_expand_img1.png'),
+      $r('https://raw.gitcode.com/openharmony/applications_app_samples/raw/OpenHarmony_feature_20250702/code/ArkTS1.2/' +
+        'InformationSample/entry/src/main/resources/base/media/custom_reusable_text_expand_img2.png'),
+      $r('https://raw.gitcode.com/openharmony/applications_app_samples/raw/OpenHarmony_feature_20250702/code/ArkTS1.2/' +
+        'InformationSample/entry/src/main/resources/base/media/custom_reusable_text_expand_img3.png'),
+      $r('https://raw.gitcode.com/openharmony/applications_app_samples/raw/OpenHarmony_feature_20250702/code/ArkTS1.2/' +
+        'InformationSample/entry/src/main/resources/base/media/custom_reusable_text_expand_img4.png')
     ];
     this.commentList = [
       new NewsCommentModel(

@@ -66,8 +66,8 @@ import { CompressFileComponent } from './CompressFileComponent';
 import hilog from '@ohos.hilog';
 
 const TAG: string = 'compressFileComponent';
-const LINEAR_GRADIENT_START = 0;
-const LINEAR_GRADIENT_END = 1;
+const LINEAR_GRADIENT_START: double = 0;
+const LINEAR_GRADIENT_END: double = 1;
 
 /**
  * 功能描述：本示例主要介绍使用@ohos.zlib模块提供的zlib.compressFile接口对沙箱目录中的文件进行压缩操作。

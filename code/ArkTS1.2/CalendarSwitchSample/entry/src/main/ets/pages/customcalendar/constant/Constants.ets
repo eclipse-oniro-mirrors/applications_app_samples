@@ -52,8 +52,8 @@ export default class Constants {
   // 一年12个月
   public static readonly MONTHS_NUM: number = 12;
   // 字体粗细设置
-  public static readonly FONT_WEIGHT_FIVE_HUNDRED: number = 500;
-  public static readonly FONT_WEIGHT_EIGHT_HUNDRED: number = 800;
+  public static readonly FONT_WEIGHT_FIVE_HUNDRED: int = 500;
+  public static readonly FONT_WEIGHT_EIGHT_HUNDRED: int = 800;
   // 年视图月份字体大小，粗细
   public static readonly YEAR_VIEW_MONTH_FONT: string = '60px 500';
   // 年视图星期字体大小

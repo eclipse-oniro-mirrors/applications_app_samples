@@ -28,7 +28,7 @@
 import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement';
 import { Entry, Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Row, TextAlign,
   SafeAreaEdge, Visibility, List, ListItem, ForEach, TextOverflow, Image, HorizontalAlign, Progress, ProgressType, Flex,
-  FlexAlign, FlexDirection, SafeAreaType, Stack, Radio, Slider, SliderStyle, SaveButton, SaveDescription, ButtonType,
+  FlexAlign, FlexDirection, SafeAreaType, Stack, Radio, Slider, SliderStyle, ButtonType,
   Scroll, Scroller, BarState, $r, Builder, Blank, Color, ImageFit, TextInput, InputType, Placement, ItemAlign, Divider,
   JSON, DialogAlignment, Resource, JSON, ResourceStr, ImageCompleteEvent, ImageOnCompleteCallback, Margin, $rawfile }
   from '@ohos.arkui.component';
@@ -339,7 +339,7 @@ export struct ImageCompressionComponent {
     const AFTER_COMPRESS_FMT = this.photoMime;
   // 二分压缩图片
     while (left <= right) {
-      const mid = Math.floor((left + right) / 2); // 定义二分搜索范围的中间位置
+      const mid = Math.floor((left + right) / 2).toInt(); // 定义二分搜索范围的中间位置
       imageQuality = packingArray[mid]; // 获取二分中间位置的图片质量值
       // 根据传入的图片质量参数进行packing压缩，返回压缩后的图片文件流数据。
       compressedImageData = await this.packing(sourcePixelMap, (imageQuality * 1) as int, AFTER_COMPRESS_FMT);

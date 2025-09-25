@@ -41,7 +41,8 @@ import {
   RenderingContextSettings,
   CanvasRenderingContext2D,
   Canvas,
-  Color
+  Color,
+  ClickEvent
 } from '@ohos.arkui.component';
 import { State, Link, Watch, PropRef } from '@ohos.arkui.stateManagement';
 import { AnimatorResult, SimpleAnimatorOptions } from '@ohos.animator'
@@ -196,7 +197,7 @@ export struct TabsConcaveCircle {
               .textAlign(TextAlign.Center)
               .width('100%')
           }
-          .onClick(() => {
+          .onClick((e: ClickEvent) => {
             this.getUIContext()?.animateTo({
               duration: this.animateTime
             }, () => {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ResourceStr } from '@ohos.arkui.component'
+import { ResourceStr } from '@ohos.arkui.component';
 
 /**
  * TabBar data type.

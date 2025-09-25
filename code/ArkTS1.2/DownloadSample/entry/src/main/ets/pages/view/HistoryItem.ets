@@ -1,3 +1,4 @@
+'use static';
 /**
  *
  * Copyright (c) 2025 Huawei Device Co., Ltd.
@@ -61,7 +62,7 @@ import {
   MutableState,
   stateOf,
   observableProxy,
-  PropRef,
+  Prop,
   Watch
 } from '@ohos.arkui.stateManagement';
 import hilog from '@ohos.hilog';
@@ -73,7 +74,7 @@ import { downloadFilesData } from '../model/dataType';
 @Component
 export struct HistoryItem {
   // 文件数据
-  @PropRef fileDataInfo: downloadFilesData;
+  @Prop fileDataInfo: downloadFilesData;
 
   build() {
     Row() {

@@ -28,7 +28,7 @@ import { TabsSample } from './TabsSample';
 @Component
 struct MyStateSample {
   build() {
-    Column(undefined) {
+    Column() {
       TabsSample()
     }
   }

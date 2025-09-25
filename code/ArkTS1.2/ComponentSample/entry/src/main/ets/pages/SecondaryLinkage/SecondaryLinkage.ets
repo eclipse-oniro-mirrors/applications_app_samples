@@ -51,12 +51,10 @@ import {
 import hilog from '@ohos.hilog';
 import { Context,UIContext} from '@ohos.arkui.UIContext';
 import { SecondaryLinkExample } from './SecondaryLinkExample';
+
 @Entry
 @Component
 struct SecondaryLinkage {
-  aboutToAppear() {
-
-  }
   build() {
     Column() {
       Row() {

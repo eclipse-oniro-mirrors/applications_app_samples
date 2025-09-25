@@ -55,11 +55,11 @@ import common from '@ohos.app.ability.common'
 import { UIContext } from '@ohos.arkui.UIContext';
 import { Comment } from './model/CommentModel';
 import { CommentView } from './Components/CommentItemView';
-import { Navigation } from './Components/CommentInputAndCameraCapture';
-import { ImageListView } from './Components/ImageListView'
+import { CommentInputAndCameraCapture } from './Components/CommentInputAndCameraCapture';
+import { ImageListView } from './Components/ImageListView';
 import photoAccessHelper from '@ohos.file.photoAccessHelper';
 import dataSharePredicates from '@ohos.data.dataSharePredicates';
-import { BusinessError } from '@ohos.base'
+import { BusinessError } from '@ohos.base';
 
 @Entry
 @Component
@@ -80,7 +80,7 @@ struct MyStateSample {
   build() {
     Scroll() {
       Column() {
-        Navigation({ items: this.commentList })
+        CommentInputAndCameraCapture({ items: this.commentList })
         ForEach(this.commentList, (item: Comment) => {
           Column() {
             Row() {

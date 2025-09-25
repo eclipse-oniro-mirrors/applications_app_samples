@@ -23,10 +23,10 @@ struct Index {
       Tabs() {
         TabContent(){
           ProductWaterFlowPage()
-        }.tabBar('1.2调用1.1')
+        }.tabBar('静态调用动态')
         TabContent(){
           SearchSwiperComponent()
-        }.tabBar('1.1调用1.2')
+        }.tabBar('动态调用静态')
       }.width('100%').height('100%')
     }
   }
