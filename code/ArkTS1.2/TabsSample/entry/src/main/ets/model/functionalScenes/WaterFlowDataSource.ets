@@ -136,7 +136,7 @@ export class WaterFlowDataSource<SceneModuleInfo> implements IDataSource<SceneMo
    * 在指定索引位置增加一个元素
    * @param index
    */
-  public addItem(index: number): void {
+  public addItem(index: int): void {
     this.dataArray.splice(index, 0, this.dataArray[this.dataArray.length]);
     this.notifyDataAdd(index);
   }

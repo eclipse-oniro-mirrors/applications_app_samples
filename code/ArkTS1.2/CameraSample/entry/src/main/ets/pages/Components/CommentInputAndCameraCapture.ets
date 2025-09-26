@@ -54,7 +54,7 @@ import Want from '@ohos.app.ability.Want';
 import image from '@ohos.multimedia.image';
 
 @Component
-export struct Navigation {
+export struct CommentInputAndCameraCapture {
   @Link items: Array<Comment>;
   @State commentContent: string = ''
   @State imagePath: string = '';

@@ -58,7 +58,7 @@ import {
 import { State, Link, MutableState, stateOf, observableProxy, PropRef } from '@ohos.arkui.stateManagement';
 
 import { BigFileCopyConstants } from './BigFileCopyConstants';
-import { common } from '@kit.AbilityKit';
+import common from '@ohos.app.ability.common';
 import fs from '@ohos.file.fs';
 import hilog from '@ohos.hilog';
 import resourceManager from '@ohos.resourceManager';

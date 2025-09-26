@@ -25,7 +25,6 @@
  */
 
 import { Contact } from '../model/Contact';
-import hilog from '@ohos.hilog';
 
 export class ContactManager {
   private static instance: ContactManager = new ContactManager();

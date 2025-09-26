@@ -54,9 +54,6 @@ import { ReusePage } from './ReusePage';
 @Entry
 @Component
 struct HighlyLoaded {
-  aboutToAppear() {
-  }
-
   build() {
     Column() {
       Row() {

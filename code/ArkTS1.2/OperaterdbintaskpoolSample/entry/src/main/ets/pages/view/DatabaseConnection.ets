@@ -68,12 +68,12 @@ class DatabaseConnection {
   public async initRdbStore(context: common.Context): Promise<void> {
     hilog.info(0x0000, 'testTag', 'init rdbStore begin');
     if (!context) {
-      hilog.info(0x0000, 'testTag', 'initRdbStore context is invalid');
+      hilog.error(0x0000, 'testTag', 'initRdbStore context is invalid');
       return;
     }
 
     if (this.rdbStore) {
-      hilog.info(0x0000, 'testTag', 'rdbStore is exist');
+      hilog.error(0x0000, 'testTag', 'rdbStore is exist');
       return;
     }
 
@@ -82,7 +82,7 @@ class DatabaseConnection {
       hilog.info(0x0000, 'testTag', 'getRdbStore succeed');
       await this.createTable();
     } catch (err: Error) {
-      hilog.info(0x0000, 'testTag', `getRdbStore failed, err: ${err}`);
+      hilog.error(0x0000, 'testTag', `getRdbStore failed, err: ${err}`);
       return;
     }
   }
@@ -100,7 +100,7 @@ class DatabaseConnection {
         return;
       }
     } catch (err: Error) {
-      hilog.info(0x0000, 'testTag', `create table failed,  err: ${err}`);
+      hilog.error(0x0000, 'testTag', `create table failed,  err: ${err}`);
       return;
     }
   }
@@ -116,7 +116,7 @@ class DatabaseConnection {
     hilog.info(0x0000, 'testTag', 'query begin');
 
     if (!context) {
-      hilog.info(0x0000, 'testTag', 'context is null or undefined');
+      hilog.error(0x0000, 'testTag', 'context is null or undefined');
       return [] as Contact[];
     }
 
@@ -127,7 +127,7 @@ class DatabaseConnection {
       // 处理查询到的结果数组
       return this.getListFromResultSet(resultSet);
     } catch (err: Error) {
-      hilog.info(0x0000, 'testTag', 'query result error:' + JSON.stringify(err));
+      hilog.error(0x0000, 'testTag', 'query result error:' + JSON.stringify(err));
       return [] as Contact[];
     }
   }
@@ -138,7 +138,7 @@ class DatabaseConnection {
   public async batchInsertData(context: common.Context, array: Array<Contact>): Promise<number> {
     hilog.info(0x0000, 'testTag', 'batch insert begin');
     if (!context) {
-      hilog.info(0x0000, 'testTag', 'context is null or undefined');
+      hilog.error(0x0000, 'testTag', 'context is null or undefined');
     }
 
     if (!this.rdbStore) {
@@ -173,7 +173,7 @@ class DatabaseConnection {
       hilog.info(0x0000, 'testTag', `batchInsert:${row}`);
       return row as number;
     }).catch((err: Error)=>{
-      hilog.info(0x0000, 'testTag', 'batchInsert, err: ' + err);
+      hilog.error(0x0000, 'testTag', 'batchInsert, err: ' + err);
       return 0 as number;
     })
     return 0 as number;
@@ -213,7 +213,7 @@ class DatabaseConnection {
         hilog.info(0x0000, 'testTag', `insert done:${row}`);
         return undefined;
       }).catch((err: Error)=>{
-        hilog.info(0x0000, 'testTag', 'Insert failed, err: ' + err);
+        hilog.error(0x0000, 'testTag', 'Insert failed, err: ' + err);
         return undefined;
       })
     }
@@ -228,11 +228,10 @@ class DatabaseConnection {
       hilog.info(0x0000, 'testTag', 'context is null or undefined');
     }
 
-
     this.rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
 
     hilog.info(0x0000, 'testTag', `delete name: ${contact.name}`);
-    await (this.rdbStore as relationalStore.RdbStore).execute('DELETE FROM contact WHERE name = ?;', [contact.name] )
+    await (this.rdbStore as relationalStore.RdbStore).execute('DELETE FROM contact WHERE name = ?;', [contact.name]);
   }
 
   /**

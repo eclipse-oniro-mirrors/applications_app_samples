@@ -54,15 +54,13 @@ import { CalendarView } from './view/CalendarView';
 @Entry
 @Component
 struct CustomCalendar {
-  aboutToAppear() {
-  }
 
   build() {
     Column() {
       Row() {
         Text('← ').fontSize(20)
           .onClick((e: ClickEvent) => {
-            this.getUIContext().getRouter().back()
+            this.getUIContext().getRouter().back();
           }).width('100%')
       }.height('5%')
       CalendarView();

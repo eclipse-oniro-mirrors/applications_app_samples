@@ -73,12 +73,6 @@ struct Index {
         tabsMenu: this.tabsMenu,
         selectIndex: this.currentIndex,
       })
-      Divider()
-        .margin(30)
-      TabsConcaveCircle({
-        tabsMenu: this.tabsMenu,
-        selectIndex: this.currentIndex,
-      });
     }
     .width('100%')
     .height('100%')

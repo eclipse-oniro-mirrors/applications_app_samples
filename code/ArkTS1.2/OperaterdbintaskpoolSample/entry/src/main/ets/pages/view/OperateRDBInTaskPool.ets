@@ -93,7 +93,7 @@ struct OperateRDBInTaskPool {
           this.contactManager.addContact(this.routerData)
           this.dataArray = this.contactManager.getContacts()
         }).catch((err: Error)=>{
-          hilog.info(0x0000, 'testTag', 'taskPoolExecuteInsert, err: ' + err)
+          hilog.error(0x0000, 'testTag', 'taskPoolExecuteInsert, err: ' + err)
         })
       }
 
@@ -104,7 +104,7 @@ struct OperateRDBInTaskPool {
           this.contactManager.updateContact(this.routerData)
           this.dataArray = this.contactManager.getContacts()
         }).catch((err: Error)=>{
-          hilog.info(0x0000, 'testTag', 'taskPoolExecuteUpdate, err: ' + err)
+          hilog.error(0x0000, 'testTag', 'taskPoolExecuteUpdate, err: ' + err)
         })
       }
 
@@ -115,7 +115,7 @@ struct OperateRDBInTaskPool {
           this.contactManager.deleteContact(this.routerData)
           this.dataArray = this.contactManager.getContacts()
         }).catch((err: Error)=>{
-          hilog.info(0x0000, 'testTag', 'taskPoolExecuteDelete, err: ' + err)
+          hilog.error(0x0000, 'testTag', 'taskPoolExecuteDelete, err: ' + err)
         })
       }
     },1)
@@ -131,10 +131,10 @@ struct OperateRDBInTaskPool {
           // 数据库查看成功
           hilog.info(0x0000, 'testTag', 'taskPoolExecuteQuery, arr: ' + JSON.stringify(arr))
         }).catch((err: Error)=>{
-          hilog.info(0x0000, 'testTag', 'taskPoolExecuteQuery, err: ' + err)
+          hilog.error(0x0000, 'testTag', 'taskPoolExecuteQuery, err: ' + err)
         })
       }).catch((err:Error)=>{
-      hilog.info(0x0000, 'testTag', 'taskPoolExecuteBatchInsert, err: ' + err)
+      hilog.error(0x0000, 'testTag', 'taskPoolExecuteBatchInsert, err: ' + err)
     })
   }
 

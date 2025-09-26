@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { memo, __memo_context_type, __memo_id_type } from "@ohos.arkui.stateManagement"
+import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement';
 import { Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent, Entry, Tabs, TabContent,
   CustomBuilder, ComponentContent, SubTabBarStyle, BottomTabBarStyle, Resource, TabBarOptions, JSON, Flex, FlexDirection,
   FlexAlign, ItemAlign, Divider, TabsOptions, Row, ForEach, Position, Builder, Margin, BarMode,
-  OnTabsAnimationStartCallback,TabsAnimationEvent} from "@ohos.arkui.component"
-import { State, Link, MutableState, stateOf, observableProxy } from "@ohos.arkui.stateManagement"
-import hilog from '@ohos.hilog'
-import { UIContext, Router } from "@ohos.arkui.UIContext"
-import router from "@ohos.router"
+  OnTabsAnimationStartCallback,TabsAnimationEvent} from '@ohos.arkui.component';
+import { State, Link, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement';
+import hilog from '@ohos.hilog';
+import { UIContext, Router } from '@ohos.arkui.UIContext';
+import router from '@ohos.router';
 
 @Entry
 @Component
@@ -33,7 +33,7 @@ export struct CustomView {
   @State newPage: number = 2
   @State arr: string[] = ['页面1','页面2']
 
-  @Builder tabBuilder(index: number, name: string) {
+  @Builder tabBuilder(index: int, name: string) {
     Column() {
       Row(){
         Text(name)
@@ -90,7 +90,7 @@ export struct CustomView {
       Flex({ direction: FlexDirection.Row, justifyContent: FlexAlign.SpaceAround, alignItems: ItemAlign.Center }) {
         ForEach(this.arr, (item: string, tabBarIndex: number) => {
           // 单独一个TabBar组件
-          this.tabBuilder(tabBarIndex, item)
+          this.tabBuilder(tabBarIndex.toInt(), item)
         })
         if(this.arr.length < 4){
           this.addTab()

@@ -30,8 +30,8 @@ import { Date, Column, Row, VerticalAlign, HorizontalAlign, Image, $r, Text, Spa
   Padding, Component } from '@ohos.arkui.component';
 import { State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement'
 
-const FONT_WEIGHT_FIVE_HUNDRED = 500;
-const FONT_WEIGHT_FOUR_HUNDRED = 400;
+const FONT_WEIGHT_FIVE_HUNDRED: double = 500;
+const FONT_WEIGHT_FOUR_HUNDRED: double = 400;
 
 @Component
 export struct CommentPage {

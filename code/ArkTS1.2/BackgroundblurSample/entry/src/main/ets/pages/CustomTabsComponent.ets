@@ -56,9 +56,9 @@ import {
   TabsController,
   Text,
   ThemeColorMode
-} from '@ohos.arkui.component'
-import { Consume, Link, ObjectLink, PropRef, Provide, State, StorageLink } from '@ohos.arkui.stateManagement'
-import { UIContext } from '@ohos.arkui.UIContext'
+} from '@ohos.arkui.component';
+import { Consume, Link, ObjectLink, PropRef, Provide, State, StorageLink } from '@ohos.arkui.stateManagement';
+import { UIContext } from '@ohos.arkui.UIContext';
 
 /**
  * 功能介绍：自定义的Tabs实现

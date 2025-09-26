@@ -78,26 +78,26 @@ import hilog from '@ohos.hilog';
 import { Context, UIContext } from '@ohos.arkui.UIContext';
 import { Month, MonthDataSource } from '../components/MonthDataSource';
 
-const ELEMENTS_MARGIN_L = 24;
-const ELEMENTS_MARGIN_M = 8;
-const TRANSITION_DURATION = 200;
-const MONDAY = '一';
-const TUESDAY = '二';
-const WEDNESDAY = '三';
-const THURSDAY = '四';
-const FRIDAY = '五';
-const SATURDAY = '六';
-const SUNDAY = '日';
+const ELEMENTS_MARGIN_L: double = 24;
+const ELEMENTS_MARGIN_M: double = 8;
+const TRANSITION_DURATION: double = 200;
+const MONDAY: string = '一';
+const TUESDAY: string = '二';
+const WEDNESDAY: string = '三';
+const THURSDAY: string = '四';
+const FRIDAY: string = '五';
+const SATURDAY: string = '六';
+const SUNDAY: string = '日';
 const WEEK: string[] = [SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY]; // 设置日历周，从周日开始
 const MONTH: string = '月';
 const YEAR: string = '年';
-const MONTHS = 12;
-const JANUARY = 1;
-const WEEK_NUMBER = 7;
-const MONTH_NUMBER = 35;
-const GRID_HEIGHT_L = 360;
-const GRID_HEIGHT_M = 300;
-const ELEMENTS_MARGIN = 12;
+const MONTHS: int = 12;
+const JANUARY: int = 1;
+const WEEK_NUMBER: int = 7;
+const MONTH_NUMBER: int = 35;
+const GRID_HEIGHT_L: double = 360;
+const GRID_HEIGHT_M: double = 300;
+const ELEMENTS_MARGIN: double = 12;
 
 @Entry
 @Component

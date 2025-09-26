@@ -42,7 +42,7 @@ import {
   Padding,
   Component
 } from '@ohos.arkui.component';
-import { State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement'
+import { State, MutableState, stateOf, observableProxy } from '@ohos.arkui.stateManagement';
 
 @Component
 export struct CommentPage {

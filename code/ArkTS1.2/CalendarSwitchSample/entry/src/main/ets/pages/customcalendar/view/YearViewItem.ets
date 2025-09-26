@@ -82,7 +82,7 @@ export struct YearViewItem {
         GridItem() {
           Canvas(monthItem.context)
             .width('100%')
-            .width('100%')
+            .height('100%')
             .onReady(() :void=> {
               // 绘制年视图中一个月的数据
               let isTodayMoth: boolean =
