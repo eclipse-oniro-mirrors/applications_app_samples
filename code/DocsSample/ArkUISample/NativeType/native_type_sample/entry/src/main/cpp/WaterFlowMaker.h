@@ -43,6 +43,7 @@ constexpr int32_t K_DEFAULT_FADING_EDGE = 12;
 // 单分组索引
 constexpr int32_t K_SINGLE_SECTION_INDEX = 0;
 
+// ---- 新增：单分组配置结构体 ----
 struct SingleSectionParams {
     int32_t itemCount = 0;
     int32_t crossCount = 1;

@@ -13,16 +13,22 @@
  * limitations under the License.
  */
 
-#ifndef TEXT_MAKER_H
-#define TEXT_MAKER_H
+import Napi from 'libentry.so';
+import { NodeContent } from '@kit.ArkUI';
 
-#include "manager.h"
-
-class TextMaker {
-public:
-    TextMaker(){};
-    ~TextMaker(){};
-    static ArkUI_NodeHandle CreateNativeNode();
-};
-
-#endif // NATIVE_TYPE_SAMPLE_SWIPERMAKER_H
+@Entry
+@Component
+struct Index {
+  private nodeContent = new NodeContent();
+  aboutToAppear() {
+    // 通过C-API创建节点，并添加到管理器nodeContent上
+    Napi.createScrollNativeNode(this.nodeContent);
+  }
+  build() {
+    Column() {
+      ContentSlot(this.nodeContent)
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
