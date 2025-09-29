@@ -111,7 +111,7 @@ class Calc implements Person {
         hilog.info(0x0000, 'testTag', 'P1 then in thread ' + this.gettid() + '.');
         hilog.info(0x0000, 'testTag', 'P1 then e = ' + e + '.');
         let r: Int = e as Int;
-        resolve(r.unboxed());
+        resolve(r);
       });
       hilog.info(0x0000, 'testTag', 'Promise execute in thread ' + this.gettid() + '.');
     });
