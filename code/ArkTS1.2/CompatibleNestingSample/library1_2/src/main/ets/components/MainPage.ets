@@ -38,7 +38,7 @@ import { Observed, State } from '@ohos.arkui.stateManagement';
 
 const LAYOUT_WEIGHT: number = 1; // 自动分配剩余空间
 const LIST_LENGTH: number = 5;
-const MAX_LINE: number = 1;
+const MAX_LINE: int = 1;
 const SEARCH_INPUT_ID: string = 'searchInput'; // 搜索框ID
 
 // 列表结构对象
