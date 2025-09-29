@@ -13,12 +13,17 @@
  * limitations under the License.
  */
 
-export const createNativeTextNode: (content: Object) =>void;
-export const createSwiperNativeNode: (content: Object) =>void;
-export const createWaterFlowNativeNode: (content: Object) => void;
-export const createGridNativeNode: (content: Object) => void;
-export const createScrollNativeNode: (content: Object) => void;
-export const createRefreshNativeNode: (content: Object) => void;
-export const createListNativeNode: (content: Object) => void;
-export const CreatePublicNativeNode: (content: Object) =>void;
-export const createNativeNodexc: (content: Object, tag: string) => void;
+#ifndef NATIVE_TYPE_SAMPLE_XCOMPONENTMAKER_H
+#define NATIVE_TYPE_SAMPLE_XCOMPONENTMAKER_H
+
+#include "manager.h"
+
+class XComponentMaker {
+public:
+    XComponentMaker(){};
+    ~XComponentMaker(){};
+    
+    static ArkUI_NodeHandle CreateNodeHandle(const std::string &tag);
+};
+
+#endif
