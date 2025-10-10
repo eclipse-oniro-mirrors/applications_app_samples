@@ -46,6 +46,7 @@ import hilog from '@ohos.hilog';
 import { ChamferInfo } from '../../utils/CircleClass';
 import { TabMenusInterfaceIRequired } from '../../types/TabMenusInterface';
 import { TabsRaisedCircleSelect } from './TabsRaisedCircleSelect';
+import { TabItemSelectType } from '../../types/RaisedCircleTypes';
 import { tabsDimensions } from '../../mock/TabsDimensions';
 import { getImageUrl } from '../../utils/Functions';
 

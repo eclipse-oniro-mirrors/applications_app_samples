@@ -82,8 +82,8 @@ const GAP_SPACE: number = 6;
 // 自定义分段按钮'月'Text的宽度
 const CUSTOM_SEGMENT_Button_MONTH_WIDTH: number = 30;
 // 自定义分段按钮选中和未选中的字体粗细
-const FONT_WEIGHT_FOUR_HUNDRED: number = 400;
-const FONT_WEIGHT_FIVE_HUNDRED: number = 500;
+const FONT_WEIGHT_FOUR_HUNDRED: int = 400;
+const FONT_WEIGHT_FIVE_HUNDRED: int = 500;
 // 月份数组
 const MONTHS: string[] =
   ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
