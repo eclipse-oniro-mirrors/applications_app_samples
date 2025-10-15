@@ -13,5 +13,6 @@
 * limitations under the License.
 */
 
-{
-}
+// [Start index_image_classification_runDemo]
+export const runDemo: (a: number[], b:Object) => Array<number>;
+// [End index_image_classification_runDemo]

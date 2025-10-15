@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2025 Huawei Device Co., Ltd.
+* Copyright (c) 2025 Hunan OpenValley Digital Industry Development Co., Ltd.
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
 * You may obtain a copy of the License at
@@ -13,5 +13,11 @@
 * limitations under the License.
 */
 
-{
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+
+const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+
+export function getString(resourceData: Resource): string {
+  let manage = delegator.getAppContext().resourceManager;
+  return manage.getStringSync(resourceData);
 }
