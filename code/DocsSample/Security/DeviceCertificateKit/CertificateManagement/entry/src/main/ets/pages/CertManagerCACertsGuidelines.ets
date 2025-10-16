@@ -12,12 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {
-  installUserCADialogSample,
-  uninstallUserCADialogSample,
-  certDetailDialogSample
-} from '../samples/CertManagerCaDialogSample';
-import { certificateManagerDialogSample } from '../samples/CertManagerDialogSample';
+import { userCASample } from '../samples/CertManagerUserCASample';
+import { getUserCaPathSample } from '../samples/CertManagerGetCAPathSample';
 
 @Entry
 @Component
@@ -29,29 +25,17 @@ struct Index {
       Text(this.message)
         .fontWeight(FontWeight.Bold)
         .fontSize(25)
-      Button($r('app.string.call_certManagerDialogGuidelines'))
+      Button($r('app.string.call_userCASample'))
         .width('70%')
         .onClick(() => {
-          certificateManagerDialogSample();
-          this.message = 'CertManagerDialogGuidelines Success';
+          userCASample();
+          this.message = 'userCASample Success';
         })
-      Button($r('app.string.call_installUserCADialog'))
+      Button($r('app.string.call_getUserCAPathSample'))
         .width('70%')
         .onClick(() => {
-          installUserCADialogSample();
-          this.message = 'installUserCADialogSample Success';
-        })
-      Button($r('app.string.call_uninstallUserCADialog'))
-        .width('70%')
-        .onClick(() => {
-          uninstallUserCADialogSample();
-          this.message = 'uninstallUserCADialogSample Success';
-        })
-      Button($r('app.string.call_certDetailDialog'))
-        .width('70%')
-        .onClick(() => {
-          certDetailDialogSample();
-          this.message = 'certDetailDialogSample Success';
+          getUserCaPathSample();
+          this.message = 'getUserCaPathSample Success';
         })
     }
     .height('100%')
