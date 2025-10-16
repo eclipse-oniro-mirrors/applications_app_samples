@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,51 +15,57 @@
  */
 
 import { ComponentCard } from '../../common/Card';
-import resource from '../../common/resource';
+import { TextMenuController } from '@kit.ArkUI';
+
 
 @Entry
 @Component
-export struct AddSymbolSpanContent {
-  // [Start richEditor_addSymbol]
+export struct DisableMenuItem {
+  // [Start richEditor_disableMenu]
   controller: RichEditorController = new RichEditorController();
   options: RichEditorOptions = { controller: this.controller };
-  // [StartExclude richEditor_addSymbol]
+
+  aboutToAppear(): void {
+    // 禁用搜索和翻译菜单
+    TextMenuController.disableMenuItems([TextMenuItemId.SEARCH, TextMenuItemId.TRANSLATE])
+  }
+
+  aboutToDisappear(): void {
+    // 恢复系统服务菜单
+    TextMenuController.disableMenuItems([])
+  }
+  // [End richEditor_disableMenu]
 
   build() {
     NavDestination() {
       Column({ space: 12 }) {
         ComponentCard() {
-          // [EndExclude richEditor_addSymbol]
+          // [Start richEditor_disableMenu]
           RichEditor(this.options)
             .onReady(() => {
-              this.controller.addTextSpan(resource.resourceToString($r('app.string.AddSymbolSpanContent_Text_1')), {
-                style: {
-                  fontColor: Color.Black,
-                  fontSize: 15
-                }
-              })
-            })
-            .width(300)
-            .height(100)
-          Button($r('app.string.AddSymbolSpanContent_Button_1'), {
-            buttonStyle: ButtonStyleMode.NORMAL
-          })
-            .height(30)
-            .fontSize(13)
-            .onClick(() => {
-              this.controller.addSymbolSpan($r('sys.symbol.basketball_fill'), {
+              this.controller.addTextSpan('这是一个RichEditor', {
                 style: {
                   fontSize: 30
                 }
               })
             })
-          // [End richEditor_addSymbol]
+            .height(60)
+            .editMenuOptions({
+              onCreateMenu: (menuItems: Array<TextMenuItem>) => {
+                // menuItems不包含搜索和翻译
+                return menuItems;
+              },
+              onMenuItemClick: (menuItem: TextMenuItem, textRange: TextRange) => {
+                return false
+              }
+            })
+          // [End richEditor_disableMenu]
         }
       }
       .width('100%')
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
-    .title($r('app.string.Add_SymbolSpanContent_title'))
+    .title($r('app.string.Disable_Menu_Item_title'))
   }
 }
