@@ -13,33 +13,23 @@
  * limitations under the License.
  */
 
-import { router } from '@kit.ArkUI'
-interface Ary {
-  path:string,
-  name:string
-}
-@Entry
-@Component
-struct Index {
-  ary:Ary[]=[
-    {
-      name:'SideBarContainer',
-      path:'pages/SideBarContainer'
-    },
-    {
-      name:'TextPickerDialog',
-      path:'pages/TextPickerDialog'
-    },
-  ];
-  build() {
-    Scroll() {
-      Column({ space: 10 }) {
-        ForEach(this.ary,(item:Ary)=>{
-          Button(item.name)
-            .onClick(() => this.getUIContext().getRouter().pushUrl({url:item.path}))
-        },(item:Ary)=>item.name)
-      }
-      .width(300)
-    }
+export class CommonUtils {
+  static sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
+  // [Start scroll_animation]
+  // src/main/ets/common/CommonUtils.ets
+  static scrollAnimation(scroller: Scroller, duration: number, scrollHeight: number): void {
+    scroller.scrollTo({
+      xOffset: 0,
+      yOffset: (scroller.currentOffset().yOffset + scrollHeight),
+      animation: {
+        duration: duration,
+        curve: Curve.Smooth,
+        canOverScroll: false
+      }
+    });
+  }
+  // [End scroll_animation]
 }
+

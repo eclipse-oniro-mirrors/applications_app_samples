@@ -13,33 +13,22 @@
  * limitations under the License.
  */
 
-import { router } from '@kit.ArkUI'
-interface Ary {
-  path:string,
-  name:string
-}
-@Entry
-@Component
-struct Index {
-  ary:Ary[]=[
-    {
-      name:'SideBarContainer',
-      path:'pages/SideBarContainer'
-    },
-    {
-      name:'TextPickerDialog',
-      path:'pages/TextPickerDialog'
-    },
-  ];
-  build() {
-    Scroll() {
-      Column({ space: 10 }) {
-        ForEach(this.ary,(item:Ary)=>{
-          Button(item.name)
-            .onClick(() => this.getUIContext().getRouter().pushUrl({url:item.path}))
-        },(item:Ary)=>item.name)
-      }
-      .width(300)
-    }
+/**
+ * Calculate the snapshot preview pop-up position class
+ */
+export class PopupUtils {
+  static calcPopupCenter(displayWidth: number, displayHeight: number, snapPopupWidth: number,
+    snapPopupHeight: number): Position {
+    return {
+      x: (displayWidth - snapPopupWidth) / 2,
+      y: (displayHeight - snapPopupHeight) / 2
+    };
+  }
+
+  static calcPopupBottomLeft(displayHeight: number, snapPopupHeight: number): Position {
+    return {
+      x: 20,
+      y: displayHeight - snapPopupHeight - 40
+    };
   }
 }
