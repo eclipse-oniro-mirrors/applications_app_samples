@@ -54,7 +54,6 @@ import {
   NestedScrollOptions,
   OnTabsAnimationStartCallback,
   Padding,
-  px2vp,
   Rating,
   RatingOptions,
   Reusable,
