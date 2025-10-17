@@ -13,17 +13,10 @@
  * limitations under the License.
  */
 
-// [Start backup_sample]
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { BackupExtensionAbility, BundleVersion } from '@kit.CoreFileKit';
+const NativeMock: Record<string, Object> = {
+  'add': (a: number, b: number) => {
+    return a + b;
+  },
+};
 
-export default class EntryBackupAbility extends BackupExtensionAbility {
-  async onBackup() {
-    hilog.info(0x0000, 'testTag', 'onBackup ok');
-  }
-
-  async onRestore(bundleVersion: BundleVersion) {
-    hilog.info(0x0000, 'testTag', 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
-  }
-}
-// [End backup_sample]
+export default NativeMock;

@@ -13,17 +13,8 @@
  * limitations under the License.
  */
 
-// [Start backup_sample]
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { BackupExtensionAbility, BundleVersion } from '@kit.CoreFileKit';
+import abilityTest from './Ability.test';
 
-export default class EntryBackupAbility extends BackupExtensionAbility {
-  async onBackup() {
-    hilog.info(0x0000, 'testTag', 'onBackup ok');
-  }
-
-  async onRestore(bundleVersion: BundleVersion) {
-    hilog.info(0x0000, 'testTag', 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
-  }
+export default function testsuite() {
+  abilityTest();
 }
-// [End backup_sample]

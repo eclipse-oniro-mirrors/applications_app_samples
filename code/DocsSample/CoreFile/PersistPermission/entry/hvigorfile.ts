@@ -13,17 +13,9 @@
  * limitations under the License.
  */
 
-// [Start backup_sample]
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { BackupExtensionAbility, BundleVersion } from '@kit.CoreFileKit';
+import { hapTasks } from '@ohos/hvigor-ohos-plugin';
 
-export default class EntryBackupAbility extends BackupExtensionAbility {
-  async onBackup() {
-    hilog.info(0x0000, 'testTag', 'onBackup ok');
-  }
-
-  async onRestore(bundleVersion: BundleVersion) {
-    hilog.info(0x0000, 'testTag', 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
-  }
+export default {
+  system: hapTasks, /* Built-in plugin of Hvigor. It cannot be modified. */
+  plugins: []       /* Custom plugin to extend the functionality of Hvigor. */
 }
-// [End backup_sample]
