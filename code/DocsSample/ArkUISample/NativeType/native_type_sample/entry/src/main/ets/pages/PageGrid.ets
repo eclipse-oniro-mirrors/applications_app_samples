@@ -17,8 +17,7 @@ import { router } from '@kit.ArkUI';
 
 interface ListCategories {
   title: string,
-  url: string,
-  id: string
+  url: string
 }
 
 @Entry
@@ -26,23 +25,15 @@ interface ListCategories {
 struct MenuIndex {
   private items: ListCategories[] =
     [
-      { title: 'Text', url: 'pages/page_text', id: '' },
-      { title: 'Swiper', url: 'pages/page_swiper', id: '' },
-      { title: 'WaterFlow', url: 'pages/page_waterflow', id: '' },
-      { title: 'Grid', url: 'pages/PageGrid', id: '' },
-      { title: 'Scroll', url: 'pages/page_scroll', id: '' },
-      { title: 'Refresh', url: 'pages/page_refresh', id: '' },
-      { title: 'List', url: 'pages/page_list', id: '' },
-      { title: 'Public', url: 'pages/page_public_event', id: 'Public' },
-      { title: 'XComponent', url: 'pages/page_xcomponent', id: '' },
-      { title: 'Form', url: 'pages/page_form', id: '' },
-      { title: 'ImageSpan', url: 'pages/page_imagespan', id: '' },
+      { title: '普通Grid', url: 'pages/grid/PageGridNormal' },
+      { title: '固定行列Grid', url: 'pages/grid/PageGridGetRectByIndex' },
+      { title: '可滚动Grid设置跨行跨列节点', url: 'pages/grid/PageGridIrregularIndexes' },
     ];
 
   build() {
     Scroll(new Scroller()) {
       Column() {
-        Text('native_node_sample')
+        Text('Grid选择页面')
           .fontWeight(FontWeight.Bold)
           .fontSize('20vp')
           .textAlign(TextAlign.Center)
@@ -60,7 +51,6 @@ struct MenuIndex {
                   .width('50%')
                   .padding($r('sys.float.padding_level10'))
                 Text('>')
-                  .id(item.id)
                   .fontSize('25vp')
                   .fontColor(Color.Black)
                   .textAlign(TextAlign.End)
