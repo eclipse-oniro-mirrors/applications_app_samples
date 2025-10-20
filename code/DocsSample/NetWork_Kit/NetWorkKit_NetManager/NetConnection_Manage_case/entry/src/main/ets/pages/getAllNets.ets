@@ -12,16 +12,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start get_net_capabilities_and_get_connection_properties]
+// [Start get_all_registered_networks]
 // 从@kit.NetworkKit中导入connection命名空间。
 import { connection } from '@kit.NetworkKit';
-// [StartExclude get_net_capabilities_and_get_connection_properties]
+// [StartExclude get_all_registered_networks]
 const BUTTON_HEIGHT = 50; // 按钮的高度
 const BUTTON_FONT_SIZE = 20; // 按钮的字体大小
 const BUTTON_RADIUS = 5; // 按钮的圆角半径
 const TEXT_MARGIN_TOP_L = 10; // 长文本的上边距
 
-// [Start construct_singleton_object]
 // 构造单例对象
 export class GlobalContext {
   private static instance: GlobalContext;
@@ -47,15 +46,14 @@ export class GlobalContext {
     this._objects.set(key, objectClass);
   }
 }
-// [End construct_singleton_object]
 
 @Component
 export default struct allNetworksBtn {
-  @Link allNetworksStatus: string;
+  @Link getAllNetsStatus: string;
 
   build() {
     Column() {
-      Button($r('app.string.Get_Connected_Network'))
+      Button($r('app.string.Network_connection_information'))
         .onClick(() => {
           this.getAllNetworks();
         })
@@ -70,16 +68,17 @@ export default struct allNetworksBtn {
   }
 
   // 获取所有注册的网络
-  // [EndExclude get_net_capabilities_and_get_connection_properties]
   getAllNetworks() {
-    // 调用getAllNets,获取所有处于连接状态的网络列表(Array<NetHandle>)。
+    // [EndExclude get_all_registered_networks]
+    // 调用getAllNets,获取所有处于连接状态的网络列表(Array<NetHandle>)
     connection.getAllNets().then((data: connection.NetHandle[]) => {
       console.info('getAllNets get data: ' + JSON.stringify(data));
       if (data) {
-        // [StartExclude get_net_capabilities_and_get_connection_properties]
-        this.allNetworksStatus = 'Retrieved successfully';
+        // [StartExclude get_all_registered_networks]
+        this.getAllNetsStatus = 'Retrieved successfully';
+        // [EndExclude get_all_registered_networks]
         GlobalContext.getContext().netList = data;
-        // [EndExclude get_net_capabilities_and_get_connection_properties]
+        // [StartExclude get_all_registered_networks]
         let itemNumber: Set<connection.NetHandle> = new Set(data);
         let dataNumber = Array.from(itemNumber.values());
         for (let item of dataNumber) {
@@ -93,8 +92,9 @@ export default struct allNetworksBtn {
             console.info('getConnectionProperties get data: ' + JSON.stringify(data));
           });
         }
+        // [EndExclude get_all_registered_networks]
       }
     });
+    // [End get_all_registered_networks]
   }
-  // [End get_net_capabilities_and_get_connection_properties]
 }
