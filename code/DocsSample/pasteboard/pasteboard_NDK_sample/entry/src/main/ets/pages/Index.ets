@@ -13,22 +13,16 @@
  * limitations under the License.
  */
 
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { TestJs } from './PasteboardModel';
-// [start pasteboard_permission]
+import testNapi from 'libentry.so';
 import { BusinessError, pasteboard} from '@kit.BasicServicesKit';
 import { abilityAccessCtrl, common, Permissions } from '@kit.AbilityKit';
 import { preferences } from '@kit.ArkData';
-
 
 const permissions: Permissions[] = ['ohos.permission.READ_PASTEBOARD'];
 const systemPasteboard: pasteboard.SystemPasteboard = pasteboard.getSystemPasteboard();
 const patterns: pasteboard.Pattern[] = [pasteboard.Pattern.URL, pasteboard.Pattern.EMAIL_ADDRESS];
 let dataPreferences: preferences.Preferences | null = null;
-// [StartExclude pasteboard_permission]
-const LOG_DOMAIN = 0x1C04;
-const LOG_TAG = "PBDEMO"
-// [EndExclude pasteboard_permission]
+
 async function isNeedGetPermissionFromUser(): Promise<boolean> {
   try {
     let hasData: boolean = await systemPasteboard.hasData();
@@ -71,22 +65,11 @@ async function isNeedGetPermissionFromUser(): Promise<boolean> {
   };
   return true;
 }
-
-// [StartExclude pasteboard_permission]
 @Entry
 @Component
 struct Index {
   @State data: string = '';
   @State text: string = '';
-  controller: RichEditorController = new RichEditorController();
-  options: RichEditorOptions = { controller: this.controller };
-  scroller:Scroller = new Scroller();
-
-  printLog(content: string): void {
-    hilog.info(LOG_DOMAIN, LOG_TAG, content);
-    this.controller.addTextSpan(content);
-    this.scroller.scrollEdge(Edge.End);
-  }
 
   build() {
     Row() {
@@ -100,7 +83,7 @@ struct Index {
           .height('30')
           .backgroundColor('#f32dc400')
           .onClick(() => {
-            TestJs.setPlainData(this.data);
+            let ret = testNapi.pasteboard_test_set(this.data);
           })
         TextArea().width(300)
           .onChange((value) => {
@@ -115,10 +98,9 @@ struct Index {
           .height('30')
           .backgroundColor('#f32dc400')
           .onClick(() => {
-            // [EndExclude pasteboard_permission]
             const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
             if (!isNeedGetPermissionFromUser()) {
-              console.info('No neded to bring up the permission pop-up window');
+              console.info("No neded to bring up the permission pop-up window");
               return;
             }
             let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
@@ -128,15 +110,7 @@ struct Index {
               for (const status of grantStatus) {
                 if (status === 0) {
                   // 用户授权，可以继续访问目标操作。
-                  // [StartExclude pasteboard_permission]
-                  TestJs.getPlainData(pasteboard.MIMETYPE_TEXT_PLAIN)
-                    .then((ret) => {
-                      this.text = ret;
-                    })
-                    .catch(() => {
-                      this.printLog('get failed.');
-                    });
-                  // [EndExclude pasteboard_permission]
+                  this.text = testNapi.pasteboard_test_get();
                   // 获取当前 ChangeCount
                   let currentChangeCount: number = systemPasteboard.getChangeCount();
                   console.info('Current ChangeCount: ' + currentChangeCount);
@@ -155,7 +129,6 @@ struct Index {
             }).catch((err: BusinessError) => {
               console.error('Failed to request permissions from user. ');
             })
-            // [End pasteboard_permission]
           })
         Text(this.text){
         }.baselineOffset(5)
