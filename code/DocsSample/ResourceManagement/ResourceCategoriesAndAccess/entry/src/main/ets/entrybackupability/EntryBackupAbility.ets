@@ -13,10 +13,19 @@
  * limitations under the License.
  */
 
-// [Start declare_interface]
-import resourceManager from '@ohos.resourceManager';
-export const getFileList: (resmgr: resourceManager.ResourceManager, path: string) => Array<String>;
-export const getRawFileContent: (resmgr: resourceManager.ResourceManager, path: string) => Uint8Array;
-export const getRawFileDescriptor: (resmgr: resourceManager.ResourceManager, path: string) => resourceManager.RawFileDescriptor;
-export const isRawDir: (resmgr: resourceManager.ResourceManager, path: string) => boolean;
-// [End declare_interface]
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { BackupExtensionAbility, BundleVersion } from '@kit.CoreFileKit';
+
+const DOMAIN = 0x0000;
+
+export default class EntryBackupAbility extends BackupExtensionAbility {
+  async onBackup() {
+    hilog.info(DOMAIN, 'testTag', 'onBackup ok');
+    await Promise.resolve();
+  }
+
+  async onRestore(bundleVersion: BundleVersion) {
+    hilog.info(DOMAIN, 'testTag', 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
+    await Promise.resolve();
+  }
+}
