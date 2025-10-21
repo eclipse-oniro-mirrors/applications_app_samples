@@ -12,14 +12,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
 
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
-  }
+// [Start observer_comm]
+import { UIContext, uiObserver } from '@kit.ArkUI';
+
+function callbackFunc(info: uiObserver.RouterPageInfo) {
+  console.info("RouterPageInfo is : " + JSON.stringify(info));
 }
+
+// used in ability context.
+uiObserver.on('routerPageUpdate', this.context, callbackFunc);
+
+// used in UIContext.
+uiObserver.on('routerPageUpdate', this.getUIContext(), callbackFunc);
+// [End observer_comm]

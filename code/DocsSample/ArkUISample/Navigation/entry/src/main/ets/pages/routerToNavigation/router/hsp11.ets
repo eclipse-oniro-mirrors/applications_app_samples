@@ -12,14 +12,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
 
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start router_hsp11]
+// library/src/main/ets/pages/Index.ets
+// library为新建共享包自定义的名字
+@Entry({ routeName: 'myPage' })
+@Component
+export struct MyComponent {
+  build() {
+    Row() {
+      Column() {
+        Text('Library Page')
+          .fontSize(50)
+          .fontWeight(FontWeight.Bold)
+      }
+      .width('100%')
+    }
+    .height('100%')
   }
 }
+// [End router_hsp11]

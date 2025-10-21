@@ -12,14 +12,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
+import { router } from '@kit.ArkUI';
 
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start nav_stack_one]
+@Entry
+@Component
+struct Index {
+  pathStack: NavPathStack = new NavPathStack();
+
+  build() {
+    // 设置NavPathStack并传入Navigation
+    Navigation(this.pathStack) {
+      // ...
+    }.width('100%').height('100%')
+    .title("Navigation， Navigation")
+    .mode(NavigationMode.Stack)
   }
 }
+// [End nav_stack_one]

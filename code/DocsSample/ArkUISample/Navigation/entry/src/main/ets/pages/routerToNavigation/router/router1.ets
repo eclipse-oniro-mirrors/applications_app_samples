@@ -12,14 +12,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
 
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start router_1]
+// Navigation根容器
+@Entry
+@Component
+struct Index {
+  // Navigation创建一个Provide修饰的NavPathStack
+  @Provide('pathStack') pathStack: NavPathStack = new NavPathStack();
+
+  build() {
+    Navigation(this.pathStack) {
+      // ...
+    }
+    .title("Method 1: Navigation")
+    .mode(NavigationMode.Stack)
   }
 }
+
+// Navigation子页面
+@Component
+export struct PageOne {
+  // NavDestination通过Consume获取到
+  @Consume('pathStack') pathStack: NavPathStack;
+
+  build() {
+    NavDestination() {
+      // ...
+    }
+    .title("PageOne")
+  }
+}
+// [End router_1]

@@ -12,14 +12,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
 
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start observer_pageinfo]
+import { uiObserver } from '@kit.ArkUI';
+
+// 页面内的自定义组件
+@Component
+struct MyComponent {
+  aboutToAppear() {
+    let info: uiObserver.RouterPageInfo | undefined = this.queryRouterPageInfo();
+  }
+
+  build() {
+    // ...
   }
 }
+// [End observer_pageinfo]

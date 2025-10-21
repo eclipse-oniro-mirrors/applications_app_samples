@@ -12,14 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
 
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
-  }
-}
+// [Start router_hsp22]
+export { PageInHSP } from "./src/main/ets/pages/PageInHSP"
+// [End router_hsp22]

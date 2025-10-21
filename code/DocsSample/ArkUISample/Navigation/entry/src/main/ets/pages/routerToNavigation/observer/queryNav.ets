@@ -12,14 +12,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
 
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start observer_query]
+import { uiObserver } from '@kit.ArkUI';
+
+@Component
+export struct NavDestinationExample {
+  build() {
+    NavDestination() {
+      MyComponent();
+    }
   }
 }
+
+@Component
+struct MyComponent {
+  navDesInfo: uiObserver.NavDestinationInfo | undefined
+
+  aboutToAppear() {
+    this.navDesInfo = this.queryNavDestinationInfo();
+    console.log('get navDestinationInfo: ' + JSON.stringify(this.navDesInfo))
+  }
+
+  build() {
+    // ...
+  }
+}
+// [End observer_query]

@@ -12,14 +12,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
 
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start life_index]
+@Entry
+@Component
+struct PageOne {
+  aboutToDisappear() {
+  }
+
+  aboutToAppear() {
+  }
+
+  build() {
+    NavDestination() {
+      // ...
+    }
+    .onWillAppear(() => {
+    })
+    .onAppear(() => {
+    })
+    .onWillShow(() => {
+    })
+    .onShown(() => {
+    })
+    .onWillHide(() => {
+    })
+    .onHidden(() => {
+    })
+    .onWillDisappear(() => {
+    })
+    .onDisAppear(() => {
+    })
   }
 }
+// [End life_index]

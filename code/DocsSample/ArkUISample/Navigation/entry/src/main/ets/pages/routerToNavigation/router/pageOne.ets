@@ -12,14 +12,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
 
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start router_page_one]
+// pageOne.ets
+@Entry
+@Component
+struct pageOne {
+  @State message: string = 'This is pageOne';
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.message)
+          .fontSize(50)
+          .fontWeight(FontWeight.Bold)
+        Button('router back to Index', { stateEffect: true, type: ButtonType.Capsule })
+          .width('80%')
+          .height(40)
+          .margin(20)
+          .onClick(() => {
+            this.getUIContext().getRouter().back();
+          })
+      }
+      .width('100%')
+    }
+    .height('100%')
   }
 }
+// [End router_page_one]

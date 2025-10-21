@@ -12,14 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
 
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start router_hsp21]
+@Component
+export struct PageInHSP {
+  build() {
+    NavDestination() {
+      // ...
+    }
   }
 }
+// [End router_hsp21]

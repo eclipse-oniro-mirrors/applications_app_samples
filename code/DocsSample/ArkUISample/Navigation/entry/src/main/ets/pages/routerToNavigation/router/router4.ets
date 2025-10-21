@@ -12,14 +12,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
 
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start router_index]
+// 子页面中的自定义组件
+@Entry
+@Component
+struct CustomNode {
+  pathStack: NavPathStack = new NavPathStack();
+
+  aboutToAppear() {
+    // query navigation info
+    let navigationInfo: NavigationInfo = this.queryNavigationInfo() as NavigationInfo;
+    if (navigationInfo !=  undefined) {
+      this.pathStack = navigationInfo.pathStack ;
+    }
+
+  }
+
+  build() {
+    Row() {
+      Button('Method 4: queryNavigationInfo')
+        .onClick(() => {
+          this.pathStack.pushPath({ name: 'pageTwo' });
+        })
+    }
   }
 }
+// [End router_index]
