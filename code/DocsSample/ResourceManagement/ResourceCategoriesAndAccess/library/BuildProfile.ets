@@ -13,10 +13,17 @@
  * limitations under the License.
  */
 
-// [Start declare_interface]
-import resourceManager from '@ohos.resourceManager';
-export const getFileList: (resmgr: resourceManager.ResourceManager, path: string) => Array<String>;
-export const getRawFileContent: (resmgr: resourceManager.ResourceManager, path: string) => Uint8Array;
-export const getRawFileDescriptor: (resmgr: resourceManager.ResourceManager, path: string) => resourceManager.RawFileDescriptor;
-export const isRawDir: (resmgr: resourceManager.ResourceManager, path: string) => boolean;
-// [End declare_interface]
+export const HAR_VERSION = '1.0.0';
+export const BUILD_MODE_NAME = 'debug';
+export const DEBUG = true;
+export const TARGET_NAME = 'default';
+
+/**
+ * BuildProfile Class is used only for compatibility purposes.
+ */
+export default class BuildProfile { 
+	static readonly HAR_VERSION = HAR_VERSION;
+	static readonly BUILD_MODE_NAME = BUILD_MODE_NAME;
+	static readonly DEBUG = DEBUG;
+	static readonly TARGET_NAME = TARGET_NAME;
+}

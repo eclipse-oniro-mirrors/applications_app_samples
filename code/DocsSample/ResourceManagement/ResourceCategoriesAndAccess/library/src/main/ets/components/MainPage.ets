@@ -13,10 +13,22 @@
  * limitations under the License.
  */
 
-// [Start declare_interface]
-import resourceManager from '@ohos.resourceManager';
-export const getFileList: (resmgr: resourceManager.ResourceManager, path: string) => Array<String>;
-export const getRawFileContent: (resmgr: resourceManager.ResourceManager, path: string) => Uint8Array;
-export const getRawFileDescriptor: (resmgr: resourceManager.ResourceManager, path: string) => resourceManager.RawFileDescriptor;
-export const isRawDir: (resmgr: resourceManager.ResourceManager, path: string) => boolean;
-// [End declare_interface]
+@Component
+export struct MainPage {
+  @State message: string = 'Hello World';
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.message)
+          .fontSize($r('app.float.page_text_font_size'))
+          .fontWeight(FontWeight.Bold)
+          .onClick(() => {
+            this.message = 'Welcome';
+          })
+      }
+      .width('100%')
+    }
+    .height('100%')
+  }
+}

@@ -13,10 +13,15 @@
  * limitations under the License.
  */
 
-// [Start declare_interface]
-import resourceManager from '@ohos.resourceManager';
-export const getFileList: (resmgr: resourceManager.ResourceManager, path: string) => Array<String>;
-export const getRawFileContent: (resmgr: resourceManager.ResourceManager, path: string) => Uint8Array;
-export const getRawFileDescriptor: (resmgr: resourceManager.ResourceManager, path: string) => resourceManager.RawFileDescriptor;
-export const isRawDir: (resmgr: resourceManager.ResourceManager, path: string) => boolean;
-// [End declare_interface]
+{
+  "module": {
+    "name": "library_test",
+    "type": "feature",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false
+  }
+}

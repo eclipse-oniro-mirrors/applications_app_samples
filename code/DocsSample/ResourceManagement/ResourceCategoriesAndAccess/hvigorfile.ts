@@ -13,10 +13,9 @@
  * limitations under the License.
  */
 
-// [Start declare_interface]
-import resourceManager from '@ohos.resourceManager';
-export const getFileList: (resmgr: resourceManager.ResourceManager, path: string) => Array<String>;
-export const getRawFileContent: (resmgr: resourceManager.ResourceManager, path: string) => Uint8Array;
-export const getRawFileDescriptor: (resmgr: resourceManager.ResourceManager, path: string) => resourceManager.RawFileDescriptor;
-export const isRawDir: (resmgr: resourceManager.ResourceManager, path: string) => boolean;
-// [End declare_interface]
+import { appTasks } from '@ohos/hvigor-ohos-plugin';
+
+export default {
+  system: appTasks, /* Built-in plugin of Hvigor. It cannot be modified. */
+  plugins: []       /* Custom plugin to extend the functionality of Hvigor. */
+}
