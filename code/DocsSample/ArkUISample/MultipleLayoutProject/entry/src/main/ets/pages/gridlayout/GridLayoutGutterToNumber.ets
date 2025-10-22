@@ -12,18 +12,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import abilityTest from './Ability.test';
-import RelativeContainerLayout from './RelativeContainerLayout.test';
-import StackLayout from './StackLayout.test';
-import LinearLayout from './LinearLayout.test';
-import FlexLayout from './FlexLayout.test';
-import GridLayout from './GridLayout.test';
 
-export default function testsuite() {
-  abilityTest();
-  RelativeContainerLayout();
-  StackLayout();
-  LinearLayout();
-  FlexLayout();
-  GridLayout();
+@Entry
+@Component
+struct GridLayoutGutterToNumber {
+  @State bgColors: ResourceColor[] =
+    ['rgb(213,213,213)', 'rgb(150,150,150)', 'rgb(0,74,175)', 'rgb(39,135,217)', 'rgb(61,157,180)', 'rgb(23,169,141)',
+      'rgb(255,192,0)'];
+
+  build() {
+    GridRow({ gutter: 10 }) {
+      ForEach(this.bgColors, (item: ResourceColor, index?: number | undefined) => {
+        GridCol({ span: 1 }) {
+          Row() {
+            Text(`${index}`)
+          }.width('100%').height('50')
+        }.backgroundColor(item)
+      })
+    }
+    .height(200)
+    .border({ color: 'rgb(39,135,217)', width: 2 })
+  }
 }
