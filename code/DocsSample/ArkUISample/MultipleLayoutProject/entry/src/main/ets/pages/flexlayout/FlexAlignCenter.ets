@@ -12,14 +12,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "phone"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+
+@Entry
+@Component
+struct FlexAlignCenter {
+  build() {
+    Flex({ justifyContent: FlexAlign.Center }) {
+      Text('1').width('20%').height(50).backgroundColor('#F5DEB3')
+      Text('2').width('20%').height(50).backgroundColor('#D2B48C')
+      Text('3').width('20%').height(50).backgroundColor('#F5DEB3')
+    }
+    .width('90%')
+    .padding({ top: 10, bottom: 10 })
+    .backgroundColor('#AFEEEE')
   }
 }

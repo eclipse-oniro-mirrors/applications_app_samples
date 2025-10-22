@@ -12,14 +12,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "phone"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+
+@Entry
+@Component
+struct FlexShrink {
+  build() {
+    Flex({ direction: FlexDirection.Row }) {
+      Text('flexShrink(3)')
+        .flexShrink(3)
+        .width(200)
+        .height(100)
+        .backgroundColor('#F5DEB3')
+
+      Text('no flexShrink')
+        .width(200)
+        .height(100)
+        .backgroundColor('#D2B48C')
+
+      Text('flexShrink(2)')
+        .flexShrink(2)
+        .width(200)
+        .height(100)
+        .backgroundColor('#F5DEB3')
+    }.width(400).height(120).padding(10).backgroundColor('#AFEEEE')
   }
 }

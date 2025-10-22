@@ -12,14 +12,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "phone"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+
+@Entry
+@Component
+struct FlexGrow {
+  build() {
+    Flex() {
+      Text('flexGrow(2)')
+        .flexGrow(2)
+        .width(100)
+        .height(100)
+        .backgroundColor('#F5DEB3')
+      Text('flexGrow(3)')
+        .flexGrow(3)
+        .width(100)
+        .height(100)
+        .backgroundColor('#D2B48C')
+
+      Text('no flexGrow')
+        .width(100)
+        .height(100)
+        .backgroundColor('#F5DEB3')
+    }.width(420).height(120).padding(10).backgroundColor('#AFEEEE')
   }
 }
