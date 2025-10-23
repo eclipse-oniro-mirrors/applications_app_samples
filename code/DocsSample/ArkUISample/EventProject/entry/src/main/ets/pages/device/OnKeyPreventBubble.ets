@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-// [Start listen_response_key_event]
+// [Start OnKeyPreventBubble]
 @Entry
 @Component
-export struct OnKey {
+export struct OnKeyPreventBubble {
   @State buttonText: string = '';
   @State buttonType: string = '';
   @State columnText: string = '';
@@ -27,45 +27,49 @@ export struct OnKey {
     NavDestination() {
       Column({ space: 12 }) {
         // [EndExclude listen_response_key_event]
-        Column() {
-          Button('onKeyEvent')
-            .defaultFocus(true)
-            .width(140).height(70)
-            .onKeyEvent((event?: KeyEvent) => { // 给Button设置onKeyEvent事件
-              if(event){
-                if (event.type === KeyType.Down) {
-                  this.buttonType = 'Down';
-                }
-                if (event.type === KeyType.Up) {
-                  this.buttonType = 'Up';
-                }
-                this.buttonText = 'Button: \n' +
-                  'KeyType:' + this.buttonType + '\n' +
-                  'KeyCode:' + event.keyCode + '\n' +
-                  'KeyText:' + event.keyText;
-              }
-            })
-
-          Divider()
-          Text(this.buttonText).fontColor(Color.Green)
-
-          Divider()
-          Text(this.columnText).fontColor(Color.Red)
-        }.width('100%').height('100%').justifyContent(FlexAlign.Center)
-        .onKeyEvent((event?: KeyEvent) => { // 给父组件Column设置onKeyEvent事件
+    Column() {
+      Button('onKeyEvent')
+        .defaultFocus(true)
+        .width(140).height(70)
+        .onKeyEvent((event?: KeyEvent) => {
+          // 通过stopPropagation阻止事件冒泡
           if(event){
+            if(event.stopPropagation){
+              event.stopPropagation();
+            }
             if (event.type === KeyType.Down) {
-              this.columnType = 'Down';
+              this.buttonType = 'Down';
             }
             if (event.type === KeyType.Up) {
-              this.columnType = 'Up';
+              this.buttonType = 'Up';
             }
-            this.columnText = 'Column: \n' +
+            this.buttonText = 'Button: \n' +
               'KeyType:' + this.buttonType + '\n' +
               'KeyCode:' + event.keyCode + '\n' +
               'KeyText:' + event.keyText;
           }
         })
+
+      Divider()
+      Text(this.buttonText).fontColor(Color.Green)
+
+      Divider()
+      Text(this.columnText).fontColor(Color.Red)
+    }.width('100%').height('100%').justifyContent(FlexAlign.Center)
+    .onKeyEvent((event?: KeyEvent) => { // 给父组件Column设置onKeyEvent事件
+      if(event){
+        if (event.type === KeyType.Down) {
+          this.columnType = 'Down';
+        }
+        if (event.type === KeyType.Up) {
+          this.columnType = 'Up';
+        }
+        this.columnText = 'Column: \n' +
+          'KeyType:' + this.columnType + '\n' +
+          'KeyCode:' + event.keyCode + '\n' +
+          'KeyText:' + event.keyText;
+      }
+    })
         // [StartExclude listen_response_key_event]
       }
       .width('100%')
@@ -77,4 +81,4 @@ export struct OnKey {
     // [EndExclude listen_response_key_event]
   }
 }
-// [End listen_response_key_event]
+// [End OnKeyPreventBubble]
