@@ -12,14 +12,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "default"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+
+// [Start jump_search_detail]
+@Entry
+@Component
+struct SearchDetail {
+  @State message: string = 'SearchDetail Page';
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.message)
+          .fontSize(50)
+          .fontWeight(FontWeight.Bold)
+        Button('back to index', { stateEffect: true, type: ButtonType.Capsule })
+          .width('80%')
+          .height(40)
+          .margin(20)
+          .onClick(() => {
+            this.getUIContext().getRouter().back();
+          })
+      }
+      .width('100%')
+    }
+    .height('100%')
   }
 }
+// [End jump_search_detail]

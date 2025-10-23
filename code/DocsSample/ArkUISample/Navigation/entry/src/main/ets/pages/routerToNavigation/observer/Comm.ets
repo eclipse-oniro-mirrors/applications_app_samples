@@ -12,21 +12,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { router } from '@kit.ArkUI';
 
-// [Start nav_stack_one]
-@Entry
-@Component
-struct Index {
-  pathStack: NavPathStack = new NavPathStack();
+import { DOMAIN, TAG } from '../../common/Common';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+// [Start observer_comm]
+import { UIContext, uiObserver } from '@kit.ArkUI';
 
-  build() {
-    // 设置NavPathStack并传入Navigation
-    Navigation(this.pathStack) {
-      // ...
-    }.width('100%').height('100%')
-    .title('Navigation， Navigation')
-    .mode(NavigationMode.Stack)
-  }
+function callbackFunc(info: uiObserver.RouterPageInfo) {
+  hilog.info(DOMAIN, TAG,'RouterPageInfo is : ' + JSON.stringify(info));
 }
-// [End nav_stack_one]
+
+// used in ability context.
+uiObserver.on('routerPageUpdate', this.context, callbackFunc);
+
+// used in UIContext.
+uiObserver.on('routerPageUpdate', this.getUIContext(), callbackFunc);
+// [End observer_comm]

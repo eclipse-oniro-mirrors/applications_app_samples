@@ -12,21 +12,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { router } from '@kit.ArkUI';
-
-// [Start nav_stack_one]
+// [Start home_router]
 @Entry
 @Component
-struct Index {
-  pathStack: NavPathStack = new NavPathStack();
+struct Home {
+  @State message: string = 'Hello World';
 
-  build() {
-    // 设置NavPathStack并传入Navigation
-    Navigation(this.pathStack) {
-      // ...
-    }.width('100%').height('100%')
-    .title('Navigation， Navigation')
-    .mode(NavigationMode.Stack)
+  onPageShow() {
+    const params = this.getUIContext().getRouter().getParams() as Record<string, string>; // 获取传递过来的参数对象
+    if (params) {
+      const info: string = params.info as string; // 获取info属性的值
+    }
   }
+
+  // ...
+
+  // [StartExclude home_router]
+  build() {
+
+  }
+  // [EndExclude home_router]
 }
-// [End nav_stack_one]
+// [End home_router]

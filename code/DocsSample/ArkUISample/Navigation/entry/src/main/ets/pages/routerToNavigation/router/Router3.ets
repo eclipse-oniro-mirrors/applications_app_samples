@@ -12,21 +12,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { router } from '@kit.ArkUI';
 
-// [Start nav_stack_one]
+// [Start router_index]
 @Entry
 @Component
 struct Index {
   pathStack: NavPathStack = new NavPathStack();
 
+  // 全局设置一个NavPathStack
+  aboutToAppear(): void {
+    AppStorage.setOrCreate('PathStack', this.pathStack);
+  }
+
   build() {
-    // 设置NavPathStack并传入Navigation
     Navigation(this.pathStack) {
       // ...
-    }.width('100%').height('100%')
-    .title('Navigation， Navigation')
+    }.title('Method 3: AppStorage')
     .mode(NavigationMode.Stack)
   }
 }
-// [End nav_stack_one]
+
+// Navigation子页面
+@Component
+export struct PageOne {
+  // 子页面中获取全局的NavPathStack
+  pathStack: NavPathStack = AppStorage.get('PathStack') as NavPathStack;
+
+  build() {
+    NavDestination() {
+      // ...
+    }
+    .title('PageOne')
+  }
+}
+// [End router_index]
