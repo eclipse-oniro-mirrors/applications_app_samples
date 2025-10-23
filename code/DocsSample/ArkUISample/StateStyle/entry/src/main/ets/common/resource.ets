@@ -13,14 +13,13 @@
  * limitations under the License.
  */
 
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "default"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+export class P2PManager {
+  public resourceToString(resource: Resource): string {
+    return getContext(this).resourceManager.getStringSync(resource);
   }
 }
+
+// 默认导出let
+let p2pManager = new P2PManager();
+
+export default p2pManager as P2PManager;

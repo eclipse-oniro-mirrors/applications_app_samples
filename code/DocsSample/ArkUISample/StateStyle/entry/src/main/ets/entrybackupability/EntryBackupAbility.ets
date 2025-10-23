@@ -12,15 +12,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { BackupExtensionAbility, BundleVersion } from '@kit.CoreFileKit';
 
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "default"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+const DOMAIN = 0x0000;
+
+export default class EntryBackupAbility extends BackupExtensionAbility {
+  async onBackup() {
+    hilog.info(DOMAIN, 'testTag', 'onBackup ok');
+    await Promise.resolve();
+  }
+
+  async onRestore(bundleVersion: BundleVersion) {
+    hilog.info(DOMAIN, 'testTag', 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
+    await Promise.resolve();
   }
 }

@@ -20,7 +20,7 @@
     "description": "$string:module_desc",
     "mainElement": "EntryAbility",
     "deviceTypes": [
-      "default"
+     "default"
     ],
     "deliveryWithInstall": true,
     "installationFree": false,
@@ -41,7 +41,7 @@
               "entity.system.home"
             ],
             "actions": [
-              "action.system.home"
+              "ohos.want.action.home"
             ]
           }
         ]
@@ -58,7 +58,7 @@
             "name": "ohos.extension.backup",
             "resource": "$profile:backup_config"
           }
-        ]
+        ],
       }
     ]
   }

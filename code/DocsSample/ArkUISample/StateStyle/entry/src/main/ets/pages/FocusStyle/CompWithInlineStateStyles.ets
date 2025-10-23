@@ -12,15 +12,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start focus_style]
+@Entry
+@Component
+struct CompWithInlineStateStyles {
+  @State focusedColor: Color = 0xD5D5D5;
+  normalColor: Color = 0x004AAF;
 
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "default"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+  build() {
+    Column() {
+      Button('clickMe')
+        .height(100)
+        .width(100)
+        .stateStyles({
+          normal: {
+            .backgroundColor(this.normalColor)
+          },
+          focused: {
+            .backgroundColor(this.focusedColor)
+          }
+        })
+        .onClick(() => {
+          this.focusedColor = 0x707070;
+        })
+        .margin('30%')
+    }
   }
 }
+// [End focus_style]

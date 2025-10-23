@@ -13,14 +13,9 @@
  * limitations under the License.
  */
 
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "default"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
-  }
+import { hapTasks } from '@ohos/hvigor-ohos-plugin';
+
+export default {
+  system: hapTasks, /* Built-in plugin of Hvigor. It cannot be modified. */
+  plugins: []       /* Custom plugin to extend the functionality of Hvigor. */
 }

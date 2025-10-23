@@ -13,14 +13,8 @@
  * limitations under the License.
  */
 
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "default"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
-  }
+import StateStyleTest from './StateStyle.test';
+
+export default function testsuite() {
+  StateStyleTest();
 }

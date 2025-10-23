@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 {
   "app": {
     "signingConfigs": [],
@@ -20,10 +19,9 @@
       {
         "name": "default",
         "signingConfig": "default",
-        "compileSdkVersion": 20,
-        "compatibleSdkVersion": 20,
-        "targetSdkVersion": 20,
-        "runtimeOS": "OpenHarmony",
+        "targetSdkVersion": "6.0.0(20)",
+        "compatibleSdkVersion": "6.0.0(20)",
+        "runtimeOS": "HarmonyOS",
         "buildOption": {
           "strictMode": {
             "caseSensitiveCheck": true,

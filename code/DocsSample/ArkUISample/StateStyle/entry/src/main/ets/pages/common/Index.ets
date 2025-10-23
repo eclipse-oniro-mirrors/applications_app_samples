@@ -13,14 +13,11 @@
  * limitations under the License.
  */
 
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "default"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
-  }
+export interface Route {
+  name: string;
+  label: ResourceStr;
+}
+
+export interface RouteGroup extends Route {
+  children: Route[];
 }
