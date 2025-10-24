@@ -15,59 +15,69 @@
 
 @Entry
 @Component
-struct Index {
-  @State message: string = 'ComPlex Text ArkTs Test\n';
-
+struct ComplexText {
+  @State message: string = 'ComPlex Style Text ArkTs Test\n';
   build() {
     Row(){
-
-      Column( { space: 5 }) {
+      Column() {
         Text(this.message)
           .fontSize(25)
 
-        Button($r('app.string.Button_page_Multilanguage'))
+        Button($r('app.string.ComplexStyle_Button_example1'))
           .fontSize('12fp')
           .fontWeight(500)
           .margin({ bottom: 24, left: 5 })
           .onClick(() => {
-            this.getUIContext().getRouter().pushUrl({ url: 'pages/multilanguage/MultilanguageText' })
+            this.getUIContext().getRouter().pushUrl({ url: 'pages/complexStyle/ComplexStyleExample1' })
           })
-          .width('60%')
+          .width('90%')
           .height('4%')
           .shadow(ShadowStyle.OUTER_DEFAULT_LG)
 
-        Button($r('app.string.Button_page_Multiline'))
+        Button($r('app.string.ComplexStyle_Button_example2'))
           .fontSize('12fp')
           .fontWeight(500)
           .margin({ bottom: 24, left: 5 })
           .onClick(() => {
-            this.getUIContext().getRouter().pushUrl({ url: 'pages/multiline/MultilineText' })
+            this.getUIContext().getRouter().pushUrl({ url: 'pages/complexStyle/ComplexStyleExample2' })
           })
-          .width('60%')
+          .width('90%')
           .height('4%')
           .shadow(ShadowStyle.OUTER_DEFAULT_LG)
 
-        Button($r('app.string.Button_page_Complexstyle'))
+        Button($r('app.string.ComplexStyle_Button_example3'))
           .fontSize('12fp')
           .fontWeight(500)
           .margin({ bottom: 24, left: 5 })
           .onClick(() => {
-            this.getUIContext().getRouter().pushUrl({ url: 'pages/complexStyle/ComplexStyleText' })
+            this.getUIContext().getRouter().pushUrl({ url: 'pages/complexStyle/ComplexStyleExample3' })
           })
-          .width('60%')
+          .width('90%')
           .height('4%')
           .shadow(ShadowStyle.OUTER_DEFAULT_LG)
 
-        Button($r('app.string.IndependentShaping'))
+        Button($r('app.string.ComplexStyle_Button_example4'))
           .fontSize('12fp')
           .fontWeight(500)
           .margin({ bottom: 24, left: 5 })
           .onClick(() => {
-            this.getUIContext().getRouter().pushUrl({ url: 'pages/shape/IndependentShaping' })
+            this.getUIContext().getRouter().pushUrl({ url: 'pages/complexStyle/ComplexStyleExample4' })
           })
-          .width('60%')
+          .width('90%')
           .height('4%')
           .shadow(ShadowStyle.OUTER_DEFAULT_LG)
+
+        Button($r('app.string.ComplexStyle_Button_example5'))
+          .fontSize('12fp')
+          .fontWeight(500)
+          .margin({ bottom: 24, left: 5 })
+          .onClick(() => {
+            this.getUIContext().getRouter().pushUrl({ url: 'pages/complexStyle/ComplexStyleExample5' })
+          })
+          .width('90%')
+          .height('4%')
+          .shadow(ShadowStyle.OUTER_DEFAULT_LG)
+
 
       }.width('100%')
     }.height('100%')
