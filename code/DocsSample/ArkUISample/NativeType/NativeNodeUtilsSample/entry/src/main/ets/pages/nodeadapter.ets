@@ -1,5 +1,4 @@
 // index.ets
-// 多线程创建组件相关
 import { NodeContent } from '@kit.ArkUI';
 import entry from 'libentry.so';
 
@@ -9,12 +8,7 @@ struct CAPIComponent {
 
   aboutToAppear(): void {
     // 页面显示前多线程创建Native组件。
-    entry.createNodeTreeOnMultiThread(this.rootSlot, this.getUIContext())
-  }
-
-  aboutToDisappear(): void {
-    // 页面销毁前释放已创建的Native组件。
-    entry.disposeNodeTree(this.rootSlot)
+    entry.createNodeAdapterDemo(this.rootSlot)
   }
 
   build() {
@@ -37,18 +31,8 @@ struct Index {
         Text('CreateNodeTreeOnMultiThread')
           .fontSize(18)
           .fontWeight(FontWeight.Bold)
-        Button(this.message)
-          .onClick(() => {
-            this.isShow = !this.isShow;
-            if (this.isShow) {
-              this.message = 'DisposeNodeTree'
-            } else {
-              this.message = 'CreateNodeTree'
-            }
-          })
-        if (this.isShow) {
-          CAPIComponent()
-        }
+
+        CAPIComponent()
       }.width('100%')
     }.width('100%')
   }
