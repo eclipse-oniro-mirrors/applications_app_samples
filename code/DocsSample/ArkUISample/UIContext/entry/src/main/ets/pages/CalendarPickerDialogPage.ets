@@ -12,32 +12,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start Main_LocalStoragePage]
-@Entry({useSharedStorage: true})
+// [Start Main_CalendarPickerDialogPage]
+@Entry
 @Component
-struct LocalStoragePage {
-  @LocalStorageLink('message') message: string = 'Hello World';
+struct CalendarPickerDialogPage {
+  private selectedDate: Date = new Date('2025-10-01');
 
   build() {
     RelativeContainer() {
-      Text(this.message)
-        .id('LocalStoragePageHelloWorld')
-        .fontWeight(FontWeight.Bold)
+      Button('Show CalendarPicker Dialog')
         .alignRules({
           center: { anchor: '__container__', align: VerticalAlign.Center },
           middle: { anchor: '__container__', align: HorizontalAlign.Center }
         })
         .onClick(() => {
           let uiContext = this.getUIContext();
-          let storage = uiContext.getSharedLocalStorage();
-          if (storage) {
-            storage.setOrCreate('message', 'onClick is called.');
-            this.message = 'LocalStoragePageHelloWorld';
-          }
+          uiContext.runScopedTask(() => {
+            CalendarPickerDialog.show({
+              selected: this.selectedDate,
+              backgroundColor: Color.White,
+              backgroundBlurStyle: BlurStyle.NONE,
+              shadow: ShadowStyle.OUTER_FLOATING_SM
+            });
+          });
         })
     }
     .height('100%')
     .width('100%')
   }
 }
-// [End Main_LocalStoragePage]
+// [End Main_CalendarPickerDialogPage]
