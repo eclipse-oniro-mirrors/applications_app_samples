@@ -13,33 +13,9 @@
  * limitations under the License.
  */
 
-import { router } from '@kit.ArkUI'
-interface Ary {
-  path:string,
-  name:string
-}
-@Entry
-@Component
-struct Index {
-  ary:Ary[]=[
-    {
-      name:'SideBarContainer',
-      path:'pages/SideBarContainer'
-    },
-    {
-      name:'TextPickerDialog',
-      path:'pages/TextPickerDialog'
-    },
-  ];
-  build() {
-    Scroll() {
-      Column({ space: 10 }) {
-        ForEach(this.ary,(item:Ary)=>{
-          Button(item.name)
-            .onClick(() => this.getUIContext().getRouter().pushUrl({url:item.path}))
-        },(item:Ary)=>item.name)
-      }
-      .width(300)
-    }
-  }
+import { appTasks } from '@ohos/hvigor-ohos-plugin';
+
+export default {
+  system: appTasks, /* Built-in plugin of Hvigor. It cannot be modified. */
+  plugins: []       /* Custom plugin to extend the functionality of Hvigor. */
 }

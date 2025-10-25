@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-import { router } from '@kit.ArkUI'
 interface Ary {
   path:string,
   name:string
@@ -23,12 +22,12 @@ interface Ary {
 struct Index {
   ary:Ary[]=[
     {
-      name:'SideBarContainer',
-      path:'pages/SideBarContainer'
+      name:'GlobalSnapshot',
+      path:'pages/GlobalSnapshot'
     },
     {
-      name:'TextPickerDialog',
-      path:'pages/TextPickerDialog'
+      name:'ScrollSnapshot',
+      path:'pages/ScrollSnapshot'
     },
   ];
   build() {
@@ -40,6 +39,6 @@ struct Index {
         },(item:Ary)=>item.name)
       }
       .width(300)
-    }
+    }.padding({top: 100})
   }
 }
