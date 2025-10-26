@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { NodeContent, UIContext } from '@kit.ArkUI';
+import { NodeContent,UIContext } from '@kit.ArkUI';
 import entry from 'libentry.so';
 
 @Component
@@ -27,7 +27,7 @@ struct CAPIComponent {
 
   aboutToDisappear(): void {
     // 页面销毁前释放已创建的Native组件。
-    entry.disposeNodeTree(this.rootSlot)
+    entry.disposeNodeTreeOnMultiThread(this.rootSlot)
   }
 
   build() {
@@ -41,6 +41,7 @@ struct CAPIComponent {
 @Entry
 @Component
 struct Index {
+
   @State isShow: boolean = false;
   @State message: string = 'CreateNodeTree';
 
@@ -63,21 +64,46 @@ struct Index {
           CAPIComponent()
         }
         Button('ShowDrawPage')
-          .onClick(() => {
+          .onClick(()=>{
             const uiContext: UIContext = this.getUIContext();
             const router = uiContext.getRouter();
             router.pushUrl({
-              url: 'pages/drawPage/DrawPage'
+              url:'pages/drawPage/DrawPage'
             })
           })
         Button('ShowNativeUIPage')
-          .onClick(() => {
+          .onClick(()=>{
             const uiContext: UIContext = this.getUIContext();
             const router = uiContext.getRouter();
             router.pushUrl({
-              url: 'pages/nativeUI/NativeUIPage'
+              url:'pages/nativeUI/NativeUIPage'
             })
           })
+        Button("多实例创建组件").onClick(() => {
+          const uiContext: UIContext = this.getUIContext();
+          const router = uiContext.getRouter();
+          router.pushUrl({
+            url: 'pages/entry'
+          });
+        })
+        Button("自定义属性测试").onClick(() => {
+          const uiContext: UIContext = this.getUIContext();
+          const router = uiContext.getRouter();
+          router.pushUrl({
+            url: 'pages/customproperty'
+          });
+        })
+        Button("懒加载页面").onClick(() => {
+          const uiContext: UIContext = this.getUIContext();
+          const router = uiContext.getRouter();
+          router.pushUrl({
+            url: 'pages/nodeadapter'
+          });
+        })
+        // 该接口作用为NDK侧保存主窗口实例，用户保护实例错误调用场景。
+        Button("设置NDK侧主窗口Context").onClick(()=> {
+          entry.getContext(this.getUIContext())
+        })
       }.width('100%')
     }.width('100%')
   }
