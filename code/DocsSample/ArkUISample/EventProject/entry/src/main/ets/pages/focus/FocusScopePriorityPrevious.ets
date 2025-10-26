@@ -13,14 +13,23 @@
  * limitations under the License.
  */
 
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "default"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start dynamic_focus_scope_priority_previous]
+@Entry
+@Component
+export struct FocusScopePriorityPrevious {
+  build() {
+    NavDestination() {
+    Row() {
+      Button('Button1')
+        .defaultFocus(true)
+      Button('Button2')
+        .focusScopePriority('RowScope', FocusPriority.PREVIOUS)
+    }.focusScopeId('RowScope')
+    }
+    // [StartExclude dynamic_focus_scope_priority_previous]
+    .backgroundColor('#f1f2f3')
+    .title($r('app.string.Focus_Index_FocusScopePriorityPrevious_title'))
+    // [EndExclude dynamic_focus_scope_priority_previous]
   }
 }
+// [End dynamic_focus_scope_priority_previous]
