@@ -14,40 +14,29 @@
  */
 
 import { ComponentCard } from '../../common/Card';
+import { LengthMetrics } from '@kit.ArkUI';
 
-// [Start keyboard_avoid]
 @Entry
 @Component
-export struct KeyboardAvoidance {
-  placeHolderArr: string[] = ['1', '2', '3', '4', '5', '6', '7'];
-
+export struct SetTextMargin {
   build() {
-    // [StartExclude keyboard_avoid]
     NavDestination() {
       Column({ space: 12 }) {
-        ComponentCard({ title: $r('app.string.KeyboardAvoidance_title') }) {
-          Column({ space: 12 }) {
-            // [EndExclude keyboard_avoid]
-            Scroll() {
-              Column() {
-                ForEach(this.placeHolderArr, (placeholder: string) => {
-                  TextInput({ placeholder: 'TextInput ' + placeholder })
-                    .margin(30)
-                    .id(placeholder)
-                })
-              }
-            }
-            .height('95%')
-            .width('100%')
-          }
+        ComponentCard({ description: $r('app.string.Set_Text_Margin_description') }) {
+          // [Start SetTextMargin]
+          TextArea({
+            text: 'The line spacing of this TextArea is set to 20_px, and the spacing is effective only between the lines.'
+          })
+            .fontSize(22)
+            .lineSpacing(LengthMetrics.px(20), { onlyBetweenLines: true })
+          // [End SetTextMargin]
         }
-        // [End keyboard_avoid]
       }
       .width('100%')
       .height('100%')
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
-    .title($r('app.string.KeyboardAvoidance_title'))
+    .title($r('app.string.Set_Text_Margin'))
   }
 }
