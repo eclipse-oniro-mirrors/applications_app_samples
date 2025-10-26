@@ -12,42 +12,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-// [Start Main_UIContext]
-import { ContextUtils } from '../Common/ContextUtils';
+// [Start Main_NewGlobal]
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { Router } from '@kit.ArkUI';
 
-const DOMAIN = 0xF811;
+const DOMAIN = 0x0000;
 
 @Entry
 @Component
 struct Index {
-  @State bgColor: Color = Color.Green
-
-  aboutToAppear() {
-    try {
-      let router1 = this.getUIContext().getRouter();
-      AppStorage.setOrCreate<Router>('router', router1);
-    } catch (e) {
-      hilog.info(DOMAIN, 'e', e);
-    }
-  }
-
   build() {
-    Column() {
-      Text('getContext')
-        .backgroundColor(this.bgColor)
-        .fontSize(20)
-        .padding(5)
+    RelativeContainer() {
+      Text('Calculate 20vp to px')
+        .fontWeight(FontWeight.Bold)
+        .alignRules({
+          center: { anchor: '__container__', align: VerticalAlign.Center },
+          middle: { anchor: '__container__', align: HorizontalAlign.Center }
+        })
         .onClick(() => {
-          let context = ContextUtils.getContext(this.getUIContext());
-          hilog.info(DOMAIN, 'testTag', `The context is ${context}`);
-          this.bgColor = Color.Blue
+          let uiContext = this.getUIContext();
+          let pxValue = uiContext.vp2px(20);
+          hilog.info(DOMAIN, 'testTag', `20vp equals to ${pxValue}px`);
         })
     }
     .height('100%')
     .width('100%')
   }
 }
-// [End Main_UIContext]
+// [End Main_NewGlobal]

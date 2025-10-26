@@ -12,9 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start Common_UIContext]
+// [Start Common_Utils]
+// common/Utils.ets
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { display } from '@kit.ArkUI';
 
 const DOMAIN = 0x0000;
 
@@ -27,9 +27,8 @@ export class PixelUtils {
   static vp2px(vpValue: number, uiContext?: UIContext): number | undefined {
     let _uiContext = uiContext??PixelUtils.uiContext;
     if (!_uiContext || !_uiContext.isAvailable()) {
-      let displayClass = display.getDefaultDisplaySync();
-      let density = displayClass.densityPixels;
-      return vpValue * density;
+      hilog.error(DOMAIN, 'testTag', `Can't get UIContext`);
+      return undefined;
     }
     return _uiContext.vp2px(vpValue)
   }
@@ -52,4 +51,4 @@ export class PixelUtils {
     return _uiContext.lpx2px(lpxValue)
   }
 }
-// [End Common_UIContext]
+// [End Common_Utils]
