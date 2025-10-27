@@ -4,12 +4,12 @@
 
 支持UI中使用Switch/Case语法；
 支持函数泛型；
-
+json的parse转换结果需要支持@Observed；
 
 ## 效果图预览
-| 支持UI中使用Switch/Case语法                                           | 支持函数泛型                                                         |
-|----------------------------------------------------------------|----------------------------------------------------------------|
-| ![Alt text](entry/src/main/resources/base/media/Arkuitab2.png) | ![Alt text](entry/src/main/resources/base/media/Arkuitab1.png) |
+| 支持UI中使用Switch/Case语法                                           | 支持函数泛型  | json的parse转换结果需要支持@Observed                                                         |
+|----------------------------------------------------------------|----------------------------------------------------------------|----------------------------------------------------------------|
+| ![Alt text](entry/src/main/resources/base/media/Arkuitab2.png) | ![Alt text](entry/src/main/resources/base/media/Arkuitab1.png) | ![Alt text](entry/src/main/resources/base/media/Arkuitab3.png) |
 
 ## 工程结构&模块类型
 
@@ -20,6 +20,7 @@
    |   |   |---FuncGenericDemo.ets          // 函数泛型
    |   |   |---Index.ets                    // 主界面
    |   |   |---SwitchCaseDemo.ets           // Switch/Case语法
+   |   |   |---JsonParseDemo.ets           // json的parse转换结果需要支持@Observed   
 
 ```
 
@@ -53,6 +54,13 @@
     提供"加入购物车"按钮，点击后商品会被添加到购物车
   * 用户列表 展示用户姓名和邮箱信息;采用简洁的卡片式设计；
   * 购物车 显示已添加的商品、单价、数量和总价；自动计算购物车总金额；提供结算功能；空购物车状态提示
+### 场景3：json的parse转换结果支持@Observed。
+* 创建商品对象和总信息对象
+* 界面组件设计
+  * 商品列表
+    展示商品名称、价格、分类信息、数量和商品json数据
+    提供“增加”和“减少”数量按钮，点击后“增加”和“减少”商品数量
+    提供“恢复默认”按钮，点击后商品数量恢复默认
 
 ## 相关权限
 

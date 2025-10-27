@@ -155,7 +155,7 @@ export struct SwitchCaseDemo {
     Column() {
       // 顶部步骤指示器
       Row() {
-        ForEach(this.stepData, (item: StepModel, index: number) => {
+        ForEach(this.stepData, (item: StepModel, index: int) => {
           this.StepIndicator(index + 1)
         })
       }

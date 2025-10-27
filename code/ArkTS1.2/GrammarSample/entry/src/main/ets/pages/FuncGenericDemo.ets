@@ -34,6 +34,7 @@ import {
 } from '@ohos.arkui.component';
 import { State } from '@ohos.arkui.stateManagement';
 import { PromptAction, UIContext } from '@ohos.arkui.UIContext';
+
 // 定义一个泛型商品类
 class Product {
   public name: string;

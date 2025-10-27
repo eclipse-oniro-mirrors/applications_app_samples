@@ -18,6 +18,7 @@ import { Entry, Column, Component, Tabs, TabContent } from '@ohos.arkui.componen
 import { State } from '@ohos.arkui.stateManagement';
 import { SwitchCaseDemo } from './SwitchCaseDemo';
 import { FuncGenericDemo } from './FuncGenericDemo';
+import { JsonParseDemo } from './JsonParseDemo'
 
 @Entry
 @Component
@@ -27,11 +28,13 @@ struct ExampleSample {
       Tabs() {
         TabContent() {
           FuncGenericDemo();
-        }.tabBar('泛型函数')
-
+        }.tabBar('函数泛型')
         TabContent() {
           SwitchCaseDemo();
         }.tabBar('Switch/Case')
+        TabContent() {
+          JsonParseDemo();
+        }.tabBar('JsonParse')
       }
     }
     .width('100%')
