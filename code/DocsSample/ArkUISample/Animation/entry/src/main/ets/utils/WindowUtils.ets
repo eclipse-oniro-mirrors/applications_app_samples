@@ -12,22 +12,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { display } from '@kit.ArkUI';
+// [Start navigation_window_utils]
+// [Start bind_sheet_window_utils]
+// 窗口信息
+import { window } from '@kit.ArkUI';
 
-// [Start rotation]
-@Entry
-@Component
-struct rotation {
-  build() {
-    Stack() {
-      Image($r('app.media.tree'))
-        .position({ x: 0, y: 0 })
-        .size({ width: 100, height: 100 })
-        .id('image1')
-    }
-    .backgroundColor(Color.White)
-    .size({ width: '100%', height: '100%' })
-  }
+export class WindowUtils {
+  public static window: window.Window;
+  public static windowWidthPx: number;
+  public static windowHeightPx: number;
+  public static topAvoidAreaHeightPx: number;
+  public static navigationIndicatorHeightPx: number;
 }
 
-// [End rotation]
+// [End bind_sheet_window_utils]
+// [End navigation_window_utils]
