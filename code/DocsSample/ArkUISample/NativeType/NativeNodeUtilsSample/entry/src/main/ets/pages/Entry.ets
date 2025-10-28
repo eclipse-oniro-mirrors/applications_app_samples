@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// 多线程创建组件相关
 import { NodeContent } from '@kit.ArkUI';
 import entry from 'libentry.so';
 
@@ -20,7 +21,8 @@ struct CAPIComponent {
   private rootSlot = new NodeContent();
 
   aboutToAppear(): void {
-    entry.createCustomPropertyDemo(this.rootSlot)
+    // 页面显示前多线程创建Native组件。
+    entry.createNodeTreeOnMultiThread(this.rootSlot, this.getUIContext())
   }
 
   aboutToDisappear(): void {
@@ -45,11 +47,21 @@ struct Index {
   build() {
     Flex() {
       Column() {
-        Text('通用类接口测试')
+        Text('CreateNodeTreeOnMultiThread')
           .fontSize(18)
           .fontWeight(FontWeight.Bold)
-
-        CAPIComponent()
+        Button(this.message)
+          .onClick(() => {
+            this.isShow = !this.isShow;
+            if (this.isShow) {
+              this.message = 'DisposeNodeTree'
+            } else {
+              this.message = 'CreateNodeTree'
+            }
+          })
+        if (this.isShow) {
+          CAPIComponent()
+        }
       }.width('100%')
     }.width('100%')
   }
