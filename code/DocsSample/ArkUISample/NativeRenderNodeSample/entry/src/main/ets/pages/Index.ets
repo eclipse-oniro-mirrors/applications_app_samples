@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// index.ets
 import router from '@system.router';
 import entry from 'libentry.so';
 
@@ -23,24 +22,20 @@ struct Index {
   build() {
     Flex() {
       Column() {
-        Button("多线程创建组件").onClick(() => {
+        Button("RenderNode 节点操作demo").onClick(() => {
           router.push({
             uri: 'pages/entry'
           });
         })
-        Button("自定义属性测试").onClick(() => {
+        Button("RenderNode 属性设置demo").onClick(() => {
           router.push({
-            uri: 'pages/customproperty'
+            uri: 'pages/property'
           });
         })
-        Button("懒加载页面").onClick(() => {
+        Button("RenderNode 自定义绘制demo").onClick(() => {
           router.push({
-            uri: 'pages/nodeadapter'
+            uri: 'pages/custom'
           });
-        })
-        // 该接口作用为NDK侧保存主窗口实例，用户保护实例错误调用场景。
-        Button("设置NDK侧主窗口Context").onClick(()=> {
-          entry.getContext(this.getUIContext())
         })
       }.width('100%')
     }.width('100%')
