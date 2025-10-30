@@ -13,22 +13,21 @@
  * limitations under the License.
  */
 
-// [Start force_the_page_to_be_configured_to_dark_mode]
+// [Start set_web_background_color]
 import { webview } from '@kit.ArkWeb';
 
 @Entry
 @Component
 struct WebComponent {
   controller: webview.WebviewController = new webview.WebviewController();
-  @State mode: WebDarkMode = WebDarkMode.Auto;
-  @State access: boolean = true;
+  @State isDark: boolean = false;
 
   build() {
     Column() {
       Web({ src: $rawfile('darkModePage.html'), controller: this.controller })
-        .darkMode(this.mode)
-        .forceDarkAccess(this.access)
+        .darkMode(this.isDark ? WebDarkMode.On : WebDarkMode.Off)
+        .backgroundColor(this.isDark ? Color.Black : Color.White)
     }
   }
 }
-// [End force_the_page_to_be_configured_to_dark_mode]
+// [End set_web_background_color]
