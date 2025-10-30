@@ -424,7 +424,7 @@ struct MyStateSample {
           try {
             loadLibrary('aniTest');
             this.loadFlag = true;
-          } catch (e: Error) {
+          } catch (e) {
             hilog.error(0x0000, 'testTag', e.message)
             this.loadFlag = false;
           }
@@ -551,7 +551,7 @@ struct MyStateSample {
               const cls = new Calc();
               const standardError = new CustomError('A standard error message');
               let rs = cls.ThrowError(standardError);
-            } catch (e: Error) {
+            } catch (e) {
               hilog.info(0x0000, 'testTag', JSON.stringify(e.message));
               this.stringExceptions = JSON.stringify(e.message);
             }

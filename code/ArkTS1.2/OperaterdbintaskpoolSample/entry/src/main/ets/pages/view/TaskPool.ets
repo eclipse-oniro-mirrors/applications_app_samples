@@ -71,7 +71,7 @@ export async function taskPoolExecuteQuery(context: common.Context): Promise<Arr
     let result: Contact[]= await taskpool.execute(task) as Contact[];
     hilog.info(0x0000, 'testTag', 'query_result: ' + JSON.stringify(result));
     return result;
-  } catch (err:Error) {
+  } catch (err) {
     hilog.error(0x0000, 'testTag', 'query error:' + JSON.stringify(err));
     return [] as Contact[];
   }
@@ -81,7 +81,7 @@ export async function taskPoolExecuteInsert(context: common.Context, contact: Co
   try {
     let task = new taskpool.Task(insertItem, context, contact);
     await taskpool.execute(task);
-  } catch (err:Error) {
+  } catch (err) {
     hilog.error(0x0000, 'testTag', 'insert error:' + JSON.stringify(err));
   }
 }
@@ -90,7 +90,7 @@ export async function taskPoolExecuteDelete(context: common.Context, contact: Co
   try {
     let task = new taskpool.Task(deleteItem, context, contact);
     await taskpool.execute(task);
-  } catch (err:Error) {
+  } catch (err) {
     hilog.error(0x0000, 'testTag', 'delete error:' + JSON.stringify(err));
   }
 }
@@ -99,7 +99,7 @@ export async function taskPoolExecuteUpdate(context: common.Context, contact: Co
   try {
     let task = new taskpool.Task(updateItem, context, contact);
     await taskpool.execute(task);
-  } catch (err:Error) {
+  } catch (err) {
     hilog.error(0x0000, 'testTag', 'update error:' + JSON.stringify(err));
   }
 }
@@ -109,7 +109,7 @@ export async function taskPoolExecuteBatchInsert(context: common.Context, array:
     let task = new taskpool.Task(batchInsert, context, array);
     let insertNum: number = await taskpool.execute(task) as number;
     return insertNum;
-  } catch (err:Error) {
+  } catch (err) {
     hilog.error(0x0000, 'testTag', 'batch insert error:' + JSON.stringify(err));
     return 0 as number;
   }

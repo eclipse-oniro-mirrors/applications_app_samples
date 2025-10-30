@@ -81,7 +81,7 @@ class DatabaseConnection {
       this.rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
       hilog.info(0x0000, 'testTag', 'getRdbStore succeed');
       await this.createTable();
-    } catch (err: Error) {
+    } catch (err) {
       hilog.error(0x0000, 'testTag', `getRdbStore failed, err: ${err}`);
       return;
     }
@@ -99,7 +99,7 @@ class DatabaseConnection {
         hilog.info(0x0000, 'testTag', 'create table succeed');
         return;
       }
-    } catch (err: Error) {
+    } catch (err) {
       hilog.error(0x0000, 'testTag', `create table failed,  err: ${err}`);
       return;
     }
@@ -126,7 +126,7 @@ class DatabaseConnection {
         await (this.rdbStore as relationalStore.RdbStore).querySql('select * from contact');
       // 处理查询到的结果数组
       return this.getListFromResultSet(resultSet);
-    } catch (err: Error) {
+    } catch (err) {
       hilog.error(0x0000, 'testTag', 'query result error:' + JSON.stringify(err));
       return [] as Contact[];
     }

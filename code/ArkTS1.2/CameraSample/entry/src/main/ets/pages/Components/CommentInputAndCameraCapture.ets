@@ -149,7 +149,10 @@ export struct CommentInputAndCameraCapture {
           .onClick((e: ClickEvent) => {
             try {
               this.cameraCapture(this.getUIContext().getHostContext() as common.UIAbilityContext);
-            } catch (error: BusinessError) {
+            } catch (error) {
+              if (!(error instanceof BusinessError)) {
+                throw error;
+              }
               hilog.info(0x0000, 'testTag', 'camera capture error：' + error.code);
             }
           })

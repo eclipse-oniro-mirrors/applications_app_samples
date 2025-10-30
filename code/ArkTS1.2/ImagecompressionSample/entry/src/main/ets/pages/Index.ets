@@ -119,7 +119,7 @@ export struct ImageCompressionComponent {
     }
     try {
       fs.mkdirSync(this.outputPath);
-    } catch (e: Error) {
+    } catch (e) {
       hilog.error(0x0000, 'testTag', '创建目录失败' + JSON.stringify(e));
     }
 
@@ -175,7 +175,7 @@ export struct ImageCompressionComponent {
     }
     try {
       fs.mkdirSync(this.outputPath);
-    } catch (e: Error) {
+    } catch (e) {
       hilog.error(0x0000, 'testTag', '创建目录失败' + JSON.stringify(e));
     }
 

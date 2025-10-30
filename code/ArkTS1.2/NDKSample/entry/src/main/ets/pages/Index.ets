@@ -74,7 +74,7 @@ struct Index {
         .onClick((e: ClickEvent) => {
           try {
             loadLibrary('entry')
-          } catch (e: Error) {
+          } catch (e) {
             hilog.error(0x0000, 'testTag', 'loadFailed', e);
           }
           let nativeKit = new NativeKit();
@@ -84,7 +84,7 @@ struct Index {
         .onClick((e: ClickEvent) => {
           try {
             loadLibrary('entry')
-          } catch (e: Error) {
+          } catch (e) {
             hilog.error(0x0000, 'testTag', 'loadFailed', e);
           }
           let nativeKit = new NativeKit();

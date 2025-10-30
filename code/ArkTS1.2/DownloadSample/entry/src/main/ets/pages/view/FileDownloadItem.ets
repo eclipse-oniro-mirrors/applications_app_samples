@@ -140,7 +140,7 @@ export struct FileDownloadItem {
       // 隐藏下载状态图标
       this.isShow = false;
       this.getFileStatusAndTime(1);
-    } catch(err:Error) {
+    } catch(err) {
       hilog.error(0x0000, 'TAGhttp,err: ', String(err.message));
     }
   }
@@ -185,7 +185,7 @@ export struct FileDownloadItem {
       }
       // 用于显示已下载文件数据大小
       this.sCurrentDownloadSize = String(progress.processed / BYTE_CONVERSION).split('.')[0] as string + 'kb';
-    } catch(err:Error) {
+    } catch(err) {
       hilog.error(0x0000, 'TAGhttp,err: ', String(err.message))
     }
   }
