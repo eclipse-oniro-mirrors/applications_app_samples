@@ -12,14 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "default"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
-  }
+import { InsightIntentExecutor } from '@kit.AbilityKit';
+
+export default class WidgetExecutor extends InsightIntentExecutor {
 }
