@@ -13,14 +13,12 @@
  * limitations under the License.
  */
 
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "default"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start onNewWant]
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+
+export default class EntryAbility extends UIAbility {
+  onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam) {
+    // 更新资源、数据
   }
 }
+// [End onNewWant]

@@ -13,14 +13,12 @@
  * limitations under the License.
  */
 
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "default"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start onDestroy]
+import { UIAbility } from '@kit.AbilityKit';
+
+export default class EntryAbility extends UIAbility {
+  onDestroy() {
+    // 系统资源的释放、数据的保存等
   }
 }
+// [End onDestroy]

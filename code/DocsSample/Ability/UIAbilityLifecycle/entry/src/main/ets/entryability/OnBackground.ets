@@ -13,14 +13,12 @@
  * limitations under the License.
  */
 
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "default"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start EntryAbility_onBackground]
+import { UIAbility } from '@kit.AbilityKit';
+
+export default class EntryAbility extends UIAbility {
+  onBackground(): void {
+    // 释放UI不可见时无用的资源
   }
 }
+// [End EntryAbility_onBackground]
