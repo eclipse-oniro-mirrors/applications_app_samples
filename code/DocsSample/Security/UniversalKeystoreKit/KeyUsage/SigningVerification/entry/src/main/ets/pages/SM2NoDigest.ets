@@ -12,20 +12,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-// [Start key_algorithm_RSA2048SHA384PSS]
+// [Start key_algorithm_SM2NoDigest]
 /*
- * 密钥算法为RSA2048、摘要算法为SHA384、填充模式为PSS
+ * 密钥算法为SM2、摘要算法为NoDigest，由业务自己做SM3摘要
  */
 import { huks } from '@kit.UniversalKeystoreKit';
+import { BusinessError } from "@kit.BasicServicesKit";
 
-let keyAlias = 'test_rsaSha384PssKeyAlias';
+let keyAlias = 'test_sm2KeyAlias';
 let handle: number;
-let plaintext = '123456';
+let hash = '12345678901234567890123456789012';
 let signature: Uint8Array;
 
-function stringToUint8Array(str: String) {
-  let arr: number[] = [];
+function stringToUint8Array(str: string) {
+  let arr: number[] = new Array();
   for (let i = 0, j = str.length; i < j; ++i) {
     arr.push(str.charCodeAt(i));
   }
@@ -40,83 +40,75 @@ function uint8ArrayToString(fileData: Uint8Array) {
   return dataString;
 }
 
-function getRsaGenerateProperties() {
-  let properties: huks.HuksParam[] = [{
+function getSm2GenerateProperties() {
+  let properties: Array<huks.HuksParam> = [{
     tag: huks.HuksTag.HUKS_TAG_ALGORITHM,
-    value: huks.HuksKeyAlg.HUKS_ALG_RSA
+    value: huks.HuksKeyAlg.HUKS_ALG_SM2
   }, {
     tag: huks.HuksTag.HUKS_TAG_KEY_SIZE,
-    value: huks.HuksKeySize.HUKS_RSA_KEY_SIZE_2048
+    value: huks.HuksKeySize.HUKS_SM2_KEY_SIZE_256
   }, {
     tag: huks.HuksTag.HUKS_TAG_PURPOSE,
     value: huks.HuksKeyPurpose.HUKS_KEY_PURPOSE_SIGN |
     huks.HuksKeyPurpose.HUKS_KEY_PURPOSE_VERIFY
   }, {
-    tag: huks.HuksTag.HUKS_TAG_PADDING,
-    value: huks.HuksKeyPadding.HUKS_PADDING_PSS
-  }, {
     tag: huks.HuksTag.HUKS_TAG_DIGEST,
-    value: huks.HuksKeyDigest.HUKS_DIGEST_SHA384
+    value: huks.HuksKeyDigest.HUKS_DIGEST_NONE
   }];
   return properties;
 }
 
-function getRsaSignProperties() {
-  let properties: huks.HuksParam[] = [{
+function getSm2SignProperties() {
+  let properties: Array<huks.HuksParam> = [{
     tag: huks.HuksTag.HUKS_TAG_ALGORITHM,
-    value: huks.HuksKeyAlg.HUKS_ALG_RSA
+    value: huks.HuksKeyAlg.HUKS_ALG_SM2
   }, {
     tag: huks.HuksTag.HUKS_TAG_KEY_SIZE,
-    value: huks.HuksKeySize.HUKS_RSA_KEY_SIZE_2048
+    value: huks.HuksKeySize.HUKS_SM2_KEY_SIZE_256
   }, {
     tag: huks.HuksTag.HUKS_TAG_PURPOSE,
     value: huks.HuksKeyPurpose.HUKS_KEY_PURPOSE_SIGN
   }, {
-    tag: huks.HuksTag.HUKS_TAG_PADDING,
-    value: huks.HuksKeyPadding.HUKS_PADDING_PSS
-  }, {
     tag: huks.HuksTag.HUKS_TAG_DIGEST,
-    value: huks.HuksKeyDigest.HUKS_DIGEST_SHA384
+    value: huks.HuksKeyDigest.HUKS_DIGEST_NONE
   }];
   return properties;
 }
 
-function getRsaVerifyProperties() {
-  let properties: huks.HuksParam[] = [{
+function getSm2VerifyProperties() {
+  let properties: Array<huks.HuksParam> = [{
     tag: huks.HuksTag.HUKS_TAG_ALGORITHM,
-    value: huks.HuksKeyAlg.HUKS_ALG_RSA
+    value: huks.HuksKeyAlg.HUKS_ALG_SM2
   }, {
     tag: huks.HuksTag.HUKS_TAG_KEY_SIZE,
-    value: huks.HuksKeySize.HUKS_RSA_KEY_SIZE_2048
+    value: huks.HuksKeySize.HUKS_SM2_KEY_SIZE_256
   }, {
     tag: huks.HuksTag.HUKS_TAG_PURPOSE,
     value: huks.HuksKeyPurpose.HUKS_KEY_PURPOSE_VERIFY
   }, {
-    tag: huks.HuksTag.HUKS_TAG_PADDING,
-    value: huks.HuksKeyPadding.HUKS_PADDING_PSS
-  }, {
     tag: huks.HuksTag.HUKS_TAG_DIGEST,
-    value: huks.HuksKeyDigest.HUKS_DIGEST_SHA384
+    value: huks.HuksKeyDigest.HUKS_DIGEST_NONE
   }];
   return properties;
 }
 
-async function generateRsaKey(keyAlias: string) {
-  let genProperties = getRsaGenerateProperties();
+async function generateSm2Key(keyAlias: string) {
+  console.info(`enter generateSm2Key`);
+  let genProperties = getSm2GenerateProperties();
   let options: huks.HuksOptions = {
     properties: genProperties
-  }
+  };
   await huks.generateKeyItem(keyAlias, options)
-    .then((data) => {
-      console.info(`promise: generate RSA Key success, data = ${JSON.stringify(data)}`);
-    }).catch((err: Error) => {
-      console.error(`promise: generate RSA Key failed, error: ` + JSON.stringify(err));
-      throw (err as Error);
+    .then(() => {
+      console.info(`promise: generateSm2Key success`);
+    }).catch((error: BusinessError) => {
+      console.error(`promise: generateSm2Key failed, errCode : ${error.code}, errMsg : ${error.message}`);
+      throw (error as Error);
     })
 }
 
 async function sign(keyAlias: string, plaintext: string) {
-  let signProperties = getRsaSignProperties();
+  let signProperties = getSm2SignProperties();
   let options: huks.HuksOptions = {
     properties: signProperties,
     inData: stringToUint8Array(plaintext)
@@ -124,22 +116,22 @@ async function sign(keyAlias: string, plaintext: string) {
   await huks.initSession(keyAlias, options)
     .then((data) => {
       handle = data.handle;
-    }).catch((err: Error) => {
-      console.error(`promise: init sign failed, error: ` + JSON.stringify(err));
-      throw (err as Error);
+    }).catch((error: BusinessError) => {
+      console.error(`promise: init sign failed, error: ` + JSON.stringify(error));
+      throw (error as Error);
     })
   await huks.finishSession(handle, options)
     .then((data) => {
-      console.info(`promise: sign success, data is ` + uint8ArrayToString(data.outData as Uint8Array));
       signature = data.outData as Uint8Array;
-    }).catch((err: Error) => {
-      console.error(`promise: sign failed, error: ` + JSON.stringify(err));
-      throw (err as Error);
+      console.info(`promise: sign success, data is ` + uint8ArrayToString(signature));
+    }).catch((error: BusinessError) => {
+      console.error(`promise: sign failed, error: ` + JSON.stringify(error));
+      throw (error as Error);
     })
 }
 
 async function verify(keyAlias: string, plaintext: string, signature: Uint8Array) {
-  let verifyProperties = getRsaVerifyProperties()
+  let verifyProperties = getSm2VerifyProperties()
   let options: huks.HuksOptions = {
     properties: verifyProperties,
     inData: stringToUint8Array(plaintext)
@@ -147,52 +139,52 @@ async function verify(keyAlias: string, plaintext: string, signature: Uint8Array
   await huks.initSession(keyAlias, options)
     .then((data) => {
       handle = data.handle;
-    }).catch((err: Error) => {
-      console.error(`promise: init verify failed, error: ` + JSON.stringify(err));
-      throw (err as Error);
+    }).catch((error: BusinessError) => {
+      console.error(`promise: init verify failed, error: ` + JSON.stringify(error));
+      throw (error as Error);
     })
   await huks.updateSession(handle, options)
     .then((data) => {
       console.info(`promise: update verify success, data is ` + uint8ArrayToString(data.outData as Uint8Array));
-    }).catch((err: Error) => {
-      console.error(`promise: update verify failed, error: ` + JSON.stringify(err));
-      throw (err as Error);
+    }).catch((error: BusinessError) => {
+      console.error(`promise: update verify failed, error: ` + JSON.stringify(error));
+      throw (error as Error);
     })
   options.inData = signature;
   await huks.finishSession(handle, options)
     .then((data) => {
       console.info(`promise: verify success, data is ` + uint8ArrayToString(data.outData as Uint8Array));
-    }).catch((err: Error) => {
-      console.error(`promise: verify failed, error: ` + JSON.stringify(err));
-      throw (err as Error);
+    }).catch((error: BusinessError) => {
+      console.error(`promise: verify failed, error: ` + JSON.stringify(error));
+      throw (error as Error);
     })
 }
 
-async function deleteRsaKey(keyAlias: string) {
+async function deleteSm2Key(keyAlias: string) {
+  console.info(`enter deleteSm2Key`);
   let emptyOptions: huks.HuksOptions = {
     properties: []
   }
   await huks.deleteKeyItem(keyAlias, emptyOptions)
     .then((data) => {
       console.info(`promise: delete data success`);
-    }).catch((err: Error) => {
+    }).catch((error: Error) => {
       console.error(`promise: delete data failed`);
-      throw (err as Error);
+      throw (error as Error);
     })
 }
 
 async function testSignVerify() {
-  await generateRsaKey(keyAlias);
-  await sign(keyAlias, plaintext);
-  await verify(keyAlias, plaintext, signature);
-  await deleteRsaKey(keyAlias);
+  await generateSm2Key(keyAlias);
+  await sign(keyAlias, hash);
+  await verify(keyAlias, hash, signature);
+  await deleteSm2Key(keyAlias);
 }
-// [End key_algorithm_RSA2048SHA384PSS]
-
+// [End key_algorithm_SM2NoDigest]
 @Entry
 @Component
 struct Index {
-  @State message: string = 'RSA/SHA384/PSS';
+  @State message: string = 'SM2/NoDigest';
 
   build() {
     Column({ space: 12 }) {
@@ -202,7 +194,7 @@ struct Index {
         .fontColor($r('sys.color.ohos_id_color_text_primary'))
         .maxLines(Infinity)
         .textAlign(TextAlign.Start)
-      Button($r('app.string.rsa_sha384_pss'))
+      Button($r('app.string.sm2_nodigest'))
         .padding('12vp')
         .height('40vp')
         .borderRadius($r('sys.float.ohos_id_corner_radius_button'))
@@ -212,9 +204,9 @@ struct Index {
         .onClick(async () => {
           try {
             await testSignVerify();
-            this.message = 'RSA/SHA384/PSS Result: Success';
+            this.message = 'SM2/NoDigest Result: Success';
           } catch (error) {
-            this.message = 'RSA/SHA384/PSS Result: Failed';
+            this.message = 'SM2/NoDigest Result: Failed';
           }
         })
     }
