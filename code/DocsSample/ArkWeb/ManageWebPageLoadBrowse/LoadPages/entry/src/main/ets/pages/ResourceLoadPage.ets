@@ -12,29 +12,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-// [Start set_the_value_of_a_single_cookie]
+// [Start resource_loading]
 import { webview } from '@kit.ArkWeb';
-import { BusinessError } from '@kit.BasicServicesKit';
 
 @Entry
 @Component
-struct WebComponent {
+struct ResourceWebComponent {
   controller: webview.WebviewController = new webview.WebviewController();
 
   build() {
     Column() {
-      Button('configCookieSync')
+      Button('LoadResource')
         .onClick(() => {
           try {
-            webview.WebCookieManager.configCookieSync('https://www.example.com', 'value=test');
+            // 通过resource加载resources/rawfile目录下的index1.html文件。
+            this.controller.loadUrl('resource://rawfile/index1.html');
           } catch (error) {
-            console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+            console.error(`ErrorCode: ${error.code}, Message: ${error.message}`);
           }
         })
-      Web({ src: 'www.example.com', controller: this.controller });
+
+      // 组件创建时直接使用resource协议加载资源。
+      Web({ src: 'resource://rawfile/index.html', controller: this.controller });
     }
   }
 }
-// [End set_the_value_of_a_single_cookie]
+// [End resource_loading]
