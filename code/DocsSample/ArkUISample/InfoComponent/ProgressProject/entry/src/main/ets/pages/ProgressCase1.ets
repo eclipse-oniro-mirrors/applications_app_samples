@@ -12,17 +12,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "default",
-      "tablet"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start progress_example]
+@Entry
+@Component
+struct ProgressCase1 {
+  @State progressValue: number = 0;	// 设置进度条初始值为0
+  build() {
+    Column() {
+      Column() {
+        Progress({value:0, total:100, type:ProgressType.Capsule}).width(200).height(50).value(this.progressValue)
+        Row().width('100%').height(5)
+        Button('进度条+5')
+          .onClick(()=>{
+            this.progressValue += 5;
+            if (this.progressValue > 100){
+              this.progressValue = 0;
+            }
+          })
+      }
+    }.width('100%').height('100%')
   }
 }
+// [End progress_example]
