@@ -12,9 +12,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { hapTasks } from '@ohos/hvigor-ohos-plugin';
+export class ResourceManager {
+  public context: Context | null = null;
 
-export default {
-  system: hapTasks, /* Built-in plugin of Hvigor. It cannot be modified. */
-  plugins: []       /* Custom plugin to extend the functionality of Hvigor. */
+  // 初始化上下文
+  initContext(context: Context) {
+    this.context = context;
+  }
+
+  public resourceToString(resource: Resource): string {
+    try {
+      return this.context?.resourceManager.getStringSync(resource.id) || '';
+    } catch (error) {
+      // TODO: Implement error handling.
+      return ''
+    }
+  }
 }
+
+// 默认导出let
+let resourceToStringManager = new ResourceManager();
+
+export default resourceToStringManager as ResourceManager;
