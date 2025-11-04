@@ -17,19 +17,22 @@ import { ComponentCard } from '../../common/Card';
 
 @Entry
 @Component
-export struct AutoFill {
+export struct SetInputMultiTypeStyle {
   build() {
     NavDestination() {
       Column({ space: 12 }) {
-        ComponentCard({ description: $r('app.string.Auto_Fill_description') }) {
-          // [Start auto_fill]
-          // 'app.string.Auto_Fill_PlaceHolder'资源文件中的value值为"输入你的邮箱..."
-          TextInput({ placeholder: $r('app.string.Auto_Fill_PlaceHolder') })
-            .width('95%')
-            .height(40)
-            .margin(20)
-            .contentType(ContentType.EMAIL_ADDRESS)
-          // [End auto_fill]
+        ComponentCard({ title: $r('app.string.SetInputBoxMultiTypeStyle_title_1') }) {
+          // [Start textArea_style_default]
+          TextArea()
+            .style(TextContentStyle.DEFAULT)
+          // [End textArea_style_default]
+        }
+
+        ComponentCard({ title: $r('app.string.SetInputBoxMultiTypeStyle_title_2') }) {
+          // [Start textArea_style_inline]
+          TextArea()
+            .style(TextContentStyle.INLINE)
+          // [End textArea_style_inline]
         }
       }
       .width('100%')
@@ -37,6 +40,6 @@ export struct AutoFill {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
-    .title($r('app.string.Auto_Fill'))
+    .title($r('app.string.CustomTextInputStyle_title'))
   }
 }
