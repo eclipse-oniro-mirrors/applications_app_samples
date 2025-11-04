@@ -13,13 +13,19 @@
  * limitations under the License.
  */
 
-{
-  "modelVersion": "5.0.4",
-  "description": "Please describe the basic information.",
-  "dependencies": {
-  },
-  "devDependencies": {
-    "@ohos/hypium": "1.0.21",
-    "@ohos/hamock": "1.0.0"
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { BackupExtensionAbility, BundleVersion } from '@kit.CoreFileKit';
+
+const DOMAIN = 0x0000;
+
+export default class EntryBackupAbility extends BackupExtensionAbility {
+  async onBackup() {
+    hilog.info(DOMAIN, 'testTag', 'onBackup ok');
+    await Promise.resolve();
+  }
+
+  async onRestore(bundleVersion: BundleVersion) {
+    hilog.info(DOMAIN, 'testTag', 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
+    await Promise.resolve();
   }
 }
