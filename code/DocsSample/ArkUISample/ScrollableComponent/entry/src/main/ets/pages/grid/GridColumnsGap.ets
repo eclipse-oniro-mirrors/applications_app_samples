@@ -36,10 +36,9 @@ export struct GridLayout {
       Column({ space: 12 }) {
         // app.string.GridLayout_titleRowSpacing资源文件中的value值为‘设置行列数量占比和行间距示例’
         ComponentCard({ title: $r('app.string.GridLayout_titleRowSpacing') }) {
-
-          // [Start build_a_grid]
+          // [Start set_rows_and_columns_occupied]
           Grid() {
-            // [StartExclude build_a_grid]
+            // [StartExclude set_rows_and_columns_occupied]
             GridItem() {
             }.backgroundColor('#ffe0e2e4')
 
@@ -66,14 +65,16 @@ export struct GridLayout {
 
             GridItem() {
             }.backgroundColor('#ffe0e2e4')
-            // [EndExclude build_a_grid]
+            // [EndExclude set_rows_and_columns_occupied]
           }
-          .rowsTemplate('1fr 1fr 1fr')
-          .columnsTemplate('1fr 2fr 1fr')
-          // [End build_a_grid]
           .columnsGap(10)
           .rowsGap(15)
+          // [End set_rows_and_columns_occupied]
+
           .height(150)
+          //设置行列数量与占比
+          .rowsTemplate('1fr 1fr 1fr')
+          .columnsTemplate('1fr 2fr 1fr')
         }
 
         ComponentCard({ title: $r('app.string.GridLayout_titleChildSpan') }) {
@@ -98,9 +99,7 @@ export struct GridLayout {
         }
 
         ComponentCard({ title: $r('app.string.GridLayout_titleMainAxis') }) {
-          // [Start Set_the_direction_of_the_main_axis_of_the_grid]
           Grid() {
-            // [StartExclude Set_the_direction_of_the_main_axis_of_the_grid]
             GridItem() {
               Text('1')
             }.backgroundColor('#ffe0e2e4').width(30).height(30)
@@ -136,11 +135,9 @@ export struct GridLayout {
             GridItem() {
               Text('9')
             }.backgroundColor('#ffe0e2e4').width(30).height(30)
-            // [EndExclude Set_the_direction_of_the_main_axis_of_the_grid]
           }
           .maxCount(3)
           .layoutDirection(GridDirection.Row)
-          // [End Set_the_direction_of_the_main_axis_of_the_grid]
           .columnsGap(4)
           .rowsGap(4)
           Grid() {
