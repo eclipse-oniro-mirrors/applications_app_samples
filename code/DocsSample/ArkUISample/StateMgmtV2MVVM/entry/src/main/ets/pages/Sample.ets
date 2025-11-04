@@ -11,15 +11,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
-*/
-
-import abilityTest from './Ability.test';
-import TodoListTest from './TodoList.test';
-import AppV2 from './AppStorageV2.test';
-
-export default function testsuite() {
-  abilityTest();
-  TodoListTest();
-  AppV2();
+ */
+// [Start appStorageV2_sample]
+// 数据中心
+// Sample.ets
+@ObservedV2
+export class Sample {
+  @Trace public p1: number = 0;
+  public p2: number = 10;
 }
+// [End appStorageV2_sample]
