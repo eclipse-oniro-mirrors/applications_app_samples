@@ -1,4 +1,4 @@
-'use static';
+'use static'
 
 /*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
@@ -22,6 +22,7 @@ import window from '@ohos.window';
 import { BusinessError } from '@ohos.base'
 import hilog from '@ohos.hilog'
 
+// EntryAbility作为应用入口Ability，加载主模块Index页面
 class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', 'EntryAbility onCreate');
@@ -30,6 +31,7 @@ class EntryAbility extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage): void {
     hilog.info(0x0000, 'testTag', 'EntryAbility onWindowStageCreate');
     try {
+      // 加载主模块Index页面
       windowStage.loadContent('pages/Index', (err: BusinessError<void> | null): void => {
         hilog.info(0x0000, 'testTag', 'loadContent entering');
         if (err && err.code) {
@@ -39,7 +41,7 @@ class EntryAbility extends UIAbility {
         hilog.info(0x0000, 'testTag', 'loadContent ok');
       });
     } catch (e) {
-      hilog.info(0x0000, 'testTag', 'loadContent catch error：-----------' + e.message);
+      hilog.info(0x0000, 'testTag', 'loadContent catch error: ' + e.message);
     }
   }
 }

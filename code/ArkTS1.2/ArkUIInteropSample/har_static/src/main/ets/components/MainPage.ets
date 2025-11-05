@@ -1,4 +1,4 @@
-'use static';
+'use static'
 
 /*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
@@ -15,20 +15,26 @@
  * limitations under the License.
  */
 
+// ArkTS-Sta har包主页面功能：导出ArkTS-Sta组件，供ArkTS-Dyn har包调用，展示ArkTS-Sta与ArkTS-Dyn互操作的基础场景
 
+// 导入ArkTS-Sta组件及状态管理相关注解
+import { Entry, Text, Column, Component, Button, ClickEvent } from '@ohos.arkui.component';
+import { State } from '@ohos.arkui.stateManagement';
 
-import { Entry, Text, Column, Component, Button, ClickEvent } from '@ohos.arkui.component'
-import { State } from '@ohos.arkui.stateManagement'
-import hilog from '@ohos.hilog'
+import hilog from '@ohos.hilog';
 
+// 导出ArkTS-Sta主组件MainPage01，供ArkTS-Dyn har包调用
 @Component
 export struct MainPage01 {
   @State stateVar: string = 'har_static';
   message: string = 'var';
+
   build() {
     Column(undefined) {
-      Text('Hello World').fontSize(20)
-      Text(this.stateVar).fontSize(20)
+      Text('Hello World')
+        .fontSize(20)
+      Text(this.stateVar)
+        .fontSize(20)
     }
   }
 }
