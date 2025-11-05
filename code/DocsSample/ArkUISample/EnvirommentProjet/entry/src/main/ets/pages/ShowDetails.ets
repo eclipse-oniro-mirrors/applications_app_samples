@@ -13,26 +13,15 @@
  * limitations under the License.
  */
 
-// [Start applied_logic]
-import { hilog } from '@kit.PerformanceAnalysisKit';
-const DOMAIN = 0x0001;
-const TAG = 'envirommentprojet';
-
-// 使用Environment.envProp将设备运行languageCode存入AppStorage中
+// [Start showfirst_details]
+// 将设备的languageCode存入AppStorage，默认值为en
 Environment.envProp('languageCode', 'en');
-// 从AppStorage获取单向绑定的languageCode的变量
-const lang: SubscribedAbstractProperty<string> = AppStorage.prop('languageCode');
-
-if (lang.get() === 'zh') {
-  // $r('app.string.AppliedLogic_Hello')需要替换为开发者所需的资源文件
-  hilog.info(DOMAIN, TAG, `${$r('app.string.AppliedLogic_Hello')}`);
-} else {
-  hilog.info(DOMAIN, TAG, 'Hello!');
-};
-// [End applied_logic]
-
+// [End showfirst_details]
 @Entry
 @Component
-struct AppliedLogic {
+struct ShowDetails {
+  // [Start showsecond_details]
+  @StorageProp('languageCode') lang: string = 'en';
+  // [End showsecond_details]
   build() {};
 }
