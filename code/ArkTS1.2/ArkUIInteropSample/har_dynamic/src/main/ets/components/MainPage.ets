@@ -17,6 +17,7 @@
 
 // 从ArkTS-Sta har包中导入自定义组件MainPage01
 import { MainPage01 } from 'har_static';
+import { NodeController, FrameNode, typeNode } from '@kit.ArkUI';
 
 // 导出Data类，用于在自定义构建函数中传递参数
 export class Data {
@@ -30,6 +31,25 @@ export class Data {
   constructor(a?: string, b?: string) {
     this.a = a ?? 'defaultA';
     this.b = b ?? 'defaultB';
+  }
+}
+
+class MyNodeController extends NodeController {
+  makeNode(uiContext: UIContext): FrameNode | null {
+    let node = new FrameNode(uiContext);
+    node.commonAttribute.width(100)
+      .height(25)
+      .borderColor(Color.Gray)
+      .borderWidth(1)
+      .margin({ left: 10 });
+    let col = typeNode.createNode(uiContext, 'Column');
+    col.initialize({ space: 5 })
+      .width('100%').height('100%').margin({ top: 5 });
+    node.appendChild(col);
+    let text = typeNode.createNode(uiContext, 'Text');
+    text.initialize('FrameNode').fontColor(Color.Blue).fontSize(14);
+    col.appendChild(text);
+    return node;
   }
 }
 
@@ -135,6 +155,7 @@ export struct DynamicComp4 {
   @State stateVar: Date = new Date('2022-02-02');
   @Link linkVar: Date;
   @Provide provideVar: Date = new Date('2022-02-02');
+  private myNodeController: MyNodeController = new MyNodeController();
   regVar: Date = new Date('2022-02-02');
 
   build() {
@@ -145,6 +166,7 @@ export struct DynamicComp4 {
         Text(`linkVar: ${this.linkVar}`)
         Text(`provideVar: ${this.provideVar}`)
         Text(`regVar: ${this.regVar}`)
+        NodeContainer(this.myNodeController);
       }
     }
   }
