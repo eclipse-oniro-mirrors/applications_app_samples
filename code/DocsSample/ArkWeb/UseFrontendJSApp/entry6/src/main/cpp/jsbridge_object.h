@@ -15,7 +15,7 @@
 #ifndef HEADER_GUARD_H
 #define HEADER_GUARD_H
 // [Start the_service_code_on_the_native_side]
-// entry4/src/main/cpp/jsbridge_object.h
+// entry6/src/main/cpp/jsbridge_object.h
 #include "web/arkweb_type.h"
 #include <string>
 
