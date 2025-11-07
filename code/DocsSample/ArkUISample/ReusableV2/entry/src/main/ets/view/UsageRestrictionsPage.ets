@@ -12,18 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-//[Start ExamplePage]
+//[Start UsageRestrictionsPage]
 @Entry
 @ComponentV2
 struct Index {
   build() {
     Column() {
-      ReusableV2Component()
-        .reuse({ reuseId: () => 'reuseComponent' }) // 使用'ReusableV2Component'作为reuseId
-      ReusableV2Component()
-        .reuse({ reuseId: () => '' }) // 使用空字符串将默认使用组件名'ReusableV2Component'作为reuseId
-      ReusableV2Component() // 未指定reuseId将默认使用组件名'ReusableV2Component'作为reuseId
+      ReusableV2Component() // 正确用法
     }
   }
 }
@@ -33,6 +28,10 @@ struct ReusableV2Component {
   build() {
   }
 }
-//[End ExamplePage]
-const examplePage = Index;
-export default examplePage;
+@Builder
+function v2ReusableBuilder() {
+  ReusableV2Component()
+}
+//[End UsageRestrictionsPage]
+const usageRestrictionsPage = Index;
+export default usageRestrictionsPage;
