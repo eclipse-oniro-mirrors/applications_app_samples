@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { PromptAction } from '@kit.ArkUI';
+// [Start builder_custom_menu]
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = 'DialogProject';
@@ -21,7 +21,7 @@ const DOMAIN_NUMBER: number = 0xFF00;
 
 // $r('app.media.xxx')需要替换为开发者所需的图像资源文件。
 class Tmp {
-  private iconStr2: ResourceStr = $r('app.media.app_icon')
+  public iconStr2: ResourceStr = $r('app.media.view_list_filled');
 
   set(val: Resource) {
     this.iconStr2 = val;
@@ -30,31 +30,33 @@ class Tmp {
 
 @Entry
 @Component
-export struct PopVibrateMenuExample  {
+export struct BuilderCustomMenuExample {
   @State select: boolean = true;
-  private iconStr: ResourceStr = $r('app.media.app_icon');
-  private iconStr2: ResourceStr = $r('app.media.app_icon');
+  private iconStr: ResourceStr = $r('app.media.view_list_filled');
+  private iconStr2: ResourceStr = $r('app.media.view_list_filled');
+  // 'app.string.copy'资源文件中的value值为"复制"。
+  private copy: ResourceStr = $r('app.string.copy');
+  // 'app.string.paste'资源文件中的value值为"粘贴"。
+  private paste: ResourceStr = $r('app.string.paste');
 
   @Builder
   SubMenu() {
     Menu() {
-      MenuItem({ content: 'copy', labelInfo: 'Ctrl+C' })
-      MenuItem({ content: 'paste', labelInfo: 'Ctrl+V' })
+      MenuItem({ content: this.copy, labelInfo: 'Ctrl+C' })
+      MenuItem({ content: this.paste, labelInfo: 'Ctrl+V' })
     }
   }
 
   @Builder
   MyMenu() {
     Menu() {
-      // 'app.string.menu_single'资源文件中的value值为"菜单选项单级"。
-      MenuItem({ startIcon: $r('app.media.app_icon'), content: $r('app.string.menu_single') })
-      // 'app.string.menu_forbid'资源文件中的value值为"菜单不可选择"。
-      MenuItem({ startIcon: $r('app.media.app_icon'), content: $r('app.string.menu_forbid') }).enabled(false)
-      // 'app.string.menu_more'资源文件中的value值为"菜单选项多级"。
+      // 'app.string.menu_selection'资源文件中的value值为"菜单选项"。
+      MenuItem({ startIcon: $r('app.media.icon'), content: $r('app.string.menu_selection') })
+      MenuItem({ startIcon: $r('app.media.icon'), content: $r('app.string.menu_selection') }).enabled(false)
       MenuItem({
         startIcon: this.iconStr,
-        content: $r('app.string.menu_more'),
-        endIcon: $r('app.media.app_icon'),
+        content: $r('app.string.menu_selection'),
+        endIcon: $r('app.media.arrow_right_filled'),
         // 当builder参数进行配置时，表示与menuItem项绑定了子菜单。鼠标hover在该菜单项时，会显示子菜单。
         builder: this.SubMenu
       })
@@ -67,43 +69,42 @@ export struct PopVibrateMenuExample  {
           .onChange((selected) => {
             hilog.info(DOMAIN_NUMBER, TAG, 'menuItem select' + selected);
             let str: Tmp = new Tmp();
-            str.set($r('app.media.app_icon'));
+            str.set($r('app.media.icon'));
           })
-        // 'app.string.menu_more'资源文件中的value值为"菜单选项多级"。
+        // 'app.string.menu_selection'资源文件中的value值为"菜单选项"。
         MenuItem({
-          startIcon: $r('app.media.app_icon'),
-          content: $r('app.string.menu_more'),
-          endIcon: $r('app.media.foreground'),
+          startIcon: $r('app.media.view_list_filled'),
+          content: $r('app.string.menu_selection'),
+          endIcon: $r('app.media.arrow_right_filled'),
           builder: this.SubMenu
         })
       }
-      // 'app.string.menu_single'资源文件中的value值为"菜单选项单级"。
+
+      // 'app.string.menu_selection'资源文件中的value值为"菜单选项"。
       MenuItem({
         startIcon: this.iconStr2,
-        content: $r('app.string.menu_single'),
-        endIcon: $r('app.media.app_icon')
+        content: $r('app.string.menu_selection'),
+        endIcon: $r('app.media.arrow_right_filled')
       })
     }
   }
+
   build() {
+    // [StartExclude builder_custom_menu]
     NavDestination() {
       Column({ space: 12 }) {
-
-        // [Start popVibrate_menu]
+        // [Start bind_menu]
         Button('click for Menu')
-          .id('click for Menu')
-          .bindContextMenu(this.MyMenu, ResponseType.RightClick, { hapticFeedbackMode: HapticFeedbackMode.ENABLED})
-          // [End popVibrate_menu]
+          .bindMenu(this.MyMenu)
+          // [End bind_menu]
           .width(160)
           .height(50)
-
-      }
-      .width('100%')
+          .id('click for Menu')
+      }.width('100%')
       .height('100%')
-      .padding({ left: 12, right: 12 })
     }
-    // [StartExclude popVibrate_menu]
-    .title($r('app.string.PopVibrateMenu_title'))
-    // [EndExclude popVibrate_menu]
+    .title($r('app.string.BuilderCustomMenu_title'))
+    // [EndExclude builder_custom_menu]
   }
 }
+// [End builder_custom_menu]
