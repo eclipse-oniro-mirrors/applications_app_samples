@@ -14,11 +14,10 @@
  */
 {
   "module": {
-    "name": "entry",
-    "type": "entry",
-    "routerMap": "$profile:route_map",
+    "name": "demo",
+    "type": "feature",
     "description": "$string:module_desc",
-    "mainElement": "EntryAbility",
+    "mainElement": "NewModuleAbility",
     "deviceTypes": [
       "default"
     ],
@@ -27,11 +26,11 @@
     "pages": "$profile:main_pages",
     "abilities": [
       {
-        "name": "EntryAbility",
-        "srcEntry": "./ets/entryability/EntryAbility.ets",
-        "description": "$string:EntryAbility_desc",
+        "name": "NewModuleAbility",
+        "srcEntry": "./ets/newmoduleability/NewModuleAbility.ets",
+        "description": "$string:NewModuleAbility_desc",
         "icon": "$media:layered_image",
-        "label": "$string:EntryAbility_label",
+        "label": "$string:NewModuleAbility_label",
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
@@ -49,8 +48,8 @@
     ],
     "extensionAbilities": [
       {
-        "name": "EntryBackupAbility",
-        "srcEntry": "./ets/entrybackupability/EntryBackupAbility.ets",
+        "name": "DemoBackupAbility",
+        "srcEntry": "./ets/demobackupability/DemoBackupAbility.ets",
         "type": "backup",
         "exported": false,
         "metadata": [
@@ -58,12 +57,7 @@
             "name": "ohos.extension.backup",
             "resource": "$profile:backup_config"
           }
-        ]
-      }
-    ],
-    "dependencies": [
-      {
-        "moduleName": "demo"
+        ],
       }
     ]
   }
