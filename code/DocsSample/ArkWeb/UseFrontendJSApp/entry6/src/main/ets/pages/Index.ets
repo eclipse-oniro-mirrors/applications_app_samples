@@ -15,7 +15,7 @@
 
 // [Start interact_with_the_webview_via_the_native_api]
 // [Start use_the_native_interface_to_bind_arkweb]
-// entry4/src/main/ets/pages/Index.ets
+// entry6/src/main/ets/pages/Index.ets
 import testNapi from 'libentry.so';
 import { webview } from '@kit.ArkWeb';
 
@@ -43,7 +43,7 @@ struct Index {
   // [StartExclude customize_a_webtag_and_send_it_to_the_native_side_of_the_application]
   @State testObjtest: testObj = new testObj();
   // [StartExclude customize_a_webtag_and_send_it_to_the_native_side_of_the_application]
-  // 在aboutToAppear方法中，通过Node-API接口将webTag传入C++侧，C++侧使用webTag作为ArkWeb组件的唯一标识
+  // aboutToAppear中将webTag通过Node-API接口传入C++侧，作为C++侧ArkWeb组件的唯一标识
   aboutToAppear() {
     console.info('aboutToAppear');
     //初始化web Native Development Kit
