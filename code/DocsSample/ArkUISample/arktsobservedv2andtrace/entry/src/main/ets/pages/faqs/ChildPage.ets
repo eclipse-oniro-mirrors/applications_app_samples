@@ -12,16 +12,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
-  "modelVersion": "6.0.0",
-  "description": "Please describe the basic information.",
-  "dependencies": {
-    "class-transformer": "^0.5.1",
-    "reflect-metadata": "0.2.1"
-  },
-  "devDependencies": {
-    "@ohos/hypium": "1.0.24",
-    "@ohos/hamock": "1.0.0"
-  },
-  "dynamicDependencies": {}
+// [Start Child_Page]
+import { RouterModel } from './RouterIndex';
+import { plainToInstance } from 'class-transformer'; // 导入三方库
+
+@Entry
+@ComponentV2
+struct Detail {
+  @Local params?: RouterModel
+  aboutToAppear(): void {
+    this.params =
+      plainToInstance(RouterModel, JSON.parse(JSON.stringify(this.getUIContext().getRouter().getParams())));
+  }
+  build() {
+    Column() {
+      Text(`Detail Page: ${this.params?.id} ${this.params?.info}`)
+    }
+  }
 }
+// [End Child_Page]
