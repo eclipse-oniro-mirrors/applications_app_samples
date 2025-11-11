@@ -13,8 +13,26 @@
  * limitations under the License.
  */
 
-// entry/src/main/cpp/types/libentry/Index.d.ts
+import nativeNode from 'libentry.so';
+import { NodeContent } from '@kit.ArkUI';
 
-export const createNativeRoot: (content: Object) => void;
-export const createNativeNode: (content: Object) => void;
-export const destroyNativeRoot: () => void;
+@Entry
+@Component
+struct Index {
+  // 初始化NodeContent对象。
+  private rootSlot = new NodeContent();
+
+  build() {
+    Column() {
+      Button('ShowNativeUI').onClick(() => {
+        nativeNode.createNativeNode(this.rootSlot);
+      })
+      Row() {
+        // 将NodeContent和ContentSlot占位组件绑定。
+        ContentSlot(this.rootSlot);
+      }.layoutWeight(1)
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
