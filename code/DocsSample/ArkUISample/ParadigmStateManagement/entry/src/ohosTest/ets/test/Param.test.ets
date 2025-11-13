@@ -24,8 +24,8 @@ const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
 let want: Want;
 const DOMAIN = 0x0000;
 
-export default function builderParamTest() {
-  describe('builderParamTest', () => {
+export default function paramTest() {
+  describe('paramTest', () => {
     beforeAll(async () => {
       want = {
         bundleName: bundleName,
@@ -40,104 +40,26 @@ export default function builderParamTest() {
     })
 
     /**
-     * @tc.number     : builderParam_BuilderParamInitMethodDemo01
-     * @tc.name       : builderParam_BuilderParamInitMethodDemo01
-     * @tc.desc       : builderParam
+     * @tc.number     : param_ParamDecoratorLimitations
+     * @tc.name       : param_ParamDecoratorLimitations
+     * @tc.desc       : param
      * @tc.level      : Level 1
      * @tc.size       : MediumTest
      * @tc.type       : Function
      */
-    it('builderParam_BuilderParamInitMethodDemo01', 0, async (done: Function) => {
+    it('param_ParamDecoratorLimitations', 0, async (done: Function) => {
       hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
       const driver = Driver.create();
       await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(await getResourceString('builder_param')));
+      const text = await driver.findComponent(ON.text(await getResourceString('param')));
       await text.click();
       await driver.delayMs(1000);
       const text1 =
-        await driver.findComponent(ON.text(await getResourceString('builder_param_init_method_demo01')));
-      await text1.click();
-      await driver.delayMs(1000);
-      await driver.pressBack();
-      await driver.delayMs(500);
-      await driver.pressBack();
-      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
-      done();
-    })
-
-    /**
-     * @tc.number     : builderParam_BuilderParamInitMethodDemo02
-     * @tc.name       : builderParam_BuilderParamInitMethodDemo02
-     * @tc.desc       : builderParam
-     * @tc.level      : Level 1
-     * @tc.size       : MediumTest
-     * @tc.type       : Function
-     */
-    it('builderParam_BuilderParamInitMethodDemo02', 0, async (done: Function) => {
-      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
-      const driver = Driver.create();
-      await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(await getResourceString('builder_param')));
-      await text.click();
-      await driver.delayMs(1000);
-      const text1 =
-        await driver.findComponent(ON.text(await getResourceString('builder_param_init_method_demo02')));
-      await text1.click();
-      await driver.delayMs(1000);
-      await driver.pressBack();
-      await driver.delayMs(500);
-      await driver.pressBack();
-      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
-      done();
-    })
-
-    /**
-     * @tc.number     : builderParam_BuilderParamSceneInitComponent
-     * @tc.name       : builderParam_BuilderParamSceneInitComponent
-     * @tc.desc       : builderParam
-     * @tc.level      : Level 1
-     * @tc.size       : MediumTest
-     * @tc.type       : Function
-     */
-    it('builderParam_BuilderParamSceneInitComponent', 0, async (done: Function) => {
-      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
-      const driver = Driver.create();
-      await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(await getResourceString('builder_param')));
-      await text.click();
-      await driver.delayMs(1000);
-      const text1 =
-        await driver.findComponent(ON.text(await getResourceString('builder_param_scene_init_component')));
-      await text1.click();
-      await driver.delayMs(1000);
-      await driver.pressBack();
-      await driver.delayMs(500);
-      await driver.pressBack();
-      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
-      done();
-    })
-
-    /**
-     * @tc.number     : builderParam_BuilderParamSceneTrailingClosure01
-     * @tc.name       : builderParam_BuilderParamSceneTrailingClosure01
-     * @tc.desc       : builderParam
-     * @tc.level      : Level 1
-     * @tc.size       : MediumTest
-     * @tc.type       : Function
-     */
-    it('builderParam_BuilderParamSceneTrailingClosure01', 0, async (done: Function) => {
-      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
-      const driver = Driver.create();
-      await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(await getResourceString('builder_param')));
-      await text.click();
-      await driver.delayMs(1000);
-      const text1 =
-        await driver.findComponent(ON.text(await getResourceString('builder_param_scene_trailing_closure_01')));
+        await driver.findComponent(ON.text(await getResourceString('param_decorator_limitations')));
       await text1.click();
       await driver.delayMs(1000);
       const text2 =
-        await driver.findComponent(ON.text('testA' || 'testB'));
+        await driver.findComponent(ON.text('change Info'));
       await text2.click();
       await driver.delayMs(1000);
       await driver.pressBack();
@@ -148,23 +70,27 @@ export default function builderParamTest() {
     })
 
     /**
-     * @tc.number     : builderParam_BuilderParamSceneTrailingClosure02
-     * @tc.name       : builderParam_BuilderParamSceneTrailingClosure02
-     * @tc.desc       : builderParam
+     * @tc.number     : param_ParamObserveChangeVariable
+     * @tc.name       : param_ParamObserveChangeVariable
+     * @tc.desc       : param
      * @tc.level      : Level 1
      * @tc.size       : MediumTest
      * @tc.type       : Function
      */
-    it('builderParam_BuilderParamSceneTrailingClosure02', 0, async (done: Function) => {
+    it('param_ParamObserveChangeVariable', 0, async (done: Function) => {
       hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
       const driver = Driver.create();
       await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(await getResourceString('builder_param')));
+      const text = await driver.findComponent(ON.text(await getResourceString('param')));
       await text.click();
       await driver.delayMs(1000);
       const text1 =
-        await driver.findComponent(ON.text(await getResourceString('builder_param_scene_trailing_closure_02')));
+        await driver.findComponent(ON.text(await getResourceString('param_observe_change_variable')));
       await text1.click();
+      await driver.delayMs(1000);
+      const text2 =
+        await driver.findComponent(ON.text('change Local'));
+      await text2.click();
       await driver.delayMs(1000);
       await driver.pressBack();
       await driver.delayMs(500);
@@ -174,117 +100,132 @@ export default function builderParamTest() {
     })
 
     /**
-     * @tc.number     : builderParam_BuilderParamSceneJumpLogic
-     * @tc.name       : builderParam_BuilderParamSceneJumpLogic
-     * @tc.desc       : builderParam
+     * @tc.number     : param_ParamObserveChangeClass
+     * @tc.name       : param_ParamObserveChangeClass
+     * @tc.desc       : param
      * @tc.level      : Level 1
      * @tc.size       : MediumTest
      * @tc.type       : Function
      */
-    it('builderParam_BuilderParamSceneJumpLogic', 0, async (done: Function) => {
+    it('param_ParamObserveChangeClass', 0, async (done: Function) => {
       hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
       const driver = Driver.create();
       await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(await getResourceString('builder_param')));
+      const text = await driver.findComponent(ON.text(await getResourceString('param')));
       await text.click();
       await driver.delayMs(1000);
       const text1 =
-        await driver.findComponent(ON.text(await getResourceString('builder_param_scene_jump_logic')));
+        await driver.findComponent(ON.text(await getResourceString('param_observe_change_class')));
       await text1.click();
       await driver.delayMs(1000);
-      const text2 = await driver.findComponent(ON.text('router to page'));
+      const text2 =
+        await driver.findComponent(ON.text('change object'));
       await text2.click();
-      await driver.delayMs(500);
-      const text3 = await driver.findComponent(ON.text('router to page'));
+      await driver.delayMs(300);
+      const text3 =
+        await driver.findComponent(ON.text('change name'));
       await text3.click();
+      await driver.delayMs(1000);
+      await driver.pressBack();
       await driver.delayMs(500);
-      const text4 = await driver.findComponent(ON.text('router to page'));
+      await driver.pressBack();
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
+      done();
+    })
+
+    /**
+     * @tc.number     : param_ParamObserveChangeArray
+     * @tc.name       : param_ParamObserveChangeArray
+     * @tc.desc       : param
+     * @tc.level      : Level 1
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     */
+    it('param_ParamObserveChangeArray', 0, async (done: Function) => {
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
+      const driver = Driver.create();
+      await driver.delayMs(1000);
+      const text = await driver.findComponent(ON.text(await getResourceString('param')));
+      await text.click();
+      await driver.delayMs(1000);
+      const text1 =
+        await driver.findComponent(ON.text(await getResourceString('param_observe_change_array')));
+      await text1.click();
+      await driver.delayMs(1000);
+      const text2 =
+        await driver.findComponent(ON.text('change array item'));
+      await text2.click();
+      await driver.delayMs(300);
+      const text3 =
+        await driver.findComponent(ON.text('change whole array'));
+      await text3.click();
+      await driver.delayMs(1000);
+      await driver.pressBack();
+      await driver.delayMs(500);
+      await driver.pressBack();
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
+      done();
+    })
+
+    /**
+     * @tc.number     : param_ParamObserveChangeNestedClass
+     * @tc.name       : param_ParamObserveChangeNestedClass
+     * @tc.desc       : param
+     * @tc.level      : Level 1
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     */
+    it('param_ParamObserveChangeNestedClass', 0, async (done: Function) => {
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
+      const driver = Driver.create();
+      await driver.delayMs(1000);
+      const text = await driver.findComponent(ON.text(await getResourceString('param')));
+      await text.click();
+      await driver.delayMs(1000);
+      const text1 =
+        await driver.findComponent(ON.text(await getResourceString('param_observe_change_nested_class')));
+      await text1.click();
+      await driver.delayMs(1000);
+      const text2 =
+        await driver.findComponent(ON.text('change infoArr item'));
+      await text2.click();
+      await driver.delayMs(300);
+      const text3 =
+        await driver.findComponent(ON.text('change originInfo'));
+      await text3.click();
+      await driver.delayMs(300);
+      const text4 =
+        await driver.findComponent(ON.text('change originInfo region'));
       await text4.click();
       await driver.delayMs(1000);
       await driver.pressBack();
       await driver.delayMs(500);
       await driver.pressBack();
-      await driver.delayMs(500);
-      await driver.pressBack();
-      await driver.delayMs(500);
-      await driver.pressBack();
       hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
       done();
     })
 
     /**
-     * @tc.number     : builderParam_BuilderParamSceneGlobalLocalInit
-     * @tc.name       : builderParam_BuilderParamSceneGlobalLocalInit
-     * @tc.desc       : builderParam
+     * @tc.number     : param_ParamUseSceneParentToChild
+     * @tc.name       : param_ParamUseSceneParentToChild
+     * @tc.desc       : param
      * @tc.level      : Level 1
      * @tc.size       : MediumTest
      * @tc.type       : Function
      */
-    it('builderParam_BuilderParamSceneGlobalLocalInit', 0, async (done: Function) => {
+    it('param_ParamUseSceneParentToChild', 0, async (done: Function) => {
       hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
       const driver = Driver.create();
       await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(await getResourceString('builder_param')));
+      const text = await driver.findComponent(ON.text(await getResourceString('param')));
       await text.click();
       await driver.delayMs(1000);
       const text1 =
-        await driver.findComponent(ON.text(await getResourceString('builder_param_scene_global_local_init')));
-      await text1.click();
-      await driver.delayMs(1000);
-      await driver.pressBack();
-      await driver.delayMs(500);
-      await driver.pressBack();
-      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
-      done();
-    })
-
-    /**
-     * @tc.number     : builderParam_BuilderParamSceneInComponentV2
-     * @tc.name       : builderParam_BuilderParamSceneInComponentV2
-     * @tc.desc       : builderParam
-     * @tc.level      : Level 1
-     * @tc.size       : MediumTest
-     * @tc.type       : Function
-     */
-    it('builderParam_BuilderParamSceneInComponentV2', 0, async (done: Function) => {
-      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
-      const driver = Driver.create();
-      await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(await getResourceString('builder_param')));
-      await text.click();
-      await driver.delayMs(1000);
-      const text1 =
-        await driver.findComponent(ON.text(await getResourceString('builder_param_scene_in_component_v2')));
-      await text1.click();
-      await driver.delayMs(1000);
-      await driver.pressBack();
-      await driver.delayMs(500);
-      await driver.pressBack();
-      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
-      done();
-    })
-
-    /**
-     * @tc.number     : builderParam_BuilderParamProblemNotRefreshOpposite
-     * @tc.name       : builderParam_BuilderParamProblemNotRefreshOpposite
-     * @tc.desc       : builderParam
-     * @tc.level      : Level 1
-     * @tc.size       : MediumTest
-     * @tc.type       : Function
-     */
-    it('builderParam_BuilderParamProblemNotRefreshOpposite', 0, async (done: Function) => {
-      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
-      const driver = Driver.create();
-      await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(await getResourceString('builder_param')));
-      await text.click();
-      await driver.delayMs(1000);
-      const text1 =
-        await driver.findComponent(ON.text(await getResourceString('builder_param_problem_not_refresh_opposite')));
+        await driver.findComponent(ON.text(await getResourceString('param_use_scene_parent_to_child')));
       await text1.click();
       await driver.delayMs(1000);
       const text2 =
-        await driver.findComponent(ON.text('点击改变label内容'));
+        await driver.findComponent(ON.text('change'));
       await text2.click();
       await driver.delayMs(1000);
       await driver.pressBack();
@@ -295,28 +236,200 @@ export default function builderParamTest() {
     })
 
     /**
-     * @tc.number     : builderParam_BuilderParamProblemNotRefreshPositive
-     * @tc.name       : builderParam_BuilderParamProblemNotRefreshPositive
-     * @tc.desc       : builderParam
+     * @tc.number     : param_ParamUseSceneArray
+     * @tc.name       : param_ParamUseSceneArray
+     * @tc.desc       : param
      * @tc.level      : Level 1
      * @tc.size       : MediumTest
      * @tc.type       : Function
      */
-    it('builderParam_BuilderParamProblemNotRefreshPositive', 0, async (done: Function) => {
+    it('param_ParamUseSceneArray', 0, async (done: Function) => {
       hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
       const driver = Driver.create();
       await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(await getResourceString('builder_param')));
+      const text = await driver.findComponent(ON.text(await getResourceString('param')));
       await text.click();
       await driver.delayMs(1000);
-      await driver.swipe(100, 800, 200, 20);
-      await driver.delayMs(1000);
       const text1 =
-        await driver.findComponent(ON.text(await getResourceString('builder_param_problem_not_refresh_positive')));
+        await driver.findComponent(ON.text(await getResourceString('param_use_scene_array')));
       await text1.click();
       await driver.delayMs(1000);
       const text2 =
-        await driver.findComponent(ON.text('点击改变label内容'));
+        await driver.findComponent(ON.text('init array'));
+      await text2.click();
+      await driver.delayMs(300);
+      const text3 =
+        await driver.findComponent(ON.text('push'));
+      await text3.click();
+      await driver.delayMs(300);
+      const text4 =
+        await driver.findComponent(ON.text('reverse'));
+      await text4.click();
+      await driver.delayMs(300);
+      const text5 =
+        await driver.findComponent(ON.text('fill'));
+      await text5.click();
+      await driver.delayMs(1000);
+      await driver.pressBack();
+      await driver.delayMs(500);
+      await driver.pressBack();
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
+      done();
+    })
+
+    /**
+     * @tc.number     : param_ParamUseSceneDate
+     * @tc.name       : param_ParamUseSceneDate
+     * @tc.desc       : param
+     * @tc.level      : Level 1
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     */
+    it('param_ParamUseSceneDate', 0, async (done: Function) => {
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
+      const driver = Driver.create();
+      await driver.delayMs(1000);
+      const text = await driver.findComponent(ON.text(await getResourceString('param')));
+      await text.click();
+      await driver.delayMs(1000);
+      const text1 =
+        await driver.findComponent(ON.text(await getResourceString('param_use_scene_date')));
+      await text1.click();
+      await driver.delayMs(1000);
+      const text2 =
+        await driver.findComponent(ON.text('parent update the new date'));
+      await text2.click();
+      await driver.delayMs(300);
+      const text3 =
+        await driver.findComponent(ON.text('increase the year by 1'));
+      await text3.click();
+      await driver.delayMs(300);
+      const text4 =
+        await driver.findComponent(ON.text('increase the month by 1'));
+      await text4.click();
+      await driver.delayMs(300);
+      const text5 =
+        await driver.findComponent(ON.text('parent increase the day by 1'));
+      await text5.click();
+      await driver.delayMs(1000);
+      await driver.pressBack();
+      await driver.delayMs(500);
+      await driver.pressBack();
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
+      done();
+    })
+
+    /**
+     * @tc.number     : param_ParamUseSceneMap
+     * @tc.name       : param_ParamUseSceneMap
+     * @tc.desc       : param
+     * @tc.level      : Level 1
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     */
+    it('param_ParamUseSceneMap', 0, async (done: Function) => {
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
+      const driver = Driver.create();
+      await driver.delayMs(1000);
+      const text = await driver.findComponent(ON.text(await getResourceString('param')));
+      await text.click();
+      await driver.delayMs(1000);
+      const text1 =
+        await driver.findComponent(ON.text(await getResourceString('param_use_scene_map')));
+      await text1.click();
+      await driver.delayMs(1000);
+      const text2 =
+        await driver.findComponent(ON.text('init map'));
+      await text2.click();
+      await driver.delayMs(300);
+      const text3 =
+        await driver.findComponent(ON.text('set new one'));
+      await text3.click();
+      await driver.delayMs(300);
+      const text4 =
+        await driver.findComponent(ON.text('clear'));
+      await text4.click();
+      await driver.delayMs(300);
+      const text5 =
+        await driver.findComponent(ON.text('replace the first one'));
+      await text5.click();
+      await driver.delayMs(300);
+      const text6 =
+        await driver.findComponent(ON.text('delete the first one'));
+      await text6.click();
+      await driver.delayMs(1000);
+      await driver.pressBack();
+      await driver.delayMs(500);
+      await driver.pressBack();
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
+      done();
+    })
+
+    /**
+     * @tc.number     : param_ParamUseSceneSet
+     * @tc.name       : param_ParamUseSceneSet
+     * @tc.desc       : param
+     * @tc.level      : Level 1
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     */
+    it('param_ParamUseSceneSet', 0, async (done: Function) => {
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
+      const driver = Driver.create();
+      await driver.delayMs(1000);
+      const text = await driver.findComponent(ON.text(await getResourceString('param')));
+      await text.click();
+      await driver.delayMs(1000);
+      const text1 =
+        await driver.findComponent(ON.text(await getResourceString('param_use_scene_set')));
+      await text1.click();
+      await driver.delayMs(1000);
+      const text2 =
+        await driver.findComponent(ON.text('init set'));
+      await text2.click();
+      await driver.delayMs(300);
+      const text3 =
+        await driver.findComponent(ON.text('set new one'));
+      await text3.click();
+      await driver.delayMs(300);
+      const text4 =
+        await driver.findComponent(ON.text('clear'));
+      await text4.click();
+      await driver.delayMs(300);
+      const text5 =
+        await driver.findComponent(ON.text('delete the first one'));
+      await text5.click();
+      await driver.delayMs(1000);
+      await driver.pressBack();
+      await driver.delayMs(500);
+      await driver.pressBack();
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
+      done();
+    })
+
+    /**
+     * @tc.number     : param_ParamUseSceneUnite
+     * @tc.name       : param_ParamUseSceneUnite
+     * @tc.desc       : param
+     * @tc.level      : Level 1
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     */
+    it('param_ParamUseSceneUnite', 0, async (done: Function) => {
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
+      const driver = Driver.create();
+      await driver.delayMs(1000);
+      const text = await driver.findComponent(ON.text(await getResourceString('param')));
+      await text.click();
+      await driver.delayMs(1000);
+      await driver.swipe(100, 400, 200, 20, 600);
+      await driver.delayMs(1500);
+      const text1 =
+        await driver.findComponent(ON.text(await getResourceString('param_use_scene_unite')));
+      await text1.click();
+      await driver.delayMs(1000);
+      const text2 =
+        await driver.findComponent(ON.text('change'));
       await text2.click();
       await driver.delayMs(1000);
       await driver.pressBack();
@@ -327,25 +440,37 @@ export default function builderParamTest() {
     })
 
     /**
-     * @tc.number     : builderParam_BuilderParamProblemCombinedPositive
-     * @tc.name       : builderParam_BuilderParamProblemCombinedPositive
-     * @tc.desc       : builderParam
+     * @tc.number     : param_ParamRestrictModifyObject
+     * @tc.name       : param_ParamRestrictModifyObject
+     * @tc.desc       : param
      * @tc.level      : Level 1
      * @tc.size       : MediumTest
      * @tc.type       : Function
      */
-    it('builderParam_BuilderParamProblemCombinedPositive', 0, async (done: Function) => {
+    it('param_ParamRestrictModifyObject', 0, async (done: Function) => {
       hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
       const driver = Driver.create();
       await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(await getResourceString('builder_param')));
+      const text = await driver.findComponent(ON.text(await getResourceString('param')));
       await text.click();
       await driver.delayMs(1000);
-      await driver.swipe(100, 800, 200, 20);
-      await driver.delayMs(1000);
+      await driver.swipe(100, 400, 200, 20, 600);
+      await driver.delayMs(1500);
       const text1 =
-        await driver.findComponent(ON.text(await getResourceString('builder_param_problem_combined_positive')));
+        await driver.findComponent(ON.text(await getResourceString('param_restrict_modify_object')));
       await text1.click();
+      await driver.delayMs(1000);
+      const text2 =
+        await driver.findComponent(ON.text('Parent change info'));
+      await text2.click();
+      await driver.delayMs(300);
+      const text3 =
+        await driver.findComponent(ON.text('change info'));
+      await text3.click();
+      await driver.delayMs(300);
+      const text4 =
+        await driver.findComponent(ON.text('Child change info.name'));
+      await text4.click();
       await driver.delayMs(1000);
       await driver.pressBack();
       await driver.delayMs(500);
@@ -353,34 +478,5 @@ export default function builderParamTest() {
       hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
       done();
     })
-
-    /**
-     * @tc.number     : builderParam_BuilderParamProblemMustBuilderPositive
-     * @tc.name       : builderParam_BuilderParamProblemMustBuilderPositive
-     * @tc.desc       : builderParam
-     * @tc.level      : Level 1
-     * @tc.size       : MediumTest
-     * @tc.type       : Function
-     */
-    it('builderParam_BuilderParamProblemMustBuilderPositive', 0, async (done: Function) => {
-      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
-      const driver = Driver.create();
-      await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(await getResourceString('builder_param')));
-      await text.click();
-      await driver.delayMs(1000);
-      await driver.swipe(100, 800, 200, 20);
-      await driver.delayMs(1000);
-      const text1 =
-        await driver.findComponent(ON.text(await getResourceString('builder_param_problem_must_builder_positive')));
-      await text1.click();
-      await driver.delayMs(1000);
-      await driver.pressBack();
-      await driver.delayMs(500);
-      await driver.pressBack();
-      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
-      done();
-    })
-
   })
 }
