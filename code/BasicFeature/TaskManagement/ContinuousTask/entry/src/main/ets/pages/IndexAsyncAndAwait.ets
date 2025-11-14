@@ -19,17 +19,10 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { wantAgent, WantAgent } from '@kit.AbilityKit';
 import PlayerModel from '../feature/BackgroundPlayerFeature';
 
-// [Start continuous_task]
-function callback(info: backgroundTaskManager.ContinuousTaskCancelInfo) {
-  // 长时任务id
-  console.info('OnContinuousTaskCancel callback id ' + info.id);
-  // 长时任务取消原因
-  console.info('OnContinuousTaskCancel callback reason ' + info.reason);
-}
-
+// [Start continuous_task_await]
 @Entry
 @Component
-struct Index {
+struct IndexAsyncAndAwait {
   @State message: string = 'ContinuousTask';
   // 通过getUIContext().getHostContext()方法，来获取page所在的UIAbility上下文
   private context: Context | undefined = this.getUIContext().getHostContext();
@@ -40,7 +33,7 @@ struct Index {
   onPlayClick(): void {
     if (this.isSwitching) {
       console.info(`onPlayClick ignored, isSwitching`);
-      return
+      return;
     }
     console.info(`onPlayClick isPlaying= ${PlayerModel.isPlaying}`);
     if (PlayerModel.isPlaying) {
@@ -137,27 +130,8 @@ struct Index {
   }
   // [EndExclude play_music]
 
-  OnContinuousTaskCancel() {
-    try {
-      backgroundTaskManager.on('continuousTaskCancel', callback);
-      console.info(`Succeeded in operationing OnContinuousTaskCancel.`);
-    } catch (error) {
-      console.error(`Operation OnContinuousTaskCancel failed. code is ${(error as BusinessError).code} message is ${(error as BusinessError).message}`);
-    }
-  }
-
-  OffContinuousTaskCancel() {
-    try {
-      // callback参数不传，则取消所有已注册的回调
-      backgroundTaskManager.off('continuousTaskCancel', callback);
-      console.info(`Succeeded in operationing OffContinuousTaskCancel.`);
-    } catch (error) {
-      console.error(`Operation OffContinuousTaskCancel failed. code is ${(error as BusinessError).code} message is ${(error as BusinessError).message}`);
-    }
-  }
-
-  // 申请长时任务.then()写法
-  startContinuousTask() {
+  // 申请长时任务async/await写法
+  async startContinuousTask() {
     let wantAgentInfo: wantAgent.WantAgentInfo = {
       // 点击通知后，将要执行的动作列表
       // 添加需要被拉起应用的bundleName和abilityName
@@ -182,44 +156,42 @@ struct Index {
 
     try {
       // 通过wantAgent模块下getWantAgent方法获取WantAgent对象
-      // 在原子化服务中，使用wantAgent.getWantAgent(wantAgentInfo).then((wantAgentObj: object) => {替换下面一行代码
-      wantAgent.getWantAgent(wantAgentInfo).then((wantAgentObj: WantAgent) => {
-        try {
-          let list: string[] = ['audioPlayback'];
-          // let list: string[] = ['bluetoothInteraction']; 长时任务类型包含bluetoothInteraction，CAR_KEY子类型合法
-          backgroundTaskManager.startBackgroundRunning(this.context, list, wantAgentObj).
-            then((res: backgroundTaskManager.ContinuousTaskNotification) => {
-            console.info('Operation startBackgroundRunning succeeded');
-            // 此处执行具体的长时任务逻辑，如播音等。
-            // [StartExclude apply_play_music]
-            if (!PlayerModel.isPlaying) {
-              this.onPlayClick();
-            }
-            // [EndExclude apply_play_music]
-          }).catch((error: BusinessError) => {
-            console.error(`Failed to Operation startBackgroundRunning. code is ${error.code} message is ${error.message}`);
-          });
-        } catch (error) {
-          console.error(`Failed to Operation startBackgroundRunning. code is ${(error as BusinessError).code} message is ${(error as BusinessError).message}`);
+      // 在原子化服务中，使用const wantAgentObj: object = await wantAgent.getWantAgent(wantAgentInfo);替换下面一行代码
+      const wantAgentObj: WantAgent = await wantAgent.getWantAgent(wantAgentInfo);
+      try {
+        let list: string[] = ['audioPlayback'];
+        // let list: string[] = ['bluetoothInteraction']; 长时任务类型包含bluetoothInteraction，CAR_KEY子类型合法
+        // 在原子化服务中，let list: Array<string> = ["audioPlayback"];
+        const res: backgroundTaskManager.ContinuousTaskNotification =
+          await backgroundTaskManager.startBackgroundRunning(this.context as Context, list, wantAgentObj);
+        console.info(`Operation startBackgroundRunning succeeded, notificationId: ${res.notificationId}`);
+        // 此处执行具体的长时任务逻辑，如播音等。
+        // [StartExclude apply_play_music]
+        if (!PlayerModel.isPlaying) {
+          this.onPlayClick();
         }
-      });
+        // [EndExclude apply_play_music]
+      } catch (error) {
+        console.error(`Failed to Operation startBackgroundRunning. Code is ${(error as BusinessError).code}, message is ${(error as BusinessError).message}`);
+      }
     } catch (error) {
-      console.error(`Failed to Operation getWantAgent. code is ${(error as BusinessError).code} message is ${(error as BusinessError).message}`);
+      console.error(`Failed to Operation getWantAgent. Code is ${(error as BusinessError).code}, message is ${(error as BusinessError).message}`);
     }
   }
 
-  // 取消长时任务.then()写法
-  stopContinuousTask() {
-    backgroundTaskManager.stopBackgroundRunning(this.context).then(() => {
+  // 取消长时任务async/await写法
+  async stopContinuousTask() {
+    try {
+      await backgroundTaskManager.stopBackgroundRunning(this.context);
       console.info(`Succeeded in operationing stopBackgroundRunning.`);
       // [StartExclude stop_play_music]
       if (PlayerModel.isPlaying) {
         this.onPlayClick();
       }
       // [EndExclude stop_play_music]
-    }).catch((err: BusinessError) => {
-      console.error(`Failed to operation stopBackgroundRunning. Code is ${err.code}, message is ${err.message}`);
-    });
+    } catch (error) {
+      console.error(`Failed to operation stopBackgroundRunning. Code is ${(error as BusinessError).code}, message is ${(error as BusinessError).message}`)
+    }
   }
 
   build() {
@@ -257,32 +229,6 @@ struct Index {
 
           // 通过按钮取消长时任务
           this.stopContinuousTask();
-        })
-
-        Button() {
-          Text('注册长时任务取消回调').fontSize(25).fontWeight(FontWeight.Bold)
-        }
-        .type(ButtonType.Capsule)
-        .margin({ top: 10 })
-        .backgroundColor('#0D9FFB')
-        .width(250)
-        .height(40)
-        .onClick(() => {
-          // 通过按钮注册长时任务取消回调
-          this.OnContinuousTaskCancel();
-        })
-
-        Button() {
-          Text('取消注册长时任务取消回调').fontSize(25).fontWeight(FontWeight.Bold)
-        }
-        .type(ButtonType.Capsule)
-        .margin({ top: 10 })
-        .backgroundColor('#0D9FFB')
-        .width(350)
-        .height(40)
-        .onClick(() => {
-          // 通过按钮取消注册长时任务取消回调
-          this.OffContinuousTaskCancel();
         })
         // [StartExclude play_music_ux]
         Text('播音业务功能')
@@ -328,5 +274,5 @@ struct Index {
     }
     .height('100%')
   }
-  // [End continuous_task]
+  // [End continuous_task_await]
 }
