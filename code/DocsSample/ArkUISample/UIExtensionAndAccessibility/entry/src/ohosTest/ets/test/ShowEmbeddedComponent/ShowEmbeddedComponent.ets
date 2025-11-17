@@ -12,20 +12,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it } from '@ohos/hypium';
+import { Want } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
 
-export default function DrawPageTest() {
-  describe('DrawPageTest', () => {
+export default function ShowEmbeddedComponent() {
+  describe('ShowEmbeddedComponent', () => {
     // Defines a test suite. Two parameters are supported: test suite name and test suite function.
     let driver = Driver.create();
     const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-    beforeAll(async() => {
+    beforeAll(async () => {
       // Presets an action, which is performed only once before all test cases of the test suite start.
       // This API supports only one parameter: preset action function.
       const want: Want = {
-        bundleName: 'com.example.nativenodesample',
+        bundleName: 'com.samples.uiextensionandaccessibility',
         abilityName: 'EntryAbility'
       };
       await delegator.startAbility(want);
@@ -35,29 +35,28 @@ export default function DrawPageTest() {
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: preset action function.
     })
-    afterEach(async (done:Function) => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
+    afterEach(async (done: Function) => {
       const driver = Driver.create();
       await driver.pressBack();
-      await driver.delayMs(3000);
-      done();
+      await driver.delayMs(2000);
+      done()
     })
     afterAll(() => {
       // Presets a clear action, which is performed after all test cases of the test suite end.
       // This API supports only one parameter: clear action function.
     })
+
     /**
-     * @tc.number ArkUIDraw_001
-     * @tc.name DrawTest_001
-     * @tc.desc 自定义绘制测试
+     * @tc.number ArkUI_Embedded_001
+     * @tc.name EmbeddedTest_001
+     * @tc.desc 通过EmbeddedComponent拉起EmbeddedUIExtensionAbility
+     * @tc.level: Level 1
      */
-    it('DrawTest_001', 0, async (done:Function) => {
+    it('EmbeddedTest_001', 0, async (done: Function) => {
       const driver = Driver.create();
-      const button = await driver.findComponent(ON.text('ShowDrawPage'));
+      const button = await driver.findComponent((ON.text('ShowPage')));
       await button.click();
-      await driver.delayMs(3000);
+      await driver.delayMs(1000);
       done();
     })
   })
