@@ -107,7 +107,7 @@ class Calc implements Person {
         return this.promiseNum;
       }
       let p1 = taskpool.execute(cb);
-      p1.then((e: NullishType) => {
+      p1.then((e: Any) => {
         hilog.info(0x0000, 'testTag', 'P1 then in thread ' + this.gettid() + '.');
         hilog.info(0x0000, 'testTag', 'P1 then e = ' + e + '.');
         let r: Int = e as Int;

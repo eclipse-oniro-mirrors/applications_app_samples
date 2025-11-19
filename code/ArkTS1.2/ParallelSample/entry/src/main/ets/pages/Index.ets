@@ -193,7 +193,7 @@ struct MyStateSample {
 
   concurrentFuncAdd() {
     const task = new taskpool.Task(this.add, 2, 10); // 2 10: test number
-    taskpool.execute(task).then((value: NullishType) => {
+    taskpool.execute(task).then((value: Any) => {
       hilog.info(0x0000, 'testTag', 'taskpool ' + value);
       this.addString += JSON.stringify(value);
     });
@@ -217,12 +217,12 @@ struct MyStateSample {
     taskGroup2.addTask(task2);
     taskGroup2.addTask(task3);
 
-    taskpool.execute(taskGroup2).then((res: Array<NullishType>) => {
+    taskpool.execute(taskGroup2).then((res: Array<Any>) => {
       hilog.info(0x0000, 'testTag', 'openSync fail' + res);
       this.taskGroupString += JSON.stringify(res);
     });
 
-    taskpool.execute(taskGroup1).then((res: Array<NullishType>) => {
+    taskpool.execute(taskGroup1).then((res: Array<Any>) => {
       hilog.info(0x0000, 'testTag', 'openSync fail' + res);
       this.taskGroupString += JSON.stringify(res);
     });
@@ -245,13 +245,13 @@ struct MyStateSample {
       const task = new taskpool.Task(this.priorityHIGH)
       const task2 = new taskpool.Task(this.priorityMEDIUM)
       const task3 = new taskpool.Task(this.priorityLOW)
-      taskpool.execute(task, taskpool.Priority.HIGH).then((value: NullishType) => {
+      taskpool.execute(task, taskpool.Priority.HIGH).then((value: Any) => {
         hilog.info(0x0000, 'testTag', 'taskpool ' + this.priorityString);
       });
-      taskpool.execute(task2, taskpool.Priority.MEDIUM).then((value: NullishType) => {
+      taskpool.execute(task2, taskpool.Priority.MEDIUM).then((value: Any) => {
         hilog.info(0x0000, 'testTag', 'taskpool ' + this.priorityString);
       });
-      taskpool.execute(task3, taskpool.Priority.LOW).then((value: NullishType) => {
+      taskpool.execute(task3, taskpool.Priority.LOW).then((value: Any) => {
         hilog.info(0x0000, 'testTag', 'taskpool ' + this.priorityString);
       });
     }
