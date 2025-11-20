@@ -7,7 +7,6 @@ import {
   Button,
   ButtonAttribute,
   ClickEvent,
-  UserView,
   Row,
   TextAlign,
   Entry,
@@ -37,10 +36,7 @@ import {
   State,
   PropRef,
   Link,
-  MutableState,
-  stateOf,
-  observableProxy,
-  memorizeUpdatedState
+  MutableState
 } from '@ohos.arkui.stateManagement';
 import { ParallelOption, ParallelizeUI } from '@ohos.arkui.Parallelize';
 import hilog from '@ohos.hilog'
@@ -53,9 +49,6 @@ class PageInfo {
   constructor(name:string, id:int) {
     this.name = name
     this.id = id
-  }
-  getImg():string {
-    return 'app.media.sunny'
   }
 }
 
@@ -213,24 +206,10 @@ export struct ServiceCard {
   }
 }
 
-@Component
-struct TitleComponent {
-  @Link message: string;
-
-  build() {
-    Column() {
-      Text(this.message)
-        .fontSize(18)
-        .fontWeight(FontWeight.Bold)
-        .width('100%')
-        .textAlign(TextAlign.Center)
-    }
-    .margin(5)
-    .align(Alignment.Center)
-    .width('95%')
-    .height('8%')
-    .borderRadius(10)
-    .backgroundColor('#FFFFFF')
+class Param {
+  private pi:PageInfo
+  constructor(pi: PageInfo) {
+    this.pi = pi
   }
 }
 
@@ -239,7 +218,6 @@ struct TitleComponent {
 struct Page {
   isEnable: boolean = false;
   @State message: string = 'CreatePageUsingParallelizeUI';
-  @State count: number = 0;
   @State page: PageInfo = new PageInfo('页面', 1);
 
   aboutToAppear(): void {
@@ -253,11 +231,6 @@ struct Page {
   }
 
   build() {
-    let prop = memorizeUpdatedState<PageInfo>(() => {
-      let value = this.page
-      return value
-    })
-
     Flex() {
       Column() {
         Button(`${this.message}`).fontSize('20')
@@ -283,21 +256,21 @@ struct Page {
             })
 
             // 并行创建
-            ParallelizeUI({enable: this.isEnable}) {
-              ForEach(cardTypeInfos2, (cardInfo: CardInfo, index: number) => {
-                Column() {
+            ParallelizeUI<Param>({enable: this.isEnable}, () => { return new Param(this.page); }, (param: Param)=>{
+                ForEach(cardTypeInfos2, (cardInfo: CardInfo, index: number) => {
                   Column() {
-                    Text(prop.value.name).fontSize('20')
+                    Column() {
+                      Text(param.pi.name).fontSize('20')
+                    }
+                    if (cardInfo.type === 'App' && cardInfo.appCardInfo) {
+                      AppCard({ info: cardInfo.appCardInfo })
+                    } else if (cardInfo.type === 'Service' && cardInfo.serviceCardInfo) {
+                      ServiceCard({ info: cardInfo.serviceCardInfo })
+                    }
                   }
-                  if (cardInfo.type === 'App' && cardInfo.appCardInfo) {
-                    AppCard({ info: cardInfo.appCardInfo })
-                  } else if (cardInfo.type === 'Service' && cardInfo.serviceCardInfo) {
-                    ServiceCard({ info: cardInfo.serviceCardInfo })
-                  }
-                }
-                .margin({ left: 8, top: 0, right: 8, bottom: 0 } as Margin)
-              })
-            }
+                  .margin({ left: 8, top: 0, right: 8, bottom: 0 } as Margin)
+                })
+            })
           }
         }
         .scrollBar(BarState.Off)

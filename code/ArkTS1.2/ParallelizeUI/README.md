@@ -19,7 +19,7 @@
 
 1. 源码参考[Page.ets](./entry/src/main/ets/pages/Page.ets)，ParallelizeUI接收ParallelOption参数，ParallelOption.enable决定是否开启并行化创建，true为开启并行创建，false为不开启，默认为true。
 
-2. 源码参考[Page.ets](./entry/src/main/ets/pages/Page.ets)，多线程可能会存在对象读写安全问题，ParallelizeUI方法内部不可以直接使用外部的状态变量，推荐使用memorizeUpdatedState函数来解决该问题。memorizeUpdatedState用于创建一个状态变量，该状态变量可用于更新UI。只有当入参匿名函数里面的状态变量更新时，该函数才会重新执行，返回新的value。
+2. 源码参考[Page.ets](./entry/src/main/ets/pages/Page.ets)，多线程可能会存在对象读写安全问题，ParallelizeUI方法内部不可以直接使用外部的状态变量，推荐使用ParallelizeUI重载函数来解决该问题，该方法支持在并行化环境中安全地使用外部定义的状态变量。具体适用方法如下所示：
 
 ```ts
 import { ParallelOption, ParallelizeUI } from '@ohos.arkui.Parallelize';
@@ -29,16 +29,9 @@ import { ParallelOption, ParallelizeUI } from '@ohos.arkui.Parallelize';
 struct Page {
   isEnable: boolean = true;
   @State message: string = 'CreatePageUsingParallelizeUI';
-  @State count: number = 0;
   @State page: PageInfo = new PageInfo('页面', 1);
 
   build() {
-    // 使用memorizeUpdatedState拷贝外部外部状态变量page.
-    let prop = memorizeUpdatedState<PageInfo>(() => {
-      let value = this.page
-      return value
-    })
-
     Flex() {
       Column() {
         Button(`${this.message}`).fontSize('20')
@@ -50,23 +43,23 @@ struct Page {
             this.page = new PageInfo('页面状态更新', 2);
           })
         Scroll() {
-          // 并行创建, enable决定是否开启并行化创建.
-          ParallelizeUI({enable: this.isEnable}) {
-            ForEach(cardTypeInfos2, (cardInfo: CardInfo, index: number) => {
-              Column() {
+          // 并行创建, enable决定是否开启并行化创建。
+          ParallelizeUI<Param>({enable: this.isEnable}, () => { return new Param(this.page); }, (param: Param)=>{
+              ForEach(cardTypeInfos2, (cardInfo: CardInfo, index: number) => {
                 Column() {
-                  // ParallelizeUI内部使用拷贝状态变量prop.
-                  Text(prop.value.name).fontSize('20')
+                  Column() {
+                    // 外部状态变量this.page通过Param参数封装传入，可以安全使用。
+                    Text(param.pi.name).fontSize('20')
+                  }
+                  if (cardInfo.type === 'App' && cardInfo.appCardInfo) {
+                    AppCard({ info: cardInfo.appCardInfo })
+                  } else if (cardInfo.type === 'Service' && cardInfo.serviceCardInfo) {
+                    ServiceCard({ info: cardInfo.serviceCardInfo })
+                  }
                 }
-                if (cardInfo.type === "App" && cardInfo.appCardInfo) {
-                  AppCard({ info: cardInfo.appCardInfo })
-                } else if (cardInfo.type === "Service" && cardInfo.serviceCardInfo) {
-                  ServiceCard({ info: cardInfo.serviceCardInfo })
-                }
-              }
-              .margin({ left: 8, top: 0, right: 8, bottom: 0 } as Margin)
-            })
-          }
+                .margin({ left: 8, top: 0, right: 8, bottom: 0 } as Margin)
+              })
+          })
         }
         .scrollBar(BarState.Off)
         .width('100%')
@@ -105,21 +98,21 @@ struct Page {
       })
 
       // cardTypeInfos2 通过并行方式创建，位于屏幕外生成的测试文本及图片内容。
-      ParallelizeUI({enable: this.isEnable}) {
-        ForEach(cardTypeInfos2, (cardInfo: CardInfo, index: number) => {
-          Column() {
+      ParallelizeUI<Param>(undefined, () => { return new Param(this.page); }, (param: Param)=>{
+          ForEach(cardTypeInfos2, (cardInfo: CardInfo, index: number) => {
             Column() {
-              Text(prop.value.name).fontSize('20')
+              Column() {
+                Text(param.pi.name).fontSize('20')
+              }
+              if (cardInfo.type === 'App' && cardInfo.appCardInfo) {
+                AppCard({ info: cardInfo.appCardInfo })
+              } else if (cardInfo.type === 'Service' && cardInfo.serviceCardInfo) {
+                ServiceCard({ info: cardInfo.serviceCardInfo })
+              }
             }
-            if (cardInfo.type === 'App' && cardInfo.appCardInfo) {
-              AppCard({ info: cardInfo.appCardInfo })
-            } else if (cardInfo.type === 'Service' && cardInfo.serviceCardInfo) {
-              ServiceCard({ info: cardInfo.serviceCardInfo })
-            }
-          }
-          .margin({ left: 8, top: 0, right: 8, bottom: 0 } as Margin)
-        })
-      }
+            .margin({ left: 8, top: 0, right: 8, bottom: 0 } as Margin)
+          })
+      })
     }
   }
 }
@@ -141,20 +134,9 @@ struct Page {
 
 ![build_nopara_trace](figures/nopara.png)
 
-完成时延通常以多模输入事件为起点，在本案例中对应于页面点击事件中的抬手时刻，结束点则为页面完成创建的时刻，在trace中对应ABILITY_OR_PAGE_SWITCH该区间结束位置。如下所示：
-
-- 使用并行创建UI组件完成时延
-
-![build_para2_trace](figures/para2.png)
-
-- 使用串行创建UI组件完成时延
-
-![build_nopara2_trace](figures/nopara2.png)
-
 |  | 并行创建 | 串行创建 | 优化比例 |
 | -------- | -------- | -------- | -------- |
 | 响应时延 | 87ms | 98.5ms | 13.2% |
-| 完成时延 | 645ms | 1000ms | 55.0% |
 
 ### 工程结构&模块类型  
 

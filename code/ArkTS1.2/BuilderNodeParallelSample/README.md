@@ -199,26 +199,16 @@
 
 - 使用并行创建UI组件响应时延
 
-![build_para_trace](figures/para.png)
+![build_para_trace](figures/bdpara.png)
 
 - 使用串行创建UI组件响应时延
 
-![build_nopara_trace](figures/nopara.png)
+![build_nopara_trace](figures/bdnopara.png)
 
-完成时延通常以多模输入事件为起点，在本案例中对应于页面点击事件中的抬手时刻，结束点则为页面完成创建的时刻，在trace中对应ABILITY_OR_PAGE_SWITCH该区间结束位置。如下所示：
-
-- 使用并行创建UI组件完成时延
-
-![build_para2_trace](figures/para2.png)
-
-- 使用串行创建UI组件完成时延
-
-![build_nopara2_trace](figures/nopara2.png)
 
 |  | 并行创建 | 串行创建 | 优化比例 |
 | -------- | -------- | -------- | -------- |
-| 响应时延 | 87ms | 98.5ms | 13.2% |
-| 完成时延 | 645ms | 1000ms | 55.0% |
+| 响应时延 | 53.6ms | 74.8ms | 28.34% |
 
 ### 工程结构&模块类型  
 
