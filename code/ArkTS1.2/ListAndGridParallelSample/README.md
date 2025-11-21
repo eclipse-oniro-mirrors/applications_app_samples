@@ -249,20 +249,9 @@
 
 ![build_nopara_trace](figures/nopara.png)
 
-完成时延通常以多模输入事件为起点，在本案例中对应于页面点击事件中的抬手时刻，结束点则为页面完成创建的时刻，在trace中对应ABILITY_OR_PAGE_SWITCH该区间结束位置。如下所示：
-
-- 使用并行创建子组件完成时延
-
-![build_para2_trace](figures/para2.png)
-
-- 使用串行创建子组件完成时延
-
-![build_nopara2_trace](figures/nopara2.png)
-
 |  | 并行创建 | 串行创建 | 优化比例 |
 | -------- | -------- | -------- | -------- |
 | 响应时延 | 26.2ms | 31.0ms | 18.3% |
-| 完成时延 | 517.8ms | 825.7ms | 59.5% |
 
 ### 工程结构&模块类型  
 
