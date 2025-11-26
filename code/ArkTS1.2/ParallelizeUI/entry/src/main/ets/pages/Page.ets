@@ -1,4 +1,5 @@
 'use static'
+
 import {
   Text,
   TextAttribute,
@@ -35,12 +36,11 @@ import {
 import {
   State,
   PropRef,
-  Link,
-  MutableState
+  Link
 } from '@ohos.arkui.stateManagement';
 import { ParallelOption, ParallelizeUI } from '@ohos.arkui.Parallelize';
-import hilog from '@ohos.hilog'
-import { paramsObj } from './Index'
+import hilog from '@ohos.hilog';
+import { paramsObj } from './Index';
 import { cardTypeInfos1, cardTypeInfos2, CardInfo, AppCardInfo, ServiceCardInfo, ServiceItemInfo, AppItemInfo } from './MockData';
 
 class PageInfo {
@@ -155,13 +155,13 @@ export struct AppCard {
         .fontSize(16)
 
       Grid() {
-        ForEach(this.info.items, (item: AppItemInfo, index: number) => {
+        ForEach(this.info.items, (item: AppItemInfo, index: Int) => {
           GridItem() {
             AppItem({ info: item })
           }
           .width('20%')
           .height('24%')
-        })
+        }, (item: AppItemInfo, index: Int) => index.toString())
       }
       .width('100%')
       .height('90%')
@@ -190,11 +190,11 @@ export struct ServiceCard {
         .fontSize(16)
 
       List({ space: 8 }) {
-        ForEach(this.info.items, (item: ServiceItemInfo, index: number) => {
+        ForEach(this.info.items, (item: ServiceItemInfo, index: Int) => {
           ListItem() {
             ServiceItem({ info: item })
           }
-        })
+        }, (item: ServiceItemInfo, index: Int) => index.toString())
       }
       .listDirection(Axis.Horizontal) // 横向滚动
     }
@@ -221,8 +221,7 @@ struct Page {
   @State page: PageInfo = new PageInfo('页面', 1);
 
   aboutToAppear(): void {
-    const params = this.getUIContext().getRouter().getParams() as paramsObj;
-    this.isEnable = params.isEnable;
+    const params = this.getUIContext().getRouter().getParams();
     if (!this.isEnable) {
       this.message = 'CreatePageWithoutUsingParallelizeUI';
     } else {
@@ -244,7 +243,7 @@ struct Page {
         Scroll() {
           Column() {
             // 串行创建
-            ForEach(cardTypeInfos1, (cardInfo: CardInfo, index: number) => {
+            ForEach(cardTypeInfos1, (cardInfo: CardInfo, index: Int) => {
               Column() {
                 if (cardInfo.type === 'App' && cardInfo.appCardInfo) {
                   AppCard({ info: cardInfo.appCardInfo })
@@ -253,23 +252,23 @@ struct Page {
                 }
               }
               .margin({ left: 8, top: 0, right: 8, bottom: 0 } as Margin)
-            })
+            }, (cardInfo: CardInfo, index: Int) => index.toString())
 
             // 并行创建
             ParallelizeUI<Param>({enable: this.isEnable}, () => { return new Param(this.page); }, (param: Param)=>{
-                ForEach(cardTypeInfos2, (cardInfo: CardInfo, index: number) => {
+              ForEach(cardTypeInfos2, (cardInfo: CardInfo, index: Int) => {
+                Column() {
                   Column() {
-                    Column() {
-                      Text(param.pi.name).fontSize('20')
-                    }
-                    if (cardInfo.type === 'App' && cardInfo.appCardInfo) {
-                      AppCard({ info: cardInfo.appCardInfo })
-                    } else if (cardInfo.type === 'Service' && cardInfo.serviceCardInfo) {
-                      ServiceCard({ info: cardInfo.serviceCardInfo })
-                    }
+                    Text(param.pi.name).fontSize('20')
                   }
-                  .margin({ left: 8, top: 0, right: 8, bottom: 0 } as Margin)
-                })
+                  if (cardInfo.type === 'App' && cardInfo.appCardInfo) {
+                    AppCard({ info: cardInfo.appCardInfo })
+                  } else if (cardInfo.type === 'Service' && cardInfo.serviceCardInfo) {
+                    ServiceCard({ info: cardInfo.serviceCardInfo })
+                  }
+                }
+                .margin({ left: 8, top: 0, right: 8, bottom: 0 } as Margin)
+              }, (cardInfo: CardInfo, index: Int) => index.toString())
             })
           }
         }

@@ -2,7 +2,7 @@
 
 ### 介绍
 
-本示例介绍了List和Grid如何并行化创建子组件，从而优化组件创建耗时和响应时延。
+本示例介绍了List和Grid如何并行化创建子组件，从而优化页面的响应时延。
 
 ### 效果图预览
 
@@ -235,7 +235,7 @@
     ![build_para_trace](figures/grid.jpg)
 ### 性能对比
 
-本示例使用了List和Grid如何并行化创建子组件，减少了页面跳转响应时延和完成时延。
+本示例使用了List和Grid如何并行化创建子组件，减少了页面跳转的响应时延。
 
 参考[使用SmartPerf-Host分析应用性能](https://docs.openharmony.cn/pages/v5.1/zh-cn/application-dev/performance/performance-optimization-using-smartperf-host.md)文档，抓取trace对比分别使用并行创建和串行创建建组件时的性能。
 
