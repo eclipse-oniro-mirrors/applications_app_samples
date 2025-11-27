@@ -191,7 +191,7 @@
     ![build_para_trace](figures/bd4.png)
 ### 性能对比
 
-本示例使用了BuilderNode并行化构建节点树，减少了页面跳转响应时延和完成时延。
+本示例使用了BuilderNode并行化构建节点树，减少了页面跳转的响应时延。
 
 参考[使用SmartPerf-Host分析应用性能](https://docs.openharmony.cn/pages/v5.1/zh-cn/application-dev/performance/performance-optimization-using-smartperf-host.md)文档，抓取trace对比分别使用并行创建和串行创建建组件时的性能。
 

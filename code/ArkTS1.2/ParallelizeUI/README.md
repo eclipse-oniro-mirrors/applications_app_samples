@@ -2,7 +2,7 @@
 
 ### 介绍
 
-本示例介绍如何使用声明式的并行化创建方法ParallelizeUI创建UI组件，从而优化组件创建耗时和响应时延。
+本示例介绍如何使用声明式的并行化创建方法ParallelizeUI创建UI组件，从而优化页面的响应时延。
 
 ### 效果图预览
 
@@ -27,9 +27,6 @@ import { ParallelOption, ParallelizeUI } from '@ohos.arkui.Parallelize';
 @Entry
 @Component
 struct Page {
-  isEnable: boolean = true;
-  @State message: string = 'CreatePageUsingParallelizeUI';
-  @State page: PageInfo = new PageInfo('页面', 1);
 
   build() {
     Flex() {
@@ -45,7 +42,7 @@ struct Page {
         Scroll() {
           // 并行创建, enable决定是否开启并行化创建。
           ParallelizeUI<Param>({enable: this.isEnable}, () => { return new Param(this.page); }, (param: Param)=>{
-              ForEach(cardTypeInfos2, (cardInfo: CardInfo, index: number) => {
+              ForEach(cardTypeInfos2, (cardInfo: CardInfo, index: Int) => {
                 Column() {
                   Column() {
                     // 外部状态变量this.page通过Param参数封装传入，可以安全使用。
@@ -58,7 +55,7 @@ struct Page {
                   }
                 }
                 .margin({ left: 8, top: 0, right: 8, bottom: 0 } as Margin)
-              })
+              }, (cardInfo: CardInfo, index: Int) => index.toString())
           })
         }
         .scrollBar(BarState.Off)
@@ -81,12 +78,11 @@ struct Page {
 @Entry
 @Component
 struct Page {
-  isEnable: boolean = true;
 
   build() {
     Column() {
       // cardTypeInfos1 采用串行方式创建，用于屏幕展示的测试文本与图片内容。
-      ForEach(cardTypeInfos1, (cardInfo: CardInfo, index: number) => {
+      ForEach(cardTypeInfos1, (cardInfo: CardInfo, index: Int) => {
         Column() {
           if (cardInfo.type === 'App' && cardInfo.appCardInfo) {
             AppCard({ info: cardInfo.appCardInfo })
@@ -95,11 +91,11 @@ struct Page {
           }
         }
         .margin({ left: 8, top: 0, right: 8, bottom: 0 } as Margin)
-      })
+      }, (cardInfo: CardInfo, index: Int) => index.toString())
 
       // cardTypeInfos2 通过并行方式创建，位于屏幕外生成的测试文本及图片内容。
       ParallelizeUI<Param>(undefined, () => { return new Param(this.page); }, (param: Param)=>{
-          ForEach(cardTypeInfos2, (cardInfo: CardInfo, index: number) => {
+          ForEach(cardTypeInfos2, (cardInfo: CardInfo, index: Int) => {
             Column() {
               Column() {
                 Text(param.pi.name).fontSize('20')
@@ -111,7 +107,7 @@ struct Page {
               }
             }
             .margin({ left: 8, top: 0, right: 8, bottom: 0 } as Margin)
-          })
+          }, (cardInfo: CardInfo, index: Int) => index.toString())
       })
     }
   }
@@ -120,7 +116,7 @@ struct Page {
 ![alt text](figures/page.png)
 ### 性能对比
 
-本示例使用了ParallelizeUI方法并行创建UI组件，减少了页面跳转响应时延和完成时延。
+本示例使用了ParallelizeUI方法并行创建UI组件，减少了页面跳转的响应时延。
 
 参考[使用SmartPerf-Host分析应用性能](https://docs.openharmony.cn/pages/v5.1/zh-cn/application-dev/performance/performance-optimization-using-smartperf-host.md)文档，抓取trace对比分别使用并行创建和串行创建建组件时的性能。
 
