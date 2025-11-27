@@ -13,14 +13,19 @@
  * limitations under the License.
  */
 
-{
-  "module": {
-    "name": "entry_test",
-    "type": "feature",
-    "deviceTypes": [
-      "default"
-    ],
-    "deliveryWithInstall": true,
-    "installationFree": false
+// [Start rdb_Mover]
+import { relationalStore } from '@kit.ArkData';
+
+export class Mover {
+  async move(eStore: relationalStore.RdbStore, cStore: relationalStore.RdbStore) {
+    if (eStore != null && cStore != null) {
+      let predicates = new relationalStore.RdbPredicates('employee');
+      let resultSet = await cStore.query(predicates);
+      while (resultSet.goToNextRow()) {
+        let bucket = resultSet.getRow();
+        await eStore.insert('employee', bucket);
+      }
+    }
   }
 }
+// [End rdb_Mover]

@@ -1,4 +1,4 @@
-# 通过关系型数据库实现数据持久化 (C/C++)
+# 通过向量数据库实现数据持久化 (C/C++)
 
 ### 介绍
 
@@ -8,11 +8,11 @@
 
 | 首页                                                     |
 | -------------------------------------------------------- |
-| <img src="./browse/start.png" style="zoom:50%;" />, <img src="./browse/second.png" style="zoom:50%;" /> | 
+| <img src="./browse/start.png" style="zoom:50%;" /> | 
 
 使用说明：
 
-1. 在主页面中通过点击相应的按钮，。
+1. 在主页面中通过点击相应的按钮。
 
 ### 工程目录
 
@@ -25,7 +25,8 @@
             │         Index.d.ts            // 方法声明文件
             │     CMakeLists.txt            // C/C++编译配置文件
             ├─ets
-            │  ├─encryptedEStoreGuidelines  // 加密存储指导
+            │  ├─common
+            │  │      Logger.ts				// 打印工具类
             │  ├─entryability
             │  ├─entrybackupability
             │  └─pages
@@ -42,7 +43,7 @@
 
 ### 具体实现
 
-- 本示例提供了一套完整的对本地数据库进行管理的机制，对外提供了一系列的增、删、改、查等接口，也可以直接运行用户输入的SQL语句来满足复杂的场景需要，源码参考：napi_init.cpp。
+- 本示例提供了一套完整的向量数据库管理的机制，提供了一系列的增、删、改、查等接口，也可以直接运行用户输入的SQL语句来满足复杂的场景需要，源码参考：napi_init.cpp。
 
 ### 相关权限
 
