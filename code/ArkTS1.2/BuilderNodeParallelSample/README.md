@@ -94,7 +94,7 @@
 
               // 显示已创建的节点
               Grid() {
-                ForEach(iconDatas, (item: IconData, index: number) => {
+                ForEach(iconDatas, (item: IconData, index: Int) => {
                   GridItem() {
                     NodeContainer(getNode(index, item))
                   }

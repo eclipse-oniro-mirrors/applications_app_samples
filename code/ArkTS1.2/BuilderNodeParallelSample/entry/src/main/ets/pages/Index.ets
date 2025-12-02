@@ -169,7 +169,7 @@ function smallFolder() {
     .opacity(0.3)
 
     Grid() {
-      ForEach(iconDatas, (item: IconData, index: number) => {
+      ForEach(iconDatas, (item: IconData, index: Int) => {
         GridItem() {
           Column() {
             Image($r(`app.media.${item.icon}`))
@@ -258,7 +258,7 @@ struct Index {
           .margin({ top: 60 } as Padding)
 
           Grid() {
-            ForEach(iconDatas, (item: IconData, index: number) => {
+            ForEach(iconDatas, (item: IconData, index: Int) => {
               GridItem() {
                 NodeContainer(getNode(index, item))
               }
