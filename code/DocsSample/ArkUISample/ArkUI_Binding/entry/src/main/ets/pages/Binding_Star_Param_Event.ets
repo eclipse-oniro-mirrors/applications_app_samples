@@ -12,40 +12,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start ArkUI_Star_binding2]
+// [Start ArkUI_Star_binding4]
 @Entry
 @ComponentV2
-struct Index {
+struct Parent {
   @Local value: number = 0;
 
   build() {
     Column() {
       Text(`${this.value}`)
+      // 点击Index中的Button改变value值，父组件Parent和子组件Child中的Text将同步更新。
       Button(`change value`).onClick(() => {
         this.value++;
       })
-      // [Start ArkUI_Star_binding3]
-      Star({ value: this.value!! })
-      // [End ArkUI_Star_binding3]
-      // [StartExclude ArkUI_Star_binding2]
-        .id('aaa')
-      // [EndExclude ArkUI_Star_binding2]
+      // [Start ArkUI_Star_binding1]
+      Child({ value: this.value, $value: (val: number) => { this.value = val; } }) // 使用@Param与@Event语法实现自定义组件双向绑定。
+      // [End ArkUI_Star_binding1]
+      // [StartExclude ArkUI_Star_binding4]
+        .id('bbb')
+      // [EndExclude ArkUI_Star_binding4]
+    // ···
     }
   }
 }
 
 @ComponentV2
-struct Star {
+struct Child {
   @Param value: number = 0;
   @Event $value: (val: number) => void = (val: number) => {};
 
   build() {
     Column() {
       Text(`${this.value}`)
+      // 点击子组件Child中的Button，调用`this.$value(10)`方法，父组件Parent和子组件Child中的Text将同步更新。
       Button(`change value`).onClick(() => {
         this.$value(10);
       })
     }
   }
 }
-// [End ArkUI_Star_binding2]
+// [End ArkUI_Star_binding4]
