@@ -1,8 +1,8 @@
-# XComponent
+# ArkTSXComponent
 
 ### 介绍
 
-本示例主要介绍开发者如何使用ArkTS XComponent组件进行自绘制，主要包括：XComponent组件使用，
+本示例为[自定义渲染 (XComponent)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/napi-xcomponent-guidelines.md)示例工程，主要介绍开发者如何使用ArkTS XComponent组件进行自绘制，主要包括：XComponent组件使用，
 SurfaceId获取方法，Surface生命周期回调使用，NativeWindow创建等知识点。开发者基于ArkTS侧获取的SurfaceId，
 在Native侧调用OH_NativeWindow_CreateNativeWindowFromSurfaceId接口创建出NativeWindow实例后，使用OpenGL ES/EGL接口在XComponent组件上进行图形绘制。功能主要包括点击按钮绘制一个五角星，并可以通过点击XComponent区域改变五角星的颜色。
 
@@ -38,6 +38,10 @@ SurfaceId获取方法，Surface生命周期回调使用，NativeWindow创建等�
 │  │  │  ├──egl_core.h
 │  │  │  ├──plugin_render.cpp
 │  │  │  └──plugin_render.h
+|  |  ├──types						//定义接口文件
+│  │  │  ├──libnativerender
+│  │  │  │  ├──Index.d.ts
+│  │  │  │  ├──oh-package.json5
 │  ├──ets                           // ets代码区
 │  │  ├──entryability
 │  │  │  └──EntryAbility.ts         // 程序入口类
@@ -97,6 +101,6 @@ XComponentController
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Native/ArkTSXComponent/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

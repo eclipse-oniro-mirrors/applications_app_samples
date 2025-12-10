@@ -19,7 +19,7 @@
     "description": "$string:module_desc",
     "mainElement": "EntryAbility",
     "deviceTypes": [
-      "phone"
+      "default"
     ],
     "deliveryWithInstall": true,
     "installationFree": false,
@@ -32,7 +32,9 @@
         "icon": "$media:layered_image",
         "label": "$string:EntryAbility_label",
         "startWindowIcon": "$media:startIcon",
+        // [Start auto_rotation]
         "orientation": "auto_rotation",
+        // [End auto_rotation]
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
         "skills": [
@@ -58,8 +60,11 @@
             "name": "ohos.extension.backup",
             "resource": "$profile:backup_config"
           }
-        ],
+        ]
       }
-    ]
+    ],
+    // [Start navigation_router_map]
+    "routerMap": "$profile:route_map",
+    // [End navigation_router_map]
   }
 }

@@ -14,18 +14,22 @@
  */
 // [Start napi_call_threadsafe_function_with_priority_cpp]
 // [Start napi_ark_runtime_cpp]
-#include <pthread.h>
+// [Start napi_event_loop_cpp]
 #include "napi/native_api.h"
-// [StartExclute napi_ark_runtime_cpp]
-#include <napi/common.h>
+// [StartExclude napi_call_threadsafe_function_with_priority_cpp]
 #include <pthread.h>
-#include <future>
-
+// [EndExclude napi_call_threadsafe_function_with_priority_cpp]
+// [StartExclude napi_ark_runtime_cpp]
+#include <hilog/log.h>
+// [StartExclude napi_call_threadsafe_function_with_priority_cpp]
+#include <napi/common.h>
+// [EndExclude napi_call_threadsafe_function_with_priority_cpp]
 static constexpr int INT_ARG_2 = 2; // 入参索引
+// [StartExclude napi_event_loop_cpp]
 static constexpr int INT_ARG_12 = 12; // 入参索引
 static constexpr int INT_ARG_15 = 15; // 入参索引
-// [EndExclute napi_ark_runtime_cpp]
-// [StartExclute napi_call_threadsafe_function_with_priority_cpp]
+// [EndExclude napi_ark_runtime_cpp]
+// [StartExclude napi_call_threadsafe_function_with_priority_cpp]
 static void *CreateArkRuntimeFunc(void *arg)
 {
     // 1. 创建基础运行环境
@@ -34,6 +38,9 @@ static void *CreateArkRuntimeFunc(void *arg)
     if (ret != napi_ok) {
         return nullptr;
     }
+
+    napi_handle_scope scope;
+    napi_open_handle_scope(env, &scope);
 
     // 2. 加载自定义模块
     napi_value objUtils;
@@ -51,6 +58,8 @@ static void *CreateArkRuntimeFunc(void *arg)
     }
     ret = napi_call_function(env, objUtils, logger, 0, nullptr, nullptr);
 
+    napi_close_handle_scope(env, scope);
+
     // 4. 销毁ArkTS环境
     ret = napi_destroy_ark_runtime(&env);
 
@@ -64,8 +73,8 @@ static napi_value CreateArkRuntime(napi_env env, napi_callback_info info)
     pthread_join(tid, nullptr);
     return nullptr;
 }
-// [StartExclute napi_ark_runtime_cpp]
-// [Start napi_event_loop_cpp]
+// [End napi_ark_runtime_cpp]
+// [EndExclude napi_event_loop_cpp]
 static napi_value ResolvedCallback(napi_env env, napi_callback_info info)
 {
     napi_stop_event_loop(env);
@@ -87,10 +96,18 @@ static void *RunEventLoopFunc(void *arg)
         return nullptr;
     }
 
+    napi_handle_scope scope;
+    ret = napi_open_handle_scope(env, &scope);
+    if (ret != napi_ok) {
+        napi_destroy_ark_runtime(&env);
+        return nullptr;
+    }
+
     // 2. 加载自定义的模块
     napi_value objectUtils;
     // 'com.example.myapplication' 为当前应用的bundleName
-    ret = napi_load_module_with_info(env, "ets/pages/ObjectUtils", "com.example.myapplication/entry", &objectUtils);
+    ret = napi_load_module_with_info(env, "entry/src/main/ets/pages/ObjectUtils", "com.example.myapplication/entry",
+                                     &objectUtils);
     if (ret != napi_ok) {
         return nullptr;
     }
@@ -121,6 +138,18 @@ static void *RunEventLoopFunc(void *arg)
         // 非阻塞式的处理任务，有可能队列中还没有任务就已经返回了
         napi_run_event_loop(env, napi_event_mode_nowait);
     }
+
+    if (scope != nullptr) {
+        napi_close_handle_scope(env, scope);
+        scope = nullptr;
+    }
+    if (env != nullptr) {
+        napi_status destroy_ret = napi_destroy_ark_runtime(&env);
+        if (destroy_ret != napi_ok) {
+            OH_LOG_INFO(LOG_APP, "Failed to destroy ark runtime");
+        }
+        env = nullptr;
+    }
     return nullptr;
 }
 
@@ -128,7 +157,7 @@ static napi_value RunEventLoop(napi_env env, napi_callback_info info)
 {
     pthread_t tid;
     size_t argc = 1;
-    napi_value argv[1] = {nullptr};
+    napi_value argv[1] = { nullptr };
     napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr);
 
     bool flag = false;
@@ -139,8 +168,8 @@ static napi_value RunEventLoop(napi_env env, napi_callback_info info)
 
     return nullptr;
 }
-// [StartExclute napi_event_loop_cpp]
-// [EndExclute napi_call_threadsafe_function_with_priority_cpp]
+// [End napi_event_loop_cpp]
+// [EndExclude napi_call_threadsafe_function_with_priority_cpp]
 struct CallbackData {
     napi_threadsafe_function tsfn;
     napi_async_work work;
@@ -188,10 +217,10 @@ static void WorkComplete(napi_env env, napi_status status, void *data)
 
 static napi_value CallThreadSafeWithPriority(napi_env env, napi_callback_info info)
 {
+    CallbackData *callbackData = new CallbackData();
     size_t argc = 1;
     napi_value jsCb = nullptr;
-    CallbackData *callbackData = nullptr;
-    napi_get_cb_info(env, info, &argc, &jsCb, nullptr, reinterpret_cast<void **>(&callbackData));
+    napi_get_cb_info(env, info, &argc, &jsCb, nullptr, nullptr);
     napi_value resourceName = nullptr;
     napi_create_string_utf8(env, "Thread-safe Function Demo", NAPI_AUTO_LENGTH, &resourceName);
     napi_create_threadsafe_function(env, jsCb, nullptr, resourceName, 0, 1, callbackData, nullptr, callbackData, CallJs,
@@ -200,17 +229,15 @@ static napi_value CallThreadSafeWithPriority(napi_env env, napi_callback_info in
     napi_queue_async_work(env, callbackData->work);
     return nullptr;
 }
-// [EndExclute napi_event_loop_cpp]
-// [EndExclute napi_ark_runtime_cpp]
+// [End napi_call_threadsafe_function_with_priority_cpp]
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
-    CallbackData *callbackData = new CallbackData();
     napi_property_descriptor desc[] = {
         {"createArkRuntime", nullptr, CreateArkRuntime, nullptr, nullptr, nullptr, napi_static, nullptr},
         {"runEventLoop", nullptr, RunEventLoop, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"callThreadSafeWithPriority", nullptr, CallThreadSafeWithPriority, nullptr, nullptr, nullptr,
-            napi_default, callbackData}};
+            napi_default, nullptr}};
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;
 }
@@ -227,6 +254,3 @@ static napi_module nativeModule = {
 };
 
 extern "C" __attribute__((constructor)) void RegisterQueueWorkModule() { napi_module_register(&nativeModule); }
-// [End napi_call_threadsafe_function_with_priority_cpp]
-// [End napi_event_loop_cpp]
-// [End napi_ark_runtime_cpp]

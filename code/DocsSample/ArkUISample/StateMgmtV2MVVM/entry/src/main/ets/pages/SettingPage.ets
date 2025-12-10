@@ -14,8 +14,8 @@
  *
 */
 
+// [Start Main_SettingPage]
 // src/main/ets/pages/SettingPage.ets
-
 import { AppStorageV2 } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 
@@ -28,24 +28,25 @@ export class Setting {
 @ComponentV2
 struct SettingPage {
   @Local setting: Setting = AppStorageV2.connect(Setting, 'Setting', () => new Setting())!;
-  private context = getContext(this) as common.UIAbilityContext;
+  private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   build(){
     Column(){
-      Text($r('app.string.Setting'))
+      Text('Setting')
         .fontSize(40)
         .margin({ bottom: 10 })
       Row() {
-        Text($r('app.string.Show_finished_tasks'))
+        Text('Show completed tasks')
         Toggle({ type: ToggleType.Switch, isOn:this.setting.showCompletedTask })
           .onChange((isOn) => {
             this.setting.showCompletedTask = isOn;
           })
       }
-      Button($r('app.string.Back'))
+      Button('Back to To do')
         .onClick(()=>this.context.terminateSelf())
         .margin({ top: 10 })
     }
     .alignItems(HorizontalAlign.Start)
   }
 }
+// [End Main_SettingPage]

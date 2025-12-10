@@ -12,9 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 {
-  "modelVersion": "6.0.0",
+  "modelVersion": "5.1.0",
   "dependencies": {
   },
   "execution": {

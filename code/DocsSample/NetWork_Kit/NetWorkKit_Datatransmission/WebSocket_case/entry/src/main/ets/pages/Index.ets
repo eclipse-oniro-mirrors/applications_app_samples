@@ -13,12 +13,12 @@
  * limitations under the License.
  */
 
+// [Start WebSocket_case_module_import]
 import { webSocket } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import Logger from '../common/Logger';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+// [End WebSocket_case_module_import]
 
-const LOG_TAG = '[Sample_WebSocketDemo]';
-const DEFAULT_IP_ADDRESS = 'wss://echo.websocket.org'; // WebSocket地址
 const BUTTON_HEIGHT = 50; // 按钮高度
 const BUTTON_RADIUS = 5; // 按钮边缘角度
 const BUTTON_FONT_SIZE = 20; // 按钮字体大小
@@ -26,7 +26,10 @@ const TEXT_FONT_SIZE = 18; // 内容字体大小
 const TITLE_FONT_SIZE = 20; // 标题字体大小
 const MARGIN_TOP = 20; // 与顶间隔
 const MARGIN_BOTTOM = 10; // 与底间隔
-
+// [Start WebSocket_creat_websocket]
+let defaultIpAddress = 'wss://echo.websocket.org'; // WebSocket地址
+let ws: webSocket.WebSocket = webSocket.createWebSocket();
+// [End WebSocket_creat_websocket]
 export function resourceToString(resource: Resource): string {
   return getContext().resourceManager.getStringSync(resource);
 }
@@ -37,8 +40,6 @@ struct WebSocketDemo {
   @State connectionStatus: string = 'Not connected';
   @State sendMessageResult: string = '';
   @State closeConnectionResult: string = '';
-  @State isConnect: Boolean = false;
-  ws: webSocket.WebSocket | null = null;
 
   build() {
     Column() {
@@ -56,7 +57,7 @@ struct WebSocketDemo {
         .margin({ top: MARGIN_TOP })
         .id('sendMessageResult')
 
-      Text(resourceToString($r('app.string.CloseConnectionResult')) + '' + this.closeConnectionResult)
+      Text(resourceToString($r('app.string.CloseConnectionResult')) + ':' + this.closeConnectionResult)
         .fontSize(TEXT_FONT_SIZE)
         .fontColor(Color.Black)
         .margin({ top: MARGIN_TOP })
@@ -103,118 +104,132 @@ struct WebSocketDemo {
     }.width('100%').height('100%').justifyContent(FlexAlign.Center)
   }
 
-// [Start websocket_development_steps]
   // 连接WebSocket
   connectWebSocket() {
     this.connectionStatus = 'Connecting...';
     this.sendMessageResult = '';
     this.closeConnectionResult = '';
-    if (this.isConnect) {
-      this.connectionStatus = 'WebSocket is already connected';
-      return;
-    }
-
-    this.ws = webSocket.createWebSocket();
-
-    this.ws.on('open', (err: BusinessError, value: Object) => {
+    // [Start websocket_open_message_close_error_methods]
+    ws.on('open', (err: BusinessError, value: Object) => {
+      hilog.info(0x0000, 'testTag', 'on open, status:' + JSON.stringify(value));
+      // 当收到on('open')事件时，可以通过send()方法与服务器进行通信。
+      // [StartExclude websocket_open_message_close_error_methods]
       if (!err) {
         this.connectionStatus = 'Connected';
-        this.isConnect = true;
-        Logger.info(`${LOG_TAG} WebSocket connected: ` + JSON.stringify(value));
+        hilog.info(0x0000, 'testTag', `WebSocket connected: ` + JSON.stringify(value));
       } else {
         this.connectionStatus = 'Connection failed';
-        Logger.error(`${LOG_TAG} WebSocket connection failed: ` + JSON.stringify(err));
+        hilog.error(0x0000, 'testTag', `WebSocket connection failed: ` + JSON.stringify(err));
       }
+      // [EndExclude websocket_open_message_close_error_methods]
     });
 
-    this.ws.on('message', (err: BusinessError, value: string | ArrayBuffer) => {
+    ws.on('message', (err: BusinessError, value: string | ArrayBuffer) => {
+      // [StartExclude websocket_open_message_close_error_methods]
       if (err) {
-        Logger.error(`${LOG_TAG} Error receiving message: ` + JSON.stringify(err));
+        hilog.error(0x0000, 'testTag', `Error receiving message: ` + JSON.stringify(err));
         return;
       }
-      Logger.info('Received message: ' + value);
-
+      // [EndExclude websocket_open_message_close_error_methods]
+      hilog.info(0x0000, 'testTag', 'on message, message:' + value);
+      // 当收到服务器的`bye`消息时（此消息字段仅为示意，具体字段需要与服务器协商），主动断开连接。
       if (value === 'bye') {
-        this.ws!.close((err: BusinessError) => {
+        ws!.close((err: BusinessError) => {
           if (!err) {
+            // [StartExclude websocket_open_message_close_error_methods]
             this.closeConnectionResult = 'Connection closed successfully';
             this.connectionStatus = 'Not connected';
-            Logger.info(`${LOG_TAG} WebSocket closed successfully`);
+            // [EndExclude websocket_open_message_close_error_methods]
+            hilog.info(0x0000, 'testTag', `WebSocket closed successfully`);
           } else {
+            // [StartExclude websocket_open_message_close_error_methods]
             this.closeConnectionResult = 'Connection closing failed';
-            Logger.error(`${LOG_TAG} WebSocket closing failed: ` + JSON.stringify(err));
+            // [EndExclude websocket_open_message_close_error_methods]
+            hilog.error(0x0000, 'testTag', `WebSocket closing failed: ` + JSON.stringify(err));
           }
         });
       }
     })
 
-    this.ws.on('close', (err: BusinessError, value: webSocket.CloseResult) => {
+    ws.on('close', (err: BusinessError, value: webSocket.CloseResult) => {
+     hilog.info(0x0000, 'testTag', 'on close, code is ' + value.code + ', reason is ' + value.reason);
+      // [StartExclude websocket_open_message_close_error_methods]
       if (!err) {
         this.connectionStatus = 'Disconnected';
-        Logger.info('Connection closed: code = ' + value.code + ', reason ='  + value.reason);
-        this.ws = null;
+        hilog.info(0x0000, 'testTag', 'Connection closed: code = ' + value.code + ', reason ='  + value.reason);
       } else {
-        Logger.error('Error while closing connection: ' + JSON.stringify(err));
+        hilog.error(0x0000, 'testTag', 'Error while closing connection: ' + JSON.stringify(err));
       }
+      // [EndExclude websocket_open_message_close_error_methods]
     });
 
-    this.ws.on('error', (err: BusinessError) => {
+    ws.on('error', (err: BusinessError) => {
+      // [StartExclude websocket_open_message_close_error_methods]
       this.connectionStatus = 'Error';
-      Logger.error('WebSocket error: ' + JSON.stringify(err));
+      // [EndExclude websocket_open_message_close_error_methods]
+      hilog.error(0x0000, 'testTag', 'WebSocket error: ' + JSON.stringify(err));
     });
+    // [End websocket_open_message_close_error_methods]
 
-    this.ws.connect(DEFAULT_IP_ADDRESS, (err: BusinessError) => {
+
+    // [Start webSocket_case_object_connect]
+    ws.connect(defaultIpAddress, (err: BusinessError, value: boolean) => {
       if (!err) {
+        hilog.info(0x0000, 'testTag', 'Connected successfully');
       } else {
+        // [StartExclude webSocket_case_object_connect]
         this.connectionStatus = 'Connection failed';
-        Logger.error(`${LOG_TAG} WebSocket connection failed: ` + JSON.stringify(err));
+        // [EndExclude webSocket_case_object_connect]
+        hilog.error(0x0000, 'testTag', `WebSocket connection failed: ` + JSON.stringify(err));
       }
     });
+    // [End webSocket_case_object_connect]
   }
 
   // 发送消息
   sendMessage() {
-    if (!this.ws) {
+    if (this.connectionStatus !== 'Connected') {
       this.sendMessageResult = 'WebSocket not connected';
-      Logger.error(`${LOG_TAG} WebSocket not connected`);
+      hilog.error(0x0000, 'testTag', `WebSocket not connected`);
       return;
     }
-
-    const message = 'Hello, WebSocket!';
-    this.ws.send(message, (err: BusinessError) => {
+    // [Start webSocket_case_send_message]
+    ws.send('Hello, server!', (err: BusinessError, value: boolean) => {
       if (!err) {
+        // [StartExclude webSocket_case_send_message]
         this.sendMessageResult = 'Message sent successfully';
-        Logger.info(`${LOG_TAG} Message sent successfully: ${message}`);
+        // [EndExclude webSocket_case_send_message]
+        hilog.info(0x0000, 'testTag', 'Message sent successfully');
       } else {
+        // [StartExclude webSocket_case_send_message]
         this.sendMessageResult = 'Message sending failed';
-        Logger.error(`${LOG_TAG} Message sending failed: ` + JSON.stringify(err));
+        // [EndExclude webSocket_case_send_message]
+        hilog.error(0x0000, 'testTag', `Message sending failed: ` + JSON.stringify(err));
       }
     });
+    // [End webSocket_case_send_message]
   }
 
   // 关闭WebSocket连接
   closeWebSocket() {
-    if (!this.ws) {
+    if (this.connectionStatus !== 'Connected') {
       this.closeConnectionResult = 'WebSocket not connected';
-      Logger.error(`${LOG_TAG} WebSocket not connected`);
+      hilog.error(0x0000, 'testTag', `WebSocket not connected`);
       return;
     }
 
-    this.ws.close((err: BusinessError) => {
+    ws.close((err: BusinessError) => {
       if (!err) {
         this.closeConnectionResult = 'Connection closed successfully';
         this.connectionStatus = 'Not connected';
-        Logger.info(`${LOG_TAG} WebSocket closed successfully`);
+        hilog.info(0x0000, 'testTag', `WebSocket closed successfully`);
       } else {
         this.closeConnectionResult = 'Connection closing failed';
-        Logger.error(`${LOG_TAG} WebSocket closing failed: ` + JSON.stringify(err));
+        hilog.error(0x0000, 'testTag', `WebSocket closing failed: ` + JSON.stringify(err));
       }
     });
-    this.ws.off('open');
-    this.ws.off('close');
-    this.ws.off('error');
-    this.ws = null;
+    ws.off('open');
+    ws.off('close');
+    ws.off('error');
   }
-  // [End websocket_development_steps]
 }
-

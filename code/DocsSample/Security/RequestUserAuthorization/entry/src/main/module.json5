@@ -13,8 +13,10 @@
  * limitations under the License.
  */
 
+// [Start request_permission_json]
 {
   "module": {
+    // [StartExclude request_permission_json]
     "name": "entry",
     "type": "entry",
     "description": "$string:module_desc",
@@ -71,6 +73,9 @@
         ]
       }
     ],
+    // [EndExclude request_permission_json]
+    // 1.ohos.permission.APPROXIMATELY_LOCATION与ohos.permission.LOCATION为user_grant权限，reason和usedScene为必填字段。
+    // 2.ohos.permission.USE_BLUETOOTH为system_grant权限，reason和usedScene为选填字段。
     "requestPermissions": [
       {
         "name": "ohos.permission.APPROXIMATELY_LOCATION",
@@ -90,8 +95,12 @@
             "FormAbility"
           ],
           "when": "inuse"
-        },
+        }
+      },
+      {
+        "name": "ohos.permission.USE_BLUETOOTH"
       }
     ]
   }
 }
+// [End request_permission_json]

@@ -19,6 +19,7 @@ import { ComponentCard } from '../../common/Card';
 @Component
 export struct SymbolGlyphSpanAddToText {
   scroller: Scroller = new Scroller();
+  @State isActive: boolean = true;
 
   build() {
     NavDestination() {
@@ -30,8 +31,7 @@ export struct SymbolGlyphSpanAddToText {
               SymbolSpan($r('sys.symbol.ohos_trash'))
                 .fontWeight(FontWeight.Normal)
                 .fontSize(96)
-            }.id('1')
-
+            }
             // [End creat_symbol_span]
           }
 
@@ -45,7 +45,7 @@ export struct SymbolGlyphSpanAddToText {
                     .fontSize(48)
                     .renderingStrategy(SymbolRenderingStrategy.SINGLE)
                     .fontColor([Color.Black, Color.Green, Color.White])
-                }.id('2')
+                }
               }
 
               Column() {
@@ -55,7 +55,7 @@ export struct SymbolGlyphSpanAddToText {
                     .fontSize(72)
                     .renderingStrategy(SymbolRenderingStrategy.SINGLE)
                     .fontColor([Color.Black, Color.Green, Color.White])
-                }.id('3')
+                }
               }
 
               Column() {
@@ -65,10 +65,9 @@ export struct SymbolGlyphSpanAddToText {
                     .fontSize(96)
                     .renderingStrategy(SymbolRenderingStrategy.SINGLE)
                     .fontColor([Color.Black, Color.Green, Color.White])
-                }.id('4')
+                }
               }
             }
-
             // [End symbol_span_font_size]
           }
 
@@ -81,7 +80,7 @@ export struct SymbolGlyphSpanAddToText {
                   SymbolSpan($r('sys.symbol.ohos_trash'))
                     .fontWeight(FontWeight.Lighter)
                     .fontSize(96)
-                }.id('5')
+                }
               }
 
               Column() {
@@ -90,7 +89,7 @@ export struct SymbolGlyphSpanAddToText {
                   SymbolSpan($r('sys.symbol.ohos_trash'))
                     .fontWeight(FontWeight.Normal)
                     .fontSize(96)
-                }.id('6')
+                }
               }
 
               Column() {
@@ -99,10 +98,9 @@ export struct SymbolGlyphSpanAddToText {
                   SymbolSpan($r('sys.symbol.ohos_trash'))
                     .fontWeight(FontWeight.Bold)
                     .fontSize(96)
-                }.id('7')
+                }
               }
             }
-
             // [End symbol_span_font_weight]
           }
 
@@ -115,7 +113,7 @@ export struct SymbolGlyphSpanAddToText {
                   SymbolSpan($r('sys.symbol.ohos_folder_badge_plus'))
                     .fontSize(96)
                     .fontColor([Color.Black])
-                }.id('8')
+                }
               }
 
               Column() {
@@ -124,7 +122,7 @@ export struct SymbolGlyphSpanAddToText {
                   SymbolSpan($r('sys.symbol.ohos_folder_badge_plus'))
                     .fontSize(96)
                     .fontColor([Color.Green])
-                }.id('9')
+                }
               }
 
               Column() {
@@ -133,10 +131,9 @@ export struct SymbolGlyphSpanAddToText {
                   SymbolSpan($r('sys.symbol.ohos_folder_badge_plus'))
                     .fontSize(96)
                     .fontColor([Color.Pink])
-                }.id('10')
+                }
               }
             }
-
             // [End symbol_span_font_color]
           }
 
@@ -144,71 +141,114 @@ export struct SymbolGlyphSpanAddToText {
             // [Start symbol_span_rendering_strategy]
             Row() {
               Column() {
-                Text($r('app.string.SymbolAddToText_Text_1'))
+                // 'app.string.single_color'资源文件中的value值为"单色"
+                Text($r('app.string.single_color'));
                 Text() {
                   SymbolSpan($r('sys.symbol.ohos_folder_badge_plus'))
                     .fontSize(96)
                     .renderingStrategy(SymbolRenderingStrategy.SINGLE)
                     .fontColor([Color.Black, Color.Green, Color.White])
-                }.id('11')
+                }
               }
 
               Column() {
-                Text($r('app.string.SymbolAddToText_Text_2'))
+                // 'app.string.multi_color'资源文件中的value值为"多色"
+                Text($r('app.string.multi_color'));
                 Text() {
                   SymbolSpan($r('sys.symbol.ohos_folder_badge_plus'))
                     .fontSize(96)
                     .renderingStrategy(SymbolRenderingStrategy.MULTIPLE_COLOR)
                     .fontColor([Color.Black, Color.Green, Color.White])
-                }.id('12')
+                }
               }
 
               Column() {
-                Text($r('app.string.SymbolAddToText_Text_3'))
+                // 'app.string.hierarchical'资源文件中的value值为"分层"
+                Text($r('app.string.hierarchical'));
                 Text() {
                   SymbolSpan($r('sys.symbol.ohos_folder_badge_plus'))
                     .fontSize(96)
                     .renderingStrategy(SymbolRenderingStrategy.MULTIPLE_OPACITY)
                     .fontColor([Color.Black, Color.Green, Color.White])
-                }.id('13')
+                }
               }
             }
-
             // [End symbol_span_rendering_strategy]
           }
 
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanAddToText_title_6') }) {
-            // [Start symbol_span_effect_strategy]
-            Row() {
-              Column() {
-                Text($r('app.string.SymbolAddToText_Text_4'))
-                Text() {
-                  SymbolSpan($r('sys.symbol.ohos_wifi'))
-                    .fontSize(96)
-                    .effectStrategy(SymbolEffectStrategy.NONE)
-                }.id('14')
-              }
+            if (this.isActive) {
+              // [Start symbol_span_effect_strategy]
+              Row() {
+                Column() {
+                  // 'app.string.no_action'资源文件中的value值为"无动效"
+                  Text($r('app.string.no_action'));
+                  Text() {
+                    SymbolSpan($r('sys.symbol.ohos_wifi'))
+                      .fontSize(96)
+                      .effectStrategy(SymbolEffectStrategy.NONE)
+                  }
+                }
 
-              Column() {
-                Text($r('app.string.SymbolAddToText_Text_5'))
-                Text() {
-                  SymbolSpan($r('sys.symbol.ohos_wifi'))
-                    .fontSize(96)
-                    .effectStrategy(SymbolEffectStrategy.SCALE)
-                }.id('15')
-              }
+                Column() {
+                  // 'app.string.overall_scaling_animation_effect'资源文件中的value值为"整体缩放动效"
+                  Text($r('app.string.overall_scaling_animation_effect'));
+                  Text() {
+                    SymbolSpan($r('sys.symbol.ohos_wifi'))
+                      .fontSize(96)
+                      .effectStrategy(SymbolEffectStrategy.SCALE)
+                  }
+                }
 
-              Column() {
-                Text($r('app.string.SymbolAddToText_Text_6'))
-                Text() {
-                  SymbolSpan($r('sys.symbol.ohos_wifi'))
-                    .fontSize(96)
-                    .effectStrategy(SymbolEffectStrategy.HIERARCHICAL)
-                }.id('16')
+                Column() {
+                  // 'app.string.hierarchical_animation'资源文件中的value值为"层级动效"
+                  Text($r('app.string.hierarchical_animation'));
+                  Text() {
+                    SymbolSpan($r('sys.symbol.ohos_wifi'))
+                      .fontSize(96)
+                      .effectStrategy(SymbolEffectStrategy.HIERARCHICAL)
+                  }
+                }
               }
+              // [End symbol_span_effect_strategy]
+              .onClick(() => {
+                this.isActive = !this.isActive;
+              })
+            } else {
+              Row() {
+                Column() {
+                  // 'app.string.no_action'资源文件中的value值为"无动效"
+                  Text($r('app.string.no_action'));
+                  Text() {
+                    SymbolSpan($r('sys.symbol.ohos_wifi'))
+                      .fontSize(96)
+                      .effectStrategy(SymbolEffectStrategy.NONE)
+                  }
+                }
+
+                Column() {
+                  // 'app.string.overall_scaling_animation_effect'资源文件中的value值为"整体缩放动效"
+                  Text($r('app.string.overall_scaling_animation_effect'));
+                  Text() {
+                    SymbolSpan($r('sys.symbol.ohos_wifi'))
+                      .fontSize(96)
+                      .effectStrategy(SymbolEffectStrategy.SCALE)
+                  }
+                }
+
+                Column() {
+                  // 'app.string.hierarchical_animation'资源文件中的value值为"层级动效"
+                  Text($r('app.string.hierarchical_animation'));
+                  Text() {
+                    SymbolSpan($r('sys.symbol.ohos_wifi'))
+                      .fontSize(96)
+                      .effectStrategy(SymbolEffectStrategy.HIERARCHICAL)
+                  }
+                }
+              }.onClick(() => {
+                this.isActive = !this.isActive;
+              })
             }
-
-            // [End symbol_span_effect_strategy]
           }
         }
         .width('100%')

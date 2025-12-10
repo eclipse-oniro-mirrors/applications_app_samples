@@ -17,11 +17,12 @@ import { LengthMetrics } from '@kit.ArkUI';
 import { RoutableCard } from '../common/Card';
 import { Route } from '../common/Route';
 import resource from '../common/resource';
-import { UI_EXTENSION_ROUTE_PREFIX, UIExtensionDestination } from './UIExtensionComponent/Index'
-import { EMBEDDED_ROUTE_PREFIX, EmbeddedDestination } from './EmbeddedComponent/Index'
-import { SCREEN_ROUTE_PREFIX, FullScreenDestination } from './FullScreenLaunchComponent/Index'
-import { ISOLATED_ROUTE_PREFIX, IsolatedDestination } from './IsolatedComponent/Index'
-import { ACCESSIBILITY_ROUTE_PREFIX, AccessibilityDestination } from './UniversalAttributesAccessibility/Index'
+import { UI_EXTENSION_ROUTE_PREFIX, UIExtensionDestination } from './UIExtensionComponent/Index';
+import { EMBEDDED_ROUTE_PREFIX, EmbeddedDestination } from './EmbeddedComponent/Index';
+import { SCREEN_ROUTE_PREFIX, FullScreenDestination } from './FullScreenLaunchComponent/Index';
+import { ISOLATED_ROUTE_PREFIX, IsolatedDestination } from './IsolatedComponent/Index';
+import { ACCESSIBILITY_ROUTE_PREFIX, AccessibilityDestination } from './UniversalAttributesAccessibility/Index';
+import { EMBEDDED_COMPONENT_ROUTE_PREFIX, ShowEmbedded } from './ShowEmbeddedComponent/ShowPage';
 
 const routes: Route[] = [
   {
@@ -43,6 +44,10 @@ const routes: Route[] = [
   {
     title: resource.resourceToString($r('app.string.pageIndex_UniversalAttributesAccessibility')),
     name: ACCESSIBILITY_ROUTE_PREFIX
+  },
+  {
+    title: 'ShowPage',
+    name: EMBEDDED_COMPONENT_ROUTE_PREFIX
   }
 ]
 
@@ -58,6 +63,8 @@ function Destination(name: string) {
     IsolatedDestination(name);
   } else if (name.startsWith(ACCESSIBILITY_ROUTE_PREFIX)) {
     AccessibilityDestination(name);
+  } else if (name.startsWith(EMBEDDED_COMPONENT_ROUTE_PREFIX)) {
+    ShowEmbedded(name);
   }
 }
 
@@ -90,28 +97,34 @@ struct Index {
   }
 
   build() {
-    Navigation(this.pathStack) {
-      List({ space: 12 }) {
-        ForEach(this.getFilteredRoutes(), (route: Route) => {
-          ListItem() {
-            RoutableCard({ title: route.title })
+    Column(){
+      Column(){
+        Navigation(this.pathStack) {
+          List({ space: 12 }) {
+            ForEach(this.getFilteredRoutes(), (route: Route) => {
+              ListItem() {
+                RoutableCard({ title: route.title })
+              }
+              .width('100%')
+              .onClick(() => {
+                this.pathStack.pushPath({ name: route.name });
+              })
+            })
           }
+          .padding({ start: LengthMetrics.vp(16), end: LengthMetrics.vp(16) })
+          .contentStartOffset(56)
+          .height('100%')
           .width('100%')
-          .onClick(() => {
-            this.pathStack.pushPath({ name: route.name });
-          })
+        }
+        .backgroundColor('#f1f3f5')
+        .title({ builder: this.Title, height: 56 }, {
+          backgroundBlurStyle: BlurStyle.COMPONENT_THICK,
+          barStyle: BarStyle.STACK
         })
+        .navDestination(Destination)
+        .height('80%')
       }
-      .padding({ start: LengthMetrics.vp(16), end: LengthMetrics.vp(16) })
-      .contentStartOffset(56)
-      .height('100%')
-      .width('100%')
     }
-    .backgroundColor('#f1f3f5')
-    .title({ builder: this.Title, height: 56 }, {
-      backgroundBlurStyle: BlurStyle.COMPONENT_THICK,
-      barStyle: BarStyle.STACK
-    })
-    .navDestination(Destination)
+    .height('100%')
   }
 }
