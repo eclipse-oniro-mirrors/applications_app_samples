@@ -2,7 +2,7 @@
 
 ### 介绍
 
-使用Node-API关于string的六个接口，可以让Node-API模块和ArkTS字符串进行交互，本工程中展示的代码详细描述可查如下链接中业务扩展场景介绍部分。
+使用Node-API关于string的八个接口，可以让Node-API模块和ArkTS字符串进行交互，本工程中展示的代码详细描述可查如下链接中业务扩展场景介绍部分。
 
 - [使用Node-API进行string相关开发](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/napi/use-napi-about-string.md)
 
@@ -56,9 +56,9 @@ entry/src/
 
 1.本示例仅支持标准系统上运行, 支持设备：RK3568。
 
-2.本示例为Stage模型，支持API14版本SDK，版本号：5.0.2.57，镜像版本号：OpenHarmony_5.0.2.58。
+2.本示例为Stage模型，支持API22版本SDK，版本号：6.0.0.57，镜像版本号：OpenHarmony_6.0.0.57。
 
-3.本示例需要使用DevEco Studio 5.0.1 Release (Build Version: 5.0.5.306, built on December 6, 2024)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio 6.0.0 Release (Build Version: 6.0.0.858, built on October 21, 2025)及以上版本才可编译运行。
 
 ### 下载
 

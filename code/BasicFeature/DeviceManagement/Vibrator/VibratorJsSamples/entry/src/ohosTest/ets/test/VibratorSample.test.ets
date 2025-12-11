@@ -16,6 +16,7 @@ import hilog from '@ohos.hilog';
 import { Driver, ON } from '@ohos.UiTest';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import Want from '@ohos.app.ability.Want';
 
 const TAG = 'Sample_Vibrator';
 const DOMAIN = 0xF811;
@@ -300,6 +301,75 @@ export default function vibratorSample() {
         expect(false).assertFail();
       } finally {
         hilog.info(DOMAIN, TAG, BUNDLE + 'GetMotorInformationList_010 test complete');
+        done()
+      }
+    });
+
+    /**
+     *  获取指定设备马达信息列表
+     */
+    it(BUNDLE + 'GetVibratorInfoListByDeviceId_011', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'GetVibratorInfoListByDeviceId_011 begin');
+      try {
+        let driver: Driver = Driver.create();
+        await driver.delayMs(5000);
+        await driver.assertComponentExist(ON.text('getVibratorInfoSyncByDeviceId'));
+        hilog.info(DOMAIN, TAG, 'Button exists');
+        //点击按钮获取马达信息列表
+        let button = await driver.findComponent(ON.text('getVibratorInfoSyncByDeviceId'));
+        await button.click();
+        await driver.delayMs(1000);
+      } catch (error) {
+        hilog.error(DOMAIN, TAG, `Test failed: ${(error as Error).message}`);
+        expect(false).assertFail();
+      } finally {
+        hilog.info(DOMAIN, TAG, BUNDLE + 'GetVibratorInfoListByDeviceId_011 test complete');
+        done()
+      }
+    });
+
+    /**
+     *  获取预置振动效果信息
+     */
+    it(BUNDLE + 'GetEffectInfo_012', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'GetEffectInfo_012 begin');
+      try {
+        let driver: Driver = Driver.create();
+        await driver.delayMs(5000);
+        await driver.assertComponentExist(ON.text('getEffectInfoSync'));
+        hilog.info(DOMAIN, TAG, 'Button exists');
+        //点击按钮获取马达信息列表
+        let button = await driver.findComponent(ON.text('getEffectInfoSync'));
+        await button.click();
+        await driver.delayMs(1000);
+      } catch (error) {
+        hilog.error(DOMAIN, TAG, `Test failed: ${(error as Error).message}`);
+        expect(false).assertFail();
+      } finally {
+        hilog.info(DOMAIN, TAG, BUNDLE + 'GetEffectInfo_012 test complete');
+        done()
+      }
+    });
+
+    /**
+     *  查询是否支持高清振动
+     */
+    it(BUNDLE + 'IsHdHapticSupported_013', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'IsHdHapticSupported_013 begin');
+      try {
+        let driver: Driver = Driver.create();
+        await driver.delayMs(5000);
+        await driver.assertComponentExist(ON.text('isHdHapticSupported'));
+        hilog.info(DOMAIN, TAG, 'Button exists');
+        //点击按钮获取马达信息列表
+        let button = await driver.findComponent(ON.text('isHdHapticSupported'));
+        await button.click();
+        await driver.delayMs(1000);
+      } catch (error) {
+        hilog.error(DOMAIN, TAG, `Test failed: ${(error as Error).message}`);
+        expect(false).assertFail();
+      } finally {
+        hilog.info(DOMAIN, TAG, BUNDLE + 'IsHdHapticSupported_013 test complete');
         done()
       }
     });

@@ -13,7 +13,7 @@
 * limitations under the License.
 */
 
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, expect, it } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
 import fs from '@ohos.file.fs';
@@ -34,7 +34,6 @@ export default function resourceReferenceTest() {
      * @tc.desc: 在ohosTest测试用例中获取资源文件，资源文件存储在 ohosTest/resources/resfile 下，用例执行过程中保持屏幕开启，否则无法获取到topAbility
      */
     it('testResourceReference', 0, async (done: Function) => {
-      console.info("uitest: TestUiExample begin");
       const want: Want = {
         bundleName: bundleName,
         abilityName: 'TestAbility'
@@ -49,7 +48,7 @@ export default function resourceReferenceTest() {
       expect(resDir != '').assertTrue();
       let resFileList = await fs.listFile(resDir);
       expect(resFileList).assertContain('test.txt');
-      let filePath = resDir + "/test.txt";
+      let filePath = resDir + '/test.txt';
       let file = fs.openSync(filePath, fs.OpenMode.READ_ONLY);
       let arrayBuffer = new ArrayBuffer(4096);
       let readLen = await fs.read(file.fd, arrayBuffer);

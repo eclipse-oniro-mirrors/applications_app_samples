@@ -487,6 +487,21 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/Security/RequestUserAuthorization/screenshots/main.png" desc="Provided by code/DocsSample/Security/RequestUserAuthorization"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/RequestUserAuthorization/screenshots/seconddialog.png" desc="Provided by code/DocsSample/Security/RequestUserAuthorization"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/RequestUserAuthorization/screenshots/secondability.png" desc="Provided by code/DocsSample/Security/RequestUserAuthorization"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/AppScope/resources/base/media/background.png" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/AppScope/resources/base/media/foreground.png" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/entry/src/main/resources/base/media/icon.png" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/environment/src/bind.png" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/environment/src/copy_url.png" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/environment/src/past_url.png" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/environment/src/permission.png" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/environment/src/prop.png" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/screenshots/devices/zh/download_user.jpeg" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/screenshots/devices/zh/download.jpeg" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/screenshots/devices/zh/home.jpeg" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
+				<filteritem type="filepath" name="code/DocsSample/UploadAndDownload/UploadDownloadGuide/screenshots/devices/zh/upload.jpeg" desc="Provided by code/DocsSample/UploadAndDownload/UploadDownloadGuide"/>
                 <filteritem type="filepath" name="code/Solutions/Media/MultiMedia/lib/VideoPlayer.hap" desc="Provided by code/Solutions/Media/MultiMedia"/>
                 <filteritem type="filepath" name="code/Solutions/Media/MultiMedia/lib/CameraPage-1.0.0.hap" desc="Provided by code/Solutions/Media/MultiMedia"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AVRecorder/lib/VideoRecorder-1.0.0.hap" desc="Provided by code/BasicFeature/Media/AVRecorder"/>
@@ -679,6 +694,19 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/Drawing/ArkTSGraphicsDraw/screenshot/canvas.jpeg" desc="Provided by code/DocsSample/Drawing/ArkTSGraphicsDraw"/>
 				<filteritem type="filepath" name="code/DocsSample/Drawing/ArkTSGraphicsDraw/screenshot/effect.jpeg" desc="Provided by code/DocsSample/Drawing/ArkTSGraphicsDraw"/>
 				<filteritem type="filepath" name="code/DocsSample/Drawing/ArkTSGraphicsDraw/screenshot/shape.jpeg" desc="Provided by code/DocsSample/Drawing/ArkTSGraphicsDraw"/>
+				<filteritem type="filepath" name="code/DocsSample/graphic/NdkNativeWindow/screenshots/device/ChangeColor.jpg" desc="Provided by code/DocsSample/graphic/NdkNativeWindow"/>
+				<filteritem type="filepath" name="code/DocsSample/graphic/NdkNativeWindow/screenshots/device/GetAvailableCount.jpg" desc="Provided by code/DocsSample/graphic/NdkNativeWindow"/>
+				<filteritem type="filepath" name="code/DocsSample/graphic/NdkNativeWindow/screenshots/device/Main.jpg" desc="Provided by code/DocsSample/graphic/NdkNativeWindow"/>
+				<filteritem type="filepath" name="code/DocsSample/graphic/NdkNativeWindow/screenshots/device/ProduceBuffer.jpg" desc="Provided by code/DocsSample/graphic/NdkNativeWindow"/>
+				<filteritem type="filepath" name="code/DocsSample/graphic/NdkNativeWindow/screenshots/device/AttachBuffer.jpg" desc="Provided by code/DocsSample/graphic/NdkNativeWindow"/>
+				<filteritem type="filepath" name="code/DocsSample/graphic/NdkNativeWindow/screenshots/device/DetachBuffer.jpg" desc="Provided by code/DocsSample/graphic/NdkNativeWindow"/>
+				<filteritem type="filepath" name="code/DocsSample/graphic/NdkNativeWindow/screenshots/device/scaledown.jpg" desc="Provided by code/DocsSample/graphic/NdkNativeWindow"/>
+				<filteritem type="filepath" name="code/DocsSample/graphic/NdkNativeWindow/screenshots/device/scalefit.jpg" desc="Provided by code/DocsSample/graphic/NdkNativeWindow"/>
+				<filteritem type="filepath" name="code/DocsSample/graphic/NdkNativeImage/screenshots/GradientAnimation.jpg" desc="Provided by code/DocsSample/graphic/NdkNativeImage/screenshots/GradientAnimation.jpg"/>
+				<filteritem type="filepath" name="code/DocsSample/graphic/NdkNativeImage/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/graphic/NdkNativeImage/entry/src/main/resources/base/media/startIcon.png"/>
+				<filteritem type="filepath" name="code/DocsSample/graphic/NdkNativeImage/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/graphic/NdkNativeImage/entry/src/main/resources/base/media/foreground.png"/>
+				<filteritem type="filepath" name="code/DocsSample/graphic/NdkNativeImage/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/graphic/NdkNativeImage/entry/src/main/resources/base/media/background.png"/>
+				<filteritem type="filepath" name="code/DocsSample/graphic/NdkNativeImage/AppScope/resources/base/media/app_icon.png" desc="Provided by code/DocsSample/graphic/NdkNativeImage/AppScope/resources/base/media/app_icon.png"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/UniversalKeystoreKit/KeyUsage/KeyDerivation/screenshots/Cpp_2.png" desc="Provided by code/DocsSample/Security"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/UniversalKeystoreKit/KeyUsage/KeyDerivation/screenshots/Cpp_1.png" desc="Provided by code/DocsSample/Security"/>
 				<filteritem type="filepath" name="code/DocsSample/Security/UniversalKeystoreKit/KeyUsage/KeyDerivation/screenshots/PBKDF2_1.png" desc="Provided by code/DocsSample/Security"/>
@@ -1474,7 +1502,20 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/Performance/PerformanceArticle/images/reasonable_using_system_interfaces_getanonymousid.png" desc="Provided by code/Performance/PerformanceArticle"/>
 				<filteritem type="filepath" name="code/Performance/PerformanceArticle/images/reasonable_using_system_interfaces_getstringsync.png" desc="Provided by code/Performance/PerformanceArticle"/>
 				<filteritem type="filepath" name="code/Performance/PerformanceArticle/images/reasonable_using_system_interfaces_getstringsyncafter.png" desc="Provided by code/Performance/PerformanceArticle"/>
-
+				<filteritem type="filepath" name="code/Performance/ReasonableUsingSystemInterfaces/screenshots/demoShot.png" desc="Provided by code/Performance/ReasonableUsingSystemInterfaces"/>
+				<filteritem type="filepath" name="code/Performance/ReasonableUsingSystemInterfaces/screenshots/getAnonymousId.png" desc="Provided by code/Performance/ReasonableUsingSystemInterfaces"/>
+				<filteritem type="filepath" name="code/Performance/ReasonableUsingSystemInterfaces/screenshots/getAnonymousIdSync.png" desc="Provided by code/Performance/ReasonableUsingSystemInterfaces"/>
+				<filteritem type="filepath" name="code/Performance/ReasonableUsingSystemInterfaces/screenshots/getStringSync.png" desc="Provided by code/Performance/ReasonableUsingSystemInterfaces"/>
+				<filteritem type="filepath" name="code/Performance/ReasonableUsingSystemInterfaces/screenshots/getStringSyncAfter.png" desc="Provided by code/Performance/ReasonableUsingSystemInterfaces"/>
+				<filteritem type="filepath" name="code/Performance/ReasonableUsingSystemInterfaces/screenshots/localizationKitInterface.png" desc="Provided by code/Performance/ReasonableUsingSystemInterfaces"/>
+				<filteritem type="filepath" name="code/Performance/ReasonableUsingSystemInterfaces/screenshots/runTimeInterface.png" desc="Provided by code/Performance/ReasonableUsingSystemInterfaces"/>
+				<filteritem type="filepath" name="code/Performance/ReasonableUsingSystemInterfaces/screenshots/wordBreak.png" desc="Provided by code/Performance/ReasonableUsingSystemInterfaces"/>
+				<filteritem type="filepath" name="code/Performance/ReasonableUsingSystemInterfaces/AppScope/resources/base/media/app_icon.png" desc="Provided by code/Performance/ReasonableUsingSystemInterfaces"/>
+				<filteritem type="filepath" name="code/Performance/ReasonableUsingSystemInterfaces/entry/src/main/resources/base/media/background.png" desc="Provided by code/Performance/ReasonableUsingSystemInterfaces"/>
+				<filteritem type="filepath" name="code/Performance/ReasonableUsingSystemInterfaces/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/Performance/ReasonableUsingSystemInterfaces"/>
+				<filteritem type="filepath" name="code/Performance/ReasonableUsingSystemInterfaces/entry/src/main/resources/base/media/layered_image.json" desc="Provided by code/Performance/ReasonableUsingSystemInterfaces"/>
+				<filteritem type="filepath" name="code/Performance/ReasonableUsingSystemInterfaces/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/Performance/ReasonableUsingSystemInterfaces"/>
+				<filteritem type="filepath" name="code/Performance/ReasonableUsingSystemInterfaces/entry/src/ohosTest/resources/base/media/icon.png" desc="Provided by code/Performance/ReasonableUsingSystemInterfaces"/>
 				<filteritem type="filepath" name="code/BasicFeature/Window/MediaFullScreen/AppScope/resources/base/media/app_icon.png" desc="Provided by code/BasicFeature/Window/MediaFullScreen"/>
 				<filteritem type="filepath" name="code/BasicFeature/Window/MediaFullScreen/entry/src/main/resources/base/media/background.png" desc="Provided by code/BasicFeature/Window/MediaFullScreen"/>
 				<filteritem type="filepath" name="code/BasicFeature/Window/MediaFullScreen/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/BasicFeature/Window/MediaFullScreen"/>

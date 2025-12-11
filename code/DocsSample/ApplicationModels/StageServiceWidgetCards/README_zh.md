@@ -32,9 +32,9 @@
 
 1）回到主页，长按应用图标并点击<服务卡片>，选择卡片使用router事件跳转到指定UIAbility示例并点击添加到桌面；
 
-2）点击“功能A”按钮，在UIAbility中接收router事件并获取参数，根据传递的params不同，选择拉起功能A页面；
+2）点击“FunA”按钮，在UIAbility中接收router事件并获取参数，根据传递的params不同，选择拉起FunA页面；
 
-3）点击“功能B”按钮，在UIAbility中接收router事件并获取参数，根据传递的params不同，选择拉起功能B页面；
+3）点击“FunB”按钮，在UIAbility中接收router事件并获取参数，根据传递的params不同，选择拉起FunB页面；
 
 4）回到主页，长按应用图标并点击<服务卡片>，选择通过message事件刷新卡片示例并点击添加到桌面；
 
@@ -223,14 +223,15 @@ entry/src/main/ets/
 
 ### 约束与限制
 
-1.  本示例支持标准系统上运行，支持设备：RK3568；
+1. 本示例支持标准系统上运行，支持设备：RK3568；
 
-2. 本示例支持API14版本SDK，版本号：5.0.2.57；
+2. 本示例支持API20版本SDK，版本号：6.0.0.47；
 
-3.  本示例已支持使DevEco Studio 5.0.1 Release (构建版本：5.0.5.306，构建 2024年12月12日)编译运行；
+3. 本示例已支持使DevEco Studio 6.0.0 Release (构建版本：6.0.0.858，构建 2025年10月21日)编译运行；
 
 4. 高等级APL特殊签名说明：无；
 
+5. 部分功能需要使用系统权限签名可以手动配置签名运行工程。手动签名文件放在StageServiceWidgetCards/signature目录下，配置部分字段Store password：123456，Key alias:oh-app1-key-v1，Key password:123456。
 
 ### 下载
 
@@ -240,7 +241,7 @@ entry/src/main/ets/
 git init
 git config core.sparsecheckout true
 echo code/DocsSample/ApplicationModels/StageServiceWidgetCards/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
 

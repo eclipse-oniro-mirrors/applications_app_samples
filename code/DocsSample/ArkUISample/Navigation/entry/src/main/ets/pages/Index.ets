@@ -22,21 +22,21 @@ import router from '@ohos.router';
 function cardPressedStyle() {
   .backgroundColor('rgba(0,0,0,0.1)')
   .opacity(1)
-  .animation({ curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1), duration: 100 })
+  .animation({ curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1), duration: 100 });
 }
 
 @Styles
 function cardNormalStyle() {
   .backgroundColor('rgba(0,0,0,0)')
   .opacity(1)
-  .animation({ curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1), duration: 100 })
+  .animation({ curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1), duration: 100 });
 }
 
 @Styles
 function cardDisabledStyle() {
   .backgroundColor('rgba(0,0,0,0)')
   .opacity(0.5)
-  .animation({ curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1), duration: 100 })
+  .animation({ curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1), duration: 100 });
 }
 
 
@@ -106,7 +106,28 @@ struct Index {
       children: [
         { name: 'template1/Index', label: $r('app.string.stepperIndex_text21') },
       ]
-    }
+    }, {
+      name: 'routerToNavigation',
+      label: $r('app.string.routerToNavigation_text'),
+      children: [
+        { name: 'router/Index', label: $r('app.string.routerToNavigation_text1') },
+        { name: 'navigation/Index', label: $r('app.string.routerToNavigation_text2') }
+      ]
+    }, {
+    name: 'pageRouter',
+    label: $r('app.string.pageRouter_text'),
+    children: [
+      { name: 'jumpPage/Index', label: $r('app.string.pageRouter_jump_text1') },
+      { name: 'jumpPage/Login', label: $r('app.string.pageRouter_jump_text2') },
+      { name: 'jumpPage/Setting', label: $r('app.string.pageRouter_jump_text3') },
+      { name: 'jumpPage/SearchResult', label: $r('app.string.pageRouter_jump_text4') },
+      { name: 'jumpPage/IndexPara', label: $r('app.string.pageRouter_jump_text5') },
+      { name: 'jumpPage/BackHome', label: $r('app.string.pageRouter_jump_text6_pageBack') },
+      { name: 'lifeCycle/Index', label: $r('app.string.pageRouter_jump_text8_life') },
+      { name: 'pageTransition/ShowAlert', label: $r('app.string.pageRouter_jump_text9_alert') },
+      { name: 'pageTransition/ShowDialog', label: $r('app.string.pageRouter_jump_text9_dialog') }
+    ]
+  }
   ];
   @State selection: string | null = null;
 
@@ -190,7 +211,7 @@ struct Index {
                   .width('100%')
                   .onClick(() => {
                     const name = `pages/${routeGroup.name}/${route.name}`;
-                    router.pushUrl({url: name})
+                    router.pushUrl({url: name});
                   })
                 }
                 .width('100%')

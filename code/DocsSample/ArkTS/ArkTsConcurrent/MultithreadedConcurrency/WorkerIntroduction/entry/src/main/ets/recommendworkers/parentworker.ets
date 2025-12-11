@@ -37,8 +37,8 @@ workerPort.onmessage = (e: MessageEvents) => {
       workerPort.close();
     }
 
-    childworker.onerror = (err: ErrorEvent) => {
-      console.info(resource.resourceToString($r('app.string.Recommend_parentworker_worker6')) + err);
+    childworker.onAllErrors = (err: ErrorEvent) => {
+      console.error(resource.resourceToString($r('app.string.Recommend_parentworker_worker6')) + err);
     }
 
     childworker.postMessage(resource.resourceToString($r('app.string.Recommend_parentworker_worker7')));

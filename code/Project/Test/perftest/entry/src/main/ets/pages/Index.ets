@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { router } from '@kit.ArkUI'
+import { router } from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -22,9 +22,10 @@ struct Index {
       Column() {
         Button($r('app.string.ListPage_label'))
           .fontSize(25)
+          .id('toPageList')
           .fontWeight(FontWeight.Bold)
           .onClick(async () => {
-            await router.pushUrl({ url: "pages/PageListPage"})
+            await router.pushUrl({ url: 'pages/PageListPage' })
           })
         Button() {
           Text($r('app.string.navigation_label'))
@@ -33,9 +34,10 @@ struct Index {
         }
         .key('my-key2')
         .type(ButtonType.Capsule)
+        .id('toNavigationPage')
         .margin({ top: 20 })
         .onClick(() => {
-          router.pushUrl({url: "pages/navigationPage"})
+          router.pushUrl({ url: 'pages/navigationPage' })
         })
       }
       .width('100%')

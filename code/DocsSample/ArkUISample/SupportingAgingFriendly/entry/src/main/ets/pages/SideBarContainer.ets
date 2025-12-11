@@ -1,0 +1,75 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start trigger_aging_friendly_by_long_press]
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TAG = '[Sample_SupportingAgingFriendly]';
+const DOMAIN = 0xF811;
+const BUNDLE = 'SupportingAgingFriendly_';
+const NUMBER1 = 1;
+const NUMBER2 = 2;
+const NUMBER3 = 3;
+
+@Entry
+@Component
+struct SideBarContainerExample {
+  @State currentFontSizeScale: number = NUMBER1;
+  normalIcon: Resource = $r('app.media.icon'); // $r('app.media.icon')需要替换为开发者所需的资源文件
+  selectedIcon: Resource = $r('app.media.icon'); // $r('app.media.icon')需要替换为开发者所需的资源文件
+  @State arr: number[] = [NUMBER1, NUMBER2, NUMBER3];
+  @State current: number = NUMBER1;
+  @State title: string = 'Index01';
+
+  build() {
+    SideBarContainer(SideBarContainerType.Embed) {
+      Column() {
+        ForEach(this.arr, (item: number) => {
+          Column({ space: 5 }) {
+            Image(this.current === item ? this.selectedIcon : this.normalIcon).width(64).height(64);
+            Text('0' + item)
+              .fontSize(25)
+              .fontColor(this.current === item ? '#0A59F7' : '#999')
+              .fontFamily('source-sans-pro,cursive,sans-serif')
+          }
+          .onClick(() => {
+            this.current = item;
+            this.title = 'Index0' + item;
+          })
+        }, (item: string) => item)
+      }.width('100%')
+      .justifyContent(FlexAlign.SpaceEvenly)
+      // $r('sys.color.mask_fifth')需要替换为开发者所需的资源文件
+      .backgroundColor($r('sys.color.mask_fifth'))
+    }
+    .controlButton({
+      icons: {
+        // $r('sys.media.ohos_ic_public_drawer_open_filled') 需要替换为开发者所需的资源文件
+        hidden: $r('sys.media.ohos_ic_public_drawer_open_filled'),
+        // $r('sys.media.ohos_ic_public_drawer_close')需要替换为开发者所需的资源文件
+        shown: $r('sys.media.ohos_ic_public_drawer_close')
+      }
+    })
+    .sideBarWidth(150)
+    .minSideBarWidth(50)
+    .maxSideBarWidth(300)
+    .minContentWidth(0)
+    .onChange((value: boolean) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'status:' + value);
+    })
+    .divider({ strokeWidth: '1vp', color: Color.Gray, startMargin: '4vp', endMargin: '4vp' });
+  }
+}
+// [End trigger_aging_friendly_by_long_press]

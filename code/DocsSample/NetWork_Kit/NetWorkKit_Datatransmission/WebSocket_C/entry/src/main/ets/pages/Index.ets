@@ -13,8 +13,9 @@
  * limitations under the License.
  */
 
-import testWebsocket from 'libentry.so';
 import { promptAction } from '@kit.ArkUI';
+// [Start WebSocket_C_full_example]
+import testWebsocket from 'libentry.so';
 
 @Entry
 @Component
@@ -68,6 +69,7 @@ struct Index {
         })
 
         Blank()
+
         Column({
           space: 12 // 占位空间
         }) {
@@ -78,12 +80,16 @@ struct Index {
               let connRet = testWebsocket.Connect(this.wsUrl);
               if (connRet) {
                 this.connecting = true;
+                // [StartExclude WebSocket_C_full_example]
                 promptAction.showToast({
                   message: $r('app.string.Connect_successfully'),
                   duration: 4000, // 持续时间
                   bottom: 300 // 与底间隔
                 });
-              } else {
+                // [EndExclude WebSocket_C_full_example]
+              } 
+              // [StartExclude WebSocket_C_full_example]
+              else {
                 this.connecting = false;
                 promptAction.showToast({
                   message: $r('app.string.Connect_failed'),
@@ -91,17 +97,20 @@ struct Index {
                   bottom: 300 // 与底间隔
                 });
               }
+              // [EndExclude WebSocket_C_full_example]
             })
           Button($r('app.string.Send'))
             .id('Send')
             .enabled(this.connecting)
             .onClick(() => {
               testWebsocket.Send(this.content);
+              // [StartExclude WebSocket_C_full_example]
               promptAction.showToast({
                 message: $r('app.string.Send_message_successfully'),
                 duration: 4000, // 持续时间
                 bottom: 300 // 与底间隔
               });
+              // [EndExclude WebSocket_C_full_example]
             })
           Button($r('app.string.Close'))
             .id('Close')
@@ -109,24 +118,30 @@ struct Index {
             .onClick(() => {
               let closeResult = testWebsocket.Close();
               if (closeResult != -1) {
+                this.connecting = false;
+                // [StartExclude WebSocket_C_full_example]
                 promptAction.showToast({
                   message: $r('app.string.Close_connection'),
                   duration: 4000, // 持续时间
                   bottom: 300 // 与底间隔
                 });
-                this.connecting = false;
                 this.wsUrl = '';
                 this.content = '';
-              } else {
+                // [EndExclude WebSocket_C_full_example]
+              } 
+              // [StartExclude WebSocket_C_full_example]
+              else {
                 promptAction.showToast({
                   message: $r('app.string.Close_connection_failed'),
                   duration: 4000, // 持续时间
                   bottom: 300 // 与底间隔
                 });
               }
+              // [EndExclude WebSocket_C_full_example]
             })
         }
       }
     }
   }
 }
+// [End WebSocket_C_full_example]

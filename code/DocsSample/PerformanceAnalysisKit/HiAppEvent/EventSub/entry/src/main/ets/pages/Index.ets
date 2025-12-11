@@ -17,9 +17,9 @@
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
 // [End EventSub_Header]
-// [Start PssleakEvent_Header]
-import hidebug from '@ohos.hidebug';
-// [End PssleakEvent_Header]
+// [Start PssleakEvent_Button]
+import { hidebug } from '@kit.PerformanceAnalysisKit';
+// [End PssleakEvent_Button]
 // [Start EventSub_Index_Capi_Header]
 import testNapi from 'libentry.so';
 // [End EventSub_Index_Capi_Header]
@@ -27,13 +27,14 @@ import testNapi from 'libentry.so';
 @Component
 struct Index {
   @State leakedArray: string[][] = [];
-
+  // [Start AppKillEvent_Button]
+  @State message: string = 'Start To Leak';
+  // [End AppKillEvent_Button]
   build() {
     Row() {
       Column() {
-        // [Start AppEvent_ArkTS_Button]
-        Button($r('app.string.WriteEventArkTS_Button'))
-          // [StartExclude AppEvent_ArkTS_Button]
+        // [Start AppEvent_Crash_Button]
+        Button('WatchAppCrash ArkTS&C++')
           .type(ButtonType.Capsule)
           .margin({
             top: 20
@@ -41,7 +42,20 @@ struct Index {
           .backgroundColor('#0D9FFB')
           .width('80%')
           .height('5%')
-          // [EndExclude AppEvent_ArkTS_Button]
+          .onClick(() => {
+            // 在按钮点击函数中构造一个crash场景，触发崩溃事件
+            let result: object = JSON.parse('');
+          })
+        // [End AppEvent_Crash_Button]
+        // [Start AppEvent_Click_ArkTS_Button]
+        Button('writeEvent ArkTS')
+          .type(ButtonType.Capsule)
+          .margin({
+            top: 20
+          })
+          .backgroundColor('#0D9FFB')
+          .width('80%')
+          .height('5%')
           .onClick(() => {
             // 在按钮点击函数中进行事件打点，以记录按钮点击事件
             let eventParams: Record<string, number> = {'clickTime': 100};
@@ -56,14 +70,14 @@ struct Index {
               params: eventParams,
             };
             hiAppEvent.write(eventInfo).then(() => {
-              hilog.info(0x0000, 'testTag', `writeEvent ArkTS success`);
+              hilog.info(0x0000, 'testTag', `AppEvents writeEvent ArkTS success`);
             }).catch((err: BusinessError) => {
-              hilog.error(0x0000, 'testTag', `HiAppEvent err.code: ${err.code}, err.message: ${err.message}`);
+              hilog.error(0x0000, 'testTag', `AppEvents HiAppEvent err.code: ${err.code}, err.message: ${err.message}`);
             });
           })
-        // [End AppEvent_ArkTS_Button]
-        // [Start CrashEvent_Button]
-        Button($r('app.string.Crash_Button'))
+        // [End AppEvent_Click_ArkTS_Button]
+        // [Start JsError_CrashEvent_Button]
+        Button('JsError')
           .type(ButtonType.Capsule)
           .margin({
             top: 20
@@ -75,9 +89,24 @@ struct Index {
             // 在按钮点击函数中构造一个crash场景，触发应用崩溃事件
             JSON.parse('');
           })
-        // [End CrashEvent_Button]
+        // [End JsError_CrashEvent_Button]
+        // [Start Native_CrashEvent_Button]
+        Button('NativeCrash')
+          .type(ButtonType.Capsule)
+          .margin({
+            top: 20
+          })
+          .backgroundColor('#0D9FFB')
+          .width('80%')
+          .height('5%')
+          .onClick(() => {
+            // 在按钮点击函数中构造一个crash场景，触发应用崩溃事件
+            testNapi.testNullptr();
+          })
+        // [End Native_CrashEvent_Button]
+        // [Start PssleakEventTS_Button]
         // [Start PssleakEvent_Button]
-        Button($r('app.string.Pssleak_Button'))
+        Button('pss leak')
             .type(ButtonType.Capsule)
             .margin({
               top: 20
@@ -92,9 +121,40 @@ struct Index {
                 this.leakedArray.push(new Array(1).fill('leak'));
               }
             })
-          // [End PssleakEvent_Button]
-          // [Start TimeOutEvent_Button]
-          Button($r('app.string.TimeOut_Button'))
+        // [End PssleakEvent_Button]
+        Button('js leak')
+          .type(ButtonType.Capsule)
+          .margin({
+            top: 20
+          })
+          .backgroundColor('#0D9FFB')
+          .width('80%')
+          .height('5%')
+          .onClick(() => {
+            for (let i = 0; i < 10000; i++) {
+              this.leakedArray.push(new Array(500000).fill(1));
+            }
+          })
+        // [End PssleakEventTS_Button]
+        // [Start AppKillEvent_Button]
+        Button(this.message)
+          .type(ButtonType.Capsule)
+          .margin({
+            top: 20
+          })
+          .backgroundColor('#0D9FFB')
+          .width('80%')
+          .height('5%')
+          .onClick(() => {
+            if (this.message != 'Leaking') {
+              this.message = 'Leaking';
+              hilog.info(0x0000, 'testTag', 'Start leaking');
+              testNapi.leak();
+            }
+          })
+        // [End AppKillEvent_Button]
+        // [Start TimeOutEvent_Button]
+        Button($r('app.string.TimeOut_Button'))
           .type(ButtonType.Capsule)
           .margin({
             top: 20
@@ -113,8 +173,7 @@ struct Index {
 
       Column() {
         // [Start AppEvent_CPP_Button]
-        Button($r('app.string.WriteEventCPP_Button'))
-          // [StartExclude AppEvent_CPP_Button]
+        Button('writeEvent C++')
           .type(ButtonType.Capsule)
           .margin({
             top: 20
@@ -122,7 +181,6 @@ struct Index {
           .backgroundColor('#0D9FFB')
           .width('80%')
           .height('5%')
-          // [EndExclude AppEvent_CPP_Button]
           .onClick(() => {
             testNapi.writeAppEvent();
           })
@@ -144,7 +202,7 @@ struct Index {
           })
         // [End FreezeEvent_Button]
         // [Start AsanEvent_Button]
-        Button($r('app.string.AsanEvent_Button'))
+        Button('address-sanitizer')
           .type(ButtonType.Capsule)
           .margin({
             top: 20
@@ -153,9 +211,23 @@ struct Index {
           .width('80%')
           .height('5%')
           .onClick(() => {
-            testNapi.addressTest();
+            testNapi.addressSanitizerTest();
           })
         // [End AsanEvent_Button]
+        // [Start hicollie_timer_ndk_Button]
+        //添加点击事件，触发TestHiCollieTimerNdk方法。
+        Button('TestHiCollieTimerNdk')
+          .type(ButtonType.Capsule)
+          .margin({
+            top: 20
+          })
+          .backgroundColor('#0D9FFB')
+          .width('80%')
+          .height('5%')
+          .onClick(() => {
+            testNapi.TestHiCollieTimerNdk();
+          })
+        // [End hicollie_timer_ndk_Button]
       }
       .width('50%')
     }

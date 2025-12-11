@@ -22,7 +22,6 @@
 import { BusinessError } from '@kit.BasicServicesKit';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { JSON } from '@kit.ArkTS';
-import { promptAction } from '@kit.ArkUI';
 import { userAuth } from '@kit.UserAuthenticationKit';
 import Logger from '../common/Logger';
 
@@ -30,7 +29,7 @@ import Logger from '../common/Logger';
 function resourceToString(resource: Resource): string {
   let result: string = '';
   try {
-    result = getContext().resourceManager.getStringSync(resource);
+    result = (AppStorage.get<Context>('pageContext') as Context)?.resourceManager.getStringSync(resource.id);
   } catch (error) {
     const err: BusinessError = error as BusinessError;
     Logger.error(`catch error. Code is ${err?.code}, message is ${err?.message}`);
@@ -46,6 +45,21 @@ function resourceToString(resource: Resource): string {
 async function waiting(times: number): Promise<void> {
   // 返回一个 Promise，表示等待 times 毫秒
   return new Promise<void>(resolve => setTimeout(resolve, times));
+}
+
+function getRandData(): Uint8Array | null {
+  const rand = cryptoFramework.createRandom();
+  const len: number = 16;
+  let randData: Uint8Array | null = null;
+  let retryCount = 0;
+  while (retryCount < 3) {
+    randData = rand?.generateRandomSync(len)?.data;
+    if (randData) {
+      break;
+    }
+    retryCount++;
+  }
+  return randData;
 }
 
 /*
@@ -109,9 +123,11 @@ function handleAuthResult(userAuthInstance: userAuth.UserAuthInstance): Promise<
  * */
 export async function initiatingUserAuthentication1() {
   try {
-    const rand = cryptoFramework.createRandom();
-    const len: number = 16;
-    const randData: Uint8Array = rand?.generateRandomSync(len)?.data; // 设置认证参数
+    const randData = getRandData();
+    if (!randData) {
+      return;
+    }
+    // 设置认证参数
     const authParam: userAuth.AuthParam = {
       challenge: randData,
       authType: [userAuth.UserAuthType.PIN, userAuth.UserAuthType.FACE, userAuth.UserAuthType.FINGERPRINT],
@@ -146,9 +162,10 @@ export async function initiatingUserAuthentication2() {
     reuseDuration: userAuth.MAX_ALLOWABLE_REUSE_DURATION,
   };
   try {
-    const rand = cryptoFramework.createRandom();
-    const len: number = 16;
-    const randData: Uint8Array = rand?.generateRandomSync(len)?.data;
+    const randData = getRandData();
+    if (!randData) {
+      return;
+    }
     const authParam: userAuth.AuthParam = {
       challenge: randData,
       authType: [userAuth.UserAuthType.PIN, userAuth.UserAuthType.FACE, userAuth.UserAuthType.FINGERPRINT],
@@ -184,9 +201,10 @@ export async function initiatingUserAuthentication3() {
     reuseDuration: userAuth.MAX_ALLOWABLE_REUSE_DURATION,
   }
   try {
-    const rand = cryptoFramework.createRandom();
-    const len: number = 16;
-    const randData: Uint8Array = rand?.generateRandomSync(len)?.data;
+    const randData = getRandData();
+    if (!randData) {
+      return;
+    }
     const authParam: userAuth.AuthParam = {
       challenge: randData,
       authType: [userAuth.UserAuthType.PIN, userAuth.UserAuthType.FACE, userAuth.UserAuthType.FINGERPRINT],
@@ -218,9 +236,10 @@ export async function initiatingUserAuthentication3() {
 export async function initiatingUserAuthentication4() {
   // 设置认证参数
   try {
-    const rand = cryptoFramework.createRandom();
-    const len: number = 16;
-    const randData: Uint8Array = rand?.generateRandomSync(len)?.data;
+    const randData = getRandData();
+    if (!randData) {
+      return;
+    }
     const authParam: userAuth.AuthParam = {
       challenge: randData,
       authType: [userAuth.UserAuthType.PIN, userAuth.UserAuthType.FACE, userAuth.UserAuthType.FINGERPRINT],
@@ -229,7 +248,7 @@ export async function initiatingUserAuthentication4() {
     // 配置认证界面
     const widgetParam: userAuth.WidgetParam = {
       title: resourceToString($r('app.string.title')),
-      uiContext: getContext(),
+      uiContext: (AppStorage.get<UIContext>('UIContext') as UIContext)?.getHostContext()
     };
     // 获取认证对象
     const userAuthInstance = userAuth.getUserAuthInstance(authParam, widgetParam);
@@ -293,9 +312,10 @@ function handleAuthResultAndCanceling(userAuthInstance: userAuth.UserAuthInstanc
  * */
 export async function cancelingUserAuthentication() {
   try {
-    const rand = cryptoFramework.createRandom();
-    const len: number = 16;
-    const randData: Uint8Array = rand?.generateRandomSync(len)?.data;
+    const randData = getRandData();
+    if (!randData) {
+      return;
+    }
     // 设置认证参数
     const authParam: userAuth.AuthParam = {
       challenge: randData,
@@ -343,7 +363,7 @@ function handleCustomAuthResult(userAuthInstance: userAuth.UserAuthInstance): Pr
               result.result == userAuth.UserAuthResultCode.NOT_ENROLLED) {
               // 请开发者自行完成拉起自定义认证界面的实现
               // 此处拉起类似于支付宝输入密码支付的界面
-              promptAction.showToast({
+              (AppStorage.get<UIContext>('UIContext') as UIContext)?.getPromptAction().showToast({
                 message: resourceToString($r('app.string.dialogOfCustom')), // 显示文本
                 duration: 3000, // 显示时长
                 bottom: 300     // 距离底部的距离
@@ -374,9 +394,10 @@ function handleCustomAuthResult(userAuthInstance: userAuth.UserAuthInstance): Pr
  * */
 async function applyingCustomAuthentication() {
   try {
-    const rand = cryptoFramework.createRandom();
-    const len: number = 16;
-    const randData: Uint8Array = rand?.generateRandomSync(len)?.data;
+    const randData = getRandData();
+    if (!randData) {
+      return;
+    }
     const authParam: userAuth.AuthParam = {
       challenge: randData,
       authType: [userAuth.UserAuthType.FACE],
@@ -422,9 +443,10 @@ async function comprehensiveFeatures() {
     reuseDuration: userAuth.MAX_ALLOWABLE_REUSE_DURATION,
   };
   try {
-    const rand = cryptoFramework.createRandom();
-    const len: number = 16;
-    const randData: Uint8Array = rand?.generateRandomSync(len)?.data;
+    const randData = getRandData();
+    if (!randData) {
+      return;
+    }
     const authParam: userAuth.AuthParam = {
       challenge: randData,
       authType: [userAuth.UserAuthType.FACE],

@@ -13,66 +13,76 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router'
-
 interface listItem {
   router?: string;
   name: string;
   description?: string;
-}
-
+};
 let demandList: listItem[] = [
   {
-    name: "SetImageZoomType",
-    description: "Scale the image to a box with a determined height and width using the objectFit attribute",
-    router: "pages/SetImageZoomType",
+    name: 'LoadingResources',
+    description: 'The data sources of archived image types can be classified as local resources, network resources, Resource resources, media library resources and base64.',
+    router: 'pages/LoadingResources',
   },
   {
-    name: "ImageInterpolation",
-    description: "Interpolate the image using the interpolation property to make it appear clearer",
-    router: "pages/ImageInterpolation",
+    name: 'LoadImageResources',
+    description: 'Supports file://path prefix, used to access the image path provided through the selector.',
+    router: 'pages/LoadImageResources',
   },
   {
-    name: "SetImageRepetitionStyle",
-    description: "Set the repetition style of the image through the objectRepeat property",
-    router: "pages/SetImageRepetitionStyle",
+    name: 'MultimediaPixelArt',
+    description: 'The loaded network images will be decoded into the PixelMap format by the script, and then displayed on the Image component.',
+    router: 'pages/MultimediaPixelArt',
   },
   {
-    name: "SetImageRenderingMode",
-    description: "primary color or black and white through the renderMode property",
-    router: "pages/SetImageRenderingMode",
+    name: 'DrawableDescriptor',
+    description: 'DrawableDescriptor is a sophisticated image abstraction mechanism provided by ArkUI. By encapsulating image resources as programmable objects, it achieves the dynamic combination and runtime control functions that are difficult to achieve with the traditional Image component.',
+    router: 'pages/DrawableDescriptor',
   },
   {
-    name: "SetImageDecodingSize",
-    description: "Set image decoding size to reduce image resolution",
-    router: "pages/SetImageDecodingSize",
+    name: 'DisplayVectorDiagram',
+    description: 'SVG format images can use the fillColor property to change the drawing color of the image.',
+    router: 'pages/DisplayVectorDiagram',
   },
   {
-    name: "AddFilterEffectsToImages",
-    description: "Modify the pixel color of the image and add filters to the image",
-    router: "pages/AddFilterEffectsToImages",
+    name: 'SetImageZoomType',
+    description: 'Scale the image to a box with a determined height and width using the objectFit attribute',
+    router: 'pages/SetImageZoomType',
   },
   {
-    name: "EventCall",
-    description: "After the image is successfully loaded, necessary information about the image can be obtained",
-    router: "pages/EventCall",
+    name: 'ImageInterpolation',
+    description: 'Interpolate the image using the interpolation property to make it appear clearer',
+    router: 'pages/ImageInterpolation',
   },
   {
-    name: "LoadImageResources",
-    description: "Supports file://path prefix, used to access the image path provided through the selector.",
-    router: "pages/LoadImageResources",
+    name: 'SetImageRepetitionStyle',
+    description: 'Set the repetition style of the image through the objectRepeat property',
+    router: 'pages/SetImageRepetitionStyle',
   },
   {
-    name: "DisplayVectorDiagram",
-    description: "SVG format images can use the fillColor property to change the drawing color of the image.",
-    router: "pages/DisplayVectorDiagram",
+    name: 'SetImageRenderingMode',
+    description: 'primary color or black and white through the renderMode property',
+    router: 'pages/SetImageRenderingMode',
   },
-]
-
+  {
+    name: 'SetImageDecodingSize',
+    description: 'Set image decoding size to reduce image resolution',
+    router: 'pages/SetImageDecodingSize',
+  },
+  {
+    name: 'AddFilterEffectsToImages',
+    description: 'Modify the pixel color of the image and add filters to the image',
+    router: 'pages/AddFilterEffectsToImages',
+  },
+  {
+    name: 'EventCall',
+    description: 'After the image is successfully loaded, necessary information about the image can be obtained',
+    router: 'pages/EventCall',
+  }
+];
 @Entry
 @Component
 struct Index {
-  @State bgColor: ResourceColor = "#39b5fa";
 
   build() {
     Column() {
@@ -82,9 +92,8 @@ struct Index {
         .textAlign(TextAlign.Center)
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
-        .backgroundColor(this.bgColor)
-        .fontColor(Color.White)
-
+        .backgroundColor($r('app.color.Title_Back'))
+        .fontColor($r('app.color.Title_TextColor'))
       Column() {
         List({ space: 20, initialIndex: 0 }) {
           ForEach(demandList, (listitem: listItem, index: number) => {
@@ -92,11 +101,11 @@ struct Index {
               Column({ space: 10 }) {
                 Text(listitem.name)
                   .fontSize(20)
-                  .fontColor(this.bgColor)
+                  .fontColor($r('app.color.Index_first'))
                   .maxLines(1)
-
                 Text(listitem.description)
                   .width('100%')
+                  .fontColor($r('app.color.start_window_background'))
               }
               .margin({ bottom: index >= demandList.length - 1 ? 100 : 0 })
               .padding({
@@ -108,10 +117,10 @@ struct Index {
               .width('100%')
               .constraintSize({ minHeight: 100 })
               .borderRadius(10)
-              .backgroundColor(0xFFFFFF)
+              .backgroundColor($r('app.color.Index_Column'))
               .onClick(() => {
                 if (!!listitem.router) {
-                  router.pushUrl({ url: listitem.router })
+                  this.getUIContext().getRouter().pushUrl({ url: listitem.router })
                 }
               })
             }
@@ -131,7 +140,7 @@ struct Index {
       }
       .width('100%')
       .height('100%')
-      .backgroundColor('#fff4f3f3')
+      .backgroundColor($r('app.color.Index_backgroundColor'))
       .padding({ top: 5 })
     }
   }

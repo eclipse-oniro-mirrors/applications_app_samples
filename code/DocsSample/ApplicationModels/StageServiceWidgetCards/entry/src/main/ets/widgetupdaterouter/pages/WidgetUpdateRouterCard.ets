@@ -14,11 +14,12 @@
  */
 
 // [Start widget_updt_router_card]
-let storageUpdtRouter = new LocalStorage();
+let storageUpdateRouter = new LocalStorage();
 
-@Entry(storageUpdtRouter)
+@Entry(storageUpdateRouter)
 @Component
-struct WidgetUpdtRouterCard {
+struct WidgetUpdateRouterCard {
+  // $r('app.string.init')需要替换为开发者所需的资源文件
   @LocalStorageProp('routerDetail') routerDetail: ResourceStr = $r('app.string.init');
 
   build() {
@@ -36,6 +37,7 @@ struct WidgetUpdtRouterCard {
 
       Row() {
         Button() {
+          // $r('app.string.JumpLabel')需要替换为开发者所需的资源文件
           Text($r('app.string.JumpLabel'))
             .fontColor('#45A6F4')
             .fontSize(12)
@@ -60,6 +62,7 @@ struct WidgetUpdtRouterCard {
     .width('100%')
     .height('100%')
     .alignItems(HorizontalAlign.Start)
+    // $r('app.media.CardEvent')需要替换为开发者所需的资源文件
     .backgroundImage($r('app.media.CardEvent'))
     .backgroundImageSize(ImageSize.Cover)
   }

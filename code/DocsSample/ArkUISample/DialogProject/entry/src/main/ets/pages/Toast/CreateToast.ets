@@ -13,9 +13,13 @@
  * limitations under the License.
  */
 
-// [Start create_toast]
+// [Start toast_create]
 import { PromptAction } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TAG: string = '[Sample_dialogproject]';
+const DOMAIN: number = 0xFF00;
 
 @Entry
 @Component
@@ -23,32 +27,29 @@ export struct CreateToastExample {
   private uiContext: UIContext = this.getUIContext();
   private promptAction: PromptAction = this.uiContext.getPromptAction();
   build() {
+    // [StartExclude toast_create]
     NavDestination() {
-      Column({ space: 12 }) {
-
-        Column() {
-          Button('Show toast').fontSize(20)
-            .onClick(() => {
-              try {
-                this.promptAction.showToast({
-                  message: 'Hello World',
-                  duration: 2000
-                });
-              } catch (error) {
-                let message = (error as BusinessError).message;
-                let code = (error as BusinessError).code;
-                console.error(`showToast args error code is ${code}, message is ${message}`);
-              };
-            })
-        }.height('100%').width('100%').justifyContent(FlexAlign.Center)
-
-      }
-      .width('100%')
-      .height('100%')
-      .padding({ left: 12, right: 12 })
+      // [EndExclude toast_create]
+      Column() {
+        Button('Show toast').fontSize(20)
+          .onClick(() => {
+            try {
+              this.promptAction.showToast({
+                message: 'Hello World',
+                duration: 2000
+              });
+            } catch (error) {
+              let message = (error as BusinessError).message;
+              let code = (error as BusinessError).code;
+              hilog.error(DOMAIN, TAG, '%{public}s', 'showToast args error code is $\{code}, message is $\{message}');
+            }
+          })
+      }.height('100%').width('100%').justifyContent(FlexAlign.Center)
+      // [StartExclude toast_create]
     }
     .backgroundColor('#f1f2f3')
     .title($r('app.string.CreateToast_title'))
+    // [EndExclude toast_create]
   }
 }
-// [End create_toast]
+// [End toast_create]

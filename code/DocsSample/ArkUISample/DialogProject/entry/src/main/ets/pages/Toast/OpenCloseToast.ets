@@ -12,9 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+// [Start toast_openClose]
 import { PromptAction } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TAG: string = '[Sample_dialogproject]';
+const DOMAIN: number = 0xFF00;
 
 @Entry
 @Component
@@ -24,46 +28,46 @@ export struct OpenCloseToastExample {
   private promptAction: PromptAction = this.uiContext.getPromptAction();
 
   build() {
+    // [StartExclude toast_openClose]
     NavDestination() {
-      Column({ space: 12 }) {
-
-        Column() {
-          Button('Open Toast')
-            .height(100)
-            .onClick(() => {
-              try {
-                this.promptAction.openToast({
-                  message: 'Toast Massage',
-                  duration: 10000,
-                }).then((toastId: number) => {
-                  this.toastId = toastId;
-                });
-              } catch (error) {
-                let message = (error as BusinessError).message;
-                let code = (error as BusinessError).code;
-                console.error(`OpenToast error code is ${code}, message is ${message}`);
-              };
-            })
-          Blank().height(50);
-          Button('Close Toast')
-            .height(100)
-            .onClick(() => {
-              try {
-                this.promptAction.closeToast(this.toastId);
-              } catch (error) {
-                let message = (error as BusinessError).message;
-                let code = (error as BusinessError).code;
-                console.error(`CloseToast error code is ${code}, message is ${message}`);
-              };
-            })
-        }.height('100%').width('100%').justifyContent(FlexAlign.Center)
-
-      }
-      .width('100%')
-      .height('100%')
-      .padding({ left: 12, right: 12 })
+      // [EndExclude toast_openClose]
+      Column() {
+        Button('Open Toast')
+          .height(100)
+          .type(ButtonType.Capsule)
+          .onClick(() => {
+            try {
+              this.promptAction.openToast({
+                message: 'Toast Massage',
+                duration: 10000,
+              }).then((toastId: number) => {
+                this.toastId = toastId;
+              });
+            } catch (error) {
+              let message = (error as BusinessError).message;
+              let code = (error as BusinessError).code;
+              hilog.error(DOMAIN, TAG, '%{public}s', 'OpenToast error code is $\{code}, message is $\{message}');
+            }
+          })
+        Blank().height(50);
+        Button('Close Toast')
+          .height(100)
+          .type(ButtonType.Capsule)
+          .onClick(() => {
+            try {
+              this.promptAction.closeToast(this.toastId);
+            } catch (error) {
+              let message = (error as BusinessError).message;
+              let code = (error as BusinessError).code;
+              hilog.error(DOMAIN, TAG, '%{public}s', 'CloseToast error code is $\{code}, message is $\{message}');
+            }
+          })
+      }.height('100%').width('100%').justifyContent(FlexAlign.Center)
+      // [StartExclude toast_openClose]
     }
     .backgroundColor('#f1f2f3')
     .title($r('app.string.OpenCloseToast_title'))
+    // [EndExclude toast_openClose]
   }
 }
+// [End toast_openClose]

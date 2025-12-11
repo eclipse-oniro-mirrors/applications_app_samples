@@ -13,56 +13,73 @@
  * limitations under the License.
  */
 
-import {promptAction} from '@kit.ArkUI';
+// [Start toast_showDefaultAndTop]
+import { promptAction } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TAG: string = '[Sample_dialogproject]';
+const DOMAIN: number = 0xFF00;
 
 @Entry
 @Component
 export struct DefaultAndTopToastExample {
-  private uiContext: UIContext = this.getUIContext();
-
   build() {
+    // [StartExclude toast_showDefaultAndTop]
     NavDestination() {
+      // [EndExclude toast_showDefaultAndTop]
       Column({ space: 10 }) {
         TextInput()
-        Column() {
-          Button() {
-            Text('DEFAULT Toast')
-              .fontSize(20)
-              .fontWeight(FontWeight.Bold)
-
-          }
-          .height(100)
-          .width('100%')
-          .onClick(() => {
-            promptAction.showToast({
-              message: 'ok,I am DEFAULT toast',
+        Button() {
+          Text('Toast of the DEFAULT type')
+            .fontSize(20)
+            .fontWeight(FontWeight.Bold)
+        }
+        .height('100')
+        .width('100%')
+        .onClick(() => {
+          try {
+            this.getUIContext().getPromptAction().showToast({
+              message: 'ok, I am DEFAULT toast',
               duration: 2000,
               showMode: promptAction.ToastShowMode.DEFAULT,
               bottom: 80
-            })
-          })
-          Blank().height(200);
-          Button() {
-            Text('TOPMOST Toast')
-              .fontSize(20)
-              .fontWeight(FontWeight.Bold)
-
+            });
+          } catch (error) {
+            let message = (error as BusinessError).message;
+            let code = (error as BusinessError).code;
+            hilog.error(DOMAIN, TAG, '%{public}s', 'showToast args error code is $\{code}, message is $\{message}');
           }
-          .height(100)
-          .width('100%')
-          .onClick(() => {
-            promptAction.showToast({
-              message: 'ok,I am TOP_MOST toast',
+        })
+
+        Blank().height(200);
+        Button() {
+          Text('Toast of the TOPMOST type')
+            .fontSize(20)
+            .fontWeight(FontWeight.Bold)
+        }
+        .height('100')
+        .width('100%')
+        .onClick(() => {
+          try {
+            this.getUIContext().getPromptAction().showToast({
+              message: 'ok, I am TOP_MOST toast',
               duration: 2000,
               showMode: promptAction.ToastShowMode.TOP_MOST,
               bottom: 85
-            })
-          })
-        }.height('100%').width('100%').justifyContent(FlexAlign.Center)
+            });
+          }  catch (error) {
+            let message = (error as BusinessError).message;
+            let code = (error as BusinessError).code;
+            hilog.error(DOMAIN, TAG, '%{public}s', 'showToast args error code is $\{code}, message is $\{message}');
+          }
+        })
       }
-      .width('100%')
-      .height('100%')
-      .padding({ left: 12, right: 12 })
+      // [StartExclude toast_showDefaultAndTop]
     }
+    .backgroundColor('#f1f2f3')
+    .title($r('app.string.DefaultAndTopToast_title'))
+    // [EndExclude toast_showDefaultAndTop]
   }
 }
+// [End toast_showDefaultAndTop]

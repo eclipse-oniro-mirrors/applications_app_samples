@@ -33,16 +33,24 @@
         "value": "true"
       }
     ],
+    // [Start input_case_entry_module_extensionAbilities]
     "extensionAbilities": [
       {
-        "srcEntry": "./ets/ServiceExtAbility/ServiceExtAbility.ets",
-        "name": "ServiceExtAbility",
+        "srcEntry": "./ets/InputMethodExtensionAbility/InputMethodService.ets",
+        "name": "InputMethodService",
         "label": "$string:MainAbility_label",
         "description": "$string:extension_ability_descripter",
         "type": "inputMethod",
-        "exported": true
+        "exported": true,
+        "metadata": [
+          {
+            "name": "ohos.extension.input_method",
+            "resource": "$profile:input_method_config"
+          }
+        ]
       }
     ],
+    // [End input_case_entry_module_extensionAbilities]
     "abilities": [
       {
         "name": "EntryAbility",
