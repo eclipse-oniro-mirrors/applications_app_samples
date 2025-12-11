@@ -13,52 +13,60 @@
 * limitations under the License.
 */
 
-// [Start state_scene_type_map]
+// [Start state_scene_type_array]
+class Fruit {
+  public name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
 @Entry
 @Component
-struct MapSample {
-  @State fruits: Map<string, number> = new Map([['apple', 1], ['banana', 2]]); // 使用@State装饰Map类型变量
+struct ArraySample {
+  @State fruits: Fruit[] = [new Fruit('apple'), new Fruit('banana')]; // 使用@State装饰Array类型变量
 
   build() {
     Row() {
       Column() {
-        ForEach(Array.from(this.fruits.entries()), (item: [string, number]) => {
-          Text(`key: ${item[0]}, value: ${item[1]}`)
+        ForEach(this.fruits, (item: Fruit) => {
+          Text(`${item.name}`)
             .fontSize(20)
             .margin(10)
         })
-        // 新增键值对，触发UI刷新
-        Button('Set entry cherry')
+        // 对数组元素重新赋值，触发UI刷新
+        Button('Set element at index 0')
           .onClick(() => {
-            this.fruits.set('cherry', 3);
+            this.fruits[0] = new Fruit('orange');
           })
           .width(300)
           .margin(10)
-        // 更新键值对，触发UI刷新
-        Button('Update entry apple')
+        // 新增数组元素，触发UI刷新
+        Button('Push element')
           .onClick(() => {
-            this.fruits.set('apple', 4);
+            this.fruits.push(new Fruit('cherry'));
           })
           .width(300)
           .margin(10)
-        // 删除键值对，触发UI刷新
-        Button('Delete entry apple')
+        // 删除数组元素，触发UI刷新
+        Button('Pop element')
           .onClick(() => {
-            this.fruits.delete('apple');
+            this.fruits.pop();
           })
           .width(300)
           .margin(10)
-        // 对Map整体重新赋值，触发UI刷新
-        Button('Reset map')
+        // 对数组整体重新赋值，触发UI刷新
+        Button('Reset array')
           .onClick(() => {
-            this.fruits = new Map([['strawberry', 9], ['blueberry', 8]]);
+            this.fruits = [new Fruit('strawberry'), new Fruit('blueberry')];
           })
           .width(300)
           .margin(10)
-        // 清空Map，触发UI刷新
-        Button('Clear map')
+        // 修改嵌套的属性，无法触发UI刷新
+        Button('Modify element[0] property')
           .onClick(() => {
-            this.fruits.clear();
+            this.fruits[0].name = 'pineapple';
           })
           .width(300)
           .margin(10)
@@ -68,18 +76,18 @@ struct MapSample {
     .height('100%')
   }
 }
-// [End state_scene_type_map]
+// [End state_scene_type_array]
 
 @Component
-export struct StateSceneTypeMap {
+export struct StateSceneTypeArray {
   @State egLanes: LengthConstrain = { minLength: 200, maxLength: 300 };
   @Consume pathStack: NavPathStack;
 
   build() {
     NavDestination() {
-      MapSample()
+      ArraySample()
     }
     .backgroundColor('#f1f2f3')
-    .title($r('app.string.state_scene_type_map'))
+    .title($r('app.string.state_scene_type_array'))
   }
 }
