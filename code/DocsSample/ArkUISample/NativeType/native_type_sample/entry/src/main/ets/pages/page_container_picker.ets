@@ -22,39 +22,16 @@ interface ListCategories {
 
 @Entry
 @Component
-struct MenuIndex {
+struct ContainerPickerIndex {
   private items: ListCategories[] =
     [
-      { title: 'Swiper', url: 'pages/page_swiper' }, 
-      { title: 'Text', url: 'pages/page_text' },
-      { title: 'XComponent', url: 'pages/page_xcomponent'},
-      { title: 'accessibility', url: 'pages/page_accessibility' },
-      { title: 'embedded component', url: 'pages/page_embedded_component' },
-      { title: 'Animation', url: 'pages/page_animation' },
-      { title: 'Visual Effects', url: 'pages/page_visual_effects' },
-      { title: 'WaterFlow', url: 'pages/page_waterflow' },
-      { title: 'Grid', url: 'pages/PageGrid' },
-      { title: 'Scroll', url: 'pages/page_scroll' },
-      { title: 'Refresh', url: 'pages/page_refresh' },
-      { title: 'List', url: 'pages/page_list' },
-      { title: 'Button', url: 'pages/page_button' },
-      { title: 'Slider', url: 'pages/page_slider'},
-      { title: 'CheckboxShape', url: 'pages/page_checkbox_shape' },
-      { title: 'HoverModeAreaType', url: 'pages/page_hovermode_areatype' },
-      { title: 'Public', url: 'pages/page_public_event' },
-      { title: 'Progress', url: 'pages/page_progress' },
-      { title: 'DatePicker', url: 'pages/page_date_picker' },
-      { title: 'Image', url: 'pages/page_image' },
-      { title: 'TextPicker', url: 'pages/page_text_picker' },
-      { title: 'CalendarPicker', url: 'pages/page_calendar_picker' },
-      { title: 'ImageAnimator', url: 'pages/page_image_animator' },
-      { title: 'ContainerPicker', url: 'pages/page_container_picker' },
+      { title: 'ContainerPicker', url: 'pages/containerPicker/PageContainerPickerIndex' },
     ];
 
   build() {
     Scroll(new Scroller()) {
       Column() {
-        Text('native_type_sample')
+        Text('Picker选择页面')
           .fontWeight(FontWeight.Bold)
           .fontSize('20vp')
           .textAlign(TextAlign.Center)
