@@ -13,19 +13,21 @@
  * limitations under the License.
  */
 
-// [Start appstorage_Index]
-AppStorage.setOrCreate('linkA', 47)
-AppStorage.setOrCreate('propB', 48)
+// [Start appstorage_Page]
+@Builder
+export function PageBuilder() {
+  Page()
+}
 
-@Entry
+// 应用全局共享一个AppStorage
 @Component
-struct Index {
-  @StorageLink('linkA') linkA: number = 1;
-  @StorageProp('propB') propB: number = 1;
+struct Page {
+  @StorageLink('linkA') linkA: number = 2;
+  @StorageProp('propB') propB: number = 2;
   pageStack: NavPathStack = new NavPathStack();
 
   build() {
-    Navigation(this.pageStack) {
+    NavDestination() {
       Row(){
         Column({ space:5 }) {
           Text(`${this.linkA}`)
@@ -42,16 +44,18 @@ struct Index {
             .onClick(()=>{
               this.propB++;
             })  
-          Button('To Page')
+          Button('Back Index')
             .onClick(()=>{
-              this.pageStack.pushPathByName('Page', null);
+              this.pageStack.pop();
             })
         }
         .width('100%')
       }
-      .height('100%')
     }
+    .onReady((context: NavDestinationContext) => {
+      this.pageStack = context.pathStack;
+    })
   }
 }
 
-// [End appstorage_Index]
+// [End appstorage_Page]
