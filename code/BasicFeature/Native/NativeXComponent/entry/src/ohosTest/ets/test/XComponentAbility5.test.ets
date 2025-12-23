@@ -19,9 +19,9 @@ import { Driver, MatchPattern, ON, MouseButton } from '@ohos.UiTest';
 
 const TAG = '[Sample_Native_XComponent]';
 
-export default function abilityTest2() {
+export default function abilityTest3() {
 
-  describe('ActsAbilityTest', () => {
+  describe('ActsAbilityTest5', () => {
     /**
      * 打开应用
      */
@@ -40,8 +40,8 @@ export default function abilityTest2() {
       }
       await driver.delayMs(1000);
       // 判断XComponent onLoad回调执行成功
-      await driver.assertComponentExist(ON.text('声明式 NativeXComponent'));
-      let drawStarBtn = await driver.findComponent(ON.text('声明式 NativeXComponent'));
+      await driver.assertComponentExist(ON.text('NDK SurfaceHolder'));
+      let drawStarBtn = await driver.findComponent(ON.text('NDK SurfaceHolder'));
       await drawStarBtn.click();
       await driver.assertComponentExist(ON.text('点击此处进入'));
       drawStarBtn = await driver.findComponent(ON.text('点击此处进入'));
@@ -68,7 +68,7 @@ export default function abilityTest2() {
       await driver.assertComponentExist(ON.text('draw star'));
 
       // 判断是否有XComponent组件
-      let xcomponent = await driver.findComponent(ON.id('xcomponent'));
+      let xcomponent = await driver.findComponent(ON.id('ndkxcomponent'));
       // 点击XComponent组件
       await xcomponent.click();
       await driver.delayMs(1000);
@@ -78,5 +78,6 @@ export default function abilityTest2() {
       await driver.pressBack();
       await driver.delayMs(1000);
     })
+
   })
 }
