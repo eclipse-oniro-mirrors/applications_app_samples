@@ -13,31 +13,18 @@
  * limitations under the License.
  */
 
-#ifndef NATIVE_XCOMPONENT_PLUGIN_MANAGER_H
-#define NATIVE_XCOMPONENT_PLUGIN_MANAGER_H
-
-#include <arkui/native_gesture.h>
-#include <arkui/native_node.h>
-#include <cstdint>
-#include <string>
-#include <unordered_map>
+#ifndef LINEAR_MAKER_H
+#define LINEAR_MAKER_H
 
 #include <ace/xcomponent/native_interface_xcomponent.h>
-#include <js_native_api.h>
-#include <js_native_api_types.h>
-#include <napi/native_api.h>
+#include <arkui/native_gesture.h>
+#include <arkui/native_node.h>
 
-const int MAX_SIZE = 11;
-class PublicMaker {
+class LinearMaker {
 public:
-    PublicMaker(){};
-    ~PublicMaker(){};
+    LinearMaker() {};
+    ~LinearMaker() {};
 
     static ArkUI_NodeHandle CreateNativeNode();
 };
-void SetWidthPercent(ArkUI_NodeHandle& node, float width);
-void SetHeight(ArkUI_NodeHandle& node, float height);
-void SetBackGroundColor(ArkUI_NodeHandle& node, uint32_t color);
-ArkUI_NodeHandle CreateTextNode(const char* textContent);
-ArkUI_NodeHandle CreateButtonNode(const char* buttonLabel);
-#endif // NATIVE_XCOMPONENT_PLUGIN_MANAGER_H
+#endif // LINEAR_MAKER_H
