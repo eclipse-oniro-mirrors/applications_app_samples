@@ -40,6 +40,8 @@
 
 - [订阅应用终止事件（C/C++）](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/dfx/hiappevent-watcher-app-killed-events-ndk.md)
 
+- [订阅ArkWeb抛滑丢帧事件（ArkTS）](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/dfx/hiappevent-watcher-web-fling-jank-events-arkts.md)
+
 ###  效果预览
 
 |                             主页                             |
@@ -48,7 +50,8 @@
 
 #### 使用说明
 
-请先按照[工程目录](#工程目录)添加三方库文件jsoncpp相关文件，否则编译无法通过；jsoncpp官方下载地址为https://github.com/open-source-parsers/jsoncpp，下载完成后在文件夹内运行python脚本“amalgamate.py”（需要有python环境），脚本运行完成后将生成名为“dist”的文件夹，打开后即可得到jsoncpp.cpp，json.h和json-forward.h三个文件。
+在napi_init.cpp中需要使用三方库jsoncpp来解析订阅事件（C/C++）中的json字符串。该工程已经将jsoncpp源码交叉编译后以动态库的方式导入，可直接编译。
+jsoncpp 1.9.6版本官方下载地址：https://github.com/open-source-parsers/jsoncpp/archive/refs/tags/1.9.6.tar.gz。jsoncpp的库文件位置可以查阅[工程目录](#工程目录)。
 
 ##### 1.事件订阅（ArkTS&C++）使用说明：订阅崩溃（APP_CRASH）事件
 
@@ -150,7 +153,7 @@ HiAppEvent eventInfo.eventType=1
 HiAppEvent eventInfo.params.time=1501890680817
 HiAppEvent eventInfo.params.crash_type=JsError
 HiAppEvent eventInfo.params.foreground=1
-HiAppEvent eventInfo.params.release_type=Release
+HiAppEvent eventInfo.params.release_type=release
 HiAppEvent eventInfo.params.cpu_abi=arm64-v8a
 HiAppEvent eventInfo.params.bundle_version=1.0.0
 HiAppEvent eventInfo.params.bundle_name=com.samples.eventsub
@@ -219,7 +222,7 @@ HiAppEvent eventInfo.name=APP_FREEZE
 HiAppEvent eventInfo.eventType=1
 HiAppEvent eventInfo.params.time=1501891964864
 HiAppEvent eventInfo.params.foreground=1
-HiAppEvent eventInfo.params.release_type=Release
+HiAppEvent eventInfo.params.release_type=release
 HiAppEvent eventInfo.params.cpu_abi=arm64-v8a
 HiAppEvent eventInfo.params.bundle_version=1.0.0
 HiAppEvent eventInfo.params.bundle_name=com.samples.eventsub
@@ -488,30 +491,64 @@ HiAppEvent eventInfo.params.log_over_limit=xx
 
 3.C++实现了onReceive和onTrigger两种观察者。
 
+##### 10.订阅Arkweb抛滑丢帧事件（C/C++）
+
+本示例主要展示了订阅Arkweb抛滑丢帧事件的功能，包括构造AkrWeb抛滑丢帧场景及其订阅处理。OH_HiAppEvent_AddWatcher接口用于添加对该丢帧事件的订阅。
+
+1.在应用侧主界面，点击“ArkWebFlingJank ArkTs”按钮；
+2.在DevEco Studio侧下方导航栏，切换到"Log"窗口，日志过滤选择"No filters"，搜索内容设置为"HiAppevent"。此时窗口仅显示符合条件的日志，打印日志示例结果为：
+
+```text
+HiAppEvent eventInfo.domain=OS
+HiAppEvent eventInfo.name=SCROLL_ARKWEB_FLING_JANK
+HiAppEvent eventInfo.params.start_time=1765892111768
+HiAppEvent eventInfo.params.duration=1554
+HiAppEvent eventInfo.params.web_id=1
+HiAppEvent eventInfo.params.max_app_frame_time=195
+HiAppEvent get currentUrl=https://www.baidu.com
+```
+
+注意：
+
+1.本示例适配API23及以上版本SDK。
+
+2.要确认日志输出中的eventInfo.name为SCROLL_ARKWEB_FLING_JANK。
+
 ###  工程目录
 
 ```text
-entry/src/main
-├─cpp
-│  ├─json                 // 自行创建文件夹
-│  │ └─json.h             // 按照使用说明章节中的步骤，自行添加
-│  │ └─json-forwards.h    // 按照使用说明章节中的步骤，自行添加
-│  ├─types
-│  │ └─libentry
-│  │   └─Index.d.ts		    // 定义ArkTS接口
-│  ├─CMakeLists.txt  		  // 导入so链接
-│  ├─napi_init.cpp  		  // 功能函数，观察者定义
-│  └─jsoncpp.cpp          // 按照使用说明章节中的步骤，自行添加
-└─ets
-   ├─entryability
-   │ └─EntryAbility.ets		// 新增接口调用
-   └─pages
-     └─Index.ets     		// 主页
+entry
+├── libs        // 自行创建文件夹,放入相关的三方库
+│   ├── arm64-v8a
+│   │   └── libjsoncpp.so.26
+│   ├── armeabi-v7a
+│   │   └── libjsoncpp.so.26
+│   └── x86_64
+│       └── libjsoncpp.so.26
+└── src
+    ├── main
+    │   ├── cpp
+    │   │   ├── CMakeLists.txt       // 导入so链接
+    │   │   ├── napi_init.cpp        // 功能函数，观察者定义
+    │   │   ├── thirdparty    // 自行创建文件夹,放入相关的三方库
+    │   │   │   └── jsoncpp
+    │   │   └── types
+    │   │       └── libentry
+    │   │           ├── Index.d.ts        // 定义ArkTS接口
+    │   │           └── oh-package.json5
+    │   ├── ets
+    │   │   ├── entryability
+    │   │   │   └── EntryAbility.ets    // 新增接口调用
+    │   │   ├── entrybackupability
+    │   │   │   └── EntryBackupAbility.ets
+    │   │   └── pages
+    │   │       ├── ArkWebPage.ets
+    │   │       └── Index.ets        // 主页
 ```
 
 ###  具体实现
 
-1.在entry/src/main/cpp下添加三方库文件jsoncpp.cpp和目录"json"，"json"目录下添加json.h和json-forwards.h；
+1.在entry/src/main/cpp下添加目录thirdparty，并导入三方库文件jsoncpp的库文件(拷贝jsoncpp整个文件夹)；在entry目录下添加libs目录，并导入jsoncpp的库文件。
 2.编辑"CMakeLists.txt"文件，添加源文件及动态库；
 3.编辑"napi_init.cpp"文件，导入依赖的文件，定义onReceive和onTrigger类型观察者相关方法，注册为ArkTS接口；
 4.编辑"index.d.ts"文件，定义ArkTS接口；
@@ -529,7 +566,7 @@ entry/src/main
 ###  约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568；
-2. 本示例已适配API 20版本SDK，版本号：6.0.0.47，镜像版本号：OpenHarmony 6.1.0.18；
+2. 本示例已适配API 23版本SDK，版本号：6.1.0.23，镜像版本号：OpenHarmony 6.1.0.23；
 3. 本示例需要使用DevEco Studio 6.0.0 Release(6.0.0.868)及以上版本才可编译运行。
 
 ### 下载

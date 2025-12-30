@@ -35,7 +35,7 @@ export function buildText(params: Params) {
   Popup({
     // 类型设置图标内容。
     icon: {
-      // $r('app.media.app_icon')需要替换为开发者所需的图像资源文件。
+      // 请将$r('app.media.app_icon')替换为实际资源文件
       image: $r('app.media.app_icon'),
       width: 32,
       height: 32,
@@ -137,6 +137,7 @@ struct BuildTextExample {
       backgroundBlurStyle: BlurStyle.COMPONENT_THICK,
       barStyle: BarStyle.STACK
     })
+    // 请将$r('app.string.popup')替换为实际资源文件，在本示例中该资源文件的value值为"气泡提示"
     .title($r('app.string.popup'))
   }
 }

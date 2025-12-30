@@ -30,9 +30,9 @@ export struct AddSymbolSpanContent {
         ComponentCard() {
           Column({ space: 3 }) {
             // [EndExclude richEditor_addSymbol]
-            // $r('app.string.xxx')需要替换为开发者所需的资源文件
             RichEditor(this.options)
               .onReady(() => {
+                // 请将$r('app.string.AddSymbolSpanContent_Text_1')替换为实际资源文件，在本示例中该资源文件的value值为"点击按钮在此处添加symbol"
                 this.controller.addTextSpan(resource.resourceToString($r('app.string.AddSymbolSpanContent_Text_1')), {
                   style: {
                     fontColor: Color.Black,
@@ -42,13 +42,14 @@ export struct AddSymbolSpanContent {
               })
               .width(300)
               .height(100)
+            // 请将$r('app.string.AddSymbolSpanContent_Button_1')替换为实际资源文件，在本示例中该资源文件的value值为"addSymbolSpan"
             Button($r('app.string.AddSymbolSpanContent_Button_1'), {
               buttonStyle: ButtonStyleMode.NORMAL
             })
               .height(30)
               .fontSize(13)
               .onClick(() => {
-                // $r('sys.symbol.basketball_fill')需要替换为开发者所需的资源文件
+                // 请将$r('sys.symbol.basketball_fill')替换为开发者所需的资源文件
                 this.controller.addSymbolSpan($r('sys.symbol.basketball_fill'), {
                   style: {
                     fontSize: 30
@@ -63,6 +64,7 @@ export struct AddSymbolSpanContent {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.Add_SymbolSpanContent_title')替换为实际资源文件，在本示例中该资源文件的value值为"添加SymbolSpan内容"
     .title($r('app.string.Add_SymbolSpanContent_title'))
   }
 }

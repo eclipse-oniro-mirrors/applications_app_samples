@@ -99,7 +99,8 @@ export struct WaterFlowInfiniteScrollingEarly {
     Row() {
       LoadingProgress()
         .color(Color.Blue).height(50).aspectRatio(1).width('20%')
-      Text(`正在加载`)
+      // 请将$r('app.string.waterFlow_text1')替换为实际资源文件，在本示例中该资源文件的value值为"正在加载 "
+      Text($r('app.string.waterFlow_text1'))
         .fontSize(20)
         .width('30%')
         .height(50)
@@ -111,7 +112,7 @@ export struct WaterFlowInfiniteScrollingEarly {
   build() {
     NavDestination() {
       Column({ space: 12 }) {
-        // $r('app.string.WaterFlowInfiniteScrollingEarly_title')需要替换为开发者所需的资源文件
+        // 请将$r('app.string.WaterFlowInfiniteScrollingEarly_title')替换为实际资源文件，在本示例中该资源文件的value值为"无限滚动（提前新增数据）"
         ComponentCard({ title: $r('app.string.WaterFlowInfiniteScrollingEarly_title') }) {
           WaterFlow({ layoutMode: WaterFlowLayoutMode.SLIDING_WINDOW }) {
             LazyForEach(this.dataSource, (item: number) => {
@@ -143,7 +144,7 @@ export struct WaterFlowInfiniteScrollingEarly {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
-    // $r('app.string.WaterFlowInfiniteScrollingEarly_title')需要替换为开发者所需的资源文件
+    // 请将$r('app.string.WaterFlowInfiniteScrollingEarly_title')替换为实际资源文件，在本示例中该资源文件的value值为"无限滚动（提前新增数据）"
     .title($r('app.string.WaterFlowInfiniteScrollingEarly_title'))
   }
   // [End waterFlowInfiniteScrollingEarly_start]

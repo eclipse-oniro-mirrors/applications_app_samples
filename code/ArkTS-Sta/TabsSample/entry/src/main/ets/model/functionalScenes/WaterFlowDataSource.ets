@@ -34,8 +34,8 @@ export class WaterFlowDataSource<SceneModuleInfo> implements IDataSource<SceneMo
    * @param index 数组索引
    * @returns
    */
-  public getData(index: number): SceneModuleInfo {
-    return this.dataArray[index.toInt()];
+  public getData(index: int): SceneModuleInfo {
+    return this.dataArray[index];
   }
 
   /**
@@ -53,7 +53,7 @@ export class WaterFlowDataSource<SceneModuleInfo> implements IDataSource<SceneMo
    */
   notifyDataAdd(index: number): void {
     this.listeners.forEach(listener => {
-      listener.onDataAdd(index);
+      listener.onDataAdd(index.toInt());
     })
   }
 
@@ -63,7 +63,7 @@ export class WaterFlowDataSource<SceneModuleInfo> implements IDataSource<SceneMo
    */
   notifyDataChange(index: number): void {
     this.listeners.forEach(listener => {
-      listener.onDataChange(index);
+      listener.onDataChange(index.toInt());
     })
   }
 
@@ -73,7 +73,7 @@ export class WaterFlowDataSource<SceneModuleInfo> implements IDataSource<SceneMo
    */
   notifyDataDelete(index: number): void {
     this.listeners.forEach(listener => {
-      listener.onDataDelete(index);
+      listener.onDataDelete(index.toInt());
     })
   }
 
@@ -84,7 +84,7 @@ export class WaterFlowDataSource<SceneModuleInfo> implements IDataSource<SceneMo
    */
   notifyDataMove(from: number, to: number): void {
     this.listeners.forEach(listener => {
-      listener.onDataMove(from, to);
+      listener.onDataMove(from.toInt(), to.toInt());
     })
   }
 
@@ -92,7 +92,7 @@ export class WaterFlowDataSource<SceneModuleInfo> implements IDataSource<SceneMo
    * 获取数据总数
    * @returns
    */
-  public totalCount(): number {
+  public totalCount(): int {
     return this.dataArray.length;
   }
 

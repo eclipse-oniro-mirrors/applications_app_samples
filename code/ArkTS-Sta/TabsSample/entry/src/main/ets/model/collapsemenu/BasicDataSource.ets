@@ -22,8 +22,8 @@ import { DataChangeListener, IDataSource } from '@ohos.arkui.component'
 export abstract class BasicDataSource<T> implements IDataSource<T> {
   private listeners: DataChangeListener[] = [];
   // 获取数组长度
-  public abstract totalCount(): number;
-  public abstract getData(index: number): T;
+  public abstract totalCount(): int;
+  public abstract getData(index: int): T;
   // 为LazyForEach组件向其数据源处添加listener监听
   registerDataChangeListener(listener: DataChangeListener): void {
     if (this.listeners.indexOf(listener) < 0) {
@@ -46,19 +46,19 @@ export abstract class BasicDataSource<T> implements IDataSource<T> {
   // 通知LazyForEach组件需要在index对应索引处添加子组件
   notifyDataAdd(index: number): void {
     this.listeners.forEach((listener: DataChangeListener) => {
-      listener.onDataAdd(index);
+      listener.onDataAdd(index.toInt());
     })
   }
   // 通知LazyForEach组件在index对应索引处数据有变化，需要重建该子组件
   notifyDataChange(index: number): void {
     this.listeners.forEach((listener: DataChangeListener) => {
-      listener.onDataChange(index);
+      listener.onDataChange(index.toInt());
     })
   }
   // 通知LazyForEach组件需要在index对应索引处删除该子组件
   notifyDataDelete(index: number): void {
     this.listeners.forEach((listener: DataChangeListener) => {
-      listener.onDataDelete(index);
+      listener.onDataDelete(index.toInt());
     })
   }
 }
@@ -70,12 +70,12 @@ export class ArticleSource<T> extends BasicDataSource<T> {
     this.pushData(data);
   }
   // 获取数组长度
-  public totalCount(): number {
+  public totalCount(): int {
     return this.articleData.length;
   }
   // 获取指定索引数据
-  public getData(index: number): T {
-    return this.articleData[index.toInt()];
+  public getData(index: int): T {
+    return this.articleData[index];
   }
   // 插入单个数据
   public addData(index: number, data: T): void {

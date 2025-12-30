@@ -15,6 +15,7 @@
 @Entry
 @Component
 struct SideBarContainerExample {
+  // 请将$r('app.media.icon')替换为实际资源文件
   normalIcon: Resource = $r('app.media.icon');
   selectedIcon: Resource = $r('app.media.icon');
   @State arr: number[] = [1, 2, 3];
@@ -45,6 +46,7 @@ struct SideBarContainerExample {
       }
       .margin({ top: 50, left: 20, right: 30 })
     }
+    // 请将$r('app.media.drawer')替换为实际资源文件
     .controlButton({
       icons: {
         hidden: $r('app.media.drawer'),

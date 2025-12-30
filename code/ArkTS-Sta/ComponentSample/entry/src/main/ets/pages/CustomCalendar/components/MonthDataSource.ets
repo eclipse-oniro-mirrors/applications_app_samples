@@ -52,7 +52,7 @@ export class MonthDataSource implements IDataSource<Month> {
    * 获取数组长度。
    * @returns {number} 返回数组长度。
    */
-  public totalCount(): number {
+  public totalCount(): int {
     return this.dataArray.length;
   }
 
@@ -61,8 +61,8 @@ export class MonthDataSource implements IDataSource<Month> {
    * @param {number} index - 索引值。
    * @returns {CustomDataType} 返回指定索引数据。
    */
-  public getData(index: number): Month {
-    return this.dataArray[index.toInt()];
+  public getData(index: int): Month {
+    return this.dataArray[index];
   }
 
   /**
@@ -94,7 +94,7 @@ export class MonthDataSource implements IDataSource<Month> {
    */
   notifyDataAdd(index: number): void {
     this.listeners.forEach(listener => {
-      listener.onDataAdd(index);
+      listener.onDataAdd(index.toInt());
     })
   }
 
@@ -104,7 +104,7 @@ export class MonthDataSource implements IDataSource<Month> {
    */
   notifyDataChange(index: number): void {
     this.listeners.forEach(listener => {
-      listener.onDataChange(index);
+      listener.onDataChange(index.toInt());
     })
   }
 
@@ -114,7 +114,7 @@ export class MonthDataSource implements IDataSource<Month> {
    */
   notifyDataDelete(index: number): void {
     this.listeners.forEach(listener => {
-      listener.onDataDelete(index);
+      listener.onDataDelete(index.toInt());
     })
   }
 
@@ -125,7 +125,7 @@ export class MonthDataSource implements IDataSource<Month> {
    */
   notifyDataMove(from: number, to: number): void {
     this.listeners.forEach(listener => {
-      listener.onDataMove(from, to);
+      listener.onDataMove(from.toInt(), to.toInt());
     })
   }
 

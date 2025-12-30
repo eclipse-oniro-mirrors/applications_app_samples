@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start key_agreement_ECDH_cpp]
+// [Start prepare_ECDH_cpp]
 #include "huks/native_huks_api.h"
 #include "huks/native_huks_param.h"
 #include "napi/native_api.h"
@@ -80,7 +80,9 @@ static struct OH_Huks_Blob g_keyAlias01001 = {(uint32_t)strlen("HksECDHAgreeKeyA
                                               (uint8_t *)"HksECDHAgreeKeyAliasTest001_1"};
 static struct OH_Huks_Blob g_keyAlias02001 = {(uint32_t)strlen("HksECDHAgreeKeyAliasTest001_2"),
                                               (uint8_t *)"HksECDHAgreeKeyAliasTest001_2"};
+// [End prepare_ECDH_cpp]
 
+// [Start key_agreement_ECDH_cpp_one]
 static OH_Huks_Result MallocAndCheckBlobData(struct OH_Huks_Blob *blob, const uint32_t blobSize)
 {
     struct OH_Huks_Result ret;
@@ -95,6 +97,7 @@ static OH_Huks_Result MallocAndCheckBlobData(struct OH_Huks_Blob *blob, const ui
     }
     return ret;
 }
+
 /* 导出密钥 */
 OH_Huks_Result HksEcdhAgreeExport(const struct OH_Huks_Blob *keyAlias1, const struct OH_Huks_Blob *keyAlias2,
                                   struct OH_Huks_Blob *publicKey1, struct OH_Huks_Blob *publicKey2,
@@ -215,7 +218,9 @@ static void CleanKey(struct OH_Huks_Blob *genKeyAlias,
     OH_Huks_FreeParamSet(initParamSet);
     OH_Huks_FreeParamSet(finishParamSet);
 }
+// [End key_agreement_ECDH_cpp_one]
 
+// [Start key_agreement_ECDH_cpp_two]
 /* 协商密钥整体流程 */
 napi_value EcdhAgreeKey(napi_env env, napi_callback_info info)
 {
@@ -274,4 +279,4 @@ napi_value EcdhAgreeKey(napi_env env, napi_callback_info info)
     napi_create_int32(env, ohResult.errorCode, &ret);
     return ret;
 }
-// [End key_agreement_ECDH_cpp]
+// [End key_agreement_ECDH_cpp_two]

@@ -14,7 +14,7 @@
  */
 const DOMAIN = 0x0000;
 // [Start NavigationMenuThreeResource]
-let toolTmp: NavigationMenuItem  = {
+let menuItem: NavigationMenuItem  = {
   'value': 'func',
   'icon': 'resources/base/media/ic_public_add.svg',
   'action': () => {}
@@ -68,9 +68,9 @@ struct MenusThreeResource {
         .margin({ top: 12 })
         // [EndExclude NavigationMenuThreeResource]
       }
-      .menus([toolTmp, toolTmp, toolTmp])
+      .menus([menuItem, menuItem, menuItem])
       // [End NavigationMenuThreeResource]
-      // $r('app.string.mainTitle')需要替换为开发者所需的字符串资源文件
+      // 请将$r('app.string.mainTitle')替换为实际资源文件，在本示例中该资源文件的value值为"主标题"
       .title($r('app.string.mainTitle'))
       .mode(NavigationMode.Split)
       .navDestination(this.pageMap)

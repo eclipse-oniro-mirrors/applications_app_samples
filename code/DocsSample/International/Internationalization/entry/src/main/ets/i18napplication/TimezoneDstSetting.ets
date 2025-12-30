@@ -24,7 +24,6 @@ import { i18n } from '@kit.LocalizationKit';
  * 时区开发步骤
  *********************************************************************************************************************/
 // [Start get_current_timezone]
-// 时区相关功能开发实例
 // 获取巴西时区
 let timezone: i18n.TimeZone = i18n.getTimeZone('America/Sao_Paulo'); // 传入特定时区，创建时区对象
 let timezoneId = timezone.getID(); // timezoneId = 'America/Sao_Paulo'
@@ -98,16 +97,13 @@ let dateFormat =
   dateTimeFormat.format(new Date(zoneOffsetTrans.getMilliseconds())); // November 2, 2025, 1:00:00 PST
 // [End get_current_timezone]
 
-// [Start get_preferred_timezones_list]
-// 双时钟应用开发实例
+// [Start display_dual_timezones]
 let pauloTimezone: i18n.TimeZone = i18n.getTimeZone('America/Sao_Paulo');
 let defaultTimezone: i18n.TimeZone = i18n.getTimeZone();
 let appPreferredTimeZoneList: i18n.TimeZone[] = []; // 应用偏好时区列表
 appPreferredTimeZoneList.push(pauloTimezone);
 appPreferredTimeZoneList.push(defaultTimezone);
-// [End get_preferred_timezones_list]
 
-// [Start display_dual_timezones]
 // [StartExclude display_dual_timezones]
 let timeZoneData: string[] = []; // 用于存储每个时区的时间信息
 // [EndExclude display_dual_timezones]
@@ -137,7 +133,6 @@ for (let i = 0; i < appPreferredTimeZoneList.length; i++) {
  * 夏令时跳变实现原理
  *********************************************************************************************************************/
 // [Start handle_dst_transition]
-// 计算夏令时跳变前后同一个挂钟时间之间相差的小时数示例
 let calendar: i18n.Calendar = i18n.getCalendar('zh-Hans');
 calendar.setTimeZone('Europe/London');
 calendar.set(2021, 2, 27, 16, 0, 0); // 夏令时开始前的时间

@@ -19,14 +19,15 @@ import { util } from '@kit.ArkTS';
 import { ColorMetrics, ComponentContent } from '@ohos.arkui.node';
 // [Start arcAlphabetIndexer_start]
 import { ArcList, ArcListAttribute, ArcListItemAttribute, ArcListItem, LengthMetrics } from '@kit.ArkUI';
+import { common } from '@kit.AbilityKit';
 
 // [StartExclude arcAlphabetIndexer_start]
 class Contact {
   key: string = util.generateRandomUUID(true);
-  name: string;
+  name: ResourceStr;
   firstChar: string;
 
-  constructor(name: string, firstChar: string) {
+  constructor(name: ResourceStr, firstChar: string) {
     this.name = name;
     this.firstChar = firstChar;
   }
@@ -52,27 +53,29 @@ export struct ArcListArcIndexerBar {
 
   // [StartExclude arcAlphabetIndexer_start]
   private watchSize: string = '600px'; // 手表默认宽高：233*233
+  private context1 = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   @State contacts: Array<object> = [
-    new Contact('阿哈', 'A'),
-    new Contact('贝贝', 'B'),
-    new Contact('彩彩', 'C'),
-    new Contact('东东', 'D'),
-    new Contact('嗯嗯', 'E'),
-    new Contact('芳芳', 'F'),
-    new Contact('哥哥', 'G'),
-    new Contact('哈哈', 'H'),
-    new Contact('吉吉', 'J'),
-    new Contact('可可', 'K'),
-    new Contact('乐乐', 'L'),
-    new Contact('妹妹', 'M'),
-    new Contact('妮妮', 'N'),
-    new Contact('哦豁', 'O'),
-    new Contact('胖胖', 'P'),
-    new Contact('琪琪', 'Q'),
-    new Contact('然然', 'R'),
-    new Contact('叔叔', 'S'),
-    new Contact('天天', 'T'),
+    // 请将$r('app.string.xxx')替换为实际资源文件
+    new Contact($r('app.string.name_aha'), 'A'),
+    new Contact($r('app.string.name_beibei'), 'B'),
+    new Contact($r('app.string.name_caicai'), 'C'),
+    new Contact($r('app.string.name_dongdong'), 'D'),
+    new Contact($r('app.string.name_enen'), 'E'),
+    new Contact($r('app.string.name_fangfang'), 'F'),
+    new Contact($r('app.string.name_gege'), 'G'),
+    new Contact($r('app.string.name_haha'), 'H'),
+    new Contact($r('app.string.name_jiji'), 'J'),
+    new Contact($r('app.string.name_keke'), 'K'),
+    new Contact($r('app.string.name_lele'), 'L'),
+    new Contact($r('app.string.name_meimei'), 'M'),
+    new Contact($r('app.string.name_nini'), 'N'),
+    new Contact($r('app.string.name_ohuo'), 'O'),
+    new Contact($r('app.string.name_pangpang'), 'P'),
+    new Contact($r('app.string.name_qiqi'), 'Q'),
+    new Contact($r('app.string.name_ranran'), 'R'),
+    new Contact($r('app.string.name_shushu'), 'S'),
+    new Contact($r('app.string.name_tiantian'), 'T'),
   ];
   // [EndExclude arcAlphabetIndexer_start]
   // 索引条选中项索引
@@ -89,7 +92,7 @@ export struct ArcListArcIndexerBar {
     // [StartExclude arcAlphabetIndexer_start]
     NavDestination() {
       Column({ space: 12 }) {
-        // $r('app.string.ArcListArcIndexerBar_title')需要替换为开发者所需的资源文件
+        // 请将$r('app.string.ArcListArcIndexerBar_title')替换为实际资源文件，在本示例中该资源文件的value值为"与弧形索引条ArcAlphabetIndexer联动"
         ComponentCard({ title: $r('app.string.ArcListArcIndexerBar_title') }) {
           // [EndExclude arcAlphabetIndexer_start]
           Stack({alignContent: Alignment.End}) {
@@ -175,7 +178,7 @@ export struct ArcListArcIndexerBar {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
-    // $r('app.string.ArcListArcIndexerBar_title')需要替换为开发者所需的资源文件
+    // 请将$r('app.string.ArcListArcIndexerBar_title')替换为实际资源文件，在本示例中该资源文件的value值为"与弧形索引条ArcAlphabetIndexer联动"
     .title($r('app.string.ArcListArcIndexerBar_title'))
     // [EndExclude arcAlphabetIndexer_start]
   }

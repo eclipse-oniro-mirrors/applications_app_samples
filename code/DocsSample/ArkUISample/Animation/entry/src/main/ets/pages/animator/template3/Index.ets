@@ -25,7 +25,7 @@ const TAG: string = '[AnimatorTest]';
 struct Index {
   private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
   private manager = this.context.resourceManager;
-  @State animatorOptions: AnimatorResult | undefined = undefined;
+  @State animatorResult: AnimatorResult | undefined = undefined;
   // 'create'资源文件中的value值为'创建'
   @State animatorStatus: string = 'create';
   begin: number = 0;
@@ -48,48 +48,48 @@ struct Index {
   @State translateY: number = 0;
 
   onPageShow(): void {
-    this.animatorOptions = this.getUIContext().createAnimator(this.animatorOption);
-    this.animatorOptions.onFrame = (progress: number) => {
+    this.animatorResult = this.getUIContext().createAnimator(this.animatorOption);
+    this.animatorResult.onFrame = (progress: number) => {
       this.translateX = progress;
       if (progress > this.topWidth && this.translateY < this.bottomHeight) {
         this.translateY = Math.pow(progress - this.topWidth, 2) * this.g;
       }
     }
-    this.animatorOptions.onCancel = () => {
+    this.animatorResult.onCancel = () => {
       // 'cancel'资源文件中的value值为'取消'
       this.animatorStatus = 'cancel';
     }
-    this.animatorOptions.onFinish = () => {
+    this.animatorResult.onFinish = () => {
       // 'complete'资源文件中的value值为'完成'
       this.animatorStatus = 'complete';
     }
-    this.animatorOptions.onRepeat = () => {
+    this.animatorResult.onRepeat = () => {
       // 'repeat'资源文件中的value值为'动画重复播放'
       hilog.info(DOMAIN, TAG, this.manager.getStringByNameSync('repeat'));
     }
   }
 
   onPageHide(): void {
-    this.animatorOptions = undefined;
+    this.animatorResult = undefined;
   }
 
   build() {
     Column() {
       Column({ space: 30 }) {
-        // $r('app.string.play')资源文件中的value值为'播放'
+        // 请将$r('app.string.play')替换为实际资源文件，在本示例中该资源文件的value值为"播放"
         Button($r('app.string.play')).onClick(() => {
-          this.animatorOptions?.play();
+          this.animatorResult?.play();
           // 'playing'资源文件中的value值为'播放中'
           this.animatorStatus = 'playing';
         }).width(80).height(35)
-        // $r('app.string.reset')资源文件中的value值为'重置'
+        // 请将$r('app.string.reset')替换为实际资源文件，在本示例中该资源文件的value值为"重置"
         Button($r('app.string.reset')).onClick(() => {
           this.translateX = 0;
           this.translateY = 0;
         }).width(80).height(35)
-        // $r('app.string.pause')资源文件中的value值为'暂停'
+        // 请将$r('app.string.pause')替换为实际资源文件，在本示例中该资源文件的value值为"暂停"
         Button($r('app.string.pause')).onClick(() => {
-          this.animatorOptions?.pause();
+          this.animatorResult?.pause();
           // 'pause'资源文件中的value值为'暂停'
           this.animatorStatus = 'pause';
         }).width(80).height(35)
