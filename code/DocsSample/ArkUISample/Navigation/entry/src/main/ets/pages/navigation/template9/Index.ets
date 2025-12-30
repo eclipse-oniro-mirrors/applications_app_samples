@@ -25,6 +25,7 @@ struct NavigationExample9 {
         Column() {
           Scroll(this.scrollerForScroll) {
             Column() {
+              // 请将$r('app.media.image_1')替换为实际资源文件
               Image($r('app.media.image_1'))// 设置与标题栏高度一致，以便观察STACK效果
                 .height(138)
                 .width('100%')

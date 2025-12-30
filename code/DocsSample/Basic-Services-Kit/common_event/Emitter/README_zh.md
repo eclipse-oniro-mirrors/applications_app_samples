@@ -12,10 +12,10 @@ Emitter通过维护一个内部事件队列，来进行任务分发。应用需�
 
 ### 使用说明
 
-1. 打开应用，点击emitterOn按钮会进行事件的发送
-2. 在日志界面会打印出具体的事件信息
-3. 点击emitterOff按钮会取消事件订阅
-4. 再次点击emitterOn按钮发送事件但不会打印事件信息
+1. 打开应用，点击订阅eventId为1的事件按钮会进行事件的订阅
+2. 点击发送eventId为1的事件按钮会进行事件的发送
+3. 在日志中会打印出具体的事件信息
+4. 点击取消订阅eventId为1的事件按钮会取消事件订阅
 
 ### 工程目录
 
@@ -38,10 +38,11 @@ entry/src/main
 
 ### 具体实现
 
-1. 导入emitter和Callback 模块。
-2. 订阅事件使用on（持续订阅）或者once（单次订阅）接口进行订阅，设置要订阅的事件以及接收到事件后的回调函数。
-3. 发送事件使用emit接口进行发送，设置要发送的事件以及要传递的参数。
-4. 取消事件订阅使用off接口进行取消，已通过emit接口发布但尚未被执行的事件将被取消。
+使用Emitter实现事件订阅、事件发送以及事件删除，源码参考[Index.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/DocsSample/Basic-Services-Kit/common_event/Emitter/entry/src/main/ets/pages/Index.ets),开发步骤如下。
+1. 导入模块：导入emitter和Callback 模块。
+2. 订阅事件：点击“订阅eventId为1的事件”按钮，使用on（持续订阅）或者once（单次订阅）接口进行订阅，设置要订阅的事件以及接收到事件后的回调函数。
+3. 发送事件：点击“发送eventId为1的事件”按钮，使用emit接口进行发送，设置要发送的事件以及要传递的参数。
+4. 取消事件：点击“取消订阅eventId为1的事件”按钮，订阅使用off接口进行取消，已通过emit接口发布但尚未被执行的事件将被取消。
 
 ### 相关权限
 
@@ -54,8 +55,8 @@ entry/src/main
 ### 约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568。
-2. 本示例已适配API version 20版本SDK，版本号：6.0.0。
-3. 本示例需要使用DevEco Studio 6.0 及以上版本才可编译运行。
+2. 本示例支持API version 20及以上版本的SDK。
+3. 本示例需要使用DevEco Studio 版本号(6.0.0 Release)才可编译运行。
 
 ### 下载
 

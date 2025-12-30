@@ -34,10 +34,12 @@ import { GetDialogStatus } from './GetDialogStatus';
 import { Index as DialogFocusStrategy } from './dialogboxfocuspolicy/DialogFocusStrategy';
 import { DialogController } from './dialogcontroller/DialogController';
 import { PageLevelDialogBox } from './pageleveldialogbox/PageLevelDialogBox';
+import { PageLevelDialogInNavigation, PageLevelDialogInNavigationTestTwo } from './pageleveldialogbox/PageLevelDialogInNavigation';
 import { DialogBoxLayer } from './dialogboxlayermanagement/DialogBoxLayer';
 
 export const Custom_ROUTE_PREFIX: string = 'Custom_ROUTE_PREFIX';
 
+// $r('app.string.xxx')需要替换为开发者所需的资源文件
 const routes: Route[] = [
   {
     name: `${Custom_ROUTE_PREFIX}/dialog`,
@@ -130,6 +132,11 @@ const routes: Route[] = [
     description: $r('app.string.CustomDialog_controller_des'),
   },
   {
+    name: `${Custom_ROUTE_PREFIX}/PageLevelDialogInNavigation`,
+    title: resource.resourceToString($r('app.string.CustomDialog_page_level_navigation')),
+    description: $r('app.string.CustomDialog_page_level_des'),
+  },
+  {
     name: `${Custom_ROUTE_PREFIX}/DialogBoxLayer`,
     title: resource.resourceToString($r('app.string.CustomDialog_box_layer')),
     description: $r('app.string.CustomDialog_layer_des'),
@@ -178,6 +185,10 @@ export function CustomDestination(name: string) {
     PageLevelDialogBox();
   } else if (name === routes[18].name) {
     DialogBoxLayer();
+  }else if (name === routes[19].name) {
+    DialogBoxLayer();
+  } else if (name === `${Custom_ROUTE_PREFIX}/PageLevelDialogInNavigationPageTwo`) {
+    PageLevelDialogInNavigationTestTwo()
   }
 }
 
@@ -207,6 +218,7 @@ struct CustomExample {
       backgroundBlurStyle: BlurStyle.COMPONENT_THICK,
       barStyle: BarStyle.STACK
     })
+    // 请将$r('app.string.CustomDialog_dialog')替换为实际资源文件，在本示例中该资源文件的value值为"自定义弹窗"
     .title($r('app.string.CustomDialog_dialog'))
   }
 }

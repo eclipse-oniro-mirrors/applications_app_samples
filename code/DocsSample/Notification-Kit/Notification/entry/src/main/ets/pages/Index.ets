@@ -13,14 +13,14 @@
  * limitations under the License.
  */
 
-import { AddWantAgent } from './AddWantAgent';
-import { CancelNotification } from './CancelNotification';
-import { ClearDuplicateNotifications } from './ClearDuplicateNotifications';
-import { ManageNotificationBadges } from './ManageNotificationBadges';
-import { ManageNotificationWays } from './ManageNotificationWays';
-import { PublishNotification } from './PublishNotification';
-import { RequestEnableNotification } from './RequestEnableNotification';
-import { UpdateNotification } from './UpdateNotification';
+import { AddWantAgent } from '../filemanager/AddWantAgent';
+import { CancelNotification } from '../filemanager/CancelNotification';
+import { ClearDuplicateNotifications } from '../filemanager/ClearDuplicateNotifications';
+import { ManageNotificationBadges } from '../filemanager/ManageNotificationBadges';
+import { ManageNotificationWays } from '../filemanager/ManageNotificationWays';
+import { PublishNotification } from '../filemanager/PublishNotification';
+import { RequestEnableNotification } from '../filemanager/RequestEnableNotification';
+import { UpdateNotification } from '../filemanager/UpdateNotification';
 
 @Entry
 @Component

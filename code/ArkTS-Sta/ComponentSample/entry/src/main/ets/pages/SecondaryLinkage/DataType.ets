@@ -24,9 +24,8 @@
  *
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import { memo, __memo_context_type, __memo_id_type } from '@ohos.arkui.stateManagement';
 import {IDataSource,DataChangeListener,Text, TextAttribute, Column, Component, Button, ButtonAttribute, ClickEvent ,Image,Row} from '@ohos.arkui.component';
-import { State, MutableState, stateOf, observableProxy ,Provide} from '@ohos.arkui.stateManagement';
+import { State, Provide} from '@ohos.arkui.stateManagement';
 const CONTENT_PER_TAG = 10; // 每个TAG对应多少个元素
 /**
  * 代表自定义类型数据的接口。
@@ -66,7 +65,7 @@ class BasicDataSource implements IDataSource<CustomDataType> {
    * 获取数组长度。
    * @returns {number} 返回数组长度。
    */
-  public totalCount(): number {
+  public totalCount(): int {
     return 0;
   }
 
@@ -75,8 +74,8 @@ class BasicDataSource implements IDataSource<CustomDataType> {
    * @param {number} index - 索引值。
    * @returns {CustomDataType} 返回指定索引数据。
    */
-  public getData(index: number): CustomDataType {
-    return this.originDataArray[index.toInt()];
+  public getData(index: int): CustomDataType {
+    return this.originDataArray[index];
   }
 
   /**
@@ -108,7 +107,7 @@ class BasicDataSource implements IDataSource<CustomDataType> {
    */
   notifyDataAdd(index: number): void {
     this.listeners.forEach(listener => {
-      listener.onDataAdd(index);
+      listener.onDataAdd(index.toInt());
     })
   }
 
@@ -118,7 +117,7 @@ class BasicDataSource implements IDataSource<CustomDataType> {
    */
   notifyDataChange(index: number): void {
     this.listeners.forEach(listener => {
-      listener.onDataChange(index);
+      listener.onDataChange(index.toInt());
     })
   }
 
@@ -128,7 +127,7 @@ class BasicDataSource implements IDataSource<CustomDataType> {
    */
   notifyDataDelete(index: number): void {
     this.listeners.forEach(listener => {
-      listener.onDataDelete(index);
+      listener.onDataDelete(index.toInt());
     })
   }
 
@@ -139,7 +138,7 @@ class BasicDataSource implements IDataSource<CustomDataType> {
    */
   notifyDataMove(from: number, to: number): void {
     this.listeners.forEach(listener => {
-      listener.onDataMove(from, to);
+      listener.onDataMove(from.toInt(), to.toInt());
     })
   }
 }
@@ -157,7 +156,7 @@ export class MyDataSource extends BasicDataSource {
    * 获取数组长度。
    * @returns {number} 返回数组长度。
    */
-  public totalCount(): number {
+  public totalCount(): int {
     return this.dataArray.length;
   }
 
@@ -166,8 +165,8 @@ export class MyDataSource extends BasicDataSource {
    * @param {number} index - 索引值。
    * @returns {CustomDataType} 返回指定索引数据。
    */
-  public getData(index: number): CustomDataType {
-    return this.dataArray[index.toInt()];
+  public getData(index: int): CustomDataType {
+    return this.dataArray[index];
   }
 
   /**

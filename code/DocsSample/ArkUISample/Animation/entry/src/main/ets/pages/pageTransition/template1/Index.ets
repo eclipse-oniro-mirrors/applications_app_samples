@@ -20,7 +20,8 @@ struct pageTransition1 {
 
   build() {
     Column() {
-      Image($r("app.media.transition_image1")).width('100%').height('100%')
+      // 请将$r('app.media.transition_image1')替换为实际资源文件
+      Image($r('app.media.transition_image1')).width('100%').height('100%')
     }
     .width('100%')
     .height('100%')

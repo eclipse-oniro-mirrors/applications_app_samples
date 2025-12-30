@@ -13,68 +13,47 @@
  * limitations under the License.
  */
 
-import { router } from '@kit.ArkUI';
-
-interface Ary {
-  path: string,
-  name: string
-}
+// [Start appstorage_Index]
+AppStorage.setOrCreate('linkA', 47)
+AppStorage.setOrCreate('propB', 48)
 
 @Entry
 @Component
 struct Index {
-  ary: Ary[] = [
-    {
-      name: 'PageOne',
-      path: 'pages/PageOne'
-    },
-    {
-      name: 'PageTwo',
-      path: 'pages/PageTwo'
-    },
-    {
-      name: 'PageThree',
-      path: 'pages/PageThree'
-    },
-    {
-      name: 'PageFour',
-      path: 'pages/PageFour'
-    },
-    {
-      name: 'PageFive',
-      path: 'pages/PageFive'
-    },
-    {
-      name: 'PageSix',
-      path: 'pages/PageSix'
-    },
-    {
-      name: 'PageSeven',
-      path: 'pages/ViewData'
-    },
-    {
-      name: 'PageEight',
-      path: 'pages/PageEight'
-    },
-    {
-      name: 'PageNine',
-      path: 'pages/Gallery'
-    },
-    {
-      name: 'PageTen',
-      path: 'pages/PageTen'
-    },
-  ]
+  @StorageLink('linkA') linkA: number = 1; // 与AppStorage进行双向数据同步
+  @StorageProp('propB') propB: number = 1; // 与AppStorage进行单向数据同步
+  pageStack: NavPathStack = new NavPathStack();
 
   build() {
-    Scroll() {
-      Column({ space: 2 }) {
-        ForEach(this.ary, (item: Ary) => {
-          Button(item.name)
-            .onClick(() => this.getUIContext().getRouter().pushUrl({ url: item.path }))
-        }, (item: Ary) => item.name)
+    Navigation(this.pageStack) {
+      Row() {
+        Column({ space: 5 }) {
+          Text(`${this.linkA}`)
+            .fontSize(50)
+            .fontWeight(FontWeight.Bold)
+          Text(`${this.propB}`)
+            .fontSize(50)
+            .fontWeight(FontWeight.Bold)
+          Button('Change linkA')
+            .onClick(() => {
+              // 刷新UI，修改将会被同步回AppStorage
+              this.linkA++;
+            })
+          Button('Change propB')
+            .onClick(() => {
+              // 刷新UI，修改不会被同步回AppStorage
+              this.propB++;
+            })
+          Button('To Page')
+            .onClick(() => {
+              this.pageStack.pushPathByName('Page', null);
+            })
+        }
+        .width('100%')
       }
-      .width('100%')
+      .height('100%')
     }
   }
 }
+
+// [End appstorage_Index]

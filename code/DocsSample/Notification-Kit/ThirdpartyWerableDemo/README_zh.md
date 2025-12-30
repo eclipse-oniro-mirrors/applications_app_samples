@@ -2,7 +2,7 @@
 
 ### 介绍
 
-[NotificationSubscriberExtensionAbility](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-notification-kit/js-apis-notificationSubscriberExtensionAbility.md)提供扩展能力，允许第三方应用接收系统通知并将其同步到穿戴设备。该能力主要用于支持手机与第三方穿戴设备之间的通知协同。
+[NotificationSubscriberExtensionAbility](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-notification-kit/js-apis-notificationSubscriberExtensionAbility.md)提供扩展能力，允许第三方应用接收系统通知并将其同步到穿戴设备上。该能力主要用于支持手机与第三方穿戴设备之间的通知协同。
 
 ### 效果预览	
 <img src="screenshots/Index.png" style="width: 200%; max-width: 400px;" />
@@ -11,7 +11,7 @@
 
 1.启动应用后，弹出是否允许访问蓝牙的弹窗，点击允许后开始操作。
 
-2.点击主页面[openSubscriberSettings](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-notification-kit/js-apis-notificationExtensionSubscription.md#notificationextensionsubscriptionopensubscriptionsettings)按钮，调用[openSubscriberSettings](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-notification-kit/js-apis-notificationExtensionSubscription.md#notificationextensionsubscriptionopensubscriptionsettings)接口，打开通知扩展订阅设置页面，该页面以半模态弹窗显示。
+2.点击主页面[openSubscriberSettings]按钮，调用[openSubscriberSettings](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-notification-kit/js-apis-notificationExtensionSubscription.md#notificationextensionsubscriptionopensubscriptionsettings)接口，打开通知扩展订阅设置页面，该页面以半模态弹窗显示。
 
 3.点击主页面queryBluetooth按钮，获取已蓝牙配对设备信息。
 

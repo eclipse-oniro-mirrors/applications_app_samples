@@ -15,14 +15,16 @@
 
 // [Start EventSub_Header]
 import { BusinessError } from '@kit.BasicServicesKit';
+// [Start PssLeakEvent_Header]
 import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
 // [End EventSub_Header]
-// [Start PssleakEvent_Button]
-import { hidebug } from '@kit.PerformanceAnalysisKit';
-// [End PssleakEvent_Button]
 // [Start EventSub_Index_Capi_Header]
 import testNapi from 'libentry.so';
 // [End EventSub_Index_Capi_Header]
+// [End PssLeakEvent_Header]
+// [start ArkWeb_Fling_Jank_Header]
+import { router } from '@kit.ArkUI';
+// [End ArkWeb_Fling_Jank_Header]
 @Entry
 @Component
 struct Index {
@@ -104,8 +106,8 @@ struct Index {
             testNapi.testNullptr();
           })
         // [End Native_CrashEvent_Button]
-        // [Start PssleakEventTS_Button]
-        // [Start PssleakEvent_Button]
+        // [Start PssLeakEventTS_Button]
+        // [Start PssLeakEvent_Button]
         Button('pss leak')
             .type(ButtonType.Capsule)
             .margin({
@@ -116,12 +118,10 @@ struct Index {
             .height('5%')
             .onClick(() => {
               // 设置一个简单的资源泄漏场景
-              hidebug.setAppResourceLimit('pss_memory', 1024, true);
-              for (let i = 0; i < 20 * 1024; i++) {
-                this.leakedArray.push(new Array(1).fill('leak'));
-              }
+              hilog.info(0x0000, 'testTag', 'click pss leak button');
+              testNapi.leakMB(3072);
             })
-        // [End PssleakEvent_Button]
+        // [End PssLeakEvent_Button]
         Button('js leak')
           .type(ButtonType.Capsule)
           .margin({
@@ -135,7 +135,7 @@ struct Index {
               this.leakedArray.push(new Array(500000).fill(1));
             }
           })
-        // [End PssleakEventTS_Button]
+        // [End PssLeakEventTS_Button]
         // [Start AppKillEvent_Button]
         Button(this.message)
           .type(ButtonType.Capsule)
@@ -228,6 +228,20 @@ struct Index {
             testNapi.TestHiCollieTimerNdk();
           })
         // [End hicollie_timer_ndk_Button]
+        // [Start ArkWeb_Fling_Jank_ArkTs_Button]
+        //按钮跳转到易出现滑动丢帧的web场景，触发ArkWeb抛滑丢帧事件。
+        Button('ArkWebFlingJank ArkTs')
+          .type(ButtonType.Capsule)
+          .margin({
+            top: 20
+          })
+          .backgroundColor('#0D9FFB')
+          .width('80%')
+          .height('5%')
+          .onClick(() => {
+            router.pushUrl({url: 'pages/ArkWebPage'});
+          })
+        // [End ArkWeb_Fling_Jank_ArkTs_Button]
       }
       .width('50%')
     }
