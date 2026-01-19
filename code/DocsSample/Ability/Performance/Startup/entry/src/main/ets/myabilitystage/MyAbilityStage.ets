@@ -12,41 +12,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { AbilityStage, Want } from "@kit.AbilityKit";
+
 
 const LARGE_NUMBER = 1000000;
 const DELAYED_TIME = 1000;
 
-@Entry
-@Component
-struct Index {
-  @State private text: string = "";
-  private count: number = 0;
-
-  aboutToAppear() {
+export default class MyAbilityStage extends AbilityStage {
+  onCreate(): void {
+    // 应用的HAP在首次加载的时，为该Module初始化操作
     this.computeTaskAsync(); // 异步任务
-    let context = this.getUIContext().getHostContext() as Context;
-    this.text = context.resourceManager.getStringSync($r('app.string.startup_text').id);
   }
 
-  build() {
-    Column({ space: 10 }) {
-      Text(this.text).fontSize(50)
-    }
-    .width('100%')
-    .height('100%')
-    .padding(10)
+  onAcceptWant(want: Want): string {
+    // 仅specified模式下触发
+    return 'MyAbilityStage';
   }
 
   computeTask(): void {
-    this.count = 0;
-    while (this.count < LARGE_NUMBER) {
-      this.count++;
+    let count = 0;
+    while (count < LARGE_NUMBER) {
+      count++;
     }
-    let context = this.getUIContext().getHostContext() as Context;
-    this.text = context.resourceManager.getStringSync($r('app.string.task_text').id);
   }
 
-  // 运算任务异步处理
   private computeTaskAsync(): void {
     setTimeout(() => { // 这里使用setTimeout来实现异步延迟运行
       this.computeTask();
