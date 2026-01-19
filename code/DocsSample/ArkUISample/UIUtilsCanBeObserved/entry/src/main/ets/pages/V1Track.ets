@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,14 +13,17 @@
  * limitations under the License.
  */
 
-// [Start v1_and_v2_compatibility]
+// [Start v1_track]
 import { UIUtils } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG = 'CanBeObserved';
 
-class CompatibilityUser {
+@Observed
+class TrackUser {
+  @Track
   public name?: string;
+  @Track
   public age?: number;
 
   constructor(name?: string, age?: number) {
@@ -36,22 +39,16 @@ class CompatibilityUser {
 
 @Entry
 @Component
-struct V1AndV2Compatibility {
-  // 被enableV2Compatibility转换的V1对象必须是可被观察的V1对象
-  @State temp: CompatibilityUser = new CompatibilityUser('Thomas', 43);
-  @State compatibilityUser: CompatibilityUser = UIUtils.enableV2Compatibility(this.temp);
+struct V1Track {
+  @State trackUser: TrackUser = new TrackUser('Robert', 25);
 
   build() {
     Column({ space: 20 }) {
-      Text('V1 name: ' + this.compatibilityUser.name)
-      Text('V1 age: ' + this.compatibilityUser.age)
-
-      V2Child({ compatibilityUser: this.compatibilityUser })
-
+      TrackChild({ trackUser: this.trackUser })
       Button('test')
         .onClick(() => {
-          // 开发者可以在任意页面中使用接口来判断当前对象是否为可被观察对象
-          this.compatibilityUser.test();
+          // 开发者可以在任意页面中使用接口来判断当前对象是否为可被观察对象，并且可被获取对象关联的组件信息
+          this.trackUser.test();
         })
     }
     .height('100%')
@@ -61,15 +58,17 @@ struct V1AndV2Compatibility {
   }
 }
 
-@ComponentV2
-export struct V2Child {
-  @Param compatibilityUser: CompatibilityUser = new CompatibilityUser();
+@Component
+struct TrackChild {
+  @ObjectLink trackUser: TrackUser;
 
   build() {
     Column() {
-      Text('V2Child name ' + this.compatibilityUser.name)
-      Text('V2Child age ' + this.compatibilityUser.age)
+      // 组件中使用可被观察对象的属性
+      Text('user name: ' + this.trackUser.name)
+      // 组件中使用可被观察对象的属性
+      Text('user age: ' + this.trackUser.age)
     }
   }
 }
-// [End v1_and_v2_compatibility]
+// [End v1_track]
