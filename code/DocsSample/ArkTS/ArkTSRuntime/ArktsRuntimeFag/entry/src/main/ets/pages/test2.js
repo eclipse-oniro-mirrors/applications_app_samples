@@ -13,13 +13,15 @@
 * limitations under the License.
 */
 
-{
-  "modelVersion": "6.0.0",
-  "description": "Please describe the basic information.",
-  "dependencies": {
-  },
-  "devDependencies": {
-    "@ohos/hypium": "1.0.24",
-    "@ohos/hamock": "1.0.0"
-  }
+// [Start testTwo_one]
+// test2.js
+const typedArr = new Uint16Array([10, 20, 30]);
+try {
+   const result = Object.entries(typedArr);
+   console.info('no error throw');
+} catch (e) {
+   console.info(e);
 }
+// 期望输出：no error throw
+// 实际输出: RangeError: object entries is not supported IsJSUint8Array or IsJSUint16Array
+// [End testTwo_one]
