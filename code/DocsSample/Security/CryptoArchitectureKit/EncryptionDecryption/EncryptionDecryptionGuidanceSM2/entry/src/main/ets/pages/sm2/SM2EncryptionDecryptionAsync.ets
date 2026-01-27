@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+// [Start sm2_encrypt_decrypt_async]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
 
@@ -38,7 +39,7 @@ async function genKeyPairByData(pubKeyData: Uint8Array, priKeyData: Uint8Array) 
   let priKeyBlob: cryptoFramework.DataBlob = { data: priKeyData };
   let sm2Generator = cryptoFramework.createAsyKeyGenerator('SM2_256');
   let keyPair = await sm2Generator.convertKey(pubKeyBlob, priKeyBlob);
-  console.info('convertKey success');
+  console.info('convertKey result: success.');
   return keyPair;
 }
 
@@ -61,14 +62,16 @@ async function main() {
   let encryptText = await encryptMessagePromise(pubKey, plainText);
   let decryptText = await decryptMessagePromise(priKey, encryptText);
   if (plainText.data.toString() === decryptText.data.toString()) {
-    console.info('decrypt ok');
+    console.info('decrypt ok.');
     // 把Uint8Array按utf-8编码为字符串
     let messageDecrypted = buffer.from(decryptText.data).toString('utf-8');
     console.info('decrypted result string:' + messageDecrypted);
   } else {
-    console.error('decrypt failed');
+    console.error('decrypt failed.');
   }
 }
+
+// [End sm2_encrypt_decrypt_async]
 
 @Entry
 @Component

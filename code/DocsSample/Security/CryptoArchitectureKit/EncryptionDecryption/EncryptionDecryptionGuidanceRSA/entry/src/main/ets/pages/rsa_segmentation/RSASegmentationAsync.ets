@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+// [Start rsa_segmentation_encrypt_decrypt_async]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
 
@@ -71,12 +72,14 @@ async function rsaEncryptLongMessage() {
   let encryptText = await rsaEncryptBySegment(keyPair.pubKey, plainText);
   let decryptText = await rsaDecryptBySegment(keyPair.priKey, encryptText);
   if (plainText.data.toString() === decryptText.data.toString()) {
-    console.info('decrypt ok');
+    console.info('decrypt ok.');
     console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
   } else {
-    console.error('decrypt failed');
+    console.error('decrypt failed.');
   }
 }
+
+// [End rsa_segmentation_encrypt_decrypt_async]
 
 @Entry
 @Component

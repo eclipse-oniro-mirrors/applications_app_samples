@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+// [Start rsa_pkcs1_encrypt_decrypt_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
 
@@ -38,7 +39,7 @@ function genKeyPairByData(pubKeyData: Uint8Array, priKeyData: Uint8Array) {
   let priKeyBlob: cryptoFramework.DataBlob = { data: priKeyData };
   let rsaGenerator = cryptoFramework.createAsyKeyGenerator('RSA1024');
   let keyPair = rsaGenerator.convertKeySync(pubKeyBlob, priKeyBlob);
-  console.info('convertKeySync success');
+  console.info('convertKeySync result: success.');
   return keyPair;
 }
 
@@ -87,14 +88,16 @@ function main() {
   let encryptText = encryptMessage(pubKey, plainText);
   let decryptText = decryptMessage(priKey, encryptText);
   if (plainText.data.toString() === decryptText.data.toString()) {
-    console.info('decrypt ok');
+    console.info('decrypt ok.');
     // 把Uint8Array按utf-8编码为字符串
     let messageDecrypted = buffer.from(decryptText.data).toString('utf-8');
     console.info('decrypted result string:' + messageDecrypted);
   } else {
-    console.error('decrypt failed');
+    console.error('decrypt failed.');
   }
 }
+
+// [End rsa_pkcs1_encrypt_decrypt_sync]
 
 @Entry
 @Component
