@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,23 +13,21 @@
  * limitations under the License.
  */
 
-//[Start virtual_node_example_start]
+// [Start accessibility_group_start01]
 @Entry
 @Component
-struct VirtualNodeExample {
-  @Builder customAccessibilityNode() {
-    Text('文本2')
-      .fontSize(50)
-      .fontWeight(FontWeight.Bold)
-  }
-
+export struct AccessibilityGroupCase01 {
   build() {
-    Column() {
-      Text('文本1')
-        .fontSize(50)
-        .fontWeight(FontWeight.Bold)
+    // [StartExclude accessibility_group_start01]
+    NavDestination() {
+      // [EndExclude accessibility_group_start01]
+      Column() {
+        Text('2026年')
+        Text('1月27日')
+        Text('星期二')
+      }
+      // [StartExclude accessibility_group_start01]
     }
-    .accessibilityVirtualNode(this.customAccessibilityNode)
+    // [EndExclude accessibility_group_start01]
   }
 }
-//[End virtual_node_example_start]
