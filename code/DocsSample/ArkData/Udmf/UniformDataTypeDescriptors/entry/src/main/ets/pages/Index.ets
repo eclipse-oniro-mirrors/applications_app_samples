@@ -14,7 +14,7 @@
  */
 
 // [Start import_module]
-//  1.导入模块
+// 1.导入模块
 import { uniformTypeDescriptor } from '@kit.ArkData';
 import hilog from '@ohos.hilog';
 // [End import_module]
