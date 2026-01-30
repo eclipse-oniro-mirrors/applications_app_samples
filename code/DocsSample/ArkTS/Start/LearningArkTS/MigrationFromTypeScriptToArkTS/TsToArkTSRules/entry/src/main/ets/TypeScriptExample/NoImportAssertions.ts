@@ -12,19 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start no_enumMixedTypes]
-enum E1 {
-  A = 0xa,
-  B = 0xb,
-  C = 0xc,
-  D = 0xd,
-  E // 推断出0xe
-}
-
-enum E2 {
-  A = '0xa',
-  B = '0xb',
-  C = '0xc',
-  D = '0xd'
-}
-// [End no_enumMixedTypes]
+// [Start no_importAssertions]
+import { obj } from './Something.json' assert { type: 'json' }
+// [End no_importAssertions]
