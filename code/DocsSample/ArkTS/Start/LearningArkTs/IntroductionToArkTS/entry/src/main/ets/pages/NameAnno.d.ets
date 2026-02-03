@@ -13,13 +13,17 @@
 * limitations under the License.
 */
 
-{
-  "modelVersion": "6.0.0",
-  "description": "Please describe the basic information.",
-  "dependencies": {
-  },
-  "devDependencies": {
-    "@ohos/hypium": "1.0.24",
-    "@ohos/hamock": "1.0.0"
-  }
-}
+// [Start annotation_export_dts]
+// a.d.ets
+export declare @interface ClassAuthor3 {}
+// [End annotation_export_dts]
+
+// [Start annotation_name]
+// a.d.ets
+export declare @interface NameAnno{name: string = ""}
+// [End annotation_name]
+
+// [Start annotation_anno]
+// a.d.ets
+export declare @interface MyAnno {}
+// [End annotation_anno]
