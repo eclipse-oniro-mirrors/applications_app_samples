@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,10 +12,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start Cpp_indexes]
-// entry/src/main/cpp/types/libentry/Index.d.ts
-
 import { NodeContent } from '@kit.ArkUI';
 
-export const CreateDrawNode: (content: NodeContent) => void;
-// [End Cpp_indexes]
+const NativeMock: Record<string, Object> = {
+  'CreateNativeRoot': (content: NodeContent) => {
+    console.log('Mock: CreateNativeRoot called');
+  },
+  'DestroyNativeRoot': () => {
+    console.log('Mock: DestroyNativeRoot called');
+  }
+};
+
+export default NativeMock;
