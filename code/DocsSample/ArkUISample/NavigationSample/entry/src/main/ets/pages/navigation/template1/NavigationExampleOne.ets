@@ -53,7 +53,7 @@ export struct PageOne {
           .height(40)
           .margin({ top: 50 })
           .onClick(() => {
-            //弹出路由栈栈顶元素，返回上个页面
+            // 弹出路由栈栈顶元素，返回上个页面
             this.pathInfos.pop();
           })
       }
