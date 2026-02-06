@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,30 +12,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start example2_start]
-const INITIAL_VALUE = 10;
 
-@ObservedV2
-class Child {
-  @Trace public value: number = INITIAL_VALUE;
-}
-
-@ComponentV2
-@Entry
-struct Example {
-  // @Local只能观察自身，需要给Child加上@ObservedV2和@Trace
-  @Local child: Child = new Child();
+// [Start v2_to_v1_simpleData]
+// 模拟三方库导入的V1组件
+@Component
+struct ThirdPartyComp {
+  // V1从V2接收的状态变量，仅可使用@State、@Prop、@Provide接收
+  @State prop: boolean = true; // 可以观测到变化
 
   build() {
     Column() {
-      Text(this.child.value.toString())
-      Button('value+1')
-        .onClick(() => {
-          this.child.value++;
-        })
+      Text(`ThirdPartyComp：${this.prop}`)
     }
   }
 }
-// [End example2_start]
-const example2 = Example;
-export default example2;
+
+@Entry
+@ComponentV2
+struct V2Comp2 {
+  @Local param: boolean = false;
+
+  build() {
+    Column() {
+      Text(`V2Comp2：${this.param}`)
+
+      // V2组件向V1的三方库传递简单状态变量
+      ThirdPartyComp({ prop: this.param })
+    }
+  }
+}
+// [End v2_to_v1_simpleData]
