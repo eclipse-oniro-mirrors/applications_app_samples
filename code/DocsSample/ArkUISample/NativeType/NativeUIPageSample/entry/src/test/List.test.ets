@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,10 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start Cpp_indexes]
-// entry/src/main/cpp/types/libentry/Index.d.ts
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
 
-import { NodeContent } from '@kit.ArkUI';
-
-export const CreateDrawNode: (content: NodeContent) => void;
-// [End Cpp_indexes]
+export default function listTest() {
+  describe('ListTest', function () {
+    it('list_test_001', 0, async function () {
+      console.info('list_test_001 start');
+      expect(2 + 2).assertEqual(4);
+      console.info('list_test_001 end');
+    });
+  });
+}

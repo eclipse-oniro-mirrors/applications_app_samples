@@ -15,7 +15,8 @@
 // [Start Cpp_indexes]
 // entry/src/main/cpp/types/libentry/Index.d.ts
 
-import { NodeContent } from '@kit.ArkUI';
+import { NodeContent } from "@kit.ArkUI";
 
-export const CreateDrawNode: (content: NodeContent) => void;
+export const CreateNativeRoot: (content: NodeContent) => void;
+export const DestroyNativeRoot: () => void;
 // [End Cpp_indexes]
