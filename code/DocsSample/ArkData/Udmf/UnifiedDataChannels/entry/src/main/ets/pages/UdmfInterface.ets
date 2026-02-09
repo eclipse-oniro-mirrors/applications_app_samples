@@ -28,8 +28,7 @@ export function insertUnifiedData() {
   // 准备PlainText文本数据内容
   let plainTextObj: uniformDataStruct.PlainText = {
     uniformDataType: 'general.plain-text',
-    textContent: 'Hello world',
-    abstract: 'This is abstract'
+    textContent: 'Hello world'
   }
   let record =
     new unifiedDataChannel.UnifiedRecord(uniformTypeDescriptor.UniformDataType.PLAIN_TEXT, plainTextObj);
@@ -43,30 +42,16 @@ export function insertUnifiedData() {
   record.addEntry(uniformTypeDescriptor.UniformDataType.HTML, htmlObj);
   let unifiedData = new unifiedDataChannel.UnifiedData(record);
 
-  // 准备pixelMap数据内容
-  let arrayBuffer = new ArrayBuffer(4 * 3 * 3);
-  let opt: image.InitializationOptions = {
-    editable: true,
-    pixelFormat: 3,
-    size: { height: 3, width: 3 },
-    alphaType: 3
-  };
-  let pixelMap: uniformDataStruct.PixelMap = {
-    uniformDataType: 'openharmony.pixel-map',
-    pixelMap: image.createPixelMapSync(arrayBuffer, opt)
-  }
-  unifiedData.addRecord(new unifiedDataChannel.UnifiedRecord(
-    uniformTypeDescriptor.UniformDataType.OPENHARMONY_PIXEL_MAP, pixelMap));
   // 指定要插入数据的数据通路枚举类型
   let options: unifiedDataChannel.Options = {
     intention: unifiedDataChannel.Intention.DATA_HUB
   }
   try {
-    unifiedDataChannel.insertData(options, unifiedData, (err, key) => {
-      if (err === undefined) {
+    unifiedDataChannel.insertData(options, unifiedData, (err: BusinessError | null, key) => {
+      if (!err) {
         hilog.info(0xFF00, '[Sample_Udmf]', `Succeeded in inserting data. key = ${key}`);
       } else {
-        hilog.error(0xFF00, '[Sample_Udmf]', `Succeeded in inserting data. key = ${key})`);
+        hilog.error(0xFF00, '[Sample_Udmf]', `Failed to insert data. code is ${err.code},message is ${err.message}`
       }
     });
   } catch (e) {
@@ -81,8 +66,7 @@ export function updateUnifiedData() {
   // [Start unified_data_channels_update_data]
   let plainTextUpdate: uniformDataStruct.PlainText = {
     uniformDataType: 'general.plain-text',
-    textContent: 'How are you',
-    abstract: 'This is abstract'
+    textContent: 'How are you'
   }
   let recordUpdate =
     new unifiedDataChannel.UnifiedRecord(uniformTypeDescriptor.UniformDataType.PLAIN_TEXT, plainTextUpdate);
@@ -101,8 +85,8 @@ export function updateUnifiedData() {
   };
 
   try {
-    unifiedDataChannel.updateData(optionsUpdate, unifiedDataUpdate, (err) => {
-      if (err === undefined) {
+    unifiedDataChannel.updateData(optionsUpdate, unifiedDataUpdate, (err: BusinessError | null) => {
+      if (!err) {
         hilog.info(0xFF00, '[Sample_Udmf]', `Succeeded in updating data.`);
       } else {
         hilog.error(0xFF00, '[Sample_Udmf]', `Failed to update data. code is ${err.code},message is ${err.message}`);
@@ -124,11 +108,10 @@ export function deleteUnifiedData() {
   };
 
   try {
-    unifiedDataChannel.deleteData(optionsDelete, (err, data) => {
-      if (err === undefined) {
-        hilog.info(0xFF00, '[Sample_Udmf]', `Succeeded in deleting data. size = ${data.length}`);
-        for (let i = 0; i < data.length; i++) {
-          let records = data[i].getRecords();
+    unifiedDataChannel.deleteData(optionsDelete, (err: BusinessError | null, data) => {
+      if (!err) {
+        for (let i = 0; i < data!.length; i++) {
+          let records = data![i].getRecords();
           for (let j = 0; j < records.length; j++) {
             let types = records[j].getTypes();
             // 根据业务需要从记录中获取样式数据
@@ -164,11 +147,10 @@ export function queryUnifiedData() {
   };
 
   try {
-    unifiedDataChannel.queryData(options, (err, data) => {
-      if (err === undefined) {
-        hilog.info(0xFF00, '[Sample_Udmf]', `Succeeded in querying data. size = ${data.length}`);
-        for (let i = 0; i < data.length; i++) {
-          let records = data[i].getRecords();
+    unifiedDataChannel.queryData(options, (err: BusinessError | null, data) => {
+      if (!err) {
+        for (let i = 0; i < data!.length; i++) {
+          let records = data![i].getRecords();
           for (let j = 0; j < records.length; j++) {
             let types = records[j].getTypes();
             // 根据业务需要从记录中获取样式数据
