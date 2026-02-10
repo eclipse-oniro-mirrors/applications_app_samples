@@ -12,16 +12,11 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-// [Start export_myObject]
-// Index.d.ets
-@Sendable
-export class MyObject {
-  constructor(arg: number);
 
-  plusOne(): number;
-
-  public get value(): number;
-
-  public set value(newVal: number);
+// [Start const_person]
+// 混淆前
+const person = {
+  myAge: 18
 }
-// [End export_myObject]
+person["myAge"] = 20;
+// [End const_person]
