@@ -54,10 +54,9 @@ export function insertUnifiedData() {
         hilog.error(0xFF00, '[Sample_Udmf]', `Failed to insert data. code is ${err.code},message is ${err.message}`
       }
     });
-  } catch (e) {
-    let error: BusinessError = e as BusinessError;
+  } catch (e: BusinessError) {
     hilog.error(0xFF00, '[Sample_Udmf]',
-      `Insert data throws an exception. code is ${error.code},message is ${error.message}`);
+      `Insert data throws an exception. code is ${e.code},message is ${e.message}`);
   }
   // [End unified_data_channels_insert_data]
 }
@@ -92,10 +91,9 @@ export function updateUnifiedData() {
         hilog.error(0xFF00, '[Sample_Udmf]', `Failed to update data. code is ${err.code},message is ${err.message}`);
       }
     });
-  } catch (e) {
-    let error: BusinessError = e as BusinessError;
+  } catch (e: BusinessError) {
     hilog.error(0xFF00, '[Sample_Udmf]',
-      `Update data throws an exception. code is ${error.code},message is ${error.message}`);
+      `Update data throws an exception. code is ${e.code},message is ${e.message}`);
   }
   // [End unified_data_channels_update_data]
 }
@@ -131,10 +129,9 @@ export function deleteUnifiedData() {
         hilog.error(0xFF00, '[Sample_Udmf]', `Failed to delete data. code is ${err.code},message is ${err.message}`);
       }
     });
-  } catch (e) {
-    let error: BusinessError = e as BusinessError;
+  } catch (e: BusinessError) {
     hilog.error(0xFF00, '[Sample_Udmf]',
-      `Delete data throws an exception. code is ${error.code},message is ${error.message}`);
+      `Delete data throws an exception. code is ${e.code},message is ${e.message}`);
   }
   // [End unified_data_channels_delete_data]
 }
@@ -170,10 +167,9 @@ export function queryUnifiedData() {
         hilog.error(0xFF00, '[Sample_Udmf]', `Failed to query data. code is ${err.code},message is ${err.message}`);
       }
     });
-  } catch (e) {
-    let error: BusinessError = e as BusinessError;
+  } catch (e: BusinessError) {
     hilog.error(0xFF00, '[Sample_Udmf]',
-      `Query data throws an exception. code is ${error.code},message is ${error.message}`);
+      `Query data throws an exception. code is ${e.code},message is ${e.message}`);
   }
   // [End unified_data_channels_query_data]
 }
