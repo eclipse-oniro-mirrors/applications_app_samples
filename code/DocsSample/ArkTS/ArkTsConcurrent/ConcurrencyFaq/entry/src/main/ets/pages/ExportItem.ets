@@ -12,9 +12,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start no_globalThisImport]
-// NoGlobalThis.ets
-import * as M from './ExportMod'
+// [Start define_item]
+// ExportItem.ets
+@Observed
+export class NormalItem {
+  public age: number = 0;
+}
 
-let x = M.abc;
-// [End no_globalThisImport]
+@Sendable
+export class SendableItem {
+  public name: string = '';
+}
+// [End define_item]
