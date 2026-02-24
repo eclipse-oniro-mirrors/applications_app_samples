@@ -51,7 +51,7 @@ export function insertUnifiedData() {
       if (!err) {
         hilog.info(0xFF00, '[Sample_Udmf]', `Succeeded in inserting data. key = ${key}`);
       } else {
-        hilog.error(0xFF00, '[Sample_Udmf]', `Failed to insert data. code is ${err.code},message is ${err.message}`
+        hilog.error(0xFF00, '[Sample_Udmf]', `Failed to insert data. code is ${err.code},message is ${err.message}`);
       }
     });
   } catch (e: BusinessError) {
@@ -91,7 +91,7 @@ export function updateUnifiedData() {
         hilog.error(0xFF00, '[Sample_Udmf]', `Failed to update data. code is ${err.code},message is ${err.message}`);
       }
     });
-  } catch (e: BusinessError) {
+  } catch (e) {
     hilog.error(0xFF00, '[Sample_Udmf]',
       `Update data throws an exception. code is ${e.code},message is ${e.message}`);
   }
@@ -129,7 +129,7 @@ export function deleteUnifiedData() {
         hilog.error(0xFF00, '[Sample_Udmf]', `Failed to delete data. code is ${err.code},message is ${err.message}`);
       }
     });
-  } catch (e: BusinessError) {
+  } catch (e) {
     hilog.error(0xFF00, '[Sample_Udmf]',
       `Delete data throws an exception. code is ${e.code},message is ${e.message}`);
   }
@@ -167,7 +167,7 @@ export function queryUnifiedData() {
         hilog.error(0xFF00, '[Sample_Udmf]', `Failed to query data. code is ${err.code},message is ${err.message}`);
       }
     });
-  } catch (e: BusinessError) {
+  } catch (e) {
     hilog.error(0xFF00, '[Sample_Udmf]',
       `Query data throws an exception. code is ${e.code},message is ${e.message}`);
   }
