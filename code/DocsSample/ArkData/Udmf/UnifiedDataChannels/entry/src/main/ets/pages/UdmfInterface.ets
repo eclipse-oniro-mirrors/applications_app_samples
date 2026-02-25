@@ -54,7 +54,7 @@ export function insertUnifiedData() {
         hilog.error(0xFF00, '[Sample_Udmf]', `Failed to insert data. code is ${err.code},message is ${err.message}`);
       }
     });
-  } catch (e: BusinessError) {
+  } catch (e) {
     hilog.error(0xFF00, '[Sample_Udmf]',
       `Insert data throws an exception. code is ${e.code},message is ${e.message}`);
   }
