@@ -1,4 +1,4 @@
-# USBManagerSample
+# USBManagerSampleStatic
 
 ### 介绍
 
@@ -56,8 +56,7 @@ entry/src/
 ### 约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：rk3568；
-2. 本示例仅支持API20版本SDK，镜像版本号：OpenHarmony 6.0.0.x及之后的版本；
-3. 本示例需要使用DevEco Studio 6.0.0 release (Build Version: 6.0.0.858)才可编译运行；
+2. 本示例仅支持API23版本SDK，镜像版本号：OpenHarmony 6.1.0.x及之后的版本；
 
 ### 下载
 
@@ -66,7 +65,7 @@ entry/src/
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/USB/USBManagerSample/ > .git/info/sparse-checkout
+echo code/DocsSample/USB/USBManagerSampleStatic/ > .git/info/sparse-checkout
 git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin ***(分支名)
 ```
