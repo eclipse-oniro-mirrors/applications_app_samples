@@ -13,34 +13,48 @@
  * limitations under the License.
  */
 
-import { selectionManager, SelectionExtensionContext } from '@kit.BasicServicesKit';
-import { hilog } from '@kit.PerformanceAnalysisKit';
+'use static'
+
+// [Start SelectionModel]
+import selectionManager from '@ohos.selectionInput.selectionManager';
+import SelectionExtensionContext from '@ohos.selectionInput.SelectionExtensionContext';
+import hilog from '@ohos.hilog';
 
 export class SelectionModel {
-  private selectionInfo: selectionManager.SelectionInfo | undefined;
-  private selectionPanel: selectionManager.Panel | undefined;
-  private context: SelectionExtensionContext | undefined;
+  private selectionInfo: selectionManager.SelectionInfo | undefined = undefined;
+  private selectionContent: string | undefined = undefined;
+  private selectionPanel: selectionManager.Panel | undefined = undefined;
+  private context: SelectionExtensionContext | undefined = undefined;
   private listener: (selectionInfo: selectionManager.SelectionInfo) => void;
+  private static instance: SelectionModel | undefined = undefined;
 
   private constructor() {
-    this.selectionPanel = undefined;
-    this.context = undefined;
-    this.selectionInfo = undefined;
     this.listener = (selectionInfo: selectionManager.SelectionInfo) => {
       hilog.info(0x0000, 'SelectionModel', `Received selection selectionInfo: ${selectionInfo}`);
     }
   }
 
-  public static getInstance(): SelectionModel {
-    if (globalThis.instance == null) {
-      globalThis.instance = new SelectionModel();
+  public static getInstance(): SelectionModel | undefined {
+    if (SelectionModel.instance == undefined) {
+      SelectionModel.instance = new SelectionModel();
     }
-    return globalThis.instance;
+    return SelectionModel.instance;
+  }
+
+  public getSelectionInfo(): selectionManager.SelectionInfo | undefined {
+    return this.selectionInfo;
   }
 
   public setSelectionInfo(selectionInfo: selectionManager.SelectionInfo) {
-    this.listener(selectionInfo);
     this.selectionInfo = selectionInfo;
+  }
+
+  public getSelectionContent(): string | undefined {
+    return this.selectionContent;
+  }
+
+  public setSelectionContent(selectionContent: string) {
+    this.selectionContent = selectionContent;
   }
 
   public getSelectionPanel(): selectionManager.Panel | undefined {
@@ -62,8 +76,5 @@ export class SelectionModel {
   public registerListener(listener: (selectionInfo: selectionManager.SelectionInfo) => void) {
     this.listener = listener;
   }
-
-  public getSelectionInfo(): selectionManager.SelectionInfo | undefined {
-    return this.selectionInfo;
-  }
 }
+// [End SelectionModel]

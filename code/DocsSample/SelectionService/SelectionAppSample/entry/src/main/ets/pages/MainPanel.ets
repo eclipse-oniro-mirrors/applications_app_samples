@@ -13,18 +13,30 @@
  * limitations under the License.
  */
 
+'use static'
+
+// [Start MainPanel]
+import {Entry, Text, Column, Component, RelativeContainer, Button, ClickEvent, TouchEvent, TouchType } from '@ohos.arkui.component';
+import { State } from '@ohos.arkui.stateManagement';
 import { SelectionModel } from '../models/SelectionModel';
 import selectionManager from '@ohos.selectionInput.selectionManager';
+
 @Entry
 @Component
 struct MainPanel {
   @State message: string = 'MainPanel';
 
   aboutToAppear(): void {
-    let selectionInfo: selectionManager.SelectionInfo | undefined = SelectionModel.getInstance().getSelectionInfo();
-    if (selectionInfo !== undefined) {
-      this.message = JSON.stringify(selectionInfo);
+    let selectionModel: SelectionModel | undefined = SelectionModel.getInstance();
+    if (selectionModel !== undefined) {
+      let selectionInfo = (selectionModel as SelectionModel).getSelectionInfo();
+      if (selectionInfo !== undefined) {
+        this.message = selectionInfo.bundleName;
+      }
+    } else {
+      return;
     }
+    
   }
 
   build() {
@@ -32,16 +44,12 @@ struct MainPanel {
       Text(this.message)
         .id('MainPanelHelloWorld')
         .fontSize(8)
-        .alignRules({
-          center: { anchor: '__container__', align: VerticalAlign.Center },
-          middle: { anchor: '__container__', align: HorizontalAlign.Center }
-        })
     }
     .onTouch((event: TouchEvent) => {
       if (event.type === TouchType.Down) {
-        let selectionPanel: selectionManager.Panel | undefined = SelectionModel.getInstance().getSelectionPanel();
+        let selectionPanel: selectionManager.Panel | undefined = SelectionModel.getInstance()?.getSelectionPanel();
         if (selectionPanel !== undefined) {
-          selectionPanel.startMoving();
+          selectionPanel.startMoving();   // 调用selectionManager提供的startMoving接口可实现划词面板随鼠标拖动
         }
       }
     })
@@ -50,3 +58,4 @@ struct MainPanel {
     .width('100%')
   }
 }
+// [End MainPanel]
