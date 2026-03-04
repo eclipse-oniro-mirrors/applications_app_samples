@@ -46,8 +46,8 @@ import {
   TextArea,
   TextAttribute
 } from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement'
-import hilog from '@ohos.hilog'
+import { State } from '@ohos.arkui.stateManagement';
+import hilog from '@ohos.hilog';
 import usbManager from '@ohos.usbManager';
 import { BusinessError } from '@ohos.base';
 // [End head]
@@ -287,7 +287,7 @@ struct Index {
         usbEndpoints = usbInterfaces[j].endpoints;
         let tmpEndpoint: usbManager.USBEndpoint | undefined = usbEndpoints.find((value) => {
           return value.direction === 128 && value.type === usbManager.UsbEndpointTransferType.TRANSFER_TYPE_INTERRUPT;
-        })
+        });
         if (tmpEndpoint !== undefined) {
           usbInterface = usbInterfaces[j];
           usbEndpoint = tmpEndpoint;
@@ -300,7 +300,7 @@ struct Index {
     // 注册通信接口，注册成功返回0，注册失败返回其他错误码。
     let claimInterfaceResult: number = usbManager.claimInterface(devicePipe, usbInterface, true);
     if (claimInterfaceResult !== 0) {
-      console.error(`claimInterface error = ${claimInterfaceResult}`)
+      console.error(`claimInterface error = ${claimInterfaceResult}`);
       return;
     }
     // [End interruptTransfer_claimInterface]
@@ -376,7 +376,7 @@ struct Index {
         let tmpEndpoint: usbManager.USBEndpoint | undefined = usbEndpoints.find((value) => {
           // direction为请求方向，0表示写入数据，128表示读取数据
           return value.direction === 128 && value.type === usbManager.UsbEndpointTransferType.TRANSFER_TYPE_ISOCHRONOUS;
-        })
+        });
         if (tmpEndpoint !== undefined) {
           usbInterface = usbInterfaces[j];
           usbEndpoint = tmpEndpoint;
@@ -394,7 +394,7 @@ struct Index {
     // 注册通信接口，注册成功返回0，注册失败返回其他错误码。
     let claimInterfaceResult: int = usbManager.claimInterface(devicePipe, usbInterface, true);
     if (claimInterfaceResult !== 0) {
-      console.error(`claimInterface error = ${claimInterfaceResult}`)
+      console.error(`claimInterface error = ${claimInterfaceResult}`);
       return;
     }
 
@@ -402,7 +402,7 @@ struct Index {
     if (usbEndpoint.type === usbManager.UsbEndpointTransferType.TRANSFER_TYPE_ISOCHRONOUS) {
       let setInterfaceResult = usbManager.setInterface(devicePipe, usbInterface);
       if (setInterfaceResult !== 0) {
-        console.error(`setInterfaceResult error = ${setInterfaceResult}`)
+        console.error(`setInterfaceResult error = ${setInterfaceResult}`);
         return;
       }
     }

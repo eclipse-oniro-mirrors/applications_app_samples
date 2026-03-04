@@ -46,10 +46,10 @@ import {
   TextArea,
   TextAttribute
 } from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement'
-import hilog from '@ohos.hilog'
+import { State } from '@ohos.arkui.stateManagement';
+import hilog from '@ohos.hilog';
 import serialManager from '@ohos.usbManager.serial';
-import { BusinessError } from '@ohos.base'
+import { BusinessError } from '@ohos.base';
 import { buffer } from '@kit.ArkTS';
 
 // [End head]
@@ -103,7 +103,7 @@ struct Index {
     // [Start openSerialDevice]
     let portId: int = this.portId_;
     try {
-      serialManager.open(portId)
+      serialManager.open(portId);
       console.info(`open usbSerial success, portId: ${portId}`);
     } catch (error) {
       console.error(`open usbSerial error： ${error}`);
@@ -120,7 +120,7 @@ struct Index {
       console.info(`readAsync usbSerial success, readAsyncBuffer: ${readBuffer}`);
     }).catch((error: Error) => {
       console.error(`readAsync usbSerial error: ${error}`);
-    })
+    });
 
     // 同步读取
     let readSyncBuffer: Uint8Array = new Uint8Array(64);
@@ -137,15 +137,15 @@ struct Index {
     // [Start serialWrite]
     let portId: int = this.portId_;
     // 异步写入
-    let writeBuffer: Uint8Array = new Uint8Array(buffer.from('Hello World', 'utf-8').buffer)
+    let writeBuffer: Uint8Array = new Uint8Array(buffer.from('Hello World', 'utf-8').buffer);
     serialManager.write(portId, writeBuffer, 2000).then((size: int) => {
       console.info(`writeAsync usbSerial success, writeAsyncBuffer: ${writeBuffer}`);
     }).catch((error: Error) => {
       console.error(`writeAsync usbSerial error: ${error}`);
-    })
+    });
 
     // 同步写入
-    let writeSyncBuffer: Uint8Array = new Uint8Array(buffer.from('Hello World', 'utf-8').buffer)
+    let writeSyncBuffer: Uint8Array = new Uint8Array(buffer.from('Hello World', 'utf-8').buffer);
     try {
       serialManager.writeSync(portId, writeSyncBuffer, 2000);
       console.info(`writeSync usbSerial success, writeSyncBuffer: ${writeSyncBuffer}`);
@@ -183,7 +183,7 @@ struct Index {
         dataBits: serialManager.DataBits.DATABIT_8,
         parity: serialManager.Parity.PARITY_NONE,
         stopBits: serialManager.StopBits.STOPBIT_1
-      }
+      };
       serialManager.setAttribute(portId, attribute);
       console.info(`setAttribute usbSerial success, attribute: ${attribute}`);
     } catch (error) {
