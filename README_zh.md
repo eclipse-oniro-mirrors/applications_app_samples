@@ -313,8 +313,8 @@
   <td x:str><strong>USB</strong></td>
   <td x:str><a href="code/DocsSample/USB/USBManagerSample">USB设备管理</a></td>
   <td x:str><a href="code/DocsSample/USB/USBManagerSerialSample">串口设备管理</a></td>
-  <td x:str><a href="code/DocsSample/USB/USBManagerSampleStatic">USB设备管理（静态）</a></td>
-  <td x:str><a href="code/DocsSample/USB/USBManagerSerialSampleStatic">串口设备管理（静态）</a></td>
+  <td x:str><a href="code/ArkTS-Sta/USBSample/USBManagerSample">USB设备管理（静态）</a></td>
+  <td x:str><a href="code/ArkTS-Sta/USBSample/USBManagerSerialSample">串口设备管理（静态）</a></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
 <td height="90" align="center" rowspan="26" style='height:67.50pt;' x:str><strong>系统特性（仅对系统应用开放）</strong></td>
