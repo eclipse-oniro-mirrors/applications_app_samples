@@ -13,26 +13,41 @@
  * limitations under the License.
  */
 
+'use static'
+
+import {Entry, Text, Column, Component, Button, ClickEvent } from '@ohos.arkui.component';
+import { State } from '@ohos.arkui.stateManagement';
+import hilog from '@ohos.hilog';
+
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World';
+  @State stateVar: string = 'Hello World';
+  message: string = 'var';
+
+  changeValue() {
+    this.stateVar += '~'
+  }
 
   build() {
-    RelativeContainer() {
-      Text(this.message)
-        .id('MenuPanelHelloWorld')
-        .fontSize($r('app.float.page_text_font_size'))
-        .fontWeight(FontWeight.Bold)
-        .alignRules({
-          center: { anchor: '__container__', align: VerticalAlign.Center },
-          middle: { anchor: '__container__', align: HorizontalAlign.Center }
+    Column(undefined) {
+      Text('Hello World').fontSize(20)
+      Button(this.message).backgroundColor('#FFFF00FF')
+        .onClick((e: ClickEvent) => {
+          hilog.info(0x0000, 'testTag', 'On Click');
+          this.changeValue();
         })
-        .onClick(() => {
-          this.message = 'Welcome';
-        })
+      Text(this.stateVar).fontSize(20)
+      Child({ stateVar: this.stateVar })
     }
-    .height('100%')
-    .width('100%')
+  }
+}
+
+@Component
+struct Child {
+  @State stateVar: string = 'Child';
+
+  build() {
+    Text(this.stateVar).fontSize(50)
   }
 }
