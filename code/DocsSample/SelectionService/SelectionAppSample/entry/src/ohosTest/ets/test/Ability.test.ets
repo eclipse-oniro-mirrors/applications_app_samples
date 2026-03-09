@@ -16,7 +16,8 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@ohos.app.ability.abilityDelegatorRegistry';
-import { selectionManager, PanelInfo, PanelType, BusinessError } from '@kit.BasicServicesKit';
+import { PanelInfo, PanelType } from '@ohos.selectionInput.SelectionPanel';
+import selectionManager from '@ohos.selectionInput.selectionManager';
 import { Driver } from '@ohos.UiTest';
 
 export default function abilityTest() {
@@ -64,7 +65,7 @@ export default function abilityTest() {
         await selectionManager.destroyPanel(panel);
         bDestroyed = true;
       } catch (error) {
-        hilog.info(0x0000, 'ActsAbilityTest', `ArkTSSelectionService_CreatePanel error = ${JSON.stringify(error)}`);
+        hilog.info(0x0000, 'ActsAbilityTest', `ArkTSSelectionService_CreatePanel error ${error.code}, errormessage: ${error.message}`);
         expect().assertFail();
       } finally {
         if (!bDestroyed) {
