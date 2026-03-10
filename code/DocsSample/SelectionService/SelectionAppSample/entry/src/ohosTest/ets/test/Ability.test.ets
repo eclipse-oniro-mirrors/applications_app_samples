@@ -15,65 +15,36 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { abilityDelegatorRegistry } from '@ohos.app.ability.abilityDelegatorRegistry';
-import { PanelInfo, PanelType } from '@ohos.selectionInput.SelectionPanel';
-import selectionManager from '@ohos.selectionInput.selectionManager';
-import { Driver } from '@ohos.UiTest';
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
-    /**
-     * 打开应用
-     */
-    it('ArkTSSelectionService_StartAbility_001', 0, async (done: Function) => {
-      hilog.info(0x0000, 'ActsAbilityTest', 'StartAbility_001, begin');
-      let driver = Driver.create();
-      let abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-      try {
-        await abilityDelegator.startAbility({
-          bundleName: 'com.selection.selectionapplication',
-          abilityName: 'EntryAbility'
-        });
-      } catch (exception) {
-        hilog.info(0x0000, 'ActsAbilityTest', `StartAbility_001 exception = ${JSON.stringify(exception)}`);
-        expect().assertFail();
-      }
-      done();
-      hilog.info(0x0000, 'ActsAbilityTest', 'StartAbility_001 end')
+    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
+    beforeAll(() => {
+      // Presets an action, which is performed only once before all test cases of the test suite start.
+      // This API supports only one parameter: preset action function.
     })
-
-    /*
-     * 创建弹窗
-     */
-    it('ArkTSSelectionService_CreatePanel', 0, async (done: Function) => {
-      hilog.info(0x0000, 'ActsAbilityTest', 'enter');
-      let abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-      let context = abilityDelegator.getAppContext();
-      context.stageMode = true;
-      let panelInfo: PanelInfo = {
-        panelType: PanelType.MENU_PANEL,
-        x: 0,
-        y: 0,
-        width: 100,
-        height: 100
-      }
-      let panel: selectionManager.Panel | undefined = undefined;
-      let bDestroyed = false;
-      try {
-        panel = await selectionManager.createPanel(context, panelInfo);
-        await panel.moveToGlobalDisplay(20, 20);
-        await selectionManager.destroyPanel(panel);
-        bDestroyed = true;
-      } catch (error) {
-        hilog.info(0x0000, 'ActsAbilityTest', `ArkTSSelectionService_CreatePanel error ${error.code}, errormessage: ${error.message}`);
-        expect().assertFail();
-      } finally {
-        if (!bDestroyed) {
-          await selectionManager.destroyPanel(panel);
-        }
-      }
-      done();
-      hilog.info(0x0000, 'ActsAbilityTest', 'ArkTSSelectionService_CreatePanel end');
+    beforeEach(() => {
+      // Presets an action, which is performed before each unit test case starts.
+      // The number of execution times is the same as the number of test cases defined by **it**.
+      // This API supports only one parameter: preset action function.
+    })
+    afterEach(() => {
+      // Presets a clear action, which is performed after each unit test case ends.
+      // The number of execution times is the same as the number of test cases defined by **it**.
+      // This API supports only one parameter: clear action function.
+    })
+    afterAll(() => {
+      // Presets a clear action, which is performed after all test cases of the test suite end.
+      // This API supports only one parameter: clear action function.
+    })
+    it('assertContain', 0, () => {
+      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
+      hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
+      let a = 'abc';
+      let b = 'b';
+      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
+      expect(a).assertContain(b);
+      expect(a).assertEqual(a);
     })
   })
 }
