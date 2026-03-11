@@ -1,3 +1,4 @@
+'use static'
 /*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,8 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-'use static'
 
 import UIAbility from '@ohos.app.ability.UIAbility';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
@@ -40,6 +39,8 @@ export default class EntryAbility extends UIAbility {
         }
         hilog.info(DOMAIN, 'testTag', 'Succeeded in loading the content.');
       });
-    }  
+    } catch (e: Error) {
+      hilog.info(DOMAIN, 'testTag', 'loadContent catch error:' + e.message);
+    }
   }
 }
