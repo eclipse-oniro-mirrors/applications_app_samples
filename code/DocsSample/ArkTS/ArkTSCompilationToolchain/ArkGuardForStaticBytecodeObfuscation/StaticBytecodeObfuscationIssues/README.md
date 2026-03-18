@@ -62,7 +62,7 @@
  	 ```git
  	 git init
  	 git config core.sparsecheckout true
- 	 echo code/DocsSample/ArkTS/Toolchain/BytecodeObfuscation/StaticBytecodeObfuscationIssues/ > .git/info/sparse-checkout
+ 	 echo code/DocsSample/ArkTS/ArkTSCompilationToolchain/ArkGuardForStaticBytecodeObfuscation/StaticBytecodeObfuscationIssues/ > .git/info/sparse-checkout
  	 git remote add origin OpenHarmony/applications_app_samples
  	 git pull origin master
  	 ```
