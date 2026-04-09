@@ -120,7 +120,7 @@ async function mountPublicDir(context: common.UIAbilityContext) {
     }
   } catch (error) {
  	  console.error(`Catch err. Code: ${error.code}, message: ${error.message}`);
- 	}
+  }
   // [End access_ConnectDfs]
 }
 
@@ -148,7 +148,7 @@ function disMountPublicDir(): void {
     }
   } catch (error) {
  	  console.error(`Catch err. Code: ${error.code}, message: ${error.message}`);
- 	}
+  }
   // [End access_DisConnectDfs]
 }
 
@@ -247,7 +247,7 @@ function copyDistributedFile(context: common.UIAbilityContext): void {
     }
   } catch (error) {
  	  console.error(`Catch err. Code: ${error.code}, message: ${error.message}`);
- 	}
+  }
   // [End copy_distributed_to_sand]
 }
 
@@ -271,7 +271,7 @@ function getListFile(pathDir: string): void {
     }
   } catch (error) {
  	  console.error(`Catch err. Code: ${error.code}, message: ${error.message}`);
- 	}
+  }
 }
 
 @Entry

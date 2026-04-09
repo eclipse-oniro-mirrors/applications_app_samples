@@ -24,7 +24,7 @@ export default class EntryAbility extends UIAbility {
       hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
     } catch (error) {
  	    console.error(`Catch err. Code: ${error.code}, message: ${error.message}`);
- 	  }
+    }
   }
 
   onDestroy(): void {
