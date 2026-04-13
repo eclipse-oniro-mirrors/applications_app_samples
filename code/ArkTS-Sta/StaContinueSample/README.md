@@ -4,7 +4,7 @@
 
 ### 效果预览
 
-![MAIN.png](https://raw.gitcode.com/user-images/assets/9553771/31f0fb52-f213-40bc-9db7-0b13d888d371/MAIN.png 'MAIN.png')
+![main.png](https://raw.gitcode.com/user-images/assets/9553771/f4a1452e-41e2-49fb-a372-08556e8abc31/main.png 'main.png')
 
 使用说明
 
