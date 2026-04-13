@@ -3,7 +3,8 @@
 本示例主要展示了应用数据跨端迁移的能力，通过跨端迁移的能力实现了一个简单的迁移应用，可以响应系统迁移事件，控制应用的迁移能力、是否迁移页面栈以及迁移后是否退出源端等。
 
 ### 效果预览
-![MAIN.png](https://raw.gitcode.com/user-images/assets/9646135/ca76efc5-77a1-481a-9dfe-f670f97a9e0e/MAIN.png 'MAIN.png')
+
+![main.png](https://raw.gitcode.com/user-images/assets/9646135/10bd6275-7e25-47e7-92d1-b66bd7ac5e5c/main.png 'main.png')
 
 使用说明
 
