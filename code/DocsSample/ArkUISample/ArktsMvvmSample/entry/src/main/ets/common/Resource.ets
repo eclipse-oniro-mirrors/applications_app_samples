@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,28 +12,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+export class ResourceManager {
+  public context: Context | null = null;
 
-// [Start thing_view_model]
-import ThingModel from '../model/ThingModel';
-
-@Observed
-export default class ThingViewModel {
-  @Track public thingName: string = 'Todo';
-  @Track public isFinish: boolean = false;
-  public context: Context = AppStorage.get('context')!;
-
-  updateTask(thing: ThingModel) {
-    this.thingName = thing.thingName;
-    this.isFinish = thing.isFinish;
+  // 初始化上下文
+  initContext(context: Context) {
+    this.context = context;
   }
 
-  updateIsFinish(): void {
-    this.isFinish = !this.isFinish;
-  }
-
-  addSuffixes(): void {
-    this.thingName += 'lala';
+  public resourceToString(resource: Resource): string {
+    try {
+      return this.context?.resourceManager.getStringSync(resource.id) || '';
+    } catch (error) {
+      // TODO: Implement error handling.
+      return ''
+    }
   }
 }
 
-// [End thing_view_model]
+// 默认导出let
+let resourceToStringManager = new ResourceManager();
+
+export default resourceToStringManager as ResourceManager;
