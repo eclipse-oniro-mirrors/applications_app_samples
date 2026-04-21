@@ -67,7 +67,7 @@
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkData-Sta > .git/info/sparse-checkout
+echo code/DocsSample/ArkData-Sta/RelationalStore/RdbStoreSta > .git/info/sparse-checkout
 git remote add origin https://gitee.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
