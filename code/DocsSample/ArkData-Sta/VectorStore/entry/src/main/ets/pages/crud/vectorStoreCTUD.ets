@@ -99,8 +99,8 @@ export async function getVectorStore(context: common.UIAbilityContext) {
     const vectorValue2: Float32Array = Float32Array.from([6.2, 7.3]);
     resultSet = await store!.querySql(QUERY_SQL, [vectorValue2, 0 as long, vectorValue2]);
     while (resultSet?.goToNextRow()) {
-      let id = resultSet.getValue(0);
-      let dis = resultSet.getValue(1);
+      let id = resultSet?.getValue(0);
+      let dis = resultSet?.getValue(1);
     }
   } catch (err) {
     console.error(`query failed, code is ${err.code}, message is ${err.message}`);
