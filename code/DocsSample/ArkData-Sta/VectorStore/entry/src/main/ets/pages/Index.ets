@@ -33,6 +33,7 @@ struct Index {
       .backgroundColor('#0D9FFB')
       .onClick(() => {
         // [Start vector_TS_context]
+        /* context为应用的上下文信息，此处获取方式仅为示例。 */
         const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
         // [End vector_TS_context]
         getVectorStore(context);
