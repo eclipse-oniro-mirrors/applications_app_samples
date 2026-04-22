@@ -27,7 +27,7 @@ let context: Context = new UIContext().getHostContext() as common.UIAbilityConte
 const STORE_CONFIG: relationalStore.StoreConfig = {
   name: 'VectorTest.db', // 数据库文件名
   securityLevel: relationalStore.SecurityLevel.S1, // 数据库安全级别
-  vector: true // 可选参数，该参数为true时才可以使用向量数据库。
+  vector: true // 可选参数，该参数为true时才可以使用向量数据库
 };
 // [StartExclude vector_TS_getStore]
 
@@ -44,6 +44,10 @@ export async function getVectorStore() {
   // [EndExclude  vector_TS_getStore]
   try {
     store = await relationalStore.getRdbStore(context, STORE_CONFIG);
+    if (!store) {
+      console.error('Get RdbStore failed, store is undefined');
+      return;
+    }
     // 建表语句，floatvector(2)代表repr的维度是2
     const SQL_CREATE_TABLE = 'CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY, repr floatvector(2));';
     // 第二个入参表示不开启显示事务，第三个参数undefined表示未使用参数绑定
@@ -90,23 +94,25 @@ export async function getVectorStore() {
 
   // [Start vector_TS_query]
   // 单表查询
+  let resultSet: relationalStore.ResultSet | undefined = undefined;
   try {
     // 使用参数绑定
     const QUERY_SQL = 'select id, repr <-> ? as distance from test where id > ? order by repr <-> ? limit 5;';
     const vectorValue2: Float32Array = Float32Array.from([6.2, 7.3]);
-    let resultSet = await store!.querySql(QUERY_SQL, [vectorValue2, 0, vectorValue2]);
+    resultSet = await store!.querySql(QUERY_SQL, [vectorValue2, 0, vectorValue2]);
     while (resultSet!.goToNextRow()) {
       let id = resultSet.getValue(0);
       let dis = resultSet.getValue(1);
     }
-    resultSet!.close();
 
     // 不使用参数绑定
     const QUERY_SQL1 = "select id, repr <-> '[6.2, 7.3]' as distance from test where id > 0 order by repr <-> '[6.2, 7.3]' limit 5;";
     resultSet = await store!.querySql(QUERY_SQL1);
-    resultSet!.close();
   } catch (err) {
     console.error(`query failed, code is ${err.code}, message is ${err.message}`);
+  } finally {
+    // 释放数据集的内存，若不释放可能会引起fd泄露与内存泄露
+    resultSet!.close();
   }
 
   // 子查询
@@ -114,27 +120,33 @@ export async function getVectorStore() {
     // 创建第二张表
     let CREATE_SQL = 'CREATE TABLE IF NOT EXISTS test1(id text PRIMARY KEY);';
     await store!.execute(CREATE_SQL);
-    let resultSet = await store!.querySql('select * from test where id in (select id from test1);');
-    resultSet!.close();
+    resultSet = await store!.querySql('select * from test where id in (select id from test1);');
   } catch (err) {
     console.error(`query failed, code is ${err.code}, message is ${err.message}`);
+  } finally {
+    // 释放数据集的内存，若不释放可能会引起fd泄露与内存泄露
+    resultSet!.close();
   }
 
   // 聚合查询
   try {
-    let resultSet = await store!.querySql("select * from test where repr <-> '[1.0, 1.0]' > 0 group by id having max(repr <=> '[1.0, 1.0]');");
-    resultSet!.close();
+    resultSet = await store!.querySql("select * from test where repr <-> '[1.0, 1.0]' > 0 group by id having max(repr <=> '[1.0, 1.0]');");
   } catch (err) {
     console.error(`query failed, code is ${err.code}, message is ${err.message}`);
+  } finally {
+    // 释放数据集的内存，若不释放可能会引起fd泄露与内存泄露
+    resultSet!.close();
   }
 
   // 多表查询
   try {
     // union all与union的区别在于union会将数据去重
-    let resultSet = await store!.querySql("select id, repr <-> '[1.5, 5.6]' as distance from test union select id, repr <-> '[1.5, 5.6]' as distance from test order by distance limit 5;");
-    resultSet!.close();
+    resultSet = await store!.querySql("select id, repr <-> '[1.5, 5.6]' as distance from test union select id, repr <-> '[1.5, 5.6]' as distance from test order by distance limit 5;");
   } catch (err) {
     console.error(`query failed, code is ${err.code}, message is ${err.message}`);
+  } finally {
+    // 释放数据集的内存，若不释放可能会引起fd泄露与内存泄露
+    resultSet!.close();
   }
   // [End vector_TS_query]
 
@@ -143,10 +155,12 @@ export async function getVectorStore() {
   try {
     // 创建视图
     await store!.execute('CREATE VIEW v1 as select * from test where id > 0;');
-    let resultSet = await store!.querySql('select * from v1;');
-    resultSet!.close();
+    resultSet = await store!.querySql('select * from v1;');
   } catch (err) {
     console.error(`query failed, code is ${err.code}, message is ${err.message}`);
+  } finally {
+    // 释放数据集的内存，若不释放可能会引起fd泄露与内存泄露
+    resultSet!.close();
   }
   // [End vector_TS_execute_create_view]
 
