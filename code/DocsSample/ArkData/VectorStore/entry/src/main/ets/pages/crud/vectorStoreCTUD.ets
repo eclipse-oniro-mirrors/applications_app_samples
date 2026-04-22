@@ -93,8 +93,8 @@ export async function getVectorStore() {
   // [End vector_TS_execute_update_and_delete]
 
   // [Start vector_TS_query]
-  // 单表查询
   let resultSet: relationalStore.ResultSet | undefined = undefined;
+  // 单表查询
   try {
     // 使用参数绑定
     const QUERY_SQL = 'select id, repr <-> ? as distance from test where id > ? order by repr <-> ? limit 5;';
