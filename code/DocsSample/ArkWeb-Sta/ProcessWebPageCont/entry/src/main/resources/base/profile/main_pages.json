@@ -1,9 +1,0 @@
-{
-  "src": [
-    "pages/Index",
-    "pages/InitiatePrintW3CAPI",
-    "pages/InitiatePrintAppAPI",
-    "pages/PreviewPDF",
-    "pages/CalcAdjustSafeArea"
-  ]
-}
