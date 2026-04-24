@@ -1,3 +1,4 @@
+'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,8 +15,6 @@
  */
 
 // [Start web_createpdf_callback]
-// xxx.ets
-'use static'
 import fileIo from '@ohos.file.fs';
 import { Entry, Column, Component, Button, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';

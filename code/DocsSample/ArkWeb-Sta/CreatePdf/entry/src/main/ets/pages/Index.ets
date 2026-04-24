@@ -1,3 +1,4 @@
+'use static'
 /*
 * Copyright (c) 2026 Huawei Device Co., Ltd.
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,37 +14,25 @@
 * limitations under the License.
 */
 
-'use static'
-
-import { BusinessError } from '@kit.BasicServicesKit';
-import { common } from '@kit.AbilityKit';
+import { BusinessError } from '@ohos.base';
+import { Button, Column, ColumnOptions, Component, Entry } from '@ohos.arkui.component';
 
 @Entry
 @Component
 struct Index {
   build() {
-    Column({ space: 10 }) {
+    Column({ space: 20 } as ColumnOptions) {
       Button('createPdfCallback')
         .onClick(() => {
-          let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-          AppStorage.setOrCreate<string>("filesDirPath",context.filesDir)
           this.getUIContext().getRouter().pushUrl({
             url: 'pages/WebCreatePdfCallback',
           })
-            .catch((error: BusinessError) => {
-              console.error(`pushUrl failed, code is ${error.code}, message is ${error.message}`)
-            })
         })
       Button('createPdfPromise')
         .onClick(() => {
-          let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-          AppStorage.setOrCreate<string>("filesDirPath",context.filesDir);
           this.getUIContext().getRouter().pushUrl({
             url: 'pages/WebCreatePdfPromise',
           })
-            .catch((error: BusinessError) => {
-              console.error(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
-            })
         })
     }.height('100%')
     .width('100%')

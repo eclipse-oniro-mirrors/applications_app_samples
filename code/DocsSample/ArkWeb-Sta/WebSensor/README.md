@@ -26,15 +26,9 @@ entry/src/main/
 |---|---|---EntryAbility.ets
 |---|---pages
 |---|---|---Index.ets						// 首页
-|---|---|---Cache_one
-|---|---|---Cache_two
-|---|---|---CookieManagement
-|---|---|---DomStorage
-|---|---|---UserAgent_one.ets
-|---|---|---UserAgent_three.ets
-|---|---|---UserAgent_two.ets
-|---|---|---UseMotionDirSensor.ets
-|---resources								// 静态资源
+|---resources
+|---|---rawfile
+|---|---|---index.html						// 静态资源
 |---ohosTest
 |---|---ets
 |---|---|---tests
@@ -56,8 +50,8 @@ entry/src/main/
 ## 约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568。
-2. 本示例支持API14版本SDK，SDK版本号(API Version 14 Release)。
-3. 本示例需要使用DevEco Studio 版本号(5.0.1Release)才可编译运行。
+2. 本示例支持API23版本SDK，SDK版本号(API Version 23 Release)。
+3. 本示例需要使用DevEco Studio 版本号(7.0.0Release)才可编译运行。
 
 ## 下载
 
@@ -66,7 +60,7 @@ entry/src/main/
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkWeb/SetBasicAttrsEvts/SetBasicAttrsEvtsTwo > .git/info/sparse-checkout
+echo code/DocsSample/ArkWeb-Sta/WebSensor > .git/info/sparse-checkout
 git remote add origin https://gitee.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

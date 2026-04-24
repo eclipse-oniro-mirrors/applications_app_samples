@@ -1,3 +1,4 @@
+'use static'
 /*
 * Copyright (c) 2026 Huawei Device Co., Ltd.
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,15 +14,14 @@
 * limitations under the License.
 */
 
-'use static'
-
-import { router } from '@kit.ArkUI';
+import { BusinessError } from '@ohos.base';
+import { Button, Column, ColumnOptions, Component, Entry } from '@ohos.arkui.component';
 
 @Entry
 @Component
 struct Index {
   build() {
-    Column({ space: 10 }) {
+    Column({ space: 20 } as ColumnOptions) {
       Button('InitiatePrintW3CAPI')
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/InitiatePrintW3CAPI' });

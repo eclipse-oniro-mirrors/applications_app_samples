@@ -1,3 +1,4 @@
+'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,8 +15,6 @@
  */
 
 // [Start apply_geolocation]
-// xxx.ets
-'use static'
 import { $rawfile, Web, Column, Component, Entry, Button, OnPermissionRequestEvent, OnGeolocationShowEvent, Context } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { UIContext } from "@kit.ArkUI";
