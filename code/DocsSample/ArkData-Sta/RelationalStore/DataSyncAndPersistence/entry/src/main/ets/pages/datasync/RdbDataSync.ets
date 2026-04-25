@@ -37,7 +37,7 @@ export async function setDefaultDistributedTables(context: common.UIAbilityConte
     securityLevel: relationalStore.SecurityLevel.S3 // 数据库安全级别
   };
   // 打开数据库并设置分布式表
-  relationalStore.getRdbStore(context!, STORE_CONFIG).then((rdbStore: relationalStore.RdbStore) => {
+  relationalStore.getRdbStore(context!, STORE_CONFIG).then(async (rdbStore: relationalStore.RdbStore) => {
     store = rdbStore;
     await store!.executeSql('CREATE TABLE IF NOT EXISTS EMPLOYEE (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL, AGE INTEGER, SALARY REAL)');
     // 将已创建的表设置分布式表。
@@ -60,7 +60,7 @@ export async function setCollaborationDistributedTables(context: common.UIAbilit
     asyncDownloadAsset: false,
     enableCloud: false
   }
-  relationalStore.getRdbStore(context!, STORE_CONFIG).then((rdbStore: relationalStore.RdbStore) => {
+  relationalStore.getRdbStore(context!, STORE_CONFIG).then(async (rdbStore: relationalStore.RdbStore) => {
     store = rdbStore;
     await store!.executeSql('CREATE TABLE IF NOT EXISTS EMPLOYEE (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL, AGE INTEGER, SALARY REAL)');
     // 将已创建的表设置分布式表。
