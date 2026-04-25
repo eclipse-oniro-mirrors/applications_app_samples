@@ -1,0 +1,80 @@
+'use static'
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start entry3_release_offline_web_page1_static]
+// Page1.ets
+import { Component, State, $r, NavDestination, Row, Column, Text, NodeContainer, Builder } from '@kit.ArkUI';
+import { getNWeb, getFreeWebNode, MyNodeController } from './Common'
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+@Builder
+export function Page1Builder(): void {
+  Page1();
+}
+
+@Component
+struct Page1 {
+  private testUrl: string | undefined = 'about:blank';
+  @State private node1: MyNodeController | undefined = getNWeb(this.testUrl);
+  @State private node2: MyNodeController | undefined = getFreeWebNode();
+
+  aboutToAppear(): void {
+    try {
+      this.testUrl = this.getUIContext().getHostContext()?.resourceManager.getStringSync($r('app.string.test_url1').id);
+    } catch (error) {
+      hilog.info(0x0000, 'testTag', 'getString error, %{public}s', error);
+    }
+    this.node2?.loadUrl(this.testUrl)
+  }
+
+  build() {
+    NavDestination() {
+      Row() {
+        Column() {
+          // NodeContainer用于与NodeController节点绑定，rebuild会触发makeNode
+          // Page页通过NodeContainer接口绑定NodeController，实现动态组件页面显示
+          if (this.node1) {
+            NodeContainer(this.node1 as MyNodeController)
+              .height('50%')
+              .width('100%')
+          } else {
+            Text('webNode NodeContainer 1')
+              .height('50%')
+              .width('100%')
+          }
+          if (this.node2) {
+            NodeContainer(this.node2 as MyNodeController)
+              .height('50%')
+              .width('100%')
+          } else {
+            Text('webNode NodeContainer 2')
+              .height('50%')
+              .width('100%')
+          }
+        }
+        .width('100%')
+        .height('100%')
+      }
+      .height('100%')
+    }
+    // node2加载空页面
+    .onWillHide(() => {
+      this.node2?.loadUrl('about:blank');
+    })
+  }
+}
+
+// [End entry3_release_offline_web_page1_static]
