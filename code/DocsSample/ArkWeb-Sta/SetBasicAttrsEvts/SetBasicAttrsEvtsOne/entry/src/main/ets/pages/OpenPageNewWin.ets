@@ -71,7 +71,7 @@ struct WebComponent {
           // 需要使能multiWindowAccess
         .multiWindowAccess(true)
         .allowWindowOpenMethod(true)
-        .onWindowNew((event: onWindowNewEvent): void => {
+        .onWindowNew((event: OnWindowNewEvent): void => {
           if (this.dialogController) {
             this.dialogController?.close()
           }
