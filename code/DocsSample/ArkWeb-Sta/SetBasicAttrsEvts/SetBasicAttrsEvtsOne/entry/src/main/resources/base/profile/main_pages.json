@@ -1,0 +1,20 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/DarkMode_one",
+    "pages/DarkMode_two",
+    "pages/DarkMode_three",
+    "pages/AllowGeolocation",
+    "pages/ClearAllCookiesSync",
+    "pages/ConfigCookieSync",
+    "pages/DeleteAllData",
+    "pages/DeleteGeolocation",
+    "pages/ExistCookie",
+    "pages/FetchCookieSync",
+    "pages/GetAccessibleGeolocation",
+    "pages/IncognitoMode_one",
+    "pages/IncognitoMode_two",
+    "pages/OpenPageNewWin",
+    "pages/ManageLocPerms"
+  ]
+}
