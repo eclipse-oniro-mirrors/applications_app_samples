@@ -111,6 +111,7 @@ export struct GoodsList {
           .borderRadius(10)
           .padding(12)
           .backgroundColor($r('app.color.white'))
+          .id('goodsCard' + item.id)
 
           // 方案二：使用nav跳转，配合共享元素动画
           .onClick(() => {

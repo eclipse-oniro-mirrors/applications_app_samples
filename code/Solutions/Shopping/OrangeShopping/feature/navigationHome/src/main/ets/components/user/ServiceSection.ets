@@ -39,6 +39,7 @@ export struct ServiceSectionComponent {
       this.serverSection($r('app.media.old_fornew'), $r('app.string.old_for_new'))
       this.serverSection($r('app.media.my_evaluation'), $r('app.string.my_evaluation'))
     }
+    .id('user_service_section')
     .width('100%')
     .justifyContent(FlexAlign.SpaceBetween)
     .padding({

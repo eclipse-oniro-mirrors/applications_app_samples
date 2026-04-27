@@ -28,6 +28,7 @@ export struct MyOrderComponent {
         Blank()
         Row() {
           Text($r('app.string.all_order'))
+            .id('user_all_order_entry')
             .fontSize(14)
             .opacity(0.6)
           Image($r('app.media.arrows_right'))
@@ -63,6 +64,7 @@ export struct MyOrderComponent {
         top: 14
       })
     }
+    .id('user_order_section')
     .padding({
       left: 12,
       right: 12,

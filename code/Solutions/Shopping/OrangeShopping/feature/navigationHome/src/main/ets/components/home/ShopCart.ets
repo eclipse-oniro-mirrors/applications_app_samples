@@ -38,6 +38,7 @@ export struct ShopCart {
 
               Blank()
               Text($r('app.string.shop_cart_edit'))
+                .id('cart_edit_entry')
                 .fontSize(16)
                 .fontFamily('HarmonyHeiTi')
                 .fontColor($r('app.color.blank'))

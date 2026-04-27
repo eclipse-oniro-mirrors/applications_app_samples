@@ -14,7 +14,9 @@
  */
 
 import abilityTest from './Ability.test'
+import shoppingDesignTest from './ShoppingDesign.test'
 
 export default function testsuite() {
   abilityTest()
+  shoppingDesignTest()
 }

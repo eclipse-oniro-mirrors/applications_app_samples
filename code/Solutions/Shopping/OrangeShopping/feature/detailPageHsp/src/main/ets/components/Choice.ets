@@ -33,6 +33,7 @@ export struct Choice {
         .width(12)
         .aspectRatio(1)
     }
+    .id('detail_choice_entry')
     .width('100%')
     .padding({ top: 12, bottom: 18, left: 12, right: 12 })
     .justifyContent(FlexAlign.SpaceBetween)

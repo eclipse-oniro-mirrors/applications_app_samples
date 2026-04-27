@@ -81,6 +81,7 @@ export struct AddressService {
       .onClick(() => {
         this.isPanel = !this.isPanel;
       })
+      .id('detail_address_entry')
 
       Row() {
         Text($r('app.string.service'))
@@ -98,6 +99,7 @@ export struct AddressService {
       .width('100%')
       .alignItems(VerticalAlign.Top)
       .margin({ top: 12 })
+      .id('detail_service_panel')
     }
     .width('100%')
     .justifyContent(FlexAlign.Start)

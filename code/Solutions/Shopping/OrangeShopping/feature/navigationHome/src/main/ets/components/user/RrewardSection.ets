@@ -39,6 +39,7 @@ export struct RewardSectionComponent {
       this.options($r('app.media.interaction'), $r('app.string.interaction'));
       this.options($r('app.media.card_volumn'), $r('app.string.card_volume'));
     }
+    .id('user_reward_section')
     .width('100%')
     .padding({
       top: 16,

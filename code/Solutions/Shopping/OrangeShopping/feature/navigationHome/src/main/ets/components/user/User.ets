@@ -48,6 +48,7 @@ export struct User {
             Column() {
               Row() {
                 Image($r('app.media.setting'))
+                  .id('user_setting_entry')
                   .width(24)
                   .aspectRatio(1)
                   .objectFit(ImageFit.Contain)
@@ -58,6 +59,7 @@ export struct User {
                     this.pageStack.pushPath({ name: 'SetPage' })
                   })
                 Image($r('app.media.scan_code'))
+                  .id('user_scan_entry')
                   .width(24)
                   .aspectRatio(1)
                   .objectFit(ImageFit.Contain)
@@ -107,6 +109,7 @@ export struct User {
                   left: 12
                 })
               }
+              .id('user_profile_card')
               .width('100%')
               .padding({
                 left: 12

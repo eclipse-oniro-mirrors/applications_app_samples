@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry'
+import { abilityDelegatorRegistry } from '@kit.TestKit'
 import UIAbility from '@ohos.app.ability.UIAbility'
 import Window from '@ohos.window'
 import { Hypium } from '@ohos/hypium'
@@ -27,8 +27,8 @@ export default class TestAbility extends UIAbility {
     Logger.info('TestAbility onCreate')
     Logger.info('want param:' + JSON.stringify(want) ?? '')
     Logger.info('launchParam:' + JSON.stringify(launchParam) ?? '')
-    let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs = AbilityDelegatorRegistry.getArguments();
+    let abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+    let abilityDelegatorArguments = abilityDelegatorRegistry.getArguments();
     Logger.info('start run testcase!!!')
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
   }

@@ -44,6 +44,7 @@ export struct NewProduct {
               }
             }, (item: SwiperModel) => item.id.toString())
           }
+          .id('new_product_banner')
           .width('100%')
           .height(186)
           .autoPlay(true)
@@ -74,6 +75,7 @@ export struct NewProduct {
                 this.tabsIndex = item.id;
                 this.controller.changeIndex(item.id);
               })
+              .id('new_product_tab' + item.id)
             }, (item: NewProductTitleBarModel) => item.id.toString())
 
             Row() {
@@ -96,6 +98,7 @@ export struct NewProduct {
                   left: 2
                 })
             }
+            .id('new_product_classification')
           }
           .width('100%')
           .padding({

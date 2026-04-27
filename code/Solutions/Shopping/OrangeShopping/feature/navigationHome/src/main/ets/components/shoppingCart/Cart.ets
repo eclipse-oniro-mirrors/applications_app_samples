@@ -25,6 +25,7 @@ export struct Cart {
     Column() {
       Row() {
         Toggle({ type: ToggleType.Checkbox })
+          .id('cart_shop_checkbox')
           .width(20)
           .aspectRatio(1)
           .selectedColor($r('app.color.red'))
@@ -47,6 +48,7 @@ export struct Cart {
       ForEach(this.shoppingCartGoodsListToCart ? this.shoppingCartGoodsListToCart : [], (item: number) => {
         Row() {
           Toggle({ type: ToggleType.Checkbox })
+            .id('cart_goods_checkbox' + PRODUCT_DATA[item].id)
             .width(20)
             .selectedColor($r('app.color.red'))
             .aspectRatio(1)
@@ -82,16 +84,19 @@ export struct Cart {
               Blank()
               Row() {
                 Image($r('app.media.reduce'))
+                  .id('cart_goods_reduce' + PRODUCT_DATA[item].id)
                   .width(24)
                   .height(24)
                   .objectFit(ImageFit.Contain)
                 Text(`${1}`)
+                  .id('cart_goods_count' + PRODUCT_DATA[item].id)
                   .margin({
                     left: 10,
                     right: 10
                   })
                   .fontSize(12)
                 Image($r('app.media.add'))
+                  .id('cart_goods_add' + PRODUCT_DATA[item].id)
                   .width(24)
                   .height(24)
                   .objectFit(ImageFit.Contain)
