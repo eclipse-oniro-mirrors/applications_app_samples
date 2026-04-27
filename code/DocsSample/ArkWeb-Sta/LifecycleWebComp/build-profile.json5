@@ -15,17 +15,15 @@
 
 {
   "app": {
-    "signingConfigs": [
-    ],
+    "signingConfigs": [],
     "products": [
       {
         "name": "default",
         "signingConfig": "default",
-        "targetSdkVersion": "26.0.0",
+        "targetSdkVersion": "6.1.0(23)",
         "arkTSVersion": "1.2",
-        "compatibleSdkVersion": "26.0.0",
-        "compileSdkVersion": "26.0.0",
-        "runtimeOS": "OpenHarmony",
+        "compatibleSdkVersion": "6.1.0(23)",
+        "runtimeOS": "HarmonyOS",
         "buildOption": {
           "strictMode": {
             "caseSensitiveCheck": true,
