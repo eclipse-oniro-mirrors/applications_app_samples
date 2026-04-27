@@ -139,6 +139,7 @@ export struct DetailPage {
         });
 
         Image($r('app.media.back'))
+          .id('detail_back')
           .width(32)
           .aspectRatio(1)
           .position({ x: 20, y: 20 })
@@ -147,6 +148,7 @@ export struct DetailPage {
           });
 
         Image($r("app.media.share"))
+          .id('detail_share_top')
           .width(32)
           .aspectRatio(1)
           .position({ x: '100%', y: 20 })

@@ -50,6 +50,7 @@ export struct BottomNavigation {
             url: 'pages/Home'
           });
         })
+        .id('detail_bottom_home')
 
         Column() {
           Stack({ alignContent: Alignment.TopEnd }) {
@@ -59,6 +60,7 @@ export struct BottomNavigation {
               .rotate(this.animateSpring ? { angle: 10 } : { angle: 0 })
 
             Text(`${this.productCount}`)
+              .id('detail_cart_count')
               .borderRadius(10)
               .width(15)
               .height(15)
@@ -82,6 +84,7 @@ export struct BottomNavigation {
             url: 'pages/Home'
           });
         })
+        .id('detail_bottom_cart')
       }
       .justifyContent(this.curBp === 'sm' ? FlexAlign.SpaceEvenly : FlexAlign.Start)
       .layoutWeight(1)
@@ -133,12 +136,14 @@ export struct BottomNavigation {
           })
 
         })
+        .id('detail_add_cart')
 
         Row() {
           Text($r('app.string.buy_now'))
             .fontColor($r('app.color.white'))
             .fontSize(this.curBp === 'sm' ? 16 : 20)
         }
+        .id('detail_buy_now')
         .alignItems(VerticalAlign.Center)
         .padding({ left: 20, right: 20 })
       }
@@ -154,4 +159,3 @@ export struct BottomNavigation {
     .backgroundColor($r('app.color.divider'))
   }
 }
-

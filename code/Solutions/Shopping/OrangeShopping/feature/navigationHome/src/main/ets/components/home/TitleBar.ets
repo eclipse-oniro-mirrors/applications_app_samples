@@ -34,6 +34,7 @@ export struct TitleBarComponent {
             .aspectRatio(1)
             .objectFit(ImageFit.Contain)
           Image($r('app.media.scan_code'))
+            .id('home_scan_entry')
             .width(24)
             .aspectRatio(1)
             .objectFit(ImageFit.Contain)
@@ -69,6 +70,7 @@ export struct TitleBarComponent {
           .interval(2000)
           .margin(12)
         }
+        .id('home_search_box')
         .zIndex(2)
         .width('100%')
         .justifyContent(FlexAlign.Start)

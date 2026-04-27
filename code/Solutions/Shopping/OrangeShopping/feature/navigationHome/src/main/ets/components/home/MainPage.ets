@@ -50,6 +50,7 @@ export struct MainPage {
                 this.navTabsIndex = item.id;
                 this.navController.changeIndex(item.id);
               })
+              .id('home_nav_tab' + item.id)
             }, (item: NavDataModel) => item.id.toString())
 
             Row() {
@@ -73,6 +74,7 @@ export struct MainPage {
                   left: 2
                 })
             }
+            .id('home_nav_classification')
           }
           .width('100%')
           .justifyContent(FlexAlign.SpaceBetween)

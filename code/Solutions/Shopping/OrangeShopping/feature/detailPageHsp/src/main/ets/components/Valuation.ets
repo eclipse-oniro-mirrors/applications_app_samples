@@ -79,6 +79,7 @@ export struct Valuation {
       .width('100%')
       .padding({ left: 12, right: 12 })
     }
+    .id('detail_valuation')
     .padding({ top: 12, bottom: 12, right: 16, left: 16 })
     .backgroundColor($r('app.color.white'))
     .borderRadius(16)

@@ -47,9 +47,11 @@ export struct Information {
           .fontSize(20)
           .fontColor($r('app.color.pink'))
       }
+      .id('detail_price')
       .fontWeight(500)
 
       Text(this.goodDetailData.title)
+        .id('detail_title')
         .fontSize(16)
         .margin({ top: 4 })
       Row() {
@@ -80,6 +82,7 @@ export struct Information {
           })
           this.shareDialog?.open();
         })
+        .id('detail_share_action')
 
         Row() {
           Image(this.collected ? $r('app.media.collected') : $r('app.media.collect'))
@@ -94,6 +97,7 @@ export struct Information {
         .onClick(() => {
           this.collected = !this.collected;
         })
+        .id('detail_collection_action')
 
         Row({ space: 6 }) {
           Image($r('app.media.attention'))
@@ -125,6 +129,7 @@ export struct Information {
             logger.info(TAG, `startWork error ${JSON.stringify(error)}`);
           }
         })
+        .id('detail_price_notice_action')
       }
       .width('100%')
       .justifyContent(FlexAlign.SpaceAround)

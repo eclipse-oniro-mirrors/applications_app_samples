@@ -49,6 +49,7 @@ export struct HomePageContent {
             this.tabsIndex = item.id;
             this.controller.changeIndex(item.id);
           })
+          .id('home_recommend_tab' + item.id)
         }, (item: TitleBarModel) => item.id.toString())
       }
       .width('100%')
@@ -64,19 +65,19 @@ export struct HomePageContent {
       Tabs({ controller: this.controller }) {
         TabContent() {
           GoodsList(new Url(this.url));
-        }
+        }.id('home_goods_tab0')
 
         TabContent() {
           GoodsList(new Url(this.url));
-        }
+        }.id('home_goods_tab1')
 
         TabContent() {
           GoodsList(new Url(this.url));
-        }
+        }.id('home_goods_tab2')
 
         TabContent() {
           GoodsList(new Url(this.url));
-        }
+        }.id('home_goods_tab3')
       }
       .height(this.listHeight + 12)
       .barWidth(0)

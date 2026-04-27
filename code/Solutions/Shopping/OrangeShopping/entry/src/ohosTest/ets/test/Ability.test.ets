@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import { Driver, ON, MatchPattern } from '@ohos.UiTest';
+import { abilityDelegatorRegistry, Driver, MatchPattern, ON } from '@kit.TestKit';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 import Logger from '../utils/Logger';
 import Want from '@ohos.app.ability.Want';
@@ -35,7 +34,7 @@ export default function abilityTest() {
         bundleName: 'ohos.samples.orangeshopping',
         abilityName: 'MainAbility'
       }
-      let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+      let abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
       await abilityDelegator.startAbility(want, (err, data) => {
         Logger.info(TAG, 'StartAbility get err ' + JSON.stringify(err));
         expect(err).assertNull();
@@ -51,7 +50,7 @@ export default function abilityTest() {
     it(BUNDLE + 'GetPermission_001', 0, async (done: Function) => {
       Logger.info(TAG, 'GetPermission_001 start');
       let driver = await Driver.create();
-      let resourceManager = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager;
+      let resourceManager = abilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager;
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text(await resourceManager.getStringValue($r('app.string.allow'))));
       let agree = await driver.findComponent(ON.text(await resourceManager.getStringValue($r('app.string.allow'))));
@@ -86,7 +85,7 @@ export default function abilityTest() {
     it(BUNDLE + 'SwitchPage_001', 0, async (done: Function) => {
       Logger.info(TAG, 'SwitchPage_001 start');
       let driver = await Driver.create();
-      let resourceManager = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager;
+      let resourceManager = abilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager;
       // 检查Tab是否存在
       await driver.assertComponentExist(ON.id('homeTab0'));
       await driver.assertComponentExist(ON.id('homeTab1'));
@@ -176,7 +175,7 @@ export default function abilityTest() {
     it(BUNDLE + 'AddGoodsToCart_001', 0, async (done: Function) => {
       Logger.info(TAG, 'AddGoodsToCart_001 start');
       let driver = await Driver.create();
-      let resourceManager = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager;
+      let resourceManager = abilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager;
       let cartTag = 'cart_';
       let goods = await driver.findComponent(ON.id("goods0"));
       // 点击商品
