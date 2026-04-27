@@ -52,7 +52,7 @@ struct WebComponent {
           if (!event) {
             return;
           }
-          if (event.renderExitReason == RenderExitReason.ProcessCrashed) {
+          if (event.renderExitReason == RenderExitReason.PROCESS_CRASHED) {
             if (this.renderReloadCountForCrashed >= this.renderReloadMaxForCrashed) {
               // 设置重试次数上限保护，避免必现问题导致页面被循环加载。
               return;

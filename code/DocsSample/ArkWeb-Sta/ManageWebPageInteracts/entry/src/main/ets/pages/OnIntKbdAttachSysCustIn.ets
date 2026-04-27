@@ -16,7 +16,7 @@
 
 // [Start soft_keyboard_web_static]
   // Index.ets
-  import { WebKeyBoardCallBackInfo, WebKeyboardOptions, WebKeyboardController, $rawfile, Color, Text, Column, Row, Web, ColumnOptions, Entry, Component, Map, Button } from '@ohos.arkui.component';
+  import { WebKeyboardCallbackInfo, WebKeyboardOptions, WebKeyboardController, $rawfile, Color, Text, Column, Row, Web, ColumnOptions, Entry, Component, Map, Button } from '@ohos.arkui.component';
   import webview from '@ohos.web.webview';
   import { inputMethodEngine } from '@kit.IMEKit';
 
@@ -76,7 +76,7 @@
     build() {
       Column() {
         Web({ src: $rawfile('index.html'), controller: this.controller })
-        .onInterceptKeyboardAttach((KeyBoardCallBackInfo: WebKeyBoardCallBackInfo): WebKeyboardOptions => {
+        .onInterceptKeyboardAttach((KeyBoardCallBackInfo: WebKeyboardCallbackInfo): WebKeyboardOptions => {
           // option初始化，默认使用系统默认键盘
           let option: WebKeyboardOptions = {
             useSystemKeyboard: true,

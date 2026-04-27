@@ -21,7 +21,7 @@ import { BusinessError, RecordData } from '@ohos.base';
 import webview from '@ohos.web.webview';
 
 import { Callback } from '@ohos.base';
-import { getUIContext, Router } from '@ohos.arkui.UIContext';
+import { UIContext, Router } from '@ohos.arkui.UIContext';
 
 @Entry
 @Component

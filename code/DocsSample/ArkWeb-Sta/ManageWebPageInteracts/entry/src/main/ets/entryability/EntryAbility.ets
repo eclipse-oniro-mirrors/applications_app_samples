@@ -1,6 +1,6 @@
 'use static'
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,44 +14,31 @@
  * limitations under the License.
  */
 
-import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { window } from '@kit.ArkUI';
+import UIAbility from '@ohos.app.ability.UIAbility';
+import AbilityConstant from '@ohos.app.ability.AbilityConstant';
+import Want from '@ohos.app.ability.Want';
+import window from '@ohos.window';
+import { BusinessError } from '@ohos.base'
+import hilog from '@ohos.hilog'
 
-export default class EntryAbility extends UIAbility {
+class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
-  }
-
-  onDestroy(): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
+    hilog.info(0x0000, 'testTag', 'EntryAbility onCreate');
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
-    // Main window is created, set main page for this ability
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
-
-    windowStage.loadContent('pages/Index', (err) => {
-      if (err.code) {
-        hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
-        return;
-      }
-      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
-    });
-  }
-
-  onWindowStageDestroy(): void {
-    // Main window is destroyed, release UI related resources
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
-  }
-
-  onForeground(): void {
-    // Ability has brought to foreground
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onForeground');
-  }
-
-  onBackground(): void {
-    // Ability has back to background
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
+    hilog.info(0x0000, 'testTag', 'EntryAbility onWindowStageCreate');
+    try {
+      windowStage.loadContent('pages/Index', (err: BusinessError<void> | null): void => {
+        hilog.info(0x0000, 'testTag', 'loadContent entering');
+        if (err && err.code) {
+          hilog.info(0x0000, 'testTag', 'loadContent error');
+          return;
+        }
+        hilog.info(0x0000, 'testTag', 'loadContent ok');
+      });
+    } catch (e) {
+      hilog.info(0x0000, 'testTag', 'loadContent catch error：-----------' + e.message);
+    }
   }
 }

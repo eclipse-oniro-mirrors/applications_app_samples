@@ -3,18 +3,14 @@
     {
       "name": "module_desc",
       "value": "module description"
-    }
-  ,{
-      "name": "Entry3Ability_desc",
+    },
+    {
+      "name": "EntryAbility_desc",
       "value": "description"
     },
     {
-      "name": "Entry3Ability_label",
-      "value": "NetReqInterceptCacheWinOps"
-    },
-    {
-      "name": "web_path",
-      "value": "https://www.example.com"
+      "name": "EntryAbility_label",
+      "value": "label"
     }
   ]
 }
