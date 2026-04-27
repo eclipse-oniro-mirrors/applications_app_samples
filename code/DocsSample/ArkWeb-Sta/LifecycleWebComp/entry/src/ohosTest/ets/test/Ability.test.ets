@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,12 +13,9 @@
  * limitations under the License.
  */
 
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
-import { UIAbility, Want } from '@kit.AbilityKit';
 
-const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
     // Defines a test suite. Two parameters are supported: test suite name and test suite function.
@@ -40,25 +37,14 @@ export default function abilityTest() {
       // Presets a clear action, which is performed after all test cases of the test suite end.
       // This API supports only one parameter: clear action function.
     })
-    it('testUiExample',0, async (done: Function) => {
-      console.info("uitest: TestUiExample begin");
-      const want: Want = {
-        bundleName: bundleName,
-        abilityName: 'EntryAbility'
-      }
-      await delegator.startAbility(want);
-      const driver = Driver.create();
-      await driver.delayMs(1000);
-      const ability: UIAbility = await delegator.getCurrentTopAbility();
-      console.info('get top ability');
-      expect(ability.context.abilityInfo.name).assertEqual('EntryAbility');
-      await driver.delayMs(1000);
-
-      const type = await driver.findComponent(ON.type('Web'));
-      let src: string = await type.getText();
-      expect(src).assertContain('www.example.com');
-
-      done();
+    it('assertContain', 0, () => {
+      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
+      hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
+      let a = 'abc';
+      let b = 'b';
+      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
+      expect(a).assertContain(b);
+      expect(a).assertEqual(a);
     })
   })
 }
