@@ -1,0 +1,57 @@
+'use static'
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start web_module_dynamic_attach_detach_static]
+// Index.ets
+import { createNWeb, MyNodeController, defaultUrl, getBuilderNode, defaultUrl } from './Common'
+import webview from '@ohos.web.webview';
+import { Button, Column, ColumnOptions, Entry, Component, NodeContainer } from '@ohos.arkui.component'
+import { typeNode, NodeController, FrameNode, ComponentContent } from '@ohos.arkui.node';
+
+@Entry
+@Component
+struct Index {
+  private nodeController : MyNodeController =
+    new MyNodeController(getBuilderNode(defaultUrl), getWebviewController(defaultUrl));
+
+  build() {
+    Row() {
+      Column() {
+        Button("Attach Webview")
+          .onClick(() => {
+            // 注意不要将同一个节点同时挂载在不同的页面上！
+            this.nodeController.attachWeb();
+            this.nodeController.rebuild();
+          })
+        Button("Detach Webview")
+          .onClick(() => {
+            this.nodeController.detachWeb();
+            this.nodeController.rebuild();
+          })
+        // NodeContainer用于与NodeController节点绑定，rebuild会触发makeNode
+        // Page页通过NodeContainer接口绑定NodeController，实现动态组件页面显示
+        NodeContainer(this.nodeController as MyNodeController)
+          .height('80%')
+          .width('80%')
+      }
+      .width('100%')
+    }
+    .height('100%')
+  }
+}
+// [End web_module_dynamic_attach_detach_static]
+
+
