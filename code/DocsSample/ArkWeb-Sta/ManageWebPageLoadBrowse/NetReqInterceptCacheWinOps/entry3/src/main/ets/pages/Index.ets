@@ -16,7 +16,7 @@
 
 // [Start web_module_dynamic_attach_detach_static]
 // Index.ets
-import { createNWeb, MyNodeController, defaultUrl, getBuilderNode, defaultUrl } from './Common'
+import { createNWeb, MyNodeController, defaultUrl, getBuilderNode, getWebviewController } from './Common'
 import webview from '@ohos.web.webview';
 import { Button, Column, ColumnOptions, Entry, Component, NodeContainer } from '@ohos.arkui.component'
 import { typeNode, NodeController, FrameNode, ComponentContent } from '@ohos.arkui.node';
@@ -28,7 +28,6 @@ struct Index {
     new MyNodeController(getBuilderNode(defaultUrl), getWebviewController(defaultUrl));
 
   build() {
-    Row() {
       Column() {
         Button("Attach Webview")
           .onClick(() => {
@@ -47,8 +46,7 @@ struct Index {
           .height('80%')
           .width('80%')
       }
-      .width('100%')
-    }
+    .width('100%')
     .height('100%')
   }
 }

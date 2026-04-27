@@ -30,7 +30,7 @@ import {
   wrapBuilder,
   WrappedBuilder
 } from '@kit.ArkUI';
-import { webview } from '@kit.ArkWeb';
+import webview from '@ohos.web.webview';
 import hilog from '@ohos.hilog'
 
 export const defaultUrl : string = 'https://www.example.com';
@@ -48,7 +48,7 @@ class Data{
 
 // @Builder中为动态组件的具体组件内容
 @Builder
-function webBuilder(data:Data) {
+function webBuilder(data:Data): void {
   Web({ src: data.url, controller: data.webController })
     .width('100%')
     .height('100%')
@@ -63,7 +63,7 @@ export class MyNodeController extends NodeController {
   private webController : webview.WebviewController | null | undefined = null;
   private rootNode : FrameNode | null = null;
 
-  constructor(builderNode : BuilderNode<[Data]> | undefined, webController : webview.WebviewController | undefined) {
+  constructor(builderNode : BuilderNode<Data> | undefined, webController : webview.WebviewController | undefined) {
     super();
     this.builderNode = builderNode;
     this.webController = webController;
@@ -79,7 +79,7 @@ export class MyNodeController extends NodeController {
   // 挂载Webview
   attachWeb() : void {
     if (this.builderNode) {
-      let frameNode : FrameNode | null = this.builderNode?.getFrameNode();
+      let frameNode : FrameNode | null | undefined = this.builderNode?.getFrameNode();
       if (frameNode?.getParent() != null) {
         // 挂载自定义节点前判断该节点是否已经被挂载
         hilog.error(0x0000, 'testTag', '%{public}s', 'The frameNode is already attached');
