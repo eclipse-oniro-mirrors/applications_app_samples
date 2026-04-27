@@ -27,7 +27,7 @@ struct Index {
           this.getUIContext().getRouter().pushUrl({
             url: 'pages/SetRenderProcessMode',
           })
-            .catch((error: BusinessError) => {
+            .catch((error) => {
               console.info(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
             })
         })
@@ -37,7 +37,7 @@ struct Index {
           this.getUIContext().getRouter().pushUrl({
             url: 'pages/TerminateRenderProcess',
           })
-            .catch((error: BusinessError) => {
+            .catch((error) => {
               console.info(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
             })
         })
@@ -47,7 +47,7 @@ struct Index {
           this.getUIContext().getRouter().pushUrl({
             url: 'pages/OnRenderExited',
           })
-            .catch((error: BusinessError) => {
+            .catch((error) => {
               console.info(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
             })
         })
@@ -57,7 +57,7 @@ struct Index {
           this.getUIContext().getRouter().pushUrl({
             url: 'pages/OnRenderProcessNotResponding',
           })
-            .catch((error: BusinessError) => {
+            .catch((error) => {
               console.info(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
             })
         })
@@ -67,7 +67,7 @@ struct Index {
           this.getUIContext().getRouter().pushUrl({
             url: 'pages/OnRenderProcessResponding',
           })
-            .catch((error: BusinessError) => {
+            .catch((error) => {
               console.info(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
             })
         })
@@ -77,7 +77,7 @@ struct Index {
           this.getUIContext().getRouter().pushUrl({
             url: 'pages/WebComponentCreat',
           })
-            .catch((error: BusinessError) => {
+            .catch((error) => {
               console.info(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
             })
         })
