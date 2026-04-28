@@ -82,8 +82,8 @@ export function UniformDataStructure_Sta() {
         if (plainTextRead != undefined) {
           hilog.info(0xFF00, '[Sample_Udmf]',
             `plainTextRead.uniformDataType: ${plainTextRead.uniformDataType} + , plainText.uniformDataType: ${plainText.uniformDataType}`);
-          }
         }
-      }
+    }
+  }
   // [End unified_data_structure]
 }
