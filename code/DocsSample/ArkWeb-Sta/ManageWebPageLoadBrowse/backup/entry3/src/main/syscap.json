@@ -1,0 +1,6 @@
+{
+  "syscap": [
+    "SystemCapability.ArkUI.ArkTS.Lite",
+    "SystemCapability.ArkWeb.Web"
+  ]
+}
