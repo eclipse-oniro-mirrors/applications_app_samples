@@ -39,6 +39,25 @@ struct Index {
             url: 'pages/WebBackToTop',
           })
         })
+      Button('ShowTextInput')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/ShowTextInput' }).catch(() => {
+            console.error('Routing failed!');
+          });
+        })
+      Button('OnIntKbdAttachSysCustIn')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/OnIntKbdAttachSysCustIn' }).catch(() => {
+            console.error('Routing failed!');
+          });
+        })
+      Button('SetSKBMode_one')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/SetSKBMode_one' }).catch(() => {
+            console.error('Routing failed!');
+          });
+        })
+        
     }.height('100%')
     .width('100%')
   }
