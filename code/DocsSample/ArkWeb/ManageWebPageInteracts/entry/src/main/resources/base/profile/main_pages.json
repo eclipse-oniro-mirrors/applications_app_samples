@@ -4,6 +4,7 @@
     "pages/ImpNestedScroll",
     "pages/WebNestedScroll",
     "pages/OnIntKbdAttachSysCustIn",
-    "pages/SetSKBMode_one"
+    "pages/SetSKBMode_one",
+    "pages/WebBackToTop"
   ]
 }

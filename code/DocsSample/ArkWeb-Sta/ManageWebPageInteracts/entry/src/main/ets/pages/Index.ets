@@ -1,6 +1,7 @@
 'use static'
+
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,34 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import hilog from '@ohos.hilog'
-import { Text, ColumnOptions, Entry, Component, Column, Button } from '@ohos.arkui.component';
-import { BusinessError } from '@ohos.base';
+import { Button, Column, ColumnOptions, Component, Entry } from '@ohos.arkui.component';
 
 @Entry
 @Component
 struct Index {
   build() {
-    Column({ space: 10 } as ColumnOptions) {
-      Button('ShowTextInput')
+    Column({ space: 20 } as ColumnOptions) {
+      Button('WebNestedScroll1')
         .onClick(() => {
-          this.getUIContext().getRouter().pushUrl({ url: 'pages/ShowTextInput' }).catch(() => {
-            console.error('Routing failed!');
-          });
+          this.getUIContext().getRouter().pushUrl({
+            url: 'pages/ImpNestedScroll',
+          })
         })
-      Button('OnIntKbdAttachSysCustIn')
+      Button('WebNestedScroll2')
         .onClick(() => {
-          this.getUIContext().getRouter().pushUrl({ url: 'pages/OnIntKbdAttachSysCustIn' }).catch(() => {
-            console.error('Routing failed!');
-          });
+          this.getUIContext().getRouter().pushUrl({
+            url: 'pages/WebNestedScroll',
+          })
         })
-      Button('SetSKBMode_one')
+      Button('WebBackToTop')
         .onClick(() => {
-          this.getUIContext().getRouter().pushUrl({ url: 'pages/SetSKBMode_one' }).catch(() => {
-            console.error('Routing failed!');
-          });
+          this.getUIContext().getRouter().pushUrl({
+            url: 'pages/WebBackToTop',
+          })
         })
-        
     }.height('100%')
     .width('100%')
   }
