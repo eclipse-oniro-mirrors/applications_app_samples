@@ -16,9 +16,9 @@
 
 // [Start show_text_input_static]
 // Index.ets
-import hilog from '@ohos.hilog'
 import { $rawfile, TextAlign, Color, Web, Row, Text, ColumnOptions, Entry, Component, Column, Button, WebKeyboardAvoidMode } from '@ohos.arkui.component';
-import { BusinessError } from '@ohos.base';
+import webview from '@ohos.web.webview';
+import inputMethod from '@ohos.inputMethod'
 
 @Entry
 @Component

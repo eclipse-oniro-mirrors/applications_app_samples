@@ -16,9 +16,8 @@
 
 // [Start soft_keyboard_setmode_static]
 // Index.ets
-import hilog from '@ohos.hilog'
 import { $rawfile, TextAlign, Color, Web, Row, Text, ColumnOptions, Entry, Component, Column, Button, WebKeyboardAvoidMode } from '@ohos.arkui.component';
-import { BusinessError } from '@ohos.base';
+import webview from '@ohos.web.webview';
 
 @Entry
 @Component

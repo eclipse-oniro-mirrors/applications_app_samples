@@ -28,11 +28,11 @@ export default class Entry2Ability extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {	
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
   }
-  try {
+
   // [EndExclude soft_keyboard_entryability_static]
 onWindowStageCreate(windowStage: window.WindowStage): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
-
+    try {
     windowStage.loadContent('pages/Index', (err: BusinessError<void> | null): void => {
     let keyboardAvoidMode = windowStage.getMainWindowSync().getUIContext().getKeyboardAvoidMode();
     // 设置虚拟键盘抬起时压缩页面大小为减去键盘的高度
