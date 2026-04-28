@@ -12,16 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 {
   "module": {
     "name": "entry3",
     "type": "entry",
     "description": "$string:module_desc",
-    "mainElement": "EntryAbility",
+    "mainElement": "Entry3Ability",
     "deviceTypes": [
-      "default",
-      "tablet"
+      "default"
     ],
     "deliveryWithInstall": true,
     "installationFree": false,

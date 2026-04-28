@@ -1,15 +1,6 @@
 {
-  "devices": {
-    "general": [
-      "default",
-      "tablet"
-    ]
-  },
-  "production": {
-    "removedSysCaps": [
-      "SystemCapability.HiviewDFX.HiDumper",
-      "SystemCapability.Multimedia.AVSession.ExtendedDisplayCast",
-      "SystemCapability.Security.DeviceAuth"
-    ]
-  }
+  "syscap": [
+    "SystemCapability.ArkUI.ArkTS.Lite",
+    "SystemCapability.ArkWeb.Web"
+  ]
 }
