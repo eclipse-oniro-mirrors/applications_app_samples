@@ -43,20 +43,8 @@
   },
   "modules": [
     {
-      "name": "entry",
-      "srcPath": "./entry",
-      "targets": [
-        {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "entry2",
-      "srcPath": "./entry2",
+      "name": "entry3",
+      "srcPath": "./entry3",
       "targets": [
         {
           "name": "default",

@@ -14,7 +14,7 @@
  */
 {
   "module": {
-    "name": "entry2",
+    "name": "entry3",
     "type": "entry",
     "description": "$string:module_desc",
     "mainElement": "EntryAbility",
@@ -26,11 +26,11 @@
     "pages": "$profile:main_pages",
     "abilities": [
       {
-        "name": "Entry2Ability",
-        "srcEntry": "./ets/entry2ability/Entry2Ability.ets",
-        "description": "$string:Entry2Ability_desc",
+        "name": "Entry3Ability",
+        "srcEntry": "./ets/entry3ability/Entry3Ability.ets",
+        "description": "$string:Entry3Ability_desc",
         "icon": "$media:layered_image",
-        "label": "$string:Entry2Ability_label",
+        "label": "$string:Entry3Ability_label",
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
