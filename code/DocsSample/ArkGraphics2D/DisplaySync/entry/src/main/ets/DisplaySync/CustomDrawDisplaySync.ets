@@ -176,7 +176,10 @@ struct Index {
               this.CreateDisplaySyncFast();
             }
             if (this.backDisplaySyncSlow) {
+              // [Start display_sync_start_per_frame_callback_slow]
+              // 开始每帧回调
               this.backDisplaySyncSlow.start();
+              // [End display_sync_start_per_frame_callback_slow]
             }
             if (this.backDisplaySyncFast) {
               this.backDisplaySyncFast.start();
@@ -196,7 +199,10 @@ struct Index {
           .fontColor(Color.White)
           .onClick((): void => {
             if (this.backDisplaySyncSlow) {
+              // [Start display_sync_stop_per_frame_callback_slow]
+              // 停止每帧回调
               this.backDisplaySyncSlow.stop();
+              // [End display_sync_stop_per_frame_callback_slow]
             }
             if (this.backDisplaySyncFast) {
               this.backDisplaySyncFast.stop();
