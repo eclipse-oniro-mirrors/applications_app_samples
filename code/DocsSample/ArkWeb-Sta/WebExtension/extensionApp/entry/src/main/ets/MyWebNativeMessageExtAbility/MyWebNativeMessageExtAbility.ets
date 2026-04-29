@@ -1,5 +1,6 @@
 'use static'
 
+// [Start web_native_messaging_extension_ability_sta]
 import { ConnectionInfo } from '@ohos.web.WebNativeMessagingExtensionAbility'
 import WebNativeMessagingExtensionAbility from "@ohos.web.WebNativeMessagingExtensionAbility"
 import { hilog } from '@kit.PerformanceAnalysisKit';
@@ -56,3 +57,4 @@ export default class MyWebNativeMessageExtAbility extends WebNativeMessagingExte
     hilog.info(DOMAIN_NUMBER, TAG, 'onDestroy');
   }
 };
+// [End web_native_messaging_extension_ability_sta]

@@ -6,6 +6,7 @@ import { UIAbility, Want, common } from '@kit.AbilityKit';
 import webNativeMessagingExtensionManager from '@ohos.web.webNativeMessagingExtensionManager';
 import dataShare from '@ohos.data.dataShare';
 
+// [Start web_native_messaging_get_manifest_data_sta]
 class ExtensionConfig {
   abilityName: string = '';
   allowed_origins: string[] = new Array<string>();
@@ -63,7 +64,9 @@ async function getManifestData(bundleName: string, connectExtensionOrigin: strin
     console.error('Error getting config:', error);
   }
 }
+// [End web_native_messaging_get_manifest_data_sta]
 
+// [Start web_native_messaging_connect_native_sta]
 class ConnectionCallback implements webNativeMessagingExtensionManager.WebExtensionConnectionCallback {
   onConnect(connection: webNativeMessagingExtensionManager.ConnectionNativeInfo) {
     // connected
@@ -100,11 +103,14 @@ function connectNative(abilityContext: common.UIAbilityContext, bundleName: stri
     console.info(`inner callback error Message: ${JSON.stringify(error)}`);
   }
 }
+// [End web_native_messaging_connect_native_sta]
 
+// [Start web_native_messaging_disconnect_native_sta]
 function disconnencNative(connectId: int): void {
   console.info(`NativeMessageDisconnect start connectionId is ${connectId}`);
   webNativeMessagingExtensionManager.disconnectNative(connectId);
 }
+// [End web_native_messaging_disconnect_native_sta]
 
 @Entry
 @Component
