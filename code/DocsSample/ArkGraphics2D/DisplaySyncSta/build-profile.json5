@@ -38,20 +38,6 @@
       {
         "name": "release"
       }
-    ],
-    "signingConfigs": [
-      {
-        "name": "default",
-        "material": {
-          "certpath": "C:/Users/admin/.ohos/config/openharmony/default_DisplaySyncSta_Oz_aI4ClkmNcDlUqgyozHwEdUjLWnPDZ5fAIL1c-pIA=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001A8D92DC9E0301E9DB238BDE256FDCBB6283C5D3C1FC4EE28868C3A610DD1E48D76B87FB61D998",
-          "profile": "C:/Users/admin/.ohos/config/openharmony/default_DisplaySyncSta_Oz_aI4ClkmNcDlUqgyozHwEdUjLWnPDZ5fAIL1c-pIA=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/admin/.ohos/config/openharmony/default_DisplaySyncSta_Oz_aI4ClkmNcDlUqgyozHwEdUjLWnPDZ5fAIL1c-pIA=.p12",
-          "storePassword": "0000001A6A7EC479B44D26E33E2C2C391B264736BA5F77C37E525074A15F4B8DF6FA91777273DF540346"
-        }
-      }
     ]
   },
   "modules": [
