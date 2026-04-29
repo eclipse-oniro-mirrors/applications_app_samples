@@ -24,31 +24,32 @@ struct NestedScroll {
   controller: webview.WebviewController = new webview.WebviewController();
   @Local arr: Array<number> = [];
 
-  aboutToAppear(): void {
-    for (let i = 0; i < 10; i++) {
-    this.arr.push(i);
-  }
-}
-
-build() {
-  Scroll(this.scrollerForScroll) {
-    Column() {
-      Web({ src: $rawfile('scroll.html'), controller: this.controller })
-        .nestedScroll({
-          scrollUp: NestedScrollMode.PARENT_FIRST,//向上滚动父组件优先
-          scrollDown: NestedScrollMode.SELF_FIRST,//向下滚动子组件优先
-        }).height('100%')
-      Repeat<number>(this.arr)
-        .each((item: RepeatItem<number>) => {
-          Text('Scroll Area')
-            .width('100%')
-            .height('40%')
-            .backgroundColor(0X330000FF)
-            .fontSize(16)
-            .textAlign(TextAlign.Center)
-        })
+   aboutToAppear(): void {	 
+     for (let i = 0; i < 10; i++) {	 
+       this.arr.push(i);	 
+     } 
+   } 
+ 
+ 
+  build() { 
+    Scroll(this.scrollerForScroll) { 
+      Column() { 
+        Web({ src: $rawfile('scroll.html'), controller: this.controller }) 
+          .nestedScroll({ 
+            scrollUp: NestedScrollMode.PARENT_FIRST, // 向上滚动父组件优先 
+            scrollDown: NestedScrollMode.SELF_FIRST, // 向下滚动子组件优先 
+          }).height('100%') 
+        Repeat<number>(this.arr) 
+          .each((item: RepeatItem<number>) => { 
+            Text('Scroll Area') 
+              .width('100%') 
+              .height('40%') 
+              .backgroundColor(0x330000FF) 
+              .fontSize(16) 
+              .textAlign(TextAlign.Center) 
+          }) 
+      } 
     }
-  }
-}
+  }	 
 }
 // [End nested_scrolling]
