@@ -44,12 +44,6 @@ struct Index {
             console.error('Routing failed!');
           });
         })
-        Button('ShowTextInput')
-        .onClick(() => {
-          this.getUIContext().getRouter().pushUrl({ url: 'pages/ShowTextInput' }).catch(() => {
-            console.error('Routing failed!');
-          });
-        })
     }.height('100%')
     .width('100%')
   }
