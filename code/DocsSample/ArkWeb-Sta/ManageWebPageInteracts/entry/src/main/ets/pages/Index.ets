@@ -39,12 +39,6 @@ struct Index {
             url: 'pages/WebBackToTop',
           })
         })
-      Button('ShowTextInput')
-        .onClick(() => {
-          this.getUIContext().getRouter().pushUrl({ url: 'pages/ShowTextInput' }).catch(() => {
-            console.error('Routing failed!');
-          });
-        })
       Button('OnIntKbdAttachSysCustIn')
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/OnIntKbdAttachSysCustIn' }).catch(() => {

@@ -1,6 +1,5 @@
-'use static'
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,11 +13,10 @@
  * limitations under the License.
  */
 
-// [Start show_text_input_static]
+// [Start show_text_input]
 // Index.ets
-import { $rawfile, TextAlign, Color, Web, Row, Text, ColumnOptions, Entry, Component, Column, Button, WebKeyboardAvoidMode } from '@ohos.arkui.component';
-import webview from '@ohos.web.webview';
-import inputMethod from '@ohos.inputMethod'
+import { webview } from '@kit.ArkWeb';
+import { inputMethod } from '@kit.IMEKit';
 
 @Entry
 @Component
@@ -37,5 +35,4 @@ struct WebComponent {
     }
   }
 }
-
-// [End show_text_input_static]
+// [End show_text_input]
