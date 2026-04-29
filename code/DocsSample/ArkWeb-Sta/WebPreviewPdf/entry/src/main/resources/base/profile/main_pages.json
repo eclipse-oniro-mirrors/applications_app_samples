@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/PreviewPDF",
+    "pages/LoadNetworkPdf",
+    "pages/LoadRawfilePdf",
+    "pages/LoadSandboxPdf",
+    "pages/PdfEvent"
+  ]
+}
