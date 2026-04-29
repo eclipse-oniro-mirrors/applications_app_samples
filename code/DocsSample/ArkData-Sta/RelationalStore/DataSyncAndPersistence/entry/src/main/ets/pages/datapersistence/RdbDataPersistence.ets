@@ -228,7 +228,7 @@ export async function rdbDataPersistence(context: common.UIAbilityContext | unde
     } catch (error) {
       const err = error as BusinessError;
       hilog.error(DOMAIN, 'rdbDataPersistence',
-        `Failed to creating fts table. code: ${err.code}, message: ${err.message}.`);
+        `Failed to create fts table. code: ${err.code}, message: ${err.message}.`);
     }
   }
   if (store !== undefined) {
