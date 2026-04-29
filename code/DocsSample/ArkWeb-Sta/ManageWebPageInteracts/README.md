@@ -63,7 +63,10 @@ entry/src/main/
 |---|---entryability
 |---|---|---EntryAbility.ets
 |---|---pages
-|---|---|---Index.ets						// 首页
+|---|---|---Index.ets					// 首页	 
+|---|---|---ImpNestedScroll.ets	  //使用nestedScroll属性实现嵌套滚动	 
+|---|---|---WebBackToTop.ets        //置顶	 
+|---|---|---WebNestedScroll.ets    //滚动偏移量由滚动父组件统一派发
 |---|---|---OnIntKbdAttachSysCustIn.ets	
 |---|---|---SetSKBMode_one.ets
 |---|---|---ImpNestedScroll.ets
