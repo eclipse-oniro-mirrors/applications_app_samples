@@ -1,7 +1,8 @@
-# Web组件嵌套滚动
+# Web组件嵌套滚动、Web组件对接软键盘
 
 ## 介绍
 1. Web组件嵌套滚动：实现对以下指南文档中 https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-nested-scrolling.md 示例代码片段的工程化，保证指南中示例代码与sample工程文件同源。
+2. Web组件对接软键盘：实现对以下指南文档中 https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-docking-softkeyboard.md 示例代码片段的工程化，保证指南中示例代码与sample工程文件同源。
 
 ## Web组件嵌套滚动 ImpNestedScroll 
 
@@ -21,6 +22,38 @@
 2. 设置滚动模式（后）
    - 在 切换后滚动模式 区域，同样点击上述按钮，可设置NestedScrollModeB，用于控制 Web 视图向后滚动（scrollBackward）时的交互模式。
 
+## Web组件对接软键盘 SetSKBMode_one 
+
+### 介绍
+
+1. 本示例主要介绍Web组件对接软键盘，在UIContext的键盘避让模式为Offset模式情况下，通过WebKeyboardAvoidMode()设置ArkWeb组件的键盘避让模式。
+
+### 效果预览
+
+| 主页                                                         | 软键盘                                                       |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| <img src="./screenshots/SetSKBMode_one_1.png" width="360;" /> | <img src="./screenshots/SetSKBMode_one_2.png" width="360;" /> |
+
+### 使用说明
+
+1. 点击输入框拉起软键盘。
+
+## Web组件对接软键盘 OnIntKbdAttachSysCustIn
+
+### 介绍
+
+1. 本示例主要介绍拦截系统软键盘与自定义软键盘输入，调用onInterceptKeyboardAttach来拦截系统软键盘的弹出。
+
+### 效果预览
+
+| 主页                                                         |
+| ------------------------------------------------------------ |
+| <img src="./screenshots/OnIntKbdAttachSysCustIn.png" width="360;" /> |
+
+使用说明
+
+1. 点击未设置特殊属性的输入框，将默认使用系统默认键盘。
+2. 点击设置了keyboard-return属性的输入框，根据属性值获取对应的enterKeyType，以改变系统键盘回车键的行为。
 
 ### 工程目录
 
@@ -30,10 +63,13 @@ entry/src/main/
 |---|---entryability
 |---|---|---EntryAbility.ets
 |---|---pages
-|---|---|---Index.ets					// 首页
-|---|---|---ImpNestedScroll.ets	  //使用nestedScroll属性实现嵌套滚动
-|---|---|---WebBackToTop.ets        //置顶
+|---|---|---Index.ets					// 首页	 
+|---|---|---ImpNestedScroll.ets	  //使用nestedScroll属性实现嵌套滚动	 
+|---|---|---WebBackToTop.ets        //置顶	 
 |---|---|---WebNestedScroll.ets    //滚动偏移量由滚动父组件统一派发
+|---|---|---OnIntKbdAttachSysCustIn.ets	
+|---|---|---SetSKBMode_one.ets
+|---|---|---ImpNestedScroll.ets
 |---resources								// 静态资源
 |---ohosTest
 |---|---ets
@@ -45,6 +81,45 @@ entry/src/main/
 ### 相关权限
 
 [ohos.permission.INTERNET](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissioninternet)
+
+## Web组件对接软键盘 SetSKBMode_two
+
+### 介绍
+
+1. 本示例主要介绍Web组件对接软键盘，设置UIContext的软键盘避让模式setKeyboardAvoidMode(KeyboardAvoidMode.RESIZE)，应用窗口高度可缩小避开软键盘，ArkWeb组件跟随ArkUI重新布局。
+
+### 效果预览
+
+| 主页                                                        | 软键盘                                                      |
+| ----------------------------------------------------------- | ----------------------------------------------------------- |
+| <img src="screenshots\SetSKBMode_two_1.png" width="360;" /> | <img src="screenshots\SetSKBMode_two_2.png" width="360;" /> |
+
+使用说明
+
+1. 点击输入框拉起软键盘。
+
+### 工程目录
+
+```
+entry2/src/main/
+|---ets
+|---|---entry2ability
+|---|---|---Entry2Ability.ets
+|---|---pages
+|---|---|---Index.ets						// 首页
+|---resources								// 静态资源
+|---ohosTest
+|---|---ets
+|---|---|---tests
+|---|---|---|---Ability.test.ets            // 自动化测试用例
+```
+
+#### 具体实现
+在应用代码中设置UIContext的软键盘避让模式[setKeyboardAvoidMode()](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-universal-attributes-expand-safe-area.md#setkeyboardavoidmode11)。ArkWeb组件支持Resize和Offset两种模式。参考源码：[OpenPageNewWin.ets](./entry2/src/main/ets/entry2ability/Entry2Ability.ets)
+
+### 相关权限
+
+无。
 
 ## 依赖
 
@@ -63,7 +138,7 @@ entry/src/main/
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkWeb/ManageWebPageInteracts > .git/info/sparse-checkout
+echo code/DocsSample/ArkWeb-Sta/ManageWebPageInteracts > .git/info/sparse-checkout
 git remote add origin https://gitee.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

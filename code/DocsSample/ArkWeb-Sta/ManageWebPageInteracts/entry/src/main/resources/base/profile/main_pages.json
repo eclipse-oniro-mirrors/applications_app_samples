@@ -3,6 +3,9 @@
     "pages/Index",
     "pages/ImpNestedScroll",
     "pages/WebNestedScroll",
-    "pages/WebBackToTop"
+    "pages/WebBackToTop",
+    "pages/OnIntKbdAttachSysCustIn",
+    "pages/SetSKBMode_one",
+    "pages/ShowTextInput"
   ]
 }
