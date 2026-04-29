@@ -320,7 +320,7 @@ entry/src/main/
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkWeb/SetBasicAttrsEvts/SetBasicAttrsEvtsOne > .git/info/sparse-checkout
+echo code/DocsSample/ArkWeb-Sta/SetBasicAttrsEvts/SetBasicAttrsEvtsOne > .git/info/sparse-checkout
 git remote add origin https://gitee.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
