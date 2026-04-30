@@ -92,7 +92,7 @@ struct Index {
       // [Start aip_getTextEmbedding_operating]
       let text = 'text';
       textEmbedding?.getEmbedding(text)
-        .then((data: Array<number>) => {
+        .then((data: Array<double>) => {
           console.info('Succeeded in getting Embedding');
           // [StartExclude aip_getTextEmbedding_operating]
           this.message = 'aip getTextEmbedding';
@@ -107,7 +107,7 @@ struct Index {
 
       let batchTexts = ['text1','text2'];
       textEmbedding?.getEmbedding(batchTexts)
-        .then((data: Array<Array<number>>) => {
+        .then((data: Array<Array<double>>) => {
           console.info('Succeeded in getting Embedding');
           // [StartExclude aip_getTextEmbedding_operating]
           this.message = 'aip getTextEmbedding';
@@ -217,7 +217,7 @@ struct Index {
       // [Start aip_getImageEmbedding_operating]
       let image = 'file://<packageName>/data/storage/el2/base/haps/entry/files/xxx.jpg';
       imageEmbedding?.getEmbedding(image)
-        .then((data: Array<number>) => {
+        .then((data: Array<double>) => {
           console.info('Succeeded in getting Embedding');
           // [StartExclude aip_getImageEmbedding_operating]
           this.message = 'aip getImageEmbedding';
