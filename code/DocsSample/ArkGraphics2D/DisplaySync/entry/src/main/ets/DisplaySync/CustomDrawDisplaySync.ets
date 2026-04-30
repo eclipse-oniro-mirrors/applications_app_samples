@@ -54,7 +54,7 @@ struct Index {
 
   // [Start display_sync_frame_rate_setting_and_subscription_function_registration]
   CreateDisplaySyncSlow() {
-    // [Start display_sync_frame_rate_setting_function_registration]
+    // [Start display_sync_start_per_frame_callback_slow]
     let range : ExpectedFrameRateRange = {
       expected: 30,
       min: 0,
@@ -67,9 +67,7 @@ struct Index {
     // [End display_sync_create_slow]
     // 设置DisplaySync期望的帧率
     this.backDisplaySyncSlow.setExpectedFrameRateRange(range);
-    // [End display_sync_frame_rate_setting_function_registration]
 
-    // [Start display_sync_frame_rate_subscription_function_registration_slow]
     let draw30 = (intervalInfo: displaySync.IntervalInfo) => {
       if (this.isBigger_30) {
         this.drawFirstSize += 1;
@@ -86,7 +84,7 @@ struct Index {
 
     // 注册订阅函数
     this.backDisplaySyncSlow.on("frame", draw30);
-    // [End display_sync_frame_rate_subscription_function_registration_slow]
+    // [StartExclude display_sync_start_per_frame_callback_slow]
   }
   // [End display_sync_frame_rate_setting_and_subscription_function_registration]
 
@@ -176,7 +174,7 @@ struct Index {
               this.CreateDisplaySyncFast();
             }
             if (this.backDisplaySyncSlow) {
-              // [Start display_sync_start_per_frame_callback_slow]
+              // [EndExclude display_sync_start_per_frame_callback_slow]
               // 开始每帧回调
               this.backDisplaySyncSlow.start();
               // [End display_sync_start_per_frame_callback_slow]
@@ -199,7 +197,7 @@ struct Index {
           .fontColor(Color.White)
           .onClick((): void => {
             if (this.backDisplaySyncSlow) {
-              // [Start display_sync_stop_per_frame_callback_slow]
+              // [EndExclude display_sync_stop_per_frame_callback_slow]
               // 停止每帧回调
               this.backDisplaySyncSlow.stop();
               // [End display_sync_stop_per_frame_callback_slow]
