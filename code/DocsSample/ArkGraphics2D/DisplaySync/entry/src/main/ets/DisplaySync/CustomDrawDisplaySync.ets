@@ -32,7 +32,9 @@ struct Index {
   // [EndExclude display_sync_create_object]
 
   // [StartExclude display_sync_create_text_component]
+  // [Start display_sync_create_text_component_slow]
   private backDisplaySyncSlow: displaySync.DisplaySync | undefined = undefined;
+  // [End display_sync_create_text_component_slow]
   private backDisplaySyncFast: displaySync.DisplaySync | undefined = undefined;
   // [StartExclude display_sync_create_object]
   private isBigger_30: boolean = true;
