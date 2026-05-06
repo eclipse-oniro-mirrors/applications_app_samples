@@ -127,7 +127,7 @@ struct Index {
     this.backDisplaySyncFast?.onFrame(draw60);
   }
 
-  // [Start display_sync_call_start]
+  // [Start display_sync_call_start_context]
   aboutToAppear() {
     // 获取UIContext实例
     let uiContext: UIContext = this.getUIContext();
@@ -136,7 +136,7 @@ struct Index {
       this.backDisplaySyncSlow?.start();
     })
   }
-  // [End display_sync_call_start]
+  // [End display_sync_call_start_context]
 
   // [Start display_sync_call_stop]
   aboutToDisappear() {
