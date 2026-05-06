@@ -131,7 +131,7 @@ struct Index {
   aboutToAppear() {
     // 获取UIContext实例
     let uiContext: UIContext = this.getUIContext();
-    // 在当前UI上下文中执行DisplaySync的Start接口
+    // 在当前UI上下文中执行DisplaySync的start接口
     uiContext.runScopedTask(() => {
       this.backDisplaySyncSlow?.start();
     })
