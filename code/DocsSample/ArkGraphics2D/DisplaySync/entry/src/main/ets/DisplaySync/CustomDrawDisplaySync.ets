@@ -196,7 +196,7 @@ struct Index {
           .fontColor(Color.White)
           .onClick((): void => {
             if (this.backDisplaySyncSlow) {
-              // [EndExclude display_sync_stop_per_frame_callback_slow]
+              // [Start display_sync_stop_per_frame_callback_slow]
               // 停止每帧回调
               this.backDisplaySyncSlow.stop();
               // [End display_sync_stop_per_frame_callback_slow]
