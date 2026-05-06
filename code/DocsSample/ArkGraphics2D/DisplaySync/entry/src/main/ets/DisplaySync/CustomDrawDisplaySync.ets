@@ -54,20 +54,19 @@ struct Index {
 
   // [Start display_sync_frame_rate_setting_and_subscription_function_registration]
   CreateDisplaySyncSlow() {
-    // [Start display_sync_start_per_frame_callback_slow]
+    // [Start display_sync_create_slow]
     let range : ExpectedFrameRateRange = {
       expected: 30,
       min: 0,
       max: 120
     };
 
-    // [Start display_sync_create_slow]
     // 创建DisplaySync实例
     this.backDisplaySyncSlow = displaySync.create();
-    // [End display_sync_create_slow]
     // 设置DisplaySync期望的帧率
     this.backDisplaySyncSlow.setExpectedFrameRateRange(range);
-
+    // [End display_sync_create_slow]
+    // [Start display_sync_frame_rate_subscription_function_registration_slow]
     let draw30 = (intervalInfo: displaySync.IntervalInfo) => {
       if (this.isBigger_30) {
         this.drawFirstSize += 1;
@@ -84,7 +83,7 @@ struct Index {
 
     // 注册订阅函数
     this.backDisplaySyncSlow.on("frame", draw30);
-    // [StartExclude display_sync_start_per_frame_callback_slow]
+    // [End display_sync_frame_rate_subscription_function_registration_slow]
   }
   // [End display_sync_frame_rate_setting_and_subscription_function_registration]
 
@@ -174,7 +173,7 @@ struct Index {
               this.CreateDisplaySyncFast();
             }
             if (this.backDisplaySyncSlow) {
-              // [EndExclude display_sync_start_per_frame_callback_slow]
+              // [Start display_sync_start_per_frame_callback_slow]
               // 开始每帧回调
               this.backDisplaySyncSlow.start();
               // [End display_sync_start_per_frame_callback_slow]
