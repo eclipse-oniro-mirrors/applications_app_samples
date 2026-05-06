@@ -38,12 +38,12 @@ export default class EntryAbility extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
     let cContext = this.context;
     cInfo = {
-      kvManagerConfig: {
+      'kvManagerConfig': {
         context: cContext,
         bundleName: 'com.example.ecstoresamples'
       },
-      storeId: 'cstore',
-      option: {
+      'storeId': 'cstore',
+      'option': {
         createIfMissing: true,
         encrypt: false,
         backup: false,
@@ -85,12 +85,12 @@ export default class EntryAbility extends UIAbility {
       let eContext: Context = await application.createModuleContext(this.context, 'entry');
       eContext.area = contextConstant.AreaMode.EL5;
       eInfo = {
-        kvManagerConfig: {
+        'kvManagerConfig': {
           context: eContext,
           bundleName: 'com.example.ecstoresamples'
         },
-        storeId: 'estore',
-        option: {
+        'storeId': 'estore',
+        'option': {
           createIfMissing: true,
           encrypt: false,
           backup: false,
