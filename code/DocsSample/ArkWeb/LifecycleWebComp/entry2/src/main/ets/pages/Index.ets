@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+// [Start on_render_exited_index]
 import { webview } from '@kit.ArkWeb';
 
 @Entry
@@ -73,3 +73,4 @@ struct WebComponent {
     }
   }
 }
+// [End on_render_exited_index]
