@@ -1,5 +1,3 @@
-<!-- @[web_native_messaging_extension_ability](https://gitcode.com/openharmony/applications_app_samples/blob/OpenHarmony_feature_sta_20260331/code/DocsSample/ArkWeb/WebExtension/ExtensionApp/entry/src/main/ets/MyWebNativeMessageExtAbility/MyWebNativeMessageExtAbility.ets) -->
-
 // [Start web_native_messaging_extension_ability]
 import { WebNativeMessagingExtensionAbility, ConnectionInfo } from '@kit.ArkWeb';
 import { hilog } from '@kit.PerformanceAnalysisKit';
