@@ -19,9 +19,9 @@ import { State } from '@ohos.arkui.stateManagement'
 import hilog from '@ohos.hilog'
 import { UIAbility, Want, common } from '@kit.AbilityKit';
 import webNativeMessagingExtensionManager from '@ohos.web.webNativeMessagingExtensionManager';
+// [Start web_native_messaging_get_manifest_data_sta]
 import dataShare from '@ohos.data.dataShare';
 
-// [Start web_native_messaging_get_manifest_data_sta]
 class ExtensionConfig {
   abilityName: string = '';
   allowed_origins: string[] = new Array<string>();

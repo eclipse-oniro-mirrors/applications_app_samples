@@ -1,3 +1,4 @@
+// [Start web_native_messaging_extension_ability]
 import { WebNativeMessagingExtensionAbility, ConnectionInfo } from '@kit.ArkWeb';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import {buffer, util} from '@kit.ArkTS';
@@ -53,3 +54,4 @@ export default class MyWebNativeMessageExtAbility extends WebNativeMessagingExte
     hilog.info(DOMAIN_NUMBER, TAG, 'onDestroy');
   }
 };
+// [End web_native_messaging_extension_ability]

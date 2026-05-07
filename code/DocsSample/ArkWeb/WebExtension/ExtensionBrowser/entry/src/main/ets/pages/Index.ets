@@ -1,8 +1,15 @@
+// [Start web_native_messaging_connect_native]
 import { UIAbility, Want, common } from '@kit.AbilityKit';
+// [Start web_native_messaging_disconnect_native]
 import { webNativeMessagingExtensionManager } from '@kit.ArkWeb'
+// [StartExclude web_native_messaging_disconnect_native]
+// [StartExclude web_native_messaging_connect_native]
 import testNapi from 'libentry.so';
+// [Start web_native_messaging_get_manifest_data]
 import dataShare from '@ohos.data.dataShare';
+// [StartExclude web_native_messaging_get_manifest_data]
 import { bundleManager } from '@kit.AbilityKit';
+// [EndExclude web_native_messaging_connect_native]
 class ConnectionCallback implements webNativeMessagingExtensionManager.WebExtensionConnectionCallback {
   onConnect(connection:webNativeMessagingExtensionManager.ConnectionNativeInfo) {
     // connected
@@ -37,16 +44,20 @@ function connectNative(abilityContext: common.UIAbilityContext, bundleName: stri
     console.info(`inner callback error Message: ${JSON.stringify(error)}`);
   }
 }
+// [End web_native_messaging_connect_native]
+// [EndExclude web_native_messaging_disconnect_native]
 function disconnencNative(connectId: number) : void {
   console.info(`NativeMessageDisconnect start connectionId is ${connectId}`);
   webNativeMessagingExtensionManager.disconnectNative(connectId);
 }
+// [End web_native_messaging_disconnect_native]
 
 interface ExtensionConfig {
   abilityName:string;
   allowed_origins:string[];
 }
 
+// [EndExclude web_native_messaging_get_manifest_data]
 async function getManifestData(bundleName:string, connectExtensionOrigin:string) {
   try {
     // 调用dataShare接口获取extension配置
@@ -91,7 +102,8 @@ async function getManifestData(bundleName:string, connectExtensionOrigin:string)
     console.error('Error getting config:', error);
   }
 }
-
+// [End web_native_messaging_get_manifest_data]
+// [End web_native_messaging_get_manifest_data]
 @Entry
 @Component
 struct Index {
