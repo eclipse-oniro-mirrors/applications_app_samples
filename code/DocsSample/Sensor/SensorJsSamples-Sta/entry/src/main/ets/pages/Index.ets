@@ -86,7 +86,7 @@ let options: SensorOptionsValString = {
 @Component
 struct Index {
   @State stateVar: string = 'state var';
-  private DOMAIN: int = 0x0000
+  private DOMAIN: int = 0x0000;
   @State private sensorItems: string[] = [''];
   private sampleRate: number = 200000000;
   selectedSensorId: number = 0;
