@@ -1,5 +1,7 @@
 import { UIAbility, Want, common } from '@kit.AbilityKit';
+// [Start web_native_messaging_disconnect_native]
 import { webNativeMessagingExtensionManager } from '@kit.ArkWeb'
+// [StartExclude web_native_messaging_disconnect_native]
 import testNapi from 'libentry.so';
 import dataShare from '@ohos.data.dataShare';
 import { bundleManager } from '@kit.AbilityKit';
@@ -37,10 +39,12 @@ function connectNative(abilityContext: common.UIAbilityContext, bundleName: stri
     console.info(`inner callback error Message: ${JSON.stringify(error)}`);
   }
 }
+// [StartExclude web_native_messaging_disconnect_native]
 function disconnencNative(connectId: number) : void {
   console.info(`NativeMessageDisconnect start connectionId is ${connectId}`);
   webNativeMessagingExtensionManager.disconnectNative(connectId);
 }
+// [End web_native_messaging_disconnect_native]
 
 interface ExtensionConfig {
   abilityName:string;
