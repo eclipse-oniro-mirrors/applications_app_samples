@@ -42,9 +42,9 @@ struct Index {
   // [EndExclude display_sync_create_object]
 
   // [StartExclude display_sync_create_text_component]
-  // [StartExclude display_sync_create_text_component_slow]
+  // [Start display_sync_create_text_component_slow]
   private backDisplaySyncSlow: displaySync.DisplaySync | undefined = undefined;
-  // [EndExclude display_sync_create_text_component_slow]
+  // [End display_sync_create_text_component_slow]
 
   private backDisplaySyncFast: displaySync.DisplaySync | undefined = undefined;
   // [StartExclude display_sync_create_object]
@@ -67,21 +67,18 @@ struct Index {
 
   // [Start display_sync_frame_rate_setting_and_subscription_function_registration]
   CreateDisplaySyncSlow() {
-    // [Start display_sync_frame_rate_setting_function_registration]
+    // [Start display_sync_create_slow]
     let range : ExpectedFrameRateRange = {
       expected: 30,
       min: 0,
       max: 120
     };
 
-    // [Start display_sync_create_slow]
     // 创建DisplaySync实例
     this.backDisplaySyncSlow = displaySync.create();
-    // [End display_sync_create_slow]
     // 设置DisplaySync期望的帧率
     this.backDisplaySyncSlow?.setExpectedFrameRateRange(range);
-    // [End display_sync_frame_rate_setting_function_registration]
-
+    // [End display_sync_create_slow]
     // [Start display_sync_frame_rate_subscription_function_registration_slow]
     let draw30 = (intervalInfo: displaySync.IntervalInfo) => {
       if (this.isBigger_30) {
@@ -112,7 +109,6 @@ struct Index {
     this.backDisplaySyncFast = displaySync.create();
     this.backDisplaySyncFast?.setExpectedFrameRateRange(range);
 
-    // [Start display_sync_frame_rate_subscription_function_registration_fast]
     let draw60 = (intervalInfo: displaySync.IntervalInfo) => {
       if (this.isBigger_60) {
         this.drawSecondSize += 1;
@@ -129,19 +125,18 @@ struct Index {
 
     // 注册订阅函数
     this.backDisplaySyncFast?.onFrame(draw60);
-    // [End display_sync_frame_rate_subscription_function_registration_fast]
   }
 
-  // [Start display_sync_call_start]
+  // [Start display_sync_call_start_context]
   aboutToAppear() {
     // 获取UIContext实例
     let uiContext: UIContext = this.getUIContext();
-    // 在当前UI上下文中执行DisplaySync的Start接口
+    // 在当前UI上下文中执行DisplaySync的start接口
     uiContext.runScopedTask(() => {
       this.backDisplaySyncSlow?.start();
     })
   }
-  // [End display_sync_call_start]
+  // [End display_sync_call_start_context]
 
   // [Start display_sync_call_stop]
   aboutToDisappear() {
@@ -160,8 +155,10 @@ struct Index {
     };
 
     if (this.backDisplaySyncSlow) {
+      // [Start display_sync_call_stop_slow]
       // 取消订阅函数
       this.backDisplaySyncSlow?.offFrame(draw30);
+      // [End display_sync_call_stop_slow]
       this.backDisplaySyncSlow?.stop();
       this.backDisplaySyncSlow = undefined;
     }
@@ -181,20 +178,17 @@ struct Index {
     };
 
     if (this.backDisplaySyncFast) {
-      // [Start display_sync_call_stop_fast]
       // 取消订阅函数
       this.backDisplaySyncFast?.offFrame(draw60);
-      // [End display_sync_call_stop_fast]
       this.backDisplaySyncFast?.stop();
       this.backDisplaySyncFast = undefined;
     }
   }
   // [End display_sync_call_stop]
 
-  // [Start display_sync_create_object_two]
+  // [Start display_sync_call_start]
   build() {
-    // ...
-    // [End display_sync_create_object_two]
+    // [StartExclude display_sync_call_start]
     Column() {
       Row() {
         this.doSomeRenderFirst();
@@ -288,13 +282,13 @@ struct Index {
       .alignItems(VerticalAlign.Bottom)
       .layoutWeight(1)
     }
-    // [Start display_sync_create_object_three]
+    // [EndExclude display_sync_call_start]
   }
-  // [End display_sync_create_object_three]
+  // [StartExclude display_sync_call_start]
   // [EndExclude display_sync_create_object]
-  // [Start display_sync_create_object_four]
+  // [EndExclude display_sync_call_start]
 }
-// [End display_sync_create_object_four]
+// [End display_sync_call_start]
 // [End display_sync_create_object]
 // [End display_sync_by_ui_complete_example]
 // [End display_sync_by_complete_example]

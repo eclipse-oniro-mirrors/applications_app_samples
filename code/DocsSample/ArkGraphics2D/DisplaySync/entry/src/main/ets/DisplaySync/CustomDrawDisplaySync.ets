@@ -32,7 +32,9 @@ struct Index {
   // [EndExclude display_sync_create_object]
 
   // [StartExclude display_sync_create_text_component]
+  // [Start display_sync_create_text_component_slow]
   private backDisplaySyncSlow: displaySync.DisplaySync | undefined = undefined;
+  // [End display_sync_create_text_component_slow]
   private backDisplaySyncFast: displaySync.DisplaySync | undefined = undefined;
   // [StartExclude display_sync_create_object]
   private isBigger_30: boolean = true;
@@ -54,21 +56,18 @@ struct Index {
 
   // [Start display_sync_frame_rate_setting_and_subscription_function_registration]
   CreateDisplaySyncSlow() {
-    // [Start display_sync_frame_rate_setting_function_registration]
+    // [Start display_sync_create_slow]
     let range : ExpectedFrameRateRange = {
       expected: 30,
       min: 0,
       max: 120
     };
 
-    // [Start display_sync_create_slow]
     // 创建DisplaySync实例
     this.backDisplaySyncSlow = displaySync.create();
-    // [End display_sync_create_slow]
     // 设置DisplaySync期望的帧率
     this.backDisplaySyncSlow.setExpectedFrameRateRange(range);
-    // [End display_sync_frame_rate_setting_function_registration]
-
+    // [End display_sync_create_slow]
     // [Start display_sync_frame_rate_subscription_function_registration_slow]
     let draw30 = (intervalInfo: displaySync.IntervalInfo) => {
       if (this.isBigger_30) {
