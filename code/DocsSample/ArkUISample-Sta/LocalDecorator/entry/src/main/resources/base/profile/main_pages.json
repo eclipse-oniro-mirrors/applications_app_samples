@@ -1,0 +1,15 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/LocalBasicTypes",
+    "pages/LocalClassObject",
+    "pages/LocalArray",
+    "pages/LocalInterface",
+    "pages/LocalObservedObject",
+    "pages/LocalArrayVariable",
+    "pages/LocalDateVariable",
+    "pages/LocalMapVariable",
+    "pages/LocalSetVariable",
+    "pages/LocalUnionType"
+  ]
+}

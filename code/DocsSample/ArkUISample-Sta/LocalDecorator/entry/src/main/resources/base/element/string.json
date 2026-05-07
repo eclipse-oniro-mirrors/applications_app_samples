@@ -1,0 +1,64 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "local_basic_types_title",
+      "value": "@Local装饰基本类型"
+    },
+    {
+      "name": "local_class_object_title",
+      "value": "@Local装饰类对象"
+    },
+    {
+      "name": "local_array_title",
+      "value": "@Local装饰数组"
+    },
+    {
+      "name": "local_interface_title",
+      "value": "@Local装饰interface字面量"
+    },
+    {
+      "name": "local_componentv2_title",
+      "value": "@Local在@ComponentV2中使用"
+    },
+    {
+      "name": "local_no_parent_init_title",
+      "value": "@Local不支持从父组件传入初始化"
+    },
+    {
+      "name": "local_observed_object_title",
+      "value": "观察对象整体变化"
+    },
+    {
+      "name": "local_array_variable_title",
+      "value": "装饰Array类型变量"
+    },
+    {
+      "name": "local_date_variable_title",
+      "value": "装饰Date类型变量"
+    },
+    {
+      "name": "local_map_variable_title",
+      "value": "装饰Map类型变量"
+    },
+    {
+      "name": "local_set_variable_title",
+      "value": "装饰Set类型变量"
+    },
+    {
+      "name": "local_union_type_title",
+      "value": "联合类型"
+    }
+  ]
+}
