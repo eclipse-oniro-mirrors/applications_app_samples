@@ -29,35 +29,35 @@ export class Logger {
     this.domain = DOMAIN;
   }
 
-  getDomain() {
+  getDomain(): int {
     return this.domain;
   }
 
-  getPrefix() {
+  getPrefix(): string {
     return this.prefix;
   }
 
-  getFormat() {
+  getFormat(): string {
     return this.format;
   }
 
-  debug(format: string) {
+  debug(format: string): void {
     hilog.debug(this.domain, this.prefix, format);
   }
 
-  info(format: string) {
+  info(format: string): void {
     hilog.info(this.domain, this.prefix, format);
   }
 
-  warn(format: string) {
+  warn(format: string): void {
     hilog.warn(this.domain, this.prefix, format);
   }
 
-  error(format: string) {
+  error(format: string): void {
     hilog.error(this.domain, this.prefix, format);
   }
 
-  fatal(format: string) {
+  fatal(format: string): void {
     hilog.fatal(this.domain, this.prefix, format);
   }
 }

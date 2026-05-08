@@ -27,7 +27,7 @@ export default class EntryBackupAbility extends BackupExtensionAbility {
     hilog.info(DOMAIN, PREFIX, FORMAT, 'onBackup ok');
   }
 
-  onRestore(bundleVersion: BundleVersion) {
+  onRestore(bundleVersion: BundleVersion): void {
     hilog.info(DOMAIN, PREFIX, `onRestore ok ${FORMAT}`, JSON.stringify(bundleVersion));
   }
 }
