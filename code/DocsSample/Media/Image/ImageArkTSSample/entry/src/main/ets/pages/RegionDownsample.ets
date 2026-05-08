@@ -13,56 +13,69 @@
 * limitations under the License.
 */
 
-// [Start allocator_import]
-// 导入相关模块包。
 import { image } from '@kit.ImageKit';
 import { common } from '@kit.AbilityKit';
-// [End allocator_import]
 import { ImageInterfaceCalled } from '../tools/CodecUtility';
 import { Router } from '@ohos.arkui.UIContext';
+import { resourceManager } from '@kit.LocalizationKit';
 
 const router = new Router();
 
 @Entry
 @Component
-struct AllocateMemory {
+struct RegionDownsample {
   @State context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
   @State imageInterfaceCalled: ImageInterfaceCalled = new ImageInterfaceCalled();
-  @State pixelMapArr: Array<image.PixelMap | undefined> = [];
   @State srcPixelMap: image.PixelMap | undefined = undefined;
-  @State cropPixelMap: image.PixelMap | undefined = undefined;
   @State infoLog: string = '';
   @State visible: Visibility = Visibility.Hidden;
-  @State cropVisible: Visibility = Visibility.Hidden;
+  @State imageSource: image.ImageSource | undefined = undefined;
 
   release() {
     this.srcPixelMap?.release();
     this.srcPixelMap = undefined;
-    this.cropPixelMap?.release();
-    this.cropPixelMap = undefined;
     this.visible = Visibility.None;
-    this.cropVisible = Visibility.None;
+  }
+
+  async createImageSource(): Promise<void> {
+    const resourceMgr: resourceManager.ResourceManager = this.context.resourceManager;
+    const rawFile = await resourceMgr.getRawFileContent('test.jpeg');
+    this.imageSource = image.createImageSource(rawFile.buffer as ArrayBuffer);
+    this.infoLog = 'ImageSource created successfully.';
   }
 
   build() {
     Column() {
-      Text('申请图片解码内存')
+      Text('区域解码与下采样解码')
         .fontSize(25)
         .margin(10)
 
+      Text('请先创建ImageSource!')
+        .fontSize(16)
+        .fontColor(Color.Gray)
+        .margin({ top: 10, bottom: 10 })
+
       List({ space: 10 }) {
         ListItem() {
-          Button('DMA').onClick(async() => {
+          Button('CreateImageSource').onClick(async() => {
+            await this.createImageSource();
+          })
+            .width('50%')
+            .margin(10)
+        }
+        ListItem() {
+          Button('DecodeRegion').onClick(async() => {
+            if (!this.imageSource) {
+              this.infoLog = 'Please create ImageSource first.';
+              return;
+            }
             this.visible = Visibility.None;
-            this.cropVisible = Visibility.None;
-            this.srcPixelMap = await this.imageInterfaceCalled.CreatePixelMapUsingAllocator(
-              this.context, image.AllocatorType.DMA);
+            this.srcPixelMap = await this.imageInterfaceCalled.DecodeRegion(this.imageSource);
             if(this.srcPixelMap) {
               let info = await this.srcPixelMap.getImageInfo();
-              console.info('stride = ' + info.stride);
-              this.infoLog = `The stride of PixelMap obtained through DMA memory allocation is ${info.stride}.`;
+              this.infoLog = `DecodeRegion succeeded, size=${info.size.width}x${info.size.height}.`;
             } else {
-              this.infoLog = 'Create pixelMap failed.'
+              this.infoLog = 'DecodeRegion failed.'
             }
             this.visible = Visibility.Visible;
           })
@@ -70,17 +83,18 @@ struct AllocateMemory {
             .margin(10)
         }
         ListItem() {
-          Button('SHARE').onClick(async() => {
+          Button('DownsampleDecode').onClick(async() => {
+            if (!this.imageSource) {
+              this.infoLog = 'Please create ImageSource first.';
+              return;
+            }
             this.visible = Visibility.None;
-            this.cropVisible = Visibility.None;
-            this.srcPixelMap = await this.imageInterfaceCalled.CreatePixelMapUsingAllocator(
-              this.context, image.AllocatorType.SHARE_MEMORY);
+            this.srcPixelMap = await this.imageInterfaceCalled.DownsampleDecode(this.imageSource);
             if(this.srcPixelMap) {
               let info = await this.srcPixelMap.getImageInfo();
-              console.info('stride = ' + info.stride);
-              this.infoLog = `The stride of PixelMap obtained through SHARE memory allocation is ${info.stride}.`;
+              this.infoLog = `DownsampleDecode succeeded, size=${info.size.width}x${info.size.height}.`;
             } else {
-              this.infoLog = 'Create pixelMap failed.'
+              this.infoLog = 'DownsampleDecode failed.'
             }
             this.visible = Visibility.Visible;
           })
@@ -88,33 +102,18 @@ struct AllocateMemory {
             .margin(10)
         }
         ListItem() {
-          Button('AUTO').onClick(async() => {
-            this.visible = Visibility.None;
-            this.cropVisible = Visibility.None;
-            this.srcPixelMap = await this.imageInterfaceCalled.CreatePixelMapUsingAllocator(
-              this.context, image.AllocatorType.AUTO);
-            if(this.srcPixelMap) {
-              let info = await this.srcPixelMap.getImageInfo();
-              console.info('stride = ' + info.stride);
-              this.infoLog = `The stride of PixelMap obtained through AUTO memory allocation is ${info.stride}.`;
-            } else {
-              this.infoLog = 'Create pixelMap failed.'
+          Button('CombinedDecode').onClick(async() => {
+            if (!this.imageSource) {
+              this.infoLog = 'Please create ImageSource first.';
+              return;
             }
-            this.visible = Visibility.Visible;
-          })
-            .width('50%')
-            .margin(10)
-        }
-        ListItem() {
-          Button('YUV+DMA').onClick(async() => {
             this.visible = Visibility.None;
-            this.cropVisible = Visibility.None;
-            this.srcPixelMap = await this.imageInterfaceCalled.CreatePixelMapWithYUV(this.context);
+            this.srcPixelMap = await this.imageInterfaceCalled.CombinedDecode(this.imageSource);
             if(this.srcPixelMap) {
               let info = await this.srcPixelMap.getImageInfo();
-              this.infoLog = `YUV PixelMap created, stride=${info.stride}, format=${info.pixelFormat}.`;
+              this.infoLog = `CombinedDecode succeeded, size=${info.size.width}x${info.size.height}.`;
             } else {
-              this.infoLog = 'Create YUV PixelMap failed.'
+              this.infoLog = 'CombinedDecode failed.'
             }
             this.visible = Visibility.Visible;
           })
@@ -129,8 +128,9 @@ struct AllocateMemory {
         ListItem() {
           Button('释放').onClick(async() => {
             this.release();
+            this.imageSource?.release();
+            this.imageSource = undefined;
             this.visible = Visibility.None;
-            this.cropVisible = Visibility.None;
           })
             .width('50%')
             .margin(10)
@@ -145,23 +145,17 @@ struct AllocateMemory {
         }
       }
       .width('100%')
-      .height('60%')
+      .height('50%')
 
       Text(this.infoLog)
         .width('80%')
         .margin(10)
-        .visibility(this.visible & this.cropVisible)
-      Row() {
-        Image(this.srcPixelMap)
-          .width('40%')
-          .height('40%')
-          .visibility(this.visible)
-          .margin(10)
-        Image(this.cropPixelMap)
-          .width('40%')
-          .height('40%')
-          .visibility(this.cropVisible)
-      }
+
+      Image(this.srcPixelMap)
+        .width('40%')
+        .height('40%')
+        .visibility(this.visible)
+        .margin(10)
     }
     .width('100%')
     .height('100%')
