@@ -162,7 +162,7 @@
     },
     {
       "name": "descriptionContent7",
-      "value": "通过skipLockedBiometricAuth参数调整认证过程，通过on(type: 'authTip', callback: AuthTipCallback)获取认证过程中控件的拉起和退出提示，以及认证过程中用户的每一次认证失败尝试。"
+      "value": "通过skipLockedBiometricAuth参数调整认证过程，通过onAuthTip(callback: AuthTipCallback)获取认证过程中控件的拉起和退出提示，以及认证过程中用户的每一次认证失败尝试。"
     },
     {
       "name": "example6",
