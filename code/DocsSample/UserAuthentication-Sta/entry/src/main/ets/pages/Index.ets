@@ -495,7 +495,6 @@ struct Index {
       userAuthInstance.onResult({
         onResult: (result: userAuth.UserAuthResult) => {
           // [StartExclude custom_authentication]
-          Logger.info(`cwj result: ${result.result}}`);
           EAWorker.postToMain<void>((): void => {
             this.result[exampleNumber] =
               (result.result == userAuth.UserAuthResultCode.CANCELED_FROM_WIDGET ||
@@ -509,7 +508,6 @@ struct Index {
               result.result == userAuth.UserAuthResultCode.NOT_ENROLLED) {
               // 请开发者自行完成拉起自定义认证界面的实现
               // [StartExclude custom_authentication]
-              Logger.info('cwj showToast');
               EAWorker.postToMain<void>((): void => {
                 this.getUIContext().getPromptAction().showToast({
                   message: resourceToString($r('app.string.dialogOfCustom')), // 显示文本
