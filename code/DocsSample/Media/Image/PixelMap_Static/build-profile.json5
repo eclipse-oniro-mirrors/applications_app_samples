@@ -1,6 +1,33 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:/Users/Polyhedron/.ohos/config/openharmony/default_PixelMap_Static_lCkVFXe95EixoEsYoKPFz05_P9Y5imGGZlYb701o2l8=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BBA68BD0BB6E9CE98F781AFD30B21BA31040EB88BFA5119F3C9FCD9648468F4363E1F5467001614",
+          "profile": "C:/Users/Polyhedron/.ohos/config/openharmony/default_PixelMap_Static_lCkVFXe95EixoEsYoKPFz05_P9Y5imGGZlYb701o2l8=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/Polyhedron/.ohos/config/openharmony/default_PixelMap_Static_lCkVFXe95EixoEsYoKPFz05_P9Y5imGGZlYb701o2l8=.p12",
+          "storePassword": "0000001BB90E6123210D9294CB4082E5AE2A98E3E49E7BC75CA0F2D543014EC4723EF0C0D33CED9ADF8292"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
