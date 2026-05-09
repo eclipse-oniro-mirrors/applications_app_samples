@@ -37,7 +37,6 @@ import { webview } from '@kit.ArkWeb';
 @Component
 struct NestedScroll {
   private scrollerForScroll: Scroller = new Scroller();
-  private listScroller: Scroller = new Scroller();
   controller: webview.WebviewController = new webview.WebviewController(undefined);
   @State arr: Array<int> = new Array<int>();
 
