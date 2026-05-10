@@ -1,4 +1,17 @@
-// 'use static'
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 import media from '@ohos.multimedia.media';
 import fs from '@ohos.file.fs';
@@ -19,7 +32,6 @@ export class MyAVScreenCapture {
   private constructor() {
   };
 
-  // [Start stop_record]
 
   public static getInstance(): MyAVScreenCapture | undefined {
     if (!MyAVScreenCapture.instance) {
@@ -27,8 +39,6 @@ export class MyAVScreenCapture {
     }
     return MyAVScreenCapture.instance;
   }
-
-  // [End stop_record]
 
   // 开始屏幕录制
   public async startRecording(filesDir: string | undefined): Promise<void> {
@@ -102,6 +112,7 @@ export class MyAVScreenCapture {
       hilog.info(0xFF00, CommonConstants.LOG_TAG, 'Handle exception cases.');
     })
     // [End create_record]
+  
     // [Start set_config]
     // 配置屏幕录制参数
     let displayInfo: display.Display | undefined = await display.getDefaultDisplaySync();
@@ -136,8 +147,7 @@ export class MyAVScreenCapture {
     }
   }
 
-  // [End get_file_fd]
-
+  // [Start stop_record]
   // 停止录屏
   public async stopRecording(): Promise<void> {
     if (this.screenCapture == undefined) {
@@ -159,6 +169,8 @@ export class MyAVScreenCapture {
     }
   }
 
+  // [End stop_record]
+
   // [Start get_file_fd]
   public updateFileFd(filesDir: string): void {
     // 获取文件fd
@@ -171,6 +183,8 @@ export class MyAVScreenCapture {
       hilog.error(0x0000, 'testTag', `openSync fail. message = ${err.message}`);
     }
   }
+
+  // [End get_file_fd]
 
   public getPath(): string {
     return this.path;
