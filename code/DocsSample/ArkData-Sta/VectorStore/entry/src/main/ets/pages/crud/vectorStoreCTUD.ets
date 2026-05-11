@@ -29,7 +29,7 @@ const STORE_CONFIG: relationalStore.StoreConfig = {
 };
 // [StartExclude vector_TS_getStore]
 
-export async function getVectorStore(context: common.UIAbilityContext) {
+export async function getVectorStore(context: common.UIAbilityContext) : Promise<void> {
   // [EndExclude vector_TS_isVectorSupported]
   // 判断当前系统是否支持向量数据库
   let ret = relationalStore.isVectorSupported();
