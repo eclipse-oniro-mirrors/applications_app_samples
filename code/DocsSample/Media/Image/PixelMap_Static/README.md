@@ -98,6 +98,6 @@ entry/src/ohosTest/ets/
 git init
 git config core.sparsecheckout true
 echo code/DocsSample/Media/Image/PixelMap_Static/ > .git/info/sparse-checkout
-git remote add origin OpenHarmony/applications_app_samples
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
