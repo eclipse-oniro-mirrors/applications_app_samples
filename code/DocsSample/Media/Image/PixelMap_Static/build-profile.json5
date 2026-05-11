@@ -14,20 +14,6 @@
  */
 {
   "app": {
-    "signingConfigs": [
-      {
-        "name": "default",
-        "material": {
-          "certpath": "C:/Users/Polyhedron/.ohos/config/openharmony/default_PixelMap_Static_lCkVFXe95EixoEsYoKPFz05_P9Y5imGGZlYb701o2l8=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001BBA68BD0BB6E9CE98F781AFD30B21BA31040EB88BFA5119F3C9FCD9648468F4363E1F5467001614",
-          "profile": "C:/Users/Polyhedron/.ohos/config/openharmony/default_PixelMap_Static_lCkVFXe95EixoEsYoKPFz05_P9Y5imGGZlYb701o2l8=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/Polyhedron/.ohos/config/openharmony/default_PixelMap_Static_lCkVFXe95EixoEsYoKPFz05_P9Y5imGGZlYb701o2l8=.p12",
-          "storePassword": "0000001BB90E6123210D9294CB4082E5AE2A98E3E49E7BC75CA0F2D543014EC4723EF0C0D33CED9ADF8292"
-        }
-      }
-    ],
     "products": [
       {
         "name": "default",

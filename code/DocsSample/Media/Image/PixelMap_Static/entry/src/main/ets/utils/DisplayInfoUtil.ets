@@ -32,13 +32,13 @@ export class DisplayInfo {
     Logger.info('screenWidth ', this.screenWidth.toString(), 'screenHeight ', this.screenHeight.toString());
   }
 
-  public getWidth(width: number): PX {
-    let realWidth: number = Math.floor(width * this.screenWidth / DisplayInfo.STANDARD_WIDTH);
+  public getWidth(width: int): string {
+    let realWidth: int = Double.toInt(Math.floor(width * this.screenWidth / DisplayInfo.STANDARD_WIDTH));
     return `${realWidth}px`;
   }
 
-  public getHeight(height: number): PX {
-    let realHeight: number = Math.floor(height * this.screenWidth / DisplayInfo.STANDARD_WIDTH);
+  public getHeight(height: int): string {
+    let realHeight: int = Double.toInt(Math.floor(height * this.screenWidth / DisplayInfo.STANDARD_WIDTH));
     return `${realHeight}px`;
   }
 

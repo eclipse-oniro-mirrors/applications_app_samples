@@ -16,17 +16,18 @@
  */
 
 import {
-  Entry, Component, State, Row, Column, Text, Image, Tabs, TabContent, HorizontalAlign, FlexAlign, BarPosition, BarMode,
-  Resource
+  $r, Entry, Component, Row, Column, Text, Image, Tabs, TabContent, HorizontalAlign, FlexAlign, BarPosition,
+  BarMode, Resource, TabsOptions, ColumnOptions
 } from '@ohos.arkui.component';
+import { State } from '@ohos.arkui.stateManagement';
+import { UIContext } from '@ohos.arkui.UIContext';
 import { image } from '@kit.ImageKit';
 import { Decode } from '../common/Decode';
-import { BusinessError } from '@ohos.base';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import Logger from '../common/Logger';
 import { readAndEditEXIF } from '../common/EditingEXIF';
 import { encodeToStreamByPixelMap } from '../common/Encode';
-import { displayInfo } from '../utils/DisplayInfoUtil';
+import { DisplayInfo } from '../utils/DisplayInfoUtil';
 
 const DEFAULT_IMAGE_WIDTH = 700; // 图像的默认宽度
 const DEFAULT_IMAGE_HEIGHT = 700; // 图像的默认高度
@@ -37,30 +38,32 @@ const MAX_OPACITY = 255; // RGBA8888格式的透明度的的最大值
 @Entry
 @Component
 struct Index {
-  @State currentIndex: number = 0;
+  @State currentIndex: int = 0;
   @State isImageChange: boolean = false;
   @State pixelMap: image.PixelMap | undefined = undefined;
   @State oldPixelMap: image.PixelMap | undefined = undefined;
   @State imageInfo: image.ImageInfo | undefined = undefined;
   @State changeFlag: boolean = false;
-  displayInfo: DisplayInfo = new displayInfo();
+  displayInfo: DisplayInfo = new DisplayInfo();
   decode: Decode = new Decode();
 
-  async aboutToAppear(): void {
+  aboutToAppear(): void {
     Logger.info('aboutToAppear Start');
-    this.pixelMap = await this.loadPixelMap();
-    this.oldPixelMap = this.clonePixelMap(this.pixelMap);
-    encodeToStreamByPixelMap(this.pixelMap!, false);
-    await this.updateImageInfo();
+    this.loadPixelMap(this.getUIContext()).then(async (pixelMap: image.PixelMap) => {
+      this.pixelMap = pixelMap;
+      this.oldPixelMap = await this.clonePixelMap(this.pixelMap!);
+      encodeToStreamByPixelMap(this.getUIContext(), this.pixelMap!, false);
+      this.updateImageInfo();
+    });
     Logger.info('aboutToAppear End');
   }
 
-  private async loadPixelMap(): Promise<image.PixelMap> {
+  private async loadPixelMap(context: UIContext): Promise<image.PixelMap> {
     return new Promise<image.PixelMap>((resolve, reject) => {
-      this.decode.decodeByFormat().then((pixelMap) => {
+      this.decode.decodeByFormat(this.getUIContext()).then((pixelMap: image.PixelMap) => {
         Logger.info('getPixelMap Succeeded');
         resolve(pixelMap);
-      }).catch((err: BusinessError) => {
+      }).catch((err) => {
         Logger.error('Error occurred while decoding: ', String(err));
         reject(err);
       });
@@ -80,10 +83,10 @@ struct Index {
 
   // 生成 tab 的函数
   @Builder
-  tabBuilder(index: number, text: Resource) {
+  tabBuilder(index: int, text: Resource) {
     Column() {
       Text(text)
-        .fontSize($r('app.float.size_16') as int)
+        .fontSize($r('app.float.size_16'))
         .fontColor(this.currentIndex === index ? $r('app.color.black') : $r('app.color.grey'))
     }.justifyContent(FlexAlign.Center)
   }
@@ -98,13 +101,11 @@ struct Index {
         .fontSize($r('app.float.size_16'))
         .fontColor($r('app.color.grey'))
     }
-    .onClick(() => {
-      onClick();
-    })
+    .onClick(() => onClick())
   }
 
   build() {
-    Column({ space: 20 }) {
+    Column({ space: 20 } as ColumnOptions) {
       Row() {
         Text($r('app.string.edit_image'))
           .fontSize(25)
@@ -117,12 +118,12 @@ struct Index {
         // 对于class、object和数组类型,框架仅能观察到@State变量第一层属性的变化。导致图片无法刷新，所以设置changeFlag标识辅助UI刷新
         if (this.changeFlag == true) {
           Image(this.pixelMap)
-            .height(this.displayInfo.getHeight(this.imageInfo != undefined ? this.imageInfo.size.height : 0))
-            .width(this.displayInfo.getWidth(this.imageInfo != undefined ? this.imageInfo.size.width : 0))
+            .height(this.displayInfo.getHeight(this.imageInfo != undefined ? this.imageInfo!.size.height : 0))
+            .width(this.displayInfo.getWidth(this.imageInfo != undefined ? this.imageInfo!.size.width : 0))
         } else {
           Image(this.pixelMap)
-            .height(this.displayInfo.getHeight(this.imageInfo != undefined ? this.imageInfo.size.height : 0))
-            .width(this.displayInfo.getWidth(this.imageInfo != undefined ? this.imageInfo.size.width : 0))
+            .height(this.displayInfo.getHeight(this.imageInfo != undefined ? this.imageInfo!.size.height : 0))
+            .width(this.displayInfo.getWidth(this.imageInfo != undefined ? this.imageInfo!.size.width : 0))
         }
       }
       .height(this.displayInfo.getHeight(DEFAULT_IMAGE_HEIGHT))
@@ -132,7 +133,7 @@ struct Index {
       .clip(true)
 
       Column() {
-        Tabs({ barPosition: BarPosition.End, index: this.currentIndex }) {
+        Tabs({ barPosition: BarPosition.End, index: this.currentIndex } as TabsOptions) {
           TabContent() {
             Row() {
               this.functionButton($r('app.media.ic_crop'), $r('app.string.crop'),
@@ -141,9 +142,11 @@ struct Index {
                 (): void => this.scaleImage());
               this.functionButton($r('app.media.ic_translate'), $r('app.string.translate'),
                 (): void => this.translateImage());
-            }.justifyContent(FlexAlign.SpaceAround)
+            }
+            .justifyContent(FlexAlign.SpaceAround)
             .width('100%')
-          }.tabBar(this.tabBuilder(0, $r('app.string.cut')))
+          }
+          .tabBar(this.tabBuilder(0, $r('app.string.cut')))
 
           TabContent() {
             Row() {
@@ -153,19 +156,22 @@ struct Index {
                 (): void => this.verticalFlipImage());
               this.functionButton($r('app.media.ic_horizontal_flip'), $r('app.string.horizontal_flip'),
                 (): void => this.horizontalFlipImage());
-            }.justifyContent(FlexAlign.SpaceAround)
+            }
+            .justifyContent(FlexAlign.SpaceAround)
             .width('100%')
-          }.tabBar(this.tabBuilder(1, $r('app.string.flip')))
+          }
+          .tabBar(this.tabBuilder(1, $r('app.string.flip')))
 
           TabContent() {
             Row() {
               this.functionButton($r('app.media.ic_bitmap_operation'), $r('app.string.bitmap_operation'),
-                async (): Promise<void> => this.bitmapOperation());
+                (): void => this.bitmapOperation());
               this.functionButton($r('app.media.ic_bitmap_operation'), $r('app.string.bitmap_operation_all'),
-                async (): Promise<void> => this.bitmapOperationAll());
+                (): void => this.bitmapOperationAll());
               this.functionButton($r('app.media.ic_change_opacity'), $r('app.string.change_opacity'),
                 (): void => this.changeOpacityImage());
-            }.justifyContent(FlexAlign.SpaceAround)
+            }
+            .justifyContent(FlexAlign.SpaceAround)
             .width('100%')
           }.tabBar(this.tabBuilder(2, $r('app.string.toning')))
 
@@ -174,20 +180,22 @@ struct Index {
               this.functionButton($r('app.media.ic_save_image'), $r('app.string.save_image'),
                 (): void => {
                   if (this.pixelMap != undefined) {
-                    encodeToStreamByPixelMap(this.pixelMap, false);
+                    encodeToStreamByPixelMap(this.getUIContext(), this.pixelMap!, false);
                   }
                 })
               this.functionButton($r('app.media.ic_open_image'), $r('app.string.open_image'),
-                async (): Promise<void> => await this.openImage());
+                (): void => this.openImage());
               this.functionButton($r('app.media.ic_edit_EXIF'), $r('app.string.edit_EXIF'),
                 (): void => {
-                  let fileName: string = getContext(this).cacheDir + '/pixel_map.jpg';
-                  let fd: number = fs.openSync(fileName, fs.OpenMode.READ_WRITE).fd;
+                  let fileName: string = this.getUIContext().getHostContext()!.cacheDir + '/pixel_map.jpg';
+                  let fd: int = fs.openSync(fileName, fs.OpenMode.READ_WRITE).fd;
                   readAndEditEXIF(fd);
                 })
-            }.justifyContent(FlexAlign.SpaceAround)
+            }
+            .justifyContent(FlexAlign.SpaceAround)
             .width('100%')
-          }.tabBar(this.tabBuilder(3, $r('app.string.file_operation')))
+          }
+          .tabBar(this.tabBuilder(3, $r('app.string.file_operation')))
 
         }
         .height('20%')
@@ -195,20 +203,21 @@ struct Index {
         .vertical(false)
         .barMode(BarMode.Fixed)
         .scrollable(true)
-        .onChange((index: number) => {
+        .onChange((index: int) => {
           this.currentIndex = index;
         })
       }
-    }.height('100%')
+    }
+    .height('100%')
     .width('100%')
 
   }
 
-  private resetImage() {
+  private async resetImage() {
     if (this.pixelMap != undefined) {
       this.pixelMap!.release();
     }
-    this.pixelMap = this.clonePixelMap(this.oldPixelMap!);
+    this.pixelMap = await this.clonePixelMap(this.oldPixelMap!)!;
     this.updateImageInfo();
   }
 
@@ -221,7 +230,7 @@ struct Index {
         this.imageInfo = info;
         Logger.info('info.width = ', info.size.width.toString());
         Logger.info('info.height = ', info.size.height.toString());
-      }).catch((err: BusinessError) => {
+      }).catch((err) => {
         Logger.error('Failed to obtain the image pixel map information.And the error is: ', String(err));
       });
       // [End pixelmap_get_image_info]
@@ -329,13 +338,13 @@ struct Index {
     if (this.pixelMap != undefined) {
       // [Start pixelmap_get_pixelmap_info]
       // 获取图像像素的总字节数
-      let pixelBytesNumber: number = this.pixelMap!.getPixelBytesNumber();
+      let pixelBytesNumber: int = this.pixelMap!.getPixelBytesNumber();
       Logger.info('pixelBytesNumber:', pixelBytesNumber.toString());
       // 获取图像像素每行字节数
-      let rowCount: number = this.pixelMap!.getBytesNumberPerRow();
+      let rowCount: int = this.pixelMap!.getBytesNumberPerRow();
       Logger.info('rowCount:', rowCount.toString());
       // 获取当前图像像素密度。像素密度是指每英寸图片所拥有的像素数量。像素密度越大，图片越精细。
-      let getDensity: number = this.pixelMap!.getDensity();
+      let getDensity: int = this.pixelMap!.getDensity();
       Logger.info('getDensity:', getDensity.toString());
       // [End pixelmap_get_pixelmap_info]
 
@@ -344,11 +353,11 @@ struct Index {
       const buffer = new ArrayBuffer(pixelBytesNumber);
       await this.pixelMap!.readPixelsToBuffer(buffer).then(() => {
         Logger.info('Succeeded in reading image pixel data.');
-      }).catch((error: BusinessError) => {
+      }).catch((error) => {
         Logger.error('Failed to read image pixel data. And the error is: ' + String(error));
       })
       // [StartExclude pixelmap_bitmap_operation_all]
-      let bufferArr: Uint8Array = new Uint8Array(buffer);
+      const bufferArr: Uint8Array = new Uint8Array(buffer);
       // RGBA_8888格式下，一个像素点由4个字节组成，分别表示Red、Green、Blue、Alpha四个通道的值。
       for (let i = 0; i < bufferArr.length; i++) {
         switch (i % 4) {
@@ -372,7 +381,7 @@ struct Index {
       this.pixelMap!.writeBufferToPixels(buffer).then(() => {
         Logger.info('Succeeded in writing image pixel data.');
         this.updateImageInfo();
-      }).catch((error: BusinessError) => {
+      }).catch((error) => {
         Logger.error('Failed to write image pixel data. And the error is: ' + String(error));
       })
       // [End pixelmap_bitmap_operation_all]
@@ -390,6 +399,7 @@ struct Index {
         stride: 8,
         region: { size: { height: 1, width: 2 }, x: 0, y: 0 }
       }
+      const pixelsArr = new Uint8Array(area.pixels);
       await this.pixelMap!.readPixels(area).then(() => {
         Logger.info('Succeeded in reading the image data in the area.');
         // [StartExclude pixelmap_bitmap_operation]
@@ -398,30 +408,30 @@ struct Index {
         for (let i = 0; i < area.pixels.byteLength; i++) {
           switch (i % 4) {
             case 0:
-              area.pixels[i] = MAX_RGB_VALUE;
+              pixelsArr[i] = MAX_RGB_VALUE;
               break;
             case 1:
-              area.pixels[i] = MAX_RGB_VALUE;
+              pixelsArr[i] = MAX_RGB_VALUE;
               break;
             case 2:
-              area.pixels[i] = MIN_RGB_VALUE;
+              pixelsArr[i] = MIN_RGB_VALUE;
               break;
             case 3:
-              area.pixels[i] = MAX_OPACITY;
+              pixelsArr[i] = MAX_OPACITY;
               break;
             default:
               break;
           }
         }
         // [EndExclude pixelmap_bitmap_operation]
-      }).catch((error: BusinessError) => {
+      }).catch((error) => {
         Logger.error('Failed to read the image data in the area. And the error is: ' + String(error));
       })
       // 将图片数据area.pixels写入指定区域内
       await this.pixelMap!.writePixels(area).then(() => {
         this.updateImageInfo();
         Logger.info('Succeeded to write pixelMap into the specified area.');
-      }).catch((error: BusinessError) => {
+      }).catch((error) => {
         Logger.error('Failed to write pixelMap into the specified area. And the error is: ' + String(error));
       })
       // [End pixelmap_bitmap_operation]
@@ -430,34 +440,39 @@ struct Index {
 
   // [Start pixelmap_clone]
   /**
-   *  复制（深拷贝）一个新的PixelMap
+   * 复制（深拷贝）PixelMap并改变像素格式。
    *
-   * @param pixelMap - 被复制的PixelMap。
+   * @param pixelMap - 被复制的原PixelMap。
    * @param desiredPixelFormat - 新PixelMap的像素格式。如果不指定，则仍使用原PixelMap的像素格式。
-   * @returns 新PixelMap。
-   **/
-  private clonePixelMap(pixelMap: image.PixelMap, desiredPixelFormat ?: image.PixelMapFormat): image.PixelMap {
-    // 获取当前PixelMap的图片信息。
+   * @returns 新PixelMap的Promise。
+   */
+  async clonePixelMap(pixelMap: image.PixelMap, desiredPixelFormat?: image.PixelMapFormat): Promise<image.PixelMap> {
+    // 获取原PixelMap的图片信息。
     const imageInfo = pixelMap.getImageInfoSync();
-    // 读取当前PixelMap的图像像素数据，并按照当前PixelMap的像素格式写入缓冲区数组。
+    // 读取原PixelMap的像素数据，并按照原PixelMap的像素格式写入缓冲区。
     const buffer = new ArrayBuffer(pixelMap.getPixelBytesNumber());
-    pixelMap.readPixelsToBufferSync(buffer);
-    // 根据当前PixelMap的图片信息，生成初始化选项。
+    await pixelMap.readPixelsToBuffer(buffer);
+
+    // 根据原PixelMap的图片信息，生成初始化选项。
     const options: image.InitializationOptions = {
-      // 当前PixelMap的像素格式。
+      // 数据源的像素格式：必须匹配原PixelMap的像素格式，否则新PixelMap的图像会出现异常。
       srcPixelFormat: imageInfo.pixelFormat,
       // 新PixelMap的像素格式。
-      pixelFormat: desiredPixelFormat ?? imageInfo.pixelFormat,
-      // 当前PixelMap的尺寸大小。
-      size: imageInfo.size
+      pixelFormat: desiredPixelFormat || imageInfo.pixelFormat,
+      // 新PixelMap的透明度类型。
+      alphaType: imageInfo.alphaType,
+      // 新PixelMap的尺寸：必须匹配原PixelMap的尺寸，不支持传入其他尺寸以进行缩放。
+      size: imageInfo.size,
+      editable: pixelMap.isEditable
     };
-    // 根据初始化选项和缓冲区数组，生成新PixelMap。
-    return image.createPixelMapSync(buffer, options);
+
+    // 根据像素数据和初始化选项，创建新PixelMap。
+    return await image.createPixelMap(buffer, options);
   }
+  // [End pixelmap_clone]
 
   private async openImage() {
-    const imageSource: image.ImageSource = this.decode.getImageSourceByFilePath('/pixel_map.jpg');
+    const imageSource: image.ImageSource = this.decode.getImageSourceByFilePath(this.getUIContext(), '/pixel_map.jpg');
     this.pixelMap = await this.decode.decodeByFormatWithParameter(imageSource);
   }
 }
-// [End pixelmap_clone]

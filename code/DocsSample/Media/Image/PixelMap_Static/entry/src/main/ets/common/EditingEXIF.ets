@@ -16,7 +16,6 @@
  */
 
 import { image } from '@kit.ImageKit';
-import { BusinessError } from '@ohos.base';
 import Logger from './Logger';
 
 /**
@@ -24,7 +23,7 @@ import Logger from './Logger';
  *
  * @param fd - 文件描述符。
  **/
-export async function readAndEditEXIF(fd: int) {
+export async function readAndEditEXIF(fd: int): Promise<void> {
   Logger.info('readAndEditEXIF Start');
   // [Start pixelmap_create_image_source_by_fd_in_edit]
   // 获取沙箱路径创建ImageSource
@@ -38,7 +37,7 @@ export async function readAndEditEXIF(fd: int) {
   let options: image.ImagePropertyOptions = { index: 0, defaultValue: '9999' }
   await imageSourceApi.getImageProperty(image.PropertyKey.BITS_PER_SAMPLE, options).then((data: string) => {
     Logger.info('Succeeded in getting the value of the specified attribute key of the image.');
-  }).catch((error: BusinessError) => {
+  }).catch((error) => {
     Logger.error('Failed to get the value of the specified attribute key of the image.', String(error));
   })
 
@@ -46,10 +45,10 @@ export async function readAndEditEXIF(fd: int) {
   await imageSourceApi.modifyImageProperty(image.PropertyKey.IMAGE_WIDTH, '120').then(() => {
     imageSourceApi.getImageProperty(image.PropertyKey.IMAGE_WIDTH).then((width: string) => {
       Logger.info('The new imageWidth is ', width);
-    }).catch((error: BusinessError) => {
+    }).catch((error) => {
       Logger.error('Failed to get the Image Width.', String(error));
     })
-  }).catch((error: BusinessError) => {
+  }).catch((error) => {
     Logger.error('Failed to modify the Image Width.', String(error));
   })
   // [End pixelmap_read_and_edit_EXIF_info]
