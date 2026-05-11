@@ -37,14 +37,18 @@ entry/src/main          # 录屏Sample业务代码
 │
 └─resources                 # 资源文件
 ```
+### 具体实现
+
+1. 使用createAVScreenCaptureRecorder创建录屏实例。
+2. 使用init初始化录屏参数，然后使用startRecording开始录屏。
+3. 在开始录屏后，可以分别使用stopRecording和release进行停止录屏和释放实例。
 
 ## 相关权限
 
-ohos.permission.MICROPHONE
+[ohos.permission.MICROPHONE](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all-user.md#ohospermissionmicrophone)
 
-ohos.permission.KEEP_BACKGROUND_RUNNING
-
-ohos.permission.WRITE_MEDIA
+[ohos.permission.KEEP_BACKGROUND_RUNNING]
+(https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionkeep_background_running)
 
 ## 依赖
 
@@ -66,6 +70,6 @@ ohos.permission.WRITE_MEDIA
 git init
 git config core.sparsecheckout true
 echo code/DocsSample/Media/ScreenCapture/ScreenCapyureSample-sta/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
