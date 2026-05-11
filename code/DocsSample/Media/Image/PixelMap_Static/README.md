@@ -50,10 +50,10 @@ entry/src/main/ets/
 ├── pages
 │   └── Index.ets (图片编辑界面)
 ├── utils 
-│   └── DisPlayInfoUtil.ets (获取图片的长宽信息，用于适配不同的屏幕大小)
+│   └── DisplayInfoUtil.ets (获取图片的长宽信息，用于适配不同的屏幕大小)
 entry/src/main/resources/
 └── base
-    └── media
+    └── rawfile
         └── image.jpg(图片资源)
 entry/src/ohosTest/ets/
 ├── test
@@ -76,7 +76,7 @@ entry/src/ohosTest/ets/
 
 ## 相关权限
 
-不涉及
+不涉及。
 
 ## 依赖
 
@@ -86,9 +86,9 @@ entry/src/ohosTest/ets/
 
 1. 本示例支持标准系统上运行，支持设备：RK3568;
 
-2. 本示例支持API14版本SDK，版本号：5.0.2.57；
+2. 本示例支持API 26.0.0版本SDK，版本号：26.0.0.19；
    
-3. 本示例已支持使DevEco Studio 5.0.1 Release (构建版本：5.0.5.306，构建 2024年12月6日)编译运行
+3. 本示例已支持使DevEco Studio 6.0.0 Canary1（构建版本：6.0.0.94 SP4，构建 2026年4月8日）编译运行
 
 ## 下载
 
@@ -97,7 +97,7 @@ entry/src/ohosTest/ets/
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/Media/Image/PixelMap/ > .git/info/sparse-checkout
+echo code/DocsSample/Media/Image/PixelMap_Static/ > .git/info/sparse-checkout
 git remote add origin OpenHarmony/applications_app_samples
 git pull origin master
 ```
