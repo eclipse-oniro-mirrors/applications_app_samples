@@ -1,0 +1,14 @@
+// entry/src/main/syscap.json
+
+{
+  "devices": {
+    "general": ["default",
+      "tablet"]  // 同module.json5中的deviceTypes
+  },
+  "production": {
+    "removedSysCaps": [
+      "SystemCapability.Security.DeviceAuth",
+      "SystemCapability.Security.DeviceSecurityLevel"
+    ]
+  }
+}
