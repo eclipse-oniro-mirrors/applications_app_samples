@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-
 import media from '@ohos.multimedia.media';
 import fs from '@ohos.file.fs';
 import { BusinessError } from '@ohos.base';
