@@ -98,10 +98,7 @@ struct AudioRecorder {
           break;
       }
     });
-    this.recorderService.configAudioDefault();
-    let fd: int = await RecorderFileUtil.createAudioFile(this.getUIContext().getHostContext()!);
-    this.recorderService.configOutputFile(fd, media.ContainerFormatType.CFT_MPEG_4A);
-    await this.recorderService.prepareRecorder();
+    await this.recorderService.prepareAudioRecorder(this.getUIContext().getHostContext()!);
     await this.recorderService.startRecorder();
     Logger.info(TAG, 'startRecordingProcess end');
   }
