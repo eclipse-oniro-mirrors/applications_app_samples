@@ -27,7 +27,7 @@ import {
   Text,
   Web,
   State,
-  Array,
+  GestureControl,
   TextAlign,
   NestedScrollMode
 } from '@kit.ArkUI';
