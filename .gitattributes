@@ -19,3 +19,4 @@
 code/DocsSample/Media/Image/ImageArkTSSample/entry/src/main/resources/rawfile/allAux.heic filter=lfs diff=lfs merge=lfs -text
 code/DocsSample/Media/Image/ImageArkTSSample/entry/src/main/resources/rawfile/allAux.jpg filter=lfs diff=lfs merge=lfs -text
 code/DocsSample/Media/Image/ImageArkTSSample/entry/src/main/resources/rawfile/test.png filter=lfs diff=lfs merge=lfs -text
+code/DocsSample/Media/Image/ImageArkTSSampleStatic/entry/src/main/resources/rawfile/test.png filter=lfs diff=lfs merge=lfs -text
