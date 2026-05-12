@@ -66,6 +66,7 @@ struct index {
   async testStaticFetchFrameByTime() {
     try {
       // 创建AVImageGenerator对象。
+      // [Start set_fdSrc]
       this.avImageGenerator = await media.createAVImageGenerator();
 
       // 设置fdSrc。
@@ -77,8 +78,10 @@ struct index {
         length: this.fileDescriptor!.length
       };
       this.avImageGenerator!!.fdSrc = descriptor;
+      // [End set_fdSrc]
 
       // 初始化入参。
+      // [Start fetch_frame]
       let timeUs: Long = 0;
       let queryOption = media.AVImageQueryOptions.AV_IMAGE_QUERY_NEXT_SYNC;
       let param: media.PixelMapParams = {
@@ -88,6 +91,7 @@ struct index {
 
       // 获取缩略图（promise模式）。
       this.pixelMap = await this.avImageGenerator!!.fetchFrameByTime(timeUs, queryOption, param);
+      // [End fetch_frame]
 
       // 释放资源（promise模式）。
       this.avImageGenerator!!.release();
