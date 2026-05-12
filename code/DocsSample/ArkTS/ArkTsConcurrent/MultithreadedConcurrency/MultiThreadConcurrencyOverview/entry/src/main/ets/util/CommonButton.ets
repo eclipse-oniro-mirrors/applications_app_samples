@@ -27,7 +27,7 @@ export struct CommonButton {
       .padding(px2vp(5))
       .fontSize(px2fp(25))
       .width('45%')
-      .height(36)
+      .height(45)
       .backgroundColor('#04a4fc')
       .fontColor(Color.White)
       .textAlign(TextAlign.Center)
