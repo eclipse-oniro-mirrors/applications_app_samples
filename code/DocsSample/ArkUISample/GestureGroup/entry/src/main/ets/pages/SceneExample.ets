@@ -37,9 +37,11 @@ struct CombinedGestureDemo {
             if (current.getType() !== GestureControl.GestureType.PAN_GESTURE) {
               return GestureJudgeResult.CONTINUE;
             }
+            ;
             if (this.isLongPress) {
               return GestureJudgeResult.CONTINUE;
             }
+            ;
             return GestureJudgeResult.REJECT;
           })
         .gesture(
@@ -52,7 +54,8 @@ struct CombinedGestureDemo {
               })
               .onActionEnd(() => {
                 this.isLongPress = false;
-              }),
+              })
+            ,
             PanGesture()
               .onActionStart(() => {
                 this.promptAction.showToast({ message: 'child pan start' });
