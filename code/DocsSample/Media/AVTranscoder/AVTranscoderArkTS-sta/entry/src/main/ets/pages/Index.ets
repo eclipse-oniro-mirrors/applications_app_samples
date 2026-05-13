@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ // [Start transcoder_ui]
 import { Entry, Text, TextAttribute, Column, Component, Button, ClickEvent, RelativeContainer, Progress, ProgressType } from '@ohos.arkui.component'
 import { Context, UIContext } from '@ohos.arkui.UIContext'
 import { State} from '@ohos.arkui.stateManagement'
@@ -52,3 +53,4 @@ struct Index {
     .width('100%')
   }
 }
+// [End transcoder_ui]
