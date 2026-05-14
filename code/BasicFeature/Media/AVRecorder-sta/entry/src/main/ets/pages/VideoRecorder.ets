@@ -136,12 +136,7 @@ struct VideoRecorder {
           break;
       }
     });
-    this.recorderService.configAudioDefault();
-    this.recorderService.configVideoDefault();
-    let fd: int = await RecorderFileUtil.createVideoFile(this.getUIContext().getHostContext()!);
-    this.recorderService.configOutputFile(fd, media.ContainerFormatType.CFT_MPEG_4);
-    this.recorderService.configVideoResolution(this.videoResolution!);
-    await this.recorderService.prepareRecorder();
+    await this.recorderService.prepareVideoRecorder(this.getUIContext().getHostContext()!);
     let surfaceId: string | undefined = await this.recorderService.getInputSurface();
     if (surfaceId) {
       await this.cameraService.restartVideoOutput(surfaceId!);

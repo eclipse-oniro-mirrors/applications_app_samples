@@ -17,48 +17,30 @@
 
 // [Start full_audio_recorder]
 // [Start full_video_recorder]
-// [Start create_recorder]
-// [Start set_callback]
-// [Start prepare_audio_recorder]
-// [Start prepare_video_recorder]
-// [Start get_input_surface]
 import { BusinessError } from '@ohos.base';
-// [End set_callback]
-// [End get_input_surface]
 import media from '@ohos.multimedia.media';
-// [End create_recorder]
 import fileIo from '@ohos.file.fs';
-// [End prepare_audio_recorder]
-// [End prepare_video_recorder]
 import common from '@ohos.app.ability.common';
-// [End full_audio_recorder]
-// [End full_video_recorder]
 import { Resolution } from './CommonTypes';
 
-// [Start full_audio_recorder]
-// [Start full_video_recorder]
 export default class AVRecorderService {
-// [Start create_recorder]
   private avRecorder: media.AVRecorder | undefined = undefined;
-// [End create_recorder]
-// [Start prepare_audio_recorder]
-// [Start prepare_video_recorder]
-  private avRecorderConfig: media.AVRecorderConfig =
-    { profile: { fileFormat: media.ContainerFormatType.CFT_MPEG_4A }, url: '' };
   private fileFd: int | undefined = undefined;
-// [End prepare_audio_recorder]
-// [End prepare_video_recorder]
+
+  private audioSampleRate: int = 48000;
+  private videoSourceType: media.VideoSourceType = media.VideoSourceType.VIDEO_SOURCE_TYPE_SURFACE_YUV;
+  private videoResolution: Resolution = { frameWidth: 1920, frameHeight: 1080 } as Resolution;
 
   public async createRecorder(): Promise<void> {
     await this.releaseRecorder();
-// [Start create_recorder]
     try {
+// [Start create_recorder]
       this.avRecorder = await media.createAVRecorder();
+// [End create_recorder]
     } catch (err) {
       let error: BusinessError = err as BusinessError;
       console.error(`Failed to create avRecorder, error code: ${error.code}, message: ${error.message}`);
     }
-// [End create_recorder]
   }
 
   public setCallback(onStateChanged: media.OnAVRecorderStateChangeHandler): void {
@@ -76,62 +58,43 @@ export default class AVRecorderService {
     });
 // [End set_callback]
   }
-// [End full_video_recorder]
 
-// [Start prepare_audio_recorder]
-  public configAudioDefault(): void {
-    this.avRecorderConfig.profile.audioBitrate = 112000; // 音频比特率。
-    this.avRecorderConfig.profile.audioChannels = 2; // 音频声道数。
-    this.avRecorderConfig.profile.audioCodec = media.CodecMimeType.AUDIO_AAC; // 音频编码格式。
-    this.avRecorderConfig.profile.audioSampleRate = 48000; // 音频采样率。
-    this.avRecorderConfig.audioSourceType = media.AudioSourceType.AUDIO_SOURCE_TYPE_MIC; // 音频输入源，这里设置为麦克风。
-  }
-// [End prepare_audio_recorder]
-// [End full_audio_recorder]
-
+// [StartExclude full_audio_recorder]
+// [StartExclude full_video_recorder]
   public configAudioSampleRate(sampleRate: int): void {
-    this.avRecorderConfig.profile.audioSampleRate = sampleRate; // 音频采样率。
+    this.audioSampleRate = sampleRate;
   }
-
-// [Start full_video_recorder]
-// [Start prepare_video_recorder]
-  public configVideoDefault(): void {
-    this.avRecorderConfig.profile.videoBitrate = 3000000; // 视频比特率。
-    this.avRecorderConfig.profile.videoCodec = media.CodecMimeType.VIDEO_AVC; // 视频文件编码格式。
-    this.avRecorderConfig.profile.videoFrameWidth = 640; // 视频分辨率的宽。
-    this.avRecorderConfig.profile.videoFrameHeight = 480; // 视频分辨率的高。
-    this.avRecorderConfig.profile.videoFrameRate = 30; // 视频帧率。
-    this.avRecorderConfig.videoSourceType = media.VideoSourceType.VIDEO_SOURCE_TYPE_SURFACE_YUV; // 视频源类型。
-    this.avRecorderConfig.metadata = {
-      videoOrientation: '90' // 视频旋转角度，默认为0不旋转，支持的值为0、90、180、270。
-    };
-  }
-// [End prepare_video_recorder]
-// [End full_video_recorder]
 
   public configVideoSourceType(videoSourceType: media.VideoSourceType): void {
-    this.avRecorderConfig.videoSourceType = videoSourceType;
+    this.videoSourceType = videoSourceType;
   }
 
   public configVideoResolution(videoResolution: Resolution): void {
-    this.avRecorderConfig.profile.videoFrameHeight = videoResolution.frameHeight;
-    this.avRecorderConfig.profile.videoFrameWidth = videoResolution.frameWidth;
+    this.videoResolution = videoResolution;
   }
+// [EndExclude full_audio_recorder]
 
-// [Start full_audio_recorder]
-// [Start full_video_recorder]
 // [Start prepare_audio_recorder]
-// [Start prepare_video_recorder]
-  public configOutputFile(fd: int, format: media.ContainerFormatType): void {
-    this.fileFd = fd;
-    this.avRecorderConfig.url = 'fd://' + fd.toString();
-    this.avRecorderConfig.profile.fileFormat = format;
-  }
+  public async prepareAudioRecorder(context: common.Context): Promise<void> {
+    let path: string = context.filesDir + 'audio_example.m4a';
+    let file: fileIo.File = await fileIo.open(path, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
+    this.fileFd = file.fd;
 
-  public async prepareRecorder(): Promise<void> {
+    let avRecorderConfig: media.AVRecorderConfig = {
+      audioSourceType: media.AudioSourceType.AUDIO_SOURCE_TYPE_MIC, // 音频源类型。
+      profile: {
+        audioBitrate: 112000, // 音频比特率。
+        audioChannels: 2, // 音频声道数。
+        audioCodec: media.CodecMimeType.AUDIO_AAC, // 音频编码格式。
+        audioSampleRate: this.audioSampleRate, // 音频采样率。
+        fileFormat: media.ContainerFormatType.CFT_MPEG_4A // 封装格式。
+      },
+      url: 'fd://' + file.fd.toString()
+    };
+
     try {
       if (this.avRecorder?.state === 'idle' || this.avRecorder?.state === 'stopped') {
-        await this.avRecorder?.prepare(this.avRecorderConfig);
+        await this.avRecorder?.prepare(avRecorderConfig);
       }
     } catch (error) {
       let err = error as BusinessError;
@@ -139,8 +102,41 @@ export default class AVRecorderService {
     }
   }
 // [End prepare_audio_recorder]
+// [EndExclude full_video_recorder]
+
+// [StartExclude full_audio_recorder]
+// [Start prepare_video_recorder]
+  public async prepareVideoRecorder(context: common.Context): Promise<void> {
+    let path: string = context.filesDir + 'video_example.mp4';
+    let file: fileIo.File = await fileIo.open(path, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
+    this.fileFd = file.fd;
+
+    let avRecorderConfig: media.AVRecorderConfig = {
+      videoSourceType: this.videoSourceType, // 视频源类型。
+      profile: {
+        videoBitrate: 3000000, // 视频比特率。
+        videoCodec: media.CodecMimeType.VIDEO_AVC, // 视频编码格式。
+        videoFrameWidth: this.videoResolution.frameWidth, // 视频分辨率的宽。
+        videoFrameHeight: this.videoResolution.frameHeight, // 视频分辨率的高。
+        videoFrameRate: 30, // 视频帧率。
+        fileFormat: media.ContainerFormatType.CFT_MPEG_4 // 封装格式。
+      },
+      metadata: {
+        videoOrientation: '90' // 视频旋转角度，默认为0不旋转，支持的值为0、90、180、270。
+      },
+      url: 'fd://' + file.fd.toString()
+    };
+
+    try {
+      if (this.avRecorder?.state === 'idle' || this.avRecorder?.state === 'stopped') {
+        await this.avRecorder?.prepare(avRecorderConfig);
+      }
+    } catch (error) {
+      let err = error as BusinessError;
+      console.error(`Failed to prepare avRecorder, error code: ${err.code}, message: ${err.message}`);
+    }
+  }
 // [End prepare_video_recorder]
-// [End full_audio_recorder]
 
   async getInputSurface(): Promise<string | undefined> {
 // [Start get_input_surface]
@@ -154,8 +150,8 @@ export default class AVRecorderService {
 // [End get_input_surface]
     return surfaceId;
   }
+// [EndExclude full_audio_recorder]
 
-// [Start full_audio_recorder]
   public async startRecorder(): Promise<void> {
     try {
       if (this.avRecorder?.state === 'prepared') {
