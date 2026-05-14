@@ -1,0 +1,20 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "entry ability description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "ManageWebPageInteracts"
+    },
+    {
+      "name": "app_name",
+      "value": "ManageWebPageInteracts"
+    }
+  ]
+}

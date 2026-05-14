@@ -58,12 +58,15 @@ struct Index {
   async testFetchFrameByTime() {
     try {
       // 创建AVImageGenerator对象。
+      // [Start set_fdSrc]
       let avImageGenerator: media.AVImageGenerator = await media.createAVImageGenerator();
       // 设置fdSrc。
       let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
       avImageGenerator.fdSrc = await context.resourceManager.getRawFd('H264_AAC.mp4');
+      // [End set_fdSrc]
 
       // 初始化入参。
+      // [Start fetch_frame]
       let timeUs = 0;
       let queryOption = media.AVImageQueryOptions.AV_IMAGE_QUERY_NEXT_SYNC;
       let param: media.PixelMapParams = {
@@ -73,6 +76,7 @@ struct Index {
 
       // 获取缩略图（promise模式）。
       this.pixelMap = await avImageGenerator.fetchFrameByTime(timeUs, queryOption, param);
+      // [End fetch_frame]
 
       // 释放资源（promise模式）。
       avImageGenerator.release();

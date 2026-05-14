@@ -22,8 +22,8 @@ import distributedObject from '@ohos.data.distributedDataObject';
 import commonType from '@ohos.data.commonType';
 import { AppStorage } from '@ohos.arkui.stateManagement';
 import image from '@ohos.multimedia.image.d.ets';
-import { BusinessError } from "@ohos.base";
-import common from "@ohos.app.ability.common";
+import { BusinessError } from '@ohos.base';
+import common from '@ohos.app.ability.common';
 import { RecordData } from '@ohos.base';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
@@ -89,7 +89,7 @@ class EntryAbility extends UIAbility {
   // 2. 接收端在onCreate和onNewWant接口中创建分布式数据对象并加入组网进行数据恢复
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     console.info('onCreate start!');
-    AppStorage.setOrCreate<common.UIAbilityContext>("UIAbilityContext", this.context)
+    AppStorage.setOrCreate<common.UIAbilityContext>('UIAbilityContext', this.context)
     if (launchParam.launchReason === AbilityConstant.LaunchReason.CONTINUATION) {
       if (want.parameters && (want.parameters as Record<string, RecordData>)['distributedSessionId']) {
         this.restoreDistributedObject(want);

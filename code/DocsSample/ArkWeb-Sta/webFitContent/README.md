@@ -1,0 +1,66 @@
+# Web组件大小自适应页面内容布局
+
+## webFitContent
+
+### 介绍
+
+1. 实现指南文档[Web组件大小自适应页面内容布局](https://gitcode.com/openharmony/docs/blob/OpenHarmony_feature_sta_20260331/zh-cn/application-dev/web/web-fit-content.md)中示例代码片段的工程化，保证指南中示例代码与sample工程文件同源。
+
+### 效果预览
+
+| 主页                                                      |
+| --------------------------------------------------------- |
+| <img src="screenshots\FitPageContent.png" width="360;" /> |
+
+使用说明
+
+1. 使用Web组件大小自适应页面内容布局模式`layoutMode(WebLayoutMode.FIT_CONTENT)`时，能使Web组件的大小根据页面内容自适应变化。
+
+## 具体实现
+
+* 开启渲染模式，设置Web组件大小自适应页面内容布局模式，并关闭过滚动模式，参考源码：[webFitContent.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/DocsSample/ArkWeb/WebRenderLayout/entry/src/main/ets/pages/webFitContent.ets)
+   * 设置Web组件为同步渲染模式`Web({src: '', controller: this.webviewController, renderMode: RenderMode.ASYNC_RENDER})`。
+   * 通过layoutMode(WebLayoutMode.FIT_CONTENT)Web组件大小自适应页面内容布局模式。
+   * 通过overScrollMode(OverScrollMode.NEVER)设置过滚动模式为关闭状态。
+
+## 工程目录
+
+```
+entry/src/main/
+|---ets
+|---|---entryability
+|---|---|---EntryAbility.ets
+|---|---pages
+|---|---|---Index.ets						// 首页
+|---resources								// 静态资源
+|---ohosTest
+|---|---ets
+|---|---|---tests
+|---|---|---|---Ability.test.ets            // 自动化测试用例
+```
+
+## 相关权限
+
+[ohos.permission.INTERNET](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissioninternet)
+
+## 依赖
+
+不涉及。
+
+## 约束与限制
+
+1. 本示例仅支持标准系统上运行，支持设备：RK3568。
+2. 本示例支持SDK版本号(API Version 26.0.0 Canary)。
+3. 本示例需要使用DevEco Studio 版本号(6.0.0.94SP4)才可编译运行。
+
+## 下载
+
+如需单独下载本工程，执行如下命令：
+
+```
+git init
+git config core.sparsecheckout true
+echo code/DocsSample/ArkWeb-Sta/WebFitContent > .git/info/sparse-checkout
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
+git pull origin master
+```

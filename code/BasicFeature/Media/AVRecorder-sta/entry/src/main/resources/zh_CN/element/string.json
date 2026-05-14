@@ -1,0 +1,40 @@
+{
+  "string": [
+    {
+      "name": "page_title",
+      "value": "录制"
+    },
+    {
+      "name": "page_title_video",
+      "value": "视频录制"
+    },
+    {
+      "name": "page_title_audio",
+      "value": "音频录制"
+    },
+    {
+      "name": "audio_parameter",
+      "value": "选择音频采样率"
+    },
+    {
+      "name": "audio_sample_rate",
+      "value": "音频采样率："
+    },
+    {
+      "name": "button_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "button_confirm",
+      "value": "确定"
+    },
+    {
+      "name": "video_parameter",
+      "value": "选择视频分辨率"
+    },
+    {
+      "name": "video_resolution",
+      "value": "视频分辨率："
+    }
+  ]
+}

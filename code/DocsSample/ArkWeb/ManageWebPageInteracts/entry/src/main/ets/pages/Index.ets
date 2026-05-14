@@ -44,6 +44,12 @@ struct Index {
             console.error('Routing failed!');
           });
         })
+      Button('WebBackToTop') 
+        .onClick(() => { 
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/WebBackToTop' }).catch(() => { 
+            console.error('Routing failed!'); 
+          }); 
+        })
     }.height('100%')
     .width('100%')
   }
