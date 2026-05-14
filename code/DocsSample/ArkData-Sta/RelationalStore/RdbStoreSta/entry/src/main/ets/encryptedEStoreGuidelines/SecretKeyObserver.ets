@@ -49,7 +49,7 @@ export class SecretKeyObserver {
   }
 
   private lockStatus: Double = SecretStatus.UnLock;
-  private storeManager: ECStoreManager = new ECStoreManager(); ;
+  private storeManager: ECStoreManager = new ECStoreManager();
 }
 
 export let lockObserve: SecretKeyObserver = new SecretKeyObserver();
