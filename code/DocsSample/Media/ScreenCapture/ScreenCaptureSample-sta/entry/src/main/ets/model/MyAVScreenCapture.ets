@@ -26,10 +26,7 @@ import display from '@ohos.display';
 // Perform screen recording using the ArkTS method.
 export class MyAVScreenCapture {
   private static instance: MyAVScreenCapture | undefined;
-  // [Start create_record]
-  // 声明一个AVScreenCaptureRecorder类型的变量。
   private screenCapture?: media.AVScreenCaptureRecorder;
-  // [Start create_record]
   private path: string = '';
   private fileName: string = '';
   private file: fs.File | undefined = undefined;
@@ -55,6 +52,7 @@ export class MyAVScreenCapture {
     // 实例化对象
     try {
       // [Start create_record]
+      // 创建一个AVScreenCaptureRecorder，并赋值给screenCapture成员变量。
       this.screenCapture = await media.createAVScreenCaptureRecorder();
       // [End create_record]
     } catch (error) {
