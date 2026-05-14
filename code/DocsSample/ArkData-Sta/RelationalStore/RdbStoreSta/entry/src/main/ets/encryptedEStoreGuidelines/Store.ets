@@ -34,7 +34,7 @@ export class Store {
     try {
       rdbStore = await relationalStore.getRdbStore(storeInfo.context!, storeInfo.config!);
       if (rdbStore.version == 0) {
-        await rdbStore.executeSql(SQL_CREATE_TABLE);
+        await rdbStore.execute(SQL_CREATE_TABLE);
         console.info(`ECDB_Encry succeeded in getting Store: ${storeInfo.storeId}`);
         rdbStore.version = 1;
       }
@@ -45,7 +45,7 @@ export class Store {
     return rdbStore;
   }
 
-  async putOnedata(rdbStore: relationalStore.RdbStore) {
+  async putOnedata(rdbStore: relationalStore.RdbStore): Promise<void> {
     if (rdbStore != undefined) {
       const valueBucket: relationalStore.ValuesBucket = {
         'ID': id++,
@@ -64,7 +64,7 @@ export class Store {
     }
   }
 
-  async getDataNum(rdbStore: relationalStore.RdbStore) {
+  async getDataNum(rdbStore: relationalStore.RdbStore): Promise<void> {
     if (rdbStore != undefined) {
       try {
         let predicates = new relationalStore.RdbPredicates('EMPLOYEE');
@@ -78,7 +78,7 @@ export class Store {
     }
   }
 
-  async deleteAlldata(rdbStore: relationalStore.RdbStore) {
+  async deleteAlldata(rdbStore: relationalStore.RdbStore): Promise<void> {
     if (rdbStore != undefined) {
       try {
         let predicates = new relationalStore.RdbPredicates('EMPLOYEE');
@@ -92,7 +92,7 @@ export class Store {
     }
   }
 
-  async updateOnedata(rdbStore: relationalStore.RdbStore) {
+  async updateOnedata(rdbStore: relationalStore.RdbStore): Promise<void> {
     if (rdbStore != undefined) {
       try {
         let predicates = new relationalStore.RdbPredicates('EMPLOYEE');
