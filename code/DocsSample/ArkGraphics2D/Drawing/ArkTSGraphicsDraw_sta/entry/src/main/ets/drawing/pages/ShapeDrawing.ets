@@ -1,6 +1,6 @@
 'use static'
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -182,24 +182,24 @@ struct ShapeDrawing {
           .width('100%')
           .height('70%')
         Row() {
-          Button('Point')
+          Button('点')
             .onClick(() => { this.nodeController.setDrawIndex(0) })
-          Button('Arc')
+          Button('圆弧')
             .onClick(() => { this.nodeController.setDrawIndex(1) })
-          Button('Circle')
+          Button('圆')
             .onClick(() => { this.nodeController.setDrawIndex(2) })
-          Button('Path')
+          Button('路径')
             .onClick(() => { this.nodeController.setDrawIndex(3) })
         }
         .justifyContent(FlexAlign.SpaceEvenly)
         .width('100%')
         .height('8%')
         Row() {
-          Button('Region')
+          Button('区域')
             .onClick(() => { this.nodeController.setDrawIndex(4) })
-          Button('Rect')
+          Button('矩形')
             .onClick(() => { this.nodeController.setDrawIndex(5) })
-          Button('RoundRect')
+          Button('圆角矩形')
             .onClick(() => { this.nodeController.setDrawIndex(6) })
         }
         .justifyContent(FlexAlign.SpaceEvenly)

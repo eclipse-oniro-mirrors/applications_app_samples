@@ -1,6 +1,6 @@
 'use static'
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -185,24 +185,24 @@ struct TextBlobDrawing {
           .width('100%')
           .height('70%')
         Row() {
-          Button('BaseText')
+          Button('基本文字')
             .onClick(() => { this.nodeController.setDrawIndex(0) })
-          Button('StrokeText')
+          Button('文字描边')
             .onClick(() => { this.nodeController.setDrawIndex(1) })
-          Button('ChineseText')
+          Button('中文文字描边')
             .onClick(() => { this.nodeController.setDrawIndex(2) })
         }
         .justifyContent(FlexAlign.SpaceEvenly)
         .width('100%')
         .height('8%')
         Row() {
-          Button('GradientText')
+          Button('文字渐变')
             .onClick(() => { this.nodeController.setDrawIndex(3) })
-          Button('ThemeText')
+          Button('主题文字')
             .onClick(() => { this.nodeController.setDrawIndex(4) })
-          Button('SingleText')
+          Button('单字')
             .onClick(() => { this.nodeController.setDrawIndex(5) })
-          Button('FeatureText')
+          Button('特征字体')
             .onClick(() => { this.nodeController.setDrawIndex(6) })
         }
         .justifyContent(FlexAlign.SpaceEvenly)

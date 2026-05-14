@@ -1,6 +1,6 @@
 'use static'
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -131,11 +131,11 @@ struct CanvasOperationState {
           .width('100%')
           .height('70%')
         Row() {
-          Button('Clip')
+          Button('裁剪操作')
             .onClick(() => {
               this.nodeController.setDrawIndex(0)
             })
-          Button('Translation')
+          Button('平移操作')
             .onClick(() => {
               this.nodeController.setDrawIndex(1)
             })
@@ -144,15 +144,15 @@ struct CanvasOperationState {
         .width('100%')
         .height('8%')
         Row() {
-          Button('Rotation')
+          Button('旋转操作')
             .onClick(() => {
               this.nodeController.setDrawIndex(2)
             })
-          Button('Scale')
+          Button('缩放操作')
             .onClick(() => {
               this.nodeController.setDrawIndex(3)
             })
-          Button('State')
+          Button('画布状态操作')
             .onClick(() => {
               this.nodeController.setDrawIndex(4)
             })

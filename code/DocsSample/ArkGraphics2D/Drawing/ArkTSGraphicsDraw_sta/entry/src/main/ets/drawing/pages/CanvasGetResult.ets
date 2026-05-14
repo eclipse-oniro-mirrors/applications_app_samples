@@ -1,6 +1,6 @@
 'use static'
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -106,13 +106,13 @@ struct RenderTest {
     Row() {
       Column() {
         Column() {
-          Text('Direct Canvas')
+          Text('获取直接画布绘图结果')
           NodeContainer(this.myNodeController_1)
             .width('100%')
             .height('40%')
         }
         Column() {
-          Text('OffScreen Canvas')
+          Text('获取离屏画布绘图结果')
           NodeContainer(this.myNodeController_2)
             .width('100%')
             .height('40%')

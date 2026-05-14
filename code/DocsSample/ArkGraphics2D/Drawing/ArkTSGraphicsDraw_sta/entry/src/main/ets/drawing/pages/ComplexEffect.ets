@@ -1,6 +1,6 @@
 'use static'
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -218,31 +218,31 @@ struct ComplexEffect {
           .width('100%')
           .height('70%')
         Row() {
-          Button('RenderNode')
+          Button('混合模式')
             .onClick(() => { this.nodeController.setDrawIndex(0) })
-          Button('PathEffect')
+          Button('路径效果')
             .onClick(() => { this.nodeController.setDrawIndex(1) })
         }
         .justifyContent(FlexAlign.SpaceEvenly)
         .width('100%')
         .height('8%')
         Row() {
-          Button('LinearGradient')
+          Button('线性渐变')
             .onClick(() => { this.nodeController.setDrawIndex(2) })
-          Button('PathGradient')
+          Button('径向渐变')
             .onClick(() => { this.nodeController.setDrawIndex(3) })
-          Button('SectorGradient')
+          Button('扇形渐变')
             .onClick(() => { this.nodeController.setDrawIndex(4) })
         }
         .justifyContent(FlexAlign.SpaceEvenly)
         .width('100%')
         .height('8%')
         Row() {
-          Button('ColorFilter')
+          Button('颜色滤波器')
             .onClick(() => { this.nodeController.setDrawIndex(5) })
-          Button('ImageFilter')
+          Button('图像滤波器')
             .onClick(() => { this.nodeController.setDrawIndex(6) })
-          Button('MaskFilter')
+          Button('蒙版滤波器')
             .onClick(() => { this.nodeController.setDrawIndex(7) })
         }
         .justifyContent(FlexAlign.SpaceEvenly)

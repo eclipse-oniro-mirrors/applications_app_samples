@@ -2,7 +2,7 @@
 
 ## 介绍
 
-本工程主要实现了对以下指南文档中[访问控制概述](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/AccessToken/access-token-overview.md)示例代码片段的工程化，主要目标是实现指南中示例代码需要与sample工程文件同源。
+本工程主要实现了指南文档中示例代码片段的工程化，主要目标是实现指南中示例代码需要与sample工程文件同源。
 
 ## 效果预览
 
@@ -12,7 +12,7 @@
 使用说明：
 1. 该工程可以选择在模拟器和开发板上运行。
 2. 点击构建，即可在生成的应用中点击对应的按钮进行图案的绘制。
-3. 进入”DocsSample/Drawing/ArkTSDrawing_sta/entry/src/ohosTest/ets/test/DrawingAbility.test.ets“文件，可以对本项目进行UI的自动化测试。
+3. 进入”DocsSample/Drawing/ArkTSDrawing_sta/entry/src/ohosTest/ets/test/List.test.ets“文件，可以对本项目进行UI的自动化测试。
 
 ## 工程目录
 

@@ -14,7 +14,20 @@
  */
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:/Users/wll/.ohos/config/openharmony/default_ArkTSGraphicsDraw_sta_jK64cEFWMQ86gRa4dTe_buARi6gyXd8VRhxWlOy0YoM=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BA39BC149B5BFFF493A9526E065D50299D60B9B7DA11744FA031B50A2E88C49852BF500B5192049",
+          "profile": "C:/Users/wll/.ohos/config/openharmony/default_ArkTSGraphicsDraw_sta_jK64cEFWMQ86gRa4dTe_buARi6gyXd8VRhxWlOy0YoM=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/wll/.ohos/config/openharmony/default_ArkTSGraphicsDraw_sta_jK64cEFWMQ86gRa4dTe_buARi6gyXd8VRhxWlOy0YoM=.p12",
+          "storePassword": "0000001B213B56D7B4C5E4CCDC99F3E59569E0062655F9328B0A3D0BD97EFD6487D41E8E2A75638DAF1892"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
@@ -29,7 +42,7 @@
             "useNormalizedOHMUrl": true
           }
         },
-        "targetSdkVersion":"26.0.0"
+        "targetSdkVersion": "26.0.0"
       }
     ],
     "buildModeSet": [
