@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 // [Start entry1_preload_render_custom_node_controller_static]
-// 创建NodeController
 import {
   UIContext,
   NodeController,

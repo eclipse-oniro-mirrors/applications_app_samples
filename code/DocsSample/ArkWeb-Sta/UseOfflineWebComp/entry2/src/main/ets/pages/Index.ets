@@ -25,7 +25,7 @@ struct Index {
     Column() {
       Button('Jump to web page').onClick(() => {
         this.getUIContext().getRouter().pushUrl({ url: 'pages/Index2' }).catch((error) => {
-          console.log('testTag pushUrl error, ' + error);
+          console.error('pushUrl error, ' + error);
         })
       }).width('100%').height('100%')
     }

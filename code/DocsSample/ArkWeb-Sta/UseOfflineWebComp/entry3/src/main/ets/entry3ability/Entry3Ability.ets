@@ -25,14 +25,10 @@ export default class Entry3Ability extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
   }
 
-  onDestroy(): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
-  }
-
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
-    windowStage.loadContent('pages/Index', (err: BusinessError<undefined> | null) => {
+    windowStage.loadContent('pages/Index', (err: BusinessError<void> | null) => {
       if (err && err.code) {
         console.info('loadContent failed. errorCode: ' + err.code);
         return;
