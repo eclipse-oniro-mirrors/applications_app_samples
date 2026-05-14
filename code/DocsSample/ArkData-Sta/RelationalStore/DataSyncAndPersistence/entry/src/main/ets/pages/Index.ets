@@ -32,6 +32,7 @@ import {
 import { State } from '@ohos.arkui.stateManagement' // should be insert by ui-plugins
 import { setDefaultDistributedTables } from './datasync/RdbDataSync';
 import { setCollaborationDistributedTables } from './datasync/RdbDataSync';
+import { setSingleDistributedTables } from './datasync/RdbDataSync';
 import { dataChange } from './datasync/RdbDataSync';
 import { syncPush } from './datasync/RdbDataSync';
 import { syncPull } from './datasync/RdbDataSync';
@@ -79,6 +80,23 @@ struct Index {
         .onClick(() => {
           const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
           setCollaborationDistributedTables(context);
+        })
+
+      Button('setSingleDistributedTables')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .alignRules({
+          center: { anchor: '__container__', align: VerticalAlign.Center } as LocalizedVerticalAlignParam,
+          middle: { anchor: '__container__', align: HorizontalAlign.Center } as LocalizedHorizontalAlignParam
+        } as LocalizedAlignRuleOptions)
+        .type(ButtonType.Capsule)
+        .margin({ top: 50 })
+        .width("70%")
+        .height("5%")
+        .backgroundColor('#0D9FFB')
+        .onClick(() => {
+          const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+          setSingleDistributedTables(context);
         })
 
       Button('dataChange')

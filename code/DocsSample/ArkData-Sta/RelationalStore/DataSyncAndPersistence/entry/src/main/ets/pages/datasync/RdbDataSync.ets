@@ -26,10 +26,12 @@ const DOMAIN = 0x0000;
 
 // [Start setDefaultDistributedTables]
 // [Start setCollaborationDistributedTables]
+// [Start setSingleDistributedTables]
 let store: relationalStore.RdbStore | undefined = undefined;
 
 // [StartExclude setDefaultDistributedTables]
 // [StartExclude setCollaborationDistributedTables]
+// [StartExclude setSingleDistributedTables]
 export async function setDefaultDistributedTables(context: common.UIAbilityContext | undefined): Promise<void> {
   // [EndExclude setDefaultDistributedTables]
   const STORE_CONFIG: relationalStore.StoreConfig = {
@@ -70,6 +72,31 @@ export async function setCollaborationDistributedTables(context: common.UIAbilit
     hilog.error(DOMAIN, 'rdbDataSync', `Get RdbStore failed, code is ${err.code}, message is ${err.message}`);
   });
   // [End setCollaborationDistributedTables]
+}
+
+export async function setSingleDistributedTables(context: common.UIAbilityContext | undefined): Promise<void> {
+  // [EndExclude setSingleDistributedTables]
+  const STORE_CONFIG: relationalStore.StoreConfig = {
+    name: 'RdbTest.db', // 数据库文件名
+    securityLevel: relationalStore.SecurityLevel.S3 // 数据库安全级别
+  };
+  // 打开数据库并设置分布式表
+  const DISTRIBUTED_CONFIG: relationalStore.DistributedConfig = {
+    autoSync: false,
+    asyncDownloadAsset: false,
+    enableCloud: false,
+    tableType: relationalStore.DistributedTableType.SINGLE_VERSION
+  }
+  relationalStore.getRdbStore(context!, STORE_CONFIG).then(async (rdbStore: relationalStore.RdbStore) => {
+    store = rdbStore;
+    await store!.executeSql('CREATE TABLE IF NOT EXISTS EMPLOYEE (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL UNIQUE, AGE INTEGER, SALARY REAL, CODES BLOB)');
+    await store!.executeSql('CREATE TABLE IF NOT EXISTS EMPLOYEE2 (NAME TEXT NOT NULL UNIQUE, AGE INTEGER, SALARY REAL, CODES BLOB, PRIMARY KEY (NAME))');
+    // 将已创建的表设置分布式表。
+    await store!.setDistributedTables(['EMPLOYEE', 'EMPLOYEE2'], relationalStore.DistributedType.DISTRIBUTED_DEVICE, DISTRIBUTED_CONFIG);
+  }).catch((err: Error) => {
+    hilog.error(DOMAIN, 'rdbDataSync', `Get RdbStore failed, code is ${err.code}, message is ${err.message}`);
+  });
+  // [End setSingleDistributedTables]
 }
 
 export async function dataChange(): Promise<void> {
@@ -228,10 +255,8 @@ export async function remoteQuery(): Promise<void> {
     const predicates = new relationalStore.RdbPredicates('EMPLOYEE');
     try {
       // 查询组网内设备上的分布式表
-      const resultSet =
-        await store!.remoteQuery(devices[0], 'EMPLOYEE', predicates, ['ID', 'NAME', 'AGE', 'SALARY']);
-      hilog.info(DOMAIN, 'rdbDataSync',
-        `ResultSet column names: ${resultSet.columnNames}, column count: ${resultSet.columnCount}`);
+      const resultSet = await store!.remoteQuery(devices[0], 'EMPLOYEE', predicates, ['ID', 'NAME', 'AGE', 'SALARY']);
+      hilog.info(DOMAIN, 'rdbDataSync', `ResultSet column names: ${resultSet.columnNames}, column count: ${resultSet.columnCount}`);
     } catch (e) {
       hilog.error(DOMAIN, 'rdbDataSync', 'Remote query failed, code: ' + e.code + ', message: ' + e.message);
     }
