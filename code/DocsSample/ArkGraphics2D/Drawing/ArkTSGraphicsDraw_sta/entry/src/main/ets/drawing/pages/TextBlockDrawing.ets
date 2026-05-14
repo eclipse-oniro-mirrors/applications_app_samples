@@ -20,104 +20,168 @@ import { VALUE_100, VALUE_200, VALUE_300, VALUE_900 } from '../../pages/Index';
 import { STROKE_SAMPLE } from '../../pages/Index';
 
 function drawBaseText(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_base_text]
+  // 创建字型对象
   const font = new drawing.Font();
+  // 设置字体大小
   font.setSize(100);
+  // 创建字块对象
   const textBlob = drawing.TextBlob.makeFromString('Hello world', font, drawing.TextEncoding.TEXT_ENCODING_UTF8);
+  // 绘制字块
   if (textBlob) {
     canvas.drawTextBlob(textBlob, VALUE_200, VALUE_300);
   }
+  // [End arkts_graphics_draw_base_text]
 }
 
 function drawStrokeText(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_stroke_text]
+  // 创建画笔
   let pen = new drawing.Pen();
+  // 设置抗锯齿
   pen.setAntiAlias(true);
+  // 设置描边线宽
   pen.setStrokeWidth(3.0);
+  // 设置描边颜色
   pen.setColor(0xFF, 0xFF, 0x00, 0x00);
+  // 创建字型对象
   const font = new drawing.Font();
+  // 设置字体大小
   font.setSize(100);
+  // 添加画笔描边效果
   canvas.attachPen(pen);
+  // 创建字块对象
   const textBlob = drawing.TextBlob.makeFromString('Hello world', font, drawing.TextEncoding.TEXT_ENCODING_UTF8);
+  // 绘制字块
   if (textBlob) {
     canvas.drawTextBlob(textBlob, VALUE_200, VALUE_300);
   }
+  // 去除描边效果
   canvas.detachPen();
+  // [End arkts_graphics_draw_stroke_text]
 }
 
 function drawChineseStrokeText(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_chinese_stroke_text]
+  // 创建画刷
   let brush = new drawing.Brush();
+  // 创建画笔
   let pen = new drawing.Pen();
+  // 设置抗锯齿
   brush.setAntiAlias(true);
+  // 设置描边颜色
   brush.setColor(0xFF, 0xFF, 0xFF, 0xFF);
   pen.setAntiAlias(true);
+  // 设置描边线宽
   pen.setStrokeWidth(3.0);
+  // 设置描边颜色
   pen.setColor(0xFF, 0xFF, 0x00, 0x00);
+  // 创建字型对象
   const font = new drawing.Font();
+  // 设置字体大小
   font.setSize(100);
+  // 添加画笔描边效果
   canvas.attachPen(pen);
+  // 创建字块对象
   const textBlob = drawing.TextBlob.makeFromString(STROKE_SAMPLE, font, drawing.TextEncoding.TEXT_ENCODING_UTF8);
+  // 绘制字块
   if (textBlob) {
     canvas.drawTextBlob(textBlob, VALUE_200, VALUE_300);
+    // 去除描边效果
     canvas.detachPen();
     canvas.attachBrush(brush);
     canvas.drawTextBlob(textBlob, VALUE_200, VALUE_300);
     canvas.detachBrush();
   }
+  // [End arkts_graphics_draw_chinese_stroke_text]
 }
 
 function drawGradientText(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_gradient_text]
+  // 设置渐变起点和终点
   let startPt: common2D.Point = { x: VALUE_100, y: VALUE_100 };
   let endPt: common2D.Point = { x: VALUE_900, y: VALUE_900 };
-  let colors = [(-0xFFFFFF00).toInt(), (-0xFFFF0000).toInt(), (-0xFF0000FF).toInt()];
+  let colors = [(0xFFFFFF00).toInt(), (0xFFFF0000).toInt(), (0xFF0000FF).toInt()];
+  // 创建线性渐变着色器
   let shaderEffect = drawing.ShaderEffect.createLinearGradient(startPt, endPt, colors, drawing.TileMode.CLAMP);
   if (shaderEffect != null) {
+    // 创建画刷
     let brush = new drawing.Brush();
+    // 设置着色器
     brush.setShaderEffect(shaderEffect);
+    // 添加画刷填充效果
     canvas.attachBrush(brush);
+    // 创建字型
     const font = new drawing.Font();
+    // 设置字体大小
     font.setSize(VALUE_200);
+    // 创建字块
     const textBlob = drawing.TextBlob.makeFromString('Hello world', font, drawing.TextEncoding.TEXT_ENCODING_UTF8);
+    // 绘制字块
     if (textBlob != null) {
       canvas.drawTextBlob(textBlob, VALUE_100, VALUE_300);
     }
+    // 去除填充效果
     canvas.detachBrush();
   }
+  // [End arkts_graphics_draw_gradient_text]
 }
 
 function drawThemeText(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_theme_text]
+  // 创建线性渐变着色器
   const font = new drawing.Font();
+  // 设置文字大小
   font.setSize(100);
+  // 设置跟随主题字体
   font.setThemeFontFollowed(true);
+  // 创建字块对象
   const textBlob = drawing.TextBlob.makeFromString('Hello World', font, drawing.TextEncoding.TEXT_ENCODING_UTF8);
+  // 绘制字块
   if (textBlob) {
     canvas.drawTextBlob(textBlob, VALUE_200, VALUE_300);
   }
+  // [End arkts_graphics_draw_theme_text]
 }
 
 function drawSingleText(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_single_text]
+  // 创建字型对象
   const font = new drawing.Font();
+  // 设置文字大小
   font.setSize(100);
   let startX = 100;
   let startY = 100;
   let text = ['H', 'e', 'l', 'l', 'o'];
   for (let s of text) {
+    // 单字绘制
     canvas.drawSingleCharacter(s, font, startX, startY);
+    // 测量单个字符的宽度
     let textWidth = font.measureSingleCharacter(s);
     startX += textWidth;
   }
+  // [End arkts_graphics_draw_single_text]
 }
 
 function drawFeatureText(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_feature_text]
+  // 创建字型对象
   const font = new drawing.Font();
+  // 设置文字大小
   font.setSize(100);
   let startX = 100;
   let startY = 100;
   let text = ['a', '2', '+', 'b', '2'];
+  // 创建字体特征对象数组
   let fontFeatures: drawing.FontFeature[] = [{ name: 'frac', value: 1 }];
   for (let s of text) {
+    // 单字绘制
     canvas.drawSingleCharacterWithFeatures(s, font, startX, startY, fontFeatures);
+    // 测量单个字符的宽度
     let textWidth = font.measureSingleCharacterWithFeatures(s, fontFeatures);
     startX += textWidth;
   }
+  // [End arkts_graphics_draw_feature_text]
 }
 
 class MyRenderNode extends RenderNode {

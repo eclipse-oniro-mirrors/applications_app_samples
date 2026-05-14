@@ -19,38 +19,64 @@ import { common2D, drawing } from '@kit.ArkGraphics2D';
 import { VALUE_100, VALUE_200, VALUE_300, VALUE_400, VALUE_500, VALUE_600, VALUE_630, VALUE_700, VALUE_800, VALUE_900, VALUE_1000, VALUE_1800 } from '../../pages/Index';
 
 function drawPoint(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_point]
+  // 设置画笔
   let pen = new drawing.Pen();
+  // 设置颜色
   pen.setColor(0xFF, 0xFF, 0x00, 0x00);
+  // 设置线宽
   pen.setStrokeWidth(40);
+  // 设置画笔描边效果
   canvas.attachPen(pen);
+  // 绘制5个点
   canvas.drawPoint(VALUE_200, VALUE_200);
   canvas.drawPoint(VALUE_400, VALUE_400);
   canvas.drawPoint(VALUE_600, VALUE_600);
   canvas.drawPoint(VALUE_800, VALUE_800);
   canvas.drawPoint(VALUE_1000, VALUE_1000);
+  // 去除描边效果
   canvas.detachPen();
+  // [End arkts_graphics_draw_point]
 }
 
 function drawArc(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_arc]
+  // 创建画笔
   let pen = new drawing.Pen();
+  // 设置颜色
   pen.setColor({ alpha: 0xFF, red: 0xFF, green: 0x00, blue: 0x00 });
+  // 设置线宽
   pen.setStrokeWidth(20);
+  // 设置画笔描边效果
   canvas.attachPen(pen);
+  // 创建矩形对象
   const rect: common2D.Rect = { left: VALUE_100, top: VALUE_200, right: VALUE_1000, bottom: VALUE_600 };
+  // 绘制矩形
   canvas.drawArc(rect, 0, 180);
+  // 去除描边效果
   canvas.detachPen();
+  // [End arkts_graphics_draw_arc]
 }
 
 function drawCircle(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_circle]
+  // 创建画笔
   let pen = new drawing.Pen();
+  // 设置颜色
   pen.setColor({ alpha: 0xFF, red: 0xFF, green: 0x00, blue: 0x00 });
+  // 设置线宽
   pen.setStrokeWidth(20);
+  // 设置画笔描边效果
   canvas.attachPen(pen);
+  // 绘制圆
   canvas.drawCircle(VALUE_630, VALUE_630, VALUE_500);
+  // 去除描边效果
   canvas.detachPen();
+  // [End arkts_graphics_draw_circle]
 }
 
 function drawPath(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_path]
   let height_ = VALUE_1800;
   let width_ = VALUE_1800;
   let len = height_ / 4;
@@ -65,56 +91,98 @@ function drawPath(canvas: drawing.Canvas): void {
   let eX = aX - (len / 2.0);
   let eY = bY;
 
+  // 创建一个path对象，然后使用接口连接成一个五角星形状
   let path = new drawing.Path();
+  // 指定path的起始位置
   path.moveTo(aX, aY);
+  // 用直线连接到目标点
   path.lineTo(bX, bY);
   path.lineTo(cX, cY);
   path.lineTo(dX, dY);
   path.lineTo(eX, eY);
+  // 闭合形状，path绘制完毕
   path.close();
 
+  // 创建画笔对象
   let pen = new drawing.Pen();
+  // 设置抗锯齿
   pen.setAntiAlias(true);
+  // 设置描边颜色
   pen.setColor(0xFF, 0xFF, 0x00, 0x00);
+  // 设置线宽
   pen.setStrokeWidth(10.0);
+  // 设置画笔描边效果
   canvas.attachPen(pen);
+  // 创建画刷
   let brush = new drawing.Brush();
+  // 设置填充颜色
   brush.setColor(0xFF, 0x00, 0xFF, 0x00);
+  // 设置画刷填充效果
   canvas.attachBrush(brush);
+  // 绘制路径
   canvas.drawPath(path);
+  // 去除填充效果
   canvas.detachBrush();
+  // 去除描边效果
   canvas.detachPen();
+  // [End arkts_graphics_draw_path]
 }
 
 function drawRegion(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_region]
+  // 创建画刷
   let brush = new drawing.Brush();
+  // 设置颜色
   brush.setColor(0xFF, 0xFF, 0x00, 0x00);
+  // 设置画刷填充效果
   canvas.attachBrush(brush);
+  // 创建左上角的region1
   let region1 = new drawing.Region();
   region1.setRect(VALUE_100, VALUE_100, VALUE_600, VALUE_600);
+  // 创建右下角的region2
   let region2 = new drawing.Region();
   region2.setRect(VALUE_300, VALUE_300, VALUE_900, VALUE_900);
+  // 将两个区域以XOR的方式组合
   region1.op(region2, drawing.RegionOp.XOR);
+  // 绘制区域
   canvas.drawRegion(region1);
+  // 去除填充效果
   canvas.detachBrush();
+  // [End arkts_graphics_draw_region]
 }
 
 function drawRect(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_rect]
+  // 创建画刷
   let brush = new drawing.Brush();
+  // 设置颜色
   brush.setColor(0xFF, 0xFF, 0x00, 0x00);
+  // 设置画刷填充效果
   canvas.attachBrush(brush);
+  // 绘制矩形
   canvas.drawRect(VALUE_200, VALUE_200, VALUE_1000, VALUE_700);
+  // 去除填充效果
   canvas.detachBrush();
+  // [End arkts_graphics_draw_rect]
 }
 
 function drawRoundRect(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_round_rect]
+  // 创建画刷
   let brush = new drawing.Brush();
+  // 设置颜色
   brush.setColor(0xFF, 0xFF, 0x00, 0x00);
+  // 设置画刷填充效果
   canvas.attachBrush(brush);
+  // 创建矩形对象
   let rect: common2D.Rect = { left: VALUE_200, top: VALUE_200, right: VALUE_1000, bottom: VALUE_700 };
+  // 创建圆角矩形对象
   let rrect = new drawing.RoundRect(rect, 30, 30);
+  // 绘制圆角矩形
   canvas.drawRoundRect(rrect);
+  // 去除填充效果
   canvas.detachBrush();
+  // [End arkts_graphics_draw_round_rect]
 }
 
 class MyRenderNode extends RenderNode {

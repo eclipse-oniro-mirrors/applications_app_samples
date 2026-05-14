@@ -22,12 +22,16 @@ import { VALUE_100, VALUE_200 } from '../../pages/Index';
 let pixelMap: image.PixelMap | null = null;
 
 function drawImage(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_image]
+  // 图片宽高
   let width = 600;
   let height = 400;
+  // 字节长度，RGBA_8888每个像素占4字节
   let byteLength = width * height * 4;
   const color: ArrayBuffer = new ArrayBuffer(byteLength);
   let bufferArr = new Uint8Array(color);
   for (let i = 0; i < bufferArr.length; i += 4) {
+    // 遍历并编辑每个像素，从而形成红绿蓝相间的条纹
     bufferArr[i] = 0x00;
     bufferArr[i + 1] = 0x00;
     bufferArr[i + 2] = 0x00;
@@ -41,24 +45,30 @@ function drawImage(canvas: drawing.Canvas): void {
       bufferArr[i + 2] = 0xFF;
     }
   }
+  // 设置像素属性
   let opts: image.InitializationOptions = { editable: true, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: height, width: width } };
-  let pm = image.createPixelMapSync(color, opts);
-  if (pm != null) {
-    canvas.drawImage(pm, 0, 0);
+  // 创建PixelMap
+  pixelMap= image.createPixelMapSync(color, opts);
+  // [End arkts_graphics_draw_image]
+  // [Start arkts_graphics_draw_image_pixel_map]
+  // 为了使图片完全显示，修改绘制起点参数为（0，0）
+  if (pixelMap != null) {
+    canvas.drawImage(pixelMap as image.PixelMap, 0, 0);
   }
+  // [End arkts_graphics_draw_image_pixel_map]
 }
 
 function editPixel(canvas: drawing.Canvas): void {
-  if (pixelMap == null) {
-    return;
-  }
-  let pm = pixelMap;
+  // [Start arkts_graphics_draw_edit_pixel]
+  // 设置编辑区域的宽高
   let innerWidth = 400;
   let innerHeight = 200;
+  // 编辑区域的字节长度，RGBA_8888每个像素占4字节
   let innerByteLength = innerWidth * innerHeight * 4;
   const innerColor: ArrayBuffer = new ArrayBuffer(innerByteLength);
   let innerBufferArr = new Uint8Array(innerColor);
   for (let i = 0; i < innerBufferArr.length; i += 4) {
+    // 编辑区域的像素都设置为黑白相间条纹
     let n = Math.floor(i / 80) % 2;
     if (n == 0) {
       innerBufferArr[i] = 0x00;
@@ -71,14 +81,18 @@ function editPixel(canvas: drawing.Canvas): void {
     }
     innerBufferArr[i + 3] = 0xFF;
   }
+  // 设置编辑区域的像素、宽高、偏移量等
   const area: image.PositionArea = {
     pixels: innerColor,
     offset: 0,
     stride: innerWidth * 4,
     region: { size: { height: innerHeight, width: innerWidth }, x: 100, y: 100 }
   };
-  pm!.writePixelsSync(area);
-  canvas.drawImage(pm as image.PixelMap, 0, 0);
+  // 编辑位图，形成中间的黑白相间条纹
+  pixelMap!.writePixelsSync(area);
+  // 为了使图片完全显示，修改绘制起点参数为（0，0）
+  canvas.drawImage(pixelMap as image.PixelMap, 0, 0);
+  // [End arkts_graphics_draw_edit_pixel]
 }
 
 class MyRenderNode extends RenderNode {
