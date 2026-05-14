@@ -65,7 +65,7 @@ class EntryAbility extends UIAbility {
       let bundleInfo: bundleManager.BundleInfo =
         await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
       let appInfo: bundleManager.ApplicationInfo = bundleInfo.appInfo as bundleManager.ApplicationInfo;
-      tokenId = appInfo.accessTokenId as int;
+      tokenId = Long.toInt(appInfo.accessTokenId);
     } catch (err) {
       console.error('testTag', 'Failed to get bundle info for self, cause %{public}s', JSON.stringify(err) ?? '');
     }

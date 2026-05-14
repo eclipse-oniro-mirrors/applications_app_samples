@@ -30,7 +30,7 @@ let store: relationalStore.RdbStore | undefined = undefined;
 
 // [StartExclude setDefaultDistributedTables]
 // [StartExclude setCollaborationDistributedTables]
-export async function setDefaultDistributedTables(context: common.UIAbilityContext | undefined) {
+export async function setDefaultDistributedTables(context: common.UIAbilityContext | undefined): Promise<void> {
   // [EndExclude setDefaultDistributedTables]
   const STORE_CONFIG: relationalStore.StoreConfig = {
     name: 'RdbTest.db', // 数据库文件名
@@ -48,7 +48,7 @@ export async function setDefaultDistributedTables(context: common.UIAbilityConte
   // [End setDefaultDistributedTables]
 }
 
-export async function setCollaborationDistributedTables(context: common.UIAbilityContext | undefined) {
+export async function setCollaborationDistributedTables(context: common.UIAbilityContext | undefined): Promise<void> {
   // [EndExclude setCollaborationDistributedTables]
   const STORE_CONFIG: relationalStore.StoreConfig = {
     name: 'RdbTest.db', // 数据库文件名
@@ -72,7 +72,7 @@ export async function setCollaborationDistributedTables(context: common.UIAbilit
   // [End setCollaborationDistributedTables]
 }
 
-export async function dataChange() {
+export async function dataChange(): Promise<void> {
   // [Start on_data_change]
   // 订阅组网内其他设备的数据变化消息
   if (store) {
@@ -89,7 +89,7 @@ export async function dataChange() {
       }
       // 调用分布式数据订阅接口，注册数据库的观察者
       // 当分布式数据库中的数据发生更改时，将调用回调
-      store!.onDataChange(relationalStore.SubscribeType.SUBSCRIBE_TYPE_REMOTE, (devices) => {
+      store!.onDataChange(relationalStore.SubscribeType.SUBSCRIBE_TYPE_REMOTE, (devices: string[]) => {
         for (let i = 0; i < devices.length; i++) {
           let device = devices[i];
           if (!store) {
@@ -97,11 +97,13 @@ export async function dataChange() {
           }
           hilog.info(DOMAIN, 'rdbDataSync', `The data of device:${device} has been changed.`);
           // 获取device对应的分布式表名。
-          const distributedTableName = await store!.obtainDistributedTableName(device, 'EMPLOYEE');
-          // 创建查询谓词，查询组网内设备分布式表的数据
-          const predicates = new relationalStore.RdbPredicates(distributedTableName);
-          const resultSet = await store!.query(predicates);
-          hilog.info(DOMAIN, 'rdbDataSync', `device ${device}, table EMPLOYEE rowCount is: ${resultSet.rowCount}`);
+          store!.obtainDistributedTableName(device, 'EMPLOYEE').then((distributedTableName: string) => {
+            // 创建查询谓词，查询组网内设备分布式表的数据
+            const predicates = new relationalStore.RdbPredicates(distributedTableName);
+            store!.query(predicates).then((resultSet: relationalStore.ResultSet) => {
+              hilog.info(DOMAIN, 'rdbDataSync', `device ${device}, table EMPLOYEE rowCount is: ${resultSet.rowCount}`);
+            });
+          });
         }
       });
     } catch (err) {
@@ -111,7 +113,7 @@ export async function dataChange() {
   // [End on_data_change]
 }
 
-export async function syncPush() {
+export async function syncPush(): Promise<void> {
   // [Start data_sync_push]
   // 同步当前设备数据变化至组网内其他设备
   if (store) {
@@ -161,7 +163,7 @@ export async function syncPush() {
   // [End data_sync_push]
 }
 
-export async function syncPull() {
+export async function syncPull(): Promise<void> {
   // [Start data_sync_pull]
   // 拉取组网内其他设备的数据变化
   if (store) {
@@ -204,7 +206,7 @@ export async function syncPull() {
   // [End data_sync_pull]
 }
 
-export async function remoteQuery() {
+export async function remoteQuery(): Promise<void> {
   // [Start data_remote_query]
   // 查询组网内指定设备上分布式表中的数据
   if (store) {

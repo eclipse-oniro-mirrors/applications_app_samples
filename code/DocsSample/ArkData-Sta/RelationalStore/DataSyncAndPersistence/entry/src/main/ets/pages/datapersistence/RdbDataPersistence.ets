@@ -45,7 +45,7 @@ const STORE_CONFIG: relationalStore.StoreConfig = {
 };
 
 // [StartExclude persistence_get_store]
-export async function rdbDataPersistence(context: common.UIAbilityContext | undefined) {
+export async function rdbDataPersistence(context: common.UIAbilityContext | undefined): Promise<void> {
   hilog.info(DOMAIN, 'rdbDataPersistence', 'rdbDataPersistence start');
   // [EndExclude persistence_get_store]
   // 判断数据库版本，如果不匹配则需进行升降级操作
