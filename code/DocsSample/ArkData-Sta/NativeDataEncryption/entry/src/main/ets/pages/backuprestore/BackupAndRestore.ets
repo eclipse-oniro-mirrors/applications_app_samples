@@ -28,7 +28,7 @@ const DOMAIN = 0x0000
 // Backing up a relational database
 // Back up manually
 
-export async function backupManually(uiContext: UIContext) {
+export async function backupManually(uiContext: UIContext): Promise<void> {
   // 手动备份
   // 手动备份：通过调用[backup](../reference/apis-arkdata/arkts-apis-data-relationalStore-RdbStore.md#backup)接口实现数据库手动备份。示例如下：
 
@@ -131,7 +131,7 @@ export async function backupManually(uiContext: UIContext) {
 
 // Rebuilding a relational database abnormally
 // 关系型数据库异常重建
-export async function rebuildingRelationalDatabaseAbnormally(uiContext: UIContext) {
+export async function rebuildingRelationalDatabaseAbnormally(uiContext: UIContext): Promise<void> {
 
   // 关系型数据库异常重建
 
@@ -169,7 +169,7 @@ export async function rebuildingRelationalDatabaseAbnormally(uiContext: UIContex
 
 // Restoring manual backup data
 // 调用restore接口恢复数据
-export async function restoringManualBackupData(uiContext: UIContext) {
+export async function restoringManualBackupData(uiContext: UIContext): Promise<void> {
 
   // [Start invokeTheRestoreInterfaceToRestoreData]
   let store: relationalStore.RdbStore | undefined = undefined;
