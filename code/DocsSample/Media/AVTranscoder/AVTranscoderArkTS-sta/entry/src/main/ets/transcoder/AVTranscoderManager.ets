@@ -55,14 +55,14 @@ export class AVTranscoderDemo {
     if (this.avTranscoder != undefined) {
       // 转码完成回调函数。
       this.avTranscoder?.onComplete(() => {
-        console.log(`AVTranscoder is completed`);
+        console.info(`AVTranscoder is completed`);
         this.releaseTranscoderingProcess();
       });
       // 错误上报回调函数。
       this.avTranscoder?.onError((err: BusinessError) => {
         console.error(`AVTranscoder failed, code is ${err.code}, message is ${err.message}`);
       });
-      // 进度上报回调函数
+      // 进度上报回调函数。
       this.avTranscoder?.onProgressUpdate((progress: int) => {
         console.info(`AVTranscoder progressUpdate = ${progress}`);
         this.currentProgress = progress;
@@ -88,7 +88,7 @@ export class AVTranscoderDemo {
         // [Start create_fdsrc]
         // 获取输入文件fd，H264_AAC.mp4为rawfile目录下的预置资源，需要开发者根据实际情况进行替换。
         this.rawFileDescriptor = await this.context!.resourceManager.getRawFd('H264_AAC.mp4');
-        // 将 RawFileDescriptor 转换为 AVFileDescriptor
+        // 将RawFileDescriptor转换为AVFileDescriptor。
         this.avTranscoder!.fdSrc = {
           fd: this.rawFileDescriptor!.fd,
           offset: this.rawFileDescriptor!.offset,
@@ -139,9 +139,10 @@ export class AVTranscoderDemo {
     if (this.avTranscoder != undefined) {
       // 1.释放转码实例。
       await this.avTranscoder!!.release();
+      let lastFd = this.avTranscoder!.fdDst;
       this.avTranscoder = undefined;
       // 2.关闭转码目标文件fd。
-      fs.closeSync(this.avTranscoder!.fdDst);
+      fs.closeSync(lastFd);
     }
   }
   // [End doRelease]
@@ -157,7 +158,7 @@ export class AVTranscoderDemo {
   async avTranscoderDemo(){
     this.context = globalContext.getAbilityContext();
     await this.startTranscoderingProcess(); // 开始转码。
-    await this.pauseTranscoderingProcess(); //暂停转码。
+    await this.pauseTranscoderingProcess(); // 暂停转码。
     await this.resumeTranscoderingProcess(); // 恢复转码。
   }
   // [End transcoder_process]
