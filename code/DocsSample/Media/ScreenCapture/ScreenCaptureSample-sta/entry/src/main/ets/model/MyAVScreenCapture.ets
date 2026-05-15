@@ -44,14 +44,17 @@ export class MyAVScreenCapture {
 
   // 开始屏幕录制
   public async startRecording(filesDir: string | undefined): Promise<void> {
-    // [Start create_record]
+ 
     if (filesDir === undefined) {
       return;
     }
     this.updateFileFd(filesDir);
     // 实例化对象
     try {
+      // [Start create_record]
+      // 创建一个AVScreenCaptureRecorder，并赋值给screenCapture成员变量。
       this.screenCapture = await media.createAVScreenCaptureRecorder();
+      // [End create_record]
     } catch (error) {
       let err = error as BusinessError;
       hilog.error(0x0000, 'testTag',
@@ -63,7 +66,7 @@ export class MyAVScreenCapture {
       hilog.info(0xFF00, CommonConstants.LOG_TAG, 'ScreenCapture creation failed.');
       return;
     }
-
+    // [Start callback_record]
     // 监听屏幕捕获的状态更改
     this.screenCapture?.onStateChange((infoType: media.AVScreenCaptureStateCode) => {
       switch (infoType) {
@@ -113,7 +116,7 @@ export class MyAVScreenCapture {
     this.screenCapture?.onError((err) => {
       hilog.info(0xFF00, CommonConstants.LOG_TAG, 'Handle exception cases.');
     })
-    // [End create_record]
+    // [End callback_record]
   
     // [Start set_config]
     // 配置屏幕录制参数
@@ -149,7 +152,7 @@ export class MyAVScreenCapture {
     }
   }
 
-  // [Start stop_record]
+
   // 停止录屏
   public async stopRecording(): Promise<void> {
     if (this.screenCapture == undefined) {
@@ -158,11 +161,13 @@ export class MyAVScreenCapture {
     }
 
     try {
+      // [Start stop_record]
       await this.screenCapture?.stopRecording();
-
+      // [End stop_record]
       // 调用release()方法来销毁实例并释放资源
+      // [Start release_record]
       await this.screenCapture?.release();
-
+      // [End release_record]
       // 关闭文件
       fs.close((this.file as fs.File).fd);
     } catch (error) {
@@ -170,8 +175,6 @@ export class MyAVScreenCapture {
       hilog.error(0x0000, 'testTag', `stop fail. message = ${err.message}`);
     }
   }
-
-  // [End stop_record]
 
   // [Start get_file_fd]
   public updateFileFd(filesDir: string): void {
@@ -185,7 +188,6 @@ export class MyAVScreenCapture {
       hilog.error(0x0000, 'testTag', `openSync fail. message = ${err.message}`);
     }
   }
-
   // [End get_file_fd]
 
   public getPath(): string {
