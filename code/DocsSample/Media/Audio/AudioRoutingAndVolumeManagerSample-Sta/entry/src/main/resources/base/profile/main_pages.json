@@ -1,0 +1,12 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/AudioInputDeviceManagement",
+    "pages/AudioInputDeviceSwitcher",
+    "pages/AudioOutputDeviceManagement",
+    "pages/AudioOutputDeviceSwitcher",
+    "pages/AudioOutputDeviceChange",
+    "pages/VolumeManagement"
+
+  ]
+}
