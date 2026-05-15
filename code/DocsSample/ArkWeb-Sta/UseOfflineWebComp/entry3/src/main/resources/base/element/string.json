@@ -30,7 +30,7 @@
     },
     {
       "name": "Jump_to_Page2_load_url1",
-      "value": "跳转Page2(加载consumer.huawei.com)"
+      "value": "跳转Page2(加载www.openharmony.cn)"
     },
     {
       "name": "Jump_to_Page2_load_url2",
@@ -38,7 +38,7 @@
     },
     {
       "name": "load_test_url1",
-      "value": "加载consumer.huawei.com"
+      "value": "加载www.openharmony.cn"
     },
     {
       "name": "load_test_url2",
@@ -46,7 +46,7 @@
     },
     {
       "name": "test_url1",
-      "value": "consumer.huawei.com"
+      "value": "www.openharmony.cn"
     },
     {
       "name": "test_url2",

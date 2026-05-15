@@ -128,7 +128,7 @@ export class MyNodeController extends NodeController {
   // 此函数为自定义函数，加载网页
   loadUrl(url: ResourceStr | undefined): void {
     if (url === undefined) {
-      console.info('testTag url === undefined');
+      console.info('the url is undefined');
       return;
     }
 
@@ -177,7 +177,6 @@ let recycledNWebs: Set<ResourceStr> = new Set<ResourceStr>();
 
 // 初始化需要UIContext 需在Ability获取
 export function createNWeb(url: ResourceStr, uiContext: UIContext): void {
-  // 创建NodeController
   console.info('createNWeb, url = ' + url);
   if (!globalUiContext) {
     globalUiContext = uiContext;
@@ -187,6 +186,7 @@ export function createNWeb(url: ResourceStr, uiContext: UIContext): void {
     return;
   }
 
+  // 创建NodeController
   let baseNode = new MyNodeController();
   // 初始化自定义Web组件
   baseNode.initWeb(url, uiContext);
