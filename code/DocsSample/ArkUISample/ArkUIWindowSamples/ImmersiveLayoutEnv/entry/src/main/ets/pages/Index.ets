@@ -6,6 +6,7 @@ const DOMAIN = 0x0000;
 @Entry
 @Component
 struct Index {
+  @Env(SystemProperties.WINDOW_AVOID_AREA) avoidAreasVp: window.UIEnvWindowAvoidAreaInfoVP;
   @StorageProp('topAvoidHeight')
   topAvoidHeight: number = 0;
   @StorageProp('bottomAvoidHeight')
@@ -58,7 +59,6 @@ struct Index {
 
   build() {
     Column() {
-      // 避让顶部和挖孔区域
       Row() {
         Text('Top Container')
           .fontSize(40)
@@ -67,11 +67,10 @@ struct Index {
       }
       .backgroundColor('#2786d9')
       .padding({
-        top: this.getUIContext().px2vp(this.topAvoidHeight) + 10,
+        top: this.avoidAreasVp.statusBar.topRect.height + 10,
         bottom: 10,
-        // 避让挖孔区域
-        left: this.getUIContext().px2vp(this.leftAvoidWidth),
-        right: this.getUIContext().px2vp(this.rightAvoidWidth)
+        left: this.avoidAreasVp.cutout.leftRect.width,
+        right: this.avoidAreasVp.cutout.rightRect.width
       })
 
       Scroll() {
@@ -124,11 +123,11 @@ struct Index {
       .borderRadius(15)
       .width('80%')
       .margin({
-        left: this.getUIContext().px2vp(this.leftAvoidWidth),
-        right: this.getUIContext().px2vp(this.rightAvoidWidth)
+        left: this.avoidAreasVp.cutout.leftRect.width,
+        right: this.avoidAreasVp.cutout.rightRect.width
       })
       .layoutWeight(1)
-      // 避让底部和挖孔区域
+
       Row() {
         Text('Bottom Container')
           .fontSize(40)
@@ -138,17 +137,16 @@ struct Index {
       .backgroundColor('#96dffa')
       .padding({
         top: 10,
-        bottom: this.getUIContext().px2vp(this.bottomAvoidHeight) + 10,
-        // 避让挖孔区域
-        left: this.getUIContext().px2vp(this.leftAvoidWidth),
-        right: this.getUIContext().px2vp(this.rightAvoidWidth)
+        bottom: this.avoidAreasVp.navigationIndicator.bottomRect.height + 10,
+        left: this.avoidAreasVp.cutout.leftRect.width,
+        right: this.avoidAreasVp.cutout.rightRect.width
       })
     }
     .width('100%')
     .height('100%')
     .padding({
-      left: this.getUIContext().px2vp(this.leftAvoidWidth),
-      right: this.getUIContext().px2vp(this.rightAvoidWidth)
+      left: this.avoidAreasVp.cutout.leftRect.width,
+      right: this.avoidAreasVp.cutout.rightRect.width
     })
     .alignItems(HorizontalAlign.Center)
     .backgroundColor('#d5d5d5')
