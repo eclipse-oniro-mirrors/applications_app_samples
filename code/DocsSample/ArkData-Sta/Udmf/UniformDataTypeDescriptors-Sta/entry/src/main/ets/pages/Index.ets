@@ -14,7 +14,7 @@
  */
 
 // [Start import_module]
-//  1.导入模块
+// 1.导入模块
 import { uniformTypeDescriptor } from '@kit.ArkData';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 // [End import_module]
@@ -91,9 +91,9 @@ function getMimeTypeByFilenameExtensions() {
       // 3.根据UTD数据类型查询对应的MIMEType列表。
       let typeObj = uniformTypeDescriptor.getTypeDescriptor(typeId);
       if (!typeObj) {
-      hilog.info(0xFF00, '[Sample_Udmf]', `TypeDescriptor not found`);
-      return;
-    }
+        hilog.info(0xFF00, '[Sample_Udmf]', `TypeDescriptor not found`);
+        return;
+      }
       let mimeTypes = typeObj.mimeTypes;
       hilog.info(0xFF00, '[Sample_Udmf]', `mimeTypes: ${mimeTypes}`);
     }
@@ -113,9 +113,9 @@ function getFilenameExtensionByMimeType() {
       // 3. 根据UTD数据类型查询对应的文件后缀列表
       let typeObj = uniformTypeDescriptor.getTypeDescriptor(typeId);
       if (!typeObj) {
-      hilog.info(0xFF00, '[Sample_Udmf]', `TypeDescriptor not found`);
-      return;
-    }
+        hilog.info(0xFF00, '[Sample_Udmf]', `TypeDescriptor not found`);
+        return;
+      }
       let filenameExtensions = typeObj.filenameExtensions;
       hilog.info(0xFF00, '[Sample_Udmf]', `filenameExtensions: ${filenameExtensions}`);
     }
