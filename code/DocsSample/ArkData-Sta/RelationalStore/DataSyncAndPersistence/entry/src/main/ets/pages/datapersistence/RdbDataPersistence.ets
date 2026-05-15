@@ -196,11 +196,10 @@ export async function rdbDataPersistence(context: common.UIAbilityContext | unde
         return;
       }
       if (!resultSet) {
-        console.error('Query succeeded but resultSet is null');
+        hilog.error(DOMAIN, 'rdbDataPersistence', 'Query succeeded but resultSet is null');
         return;
       }
-      hilog.info(DOMAIN, 'rdbDataPersistence',
-        `ResultSet column names: ${resultSet.columnNames}, column count: ${resultSet.columnCount}`);
+      hilog.info(DOMAIN, 'rdbDataPersistence', `ResultSet column names: ${resultSet.columnNames}, column count: ${resultSet.columnCount}`);
       // resultSet是一个数据集合的游标，默认指向第-1个记录，有效的数据从0开始。
       while (resultSet.goToNextRow()) {
         const id = resultSet.getLong(resultSet.getColumnIndex('ID'));
@@ -208,8 +207,7 @@ export async function rdbDataPersistence(context: common.UIAbilityContext | unde
         const age = resultSet.getLong(resultSet.getColumnIndex('AGE'));
         const salary = resultSet.getDouble(resultSet.getColumnIndex('SALARY'));
         const identity = resultSet.getValue(resultSet.getColumnIndex('IDENTITY'));
-        hilog.info(DOMAIN, 'rdbDataPersistence',
-          `id=${id}, name=${name}, age=${age}, salary=${salary}, identity=${identity}`);
+        hilog.info(DOMAIN, 'rdbDataPersistence', `id=${id}, name=${name}, age=${age}, salary=${salary}, identity=${identity}`);
       }
       // 释放数据集的内存
       resultSet.close();
@@ -227,8 +225,7 @@ export async function rdbDataPersistence(context: common.UIAbilityContext | unde
       hilog.info(DOMAIN, 'rdbDataPersistence', 'Succeeded in creating fts table.');
     } catch (error) {
       const err = error as BusinessError;
-      hilog.error(DOMAIN, 'rdbDataPersistence',
-        `Failed to create fts table. code: ${err.code}, message: ${err.message}.`);
+      hilog.error(DOMAIN, 'rdbDataPersistence', `Failed to create fts table. code: ${err.code}, message: ${err.message}.`);
     }
   }
   if (store !== undefined) {
@@ -294,13 +291,11 @@ export async function rdbDataPersistence(context: common.UIAbilityContext | unde
         const err = error as BusinessError;
         // 执行失败回滚事务
         await transaction!.rollback();
-        hilog.error(DOMAIN, 'rdbDataPersistence',
-          `Transaction execute failed, code is ${err.code}, message is ${err.message}`);
+        hilog.error(DOMAIN, 'rdbDataPersistence', `Transaction execute failed, code is ${err.code}, message is ${err.message}`);
       }
     } catch (error) {
       const err = error as BusinessError;
-      hilog.error(DOMAIN, 'rdbDataPersistence',
-        `createTransaction failed, code is ${err.code}, message is ${err.message}`);
+      hilog.error(DOMAIN, 'rdbDataPersistence', `createTransaction failed, code is ${err.code}, message is ${err.message}`);
     }
   }
   // [End persistence_transaction_insert_update_and_delete_data]
@@ -311,8 +306,7 @@ export async function rdbDataPersistence(context: common.UIAbilityContext | unde
     // 'Backup.db'为备份数据库文件名，默认在RdbStore同路径下备份。也可指定路径：customDir + 'Backup.db'
     store!.backup('Backup.db', (err) => {
       if (err) {
-        hilog.error(DOMAIN, 'rdbDataPersistence',
-          `Failed to backup RdbStore. Code:${err.code}, message:${err.message}`);
+        hilog.error(DOMAIN, 'rdbDataPersistence', `Failed to backup RdbStore. Code:${err.code}, message:${err.message}`);
         return;
       }
       hilog.info(DOMAIN, 'rdbDataPersistence', `Succeeded in backing up RdbStore.`);
@@ -325,8 +319,7 @@ export async function rdbDataPersistence(context: common.UIAbilityContext | unde
   if (store !== undefined) {
     store!.restore('Backup.db', (err) => {
       if (err) {
-        hilog.error(DOMAIN, 'rdbDataPersistence',
-          `Failed to restore RdbStore. Code:${err.code}, message:${err.message}`);
+        hilog.error(DOMAIN, 'rdbDataPersistence', `Failed to restore RdbStore. Code:${err.code}, message:${err.message}`);
         return;
       }
       hilog.info(DOMAIN, 'rdbDataPersistence', `Succeeded in restoring RdbStore.`);
