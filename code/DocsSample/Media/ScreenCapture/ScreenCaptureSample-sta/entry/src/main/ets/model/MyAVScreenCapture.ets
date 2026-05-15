@@ -67,7 +67,7 @@ export class MyAVScreenCapture {
       return;
     }
     // [Start callback_record]
-    // 监听屏幕捕获的状态更改
+    // 监听屏幕捕获的状态更改。
     this.screenCapture?.onStateChange((infoType: media.AVScreenCaptureStateCode) => {
       switch (infoType) {
         case media.AVScreenCaptureStateCode.SCREENCAPTURE_STATE_STARTED:
@@ -112,26 +112,26 @@ export class MyAVScreenCapture {
           break;
       }
     })
-    // 监听异常
+    // 监听异常。
     this.screenCapture?.onError((err) => {
       hilog.info(0xFF00, CommonConstants.LOG_TAG, 'Handle exception cases.');
     })
     // [End callback_record]
   
     // [Start set_config]
-    // 配置屏幕录制参数
+    // 配置屏幕录制参数。
     let displayInfo: display.Display | undefined = await display.getDefaultDisplaySync();
     if (displayInfo == undefined || displayInfo.width == undefined || displayInfo.height == undefined) {
       return;
     }
 
     let captureConfig: media.AVScreenCaptureRecordConfig = {
-      // 开发者可以根据自己的需要设置宽度和高度
+      // 开发者可以根据自己的需要设置宽度和高度。
       frameWidth: displayInfo.width.toInt(),
       frameHeight: displayInfo.height.toInt(),
-      // 用于写入文件的文件描述符（fd）
+      // 用于写入文件的文件描述符（fd）。
       fd: (this.file as fs.File).fd,
-      // 可选参数及其默认值
+      // 可选参数及其默认值。
       videoBitrate: 10000000,
       audioSampleRate: 48000,
       audioChannelCount: 2,
@@ -152,8 +152,7 @@ export class MyAVScreenCapture {
     }
   }
 
-
-  // 停止录屏
+  // 停止录屏。
   public async stopRecording(): Promise<void> {
     if (this.screenCapture == undefined) {
       hilog.info(0xFF00, CommonConstants.LOG_TAG, 'ScreenCapture exception.');
@@ -164,11 +163,11 @@ export class MyAVScreenCapture {
       // [Start stop_record]
       await this.screenCapture?.stopRecording();
       // [End stop_record]
-      // 调用release()方法来销毁实例并释放资源
+      // 调用release()方法来销毁实例并释放资源。
       // [Start release_record]
       await this.screenCapture?.release();
       // [End release_record]
-      // 关闭文件
+      // 关闭文件。
       fs.close((this.file as fs.File).fd);
     } catch (error) {
       let err = error as BusinessError;
@@ -178,7 +177,7 @@ export class MyAVScreenCapture {
 
   // [Start get_file_fd]
   public updateFileFd(filesDir: string): void {
-    // 获取文件fd
+    // 获取文件fd。
     this.fileName = systemDateTime.getTime(true).toString() + '.mp4';
     this.path = filesDir + '/' + this.fileName;
     try {
