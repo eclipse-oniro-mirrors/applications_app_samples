@@ -52,14 +52,14 @@ class SelectionExtAbility extends SelectionExtensionAbility {
       });
     } catch(error) {
       hilog.info(0x0000, 'SelectionExtensionAbility',
-        `Failed to onConnect, ${error.code}, errormessage: ${error.message}`);
+        `Failed to onConnect, error code: ${error.code}, error message: ${error.message}`);
     }
     return new SelectionAbilityStub('remote');
   }
 
   onDisconnect(): void {
     if (!this.panel_) {
-      hilog.info(0x0000, 'SelectionExtensionAbility', 'Panel is not cerated yet.');
+      hilog.info(0x0000, 'SelectionExtensionAbility', 'Panel is not created yet.');
       return;
     }
     let panelTemp = this.panel_;
@@ -85,7 +85,7 @@ class SelectionExtAbility extends SelectionExtensionAbility {
       await panel.setUiContent('pages/MenuPanel')   // 设置菜单面板样式
     } catch(error) {
       hilog.info(0x0000, 'SelectionExtensionAbility',
-        `Failed to createPanel, error:${error.code}, errormessage: ${error.message}`);
+        `Failed to createPanel, error code: ${error.code}, error message: ${error.message}`);
     }
   }
 
@@ -95,7 +95,7 @@ class SelectionExtAbility extends SelectionExtensionAbility {
       let content = await selectionManager.getSelectionContent();   // 获取划词内容
       SelectionModel.getInstance()?.setSelectionContent(content);
     } catch (error) {
-      console.error(`Failed to get selection content: ${error.code}, errormessage: ${error.message}`);
+      console.error(`Failed to get selection content, error code: ${error.code}, error message: ${error.message}`);
       return;
     }
     if (!this.panel_) {
@@ -108,7 +108,7 @@ class SelectionExtAbility extends SelectionExtensionAbility {
       })
       .catch((error) => {
         hilog.info(0x0000, 'SelectionExtensionAbility',
-          `Failed to move, error: ${error.code}, errormessage: ${error.message}`);
+          `Failed to move, error code: ${error.code}, error message: ${error.message}`);
       });
 
     this.panel_?.show()    // 显示弹窗
