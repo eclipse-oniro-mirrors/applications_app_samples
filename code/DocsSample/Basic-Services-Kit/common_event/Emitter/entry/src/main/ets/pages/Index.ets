@@ -14,6 +14,7 @@
  */
 // [Start emitter_imp]
 import { emitter, Callback } from '@kit.BasicServicesKit';
+import { RecordData } from '@ohos.base';
 // [End emitter_imp]
 @Entry
 @Component
@@ -28,8 +29,9 @@ struct Index {
     };
     // 定义一个事件的回调处理函数，当收到对应的事件后执行回调函数
     let callback: Callback<emitter.EventData> = (eventData: emitter.EventData) => {
-      this.messageOn = eventData.data!.content
-      console.info(`eventData: ${JSON.stringify(eventData)}`);
+      let myData = eventData.data as Record<string, RecordData>;
+      this.messageOn = myData['content'] as string;
+      console.info(`eventData: ${JSON.stringify(eventData?.data)}`);
     }
     // [StartExclude emitter_on]
     // [Start emitter_once]
@@ -51,12 +53,14 @@ struct Index {
       priority: emitter.EventPriority.LOW
     };
 
+    let record: Record<string, RecordData> = {
+      "content": 'emitter',
+      "id": 1,
+      "isEmpty": false
+ 	  };
+ 	 
     let eventData: emitter.EventData = {
-      data: {
-        content: 'emitter',
-        id: 1,
-        isEmpty: false
-      }
+      data: record
     };
 
     // 发送eventId为1的事件，事件内容为eventData。
