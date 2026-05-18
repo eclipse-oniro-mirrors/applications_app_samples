@@ -236,7 +236,7 @@ struct Index {
     // 设置播放策略，设置缓冲区数据量为20s
     let playbackStrategy : media.PlaybackStrategy = {preferredBufferDuration: 20};
     // 为avPlayer设置媒体来源和播放策略
-    this.avPlayer.!setMediaSource(mediaSource, playbackStrategy);
+    this.avPlayer!.setMediaSource(mediaSource, playbackStrategy);
     * */
     // [End setMimeType_1]
 
