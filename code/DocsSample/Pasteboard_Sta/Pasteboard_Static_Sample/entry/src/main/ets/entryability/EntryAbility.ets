@@ -18,10 +18,10 @@
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import { BusinessError } from '@ohos.base';
 import common from '@ohos.app.ability.common';
-import { hilog } from '@ohos.hilog';
+import hilog from '@ohos.hilog';
 import UIAbility from '@ohos.app.ability.UIAbility';
 import Want from '@ohos.app.ability.Want';
-import { window } from '@ohos.window';
+import window from '@ohos.window';
 
 let abilityContext: common.UIAbilityContext;
 
