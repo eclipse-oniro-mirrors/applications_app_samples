@@ -63,7 +63,7 @@ struct MenuPanel {
             })
             .catch((error) => {
               hilog.info(0x0000, 'SelectionExtensionAbility',
-                `Failed to setUiContent of main panel, error: error:${error.code}, errormessage: ${error.message}`);
+                `Failed to setUiContent of main panel, error code: ${error.code}, error message: ${error.message}`);
               return;
             });
 
