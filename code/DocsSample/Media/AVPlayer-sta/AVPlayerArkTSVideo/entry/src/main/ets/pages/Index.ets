@@ -247,6 +247,7 @@ struct Index {
       console.error(`${this.tag}: avPlayer has not init!`);
       return;
     }
+    // [Start registration_callback]
     this.avPlayer?.onSeekDone((seekDoneTime: int) => {
       console.info(`${this.tag}: setAVPlayerCallback AVPlayer seek succeeded, seek time is ${seekDoneTime}`);
     });
@@ -263,7 +264,6 @@ struct Index {
       this.avPlayer!.reset();
     });
     // 状态机变化回调函数
-    // [Start onSeekDone]
     this.avPlayer?.onStateChange((state, reason) => {
       if (this.avPlayer == null) {
         console.info(`${this.tag}: avPlayer has not init on state change`);
@@ -368,11 +368,11 @@ struct Index {
           break;
       }
     });
-    // [End onSeekDone]
     // 时间上报监听函数
     this.avPlayer!.onTimeUpdate((time: int) => {
       this.currentTime = time;
     });
+    // [End registration_callback]
   }
 
   aboutToAppear() {

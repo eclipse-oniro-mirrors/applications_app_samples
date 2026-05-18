@@ -159,6 +159,7 @@ struct Index {
   }
 
   async avSetupVideoAndSubtitle() {
+    // [Start addSubtitleFromFd]
     // 通过UIAbilityContext的resourceManager成员的getRawFd接口获取媒体资源播放地址。
     // 返回类型为{fd,offset,length},fd为HAP包fd地址，offset为媒体资源偏移量，length为播放长度。
     if (this.context == undefined) return;
@@ -189,7 +190,6 @@ struct Index {
     // 为fdSrc赋值触发initialized状态机上报
     this.avPlayer!.fdSrc = avFileDescriptor;
 
-    // [Start addSubtitleFromFd]
     // 设定字幕
     let fileDescriptorSub = await this.context.resourceManager.getRawFd('test1.srt');
     this.avPlayer!.addSubtitleFromFd(fileDescriptorSub.fd, fileDescriptorSub.offset, fileDescriptorSub.length);

@@ -265,7 +265,6 @@ struct Index {
     } catch (error) {
       console.error(`${this.tag}: selectTrack failed, error message is = ${JSON.stringify(error.message)}`);
     }
-    // [End selectTrack]
     // 取消选择目标视频轨道
     /*
     try {
@@ -274,6 +273,7 @@ struct Index {
       console.error(`${this.tag}: deselectTrack failed, error message is = ${JSON.stringify(error.message)}`);
     }
     * */
+    // [End selectTrack]
   }
 
   avPlay(): void {
