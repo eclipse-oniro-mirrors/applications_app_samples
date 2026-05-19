@@ -45,7 +45,7 @@ export default function monitorEventTest(): void {
       let observer: UIEventObserver = await driver.createUIEventObserver();
       let callback = (uiElementInfo: UIElementInfo): void => {
         try {
-          expect(uiElementInfo.bundleName == 'com.uitest.acts.static').assertTrue();
+          expect(uiElementInfo.bundleName == 'com.samples.test.uitest.static').assertTrue();
           expect(uiElementInfo.text == 'testMessage').assertTrue();
           expect(uiElementInfo.type == 'Toast').assertTrue();
         } catch (e) {
@@ -55,10 +55,8 @@ export default function monitorEventTest(): void {
       }
       observer.onceToastShow(callback);
       let btn: Component | null = await driver.findComponent(ON.text('showToast'));
-      if (btn) {
-        await btn.click();
-        await driver.delayMs(waitUiReadyMs * 2);
-      }
+      await btn!.click();
+      await driver.delayMs(waitUiReadyMs * 2);
     })
 
     /**
@@ -73,7 +71,7 @@ export default function monitorEventTest(): void {
       let observer: UIEventObserver = await driver.createUIEventObserver();
       let callback = (uiElementInfo: UIElementInfo): void => {
         try {
-          expect(uiElementInfo.bundleName == 'com.uitest.acts.static').assertTrue();
+          expect(uiElementInfo.bundleName == 'com.samples.test.uitest.static').assertTrue();
           expect(uiElementInfo.text == 'testDialogtestMessage').assertTrue();
           expect(uiElementInfo.type == 'AlertDialog').assertTrue();
         } catch (e) {
@@ -83,10 +81,8 @@ export default function monitorEventTest(): void {
       }
       observer.onceDialogShow(callback);
       let btn: Component | null = await driver.findComponent(ON.text('showDialog'));
-      if (btn) {
-        await btn.click();
-        await driver.delayMs(waitUiReadyMs * 2);
-      }
+      await btn!.click();
+      await driver.delayMs(waitUiReadyMs * 5);
     })
   })
 }
