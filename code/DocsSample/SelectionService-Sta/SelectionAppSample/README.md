@@ -63,6 +63,6 @@ entry/src/main
 
     git init
     git config core.sparsecheckout true
-    echo code/BasicFeature/ArkTS-Sta/SelectionService/SelectionAppSample > .git/info/sparse-checkout
+    echo code/BasicFeature/DataManagement/SelectionService-Sta/SelectionAppSample > .git/info/sparse-checkout
     git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
     git pull origin master
