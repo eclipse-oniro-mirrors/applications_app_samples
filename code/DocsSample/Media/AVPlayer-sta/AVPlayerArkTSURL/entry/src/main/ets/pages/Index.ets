@@ -236,7 +236,7 @@ struct Index {
     // 设置播放策略，设置缓冲区数据量为20s
     let playbackStrategy : media.PlaybackStrategy = {preferredBufferDuration: 20};
     // 为avPlayer设置媒体来源和播放策略
-    this.avPlayer.setMediaSource(mediaSource, playbackStrategy);
+    this.avPlayer!.setMediaSource(mediaSource, playbackStrategy);
     * */
     // [End setMimeType_1]
 
@@ -262,7 +262,7 @@ struct Index {
     // 设置播放策略，设置缓冲区数据量为20s
     let playbackStrategy : media.PlaybackStrategy = {preferredBufferDuration: 20};
     // 为avPlayer设置媒体来源和播放策略
-    this.avPlayer.setMediaSource(mediaSource, playbackStrategy);
+    this.avPlayer!.setMediaSource(mediaSource, playbackStrategy);
     * */
     // [End setMimeType_2]
 
@@ -276,7 +276,7 @@ struct Index {
     // 打开相应的资源文件地址获取fd，并为url赋值触发initialized状态机上报
     let file = await fs.open(path);
     fdPath = fdPath + '' + file.fd;
-    this.avPlayer.url = fdPath;
+    this.avPlayer!.url = fdPath;
     * */
     // [End fd_1]
 
@@ -289,7 +289,7 @@ struct Index {
     let avFileDescriptor: media.AVFileDescriptor =
       { fd: fileDescriptor.fd, offset: fileDescriptor.offset, length: fileDescriptor.length };
     // 为fdSrc赋值触发initialized状态机上报
-    this.avPlayer.fdSrc = avFileDescriptor;
+    this.avPlayer!.fdSrc = avFileDescriptor;
     * */
     // [End fd_2]
   }
