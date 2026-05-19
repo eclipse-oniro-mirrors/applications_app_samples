@@ -13,12 +13,12 @@
 
 1. 该工程可以选择在模拟器和开发板上运行。
 2. 点击构建，即可在生成的应用中点击对应的按钮进行图案的绘制。
-3. 进入“DocsSample/ArkGraphics2D/TextEngine/TextMetrics/entry/src/ohosTest/ets/test/Ability.test.ets”文件，可以对本项目进行UI的自动化测试。
+3. 进入“DocsSample/ArkGraphics2D/TextEngineSta/TextMetrics/entry/src/ohosTest/ets/test/Ability.test.ets”文件，可以对本项目进行UI的自动化测试。
 
 ## 工程目录
 
 ```
-ArkTSDrawing
+TextMetrics
 ├──entry/src/main
 │  ├──ets  // ets代码区
 │  │  ├──entryability
@@ -46,8 +46,8 @@ ArkTSDrawing
 ## 约束和限制
 
 1. 本示例支持标准系统上运行，支持设备：RK3568。
-2. 本示例支持API14版本SDK，版本号：5.0.2.123。
-3. 本示例已支持DevEco Studio 5.0.2 Release (构建版本：5.0.7.210，构建 2025年5月6日)编译运行。
+2. 本示例支持API23版本SDK。
+3. 本示例已支持DevEco Studio 6.1.0 Release (构建版本：6.1.0.850，构建 2026年05月18日)编译运行。
 
 ## 下载
 
@@ -56,7 +56,7 @@ ArkTSDrawing
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkGraphics2D/TextEngine/TextMetrics/ > .git/info/sparse-checkout
+echo code/DocsSample/ArkGraphics2D/TextEngineSta/TextMetrics/ > .git/info/sparse-checkout
 git remote add origin https://gitee.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
