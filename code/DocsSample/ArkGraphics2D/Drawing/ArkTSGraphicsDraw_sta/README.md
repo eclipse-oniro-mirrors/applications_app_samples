@@ -2,7 +2,7 @@
 
 ## 介绍
 
-本示例基于开发>图形->ArkGraphics 2D（方舟2D图形服务）-> [图形绘制与显示](https://gitee.com/openharmony/docs/tree/OpenHarmony-5.0.1-Release/zh-cn/application-dev/graphics#/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/graphics/textblock-drawing-arkts.md)中的ArkTS部分开发。
+本示例基于开发>图形->ArkGraphics 2D（方舟2D图形服务）-> [图形绘制与显示](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/graphics/canvas-get-result-draw-arkts.md)中的ArkTS部分开发。
 
 本示例主要功能如下：
 

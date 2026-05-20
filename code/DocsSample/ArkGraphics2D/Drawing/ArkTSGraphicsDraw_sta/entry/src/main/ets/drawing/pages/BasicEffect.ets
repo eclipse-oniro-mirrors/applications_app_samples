@@ -1,6 +1,6 @@
 'use static'
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,22 +19,58 @@ import { drawing } from '@kit.ArkGraphics2D';
 import { VALUE_100, VALUE_400, VALUE_800 } from '../../pages/Index';
 
 function drawFilling(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_create_brush]
+  // 设置画刷
   const brush = new drawing.Brush();
+  // [End arkts_graphics_draw_create_brush]
+  // [Start arkts_graphics_draw_brush_set_color]
+  // 填充颜色设为红色
   brush.setColor(0xFF, 0xFF, 0x00, 0x00);
+  // [End arkts_graphics_draw_brush_set_color]
+  // [Start arkts_graphics_draw_brush_set_antialias]
+  // 开启抗锯齿效果
   brush.setAntiAlias(true);
+  // [End arkts_graphics_draw_brush_set_antialias]
+  // [Start arkts_graphics_draw_canvas_attach_brush]
+  // 为画布设置画刷
   canvas.attachBrush(brush);
+  // [End arkts_graphics_draw_canvas_attach_brush]
   canvas.drawCircle(VALUE_400, VALUE_400, VALUE_400);
+  // [Start arkts_graphics_draw_canvas_detach_brush]
+  // 去除画刷
   canvas.detachBrush();
+  // [End arkts_graphics_draw_canvas_detach_brush]
 }
 
 function drawStroke(canvas: drawing.Canvas): void {
+  // [Start arkts_graphics_draw_create_drawing_pen]
+  // 创建画笔
   let pen = new drawing.Pen();
+  // [End arkts_graphics_draw_create_drawing_pen]
+  // [Start arkts_graphics_draw_pen_set_color]
+  // 设置颜色为红色
   pen.setColor(0xFF, 0xFF, 0x00, 0x00);
+  // [End arkts_graphics_draw_pen_set_color]
+  // [Start arkts_graphics_draw_pen_set_stroke_width]
+  // 设置线宽
   pen.setStrokeWidth(15);
+  // [End arkts_graphics_draw_pen_set_stroke_width]
+  // [Start arkts_graphics_draw_pen_set_antialias]
+  // 设置抗锯齿效果
   pen.setAntiAlias(true);
+  // [End arkts_graphics_draw_pen_set_antialias]
+  // [Start arkts_graphics_draw_pen_set_cap_style]
+  // 设置画笔线帽样式
   pen.setCapStyle(drawing.CapStyle.SQUARE_CAP);
+  // [End arkts_graphics_draw_pen_set_cap_style]
+  // [Start arkts_graphics_draw_pen_set_join_style]
+  // 设置画笔转角样式
   pen.setJoinStyle(drawing.JoinStyle.ROUND_JOIN);
+  // [End arkts_graphics_draw_pen_set_join_style]
+  // [Start arkts_graphics_draw_canvas_attach_pen]
+  // 为画布设置画笔
   canvas.attachPen(pen);
+  // [End arkts_graphics_draw_canvas_attach_pen]
   let aX = VALUE_100;
   let aY = VALUE_100;
   let bX = VALUE_100;
@@ -49,7 +85,10 @@ function drawStroke(canvas: drawing.Canvas): void {
   path.lineTo(cX, cY);
   path.lineTo(dX, dY);
   canvas.drawPath(path);
+  // [Start arkts_graphics_draw_canvas_detach_pen]
+  // 去除描边效果
   canvas.detachPen();
+  // [End arkts_graphics_draw_canvas_detach_pen]
 }
 
 class MyRenderNode extends RenderNode {
@@ -113,9 +152,9 @@ struct BaseEffect {
           .width('100%')
           .height('70%')
         Row() {
-          Button('Filling')
+          Button('填充效果')
             .onClick(() => { this.nodeController.setDrawIndex(0) })
-          Button('Stroke')
+          Button('描边效果')
             .onClick(() => { this.nodeController.setDrawIndex(1) })
         }
         .justifyContent(FlexAlign.SpaceEvenly)
