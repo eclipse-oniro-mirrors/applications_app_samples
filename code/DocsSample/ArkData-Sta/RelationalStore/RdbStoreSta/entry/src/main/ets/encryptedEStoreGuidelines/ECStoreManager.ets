@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-'use static'
 // [Start rdb_ECStoreManager]
 import { relationalStore } from '@kit.ArkData';
 import { Mover } from './Mover';

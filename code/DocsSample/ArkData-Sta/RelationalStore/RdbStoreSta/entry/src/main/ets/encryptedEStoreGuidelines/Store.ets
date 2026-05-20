@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-'use static'
 // [Start rdb_Store]
 import { relationalStore } from '@kit.ArkData';
 import { BusinessError } from '@kit.BasicServicesKit';
