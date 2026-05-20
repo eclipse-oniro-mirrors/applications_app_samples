@@ -23,7 +23,7 @@ import common from '@ohos.app.ability.common'
 import dataPreferences from '@ohos.data.preferences'
 import EntryAbility from '../entryability/EntryAbility'
 import { Entry, Text, Column, RichEditorController, Component, Scroller, Button, ClickEvent, Row, TextArea, RichEditorOptions } from '@ohos.arkui.component'
-import { hilog } from '@ohos.hilog'
+import hilog from '@ohos.hilog'
 import pasteboard from '@ohos.pasteboard'
 import { State } from '@ohos.arkui.stateManagement'
 
