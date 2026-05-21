@@ -1,32 +1,24 @@
-/*
-* Copyright (C) 2025 Huawei Device Co., Ltd.
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+'use static'
 
-// [Start head]
-// 导入usbManager模块
-import { usbManager } from '@kit.BasicServicesKit';
+import { Entry, Component, Column, Row, Text, Button, Select, SelectOption, Toggle, ToggleType, ButtonType, TextArea, Scroll, Scroller, Edge, Flex, FlexDirection, ItemAlign, FlexAlign, FontWeight, VerticalAlign, Alignment, ClickEvent, Blank } from '@ohos.arkui.component'
+import { State } from '@ohos.arkui.stateManagement'
+import hilog from '@ohos.hilog'
+import usbManager from '@ohos.usbManager';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { JSON } from '@kit.ArkTS';
 
-// [End head]
 @Entry
 @Component
 struct Index {
   @State logInfo_: string = '';
-  @State deviceList_: usbManager.USBDevice[] = [];
+  private deviceList_: usbManager.USBDevice[] = [];
   @State pipe_: usbManager.USBDevicePipe | undefined = undefined;
   @State interface_: usbManager.USBInterface | undefined = undefined;
+  @State stateVar: string = 'state var';
+  message: string = 'var';
+
+  changeValue() {
+    this.stateVar += '~'
+  }
 
   private getDevices() {
     // [Start getDevices]
@@ -35,8 +27,8 @@ struct Index {
     try {
       deviceList = usbManager.getDevices();
     } catch (error) {
-        console.error(`USB getDevices failed: ${error}`);
-        this.logInfo_ += '\n[ERROR] USB getDevices failed: ' + JSON.stringify(error);
+      console.error(`USB getDevices failed: ${error}`);
+      this.logInfo_ += '\n[ERROR] USB getDevices failed: ' + JSON.stringify(error);
     }
 
     console.info(`deviceList: ${deviceList}`);
@@ -85,7 +77,7 @@ struct Index {
                       interval: 12,
                       maxPacketSize: 4,
                       direction: 128,
-                      number: 1,
+                      int: 1,
                       type: 3,
                       interfaceId: 0,
                     }
@@ -114,7 +106,7 @@ struct Index {
     usbManager.requestRight(deviceName).then((hasRight: boolean) => {
       console.info('usb device request right result: ' + hasRight);
       this.logInfo_ += '\n[INFO] usb device request right result: ' + JSON.stringify(hasRight);
-    }).catch((error: BusinessError) => {
+    }).catch((error: Error) => {
       console.error(`usb device request right failed : ${error}`);
       this.logInfo_ += '\n[ERROR] usb device request right failed: ' + JSON.stringify(error);
     });
@@ -166,8 +158,8 @@ struct Index {
       this.logInfo_ += '\n[ERROR] pipe_ or interface_ is null';
       return;
     }
-    let pipe: usbManager.USBDevicePipe = this.pipe_;
-    let interface1: usbManager.USBInterface = this.interface_;
+    let pipe: usbManager.USBDevicePipe = this.pipe_!;
+    let interface1: usbManager.USBInterface = this.interface_!;
     /*
       读取数据，在device信息中选取对应数据接收的endpoint来做数据传输
      （endpoint.direction == 0x80）；dataUint8Array是要读取的数据，类型为Uint8Array。
@@ -176,7 +168,7 @@ struct Index {
     let outEndpoint: usbManager.USBEndpoint = interface1.endpoints?.[0];
     let dataUint8Array: Uint8Array = new Uint8Array(1024);
     if (inEndpoint !== undefined && inEndpoint.direction === 0x80) {
-      usbManager.bulkTransfer(pipe, inEndpoint, dataUint8Array, 15000).then((dataLength: number) => {
+      usbManager.bulkTransfer(pipe, inEndpoint, dataUint8Array, 15000).then((dataLength: int) => {
         if (dataLength >= 0) {
           console.info(`usb readData result Length : ${dataLength}`);
           this.logInfo_ += '\n[INFO] usb readData result Length: ' + JSON.stringify(dataLength);
@@ -184,7 +176,7 @@ struct Index {
           console.error('usb readData failed');
           this.logInfo_ += '\n[ERROR] usb readData failed';
         }
-      }).catch((error: BusinessError) => {
+      }).catch((error: Error) => {
         console.error(`usb readData error : ${error}`);
         this.logInfo_ += '\n[ERROR] usb readData error: ' + JSON.stringify(error);
       });
@@ -192,7 +184,7 @@ struct Index {
 
     // 发送数据，在device信息中选取对应数据发送的endpoint来做数据传输。（endpoint.direction == 0）
     if (outEndpoint !== undefined && outEndpoint.direction === 0) {
-      usbManager.bulkTransfer(pipe, outEndpoint, dataUint8Array, 15000).then((dataLength: number) => {
+      usbManager.bulkTransfer(pipe, outEndpoint, dataUint8Array, 15000).then((dataLength: int) => {
         if (dataLength >= 0) {
           console.info(`usb writeData result write length : ${dataLength}`);
           this.logInfo_ += '\n[INFO] usb writeData result write length: ' + JSON.stringify(dataLength);
@@ -200,7 +192,7 @@ struct Index {
           console.error('usb writeData failed');
           this.logInfo_ += '\n[ERROR] usb writeData failed';
         }
-      }).catch((error: BusinessError) => {
+      }).catch((error: Error) => {
         console.error(`usb writeData error : ${error}`);
         this.logInfo_ += '\n[ERROR] usb writeData error: ' + JSON.stringify(error);
       });
@@ -215,7 +207,7 @@ struct Index {
       this.logInfo_ += '\n[ERROR] pipe_ is null';
       return;
     }
-    let pipe: usbManager.USBDevicePipe = this.pipe_;
+    let pipe: usbManager.USBDevicePipe = this.pipe_!;
     /*
       构造控制传输参数
      */
@@ -228,10 +220,10 @@ struct Index {
       data: new Uint8Array(18)
     };
 
-    usbManager.usbControlTransfer(pipe, param).then((ret: number) => {
+    usbManager.usbControlTransfer(pipe, param).then((ret: int) => {
       console.info(`usbControlTransfer = ${ret}`);
       this.logInfo_ += '\n[INFO] usbControlTransfer = ' + JSON.stringify(ret);
-    }).catch((error: BusinessError) => {
+    }).catch((error: Error) => {
       console.error(`usbControlTransfer error : ${error}`);
       this.logInfo_ += '\n[ERROR] usbControlTransfer error: ' + JSON.stringify(error);
     });
@@ -292,9 +284,14 @@ struct Index {
     }
     // [End interruptTransfer_getEndpoint]
     // [Start interruptTransfer_claimInterface]
+    if (usbInterface === undefined) {
+      console.error('usbInterface is undefined');
+      this.logInfo_ += '\n[ERROR] usbInterface is undefined';
+      return;
+    }
     // 注册通信接口，注册成功返回0，注册失败返回其他错误码。
     try {
-      let claimInterfaceResult: number = usbManager.claimInterface(devicePipe, usbInterface, true);
+      let claimInterfaceResult: int = usbManager.claimInterface(devicePipe, usbInterface, true);
       if (claimInterfaceResult !== 0) {
         console.error(`claimInterface error = ${claimInterfaceResult}`)
         this.logInfo_ += '\n[ERROR] claimInterface error = ' + JSON.stringify(claimInterfaceResult);
@@ -325,7 +322,7 @@ struct Index {
         isoPacketCount: 2,
       };
 
-      transferParams.callback = (err: Error, callBackData: usbManager.SubmitTransferCallback) => {
+      transferParams.callback = (err: BusinessError | null, callBackData: usbManager.SubmitTransferCallback | undefined) => {
         console.info(`callBackData = ${callBackData}`);
         this.logInfo_ += '\n[INFO] callBackData = ' + JSON.stringify(callBackData);
         console.info(`transfer success,result = ${transferParams?.buffer}`);
@@ -340,6 +337,11 @@ struct Index {
     }
     // [End interruptTransfer_interruptTransfer]
     // [Start interruptTransfer_release]
+    if (transferParams === undefined) {
+      console.error('transferParams is undefined');
+      this.logInfo_ += '\n[ERROR] transferParams is undefined';
+      return;
+    }
     try {
       usbManager.usbCancelTransfer(transferParams);
       usbManager.releaseInterface(devicePipe, usbInterface);
@@ -405,9 +407,14 @@ struct Index {
     }
     // [End isochronousTransfer_getEndpoint]
     // [Start isochronousTransfer_claimInterface]
+    if (usbInterface === undefined) {
+      console.error('usbInterface is undefined');
+      this.logInfo_ += '\n[ERROR] usbInterface is undefined';
+      return;
+    }
     // 注册通信接口，注册成功返回0，注册失败返回其他错误码。
     try {
-      let claimInterfaceResult: number = usbManager.claimInterface(devicePipe, usbInterface, true);
+      let claimInterfaceResult: int = usbManager.claimInterface(devicePipe, usbInterface, true);
       if (claimInterfaceResult !== 0) {
         console.error(`claimInterface error = ${claimInterfaceResult}`)
         this.logInfo_ += '\n[ERROR] claimInterface error = ' + JSON.stringify(claimInterfaceResult);
@@ -453,7 +460,7 @@ struct Index {
         isoPacketCount: 2,
       };
 
-      transferParams.callback = (err: Error, callBackData: usbManager.SubmitTransferCallback) => {
+      transferParams.callback = (err: BusinessError | null, callBackData: usbManager.SubmitTransferCallback | undefined) => {
         console.info(`callBackData = ${callBackData}`);
         this.logInfo_ += '\n[INFO] callBackData = ' + JSON.stringify(callBackData);
         console.info('transfer success,result = ' + transferParams?.buffer.toString());
@@ -468,6 +475,11 @@ struct Index {
     }
     // [End isochronousTransfer_isochronousTransfer]
     // [Start isochronousTransfer_release]
+    if (transferParams === undefined) {
+      console.error('transferParams is undefined');
+      this.logInfo_ += '\n[ERROR] transferParams is undefined';
+      return;
+    }
     try {
       usbManager.usbCancelTransfer(transferParams);
       usbManager.releaseInterface(devicePipe, usbInterface);
@@ -486,8 +498,8 @@ struct Index {
       this.logInfo_ += '\n[ERROR] pipe_ or interface_ is null';
       return;
     }
-    let pipe: usbManager.USBDevicePipe = this.pipe_;
-    let interface1: usbManager.USBInterface = this.interface_;
+    let pipe: usbManager.USBDevicePipe = this.pipe_!;
+    let interface1: usbManager.USBInterface = this.interface_!;
     try {
       usbManager.releaseInterface(pipe, interface1);
       usbManager.closePipe(pipe);
@@ -504,99 +516,108 @@ struct Index {
   }
 
   build() {
-    Column() {
-      Row() {
-        Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Start, justifyContent: FlexAlign.SpaceBetween }) {
-          TextArea({ text: this.logInfo_ })
-            .height('100%')
-            .width('100%')
-            .fontSize(12)
-            .onChange((value: string) => {
-              this.logInfo_ = value;
+    Scroll() {
+        Row() {
+          Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Start, justifyContent: FlexAlign.SpaceBetween }) {
+            TextArea({ text: this.logInfo_ })
+              .height('100%')
+              .width('100%')
+              .fontSize(12)
+              .onChange((value: string) => {
+                this.logInfo_ = value;
+              })
+          }.height('100%').width('100%')
+        }.height('45%')
+
+        Row() {
+          Button('获取设备列表', { type: ButtonType.Normal, stateEffect: true })
+            .borderRadius(8)
+            .backgroundColor(0x317aff)
+            .onClick(() => {
+
+              this.getDevices();
             })
-        }.height('100%').width('100%')
-      }.height('45%')
+            .width('100%')
+        }.padding({ top: 10 })
 
-      Row() {
-        Button('获取设备列表', { type: ButtonType.Normal, stateEffect: true })
-          .borderRadius(8)
-          .backgroundColor(0x317aff)
-          .onClick(() => {
+        Row() {
+          Button('获取设备操作权限', { type: ButtonType.Normal, stateEffect: true })
+            .borderRadius(8)
+            .backgroundColor(0x317aff)
+            .onClick(() => {
+              this.requestRight();
+            })
+            .width('100%')
+        }.padding({ top: 10 })
 
-            this.getDevices();
-          })
-          .width('100%')
-      }.padding({ top: 10 })
+        Row() {
+          Button('打开设备', { type: ButtonType.Normal, stateEffect: true })
+            .borderRadius(8)
+            .backgroundColor(0x317aff)
+            .onClick(() => {
+              this.connectDevice();
+            })
+            .width('100%')
+        }.padding({ top: 10 })
 
-      Row() {
-        Button('获取设备操作权限', { type: ButtonType.Normal, stateEffect: true })
-          .borderRadius(8)
-          .backgroundColor(0x317aff)
-          .onClick(() => {
-            this.requestRight();
-          })
-          .width('100%')
-      }.padding({ top: 10 })
+        Row() {
+          Button('批量传输', { type: ButtonType.Normal, stateEffect: true })
+            .borderRadius(8)
+            .backgroundColor(0x317aff)
+            .onClick(() => {
+              this.bulkTransfer();
+            })
+            .width('100%')
+        }.padding({ top: 10 })
 
-      Row() {
-        Button('打开设备', { type: ButtonType.Normal, stateEffect: true })
-          .borderRadius(8)
-          .backgroundColor(0x317aff)
-          .onClick(() => {
-            this.connectDevice();
-          })
-          .width('100%')
-      }.padding({ top: 10 })
+        Row() {
+          Button('控制传输', { type: ButtonType.Normal, stateEffect: true })
+            .borderRadius(8)
+            .backgroundColor(0x317aff)
+            .onClick(() => {
+              this.controlTransfer();
+            })
+            .width('100%')
+        }.padding({ top: 10 })
 
-      Row() {
-        Button('批量传输', { type: ButtonType.Normal, stateEffect: true })
-          .borderRadius(8)
-          .backgroundColor(0x317aff)
-          .onClick(() => {
-            this.bulkTransfer();
-          })
-          .width('100%')
-      }.padding({ top: 10 })
+        Row() {
+          Button('中断传输', { type: ButtonType.Normal, stateEffect: true })
+            .borderRadius(8)
+            .backgroundColor(0x317aff)
+            .onClick(() => {
+              this.interruptTransfer();
+            })
+            .width('100%')
+        }.padding({ top: 10 })
 
-      Row() {
-        Button('控制传输', { type: ButtonType.Normal, stateEffect: true })
-          .borderRadius(8)
-          .backgroundColor(0x317aff)
-          .onClick(() => {
-            this.controlTransfer();
-          })
-          .width('100%')
-      }.padding({ top: 10 })
+        Row() {
+          Button('实时传输', { type: ButtonType.Normal, stateEffect: true })
+            .borderRadius(8)
+            .backgroundColor(0x317aff)
+            .onClick(() => {
+              this.isochronousTransfer();
+            })
+            .width('100%')
+        }.padding({ top: 10 })
 
-      Row() {
-        Button('中断传输', { type: ButtonType.Normal, stateEffect: true })
-          .borderRadius(8)
-          .backgroundColor(0x317aff)
-          .onClick(() => {
-            this.interruptTransfer();
-          })
-          .width('100%')
-      }.padding({ top: 10 })
+        Row() {
+          Button('关闭设备', { type: ButtonType.Normal, stateEffect: true })
+            .borderRadius(8)
+            .backgroundColor(0x317aff)
+            .onClick(() => {
+              this.closePipe();
+            })
+            .width('100%')
+        }.padding({ top: 10 })
+      }.height('100%').width('100%').padding({ left: 10, right: 10 })
+    }
+}
 
-      Row() {
-        Button('实时传输', { type: ButtonType.Normal, stateEffect: true })
-          .borderRadius(8)
-          .backgroundColor(0x317aff)
-          .onClick(() => {
-            this.isochronousTransfer();
-          })
-          .width('100%')
-      }.padding({ top: 10 })
+@Component
+struct Child {
+  @State stateVar: string = 'Child';
 
-      Row() {
-        Button('关闭设备', { type: ButtonType.Normal, stateEffect: true })
-          .borderRadius(8)
-          .backgroundColor(0x317aff)
-          .onClick(() => {
-            this.closePipe();
-          })
-          .width('100%')
-      }.padding({ top: 10 })
-    }.height('100%').width('100%').padding({ left: 10, right: 10 })
+  build() {
+    Text(this.stateVar).fontSize(50)
   }
 }
