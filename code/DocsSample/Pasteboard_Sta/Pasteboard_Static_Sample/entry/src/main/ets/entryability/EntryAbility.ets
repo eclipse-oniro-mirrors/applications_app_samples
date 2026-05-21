@@ -18,10 +18,10 @@
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import { BusinessError } from '@ohos.base';
 import common from '@ohos.app.ability.common';
-import { hilog } from '@ohos.hilog';
+import hilog from '@ohos.hilog';
 import UIAbility from '@ohos.app.ability.UIAbility';
 import Want from '@ohos.app.ability.Want';
-import { window } from '@ohos.window';
+import window from '@ohos.window';
 
 let abilityContext: common.UIAbilityContext;
 
@@ -32,6 +32,7 @@ export default class EntryAbility extends UIAbility {
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', 'EntryAbility onCreate');
+    abilityContext = this.context;
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
@@ -45,7 +46,7 @@ export default class EntryAbility extends UIAbility {
         }
         hilog.info(0x0000, 'testTag', 'loadContent ok.');
       });
-    } catch (e: error) {
+    } catch (e) {
       hilog.info(0x0000, 'testTag', 'loadContent catch error: ----------' + e.message);
     }
   }

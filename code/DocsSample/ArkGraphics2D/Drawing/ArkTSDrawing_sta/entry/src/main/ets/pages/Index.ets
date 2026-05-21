@@ -1,6 +1,6 @@
 'use static'
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -66,19 +66,19 @@ struct RenderTest {
         NodeContainer(this.myNodeController)
           .height('100%')
         Button("Draw Path")
-          .margin({ bottom: 200, right: 12 })
+          .margin({ top: 600, right: 12 })
           .onClick(() => {
             this.myNodeController.clearNodes()
             this.myNodeController.addNode(PathNode)
           })
         Button("Draw Rect")
-          .margin({ bottom: 200, right: 12 })
+          .margin({ top: 600, right: 12 })
           .onClick(() => {
             this.myNodeController.clearNodes()
             this.myNodeController.addNode(rectNode)
           })
         Button("Draw Text")
-          .margin({ bottom: 200, right: 12 })
+          .margin({ top: 600, right: 12 })
           .onClick(() => {
             this.myNodeController.clearNodes()
             this.myNodeController.addNode(textNode)

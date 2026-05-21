@@ -1,6 +1,6 @@
 'use static'
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -62,13 +62,13 @@ const operationUrls: string[] = [
 ];
 
 const pageNames: string[] = [
-  'Canvas Get Result',
-  'Canvas Operation State',
-  'Basic Effect',
-  'Complex Effect',
-  'Shape Drawing',
-  'PixelMap Drawing',
-  'TextBlock Drawing'
+  '画布的获取与绘制结果的显示',
+  '画布操作及状态处理',
+  '基础绘制效果',
+  '复杂绘制效果',
+  '几何图形绘制',
+  '图片绘制',
+  '字块绘制'
 ];
 
 @Entry

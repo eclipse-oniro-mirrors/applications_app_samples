@@ -1,3 +1,4 @@
+'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,10 +33,10 @@ struct Index {
       .height('8%')
       .backgroundColor('#0D9FFB')
       .onClick(() => {
-        // [Start vector_TS_context]
+        // [Start vector_TS_getStore]
         /* context为应用的上下文信息，此处获取方式仅为示例。 */
         const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
-        // [End vector_TS_context]
+        // [End vector_TS_getStore]
         getVectorStore(context);
       })
     }

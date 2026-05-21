@@ -14,7 +14,8 @@
  */
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+    ],
     "products": [
       {
         "name": "default",
@@ -29,7 +30,7 @@
             "useNormalizedOHMUrl": true
           }
         },
-        "targetSdkVersion":"26.0.0"
+        "targetSdkVersion": "26.0.0"
       }
     ],
     "buildModeSet": [
