@@ -213,7 +213,7 @@ struct Index {
       {preferredWidth: 1, preferredHeight: 2, preferredBufferDuration: 3, preferredHdr: false};
     // 为avPlayer设置媒体来源和播放策略
     this.avPlayer.setMediaSource(mediaSource, playbackStrategy);
-    * */
+     */
     // [End createMediaSourceWithUrl]
 
     // [Start setMimeType_1]
@@ -237,7 +237,7 @@ struct Index {
     let playbackStrategy : media.PlaybackStrategy = {preferredBufferDuration: 20};
     // 为avPlayer设置媒体来源和播放策略
     this.avPlayer!.setMediaSource(mediaSource, playbackStrategy);
-    * */
+     */
     // [End setMimeType_1]
 
     // [Start setMimeType_2]
@@ -263,7 +263,7 @@ struct Index {
     let playbackStrategy : media.PlaybackStrategy = {preferredBufferDuration: 20};
     // 为avPlayer设置媒体来源和播放策略
     this.avPlayer!.setMediaSource(mediaSource, playbackStrategy);
-    * */
+     */
     // [End setMimeType_2]
 
     // 本地raw文件播放场景下设置URL
@@ -277,7 +277,7 @@ struct Index {
     let file = await fs.open(path);
     fdPath = fdPath + '' + file.fd;
     this.avPlayer!.url = fdPath;
-    * */
+     */
     // [End fd_1]
 
     // [Start fd_2]
@@ -290,7 +290,7 @@ struct Index {
       { fd: fileDescriptor.fd, offset: fileDescriptor.offset, length: fileDescriptor.length };
     // 为fdSrc赋值触发initialized状态机上报
     this.avPlayer!.fdSrc = avFileDescriptor;
-    * */
+     */
     // [End fd_2]
   }
 
