@@ -17,15 +17,13 @@
 
 // [Start getRoutingManager]
 // [Start getDevices]
-// [Start onDeviceChange]
 // [StartExclude getRoutingManager]
 // [StartExclude getDevices]
-// [StartExclude onDeviceChange]
 import { Entry, Text, Column, Component, Button, ClickEvent, HorizontalAlign, FontWeight, Scroll, Row, Color, FlexAlign, ScrollDirection, BarState } from '@ohos.arkui.component';
 import { State } from '@ohos.arkui.stateManagement';
 // [EndExclude getRoutingManager]
 // [EndExclude getDevices]
-// [EndExclude onDeviceChange]
+// [Start onDeviceChange]
 import { audio } from '@kit.AudioKit';
 // [StartExclude getRoutingManager]
 // [StartExclude getDevices]
@@ -156,6 +154,7 @@ async function getDevices(){
 
 async function onDeviceChange(){
   // [EndExclude onDeviceChange]
+
   audioRoutingManager.onDeviceChange(audio.DeviceFlag.INPUT_DEVICES_FLAG, (deviceChanged: audio.DeviceChangeAction) => {
     console.info(`Succeeded in using on function. DeviceChangeAction: ${JSON.stringify(deviceChanged)}`);
     // [StartExclude onDeviceChange]
@@ -168,6 +167,7 @@ async function onDeviceChange(){
     globalCallbackUpdate(callbackMsg);
     // [EndExclude onDeviceChange]
   });
+  // [End onDeviceChange]
 }
 
 @Entry
