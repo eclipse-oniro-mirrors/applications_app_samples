@@ -1,0 +1,56 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "param_basic_types_title",
+      "value": "@Param装饰基本类型"
+    },
+    {
+      "name": "param_class_object_title",
+      "value": "@Param装饰类对象"
+    },
+    {
+      "name": "param_array_title",
+      "value": "@Param装饰数组"
+    },
+    {
+      "name": "param_interface_title",
+      "value": "@Param装饰interface字面量"
+    },
+    {
+      "name": "param_from_parent_to_child_title",
+      "value": "从父组件到子组件变量传递"
+    },
+    {
+      "name": "param_array_variable_title",
+      "value": "装饰Array类型变量"
+    },
+    {
+      "name": "param_date_variable_title",
+      "value": "装饰Date类型变量"
+    },
+    {
+      "name": "param_map_variable_title",
+      "value": "装饰Map类型变量"
+    },
+    {
+      "name": "param_set_variable_title",
+      "value": "装饰Set类型变量"
+    },
+    {
+      "name": "param_union_type_title",
+      "value": "联合类型"
+    }
+  ]
+}
