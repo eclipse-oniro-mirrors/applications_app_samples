@@ -1,0 +1,16 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/ProviderConsumerSync",
+    "pages/ProviderConsumerNoSync",
+    "pages/ProviderConsumerInterface",
+    "pages/ProviderConsumerArray",
+    "pages/ProviderConsumerDate",
+    "pages/ProviderConsumerMap",
+    "pages/ProviderConsumerSet",
+    "pages/ProviderConsumerArrowFunction",
+    "pages/ProviderConsumerComplexType",
+    "pages/ProviderConsumerFindNearest",
+    "pages/ProviderConsumerInitParam"
+  ]
+}
