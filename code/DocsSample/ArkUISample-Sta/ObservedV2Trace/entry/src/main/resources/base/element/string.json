@@ -1,0 +1,68 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "trace_nested_class_title",
+      "value": "嵌套类中使用@Trace装饰的属性"
+    },
+    {
+      "name": "trace_inherit_class_title",
+      "value": "继承类中使用@Trace装饰的属性"
+    },
+    {
+      "name": "trace_static_property_title",
+      "value": "类中使用@Trace装饰的静态属性"
+    },
+    {
+      "name": "trace_use_restrict_title",
+      "value": "@Trace使用限制示例"
+    },
+    {
+      "name": "trace_nested_scene_title",
+      "value": "嵌套类场景"
+    },
+    {
+      "name": "trace_inherit_scene_title",
+      "value": "继承类场景"
+    },
+    {
+      "name": "trace_basic_array_title",
+      "value": "@Trace装饰基础类型的数组"
+    },
+    {
+      "name": "trace_object_array_title",
+      "value": "@Trace装饰对象数组"
+    },
+    {
+      "name": "trace_map_type_title",
+      "value": "@Trace装饰Map类型"
+    },
+    {
+      "name": "trace_set_type_title",
+      "value": "@Trace装饰Set类型"
+    },
+    {
+      "name": "trace_date_type_title",
+      "value": "@Trace装饰Date类型"
+    },
+    {
+      "name": "trace_serialize_no_param_title",
+      "value": "无参构造序列化和反序列化"
+    },
+    {
+      "name": "trace_serialize_with_param_title",
+      "value": "有参构造序列化和反序列化"
+    }
+  ]
+}

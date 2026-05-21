@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "event_change_parent_title",
+      "value": "更改父组件中变量"
+    },
+    {
+      "name": "event_async_sync_title",
+      "value": "异步同步示例"
+    }
+  ]
+}

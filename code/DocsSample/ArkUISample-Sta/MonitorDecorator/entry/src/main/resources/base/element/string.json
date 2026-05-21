@@ -1,0 +1,76 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "monitor_component_v2_title",
+      "value": "在@ComponentV2中使用@Monitor"
+    },
+    {
+      "name": "monitor_class_object_title",
+      "value": "@Monitor监听类对象"
+    },
+    {
+      "name": "monitor_observed_v2_class_title",
+      "value": "在@ObservedV2类中使用@Monitor"
+    },
+    {
+      "name": "monitor_deep_property_title",
+      "value": "@Monitor监听深层属性"
+    },
+    {
+      "name": "monitor_inherit_class_title",
+      "value": "@Monitor继承类场景"
+    },
+    {
+      "name": "monitor_array_change_title",
+      "value": "@Monitor监听数组变化"
+    },
+    {
+      "name": "monitor_object_whole_change_title",
+      "value": "@Monitor对象整体改变"
+    },
+    {
+      "name": "monitor_frequency_title",
+      "value": "@Monitor多次改变场景"
+    },
+    {
+      "name": "monitor_wildcard_object_title",
+      "value": "通配符监听对象属性"
+    },
+    {
+      "name": "monitor_wildcard_nested_title",
+      "value": "通配符监听嵌套对象"
+    },
+    {
+      "name": "monitor_wildcard_array_title",
+      "value": "通配符监听数组对象"
+    },
+    {
+      "name": "monitor_wildcard_date_title",
+      "value": "通配符监听Date对象"
+    },
+    {
+      "name": "monitor_wildcard_map_title",
+      "value": "通配符监听Map对象"
+    },
+    {
+      "name": "monitor_wildcard_set_title",
+      "value": "通配符监听Set对象"
+    },
+    {
+      "name": "monitor_deep_style_title",
+      "value": "监听深层属性变化-UIStyle"
+    }
+  ]
+}

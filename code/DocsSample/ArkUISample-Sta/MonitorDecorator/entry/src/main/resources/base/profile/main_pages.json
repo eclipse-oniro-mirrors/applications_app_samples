@@ -1,0 +1,20 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/MonitorComponentV2",
+    "pages/MonitorClassObject",
+    "pages/MonitorObservedV2Class",
+    "pages/MonitorDeepProperty",
+    "pages/MonitorInheritClass",
+    "pages/MonitorArrayChange",
+    "pages/MonitorObjectWholeChange",
+    "pages/MonitorFrequency",
+    "pages/MonitorWildcardObject",
+    "pages/MonitorWildcardNested",
+    "pages/MonitorWildcardArray",
+    "pages/MonitorWildcardDate",
+    "pages/MonitorWildcardMap",
+    "pages/MonitorWildcardSet",
+    "pages/MonitorDeepStyle"
+  ]
+}
