@@ -194,7 +194,7 @@ struct Index {
     let playbackStrategy : media.PlaybackStrategy = {preferredBufferDuration: 20};
     // 为avPlayer设置媒体来源和播放策略
     this.avPlayer.setMediaSource(mediaSource, playbackStrategy);
-    * */
+     */
     // [End playbackStrategy]
 
     // 情况五：HLS切码率
@@ -214,7 +214,7 @@ struct Index {
       console.info('bitrateDone called, and bitrate value is: ' + bitrate);
     })
     // [End onBitrateDone]
-    * */
+     */
 
     // [Start getTrackDescription]
     // 情况六：DASH切换音视频轨道
@@ -236,7 +236,7 @@ struct Index {
         console.error(`getTrackDescription fail, error:${error}`);
       }
     });
-    * */
+     */
     // [End getTrackDescription]
   }
 
@@ -272,7 +272,7 @@ struct Index {
     } catch (error) {
       console.error(`${this.tag}: deselectTrack failed, error message is = ${JSON.stringify(error.message)}`);
     }
-    * */
+     */
     // [End selectTrack]
   }
 

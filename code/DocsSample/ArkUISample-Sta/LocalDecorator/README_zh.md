@@ -14,7 +14,7 @@
 
 |首页                                   |
 |----------------------------------------------|
-|![locla](./screenshots/local.png)|
+|![local](./screenshots/local.png)|
 
 ## 工程目录
 ```

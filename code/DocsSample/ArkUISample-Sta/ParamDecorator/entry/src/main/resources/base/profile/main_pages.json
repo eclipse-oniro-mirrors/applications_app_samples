@@ -1,0 +1,15 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/ParamBasicTypes",
+    "pages/ParamClassObject",
+    "pages/ParamArray",
+    "pages/ParamInterface",
+    "pages/ParamFromParentToChild",
+    "pages/ParamArrayVariable",
+    "pages/ParamDateVariable",
+    "pages/ParamMapVariable",
+    "pages/ParamSetVariable",
+    "pages/ParamUnionType"
+  ]
+}
