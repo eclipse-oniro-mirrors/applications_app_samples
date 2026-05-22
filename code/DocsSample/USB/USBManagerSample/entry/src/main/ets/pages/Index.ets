@@ -517,100 +517,100 @@ struct Index {
 
   build() {
     Scroll() {
-        Row() {
-          Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Start, justifyContent: FlexAlign.SpaceBetween }) {
-            TextArea({ text: this.logInfo_ })
-              .height('100%')
-              .width('100%')
-              .fontSize(12)
-              .onChange((value: string) => {
-                this.logInfo_ = value;
-              })
-          }.height('100%').width('100%')
-        }.height('45%')
-
-        Row() {
-          Button('获取设备列表', { type: ButtonType.Normal, stateEffect: true })
-            .borderRadius(8)
-            .backgroundColor(0x317aff)
-            .onClick(() => {
-
-              this.getDevices();
-            })
+      Row() {
+        Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Start, justifyContent: FlexAlign.SpaceBetween }) {
+          TextArea({ text: this.logInfo_ })
+            .height('100%')
             .width('100%')
-        }.padding({ top: 10 })
-
-        Row() {
-          Button('获取设备操作权限', { type: ButtonType.Normal, stateEffect: true })
-            .borderRadius(8)
-            .backgroundColor(0x317aff)
-            .onClick(() => {
-              this.requestRight();
+            .fontSize(12)
+            .onChange((value: string) => {
+              this.logInfo_ = value;
             })
-            .width('100%')
-        }.padding({ top: 10 })
+        }.height('100%').width('100%')
+      }.height('45%')
 
-        Row() {
-          Button('打开设备', { type: ButtonType.Normal, stateEffect: true })
-            .borderRadius(8)
-            .backgroundColor(0x317aff)
-            .onClick(() => {
-              this.connectDevice();
-            })
-            .width('100%')
-        }.padding({ top: 10 })
+      Row() {
+        Button('获取设备列表', { type: ButtonType.Normal, stateEffect: true })
+          .borderRadius(8)
+          .backgroundColor(0x317aff)
+          .onClick(() => {
 
-        Row() {
-          Button('批量传输', { type: ButtonType.Normal, stateEffect: true })
-            .borderRadius(8)
-            .backgroundColor(0x317aff)
-            .onClick(() => {
-              this.bulkTransfer();
-            })
-            .width('100%')
-        }.padding({ top: 10 })
+            this.getDevices();
+          })
+          .width('100%')
+      }.padding({ top: 10 })
 
-        Row() {
-          Button('控制传输', { type: ButtonType.Normal, stateEffect: true })
-            .borderRadius(8)
-            .backgroundColor(0x317aff)
-            .onClick(() => {
-              this.controlTransfer();
-            })
-            .width('100%')
-        }.padding({ top: 10 })
+      Row() {
+        Button('获取设备操作权限', { type: ButtonType.Normal, stateEffect: true })
+          .borderRadius(8)
+          .backgroundColor(0x317aff)
+          .onClick(() => {
+            this.requestRight();
+          })
+          .width('100%')
+      }.padding({ top: 10 })
 
-        Row() {
-          Button('中断传输', { type: ButtonType.Normal, stateEffect: true })
-            .borderRadius(8)
-            .backgroundColor(0x317aff)
-            .onClick(() => {
-              this.interruptTransfer();
-            })
-            .width('100%')
-        }.padding({ top: 10 })
+      Row() {
+        Button('打开设备', { type: ButtonType.Normal, stateEffect: true })
+          .borderRadius(8)
+          .backgroundColor(0x317aff)
+          .onClick(() => {
+            this.connectDevice();
+          })
+          .width('100%')
+      }.padding({ top: 10 })
 
-        Row() {
-          Button('实时传输', { type: ButtonType.Normal, stateEffect: true })
-            .borderRadius(8)
-            .backgroundColor(0x317aff)
-            .onClick(() => {
-              this.isochronousTransfer();
-            })
-            .width('100%')
-        }.padding({ top: 10 })
+      Row() {
+        Button('批量传输', { type: ButtonType.Normal, stateEffect: true })
+          .borderRadius(8)
+          .backgroundColor(0x317aff)
+          .onClick(() => {
+            this.bulkTransfer();
+          })
+          .width('100%')
+      }.padding({ top: 10 })
 
-        Row() {
-          Button('关闭设备', { type: ButtonType.Normal, stateEffect: true })
-            .borderRadius(8)
-            .backgroundColor(0x317aff)
-            .onClick(() => {
-              this.closePipe();
-            })
-            .width('100%')
-        }.padding({ top: 10 })
-      }.height('100%').width('100%').padding({ left: 10, right: 10 })
-    }
+      Row() {
+        Button('控制传输', { type: ButtonType.Normal, stateEffect: true })
+          .borderRadius(8)
+          .backgroundColor(0x317aff)
+          .onClick(() => {
+            this.controlTransfer();
+          })
+          .width('100%')
+      }.padding({ top: 10 })
+
+      Row() {
+        Button('中断传输', { type: ButtonType.Normal, stateEffect: true })
+          .borderRadius(8)
+          .backgroundColor(0x317aff)
+          .onClick(() => {
+            this.interruptTransfer();
+          })
+          .width('100%')
+      }.padding({ top: 10 })
+
+      Row() {
+        Button('实时传输', { type: ButtonType.Normal, stateEffect: true })
+          .borderRadius(8)
+          .backgroundColor(0x317aff)
+          .onClick(() => {
+            this.isochronousTransfer();
+          })
+          .width('100%')
+      }.padding({ top: 10 })
+
+      Row() {
+        Button('关闭设备', { type: ButtonType.Normal, stateEffect: true })
+          .borderRadius(8)
+          .backgroundColor(0x317aff)
+          .onClick(() => {
+            this.closePipe();
+          })
+          .width('100%')
+      }.padding({ top: 10 })
+    }.height('100%').width('100%').padding({ left: 10, right: 10 })
+  }
 }
 
 @Component
