@@ -1,0 +1,60 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "provider_consumer_sync_title",
+      "value": "@Provider和@Consumer双向同步"
+    },
+    {
+      "name": "provider_consumer_no_sync_title",
+      "value": "@Provider和@Consumer未建立双向绑定"
+    },
+    {
+      "name": "provider_consumer_interface_title",
+      "value": "装饰字面量类型变量"
+    },
+    {
+      "name": "provider_consumer_array_title",
+      "value": "装饰数组类型变量"
+    },
+    {
+      "name": "provider_consumer_date_title",
+      "value": "装饰Date类型变量"
+    },
+    {
+      "name": "provider_consumer_map_title",
+      "value": "装饰Map类型变量"
+    },
+    {
+      "name": "provider_consumer_set_title",
+      "value": "装饰Set类型变量"
+    },
+    {
+      "name": "provider_consumer_arrow_function_title",
+      "value": "@Provider和@Consumer装饰箭头函数"
+    },
+    {
+      "name": "provider_consumer_complex_type_title",
+      "value": "@Provider和@Consumer装饰复杂类型"
+    },
+    {
+      "name": "provider_consumer_find_nearest_title",
+      "value": "@Consumer向上查找最近的@Provider"
+    },
+    {
+      "name": "provider_consumer_init_param_title",
+      "value": "@Provider和@Consumer初始化@Param"
+    }
+  ]
+}

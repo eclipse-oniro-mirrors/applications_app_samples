@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "once_init_sync_title",
+      "value": "变量仅初始化同步一次"
+    },
+    {
+      "name": "once_local_modify_title",
+      "value": "本地修改@Param变量"
+    }
+  ]
+}
