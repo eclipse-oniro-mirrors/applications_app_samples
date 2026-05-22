@@ -1,0 +1,51 @@
+'use static'
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { Entry, Text, TextAttribute, Column, Component, NavPathStack, NavDestination, NavDestinationContext, $r, FontWeight, AlignRuleOption, VerticalAlign, HorizontalAlign, VerticalAlignParam, HorizontalAlignParam, Builder } from '@ohos.arkui.component';
+import { State} from '@ohos.arkui.stateManagement';
+
+// [Start PageOne]
+@Builder
+export function PageOneBuilder(): void {
+  PageOne();
+}
+
+@Component
+export struct PageOne {
+  @State message: string = 'PageOne';
+  pathStack: NavPathStack = new NavPathStack();
+
+  build(): void {
+    NavDestination() {
+      Text(this.message)
+        .id('PageOne')
+        // 请将$r('app.float.page_text_font_size')替换为实际资源文件，在本示例中该资源文件的value值为"50fp"
+        .fontSize($r('app.float.page_text_font_size'))
+        .fontWeight(FontWeight.Bold)
+        .alignRules({
+          center: { anchor: '__container__', align: VerticalAlign.Center } as VerticalAlignParam,
+          middle: { anchor: '__container__', align: HorizontalAlign.Center } as HorizontalAlignParam
+        } as AlignRuleOption)
+    }
+    .onReady((context: NavDestinationContext) => {
+      this.pathStack = context.pathStack;
+    })
+    .height('100%')
+    .width('100%')
+    .margin({top:250})
+  }
+}
+// [End PageOne]
