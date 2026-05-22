@@ -1,0 +1,88 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "app_name",
+      "value": "SyncMonitorDecorator"
+    },
+    {
+      "name": "sync_monitor_array_sum_title",
+      "value": "SyncMonitor数组求和"
+    },
+    {
+      "name": "sync_monitor_multi_vars_title",
+      "value": "监听多个状态变量"
+    },
+    {
+      "name": "sync_monitor_class_object_title",
+      "value": "监听类对象"
+    },
+    {
+      "name": "sync_monitor_observed_class_title",
+      "value": "@ObservedV2装饰类中使用@SyncMonitor"
+    },
+    {
+      "name": "sync_monitor_deep_property_title",
+      "value": "监听深层属性"
+    },
+    {
+      "name": "sync_monitor_inheritance_title",
+      "value": "继承类场景"
+    },
+    {
+      "name": "sync_monitor_array_title",
+      "value": "数组监听"
+    },
+    {
+      "name": "sync_monitor_object_assign_title",
+      "value": "对象整体改变监听属性不变"
+    },
+    {
+      "name": "sync_monitor_frequency_title",
+      "value": "多次改变属性"
+    },
+    {
+      "name": "sync_monitor_array_multi_path_title",
+      "value": "多属性监听"
+    },
+    {
+      "name": "sync_monitor_wildcard_class_title",
+      "value": "通配符监听对象"
+    },
+    {
+      "name": "sync_monitor_wildcard_array_title",
+      "value": "通配符监听数组"
+    },
+    {
+      "name": "sync_monitor_nested_wildcard_title",
+      "value": "嵌套对象通配符"
+    },
+    {
+      "name": "sync_monitor_array_of_arrays_title",
+      "value": "多维数组通配符"
+    },
+    {
+      "name": "sync_monitor_param_type_title",
+      "value": "@SyncMonitor参数类型"
+    },
+    {
+      "name": "sync_monitor_deep_value_title",
+      "value": "监听深层属性变化使用场景"
+    },
+    {
+      "name": "sync_monitor_accessibility_title",
+      "value": "监听变量可访问性变化"
+    }
+  ]
+}

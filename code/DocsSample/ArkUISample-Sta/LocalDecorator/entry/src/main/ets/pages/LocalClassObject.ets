@@ -17,16 +17,14 @@
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start LocalClassObject]
 import { Button, ClickEvent, Column, ComponentV2, Entry, Local, ObservedV2, Text, Trace } from '@kit.ArkUI';
-
-export class RawObject {
+class RawObject {
   name: string;
   constructor(name: string) {
     this.name = name;
   }
 }
-
 @ObservedV2
-export class ObservedObject {
+class ObservedObject {
   @Trace name: string;
   constructor(name: string) {
     this.name = name;

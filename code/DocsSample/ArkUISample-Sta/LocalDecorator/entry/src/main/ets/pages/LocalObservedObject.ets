@@ -16,13 +16,14 @@
  */
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start LocalObservedObject]
-import { Button, ClickEvent, Column, ComponentV2, Entry, Local, ObservedV2, Text, Trace } from '@kit.ArkUI';
+import { Button, Column, ComponentV2, Entry, Local, ObservedV2, Row, Text, Trace } from '@kit.ArkUI';
 
 @ObservedV2
-export class Info {
+class Info {
   @Trace name: string;
-  @Trace age: number;
-  constructor(name: string, age: number) {
+  @Trace age: int;
+
+  constructor(name: string, age: int) {
     this.name = name;
     this.age = age;
   }
@@ -35,15 +36,22 @@ struct Index {
   @Local localInfo: Info = new Info('Tom', 25);
 
   build() {
-    Column() {
-      Text(`info: ${this.info.name}-${this.info.age}`) // Text1
-      Text(`localInfo: ${this.localInfo.name}-${this.localInfo.age}`) // Text2
-      Button('change info&localInfo')
-        .onClick((e: ClickEvent) => {
-          this.info = new Info('Lucy', 18); // Text1不会刷新
-          this.localInfo = new Info('Lucy', 18); // Text2会刷新
-        })
+    Row() {
+      Column() {
+        Text(`info: ${this.info.name}-${this.info.age}`) // Text1
+          .margin(10)
+        Text(`localInfo: ${this.localInfo.name}-${this.localInfo.age}`) // Text2
+          .margin(10)
+        Button('change info&localInfo')
+          .onClick(() => {
+            this.info = new Info('Lucy', 18); // Text1不会刷新
+            this.localInfo = new Info('Lucy', 18); // Text2会刷新
+          })
+          .margin(10)
+      }
+      .width('100%')
     }
+    .height('100%')
   }
 }
 // [End LocalObservedObject]

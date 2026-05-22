@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import { NavDestination, $r } from '@kit.ArkUI';
+// [Start ParamFromParentToChild]
 import { Button, ClickEvent, Column, ComponentV2, Entry, ForEach, Local, ObservedV2, Param, Require, Text, Trace } from '@kit.ArkUI';
 
 @ObservedV2
@@ -77,4 +79,15 @@ struct SubComponent {
       Text(`region: ${this.region.x}-${this.region.y}`)
     }
   }
+}
+
+// [End ParamFromParentToChild]
+
+@Builder
+export function paramFromParentToChild(): void {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.param_from_parent_to_child_title'))
 }

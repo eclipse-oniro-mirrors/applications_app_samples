@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import { NavDestination, $r } from '@kit.ArkUI';
+// [Start ParamInterface]
 import { Button, ClickEvent, Column, ComponentV2, Entry, Local, Param, Require, Text } from '@kit.ArkUI';
 
 interface Info {
@@ -55,4 +57,15 @@ struct Child {
         })
     }
   }
+}
+
+// [End ParamInterface]
+
+@Builder
+export function paramInterface(): void {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.param_interface_title'))
 }

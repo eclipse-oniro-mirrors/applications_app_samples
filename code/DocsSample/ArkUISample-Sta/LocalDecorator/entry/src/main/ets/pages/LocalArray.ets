@@ -21,8 +21,8 @@ import { Button, ClickEvent, Column, ComponentV2, Entry, Local, Text } from '@ki
 @Entry
 @ComponentV2
 struct Index {
-  @Local numArr: number[] = [1, 2, 3, 4, 5];
-  @Local dimensionTwo: number[][] = [[1, 2, 3], [4, 5, 6]];
+  @Local numArr: int[] = [1, 2, 3, 4, 5];
+  @Local dimensionTwo: int[][] = [[1, 2, 3], [4, 5, 6]];
 
   build() {
     Column() {
@@ -46,7 +46,6 @@ struct Index {
     }
   }
 }
-
 // [End LocalArray]
 @Builder
 export function localArray(): void {

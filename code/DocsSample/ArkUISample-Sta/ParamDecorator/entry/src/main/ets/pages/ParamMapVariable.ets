@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import { NavDestination, $r } from '@kit.ArkUI';
+// [Start ParamMapVariable]
 import { Button, ClickEvent, Column, ComponentV2, Divider, Entry, ForEach, Local, Param, Row, Text } from '@kit.ArkUI';
 
 @ComponentV2
@@ -62,4 +64,15 @@ struct MapSample {
     }
     .height('100%')
   }
+}
+
+// [End ParamMapVariable]
+
+@Builder
+export function paramMapVariable(): void {
+  NavDestination() {
+    MapSample();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.param_map_variable_title'))
 }

@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import { NavDestination, $r } from '@kit.ArkUI';
+// [Start ParamBasicTypes]
 import { Button, ClickEvent, Column, ComponentV2, Entry, Local, Param, Require, Text } from '@kit.ArkUI';
 
 @Entry
@@ -55,4 +57,15 @@ struct Child {
       Text(`Param ${this.flag}`)
     }
   }
+}
+
+// [End ParamBasicTypes]
+
+@Builder
+export function paramBasicTypes(): void {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.param_basic_types_title'))
 }

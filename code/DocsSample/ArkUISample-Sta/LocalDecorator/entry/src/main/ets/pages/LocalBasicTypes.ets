@@ -21,7 +21,7 @@ import { Button, ClickEvent, Column, ComponentV2, Entry, Local, Text } from '@ki
 @Entry
 @ComponentV2
 struct Index {
-  @Local count: number = 0;
+  @Local count: int = 0;
   @Local message: string = 'Hello';
   @Local flag: boolean = false;
 
@@ -40,7 +40,6 @@ struct Index {
     }
   }
 }
-
 // [End LocalBasicTypes]
 
 @Builder
