@@ -1,6 +1,6 @@
 'use static'
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025 - 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+// [Start kvstore_SecretKeyObserver]
 import { ECStoreManager } from './ECStoreManager';
 
 export enum SecretStatus {
-  Lock,
-  UnLock
+  Lock = 0,
+  UnLock = 1
 }
 
 export class SecretKeyObserver {
@@ -31,7 +31,7 @@ export class SecretKeyObserver {
     this.lockStatus = SecretStatus.UnLock;
   }
 
-  getCurrentStatus(): Double {
+  getCurrentStatus(): number {
     return this.lockStatus;
   }
 
@@ -39,7 +39,7 @@ export class SecretKeyObserver {
     this.storeManager = storeManager;
   }
 
-  updateLockStatus(code: Double): void {
+  updateLockStatus(code: number): void {
     if (code === SecretStatus.Lock) {
       this.onLock();
     } else {
@@ -47,6 +47,7 @@ export class SecretKeyObserver {
     }
   }
 
-  private lockStatus: Double = SecretStatus.UnLock;
-  private storeManager: ECStoreManager;
+  private lockStatus: number = SecretStatus.UnLock;
+  private storeManager: ECStoreManager = new ECStoreManager();
 }
+// [End kvstore_SecretKeyObserver]

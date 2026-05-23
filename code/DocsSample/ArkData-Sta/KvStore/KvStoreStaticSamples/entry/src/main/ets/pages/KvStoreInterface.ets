@@ -298,11 +298,11 @@ export class KvInterface {
     let devManager: distributedDeviceManager.DeviceManager;
     try {
       devManager = distributedDeviceManager.createDeviceManager(context!.applicationInfo.name);
-      let deviceIds: string[] = [];
+      let deviceIds = new Array<string>();
       if (devManager !== null) {
-        let devices = devManager.getAvailableDeviceListSync();
+        let devices:Array<distributedDeviceManager.DeviceBasicInfo> = devManager?.getAvailableDeviceListSync();
         for (let i = 0; i < devices.length; i++) {
-          deviceIds[i] = devices[i].networkId as string;
+          deviceIds.push(devices?.[i].networkId as string);
         }
       }
       if (deviceIds.length === 0) {

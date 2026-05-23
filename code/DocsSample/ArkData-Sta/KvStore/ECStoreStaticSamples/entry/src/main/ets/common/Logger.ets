@@ -18,7 +18,7 @@ import hilog from '@ohos.hilog';
 
 export class Logger {
   private domain: int = 0xFF00;
-  private prefix: string = '[KvStoreSample]';
+  private prefix: string = '[ECStoreStaticSample]';
   private format: string = '%{public}s';
 
   constructor(prefix: string) {
@@ -26,24 +26,20 @@ export class Logger {
   }
 
   debug(...args: string[]): void {
-    hilog.debug(this.domain, this.prefix, this.format, args);
+    console.debug(this.domain, this.prefix, this.format, args.join(' '));
   }
 
   info(...args: string[]): void {
-    hilog.info(this.domain, this.prefix, this.format, args);
+    console.info(this.domain, this.prefix, this.format, args.join(' '));
   }
 
   warn(...args: string[]): void {
-    hilog.warn(this.domain, this.prefix, this.format, args);
+    console.warn(this.domain, this.prefix, this.format, args.join(' '));
   }
 
   error(...args: string[]): void {
-    hilog.error(this.domain, this.prefix, this.format, args);
-  }
-
-  fatal(...args: string[]): void {
-    hilog.fatal(this.domain, this.prefix, this.format, args);
+    console.error(this.domain, this.prefix, this.format, args.join(' '));
   }
 }
 
-export default new Logger('[KvStoreSample]');
+export default new Logger('[ECStoreStaticSample]');

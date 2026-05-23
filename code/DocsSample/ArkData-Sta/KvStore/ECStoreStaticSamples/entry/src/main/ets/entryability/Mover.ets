@@ -1,6 +1,6 @@
 'use static'
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025 - 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,22 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-// [Start Mover]
-import distributedKVStore from '@ohos.data.distributedKVStore.d.ets';
-import Logger from '../common/Logger';
+// [Start kvstore_Mover]
+import distributedKVStore from '@ohos.data.distributedKVStore';
 
 export class Mover {
   async move(eStore: distributedKVStore.SingleKVStore, cStore: distributedKVStore.SingleKVStore): Promise<void> {
     if (eStore !== null && cStore !== null) {
       try {
-        let entries: distributedKVStore.Entry[] = await cStore.getEntries('key_test_string');
-        await eStore.putBatch(entries);
-        Logger.info(`ECDB_Encry move success`);
+        let entries = await cStore.getEntries('test_');
+        for (let i: int = 0; i < entries.length; i++) {
+          let entry = entries[i];
+          await eStore.put(entry.key, entry.value.value as string);
+        }
+        console.info('ECDB_Encry move data success');
       } catch (e) {
-        Logger.info(`ECDB_Encry move failed,code is ${e.code},message is ${e.message}`);
+        console.error('An unexpected error occurred in move');
       }
     }
   }
 }
-// [End Mover]
+// [End kvstore_Mover]
