@@ -1,0 +1,18 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/TraceNestedClass",
+    "pages/TraceInheritClass",
+    "pages/TraceStaticProperty",
+    "pages/TraceUseRestrict",
+    "pages/TraceNestedScene",
+    "pages/TraceInheritScene",
+    "pages/TraceBasicArray",
+    "pages/TraceObjectArray",
+    "pages/TraceMapType",
+    "pages/TraceSetType",
+    "pages/TraceDateType",
+    "pages/TraceSerializeNoParam",
+    "pages/TraceSerializeWithParam"
+  ]
+}

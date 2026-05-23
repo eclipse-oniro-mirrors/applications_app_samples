@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "computed_component_title",
+      "value": "在自定义组件中使用计算属性"
+    },
+    {
+      "name": "computed_observed_v2_title",
+      "value": "在@ObservedV2类中使用计算属性"
+    },
+    {
+      "name": "computed_monitor_title",
+      "value": "@Computed属性被@Monitor监听"
+    },
+    {
+      "name": "computed_init_param_title",
+      "value": "@Computed属性初始化@Param"
+    }
+  ]
+}
