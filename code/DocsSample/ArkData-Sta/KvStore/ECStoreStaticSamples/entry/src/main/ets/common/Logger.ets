@@ -26,19 +26,19 @@ export class Logger {
   }
 
   debug(...args: string[]): void {
-    console.debug(this.domain, this.prefix, this.format, args.join(' '));
+    console.debug(this.domain, this.prefix, this.format, args);
   }
 
   info(...args: string[]): void {
-    console.info(this.domain, this.prefix, this.format, args.join(' '));
+    console.info(this.domain, this.prefix, this.format, args);
   }
 
   warn(...args: string[]): void {
-    console.warn(this.domain, this.prefix, this.format, args.join(' '));
+    console.warn(this.domain, this.prefix, this.format, args);
   }
 
   error(...args: string[]): void {
-    console.error(this.domain, this.prefix, this.format, args.join(' '));
+    console.error(this.domain, this.prefix, this.format, args);
   }
 }
 

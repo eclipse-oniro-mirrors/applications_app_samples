@@ -61,13 +61,13 @@ export default class EntryAbility extends UIAbility {
     Logger.info('ECDB_Encry createSubscriberSync success');
 
     try {
-      commonEventManager.subscribe(subscriber, (err: BusinessError | null, data: commonEventManager.CommonEventData | undefined): void => {
+      commonEventManager.subscribe(subscriber, (err: BusinessError | null, data: commonEventManager.CommonEventData | undefined) => {
         if (err !== null) {
           Logger.error(`subscribe failed, code is ${err.code}, message is ${err.message}`);
         } else if (data !== undefined) {
           Logger.info(`ECDB_Encry SubscribeCB ${data.code}`);
           if (data.code !== undefined) {
-            e_secretKeyObserver.updateLockStatus(data.code as Double);
+            e_secretKeyObserver.updateLockStatus(data.code!);
           }
         }
       });

@@ -31,7 +31,7 @@ export class SecretKeyObserver {
     this.lockStatus = SecretStatus.UnLock;
   }
 
-  getCurrentStatus(): number {
+  getCurrentStatus(): Double {
     return this.lockStatus;
   }
 
@@ -39,7 +39,7 @@ export class SecretKeyObserver {
     this.storeManager = storeManager;
   }
 
-  updateLockStatus(code: number): void {
+  updateLockStatus(code: Double): void {
     if (code === SecretStatus.Lock) {
       this.onLock();
     } else {
@@ -47,7 +47,7 @@ export class SecretKeyObserver {
     }
   }
 
-  private lockStatus: number = SecretStatus.UnLock;
+  private lockStatus: Double = SecretStatus.UnLock;
   private storeManager: ECStoreManager = new ECStoreManager();
 }
 // [End kvstore_SecretKeyObserver]
