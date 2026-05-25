@@ -149,7 +149,7 @@ struct WebIndex {
   uiContext: UIContext = this.getUIContext();
 
   aboutToAppear() {
-    // 配置web开启调试模式。
+    // 配置Web开启调试模式。
     webview.WebviewController.setWebDebuggingAccess(true);
   }
 
@@ -169,7 +169,7 @@ struct WebIndex {
              // 获取embed标签的生命周期变化数据。
             .onNativeEmbedLifecycleChange((embed: NativeEmbedDataInfo):void => {
               console.info('NativeEmbed surfaceId' + embed.surfaceId);
-              // 1. 如果使用embed.info.id作为映射nodeController的key，请在h5页面显式指定id。
+              // 1. 如果使用embed.info.id作为映射nodeController的key，请在H5页面显式指定id。
               const componentId = embed.info?.id?.toString() as string;
               if (embed.status === NativeEmbedStatus.CREATE) {
                 console.info('NativeEmbed create' + JSON.stringify(embed.info));
@@ -182,12 +182,12 @@ struct WebIndex {
                   height : this.uiContext.px2vp(embed.info?.height as int)} as NodeControllerParams);
                 this.edges = {left: `${embed.info?.position?.x as number}px`, top: `${embed.info?.position?.y as number}px`};
                 nodeController.setDestroy(false);
-                //根据web传入的embed的id属性作为key，将nodeController存入Map。
+                // 根据Web传入的embed的id属性作为key，将nodeController存入Map。
                 this.nodeControllerMap.set(componentId, nodeController);
                 this.widthMap.set(componentId, this.uiContext.px2vp(embed.info?.width as int));
                 this.heightMap.set(componentId, this.uiContext.px2vp(embed.info?.height as int));
                 this.positionMap.set(componentId, this.edges);
-                // 将web传入的embed的id属性存入@State状态数组变量中，用于动态创建nodeContainer节点容器,需要将push动作放在set之后。
+                // 将Web传入的embed的id属性存入@State状态数组变量中，用于动态创建nodeContainer节点容器,需要将push动作放在set之后。
                 this.componentIdArr.push(componentId);
               } else if (embed.status === NativeEmbedStatus.UPDATE) {
                 let nodeController = this.nodeControllerMap.get(componentId);

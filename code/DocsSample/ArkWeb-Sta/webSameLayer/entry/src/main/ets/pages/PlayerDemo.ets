@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 // [Start playerdemo]
-import type media from '@ohos.multimedia.media'
-import { BusinessError } from '@ohos.base';
+import type media from '@ohos.multimedia.media';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 export class AVPlayerDemo {
   private count: number = 0;
-  private surfaceId: string = ''; // surfaceId用于播放画面显示，具体的值需要通过Xcomponent接口获取，相关文档链接见上面Xcomponent创建方法。
+  private surfaceId: string = ''; // surfaceId用于播放画面显示，具体的值需要通过XComponent接口获取，相关文档链接见上面XComponent创建方法。
   private isSeek: boolean = true; // 用于区分模式是否支持seek操作。
 
   setSurfaceID(id: string){

@@ -38,6 +38,7 @@ export class NodeControllerParams {
   public height: double = 0
 }
 
+// [Start create_nodecontainer]
 // 用于控制和反馈对应的NodeContainer上的节点的行为，需要与NodeContainer一起使用。
 export class MyNodeController extends NodeController {
   private rootNode: BuilderNode<Params> | undefined | null;
@@ -100,7 +101,9 @@ export class MyNodeController extends NodeController {
     return this.rootNode?.postInputEvent(event) as boolean;
   }
 }
+// [End create_nodecontainer]
 
+// [Start text_input_component]
 @Component
 struct TextInputComponent {
   @PropRef params: Params;
@@ -128,6 +131,7 @@ function textInputBuilder(params: Params) {
   TextInputComponent({params: params})
     .backgroundColor(Color.White)
 }
+// [End text_input_component]
 
 @Entry
 @Component
@@ -153,16 +157,23 @@ struct Page{
               .width(this.widthMap.get(componentId))
               .height(this.heightMap.get(componentId))
           }, (embedId: string) => embedId)
-          //Web组件加载本地test2.html页面。
+          // Web组件加载本地test2.html页面。
+          // [Start enable_native_embedmode]
+          // [Start register_object_label]
           Web({src: $rawfile('test2.html'), controller: this.browserTabController})
+          // [StartExclude enable_native_embedmode]
           // 注册同层标签为'object'，类型为'test'前缀
             .registerNativeEmbedRule('object', 'test')
+          // [EndExclude enable_native_embedmode]
+          // [End register_object_label]
             // 配置同层渲染开关开启。
             .enableNativeEmbedMode(true)
+          // [End enable_native_embedmode]
+          // [Start native_embed_lifecycle_change]
             // 获取embed标签的生命周期变化数据。
             .onNativeEmbedLifecycleChange((embed: NativeEmbedDataInfo):void => {
               console.info('NativeEmbed surfaceId' + embed.surfaceId);
-              // 如果使用embed.info.id作为映射nodeController的key，请在h5页面显式指定id。
+              // 如果使用embed.info.id作为映射nodeController的key，请在H5页面显式指定id。
               const componentId = embed.info?.id?.toString() as string;
               if (embed.status === NativeEmbedStatus.CREATE) {
                 console.info('NativeEmbed create' + JSON.stringify(embed.info));
@@ -180,12 +191,12 @@ struct Page{
                   top: `${embed.info?.position?.y as double}px`
                 };
                 nodeController.setDestroy(false);
-                //根据web传入的embed的id属性作为key，将nodeController存入Map。
+                // 根据Web传入的embed的id属性作为key，将nodeController存入Map。
                 this.nodeControllerMap.set(componentId, nodeController);
                 this.widthMap.set(componentId, this.uiContext.px2vp(embed.info?.width as int));
                 this.heightMap.set(componentId, this.uiContext.px2vp(embed.info?.height as int));
                 this.positionMap.set(componentId, this.edges);
-                // 将web传入的embed的id属性存入@State状态数组变量中，用于动态创建nodeContainer节点容器,需要将push动作放在set之后。
+                // 将Web传入的embed的id属性存入@State状态数组变量中，用于动态创建nodeContainer节点容器,需要将push动作放在set之后。
                 this.componentIdArr.push(componentId);
               } else if (embed.status === NativeEmbedStatus.UPDATE) {
                 let nodeController = this.nodeControllerMap.get(componentId);
@@ -214,6 +225,8 @@ struct Page{
                 console.info('NativeEmbed status' + embed.status);
               }
             })
+            // [End native_embed_lifecycle_change]
+            // [Start native_embed_gesture]
             // 获取同层渲染组件触摸事件信息。
             .onNativeEmbedGestureEvent((touch: NativeEmbedTouchInfo):void => {
               console.info('NativeEmbed onNativeEmbedGestureEvent' + JSON.stringify(touch.touchEvent));
@@ -234,6 +247,8 @@ struct Page{
                 }
               })
             })
+            // [End native_embed_gesture]
+            // [Start native_embed_mouse]
             .onNativeEmbedMouseEvent((mouse: NativeEmbedMouseInfo):void => {
               console.info('NativeEmbed onNativeEmbedMouseEvent' + JSON.stringify(mouse.mouseEvent));
               this.componentIdArr.forEach((componentId: string) => {
@@ -253,6 +268,7 @@ struct Page{
                 }
               })
             })
+            // [End native_embed_mouse]
         }
       }
     }
