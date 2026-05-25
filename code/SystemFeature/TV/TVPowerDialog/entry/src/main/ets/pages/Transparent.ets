@@ -12,8 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import abilityTest from './Ability.test';
+@Entry
+@Component
+struct Page {
+  build() {
+    Row() {
 
-export default function testsuite() {
-  abilityTest();
+    }.backgroundColor(Color.Transparent)
+    .height('100%')
+    .width('100%');
+  }
 }
