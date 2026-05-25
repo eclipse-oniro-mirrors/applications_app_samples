@@ -15,7 +15,7 @@
  */
 
 // [Start findWindowAndOp_sta_sample]
-import { describe, expect, it, TestType } from "../../../../../hypium/index";
+import { describe, expect, it, TestType } from '../../../../../hypium/index';
 // 导入测试依赖kit
 import { Driver } from '@kit.TestKit';
 

@@ -18,9 +18,11 @@
  * uitest对web页面内的控件进行查询和操作
  */
 
-import { beforeAll, describe, expect, it } from "../../../../../hypium/index";
+import { beforeAll, describe, expect, it } from '../../../../../hypium/index';
 import { abilityDelegatorRegistry, Component, Driver, ON, Rect, Point } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
+import { BusinessError } from '@ohos.base';
+import web_webview from '@ohos.web.webview';
 import { Utils, startAbility, stopApplication } from '../../Util.test';
 
 const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();

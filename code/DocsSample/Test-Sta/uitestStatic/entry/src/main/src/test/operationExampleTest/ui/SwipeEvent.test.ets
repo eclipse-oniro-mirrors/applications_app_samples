@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { beforeAll, describe, expect, it, Level, Size, TestType } from "../../../../../hypium/index";
+import { beforeAll, describe, expect, it, Level, Size, TestType } from '../../../../../hypium/index';
 import { abilityDelegatorRegistry, Component, Driver, ON, Rect, Point } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
 import { BusinessError } from '@ohos.base';

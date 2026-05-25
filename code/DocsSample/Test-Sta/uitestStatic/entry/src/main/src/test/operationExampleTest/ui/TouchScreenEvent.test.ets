@@ -15,7 +15,7 @@
  */
 
 // [Start touchScreen_sta_sample]
-import { describe, it, Level, Size, TestType } from "../../../../../hypium/index";
+import { describe, it, Level, Size, TestType } from '../../../../../hypium/index';
 // 导入测试依赖kit
 import { Component, Driver, ON, PointerMatrix, Point, UiDirection } from '@kit.TestKit';
 

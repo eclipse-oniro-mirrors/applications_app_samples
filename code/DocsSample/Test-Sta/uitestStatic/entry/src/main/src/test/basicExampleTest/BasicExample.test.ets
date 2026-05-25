@@ -41,15 +41,15 @@ export default function abilityTest(): void {
       const ability: UIAbility = await delegator.getCurrentTopAbility();
       expect(ability.context.abilityInfo.name).assertEqual('EntryAbility');
 
-      // 依据指定文本”toClickToAfterIndex”查找目标控件
+      // 依据指定文本"toClickToAfterIndex"查找目标控件
       const toClick: Component | null = await driver.findComponent(ON.text('toClickToAfterIndex'));
       // 点击目标控件
       await toClick!.click();
-      // 依据指定文本”toClickToAfterIndex”查找目标控件
+      // 依据指定文本"Next"查找目标控件
       const next: Component | null = await driver.findComponent(ON.text('Next'));
       // 点击目标控件
       await next!.click();
-      // 通过断言文本为”after click”的控件存在，确认操作后页面变化符合预期
+      // 通过断言文本为"after click"的控件存在，确认操作后页面变化符合预期
       await driver.assertComponentExist(ON.text('after click'));
       await driver.pressBack();
     })

@@ -15,7 +15,7 @@
  */
 
 
-import { beforeAll, describe, expect, it, TestType } from "../../../../../hypium/index";
+import { beforeAll, describe, expect, it, TestType } from '../../../../../hypium/index';
 import { abilityDelegatorRegistry, Component, Driver, ON } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
 import { Utils, startAbility, stopApplication } from '../../Util.test';

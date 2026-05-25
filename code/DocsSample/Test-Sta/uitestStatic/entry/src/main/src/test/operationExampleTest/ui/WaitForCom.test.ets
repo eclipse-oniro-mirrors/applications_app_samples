@@ -15,7 +15,7 @@
  */
 
 // [Start waitForComp_sta_sample]
-import { describe, it, Level, Size, TestType } from "../../../../../hypium/index";
+import { describe, it, Level, Size, TestType } from '../../../../../hypium/index';
 // 导入测试依赖kit
 import { abilityDelegatorRegistry, Component, Driver, ON } from '@kit.TestKit';
 import { Utils, startAbility, stopApplication } from '../../Util.test';

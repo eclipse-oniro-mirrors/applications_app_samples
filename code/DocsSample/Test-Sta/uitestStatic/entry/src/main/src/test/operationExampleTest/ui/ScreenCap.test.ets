@@ -15,7 +15,7 @@
  */
 
 // [Start screenCap_sta_sample]
-import { describe, it, Level, Size, TestType } from "../../../../../hypium/index";
+import { describe, it, Level, Size, TestType } from '../../../../../hypium/index';
 // 导入测试依赖kit
 import { Driver } from '@kit.TestKit';
 import { display } from '@kit.ArkUI';
