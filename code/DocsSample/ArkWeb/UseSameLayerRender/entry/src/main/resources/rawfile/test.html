@@ -16,18 +16,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>同层渲染HTML</title>
-    <meta name="viewport" content="initial-scale=1.0">
+    <title>同层渲染测试HTML</title>
 </head>
 <body>
 <div>
-    <div id = "test" style = "position: absolute; z-index: 9999; text-align: center; background-color: rgb(61, 157, 180); top: 40px; left: 30px; width: 300px; height: 120px">
-        z-index: 9999
-    </div>
-
-    <embed id = "input1" type = "native/view1" arkwebnativestyle = "display:overlay-infinity" style = "position: absolute; top: 60px; left: 50px; width: 300px; height: 100px">
-
-    <embed id = "input2" type = "native/view2" arkwebnativestyle = "display:overlay" style = "position: absolute; top: 150px; left: 40px; width: 300px; height: 100px">
+    <embed id="nativeVideo"
+           type="native/camera"
+           arkwebnativestyle="object-fit:none"/>
 </div>
 </body>
 </html>
