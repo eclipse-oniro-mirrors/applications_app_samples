@@ -1,0 +1,22 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/SyncMonitorArraySum",
+    "pages/SyncMonitorMultiVars",
+    "pages/SyncMonitorClassObject",
+    "pages/SyncMonitorObservedClass",
+    "pages/SyncMonitorDeepProperty",
+    "pages/SyncMonitorInheritance",
+    "pages/SyncMonitorArray",
+    "pages/SyncMonitorObjectAssign",
+    "pages/SyncMonitorFrequency",
+    "pages/SyncMonitorArrayMultiPath",
+    "pages/SyncMonitorWildcardClass",
+    "pages/SyncMonitorWildcardArray",
+    "pages/SyncMonitorNestedWildcard",
+    "pages/SyncMonitorArrayOfArrays",
+    "pages/SyncMonitorParamType",
+    "pages/SyncMonitorDeepValue",
+    "pages/SyncMonitorAccessibility"
+  ]
+}

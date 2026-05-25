@@ -16,25 +16,35 @@
  */
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start LocalUnionType]
-import { Button, ClickEvent, Column, ComponentV2, Entry, Local, Text } from '@kit.ArkUI';
+import { Button, Column, ComponentV2, Entry, Local, Row, Text } from '@kit.ArkUI';
 
 @Entry
 @ComponentV2
 struct Index {
-  @Local count: number | undefined = 10;
+  @Local count: int | undefined = 10; // 使用@Local装饰联合类型变量
 
   build() {
-    Column() {
-      Text(`count(${this.count})`)
-      Button('change to undefined')
-        .onClick((e: ClickEvent) => {
-          this.count = undefined;
-        })
-      Button('change to number')
-        .onClick((e: ClickEvent) => {
-          this.count = 10;
-        })
+    Row() {
+      Column() {
+        Text(`count: ${this.count}`)
+        // 将联合类型变量从int切换为undefined，触发UI刷新
+        Button('change to undefined')
+          .onClick(() => {
+            this.count = undefined;
+          })
+          .width(300)
+          .margin(10)
+        // 将联合类型变量从undefined切换为int，触发UI刷新
+        Button('change to int')
+          .onClick(() => {
+            this.count = 10;
+          })
+          .width(300)
+          .margin(10)
+      }
+      .width('100%')
     }
+    .height('100%')
   }
 }
 // [End LocalUnionType]

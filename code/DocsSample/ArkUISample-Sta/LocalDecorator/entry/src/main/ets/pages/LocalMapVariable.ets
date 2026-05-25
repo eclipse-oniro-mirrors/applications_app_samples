@@ -16,36 +16,56 @@
  */
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start LocalMapVariable]
-import { Button, ClickEvent, Column, ComponentV2, Divider, Entry, ForEach, Local, Row, Text } from '@kit.ArkUI';
+import { Button, Column, ComponentV2, Entry, ForEach, Local, Row, Text } from '@kit.ArkUI';
 
 @Entry
 @ComponentV2
 struct MapSample {
-  @Local message: Map<number, string> = new Map<number, string>([[0, 'a'], [1, 'b'], [3, 'c']]);
+  @Local fruits: Map<string, int> = new Map<string, int>([['apple', 1], ['banana', 2]]); // 使用@Local装饰Map类型变量
 
   build() {
     Row() {
       Column() {
-        ForEach(Array.from(this.message.entries()), (item: [number, string]) => {
-          Text(`${item[0]}`).fontSize(30)
-          Text(`${item[1]}`).fontSize(30)
-          Divider()
+        ForEach(Array.from(this.fruits.entries()), (item: [string, int]) => {
+          Text(`key: ${item[0]}, value: ${item[1]}`)
+            .fontSize(20)
+            .margin(10)
         })
-        Button('init map').onClick((e: ClickEvent) => {
-          this.message = new Map<number, string>([[0, 'a'], [1, 'b'], [3, 'c']]);
-        })
-        Button('set new one').onClick((e: ClickEvent) => {
-          this.message.set(4, 'd');
-        })
-        Button('clear').onClick((e: ClickEvent) => {
-          this.message.clear();
-        })
-        Button('replace the first one').onClick((e: ClickEvent) => {
-          this.message.set(0, 'aa');
-        })
-        Button('delete the first one').onClick((e: ClickEvent) => {
-          this.message.delete(0);
-        })
+        // 新增键值对，触发UI刷新
+        Button('Set entry cherry')
+          .onClick(() => {
+            this.fruits.set('cherry', 3);
+          })
+          .width(300)
+          .margin(10)
+        // 更新键值对，触发UI刷新
+        Button('Update entry apple')
+          .onClick(() => {
+            this.fruits.set('apple', 4);
+          })
+          .width(300)
+          .margin(10)
+        // 删除键值对，触发UI刷新
+        Button('Delete entry apple')
+          .onClick(() => {
+            this.fruits.delete('apple');
+          })
+          .width(300)
+          .margin(10)
+        // 对Map整体重新赋值，触发UI刷新
+        Button('Reset map')
+          .onClick(() => {
+            this.fruits = new Map<string, int>([['strawberry', 9], ['blueberry', 8]]);
+          })
+          .width(300)
+          .margin(10)
+        // 清空Map，触发UI刷新
+        Button('Clear map')
+          .onClick(() => {
+            this.fruits.clear();
+          })
+          .width(300)
+          .margin(10)
       }
       .width('100%')
     }

@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import { NavDestination, $r } from '@kit.ArkUI';
+// [Start ParamClassObject]
 import { Button, ClickEvent, Column, ComponentV2, Entry, Local, ObservedV2, Param, Require, Text, Trace } from '@kit.ArkUI';
 
 class RawObject {
@@ -69,4 +71,15 @@ struct Child {
       Text(`${this.observedObject.name}`)
     }  
   }
+}
+
+// [End ParamClassObject]
+
+@Builder
+export function paramClassObject(): void {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.param_class_object_title'))
 }

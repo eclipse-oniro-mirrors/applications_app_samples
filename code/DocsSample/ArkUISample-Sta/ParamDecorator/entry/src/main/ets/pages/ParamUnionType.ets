@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import { NavDestination, $r } from '@kit.ArkUI';
+// [Start ParamUnionType]
 import { Button, ClickEvent, Column, ComponentV2, Entry, Local, Param, Text } from '@kit.ArkUI';
 
 @Entry
@@ -43,4 +45,15 @@ struct MyComponent {
       Text(`count(${this.count})`)
     }
   }
+}
+
+// [End ParamUnionType]
+
+@Builder
+export function paramUnionType(): void {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.param_union_type_title'))
 }

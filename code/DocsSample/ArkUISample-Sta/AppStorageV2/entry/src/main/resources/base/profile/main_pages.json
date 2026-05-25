@@ -1,0 +1,8 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/AppStorageV2Basic",
+    "pages/AppStorageV2TwoPages",
+    "pages/Sample"
+  ]
+}

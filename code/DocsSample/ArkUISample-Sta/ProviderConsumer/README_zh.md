@@ -4,7 +4,7 @@
 
 本工程帮助开发者更好地理解@Provider和@Consumer装饰器的使用场景。该工程中展示的代码详细描述可查如下链接：
 
-[@Provider装饰器和@Consumer装饰器：跨组件层级双向同步](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/state-management-static/arkts-static-new-provider-and-consumer.md)
+[@Provider装饰器和@Consumer装饰器：跨组件层级双向同步](https://gitcode.com/openharmony/docs/blob/OpenHarmony_feature_sta_20260331/zh-cn/application-dev/ui/state-management-static/arkts-static-new-provider-and-consumer.md)
 
 ## 使用说明
 

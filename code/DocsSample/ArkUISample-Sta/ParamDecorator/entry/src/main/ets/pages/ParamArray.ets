@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import { NavDestination, $r } from '@kit.ArkUI';
+// [Start ParamArray]
 import { Button, ClickEvent, Column, ComponentV2, Entry, Local, Param, Require, Text } from '@kit.ArkUI';
 
 @Entry
@@ -64,4 +66,15 @@ struct Child {
       Text(`${this.dimensionTwo[1][1]}`)
     }
   }
+}
+
+// [End ParamArray]
+
+@Builder
+export function paramArray(): void {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.param_array_title'))
 }

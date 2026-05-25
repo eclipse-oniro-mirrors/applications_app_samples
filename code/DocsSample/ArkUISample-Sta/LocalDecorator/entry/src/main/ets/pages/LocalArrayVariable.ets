@@ -16,35 +16,63 @@
  */
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start LocalArrayVariable]
-import { Button, ClickEvent, Column, ComponentV2, Entry, Local, Text } from '@kit.ArkUI';
+import { Button, Column, ComponentV2, Entry, ForEach, Local, Row, Text } from '@kit.ArkUI';
+
+class Fruit {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+}
 
 @Entry
 @ComponentV2
 struct Index {
-  @Local arr: int[] = [0, 1, 2];
+  @Local fruits: Fruit[] = [new Fruit('apple'), new Fruit('banana')]; // 使用@Local装饰Array类型变量
 
   build() {
-    Column() {
-      Text(`${this.arr}`)
-      Button(`change arr[0]: ${this.arr[0]}`).onClick((e: ClickEvent) => {
-        this.arr[0]++;
-      })
-      Button(`push item: ${this.arr.length}`).onClick((e: ClickEvent) => {
-        this.arr.push(Double.toInt(this.arr.length));
-      })
-      Button(`pop item`).onClick((e: ClickEvent) => {
-        this.arr.pop();
-      })
-      Button(`reverse`).onClick((e: ClickEvent) => {
-        this.arr.reverse();
-      })
-      Button(`reset`).onClick((e: ClickEvent) => {
-        this.arr = [0, 1, 2];
-      })
+    Row() {
+      Column() {
+        ForEach(this.fruits, (item: Fruit) => {
+          Text(`${item.name}`)
+            .fontSize(20)
+            .margin(10)
+        })
+        // 对数组整体重新赋值，触发UI刷新
+        Button('Reset array')
+          .onClick(() => {
+            this.fruits = [new Fruit('strawberry'), new Fruit('blueberry')];
+          })
+          .width(300)
+          .margin(10)
+        // 新增数组元素，触发UI刷新
+        Button('Push element')
+          .onClick(() => {
+            this.fruits.push(new Fruit('cherry'));
+          })
+          .width(300)
+          .margin(10)
+        // 翻转数组元素，触发UI刷新
+        Button('Reverse array')
+          .onClick(() => {
+            this.fruits.reverse();
+          })
+          .width(300)
+          .margin(10)
+        // 使用同一元素填充数组，触发UI刷新
+        Button('Fill array')
+          .onClick(() => {
+            this.fruits.fill(new Fruit('apple'));
+          })
+          .width(300)
+          .margin(10)
+      }
+      .width('100%')
     }
+    .height('100%')
   }
 }
-
 // [End LocalArrayVariable]
 
 @Builder

@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import { NavDestination, $r } from '@kit.ArkUI';
+// [Start ParamDateVariable]
 import { Button, ClickEvent, Column, ComponentV2, Entry, Local, Param, Text } from '@kit.ArkUI';
 
 @ComponentV2
@@ -60,4 +62,15 @@ struct ParentComponent {
       DateComponent({ selectedDate: this.parentSelectedDate })
     }
   }
+}
+
+// [End ParamDateVariable]
+
+@Builder
+export function paramDateVariable(): void {
+  NavDestination() {
+    ParentComponent();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.param_date_variable_title'))
 }

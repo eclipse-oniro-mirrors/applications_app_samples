@@ -17,10 +17,9 @@
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start LocalInterface]
 import { Button, ClickEvent, Column, ComponentV2, Entry, Local, Text } from '@kit.ArkUI';
-
-export interface Info {
+interface Info {
   name: string;
-  age: number;
+  age: int;
 }
 
 @Entry
@@ -28,7 +27,7 @@ export interface Info {
 struct Index {
   // 装饰字面量
   @Local info: Info = { name: 'Jack', age: 25 } as Info;
-
+  
   build() {
     Column() {
       Text(`info.name: ${this.info.name}`)

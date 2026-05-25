@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import { NavDestination, $r } from '@kit.ArkUI';
+// [Start ParamSetVariable]
 import { Button, ClickEvent, Column, ComponentV2, Divider, Entry, ForEach, Local, Param, Row, Text } from '@kit.ArkUI';
 
 @ComponentV2
@@ -59,4 +61,15 @@ struct SetSample {
     }
     .height('100%')
   }
+}
+
+// [End ParamSetVariable]
+
+@Builder
+export function paramSetVariable(): void {
+  NavDestination() {
+    SetSample();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.param_set_variable_title'))
 }
