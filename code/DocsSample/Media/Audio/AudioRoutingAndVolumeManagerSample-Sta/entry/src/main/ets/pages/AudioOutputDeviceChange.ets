@@ -161,7 +161,7 @@ async function onOutputDeviceChangeWithInfo(){
       // [EndExclude onOutputDeviceChangeWithInfo]
       switch (deviceChangeInfo.changeReason) {
         case audio.AudioStreamDeviceChangeReason.REASON_OLD_DEVICE_UNAVAILABLE:
-          // 响应设备不可用事件,如果应用处于播放状态,应暂停播放,更新UX界面。
+          // 响应设备不可用事件，如果应用处于播放状态，应暂停播放，更新UX界面。
           (audioRenderer as audio.AudioRenderer).pause();
           break;
         case audio.AudioStreamDeviceChangeReason.REASON_NEW_DEVICE_AVAILABLE:
