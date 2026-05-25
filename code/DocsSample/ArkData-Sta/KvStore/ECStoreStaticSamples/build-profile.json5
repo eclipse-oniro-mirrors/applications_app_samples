@@ -40,21 +40,6 @@
         "name": "release"
       }
     ],
-    "signingConfigs": [
-      {
-        "name": "default",
-        "type": "HarmonyOS",
-        "material": {
-          "certpath": "C:\\Users\\zyh\\.ohos\\config\\default_ECStoreStaticSamples_F2VQF8lStQ2ykRbOjKk97tSPaz8tYoSFKoB7pHrxI_Y=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001A583A3555C6F8E895A3438653D7D27A0099641DC8B9B4796FC29DBFD73400B165C0D4B57B32C7",
-          "profile": "C:\\Users\\zyh\\.ohos\\config\\default_ECStoreStaticSamples_F2VQF8lStQ2ykRbOjKk97tSPaz8tYoSFKoB7pHrxI_Y=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\zyh\\.ohos\\config\\default_ECStoreStaticSamples_F2VQF8lStQ2ykRbOjKk97tSPaz8tYoSFKoB7pHrxI_Y=.p12",
-          "storePassword": "0000001A89037C8E6C657E2D9D19E3D11B3E112271678F6F7F947584E513E27D7AC771BD711F4E079399"
-        }
-      }
-    ]
   },
   "modules": [
     {
