@@ -112,7 +112,7 @@ export default class EntryAbility extends UIAbility {
     }
   }
 
-  onDestroy(): void {
+  onDestroy(): Promise<void> {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
   }
 
