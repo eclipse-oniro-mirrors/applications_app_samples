@@ -1,0 +1,12 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/StateObservedClass",
+    "pages/StateSimpleTypes",
+    "pages/StateMapVariable",
+    "pages/StateSetVariable",
+    "pages/StateDateVariable",
+    "pages/StateInterface",
+    "pages/StateUnionType"
+  ]
+}

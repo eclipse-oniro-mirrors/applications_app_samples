@@ -1,0 +1,44 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "state_observed_class_title",
+      "value": "@State装饰@Observed类"
+    },
+    {
+      "name": "state_simple_types_title",
+      "value": "@State装饰简单类型"
+    },
+    {
+      "name": "state_map_variable_title",
+      "value": "@State装饰Map类型变量"
+    },
+    {
+      "name": "state_set_variable_title",
+      "value": "@State装饰Set类型变量"
+    },
+    {
+      "name": "state_date_variable_title",
+      "value": "@State装饰Date类型变量"
+    },
+    {
+      "name": "state_interface_title",
+      "value": "@State装饰interface字面量"
+    },
+    {
+      "name": "state_union_type_title",
+      "value": "@State支持联合类型"
+    }
+  ]
+}
