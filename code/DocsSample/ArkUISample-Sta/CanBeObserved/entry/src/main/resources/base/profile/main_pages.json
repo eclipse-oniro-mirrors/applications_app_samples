@@ -1,0 +1,12 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/CanBeObservedObserved",
+    "pages/CanBeObservedTrack",
+    "pages/CanBeObservedObservedV2",
+    "pages/CanBeObservedObjectLiteral",
+    "pages/CanBeObservedBuiltIn",
+    "pages/CanBeObservedNotRefresh",
+    "pages/CanBeObservedAfterObserved"
+  ]
+}

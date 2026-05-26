@@ -1,0 +1,56 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "app_name",
+      "value": "MakeObserved"
+    },
+    {
+      "name": "make_observed_basic_title",
+      "value": "makeObserved基本使用"
+    },
+    {
+      "name": "make_observed_nested_title",
+      "value": "makeObserved嵌套观察"
+    },
+    {
+      "name": "make_observed_one_level_title",
+      "value": "makeObserved一层观察"
+    },
+    {
+      "name": "make_observed_with_decorator_title",
+      "value": "makeObserved与装饰器配合"
+    },
+    {
+      "name": "make_observed_array_title",
+      "value": "makeObserved与Array配合"
+    },
+    {
+      "name": "make_observed_map_title",
+      "value": "makeObserved与Map配合"
+    },
+    {
+      "name": "make_observed_set_title",
+      "value": "makeObserved与Set配合"
+    },
+    {
+      "name": "make_observed_date_title",
+      "value": "makeObserved与Date配合"
+    },
+    {
+      "name": "make_observed_interface_title",
+      "value": "makeObserved与interface配合"
+    }
+  ]
+}

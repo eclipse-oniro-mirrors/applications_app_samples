@@ -4,8 +4,7 @@
 
 本示例展示了@Monitor装饰器的使用方法，@Monitor装饰器用于监听状态变量修改，使得状态变量具有深度监听的能力。该工程中展示的代码详细描述可查如下链接：
 
-[@Monitor装饰器：状态变量修改监听](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-static-new-monitor)
-
+[@Monitor装饰器：状态变量修改监听](https://gitcode.com/openharmony/docs/blob/OpenHarmony_feature_sta_20260331/zh-cn/application-dev/ui/state-management-static/arkts-static-new-monitor.md)
 ## 使用说明
 
 执行测试用例会先打开相应界面，然后点击按钮或图标，演示接口的使用效果。

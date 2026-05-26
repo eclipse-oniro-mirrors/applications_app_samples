@@ -1,0 +1,44 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "can_be_observed_observed_title",
+      "value": "被@Observed装饰的类"
+    },
+    {
+      "name": "can_be_observed_track_title",
+      "value": "被@Trace装饰的属性"
+    },
+    {
+      "name": "can_be_observed_observed_v2_title",
+      "value": "被@ObservedV2装饰的类"
+    },
+    {
+      "name": "can_be_observed_object_literal_title",
+      "value": "对象字面量"
+    },
+    {
+      "name": "can_be_observed_built_in_title",
+      "value": "内置类型"
+    },
+    {
+      "name": "can_be_observed_not_refresh_title",
+      "value": "不能触发UI刷新的情况"
+    },
+    {
+      "name": "can_be_observed_after_observed_title",
+      "value": "被@Observed装饰后的嵌套属性"
+    }
+  ]
+}
