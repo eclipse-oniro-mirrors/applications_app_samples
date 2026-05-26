@@ -15,7 +15,7 @@
  */
 
 // [Start eventObserver_sta_sample]
-import { describe, it, TestType } from "../../../../../hypium/index";
+import { describe, it, TestType } from '../../../../../hypium/index';
 // 导入测试依赖kit
 import { Driver, UIElementInfo } from '@kit.TestKit';
 

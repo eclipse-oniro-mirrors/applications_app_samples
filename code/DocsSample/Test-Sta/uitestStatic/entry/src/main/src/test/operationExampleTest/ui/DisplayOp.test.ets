@@ -15,7 +15,7 @@
  */
 
 // [Start displayOp_sta_sample]
-import { expect, describe, it, Level, Size, TestType } from "../../../../../hypium/index";
+import { expect, describe, it, Level, Size, TestType } from '../../../../../hypium/index';
 // 导入测试依赖kit
 import { DisplayRotation, Driver, Point } from '@kit.TestKit';
 const waitUiReadyMs: int = 1000;

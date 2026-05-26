@@ -15,7 +15,7 @@
  */
 
 // [Start touchPadOp_sta_sample]
-import { describe, expect, it, Level, Size, TestType } from "../../../../../hypium/index";
+import { describe, expect, it, Level, Size, TestType } from '../../../../../hypium/index';
 // 导入测试依赖kit
 import { Driver, UiDirection } from '@kit.TestKit';
 import { BusinessError } from '@ohos.base';

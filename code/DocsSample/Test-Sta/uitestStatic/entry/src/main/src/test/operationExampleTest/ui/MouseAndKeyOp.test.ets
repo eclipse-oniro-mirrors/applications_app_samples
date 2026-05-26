@@ -15,7 +15,7 @@
  */
 
 // [Start mouseAndKey_sta_sample]
-import { beforeAll, describe, expect, it, Level, Size, TestType } from "../../../../../hypium/index";
+import { beforeAll, describe, expect, it, Level, Size, TestType } from '../../../../../hypium/index';
 // 导入测试依赖kit
 import { Driver, MouseButton } from '@kit.TestKit';
 import { KeyCode } from '@kit.InputKit';
