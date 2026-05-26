@@ -13,20 +13,18 @@
  * limitations under the License.
  */
 
-// [Start set_web_peer_render]
+// [Start texture_map_alignment]
 import { webview } from '@kit.ArkWeb';
 import { UIContext } from '@kit.ArkUI';
 import { NodeController, BuilderNode, NodeRenderType, FrameNode } from '@kit.ArkUI';
-
 @Observed
 declare class Params{
-  public elementId: string
-  public textOne: string
-  public textTwo: string
-  public width: number
-  public height: number
+  elementId: string
+  textOne: string
+  textTwo: string
+  width: number
+  height: number
 }
-
 declare class NodeControllerParams {
   public surfaceId: string
   public type: string
@@ -35,8 +33,6 @@ declare class NodeControllerParams {
   public width: number
   public height: number
 }
-
-// [Start create_nodecontainer]
 // 用于控制和反馈对应的NodeContainer上的节点的行为，需要与NodeContainer一起使用。
 class MyNodeController extends NodeController {
   private rootNode: BuilderNode<[Params]> | undefined | null;
@@ -47,7 +43,6 @@ class MyNodeController extends NodeController {
   private height_: number = 0;
   private type_: string = '';
   private isDestroy_: boolean = false;
-
   setRenderOption(params: NodeControllerParams) {
     this.surfaceId_ = params.surfaceId;
     this.renderType_ = params.renderType;
@@ -56,18 +51,16 @@ class MyNodeController extends NodeController {
     this.height_ = params.height;
     this.type_ = params.type;
   }
-
   // 必须要重写的方法，用于构建节点数、返回节点数挂载在对应NodeContainer中。
   // 在对应NodeContainer创建的时候调用、或者通过rebuild方法调用刷新。
   makeNode(uiContext: UIContext): FrameNode | null {
     if (this.isDestroy_) { // rootNode为null。
       return null;
     }
-    if (!this.rootNode) { // rootNode 为undefined时。
+    if (!this.rootNode) {// rootNode 为undefined时。
       this.rootNode = new BuilderNode(uiContext, { surfaceId: this.surfaceId_, type: this.renderType_ });
-      if (this.rootNode) {
-        this.rootNode.build(
-          wrapBuilder(textInputBuilder), {  textOne: 'myTextInput', width: this.width_, height: this.height_  });
+      if(this.rootNode) {
+        this.rootNode.build(wrapBuilder(imageBuilder), {  textOne: 'myImage', width: this.width_, height: this.height_  })
         return this.rootNode.getFrameNode();
       }else{
         return null;
@@ -76,62 +69,43 @@ class MyNodeController extends NodeController {
     // 返回FrameNode节点。
     return this.rootNode.getFrameNode();
   }
-
   updateNode(arg: Object): void {
     this.rootNode?.update(arg);
   }
-
   getEmbedId(): string {
     return this.embedId_;
   }
-
   setDestroy(isDestroy: boolean): void {
     this.isDestroy_ = isDestroy;
     if (this.isDestroy_) {
       this.rootNode = null;
     }
   }
-
   postEvent(event: TouchEvent | undefined): boolean {
-    return this.rootNode?.postTouchEvent(event) as boolean;
+    return this.rootNode?.postTouchEvent(event) as boolean
   }
-
   postInputEvent(event: MouseEvent | undefined): boolean {
-    return this.rootNode?.postInputEvent(event) as boolean;
+    return this.rootNode?.postInputEvent(event) as boolean
   }
 }
-// [End create_nodecontainer]
-
-// [Start text_input_component]
 @Component
-struct TextInputComponent {
-  @Prop params: Params;
-  @State bkColor: Color = Color.White;
-
+struct ImageComponent {
+  @Prop params: Params
+  private imageOne: Resource = $rawfile('demo.PNG');
+  @State src: Resource = this.imageOne
   build() {
-    Column() {
-      TextInput({text: '', placeholder: 'please input your word...'})
-        .placeholderColor(Color.Gray)
-        .id(this.params?.elementId)
-        .placeholderFont({size: 13, weight: 400})
-        .caretColor(Color.Gray)
-        .fontSize(14)
-        .fontColor(Color.Black)
+    Column(){
+      Image(this.src)
     }
-    // 自定义组件中的最外层容器组件宽高应该为同层标签的宽高。
     .width(this.params.width)
     .height(this.params.height)
   }
 }
-
 // @Builder中为动态组件的具体组件内容。
 @Builder
-function textInputBuilder(params:Params) {
-  TextInputComponent({params: params})
-    .backgroundColor(Color.White)
+function imageBuilder(params:Params) {
+  ImageComponent({params: params})
 }
-// [End text_input_component]
-
 @Entry
 @Component
 struct Page{
@@ -143,7 +117,6 @@ struct Page{
   @State positionMap: Map<string, Edges> = new Map();
   @State edges: Edges = {};
   uiContext: UIContext = this.getUIContext();
-
   build() {
     Row() {
       Column() {
@@ -154,51 +127,39 @@ struct Page{
               .width(this.widthMap.get(componentId))
               .height(this.heightMap.get(componentId))
           }, (embedId: string) => embedId)
-          // Web组件加载本地test2.html页面。
-          // [Start enable_native_embedmode]
-          // [Start register_object_label]
-          Web({src: $rawfile('test2.html'), controller: this.browserTabController})
-          // [StartExclude enable_native_embedmode]
-            // 注册同层标签为'object'，类型为'test'前缀
-            .registerNativeEmbedRule('object', 'test')
-          // [EndExclude enable_native_embedmode]
-          // [End register_object_label]
+          // Web组件加载本地text.html页面。
+          Web({src: $rawfile('test.html'), controller: this.browserTabController})
             // 配置同层渲染开关开启。
             .enableNativeEmbedMode(true)
-          // [End enable_native_embedmode]
-          // [Start native_embed_lifecycle_change]
-            // 获取embed标签的生命周期变化数据。
+              // 获取<embed>标签的生命周期变化数据。
             .onNativeEmbedLifecycleChange((embed) => {
               console.info('NativeEmbed surfaceId' + embed.surfaceId);
               // 如果使用embed.info.id作为映射nodeController的key，请在H5页面显式指定id。
-              const componentId = embed.info?.id?.toString() as string;
-              if (embed.status === NativeEmbedStatus.CREATE) {
+              const componentId = embed.info?.id?.toString() as string
+              if (embed.status == NativeEmbedStatus.CREATE) {
                 console.info('NativeEmbed create' + JSON.stringify(embed.info));
                 // 创建节点控制器、设置参数。
-                let nodeController = new MyNodeController();
+                let nodeController = new MyNodeController()
                 // embed.info.width和embed.info.height单位是px格式，需要转换成ets侧的默认单位vp。
                 nodeController.setRenderOption({surfaceId : embed.surfaceId as string,
                   type : embed.info?.type as string,
                   renderType : NodeRenderType.RENDER_TYPE_TEXTURE,
                   embedId : embed.embedId as string,
                   width : this.uiContext.px2vp(embed.info?.width),
-                  height : this.uiContext.px2vp(embed.info?.height)});
-                this.edges = {
-                  left: `${embed.info?.position?.x as number}px`,
-                  top: `${embed.info?.position?.y as number}px`
-                };
+                  height : this.uiContext.px2vp(embed.info?.height)})
+                this.edges = {left: `${embed.info?.position?.x as number}px`, top: `${embed.info?.position?.y as number}px`}
                 nodeController.setDestroy(false);
-                // 根据Web传入的embed的id属性作为key，将nodeController存入Map。
+                //根据Web传入的embed的id属性作为key，将nodeController存入Map。
                 this.nodeControllerMap.set(componentId, nodeController);
                 this.widthMap.set(componentId, this.uiContext.px2vp(embed.info?.width));
                 this.heightMap.set(componentId, this.uiContext.px2vp(embed.info?.height));
                 this.positionMap.set(componentId, this.edges);
                 // 将Web传入的embed的id属性存入@State状态数组变量中，用于动态创建nodeContainer节点容器,需要将push动作放在set之后。
-                this.componentIdArr.push(componentId);
-              } else if (embed.status === NativeEmbedStatus.UPDATE) {
+                this.componentIdArr.push(componentId)
+              } else if (embed.status == NativeEmbedStatus.UPDATE) {
                 let nodeController = this.nodeControllerMap.get(componentId);
                 console.info('NativeEmbed update' + JSON.stringify(embed));
-                this.edges = {left: `${embed.info?.position?.x as number}px`, top: `${embed.info?.position?.y as number}px`};
+                this.edges = {left: `${embed.info?.position?.x as number}px`, top: `${embed.info?.position?.y as number}px`}
                 this.positionMap.set(componentId, this.edges);
                 this.widthMap.set(componentId, this.uiContext.px2vp(embed.info?.width));
                 this.heightMap.set(componentId, this.uiContext.px2vp(embed.info?.height));
@@ -213,7 +174,7 @@ struct Page{
                   height: this.uiContext.px2vp(embed.info?.height)
                 }
                 nodeController?.updateNode(updateParams);
-              } else if (embed.status === NativeEmbedStatus.DESTROY) {
+              } else if (embed.status == NativeEmbedStatus.DESTROY) {
                 console.info('NativeEmbed destroy' + JSON.stringify(embed));
                 let nodeController = this.nodeControllerMap.get(componentId);
                 nodeController?.setDestroy(true);
@@ -221,58 +182,14 @@ struct Page{
                 this.positionMap.delete(componentId);
                 this.widthMap.delete(componentId);
                 this.heightMap.delete(componentId);
-                this.componentIdArr = this.componentIdArr.filter((value: string) => value != componentId);
+                this.componentIdArr = this.componentIdArr.filter((value: string) => value !== componentId);
               } else {
                 console.info('NativeEmbed status' + embed.status);
               }
             })
-            // [End native_embed_lifecycle_change]
-            // [Start native_embed_gesture]
-            // 获取同层渲染组件触摸事件信息。
-            .onNativeEmbedGestureEvent((touch) => {
-              console.info('NativeEmbed onNativeEmbedGestureEvent' + JSON.stringify(touch.touchEvent));
-              this.componentIdArr.forEach((componentId: string) => {
-                let nodeController = this.nodeControllerMap.get(componentId);
-                // 将获取到的同层区域的事件发送到该区域embedId对应的nodeController上。
-                if (nodeController?.getEmbedId() === touch.embedId) {
-                  let ret = nodeController?.postEvent(touch.touchEvent);
-                  if (ret) {
-                    console.info('onNativeEmbedGestureEvent success ' + componentId);
-                  } else {
-                    console.info('onNativeEmbedGestureEvent fail ' + componentId);
-                  }
-                  if (touch.result) {
-                    // 通知Web组件手势事件消费结果。
-                    touch.result.setGestureEventResult(ret);
-                  }
-                }
-              })
-            })
-            // [End native_embed_gesture]
-            // [Start native_embed_mouse]
-            .onNativeEmbedMouseEvent((mouse) => {
-              console.info('NativeEmbed onNativeEmbedMouseEvent' + JSON.stringify(mouse.mouseEvent));
-              this.componentIdArr.forEach((componentId: string) => {
-                let nodeController = this.nodeControllerMap.get(componentId);
-                // 将获取到的同层区域的事件发送到该区域embedId对应的nodeController上。
-                if (nodeController?.getEmbedId() === mouse.embedId) {
-                  let ret = nodeController?.postInputEvent(mouse.mouseEvent);
-                  if (ret) {
-                    console.info('onNativeEmbedMouseEvent success ' + componentId);
-                  } else {
-                    console.info('onNativeEmbedMouseEvent fail ' + componentId);
-                  }
-                  if (mouse.result) {
-                    // 通知Web组件鼠标事件消费结果。
-                    mouse.result.setMouseEventResult(ret);
-                  }
-                }
-              })
-            })
-            // [End native_embed_mouse]
         }
       }
     }
   }
 }
-// [End set_web_peer_render]
+// [End texture_map_alignment]
