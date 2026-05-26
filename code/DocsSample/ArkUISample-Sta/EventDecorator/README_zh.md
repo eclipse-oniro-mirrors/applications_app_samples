@@ -4,7 +4,7 @@
 
 本工程帮助开发者更好地理解@Event装饰器的使用场景。该工程中展示的代码详细描述可查如下链接：
 
-[@Event装饰器：规范组件输出](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/state-management-static/arkts-static-new-event.md)
+[@Event装饰器：规范组件输出](https://gitcode.com/openharmony/docs/blob/OpenHarmony_feature_sta_20260331/zh-cn/application-dev/ui/state-management-static/arkts-static-new-event.md)
 
 ## 使用说明
 

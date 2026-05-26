@@ -91,7 +91,7 @@ entry/src/
 
 ## 约束与限制
 
-1.本示例已适配API version 23及以上版本SDK。
+1.本示例已适配API version 26及以上版本SDK。
 
 ## 下载
 

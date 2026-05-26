@@ -1,0 +1,14 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/MakeObservedBasic",
+    "pages/MakeObservedNested",
+    "pages/MakeObservedOneLevel",
+    "pages/MakeObservedWithDecorator",
+    "pages/MakeObservedArray",
+    "pages/MakeObservedMap",
+    "pages/MakeObservedSet",
+    "pages/MakeObservedDate",
+    "pages/MakeObservedInterface"
+  ]
+}
