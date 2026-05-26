@@ -38,20 +38,6 @@
       {
         "name": "release"
       }
-    ],
-    "signingConfigs": [
-      {
-        "name": "default",
-        "material": {
-          "certpath": "C:/Users/DaMoMo/.ohos/config/openharmony/default_ComplexTextDrawing_jGMybqrlR6URBMKHdmx1VWLH9xeFmjyfWZdhev2qh7A=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001B3179EFE2EB3878A98360E5B36EF81E4E81C6065AF7F41519FAF7A042B61F08E65F3295B37D8992",
-          "profile": "C:/Users/DaMoMo/.ohos/config/openharmony/default_ComplexTextDrawing_jGMybqrlR6URBMKHdmx1VWLH9xeFmjyfWZdhev2qh7A=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/DaMoMo/.ohos/config/openharmony/default_ComplexTextDrawing_jGMybqrlR6URBMKHdmx1VWLH9xeFmjyfWZdhev2qh7A=.p12",
-          "storePassword": "0000001B3B65F3EDE4EF7B7FE4E8F6775AAD7779239451249A997D53999B5DACC7434CA6F23944C4CEC590"
-        }
-      }
     ]
   },
   "modules": [
