@@ -20,7 +20,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { common } from '@kit.AbilityKit';
 
 const TAG: string = '[PublishOperation]';
-const DOMAIN_NUMBER: number = 0xFF00;
+const DOMAIN_NUMBER: int = 0xFF00;
 // [End request_enable_notification_header]
 
 @Component
@@ -40,7 +40,7 @@ export struct RequestEnableNotification {
               if (!data) {
                 notificationManager.requestEnableNotification(context).then(() => {
                   hilog.info(DOMAIN_NUMBER, TAG, `[ANS] requestEnableNotification success`);
-                }).catch((err: BusinessError) => {
+                }).catch((err) => {
                   if (1600004 == err.code) {
                     hilog.error(DOMAIN_NUMBER, TAG,
                       `[ANS] requestEnableNotification refused, code is ${err.code}, message is ${err.message}`);
@@ -50,7 +50,7 @@ export struct RequestEnableNotification {
                   }
                 });
               }
-            }).catch((err: BusinessError) => {
+            }).catch((err) => {
               hilog.error(DOMAIN_NUMBER, TAG,
                 `isNotificationEnabled fail, code is ${err.code}, message is ${err.message}`);
             });
@@ -70,12 +70,12 @@ export struct RequestEnableNotification {
                   // result为当前设置的结果
                   hilog.info(DOMAIN_NUMBER, TAG,
                     `[ANS] openNotificationSettingsWithResult success, result: ${JSON.stringify(result)}`);
-                }).catch((err: BusinessError) => {
+                }).catch((err) => {
                   hilog.error(DOMAIN_NUMBER, TAG,
                     `[ANS] openNotificationSettingsWithResult failed, code is ${err.code}, message is ${err.message}`);
                 });
               }
-            }).catch((err: BusinessError) => {
+            }).catch((err) => {
               hilog.error(DOMAIN_NUMBER, TAG,
                 `isNotificationEnabled fail, code is ${err.code}, message is ${err.message}`);
             });

@@ -28,8 +28,8 @@ export struct ClearDuplicateNotifications {
           .onClick(() => {
             // [Start pub_appMsgId_notify]
             // publish回调
-            let publishCallback = (err: BusinessError): void => {
-              if (err) {
+            let publishCallback = (err: BusinessError | null): void => {
+              if (err && err.code !== 0) {
                 console.error(`Failed to publish notification. Code is ${err.code}, message is ${err.message}`);
               } else {
                 console.info(`Succeeded in publishing notification.`);

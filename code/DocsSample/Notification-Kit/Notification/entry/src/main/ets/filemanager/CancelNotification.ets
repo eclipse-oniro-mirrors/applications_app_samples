@@ -19,7 +19,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = '[PublishOperation]';
-const DOMAIN_NUMBER: number = 0xFF00;
+const DOMAIN_NUMBER: int = 0xFF00;
 // [End cancel_notification_header]
 
 @Component
@@ -43,8 +43,8 @@ export struct CancelNotification {
                 }
               }
             };
-            notificationManager.publish(notificationRequest, (err: BusinessError) => {
-              if (err) {
+            notificationManager.publish(notificationRequest, (err) => {
+              if (err && err.code !== 0) {
                 hilog.error(DOMAIN_NUMBER, TAG,
                   `Failed to publish notification. Code is ${err.code}, message is ${err.message}`);
                 return;
@@ -57,8 +57,8 @@ export struct CancelNotification {
           .onClick(() => {
             // [Start cancel_notification_content]
             // 当拉起应用到前台，查看消息后，调用该接口取消通知。
-            notificationManager.cancel(1, (err: BusinessError) => {
-              if (err) {
+            notificationManager.cancel(1, (err) => {
+              if (err && err.code !== 0) {
                 hilog.error(DOMAIN_NUMBER, TAG,
                   `Failed to cancel notification. Code is ${err.code}, message is ${err.message}`);
                 return;

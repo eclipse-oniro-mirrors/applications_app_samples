@@ -19,13 +19,13 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 const TAG: string = '[PublishOperation]';
-const DOMAIN_NUMBER: number = 0xFF00;
+const DOMAIN_NUMBER: int = 0xFF00;
 
 // [End manage_notification_badges_header]
 
 @Component
 export struct ManageNotificationBadges {
-  @State badgeNum: number = 0;
+  @State badgeNum: int = 0;
 
   build() {
     NavDestination() {
@@ -37,11 +37,11 @@ export struct ManageNotificationBadges {
           }
           notificationManager.setBadgeNumber(this.badgeNum).then(() => {
             hilog.info(DOMAIN_NUMBER, TAG, `Succeeded in setting badge number.`);
-          }).catch((err: BusinessError) => {
+          }).catch((err) => {
             hilog.error(DOMAIN_NUMBER, TAG,
               `Failed to set badge number. Code is ${err.code}, message is ${err.message}`);
           });
-          AppStorage.setOrCreate<number>('badge_count', this.badgeNum);
+          AppStorage.setOrCreate<int>('badge_count', this.badgeNum);
         })
       Button($r('app.string.reduce_notify_badge'))
         .margin({ top: 20, bottom: 20 })
@@ -51,81 +51,81 @@ export struct ManageNotificationBadges {
           }
           notificationManager.setBadgeNumber(this.badgeNum).then(() => {
             hilog.info(DOMAIN_NUMBER, TAG, `Succeeded in setting badge number.`);
-          }).catch((err: BusinessError) => {
+          }).catch((err) => {
             hilog.error(DOMAIN_NUMBER, TAG,
               `Failed to set badge number. Code is ${err.code}, message is ${err.message}`);
           });
-          AppStorage.setOrCreate<number>('badge_count', this.badgeNum);
+          AppStorage.setOrCreate<int>('badge_count', this.badgeNum);
         })
       Button($r('app.string.set_badge_nine'))
         .margin({ top: 20, bottom: 20 })
         .onClick(() => {
           // [Start add_badge_count]
-          let badgeNumber: number = 9;
+          let badgeNumber: int = 9;
           notificationManager.setBadgeNumber(badgeNumber).then(() => {
             hilog.info(DOMAIN_NUMBER, TAG, `Succeeded in setting badge number.`);
-          }).catch((err: BusinessError) => {
+          }).catch((err) => {
             hilog.error(DOMAIN_NUMBER, TAG,
               `Failed to set badge number. Code is ${err.code}, message is ${err.message}`);
           });
           // [End add_badge_count]
-          AppStorage.setOrCreate<number>('badge_count', badgeNumber);
+          AppStorage.setOrCreate<int>('badge_count', badgeNumber);
         })
       Button($r('app.string.set_badge_eight'))
         .margin({ top: 20, bottom: 20 })
         .onClick(() => {
           // [Start reduce_badge_count]
-          let badgeNumber: number = 8;
+          let badgeNumber: int = 8;
           notificationManager.setBadgeNumber(badgeNumber).then(() => {
             hilog.info(DOMAIN_NUMBER, TAG, `Succeeded in setting badge number.`);
-          }).catch((err: BusinessError) => {
+          }).catch((err) => {
             hilog.error(DOMAIN_NUMBER, TAG,
               `Failed to set badge number. Code is ${err.code}, message is ${err.message}`);
           });
           // [End reduce_badge_count]
-          AppStorage.setOrCreate<number>('badge_count', badgeNumber);
+          AppStorage.setOrCreate<int>('badge_count', badgeNumber);
         })
       Button($r('app.string.badge_count_neg'))
         .margin({ top: 20, bottom: 20 })
         .onClick(() => {
           // [Start increase_badge_count_seq]
-          let badgeNumber: number = 10;
+          let badgeNumber: int = 10;
           notificationManager.setBadgeNumber(badgeNumber).then(() => {
             hilog.info(DOMAIN_NUMBER, TAG, `setBadgeNumber 10 success.`);
-          }).catch((err: BusinessError) => {
+          }).catch((err) => {
             hilog.error(DOMAIN_NUMBER, TAG,
               `Failed to set badge number. Code is ${err.code}, message is ${err.message}`);
           });
           badgeNumber = 11;
           notificationManager.setBadgeNumber(badgeNumber).then(() => {
             hilog.info(DOMAIN_NUMBER, TAG, `setBadgeNumber 11 success.`);
-          }).catch((err: BusinessError) => {
+          }).catch((err) => {
             hilog.error(DOMAIN_NUMBER, TAG,
               `Failed to set badge number. Code is ${err.code}, message is ${err.message}`);
           });
           // [End increase_badge_count_seq]
-          AppStorage.setOrCreate<number>('badge_count', badgeNumber);
+          AppStorage.setOrCreate<int>('badge_count', badgeNumber);
         })
       Button($r('app.string.badge_count_pos'))
         .margin({ top: 20, bottom: 20 })
         .onClick(() => {
           // [Start update_badge_count_idempotent]
-          let badgeNumber: number = 10;
+          let badgeNumber: int = 10;
           notificationManager.setBadgeNumber(badgeNumber).then(() => {
             hilog.info(DOMAIN_NUMBER, TAG, `setBadgeNumber 10 success.`);
             badgeNumber = 11;
             notificationManager.setBadgeNumber(badgeNumber).then(() => {
               hilog.info(DOMAIN_NUMBER, TAG, `setBadgeNumber 11 success.`);
-            }).catch((err: BusinessError) => {
+            }).catch((err) => {
               hilog.error(DOMAIN_NUMBER, TAG,
                 `Failed to set badge number. Code is ${err.code}, message is ${err.message}`);
             });
-          }).catch((err: BusinessError) => {
+          }).catch((err) => {
             hilog.error(DOMAIN_NUMBER, TAG,
               `Failed to set badge number. Code is ${err.code}, message is ${err.message}`);
           });
           // [End update_badge_count_idempotent]
-          AppStorage.setOrCreate<number>('badge_count', badgeNumber);
+          AppStorage.setOrCreate<int>('badge_count', badgeNumber);
         })
 
       Button($r('app.string.pub_plaintext_notify'))
@@ -142,8 +142,8 @@ export struct ManageNotificationBadges {
               }
             }
           };
-          notificationManager.publish(notificationRequest, (err: BusinessError) => {
-            if (err) {
+          notificationManager.publish(notificationRequest, (err) => {
+            if (err && err.code !== 0) {
               hilog.error(DOMAIN_NUMBER, TAG,
                 `Failed to publish notification. Code is ${err.code}, message is ${err.message}`);
               return;
@@ -153,7 +153,7 @@ export struct ManageNotificationBadges {
             }
             notificationManager.setBadgeNumber(this.badgeNum).then(() => {
               hilog.info(DOMAIN_NUMBER, TAG, `Succeeded in setting badge number.`);
-            }).catch((err: BusinessError) => {
+            }).catch((err) => {
               hilog.error(DOMAIN_NUMBER, TAG,
                 `Failed to set badge number. Code is ${err.code}, message is ${err.message}`);
             });
@@ -166,13 +166,13 @@ export struct ManageNotificationBadges {
           this.badgeNum = 0;
           notificationManager.setBadgeNumber(this.badgeNum).then(() => {
             hilog.info(DOMAIN_NUMBER, TAG, `Succeeded in setting badge number.`);
-          }).catch((err: BusinessError) => {
+          }).catch((err) => {
             hilog.error(DOMAIN_NUMBER, TAG,
               `Failed to set badge number. Code is ${err.code}, message is ${err.message}`);
           });
 
-          notificationManager.cancelAll((err: BusinessError) => {
-            if (err) {
+          notificationManager.cancelAll((err) => {
+            if (err && err.code !== 0) {
               hilog.error(DOMAIN_NUMBER, TAG,
                 `Failed to cancel notification. Code is ${err.code}, message is ${err.message}`);
               return;

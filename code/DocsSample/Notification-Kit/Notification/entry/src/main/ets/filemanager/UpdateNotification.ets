@@ -15,11 +15,11 @@
 
 // [Start update_notification_header]
 import { notificationManager } from '@kit.NotificationKit';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError, RecordData } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = '[PublishOperation]';
-const DOMAIN_NUMBER: number = 0xFF00;
+const DOMAIN_NUMBER: int = 0xFF00;
 // [End update_notification_header]
 
 @Component
@@ -33,6 +33,7 @@ export struct UpdateNotification {
           .margin({ top: 20, bottom: 20 })
           .onClick(() => {
             // [Start pub_progress_bar_notify]
+            let templateData : Record<string, RecordData> = { 'title': 'File Title', 'fileName': 'music.mp4', 'progressValue': 50 }
             let notificationRequest: notificationManager.NotificationRequest = {
               id: 5,
               content: {
@@ -44,15 +45,15 @@ export struct UpdateNotification {
                 }
               },
               // 构造进度条模板，name字段当前需要固定配置为downloadTemplate
-              template: {
+              template : {
                 name: 'downloadTemplate',
-                data: { title: 'File Title', fileName: 'music.mp4', progressValue: 50 }
+                data: templateData
               }
             };
 
             // 发布通知
-            notificationManager.publish(notificationRequest, (err: BusinessError) => {
-              if (err) {
+            notificationManager.publish(notificationRequest, (err) => {
+              if (err && err.code !== 0) {
                 hilog.error(DOMAIN_NUMBER, TAG,
                   `Failed to publish notification. Code is ${err.code}, message is ${err.message}`);
                 return;
@@ -65,6 +66,7 @@ export struct UpdateNotification {
           .margin({ top: 20, bottom: 20 })
           .onClick(() => {
             // [Start update_prog_only_notify]
+            let templateData : Record<string, RecordData> = { 'title': 'File Title', 'fileName': 'music.mp4', 'progressValue': 99 }
             let notificationRequest: notificationManager.NotificationRequest = {
               id: 5,
               updateOnly: true,
@@ -79,13 +81,13 @@ export struct UpdateNotification {
               // 构造进度条模板，name字段当前需要固定配置为downloadTemplate
               template: {
                 name: 'downloadTemplate',
-                data: { title: 'File Title', fileName: 'music.mp4', progressValue: 99 }
+                data: templateData
               }
             };
 
             // 更新发布通知
-            notificationManager.publish(notificationRequest, (err: BusinessError) => {
-              if (err) {
+            notificationManager.publish(notificationRequest, (err) => {
+              if (err && err.code !== 0) {
                 hilog.error(DOMAIN_NUMBER, TAG,
                   `Failed to update notification. Code is ${err.code}, message is ${err.message}`);
                 return;
