@@ -1,5 +1,7 @@
+'use static'
+
 /*
-* Copyright (C) 2025 Huawei Device Co., Ltd.
+* Copyright (C) 2026 Huawei Device Co., Ltd.
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
 * You may obtain a copy of the License at
@@ -13,184 +15,525 @@
 * limitations under the License.
 */
 
-// [Start head]
-// 导入usbManager模块
-import { serialManager } from '@kit.BasicServicesKit';
+import { Entry, Text, Column, Component, Button, ClickEvent, Scroll, Row, Flex, TextArea, ButtonType, FlexDirection, ItemAlign, FlexAlign } from '@ohos.arkui.component'
+import { State } from '@ohos.arkui.stateManagement'
+import hilog from '@ohos.hilog'
+import usbManager from '@ohos.usbManager';
 import { BusinessError } from '@kit.BasicServicesKit'
 import { buffer } from '@kit.ArkTS';
-import { JSON } from '@kit.ArkTS';
 
-// [End head]
+
 @Entry
 @Component
 struct Index {
+  @State stateVar: string = 'state var';
+  message: string = 'var';
   @State logInfo_: string = '';
-  @State portList_: serialManager.SerialPort[] = [];
-  @State portId_: number = 0;
+  private deviceList_: usbManager.USBDevice[] = [];
+  @State pipe_: usbManager.USBDevicePipe | undefined = undefined;
+  @State interface_: usbManager.USBInterface | undefined = undefined;
 
-  private getPortList() {
-    // [Start getPortList]
-    // 获取连接主设备的USB设备列表
-    let portList: serialManager.SerialPort[] = serialManager.getPortList();
-    console.info(`usbSerial portList: ${portList}`);
-    this.logInfo_ += '\n[INFO] usbSerial portList: ' + JSON.stringify(portList);
-    if (portList === undefined || portList.length === 0) {
-      console.error('usbSerial portList is empty');
-      this.logInfo_ += '\n[ERROR] usbSerial portList is empty';
-      return;
-    }
-    this.portList_ = portList;
-    // [End getPortList]
+  changeValue() {
+    this.stateVar += '~'
   }
 
-  private requestSerialRight() {
-    // [Start requestSerialRight]
-    if (this.portList_ === undefined || this.portList_.length === 0) {
-      console.error('usbSerial portList is empty');
-      this.logInfo_ += '\n[ERROR] usbSerial portList is empty';
+  private getDevices() {
+    // [Start getDevices]
+    // 获取设备列表。
+    let deviceList: usbManager.USBDevice[] = [];
+    try {
+      deviceList = usbManager.getDevices();
+    } catch (error) {
+      console.error(`USB getDevices failed: ${error}`);
+      this.logInfo_ += '\n[ERROR] USB getDevices failed: ' + JSON.stringify(error);
+    }
+
+    console.info(`deviceList: ${deviceList}`);
+    this.logInfo_ += '\n[INFO] deviceList: ' + JSON.stringify(deviceList);
+    if (deviceList === undefined || deviceList.length === 0) {
+      console.error('deviceList is empty');
+      this.logInfo_ += '\n[ERROR] deviceList is empty';
       return;
     }
-    let portList: serialManager.SerialPort[] = this.portList_;
-    let portId: number = portList[0].portId;
-    if (!serialManager.hasSerialRight(portId)) {
-      serialManager.requestSerialRight(portId).then((result: boolean) => {
-        console.info('serial device request right result: ' + result);
-        this.logInfo_ += '\n[INFO] serial device request right result: ' + JSON.stringify(result);
-      }).catch((error: BusinessError) => {
-        console.error(`usb device request right failed : ${error}`);
-        this.logInfo_ += '\n[ERROR] usb device request right failed: ' + JSON.stringify(error);
+    /*
+      deviceList结构示例
+      [
+        {
+          name: '1-1',
+          serial: '',
+          manufacturerName: '',
+          productName: '',
+          version: '',
+          vendorId: 7531,
+          productId: 2,
+          clazz: 9,
+          subClass: 0,
+          protocol: 1,
+          devAddress: 1,
+          busNum: 1,
+          configs: [
+            {
+              id: 1,
+              attributes: 224,
+              isRemoteWakeup: true,
+              isSelfPowered: true,
+              maxPower: 0,
+              name: '1-1',
+              interfaces: [
+                {
+                  id: 0,
+                  protocol: 0,
+                  clazz: 9,
+                  subClass: 0,
+                  alternateSetting: 0,
+                  name: '1-1',
+                  endpoints: [
+                    {
+                      address: 129,
+                      attributes: 3,
+                      interval: 12,
+                      maxPacketSize: 4,
+                      direction: 128,
+                      int: 1,
+                      type: 3,
+                      interfaceId: 0,
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+     */
+    this.deviceList_ = deviceList;
+    // [End getDevices]
+  }
+
+  private requestRight() {
+    // [Start requestRight]
+    if (this.deviceList_ === undefined || this.deviceList_.length === 0) {
+      console.error('deviceList is empty');
+      this.logInfo_ += '\n[ERROR] deviceList is empty';
+      return;
+    }
+    let deviceList: usbManager.USBDevice[] = this.deviceList_;
+    let deviceName: string = deviceList[0].name;
+    // 申请操作指定的device的操作权限。
+    usbManager.requestRight(deviceName).then((hasRight: boolean) => {
+      console.info('usb device request right result: ' + hasRight);
+      this.logInfo_ += '\n[INFO] usb device request right result: ' + JSON.stringify(hasRight);
+    }).catch((error: Error) => {
+      console.error(`usb device request right failed : ${error}`);
+      this.logInfo_ += '\n[ERROR] usb device request right failed: ' + JSON.stringify(error);
+    });
+    // [End requestRight]
+  }
+
+  private connectDevice() {
+    // [Start connectDevice]
+    if (this.deviceList_ === undefined || this.deviceList_.length === 0) {
+      console.error('deviceList_ is empty');
+      this.logInfo_ += '\n[ERROR] deviceList is empty';
+      return;
+    }
+    let deviceList: usbManager.USBDevice[] = this.deviceList_;
+    try {
+      if (!usbManager.hasRight(deviceList[0]?.name)) {
+        console.error('permission denied');
+        this.logInfo_ += '\n[ERROR] permission denied';
+        return;
+      }
+      // 打开设备，获取数据传输通道。
+      let pipe: usbManager.USBDevicePipe = usbManager.connectDevice(deviceList[0]);
+      if (!deviceList?.[0]?.configs?.[0]?.interfaces?.[0]) {
+        console.error('invalid interface');
+        this.logInfo_ += '\n[ERROR] invalid interface';
+        return;
+      }
+      let interface1: usbManager.USBInterface = deviceList?.[0]?.configs?.[0]?.interfaces?.[0];
+      /*
+        打开对应接口，在设备信息（deviceList）中选取对应的interface。
+        interface1为设备配置中的一个接口。
+       */
+      usbManager.claimInterface(pipe, interface1, true);
+      this.pipe_ = pipe;
+      this.interface_ = interface1;
+      console.info('open device success');
+      this.logInfo_ += '\n[INFO] open device success';
+    } catch (error) {
+      console.error(`USB hasRight failed: ${error}`);
+      this.logInfo_ += '\n[ERROR] USB hasRight failed: ' + JSON.stringify(error);
+    }
+    // [End connectDevice]
+  }
+
+  private bulkTransfer() {
+    // [Start bulkTransfer]
+    if (this.pipe_ === undefined || this.interface_ === undefined) {
+      console.error('pipe_ or interface_ is null');
+      this.logInfo_ += '\n[ERROR] pipe_ or interface_ is null';
+      return;
+    }
+    let pipe: usbManager.USBDevicePipe = this.pipe_!;
+    let interface1: usbManager.USBInterface = this.interface_!;
+    /*
+      读取数据，在device信息中选取对应数据接收的endpoint来做数据传输
+     （endpoint.direction == 0x80）；dataUint8Array是要读取的数据，类型为Uint8Array。
+     */
+    let inEndpoint: usbManager.USBEndpoint = interface1.endpoints?.[1];
+    let outEndpoint: usbManager.USBEndpoint = interface1.endpoints?.[0];
+    let dataUint8Array: Uint8Array = new Uint8Array(1024);
+    if (inEndpoint !== undefined && inEndpoint.direction === 0x80) {
+      usbManager.bulkTransfer(pipe, inEndpoint, dataUint8Array, 15000).then((dataLength: int) => {
+        if (dataLength >= 0) {
+          console.info(`usb readData result Length : ${dataLength}`);
+          this.logInfo_ += '\n[INFO] usb readData result Length: ' + JSON.stringify(dataLength);
+        } else {
+          console.error('usb readData failed');
+          this.logInfo_ += '\n[ERROR] usb readData failed';
+        }
+      }).catch((error: Error) => {
+        console.error(`usb readData error : ${error}`);
+        this.logInfo_ += '\n[ERROR] usb readData error: ' + JSON.stringify(error);
       });
-    } else {
-      console.info('serial device already request right');
-      this.logInfo_ += '\n[INFO] serial device already request right';
     }
-    this.portId_ = portId;
-    // [End requestSerialRight]
+
+    // 发送数据，在device信息中选取对应数据发送的endpoint来做数据传输。（endpoint.direction == 0）
+    if (outEndpoint !== undefined && outEndpoint.direction === 0) {
+      usbManager.bulkTransfer(pipe, outEndpoint, dataUint8Array, 15000).then((dataLength: int) => {
+        if (dataLength >= 0) {
+          console.info(`usb writeData result write length : ${dataLength}`);
+          this.logInfo_ += '\n[INFO] usb writeData result write length: ' + JSON.stringify(dataLength);
+        } else {
+          console.error('usb writeData failed');
+          this.logInfo_ += '\n[ERROR] usb writeData failed';
+        }
+      }).catch((error: Error) => {
+        console.error(`usb writeData error : ${error}`);
+        this.logInfo_ += '\n[ERROR] usb writeData error: ' + JSON.stringify(error);
+      });
+    }
+    // [End bulkTransfer]
   }
 
-  private openSerialDevice() {
-    // [Start openSerialDevice]
-    let portId: number = this.portId_;
-    try {
-      serialManager.open(portId)
-      console.info(`open usbSerial success, portId: ${portId}`);
-      this.logInfo_ += '\n[INFO] open usbSerial success, portId: ' + JSON.stringify(portId);
-    } catch (error) {
-      console.error(`open usbSerial error： ${error}`);
-      this.logInfo_ += '\n[ERROR] open usbSerial error: ' + JSON.stringify(error);
+  private controlTransfer() {
+    // [Start controlTransfer]
+    if (this.pipe_ === undefined) {
+      console.error('pipe_ is null');
+      this.logInfo_ += '\n[ERROR] pipe_ is null';
+      return;
     }
-    // [End openSerialDevice]
-  }
+    let pipe: usbManager.USBDevicePipe = this.pipe_!;
+    /*
+      构造控制传输参数
+     */
+    let param: usbManager.USBDeviceRequestParams = {
+      bmRequestType: 0x80, // 0x80指一次由设备到主机的标准请求命令
+      bRequest: 0x06, // 0x06指获取描述符
+      wValue: 0x01 << 8 | 0, // 该值为2个字节，高字节指描述符类型，此处0x01指设备描述符；低字节指描述符索引，设备描述符不涉及，填0
+      wIndex: 0, // 索引值，可填0
+      wLength: 18, // 描述符的长度，此处18表示设备描述符长度，最大支持1024
+      data: new Uint8Array(18)
+    };
 
-  private serialRead() {
-    // [Start serialRead]
-    let portId: number = this.portId_;
-    // 异步读取
-    let readBuffer: Uint8Array = new Uint8Array(64);
-    serialManager.read(portId, readBuffer, 2000).then((size: number) => {
-      console.info(`readAsync usbSerial success, readAsyncBuffer: ${readBuffer}`);
-      this.logInfo_ += '\n[INFO] readAsync usbSerial success, readAsyncBuffer: ' + JSON.stringify(readBuffer);
+    usbManager.usbControlTransfer(pipe, param).then((ret: int) => {
+      console.info(`usbControlTransfer = ${ret}`);
+      this.logInfo_ += '\n[INFO] usbControlTransfer = ' + JSON.stringify(ret);
     }).catch((error: Error) => {
-      console.error(`readAsync usbSerial error: ${error}`);
-      this.logInfo_ += '\n[ERROR] readAsync usbSerial error: ' + JSON.stringify(error);
-    })
-
-    // 同步读取
-    let readSyncBuffer: Uint8Array = new Uint8Array(64);
-    try {
-      serialManager.readSync(portId, readSyncBuffer, 2000);
-      console.info(`readSync usbSerial success, readSyncBuffer: ${readSyncBuffer}`);
-      this.logInfo_ += '\n[INFO] readSync usbSerial success, readSyncBuffer: ' + JSON.stringify(readSyncBuffer);
-    } catch (error) {
-      console.error(`readSync usbSerial error: ${error}`);
-      this.logInfo_ += '\n[ERROR] readSync usbSerial error: ' + JSON.stringify(error);
-    }
-    // [End serialRead]
+      console.error(`usbControlTransfer error : ${error}`);
+      this.logInfo_ += '\n[ERROR] usbControlTransfer error: ' + JSON.stringify(error);
+    });
+    // [End controlTransfer]
   }
 
-  private serialWrite() {
-    // [Start serialWrite]
-    let portId: number = this.portId_;
-    // 异步写入
-    let writeBuffer: Uint8Array = new Uint8Array(buffer.from('Hello World', 'utf-8').buffer)
-    serialManager.write(portId, writeBuffer, 2000).then((size: number) => {
-      console.info(`writeAsync usbSerial success, writeAsyncBuffer: ${writeBuffer}`);
-      this.logInfo_ += '\n[INFO] writeAsync usbSerial success, writeAsyncBuffer: ' + JSON.stringify(writeBuffer);
-    }).catch((error: Error) => {
-      console.error(`writeAsync usbSerial error: ${error}`);
-      this.logInfo_ += '\n[ERROR] writeAsync usbSerial error: ' + JSON.stringify(error);
-    })
-
-    // 同步写入
-    let writeSyncBuffer: Uint8Array = new Uint8Array(buffer.from('Hello World', 'utf-8').buffer)
-    try {
-      serialManager.writeSync(portId, writeSyncBuffer, 2000);
-      console.info(`writeSync usbSerial success, writeSyncBuffer: ${writeSyncBuffer}`);
-      this.logInfo_ += '\n[INFO] writeSync usbSerial success, writeSyncBuffer: ' + JSON.stringify(writeSyncBuffer);
-    } catch (error) {
-      console.error(`writeSync usbSerial error: ${error}`);
-      this.logInfo_ += '\n[ERROR] writeSync usbSerial error: ' + JSON.stringify(error);
+  private interruptTransfer() {
+    // [Start interruptTransfer_getEndpoint]
+    if (this.deviceList_ === undefined || this.deviceList_.length === 0) {
+      console.error('deviceList_ is empty');
+      this.logInfo_ += '\n[ERROR] deviceList_ is empty';
+      return;
     }
-    // [End serialWrite]
-  }
-
-  private getSerialConfig() {
-    // [Start getSerialConfig]
-    let portId: number = this.portId_;
-    // 获取串口配置
+    let usbDevice: usbManager.USBDevice = this.deviceList_[0];
     try {
-      let attribute: serialManager.SerialAttribute = serialManager.getAttribute(portId);
-      if (attribute === undefined) {
-        console.error('getAttribute usbSerial error, attribute is undefined');
-        this.logInfo_ += '\n[ERROR] getAttribute usbSerial error, attribute is undefined';
-      } else {
-        console.info(`getAttribute usbSerial success, attribute: ${attribute}`);
-        this.logInfo_ += '\n[INFO] getAttribute usbSerial success, attribute: ' + JSON.stringify(attribute);
+      if (!usbManager.hasRight(usbDevice.name)) {
+        console.error('permission denied');
+        this.logInfo_ += '\n[ERROR] permission denied';
+        return;
       }
     } catch (error) {
-      console.error(`getAttribute usbSerial error: ${error}`);
-      this.logInfo_ += '\n[ERROR] getAttribute usbSerial error: ' + JSON.stringify(error);
+      console.error(`USB hasRight failed: ${error}`);
+      this.logInfo_ += '\n[ERROR] USB hasRight failed: ' + JSON.stringify(error);
+      return;
     }
-    // [End getSerialConfig]
-  }
 
-  private setSerialConfig() {
-    // [Start setSerialConfig]
-    let portId: number = this.portId_;
-    // 设置串口配置
+    let devicePipe: usbManager.USBDevicePipe;
     try {
-      let attribute: serialManager.SerialAttribute = {
-        baudRate: serialManager.BaudRates.BAUDRATE_9600,
-        dataBits: serialManager.DataBits.DATABIT_8,
-        parity: serialManager.Parity.PARITY_NONE,
-        stopBits: serialManager.StopBits.STOPBIT_1
+      devicePipe = usbManager.connectDevice(usbDevice);
+    } catch (error) {
+      console.error(`USB connectDevice failed: ${error}`);
+      this.logInfo_ += '\n[ERROR] USB connectDevice failed: ' + JSON.stringify(error);
+      return;
+    }
+
+    let usbConfigs: usbManager.USBConfiguration[] = usbDevice.configs;
+    let usbInterfaces: usbManager.USBInterface[] = [];
+    let usbInterface: usbManager.USBInterface | undefined = undefined;
+    let usbEndpoints: usbManager.USBEndpoint[] = [];
+    let usbEndpoint: usbManager.USBEndpoint | undefined = undefined;
+    for (let i = 0; i < usbConfigs?.length; i++) {
+      usbInterfaces = usbConfigs[i]?.interfaces;
+      for (let j = 0; j < usbInterfaces?.length; j++) {
+        usbEndpoints = usbInterfaces[j]?.endpoints;
+        usbEndpoint = usbEndpoints?.find((value) => {
+          return value.direction === 128 && value.type === usbManager.UsbEndpointTransferType.TRANSFER_TYPE_INTERRUPT;
+        })
+        if (usbEndpoint !== undefined) {
+          usbInterface = usbInterfaces[j];
+          break;
+        }
       }
-      serialManager.setAttribute(portId, attribute);
-      console.info(`setAttribute usbSerial success, attribute: ${attribute}`);
-      this.logInfo_ += '\n[INFO] setAttribute usbSerial success, attribute: ' + JSON.stringify(attribute);
-    } catch (error) {
-      console.error(`setAttribute usbSerial error: ${error}`);
-      this.logInfo_ += '\n[ERROR] setAttribute usbSerial error: ' + JSON.stringify(error);
     }
-    // [End setSerialConfig]
+    if (usbEndpoint === undefined) {
+      console.error(`get usbEndpoint error`)
+      this.logInfo_ += '\n[ERROR] get usbEndpoint error';
+      return;
+    }
+    // [End interruptTransfer_getEndpoint]
+    // [Start interruptTransfer_claimInterface]
+    if (usbInterface === undefined) {
+      console.error('usbInterface is undefined');
+      this.logInfo_ += '\n[ERROR] usbInterface is undefined';
+      return;
+    }
+    // 注册通信接口，注册成功返回0，注册失败返回其他错误码。
+    try {
+      let claimInterfaceResult: int = usbManager.claimInterface(devicePipe, usbInterface, true);
+      if (claimInterfaceResult !== 0) {
+        console.error(`claimInterface error = ${claimInterfaceResult}`)
+        this.logInfo_ += '\n[ERROR] claimInterface error = ' + JSON.stringify(claimInterfaceResult);
+        return;
+      }
+    } catch (error) {
+      console.error(`USB claimInterface failed: ${error}`);
+      this.logInfo_ += '\n[ERROR] USB claimInterface failed: ' + JSON.stringify(error);
+      return;
+    }
+
+    // [End interruptTransfer_claimInterface]
+    // [Start interruptTransfer_interruptTransfer]
+    let transferParams: usbManager.UsbDataTransferParams | undefined = undefined;
+    try {
+      // 通信接口注册成功，传输数据
+      transferParams = {
+        devPipe: devicePipe,
+        flags: usbManager.UsbTransferFlags.USB_TRANSFER_SHORT_NOT_OK,
+        endpoint: usbEndpoint.address,
+        type: usbManager.UsbEndpointTransferType.TRANSFER_TYPE_INTERRUPT,
+        timeout: 2000,
+        length: 10,
+        callback: () => {
+        },
+        userData: new Uint8Array(10),
+        buffer: new Uint8Array(10),
+        isoPacketCount: 2,
+      };
+
+      transferParams.callback = (err: BusinessError | null, callBackData: usbManager.SubmitTransferCallback | undefined) => {
+        console.info(`callBackData = ${callBackData}`);
+        this.logInfo_ += '\n[INFO] callBackData = ' + JSON.stringify(callBackData);
+        console.info(`transfer success,result = ${transferParams?.buffer}`);
+        this.logInfo_ += '\n[INFO] transfer success,result = ' + JSON.stringify(transferParams?.buffer);
+      }
+      usbManager.usbSubmitTransfer(transferParams);
+      console.info('USB transfer request submitted.');
+      this.logInfo_ += '\n[INFO] USB transfer request submitted.';
+    } catch (error) {
+      console.error(`USB transfer failed: ${error}`);
+      this.logInfo_ += '\n[ERROR] USB transfer failed: ' + JSON.stringify(error);
+    }
+    // [End interruptTransfer_interruptTransfer]
+    // [Start interruptTransfer_release]
+    if (transferParams === undefined) {
+      console.error('transferParams is undefined');
+      this.logInfo_ += '\n[ERROR] transferParams is undefined';
+      return;
+    }
+    try {
+      usbManager.usbCancelTransfer(transferParams);
+      usbManager.releaseInterface(devicePipe, usbInterface);
+      usbManager.closePipe(devicePipe);
+    } catch (error) {
+      console.error(`release failed: ${error}`);
+      this.logInfo_ += '\n[ERROR] release failed: ' + JSON.stringify(error);
+    }
+    // [End interruptTransfer_release]
   }
 
-  private closeSerialDevice() {
-    // [Start closeSerialDevice]
-    let portId: number = this.portId_;
-    try {
-      serialManager.close(portId);
-      console.info(`close usbSerial success, portId: ${portId}`);
-      this.logInfo_ += '\n[INFO] close usbSerial success, portId: ' + JSON.stringify(portId);
-    } catch (error) {
-      console.error(`close usbSerial error: ${error}`);
-      this.logInfo_ += '\n[ERROR] close usbSerial error: ' + JSON.stringify(error);
+  private isochronousTransfer() {
+    // [Start isochronousTransfer_getEndpoint]
+    if (this.deviceList_ === undefined || this.deviceList_.length === 0) {
+      console.error('deviceList_ is empty');
+      this.logInfo_ += '\n[ERROR] deviceList_ is empty';
+      return;
     }
-    // [End closeSerialDevice]
+    let usbDevice: usbManager.USBDevice = this.deviceList_[0];
+    try {
+      if (!usbManager.hasRight(usbDevice.name)) {
+        console.error('permission denied');
+        this.logInfo_ += '\n[ERROR] permission denied';
+        return;
+      }
+    } catch (error) {
+      console.error(`USB hasRight failed: ${error}`);
+      this.logInfo_ += '\n[ERROR] USB hasRight failed: ' + JSON.stringify(error);
+      return;
+    }
+
+    let devicePipe: usbManager.USBDevicePipe;
+    try {
+      devicePipe = usbManager.connectDevice(usbDevice);
+    } catch (error) {
+      console.error(`connectDevice failed ${error}`);
+      this.logInfo_ += '\n[ERROR] connectDevice: ' + JSON.stringify(error);
+      return
+    }
+    let usbConfigs: usbManager.USBConfiguration[] = usbDevice.configs;
+    let usbInterfaces: usbManager.USBInterface[] = [];
+    let usbInterface: usbManager.USBInterface | undefined = undefined;
+    let usbEndpoints: usbManager.USBEndpoint[] = [];
+    let usbEndpoint: usbManager.USBEndpoint | undefined = undefined;
+    for (let i = 0; i < usbConfigs?.length; i++) {
+      usbInterfaces = usbConfigs[i]?.interfaces;
+      for (let j = 0; j < usbInterfaces?.length; j++) {
+        usbEndpoints = usbInterfaces[j]?.endpoints;
+        usbEndpoint = usbEndpoints?.find((value) => {
+          // direction为请求方向，0表示写入数据，128表示读取数据
+          return value.direction === 128 && value.type === usbManager.UsbEndpointTransferType.TRANSFER_TYPE_ISOCHRONOUS;
+        })
+        if (usbEndpoint !== undefined) {
+          usbInterface = usbInterfaces[j];
+          break;
+        }
+      }
+    }
+    if (usbEndpoint === undefined) {
+      console.error(`get usbEndpoint error`);
+      this.logInfo_ += '\n[ERROR] get usbEndpoint error';
+      return;
+    }
+    // [End isochronousTransfer_getEndpoint]
+    // [Start isochronousTransfer_claimInterface]
+    if (usbInterface === undefined) {
+      console.error('usbInterface is undefined');
+      this.logInfo_ += '\n[ERROR] usbInterface is undefined';
+      return;
+    }
+    // 注册通信接口，注册成功返回0，注册失败返回其他错误码。
+    try {
+      let claimInterfaceResult: int = usbManager.claimInterface(devicePipe, usbInterface, true);
+      if (claimInterfaceResult !== 0) {
+        console.error(`claimInterface error = ${claimInterfaceResult}`)
+        this.logInfo_ += '\n[ERROR] claimInterface error = ' + JSON.stringify(claimInterfaceResult);
+        return;
+      }
+    } catch (error) {
+      console.error(`USB claimInterface failed: ${error}`);
+      this.logInfo_ += '\n[ERROR] USB claimInterface failed: ' + JSON.stringify(error);
+      return;
+    }
+
+    // 传输类型为“实时传输”时，需设置设备接口。设置成功返回0，注册失败返回其他错误码。
+    if (usbEndpoint.type === usbManager.UsbEndpointTransferType.TRANSFER_TYPE_ISOCHRONOUS) {
+      try {
+        let setInterfaceResult = usbManager.setInterface(devicePipe, usbInterface);
+        if (setInterfaceResult !== 0) {
+          console.error(`setInterfaceResult error = ${setInterfaceResult}`)
+          this.logInfo_ += '\n[ERROR] setInterfaceResult error = ' + JSON.stringify(setInterfaceResult);
+          return;
+        }
+      } catch (error) {
+        console.error(`USB setInterface failed: ${error}`);
+        this.logInfo_ += '\n[ERROR] USB setInterface failed: ' + JSON.stringify(error);
+        return;
+      }
+    }
+    // [End isochronousTransfer_claimInterface]
+    // [Start isochronousTransfer_isochronousTransfer]
+    let transferParams: usbManager.UsbDataTransferParams | undefined = undefined;
+    try {
+      // 通信接口注册成功，传输数据
+      transferParams = {
+        devPipe: devicePipe,
+        flags: usbManager.UsbTransferFlags.USB_TRANSFER_SHORT_NOT_OK,
+        endpoint: usbEndpoint.address,
+        type: usbManager.UsbEndpointTransferType.TRANSFER_TYPE_ISOCHRONOUS,
+        timeout: 2000,
+        length: 10,
+        callback: () => {
+        },
+        userData: new Uint8Array(10),
+        buffer: new Uint8Array(10),
+        isoPacketCount: 2,
+      };
+
+      transferParams.callback = (err: BusinessError | null, callBackData: usbManager.SubmitTransferCallback | undefined) => {
+        console.info(`callBackData = ${callBackData}`);
+        this.logInfo_ += '\n[INFO] callBackData = ' + JSON.stringify(callBackData);
+        console.info('transfer success,result = ' + transferParams?.buffer.toString());
+        this.logInfo_ += '\n[INFO] transfer success,result = ' + transferParams?.buffer.toString();
+      }
+      usbManager.usbSubmitTransfer(transferParams);
+      console.info('USB transfer request submitted.');
+      this.logInfo_ += '\n[INFO] USB transfer request submitted.';
+    } catch (error) {
+      console.error(`USB transfer failed: ${error}`);
+      this.logInfo_ += '\n[ERROR] USB transfer failed: ' + JSON.stringify(error);
+    }
+    // [End isochronousTransfer_isochronousTransfer]
+    // [Start isochronousTransfer_release]
+    if (transferParams === undefined) {
+      console.error('transferParams is undefined');
+      this.logInfo_ += '\n[ERROR] transferParams is undefined';
+      return;
+    }
+    try {
+      usbManager.usbCancelTransfer(transferParams);
+      usbManager.releaseInterface(devicePipe, usbInterface);
+      usbManager.closePipe(devicePipe);
+    } catch (error) {
+      console.error(`release failed: ${error}`);
+      this.logInfo_ += '\n[ERROR] release failed: ' + JSON.stringify(error);
+    }
+    // [End isochronousTransfer_release]
+  }
+
+  private closePipe() {
+    // [Start closePipe]
+    if (this.pipe_ === undefined || this.interface_ === undefined) {
+      console.error('pipe_ or interface_ is null');
+      this.logInfo_ += '\n[ERROR] pipe_ or interface_ is null';
+      return;
+    }
+    let pipe: usbManager.USBDevicePipe = this.pipe_!;
+    let interface1: usbManager.USBInterface = this.interface_!;
+    try {
+      usbManager.releaseInterface(pipe, interface1);
+      usbManager.closePipe(pipe);
+    } catch (error) {
+      console.error(`failed: ${error}`);
+      this.logInfo_ += '\n[ERROR] failed: ' + JSON.stringify(error);
+    }
+
+    this.pipe_ = undefined;
+    this.interface_ = undefined;
+    console.info('close device success');
+    this.logInfo_ += '\n[INFO] close device success';
+    // [End closePipe]
   }
 
   build() {
-    Column() {
+    Scroll() {
       Row() {
         Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Start, justifyContent: FlexAlign.SpaceBetween }) {
           TextArea({ text: this.logInfo_ })
@@ -201,7 +544,7 @@ struct Index {
               this.logInfo_ = value;
             })
         }.height('100%').width('100%')
-      }.height('40%')
+      }.height('45%')
 
       Row() {
         Button('获取设备列表', { type: ButtonType.Normal, stateEffect: true })
@@ -209,7 +552,7 @@ struct Index {
           .backgroundColor(0x317aff)
           .onClick(() => {
 
-            this.getPortList();
+            this.getDevices();
           })
           .width('100%')
       }.padding({ top: 10 })
@@ -219,70 +562,79 @@ struct Index {
           .borderRadius(8)
           .backgroundColor(0x317aff)
           .onClick(() => {
-            this.requestSerialRight();
+            this.requestRight();
           })
           .width('100%')
       }.padding({ top: 10 })
 
       Row() {
-        Button('打开串口设备', { type: ButtonType.Normal, stateEffect: true })
+        Button('打开设备', { type: ButtonType.Normal, stateEffect: true })
           .borderRadius(8)
           .backgroundColor(0x317aff)
           .onClick(() => {
-            this.openSerialDevice();
+            this.connectDevice();
           })
           .width('100%')
       }.padding({ top: 10 })
 
       Row() {
-        Button('读取数据', { type: ButtonType.Normal, stateEffect: true })
+        Button('批量传输', { type: ButtonType.Normal, stateEffect: true })
           .borderRadius(8)
           .backgroundColor(0x317aff)
           .onClick(() => {
-            this.serialRead();
+            this.bulkTransfer();
           })
           .width('100%')
       }.padding({ top: 10 })
 
       Row() {
-        Button('写入数据', { type: ButtonType.Normal, stateEffect: true })
+        Button('控制传输', { type: ButtonType.Normal, stateEffect: true })
           .borderRadius(8)
           .backgroundColor(0x317aff)
           .onClick(() => {
-            this.serialWrite();
+            this.controlTransfer();
           })
           .width('100%')
       }.padding({ top: 10 })
 
       Row() {
-        Button('获取串口配置', { type: ButtonType.Normal, stateEffect: true })
+        Button('中断传输', { type: ButtonType.Normal, stateEffect: true })
           .borderRadius(8)
           .backgroundColor(0x317aff)
           .onClick(() => {
-            this.getSerialConfig();
+            this.interruptTransfer();
           })
           .width('100%')
       }.padding({ top: 10 })
 
       Row() {
-        Button('修改串口配置', { type: ButtonType.Normal, stateEffect: true })
+        Button('实时传输', { type: ButtonType.Normal, stateEffect: true })
           .borderRadius(8)
           .backgroundColor(0x317aff)
           .onClick(() => {
-            this.setSerialConfig();
+            this.isochronousTransfer();
           })
           .width('100%')
       }.padding({ top: 10 })
 
       Row() {
-        Button('关闭串口设备', { type: ButtonType.Normal, stateEffect: true })
+        Button('关闭设备', { type: ButtonType.Normal, stateEffect: true })
           .borderRadius(8)
           .backgroundColor(0x317aff)
           .onClick(() => {
-            this.closeSerialDevice();
+            this.closePipe();
           })
           .width('100%')
       }.padding({ top: 10 })
     }.height('100%').width('100%').padding({ left: 10, right: 10 })
+  }
+}
+
+@Component
+struct Child {
+  @State stateVar: string = 'Child';
+
+  build() {
+    Text(this.stateVar).fontSize(50)
   }
 }
