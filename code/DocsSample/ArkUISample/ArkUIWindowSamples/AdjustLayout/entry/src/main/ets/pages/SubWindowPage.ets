@@ -15,7 +15,6 @@
 'use static'
 
 // [Start startMoving]
-// SubWindowPage.ets
 import {
   Entry,
   Component,
