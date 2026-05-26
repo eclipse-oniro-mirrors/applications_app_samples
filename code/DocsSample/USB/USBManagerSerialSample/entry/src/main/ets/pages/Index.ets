@@ -15,6 +15,9 @@
 * limitations under the License.
 */
 
+// [Start head]
+
+// 导入serialManager模块
 import { Entry, Text, Column, Component, Button, ClickEvent, Scroll, Row, Flex, TextArea, ButtonType, FlexDirection, ItemAlign, FlexAlign } from '@ohos.arkui.component'
 import { State } from '@ohos.arkui.stateManagement'
 import hilog from '@ohos.hilog'
@@ -22,6 +25,7 @@ import serialManager from '@ohos.usbManager.serial';
 import { BusinessError } from '@kit.BasicServicesKit'
 import { buffer } from '@kit.ArkTS';
 
+// [End head]
 
 @Entry
 @Component

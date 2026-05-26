@@ -15,11 +15,16 @@
 * limitations under the License.
 */
 
+// [Start head]
+
+// 导入usbManager模块
 import { Entry, Component, Column, Row, Text, Button, Select, SelectOption, Toggle, ToggleType, ButtonType, TextArea, Scroll, Scroller, Edge, Flex, FlexDirection, ItemAlign, FlexAlign, FontWeight, VerticalAlign, Alignment, ClickEvent, Blank } from '@ohos.arkui.component'
 import { State } from '@ohos.arkui.stateManagement'
 import hilog from '@ohos.hilog'
 import usbManager from '@ohos.usbManager';
 import { BusinessError } from '@kit.BasicServicesKit';
+
+// [End head]
 
 @Entry
 @Component
