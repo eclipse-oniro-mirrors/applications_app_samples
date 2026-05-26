@@ -7,7 +7,7 @@
   },
   "production": {
     "removedSysCaps": [
-      "SystemCapability.Multimedia.AvSession.AVInputCast"
+      "SystemCapability.Multimedia.AVSession.AVInputCast"
     ]
   }
 }
