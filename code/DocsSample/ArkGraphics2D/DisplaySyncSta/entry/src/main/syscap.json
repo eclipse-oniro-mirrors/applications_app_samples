@@ -1,0 +1,13 @@
+{
+  "devices": {
+    "general": [
+        "default",
+        "tablet"
+    ]
+  },
+  "production": {
+    "removedSysCaps": [
+      "SystemCapability.Multimedia.AvSession.AVInputCast"
+    ]
+  }
+}
