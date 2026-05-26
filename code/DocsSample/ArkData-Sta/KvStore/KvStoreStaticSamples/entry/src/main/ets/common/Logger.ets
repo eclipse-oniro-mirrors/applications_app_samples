@@ -1,6 +1,6 @@
 'use static'
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025 - 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,42 +14,32 @@
  * limitations under the License.
  */
 
-import { hilog } from '@kit.PerformanceAnalysisKit';
+import hilog from '@ohos.hilog';
 
 export class Logger {
-  private domain: number;
-  private prefix: string = '[ECStoreSamples]';
+  private domain: int = 0xFF00;
+  private prefix: string = '[KvStoreSample]';
   private format: string = '%{public}s';
 
   constructor(prefix: string) {
     this.prefix = prefix;
-    this.domain = 0xFF00;
   }
 
   debug(...args: string[]): void {
-    hilog.debug(this.domain, this.prefix, this.format, args);
+    console.debug(this.domain, this.prefix, this.format, args);
   }
 
   info(...args: string[]): void {
-    hilog.info(this.domain, this.prefix, this.format, args);
+    console.info(this.domain, this.prefix, this.format, args);
   }
 
   warn(...args: string[]): void {
-    hilog.warn(this.domain, this.prefix, this.format, args);
+    console.warn(this.domain, this.prefix, this.format, args);
   }
 
   error(...args: string[]): void {
-    hilog.error(this.domain, this.prefix, this.format, args);
-  }
-
-  fatal(...args: string[]): void {
-    hilog.fatal(this.domain, this.prefix, this.format, args);
-  }
-
-  isLoggable(level: number): void {
-    hilog.isLoggable(this.domain, this.prefix, level);
+    console.error(this.domain, this.prefix, this.format, args);
   }
 }
 
-export default new Logger('[ECStoreSamples]');
-
+export default new Logger('[KvStoreSample]');

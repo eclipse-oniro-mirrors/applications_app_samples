@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+// [Start kvstore_SecretKeyObserver]
 import { ECStoreManager } from './ECStoreManager';
 
 export enum SecretStatus {
-  Lock,
-  UnLock
+  Lock = 0,
+  UnLock = 1
 }
 
 export class SecretKeyObserver {
@@ -48,5 +48,6 @@ export class SecretKeyObserver {
   }
 
   private lockStatus: Double = SecretStatus.UnLock;
-  private storeManager: ECStoreManager;
+  private storeManager: ECStoreManager = new ECStoreManager();
 }
+// [End kvstore_SecretKeyObserver]
