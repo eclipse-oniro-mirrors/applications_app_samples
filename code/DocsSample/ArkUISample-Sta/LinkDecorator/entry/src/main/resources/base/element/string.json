@@ -1,0 +1,56 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "link_interface_title",
+      "value": "@Link装饰interface字面量"
+    },
+    {
+      "name": "link_basic_types_title",
+      "value": "@Link装饰简单类型和类对象"
+    },
+    {
+      "name": "link_type_consistent_title",
+      "value": "@Link数据源类型一致"
+    },
+    {
+      "name": "link_state_var_init_title",
+      "value": "@Link使用状态变量初始化"
+    },
+    {
+      "name": "link_array_title",
+      "value": "@Link装饰数组类型"
+    },
+    {
+      "name": "link_map_title",
+      "value": "@Link装饰Map类型"
+    },
+    {
+      "name": "link_set_title",
+      "value": "@Link装饰Set类型"
+    },
+    {
+      "name": "link_date_title",
+      "value": "@Link装饰Date类型"
+    },
+    {
+      "name": "link_watch_title",
+      "value": "@Link使用@Watch"
+    },
+    {
+      "name": "link_union_type_title",
+      "value": "@Link支持联合类型"
+    }
+  ]
+}
