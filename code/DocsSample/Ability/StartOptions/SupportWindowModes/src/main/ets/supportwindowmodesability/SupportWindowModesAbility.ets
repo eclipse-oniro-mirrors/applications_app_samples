@@ -12,18 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start startOptions_startupVisibility]
-import { AbilityConstant, contextConstant, StartOptions, UIAbility, Want } from '@kit.AbilityKit';
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 
 const DOMAIN = 0x0000;
-const TAG: string = '[StartAbility]';
-const DOMAIN_NUMBER: number = 0xFF00;
 
-
-export default class HideStartedUIAbilityAbility extends UIAbility {
-  // [StartExclude startOptions_startupVisibility]
+export default class SupportWindowModesAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onCreate');
   }
@@ -49,51 +44,14 @@ export default class HideStartedUIAbilityAbility extends UIAbility {
     // Main window is destroyed, release UI related resources
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
   }
-  // [EndExclude startOptions_startupVisibility]
 
   onForeground(): void {
     // Ability has brought to foreground
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onForeground');
-
-    let want: Want = {
-      deviceId: '', // deviceId为空表示本设备
-      bundleName: 'com.example.startoptions',
-      abilityName: 'EntryAbility',
-      parameters: {
-        // 自定义信息
-        info: '从EntryAbility启动'
-      }
-    };
-
-    let options: StartOptions = {
-      processMode: contextConstant.ProcessMode.NEW_PROCESS_ATTACH_TO_PARENT,
-      startupVisibility: contextConstant.StartupVisibility.STARTUP_HIDE
-    };
-
-    try {
-      this.context.startAbility(want, options, (err: BusinessError) => {
-        if (err.code) {
-          // 处理业务逻辑错误
-          console.error(`startAbility failed, code is ${err.code}, message is ${err.message}`);
-          return;
-        }
-        // 执行正常业务
-        console.info('startAbility succeed');
-      });
-    } catch (err) {
-      // 处理入参错误异常
-      let code = (err as BusinessError).code;
-      let message = (err as BusinessError).message;
-      console.error(`startAbility failed, code is ${code}, message is ${message}`);
-    }
-
   }
 
-  // [StartExclude startOptions_startupVisibility]
   onBackground(): void {
     // Ability has back to background
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onBackground');
   }
-  // [EndExclude startOptions_startupVisibility]
 }
-// [End startOptions_startupVisibility]

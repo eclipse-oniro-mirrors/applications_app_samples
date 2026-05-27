@@ -12,8 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start startOptions_windowSize]
-import { common, Want, StartOptions } from '@kit.AbilityKit';
+ // [Start startOptions_setSplitRatioAbility]
+import { common, Want, StartOptions, AbilityConstant } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -22,12 +22,12 @@ const DOMAIN_NUMBER: number = 0xFF00;
 
 @Entry
 @Component
-struct SetWindowSizeConstraintsAbility {
+struct SetSplitRatioAbility {
 
   build() {
     Row() {
       Column() {
-        Button("设置ability的窗口尺寸")
+        Button("以比例分屏启动")
           .onClick(() => {
             // context为调用方UIAbility的UIAbilityContext
             let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
@@ -43,11 +43,7 @@ struct SetWindowSizeConstraintsAbility {
             };
 
             let options: StartOptions = {
-              startWindowBackgroundColor: '#E510FFFF', // ARGB格式
-              minWindowWidth: 320,   // 最小宽度320vp
-              maxWindowWidth: 2560,  // 最大宽度2560vp
-              minWindowHeight: 240,  // 最小高度240vp
-              maxWindowHeight: 2560  // 最大高度2560vp
+              windowMode: AbilityConstant.WindowMode.WINDOW_MODE_SPLIT_SECONDARY, // 以分屏模式拉起
             };
 
             context.startAbility(want, options).then(() => {
@@ -62,10 +58,4 @@ struct SetWindowSizeConstraintsAbility {
     .height('100%')
   }
 }
-// [End startOptions_windowSize]
-
-
-
-
-
-
+// [End startOptions_setSplitRatioAbility]
