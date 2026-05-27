@@ -15,8 +15,8 @@
  */
 
 // [Start sta_import]
-import abilityConnectionManager from '@kit.DistributedKit';
-import distributedDeviceManager from '@kit.DistributedKit';
+import abilityConnectionManager from '@ohos.distributedsched.abilityConnectionManager';
+import distributedDeviceManager from '@ohos.distributedDeviceManager';
 import { util } from '@kit.ArkTS';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { abilityAccessCtrl, Permissions } from '@kit.AbilityKit';
@@ -243,16 +243,21 @@ struct Index {
       return;
     }
 
-    this.receiveMessage = 'Sending data...';
-    const textEncoder = util.TextEncoder.create('utf-8');
-    const arrayBuffer = textEncoder.encodeInto('Data from peer');
-    abilityConnectionManager.sendData(this.sessionId, arrayBuffer.buffer).then(() => {
-      this.receiveMessage = 'Data sent';
-      hilog.info(0x0000, TAG, 'Data sent');
-    }, (err: Error) => {
-      this.receiveMessage = 'Send data failed';
-      hilog.error(0x0000, TAG, 'Send data failed');
-    });
+    try {
+      this.receiveMessage = 'Sending data...';
+      const textEncoder = util.TextEncoder.create('utf-8');
+      const arrayBuffer = textEncoder.encodeInto('Data from peer');
+      abilityConnectionManager.sendData(this.sessionId, arrayBuffer.buffer).then(() => {
+        this.receiveMessage = 'Data sent';
+        hilog.info(0x0000, TAG, 'Data sent');
+      }, (err: Error) => {
+        this.receiveMessage = 'Send data failed';
+        hilog.error(0x0000, TAG, 'Send data failed');
+      });
+    } catch (err) {
+      this.receiveMessage = 'Send data error';
+      hilog.error(0x0000, TAG, 'Send data error: ' + JSON.stringify(err));
+    }
   }
 // [End sta_sendData]
 
@@ -263,7 +268,11 @@ struct Index {
       return;
     }
 
-    abilityConnectionManager.disconnect(this.sessionId);
+    try {
+      abilityConnectionManager.disconnect(this.sessionId);
+    } catch (err) {
+      hilog.error(0x0000, TAG, 'Disconnect error: ' + JSON.stringify(err));
+    }
     this.receiveMessage = 'Disconnecting...';
     hilog.info(0x0000, TAG, 'Disconnecting');
   }

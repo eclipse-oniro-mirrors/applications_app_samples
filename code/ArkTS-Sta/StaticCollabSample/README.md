@@ -8,7 +8,7 @@
 
 | 分布式协作示例 |
 |---|
-| ![分布式协作示例](entry/src/main/resources/base/media/application-dev_distributedservice_abilityconnectmanager-works.png) |
+| ![分布式协作示例](entry/src/main/resources/base/media/collab.png) |
 | 本示例需要两台设备配合测试，展示设备间的连接、消息传递、数据传输等功能。 |
 
 ### 使用说明
