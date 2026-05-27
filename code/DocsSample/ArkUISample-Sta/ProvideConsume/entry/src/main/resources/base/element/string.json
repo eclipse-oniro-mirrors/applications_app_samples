@@ -1,0 +1,56 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "provide_consume_interface_title",
+      "value": "@Provide和@Consume装饰interface字面量"
+    },
+    {
+      "name": "provide_consume_basic_title",
+      "value": "@Provide和@Consume基本使用"
+    },
+    {
+      "name": "consume_no_external_init_title",
+      "value": "@Consume禁止外部传入初始化"
+    },
+    {
+      "name": "consume_default_value_example_title",
+      "value": "@Consume设置默认值示例"
+    },
+    {
+      "name": "provide_consume_map_title",
+      "value": "@Provide和@Consume装饰Map类型"
+    },
+    {
+      "name": "provide_consume_set_title",
+      "value": "@Provide和@Consume装饰Set类型"
+    },
+    {
+      "name": "provide_consume_date_title",
+      "value": "@Provide和@Consume装饰Date类型"
+    },
+    {
+      "name": "provide_consume_union_title",
+      "value": "@Provide和@Consume支持联合类型"
+    },
+    {
+      "name": "provide_allow_override_title",
+      "value": "@Provide支持allowOverride参数"
+    },
+    {
+      "name": "consume_default_value_title",
+      "value": "@Consume使用本地默认值初始化"
+    }
+  ]
+}
