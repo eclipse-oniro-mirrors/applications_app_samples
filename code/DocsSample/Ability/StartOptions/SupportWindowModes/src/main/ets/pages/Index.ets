@@ -12,8 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start startOptions_windowSize]
-import { common, Want, StartOptions } from '@kit.AbilityKit';
+// [Start startOptions_supportWindowModes]
+import { common, Want, StartOptions, bundleManager } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -22,12 +22,12 @@ const DOMAIN_NUMBER: number = 0xFF00;
 
 @Entry
 @Component
-struct SetWindowSizeConstraintsAbility {
+struct SetWindowDisplayModeAbility {
 
   build() {
     Row() {
       Column() {
-        Button("设置ability的窗口尺寸")
+        Button("设置窗口显示模式")
           .onClick(() => {
             // context为调用方UIAbility的UIAbilityContext
             let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
@@ -43,11 +43,9 @@ struct SetWindowSizeConstraintsAbility {
             };
 
             let options: StartOptions = {
-              startWindowBackgroundColor: '#E510FFFF', // ARGB格式
-              minWindowWidth: 320,   // 最小宽度320vp
-              maxWindowWidth: 2560,  // 最大宽度2560vp
-              minWindowHeight: 240,  // 最小高度240vp
-              maxWindowHeight: 2560  // 最大高度2560vp
+              supportWindowModes: [
+                bundleManager.SupportWindowMode.FULL_SCREEN,  // 支持全屏模式
+              ]
             };
 
             context.startAbility(want, options).then(() => {
@@ -62,10 +60,4 @@ struct SetWindowSizeConstraintsAbility {
     .height('100%')
   }
 }
-// [End startOptions_windowSize]
-
-
-
-
-
-
+// [End startOptions_supportWindowModes]
