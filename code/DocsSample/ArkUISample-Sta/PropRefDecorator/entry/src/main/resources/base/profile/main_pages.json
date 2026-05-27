@@ -1,0 +1,12 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/PropRefBasicTypes",
+    "pages/PropRefParentChild",
+    "pages/PropRefDataSourceRef",
+    "pages/PropRefArray",
+    "pages/PropRefMap",
+    "pages/PropRefSet",
+    "pages/PropRefDate"
+  ]
+}

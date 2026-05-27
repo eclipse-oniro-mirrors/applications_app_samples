@@ -1,0 +1,44 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "prop_ref_basic_types_title",
+      "value": "@PropRef简单类型变化观察"
+    },
+    {
+      "name": "prop_ref_parent_child_title",
+      "value": "@PropRef父子组件单向同步"
+    },
+    {
+      "name": "prop_ref_data_source_ref_title",
+      "value": "@PropRef获得父组件数据源引用"
+    },
+    {
+      "name": "prop_ref_array_title",
+      "value": "@PropRef装饰Array类型"
+    },
+    {
+      "name": "prop_ref_map_title",
+      "value": "@PropRef装饰Map类型"
+    },
+    {
+      "name": "prop_ref_set_title",
+      "value": "@PropRef装饰Set类型"
+    },
+    {
+      "name": "prop_ref_date_title",
+      "value": "@PropRef装饰Date类型"
+    }
+  ]
+}
