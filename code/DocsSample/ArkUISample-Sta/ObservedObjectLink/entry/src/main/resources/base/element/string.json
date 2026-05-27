@@ -1,0 +1,56 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "object_link_literal_this_title",
+      "value": "@ObjectLink字面量this.xxx特例"
+    },
+    {
+      "name": "object_link_read_only_title",
+      "value": "@ObjectLink只读示例"
+    },
+    {
+      "name": "object_link_object_type_title",
+      "value": "@ObjectLink对象类型示例"
+    },
+    {
+      "name": "object_link_inherit_object_title",
+      "value": "@ObjectLink继承对象示例"
+    },
+    {
+      "name": "object_link_nested_object_title",
+      "value": "@ObjectLink嵌套对象示例"
+    },
+    {
+      "name": "object_link_make_observed_title",
+      "value": "@ObjectLink使用makeObserved示例"
+    },
+    {
+      "name": "object_link_array_title",
+      "value": "@ObjectLink对象数组示例"
+    },
+    {
+      "name": "object_link_serialize_no_param_title",
+      "value": "@ObjectLink序列化无参构造"
+    },
+    {
+      "name": "object_link_serialize_with_param_title",
+      "value": "@ObjectLink序列化有参构造"
+    },
+    {
+      "name": "object_link_union_type_title",
+      "value": "@ObjectLink支持联合类型"
+    }
+  ]
+}

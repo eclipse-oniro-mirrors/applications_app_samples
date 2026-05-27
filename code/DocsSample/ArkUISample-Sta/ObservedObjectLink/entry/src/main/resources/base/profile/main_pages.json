@@ -1,0 +1,15 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/ObjectLinkLiteralThis",
+    "pages/ObjectLinkReadOnly",
+    "pages/ObjectLinkObjectType",
+    "pages/ObjectLinkInheritObject",
+    "pages/ObjectLinkNestedObject",
+    "pages/ObjectLinkMakeObserved",
+    "pages/ObjectLinkArray",
+    "pages/ObjectLinkSerializeNoParam",
+    "pages/ObjectLinkSerializeWithParam",
+    "pages/ObjectLinkUnionType"
+  ]
+}
