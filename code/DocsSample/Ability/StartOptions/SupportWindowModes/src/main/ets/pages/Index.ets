@@ -12,8 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start startOptions_displayId]
-import { common, Want, StartOptions } from '@kit.AbilityKit';
+// [Start startOptions_supportWindowModes]
+import { common, Want, StartOptions, bundleManager } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -22,12 +22,12 @@ const DOMAIN_NUMBER: number = 0xFF00;
 
 @Entry
 @Component
-struct SpecifyDisplayScreen {
+struct SetWindowDisplayModeAbility {
 
   build() {
     Row() {
       Column() {
-        Button("在主屏幕上启动")
+        Button("设置窗口显示模式")
           .onClick(() => {
             // context为调用方UIAbility的UIAbilityContext
             let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
@@ -43,7 +43,9 @@ struct SpecifyDisplayScreen {
             };
 
             let options: StartOptions = {
-              displayId: -1 // 在主屏幕上启动
+              supportWindowModes: [
+                bundleManager.SupportWindowMode.FULL_SCREEN,  // 支持全屏模式
+              ]
             };
 
             context.startAbility(want, options).then(() => {
@@ -58,10 +60,4 @@ struct SpecifyDisplayScreen {
     .height('100%')
   }
 }
-// [End startOptions_displayId]
-
-
-
-
-
-
+// [End startOptions_supportWindowModes]

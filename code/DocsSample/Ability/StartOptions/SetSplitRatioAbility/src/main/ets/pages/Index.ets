@@ -12,8 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start startOptions_displayId]
-import { common, Want, StartOptions } from '@kit.AbilityKit';
+ // [Start startOptions_setSplitRatioAbility]
+import { common, Want, StartOptions, AbilityConstant } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -22,12 +22,12 @@ const DOMAIN_NUMBER: number = 0xFF00;
 
 @Entry
 @Component
-struct SpecifyDisplayScreen {
+struct SetSplitRatioAbility {
 
   build() {
     Row() {
       Column() {
-        Button("在主屏幕上启动")
+        Button("以比例分屏启动")
           .onClick(() => {
             // context为调用方UIAbility的UIAbilityContext
             let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
@@ -43,7 +43,7 @@ struct SpecifyDisplayScreen {
             };
 
             let options: StartOptions = {
-              displayId: -1 // 在主屏幕上启动
+              windowMode: AbilityConstant.WindowMode.WINDOW_MODE_SPLIT_SECONDARY, // 以分屏模式拉起
             };
 
             context.startAbility(want, options).then(() => {
@@ -58,10 +58,4 @@ struct SpecifyDisplayScreen {
     .height('100%')
   }
 }
-// [End startOptions_displayId]
-
-
-
-
-
-
+// [End startOptions_setSplitRatioAbility]
