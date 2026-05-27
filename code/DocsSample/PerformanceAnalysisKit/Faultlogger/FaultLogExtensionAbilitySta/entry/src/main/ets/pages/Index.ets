@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start fault_log_extension_arkts_sta_code_free]
 import { Entry, Component, Button } from '@ohos.arkui.component'
 
 @Entry
@@ -28,3 +29,4 @@ struct Index {
       })
   }
 }
+// [End fault_log_extension_arkts_sta_code_free]
