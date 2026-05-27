@@ -309,7 +309,7 @@ let currentOutputDeviceChangedCallback = (currentOutputDeviceChangedEvent: audio
 
   switch (currentOutputDeviceChangedEvent.changeReason) {
     case audio.AudioStreamDeviceChangeReason.REASON_OLD_DEVICE_UNAVAILABLE:
-      // 响应设备不可用事件,如果应用处于播放状态,应暂停播放,更新UX界面。
+      // 响应设备不可用事件，如果应用处于播放状态，应暂停播放，更新UX界面。
       break;
     case audio.AudioStreamDeviceChangeReason.REASON_NEW_DEVICE_AVAILABLE:
       // 应用根据业务情况响应设备可用事件。
@@ -318,7 +318,7 @@ let currentOutputDeviceChangedCallback = (currentOutputDeviceChangedEvent: audio
       // 应用根据业务情况响应设备强选事件。
       break;
     case audio.AudioStreamDeviceChangeReason.REASON_SESSION_ACTIVATED:
-      // 应用根据业务情况响应audio session激活时的输出设备信息。
+      // 应用根据业务情况响应audioSession激活时的输出设备信息。
       break;
     case audio.AudioStreamDeviceChangeReason.REASON_STREAM_PRIORITY_CHANGED:
       // 应用根据业务情况响应其它更高优先级的音频流触发的设备变更事件。
