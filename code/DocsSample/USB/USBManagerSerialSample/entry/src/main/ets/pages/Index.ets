@@ -1,5 +1,7 @@
+'use static'
+
 /*
-* Copyright (C) 2025 Huawei Device Co., Ltd.
+* Copyright (C) 2026 Huawei Device Co., Ltd.
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
 * You may obtain a copy of the License at
@@ -14,19 +16,23 @@
 */
 
 // [Start head]
-// 导入usbManager模块
-import { serialManager } from '@kit.BasicServicesKit';
+
+// 导入serialManager模块
+import { Entry, Text, Column, Component, Button, ClickEvent, Scroll, Row, Flex, TextArea, ButtonType, FlexDirection, ItemAlign, FlexAlign } from '@ohos.arkui.component'
+import { State } from '@ohos.arkui.stateManagement'
+import hilog from '@ohos.hilog'
+import serialManager from '@ohos.usbManager.serial';
 import { BusinessError } from '@kit.BasicServicesKit'
 import { buffer } from '@kit.ArkTS';
-import { JSON } from '@kit.ArkTS';
 
 // [End head]
+
 @Entry
 @Component
 struct Index {
   @State logInfo_: string = '';
-  @State portList_: serialManager.SerialPort[] = [];
-  @State portId_: number = 0;
+  private portList_: serialManager.SerialPort[] = [];
+  @State portId_: int = 0;
 
   private getPortList() {
     // [Start getPortList]
@@ -51,12 +57,12 @@ struct Index {
       return;
     }
     let portList: serialManager.SerialPort[] = this.portList_;
-    let portId: number = portList[0].portId;
+    let portId: int = portList[0].portId;
     if (!serialManager.hasSerialRight(portId)) {
       serialManager.requestSerialRight(portId).then((result: boolean) => {
         console.info('serial device request right result: ' + result);
         this.logInfo_ += '\n[INFO] serial device request right result: ' + JSON.stringify(result);
-      }).catch((error: BusinessError) => {
+      }).catch((error: Error) => {
         console.error(`usb device request right failed : ${error}`);
         this.logInfo_ += '\n[ERROR] usb device request right failed: ' + JSON.stringify(error);
       });
@@ -70,7 +76,7 @@ struct Index {
 
   private openSerialDevice() {
     // [Start openSerialDevice]
-    let portId: number = this.portId_;
+    let portId: int = this.portId_;
     try {
       serialManager.open(portId)
       console.info(`open usbSerial success, portId: ${portId}`);
@@ -84,10 +90,10 @@ struct Index {
 
   private serialRead() {
     // [Start serialRead]
-    let portId: number = this.portId_;
+    let portId: int = this.portId_;
     // 异步读取
     let readBuffer: Uint8Array = new Uint8Array(64);
-    serialManager.read(portId, readBuffer, 2000).then((size: number) => {
+    serialManager.read(portId, readBuffer, 2000).then((size: int) => {
       console.info(`readAsync usbSerial success, readAsyncBuffer: ${readBuffer}`);
       this.logInfo_ += '\n[INFO] readAsync usbSerial success, readAsyncBuffer: ' + JSON.stringify(readBuffer);
     }).catch((error: Error) => {
@@ -110,10 +116,10 @@ struct Index {
 
   private serialWrite() {
     // [Start serialWrite]
-    let portId: number = this.portId_;
+    let portId: int = this.portId_;
     // 异步写入
     let writeBuffer: Uint8Array = new Uint8Array(buffer.from('Hello World', 'utf-8').buffer)
-    serialManager.write(portId, writeBuffer, 2000).then((size: number) => {
+    serialManager.write(portId, writeBuffer, 2000).then((size: int) => {
       console.info(`writeAsync usbSerial success, writeAsyncBuffer: ${writeBuffer}`);
       this.logInfo_ += '\n[INFO] writeAsync usbSerial success, writeAsyncBuffer: ' + JSON.stringify(writeBuffer);
     }).catch((error: Error) => {
@@ -136,7 +142,7 @@ struct Index {
 
   private getSerialConfig() {
     // [Start getSerialConfig]
-    let portId: number = this.portId_;
+    let portId: int = this.portId_;
     // 获取串口配置
     try {
       let attribute: serialManager.SerialAttribute = serialManager.getAttribute(portId);
@@ -156,7 +162,7 @@ struct Index {
 
   private setSerialConfig() {
     // [Start setSerialConfig]
-    let portId: number = this.portId_;
+    let portId: int = this.portId_;
     // 设置串口配置
     try {
       let attribute: serialManager.SerialAttribute = {
@@ -177,7 +183,7 @@ struct Index {
 
   private closeSerialDevice() {
     // [Start closeSerialDevice]
-    let portId: number = this.portId_;
+    let portId: int = this.portId_;
     try {
       serialManager.close(portId);
       console.info(`close usbSerial success, portId: ${portId}`);
@@ -284,5 +290,14 @@ struct Index {
           .width('100%')
       }.padding({ top: 10 })
     }.height('100%').width('100%').padding({ left: 10, right: 10 })
+  }
+}
+
+@Component
+struct Child {
+  @State stateVar: string = 'Child';
+
+  build() {
+    Text(this.stateVar).fontSize(50)
   }
 }

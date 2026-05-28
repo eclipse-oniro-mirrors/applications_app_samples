@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2025 Huawei Device Co., Ltd.
+* Copyright (C) 2026 Huawei Device Co., Ltd.
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
 * You may obtain a copy of the License at
@@ -15,17 +15,6 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { Driver, ON, MatchPattern } from '@ohos.UiTest';
-import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import resourceManager from '@ohos.resourceManager';
-import deviceInfo from '@ohos.deviceInfo';
-
-const TAG = '[Sample_USBManagerSample]';
-const DOMAIN = 0xF811;
-const BUNDLE = 'USBManagerSample';
-let abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-let manager: resourceManager.ResourceManager;
-const driver = Driver.create();
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
@@ -33,10 +22,6 @@ export default function abilityTest() {
     beforeAll(() => {
       // Presets an action, which is performed only once before all test cases of the test suite start.
       // This API supports only one parameter: preset action function.
-      abilityDelegator.startAbility({
-        bundleName: 'com.samples.usbmanagersample',
-        abilityName: 'EntryAbility'
-      });
     })
     beforeEach(() => {
       // Presets an action, which is performed before each unit test case starts.
@@ -52,86 +37,14 @@ export default function abilityTest() {
       // Presets a clear action, which is performed after all test cases of the test suite end.
       // This API supports only one parameter: clear action function.
     })
-    it('USBManagerSample_GetDevices_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + `GetDevices_001, begin`);
-      let btnAccept = await driver.findComponent(ON.text('获取设备列表'))
-      if (btnAccept !== undefined) {
-        await btnAccept.click();
-        await driver.delayMs(500);
-      }
-      hilog.info(DOMAIN, TAG, BUNDLE + `GetDevices_001, end`);
-    })
-    it('USBManagerSample_RequestRight_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + `RequestRight_001, begin`);
-      let btnAccept = await driver.findComponent(ON.text('获取设备操作权限'))
-      if (btnAccept !== undefined) {
-        await btnAccept.click();
-        await driver.delayMs(500);
-      }
-      try {
-        let btnAllow = await driver.findComponent(ON.text('允许'))
-        if (btnAllow !== undefined) {
-          await btnAllow.click();
-          await driver.delayMs(3000);
-        }
-      } catch (e) {
-        hilog.info(DOMAIN, TAG, BUNDLE + `already request right`);
-      }
-      hilog.info(DOMAIN, TAG, BUNDLE + `RequestRight_001, end`);
-    })
-    it('USBManagerSample_ConnectDevice_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + `ConnectDevice_001, begin`);
-      let btnAccept = await driver.findComponent(ON.text('打开设备'))
-      if (btnAccept !== undefined) {
-        await btnAccept.click();
-        await driver.delayMs(500);
-      }
-      hilog.info(DOMAIN, TAG, BUNDLE + `ConnectDevice_001, end`);
-    })
-    it('USBManagerSample_BulkTransfer_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + `BulkTransfer_001, begin`);
-      let btnAccept = await driver.findComponent(ON.text('批量传输'))
-      if (btnAccept !== undefined) {
-        await btnAccept.click();
-        await driver.delayMs(500);
-      }
-      hilog.info(DOMAIN, TAG, BUNDLE + `BulkTransfer_001, end`);
-    })
-    it('USBManagerSample_ControlTransfer_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + `ControlTransfer_001, begin`);
-      let btnAccept = await driver.findComponent(ON.text('控制传输'))
-      if (btnAccept !== undefined) {
-        await btnAccept.click();
-        await driver.delayMs(500);
-      }
-      hilog.info(DOMAIN, TAG, BUNDLE + `ControlTransfer_001, end`);
-    })
-    it('USBManagerSample_InterruptTransfer_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + `InterruptTransfer_001, begin`);
-      let btnAccept = await driver.findComponent(ON.text('中断传输'))
-      if (btnAccept !== undefined) {
-        await btnAccept.click();
-        await driver.delayMs(500);
-      }
-      hilog.info(DOMAIN, TAG, BUNDLE + `InterruptTransfer_001, end`);
-    })
-    it('USBManagerSample_IsochronousTransfer_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + `IsochronousTransfer_001, begin`);
-      let btnAccept = await driver.findComponent(ON.text('实时传输'))
-      if (btnAccept !== undefined) {
-        await btnAccept.click();
-        await driver.delayMs(500);
-      }
-      hilog.info(DOMAIN, TAG, BUNDLE + `IsochronousTransfer_001, end`);
-    })
-    it('USBManagerSample_ClosePipe_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + `ClosePipe_001, begin`);
-      let btnAccept = await driver.findComponent(ON.text('关闭设备'))
-      if (btnAccept !== undefined) {
-        await btnAccept.click();
-        await driver.delayMs(500);
-      }
-      hilog.info(DOMAIN, TAG, BUNDLE + `ClosePipe_001, end`);
+    it('assertContain', 0, () => {
+      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
+      hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
+      let a = 'abc';
+      let b = 'b';
+      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
+      expect(a).assertContain(b);
+      expect(a).assertEqual(a);
     })
   })
 }
