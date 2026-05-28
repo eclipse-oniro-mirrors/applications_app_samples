@@ -1,5 +1,3 @@
-'use static'
-
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,14 +13,23 @@
  * limitations under the License.
  */
 
-// [Start Sample]
-import { ObservedV2, Trace } from '@kit.ArkUI';
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 
-@ObservedV2
-export class Sample {
-  @Trace p1: number = 0;
-  p2: number = 10;
+export default function localStorageUnitTest() {
+  describe('localStorageUnitTest', () => {
+    beforeAll(() => {
+    });
+    beforeEach(() => {
+    });
+    afterEach(() => {
+    });
+    afterAll(() => {
+    });
+    it('assertContain', 0, () => {
+      let a = 'abc';
+      let b = 'b';
+      expect(a).assertContain(b);
+      expect(a).assertEqual(a);
+    });
+  });
 }
-
-export const ISampleType: Class = Class.from<Sample>();
-// [End Sample]

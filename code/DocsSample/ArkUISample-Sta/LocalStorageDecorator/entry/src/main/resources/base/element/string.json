@@ -1,0 +1,68 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "local_storage_ui_title",
+      "value": "从UI内部使用LocalStorage"
+    },
+    {
+      "name": "local_storage_prop_ref_title",
+      "value": "@LocalStoragePropRef单向同步"
+    },
+    {
+      "name": "local_storage_prop_ref_data_ref_title",
+      "value": "@LocalStoragePropRef获得数据源引用"
+    },
+    {
+      "name": "local_storage_link_sync_title",
+      "value": "@LocalStorageLink双向同步"
+    },
+    {
+      "name": "local_storage_link_brother_title",
+      "value": "兄弟组件同步状态"
+    },
+    {
+      "name": "local_storage_shared_ui_ability_title",
+      "value": "从UIAbility共享LocalStorage"
+    },
+    {
+      "name": "local_storage_component_title",
+      "value": "自定义组件接收LocalStorage实例"
+    },
+    {
+      "name": "local_storage_component_no_prop_title",
+      "value": "自定义组件接收LocalStorage实例（无属性）"
+    },
+    {
+      "name": "local_storage_union_type_title",
+      "value": "LocalStorage支持联合类型"
+    },
+    {
+      "name": "local_storage_date_title",
+      "value": "装饰Date类型变量"
+    },
+    {
+      "name": "local_storage_map_title",
+      "value": "装饰Map类型变量"
+    },
+    {
+      "name": "local_storage_set_title",
+      "value": "装饰Set类型变量"
+    },
+    {
+      "name": "local_storage_outside_title",
+      "value": "组件外改变状态变量"
+    }
+  ]
+}

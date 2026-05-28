@@ -1,0 +1,18 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/LocalStorageUI",
+    "pages/LocalStoragePropRef",
+    "pages/LocalStoragePropRefDataRef",
+    "pages/LocalStorageLinkSync",
+    "pages/LocalStorageLinkBrother",
+    "pages/LocalStorageSharedUIAbility",
+    "pages/LocalStorageComponent",
+    "pages/LocalStorageComponentNoProp",
+    "pages/LocalStorageUnionType",
+    "pages/LocalStorageDate",
+    "pages/LocalStorageMap",
+    "pages/LocalStorageSet",
+    "pages/LocalStorageOutside"
+  ]
+}

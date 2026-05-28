@@ -1,5 +1,3 @@
-'use static'
-
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,14 +13,10 @@
  * limitations under the License.
  */
 
-// [Start Sample]
-import { ObservedV2, Trace } from '@kit.ArkUI';
+import abilityTest from './Ability.test';
+import IndexTest from './index.test';
 
-@ObservedV2
-export class Sample {
-  @Trace p1: number = 0;
-  p2: number = 10;
+export default function testsuite() {
+  abilityTest();
+  IndexTest();
 }
-
-export const ISampleType: Class = Class.from<Sample>();
-// [End Sample]

@@ -17,8 +17,9 @@
 
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start AppStorageV2TwoPages]
-import { AppStorageV2, Builder, Button, ButtonType, ClickEvent, Column, Component, ComponentV2, Divider, Entry, FontWeight, Link, Local, LocalStorage, LocalStorageLink, NavDestination, NavPathInfo, NavPathStack, Navigation, NavigationMode, ObservedV2, PersistentStorage, Row, State, Text, Trace } from '@kit.ArkUI';
+import { Page2 } from './AppStorageV2Navigation';
 import { ISampleType, Sample } from './Sample';
+import { AppStorageV2, Builder, Button, ButtonType, ClickEvent, Column, Component, ComponentV2, Divider, Entry, FontWeight, Link, Local, LocalStorage, LocalStorageLink, NavDestination, NavPathInfo, NavPathStack, Navigation, NavigationMode, ObservedV2, PersistentStorage, Row, State, Text, Trace } from '@kit.ArkUI';
 
 @Entry
 @ComponentV2
@@ -84,48 +85,7 @@ struct Page1 {
     }.navDestination(this.PageBuilder)
   }
 }
-
-@ComponentV2
-struct Page2 {
-  // 在AppStorageV2中创建一个ttype为Sample的Class的键值对（如果存在，则返回AppStorageV2中对应的数据），并且和prop关联
-  @Local prop: Sample = AppStorageV2.connect<Sample>(ISampleType, () => new Sample())!;
-  pathStack: NavPathStack = new NavPathStack();
-
-  build() {
-    NavDestination() {
-      Column() {
-        Button('Page2 connect key Sample')
-          .onClick((e: ClickEvent) => {
-            // 在AppStorageV2中创建一个key为Sample的键值对（如果存在，则返回AppStorageV2中对应的数据），并且和prop关联
-            this.prop = AppStorageV2.connect<Sample>(ISampleType, 'Sample', () => new Sample())!;
-          })
-
-        Text(`Page2 add 1 to prop.p1: ${this.prop.p1}`)
-          .fontSize(30)
-          .onClick((e: ClickEvent) => {
-            this.prop.p1++;
-          })
-
-        Text(`Page2 add 1 to prop.p2: ${this.prop.p2}`)
-          .fontSize(30)
-          .onClick((e: ClickEvent) => {
-            // 页面不刷新，但p2的值已改变
-            this.prop.p2++;
-          })
-
-      }
-    }
-  }
-}
-
 // [End AppStorageV2TwoPages]
-
-// 用于Navigation系统路由表的Page2Builder函数
-@Builder
-export function Page2Builder(): void {
-  Page2(); 
-}
-
 @Builder
 export function appStorageV2TwoPages(): void {
   NavDestination() {
