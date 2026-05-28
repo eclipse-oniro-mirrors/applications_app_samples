@@ -1,0 +1,20 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {},
+  "buildOption": {
+    "arkOptions": {
+      "staticArkTS": true,
+      "arkTSNextCheck": {
+        "strictEntryPointRouter": false,
+        "strictTypeCheck": false,
+        "strictTypedArrayCheck": false
+      }
+    }
+  }
+}
+
