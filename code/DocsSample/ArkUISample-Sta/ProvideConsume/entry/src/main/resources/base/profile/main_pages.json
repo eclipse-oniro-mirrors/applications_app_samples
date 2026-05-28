@@ -1,0 +1,15 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/ProvideConsumeInterface",
+    "pages/ProvideConsumeBasic",
+    "pages/ConsumeNoExternalInit",
+    "pages/ConsumeDefaultValueExample",
+    "pages/ProvideConsumeMap",
+    "pages/ProvideConsumeSet",
+    "pages/ProvideConsumeDate",
+    "pages/ProvideConsumeUnion",
+    "pages/ProvideAllowOverride",
+    "pages/ConsumeDefaultValue"
+  ]
+}
