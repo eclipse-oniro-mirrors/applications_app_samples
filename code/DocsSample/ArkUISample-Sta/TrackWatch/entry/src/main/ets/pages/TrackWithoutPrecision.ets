@@ -1,0 +1,72 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { NavDestination, $r } from '@kit.ArkUI';
+// [Start TrackWithoutPrecision]
+import { Button, Column, Component, Entry, Observed, State, Text } from '@kit.ArkUI';
+
+@Observed
+class Info {
+  name: string = 'Jack';
+  age: number = 12;
+}
+
+@Entry
+@Component
+struct Index {
+  @State info: Info = new Info();
+
+  // 借助getFontSize的日志打印，可以分辨哪个组件触发了渲染
+  getFontSize(id: number): number {
+    console.info(`Component ${id} render`);
+    return 30;
+  }
+
+  build() {
+    Column() {
+      Text(`name: ${this.info.name}`)
+        .fontSize(this.getFontSize(1))
+      Text(`age: ${this.info.age}`)
+        .fontSize(this.getFontSize(2))
+
+      // 点击当前Button，可以发现当前虽然仅改变了name属性
+      // 但是依旧会触发两个Text的刷新
+      // Text(`age: ${this.info.age}`)是冗余刷新
+      Button('change name').onClick((e) => {
+        this.info.name = 'Jane';
+      })
+
+      // 点击当前Button，可以发现当前虽然仅改变了age属性
+      // 但是依旧会触发两个Text的刷新
+      // Text(`name: ${this.info.name}`)是冗余刷新
+      Button('change age').onClick((e) => {
+        this.info.age++;
+      })
+    }
+    .height('100%')
+    .width('100%')
+  }
+}
+// [End TrackWithoutPrecision]
+
+@Builder
+export function trackWithoutPrecision(): void {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.track_without_precision_title'))
+}

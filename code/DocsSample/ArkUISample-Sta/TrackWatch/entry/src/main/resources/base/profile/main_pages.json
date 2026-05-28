@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/TrackWithoutPrecision",
+    "pages/TrackAvoidRedundant",
+    "pages/TrackCustomComponent",
+    "pages/WatchCustomComponent",
+    "pages/WatchPropertyName"
+  ]
+}
