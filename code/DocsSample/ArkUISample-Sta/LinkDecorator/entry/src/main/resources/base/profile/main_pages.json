@@ -1,0 +1,15 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/LinkInterface",
+    "pages/LinkBasicTypes",
+    "pages/LinkTypeConsistent",
+    "pages/LinkStateVarInit",
+    "pages/LinkArray",
+    "pages/LinkMap",
+    "pages/LinkSet",
+    "pages/LinkDate",
+    "pages/LinkWatch",
+    "pages/LinkUnionType"
+  ]
+}
