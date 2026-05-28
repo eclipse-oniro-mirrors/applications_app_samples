@@ -17,7 +17,7 @@ import { BusinessError, commonEventManager } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = 'ProcessModel';
-const DOMAIN_NUMBER: number = 0xFF00;
+const DOMAIN_NUMBER: int = 0xFF00;
 // [End ImportModule]
 
 // [Start CreateSystemSubscriberInformation]
@@ -56,11 +56,12 @@ struct CreatSubscribeInfo {
     commonEventManager.createSubscriber(subscribeInfoCustom,
       (err: BusinessError | null, data: commonEventManager.CommonEventSubscriber | undefined | null) => {
         if (err) {
-          console.error(`Failed to create subscriber. Code is ${err.code}, message is ${err.message}`);
+          hilog.error(DOMAIN_NUMBER, TAG,
+            `Failed to create subscriber. Code is ${err.code}, message is ${err.message}`);
           return;
         }
         if (data) {
-          console.info('Succeeded in creating subscriber.');
+          hilog.info(DOMAIN_NUMBER, TAG, 'Succeeded in creating subscriber.');
           subscriberCustom = data;
         }
       })
@@ -78,13 +79,14 @@ struct CreatSubscribeInfo {
             commonEventManager.subscribe(subscriberCustom as commonEventManager.CommonEventSubscriber,
               (err: BusinessError | null, data: commonEventManager.CommonEventData | undefined | null) => {
                 if (err) {
-                  console.error(`Failed to subscribe common event. Code is ${err.code}, message is ${err.message}`);
+                  hilog.error(DOMAIN_NUMBER, TAG,
+                    `Failed to subscribe common event. Code is ${err.code}, message is ${err.message}`);
                   return;
                 }
-                console.info(`Succeeded in subscribing, data is ${JSON.stringify(data)}`);
+                hilog.info(DOMAIN_NUMBER, TAG, `Succeeded in subscribing, data is ${JSON.stringify(data)}`);
               })
           } else {
-            console.error(`Need create subscriber`);
+            hilog.error(DOMAIN_NUMBER, TAG, `Need create subscriber`);
           }
           // [End SubscribeToPublicEvents]
           AppStorage.setOrCreate('event', 'SubscribeToPublicEventsSuccess');
@@ -99,9 +101,10 @@ struct CreatSubscribeInfo {
             commonEventManager.unsubscribe(subscriberCustom as commonEventManager.CommonEventSubscriber,
               (err: BusinessError | null) => {
                 if (err) {
-                  console.error(`Failed to unsubscribe. code is ${err.code}, message is ${err.message}`);
+                  hilog.error(DOMAIN_NUMBER, TAG,
+                    `Failed to unsubscribe. code is ${err.code}, message is ${err.message}`);
                 } else {
-                  console.info(`Succeeded in unsubscribing.`);
+                  hilog.info(DOMAIN_NUMBER, TAG, `Succeeded in unsubscribing.`);
                   subscriberCustom = null;
                 }
             })
@@ -117,10 +120,11 @@ struct CreatSubscribeInfo {
           // 发布公共事件，其中的event字段需要替换为实际的事件名称。
           commonEventManager.publish('event', (err: BusinessError | null) => {
             if (err) {
-              console.error(`Publish failed, code is ${JSON.stringify(err.code)}, message is ${JSON.stringify(err.message)}`);
+              hilog.error(DOMAIN_NUMBER, TAG,
+                `Publish failed, code is ${JSON.stringify(err.code)}, message is ${JSON.stringify(err.message)}`);
             } else {
               // ...
-              console.info(`Publish success`);
+              hilog.info(DOMAIN_NUMBER, TAG, `Publish success`);
             }
           });
           // [End PublicEventNoInformation]
@@ -134,10 +138,11 @@ struct CreatSubscribeInfo {
           // 发布公共事件，其中的event字段需要替换为实际的事件名称。
           commonEventManager.publish('event', options, (err: BusinessError | null) => {
             if (err) {
-              console.error(`Failed to publish common event. Code is ${err.code}, message is ${err.message}`);
+              hilog.error(DOMAIN_NUMBER, TAG,
+                `Failed to publish common event. Code is ${err.code}, message is ${err.message}`);
             } else {
               // ...
-              console.info(`Succeeded in publishing common event.`);
+              hilog.info(DOMAIN_NUMBER, TAG, `Succeeded in publishing common event.`);
             }
           });
           // [End PublicEventCarryingInformation]
