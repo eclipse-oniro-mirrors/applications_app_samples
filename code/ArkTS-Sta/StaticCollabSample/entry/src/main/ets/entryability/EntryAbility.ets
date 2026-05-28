@@ -17,9 +17,9 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
-import abilityConnectionManager from '@kit.DistributedKit';
+import abilityConnectionManager from '@ohos.distributedsched.abilityConnectionManager';
 import { AppStorage, UIContext } from '@kit.ArkUI';
-import { BusinessError } from '@kit.BaseKit';
+import { BusinessError } from '@ohos.base';
 
 const TAG: string = 'CollabSample_EntryAbility';
 
