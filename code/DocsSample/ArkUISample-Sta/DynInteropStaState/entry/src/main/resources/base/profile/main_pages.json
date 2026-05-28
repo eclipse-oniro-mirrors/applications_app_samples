@@ -1,0 +1,18 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/StatemgmtV1",
+    "pages/StatemgmtV1Observed",
+    "pages/StatemgmtV1AppStorage",
+    "pages/StatemgmtV1AppStorageData",
+    "pages/StatemgmtV1LocalStorage",
+    "pages/StatemgmtV1PersistentStorage",
+    "pages/StatemgmtV1Environment",
+    "pages/StatemgmtV2",
+    "pages/StatemgmtV2ObservedV2",
+    "pages/StatemgmtV2ObservedV2Nested",
+    "pages/StatemgmtV2ObservedV2Inherit",
+    "pages/StatemgmtV2AppStorageV2",
+    "pages/StatemgmtV2PersistenceV2"
+  ]
+}
