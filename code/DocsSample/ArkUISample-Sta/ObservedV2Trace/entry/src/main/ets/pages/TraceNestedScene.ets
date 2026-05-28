@@ -44,19 +44,23 @@ struct Page {
   isRender(id: number): number {
     console.info(`id: ${id} renderTimes: ${this.renderTimes}`);
     this.renderTimes++;
-    return 40;
+    return 20;
   }
 
   build() {
     Column() {
       Text('pencil length' + this.son.bag.pencil.length) // UINode (1)
         .fontSize(this.isRender(1))
+        .margin(10)
       Button('change length')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           // 点击更改length值，UINode（1）会刷新
           this.son.bag.pencil.length += 100;
         })
     }
+    .width('100%')
   }
 }
 

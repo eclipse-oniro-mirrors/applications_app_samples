@@ -16,7 +16,20 @@
  */
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start ProviderConsumerComplexType]
-import { Button, ClickEvent, Column, ComponentV2, Consumer, Divider, Entry, ForEach, ObservedV2, Provider, Text, Trace } from '@kit.ArkUI';
+import {
+  Button,
+  ClickEvent,
+  Column,
+  ComponentV2,
+  Consumer,
+  Divider,
+  Entry,
+  ForEach,
+  ObservedV2,
+  Provider,
+  Text,
+  Trace
+} from '@kit.ArkUI';
 
 @ObservedV2
 class User {
@@ -39,23 +52,32 @@ struct Parent {
   build() {
     Column() {
       Button('add new user')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.users.push(new User('Molly', 18));
         })
       Button('age++')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.users[0].age++;
         })
       Button('change name')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.users[0].name = 'Shelly';
         })
       Button('reset users')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.users = [new User('Json', 10), new User('Eric', 15)];
-        })       
+        })
       Child()
     }
+    .width('100%')
   }
 }
 
@@ -67,12 +89,18 @@ struct Child {
     Column() {
       ForEach(this.users, (item: User) => {
         Column() {
-          Text(`name: ${item.name}`).fontSize(30)
-          Text(`age: ${item.age}`).fontSize(30)
+          Text(`name: ${item.name}`)
+            .fontSize(20)
+            .margin(10)
+          Text(`age: ${item.age}`)
+            .fontSize(20)
+            .margin(10)
           Divider()
         }
+        .width('100%')
       })
     }
+    .width('100%')
   }
 }
 // [End ProviderConsumerComplexType]

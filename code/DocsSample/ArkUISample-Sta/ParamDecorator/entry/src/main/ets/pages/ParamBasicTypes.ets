@@ -25,12 +25,21 @@ struct Index {
   @Local count: number = 0;
   @Local message: string = 'Hello';
   @Local flag: boolean = false;
+
   build() {
     Column() {
       Text(`${this.count}`)
+        .fontSize(20)
+        .margin(10)
       Text(`${this.message}`)
+        .fontSize(20)
+        .margin(10)
       Text(`${this.flag}`)
+        .fontSize(20)
+        .margin(10)
       Button('change Local')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           // 数据源变量修改，会同步给@Param
           this.count++;
@@ -43,6 +52,7 @@ struct Index {
         flag: this.flag
       })
     }
+    .width('100%')
   }
 }
 @ComponentV2
@@ -50,12 +60,20 @@ struct Child {
   @Require @Param count: number;
   @Require @Param message: string;
   @Require @Param flag: boolean;
+
   build() {
     Column() {
       Text(`Param ${this.count}`)
+        .fontSize(20)
+        .margin(10)
       Text(`Param ${this.message}`)
+        .fontSize(20)
+        .margin(10)
       Text(`Param ${this.flag}`)
+        .fontSize(20)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 

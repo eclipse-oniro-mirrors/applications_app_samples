@@ -23,39 +23,59 @@ interface Info {
   name: string;
   age: number;
 }
+
 @Entry
 @ComponentV2
 struct Index {
   // 装饰字面量
   @Local info: Info = { name: 'Jack', age: 25 } as Info;
+
   build() {
     Column() {
       Text(`Local info.name: ${this.info.name}`)
+        .fontSize(20)
+        .margin(10)
       Text(`Local info.age: ${this.info.age}`)
+        .fontSize(20)
+        .margin(10)
       Button('Local change info')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.info = { name: 'Tom', age: 18 } as Info; // 变化可观察
         })
       Button('Local change info.name')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.info.name = 'Lucy'; // 变化无法观察
         })
-      Child({info: this.info})
+      Child({ info: this.info })
     }
+    .width('100%')
   }
 }
+
 @ComponentV2
 struct Child {
   @Require @Param info: Info;
+
   build() {
     Column() {
       Text(`Param info.name: ${this.info.name}`)
+        .fontSize(20)
+        .margin(10)
       Text(`Param info.age: ${this.info.age}`)
+        .fontSize(20)
+        .margin(10)
       Button('Param change info.name')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.info.name = 'Mary'; // 变化无法观察
         })
     }
+    .width('100%')
   }
 }
 

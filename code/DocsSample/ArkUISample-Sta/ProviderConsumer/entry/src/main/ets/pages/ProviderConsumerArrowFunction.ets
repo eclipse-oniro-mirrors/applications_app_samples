@@ -23,6 +23,7 @@ import { Button, ClickEvent, Column, ComponentV2, Consumer, Entry, Local, Provid
 struct Parent {
   @Local childSub: number = 0;
   @Local childSum: number = 1;
+  // 父组件通过@Provider向下传递箭头函数。
   @Provider() onChange: (axisX: number, axisY: number) => void = (axisX: number, axisY: number): void => {
     this.childSub = axisX - axisY;
     this.childSum = axisX + axisY;
@@ -31,8 +32,11 @@ struct Parent {
   build() {
     Column() {
       Text(`childSub: ${this.childSub}, childSum: ${this.childSum}`)
+        .fontSize(20)
+        .margin(10)
       Child()
     }
+    .width('100%')
   }
 }
 
@@ -45,7 +49,10 @@ struct Child {
 
   build() {
     Button('changed')
+      .width(300)
+      .margin(10)
       .onClick((e: ClickEvent) => {
+        // 子组件中调用该箭头函数，会修改父组件中childSub与childSum变量的值。
         this.onChange(this.axisX, this.axisY);
       })
   }

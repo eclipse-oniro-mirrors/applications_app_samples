@@ -16,11 +16,25 @@
  */
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start OnceLocalModify]
-import { Button, ClickEvent, Column, ComponentV2, Entry, Local, ObservedV2, Once, Param, Require, Text, Trace } from '@kit.ArkUI';
+import {
+  Button,
+  ClickEvent,
+  Column,
+  ComponentV2,
+  Entry,
+  Local,
+  ObservedV2,
+  Once,
+  Param,
+  Require,
+  Text,
+  Trace
+} from '@kit.ArkUI';
 
 @ObservedV2
 class Info {
   @Trace name: string;
+
   constructor(name: string) {
     this.name = name;
   }
@@ -33,17 +47,27 @@ struct Child {
 
   build() {
     Column() {
+      // 子组件内可修改onceParamNum与onceParamInfo变量，并能触发UI刷新。
       Text(`Child onceParamNum: ${this.onceParamNum}`)
+        .fontSize(20)
+        .margin(10)
       Text(`Child onceParamInfo: ${this.onceParamInfo.name}`)
+        .fontSize(20)
+        .margin(10)
       Button('changeOnceParamNum')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.onceParamNum++;
         })
       Button('changeParamInfo')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.onceParamInfo = new Info('Cindy');
         })
     }
+    .width('100%')
   }
 }
 
@@ -56,20 +80,30 @@ struct Index {
   build() {
     Column() {
       Text(`Parent localNum: ${this.localNum}`)
+        .fontSize(20)
+        .margin(10)
       Text(`Parent localInfo: ${this.localInfo.name}`)
+        .fontSize(20)
+        .margin(10)
       Button('changeLocalNum')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.localNum++;
         })
       Button('changeLocalInfo')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.localInfo = new Info('Cindy');
         })
+      // 首次渲染时把当前本地值传给子组件。
       Child({
         onceParamNum: this.localNum,
         onceParamInfo: this.localInfo
       })
     }
+    .width('100%')
   }
 }
 
