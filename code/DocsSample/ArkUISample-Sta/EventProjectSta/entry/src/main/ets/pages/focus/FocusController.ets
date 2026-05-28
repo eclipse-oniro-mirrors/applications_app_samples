@@ -1,0 +1,98 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start dynamic_focus_control_demo]
+import { $r, Button, Color, Column, ColumnOptions, Component, Divider, Entry, Margin, NavDestination, Padding, State, focusControl } from '@kit.ArkUI';
+@Entry
+@Component
+export struct FocusControl {
+  @State btColor: string = '#ff2787d9';
+  @State btColor2: string = '#ff2787d9';
+
+  build() {
+    NavDestination() {
+        Column({ space: 20 } as ColumnOptions) {
+          Column({ space: 5 } as ColumnOptions) {
+            Button('Button')
+              .width(200)
+              .height(70)
+              .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+              .fontColor(Color.White)
+              .focusOnTouch(true)
+              .backgroundColor(this.btColor)
+              .onFocus(() => {
+                this.btColor = '#ffd5d5d5';
+              })
+              .onBlur(() => {
+                this.btColor = '#ff2787d9';
+              })
+              .id('testButton')
+
+            Button('Button')
+              .width(200)
+              .height(70)
+              .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+              .fontColor(Color.White)
+              .focusOnTouch(true)
+              .backgroundColor(this.btColor2)
+              .onFocus(() => {
+                this.btColor2 = '#ffd5d5d5';
+              })
+              .onBlur(() => {
+                this.btColor2 = '#ff2787d9';
+              })
+              .id('testButton2')
+
+            Divider()
+              .vertical(false)
+              .width('80%')
+              .backgroundColor('#ff707070')
+              .height(10)
+
+            Button('FocusController.requestFocus')
+              .width(200).height(70).margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin).fontColor(Color.White)
+              .onClick(() => {
+                this.getUIContext().getFocusController().requestFocus('testButton');
+              })
+              .backgroundColor('#ff2787d9')
+
+            Button('focusControl.requestFocus')
+              .width(200).height(70).margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin).fontColor(Color.White)
+              .onClick(() => {
+                focusControl.requestFocus('testButton2');
+              })
+              .backgroundColor('#ff2787d9')
+
+            Button('clearFocus')
+              .width(200).height(70).margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin).fontColor(Color.White)
+              .onClick(() => {
+                this.getUIContext().getFocusController().clearFocus();
+              })
+              .backgroundColor('#ff2787d9')
+          }
+        }
+        .width('100%')
+        .height('100%')
+    }
+    // [StartExclude dynamic_focus_control_demo]
+    .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.Focus_FocusController_title')替换为实际资源文件，在本示例中该资源文件的value值为"主动获焦/失焦"
+    .title($r('app.string.Focus_FocusController_title'))
+    // [EndExclude dynamic_focus_control_demo]
+  }
+}
+// [End dynamic_focus_control_demo]
