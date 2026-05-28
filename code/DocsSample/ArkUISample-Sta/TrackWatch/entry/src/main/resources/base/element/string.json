@@ -1,0 +1,36 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "track_without_precision_title",
+      "value": "@Track无法精准观察类属性"
+    },
+    {
+      "name": "track_avoid_redundant_title",
+      "value": "@Track避免冗余刷新"
+    },
+    {
+      "name": "track_custom_component_title",
+      "value": "@Track和自定义组件更新"
+    },
+    {
+      "name": "watch_custom_component_title",
+      "value": "@Watch和自定义组件更新"
+    },
+    {
+      "name": "watch_property_name_title",
+      "value": "@Watch判断具体属性变化"
+    }
+  ]
+}
