@@ -16,10 +16,9 @@
 
 import { Entry, Text, Column, Component, Button, ClickEvent } from '@ohos.arkui.component'
 import { State } from '@ohos.arkui.stateManagement'
-import hilog from '@ohos.hilog'
 
 // [Start TestHiTraceMeter_Import]
-import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
+import { hiTraceMeter, hilog } from '@kit.PerformanceAnalysisKit';
 // [End TestHiTraceMeter_Import]
 
 // [Start TestHiTraceMeter_FUNC]
@@ -77,30 +76,12 @@ struct Index {
   @State stateVar: string = 'state var';
   message: string = 'var';
 
-  changeValue() {
-    this.stateVar += '~'
-  }
-
   build() {
     Column(undefined) {
-      Text('Hello World').fontSize(20)
-
       // [Start TestHiTraceMeter_BUTTON]
       Button("testHiTraceMeter").backgroundColor('#FFFF00FF')
         .onClick(testHiTraceMeter)
       // [End TestHiTraceMeter_BUTTON]
-
-      Text(this.stateVar).fontSize(20)
-      Child({ stateVar: this.stateVar })
     }
-  }
-}
-
-@Component
-struct Child {
-  @State stateVar: string = 'Child';
-
-  build() {
-    Text(this.stateVar).fontSize(50)
   }
 }
