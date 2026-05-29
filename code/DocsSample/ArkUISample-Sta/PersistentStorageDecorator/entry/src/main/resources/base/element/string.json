@@ -1,0 +1,40 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "persistent_storage_basic_title",
+      "value": "从AppStorage中访问PersistentStorage初始化的属性"
+    },
+    {
+      "name": "persistent_storage_union_type_title",
+      "value": "支持联合类型"
+    },
+    {
+      "name": "persistent_storage_date_title",
+      "value": "装饰Date类型变量"
+    },
+    {
+      "name": "persistent_storage_map_title",
+      "value": "装饰Map类型变量"
+    },
+    {
+      "name": "persistent_storage_set_title",
+      "value": "装饰Set类型变量"
+    },
+    {
+      "name": "persistent_storage_class_title",
+      "value": "装饰class"
+    }
+  ]
+}

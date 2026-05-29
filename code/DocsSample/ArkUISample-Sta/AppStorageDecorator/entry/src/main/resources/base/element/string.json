@@ -1,0 +1,44 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "app_storage_ui_title",
+      "value": "从UI内部使用AppStorage和LocalStorage"
+    },
+    {
+      "name": "app_storage_propref_title",
+      "value": "@StoragePropRef获得数据源引用"
+    },
+    {
+      "name": "app_storage_union_type_title",
+      "value": "AppStorage支持联合类型"
+    },
+    {
+      "name": "app_storage_date_title",
+      "value": "装饰Date类型变量"
+    },
+    {
+      "name": "app_storage_map_title",
+      "value": "装饰Map类型变量"
+    },
+    {
+      "name": "app_storage_set_title",
+      "value": "装饰Set类型变量"
+    },
+    {
+      "name": "environment_ui_title",
+      "value": "从UI中访问Environment参数"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/AppStorageUI",
+    "pages/AppStoragePropRefDataRef",
+    "pages/AppStorageUnionType",
+    "pages/AppStorageDate",
+    "pages/AppStorageMap",
+    "pages/AppStorageSet",
+    "pages/EnvironmentUI"
+  ]
+}
