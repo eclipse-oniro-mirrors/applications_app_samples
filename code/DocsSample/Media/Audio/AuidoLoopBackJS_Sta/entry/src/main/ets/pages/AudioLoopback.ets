@@ -1,7 +1,7 @@
 'use static'
 
 /*
-* Copyright (C) 2025 Huawei Device Co., Ltd.
+* Copyright (C) 2026 Huawei Device Co., Ltd.
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
 * You may obtain a copy of the License at
@@ -14,9 +14,9 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-import { Entry, Text, Column, Component, Button, ClickEvent, HorizontalAlign, FlexAlign, Scroll, Row, Color, TextOverflow } from '@ohos.arkui.component'
-import { State } from '@ohos.arkui.stateManagement'
-import hilog from '@ohos.hilog'
+import { Entry, Text, Column, Component, Button, ClickEvent, HorizontalAlign, FlexAlign, Scroll, Row, Color, TextOverflow } from '@ohos.arkui.component';
+import { State } from '@ohos.arkui.stateManagement';
+import hilog from '@ohos.hilog';
 
 // [Start all_audioLoopback]
 // [Start create_AudioLoopback]
@@ -516,20 +516,20 @@ struct Index {
             // [StartExclude all_audioLoopback]
             requestMicrophonePermission(context).then((hasPermission: boolean): void => {
               if (!hasPermission) {
-                const errorMsg = '麦克风权限未授权，无法录音';
+                const errorMsg = 'Microphone permission not granted, unable to record';
                 console.error(errorMsg);
                 this.updateLogInfo(errorMsg, true);
-                this.currentState = '权限未授权';
+                this.currentState = ' permission not granted';
                 return;
               }
               // [EndExclude all_audioLoopback]
               init((msg, isError) => this.updateLogInfo(msg, isError));
-              this.currentState = '已创建实例';
+              this.currentState = 'Instance created';
             });
           });
 
           Column() {
-            Text('设置音频返听音量')
+            Text('Set the audio monitor volume')
               .fontColor(Color.Black)
               .fontSize(14)
           }
@@ -547,7 +547,7 @@ struct Index {
 
         Row() {
           Column() {
-            Text('设置混响模式')
+            Text('Set the reverb mode')
               .fontColor(Color.Black)
               .fontSize(14)
           }
@@ -563,7 +563,7 @@ struct Index {
           });
 
           Column() {
-            Text('设置均衡器类型')
+            Text('Set the equalizer type')
               .fontColor(Color.Black)
               .fontSize(14)
           }
@@ -581,7 +581,7 @@ struct Index {
 
         Row() {
           Column() {
-            Text('查询返听状态')
+            Text('Query the monitor status')
               .fontColor(Color.Black)
               .fontSize(14)
           }
@@ -597,7 +597,7 @@ struct Index {
           });
 
           Column() {
-            Text('查询混响模式')
+            Text('Query the reverb mode')
               .fontColor(Color.Black)
               .fontSize(14)
           }
@@ -615,7 +615,7 @@ struct Index {
 
         Row() {
           Column() {
-            Text('查询均衡器类型')
+            Text('Query the equalizer type')
               .fontColor(Color.Black)
               .fontSize(14)
           }
@@ -631,7 +631,7 @@ struct Index {
           });
 
           Column() {
-            Text('启用音频返听')
+            Text('Enable audio monitor')
               .fontColor(Color.Black)
               .fontSize(14)
           }
@@ -644,13 +644,13 @@ struct Index {
           .alignItems(HorizontalAlign.Center)
           .onClick((): void => {
             enable((msg, isError) => this.updateLogInfo(msg, isError));
-            this.currentState = '已启用返听';
+            this.currentState = 'Audio monitor enabled';
           });
         }
 
         Row() {
           Column() {
-            Text('禁用音频返听')
+            Text('Disable audio monitor')
               .fontColor(Color.Black)
               .fontSize(14)
           }
@@ -663,7 +663,7 @@ struct Index {
           .alignItems(HorizontalAlign.Center)
           .onClick((): void => {
             disable((msg, isError) => this.updateLogInfo(msg, isError));
-            this.currentState = '已禁用返听';
+            this.currentState = 'Audio monitor disabled';
           });
         }
       }

@@ -4,12 +4,12 @@
       {
         "name": "default",
         "material": {
-          "certpath": "C:/Users/Administrator/.ohos/config/openharmony/default_auidoloopback_sta_zP5TvXOcz4o161LP2KbcQtc2CDSvcAqrPQmXc3h2e28=.cer",
+          "certpath": "xxxxxxx",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B6080820E19E428357181DA746E4C709401439EAE37C23A4B9118803461F4600AA7432CFDD680D3",
-          "profile": "C:/Users/Administrator/.ohos/config/openharmony/default_auidoloopback_sta_zP5TvXOcz4o161LP2KbcQtc2CDSvcAqrPQmXc3h2e28=.p7b",
+          "keyPassword": "xxxxxxxx",
+          "profile": "xxxxxxx",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/Administrator/.ohos/config/openharmony/default_auidoloopback_sta_zP5TvXOcz4o161LP2KbcQtc2CDSvcAqrPQmXc3h2e28=.p12",
+          "storeFile": "xxxxxx",
           "storePassword": "0000001B94A2C536E712C1D4DADCC6C8E1D39C53A238908E634D01D4167525563E544093E77C56A202254D"
         }
       }

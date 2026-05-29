@@ -4,12 +4,12 @@
       {
         "name": "default",
         "material": {
-          "certpath": "C:/Users/Administrator/.ohos/config/openharmony/default_renderer_sta_ixkMKNvpJii4VNpDJW_gQL6Pdd_IkLfVGxeXzlmqYqI=.cer",
+          "certpath": "xxxxxxx",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B8889E454C5C0898C23855ED6A53B1AAE164E99DFB8038ADA9ECAAB1EF9B0CF52040B955F7ADE97",
-          "profile": "C:/Users/Administrator/.ohos/config/openharmony/default_renderer_sta_ixkMKNvpJii4VNpDJW_gQL6Pdd_IkLfVGxeXzlmqYqI=.p7b",
+          "keyPassword": "xxxxx",
+          "profile": "xxxxxxxx",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/Administrator/.ohos/config/openharmony/default_renderer_sta_ixkMKNvpJii4VNpDJW_gQL6Pdd_IkLfVGxeXzlmqYqI=.p12",
+          "storeFile": "xxxxxxx",
           "storePassword": "0000001B5E74CE99E59428C5669CC1ECD6A427D87EC2B07CDF5CE1C6AFFE64F8A3B1F987C220041F26B1BF"
         }
       }
