@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start fault_log_extension_arkts_sta_code_ability]
 // 导入需要继承的类FaultLogExtensionAbility
 import { FaultLogExtensionAbility, hilog, hiAppEvent } from '@kit.PerformanceAnalysisKit';
 
@@ -59,3 +60,4 @@ export default class MyFaultLogExtensionAbility extends FaultLogExtensionAbility
     });
   }
 }
+// [End fault_log_extension_arkts_sta_code_ability]
