@@ -2,7 +2,7 @@
 
 ## 介绍
 
-本示例基于AudioRender与AudioCapture能力，实现了语音通话场景，包含语音流的录制与播放的全流程。
+本示例基于[AudioRender](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkts-apis-audio-audiorenderer)与[AudioCapture](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkts-apis-audio-audiocapturer)能力，实现了语音通话场景，包含语音流的录制与播放的全流程。
 
 ## 效果图预览
 
