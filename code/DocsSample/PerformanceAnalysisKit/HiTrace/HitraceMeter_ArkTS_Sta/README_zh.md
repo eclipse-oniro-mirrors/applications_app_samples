@@ -13,13 +13,13 @@
 
 ###  效果预览
 
-|                             主页                             |
-|:----------------------------------------------------------:|
-| <img src="./screenshots/sample.jpg" alt="z" width = "400"> |
+|                             主页                              |
+|:-----------------------------------------------------------:|
+| <img src="./screenshots/example.jpg" alt="z" width = "400"> |
 
 #### 使用说明
 
-1.在主界面点击testHiTraceMeter按钮；DevEco Studio Terminal 中执行如下命令：
+1.DevEco Studio Terminal 中执行如下命令：
 
 ```
 PS D:\xxx\xxx> hdc shell
@@ -35,13 +35,13 @@ $ hitrace --trace_dump | grep myTest
 3.成功输出如下数据即为成功：
 
 ```
-e.myapplication-39945   (  39945) [010] .... 347921.342267: tracing_mark_write: S|39945|H:myTestAsyncTrace|1001|M62|categoryTest|key=value
-e.myapplication-39945   (  39945) [010] .... 347921.342280: tracing_mark_write: C|39945|H:myTestCountTrace|1|M62
-e.myapplication-39945   (  39945) [010] .... 347921.342327: tracing_mark_write: S|39945|H:myTestAsyncTrace|1002|M62|categoryTest|key=value
-e.myapplication-39945   (  39945) [010] .... 347921.342333: tracing_mark_write: C|39945|H:myTestCountTrace|2|M62
-e.myapplication-39945   (  39945) [010] .... 347921.342358: tracing_mark_write: F|39945|H:myTestAsyncTrace|1001|M62
-e.myapplication-39945   (  39945) [010] .... 347921.342365: tracing_mark_write: F|39945|H:myTestAsyncTrace|1002|M62
-e.myapplication-39945   (  39945) [010] .... 347921.342387: tracing_mark_write: B|39945|H:myTestSyncTrace|M62|key=value
+<...>-30265   (-------) [003] ..... 223860.709694: tracing_mark_write: S|30265|H:myTestAsyncTrace|1001|M62|categoryTest|key=value
+<...>-30265   (-------) [003] ..... 223860.709735: tracing_mark_write: S|30265|H:myTestAsyncTrace|1002|M62|categoryTest|key=value
+<...>-30265   (-------) [003] ..... 223860.710081: tracing_mark_write: B|30265|H:myTestSyncTrace|M62|key=value
+<...>-30265   (-------) [003] ..... 223860.710305: tracing_mark_write: C|30265|H:myTestCountTrace|0|M62
+<...>-30265   (-------) [003] ..... 223860.710332: tracing_mark_write: C|30265|H:myTestCountTrace|1|M62
+<...>-30265   (-------) [003] ..... 223861.711284: tracing_mark_write: F|30265|H:myTestAsyncTrace|1002|M62
+<...>-30265   (-------) [003] ..... 223862.709901: tracing_mark_write: F|30265|H:myTestAsyncTrace|1001|M62
 ```
 
 ###  工程目录

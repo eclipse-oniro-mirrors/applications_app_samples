@@ -16,10 +16,9 @@
 
 import { Entry, Text, Column, Component, Button, ClickEvent } from '@ohos.arkui.component'
 import { State } from '@ohos.arkui.stateManagement'
-import hilog from '@ohos.hilog'
 
 // [Start TestHiTraceChain_Import]
-import { hiTraceChain, hiTraceMeter } from '@kit.PerformanceAnalysisKit';
+import { hiTraceChain, hilog } from '@kit.PerformanceAnalysisKit';
 // [End TestHiTraceChain_Import]
 
 // [Start TestHiTraceChain_TestFunc]
@@ -27,40 +26,45 @@ function InitTraceId() {
   let traceId = hiTraceChain.getId();
   if (!hiTraceChain.isValid(traceId)) {
     hilog.info(0x0000, 'testTag', 'HiTraceId is invalid, begin hiTraceChain');
-    traceId = hiTraceChain.begin('testTag: hiTraceChain begin');
-  }
-  // 使能traceId的INCLUDE_ASYNC，INCLUDE_ASYNC表示会在系统支持的异步机制里自动传递HiTraceId
-  hiTraceChain.enableFlag(traceId, hiTraceChain.HiTraceFlag.INCLUDE_ASYNC);
-  // 查询INCLUDE_ASYNC是否设置成功
-  if (hiTraceChain.isFlagEnabled(hiTraceChain.getId(), hiTraceChain.HiTraceFlag.INCLUDE_ASYNC)) {
-    hilog.info(0x0000, 'testTag', 'HiTraceFlag INCLUDE_ASYNC is enabled');
+    traceId = hiTraceChain.begin('testTag: hiTraceChain begin', hiTraceChain.HiTraceFlag.INCLUDE_ASYNC);
+  } else if (!hiTraceChain.isFlagEnabled(traceId, hiTraceChain.HiTraceFlag.INCLUDE_ASYNC)) {
+      hiTraceChain.enableFlag(traceId, hiTraceChain.HiTraceFlag.INCLUDE_ASYNC);
+      hiTraceChain.setId(traceId);
   }
   return traceId;
 }
 
+async function test(index: number) {
+  if (index > 0) {
+    await test(index - 1)
+    hilog.info(0x0000, 'testTag', `record with traceId at task ${index}`);
+  }
+}
+
 function testHiTraceIdPassedAutomatically() {
-  InitTraceId();
-  const COMMERCIAL = hiTraceMeter.HiTraceOutputLevel.COMMERCIAL;
-  hiTraceMeter.startAsyncTrace(COMMERCIAL, 'myTestAsyncTrace', 1001, 'categoryTest', 'key=value');
-  hilog.info(0x0000, 'testTag', 'start testHiTraceIdPassedAutomatically async trace');
-  Promise.resolve().then(
-    () => {
-      hiTraceMeter.finishAsyncTrace(COMMERCIAL, 'myTestAsyncTrace', 1001);
-      hilog.info(0x0000, 'testTag', 'end testHiTraceIdPassedAutomatically async trace');
-    }
-  )
+  let traceId = InitTraceId();
+  hilog.info(0x0000, 'testTag', 'record with traceId at first task');
+  test(10).then(()=>{
+    hilog.info(0x0000, 'testTag', 'record with traceId at then function');
+  })
+  hiTraceChain.end(traceId);
+  hilog.info(0x0000, 'testTag', 'hiTraceChain end in main thread');
 }
 
 function testHiTraceIdPassedManually() {
   let traceId = InitTraceId();
-  const COMMERCIAL = hiTraceMeter.HiTraceOutputLevel.COMMERCIAL;
-  hiTraceMeter.startAsyncTrace(COMMERCIAL, 'myTestAsyncTrace', 1001, 'categoryTest', 'key=value');
-  hilog.info(0x0000, 'testTag', 'start testHiTraceIdPassedAutomatically async trace');
+  hilog.info(0x0000, 'testTag', 'start testHiTraceIdPassedManually async trace');
   setTimeout(() => {
+    // 为异步定时任务设置HiTraceId
     hiTraceChain.setId(traceId);
-    hiTraceMeter.finishAsyncTrace(COMMERCIAL, 'myTestAsyncTrace', 1001);
-    hilog.info(0x0000, 'testTag', 'end testHiTraceIdPassedAutomatically async trace');
+    // 为异步定时任务生成分支标识spanId
+    let traceIdTimeout = hiTraceChain.createSpan();
+    // 为异步定时任务设置带spanId的HiTraceId
+    hiTraceChain.setId(traceIdTimeout);
+    hilog.info(0x0000, 'testTag', 'end testHiTraceIdPassedManually async trace');
   }, 100);
+  hiTraceChain.end(traceId);
+  hilog.info(0x0000, 'testTag', 'hiTraceChain end in main thread');
 }
 // [End TestHiTraceChain_TestFunc]
 
@@ -69,37 +73,15 @@ function testHiTraceIdPassedManually() {
 struct Index {
   @State stateVar: string = 'state var';
   message: string = 'var';
-
-  changeValue() {
-    this.stateVar += '~'
-  }
-
   build() {
     Column(undefined) {
-      Text('Hello World').fontSize(20)
-
       // [Start TestHiTraceChain_Button]
       Button("testHiTraceIdPassedAutomatically").backgroundColor('#FFFF00FF')
         .onClick(testHiTraceIdPassedAutomatically)
-      // [End TestHiTraceChain_Button]
 
-      // [Start TestHiTraceChain_Button]
       Button("testHiTraceIdPassedManually").backgroundColor('#FFFF00FF')
         .onClick(testHiTraceIdPassedManually)
       // [End TestHiTraceChain_Button]
-
-
-      Text(this.stateVar).fontSize(20)
-      Child({ stateVar: this.stateVar })
     }
-  }
-}
-
-@Component
-struct Child {
-  @State stateVar: string = 'Child';
-
-  build() {
-    Text(this.stateVar).fontSize(50)
   }
 }
