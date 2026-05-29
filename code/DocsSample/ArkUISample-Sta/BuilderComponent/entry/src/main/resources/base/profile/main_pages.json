@@ -1,0 +1,25 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/BuilderPrivate",
+    "pages/BuilderGlobal",
+    "pages/BuilderMakeBinding",
+    "pages/BuilderByReference",
+    "pages/BuilderByValue",
+    "pages/BuilderInCustomComponent",
+    "pages/BuilderGlobalScene",
+    "pages/BuilderDecoratorRefresh",
+    "pages/BuilderAsCustomBuilder",
+    "pages/BuilderNested",
+    "pages/BuilderCombinedV2",
+    "pages/BuilderCombinedLocal",
+    "pages/BuilderAcrossComponents",
+    "pages/BuilderVariable",
+    "pages/BuilderGeneric",
+    "pages/BuilderStateRefresh",
+    "pages/BuilderOneParam",
+    "pages/BuilderComponentV2Refresh",
+    "pages/BuilderModifyParamPositive",
+    "pages/BuilderComponentParam"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "component_basic_usage_title",
+      "value": "自定义组件基本用法"
+    },
+    {
+      "name": "entry_decorator_title",
+      "value": "@Entry装饰器"
+    },
+    {
+      "name": "component_params_title",
+      "value": "自定义组件参数规定"
+    },
+    {
+      "name": "build_function_title",
+      "value": "build()函数"
+    },
+    {
+      "name": "build_variable_declaration_title",
+      "value": "build()中变量声明"
+    },
+    {
+      "name": "build_log_print_title",
+      "value": "build()中日志打印"
+    },
+    {
+      "name": "build_switch_case_title",
+      "value": "switch/case结构"
+    },
+    {
+      "name": "build_local_scope_title",
+      "value": "本地作用域"
+    },
+    {
+      "name": "build_expression_title",
+      "value": "表达式"
+    },
+    {
+      "name": "build_not_recommended_title",
+      "value": "不建议用法"
+    },
+    {
+      "name": "component_style_title",
+      "value": "自定义组件通用样式"
+    },
+    {
+      "name": "component_extend_title",
+      "value": "支持自定义组件扩展"
+    }
+  ]
+}

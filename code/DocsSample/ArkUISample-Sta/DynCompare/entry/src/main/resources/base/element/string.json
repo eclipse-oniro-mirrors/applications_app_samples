@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "monitor_trigger_dyn_title",
+      "value": "Monitor触发机制(Dyn)"
+    },
+    {
+      "name": "global_connect_dyn_title",
+      "value": "globalConnect接口(Dyn)"
+    }
+  ]
+}

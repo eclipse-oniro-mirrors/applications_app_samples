@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "componentv2_basic_title",
+      "value": "@ComponentV2基本用法"
+    },
+    {
+      "name": "componentv2_extend_title",
+      "value": "支持自定义组件扩展"
+    }
+  ]
+}

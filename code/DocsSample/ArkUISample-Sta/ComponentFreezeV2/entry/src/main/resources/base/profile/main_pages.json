@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/FreezePage1",
+    "pages/FreezePage2",
+    "pages/FreezeTabContent",
+    "pages/FreezeNavigation",
+    "pages/FreezeMixNavigationTab"
+  ]
+}

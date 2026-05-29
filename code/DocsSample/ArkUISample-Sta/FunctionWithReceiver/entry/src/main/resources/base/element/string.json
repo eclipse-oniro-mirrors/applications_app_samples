@@ -1,0 +1,40 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "receiver_param_title",
+      "value": "Function-with-Receiver支持参数"
+    },
+    {
+      "name": "receiver_chain_title",
+      "value": "链式调用Function-with-Receiver"
+    },
+    {
+      "name": "receiver_event_title",
+      "value": "参数为function作为Event事件句柄"
+    },
+    {
+      "name": "receiver_state_title",
+      "value": "参数为状态变量"
+    },
+    {
+      "name": "receiver_scenario_before_title",
+      "value": "使用场景(不使用Function-with-Receiver)"
+    },
+    {
+      "name": "receiver_scenario_after_title",
+      "value": "使用场景(使用Function-with-Receiver)"
+    }
+  ]
+}

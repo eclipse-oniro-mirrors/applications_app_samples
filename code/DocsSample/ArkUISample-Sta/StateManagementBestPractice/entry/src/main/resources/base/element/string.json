@@ -1,0 +1,56 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "force_update_counterexample_title",
+      "value": "不使用状态变量强行更新(反例)"
+    },
+    {
+      "name": "force_update_positive_case_title",
+      "value": "使用@Local装饰状态变量(正例)"
+    },
+    {
+      "name": "precise_control_counterexamples_title",
+      "value": "精准控制状态变量关联组件数(反例)"
+    },
+    {
+      "name": "precise_control_positive_cases_title",
+      "value": "精准控制状态变量关联组件数(正例)"
+    },
+    {
+      "name": "object_control_counterexample_title",
+      "value": "对象类型状态变量冗余刷新(反例)"
+    },
+    {
+      "name": "object_control_positive_case_title",
+      "value": "使用@ObservedV2/@Trace精准刷新(正例)"
+    },
+    {
+      "name": "loop_state_inefficient_title",
+      "value": "循环中频繁读取状态变量(反例)"
+    },
+    {
+      "name": "loop_state_optimized_title",
+      "value": "预先读取状态变量到局部变量(正例)"
+    },
+    {
+      "name": "calculation_direct_state_title",
+      "value": "直接操作状态变量(反例)"
+    },
+    {
+      "name": "calculation_temp_variable_title",
+      "value": "使用临时变量替换状态变量(正例)"
+    }
+  ]
+}

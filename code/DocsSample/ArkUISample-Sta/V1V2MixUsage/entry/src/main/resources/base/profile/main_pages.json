@@ -1,0 +1,15 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/MixCommonV1ToV2",
+    "pages/MixCommonV2ToV1",
+    "pages/MixObservedV1ToV2",
+    "pages/MixObservedV2ToV1",
+    "pages/MixArrayV1ToV2",
+    "pages/MixArrayV2ToV1",
+    "pages/MixTwoDimV1ToV2",
+    "pages/MixTwoDimV2ToV1",
+    "pages/MixNestedV1ToV2",
+    "pages/MixNestedV2ToV1"
+  ]
+}

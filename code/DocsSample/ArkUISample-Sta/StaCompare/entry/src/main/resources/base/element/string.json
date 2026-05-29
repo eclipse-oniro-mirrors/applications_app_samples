@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "static_no_mutable_builder_title",
+      "value": "静态无需mutableBuilder"
+    },
+    {
+      "name": "monitor_trigger_sta_title",
+      "value": "Monitor触发机制(Sta)"
+    },
+    {
+      "name": "global_connect_sta_title",
+      "value": "globalConnect接口(Sta)"
+    }
+  ]
+}
