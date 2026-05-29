@@ -1,0 +1,7 @@
+{
+  "code-linter": {
+    "rule-set": [
+      "ohos-lint"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/PersistentStorageBasic",
+    "pages/PersistentStorageUnionType",
+    "pages/PersistentStorageDate",
+    "pages/PersistentStorageMap",
+    "pages/PersistentStorageSet",
+    "pages/PersistentStorageClass"
+  ]
+}
