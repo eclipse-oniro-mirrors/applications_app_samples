@@ -1,0 +1,7 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/samples/DrawForeground",
+    "pages/samples/DrawFrontDrawContentDrawBehind"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/samples/CheckRenderNodeDisposed",
+    "pages/samples/CustomDraw",
+    "pages/samples/CustomDrawCanvas",
+    "pages/samples/OperationNodeTree",
+    "pages/samples/RenderingProperties",
+    "pages/samples/SetLabel"
+  ]
+}

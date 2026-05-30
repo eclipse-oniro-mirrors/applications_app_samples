@@ -1,0 +1,9 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/samples/AttributeModifierSample01",
+    "pages/samples/AttributeModifierSample02",
+    "pages/samples/AttributeModifierSample03",
+    "pages/samples/AttributeModifierSample04"
+  ]
+}
