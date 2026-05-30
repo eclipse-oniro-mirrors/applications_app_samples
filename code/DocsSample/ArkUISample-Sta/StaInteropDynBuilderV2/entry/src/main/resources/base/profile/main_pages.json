@@ -1,0 +1,8 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/StaBuilderV2Ref",
+    "pages/StaBuilderV2Param",
+    "pages/StaBuilderV2Wrapped"
+  ]
+}
