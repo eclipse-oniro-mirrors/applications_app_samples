@@ -1,0 +1,12 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/StaDynStorageLsp",
+    "pages/StaDynStorageLsl",
+    "pages/StaDynStorageSp",
+    "pages/StaDynStorageSl",
+    "pages/StaDynStorageApp",
+    "pages/StaDynStoragePersist",
+    "pages/StaDynStorageEnv"
+  ]
+}
