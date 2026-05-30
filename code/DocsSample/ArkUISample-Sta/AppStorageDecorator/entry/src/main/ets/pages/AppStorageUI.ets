@@ -34,7 +34,7 @@ struct Index {
   @LocalStorageLink('LocalStorageLinkBasic') localStorageLink: number = 1;
   @StorageLink('StorageLinkObject') storageLinkObject: Data = new Data(1);
   @LocalStorageLink('LocalStorageLinkObject') localStorageLinkObject: Data = new Data(1);
-  static {
+  static {	 
     AppStorage.setOrCreate<number>('StorageLinkBasic', 47);
     AppStorage.setOrCreate<Data>('StorageLinkObject', new Data(50));
   }
@@ -55,19 +55,19 @@ struct Index {
           this.localStorageLink += 1;
         })
 
+      // class属性监听需要使用@Observed装饰才能观察变化
       Button(`From AppStorage ${this.storageLinkObject.code}`)
         .width(300)
         .margin(10)
         .onClick((e: ClickEvent) => {
-          // class属性监听需要使用@Observed装饰才能观察变化
           this.storageLinkObject.code += 1;
         })
 
+      // class属性监听需要使用@Observed装饰才能观察变化
       Button(`From LocalStorage ${this.localStorageLinkObject.code}`)
         .width(300)
         .margin(10)
         .onClick((e: ClickEvent) => {
-          // class属性监听需要使用@Observed装饰才能观察变化
           this.localStorageLinkObject.code += 1;
         })
     }

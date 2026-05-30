@@ -40,12 +40,14 @@ struct ClassSample {
 
   build() {
     Column() {
+      // @Observed修饰的class属性改变，能触发PersistentStorage的持久化
       Button(`user Id: ${this.user.userId}`)
         .width(300)
         .margin(10)
         .onClick((e: ClickEvent) => {
             this.user.userId += 10;
         })
+      // appStorage整体赋值能触发PersistentStorage的持久化
       Button(`user Id: ${this.user.userId}`)
         .width(300)
         .margin(10)
@@ -59,7 +61,6 @@ struct ClassSample {
     .width('100%')
   }
 }
-
 // [End PersistentStorageClass]
 
 @Builder

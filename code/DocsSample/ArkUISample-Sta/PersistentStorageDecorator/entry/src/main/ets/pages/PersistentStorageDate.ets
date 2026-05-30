@@ -26,7 +26,7 @@ struct DateSample {
     (date: Date): jsonx.JsonElement => {
       const root = new jsonx.JsonElement({} as Record<string, jsonx.JsonElement>);
       const dateEle = new jsonx.JsonElement({} as Record<string, jsonx.JsonElement>);
-      dateEle.setString(date.toString());
+      dateEle.setString(this.date.toString());
       root.setElement('date', dateEle);
       return root;
     }, 
@@ -39,6 +39,7 @@ struct DateSample {
 
   build() {
     Column() {
+      // @LocalStorage装饰set，set api操作，能触发PersistentStorage的持久化
       Text(`${this.date}`)
         .fontSize(20)
         .margin(10)
@@ -66,6 +67,7 @@ struct DateSample {
         .onClick((e: ClickEvent) => {
           this.date.setDate(this.date.getDate() + 1);
         })
+      // appStorage整体赋值能触发PersistentStorage的持久化
       Button(`map change by appStorage:`)
         .width(300)
         .margin(10)
@@ -79,7 +81,6 @@ struct DateSample {
     .width('100%')
   }
 }
-
 // [End PersistentStorageDate]
 
 @Builder

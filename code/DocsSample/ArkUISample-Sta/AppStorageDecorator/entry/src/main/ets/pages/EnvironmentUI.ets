@@ -24,6 +24,7 @@ import {
   Column,
   Component,
   Button,
+  ClickEvent,
   Environment,
   StoragePropRef,
   LayoutDirection,
@@ -32,7 +33,7 @@ import {
 
 @Entry
 @Component
-struct EnvironmentUIComponent {
+struct Index {
   @StoragePropRef('languageCode') languageCode: string = 'en';
   @StoragePropRef('layoutDirection') layoutDirection: LayoutDirection = LayoutDirection.RTL;
   @StoragePropRef('colorMode') colorMode: ColorMode = ColorMode.DARK;
@@ -40,6 +41,7 @@ struct EnvironmentUIComponent {
   @StoragePropRef('fontScale') fontScale: number = 5;
   @StoragePropRef('fontWeightScale') fontWeightScale: number = 10;
   @StoragePropRef('info') info: string = 'Hi';
+  // 在ArkTS-Sta中，全局的逻辑代码不会默认执行。开发者可将需要执行的逻辑代码移至static代码块中，以达到与ArkTS-Dyn一样的效果。
   static {
     Environment.envProp<string>('languageCode', 'en');
     Environment.envProp<LayoutDirection>('layoutDirection', LayoutDirection.RTL);
@@ -47,30 +49,37 @@ struct EnvironmentUIComponent {
     Environment.envProp<boolean>('accessibilityEnabled', true);
     Environment.envProp<number>('fontScale', 10);
     Environment.envProp<number>('fontWeightScale', 50);
+    // 如果key不属于系统内置参数，则可自行设置，变量将会存入AppStorage中。
     Environment.envProp<string>('info', 'Hello World!');
   }
 
   build() {
     Row() {
       Column() {
+        // 输出当前设备的languageCode
         Text(`Device languageCode is ${this.languageCode}`)
+        // 输出当前设备的layoutDirection
         Text(`Device layoutDirection is ${this.layoutDirection}`)
+        // 输出当前设备的colorMode
         Text(`Device colorMode is ${this.colorMode}`)
+        // 输出当前设备的accessibilityEnabled
         Text(`Device accessibilityEnabled is ${this.accessibilityEnabled}`)
+        // 输出当前设备的fontScale
         Text(`Device fontScale is ${this.fontScale}`)
+        // 输出当前设备的fontWeightScale
         Text(`Device fontWeightScale is ${this.fontWeightScale}`)
+        // 自己设置的info变量
         Text(`info value is ${this.info}`)
       }
     }
   }
 }
-
 // [End EnvironmentUI]
 
 @Builder
 export function environmentUI(): void {
   NavDestination() {
-    EnvironmentUIComponent();
+    Index();
   }
   .backgroundColor('#f1f2f3')
   .title($r('app.string.environment_ui_title'))
