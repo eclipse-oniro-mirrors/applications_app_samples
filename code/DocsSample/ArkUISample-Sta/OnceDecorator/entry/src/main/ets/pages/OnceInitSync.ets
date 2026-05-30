@@ -21,10 +21,15 @@ import { Button, ClickEvent, Column, ComponentV2, Entry, Local, Once, Param, Tex
 @ComponentV2
 struct ChildComponent {
   @Param @Once onceParam: string = '';
+
   build() {
     Column() {
+      // onceParam变量只在初始化时接收父组件传值。
       Text(`onceParam: ${this.onceParam}`)
+        .fontSize(20)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 
@@ -32,15 +37,22 @@ struct ChildComponent {
 @ComponentV2
 struct MyComponent {
   @Local message: string = 'Hello World';
+
   build() {
     Column() {
-      Text(`Parent message: ${this.message}`)
       Button('change message')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 修改message变量，并不会同步给子组件。
           this.message = 'Hello Tomorrow';
         })
+      Text(`Parent message: ${this.message}`)
+        .fontSize(20)
+        .margin(10)
       ChildComponent({ onceParam: this.message })
     }
+    .width('100%')
   }
 }
 

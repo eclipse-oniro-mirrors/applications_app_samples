@@ -17,38 +17,58 @@
 
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start ParamFromParentToChild]
-import { Button, ClickEvent, Column, ComponentV2, Entry, ForEach, Local, ObservedV2, Param, Require, Text, Trace } from '@kit.ArkUI';
+import {
+  Button,
+  ClickEvent,
+  Column,
+  ComponentV2,
+  Entry,
+  ForEach,
+  Local,
+  ObservedV2,
+  Param,
+  Require,
+  Text,
+  Trace
+} from '@kit.ArkUI';
 
 @ObservedV2
 class Region {
   @Trace x: number;
   @Trace y: number;
+
   constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
   }
 }
+
 @ObservedV2
 class Info {
   @Trace name: string;
   @Trace age: number;
   @Trace region: Region;
+
   constructor(name: string, age: number, x: number, y: number) {
     this.name = name;
     this.age = age;
     this.region = new Region(x, y);
   }
 }
+
 @Entry
 @ComponentV2
 struct Index {
   @Local infoList: Info[] = [new Info('Alice', 8, 0, 0), new Info('Barry', 10, 1, 20), new Info('Cindy', 18, 24, 40)];
+
   build() {
     Column() {
       ForEach(this.infoList, (info: Info, index: int) => {
         MiddleComponent({ info: info })
       })
       Button('change')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           // 对数组项整体赋值，变化同步给子组件的@Param
           this.infoList[0] = new Info('Atom', 40, 27, 90);
@@ -58,26 +78,39 @@ struct Index {
           this.infoList[2].region = new Region(7, 9);
         })
     }
+    .width('100%')
   }
 }
+
 @ComponentV2
 struct MiddleComponent {
   @Require @Param info: Info;
+
   build() {
     Column() {
       Text(`name: ${this.info.name}`)
+        .fontSize(20)
+        .margin(10)
       Text(`age: ${this.info.age}`)
+        .fontSize(20)
+        .margin(10)
       SubComponent({ region: this.info.region })
     }
+    .width('100%')
   }
 }
+
 @ComponentV2
 struct SubComponent {
   @Require @Param region: Region;
+
   build() {
     Column() {
       Text(`region: ${this.region.x}-${this.region.y}`)
+        .fontSize(20)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 

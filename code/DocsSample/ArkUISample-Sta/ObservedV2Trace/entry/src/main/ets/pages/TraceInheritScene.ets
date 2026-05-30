@@ -61,7 +61,7 @@ struct Index {
   isRender(id: number): number {
     console.info(`id: ${id} renderTimes: ${this.renderTimes}`);
     this.renderTimes++;
-    return 40;
+    return 20;
   }
 
   build() {
@@ -69,22 +69,29 @@ struct Index {
       Column() {
         Text(`Son ${this.son.age}`)
           .fontSize(this.isRender(1))
+          .margin(10)
           .fontWeight(FontWeight.Bold)
         Text(`Cousin ${this.cousin.age}`)
           .fontSize(this.isRender(2))
+          .margin(10)
           .fontWeight(FontWeight.Bold)
+        // son实例的age属性可观测
         Button('change Son age')
+          .width(300)
+          .margin(10)
           .onClick((e) => {
             this.son.age++;
           })
+        // cousin实例的age属性可观测
         Button('change Cousin age')
+          .width(300)
+          .margin(10)
           .onClick((e) => {
             this.cousin.age++;
           })
       }
       .width('100%')
     }
-    .height('100%')
   }
 }
 

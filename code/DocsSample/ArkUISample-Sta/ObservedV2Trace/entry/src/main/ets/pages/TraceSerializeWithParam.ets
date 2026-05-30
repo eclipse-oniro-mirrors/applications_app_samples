@@ -42,20 +42,29 @@ struct Index {
   build() {
     Column() {
       Text(`Source ${this.source.source} and message ${this.message}`)
+        .fontSize(20)
+        .margin(10)
       Button('+1')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.source.source += 1;
         })
       Button('Serialize')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.message = JSON.stringify(this.source);
         })
       Button('Deserialize')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           // 使用JSON.parseJsonElement反序列生成JSONElement，再传入静态方法构建实例
           this.source = Source.FromJSON(JSON.parseJsonElement('{"source": 123}'));
         })
     }
+    .width('100%')
   }
 }
 

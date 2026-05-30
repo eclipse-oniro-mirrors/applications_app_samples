@@ -16,7 +16,7 @@
  */
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start TraceObjectArray]
-import { Column, ComponentV2, Divider, Entry, ForEach, ObservedV2, Row, Text, Trace } from '@kit.ArkUI';
+import { Column, ComponentV2, Divider, Entry, ForEach, ObservedV2, Row, Text, Trace, Button } from '@kit.ArkUI';
 
 let nextId: number = 0;
 
@@ -47,36 +47,39 @@ struct Index {
 
   build() {
     Column() {
+      // 遍历展示对象数组中每个元素的age值。
+      ForEach(this.info.personList, (item: Person, index: int) => {
+        Text(`${index} ${item.age}`)
+          .fontSize(20)
+          .margin(10)
+      })
       Text(`length: ${this.info.personList.length}`)
-        .fontSize(40)
-      Divider()
+        .fontSize(20)
+        .margin(10)
       if (this.info.personList.length >= 3) {
-        Text(`${this.info.personList[0].age}`)
-          .fontSize(40)
+        Button(`${this.info.personList[0].age}`)
+          .fontSize(20)
+          .margin(10)
           .onClick((e) => {
             this.info.personList[0].age++;
           })
 
-        Text(`${this.info.personList[1].age}`)
-          .fontSize(40)
+        Button(`${this.info.personList[1].age}`)
+          .fontSize(20)
+          .margin(10)
           .onClick((e) => {
             this.info.personList[1].age++;
           })
 
-        Text(`${this.info.personList[2].age}`)
-          .fontSize(40)
+        Button(`${this.info.personList[2].age}`)
+          .fontSize(20)
+          .margin(10)
           .onClick((e) => {
             this.info.personList[2].age++;
           })
       }
-
-      Divider()
-
-      ForEach(this.info.personList, (item: Person, index: int) => {
-        Text(`${index} ${item.age}`)
-          .fontSize(40)
-      })
     }
+    .width('100%')
   }
 }
 

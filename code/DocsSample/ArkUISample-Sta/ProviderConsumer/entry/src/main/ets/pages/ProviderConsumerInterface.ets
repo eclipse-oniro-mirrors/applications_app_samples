@@ -31,16 +31,23 @@ struct Parent {
   build() {
     Column() {
       Text(`parent name: ${this.info.name}`)
+        .fontSize(20)
+        .margin(10)
       Button('parent change whole interface')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.info = { name: 'Tom' } as Info; // 变化可观察
         })
       Button('parent change interface name')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.info.name += '~'; // 变化无法观察
         })
       Child()
     }
+    .width('100%')
   }
 }
 
@@ -52,15 +59,22 @@ struct Child {
   build() {
     Column() {
       Text(`child name: ${this.info.name}`)
+        .fontSize(20)
+        .margin(10)
       Button('child change whole interface')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.info = { name: 'Jerry' } as Info; // 变化可观察
         })
       Button('child change interface name')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.info.name += '*'; // 变化无法观察
         })
     }
+    .width('100%')
   }
 }
 // [End ProviderConsumerInterface]

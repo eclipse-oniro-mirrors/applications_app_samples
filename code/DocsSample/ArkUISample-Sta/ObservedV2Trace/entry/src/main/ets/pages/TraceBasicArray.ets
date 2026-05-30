@@ -16,8 +16,21 @@
  */
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start TraceBasicArray]
-import { Button, Column, ComponentV2, Divider, Entry, FontWeight, 
-         ForEach, Row, Text, ObservedV2, Trace, List, ListItem } from '@kit.ArkUI';
+import {
+  Button,
+  Column,
+  ComponentV2,
+  Divider,
+  Entry,
+  FontWeight,
+  ForEach,
+  Row,
+  Text,
+  ObservedV2,
+  Trace,
+  List,
+  ListItem
+} from '@kit.ArkUI';
 
 let nextId: number = 0;
 
@@ -39,87 +52,96 @@ struct Index {
 
   build() {
     Column() {
-      Text(`length: ${this.arr.numberArr.length}`)
-        .fontSize(40)
-      Divider()
+      // 展开arr.numberArr数组内容
+      Text(`arr.numberArr: ${this.arr.numberArr}`)
+        .fontSize(20)
+        .margin(10)
       if (this.arr.numberArr.length >= 3) {
         Text(`${this.arr.numberArr[0]}`)
-          .fontSize(40)
+          .fontSize(20)
+          .margin(10)
           .onClick((e) => {
             this.arr.numberArr[0]++;
           })
         Text(`${this.arr.numberArr[1]}`)
-          .fontSize(40)
+          .fontSize(20)
+          .margin(10)
           .onClick((e) => {
             this.arr.numberArr[1]++;
           })
         Text(`${this.arr.numberArr[2]}`)
-          .fontSize(40)
+          .fontSize(20)
+          .margin(10)
           .onClick((e) => {
             this.arr.numberArr[2]++;
           })
       }
 
-      Divider()
-
-      List() {
-        ForEach(this.arr.numberArr, (item: number, index: int) => {
-          ListItem() {
-            Row() {
-              Text(`${index} ${item}`)
-                .fontSize(40)
-            }
-          }
-        })
-      }
-      .height('20%')
-
       Button('push')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.arr.numberArr.push(50);
         })
 
       Button('pop')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.arr.numberArr.pop();
         })
 
       Button('shift')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.arr.numberArr.shift();
         })
 
       Button('splice')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.arr.numberArr.splice(1, 0 as int, 60);
         })
 
 
       Button('unshift')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.arr.numberArr.unshift(100);
         })
 
       Button('copywithin')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.arr.numberArr.copyWithin(0, 1, 2);
         })
 
       Button('fill')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.arr.numberArr.fill(0, 2, 4);
         })
 
       Button('reverse')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.arr.numberArr.reverse();
         })
 
       Button('sort')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.arr.numberArr.sort();
         })
     }
+    .width('100%')
   }
 }
 

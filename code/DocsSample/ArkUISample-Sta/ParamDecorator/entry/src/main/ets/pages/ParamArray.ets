@@ -24,14 +24,27 @@ import { Button, ClickEvent, Column, ComponentV2, Entry, Local, Param, Require, 
 struct Index {
   @Local numArr: number[] = [1, 2, 3, 4, 5];
   @Local dimensionTwo: number[][] = [[1, 2, 3], [4, 5, 6]];
+
   build() {
     Column() {
       Text(`${this.numArr[0]}`)
+        .fontSize(20)
+        .margin(10)
       Text(`${this.numArr[1]}`)
+        .fontSize(20)
+        .margin(10)
       Text(`${this.numArr[2]}`)
+        .fontSize(20)
+        .margin(10)
       Text(`${this.dimensionTwo[0][0]}`)
+        .fontSize(20)
+        .margin(10)
       Text(`${this.dimensionTwo[1][1]}`)
+        .fontSize(20)
+        .margin(10)
       Button('change array item')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           // 修改数组项的值，变化可观察到
           this.numArr[0]++;
@@ -40,6 +53,8 @@ struct Index {
           this.dimensionTwo[1][1] = 0;
         })
       Button('change whole array')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           // 对数组整体赋值，变化可观察到
           this.numArr = [5, 4, 3, 2, 1];
@@ -50,21 +65,34 @@ struct Index {
         dimensionTwo: this.dimensionTwo
       })
     }
+    .width('100%')
   }
 }
+
 @ComponentV2
 struct Child {
   @Require @Param numArr: number[];
   @Require @Param dimensionTwo: number[][];
-  
+
   build() {
     Column() {
       Text(`${this.numArr[0]}`)
+        .fontSize(20)
+        .margin(10)
       Text(`${this.numArr[1]}`)
+        .fontSize(20)
+        .margin(10)
       Text(`${this.numArr[2]}`)
+        .fontSize(20)
+        .margin(10)
       Text(`${this.dimensionTwo[0][0]}`)
+        .fontSize(20)
+        .margin(10)
       Text(`${this.dimensionTwo[1][1]}`)
+        .fontSize(20)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 
