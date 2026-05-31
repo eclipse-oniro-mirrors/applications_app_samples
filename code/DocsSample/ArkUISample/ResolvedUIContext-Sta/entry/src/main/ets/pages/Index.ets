@@ -1,0 +1,54 @@
+'use static'
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start Common_Index]
+// pages/Index.ets
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import {
+  Column,
+  Component,
+  Entry,
+  FlexAlign,
+  FontWeight,
+  HorizontalAlign,
+  Text
+} from '@ohos.arkui.component';
+import { UIContext } from '@ohos.arkui.UIContext';
+
+const DOMAIN = 0x0000;
+
+@Entry
+@Component
+struct Index {
+  build() {
+    Column() {
+      Text('Calculate 20vp to px')
+        .fontWeight(FontWeight.Bold)
+        .onClick(() => {
+          // 在有UI实例且上下文明确时调用，此时会根据此时UI上下文对应的实例的像素密度返回计算结果。
+          // 此时UIContext对象的解析策略ResolveStrategy为CALLING_SCOPE。
+          let resolvedUIContext = UIContext.resolveUIContext();
+          let pxValue = resolvedUIContext.vp2px(20);
+        })
+    }
+    .height('100%')
+    .width('100%')
+    .justifyContent(FlexAlign.Center)
+    .alignItems(HorizontalAlign.Center)
+  }
+}
+
+// [End Common_Index]
