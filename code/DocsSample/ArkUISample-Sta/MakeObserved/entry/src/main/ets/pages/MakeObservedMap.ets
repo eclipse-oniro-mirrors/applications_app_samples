@@ -18,31 +18,52 @@
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start MakeObservedMap]
 import { Button, ClickEvent, Column, Component, Divider, Entry, ForEach, Row, Text, UIUtils } from '@kit.ArkUI';
+
 @Entry
 @Component
 struct MapSample {
-  message: Map<number, string> = UIUtils.makeObserved(new Map<number, string>([[0, 'a'], [1, 'b'], [3, 'c']]));
+  message: Map<int, string> = UIUtils.makeObserved(new Map<int, string>([[0, 'a'], [1, 'b'], [3, 'c']]));
 
   build() {
     Row() {
       Column() {
-        ForEach(Array.from(this.message.entries()), (item: [number, string]) => {
-          Text(`${item[0]}`).fontSize(30)
-          Text(`${item[1]}`).fontSize(30)
+        ForEach(Array.from(this.message.entries()), (item: [int, string]) => {
+          Text(`${item[0]}`)
+            .fontSize(20)
+            .margin(10)
+          Text(`${item[1]}`)
+            .fontSize(20)
+            .margin(10)
           Divider()
         })
-        Button('set new one').onClick((e: ClickEvent) => {
-          this.message.set(4, 'd');
-        })
-        Button('clear').onClick((e: ClickEvent) => {
-          this.message.clear();
-        })
-        Button('replace the first one').onClick((e: ClickEvent) => {
-          this.message.set(0, 'aa');
-        })
-        Button('delete the first one').onClick((e: ClickEvent) => {
-          this.message.delete(0);
-        })
+        // 新增键值对，触发UI刷新
+        Button('set new one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            this.message.set(4, 'd');
+          })
+        // 更新键值对，触发UI刷新
+        Button('replace the first one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            this.message.set(0, 'aa');
+          })
+        // 删除键值对，触发UI刷新
+        Button('delete the first one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            this.message.delete(0);
+          })
+        // 清空Map，触发UI刷新
+        Button('clear')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            this.message.clear();
+          })
       }
       .width('100%')
     }

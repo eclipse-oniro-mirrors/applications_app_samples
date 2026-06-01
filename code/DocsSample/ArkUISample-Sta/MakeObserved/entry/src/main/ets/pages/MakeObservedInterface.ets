@@ -17,22 +17,32 @@
 
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start MakeObservedInterface]
-import { ClickEvent, Column, Component, Entry, Text, UIUtils } from '@kit.ArkUI';
+import { ClickEvent, Column, Component, Entry, Text, UIUtils, Button } from '@kit.ArkUI';
+
 interface Info {
   name: string,
-  age: number
+  age: int
 }
+
 @Entry
 @Component
 struct Index {
-  info: Info = UIUtils.makeObserved({ name: 'Jack', age: 25} as Info) as Info;
+  info: Info = UIUtils.makeObserved({ name: 'Jack', age: 25 } as Info) as Info;
+
   build() {
     Column() {
       Text(`info.name: ${this.info.name}`)
+        .fontSize(20)
+        .margin(10)
+      Button('change info name')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 由于info变量可深度观察，故该属性变化可触发UI刷新。
           this.info.name = 'Tom';
         })
     }
+    .width('100%')
   }
 }
 
