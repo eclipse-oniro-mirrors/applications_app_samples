@@ -1,8 +1,8 @@
 {
   "routerMap": [
     {
-      "name": "Page2",
-      "pageSourceFile": "src/main/ets/pages/AppStorageV2TwoPages.ets",
+      "name": "AppStorageV2Navigation",
+      "pageSourceFile": "src/main/ets/pages/AppStorageV2Navigation.ets",
       "buildFunction": "Page2Builder",
       "data": {
         "description" : "AppStorageV2 example"

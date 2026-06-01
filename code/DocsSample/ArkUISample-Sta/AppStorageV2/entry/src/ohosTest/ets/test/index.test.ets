@@ -34,46 +34,7 @@ export default function IndexTest() {
       let driver: Driver = Driver.create();
     })
 
-    /**
-     * @tc.number UiTest_001
-     * @tc.name AppStorageV2Basic示例测试
-     * @tc.desc 测试AppStorageV2基本使用
-     * @tc.level: Level 1
-     */
-    it('AppStorageV2BasicTest', Level.LEVEL1, async (done: Function) => {
-      await router.pushUrl({ url: 'pages/AppStorageV2Basic' });
-      let btn = await driver.findComponent(ON.text('Index userID', MatchPattern.CONTAINS));
-      await btn.click();
-      done();
-    });
-
-    /**
-     * @tc.number UiTest_002
-     * @tc.name AppStorageV2RemoveTest
-     * @tc.desc 测试AppStorageV2 remove功能
-     * @tc.level: Level 1
-     */
-    it('AppStorageV2RemoveTest', Level.LEVEL1, async (done: Function) => {
-      await router.pushUrl({ url: 'pages/AppStorageV2Basic' });
-      let btn = await driver.findComponent(ON.text('remove keyOrType', MatchPattern.CONTAINS));
-      await btn.click();
-      done();
-    });
-
-    /**
-     * @tc.number UiTest_003
-     * @tc.name AppStorageV2ConnectTest
-     * @tc.desc 测试AppStorageV2 connect功能
-     * @tc.level: Level 1
-     */
-    it('AppStorageV2ConnectTest', Level.LEVEL1, async (done: Function) => {
-      await router.pushUrl({ url: 'pages/AppStorageV2Basic' });
-      let btn = await driver.findComponent(ON.text('connect ttype', MatchPattern.CONTAINS));
-      await btn.click();
-      done();
-    });
-
-    /**
+/**
      * @tc.number UiTest_004
      * @tc.name AppStorageV2TwoPages示例测试
      * @tc.desc 测试AppStorageV2两页面场景
@@ -82,6 +43,19 @@ export default function IndexTest() {
     it('AppStorageV2TwoPagesTest', Level.LEVEL1, async (done: Function) => {
       await router.pushUrl({ url: 'pages/AppStorageV2TwoPages' });
       let btn = await driver.findComponent(ON.text('Go to page2', MatchPattern.CONTAINS));
+      await btn.click();
+      done();
+    });
+
+    /**
+     * @tc.number UiTest_005
+     * @tc.name AppStorageV2Navigation示例测试
+     * @tc.desc 测试AppStorageV2 Navigation场景
+     * @tc.level: Level 1
+     */
+    it('AppStorageV2NavigationTest', Level.LEVEL1, async (done: Function) => {
+      await router.pushUrl({ url: 'pages/AppStorageV2Navigation' });
+      let btn = await driver.findComponent(ON.text('Go to Page2', MatchPattern.CONTAINS));
       await btn.click();
       done();
     });

@@ -23,6 +23,10 @@
     {
       "name": "app_storage_v2_two_pages_title",
       "value": "两页面场景"
+    },
+    {
+      "name": "app_storage_v2_navigation_title",
+      "value": "Navigation场景"
     }
   ]
 }

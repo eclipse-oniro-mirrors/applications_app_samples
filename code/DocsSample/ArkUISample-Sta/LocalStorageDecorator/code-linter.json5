@@ -1,0 +1,9 @@
+{
+  "code-linter": {
+    "code-linter-config": {
+      "rules": {
+      },
+      "code-linter-config-file": "code-linter.json5"
+    }
+  }
+}
