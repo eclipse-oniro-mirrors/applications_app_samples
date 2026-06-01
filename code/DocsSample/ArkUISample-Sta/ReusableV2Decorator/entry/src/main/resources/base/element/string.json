@@ -1,0 +1,60 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "reusable_v2_basic_usage_title",
+      "value": "@ReusableV2装饰器说明"
+    },
+    {
+      "name": "reusable_v2_lifecycle_title",
+      "value": "回收与复用的生命周期"
+    },
+    {
+      "name": "reusable_v2_freeze_title",
+      "value": "复用阶段的冻结"
+    },
+    {
+      "name": "reusable_v2_reset_title",
+      "value": "复用前的组件内状态变量重置"
+    },
+    {
+      "name": "reusable_v2_reset_monitor_title",
+      "value": "@Monitor重置示例"
+    },
+    {
+      "name": "reusable_v2_if_usage_title",
+      "value": "在if组件中使用"
+    },
+    {
+      "name": "reusable_v2_repeat_usage_title",
+      "value": "在Repeat组件中使用"
+    },
+    {
+      "name": "reusable_v2_repeat_template_title",
+      "value": "在Repeat的template中使用"
+    },
+    {
+      "name": "reusable_v2_repeat_no_lazy_title",
+      "value": "在Repeat组件非懒加载场景中使用"
+    },
+    {
+      "name": "reusable_v2_foreach_usage_title",
+      "value": "在ForEach组件中使用"
+    },
+    {
+      "name": "reusable_v2_lazy_foreach_usage_title",
+      "value": "在LazyForEach组件中使用"
+    }
+  ]
+}
