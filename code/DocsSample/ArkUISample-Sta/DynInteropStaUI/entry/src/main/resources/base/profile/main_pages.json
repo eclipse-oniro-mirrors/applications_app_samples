@@ -1,0 +1,22 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/Component",
+    "pages/BuilderByCallback",
+    "pages/BuilderByRef",
+    "pages/BuilderByValue",
+    "pages/WrappedBuilderByRef",
+    "pages/WrappedBuilderByValue",
+    "pages/BuilderParamByRef",
+    "pages/BuilderParamByValue",
+    "pages/DeclarationSpec",
+    "pages/DeclarationSpecV2",
+    "pages/DeclarationSpecBuilder",
+    "pages/ESArray",
+    "pages/STArray",
+    "pages/ESMap",
+    "pages/STMap",
+    "pages/ESSet",
+    "pages/STSet"
+  ]
+}

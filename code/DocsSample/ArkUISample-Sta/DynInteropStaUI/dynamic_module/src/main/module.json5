@@ -1,0 +1,9 @@
+{
+  "module": {
+    "name": "dynamic_module",
+    "type": "har",
+    "deviceTypes": [
+      "default"
+    ]
+  }
+}
