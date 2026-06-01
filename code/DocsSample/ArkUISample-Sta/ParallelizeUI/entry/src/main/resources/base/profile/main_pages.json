@@ -1,5 +1,10 @@
 {
   "src": [
-    "pages/Index"
+    "pages/Index",
+    "pages/ExternalState",
+    "pages/ParameterConstruction",
+    "pages/Page",
+    "pages/ParallelDemo",
+    "pages/ListParallel"
   ]
 }

@@ -5,7 +5,6 @@ import Want from '@ohos.app.ability.Want';
 import window from '@ohos.window';
 import { BusinessError } from '@ohos.base';
 import hilog from '@ohos.hilog';
-import { MyCallback } from '../models/MyCallback';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
@@ -17,7 +16,6 @@ export default class EntryAbility extends UIAbility {
     try {
       windowStage.loadContent('pages/Index', (err: BusinessError<void> | null): void => {
         hilog.info(0x0000, 'testTag', 'loadContent entering');
-        MyCallback.runCasesOfCallback();
         if (err && err.code) {
           hilog.info(0x0000, 'testTag', 'loadContent error');
           return;

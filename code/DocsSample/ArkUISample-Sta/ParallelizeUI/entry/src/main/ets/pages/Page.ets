@@ -1,285 +1,116 @@
 'use static'
 
-import {
-  Text,
-  TextAttribute,
-  Column,
-  Component,
-  Button,
-  ButtonAttribute,
-  ClickEvent,
-  Row,
-  TextAlign,
-  Entry,
-  Stack,
-  Grid,
-  GridItem,
-  Toggle,
-  Image,
-  ToggleType,
-  $r,
-  ImageFit,
-  Alignment,
-  Margin,
-  Position,
-  Scroller,
-  Scroll,
-  Flex,
-  ForEach,
-  ScrollDirection,
-  BarState,
-  FontWeight,
-  List,
-  ListItem,
-  Axis
-} from '@ohos.arkui.component';
-import {
-  State,
-  PropRef,
-  Link
-} from '@ohos.arkui.stateManagement';
+// [Start parallelComponents_start]
+// ArkTS-Sta示例
+import { Entry, Text, Column, Component, Button, ClickEvent, Margin, Row, GridItem, Image, ImageFit, $r, Grid, ForEach } from '@ohos.arkui.component';
+import { State } from '@ohos.arkui.stateManagement';
 import { ParallelOption, ParallelizeUI } from '@ohos.arkui.Parallelize';
-import hilog from '@ohos.hilog';
-import { cardTypeInfos1, cardTypeInfos2, CardInfo, AppCardInfo, ServiceCardInfo, ServiceItemInfo, AppItemInfo } from './MockData';
 
-class PageInfo {
-  private name: string = ''
-  private id: int = 0
-  constructor(name:string, id:int) {
-    this.name = name
-    this.id = id
+class WeatherInfo {
+  city:string = ''
+  temperature:number = 0
+  weather:int = 0
+  constructor(city:string, temperature:number, weather:int) {
+    this.city = city
+    this.temperature = temperature
+    this.weather = weather
   }
-}
-
-// ServiceItem.ets - 服务项组件
-@Component
-export struct ServiceItem {
-  @PropRef info: ServiceItemInfo;
-
-  build() {
-    Stack({ alignContent: Alignment.Bottom }) {
-      Column()
-        .width('100%')
-        .height('100%')
-        .backgroundColor(this.info.iconColor)
-        .borderRadius(10)
-
-      Column() {
-        Text(this.info.describeInfo)
-          .height(20)
-          .width(100)
-          .fontSize(11)
-
-        Row() {
-          Stack() {
-            Image(this.info.iconSrc)
-              .width('100%')
-              .height('100%')
-
-            Column()
-              .width('100%')
-              .height('100%')
-              .backgroundColor(this.info.iconColor)
-          }
-          .width('30%')
-          .height('80%')
-          .backgroundColor('#eeeeee')
-          .clip(true)
-          .borderRadius(5)
-
-          Text(this.info.name)
-            .height(20)
-            .width(70)
-            .fontSize(10)
-        }
-        .height(20)
-        .width(60)
-        .position({ x: 20, y: 20 } as Position)
-      }
-      .width('100%')
-      .height('40%')
-      .backgroundColor('#eeeeee')
+  getImg():string {
+    switch (this.weather) {
+      case 0:
+        return 'app.media.cloudy'
+      case 1:
+        return 'app.media.snow'
+      case 2:
+        return 'app.media.sunny'
+      case 3:
+        return 'app.media.rain'
+      default:
+        break;
     }
-    .width('30%')
-    .height('80%')
-    .backgroundColor('#eeeeee')
-    .clip(true)
-    .margin({ left: 0, top: 8, right: 8, bottom: 0 } as Margin)
-    .borderRadius(10)
+    return 'app.media.sunny'
   }
 }
 
-// AppItem.ets - 应用项组件
-@Component
-export struct AppItem {
-  @PropRef info: AppItemInfo;
+let array : Array<WeatherInfo> = new Array<WeatherInfo>();
 
-  build() {
-    Column() {
-      Stack() {
-        Column()
-          .width('100%')
-          .height('100%')
-          .backgroundColor(this.info.iconColor)
-          .borderRadius(10)
-      }
-      .width('70%')
-      .height('80%')
-      .backgroundColor('#eeeeee')
-      .clip(true)
-      .borderRadius(10)
+array!.push(new WeatherInfo('杭州', 40, 3));
+array!.push(new WeatherInfo('上海', 39, 2));
+array!.push(new WeatherInfo('南京', 37, 1));
+array!.push(new WeatherInfo('苏州', 36, 0));
+array!.push(new WeatherInfo('湖州', 35, 3));
+array!.push(new WeatherInfo('无锡', 34, 2));
+array!.push(new WeatherInfo('常州', 32, 1));
+array!.push(new WeatherInfo('嘉兴', 31, 1));
 
-      Text(this.info.name)
-        .width('80%')
-        .height('20%')
-        .fontSize(10)
-    }
-    .width('100%')
-    .height('100%')
-    .padding(5)
-    .backgroundColor('#ffffff')
-  }
-}
-
-// AppCard.ets - 应用卡片组件
-@Component
-export struct AppCard {
-  @PropRef info: AppCardInfo;
-
-  build() {
-    Column() {
-      Text(this.info.name)
-        .width('90%')
-        .height('10%')
-        .fontSize(16)
-
-      Grid() {
-        ForEach(this.info.items, (item: AppItemInfo, index: Int) => {
-          GridItem() {
-            AppItem({ info: item })
-          }
-          .width('20%')
-          .height('24%')
-        }, (item: AppItemInfo, index: Int) => index.toString())
-      }
-      .width('100%')
-      .height('90%')
-      .columnsTemplate('1fr 1fr 1fr 1fr 1fr')
-      .columnsGap(3)
-      .rowsGap(0)
-    }
-    .width('95%')
-    .height('40%')
-    .backgroundColor('#ffffff')
-    .borderRadius(10)
-    .padding(5)
-  }
-}
-
-// ServiceCard.ets - 服务卡片组件
-@Component
-export struct ServiceCard {
-  @PropRef info: ServiceCardInfo;
-
-  build() {
-    Column() {
-      Text(this.info.name)
-        .width('90%')
-        .height('10%')
-        .fontSize(16)
-
-      List({ space: 8 }) {
-        ForEach(this.info.items, (item: ServiceItemInfo, index: Int) => {
-          ListItem() {
-            ServiceItem({ info: item })
-          }
-        }, (item: ServiceItemInfo, index: Int) => index.toString())
-      }
-      .listDirection(Axis.Horizontal) // 横向滚动
-    }
-    .width('95%')
-    .height('20%')
-    .backgroundColor('#ffffff')
-    .borderRadius(10)
-    .padding(5)
-  }
-}
-
-class Param {
-  private pi:PageInfo
-  constructor(pi: PageInfo) {
-    this.pi = pi
-  }
-}
 
 @Entry
 @Component
 struct Page {
-  isEnable: boolean = false;
-  @State message: string = 'CreatePageUsingParallelizeUI';
-  @State page: PageInfo = new PageInfo('页面', 1);
+  @State infos :Array<WeatherInfo> = new Array<WeatherInfo>();
 
-  aboutToAppear(): void {
-    const params = this.getUIContext().getRouter().getParams();
-    if (!this.isEnable) {
-      this.message = 'CreatePageWithoutUsingParallelizeUI';
-    } else {
-      this.message = 'CreatePageUsingParallelizeUI'
-    }
+  aboutToAppear() {
+    this.infos.push(array[0])
+    this.infos.push(array[1])
+    this.infos.push(array[2])
+    this.infos.push(array[3])
   }
 
   build() {
-    Flex() {
-      Column() {
-        Button(`${this.message}`).fontSize('20')
-          .width('100%')
-          .backgroundColor('#007DFF')
-          .align(Alignment.Top)
-          .zIndex(10)
-          .onClick((e: ClickEvent) => {
-            this.page = new PageInfo('页面状态更新', 2);
-          })
-        Scroll() {
-          Column() {
-            // 串行创建
-            ForEach(cardTypeInfos1, (cardInfo: CardInfo, index: Int) => {
-              Column() {
-                if (cardInfo.type === 'App' && cardInfo.appCardInfo) {
-                  AppCard({ info: cardInfo.appCardInfo })
-                } else if (cardInfo.type === 'Service' && cardInfo.serviceCardInfo) {
-                  ServiceCard({ info: cardInfo.serviceCardInfo })
-                }
-              }
-              .margin({ left: 8, top: 0, right: 8, bottom: 0 } as Margin)
-            }, (cardInfo: CardInfo, index: Int) => index.toString())
-
-            // 并行创建
-            ParallelizeUI<Param>({enable: this.isEnable}, () => { return new Param(this.page); }, (param: Param)=>{
-              ForEach(cardTypeInfos2, (cardInfo: CardInfo, index: Int) => {
+    Column() {
+      Button('Update')
+        .onClick((e: ClickEvent) => {
+          this.infos[0] = new WeatherInfo('北京', 30, 2); // 外层状态变量刷新
+        })
+        .width(200)
+        .height(50)
+      Grid() {
+        ParallelizeUI<WeatherInfo>(undefined,
+          () => { return new WeatherInfo(this.infos[0].city, this.infos[0].temperature, this.infos[0].weather); },
+          (param: WeatherInfo) => {
+            // 第一个GridItem使用并行创建
+            GridItem() {
+              Row() {
                 Column() {
-                  Column() {
-                    Text(param.pi.name).fontSize('20')
-                  }
-                  if (cardInfo.type === 'App' && cardInfo.appCardInfo) {
-                    AppCard({ info: cardInfo.appCardInfo })
-                  } else if (cardInfo.type === 'Service' && cardInfo.serviceCardInfo) {
-                    ServiceCard({ info: cardInfo.serviceCardInfo })
-                  }
+                  Text(param.city).fontSize('25')
+                  Text(param.temperature.toString()).fontSize('25')
                 }
-                .margin({ left: 8, top: 0, right: 8, bottom: 0 } as Margin)
-              }, (cardInfo: CardInfo, index: Int) => index.toString())
-            })
+                Image($r(param.getImg()))
+                  .objectFit(ImageFit.Contain)
+              }
+              .width('100%')
+              .height('100%')
+            }
+            .width('100%')
+            .height(100)
+            .borderWidth(2).borderColor(0xAFEEEE)
+          })
+        // 剩余3个GridItem使用串行创建
+        ForEach(this.infos.slice(1), (item: WeatherInfo) => {
+          GridItem() {
+            Row() {
+              Column() {
+                Text(item.city).fontSize('25')
+                Text(item.temperature.toString()).fontSize('25')
+              }
+              Image($r(item.getImg()))
+                .objectFit(ImageFit.Contain)
+            }
+            .width('100%')
+            .height('100%')
           }
-        }
-        .scrollBar(BarState.Off)
-        .width('100%')
-        .height('100%')
+          .width('100%')
+          .height(100)
+          .borderWidth(2).borderColor(0xAFEEEE)
+        })
       }
-      .backgroundColor('#EEEEEE')
+      .columnsTemplate('1fr 1fr')
+      .columnsGap(20)
+      .rowsGap(20)
       .width('100%')
       .height('100%')
+      .margin({ top: 100 } as Margin)
     }
-    .width('100%')
-    .height('100%')
   }
 }
+// [End parallelComponents_start]
