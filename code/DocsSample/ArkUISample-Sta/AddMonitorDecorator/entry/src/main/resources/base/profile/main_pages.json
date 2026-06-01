@@ -1,0 +1,17 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/AddMonitorBasic",
+    "pages/AddMonitorDuplicated",
+    "pages/AddMonitorSyncMode",
+    "pages/AddMonitorOwner",
+    "pages/AddMonitorPath",
+    "pages/AddMonitorFreeze",
+    "pages/AddMonitorObservedV2Local",
+    "pages/AddMonitorArray",
+    "pages/AddMonitorSyncCallback",
+    "pages/AddMonitorConstructor",
+    "pages/AddMonitorDynamicCancel",
+    "pages/AddMonitorObjectProperty"
+  ]
+}

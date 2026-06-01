@@ -1,0 +1,64 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "add_monitor_basic_title",
+      "value": "监听单个和多个状态变量"
+    },
+    {
+      "name": "add_monitor_duplicated_title",
+      "value": "重复监听示例"
+    },
+    {
+      "name": "add_monitor_sync_mode_title",
+      "value": "同步监听模式"
+    },
+    {
+      "name": "add_monitor_owner_title",
+      "value": "组件作为owner"
+    },
+    {
+      "name": "add_monitor_path_title",
+      "value": "配置path参数"
+    },
+    {
+      "name": "add_monitor_freeze_title",
+      "value": "组件冻结功能"
+    },
+    {
+      "name": "add_monitor_observed_v2_local_title",
+      "value": "监听@ObservedV2/@Trace与@ComponentV2/@Local"
+    },
+    {
+      "name": "add_monitor_array_title",
+      "value": "监听数组元素和长度"
+    },
+    {
+      "name": "add_monitor_sync_callback_title",
+      "value": "配置同步监听回调"
+    },
+    {
+      "name": "add_monitor_constructor_title",
+      "value": "监听构造函数中同步修改"
+    },
+    {
+      "name": "add_monitor_dynamic_cancel_title",
+      "value": "动态取消监听"
+    },
+    {
+      "name": "add_monitor_object_property_title",
+      "value": "观察对象属性"
+    }
+  ]
+}

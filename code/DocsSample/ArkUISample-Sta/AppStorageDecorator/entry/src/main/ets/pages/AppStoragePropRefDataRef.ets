@@ -57,6 +57,7 @@ struct Index {
         .margin(10)
         .onClick((e: ClickEvent) => {
           this.data.code += 10;
+          // 如果只点击该Button，由于data是AppStorage中数据源的引用，则AppStorage中数据源的属性也会修改。
           console.info(`PropRefA in AppStorage ${AppStorage.get<Data>('PropRefA')!.code}`);
         })
 
@@ -65,6 +66,7 @@ struct Index {
         .margin(10)
         .onClick((e: ClickEvent) => {
           this.data = new Data(200);
+          // 如果点击该Button，本地的data变量会引用新的对象，所以不会影响AppStorage中的数据源。
           console.info(`PropRefA in AppStorage ${AppStorage.get<Data>('PropRefA')!.code}`);
         })
     }

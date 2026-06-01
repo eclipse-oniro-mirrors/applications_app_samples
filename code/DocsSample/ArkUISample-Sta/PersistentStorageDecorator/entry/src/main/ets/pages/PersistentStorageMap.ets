@@ -49,6 +49,7 @@ struct MapSample {
 
   build() {
     Column() {
+      // @LocalStorage装饰set，set api操作，能触发PersistentStorage的持久化
       Text(`${this.map}`)
         .fontSize(20)
         .margin(10)
@@ -64,6 +65,7 @@ struct MapSample {
         .onClick((e: ClickEvent) => {
             this.map.delete('4');
         })
+      // appStorage整体赋值能触发PersistentStorage的持久化
       Button(`map change by appStorage:`)
         .width(300)
         .margin(10)
@@ -81,7 +83,6 @@ struct MapSample {
     .width('100%')
   }
 }
-
 // [End PersistentStorageMap]
 
 @Builder

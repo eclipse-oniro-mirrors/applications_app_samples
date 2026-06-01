@@ -49,6 +49,7 @@ struct SetSample {
 
   build() {
     Column() {
+      // @LocalStorage装饰set，set api操作，能触发PersistentStorage的持久化
       Text(`${Array.from(this.set)}`)
         .fontSize(20)
         .margin(10)
@@ -64,6 +65,7 @@ struct SetSample {
         .onClick((e: ClickEvent) => {
             this.set.delete('value4');
         })
+      // appStorage整体赋值能触发PersistentStorage的持久化
       Button(`set change by appStorage:`)
         .width(300)
         .margin(10)
@@ -81,7 +83,6 @@ struct SetSample {
     .width('100%')
   }
 }
-
 // [End PersistentStorageSet]
 
 @Builder

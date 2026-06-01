@@ -51,6 +51,7 @@ struct UnionTypeSample {
 
   build() {
     Column() {
+      // @LocalStorage装饰set，set api操作，能触发PersistentStorage的持久化
       Text(`${this.union}`)
         .fontSize(20)
         .margin(10)
@@ -66,6 +67,7 @@ struct UnionTypeSample {
             this.union = 3;
           }
         })    
+      // appStorage整体赋值能触发PersistentStorage的持久化
       Button(`map change by appStorage:`)
         .width(300)
         .margin(10)
@@ -78,7 +80,6 @@ struct UnionTypeSample {
     .width('100%')
   }
 }
-
 // [End PersistentStorageUnionType]
 
 @Builder
