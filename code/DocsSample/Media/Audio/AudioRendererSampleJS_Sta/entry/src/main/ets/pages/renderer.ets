@@ -13,10 +13,10 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-import hilog from '@ohos.hilog'
-import { ReadOptions } from '@ohos.file.fs'
-import { State } from '@ohos.arkui.stateManagement'
-import { Entry, Component, Column, Row, Text, Scroll, Button, Color, HorizontalAlign, FlexAlign, TextOverflow } from '@ohos.arkui.component'
+import hilog from '@ohos.hilog';
+import { ReadOptions } from '@ohos.file.fs';
+import { State } from '@ohos.arkui.stateManagement';
+import { Entry, Component, Column, Row, Text, Scroll, Button, Color, HorizontalAlign, FlexAlign, TextOverflow } from '@ohos.arkui.component';
 
 // [Start render_process]
 // [Start init_oncallback]
@@ -545,9 +545,9 @@ async function getCurrentAudioRendererInfoArray(): Promise<void> {
 @Entry
 @Component
 struct Index {
-  @State currentState: string = '当前状态: 未初始化';
-  @State logMessages: string = '暂无日志';
-  @State callbackMessages: string = '暂无回调信息';
+  @State currentState: string = 'Current State: Not initialized';
+  @State logMessages: string = 'No logs';
+  @State callbackMessages: string = 'No callback info';
 
   aboutToAppear() {
     globalLogUpdate = (msg: string, isError: boolean) => {
@@ -566,7 +566,7 @@ struct Index {
       Column() {
         // 信息显示区域
         Column() {
-          Text('当前状态').fontSize(14).fontColor('#999999').margin({ bottom: 8 })
+          Text('Current State').fontSize(14).fontColor('#999999').margin({ bottom: 8 })
           Text(this.currentState).fontSize(14).fontColor('#007DFF')
         }
         .width('95%')
@@ -577,7 +577,7 @@ struct Index {
         .alignItems(HorizontalAlign.Start)
 
         Column() {
-          Text('日志信息').fontSize(14).fontColor('#999999').margin({ bottom: 8 })
+          Text('Log Info').fontSize(14).fontColor('#999999').margin({ bottom: 8 })
           Text(this.logMessages)
             .fontSize(14)
             .fontColor(this.logMessages.includes('Failed') || this.logMessages.includes('failed') ||
@@ -591,7 +591,7 @@ struct Index {
         .alignItems(HorizontalAlign.Start)
 
         Column() {
-          Text('回调信息').fontSize(14).fontColor('#999999').margin({ bottom: 8 })
+          Text('Callback Info').fontSize(14).fontColor('#999999').margin({ bottom: 8 })
           Text(this.callbackMessages).fontSize(14).fontColor('#FA8C16')
         }
         .width('95%')
@@ -603,7 +603,7 @@ struct Index {
 
         Row() {
           Column() {
-            Text('初始化').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+            Text('Init').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
           }
           .backgroundColor(Color.White)
           .borderRadius(30)
@@ -614,11 +614,11 @@ struct Index {
             let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
             initArguments(context);
             init();
-            this.currentState = '已初始化';
+            this.currentState = 'Initialized';
           });
 
           Column() {
-            Text('开始播放').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+            Text('Start Play').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
           }
           .backgroundColor(Color.White)
           .borderRadius(30)
@@ -627,13 +627,13 @@ struct Index {
           .margin({ bottom: 12 })
           .onClick(() => {
             start();
-            this.currentState = '已开始';
+            this.currentState = 'Started';
           });
         }
 
         Row() {
           Column() {
-            Text('暂停播放').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+            Text('Pause Play').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
           }
           .id('audio_effect_manager_card')
           .backgroundColor(Color.White)
@@ -643,11 +643,11 @@ struct Index {
           .margin({ right: 12, bottom: 12 })
           .onClick(() => {
             pause();
-            this.currentState = '已暂停';
+            this.currentState = 'Paused';
           });
 
           Column() {
-            Text('停止播放').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+            Text('Stop Play').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
           }
           .backgroundColor(Color.White)
           .borderRadius(30)
@@ -656,13 +656,13 @@ struct Index {
           .margin({ bottom: 12 })
           .onClick(() => {
             stop();
-            this.currentState = '已停止';
+            this.currentState = 'Stopped';
           });
         }
 
         Row() {
           Column() {
-            Text('释放资源').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+            Text('Release').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
           }
           .id('audio_volume_card')
           .backgroundColor(Color.White)
@@ -672,11 +672,11 @@ struct Index {
           .margin({ right: 12, bottom: 12 })
           .onClick(() => {
             release();
-            this.currentState = '已释放';
+            this.currentState = 'Released';
           });
 
           Column() {
-            Text('获取音频流音量').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+            Text('Get Stream Volume').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
           }
           .id('audio_volume_card')
           .backgroundColor(Color.White)
@@ -691,7 +691,7 @@ struct Index {
 
         Row() {
           Column() {
-            Text('设置应用的音量').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+            Text('Set App Volume').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
           }
           .id('audio_volume_card')
           .backgroundColor(Color.White)
@@ -703,7 +703,7 @@ struct Index {
             setAPPvolume();
           });
           Column() {
-            Text('设置音频流音量').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+            Text('Set Stream Volume').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
           }
           .id('audio_volume_card')
           .backgroundColor(Color.White)
@@ -718,7 +718,7 @@ struct Index {
 
         Row() {
           Column() {
-            Text('是否支持空间音频').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+            Text('Spatial Audio Supported').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
           }
           .id('audio_volume_card')
           .backgroundColor(Color.White)
@@ -730,7 +730,7 @@ struct Index {
             getDevicesSync();
           });
           Column() {
-            Text('查询空间音频开关状态').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+            Text('Query Spatial Audio Status').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
           }
           .id('audio_volume_card')
           .backgroundColor(Color.White)
@@ -745,7 +745,7 @@ struct Index {
 
         Row() {
           Column() {
-            Text('订阅开关状态事件').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+            Text('Subscribe Status Event').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
           }
           .id('audio_volume_card')
           .backgroundColor(Color.White)
@@ -757,7 +757,7 @@ struct Index {
             on();
           });
           Column() {
-            Text('取消订阅').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+            Text('Unsubscribe').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
           }
           .id('audio_volume_card')
           .backgroundColor(Color.White)
@@ -772,7 +772,7 @@ struct Index {
 
         Row() {
           Column() {
-            Text('查看播放的状态').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+            Text('Check Play State').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
           }
           .id('audio_volume_card')
           .backgroundColor(Color.White)
@@ -785,7 +785,7 @@ struct Index {
           });
 
           Column() {
-            Text('获取所有流信息').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+            Text('Get All Stream Info').fontColor(Color.Black).fontSize(16).margin({ top: 12 })
           }
           .id('audio_volume_card')
           .backgroundColor(Color.White)

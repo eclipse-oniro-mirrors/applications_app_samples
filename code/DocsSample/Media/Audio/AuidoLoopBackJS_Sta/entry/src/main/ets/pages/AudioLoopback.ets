@@ -406,9 +406,9 @@ async function getEqualizerPreset(updateCallback?: (msg: string, isError: boolea
 @Entry
 @Component
 struct Index {
-  @State currentState: string = '未初始化';
-  @State logMessages: string = '暂无日志信息';
-  @State callbackMessages: string = '暂无回调信息';
+  @State currentState: string = 'Uninitialized';
+  @State logMessages: string = 'No log information';
+  @State callbackMessages: string = 'No callback information';
 
   // 更新日志信息。
   updateLogInfo(msg: string, isError: boolean): void {
@@ -428,14 +428,14 @@ struct Index {
       Column() {
         // 信息显示区域。
         Column() {
-          Text('实时状态信息')
+          Text('Real-time Status')
             .fontSize(18)
             .fontWeight(600)
             .margin({ bottom: 12 })
 
           // 当前状态。
           Column() {
-            Text('当前状态')
+            Text('Current Status')
               .fontSize(14)
               .fontWeight(600)
               .margin({ bottom: 8 })
@@ -453,7 +453,7 @@ struct Index {
 
           // 日志信息。
           Column() {
-            Text('日志信息')
+            Text('Log Information')
               .fontSize(14)
               .fontWeight(600)
               .margin({ bottom: 8 })
@@ -473,7 +473,7 @@ struct Index {
 
           // 回调信息。
           Column() {
-            Text('回调信息')
+            Text('Callback Info')
               .fontSize(14)
               .fontWeight(600)
               .margin({ bottom: 8 })
@@ -500,7 +500,7 @@ struct Index {
         // 功能按钮。
         Row() {
           Column() {
-            Text('创建音频低时延耳返实例')
+            Text('Create Audio Loopback Instance')
               .fontColor(Color.Black)
               .fontSize(14)
           }
