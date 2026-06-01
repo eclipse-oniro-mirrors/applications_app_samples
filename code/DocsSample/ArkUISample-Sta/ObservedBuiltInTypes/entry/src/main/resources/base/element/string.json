@@ -1,0 +1,44 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "observed_array_usage_title",
+      "value": "ObservedArray使用"
+    },
+    {
+      "name": "observed_map_usage_title",
+      "value": "ObservedMap使用"
+    },
+    {
+      "name": "observed_set_usage_title",
+      "value": "ObservedSet使用"
+    },
+    {
+      "name": "observed_date_usage_title",
+      "value": "ObservedDate使用"
+    },
+    {
+      "name": "observed_built_in_types_make_observed_title",
+      "value": "内置类型MakeObserved"
+    },
+    {
+      "name": "observed_built_in_types_faq1_title",
+      "value": "FAQ1"
+    },
+    {
+      "name": "observed_built_in_types_faq2_title",
+      "value": "FAQ2"
+    }
+  ]
+}
