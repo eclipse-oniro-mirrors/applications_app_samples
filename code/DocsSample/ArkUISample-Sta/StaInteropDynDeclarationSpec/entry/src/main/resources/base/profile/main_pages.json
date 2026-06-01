@@ -1,0 +1,7 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/StaDynDeclSpecV1",
+    "pages/StaDynDeclSpecBuilder"
+  ]
+}
