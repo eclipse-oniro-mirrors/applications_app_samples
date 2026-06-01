@@ -18,26 +18,47 @@
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start MakeObservedArray]
 import { Button, ClickEvent, Column, Component, Entry, Text, UIUtils } from '@kit.ArkUI';
+
 @Entry
 @Component
 struct Index {
   arr: int[] = UIUtils.makeObserved([0, 1, 2]);
+
   build() {
     Column() {
       Text(`${this.arr}`)
-      Button(`change arr[0]: ${this.arr[0]}`).onClick((e: ClickEvent) => {
-        this.arr[0]++;
-      })
-      Button(`push item: ${this.arr.length}`).onClick((e: ClickEvent) => {
-        this.arr.push(Double.toInt(this.arr.length));
-      })
-      Button(`pop item`).onClick((e: ClickEvent) => {
-        this.arr.pop();
-      })
-      Button(`reverse`).onClick((e: ClickEvent) => {
-        this.arr.reverse();
-      })
+        .fontSize(20)
+        .margin(10)
+      // 修改数组元素，触发UI刷新
+      Button(`change arr[0]: ${this.arr[0]}`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          this.arr[0]++;
+        })
+      // 新增数组元素，触发UI刷新
+      Button(`push item: ${this.arr.length}`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          this.arr.push(Double.toInt(this.arr.length));
+        })
+      // 删除数组元素，触发UI刷新
+      Button(`pop item`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          this.arr.pop();
+        })
+      // 翻转数组元素，触发UI刷新
+      Button(`reverse`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          this.arr.reverse();
+        })
     }
+    .width('100%')
   }
 }
 

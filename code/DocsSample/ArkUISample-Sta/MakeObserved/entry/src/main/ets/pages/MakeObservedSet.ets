@@ -18,27 +18,42 @@
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start MakeObservedSet]
 import { Button, ClickEvent, Column, Component, Divider, Entry, ForEach, Row, Text, UIUtils } from '@kit.ArkUI';
+
 @Entry
 @Component
 struct SetSample {
-  message: Set<number> = UIUtils.makeObserved(new Set<number>([0, 1, 2, 3, 4]));
+  message: Set<int> = UIUtils.makeObserved(new Set<int>([0, 1, 2, 3, 4]));
 
   build() {
     Row() {
       Column() {
-        ForEach(Array.from(this.message.entries()), (item: [number, number]) => {
-          Text(`${item[0]}`).fontSize(30)
+        ForEach(Array.from(this.message.entries()), (item: [int, int]) => {
+          Text(`${item[0]}`)
+            .fontSize(20)
+            .margin(10)
           Divider()
         })
-        Button('set new one').onClick((e: ClickEvent) => {
-          this.message.add(5);
-        })
-        Button('clear').onClick((e: ClickEvent) => {
-          this.message.clear();
-        })
-        Button('delete the first one').onClick((e: ClickEvent) => {
-          this.message.delete(0);
-        })
+        // 新增元素，触发UI刷新
+        Button('set new one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            this.message.add(5);
+          })
+        // 删除元素，触发UI刷新
+        Button('delete the first one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            this.message.delete(0);
+          })
+        // 清空Set，触发UI刷新
+        Button('clear')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            this.message.clear();
+          })
       }
       .width('100%')
     }

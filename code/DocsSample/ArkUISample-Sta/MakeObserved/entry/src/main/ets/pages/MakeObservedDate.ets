@@ -18,6 +18,7 @@
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start MakeObservedDate]
 import { Button, ClickEvent, Column, Component, Entry, Text, UIUtils } from '@kit.ArkUI';
+
 @Entry
 @Component
 struct DateExample {
@@ -26,22 +27,31 @@ struct DateExample {
   build() {
     Column() {
       Text(`${this.selectedDate}`)
+        .fontSize(20)
+        .margin(10)
+      // 调用Date的setFullYear接口修改年份，触发UI刷新
       Button('increase the year by 1')
+        .width(300)
         .margin(10)
         .onClick((e: ClickEvent) => {
           this.selectedDate.setFullYear(this.selectedDate.getFullYear() + 1);
         })
+      // 调用Date的setMonth接口修改月份，触发UI刷新
       Button('increase the month by 1')
+        .width(300)
         .margin(10)
         .onClick((e: ClickEvent) => {
           this.selectedDate.setMonth(this.selectedDate.getMonth() + 1);
         })
+      // 调用Date的setDate接口修改日期，触发UI刷新
       Button('increase the day by 1')
+        .width(300)
         .margin(10)
         .onClick((e: ClickEvent) => {
           this.selectedDate.setDate(this.selectedDate.getDate() + 1);
         })
-    }.width('100%')
+    }
+    .width('100%')
   }
 }
 
