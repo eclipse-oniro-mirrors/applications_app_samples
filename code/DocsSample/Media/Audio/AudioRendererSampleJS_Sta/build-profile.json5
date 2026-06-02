@@ -14,20 +14,6 @@
 */
 {
   "app": {
-    "signingConfigs": [
-      {
-        "name": "default",
-        "material": {
-          "certpath": "xxxxxxx",
-          "keyAlias": "debugKey",
-          "keyPassword": "xxxxx",
-          "profile": "xxxxxxxx",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "xxxxxxx",
-          "storePassword": "xxxxxxx"
-        }
-      }
-    ],
     "products": [
       {
         "name": "default",
