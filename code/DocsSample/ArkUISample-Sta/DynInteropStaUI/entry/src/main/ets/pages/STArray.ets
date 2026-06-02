@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [Start DynInteropStaStaSTArray]
+// [Start DynInteropStaSTArray]
 // entry/src/main/ets/pages/STArray.ets
 import st, { STValue } from 'static.@ohos.lang.interop';
 import { STArrayChild } from 'static_module';
@@ -38,4 +38,4 @@ struct Parent {
     }
   }
 }
-// [End DynInteropStaStaSTArray]
+// [End DynInteropStaSTArray]
