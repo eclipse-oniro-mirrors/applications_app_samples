@@ -15,7 +15,7 @@
  */
 
 // [Start DynInteropStaStatemgmtV1Index]
-// static_module/index.ets
+// static_module/Index.ets
 export { Child } from './src/main/ets/components/StaStatemgmtV1'; // 导出ArkTS-Sta自定义组件Child
 // [End DynInteropStaStatemgmtV1Index]
 
@@ -25,7 +25,7 @@ export { MyClassA } from './src/main/ets/components/StaStatemgmtV1Observed'; // 
 // [End DynInteropStaStatemgmtV1IndexObserved]
 
 // [Start DynInteropStaStatemgmtV1IndexAppStorage]
-// static_module/index.ets
+// static_module/Index.ets
 export { MainPage } from './src/main/ets/components/StaAppStorage'; // 导出ArkTS-Sta自定义组件
 // [End DynInteropStaStatemgmtV1IndexAppStorage]
 
@@ -38,7 +38,7 @@ export { PersistentStoragePage } from './src/main/ets/components/StaPersistentSt
 export { EnvironmentPage } from './src/main/ets/components/StaEnvironment'; // 导出ArkTS-Sta自定义组件EnvironmentPage
 
 // [Start DynInteropStaStatemgmtV2Index]
-// static_module/index.ets
+// static_module/Index.ets
 export { MainPageV2 } from './src/main/ets/components/StaStatemgmtV2';
 // [End DynInteropStaStatemgmtV2Index]
 

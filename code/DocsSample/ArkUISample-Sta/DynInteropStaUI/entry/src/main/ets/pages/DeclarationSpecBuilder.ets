@@ -26,7 +26,7 @@ struct Parent {
       .fontSize(num)
   }
 
-  build(): void {
+  build() {
     Column() {
       StaChild({ customBuilderParam: this.parentText })
       staticBuilder('dynamicBuilder', 20)

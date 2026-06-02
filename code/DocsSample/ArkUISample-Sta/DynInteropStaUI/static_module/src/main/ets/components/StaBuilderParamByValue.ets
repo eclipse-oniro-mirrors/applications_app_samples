@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// [Start DynInteropStaBuilderParamByValue]
+// [Start DynInteropStaStaBuilderParamByValue]
 // static_module/src/main/ets/components/StaBuilderParamByValue.ets
 import { Component, Builder, BuilderParam, Column } from '@ohos.arkui.component';
 
@@ -33,4 +33,4 @@ export struct ChildByValue { // ArkTS-Sta侧的自定义组件
     }
   }
 }
-// [End DynInteropStaBuilderParamByValue]
+// [End DynInteropStaStaBuilderParamByValue]
