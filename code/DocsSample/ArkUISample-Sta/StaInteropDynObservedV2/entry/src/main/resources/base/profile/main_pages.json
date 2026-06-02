@@ -1,0 +1,8 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/StaDynObservedV2",
+    "pages/StaDynObservedV2Nested",
+    "pages/StaDynObservedV2Inherit"
+  ]
+}
