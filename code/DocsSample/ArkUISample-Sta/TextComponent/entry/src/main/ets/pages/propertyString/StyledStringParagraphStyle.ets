@@ -1,0 +1,131 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  $r,
+  Button,
+  Column,
+  ColumnOptions,
+  Component,
+  Entry,
+  FontWeight,
+  LengthMetrics,
+  MutableStyledString,
+  NavDestination,
+  ParagraphStyle,
+  StyledStringKey,
+  Text,
+  TextAlign,
+  TextController,
+  TextOverflow,
+  TextStyle,
+  WordBreak,
+  LineHeightStyle
+} from '@kit.ArkUI';
+import { ComponentCard } from '../../common/Card';
+import resourceToStringManager from '../../common/resource';
+
+@Entry
+@Component
+export struct StyledStringParagraphStyle {
+  titleParagraphStyleAttr: ParagraphStyle = new ParagraphStyle({ textAlign: TextAlign.Center });
+  //段落首行缩进15vp
+  paragraphStyleAttr1: ParagraphStyle = new ParagraphStyle({ textIndent: LengthMetrics.vp(15) });
+  //行高样式对象
+  lineHeightStyle1: LineHeightStyle = new LineHeightStyle(new LengthMetrics(24));
+  //创建含段落样式的对象paragraphStyledString1
+  // 请将$r('app.string.StyledStringParagraphStyle_Text_1')替换为实际资源文件，在本示例中该资源文件的value值为"段落标题\n正文第一段落开始0123456789正文第一段落结束。"
+  paragraphStyledString1: MutableStyledString =
+    new MutableStyledString(resourceToStringManager.resourceToString($r('app.string.StyledStringParagraphStyle_Text_1')),
+      [
+        {
+          start: 0,
+          length: 4,
+          styledKey: StyledStringKey.PARAGRAPH_STYLE,
+          styledValue: this.titleParagraphStyleAttr
+        },
+        {
+          start: 0,
+          length: 4,
+          styledKey: StyledStringKey.LINE_HEIGHT,
+          styledValue: new LineHeightStyle(new LengthMetrics(50))
+        },
+        {
+          start: 0,
+          length: 4,
+          styledKey: StyledStringKey.FONT,
+          styledValue: new TextStyle({ fontSize: LengthMetrics.vp(24), fontWeight: FontWeight.Bolder })
+        },
+        {
+          start: 5,
+          length: 3,
+          styledKey: StyledStringKey.PARAGRAPH_STYLE,
+          styledValue: this.paragraphStyleAttr1
+        },
+        {
+          start: 5,
+          length: 20,
+          styledKey: StyledStringKey.LINE_HEIGHT,
+          styledValue: this.lineHeightStyle1
+        }
+      ]);
+  //段落不设置缩进配置最大行数及超长显示方式
+  paragraphStyleAttr3: ParagraphStyle = new ParagraphStyle({
+    textAlign: TextAlign.End,
+    maxLines: 1,
+    wordBreak: WordBreak.BREAK_ALL,
+    overflow: TextOverflow.Ellipsis
+  });
+  controller: TextController = new TextController();
+
+  onPageShow(): void {
+    this.controller.setStyledString(this.paragraphStyledString1);
+  }
+
+  build(): void {
+    NavDestination() {
+      Column({ space: 12 } as ColumnOptions) {
+        // 请将$r('app.string.StyledStringParagraphStyle_title')替换为实际资源文件，在本示例中该资源文件的value值为"设置段落样式"
+        ComponentCard({ title: $r('app.string.StyledStringParagraphStyle_title') }) {
+          // [Start styled_string_paragraph_style]
+          Column() {
+            // 请将$r('app.string.StyledStringParagraphStyle_Button_1')替换为实际资源文件，在本示例中该资源文件的value值为"change"
+            Button($r('app.string.StyledStringParagraphStyle_Button_1'))
+              .onClick(() => {
+                this.paragraphStyledString1.replaceStyle({
+                  start: 5,
+                  length: 3,
+                  styledKey: StyledStringKey.PARAGRAPH_STYLE,
+                  styledValue: this.paragraphStyleAttr3
+                });
+                this.controller.setStyledString(this.paragraphStyledString1);
+              })
+            Text(undefined, { controller: this.controller })
+          }
+          // [End styled_string_paragraph_style]
+        }
+
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 })
+    }
+    .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.StyledStringParagraphStyle_title')替换为实际资源文件，在本示例中该资源文件的value值为"设置段落样式"
+    .title($r('app.string.StyledStringParagraphStyle_title'))
+  }
+}

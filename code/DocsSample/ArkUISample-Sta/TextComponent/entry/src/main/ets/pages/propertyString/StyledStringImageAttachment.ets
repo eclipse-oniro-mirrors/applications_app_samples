@@ -1,0 +1,237 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  $r,
+  Button,
+  Color,
+  Column,
+  ColumnOptions,
+  Component,
+  CopyOptions,
+  DecorationStyle,
+  Entry,
+  FontWeight,
+  ImageSpanAlignment,
+  LengthMetrics,
+  MutableStyledString,
+  NavDestination,
+  ParagraphStyle,
+  Resource,
+  Row,
+  StyledStringKey,
+  Text,
+  TextController,
+  TextDecorationStyle,
+  TextDecorationType,
+  TextStyle,
+  ImageAttachment,
+  ImageFit,
+  LineHeightStyle,
+  ImageAttachmentInterface
+} from '@kit.ArkUI';
+import { State } from '@ohos.arkui.stateManagement';
+import { image } from '@kit.ImageKit';
+import hilog from '@ohos.hilog';
+import { ComponentCard } from '../../common/Card';
+import resourceToStringManager from '../../common/resource';
+
+@Entry
+@Component
+export struct StyledStringImageAttachment {
+  @State abled: boolean = true;
+  @State message: string = 'Hello World';
+  imagePixelMap: image.PixelMap | undefined = undefined;
+  @State imagePixelMap3: image.PixelMap | undefined = undefined;
+  mutableStr: MutableStyledString = new MutableStyledString('123');
+  controller: TextController = new TextController();
+  mutableStr2: MutableStyledString = new MutableStyledString('This is set decoration line style to the mutableStr2', [{
+    start: 0,
+    length: 15,
+    styledKey: StyledStringKey.DECORATION,
+    styledValue: new DecorationStyle({
+      type: TextDecorationType.Overline,
+      color: Color.Orange,
+      style: TextDecorationStyle.DOUBLE
+    })
+  }]);
+
+  aboutToAppear(): void {
+    hilog.info(0x0000, 'testTag', 'aboutToAppear initial imagePixelMap');
+    // $r('app.media.startIcon')需要替换为开发者所需的图像资源文件。
+    this.imagePixelMap = this.getPixmapFromMedia($r('app.media.startIcon'));
+  }
+
+  private getPixmapFromMedia(resource: Resource): image.PixelMap | undefined {
+    try {
+      let unit8Array = this.getUIContext().getHostContext()?.resourceManager?.getMediaContentSync(resource.id);
+      if (!unit8Array) {
+        return undefined;
+      }
+      let imageSource =
+        image.createImageSource(unit8Array?.buffer.slice(0, unit8Array?.buffer?.byteLength ?? 0) as ArrayBuffer);
+      if (!imageSource) {
+        return undefined;
+      }
+      let createPixelMap = imageSource.createPixelMapSync({
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      });
+      imageSource.release();
+      return createPixelMap;
+    } catch (error) {
+      hilog.error(0x0000, 'testTag', `Get Pixmap failed. error code: ${error.code}, error message: ${error.message}`);
+    }
+    return undefined;
+  }
+
+  leadingMarginValue: ParagraphStyle = new ParagraphStyle({ leadingMargin: LengthMetrics.vp(5) });
+  // 行高样式对象
+  lineHeightStyle1: LineHeightStyle = new LineHeightStyle(new LengthMetrics(24));
+  // Bold样式
+  boldTextStyle: TextStyle = new TextStyle({ fontWeight: FontWeight.Bold });
+  // 创建含段落样式的对象paragraphStyledString1
+  // 请将$r('app.string.StyledStringImageAttachment_Text_1')替换为实际资源文件，在本示例中该资源文件的value值为"\n品牌相纸 高清冲印30张\n限时直降5.15元 限量赠送"
+  paragraphStyledString1: MutableStyledString =
+    new MutableStyledString(this.getUIContext()
+      .getHostContext()!.resourceManager.getStringSync($r('app.string.StyledStringImageAttachment_Text_1').id), [
+      {
+        start: 0,
+        length: 28,
+        styledKey: StyledStringKey.PARAGRAPH_STYLE,
+        styledValue: this.leadingMarginValue
+      },
+      {
+        start: 14,
+        length: 9,
+        styledKey: StyledStringKey.FONT,
+        styledValue: new TextStyle({ fontSize: LengthMetrics.vp(14), fontColor: '#B22222' })
+      },
+      {
+        start: 24,
+        length: 4,
+        styledKey: StyledStringKey.FONT,
+        styledValue: new TextStyle({ fontSize: LengthMetrics.vp(14), fontWeight: FontWeight.Lighter })
+      },
+      {
+        start: 11,
+        length: 4,
+        styledKey: StyledStringKey.LINE_HEIGHT,
+        styledValue: this.lineHeightStyle1
+      }
+    ]);
+  // 请将$r('app.string.StyledStringImageAttachment_Text_2')替换为实际资源文件，在本示例中该资源文件的value值为"\n￥16.21 3000+人好评"
+  paragraphStyledString2: MutableStyledString =
+    new MutableStyledString(this.getUIContext()
+      .getHostContext()!.resourceManager.getStringSync($r('app.string.StyledStringImageAttachment_Text_2').id), [
+      {
+        start: 0,
+        length: 5,
+        styledKey: StyledStringKey.PARAGRAPH_STYLE,
+        styledValue: this.leadingMarginValue
+      },
+      {
+        start: 0,
+        length: 4,
+        styledKey: StyledStringKey.LINE_HEIGHT,
+        styledValue: new LineHeightStyle(new LengthMetrics(60))
+      },
+      {
+        start: 0,
+        length: 7,
+        styledKey: StyledStringKey.FONT,
+        styledValue: this.boldTextStyle
+      },
+      {
+        start: 1,
+        length: 1,
+        styledKey: StyledStringKey.FONT,
+        styledValue: new TextStyle({ fontSize: LengthMetrics.vp(18) })
+      },
+      {
+        start: 2,
+        length: 2,
+        styledKey: StyledStringKey.FONT,
+        styledValue: new TextStyle({ fontSize: LengthMetrics.vp(36) })
+      },
+      {
+        start: 4,
+        length: 3,
+        styledKey: StyledStringKey.FONT,
+        styledValue: new TextStyle({ fontSize: LengthMetrics.vp(20) })
+      },
+      {
+        start: 7,
+        length: 9,
+        styledKey: StyledStringKey.FONT,
+        styledValue: new TextStyle({ fontColor: Color.Grey, fontSize: LengthMetrics.vp(14) })
+      }
+    ]);
+
+  build(): void {
+    NavDestination() {
+      Column({ space: 12 } as ColumnOptions) {
+        // [StartExclude styledStringImageAttachment_start]
+        // 请将$r('app.string.StyledStringImageAttachment_title')替换为实际资源文件，在本示例中该资源文件的value值为"通过ImageAttachment来添加图片"
+        ComponentCard({ title: $r('app.string.StyledStringImageAttachment_title') }) {
+          // [EndExclude styledStringImageAttachment_start]
+          Row() {
+            Column({ space: 10 } as ColumnOptions) {
+              Text(undefined, { controller: this.controller })
+                .id('text1')
+                .copyOption(CopyOptions.InApp)
+                .draggable(true)
+                .backgroundColor('#FFFFFF')
+                .borderRadius(5)
+              // 请将$r('app.string.StyledStringImageAttachment_Button_1')替换为实际资源文件，在本示例中该资源文件的value值为"点击查看商品卡片"
+              Button($r('app.string.StyledStringImageAttachment_Button_1'))
+                .enabled(this.abled)
+                .onClick(() => {
+                  if (this.imagePixelMap !== undefined) {
+                    this.mutableStr = new MutableStyledString(new ImageAttachment({
+                      value: this.imagePixelMap as image.PixelMap,
+                      size: { width: 180, height: 160 },
+                      verticalAlign: ImageSpanAlignment.BASELINE,
+                      objectFit: ImageFit.Fill
+                    } as ImageAttachmentInterface));
+                    this.paragraphStyledString1.appendStyledString(this.paragraphStyledString2);
+                    this.mutableStr.appendStyledString(this.paragraphStyledString1);
+                    this.controller.setStyledString(this.mutableStr);
+                  }
+                  this.abled = false;
+                })
+            }
+            .width('100%')
+          }
+          .height('100%')
+          .backgroundColor('#F8F8FF')
+        }
+
+        // [StartExclude styledStringImageAttachment_start]
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 })
+
+      // [EndExclude styledStringImageAttachment_start]
+    }
+    .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.StyledStringImageAttachment_title')替换为实际资源文件，在本示例中该资源文件的value值为"通过ImageAttachment来添加图片"
+    .title($r('app.string.StyledStringImageAttachment_title'))
+  }
+}
+
+// [End styledStringImageAttachment_start]

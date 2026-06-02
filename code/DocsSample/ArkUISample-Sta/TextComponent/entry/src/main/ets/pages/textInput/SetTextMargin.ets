@@ -1,0 +1,53 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  $r,
+  Column,
+  ColumnOptions,
+  Component,
+  Entry,
+  LengthMetrics,
+  NavDestination,
+  TextArea
+} from '@kit.ArkUI';
+import { ComponentCard } from '../../common/Card';
+
+@Entry
+@Component
+export struct SetTextMargin {
+  build(): void {
+    NavDestination() {
+      Column({ space: 12 } as ColumnOptions) {
+        ComponentCard({ description: $r('app.string.Set_Text_Margin_description') }) {
+          // [Start SetTextMargin]
+          TextArea({
+            text: 'The line spacing of this TextArea is set to 20_px, and the spacing is effective only between the lines.'
+          })
+            .fontSize(22)
+            .lineSpacing(LengthMetrics.px(20), { onlyBetweenLines: true })
+          // [End SetTextMargin]
+        }
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 })
+    }
+    .backgroundColor('#f1f2f3')
+    .title($r('app.string.Set_Text_Margin'))
+  }
+}
