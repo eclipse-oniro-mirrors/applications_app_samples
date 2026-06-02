@@ -1,0 +1,17 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/samples/FrameNodeTree",
+    "pages/samples/FrameNodeCanvas",
+    "pages/samples/FrameNodeCommon",
+    "pages/samples/FrameNodeDisposed",
+    "pages/samples/FrameNodeDraw",
+    "pages/samples/FrameNodeIsDisposed",
+    "pages/samples/FrameNodeLazyForEach",
+    "pages/samples/FrameNodeLazyForEachSelect",
+    "pages/samples/FrameNodeMoveTo",
+    "pages/samples/FrameNodePosition",
+    "pages/samples/FrameNodeTypeNode"
+  ]
+}
+

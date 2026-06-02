@@ -1,0 +1,9 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/samples/BuilderNodeMakeNode",
+    "pages/samples/BuilderNodeRenderNode",
+    "pages/samples/BuilderNodeUpdateConfiguration",
+    "pages/samples/BuilderNodeUpdateTree"
+  ]
+}
