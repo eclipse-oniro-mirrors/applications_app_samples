@@ -1,4 +1,5 @@
-/*
+'use static';
+/**
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -167,7 +168,7 @@ class SuiteService {
 
   handleHookFunction(core: Core, func: HookFuncType): () => Promise<void> {
     const argsCount = getFunctionArgumentsCount(func);
-    let fn = (): Promise<void> => { }
+    let fn: () => Promise<void>;
     if (argsCount === 1) {
       fn = processFuncWithArgOne(core, func as ((done: () => void) => void));
     } else {
