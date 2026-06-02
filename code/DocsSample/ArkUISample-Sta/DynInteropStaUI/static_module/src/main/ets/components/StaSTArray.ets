@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// [Start DynInteropStaSTArray]
+// [Start DynInteropStaStaSTArray]
 // static_module/src/main/ets/components/StaSTArray.ets
 import { Component, Column, Button, Text, ClickEvent, Link } from '@kit.ArkUI';
 
@@ -36,4 +36,4 @@ export struct STArrayChild {
     }
   }
 }
-// [End DynInteropStaSTArray]
+// [End DynInteropStaStaSTArray]
