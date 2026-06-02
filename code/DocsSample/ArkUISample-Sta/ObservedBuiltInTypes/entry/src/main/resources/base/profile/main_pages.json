@@ -1,0 +1,12 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/ObservedArrayUsage",
+    "pages/ObservedMapUsage",
+    "pages/ObservedSetUsage",
+    "pages/ObservedDateUsage",
+    "pages/ObservedBuiltInTypesMakeObserved",
+    "pages/ObservedBuiltInTypesFAQ1",
+    "pages/ObservedBuiltInTypesFAQ2"
+  ]
+}
