@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "extendable_text_creation_title",
+      "value": "创建自定义内置组件扩展类"
+    },
+    {
+      "name": "extendable_text_usage_title",
+      "value": "内置组件扩展类的使用"
+    },
+    {
+      "name": "extendable_text_template_title",
+      "value": "内置组件扩展类的模板化使用"
+    }
+  ]
+}

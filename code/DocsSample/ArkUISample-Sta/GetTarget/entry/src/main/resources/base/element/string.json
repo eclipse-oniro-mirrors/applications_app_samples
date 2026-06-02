@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "get_target_non_object_title",
+      "value": "非对象类型入参"
+    },
+    {
+      "name": "get_target_class_object_title",
+      "value": "传入class对象"
+    },
+    {
+      "name": "get_target_original_object_title",
+      "value": "更改原始对象的属性"
+    },
+    {
+      "name": "get_target_usage_example_title",
+      "value": "使用场景示例"
+    }
+  ]
+}
