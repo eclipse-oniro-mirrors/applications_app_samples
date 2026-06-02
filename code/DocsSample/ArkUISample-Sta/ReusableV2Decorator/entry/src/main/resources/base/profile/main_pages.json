@@ -1,0 +1,16 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/ReusableV2BasicUsage",
+    "pages/ReusableV2Lifecycle",
+    "pages/ReusableV2Freeze",
+    "pages/ReusableV2Reset",
+    "pages/ReusableV2ResetMonitor",
+    "pages/ReusableV2IfUsage",
+    "pages/ReusableV2RepeatUsage",
+    "pages/ReusableV2RepeatTemplate",
+    "pages/ReusableV2RepeatNoLazy",
+    "pages/ReusableV2ForEachUsage",
+    "pages/ReusableV2LazyForEachUsage"
+  ]
+}

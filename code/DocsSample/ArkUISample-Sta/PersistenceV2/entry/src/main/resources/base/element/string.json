@@ -1,0 +1,60 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "persistence_v2_array_title",
+      "value": "Array类型持久化"
+    },
+    {
+      "name": "persistence_v2_map_title",
+      "value": "Map类型持久化"
+    },
+    {
+      "name": "persistence_v2_set_title",
+      "value": "Set类型持久化"
+    },
+    {
+      "name": "persistence_v2_date_title",
+      "value": "Date类型持久化"
+    },
+    {
+      "name": "persistence_v2_nested_class_title",
+      "value": "嵌套自定义类持久化"
+    },
+    {
+      "name": "persistence_v2_circular_ref_title",
+      "value": "循环引用持久化"
+    },
+    {
+      "name": "persistence_v2_mixed_collection_title",
+      "value": "多种集合类型混合持久化"
+    },
+    {
+      "name": "persistence_v2_connect_global_title",
+      "value": "connect/globalConnect使用"
+    },
+    {
+      "name": "persistence_v2_notify_on_error_title",
+      "value": "notifyOnError使用"
+    },
+    {
+      "name": "persistence_v2_connect_migration_title",
+      "value": "connect向globalConnect迁移"
+    },
+    {
+      "name": "persistence_v2_container_element_title",
+      "value": "容器元素类型变更"
+    }
+  ]
+}

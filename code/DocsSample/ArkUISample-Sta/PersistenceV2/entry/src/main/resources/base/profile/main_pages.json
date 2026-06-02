@@ -1,0 +1,16 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/PersistenceV2Array",
+    "pages/PersistenceV2Map",
+    "pages/PersistenceV2Set",
+    "pages/PersistenceV2Date",
+    "pages/PersistenceV2NestedClass",
+    "pages/PersistenceV2CircularRef",
+    "pages/PersistenceV2MixedCollection",
+    "pages/PersistenceV2ConnectGlobalConnect",
+    "pages/PersistenceV2NotifyOnError",
+    "pages/PersistenceV2ConnectMigration",
+    "pages/PersistenceV2ContainerElementChange"
+  ]
+}
