@@ -21,8 +21,14 @@ import Want from '@ohos.app.ability.Want';
 import window from '@ohos.window';
 import { BusinessError } from '@ohos.base'
 import hilog from '@ohos.hilog'
+import { LocalStorage, window } from '@kit.ArkUI';
 
 class EntryAbility extends UIAbility {
+  para: Record<string, Any> = {
+    'MultiPage': 47
+  };
+  storage: LocalStorage = new LocalStorage(this.para);
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', 'EntryAbility onCreate');
   }
@@ -30,7 +36,7 @@ class EntryAbility extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage): void {
     hilog.info(0x0000, 'testTag', 'EntryAbility onWindowStageCreate');
     try {
-      windowStage.loadContent('pages/Index', (err: BusinessError<void> | null): void => {
+      windowStage.loadContent('pages/Index', this.storage, (err: BusinessError<void> | null): void => {
         hilog.info(0x0000, 'testTag', 'loadContent entering');
         if (err && err.code) {
           hilog.info(0x0000, 'testTag', 'loadContent error');

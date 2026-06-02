@@ -54,6 +54,10 @@ struct Index {
       name: 'CanBeObservedAfterObserved',
       path: 'pages/CanBeObservedAfterObserved'
     },
+    {
+      name: 'CanBeObservedV2Usage',
+      path: 'pages/CanBeObservedV2Usage'
+    },
   ]
 
   build() {

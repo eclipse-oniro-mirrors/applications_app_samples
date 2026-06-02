@@ -14,21 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { NavDestination, $r } from '@kit.ArkUI';
-// [Start AddMonitorObservedV2Local]
-import { Button, Column, ComponentV2, Entry, IMonitor, IMonitorDecoratedVariable, Local, ObservedV2, Text, Trace, UIUtils } from '@kit.ArkUI';
 
-// class使用@ObservedV2修饰
+import { NavDestination, $r } from '@kit.ArkUI';
+// [Start add_monitor_clear_monitor_with_monitor]
+import { Button, Column, ComponentV2, Entry, IMonitor, IMonitorDecoratedVariable, Local, Monitor, ObservedV2, Trace, UIUtils } from '@kit.ArkUI';
+
 @ObservedV2
 export class Test {
-  // @ObserevdV2与@Trace搭配使用
   @Trace value: int = 0;
   valueMonitor?: IMonitorDecoratedVariable;
+  valueMonitorDuplicated?: IMonitorDecoratedVariable;
 
   constructor() {
+    // 可以重复为同一个状态变量和回调函数多次添加监听关系
+    // 但返回不同的唯一性句柄
     this.valueMonitor = UIUtils.addMonitor(() => this.value, this.onChange);
+    this.valueMonitorDuplicated = UIUtils.addMonitor(() => this.value, this.onChange);
   }
 
+  @Monitor(['value'])
   onChange(m: IMonitor): void {
     m.dirty.forEach((path: string) => {
       console.info(`[DynamicMonitor] value ${path} has changed from ${m.value<int>(path)?.before} to ${m.value<int>(path)?.now}`);
@@ -36,37 +40,9 @@ export class Test {
   }
 }
 
-// struct使用@ComponentV2修饰
-@ComponentV2
-struct Child {
-  // @ComponentV2与@Local搭配使用
-  @Local value: double = 0.0;
-  valueMonitor?: IMonitorDecoratedVariable;
-
-  aboutToAppear() {
-    this.valueMonitor = UIUtils.addMonitor(() => this.value, this.onChange);
-  }
-
-  onChange(m: IMonitor) {
-    m.dirty.forEach((path: string) => {
-      console.info(`[DynamicMonitor] value ${path} has changed from ${m.value<double>(path)?.before} to ${m.value<double>(path)?.now}`);
-    })
-  }
-
-  build() {
-    Column() {
-      Text(`Current ComponentV2 value is ${this.value}`)
-      Button(`Add value in ComponentV2`)
-        .onClick(() => {
-          this.value += 0.1;
-        })
-    }
-  }
-}
-
 @Entry
 @ComponentV2
-struct Page {
+struct AddMonitorClearMonitorWithMonitorExample {
   @Local obj: Test = new Test();
 
   aboutToAppear(): void {
@@ -75,23 +51,28 @@ struct Page {
 
   build() {
     Column() {
-      Text(`Current ObservedV2 value is ${this.obj.value}`)
-      Button(`Add value in ObservedV2`)
+      Button(`Current number: ${this.obj.value}`)
         .fontSize(20)
         .onClick(() => {
           this.obj.value++;
         })
-      Child()
+      // 清除重复监听之后，修改状态变量只会触发两次回调函数
+      // 即不影响先前绑定的与@Monitor添加的监听关系
+      Button(`Clear the duplicated monitor.`)
+        .fontSize(20)
+        .onClick(() => {
+          UIUtils.clearMonitor(this.obj.valueMonitorDuplicated!);
+        })
     }
   }
 }
-// [End AddMonitorObservedV2Local]
+// [End add_monitor_clear_monitor_with_monitor]
 
 @Builder
-export function addMonitorObservedV2Local(): void {
+export function addMonitorClearMonitorWithMonitor(): void {
   NavDestination() {
-    Page();
+    AddMonitorClearMonitorWithMonitorExample();
   }
   .backgroundColor('#f1f2f3')
-  .title($r('app.string.add_monitor_observed_v2_local_title'))
+  .title($r('app.string.add_monitor_clear_monitor_with_monitor_title'))
 }

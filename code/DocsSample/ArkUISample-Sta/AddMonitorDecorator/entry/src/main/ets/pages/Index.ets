@@ -74,6 +74,22 @@ struct Index {
       name: 'AddMonitorObjectProperty',
       path: 'pages/AddMonitorObjectProperty'
     },
+    {
+      name: 'AddMonitorOwnerError',
+      path: 'pages/AddMonitorOwnerError'
+    },
+    {
+      name: 'AddMonitorTypeMismatch',
+      path: 'pages/AddMonitorTypeMismatch'
+    },
+    {
+      name: 'AddMonitorContainer',
+      path: 'pages/AddMonitorContainer'
+    },
+    {
+      name: 'AddMonitorClearMonitorWithMonitor',
+      path: 'pages/AddMonitorClearMonitorWithMonitor'
+    },
   ]
 
   build() {

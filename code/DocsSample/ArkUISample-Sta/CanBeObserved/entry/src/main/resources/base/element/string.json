@@ -39,6 +39,10 @@
     {
       "name": "can_be_observed_after_observed_title",
       "value": "被@Observed装饰后的嵌套属性"
+    },
+    {
+      "name": "can_be_observed_v2_usage_title",
+      "value": "在V2组件中使用canBeObserved"
     }
   ]
 }

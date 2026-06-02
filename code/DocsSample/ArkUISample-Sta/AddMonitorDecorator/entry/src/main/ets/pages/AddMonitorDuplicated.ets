@@ -25,6 +25,8 @@ export class Test {
   valueMonitorDuplicated?: IMonitorDecoratedVariable;
 
   constructor() {
+    // 可以重复为同一对状态变量和回调函数多次添加监听关系
+    // 但返回不同的唯一性句柄
     this.valueMonitor = UIUtils.addMonitor(() => this.value, this.onChange);
     this.valueMonitorDuplicated = UIUtils.addMonitor(() => this.value, this.onChange);
   }
@@ -52,6 +54,8 @@ struct Page {
         .onClick(() => {
           this.obj.value++;
         })
+      // 清除重复监听之后，修改状态变量只会触发一次回调函数
+      // 即不影响先前绑定的监听关系
       Button(`Clear the duplicated monitor.`)
         .fontSize(20)
         .onClick(() => {

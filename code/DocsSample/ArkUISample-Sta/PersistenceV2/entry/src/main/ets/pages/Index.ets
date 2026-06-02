@@ -70,6 +70,14 @@ struct Index {
       name: 'PersistenceV2ContainerElementChange',
       path: 'pages/PersistenceV2ContainerElementChange'
     },
+    {
+      name: 'PersistenceV2ConnectUsage',
+      path: 'pages/PersistenceV2ConnectUsage'
+    },
+    {
+      name: 'PersistenceV2ContainerTypeError',
+      path: 'pages/PersistenceV2ContainerTypeError'
+    },
   ]
 
   build() {

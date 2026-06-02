@@ -28,6 +28,7 @@ export interface Pair<R, V> {
 @ComponentV2
 struct Page {
   @Local singleValue: int = 0;
+  // 需要用UIUtils.makeObserved封装字面量才具备观测能力。
   @Local pairValue: Pair<int, int> = UIUtils.makeObserved({ key: 42, value: 35 } as Pair<int, int>);
   @Local multipleValue: int[] = [1, 2, 3];
 
@@ -38,14 +39,22 @@ struct Page {
   aboutToAppear() {
     console.info('[DynamicMonitor] Test case begin.');
 
+    // 传递path个数少于状态变量个数
+    // 使用默认生成的字符串'MONITOR_n'作为路径
+    // n是addMonitor注册的状态变量的序号
+    // 因此生成的字符串在函数内部保证是全局唯一的
     this.singleValueMonitor = UIUtils.addMonitor(() => this.singleValue, this.onChange, { owner: this });
 
+    // 传递 path 等于状态变量个数
+    // 每一个 path 均应用于状态变量的路径
     const pairCallback: (() => Any)[] = [
       () => this.pairValue.key,
       () => this.pairValue.value
     ];
     this.pairValueMonitor = UIUtils.addMonitor(pairCallback, this.onChange, { owner: this, path: ['pair_key', 'pair_value'] });
 
+    // 传递path多于状态变量个数
+    // 多余的path忽略不计，也不会抛出错误
     const valueCallback = this.multipleValue.map((_: int, index: int): (() => Any) => (
       () => this.multipleValue[index]
     ));

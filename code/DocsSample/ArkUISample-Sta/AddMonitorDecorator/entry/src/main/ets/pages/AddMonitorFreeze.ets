@@ -27,6 +27,8 @@ struct TabContentTest {
   build() {
     Row() {
       Column() {
+        // 当被监听的状态变量修改时，active页面的回调函数会正常触发
+        // inactive页面的回调函数触发会推迟到页面变为active状态
         Button('change message').onClick(() => {
           this.childMessage.message++;
         })
@@ -56,6 +58,7 @@ struct FreezeChild {
   messageMonitor?: IMonitorDecoratedVariable;
 
   aboutToAppear(): void {
+    // 监听属性是@ObservedV2内部属性时，设置owner能让监听继承当前组件的冻结能力。
     this.messageMonitor = UIUtils.addMonitor(() => this.childMsg.message, this.messageChange, { path: ['message'] , owner: this });
   }
 

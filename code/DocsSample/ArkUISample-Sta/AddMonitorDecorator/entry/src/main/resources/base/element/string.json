@@ -59,6 +59,22 @@
     {
       "name": "add_monitor_object_property_title",
       "value": "观察对象属性"
+    },
+    {
+      "name": "add_monitor_owner_error_title",
+      "value": "owner参数使用@Component错误"
+    },
+    {
+      "name": "add_monitor_type_mismatch_title",
+      "value": "类型不匹配异常"
+    },
+    {
+      "name": "add_monitor_container_title",
+      "value": "监听容器元素变更不触发"
+    },
+    {
+      "name": "add_monitor_clear_monitor_with_monitor_title",
+      "value": "clearMonitor无法删除@Monitor"
     }
   ]
 }
