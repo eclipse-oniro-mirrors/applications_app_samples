@@ -1,0 +1,15 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/BuilderParamInitMethod",
+    "pages/BuilderParamThis",
+    "pages/BuilderParamSceneInit",
+    "pages/BuilderParamTrailingClosure01",
+    "pages/BuilderParamTrailingClosure02",
+    "pages/BuilderParamJumpLogic",
+    "pages/BuilderParamGlobalLocalInit",
+    "pages/BuilderParamInComponentV2",
+    "pages/BuilderParamRequirePositive",
+    "pages/BuilderParamMustBuilderPositive"
+  ]
+}

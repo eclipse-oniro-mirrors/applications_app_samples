@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "wrapbuilder_variable_title",
+      "value": "@Builder方法赋值给变量"
+    },
+    {
+      "name": "wrapbuilder_foreach_title",
+      "value": "@Builder方法赋值给变量在UI语法中使用"
+    },
+    {
+      "name": "wrapbuilder_reference_title",
+      "value": "引用传递"
+    },
+    {
+      "name": "wrapbuilder_dynamic_switch_title",
+      "value": "动态切换"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/ReceiverParam",
+    "pages/ReceiverChain",
+    "pages/ReceiverEvent",
+    "pages/ReceiverState",
+    "pages/ReceiverScenarioBefore",
+    "pages/ReceiverScenarioAfter"
+  ]
+}

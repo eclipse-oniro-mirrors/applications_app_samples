@@ -1,0 +1,9 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/WrapBuilderVariable",
+    "pages/WrapBuilderForEach",
+    "pages/WrapBuilderReference",
+    "pages/WrapBuilderDynamicSwitch"
+  ]
+}

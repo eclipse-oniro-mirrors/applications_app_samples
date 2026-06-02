@@ -1,0 +1,56 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "builderparam_init_method_title",
+      "value": "父组件初始化子组件@BuilderParam"
+    },
+    {
+      "name": "builderparam_this_title",
+      "value": "this的指向"
+    },
+    {
+      "name": "builderparam_scene_init_title",
+      "value": "参数初始化组件"
+    },
+    {
+      "name": "builderparam_trailing_closure01_title",
+      "value": "尾随闭包初始化组件示例1"
+    },
+    {
+      "name": "builderparam_trailing_closure02_title",
+      "value": "尾随闭包初始化组件示例2"
+    },
+    {
+      "name": "builderparam_jump_logic_title",
+      "value": "@BuilderParam隔离跳转逻辑"
+    },
+    {
+      "name": "builderparam_global_local_title",
+      "value": "全局和局部@Builder初始化@BuilderParam"
+    },
+    {
+      "name": "builderparam_in_componentv2_title",
+      "value": "@ComponentV2中使用@BuilderParam"
+    },
+    {
+      "name": "builderparam_require_positive_title",
+      "value": "@Require和@BuilderParam联合使用"
+    },
+    {
+      "name": "builderparam_must_builder_title",
+      "value": "@BuilderParam初始化值必须为@Builder"
+    }
+  ]
+}

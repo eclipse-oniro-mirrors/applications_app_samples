@@ -1,0 +1,44 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "freeze_page_router_title",
+      "value": "页面路由冻结"
+    },
+    {
+      "name": "freeze_page2_title",
+      "value": "页面路由冻结-页面2"
+    },
+    {
+      "name": "freeze_tab_content_title",
+      "value": "TabContent冻结"
+    },
+    {
+      "name": "freeze_lazy_foreach_title",
+      "value": "LazyForEach冻结"
+    },
+    {
+      "name": "freeze_navigation_title",
+      "value": "Navigation冻结"
+    },
+    {
+      "name": "freeze_reuse_title",
+      "value": "组件复用冻结"
+    },
+    {
+      "name": "freeze_mix_nav_tab_title",
+      "value": "Navigation+TabContent混用"
+    }
+  ]
+}

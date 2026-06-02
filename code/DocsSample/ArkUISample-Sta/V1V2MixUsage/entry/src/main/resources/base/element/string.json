@@ -1,0 +1,56 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "mix_common_v1_to_v2_title",
+      "value": "普通JS Object V1->V2"
+    },
+    {
+      "name": "mix_common_v2_to_v1_title",
+      "value": "普通JS Object V2->V1"
+    },
+    {
+      "name": "mix_observed_v1_to_v2_title",
+      "value": "@Observed装饰的class V1->V2"
+    },
+    {
+      "name": "mix_observed_v2_to_v1_title",
+      "value": "@Observed装饰的class V2->V1"
+    },
+    {
+      "name": "mix_array_v1_to_v2_title",
+      "value": "内置类型Array V1->V2"
+    },
+    {
+      "name": "mix_array_v2_to_v1_title",
+      "value": "内置类型Array V2->V1"
+    },
+    {
+      "name": "mix_twodim_v1_to_v2_title",
+      "value": "二维数组 V1->V2"
+    },
+    {
+      "name": "mix_twodim_v2_to_v1_title",
+      "value": "二维数组 V2->V1"
+    },
+    {
+      "name": "mix_nested_v1_to_v2_title",
+      "value": "嵌套类型 V1->V2"
+    },
+    {
+      "name": "mix_nested_v2_to_v1_title",
+      "value": "嵌套类型 V2->V1"
+    }
+  ]
+}

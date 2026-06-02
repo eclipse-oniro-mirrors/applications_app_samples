@@ -1,0 +1,73 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\seaside\\.ohos\\config\\default_DynCompare_R-bw-PYNOatIrYmRAn9sKK6aU9qmQOR-jO9bqmAckYQ=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001A0940C50B0EF7BFB57198C9375F492660D45679830589A6AECA2D6F5AE599F714B05334ED1FF8",
+          "profile": "C:\\Users\\seaside\\.ohos\\config\\default_DynCompare_R-bw-PYNOatIrYmRAn9sKK6aU9qmQOR-jO9bqmAckYQ=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\seaside\\.ohos\\config\\default_DynCompare_R-bw-PYNOatIrYmRAn9sKK6aU9qmQOR-jO9bqmAckYQ=.p12",
+          "storePassword": "0000001A08218FE8FA3B55413B2F78BC32A31A03167C9914BD25428C4220CB94BBE4B145B37ED4BD718A"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "targetSdkVersion": "26.0.0",
+        "arkTSVersion": "1.2",
+        "compileSdkVersion": "26.0.0",
+        "compatibleSdkVersion": "26.0.0",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

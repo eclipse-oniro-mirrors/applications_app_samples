@@ -1,0 +1,12 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/FreezePageRouter",
+    "pages/FreezePage2",
+    "pages/FreezeTabContent",
+    "pages/FreezeLazyForEach",
+    "pages/FreezeNavigation",
+    "pages/FreezeReuse",
+    "pages/FreezeMixNavTab"
+  ]
+}

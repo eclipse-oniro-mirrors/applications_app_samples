@@ -1,0 +1,11 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/LifecycleNest",
+    "pages/LifecycleReuse",
+    "pages/LifecycleObserver",
+    "pages/LifecycleActiveInactive",
+    "pages/LifecycleSwiper",
+    "pages/LifecycleReuseDiff"
+  ]
+}

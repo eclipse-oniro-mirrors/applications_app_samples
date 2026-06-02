@@ -1,0 +1,17 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/ComponentBasicUsage",
+    "pages/EntryDecorator",
+    "pages/ComponentParams",
+    "pages/BuildFunction",
+    "pages/BuildVariableDeclaration",
+    "pages/BuildLogPrint",
+    "pages/BuildSwitchCase",
+    "pages/BuildLocalScope",
+    "pages/BuildExpression",
+    "pages/BuildNotRecommended",
+    "pages/ComponentStyle",
+    "pages/ComponentExtend"
+  ]
+}

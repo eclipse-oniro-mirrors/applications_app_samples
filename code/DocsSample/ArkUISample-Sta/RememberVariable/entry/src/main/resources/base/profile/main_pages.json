@@ -1,0 +1,12 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/RememberBasicType",
+    "pages/RememberBuiltinType",
+    "pages/RememberInterfaceType",
+    "pages/RememberClassType",
+    "pages/RememberPassVariable",
+    "pages/RememberFunctionType",
+    "pages/RememberInitFromState"
+  ]
+}

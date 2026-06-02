@@ -1,0 +1,96 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "builder_private_title",
+      "value": "私有自定义构建函数"
+    },
+    {
+      "name": "builder_global_title",
+      "value": "全局自定义构建函数"
+    },
+    {
+      "name": "builder_make_binding_title",
+      "value": "按引用传递参数"
+    },
+    {
+      "name": "builder_by_reference_title",
+      "value": "引用传递参数"
+    },
+    {
+      "name": "builder_by_value_title",
+      "value": "值传递参数"
+    },
+    {
+      "name": "builder_in_custom_component_title",
+      "value": "自定义组件中使用@Builder"
+    },
+    {
+      "name": "builder_global_scene_title",
+      "value": "全局@Builder使用场景"
+    },
+    {
+      "name": "builder_decorator_refresh_title",
+      "value": "装饰器变量触发UI刷新"
+    },
+    {
+      "name": "builder_as_custom_builder_title",
+      "value": "@Builder作为CustomBuilder类型"
+    },
+    {
+      "name": "builder_nested_title",
+      "value": "嵌套@Builder函数"
+    },
+    {
+      "name": "builder_combined_v2_title",
+      "value": "@Builder与V2装饰器联合使用"
+    },
+    {
+      "name": "builder_combined_local_title",
+      "value": "@Builder与@Local联合使用"
+    },
+    {
+      "name": "builder_across_components_title",
+      "value": "跨组件复用@Builder"
+    },
+    {
+      "name": "builder_variable_title",
+      "value": "使用变量封装@Builder"
+    },
+    {
+      "name": "builder_generic_title",
+      "value": "@Builder泛型"
+    },
+    {
+      "name": "builder_state_refresh_title",
+      "value": "@Builder状态刷新"
+    },
+    {
+      "name": "builder_one_param_title",
+      "value": "单参数@Builder"
+    },
+    {
+      "name": "builder_component_v2_refresh_title",
+      "value": "@ComponentV2中@Builder刷新"
+    },
+    {
+      "name": "builder_modify_param_positive_title",
+      "value": "正确修改@Builder参数"
+    },
+    {
+      "name": "builder_component_param_title",
+      "value": "自定义组件拆分参数"
+    }
+  ]
+}

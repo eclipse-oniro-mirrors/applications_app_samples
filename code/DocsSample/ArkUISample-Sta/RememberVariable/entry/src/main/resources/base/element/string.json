@@ -1,0 +1,44 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "remember_basic_type_title",
+      "value": "@Builder内声明基础类型的状态变量"
+    },
+    {
+      "name": "remember_builtin_type_title",
+      "value": "@Builder内声明内置类型的状态变量"
+    },
+    {
+      "name": "remember_interface_type_title",
+      "value": "@Builder内声明interface字面量的状态变量"
+    },
+    {
+      "name": "remember_class_type_title",
+      "value": "@Builder内声明class类型的状态变量"
+    },
+    {
+      "name": "remember_pass_variable_title",
+      "value": "@Builder内声明状态变量并传递"
+    },
+    {
+      "name": "remember_function_type_title",
+      "value": "修改函数地址触发UI刷新"
+    },
+    {
+      "name": "remember_init_from_state_title",
+      "value": "rememberVariable声明的状态变量不能同步数据"
+    }
+  ]
+}

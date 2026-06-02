@@ -1,0 +1,7 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/ComponentV2Basic",
+    "pages/ComponentV2Extend"
+  ]
+}
