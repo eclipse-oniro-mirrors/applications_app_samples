@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// [Start DynInteropStaSTSet]
+// [Start DynInteropStaStaSTSet]
 // static_module/src/main/ets/components/StaSTSet.ets
 import { Component, Column, Button, Text, ClickEvent, Link } from '@kit.ArkUI';
 
@@ -36,4 +36,4 @@ export struct STSetChild {
     }
   }
 }
-// [End DynInteropStaSTSet]
+// [End DynInteropStaStaSTSet]

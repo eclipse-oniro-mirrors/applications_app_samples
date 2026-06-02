@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// [Start DynInteropStaSTMap]
+// [Start DynInteropStaStaSTMap]
 // static_module/src/main/ets/components/StaSTMap.ets
 import { Component, Column, Button, Text, ClickEvent, Link } from '@kit.ArkUI';
 
@@ -36,4 +36,4 @@ export struct STMapChild {
     }
   }
 }
-// [End DynInteropStaSTMap]
+// [End DynInteropStaStaSTMap]

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// [Start DynInteropStaBuilderParamByRef]
+// [Start DynInteropStaStaBuilderParamByRef]
 // static_module/src/main/ets/components/StaBuilderParamByRef.ets
 import { Component, Builder, BuilderParam, Column, Button } from '@ohos.arkui.component';
 import { State, Observed } from '@ohos.arkui.stateManagement';
@@ -57,4 +57,4 @@ export struct Child {
     .width('100%')
   }
 }
-// [End DynInteropStaBuilderParamByRef]
+// [End DynInteropStaStaBuilderParamByRef]
