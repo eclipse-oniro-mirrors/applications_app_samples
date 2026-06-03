@@ -24,13 +24,18 @@ struct Index {
   build() {
     Column() {
       Text(`State ${this.count}`)
+        .fontSize(20)
+        .margin(10)
       Button('change State')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           // 对数据源的更改会同步给子组件
           this.count++;
       })
       Child({ count: this.count })
     }
+    .width('100%')
   }
 }
 @Component
@@ -39,11 +44,16 @@ struct Child {
   build() {
     Column() {
       Text(`PropRef ${this.count}`)
+        .fontSize(20)
+        .margin(10)
       Button('change PropRef')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.count++;
         })
     }
+    .width('100%')
   }
 }
 // [End PropRefParentChild]
