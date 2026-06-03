@@ -46,10 +46,13 @@ struct Index {
   build() {
     Column() {
       Text(`data property code is ${this.data.code}`)
+        .fontSize(20)
+        .margin(10)
       Child({
         childData: this.data
       })
     }
+    .width('100%')
   }
 }
 
@@ -60,18 +63,25 @@ struct Child {
   build() {
     Column() {
       Text(`childData property code is ${this.childData.code}`)
+        .fontSize(20)
+        .margin(10)
       Button('modify childData property code')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           // 如果只点击该Button，由于childData是父组件中数据源的引用，则父组件中数据源的属性也会修改。
           this.childData.code += 10;
         })
 
       Button('replace childData')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           // 如果点击该Button，本地的childData变量会引用新的对象，所以不会影响父组件中的数据源。
           this.childData = new Data(200);
         })
     }
+    .width('100%')
   }
 }
 // [End PropRefDataSourceRef]

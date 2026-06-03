@@ -25,12 +25,16 @@ struct GrandSon {
   build() {
     Column() {
       Text(`reviewVotes(${this.reviewVotes})`) // Text显示10
+        .fontSize(20)
+        .margin(10)
       Button(`reviewVotes(${this.reviewVotes}), give +1`)
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.reviewVotes += 1;
         })
     }
-    .width('50%')
+    .width('100%')
   }
 }
 
@@ -62,11 +66,14 @@ struct GrandParent {
   build() {
     Column() {
       Button(`reviewVotes(${this.reviewVotes}), give +1`)
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.reviewVotes += 1;
         })
       Parent()
     }
+    .width('100%')
   }
 }
 // [End ProvideAllowOverride]

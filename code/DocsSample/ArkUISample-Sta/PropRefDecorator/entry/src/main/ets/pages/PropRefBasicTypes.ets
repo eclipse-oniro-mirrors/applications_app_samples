@@ -26,9 +26,17 @@ struct Index {
   build() {
     Column() {
       Text(`State ${this.count}`)
+        .fontSize(20)
+        .margin(10)
       Text(`State ${this.message}`)
+        .fontSize(20)
+        .margin(10)
       Text(`State ${this.flag}`)
+        .fontSize(20)
+        .margin(10)
       Button('change State')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           // 对数据源的更改会同步给子组件
           this.count++;
@@ -41,6 +49,7 @@ struct Index {
         flag: this.flag
       })
     }
+    .width('100%')
   }
 }
 @Component
@@ -51,15 +60,24 @@ struct Child {
   build() {
     Column() {
       Text(`PropRef ${this.count}`)
+        .fontSize(20)
+        .margin(10)
       Text(`PropRef ${this.message}`)
+        .fontSize(20)
+        .margin(10)
       Text(`PropRef ${this.flag}`)
+        .fontSize(20)
+        .margin(10)
       Button('change PropRef')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.count++;
           this.message += '!';
           this.flag = !this.flag;
         })
     }
+    .width('100%')
   }
 }
 // [End PropRefBasicTypes]
