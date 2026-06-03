@@ -104,7 +104,6 @@ struct Child {
     .height('100%')
   }
 }
-
 // [End AppStorageV2Basic]
 
 @Builder

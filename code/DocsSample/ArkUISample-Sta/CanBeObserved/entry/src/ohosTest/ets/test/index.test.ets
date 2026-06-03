@@ -177,5 +177,23 @@ export default function IndexTest() {
       await driver.delayMs(1000);
       done();
     });
+
+    /**
+     * @tc.number UiTest_008
+     * @tc.name CanBeObservedV2Usage
+     * @tc.desc 在V2组件中使用canBeObserved
+     * @tc.level: Level 1
+     */
+
+    it('CanBeObservedV2Usage', Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'uitest: CanBeObservedV2Usage begin');
+      await driver.delayMs(1000);
+      await router.pushUrl({ url: 'pages/CanBeObservedV2Usage' });
+      await driver.delayMs(1000);
+      let btn = await driver.findComponent(ON.text('show observed result', MatchPattern.CONTAINS));
+      await btn.click();
+      await driver.delayMs(1000);
+      done();
+    });
   })
 }

@@ -57,6 +57,9 @@ struct Page {
       Button(`Current number: ${this.obj.value} | ${this.obj.value2}`)
         .fontSize(20)
         .onClick(() => {
+          // 虽然value的修改先于value2的修改
+          // 但value2绑定的监听关系是同步模式
+          // 因此回调函数调用value2会先于value
           this.obj.value += 'a';
           this.obj.value2 += 'b';
         })

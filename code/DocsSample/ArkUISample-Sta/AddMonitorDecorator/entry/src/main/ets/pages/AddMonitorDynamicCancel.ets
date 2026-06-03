@@ -46,9 +46,11 @@ struct Page {
   build() {
     Column() {
       Text(`user1 age ${this.user1.age}`).fontSize(20).onClick(() => {
+        // 有Monitor回调
         this.user1.age++;
       })
       Text(`user2 age ${this.user2.age}`).fontSize(20).onClick(() => {
+        // 无Monitor回调
         this.user2.age++;
       })
       Button(`remove user1 monitor`).onClick(() => {

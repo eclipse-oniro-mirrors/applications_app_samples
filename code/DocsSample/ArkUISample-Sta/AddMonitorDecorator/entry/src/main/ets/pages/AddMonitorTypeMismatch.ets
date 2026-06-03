@@ -14,49 +14,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import { NavDestination, $r } from '@kit.ArkUI';
-// [Start AddMonitorBasic]
+// [Start add_monitor_type_mismatch]
 import { Button, Column, ComponentV2, Entry, IMonitor, IMonitorDecoratedVariable, Local, ObservedV2, Trace, UIUtils } from '@kit.ArkUI';
 
 @ObservedV2
 export class Test {
-  @Trace value: string = '';
-  @Trace arrayValue: Array<int> = [1, 2, 3, 4, 5];
+  @Trace value: int = 0;
+  @Trace valueError: number = 0;
   valueMonitor?: IMonitorDecoratedVariable;
-  arrayMonitor?: IMonitorDecoratedVariable;
+  valueMonitorDuplicated?: IMonitorDecoratedVariable;
 
   constructor() {
-    // 监听单个状态变量
     this.valueMonitor = UIUtils.addMonitor(() => this.value, this.onChange);
 
-    // 监听多个状态变量
-    let callbackArray: Array<() => Any> = [];
-    for (let index = 0; index < 5; index++) {
-      callbackArray.push(() => this.arrayValue[index]);
-    }
-    this.arrayMonitor = UIUtils.addMonitor(callbackArray, this.onArrayChange);
+    // 在这个监听关系的回调函数中
+    // number（编译后为Double）与Int类型不匹配
+    // 因此无法通过dirty获取监听变量的新值和旧值
+    this.valueMonitorDuplicated = UIUtils.addMonitor(() => this.valueError, this.onChange);
   }
 
   onChange(m: IMonitor): void {
-    m.dirty.forEach((path: string) => {
-      console.info(`[DynamicMonitor] value ${path} has changed from ${m.value<string>(path)?.before} to ${m.value<string>(path)?.now}`);
-    });
-  }
+    // 日志正常打印
+    console.info('[DynamicMonitor] Callback triggered.');
 
-  onArrayChange(m: IMonitor): void {
+    // 类型不匹配抛出ClassCastError异常
     m.dirty.forEach((path: string) => {
-      console.info(`[DynamicMonitor] array ${path} value has changed from ${m.value<int>(path)?.before} to ${m.value<int>(path)?.now}`);
-    });
+      console.info(`[DynamicMonitor] value ${path} has changed from ${m.value<int>(path)?.before} to ${m.value<int>(path)?.now}`);
+    })
   }
 }
 
 @Entry
 @ComponentV2
-struct Page {
+struct AddMonitorTypeMismatchExample {
   @Local obj: Test = new Test();
 
   aboutToAppear(): void {
-    console.info(`[DynamicMonitor] Test case begin.`);
+    console.info(`[DynamicMonitor] Test case begin.`)
   }
 
   build() {
@@ -64,22 +60,19 @@ struct Page {
       Button(`Current number: ${this.obj.value}`)
         .fontSize(20)
         .onClick(() => {
-          // 修改已注册的监听值
-          this.obj.value += 'a';
-          for (let index = 0; index < 5; index++) {
-            this.obj.arrayValue[index]++;
-          }
+          this.obj.value++;
+          this.obj.valueError++;
         })
     }
   }
 }
-// [End AddMonitorBasic]
+// [End add_monitor_type_mismatch]
 
 @Builder
-export function addMonitorBasic(): void {
+export function addMonitorTypeMismatch(): void {
   NavDestination() {
-    Page();
+    AddMonitorTypeMismatchExample();
   }
   .backgroundColor('#f1f2f3')
-  .title($r('app.string.add_monitor_basic_title'))
+  .title($r('app.string.add_monitor_type_mismatch_title'))
 }

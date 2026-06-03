@@ -41,6 +41,7 @@ struct AddMonitorObject {
   }
 
   aboutToAppear(): void {
+    // 监听cls中的属性变化，设置路径为'cls.*'
     this.monitorHandle = UIUtils.addMonitor({ valueCallback: () => this.cls, observeProps: true, path: 'cls.*'}, this.onClsChanged);
   }
 
@@ -48,18 +49,18 @@ struct AddMonitorObject {
     Column() {
       Button(`Change propA: ${this.cls.propA}`)
         .onClick(() => {
-          this.cls.propA += 1;
+          this.cls.propA += 1; // onClsChanged回调触发
         })
       Button(`Change propB: ${this.cls.propB}`)
         .onClick(() => {
-          this.cls.propB += 1;
+          this.cls.propB += 1; // onClsChanged回调触发
         })
       Button('Assign new object')
         .onClick(() => {
-          this.cls = new ClassA(-200, -200);
+          this.cls = new ClassA(-200, -200); // onClsChanged回调触发
         })
       Button('clear').onClick(() => {
-        UIUtils.clearMonitor(this.monitorHandle!);
+        UIUtils.clearMonitor(this.monitorHandle!); // 取消监听
       })
     }
   }

@@ -41,6 +41,8 @@ struct Page {
   @Local info: Info = new Info();
 
   aboutToAppear(): void {
+    // 静态ArkTS中会覆盖constructor里对message的修改，只触发一次onMessageChange回调。
+    // this.info.message = 'Index aboutToAppear';
   }
 
   build() {

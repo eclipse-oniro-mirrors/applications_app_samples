@@ -16,15 +16,13 @@
  */
 
 import { NavDestination, $r } from '@kit.ArkUI';
-// [Start persistence_v2_connect_migration]
-// 迁移到globalConnect
+// [Start persistence_v2_connect_usage]
+// 使用connect存储数据
 import { PersistenceV2, ObservedV2, Trace, Local, Entry, 
   Button, Column, ClickEvent, ComponentV2, Text } from '@kit.ArkUI';
 
-import contextConstant from '@ohos.app.ability.contextConstant';
-
 // 接受序列化失败的回调
-PersistenceV2.notifyOnError((key: string, reason: string, msg: string, oldValue?: string) => {
+PersistenceV2.notifyOnError((key: string, reason: string, msg: string) => {
   console.error(`error key: ${key}, reason: ${reason}, message: ${msg}`);
 });
 
@@ -40,52 +38,17 @@ class Person {
   @Trace info: Info = new Info();
 }
 
-// 用于判断是否完成数据迁移的辅助数据
-@ObservedV2
-class StorageState {
-  @Trace isCompleteMoving: boolean = false;
-}
-
-function move() {
-  let movingState =
-    PersistenceV2.globalConnect<StorageState>({ type: Class.from<StorageState>(), defaultCreator: () => new StorageState() })!;
-  if (!movingState.isCompleteMoving) {
-    let p: Person = PersistenceV2.connect<Person>(
-      Class.from<Person>(),
-      'Person',
-      (): Person => {
-        return new Person();
-      })!;
-    PersistenceV2.remove('Person');
-
-    let p1 = PersistenceV2.globalConnect<Person>({
-      type: Class.from<Person>(),
-      key: 'Person',
-      defaultCreator: (): Person => p,
-      areaMode: contextConstant.AreaMode.EL1 // EL1-EL5代表5种加密等级。
-    })!;
-    // 将迁移标志设置为true
-    movingState.isCompleteMoving = true;
-  }
-}
-
 @Entry
 @ComponentV2
-struct PersistenceV2ConnectMigrationExample {
-  // 调用globalConnect存储key为Person的对象，并返回。
-  @Local cp1: Person = PersistenceV2.globalConnect<Person>({
-    type: Class.from<Person>(),
-    key: 'Person',
-    defaultCreator: (): Person => {
+struct PersistenceV2ConnectUsageExample {
+  // 调用connect存储key为Person的对象，并返回。
+  @Local cp1: Person = PersistenceV2.connect<Person>(
+    Class.from<Person>(),
+    'Person',
+    (): Person => {
       return new Person();
-    },
-    areaMode: contextConstant.AreaMode.EL1 // EL1-EL5代表5种加密等级。
-  })!;
+    })!;
   @Local refresh: number = 0;
-  // 在ArkTS-Sta中，全局的逻辑代码不会默认执行。开发者可将需要执行的逻辑代码移至static代码块中，以达到与ArkTS-Dyn一样的效果。
-  static {
-    move();
-  }
 
   build() {
     Column() {
@@ -113,13 +76,13 @@ struct PersistenceV2ConnectMigrationExample {
     .height('100%')
   }
 }
-// [End persistence_v2_connect_migration]
+// [End persistence_v2_connect_usage]
 
 @Builder
-export function persistenceV2ConnectMigration(): void {
+export function persistenceV2ConnectUsage(): void {
   NavDestination() {
-    PersistenceV2ConnectMigrationExample();
+    PersistenceV2ConnectUsageExample();
   }
   .backgroundColor('#f1f2f3')
-  .title($r('app.string.persistence_v2_connect_migration_title'))
+  .title($r('app.string.persistence_v2_connect_usage_title'))
 }

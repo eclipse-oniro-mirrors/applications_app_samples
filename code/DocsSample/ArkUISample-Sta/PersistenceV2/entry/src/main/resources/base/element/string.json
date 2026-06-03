@@ -55,6 +55,14 @@
     {
       "name": "persistence_v2_container_element_title",
       "value": "容器元素类型变更"
+    },
+    {
+      "name": "persistence_v2_connect_usage_title",
+      "value": "使用connect存储数据"
+    },
+    {
+      "name": "persistence_v2_container_type_error_title",
+      "value": "容器元素类型变更数据异常"
     }
   ]
 }

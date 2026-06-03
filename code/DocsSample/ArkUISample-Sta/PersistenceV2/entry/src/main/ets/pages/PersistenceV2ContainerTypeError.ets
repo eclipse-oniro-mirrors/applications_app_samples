@@ -16,7 +16,7 @@
  */
 
 import { NavDestination, $r } from '@kit.ArkUI';
-// [Start persistence_v2_container_element_change]
+// [Start persistence_v2_container_type_error]
 import { PersistenceV2, ObservedV2, Trace, Entry, ComponentV2, Local, Column, Text, Button, List, ListItem, ForEach, StorageDefaultCreator } from '@kit.ArkUI';
 import { contextConstant } from '@kit.AbilityKit';
 
@@ -32,25 +32,24 @@ const creators = new Map<Class, StorageDefaultCreator<object>>([
 
 @Entry
 @ComponentV2
-struct Index {
-  // 提供默认元素new Person()，框架可据此检测到类型变更并跳过旧数据恢复
+struct PersistenceV2ContainerTypeErrorExample {
   @Local stateVar: Array<Person> = PersistenceV2.globalConnect<Array<Person>>({
     type: Class.from<Array<Person>>(),
     key: 'PersonArray',
     defaultCreator: () => {
-      return new Array<Person>(new Person());
+      return new Array<Person>();
     },
     areaMode: contextConstant.AreaMode.EL1,
     enableAutoSave: true,
     defaultSubCreators: creators
   })!;
 
-  // 以下为将元素类型从Person改为int的演示，提供了默认元素0, 1, 2，框架可据此检测到类型变更
+  // 以下为错误演示：将元素类型从Person改为int后，未提供默认元素，旧数据被错误恢复
   /* @Local stateVar: Array<int> = PersistenceV2.globalConnect<Array<int>>({
        type: Class.from<Array<int>>(),
        key: 'PersonArray',
        defaultCreator: () => {
-         return new Array<int>(0, 1, 2);
+         return new Array<int>();
        },
        areaMode: contextConstant.AreaMode.EL1,
        enableAutoSave: true,
@@ -96,13 +95,13 @@ struct Index {
     }
   }
 }
-// [End persistence_v2_container_element_change]
+// [End persistence_v2_container_type_error]
 
 @Builder
-export function persistenceV2ContainerElementChange(): void {
+export function persistenceV2ContainerTypeError(): void {
   NavDestination() {
-    Index();
+    PersistenceV2ContainerTypeErrorExample();
   }
   .backgroundColor('#f1f2f3')
-  .title($r('app.string.persistence_v2_container_element_title'))
+  .title($r('app.string.persistence_v2_container_type_error_title'))
 }

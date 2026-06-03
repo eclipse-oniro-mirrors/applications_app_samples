@@ -35,6 +35,8 @@ struct Page {
   aboutToAppear() {
     console.info('[DynamicMonitor] Test case begin.')
 
+    // 对于监听组件的状态变量
+    // 建议将组件作为owner传递给addMonitor
     this.valueMonitor = UIUtils.addMonitor(() => this.value, this.onChange, { owner: this });
   }
 

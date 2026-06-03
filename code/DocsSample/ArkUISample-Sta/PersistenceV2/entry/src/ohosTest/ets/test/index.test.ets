@@ -267,5 +267,41 @@ export default function IndexTest() {
       await driver.delayMs(1000);
       done();
     });
+
+    /**
+     * @tc.number UiTest_012
+     * @tc.name PersistenceV2ConnectUsage
+     * @tc.desc PersistenceV2使用connect存储数据
+     * @tc.level: Level 1
+     */
+
+    it('PersistenceV2ConnectUsage', Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'uitest: PersistenceV2ConnectUsage begin');
+      await driver.delayMs(1000);
+      await router.pushUrl({ url: 'pages/PersistenceV2ConnectUsage' });
+      await driver.delayMs(1000);
+      let btn = await driver.findComponent(ON.text('Change userId userName userInfo', MatchPattern.CONTAINS));
+      await btn.click();
+      await driver.delayMs(1000);
+      done();
+    });
+
+    /**
+     * @tc.number UiTest_013
+     * @tc.name PersistenceV2ContainerTypeError
+     * @tc.desc PersistenceV2容器元素类型变更数据异常
+     * @tc.level: Level 1
+     */
+
+    it('PersistenceV2ContainerTypeError', Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'uitest: PersistenceV2ContainerTypeError begin');
+      await driver.delayMs(1000);
+      await router.pushUrl({ url: 'pages/PersistenceV2ContainerTypeError' });
+      await driver.delayMs(1000);
+      let btn = await driver.findComponent(ON.text('add Person', MatchPattern.CONTAINS));
+      await btn.click();
+      await driver.delayMs(1000);
+      done();
+    });
   })
 }

@@ -24,10 +24,13 @@ export class Test {
   arrayMonitor?: IMonitorDecoratedVariable;
 
   constructor() {
+    // 对于每个数组元素映射到一个
+    // 返回该元素的箭头函数
     let callbackArray = this.array.map(
       (_: int, index: int): (() => Any) => () => this.array[index]
     );
 
+    // 监听数组长度
     callbackArray.push(() => this.array.length);
 
     this.arrayMonitor = UIUtils.addMonitor(callbackArray, this.onChange);
