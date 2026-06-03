@@ -1,0 +1,36 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "env_initialization_title",
+      "value": "@Env初始化流程"
+    },
+    {
+      "name": "env_component_v2_title",
+      "value": "在@ComponentV2中使用@Env"
+    },
+    {
+      "name": "env_component_title",
+      "value": "在@Component中使用@Env"
+    },
+    {
+      "name": "env_builder_node_title",
+      "value": "通过BuilderNode切换窗口"
+    },
+    {
+      "name": "env_lambda_closure_title",
+      "value": "使用lambda闭包传递@Env"
+    }
+  ]
+}
