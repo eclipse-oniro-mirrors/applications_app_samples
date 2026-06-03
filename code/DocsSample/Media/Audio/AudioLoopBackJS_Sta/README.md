@@ -75,7 +75,7 @@
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/Media/Audio/AuidoLoopBackJS_Sta/ > .git/info/sparse-checkout
+echo code/DocsSample/Media/Audio/AudioLoopBackJS_Sta/ > .git/info/sparse-checkout
 git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
