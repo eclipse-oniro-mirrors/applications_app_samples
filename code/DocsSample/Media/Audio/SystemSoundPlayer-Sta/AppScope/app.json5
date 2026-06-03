@@ -15,7 +15,7 @@
 
 {
   "app": {
-    "bundleName": "com.example.systemsoundplayer-sta",
+    "bundleName": "com.example.systemsoundplayersta",
     "vendor": "example",
     "versionCode": 1000000,
     "versionName": "1.0.0",
