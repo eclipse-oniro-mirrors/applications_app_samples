@@ -33,7 +33,7 @@ import uiObserver from '@ohos.arkui.observer';
 
 @Entry
 @Component
-struct EnvInitializationExample {
+struct Index {
   build() {
     Column() {
       Text(`Index`)
@@ -110,7 +110,7 @@ struct GrandChild2 {
 @Builder
 export function envInitialization(): void {
   NavDestination() {
-    EnvInitializationExample();
+    Index();
   }
   .backgroundColor('#f1f2f3')
   .title($r('app.string.env_initialization_title'))

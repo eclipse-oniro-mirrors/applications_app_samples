@@ -39,7 +39,7 @@ import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component
-struct EnvComponentExample {
+struct Index {
   @Env(SystemProperties.BREAK_POINT) breakpoint: uiObserver.WindowSizeLayoutBreakpointInfo;
   @Env(SystemProperties.WINDOW_SIZE) sizeInVP: window.SizeInVP;
   @Env(SystemProperties.WINDOW_SIZE_PX) sizeInPX: window.Size;
@@ -169,7 +169,7 @@ struct Comp {
 @Builder
 export function envComponent(): void {
   NavDestination() {
-    EnvComponentExample();
+    Index();
   }
   .backgroundColor('#f1f2f3')
   .title($r('app.string.env_component_title'))
