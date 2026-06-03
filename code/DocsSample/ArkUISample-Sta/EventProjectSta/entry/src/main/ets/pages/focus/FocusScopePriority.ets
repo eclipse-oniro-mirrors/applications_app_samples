@@ -1,0 +1,166 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start focus_scope_navigation]
+import { $r, BorderStyle, Button, Color, Column, ColumnOptions, Component, Entry, FocusPriority, Margin, NavDestination, Padding, Row, RowOptions, Scroll, State, TextInput, VerticalAlign } from '@kit.ArkUI';
+@Entry
+@Component
+export struct FocusScopePriority {
+  @State inputValue: string = '';
+
+  build() {
+    NavDestination() {
+      Column({ space: 12 } as ColumnOptions) {
+
+        Scroll() {
+          Row({ space: 20 } as RowOptions) {
+            Column({ space: 20 } as ColumnOptions) {  // 标记为Column1
+              Column({ space: 5 } as ColumnOptions) {
+                Button('Group1')
+                  .width(165)
+                  .height(40)
+                  .fontColor(Color.White)
+                Row({ space: 5 } as RowOptions) {
+                  Button()
+                    .width(80)
+                    .height(40)
+                    .fontColor(Color.White)
+                  Button()
+                    .width(80)
+                    .height(40)
+                    .fontColor(Color.White)
+                }
+                Row({ space: 5 } as RowOptions) {
+                  Button()
+                    .width(80)
+                    .height(40)
+                    .fontColor(Color.White)
+                  Button()
+                    .width(80)
+                    .height(40)
+                    .fontColor(Color.White)
+                }
+              }.borderWidth(2).borderColor(Color.Red).borderStyle(BorderStyle.Dashed)
+              Column({ space: 5 } as ColumnOptions) {
+                Button('Group2')
+                  .width(165)
+                  .height(40)
+                  .fontColor(Color.White)
+                Row({ space: 5 } as RowOptions) {
+                  Button()
+                    .width(80)
+                    .height(40)
+                    .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+                    .fontColor(Color.White)
+                  Button()
+                    .width(80)
+                    .height(40)
+                    .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+                    .fontColor(Color.White)
+                    .focusScopePriority('ColumnScope1', FocusPriority.PRIOR)  // Column1首次获焦时获焦
+                }
+                Row({ space: 5 } as RowOptions) {
+                  Button()
+                    .width(80)
+                    .height(40)
+                    .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+                    .fontColor(Color.White)
+                  Button()
+                    .width(80)
+                    .height(40)
+                    .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+                    .fontColor(Color.White)
+                }
+              }.borderWidth(2).borderColor(Color.Green).borderStyle(BorderStyle.Dashed)
+            }
+            .focusScopeId('ColumnScope1')
+            Column({ space: 5 } as ColumnOptions) {  // 标记为Column2
+              TextInput({placeholder: 'input', text: this.inputValue})
+                .onChange((value: string) => {
+                  this.inputValue = value;
+                })
+                .width(156)
+              Button('Group3')
+                .width(165)
+                .height(40)
+                .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+                .fontColor(Color.White)
+              Row({ space: 5 } as RowOptions) {
+                Button()
+                  .width(80)
+                  .height(40)
+                  .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+                  .fontColor(Color.White)
+                Button()
+                  .width(80)
+                  .height(40)
+                  .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+                  .fontColor(Color.White)
+              }
+              Button()
+                .width(165)
+                .height(40)
+                .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+                .fontColor(Color.White)
+                .focusScopePriority('ColumnScope2', FocusPriority.PREVIOUS)  // Column2获焦时获焦
+              Row({ space: 5 } as RowOptions) {
+                Button()
+                  .width(80)
+                  .height(40)
+                  .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+                  .fontColor(Color.White)
+                Button()
+                  .width(80)
+                  .height(40)
+                  .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+                  .fontColor(Color.White)
+              }
+              Button()
+                .width(165)
+                .height(40)
+                .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+                .fontColor(Color.White)
+              Row({ space: 5 } as RowOptions) {
+                Button()
+                  .width(80)
+                  .height(40)
+                  .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+                  .fontColor(Color.White)
+                Button()
+                  .width(80)
+                  .height(40)
+                  .margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin)
+                  .fontColor(Color.White)
+              }
+            }.borderWidth(2).borderColor(Color.Orange).borderStyle(BorderStyle.Dashed)
+            .focusScopeId('ColumnScope2', true)  // Column2为焦点组
+          }.alignItems(VerticalAlign.Top)
+        }
+
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 } as Padding)
+    }
+    // [StartExclude focus_scope_navigation]
+    .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.Focus_FocusScopePriority_title')替换为实际资源文件，在本示例中该资源文件的value值为"焦点组与获焦优先级"
+    .title($r('app.string.Focus_FocusScopePriority_title'))
+    // [EndExclude focus_scope_navigation]
+  }
+}
+// [End focus_scope_navigation]

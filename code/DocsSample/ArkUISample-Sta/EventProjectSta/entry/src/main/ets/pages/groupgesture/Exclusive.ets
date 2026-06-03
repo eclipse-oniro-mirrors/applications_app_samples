@@ -1,0 +1,65 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start exclusive_recognition_gesture]
+import { $r, Column, ColumnOptions, Component, Entry, GestureGroup, GestureMode, NavDestination, Padding, State, TapGesture, Text } from '@kit.ArkUI';
+
+@Entry
+@Component
+export struct Exclusive {
+  @State count1: int = 0;
+  @State count2: int = 0;
+
+  build() {
+    NavDestination() {
+      Column({ space: 12 } as ColumnOptions) {
+        /* 请将$r('app.string.groupgesture_Exclusive_text')替换为实际资源文件，在本示例中该资源文件的value值为"以在一个Column组件上绑定单击手势和双击手势组合而成的互斥识
+           别组合手势为例。若先绑定单击手势后绑定双击手势，由于单击手势只需要一次点击即可触发而双击手势需要两次，每次的点击事件均被单击手势消费而不能积累成双击手势，所以双击手势无法
+           触发。若先绑定双击手势后绑定单击手势，则触发双击手势不触发单击手势。" */
+        Text($r('app.string.groupgesture_Exclusive_text'))
+          .fontSize(14)
+          .fontColor('#666')
+        Column() {
+          Text('Exclusive gesture\n' + 'tapGesture count is 1:' + this.count1 + '\ntapGesture count is 2:' + this.count2 + '\n')
+            .fontSize(28)
+        }
+        .height(200)
+        .width('100%')
+        //以下组合手势为互斥并别，单击手势识别成功后，双击手势会识别失败
+        .gesture(
+          GestureGroup(GestureMode.Exclusive,
+            TapGesture({ count: 1 })
+              .onAction(() => {
+                this.count1++;
+              }),
+            TapGesture({ count: 2 })
+              .onAction(() => {
+                this.count2++;
+              })
+          )
+        )
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 } as Padding)
+    }
+    .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.groupgesture_Exclusive_title')替换为实际资源文件，在本示例中该资源文件的value值为"互斥识别"
+    .title($r('app.string.groupgesture_Exclusive_title'))
+  }
+}
+// [End exclusive_recognition_gesture]

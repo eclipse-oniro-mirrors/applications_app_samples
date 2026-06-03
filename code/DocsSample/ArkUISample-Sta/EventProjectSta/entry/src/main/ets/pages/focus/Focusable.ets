@@ -1,0 +1,124 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start dynamic_focus_control_manage]
+import { $r, Button, Color, Column, ColumnOptions, Component, Divider, Entry, FlexAlign, KeyEvent, KeyType, Margin, NavDestination, Padding, Row, RowOptions, State, Text } from '@kit.ArkUI';
+import { KeyCode } from '@kit.InputKit';
+
+@Entry
+@Component
+export struct FocusableExample {
+  @State textFocusable: boolean = true;
+  @State textEnabled: boolean = true;
+  @State color1: Color = Color.Yellow;
+  @State color2: Color = Color.Yellow;
+  @State color3: Color = Color.Yellow;
+
+  build() {
+    NavDestination() {
+      Column({ space: 12 } as ColumnOptions) {
+        // 请将$r('app.string.Focus_Focusable_text')替换为实际资源文件，在本示例中该资源文件的value值为"当某组件处于获焦状态"
+        Text($r('app.string.Focus_Focusable_text'))
+          .fontSize(14)
+          .fontColor('#666')
+        Column({ space: 5 } as ColumnOptions) {
+          Text('Default Text')    // 第一个Text组件未设置focusable属性，默认不可获焦
+            .borderColor(this.color1)
+            .borderWidth(2)
+            .width(300)
+            .height(70)
+            .margin(5)
+            .onFocus(() => {
+              this.color1 = Color.Blue;
+            })
+            .onBlur(() => {
+              this.color1 = Color.Yellow;
+            })
+          Divider()
+
+          Text('focusable: ' + this.textFocusable as string)    // 第二个Text设置了focusable初始为true，focusableOnTouch为true
+            .borderColor(this.color2)
+            .borderWidth(2)
+            .width(300)
+            .height(70)
+            .margin(5)
+            .focusable(this.textFocusable)
+            .focusOnTouch(true)
+            .onFocus(() => {
+              this.color2 = Color.Blue;
+            })
+            .onBlur(() => {
+              this.color2 = Color.Yellow;
+            })
+
+          Text('enabled: ' + this.textEnabled as string)    // 第三个Text设置了focusable为true，enabled初始为true
+            .borderColor(this.color3)
+            .borderWidth(2)
+            .width(300)
+            .height(70)
+            .margin(5)
+            .focusable(true)
+            .enabled(this.textEnabled)
+            .focusOnTouch(true)
+            .onFocus(() => {
+              this.color3 = Color.Blue;
+            })
+            .onBlur(() => {
+              this.color3 = Color.Yellow;
+            })
+
+          Divider()
+
+          Row() {
+            Button('Button1')
+              .width(140).height(70).margin(5)
+            Button('Button2')
+              .width(160).height(70).margin(5)
+          }
+
+          Divider()
+          Button('Button3')
+            .width(300).height(70).margin(5)
+
+          Divider()
+        }.width('100%').justifyContent(FlexAlign.Center)
+        .onKeyEvent((e: KeyEvent): boolean => {
+          // 绑定onKeyEvent，在该Column组件获焦时，按下'F'键，可将第二个Text的focusable置反
+          if (e.keyCode === 2022 && e.type === KeyType.Down) {
+            this.textFocusable = !this.textFocusable;
+            return true;
+          }
+          // 绑定onKeyEvent，在该Column组件获焦时，按下'G'键，可将第三个Text的enabled置反
+          if (e.keyCode === 2023 && e.type === KeyType.Down) {
+            this.textEnabled = !this.textEnabled;
+            return true;
+          }
+          return false;
+        })
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 } as Padding)
+    }
+    // [StartExclude dynamic_focus_control_manage]
+    .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.Focus_Focusable_title')替换为实际资源文件，在本示例中该资源文件的value值为"设置组件是否可获焦"
+    .title($r('app.string.Focus_Focusable_title'))
+    // [EndExclude dynamic_focus_control_manage]
+  }
+}
+// [End dynamic_focus_control_manage]
