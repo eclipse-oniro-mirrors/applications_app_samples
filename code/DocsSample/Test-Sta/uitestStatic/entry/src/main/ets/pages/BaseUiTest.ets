@@ -28,7 +28,7 @@ import {
 
 @Entry
 @Component
-struct Index {
+struct BaseUiTest {
   @State message: string = 'Hello World';
   @State count: int = 0;
   private scroller: Scroller = new Scroller();
@@ -136,25 +136,6 @@ struct Index {
           })
           .margin({ left: 10 })
         }.margin({ top: 10 })
-
-        Row() {
-          Toggle({ type: ToggleType.Switch, isOn: false })
-            .selectedColor('#007DFF')
-            .switchPointColor('#FFFFFF')
-            .onChange((isOn: boolean) => {
-              console.info('Component status:' + isOn);
-            }).id('Toggle_switch_false')
-
-          Toggle({ type: ToggleType.Switch, isOn: true })
-            .selectedColor('#007DFF')
-            .switchPointColor('#FFFFFF')
-            .onChange((isOn: boolean) => {
-              console.info('Component status:' + isOn);
-            })
-            .id('Toggle_switch_true')
-
-        }.margin({ top: 10 })
-
         Row() {
           Checkbox({ name: 'checkbox1', group: 'checkboxGroup' })
             .select(true)

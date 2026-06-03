@@ -1,7 +1,7 @@
 {
   "src": [
     "pages/index/index",
-    "pages/Index",
+    "pages/BaseUiTest",
     "pages/Click",
     "pages/ClickToAfter",
     "pages/Third",
