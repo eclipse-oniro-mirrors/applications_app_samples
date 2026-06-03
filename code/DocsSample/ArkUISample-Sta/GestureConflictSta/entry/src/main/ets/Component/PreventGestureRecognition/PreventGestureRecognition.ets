@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+// [Start gesture_recognition]
 import { Entry, ComponentV2, Local, $r, Stack, Column, Text, Flex, Slider, Color, Alignment, ItemAlign, FlexAlign, SliderStyle, SliderChangeMode, GestureGroup, GestureMode, PanGesture, PanDirection, GestureEvent, LongPressGesture, TapGesture, GestureRecognizer, Margin } from '@kit.ArkUI';
 import { Context } from '@ohos.arkui.UIContext';
 
@@ -255,3 +256,5 @@ struct Index {
     .height(this.currentHeight)
   }
 }
+
+// [End gesture_recognition]

@@ -25,7 +25,7 @@ import { $r } from '@kit.ArkUI';
 @Entry
 @Component
 struct Index {
-  idx: int = 0; // 绱㈠紩鍊硷紝榛樿鍊间负0
+  idx: int = 0; // 索引值，默认值为0
   items: Params[] = [];
   @State pixmap: image.PixelMap | undefined = undefined;
 
@@ -37,7 +37,7 @@ struct Index {
 
   build() {
     Column({ space: 10 } as ColumnOptions) {
-      // 璇峰皢$r('app.media.startIcon')鏇挎崲涓哄疄闄呰祫婧愭枃浠?
+      // 请将$r('app.media.startIcon')替换为实际资源文件
       Image(this.pixmap ? this.pixmap : $r('app.media.startIcon')).width(300).height(300).objectFit(ImageFit.Auto);
       Button('click to get snapshot')
         .onClick(async () => {
