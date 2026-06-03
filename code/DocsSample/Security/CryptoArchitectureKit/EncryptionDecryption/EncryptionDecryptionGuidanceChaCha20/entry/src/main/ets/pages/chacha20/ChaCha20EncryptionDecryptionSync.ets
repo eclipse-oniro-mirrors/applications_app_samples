@@ -47,8 +47,8 @@ function encryptMessage(symKey: cryptoFramework.SymKey, plainText: cryptoFramewo
 function decryptMessage(symKey: cryptoFramework.SymKey, cipherText: cryptoFramework.DataBlob) {
   let decoder = cryptoFramework.createCipher('ChaCha20');
   decoder.initSync(cryptoFramework.CryptoMode.DECRYPT_MODE, symKey, ivSpec);
-  let decryptdata = decoder.updateSync(cipherText);
-  return decryptdata;
+  let decryptData = decoder.doFinalSync(cipherText);
+  return decryptData;
 }
 
 function genSymKeyByData(symKeyData: Uint8Array) {
