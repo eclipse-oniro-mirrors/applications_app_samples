@@ -42,7 +42,7 @@ struct Index {
       AppStorage.setOrCreate<UIContext>('uiContext', this.getUIContext());
 
     } catch (error) {
-      console.log('error ' + error);
+      console.error('error ' + error);
     }
   }
 

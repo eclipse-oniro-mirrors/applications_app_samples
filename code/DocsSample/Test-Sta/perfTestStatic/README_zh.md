@@ -58,7 +58,7 @@ uitest
 ```
 git init
 git config core.sparsecheckout true
-echo code/ArkTS-Sta/Test/perfTestStatic > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+echo code/ArkTS-Sta/perfTestStatic > .git/info/sparse-checkout
+git remote add origin git@gitcode.com:openharmony/applications_app_samples.git
 git pull origin OpenHarmony_feature_sta_20260331
 ```
