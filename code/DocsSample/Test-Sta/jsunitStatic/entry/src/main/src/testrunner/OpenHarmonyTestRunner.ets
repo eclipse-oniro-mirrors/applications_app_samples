@@ -44,18 +44,18 @@ export class OpenHarmonyTestRunner implements TestRunner {
     abilityDelegatorArguments = abilityDelegatorRegistry.getArguments();
     abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
     try {
-
       const context = abilityDelegator.getAppContext().getApplicationContext();
       const resourceMgr = context.resourceManager;
       resourceMgr.getRawFileContent('data.json').then((fileData:Uint8Array) => {
         const buffer = fileData.buffer;
         const textDecoder = util.TextDecoder.create('utf-8', {ignoreBOM: true});
         const jsonData = textDecoder.decodeToString(fileData, {stream: true});
+        hilog.info(domain, tag, '%{public}s', `data, ${ jsonData }`);
         // 设置数据
         Hypium.setData(JSON.stringify(jsonData));
       })
-
     } catch(error) {
+      hilog.info(domain, tag, '%{public}s', `data error , ${ error }`);
     }
     hilog.info(domain, tag, '%{public}s', 'start run testcase!!!');
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);

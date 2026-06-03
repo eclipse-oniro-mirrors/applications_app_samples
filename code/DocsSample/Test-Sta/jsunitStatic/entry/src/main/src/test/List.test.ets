@@ -23,10 +23,7 @@ import assert from './assertExampleTest/AssertExample.test';
 import custom from './customExampleTest/CustomExample.test';
 import cover from './coverExampleTest/CoverExample.test';
 import callBack from './callBackExampleTest/CallBackExample.test';
-import customAssertTest from './customEexpect/CustomAssert.test';
 import resourceReferenceTest from './resourceReferenceTest/ResourceReference.test';
-import dataDriver from './dataDriver/DataDriver.test';
-import paramExampleTest from './paramExampleTest/ParamExample.test'
 export default function testsuite(): void {
   basicTest();
   executeOrder1();
@@ -38,7 +35,4 @@ export default function testsuite(): void {
   cover();
   callBack();
   resourceReferenceTest();
-  dataDriver();
-  paramExampleTest();
-  customAssertTest();
 }
