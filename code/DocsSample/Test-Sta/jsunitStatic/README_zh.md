@@ -58,7 +58,7 @@ uitest
 ```
 git init
 git config core.sparsecheckout true
-echo code/ArkTS-Sta/jsunitStatic > .git/info/sparse-checkout
+echo code/DocsSample/Test-Sta/jsunitStatic > .git/info/sparse-checkout
 git remote add origin git@gitcode.com:openharmony/applications_app_samples.git
 git pull origin OpenHarmony_feature_sta_20260331
 ```
