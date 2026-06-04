@@ -69,7 +69,7 @@ data
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkData/DataShare/ShareConfig > .git/info/sparse-checkout
+echo code/DocsSample/ArkData-Sta/DataShare/ShareConfig > .git/info/sparse-checkout
 git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
-git pull origin master
+git pull origin OpenHarmony_feature_sta_20260331
 ```

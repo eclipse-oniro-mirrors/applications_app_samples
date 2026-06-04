@@ -44,7 +44,7 @@ import dataShare from '@ohos.data.dataShare';
 
 // [Start publish_shared_config]
 function publishSharedConfig(): void {
-  console.info('ttt publishSharedConfig start');
+  console.info('publishSharedConfig start');
   dataShare.createDataProxyHandle().then((dataProxyHandle: dataShare.DataProxyHandle) => {
     const newConfigData: dataShare.ProxyData[] = [
       {
@@ -69,13 +69,13 @@ function publishSharedConfig(): void {
     };
     dataProxyHandle.publish(newConfigData, config).then((results: dataShare.DataProxyResult[]) => {
       results.forEach((result) => {
-        console.info(`ttt URI: ${result.uri}, Result: ${result.result}`);
+        console.info(`URI: ${result.uri}, Result: ${result.result}`);
       });
     }).catch((error: Error) => {
-      console.info('ttt Error publishing config:', error);
+      console.info('Error publishing config:', error);
     });
   }).catch((error: Error) => {
-    console.info('ttt Error creating DataProxyHandle:', error);
+    console.info('Error creating DataProxyHandle:', error);
   });
 }
 // [End publish_shared_config]
