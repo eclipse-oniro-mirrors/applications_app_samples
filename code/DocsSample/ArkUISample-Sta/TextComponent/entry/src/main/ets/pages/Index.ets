@@ -26,26 +26,59 @@ import {
   Navigation,
   Builder,
   ForEach,
-  NavPathInfo
+  NavPathInfo,
+  Column,
+  Search,
+  LaunchMode
 } from '@kit.ArkUI';
 import { State, Provide } from '@ohos.arkui.stateManagement';
 import hilog from '@ohos.hilog';
 import { RoutableCard } from '../common/Card';
 import { Route } from '../common/Route';
 import resourceToStringManager from '../common/resource'
+import { TEXT_ROUTE_PREFIX, TextDestination } from './text';
+import { KEYBOARD_ROUTE_PREFIX, ManageKeyBoardDestination } from './manageKeyBoard';
+import { INPUT_ROUTE_PREFIX, TextInputDestination } from './textInput';
 import { RICH_EDITOR_ROUTE_PREFIX, RichEditorDestination } from './richEditor';
+import { SYMBOL_GLYPH_SPAN, SymbolGlyphSpanDestination } from './symbol';
+import { PROPERTY_STRING_ROUTE_PREFIX, PropertyStringDestination } from './propertyString';
+import { TEXT_IMAGE_MIXED_LAYOUT, TextImageMixedLayoutDestination } from './textImageMixedLayout';
+import { TEXT_FAQ, TextFAQDestination } from './faq';
 
 const TAG = '[Sample_StaticTextcomponent]';
 const DOMAIN = 0xF811;
 const BUNDLE = 'StaticTextcomponent_';
 const routes: Array<Route> = [
-  new Route(RICH_EDITOR_ROUTE_PREFIX, resourceToStringManager.resourceToString($r('app.string.pageIndex_RichEditor')))
+  new Route(TEXT_ROUTE_PREFIX, resourceToStringManager.resourceToString($r('app.string.pageIndex_Text'))),
+  new Route(INPUT_ROUTE_PREFIX, resourceToStringManager.resourceToString($r('app.string.pageIndex_TextInput'))),
+  new Route(RICH_EDITOR_ROUTE_PREFIX, resourceToStringManager.resourceToString($r('app.string.pageIndex_RichEditor'))),
+  new Route(SYMBOL_GLYPH_SPAN, resourceToStringManager.resourceToString($r('app.string.pageIndex_symbolGlyphSpan'))),
+  new Route(PROPERTY_STRING_ROUTE_PREFIX,
+    resourceToStringManager.resourceToString($r('app.string.pageIndex_PropertyString'))),
+  new Route(TEXT_IMAGE_MIXED_LAYOUT,
+    resourceToStringManager.resourceToString($r('app.string.pageIndex_TextImageMixedLayout'))),
+  new Route(KEYBOARD_ROUTE_PREFIX, resourceToStringManager.resourceToString($r('app.string.pageIndex_KeyBoard'))),
+  new Route(TEXT_FAQ, resourceToStringManager.resourceToString($r('app.string.pageIndex_TextFAQ')))
 ];
 
 @Builder
 function Destination(name: string) {
-  if (name.startsWith(RICH_EDITOR_ROUTE_PREFIX)) {
+  if (name.startsWith(TEXT_ROUTE_PREFIX)) {
+    TextDestination(name);
+  } else if (name.startsWith(INPUT_ROUTE_PREFIX)) {
+    TextInputDestination(name);
+  } else if (name.startsWith(RICH_EDITOR_ROUTE_PREFIX)) {
     RichEditorDestination(name);
+  } else if (name.startsWith(SYMBOL_GLYPH_SPAN)) {
+    SymbolGlyphSpanDestination(name);
+  } else if (name.startsWith(PROPERTY_STRING_ROUTE_PREFIX)) {
+    PropertyStringDestination(name);
+  } else if (name.startsWith(TEXT_IMAGE_MIXED_LAYOUT)) {
+    TextImageMixedLayoutDestination(name);
+  } else if (name.startsWith(TEXT_FAQ)) {
+    TextFAQDestination(name);
+  } else if (name.startsWith(KEYBOARD_ROUTE_PREFIX)) {
+    ManageKeyBoardDestination(name);
   }
 }
 
@@ -55,21 +88,37 @@ struct Index {
   @State condition: string = '';
   @Provide pathStack: NavPathStack = new NavPathStack();
 
+  getFilteredRoutes(): Route[] {
+    if (!this.condition) {
+      return routes;
+    }
+    return routes.filter((route: Route) => {
+      return route.title.toLowerCase().includes(this.condition.trim().toLowerCase());
+    });
+  }
+
   build() {
     Navigation(this.pathStack) {
-      List({ space: 12 } as ListOptions) {
-        ForEach(routes, (route: Route, index: int) => {
-          RoutableCard({ title: route.title })
-            .width('100%')
-            .onClick(() => {
-              hilog.info(DOMAIN, TAG, BUNDLE + "route.name" + route.name);
-              this.pathStack.pushPath(new NavPathInfo(route.name, undefined));
-            })
-        })
+      Column() {
+        Search({ value: this.condition })
+          .onChange(value => {
+            this.condition = value;
+          })
+          .margin(16)
+
+        List({ space: 12 } as ListOptions) {
+          ForEach(this.getFilteredRoutes(), (route: Route, index: int) => {
+            RoutableCard({ title: route.title })
+              .width('100%')
+              .onClick(() => {
+                hilog.info(DOMAIN, TAG, BUNDLE + "route.name" + route.name);
+                this.pathStack.pushPath(new NavPathInfo(route.name, undefined));
+              })
+          })
+        }
+        .padding(16)
+        .width('100%')
       }
-      .padding({ start: LengthMetrics.vp(16), end: LengthMetrics.vp(16) })
-      .contentStartOffset(56)
-      .width('100%')
     }
     .backgroundColor('#f1f3f5')
     .navDestination(Destination)

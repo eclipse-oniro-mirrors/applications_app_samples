@@ -1,5 +1,22 @@
 {
   "src": [
-    "pages/Index"
+    "pages/Index",
+    "pages/propertyString/CreateApply",
+    "pages/propertyString/StyledStringStyle",
+    "pages/propertyString/StyledStringParagraphStyle",
+    "pages/propertyString/StyledStringImageAttachment",
+    "pages/propertyString/StyledStringGestureStyle",
+    "pages/propertyString/StyledStringHtml",
+    "pages/propertyString/StyledStringSceneExample",
+    "pages/propertyString/StyledStringTextStyle",
+    "pages/propertyString/StyledStringTextShadowStyle",
+    "pages/propertyString/StyledStringDecorationStyle",
+    "pages/propertyString/StyledStringBaselineOffsetStyle",
+    "pages/propertyString/StyledStringLineHeightStyle",
+    "pages/propertyString/StyledStringLetterSpacingStyle",
+    "pages/propertyString/StyledStringParagraphStyleOne",
+    "pages/propertyString/StyledStringReplaceParagraphStyle",
+    "pages/propertyString/StyledStringConvertedToParagraph",
+    "pages/propertyString/StyledStringHtmlOne"
   ]
 }

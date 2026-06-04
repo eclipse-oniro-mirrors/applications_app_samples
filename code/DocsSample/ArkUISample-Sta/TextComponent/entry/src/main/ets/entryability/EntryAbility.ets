@@ -18,10 +18,13 @@
 import UIAbility from '@ohos.app.ability.UIAbility';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import Want from '@ohos.app.ability.Want';
-import window from '@ohos.window';
 import { BusinessError } from '@ohos.base';
-import hilog from '@ohos.hilog';
 import resourceToStringManager from '../common/resource';
+// [Start cursor_avoid_part1]
+import hilog from '@ohos.hilog';
+import window from '@ohos.window';
+import { KeyboardAvoidMode } from '@ohos.arkui.UIContext';
+// [End cursor_avoid_part1]
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
@@ -29,10 +32,7 @@ export default class EntryAbility extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
   }
 
-  onDestroy(): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
-  }
-
+  // [Start cursor_avoid_part2]
   // Used in UIAbility
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
@@ -41,6 +41,8 @@ export default class EntryAbility extends UIAbility {
     try {
       windowStage.loadContent('pages/Index', (err: BusinessError<void> | null): void => {
         hilog.info(0x0000, 'testTag', 'loadContent entering');
+        let keyboardAvoidMode = windowStage.getMainWindowSync().getUIContext().getKeyboardAvoidMode();
+        windowStage.getMainWindowSync().getUIContext().setKeyboardAvoidMode(KeyboardAvoidMode.OFFSET_WITH_CARET);
         if (err && err.code) {
           hilog.info(0x0000, 'testTag', 'loadContent error');
           return;
@@ -51,6 +53,7 @@ export default class EntryAbility extends UIAbility {
       hilog.info(0x0000, 'testTag', 'loadContent catch error：-----------' + e.message);
     }
   }
+  // [End cursor_avoid_part2]
 
   onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources

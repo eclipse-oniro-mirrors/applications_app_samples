@@ -1,0 +1,207 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  $r,
+  Button,
+  Color,
+  Column,
+  ColumnOptions,
+  Component,
+  CopyOptions,
+  CustomSpan,
+  CustomSpanDrawInfo,
+  CustomSpanMetrics,
+  CustomSpanMeasureInfo,
+  Entry,
+  Font,
+  GestureStyle,
+  MutableStyledString,
+  NavDestination,
+  ResourceColor,
+  Row,
+  StyledStringKey,
+  Text,
+  TextController,
+  DrawContext
+} from '@kit.ArkUI';
+import { State } from '@ohos.arkui.stateManagement';
+import { UIContext } from '@ohos.arkui.UIContext';
+import drawing from '@ohos.graphics.drawing';
+import { ComponentCard } from '../../common/Card';
+
+let gUIContext: UIContext;
+
+class MyCustomSpan extends CustomSpan {
+  constructor(word: string, width: number, height: number, fontSize: number) {
+    super();
+    this.word = word;
+    this.width = width;
+    this.height = height;
+    this.fontSize = fontSize;
+  }
+
+  onMeasure(measureInfo: CustomSpanMeasureInfo): CustomSpanMetrics {
+    return { width: this.width, height: this.height };
+  }
+
+  onDraw(context: DrawContext, options: CustomSpanDrawInfo): void {
+    let canvas = context.canvas;
+
+    const brush = new drawing.Brush();
+    brush.setColor({
+      alpha: 255,
+      red: 0,
+      green: 0,
+      blue: 0
+    });
+    const font = new drawing.Font();
+    font.setSize(gUIContext.vp2px(this.fontSize));
+    const textBlob =
+      drawing.TextBlob.makeFromString(this.word.substring(0, 5), font, drawing.TextEncoding.TEXT_ENCODING_UTF8);
+    canvas.attachBrush(brush);
+
+    this.onDrawRectByRadius(context, options.x, options.x + gUIContext.vp2px(this.width), options.lineTop,
+      options.lineBottom, 20);
+    brush.setColor({
+      alpha: 255,
+      red: 255,
+      green: 255,
+      blue: 255
+    });
+    canvas.attachBrush(brush);
+    if (textBlob) {
+      canvas.drawTextBlob(textBlob, options.x, options.lineBottom - 30);
+    }
+    brush.setColor({
+      alpha: 255,
+      red: 255,
+      green: 228,
+      blue: 196
+    });
+    canvas.attachBrush(brush);
+    const textBlob1 =
+      drawing.TextBlob.makeFromString(this.word.substring(5), font, drawing.TextEncoding.TEXT_ENCODING_UTF8);
+    if (textBlob1) {
+      canvas.drawTextBlob(textBlob1, options.x + gUIContext.vp2px(100), options.lineBottom - 30);
+    }
+    canvas.detachBrush();
+  }
+
+  onDrawRectByRadius(context: DrawContext, left: number, right: number, top: number, bottom: number, radius: number) {
+    let canvas = context.canvas;
+    let path = new drawing.Path();
+
+    // 画带radius的rect
+    path.moveTo(left + radius, top);
+    path.lineTo(right - radius, top);
+    path.arcTo(right - 2 * radius, top, right, top + 2 * radius, 270, 90);
+    path.lineTo(right, bottom - radius);
+    path.arcTo(right - 2 * radius, bottom - 2 * radius, right, bottom, 0, 90);
+
+    path.lineTo(left + 2 * radius, bottom);
+    path.arcTo(left, bottom - 2 * radius, left + 2 * radius, bottom, 90, 90);
+    path.lineTo(left, top + 2 * radius);
+    path.arcTo(left, top, left + 2 * radius, top + 2 * radius, 180, 90);
+
+    canvas.drawPath(path);
+  }
+
+  setWord(word: string): void {
+    this.word = word;
+  }
+
+  public width: number = 160;
+  public word: string = 'drawing';
+  public height: number = 10;
+  public fontSize: number = 16;
+}
+
+@Entry
+@Component
+export struct StyledStringGestureStyle {
+  customSpan3: CustomSpan = new MyCustomSpan('99VIP88%off', 200, 40, 30);
+  customSpanStyledString: MutableStyledString = new MutableStyledString(this.customSpan3);
+  textController: TextController = new TextController();
+  isPageShow: boolean = true;
+  @State backgroundColor1: ResourceColor | undefined = undefined;
+  gestureStyleAttr: GestureStyle = new GestureStyle({
+    onClick: () => {
+      this.backgroundColor1 = Color.Green;
+    },
+    onLongPress: () => {
+      this.backgroundColor1 = Color.Grey;
+    }
+  });
+
+  aboutToAppear(): void {
+    gUIContext = this.getUIContext();
+  }
+
+  onPageShow(): void {
+    if (!this.isPageShow) {
+      return;
+    }
+    this.isPageShow = false;
+    this.customSpanStyledString.setStyle({
+      start: 0,
+      length: 1,
+      styledKey: StyledStringKey.GESTURE,
+      styledValue: this.gestureStyleAttr
+    })
+    this.textController.setStyledString(this.customSpanStyledString);
+  }
+
+  build(): void {
+    NavDestination() {
+      Column({ space: 12 } as ColumnOptions) {
+        // [StartExclude styledStringGestureStyle_start]
+        // 请将$r('app.string.TStyledStringGestureStyle_title')替换为实际资源文件，在本示例中该资源文件的value值为"设置事件"
+        ComponentCard({ title: $r('app.string.TStyledStringGestureStyle_title') }) {
+          // [EndExclude styledStringGestureStyle_start]
+          Row() {
+            Column() {
+              // 请将$r('app.string.StyledStringGestureStyle_button_content')替换为实际资源文件，在本示例中该资源文件的value值为"响应属性字符串事件改变背景色"
+              Button($r('app.string.StyledStringGestureStyle_button_content'))
+                .backgroundColor(this.backgroundColor1)
+                .width('80%')
+                .margin(10)
+              Text(undefined, { controller: this.textController })
+                .id('text1')
+                .copyOption(CopyOptions.InApp)
+                .fontSize(30)
+            }
+            .width('100%')
+          }
+          .height('100%')
+        }
+
+        // [StartExclude styledStringGestureStyle_start]
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 })
+
+      // [EndExclude styledStringGestureStyle_start]
+    }
+    .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.TStyledStringGestureStyle_title')替换为实际资源文件，在本示例中该资源文件的value值为"设置事件"
+    .title($r('app.string.TStyledStringGestureStyle_title'))
+  }
+}
+
+// [End styledStringGestureStyle_start]

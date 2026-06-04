@@ -301,7 +301,7 @@ struct on_cut_copy_paste {
     }
     let moveOffset: int = 0;
     let sysBoard: pasteboard.SystemPasteboard = pasteboard.getSystemPasteboard();
-    sysBoard.getData().then((pasteData: pasteboard.PasteData) => {
+    sysBoard.getData().then((pasteData: pasteboard.PasteData): void => {
       if (!pasteData) {
         return;
       }

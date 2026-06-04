@@ -1,0 +1,62 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  $r,
+  Column,
+  Component,
+  Entry,
+  MutableStyledString,
+  Text,
+  TextController,
+  StyledString,
+  NavDestination
+} from '@kit.ArkUI';
+import resourceToStringManager from '../../common/resource';
+
+@Entry
+@Component
+export struct styled_string_demo1 {
+  // 请将$r('app.string.CreateApply_Text_Forty_Five')替换为实际资源文件，在本示例中该资源文件的value值为"运动45分钟"
+  styledString1: StyledString = new StyledString(this.getUIContext()
+    .getHostContext()!.resourceManager.getStringSync($r('app.string.CreateApply_Text_Forty_Five').id));
+  // 请将$r('app.string.CreateApply_Text_Third_Five')替换为实际资源文件，在本示例中该资源文件的value值为"运动35分钟"
+  mutableStyledString1: MutableStyledString = new MutableStyledString(this.getUIContext()
+    .getHostContext()!.resourceManager.getStringSync($r('app.string.CreateApply_Text_Third_Five').id));
+  controller1: TextController = new TextController();
+  controller2: TextController = new TextController();
+
+  onPageShow(): void {
+    // 在生命周期onPageShow回调中绑定属性字符串
+    this.controller1.setStyledString(this.styledString1);
+  }
+
+  build(): void {
+    Column() {
+      // 显示属性字符串
+      Text(undefined, { controller: this.controller1 })
+      Text(undefined, { controller: this.controller2 })
+        .onAppear(() => {
+          // 在组件onAppear回调中绑定属性字符串
+          this.controller2.setStyledString(this.mutableStyledString1);
+        })
+    }
+    .width('100%')
+  }
+}
+
+// [End createStyledString_start]
