@@ -1,12 +1,12 @@
 {
-  // [start apply_internet]
+  // [Start apply_internet]
   "module": {
     "requestPermissions": [
       {
         "name": "ohos.permission.INTERNET"
       }
     ],
-    // [end apply_internet]
+    // [End apply_internet]
     "name": "entry",
     "type": "entry",
     "description": "$string:module_desc",
