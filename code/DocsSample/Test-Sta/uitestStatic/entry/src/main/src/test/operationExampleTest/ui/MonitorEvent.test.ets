@@ -29,7 +29,7 @@ export default function monitorEventTest(): void {
     beforeAll(async (): Promise<void> => {
       await startAbility(bundleName, 'EntryAbility');
       await Utils.msSleep(2000);
-      await Utils.pushUrl('pages/Index', 'Index');
+      await Utils.pushUrl('pages/BaseUiTest', 'BaseUiTest');
       await Utils.msSleep(2000);
     })
 

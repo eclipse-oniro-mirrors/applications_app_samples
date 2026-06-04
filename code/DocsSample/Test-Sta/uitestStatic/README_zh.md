@@ -42,9 +42,9 @@ uitest
 ### 约束与限制
 1.本示例仅支持标准系统上运行。
 
-2.本示例从API version 26版本SDK起开始支持，SDK版本号(API Version 26 Release),镜像版本号(7.0.0.25)。
+2.本示例从API version 26版本SDK起开始支持，SDK版本号(26.0.0),镜像版本号(7.0.0.25)。
 
-3.本示例需要使用DevEco Studio 版本号(6.0.0.94SP1)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio 版本号(26.0.0.2)及以上版本才可编译运行。
 
 ### 下载
 
@@ -53,7 +53,7 @@ uitest
 ```
 git init
 git config core.sparsecheckout true
-echo code/ArkTS-Sta/Test/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
-git pull origin master
+echo code/DocsSample/Test-Sta/uitestStatic > .git/info/sparse-checkout
+git remote add origin git@gitcode.com:openharmony/applications_app_samples.git
+git pull origin OpenHarmony_feature_sta_20260331
 ```
