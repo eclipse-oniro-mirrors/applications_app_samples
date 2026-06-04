@@ -1,0 +1,48 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "staticProgress"
+    },
+	{
+      "name": "ProgressProject",
+      "value": "staticProgress"
+    },
+    {
+      "name": "Linear_Progress",
+      "value": "线性样式进度条"
+    },
+    {
+      "name": "Ring_Progress",
+      "value": "环形无刻度样式进度条"
+    },
+    {
+      "name": "ScaleRing_Progress",
+      "value": "环形有刻度样式进度条"
+    },
+    {
+      "name": "Eclipse_Progress",
+      "value": "圆形样式进度条"
+    },
+    {
+      "name": "Capsule_Progress",
+      "value": "胶囊样式进度条"
+    },
+    {
+      "name": "progress_add",
+      "value": "进度条+5"
+    },
+    {
+      "name": "progress_reduce",
+      "value": "进度条-5"
+    }
+  ]
+}
