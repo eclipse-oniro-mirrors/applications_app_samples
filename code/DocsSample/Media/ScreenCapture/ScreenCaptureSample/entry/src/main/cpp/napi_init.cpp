@@ -221,7 +221,7 @@ static napi_value StartScreenCapture_02(napi_env env, napi_callback_info info)
 
     OH_RecorderInfo recorderInfo;
     const std::string filePath = "/data/storage/el2/base/files/";
-    int32_t outputFd = open((filePath + "saving_file.mp4").c_str(), O_RDWR | O_CREAT, 0777);
+    int32_t outputFd = open((filePath + "saving_file.mp4").c_str(), O_RDWR | O_CREAT, FILE_PERMISSION_FULL_ACCESS);
     std::string fileUrl = "fd://" + std::to_string(outputFd);
     recorderInfo.url = const_cast<char *>(fileUrl.c_str());
     recorderInfo.fileFormat = OH_ContainerFormatType::CFT_MPEG_4;
@@ -349,7 +349,7 @@ int GetInputSurface()
     g_videoEnc = OH_VideoEncoder_CreateByName(name);
     g_muxer = std::make_unique<Muxer>();
     const std::string filePath = "/data/storage/el2/base/files/";
-    g_surfaceOutputFd = open((filePath + "surface.mp4").c_str(), O_RDWR | O_CREAT, 0777);
+    g_surfaceOutputFd = open((filePath + "surface.mp4").c_str(), O_RDWR | O_CREAT, FILE_PERMISSION_FULL_ACCESS);
     g_muxer->Create(g_surfaceOutputFd);
     g_encContext = new CodecUserData;
     g_encContext->sampleInfo = &sampleInfo_;
@@ -417,29 +417,95 @@ static napi_value StartScreenCapture_03(napi_env env, napi_callback_info info)
     return res;
 }
 
-// 停止
+// 开始窗口级录屏
+static napi_value StartScreenCapture_04(napi_env env, napi_callback_info info)
+{
+// [Start screenCapture_create]
+    g_avCapture = OH_AVScreenCapture_Create();
+// [End screenCapture_create]
+    if (g_avCapture == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "create screen capture failed");
+    }
+    OH_AVScreenCaptureConfig config_;
+
+    OH_RecorderInfo recorderInfo;
+    const std::string filePath = "/data/storage/el2/base/files/";
+    int32_t outputFd = open((filePath + "saving_window_file.mp4").c_str(), O_RDWR | O_CREAT,
+        FILE_PERMISSION_FULL_ACCESS);
+    std::string fileUrl = "fd://" + std::to_string(outputFd);
+    recorderInfo.url = const_cast<char *>(fileUrl.c_str());
+    recorderInfo.fileFormat = OH_ContainerFormatType::CFT_MPEG_4;
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture fileUrl %{public}s", fileUrl.c_str());
+
+    SetConfig(config_);
+    
+    // 设置录屏模式为OH_CAPTURE_SPECIFIED_WINDOW
+    config_.captureMode = OH_CAPTURE_SPECIFIED_WINDOW;
+    config_.dataType = OH_CAPTURE_FILE;
+    config_.recorderInfo = recorderInfo;
+
+    // [Start screenCapture_createCaptureStrategy]
+    // 通过弹出屏幕捕获Picker列表方式，选择已打开的应用窗口进行窗口级录屏。
+    OH_AVScreenCapture_CaptureStrategy *strategy = OH_AVScreenCapture_CreateCaptureStrategy();
+    OH_AVScreenCapture_StrategyForPickerPopUp(strategy, true);
+    OH_AVScreenCapture_SetCaptureStrategy(g_avCapture, strategy);
+    // [End screenCapture_createCaptureStrategy]
+
+    bool isMicrophone = true;
+    OH_AVScreenCapture_SetMicrophoneEnabled(g_avCapture, isMicrophone);
+    OH_AVScreenCapture_SetStateCallback(g_avCapture, OnStateChange, nullptr);
+    OH_AVScreenCapture_SetDisplayCallback(g_avCapture, OnDisplaySelected, nullptr);
+    OH_AVSCREEN_CAPTURE_ErrCode result = OH_AVScreenCapture_Init(g_avCapture, config_);
+    if (result != AV_SCREEN_CAPTURE_ERR_OK) {
+        OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OH_AVScreenCapture_Init failed %{public}d", result);
+    }
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OH_AVScreenCapture_Init %{public}d", result);
+    // [Start screenCapture_startScreenRecording]
+    result = OH_AVScreenCapture_StartScreenRecording(g_avCapture);
+    // [End screenCapture_startScreenRecording]
+    if (result != AV_SCREEN_CAPTURE_ERR_OK) {
+        OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture Started failed %{public}d", result);
+    // [Start screenCapture_releaseScreenRecording]
+        OH_AVScreenCapture_Release(g_avCapture);
+        g_avCapture = nullptr;
+    // [End screenCapture_releaseScreenRecording]
+    }
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture Started %{public}d", result);
+
+    m_scSaveFileIsRunning = true;
+    napi_value res;
+    napi_create_int32(env, result, &res);
+    return res;
+}
+
+static void StopSurfaceCapture()
+{
+    if (!m_scSurfaceIsRunning) {
+        return;
+    }
+    (void)OH_VideoEncoder_NotifyEndOfStream(g_videoEnc);
+    (void)OH_VideoEncoder_Stop(g_videoEnc);
+    (void)OH_VideoEncoder_Destroy(g_videoEnc);
+    g_videoEnc = nullptr;
+    g_muxer->Stop();
+    g_muxer.reset();
+    m_scSurfaceIsRunning = false;
+    isStarted_.store(false);
+    if (inputVideoThread_ && inputVideoThread_->joinable()) {
+        inputVideoThread_->join();
+    }
+    if (g_surfaceOutputFd != -1) {
+        close(g_surfaceOutputFd);
+        g_surfaceOutputFd = -1;
+    }
+}
+
 static napi_value StopScreenCapture(napi_env env, napi_callback_info info)
 {
     OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture Stop");
     OH_AVSCREEN_CAPTURE_ErrCode result = AV_SCREEN_CAPTURE_ERR_OPERATE_NOT_PERMIT;
     napi_value res;
-    if (m_scSurfaceIsRunning) {
-        (void)OH_VideoEncoder_NotifyEndOfStream(g_videoEnc);
-        (void)OH_VideoEncoder_Stop(g_videoEnc);
-        (void)OH_VideoEncoder_Destroy(g_videoEnc);
-        g_videoEnc = nullptr;
-        g_muxer->Stop();
-        g_muxer.reset();
-        m_scSurfaceIsRunning = false;
-        isStarted_.store(false);
-        if (inputVideoThread_ && inputVideoThread_->joinable()) {
-            inputVideoThread_->join();
-        }
-        if (g_surfaceOutputFd != -1) {
-            close(g_surfaceOutputFd);
-            g_surfaceOutputFd = -1;
-        }
-    }
+    StopSurfaceCapture();
     if (g_avCapture == nullptr) {
         OH_LOG_ERROR(LOG_APP, "capture_ is null.");
     }
