@@ -18,7 +18,7 @@ import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import abilityConnectionManager from '@ohos.distributedsched.abilityConnectionManager';
-import { AppStorage, UIContext } from '@kit.ArkUI';
+import { UIContext } from '@kit.ArkUI';
 import { BusinessError } from '@ohos.base';
 
 const TAG: string = 'CollabSample_EntryAbility';
@@ -53,7 +53,6 @@ export default class EntryAbility extends UIAbility {
     this.registerSessionEvent(sessionId);
     const collabToken = collabParam['ohos.dms.collabToken'] as string;
     abilityConnectionManager.acceptConnect(sessionId, collabToken).then(() => {
-      AppStorage.setOrCreate('sessionId', sessionId);
       hilog.info(0x0000, TAG, 'Accept connect success, sessionId: ' + sessionId);
     }, (err: Error) => {
       hilog.error(0x0000, TAG, 'Accept connect failed: ' + err.message);
@@ -101,7 +100,6 @@ export default class EntryAbility extends UIAbility {
       hilog.info(0x0000, TAG, 'createSessionFromWant createAbilityConnectionSession start:')
       sessionId = abilityConnectionManager.createAbilityConnectionSession('collabTest', this.context, peerInfo, options);
       hilog.info(0x0000, TAG, 'createSessionFromWant createAbilityConnectionSession end:')
-      AppStorage.setOrCreate('sessionId', sessionId);
       hilog.info(0x0000, TAG, 'createSessionFromWant createSession sessionId is' + sessionId);
     } catch (error) {
       hilog.error(0x0000, TAG, 'createSessionFromWant createSession error: ' + (error as BusinessError).message);
@@ -115,31 +113,18 @@ export default class EntryAbility extends UIAbility {
     hilog.info(0x0000, TAG, 'registerSessionEvent called');
     abilityConnectionManager.onConnect(sessionId, (callbackInfo: abilityConnectionManager.EventCallbackInfo) => {
       hilog.info(0x0000, TAG, 'onConnect called');
-      AppStorage.setOrCreate<string>('receiveWatchMessage', 'connect success'); // 目前Index.ets里会触发receiveWatchMessageFuc回调，但是回调至执行一行，后续再调
-      AppStorage.setOrCreate('receiveMessage', 'connect success');
       hilog.info(0x0000, TAG, 'Session connected');
     });
 
     abilityConnectionManager.onDisconnect(sessionId, (callbackInfo: abilityConnectionManager.EventCallbackInfo) => {
       hilog.info(0x0000, TAG, 'onDisconnect called');
       abilityConnectionManager.destroyAbilityConnectionSession(sessionId);
-      try {
-        AppStorage.setOrCreate('isConnected', false);
-        AppStorage.setOrCreate('receiveMessage', 'session disconnect');
-      } catch (err) {
-        hilog.error(0x0000, TAG, 'Error in onDisconnect: ' + JSON.stringify(err));
-      }
       hilog.info(0x0000, TAG, 'Session disconnected');
     });
 
     abilityConnectionManager.onReceiveMessage(sessionId, (callbackInfo: abilityConnectionManager.EventCallbackInfo) => {
       hilog.info(0x0000, TAG, 'onReceiveMessage message called');
       const msg = callbackInfo.msg !== undefined && callbackInfo.msg !== null ? callbackInfo.msg : '';
-      try {
-        AppStorage.setOrCreate('receiveMessage', msg);
-      } catch (err) {
-        hilog.error(0x0000, TAG, 'Error in onReceiveMessage: ' + JSON.stringify(err));
-      }
       hilog.info(0x0000, TAG, 'Received message: ' + msg);
     });
 
