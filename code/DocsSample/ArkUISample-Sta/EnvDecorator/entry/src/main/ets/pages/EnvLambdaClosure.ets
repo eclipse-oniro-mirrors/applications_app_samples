@@ -61,7 +61,7 @@ class ParamsInt {
 }
 
 // 自定义NodeController类，用于控制节点容器的行为
-export class MyNodeControllerLambda extends NodeController {
+export class MyNodeController extends NodeController {
   private rootNode: FrameNode | null = null;
   private uiContext: UIContext | null = null;
 
@@ -118,9 +118,9 @@ function buildComponent(params: ParamsInt) {
 
 @Entry
 @ComponentV2
-struct EnvLambdaClosureExample {
+struct Index {
   // 创建MyNodeController实例，用于控制NodeContainer中的节点
-  private nodeController: MyNodeControllerLambda = new MyNodeControllerLambda();
+  private nodeController: MyNodeController = new MyNodeController();
 
   private createSubWindow() {
     // 从AppStorage中获取windowStage实例
@@ -280,7 +280,7 @@ struct Comp {
 @Builder
 export function envLambdaClosure(): void {
   NavDestination() {
-    EnvLambdaClosureExample();
+    Index();
   }
   .backgroundColor('#f1f2f3')
   .title($r('app.string.env_lambda_closure_title'))

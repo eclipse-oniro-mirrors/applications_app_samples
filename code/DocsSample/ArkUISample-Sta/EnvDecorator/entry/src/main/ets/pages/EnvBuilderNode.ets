@@ -118,7 +118,7 @@ function buildComponent(params: ParamsInt) {
 
 @Entry
 @ComponentV2
-struct EnvBuilderNodeExample {
+struct Index {
   // 创建MyNodeController实例，用于控制NodeContainer中的节点
   private nodeController: MyNodeController = new MyNodeController();
 
@@ -279,7 +279,7 @@ struct Comp {
 @Builder
 export function envBuilderNode(): void {
   NavDestination() {
-    EnvBuilderNodeExample();
+    index();
   }
   .backgroundColor('#f1f2f3')
   .title($r('app.string.env_builder_node_title'))
