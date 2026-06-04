@@ -62,15 +62,17 @@ struct CompV2 {
 
   build() {
     Column() {
-      Text(`@Local outer.outerValue can update ${this.outer.outerValue}`)
-        .fontSize(20)
+      Button(`@Local outer.outerValue can update ${this.outer.outerValue}`)
+        .width(300)
+        .margin(10)
         .onClick(() => {
           // 可观察第一层的变化
           this.outer.outerValue += '!';
         })
 
-      Text(`@Local outer.inner.innerValue can update ${this.outer.inner.innerValue}`)
-        .fontSize(20)
+      Button(`@Local outer.inner.innerValue can update ${this.outer.inner.innerValue}`)
+        .width(300)
+        .margin(10)
         .onClick(() => {
           // 可观察第二层的变化
           this.outer.inner.innerValue += '!';
@@ -89,14 +91,16 @@ struct NestedClassV1ObjectLink {
 
   build() {
     Column() {
-      Text(`@ObjectLink inner.innerValue can update ${this.inner.innerValue}`)
-        .fontSize(20)
+      Button(`@ObjectLink inner.innerValue can update ${this.inner.innerValue}`)
+        .width(300)
+        .margin(10)
         .onClick(() => {
           // 可以触发刷新
           this.inner.innerValue += '!';
         })
       NestedClassV1ObjectLinkArray({ arr: this.inner.arr })
     }
+    .width('100%')
   }
 }
 
@@ -113,16 +117,21 @@ struct NestedClassV1ObjectLinkArray {
       })
 
       Button('@ObjectLink push')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.arr.push(new ArrayItem(20));
         })
 
       Button('@ObjectLink change the last Item')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           // 在NestedClassV1ObjectLinkArrayItem中可以观察最后一个数组项的属性变化
           this.arr[this.arr.length - 1].value++;
         })
     }
+    .width('100%')
   }
 }
 
@@ -132,6 +141,8 @@ struct NestedClassV1ObjectLinkArrayItem {
 
   build() {
     Text(`@ObjectLink outer.inner.arr item: ${this.item.value}`)
+      .fontSize(15)
+      .margin(10)
   }
 }
 // [End MixNestedV2ToV1]

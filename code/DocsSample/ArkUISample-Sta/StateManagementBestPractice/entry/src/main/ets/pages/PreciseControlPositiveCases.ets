@@ -32,6 +32,7 @@ struct Title {
       Image($r('app.media.startIcon'))
         .width(50)
         .height(50)
+        .margin(10)
       Text('Title')
         .fontSize(20)
     }
@@ -47,10 +48,12 @@ struct Page1 {
       Title()
       Stack() {
       }
-      .backgroundColor('black')
+      .backgroundColor('green')
       .width(200)
       .height(400)
       Button('move')
+        .width(200)
+        .margin(10)
         .onClick(() => {
           this.getUIContext().animateTo({
             duration: 50

@@ -30,14 +30,19 @@ struct CompA {
       ForEach(this.realStateArr,
         (item: number) => {
           Text(`${item}`)
+            .fontSize(20)
+            .margin(10)
         })
-      Text('add item')
+      Button('add item')
+        .width(300)
+        .margin(10)
         .onClick(() => {
-          // 改变realStateArr触发UI视图更新
+          // 改变realStateArr触发UI视图刷新
           this.realStateArr.push(this.realStateArr[this.realStateArr.length-1] + 1);
         })
     }
-    .width(200).height(500)
+    .width('100%')
+    .height(500)
   }
 }
 // [End force_update_positive_case]

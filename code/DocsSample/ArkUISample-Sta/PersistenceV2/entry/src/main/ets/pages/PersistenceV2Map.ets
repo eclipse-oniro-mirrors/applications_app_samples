@@ -57,8 +57,12 @@ struct PersistenceV2MapExample {
   build() {
     Column(undefined) {
       Text(`map size: ${this.stateVar.size}`)
+        .fontSize(20)
+        .margin(10)
       // 点击按钮创建一个新的Person对象并添加到Map中
       Button('add')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           let p = new Person();
           p.userName = 'user_' + this.stateVar.size.toString();
@@ -68,6 +72,8 @@ struct PersistenceV2MapExample {
         })
       // 点击按钮删除最后一个Map条目
       Button('delete last')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.stateVar.delete('key_' + (this.stateVar.size - 1));
         })
@@ -79,24 +85,29 @@ struct PersistenceV2MapExample {
               let val = entry.$1 as Person;
               if (val instanceof Person) {
                 Column() {
-                  Text(`[${key}] ${val.userName}`)
-                    .fontSize(20)
+                  Button(`[${key}] ${val.userName}`)
+                    .width(300)
+                    .margin(10)
                     // 点击修改当前条目的userName和age
                     .onClick(() => {
                       val.userName += '~';
                       val.inner.age++;
                     })
                   Text(`userId: ${val.userId}, inner.age: ${val.inner.age}`)
-                    .fontSize(16)
+                    .fontSize(20)
+                    .margin(10)
                 }
+                .width('100%')
               }
             }
+            .width('100%')
           }
         }, (entry: Tuple2<string, Person>, index: int) => {
           return entry.$0 + index.toString();
         })
       }
     }
+    .width('100%')
   }
 }
 // [End persistence_v2_map]

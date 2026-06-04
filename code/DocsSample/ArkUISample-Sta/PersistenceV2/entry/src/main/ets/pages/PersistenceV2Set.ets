@@ -59,8 +59,12 @@ struct PersistenceV2SetExample {
   build() {
     Column(undefined) {
       Text(`set size: ${this.stateVar.size}`)
+        .fontSize(20)
+        .margin(10)
       // 点击按钮创建一个新的Person对象并添加到Set中
       Button('add')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           let p = new Person();
           p.userName = 'user_' + this.stateVar.size.toString();
@@ -71,6 +75,8 @@ struct PersistenceV2SetExample {
         })
       // 点击按钮移除Set中最后添加的元素
       Button('remove last')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           if (this.lastPerson && this.stateVar.has(this.lastPerson!)) {
             this.stateVar.delete(this.lastPerson!);
@@ -90,16 +96,20 @@ struct PersistenceV2SetExample {
               if (item instanceof Person) {
                 Text(`[${index}] ${item.userName}`)
                   .fontSize(20)
+                  .margin(10)
                 Text(`userId: ${item.userId}, inner.age: ${item.inner.age}`)
-                  .fontSize(16)
+                  .fontSize(20)
+                  .margin(10)
               }
             }
+            .width('100%')
           }
         }, (item: Person, index: int) => {
           return item.userId + item.userName + index.toString();
         })
       }
     }
+    .width('100%')
   }
 }
 // [End persistence_v2_set]

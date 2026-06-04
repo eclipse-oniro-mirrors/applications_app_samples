@@ -62,8 +62,12 @@ struct PersistenceV2ArrayExample {
   build() {
     Column(undefined) {
       Text(`length: ${this.stateVar.length}`)
+        .fontSize(20)
+        .margin(10)
       // 点击按钮向数组中添加一个新的Person对象
       Button('push')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.stateVar.push(new Person());
         })
@@ -72,8 +76,9 @@ struct PersistenceV2ArrayExample {
           ListItem() {
             if (item instanceof Person) {
               Column() {
-                Text(`item: ${item.userName}`)
-                  .fontSize(30)
+                Button(`item: ${item.userName}`)
+                  .width(300)
+                  .margin(10)
                   // 点击修改当前item的userName、userInfo，并添加Inner对象到arr中
                   .onClick(() => {
                     item.userName += '~';
@@ -83,10 +88,17 @@ struct PersistenceV2ArrayExample {
                     item.info.arr.push(inner);
                   })
                 Text(`userInfo: ${item.info.userInfo}`)
+                  .fontSize(20)
+                  .margin(10)
                 Text(`arr: ${JSON.stringify(item.info.arr)}`)
+                  .fontSize(20)
+                  .margin(10)
               }
+              .width('100%')
             } else {
               Text(`${Class.of(item).getName()}`)
+                .fontSize(20)
+                .margin(10)
             }
           }
         }, (item: Person, index: int) => {
@@ -94,6 +106,7 @@ struct PersistenceV2ArrayExample {
         })
       }
     }
+    .width('100%')
   }
 }
 // [End persistence_v2_array]

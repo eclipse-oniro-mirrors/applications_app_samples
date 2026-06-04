@@ -25,12 +25,16 @@ struct Item {
   @Require @Param itemArr: Array<string>;
 
   build() {
-    Row() {
+    Column() {
       ForEach(this.itemArr, (item: string, index: int) => {
         Text(`${index}: ${item}`)
+          .fontSize(20)
+          .margin(10)
       }, (item: string) => item + Math.random())
 
       Button('@Param push')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.itemArr.push('Param');
         })
@@ -49,27 +53,35 @@ struct CompV1 {
       ForEach(this.arr, (itemArr: Array<string>) => {
         Item({ itemArr: itemArr })
       }, (itemArr: Array<string>) => JSON.stringify(itemArr) + Math.random())
-      Divider()
       Button('@State push two-dimensional array item')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.arr[0].push('strawberry');
         })
 
       Button('@State push array item')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.arr.push(['pear']);
         })
 
       Button('@State change two-dimensional array first item')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.arr[0][0] = 'APPLE';
         })
 
       Button('@State change array first item')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.arr[0] = ['watermelon'];
         })
     }
+    .width('100%')
   }
 }
 // [End MixTwoDimV1ToV2]

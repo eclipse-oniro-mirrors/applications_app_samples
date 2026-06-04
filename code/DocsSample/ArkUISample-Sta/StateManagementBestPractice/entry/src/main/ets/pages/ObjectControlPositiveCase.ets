@@ -41,7 +41,9 @@ struct CompA {
     Column() {
       Text(this.a.prop2) // 当this.a.prop2的值改变时，会执行组件渲染
         .fontSize(this.isRenderText()) // 当Text组件刷新时，会执行isRenderText方法
+        .margin(10)
     }
+    .width('100%')
   }
 }
 
@@ -54,10 +56,12 @@ struct Page {
     Row() {
       Column() {
         Text('Prop1: ' + this.a.prop1)
-          .fontSize(50)
+          .fontSize(20)
+          .margin(10)
         CompA({ a: this.a })
         Button('Change prop1')
-          .width(200)
+          .width(300)
+          .margin(10)
           .onClick(() => {
             this.a.prop1 = this.a.prop1 + 1;
           })
@@ -65,7 +69,6 @@ struct Page {
       .width('100%')
     }
     .width('100%')
-    .height('100%')
   }
 }
 // [End object_control_positive_case]

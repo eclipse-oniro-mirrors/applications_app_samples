@@ -70,11 +70,21 @@ struct PersistenceV2NestedClassExample {
   build() {
     Column(undefined) {
       Text(`company: ${this.stateVar.companyName}`)
+        .fontSize(20)
+        .margin(10)
       Text(`dept: ${this.stateVar.dept.deptName}`)
+        .fontSize(20)
+        .margin(10)
       Text(`person: ${this.stateVar.dept.person.userName}`)
+        .fontSize(20)
+        .margin(10)
       Text(`inner.age: ${this.stateVar.dept.person.inner.age}`)
+        .fontSize(20)
+        .margin(10)
       // 点击按钮初始化所有层级的嵌套数据
       Button('init')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.stateVar.companyName = 'MyCompany';
           this.stateVar.dept.deptName = 'Engineering';
@@ -83,6 +93,8 @@ struct PersistenceV2NestedClassExample {
         })
       // 点击按钮逐级修改嵌套数据
       Button('modify')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.stateVar.companyName += '_v2';
           this.stateVar.dept.deptName += '_upd';
@@ -90,6 +102,7 @@ struct PersistenceV2NestedClassExample {
           this.stateVar.dept.person.inner.age += 1;
         })
     }
+    .width('100%')
   }
 }
 // [End persistence_v2_nested_class]
