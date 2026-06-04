@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+// [Start custom_gestures]
 import { Entry, Component, $r, Scroll, Column, Stack, Image, Text, Scroller, Color, Alignment, HitTestMode, GestureGroup, GestureMode, LongPressGesture, GestureEvent, GestureInfo, BaseGestureEvent, GestureControl, GestureJudgeResult, ColumnOptions, DragEvent, DragItemInfo } from '@kit.ArkUI';
 import { PromptAction } from '@ohos.arkui.UIContext';
 
@@ -81,3 +82,5 @@ struct Index {
     }
   }
 }
+
+// [End custom_gestures]

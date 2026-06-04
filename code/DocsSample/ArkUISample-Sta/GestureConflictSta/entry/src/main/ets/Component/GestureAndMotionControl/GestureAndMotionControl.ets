@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+// [Start gesture_motioncontrol]
 import { Entry, Component, Stack, Scroll, Column, Text, Scroller, Alignment, TextAlign, BarState, Color, EdgeEffect, GestureRecognizer, GestureControl, BaseGestureEvent, ScrollableTargetInfo, GestureJudgeResult, PanGesture, GestureEvent, GestureRecognizerState, PanGestureEvent, Margin, ForEach, ScrollDirection } from '@kit.ArkUI';
 
 @Entry
@@ -150,3 +151,5 @@ struct FatherControlChild {
     }.width('100%').height('100%').backgroundColor(0xDCDCDC)
   }
 }
+
+// [End gesture_motioncontrol]

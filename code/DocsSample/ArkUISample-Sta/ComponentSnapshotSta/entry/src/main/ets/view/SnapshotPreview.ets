@@ -107,7 +107,7 @@ export struct SnapshotPreview {
         fileIo.closeSync(file.fd);
         Logger.info(TAG, `Succeeded in packToFile`);
         this.getUIContext().getPromptAction().showToast({
-          // 璇峰皢$r('app.string.save_album_success')鏇挎崲涓哄疄闄呰祫婧愭枃浠讹紝鍦ㄦ湰绀轰緥涓璧勬簮鏂囦欢鐨剉alue鍊间负"Saved to album"
+          // 请将$r('app.string.save_album_success')替换为实际资源文件，在本示例中该资源文件的value值为"Saved to album"
           message: $r('app.string.save_album_success'),
           duration: 1800
         })
@@ -242,7 +242,7 @@ export struct SnapshotPreview {
       })
         // [StartExclude save_button]
         .backgroundColor(Color.White)
-        // $r('sys.color.font_emphasize')闇€瑕佹浛鎹负寮€鍙戣€呮墍闇€鐨勮祫婧愭枃浠?
+        // $r('sys.color.font_emphasize')需要替换为开发者所需的资源文件
         .fontColor($r('sys.color.font_emphasize'))
         .iconColor($r('sys.color.font_emphasize'))
         .width('calc(50% - 24vp)')

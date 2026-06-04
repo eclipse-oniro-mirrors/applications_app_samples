@@ -43,7 +43,7 @@ function awardBuilder(params: Params) {
 
 export class GlobalStaticSnapshot {
   /**
-   * 涓€涓彲浠ヨ幏鍙栧浐瀹氬璞℃埅鍥剧殑闈欐€佹柟娉?
+   * 一个可以获取固定对象截图的静态方法
    */
   static async getAwardSnapshot(uiContext: UIContext, textParam: Params): Promise<image.PixelMap | undefined> {
     let resultPixmap: image.PixelMap | undefined = undefined;
