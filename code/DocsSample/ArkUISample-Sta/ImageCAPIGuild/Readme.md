@@ -19,12 +19,8 @@
 ```
 .
 |—— cpp
-|    |—— types
-|    |      |—— libentry
-|    |      |       |—— index.d.ts       // 提供Native和ArkTS侧的桥接方法
-|    |—— napi_init.cpp                   // NAPI初始化，与index.d.ts对应的桥接方法
-|    |—— NativeEntry.h                   // Native入口定义
-|    |—— NativeEntry.cpp                 // Native入口实现
+|    |—— ani_init.cpp                    // ANI 入口：绑定 C++ native 方法到 TS 类
+|    |—— NativeEntry.h                   // Native入口定义（单例 + 节点管理）
 |    |—— ImageExample.h                  // 图片示例定义
 |    |—— ImageExample.cpp                // 图片示例实现
 |    |—— CMakeLists.txt                  // CMake配置
@@ -32,11 +28,12 @@
 |—— ets
 |    |—— pages
 |         |—— Index.ets                  // 应用启动页，加载承载Native的容器
-|         |—— NativeClass.ets            // 创建Native静态类
 |
 |—— resources
 |    |—— rawfile
-|         |—— startIcon.png              // 图片资源文件
+|         |—— clouds.jpg                 // 图片资源文件
+|         |—— cloud.svg                  // 图片资源文件
+|         |—— sky.png                    // 图片资源文件
 ```
 ### 具体实现
 以下示例展示了如何创建一个包含多种图片属性的完整UI界面
@@ -45,11 +42,15 @@
 #### 提供NAPI桥接方法
 1、声明Native模块的ArkTS接口，[源码参考](entry/src/main/cpp/types/libentry/Index.d.ts)。
 
-2、在NAPI层实现与Native侧的桥接，使ArkTS层能够调用Native代码创建和管理图片组件，[源码参考](entry/src/main/cpp/types/libentry/napi_init.cpp)。
+2、在NAPI层实现与Native侧的桥接，使ArkTS层能够调用Native代码创建和管理图片组件，[源码参考](entry/src/main/cpp/ani_init.cpp)。
+#### 通过 ANI 桥接 C++ 与 ArkTS
+1、在 ArkTS 中声明 `native` 方法，[源码参考](entry/src/main/ets/pages/Index.ets)。
+
+2、在 `ANI_Constructor` 入口中通过 `FindClass` + `Class_BindNativeMethods` 将 C++ native 方法与 ArkTS 类绑定，[源码参考](entry/src/main/cpp/ani_init.cpp)。
 #### 实现Native入口
-实现Native模块的入口函数，处理来自ArkTS侧的NodeContent和节点操作请求，包括创建图片界面和销毁界面的逻辑，[源码参考](entry/src/main/cpp/types/libentry/NativeEntry.cpp)，[头文件参考](entry/src/main/cpp/types/libentry/NativeEntry.h)。
+使用 `NativeEntry` 单例管理 `NodeContent` 和根节点的添加/移除，[源码参考](entry/src/main/cpp/NativeEntry.h)。
 #### 显示并设置图片
-实现Image组件的具体功能，创建包含多个Image组件的示例界面，演示图片源设置、缩放类型、插值效果、填充颜色、占位图等属性的配置方法，[源码参考](entry/src/main/cpp/types/libentry/ImageExample.cpp)，[头文件参考](entry/src/main/cpp/types/libentry/ImageExample.h)。
+实现Image组件的具体功能，创建包含多个Image组件的示例界面，演示图片源设置、缩放类型、插值效果、填充颜色、占位图等属性的配置方法，[源码参考](entry/src/main/cpp/ImageExample.cpp)，[头文件参考](entry/src/main/cpp/ImageExample.h)。
 
 ### 相关权限
 
@@ -71,7 +72,7 @@
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkUISample-sta/ImageCAPIGuide > .git/info/sparse-checkout
+echo code/DocsSample/ArkUISample-sta/ImageCAPIGuild > .git/info/sparse-checkout
 git remote add origin https://gitee.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

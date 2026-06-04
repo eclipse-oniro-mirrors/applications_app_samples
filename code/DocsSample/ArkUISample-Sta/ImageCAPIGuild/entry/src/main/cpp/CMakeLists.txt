@@ -12,8 +12,7 @@ include_directories(${NATIVERENDER_ROOT_PATH}/include)
 
 # 编译源文件
 add_library(entry SHARED
-    napi_init.cpp
-    NativeEntry.cpp
+    ani_init.cpp
     ImageExample.cpp
 )
 
