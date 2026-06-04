@@ -34,7 +34,7 @@ class EntryAbility extends UIAbility {
       let storage = new LocalStorage();
       let continueInput = '';
       if (want.parameters !== undefined) {
-        continueInput = JSON.stringify(want?.parameters?.data);
+        continueInput = JSON.stringify(want?.parameters);
         console.info(`continue input ${continueInput}`)
         hilog.info(0x0000, 'testTag EntryAbility', `continue input ${continueInput}`);
       }
@@ -49,7 +49,7 @@ class EntryAbility extends UIAbility {
       let storage = new LocalStorage();
       let continueInput = '';
       if (want.parameters !== undefined) {
-        continueInput = JSON.stringify(want?.parameters?.data);
+        continueInput = JSON.stringify(want?.parameters);
         hilog.info(0x0000, 'testTag EntryAbility', `continue input ${continueInput}`);
       }
       this.context.setMissionContinueState(AbilityConstant.ContinueState.ACTIVE);
