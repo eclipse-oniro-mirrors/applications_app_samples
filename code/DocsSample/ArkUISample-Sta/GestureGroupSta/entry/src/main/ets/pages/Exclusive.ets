@@ -16,7 +16,7 @@
 
 // [Start mutual_exclusion]
 // xxx.ets
-import { Column, Text, Entry, Component, State, GestureGroup, GestureMode, TapGesture } from '@kit.ArkUI'
+import { Column, Text, Entry, Component, State, GestureGroup, GestureMode, TapGesture } from '@kit.ArkUI';
 @Entry
 @Component
 struct MutualExclusion {

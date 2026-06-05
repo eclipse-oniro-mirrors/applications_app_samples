@@ -16,10 +16,8 @@
  */
 
 // [Start global_snapshot]
+import { ComponentContent, Builder, wrapBuilder, UIContext, Column, Text, Margin, FontWeight } from '@kit.ArkUI';
 import { image } from '@kit.ImageKit';
-import { ComponentContent, Builder, wrapBuilder, UIContext } from '@kit.ArkUI';
-import { Column, Text } from '@kit.ArkUI';
-import { Margin, FontWeight } from '@kit.ArkUI';
 
 export class Params {
   public text: string | undefined | null = '';

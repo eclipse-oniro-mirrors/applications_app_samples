@@ -18,8 +18,7 @@
 import { image } from '@kit.ImageKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Logger } from './Logger';
-import { UIContext } from '@kit.ArkUI';
-import { AppStorage } from '@kit.ArkUI';
+import { UIContext, AppStorage } from '@kit.ArkUI';
 
 const uiContext: UIContext | undefined = AppStorage.get('uiContext');
 const TAG = 'ImageUtilsLogTag';

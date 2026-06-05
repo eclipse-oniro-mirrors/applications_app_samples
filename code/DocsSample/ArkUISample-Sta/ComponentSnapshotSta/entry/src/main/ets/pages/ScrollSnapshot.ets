@@ -16,11 +16,10 @@
  */
 
 import { ScrollSnapshot } from '../view/ScrollSnapshot';
-import { Entry, Component, Builder } from '@kit.ArkUI';
-import { Navigation, Column, Button, ColumnOptions, Padding } from '@kit.ArkUI';
-import { NavPathStack, NavigationMode, SafeAreaType, SafeAreaEdge, FlexAlign } from '@kit.ArkUI';
-import { $r } from '@kit.ArkUI';
-import { AppStorage } from '@kit.ArkUI';
+import {
+  $r, Entry, Component, Builder, Navigation, Column, Button, ColumnOptions, Padding, NavPathStack, NavigationMode,
+  SafeAreaType, SafeAreaEdge, FlexAlign, AppStorage
+} from '@kit.ArkUI';
 
 @Entry
 @Component

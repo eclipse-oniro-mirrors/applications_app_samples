@@ -24,11 +24,11 @@ import { CommonUtils } from '../common/CommonUtils';
 import { ImageUtils } from '../common/ImageUtils';
 import { Logger } from '../common/Logger';
 import { common } from '@kit.AbilityKit';
-import { Component, State, StorageLink, Builder, AppStorage, UIContext } from '@kit.ArkUI';
-import { Stack, List, ListItem, LazyForEach, Row, NavDestination, Column, Image, Button, Padding } from '@kit.ArkUI';
-import { Scroller, BarState, Position, DismissContentCoverAction, DismissReason, ColumnOptions, RowOptions, Area,
-  ModalTransition, ContentCoverOptions } from '@kit.ArkUI';
-import { $r } from '@kit.ArkUI';
+import {
+  $r, Component, State, StorageLink, Builder, AppStorage, UIContext, Stack, List, ListItem, LazyForEach, Row,
+  NavDestination, Column, Image, Button, Padding, Scroller, BarState, Position, DismissContentCoverAction,
+  DismissReason, ColumnOptions, RowOptions, Area, ModalTransition, ContentCoverOptions
+} from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 const LIST_ID = 'LIST_ID';

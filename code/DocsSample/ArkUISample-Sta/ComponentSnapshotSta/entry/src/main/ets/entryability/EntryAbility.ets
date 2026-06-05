@@ -18,10 +18,8 @@
 import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { window } from '@kit.ArkUI';
 import { Logger } from '../common/Logger';
-import { UIContext } from '@kit.ArkUI';
-import { AppStorage } from '@kit.ArkUI';
+import { window, UIContext, AppStorage } from '@kit.ArkUI';
 
 const TAG = 'EntryAbilityLogTag';
 

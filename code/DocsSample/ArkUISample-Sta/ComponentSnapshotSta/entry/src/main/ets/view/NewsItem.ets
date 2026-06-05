@@ -15,11 +15,9 @@
  * limitations under the License.
  */
 
-import { Reusable, Component, State } from '@kit.ArkUI';
-import { Row, Column, Text, Image } from '@kit.ArkUI';
-import { HorizontalAlign, FlexAlign, ImageFit, TextOverflow } from '@kit.ArkUI';
-import { Color } from '@kit.ArkUI';
-import { $r } from '@kit.ArkUI';
+import {
+  $r, Reusable, Component, State, Row, Column, Text, Image, HorizontalAlign, FlexAlign, ImageFit, TextOverflow, Color
+} from '@kit.ArkUI';
 
 @Reusable
 @Component

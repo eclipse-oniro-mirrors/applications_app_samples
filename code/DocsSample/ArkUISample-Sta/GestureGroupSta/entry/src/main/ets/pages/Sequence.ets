@@ -15,8 +15,8 @@
  */
 // [Start sequence_identification]
 // xxx.ets
-import { Column, Text, Entry, Component, State, GestureGroup, GestureMode, LongPressGesture, PanGesture, GestureEvent, BorderStyle } from '@kit.ArkUI'
-import { hilog } from '@kit.PerformanceAnalysisKit'
+import { Column, Text, Entry, Component, State, GestureGroup, GestureMode, LongPressGesture, PanGesture, GestureEvent, BorderStyle } from '@kit.ArkUI';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const DOMAIN: int = 0x0001;
 const TAG: string = 'Sample_gesturegroup';
