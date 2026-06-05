@@ -16,12 +16,12 @@
 // entry/src/main/cpp/ImageExample.cpp
 #include "ImageExample.h"
 #include "NativeEntry.h"
-// [start image_headfiles]
+// [Start image_headfiles]
 #include <arkui/native_node.h>
 #include <arkui/native_type.h>
 #include <arkui/native_interface.h>
 #include <hilog/log.h>
-// [end image_headfiles]
+// [End image_headfiles]
 
 // 日志标签
 #undef LOG_DOMAIN
@@ -29,7 +29,7 @@
 #define LOG_DOMAIN 0x3200
 #define LOG_TAG "ImageExample"
 
-// [start event_receiver]
+// [Start event_receiver]
 // 全局事件接收器函数
 void GlobalEventReceiver(ArkUI_NodeEvent *event)
 {
@@ -49,9 +49,9 @@ void GlobalEventReceiver(ArkUI_NodeEvent *event)
         OH_LOG_INFO(LOG_APP, "SVG animation play finished");
     }
 }
-// [end event_receiver]
+// [End event_receiver]
 
-// [start image_load_complete]
+// [Start image_load_complete]
 // 图片加载完成事件处理
 void HandleImageComplete(ArkUI_NodeEvent* event)
 {
@@ -73,9 +73,9 @@ void HandleImageComplete(ArkUI_NodeEvent* event)
     OH_LOG_INFO(LOG_APP, "Image loaded: %.0fx%.0f, component: %.0fx%.0f",
                 width, height, componentWidth, componentHeight);
 }
-// [end image_load_complete]
+// [End image_load_complete]
 
-// [start image_load_error]
+// [Start image_load_error]
 // 图片加载失败事件处理
 void HandleImageError(ArkUI_NodeEvent* event)
 {
@@ -89,33 +89,33 @@ void HandleImageError(ArkUI_NodeEvent* event)
     // 401: 图片路径无效
     OH_LOG_ERROR(LOG_APP, "Image load failed, error code: %d", errorCode);
 }
-// [end image_load_error]
+// [End image_load_error]
 
-// [start image_svg_complete]
+// [Start image_svg_complete]
 // SVG播放完成事件处理
 void HandleSvgPlayFinish(ArkUI_NodeEvent* event)
 {
     OH_LOG_INFO(LOG_APP, "SVG animation play finished");
 }
-// [end image_svg_complete]
+// [End image_svg_complete]
 
 // 创建图片组件界面
 // 函数1：初始化 + Column + 第一张图
 ArkUI_NodeHandle CreateImageColumnAndFirstImage()
 {
-    // [start image_getnode]
+    // [Start image_getnode]
     ArkUI_NativeNodeAPI_1* nativeNodeApi = nullptr;
     OH_ArkUI_GetModuleInterface(ARKUI_NATIVE_NODE, ArkUI_NativeNodeAPI_1, nativeNodeApi);
     if (nativeNodeApi == nullptr) {
         OH_LOG_ERROR(LOG_APP, "Get native node API failed");
         return nullptr;
     }
-    // [end image_getnode]
+    // [End image_getnode]
 
-    // [start register_image_receiver]
+    // [Start register_image_receiver]
     // 注册全局事件接收器
     nativeNodeApi->registerNodeEventReceiver(GlobalEventReceiver);
-    // [start register_image_receiver]
+    // [End register_image_receiver]
     
     // 创建Column容器
     ArkUI_NodeHandle column = nativeNodeApi->createNode(ARKUI_NODE_COLUMN);
@@ -131,21 +131,21 @@ ArkUI_NodeHandle CreateImageColumnAndFirstImage()
 
     // 设置网络图片示例
     ArkUI_NodeHandle image0 = nativeNodeApi->createNode(ARKUI_NODE_IMAGE);
-    // [start network_image]
+    // [Start network_image]
     ArkUI_AttributeItem srcItem = {nullptr, 0, "https://xxx.jpg"};
     nativeNodeApi->setAttribute(image0, NODE_IMAGE_SRC, &srcItem);
-    // [end network_image]
+    // [End network_image]
 
-    // [start create_image_component]
+    // [Start create_image_component]
     // 创建Image组件1 - 基础图片
     ArkUI_NodeHandle image1 = nativeNodeApi->createNode(ARKUI_NODE_IMAGE);
-    // [end create_image_component]
+    // [End create_image_component]
     if (image1 != nullptr) {
-        // [start image_source]
+        // [Start image_source_rawfile]
         // 设置图片源（使用rawfile资源）
         ArkUI_AttributeItem srcItem = {nullptr, 0, "resource://RAWFILE/clouds.jpg"};
         nativeNodeApi->setAttribute(image1, NODE_IMAGE_SRC, &srcItem);
-        // [end image_source]
+        // [End image_source_rawfile]
 
         // 设置宽高
         ArkUI_NumberValue widthValue[] = {{.f32 = 200.0f}};
@@ -160,42 +160,42 @@ ArkUI_NodeHandle CreateImageColumnAndFirstImage()
         ArkUI_AttributeItem borderWidthItem = {borderWidthValue, 1};
         nativeNodeApi->setAttribute(image1, NODE_BORDER_WIDTH, &borderWidthItem);
 
-        // [start image_zoom]
+        // [Start image_zoom]
         // 设置缩放类型
         ArkUI_NumberValue fitValue[] = {{.i32 = ARKUI_OBJECT_FIT_COVER}};
         ArkUI_AttributeItem fitItem = {fitValue, 1};
         nativeNodeApi->setAttribute(image1, NODE_IMAGE_OBJECT_FIT, &fitItem);
-        // [end image_zoom]
+        // [End image_zoom]
 
-        // [start image_interpolation]
+        // [Start image_interpolation]
         // 设置插值效果
         ArkUI_NumberValue interpolationValue[] = {{.i32 = ARKUI_IMAGE_INTERPOLATION_HIGH}};
         ArkUI_AttributeItem interpolationItem = {interpolationValue, 1};
         nativeNodeApi->setAttribute(image1, NODE_IMAGE_INTERPOLATION, &interpolationItem);
-        // [end image_interpolation]
+        // [End image_interpolation]
         
-        // [start image_repeat]
+        // [Start image_repeat]
         // 设置重复样式
         ArkUI_NumberValue repeatValue[] = {{.i32 = ARKUI_IMAGE_REPEAT_NONE}};
         ArkUI_AttributeItem repeatItem = {repeatValue, 1};
         nativeNodeApi->setAttribute(image1, NODE_IMAGE_OBJECT_REPEAT, &repeatItem);
-        // [end image_repeat]
+        // [End image_repeat]
         
-        // [start image_render]
+        // [Start image_render]
         // 设置渲染模式
         ArkUI_NumberValue renderModeValue[] = {{.i32 = ARKUI_IMAGE_RENDER_MODE_ORIGINAL}};
         ArkUI_AttributeItem renderModeItem = {renderModeValue, 1};
         nativeNodeApi->setAttribute(image1, NODE_IMAGE_RENDER_MODE, &renderModeItem);
-        // [end image_render]
+        // [End image_render]
         
-        // [start image_load_sync]
+        // [Start image_load_sync]
         // 设置同步加载
         ArkUI_NumberValue syncLoadValue[] = {{.i32 = 1}};
         ArkUI_AttributeItem syncLoadItem = {syncLoadValue, 1};
         nativeNodeApi->setAttribute(image1, NODE_IMAGE_SYNC_LOAD, &syncLoadItem);
-        // [end image_load_sync]
+        // [End image_load_sync]
         
-        // [start image_color_filter]
+        // [Start image_color_filter]
         // 设置颜色滤镜（5x4矩阵，共20个浮点数）
         // 矩阵格式：每行5个元素分别表示 R、G、B、A 的系数和偏移量
         // 行1: R行 - R_new = R*1 + G*0 + B*0 + A*0 + offset*0 = R
@@ -223,34 +223,34 @@ ArkUI_NodeHandle CreateImageColumnAndFirstImage()
         };
         ArkUI_AttributeItem colorFilterItem = {colorFilterValue, 20};
         nativeNodeApi->setAttribute(image1, NODE_IMAGE_COLOR_FILTER, &colorFilterItem);
-        // [end image_color_filter]
+        // [End image_color_filter]
         
-        // [start image_orientation]
+        // [Start image_orientation]
         // 设置图片显示方向
         ArkUI_NumberValue orientationValue[] = {{.i32 = ARKUI_ORIENTATION_UP}};
         ArkUI_AttributeItem orientationItem = {orientationValue, 1};
         nativeNodeApi->setAttribute(image1, NODE_IMAGE_ORIENTATION, &orientationItem);
-        // [end image_orientation]
+        // [End image_orientation]
 
-        // [start register_image_load_complete]
+        // [Start register_image_load_complete]
         // 注册图片加载完成事件
         nativeNodeApi->registerNodeEvent(image1, NODE_IMAGE_ON_COMPLETE, 0, nullptr);
-        // [end register_image_load_complete]
+        // [End register_image_load_complete]
         
-        // [start register_image_load_error]
+        // [Start register_image_load_error]
         // 注册图片加载失败事件
         nativeNodeApi->registerNodeEvent(image1, NODE_IMAGE_ON_ERROR, 0, nullptr);
-        // [end register_image_load_error]
+        // [End register_image_load_error]
 
-        // [start register_svg_play_component]
+        // [Start register_svg_play_component]
         // 注册SVG播放完成事件
         nativeNodeApi->registerNodeEvent(image1, NODE_IMAGE_ON_SVG_PLAY_FINISH, 0, nullptr);
-        // [end register_svg_play_component]
+        // [End register_svg_play_component]
 
         // 添加到Column
         nativeNodeApi->addChild(column, image1);
         
-        // [start unregister_node_event]
+        // [Start unregister_node_event]
         // 注销事件监听
         nativeNodeApi->unregisterNodeEvent(image1, NODE_IMAGE_ON_COMPLETE);
         nativeNodeApi->unregisterNodeEvent(image1, NODE_IMAGE_ON_ERROR);
@@ -258,7 +258,7 @@ ArkUI_NodeHandle CreateImageColumnAndFirstImage()
 
         // 注销全局事件接收器
         nativeNodeApi->unregisterNodeEventReceiver();
-        // [end unregister_node_event]
+        // [End unregister_node_event]
     }
     return column;
 }
@@ -275,10 +275,10 @@ void AddSecondImage(ArkUI_NodeHandle column)
     ArkUI_NodeHandle image2 = nativeNodeApi->createNode(ARKUI_NODE_IMAGE);
     if (image2 != nullptr) {
         // 设置图片源（可以是SVG）
-        // [start image_source]
+        // [Start image_source_svg]
         ArkUI_AttributeItem srcItem2 = {nullptr, 0, "resource://RAWFILE/cloud.svg"};
         nativeNodeApi->setAttribute(image2, NODE_IMAGE_SRC, &srcItem2);
-        // [end image_source]
+        // [End image_source_svg]
 
         // 设置宽高
         ArkUI_NumberValue widthValue2[] = {{.f32 = 200.0f}};
@@ -293,17 +293,17 @@ void AddSecondImage(ArkUI_NodeHandle column)
         ArkUI_AttributeItem borderWidthItem = {borderWidthValue, 1};
         nativeNodeApi->setAttribute(image2, NODE_BORDER_WIDTH, &borderWidthItem);
 
-        // [start image_fillcolor]
+        // [Start image_fillcolor]
         // 设置填充颜色（蓝色）
         ArkUI_NumberValue fillColorValue[] = {{.u32 = 0xFF007DFF}};
         ArkUI_AttributeItem fillColorItem = {fillColorValue, 1};
         nativeNodeApi->setAttribute(image2, NODE_IMAGE_FILL_COLOR, &fillColorItem);
-        // [end image_fillcolor]
+        // [End image_fillcolor]
         
-        // [start retister_image_svg_complete]
+        // [Start retister_image_svg_complete]
         // 注册SVG播放完成事件
         nativeNodeApi->registerNodeEvent(image2, NODE_IMAGE_ON_SVG_PLAY_FINISH, 0, nullptr);
-        // [end retister_image_svg_complete]
+        // [End retister_image_svg_complete]
 
         // 添加到Column
         nativeNodeApi->addChild(column, image2);
@@ -322,10 +322,10 @@ void AddThirdImage(ArkUI_NodeHandle column)
     ArkUI_NodeHandle image3 = nativeNodeApi->createNode(ARKUI_NODE_IMAGE);
     if (image3 != nullptr) {
         // 设置网络图片源
-        // [start image_source]
+        // [Start image_source_png]
         ArkUI_AttributeItem srcItem3 = {nullptr, 0, "resource://RAWFILE/sky.png"};
         nativeNodeApi->setAttribute(image3, NODE_IMAGE_SRC, &srcItem3);
-        // [end image_source]
+        // [End image_source_png]
 
         // 设置宽高
         ArkUI_NumberValue widthValue3[] = {{.f32 = 200.0f}};
@@ -340,18 +340,18 @@ void AddThirdImage(ArkUI_NodeHandle column)
         ArkUI_AttributeItem borderWidthItem = {borderWidthValue, 1};
         nativeNodeApi->setAttribute(image3, NODE_BORDER_WIDTH, &borderWidthItem);
 
-        // [start image_alt_source]
+        // [Start image_alt_source]
         // 设置占位图
         ArkUI_AttributeItem altItem = {nullptr, 0, "/data/storage/el2/base/haps/entry/files/placeholder.png"};
         nativeNodeApi->setAttribute(image3, NODE_IMAGE_ALT, &altItem);
-        // [end image_alt_source]
+        // [End image_alt_source]
 
-        // [start image_decode_size]
+        // [Start image_decode_size]
         // 设置解码尺寸
         ArkUI_NumberValue sourceSizeValue[] = {{.i32 = 150}, {.i32 = 150}};
         ArkUI_AttributeItem sourceSizeItem = {sourceSizeValue, 2};
         nativeNodeApi->setAttribute(image3, NODE_IMAGE_SOURCE_SIZE, &sourceSizeItem);
-        // [end image_decode_size]
+        // [End image_decode_size]
 
         // 添加到Column
         nativeNodeApi->addChild(column, image3);
