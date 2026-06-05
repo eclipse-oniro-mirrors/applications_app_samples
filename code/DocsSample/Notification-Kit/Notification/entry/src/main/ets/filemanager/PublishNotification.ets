@@ -15,11 +15,11 @@
 
 // [Start publish_notification_header]
 import { notificationManager } from '@kit.NotificationKit';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError, RecordData } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = '[PublishOperation]';
-const DOMAIN_NUMBER: number = 0xFF00;
+const DOMAIN_NUMBER: int = 0xFF00;
 // [End publish_notification_header]
 
 @Component
@@ -42,8 +42,8 @@ export struct PublishNotification {
                 }
               }
             };
-            notificationManager.publish(notificationRequest, (err: BusinessError) => {
-              if (err) {
+            notificationManager.publish(notificationRequest, (err) => {
+              if (err && err.code !== 0) {
                 hilog.error(DOMAIN_NUMBER, TAG,
                   `Failed to publish notification. Code is ${err.code}, message is ${err.message}`);
                 return;
@@ -56,22 +56,24 @@ export struct PublishNotification {
           .margin({ top: 20, bottom: 20 })
           .onClick(() => {
             // [Start pub_multi_line_req_notify]
+            let linesData: Array<string> =  ['line_01', 'line_02', 'line_03']
+            let multiLineData: notificationManager.NotificationMultiLineContent = {
+              title: 'test_multi_line_title',
+              text: 'test_text',
+              briefText: 'test_briefText',
+              longTitle: 'test_longTitle',
+              lines:linesData
+            }
             let notificationRequest: notificationManager.NotificationRequest = {
               id: 3,
               content: {
                 notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_MULTILINE, // 多行文本类型通知
-                multiLine: {
-                  title: 'test_multi_line_title',
-                  text: 'test_text',
-                  briefText: 'test_briefText',
-                  longTitle: 'test_longTitle',
-                  lines: ['line_01', 'line_02', 'line_03'],
-                }
+                multiLine: multiLineData
               }
             };
             // 发布通知
-            notificationManager.publish(notificationRequest, (err: BusinessError) => {
-              if (err) {
+            notificationManager.publish(notificationRequest, (err) => {
+              if (err && err.code !== 0) {
                 hilog.error(DOMAIN_NUMBER, TAG,
                   `Failed to publish notification. Code is ${err.code}, message is ${err.message}`);
                 return;
@@ -88,7 +90,7 @@ export struct PublishNotification {
               let isSupportTemplate: boolean = data; // isSupportTemplate的值为true表示支持downloadTemplate模板类通知，false表示不支持
               hilog.info(DOMAIN_NUMBER, TAG,
                 `Succeeded in supporting download template notification. data is ${isSupportTemplate}`);
-            }).catch((err: BusinessError) => {
+            }).catch((err) => {
               hilog.error(DOMAIN_NUMBER, TAG,
                 `Failed to support download template notification. Code is ${err.code}, message is ${err.message}`);
             });
@@ -99,6 +101,7 @@ export struct PublishNotification {
           .margin({ top: 20, bottom: 20 })
           .onClick(() => {
             // [Start pub_progress_template_req_notify]
+            let templateData : Record<string, RecordData> = { 'title': 'File Title', 'fileName': 'music.mp4', 'progressValue': 45 }
             let notificationRequest: notificationManager.NotificationRequest = {
               id: 5,
               content: {
@@ -112,13 +115,13 @@ export struct PublishNotification {
               // 构造进度条模板，name字段当前需要固定配置为downloadTemplate
               template: {
                 name: 'downloadTemplate',
-                data: { title: 'File Title', fileName: 'music.mp4', progressValue: 45 }
+                data: templateData
               }
             };
 
             // 发布通知
-            notificationManager.publish(notificationRequest, (err: BusinessError) => {
-              if (err) {
+            notificationManager.publish(notificationRequest, (err) => {
+              if (err && err.code !== 0) {
                 hilog.error(DOMAIN_NUMBER, TAG,
                   `Failed to publish notification. Code is ${err.code}, message is ${err.message}`);
                 return;

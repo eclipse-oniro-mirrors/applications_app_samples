@@ -22,7 +22,7 @@ import fs from '@ohos.file.fs';
 import fileUri from '@ohos.file.fileuri';
 
 const TAG: string = '[SpecifiedCustomizedRingtone]';
-const DOMAIN_NUMBER: number = 0xFF00;
+const DOMAIN_NUMBER: int = 0xFF00;
 const SOUND_FILE_NAME: string = 'ringtone_demo.mp3'; // 实际项目中请替换为自己的音频文件
 // [End specified_customized_ringtone_header]
 
@@ -48,7 +48,7 @@ export struct SpecifiedCustomizedRingtone {
 
     notificationManager.publish(notificationRequest).then(() => {
       hilog.info(DOMAIN_NUMBER, TAG, `Succeeded in publishing notification.`);
-    }).catch((err: BusinessError) => {
+    }).catch((err) => {
       hilog.error(DOMAIN_NUMBER, TAG, `Failed to publish notification. Code is ${err.code}, message is ${err.message}`);
     });
     // [End specified_customized_ringtone_publish_notification]
@@ -71,8 +71,7 @@ export struct SpecifiedCustomizedRingtone {
           .onClick(() => {
             // [Start specified_customized_ringtone_getAppContext]
             // 生成沙箱内音频资源路径
-            const uiContext: UIContext = this.getUIContext();
-            let context: Context | undefined = uiContext.getHostContext() as common.UIAbilityContext;
+            let context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
             if (!context) {
               hilog.error(DOMAIN_NUMBER, TAG, 'Context is not initialized.');
               return;

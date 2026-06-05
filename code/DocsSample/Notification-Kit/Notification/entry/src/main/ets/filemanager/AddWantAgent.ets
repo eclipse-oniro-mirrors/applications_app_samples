@@ -15,12 +15,13 @@
 
 // [Start add_behavior_intent_header]
 import { notificationManager } from '@kit.NotificationKit';
-import { wantAgent, WantAgent } from '@kit.AbilityKit';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { wantAgent, WantAgent, Want } from '@kit.AbilityKit';
+import type { WantAgent } from '@kit.AbilityKit';
+import { BusinessError, RecordData } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = '[PublishOperation]';
-const DOMAIN_NUMBER: number = 0xFF00;
+const DOMAIN_NUMBER: int = 0xFF00;
 // [End add_behavior_intent_header]
 
 @Component
@@ -41,8 +42,8 @@ export struct AddWantAgent {
               wants: [
                 {
                   action: 'event_name', // 设置事件名
-                  parameters: {},
-                }
+                  parameters: {} as Record<string, RecordData>
+                } as Want
               ],
               actionType: wantAgent.OperationType.SEND_COMMON_EVENT,
               requestCode: 0,
@@ -51,15 +52,17 @@ export struct AddWantAgent {
             // [End create_pub_event_agent_info]
 
             // 创建WantAgent
-            wantAgent.getWantAgent(wantAgentInfo, (err: BusinessError, data: WantAgent) => {
-              if (err) {
-                hilog.error(DOMAIN_NUMBER, TAG,
-                  `Failed to get want agent. Code is ${err.code}, message is ${err.message}`);
+            wantAgent.getWantAgent(wantAgentInfo, (err, data) => {
+              if (err && err.code !== 0) {
+                hilog.error(DOMAIN_NUMBER, TAG, `getWantAgent failed, code: ${err.code}, message: ${err.message}`);
+                return;
+              }
+              if (!data) {
+                hilog.error(DOMAIN_NUMBER, TAG, 'getWantAgent failed: data is undefined');
                 return;
               }
               hilog.info(DOMAIN_NUMBER, TAG, 'Succeeded in getting want agent.');
               wantAgentObj = data;
-
               // 构造NotificationRequest对象
               let notificationRequest: notificationManager.NotificationRequest = {
                 content: {
@@ -75,8 +78,8 @@ export struct AddWantAgent {
                 wantAgent: wantAgentObj!
               };
 
-              notificationManager.publish(notificationRequest, (err: BusinessError) => {
-                if (err) {
+              notificationManager.publish(notificationRequest, (err) => {
+                if (err && err.code !== 0) {
                   hilog.error(DOMAIN_NUMBER, TAG,
                     `Failed to publish notification. Code is ${err.code}, message is ${err.message}`);
                   return;
@@ -101,8 +104,8 @@ export struct AddWantAgent {
                   action: '',
                   entities: [],
                   uri: '',
-                  parameters: {}
-                }
+                  parameters: {} as Record<string, RecordData>
+                } as Want
               ],
               actionType: wantAgent.OperationType.START_ABILITY,
               requestCode: 0,
@@ -112,10 +115,13 @@ export struct AddWantAgent {
 
             // [Start create_get_agent]
             // 创建WantAgent
-            wantAgent.getWantAgent(wantAgentInfo, (err: BusinessError, data: WantAgent) => {
-              if (err) {
-                hilog.error(DOMAIN_NUMBER, TAG,
-                  `Failed to get want agent. Code is ${err.code}, message is ${err.message}`);
+            wantAgent.getWantAgent(wantAgentInfo, (err, data) => {
+              if (err && err.code !== 0) {
+                hilog.error(DOMAIN_NUMBER, TAG, `getWantAgent failed, code: ${err.code}, message: ${err.message}`);
+                return;
+              }
+              if (!data) {
+                hilog.error(DOMAIN_NUMBER, TAG, 'getWantAgent failed: data is undefined');
                 return;
               }
               hilog.info(DOMAIN_NUMBER, TAG, 'Succeeded in getting want agent.');
@@ -148,8 +154,8 @@ export struct AddWantAgent {
                 actionButtons: [actionButton],
               };
 
-              notificationManager.publish(notificationRequest, (err: BusinessError) => {
-                if (err) {
+              notificationManager.publish(notificationRequest, (err) => {
+                if (err && err.code !== 0) {
                   hilog.error(DOMAIN_NUMBER, TAG,
                     `Failed to publish notification. Code is ${err.code}, message is ${err.message}`);
                   return;
@@ -176,7 +182,7 @@ export struct AddWantAgent {
                   action: '',
                   entities: [],
                   uri: '',
-                  parameters: {}
+                  parameters: {} as Record<string, RecordData>
                 }
               ],
               actionType: wantAgent.OperationType.START_ABILITY,
@@ -185,13 +191,13 @@ export struct AddWantAgent {
             };
 
             // 用于保存“发布公共事件”的WantAgent对象,后续使用其完成触发的动作。
-            let pubEventWantAgentObj: WantAgent | null = null;
+            let pubEventWantAgentObj: WantAgent | undefined = undefined;
             // 发布公共事件的WantAgent配置
             const pubEventWantAgentInfo: wantAgent.WantAgentInfo = {
               wants: [
                 {
                   action: 'event_name', // 设置事件名
-                  parameters: {},
+                  parameters: {} as Record<string, RecordData>
                 }
               ],
               actionType: wantAgent.OperationType.SEND_COMMON_EVENT,
@@ -201,12 +207,14 @@ export struct AddWantAgent {
 
             // 注意：ArkTS不支持箭头函数直接作为回调参数的解构，所以用普通函数+Promise封装
             const createWantAgent = (info: wantAgent.WantAgentInfo): Promise<WantAgent> => {
-              return new Promise((resolve, reject) => {
-                wantAgent.getWantAgent(info, (err: BusinessError, data: WantAgent) => {
-                  if (err) {
+              return new Promise<WantAgent>((resolve, reject) => {
+                wantAgent.getWantAgent(info, (err, data) => {
+                  if (err && err.code !== 0) {
                     reject(err);
-                  } else {
-                    resolve(data);
+                    return;
+                  }
+                  if (data) {
+                    resolve(data as WantAgent);
                   }
                 });
               });
@@ -216,53 +224,53 @@ export struct AddWantAgent {
               createWantAgent(startAbilityWantAgentInfo), // 任务1：创建“拉起应用”的Agent
               createWantAgent(pubEventWantAgentInfo)// 任务2：创建“发布事件”的Agent
             ])
-              .then((result: WantAgent[]) => {
-                // 用索引访问数组元素（ArkTS支持）
-                startAbilityWantAgentObj = result[0]; // 第一个结果：拉起应用的Agent
-                pubEventWantAgentObj = result[1]; // 第二个结果：发布事件的Agent
+            .then((result: WantAgent[]) => {
+              // 用索引访问数组元素（ArkTS支持）
+              startAbilityWantAgentObj = result[0]; // 第一个结果：拉起应用的Agent
+              pubEventWantAgentObj = result[1]; // 第二个结果：发布事件的Agent
 
-                hilog.info(DOMAIN_NUMBER, TAG, 'Succeeded in getting both want agents');
+              hilog.info(DOMAIN_NUMBER, TAG, 'Succeeded in getting both want agents');
 
-                // 第一个按钮：open_the_app（拉起应用）
-                const actionButtonOne: notificationManager.NotificationActionButton = {
-                  title: 'open_the_app', // 英文标题
-                  wantAgent: startAbilityWantAgentObj! // 绑定“拉起应用”的Agent（!表示非空断言，确保已赋值）
-                };
+              // 第一个按钮：open_the_app（拉起应用）
+              const actionButtonOne: notificationManager.NotificationActionButton = {
+                title: 'open_the_app', // 英文标题
+                wantAgent: startAbilityWantAgentObj! // 绑定“拉起应用”的Agent（!表示非空断言，确保已赋值）
+              };
 
-                // 第二个按钮：Publish Common Event（发布公共事件）
-                const actionButtonTwo: notificationManager.NotificationActionButton = {
-                  title: 'Publish Common Event', // 英文标题
-                  wantAgent: pubEventWantAgentObj! // 绑定“发布事件”的Agent
-                };
+              // 第二个按钮：Publish Common Event（发布公共事件）
+              const actionButtonTwo: notificationManager.NotificationActionButton = {
+                title: 'Publish Common Event', // 英文标题
+                wantAgent: pubEventWantAgentObj! // 绑定“发布事件”的Agent
+              };
 
-                const notificationRequest: notificationManager.NotificationRequest = {
-                  content: {
-                    notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
-                    normal: {
-                      title: 'two_buttons_notify', // 通知标题
-                      text: 'Click on this notification twice to open the app.', // 正文
-                      additionalText: 'Dual-action Test' // 附加文本（可选）
-                    },
+              const notificationRequest: notificationManager.NotificationRequest = {
+                content: {
+                  notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
+                  normal: {
+                    title: 'two_buttons_notify', // 通知标题
+                    text: 'Click on this notification twice to open the app.', // 正文
+                    additionalText: 'Dual-action Test' // 附加文本（可选）
                   },
-                  id: 7, // 唯一ID
-                  wantAgent: startAbilityWantAgentObj!, // 点击通知本身→拉起应用
-                  actionButtons: [actionButtonOne, actionButtonTwo] // 两个按钮按顺序排列
-                };
+                },
+                id: 7, // 唯一ID
+                wantAgent: startAbilityWantAgentObj!, // 点击通知本身→拉起应用
+                actionButtons: [actionButtonOne, actionButtonTwo] // 两个按钮按顺序排列
+              };
 
-                notificationManager.publish(notificationRequest, (err: BusinessError) => {
-                  if (err) {
-                    hilog.error(DOMAIN_NUMBER, TAG,
-                      `Failed to publish two-button notification. Code: ${err.code}, Msg: ${err.message}`);
-                    return;
-                  }
-                  hilog.info(DOMAIN_NUMBER, TAG, 'Succeeded in publishing two-button notification');
-                });
-              })
-              .catch((err: BusinessError) => {
-                // 捕获任一WantAgent创建失败的错误
-                hilog.error(DOMAIN_NUMBER, TAG,
-                  `Failed to create want agent. Code: ${err.code}, Msg: ${err.message}`);
+              notificationManager.publish(notificationRequest, (err: BusinessError | null) => {
+                if (err && err.code !== 0) {
+                  hilog.error(DOMAIN_NUMBER, TAG,
+                    `Failed to publish two-button notification. Code: ${err.code}, Msg: ${err.message}`);
+                  return;
+                }
+                hilog.info(DOMAIN_NUMBER, TAG, 'Succeeded in publishing two-button notification');
               });
+            })
+            .catch((err: Error) => {
+              // 捕获任一WantAgent创建失败的错误
+              hilog.error(DOMAIN_NUMBER, TAG,
+                `Failed to create want agent. Code: ${err.code}, Msg: ${err.message}`);
+            });
           });
       }
       .title('AddWantAgent')

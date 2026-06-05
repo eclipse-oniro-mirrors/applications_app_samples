@@ -19,7 +19,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = '[PublishOperation]';
-const DOMAIN_NUMBER: number = 0xFF00;
+const DOMAIN_NUMBER: int = 0xFF00;
 // [End manage_notification_ways_header]
 
 @Component
@@ -32,8 +32,8 @@ export struct ManageNotificationWays {
           .onClick(() => {
             // [Start create_type_channel]
             // addSlot回调
-            let addSlotCallBack = (err: BusinessError): void => {
-              if (err) {
+            let addSlotCallBack = (err: BusinessError | null): void => {
+              if (err && err.code !== 0) {
                 hilog.error(DOMAIN_NUMBER, TAG, `addSlot failed, code is ${err.code}, message is ${err.message}`);
               } else {
                 hilog.info(DOMAIN_NUMBER, TAG, `addSlot success`);
@@ -47,8 +47,8 @@ export struct ManageNotificationWays {
           .onClick(() => {
             // [Start get_type_channel]
             // getSlot回调
-            let getSlotCallback = (err: BusinessError, data: notificationManager.NotificationSlot): void => {
-              if (err) {
+            let getSlotCallback = (err: BusinessError | null, data: notificationManager.NotificationSlot | undefined | null): void => {
+              if (err && err.code !== 0) {
                 hilog.error(DOMAIN_NUMBER, TAG, `Failed to get slot. Code is ${err.code}, message is ${err.message}`);
               } else {
                 hilog.info(DOMAIN_NUMBER, TAG, `Succeeded in getting slot.`);
@@ -68,8 +68,8 @@ export struct ManageNotificationWays {
           .onClick(() => {
             // [Start delete_type_channel]
             // removeSlot回调
-            let removeSlotCallback = (err: BusinessError): void => {
-              if (err) {
+            let removeSlotCallback = (err: BusinessError | null): void => {
+              if (err && err.code !== 0) {
                 hilog.error(DOMAIN_NUMBER, TAG,
                   `removeSlot failed, code is ${JSON.stringify(err.code)}, message is ${JSON.stringify(err.message)}`);
               } else {
