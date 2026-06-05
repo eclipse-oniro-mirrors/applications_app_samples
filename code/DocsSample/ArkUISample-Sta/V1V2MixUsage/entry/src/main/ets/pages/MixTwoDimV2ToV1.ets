@@ -25,12 +25,16 @@ struct Item {
   @ObjectLink itemArr: Array<string>;
 
   build() {
-    Row() {
+    Column() {
       ForEach(this.itemArr, (item: string, index: int) => {
         Text(`${index}: ${item}`)
+          .fontSize(20)
+          .margin(10)
       }, (item: string) => item + Math.random())
 
       Button('@ObjectLink push')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.itemArr.push('ObjectLink');
         })
@@ -48,27 +52,35 @@ struct IndexPage {
       ForEach(this.arr, (itemArr: Array<string>) => {
         Item({ itemArr: itemArr })
       }, (itemArr: Array<string>) => JSON.stringify(itemArr) + Math.random())
-      Divider()
       Button('@Local push two-dimensional array item')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.arr[0].push('strawberry');
         })
 
       Button('@Local push array item')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.arr.push(['pear']);
         })
 
       Button('@Local change two-dimensional array first item')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.arr[0][0] = 'APPLE';
         })
 
       Button('@Local change array first item')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.arr[0] = ['watermelon'];
         })
     }
+    .width('100%')
   }
 }
 // [End MixTwoDimV2ToV1]

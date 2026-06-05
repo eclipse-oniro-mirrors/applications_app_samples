@@ -39,21 +39,26 @@ export struct Page2 {
             // 在AppStorageV2中创建一个key为Sample的键值对（如果存在，则返回AppStorageV2中对应的数据），并且和prop关联
             this.prop = AppStorageV2.connect<Sample>(ISampleType, 'Sample', () => new Sample())!;
           })
+          .width(300)
+          .margin(10)
 
-        Text(`Page2 add 1 to prop.p1: ${this.prop.p1}`)
-          .fontSize(30)
+        Button(`Page2 add 1 to prop.p1: ${this.prop.p1}`)
           .onClick((e: ClickEvent) => {
             this.prop.p1++;
           })
+          .width(300)
+          .margin(10)
 
-        Text(`Page2 add 1 to prop.p2: ${this.prop.p2}`)
-          .fontSize(30)
+        Button(`Page2 add 1 to prop.p2: ${this.prop.p2}`)
+          .width(300)
+          .margin(10)
           .onClick((e: ClickEvent) => {
             // 页面不刷新，但p2的值已改变
             this.prop.p2++;
           })
 
       }
+      .width('100%')
     }
   }
 }

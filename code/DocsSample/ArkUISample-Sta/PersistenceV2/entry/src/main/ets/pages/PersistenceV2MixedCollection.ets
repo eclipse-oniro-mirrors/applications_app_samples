@@ -66,33 +66,37 @@ struct PersistenceV2MixedCollectionExample {
     Column(undefined) {
       Text(`tags: ${this.stateVar.tags.length}`)
         .fontSize(20)
+        .margin(10)
       Text(`people: ${this.stateVar.people.size}`)
         .fontSize(20)
+        .margin(10)
       Text(`unique: ${this.stateVar.unique.size}`)
         .fontSize(20)
+        .margin(10)
 
       // 点击按钮初始化所有集合数据
       Button('init all')
+        .width(300)
+        .margin(10)
         .onClick(() => {
-          this.stateVar.tags.push('tag_a', 'tag_b', 'tag_c');
+          this.stateVar.tags.push('tag_a');
           let p1 = new Person();
           p1.userName = 'alice';
           p1.inner.age = 25;
-          let p2 = new Person();
-          p2.userName = 'bob';
-          p2.inner.age = 30;
           this.stateVar.people.set('alice', p1);
-          this.stateVar.people.set('bob', p2);
           this.stateVar.unique.add(p1);
-          this.stateVar.unique.add(p2);
         })
       // 点击按钮向tags数组中添加新标签
       Button('add tag')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.stateVar.tags.push('tag_' + this.stateVar.tags.length.toString());
         })
       // 点击按钮创建新的Person对象并添加到Map中
       Button('add person to map')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           let p = new Person();
           p.userName = 'user_' + this.stateVar.people.size.toString();
@@ -101,6 +105,8 @@ struct PersistenceV2MixedCollectionExample {
         })
       // 点击按钮创建新的Person对象并添加到Set中
       Button('add person to set')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           let p = new Person();
           p.userName = 'set_' + this.stateVar.unique.size.toString();
@@ -110,13 +116,16 @@ struct PersistenceV2MixedCollectionExample {
 
       // 展示tags数组内容
       Text('--- tags ---')
-        .fontSize(16)
+        .fontSize(20)
+        .margin(10)
       List() {
         ForEach(this.stateVar.tags, (tag: string, index: int) => {
           ListItem() {
             Text(`[${index}] ${tag}`)
-              .fontSize(16)
+              .fontSize(20)
+              .margin(10)
           }
+          .width('100%')
         }, (tag: string, index: int) => {
           return tag + index.toString();
         })
@@ -124,16 +133,19 @@ struct PersistenceV2MixedCollectionExample {
 
       // 展示people Map内容
       Text('--- people (map) ---')
-        .fontSize(16)
+        .fontSize(20)
+        .margin(10)
       List() {
         ForEach(Array.from(this.stateVar.people.entries()), (entry: Tuple2<string, Person>, index: int) => {
           ListItem() {
             Column() {
               if (entry.$1 instanceof Person) {
                 Text(`${entry.$0}: ${entry.$1.userName} (age ${entry.$1.inner.age})`)
-                  .fontSize(16)
+                  .fontSize(20)
+                  .margin(10)
               }
             }
+            .width('100%')
           }
         }, (entry: Tuple2<string, Person>, index: int) => {
           return entry.$0 + index.toString();
@@ -142,22 +154,26 @@ struct PersistenceV2MixedCollectionExample {
 
       // 展示unique Set内容
       Text('--- unique (set) ---')
-        .fontSize(16)
+        .fontSize(20)
+        .margin(10)
       List() {
         ForEach(Array.from(this.stateVar.unique.values()), (item: Person, index: int) => {
           ListItem() {
             Column() {
               if (item instanceof Person) {
                 Text(`${item.userName} (age ${item.inner.age})`)
-                  .fontSize(16)
+                  .fontSize(20)
+                  .margin(10)
               }
             }
+            .width('100%')
           }
         }, (item: Person, index: int) => {
           return item.userName + index.toString();
         })
       }
     }
+    .width('100%')
   }
 }
 // [End persistence_v2_mixed_collection]

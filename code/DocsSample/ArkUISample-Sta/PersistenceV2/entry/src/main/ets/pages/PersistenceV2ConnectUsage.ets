@@ -53,6 +53,8 @@ struct PersistenceV2ConnectUsageExample {
   build() {
     Column() {
       Button('Change userId userName userInfo')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.cp1.userId++;
           this.cp1.userName += 'A';
@@ -60,17 +62,24 @@ struct PersistenceV2ConnectUsageExample {
           console.info(`cp1 userId ${this.cp1.userId}`);
         })
       Text(`userName: ${this.cp1.userName}`) // Person类由@ObservedV2装饰，且该属性由@Trace装饰，所以可观测刷新。
+        .fontSize(20)
+        .margin(10)
       Text(`userId: ${this.cp1.userId}`) // Person类由@ObservedV2装饰，但该属性非@Trace装饰，所以刷新不可观测。
+        .fontSize(20)
+        .margin(10)
       Text(`userInfo: ${this.cp1.info.userInfo}`) // Info类由@ObservedV2装饰，且userInfo属性由@Track装饰，所以可观测刷新。
+        .fontSize(20)
+        .margin(10)
 
-      Text(`save key Person userId: ${this.cp1.userId} refresh: ${this.refresh}`)
-      // 点击Text组件后，由于refresh改变，所以引起Text组件刷新，进而使得此处userId刷新。
+      Button(`save key Person userId: ${this.cp1.userId} refresh: ${this.refresh}`)
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 点击Button组件后，由于refresh改变，所以引起Button组件刷新，进而使得此处userId刷新。
           this.cp1.userId++;
           PersistenceV2.save('Person'); // 调用save存储该对象。
           this.refresh += 1;
         })
-        .fontSize(25)
     }
     .width('100%')
     .height('100%')

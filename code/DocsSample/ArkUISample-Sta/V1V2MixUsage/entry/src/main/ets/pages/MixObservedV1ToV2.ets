@@ -18,7 +18,7 @@
 import { NavDestination, $r } from '@kit.ArkUI';
 
 // [Start MixObservedV1ToV2]
-import { Entry, Text, Column, Component, ComponentV2, ClickEvent, State, Param, Observed, Track } from '@kit.ArkUI';
+import { Entry, Text, Column, Component, ComponentV2, ClickEvent, State, Param, Observed, Track, Button } from '@kit.ArkUI';
 
 @Observed
 class ObservedClass {
@@ -32,15 +32,19 @@ struct CompV1 {
   @State observedClass: ObservedClass = new ObservedClass();
   build() {
     Column() {
-      Text(`name: ${this.observedClass.name}`).onClick(() => {
-        // 触发刷新
-        this.observedClass.name += 'a';
-      })
+      Button(`name: ${this.observedClass.name}`)
+        .width(300)
+        .margin(10)
+        .onClick(() => {
+          // 触发刷新
+          this.observedClass.name += 'a';
+        })
       // 使用非@Track的变量在V1中会崩溃
       // Text(`count: ${this.observedClass.count}`)
 
       CompV2({ observedClass: this.observedClass })
     }
+    .width('100%')
   }
 }
 
@@ -49,10 +53,13 @@ struct CompV2 {
   @Param observedClass: ObservedClass = new ObservedClass();
   build() {
     // 使用非@Track的变量在V2中不会崩溃，但不会响应更新
-    Text(`count: ${this.observedClass.count}`).onClick(() => {
-      // 不触发刷新
-      this.observedClass.count++;
-    })
+    Button(`count: ${this.observedClass.count}`)
+      .width(300)
+      .margin(10)
+      .onClick(() => {
+        // 不触发刷新
+        this.observedClass.count++;
+      })
   }
 }
 // [End MixObservedV1ToV2]

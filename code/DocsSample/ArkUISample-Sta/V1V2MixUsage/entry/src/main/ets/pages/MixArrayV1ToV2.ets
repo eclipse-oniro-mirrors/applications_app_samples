@@ -28,7 +28,11 @@ struct CompV1 {
   build() {
     Column() {
       Text(`V1 ${this.arr[0]}`)
+        .fontSize(20)
+        .margin(10)
       Button('Change object in V1')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           // 点击触发ArrayCompV1和ArrayCompV2变化
           this.arr[0]++;
@@ -47,12 +51,17 @@ struct ArrayCompV2 {
   build() {
     Column() {
       Text(`V2 ${this.arr[0]}`)
+        .fontSize(20)
+        .margin(10)
       Button('Change object in V2')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           // 点击触发ArrayCompV1和ArrayCompV2变化
           this.arr[0]++;
         })
     }
+    .width('100%')
   }
 }
 // [End MixArrayV1ToV2]

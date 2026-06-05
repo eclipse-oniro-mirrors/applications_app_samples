@@ -63,16 +63,18 @@ struct CompV1 {
 
   build() {
     Column() {
-      Text(`@State outer.outerValue can update ${this.outer.outerValue}`)
-        .fontSize(20)
+      Button(`@State outer.outerValue can update ${this.outer.outerValue}`)
+        .width(300)
+        .margin(10)
         .onClick(() => {
           // @State可以观察第一层的变化
           // 变化会通知@ObjectLink和@Param刷新
           this.outer.outerValue += '!';
         })
 
-      Text(`@State outer.inner.innerValue cannot update ${this.outer.inner.innerValue}`)
-        .fontSize(20)
+      Button(`@State outer.inner.innerValue cannot update ${this.outer.inner.innerValue}`)
+        .width(300)
+        .margin(10)
         .onClick(() => {
           // @State无法观察第二层的变化
           // 但该变化会被@ObjectLink和@Param观察
@@ -93,8 +95,9 @@ struct NestedClassV1ObjectLink {
   @ObjectLink inner: Inner;
 
   build() {
-    Text(`@ObjectLink inner.innerValue can update ${this.inner.innerValue}`)
-      .fontSize(20)
+    Button(`@ObjectLink inner.innerValue can update ${this.inner.innerValue}`)
+      .width(300)
+      .margin(10)
       .onClick(() => {
         // 可以触发刷新，和@Param是同一个对象的引用，@Param也会进行刷新
         this.inner.innerValue += '!';
@@ -108,14 +111,16 @@ struct NestedClassV2 {
 
   build() {
     Column() {
-      Text(`@Param outer.outerValue can update ${this.outer.outerValue}`)
-        .fontSize(20)
+      Button(`@Param outer.outerValue can update ${this.outer.outerValue}`)
+        .width(300)
+        .margin(10)
         .onClick(() => {
           // 可以观察第一层的变化
           this.outer.outerValue += '!';
         })
-      Text(`@Param outer.inner.innerValue can update ${this.outer.inner.innerValue}`)
-        .fontSize(20)
+      Button(`@Param outer.inner.innerValue can update ${this.outer.inner.innerValue}`)
+        .width(300)
+        .margin(10)
         .onClick(() => {
           // 可以观察第二层的变化，和@ObjectLink是同一个对象的引用，也会触发刷新
           this.outer.inner.innerValue += '!';
@@ -123,20 +128,27 @@ struct NestedClassV2 {
 
       ForEach(this.outer.inner.arr, (item: ArrayItem, index: int) => {
         Text(`${index}: ${item.value}`)
+          .fontSize(15)
+          .margin(10)
       }, (item: ArrayItem) => '' + item.value + Math.random())
 
       Button('@Param push')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           // outer已经使能了V2观察能力，对于新增加的数据，则默认开启V2观察能力
           this.outer.inner.arr.push(new ArrayItem(20));
         })
 
       Button('@Param change the last Item')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           // 可以观察最后一个数组项的属性变化
           this.outer.inner.arr[this.outer.inner.arr.length - 1].value++;
         })
     }
+    .width('100%')
   }
 }
 // [End MixNestedV1ToV2]

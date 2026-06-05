@@ -15,16 +15,24 @@
 
 // [Start monitor_trigger_dyn]
 import { UIUtils } from '@kit.ArkUI';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN = 0x0000;
 
 @ObservedV2
 class Info {
   @Trace message: string = 'not initialized';
 
   constructor() {
-    UIUtils.addMonitor(this, 'message', this.onMessageChange);
+    try {
+      UIUtils.addMonitor(this, 'message', this.onMessageChange);
+    } catch (err) {
+      hilog.error(DOMAIN, 'testTag', `taskpool execute fail. code is ${err.name}, message is ${err.message}`);
+    }
     // 会触发onMessageChange回调，打印`message change from not initialized to initialized`
     this.message = 'initialized';
   }
+
   onMessageChange(monitor: IMonitor) {
     console.info(`message change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
   }

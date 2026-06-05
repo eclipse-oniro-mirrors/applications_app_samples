@@ -59,12 +59,24 @@ struct PersistenceV2DateExample {
   build() {
     Column(undefined) {
       Text(`name: ${this.stateVar.name}`)
+        .fontSize(20)
+        .margin(10)
       Text(`createdAt: ${this.stateVar.createdAt.toISOString()}`)
+        .fontSize(20)
+        .margin(10)
       Text(`lastLogin: ${this.stateVar.lastLogin.toISOString()}`)
+        .fontSize(20)
+        .margin(10)
       Text(`inner.tag: ${this.stateVar.inner.tag}`)
+        .fontSize(20)
+        .margin(10)
       Text(`inner.nextDate: ${this.stateVar.inner.nextDate.toISOString()}`)
+        .fontSize(20)
+        .margin(10)
       // 点击按钮更新所有Date字段和name字段
       Button('update')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.stateVar.createdAt = new Date();
           this.stateVar.lastLogin = new Date();
@@ -73,6 +85,7 @@ struct PersistenceV2DateExample {
           this.stateVar.inner.tag = 'tag_' + Date.now().toString();
         })
     }
+    .width('100%')
   }
 }
 // [End persistence_v2_date]

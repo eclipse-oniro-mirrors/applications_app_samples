@@ -18,7 +18,7 @@
 import { NavDestination, $r } from '@kit.ArkUI';
 
 // [Start MixObservedV2ToV1]
-import { Entry, Text, Column, Component, ComponentV2, ClickEvent, Local, ObjectLink, Observed, Track } from '@kit.ArkUI';
+import { Entry, Text, Column, Component, ComponentV2, ClickEvent, Local, ObjectLink, Observed, Track, Button } from '@kit.ArkUI';
 
 @Observed
 class ObservedClass {
@@ -33,17 +33,24 @@ struct CompV2 {
 
   build() {
     Column() {
-      Text(`name V2: ${this.observedClass.name}`).onClick(() => {
-        // 触发刷新
-        this.observedClass.name += 'a';
-      })
+      Button(`name V2: ${this.observedClass.name}`)
+        .width(300)
+        .margin(10)
+        .onClick(() => {
+          // 触发刷新
+          this.observedClass.name += 'a';
+        })
       // 使用非@Track的变量在V2中不会崩溃，但不触发刷新
-      Text(`count V2: ${this.observedClass.count}`).onClick(() => {
-        this.observedClass.count++;
-      })
+      Button(`count V2: ${this.observedClass.count}`)
+        .width(300)
+        .margin(10)
+        .onClick(() => {
+          this.observedClass.count++;
+        })
 
       CompV1({ observedClass: this.observedClass })
     }
+    .width('100%')
   }
 }
 
@@ -53,13 +60,17 @@ struct CompV1 {
 
   build() {
     Column() {
-      Text(`name V1: ${this.observedClass.name}`).onClick(() => {
-        // 触发刷新
-        this.observedClass.name += 'a';
-      })
+      Button(`name V1: ${this.observedClass.name}`)
+        .width(300)
+        .margin(10)
+        .onClick(() => {
+          // 触发刷新
+          this.observedClass.name += 'a';
+        })
       // 使用非@Track的变量在V1中会崩溃
       // Text(`count V1: ${this.observedClass.count}`)
     }
+    .width('100%')
   }
 }
 // [End MixObservedV2ToV1]

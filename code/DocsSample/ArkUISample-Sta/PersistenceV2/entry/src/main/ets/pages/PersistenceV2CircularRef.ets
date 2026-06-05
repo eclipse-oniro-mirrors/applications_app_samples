@@ -55,16 +55,27 @@ struct PersistenceV2CircularRefExample {
   build() {
     Column(undefined) {
       Text(`name: ${this.stateVar.name}`)
+        .fontSize(20)
+        .margin(10)
       Text(`value: ${this.stateVar.value}`)
+        .fontSize(20)
+        .margin(10)
       if (this.stateVar.parent !== undefined) {
         Text(`parent.name: ${this.stateVar.parent!.name}`)
+          .fontSize(20)
+          .margin(10)
         Text(`parent === self: ${this.stateVar.parent === this.stateVar}`)
           .fontSize(20)
+          .margin(10)
       } else {
         Text(`parent: undefined`)
+          .fontSize(20)
+          .margin(10)
       }
       // 点击按钮将parent设为自身引用并修改name和value
       Button('set self-ref')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.stateVar.parent = this.stateVar;
           this.stateVar.name = 'root_' + Date.now().toString();
@@ -72,10 +83,13 @@ struct PersistenceV2CircularRefExample {
         })
       // 点击按钮清除循环引用
       Button('clear ref')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.stateVar.parent = undefined;
         })
     }
+    .width('100%')
   }
 }
 // [End persistence_v2_circular_ref]
