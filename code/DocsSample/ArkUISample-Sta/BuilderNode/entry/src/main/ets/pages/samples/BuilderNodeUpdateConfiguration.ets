@@ -29,7 +29,6 @@ import {
   Text,
   UIContext,
   wrapBuilder,
-  PropRef,
   State,
   BuilderNode,
   FrameNode,
