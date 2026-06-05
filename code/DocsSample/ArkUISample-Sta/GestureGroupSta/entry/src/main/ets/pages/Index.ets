@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Column, List, ListOptions, ListItem, Text, ForEach, Axis, BarState, EdgeEffect, ColumnOptions, Margin, Padding, ConstraintSizeOptions, ListItemAttribute, Entry, Component, State, ResourceColor } from '@kit.ArkUI'
+import { Column, List, ListOptions, ListItem, Text, ForEach, Axis, BarState, EdgeEffect, ColumnOptions, Margin, Padding, ConstraintSizeOptions, ListItemAttribute, Entry, Component, State, ResourceColor } from '@kit.ArkUI';
 interface ListItemType {
   router?: string;
   name: string;

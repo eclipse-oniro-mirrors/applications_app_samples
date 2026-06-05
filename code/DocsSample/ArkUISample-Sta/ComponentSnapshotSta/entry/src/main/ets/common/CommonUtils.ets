@@ -15,8 +15,7 @@
  * limitations under the License.
  */
 
-import { Scroller } from '@kit.ArkUI';
-import { Curve } from '@kit.ArkUI';
+import { Scroller, Curve } from '@kit.ArkUI';
 
 export class CommonUtils {
   static sleep(ms: int): Promise<void> {

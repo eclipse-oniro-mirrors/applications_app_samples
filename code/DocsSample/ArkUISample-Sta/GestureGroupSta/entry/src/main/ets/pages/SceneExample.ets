@@ -16,7 +16,7 @@
 
 // [Start scene_example]
 // xxx.ets
-import { Swiper, Row, Entry, Component, State, GestureGroup, GestureMode, LongPressGesture, PanGesture, Color, BaseGestureEvent, GestureRecognizer, GestureControl, GestureJudgeResult } from '@kit.ArkUI'
+import { Swiper, Row, Entry, Component, State, GestureGroup, GestureMode, LongPressGesture, PanGesture, Color, BaseGestureEvent, GestureRecognizer, GestureControl, GestureJudgeResult } from '@kit.ArkUI';
 @Entry
 @Component
 struct CombinedGestureDemo {

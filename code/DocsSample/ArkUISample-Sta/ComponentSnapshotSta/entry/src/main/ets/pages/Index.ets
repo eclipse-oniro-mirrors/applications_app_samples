@@ -15,8 +15,7 @@
  * limitations under the License.
  */
 
-import { Entry, Component } from '@kit.ArkUI';
-import { Scroll, Column, Button, ForEach, Padding, ColumnOptions } from '@kit.ArkUI';
+import { Entry, Component, Scroll, Column, Button, ForEach, Padding, ColumnOptions } from '@kit.ArkUI';
 
 interface Ary {
   path: string,

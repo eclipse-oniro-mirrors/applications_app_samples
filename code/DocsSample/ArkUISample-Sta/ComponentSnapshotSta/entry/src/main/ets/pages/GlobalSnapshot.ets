@@ -17,10 +17,7 @@
 
 import { GlobalStaticSnapshot, Params } from '../view/GlobalScreenshot';
 import { image } from '@kit.ImageKit';
-import { Entry, Component, State } from '@kit.ArkUI';
-import { Column, Image, Button, ColumnOptions } from '@kit.ArkUI';
-import { ImageFit } from '@kit.ArkUI';
-import { $r } from '@kit.ArkUI';
+import { $r, Entry, Component, State, Column, Image, Button, ColumnOptions, ImageFit } from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -40,9 +37,12 @@ struct Index {
       // 请将$r('app.media.startIcon')替换为实际资源文件
       Image(this.pixmap ? this.pixmap : $r('app.media.startIcon')).width(300).height(300).objectFit(ImageFit.Auto);
       Button('click to get snapshot')
-        .onClick(async () => {
-          this.pixmap = await GlobalStaticSnapshot.getAwardSnapshot(this.getUIContext(), this.items[this.idx]);
-          this.idx = (this.idx + 1) % 10;
+        .onClick((): void => {
+          GlobalStaticSnapshot.getAwardSnapshot(this.getUIContext(), this.items[this.idx])
+            .then((pixmap: image.PixelMap | undefined) => {
+              this.pixmap = pixmap;
+              this.idx = (this.idx + 1) % 10;
+            });
         });
     }
     .height('100%')

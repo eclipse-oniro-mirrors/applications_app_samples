@@ -22,11 +22,12 @@ import photoAccessHelper from '@ohos.file.photoAccessHelper';
 import { Logger } from '../common/Logger';
 import { PopupUtils } from '../common/PopupUtils';
 import { common } from '@kit.AbilityKit';
-import { Component, StorageLink, Watch, State, PropRef, Builder } from '@kit.ArkUI';
-import { Column, Scroll, Row, Text, Image, Button, Padding } from '@kit.ArkUI';
-import { Position, PanGestureOptions, PanDirection, PanGesture, GestureEvent, GestureInfo, GestureControl, GestureJudgeResult, Curve, TextAlign, BarState, VerticalAlign, FlexAlign, ImageFit, RowOptions, Color } from '@kit.ArkUI';
-import { SaveButton, SaveIconStyle, SaveDescription, ButtonType, SaveButtonOnClickResult, ClickEvent } from '@kit.ArkUI';
-import { $r } from '@kit.ArkUI';
+import {
+  $r, Component, StorageLink, Watch, State, PropRef, Builder, Column, Scroll, Row, Text, Image, Button, Padding,
+  Position, PanGestureOptions, PanDirection, PanGesture, GestureEvent, GestureInfo, GestureControl, GestureJudgeResult,
+  Curve, TextAlign, BarState, VerticalAlign, FlexAlign, ImageFit, RowOptions, Color, SaveButton, SaveIconStyle,
+  SaveDescription, ButtonType, SaveButtonOnClickResult, ClickEvent
+} from '@kit.ArkUI';
 
 const TAG: string = '[SnapshotPreview]';
 
