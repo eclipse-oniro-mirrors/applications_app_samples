@@ -13,22 +13,17 @@
 * limitations under the License.
 */
 
-#ifndef PRINT_INFO_TO_FILE_H
-#define PRINT_INFO_TO_FILE_H
-
+#ifndef AUDIOSUITESAMPLE_SPACE_RENDER_ROTATION_H
+#define AUDIOSUITESAMPLE_SPACE_RENDER_ROTATION_H
+#include "pcm_file_utils.h"
+// [Start audioSuite_SpaceRenderEffectInclude]
+#include <ohaudiosuite/native_audio_suite_base.h>
 #include <ohaudiosuite/native_audio_suite_engine.h>
-#include "napi/native_api.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-static OH_AudioSuiteEngine *audioSuiteEngine;
-
-napi_value TestPrintInfoToFile(napi_env env, napi_callback_info info);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif // PRINT_INFO_TO_FILE_H
+#include <ohaudio/native_audiorenderer.h>
+#include <ohaudio/native_audiostreambuilder.h>
+// [End audioSuite_SpaceRenderEffectInclude]
+void SpaceRenderEffect(AudioDataInfo *audioInfoForField, AudioDataInfo *audioInfoForMix);
+void DestroySpaceRenderEffect();
+void StartAutoRotation();
+void StopAutoRotation();
+#endif  //AUDIOSUITESAMPLE_SPACE_RENDER_ROTATION_H
