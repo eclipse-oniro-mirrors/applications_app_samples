@@ -3,7 +3,8 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file or copy of the License.
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -209,7 +210,7 @@ struct Index {
               ForEach(this.trustedDeviceList, (item: distributedDeviceManager.DeviceBasicInfo, index: int) => {
                 ListItem() {
                   Column() {
-                    ListDeviceView({ deviceInfo: item })
+                    ListDeviceView({ deviceInfo: item, visible: Visibility.Visible })
                     Divider()
                       .color('#182431')
                       .opacity(0.05)
@@ -243,21 +244,20 @@ struct Index {
                 .lineHeight(19)
                 .margin({ left: 12, top: 19, bottom: 10, right: 12 })
                 .onClick(() => {
-                  logger.info('[DEBUG] DISCOVER_BUTTON_CLICK: isDiscovering=' + this.isDiscovering + ', isPermissionGranted=' + this.isPermissionGranted + ', deviceManager=' + (remoteDeviceModel.deviceManager === undefined ? 'undefined' : 'defined'));
                   if (this.isDiscovering) {
-                    logger.info('[DEBUG] DISCOVER_BUTTON_CLICK: calling stopDeviceDiscovery');
+                    logger.info('calling stopDeviceDiscovery');
                     remoteDeviceModel.stopDeviceDiscovery();
                     this.isDiscovering = false;
                   } else {
                     if (!this.isPermissionGranted) {
-                      logger.error('[DEBUG] DISCOVER_BUTTON_CLICK: Permission not granted, cannot start discovery');
+                      logger.error('Permission not granted, cannot start discovery');
                       return;
                     }
                     if (remoteDeviceModel.deviceManager === undefined) {
-                      logger.error('[DEBUG] DISCOVER_BUTTON_CLICK: DeviceManager not initialized, cannot start discovery');
+                      logger.error('DeviceManager not initialized, cannot start discovery');
                       return;
                     }
-                    logger.info('[DEBUG] DISCOVER_BUTTON_CLICK: calling startDeviceDiscovery');
+                    logger.info('calling startDeviceDiscovery');
                     remoteDeviceModel.startDeviceDiscovery();
                     this.isDiscovering = true;
                   }
