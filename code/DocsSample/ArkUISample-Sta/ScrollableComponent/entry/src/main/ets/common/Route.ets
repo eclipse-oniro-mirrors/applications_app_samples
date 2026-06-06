@@ -14,12 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { ResourceStr } from '@ohos.arkui.component';
 
-import { Context, ResourceStr } from '@kit.ArkUI';
-
-export interface Route {
-  title: (context: Context) => string;
+export class Route {
   name: string;
+  title: string;
+  description: ResourceStr = '';
   items?: Route[];
-  description?: ResourceStr;
+
+  constructor(name: string, title: string, description?: ResourceStr, items?: Route[]) {
+    this.name = name;
+    this.title = title;
+    if (description) {
+      this.description = description;
+    }
+    this.items = items;
+  }
 }

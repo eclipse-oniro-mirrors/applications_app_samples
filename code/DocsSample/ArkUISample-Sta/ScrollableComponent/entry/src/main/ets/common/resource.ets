@@ -15,18 +15,29 @@
  * limitations under the License.
  */
 
-import { Context, Resource } from '@kit.ArkUI';
+import { Resource } from '@ohos.arkui.component'
+import common from '@ohos.app.ability.common';
+import hilog from '@ohos.hilog';
 
 export class ResourceManager {
-  public resourceToString(context: Context, resource: Resource): string {
-    try {
-      return context.resourceManager.getStringSync(resource.id);
-    } catch (e) {
-      console.info('getStringSync error:', e);
-      return '';
+  private context: common.UIAbilityContext | undefined = undefined;
+
+  public resourceToString(resource: Resource): string {
+    const ctx = this.context;
+    if (ctx) {
+      try {
+        return ctx.resourceManager.getStringSync(resource.id);
+      } catch (error) {
+        hilog.error(0x0000, 'testTag',
+          `resourceToString failed. error code: ${error.code}, error message: ${error.message}`);
+      }
     }
+    return 'undefined|null';
   }
-  public context: Context | undefined = undefined;
+
+  public setContext(context: common.UIAbilityContext): void {
+    this.context = context;
+  }
 }
 
 // 默认导出let

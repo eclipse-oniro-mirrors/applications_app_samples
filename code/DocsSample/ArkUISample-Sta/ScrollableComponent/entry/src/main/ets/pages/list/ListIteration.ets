@@ -1,0 +1,96 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { ComponentCard } from '../../common/Card';
+import util from '@ohos.util';
+import { $r } from '@kit.ArkUI';
+import {
+  Entry,
+  Component,
+  Column,
+  List,
+  ListItem,
+  Row,
+  Text,
+  Image,
+  ForEach,
+  NavDestination,
+  FlexAlign,
+  ResourceStr,
+  Resource,
+  Length
+} from '@kit.ArkUI';
+
+// [Start use_foreach_to_replace_similar_list_items]
+
+export class Contact {
+  public key: string = util.generateRandomUUID(true);
+  public name: ResourceStr;
+  public icon: Resource;
+
+  constructor(name: ResourceStr, icon: Resource) {
+    this.name = name;
+    this.icon = icon;
+  }
+}
+
+@Entry
+@Component
+export struct ListIteration {
+  private contacts: Array<Contact> = [
+
+    // app.string.peopleOne 资源文件中的value值为'小明'，app.media.iconA为自定义资源
+    new Contact($r('app.string.peopleOne'), $r('app.media.iconA')),
+    // app.string.peopleTwo 资源文件中的value值为'小红'，app.media.iconB为自定义资源
+    new Contact($r('app.string.peopleTwo'), $r('app.media.iconB'))
+  ];
+
+  build(): void {
+    // [StartExclude use_foreach_to_replace_similar_list_items]
+    NavDestination() {
+      Column() {
+        ComponentCard({ title: $r('app.string.ListIteration_titleExample') }) {
+          // [EndExclude use_foreach_to_replace_similar_list_items]
+          List() {
+            ForEach(this.contacts, (item: Contact) => {
+              ListItem() {
+                Row() {
+                  Image(item.icon)
+                    .width(40)
+                    .height(40)
+                    .margin(10)
+                  Text(item.name).fontSize(20)
+                }
+                .width('100%')
+                .justifyContent(FlexAlign.Start)
+              }
+            }, (item: Contact) => JSON.stringify(item))
+          }
+          .width('100%')
+          // [StartExclude use_foreach_to_replace_similar_list_items]
+        }
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 })
+    }
+    .backgroundColor('#f1f2f3')
+    .title($r('app.string.ListIteration_title'))
+    // [EndExclude use_foreach_to_replace_similar_list_items]
+  }
+}
+// [End use_foreach_to_replace_similar_list_items]

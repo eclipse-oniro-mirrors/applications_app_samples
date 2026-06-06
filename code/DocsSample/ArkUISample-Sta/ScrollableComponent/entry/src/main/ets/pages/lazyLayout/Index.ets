@@ -16,7 +16,6 @@
  */
 
 import {
-  Context,
   Builder,
   Entry,
   Component,
@@ -28,6 +27,7 @@ import {
   ListItem,
   ResourceStr,
   NavPathInfo,
+  ListOptions,
   $r,
   BlurStyle,
   BarStyle
@@ -44,48 +44,48 @@ import { LazyColumnLayoutNestedLazyLayout } from './LazyColumnLayoutNestedLazyLa
 export const LAZY_LAYOUT_ROUTE_PREFIX: string = 'lazyLayout';
 
 const routes: Route[] = [
-  {
-    name: `${LAZY_LAYOUT_ROUTE_PREFIX}/LazyVGridLayoutSample`,
+  new Route(
+    'lazyLayout/LazyVGridLayoutSample',
     // 请将$r('app.string.LazyVGridLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"懒加载网格布局/LazyVGridLayout"
-    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.lazyVGridLayout_title'))},
+    resource.resourceToString($r('app.string.lazyVGridLayout_title')),
     // 请将$r('app.string.LazyVGridLayout_description')替换为实际资源文件，在本示例中该资源文件的value值为"示例设置了网格中子组件列数占比和行列间距。"
-    description: $r('app.string.lazyVGridLayout_description')
-  },
-  {
-    name: `${LAZY_LAYOUT_ROUTE_PREFIX}/LazyVWaterFlowLayoutSample`,
+    $r('app.string.lazyVGridLayout_description')
+  ),
+  new Route(
+    'lazyLayout/LazyVWaterFlowLayoutSample',
     // 请将$r('app.string.LazyVWaterFlowLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"懒加载瀑布流布局/LazyVWaterFlowLayout"
-    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.lazyVWaterFlowLayout_title'))},
+    resource.resourceToString($r('app.string.lazyVWaterFlowLayout_title')),
     // 请将$r('app.string.LazyVWaterFlowLayout_description')替换为实际资源文件，在本示例中该资源文件的value值为"示例设置了瀑布流中子组件列数占比和行列间距。"
-    description: $r('app.string.lazyVWaterFlowLayout_description')
-  },
-  {
-    name: `${LAZY_LAYOUT_ROUTE_PREFIX}/LazyColumnLayoutSample`,
+    $r('app.string.lazyVWaterFlowLayout_description')
+  ),
+  new Route(
+    'lazyLayout/LazyColumnLayoutSample',
     // 请将$r('app.string.LazyColumnLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"懒加载线性布局/LazyColumnLayout"
-    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.lazyColumnLayout_title'))},
+    resource.resourceToString($r('app.string.lazyColumnLayout_title')),
     // 请将$r('app.string.LazyColumnLayout_description')替换为实际资源文件，在本示例中该资源文件的value值为"示例设置了行间距和水平对齐方式。"
-    description: $r('app.string.lazyColumnLayout_description')
-  },
-  {
-    name: `${LAZY_LAYOUT_ROUTE_PREFIX}/ListNestedLazyLayout`,
+    $r('app.string.lazyColumnLayout_description')
+  ),
+  new Route(
+    'lazyLayout/ListNestedLazyLayout',
     // 请将$r('app.string.list_nested_lazyLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"List嵌套懒加载布局容器"
-    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.list_nested_lazyLayout_title'))},
+    resource.resourceToString($r('app.string.list_nested_lazyLayout_title')),
     // 请将$r('app.string.list_nested_lazyLayout_description')替换为实际资源文件
     // 在本示例中该资源文件的value值为"在List组件中嵌套多个不同的懒加载布局容器，分别为每个容器内容配置独立的列数和行列间距，实现多种布局方式的混合展示。"
-    description: $r('app.string.list_nested_lazyLayout_description')
-  },
-  {
-    name: `${LAZY_LAYOUT_ROUTE_PREFIX}/LazyColumnLayoutNestedLazyLayout`,
+    $r('app.string.list_nested_lazyLayout_description')
+  ),
+  new Route(
+    'lazyLayout/LazyColumnLayoutNestedLazyLayout',
     // 请将$r('app.string.lazyColumnLayout_nested_lazyLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"LazyColumnLayout嵌套懒加载布局容器"
-    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.lazyColumnLayout_nested_lazyLayout_title'))},
+    resource.resourceToString($r('app.string.lazyColumnLayout_nested_lazyLayout_title')),
     // 请将$r('app.string.lazyColumnLayout_nested_lazyLayout_description')替换为实际资源文件
     // 在本示例中该资源文件的value值为"在Scroll组件中使用LazyColumnLayout作为主布局容器，其内部嵌套多个不同的懒加载布局容器，实现多种布局方式的混合展示。"
-    description: $r('app.string.lazyColumnLayout_nested_lazyLayout_description')
-  }
+    $r('app.string.lazyColumnLayout_nested_lazyLayout_description')
+  )
 ];
 
 @Builder
 export function lazyLayoutDestination(name: string): void {
-  if (name === LAZY_LAYOUT_ROUTE_PREFIX) {
+  if (name === 'lazyLayout') {
     LazyLayoutExample();
   } else if (name === routes[0].name) {
     LazyVGridLayoutSample();
@@ -107,13 +107,10 @@ struct LazyLayoutExample {
 
   build(): void {
     NavDestination() {
-      List({ space: 12 }) {
+      List({ space: 12 } as ListOptions) {
         ForEach(routes, (route: Route) => {
           ListItem() {
-            CompletedRoutableCard({
-              title: route.title(this.getUIContext().getHostContext()!),
-              description: route.description as ResourceStr
-            })
+            CompletedRoutableCard({ title: route.title, description: route.description as ResourceStr })
           }
           .width('100%')
           .onClick(() => {

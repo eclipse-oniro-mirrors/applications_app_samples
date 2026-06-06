@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,17 +15,16 @@
  * limitations under the License.
  */
 
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { BackupExtensionAbility, BundleVersion } from '@kit.CoreFileKit';
+// [Start define_the_data_to_be_done]
+// ToDo.ets
+import util from '@ohos.util';
 
-const DOMAIN = 0x0000;
+export class ToDo {
+  public key: string = util.generateRandomUUID(true);
+  public name: string;
 
-export default class EntryBackupAbility extends BackupExtensionAbility {
-  onBackup(): void {
-    hilog.info(DOMAIN, 'testTag', 'onBackup ok');
-  }
-
-  onRestore(bundleVersion: BundleVersion): void {
-    hilog.info(DOMAIN, 'testTag', 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
+  constructor(name: string) {
+    this.name = name;
   }
 }
+// [End define_the_data_to_be_done]

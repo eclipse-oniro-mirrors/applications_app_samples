@@ -1,0 +1,182 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  LengthMetrics,
+  ComponentContent,
+  Column,
+  ColumnOptions,
+  Row,
+  RowOptions,
+  NavDestination,
+  Entry,
+  Component,
+  Text,
+  Image,
+  $r,
+  Color,
+  ResourceStr,
+  Resource,
+  Alignment,
+  UIContext,
+  wrapBuilder,
+  Scroller
+} from '@kit.ArkUI';
+import { ArcList, ArcListItem } from '@ohos.arkui.ArcList';
+import { ArcScrollBar } from '@ohos.arkui.ArcScrollBar';
+import { ComponentCard } from '../../common/Card';
+
+@Builder
+function customHeader(): void {
+  Column() {
+    Text($r('app.string.ArcListCrown_set'))
+      .fontColor('#FFFFFFFF')
+      .fontSize('19fp')
+  }
+}
+
+@Entry
+@Component
+export struct ArcListAcrScrollBar {
+  // [Start create_arcListScroller_start]
+  private arcListScroller: Scroller = new Scroller();
+  // [End create_arcListScroller_start]
+
+
+  context: UIContext = this.getUIContext();
+  arcListHeader: ComponentContent<Object> = new ComponentContent<Object>(this.context, wrapBuilder(customHeader));
+
+  build(): void {
+    NavDestination() {
+      Column({ space: 12 } as ColumnOptions) {
+        // 请将$r('app.string.ArcListAcrScrollBar_title')替换为实际资源文件，在本示例中该资源文件的value值为"添加外置滚动条ArcScrollBar"
+        ComponentCard({ title: $r('app.string.ArcListAcrScrollBar_title') }) {
+          // [Start bind_arcList_start]
+          // 将arcListScroller用于初始化ArcList组件的scroller参数，完成arcListScroller与弧形列表的绑定。
+          ArcList({ scroller: this.arcListScroller, header: this.arcListHeader }) {
+            // [StartExclude bind_arcList_start]
+            ArcListItem() {
+              Row() {
+                Image($r('app.media.wlan')).width('99px').height('99px')
+                  .borderRadius('50px').margin({ left: 7 })
+                Column() {
+                  Text($r('app.string.ArcListStyles_wlan')).fontSize('38px').fontColor('#FFFFFFFF')
+                  Text($r('app.string.ArcListStyles_open')).fontSize('20px').fontColor('#FFFFFFFF')
+                }.width('190px')
+
+                Image($r('app.media.ic_settings_arrow')).width('92px').height('92px')
+                  .borderRadius('50px')
+              }
+            }
+            .borderRadius('65px')
+            .width('414px')
+            .height('129px')
+            .backgroundColor('#26FFFFFF')
+
+            ArcListItem() {
+              Row() {
+                Image($r('app.media.blueTooth')).width('99px').height('99px')
+                  .borderRadius('50px').margin({ left: 7 })
+                Column() {
+                  Text($r('app.string.ArcListStyles_blue')).fontSize('38px').fontColor('#FFFFFFFF')
+                  Text($r('app.string.ArcListStyles_open')).fontSize('20px').fontColor('#FFFFFFFF')
+                }.width('190px')
+
+                Image($r('app.media.ic_settings_arrow')).width('92px').height('92px')
+                  .borderRadius('50px')
+              }
+            }
+            .borderRadius('65px')
+            .width('414px')
+            .height('129px')
+            .backgroundColor('#26FFFFFF')
+
+            ArcListItem() {
+              Row() {
+                Image($r('app.media.mobileData')).width('99px').height('99px')
+                  .borderRadius('50px').margin({ left: 7 })
+                Column() {
+                  Text($r('app.string.ArcListStyles_net')).fontSize('38px').fontColor('#FFFFFFFF')
+                }.width('190px')
+
+                Image($r('app.media.ic_settings_arrow')).width('92px').height('92px')
+                  .borderRadius('50px')
+              }
+            }
+            .borderRadius('65px')
+            .width('414px')
+            .height('129px')
+            .backgroundColor('#26FFFFFF')
+
+            ArcListItem() {
+              Row() {
+                Image($r('app.media.ic_settings_more_connections')).width('99px').height('99px')
+                  .borderRadius('50px').margin({ left: 7 })
+                Column() {
+                  Text($r('app.string.ArcListStyles_connect')).fontSize('38px').fontColor('#FFFFFFFF')
+                }.width('190px')
+
+                Image($r('app.media.ic_settings_arrow')).width('92px').height('92px')
+                  .borderRadius('50px')
+              }
+            }
+            .borderRadius('65px')
+            .width('414px')
+            .height('129px')
+            .backgroundColor('#26FFFFFF')
+
+            ArcListItem() {
+              Row() {
+                Image($r('app.media.displayAndBrightness')).width('99px').height('99px')
+                  .borderRadius('50px').margin({ left: 7 })
+                Column() {
+                  Text($r('app.string.ArcListStyles_light')).fontSize('38px').fontColor('#FFFFFFFF')
+                }.width('190px')
+
+                Image($r('app.media.ic_settings_arrow')).width('92px').height('92px')
+                  .borderRadius('50px')
+              }
+            }
+            .borderRadius('65px')
+            .width('414px')
+            .height('129px')
+            .backgroundColor('#26FFFFFF')
+
+            // [EndExclude bind_arcList_start]
+          }
+          // [End bind_arcList_start]
+          .width('466px')
+          .height('466px')
+          .space(LengthMetrics.px(10))
+          .borderRadius('233px')
+          .backgroundColor(Color.Black)
+
+          // [Start bind_arcScrollBar_start]
+          // 将arcListScroller用于初始化ArcScrollBar组件的scroller参数，完成arcListScroller与滚动条的绑定。
+          ArcScrollBar({ scroller: this.arcListScroller })
+          // [End bind_arcScrollBar_start]
+        }
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 })
+    }
+    .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.ArcListAcrScrollBar_title')替换为实际资源文件，在本示例中该资源文件的value值为"添加外置滚动条ArcScrollBar"
+    .title($r('app.string.ArcListAcrScrollBar_title'))
+  }
+}
