@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start Height_AdaptivePolicy]
 import {
   $r,
   Button,

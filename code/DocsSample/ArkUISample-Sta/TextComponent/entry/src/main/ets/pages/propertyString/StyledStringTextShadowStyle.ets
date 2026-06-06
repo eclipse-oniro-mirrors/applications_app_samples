@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start styledStringTextShadowStyle_start]
 import {
   Color,
   Column,

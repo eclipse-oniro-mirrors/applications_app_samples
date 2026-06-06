@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start requestFocus_CloseKeyBoard]
 import {
   $r,
   Button,
@@ -31,7 +32,6 @@ import { State } from '@ohos.arkui.stateManagement';
 
 @Entry
 @Component
-  // [Start requestFocus_CloseKeyBoard]
 export struct requestFocusCloseKeyBoard {
   controller: TextInputController = new TextInputController();
   @State inputValue: string = '';

@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start normal_question_text_example]
 import {
   $r,
   Blank,

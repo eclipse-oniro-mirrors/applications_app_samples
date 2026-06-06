@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start DisableSystemServiceMenuItems]
 import {
   $r,
   Builder,

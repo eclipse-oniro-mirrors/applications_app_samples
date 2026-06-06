@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start creat_symbol_glyph]
 import {
   $r,
   Color,
@@ -26,6 +27,7 @@ import {
   SymbolGlyph,
   SymbolRenderingStrategy
 } from '@kit.ArkUI';
+// [StartExclude creat_symbol_glyph]
 import { ComponentCard } from '../../common/Card';
 
 @Entry
@@ -35,7 +37,7 @@ export struct CreatSymbolGlyph {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
         ComponentCard({ title: $r('app.string.CreatSymbolGlyph_title') }) {
-          // [Start creat_symbol_glyph]
+          // [EndExclude creat_symbol_glyph]
           SymbolGlyph($r('sys.symbol.ohos_folder_badge_plus'))
             .fontSize(96)
             .renderingStrategy(SymbolRenderingStrategy.SINGLE)

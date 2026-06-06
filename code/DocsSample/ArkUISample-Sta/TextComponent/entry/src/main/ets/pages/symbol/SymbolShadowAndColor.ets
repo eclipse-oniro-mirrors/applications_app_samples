@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+// [Start shadow_color_1]
+// [Start shadow_color_2]
 import {
   $r,
   Button,
@@ -51,6 +53,7 @@ export struct SymbolShadowAndColor {
     offsetY: 10,
   };
   // [End shadow_color_1_new]
+  // [StartExclude shadow_color_1]
 
   // [Start shadow_color_2_new]
   radialGradientOptions: RadialGradientOptions = {
@@ -61,13 +64,14 @@ export struct SymbolShadowAndColor {
   };
 
   // [End shadow_color_2_new]
+  // [StartExclude shadow_color_2]
 
   build(): void {
     NavDestination() {
       Scroll(this.scroller) {
         Column({ space: 12 } as ColumnOptions) {
           ComponentCard({ title: $r('app.string.SymbolShadowAndColor_title_1') }) {
-            // [Start shadow_color_1]
+            // [EndExclude shadow_color_1]
             Column() {
               // 请将$r('app.string.shadow_ability')替换为实际资源文件，在本示例中该资源文件的value值为"阴影能力"
               Text($r('app.string.shadow_ability'));
@@ -86,7 +90,7 @@ export struct SymbolShadowAndColor {
           }
 
           ComponentCard({ title: $r('app.string.SymbolShadowAndColor_title_2') }) {
-            // [Start shadow_color_2]
+            // [EndExclude shadow_color_2]
             Column() {
               // 请将$r('app.string.radial_gradient')替换为实际资源文件，在本示例中该资源文件的value值为"径向渐变"
               Text($r('app.string.radial_gradient'))

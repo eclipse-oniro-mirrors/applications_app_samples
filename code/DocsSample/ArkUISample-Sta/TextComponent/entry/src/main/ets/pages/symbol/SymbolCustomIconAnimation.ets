@@ -15,6 +15,10 @@
  * limitations under the License.
  */
 
+// [Start symbol_variable_color]
+// [Start symbol_bouncing_effect]
+// [Start symbol_disable_effect]
+// [Start symbol_quick_replacement]
 import {
   $r,
   BounceSymbolEffect,
@@ -47,15 +51,19 @@ export struct SymbolGlyphSpanCustomIconAnimation {
   // [Start symbol_variable_color_new]
   @State isActive: boolean = true;
   // [End symbol_variable_color_new]
+  // [StartExclude symbol_variable_color]
   // [Start symbol_bouncing_effect_new]
   // [Start symbol_disable_effect_new]
   // [Start symbol_quick_replacement_new]
   @State triggerValueReplace: int = 0;
   // [End symbol_bouncing_effect_new]
+  // [StartExclude symbol_bouncing_effect]
   replaceFlag: boolean = true;
 
   // [End symbol_quick_replacement_new]
   // [End symbol_disable_effect_new]
+  // [StartExclude symbol_disable_effect]
+  // [StartExclude symbol_quick_replacement]
 
   build(): void {
     NavDestination() {
@@ -64,7 +72,7 @@ export struct SymbolGlyphSpanCustomIconAnimation {
           // 请将$r('app.string.SymbolGlyphSpanCustomIconAnimation_title_1')替换为实际资源文件，
           // 在本示例中该资源文件的value值为"通过设置SymbolEffect属性，可以同时配置SymbolGlyph的动效策略和播放状态"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanCustomIconAnimation_title_1') }) {
-            // [Start symbol_variable_color]
+            // [EndExclude symbol_variable_color]
             Column() {
               // 请将$r('app.string.variable_color_animation')替换为实际资源文件，在本示例中该资源文件的value值为"可变颜色动效"
               Text($r('app.string.variable_color_animation'));
@@ -84,7 +92,7 @@ export struct SymbolGlyphSpanCustomIconAnimation {
           // 请将$r('app.string.SymbolGlyphSpanCustomIconAnimation_title_2')替换为实际资源文件，
           // 在本示例中该资源文件的value值为"通过设置SymbolEffect属性，可以同时指定SymbolGlyph的动画效果策略及其播放触发条件"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanCustomIconAnimation_title_2') }) {
-            // [Start symbol_bouncing_effect]
+            // [EndExclude symbol_bouncing_effect]
             Column() {
               // 请将$r('app.string.bounce_animation')替换为实际资源文件，在本示例中该资源文件的value值为"弹跳动效"
               Text($r('app.string.bounce_animation'));
@@ -105,7 +113,7 @@ export struct SymbolGlyphSpanCustomIconAnimation {
           // 在本示例中该资源文件的value值为"从API version 20开始，支持通过设置SymbolEffect属性为ReplaceSymbolEffect，
           // 设置ReplaceEffectType为ReplaceEffectType.SLASH_OVERLAY，可以指定SymbolGlyph的禁用动画效果及其播放触发条件。"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanCustomIconAnimation_title_3') }) {
-            // [Start symbol_disable_effect]
+            // [EndExclude symbol_disable_effect]
             Column() {
               // 请将$r('app.string.disable_animation')替换为实际资源文件，在本示例中该资源文件的value值为"禁用动效"
               Text($r('app.string.disable_animation'));
@@ -127,7 +135,7 @@ export struct SymbolGlyphSpanCustomIconAnimation {
           // 在本示例中该资源文件的value值为"从API version 20开始，支持通过设置SymbolEffect属性为ReplaceSymbolEffect，
           // 设置ReplaceEffectType为ReplaceEffectType.CROSS_FADE，可以指定SymbolGlyph的快速替换动画效果及其播放触发条件。"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanCustomIconAnimation_title_4') }) {
-            // [Start symbol_quick_replacement]
+            // [EndExclude symbol_quick_replacement]
             Column() {
               // 请将$r('app.string.quick_replacement_animation')替换为实际资源文件，在本示例中该资源文件的value值为"快速替换动效"
               Text($r('app.string.quick_replacement_animation'));

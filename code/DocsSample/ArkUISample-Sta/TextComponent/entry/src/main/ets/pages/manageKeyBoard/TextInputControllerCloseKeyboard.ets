@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start textInputController_CloseKeyboard]
 import {
   $r,
   Button,
@@ -31,7 +32,6 @@ import { State } from '@ohos.arkui.stateManagement';
 
 @Entry
 @Component
-  // [Start textInputController_CloseKeyboard]
 export struct textInputControllerCloseKeyboard {
   controller: TextInputController = new TextInputController();
   @State inputValue: string = '';

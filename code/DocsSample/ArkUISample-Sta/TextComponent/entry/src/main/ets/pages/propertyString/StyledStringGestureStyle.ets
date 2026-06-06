@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start styledStringGestureStyle_start]
 import {
   $r,
   Button,

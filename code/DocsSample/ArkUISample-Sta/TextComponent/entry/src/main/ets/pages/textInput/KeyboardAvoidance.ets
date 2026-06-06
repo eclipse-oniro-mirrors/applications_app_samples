@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start keyboard_avoid]
 import {
   $r,
   Builder,
@@ -27,7 +28,9 @@ import {
   Scroll,
   TextInput
 } from '@kit.ArkUI';
+// [StartExclude keyboard_avoid]
 import { ComponentCard } from '../../common/Card';
+// [EndExclude keyboard_avoid]
 
 @Entry
 @Component

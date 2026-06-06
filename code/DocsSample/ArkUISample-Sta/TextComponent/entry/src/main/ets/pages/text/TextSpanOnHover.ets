@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start textspan_onhover]
 import {
   $r, Column, Component, Entry, NavDestination, Row, Span, Text, TextCase
 } from '@kit.ArkUI';

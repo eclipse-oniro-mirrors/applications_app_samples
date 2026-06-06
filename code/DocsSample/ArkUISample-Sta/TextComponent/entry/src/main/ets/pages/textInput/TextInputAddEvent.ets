@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start TextInputAddEvent]
 import {
   $r,
   Builder,
