@@ -17,26 +17,28 @@
 
 import {
   Component,
-  PropRef,
-  Resource,
-  $r,
-  Require,
-  VerticalAlign,
-  Button,
-  ButtonType,
-  SymbolGlyph,
   Column,
   ColumnOptions,
-  Text,
-  HorizontalAlign,
-  BuilderParam,
   Row,
   RowOptions,
-  ResourceStr,
-  TextOverflow,
+  Text,
   Blank,
-  ButtonStyleMode
-} from '@kit.ArkUI';
+  Button,
+  ButtonOptions,
+  ButtonType,
+  ButtonStyleMode,
+  SymbolGlyph,
+  BuilderParam,
+  Builder,
+  PropRef,
+  Require,
+  $r,
+  Resource,
+  ResourceStr,
+  HorizontalAlign,
+  VerticalAlign,
+  TextOverflow
+} from '@kit.ArkUI'
 
 @Component
 export struct CompletedRoutableCard {
@@ -46,8 +48,7 @@ export struct CompletedRoutableCard {
   @Require
   title: string;
   @PropRef
-  @Require
-  description: ResourceStr;
+  description?: ResourceStr;
 
   build(): void {
     Card({ verticalAlign: VerticalAlign.Top }) {
@@ -62,9 +63,11 @@ export struct CompletedRoutableCard {
         Text(this.title)
           .fontColor($r('sys.color.font_primary'))
 
-        Text(this.description)
-          .fontColor($r('sys.color.font_secondary'))
-          .fontSize($r('sys.float.Body_S'))
+        if (this.description) {
+          Text(this.description)
+            .fontColor($r('sys.color.font_secondary'))
+            .fontSize($r('sys.float.Body_S'))
+        }
       }
       .alignItems(HorizontalAlign.Start)
       .layoutWeight(1)
@@ -117,7 +120,7 @@ export struct RoutableCard {
 
       Blank()
 
-      Button({ type: ButtonType.Normal, buttonStyle: ButtonStyleMode.TEXTUAL }) {
+      Button({ type: ButtonType.Normal, buttonStyle: ButtonStyleMode.TEXTUAL } as ButtonOptions) {
         SymbolGlyph($r('sys.symbol.chevron_right'))
           .fontSize(18)
           .fontColor([$r('sys.color.font_secondary')])
@@ -129,17 +132,18 @@ export struct RoutableCard {
 @Component
 export struct ComponentCard {
   @PropRef
-  @Require
-  title: ResourceStr;
+  title?: ResourceStr;
   @BuilderParam content: () => void;
   @PropRef
   description?: ResourceStr;
 
   build(): void {
     Column({ space: 8 } as ColumnOptions) {
-      Text(this.title)
-        .fontSize(14)
-        .fontColor('#666')
+      if (this.title) {
+        Text(this.title)
+          .fontSize(14)
+          .fontColor('#666')
+      }
       Row({ space: 12 } as RowOptions) {
         this.content();
       }

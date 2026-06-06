@@ -1,0 +1,258 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import common from '@ohos.app.ability.common';
+import util from '@ohos.util';
+import { State, Link, Watch } from '@ohos.arkui.stateManagement';
+import { PropRef, $r } from '@kit.ArkUI';
+import {
+  Entry,
+  Component,
+  Column,
+  List,
+  ListItem,
+  Row,
+  Text,
+  Blank,
+  Button,
+  Flex,
+  Checkbox,
+  ForEach,
+  NavDestination,
+  GestureGroup,
+  LongPressGesture,
+  HorizontalAlign,
+  FlexAlign,
+  ItemAlign,
+  GestureMode,
+  Length,
+  TextPickerResult,
+  TextPickerDialogOptions,
+  Color
+} from '@kit.ArkUI';
+import { ListOptions } from '@kit.ArkUI';
+
+// [Start structural_references]
+
+// 结构参考
+export class ToDo {
+  public key: string = util.generateRandomUUID(true);
+  public name: string;
+  public toDoData: ToDo[] = [];
+
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+// [End structural_references]
+
+@Component
+export struct ToDoListItem {
+  @Link isEditMode: boolean;
+  @Link selectedItems: ToDo[];
+  private toDoItem: ToDo = new ToDo('');
+
+  build(): void {
+    // [Start enter_edit_mode]
+    Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
+      // [StartExclude enter_edit_mode]
+      Text(this.toDoItem.name)
+        .fontSize(16)
+        .width('80%')
+        .margin({ left: 20 })
+      // [Start is_edit_mode]
+      if (this.isEditMode) {
+        Checkbox()
+          .onChange((isSelected) => {
+            if (isSelected) {
+              this.selectedItems.push(new ToDo(this.toDoItem.name));
+              // this.selectedItems为勾选时，记录选中的列表项，可根据实际场景构造
+            } else {
+              let index = this.selectedItems.indexOf(new ToDo(this.toDoItem.name));
+              if (index !== -1) {
+                this.selectedItems.splice(index, 1); // 取消勾选时，则将此项从selectedItems中删除
+              }
+            }
+          })
+      }
+      // [End is_edit_mode]
+      // [EndExclude enter_edit_mode]
+    }
+    // [StartExclude enter_edit_mode]
+    .backgroundColor('#FFF1F3F5')
+    .width('100%')
+    .height(40)
+    .borderRadius(12)
+    // [EndExclude enter_edit_mode]
+    .gesture(
+      GestureGroup(GestureMode.Exclusive,
+        LongPressGesture()
+          .onAction(() => {
+            if (!this.isEditMode) {
+              this.isEditMode = true; // 进入编辑模式
+            }
+          })
+      )
+    )
+    // [End enter_edit_mode]
+  }
+}
+
+@Entry
+@Component
+export struct DeleteListItem {
+  @State arr: int[] = [0, 1, 2, 3];
+  @State toDoData: ToDo[] = [] as ToDo[];
+  @State @Watch('onEditModeChange') isEditMode: boolean = false;
+  @State selectedItems: ToDo[] = [] as ToDo[]
+  private availableThings: string [] = [];
+
+  public deleteToDoData(): void {
+    this.toDoData = [];
+  }
+
+  aboutToAppear(): void {
+    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    const reading = context.resourceManager.getStringByNameSync('Reading')
+    this.availableThings.push(reading)
+    const exercise = context.resourceManager.getStringByNameSync('Exercise')
+    this.availableThings.push(exercise)
+    const travel = context.resourceManager.getStringByNameSync('Travel')
+    this.availableThings.push(travel)
+    const listening = context.resourceManager.getStringByNameSync('Listening_Music')
+    this.availableThings.push(listening)
+    const watching = context.resourceManager.getStringByNameSync('Watching_Films')
+    this.availableThings.push(watching)
+    const singing = context.resourceManager.getStringByNameSync('Singing')
+    this.availableThings.push(singing)
+  }
+
+  onEditModeChange(propertyName: string): void {
+    if (!this.isEditMode) {
+      this.selectedItems = [];
+    }
+  }
+
+  build(): void {
+    NavDestination() {
+      Column() {
+        Column() {
+          // 请将$r('app.string.DeleteListItem_titleExample')替换为实际资源文件，
+          // 在本示例中该资源文件的value值为"删除列表项示例"
+          Text($r('app.string.DeleteListItem_titleExample'))
+            .fontSize(14)
+            .fontColor('#666')
+          Column() {
+            Row() {
+              if (this.isEditMode) {
+                Text('X')
+                  .fontSize(20)
+                  .onClick(() => {
+                    this.isEditMode = false;
+                  })
+                  .margin({ left: 20, right: 20 })
+              } else {
+                // 请将$r('app.string.TodoItem')替换为实际资源文件，
+                // 在本示例中该资源文件的value值为"待办"
+                Text($r('app.string.TodoItem'))
+                  .fontSize(30)
+                  .margin({ left: 20 })
+                Blank()
+                Text('+')// 提供新增列表项入口，即给新增按钮添加点击事件
+                  .fontSize(36)
+                  .margin({ right: 20 })
+                  .onClick(() => {
+                    this.getUIContext().showTextPickerDialog({
+                      range: this.availableThings,
+                      onAccept: (value: TextPickerResult) => {
+                        if (Array.isArray(value.index)) {
+                          let indices: int[] = value.index as int[];
+                          for (let i = 0; i < indices.length; i++) {
+                            this.toDoData.push(new ToDo(this.availableThings[indices[i]]));
+                          }
+                        } else {
+                          let index: int = value.index as int;
+                          this.toDoData.push(new ToDo(this.availableThings[index]));
+                        }
+                        // 新增列表项数据toDoData(可选事项)
+                      },
+                    } as TextPickerDialogOptions)
+                  })
+              }
+            }
+            .width('100%')
+            .backgroundColor('#FFF1F3F5')
+            .borderRadius(12)
+            .height(45)
+            // [Start implement_cached_count]
+            List(
+              // [StartExclude implement_cached_count]
+              { space: 12 } as ListOptions
+              // [EndExclude implement_cached_count]
+            ) {
+              // [StartExclude implement_cached_count]
+              ForEach(this.toDoData, (toDoItem: ToDo) => {
+                ListItem() {
+                  // 将toDoData的每个数据放入到以model的形式放进ListItem里
+                  ToDoListItem({
+                    isEditMode: this.isEditMode,
+                    toDoItem: toDoItem,
+                    selectedItems: this.selectedItems
+                  })
+                }
+              }, (toDoItem: ToDo) => toDoItem.name.toString())
+              // [EndExclude implement_cached_count]
+            }.cachedCount(3)
+            // [End implement_cached_count]
+          }
+        }
+        .alignItems(HorizontalAlign.Start)
+        .backgroundColor('#fff')
+        .borderRadius(12)
+        .padding(12)
+        .width('100%')
+
+        if (this.isEditMode) {
+          Column() {
+            // [Start implement_deletion]
+            // app.string.delete 资源文件中的value值为'删除'
+            Button($r('app.string.delete'))
+            // [StartExclude implement_deletion]
+              .width('90%')
+              .backgroundColor(Color.Red)
+              // [EndExclude implement_deletion]
+              .onClick(() => {
+                // this.toDoData为待办的列表项，可根据实际场景构造。
+                // 点击后删除选中的列表项对应的toDoData数据
+                this.toDoData = this.toDoData.filter(toDoItem =>
+                !this.selectedItems.some(selectedItem => selectedItem.name === toDoItem.name));
+                this.isEditMode = false;
+              })
+            // [End implement_deletion]
+          }
+        }
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 })
+    }
+    .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.DeleteListItem_title')替换为实际资源文件，
+    // 在本示例中该资源文件的value值为"删除列表项"
+    .title($r('app.string.DeleteListItem_title'))
+  }
+}

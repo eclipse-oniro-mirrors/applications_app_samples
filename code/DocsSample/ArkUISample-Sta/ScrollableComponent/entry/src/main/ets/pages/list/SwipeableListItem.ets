@@ -1,0 +1,103 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { ComponentCard } from '../../common/Card';
+import {
+  Entry,
+  Component,
+  Builder,
+  Column,
+  List,
+  ListItem,
+  Text,
+  Button,
+  Image,
+  ForEach,
+  NavDestination,
+  TextAlign,
+  ButtonType
+} from '@kit.ArkUI';
+import { State } from '@ohos.arkui.stateManagement';
+import { $r } from '@kit.ArkUI';
+
+@Entry
+@Component
+export struct SwipeListItem {
+  private index: int = 0;
+  @State arr: int[] = [0, 1, 2, 3];
+
+  // [Start build_the_tail_slide_out_component]
+  @Builder
+  itemEnd(index: int): void {
+    // 构建尾端滑出组件
+    Button({ type: ButtonType.Circle }) {
+      Image($r('sys.media.ohos_ic_bottomsheet_close'))
+        .width(40)
+        .height(40)
+    }
+    // [StartExclude build_the_tail_slide_out_component]
+    .backgroundColor('#FFE1E2E3')
+    // [EndExclude build_the_tail_slide_out_component]
+    .onClick(() => {
+      // this.arr为列表数据源，可根据实际场景构造。点击后从数据源删除指定数据项。
+      this.arr.splice(index, 1);
+    })
+  }
+  // [End build_the_tail_slide_out_component]
+
+  build(): void {
+    NavDestination() {
+      Column() {
+        ComponentCard({ title: $r('app.string.SwipeListItem_titleExample') }) {
+          List({ space: 12 }) {
+            ForEach(this.arr, (item: int) => {
+              // [Start bind_the_swipeAction_property_to_left_swipe_list_item]
+              // 构建List时，通过ForEach基于数据源this.messages循环渲染ListItem。
+              ListItem() {
+                // [StartExclude bind_the_swipeAction_property_to_left_swipe_list_item]
+                Text('Message ' + item)
+                  .width('100%')
+                  .height(50)
+                  .fontSize(16)
+                  .textAlign(TextAlign.Center)
+                  .borderRadius(10)
+                  .backgroundColor('#FFF1F3F5')
+                // [EndExclude bind_the_swipeAction_property_to_left_swipe_list_item]
+              }.swipeAction({
+                end: {
+                  // index为该ListItem在List中的索引值。
+                  builder: () => {
+                    // [StartExclude bind_the_swipeAction_property_to_left_swipe_list_item]
+                    this.index = this.arr.indexOf(item);
+                    // [EndExclude bind_the_swipeAction_property_to_left_swipe_list_item]
+                    this.itemEnd(this.index);
+                  },
+                }
+              }) // 设置侧滑属性.
+              // [End bind_the_swipeAction_property_to_left_swipe_list_item]
+            }, (item: int) => item.toString())
+          }
+        }
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 })
+    }
+    .backgroundColor('#f1f2f3')
+    .title($r('app.string.SwipeListItem_title'))
+  }
+}

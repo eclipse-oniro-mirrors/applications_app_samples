@@ -1,0 +1,226 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import util from '@ohos.util';
+import { ComponentCard } from '../../common/Card';
+import {
+  Entry,
+  Component,
+  Builder,
+  Column,
+  List,
+  ListItem,
+  ListItemGroup,
+  Row,
+  Text,
+  Image,
+  Stack,
+  ForEach,
+  AlphabetIndexer,
+  Scroller,
+  NavDestination,
+  Alignment,
+  FlexAlign,
+  Resource,
+  StackOptions
+} from '@kit.ArkUI';
+import { State } from '@ohos.arkui.stateManagement';
+import { $r } from '@kit.ArkUI';
+
+// [Start respond_to_scroll_position]
+
+const alphabets = ['#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+  'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+// [StartExclude respond_to_scroll_position]
+export class Contact {
+  public key: string = util.generateRandomUUID(true);
+  public name: string | Resource;
+  public icon: Resource;
+
+  constructor(name: string | Resource, icon: Resource) {
+    this.name = name;
+    this.icon = icon;
+  }
+}
+
+export class ContactsGroup {
+  public title: string = '';
+  public contacts: Array<Contact> | null = null;
+  public key: string = '';
+}
+
+export let contactsGroups: ContactsGroup[] = [
+  {
+    title: 'A',
+    contacts: [
+      // $r('app.string.xxx')需要替换为开发者所需的资源文件
+      new Contact($r('app.string.contacts_A_one'), $r('sys.media.clone_app_badge_1')),
+      new Contact($r('app.string.contacts_A_two'), $r('sys.media.clone_app_badge_2'))
+    ],
+    key: util.generateRandomUUID(true)
+  } as ContactsGroup,
+  {
+    title: 'B',
+    contacts: [
+      // $r('app.string.xxx')需要替换为开发者所需的资源文件
+      new Contact($r('app.string.contacts_B_one'), $r('sys.media.clone_app_badge_3')),
+      new Contact($r('app.string.contacts_B_two'), $r('sys.media.clone_app_badge_4')),
+      new Contact($r('app.string.contacts_B_three'), $r('sys.media.clone_app_badge_5'))
+    ],
+    key: util.generateRandomUUID(true)
+  } as ContactsGroup,
+  {
+    title: 'D',
+    contacts: [
+      // $r('app.string.xxx')需要替换为开发者所需的资源文件
+      new Contact($r('app.string.contacts_D_one'), $r('sys.media.clone_app_badge_3')),
+      new Contact($r('app.string.contacts_D_two'), $r('sys.media.clone_app_badge_4')),
+      new Contact($r('app.string.contacts_D_three'), $r('sys.media.clone_app_badge_5'))
+    ],
+    key: util.generateRandomUUID(true)
+  } as ContactsGroup,
+  {
+    title: 'F',
+    contacts: [
+      // $r('app.string.xxx')需要替换为开发者所需的资源文件
+      new Contact($r('app.string.contacts_F_one'), $r('sys.media.clone_app_badge_3')),
+      new Contact($r('app.string.contacts_F_two'), $r('sys.media.clone_app_badge_4'))
+    ],
+    key: util.generateRandomUUID(true)
+  } as ContactsGroup,
+  {
+    title: 'G',
+    contacts: [
+      // $r('app.string.xxx')需要替换为开发者所需的资源文件
+      new Contact($r('app.string.contacts_G_one'), $r('sys.media.clone_app_badge_3')),
+      new Contact($r('app.string.contacts_G_two'), $r('sys.media.clone_app_badge_4'))
+    ],
+    key: util.generateRandomUUID(true)
+  } as ContactsGroup,
+  {
+    title: 'H',
+    contacts: [
+      // $r('app.string.xxx')需要替换为开发者所需的资源文件
+      new Contact($r('app.string.contacts_H_one'), $r('sys.media.clone_app_badge_3')),
+      new Contact($r('app.string.contacts_H_two'), $r('sys.media.clone_app_badge_4')),
+      new Contact($r('app.string.contacts_H_three'), $r('sys.media.clone_app_badge_5'))
+    ],
+    key: util.generateRandomUUID(true)
+  } as ContactsGroup,
+  {
+    title: 'X',
+    contacts: [
+      // $r('app.string.xxx')需要替换为开发者所需的资源文件
+      new Contact($r('app.string.contacts_X_one'), $r('sys.media.clone_app_badge_3')),
+      new Contact($r('app.string.contacts_X_two'), $r('sys.media.clone_app_badge_4')),
+      new Contact($r('app.string.contacts_X_three'), $r('sys.media.clone_app_badge_5'))
+    ],
+    key: util.generateRandomUUID(true)
+  } as ContactsGroup
+];
+// [EndExclude respond_to_scroll_position]
+
+@Entry
+@Component
+export struct ResponsiveScrollPositionList {
+  @State selectedIndex: int = 0;
+  private listScroller: Scroller = new Scroller();
+  // [StartExclude respond_to_scroll_position]
+  private currentGroupTitle: string = ''; // 用于跟踪当前显示的分组标题
+
+  @Builder
+  itemHead(text: string): void {
+    // 列表分组的头部组件，对应联系人分组A、B等位置的组件
+    Text(text)
+      .fontSize(20)
+      .backgroundColor('#fff1f3f5')
+      .width('100%')
+      .padding(5)
+  }
+  // [EndExclude respond_to_scroll_position]
+
+  build(): void {
+    // [StartExclude respond_to_scroll_position]
+    NavDestination() {
+      Column() {
+        // 请将$r('app.string.ResponsiveScrollPositionList_titleExample')替换为实际资源文件，
+        // 在本示例中该资源文件的value值为"响应滚动位置示例"
+        ComponentCard({ title: $r('app.string.ResponsiveScrollPositionList_titleExample') }) {
+          // [EndExclude respond_to_scroll_position]
+          // [EndExclude use_stack]
+          Stack({ alignContent: Alignment.End } as StackOptions) {
+            // 此为响应滚动位置示例List容器
+            // [Start respond_to_list_scroller]
+            // [Start scroller_scroll_bar]
+            // listScroller初始化List组件的scroller参数，绑定listScroller与列表。
+            List({ scroller: this.listScroller }) {
+            // [End scroller_scroll_bar]
+              // [StartExclude respond_to_scroll_position]
+              // [StartExclude use_foreach]
+              // [StartExclude respond_to_list_scroller]
+              ForEach((contactsGroups as ContactsGroup[]), (itemGroup: ContactsGroup) => {
+                ListItemGroup({ header: this.itemHead(itemGroup.title) }) {
+                  // 循环渲染ListItem
+                  if (itemGroup.contacts) {
+                    ForEach((itemGroup.contacts as Contact[]), (item: Contact) => {
+                      ListItem() {
+                        Row() {
+                          Image(item.icon).width(40).height(40).margin(10)
+                          Text(item.name).fontSize(20)
+                        }.width('100%').justifyContent(FlexAlign.Start)
+                      }
+                    }, (item: Contact) => JSON.stringify(item))
+                  }
+                }
+              }, (itemGroup: ContactsGroup) => JSON.stringify(itemGroup))
+              // [EndExclude respond_to_list_scroller]
+              // [EndExclude respond_to_scroll_position]
+            }
+            // [End respond_to_list_scroller]
+            .onScrollIndex((firstIndex: int) => {
+              // 根据列表滚动到的索引值，重新计算对应联系人索引栏的位置this.selectedIndex
+              // [StartExclude respond_to_scroll_position]
+              let group = contactsGroups[firstIndex] as ContactsGroup;
+              this.currentGroupTitle = group.title;
+              this.selectedIndex = alphabets.indexOf(this.currentGroupTitle);
+              // [EndExclude respond_to_scroll_position]
+            })
+
+            // 字母表索引组件
+            AlphabetIndexer({ arrayValue: alphabets, selected: 0 })
+              .selected(this.selectedIndex)
+              .onSelect((index: int) => {
+                this.listScroller.scrollToIndex(index);
+              })
+          }
+          // [StartExclude respond_to_scroll_position]
+          .height('90%')
+        }
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 })
+    }
+    .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.ResponsiveScrollPositionList_title')替换为实际资源文件，
+    // 在本示例中该资源文件的value值为"响应滚动位置"
+    .title($r('app.string.ResponsiveScrollPositionList_title'))
+    // [EndExclude respond_to_scroll_position]
+  }
+}
+// [End respond_to_scroll_position]
