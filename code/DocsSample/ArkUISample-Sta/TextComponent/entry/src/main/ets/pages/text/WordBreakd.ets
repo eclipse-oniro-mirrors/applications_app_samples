@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start Word_Break]
 import {
   $r,
   Color,
@@ -27,7 +28,6 @@ import {
   WordBreak
 } from '@kit.ArkUI';
 import { State } from '@ohos.arkui.stateManagement';
-import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component

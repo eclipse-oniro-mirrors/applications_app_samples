@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start cursor_avoid]
 import {
   $r,
   Builder,
@@ -29,7 +30,9 @@ import {
   TextAreaController
 } from '@kit.ArkUI';
 import { State } from '@ohos.arkui.stateManagement';
+// [StartExclude cursor_avoid]
 import { ComponentCard } from '../../common/Card';
+// [EndExclude cursor_avoid]
 
 @Entry
 @Component

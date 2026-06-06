@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start styledStringDecorationStyle_start]
 import {
   Color,
   Column,

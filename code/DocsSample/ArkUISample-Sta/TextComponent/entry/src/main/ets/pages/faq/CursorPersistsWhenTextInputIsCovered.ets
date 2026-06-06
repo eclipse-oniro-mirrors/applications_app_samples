@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start Cursor_Persists_When_TextInput_Is_Covered]
 import {
   $r,
   Color,
@@ -35,7 +36,6 @@ import {
 } from '@kit.ArkUI';
 import { State } from '@ohos.arkui.stateManagement';
 
-// [Start Cursor_Persists_When_TextInput_Is_Covered]
 @Entry
 @Component
 export struct CursorPersistsWhenTextInputIsCoveredExample {

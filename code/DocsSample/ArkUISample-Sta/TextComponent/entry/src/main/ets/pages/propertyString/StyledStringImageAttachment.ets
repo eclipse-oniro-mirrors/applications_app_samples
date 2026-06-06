@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start styledStringImageAttachment_start]
 import {
   $r,
   Button,

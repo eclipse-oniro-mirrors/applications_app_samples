@@ -15,6 +15,12 @@
  * limitations under the License.
  */
 
+// [Start creat_symbol_span]
+// [Start symbol_span_font_size]
+// [Start symbol_span_font_weight]
+// [Start symbol_span_font_color]
+// [Start symbol_span_rendering_strategy]
+// [Start symbol_span_effect_strategy]
 import {
   $r,
   Color,
@@ -33,6 +39,12 @@ import {
   SymbolSpan,
   Text
 } from '@kit.ArkUI';
+// [StartExclude creat_symbol_span]
+// [StartExclude symbol_span_font_size]
+// [StartExclude symbol_span_font_weight]
+// [StartExclude symbol_span_font_color]
+// [StartExclude symbol_span_rendering_strategy]
+// [StartExclude symbol_span_effect_strategy]
 import { State } from '@ohos.arkui.stateManagement';
 import { ComponentCard } from '../../common/Card';
 
@@ -48,7 +60,7 @@ export struct SymbolGlyphSpanAddToText {
         Column({ space: 12 } as ColumnOptions) {
           // 请将$r('app.string.SymbolGlyphSpanAddToText_title_1')替换为实际资源文件，在本示例中该资源文件的value值为"创建SymbolSpan"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanAddToText_title_1') }) {
-            // [Start creat_symbol_span]
+            // [EndExclude creat_symbol_span]
             Text() {
               SymbolSpan($r('sys.symbol.ohos_trash'))
                 .fontWeight(FontWeight.Normal)
@@ -61,7 +73,7 @@ export struct SymbolGlyphSpanAddToText {
           // 请将$r('app.string.SymbolGlyphSpanAddToText_title_2')替换为实际资源文件，
           // 在本示例中该资源文件的value值为"通过fontSize属性设置SymbolSpan的大小"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanAddToText_title_2') }) {
-            // [Start symbol_span_font_size]
+            // [EndExclude symbol_span_font_size]
             Row() {
               Column() {
                 Text('48')
@@ -100,7 +112,7 @@ export struct SymbolGlyphSpanAddToText {
           // 请将$r('app.string.SymbolGlyphSpanAddToText_title_3')替换为实际资源文件，
           // 在本示例中该资源文件的value值为"通过fontWeight属性设置SymbolSpan组件的粗细"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanAddToText_title_3') }) {
-            // [Start symbol_span_font_weight]
+            // [EndExclude symbol_span_font_weight]
             Row() {
               Column() {
                 Text('Light')
@@ -136,7 +148,7 @@ export struct SymbolGlyphSpanAddToText {
           // 请将$r('app.string.SymbolGlyphSpanAddToText_title_4')替换为实际资源文件，
           // 在本示例中该资源文件的value值为"通过fontColor属性设置SymbolSpan的颜色"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanAddToText_title_4') }) {
-            // [Start symbol_span_font_color]
+            // [EndExclude symbol_span_font_color]
             Row() {
               Column() {
                 Text('Black')
@@ -172,7 +184,7 @@ export struct SymbolGlyphSpanAddToText {
           // 请将$r('app.string.SymbolGlyphSpanAddToText_title_5')替换为实际资源文件，
           // 在本示例中该资源文件的value值为"通过renderingStrategy属性设置SymbolSpan的渲染策略"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanAddToText_title_5') }) {
-            // [Start symbol_span_rendering_strategy]
+            // [EndExclude symbol_span_rendering_strategy]
             Row() {
               Column() {
                 // 请将$r('app.string.single_color')替换为实际资源文件，在本示例中该资源文件的value值为"单色"
@@ -215,7 +227,7 @@ export struct SymbolGlyphSpanAddToText {
           // 在本示例中该资源文件的value值为"通过设置SymbolEffect属性配置SymbolGlyph的动效\n点击可播放动画效果"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanAddToText_title_6') }) {
             if (this.isActive) {
-              // [Start symbol_span_effect_strategy]
+              // [EndExclude symbol_span_effect_strategy]
               Row() {
                 Column() {
                   // 请将$r('app.string.no_action')替换为实际资源文件，在本示例中该资源文件的value值为"无动效"

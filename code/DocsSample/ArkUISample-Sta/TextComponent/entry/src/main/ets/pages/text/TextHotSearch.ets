@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start the_text_fact_example]
 import {
   $r,
   Color,

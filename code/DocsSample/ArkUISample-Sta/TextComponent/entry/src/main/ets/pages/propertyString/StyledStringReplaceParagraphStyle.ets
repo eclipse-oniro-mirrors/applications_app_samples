@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start styledStringReplaceParagraphStyle_start]
 import {
   $r,
   Button,

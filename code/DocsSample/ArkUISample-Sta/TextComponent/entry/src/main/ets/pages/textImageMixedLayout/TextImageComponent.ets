@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start textImage_component]
 import {
   $r,
   Color,
@@ -57,3 +58,4 @@ export struct TextImageComponent {
     .title($r('app.string.TextImage_MixedLayout_Text_1'))
   }
 }
+// [End textImage_component]

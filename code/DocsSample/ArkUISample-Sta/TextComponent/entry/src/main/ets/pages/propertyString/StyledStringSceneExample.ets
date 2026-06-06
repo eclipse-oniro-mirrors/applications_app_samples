@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start styledStringSceneExample_start]
 import {
   $r,
   Button,

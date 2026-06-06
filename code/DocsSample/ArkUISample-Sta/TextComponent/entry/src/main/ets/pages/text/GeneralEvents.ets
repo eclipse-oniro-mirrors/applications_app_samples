@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start General_Events]
 import {
   $r, Column, Component, Entry, NavDestination, Row, Text
 } from '@kit.ArkUI';

@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start Text_Long]
 import {
   $r, Column, Component, Entry, FlexAlign, NavDestination, Text
 } from '@kit.ArkUI';

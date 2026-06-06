@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start symbol_glyph_span_scene_example]
 import {
   $r,
   Builder,
@@ -39,9 +40,11 @@ import {
   Text
 } from '@kit.ArkUI';
 import { State } from '@ohos.arkui.stateManagement';
+// [StartExclude symbol_glyph_span_scene_example]
 // resourceGetString封装工具，从资源中获取字符串
 import { ComponentCard } from '../../common/Card';
 import resourceGetString from '../../common/resource';
+// [EndExclude symbol_glyph_span_scene_example]
 
 @Entry
 @Component

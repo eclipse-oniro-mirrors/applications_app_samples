@@ -77,6 +77,7 @@ export struct styled_string_demo {
       style: TextDecorationStyle.DOUBLE
     })
   }]);
+  // [StartExclude textImage_attribute]
 
   aboutToAppear(): void {
     hilog.info(DOMAIN, TAG, BUNDLE + 'aboutToAppear initial imagePixelMap');
@@ -116,6 +117,7 @@ export struct styled_string_demo {
       hilog.error(DOMAIN, TAG, `Get pixmap failed. error code: ${error.code}, error message: ${error.message}`);
     }
   }
+  // [EndExclude textImage_attribute]
 
   leadingMarginValue: ParagraphStyle = new ParagraphStyle({
     leadingMargin: LengthMetrics.vp(5),
@@ -219,8 +221,7 @@ export struct styled_string_demo {
       }
     ]);
 
-  build():
-    void {
+  build(): void {
     Row() {
       Column({ space: 10 } as ColumnOptions) {
         Text(undefined, { controller: this.controller })
@@ -260,7 +261,6 @@ export struct styled_string_demo {
     )
   }
 }
-
 // [End textImage_attribute]
 @Builder
 export function TextImageAttribute(): void {

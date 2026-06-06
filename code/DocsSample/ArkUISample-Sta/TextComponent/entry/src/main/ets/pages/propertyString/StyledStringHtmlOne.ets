@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+// [Start styledStringHtmlOne_start]
 import {
   $r, Button, Column, Component, Entry, Text, TextController, StyledString, TextArea
 } from '@kit.ArkUI';
