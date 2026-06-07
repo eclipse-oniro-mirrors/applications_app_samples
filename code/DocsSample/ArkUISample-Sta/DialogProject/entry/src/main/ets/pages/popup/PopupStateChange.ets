@@ -1,0 +1,59 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start state_popup]
+import {
+  Entry,
+  Component,
+  Column,
+  Button,
+  NavDestination,
+  $r
+} from '@kit.ArkUI';
+import { State } from '@ohos.arkui.stateManagement';
+
+@Entry
+@Component
+export struct StatePopupExample {
+  @State handlePopup: boolean = false;
+
+  build(): void {
+    NavDestination() {
+      Column() {
+        Button('PopupOptions')
+          .id('PopupOptions')
+          .margin({ top: 300 })
+          .onClick((): void => {
+            this.handlePopup = !this.handlePopup;
+          })
+          .bindPopup(this.handlePopup, {
+            message: 'This is a popup with PopupOptions',
+            onStateChange: (e): void => { // 返回当前的气泡状态
+              if (!e.isVisible) {
+                this.handlePopup = false;
+              }
+            }
+          })
+      }.width('100%').padding({ top: 5 })
+    }
+    // [StartExclude state_popup]
+    // 请将$r('app.string.onStateChange_title')替换为实际资源文件，在本示例中该资源文件的value值为"添加气泡状态变化的事件"
+    .title($r('app.string.onStateChange_title'))
+    // [EndExclude state_popup]
+  }
+}
+// [End state_popup]

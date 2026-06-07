@@ -1,0 +1,105 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start animation_popup]
+// xxx.ets
+import {
+  Entry,
+  Component,
+  Button,
+  Row,
+  Text,
+  NavDestination,
+  Flex,
+  FlexOptions,
+  FlexDirection,
+  Builder,
+  Placement,
+  TransitionEffect,
+  Curve,
+  $r
+} from '@kit.ArkUI';
+import { State } from '@ohos.arkui.stateManagement';
+
+@Entry
+@Component
+export struct AnimationPopupExample {
+  @State handlePopup: boolean = false;
+  @State customPopup: boolean = false;
+
+  // popup构造器定义弹框内容
+  @Builder
+  popupBuilder(): void {
+    Row() {
+      Text('Custom Popup with transitionEffect').fontSize(10)
+    }.height(50).padding(5)
+  }
+
+  build(): void {
+    NavDestination() {
+      Flex({ direction: FlexDirection.Column } as FlexOptions) {
+        // PopupOptions 类型设置弹框内容
+        Button('PopupOptions')
+          .id('PopupOptions')
+          .onClick((): void => {
+            this.handlePopup = !this.handlePopup;
+          })
+          .bindPopup(this.handlePopup, {
+            message: 'This is a popup with transitionEffect',
+            placement: Placement.Top,
+            showInSubWindow: false,
+            onStateChange: (e): void => {
+              if (!e.isVisible) {
+                this.handlePopup = false;
+              }
+            },
+            // 设置弹窗显示动效为透明度动效与平移动效的组合效果，无退出动效
+            transition: TransitionEffect.asymmetric(
+              TransitionEffect.OPACITY.animation({ duration: 1000, curve: Curve.Ease }).combine(
+                TransitionEffect.translate({ x: 50, y: 50 })),
+              TransitionEffect.IDENTITY)
+          })
+          .position({ x: 100, y: 150 })
+
+        // CustomPopupOptions 类型设置弹框内容
+        Button('CustomPopupOptions')
+          .id('CustomPopupOptions')
+          .onClick((): void => {
+            this.customPopup = !this.customPopup;
+          })
+          .bindPopup(this.customPopup, {
+            builder: this.popupBuilder,
+            placement: Placement.Top,
+            showInSubWindow: false,
+            onStateChange: (e): void => {
+              if (!e.isVisible) {
+                this.customPopup = false;
+              }
+            },
+            // 设置弹窗显示动效与退出动效为缩放动效
+            transition: TransitionEffect.scale({ x: 1, y: 0 }).animation({ duration: 500, curve: Curve.Ease })
+          })
+          .position({ x: 80, y: 300 })
+      }.width('100%').padding({ top: 5 })
+    }
+    // [StartExclude animation_popup]
+    // 请将$r('app.string.AnimationPopup_title')替换为实际资源文件，在本示例中该资源文件的value值为"气泡的动画"
+    .title($r('app.string.AnimationPopup_title'))
+    // [EndExclude animation_popup]
+  }
+}
+// [End animation_popup]

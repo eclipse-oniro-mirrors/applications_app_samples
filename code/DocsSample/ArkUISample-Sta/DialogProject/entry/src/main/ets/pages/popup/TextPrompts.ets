@@ -1,0 +1,54 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start text_popup]
+import {
+  Entry,
+  Component,
+  Column,
+  Button,
+  NavDestination,
+  $r
+} from '@kit.ArkUI';
+import { State } from '@ohos.arkui.stateManagement';
+
+@Entry
+@Component
+export struct TextPopupExample {
+  @State handlePopup: boolean = false;
+
+  build(): void {
+    NavDestination() {
+      Column() {
+        Button('PopupOptions')
+          .id('PopupOptions')
+          .margin({ top: 300 })
+          .onClick((): void => {
+            this.handlePopup = !this.handlePopup;
+          })
+          .bindPopup(this.handlePopup, {
+            message: 'This is a popup with PopupOptions',
+          })
+      }.width('100%').padding({ top: 5 })
+    }
+    // [StartExclude text_popup]
+    // 请将$r('app.string.TextPopup_title')替换为实际资源文件，在本示例中该资源文件的value值为"文本提示气泡"
+    .title($r('app.string.TextPopup_title'))
+    // [EndExclude text_popup]
+  }
+}
+// [End text_popup]
