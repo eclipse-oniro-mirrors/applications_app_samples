@@ -3,7 +3,8 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file or copy of the License.
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -21,9 +22,9 @@ import logger from '../common/Logger';
 
 export class RemoteDeviceModel {
   private static dmInstance: RemoteDeviceModel | undefined = undefined;
-  private discoverSuccessCallback: (data: distributedDeviceManager.DiscoverySuccessResult) => undefined = ():undefined => {};
-  private discoverFailureCallback: (data: distributedDeviceManager.DiscoveryFailureResult) => undefined = ():undefined => {};
-  private serviceDieCallback: () => undefined = ():undefined => {};
+  private discoverSuccessCallback: (data: distributedDeviceManager.DiscoverySuccessResult) => void = () => {};
+  private discoverFailureCallback: (data: distributedDeviceManager.DiscoveryFailureResult) => void = () => {};
+  private serviceDieCallback: () => void = () => {};
   trustedDeviceList: Array<distributedDeviceManager.DeviceBasicInfo> = [];
   discoverList: Array<distributedDeviceManager.DeviceBasicInfo> = [];
   localDevice: distributedDeviceManager.DeviceBasicInfo | undefined = undefined;
@@ -41,34 +42,32 @@ export class RemoteDeviceModel {
     if (this.deviceManager !== undefined) {
       return;
     }
-
-    logger.info('[DeviceManager.RemoteDeviceModel] deviceManager.createDeviceManager begin');
+    logger.info('createDeviceManager begin');
     try {
-      let dmInstance = distributedDeviceManager.createDeviceManager('com.samples.devicemanager');
+      let dmInstance = distributedDeviceManager.createDeviceManager('com.samples.distributedauthenticationsta');
       this.deviceManager = dmInstance;
       this.getLocalDeviceInfo();
       this.registerDeviceStateListener();
       this.getTrustedDeviceList();
-      logger.info('[DeviceManager.RemoteDeviceModel] createDeviceManager callback returned');
+      logger.info('createDeviceManager callback returned');
     } catch (err) {
-      logger.error('[DeviceManager.RemoteDeviceModel] createDeviceManager throw error, message=' + err.message);
+      logger.error('createDeviceManager throw error, message=' + err.message);
     }
-    logger.info('[DeviceManager.RemoteDeviceModel] distributedDeviceManager.createDeviceManager end');
+    logger.info('createDeviceManager end');
   }
 
   getLocalDeviceInfo(): void {
     if (this.deviceManager === undefined) {
-      logger.error('[DeviceManager.RemoteDeviceModel] deviceManager has not initialized');
+      logger.error('deviceManager has not initialized');
       return;
     }
-
-    logger.info('[DeviceManager.RemoteDeviceModel] getLocalDeviceInfo begin');
+    logger.info('getLocalDeviceInfo begin');
     let dm = this.deviceManager!;
     let deviceId: string = dm.getLocalDeviceId();
     let deviceName: string = dm.getLocalDeviceName();
     let deviceType: int = dm.getLocalDeviceType();
     let networkId: string = dm.getLocalDeviceNetworkId();
-    logger.info('[DeviceManager.RemoteDeviceModel] getLocalDeviceInfo deviceType: ' + deviceType);
+    logger.info('getLocalDeviceInfo deviceType: ' + deviceType);
     this.localDevice = {
       deviceId: deviceId,
       deviceName: deviceName,
@@ -76,61 +75,52 @@ export class RemoteDeviceModel {
       networkId: networkId
     };
     AppStorage.setOrCreate('localDevice', this.localDevice);
-    logger.info('[DeviceManager.RemoteDeviceModel] getLocalDeviceInfo end');
+    logger.info('getLocalDeviceInfo end');
   }
 
   getTrustedDeviceList(): void {
     if (this.deviceManager === undefined) {
-      logger.error('[DeviceManager.RemoteDeviceModel] deviceManager has not initialized');
+      logger.error('deviceManager has not initialized');
       return;
     }
-
-    logger.info('[DeviceManager.RemoteDeviceModel] getTrustedDeviceList begin');
+    logger.info('getTrustedDeviceList begin');
     let dm = this.deviceManager!;
     try {
       this.trustedDeviceList = dm.getAvailableDeviceListSync();
       AppStorage.setOrCreate('trustedDeviceList', this.trustedDeviceList);
     } catch (err) {
       let error: BusinessError = err as BusinessError;
-      logger.error('[DeviceManager.RemoteDeviceModel] getTrustedDeviceList error: ' + error.toString());
+      logger.error('getTrustedDeviceList error: ' + error.toString());
     }
   }
 
   deviceStateChangeActionOnline(device: distributedDeviceManager.DeviceBasicInfo): void {
-    this.trustedDeviceList[this.trustedDeviceList.length] = device;
-    logger.info('[DeviceManager.RemoteDeviceModel] online, device list updated');
-    for (let i = this.discoverList.length - 1; i >= 0; i--) {
-      if (this.discoverList[i].deviceId == device.deviceId) {
-        this.discoverList.splice(i, 1);
-        break;
-      }
+    logger.info(`Device online event: ${device.deviceId}`);
+    this.discoverList = this.discoverList.filter(item => item.deviceId !== device.deviceId);
+    const index = this.trustedDeviceList.findIndex(item => item.deviceId === device.deviceId);
+    if (index !== -1) {
+      this.trustedDeviceList[index] = device;
+      logger.info(`Update existing device: ${device.deviceId}`);
+    } else {
+      this.trustedDeviceList.push(device);
+      logger.info(`Add new device: ${device.deviceId}`);
     }
-    for (let j = 0; j < this.trustedDeviceList.length; j++) {
-      if (this.trustedDeviceList[j].deviceId === device.deviceId) {
-        this.trustedDeviceList[j] = device;
-        break;
-      }
-    }
-    AppStorage.setOrCreate('discoverDeviceList', this.discoverList);
-    AppStorage.setOrCreate('trustedDeviceList', this.trustedDeviceList);
+    AppStorage.setOrCreate('discoverDeviceList', [...this.discoverList]);
+    AppStorage.setOrCreate('trustedDeviceList', [...this.trustedDeviceList]);
   }
 
   deviceStateChangeActionOffline(device: distributedDeviceManager.DeviceBasicInfo): void {
-    logger.info('[DeviceManager.RemoteDeviceModel] offline');
-    let list: Array<distributedDeviceManager.DeviceBasicInfo> = [];
-    for (let i = 0; i < this.trustedDeviceList.length; i++) {
-      if (this.trustedDeviceList[i].deviceId !== device.deviceId) {
-        list.push(this.trustedDeviceList[i]);
-      }
-    }
-    this.trustedDeviceList = list;
-    AppStorage.setOrCreate('trustedDeviceList', this.trustedDeviceList);
+    logger.info(`Device offline: ${device.deviceId}`);
+    this.trustedDeviceList = this.trustedDeviceList.filter(item => item.deviceId !== device.deviceId);
+    AppStorage.setOrCreate('trustedDeviceList', [...this.trustedDeviceList]);
+    logger.info(`Device removed from trusted list: ${device.deviceId}`);
   }
 
+  // [Start device_state_change]
   registerDeviceStateListener(): void {
-    logger.info('[DeviceManager.RemoteDeviceModel] registerDeviceStateListener');
+    logger.info('registerDeviceStateListener');
     if (this.deviceManager === undefined) {
-      logger.error('[DeviceManager.RemoteDeviceModel] deviceManager has not initialized');
+      logger.error('deviceManager has not initialized');
       return;
     }
 
@@ -140,35 +130,43 @@ export class RemoteDeviceModel {
         if (data == null) {
           return;
         }
-        logger.info('[DeviceManager.RemoteDeviceModel] deviceStateChange data received');
+        logger.info('deviceStateChange data received');
         switch (data.action) {
           case distributedDeviceManager.DeviceStateChange.AVAILABLE:
-            logger.info('[DeviceManager.RemoteDeviceModel] deviceStateChange ONLINE');
+            logger.info('deviceStateChange ONLINE');
+            // [StartExclude device_state_change]
             self.deviceStateChangeActionOnline(data.device);
+            // [EndExclude device_state_change]
             break;
           case distributedDeviceManager.DeviceStateChange.UNAVAILABLE:
-            logger.info('[DeviceManager.RemoteDeviceModel] deviceStateChange OFFLINE');
+            logger.info('deviceStateChange OFFLINE');
+            // [StartExclude device_state_change]
             self.deviceStateChangeActionOffline(data.device);
+            // [EndExclude device_state_change]
             break;
           default:
             break;
         }
       });
     } catch(e) {
-      logger.error('[DeviceManager.RemoteDeviceModel] deviceStateChange failed err: ' + e.toString());
+      logger.error('deviceStateChange failed err: ' + e.toString());
     }
   }
+  // [End device_state_change]
 
   deviceFound(device: distributedDeviceManager.DeviceBasicInfo): void {
-    for (let i = 0; i < this.discoverList.length; i++) {
-      if (this.discoverList[i].deviceId == device.deviceId) {
-        logger.info('[DeviceManager.RemoteDeviceModel] device founded ignored');
-        return;
-      }
+    if (!device || !device.deviceId) {
+      logger.error('Invalid device info provided');
+      return;
     }
-    this.discoverList[this.discoverList.length] = device;
+    const isAlreadyExists = this.discoverList.some(item => item.deviceId === device.deviceId);
+    if (isAlreadyExists) {
+      logger.info('device founded, ignored');
+      return;
+    }
+    this.discoverList.push(device);
     AppStorage.setOrCreate('discoverDeviceList', this.discoverList);
-    logger.info('[DeviceManager.RemoteDeviceModel] deviceFound');
+    logger.info('deviceFound successfully');
   }
 
   private getFilterOptions(): Record<string, int | string> {
@@ -217,101 +215,83 @@ export class RemoteDeviceModel {
     return filterOptions;
   }
 
+  // [Start start_discovering]
   startDeviceDiscovery(): void {
-    logger.info('[DEBUG] RemoteDeviceModel.startDeviceDiscovery CALLED');
     if (this.deviceManager === undefined) {
-      logger.error('[DeviceManager.RemoteDeviceModel] deviceManager has not initialized');
+      logger.error('deviceManager has not initialized');
       return;
     }
     this.discoverSuccessCallback = (data: distributedDeviceManager.DiscoverySuccessResult) => {
       if (data === null) {
-        logger.info('[DEBUG] onDiscoverSuccess data is null');
-        return undefined;
+        logger.info('onDiscoverSuccess data is null');
+        return;
       }
-      logger.info('[DEBUG] onDiscoverSuccess callback, device: ' + JSON.stringify(data.device));
+      logger.info('onDiscoverSuccess callback, device: ' + JSON.stringify(data.device));
       this.deviceFound(data.device);
-      return undefined;
     };
 
     this.discoverFailureCallback = (data: distributedDeviceManager.DiscoveryFailureResult) => {
-      logger.info('[DEBUG] onDiscoverFailure callback, reason: ' + data.reason);
+      logger.info('onDiscoverFailure callback, reason: ' + data.reason);
     };
 
     this.serviceDieCallback = () => {
-      logger.error('[DeviceManager.RemoteDeviceModel] serviceDie');
+      logger.error('serviceDie');
     };
-
     try {
-      logger.info('[DEBUG] startDeviceDiscovery: registering callbacks');
-
-      // 正确注册所有callback（使用on而不是off）
+      logger.info('registering callbacks');
       this.deviceManager!.onDiscoverSuccess(this.discoverSuccessCallback);
-      logger.info('wbdwbd 111 - onDiscoverSuccess registered');
-
       this.deviceManager!.onDiscoverFailure(this.discoverFailureCallback);
-      logger.info('wbdwbd 222 - onDiscoverFailure registered');
-
       this.deviceManager!.onServiceDie(this.serviceDieCallback);
-      logger.info('wbdwbd 333 - onServiceDie registered');
-
       this.discoverList = [];
       AppStorage.setOrCreate('discoverDeviceList', this.discoverList);
       let discoverParam: Record<string, int | string> = {
         'discoverTargetType': 1
       };
-      logger.info('wbdwbd 444');
       let filterOptions: Record<string, int | string> = this.getFilterOptions();
-      logger.info('[DeviceManager.RemoteDeviceModel] startDeviceDiscovery filterOptions = ' + JSON.stringify(filterOptions));
       if (Object.entries(filterOptions).length == 0) {
-        logger.info('wbdwbd 555');
         this.deviceManager!.startDiscovering(discoverParam);
-        logger.info('wbdwbd 666');
       } else {
-        logger.info('wbdwbd 777');
         this.deviceManager!.startDiscovering(discoverParam, filterOptions);
-        logger.info('wbdwbd 888');
       }
     } catch (e) {
-      logger.error('[DeviceManager.RemoteDeviceModel] startDeviceDiscovery failed err: ' + e.toString());
+      logger.error('startDeviceDiscovery failed err: ' + e.toString());
     }
   }
+  // [End start_discovering]
 
+  // [Start stop_discovering]
   stopDeviceDiscovery(): void {
     if (this.deviceManager === undefined) {
-      logger.error('[DeviceManager.RemoteDeviceModel] deviceManager has not initialized');
+      logger.error('deviceManager has not initialized');
       return;
     }
-    logger.info('[DeviceManager.RemoteDeviceModel] stopDeviceDiscovery');
+    logger.info('stopDeviceDiscovery');
 
     try {
       this.deviceManager!.stopDiscovering();
-      logger.info('[DEBUG] stopDiscovering called');
-
       if (this.discoverSuccessCallback !== undefined) {
         this.deviceManager!.offDiscoverSuccess(this.discoverSuccessCallback);
-        this.discoverSuccessCallback = ():undefined => {};
-        logger.info('[DEBUG] offDiscoverSuccess called');
+        this.discoverSuccessCallback = () => {};
       }
 
       if (this.discoverFailureCallback !== undefined) {
         this.deviceManager!.offDiscoverFailure(this.discoverFailureCallback);
-        this.discoverFailureCallback = ():undefined => {};
-        logger.info('[DEBUG] offDiscoverFailure called');
+        this.discoverFailureCallback = () => {};
       }
 
       if (this.serviceDieCallback !== undefined) {
         this.deviceManager!.offServiceDie(this.serviceDieCallback);
-        this.serviceDieCallback = ():undefined => {};
-        logger.info('[DEBUG] offServiceDie called');
+        this.serviceDieCallback = () => {};
       }
     } catch (e) {
-      logger.error('[DeviceManager.RemoteDeviceModel] stopDeviceDiscovery failed error: ' + e.toString());
+      logger.error('stopDeviceDiscovery failed error: ' + e.toString());
     }
   }
+  // [End stop_discovering]
 
   unregisterDeviceListCallback(): void {
     if (this.deviceManager === undefined) {
-      logger.error('[DeviceManager.RemoteDeviceModel] deviceManager has not initialized');
+      logger.error('deviceManager has not initialized');
       return;
     }
     try {
@@ -324,62 +304,61 @@ export class RemoteDeviceModel {
       this.trustedDeviceList = [];
       this.discoverList = [];
     } catch (e) {
-      logger.error('[DeviceManager.RemoteDeviceModel] stopDeviceDiscovery failed err: ' + e.toString());
+      logger.error('stopDeviceDiscovery failed err: ' + e.toString());
     }
   }
 
+  // [Start release_device_manager]
   releaseDeviceManager(): void {
     if (this.deviceManager === undefined) {
       return;
     }
 
     this.deviceManager!.offDeviceStateChange();
-    this.discoverSuccessCallback = ():undefined => {};
-    this.discoverFailureCallback = ():undefined => {};
-    this.serviceDieCallback = ():undefined => {};
+    this.discoverSuccessCallback = () => {};
+    this.discoverFailureCallback = () => {};
+    this.serviceDieCallback = () => {};
     let dm = this.deviceManager;
     if (dm !== undefined) {
       distributedDeviceManager.releaseDeviceManager(dm);
     }
     this.deviceManager = undefined;
   }
+  // [End release_device_manager]
 
+  // [Start bind_target]
   authenticateDevice(device: distributedDeviceManager.DeviceBasicInfo): void {
-    logger.info('[DeviceManager.RemoteDeviceModel] authenticateDevice');
     if (this.deviceManager === undefined) {
-      logger.error('[DeviceManager.RemoteDeviceModel] deviceManager has not initialized');
+      logger.error('deviceManager has not initialized');
       return;
     }
-
     for (let i = 0; i < this.discoverList.length; i++) {
       if (this.discoverList[i].deviceId != device.deviceId) {
         continue;
       }
-
       let bindParam: Record<string, int | string> = {
         'bindLevel': 3,
         'bindType': 1,
-        'targetPkgName': 'com.samples.devicemanager',
+        'targetPkgName': 'com.samples.distributedauthenticationsta',
         'appName': 'DeviceManager-sta',
       };
       try {
         this.deviceManager!.bindTarget(device.deviceId, bindParam, (err: BusinessError | null, data: distributedDeviceManager.BindTargetResult | undefined) => {
           if (err) {
-            logger.error('[DeviceManager.RemoteDeviceModel] authenticateDevice error');
             return;
           }
-          logger.info('[DeviceManager.RemoteDeviceModel] authenticateDevice succeed');
         });
       } catch (e) {
-        logger.error('[DeviceManager.RemoteDeviceModel] authenticateDevice failed err: ' + e.toString());
+        logger.error('authenticateDevice failed err: ' + e.toString());
       }
     }
   }
+  // [End bind_target]
 
+  // [End unbind_target]
   unAuthenticateDevice(device: distributedDeviceManager.DeviceBasicInfo): void {
-    logger.info('[DeviceManager.RemoteDeviceModel] unAuthenticateDevice');
     if (this.deviceManager === undefined) {
-      logger.error('[DeviceManager.RemoteDeviceModel] deviceManager has not initialized');
+      logger.error('deviceManager has not initialized');
       return;
     }
 
@@ -390,10 +369,11 @@ export class RemoteDeviceModel {
       try {
         this.deviceManager!.unbindTarget(device.deviceId);
       } catch (e) {
-        logger.error('[DeviceManager.RemoteDeviceModel] unAuthenticateDevice failed err: ' + e.toString());
+        logger.error('unAuthenticateDevice failed err: ' + e.toString());
       }
     }
   }
+  // [End unbind_target]
 }
 
 let remoteDeviceModelInstance: RemoteDeviceModel = RemoteDeviceModel.getInstance();
