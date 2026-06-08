@@ -1,0 +1,147 @@
+'use static'
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+// [Start EventEsc_Header_And_Add_Processor]
+import { Entry, Text, Column, Component, Button, ClickEvent, ButtonType, Row } from '@ohos.arkui.component';
+import { State } from '@ohos.arkui.stateManagement';
+import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+
+@Entry
+@Component
+struct Index {
+  processorId: long = -1; // 初始化processorId为-1
+
+  build() {
+    Row() {
+      Column() {
+        Button('addProcessorTest')
+          .type(ButtonType.Capsule)
+          .margin({
+            top: 20
+          })
+          .backgroundColor('#0D9FFB')
+          .width('50%')
+          .height('5%')
+          .onClick(() => {
+            // 在按钮点击函数中进行数据处理者添加
+            let eventConfig: hiAppEvent.AppEventReportConfig = {
+              domain: 'button',
+              name: 'click',
+              isRealTime: true
+            };
+            let processor: hiAppEvent.Processor = {
+              name: 'analytics_demo',
+              debugMode: true,
+              routeInfo: 'CN',
+              onStartReport: true,
+              onBackgroundReport: true,
+              periodReport: 10,
+              batchReport: 5,
+              userIds: ['testUserIdName'],
+              userProperties: ['testUserPropertyName'],
+              eventConfigs: [eventConfig]
+            };
+            this.processorId = hiAppEvent.addProcessor(processor);
+          })
+        // [StartExclude EventEsc_Header_And_Add_Processor]
+        // [Start Button_Add_ID]
+        Button('userIdTest')
+          .type(ButtonType.Capsule)
+          .margin({
+            top: 20
+          })
+          .backgroundColor('#0D9FFB')
+          .width('40%')
+          .height('5%')
+          .onClick(() => {
+            // 在按钮点击函数中设置用户ID
+            hiAppEvent.setUserId('testUserIdName', '123456');
+
+            // 在按钮点击函数中获取刚设置的用户ID
+            let userId = hiAppEvent.getUserId('testUserIdName');
+            hilog.info(0x0000, 'testTag', `userId: ${userId}`)
+          })
+        // [End Button_Add_ID]
+        // [Start Button_Add_Property]
+        Button('userPropertyTest')
+          .type(ButtonType.Capsule)
+          .margin({
+            top: 20
+          })
+          .backgroundColor('#0D9FFB')
+          .width('50%')
+          .height('5%')
+          .onClick(() => {
+            // 在按钮点击函数中设置用户属性值
+            hiAppEvent.setUserProperty('testUserPropertyName', '123456');
+
+            // 在按钮点击函数中获取刚设置的用户属性值
+            let userProperty = hiAppEvent.getUserProperty('testUserPropertyName');
+            hilog.info(0x0000, 'testTag', `userProperty: ${userProperty}`)
+          })
+        // [End Button_Add_Property]
+        // [Start Button_Add_Event]
+        Button('writeTest')
+          .type(ButtonType.Capsule)
+          .margin({
+            top: 20
+          })
+          .backgroundColor('#0D9FFB')
+          .width('40%')
+          .height('5%')
+          .onClick(() => {
+            // 在按钮点击函数中进行事件打点，以记录按钮点击事件
+            let eventParams: Record<string, int> = { 'click_time': 100 };
+            let eventInfo: hiAppEvent.AppEventInfo = {
+              // 事件领域定义
+              domain: "button",
+              // 事件名称定义
+              name: "click",
+              // 事件类型定义
+              eventType: hiAppEvent.EventType.BEHAVIOR,
+              // 事件参数定义
+              params: eventParams,
+            };
+            hiAppEvent.write(eventInfo).then(() => {
+              hilog.info(0x0000, 'testTag', `HiAppEvent success to write event`)
+            }).catch((err: Error) => {
+              const bErr = err as BusinessError;
+              hilog.error(0x0000, 'hiAppEvent', `code: ${bErr.code}, message: ${bErr.message}`);
+            });
+          })
+        // [End Button_Add_Event]
+        // [Start Button_Remove_Processor]
+        Button('removeProcessorTest')
+          .type(ButtonType.Capsule)
+          .margin({
+            top: 20
+          })
+          .backgroundColor('#0D9FFB')
+          .width('60%')
+          .height('5%')
+          .onClick(() => {
+            // 在按钮点击函数中移除数据处理者
+            hiAppEvent.removeProcessor(this.processorId);
+          })
+        // [End Button_Remove_Processor]
+        // [EndExclude EventEsc_Header_And_Add_Processor]
+      }
+      .width('100%')
+    }
+    .height('100%')
+  }
+}
+// [End EventEsc_Header_And_Add_Processor]
