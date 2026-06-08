@@ -34,17 +34,18 @@ struct BookCard {
   build() {
     Column() {
       Text(`BookCard: ${this.book.name}`) // 可以观察到name的变化
-        .width(320)
+        .fontSize(20)
         .margin(10)
         .textAlign(TextAlign.Center)
 
       Button('change book.name')
-        .width(320)
+        .width(300)
         .margin(10)
         .onClick(() => {
           this.book.name = 'C++';
         })
     }
+    .width('100%')
   }
 }
 
@@ -57,6 +58,7 @@ struct Index {
     Column() {
       BookCard({ book: this.book })
     }
+    .width('100%')
   }
 }
 // [End ObjectLinkObjectType]

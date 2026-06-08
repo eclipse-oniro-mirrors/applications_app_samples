@@ -33,17 +33,18 @@ struct BookCard {
   build() {
     Column() {
       Text(`BookCard: ${this.book.name}`) // 可以观察到name的变化
-        .width(320)
+        .fontSize(20)
         .margin(10)
         .textAlign(TextAlign.Center)
 
       Button('change book.name')
-        .width(320)
+        .width(300)
         .margin(10)
         .onClick((e) => {
           this.book.name = 'C++';
         })
     }
+    .width('100%')
   }
 }
 
@@ -55,12 +56,12 @@ struct Index {
   build() {
     Column() {
       Text(`Index: ${this.bag.book.name}`) // 可以观察到name的变化
-        .width(320)
+        .fontSize(20)
         .margin(10)
         .textAlign(TextAlign.Center)
 
       Button('change bag.book.name')
-        .width(320)
+        .width(300)
         .margin(10)
         .onClick((e) => {
           this.bag.book.name = 'TS';
@@ -68,6 +69,7 @@ struct Index {
 
       BookCard({ book: this.bag.book })
     }
+    .width('100%')
   }
 }
 // [End ObjectLinkMakeObserved]

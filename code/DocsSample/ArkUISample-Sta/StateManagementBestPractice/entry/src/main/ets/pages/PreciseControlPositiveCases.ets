@@ -48,7 +48,7 @@ struct Page1 {
       Title()
       Stack() {
       }
-      .backgroundColor('green')
+      .backgroundColor('#87CEEB')
       .width(200)
       .height(400)
       Button('move')

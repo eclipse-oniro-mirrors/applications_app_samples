@@ -32,20 +32,29 @@ struct Index {
   build() {
     Column() {
       Text(`Source ${this.source.source} and message ${this.message}`)
+        .fontSize(20)
+        .margin(10)
       Button('+1')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.source.source += 1;
         })
       Button('Serialize')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.message = JSON.stringify(this.source);
         })
       Button('Deserialize')
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           // 反序列化生成@Observed类并赋值
           this.source = JSON.parse<Source>('{"source": 123}', Type.from<Source>())!;
         })
     }
+    .width('100%')
   }
 }
 // [End ObjectLinkSerializeNoParam]
