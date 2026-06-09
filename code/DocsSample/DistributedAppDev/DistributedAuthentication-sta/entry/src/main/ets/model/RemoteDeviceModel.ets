@@ -355,7 +355,7 @@ export class RemoteDeviceModel {
   }
   // [End bind_target]
 
-  // [End unbind_target]
+  // [Start unbind_target]
   unAuthenticateDevice(device: distributedDeviceManager.DeviceBasicInfo): void {
     if (this.deviceManager === undefined) {
       logger.error('deviceManager has not initialized');
