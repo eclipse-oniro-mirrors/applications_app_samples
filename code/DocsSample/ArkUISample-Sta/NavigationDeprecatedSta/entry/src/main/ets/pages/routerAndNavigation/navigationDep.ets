@@ -50,16 +50,11 @@ struct NavigationExample {
   // [End toolBar]
 }
 
-// [Start subTitle]
-@Entry
 @Component
-struct NavigationTitle {
-  @State message: string = "NavigationTitle"
-
+struct NavigatorExample {
   build() {
-    Column({ space: 8 } as ColumnOptions) {
-      Navigation().title({ main: "标题", sub: "子标题" }).width('100%').height('25%')
-      // [StartExclude Navigator]
+    Column() {
+      // [Start Navigator]
       // ArkTS-Sta版本Navigator组件全面废弃，将由router进行替代
       Button("Push").onClick(() => {
         this.getUIContext().getRouter().pushUrl({ url: "url" });
@@ -70,9 +65,23 @@ struct NavigationTitle {
       Button("Replace").onClick(() => {
         this.getUIContext().getRouter().replaceUrl({ url: "url" });
       })
-      // [EndExclude Navigator]
+      // [End Navigator]
+    }
+    .width('100%')
+  }
+}
 
+// [Start subTitle]
+@Entry
+@Component
+struct NavigationTitle {
+  @State message: string = "NavigationTitle"
+
+  build() {
+    Column({ space: 8 } as ColumnOptions) {
+      Navigation().title({ main: "标题", sub: "子标题" }).width('100%').height('25%')
       // [StartExclude toolbarConfiguration]
+      NavigatorExample()
       NavigationExample()
       // [EndExclude toolbarConfiguration]
     }

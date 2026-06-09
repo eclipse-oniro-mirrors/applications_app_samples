@@ -138,9 +138,9 @@ struct OHOSRouter {
         // [End getStateByUrl]
       })
       Button("getStateByIndex").onClick((event: ClickEvent) => {
-        // [Start getStateByUrl]
+        // [Start getStateByIndex]
         this.getUIContext().getRouter().getStateByIndex(1)
-        // [End getStateByUrl]
+        // [End getStateByIndex]
       })
       Button("getState").onClick((event: ClickEvent) => {
         // [Start getState]
@@ -163,9 +163,9 @@ struct OHOSRouter {
         // [End enableAlertBeforeBackPage]
       })
       Button("showAlertBeforeBackPage").onClick((event: ClickEvent) => {
-        // [Start enableAlertBeforeBackPage]
+        // [Start showAlertBeforeBackPage]
         this.getUIContext().getRouter().showAlertBeforeBackPage({message: "1111"})
-        // [End enableAlertBeforeBackPage]
+        // [End showAlertBeforeBackPage]
       })
       Button("disableAlertBeforeBackPage").onClick((event: ClickEvent) => {
         // [Start disableAlertBeforeBackPage]
