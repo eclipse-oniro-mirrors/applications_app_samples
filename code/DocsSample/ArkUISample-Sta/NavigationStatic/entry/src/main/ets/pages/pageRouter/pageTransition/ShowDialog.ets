@@ -1,0 +1,103 @@
+﻿'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start page_showDialog1]
+import {
+  Entry,
+  Component,
+  Flex,
+  FlexOptions,
+  FlexDirection,
+  ItemAlign,
+  FlexAlign,
+  Text,
+  FontWeight,
+  Row,
+  Button,
+  Column,
+  ButtonType,
+  $r
+} from '@ohos.arkui.component';
+import { State } from '@ohos.arkui.stateManagement';
+import router from '@ohos.router';
+import { promptAction} from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+const DOMAIN = 0xF811;
+const TAG = '[Sample_ArkTSRouter]';
+// [End page_showDialog1]
+
+@Entry
+@Component
+struct ShowAlert {
+  @State message: string = 'Examples of ShowDialog';
+  // [Start page_showDialog2]
+  onBackClick() {
+    // 弹出自定义的询问框
+    this.getUIContext().getPromptAction().showDialog({
+      // 您还没有完成支付，确定要返回吗？
+      // 请将$r('app.string.pageRouter_dialog_context')替换为实际资源文件，在本示例中该资源文件的value值为"您还没有完成支付，确定要返回吗？"
+      message: $r('app.string.pageRouter_dialog_context'),
+      buttons: [
+        {
+          // 请将$r('app.string.pageRouter_dialog_canceled')替换为实际资源文件，在本示例中该资源文件的value值为"取消"
+          text: $r('app.string.pageRouter_dialog_canceled'),
+          color: '#FF0000'
+        },
+        {
+          // 请将$r('app.string.pageRouter_dialog_confirmed')替换为实际资源文件，在本示例中该资源文件的value值为"确认"
+          text: $r('app.string.pageRouter_dialog_confirmed'),
+          color: '#0099FF'
+        }
+      ]
+    }).then((result: promptAction.ShowDialogSuccessResponse) => {
+      if (result.index === 0) {
+        // 用户点击了“取消”按钮
+        hilog.info(DOMAIN, TAG, 'User canceled the operation.');
+      } else if (result.index === 1) {
+        // 用户点击了“确认”按钮
+        hilog.info(DOMAIN, TAG, 'User confirmed the operation.');
+        // 调用this.getUIContext().getRouter().back()方法，返回上一个页面
+        this.getUIContext().getRouter().back();
+      }
+    }).catch((err: Error) => {
+      let message = (err as BusinessError).message;
+      let code = (err as BusinessError).code;
+      hilog.error(DOMAIN, TAG, `Invoke showDialog failed, code is ${code}, message is ${message}`);
+    });
+  }
+  // [End page_showDialog2]
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.message)
+          .fontSize(50)
+          .fontWeight(FontWeight.Bold)
+        Button(this.message, { stateEffect: true, type: ButtonType.Capsule })
+          .width('80%')
+          .height(40)
+          .margin(20)
+          .onClick(() => {
+            this.onBackClick();
+          })
+      }
+      .width('100%')
+    }
+    .height('100%')
+  }
+}
