@@ -33,10 +33,23 @@ struct GetTargetUsageExampleExample {
   build() {
     Column() {
       Text(`${UIUtils.getTarget(this.observedArray) === this.observedArray}`) // false，说明observedArray被包装
+        .fontColor('#87CEEB')
+        .fontSize(30)
+        .margin(10)
       Text(`${UIUtils.getTarget(this.observedArray) === this.rawArray}`) // true，getTarget获得原始对象
+        .fontColor('#87CEEB')
+        .fontSize(30)
+        .margin(10)
       Text(`${UIUtils.getTarget(this.observedInfo) === this.observedInfo}`) // false，说明observedArray被包装
+        .fontColor('#87CEEB')
+        .fontSize(30)
+        .margin(10)
       Text(`${UIUtils.getTarget(this.observedInfo) === this.rawInfo}`) // true，getTarget获得原始对象
+        .fontColor('#87CEEB')
+        .fontSize(30)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 // [End getTarget_usage_example]

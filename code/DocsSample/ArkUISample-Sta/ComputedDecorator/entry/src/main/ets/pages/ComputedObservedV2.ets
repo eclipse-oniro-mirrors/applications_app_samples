@@ -40,11 +40,19 @@ struct Index {
   build() {
     Column() {
       Text(this.name1.fullName)
+        .fontSize(20)
+        .margin(10)
       Text(this.name1.fullName)
-      Button('changed lastName').onClick((e: ClickEvent) => {
+        .fontSize(20)
+        .margin(10)
+      Button('changed lastName')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
         this.name1.lastName += 'a';
       })
     }
+    .width('100%')
   }
 }
 

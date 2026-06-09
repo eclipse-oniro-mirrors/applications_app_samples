@@ -34,18 +34,33 @@ struct Index {
   build() {
     Column() {
       Text(this.lastName + ' ' + this.firstName)
+        .fontSize(20)
+        .margin(10)
       Text(this.lastName + ' ' + this.firstName)
+        .fontSize(20)
+        .margin(10)
       Divider()
       Text(this.fullName)
+        .fontSize(20)
+        .margin(10)
       Text(this.fullName)
-      Button('changed lastName').onClick((e: ClickEvent) => {
+        .fontSize(20)
+        .margin(10)
+      Button('changed lastName')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
         this.lastName += 'a';
       })
 
-      Button('changed age').onClick((e: ClickEvent) => {
+      Button('changed age')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
         this.age++;  // 无法触发Computed
       })
     }
+    .width('100%')
   }
 }
 

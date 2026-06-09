@@ -29,6 +29,8 @@ struct TotalView {
 
   build() {
     Text(`Total: ${this.total}`)
+      .fontSize(20)
+      .margin(10)
   }
 }
 
@@ -40,11 +42,14 @@ struct CountModifier {
   build() {
     Column() {
       Button('add to basket')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.count++;
         })
       TotalView({ count: this.count })
     }
+    .width('100%')
   }
 }
 // [End WatchCustomComponent]

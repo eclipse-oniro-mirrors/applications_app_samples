@@ -27,6 +27,7 @@ struct Index {
     Column() {
       Parent()
     }
+    .width('100%')
   }
 }
 
@@ -37,9 +38,13 @@ struct Parent {
 
   build() {
     Column() {
-      Text(`${this.val2}`)
+      Text(`val2 value is ${this.val2}`)
+        .fontColor('#87CEEB')
+        .fontSize(30)
+        .margin(10)
       Child()
     }
+    .width('100%')
   }
 }
 
@@ -49,8 +54,12 @@ struct Child {
 
   build() {
     Column() {
-      Text(`${this.val}`)
+      Text(`val value is ${this.val}`)
+        .fontColor('#87CEEB')
+        .fontSize(30)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 // [End ProviderConsumerFindNearest]

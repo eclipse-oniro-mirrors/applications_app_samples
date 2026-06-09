@@ -26,26 +26,44 @@ struct Index {
   build() {
     Column() {
       Text(`Local ${this.arr}`)
-      Button(`change arr[0]: ${this.arr[0]}`).onClick((e: ClickEvent) => {
+        .fontSize(20)
+        .margin(10)
+      Button(`change arr[0]: ${this.arr[0]}`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
         // 修改数组元素，变化可观察到
         this.arr[0]++;
       })
-      Button(`push item: ${this.arr.length}`).onClick((e: ClickEvent) => {
+      Button(`push item: ${this.arr.length}`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
         // 通过push API修改数组，变化可观察到
         this.arr.push(Double.toInt(this.arr.length));
       })
-      Button(`pop item`).onClick((e: ClickEvent) => {
+      Button(`pop item`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
         this.arr.pop();
       })
-      Button(`reverse`).onClick((e: ClickEvent) => {
+      Button(`reverse`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
         this.arr.reverse();
       })
-      Button(`reset`).onClick((e: ClickEvent) => {
+      Button(`reset`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
         // 对数组整体赋值，变化可观察到
         this.arr = [0, 1, 2];
       })
       Child({ arr: this.arr })
     }
+    .width('100%')
   }
 }
 @ComponentV2
@@ -54,7 +72,10 @@ struct Child {
   build() {
     Column() {
     Text(`Param ${this.arr}`)
+      .fontSize(20)
+      .margin(10)
     }
+    .width('100%')
   }
 }
 

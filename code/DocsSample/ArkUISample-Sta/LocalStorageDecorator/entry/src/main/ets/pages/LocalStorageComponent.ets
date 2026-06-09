@@ -37,14 +37,14 @@ struct Index {
   build() {
     Row() {
       Column() {
-        Text(this.PropA)
-          .fontSize(50)
+        Text(`PropA value is ${this.PropA}`)
+          .fontSize(30)
+          .margin(10)
         // 使用LocalStorage实例localStorage2
         Child({ count: this.count }, localStorage2)
       }
       .width('100%')
     }
-    .height('100%')
   }
 }
 
@@ -56,8 +56,9 @@ struct Child {
   @LocalStorageLink('PropB') PropB: string = 'Hello World';
 
   build() {
-    Text(this.PropB)
-      .fontSize(50)
+    Text(`PropB value is ${this.PropB}`)
+      .fontSize(30)
+      .margin(10)
   }
 }
 // [End localStorage_page_six_local_storage]

@@ -37,7 +37,6 @@ struct Parent {
         })
     }
     .width('100%')
-    .height('100%')
   }
 }
 
@@ -47,6 +46,7 @@ struct Child {
   @Link @Watch('onSourceChange') sourceNumber: int;
 
   onSourceChange(propertyName: string) {
+    // 给memberMessage变量赋新的值
     this.memberMessage = this.sourceNumber.toString();
   }
 
