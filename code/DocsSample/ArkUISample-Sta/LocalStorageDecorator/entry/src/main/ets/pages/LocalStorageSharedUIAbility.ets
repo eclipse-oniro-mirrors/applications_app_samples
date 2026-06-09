@@ -28,12 +28,13 @@ struct Index {
   build() {
     Row() {
       Column() {
-        Text(`${this.propA}`)
-          .fontSize(50)
+        Text(`propA value is ${this.propA}`)
+          .fontColor('#87CEEB')
+          .fontSize(30)
+          .margin(10)
       }
       .width('100%')
     }
-    .height('100%')
   }
 }
 // [End localStorage_page_five_share]

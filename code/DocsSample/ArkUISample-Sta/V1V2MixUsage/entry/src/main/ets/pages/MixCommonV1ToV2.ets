@@ -32,12 +32,17 @@ struct CompV1 {
   build() {
     Column() {
       Text(`@State commonObject: ${this.commonObject.name}`)
+        .fontSize(20)
+        .margin(10)
       Button('Change object in V1')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.commonObject.name += '!'; // 非Observed/ObservedV2类，组件不刷新
         })
       CompV2({ commonObject: this.commonObject })
     }
+    .width('100%')
   }
 }
 
@@ -49,11 +54,16 @@ struct CompV2 {
     Column() {
       // 非Observed/ObservedV2类，观察不到变化
       Text(`@Param commonObject: ${this.commonObject.name}`)
+        .fontSize(20)
+        .margin(10)
       Button('Change object in V2')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.commonObject.name += '!'; // 非Observed/ObservedV2类，组件不刷新
         })
     }
+    .width('100%')
   }
 }
 // [End MixCommonV1ToV2]

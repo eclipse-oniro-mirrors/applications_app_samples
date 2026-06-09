@@ -35,17 +35,26 @@ struct Index {
 
   build() {
     Column() {
-      Text(`Info name: ${this.info.name}`).fontSize(30)
-      Text(`Info age: ${this.info.age}`).fontSize(30)
+      Text(`Info name: ${this.info.name}`)
+        .fontSize(20)
+        .margin(10)
+      Text(`Info age: ${this.info.age}`)
+        .fontSize(20)
+        .margin(10)
       Button('change info name')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.info.name = 'Jerry';
         })
       Button('change info age')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.info.age = 18;
         })
     }
+    .width('100%')
   }
 }
 // [End WatchPropertyName]

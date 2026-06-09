@@ -26,7 +26,9 @@ struct Child {
   build() {
     Column() {
       ForEach(Array.from(this.message.entries()), (item: [number, number]) => {
-        Text(`${item[0]}`).fontSize(30)
+        Text(`${item[0]}`)
+          .fontSize(20)
+          .margin(10)
         Divider()
       })
     }
@@ -42,19 +44,33 @@ struct SetSample {
     Row() {
       Column() {
         Child({ message: this.message })
-        Button('init set').onClick((e: ClickEvent) => {
-          // 对Set整体赋值，变化可观察到
-          this.message = new Set<number>([0, 1, 2, 3, 4]);
+        Button('init set')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            // 对Set整体赋值，变化可观察到
+            this.message = new Set<number>([0, 1, 2, 3, 4]);
         })
-        Button('set new one').onClick((e: ClickEvent) => {
-          // 通过add API修改Set，变化可观察到
-          this.message.add(5);
+        Button('set new one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            // 通过add API修改Set，变化可观察到
+            this.message.add(5);
         })
-        Button('clear').onClick((e: ClickEvent) => {
-          this.message.clear();
+        Button('clear')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            // 通过clear API清空Set，变化可观察到
+            this.message.clear();
         })
-        Button('delete the first one').onClick((e: ClickEvent) => {
-          this.message.delete(0);
+        Button('delete the first one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            // 通过delete API删除Set中元素，变化可观察到
+            this.message.delete(0);
         })
       }
       .width('100%')

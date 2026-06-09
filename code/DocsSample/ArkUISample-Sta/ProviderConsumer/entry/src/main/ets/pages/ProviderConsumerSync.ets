@@ -26,11 +26,14 @@ struct Parent {
   build() {
     Column() {
       Button(this.str)
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.str += '0';
         })
       Child()
     }
+    .width('100%')
   }
 }
 
@@ -42,10 +45,13 @@ struct Child {
   build() {
     Column() {
       Button(this.str)
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.str += '0';
         })
     }
+    .width('100%')
   }
 }
 // [End ProviderConsumerSync]

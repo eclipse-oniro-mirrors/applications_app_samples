@@ -26,11 +26,16 @@ struct Child {
   build() {
     Column() {
       ForEach(Array.from(this.value.entries()), (item: [number, string]) => {
-        Text(`${item[0]}`).fontSize(30)
-        Text(`${item[1]}`).fontSize(30)
+        Text(`${item[0]}`)
+          .fontSize(20)
+          .margin(10)
+        Text(`${item[1]}`)
+          .fontSize(20)
+          .margin(10)
         Divider()
       })
     }
+    .width('100%')
   }
 }
 @Entry
@@ -42,22 +47,40 @@ struct MapSample {
     Row() {
       Column() {
         Child({ value: this.message })
-        Button('init map').onClick((e: ClickEvent) => {
+        Button('init map')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
           // 对Map整体赋值，变化可观察到
           this.message = new Map<number, string>([[0, 'a'], [1, 'b'], [3, 'c']]);
         })
-        Button('set new one').onClick((e: ClickEvent) => {
-          // 通过set API修改Map，变化可观察到
-          this.message.set(4, 'd');
+        Button('set new one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            // 通过set API修改Map，变化可观察到
+            this.message.set(4, 'd');
         })
-        Button('clear').onClick((e: ClickEvent) => {
-          this.message.clear();
+        Button('clear')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            // 通过clear API清空Map，变化可观察到
+            this.message.clear();
         })
-        Button('replace the first one').onClick((e: ClickEvent) => {
-          this.message.set(0, 'aa');
+        Button('replace the first one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            // 通过set API修改Map，变化可观察到
+            this.message.set(0, 'aa');
         })
-        Button('delete the first one').onClick((e: ClickEvent) => {
-          this.message.delete(0);
+        Button('delete the first one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            // 通过delete API删除Map中元素，变化可观察到
+            this.message.delete(0);
         })
       }
       .width('100%')

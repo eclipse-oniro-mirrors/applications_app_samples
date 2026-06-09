@@ -16,7 +16,7 @@
  */
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start TrackCustomComponent]
-import { Column, Component, Entry, FontWeight, Row, State, Text, Track } from '@kit.ArkUI';
+import { Column, Component, Entry, FontWeight, Row, State, Text, Track, Button } from '@kit.ArkUI';
 
 class Log {
   @Track logInfo: string;
@@ -44,9 +44,9 @@ struct AddLog {
   build() {
     Row() {
       Column() {
-        Text(this.log.logInfo)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
+        Button('Change log')
+          .width(300)
+          .margin(10)
           .onClick((e) => {
             // 没有被@Track装饰的属性可以在点击事件中使用。
             console.info('owner: ' + this.log.owner +
@@ -59,10 +59,13 @@ struct AddLog {
 
             this.log.logInfo += ' info.';
           })
+        Text(this.log.logInfo)
+          .fontSize(20)
+          .margin(10)
+          .fontWeight(FontWeight.Bold)
       }
       .width('100%')
     }
-    .height('100%')
   }
 }
 // [End TrackCustomComponent]

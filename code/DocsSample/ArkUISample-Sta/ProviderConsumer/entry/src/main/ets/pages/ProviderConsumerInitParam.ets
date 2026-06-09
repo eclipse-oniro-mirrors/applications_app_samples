@@ -16,7 +16,7 @@
  */
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start ProviderConsumerInitParam]
-import { ClickEvent, Color, Column, ComponentV2, Consumer, Entry, Param, Provider, Text } from '@kit.ArkUI';
+import { ClickEvent, Color, Column, ComponentV2, Consumer, Entry, Param, Provider, Text, Button } from '@kit.ArkUI';
 
 @Entry
 @ComponentV2
@@ -27,6 +27,7 @@ struct Index {
     Column() {
       Parent({ val2: this.val })
     }
+    .width('100%')
   }
 }
 
@@ -37,12 +38,18 @@ struct Parent {
 
   build() {
     Column() {
-      Text(`Parent @Consumer val: ${this.val}`).fontSize(30).onClick((e: ClickEvent) => {
+      Button(`Parent @Consumer val: ${this.val}`)
+        .fontSize(20)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
         this.val++;
       })
-      Text(`Parent @Param val2: ${this.val2}`).fontSize(30)
+      Text(`Parent @Param val2: ${this.val2}`)
+        .fontSize(20)
+        .margin(10)
       Child({ val: this.val })
-    }.border({ width: 2, color: Color.Green })
+    }
   }
 }
 
@@ -52,8 +59,10 @@ struct Child {
 
   build() {
     Column() {
-      Text(`Child @Param val ${this.val}`).fontSize(30)
-    }.border({ width: 2, color: Color.Pink })
+      Text(`Child @Param val ${this.val}`)
+        .fontSize(20)
+        .margin(10)
+    }
   }
 }
 // [End ProviderConsumerInitParam]

@@ -17,31 +17,54 @@
 
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start AppStorageMap]
-import { AppStorage, Button, ClickEvent, Column, Component, Entry, Row, StorageLink, Text } from '@kit.ArkUI';
+import { AppStorage, Button, ClickEvent, Column, Component, Entry, Row, StorageLink, Text, ForEach } from '@kit.ArkUI';
 
 @Entry
 @Component
 struct MapSample {
-  @StorageLink('map') message: Map<number, string> = new Map<number, string>([[0, 'a'], [1, 'b'], [3, 'c']]);
+  @StorageLink('map') message: Map<number, string> = new Map<number, string>([[0, 'a'], [1, 'b'], [3, 'c']]); // 使用@StorageLink装饰Map类型变量
 
   build() {
     Row() {
       Column() {
-        Text(`${this.message}`)
-        Button('init map').onClick((e: ClickEvent) => {
-          this.message = new Map<number, string>([[0, 'a'], [1, 'b'], [3, 'c']]);
+        ForEach(Array.from(this.message.entries()), (item: [number, string]) => {
+          Text(`key: ${item[0]}, value: ${item[1]}`)
+            .fontSize(20)
+            .margin(10)
         })
-        Button('set new one').onClick((e: ClickEvent) => {
-          this.message.set(4, 'd');
+        Button('init map')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            this.message = new Map<number, string>([[0, 'a'], [1, 'b'], [3, 'c']]);
         })
-        Button('clear').onClick((e: ClickEvent) => {
-          this.message.clear();
+        Button('set new one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            // 新增键值对，触发UI刷新
+            this.message.set(4, 'd');
         })
-        Button('replace the existing one').onClick((e: ClickEvent) => {
-          this.message.set(0, 'aa');
+        Button('clear')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            // 清空Map，触发UI刷新
+            this.message.clear();
         })
-        Button('delete the existing one').onClick((e: ClickEvent) => {
-          AppStorage.get<Map<number, string>>('map')?.delete(0);
+        Button('replace the existing one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            // 更新键值对，触发UI刷新
+            this.message.set(0, 'aa');
+        })
+        Button('delete the existing one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            // 删除键值对，触发UI刷新
+            AppStorage.get<Map<number, string>>('map')?.delete(0);
         })
       }
       .width('100%')

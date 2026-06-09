@@ -33,23 +33,35 @@ struct SetSample {
       Column() {
         ForEach(Array.from(this.info.memberSet.entries()), (item: [number, number]) => {
           Text(`${item[0]}`)
-            .fontSize(30)
+            .fontSize(20)
+            .margin(10)
           Divider()
         })
         Button('init set')
+          .width(300)
+          .margin(10)
           .onClick((e) => {
             this.info.memberSet = new Set<number>([0, 1, 2, 3, 4]);
           })
         Button('set new one')
+          .width(300)
+          .margin(10)
           .onClick((e) => {
+          // 新增元素，触发UI刷新
             this.info.memberSet.add(5);
           })
         Button('clear')
+          .width(300)
+          .margin(10)
           .onClick((e) => {
+          // 清空Set，触发UI刷新
             this.info.memberSet.clear();
           })
         Button('delete the first one')
+          .width(300)
+          .margin(10)
           .onClick((e) => {
+          // 删除元素，触发UI刷新
             this.info.memberSet.delete(0);
           })
       }
