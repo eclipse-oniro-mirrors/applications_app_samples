@@ -17,9 +17,10 @@
 
 1. 在首页点击“ParallelizeUI外部状态变量示例”，查看`ParallelizeUI`中直接使用外部状态变量的限制。
 2. 点击“ParallelizeUI参数构造示例”，通过`ParallelizeUI<T>`构造参数并传递外部状态变量；点击UpperCase按钮查看状态变量更新效果。
-3. 点击“并行化创建组件示例”，查看Grid容器中并行创建组件的效果；点击Update按钮更新首个天气卡片。
-4. 点击“非List和Grid并行循环创建示例”，查看非List/Grid容器中使用`ParallelizeUI<V, T>`循环并行创建卡片组件。
-5. 点击“List并行创建子组件示例”，查看List容器中使用`ParallelizeUI<V, T>`按需并行创建ListItem子组件。
+3. 点击“并行化创建组件示例（开启并行）”，查看使用`ParallelizeUI`并行创建卡片组件的效果；点击页面顶部按钮更新通过参数构造传入的页面状态。
+4. 点击“并行化创建组件示例（关闭并行）”，查看相同页面在关闭并行创建时的对比效果。
+5. 点击“非List和Grid并行循环创建示例”，查看非List/Grid容器中使用`ParallelizeUI<V, T>`循环并行创建卡片组件。
+6. 点击“List并行创建子组件示例”，查看List容器中使用`ParallelizeUI<V, T>`按需并行创建ListItem子组件。
 
 ### 工程目录
 
@@ -31,9 +32,12 @@ entry/src/main/ets/
 |   |---Index.ets                           // 示例入口页面，跳转到各ParallelizeUI示例
 |   |---ExternalState.ets                   // 演示ParallelizeUI中直接使用外部状态变量的限制
 |   |---ParameterConstruction.ets           // 演示通过ParallelizeUI<T>构造并行创建参数
-|   |---Page.ets                            // 演示Grid容器中并行创建多个组件
+|   |---MockData.ets                        // 并行创建卡片示例数据
+|   |---Page.ets                            // 演示开启和关闭ParallelizeUI创建卡片组件
 |   |---ParallelDemo.ets                    // 演示非List/Grid容器中的循环并行创建
 |   |---ListParallel.ets                    // 演示List容器中按需并行创建子组件
+|---models
+|   |---MyCallback.ets                      // 回调示例模型
 ```
 
 ### 具体实现
@@ -48,9 +52,9 @@ entry/src/main/ets/
 3. 点击UpperCase按钮更新外层状态变量，重新构造参数后刷新并行创建的Text组件。
 
 三、并行化创建组件
-1. 在`Page.ets`中定义WeatherInfo数据模型，构造天气卡片数据。
-2. Grid容器中的第一个GridItem通过`ParallelizeUI<WeatherInfo>`并行创建，其余GridItem通过ForEach串行创建，用于展示并行创建组件的写法。
-3. 点击Update按钮更新外层状态变量，并通过重新构造WeatherInfo参数刷新并行创建的组件。
+1. 在`MockData.ets`中构造应用卡片和服务卡片数据。
+2. 首页进入`Page.ets`时通过路由参数传入`isEnable`，用于控制`ParallelizeUI`是否开启并行创建。
+3. `cardTypeInfos1`使用`ForEach`串行创建，`cardTypeInfos2`通过`ParallelizeUI<Param>`并行创建，并通过参数构造函数传入页面状态。
 
 四、循环并行创建子组件
 1. 在`ParallelDemo.ets`中，使用`ParallelizeUI<Int, CardInfo>({ enable: true }, this.arr, ...)`在非List/Grid容器中循环并行创建卡片组件。
