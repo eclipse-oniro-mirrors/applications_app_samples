@@ -15,8 +15,8 @@
 
 // [Start export_create_resource]
 export { createResource } from './src/main/ets/components/MainPage';
-// [end export_create_resource]
+// [End export_create_resource]
 
 // [Start export_page_one]
 export { PageOne } from './src/main/ets/components/MainPage';
-// [end export_page_one]
+// [End export_page_one]
