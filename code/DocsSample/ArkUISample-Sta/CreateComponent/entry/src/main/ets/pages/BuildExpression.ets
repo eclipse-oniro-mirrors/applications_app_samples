@@ -24,12 +24,15 @@ struct MyComponent {
   @State stateVar: int = 1;
   build() {
     Column() {
-      this.stateVar == 1 ? Text('is equal to 1'): Text('is not equal to 1'); // 支持使用表达式
+      this.stateVar == 1 ? Text('is equal to 1').fontSize(20).margin(10): Text('is not euqal to 1').fontSize(20).margin(10); // 支持使用表达式
       Text('hello world')
+        .fontSize(20)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.stateVar++;
         })
     }
+    .width('100%')
   }
 }
 // [End BuildExpression]
