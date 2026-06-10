@@ -22,37 +22,18 @@ import {
   Column,
   NavPathStack,
   Button,
-  NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
   Stack,
   Text,
   NavDestinationMode,
-  LaunchMode,
-  Context,
   Navigation,
-  TextInput,
-  List,
-  ForEach,
-  ListItem,
-  TextAlign,
-  $r,
   Entry,
   NavigationMode,
-  NavigationMenuItem,
-  HorizontalAlign,
-  Row,
-  Image,
-  NavigationTitleMode,
   Alignment,
-  FlexAlign
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  FlexAlign,
+  Provide,
+  Consume,
+  NavDestination
+} from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -108,4 +89,5 @@ export struct DialogPage {
     .mode(NavDestinationMode.DIALOG)
   }
 }
+
 // [End PageDisplayType]

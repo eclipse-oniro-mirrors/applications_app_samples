@@ -17,11 +17,6 @@
 import {
   Entry,
   Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
   Text,
   FontWeight,
   Row,
@@ -29,9 +24,9 @@ import {
   Column,
   ButtonType,
   $r,
-  ResourceStr
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  ResourceStr,
+  State
+} from '@kit.ArkUI';
 import router from '@ohos.router';
 
 interface RouterParam {

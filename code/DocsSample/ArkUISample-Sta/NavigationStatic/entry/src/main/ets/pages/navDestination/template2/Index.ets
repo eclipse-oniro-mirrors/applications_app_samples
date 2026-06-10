@@ -29,9 +29,9 @@ import {
   ButtonOptions,
   NavigationOperation,
   NavDestinationTransition,
-  Curve
-} from '@ohos.arkui.component'
-import { State } from '@ohos.arkui.stateManagement';
+  Curve,
+  State
+} from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -90,12 +90,15 @@ struct NavDest {
     })
     .backgroundColor(this.name == 'PageOne' ? '#F1F3F5' : '#ff11dee5')
     .customTransition(
-      (op: NavigationOperation, isEnter: boolean)
-        : Array<NavDestinationTransition> | undefined => {
+      (op: NavigationOperation, isEnter: boolean): Array<NavDestinationTransition> | undefined => {
         console.info('[NavDestinationTransition]', 'reached delegate in frontend, op: ' + op + ', isEnter: ' + isEnter);
 
-        let transitionOneEvent: voidFunc = () => { console.info('[NavDestinationTransition]', 'reached transitionOne, empty now!'); };
-        let transitionOneFinishEvent: voidFunc = () => { console.info('[NavDestinationTransition]', 'reached transitionOneFinish, empty now!'); };
+        let transitionOneEvent: voidFunc = () => {
+          console.info('[NavDestinationTransition]', 'reached transitionOne, empty now!');
+        };
+        let transitionOneFinishEvent: voidFunc = () => {
+          console.info('[NavDestinationTransition]', 'reached transitionOneFinish, empty now!');
+        };
         let transitionOneDuration: int = 500;
         if (op === NavigationOperation.PUSH) {
           if (isEnter) {
@@ -131,7 +134,8 @@ struct NavDest {
             };
           }
         } else {
-          console.info('[NavDestinationTransition]', '----- NOT-IMPL BRANCH of NAV-DESTINATION CUSTOM TRANSITION -----');
+          console.info('[NavDestinationTransition]',
+            '----- NOT-IMPL BRANCH of NAV-DESTINATION CUSTOM TRANSITION -----');
         }
 
         let transitionOne: NavDestinationTransition = {
@@ -142,13 +146,17 @@ struct NavDest {
           onTransitionEnd: transitionOneFinishEvent
         };
 
-        let transitionTwoEvent: voidFunc = () => { console.info('[NavDestinationTransition]', 'reached transitionTwo, empty now!'); };
+        let transitionTwoEvent: voidFunc = () => {
+          console.info('[NavDestinationTransition]', 'reached transitionTwo, empty now!');
+        };
         let transitionTwo: NavDestinationTransition = {
           duration: 1000,
           delay: 0,
           curve: Curve.EaseInOut,
           event: transitionTwoEvent,
-          onTransitionEnd: () => { console.info('[NavDestinationTransition]', 'reached Two\'s finish'); }
+          onTransitionEnd: () => {
+            console.info('[NavDestinationTransition]', 'reached Two\'s finish');
+          }
         };
 
         return [

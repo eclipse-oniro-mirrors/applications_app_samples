@@ -26,11 +26,11 @@ import {
   Text,
   FontWeight,
   ColumnOptions,
-  Navigation
-} from '@ohos.arkui.component';
-import { UIContext } from '@ohos.arkui.UIContext';
+  Navigation,
+  UIContext,
+  State
+} from '@kit.ArkUI';
 import router from '@ohos.router';
-import { State } from '@ohos.arkui.stateManagement';
 
 
 @Component

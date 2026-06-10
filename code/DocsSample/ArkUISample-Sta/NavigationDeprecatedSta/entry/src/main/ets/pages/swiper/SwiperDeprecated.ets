@@ -43,9 +43,9 @@ import {
   ScrollState,
   SwiperAnimationEvent,
   ColumnOptions,
-  IDataSource
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement'
+  IDataSource,
+  State
+} from '@kit.ArkUI';
 import { RecordData } from '@ohos.base'
 
 // [Start SwiperDeprecated]

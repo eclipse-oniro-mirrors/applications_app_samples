@@ -17,7 +17,7 @@
 
 import {
   Text, NavDestination, Builder
-} from '@ohos.arkui.component'
+} from '@kit.ArkUI';
 
 @Builder
 export function PageOneBuilder(name: string): void {

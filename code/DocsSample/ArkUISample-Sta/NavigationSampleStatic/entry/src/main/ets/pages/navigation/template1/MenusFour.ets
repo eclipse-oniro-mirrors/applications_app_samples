@@ -15,26 +15,12 @@
  * limitations under the License.
  */
 
-import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
-  Color,
   Component,
   Column,
   NavPathStack,
-  Button,
   NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
   Text,
-  NavDestinationMode,
-  LaunchMode,
-  Context,
   Navigation,
   TextInput,
   List,
@@ -45,17 +31,21 @@ import {
   Entry,
   NavigationMode,
   NavigationMenuItem,
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  Provide,
+  Consume,
+  NavDestination
+} from '@kit.ArkUI';
 
 const DOMAIN = 0x0000;
 // [Start NavigationMenuFour]
 
-let menuItem: NavigationMenuItem  = {
+let menuItem: NavigationMenuItem = {
   'value': 'func',
   'icon': 'ets/pages/navigation/template1/image/ic_public_add.svg',
-  'action': () => {}
+  'action': () => {
+  }
 };
+
 // [StartExclude NavigationMenuFour]
 @Entry
 @Component
@@ -103,6 +93,7 @@ struct MenusFour {
         }
         .width('90%')
         .margin({ top: 12 })
+
         // [EndExclude NavigationMenuFour]
       }
       // 竖屏最多支持显示3个图标，多余的图标会被放入自动生成的更多图标

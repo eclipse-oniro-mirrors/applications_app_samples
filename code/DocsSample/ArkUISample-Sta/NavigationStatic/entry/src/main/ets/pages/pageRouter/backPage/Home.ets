@@ -15,8 +15,7 @@
  * limitations under the License.
  */
 
-import { Entry, Component } from '@ohos.arkui.component'
-import { State } from '@ohos.arkui.stateManagement'
+import { Entry, Component, State } from '@kit.ArkUI';
 
 // [Start home_router]
 @Entry

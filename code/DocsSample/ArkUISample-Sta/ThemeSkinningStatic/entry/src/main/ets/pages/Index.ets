@@ -19,28 +19,14 @@ import { Route, RouteGroup } from './common/Index';
 import { ThemeControl } from '@ohos.arkui.theme';
 import {
   CommonMethod,
-  Color,
   Component,
   Column,
-  Button,
-  ButtonType,
   Text,
   List,
   ListItem,
-  TextAlign,
   $r,
   Entry,
   Row,
-  ColumnOptions,
-  ItemAlign,
-  Radio,
-  RadioOptions,
-  Slider,
-  Toggle,
-  ToggleType,
-  ButtonRole,
-  ResourceColor,
-  WithTheme,
   NavPathStack,
   FontWeight,
   Blank,
@@ -48,9 +34,10 @@ import {
   ForEach,
   ListItemGroup,
   TransitionEffect,
-  ListItemGroupStyle
-} from '@ohos.arkui.component'
-import { State, Provide } from '@ohos.arkui.stateManagement';
+  ListItemGroupStyle,
+  Provide,
+  State
+} from '@kit.ArkUI';
 import { KeyboardAvoidMode } from '@ohos.arkui.UIContext';
 
 ThemeControl.setDefaultTheme(undefined);

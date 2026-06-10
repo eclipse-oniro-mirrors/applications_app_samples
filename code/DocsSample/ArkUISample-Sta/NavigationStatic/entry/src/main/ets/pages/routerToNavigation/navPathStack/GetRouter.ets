@@ -16,33 +16,19 @@
  */
 
 import {
-  Entry,
-  Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
-  Text,
-  FontWeight,
-  Row,
-  Button,
-  Column,
-  ButtonType,
-  NavPathStack,
-  Navigation,
-  NavigationMode
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  Entry, Component, NavPathStack, Navigation, NavigationMode
+} from '@kit.ArkUI';
 import router from '@ohos.router';
 
 @Entry
 @Component
 struct Index {
   pathStack: NavPathStack = new NavPathStack();
+
   aboutToAppear(): void {
     this.getRouter();
   }
+
   build() {
     // 设置NavPathStack并传入Navigation
     Navigation(this.pathStack) {
@@ -53,10 +39,10 @@ struct Index {
     .mode(NavigationMode.Stack)
   }
 
-  getRouter(){
+  getRouter() {
     // [Start get_router]
     // push page
-    this.getUIContext().getRouter().pushUrl({ url:'pages/pageOne', params: undefined } as router.RouterOptions);
+    this.getUIContext().getRouter().pushUrl({ url: 'pages/pageOne', params: undefined } as router.RouterOptions);
 
     // pop page
     this.getUIContext().getRouter().back({ url: 'pages/pageOne' } as router.RouterOptions);

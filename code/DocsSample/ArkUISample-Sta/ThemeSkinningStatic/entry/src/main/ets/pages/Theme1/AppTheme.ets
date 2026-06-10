@@ -17,7 +17,7 @@
 
 // [Start app_theme]
 import { CustomColors, CustomTheme } from '@ohos.arkui.theme';
-import { ResourceColor, $r } from '@ohos.arkui.component';
+import { ResourceColor, $r } from '@kit.ArkUI';
 
 export class AppColors implements CustomColors {
   // 自定义主题色

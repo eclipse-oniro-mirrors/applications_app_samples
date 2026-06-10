@@ -23,7 +23,7 @@ import {
   NavDestinationContext,
   ButtonType,
   NavDestination
-} from '@ohos.arkui.component'
+} from '@kit.ArkUI';
 
 class ResultClass {
   constructor(count: number) {

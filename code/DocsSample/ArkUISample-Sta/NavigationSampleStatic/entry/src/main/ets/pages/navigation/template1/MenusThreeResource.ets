@@ -47,17 +47,22 @@ import {
   Row,
   Image,
   NavigationTitleMode,
-  NavPathStack
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  NavPathStack,
+  State,
+  AppStorage,
+  Provide,
+  Consume
+} from '@kit.ArkUI';
 
 const DOMAIN = 0x0000;
 // [Start NavigationMenuThreeResource]
-let menuItem: NavigationMenuItem  = {
+let menuItem: NavigationMenuItem = {
   'value': 'func',
   'icon': 'resources/base/media/ic_public_add.svg',
-  'action': () => {}
+  'action': () => {
+  }
 };
+
 // [StartExclude NavigationMenuThreeResource]
 @Entry
 @Component
@@ -105,6 +110,7 @@ struct MenusThreeResource {
         }
         .width('90%')
         .margin({ top: 12 })
+
         // [EndExclude NavigationMenuThreeResource]
       }
       .menus([menuItem, menuItem, menuItem])

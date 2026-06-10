@@ -15,44 +15,21 @@
  * limitations under the License.
  */
 import {
-  Color,
   Component,
   Column,
   NavPathStack,
   Button,
   NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
   NavDestination,
-  ColumnOptions,
-  Stack,
   Text,
-  NavDestinationMode,
-  LaunchMode,
-  Context,
   Navigation,
-  TextInput,
-  List,
-  ForEach,
-  ListItem,
-  TextAlign,
-  $r,
-  Entry,
-  NavigationMode,
-  NavigationMenuItem,
-  HorizontalAlign,
-  Row,
-  Image,
-  NavigationTitleMode
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  Entry
+} from '@kit.ArkUI';
 import uiObserver from '@ohos.arkui.observer';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const DOMAIN = 0x0000;
+
 @Component
 struct PageOne {
   build() {

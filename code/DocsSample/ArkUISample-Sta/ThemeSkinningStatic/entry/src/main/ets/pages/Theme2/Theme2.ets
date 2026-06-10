@@ -16,34 +16,20 @@
  */
 
 // [Start custom_theme]
-import { CustomColors, CustomTheme, Theme } from '@ohos.arkui.theme';
-import { common } from '@kit.AbilityKit';
+import { CustomColors, CustomTheme } from '@ohos.arkui.theme';
 import {
-  Color,
   Component,
   Column,
   Button,
-  ButtonType,
   Text,
-  List,
-  ListItem,
-  TextAlign,
   $r,
   Entry,
   Row,
-  ColumnOptions,
-  ItemAlign,
-  Radio,
-  RadioOptions,
-  Slider,
-  Toggle,
-  ToggleType,
-  ButtonRole,
   ResourceColor,
   WithTheme,
-  ResourceStr
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  ResourceStr,
+  State
+} from '@kit.ArkUI';
 // 请将$r('app.color.xxx')替换为实际资源文件
 class AppColors implements CustomColors {
   public fontPrimary?: ResourceColor = $r('app.color.brand_purple');

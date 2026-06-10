@@ -20,24 +20,16 @@
 import {
   Entry,
   Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
   Text,
   FontWeight,
   Row,
   Button,
   Column,
   ButtonType,
-  NavPathStack,
-  Navigation,
-  NavigationMode,
   Alignment,
-  $r
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  $r,
+  State
+} from '@kit.ArkUI';
 import router from '@ohos.router';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 const DOMAIN = 0xF811;

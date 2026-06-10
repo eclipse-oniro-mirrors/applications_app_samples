@@ -20,19 +20,8 @@ import {
   Component,
   Column,
   NavPathStack,
-  Button,
   NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
   Text,
-  NavDestinationMode,
-  LaunchMode,
   List,
   Entry,
   RelativeContainer,
@@ -42,10 +31,10 @@ import {
   NavigationMode,
   VerticalAlign,
   AlignRuleOption,
-  HorizontalAlign
-} from '@ohos.arkui.component'
-import { State, AppStorage } from '@ohos.arkui.stateManagement';
-import { NewsItem } from './NewsDetail'
+  HorizontalAlign,
+  State
+} from '@kit.ArkUI';
+import { NewsItem } from './NewsDetail';
 
 @Component
 struct NewsHome {
@@ -68,8 +57,13 @@ struct NewsHome {
           Column() {
             Text(`${item.title}`).margin(15).fontSize(25).fontColor(Color.Black)
             Text(`${item.overview}`).fontSize(13).fontColor(Color.Gray)
-          }.margin({bottom: 15}).backgroundColor('#eeeeee').width('100%')
-          .borderRadius(15).height(120).onClick(() => {
+          }
+          .margin({ bottom: 15 })
+          .backgroundColor('#eeeeee')
+          .width('100%')
+          .borderRadius(15)
+          .height(120)
+          .onClick(() => {
             // 用户点击某一个新闻标签时，就在右侧子页区域push一个NavDestination页面，用来展示新闻详情
             this.stack?.pushPath(new NavPathInfo('NewsDetail', item))
           })
@@ -108,4 +102,5 @@ struct Index {
     }
   }
 }
+
 // [End SplitNavigation]

@@ -17,27 +17,11 @@
 
 // [Start observer_query]
 import {
-  Entry,
-  Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
-  Text,
-  FontWeight,
-  Row,
-  Button,
-  Column,
-  ButtonType,
-  NavPathStack,
-  Navigation,
-  NavigationMode,
-  NavDestination
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  Entry, Component, NavDestination
+} from '@kit.ArkUI';
 import uiObserver from '@ohos.arkui.observer';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+
 const DOMAIN = 0xF811;
 const TAG = '[Sample_ArkTSRouter]';
 
@@ -63,4 +47,5 @@ struct MyComponent {
     // ...
   }
 }
+
 // [End observer_query]

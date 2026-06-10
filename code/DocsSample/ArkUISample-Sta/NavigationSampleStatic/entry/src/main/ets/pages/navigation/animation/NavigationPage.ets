@@ -18,26 +18,17 @@
 // [Start NavigationAnimation]
 // [Start AppStorageSetStack]
 import {
-  Color,
   Component,
   Column,
   NavPathStack,
   Button,
   NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
   ColumnOptions,
-  Stack,
   Text,
-  NavDestinationMode,
   Entry,
-  Navigation
-} from '@ohos.arkui.component'
-import { State, AppStorage } from '@ohos.arkui.stateManagement';
+  Navigation,
+  AppStorage
+} from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -63,10 +54,12 @@ struct NavigationPage {
             this.navStack.pushPath(new NavPathInfo('animation-BasicNavDestination', undefined));
           })
       }
+
       // [EndExclude AppStorageSetStack]
       // [EndExclude NavigationAnimation]
     }
   }
 }
+
 // [End AppStorageSetStack]
 // [End NavigationAnimation]

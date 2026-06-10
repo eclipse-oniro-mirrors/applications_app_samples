@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -13,12 +15,9 @@
  * limitations under the License.
  */
 
-'use static'
-
 // [Start import]
 import { ArcSwiper, ArcDotIndicator, ArcDirection } from '@ohos.arkui.ArcSwiper';
-import { Color, Component, $r, Padding, Column, ColumnOptions, TextAlign, Text, Entry, NavDestination } from '@ohos.arkui.component'
-import { State } from '@ohos.arkui.stateManagement'
+import { Color, Component, $r, Padding, Column, ColumnOptions, TextAlign, Text, Entry, NavDestination, State } from '@kit.ArkUI';
 // [End import]
 import { ComponentCard } from '../../common/Card';
 

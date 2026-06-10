@@ -17,25 +17,8 @@
 
 // [Start nav_stack_one]
 import {
-  Entry,
-  Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
-  Text,
-  FontWeight,
-  Row,
-  Button,
-  Column,
-  ButtonType,
-  NavPathStack,
-  Navigation,
-  NavigationMode
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
-import router from '@ohos.router';
+  Entry, Component, NavPathStack, Navigation, NavigationMode
+} from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -51,4 +34,5 @@ struct Index {
     .mode(NavigationMode.Stack)
   }
 }
+
 // [End nav_stack_one]

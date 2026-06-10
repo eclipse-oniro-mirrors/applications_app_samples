@@ -73,6 +73,7 @@ struct UIInformation {
 // [End ui_information]
 
 // [Start page_one]
+@Entry
 @Component
 export struct PageOne {
   build() {

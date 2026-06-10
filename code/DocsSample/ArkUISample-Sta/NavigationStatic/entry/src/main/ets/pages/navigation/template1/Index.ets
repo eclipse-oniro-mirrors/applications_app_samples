@@ -30,9 +30,9 @@ import {
   Row,
   Image,
   TextInput,
-  NavigationTitleMode
-} from '@ohos.arkui.component'
-import { State } from '@ohos.arkui.stateManagement';
+  NavigationTitleMode,
+  State
+} from '@kit.ArkUI';
 
 class A {
   text: string = '';

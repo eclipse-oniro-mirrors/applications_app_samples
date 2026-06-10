@@ -16,54 +16,23 @@
  */
 // [Start SystemRoutingTable]
 import {
-  Color,
-  Component,
-  Column,
-  NavPathStack,
-  Button,
-  NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
-  Text,
-  NavDestinationMode,
-  LaunchMode,
-  Context,
-  Navigation,
-  TextInput,
-  List,
-  ForEach,
-  ListItem,
-  TextAlign,
-  $r,
-  Entry,
-  NavigationMode,
-  NavigationMenuItem,
-  HorizontalAlign,
-  Row,
-  Image,
-  NavigationTitleMode
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  Component, NavPathStack, NavDestinationContext, Navigation, Entry, NavDestination
+} from '@kit.ArkUI';
 
 @Entry
 @Component
 struct SystemRoutingTable {
-  pageStack : NavPathStack = new NavPathStack();
+  pageStack: NavPathStack = new NavPathStack();
 
   build() {
-    Navigation(this.pageStack){
+    Navigation(this.pageStack) {
     }.onAppear(() => {
       this.pageStack.pushPathByName('PageOne', null, false);
     })
     .hideNavBar(true)
   }
 }
+
 // [End SystemRoutingTable]
 // [Start SystemRoutingTableOne]
 // 跳转页面入口函数
@@ -85,4 +54,5 @@ struct PageOne {
     })
   }
 }
+
 // [End SystemRoutingTableOne]

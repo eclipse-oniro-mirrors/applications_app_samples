@@ -19,23 +19,15 @@
 import {
   Color,
   Component,
-  Column,
   NavPathStack,
-  Button,
-  NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
   Stack,
   Text,
   NavDestinationMode,
-  ResourceColor
-} from '@ohos.arkui.component'
-import { State, AppStorage } from '@ohos.arkui.stateManagement';
+  ResourceColor,
+  State,
+  AppStorage,
+  NavDestination
+} from '@kit.ArkUI';
 
 @Builder
 export function DialogNavDestinationBuilder(): void {
@@ -61,8 +53,8 @@ export struct DialogNavDestination {
     .backgroundColor(this.backColor)
     .mode(NavDestinationMode.DIALOG)
     .onWillAppear(() => {
-      //启动时候蒙层渐现
-      this.getUIContext().animateTo({ duration:450 }, () => {
+      // 启动时候蒙层渐现
+      this.getUIContext().animateTo({ duration: 450 }, () => {
         this.backColor = '#66000000';
       });
     })
@@ -74,4 +66,5 @@ export struct DialogNavDestination {
     })
   }
 }
+
 // [End DialogNavDesAnimation]

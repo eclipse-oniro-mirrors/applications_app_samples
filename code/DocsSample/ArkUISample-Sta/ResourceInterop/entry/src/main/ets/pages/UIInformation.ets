@@ -17,9 +17,8 @@
 
 // [Start ui_information]
 // entry\src\main\ets\pages\UIInformation.ets
-import { Entry, Button, ClickEvent, Column, Component, Text, FontWeight, ColumnOptions } from '@ohos.arkui.component';
+import { Entry, Button, ClickEvent, Column, Component, Text, FontWeight, ColumnOptions, State } from '@kit.ArkUI';
 import { UIContext } from '@ohos.arkui.UIContext';
-import { State } from '@ohos.arkui.stateManagement';
 
 @Entry
 @Component

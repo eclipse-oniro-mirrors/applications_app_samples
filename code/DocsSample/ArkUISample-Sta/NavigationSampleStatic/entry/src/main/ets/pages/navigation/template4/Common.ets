@@ -17,41 +17,8 @@
 
 // [Start CrossPackageCommon]
 import {
-  Color,
-  Component,
-  Column,
-  NavPathStack,
-  Button,
-  NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
-  Text,
-  NavDestinationMode,
-  LaunchMode,
-  Context,
-  Navigation,
-  TextInput,
-  List,
-  ForEach,
-  ListItem,
-  TextAlign,
-  $r,
-  Entry,
-  NavigationMode,
-  NavigationMenuItem,
-  HorizontalAlign,
-  Row,
-  Image,
-  NavigationTitleMode,
-  ColumnOptions
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  Component, NavPathStack, Button, NavPathInfo, ColumnOptions, Column
+} from '@kit.ArkUI';
 
 @Component
 export struct ControlPanel {
@@ -85,4 +52,5 @@ export struct ControlPanel {
     }
   }
 }
+
 // [End CrossPackageCommon]

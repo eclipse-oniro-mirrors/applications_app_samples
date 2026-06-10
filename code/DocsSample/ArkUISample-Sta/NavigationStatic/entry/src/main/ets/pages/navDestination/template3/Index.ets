@@ -28,9 +28,11 @@ import {
   NavigationSystemTransitionType,
   ShadowStyle,
   Search,
-  FontWeight
-} from '@ohos.arkui.component'
-import { State, Provide, Consume } from '@ohos.arkui.stateManagement';
+  FontWeight,
+  State,
+  Provide,
+  Consume
+} from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -163,7 +165,6 @@ struct SlideBottom {
 @Component
 struct DestBody {
   name: string = 'NA';
-
   columnTextSize: number = 22;
   columnTextFontWeight: FontWeight = FontWeight.Bolder;
   columnWidth: string = '65%';
@@ -195,7 +196,6 @@ struct DestBody {
 struct HomeBody {
   @Consume stack: NavPathStack;
   @Consume homePageTransitionType: NavigationSystemTransitionType;
-
   columnTextSize: number = 22;
   columnTextFontWeight: FontWeight = FontWeight.Bolder;
   columnWidth: string = '85%';

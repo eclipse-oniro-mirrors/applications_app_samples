@@ -16,14 +16,8 @@
  */
 
 import {
-  Component,
-  Column,
-  Button,
-  ColumnOptions,
-  ForEach,
-  Entry,
-  Scroll
-} from '@ohos.arkui.component'
+  Component, Column, Button, ColumnOptions, ForEach, Entry, Scroll
+} from '@kit.ArkUI';
 
 interface RouteInfo {
   path: string,

@@ -16,24 +16,11 @@
  */
 
 import {
-  Color,
   Component,
   Column,
   NavPathStack,
-  Button,
   NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
   Text,
-  NavDestinationMode,
-  LaunchMode,
-  Context,
   Navigation,
   TextInput,
   List,
@@ -43,17 +30,21 @@ import {
   $r,
   Entry,
   NavigationMode,
-  NavigationMenuItem
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  NavigationMenuItem,
+  Provide,
+  Consume,
+  NavDestination
+} from '@kit.ArkUI';
 
 const DOMAIN = 0x0000;
 // [Start NavigationMenuThreeImage]
-let menuItem: NavigationMenuItem  = {
+let menuItem: NavigationMenuItem = {
   'value': 'func',
   'icon': 'ets/pages/navigation/template1/image/ic_public_add.svg',
-  'action': () => {}
+  'action': () => {
+  }
 };
+
 // [StartExclude NavigationMenuThreeImage]
 @Entry
 @Component
@@ -101,6 +92,7 @@ struct MenusThreeImage {
         }
         .width('90%')
         .margin({ top: 12 })
+
         // [EndExclude NavigationMenuThreeImage]
       }
       .menus([menuItem, menuItem, menuItem])

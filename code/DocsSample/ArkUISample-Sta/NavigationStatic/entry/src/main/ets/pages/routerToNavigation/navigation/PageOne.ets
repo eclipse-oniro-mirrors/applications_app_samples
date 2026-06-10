@@ -19,26 +19,14 @@
 import {
   Entry,
   Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
-  Text,
-  FontWeight,
-  Row,
   Button,
   Column,
   ButtonType,
   NavPathStack,
-  Navigation,
-  NavigationMode,
-  NavDestination,
   NavDestinationContext,
-  $r
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
-import router from '@ohos.router';
+  $r,
+  NavDestination
+} from '@kit.ArkUI';
 
 @Builder
 export function PageOneBuilder(): void {
@@ -68,4 +56,5 @@ export struct PageOne {
     })
   }
 }
+
 // [End nav_page_one]

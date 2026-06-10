@@ -15,24 +15,11 @@
  * limitations under the License.
  */
 import {
-  Color,
   Component,
   Column,
   NavPathStack,
-  Button,
   NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
   Text,
-  NavDestinationMode,
-  LaunchMode,
-  Context,
   Navigation,
   TextInput,
   List,
@@ -42,23 +29,23 @@ import {
   $r,
   Entry,
   NavigationMode,
-  NavigationMenuItem,
-  HorizontalAlign,
-  Row,
-  Image,
-  NavigationTitleMode,
-  ToolbarItem
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  ToolbarItem,
+  State,
+  Provide,
+  Consume,
+  NavDestination
+} from '@kit.ArkUI';
 
 const DOMAIN = 0x0000;
 // [Start ToolBar]
 let toolTmp: ToolbarItem = {
   'value': 'func',
   'icon': 'ets/pages/navigation/template1/image/ic_public_highlights.svg',
-  'action': () => {}
+  'action': () => {
+  }
 };
-let tooBar: ToolbarItem[] = [toolTmp,toolTmp,toolTmp];
+let tooBar: ToolbarItem[] = [toolTmp, toolTmp, toolTmp];
+
 // [StartExclude ToolBar]
 @Entry
 @Component
@@ -66,7 +53,8 @@ struct ToolBar {
   @State toolTmp: ToolbarItem = {
     'value': 'func',
     'icon': 'ets/pages/navigation/template1/image/ic_public_highlights.svg',
-    'action': () => {}
+    'action': () => {
+    }
   } as ToolbarItem;
   @Provide navPathStack: NavPathStack = new NavPathStack();
   private arr: number[] = [1, 2, 3];
@@ -111,6 +99,7 @@ struct ToolBar {
         }
         .width('90%')
         .margin({ top: 12 })
+
         // [EndExclude ToolBar]
       }
       .toolbarConfiguration(tooBar)

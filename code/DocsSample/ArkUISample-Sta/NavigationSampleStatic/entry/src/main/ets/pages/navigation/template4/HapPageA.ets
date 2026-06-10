@@ -17,41 +17,8 @@
 
 // [Start CrossPackagePageA]
 import {
-  Color,
-  Component,
-  Column,
-  NavPathStack,
-  Button,
-  NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
-  Text,
-  NavDestinationMode,
-  LaunchMode,
-  Context,
-  Navigation,
-  TextInput,
-  List,
-  ForEach,
-  ListItem,
-  TextAlign,
-  $r,
-  Entry,
-  NavigationMode,
-  NavigationMenuItem,
-  HorizontalAlign,
-  Row,
-  Image,
-  NavigationTitleMode,
-  Alignment
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  Component, NavDestinationContext, Stack, Alignment, NavDestination
+} from '@kit.ArkUI';
 
 // 仅作为示例写法，其余页面、模块需自行创建
 import { ControlPanel } from './Common';

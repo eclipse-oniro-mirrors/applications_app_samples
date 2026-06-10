@@ -19,23 +19,13 @@
 import {
   Entry,
   Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
-  Text,
-  FontWeight,
-  Row,
   Button,
   Column,
   ButtonType,
   NavPathStack,
   Navigation,
   NavigationMode
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
-import router from '@ohos.router';
+} from '@kit.ArkUI';
 
 // Index.ets
 @Entry
@@ -59,4 +49,5 @@ struct Index1 {
     .mode(NavigationMode.Stack)
   }
 }
+
 // [End nav_index]

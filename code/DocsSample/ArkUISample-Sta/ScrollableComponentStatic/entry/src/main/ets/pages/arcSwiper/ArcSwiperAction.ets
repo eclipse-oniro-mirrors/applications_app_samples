@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -13,13 +15,23 @@
  * limitations under the License.
  */
 
-'use static'
-
 // [Start action]
 import { Decimal } from '@kit.ArkTS';
 import { ArcSwiper, ArcSwiperContentTransitionProxy } from '@ohos.arkui.ArcSwiper';
-import { Color, Component, $r, ColumnOptions, Column, ForEach, Padding, Text, TextAlign, Entry, NavDestination } from '@ohos.arkui.component'
-import { State } from '@ohos.arkui.stateManagement'
+import {
+  Color,
+  Component,
+  $r,
+  ColumnOptions,
+  Column,
+  ForEach,
+  Padding,
+  Text,
+  TextAlign,
+  Entry,
+  State,
+  NavDestination
+} from '@kit.ArkUI';
 // [StartExclude action]
 import { ComponentCard } from '../../common/Card';
 

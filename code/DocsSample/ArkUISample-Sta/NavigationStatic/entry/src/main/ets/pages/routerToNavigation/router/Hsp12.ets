@@ -25,18 +25,8 @@ import {
   ItemAlign,
   FlexAlign,
   Text,
-  FontWeight,
-  Row,
-  Button,
-  Column,
-  ButtonType,
-  NavPathStack,
-  Navigation,
-  NavigationMode
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  FontWeight} from '@kit.ArkUI';
 import router from '@ohos.router';
-import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 // import('library/src/main/ets/pages/routerToNavigation/router/Index'); // 引入共享包中的命名路由页面

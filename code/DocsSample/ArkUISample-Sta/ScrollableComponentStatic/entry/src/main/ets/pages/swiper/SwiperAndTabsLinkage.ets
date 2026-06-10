@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -13,13 +15,10 @@
  * limitations under the License.
  */
 
-'use static';
-
 import { ComponentCard } from '../../common/Card';
 import { common } from '@kit.AbilityKit';
 
 import {
-  Entry,
   Column,
   Component,
   ForEach,
@@ -40,10 +39,10 @@ import {
   TabsOptions,
   BarPosition,
   TabContent,
+  State,
   NavDestination,
   Swiper
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement'
+} from '@kit.ArkUI';
 
 // [Start swiper_tabs_linkage]
 // xxx.ets
@@ -97,83 +96,87 @@ export struct SwiperAndTabsLinkage {
   private context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   aboutToAppear(): void {
-    for(let i = 0; i <= 9; i++) {
-    this.list.push(i.toString());
+    for (let i = 0; i <= 9; i++) {
+      this.list.push(i.toString());
+    }
+    this.swiperData = new MyDataSource(this.list);
   }
-  this.swiperData = new MyDataSource(this.list);
-}
 
-@Builder tabBuilder(index: number, name: string): void {
-  Column() {
-    Text(name)
-      .fontColor(this.currentIndex === index ? this.selectedFontColor : this.fontColor)
-      .fontSize(16)
-      .fontWeight(this.currentIndex === index ? 500 : 400)
-      .lineHeight(22)
-      .margin({ top: 17, bottom: 7 });
-    Divider()
-      .strokeWidth(2)
-      .color('#007DFF')
-      .opacity(this.currentIndex === index ? 1 : 0);
-  }.width('20%')
-};
+  @Builder
+  tabBuilder(index: number, name: string): void {
+    Column() {
+      Text(name)
+        .fontColor(this.currentIndex === index ? this.selectedFontColor : this.fontColor)
+        .fontSize(16)
+        .fontWeight(this.currentIndex === index ? 500 : 400)
+        .lineHeight(22)
+        .margin({ top: 17, bottom: 7 });
+      Divider()
+        .strokeWidth(2)
+        .color('#007DFF')
+        .opacity(this.currentIndex === index ? 1 : 0);
+    }.width('20%')
+  };
 
-build(): void {
-  // [StartExclude swiper_tabs_linkage]
-  NavDestination() {
-    Column({ space: 12 } as ColumnOptions) {
-      ComponentCard({ title: $r('app.string.SwiperAndTabsLinkage_title') }) {
-        // [EndExclude swiper_tabs_linkage]
-        Column() {
-          Tabs({ barPosition: BarPosition.Start, controller: this.tabsController } as TabsOptions) {
-            ForEach(this.list, (value: string, index: int) => {
-              // 请在resources\base\element\string.json文件中配置name为'swiper_text1' ，value为非空字符串的资源
-              TabContent().tabBar(this.tabBuilder(index,
-                this.context.resourceManager.getStringByNameSync('swiper_text1') + this.list[index]));
-            });
-          }
+  build(): void {
+    // [StartExclude swiper_tabs_linkage]
+    NavDestination() {
+      Column({ space: 12 } as ColumnOptions) {
+        ComponentCard({ title: $r('app.string.SwiperAndTabsLinkage_title') }) {
+          // [EndExclude swiper_tabs_linkage]
+          Column() {
+            Tabs({ barPosition: BarPosition.Start, controller: this.tabsController } as TabsOptions) {
+              ForEach(this.list, (value: string, index: int) => {
+                // 请在resources\base\element\string.json文件中配置name为'swiper_text1' ，value为非空字符串的资源
+                TabContent().tabBar(this.tabBuilder(index,
+                  this.context.resourceManager.getStringByNameSync('swiper_text1') + this.list[index]));
+              });
+            }
             .onTabBarClick((index: int) => {
-            this.currentIndex = index;
-            this.swiperController.changeIndex(index, true);
-          })
-    .barMode(BarMode.Scrollable)
-    .backgroundColor('#F1F3F5')
-    .height(56)
-    .width('100%')
+              this.currentIndex = index;
+              this.swiperController.changeIndex(index, true);
+            })
+            .barMode(BarMode.Scrollable)
+            .backgroundColor('#F1F3F5')
+            .height(56)
+            .width('100%')
 
             Swiper(this.swiperController) {
-  LazyForEach(this.swiperData, (item: string) => {
-    Text(item.toString())
-      .onAppear(() => {
-        console.info('onAppear ' + item.toString());
-      })
-      .onDisAppear(() => {
-        console.info('onDisAppear ' + item.toString());
-      })
-      .width('100%')
-      .height('40%')
-      .backgroundColor(0xAFEEEE)
-      .textAlign(TextAlign.Center)
-      .fontSize(30);
-  }, (item: string) => item);
-}
+              LazyForEach(this.swiperData, (item: string) => {
+                Text(item.toString())
+                  .onAppear(() => {
+                    console.info('onAppear ' + item.toString());
+                  })
+                  .onDisAppear(() => {
+                    console.info('onDisAppear ' + item.toString());
+                  })
+                  .width('100%')
+                  .height('40%')
+                  .backgroundColor(0xAFEEEE)
+                  .textAlign(TextAlign.Center)
+                  .fontSize(30);
+              }, (item: string) => item);
+            }
             .loop(false)
-  .onSelected((index: int) => {
-    console.info('onSelected:' + index);
-    this.currentIndex = index;
-    this.tabsController.changeIndex(index);
-  })
+            .onSelected((index: int) => {
+              console.info('onSelected:' + index);
+              this.currentIndex = index;
+              this.tabsController.changeIndex(index);
+            })
           }
+
           // [StartExclude swiper_tabs_linkage]
         }
       }
       .width('100%')
-  .height('100%')
-  .padding({ left: 12, right: 12 } as Padding)
+      .height('100%')
+      .padding({ left: 12, right: 12 } as Padding)
     }
     .backgroundColor('#f1f2f3')
-  .title($r('app.string.SwiperAndTabsLinkage_title'));
+    .title($r('app.string.SwiperAndTabsLinkage_title'));
+
     // [EndExclude swiper_tabs_linkage]
   }
 }
+
 // [End swiper_tabs_linkage]

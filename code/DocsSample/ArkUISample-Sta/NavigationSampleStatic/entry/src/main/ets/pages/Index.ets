@@ -16,47 +16,27 @@
  */
 
 import {
-  Color,
   Component,
   Column,
   NavPathStack,
-  Button,
-  NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
   Text,
-  NavDestinationMode,
-  LaunchMode,
-  Context,
-  Navigation,
-  TextInput,
   List,
   ForEach,
   ListItem,
-  TextAlign,
   $r,
   Entry,
-  NavigationMode,
-  NavigationMenuItem,
-  HorizontalAlign,
   Row,
   Image,
-  NavigationTitleMode,
   FontWeight,
   Blank,
   ListItemGroup,
   ListItemGroupStyle,
   ListItemGroupOptions,
   TransitionEffect,
-  CommonMethod
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  CommonMethod,
+  State,
+  Provide
+} from '@kit.ArkUI';
 import curves from '@ohos.curves';
 import { Route, RouteGroup } from './common/Index';
 import { KeyboardAvoidMode } from '@ohos.arkui.UIContext';

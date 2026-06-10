@@ -17,26 +17,13 @@
 
 // [Start life_page]
 import {
-  Entry,
-  Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
-  Text,
-  FontWeight,
-  Row,
-  Button,
-  Column,
-  ButtonType,
-  Color
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
-import router from '@ohos.router';
+  Entry, Component, Text, FontWeight, Button, Column, Color, State
+} from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+
 const DOMAIN = 0xF811;
 const TAG = '[Sample_ArkTSRouter]';
+
 // Page.ets
 @Entry
 @Component
@@ -81,4 +68,5 @@ struct Page {
     .width('100%')
   }
 }
+
 // [End life_page]

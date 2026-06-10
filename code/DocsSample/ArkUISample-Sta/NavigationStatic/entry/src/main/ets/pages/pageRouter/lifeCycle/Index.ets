@@ -17,25 +17,13 @@
 
 // [Start life_index]
 import {
-  Entry,
-  Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
-  Text,
-  FontWeight,
-  Row,
-  Button,
-  Column,
-  ButtonType
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
-import router from '@ohos.router';
+  Entry, Component, Button, Column
+} from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+
 const DOMAIN = 0xF811;
 const TAG = '[Sample_ArkTSRouter]';
+
 // Index.ets
 @Entry
 @Component
@@ -67,4 +55,5 @@ struct MyComponent {
     }
   }
 }
+
 // [End life_index]

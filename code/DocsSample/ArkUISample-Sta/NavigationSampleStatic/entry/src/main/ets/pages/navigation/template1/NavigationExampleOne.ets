@@ -18,37 +18,19 @@
 // [Start NavDestinationPrepare]
 // [Start NavDestinationGetStack]
 import {
-  Color,
   Component,
   Column,
   NavPathStack,
   Button,
-  NavPathInfo,
   NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
   Text,
-  NavDestinationMode,
-  LaunchMode,
   Context,
-  Navigation,
-  TextInput,
-  List,
-  ForEach,
-  ListItem,
   TextAlign,
   $r,
-  Entry,
-  NavigationMode,
-  NavigationMenuItem,
-  ShadowOptions
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  ShadowOptions,
+  State,
+  NavDestination
+} from '@kit.ArkUI';
 
 @Builder
 export function PageOneBuilder(name: string, param: string): void {
@@ -97,6 +79,7 @@ export struct PageOne {
           })
       }
       .size({ width: '100%', height: '100%' })
+
       // [EndExclude NavDestinationGetStack]
       // [EndExclude NavDestinationPrepare]
     }.title(`${this.name}`)
@@ -105,9 +88,11 @@ export struct PageOne {
       // 通过NavDestinationContext获取当前所在页面的导航控制器
       this.navPathStack = ctx.pathStack;
     })
+
     // [EndExclude NavDestinationPrepare]
   }
 }
+
 // [End NavDestinationGetStack]
 // [End NavDestinationPrepare]
 // [End NavigationExampleOne]

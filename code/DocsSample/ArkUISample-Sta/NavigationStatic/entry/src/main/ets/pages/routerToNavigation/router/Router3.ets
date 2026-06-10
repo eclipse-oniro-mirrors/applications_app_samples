@@ -17,26 +17,9 @@
 
 // [Start router_3]
 import {
-  Entry,
-  Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
-  Text,
-  FontWeight,
-  Row,
-  Button,
-  Column,
-  ButtonType,
-  NavPathStack,
-  Navigation,
-  NavigationMode,
-  NavDestination
-} from '@ohos.arkui.component';
-import { State, AppStorage } from '@ohos.arkui.stateManagement';
-import router from '@ohos.router';
+  Entry, Component, NavPathStack, NavigationMode, Navigation, NavDestination
+} from '@kit.ArkUI';
+import { AppStorage } from '@ohos.arkui.stateManagement';
 
 @Entry
 @Component
@@ -69,4 +52,5 @@ export struct PageOne {
     .title('PageOne')
   }
 }
+
 // [End router_3]

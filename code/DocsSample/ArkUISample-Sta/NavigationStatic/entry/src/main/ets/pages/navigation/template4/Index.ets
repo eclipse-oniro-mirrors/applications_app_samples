@@ -23,7 +23,8 @@ import {
   Navigation,
   Button,
   NavPathInfo,
-  ButtonType} from '@ohos.arkui.component'
+  ButtonType
+} from '@kit.ArkUI';
 
 @Entry
 @Component

@@ -16,36 +16,22 @@
  */
 
 // [Start with_theme]
-import { CustomColors, CustomTheme, Theme, ThemeControl } from '@ohos.arkui.theme';
+import { ThemeControl } from '@ohos.arkui.theme';
 import {
-  Color,
   Component,
   Column,
   Button,
-  ButtonType,
   Text,
-  List,
-  ListItem,
-  TextAlign,
   $r,
   Entry,
   Row,
-  ColumnOptions,
-  ItemAlign,
-  Radio,
-  RadioOptions,
-  Slider,
-  Toggle,
-  ToggleType,
-  ButtonRole,
-  ResourceColor,
   WithTheme,
   FontWeight,
   ThemeColorMode,
   SafeAreaType,
-  SafeAreaEdge
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  SafeAreaEdge,
+  State
+} from '@kit.ArkUI';
 
 ThemeControl.setDefaultTheme(undefined);
 

@@ -16,24 +16,9 @@
  */
 
 import {
-  Color,
   Component,
   Column,
-  NavPathStack,
-  Button,
-  NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
   Text,
-  NavDestinationMode,
-  LaunchMode,
-  Context,
   Navigation,
   TextInput,
   List,
@@ -43,13 +28,12 @@ import {
   $r,
   Entry,
   NavigationMode,
-  NavigationMenuItem,
   HorizontalAlign,
   NavigationTitleMode,
   Row,
-  Image
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  Image,
+  State
+} from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -89,7 +73,7 @@ struct PageDisplayModeAuto {
         .height(24)
         .margin({ left: 24 })
     }
-    .margin({ top: 12, right: 24})
+    .margin({ top: 12, right: 24 })
   }
 
   build() {
@@ -120,6 +104,7 @@ struct PageDisplayModeAuto {
         .height(324)
         .width('100%')
         .margin({ top: 12, left: '10%' })
+
         // [EndExclude NavigationModeAuto]
       }
       .mode(NavigationMode.Auto)

@@ -18,46 +18,16 @@ import { LengthMetrics } from '@kit.ArkUI';
 import { TextModifier } from '@ohos.arkui.modifier';
 
 import {
-  Color,
   Component,
-  $r,
-  Padding,
   Column,
-  ColumnOptions,
-  TextAlign,
   Text,
   Entry,
-  NavDestination,
-  Scroller,
-  ListOptions,
-  NestedScrollMode,
-  BarState,
-  ScrollDirection,
-  EdgeEffect,
   NavPathStack,
   Navigation,
   Button,
   NavPathInfo,
   FlexAlign,
-  BarStyle,
-  List,
-  ForEach,
-  ListItem,
-  Scroll,
-  NestedScrollOptions,
-  NavDestinationContext,
-  NavigationOperation,
-  NavigationMode,
-  ButtonType,
-  NavigationInterception,
-  BlurStyle,
-  BackgroundBlurStyleOptions,
-  AdaptiveColor,
-  ThemeColorMode,
-  BackgroundEffectOptions,
   Row,
-  Stack,
-  Alignment,
   NavigationTitleOptions,
   Toggle,
   NavigationTitleMode,
@@ -66,9 +36,10 @@ import {
   ToggleType,
   FontStyle,
   FontWeight,
-  TextHeightAdaptivePolicy
-} from '@ohos.arkui.component'
-import { State, Provide } from '@ohos.arkui.stateManagement'
+  TextHeightAdaptivePolicy,
+  State,
+  NavDestination
+} from '@kit.ArkUI';
 
 export class MainTitleTextModfier extends TextModifier {
   useStyle1: boolean = true;

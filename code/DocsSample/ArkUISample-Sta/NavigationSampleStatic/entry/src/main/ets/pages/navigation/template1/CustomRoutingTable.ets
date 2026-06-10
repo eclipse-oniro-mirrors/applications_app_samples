@@ -17,23 +17,11 @@
 // [Start CustomRoutingTable]
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
-  Color,
   Component,
   Column,
   NavPathStack,
-  Button,
   NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
   Text,
-  NavDestinationMode,
-  LaunchMode,
   Context,
   Navigation,
   TextInput,
@@ -43,9 +31,11 @@ import {
   TextAlign,
   $r,
   Entry,
-  NavigationMode
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  NavigationMode,
+  Provide,
+  Consume,
+  NavDestination
+} from '@kit.ArkUI';
 
 const DOMAIN = 0x0000;
 
@@ -141,4 +131,5 @@ export struct pageOneTmp {
     })
   }
 }
+
 // [End CustomRoutingTable]

@@ -14,25 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 // [Start AppStorageGetStack]
 
 import {
-  Color,
   Component,
   Column,
   NavPathStack,
   Button,
   NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
   NavDestination,
-  ColumnOptions
-} from '@ohos.arkui.component'
-import { State, AppStorage } from '@ohos.arkui.stateManagement';
+  ColumnOptions,
+  AppStorage
+} from '@kit.ArkUI';
 
 @Builder
 export function BasicNavDestinationBuilder(): void {
@@ -63,9 +57,11 @@ struct BasicNavDestination {
             this.stack.pushPath(new NavPathInfo('animation-PageTwoNavDes', undefined));
           })
       }
+
       // [EndExclude AppStorageGetStack]
     }
     .title('BasicNavDestination')
   }
 }
+
 // [End AppStorageGetStack]

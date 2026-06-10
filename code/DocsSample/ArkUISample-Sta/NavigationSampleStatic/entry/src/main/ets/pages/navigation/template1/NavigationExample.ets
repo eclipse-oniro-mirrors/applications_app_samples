@@ -21,30 +21,16 @@ import {
   Component,
   Column,
   NavPathStack,
-  Button,
-  NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
   Text,
-  NavDestinationMode,
-  LaunchMode,
   Context,
   Navigation,
   TextInput,
   List,
   ForEach,
   ListItem,
-  TextAlign,
   $r,
   Entry,
   NavigationMode,
-  NavigationMenuItem,
   Row,
   FontWeight,
   HorizontalAlign,
@@ -53,9 +39,9 @@ import {
   VerticalAlign,
   Axis,
   EdgeEffect,
-  StickyStyle
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  StickyStyle,
+  Provide
+} from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -63,6 +49,7 @@ struct NavigationDemo {
   @Provide navPathStack: NavPathStack = new NavPathStack();
   private listArray: Array<string> = ['WLAN', 'Bluetooth', 'Personal Hotspot', 'Connect & Share'];
   context: Context | undefined = this.getUIContext().getHostContext();
+
   build() {
     Column() {
       Navigation(this.navPathStack) {
@@ -140,4 +127,5 @@ struct NavigationDemo {
     .backgroundColor(0xf4f4f5)
   }
 }
+
 // [End NavigationDemo]

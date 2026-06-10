@@ -19,25 +19,12 @@
 import {
   Entry,
   Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
-  Text,
-  FontWeight,
   Row,
   Button,
-  Column,
-  ButtonType,
   NavPathStack,
-  Navigation,
-  NavigationMode,
   NavPathInfo,
   NavigationInfo
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
-import router from '@ohos.router';
+} from '@kit.ArkUI';
 
 // 子页面中的自定义组件
 @Entry
@@ -48,8 +35,8 @@ struct CustomNode {
   aboutToAppear() {
     // query navigation info
     let navigationInfo: NavigationInfo = this.queryNavigationInfo() as NavigationInfo;
-    if (navigationInfo !=  undefined) {
-      this.pathStack = navigationInfo.pathStack ;
+    if (navigationInfo != undefined) {
+      this.pathStack = navigationInfo.pathStack;
     }
   }
 
@@ -62,4 +49,5 @@ struct CustomNode {
     }
   }
 }
+
 // [End router_4]

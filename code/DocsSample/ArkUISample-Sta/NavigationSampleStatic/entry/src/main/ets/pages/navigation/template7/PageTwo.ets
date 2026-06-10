@@ -17,55 +17,38 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
  * limitations under the License.
  */
 import {
-  Color,
   Component,
   Column,
   NavPathStack,
   Button,
   NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
   ButtonType,
-  GestureEvent,
-  PanGesture,
   NavDestination,
-  ColumnOptions,
   Stack,
   Text,
-  NavDestinationMode,
-  LaunchMode,
-  Context,
   Navigation,
-  TextInput,
-  List,
-  ForEach,
-  ListItem,
-  TextAlign,
-  $r,
   Entry,
-  NavigationMode,
-  NavigationMenuItem,
-  HorizontalAlign,
-  Row,
-  Image,
-  NavigationTitleMode,
   Alignment
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+} from '@kit.ArkUI';
 
 const DOMAIN = 0x0000;
+
 class NavParam {
   public desc: string = 'navigationOnResult-param'
-};
+}
+;
+
 @Builder
 export function PageTwoBuilder(name: string, param: Object): void {
   DemoNavDestination();
 }
+
 @Component
 struct DemoNavDestination {
   private pathStack: NavPathStack | undefined = undefined;
   private name: string = '';
   private pageParam: string = '';
+
   build() {
     NavDestination() {
       Column() {
@@ -83,6 +66,7 @@ struct DemoNavDestination {
     })
   }
 }
+
 @Entry
 @Component
 struct NavigationExample7 {

@@ -18,20 +18,9 @@
 import {
   Entry,
   Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
   FlexAlign,
   Text,
-  FontWeight,
-  Row,
-  Button,
   Column,
-  ButtonType,
-  NavPathStack,
-  Navigation,
-  NavigationMode,
   SideBarContainer,
   Resource,
   $r,
@@ -42,10 +31,9 @@ import {
   ButtonIconOptions,
   ButtonStyle,
   DividerStyle,
-  SideBarContainerType
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
-import router from '@ohos.router';
+  SideBarContainerType,
+  State
+} from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -96,6 +84,11 @@ struct SideBarContainerExample {
     .onChange((value: boolean) => {
       console.info('status:' + value);
     })
-    .divider({ strokeWidth: '1vp', color: Color.Gray, startMargin: '4vp', endMargin: '4vp' } as DividerStyle)
+    .divider({
+      strokeWidth: '1vp',
+      color: Color.Gray,
+      startMargin: '4vp',
+      endMargin: '4vp'
+    } as DividerStyle)
   }
 }
