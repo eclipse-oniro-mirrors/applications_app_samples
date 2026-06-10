@@ -32,6 +32,7 @@ entry/src/main/ets/
 |   |       |---Index.ets
 |   |       |---LazyColumnLayoutNestedLazyLayout.ets
 |   |       |---LazyColumnLayoutSample.ets
+|   |       |---LazyLayoutGroup.ets
 |   |       |---LazyVGridLayoutSample.ets
 |   |       |---LazyVWaterFlowLayoutSample.ets
 |   |       |---ListNestedLazyLayout.ets
@@ -41,7 +42,7 @@ entry/src/main/ets/
 
 ## 具体实现
 
-1. 懒加载布局（LazyColumnLayout/LazyVGridLayout/LazyVWaterFlowLayout）：在Scroll或List内使用LazyVGridLayout、LazyVWaterFlowLayout、LazyColumnLayout三种懒加载布局容器，配置columnsTemplate、rowsGap、columnsGap、space、alignItems等布局属性，支持多种布局容器混合组合使用，各容器使用独立LazyForEach数据源，通过onVisibleIndexesChange回调实现触底加载更多数据。
+1. 懒加载布局（LazyColumnLayout/LazyVGridLayout/LazyVWaterFlowLayout）：在Scroll或List内使用LazyVGridLayout、LazyVWaterFlowLayout、LazyColumnLayout三种懒加载布局容器，配置columnsTemplate、rowsGap、columnsGap、space、alignItems、header、footer、sticky等布局属性，支持多种布局容器混合组合使用，各容器使用独立LazyForEach数据源，通过onVisibleIndexesChange回调实现触底加载更多数据。
 
 ### 相关权限
 

@@ -1,5 +1,3 @@
-'use static'
-
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,23 +13,6 @@
  * limitations under the License.
  */
 
-import {
-  Builder,
-  Entry,
-  Component,
-  Consume,
-  NavPathStack,
-  NavDestination,
-  List,
-  ForEach,
-  ListItem,
-  ResourceStr,
-  NavPathInfo,
-  ListOptions,
-  $r,
-  BlurStyle,
-  BarStyle
-} from '@kit.ArkUI';
 import { CompletedRoutableCard } from '../../common/Card';
 import { Route } from '../../common/Route';
 import resource from '../../common/resource';
@@ -45,55 +26,55 @@ import { LazyLayoutGroup } from './LazyLayoutGroup';
 export const LAZY_LAYOUT_ROUTE_PREFIX: string = 'lazyLayout';
 
 const routes: Route[] = [
-  new Route(
-    'lazyLayout/LazyVGridLayoutSample',
+  {
+    name: `${LAZY_LAYOUT_ROUTE_PREFIX}/LazyVGridLayoutSample`,
     // 请将$r('app.string.LazyVGridLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"懒加载网格布局/LazyVGridLayout"
-    resource.resourceToString($r('app.string.lazyVGridLayout_title')),
+    title: resource.resourceToString($r('app.string.lazyVGridLayout_title')),
     // 请将$r('app.string.LazyVGridLayout_description')替换为实际资源文件，在本示例中该资源文件的value值为"示例设置了网格中子组件列数占比和行列间距。"
-    $r('app.string.lazyVGridLayout_description')
-  ),
-  new Route(
-    'lazyLayout/LazyVWaterFlowLayoutSample',
+    description: $r('app.string.lazyVGridLayout_description')
+  },
+  {
+    name: `${LAZY_LAYOUT_ROUTE_PREFIX}/LazyVWaterFlowLayoutSample`,
     // 请将$r('app.string.LazyVWaterFlowLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"懒加载瀑布流布局/LazyVWaterFlowLayout"
-    resource.resourceToString($r('app.string.lazyVWaterFlowLayout_title')),
+    title: resource.resourceToString($r('app.string.lazyVWaterFlowLayout_title')),
     // 请将$r('app.string.LazyVWaterFlowLayout_description')替换为实际资源文件，在本示例中该资源文件的value值为"示例设置了瀑布流中子组件列数占比和行列间距。"
-    $r('app.string.lazyVWaterFlowLayout_description')
-  ),
-  new Route(
-    'lazyLayout/LazyColumnLayoutSample',
+    description: $r('app.string.lazyVWaterFlowLayout_description')
+  },
+  {
+    name: `${LAZY_LAYOUT_ROUTE_PREFIX}/LazyColumnLayoutSample`,
     // 请将$r('app.string.LazyColumnLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"懒加载线性布局/LazyColumnLayout"
-    resource.resourceToString($r('app.string.lazyColumnLayout_title')),
+    title: resource.resourceToString($r('app.string.lazyColumnLayout_title')),
     // 请将$r('app.string.LazyColumnLayout_description')替换为实际资源文件，在本示例中该资源文件的value值为"示例设置了线性布局中子组件行间距和水平对齐方式。"
-    $r('app.string.lazyColumnLayout_description')
-  ),
-  new Route(
-    'lazyLayout/ListNestedLazyLayout',
+    description: $r('app.string.lazyColumnLayout_description')
+  },
+  {
+    name: `${LAZY_LAYOUT_ROUTE_PREFIX}/ListNestedLazyLayout`,
     // 请将$r('app.string.list_nested_lazyLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"List嵌套懒加载布局容器"
-    resource.resourceToString($r('app.string.list_nested_lazyLayout_title')),
+    title: resource.resourceToString($r('app.string.list_nested_lazyLayout_title')),
     // 请将$r('app.string.list_nested_lazyLayout_description')替换为实际资源文件
     // 在本示例中该资源文件的value值为"在List组件中嵌套多个不同的懒加载布局容器，分别为每个容器内容配置独立的列数和行列间距，实现多种布局方式的混合展示。"
-    $r('app.string.list_nested_lazyLayout_description')
-  ),
-  new Route(
-    'lazyLayout/LazyColumnLayoutNestedLazyLayout',
+    description: $r('app.string.list_nested_lazyLayout_description')
+  },
+  {
+    name: `${LAZY_LAYOUT_ROUTE_PREFIX}/LazyColumnLayoutNestedLazyLayout`,
     // 请将$r('app.string.lazyColumnLayout_nested_lazyLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"LazyColumnLayout嵌套懒加载布局容器"
-    resource.resourceToString($r('app.string.lazyColumnLayout_nested_lazyLayout_title')),
+    title: resource.resourceToString($r('app.string.lazyColumnLayout_nested_lazyLayout_title')),
     // 请将$r('app.string.lazyColumnLayout_nested_lazyLayout_description')替换为实际资源文件
     // 在本示例中该资源文件的value值为"在Scroll组件中使用LazyColumnLayout作为主布局容器，其内部嵌套多个不同的懒加载布局容器，实现多种布局方式的混合展示。"
-    $r('app.string.lazyColumnLayout_nested_lazyLayout_description')
-  ),
-  new Route(
-    'lazyLayout/LazyLayoutGroup',
+    description: $r('app.string.lazyColumnLayout_nested_lazyLayout_description')
+  },
+  {
+    name: `${LAZY_LAYOUT_ROUTE_PREFIX}/LazyLayoutGroup`,
     // 请将$r('app.string.lazyLayout_group_title')替换为实际资源文件，在本示例中该资源文件的value值为"分组展示与粘性标题"
-    resource.resourceToString($r('app.string.lazyLayout_group_title')),
+    title: resource.resourceToString($r('app.string.lazyLayout_group_title')),
     // 请将$r('app.string.lazyLayout_group_description')替换为实际资源文件
     // 在本示例中该资源文件的value值为"示例展示了懒加载布局的分组能力，通过LazyForEach动态创建按月份分组的照片网格，配合sticky属性实现分组标题吸顶和底部工具栏吸底。"
-    $r('app.string.lazyLayout_group_description')
-  )
+    description: $r('app.string.lazyLayout_group_description')
+  }
 ];
 
 @Builder
-export function lazyLayoutDestination(name: string): void {
+export function lazyLayoutDestination(name: string) {
   if (name === LAZY_LAYOUT_ROUTE_PREFIX) {
     LazyLayoutExample();
   } else if (name === routes[0].name) {
@@ -116,16 +97,16 @@ export function lazyLayoutDestination(name: string): void {
 struct LazyLayoutExample {
   @Consume pathStack: NavPathStack;
 
-  build(): void {
+  build() {
     NavDestination() {
-      List({ space: 12 } as ListOptions) {
+      List({ space: 12 }) {
         ForEach(routes, (route: Route) => {
           ListItem() {
-            CompletedRoutableCard({ title: route.title, description: route.description as ResourceStr })
+            CompletedRoutableCard({ title: route.title, description: route.description })
           }
           .width('100%')
           .onClick(() => {
-            this.pathStack.pushPath(new NavPathInfo(route.name, undefined));
+            this.pathStack.pushPath({ name: route.name });
           })
         })
       }
