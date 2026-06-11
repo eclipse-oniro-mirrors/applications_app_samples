@@ -28,15 +28,23 @@ struct MyStateSample {
       switch(this.stateVar) {
         case 1:
           Text('show text1')
+            .fontSize(20)
+            .margin(10)
           break;  // 不加break会执行下一个case分支
         case 2:
-          Text('show text2');
+          Text('show text2')
+            .fontSize(20)
+            .margin(10)
           break;
         default:
-          Text('show default');
+          Text('show default')
+            .fontSize(20)
+            .margin(10)
           break;
       }
       Button('change stateVar')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.stateVar = (this.stateVar + 1) % 4;
         })

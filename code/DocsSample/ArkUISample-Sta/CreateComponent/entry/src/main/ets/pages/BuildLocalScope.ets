@@ -24,6 +24,8 @@ struct MyComponent {
   build() {
     {  // 允许本地作用域
       Text('hello world')
+        .fontSize(20)
+        .margin(10)
     }
   }
 }
