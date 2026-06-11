@@ -38,7 +38,7 @@ import {
 @Entry
 @Component
 struct PageDisplayType {
-  @Provide pageStack: NavPathStack = new NavPathStack();
+  @Provide navPathStack: NavPathStack = new NavPathStack();
 
   @Builder
   PagesMap(name: string) {
@@ -48,12 +48,12 @@ struct PageDisplayType {
   }
 
   build() {
-    Navigation(this.pageStack) {
+    Navigation(this.navPathStack) {
       Button('Push DialogPage')
         .margin(20)
         .width('80%')
         .onClick(() => {
-          this.pageStack.pushPathByName('DialogPage', '');
+          this.navPathStack.pushPathByName('DialogPage', '');
         })
     }
     .mode(NavigationMode.Stack)
@@ -64,7 +64,7 @@ struct PageDisplayType {
 
 @Component
 export struct DialogPage {
-  @Consume('NavPathStack') pageStack: NavPathStack;
+  @Consume('navPathStack') navPathStack: NavPathStack;
 
   build(): void {
     NavDestination() {
@@ -74,7 +74,7 @@ export struct DialogPage {
             .fontSize(20)
             .margin({ bottom: 100 })
           Button('Close').onClick(() => {
-            this.pageStack.pop();
+            this.navPathStack.pop();
           }).width('30%')
         }
         .justifyContent(FlexAlign.Center)

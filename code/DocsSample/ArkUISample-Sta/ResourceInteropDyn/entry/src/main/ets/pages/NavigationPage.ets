@@ -36,12 +36,8 @@ struct NavigationPage {
           .height(40)
           .margin(10)
           .onClick((e?: ClickEvent) => {
-            try {
-              let info: NavPathInfo = new NavPathInfo("PageOne", undefined)
-              this.pathStack.pushPath(info)
-            } catch(e) {
-              console.error(`FZY ${e.message}\n${e.stack}`)
-            }
+            let info: NavPathInfo = new NavPathInfo("PageOne", undefined)
+            this.pathStack.pushPath(info)
           })
       }
     }
