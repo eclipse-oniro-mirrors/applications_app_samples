@@ -17,52 +17,23 @@
 import { AnimateCallback, CustomTransition } from './CustomTransitionUtils';
 
 import {
-  Color,
   Component,
-  $r,
-  Padding,
   Column,
-  ColumnOptions,
-  TextAlign,
-  Text,
   Entry,
-  NavDestination,
-  Scroller,
-  ListOptions,
-  NestedScrollMode,
-  BarState,
-  ScrollDirection,
-  EdgeEffect,
   NavPathStack,
   Navigation,
   Button,
   NavPathInfo,
-  FlexAlign,
-  BarStyle,
-  List,
-  ForEach,
-  ListItem,
-  Scroll,
-  NestedScrollOptions,
   NavDestinationContext,
   NavigationOperation,
-  NavigationMode,
   ButtonType,
-  NavigationInterception,
-  BlurStyle,
-  BackgroundBlurStyleOptions,
-  AdaptiveColor,
-  ThemeColorMode,
-  BackgroundEffectOptions,
-  Row,
-  Stack,
-  Alignment,
   NavigationTransitionProxy,
   NavContentInfo,
   NavigationAnimatedTransition,
-  Curve
-} from '@ohos.arkui.component'
-import { State, Provide } from '@ohos.arkui.stateManagement'
+  Curve,
+  State,
+  NavDestination
+} from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -206,7 +177,8 @@ export struct PageContainer {
           .height(40)
           .margin(20)
           .onClick(() => {
-            this.pageInfos.pushPath(new NavPathInfo(this.title == 'PageOne' ? "temp13-PageTwo" : "temp13-PageOne", undefined));
+            this.pageInfos.pushPath(new NavPathInfo(this.title == 'PageOne' ? "temp13-PageTwo" : "temp13-PageOne",
+              undefined));
           })
       }
       .size({ width: '100%', height: '100%' })

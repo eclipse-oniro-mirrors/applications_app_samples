@@ -25,9 +25,9 @@ import {
   NavPathInfo,
   ButtonType,
   Stack,
-  Alignment
-} from '@ohos.arkui.component'
-import { State } from '@ohos.arkui.stateManagement';
+  Alignment,
+  State
+} from '@kit.ArkUI';
 
 @Entry
 @Component

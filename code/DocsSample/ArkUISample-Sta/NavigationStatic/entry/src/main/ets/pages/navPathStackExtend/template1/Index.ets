@@ -16,48 +16,15 @@
  */
 
 import {
-  Color,
   Component,
-  $r,
-  Padding,
   Column,
-  ColumnOptions,
-  TextAlign,
-  Text,
   Entry,
-  NavDestination,
-  Scroller,
-  ListOptions,
-  NestedScrollMode,
-  BarState,
-  ScrollDirection,
-  EdgeEffect,
   NavPathStack,
   Navigation,
   Button,
   NavPathInfo,
-  FlexAlign,
-  BarStyle,
-  List,
-  ForEach,
-  ListItem,
-  Scroll,
-  NestedScrollOptions,
-  NavDestinationContext,
-  NavigationOperation,
-  NavigationMode,
-  ButtonType,
-  NavigationInterception,
-  BlurStyle,
-  BackgroundBlurStyleOptions,
-  AdaptiveColor,
-  ThemeColorMode,
-  BackgroundEffectOptions,
-  Row,
-  Stack,
-  Alignment
-} from '@ohos.arkui.component'
-import { State, Provide } from '@ohos.arkui.stateManagement'
+  ButtonType
+} from '@kit.ArkUI';
 
 @Entry
 @Component

@@ -18,8 +18,18 @@
 // [Start page_router_hsp3]
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { Entry, Component, Flex, FlexOptions, FlexDirection, ItemAlign, FlexAlign, Text, FontWeight } from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+import {
+  Entry,
+  Component,
+  Flex,
+  FlexOptions,
+  FlexDirection,
+  ItemAlign,
+  FlexAlign,
+  Text,
+  FontWeight,
+  State
+} from '@kit.ArkUI';
 import router from '@ohos.router';
 
 // import 'library/src/main/ets/pages/Index'; // 引入共享包中的命名路由页面

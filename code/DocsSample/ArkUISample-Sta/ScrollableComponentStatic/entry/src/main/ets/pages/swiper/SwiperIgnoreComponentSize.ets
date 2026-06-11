@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -12,8 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-'use static'
 
 // [Start dot_indicator]
 import {
@@ -34,9 +34,9 @@ import {
   DotIndicator,
   Scroll,
   DataChangeListener,
-  NavDestination
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement'
+  NavDestination,
+  State
+} from '@kit.ArkUI';
 // [StartExclude dot_indicator]
 import { ComponentCard } from '../../common/Card';
 // [EndExclude dot_indicator]

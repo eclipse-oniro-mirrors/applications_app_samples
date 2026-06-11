@@ -16,25 +16,16 @@
  */
 
 import {
-  Color,
   Component,
   Column,
   NavPathStack,
   Button,
   NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
   NavDestination,
   ColumnOptions,
-  Stack,
-  Text,
-  NavDestinationMode,
-  LaunchMode
-} from '@ohos.arkui.component'
-import { State, AppStorage } from '@ohos.arkui.stateManagement';
+  LaunchMode,
+  AppStorage
+} from '@kit.ArkUI';
 
 @Builder
 export function PageTwoNavDesBuilder(): void {
@@ -60,7 +51,8 @@ struct PageTwoNavDes {
           .onClick(() => {
             // [Start PopAndPush-NEW_INSTANCE]
             this.stack.pop();
-            this.stack.pushPath(new NavPathInfo('animation-BasicNavDestination', undefined), { launchMode: LaunchMode.NEW_INSTANCE });
+            this.stack.pushPath(new NavPathInfo('animation-BasicNavDestination', undefined),
+              { launchMode: LaunchMode.NEW_INSTANCE });
             // [End PopAndPush-NEW_INSTANCE]
           })
       }

@@ -17,35 +17,21 @@
 
 // [Start page_showAlert1]
 import {
-  Entry,
-  Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
-  Text,
-  FontWeight,
-  Row,
-  Button,
-  Column,
-  ButtonType,
-  NavPathStack,
-  Navigation,
-  NavigationMode
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
-import router from '@ohos.router';
+  Entry, Component, Text, FontWeight, Row, Button, Column, ButtonType, State
+} from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+
 const DOMAIN = 0xF811;
 const TAG = '[Sample_ArkTSRouter]';
+
 // [End page_showAlert1]
 
 @Entry
 @Component
 struct ShowAlert {
   @State message: string = 'Examples of ShowAlert';
+
   // [Start page_showAlert2]
   // 定义一个返回按钮的点击事件处理函数
   onBackClick(): void {
@@ -53,17 +39,20 @@ struct ShowAlert {
     try {
       this.getUIContext().getRouter().showAlertBeforeBackPage({
         // 请在resources\base\element\string.json文件中配置name为'pageRouter_dialog_context'，value为非空字符串的资源
-        message: this.getUIContext().getHostContext()?.resourceManager.getStringByNameSync('pageRouter_dialog_context') as string, // 设置询问框的内容
+        message: this.getUIContext()
+          .getHostContext()?.resourceManager
+          .getStringByNameSync('pageRouter_dialog_context') as string, // 设置询问框的内容
       });
     } catch (err) {
       let message = (err as BusinessError).message;
       let code = (err as BusinessError).code;
-      hilog.error(DOMAIN, TAG,`Invoke showAlertBeforeBackPage failed, code is ${code}, message is ${message}`);
+      hilog.error(DOMAIN, TAG, `Invoke showAlertBeforeBackPage failed, code is ${code}, message is ${message}`);
     }
 
     // 调用this.getUIContext().getRouter().back()方法，返回上一个页面
     this.getUIContext().getRouter().back();
   }
+
   // [End page_showAlert2]
 
   build() {

@@ -31,9 +31,10 @@ import {
   BackgroundEffectOptions,
   Row,
   Stack,
-  Alignment
-} from '@ohos.arkui.component'
-import { State, Provide } from '@ohos.arkui.stateManagement';
+  Alignment,
+  State,
+  Provide
+} from '@kit.ArkUI';
 
 const COLOR1: string = "#80004AAF";
 const COLOR2: string = "#802787D9";

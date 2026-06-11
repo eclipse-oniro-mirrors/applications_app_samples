@@ -25,9 +25,9 @@ import {
   NavDestinationContext,
   ButtonType,
   PopInfo,
-  NavDestination
-} from '@ohos.arkui.component'
-import { State } from '@ohos.arkui.stateManagement';
+  NavDestination,
+  State
+} from '@kit.ArkUI';
 
 class TmpClass {
   count: number = 10;

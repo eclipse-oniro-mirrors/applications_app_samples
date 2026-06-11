@@ -17,10 +17,19 @@
 
 // [Start ui_information]
 // entry\src\main\ets\pages\ohosRouter.ets
-import { Entry, Button, ClickEvent, Column, Component, Text, FontWeight, ColumnOptions } from '@ohos.arkui.component';
-import { UIContext } from '@ohos.arkui.UIContext';
+import {
+  Entry,
+  Button,
+  ClickEvent,
+  Column,
+  Component,
+  Text,
+  FontWeight,
+  ColumnOptions,
+  UIContext,
+  State
+} from '@kit.ArkUI';
 import router from '@ohos.router';
-import { State } from '@ohos.arkui.stateManagement';
 
 @Entry
 @Component
@@ -39,22 +48,23 @@ struct OHOSRouter {
       })
       Button("pushUrl").onClick((event: ClickEvent) => {
         // [Start pushUrl]
-        this.getUIContext().getRouter().pushUrl({url: "url"})
+        this.getUIContext().getRouter().pushUrl({ url: "url" })
         // [End pushUrl]
       })
       Button("pushUrl2").onClick((event: ClickEvent) => {
         // [Start pushUrl2]
-        this.getUIContext().getRouter().pushUrl({url: "url"}, router.RouterMode.Standard)
+        this.getUIContext().getRouter().pushUrl({ url: "url" }, router.RouterMode.Standard)
         // [End pushUrl2]
       })
       Button("pushUrl3").onClick((event: ClickEvent) => {
         // [Start pushUrl3]
-        this.getUIContext().getRouter().pushUrl({url: "url"}, router.RouterMode.Standard, ()=>{})
+        this.getUIContext().getRouter().pushUrl({ url: "url" }, router.RouterMode.Standard, () => {
+        })
         // [End pushUrl3]
       })
       Button("back").onClick((event: ClickEvent) => {
         // [Start back]
-        this.getUIContext().getRouter().back({url: "url"})
+        this.getUIContext().getRouter().back({ url: "url" })
         // [End back]
       })
       Button("back1").onClick((event: ClickEvent) => {
@@ -64,67 +74,73 @@ struct OHOSRouter {
       })
       Button("replace").onClick((event: ClickEvent) => {
         // [Start replace]
-        this.getUIContext().getRouter().replaceUrl({url: "url"})
+        this.getUIContext().getRouter().replaceUrl({ url: "url" })
         // [End replace]
       })
       Button("replaceUrl").onClick((event: ClickEvent) => {
         // [Start replaceUrl]
-        this.getUIContext().getRouter().replaceUrl({url: "url"})
+        this.getUIContext().getRouter().replaceUrl({ url: "url" })
         // [End replaceUrl]
       })
       Button("replaceUrl2").onClick((event: ClickEvent) => {
         // [Start replaceUrl2]
-        this.getUIContext().getRouter().replaceUrl({url: "url"}, ()=>{})
+        this.getUIContext().getRouter().replaceUrl({ url: "url" }, () => {
+        })
         // [End replaceUrl2]
       })
       Button("replaceUrl3").onClick((event: ClickEvent) => {
         // [Start replaceUrl3]
-        this.getUIContext().getRouter().replaceUrl({url: "url"}, router.RouterMode.Standard)
+        this.getUIContext().getRouter().replaceUrl({ url: "url" }, router.RouterMode.Standard)
         // [End replaceUrl3]
       })
       Button("replaceUrl4").onClick((event: ClickEvent) => {
         // [Start replaceUrl4]
-        this.getUIContext().getRouter().replaceUrl({url: "url"}, router.RouterMode.Standard, ()=>{})
+        this.getUIContext().getRouter().replaceUrl({ url: "url" }, router.RouterMode.Standard, () => {
+        })
         // [End replaceUrl4]
       })
       Button("pushNamedRoute").onClick((event: ClickEvent) => {
         // [Start pushNamedRoute]
-        this.getUIContext().getRouter().pushNamedRoute({name: "路由名"})
+        this.getUIContext().getRouter().pushNamedRoute({ name: "路由名" })
         // [End pushNamedRoute]
       })
       Button("pushNamedRoute2").onClick((event: ClickEvent) => {
         // [Start pushNamedRoute2]
-        this.getUIContext().getRouter().pushNamedRoute({name: "路由名"}, ()=>{})
+        this.getUIContext().getRouter().pushNamedRoute({ name: "路由名" }, () => {
+        })
         // [End pushNamedRoute2]
       })
       Button("pushNamedRoute3").onClick((event: ClickEvent) => {
         // [Start pushNamedRoute3]
-        this.getUIContext().getRouter().pushNamedRoute({name: "路由名"}, router.RouterMode.Standard)
+        this.getUIContext().getRouter().pushNamedRoute({ name: "路由名" }, router.RouterMode.Standard)
         // [End pushNamedRoute3]
       })
       Button("pushNamedRoute4").onClick((event: ClickEvent) => {
         // [Start pushNamedRoute4]
-        this.getUIContext().getRouter().pushNamedRoute({name: "路由名"}, router.RouterMode.Standard, ()=>{})
+        this.getUIContext().getRouter().pushNamedRoute({ name: "路由名" }, router.RouterMode.Standard, () => {
+        })
         // [End pushNamedRoute4]
       })
       Button("replaceNamedRoute").onClick((event: ClickEvent) => {
         // [Start replaceNamedRoute]
-        this.getUIContext().getRouter().replaceNamedRoute({name: "路由名"})
+        this.getUIContext().getRouter().replaceNamedRoute({ name: "路由名" })
         // [End replaceNamedRoute]
       })
       Button("replaceNamedRoute2").onClick((event: ClickEvent) => {
         // [Start replaceNamedRoute2]
-        this.getUIContext().getRouter().replaceNamedRoute({name: "路由名"}, ()=>{})
+        this.getUIContext().getRouter().replaceNamedRoute({ name: "路由名" }, () => {
+        })
         // [End replaceNamedRoute2]
       })
       Button("replaceNamedRoute3").onClick((event: ClickEvent) => {
         // [Start replaceNamedRoute3]
-        this.getUIContext().getRouter().replaceNamedRoute({name: "路由名"}, router.RouterMode.Standard)
+        this.getUIContext().getRouter().replaceNamedRoute({ name: "路由名" }, router.RouterMode.Standard)
         // [End replaceNamedRoute3]
       })
       Button("replaceNamedRoute4").onClick((event: ClickEvent) => {
         // [Start replaceNamedRoute4]
-        this.getUIContext().getRouter().replaceNamedRoute({name: "路由名"}, router.RouterMode.Standard, ()=>{})
+        this.getUIContext().getRouter().replaceNamedRoute({ name: "路由名" }, router.RouterMode.Standard, () => {
+        })
         // [End replaceNamedRoute4]
       })
       Button("getParams").onClick((event: ClickEvent) => {
@@ -159,12 +175,12 @@ struct OHOSRouter {
       })
       Button("enableAlertBeforeBackPage").onClick((event: ClickEvent) => {
         // [Start enableAlertBeforeBackPage]
-        this.getUIContext().getRouter().showAlertBeforeBackPage({message: "1111"})
+        this.getUIContext().getRouter().showAlertBeforeBackPage({ message: "1111" })
         // [End enableAlertBeforeBackPage]
       })
       Button("showAlertBeforeBackPage").onClick((event: ClickEvent) => {
         // [Start showAlertBeforeBackPage]
-        this.getUIContext().getRouter().showAlertBeforeBackPage({message: "1111"})
+        this.getUIContext().getRouter().showAlertBeforeBackPage({ message: "1111" })
         // [End showAlertBeforeBackPage]
       })
       Button("disableAlertBeforeBackPage").onClick((event: ClickEvent) => {

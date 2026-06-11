@@ -16,8 +16,7 @@
  */
 
 // [Start router_hsp21]
-import { Component, NavDestination } from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+import { Component, NavDestination } from '@kit.ArkUI';
 import router from '@ohos.router';
 
 @Component

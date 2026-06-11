@@ -17,21 +17,17 @@
 import {
   Entry,
   Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
   Text,
   FontWeight,
   Row,
   Button,
   Column,
-  ButtonType
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  ButtonType,
+  State
+} from '@kit.ArkUI';
 import router from '@ohos.router';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+
 const DOMAIN = 0xF811;
 const TAG = '[Sample_ArkTSRouter]';
 
@@ -44,10 +40,10 @@ struct BackHome {
       url: 'pages/pageRouter/jumpPage/BackDetail' // 目标url
     }, router.RouterMode.Standard, (err) => {
       if (err) {
-        hilog.error(DOMAIN, TAG,`Invoke pushUrl failed, code is ${err.code}, message is ${err.message}`);
+        hilog.error(DOMAIN, TAG, `Invoke pushUrl failed, code is ${err.code}, message is ${err.message}`);
         return;
       }
-      hilog.info(DOMAIN, TAG,'Invoke pushUrl succeeded.');
+      hilog.info(DOMAIN, TAG, 'Invoke pushUrl succeeded.');
     });
   }
 

@@ -20,41 +20,24 @@ import {
   Component,
   Column,
   NavPathStack,
-  Button,
-  NavPathInfo,
   NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
   Text,
-  NavDestinationMode,
-  LaunchMode,
   Context,
-  Navigation,
-  TextInput,
   List,
   ForEach,
   ListItem,
-  TextAlign,
   $r,
-  Entry,
-  NavigationMode,
-  NavigationMenuItem,
   Row,
   FontWeight,
   FlexAlign,
   HorizontalAlign,
-  Blank,
   VerticalAlign,
   Axis,
   EdgeEffect,
-  StickyStyle
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  StickyStyle,
+  NavDestination,
+  Blank
+} from '@kit.ArkUI';
 
 @Builder
 export function PageTwoBuilder(name: string): void {
@@ -67,6 +50,7 @@ export struct PageTwo {
   name: string = '';
   private listArray: Array<string> = ['Projection', 'Print', 'VPN', 'Private DNS', 'NFC'];
   context: Context | undefined = this.getUIContext().getHostContext();
+
   build(): void {
     NavDestination() {
       Column() {
@@ -134,4 +118,5 @@ export struct PageTwo {
     })
   }
 }
+
 // [End NavigationExampleTwo]

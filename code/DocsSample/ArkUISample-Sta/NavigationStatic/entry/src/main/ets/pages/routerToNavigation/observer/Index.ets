@@ -18,27 +18,9 @@
 // [Start observer_index]
 // EntryAbility.ets
 import {
-  Entry,
-  Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
-  Text,
-  FontWeight,
-  Row,
-  Button,
-  Column,
-  ButtonType,
-  NavPathStack,
-  Navigation,
-  NavigationMode,
-} from '@ohos.arkui.component';
-import {
   UIContext, UIObserver
 } from '@ohos.arkui.UIContext';
-import { State } from '@ohos.arkui.stateManagement';
+import { State } from '@kit.ArkUI';
 import router from '@ohos.router';
 import uiObserver from '@ohos.arkui.observer';
 import window from '@ohos.window';

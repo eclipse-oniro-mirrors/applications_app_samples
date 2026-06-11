@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -12,8 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-'use static'
 
 // [Start age_friendly_tab]
 import { abilityManager, Configuration } from '@kit.AbilityKit';
@@ -35,10 +35,10 @@ import {
   Color,
   TabContent,
   HorizontalAlign,
-  NavDestination
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement'
-import uiAppearance from '@ohos.uiAppearance'
+  NavDestination,
+  State
+} from '@kit.ArkUI';
+import uiAppearance from '@ohos.uiAppearance';
 
 const DOMAIN = 0x0000;
 const TAG: string = 'AgeFriendlyTabs';

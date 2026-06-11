@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -13,7 +15,7 @@
  * limitations under the License.
  */
 
-'use static'
+
 
 import { ComponentCard } from '../../common/Card';
 
@@ -30,7 +32,7 @@ import {
   Text,
   TextAlign,
   NavDestination
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 import { State } from '@ohos.arkui.stateManagement'
 
 // [Start customize_transition_animations]

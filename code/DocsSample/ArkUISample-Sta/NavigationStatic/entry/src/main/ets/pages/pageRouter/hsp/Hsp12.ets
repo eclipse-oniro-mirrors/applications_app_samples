@@ -19,8 +19,7 @@
 // library/src/main/ets/pages/Index.ets
 // library为新建共享包自定义的名字
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { Entry, Component, Row, Text, FontWeight, Column } from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+import { Entry, Component, Row, Text, FontWeight, Column, State } from '@kit.ArkUI';
 import router from '@ohos.router';
 
 @Entry({ routeName: 'myPage' })

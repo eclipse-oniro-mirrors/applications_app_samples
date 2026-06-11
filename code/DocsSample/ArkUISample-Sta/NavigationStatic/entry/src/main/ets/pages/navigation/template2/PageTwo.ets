@@ -24,7 +24,7 @@ import {
   ButtonType,
   NavigationMenuItem,
   NavDestination
-} from '@ohos.arkui.component'
+} from '@kit.ArkUI';
 
 @Builder
 export function PageTwoBuilder(name: string, param: Object): void {

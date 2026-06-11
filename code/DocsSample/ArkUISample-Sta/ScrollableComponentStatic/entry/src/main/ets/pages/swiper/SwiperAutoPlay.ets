@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -13,12 +15,8 @@
  * limitations under the License.
  */
 
-'use static';
-
 import { ComponentCard } from '../../common/Card';
-
 import {
-  Entry,
   Column,
   Component,
   $r,
@@ -29,8 +27,7 @@ import {
   TextAlign,
   Color,
   NavDestination
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement'
+} from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -66,19 +63,19 @@ export struct SwiperAutoPlay {
           }
           // [StartExclude autoplay_loop_true]
           .height(200)
-      // [EndExclude autoplay_loop_true]
-      .loop(true)
-      .autoPlay(true)
-      .interval(1000)
+          // [EndExclude autoplay_loop_true]
+          .loop(true)
+          .autoPlay(true)
+          .interval(1000)
 
-    // [End autoplay_loop_true]
-  };
-}
+          // [End autoplay_loop_true]
+        };
+      }
       .width('100%')
-  .height('100%')
-  .padding({ left: 12, right: 12 })
+      .height('100%')
+      .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
-  .title($r('app.string.SwiperAutoPlay_title'))
+    .title($r('app.string.SwiperAutoPlay_title'))
   }
 }

@@ -16,7 +16,7 @@
  */
 
 // [Start observer_pageinfo]
-import { Component } from '@ohos.arkui.component';
+import { Component } from '@kit.ArkUI';
 import router from '@ohos.router';
 import uiObserver from '@ohos.arkui.observer';
 

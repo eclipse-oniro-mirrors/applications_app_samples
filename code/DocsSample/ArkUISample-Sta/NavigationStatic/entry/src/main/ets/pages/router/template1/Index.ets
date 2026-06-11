@@ -18,19 +18,15 @@ import {
   Entry,
   Component,
   Flex,
-  FlexOptions,
   FlexDirection,
   ItemAlign,
   FlexAlign,
   Text,
   FontWeight,
-  Row,
   Button,
-  Column,
   ButtonType,
   $r
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+} from '@kit.ArkUI';
 import router from '@ohos.router';
 import { BusinessError } from '@kit.BasicServicesKit';
 

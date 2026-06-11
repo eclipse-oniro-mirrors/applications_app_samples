@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -13,13 +15,11 @@
  * limitations under the License.
  */
 
-'use static'
-
 import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
-import hilog from '@ohos.hilog'
+import hilog from '@ohos.hilog';
 import { window } from '@kit.ArkUI';
-import { Context } from '@ohos.arkui.component'
-import { BusinessError } from '@ohos.base'
+import { Context } from '@ohos.arkui.component';
+import { BusinessError } from '@ohos.base';
 
 export let globalContext: Context | undefined = undefined;
 

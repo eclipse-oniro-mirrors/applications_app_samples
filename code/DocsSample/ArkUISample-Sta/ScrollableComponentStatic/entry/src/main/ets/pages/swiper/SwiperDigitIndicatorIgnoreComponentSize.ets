@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -12,8 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-'use static'
 
 import { LengthMetrics } from '@kit.ArkUI';
 import { ComponentCard } from '../../common/Card';
@@ -34,7 +34,7 @@ import {
   Text,
   TextAlign,
   NavDestination
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 
 export class MyDataSource implements IDataSource<string> { // IDataSource强制要求声明<T>类型
   private listeners: Array<DataChangeListener> = [];

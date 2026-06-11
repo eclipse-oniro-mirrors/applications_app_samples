@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 import { UIContext } from '@ohos.arkui.UIContext';
-import { Resource } from '@ohos.arkui.component';
+import { Resource } from '@kit.ArkUI';
 
 export default class P2PManager {
   public resourceToString(uiContext: UIContext, resource: Resource): string | undefined {

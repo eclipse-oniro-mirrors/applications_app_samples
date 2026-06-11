@@ -24,13 +24,19 @@ import {
   Row,
   FontWeight,
   NodeContainer,
-  wrapBuilder
-} from '@ohos.arkui.component'
-import { NodeController, BuilderNode, FrameNode } from '@kit.ArkUI';
-import { UIContext, FrameCallback } from '@ohos.arkui.UIContext';
+  wrapBuilder,
+  State,
+  StoragePropRef,
+  PropRef,
+  Watch,
+  NodeController,
+  BuilderNode,
+  FrameNode,
+  UIContext
+} from '@kit.ArkUI';
+import { FrameCallback } from '@ohos.arkui.UIContext';
 import { AbilityConstant, Configuration, ConfigurationConstant, EnvironmentCallback } from '@kit.AbilityKit';
 import hilog from '@ohos.hilog';
-import { State, StoragePropRef, PropRef, Watch } from '@ohos.arkui.stateManagement';
 
 const TAG = '[Sample_ColorAdaption_Sys]';
 const DOMAIN = 0xFF00;

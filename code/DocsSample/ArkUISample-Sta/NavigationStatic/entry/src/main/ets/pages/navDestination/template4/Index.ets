@@ -16,6 +16,7 @@
  */
 import { window } from '@kit.ArkUI';
 import {
+  window,
   Component,
   Entry,
   NavDestination,
@@ -28,7 +29,7 @@ import {
   Alignment,
   LayoutSafeAreaType,
   LayoutSafeAreaEdge
-} from '@ohos.arkui.component'
+} from '@kit.ArkUI';
 
 @Component
 struct PortraitPage {

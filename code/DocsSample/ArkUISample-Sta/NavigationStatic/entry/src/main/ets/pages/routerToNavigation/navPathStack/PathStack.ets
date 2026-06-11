@@ -15,34 +15,18 @@
  * limitations under the License.
  */
 import {
-  Entry,
-  Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
-  Text,
-  FontWeight,
-  Row,
-  Button,
-  Column,
-  ButtonType,
-  NavPathStack,
-  Navigation,
-  NavigationMode,
-  NavPathInfo
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
-import router from '@ohos.router';
+  Entry, Component, NavPathStack, Navigation, NavigationMode, NavPathInfo
+} from '@kit.ArkUI';
 
 @Entry
 @Component
 struct Index {
   pathStack: NavPathStack = new NavPathStack();
+
   aboutToAppear(): void {
     this.Navigation();
   }
+
   build() {
     // 设置NavPathStack并传入Navigation
     Navigation(this.pathStack) {
@@ -53,7 +37,7 @@ struct Index {
     .mode(NavigationMode.Stack)
   }
 
-  Navigation(){
+  Navigation() {
     // [Start nav_stack_two]
     this.pathStack.pop();
     // push page

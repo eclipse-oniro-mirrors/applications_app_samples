@@ -27,9 +27,9 @@ import {
   WithTheme,
   ThemeColorMode,
   SafeAreaType,
-  SafeAreaEdge
-} from '@ohos.arkui.component'
-import { State } from '@ohos.arkui.stateManagement';
+  SafeAreaEdge,
+  State
+} from '@kit.ArkUI';
 
 @Entry
 @Component

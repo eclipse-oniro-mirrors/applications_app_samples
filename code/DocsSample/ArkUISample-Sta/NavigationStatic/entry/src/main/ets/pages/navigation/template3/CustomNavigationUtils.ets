@@ -16,9 +16,8 @@
  */
 
 import {
-  NavigationOperation,
-  NavigationTransitionProxy
-} from '@ohos.arkui.component'
+  NavigationOperation, NavigationTransitionProxy
+} from '@kit.ArkUI';
 
 export interface AnimateCallback {
   finish: ((isPush: boolean, isExit: boolean) => void | undefined) | undefined;

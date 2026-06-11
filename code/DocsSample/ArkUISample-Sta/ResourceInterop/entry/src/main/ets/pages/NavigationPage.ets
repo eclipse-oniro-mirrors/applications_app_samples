@@ -28,7 +28,7 @@ import {
   Navigation,
   NavPathInfo,
   NavDestination,
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 import { PageOne } from 'library';
 
 let pathStack: NavPathStack = new NavPathStack()

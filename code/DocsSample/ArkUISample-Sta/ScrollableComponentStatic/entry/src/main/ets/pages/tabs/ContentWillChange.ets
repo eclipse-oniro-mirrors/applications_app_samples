@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -12,8 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-'use static'
 
 import { ComponentCard } from '../../common/Card';
 
@@ -35,9 +35,9 @@ import {
   Scroller,
   TabsController,
   AnimationMode,
-  NavDestination
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement'
+  NavDestination,
+  State
+} from '@kit.ArkUI';
 
 // [Start switch_the_tab_specific_tab]
 // [StartExclude switch_the_tab_specific_tab]

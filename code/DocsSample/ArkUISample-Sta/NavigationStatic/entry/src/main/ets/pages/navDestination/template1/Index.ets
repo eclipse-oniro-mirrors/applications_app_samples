@@ -14,8 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { SymbolGlyphModifier } from '@kit.ArkUI';
 import {
+  SymbolGlyphModifier,
   Color,
   Component,
   $r,
@@ -41,7 +41,7 @@ import {
   NestedScrollOptions,
   NavDestination,
   Navigation
-} from '@ohos.arkui.component'
+} from '@kit.ArkUI';
 
 @Component
 struct MyPageOne {
@@ -73,7 +73,10 @@ struct MyPageOne {
               }
             }, (item: number) => item.toString());
           }.width('100%').height('80%').scrollBar(BarState.Off)
-          .nestedScroll({ scrollForward: NestedScrollMode.SELF_FIRST, scrollBackward: NestedScrollMode.SELF_FIRST } as NestedScrollOptions)
+          .nestedScroll({
+            scrollForward: NestedScrollMode.SELF_FIRST,
+            scrollBackward: NestedScrollMode.SELF_FIRST
+          } as NestedScrollOptions)
 
           ForEach(this.arr, (item: number, index: int) => {
             ListItem() {

@@ -29,7 +29,7 @@ import {
   ButtonType,
   Stack,
   Alignment
-} from '@ohos.arkui.component'
+} from '@kit.ArkUI';
 
 class PageParam {
   constructor(num_: number) {

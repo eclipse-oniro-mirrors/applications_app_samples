@@ -25,9 +25,9 @@ import {
   NavPathStack,
   Navigation,
   NavPathInfo,
-  NavDestination
-} from '@ohos.arkui.component'
-import { State } from '@ohos.arkui.stateManagement'
+  NavDestination,
+  State
+} from '@kit.ArkUI'
 import hilog from '@ohos.hilog'
 
 @Entry

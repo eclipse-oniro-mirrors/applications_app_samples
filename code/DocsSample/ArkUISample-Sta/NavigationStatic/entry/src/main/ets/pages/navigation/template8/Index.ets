@@ -28,9 +28,9 @@ import {
   NavDestinationContext,
   ButtonType,
   Stack,
-  Alignment
-} from '@ohos.arkui.component'
-import { State } from '@ohos.arkui.stateManagement';
+  Alignment,
+  State
+} from '@kit.ArkUI';
 
 @Builder
 export function PageOneBuilder(name: string, param: Object): void {

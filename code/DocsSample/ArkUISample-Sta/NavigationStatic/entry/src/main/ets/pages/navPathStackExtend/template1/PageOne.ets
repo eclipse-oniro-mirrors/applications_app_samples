@@ -18,49 +18,8 @@ import uiObserver from '@ohos.arkui.observer';
 import resourceManager from '@ohos.resourceManager';
 
 import {
-  Color,
-  Component,
-  $r,
-  Padding,
-  Column,
-  ColumnOptions,
-  TextAlign,
-  Text,
-  Entry,
-  NavDestination,
-  Scroller,
-  ListOptions,
-  NestedScrollMode,
-  BarState,
-  ScrollDirection,
-  EdgeEffect,
-  NavPathStack,
-  Navigation,
-  Button,
-  NavPathInfo,
-  FlexAlign,
-  BarStyle,
-  List,
-  ForEach,
-  ListItem,
-  Scroll,
-  NestedScrollOptions,
-  NavDestinationContext,
-  NavigationOperation,
-  NavigationMode,
-  ButtonType,
-  NavigationInterception,
-  BlurStyle,
-  BackgroundBlurStyleOptions,
-  AdaptiveColor,
-  ThemeColorMode,
-  BackgroundEffectOptions,
-  Row,
-  Stack,
-  Alignment,
-  NavDestinationInfo
-} from '@ohos.arkui.component'
-import { State, Provide } from '@ohos.arkui.stateManagement'
+  Component, $r, Column, Text, Button, State, NavDestination
+} from '@kit.ArkUI';
 
 @Builder
 export function PageOneBuilder(): void {

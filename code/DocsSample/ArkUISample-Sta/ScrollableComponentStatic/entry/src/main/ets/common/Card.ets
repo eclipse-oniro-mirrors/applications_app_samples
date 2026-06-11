@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -13,8 +15,6 @@
  * limitations under the License.
  */
 
-'use static'
-
 import {
   Text,
   Column,
@@ -22,7 +22,6 @@ import {
   Button,
   BuilderParam,
   Row,
-  Blank,
   HorizontalAlign,
   ResourceStr,
   VerticalAlign,
@@ -34,9 +33,11 @@ import {
   ButtonType,
   ColumnOptions,
   ButtonOptions,
-  RowOptions
-} from '@ohos.arkui.component'
-import { State, PropRef, Require } from '@ohos.arkui.stateManagement'
+  RowOptions,
+  PropRef,
+  Require,
+  Blank
+} from '@kit.ArkUI';
 
 @Component
 export struct CompletedRoutableCard {

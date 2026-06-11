@@ -37,13 +37,10 @@ import {
   Radio,
   RadioOptions,
   Slider,
-  Toggle,
-  ToggleType,
   ButtonRole,
   ResourceColor,
-  ToggleOptions
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  State
+} from '@kit.ArkUI';
 
 // 在页面build前执行ThemeControl
 ThemeControl.setDefaultTheme(gAppTheme);

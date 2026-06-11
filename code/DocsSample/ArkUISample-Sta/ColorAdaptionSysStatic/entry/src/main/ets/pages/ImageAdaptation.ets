@@ -16,19 +16,12 @@
  */
 
 import {
-  Component,
-  Text,
-  $r,
-  Entry,
-  Image,
-  RelativeContainer,
-  $rawfile
-} from '@ohos.arkui.component'
+  Component, Text, $r, Entry, Image, RelativeContainer, $rawfile
+} from '@kit.ArkUI';
 
 @Entry
 @Component
 struct ImageAdaptation {
-
   build() {
     RelativeContainer() {
       // [Start image_adaptation]
@@ -39,7 +32,7 @@ struct ImageAdaptation {
       // [Start image_adaptation_image]
       Image($rawfile('app.media.pic_svg.svg'))
         .width(100)
-        .margin({top:20})
+        .margin({ top: 20 })
         .fillColor($r('sys.color.ohos_id_color_text_primary'))
       // [End image_adaptation_image]
     }

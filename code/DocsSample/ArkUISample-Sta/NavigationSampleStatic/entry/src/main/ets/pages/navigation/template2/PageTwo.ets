@@ -15,40 +15,15 @@
  * limitations under the License.
  */
 import {
-  Color,
   Component,
   Column,
   NavPathStack,
   Button,
-  NavPathInfo,
   NavDestinationContext,
-  NavigationOperation,
   ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
-  Text,
-  NavDestinationMode,
-  LaunchMode,
-  Context,
-  Navigation,
-  TextInput,
-  List,
-  ForEach,
-  ListItem,
-  TextAlign,
-  $r,
-  Entry,
-  NavigationMode,
   NavigationMenuItem,
-  HorizontalAlign,
-  Row,
-  Image,
-  NavigationTitleMode
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+  NavDestination
+} from '@kit.ArkUI';
 
 @Builder
 export function PageTwoBuilder(name: string, param: Object): void {

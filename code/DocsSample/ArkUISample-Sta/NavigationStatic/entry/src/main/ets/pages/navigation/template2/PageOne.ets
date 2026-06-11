@@ -25,7 +25,7 @@ import {
   ButtonType,
   LaunchMode,
   NavDestination
-} from '@ohos.arkui.component'
+} from '@kit.ArkUI';
 
 class TmpClass {
   count: number = 10;

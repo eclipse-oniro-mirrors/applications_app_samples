@@ -15,50 +15,31 @@
  * limitations under the License.
  */
 import {
-  Color,
   Component,
   Column,
   NavPathStack,
   Button,
   NavPathInfo,
   NavDestinationContext,
-  NavigationOperation,
   ButtonType,
-  GestureEvent,
-  PanGesture,
   NavDestination,
-  ColumnOptions,
   Stack,
   Text,
-  NavDestinationMode,
-  LaunchMode,
-  Context,
   Navigation,
-  TextInput,
-  List,
-  ForEach,
-  ListItem,
-  TextAlign,
-  $r,
   Entry,
-  NavigationMode,
-  NavigationMenuItem,
-  HorizontalAlign,
-  Row,
-  Image,
-  NavigationTitleMode,
   Alignment
-} from '@ohos.arkui.component'
-import { State, AppStorage, Provide, Consume } from '@ohos.arkui.stateManagement';
+} from '@kit.ArkUI';
 
 class NavParam {
   public desc: string = 'navigationOnReady-param'
-};
+}
+;
 
 @Builder
 export function PageOneBuilder(name: string, param: Object): void {
   Page01();
 }
+
 // [Start onReady]
 @Component
 struct Page01 {
@@ -67,6 +48,7 @@ struct Page01 {
   private name: string = '';
   // [EndExclude onReady]
   pageParam: string = '';
+
   build() {
     NavDestination() {
       // [StartExclude onReady]
@@ -84,6 +66,7 @@ struct Page01 {
     })
   }
 }
+
 // [End onReady]
 @Entry
 @Component

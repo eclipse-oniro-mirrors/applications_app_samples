@@ -27,9 +27,9 @@ import {
   ButtonType,
   GestureEvent,
   PanGesture,
-  NavDestination
-} from '@ohos.arkui.component'
-import { State } from '@ohos.arkui.stateManagement';
+  NavDestination,
+  State
+} from '@kit.ArkUI';
 
 @Builder
 export function PageOneBuilder(name: string, param: Object): void {

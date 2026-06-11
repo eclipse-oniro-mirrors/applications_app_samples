@@ -19,25 +19,8 @@
 // library/src/main/ets/pages/Index.ets
 // library为新建共享包自定义的名字
 import {
-  Entry,
-  Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
-  Text,
-  FontWeight,
-  Row,
-  Button,
-  Column,
-  ButtonType,
-  NavPathStack,
-  Navigation,
-  NavigationMode
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
-import router from '@ohos.router';
+  Entry, Component, Text, FontWeight, Column, Row
+} from '@kit.ArkUI';
 
 @Entry({ routeName: 'myPage' })
 @Component
@@ -54,4 +37,5 @@ export struct MyComponent {
     .height('100%')
   }
 }
+
 // [End router_hsp11]

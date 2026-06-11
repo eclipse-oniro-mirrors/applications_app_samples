@@ -28,7 +28,7 @@ import {
   NavigationMode,
   ButtonType,
   NavigationInterception
-} from '@ohos.arkui.component'
+} from '@kit.ArkUI';
 
 @Entry
 @Component

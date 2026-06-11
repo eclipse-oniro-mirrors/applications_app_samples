@@ -17,10 +17,19 @@
 
 // [Start OHOSRouter]
 // entry\src\main\ets\pages\routerAndNavigation\ohosRouter.ets
-import { Entry, Button, ClickEvent, Column, Component, Text, FontWeight, ColumnOptions } from '@ohos.arkui.component';
-import { UIContext } from '@ohos.arkui.UIContext';
+import {
+  Entry,
+  Button,
+  ClickEvent,
+  Column,
+  Component,
+  Text,
+  FontWeight,
+  ColumnOptions,
+  UIContext,
+  State
+} from '@kit.ArkUI';
 import router from '@ohos.router';
-import { State } from '@ohos.arkui.stateManagement';
 
 @Entry
 @Component
@@ -116,7 +125,12 @@ struct OHOSRouter {
       })
       Button("RouterState").onClick((event: ClickEvent) => {
         // [Start RouterState]
-        let state: router.RouterState = { index: 0, name: "name", path: "url", params: {} }
+        let state: router.RouterState = {
+          index: 0,
+          name: "name",
+          path: "url",
+          params: {}
+        }
         // [End RouterState]
       })
       Button("RouterState_index").onClick((event: ClickEvent) => {

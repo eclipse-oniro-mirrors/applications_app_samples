@@ -20,9 +20,9 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { CustomColors, ThemeControl } from '@ohos.arkui.theme';
-import { ResourceColor } from '@ohos.arkui.component';
+import { ResourceColor } from '@kit.ArkUI';
 import window from '@ohos.window';
-import { BusinessError } from '@ohos.base'
+import { BusinessError } from '@ohos.base';
 
 class AppColors implements CustomColors {
   fontPrimary?: ResourceColor = "#FFD53032";

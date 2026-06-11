@@ -37,9 +37,9 @@ import {
   ScrollAnimationOptions,
   Curve,
   NavDestination,
-  $r
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement'
+  $r,
+  State
+} from '@kit.ArkUI';
 
 // 如需作为页面入口，请取消@Entry的注释并删除export关键字
 @Entry

@@ -19,67 +19,69 @@
 import {
   Entry,
   Component,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
   Text,
   FontWeight,
   Row,
   Button,
   Column,
   ButtonType,
-  $r
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
-import router from '@ohos.router';
-import { promptAction} from '@kit.ArkUI';
+  $r,
+  promptAction,
+  State
+} from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+
 const DOMAIN = 0xF811;
 const TAG = '[Sample_ArkTSRouter]';
+
 // [End page_showDialog1]
 
 @Entry
 @Component
 struct ShowAlert {
   @State message: string = 'Examples of ShowDialog';
+
   // [Start page_showDialog2]
   onBackClick() {
     // 弹出自定义的询问框
-    this.getUIContext().getPromptAction().showDialog({
-      // 您还没有完成支付，确定要返回吗？
-      // 请将$r('app.string.pageRouter_dialog_context')替换为实际资源文件，在本示例中该资源文件的value值为"您还没有完成支付，确定要返回吗？"
-      message: $r('app.string.pageRouter_dialog_context'),
-      buttons: [
-        {
-          // 请将$r('app.string.pageRouter_dialog_canceled')替换为实际资源文件，在本示例中该资源文件的value值为"取消"
-          text: $r('app.string.pageRouter_dialog_canceled'),
-          color: '#FF0000'
-        },
-        {
-          // 请将$r('app.string.pageRouter_dialog_confirmed')替换为实际资源文件，在本示例中该资源文件的value值为"确认"
-          text: $r('app.string.pageRouter_dialog_confirmed'),
-          color: '#0099FF'
+    this.getUIContext()
+      .getPromptAction()
+      .showDialog({
+        // 您还没有完成支付，确定要返回吗？
+        // 请将$r('app.string.pageRouter_dialog_context')替换为实际资源文件，在本示例中该资源文件的value值为"您还没有完成支付，确定要返回吗？"
+        message: $r('app.string.pageRouter_dialog_context'),
+        buttons: [
+          {
+            // 请将$r('app.string.pageRouter_dialog_canceled')替换为实际资源文件，在本示例中该资源文件的value值为"取消"
+            text: $r('app.string.pageRouter_dialog_canceled'),
+            color: '#FF0000'
+          },
+          {
+            // 请将$r('app.string.pageRouter_dialog_confirmed')替换为实际资源文件，在本示例中该资源文件的value值为"确认"
+            text: $r('app.string.pageRouter_dialog_confirmed'),
+            color: '#0099FF'
+          }
+        ]
+      })
+      .then((result: promptAction.ShowDialogSuccessResponse) => {
+        if (result.index === 0) {
+          // 用户点击了“取消”按钮
+          hilog.info(DOMAIN, TAG, 'User canceled the operation.');
+        } else if (result.index === 1) {
+          // 用户点击了“确认”按钮
+          hilog.info(DOMAIN, TAG, 'User confirmed the operation.');
+          // 调用this.getUIContext().getRouter().back()方法，返回上一个页面
+          this.getUIContext().getRouter().back();
         }
-      ]
-    }).then((result: promptAction.ShowDialogSuccessResponse) => {
-      if (result.index === 0) {
-        // 用户点击了“取消”按钮
-        hilog.info(DOMAIN, TAG, 'User canceled the operation.');
-      } else if (result.index === 1) {
-        // 用户点击了“确认”按钮
-        hilog.info(DOMAIN, TAG, 'User confirmed the operation.');
-        // 调用this.getUIContext().getRouter().back()方法，返回上一个页面
-        this.getUIContext().getRouter().back();
-      }
-    }).catch((err: Error) => {
-      let message = (err as BusinessError).message;
-      let code = (err as BusinessError).code;
-      hilog.error(DOMAIN, TAG, `Invoke showDialog failed, code is ${code}, message is ${message}`);
-    });
+      })
+      .catch((err: Error) => {
+        let message = (err as BusinessError).message;
+        let code = (err as BusinessError).code;
+        hilog.error(DOMAIN, TAG, `Invoke showDialog failed, code is ${code}, message is ${message}`);
+      });
   }
+
   // [End page_showDialog2]
 
   build() {

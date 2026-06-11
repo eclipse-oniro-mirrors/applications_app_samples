@@ -16,25 +16,8 @@
  */
 // [Start NewsDetail]
 import {
-  Color,
-  Component,
-  Column,
-  NavPathStack,
-  Button,
-  NavPathInfo,
-  NavDestinationContext,
-  NavigationOperation,
-  ButtonType,
-  GestureEvent,
-  PanGesture,
-  NavDestination,
-  ColumnOptions,
-  Stack,
-  Text,
-  NavDestinationMode,
-  LaunchMode
-} from '@ohos.arkui.component'
-import { State, AppStorage } from '@ohos.arkui.stateManagement';
+  Component, Column, NavDestinationContext, NavDestination, Text, State
+} from '@kit.ArkUI';
 
 // 自定义的参数类型，用于在push页面时给子页传递参数
 export class NewsItem {
@@ -75,4 +58,5 @@ struct NewsDetail {
     })
   }
 }
+
 // [End NewsDetail]

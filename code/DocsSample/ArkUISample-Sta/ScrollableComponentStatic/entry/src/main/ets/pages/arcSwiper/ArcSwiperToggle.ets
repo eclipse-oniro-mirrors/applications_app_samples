@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -13,8 +15,6 @@
  * limitations under the License.
  */
 
-'use static'
-
 // [Start toggle]
 // 导入ArcButton和ArcSwiper模块
 import { ArcSwiper, ArcSwiperController } from '@ohos.arkui.ArcSwiper';
@@ -24,7 +24,7 @@ import {
   ArcButtonStyleMode,
   ArcButtonPosition
 } from '@ohos.arkui.advanced.ArcButton'
-import { Color, Component, $r, Column, ColumnOptions, Entry, Stack, Text, TextAlign, CrownSensitivity, Blank, NavDestination } from '@ohos.arkui.component'
+import { Color, Component, $r, Column, ColumnOptions, Entry, Stack, Text, TextAlign, CrownSensitivity, Blank, NavDestination } from '@kit.ArkUI';
 // [StartExclude toggle]
 import { ComponentCard } from '../../common/Card';
 
