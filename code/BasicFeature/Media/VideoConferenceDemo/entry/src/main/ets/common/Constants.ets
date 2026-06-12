@@ -1,4 +1,4 @@
-import { audio } from "@kit.AudioKit";
+import { audio } from '@kit.AudioKit';
 
 export default class Constants {
   public static readonly DOMAIN: number = 0xFF00;

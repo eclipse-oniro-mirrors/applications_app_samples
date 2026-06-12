@@ -36,7 +36,7 @@ export function startContinuousTask(context: Context | undefined) {
 
   wantAgent.getWantAgent(wantAgentInfo)
     .then((wantAgentObj: WantAgent) => {
-      let list: Array<string> = ['audioRecording'];
+      let list: string[] = ['audioRecording'];
       backgroundTaskManager.startBackgroundRunning(context, list, wantAgentObj)
         .then(() => {
           Logger.info('Operation startBackgroundRunning succeeded');

@@ -17,18 +17,20 @@
 #include "capabilities/AVScreenCapture.h"
 #include <multimedia/player_framework/native_avscreen_capture_errors.h>
 
-AVScreenCapture capturer;
+AVScreenCapture g_capturer;
 
-napi_value StopScreenCaptureToFile(napi_env env, napi_callback_info info) {
+napi_value StopScreenCaptureToFile(napi_env env, napi_callback_info info)
+{
     (void)info;
     OH_AVSCREEN_CAPTURE_ErrCode result = AV_SCREEN_CAPTURE_ERR_OPERATE_NOT_PERMIT;
     napi_value res;
-    result = capturer.StopScreenCaptureToFile();
+    result = g_capturer.StopScreenCaptureToFile();
     napi_create_int32(env, result, &res);
     return res;
 }
 
-napi_value StartScreenCaptureToFile(napi_env env, napi_callback_info info) {
+napi_value StartScreenCaptureToFile(napi_env env, napi_callback_info info)
+{
     size_t argc = 2;
     napi_value args[2] = {nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
@@ -42,27 +44,29 @@ napi_value StartScreenCaptureToFile(napi_env env, napi_callback_info info) {
     }
     bool isMicrophone;
     napi_get_value_bool(env, args[1], &isMicrophone);
-    OH_AVSCREEN_CAPTURE_ErrCode result = capturer.StartScreenCaptureToFile(outputFd, isMicrophone);
+    OH_AVSCREEN_CAPTURE_ErrCode result = g_capturer.StartScreenCaptureToFile(outputFd, isMicrophone);
     napi_value res;
     napi_create_int32(env, result, &res);
     return res;
 }
 
-napi_value SetMicrophoneEnabled(napi_env env, napi_callback_info info) {
+napi_value SetMicrophoneEnabled(napi_env env, napi_callback_info info)
+{
     size_t argc = 1;
     napi_value args[1] = {nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     bool isMicrophone;
     napi_get_value_bool(env, args[0], &isMicrophone);
-    OH_AVSCREEN_CAPTURE_ErrCode result = capturer.SetMicrophoneEnabled(isMicrophone);
+    OH_AVSCREEN_CAPTURE_ErrCode result = g_capturer.SetMicrophoneEnabled(isMicrophone);
     napi_value res;
     napi_create_int32(env, result, &res);
     return res;
 }
 
 EXTERN_C_START
-static napi_value Init(napi_env env, napi_value exports) {
+static napi_value Init(napi_env env, napi_value exports)
+{
     napi_property_descriptor desc[] = {
         {"setStartCallbackToFile", nullptr, AVScreenCapture::SetStartCallbackToFile, nullptr, nullptr, nullptr,
          napi_default, nullptr},
@@ -88,4 +92,7 @@ static napi_module demoModule = {
     .reserved = {0},
 };
 
-extern "C" __attribute__((constructor)) void RegisterEntryModule(void) { napi_module_register(&demoModule); }
+extern "C" __attribute__((constructor)) void RegisterEntryModule(void)
+{
+    napi_module_register(&demoModule);
+}

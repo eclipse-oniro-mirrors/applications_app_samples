@@ -18,7 +18,7 @@ export class ToolBarItem {
   @Track iconActiveColors?: ResourceColor[];
   @Track iconInActiveColors?: ResourceColor[];
   @Track isActive: boolean;
-  onClick: (isActive: boolean) => void;
+  public onClick: (isActive: boolean) => void;
 
   constructor(item: ToolBarItemType) {
     this.id = item.id;

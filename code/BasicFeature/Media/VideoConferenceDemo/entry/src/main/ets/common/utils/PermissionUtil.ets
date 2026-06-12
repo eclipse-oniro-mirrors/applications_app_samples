@@ -23,7 +23,8 @@ export async function checkPermission(permission: Permissions): Promise<abilityA
   let grantStatus: abilityAccessCtrl.GrantStatus = abilityAccessCtrl.GrantStatus.PERMISSION_DENIED;
 
   try {
-    let bundleInfo: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
+    let bundleInfo: bundleManager.BundleInfo =
+      await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
     let tokenId: number = bundleInfo.appInfo.accessTokenId;
     grantStatus = await abilityAccessCtrl.createAtManager().checkAccessToken(tokenId, permission);
   } catch (err) {

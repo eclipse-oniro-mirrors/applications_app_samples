@@ -1,5 +1,5 @@
-import { window } from "@kit.ArkUI";
-import Constants from "./Constants";
+import { window } from '@kit.ArkUI';
+import Constants from './Constants';
 
 export class SubWindowManager {
   private static window: window.Window = window.findWindow(Constants.SUB_WINDOW_NAME);
