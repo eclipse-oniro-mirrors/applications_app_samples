@@ -87,7 +87,8 @@ void AVScreenCapture::ReleaseAVScreenCapture(struct OH_AVScreenCapture *capture)
 void AVScreenCapture::OnStateChangeSaveFile(struct OH_AVScreenCapture *capture,
                                             OH_AVScreenCaptureStateCode stateCode, void *userData)
 {
-    (void)capture; (void)userData;
+    (void)capture;
+    (void)userData;
     switch (stateCode) {
         case OH_SCREEN_CAPTURE_STATE_STARTED: {
             CallStartCallback();

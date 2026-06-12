@@ -1,10 +1,10 @@
-# HarmonyOS会议直播应用
+# 视频会议应用
 
 ## 概述
 
-本示例应用展示了 HarmonyOS 视频会议场景下的核心媒体能力集成方案，基于 AVScreenCapture 和 AVCastPicker 等 HarmonyOS 原生能力，实现了音频录制、麦克风静音控制、音频输出设备切换以及屏幕录制等功能。在视频会议场景中，用户需要录制会议内容（包括屏幕画面和系统音频），并在不同环境下灵活切换音频输出设备（如扬声器、听筒、蓝牙耳机等），同时还需要后台保活以确保录屏任务持续运行。
+本示例应用展示了视频会议场景下的核心媒体能力集成方案，基于 AVScreenCapture 和 AVCastPicker 等原生能力，实现了音频录制、麦克风静音控制、音频输出设备切换以及屏幕录制等功能。在视频会议场景中，用户需要录制会议内容（包括屏幕画面和系统音频），并在不同环境下灵活切换音频输出设备（如扬声器、听筒、蓝牙耳机等），同时还需要后台保活以确保录屏任务持续运行。
 
-为解决多音频流播放冲突问题，系统采用了音频焦点机制，只有获得音频焦点的音频流可以正常播放，失去音频焦点的音频流则不能播放。本示例在音频焦点管理上采用了特定策略：由于当前系统限制，AVScreenCapture 无法录制 VOIP 类型的音频，因此将音频流类型配置为 STREAM_USAGE_MUSIC，这可能被其他音乐应用打断。如果是实际的 VoIP 会议应用，建议使用 STREAM_USAGE_VOICE_COMMUNICATION 以获得更好的音频焦点保护。该示例适用于视频会议录制与回放、在线教育课程录制、远程协作演示记录等场景，为开发者提供了完整的技术参考实现。
+为解决多音频流播放冲突问题，系统采用了音频焦点机制，只有获得音频焦点的音频流可以正常播放，失去音频焦点的音频流则不能播放。本示例在音频焦点管理上采用了特定策略：由于当前系统限制，AVScreenCapture 无法录制 VOIP 类型的音频，因此将音频流类型配置为 STREAM_USAGE_MUSIC，这可能被其它音乐应用打断。如果是实际的 VoIP 会议应用，建议使用 STREAM_USAGE_VOICE_COMMUNICATION 以获得更好的音频焦点保护。该示例适用于视频会议录制与回放、在线教育课程录制、远程协作演示记录等场景，为开发者提供了完整的技术参考实现。
 
 ## 效果预览
 ![](screenshots/devices/phone.png)
@@ -63,7 +63,7 @@
 
 #### 音频设备切换流程
 
-AudioDevice 组件基于 AVCastPicker 实现，在组件初始化时通过 AudioRoutingManager.getPreferredOutputDeviceForRendererInfoSync() 获取当前首选输出设备，并监听 preferOutputDeviceChangeForRendererInfo 事件。用户点击组件后弹出系统设备选择面板，选择设备后触发回调，AudioDevice 组件根据设备类型（听筒/扬声器/蓝牙）更新图标并显示 Toast 提示。音频焦点策略配置为 STREAM_USAGE_MUSIC，以支持 AVScreenCapture 录制系统音频。
+AudioDevice 组件基于 AVCastPicker 实现，在组件初始化时通过 AudioRoutingManager.getPreferredOutputDeviceForRendererInfoSync() 获取当前推荐输出设备，并监听 preferOutputDeviceChangeForRendererInfo 事件。用户点击组件后弹出系统设备选择面板，选择设备后触发回调，AudioDevice 组件根据设备类型（听筒/扬声器/蓝牙）更新图标并显示 Toast 提示。音频焦点策略配置为 STREAM_USAGE_MUSIC，以支持 AVScreenCapture 录制系统音频。
 
 ### 3. 关键技术实现
 
@@ -77,7 +77,7 @@ Native 层录屏状态回调运行在非主线程，需要使用 NAPI 线程安�
 
 #### 音频焦点管理策略
 
-系统采用音频焦点机制协调多音频流播放，只有获得焦点的音频流可以正常播放。本示例将音频流类型配置为 STREAM_USAGE_MUSIC（而非 STREAM_USAGE_VOICE_COMMUNICATION），原因是 AVScreenCapture 当前无法录制 VOIP 类型音频。STREAM_USAGE_MUSIC 类型的音频流会被其他音乐应用打断，但可以录制系统音频。实际 VoIP 会议应用建议使用 STREAM_USAGE_VOICE_COMMUNICATION 类型，获得更高优先级和更好的焦点保护。
+系统采用音频焦点机制协调多音频流播放，只有获得焦点的音频流可以正常播放。本示例将音频流类型配置为 STREAM_USAGE_MUSIC（而非 STREAM_USAGE_VOICE_COMMUNICATION），原因是 AVScreenCapture 当前无法录制 VOIP 类型音频。STREAM_USAGE_MUSIC 类型的音频流会被其它音乐应用打断，但可以录制系统音频。实际 VoIP 会议应用建议使用 STREAM_USAGE_VOICE_COMMUNICATION 类型，获得更高优先级和更好的焦点保护。
 
 #### 状态回调处理机制
 
@@ -281,9 +281,9 @@ private async initAVSession() {
 }
 ```
 
-**3. 监听首选输出设备变化**
+**3. 监听推荐输出设备变化**
 
-在AudioDevice组件的watchPreferredOutputDeviceChange方法中，监听首选输出设备的变化，实时更新UI图标和提示信息。
+在AudioDevice组件的watchPreferredOutputDeviceChange方法中，监听推荐输出设备的变化，实时更新UI图标和提示信息。
 
 ```typescript
 watchPreferredOutputDeviceChange() {
@@ -336,13 +336,13 @@ handleOutputDeviceChange(deviceType: audio.DeviceType) {
 
 **音频焦点策略说明**
 
-在视频会议场景中，音频焦点管理至关重要。HarmonyOS 采用音频焦点策略来协调多个应用的音频播放：
+在视频会议场景中，音频焦点管理至关重要。系统采用音频焦点策略来协调多个应用的音频播放：
 
-- **STREAM_USAGE_MUSIC 类型音频**：普通音乐类音频流，当其他音乐类应用播放时会互相打断。例如，正在播放音乐时打开另一个音乐应用，前一个应用会被暂停。
+- **STREAM_USAGE_MUSIC 类型音频**：普通音乐类音频流，当其它音乐类应用播放时会互相打断。例如，正在播放音乐时打开另一个音乐应用，前一个应用会被暂停。
 - **STREAM_USAGE_VOICE_COMMUNICATION 类型音频**：VoIP 通话类音频流，具有更高的优先级。音乐类应用无法打断 VoIP 通话，但 VoIP 通话可以打断音乐播放。
-- 本示例中，为了支持 AVScreenCapture 录制系统音频，将 usage 设置为 STREAM_USAGE_MUSIC，因此可能会被其他音乐应用打断。如果是实际的 VoIP 会议应用，建议使用 STREAM_USAGE_VOICE_COMMUNICATION 以获得更好的音频焦点保护。
+- 本示例中，为了支持 AVScreenCapture 录制系统音频，将 usage 设置为 STREAM_USAGE_MUSIC，因此可能会被其它音乐应用打断。如果是实际的 VoIP 会议应用，建议使用 STREAM_USAGE_VOICE_COMMUNICATION 以获得更好的音频焦点保护。
 
-更多音频焦点策略详情请参考 [音频焦点介绍](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/audio-playback-concurrency)。
+更多音频焦点策略详情请参考音频焦点介绍。
 
 ```typescript
 export default class Constants {
@@ -374,7 +374,7 @@ Row() {
 
 ## 使用说明
 
-1. **权限授权**: 首次进入会议，应用会自动请求麦克风权限弹窗，点击允许。
+1. **权限授权**: 初次进入会议，应用会自动请求麦克风权限弹窗，点击允许。
 3. **音频录制**: 点击工具栏中的"录制"按钮开始录屏，再次点击停止录制。
 4. **切换音频设备**: 点击音频设备图标按钮，弹出发送设备选择面板，切换扬声器/听筒/蓝牙耳机。
 5. **离开会议**: 点击"离开"按钮退出会议。
@@ -386,13 +386,13 @@ Row() {
 
 ## 技术依赖
 
-- [**@kit.AudioKit**: 音频管理](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/audio-kit)
-- [**@kit.AVSessionKit**: 会话管理](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/avsession-kit)
-- [**@kit.MediaKit**: 媒体处理](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/media-kit)
+- **@kit.AudioKit**: 音频管理
+- **@kit.AVSessionKit**: 会话管理
+- **@kit.MediaKit**: 媒体处理
 
 ## 运行要求
 
 - **设备**: 直板机
-- **系统**: HarmonyOS 6.0.1 Release 及以上
+- **系统**: 6.0.1 Release 及以上
 - **IDE**: DevEco Studio 6.0.1 Release 及以上
-- **SDK**: HarmonyOS 6.0.1 Release SDK
+- **SDK**: 6.0.1 Release SDK
