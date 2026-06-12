@@ -174,7 +174,7 @@ export struct ResponsiveScrollPositionList {
               // [StartExclude use_foreach]
               // [StartExclude respond_to_list_scroller]
               ForEach((contactsGroups as ContactsGroup[]), (itemGroup: ContactsGroup) => {
-                ListItemGroup({ header: this.itemHead(itemGroup.title) }) {
+                ListItemGroup({ header: () => { this.itemHead(itemGroup.title) }}) {
                   // 循环渲染ListItem
                   if (itemGroup.contacts) {
                     ForEach((itemGroup.contacts as Contact[]), (item: Contact) => {
