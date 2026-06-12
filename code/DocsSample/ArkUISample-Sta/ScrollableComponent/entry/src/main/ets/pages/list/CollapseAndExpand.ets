@@ -187,7 +187,7 @@ export struct CollapseAndExpand {
             List({ space: 10 } as ListOptions) {
               ForEach(this.routes, (itemGroup: ItemGroupInfo) => {
                 ListItemGroup({
-                  header: this.ListItemGroupHeader(itemGroup),
+                  header: () => { this.ListItemGroupHeader(itemGroup) },
                   style: ListItemGroupStyle.CARD,
                 }) {
                   if (this.expandedItems[itemGroup.index] && itemGroup.children) {
