@@ -46,6 +46,27 @@
           }
         ]
       }
-    ]
+    ],
+    "extensionAbilities": [
+      {
+        "name": "EntryBackupAbility",
+        "srcEntry": "./ets/entrybackupability/EntryBackupAbility.ets",
+        "type": "backup",
+        "exported": false,
+        "metadata": [
+          {
+            "name": "ohos.extension.backup",
+            "resource": "$profile:backup_config"
+          }
+        ]
+      }
+    ],
+    // [Start menu_permissions]
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.VIBRATE",
+      }
+    ],
+    // [End menu_permissions]
   }
 }
