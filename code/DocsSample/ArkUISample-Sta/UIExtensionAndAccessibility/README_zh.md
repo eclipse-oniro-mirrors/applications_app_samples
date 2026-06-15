@@ -23,9 +23,9 @@
 
 ### 效果预览
 
-| 首页选项目录                                 | UIExtension示例                        | Embedded示例                           | Accessibility示例                     
-|------------------------------------|------------------------------------|--------------------------------------|--------------------------------------|
-| ![](screenshots/device/image1.jpg) | ![](screenshots/device/image2.jpg) | ![](screenshots/device/image3.jpg) | ![](screenshots/device/Embedded.png) |
+| 首页选项目录 | UIExtension示例 | Embedded示例 | FullScreenLaunch示例 | Accessibility示例 |
+|---|---|---|---|---|
+| ![](screenshots/device/UIExtensionAndAccessibilityIndex.jpg) | ![](screenshots/device/UIExtensionExample.jpg) | ![](screenshots/device/EmbeddedComponentExample.jpg) | ![](screenshots/device/fullscreenlaunchComponentExample.jpg) | ![](screenshots/device/AccessibilityExample.jpg) |
 
 ### 使用说明
 
@@ -107,7 +107,7 @@ entry/src/main/
 
 1.本示例仅支持标准系统上运行，支持设备：default、tablet。
 
-2.本示例为Stage模型静态编译模式，支持API26及以上版本SDK。
+2.本示例为Stage模型静态编译模式，支持API26版本SDK，版本号：6.0.0.0，镜像版本号：OpenHarmony_6.0.0.0。
 
 3.本示例需要使用DevEco Studio 6.0.0 Release及以上版本才可编译运行。
 
@@ -116,3 +116,15 @@ entry/src/main/
 5.本示例涉及相关权限为system_core级别(相关权限级别可通过[权限定义列表](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md)查看)，需要手动配置对应级别的权限签名(具体操作可查看[应用包签名工具概述](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/hapsigntool-overview.md#%E5%BA%94%E7%94%A8%E5%8C%85%E7%AD%BE%E5%90%8D%E5%B7%A5%E5%85%B7%E6%A6%82%E8%BF%B0))。
 
 6.本示例类型为系统应用，需要手动配置对应级别的应用类型("app-feature": "hos_system_app")。具体可参考profile配置文件[bundle-info对象内部结构](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/app-provision-structure.md#bundle-info%E5%AF%B9%E8%B1%A1%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84)。
+
+### 下载
+
+如需单独下载本工程，执行如下命令：
+
+````
+git init
+git config core.sparsecheckout true
+echo code/DocsSample/ArkUISample-Sta/UIExtensionAndAccessibility > .git/info/sparse-checkout
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
+git pull origin master
+````
