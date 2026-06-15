@@ -23,9 +23,9 @@
 
 ### 效果预览
 
-| 首页选项目录 | UIExtension示例 | Embedded示例 | FullScreenLaunch示例 | Accessibility示例 |
-|---|---|---|---|---|
-| ![](screenshots/device/UIExtensionAndAccessibilityIndex.jpg) | ![](screenshots/device/UIExtensionExample.jpg) | ![](screenshots/device/EmbeddedComponentExample.jpg) | ![](screenshots/device/fullscreenlaunchComponentExample.jpg) | ![](screenshots/device/AccessibilityExample.jpg) |
+| 首页选项目录                                 | UIExtension示例                        | Embedded示例                           | Accessibility示例                     
+|------------------------------------|------------------------------------|--------------------------------------|--------------------------------------|
+| ![](screenshots/device/image1.jpg) | ![](screenshots/device/image2.jpg) | ![](screenshots/device/image3.jpg) | ![](screenshots/device/Embedded.png) |
 
 ### 使用说明
 
