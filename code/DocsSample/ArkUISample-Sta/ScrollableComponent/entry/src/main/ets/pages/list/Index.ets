@@ -33,6 +33,7 @@ import { CollapseAndExpand } from './CollapseAndExpand';
 import { LongList } from './LongList';
 import { ListChatRoom } from './ListChatRoom';
 import { SupportSlidingHand } from './SupportSlidingHand';
+import { ListSwipeSelect } from './ListSwipeSelect';
 import resource from '../../common/resource';
 
 import {
@@ -138,6 +139,11 @@ const routes: Route[] = [
     'list/SupportSlidingHand',
     resource.resourceToString($r('app.string.Support_Sliding_Hand_Event')),
     $r('app.string.Sliding_Hand_Event')
+  ),
+  new Route(
+    'list/ListSwipeSelect',
+    resource.resourceToString($r('app.string.ListSwipeSelect_title')),
+    $r('app.string.ListSwipeSelect_description')
   )
 ];
 
@@ -177,6 +183,8 @@ export function listDestination(name: string): void {
     ListChatRoom();
   } else if (name === routes[15].name) {
     SupportSlidingHand()
+  } else if (name === routes[16].name) {
+    ListSwipeSelect();
   }
 }
 
