@@ -23,7 +23,9 @@ export struct AccessibilityDescriptionCase01 {
     // [StartExclude accessibility_description_start01]
     NavDestination() {
       // [EndExclude accessibility_description_start01]
-      Button()
+      Button("全屏")
+        .width(96)
+        .height(40)
         .background(Color.Blue)
         .onClick((event: ClickEvent) => {
           // 全屏逻辑
