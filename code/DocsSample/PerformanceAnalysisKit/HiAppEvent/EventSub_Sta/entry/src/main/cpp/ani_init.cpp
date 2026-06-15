@@ -187,7 +187,6 @@ static ani_status bindCase(ani_vm *vm, const char *clsName, ani_native_function*
     return ANI_OK;
 }
 
-
 ANI_EXPORT ani_status ANI_Constructor(ani_vm *vm, uint32_t *result) {
     OH_LOG_INFO(LogType::LOG_APP, "testTag : entering libentry.so's ANI_Constructor");
     const char *voidSignature = ":";
