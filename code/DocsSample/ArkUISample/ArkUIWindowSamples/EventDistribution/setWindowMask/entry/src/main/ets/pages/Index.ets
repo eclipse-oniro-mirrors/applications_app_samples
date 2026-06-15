@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// [Start index_component]
+// [Start setWindowMaskSample]
 import window from '@ohos.window';
 import { Entry, Component, Column, Row, Text, Button, Scroll, TextAlign, ButtonType, FontWeight } from '@ohos.arkui.component';
 import { State } from '@ohos.arkui.stateManagement';
@@ -22,15 +22,15 @@ import { State } from '@ohos.arkui.stateManagement';
 @Entry
 @Component
 struct Index {
-  // [StartExclude index_component]
+  // [StartExclude setWindowMaskSample]
   @State message: string = 'set windowMask test';
   private storage: LocalStorage | undefined = this.getUIContext()?.getSharedLocalStorage();
   private windowStage: window.WindowStage | undefined = this.storage?.get<window.WindowStage>('windowStage');
   private testWindow: window.Window | undefined = undefined;
-  // [EndExclude index_component]
+  // [EndExclude setWindowMaskSample]
   private windowMaskSub: window.Window | undefined = undefined;
-  // [End index_component]
 
+  // [StartExclude setWindowMaskSample]
   private winWidth: int = 800; // window width for test
   private winHeight: int = 800; // window height for test
 
@@ -76,8 +76,7 @@ struct Index {
       }, 500);
     });
   }
-
-  // [Start setWindowMask_func]
+  // [EndExclude setWindowMaskSample]
   setWindowMask(window: window.Window | undefined) {
     let windowMask: Uint8Array = new Uint8Array(this.winWidth * this.winHeight);
     for (let i = 0; i < this.winHeight; i++) {
@@ -91,14 +90,12 @@ struct Index {
     }
     window?.setWindowMaskWithAlpha(windowMask, this.winWidth, this.winHeight);
   }
-  // [End setWindowMask_func]
 
-  // [Start setWindowMask_build]
   build() {
     Row() {
       Scroll(){
         Column() {
-          // [StartExclude setWindowMask_build]
+          // [StartExclude setWindowMaskSample]
           Button('Create Test Window')
             .type(ButtonType.Capsule)
             .margin({
@@ -152,7 +149,7 @@ struct Index {
                 }
               })
           }
-          // [EndExclude setWindowMask_build]
+          // [EndExclude setWindowMaskSample]
           Row() {
             Button('setWindowMask for Sub Window')
               .width('90%')
@@ -174,4 +171,4 @@ struct Index {
   }
 
 }
-// [End setWindowMask_build]
+// [End setWindowMaskSample]
