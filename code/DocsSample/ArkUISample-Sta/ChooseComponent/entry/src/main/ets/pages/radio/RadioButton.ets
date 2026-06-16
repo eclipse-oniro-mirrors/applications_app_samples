@@ -62,7 +62,7 @@ struct compRadi2 {
       Radio({ value: 'Radio1', group: 'radioGroup' })
         .onChange((isChecked: boolean) => {
           if(isChecked) {
-            //需要执行的操作
+            // 需要执行的操作
             // [StartExclude click_radio_event_function]
             this.getUIContext().getPromptAction().openToast({ 'message': 'Radio1 is on.' });
             // [EndExclude click_radio_event_function]
@@ -71,7 +71,7 @@ struct compRadi2 {
       Radio({ value: 'Radio2', group: 'radioGroup' })
         .onChange((isChecked: boolean) => {
           if(isChecked) {
-            //需要执行的操作
+            // 需要执行的操作
             // [StartExclude click_radio_event_function]
             this.getUIContext().getPromptAction().openToast({ 'message': 'Radio2 is on.' });
             // [EndExclude click_radio_event_function]
