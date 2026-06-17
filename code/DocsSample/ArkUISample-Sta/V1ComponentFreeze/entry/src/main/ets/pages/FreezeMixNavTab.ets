@@ -96,7 +96,9 @@ struct TabsComponent {
 
   build() {
     Column() {
-      Button(`Incr state ${this.getValue()}`)
+      Button(`Incr state ${this.getValue()}`) // 修改状态变量tabState
+        .width(300)
+        .margin(10)
         .fontSize(25)
         .onClick((e: ClickEvent) => {
           console.info('Button increment state value');
@@ -122,6 +124,7 @@ struct TabsComponent {
       .height(200)
       .backgroundColor(0xF5F5F5)
     }
+    .width('100%')
   }
 }
 
@@ -143,19 +146,20 @@ struct MyNavigationTestStack {
     Column() {
       Navigation(this.pageInfo) {
         Column() {
-          Button('Next Page', { stateEffect: true, type: ButtonType.Capsule })
-            .width('80%')
-            .height(40)
+          Button('Next Page', { stateEffect: true, type: ButtonType.Capsule }) // 跳转到pageOne页面
+            .width(300)
             .margin(20)
             .onClick((e: ClickEvent) => {
               let info: NavPathInfo = new NavPathInfo("pageOne", undefined)
               this.pageInfo.pushPath(info);
             })
         }
+        .width('100%')
       }.title('NavIndex')
       .navDestination(this.PageMap)
       .mode(NavigationMode.Stack)
     }
+    .width('100%')
   }
 }
 
@@ -168,15 +172,16 @@ struct PageOneStack {
       Column() {
         TabsComponent();
 
-        Button('Next Page', { stateEffect: true, type: ButtonType.Capsule })
-          .width('80%')
-          .height(40)
+        Button('Next Page', { stateEffect: true, type: ButtonType.Capsule }) // 跳转到pageTwo页面
+          .width(300)
           .margin(20)
           .onClick((e: ClickEvent) => {
             let info: NavPathInfo = new NavPathInfo("pageTwo", undefined)
             this.pageInfo.pushPath(info);
           })
-      }.width('100%').height('100%')
+      }
+      .width('100%')
+      .height('100%')
     }.title('pageOne')
     .onBackPressed(() => {
       this.pageInfo.pop();
@@ -192,14 +197,15 @@ struct PageTwoStack {
   build() {
     NavDestination() {
       Column() {
-        Button('Back Page', { stateEffect: true, type: ButtonType.Capsule })
-          .width('80%')
-          .height(40)
+        Button('Back Page', { stateEffect: true, type: ButtonType.Capsule }) // 跳转回上一个页面
+          .width(300)
           .margin(20)
           .onClick((e: ClickEvent) => {
             this.pageInfo.pop();
           })
-      }.width('100%').height('100%')
+      }
+      .width('100%')
+      .height('100%')
     }.title('pageTwo')
   }
 }

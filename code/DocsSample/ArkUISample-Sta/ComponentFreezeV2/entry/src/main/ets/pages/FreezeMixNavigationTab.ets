@@ -29,7 +29,10 @@ struct ChildOfParamComponent {
   build() {
     Column() {
       Text(`Child Param： ${this.child_val}`)
+        .fontSize(20)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 
@@ -44,8 +47,11 @@ struct ParamComponent {
   build() {
     Column() {
       Text(`val： ${this.val}`)
+        .fontSize(20)
+        .margin(10)
       ChildOfParamComponent({child_val: this.val})
     }
+    .width('100%')
   }
 }
 
@@ -59,8 +65,11 @@ struct DelayComponent {
 
   build() {
     Column() {
-      Text(`Delay Param： ${this.delayVal1}`);
+      Text(`Delay Param： ${this.delayVal1}`)
+        .fontSize(20)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 
@@ -77,6 +86,8 @@ struct TabsComponent {
     Column() {
       Button(`Incr state ${this.tabState}`)
         .fontSize(25)
+        .width(300)
+        .margin(10)
         .onClick(() => {
           console.info('Button increment state value');
           this.tabState = this.tabState + 1;
@@ -98,6 +109,7 @@ struct TabsComponent {
       .height(200)
       .backgroundColor(0xF5F5F5)
     }
+    .width('100%')
   }
 }
 
@@ -119,7 +131,7 @@ struct MyNavigationTestStack {
     Column() {
       Navigation(this.pageInfo) {
         Column() {
-          Button('Next Page', { stateEffect: true, type: ButtonType.Capsule })
+          Button('Next Page', { stateEffect: true, type: ButtonType.Capsule }) // 跳转到pageOne页面
             .width('80%')
             .height(40)
             .margin(20)
@@ -128,10 +140,12 @@ struct MyNavigationTestStack {
               this.pageInfo.pushPath(info);
             })
         }
+        .width('100%')
       }.title('NavIndex')
       .navDestination(this.PageMap)
       .mode(NavigationMode.Stack)
     }
+    .width('100%')
   }
 }
 
@@ -144,7 +158,7 @@ struct PageOneStack {
       Column() {
         TabsComponent();
 
-        Button('Next Page', { stateEffect: true, type: ButtonType.Capsule })
+        Button('Next Page', { stateEffect: true, type: ButtonType.Capsule }) // 跳转到pageTwo页面
           .width('80%')
           .height(40)
           .margin(20)

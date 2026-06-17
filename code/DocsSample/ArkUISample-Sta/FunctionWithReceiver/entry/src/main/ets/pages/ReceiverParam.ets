@@ -31,10 +31,13 @@ struct FancyUse {
   build() {
     Row() {
       Text('Fancy')
+        .margin(10)
         .fancy(16)
       Text('Fancy')
+        .margin(10)
         .fancy(24)
     }
+    .height('100%')
   }
 }
 
