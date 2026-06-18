@@ -799,7 +799,6 @@ static napi_value StartScreenCapture_04(napi_env env, napi_callback_info info)
     OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture fileUrl %{public}s", fileUrl.c_str());
 
     SetConfig02(config_);
-    
     // 设置录屏模式为OH_CAPTURE_SPECIFIED_WINDOW
     config_.captureMode = OH_CAPTURE_SPECIFIED_WINDOW;
     config_.dataType = OH_CAPTURE_FILE;
