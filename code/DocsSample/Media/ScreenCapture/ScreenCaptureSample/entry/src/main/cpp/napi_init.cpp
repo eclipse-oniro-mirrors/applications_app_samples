@@ -194,17 +194,31 @@ void SetConfig02(OH_AVScreenCaptureConfig &config)
     };
 
     OH_VideoEncInfo videoEncInfo = {
-        .videoCodec = OH_VideoCodecFormat::OH_H264, .videoBitrate = 2000000, .videoFrameRate = 30};
-    OH_VideoInfo videoInfo = {.videoCapInfo = videoCapInfo, .videoEncInfo = videoEncInfo};
+        .videoCodec = OH_H264,
+        .videoBitrate = 2000000,
+        .videoFrameRate = 30
+    };
+
+    OH_AudioInfo audioInfo = {
+        .micCapInfo = micCapInfo,
+        .innerCapInfo = innerCapInfo,
+        .audioEncInfo = audioEncInfo
+    };
+
+    OH_VideoInfo videoInfo = {
+        .videoCapInfo = videoCapInfo,
+        .videoEncInfo = videoEncInfo
+    };
 
     config = {
         .captureMode = OH_CAPTURE_HOME_SCREEN,
         .dataType = OH_CAPTURE_FILE, // 录屏数据类型，文件。
         .audioInfo = audioInfo,
-        .videoInfo = videoInfo,
+        .videoInfo = videoInfo
     };
     // [End screenCapture_config]
 }
+// [End screenCapture_config]
 
 void SetPCSpecifiedScreenConfigBuffer(OH_AVScreenCaptureConfig &config)
 {
@@ -784,7 +798,9 @@ static napi_value setWindowIdForWindow(napi_env env, napi_callback_info info)
 // 开始窗口级录屏
 static napi_value StartScreenCapture_04(napi_env env, napi_callback_info info)
 {
+// [Start screenCapture_create]
     g_avCapture = OH_AVScreenCapture_Create();
+// [End screenCapture_create]
     if (g_avCapture == nullptr) {
         OH_LOG_ERROR(LOG_APP, "create screen capture failed");
     }
@@ -806,7 +822,7 @@ static napi_value StartScreenCapture_04(napi_env env, napi_callback_info info)
     // [Start screenCapture_withWindow_forPicker]
     // 通过弹出屏幕捕获Picker列表方式，选择已打开的应用窗口进行窗口级录屏。
     OH_AVScreenCapture_CaptureStrategy *strategy = OH_AVScreenCapture_CreateCaptureStrategy();
-    OH_AVScreenCapture_StrategyForPickerPopUp(strategy, false);
+    OH_AVScreenCapture_StrategyForPickerPopUp(strategy, true);
     OH_AVScreenCapture_SetCaptureStrategy(g_avCapture, strategy);
     // [End screenCapture_withWindow_forPicker]
 
@@ -824,12 +840,15 @@ static napi_value StartScreenCapture_04(napi_env env, napi_callback_info info)
             "==ScreenCaptureSample== ScreenCapture OH_AVScreenCapture_Init failed %{public}d", result);
     }
     OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OH_AVScreenCapture_Init %{public}d", result);
-
+    // [Start screenCapture_startScreenRecording]
     result = OH_AVScreenCapture_StartScreenRecording(g_avCapture);
+    // [End screenCapture_startScreenRecording]
     if (result != AV_SCREEN_CAPTURE_ERR_OK) {
         OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture Started failed %{public}d", result);
+    // [Start screenCapture_releaseScreenRecording]
         OH_AVScreenCapture_Release(g_avCapture);
         g_avCapture = nullptr;
+    // [End screenCapture_releaseScreenRecording]
     }
     OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture Started %{public}d", result);
 
@@ -955,6 +974,7 @@ static napi_value StopScreenCapture(napi_env env, napi_callback_info info)
     if (g_scSaveFileIsRunning) {
         // [Start screenCapture_stopScreenRecording]
         result = OH_AVScreenCapture_StopScreenRecording(g_avCapture);
+        // [End screenCapture_stopScreenRecording]
         if (result != AV_SCREEN_CAPTURE_ERR_BASE) {
             OH_LOG_ERROR(LOG_APP, "StopScreenCapture OH_AVScreenCapture_StopScreenRecording Result: %{public}d",
                 result);
