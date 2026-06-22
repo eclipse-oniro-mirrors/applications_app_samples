@@ -19,8 +19,9 @@
       {
         "name": "default",
         "signingConfig": "default",
-        "compatibleSdkVersion": "26",
-        "compileSdkVersion": "26",
+        "compatibleSdkVersion": "26.0.0",
+        "compileSdkVersion": "26.0.0",
+        "targetSdkVersion": "26.0.0",
         "arkTSVersion": "1.2",
         "runtimeOS": "OpenHarmony",
         "buildOption": {
@@ -37,6 +38,20 @@
       },
       {
         "name": "release"
+      }
+    ],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:/Users/DaMoMo/.ohos/config/openharmony/default_CustomFont_IUOAAPVO12AB9CtSsnvolNM-H8OOjrsNw4epUHniZ8g=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001A662E4FDB9CEA3CB64F537FB63E489FFA96BF49B13B7167238FAA574E8E2FB7225A164E253500",
+          "profile": "C:/Users/DaMoMo/.ohos/config/openharmony/default_CustomFont_IUOAAPVO12AB9CtSsnvolNM-H8OOjrsNw4epUHniZ8g=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/DaMoMo/.ohos/config/openharmony/default_CustomFont_IUOAAPVO12AB9CtSsnvolNM-H8OOjrsNw4epUHniZ8g=.p12",
+          "storePassword": "0000001AB8BC8284890157821619AF53A7677C178654DCB94A99AB3FCAB84FD2BFAB1F2BE43BB34ACFC3"
+        }
       }
     ]
   },
