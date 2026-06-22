@@ -34,12 +34,17 @@ struct FancyUse {
   build() {
     Row() {
       Text(`${this.label}`)
-        .fancyText(100, Color.Blue)
+        .margin(10)
+        .fancyText(100, Color.Grey)
       Text(`${this.label}`)
+        .margin(10)
         .fancyText(200, Color.Pink)
       Text(`${this.label}`)
+        .margin(10)
         .fancyText(300, Color.Orange)
-    }.margin('20%')
+    }
+    .margin('5%')
+    .height('100%')
   }
 }
 

@@ -43,24 +43,27 @@ struct MyNavigationTestStack {
   build() {
     Column() {
       Button('change message')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.message++;
         })
       Navigation(this.pageInfo) {
         Column() {
           Button('Next Page', { stateEffect: true, type: ButtonType.Capsule })
-            .width('80%')
-            .height(40)
+            .width(300)
             .margin(20)
             .onClick((e: ClickEvent) => {
               let info: NavPathInfo = new NavPathInfo("pageOne", undefined)
               this.pageInfo.pushPath(info); //将name指定的NavDestination页面信息入栈
             })
         }
+        .width('100%')
       }.title('NavIndex')
       .navDestination(this.PageMap)
       .mode(NavigationMode.Stack)
     }
+    .width('100%')
   }
 }
 
@@ -76,24 +79,25 @@ struct PageOneStack {
       Column() {
         NavigationContentMsgStack({ message: this.message, index: this.index, logNumber: this.logNumber })
         Text('cur stack size:' + `${this.pageInfo.size()}`)
-          .fontSize(30)
+          .fontSize(20)
+          .margin(10)
           .fontWeight(FontWeight.Bold)
-        Button('Next Page', { stateEffect: true, type: ButtonType.Capsule })
-          .width('80%')
-          .height(40)
+        Button('Next Page', { stateEffect: true, type: ButtonType.Capsule }) // 跳转到pageTwo页面
+          .width(300)
           .margin(20)
           .onClick((e: ClickEvent) => {
             let info: NavPathInfo = new NavPathInfo("pageTwo", undefined)
             this.pageInfo.pushPath(info); //将name指定的NavDestination页面信息入栈
           })
-        Button('Back Page', { stateEffect: true, type: ButtonType.Capsule })
-          .width('80%')
-          .height(40)
+        Button('Back Page', { stateEffect: true, type: ButtonType.Capsule }) // 跳转回上一个页面
+          .width(300)
           .margin(20)
           .onClick((e: ClickEvent) => {
             this.pageInfo.pop();
           })
-      }.width('100%').height('100%')
+      }
+      .width('100%')
+      .height('100%')
     }.title('pageOne')
   }
 }
@@ -110,24 +114,25 @@ struct PageTwoStack {
       Column() {
         NavigationContentMsgStack({ message: this.message, index: this.index, logNumber: this.logNumber })
         Text('cur stack size:' + `${this.pageInfo.size()}`)
-          .fontSize(30)
+          .fontSize(20)
+          .margin(10)
           .fontWeight(FontWeight.Bold)
-        Button('Next Page', { stateEffect: true, type: ButtonType.Capsule })
-          .width('80%')
-          .height(40)
+        Button('Next Page', { stateEffect: true, type: ButtonType.Capsule }) // 跳转到pageThree页面
+          .width(300)
           .margin(20)
           .onClick((e: ClickEvent) => {
             let info: NavPathInfo = new NavPathInfo("pageThree", undefined)
             this.pageInfo.pushPath(info); //将name指定的NavDestination页面信息入栈
           })
-        Button('Back Page', { stateEffect: true, type: ButtonType.Capsule })
-          .width('80%')
-          .height(40)
+        Button('Back Page', { stateEffect: true, type: ButtonType.Capsule }) // 跳转回上一个页面
+          .width(300)
           .margin(20)
           .onClick((e: ClickEvent) => {
             this.pageInfo.pop();
           })
-      }.width('100%').height('100%')
+      }
+      .width('100%')
+      .height('100%')
     }.title('pageTwo')
   }
 }
@@ -144,31 +149,32 @@ struct PageThreeStack {
       Column() {
         NavigationContentMsgStack({ message: this.message, index: this.index, logNumber: this.logNumber })
         Text('cur stack size:' + `${this.pageInfo.size()}`)
-          .fontSize(30)
+          .fontSize(20)
+          .margin(10)
           .fontWeight(FontWeight.Bold)
-        Button('Next Page', { stateEffect: true, type: ButtonType.Capsule })
-          .width('80%')
-          .height(40)
+        Button('Next Page', { stateEffect: true, type: ButtonType.Capsule }) // 跳转到pageOne页面
+          .width(300)
           .margin(20)
           .onClick((e: ClickEvent) => {
             let info: NavPathInfo = new NavPathInfo("pageOne", undefined)
             this.pageInfo.pushPath(info); //将name指定的NavDestination页面信息入栈
           })
-        Button('Back Page', { stateEffect: true, type: ButtonType.Capsule })
-          .width('80%')
-          .height(40)
+        Button('Back Page', { stateEffect: true, type: ButtonType.Capsule }) // 跳转回上一个页面
+          .width(300)
           .margin(20)
           .onClick((e: ClickEvent) => {
             this.pageInfo.pop();
           })
-      }.width('100%').height('100%')
+      }
+      .width('100%')
+      .height('100%')
     }.title('pageThree')
   }
 }
 
 @Component
 struct NavigationContentMsgStack {
-  @Link @Watch('info') message: number;
+  @Link @Watch('info') message: number; // message修改时，触发info方法
   @Link index: number;
   @Link logNumber: number;
 
@@ -186,13 +192,18 @@ struct NavigationContentMsgStack {
   build() {
     Column() {
       Button('msg:' + `${this.getValue()}`)
-        .fontSize(30)
+        .width(300)
+        .margin(10)
+        .fontSize(20)
         .fontWeight(FontWeight.Bold)
 
       Button('log number:' + `${this.logNumber}`)
-        .fontSize(30)
+        .width(300)
+        .margin(10)
+        .fontSize(20)
         .fontWeight(FontWeight.Bold)
     }
+    .width('100%')
   }
 }
 // [End FreezeNavigation]

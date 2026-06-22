@@ -29,21 +29,29 @@ export class Book {
 
 @Entry
 @ComponentV2
-export struct Page1 {
+struct Page1 {
   @Local bookTest: Book = new Book(`A Midsummer Night's Dream`);
 
-  @Monitor(['bookTest.name']) onMessageUpdated(mon: IMonitor): void {
+  @Monitor(['bookTest.name']) onMessageUpdated(mon: IMonitor) {
     console.info(`The book name change from ${mon.value<string>()?.before} to ${mon.value<string>()?.now}`);
   }
 
-  build(): void {
+  build() {
     Column() {
-      Text(`Book name is  ${this.bookTest.name}`).fontSize(25)
-      Button('changeBookName').fontSize(25)
+      Text(`Book name is  ${this.bookTest.name}`)
+        .fontSize(25)
+        .margin(10)
+      Button('changeBookName')
+        .fontSize(25)
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.bookTest.name = 'The Old Man and the Sea'; // 会立刻触发@Monitor
         })
-      Button('go to next page').fontSize(25)
+      Button('go to next page')
+        .fontSize(25)
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/FreezePage2' });
           setTimeout(() => {
@@ -51,6 +59,7 @@ export struct Page1 {
           }, 1000);
         })
     }
+    .width('100%')
   }
 }
 // [End FreezePageRouter1]

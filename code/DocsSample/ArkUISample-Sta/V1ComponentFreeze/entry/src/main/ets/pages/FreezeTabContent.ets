@@ -31,9 +31,12 @@ struct TabContentTest {
   build() {
     Row() {
       Column() {
-        Button('change message').onClick(() => {
-          this.message++;
-        })
+        Button('change message') // 修改状态变量message
+          .width(300)
+          .margin(10)
+          .onClick(() => {
+            this.message++;
+          })
 
         Tabs() {
           ForEach(this.data, (item: number) => {
@@ -64,7 +67,8 @@ struct FreezeChild {
 
   build() {
     Text('message' + `${this.getValue()}, index: ${this.index}`)
-      .fontSize(50)
+      .fontSize(20)
+      .margin(10)
       .fontWeight(FontWeight.Bold)
   }
 }
