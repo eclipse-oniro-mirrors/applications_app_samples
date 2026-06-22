@@ -138,6 +138,7 @@ struct Demo1 {
           .textAlign(TextAlign.Center)
           .margin({ top: 8 })
 
+        // [Start smartgesture_case1_button]
         Button(`按钮A / 点击=${this.btn0Count}`)
           .id('btn_a')
           .width('100%')
@@ -146,6 +147,7 @@ struct Demo1 {
             this.btn0Count += 1;
             this.hint = '按钮A onClick 触发';
           })
+        // [End smartgesture_case1_button]
 
         Button(`按钮B / 点击=${this.btn1Count}`)
           .id('btn_b')

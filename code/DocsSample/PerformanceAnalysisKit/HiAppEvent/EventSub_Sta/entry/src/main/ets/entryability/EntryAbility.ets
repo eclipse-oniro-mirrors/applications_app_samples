@@ -30,7 +30,7 @@ class RegisterC {
   native registerWatcherCrash(): void;
   native registerWatcherClick(): void;
 }
-// [Start AppEvent_Declare_C_Function]
+// [End AppEvent_Declare_C_Function]
 
 class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {

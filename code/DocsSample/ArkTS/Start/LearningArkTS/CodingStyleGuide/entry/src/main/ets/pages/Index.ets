@@ -366,7 +366,7 @@ function testAll() {
   // [End highlight_comma_correctExample]
 
   // [Start single_quotation_incorrectExample]
-  let message1 = 'world';
+  let message1 = "world";
   console.info(message1);
   // [End single_quotation_incorrectExample]
 
@@ -584,7 +584,7 @@ function foo5() {
 // [End finally_correctExample]
 
 // [EndExclude noESObject_app_incorrectExample]
-let obj1: I = getObject1(123);
+let obj1: ESObject = getObject1(123);
 // [End noESObject_app_incorrectExample]
 
 // [EndExclude noESObject_app_correctExample]

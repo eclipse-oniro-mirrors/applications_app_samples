@@ -83,8 +83,8 @@ struct Index {
                 `AppEvents HiAppEvent err.code: ${bErr.code}, err.message: ${bErr.message}`);
             });
           })
+        // [End AppEvent_Click_ArkTS_Button]
       }
-      // [End AppEvent_Click_ArkTS_Button]
       .width('50%')
       Column() {
         // [Start AppEvent_CPP_Button]

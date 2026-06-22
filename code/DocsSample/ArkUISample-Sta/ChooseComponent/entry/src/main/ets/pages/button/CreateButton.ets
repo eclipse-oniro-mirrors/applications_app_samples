@@ -1,0 +1,98 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { ComponentCard } from '../../common/Card';
+import {
+  Entry,
+  Component,
+  Button,
+  ButtonType,
+  ButtonOptions,
+  Row,
+  RowOptions,
+  Column,
+  ColumnOptions,
+  Text,
+  Image,
+  NavDestination,
+  VerticalAlign,
+  FlexAlign,
+  Resource,
+  $r
+} from '@kit.ArkUI'
+import resourceToStringManager from '../../common/resource';
+
+@Entry
+@Component
+export struct CreateButton {
+  resourceToString(resource: Resource): string {
+    return resourceToStringManager.resourceToString(resource);
+  }
+
+  build(): void {
+    NavDestination() {
+      Column({ space: 12 } as ColumnOptions) {
+        ComponentCard({
+          title: $r('app.string.CreateButton_titleOne'),
+          description: $r('app.string.CreateButton_descriptionOne')
+        }) {
+          // [Start create_button_by_label]
+          Button('Button', { type: ButtonType.Capsule, stateEffect: true } as ButtonOptions)
+            .id('button')
+          // [End create_button_by_label]
+
+          // [Start create_button_by_label2]
+          Button('Ok', { type: ButtonType.Normal, stateEffect: true } as ButtonOptions)
+            .borderRadius(8)
+            .backgroundColor(0x317aff)
+            .width(90)
+            .height(40)
+          // [End create_button_by_label2]
+        }
+
+        ComponentCard({
+          title: $r('app.string.CreateButton_titleTwo'),
+          description: $r('app.string.CreateButton_descriptionTwo')
+        }) {
+          // [Start create_button_by_button_options]
+          Button() {
+            Row({ space: 4 } as RowOptions) {
+              // $r('sys.media.ohos_ic_back')需要替换为开发者需要的图片资源
+              Image($r('sys.media.ohos_ic_back')).width(20).height(40).fillColor(0xffffff)
+              Text('back').fontColor(0xffffff)
+            }.alignItems(VerticalAlign.Center).justifyContent(FlexAlign.Center).width(90).height(40)
+          }.id('button_back')
+          // [End create_button_by_button_options]
+
+          // [Start create_button_by_button_options2]
+          Button({ type: ButtonType.Normal, stateEffect: true } as ButtonOptions) {
+            Row() {
+              // 请将$r('app.media.loading')替换为实际资源文件
+              Image($r('app.media.loading')).width(20).height(40).margin({ left: 12 })
+              Text('loading').fontSize(12).fontColor(0xffffff).margin({ left: 5, right: 12 })
+            }.alignItems(VerticalAlign.Center)
+          }.borderRadius(8).backgroundColor(0x317aff).width(90).height(40)
+          // [End create_button_by_button_options2]
+        }
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 })
+    }
+    .backgroundColor('#f1f2f3')
+    .title(this.resourceToString($r('app.string.CreateButton_title')))
+  }
+}

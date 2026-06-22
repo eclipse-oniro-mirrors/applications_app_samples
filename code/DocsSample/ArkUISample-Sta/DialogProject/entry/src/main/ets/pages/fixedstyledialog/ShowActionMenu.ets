@@ -1,0 +1,88 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  Column,
+  ColumnOptions,
+  Button,
+  NavDestination,
+  Entry,
+  Component,
+  promptAction,
+  $r
+} from '@kit.ArkUI';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { PromptAction } from '@ohos.arkui.UIContext'
+
+const DOMAIN: int = 0x0000;
+
+// [Start fixed_style_pop_up_box]
+
+@Entry
+@Component
+export struct ShowActionMenuExample {
+  build(): void {
+    // [StartExclude fixed_style_pop_up_box]
+    NavDestination() {
+      // [EndExclude fixed_style_pop_up_box]
+      Column({ space: 12 } as ColumnOptions) {
+
+        Column() {
+          Button('ShowActionMenu')
+            .margin(30)
+            .onClick(() => {
+              let uiContext = this.getUIContext();
+              let promptAction: PromptAction = uiContext.getPromptAction();
+              try {
+                promptAction.showActionMenu({
+                  title: 'showActionMenu Title Info',
+                  buttons: [
+                    {
+                      text: 'item1',
+                      color: '#666666'
+                    },
+                    {
+                      text: 'item2',
+                      color: '#000000'
+                    },
+                  ] as promptAction.PromptActionDoubleButtons
+                })
+                  .then(data => {
+                    hilog.info(DOMAIN, 'testTag', 'showActionMenu success, click button: %{public}d', data.index);
+                  })
+                  .catch((err) => {
+                    hilog.error(DOMAIN, 'testTag', 'showActionMenu error: %{public}s', err);
+                  })
+              } catch (error) {
+              }
+            })
+        }.width('100%')
+      }
+      .width('100%')
+      .height('100%')
+      // [StartExclude fixed_style_pop_up_box]
+      .padding({ left: 12, right: 12 })
+    }
+    .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.ShowActionMenu_title')替换为实际资源文件，在本示例中该资源文件的value值为"操作菜单"
+    .title($r('app.string.ShowActionMenu_title'))
+
+    // [EndExclude fixed_style_pop_up_box]
+  }
+}
+
+// [End fixed_style_pop_up_box]

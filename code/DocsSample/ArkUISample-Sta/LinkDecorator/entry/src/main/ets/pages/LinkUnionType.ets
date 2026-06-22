@@ -25,10 +25,14 @@ struct Child {
   build() {
     Column() {
       Button('Child change name to Bob')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.name = 'Bob';
         })
       Button('Child change name to undefined')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.name = undefined;
         })
@@ -43,17 +47,24 @@ struct Index {
 
   build() {
     Column() {
-      Text(`The name is  ${this.name}`).fontSize(30)
+      Text(`The name is  ${this.name}`) // 显示name变量的值
+        .fontSize(20)
+        .margin(10)
       Child({ name: this.name })
       Button('Parents change name to Peter')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.name = 'Peter';
         })
       Button('Parents change name to undefined')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.name = undefined;
         })
     }
+    .width('100%')
   }
 }
 // [End LinkUnionType]

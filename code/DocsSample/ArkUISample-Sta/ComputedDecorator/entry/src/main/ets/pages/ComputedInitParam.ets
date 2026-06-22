@@ -16,8 +16,18 @@
  */
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start ComputedInitParam]
-import { Button, ClickEvent, Column, ComponentV2, Divider, Entry,
-         ForEach, HorizontalAlign, Row, Text } from '@kit.ArkUI';
+import {
+  Button,
+  ClickEvent,
+  Column,
+  ComponentV2,
+  Divider,
+  Entry,
+  ForEach,
+  HorizontalAlign,
+  Row,
+  Text
+} from '@kit.ArkUI';
 import { Computed, Local, ObservedV2, Param, Trace } from '@kit.ArkUI';
 
 @ObservedV2
@@ -48,25 +58,40 @@ struct Index {
 
   build() {
     Column() {
-      Text(`Shopping List: `).fontSize(30)
+      Column() {
+        Text(`Shopping List: `)
+          .fontSize(20)
+          .margin(10)
+      }
+      .width('100%')
+
       ForEach(this.shoppingBasket, (item: Article) => {
-        Row() {
+        Column() {
           Text(`unitPrice: ${item.unitPrice}`)
-          Button('-').onClick((e: ClickEvent) => {
-            if (item.quantity > 0) {
-              item.quantity--;
-            }
-          })
+            .fontSize(20)
+            .margin(10)
+          Button('-')
+            .margin(10)
+            .onClick((e: ClickEvent) => {
+              if (item.quantity > 0) {
+                item.quantity--;
+              }
+            })
           Text(`quantity: ${item.quantity}`)
-          Button('+').onClick((e: ClickEvent) => {
-            item.quantity++;
-          })
+            .fontSize(20)
+            .margin(10)
+          Button('+')
+            .margin(10)
+            .onClick((e: ClickEvent) => {
+              item.quantity++;
+            })
         }
+        .width('100%')
 
         Divider()
       })
       Child({ total: this.total, qualifiesForDiscount: this.qualifiesForDiscount })
-    }.alignItems(HorizontalAlign.Start)
+    }
   }
 }
 
@@ -76,10 +101,15 @@ struct Child {
   @Param qualifiesForDiscount: boolean = false;
 
   build() {
-    Row() {
-      Text(`Total: ${this.total} `).fontSize(30)
-      Text(`Discount: ${this.qualifiesForDiscount} `).fontSize(30)
+    Column() {
+      Text(`Total: ${this.total} `)
+        .fontSize(20)
+        .margin(10)
+      Text(`Discount: ${this.qualifiesForDiscount} `)
+        .fontSize(20)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 // [End ComputedInitParam]

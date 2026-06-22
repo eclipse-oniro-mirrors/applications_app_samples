@@ -25,6 +25,7 @@ struct Index {
     Column() {
       Child({ map: this.map })
     }
+    .width('100%')
   }
 }
 @Component
@@ -33,13 +34,24 @@ struct Child {
   build() {
     Column() {
       Text(`${this.map}`)
-      Button(`change map[0]: ${this.map.get(0)}`).onClick((e: ClickEvent) => {
+        .fontSize(20)
+        .margin(10)
+      Button(`change map[0]: ${this.map.get(0)}`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 更新键值对，触发UI刷新
           this.map.set(0, this.map.get(0)! + 1);
       })
-      Button(`add item: ${this.map.size}`).onClick((e: ClickEvent) => {
+      Button(`add item: ${this.map.size}`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 新增键值对，触发UI刷新
           this.map.set(this.map.size, this.map.size);
       })
     }
+    .width('100%')
   }
 }
 // [End PropRefMap]

@@ -32,13 +32,18 @@ struct CompV2 {
   build() {
     Column() {
       Text(`@Local commonObject: ${this.commonObject.name}`)
+        .fontSize(20)
+        .margin(10)
       Button('Change object in V2')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.commonObject.name += '!'; // 非Observed/ObservedV2类，组件不刷新
         })
       // @ObjectLink可接收@Observed装饰class的实例
       CompV1({ commonObject: this.commonObject })
     }
+    .width('100%')
   }
 }
 
@@ -50,11 +55,16 @@ struct CompV1 {
     Column() {
       // 非Observed/ObservedV2类，观察不到变化
       Text(`@ObjectLink commonObject: ${this.commonObject.name}`)
+        .fontSize(20)
+        .margin(10)
       Button('Change object in V1')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.commonObject.name += '!'; // 非Observed/ObservedV2类，组件不刷新
         })
     }
+    .width('100%')
   }
 }
 // [End MixCommonV2ToV1]

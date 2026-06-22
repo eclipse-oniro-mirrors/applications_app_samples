@@ -32,7 +32,7 @@ import {
   Text
 } from '@ohos.arkui.component';
 import { State } from '@ohos.arkui.stateManagement';
-// 与使用AudioCapturer开发音频录制功能过程相似,关键区别在于audioCapturerInfo参数和音频数据流向。
+// 与使用AudioCapturer开发音频录制功能过程相似，关键区别在于audioCapturerInfo参数和音频数据流向。
 const TAG = 'VoIPDemoForAudioCapturer';
 const SAMPLE_RATE_48000: int = 48000;
 
@@ -110,7 +110,7 @@ async function initArguments(context: common.UIAbilityContext) {
   }
 }
 
-// 初始化,创建实例,设置监听事件。
+// 初始化，创建实例，设置监听事件。
 async function init() {
   try {
     let capturer = await audio.createAudioCapturer(createAudioCapturerOptions()); // 创建AudioCapturer实例。
@@ -190,7 +190,7 @@ async function stop() {
     return;
   }
   const state = capturer.state;
-  // 只有采集器状态为STATE_RUNNING或STATE_PAUSED的时候才可以停止。
+  // 只有采集器状态为STATE_RUNNING或STATE_PAUSED时才可以停止。
   if (state !== audio.AudioState.STATE_RUNNING &&
     state !== audio.AudioState.STATE_PAUSED) {
     console.info('Capturer is not running or paused');
@@ -229,14 +229,14 @@ async function stop() {
   }
 }
 
-// 销毁实例,释放资源。
+// 销毁实例，释放资源。
 async function release() {
   const capturer = audioCapturer;
   if (capturer === undefined) {
     return;
   }
   const state = capturer.state;
-  // 采集器状态不是STATE_RELEASED或STATE_NEW状态,才能release。
+  // 采集器状态不是STATE_RELEASED或STATE_NEW状态，才能release。
   if (state === audio.AudioState.STATE_RELEASED ||
     state === audio.AudioState.STATE_NEW) {
     console.info('Capturer already released');

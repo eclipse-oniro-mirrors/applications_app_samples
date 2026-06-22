@@ -14,7 +14,7 @@
 */
 
 import { image } from '@kit.ImageKit';
-import { fileIo as fs } from '@kit.CoreFileKit';
+import { fileIo } from '@kit.CoreFileKit';
 import { resourceManager } from '@kit.LocalizationKit';
 import { common } from '@kit.AbilityKit';
 
@@ -41,7 +41,6 @@ export function isFormatSupported(format: string): boolean {
 let packOpts: image.PackingOption = {
   format: 'image/jpeg',
   quality: 95,
-  desiredDynamicRange: image.PackingDynamicRange.AUTO,
   needsPackProperties: true
 };
 // [End create_picturePackOpts]
@@ -57,7 +56,7 @@ function getFilePath(context: Context, fileName: string): string {
 function getFileFd(context: Context, fileName: string): number | undefined {
   try {
     const filePath: string = context.cacheDir + '/' + fileName;
-    const file: fs.File = fs.openSync(filePath, fs.OpenMode.READ_ONLY);
+    const file: fileIo.File = fileIo.openSync(filePath, fileIo.OpenMode.READ_ONLY);
     const fd: number = file?.fd;
     return fd;
   } catch (err) {
@@ -145,11 +144,16 @@ async function packToFileFromPixelMap(context : Context, pixelMap : image.PixelM
   const imagePackerApi = image.createImagePacker();
   let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 95 };
   const path : string = context.cacheDir + '/pixel_map.jpg';
+  let file: fileIo.File | undefined = undefined;
   try {
-    let file = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE);
+    file = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
     await imagePackerApi.packToFile(pixelMap, file.fd, packOpts);
   } catch (error) {
     console.error('Failed to pack the pixelMap to file. And the error is: ' + error);
+  } finally {
+    if (file) {
+      fileIo.closeSync(file.fd);
+    }
   }
 }
 // [End packToFile_pixelMap]
@@ -159,11 +163,16 @@ async function packToFileFromImageSource(context : Context, imageSource : image.
   const imagePackerApi = image.createImagePacker();
   let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 95 };
   const filePath : string = context.cacheDir + '/image_source.jpg';
+  let file: fileIo.File | undefined = undefined;
   try {
-    let file = fs.openSync(filePath, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE);
+    file = fileIo.openSync(filePath, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
     await imagePackerApi.packToFile(imageSource, file.fd, packOpts);
   } catch (error) {
     console.error('Failed to pack the imageSource to file. And the error is: ' + error);
+  } finally {
+    if (file) {
+      fileIo.closeSync(file.fd);
+    }
   }
 }
 // [End packToFile_imageSource]
@@ -181,19 +190,30 @@ async function packing(picture: image.Picture, packOpts: image.PackingOption) {
     console.info('Succeeded in packing the image.');
   } catch (error) {
     console.error('Failed to pack the picture to data. And the error is: ' + error);
+  } finally {
+    await imagePackerApi.release();
   }
 }
 // [End packToData_picture]
 
 // [Start packToFile_picture]
 async function packToFile(picture: image.Picture, packOpts: image.PackingOption, context: Context) {
+  let imagePackerApi: image.ImagePacker | undefined = undefined;
+  let file: fileIo.File | undefined = undefined;
   try {
     const path : string = context.cacheDir + '/picture.jpg';
-    let file = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE);
-    const imagePackerApi = image.createImagePacker();
+    file = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
+    imagePackerApi = image.createImagePacker();
     await imagePackerApi.packToFile(picture, file.fd, packOpts);
   } catch (error) {
     console.error('Failed to pack the picture to file. And the error is: ' + error);
+  } finally {
+    if (file) {
+      fileIo.closeSync(file.fd);
+    }
+    if (imagePackerApi) {
+      await imagePackerApi.release();
+    }
   }
 }
 // [End packToFile_picture]
@@ -517,7 +537,7 @@ export class ImageInterfaceCalled {
         value += array[i] + ', ';
       }
       console.info(`get dng rawdata is:${value}.`);
-      return data
+      return data;
     }).catch((err: BusinessError) => {
       console.error(`get dng rawdata failed.err: ${JSON.stringify(err)}`);
       return undefined;

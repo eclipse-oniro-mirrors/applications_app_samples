@@ -24,26 +24,50 @@ struct Child {
   build() {
     Column() {
       ForEach(Array.from(this.message.entries()), (item: [number, string]) => {
-        Text(`${item[0]}`).fontSize(30)
-        Text(`${item[1]}`).fontSize(30)
+        Text(`${item[0]}`)
+          .fontSize(20)
+          .margin(10)
+        Text(`${item[1]}`)
+          .fontSize(20)
+          .margin(10)
         Divider()
       })
-      Button('Consume init Map').onClick((e: ClickEvent) => {
-        this.message = new Map<number, string>([[0, 'a'], [1, 'b'], [3, 'c']]);
+      Button('Consume init Map')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          this.message = new Map<number, string>([[0, 'a'], [1, 'b'], [3, 'c']]);
       })
-      Button('Consume set new one').onClick((e: ClickEvent) => {
-        this.message.set(4, 'd');
+      Button('Consume set new one')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 新增键值对，触发UI刷新
+          this.message.set(4, 'd');
       })
-      Button('Consume clear').onClick((e: ClickEvent) => {
-        this.message.clear();
+      Button('Consume clear')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 清空Map，触发UI刷新
+          this.message.clear();
       })
-      Button('Consume replace the first item').onClick((e: ClickEvent) => {
-        this.message.set(0, 'aa');
+      Button('Consume replace the first item')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 更新键值对，触发UI刷新
+          this.message.set(0, 'aa');
       })
-      Button('Consume delete the first item').onClick((e: ClickEvent) => {
-        this.message.delete(0);
+      Button('Consume delete the first item')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 删除键值对，触发UI刷新
+          this.message.delete(0);
       })
     }
+    .width('100%')
   }
 }
 
@@ -55,8 +79,11 @@ struct MapSample {
   build() {
     Row() {
       Column() {
-        Button('Provide init Map').onClick((e: ClickEvent) => {
-          this.message = new Map<number, string>([[0, 'a'], [1, 'b'], [3, 'c'], [4, 'd']]);
+        Button('Provide init Map')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            this.message = new Map<number, string>([[0, 'a'], [1, 'b'], [3, 'c'], [4, 'd']]);
         })
         Child()
       }

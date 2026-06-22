@@ -101,9 +101,12 @@ struct LazyForEachSample {
 
   build() {
     Column() {
-      Button('change message').onClick(() => {
-        this.message++;
-      })
+      Button('change message') // 修改状态变量message
+        .width(300)
+        .margin(10)
+        .onClick(() => {
+          this.message++;
+        })
 
       List() {
         LazyForEach<string>(this.data, (item: string, index: int): void => {
@@ -112,9 +115,12 @@ struct LazyForEachSample {
           }
         }, (item: string, index: int): string => item)
       }
-      .height('100%').width('90%')
-      .borderWidth(2).clip(true)
+      .height('100%')
+      .width('90%')
+      .borderWidth(2)
+      .clip(true)
     }
+    .width('100%')
   }
 }
 @Component
@@ -123,7 +129,7 @@ struct FreezeChild {
   index: string = '';
 
   aboutToAppear() {
-    console.info(`FreezeChild aboutToAppear index: ${this.index}`);
+    console.info(`FreezeChild aboutToAppear index: ${this.index}`); // FreezeChild在build前触发aboutToAppear
   }
 
   getValue(): number {
@@ -137,11 +143,12 @@ struct FreezeChild {
 
   build() {
     Text('message' + `${this.getValue()}, index: ${this.index}`)
+      .fontSize(20)
+      .margin(10)
       .width('90%')
       .height(160)
       .backgroundColor(0xAFEEEE)
       .textAlign(TextAlign.Center)
-      .fontSize(30)
       .fontWeight(FontWeight.Bold)
   }
 }

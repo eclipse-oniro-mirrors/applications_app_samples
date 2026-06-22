@@ -25,15 +25,22 @@ struct Child {
   build() {
     Column() {
       Button('child change arr item')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 修改arr变量中元素，触发UI刷新
           this.arr[0]++;
           this.arr[1] += 2;
         })
       Button('child reverse arr')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 翻转arr变量，触发UI刷新
           this.arr.reverse();
         })
     }
+    .width('100%')
   }
 }
 
@@ -45,19 +52,28 @@ struct Parent {
   build() {
     Column() {
       Button('parent change whole arr')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 赋值arr变量，触发UI刷新
           this.arr = [100, 200, 300];
         })
       Button('parent push new item')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 向arr变量中添加元素，触发UI刷新
           this.arr.push(111);
         })   
       Child()
       ForEach(this.arr,
         (item: number) => {
           Text(`${item}`)
+            .fontSize(20)
+            .margin(10)
         })
     }
+    .width('100%')
   }
 }
 // [End ProviderConsumerArray]

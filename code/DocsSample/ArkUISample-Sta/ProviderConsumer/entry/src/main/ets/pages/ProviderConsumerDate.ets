@@ -26,16 +26,25 @@ struct Parent {
   build() {
     Column() {
       Text(`parent: ${this.SelectedDate}`)
+        .fontSize(20)
+        .margin(10)
       Button('parent update the new date')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 通过给SelectedDate重新赋值新的Date实例，触发UI刷新
           this.SelectedDate = new Date('2023-07-07');
         })
       Button('parent increase the year by 1')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 调用Date的setFullYear接口修改年份，触发UI刷新
           this.SelectedDate.setFullYear(this.SelectedDate.getFullYear() + 1);
         })
       Child()
     }
+    .width('100%')
   }
 }
 
@@ -46,19 +55,30 @@ struct Child {
   build() {
     Column() {
       Text(`child: ${this.SelectedDate}`)
+        .fontSize(20)
+        .margin(10)
       Button('child update the new date')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.SelectedDate = new Date('2025-01-01');
         })
       Button('child increase the month by 1')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 调用Date的setMonth接口修改月份，触发UI刷新
           this.SelectedDate.setMonth(this.SelectedDate.getMonth() + 1);
         })
       Button('child increase the day by 1')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 调用Date的setDate接口修改日期，触发UI刷新
           this.SelectedDate.setDate(this.SelectedDate.getDate() + 1);
         })
     }
+    .width('100%')
   }
 }
 // [End ProviderConsumerDate]

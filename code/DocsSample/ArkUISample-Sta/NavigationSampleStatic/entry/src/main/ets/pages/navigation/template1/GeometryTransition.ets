@@ -1,0 +1,121 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the 'License');
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an 'AS IS' BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import {
+  Component,
+  Column,
+  NavPathStack,
+  Button,
+  NavPathInfo,
+  NavDestination,
+  Navigation,
+  $r,
+  Entry,
+  Image,
+  Provide,
+  Consume
+} from '@kit.ArkUI';
+import uiObserver from '@ohos.arkui.observer';
+
+@Component
+struct FromPage {
+  navDesInfo: uiObserver.NavDestinationInfo | undefined;
+  @Consume('navPS') navPathStack: NavPathStack;
+
+  build() {
+    // [Start GeometryTransitionFromPage]
+    // 起始页配置共享元素id
+    // [Start GeometryTransitionFromPageOne]
+    NavDestination() {
+      Column() {
+        // [StartExclude GeometryTransitionFromPage]
+        // $r('app.string.ToPage')资源文件中的value值为“跳转到目的页”
+        Button($r('app.string.ToPage'))
+          .width('80%')
+          .height(40)
+          .margin(20)
+          .onClick(() => {
+            this.getUIContext()?.animateTo({ duration: 1000 }, () => {
+              this.navPathStack.pushPath(new NavPathInfo('ToPage', undefined), false)
+            });
+          })
+        // [EndExclude GeometryTransitionFromPage]
+        // [StartExclude GeometryTransitionFromPageOne]
+        // 请将$r('app.media.startIcon')替换为实际资源文件
+        Image($r('app.media.startIcon'))
+          .geometryTransition('sharedId')
+          .width(100)
+          .height(100)
+        // [EndExclude GeometryTransitionFromPageOne]
+      }
+    }.title('FromPage')
+
+    // [End GeometryTransitionFromPageOne]
+    // [End GeometryTransitionFromPage]
+  }
+}
+
+@Component
+struct ToPage {
+  navDesInfo: uiObserver.NavDestinationInfo | undefined;
+  @Consume('navPS') navPathStack: NavPathStack;
+
+  build() {
+    // [Start GeometryTransitionToPage]
+    // 目的页配置共享元素id
+    NavDestination() {
+      Column() {
+        // 请将$r('app.media.startIcon')替换为实际资源文件
+        Image($r('app.media.startIcon'))
+          .geometryTransition('sharedId')
+          .width(200)
+          .height(200)
+      }
+    }
+    .title('ToPage')
+
+    // [End GeometryTransitionToPage]
+  }
+}
+
+@Entry
+@Component
+struct GeometryTransition {
+  @Provide navPathStack: NavPathStack = new NavPathStack();
+
+  @Builder
+  PageBuilder(name: string) {
+    if (name === 'FromPage') {
+      FromPage();
+    } else if (name === 'ToPage') {
+      ToPage();
+    }
+  }
+
+  aboutToAppear(): void {
+    this.navPathStack.pushPath(new NavPathInfo('FromPage', undefined));
+  }
+
+  build() {
+    Column() {
+      Navigation(this.navPathStack)
+        .title('Navigation')
+        .navDestination(this.PageBuilder)
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
