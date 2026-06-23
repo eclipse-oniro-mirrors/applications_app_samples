@@ -77,7 +77,7 @@ export struct DisplayedTogether {
     return resultMap;
   }
 
-  getEmojiImg(emojis: string[]): Resource[] { // 根据正则匹配结果返回自定义表情资源
+  getEmojiImg(emojis: string[], index: int): Resource | string { // 根据正则匹配结果返回自定义表情资源
     let emojisImg: Resource[] = []
     for (let i = 0; i < emojis.length; i++) {
       switch (emojis[i]) {
@@ -94,7 +94,10 @@ export struct DisplayedTogether {
           break;
       }
     }
-    return emojisImg
+    if (index >= 0 && emojisImg && emojisImg.length > index) {
+      return emojisImg[index];
+    }
+    return '';
   }
 
   build(): void {
@@ -120,8 +123,7 @@ export struct DisplayedTogether {
                 .fontColor('#666666')
                 .fontWeight(FontWeight.Regular)
 
-              ImageSpan((this.getEmojiImg(
-                this.classifyTextAndEmojis(this.fulltext).get('emojis') as string[]) as Resource[])[index])
+              ImageSpan(this.getEmojiImg(this.classifyTextAndEmojis(this.fulltext).get('emojis') as string[], index))
                 .verticalAlign(ImageSpanAlignment.BOTTOM)
                 .height(24)
             })
