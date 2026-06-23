@@ -40,20 +40,7 @@
         "name": "release"
       }
     ],
-    "signingConfigs": [
-      {
-        "name": "default",
-        "material": {
-          "certpath": "C:/Users/DaMoMo/.ohos/config/openharmony/default_ThemeFont_eaoCEcMI5TC9pgmWRI8K_u0GzqfbOtHoJn2hbJDjn-0=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001A7C09EA6ACB20F1807D2F492C32C20914C1BD2D3768F32A1C1F025AECB199ADE77075FFE47B19",
-          "profile": "C:/Users/DaMoMo/.ohos/config/openharmony/default_ThemeFont_eaoCEcMI5TC9pgmWRI8K_u0GzqfbOtHoJn2hbJDjn-0=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/DaMoMo/.ohos/config/openharmony/default_ThemeFont_eaoCEcMI5TC9pgmWRI8K_u0GzqfbOtHoJn2hbJDjn-0=.p12",
-          "storePassword": "0000001AD44AB9F0CD0DD837775195DDC7CA5A1F21200C8E4FBB7E084016D3D2B79729CC2E0EC91B0008"
-        }
-      }
-    ]
+    "signingConfigs": []
   },
   "modules": [
     {
