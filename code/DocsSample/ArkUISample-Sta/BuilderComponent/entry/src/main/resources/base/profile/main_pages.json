@@ -20,6 +20,9 @@
     "pages/BuilderOneParam",
     "pages/BuilderComponentV2Refresh",
     "pages/BuilderModifyParamPositive",
-    "pages/BuilderComponentParam"
+    "pages/BuilderComponentParam",
+    "pages/BuilderMutableBindingNoSetter",
+    "pages/BuilderChangeVariableRight",
+    "pages/BuilderCallInWatch"
   ]
 }
