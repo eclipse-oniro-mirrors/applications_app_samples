@@ -58,7 +58,7 @@ struct TextAreaDemo {
 // [End key_event_intercept]
 
 @Builder
-export function OnKeyPreImeCommit() {
+export function OnKeyPreImeCommit(): void {
   NavDestination() {
     Column({ space: 12 } as ColumnOptions) {
       TextAreaDemo()

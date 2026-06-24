@@ -28,7 +28,7 @@ export struct FocusableExample {
   @State color2: Color = Color.Yellow;
   @State color3: Color = Color.Yellow;
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
         // 请将$r('app.string.Focus_Focusable_text')替换为实际资源文件，在本示例中该资源文件的value值为"当某组件处于获焦状态"

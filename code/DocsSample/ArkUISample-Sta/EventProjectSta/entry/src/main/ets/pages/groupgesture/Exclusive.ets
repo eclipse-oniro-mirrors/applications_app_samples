@@ -24,7 +24,7 @@ export struct Exclusive {
   @State count1: int = 0;
   @State count2: int = 0;
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
         /* 请将$r('app.string.groupgesture_Exclusive_text')替换为实际资源文件，在本示例中该资源文件的value值为"以在一个Column组件上绑定单击手势和双击手势组合而成的互斥识

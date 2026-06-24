@@ -72,7 +72,7 @@ export struct DefaultDrag {
 
   // [Start generate_pix_map]
   @Builder
-  pixelMapBuilder() {
+  pixelMapBuilder(): void {
     Column() {
       // 请将$r('app.media.startIcon')替换为实际资源文件
       Image($r('app.media.startIcon'))
@@ -135,7 +135,7 @@ export struct DefaultDrag {
 
   // [End generate_pix_map]
 
-  build() {
+  build(): void {
     // [StartExclude default_drag]
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {

@@ -20,7 +20,7 @@ import { $r, Button, Column, ColumnOptions, Component, Entry, FocusPriority, Nav
 @Entry
 @Component
 export struct FocusScopePriorityPrevious {
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
         Row({ space: 12 } as RowOptions) {

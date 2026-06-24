@@ -21,7 +21,7 @@ import { $r, Button, ColorMetrics, Column, ColumnOptions, Component, Entry, Leng
 @Entry
 @Component
 export struct RequestFocusExample {
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 30 } as ColumnOptions) {
         Button('small black focus box')

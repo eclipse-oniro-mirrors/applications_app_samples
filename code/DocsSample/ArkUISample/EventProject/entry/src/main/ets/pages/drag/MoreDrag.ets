@@ -38,7 +38,7 @@ export struct MoreDrag {
     .opacity(0.4);
   }
 
-  onPageShow(): void {
+  aboutToAppear(): void {
     let i: number = 0;
     for (i = 0; i < 100; i++) {
       this.numbers.push(i);

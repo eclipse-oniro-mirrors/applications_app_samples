@@ -72,7 +72,7 @@ struct KeyEventExample {
 // [End listen_response_key_event]
 
 @Builder
-export function OnKey() {
+export function OnKey(): void {
   NavDestination() {
     Column({ space: 12 } as ColumnOptions) {
       KeyEventExample()
