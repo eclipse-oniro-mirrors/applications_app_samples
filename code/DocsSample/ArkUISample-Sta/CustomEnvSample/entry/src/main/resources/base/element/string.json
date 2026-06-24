@@ -1,0 +1,76 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "ce_array_var_title",
+      "value": "@CustomEnv装饰Array"
+    },
+    {
+      "name": "ce_date_var_title",
+      "value": "@CustomEnv装饰Date"
+    },
+    {
+      "name": "ce_map_var_title",
+      "value": "@CustomEnv装饰Map"
+    },
+    {
+      "name": "ce_set_var_title",
+      "value": "@CustomEnv装饰Set"
+    },
+    {
+      "name": "ce_closest_value_title",
+      "value": "@CustomEnv查找就近原则"
+    },
+    {
+      "name": "ce_observe_change_title",
+      "value": "观察变化"
+    },
+    {
+      "name": "ce_add_monitor_title",
+      "value": "@CustomEnv支持addMonitor"
+    },
+    {
+      "name": "ce_component_freeze_title",
+      "value": "@CustomEnv支持组件冻结"
+    },
+    {
+      "name": "ce_custom_key_value_title",
+      "value": "@CustomEnv支持自定义key和value"
+    },
+    {
+      "name": "ce_initial_default_value_title",
+      "value": "@CustomEnv支持默认初始值"
+    },
+    {
+      "name": "ce_mix_v1_v2_title",
+      "value": "@CustomEnv支持状态管理混用V1ToV2"
+    },
+    {
+      "name": "ce_mix_v2_v1_title",
+      "value": "@CustomEnv支持状态管理混用V2ToV1"
+    },
+    {
+      "name": "ce_monitor_title",
+      "value": "@CustomEnv支持monitor"
+    },
+    {
+      "name": "ce_multiple_types_title",
+      "value": "@CustomEnv支持多种数据类型"
+    },
+    {
+      "name": "ce_response_capability_title",
+      "value": "@CustomEnv支持响应式能力"
+    }
+  ]
+}
