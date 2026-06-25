@@ -26,11 +26,13 @@
 // [Start enable_mute_suggestion]
 // [Start set_default_output_device]
 // [Start set_session_behavior]
+// [Start print_session_info]
 import { audio } from '@kit.AudioKit';
 // [StartExclude get_session_manager]
 // [StartExclude on_audio_session_deactivated]
 // [Start deactivate_audio_session_v1]
 // [Start deactivate_audio_session_v2]
+// [StartExclude print_session_info]
 import { BusinessError } from '@ohos.base';
 // [StartExclude activate_audio_session_v1]
 // [StartExclude renderer_interrupt]
@@ -44,7 +46,9 @@ import { BusinessError } from '@ohos.base';
 // [StartExclude set_default_output_device]
 // [StartExclude set_session_behavior]
 import { common } from '@kit.AbilityKit';
+// [EndExclude print_session_info]
 import { fileIo, ReadOptions } from '@kit.CoreFileKit';
+// [StartExclude print_session_info]
 import { Entry, Text, Column, Component, Button, ClickEvent, HorizontalAlign, FlexAlign, Scroll, Row, Color } from '@ohos.arkui.component';
 import { State } from '@ohos.arkui.stateManagement';
 
@@ -504,6 +508,31 @@ async function setDefaultOutputDeviceToDefault(){
   // [End set_default_output_device]
 }
 
+async function printAudioSessionInfo(context: common.UIAbilityContext){
+  // [EndExclude print_session_info]
+  // 设置音频并发模式。
+  let strategy: audio.AudioSessionStrategy = {
+    concurrencyMode: audio.AudioConcurrencyMode.CONCURRENCY_MIX_WITH_OTHERS
+  };
+  // 激活音频会话。
+  await audioSessionManager.activateAudioSession(strategy);
+
+  // 创建音频调试管理器。
+  let audioDebuggingManager: audio.AudioDebuggingManager = audioManager.getDebuggingManager();
+
+  // 输出到hilog日志。
+  audioDebuggingManager.printSessionInfo(audioSessionManager, -1);
+
+  // fd 文件描述符，实际使用时请根据具体情况获取
+  let filePath = context.filesDir + '/audio_session_info.txt';
+  let fd = fileIo.openSync(filePath, fileIo.OpenMode.CREATE | fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC).fd;
+  // 输出到文件。
+  audioDebuggingManager.printSessionInfo(audioSessionManager, fd);
+  fileIo.closeSync(fd);
+  // [End print_session_info]
+  console.info('print audio session info filePath: ' + filePath);
+}
+
 @Entry
 @Component
 struct Index {
@@ -738,6 +767,22 @@ struct Index {
           .onClick(() => {
             deactivateAudioSession();
             this.runningResult = 'Deactivate audioSession success.';
+          })
+        }
+        .width('80%')
+        .height(50)
+        .justifyContent(FlexAlign.Center)
+
+        Row() {
+          Button() {
+            Text('打印音频会话调试信息').fontSize(15).fontColor(Color.White)
+          }
+          .width('80%')
+          .height(40)
+          .onClick(() => {
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            printAudioSessionInfo(context);
+            this.runningResult = 'Print audioSession info success.';
           })
         }
         .width('80%')
