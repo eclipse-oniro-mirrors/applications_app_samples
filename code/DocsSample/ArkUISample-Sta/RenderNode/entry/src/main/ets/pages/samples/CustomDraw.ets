@@ -29,6 +29,7 @@ import {
   RenderNode,
   UIContext
 } from '@kit.ArkUI';
+import { drawing } from '@kit.ArkGraphics2D';
 
 export class MyRenderNode extends RenderNode {
   width: number = 200;
@@ -36,6 +37,14 @@ export class MyRenderNode extends RenderNode {
   draw(context: DrawContext): void {
     // 获取canvas对象
     const canvas = context.canvas;
+    const brush = new drawing.Brush();
+    brush.setColor({
+      alpha: 255,
+      red: 81,
+      green: 157,
+      blue: 180
+    })
+    canvas.attachBrush(brush);
     // 绘制矩阵
     canvas.drawRect({
       left: 0,
@@ -43,6 +52,7 @@ export class MyRenderNode extends RenderNode {
       top: 0,
       bottom: 200
     });
+    canvas.detachBrush();
   }
 }
 
@@ -53,7 +63,7 @@ renderNode.frame = {
   width: 300,
   height: 300
 };
-renderNode.backgroundColor = 0xff0000ff.toInt();
+renderNode.backgroundColor = 0xffd5d5d5.toInt();
 renderNode.opacity = 0.5;
 
 class MyNodeController extends NodeController {
