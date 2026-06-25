@@ -38,6 +38,9 @@ entry/src/
 │   │   │   ├── BuilderComponentV2Refresh.ets
 │   │   │   ├── BuilderModifyParamPositive.ets
 │   │   │   └── BuilderComponentParam.ets
+│   │   │   ├── BuilderMutableBindingNoSetter.ets
+│   │   │   ├── BuilderChangeVariableRight.ets
+│   │   │   └── BuilderCallInWatch.ets
 │   └── resources
 │       ├── ...
 ├─── ...
@@ -84,6 +87,12 @@ entry/src/
 19. 正确修改@Builder参数：使用引用传递方式正确修改@Builder参数以触发UI刷新。
 
 20. 自定义组件拆分参数：将复杂对象拆分为简单类型参数传递给子组件，实现按引用传递触发UI刷新。
+
+21. MutableBinding参数无SetterCallback：使用UIUtils.makeBinding构造MutableBinding时，必须传递SetterCallback以支持@Builder函数内修改参数值。
+
+22. 正确修改变量值：使用MutableBinding在@Builder装饰的函数中修改参数值，必须传递SetterCallback避免运行时错误。
+
+23. @Watch中不调用@Builder：不在@Watch回调函数中使用@Builder函数，而是在build方法中正确使用@Builder。
 
 ## 相关权限
 
