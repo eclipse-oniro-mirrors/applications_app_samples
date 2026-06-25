@@ -14,6 +14,7 @@
  */
 
 import { ComponentCard } from '../../common/Card';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 @Entry
 @Component

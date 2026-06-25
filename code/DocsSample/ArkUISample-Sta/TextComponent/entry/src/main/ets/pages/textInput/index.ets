@@ -49,6 +49,7 @@ import { DisableSystemServiceMenuItems } from './DisableSystemServiceMenuItems';
 import { SetTextMargin } from './SetTextMargin';
 import { SetInputMultiTypeStyle } from './SetInputMultiTypeStyle';
 import { NormalQuestion } from './NormalQuestion';
+import { TextMenuShowSubWindow } from './TextMenuShowSubWindow';
 
 export const INPUT_ROUTE_PREFIX: string = 'TextInput';
 
@@ -91,7 +92,10 @@ const routes: Array<Route> = [
     $r('app.string.SetInputBoxMultiTypeStyle_description')),
   new Route('TextInput/NormalQuestion',
     resourceToStringManager.resourceToString($r('app.string.NormalQuestion_title')),
-    $r('app.string.NormalQuestion_description'))
+    $r('app.string.NormalQuestion_description')),
+  new Route('text/TextMenuShowSubWindow',
+    resourceToStringManager.resourceToString($r('app.string.TextMenuShow_title')),
+    $r('app.string.TextMenuShow_description'))
 ];
 
 @Builder
@@ -124,6 +128,8 @@ export function TextInputDestination(name: string): void {
     SetInputMultiTypeStyle();
   } else if (name === routes[12].name) {
     NormalQuestion();
+  } else if (name === routes[13].name) {
+    TextMenuShowSubWindow();
   }
 }
 

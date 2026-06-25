@@ -1855,6 +1855,14 @@
     {
       "name": "READ_PASTEBOARD_Permission_Reason",
       "value": "用于读取剪贴板中的信息以提供便捷服务"
+    },
+    {
+      "name": "TextMenuShow_title",
+      "value": "子窗口显示文本"
+    },
+    {
+      "name": "TextMenuShow_description",
+      "value": "通过设置TextMenuShowMode实现文本菜单在子窗口显示"
     }
   ]
 }
