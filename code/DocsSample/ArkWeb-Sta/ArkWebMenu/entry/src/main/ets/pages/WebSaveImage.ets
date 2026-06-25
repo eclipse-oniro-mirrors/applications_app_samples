@@ -69,17 +69,17 @@ struct WebComponent {
     let off: number = 0;
     let len: number = 0;
     let readLen: number = 0;
-    let srcFd: int = Number(srcFileDes.fd) as int;
+    let srcFd: int = Double.toInt(srcFileDes.fd);
     let srcOffset: number = srcFileDes.offset;
     let srcLength: number = srcFileDes.length;
     while (true) {
-      let readOptions: ReadOptions = { offset: srcOffset + off as long, length: bufsize as long};
+      let readOptions: ReadOptions = { offset: Double.toLong(srcOffset + off), length: Double.toLong(bufsize)};
       len = fs.readSync(srcFd, buf, readOptions);
       if (len <= 0) {
         break;
       }
       readLen += len;
-      let writeOptions: WriteOptions = { offset: off as long, length: len as long};
+      let writeOptions: WriteOptions = { offset: Double.toLong(off), length: Double.toLong(len)};
       fs.writeSync(dest.fd, buf, writeOptions);
       off += len;
       if ((srcLength - readLen) < bufsize) {
@@ -90,6 +90,7 @@ struct WebComponent {
       }
     }
     fs.close(dest.fd);
+    fs.close(srcFileDes.fd)
     return dstPath;
   }
 

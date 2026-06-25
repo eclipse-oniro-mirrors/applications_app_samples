@@ -16,7 +16,7 @@
 
 // [Start soft_keyboard_web_static]
   // Index.ets
-  import { WebKeyboardCallbackInfo, WebKeyboardOptions, WebKeyboardController, $rawfile, Color, Text, Column, Row, Web, ColumnOptions, Entry, Component, Map, Button } from '@ohos.arkui.component';
+  import { WebKeyboardCallbackInfo, WebKeyboardOptions, WebKeyboardController, $rawfile, Color, Text, Column, Row, Web, ColumnOptions, Entry, Component, Button } from '@ohos.arkui.component';
   import webview from '@ohos.web.webview';
   import { inputMethodEngine } from '@kit.IMEKit';
 
@@ -113,7 +113,7 @@
               if (enterKeyTypeStr != undefined) {
                 let enterKeyType: number | undefined = this.inputAttributeMap.get(enterKeyTypeStr);
                 if (enterKeyType != undefined) {
-                  option.enterKeyType = enterKeyType as Int;
+                  option.enterKeyType = Double.toInt(enterKeyType);
                 }                
               }
               return option;
