@@ -49,7 +49,7 @@ export struct DropAnimationExample {
     };
 
   //[End drop_customDropAnimation_start]
-  build() {
+  build(): void {
     //[StartExclude dropAnimationExample_start]
     NavDestination() {
       //[EndExclude dropAnimationExample_start]

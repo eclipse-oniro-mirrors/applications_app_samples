@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { BarStyle, BlurStyle, Builder, Column, Component, Entry, FlexAlign, ForEach, LengthMetrics, List, ListItem, NavPathInfo, NavPathStack, Navigation, Provide, Search, State, $r } from '@kit.ArkUI';
+import { BarStyle, BlurStyle, Builder, Column, Component, Entry, FlexAlign, ForEach, LengthMetrics, List, ListItem, ListOptions, NavPathInfo, NavPathStack, Navigation, Provide, Search, State, $r } from '@kit.ArkUI';
 import { RoutableCard } from '../common/Card';
 import { Route } from '../common/Route';
 import { DeviceDestination, Device_ROUTE_PREFIX } from './device/Index';
@@ -131,7 +131,7 @@ struct Index {
 
   build() {
     Navigation(this.pathStack) {
-      List({ space: 12 }) {
+      List({ space: 12 } as ListOptions) {
         ForEach(this.getFilteredRoutes(), (route: Route, index: int) => {
           ListItem() {
             RoutableCard({ title: route.title })

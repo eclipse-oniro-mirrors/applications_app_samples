@@ -26,11 +26,14 @@ struct MouseWheel {
     Column() {
       Button('Click to Change ListDirection')
         .margin(20)
-        .onClick(() => {
-          if (this.dir1 === Axis.Vertical) {
-            this.dir1 = Axis.Horizontal;
-          } else {
-            this.dir1 = Axis.Vertical;
+        // 鼠标点击切换List方向
+        .onMouse((event: MouseEvent) => {
+          if (event && event.action === MouseAction.Press) {
+            if (this.dir1 === Axis.Vertical) {
+              this.dir1 = Axis.Horizontal
+            } else {
+              this.dir1 = Axis.Vertical
+            }
           }
         })
       List({ space: 20, initialIndex: 0 }) {
@@ -45,12 +48,6 @@ struct MouseWheel {
               .backgroundColor(0xFFFFFF)
           }
           .margin(20)
-          // 为ListItem绑定滑动手势，当在ListItem上滚动鼠标滚轮时，会优先触发ListItem的滑动手势
-          .gesture(PanGesture({ direction: PanDirection.Vertical })
-            .onActionStart(() => {
-            })
-            .onActionUpdate(() => {
-            }))
         }, (item: number) => item.toString())
       }
       .borderWidth(1)

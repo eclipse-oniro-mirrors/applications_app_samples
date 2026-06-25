@@ -23,7 +23,7 @@ export struct FocusAndClick {
   @State count: int = 0;
   @State name: string = 'Button';
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
 

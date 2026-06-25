@@ -23,7 +23,7 @@ import { $r, Column, ColumnOptions, Component, Entry, GestureEvent, LongPressGes
 export struct LongPress {
   @State count: int = 0;
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
         Column() {

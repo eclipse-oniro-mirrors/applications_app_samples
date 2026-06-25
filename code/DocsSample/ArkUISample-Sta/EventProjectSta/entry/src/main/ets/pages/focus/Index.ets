@@ -60,12 +60,12 @@ const routes: Route[] = [
     description: resource.resourceToString($r('app.string.Focus_Index_FocusableExample_description1')),
   },
   {
-    name: `${Focus_ROUTE_PREFIX}/FocusableExample`,
+    name: `${Focus_ROUTE_PREFIX}/DefaultFocus`,
     title: resource.resourceToString($r('app.string.Focus_Index_FocusableExample_title2')),
     description: resource.resourceToString($r('app.string.Focus_Index_FocusableExample_description2')),
   },
   {
-    name: `${Focus_ROUTE_PREFIX}/FocusableExample`,
+    name: `${Focus_ROUTE_PREFIX}/FocusPriority`,
     title: resource.resourceToString($r('app.string.Focus_Index_FocusableExample_title3')),
     description: resource.resourceToString($r('app.string.Focus_Index_FocusableExample_description3')),
   },
@@ -167,7 +167,7 @@ const routes: Route[] = [
 ];
 // [End route_push]
 @Builder
-export function FocusDestination(name: string) {
+export function FocusDestination(name: string): void {
   if (name === Focus_ROUTE_PREFIX) {
     FocusExample();
   } else if (name === routes[0].name) {
@@ -230,7 +230,7 @@ struct FocusExample {
         List({ space: 12 } as ListOptions) {
           ForEach(routes, (route: Route, index: int) => {
             ListItem() {
-              CompletedRoutableCard({ title: route.title, description: route.description })
+              CompletedRoutableCard({ title: route.title, description: route.description as string })
             }
             .width('100%')
             .onClick(() => {

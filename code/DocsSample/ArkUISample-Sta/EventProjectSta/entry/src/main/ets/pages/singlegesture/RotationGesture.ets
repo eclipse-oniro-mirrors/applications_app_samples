@@ -24,7 +24,7 @@ export struct Rotation {
   @State angle: double = 0;
   @State rotateValue: double = 0;
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
         Column() {

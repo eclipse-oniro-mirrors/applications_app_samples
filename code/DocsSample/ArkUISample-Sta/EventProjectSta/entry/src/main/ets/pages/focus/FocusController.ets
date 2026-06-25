@@ -23,7 +23,7 @@ export struct FocusControl {
   @State btColor: string = '#ff2787d9';
   @State btColor2: string = '#ff2787d9';
 
-  build() {
+  build(): void {
     NavDestination() {
         Column({ space: 20 } as ColumnOptions) {
           Column({ space: 5 } as ColumnOptions) {

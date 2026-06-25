@@ -28,7 +28,7 @@ export struct Sequence {
   @State positionY: double = 0;
   @State borderStyles: BorderStyle = BorderStyle.Solid;
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
         /* 请将$r('app.string.groupgesture_Parallel_text')替换为实际资源文件，在本示例中该资源文件的value值为"在一个Column组件上绑定了translate属性，通过修改

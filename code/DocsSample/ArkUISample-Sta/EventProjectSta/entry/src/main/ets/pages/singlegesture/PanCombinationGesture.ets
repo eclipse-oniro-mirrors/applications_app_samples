@@ -47,7 +47,7 @@ export struct VolumeControlDemo {
     );
   }
 
-  build() {
+  build(): void {
     NavDestination() {
       Column() {
         Row() {
