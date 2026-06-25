@@ -23,13 +23,78 @@ import {
   Entry,
   NavDestination,
   TextInput,
-  TextArea
+  TextArea,
+  TextMenuItem,
+  TextMenuItemId,
+  TextRange,
+  EditMenuOptions,
+  OnCreateMenuCallback,
+  OnPrepareMenuCallback,
+  OnMenuItemClickCallback
 } from '@kit.ArkUI';
 import { ComponentCard } from '../../common/Card';
+import { State } from '@ohos.arkui.stateManagement';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 @Entry
 @Component
 export struct SelectMenu {
+  @State endIndex: number = 0;
+  // [Start editMenu_create]
+  onCreateMenu: OnCreateMenuCallback = (menuItems: Array<TextMenuItem>) => {
+    let item1: TextMenuItem = {
+      content: 'create1',
+      icon: $r('app.media.startIcon'),
+      id: TextMenuItemId.of('create1'),
+    };
+    let item2: TextMenuItem = {
+      content: 'create2',
+      id: TextMenuItemId.of('create2'),
+      icon: $r('app.media.startIcon'),
+    };
+    menuItems.push(item1);
+    menuItems.unshift(item2);
+    return menuItems;
+  }
+  onMenuItemClick: OnMenuItemClickCallback = (menuItem: TextMenuItem, textRange: TextRange) => {
+    if (menuItem.id.equals(TextMenuItemId.of('create2'))) {
+      hilog.info(0x0000, 'testTag', '%{public}s',
+        'intercept id: create2 start:' + textRange.start + '; end:' + textRange.end);
+      return true;
+    }
+    if (menuItem.id.equals(TextMenuItemId.of('prepare1'))) {
+      hilog.info(0x0000, 'testTag', '%{public}s',
+        'intercept id: prepare1 start:' + textRange.start + '; end:' + textRange.end);
+      return true;
+    }
+    if (menuItem.id.equals(TextMenuItemId.COPY)) {
+      hilog.info(0x0000, 'testTag', '%{public}s', 'intercept COPY start:' + textRange.start + '; end:' + textRange.end);
+      return true;
+    }
+    if (menuItem.id.equals(TextMenuItemId.SELECT_ALL)) {
+      hilog.info(0x0000, 'testTag', '%{public}s',
+        'No interception SELECT_ALL start:' + textRange.start + '; end:' + textRange.end);
+      return false;
+    }
+    return false;
+  }
+  // $r('app.media.startIcon')需要替换为开发者所需的图像资源文件。
+  onPrepareMenu: OnPrepareMenuCallback = (menuItems: Array<TextMenuItem>) => {
+    let item1: TextMenuItem = {
+      content: 'prepare1_' + this.endIndex,
+      icon: $r('app.media.startIcon'),
+      id: TextMenuItemId.of('prepare1'),
+    };
+    menuItems.unshift(item1);
+    return menuItems;
+  }
+  @State editMenuOptions: EditMenuOptions = {
+    onCreateMenu: this.onCreateMenu,
+    onMenuItemClick: this.onMenuItemClick,
+    onPrepareMenu: this.onPrepareMenu
+  } as EditMenuOptions;
+  // [End editMenu_create]
+
   build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
@@ -43,6 +108,15 @@ export struct SelectMenu {
             // 请将$r('app.string.show_selected_menu')替换为实际资源文件，在本示例中该资源文件的value值为"这是一段文本，用来展示选中菜单"
             TextArea({ text: $r('app.string.show_selected_menu') })
             // [End select_textarea]
+
+            // [Start editMenu_textinput]
+            // 请将$r('app.string.show_selected_menu')替换为实际资源文件，在本示例中该资源文件的value值为"这是一段文本，用来展示选中菜单"
+            TextInput({ text: $r('app.string.show_selected_menu') })
+              .editMenuOptions(this.editMenuOptions)
+              .onTextSelectionChange((selectionStart: int, selectionEnd: int) => {
+                this.endIndex = selectionEnd;
+              })
+            // [End editMenu_textinput]
           }
         }
       }
