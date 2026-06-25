@@ -39,7 +39,7 @@
 - 点击“为Renderer选择输出”按钮，弹出可选输出设备列表，选中后直接调用`audioDeviceEnhanceManager.selectOutputDeviceForAudioRenderer`为指定播放流选择输出设备（需先创建AudioRenderer）。
 - 点击“为Capturer选择输入”按钮，弹出可选输入设备列表，选中后直接调用`audioDeviceEnhanceManager.selectInputDeviceForAudioCapturer`为指定录制流选择输入设备（需先创建AudioCapturer）。
 
-  <img src='screenshots/EnhancedDeviceRouting.png' width=320>
+  <img src='screenshots/EnhancedDevice.png' width=320>
 
 ## 工程结构&模块类型
 

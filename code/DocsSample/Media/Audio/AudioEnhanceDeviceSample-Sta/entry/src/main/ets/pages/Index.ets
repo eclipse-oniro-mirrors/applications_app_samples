@@ -39,8 +39,8 @@ struct Index {
     Text(name)
       .textAlign(TextAlign.Center)
       .margin(10)
-      .fontSize($r('app.float.index_text_font_size'))
-      .size({ width: '100%', height: $r('app.float.index_button_height_size') })
+      .fontSize(24)
+      .size({ width: '100%', height: 48 })
   }
 
   @Builder

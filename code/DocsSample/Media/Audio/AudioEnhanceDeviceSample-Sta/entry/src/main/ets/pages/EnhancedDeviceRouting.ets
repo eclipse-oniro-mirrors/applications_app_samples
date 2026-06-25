@@ -13,17 +13,18 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-
 // [Start isEnhancedRoutingSupported]
 // [Start select_OutputDevice]
 // [Start select_InputDevice]
 // [Start select_OutputDeviceForAudioRenderer]
 // [Start select_InputDeviceForAudioCapturer]
-import { audio } from '@kit.AudioKit';
-import { BusinessError } from '@kit.BasicServicesKit';
-import { common, abilityAccessCtrl, PermissionRequestResult } from '@kit.AbilityKit';
+import audio from '@ohos.multimedia.audio';
+import common from '@ohos.app.ability.common';
+import abilityAccessCtrl from '@ohos.abilityAccessCtrl';
+import { PermissionRequestResult } from '@ohos.abilityAccessCtrl';
+import { BusinessError } from '@ohos.base';
 import {
-  Entry, Component, State, Scroll, Column, Row, Text, Color, FlexAlign, HorizontalAlign,
+  Entry, Component, State, Scroll, Column, Row, Text, Color, FlexAlign, HorizontalAlign, TextOverflow, ClickEvent,
   DialogAlignment, SheetInfo
 } from '@kit.ArkUI';
 
@@ -40,69 +41,39 @@ let audioStreamInfo: audio.AudioStreamInfo = {
   encodingType: audio.AudioEncodingType.ENCODING_TYPE_RAW
 };
 
-class AudioRendererOptionsCompat implements audio.AudioRendererOptions {
-  streamInfo: audio.AudioStreamInfo;
-  rendererInfo: audio.AudioRendererInfo;
-  constructor(streamInfo: audio.AudioStreamInfo, rendererInfo: audio.AudioRendererInfo) {
-    this.streamInfo = streamInfo;
-    this.rendererInfo = rendererInfo;
-  }
-}
-
-class AudioCapturerOptionsCompat implements audio.AudioCapturerOptions {
-  streamInfo: audio.AudioStreamInfo;
-  capturerInfo: audio.AudioCapturerInfo;
-  constructor(streamInfo: audio.AudioStreamInfo, capturerInfo: audio.AudioCapturerInfo) {
-    this.streamInfo = streamInfo;
-    this.capturerInfo = capturerInfo;
-  }
-}
-
 let audioRendererInfo: audio.AudioRendererInfo = {
   usage: audio.StreamUsage.STREAM_USAGE_VOICE_COMMUNICATION,
   rendererFlags: 0
 };
-let audioRendererOptions: AudioRendererOptionsCompat = new AudioRendererOptionsCompat(audioStreamInfo, audioRendererInfo);
+
+let audioRendererOptions: audio.AudioRendererOptions = {
+  streamInfo: audioStreamInfo,
+  rendererInfo: audioRendererInfo
+};
 
 let audioCapturerInfo: audio.AudioCapturerInfo = {
   source: audio.SourceType.SOURCE_TYPE_VOICE_COMMUNICATION,
   capturerFlags: 0
 };
-let audioCapturerOptions: AudioCapturerOptionsCompat = new AudioCapturerOptionsCompat(audioStreamInfo, audioCapturerInfo);
+
+let audioCapturerOptions: audio.AudioCapturerOptions = {
+  streamInfo: audioStreamInfo,
+  capturerInfo: audioCapturerInfo
+};
 
 // [StartExclude isEnhancedRoutingSupported]
 // [StartExclude select_OutputDevice]
 // [StartExclude select_InputDevice]
 // [StartExclude select_OutputDeviceForAudioRenderer]
 // [StartExclude select_InputDeviceForAudioCapturer]
-let globalLogUpdate: ((msg: string, isError: boolean) => void) | undefined;
-
-class SheetInfoCompat implements SheetInfo {
-  title: string;
-  action: () => void;
-  constructor(title: string, action: () => void) {
-    this.title = title;
-    this.action = action;
-  }
-}
-
 async function requestMicrophonePermission(context: common.UIAbilityContext): Promise<boolean> {
   let atManager = abilityAccessCtrl.createAtManager();
   let result: PermissionRequestResult = await atManager
     .requestPermissionsFromUser(context, ['ohos.permission.MICROPHONE']);
-  return result.authResults[0] === 0;
-}
-
-function checkEnhancedRoutingSupported() {
-  // [EndExclude isEnhancedRoutingSupported]
-  let isSupported: boolean = audioDeviceEnhanceManager.isEnhancedRoutingSupported();
-  console.info(`Succeeded in querying whether enhanced routing is supported. Result: ${isSupported}.`);
-  // [StartExclude isEnhancedRoutingSupported]
-  if (globalLogUpdate) {
-    globalLogUpdate(`isEnhancedRoutingSupported: ${isSupported}`, false);
-  }
-  // [End isEnhancedRoutingSupported]
-  return isSupported;
+  let firstResult = result.authResults.find((value: int, index: int, array: Array<int>): boolean => {
+    return index === 0;
+  });
+  return firstResult === 0;
 }
 
 function logDevice(device: audio.AudioDeviceDescriptor): string {
@@ -114,158 +85,200 @@ function logDevice(device: audio.AudioDeviceDescriptor): string {
   return deviceInfo;
 }
 
-async function selectOutputDevice(device: audio.AudioDeviceDescriptor) {
-  if (!checkEnhancedRoutingSupported()) {
-    if (globalLogUpdate) {
-      globalLogUpdate('Enhanced routing is not supported, selectOutputDevice will not take effect.', true);
+function checkEnhancedRoutingSupported(updateCallback?: (msg: string, isError: boolean) => void): boolean {
+  // [EndExclude isEnhancedRoutingSupported]
+  let isSupported: boolean = audioDeviceEnhanceManager.isEnhancedRoutingSupported();
+  console.info(`Succeeded in querying whether enhanced routing is supported. Result: ${isSupported}.`);
+  // [StartExclude isEnhancedRoutingSupported]
+  if (updateCallback) {
+    updateCallback(`isEnhancedRoutingSupported: ${isSupported}`, false);
+  }
+  // [End isEnhancedRoutingSupported]
+  return isSupported;
+}
+
+async function selectOutputDevice(device: audio.AudioDeviceDescriptor,
+  updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
+  if (!checkEnhancedRoutingSupported(updateCallback)) {
+    if (updateCallback) {
+      updateCallback('Enhanced routing is not supported, selectOutputDevice will not take effect.', true);
     }
     return;
   }
   // [EndExclude select_OutputDevice]
-  audioDeviceEnhanceManager.selectOutputDevice(device).then(() => {
+  try {
+    await audioDeviceEnhanceManager.selectOutputDevice(device);
     console.info('Succeeded in selecting output device.');
     // [StartExclude select_OutputDevice]
-    if (globalLogUpdate) {
-      globalLogUpdate('Succeeded in selecting output device.\n' + logDevice(device), false);
+    if (updateCallback) {
+      updateCallback('Succeeded in selecting output device.\n' + logDevice(device), false);
     }
     // [EndExclude select_OutputDevice]
-  }).catch((err: BusinessError) => {
-    console.error(`Failed to select output device. Code: ${err.code}, message: ${err.message}`);
+  } catch (err) {
+    let error = err as BusinessError;
+    console.error(`Failed to select output device. Code: ${error.code}, message: ${error.message}`);
     // [StartExclude select_OutputDevice]
-    if (globalLogUpdate) {
-      globalLogUpdate(`Failed to select output device. Code: ${err.code}, message: ${err.message}`, true);
+    if (updateCallback) {
+      updateCallback(`Failed to select output device. Code: ${error.code}, message: ${error.message}`, true);
     }
     // [End select_OutputDevice]
-  });
+  }
 }
 
-async function selectInputDevice(device: audio.AudioDeviceDescriptor) {
-  if (!checkEnhancedRoutingSupported()) {
-    if (globalLogUpdate) {
-      globalLogUpdate('Enhanced routing is not supported, selectInputDevice will not take effect.', true);
+async function selectInputDevice(device: audio.AudioDeviceDescriptor,
+  updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
+  if (!checkEnhancedRoutingSupported(updateCallback)) {
+    if (updateCallback) {
+      updateCallback('Enhanced routing is not supported, selectInputDevice will not take effect.', true);
     }
     return;
   }
   // [EndExclude select_InputDevice]
-  audioDeviceEnhanceManager.selectInputDevice(device).then(() => {
+  try {
+    await audioDeviceEnhanceManager.selectInputDevice(device);
     console.info('Succeeded in selecting input device.');
     // [StartExclude select_InputDevice]
-    if (globalLogUpdate) {
-      globalLogUpdate('Succeeded in selecting input device.\n' + logDevice(device), false);
+    if (updateCallback) {
+      updateCallback('Succeeded in selecting input device.\n' + logDevice(device), false);
     }
     // [EndExclude select_InputDevice]
-  }).catch((err: BusinessError) => {
-    console.error(`Failed to select input device. Code: ${err.code}, message: ${err.message}`);
+  } catch (err) {
+    let error = err as BusinessError;
+    console.error(`Failed to select input device. Code: ${error.code}, message: ${error.message}`);
     // [StartExclude select_InputDevice]
-    if (globalLogUpdate) {
-      globalLogUpdate(`Failed to select input device. Code: ${err.code}, message: ${err.message}`, true);
+    if (updateCallback) {
+      updateCallback(`Failed to select input device. Code: ${error.code}, message: ${error.message}`, true);
     }
-  // [End select_InputDevice]
-  });
+    // [End select_InputDevice]
+  }
 }
 
 async function selectOutputDeviceForAudioRenderer(renderer: audio.AudioRenderer,
-  outputDevice: audio.AudioDeviceDescriptor) {
-  if (!checkEnhancedRoutingSupported()) {
-    if (globalLogUpdate) {
-      globalLogUpdate('Enhanced routing is not supported, selectOutputDeviceForAudioRenderer will not take effect.', true);
+  outputDevice: audio.AudioDeviceDescriptor,
+  updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
+  if (!checkEnhancedRoutingSupported(updateCallback)) {
+    if (updateCallback) {
+      updateCallback('Enhanced routing is not supported, selectOutputDeviceForAudioRenderer will not take effect.', true);
     }
     return;
   }
   // [EndExclude select_OutputDeviceForAudioRenderer]
-  audioDeviceEnhanceManager.selectOutputDeviceForAudioRenderer(renderer, outputDevice).then(() => {
+  try {
+    await audioDeviceEnhanceManager.selectOutputDeviceForAudioRenderer(renderer, outputDevice);
     console.info('Succeeded in selecting output device for audio renderer.');
     // [StartExclude select_OutputDeviceForAudioRenderer]
-    if (globalLogUpdate) {
-      globalLogUpdate('Succeeded in selecting output device for audio renderer.\n' + logDevice(outputDevice), false);
+    if (updateCallback) {
+      updateCallback('Succeeded in selecting output device for audio renderer.\n' + logDevice(outputDevice), false);
     }
     // [EndExclude select_OutputDeviceForAudioRenderer]
-  }).catch((err: BusinessError) => {
-    console.error(`Failed to select output device for audio renderer. Code: ${err.code}, message: ${err.message}`);
+  } catch (err) {
+    let error = err as BusinessError;
+    console.error(`Failed to select output device for audio renderer. Code: ${error.code}, message: ${error.message}`);
     // [StartExclude select_OutputDeviceForAudioRenderer]
-    if (globalLogUpdate) {
-      globalLogUpdate(`Failed to select output device for audio renderer. Code: ${err.code}, message: ${err.message}`, true);
+    if (updateCallback) {
+      updateCallback(`Failed to select output device for audio renderer. Code: ${error.code}, message: ${error.message}`, true);
     }
-  // [End select_OutputDeviceForAudioRenderer]
-  });
+    // [End select_OutputDeviceForAudioRenderer]
+  }
 }
 
 async function selectInputDeviceForAudioCapturer(capturer: audio.AudioCapturer,
-  inputDevice: audio.AudioDeviceDescriptor) {
-  if (!checkEnhancedRoutingSupported()) {
-    if (globalLogUpdate) {
-      globalLogUpdate('Enhanced routing is not supported, selectInputDeviceForAudioCapturer will not take effect.', true);
+  inputDevice: audio.AudioDeviceDescriptor,
+  updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
+  if (!checkEnhancedRoutingSupported(updateCallback)) {
+    if (updateCallback) {
+      updateCallback('Enhanced routing is not supported, selectInputDeviceForAudioCapturer will not take effect.', true);
     }
     return;
   }
   // [EndExclude select_InputDeviceForAudioCapturer]
-  audioDeviceEnhanceManager.selectInputDeviceForAudioCapturer(capturer, inputDevice).then(() => {
+  try {
+    await audioDeviceEnhanceManager.selectInputDeviceForAudioCapturer(capturer, inputDevice);
     console.info('Succeeded in selecting input device for audio capturer.');
     // [StartExclude select_InputDeviceForAudioCapturer]
-    if (globalLogUpdate) {
-      globalLogUpdate('Succeeded in selecting input device for audio capturer.\n' + logDevice(inputDevice), false);
+    if (updateCallback) {
+      updateCallback('Succeeded in selecting input device for audio capturer.\n' + logDevice(inputDevice), false);
     }
     // [EndExclude select_InputDeviceForAudioCapturer]
-  }).catch((err: BusinessError) => {
-    console.error(`Failed to select input device for audio capturer. Code: ${err.code}, message: ${err.message}`);
+  } catch (err) {
+    let error = err as BusinessError;
+    console.error(`Failed to select input device for audio capturer. Code: ${error.code}, message: ${error.message}`);
     // [StartExclude select_InputDeviceForAudioCapturer]
-    if (globalLogUpdate) {
-      globalLogUpdate(`Failed to select input device for audio capturer. Code: ${err.code}, message: ${err.message}`, true);
+    if (updateCallback) {
+      updateCallback(`Failed to select input device for audio capturer. Code: ${error.code}, message: ${error.message}`, true);
     }
-  // [End select_InputDeviceForAudioCapturer]
-  });
+    // [End select_InputDeviceForAudioCapturer]
+  }
 }
 
-async function createAudioRenderer() {
-  audio.createAudioRenderer(audioRendererOptions).then((data) => {
-    audioRenderer = data;
+async function createAudioRenderer(updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
+  try {
+    let renderer = await audio.createAudioRenderer(audioRendererOptions);
+    if (renderer === null) {
+      console.info('AudioRenderer Created : ERROR : renderer is null');
+      // [StartExclude select_OutputDeviceForAudioRenderer]
+      if (updateCallback) {
+        updateCallback('AudioRenderer Created : ERROR : renderer is null', true);
+      }
+      // [EndExclude select_OutputDeviceForAudioRenderer]
+      return;
+    }
+    audioRenderer = renderer;
     console.info('AudioRenderer Created : Success');
     // [StartExclude select_OutputDeviceForAudioRenderer]
-    if (globalLogUpdate) {
-      globalLogUpdate('AudioRenderer Created : Success', false);
+    if (updateCallback) {
+      updateCallback('AudioRenderer Created : Success', false);
     }
     // [EndExclude select_OutputDeviceForAudioRenderer]
-  }).catch((err: BusinessError) => {
-    console.error(`AudioRenderer Created : ERROR : ${err}`);
+  } catch (err) {
+    let error = err as BusinessError;
+    console.error(`AudioRenderer Created : ERROR : ${error.message}`);
     // [StartExclude select_OutputDeviceForAudioRenderer]
-    if (globalLogUpdate) {
-      globalLogUpdate(`AudioRenderer Created : ERROR : ${err}`, true);
+    if (updateCallback) {
+      updateCallback(`AudioRenderer Created : ERROR : ${error.message}`, true);
     }
     // [EndExclude select_OutputDeviceForAudioRenderer]
-  });
+  }
 }
 
-async function createAudioCapturer(context: common.UIAbilityContext) {
+async function createAudioCapturer(context: common.UIAbilityContext,
+  updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
   let hasPermission = await requestMicrophonePermission(context);
   if (!hasPermission) {
-    if (globalLogUpdate) {
-      globalLogUpdate('麦克风权限未授权,无法创建AudioCapturer', true);
+    if (updateCallback) {
+      updateCallback('麦克风权限未授权,无法创建AudioCapturer', true);
     }
     return;
   }
-  audio.createAudioCapturer(audioCapturerOptions).then((data) => {
-    audioCapturer = data;
+  try {
+    let capturer = await audio.createAudioCapturer(audioCapturerOptions);
+    if (capturer === null) {
+      console.info('AudioCapturer Created : ERROR : capturer is null');
+      // [StartExclude select_InputDeviceForAudioCapturer]
+      if (updateCallback) {
+        updateCallback('AudioCapturer Created : ERROR : capturer is null', true);
+      }
+      // [EndExclude select_InputDeviceForAudioCapturer]
+      return;
+    }
+    audioCapturer = capturer;
     console.info('AudioCapturer Created : Success');
     // [StartExclude select_InputDeviceForAudioCapturer]
-    if (globalLogUpdate) {
-      globalLogUpdate('AudioCapturer Created : Success', false);
+    if (updateCallback) {
+      updateCallback('AudioCapturer Created : Success', false);
     }
     // [EndExclude select_InputDeviceForAudioCapturer]
-  }).catch((err: BusinessError) => {
-    console.error(`AudioCapturer Created : ERROR : ${err}`);
+  } catch (err) {
+    let error = err as BusinessError;
+    console.error(`AudioCapturer Created : ERROR : ${error.message}`);
     // [StartExclude select_InputDeviceForAudioCapturer]
-    if (globalLogUpdate) {
-      globalLogUpdate(`AudioCapturer Created : ERROR : ${err}`, true);
+    if (updateCallback) {
+      updateCallback(`AudioCapturer Created : ERROR : ${error.message}`, true);
     }
     // [EndExclude select_InputDeviceForAudioCapturer]
-  });
+  }
 }
 
-// [StartExclude isEnhancedRoutingSupported]
-// [StartExclude select_OutputDevice]
-// [StartExclude select_InputDevice]
-// [StartExclude select_OutputDeviceForAudioRenderer]
-// [StartExclude select_InputDeviceForAudioCapturer]
 function getAvailableOutputDevices(): audio.AudioDeviceDescriptors {
   return audioSessionManager.getAvailableDevices(audio.DeviceUsage.MEDIA_OUTPUT_DEVICES);
 }
@@ -279,8 +292,8 @@ function buildDeviceSheets(devices: audio.AudioDeviceDescriptors,
   let result: Array<SheetInfo> = [];
   for (let i = 0; i < devices.length; i++) {
     let item = devices[i];
-    let name: string = item.name || item.displayName;
-    let sheet: SheetInfoCompat = new SheetInfoCompat(name, (): void => { onSelect(item); });
+    let name: string = '\n' + (item.name || item.displayName) + '\n';
+    let sheet: SheetInfo = { title: name, action: (): void => { onSelect(item); } };
     result.push(sheet);
   }
   return result;
@@ -297,17 +310,13 @@ struct Index {
   @State currentState: string = '未初始化';
   @State logMessages: string = '暂无日志信息';
 
-  aboutToAppear(): void {
-    globalLogUpdate = (msg: string, isError: boolean): void => { this.updateLogInfo(msg, isError); };
-  }
-
   updateLogInfo(msg: string, isError: boolean): void {
     const timestamp = new Date().toLocaleTimeString();
     const prefix = isError ? '[ERROR]' : '[INFO]';
     this.logMessages = `[${timestamp}] ${prefix} ${msg}`;
   }
 
-  showOutputDeviceForApp() {
+  showOutputDeviceForApp(): void {
     let devices = getAvailableOutputDevices();
     if (devices.length === 0) {
       this.updateLogInfo('No available output devices found.', true);
@@ -319,13 +328,13 @@ struct Index {
       alignment: DialogAlignment.Center,
       message: '为应用选择输出设备',
       sheets: buildDeviceSheets(devices, (device: audio.AudioDeviceDescriptor): void => {
-        selectOutputDevice(device);
+        selectOutputDevice(device, (msg, isError) => this.updateLogInfo(msg, isError));
         this.currentState = '为应用选择输出: ' + (device.name || device.displayName);
       }),
     });
   }
 
-  showInputDeviceForApp() {
+  showInputDeviceForApp(): void {
     let devices = getAvailableInputDevices();
     if (devices.length === 0) {
       this.updateLogInfo('No available input devices found.', true);
@@ -337,14 +346,15 @@ struct Index {
       alignment: DialogAlignment.Center,
       message: '为应用选择输入设备',
       sheets: buildDeviceSheets(devices, (device: audio.AudioDeviceDescriptor): void => {
-        selectInputDevice(device);
+        selectInputDevice(device, (msg, isError) => this.updateLogInfo(msg, isError));
         this.currentState = '为应用选择输入: ' + (device.name || device.displayName);
       }),
     });
   }
 
-  showOutputDeviceForRenderer() {
-    if (!audioRenderer) {
+  showOutputDeviceForRenderer(): void {
+    let renderer = audioRenderer;
+    if (renderer === undefined) {
       this.updateLogInfo('请先创建AudioRenderer', true);
       return;
     }
@@ -359,14 +369,15 @@ struct Index {
       alignment: DialogAlignment.Center,
       message: '为Renderer选择输出设备',
       sheets: buildDeviceSheets(devices, (device: audio.AudioDeviceDescriptor): void => {
-        selectOutputDeviceForAudioRenderer(audioRenderer as audio.AudioRenderer, device);
+        selectOutputDeviceForAudioRenderer(renderer, device, (msg, isError) => this.updateLogInfo(msg, isError));
         this.currentState = '为Renderer选择输出: ' + (device.name || device.displayName);
       }),
     });
   }
 
-  showInputDeviceForCapturer() {
-    if (!audioCapturer) {
+  showInputDeviceForCapturer(): void {
+    let capturer = audioCapturer;
+    if (capturer === undefined) {
       this.updateLogInfo('请先创建AudioCapturer', true);
       return;
     }
@@ -381,7 +392,7 @@ struct Index {
       alignment: DialogAlignment.Center,
       message: '为Capturer选择输入设备',
       sheets: buildDeviceSheets(devices, (device: audio.AudioDeviceDescriptor): void => {
-        selectInputDeviceForAudioCapturer(audioCapturer as audio.AudioCapturer, device);
+        selectInputDeviceForAudioCapturer(capturer, device, (msg, isError) => this.updateLogInfo(msg, isError));
         this.currentState = '为Capturer选择输入: ' + (device.name || device.displayName);
       }),
     });
@@ -391,13 +402,13 @@ struct Index {
     Scroll() {
       Column() {
         Column() {
-          Text('实时状态信息')
+          Text('Status Info')
             .fontSize(18)
             .fontWeight(600)
             .margin({ bottom: 12 })
 
           Column() {
-            Text('当前状态')
+            Text('Current State')
               .fontSize(14)
               .fontWeight(600)
               .margin({ bottom: 8 })
@@ -418,16 +429,15 @@ struct Index {
               .fontSize(14)
               .fontWeight(600)
               .margin({ bottom: 8 })
-            Scroll() {
-              Text(this.logMessages)
-                .fontSize(12)
-                .fontColor('#52C41A')
-                .width('100%')
-                .padding(10)
-                .backgroundColor('#F0F0F0')
-                .borderRadius(8)
-            }
-            .width('100%')
+            Text(this.logMessages)
+              .fontSize(13)
+              .fontColor('#52C41A')
+              .width('100%')
+              .padding(10)
+              .backgroundColor('#F0F0F0')
+              .borderRadius(8)
+              .maxLines(5)
+              .textOverflow({ overflow: TextOverflow.Ellipsis })
           }
           .width('100%')
           .alignItems(HorizontalAlign.Start)
@@ -446,47 +456,71 @@ struct Index {
 
         Row() {
           Column() {
-            Text('查询增强路由支持').fontColor(Color.Black).fontSize(13);
+            Text('查询增强路由支持').fontColor(Color.Black).fontSize(14);
           }
           .backgroundColor(Color.White)
           .borderRadius(20)
-          .width('48%')
+          .width('45%')
           .height(60)
           .justifyContent(FlexAlign.Center)
-          .margin({ right: 8, bottom: 12 })
-          .onClick((): void => {
-            checkEnhancedRoutingSupported();
+          .margin({ right: 12, bottom: 12 })
+          .onClick((event: ClickEvent): void => {
+            checkEnhancedRoutingSupported((msg, isError) => this.updateLogInfo(msg, isError));
           });
 
           Column() {
-            Text('创建AudioRenderer').fontColor(Color.Black).fontSize(13);
+            Text('创建AudioRenderer').fontColor(Color.Black).fontSize(14);
           }
           .backgroundColor(Color.White)
           .borderRadius(20)
-          .width('48%')
+          .width('45%')
           .height(60)
           .justifyContent(FlexAlign.Center)
           .margin({ bottom: 12 })
-          .onClick((): Promise<void> => {
-            return createAudioRenderer();
+          .onClick((event: ClickEvent): void => {
+            (async (): Promise<void> => {
+              await createAudioRenderer((msg, isError) => this.updateLogInfo(msg, isError));
+              this.currentState = 'AudioRenderer已创建';
+            })();
           });
         }
-        .width('100%')
-        .justifyContent(FlexAlign.SpaceBetween)
 
-        Column() {
-          Text('创建AudioCapturer').fontColor(Color.Black).fontSize(13);
+        Row() {
+          Column() {
+            Text('创建AudioCapturer').fontColor(Color.Black).fontSize(14);
+          }
+          .backgroundColor(Color.White)
+          .borderRadius(20)
+          .width('45%')
+          .height(60)
+          .justifyContent(FlexAlign.Center)
+          .margin({ right: 12, bottom: 12 })
+          .onClick((event: ClickEvent): void => {
+            (async (): Promise<void> => {
+              let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+              await createAudioCapturer(context, (msg, isError) => this.updateLogInfo(msg, isError));
+              this.currentState = 'AudioCapturer已创建';
+            })();
+          });
+
+          Column() {
+            Text('View State').fontColor(Color.Black).fontSize(14);
+          }
+          .backgroundColor(Color.White)
+          .borderRadius(20)
+          .width('45%')
+          .height(60)
+          .justifyContent(FlexAlign.Center)
+          .margin({ bottom: 12 })
+          .onClick((event: ClickEvent): void => {
+            let renderer = audioRenderer;
+            let capturer = audioCapturer;
+            let rendererState = renderer !== undefined ? `Renderer: ${renderer.state}` : 'Renderer: 未创建';
+            let capturerState = capturer !== undefined ? `Capturer: ${capturer.state}` : 'Capturer: 未创建';
+            this.currentState = rendererState + '\n' + capturerState;
+            this.updateLogInfo('View state: ' + rendererState + ', ' + capturerState, false);
+          });
         }
-        .backgroundColor(Color.White)
-        .borderRadius(20)
-        .width('100%')
-        .height(60)
-        .justifyContent(FlexAlign.Center)
-        .margin({ bottom: 12 })
-        .onClick((): Promise<void> => {
-          let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-          return createAudioCapturer(context);
-        });
 
         Text('应用级选择')
           .fontSize(16)
@@ -495,33 +529,31 @@ struct Index {
 
         Row() {
           Column() {
-            Text('为应用选择输出').fontColor(Color.Black).fontSize(13);
+            Text('为应用选择输出').fontColor(Color.Black).fontSize(14);
           }
           .backgroundColor(Color.White)
           .borderRadius(20)
-          .width('48%')
+          .width('45%')
           .height(60)
           .justifyContent(FlexAlign.Center)
-          .margin({ right: 8, bottom: 12 })
-          .onClick((): void => {
+          .margin({ right: 12, bottom: 12 })
+          .onClick((event: ClickEvent): void => {
             this.showOutputDeviceForApp();
           });
 
           Column() {
-            Text('为应用选择输入').fontColor(Color.Black).fontSize(13);
+            Text('为应用选择输入').fontColor(Color.Black).fontSize(14);
           }
           .backgroundColor(Color.White)
           .borderRadius(20)
-          .width('48%')
+          .width('45%')
           .height(60)
           .justifyContent(FlexAlign.Center)
           .margin({ bottom: 12 })
-          .onClick((): void => {
+          .onClick((event: ClickEvent): void => {
             this.showInputDeviceForApp();
           });
         }
-        .width('100%')
-        .justifyContent(FlexAlign.SpaceBetween)
 
         Text('流级选择')
           .fontSize(16)
@@ -530,33 +562,31 @@ struct Index {
 
         Row() {
           Column() {
-            Text('为Renderer选择输出').fontColor(Color.Black).fontSize(13);
+            Text('为Renderer选择输出').fontColor(Color.Black).fontSize(14);
           }
           .backgroundColor(Color.White)
           .borderRadius(20)
-          .width('48%')
+          .width('45%')
           .height(60)
           .justifyContent(FlexAlign.Center)
-          .margin({ right: 8, bottom: 12 })
-          .onClick((): void => {
+          .margin({ right: 12, bottom: 12 })
+          .onClick((event: ClickEvent): void => {
             this.showOutputDeviceForRenderer();
           });
 
           Column() {
-            Text('为Capturer选择输入').fontColor(Color.Black).fontSize(13);
+            Text('为Capturer选择输入').fontColor(Color.Black).fontSize(14);
           }
           .backgroundColor(Color.White)
           .borderRadius(20)
-          .width('48%')
+          .width('45%')
           .height(60)
           .justifyContent(FlexAlign.Center)
           .margin({ bottom: 12 })
-          .onClick((): void => {
+          .onClick((event: ClickEvent): void => {
             this.showInputDeviceForCapturer();
           });
         }
-        .width('100%')
-        .justifyContent(FlexAlign.SpaceBetween)
       }
       .height('100%')
       .width('100%')
