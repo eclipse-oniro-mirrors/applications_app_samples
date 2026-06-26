@@ -194,14 +194,27 @@ void SetConfig02(OH_AVScreenCaptureConfig &config)
     };
 
     OH_VideoEncInfo videoEncInfo = {
-        .videoCodec = OH_VideoCodecFormat::OH_H264, .videoBitrate = 2000000, .videoFrameRate = 30};
-    OH_VideoInfo videoInfo = {.videoCapInfo = videoCapInfo, .videoEncInfo = videoEncInfo};
+        .videoCodec = OH_H264,
+        .videoBitrate = 2000000,
+        .videoFrameRate = 30
+    };
+
+    OH_AudioInfo audioInfo = {
+        .micCapInfo = micCapInfo,
+        .innerCapInfo = innerCapInfo,
+        .audioEncInfo = audioEncInfo
+    };
+
+    OH_VideoInfo videoInfo = {
+        .videoCapInfo = videoCapInfo,
+        .videoEncInfo = videoEncInfo
+    };
 
     config = {
         .captureMode = OH_CAPTURE_HOME_SCREEN,
         .dataType = OH_CAPTURE_FILE, // 录屏数据类型，文件。
         .audioInfo = audioInfo,
-        .videoInfo = videoInfo,
+        .videoInfo = videoInfo
     };
     // [End screenCapture_config]
 }
