@@ -27,7 +27,7 @@ import { Gesture_ROUTE_PREFIX, GestureDestination } from './singlegesture/Index'
 import { TouchDestination, Touch_ROUTE_PREFIX } from './Touch/Index';
 import { DropAnimationExample, dropAnimationRoutePrefix} from './drop/DropAnimationExample';
 import resource from '../common/resource';
-import { GridEts, gridRoutePrefix } from './grid/GridEts';
+import { GridNav, gridRoutePrefix } from './grid/GridNav';
 import { springLoadingRoutePrefix, SpringLoadingPage} from './springloading/SpringLoading';
 
 // [Start route_push]
@@ -95,7 +95,7 @@ function Destination(name: string) {
   } else if (name.startsWith(dropAnimationRoutePrefix)) {
     DropAnimationExample();
   } else if (name.startsWith(gridRoutePrefix)) {
-    GridEts();
+    GridNav();
   } else if (name.startsWith(springLoadingRoutePrefix)) {
     SpringLoadingPage();
   }
