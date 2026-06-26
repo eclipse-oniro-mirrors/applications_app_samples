@@ -106,7 +106,7 @@ export default class EntryFormAbility extends FormExtensionAbility {
     // 删除卡片实例数据
     hilog.info(DOMAIN, 'testTag', 'onRemoveForm testing');
     // 删除之前持久化的卡片实例数据
-    // 此接口请根据实际情况实现，具体请参考：FormExtAbility Stage模型卡片实例
+    // 此接口请根据实际情况实现，具体请参考：FormExtensionAbility Stage模型卡片实例
   }
 
   onConfigurationUpdate(newConfig: Configuration): void {

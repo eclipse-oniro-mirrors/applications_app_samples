@@ -20,7 +20,7 @@ import { $r, Button, Column, Component, Entry, Margin, NavDestination } from '@k
 @Entry
 @Component
 export struct TabIndexExample {
-  build() {
+  build(): void {
     NavDestination() {
       Column() {
         Button('Button1')

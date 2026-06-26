@@ -51,6 +51,12 @@ function drawImage(canvas: DrawingCanvas) {
     green: 74,
     blue: 175
   });
+  canvas.drawColor({
+    alpha:255,
+    red:60,
+    green:138,
+    blue:216
+  })
   canvas.attachBrush(brush);
   canvas.drawRect({
     left: 10,
@@ -91,6 +97,12 @@ function drawImage1(canvas: DrawingCanvas) {
     right: 110,
     bottom: 60
   });
+  canvas.drawColor({
+    alpha:255,
+    red:60,
+    green:138,
+    blue:216
+  })
   canvas.detachPen();
 }
 
@@ -148,7 +160,6 @@ export struct CustomDrawCanvas {
 
   build(): void {
     Column() {
-      Text('调整自定义绘制Canvas的变换矩阵')
       Row() {
         Column() {
           NodeContainer(this.myNodeController)

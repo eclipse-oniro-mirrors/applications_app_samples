@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { $r, BarStyle, BlurStyle, Builder, Component, Consume, Entry, ForEach, List, ListItem, NavDestination, NavPathInfo, NavPathStack, Padding } from '@kit.ArkUI';
+import { $r, BarStyle, BlurStyle, Builder, Component, Consume, Entry, ForEach, List, ListItem, ListOptions, NavDestination, NavPathInfo, NavPathStack, Padding } from '@kit.ArkUI';
 import { CompletedRoutableCard } from '../../common/Card';
 import { Route } from '../../common/Route';
 import { Exclusive } from './Exclusive';
@@ -45,7 +45,7 @@ const routes: Route[] = [
 ];
 
 @Builder
-export function GroupGestureDestination(name: string) {
+export function GroupGestureDestination(name: string): void {
   if (name === GroupGesture_ROUTE_PREFIX) {
     GroupGestureExample();
   } else if (name === routes[0].name) {
@@ -64,10 +64,10 @@ struct GroupGestureExample {
 
   build() {
     NavDestination() {
-      List({ space: 12 }) {
+      List({ space: 12 } as ListOptions) {
         ForEach(routes, (route: Route, index: int) => {
           ListItem() {
-            CompletedRoutableCard({ title: route.title, description: route.description })
+            CompletedRoutableCard({ title: route.title, description: route.description as string })
           }
           .width('100%')
           .onClick(() => {

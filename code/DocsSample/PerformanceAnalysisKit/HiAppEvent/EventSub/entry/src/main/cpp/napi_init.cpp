@@ -1071,9 +1071,6 @@ static napi_value Leak(napi_env env, napi_callback_info info)
 }
 // [End AppKillEvent_NativeLeak]
 // [Start EventSub_Init_All]
-// [Start AppEvent_C++_Init]
-
-// [StartExclude AppEvent_C++_Init]
 // [Start Hicollie_Set_Timer]
 // 定义回调函数
 void CallBack(void*)
@@ -1118,6 +1115,7 @@ static void OnReceiveAppHicollie(const struct HiAppEvent_AppEventGroup *appEvent
             auto memory =  writer.write(params["memory"]);
             auto externalLog = writer.write(params["external_log"]);
             auto logOverLimit = params["log_over_limit"].asBool();
+            auto externalCallbackLog = params["external_callback_log"].asString();
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.time=%{public}lld", time);
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.foreground=%{public}d", foreground);
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
@@ -1132,6 +1130,8 @@ static void OnReceiveAppHicollie(const struct HiAppEvent_AppEventGroup *appEvent
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.memory=%{public}s", memory.c_str());
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_log=%{public}s", externalLog.c_str());
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.log_over_limit=%{public}d", logOverLimit);
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_callback_log=%{public}s",
+                externalCallbackLog.c_str());
         }
     }
 }
@@ -1197,6 +1197,7 @@ static void AppHicollieOnTake(const char *const *events, uint32_t eventLen)
                 auto memory =  writer.write(eventInfo["memory"]);
                 auto externalLog = writer.write(eventInfo["external_log"]);
                 auto logOverLimit = eventInfo["log_over_limit"].asBool();
+                auto externalCallbackLog = eventInfo["external_callback_log"].asString();
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.time=%{public}lld", time);
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.foreground=%{public}d", foreground);
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
@@ -1213,6 +1214,8 @@ static void AppHicollieOnTake(const char *const *events, uint32_t eventLen)
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_log=%{public}s",
                     externalLog.c_str());
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.log_over_limit=%{public}d", logOverLimit);
+                OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_callback_log=%{public}s",
+                    externalCallbackLog.c_str());
             }
         }
     }
@@ -1242,7 +1245,6 @@ static napi_value RegisterAppHicollieWatcherT(napi_env env, napi_callback_info i
     return {};
 }
 // [End App_Hicollie_Trigger]
-// [EndExclude AppEvent_C++_Init]
 
 // [Start Pss_Leak]
 // 读 /proc/self/smaps_rollup 中的 PSS 字段，统计当前进程的 PSS (单位 KB)
@@ -1375,6 +1377,7 @@ static napi_value LeakMB(napi_env env, napi_callback_info info)
 // [Start Sys_Crash_Event_C++_Init]
 // [Start Sys_Native_Nullptr_Event_C++_Init]
 // [Start Pss_Leak_Init]
+// [Start AppEvent_C++_Init]
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor desc[] = {

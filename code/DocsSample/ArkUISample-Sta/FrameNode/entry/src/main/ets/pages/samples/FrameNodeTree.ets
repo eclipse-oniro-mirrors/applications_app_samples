@@ -42,7 +42,9 @@ import {
   TextAlign,
   UIContext,
   WrappedBuilder,
-  wrapBuilder
+  wrapBuilder,
+  List,
+  ListItem,
 } from '@kit.ArkUI';
 
 const TEST_TAG: string = 'FrameNode'
@@ -200,100 +202,114 @@ struct Index {
   build(): void {
     Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Center, justifyContent: FlexAlign.SpaceBetween }) {
       Column() {
-        Row() {
-          Column({ space: 5 } as ColumnOptions) {
-            Text('验证FrameNode子节点的增、删、改功能')
-            Button('对自定义FrameNode进行操作')
-              .fontSize(16)
-              .width(400)
-              .onClick((event: ClickEvent) => {
-                // 对FrameNode节点进行增、删、改操作，正常实现。
-                this.myNodeController.operationFrameNodeWithFrameNode(this.myNodeController?.frameNode);
-              })
-            Button('对BuilderNode中的代理节点进行操作')
-              .fontSize(16)
-              .width(400)
-              .onClick((event: ClickEvent) => {
-                // 对BuilderNode代理节点进行增、删、改操作，捕获异常信息。
-                this.myNodeController.operationFrameNodeWithFrameNode(this.myNodeController?.buttonNode?.getFrameNode());
-              })
-            Button('对系统组件中的代理节点进行操作')
-              .fontSize(16)
-              .width(400)
-              .onClick((event: ClickEvent) => {
-                // 对代理节点进行增、删、改操作，捕获异常信息。
-                this.myNodeController.operationFrameNodeWithFrameNode(this.myNodeController?.rootNode?.getParent());
-              })
+        List() {
+          ListItem() {
+            Row() {
+              Column({ space: 5 } as ColumnOptions) {
+                Text('验证FrameNode子节点的增、删、改功能')
+                Button('对自定义FrameNode进行操作')
+                  .fontSize(16)
+                  .width(400)
+                  .onClick((event: ClickEvent) => {
+                    // 对FrameNode节点进行增、删、改操作，正常实现。
+                    this.myNodeController.operationFrameNodeWithFrameNode(this.myNodeController?.frameNode);
+                  })
+                Button('对BuilderNode中的代理节点进行操作')
+                  .fontSize(16)
+                  .width(400)
+                  .onClick((event: ClickEvent) => {
+                    // 对BuilderNode代理节点进行增、删、改操作，捕获异常信息。
+                    this.myNodeController.operationFrameNodeWithFrameNode(
+                      this.myNodeController?.buttonNode?.getFrameNode());
+                  })
+                Button('对系统组件中的代理节点进行操作')
+                  .fontSize(16)
+                  .width(400)
+                  .onClick((event: ClickEvent) => {
+                    // 对代理节点进行增、删、改操作，捕获异常信息。
+                    this.myNodeController.operationFrameNodeWithFrameNode(this.myNodeController?.rootNode?.getParent());
+                  })
+              }
+            }
+
+          }
+
+          ListItem() {
+            Row() {
+              Column({ space: 5 } as ColumnOptions) {
+                Text('验证FrameNode添加子节点的特殊场景')
+                Button('新增BuilderNode的代理节点')
+                  .fontSize(16)
+                  .width(400)
+                  .onClick((event: ClickEvent) => {
+                    let buttonNode = new BuilderNode<Params>(this.getUIContext());
+                    let wrapBuilder1: WrappedBuilder<paramsbuilder> = wrapBuilder(buttonBuilder);
+                    buttonNode.build(wrapBuilder1, new Params('BUTTON'))
+                    this.myNodeController.checkAppendChild(this.myNodeController?.frameNode,
+                      buttonNode?.getFrameNode());
+                  })
+                Button('新增系统组件代理节点')
+                  .fontSize(16)
+                  .width(400)
+                  .onClick((event: ClickEvent) => {
+                    this.myNodeController.checkAppendChild(this.myNodeController?.frameNode,
+                      this.myNodeController?.rootNode?.getParent());
+                  })
+                Button('新增已有父节点的自定义节点')
+                  .fontSize(16)
+                  .width(400)
+                  .onClick((event: ClickEvent) => {
+                    this.myNodeController.checkAppendChild(this.myNodeController?.frameNode,
+                      this.myNodeController?.rootNode);
+                  })
+              }
+            }
+          }
+
+          ListItem() {
+            Row() {
+              Column({ space: 5 } as ColumnOptions) {
+                Text('验证FrameNode节点的查询功能')
+                Button('对自定义FrameNode进行操作')
+                  .fontSize(16)
+                  .width(400)
+                  .onClick((event: ClickEvent) => {
+                    // 对FrameNode节点进行查询。当前节点为NodeContainer的子节点。
+                    this.result = this.myNodeController.testInterfaceAboutSearch(this.myNodeController?.rootNode);
+                    setTimeout((event: ClickEvent) => {
+                      // 对FrameNode节点进行查询。rootNode下的第一个子节点。
+                      this.result = this.myNodeController.testInterfaceAboutSearch(this.myNodeController?.frameNode);
+                    }, 2000)
+                  })
+                Button('对BuilderNode中的代理节点进行操作')
+                  .fontSize(16)
+                  .width(400)
+                  .onClick((event: ClickEvent) => {
+                    // 对BuilderNode代理节点进行查询。当前节点为BuilderNode中的Column节点。
+                    this.result =
+                      this.myNodeController.testInterfaceAboutSearch(this.myNodeController?.buttonNode?.getFrameNode());
+                  })
+                Button('对系统组件中的代理节点进行操作')
+                  .fontSize(16)
+                  .width(400)
+                  .onClick((event: ClickEvent) => {
+                    // 对代理节点进行查询。当前节点为NodeContainer。
+                    this.result =
+                      this.myNodeController.testInterfaceAboutSearch(this.myNodeController?.rootNode?.getParent());
+                  })
+              }
+            }
+
           }
         }
 
-        Row() {
-          Column({ space: 5 } as ColumnOptions) {
-            Text('验证FrameNode添加子节点的特殊场景')
-            Button('新增BuilderNode的代理节点')
-              .fontSize(16)
-              .width(400)
-              .onClick((event: ClickEvent) => {
-                let buttonNode = new BuilderNode<Params>(this.getUIContext());
-                let wrapBuilder1: WrappedBuilder<paramsbuilder> = wrapBuilder(buttonBuilder);
-                buttonNode.build(wrapBuilder1, new Params('BUTTON'))
-                this.myNodeController.checkAppendChild(this.myNodeController?.frameNode, buttonNode?.getFrameNode());
-              })
-            Button('新增系统组件代理节点')
-              .fontSize(16)
-              .width(400)
-              .onClick((event: ClickEvent) => {
-                this.myNodeController.checkAppendChild(this.myNodeController?.frameNode,
-                  this.myNodeController?.rootNode?.getParent());
-              })
-            Button('新增已有父节点的自定义节点')
-              .fontSize(16)
-              .width(400)
-              .onClick((event: ClickEvent) => {
-                this.myNodeController.checkAppendChild(this.myNodeController?.frameNode,
-                  this.myNodeController?.rootNode);
-              })
-          }
-        }
-
-        Row() {
-          Column({ space: 5 } as ColumnOptions) {
-            Text('验证FrameNode节点的查询功能')
-            Button('对自定义FrameNode进行操作')
-              .fontSize(16)
-              .width(400)
-              .onClick((event: ClickEvent) => {
-                // 对FrameNode节点进行查询。当前节点为NodeContainer的子节点。
-                this.result = this.myNodeController.testInterfaceAboutSearch(this.myNodeController?.rootNode);
-                setTimeout((event: ClickEvent) => {
-                  // 对FrameNode节点进行查询。rootNode下的第一个子节点。
-                  this.result = this.myNodeController.testInterfaceAboutSearch(this.myNodeController?.frameNode);
-                }, 2000)
-              })
-            Button('对BuilderNode中的代理节点进行操作')
-              .fontSize(16)
-              .width(400)
-              .onClick((event: ClickEvent) => {
-                // 对BuilderNode代理节点进行查询。当前节点为BuilderNode中的Column节点。
-                this.result =
-                  this.myNodeController.testInterfaceAboutSearch(this.myNodeController?.buttonNode?.getFrameNode());
-              })
-            Button('对系统组件中的代理节点进行操作')
-              .fontSize(16)
-              .width(400)
-              .onClick((event: ClickEvent) => {
-                // 对代理节点进行查询。当前节点为NodeContainer。
-                this.result =
-                  this.myNodeController.testInterfaceAboutSearch(this.myNodeController?.rootNode?.getParent());
-              })
-          }
-        }
-      }
+      }.height('50%')
 
       Text(`Result：\n${this.result}`)
         .fontSize(16)
         .width(400)
         .borderWidth(1)
+        .height(200)
       Column() {
         Text('This is a NodeContainer.')
           .textAlign(TextAlign.Center)

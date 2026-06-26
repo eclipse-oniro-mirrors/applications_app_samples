@@ -21,7 +21,7 @@ import { $r, Button, Column, ColumnOptions, ColorMetrics, Component, Entry, Hori
 @Component
 export struct FocusStyle {
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 30 } as ColumnOptions) {
         Button('small black focus box')

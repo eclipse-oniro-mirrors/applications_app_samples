@@ -20,7 +20,7 @@ import { $r, Button, Column, ColumnOptions, Component, Entry, Margin, NavDestina
 @Entry
 @Component
 export struct FocusActiveExample {
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
         Button('Set Active').width(140).height(45).margin({ top: 5, bottom: 5, left: 5, right: 5 } as Margin).onClick(() => {

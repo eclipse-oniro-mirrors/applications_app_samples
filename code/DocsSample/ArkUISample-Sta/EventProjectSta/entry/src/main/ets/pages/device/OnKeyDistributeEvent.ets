@@ -66,7 +66,7 @@ struct Index {
 // [End key_distribute_event]
 
 @Builder
-export function OnKeyDistributeEvent() {
+export function OnKeyDistributeEvent(): void {
   NavDestination() {
     Column({ space: 12 } as ColumnOptions) {
       Index()

@@ -36,29 +36,59 @@ import {
   Visibility,
   State,
   typeNode,
+  BuilderNode,
+  wrapBuilder,
+  FontWeight
 } from '@kit.ArkUI';
 
 const TEST_TAG: string = 'FrameNode'
 
+class Params {
+  text: string = '';
+
+  constructor(text: string) {
+    this.text = text;
+  }
+}
+
+@Builder
+function buildText(params: Params) {
+  Column(){
+    Text('DEFAULT')
+      .id('buildText')
+      .border({ width: 1 })
+      .padding(1)
+      .fontSize(25)
+      .fontWeight(FontWeight.Bold)
+      .margin({ top: 10 })
+      .visibility(Visibility.Visible)
+      .opacity(0.7)
+      .customProperty('key1', 'value1')
+      .width(300)
+  }
+}
 export class MyNodeController extends NodeController {
   public frameNode: typeNode.Column | null = null;
   public uiContext: UIContext | undefined = undefined;
   private rootNode: FrameNode | null = null;
   private message: string = 'DEFAULT';
+  private textNode: BuilderNode<Params> | null = null;
+  public textTypeNode: typeNode.Text | null = null;
 
   makeNode(uiContext: UIContext): FrameNode | null {
     this.rootNode = new FrameNode(uiContext);
     this.uiContext = uiContext;
     this.frameNode = typeNode.createColumnNode(uiContext);
-    this.frameNode!.attribute
-      .width('100%')
-      .height('100%')
-      .customProperty('key1', 'value1')
-      .visibility(Visibility.Visible)
-      .opacity(0.7)
-      .id('buildText');
-    this.frameNode!.commonAttribute.width(50).height(50).backgroundColor(Color.Yellow);
     this.rootNode!.appendChild(this.frameNode!);
+    this.textNode = new BuilderNode<Params>(uiContext);
+    this.textNode!.build(wrapBuilder(buildText), new Params(''));
+    this.frameNode?.appendChild(this.textNode!.getFrameNode()!);
+    this.textTypeNode = typeNode.createTextNode(uiContext);
+    this.textTypeNode!.initialize('textTypeNode')
+      .fontSize(25)
+      .visibility(Visibility.Visible)
+      .id('textTypeNode')
+    this.frameNode?.appendChild(this.textTypeNode!);
     return this.rootNode;
   }
 

@@ -72,7 +72,7 @@ const routes: Route[] = [
 ];
 
 @Builder
-export function DeviceDestination(name: string) {
+export function DeviceDestination(name: string): void {
   if (name === Device_ROUTE_PREFIX) {
     DeviceExample();
   } else if (name === routes[0].name) {
@@ -102,7 +102,7 @@ struct DeviceExample {
       List({ space: 12 } as ListOptions) {
         ForEach(routes, (route: Route, index: int) => {
           ListItem() {
-            CompletedRoutableCard({ title: route.title, description: route.description })
+            CompletedRoutableCard({ title: route.title, description: route.description as string })
           }
           .width('100%')
           .onClick(() => {

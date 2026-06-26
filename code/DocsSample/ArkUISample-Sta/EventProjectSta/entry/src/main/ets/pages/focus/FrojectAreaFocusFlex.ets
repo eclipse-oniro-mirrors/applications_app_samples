@@ -21,7 +21,7 @@ import { $r, Column, ColumnOptions, Component, Entry, FlexWrap, NavDestination, 
 @Entry
 @Component
 export struct ProjectAreaFocusFlexExample {
-  build() {
+  build(): void {
     NavDestination() {
     Column() {
       Column({ space: 5 } as ColumnOptions) {

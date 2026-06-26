@@ -1,0 +1,111 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { NavDestination, $r } from '@kit.ArkUI';
+// [Start BuilderChangeVariableRight]
+import { UIUtils, MutableBinding, Column, Text, Button, Builder,
+         Entry, Component, Row, State, Blank, ColumnOptions } from '@kit.ArkUI';
+
+// 使用MutableBinding在@Builder装饰的函数中修改参数值
+@Builder
+function myGlobalBuilderMod(str: MutableBinding<string>) {
+  Column() {
+    Text(`Mod--MyGlobalBuilder: ${str.value}`)
+      .fontSize(16)
+      .onClick(() => {
+        str.value = 'value change mod';
+      })
+  }
+}
+
+interface TempMod2 {
+  paramA: string;
+}
+
+@Builder
+function overBuilderMod2(param: MutableBinding<TempMod2>) {
+  Column({ space: 5 } as ColumnOptions) {
+    Button(`Mod--overBuilder === ${param.value.paramA}`)
+      .onClick(() => {
+        // 修改对象参数的属性值
+        param.value.paramA = 'Yes';
+      })
+    Button(`change`)
+      .onClick(() => {
+        // 整体替换对象参数
+        param.value = { paramA: 'trialOne' };
+      })
+  }
+}
+
+@Entry
+@Component
+struct ParentMod2 {
+  @State label: string = 'Hello';
+  @State message1: string = 'Value Passing';
+  @State objectOne: TempMod2 = {
+    paramA: this.label
+  } as TempMod2;
+
+  @Builder
+  extendBlank() {
+    Row() {
+      Blank()
+    }
+    .height(20)
+  }
+
+  build() {
+    Column() {
+      // 使用MutableBinding时无法传对象字面量，需要先将字面量对象抽出为状态变量
+      overBuilderMod2(
+        UIUtils.makeBinding<TempMod2>(
+          () => this.objectOne,
+          value => {
+            this.objectOne = value; // 必须要传SetterCallback，否则触发时会造成运行时错误
+          }
+        )
+      )
+      this.extendBlank();
+      Button('click me')
+        .onClick(() => {
+          // 点击按钮修改状态变量的属性
+          this.objectOne.paramA = 'ArkUI';
+        })
+      this.extendBlank();
+      myGlobalBuilderMod(
+        UIUtils.makeBinding<string>(
+          () => this.message1,
+          value => {
+            this.message1 = value; // 必须要传SetterCallback，否则触发时会造成运行时错误
+          }
+        )
+      );
+    }
+    .width('100%')
+  }
+}
+
+// [End BuilderChangeVariableRight]
+
+@Builder
+export function builderChangeVariableRight(): void {
+  NavDestination() {
+    ParentMod2();
+  }
+  .backgroundColor('#f1f2f3')
+}

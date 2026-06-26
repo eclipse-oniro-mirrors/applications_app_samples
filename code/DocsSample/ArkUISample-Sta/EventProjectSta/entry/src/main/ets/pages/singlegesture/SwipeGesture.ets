@@ -24,7 +24,7 @@ export struct Swipe {
   @State rotateAngle: double = 0;
   @State speed: double = 1;
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
         Column() {
