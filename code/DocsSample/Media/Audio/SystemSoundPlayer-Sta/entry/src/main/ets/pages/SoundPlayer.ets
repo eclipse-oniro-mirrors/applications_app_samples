@@ -235,7 +235,7 @@ struct Index {
           right: 16
         })
         .margin({
-          bottom: 16
+          bottom: 120
         })
       }
       .height('100%')
