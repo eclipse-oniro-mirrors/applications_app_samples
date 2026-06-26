@@ -12,12 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start abilitycap_one_start]
 #include <arkui/native_interface_accessibility.h>
 #include <string>
 #include <hilog/log.h>
 #include "AccessibilityManager.h"
 #include "fakenode/fake_node.h"
-
+// [StartExclude abilitycap_one_start]
 using namespace NativeXComponentSample;
 
 static const char *LOG_PRINT_TEXT = "AccessibilityManager";
@@ -27,7 +28,7 @@ static const int32_t ACC_NUMBER_SECOND = 500;
 static const int32_t ACC_NUMBER_THIRD = 800;
 static ArkUI_AccessibilityProvider *g_provider = nullptr;
 static ArkUI_AccessibilityProviderCallbacksWithInstance g_callbacksWithInstance;
-
+// [Start abilitycap_six_start]
 void FillEvent(ArkUI_AccessibilityEventInfo *eventInfo, ArkUI_AccessibilityElementInfo *elementInfo,
                ArkUI_AccessibilityEventType eventType, std::string announcedText)
 {
@@ -52,7 +53,8 @@ void SendAccessibilityAsyncEvent(ArkUI_AccessibilityElementInfo *elementInfo,
     };
     OH_ArkUI_SendAccessibilityAsyncEvent(g_provider, eventInfo, callback);
 }
-
+// [StartExclude abilitycap_six_start]
+// [Start abilitycap_two_start]
 int32_t FindAccessibilityNodeInfosById(const char *instanceId, int64_t elementId,
     ArkUI_AccessibilitySearchMode mode, int32_t requestId, ArkUI_AccessibilityElementInfoList *elementList)
 {
@@ -158,19 +160,25 @@ int32_t FindAccessibilityNodeInfosById(const char *instanceId, int64_t elementId
     }
     return ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL;
 }
+// [End abilitycap_two_start]
 
+// [Start abilitycap_four_start]
 int32_t FindAccessibilityNodeInfosByText(const char *instanceId, int64_t elementId,
     const char *text, int32_t requestId, ArkUI_AccessibilityElementInfoList *elementList)
 {
     return ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL;
 }
+// [End abilitycap_four_start]
 
+// [Start abilitycap_five_start]
 int32_t FindFocusedAccessibilityNode(const char *instanceId, int64_t elementId,
     ArkUI_AccessibilityFocusType focusType, int32_t requestId, ArkUI_AccessibilityElementInfo *elementInfo)
 {
     return ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL;
 }
+// [End abilitycap_five_start]
 
+// [Start abilitycap_three_start]
 int32_t FindNextFocusAccessibilityNode(const char *instanceId, int64_t elementId,
     ArkUI_AccessibilityFocusMoveDirection direction, int32_t requestId,
     ArkUI_AccessibilityElementInfo *elementInfo)
@@ -202,7 +210,8 @@ int32_t FindNextFocusAccessibilityNode(const char *instanceId, int64_t elementId
     OH_ArkUI_AccessibilityElementInfoSetScreenRect(elementInfo, &rect);
     return ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL;
 }
-
+// [End abilitycap_three_start]
+// [EndExclude abilitycap_six_start]
 int32_t ExecuteAccessibilityAction(const char *instanceId, int64_t elementId,
     ArkUI_Accessibility_ActionType action, ArkUI_AccessibilityActionArguments *actionArguments, int32_t requestId)
 {
@@ -243,18 +252,23 @@ int32_t ExecuteAccessibilityAction(const char *instanceId, int64_t elementId,
     OH_ArkUI_DestoryAccessibilityElementInfo(element);
     return ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL;
 }
+// [End abilitycap_six_start]
 
+// [Start abilitycap_seven_start]
 int32_t ClearFocusedFocusAccessibilityNode(const char *instanceId)
 {
     return ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL;
 }
+// [End abilitycap_seven_start]
 
+// [Start abilitycap_eight_start]
 int32_t GetAccessibilityNodeCursorPosition(const char *instanceId, int64_t elementId,
     int32_t requestId, int32_t *index)
 {
     return ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL;
 }
-
+// [End abilitycap_eight_start]
+// [EndExclude abilitycap_one_start]
 void InitAccessibilityCallbacks()
 {
     g_callbacksWithInstance.findAccessibilityNodeInfosById = FindAccessibilityNodeInfosById;
@@ -291,3 +305,4 @@ bool RegisterAccessibilityProvider(ArkUI_NodeHandle node, const std::string &id)
                  "RegisterAccessibilityProvider success, id=%{public}s", id.c_str());
     return true;
 }
+// [End abilitycap_one_start]

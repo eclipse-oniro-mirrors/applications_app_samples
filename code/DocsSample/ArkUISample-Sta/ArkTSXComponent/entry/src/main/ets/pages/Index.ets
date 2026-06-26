@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start xcomponent_index]
 import { State } from '@ohos.arkui.stateManagement';
 import { Button, Column, ColumnOptions, Component, Entry, FlexAlign, Row, SurfaceRect, Text, VerticalAlign, XComponent, XComponentController, XComponentOptions, XComponentType } from '@ohos.arkui.component';
 
@@ -53,6 +54,7 @@ struct Index {
 
   build(): void {
     Column() {
+        // [StartExclude xcomponent_index]
         Row() {
             Text('Native XComponent Sample')
             .fontSize('24fp')
@@ -65,6 +67,7 @@ struct Index {
         .margin({ top: 24 })
         .width('100%')
         .height(56)
+        // [EndExclude xcomponent_index]
 
         Column({ space: 10 } as ColumnOptions) {
             XComponent({
@@ -83,6 +86,7 @@ struct Index {
                 this.currentStatus = "change color";
             }
         })
+        // [StartExclude xcomponent_index]
         .margin({
             top: 27,
             left: 12,
@@ -90,6 +94,7 @@ struct Index {
         })
         .height('40%')
         .width('90%')
+        // [EndExclude xcomponent_index]
 
         Row() {
             Button('Draw Star')
@@ -114,3 +119,4 @@ struct Index {
     .height('100%')
   }
 }
+// [End xcomponent_index]
