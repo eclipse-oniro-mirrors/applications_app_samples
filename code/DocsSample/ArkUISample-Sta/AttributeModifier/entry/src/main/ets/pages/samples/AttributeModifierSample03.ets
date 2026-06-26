@@ -58,8 +58,10 @@ export class MyButtonModifier3 implements AttributeModifier<ButtonAttribute> {
   applyNormalAttribute(instance: ButtonAttribute): void {
     if (this.isDark2) {
       instance.backgroundColor('#2787D9')
+        .width(200)
     } else {
       instance.backgroundColor('#707070')
+        .width(100)
     }
   }
 }

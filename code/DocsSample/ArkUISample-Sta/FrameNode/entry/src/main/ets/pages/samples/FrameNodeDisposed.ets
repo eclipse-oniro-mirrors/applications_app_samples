@@ -69,9 +69,6 @@ struct TestComponent {
 @Builder
 function buttonBuilder(params: Params) {
   Column({ space: 10 } as ColumnOptions) {
-    Text(params.text)
-      .fontSize(10)
-      .fontWeight(FontWeight.Bold)
     TestComponent()
   }
 }
@@ -89,9 +86,9 @@ export class MyNodeController extends NodeController {
       this.rootNode = new FrameNode(uiContext);
       this.rootNode!.commonAttribute
         .width('50%')
-        .height(100)
+        .height(150)
         .borderWidth(1)
-        .backgroundColor(Color.Gray)
+        .backgroundColor(0xff33ff33.toInt());
     }
 
     if (this.builderNode == null) {
