@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+// [Start xcomponent_init]
 #include "ani/ani.h"
 #include <array>
 
@@ -71,6 +71,7 @@ static void AniGetXComponentStatus([[maybe_unused]] ani_env *env, [[maybe_unused
 
 static ani_status BindNativeMethods(ani_vm *vm, const char *clsName)
 {
+    // [StartExclude xcomponent_init]
     ani_env *env;
     if (ANI_OK != vm->GetEnv(ANI_VERSION_1, &env)) {
         return ANI_INVALID_VERSION;
@@ -81,6 +82,7 @@ static ani_status BindNativeMethods(ani_vm *vm, const char *clsName)
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkTSXComponent", "FindClass failed: %{public}s", clsName);
         return ANI_INVALID_ARGS;
     }
+    // [EndExclude xcomponent_init]
 
     // "l:" -> single long parameter, void return.
     const char *sig = "l:";
@@ -111,3 +113,4 @@ ANI_EXPORT ani_status ANI_Constructor(ani_vm *vm, uint32_t *result)
     *result = ANI_VERSION_1;
     return ANI_OK;
 }
+// [End xcomponent_init]
