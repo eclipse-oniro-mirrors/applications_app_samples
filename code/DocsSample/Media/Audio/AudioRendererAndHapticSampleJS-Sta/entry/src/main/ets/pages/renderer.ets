@@ -406,11 +406,11 @@ async function setStreamVolume(){
   if (audioRenderer) {
     // [Start AVPlayerset_streamvolume]
     let volume = 1.0;  // 指定的音量大小，取值范围为[0.00-1.00]，1表示最大音量。
-    avPlayer!.setVolume(volume);
+    avPlayer?.setVolume(volume);
     // [End AVPlayerset_streamvolume]
     // [EndExclude Renderset_streamvolume]
     // 设置音频流音量。
-    audioRenderer!.setVolume(0.5).then(() => {  // 音量范围为[0.0-1.0]。
+    audioRenderer?.setVolume(0.5).then(() => {  // 音量范围为[0.0-1.0]。
       console.info('Succeeded in setting volume.');
       // [StartExclude Renderset_streamvolume]
       globalLogUpdate('Succeeded in setting volume.', false);
