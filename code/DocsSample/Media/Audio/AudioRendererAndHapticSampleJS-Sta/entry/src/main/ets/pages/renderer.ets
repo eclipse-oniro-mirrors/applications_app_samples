@@ -424,7 +424,7 @@ async function setStreamVolume(){
 
     // 获取音频流音量。
     try {
-      let value: number = audioRenderer!.getVolume();
+      let value = audioRenderer?.getVolume();
       console.info(`Succeeded in getting volume, volume is ${value}.`);
       // [StartExclude Renderset_streamvolume]
       globalLogUpdate(`Succeeded in getting volume, volume is ${value}.`, false);
