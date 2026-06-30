@@ -59,12 +59,6 @@ function buttonBuilder(params: Params) {
       .borderRadius(8)
       .borderWidth(2)
       .backgroundColor(Color.Orange)
-
-    Button(params.text)
-      .fontSize(12)
-      .borderRadius(8)
-      .borderWidth(2)
-      .backgroundColor(Color.Pink)
   }
 }
 

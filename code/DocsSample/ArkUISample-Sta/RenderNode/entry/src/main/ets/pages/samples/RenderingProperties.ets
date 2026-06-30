@@ -44,8 +44,8 @@ mask.setRectShape({
   top: 0,
   bottom: 150
 });
-mask.fillColor = 0X55FF0000.toInt();
-mask.strokeColor = 0XFFFF0000.toInt();
+mask.fillColor = 0x55ff0000.toInt();
+mask.strokeColor = 0xffff0000.toInt();
 mask.strokeWidth = 24;
 
 const clip = new ShapeClip();
@@ -116,7 +116,7 @@ struct Index {
         Button('rotation')
           .width(300)
           .onClick((event: ClickEvent) => {
-            renderNode.rotation = { x: 45, y: 0, z: 0 };
+            renderNode.rotation = { x: 135, y: 0, z: 0 };
             console.info(TEST_TAG + ' rotation:' + JSON.stringify(renderNode.rotation));
           })
         Button('transform')
@@ -137,7 +137,7 @@ struct Index {
           .width(300)
           .onClick((event: ClickEvent) => {
             renderNode.shadowElevation = 10;
-            renderNode.shadowColor = 0XFF00FF00.toInt();
+            renderNode.shadowColor = 0xff2787d9.toInt();
             renderNode.shadowOffset = { x: 10, y: 10 };
             renderNode.shadowAlpha = 0.1;
             console.info(TEST_TAG + ' shadowElevation:' + JSON.stringify(renderNode.shadowElevation));
@@ -174,10 +174,10 @@ struct Index {
               bottom: BorderStyle.Solid
             }
             renderNode.borderColor = {
-              left: 0xFF0000FF.toInt(),
-              top: 0xFF0000FF.toInt(),
-              right: 0xFF0000FF.toInt(),
-              bottom: 0xFF0000FF.toInt()
+              left: 0xffd5d5d5.toInt(),
+              top: 0xffd5d5d5.toInt(),
+              right: 0xffd5d5d5.toInt(),
+              bottom: 0xffd5d5d5.toInt()
             };
             renderNode.borderRadius = {
               topLeft: 32,
