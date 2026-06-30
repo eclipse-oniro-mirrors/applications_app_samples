@@ -405,35 +405,6 @@ async function getEqualizerPreset(updateCallback?: (msg: string, isError: boolea
 }
 // [EndExclude all_audioLoopback]
 
-// [Start print_AppInfo]
-// 查询应用音频调试信息，输出到 hilog 与文件。
-function printAppInfo(context: common.Context, updateCallback?: (msg: string, isError: boolean) => void): void {
-  try {
-    let debugManager = audio.getAudioManager().getDebuggingManager();
-    // 输出到 hilog 日志。
-    debugManager.printAppInfo(-1);
-    // 输出到文件。
-    let filePath = context.filesDir + '/audio_app_debug.txt';
-    let file = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
-    try {
-      debugManager.printAppInfo(file.fd);
-    } finally {
-      fs.closeSync(file);
-    }
-    const successMsg = `App debug info written to: ${filePath}`;
-    if (updateCallback) {
-      updateCallback(successMsg, false);
-    }
-  } catch (err) {
-    let e = err as BusinessError;
-    console.error(`Failed to print app info. Code: ${e.code}, message: ${e.message}`);
-    if (updateCallback) {
-      updateCallback(`Failed to print app info. Code: ${e.code}, message: ${e.message}`, true);
-    }
-  }
-}
-// [End print_AppInfo]
-
 // [Start print_LoopbackInfo]
 // 查询返听器调试信息，输出到 hilog 与文件。
 function printLoopbackInfo(context: common.Context, updateCallback?: (msg: string, isError: boolean) => void): void {
@@ -734,23 +705,6 @@ struct Index {
         }
 
         Row() {
-          Column() {
-            Text('查询应用音频调试信息')
-              .fontColor(Color.Black)
-              .fontSize(14)
-          }
-          .backgroundColor(Color.White)
-          .borderRadius(20)
-          .width('45%')
-          .height(60)
-          .margin({ right: 12, bottom: 12 })
-          .justifyContent(FlexAlign.Center)
-          .alignItems(HorizontalAlign.Center)
-          .onClick((): void => {
-            let context = this.getUIContext().getHostContext() as common.Context;
-            printAppInfo(context, (msg, isError) => this.updateLogInfo(msg, isError));
-          });
-
           Column() {
             Text('查询返听器调试信息')
               .fontColor(Color.Black)
