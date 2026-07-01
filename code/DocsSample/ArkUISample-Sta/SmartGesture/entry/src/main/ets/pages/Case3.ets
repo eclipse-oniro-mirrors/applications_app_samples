@@ -47,6 +47,7 @@ import {
   TargetedGestureProposal,
   ClickActionProposal,
   SelectActionProposal,
+  BackPressActionProposal,
 } from '@ohos.arkui.UIContext'
 
 @Entry
@@ -64,6 +65,12 @@ struct Demo3 {
   // TargetedGestureProposal是子类，额外携带node属性指向目标组件节点，构造ActionProposal时需要该节点
   private callback: Callback<BaseGestureHandlingProposal, GestureHandlingResolution> =
     (proposal: BaseGestureHandlingProposal): GestureHandlingResolution => {
+      // 翻腕手势意图，需执行返回操作
+      if (proposal instanceof BackPressActionProposal) {
+        this.hint = `意图=${proposal.operateIntention}, 动作=${proposal.action}`;
+        let resolution = new GestureHandlingResolution(true);
+        return resolution;
+      }
       // 将BaseGestureHandlingProposal转为TargetedGestureProposal，以获取目标组件节点信息
       let targetProposal = proposal as TargetedGestureProposal;
       // 获取目标组件的id标识，用于后续通过id查找FrameNode
