@@ -96,6 +96,7 @@ struct Index {
     Column() {
       NodeContainer(this.myNodeController)
         .width('100%')
+        .height(320)
       Button('Invalidate')
         .onClick((event: ClickEvent) => {
           // 同步调用多次，仅触发一次重绘，draw回调中的日志仅打印一次

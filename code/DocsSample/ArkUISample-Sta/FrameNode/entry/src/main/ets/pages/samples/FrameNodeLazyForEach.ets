@@ -29,7 +29,9 @@ import {
   Row,
   Text,
   UIContext,
-  typeNode
+  typeNode,
+  ColumnOptions,
+  RowOptions
 } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
@@ -201,12 +203,12 @@ struct Index {
   }
 
   build() {
-    Column() {
+    Column({ space: 10 } as ColumnOptions) {
       Text('ListNode Adapter');
       NodeContainer(this.adapterController)
         .width(300).height(300)
         .borderWidth(1).borderColor(Color.Black)
-      Row() {
+      Row({ space: 5 } as RowOptions) {
         Button('Reload')
           .onClick(() => {
             this.adapterController.nodeAdapter?.reloadData(50);
@@ -221,7 +223,7 @@ struct Index {
           })
       }
 
-      Row() {
+      Row({ space: 5 } as RowOptions) {
         Button('Remove')
           .onClick(() => {
             this.adapterController.nodeAdapter?.removeData(10, 10);

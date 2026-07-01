@@ -43,7 +43,8 @@ import {
   TextAlign,
   UIContext,
   wrapBuilder,
-  Axis
+  Axis,
+  ColumnOptions
 } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
@@ -263,7 +264,7 @@ struct Index {
 
   build() {
     Scroll(this.scroller) {
-      Column() {
+      Column({ space: 8 } as ColumnOptions) {
         Column() {
           Text('This is a NodeContainer.')
             .textAlign(TextAlign.Center)
