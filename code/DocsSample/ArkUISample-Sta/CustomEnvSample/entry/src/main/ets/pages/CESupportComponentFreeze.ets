@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 import { NavDestination, $r } from '@kit.ArkUI';
-// [Start CustomEnvArray]
+// [Start CustomEnvSupportComponentFreeze]
 import { Button, ClickEvent, Column, ComponentV2, Entry, FontWeight, ForEach, IMonitor, Local, Monitor, Param, Repeat, Row, TabContent, Tabs, Text, CustomEnvKey, CustomEnv } from '@kit.ArkUI';
 import { WithEnv, WithEnvAttribute } from '@ohos.arkui.WithEnv';
 
