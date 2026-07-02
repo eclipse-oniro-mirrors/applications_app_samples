@@ -1,0 +1,20 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/CEDecorateArray",
+    "pages/CEDecorateDate",
+    "pages/CEDecorateMap",
+    "pages/CEDecorateSet",
+    "pages/CEFollowSearchClosestValue",
+    "pages/CEObserveChange",
+    "pages/CESupportComponentFreeze",
+    "pages/CESupportCustomKeyValue",
+    "pages/CESupportInitialDefaultValue",
+    "pages/CESupportMixV1ToV2",
+    "pages/CESupportMixV2ToV1",
+    "pages/CESupportMonitor",
+    "pages/CESupportResponseCapability",
+    "pages/CESupportAddMonitor",
+    "pages/CESupportMultipleTypes"
+  ]
+}
