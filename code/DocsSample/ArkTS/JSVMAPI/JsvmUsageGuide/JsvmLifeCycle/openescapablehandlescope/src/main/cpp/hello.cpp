@@ -73,7 +73,7 @@ static JSVM_Value EscapableHandleScopeTest(JSVM_Env env, JSVM_CallbackInfo info)
         return nullptr;
     }
     // 在可逃逸的句柄作用域内创建一个obj
-    JSVM_Value obj;
+    JSVM_Value obj = nullptr;
     OH_JSVM_CreateObject(env, &obj);
     // 在对象中添加属性
     JSVM_Value value = nullptr;

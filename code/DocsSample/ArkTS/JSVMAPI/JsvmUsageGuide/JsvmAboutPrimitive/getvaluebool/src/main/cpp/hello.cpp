@@ -91,11 +91,11 @@ static JSVM_CallbackStruct *method = param;
 static JSVM_PropertyDescriptor descriptor[] = {
     {"getValueBool", nullptr, method++, nullptr, nullptr, nullptr, JSVM_DEFAULT},
 };
-// [End oh_jsvm_get_value_bool]
 // 样例测试js
-const char *SRC_CALL_NATIVE = R"JS(getValueBool("abc"))JS";
-// const char *SRC_CALL_NATIVE = R"JS(getValueBool(true))JS";
-// const char *SRC_CALL_NATIVE = R"JS(getValueBool(false))JS";
+const char *SRC_CALL_NATIVE = R"JS(getValueBool("abc");
+                                   getValueBool(true);
+                                   getValueBool(false);)JS";
+// [End oh_jsvm_get_value_bool]
 
 static int32_t TestJSVM()
 {

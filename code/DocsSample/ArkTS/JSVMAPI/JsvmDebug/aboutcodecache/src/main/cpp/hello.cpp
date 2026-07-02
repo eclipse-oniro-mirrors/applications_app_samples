@@ -136,10 +136,10 @@ static JSVM_CallbackStruct *method = param;
 static JSVM_PropertyDescriptor descriptor[] = {
     {"UseCodeCache", nullptr, method++, nullptr, nullptr, nullptr, JSVM_DEFAULT},
 };
-// [End jsvm_code_cache]
 
 // 样例测试JS
 const char *SRC_CALL_NATIVE = R"JS(UseCodeCache();)JS";
+// [End jsvm_code_cache]
 
 static int32_t TestJSVM()
 {

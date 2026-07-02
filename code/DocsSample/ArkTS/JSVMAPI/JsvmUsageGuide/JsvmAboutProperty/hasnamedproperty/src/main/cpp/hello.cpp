@@ -72,7 +72,7 @@ static JSVM_Value HasNamedProperty(JSVM_Env env, JSVM_CallbackInfo info)
     char strKey[STR_KEY_LEN] = "";
     OH_JSVM_GetCbInfo(env, info, &argc, args, nullptr, nullptr);
     // 获取要检查的属性名
-    size_t keyLength;
+    size_t keyLength = 0;
     OH_JSVM_GetValueStringUtf8(env, args[1], strKey, STR_KEY_LEN, &keyLength);
     // 检查对象是否具有指定命名的属性，并将结果存储在hasProperty中
     bool hasProperty = false;

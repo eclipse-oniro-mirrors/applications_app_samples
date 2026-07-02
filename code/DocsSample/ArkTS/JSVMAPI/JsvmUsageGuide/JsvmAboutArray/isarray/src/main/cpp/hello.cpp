@@ -73,7 +73,7 @@ static JSVM_Value IsArray(JSVM_Env env, JSVM_CallbackInfo info)
     bool result = false;
     JSVM_Status status = OH_JSVM_IsArray(env, args[0], &result);
     JSVM_Value returnValue = nullptr;
-    OH_JSVM_GetBoolean(env, result, &returnValue);
+    JSVM_CALL(OH_JSVM_GetBoolean(env, result, &returnValue));
     if (status != JSVM_OK) {
         OH_LOG_ERROR(LOG_APP, "JSVM IsArray fail");
     } else {

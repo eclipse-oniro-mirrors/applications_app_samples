@@ -73,14 +73,14 @@ static JSVM_Value IsDataView(JSVM_Env env, JSVM_CallbackInfo info)
     // 调用OH_JSVM_IsDataview接口判断给定入参是否为DataView数据。
     bool result = false;
     JSVM_Status status = OH_JSVM_IsDataview(env, args[0], &result);
-    JSVM_Value isDateView = nullptr;
-    OH_JSVM_GetBoolean(env, result, &isDateView);
+    JSVM_Value isDataView = nullptr;
+    OH_JSVM_GetBoolean(env, result, &isDataView);
     if (status != JSVM_OK) {
         OH_LOG_ERROR(LOG_APP, "JSVM IsDataView fail");
     } else {
         OH_LOG_INFO(LOG_APP, "JSVM IsDataView: %{public}d", result);
     }
-    return isDateView;
+    return isDataView;
 }
 // IsDataView注册回调
 static JSVM_CallbackStruct param[] = {

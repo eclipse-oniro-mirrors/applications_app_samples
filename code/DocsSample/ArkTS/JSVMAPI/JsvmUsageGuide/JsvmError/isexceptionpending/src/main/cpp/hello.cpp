@@ -62,7 +62,7 @@ static int g_aa = 0;
 #define JSVM_CALL(theCall) JSVM_CALL_BASE(env, theCall, nullptr)
 
 // [Start oh_jsvm_is_exception_pending]
-// OH_JSVM_GetAndClearLastException的样例方法
+// OH_JSVM_IsExceptionPending的样例方法
 static JSVM_Value JsVmIsExceptionPending(JSVM_Env env, JSVM_CallbackInfo info)
 {
     JSVM_Status status;

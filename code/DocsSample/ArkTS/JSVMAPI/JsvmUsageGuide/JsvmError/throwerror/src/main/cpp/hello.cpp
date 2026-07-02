@@ -91,7 +91,7 @@ static JSVM_Value JsVmThrowError(JSVM_Env env, JSVM_CallbackInfo info)
         // 如果没有传递参数，直接抛出错误
         OH_JSVM_ThrowError(env, "-1", "has Error");
     } else if (argc == 1) {
-        size_t length;
+        size_t length = 0;
         // 通过入参获取到JavaScript侧传入的字符串长度。
         OH_JSVM_GetValueStringUtf8(env, argv[0], nullptr, 0, &length);
         char *buffer = new char[length + 1];
