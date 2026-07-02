@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 import { NavDestination, $r } from '@kit.ArkUI';
-// [Start CustomEnvArray]
+// [Start CustomEnvDecorateArray]
 import { Entry, Row, ComponentV2, Column, Text, Button, CustomEnv, ForEach, CustomEnvKey } from '@kit.ArkUI';
 
 class Fruit {
@@ -69,7 +69,7 @@ struct Index {
   }
 }
 
-// [End CustomEnvArray]
+// [End CustomEnvDecorateArray]
 @Builder
 export function localArray(): void {
   NavDestination() {

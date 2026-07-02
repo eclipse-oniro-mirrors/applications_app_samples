@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 import { NavDestination, $r } from '@kit.ArkUI';
-// [start CustomEnvSupportMixV1ToV2]
+// [Start CustomEnvSupportMixV1ToV2]
 import { Entry, Row, ComponentV2, Component, Column, Text, Button, CustomEnv, ObservedV2, Trace, Require, CustomEnvKey, Param } from '@kit.ArkUI';
 
 @ObservedV2
