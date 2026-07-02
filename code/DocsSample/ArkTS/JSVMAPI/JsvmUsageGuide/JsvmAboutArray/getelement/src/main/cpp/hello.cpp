@@ -72,7 +72,7 @@ static JSVM_Value GetElement(JSVM_Env env, JSVM_CallbackInfo info)
     JSVM_Value args[2] = {nullptr};
     OH_JSVM_GetCbInfo(env, info, &argc, args, nullptr, nullptr);
     // 获取请求元素的索引值
-    uint32_t index;
+    uint32_t index = 0;
     OH_JSVM_GetValueUint32(env, args[1], &index);
     // 获取请求索引位置的元素值并存储在result中
     JSVM_Value result = nullptr;

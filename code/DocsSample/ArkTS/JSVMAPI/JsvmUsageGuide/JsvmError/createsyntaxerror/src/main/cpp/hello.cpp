@@ -85,7 +85,7 @@ static JSVM_CallbackStruct param[] = {
     {.data = nullptr, .callback = JsVmCreateSyntaxError},
 };
 static JSVM_CallbackStruct *method = param;
-// JsVmThrow方法别名，供JS调用
+// JsVmCreateSyntaxError方法别名，供JS调用
 static JSVM_PropertyDescriptor descriptor[] = {
     {"jsVmCreateSyntaxError", nullptr, method++, nullptr, nullptr, nullptr, JSVM_DEFAULT},
 };

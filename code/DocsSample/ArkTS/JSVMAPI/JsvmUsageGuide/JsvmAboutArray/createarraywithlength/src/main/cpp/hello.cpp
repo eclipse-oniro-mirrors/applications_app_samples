@@ -73,7 +73,7 @@ static JSVM_Value CreateArrayWithLength(JSVM_Env env, JSVM_CallbackInfo info)
     // 解析传递的参数OH_JSVM_GetCbInfo
     OH_JSVM_GetCbInfo(env, info, &argc, argv, nullptr, nullptr);
     // 获取传递的数组长度
-    int32_t length;
+    int32_t length = 0;
     OH_JSVM_GetValueInt32(env, argv[0], &length);
     // 使用OH_JSVM_CreateArrayWithLength创建传递固定长度的数组
     JSVM_Status status = OH_JSVM_CreateArrayWithLength(env, length, &result);
@@ -81,8 +81,8 @@ static JSVM_Value CreateArrayWithLength(JSVM_Env env, JSVM_CallbackInfo info)
         // 给创建的数组设置值
         for (int32_t i = 0; i < length; i++) {
             JSVM_Value value;
-            OH_JSVM_CreateInt32(env, i, &value);
-            OH_JSVM_SetElement(env, result, i, value);
+            JSVM_CALL(OH_JSVM_CreateInt32(env, i, &value));
+            JSVM_CALL(OH_JSVM_SetElement(env, result, i, value));
         }
         OH_LOG_INFO(LOG_APP, "JSVM CreateArrayWithLength success");
     } else {

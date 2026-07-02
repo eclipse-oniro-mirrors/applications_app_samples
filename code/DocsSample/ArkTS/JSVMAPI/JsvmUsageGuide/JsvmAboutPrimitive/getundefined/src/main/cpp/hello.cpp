@@ -89,9 +89,9 @@ static JSVM_CallbackStruct *method = param;
 static JSVM_PropertyDescriptor descriptor[] = {
     {"getUndefined", nullptr, method++, nullptr, nullptr, nullptr, JSVM_DEFAULT},
 };
-// [End oh_jsvm_get_undefined]
 // 样例测试js
 const char *SRC_CALL_NATIVE = R"JS(getUndefined())JS";
+// [End oh_jsvm_get_undefined]
 
 static int32_t TestJSVM()
 {

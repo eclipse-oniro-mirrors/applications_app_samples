@@ -77,7 +77,7 @@ static JSVM_Value GetArraybufferInfo(JSVM_Env env, JSVM_CallbackInfo info)
         OH_LOG_ERROR(LOG_APP, "JSVM GetArraybufferInfo isArrayBuffer:false");
     }
     void *data;
-    size_t byteLength;
+    size_t byteLength = 0;
     // 获取ArrayBuffer的底层数据缓冲区和长度
     JSVM_Status status = OH_JSVM_GetArraybufferInfo(env, args[0], &data, &byteLength);
     if (status != JSVM_OK) {

@@ -73,14 +73,14 @@ static JSVM_Value GetTypedArrayInfo(JSVM_Env env, JSVM_CallbackInfo info)
     OH_JSVM_GetCbInfo(env, info, &argc, args, nullptr, nullptr);
 
     // 将第二个参数转为int32类型便于比较
-    int32_t infoTypeParam;
+    int32_t infoTypeParam = 0;
     OH_JSVM_GetValueInt32(env, args[1], &infoTypeParam);
     // 定义枚举类型与ArkTS侧枚举类型infoType顺序含义一致
     enum InfoType { INFO_TYPE, INFO_LENGTH, INFO_ARRAY_BUFFER, INFO_BYTE_OFFSET };
     void *data;
     JSVM_TypedarrayType type;
-    size_t byteOffset;
-    size_t length;
+    size_t byteOffset = 0;
+    size_t length = 0;
     JSVM_Value arrayBuffer = nullptr;
     // 调用接口OH_JSVM_GetTypedarrayInfo获得TypedArray类型数据的信息
     JSVM_Status status = OH_JSVM_GetTypedarrayInfo(env, args[0], &type, &length, &data, &arrayBuffer, &byteOffset);
@@ -102,7 +102,7 @@ static JSVM_Value GetTypedArrayInfo(JSVM_Env env, JSVM_CallbackInfo info)
         case INFO_LENGTH:
             // TypedArray中的元素数
             JSVM_Value jsvmLength;
-            OH_JSVM_CreateInt32(env, length, &jsvmLength);
+            JSVM_CALL(OH_JSVM_CreateInt32(env, length, &jsvmLength));
             result = jsvmLength;
             if (status != JSVM_OK) {
                 OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
@@ -113,7 +113,7 @@ static JSVM_Value GetTypedArrayInfo(JSVM_Env env, JSVM_CallbackInfo info)
         case INFO_BYTE_OFFSET:
             // TypedArray数组的第一个元素所在的基础原生数组中的字节偏移量
             JSVM_Value jsvmOffset;
-            OH_JSVM_CreateInt32(env, byteOffset, &jsvmOffset);
+            JSVM_CALL(OH_JSVM_CreateInt32(env, byteOffset, &jsvmOffset));
             result = jsvmOffset;
             if (status != JSVM_OK) {
                 OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
@@ -123,9 +123,9 @@ static JSVM_Value GetTypedArrayInfo(JSVM_Env env, JSVM_CallbackInfo info)
             break;
         case INFO_ARRAY_BUFFER:
             // TypedArray下的ArrayBuffer
-            bool isArrayBuffer;
-            OH_JSVM_IsArraybuffer(env, arrayBuffer, &isArrayBuffer);
-            JSVM_Value isArray;
+            bool isArrayBuffer = false;
+            JSVM_CALL(OH_JSVM_IsArraybuffer(env, arrayBuffer, &isArrayBuffer));
+            JSVM_Value isArray = nullptr;
             OH_JSVM_GetBoolean(env, isArrayBuffer, &isArray);
             result = isArray;
             if (status != JSVM_OK) {

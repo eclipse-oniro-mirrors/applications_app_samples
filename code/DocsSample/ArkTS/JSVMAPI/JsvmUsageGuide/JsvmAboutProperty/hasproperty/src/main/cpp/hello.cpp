@@ -70,7 +70,7 @@ static JSVM_Value HasProperty(JSVM_Env env, JSVM_CallbackInfo info)
     JSVM_Value args[2] = {nullptr};
     OH_JSVM_GetCbInfo(env, info, &argc, args, nullptr, nullptr);
     // 将参数传入OH_JSVM_HasProperty方法中，若接口调用成功则将结果转化为JSVM_Value类型抛出，否则抛出错误
-    bool result;
+    bool result = false;
     JSVM_Status status = OH_JSVM_HasProperty(env, args[0], args[1], &result);
     if (status != JSVM_OK) {
         OH_JSVM_ThrowError(env, nullptr, "JSVM OH_JSVM_HasProperty fail");

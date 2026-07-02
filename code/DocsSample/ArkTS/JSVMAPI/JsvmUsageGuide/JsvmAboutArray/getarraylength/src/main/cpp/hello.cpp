@@ -70,7 +70,7 @@ static JSVM_Value GetArrayLength(JSVM_Env env, JSVM_CallbackInfo info)
     size_t argc = 1;
     JSVM_Value args[1] = {nullptr};
     JSVM_Value result = nullptr;
-    uint32_t length;
+    uint32_t length = 0;
     OH_JSVM_GetCbInfo(env, info, &argc, args, nullptr, nullptr);
     // 检查参数是否为数组
     bool isArray = false;
@@ -79,10 +79,12 @@ static JSVM_Value GetArrayLength(JSVM_Env env, JSVM_CallbackInfo info)
         OH_LOG_INFO(LOG_APP, "JSVM Argument must be an array");
         return nullptr;
     }
-    OH_JSVM_GetArrayLength(env, args[0], &length);
-    // 创建返回值
-    OH_JSVM_CreateInt32(env, length, &result);
-    OH_LOG_INFO(LOG_APP, "JSVM length: %{public}d", length);
+    JSVM_Status status = OH_JSVM_GetArrayLength(env, args[0], &length);
+    if (status == JSVM_OK) {
+        // 创建返回值
+        JSVM_CALL(OH_JSVM_CreateInt32(env, length, &result));
+        OH_LOG_INFO(LOG_APP, "JSVM length: %{public}d", length);
+    }
     return result;
 }
 // GetArrayLength注册回调

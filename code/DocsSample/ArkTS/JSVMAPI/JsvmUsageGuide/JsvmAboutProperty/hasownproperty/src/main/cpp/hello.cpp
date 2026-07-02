@@ -84,7 +84,7 @@ static JSVM_Value HasOwnProperty(JSVM_Env env, JSVM_CallbackInfo info)
         return nullptr;
     }
     // 检查对象是否具有指定属性，结果存储在hasProperty中
-    bool hasProperty;
+    bool hasProperty = false;
     JSVM_Status status = OH_JSVM_HasOwnProperty(env, args[0], args[1], &hasProperty);
     if (status != JSVM_OK) {
         OH_JSVM_ThrowError(env, nullptr, "JSVM OH_JSVM_HasOwnProperty failed");

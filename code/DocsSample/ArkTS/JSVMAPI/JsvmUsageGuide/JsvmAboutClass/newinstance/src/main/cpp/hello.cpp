@@ -66,7 +66,7 @@ static int g_aa = 0;
 
 std::string ToString(JSVM_Env env, JSVM_Value val)
 {
-    JSVM_Value jsonString;
+    JSVM_Value jsonString = nullptr;
     JSVM_CALL(OH_JSVM_JsonStringify(env, val, &jsonString));
     size_t totalLen = 0;
     JSVM_CALL(OH_JSVM_GetValueStringUtf8(env, jsonString, nullptr, 0, &totalLen));

@@ -62,10 +62,10 @@ static int g_aa = 0;
 
 // JSVM_CALL_BASE的简化版本，返回nullptr
 #define JSVM_CALL(theCall) JSVM_CALL_BASE(env, theCall, nullptr)
+// [EndExclude oh_jsvm_create_dataview]
 
 static int g_diffValueFour = 4;
 static int g_diffValueTwelve = 12;
-// [EndExclude oh_jsvm_create_dataview]
 
 // OH_JSVM_CreateDataview的样例方法
 static JSVM_Value CreateDataView(JSVM_Env env, JSVM_CallbackInfo info)
@@ -92,19 +92,19 @@ static JSVM_Value CreateDataView(JSVM_Env env, JSVM_CallbackInfo info)
     for (size_t i = 0; i < length; i++) {
         data[i] = static_cast<uint8_t>(i + 1);
     }
-    int32_t infoType;
+    int32_t infoType = 0;
     OH_JSVM_GetValueInt32(env, args[1], &infoType);
-    size_t returnLength;
+    size_t returnLength = 0;
     JSVM_Value returnArrayBuffer = nullptr;
-    size_t returnOffset;
+    size_t returnOffset = 0;
     enum InfoType { BYTE_LENGTH, ARRAY_BUFFER, BYTE_OFFSET };
     // 获取dataview信息
     OH_JSVM_GetDataviewInfo(env, result, &returnLength, (void **)&data, &returnArrayBuffer, &returnOffset);
     JSVM_Value returnResult = nullptr;
     switch (infoType) {
         case BYTE_LENGTH:
-            JSVM_Value len;
-            OH_JSVM_CreateInt32(env, returnLength, &len);
+            JSVM_Value len = nullptr;
+            JSVM_CALL(OH_JSVM_CreateInt32(env, returnLength, &len));
             returnResult = len;
             if (status != JSVM_OK) {
                 OH_LOG_ERROR(LOG_APP, "JSVM CreateDataView fail");
@@ -113,10 +113,10 @@ static JSVM_Value CreateDataView(JSVM_Env env, JSVM_CallbackInfo info)
             }
             break;
         case ARRAY_BUFFER:
-            bool isArraybuffer;
-            OH_JSVM_IsArraybuffer(env, returnArrayBuffer, &isArraybuffer);
-            JSVM_Value isArray;
-            OH_JSVM_GetBoolean(env, isArraybuffer, &isArray);
+            bool isArraybuffer = false;
+            JSVM_CALL(OH_JSVM_IsArraybuffer(env, returnArrayBuffer, &isArraybuffer));
+            JSVM_Value isArray = nullptr;
+            JSVM_CALL(OH_JSVM_GetBoolean(env, isArraybuffer, &isArray));
             returnResult = isArray;
             if (status != JSVM_OK) {
                 OH_LOG_ERROR(LOG_APP, "JSVM CreateDataView fail");
@@ -125,8 +125,8 @@ static JSVM_Value CreateDataView(JSVM_Env env, JSVM_CallbackInfo info)
             }
             break;
         case BYTE_OFFSET:
-            JSVM_Value offset;
-            OH_JSVM_CreateInt32(env, returnOffset, &offset);
+            JSVM_Value offset = nullptr;
+            JSVM_CALL(OH_JSVM_CreateInt32(env, returnOffset, &offset));
             returnResult = offset;
             if (status != JSVM_OK) {
                 OH_LOG_ERROR(LOG_APP, "JSVM CreateDataView fail");

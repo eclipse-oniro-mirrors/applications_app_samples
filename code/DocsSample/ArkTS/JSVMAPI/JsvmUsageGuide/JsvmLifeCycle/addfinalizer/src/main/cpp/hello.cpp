@@ -68,7 +68,7 @@ static int AddFinalizer(JSVM_VM vm, JSVM_Env env)
     JSVM_HandleScope handleScope;
     CHECK_RET(OH_JSVM_OpenHandleScope(env, &handleScope));
     // 创建 object 并设置回调
-    JSVM_Value obj;
+    JSVM_Value obj = nullptr;
     CHECK_RET(OH_JSVM_CreateObject(env, &obj));
     CHECK_RET(OH_JSVM_AddFinalizer(
         env, obj, nullptr,

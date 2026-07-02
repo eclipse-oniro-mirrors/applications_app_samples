@@ -97,7 +97,7 @@ static JSVM_Value JsVmThrowTypeError(JSVM_Env env, JSVM_CallbackInfo info)
         char *buffer = new char[length + 1];
         // 获取入参的字符串内容
         OH_JSVM_GetValueStringUtf8(env, argv[0], buffer, length + 1, nullptr);
-        // 作为error信息填入到OH_JSVM_ThrowError接口中
+        // 作为error信息填入到OH_JSVM_ThrowTypeError接口中
         OH_JSVM_ThrowTypeError(env, "self defined error code", buffer);
         delete[] buffer;
     }

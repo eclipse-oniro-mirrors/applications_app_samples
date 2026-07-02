@@ -69,8 +69,8 @@ static void GetLastErrorAndClean(JSVM_Env env)
     JSVM_Value result = nullptr;
     JSVM_Status status = OH_JSVM_GetAndClearLastException(env, &result);
     // 打印错误信息
-    JSVM_Value message;
-    JSVM_Value errorCode;
+    JSVM_Value message = nullptr;
+    JSVM_Value errorCode = nullptr;
     OH_JSVM_GetNamedProperty((env), result, "message", &message);
     OH_JSVM_GetNamedProperty((env), result, "code", &errorCode);
     const int maxMessageLength = 256;
@@ -100,12 +100,12 @@ static JSVM_Value JsVmCreateThrowError(JSVM_Env env, JSVM_CallbackInfo info)
     return nullptr;
 }
 
-// JsVmThrow注册回调
+// JsVmCreateThrowError注册回调
 static JSVM_CallbackStruct param[] = {
     {.data = nullptr, .callback = JsVmCreateThrowError},
 };
 static JSVM_CallbackStruct *method = param;
-// JsVmThrow方法别名，供JS调用
+// JsVmCreateThrowError方法别名，供JS调用
 static JSVM_PropertyDescriptor descriptor[] = {
     {"jsVmCreateThrowError", nullptr, method++, nullptr, nullptr, nullptr, JSVM_DEFAULT},
 };

@@ -72,12 +72,12 @@ static JSVM_Value GetDataViewInfo(JSVM_Env env, JSVM_CallbackInfo info)
     JSVM_Value args[2] = {nullptr};
     OH_JSVM_GetCbInfo(env, info, &argc, args, nullptr, nullptr);
     // 将第二个参数转为int32类型的数字
-    int32_t infoType;
+    int32_t infoType = 0;
     OH_JSVM_GetValueInt32(env, args[1], &infoType);
-    size_t byteLength;
+    size_t byteLength = 0;
     void *data;
     JSVM_Value arrayBuffer = nullptr;
-    size_t byteOffset;
+    size_t byteOffset = 0;
     // 定义枚举类型与ArkTS侧枚举类型infoType顺序含义一致
     enum InfoTypeEnum { BYTE_LENGTH, ARRAY_BUFFER, BYTE_OFFSET };
     // 获取dataview信息
@@ -87,7 +87,7 @@ static JSVM_Value GetDataViewInfo(JSVM_Env env, JSVM_CallbackInfo info)
         case BYTE_LENGTH:
             // 返回查询DataView的长度
             JSVM_Value len;
-            OH_JSVM_CreateInt32(env, byteLength, &len);
+            JSVM_CALL(OH_JSVM_CreateInt32(env, byteLength, &len));
             result = len;
             if (status != JSVM_OK) {
                 OH_LOG_ERROR(LOG_APP, "JSVM GetDataViewInfo fail");
@@ -97,9 +97,9 @@ static JSVM_Value GetDataViewInfo(JSVM_Env env, JSVM_CallbackInfo info)
             break;
         case ARRAY_BUFFER:
             // 判断DataView的Info里的arraybuffer是否为arraybuffer
-            bool isArrayBuffer;
-            OH_JSVM_IsArraybuffer(env, arrayBuffer, &isArrayBuffer);
-            JSVM_Value isArray;
+            bool isArrayBuffer = false;
+            JSVM_CALL(OH_JSVM_IsArraybuffer(env, arrayBuffer, &isArrayBuffer));
+            JSVM_Value isArray = nullptr;
             OH_JSVM_GetBoolean(env, isArrayBuffer, &isArray);
             result = isArray;
             if (status != JSVM_OK) {
@@ -111,7 +111,7 @@ static JSVM_Value GetDataViewInfo(JSVM_Env env, JSVM_CallbackInfo info)
         case BYTE_OFFSET:
             // 返回查询DataView的偏移量
             JSVM_Value offset;
-            OH_JSVM_CreateInt32(env, byteOffset, &offset);
+            JSVM_CALL(OH_JSVM_CreateInt32(env, byteOffset, &offset));
             result = offset;
             if (status != JSVM_OK) {
                 OH_LOG_ERROR(LOG_APP, "JSVM GetDataViewInfo fail");
