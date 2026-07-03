@@ -59,7 +59,7 @@ struct Index {
                   fileIo.closeSync(file);
                 });
               } catch (resError) {
-                console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                console.error(`ErrorCode: ${(resError as BusinessError).code},  Message: ${(resError as BusinessError).message}`);
               }
             });
         })
