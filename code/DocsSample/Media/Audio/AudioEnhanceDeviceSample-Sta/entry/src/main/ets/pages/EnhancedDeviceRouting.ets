@@ -21,6 +21,11 @@
 import audio from '@ohos.multimedia.audio';
 import common from '@ohos.app.ability.common';
 import abilityAccessCtrl from '@ohos.abilityAccessCtrl';
+// [StartExclude isEnhancedRoutingSupported]
+// [StartExclude select_OutputDevice]
+// [StartExclude select_InputDevice]
+// [StartExclude select_OutputDeviceForAudioRenderer]
+// [StartExclude select_InputDeviceForAudioCapturer]
 import { PermissionRequestResult } from '@ohos.abilityAccessCtrl';
 import { BusinessError } from '@ohos.base';
 import {
@@ -28,12 +33,22 @@ import {
   DialogAlignment, SheetInfo
 } from '@kit.ArkUI';
 
+// [EndExclude isEnhancedRoutingSupported]
+// [EndExclude select_OutputDevice]
+// [EndExclude select_InputDevice]
+// [EndExclude select_OutputDeviceForAudioRenderer]
+// [EndExclude select_InputDeviceForAudioCapturer]
+
 let audioManager = audio.getAudioManager();
 let audioDeviceEnhanceManager: audio.AudioDeviceEnhanceManager = audioManager.getDeviceEnhanceManager();
+
+// [StartExclude isEnhancedRoutingSupported]
 let audioSessionManager = audioManager.getSessionManager();
 
-let audioRenderer: audio.AudioRenderer | undefined = undefined;
-let audioCapturer: audio.AudioCapturer | undefined = undefined;
+// [StartExclude select_OutputDevice]
+// [StartExclude select_InputDevice]
+// [StartExclude select_OutputDeviceForAudioRenderer]
+// [StartExclude select_InputDeviceForAudioCapturer]
 let audioStreamInfo: audio.AudioStreamInfo = {
   samplingRate: audio.AudioSamplingRate.SAMPLE_RATE_48000,
   channels: audio.AudioChannel.CHANNEL_2,
@@ -41,11 +56,17 @@ let audioStreamInfo: audio.AudioStreamInfo = {
   encodingType: audio.AudioEncodingType.ENCODING_TYPE_RAW
 };
 
+// [EndExclude select_OutputDeviceForAudioRenderer]
+let audioRenderer: audio.AudioRenderer | undefined = undefined;
+// [StartExclude select_OutputDeviceForAudioRenderer]
 let audioRendererInfo: audio.AudioRendererInfo = {
   usage: audio.StreamUsage.STREAM_USAGE_VOICE_COMMUNICATION,
   rendererFlags: 0
 };
 
+// [EndExclude select_InputDeviceForAudioCapturer]
+let audioCapturer: audio.AudioCapturer | undefined = undefined;
+// [StartExclude select_InputDeviceForAudioCapturer]
 let audioRendererOptions: audio.AudioRendererOptions = {
   streamInfo: audioStreamInfo,
   rendererInfo: audioRendererInfo
@@ -61,11 +82,6 @@ let audioCapturerOptions: audio.AudioCapturerOptions = {
   capturerInfo: audioCapturerInfo
 };
 
-// [StartExclude isEnhancedRoutingSupported]
-// [StartExclude select_OutputDevice]
-// [StartExclude select_InputDevice]
-// [StartExclude select_OutputDeviceForAudioRenderer]
-// [StartExclude select_InputDeviceForAudioCapturer]
 async function requestMicrophonePermission(context: common.UIAbilityContext): Promise<boolean> {
   let atManager = abilityAccessCtrl.createAtManager();
   let result: PermissionRequestResult = await atManager
@@ -84,7 +100,6 @@ function logDevice(device: audio.AudioDeviceDescriptor): string {
   deviceInfo += `Device - address: ${device.address}\n`;
   return deviceInfo;
 }
-
 function checkEnhancedRoutingSupported(updateCallback?: (msg: string, isError: boolean) => void): boolean {
   // [EndExclude isEnhancedRoutingSupported]
   let isSupported: boolean = audioDeviceEnhanceManager.isEnhancedRoutingSupported();
@@ -93,6 +108,7 @@ function checkEnhancedRoutingSupported(updateCallback?: (msg: string, isError: b
   if (updateCallback) {
     updateCallback(`isEnhancedRoutingSupported: ${isSupported}`, false);
   }
+  // [EndExclude isEnhancedRoutingSupported]
   // [End isEnhancedRoutingSupported]
   return isSupported;
 }
@@ -121,8 +137,9 @@ async function selectOutputDevice(device: audio.AudioDeviceDescriptor,
     if (updateCallback) {
       updateCallback(`Failed to select output device. Code: ${error.code}, message: ${error.message}`, true);
     }
-    // [End select_OutputDevice]
+    // [EndExclude select_OutputDevice]
   }
+  // [End select_OutputDevice]
 }
 
 async function selectInputDevice(device: audio.AudioDeviceDescriptor,
@@ -149,8 +166,9 @@ async function selectInputDevice(device: audio.AudioDeviceDescriptor,
     if (updateCallback) {
       updateCallback(`Failed to select input device. Code: ${error.code}, message: ${error.message}`, true);
     }
-    // [End select_InputDevice]
+    // [EndExclude select_InputDevice]
   }
+  // [End select_InputDevice]
 }
 
 async function selectOutputDeviceForAudioRenderer(renderer: audio.AudioRenderer,
@@ -178,8 +196,9 @@ async function selectOutputDeviceForAudioRenderer(renderer: audio.AudioRenderer,
     if (updateCallback) {
       updateCallback(`Failed to select output device for audio renderer. Code: ${error.code}, message: ${error.message}`, true);
     }
-    // [End select_OutputDeviceForAudioRenderer]
+    // [EndExclude select_OutputDeviceForAudioRenderer]
   }
+  // [End select_OutputDeviceForAudioRenderer]
 }
 
 async function selectInputDeviceForAudioCapturer(capturer: audio.AudioCapturer,
@@ -207,8 +226,9 @@ async function selectInputDeviceForAudioCapturer(capturer: audio.AudioCapturer,
     if (updateCallback) {
       updateCallback(`Failed to select input device for audio capturer. Code: ${error.code}, message: ${error.message}`, true);
     }
-    // [End select_InputDeviceForAudioCapturer]
+    // [EndExclude select_InputDeviceForAudioCapturer]
   }
+  // [End select_InputDeviceForAudioCapturer]
 }
 
 async function createAudioRenderer(updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
@@ -216,28 +236,22 @@ async function createAudioRenderer(updateCallback?: (msg: string, isError: boole
     let renderer = await audio.createAudioRenderer(audioRendererOptions);
     if (renderer === null) {
       console.info('AudioRenderer Created : ERROR : renderer is null');
-      // [StartExclude select_OutputDeviceForAudioRenderer]
       if (updateCallback) {
         updateCallback('AudioRenderer Created : ERROR : renderer is null', true);
       }
-      // [EndExclude select_OutputDeviceForAudioRenderer]
       return;
     }
     audioRenderer = renderer;
     console.info('AudioRenderer Created : Success');
-    // [StartExclude select_OutputDeviceForAudioRenderer]
     if (updateCallback) {
       updateCallback('AudioRenderer Created : Success', false);
     }
-    // [EndExclude select_OutputDeviceForAudioRenderer]
   } catch (err) {
     let error = err as BusinessError;
     console.error(`AudioRenderer Created : ERROR : ${error.message}`);
-    // [StartExclude select_OutputDeviceForAudioRenderer]
     if (updateCallback) {
       updateCallback(`AudioRenderer Created : ERROR : ${error.message}`, true);
     }
-    // [EndExclude select_OutputDeviceForAudioRenderer]
   }
 }
 
@@ -254,28 +268,22 @@ async function createAudioCapturer(context: common.UIAbilityContext,
     let capturer = await audio.createAudioCapturer(audioCapturerOptions);
     if (capturer === null) {
       console.info('AudioCapturer Created : ERROR : capturer is null');
-      // [StartExclude select_InputDeviceForAudioCapturer]
       if (updateCallback) {
         updateCallback('AudioCapturer Created : ERROR : capturer is null', true);
       }
-      // [EndExclude select_InputDeviceForAudioCapturer]
       return;
     }
     audioCapturer = capturer;
     console.info('AudioCapturer Created : Success');
-    // [StartExclude select_InputDeviceForAudioCapturer]
     if (updateCallback) {
       updateCallback('AudioCapturer Created : Success', false);
     }
-    // [EndExclude select_InputDeviceForAudioCapturer]
   } catch (err) {
     let error = err as BusinessError;
     console.error(`AudioCapturer Created : ERROR : ${error.message}`);
-    // [StartExclude select_InputDeviceForAudioCapturer]
     if (updateCallback) {
       updateCallback(`AudioCapturer Created : ERROR : ${error.message}`, true);
     }
-    // [EndExclude select_InputDeviceForAudioCapturer]
   }
 }
 
@@ -298,11 +306,6 @@ function buildDeviceSheets(devices: audio.AudioDeviceDescriptors,
   }
   return result;
 }
-// [EndExclude isEnhancedRoutingSupported]
-// [EndExclude select_OutputDevice]
-// [EndExclude select_InputDevice]
-// [EndExclude select_OutputDeviceForAudioRenderer]
-// [EndExclude select_InputDeviceForAudioCapturer]
 
 @Entry
 @Component
