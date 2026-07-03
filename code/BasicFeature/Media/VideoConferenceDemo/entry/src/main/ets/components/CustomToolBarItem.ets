@@ -11,13 +11,13 @@ interface ToolBarItemType {
 
 @Observed
 export class ToolBarItem {
-  @Track id: string;
-  @Track label: string;
-  @Track iconActive: Resource;
-  @Track iconInactive?: Resource;
-  @Track iconActiveColors?: ResourceColor[];
-  @Track iconInActiveColors?: ResourceColor[];
-  @Track isActive: boolean;
+  @Track public id: string;
+  @Track public label: string;
+  @Track public iconActive: Resource;
+  @Track public iconInactive?: Resource;
+  @Track public iconActiveColors?: ResourceColor[];
+  @Track public iconInActiveColors?: ResourceColor[];
+  @Track public isActive: boolean;
   public onClick: (isActive: boolean) => void;
 
   constructor(item: ToolBarItemType) {
