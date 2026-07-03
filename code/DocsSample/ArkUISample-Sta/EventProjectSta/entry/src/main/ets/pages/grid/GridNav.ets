@@ -40,6 +40,7 @@ import {
   NavPathStack,
   PreDragStatus,
   State,
+  Observed,
   dragController
 } from '@kit.ArkUI';
 import { unifiedDataChannel as UDC } from '@kit.ArkData';
@@ -48,14 +49,25 @@ import { BusinessError } from '@ohos.base';
 
 export const gridRoutePrefix: string = 'gridExample';
 
+@Observed
+export class GridItemInfo {
+  id: int;
+  isSelected: boolean;
+  previewData: DragItemInfo;
+
+  constructor(id: int, isSelected: boolean, previewData: DragItemInfo) {
+    this.id = id;
+    this.isSelected = isSelected;
+    this.previewData = previewData;
+  }
+}
+
 @Entry
 @Component
 export struct GridNav {
   @Consume pathStack: NavPathStack;
   @State pixmap: image.PixelMap | undefined = undefined;
-  @State numbers: Array<int> = new Array<int>();
-  @State isSelectedGrid: Array<boolean> = new Array<boolean>();
-  @State previewData: Array<DragItemInfo> = new Array<DragItemInfo>();
+  @State gridItemInfoList: Array<GridItemInfo> = new Array<GridItemInfo>();
   @State numberBadge: int = 0;
   unifiedData: UDC.UnifiedData | undefined = undefined;
   timeout: int = 1;
@@ -69,14 +81,14 @@ export struct GridNav {
   }
 
   aboutToAppear(): void {
-    if (this.numbers.length > 0) {
+    if (this.gridItemInfoList.length > 0) {
       return;
     }
+    let gridItemInfoList: Array<GridItemInfo> = new Array<GridItemInfo>();
     for (let i: int = 0; i < 500; i++) {
-      this.numbers.push(i);
-      this.isSelectedGrid.push(false);
-      this.previewData.push({} as DragItemInfo);
+      gridItemInfoList.push(new GridItemInfo(i, false, {} as DragItemInfo));
     }
+    this.gridItemInfoList = gridItemInfoList;
   }
 
   loadData(): void {
@@ -103,22 +115,22 @@ export struct GridNav {
       Column({ space: 5 } as ColumnOptions) {
         Button($r('app.string.Select_All'))
           .onClick(() => {
-            for (let i: int = 0; i < this.isSelectedGrid.length; i++) {
-              if (this.isSelectedGrid[i] === false) {
+            for (let i: int = 0; i < this.gridItemInfoList.length; i++) {
+              if (this.gridItemInfoList[i].isSelected === false) {
                 this.numberBadge++;
-                this.isSelectedGrid[i] = true;
+                this.gridItemInfoList[i].isSelected = true;
                 let data: UDC.Image = new UDC.Image();
                 data.uri = '/resource/image.jpeg';
                 if (!this.unifiedData) {
                   this.unifiedData = new UDC.UnifiedData(data);
                 }
                 this.unifiedData!.addRecord(data);
-                let gridItemName: string = 'grid' + i;
+                let gridItemName: string = 'grid' + this.gridItemInfoList[i].id;
                 this.getUIContext()
                   .getComponentSnapshot()
                   .get(gridItemName, (error: BusinessError | null, pixmap: image.PixelMap | undefined) => {
                     this.pixmap = pixmap;
-                    this.previewData[i] = {
+                    this.gridItemInfoList[i].previewData = {
                       pixelMap: this.pixmap
                     };
                   });
@@ -126,27 +138,27 @@ export struct GridNav {
             }
           })
         Grid() {
-          ForEach(this.numbers, (idx: int, index: int) => {
+          ForEach(this.gridItemInfoList, (gridItemInfo: GridItemInfo, index: int) => {
             GridItem() {
               Column()
                 .backgroundColor(Color.Blue)
                 .width(50)
                 .height(50)
                 .opacity(1.0)
-                .id('grid' + idx)
+                .id('grid' + gridItemInfo.id)
             }
-            .dragPreview(this.previewData[idx])
+            .dragPreview(gridItemInfo.previewData)
             .dragPreviewOptions({ numberBadge: this.numberBadge } as DragPreviewOptions,
               { isMultiSelectionEnabled: true, defaultAnimationBeforeLifting: true } as DragInteractionOptions)
             .selectable(true)
-            .selected(this.isSelectedGrid[idx])
+            .selected(gridItemInfo.isSelected)
             .stateStyles({
               normal: this.normalStyles,
               selected: this.selectStyles
             })
             .onClick(() => {
-              this.isSelectedGrid[idx] = !this.isSelectedGrid[idx];
-              if (this.isSelectedGrid[idx]) {
+              this.gridItemInfoList[index].isSelected = !this.gridItemInfoList[index].isSelected;
+              if (this.gridItemInfoList[index].isSelected) {
                 let data: UDC.Image = new UDC.Image();
                 data.uri = '/resource/image.jpeg';
                 if (!this.unifiedData) {
@@ -154,19 +166,19 @@ export struct GridNav {
                 }
                 this.unifiedData!.addRecord(data);
                 this.numberBadge++;
-                let gridItemName: string = 'grid' + idx;
+                let gridItemName: string = 'grid' + gridItemInfo.id;
                 this.getUIContext()
                   .getComponentSnapshot()
                   .get(gridItemName, (error: BusinessError | null, pixmap: image.PixelMap | undefined) => {
                     this.pixmap = pixmap;
-                    this.previewData[idx] = {
+                    this.gridItemInfoList[index].previewData = {
                       pixelMap: this.pixmap
                     };
                   });
               } else {
                 this.numberBadge--;
-                for (let i: int = 0; i < this.isSelectedGrid.length; i++) {
-                  if (this.isSelectedGrid[i] === true) {
+                for (let i: int = 0; i < this.gridItemInfoList.length; i++) {
+                  if (this.gridItemInfoList[i].isSelected === true) {
                     let data: UDC.Image = new UDC.Image();
                     data.uri = '/resource/image.jpeg';
                     if (!this.unifiedData) {
@@ -198,7 +210,7 @@ export struct GridNav {
             .onDragEnd(() => {
               this.finished = false;
             })
-          }, (idx: int, index: int) => idx.toString())
+          }, (gridItemInfo: GridItemInfo, index: int) => gridItemInfo.id.toString())
         }
         .columnsTemplate('1fr 1fr 1fr 1fr 1fr')
         .columnsGap(5)
