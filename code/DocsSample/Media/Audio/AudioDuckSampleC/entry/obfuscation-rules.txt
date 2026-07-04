@@ -1,0 +1,10 @@
+# Add project specific obfuscation rules here.
+# You can control the set of applied configuration files using the
+# obfuscationFiles option in configuration.
+#
+# For more details, see
+#   https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/obfuscation.md
+
+-keepclassmembers class * {
+    public <methods>;
+}
