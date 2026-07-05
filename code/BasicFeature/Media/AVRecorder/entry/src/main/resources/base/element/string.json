@@ -2,15 +2,19 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "This module template implements List functions."
+      "value": "module description"
     },
     {
-      "name": "ability_desc",
-      "value": "This ability loads ListPage"
+      "name": "EntryAbility_desc",
+      "value": "description"
     },
     {
-      "name": "ability_label",
-      "value": "List Ability"
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "reason",
+      "value": "Permission"
     },
     {
       "name": "page_title",
@@ -25,20 +29,20 @@
       "value": "AudioRecorder"
     },
     {
-      "name": "button_confirm",
-      "value": "confirm"
+      "name": "audio_parameter",
+      "value": "Select audio sample rate"
+    },
+    {
+      "name": "audio_sample_rate",
+      "value": "audio sample rate:"
     },
     {
       "name": "button_cancel",
       "value": "cancel"
     },
     {
-      "name": "audio_parameter",
-      "value": "Select audio samplerate"
-    },
-    {
-      "name": "audio_samplerate",
-      "value": "audio samplerate: "
+      "name": "button_confirm",
+      "value": "confirm"
     },
     {
       "name": "video_parameter",
@@ -46,11 +50,7 @@
     },
     {
       "name": "video_resolution",
-      "value": "video resolution: "
-    },
-    {
-      "name": "reason",
-      "value": "Permission"
+      "value": "video resolution:"
     }
   ]
 }
