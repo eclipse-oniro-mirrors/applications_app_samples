@@ -42,11 +42,11 @@ export default function abilityTest() {
     })
 
     /*
-     * 打开应用，点击 UploadFiles 按钮
-     * 建立应用侧与前端页面数据通道
+     * 打开应用，依次点击创建端口、注册回调、发送消息按钮
+     * 使用应用侧与前端页面的进行双向通信
      */
-    it('testUiExample',0, async (done: Function) => {
-      console.info('uitest: TestUiExample begin');
+    it('ArkWebJsBridge_SendString_001',0, async (done: Function) => {
+      console.info('uitest: ArkWebJsBridge_SendString_001 begin');
       const want: Want = {
         bundleName: bundleName,
         abilityName: 'EntryAbility'
@@ -79,7 +79,7 @@ export default function abilityTest() {
       let text1: string = await type1.getText();
       expect(text1).assertContain('H5 recv type:');
 
-      console.info('uitest: TestUiExample end');
+      console.info('uitest: ArkWebJsBridge_SendString_001 end');
       done();
     })
   })
