@@ -23,7 +23,7 @@ const BUNDLE = 'SupportingAgingFriendly_';
 @Entry
 @Component
 struct OnWillDismiss_Dismiss {
-  @State isShow: Boolean = false;
+  @State isShow: boolean = false;
 
   @Builder
   myBuilder() {
