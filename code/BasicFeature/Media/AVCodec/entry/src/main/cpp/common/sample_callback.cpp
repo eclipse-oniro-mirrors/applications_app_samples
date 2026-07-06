@@ -151,4 +151,8 @@ void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
         codecUserData->isDecFirstFrame = false;
     }
     codecUserData->outputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>(index, buffer));
+
+    int32_t layer = -1;
+    OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
+    OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_TEMPORAL_LAYER_ID, &layer);
 }
