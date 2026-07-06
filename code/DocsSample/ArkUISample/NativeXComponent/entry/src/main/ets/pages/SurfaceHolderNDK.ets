@@ -56,7 +56,9 @@ export struct SurfaceHolderNDK {
           Text(this.currentStatus)
             .fontSize('24fp')
             .fontWeight(500)
+          // [EndExclude surface_holder_ndk_ets]
         }
+        // [StartExclude surface_holder_ndk_ets]
         .onClick(() => {
           let hasChangeColor: boolean = false;
           if (nativeNode.getStatus()) {
