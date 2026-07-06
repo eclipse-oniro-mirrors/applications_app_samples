@@ -138,7 +138,7 @@ static int32_t GetTemporalLayerID(OH_AVBuffer *buffer)
 {
     int32_t layerID = -1;
     OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
-    OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_TEMPORAL_LAYER_ID, &layer);
+    OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_TEMPORAL_LAYER_ID, &layerID);
     return layerID;
 }
 
