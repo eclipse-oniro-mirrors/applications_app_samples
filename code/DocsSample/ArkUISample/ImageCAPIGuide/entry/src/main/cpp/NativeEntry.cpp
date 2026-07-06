@@ -27,7 +27,7 @@
 // entry/src/main/cpp/NativeEntry.cpp
 #include "NativeEntry.h"
 #include "ImageExample.h"
-// [start native_root_creator]
+// [Start native_root_creator]
 namespace NativeModule {
 
 napi_value CreateNativeRoot(napi_env env, napi_callback_info info)
@@ -59,4 +59,4 @@ napi_value DestroyNativeRoot(napi_env env, napi_callback_info info)
 }
 
 } // namespace NativeModule
-// [end native_root_creator]
+// [End native_root_creator]

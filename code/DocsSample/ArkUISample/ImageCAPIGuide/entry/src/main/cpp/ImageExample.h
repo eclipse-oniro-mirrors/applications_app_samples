@@ -25,7 +25,7 @@
  */
 
 // entry/src/main/cpp/ImageExample.h
-// [start image_example_h]
+// [Start image_example_h]
 #ifndef IMAGE_EXAMPLE_H
 #define IMAGE_EXAMPLE_H
 
@@ -38,4 +38,4 @@ ArkUI_NodeHandle CreateImageExample();
 void CleanupImageExample();
 
 #endif // IMAGE_EXAMPLE_H
-// [end image_example_h]
+// [End image_example_h]

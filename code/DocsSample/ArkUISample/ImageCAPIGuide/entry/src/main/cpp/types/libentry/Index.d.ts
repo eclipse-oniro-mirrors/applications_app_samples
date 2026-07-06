@@ -23,7 +23,7 @@
  *
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-// [start index_d_ts]
+// [Start index_d_ts]
 export const createNativeRoot: (content: Object) => void;
 export const destroyNativeRoot: () => void;
-// [end index_d_ts]
+// [End index_d_ts]

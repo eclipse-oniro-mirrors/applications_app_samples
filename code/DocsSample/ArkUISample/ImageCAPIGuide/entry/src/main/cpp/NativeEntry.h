@@ -25,7 +25,7 @@
  */
 
 // entry/src/main/cpp/NativeEntry.h
-// [start native_entry_h]
+// [Start native_entry_h]
 #ifndef NATIVE_ENTRY_H
 #define NATIVE_ENTRY_H
 
@@ -92,4 +92,4 @@ napi_value DestroyNativeRoot(napi_env env, napi_callback_info info);
 } // namespace NativeModule
 
 #endif // NATIVE_ENTRY_H
-// [end native_entry_h]
+// [End native_entry_h]
