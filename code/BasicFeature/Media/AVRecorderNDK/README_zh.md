@@ -36,9 +36,9 @@ entry/src/main/
 |   |   |---Logger.ts                          // 封装的日志打印函数
 |---cpp
 |   |---types/libentry
-|   |   |---Index.d.ts                         // C++ NAPI 模块的 ArkTS 类型声明
-|   |---avrecorder_ndk.cpp                     // AVRecorder 的 C++ NAPI 实现
-|   |---CMakeLists.txt                         // 定义 C++ NAPI 模块的 CMake 构建配置
+|   |   |---Index.d.ts                         // C++ 原生模块的 ArkTS 类型声明
+|   |---avrecorder_ndk.cpp                     // AVRecorder 的 C++ 原生接口实现
+|   |---CMakeLists.txt                         // 定义 C++ 原生模块的 CMake 构建配置
 ```
 
 ### 具体实现

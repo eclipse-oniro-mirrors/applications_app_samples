@@ -34,6 +34,16 @@
 #include "hilog/log.h"
 #include <AbilityKit/ability_runtime/application_context.h>
 
+static constexpr int32_t AUDIO_BITRATE = 112000;
+static constexpr int32_t AUDIO_CHANNELS = 2;
+static constexpr int32_t AUDIO_SAMPLE_RATE = 48000;
+static constexpr int32_t VIDEO_BITRATE = 3000000;
+static constexpr int32_t VIDEO_FRAME_WIDTH = 1920;
+static constexpr int32_t VIDEO_FRAME_HEIGHT = 1080;
+static constexpr int32_t VIDEO_FRAME_RATE = 30;
+static constexpr int32_t CALLBACK_ARG_COUNT = 2;
+static constexpr int32_t FILE_PERMISSIONS = 0777;
+
 // [Start declare_avrecorder]
 static OH_AVRecorder *g_recorder = nullptr;
 // [End declare_avrecorder]
@@ -59,7 +69,7 @@ static void StateChangeCallJs(napi_env env, napi_value js_cb, void *context, voi
     napi_create_int32(env, scData->reason, &argv[1]);
     napi_value undefined;
     napi_get_undefined(env, &undefined);
-    napi_call_function(env, undefined, js_cb, 2, argv, nullptr);
+    napi_call_function(env, undefined, js_cb, CALLBACK_ARG_COUNT, argv, nullptr);
     delete scData;
 }
 
@@ -76,7 +86,7 @@ static void ErrorCallJs(napi_env env, napi_value js_cb, void *context, void *dat
     napi_create_string_utf8(env, errData->errorMsg.c_str(), NAPI_AUTO_LENGTH, &argv[1]);
     napi_value undefined;
     napi_get_undefined(env, &undefined);
-    napi_call_function(env, undefined, js_cb, 2, argv, nullptr);
+    napi_call_function(env, undefined, js_cb, CALLBACK_ARG_COUNT, argv, nullptr);
     delete errData;
 }
 // [EndExclude full_audio_recorder]
@@ -103,8 +113,9 @@ static void OnStateChange(OH_AVRecorder *recorder, OH_AVRecorder_State state,
     (void)userData;
 
     // 将reason转换为字符串表示。
-    const char *reasonStr = (reason == OH_AVRecorder_StateChangeReason::AVRECORDER_USER) ? "USER" :
-                            (reason == OH_AVRecorder_StateChangeReason::AVRECORDER_BACKGROUND) ? "BACKGROUND" : "UNKNOWN";
+    const char *reasonStr =
+        (reason == OH_AVRecorder_StateChangeReason::AVRECORDER_USER) ? "USER" :
+        (reason == OH_AVRecorder_StateChangeReason::AVRECORDER_BACKGROUND) ? "BACKGROUND" : "UNKNOWN";
 
     if (state == OH_AVRecorder_State::AVRECORDER_IDLE) {
         OH_LOG_INFO(LOG_APP, "==NDKDemo== Recorder OnStateChange IDLE, reason: %{public}s", reasonStr);
@@ -217,7 +228,7 @@ static napi_value SetRecorderStateCallback(napi_env env, napi_callback_info info
         g_stateTsfn = nullptr;
     }
     napi_create_threadsafe_function(env, args[0], nullptr, work_name, 0, 1, nullptr, nullptr, nullptr,
-                       StateChangeCallJs, &g_stateTsfn);
+        StateChangeCallJs, &g_stateTsfn);
     // [EndExclude full_audio_recorder]
     // [EndExclude full_video_recorder]
 
@@ -262,7 +273,7 @@ static napi_value SetRecorderErrorCallback(napi_env env, napi_callback_info info
         g_errorTsfn = nullptr;
     }
     napi_create_threadsafe_function(env, args[0], nullptr, work_name, 0, 1, nullptr, nullptr, nullptr,
-                       ErrorCallJs, &g_errorTsfn);
+        ErrorCallJs, &g_errorTsfn);
     // [EndExclude full_audio_recorder]
     // [EndExclude full_video_recorder]
 
@@ -297,10 +308,10 @@ static napi_value PrepareAudioRecorder(napi_env env, napi_callback_info info)
     OH_AVRecorder_Config config;
     memset(&config, 0, sizeof(config));
     config.audioSourceType = AVRECORDER_MIC;
-    config.profile.audioBitrate = 112000;
-    config.profile.audioChannels = 2;
+    config.profile.audioBitrate = AUDIO_BITRATE; // 112000
+    config.profile.audioChannels = AUDIO_CHANNELS; // 2
     config.profile.audioCodec = AVRECORDER_AUDIO_AAC;
-    config.profile.audioSampleRate = 48000;
+    config.profile.audioSampleRate = AUDIO_SAMPLE_RATE; // 48000
     config.profile.fileFormat = AVRECORDER_CFT_MPEG_4A;
     config.videoSourceType = AVRECORDER_SURFACE_YUV;
     config.fileGenerationMode = AVRECORDER_APP_CREATE;
@@ -309,16 +320,16 @@ static napi_value PrepareAudioRecorder(napi_env env, napi_callback_info info)
     char fileDirPath[1000] = {0};
     int32_t bufferSize = 1000;
     int32_t writeLength = 0;
-    AbilityRuntime_ErrorCode errCode = OH_AbilityRuntime_ApplicationContextGetFilesDir(fileDirPath, bufferSize, &writeLength);
+    AbilityRuntime_ErrorCode errCode =
+        OH_AbilityRuntime_ApplicationContextGetFilesDir(fileDirPath, bufferSize, &writeLength);
     if (errCode != AbilityRuntime_ErrorCode::ABILITY_RUNTIME_ERROR_CODE_NO_ERROR || writeLength <= 0) {
         OH_LOG_ERROR(LOG_APP, "==NDKDemo== GetFilesDir failed, errCode: %{public}d", errCode);
         napi_value res;
         napi_create_int32(env, -1, &res);
         return res;
     }
-    // 1.设置URL（fileGenerationMode选择APP_CREATE时设置）。
-    const std::string AVRECORDER_ROOT = fileDirPath;
-    g_outputFd = open((AVRECORDER_ROOT + "/audio_example.m4a").c_str(), O_RDWR | O_CREAT, 0777); // 设置文件名。
+    const std::string avrecorderRoot = fileDirPath;
+    g_outputFd = open((avrecorderRoot + "/audio_example.m4a").c_str(), O_RDWR | O_CREAT, FILE_PERMISSIONS);
     std::string fileUrl = "fd://" + std::to_string(g_outputFd);
     config.url = const_cast<char *>(fileUrl.c_str());
     OH_LOG_INFO(LOG_APP, "config.url is: %s", config.url);
@@ -344,16 +355,16 @@ static napi_value PrepareVideoRecorder(napi_env env, napi_callback_info info)
     memset(&config, 0, sizeof(config));
 
     config.audioSourceType = AVRECORDER_MIC;
-    config.profile.audioBitrate = 112000;
-    config.profile.audioChannels = 2;
+    config.profile.audioBitrate = AUDIO_BITRATE; // 112000
+    config.profile.audioChannels = AUDIO_CHANNELS; // 2
     config.profile.audioCodec = AVRECORDER_AUDIO_AAC;
-    config.profile.audioSampleRate = 48000;
+    config.profile.audioSampleRate = AUDIO_SAMPLE_RATE; // 48000
     config.videoSourceType = AVRECORDER_SURFACE_YUV;
-    config.profile.videoBitrate = 3000000;
+    config.profile.videoBitrate = VIDEO_BITRATE; // 3000000
     config.profile.videoCodec = AVRECORDER_VIDEO_AVC;
-    config.profile.videoFrameWidth = 1920;
-    config.profile.videoFrameHeight = 1080;
-    config.profile.videoFrameRate = 30;
+    config.profile.videoFrameWidth = VIDEO_FRAME_WIDTH; // 1920
+    config.profile.videoFrameHeight = VIDEO_FRAME_HEIGHT; // 1080
+    config.profile.videoFrameRate = VIDEO_FRAME_RATE; // 30
     config.profile.isHdr = false;
     config.profile.enableTemporalScale = false;
     config.profile.fileFormat = AVRECORDER_CFT_MPEG_4;
@@ -364,16 +375,16 @@ static napi_value PrepareVideoRecorder(napi_env env, napi_callback_info info)
     char fileDirPath[1000] = {0};
     int32_t bufferSize = 1000;
     int32_t writeLength = 0;
-    AbilityRuntime_ErrorCode errCode = OH_AbilityRuntime_ApplicationContextGetFilesDir(fileDirPath, bufferSize, &writeLength);
+    AbilityRuntime_ErrorCode errCode =
+        OH_AbilityRuntime_ApplicationContextGetFilesDir(fileDirPath, bufferSize, &writeLength);
     if (errCode != AbilityRuntime_ErrorCode::ABILITY_RUNTIME_ERROR_CODE_NO_ERROR || writeLength <= 0) {
         OH_LOG_ERROR(LOG_APP, "==NDKDemo== GetFilesDir failed, errCode: %{public}d", errCode);
         napi_value res;
         napi_create_int32(env, -1, &res);
         return res;
     }
-    // 1.设置URL（fileGenerationMode选择APP_CREATE时设置）。
-    const std::string AVRECORDER_ROOT = fileDirPath;
-    g_outputFd = open((AVRECORDER_ROOT + "/video_example.mp4").c_str(), O_RDWR | O_CREAT, 0777); // 设置文件名。
+    const std::string avrecorderRoot = fileDirPath;
+    g_outputFd = open((avrecorderRoot + "/video_example.mp4").c_str(), O_RDWR | O_CREAT, FILE_PERMISSIONS);
     std::string fileUrl = "fd://" + std::to_string(g_outputFd);
     config.url = const_cast<char *>(fileUrl.c_str());
     OH_LOG_INFO(LOG_APP, "config.url is: %s", config.url);
@@ -404,7 +415,11 @@ static std::string GetSurfaceIdString()
         return "";
     }
     char surfaceIdStr[32] = {0};
-    snprintf(surfaceIdStr, sizeof(surfaceIdStr), "%lu", surfaceId);
+    int32_t snprintfRet = snprintf(surfaceIdStr, sizeof(surfaceIdStr), "%lu", surfaceId);
+    if (snprintfRet < 0) {
+        OH_LOG_ERROR(LOG_APP, "snprintf failed");
+        return "";
+    }
     OH_LOG_INFO(LOG_APP, "Input surface ID: %{public}s", surfaceIdStr);
     return surfaceIdStr;
 }
@@ -519,19 +534,32 @@ EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor desc[] = {
-        {"createRecorder", nullptr, CreateRecorder, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"setRecorderStateCallback", nullptr, SetRecorderStateCallback, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"setRecorderErrorCallback", nullptr, SetRecorderErrorCallback, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"setRecorderUriCallback", nullptr, SetRecorderUriCallback, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"prepareAudioRecorder", nullptr, PrepareAudioRecorder, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"prepareVideoRecorder", nullptr, PrepareVideoRecorder, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"getInputSurfaceId", nullptr, GetInputSurfaceId, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"startRecorder", nullptr, StartRecorder, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"pauseRecorder", nullptr, PauseRecorder, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"resumeRecorder", nullptr, ResumeRecorder, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"stopRecorder", nullptr, StopRecorder, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"resetRecorder", nullptr, ResetRecorder, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"releaseRecorder", nullptr, ReleaseRecorder, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"createRecorder", nullptr, CreateRecorder,
+         nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"setRecorderStateCallback", nullptr,
+         SetRecorderStateCallback, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"setRecorderErrorCallback", nullptr,
+         SetRecorderErrorCallback, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"setRecorderUriCallback", nullptr,
+         SetRecorderUriCallback, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"prepareAudioRecorder", nullptr,
+         PrepareAudioRecorder, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"prepareVideoRecorder", nullptr,
+         PrepareVideoRecorder, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getInputSurfaceId", nullptr, GetInputSurfaceId,
+         nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"startRecorder", nullptr, StartRecorder,
+         nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"pauseRecorder", nullptr, PauseRecorder,
+         nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"resumeRecorder", nullptr, ResumeRecorder,
+         nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"stopRecorder", nullptr, StopRecorder,
+         nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"resetRecorder", nullptr, ResetRecorder,
+         nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"releaseRecorder", nullptr, ReleaseRecorder,
+         nullptr, nullptr, nullptr, napi_default, nullptr},
     };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;
