@@ -55,6 +55,15 @@
             "EntryAbility"
           ],
           "when": "always"
+        }       },
+ 	    {
+        "name": "ohos.permission.USE_BLUETOOTH",
+        "reason": "$string:EntryAbility_desc",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ],
+          "when": "always"
         }
       },
       {
