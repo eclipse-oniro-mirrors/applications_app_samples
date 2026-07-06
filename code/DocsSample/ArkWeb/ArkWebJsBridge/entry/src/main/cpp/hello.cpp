@@ -61,21 +61,21 @@ static napi_value NativeWebInit(napi_env env, napi_callback_info info)
     size_t webTagLength = 0;
     napi_get_value_string_utf8(env, args[0], webTagValue, webTagSize + 1, &webTagLength);
     OH_LOG_Print(
-        LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkWeb",
+        LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
         "Native Development Kit NativeWebInit webTag:%{public}s", webTagValue);
 
     controller = reinterpret_cast<ArkWeb_ControllerAPI *>(OH_ArkWeb_GetNativeAPI(ARKWEB_NATIVE_CONTROLLER));
     if (controller)
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkWeb", "get ArkWeb_ControllerAPI success");
+        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "get ArkWeb_ControllerAPI success");
 
     webMessagePort =
         reinterpret_cast<ArkWeb_WebMessagePortAPI *>(OH_ArkWeb_GetNativeAPI(ARKWEB_NATIVE_WEB_MESSAGE_PORT));
     if (webMessagePort)
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkWeb", "get ArkWeb_WebMessagePortAPI success");
+        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "get ArkWeb_WebMessagePortAPI success");
 
     webMessage = reinterpret_cast<ArkWeb_WebMessageAPI *>(OH_ArkWeb_GetNativeAPI(ARKWEB_NATIVE_WEB_MESSAGE));
     if (webMessage)
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkWeb", "get ArkWeb_WebMessageAPI success");
+        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "get ArkWeb_WebMessageAPI success");
 
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "Native Development Kit NativeWebInit end");
     delete[] webTagValue;
@@ -265,7 +265,7 @@ static napi_value postNoneMessage(napi_env env, napi_callback_info info)
         "ArkWeb", "Native Development Kit Refresh webTag:%{public}s", webTagValue);
 
     // 发送消息
-    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "Native Development Kit 发消息开始");
+    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "Native Development Kit postMessage begin");
 
     if (g_web_message_port_arr == nullptr) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkWeb", "webMessagePort is nullptr");
