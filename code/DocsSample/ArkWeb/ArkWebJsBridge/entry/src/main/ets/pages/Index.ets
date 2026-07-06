@@ -31,8 +31,8 @@ struct Index {
     testNapi.nativeWebInit(this.webTag);
   }
 
-  aboutToDisAppear() {
-    console.error('aboutToDisAppear');
+  aboutToDisappear() {
+    console.error('aboutToDisappear');
   }
 
   build() {

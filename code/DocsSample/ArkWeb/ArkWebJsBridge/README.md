@@ -25,7 +25,6 @@
 │  ├──cpp                                 // C++代码区
 │  │  ├──CMakeLists.txt                   // CMake配置文件
 │  │  ├──hello.cpp                        // Native业务代码实现
-│  │  ├──napi_init.cpp                    // Napi模块注册
 |  |  ├──types						      //定义接口文件
 │  │  │  └── libentry                     // C++接口导出
 │  │  │  │   ├── Index.d.ts
@@ -66,7 +65,7 @@
 ```
 git init
 git config core.sparsecheckout true
-echo ArkWeb/ArkWebJsBridge > .git/info/sparse-checkout
+echo code/DocsSample/ArkWeb/ArkWebJsBridge > .git/info/sparse-checkout
 git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
