@@ -39,7 +39,7 @@ class CalendarReminder {
         return
       }
       let selectCalendar: string =
-        `${date.getFullYear()}-${date.getUTCMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+        `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
       let isExistName = this.calendarReminders.find(element => element.reminderName === selectCalendar) !== undefined;
       if (!isExistName) {
         let reminder: Reminder = {
@@ -62,7 +62,7 @@ class CalendarReminder {
           dateTime: {
             // 指明提醒的目标时间
             year: date.getFullYear(),
-            month: date.getUTCMonth() + 1,
+            month: date.getMonth() + 1,
             day: date.getDate(),
             hour: date.getHours(),
             minute: date.getMinutes(),
