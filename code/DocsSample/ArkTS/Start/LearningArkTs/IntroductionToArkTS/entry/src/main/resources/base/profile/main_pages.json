@@ -4,6 +4,7 @@
     "pages/BasicKnowledge",
     "pages/Function",
     "pages/GenericTypesAndFunctions",
+    "pages/GenericArray",
     "pages/Class"
   ]
 }
