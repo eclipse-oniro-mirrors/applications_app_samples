@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,7 +91,7 @@ static JSVM_Value JsVmThrowError(JSVM_Env env, JSVM_CallbackInfo info)
         // 如果没有传递参数，直接抛出错误
         OH_JSVM_ThrowError(env, "-1", "has Error");
     } else if (argc == 1) {
-        size_t length;
+        size_t length = 0;
         // 通过入参获取到JavaScript侧传入的字符串长度。
         OH_JSVM_GetValueStringUtf8(env, argv[0], nullptr, 0, &length);
         char *buffer = new char[length + 1];
@@ -133,8 +133,8 @@ static int32_t TestJSVM()
     }
     // 创建JSVM环境
     CHECK(OH_JSVM_CreateVM(nullptr, &vm));
-    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK(OH_JSVM_OpenVMScope(vm, &vmScope));
+    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK_RET(OH_JSVM_OpenEnvScope(env, &envScope));
     CHECK_RET(OH_JSVM_OpenHandleScope(env, &handleScope));
 
@@ -148,8 +148,8 @@ static int32_t TestJSVM()
     // 销毁JSVM环境
     CHECK_RET(OH_JSVM_CloseHandleScope(env, handleScope));
     CHECK_RET(OH_JSVM_CloseEnvScope(env, envScope));
-    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyEnv(env));
+    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyVM(vm));
     return 0;
 }
