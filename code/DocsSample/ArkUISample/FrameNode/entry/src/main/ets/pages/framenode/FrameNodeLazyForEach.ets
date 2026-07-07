@@ -46,7 +46,7 @@ class MyNodeAdapter extends NodeAdapter {
   // 刷新数据
   refreshData(): void {
     let items = this.getAllAvailableItems()
-    hilog.info(0x0000, `TEST_TAG ' get All items:' + ${items.length}`, 'isCLicked');
+    hilog.info(0x0000, `${TEST_TAG} get All items: ${items.length}`, 'isClicked');
     this.totalNodeCount -= 1;
     this.reloadAllItems();
   }
@@ -116,7 +116,7 @@ class MyNodeAdapter extends NodeAdapter {
   }
 
   onCreateChild(index: number): FrameNode {
-    hilog.info(0x0000, `TEST_TAG + ' onCreateChild:' + ${index}`, 'onCreateChild');
+    hilog.info(0x0000, `${TEST_TAG} onCreateChild: ${index}`, 'onCreateChild');
     // 缓存池有可用节点时，优先复用
     if (this.cachePool.length > 0) {
       let cacheNode = this.cachePool.pop();

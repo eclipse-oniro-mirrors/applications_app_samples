@@ -75,7 +75,7 @@ napi_value NodeManager::CreateNativeNode(napi_env env, napi_callback_info info)
             // [End contentslot_add]
             // [StartExclude contentslot_native]
             // [Start contentslot_insert]
-            size_t position = 0;
+            int32_t position = 0;
             ArkUI_NodeHandle component1 = CreateNodeHandle();
             // 将组件插入nodeContent管理器对应位置
             OH_ArkUI_NodeContent_InsertNode(nodeContentHandle_, component1, position);
@@ -134,7 +134,7 @@ void NodeManager::RegisterEvent()
                 userData = nullptr;
             }
             // [EndExclude contentslot_register_event]
-        };
+        }
     };
     // 将该事件注册到nodeContent上
     OH_ArkUI_NodeContent_RegisterCallback(nodeContentHandle_, nodeContentEvent);

@@ -115,7 +115,7 @@ export struct RepeatVirtualScrollFreeze {
 @ComponentV2({ freezeWhenInactive: true })
 struct FreezeBuildNode {
   storage: Params = Params.instance();
-  @Param @Require message: string ;
+  @Param @Require message: string;
   @Param @Require bgColor: Color;
   @Monitor('storage.bgColor')
   onBgColorChange(monitor: IMonitor) {
@@ -133,10 +133,10 @@ struct BuildNodeChild {
   storage: Params = Params.instance();
   @Param message: string = '';
 
-  // 使用@Monitor装饰器监听storage.message的变化。
+  // 使用@Monitor装饰器监听storage.bgColor的变化。
   @Monitor('storage.bgColor')
-  onMessageChange(monitor: IMonitor) {
-    hilog.info(0xF811, 'testTag', '%{public}s',`FreezeBuildNode buildNodeChild message callback func ${this.message}`);
+  onBgColorChange(monitor: IMonitor) {
+    hilog.info(0xF811, 'testTag', '%{public}s',`FreezeBuildNode buildNodeChild bgColor change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
   }
 
   build() {
