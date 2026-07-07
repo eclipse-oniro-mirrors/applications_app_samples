@@ -25,9 +25,7 @@
 #include "hilog/log.h"
 #include "napi/native_api.h"
 
-#include <fcntl.h>
 #include <sys/stat.h>
-#include <unistd.h>
 #include <ohaudio/native_audiocapturer.h>
 #include <ohaudio/native_audiorenderer.h>
 #include <ohaudio/native_audiostream_base.h>
@@ -35,13 +33,16 @@
 #include <ohaudio/native_audio_common.h>
 // [Start header_file]
 #include <ohaudio/native_audio_debugging_manager.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+// 文件权限常量。
+constexpr mode_t FILE_PERMISSION = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH; // 0644
 // [End header_file]
 
 #include "NapiUtils.h"
 
 namespace {
-// 文件权限：所有者读写，组和其他用户只读
-constexpr mode_t FILE_PERMISSION = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
 constexpr int32_t SUCCESS = 0;
 constexpr int32_t ERROR = 1;
 constexpr int32_t LOW_LATENCY_CAPTURER_RELEASED = 0;
@@ -783,11 +784,11 @@ OH_AudioStream_Result ConfigureRendererBuilder(OH_AudioStreamBuilder *builder,
 static void ExampleGetDebugManager()
 {
     // [Start get_debug_manager_c]
-    // 获取音频调试管理器
+    // 获取音频调试管理器。
     OH_AudioDebuggingManager *debugManager = nullptr;
     OH_AudioCommon_Result result = OH_AudioManager_GetAudioDebuggingManager(&debugManager);
     if (result != AUDIOCOMMON_RESULT_SUCCESS || debugManager == nullptr) {
-        // 获取失败，处理错误
+        // 获取失败，处理错误。
         return;
     }
     // [End get_debug_manager_c]
@@ -797,14 +798,14 @@ static void ExampleGetDebugManager()
 static void ExamplePrintAppSnapshot(OH_AudioDebuggingManager *debugManager)
 {
     // [Start print_app_snapshot_c]
-    // 打印应用快照到文件
+    // 打印应用快照到文件。
     int32_t fd = open("/data/storage/el2/base/cache/audio_snapshot.txt", O_WRONLY | O_CREAT | O_TRUNC, FILE_PERMISSION);
     if (fd >= 0) {
         OH_AudioDebuggingManager_PrintAppInfo(debugManager, fd);
         close(fd);
     }
 
-    // 也可将快照信息输出到hilog日志（fd < 0时输出到hilog）
+    // 也可将快照信息输出到hilog日志（fd < 0时输出到hilog）。
     OH_AudioDebuggingManager_PrintAppInfo(debugManager, -1);
     // [End print_app_snapshot_c]
 }
@@ -812,7 +813,7 @@ static void ExamplePrintAppSnapshot(OH_AudioDebuggingManager *debugManager)
 static void ExamplePrintCapturerSnapshot(OH_AudioDebuggingManager *debugManager, OH_AudioCapturer *capturer)
 {
     // [Start print_capturer_snapshot_c]
-    // 打印指定录音实例的快照
+    // 打印指定录音实例的快照。
     int32_t fd = open("/data/storage/el2/base/cache/capturer_snapshot.txt",
         O_WRONLY | O_CREAT | O_TRUNC, FILE_PERMISSION);
     if (fd >= 0) {
@@ -825,7 +826,7 @@ static void ExamplePrintCapturerSnapshot(OH_AudioDebuggingManager *debugManager,
 static void ExamplePrintRendererSnapshot(OH_AudioDebuggingManager *debugManager, OH_AudioRenderer *renderer)
 {
     // [Start print_renderer_snapshot_c]
-    // 打印指定播放实例的快照
+    // 打印指定播放实例的快照。
     int32_t fd = open("/data/storage/el2/base/cache/renderer_snapshot.txt",
         O_WRONLY | O_CREAT | O_TRUNC, FILE_PERMISSION);
     if (fd >= 0) {
