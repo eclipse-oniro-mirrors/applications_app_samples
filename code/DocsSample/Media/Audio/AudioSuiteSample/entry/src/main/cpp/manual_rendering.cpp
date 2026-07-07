@@ -85,7 +85,7 @@ static BaseEditorNodes CreateBaseEditorNodes(OH_AudioSuitePipeline *audioSuiteEn
                                              int effectType, const EffectParams &params)
 {
     BaseEditorNodes nodes;
-    // [Start audioSuite_CreateBaseNode]
+    // [Start audioSuite_CreateBaseNodeOne]
     // 示例接口未包含返回值校验，实际使用时请务必添加校验逻辑。
     // 创建节点构造器。
     OH_AudioNodeBuilder *nodeBuilder = nullptr;
@@ -108,13 +108,14 @@ static BaseEditorNodes CreateBaseEditorNodes(OH_AudioSuitePipeline *audioSuiteEn
     // 重置构造器配置，创建效果节点。
     OH_AudioSuiteNodeBuilder_Reset(nodeBuilder);
     // 可根据需要设置不同的效果节点类型。
+    // [End audioSuite_CreateBaseNodeOne]
     // [StartExclude audioSuite_CreateBaseNode]
     auto strategy = CreateEffectStrategy(effectType);
     if (strategy != nullptr) {
         strategy->CreateAndApply(audioSuiteEngine, nodeBuilder, &nodes.eqNode, params);
     }
     // [EndExclude audioSuite_CreateBaseNode]
-
+    // [Start audioSuite_CreateBaseNodeTwo]
     // 重置构造器配置并设置为输出节点类型。
     OH_AudioSuiteNodeBuilder_Reset(nodeBuilder);
     OH_AudioSuiteNodeBuilder_SetNodeType(nodeBuilder, OH_AudioNode_Type::OUTPUT_NODE_TYPE_DEFAULT);
@@ -135,7 +136,7 @@ static BaseEditorNodes CreateBaseEditorNodes(OH_AudioSuitePipeline *audioSuiteEn
     // 连接各个节点组成组网。
     OH_AudioSuiteEngine_ConnectNodes(nodes.inputNode, nodes.eqNode);
     OH_AudioSuiteEngine_ConnectNodes(nodes.eqNode, nodes.outputNode);
-    // [End audioSuite_CreateBaseNode]
+    // [End audioSuite_CreateBaseNodeTwo]
     return nodes;
 }
 
