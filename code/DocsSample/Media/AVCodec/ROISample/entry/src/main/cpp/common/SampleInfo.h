@@ -33,6 +33,8 @@ inline constexpr double AUDIO_FRAME_DURATION_SEC = 0.02;
 inline constexpr int32_t NAPI_STRING_BUFFER_SIZE = 20;
 inline constexpr int32_t NAPI_INIT_ARG_COUNT = 11;
 inline constexpr int32_t THREAD_WAIT_TIMEOUT_SEC = 5;
+inline constexpr int32_t AUDIO_CODEC_CONFIG_SIZE = 100;
+inline constexpr int32_t CODEC_CONFIG_BUFFER_SIZE = 1024;
 
 // ROI configuration path type
 enum RoiPathType {
@@ -83,12 +85,10 @@ struct AudioInfo {
     int32_t audioChannelCount = 0;
     int64_t audioChannelLayout = 0;
     int32_t audioBitRate = 0;
-    uint8_t audioCodecConfig[100] = { 0 };
-    size_t audioCodecSize = 0;
+    uint8_t audioCodecConfig[AUDIO_CODEC_CONFIG_SIZE] = { 0 };
     int32_t audioMaxInputSize = 0;
     int32_t isOpenEchoCancel = 0;
-    OH_AVFormat *audioFormat;
-    uint8_t codecConfig[1024];
+    uint8_t codecConfig[CODEC_CONFIG_BUFFER_SIZE];
     size_t codecConfigLen = 0;
     int32_t aacAdts = -1;
 };

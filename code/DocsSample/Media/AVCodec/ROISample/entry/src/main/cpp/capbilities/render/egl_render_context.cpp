@@ -17,6 +17,8 @@
 
 namespace NativeXComponentSample {
 constexpr uint32_t LOG_PRINT_DOMAIN = 0xFF00;
+constexpr EGLint GLES_VERSION = 2;
+constexpr EGLint EGL_COLOR_COMPONENT_BITS = 8;
 bool CheckEglExtension(const char *extensions, const char *extension)
 {
     size_t extLen = strlen(extension);
@@ -115,6 +117,7 @@ bool EglRenderContext::Init()
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "EglRenderContext",
                      "EglRenderContext::Init: Failed to initialize EGLDisplay, error: %{public}s.",
                      GetEglErrorString());
+        return false;
     }
     SetupEglExtensions();
 
@@ -140,13 +143,13 @@ bool EglRenderContext::ChooseEglConfig()
     EGLint configAttribs[] = {EGL_SURFACE_TYPE,
                               EGL_WINDOW_BIT,
                               EGL_RED_SIZE,
-                              8,
+                              EGL_COLOR_COMPONENT_BITS,
                               EGL_GREEN_SIZE,
-                              8,
+                              EGL_COLOR_COMPONENT_BITS,
                               EGL_BLUE_SIZE,
-                              8,
+                              EGL_COLOR_COMPONENT_BITS,
                               EGL_ALPHA_SIZE,
-                              8,
+                              EGL_COLOR_COMPONENT_BITS,
                               EGL_RENDERABLE_TYPE,
                               EGL_OPENGL_ES3_BIT,
                               EGL_NONE};
@@ -160,7 +163,7 @@ bool EglRenderContext::ChooseEglConfig()
 
 bool EglRenderContext::CreateEglContext()
 {
-    const EGLint contextAttribs[] = {EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE};
+    const EGLint contextAttribs[] = {EGL_CONTEXT_CLIENT_VERSION, GLES_VERSION, EGL_NONE};
     eglContext_ = eglCreateContext(eglDisplay_, config_, EGL_NO_CONTEXT, contextAttribs);
     if (eglContext_ == EGL_NO_CONTEXT) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "EglRenderContext",
@@ -357,11 +360,9 @@ EGLImageKHR EglRenderContext::CreateEGLImage(OHNativeWindowBuffer *nBuffer)
 void EglRenderContext::DeleteEGLImage(EGLImageKHR image)
 {
     eglDeleteImageFunc_(eglDisplay_, image);
-    return;
 }
 void EglRenderContext::EGLImageTargetTexture2DOES(EGLImageKHR image)
 {
     eglImageTargetTexture2DOESFunc_(GL_TEXTURE_EXTERNAL_OES, static_cast<GLeglImageOES>(image));
-    return;
 }
 } // namespace NativeXComponentSample

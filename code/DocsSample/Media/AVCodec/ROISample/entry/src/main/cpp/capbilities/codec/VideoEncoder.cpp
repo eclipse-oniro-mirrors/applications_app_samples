@@ -13,8 +13,6 @@
  * limitations under the License.
  */
 #include "include/VideoEncoder.h"
-#include <cstdio>
-#include <vector>
 
 namespace {
 constexpr int32_t ENCODE_SQR_FACTOR = 25;

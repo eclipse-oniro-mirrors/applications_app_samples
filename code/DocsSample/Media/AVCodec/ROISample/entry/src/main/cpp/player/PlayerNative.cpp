@@ -14,7 +14,6 @@
  */
 
 #include "PlayerNative.h"
-#include <uv.h>
 #include "dfx/error/SampleError.h"
 
 #undef LOG_DOMAIN
@@ -39,7 +38,7 @@ napi_value PlayerNative::ReleasePlayer(napi_env env, napi_callback_info info) {
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     int64_t addrValue = 0;
-    bool flag = false;
+    [[maybe_unused]] bool flag = false;
     napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
     Player *player = reinterpret_cast<Player *>(addrValue);
     if (player) {
@@ -56,7 +55,7 @@ napi_value PlayerNative::StartPlay(napi_env env, napi_callback_info info) {
     napi_value args[5] = {nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
     int64_t addrValue = 0;
-    bool flag = false;
+    [[maybe_unused]] bool flag = false;
     int32_t ret = SAMPLE_ERR_ERROR;
     napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
     Player *player = reinterpret_cast<Player *>(addrValue);
@@ -78,7 +77,7 @@ napi_value PlayerNative::StopPlay(napi_env env, napi_callback_info info) {
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     int64_t addrValue = 0;
-    bool flag = false;
+    [[maybe_unused]] bool flag = false;
     napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
     Player *player = reinterpret_cast<Player *>(addrValue);
     if (player) {

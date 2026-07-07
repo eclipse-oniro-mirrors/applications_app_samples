@@ -17,10 +17,6 @@
 #include "SampleLog.h"
 #include "FrameQueue.h"
 
-namespace {
-constexpr int LIMIT_LOGD_FREQUENCY = 50;
-}
-
 void CodecCallback::OnCodecError([[maybe_unused]]OH_AVCodec *codec, [[maybe_unused]]int32_t errorCode,
                                  [[maybe_unused]]void *userData)
 {

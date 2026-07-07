@@ -30,7 +30,6 @@ public:
     int32_t Create(SampleInfo &sampleInfo);
     int32_t ReadSample(int32_t trackId, OH_AVBuffer *buffer, OH_AVCodecBufferAttr &attr);
     int32_t Release();
-    int32_t GetVideoTrackId();
     int32_t GetAudioTrackId();
     
 private:

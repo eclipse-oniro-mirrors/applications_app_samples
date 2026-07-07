@@ -47,6 +47,31 @@ constexpr float NOISE_SCALE_X = 0.333f;
 constexpr float NOISE_SCALE_Y = 0.25f;
 constexpr float UV_CENTER_OFFSET = 0.5f;
 
+// ROI rendering geometry constants
+constexpr int32_t ROI_QUAD_VERTICES = 6;        // Two triangles per ROI rectangle
+constexpr int32_t ROI_VERTEX_FLOATS = 3;        // x, y, z position per vertex
+constexpr int32_t ROI_MAX_BORDER_RECTS = 4;     // Top, bottom, left, right sides
+
+// Main vertex format constants
+constexpr int32_t VERTEX_STRIDE_FLOATS = 5;     // 3 position + 2 texcoord
+constexpr int32_t VERTEX_POSITION_FLOATS = 3;   // x, y, z before texcoord
+
+// NDC coordinate system
+constexpr float NDC_RANGE_SIZE = 2.0f;          // Full range from -1.0f to +1.0f
+
+// GL color packing shifts (A2R10G10B10 format)
+constexpr int32_t A2R10G10B10_ALPHA_SHIFT = 30;
+constexpr int32_t A2R10G10B10_BLUE_SHIFT = 20;
+constexpr int32_t A2R10G10B10_GREEN_SHIFT = 10;
+
+// Matrix and draw constants
+constexpr int32_t MAT4_ELEMENT_COUNT = 16;
+constexpr int32_t RECTANGLE_INDEX_COUNT = 6;
+constexpr int32_t VEC4_COMPONENT_COUNT = 4;
+
+// NativeImage API
+constexpr int32_t NATIVE_IMAGE_NEW_TEXTURE_ID = -1;
+
 struct ViewportParams {
     int32_t x;
     int32_t y;
@@ -197,8 +222,8 @@ private:
     GLuint outTexId_ = UNINITIALIZED_TEX_ID;
     std::atomic<bool> isCameraFront_ = false;
     std::atomic<int> cameraRotation_{DEFAULT_CAMERA_ROTATION};
-    std::array<float, 16> drawCameraImageMatrix_;
-    std::array<float, 16> drawImageMatrix_;
+    std::array<float, MAT4_ELEMENT_COUNT> drawCameraImageMatrix_;
+    std::array<float, MAT4_ELEMENT_COUNT> drawImageMatrix_;
     OH_NativeBuffer *imageBuffer_ = nullptr;
     std::atomic<bool> isOpenROI_{true};
     int roiFd_ = -1;

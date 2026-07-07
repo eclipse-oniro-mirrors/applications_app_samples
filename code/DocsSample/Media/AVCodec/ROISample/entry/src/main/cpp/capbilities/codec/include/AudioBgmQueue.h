@@ -24,6 +24,7 @@
 #include <cstdint>
 #include <atomic>
 using namespace std::chrono_literals;  // Import time unit literals
+constexpr auto BGM_QUEUE_POP_TIMEOUT = 2ms;
 // Support PCM audio queue with flexible buffer size
 class AudioBgmQueue {
 public:
@@ -55,7 +56,7 @@ public:
 
         std::unique_lock<std::mutex> lock(m_mutex);
         // Wait until sufficient data is available or stop is requested
-        m_cv.wait_for(lock, 2ms, [this, requestedSamples]() {
+        m_cv.wait_for(lock, BGM_QUEUE_POP_TIMEOUT, [this, requestedSamples]() {
             return m_stop || m_buffer.size() >= requestedSamples;
         });
         // Return 0 if stop is requested

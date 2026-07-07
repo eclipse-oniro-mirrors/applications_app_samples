@@ -17,15 +17,18 @@
 
 namespace NativeXComponentSample {
 constexpr uint32_t LOG_PRINT_DOMAIN = 0xFF00;
+constexpr int32_t SHADER_INFO_LOG_SIZE = 1024;
+constexpr int32_t VEC4_COMPONENT_COUNT = 4;
+constexpr int32_t MAT4_ELEMENT_COUNT = 16;
 ShaderProgram::ShaderProgram(const std::string &vertexShader, const std::string &fragShader)
 {
-    auto vShaderCode = vertexShader.c_str();
+    const GLchar *vShaderCode = vertexShader.c_str();
     GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertex, 1, &vShaderCode, nullptr);
     glCompileShader(vertex);
     CheckCompileErrors(vertex, "VERTEX");
 
-    auto fShaderCode = fragShader.c_str();
+    const GLchar *fShaderCode = fragShader.c_str();
     GLuint fragment = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragment, 1, &fShaderCode, nullptr);
     glCompileShader(fragment);
@@ -50,11 +53,11 @@ ShaderProgram::~ShaderProgram() noexcept
 void ShaderProgram::CheckCompileErrors(GLuint shader, const std::string &shaderType)
 {
     int success;
-    char infoLog[1024];
+    char infoLog[SHADER_INFO_LOG_SIZE];
     if (shaderType != "PROGRAM") {
         glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
         if (!success) {
-            glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+            glGetShaderInfoLog(shader, SHADER_INFO_LOG_SIZE, nullptr, infoLog);
             OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ShaderProgram",
                          "ERROR::SHADER_COMPILATION_ERROR of type: %{public}s, infoLog is: %{public}s",
                          shaderType.c_str(), infoLog);
@@ -62,7 +65,7 @@ void ShaderProgram::CheckCompileErrors(GLuint shader, const std::string &shaderT
     } else {
         glGetProgramiv(shader, GL_LINK_STATUS, &success);
         if (!success) {
-            glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+            glGetProgramInfoLog(shader, SHADER_INFO_LOG_SIZE, nullptr, infoLog);
             OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ShaderProgram",
                          "ERROR::PROGRAM_LINKING_ERROR of type: %{public}s, infoLog is: %{public}s",
                          shaderType.c_str(), infoLog);
@@ -87,7 +90,7 @@ void ShaderProgram::SetFloat(const std::string &name, float value)
 
 void ShaderProgram::SetFloat4v(const std::string &name, float *values, int cnt)
 {
-    if (cnt != 4 || values == nullptr) {
+    if (cnt != VEC4_COMPONENT_COUNT || values == nullptr) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ShaderProgram",
                      "ShaderProgram::SetFloat4v: invalid arguments.");
         return;
@@ -97,7 +100,7 @@ void ShaderProgram::SetFloat4v(const std::string &name, float *values, int cnt)
 
 void ShaderProgram::SetMatrix4v(const std::string &name, float *matrix, int cnt, bool transpose)
 {
-    if (cnt != 16 || matrix == nullptr) {
+    if (cnt != MAT4_ELEMENT_COUNT || matrix == nullptr) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ShaderProgram",
                      "ShaderProgram::SetFloat4v: invalid arguments.");
         return;

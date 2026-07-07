@@ -18,10 +18,6 @@
 #undef LOG_TAG
 #define LOG_TAG "AudioEncoder"
 
-namespace {
-constexpr int LIMIT_LOGD_FREQUENCY = 50;
-}
-
 AudioEncoder::~AudioEncoder()
 {
     Release();
@@ -36,8 +32,7 @@ int32_t AudioEncoder::Create(const std::string &codecMime)
 
 int32_t AudioEncoder::SetCallback(CodecUserData *codecUserData)
 {
-    int32_t ret = AV_ERR_OK;
-    ret = OH_AudioCodec_RegisterCallback(encoder_,
+    int32_t ret = OH_AudioCodec_RegisterCallback(encoder_,
                                          { CodecCallback::OnCodecError, CodecCallback::OnCodecFormatChange,
                                            CodecCallback::OnNeedInputBuffer, CodecCallback::OnNewOutputBuffer },
                                          codecUserData);
@@ -87,8 +82,8 @@ int32_t AudioEncoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
 
     // Prepare audio encoder
     {
-        int ret = OH_AudioCodec_Prepare(encoder_);
-        CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, SAMPLE_ERR_ERROR, "Prepare failed, ret: %{public}d", ret);
+        int32_t prepareRet = OH_AudioCodec_Prepare(encoder_);
+        CHECK_AND_RETURN_RET_LOG(prepareRet == AV_ERR_OK, SAMPLE_ERR_ERROR, "Prepare failed, ret: %{public}d", prepareRet);
     }
 
     return SAMPLE_ERR_OK;
@@ -117,8 +112,7 @@ int32_t AudioEncoder::FreeOutputData(uint32_t bufferIndex)
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, SAMPLE_ERR_ERROR, "Encoder is null");
 
-    int32_t ret = SAMPLE_ERR_OK;
-    ret = OH_AudioCodec_FreeOutputBuffer(encoder_, bufferIndex);
+    int32_t ret = OH_AudioCodec_FreeOutputBuffer(encoder_, bufferIndex);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, SAMPLE_ERR_ERROR, "Free output data failed");
     return SAMPLE_ERR_OK;
 }

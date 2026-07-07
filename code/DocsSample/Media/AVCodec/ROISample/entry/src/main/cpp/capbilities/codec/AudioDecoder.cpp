@@ -16,11 +16,6 @@
 #include "include/AudioDecoder.h"
 #include "dfx/error/SampleError.h"
 
-namespace {
-constexpr uint8_t AAC_CODEC_CONFIG_PLACEHOLDER_BYTE0 = 0x13;
-constexpr uint8_t AAC_CODEC_CONFIG_PLACEHOLDER_BYTE1 = 0x10;
-}
-
 #undef LOG_TAG
 #define LOG_TAG "AudioDecoder"
 
@@ -35,8 +30,7 @@ int32_t AudioDecoder::Create(const std::string &codecMime)
 
 int32_t AudioDecoder::SetCallback(CodecUserData *codecUserData)
 {
-    int32_t ret = AV_ERR_OK;
-    ret = OH_AudioCodec_RegisterCallback(decoder_,
+    int32_t ret = OH_AudioCodec_RegisterCallback(decoder_,
                                          {CodecCallback::OnCodecError, CodecCallback::OnCodecFormatChange,
                                           CodecCallback::OnNeedInputBuffer, CodecCallback::OnNewOutputBuffer},
                                          codecUserData);
@@ -60,10 +54,8 @@ int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
                     sampleInfo.audioInfo.codecConfig, sampleInfo.audioInfo.codecConfigLen, sampleInfo.audioInfo.aacAdts,
                     sampleInfo.audioInfo.codecConfig[0], sampleInfo.audioInfo.codecConfig[1]);
         uint8_t tmpCodecConfig[2];
-        tmpCodecConfig[0] = AAC_CODEC_CONFIG_PLACEHOLDER_BYTE0;
-        tmpCodecConfig[1] = AAC_CODEC_CONFIG_PLACEHOLDER_BYTE1;
-        tmpCodecConfig[0] = sampleInfo.audioInfo.codecConfig[0]; // 0x11
-        tmpCodecConfig[1] = sampleInfo.audioInfo.codecConfig[1]; // 0x90
+        tmpCodecConfig[0] = sampleInfo.audioInfo.codecConfig[0];
+        tmpCodecConfig[1] = sampleInfo.audioInfo.codecConfig[1];
         SAMPLE_LOGI("====== AudioDecoder config ====== 0:0x%{public}02x, 1:0x%{public}02x", tmpCodecConfig[0],
                     tmpCodecConfig[1]);
         OH_AVFormat_SetBuffer(format, OH_MD_KEY_CODEC_CONFIG, sampleInfo.audioInfo.codecConfig,
@@ -95,8 +87,8 @@ int32_t AudioDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
 
     // Prepare audio decoder
     {
-        int ret = OH_AudioCodec_Prepare(decoder_);
-        CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, SAMPLE_ERR_ERROR, "Prepare failed, ret: %{public}d", ret);
+        int32_t prepareRet = OH_AudioCodec_Prepare(decoder_);
+        CHECK_AND_RETURN_RET_LOG(prepareRet == AV_ERR_OK, SAMPLE_ERR_ERROR, "Prepare failed, ret: %{public}d", prepareRet);
     }
 
     return SAMPLE_ERR_OK;
@@ -125,8 +117,7 @@ int32_t AudioDecoder::FreeOutputBuffer(uint32_t bufferIndex, bool render)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, SAMPLE_ERR_ERROR, "Decoder is null");
 
-    int32_t ret = SAMPLE_ERR_OK;
-    ret = OH_AudioCodec_FreeOutputBuffer(decoder_, bufferIndex);
+    int32_t ret = OH_AudioCodec_FreeOutputBuffer(decoder_, bufferIndex);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, SAMPLE_ERR_ERROR, "Free output data failed");
     return SAMPLE_ERR_OK;
 }

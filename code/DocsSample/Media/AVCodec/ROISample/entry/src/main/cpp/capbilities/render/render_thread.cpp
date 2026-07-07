@@ -275,9 +275,9 @@ void RenderThread::SetupMainVao()
     glBindVertexArray(vertexArrayObject_);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject_);
     glBufferData(GL_ARRAY_BUFFER, sizeof(Detail::vertices), Detail::vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
+    glVertexAttribPointer(0, VERTEX_POSITION_FLOATS, GL_FLOAT, GL_FALSE, VERTEX_STRIDE_FLOATS * sizeof(float), nullptr);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), reinterpret_cast<void *>(3 * sizeof(float)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, VERTEX_STRIDE_FLOATS * sizeof(float), reinterpret_cast<void *>(VERTEX_POSITION_FLOATS * sizeof(float)));
     glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -309,8 +309,8 @@ void RenderThread::SetupRoiVao()
     glGenBuffers(1, &roiVbo_);
     glBindVertexArray(roiVao_);
     glBindBuffer(GL_ARRAY_BUFFER, roiVbo_);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 3 * 4, nullptr, GL_DYNAMIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * ROI_QUAD_VERTICES * ROI_VERTEX_FLOATS * ROI_MAX_BORDER_RECTS, nullptr, GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(0, ROI_VERTEX_FLOATS, GL_FLOAT, GL_FALSE, ROI_VERTEX_FLOATS * sizeof(float), nullptr);
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
@@ -511,7 +511,7 @@ void RenderThread::OnNativeImageFrameAvailable(void *data)
 // [Start Create_Native_Image]
 bool RenderThread::CreateNativeImage()
 {
-    nativeImage_ = OH_NativeImage_Create(-1, GL_TEXTURE_EXTERNAL_OES);
+    nativeImage_ = OH_NativeImage_Create(NATIVE_IMAGE_NEW_TEXTURE_ID, GL_TEXTURE_EXTERNAL_OES);
     if (nativeImage_ == nullptr) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread", "OH_NativeImage_Create failed.");
         return false;
@@ -648,17 +648,17 @@ void RenderThread::DrawScene()
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_EXTERNAL_OES, nativeImageTexId_);
     videoShader_->SetInt("tex", 0);
-    videoShader_->SetMatrix4v("matTransform", drawCameraImageMatrix_.data(), 16, false);
+    videoShader_->SetMatrix4v("matTransform", drawCameraImageMatrix_.data(), MAT4_ELEMENT_COUNT, false);
     glBindVertexArray(vertexArrayObject_);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, RECTANGLE_INDICES);
+    glDrawElements(GL_TRIANGLES, RECTANGLE_INDEX_COUNT, GL_UNSIGNED_INT, RECTANGLE_INDICES);
 
     imageShader_->Use();
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, noiseImageTexId_);
     imageShader_->SetInt("tex", 0);
-    imageShader_->SetMatrix4v("matTransform", drawImageMatrix_.data(), 16, true);
+    imageShader_->SetMatrix4v("matTransform", drawImageMatrix_.data(), MAT4_ELEMENT_COUNT, true);
     glBindVertexArray(vertexArrayObject_);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, RECTANGLE_INDICES);
+    glDrawElements(GL_TRIANGLES, RECTANGLE_INDEX_COUNT, GL_UNSIGNED_INT, RECTANGLE_INDICES);
     glFinish();
 }
 
@@ -668,11 +668,11 @@ void RenderThread::UpdateImageResource(void* data, int32_t width, int32_t height
     if (!data) {
         constexpr uint32_t w = 32, h = 32;
         constexpr uint32_t r = 720, g = 1023, b = 0, a = 3;
-        constexpr uint32_t mockColor = (a << 30) | (b << 20) | (g << 10) | r;
+        constexpr uint32_t mockColor = (a << A2R10G10B10_ALPHA_SHIFT) | (b << A2R10G10B10_BLUE_SHIFT) | (g << A2R10G10B10_GREEN_SHIFT) | r;
         std::vector<uint32_t> data(w * h, mockColor);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB10_A2, w, h, 0, GL_RGBA, GL_UNSIGNED_INT_2_10_10_10_REV_EXT, data.data());
     } else {
-        glPixelStorei(GL_UNPACK_ROW_LENGTH, stride >> 2);
+        glPixelStorei(GL_UNPACK_ROW_LENGTH, static_cast<int32_t>(stride / sizeof(uint32_t)));
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB10_A2, width, height, 0,
             GL_RGBA, GL_UNSIGNED_INT_2_10_10_10_REV_EXT, data);
         glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
@@ -711,10 +711,10 @@ void RenderThread::ImageDraw(OHNativeWindowBuffer *InBuffer, OHNativeWindowBuffe
     glClear(GL_COLOR_BUFFER_BIT);
     glViewport(vp.x, vp.y, vp.width, vp.height);
     frameShader_->Use();
-    frameShader_->SetMatrix4v("matTransform", drawCameraImageMatrix_.data(), 16, false);
+    frameShader_->SetMatrix4v("matTransform", drawCameraImageMatrix_.data(), MAT4_ELEMENT_COUNT, false);
     glBindVertexArray(vertexArrayObject_);
     glBindTexture(GL_TEXTURE_EXTERNAL_OES, inTexId_);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, Detail::indices);
+    glDrawElements(GL_TRIANGLES, RECTANGLE_INDEX_COUNT, GL_UNSIGNED_INT, Detail::indices);
     
     glBindTexture(GL_TEXTURE_EXTERNAL_OES, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -777,7 +777,7 @@ void RenderThread::DrawRoiOverlay(OHNativeWindowBuffer *outBuffer, int32_t image
     // Compute border thickness based on viewport to ensure equal pixel width on all sides
     float desiredPixelThickness = ROI_BORDER_THICKNESS;
     float lrThickNdc = desiredPixelThickness / static_cast<float>(vp.width);
-    float tbThickNdc = 2.0f * desiredPixelThickness / static_cast<float>(vp.height);
+    float tbThickNdc = NDC_RANGE_SIZE * desiredPixelThickness / static_cast<float>(vp.height);
 
     DrawRoiRects(parsedFormats, actualCount, lrThickNdc, tbThickNdc, imageWidth, imageHeight);
 
@@ -805,14 +805,14 @@ void RenderThread::DrawRoiRects(const std::vector<OH_AVFormat*> &parsedFormats, 
         // Determine color: area > 1/5 of frame → red, else → green
         int32_t roiArea = (right - left) * (bottom - top);
         bool isLarge = (roiArea * ROI_AREA_RATIO_THRESHOLD > frameArea);
-        float color[4] = { isLarge ? 1.0f : 0.0f, isLarge ? 0.0f : 1.0f, 0.0f, 1.0f };
-        roiShader_->SetFloat4v("uColor", color, 4);
+        float color[VEC4_COMPONENT_COUNT] = { isLarge ? 1.0f : 0.0f, isLarge ? 0.0f : 1.0f, 0.0f, 1.0f };
+        roiShader_->SetFloat4v("uColor", color, VEC4_COMPONENT_COUNT);
 
         // Convert pixel coordinates to NDC
-        float ndcXLeft = 2.0f * left / static_cast<float>(imageWidth) - 1.0f;
-        float ndcXRight = 2.0f * right / static_cast<float>(imageWidth) - 1.0f;
-        float ndcYLow = 2.0f * top / static_cast<float>(imageHeight) - 1.0f;
-        float ndcYHigh = 2.0f * bottom / static_cast<float>(imageHeight) - 1.0f;
+        float ndcXLeft = NDC_RANGE_SIZE * left / static_cast<float>(imageWidth) - 1.0f;
+        float ndcXRight = NDC_RANGE_SIZE * right / static_cast<float>(imageWidth) - 1.0f;
+        float ndcYLow = NDC_RANGE_SIZE * top / static_cast<float>(imageHeight) - 1.0f;
+        float ndcYHigh = NDC_RANGE_SIZE * bottom / static_cast<float>(imageHeight) - 1.0f;
 
         DrawRoiQuad(ndcXLeft - lrThickNdc, ndcXRight + lrThickNdc, ndcYHigh, ndcYHigh + tbThickNdc);
         DrawRoiQuad(ndcXLeft - lrThickNdc, ndcXRight + lrThickNdc, ndcYLow - tbThickNdc, ndcYLow);
@@ -835,7 +835,7 @@ void RenderThread::DrawRoiQuad(float x1, float x2, float y1, float y2)
         x2, y2, 0.0f,
     };
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawArrays(GL_TRIANGLES, 0, ROI_QUAD_VERTICES);
 }
 // [End roi_quad_drawing]
 void RenderThread::DrawImage()

@@ -36,8 +36,7 @@ public:
 private:
     int32_t SetCallback(CodecUserData *codecUserData);
     int32_t Configure(const SampleInfo &sampleInfo);
-    
-    bool isAVBufferMode_ = false;
+
     OH_AVCodec *decoder_;
 };
 #endif // AUDIODECODER_H

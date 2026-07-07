@@ -24,6 +24,9 @@
 namespace {
 constexpr int BALANCE_VALUE = 2;
 using namespace std::chrono_literals;
+constexpr auto AUDIO_DEC_BUFFER_TIMEOUT = 100ms;
+constexpr auto AUDIO_RENDER_BALANCE_TIMEOUT = 20ms;
+constexpr auto AUDIO_FINAL_FLUSH_TIMEOUT = 500ms;
 } // namespace
 
 Player::~Player() {}
@@ -187,7 +190,7 @@ void Player::AudioDecInputThread() {
         CHECK_AND_BREAK_LOG(isStarted_, "Decoder input thread out");
         std::unique_lock<std::mutex> lock(audioDecContext_->inputMutex);
         bool condRet = audioDecContext_->inputCond.wait_for(
-            lock, 100ms, [this]() { return !isStarted_ || !audioDecContext_->inputBufferInfoQueue.empty(); });
+            lock, AUDIO_DEC_BUFFER_TIMEOUT, [this]() { return !isStarted_ || !audioDecContext_->inputBufferInfoQueue.empty(); });
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         CHECK_AND_CONTINUE_LOG(!audioDecContext_->inputBufferInfoQueue.empty(),
                                "Buffer queue is empty, continue, cond ret: %{public}d", condRet);
@@ -213,7 +216,7 @@ void Player::AudioDecOutputThread() {
         CHECK_AND_BREAK_LOG(isStarted_, "Decoder output thread out");
         std::unique_lock<std::mutex> lock(audioDecContext_->outputMutex);
         bool condRet = audioDecContext_->outputCond.wait_for(
-            lock, 100ms, [this]() { return !isStarted_ || !audioDecContext_->outputBufferInfoQueue.empty(); });
+            lock, AUDIO_DEC_BUFFER_TIMEOUT, [this]() { return !isStarted_ || !audioDecContext_->outputBufferInfoQueue.empty(); });
         CHECK_AND_BREAK_LOG(isStarted_, "Decoder output thread out");
         CHECK_AND_CONTINUE_LOG(!audioDecContext_->outputBufferInfoQueue.empty(),
                                "Buffer queue is empty, continue, cond ret: %{public}d", condRet);
@@ -232,7 +235,7 @@ void Player::AudioDecOutputThread() {
         }
         int16_t *pcmData = reinterpret_cast<int16_t *>(source);
         if (audioDecContext_->decodedBgmQueue) {
-            audioDecContext_->decodedBgmQueue->push(pcmData, bufferInfo.attr.size / 2);
+            audioDecContext_->decodedBgmQueue->push(pcmData, bufferInfo.attr.size / AUDIO_BYTES_PER_SAMPLE);
         }
         lock.unlock();
 
@@ -240,12 +243,12 @@ void Player::AudioDecOutputThread() {
         CHECK_AND_BREAK_LOG(ret == SAMPLE_ERR_OK, "Decoder output thread out");
 
         std::unique_lock<std::mutex> lockRender(audioDecContext_->renderMutex);
-        audioDecContext_->renderCond.wait_for(lockRender, 20ms, [this, bufferInfo]() {
+        audioDecContext_->renderCond.wait_for(lockRender, AUDIO_RENDER_BALANCE_TIMEOUT, [this, bufferInfo]() {
             return audioDecContext_->renderQueue.size() < BALANCE_VALUE * bufferInfo.attr.size || !isStarted_;
         });
     }
     std::unique_lock<std::mutex> lockRender(audioDecContext_->renderMutex);
-    audioDecContext_->renderCond.wait_for(lockRender, 500ms,
+    audioDecContext_->renderCond.wait_for(lockRender, AUDIO_FINAL_FLUSH_TIMEOUT,
                                           [this]() { return audioDecContext_->renderQueue.size() < 1 || !isStarted_; });
     isAudioDone = true;
     SAMPLE_LOGI("Out buffer end");

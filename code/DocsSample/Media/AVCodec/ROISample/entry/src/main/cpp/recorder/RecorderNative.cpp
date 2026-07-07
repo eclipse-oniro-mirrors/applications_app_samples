@@ -21,7 +21,6 @@
 #include "CodecInfo.h"
 #include "dfx/error/SampleError.h"
 #include "SampleLog.h"
-#include "dfx/error/SampleError.h"
 
 #undef LOG_DOMAIN
 #undef LOG_TAG
@@ -106,7 +105,7 @@ napi_value RecorderNative::ReleaseRecorder(napi_env env, napi_callback_info info
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     int64_t addrValue = 0;
-    bool flag = false;
+    [[maybe_unused]] bool flag = false;
     napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
     Recorder *recorder = reinterpret_cast<Recorder *>(addrValue);
     if (recorder) {
@@ -153,7 +152,7 @@ napi_value RecorderNative::Init(napi_env env, napi_callback_info info)
 Recorder *RecorderNative::ParseRecorderPtr(napi_env env, napi_value arg)
 {
     int64_t addrValue = 0;
-    bool flag = false;
+    [[maybe_unused]] bool flag = false;
     napi_get_value_bigint_int64(env, arg, &addrValue, &flag);
     OH_LOG_INFO(LOG_APP, " Init, addrValue:%{public}ld", addrValue);
     return reinterpret_cast<Recorder *>(addrValue);
@@ -202,7 +201,7 @@ napi_value RecorderNative::Start(napi_env env, napi_callback_info info)
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     int64_t addrValue = 0;
-    bool flag = false;
+    [[maybe_unused]] bool flag = false;
     napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
     Recorder *recorder = reinterpret_cast<Recorder *>(addrValue);
     char previewSurfaceId[NAPI_STRING_BUFFER_SIZE] = {0};
@@ -223,7 +222,7 @@ napi_value RecorderNative::SetPlayerAsLiveBgm(napi_env env, napi_callback_info i
     napi_value args[2] = {nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
     int64_t addrValue = 0;
-    bool flag = false;
+    [[maybe_unused]] bool flag = false;
     napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
     Recorder *recorder = reinterpret_cast<Recorder *>(addrValue);
     napi_get_value_bigint_int64(env, args[1], &addrValue, &flag);
@@ -242,7 +241,7 @@ napi_value RecorderNative::UpdateInfoForCamera(napi_env env, napi_callback_info 
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     int64_t addrValue = 0;
-    bool flag = false;
+    [[maybe_unused]] bool flag = false;
     napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
     Recorder *recorder = reinterpret_cast<Recorder *>(addrValue);
     bool isFront = false;
@@ -261,7 +260,7 @@ napi_value RecorderNative::UpdateCameraRotation(napi_env env, napi_callback_info
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     int64_t addrValue = 0;
-    bool flag = false;
+    [[maybe_unused]] bool flag = false;
     napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
     Recorder *recorder = reinterpret_cast<Recorder *>(addrValue);
     int rotation = NativeXComponentSample::DEFAULT_CAMERA_ROTATION;
@@ -296,7 +295,7 @@ napi_value RecorderNative::Stop(napi_env env, napi_callback_info info)
     napi_create_promise(env, &deferred, &promise);
 
     int64_t addrValue = 0;
-    bool flag = false;
+    [[maybe_unused]] bool flag = false;
     napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
     Recorder *recorder = reinterpret_cast<Recorder *>(addrValue);
     AsyncCallbackInfo *asyncCallbackInfo = new AsyncCallbackInfo();
@@ -322,7 +321,7 @@ napi_value RecorderNative::SetIsOpenROI(napi_env env, napi_callback_info info)
     napi_value args[2] = {nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
     int64_t addrValue = 0;
-    bool flag = false;
+    [[maybe_unused]] bool flag = false;
     napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
     Recorder *recorder = reinterpret_cast<Recorder *>(addrValue);
     bool isOpenROI = false;

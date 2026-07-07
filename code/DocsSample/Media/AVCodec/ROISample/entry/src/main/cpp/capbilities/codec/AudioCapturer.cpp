@@ -31,8 +31,10 @@ using IsAcousticEchoCancelerSupportedApiType = OH_AudioCommon_Result(*)(OH_Audio
                                                                  bool *supported);
 
 // 2. Declare API (directly associated with function pointer type)
-DECLARE_API(OH_AudioManager_GetAudioStreamManager, GetAudioStreamManagerApiType, 19, "libohaudio.so");
-DECLARE_API(OH_AudioStreamManager_IsAcousticEchoCancelerSupported, IsAcousticEchoCancelerSupportedApiType, 20,
+constexpr int32_t API_VERSION_AUDIO_STREAM_MANAGER = 19;
+constexpr int32_t API_VERSION_ECHO_CANCEL_CHECK = 20;
+DECLARE_API(OH_AudioManager_GetAudioStreamManager, GetAudioStreamManagerApiType, API_VERSION_AUDIO_STREAM_MANAGER, "libohaudio.so");
+DECLARE_API(OH_AudioStreamManager_IsAcousticEchoCancelerSupported, IsAcousticEchoCancelerSupportedApiType, API_VERSION_ECHO_CANCEL_CHECK,
             "libohaudio.so");
 
 AudioCapturer::~AudioCapturer()

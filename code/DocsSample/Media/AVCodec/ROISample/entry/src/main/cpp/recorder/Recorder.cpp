@@ -14,6 +14,7 @@
  */
 
 #include "include/Recorder.h"
+#include <climits>
 #include "SampleLog.h"
 #include "dfx/error/SampleError.h"
 
@@ -24,6 +25,7 @@ namespace {
 using namespace std::chrono_literals;
 constexpr int64_t MICROSECOND = 1000000;
 constexpr int32_t INPUT_FRAME_BYTES = 2 * 1024;
+constexpr float BGM_VOLUME_SCALE = 0.2f;
 AudioBgmQueue g_bgmQueue;
 } // namespace
 
@@ -461,7 +463,6 @@ void Recorder::AudioEncOutputThread()
 
 void Recorder::MixMicAndBgm(int16_t *mainPcm, AudioBgmQueue* bgmQueue, int32_t sampleCount)
 {
-    constexpr float bgmValue = 0.2f;
     if (bgmQueue && bgmQueue->IsStart()) {
         std::vector<int16_t> bgmPcm(sampleCount); // S16LE
         size_t samplesReceived = bgmQueue->pop(bgmPcm.data(), sampleCount);
@@ -471,11 +472,9 @@ void Recorder::MixMicAndBgm(int16_t *mainPcm, AudioBgmQueue* bgmQueue, int32_t s
                 // Main audio uses original sample values directly
                 int32_t micSample = static_cast<int32_t>(mainPcm[i]);
                 // Background music is first scaled and then converted to int32_t
-                int32_t bgmSample = static_cast<int32_t>(bgmPcm[i] * bgmValue);
-                // Add samples together, using int32_t to avoid intermediate overflow
+                int32_t bgmSample = static_cast<int32_t>(bgmPcm[i] * BGM_VOLUME_SCALE);
                 int32_t mixed = micSample + bgmSample;
-                // Clamp to int16_t range (-32768 to 32767)
-                mainPcm[i] = static_cast<int16_t>(std::clamp(mixed, -32768, 32767));
+                mainPcm[i] = static_cast<int16_t>(std::clamp(mixed, INT16_MIN, INT16_MAX));
             }
         } else {
             SAMPLE_LOGE("bgmQueue no enough bgm data");
