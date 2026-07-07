@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,12 +14,49 @@
  */
 
 import { camera } from '@kit.CameraKit';
+import { Permissions } from '@kit.AbilityKit';
 
 export class CommonConstants {
   /**
-   * Full size.
+   * Key prefix.
+   * */
+  public static readonly KEY_PREFIX: string = 'live_stream';
+  /**
+   * MICROPHONE permission.
+   * */
+  public static MICROPHONE_PERMISSION: Permissions = 'ohos.permission.MICROPHONE';
+  /**
+   * CAMERA permission.
+   * */
+  public static CAMERA_PERMISSION: Permissions = 'ohos.permission.CAMERA';
+  /**
+   * DISTRIBUTED_DATASYNC permission.
+   * */
+  public static DISTRIBUTED_DATASYNC: Permissions = 'ohos.permission.DISTRIBUTED_DATASYNC';
+  /**
+   * Index page Tag.
    */
-  public static readonly FULL_SIZE: string = '100%';
+  public static readonly INDEX_TAG: string = '[Sample_HMOSLiveStream]';
+  /**
+   * Recorder page Tag.
+   */
+  public static readonly RECORDER_TAG: string = '[Sample_HMOSLiveStream]';
+  /**
+   * Default ID.
+   */
+  public static readonly DEFAULT_ID: string = '-1';
+  /**
+   * Default time.
+   */
+  public static readonly DEFAULT_TIME: string = '00:00';
+  /**
+   * PX.
+   */
+  public static readonly PX: string = 'px';
+  /**
+   * Default value.
+   */
+  public static readonly DEFAULT_VALUE: number = 0;
   /**
    * Default width.
    */
@@ -29,100 +66,15 @@ export class CommonConstants {
    */
   public static readonly DEFAULT_HEIGHT: number = 1080;
   /**
-   * Button width.
+   * Default profile.
    */
-  public static readonly BUTTON_WIDTH: number = 100;
-  /**
-   * Duration.
-   */
-  public static readonly DURATION: number = 2000;
-  /**
-   * The distance between toast dialog box and the bottom of screen.
-   */
-  public static readonly BOTTOM: number = 200;
-  /**
-   * Image width.
-   */
-  public static readonly IMAGE_WIDTH: number = 50;
-  /**
-   * Image height.
-   */
-  public static readonly IMAGE_HEIGHT: number = 50;
-  /**
-   * Video mime type.
-   */
-  public static readonly VIDEO_MIMETYPE: string[] = ['HDRVivid', 'H264', 'H265'];
-  /**
-   * Output container format.
-   */
-  public static readonly OUTPUT_FORMAT: string[] = ['MP4', 'FLV'];
-  /**
-   * Output format enum values matching NDK OH_AVOutputFormat.
-   */
-  public static readonly FORMAT_MP4: number = 2;
-  public static readonly FORMAT_FLV: number = 14;
-  /**
-   * Video resolution.
-   */
-  public static readonly VIDEO_RESOLUTION: string[] = ['4K', '1080P', '720P'];
-  /**
-   * Video framerate.
-   */
-  public static readonly VIDEO_FRAMERATE: string[] = ['30Fps', '60Fps'];
-  /**
-   * Video decode type (hardware vs software).
-   */
-  public static readonly VIDEO_DECODE_TYPE: string[] = ['Auto', 'Hardware', 'Software'];
-  /**
-   * Video decoder run modes.
-   */
-  public static readonly VIDEO_DECODER_RUN_MODE: string[] = ['SurfaceMode', 'BufferMode'];
-  /**
-   * Video decoder synchronization mode.
-   */
-  public static readonly VIDEO_DECODER_SYNC_MODE: string[] = ['ASYNC', 'SYNC'];
-  /**
-   * Video transform type.
-   */
-  public static readonly TRANSFORM_TYPE: string[] = [
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_NONE').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_90').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_180').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_270').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT90').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT90').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT180').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT180').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT270').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT270').id)
-  ];
-  /**
-   * Video playerInfo.
-   */
-  public static readonly PLAYER_INFO: string[][] = [
-    CommonConstants.VIDEO_DECODE_TYPE, CommonConstants.VIDEO_DECODER_RUN_MODE, CommonConstants.VIDEO_DECODER_SYNC_MODE
-  ];
-  /**
-   * Video recorderInfo.
-   */
-  public static readonly RECORDER_INFO: string[][] = [
-    CommonConstants.VIDEO_MIMETYPE, CommonConstants.VIDEO_RESOLUTION, CommonConstants.VIDEO_FRAMERATE,
-    CommonConstants.VIDEO_DECODER_SYNC_MODE
-  ];
-  /**
-   * Playback speed.
-   */
-  public static readonly PLAYBACK_SPEED: string[] = ['X1', 'X2', 'X3'];
-  /**
-   * Frame retention mode for smart fluency decoding (API 26+).
-   */
-  public static readonly FRAME_RETENTION_MODE: string[] = ['FULL(全量直通)', 'ADAPTIVE(感知自适应)', 'UNIFORM(平滑定比)'];
-  /**
-   * Default value.
-   */
-  public static readonly DEFAULT_VALUE: number = 0;
+  public static readonly DEFAULT_PROFILE: camera.Profile = {
+    format: camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP,
+    size: {
+      width: CommonConstants.DEFAULT_WIDTH,
+      height: CommonConstants.DEFAULT_HEIGHT
+    }
+  };
   /**
    * Video avc mime type.
    */
@@ -132,13 +84,37 @@ export class CommonConstants {
    */
   public static readonly MIME_VIDEO_HEVC: string = 'video/hevc';
   /**
-   * 2M bitrate.
+   * 4K video width.
    */
-  public static readonly BITRATE_VIDEO_2M: number = 2 * 1024 * 1024;
+  public static readonly VIDEO_WIDTH_4K: number = 3840;
   /**
-   * 10M bitrate.
+   * 4K video height.
    */
-  public static readonly BITRATE_VIDEO_10M: number = 10 * 1024 * 1024;
+  public static readonly VIDEO_HEIGHT_4K: number = 2160;
+  /**
+   * 1080P video width.
+   */
+  public static readonly VIDEO_WIDTH_1080P: number = 1920;
+  /**
+   * 1080P video height.
+   */
+  public static readonly VIDEO_HEIGHT_1080P: number = 1080;
+  /**
+   * 720P video width.
+   */
+  public static readonly VIDEO_WIDTH_720P: number = 1280;
+  /**
+   * 720P video height.
+   */
+  public static readonly VIDEO_HEIGHT_720P: number = 720;
+  /**
+   * 3M bitrate.
+   */
+  public static readonly BITRATE_VIDEO_3M: number = 3 * 1024 * 1024;
+  /**
+   * 1.6M bitrate.
+   */
+  public static readonly BITRATE_VIDEO_1_6M: number = 1.6 * 1024 * 1024;
   /**
    * 20M bitrate.
    */
@@ -148,6 +124,10 @@ export class CommonConstants {
    */
   public static readonly BITRATE_VIDEO_30M: number = 30 * 1024 * 1024;
   /**
+   * 24 FPS.
+   */
+  public static readonly FRAMERATE_VIDEO_24FPS: number = 24;
+  /**
    * 30 FPS.
    */
   public static readonly FRAMERATE_VIDEO_30FPS: number = 30;
@@ -156,9 +136,25 @@ export class CommonConstants {
    */
   public static readonly FRAMERATE_VIDEO_60FPS: number = 60;
   /**
-   * Row space.
+   * Duration.
    */
-  public static readonly ROW_SPACE: number = 10;
+  public static readonly DURATION: number = 2000;
+  /**
+   * BGM replay interval in milliseconds.
+   */
+  public static readonly BGM_REPLAY_INTERVAL: number = 204000;
+  /**
+   * Icon button size.
+   */
+  public static readonly ICON_BUTTON_SIZE: number = 28;
+  /**
+   * Icon margin left.
+   */
+  public static readonly ICON_MARGIN_LEFT: number = 12;
+  /**
+   * The distance between toast dialog box and the bottom of screen.
+   */
+  public static readonly BOTTOM: number = 80;
   /**
    * Default picker item height.
    */
@@ -166,7 +162,37 @@ export class CommonConstants {
   /**
    * Selected text style font size.
    */
-  public static readonly SELECTED_TEXT_STYLE_FONT_SIZE: number = 9;
+  public static readonly SELECTED_TEXT_STYLE_FONT_SIZE: number = 15;
+  /**
+   * Default status bar height.
+   */
+  public static readonly DEFAULT_STATUS_BAR_HEIGHT: number = 48;
+  /**
+   * Home page title font size.
+   */
+  public static readonly HOME_TITLE_FONT_SIZE: number = 18;
+  /**
+   * Settings dialog corner radius.
+   */
+  public static readonly SETTINGS_DIALOG_CORNER_RADIUS: number = 32;
+  /**
+   * Top bar horizontal padding.
+   */
+  public static readonly TOP_BAR_PADDING: string = '16vp';
+  /**
+   * Video mime type.
+   */
+  public static readonly VIDEO_MIMETYPE: string[] = ['HDRVivid', 'SDR'];
+  /**
+   * Video resolution.
+   */
+  public static readonly VIDEO_RESOLUTION: string[] = ['4K', '1080P'];
+  /**
+   * Video framerate.
+   */
+  public static readonly VIDEO_FRAMERATE: string[] = ['30Fps', '60Fps'];
+  public static readonly DYNAMIC_FRAME_SWITCH: ResourceStr[] =
+    [$r('app.string.dynamic_frame_rate'), $r('app.string.fixed_frame_rate')];
   /**
    * The number corresponding to true.
    */
@@ -176,53 +202,31 @@ export class CommonConstants {
    */
   public static readonly FALSE: number = 0;
   /**
-   * 4K video width.
+   * Min range.
    */
-  public static readonly VIDEO_WIDTH_4K: number = 3840;
+  public static readonly MIN_RANGE: number = 1;
   /**
-   * 1080P video width.
+   * Max range.
    */
-  public static readonly VIDEO_WIDTH_1080P: number = 1920;
+  public static readonly MAX_RANGE: number = 30;
   /**
-   * 720P video width.
+   * Full size.
    */
-  public static readonly VIDEO_WIDTH_720P: number = 1280;
+  public static readonly FULL_SIZE: string = '100%';
   /**
-   * 4K video height.
+   * ROI id.
    */
-  public static readonly VIDEO_HEIGHT_4K: number = 2160;
+  public static readonly ROI_ID: string = 'roi_id';
   /**
-   * 1080P video height.
+   * BGM id.
    */
-  public static readonly VIDEO_HEIGHT_1080P: number = 1080;
+  public static readonly BGM_ID: string = 'bgm_id';
   /**
-   * 720P video height.
+   * Global Var PREFIX.
    */
-  public static readonly VIDEO_HEIGHT_720P: number = 720;
+  public static readonly GLOBAL_PREFIX: string = 'HMOS_LiveStream';
   /**
-   * Album, photo, video, and camera switch icons size.
+   * BGM file.
    */
-  public static readonly ICON_SIZE: number = 200;
-  /**
-   * Bottom position.
-   */
-  public static readonly BOTTOM_POSITION: number = 0.8;
-  /**
-   * PX.
-   */
-  public static readonly PX: string = 'px';
-  /**
-   * ROI toggle label.
-   */
-  public static readonly ROI_ENABLE: string = 'ROI';
-  /**
-   * Default profile.
-   */
-  public static readonly DEFAULT_PROFILE: camera.Profile = {
-    format: camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP,
-    size: {
-      width: 1920,
-      height: 1080
-    }
-  };
+  public static readonly BGM_FILENAME: string = 'Delacey_DreamItPossible.mp3';
 }

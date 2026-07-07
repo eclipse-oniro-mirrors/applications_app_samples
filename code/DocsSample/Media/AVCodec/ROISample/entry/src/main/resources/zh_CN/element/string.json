@@ -2,15 +2,15 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "该模板实现了列表页的功能"
+      "value": "模块描述"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "直播开发示例主界面"
     },
     {
       "name": "EntryAbility_label",
-      "value": "AVCodec"
+      "value": "HMOSLiveStream"
     },
     {
       "name": "reason",
@@ -21,132 +21,72 @@
       "value": "允许应用使用相机"
     },
     {
-      "name": "playing",
-      "value": "播放中"
+      "name": "distribute_file_reason",
+      "value": "允许应用访问不同设备的分布式文件"
     },
     {
-      "name": "play",
-      "value": "播放"
-    },
-    {
-      "name": "alert",
-      "value": "未选择视频！"
-    },
-    {
-      "name": "alert1",
-      "value": "本设备相机不支持此类型录像流，将切换至默认配置"
-    },
-    {
-      "name": "alert2",
-      "value": "播放时长按播放窗口也可倍速播放"
-    },
-    {
-      "name": "success",
-      "value": "成功"
-    },
-    {
-      "name": "record",
-      "value": "录制"
+      "name": "background_running_reason",
+      "value": "允许应用在后台运行"
     },
     {
       "name": "saveButtonNote",
-      "value": "是否允许AVCodecVideo保存拍摄的视频到图库？"
-    },
-    {
-      "name": "saveButtonCancel",
-      "value": "取消"
+      "value": "是否允许HMOSLiveStream保存拍摄的视频到分布式文件？"
     },
     {
       "name": "saveButtonTitle",
       "value": "视频保存位置确认"
     },
     {
-      "name": "full_width",
-      "value": "100%"
+      "name": "home_page_title",
+      "value": "ROI视频编码示例"
     },
     {
-      "name": "full_height",
-      "value": "100%"
+      "name": "people_in_live_room",
+      "value": "直播间人数：1213"
     },
     {
-      "name": "NATIVEBUFFER_ROTATE_NONE",
-      "value": "不旋转"
+      "name": "start_live_stream",
+      "value": "开直播"
     },
     {
-      "name": "NATIVEBUFFER_ROTATE_90",
-      "value": "旋转90度"
+      "name": "set_roi",
+      "value": "ROI"
     },
     {
-      "name": "NATIVEBUFFER_ROTATE_180",
-      "value": "旋转180度"
+      "name": "set_bgm",
+      "value": "背景音乐"
     },
     {
-      "name": "NATIVEBUFFER_ROTATE_270",
-      "value": "旋转270度"
-    },
-    {
-      "name": "NATIVEBUFFER_FLIP_H",
-      "value": "水平翻转"
-    },
-    {
-      "name": "NATIVEBUFFER_FLIP_V",
-      "value": "垂直翻转"
-    },
-    {
-      "name": "NATIVEBUFFER_FLIP_H_ROT90",
-      "value": "水平翻转并旋转90度"
-    },
-    {
-      "name": "NATIVEBUFFER_FLIP_V_ROT90",
-      "value": "垂直翻转并旋转90度"
-    },
-    {
-      "name": "NATIVEBUFFER_FLIP_H_ROT180",
-      "value": "水平翻转并旋转180度"
-    },
-    {
-      "name": "NATIVEBUFFER_FLIP_V_ROT180",
-      "value": "垂直翻转并旋转180度"
-    },
-    {
-      "name": "NATIVEBUFFER_FLIP_H_ROT270",
-      "value": "水平翻转并旋转270度"
-    },
-    {
-      "name": "NATIVEBUFFER_FLIP_V_ROT270",
-      "value": "垂直翻转并旋转270度"
-    },
-    {
-      "name": "select_from_filemanager",
-      "value": "从文件管理选取"
-    },
-    {
-      "name": "select_from_album",
-      "value": "从相册选取"
-    },
-    {
-      "name": "setting",
+      "name": "setting_title",
       "value": "设置"
     },
     {
-      "name": "adjust_playback_speed",
-      "value": "倍速"
+      "name": "setting_ok",
+      "value": "确定"
     },
     {
-      "name": "start_recording",
-      "value": "开始录制"
+      "name": "setting_cancel",
+      "value": "取消"
     },
     {
-      "name": "end_recording",
-      "value": "结束录制"
+      "name": "roi_path_native_buffer",
+      "value": "NativeBuffer元数据配置"
     },
     {
-      "name": "record_mp4",
-      "value": "MP4录制"
+      "name": "roi_path_metadata_callback",
+      "value": "参数回调配置"
     },
     {
-      "name": "record_flv",
-      "value": "FLV录制"
+      "name": "roi_path_buffer_mode",
+      "value": "Buffer帧数据配置"
+    },
+    {
+      "name": "dynamic_frame_rate",
+      "value": "动态帧率"
+    },
+    {
+      "name": "fixed_frame_rate",
+      "value": "固定帧率"
     }
   ]
 }

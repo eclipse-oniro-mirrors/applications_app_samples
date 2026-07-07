@@ -5,24 +5,12 @@
       "value": "#FFFFFF"
     },
     {
-      "name": "button_background",
+      "name": "comment_color",
       "value": "#FFFFFF"
     },
     {
-      "name": "homepage_background",
-      "value": "#F1F3F5"
-    },
-    {
-      "name": "title_color",
-      "value": "#000000"
-    },
-    {
-      "name": "button_color",
-      "value": "#007DFF"
-    },
-    {
-      "name": "divider_color",
-      "value": "#182431"
+      "name": "comment_background_color",
+      "value": "#33000000"
     }
   ]
 }

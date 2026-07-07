@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,715 +13,301 @@
  * limitations under the License.
  */
 
-import { fileIo } from '@kit.CoreFileKit'
-import { display } from '@kit.ArkUI'
-import { camera } from '@kit.CameraKit'
-import { photoAccessHelper } from '@kit.MediaLibraryKit'
-import { deviceInfo } from '@kit.BasicServicesKit'
-import thermal from '@ohos.thermal'
-import player from 'libplayer.so'
-import recorder from 'librecorder.so'
-import Logger from '../common/utils/Logger'
-import DateTimeUtil from '../common/utils/DateTimeUtils'
-import { CommonConstants as Const } from '../common/CommonConstants'
-import { CameraDataModel } from '../model/CameraDateModel'
-import { encoderProfileCameraCheck, setFirstCameraProfile } from '../common/utils/CameraCheck'
-import picker from '@ohos.file.picker'
+import { fileIo } from '@kit.CoreFileKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { abilityAccessCtrl, common } from '@kit.AbilityKit';
+import { display } from '@kit.ArkUI';
+import Logger from '../common/utils/Logger';
+import DateTimeUtil from '../common/utils/DateTimeUtils';
+import { CommonConstants as Const } from '../common/CommonConstants';
+import { CameraDataModel } from '../model/CameraDateModel';
+import { CameraController } from '../controller/CameraController';
+import { BgmController } from '../controller/BgmController';
+import { CommonConstants } from '../common/CommonConstants';
+import { StartLiveStream } from '../pages/StartLiveStream';
+import {
+  checkPermission,
+  isGlobalMicToggle,
+  isMicrophoneMute,
+  isGlobalCameraToggle,
+  requestPermissions,
+} from '../common/utils/PermissionUtil';
 
-const TAG: string = 'Sample_Player';
+const TAG: string = Const.INDEX_TAG;
 const DATETIME: DateTimeUtil = new DateTimeUtil();
+const uiContext: UIContext | undefined = AppStorage.get(CommonConstants.KEY_PREFIX + 'UIContext');
 
 @Entry
 @Component
-export struct Player {
+struct Player {
   @State buttonEnabled: boolean = true;
-  @State isShow: boolean = false;
-  @State isShowFlv: boolean = false;
-  @State isSmartFluencySupported: boolean = false;
-  @State isROIEnabled: boolean = false;
-  @State thermalWarningActive: boolean = false;
-  private transformType: number = 0;
-  private videoDecoderType: number = 0;
-  private videoDecoderRunMode: number = 0;
-  private videoDecoderSyncMode: number = 0;
+  @State isFold: boolean = false;
+  @State isTablet: boolean = false;
+  @State isToStartLiveStream: boolean = false;
+  @State selectedRoiPathType: number = 0;
+  @StorageLink(CommonConstants.KEY_PREFIX + 'statusBarHeight') statusBarHeight: number = 48;
+  @Provide('pageStack') pageStack: NavPathStack = new NavPathStack();
+  @Provide('cameraController') cameraController: CameraController | undefined = undefined;
+  @Provide('bgmController') bgmController: BgmController | undefined = undefined;
+  @Provide('fileNameSandbox') fileNameSandbox: string | undefined = undefined;
+  @Provide('roiFileNameSandbox') roiFileNameSandbox: string | undefined = undefined;
+  @Provide('roiPathLabel') roiPathLabel: ResourceStr = $r('app.string.roi_path_native_buffer');
+  @StorageLink(CommonConstants.KEY_PREFIX + 'currentWidthBreakpoint') @Watch('onWidthBpChange') currentWidthBreakpoint: string = 'md';
+  private context: Context = this.getUIContext().getHostContext()!;
   private cameraData: CameraDataModel = new CameraDataModel();
-  private selectFilePath: string | null = null;
-  private display = display.getDefaultDisplaySync();
-  private sourcePath: string[] =
-    [globalThis.context.resourceManager.getStringSync($r('app.string.select_from_filemanager').id),
-      globalThis.context.resourceManager.getStringSync($r('app.string.select_from_album').id)];
+  private confirmDialog: CustomDialogController = new CustomDialogController({
+    builder: () => {
+      this.ConfirmDialogBuilder();
+    },
+    cancel: () => {
+    },
+  });
 
-  aboutToAppear() {
-    // API 26+ 设备支持智能流畅倍速解码
-    const apiVersion = deviceInfo.sdkApiVersion;
-    this.isSmartFluencySupported = apiVersion >= 26;
-    if (this.isSmartFluencySupported) {
-      player.setSmartFluencyEnabled(true);
-      // 注册温控回调，当设备过热时自动切入 UNIFORM 低比例模式降低负载
-      thermal.registerThermalLevelCallback((level: number) => {
-        if (level >= thermal.ThermalLevel.OVERHEATED) {
-          this.thermalWarningActive = true;
-          player.onThermalWarningReceived(0.3);
-          Logger.info(TAG, 'Thermal warning: level=' + level + ', UNIFORM mode activated');
-        } else if (this.thermalWarningActive && level <= thermal.ThermalLevel.WARM) {
-          this.thermalWarningActive = false;
-          player.onThermalLevelRecovered();
-          Logger.info(TAG, 'Thermal recovered: level=' + level);
-        }
-      });
-    }
-    Logger.info(TAG, 'Smart fluency supported: ' + this.isSmartFluencySupported + ', apiVersion: ' + apiVersion);
-  }
-
-  selectFile() {
-    TextPickerDialog.show({
-      range: this.sourcePath,
-      canLoop: false,
-      selected: 0,
-      onAccept: (value: TextPickerResult) => {
-        switch (value.value) {
-          case globalThis.context.resourceManager.getStringSync($r('app.string.select_from_filemanager').id):
-            this.selectDocFile();
-            break;
-          case globalThis.context.resourceManager.getStringSync($r('app.string.select_from_album').id):
-            this.selectAlbumFile();
-            break;
-          default:
-            this.selectAlbumFile();
-            break;
-        }
-      }
-    })
-  }
-
-  selectDocFile() {
-    let documentSelectOptions = new picker.DocumentSelectOptions;
-    let documentViewPicker = new picker.DocumentViewPicker;
-    documentViewPicker.select(documentSelectOptions)
-      .then((documentSelectResult) => {
-        this.selectFilePath = documentSelectResult[0];
-        if (this.selectFilePath == null) {
-          this.getUIContext().getPromptAction().showToast({
-            message: $r('app.string.alert'),
-            duration: Const.DURATION,
-            bottom: Const.BOTTOM
-          })
-        } else {
-          this.play();
-          Logger.info(TAG, 'documentViewPicker.select to file succeed and URI is:' + this.selectFilePath);
-        }
-      })
-  }
-
-  selectAlbumFile() {
-    let photoPicker = new photoAccessHelper.PhotoViewPicker();
-    photoPicker.select({
-      MIMEType: photoAccessHelper.PhotoViewMIMETypes.VIDEO_TYPE,
-      maxSelectNumber: 1
-    })
-      .then((photoSelectResult) => {
-        this.selectFilePath = photoSelectResult.photoUris[0];
-        if (this.selectFilePath == null) {
-          this.getUIContext().getPromptAction().showToast({
-            message: $r('app.string.alert'),
-            duration: Const.DURATION,
-            bottom: Const.BOTTOM
-          });
-        } else {
-          this.play();
-          Logger.info(TAG, 'documentViewPicker.select to file succeed and URI is:' + this.selectFilePath);
-        }
-      })
-  }
-
-  setPlaybackSpeed(speed: number) {
-    player.setPlaybackSpeed(speed);
-  }
-
-  setTransform(transformHint: number) {
-    player.setTransform(transformHint);
-  }
-
-  play() {
-    let inputFile = fileIo.openSync(this.selectFilePath, fileIo.OpenMode.READ_ONLY);
-    if (!inputFile) {
-      Logger.error(TAG, 'player inputFile is null');
-    }
-    let inputFileState = fileIo.statSync(inputFile.fd);
-    if (inputFileState.size <= 0) {
-      Logger.error(TAG, 'player inputFile size is 0');
-    }
-    this.buttonEnabled = false;
-    player.playNative(inputFile.fd, Const.DEFAULT_VALUE, inputFileState.size, this.videoDecoderType,
-      this.videoDecoderRunMode, this.videoDecoderSyncMode, this.isSmartFluencySupported, () => {
-        Logger.info(TAG, 'player JSCallback');
-        this.buttonEnabled = true;
-        fileIo.close(inputFile);
-      })
-  }
-
-  async checkIsProfileSupport(): Promise<void> {
-    let cameraManager: camera.CameraManager = camera.getCameraManager(getContext(this));
-    if (!cameraManager) {
-      Logger.error(TAG, 'camera.getCameraManager error!');
-    }
-
-    let encoderProfile: undefined | camera.VideoProfile =
-      await encoderProfileCameraCheck(cameraManager, this.cameraData);
-    if (!encoderProfile) {
-      Logger.error(TAG, 'encoderProfile is not found');
-      this.getUIContext().getPromptAction().showToast({
-        message: $r('app.string.alert1'),
-        duration: Const.DURATION,
-        bottom: Const.BOTTOM,
-        backgroundColor: Color.White,
-        backgroundBlurStyle: BlurStyle.NONE
-      });
-      this.cameraData = new CameraDataModel();
-      encoderProfile = await encoderProfileCameraCheck(cameraManager, this.cameraData);
-      if (!encoderProfile) {
-        Logger.error(TAG, '1080P video profile is not found, set first camera profile');
-        let encoderProfile: camera.VideoProfile = await setFirstCameraProfile(cameraManager) as camera.VideoProfile;
-        this.cameraData.cameraWidth = encoderProfile.size.width;
-        this.cameraData.cameraHeight = encoderProfile.size.height;
-        this.cameraData.frameRate = encoderProfile.frameRateRange.max;
-        this.cameraData.bitRate = Const.BITRATE_VIDEO_2M;
-        this.cameraData.format = encoderProfile.format;
-      }
-      return;
-    } else {
-      this.getUIContext().getPromptAction().showToast({
-        message: $r('app.string.success'),
-        duration: Const.DURATION,
-        bottom: Const.BOTTOM,
-        backgroundColor: Color.White,
-        backgroundBlurStyle: BlurStyle.NONE
-      });
+  onWidthBpChange() {
+    try {
+      let curFoldStatus: display.FoldStatus = display.getFoldStatus();
+      this.isFold = this.currentWidthBreakpoint === 'md' && curFoldStatus != 0;
+      this.isTablet = this.currentWidthBreakpoint === 'lg' || this.currentWidthBreakpoint === 'xl';
+    } catch (error) {
+      let err = error as BusinessError;
+      Logger.error(TAG, `getFoldStatus failed, errCode = ${err.code}, errMessage = ${err.message}.`);
     }
   }
 
   @Builder
-  PlayerSettingButton() {
-    Button($r('app.string.setting'))
-      .size({
-        width: '18.5%',
-        height: $r('app.float.index_button_height')
-      })// .enabled(this.buttonEnabled)
-      .margin({ bottom: $r('app.float.button_margin_bottom') })
-      .onClick(() => {
-        this.getUIContext().showTextPickerDialog({
-          defaultPickerItemHeight: Const.DEFAULT_PICKER_ITEM_HEIGHT,
-          selectedTextStyle: ({
-            font: ({
-              size: Const.SELECTED_TEXT_STYLE_FONT_SIZE
+  pageMap(name: string) {
+    if (name === 'StartLiveStream') {
+      StartLiveStream();
+    }
+  }
+
+  aboutToAppear(): void {
+    this.onWidthBpChange();
+    isGlobalMicToggle(this.context as common.UIAbilityContext).then(() => {
+      isMicrophoneMute().then((isMute) => {
+        if (!isMute) {
+          checkPermission(CommonConstants.MICROPHONE_PERMISSION)
+            .then((status: abilityAccessCtrl.GrantStatus) => {
+              if (status === abilityAccessCtrl.GrantStatus.PERMISSION_DENIED) {
+                requestPermissions(this.context as common.UIAbilityContext, [CommonConstants.MICROPHONE_PERMISSION]);
+              } else {
+                Logger.info(TAG, 'Authorized');
+              }
             })
-          }),
-          textStyle: ({
-            font: ({
-              size: Const.SELECTED_TEXT_STYLE_FONT_SIZE
-            })
-          }),
-          range: Const.PLAYER_INFO,
-          canLoop: false,
-          alignment: DialogAlignment.Center,
-          backgroundColor: Color.White,
-          backgroundBlurStyle: BlurStyle.BACKGROUND_ULTRA_THICK,
-          onAccept: (value: TextPickerResult) => {
-            switch (value.value[0]) {
-              case Const.VIDEO_DECODE_TYPE[0]: {
-                this.videoDecoderType = 0;
-                break;
-              }
-              case Const.VIDEO_DECODE_TYPE[1]: {
-                this.videoDecoderType = 1;
-                break;
-              }
-              case Const.VIDEO_DECODE_TYPE[2]: {
-                this.videoDecoderType = 2;
-                break;
-              }
-              default:
-                break;
-            }
-
-            switch (value.value[1]) {
-              case Const.VIDEO_DECODER_RUN_MODE[0]: {
-                this.videoDecoderRunMode = 0;
-                break;
-              }
-              case Const.VIDEO_DECODER_RUN_MODE[1]: {
-                this.videoDecoderRunMode = 1;
-                break;
-              }
-              default:
-                break;
-            }
-
-            switch (value.value[2]) {
-              case Const.VIDEO_DECODER_SYNC_MODE[0]: {
-                this.videoDecoderSyncMode = 0;
-                break;
-              }
-              case Const.VIDEO_DECODER_SYNC_MODE[1]: {
-                this.videoDecoderSyncMode = 1;
-                break;
-              }
-              default:
-                break;
-            }
-
-            this.getUIContext().getPromptAction().showToast({
-              message: $r('app.string.success'),
-              duration: Const.DURATION,
-              bottom: Const.BOTTOM,
-              backgroundColor: Color.White,
-              backgroundBlurStyle: BlurStyle.NONE
+            .catch((err: BusinessError) => {
+              Logger.error(TAG, `Check permission failed, ${JSON.stringify(err)}`);
             });
+        }
+      })
+    });
+    isGlobalCameraToggle(this.context as common.UIAbilityContext).then(() => {
+      checkPermission(CommonConstants.CAMERA_PERMISSION)
+        .then((status: abilityAccessCtrl.GrantStatus) => {
+          if (status === abilityAccessCtrl.GrantStatus.PERMISSION_DENIED) {
+            requestPermissions(this.context as common.UIAbilityContext, [CommonConstants.CAMERA_PERMISSION]);
+          } else {
+            Logger.info(TAG, 'Authorized');
           }
         })
+        .catch((err: BusinessError) => {
+          Logger.error(TAG, `Check permission failed, ${JSON.stringify(err)}`);
+        });
+    });
+    checkPermission(CommonConstants.DISTRIBUTED_DATASYNC)
+      .then((status: abilityAccessCtrl.GrantStatus) => {
+        if (status === abilityAccessCtrl.GrantStatus.PERMISSION_DENIED) {
+          requestPermissions(this.context as common.UIAbilityContext, [CommonConstants.DISTRIBUTED_DATASYNC]);
+        } else {
+          Logger.info(TAG, 'Authorized');
+        }
       })
+      .catch((err: BusinessError) => {
+        Logger.error(TAG, `Check permission failed, ${JSON.stringify(err)}`);
+      });
+  }
+
+  aboutToDisappear(): void {
+    if (this.cameraData.outputFd !== undefined && this.cameraData.outputFd >= 0) {
+      fileIo.close(this.cameraData.outputFd).catch((error: BusinessError) => {
+        Logger.error(TAG, `fileIo close fail ${error}`);
+      });
+    }
+    if (this.cameraData.roiFd !== undefined && this.cameraData.roiFd >= 0) {
+      fileIo.close(this.cameraData.roiFd).catch((error: BusinessError) => {
+        Logger.error(TAG, `fileIo close roi file fail ${error}`);
+      });
+    }
+    AppStorage.delete(CommonConstants.KEY_PREFIX + 'UIContext');
   }
 
   @Builder
-  RecorderSettingButton() {
-    Button($r('app.string.setting'))
-      .enabled(this.buttonEnabled)
-      .size({
-        width: '18.5%',
-        height: $r('app.float.index_button_height')
-      })
-      .enabled(this.buttonEnabled)
-      .onClick(() => {
-        this.getUIContext().showTextPickerDialog({
-          defaultPickerItemHeight: Const.DEFAULT_PICKER_ITEM_HEIGHT,
-          selectedTextStyle: ({
-            font: ({
-              size: Const.SELECTED_TEXT_STYLE_FONT_SIZE
-            })
-          }),
-          textStyle: ({
-            font: ({
-              size: Const.SELECTED_TEXT_STYLE_FONT_SIZE
-            })
-          }),
-          range: Const.RECORDER_INFO,
-          canLoop: false,
-          alignment: DialogAlignment.Center,
-          backgroundColor: Color.White,
-          backgroundBlurStyle: BlurStyle.BACKGROUND_ULTRA_THICK,
-          onAccept: (value: TextPickerResult) => {
-            switch (value.value[0]) {
-              case Const.VIDEO_MIMETYPE[0]: {
-                this.cameraData.setCodecFormat(Const.TRUE, Const.MIME_VIDEO_HEVC);
-                break;
-              }
-              case Const.VIDEO_MIMETYPE[1]: {
-                this.cameraData.setCodecFormat(Const.FALSE, Const.MIME_VIDEO_AVC);
-                break;
-              }
-              case Const.VIDEO_MIMETYPE[2]: {
-                this.cameraData.setCodecFormat(Const.FALSE, Const.MIME_VIDEO_HEVC);
-                break;
-              }
-              default:
-                break;
-            }
-
-            switch (value.value[1]) {
-              case Const.VIDEO_RESOLUTION[0]: {
-                this.cameraData.setResolution(Const.VIDEO_WIDTH_4K, Const.VIDEO_HEIGHT_4K, Const.BITRATE_VIDEO_30M);
-                break;
-              }
-              case Const.VIDEO_RESOLUTION[1]: {
-                this.cameraData.setResolution(Const.VIDEO_WIDTH_1080P, Const.VIDEO_HEIGHT_1080P,
-                  Const.BITRATE_VIDEO_20M);
-                break;
-              }
-              case Const.VIDEO_RESOLUTION[2]: {
-                this.cameraData.setResolution(Const.VIDEO_WIDTH_720P, Const.VIDEO_HEIGHT_720P, Const.BITRATE_VIDEO_10M);
-                break;
-              }
-              default:
-                break;
-            }
-
-            switch (value.value[2]) {
-              case Const.VIDEO_FRAMERATE[0]: {
-                this.cameraData.frameRate = Const.FRAMERATE_VIDEO_30FPS;
-                break;
-              }
-              case Const.VIDEO_FRAMERATE[1]: {
-                this.cameraData.frameRate = Const.FRAMERATE_VIDEO_60FPS;
-                break;
-              }
-              default:
-                break;
-            }
-
-            switch (value.value[3]) {
-              case Const.VIDEO_DECODER_SYNC_MODE[0]: {
-                this.cameraData.isSync = 0;
-                break;
-              }
-              case Const.VIDEO_DECODER_SYNC_MODE[1]: {
-                this.cameraData.isSync = 1;
-                break;
-              }
-              default:
-                break;
-            }
-            this.checkIsProfileSupport();
-          }
-        })
-      })
-  }
-
-  @Builder
-  Authorized() {
+  ConfirmDialogBuilder() {
     Column() {
+      Text($r('app.string.saveButtonTitle'))
+        .fontSize(20)
+        .margin({ bottom: 15 })
+        .fontWeight(FontWeight.Bold)
+        .fontColor($r('sys.color.font_primary'))
+
       Text($r('app.string.saveButtonNote'))
         .width('100%')
         .fontSize('16vp')
         .margin({ bottom: '12vp' })
 
       Row() {
-        Button($r('app.string.saveButtonCancel'))
+        Button($r('app.string.setting_cancel'), { buttonStyle: ButtonStyleMode.TEXTUAL })
+          .width(this.isFold || this.isTablet ? '176vp' : '140vp')
+          .height(40)
           .onClick(() => {
-            this.isShow = false
+            this.confirmDialog.close();
           })
-          .width('48%')
-
-        Blank()
-
-        SaveButton({ text: SaveDescription.SAVE })
+        Button($r('app.string.setting_ok'), { buttonStyle: ButtonStyleMode.EMPHASIZED })
+          .width(this.isFold || this.isTablet ? '176vp' : '140vp')
+          .height(40)
+          .enabled(this.isToStartLiveStream)
           .onClick(async () => {
-            const context = this.getUIContext().getHostContext();
-            let helper = photoAccessHelper.getPhotoAccessHelper(context);
-            let fileExt = this.cameraData.outputFormat === Const.FORMAT_FLV ? 'flv' : 'mp4';
-            let uri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, fileExt, {
-              title: `AVCodecVideo_${DATETIME.getDate()}_${DATETIME.getTime()}`
-            });
-            await this.checkIsProfileSupport();
-            let file = await fileIo.open(uri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
-            this.cameraData.outputfd = file.fd;
-            if (this.cameraData.outputfd !== null) {
-              recorder.initNative(this.cameraData.outputfd, this.cameraData.videoCodecMime, this.cameraData.cameraWidth,
-                this.cameraData.cameraHeight, this.cameraData.frameRate, this.cameraData.isHDRVivid,
-                this.cameraData.bitRate, this.cameraData.format, this.cameraData.isSync,
-                this.cameraData.outputFormat, this.cameraData.isROIEnabled).then((data) => {
-                if (data.surfaceId !== null) {
+            this.isToStartLiveStream = false;
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            let pathDir: string = context.filesDir;
+            let fileName: string = `/HMOSLiveStream_${DATETIME.getDate()}_${DATETIME.getTime()}.mp4`;
+            let roiFileName: string = `/HMOSLiveStream_${DATETIME.getDate()}_${DATETIME.getTime()}_roi.txt`;
+            let filePath: string = pathDir + fileName;
+            let roiFilePath: string = pathDir + roiFileName;
+            let file: fileIo.File;
+            let roiFile: fileIo.File;
+            try {
+              file = await fileIo.open(filePath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
+            } catch (error) {
+              let err = error as BusinessError;
+              Logger.error(TAG, `open file failed, errCode = ${err.code}, errMessage = ${err.message}.`);
+              return;
+            }
+            try {
+              roiFile = await fileIo.open(roiFilePath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
+            } catch (error) {
+              let err = error as BusinessError;
+              Logger.error(TAG, `open roi file failed, errCode = ${err.code}, errMessage = ${err.message}.`);
+              return;
+            }
+            if (file.fd == undefined) {
+              Logger.error(TAG, `get outputfd failed!`);
+              return;
+            }
+            this.cameraData.reset();
+            this.cameraData.outputFd = file.fd;
+            this.cameraData.roiFd = roiFile.fd;
+            this.cameraData.isOpenEchoCancel = 1;
+            this.cameraData.roiPathType = this.selectedRoiPathType;
+            if (this.cameraData.outputFd >= 0) {
+              let context = uiContext?.getHostContext() as common.UIAbilityContext;
+              this.cameraController = new CameraController(this.cameraData, context);
+
+              this.cameraController.initNative().then((data) => {
+                if (data.surfaceId !== undefined) {
                   this.cameraData.surfaceId = data.surfaceId;
-                  this.getUIContext().getRouter().pushUrl({
-                    url: 'recorder/Recorder',
-                    params: this.cameraData
-                  });
+                  this.confirmDialog.close();
+                  this.pageStack.pushPath({ name: 'StartLiveStream' });
                 }
+                this.bgmController = new BgmController(this.cameraController?.getNativeRecorderObj());
+                this.fileNameSandbox = fileName;
+                this.roiFileNameSandbox = roiFileName;
               })
             } else {
-              Logger.error(TAG, 'get outputfd failed!');
+              Logger.error(TAG, `get outputfd failed!`);
             }
           })
-          .width('48%')
-          .height('40vp')
       }
-      .justifyContent(FlexAlign.SpaceAround)
-      .alignItems(VerticalAlign.Bottom)
-      .margin({ bottom: '44vp' })
       .width('100%')
-      .height('52vp')
+      .margin({ top: 8 })
+      .justifyContent(FlexAlign.SpaceBetween)
     }
-    .justifyContent(FlexAlign.End)
-    .padding({ left: '16vp', right: '16vp' })
     .width('100%')
-    .height('100%')
-  }
-
-  @Builder
-  Window() {
-    Row() {
-      XComponent({
-        id: 'player',
-        type: XComponentType.SURFACE,
-        libraryname: 'player'
-      })
-        .height(Const.FULL_SIZE)
-        .width(Const.FULL_SIZE)
-        .gesture(
-          GestureGroup(GestureMode.Exclusive,
-            LongPressGesture({ repeat: true })// 长按动作存在会连续触发
-              .onAction((event: GestureEvent | undefined) => {
-                if (!this.buttonEnabled) {
-                  this.setPlaybackSpeed(2);
-                  let msg = this.isSmartFluencySupported ? $r('app.string.smart_fluency_adaptive_tip') : 'X2';
-                  this.getUIContext().getPromptAction().showToast({ message: msg });
-                }
-              })// 长按动作一结束触发
-              .onActionEnd(() => {
-                if (!this.buttonEnabled) {
-                  this.setPlaybackSpeed(1);
-                  this.getUIContext().getPromptAction().showToast({ message: 'X1' });
-                }
-              }),
-            /**
-             * todo:单击播放窗口播放/暂停
-             * TapGesture({ count: 1, fingers: 1 })
-             *   .onAction(() => {
-             *     if (!this.isStart) {
-             *       this.resume()
-             *     } else {
-             *       this.pause()
-             *     }
-             *     this.isStart = !this.isStart
-             *   })
-             */
-          )
-        )
-    }
-    .alignRules({
-      'top': { 'anchor': '__container__', 'align': VerticalAlign.Top },
-      'left': { 'anchor': '__container__', 'align': HorizontalAlign.Start }
+    .padding({
+      left: 24,
+      right: 24,
+      top: 15,
+      bottom: 15
     })
   }
 
   build() {
-    Stack() {
-      this.Window()
-
-      Column() {
-        Row() {
-          if (this.buttonEnabled) {
-            this.PlayerSettingButton()
-          } else {
-            Button('Flip')
-              .size({
-                width: '18.5%',
-                height: $r('app.float.index_button_height')
-              })
-              .margin({ bottom: $r('app.float.button_margin_bottom') })
-              .onClick(() => {
-                this.getUIContext().showTextPickerDialog({
-                  defaultPickerItemHeight: Const.DEFAULT_PICKER_ITEM_HEIGHT,
-                  selectedTextStyle: ({
-                    font: ({
-                      size: Const.SELECTED_TEXT_STYLE_FONT_SIZE
-                    })
-                  }),
-                  range: Const.TRANSFORM_TYPE,
-                  canLoop: false,
-                  alignment: DialogAlignment.Center,
-                  backgroundColor: Color.White,
-                  backgroundBlurStyle: BlurStyle.BACKGROUND_ULTRA_THICK,
-                  onAccept: (value: TextPickerResult) => {
-                    switch (value.value) {
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_NONE')
-                        .id): {
-                        this.transformType = 0;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_90')
-                        .id): {
-                        this.transformType = 1;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_180')
-                        .id): {
-                        this.transformType = 2;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_270')
-                        .id): {
-                        this.transformType = 3;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H').id): {
-                        this.transformType = 4;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V').id): {
-                        this.transformType = 5;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT90')
-                        .id): {
-                        this.transformType = 6;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT90')
-                        .id): {
-                        this.transformType = 7;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT180')
-                        .id): {
-                        this.transformType = 8;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT180')
-                        .id): {
-                        this.transformType = 9;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT270')
-                        .id): {
-                        this.transformType = 10;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT270')
-                        .id): {
-                        this.transformType = 11;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      default:
-                        break;
-                    }
-                  }
-                })
-              })
-          }
-
-
-          Blank(5)
-          Button(this.buttonEnabled ? $r('app.string.play') : $r('app.string.playing'))
-            .onClick(() => {
-              this.selectFile()
-            })
-            .size({
-              width: '60%',
-              height: $r('app.float.index_button_height')
-            })
-            .enabled(this.buttonEnabled)
-            .margin({ bottom: $r('app.float.button_margin_bottom') })
-          Blank(5)
-          Button($r('app.string.adjust_playback_speed'))
-            .enabled(!this.buttonEnabled)
-            .size({
-              width: '18.5%',
-              height: $r('app.float.index_button_height')
-            })
-            .margin({ bottom: $r('app.float.button_margin_bottom') })
-            .onClick(() => {
-              this.getUIContext().getPromptAction().showToast({ message: $r('app.string.alert2') });
-              TextPickerDialog.show({
-                defaultPickerItemHeight: Const.DEFAULT_PICKER_ITEM_HEIGHT,
-                selectedTextStyle: ({
-                  font: ({
-                    size: Const.SELECTED_TEXT_STYLE_FONT_SIZE
-                  })
-                }),
-                range: Const.PLAYBACK_SPEED,
-                canLoop: false,
-                alignment: DialogAlignment.Center,
-                backgroundColor: Color.White,
-                backgroundBlurStyle: BlurStyle.BACKGROUND_ULTRA_THICK,
-                onAccept: (value: TextPickerResult) => {
-                  switch (value.value) {
-                    case Const.PLAYBACK_SPEED[0]: {
-                      this.setPlaybackSpeed(1);
-                      this.getUIContext().getPromptAction().showToast({ message: 'X1' });
-                      break;
-                    }
-                    case Const.PLAYBACK_SPEED[1]: {
-                      this.setPlaybackSpeed(2);
-                      let msg = this.isSmartFluencySupported ? $r('app.string.smart_fluency_adaptive_tip') : 'X2';
-                      this.getUIContext().getPromptAction().showToast({ message: msg });
-                      break;
-                    }
-                    case Const.PLAYBACK_SPEED[2]: {
-                      this.setPlaybackSpeed(3);
-                      let msg = this.isSmartFluencySupported ? $r('app.string.smart_fluency_adaptive_tip') : 'X3';
-                      this.getUIContext().getPromptAction().showToast({ message: msg });
-                      break;
-                    }
-                    default:
-                      break;
-                  }
-                }
-              })
-            })
-        }
-
-        Row() {
-          this.RecorderSettingButton()
-          Blank(5)
-          Row() {
-            Text(Const.ROI_ENABLE)
-              .fontSize(12)
-              .fontColor(Color.White)
-            Toggle({ type: ToggleType.Switch, isOn: this.isROIEnabled })
-              .onChange((isOn: boolean) => {
-                this.isROIEnabled = isOn;
-                this.cameraData.isROIEnabled = isOn ? 1 : 0;
-              })
-              .selectedColor('#007DFF')
-              .size({ width: 50, height: 30 })
-          }
-          .alignItems(VerticalAlign.Center)
-          .justifyContent(FlexAlign.Center)
-          .padding({ left: 4, right: 4 })
-          .size({
-            width: '18.5%',
-            height: $r('app.float.index_button_height')
+    Navigation(this.pageStack) {
+      RelativeContainer() {
+        Text($r('app.string.home_page_title'))
+          .fontSize(20)
+          .fontWeight(FontWeight.Medium)
+          .fontColor($r('sys.color.font_primary'))
+          .padding({ left: '16vp', top: this.statusBarHeight })
+          .alignRules({
+            'top': { 'anchor': '__container__', 'align': VerticalAlign.Top },
+            'left': { 'anchor': '__container__', 'align': HorizontalAlign.Start }
           })
-          .margin({ bottom: $r('app.float.button_margin_bottom') })
-          Blank(5)
-          Button($r('app.string.record_mp4'))
-            .onClick(() => {
-              this.cameraData.outputFormat = Const.FORMAT_MP4;
-              this.isShow = true;
-            })
-            .bindSheet($$this.isShow, this.Authorized, {
-              height: 210,
-              title: {
-                title: $r('app.string.saveButtonTitle')
-              }
-            })
-            .size({
-              width: '38%',
-              height: $r('app.float.index_button_height')
-            })
-            .enabled(this.buttonEnabled)
-          Blank(5)
-          Button($r('app.string.record_flv'))
-            .onClick(() => {
-              this.cameraData.outputFormat = Const.FORMAT_FLV;
-              this.isShowFlv = true;
-            })
-            .bindSheet($$this.isShowFlv, this.Authorized, {
-              height: 210,
-              title: {
-                title: $r('app.string.saveButtonTitle')
-              }
-            })
-            .size({
-              width: '38%',
-              height: $r('app.float.index_button_height')
-            })
-            .enabled(this.buttonEnabled)
+          .id('title')
+        Column() {
+          Column() {
+            Button($r('app.string.roi_path_native_buffer'), { buttonStyle: ButtonStyleMode.NORMAL })
+              .size({
+                width: this.isFold || this.isTablet ? '328vp' : '100%',
+                height: '40vp'
+              })
+              .fontSize('16vp')
+              .fontWeight(FontWeight.Medium)
+              .onClick(() => {
+                this.selectedRoiPathType = 0;
+                this.roiPathLabel = $r('app.string.roi_path_native_buffer');
+                this.isToStartLiveStream = true;
+                this.confirmDialog.open();
+              })
+            Button($r('app.string.roi_path_metadata_callback'), { buttonStyle: ButtonStyleMode.NORMAL })
+              .size({
+                width: this.isFold || this.isTablet ? '328vp' : '100%',
+                height: '40vp'
+              })
+              .fontSize('16vp')
+              .fontWeight(FontWeight.Medium)
+              .margin({ top: '8vp' })
+              .onClick(() => {
+                this.selectedRoiPathType = 1;
+                this.roiPathLabel = $r('app.string.roi_path_metadata_callback');
+                this.isToStartLiveStream = true;
+                this.confirmDialog.open();
+              })
+            Button($r('app.string.roi_path_buffer_mode'), { buttonStyle: ButtonStyleMode.NORMAL })
+              .size({
+                width: this.isFold || this.isTablet ? '328vp' : '100%',
+                height: '40vp'
+              })
+              .fontSize('16vp')
+              .fontWeight(FontWeight.Medium)
+              .margin({ top: '8vp' })
+              .onClick(() => {
+                this.selectedRoiPathType = 2;
+                this.roiPathLabel = $r('app.string.roi_path_buffer_mode');
+                this.isToStartLiveStream = true;
+                this.confirmDialog.open();
+              })
+          }
         }
+        .alignRules({
+          'bottom': { 'anchor': '__container__', 'align': VerticalAlign.Bottom },
+          'left': { 'anchor': '__container__', 'align': HorizontalAlign.Start }
+        })
+        .padding({ left: '16vp', right: '16vp', bottom: '32vp' })
+        .width('100%')
+        .height('200vp')
+        .justifyContent(FlexAlign.End)
+        .id('buttons')
       }
-      .margin({ top: (this.display.height * 0.7) + 'px' })
-      .alignRules({
-        'bottom': { 'anchor': '__container__', 'align': VerticalAlign.Bottom },
-        'left': { 'anchor': '__container__', 'align': HorizontalAlign.Start }
-      })
-      .padding({ left: '16vp', right: '16vp', bottom: '16vp' })
-      .width($r('app.string.full_width'))
-      .height($r('app.float.index_column_height'))
-      .justifyContent(FlexAlign.End)
+      .width('100%')
+      .height('100%')
     }
-    .width($r('app.string.full_width'))
-    .height($r('app.string.full_height'))
+    .hideTitleBar(true)
+    .hideBackButton(true)
+    .width('100%')
+    .height('100%')
+    .mode(NavigationMode.Stack)
+    .navDestination(this.pageMap)
+    .backgroundColor('#F1F3F5')
+    .expandSafeArea()
   }
 }
