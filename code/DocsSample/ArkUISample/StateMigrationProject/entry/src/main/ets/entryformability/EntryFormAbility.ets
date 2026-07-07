@@ -37,15 +37,19 @@ export default class EntryFormAbility extends FormExtensionAbility {
   }
 
   // [Start CardMigrationFormAbility]
+  // 卡片提供方接收到卡片页面postCardAction触发的message事件后，在此回调中处理刷新逻辑
   onFormEvent(formId: string, message: string) {
     class FormDataClass {
       // 变量名与卡片页面中接收数据的变量名保持一致
+      // 卡片UI侧（V2）通过变量名匹配这些字段，V1则通过@LocalStorageProp的入参key匹配
       title: string = 'Title Update.';
       detail: string = 'Description update success.';
     }
 
     let formData = new FormDataClass();
+    // 将业务数据封装为卡片可识别的FormBindingData格式
     let formInfo: formBindingData.FormBindingData = formBindingData.createFormBindingData(formData);
+    // 调用updateForm将刷新数据推送到指定卡片（formId），卡片UI接收后自动刷新界面
     formProvider.updateForm(formId, formInfo).then(() => {
       hilog.info(DOMAIN_NUMBER, TAG, 'FormAbility updateForm success.');
     }).catch((error: BusinessError) => {

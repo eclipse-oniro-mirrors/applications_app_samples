@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 // [Start CardMigrationShareV1]
+// 创建LocalStorage实例，用于在卡片入口组件、子组件与卡片提供方之间传递共享数据
 let storage = new LocalStorage();
 
 // V1卡片入口组件需通过@Entry传入LocalStorage实例
@@ -32,6 +33,7 @@ struct ShareWidgetCardV1 {
         Text(this.detail)
           .fontSize(12)
           .margin({ top: '5%', left: '10%' })
+        // 引用子组件，子组件内部通过同key的@LocalStorageProp读取同一LocalStorage中的共享数据
         ChildComp1()
       }
       .width('100%')
@@ -41,6 +43,7 @@ struct ShareWidgetCardV1 {
       Button('update')
         .margin({ top: '15%' })
         .onClick(() => {
+          // 点击按钮通过postCardAction触发message事件，由卡片提供方处理刷新
           postCardAction(this, {
             'action': 'message',
             'params': { 'msgTest': 'messageEvent' }
@@ -55,6 +58,7 @@ struct ShareWidgetCardV1 {
 @Component
 struct ChildComp1 {
   // 子组件同样通过@LocalStorageProp读取LocalStorage中的共享数据
+  // 入参key为'detail'，与入口组件保持一致，从而读取到同一份数据
   @LocalStorageProp('detail') detail: string = 'Default detail';
 
   build() {

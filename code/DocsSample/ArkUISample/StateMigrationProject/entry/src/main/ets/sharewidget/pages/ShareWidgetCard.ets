@@ -20,6 +20,7 @@ struct ShareWidgetCard {
   // 仅组件内部使用的变量迁移为@Local
   @Local title: string = 'Default title';
   // 需跨组件共享的变量迁移为@Provider，系统按变量名匹配updateForm数据
+  // updateForm推送key为'detail'的数据后，会自动更新此处@Provider，并同步给后代组件中@Consumer
   @Provider() detail: string = 'Default detail';
 
   build() {
@@ -31,6 +32,7 @@ struct ShareWidgetCard {
         Text(this.detail)
           .fontSize(12)
           .margin({ top: '5%', left: '10%' })
+        // 引用子组件，子组件通过@Consumer自动同步父组件@Provider提供的detail数据
         ChildComp()
       }
       .width('100%')
@@ -40,6 +42,7 @@ struct ShareWidgetCard {
       Button('update')
         .margin({ top: '15%' })
         .onClick(() => {
+          // 点击按钮通过postCardAction触发message事件，由卡片提供方处理刷新
           postCardAction(this, {
             'action': 'message',
             'params': { 'msgTest': 'messageEvent' }
@@ -54,6 +57,7 @@ struct ShareWidgetCard {
 @ComponentV2
 struct ChildComp {
   // 子组件通过@Consumer同步@Provider提供的数据
+  // @Consumer与祖先组件中同名变量的@Provider自动建立连接，无需手动传参
   @Consumer() detail: string = 'Default detail for Consumer';
 
   build() {
