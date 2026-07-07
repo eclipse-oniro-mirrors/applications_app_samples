@@ -29,7 +29,6 @@
             "useNormalizedOHMUrl": true
           }
         },
-        "targetSdkVersion": 22
       }
     ],
     "buildModeSet": [
