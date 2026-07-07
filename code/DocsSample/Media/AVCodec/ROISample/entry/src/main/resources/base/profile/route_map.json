@@ -1,9 +1,0 @@
-{
-  "routerMap": [
-    {
-      "name": "StartLiveStream",
-      "pageSourceFile": "src/main/ets/pages/StartLiveStream.ets",
-      "buildFunction": "StartLiveStreamBuilder"
-    }
-  ]
-}

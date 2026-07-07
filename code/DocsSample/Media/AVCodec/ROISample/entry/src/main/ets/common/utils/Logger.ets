@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the "License")
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,31 +13,33 @@
  * limitations under the License.
  */
 
-import { hilog } from '@kit.PerformanceAnalysisKit';
+import hilog from '@ohos.hilog'
 
 class Logger {
   private domain: number;
-  private format: string = '%{public}s';
+  private prefix: string;
+  private format: string = '%{public}s, %{public}s';
 
-  constructor() {
-    this.domain = 0xF811;
+  constructor(prefix: string) {
+    this.prefix = prefix;
+    this.domain = 0xFF00;
   }
 
-  debug(...arg: string[]): void {
-    hilog.debug(this.domain, arg[0], this.format, arg[1]);
+  debug(...args: string[]): void {
+    hilog.debug(this.domain, this.prefix, this.format, args);
   }
 
-  info(...arg: string[]): void {
-    hilog.info(this.domain, arg[0], this.format, arg[1]);
+  info(...args: string[]): void {
+    hilog.info(this.domain, this.prefix, this.format, args);
   }
 
-  warn(...arg: string[]): void {
-    hilog.warn(this.domain, arg[0], this.format, arg[1]);
+  warn(...args: string[]): void {
+    hilog.warn(this.domain, this.prefix, this.format, args);
   }
 
-  error(...arg: string[]): void {
-    hilog.error(this.domain, arg[0], this.format, arg[1]);
+  error(...args: string[]): void {
+    hilog.error(this.domain, this.prefix, this.format, args);
   }
 }
 
-export default new Logger();
+export default new Logger('AVRecorderSample')

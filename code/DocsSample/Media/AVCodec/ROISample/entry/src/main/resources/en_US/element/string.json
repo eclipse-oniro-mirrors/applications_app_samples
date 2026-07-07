@@ -2,15 +2,15 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "This module template implements List functions."
     },
     {
       "name": "EntryAbility_desc",
-      "value": "Main page of live streaming demo"
+      "value": "description"
     },
     {
       "name": "EntryAbility_label",
-      "value": "HMOSLiveStream"
+      "value": "AVCodec"
     },
     {
       "name": "reason",
@@ -21,72 +21,132 @@
       "value": "allows an app to use the camera"
     },
     {
-      "name": "distribute_file_reason",
-      "value": "Allow the application to access distributed files on different devices."
+      "name": "playing",
+      "value": "playing"
     },
     {
-      "name": "background_running_reason",
-      "value": "Allow the application to run in background."
+      "name": "play",
+      "value": "play"
+    },
+    {
+      "name": "alert",
+      "value": "None video selected"
+    },
+    {
+      "name": "alert1",
+      "value": "This device camera does not support this type of video stream, it will switch to the default configuration"
+    },
+    {
+      "name": "alert2",
+      "value": "Press and hold the play window during playback to adjust playback speed"
+    },
+    {
+      "name": "success",
+      "value": "Success"
+    },
+    {
+      "name": "record",
+      "value": "record"
     },
     {
       "name": "saveButtonNote",
-      "value": "Allow HMOSLiveStream to save captured video to distribute file?"
+      "value": "Allow AVCodecVideo to save captured video to gallery?"
+    },
+    {
+      "name": "saveButtonCancel",
+      "value": "Cancel"
     },
     {
       "name": "saveButtonTitle",
       "value": "Confirm the video storage location"
     },
     {
-      "name": "home_page_title",
-      "value": "ROI Video Encoding Demo"
+      "name": "full_width",
+      "value": "100%"
     },
     {
-      "name": "people_in_live_room",
-      "value": "Number of people: 1213"
+      "name": "full_height",
+      "value": "100%"
     },
     {
-      "name": "start_live_stream",
-      "value": "Start live stream"
+      "name": "NATIVEBUFFER_ROTATE_NONE",
+      "value": "NATIVEBUFFER_ROTATE_NONE"
     },
     {
-      "name": "set_roi",
-      "value": "ROI"
+      "name": "NATIVEBUFFER_ROTATE_90",
+      "value": "NATIVEBUFFER_ROTATE_90"
     },
     {
-      "name": "set_bgm",
-      "value": "BGM"
+      "name": "NATIVEBUFFER_ROTATE_180",
+      "value": "NATIVEBUFFER_ROTATE_180"
     },
     {
-      "name": "setting_title",
-      "value": "Setting"
+      "name": "NATIVEBUFFER_ROTATE_270",
+      "value": "NATIVEBUFFER_ROTATE_270"
     },
     {
-      "name": "setting_ok",
-      "value": "Ok"
+      "name": "NATIVEBUFFER_FLIP_H",
+      "value": "NATIVEBUFFER_FLIP_H"
     },
     {
-      "name": "setting_cancel",
-      "value": "Cancel"
+      "name": "NATIVEBUFFER_FLIP_V",
+      "value": "NATIVEBUFFER_FLIP_V"
     },
     {
-      "name": "roi_path_native_buffer",
-      "value": "NativeBuffer Metadata Config"
+      "name": "NATIVEBUFFER_FLIP_H_ROT90",
+      "value": "NATIVEBUFFER_FLIP_H_ROT90"
     },
     {
-      "name": "roi_path_metadata_callback",
-      "value": "Parameter Callback Config"
+      "name": "NATIVEBUFFER_FLIP_V_ROT90",
+      "value": "NATIVEBUFFER_FLIP_V_ROT90"
     },
     {
-      "name": "roi_path_buffer_mode",
-      "value": "Buffer Frame Data Config"
+      "name": "NATIVEBUFFER_FLIP_H_ROT180",
+      "value": "NATIVEBUFFER_FLIP_H_ROT180"
     },
     {
-      "name": "dynamic_frame_rate",
-      "value": "Dynamic Frame Rate"
+      "name": "NATIVEBUFFER_FLIP_V_ROT180",
+      "value": "NATIVEBUFFER_FLIP_V_ROT180"
     },
     {
-      "name": "fixed_frame_rate",
-      "value": "Fixed Frame Rate"
+      "name": "NATIVEBUFFER_FLIP_H_ROT270",
+      "value": "NATIVEBUFFER_FLIP_H_ROT270"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_V_ROT270",
+      "value": "NATIVEBUFFER_FLIP_V_ROT270"
+    },
+    {
+      "name": "select_from_filemanager",
+      "value": "select_from_filemanager"
+    },
+    {
+      "name": "select_from_album",
+      "value": "select_from_album"
+    },
+    {
+      "name": "setting",
+      "value": "setting"
+    },
+    {
+      "name": "adjust_playback_speed",
+      "value": "adjust_playback_speed"
+    },
+    {
+      "name": "start_recording",
+      "value": "Start recording"
+    },
+    {
+      "name": "end_recording",
+      "value": "End recording"
+    },
+    {
+      "name": "record_mp4",
+      "value": "MP4 Record"
+    },
+    {
+      "name": "record_flv",
+      "value": "FLV Record"
     }
   ]
 }

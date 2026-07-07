@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,16 +13,31 @@
  * limitations under the License.
  */
 
-export const createPlayer: () => bigint;
-
-export const releasePlayer: (objAddr: bigint) => void;
-
-export const startPlay: (
-  objAddr: bigint,
+export const playNative: (
   inputFileFd: number,
   inputFileOffset: number,
   inputFileSize: number,
+  videoDecoderType: number,
+  videoDecoderRunMode: number,
+  videoDecoderSyncMode: number,
+  isSmartFluencySupported: boolean,
   cbFn: () => void
-) => void;
+) => void
 
-export const stopPlay: (objAddr: bigint) => void
+export const setPlaybackSpeed: (
+  speed: number,
+) => void
+
+export const setTransform: (
+  transformHint: number,
+) => void
+
+export const setSmartFluencyEnabled: (
+  enabled: boolean,
+) => void
+
+export const onThermalWarningReceived: (
+  ratio: number,
+) => void
+
+export const onThermalLevelRecovered: () => void

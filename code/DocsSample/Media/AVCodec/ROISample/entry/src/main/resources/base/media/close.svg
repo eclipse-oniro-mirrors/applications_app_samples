@@ -1,8 +1,0 @@
-<?xml version="1.0" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-    <rect width="24" height="24" opacity="0"></rect>
-    <g>
-        <path d="M5.41 4L12 10.59L18.59 4L20 5.41L13.41 12L20 18.59L18.59 20L12 13.41L5.41 20L4 18.59L10.59 12L4 5.41L5.41 4Z"
-              fill="rgba(0,0,0,0.9)"></path>
-    </g>
-</svg>
