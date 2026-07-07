@@ -29,6 +29,10 @@
       "value": "泛型类型和函数"
     },
     {
+      "name": "GenericArray",
+      "value": "泛型数组"
+    },
+    {
       "name": "Uninitialized",
       "value": "未初始化"
     },
@@ -279,6 +283,14 @@
     {
       "name": "Test_GenericTypes_finish",
       "value": "测试泛型类型完成"
+    },
+    {
+      "name": "Test_GenericArray",
+      "value": "测试泛型数组"
+    },
+    {
+      "name": "Test_GenericArray_finish",
+      "value": "测试泛型数组完成"
     }
   ]
 }
