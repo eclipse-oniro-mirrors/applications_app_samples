@@ -89,7 +89,7 @@ static void HandleReadTunfd(FdInfo fdInfo)
         }
 
         // Read the data from the virtual network interface and send it to the client through a TCP tunnel.
-        NETMANAGER_VPN_LOGD("buffer: %{public}s, len: %{public}d", buffer, ret);
+        NETMANAGER_VPN_LOGD("buffer: %{public}.*s, len: %{public}d", ret, buffer, ret);
         ret = sendto(fdInfo.tunnelFd, buffer, ret, 0,
                      reinterpret_cast<struct sockaddr *>(&fdInfo.serverAddr), sizeof(fdInfo.serverAddr));
         if (ret <= 0) {
@@ -121,8 +121,8 @@ static void HandleTcpReceived(FdInfo fdInfo)
             continue;
         }
 
-        NETMANAGER_VPN_LOGI("from [%{public}s:%{public}d] data: %{public}s, len: %{public}d",
-                            inet_ntoa(fdInfo.serverAddr.sin_addr), ntohs(fdInfo.serverAddr.sin_port), buffer, length);
+        NETMANAGER_VPN_LOGI("from [%{public}s:%{public}d] data: %{public}.*s, len: %{public}d",
+        inet_ntoa(fdInfo.serverAddr.sin_addr), ntohs(fdInfo.serverAddr.sin_port), length, buffer, length);
         int ret = write(fdInfo.tunFd, buffer, length);
         if (ret <= 0) {
             NETMANAGER_VPN_LOGE("error Write To Tunfd, errno: %{public}d", errno);

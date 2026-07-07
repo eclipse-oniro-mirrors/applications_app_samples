@@ -169,6 +169,17 @@ static napi_value OnPlayStatusNDK(napi_env env, napi_callback_info info)
     napi_value args[1] = {nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
+    if (argc < 1 || args[0] == nullptr) {
+        napi_throw_error(env, nullptr, "Callback argument is required");
+        return nullptr;
+    }
+    napi_valuetype valueType = napi_undefined;
+    napi_typeof(env, args[0], &valueType);
+    if (valueType != napi_function) {
+        napi_throw_type_error(env, nullptr, "Callback must be a function");
+        return nullptr;
+    }
+
     if (OHAudioPlayer::GetInstance().playStatusCallbackContext != nullptr) {
         auto oldContext = (PlayStatusCallbackContext *)OHAudioPlayer::GetInstance().playStatusCallbackContext;
         if (oldContext->callbackRef != nullptr) {

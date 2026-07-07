@@ -127,36 +127,12 @@ class QRCodeParser {
       // 读取图像像素数据，结果写入ArrayBuffer里
       await imageSource.pixelMap.readPixelsToBuffer(arrayBuffer);
     } else {
-      let media = photoAccessHelper.getPhotoAccessHelper(AppStorage.get<common.UIAbilityContext>('context'));
-      let predicates: dataSharePredicates.DataSharePredicates = new dataSharePredicates.DataSharePredicates();
-      let imagesIdFetchOp: photoAccessHelper.FetchOptions = {
-        fetchColumns: [],
-        predicates: predicates.equalTo('uri', imageSrc)
-      };
-      // 获取图片文件资源
-      let fetchIdFileResult = await media.getAssets(imagesIdFetchOp);
-      let fileIdAsset = await fetchIdFileResult.getFirstObject();
-      // 获取文件描述符
-      let fd = await fileIdAsset.open('RW');
-      // 获取PixelMap图片数据
-      let imageSource = image.createImageSource(fd, { sourceDensity: 120, sourceSize: { width: 120, height: 120 } });
-      let decodingOptions: image.DecodingOptions = {
-        sampleSize: 1,
-        editable: true,
-        desiredSize: { width: 120, height: 120 },
-        rotate: 0,
-        desiredPixelFormat: 3,
-        desiredRegion: { size: { height: 120, width: 120 }, x: 0, y: 0 },
-        index: 0
-      };
-      // 图片宽高
-      width = 120;
-      height = 120;
-      let pixMapData = await imageSource.createPixelMap(decodingOptions);
-      pixelBytesNumber = pixMapData.getPixelBytesNumber();
+      let imageSource: ImageAttribute = await this.getImageSource(imageSrc);
+      width = imageSource.width;
+      height = imageSource.height;
+      pixelBytesNumber = imageSource.pixelMap.getPixelBytesNumber();
       arrayBuffer = new ArrayBuffer(pixelBytesNumber);
-      // 读取图像像素数据，结果写入ArrayBuffer里
-      await pixMapData.readPixelsToBuffer(arrayBuffer);
+      await imageSource.pixelMap.readPixelsToBuffer(arrayBuffer);
     }
     let int32Array = new Int32Array(arrayBuffer);
     let luminanceSource = new RGBLuminanceSource(int32Array, width, height);
@@ -174,6 +150,7 @@ class QRCodeParser {
     } catch (err) {
       let error = `The error is ${err}`;
       Logger.info(TAG, `parseImageQRCode end`);
+      Logger.info(TAG, `parseImageQRCode error:${JSON.stringify(error)}`);
       parseResult = { isSucess: false, decodeResult: error };
     }
     return parseResult;
