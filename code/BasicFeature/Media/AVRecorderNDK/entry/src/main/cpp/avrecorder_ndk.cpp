@@ -147,6 +147,7 @@ static void OnError(OH_AVRecorder *recorder, int32_t errorCode, const char *erro
 }
 // [End define_onerror_callback]
 
+// [StartExclude full_audio_recorder]
 // [Start define_onuri_callback]
 void OnUri(OH_AVRecorder *recorder, OH_MediaAsset *asset, void *userData)
 {
@@ -174,6 +175,7 @@ void OnUri(OH_AVRecorder *recorder, OH_MediaAsset *asset, void *userData)
     OH_LOG_INFO(LOG_APP, "==NDKDemo== OnUri out!");
 }
 // [End define_onuri_callback]
+// [EndExclude full_audio_recorder]
 
 static napi_value CreateRecorder(napi_env env, napi_callback_info info)
 {
@@ -287,6 +289,7 @@ static napi_value SetRecorderErrorCallback(napi_env env, napi_callback_info info
     return result;
 }
 
+// [StartExclude full_audio_recorder]
 static napi_value SetRecorderUriCallback(napi_env env, napi_callback_info info)
 {
     OH_LOG_INFO(LOG_APP, "SetRecorderUriCallback called");
@@ -298,6 +301,7 @@ static napi_value SetRecorderUriCallback(napi_env env, napi_callback_info info)
     napi_create_int32(env, 0, &result);
     return result;
 }
+// [EndExclude full_audio_recorder]
 
 // [StartExclude full_video_recorder]
 // [Start prepare_audio_recorder]
