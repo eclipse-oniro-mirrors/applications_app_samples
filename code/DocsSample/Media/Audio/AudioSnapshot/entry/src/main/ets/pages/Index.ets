@@ -288,7 +288,7 @@ struct Index {
   // Documentation example methods referenced by OpenHarmony docs
   private exampleGetDebugManager(): void {
     // [Start get_debug_manager_ts]
-    // 获取音频调试管理器
+    // 获取音频调试管理器。
     const audioManager = audio.getAudioManager();
     const debugManager: audio.AudioDebuggingManager = audioManager.getDebuggingManager();
     // [End get_debug_manager_ts]
@@ -296,15 +296,13 @@ struct Index {
 
   private examplePrintAppSnapshot(debugManager: audio.AudioDebuggingManager): void {
     // [Start print_app_snapshot_ts]
-    // 打印应用快照到文件
+    // 打印应用快照到文件。
     const path = this.context.filesDir + '/audio_snapshot.txt';
-    let fd: number = this.openSnapshotFile(path);
-    if (fd >= 0) {
-      debugManager.printAppInfo(fd);
-      this.safeCloseFd(fd);
-    }
+    const file = fileio.openSync(path, 0o102 | 0o200);
+    debugManager.printAppInfo(file.fd);
+    fileio.closeSync(file);
 
-    // 也可将快照信息输出到hilog日志（fd < 0时输出到hilog）
+    // 也可将快照信息输出到hilog日志（fd < 0时输出到hilog）。
     debugManager.printAppInfo(-1);
     // [End print_app_snapshot_ts]
   }
@@ -312,26 +310,22 @@ struct Index {
   private examplePrintCapturerSnapshot(debugManager: audio.AudioDebuggingManager,
     capturer: audio.AudioCapturer): void {
     // [Start print_capturer_snapshot_ts]
-    // 打印指定录音实例的快照
+    // 打印指定录音实例的快照。
     const path = this.context.filesDir + '/capturer_snapshot.txt';
-    let fd: number = this.openSnapshotFile(path);
-    if (fd >= 0) {
-      debugManager.printCapturerInfo(capturer, fd);
-      this.safeCloseFd(fd);
-    }
+    const file = fileio.openSync(path, 0o102 | 0o200);
+    debugManager.printCapturerInfo(capturer, file.fd);
+    fileio.closeSync(file);
     // [End print_capturer_snapshot_ts]
   }
 
   private examplePrintRendererSnapshot(debugManager: audio.AudioDebuggingManager,
     renderer: audio.AudioRenderer): void {
     // [Start print_renderer_snapshot_ts]
-    // 打印指定播放实例的快照
+    // 打印指定播放实例的快照。
     const path = this.context.filesDir + '/renderer_snapshot.txt';
-    let fd: number = this.openSnapshotFile(path);
-    if (fd >= 0) {
-      debugManager.printRendererInfo(renderer, fd);
-      this.safeCloseFd(fd);
-    }
+    const file = fileio.openSync(path, 0o102 | 0o200);
+    debugManager.printRendererInfo(renderer, file.fd);
+    fileio.closeSync(file);
     // [End print_renderer_snapshot_ts]
   }
 
