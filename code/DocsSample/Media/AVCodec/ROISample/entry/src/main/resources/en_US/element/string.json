@@ -1,0 +1,92 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Main page of live streaming demo"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "HMOSLiveStream"
+    },
+    {
+      "name": "reason",
+      "value": "allows an app to use the microphone"
+    },
+    {
+      "name": "camera_reason",
+      "value": "allows an app to use the camera"
+    },
+    {
+      "name": "distribute_file_reason",
+      "value": "Allow the application to access distributed files on different devices."
+    },
+    {
+      "name": "background_running_reason",
+      "value": "Allow the application to run in background."
+    },
+    {
+      "name": "saveButtonNote",
+      "value": "Allow HMOSLiveStream to save captured video to distribute file?"
+    },
+    {
+      "name": "saveButtonTitle",
+      "value": "Confirm the video storage location"
+    },
+    {
+      "name": "home_page_title",
+      "value": "ROI Video Encoding Demo"
+    },
+    {
+      "name": "people_in_live_room",
+      "value": "Number of people: 1213"
+    },
+    {
+      "name": "start_live_stream",
+      "value": "Start live stream"
+    },
+    {
+      "name": "set_roi",
+      "value": "ROI"
+    },
+    {
+      "name": "set_bgm",
+      "value": "BGM"
+    },
+    {
+      "name": "setting_title",
+      "value": "Setting"
+    },
+    {
+      "name": "setting_ok",
+      "value": "Ok"
+    },
+    {
+      "name": "setting_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "roi_path_native_buffer",
+      "value": "NativeBuffer Metadata Config"
+    },
+    {
+      "name": "roi_path_metadata_callback",
+      "value": "Parameter Callback Config"
+    },
+    {
+      "name": "roi_path_buffer_mode",
+      "value": "Buffer Frame Data Config"
+    },
+    {
+      "name": "dynamic_frame_rate",
+      "value": "Dynamic Frame Rate"
+    },
+    {
+      "name": "fixed_frame_rate",
+      "value": "Fixed Frame Rate"
+    }
+  ]
+}
