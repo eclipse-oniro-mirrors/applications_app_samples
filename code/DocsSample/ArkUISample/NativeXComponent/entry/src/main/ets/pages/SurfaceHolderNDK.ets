@@ -15,12 +15,6 @@
 // [Start surface_holder_ndk_ets]
 import nativeNode from 'libnativerender.so';
 import { NodeContent } from '@kit.ArkUI';
-// [StartExclude surface_holder_ndk_ets]
-@Builder
-export function SurfaceHolderNDKBuilder(name: string, param: Object) {
-  SurfaceHolderNDK()
-}
-// [EndExclude surface_holder_ndk_ets]
 
 @Component
 export struct SurfaceHolderNDK {
@@ -56,7 +50,9 @@ export struct SurfaceHolderNDK {
           Text(this.currentStatus)
             .fontSize('24fp')
             .fontWeight(500)
+          // [EndExclude surface_holder_ndk_ets]
         }
+        // [StartExclude surface_holder_ndk_ets]
         .onClick(() => {
           let hasChangeColor: boolean = false;
           if (nativeNode.getStatus()) {
@@ -105,3 +101,8 @@ export struct SurfaceHolderNDK {
   }
 }
 // [End surface_holder_ndk_ets]
+
+@Builder
+export function SurfaceHolderNDKBuilder(name: string, param: Object) {
+  SurfaceHolderNDK()
+}
