@@ -15,21 +15,7 @@
 
 {
   "app": {
-    "signingConfigs": [
-      {
-        "name": "default",
-        "type": "HarmonyOS",
-        "material": {
-          "certpath": "C:\\Users\\13088\\.ohos\\config\\default_AVRecorder_xi7gUMLbhoBc0aK_0nv7RZiTTuvOlZudiH287bugo5U=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001A2E9AF11B9365B32CB1E856E40D73CDBED989AE79896ED40DF04A93EE17C7CF2FC2FDBDEB720A",
-          "profile": "C:\\Users\\13088\\.ohos\\config\\default_AVRecorder_xi7gUMLbhoBc0aK_0nv7RZiTTuvOlZudiH287bugo5U=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\13088\\.ohos\\config\\default_AVRecorder_xi7gUMLbhoBc0aK_0nv7RZiTTuvOlZudiH287bugo5U=.p12",
-          "storePassword": "0000001A4E688AEF1E2FDCE88F48E3FB7105B77A41AF315B89088C8619BBD9AC4AE8D24EE36F4A010A55"
-        }
-      }
-    ],
+    "signingConfigs": [],
     "products": [
       {
         "name": "default",
