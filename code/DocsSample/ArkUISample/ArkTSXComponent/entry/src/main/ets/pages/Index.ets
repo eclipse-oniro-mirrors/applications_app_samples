@@ -82,8 +82,6 @@ struct Index {
       })
       .height('40%')
       .width('90%')
-      // [EndExclude xcomponent_index]
-      // [StartExclude xcomponent_index]
       Row() {
         Button('Draw Star')
           .fontSize('16fp')
