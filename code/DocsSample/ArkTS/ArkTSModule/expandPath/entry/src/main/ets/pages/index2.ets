@@ -13,7 +13,7 @@
  * limitations under the License.
 */
 // [Start OptIndex]
-// src/main/ets/pages/Index.ets
+// src/main/ets/pages/Index2.ets
 import { One } from 'expandPathHar/src/main/ets/NumberString';
 
 console.info('One is ', One);
