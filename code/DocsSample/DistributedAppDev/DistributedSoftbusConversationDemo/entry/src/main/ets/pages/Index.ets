@@ -34,9 +34,9 @@ let messageCallback: conversation.DataCallback = (deviceId: string, msg: ArrayBu
   hilog.info(DOMAIN, TAG, 'Message length: %{public}d', msg.byteLength);
   let bufferView = new Uint8Array(msg);
   let messageStr = '';
-  for (let i = 0; i< bufferView.length; i++) {
-      messageStr = String.fromCharCode(bufferView[i]);
-    }
+  for (let i = 0; i < bufferView.length; i++) {
+    messageStr += String.fromCharCode(bufferView[i]);
+  }
   hilog.info(DOMAIN, TAG, 'Message content: %{public}s', messageStr);
 }
 // [End data_callback]
@@ -79,14 +79,14 @@ struct Index {
     try {
       let devices = conversation.getTrustedDevices() as conversation.DeviceNodeInfo[];
       if (devices && devices.length > 0) {
-          let deviceInfo = devices.map((d, idx) =>
+        let deviceInfo = devices.map((d, idx) =>
           `${idx + 1}. ${d.deviceName} (${d.networkId}) - Type:${d.deviceTypeId} - Nearby:${d.nearby}`
-            ).join('\n');
-          hilog.info(DOMAIN, TAG, 'Found %{public}s devices', devices.length);
+        ).join('\n');
+        hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
           hilog.info(DOMAIN, TAG, 'Devices list: \n %{public}s', deviceInfo);
         } else {
-          hilog.info(DOMAIN, TAG, 'Found %{public}s devices', devices.length);
-        }
+          hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
+      }
     } catch (err) {
       let error = err as BusinessError;
       hilog.error(DOMAIN, TAG, 'getTrustedDevices error: %{public}s - %{public}s', error.code, error.message);
@@ -102,8 +102,8 @@ struct Index {
       conversation.registerConversationListener(bundleName, abilityName, messageCallback);
       hilog.info(DOMAIN, TAG, 'Listener registered for %{public}s/%{public}s', bundleName, abilityName);
     } catch (err) {
-      let error = err as BusinessError;
-      hilog.error(DOMAIN, TAG, 'registerDataListener error: %{public}s - %{public}s', error.code, error.message);
+    let error = err as BusinessError;
+      hilog.error(DOMAIN, TAG, 'registerConversationListener error: %{public}s - %{public}s', error.code, error.message);
     }
   }
   // [End register_listener]
@@ -116,8 +116,8 @@ struct Index {
       conversation.unregisterConversationListener(bundleName, abilityName);
       hilog.info(DOMAIN, TAG, 'Listener unregistered');
     } catch (err) {
-      let error = err as BusinessError;
-      hilog.error(DOMAIN, TAG, 'unregisterDataListener error: %{public}s - %{public}s', error.code, error.message);
+    let error = err as BusinessError;
+      hilog.error(DOMAIN, TAG, 'unregisterConversationListener error: %{public}s - %{public}s', error.code, error.message);
     }
   }
   // [End unregister_listener]
@@ -130,16 +130,16 @@ struct Index {
       let arrayBuffer = new ArrayBuffer(messageToSend.length);
       let bufferView = new Uint8Array(arrayBuffer);
       for (let i = 0; i < messageToSend.length; i++) {
-          bufferView[i] = messageToSend.charCodeAt(i);
-        }
+        bufferView[i] = messageToSend.charCodeAt(i);
+      }
 
       conversation.postConversationData(deviceId, bundleName, abilityName, arrayBuffer)
-          .then(() => {
-            hilog.info(DOMAIN, TAG, 'Message sent successfully to %{public}s', deviceId);
-          })
-          .catch((err : BusinessError) => {
-            hilog.error(DOMAIN, TAG, 'sendMessage error: %{public}s - %{public}s', err.code, err.message);
-          });
+        .then(() => {
+          hilog.info(DOMAIN, TAG, 'Message sent successfully to %{public}s', deviceId);
+        })
+        .catch((err : BusinessError) => {
+          hilog.error(DOMAIN, TAG, 'sendMessage error: %{public}s - %{public}s', err.code, err.message);
+        });
     } catch (err) {
       let error = err as BusinessError;
       hilog.error(DOMAIN, TAG, 'sendMessage error: %{public}s - %{public}s', error.code, error.message);
