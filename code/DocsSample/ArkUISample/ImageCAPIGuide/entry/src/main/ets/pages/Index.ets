@@ -23,7 +23,7 @@
  *
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-// [start index_page]
+// [Start index_page]
 import nativeNode from 'libentry.so';
 import { NodeContent } from '@kit.ArkUI';
 
@@ -60,4 +60,4 @@ struct Index {
     .height('100%')
   }
 }
-// [end index_page]
+// [End index_page]
