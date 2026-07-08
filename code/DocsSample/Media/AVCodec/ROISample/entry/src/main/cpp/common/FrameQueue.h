@@ -27,6 +27,7 @@
 // [Start roi_frame_item_struct]
 // Buffer模式编码的帧数据项
 constexpr uint32_t FRAME_QUEUE_POP_TIMEOUT_MS = 4;
+constexpr size_t FRAME_QUEUE_MAX_SIZE = 3;
 
 struct FrameItem {
     std::vector<uint8_t> pixels;
@@ -42,7 +43,7 @@ public:
     void push(const FrameItem &item)
     {
         std::lock_guard<std::mutex> lock(mtx_);
-        if (queue_.size() >= MAX_QUEUE_SIZE) {
+        if (queue_.size() >= FRAME_QUEUE_MAX_SIZE) {
             queue_.pop();
         }
         queue_.push(item);
@@ -85,7 +86,6 @@ public:
     }
 
 private:
-    static constexpr size_t MAX_QUEUE_SIZE = 3;
     std::queue<FrameItem> queue_;
     std::mutex mtx_;
     std::condition_variable cv_;

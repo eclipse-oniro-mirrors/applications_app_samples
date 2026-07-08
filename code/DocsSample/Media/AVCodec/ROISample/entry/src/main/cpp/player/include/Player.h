@@ -60,7 +60,6 @@ private:
     std::condition_variable doneCond_;
     SampleInfo sampleInfo_;
     std::unique_ptr<CodecUserData> audioDecContext_;
-    static constexpr int64_t MICROSECOND = 1000000;
 };
 
 #endif // PLAYER_H

@@ -25,17 +25,18 @@
 
 // Synchronized queue for ROI data keyed by PTS, used by Path 2 (parameter callback).
 // Ensures each encoder parameter callback gets the correct ROI string for the frame it's encoding.
+constexpr uint32_t ROI_QUEUE_DEFAULT_TIMEOUT_MS = 3;
+constexpr uint32_t ROI_QUEUE_CLEANUP_THRESHOLD_MS = 2000;
+
 class RoiQueue {
 public:
-    static constexpr uint32_t DEFAULT_TIMEOUT_MS = 3;
-    static constexpr uint32_t CLEANUP_THRESHOLD_MS = 2000;
 
     // Push an ROI entry with its frame PTS. Notifies waiting Pop calls.
     void Push(int64_t pts, const std::string &roiStr);
 
     // Pop the oldest ROI entry (lowest PTS). Waits up to timeoutMs if queue is empty.
     // Returns empty string if queue remains empty after timeout or queue is stopped.
-    std::string Pop(uint32_t timeoutMs = DEFAULT_TIMEOUT_MS);
+    std::string Pop(uint32_t timeoutMs = ROI_QUEUE_DEFAULT_TIMEOUT_MS);
 
     // Clear all entries in the queue.
     void Clear();
@@ -51,7 +52,7 @@ private:
         std::chrono::steady_clock::time_point pushTime;
     };
 
-    // Remove entries older than CLEANUP_THRESHOLD_MS to prevent unbounded growth.
+    // Remove entries older than ROI_QUEUE_CLEANUP_THRESHOLD_MS to prevent unbounded growth.
     // Must be called under mutex_ lock.
     void CleanupStale();
 

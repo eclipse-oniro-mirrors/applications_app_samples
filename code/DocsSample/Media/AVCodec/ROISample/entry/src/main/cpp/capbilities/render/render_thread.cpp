@@ -25,7 +25,7 @@
 namespace NativeXComponentSample {
 constexpr char DEMO_NAME[] = "HMOSLiveStream";
 constexpr uint32_t LOG_PRINT_DOMAIN = 0xFF00;
-const std::string TEXTURE_2D_SRC = "#define TEXTURE_2D_SRC 1\n";
+const std::string g_texture2dSrc = "#define TEXTURE_2D_SRC 1\n";
 
 ViewportParams ComputeCenteredViewport(int32_t imageWidth, int32_t imageHeight,
                                        int32_t viewWidth, int32_t viewHeight)
@@ -36,18 +36,18 @@ ViewportParams ComputeCenteredViewport(int32_t imageWidth, int32_t imageHeight,
     if (imageAspect > viewAspect) {
         vp.height = viewHeight;
         vp.width = static_cast<int32_t>(vp.height * imageAspect);
-        vp.x = -(vp.width - viewWidth) / 2;
+        vp.x = -(vp.width - viewWidth) / CENTER_OFFSET_DIVISOR;
         vp.y = 0;
     } else {
         vp.width = viewWidth;
         vp.height = static_cast<int32_t>(vp.width / imageAspect);
         vp.x = 0;
-        vp.y = -(vp.height - viewHeight) / 2;
+        vp.y = -(vp.height - viewHeight) / CENTER_OFFSET_DIVISOR;
     }
     return vp;
 }
-const std::string VERSION_GLSL = "#version 300 es\n";
-const std::string VERSION310_GLSL = "#version 310 es\n";
+const std::string g_versionGlsl = "#version 300 es\n";
+const std::string g_version310Glsl = "#version 310 es\n";
 constexpr GLuint RECTANGLE_INDICES[] = {
     0, 1, 2,  // first triangle
     0, 2, 3   // second triangle
@@ -86,7 +86,7 @@ static void LeftProd(float* lmatrix, float* rmatrix, float* out)
     }
 }
 
-std::string vertexShader = R"delimiter(
+std::string g_vertexShader = R"delimiter(
 attribute vec3 position;
 attribute vec2 texCoord;
 varying vec2 vTexCoord;
@@ -100,7 +100,7 @@ void main()
 }
 )delimiter";
 
-std::string fragmentShader = R"delimiter(
+std::string g_fragmentShader = R"delimiter(
 #extension GL_EXT_YUV_target : require
 
 #extension GL_OES_EGL_image_external_essl3 : require
@@ -142,7 +142,7 @@ void main()
 }
 )delimiter";
 
-std::string fragmentShaderBW = R"delimiter(
+std::string g_fragmentShaderBW = R"delimiter(
 #extension GL_OES_EGL_image_external : require
 precision mediump float;
 varying vec2 vTexCoord;
@@ -158,7 +158,7 @@ void main()
 }
 )delimiter";
 
-std::string frameFragmentShader = R"delimiter(
+std::string g_frameFragmentShader = R"delimiter(
 #extension GL_OES_EGL_image_external : require
 precision highp float;
 varying vec2 vTexCoord;
@@ -170,7 +170,7 @@ void main()
 }
 )delimiter";
 
-GLfloat vertices[] = {
+GLfloat g_vertices[] = {
     // positions       // texture coords
     -1.0f, 1.0f,  0.0f, 0.0f, 0.0f, // top left
     -1.0f, -1.0f, 0.0f, 0.0f, 1.0f, // bottom left
@@ -178,12 +178,12 @@ GLfloat vertices[] = {
     1.0f, 1.0f,  0.0f, 1.0f, 0.0f  // top right
 };
 
-GLuint indices[] = {
+GLuint g_indices[] = {
     0, 1, 2,  // first triangle
     0, 2, 3   // second triangle
 };
 
-std::string roiVertexShader = R"delimiter(
+std::string g_roiVertexShader = R"delimiter(
 attribute vec3 position;
 void main()
 {
@@ -191,7 +191,7 @@ void main()
 }
 )delimiter";
 
-std::string roiFragmentShader = R"delimiter(
+std::string g_roiFragmentShader = R"delimiter(
 precision mediump float;
 uniform vec4 uColor;
 void main()
@@ -249,7 +249,7 @@ bool RenderThread::CreateGLResources()
     CreateTextures();
 
     roiShader_ = std::make_unique<NativeXComponentSample::ShaderProgram>(
-        Detail::roiVertexShader, Detail::roiFragmentShader);
+        Detail::g_roiVertexShader, Detail::g_roiFragmentShader);
     if (!roiShader_->Valid()) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread", "ROI shader creation failed.");
         return false;
@@ -263,12 +263,12 @@ bool RenderThread::CreateGLResources()
 
 void RenderThread::CreateShaders()
 {
-    videoShader_ = std::make_unique<NativeXComponentSample::ShaderProgram>(VERSION_GLSL + Detail::vertexShader,
-                                                                           VERSION_GLSL + Detail::fragmentShader);
+    videoShader_ = std::make_unique<NativeXComponentSample::ShaderProgram>(g_versionGlsl + Detail::g_vertexShader,
+        g_versionGlsl + Detail::g_fragmentShader);
     imageShader_ = std::make_unique<NativeXComponentSample::ShaderProgram>(
-        VERSION_GLSL + Detail::vertexShader, VERSION_GLSL + TEXTURE_2D_SRC + Detail::fragmentShader);
+        g_versionGlsl + Detail::g_vertexShader, g_versionGlsl + g_texture2dSrc + Detail::g_fragmentShader);
     frameShader_ = std::make_unique<NativeXComponentSample::ShaderProgram>(
-        Detail::vertexShader, Detail::frameFragmentShader);
+        Detail::g_vertexShader, Detail::g_frameFragmentShader);
 }
 
 void RenderThread::SetupMainVao()
@@ -278,7 +278,7 @@ void RenderThread::SetupMainVao()
 
     glBindVertexArray(vertexArrayObject_);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject_);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(Detail::vertices), Detail::vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Detail::g_vertices), Detail::g_vertices, GL_STATIC_DRAW);
     glVertexAttribPointer(POSITION_ATTRIB_INDEX, VERTEX_POSITION_FLOATS, GL_FLOAT, GL_FALSE,
                           VERTEX_STRIDE_FLOATS * sizeof(float), nullptr);
     glEnableVertexAttribArray(POSITION_ATTRIB_INDEX);
@@ -420,7 +420,7 @@ void RenderThread::SetupEncoderWindowSurface(OHNativeWindow *nativeWindow, int32
     }
     // [Start Encode_native_window]
     OH_NativeWindow_NativeWindowHandleOpt(encoderNativeWindow_, SET_BUFFER_GEOMETRY,
-                                           static_cast<int>(width), static_cast<int>(height));
+        static_cast<int>(width), static_cast<int>(height));
     // [End Encode_native_window]
 
     // SDR set BT709
@@ -452,12 +452,12 @@ void RenderThread::AddBW(void)
         if (isVertexShader) {
             isVertexShader = false;
             videoShader_ =
-                std::make_unique<NativeXComponentSample::ShaderProgram>(Detail::vertexShader, Detail::fragmentShader);
+                std::make_unique<NativeXComponentSample::ShaderProgram>(Detail::g_vertexShader, Detail::g_fragmentShader);
             OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread", "Shader shader fragmentShader.");
         } else {
             isVertexShader = true;
             videoShader_ =
-                std::make_unique<NativeXComponentSample::ShaderProgram>(Detail::vertexShader, Detail::fragmentShaderBW);
+                std::make_unique<NativeXComponentSample::ShaderProgram>(Detail::g_vertexShader, Detail::g_fragmentShaderBW);
             OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread", "Shader shader fragmentShaderBW.");
         }
     });
@@ -737,7 +737,7 @@ void RenderThread::ImageDraw(OHNativeWindowBuffer *InBuffer, OHNativeWindowBuffe
     frameShader_->SetMatrix4v("matTransform", drawCameraImageMatrix_.data(), MAT4_ELEMENT_COUNT, false);
     glBindVertexArray(vertexArrayObject_);
     glBindTexture(GL_TEXTURE_EXTERNAL_OES, inTexId_);
-    glDrawElements(GL_TRIANGLES, RECTANGLE_INDEX_COUNT, GL_UNSIGNED_INT, Detail::indices);
+    glDrawElements(GL_TRIANGLES, RECTANGLE_INDEX_COUNT, GL_UNSIGNED_INT, Detail::g_indices);
     
     glBindTexture(GL_TEXTURE_EXTERNAL_OES, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -925,7 +925,7 @@ std::string RenderThread::AssembleRoiString(const std::string &currentRoiStr)
     for (uint32_t i = 0; i < actualCount; i++) {
         if (parsedFormats[i] != nullptr) {
             OH_AVFormat_SetIntValue(parsedFormats[i], OH_MD_KEY_VIDEO_METADATA_ROI_DELTA_QP,
-                                     ROI_DELTA_QP);
+                ROI_DELTA_QP);
             OH_VideoMetadata_AppendRoiString(&assembledStr, parsedFormats[i]);
             OH_AVFormat_Destroy(parsedFormats[i]);
             parsedFormats[i] = nullptr;
@@ -1038,82 +1038,63 @@ void RenderThread::WriteRoiToEncoderBuffer(OHNativeWindowBuffer *OutBufferEncode
     // [End roi_nativebuffer_metadata_config]
 }
 
-void RenderThread::DrawImage()
+bool RenderThread::AcquireInputBuffer(OHNativeWindowBuffer **outBuffer, int32_t *outFenceFd)
 {
-    OH_LOG_Print(LOG_APP, LOG_DEBUG, LOG_PRINT_DOMAIN, "RenderThread", "DrawImage.");
     if (eglSurface_ == EGL_NO_SURFACE) {
         OH_LOG_Print(LOG_APP, LOG_WARN, LOG_PRINT_DOMAIN, "RenderThread", "eglSurface_ is EGL_NO_SURFACE");
-        return;
+        return false;
     }
 
-    // Acquire camera output buffer
-    OHNativeWindowBuffer *InBuffer;
-    int32_t fenceFd1 = -1;
-    int32_t ret = OH_NativeImage_AcquireNativeWindowBuffer(nativeImage_, &InBuffer, &fenceFd1);
+    int32_t ret = OH_NativeImage_AcquireNativeWindowBuffer(nativeImage_, outBuffer, outFenceFd);
     if (ret != 0) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread",
                      "OH_NativeImage_AcquireNativeWindowBuffer failed, ret: %{public}d", ret);
-        return;
+        return false;
     }
 
-    int64_t pts = OH_NativeImage_GetTimestamp(nativeImage_);
-    OH_LOG_Print(LOG_APP, LOG_DEBUG, LOG_PRINT_DOMAIN, "RenderThread",
-                 "HMOS_LiveStream: ROI OH_NativeImage_GetTimestamp pts %{public}"" PRId64 ", pts);
+    ret = OH_NativeWindow_NativeObjectReference(*outBuffer);
+    if (ret != 0) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread",
+                     "OH_NativeWindow_NativeObjectReference failed, ret: %{public}d", ret);
+        return false;
+    }
 
     if (OH_NativeImage_GetTransformMatrixV2(nativeImage_, drawCameraImageMatrix_.data())) {
         OH_LOG_Print(LOG_APP, LOG_WARN, LOG_PRINT_DOMAIN,
                      "RenderThread", "OH_NativeImage_GetTransformMatrix failed!");
-        return;
+        return false;
     }
+    return true;
+}
 
-    ret = OH_NativeWindow_NativeObjectReference(InBuffer);
-    if (ret != 0) {
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread",
-                     "OH_NativeWindow_NativeObjectReference failed, ret: %{public}d", ret);
-        return;
-    }
-
-    // ROI processing
-    std::string currentRoiStr;
-    std::string assembledRoiStr;
-    if (isOpenROI_) {
-        currentRoiStr = ExtractRoiFromBuffer(InBuffer);
-        assembledRoiStr = AssembleRoiString(currentRoiStr);
-        LogRoiData(currentRoiStr, assembledRoiStr);
-    }
-
-    // [Start roi_parameter_callback_str_passing]
-    // 参数回调配置：将组装的ROI字符串和帧PTS传递到VideoEncoder
-    if (roiPathType_ == ROI_PATH_METADATA_CALLBACK && onRoiStrAssembled_) {
-        onRoiStrAssembled_(pts, assembledRoiStr);
-    }
-    // [End roi_parameter_callback_str_passing]
-
-    // Request preview buffer
-    OHNativeWindowBuffer *OutBuffer;
+bool RenderThread::RequestOutputBuffers(OHNativeWindowBuffer **outPreviewBuffer,
+                                         OHNativeWindowBuffer **outEncoderBuffer)
+{
     int32_t fenceFd2 = -1;
-    ret = OH_NativeWindow_NativeWindowRequestBuffer(nativeWindow_, &OutBuffer, &fenceFd2);
+    int32_t ret = OH_NativeWindow_NativeWindowRequestBuffer(nativeWindow_, outPreviewBuffer, &fenceFd2);
     if (ret != 0) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread",
                      "OH_NativeWindow_NativeWindowRequestBuffer for preview failed, ret: %{public}d", ret);
-        return;
+        return false;
     }
     PollFence(fenceFd2);
 
-    // Request encoder buffer (Surface mode)
-    OHNativeWindowBuffer *OutBufferEncoder = nullptr;
-    int32_t fenceFd3 = -1;
+    *outEncoderBuffer = nullptr;
     if (roiPathType_ == ROI_PATH_NATIVEBUFFER || roiPathType_ == ROI_PATH_METADATA_CALLBACK) {
-        ret = OH_NativeWindow_NativeWindowRequestBuffer(encoderNativeWindow_, &OutBufferEncoder, &fenceFd3);
+        int32_t fenceFd3 = -1;
+        ret = OH_NativeWindow_NativeWindowRequestBuffer(encoderNativeWindow_, outEncoderBuffer, &fenceFd3);
         if (ret != 0) {
             OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread",
                          "OH_NativeWindow_NativeWindowRequestBuffer for encoder failed, ret: %{public}d", ret);
-            return;
+            return false;
         }
         PollFence(fenceFd3);
     }
+    return true;
+}
 
-    // Get dimensions
+std::pair<ViewportParams, ViewportParams> RenderThread::ComputeDrawViewports()
+{
     int viewWidth = 0;
     int viewHeight = 0;
     if (encoderNativeWindow_ != nullptr) {
@@ -1122,14 +1103,13 @@ void RenderThread::DrawImage()
         viewWidth = encoderWidth;
         viewHeight = encoderHeight;
     }
-    ret = OH_NativeWindow_NativeWindowHandleOpt(xcomponentWindows_, GET_BUFFER_GEOMETRY, &xcomponentHeight_,
-                                                &xcomponentWidth_);
+    int32_t ret = OH_NativeWindow_NativeWindowHandleOpt(xcomponentWindows_, GET_BUFFER_GEOMETRY,
+        &xcomponentHeight_, &xcomponentWidth_);
     if (ret != 0 || xcomponentHeight_ == 0 || xcomponentWidth_ == 0) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread",
                      "OH_NativeWindow_NativeWindowHandleOpt get Xcomponent size failed!");
     }
 
-    // [Start roi_render_flow]
     int imageRotation = cameraRotation_;
     ViewportParams previewVp;
     ViewportParams encoderVp;
@@ -1140,6 +1120,54 @@ void RenderThread::DrawImage()
         previewVp = ComputeCenteredViewport(viewWidth, viewHeight, xcomponentWidth_, xcomponentHeight_);
         encoderVp = ComputeCenteredViewport(viewWidth, viewHeight, viewWidth, viewHeight);
     }
+    return {previewVp, encoderVp};
+}
+
+void RenderThread::FlushAndCleanup(OHNativeWindowBuffer *InBuffer, int32_t fenceFd1,
+                                    OHNativeWindowBuffer *OutBuffer, OHNativeWindowBuffer *OutBufferEncoder)
+{
+    OH_NativeWindow_NativeObjectUnreference(InBuffer);
+    OH_NativeImage_ReleaseNativeWindowBuffer(nativeImage_, InBuffer, fenceFd1);
+
+    Region region{nullptr, 0};
+    int acquireFenceFd = -1;
+    OH_NativeWindow_NativeWindowFlushBuffer(nativeWindow_, OutBuffer, acquireFenceFd, region);
+    if (OutBufferEncoder != nullptr) {
+        OH_NativeWindow_NativeWindowFlushBuffer(encoderNativeWindow_, OutBufferEncoder, acquireFenceFd, region);
+    }
+}
+
+void RenderThread::DrawImage()
+{
+    OHNativeWindowBuffer *InBuffer = nullptr;
+    int32_t fenceFd1 = -1;
+    if (!AcquireInputBuffer(&InBuffer, &fenceFd1)) {
+        return;
+    }
+
+    std::string currentRoiStr;
+    std::string assembledRoiStr;
+    if (isOpenROI_) {
+        currentRoiStr = ExtractRoiFromBuffer(InBuffer);
+        assembledRoiStr = AssembleRoiString(currentRoiStr);
+        LogRoiData(currentRoiStr, assembledRoiStr);
+    }
+
+    // [Start roi_parameter_callback_str_passing]
+    int64_t pts = OH_NativeImage_GetTimestamp(nativeImage_);
+    if (roiPathType_ == ROI_PATH_METADATA_CALLBACK && onRoiStrAssembled_) {
+        onRoiStrAssembled_(pts, assembledRoiStr);
+    }
+    // [End roi_parameter_callback_str_passing]
+
+    OHNativeWindowBuffer *OutBuffer = nullptr;
+    OHNativeWindowBuffer *OutBufferEncoder = nullptr;
+    if (!RequestOutputBuffers(&OutBuffer, &OutBufferEncoder)) {
+        return;
+    }
+
+    // [Start roi_render_flow]
+    auto [previewVp, encoderVp] = ComputeDrawViewports();
     ImageDraw(InBuffer, OutBuffer, previewVp);
     if (isOpenROI_) {
         DrawRoiOverlay(OutBuffer, previewVp, currentRoiStr);
@@ -1149,28 +1177,15 @@ void RenderThread::DrawImage()
     }
     // [End roi_render_flow]
 
-    // Buffer mode push
     if (roiPathType_ == ROI_PATH_BUFFER_MODE && frameQueue_ != nullptr) {
         PushFrameToBufferQueue(InBuffer, assembledRoiStr);
     }
-
-    // NativeBuffer metadata ROI write
     if (roiPathType_ == ROI_PATH_NATIVEBUFFER && isOpenROI_ &&
         !assembledRoiStr.empty() && OutBufferEncoder != nullptr) {
         WriteRoiToEncoderBuffer(OutBufferEncoder, assembledRoiStr);
     }
 
-    // Flush and cleanup
-    OH_NativeWindow_NativeObjectUnreference(InBuffer);
-    OH_NativeImage_ReleaseNativeWindowBuffer(nativeImage_, InBuffer, fenceFd1);
-
-    Region region{nullptr, 0};
-    int acquireFenceFd1 = -1;
-    int acquireFenceFd2 = -1;
-    OH_NativeWindow_NativeWindowFlushBuffer(nativeWindow_, OutBuffer, acquireFenceFd1, region);
-    if (OutBufferEncoder != nullptr) {
-        OH_NativeWindow_NativeWindowFlushBuffer(encoderNativeWindow_, OutBufferEncoder, acquireFenceFd2, region);
-    }
+    FlushAndCleanup(InBuffer, fenceFd1, OutBuffer, OutBufferEncoder);
 }
 
 OH_NativeImage *RenderThread::GetNativeImageEncoder()

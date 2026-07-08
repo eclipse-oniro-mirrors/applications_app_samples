@@ -19,6 +19,7 @@
 #include <functional>
 #include <string>
 #include <thread>
+#include <utility>
 #include <vector>
 #include "SampleInfo.h"
 #include "FrameQueue.h"
@@ -63,6 +64,9 @@ constexpr int32_t POSITION_ATTRIB_INDEX = 0;    // GL attribute index for positi
 constexpr float NDC_RANGE_SIZE = 2.0f;          // Full range from -1.0f to +1.0f
 constexpr float NDC_MIN = -1.0f;                // Left/bottom edge of NDC space
 constexpr float NDC_MAX = 1.0f;                 // Right/top edge of NDC space
+
+// Viewport centering offset divisor
+constexpr int32_t CENTER_OFFSET_DIVISOR = 2;    // Divide excess by 2 to center viewport
 
 // Matrix dimension
 constexpr int32_t MAT4_DIM = 4;                 // 4x4 matrix side length
@@ -221,6 +225,13 @@ private:
     bool PollFence(int32_t fenceFd);
     void PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, const std::string &assembledRoiStr);
     void WriteRoiToEncoderBuffer(OHNativeWindowBuffer *OutBufferEncoder, const std::string &assembledRoiStr);
+
+    // DrawImage() further decomposed helpers
+    bool AcquireInputBuffer(OHNativeWindowBuffer **outBuffer, int32_t *outFenceFd);
+    bool RequestOutputBuffers(OHNativeWindowBuffer **outPreviewBuffer, OHNativeWindowBuffer **outEncoderBuffer);
+    std::pair<ViewportParams, ViewportParams> ComputeDrawViewports();
+    void FlushAndCleanup(OHNativeWindowBuffer *InBuffer, int32_t fenceFd1,
+                          OHNativeWindowBuffer *OutBuffer, OHNativeWindowBuffer *OutBufferEncoder);
 
     // Setup native window/encoder surfaces on the render thread
     void SetupNativeWindowSurface(OHNativeWindow *nativeWindow);

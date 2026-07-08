@@ -22,8 +22,8 @@
 
 ## 使用说明
 
-1. 在弹出是否允许"HMOSLiveStream"访问你的相机后，点击"允许"。
-2. 在弹出是否允许"HMOSLiveStream"访问你的麦克风后，点击"允许"。
+1. 在弹出是否允许"HMOSLiveStream"访问相机后，点击"允许"。
+2. 在弹出是否允许"HMOSLiveStream"访问麦克风后，点击"允许"。
 3. 在弹出是否允许"HMOSLiveStream"发现和连接附近的设备后，点击"允许"。
 
 ### 开直播

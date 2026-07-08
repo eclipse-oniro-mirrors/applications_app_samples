@@ -33,9 +33,9 @@ int32_t AudioEncoder::Create(const std::string &codecMime)
 int32_t AudioEncoder::SetCallback(CodecUserData *codecUserData)
 {
     int32_t ret = OH_AudioCodec_RegisterCallback(encoder_,
-                                         { CodecCallback::OnCodecError, CodecCallback::OnCodecFormatChange,
-                                           CodecCallback::OnNeedInputBuffer, CodecCallback::OnNewOutputBuffer },
-                                         codecUserData);
+        {CodecCallback::OnCodecError, CodecCallback::OnCodecFormatChange,
+         CodecCallback::OnNeedInputBuffer, CodecCallback::OnNewOutputBuffer},
+        codecUserData);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, SAMPLE_ERR_ERROR, "Set callback failed, ret: %{public}d", ret);
     SAMPLE_LOGI("====== AudioEncoder SetCallback ======");
 

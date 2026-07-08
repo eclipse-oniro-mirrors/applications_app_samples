@@ -61,7 +61,7 @@ RoiQueue::~RoiQueue()
 void RoiQueue::CleanupStale()
 {
     auto now = std::chrono::steady_clock::now();
-    auto threshold = std::chrono::milliseconds(CLEANUP_THRESHOLD_MS);
+    auto threshold = std::chrono::milliseconds(ROI_QUEUE_CLEANUP_THRESHOLD_MS);
     for (auto it = entries_.begin(); it != entries_.end();) {
         if (now - it->second.pushTime > threshold) {
             it = entries_.erase(it);

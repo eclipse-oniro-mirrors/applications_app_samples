@@ -23,6 +23,7 @@
 
 namespace {
 constexpr int BALANCE_VALUE = 2;
+constexpr int64_t MICROSECOND = 1000000;
 using namespace std::chrono_literals;
 constexpr auto AUDIO_DEC_BUFFER_TIMEOUT = 100ms;
 constexpr auto AUDIO_RENDER_BALANCE_TIMEOUT = 20ms;
