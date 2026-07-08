@@ -130,7 +130,7 @@ export default struct SettingsContent {
   }
 
   getSyncState = async () => {
-    this.syncState = <string> await PreferencesStore.get('syncState', SYNC_STATE.OVERWRITE_CONTACT_ASSISTANT);
+    this.syncState = await PreferencesStore.get('syncState', SYNC_STATE.OVERWRITE_CONTACT_ASSISTANT) as string
     switch (this.syncState) {
       case SYNC_STATE.DEDUPLICATION:
         this.isDeduplication = true;

@@ -20,9 +20,9 @@ const preferencesName: string = 'dataUser'
 const TAG: string = 'PreferencesStore'
 
 class PreferencesStore {
-  private dataPreferences: preferences.Preferences = undefined
+  private dataPreferences: preferences.Preferences | undefined = undefined
 
-  async put(key, value) {
+  async put(key: string, value: string): Promise<void> {
     if (this.dataPreferences === undefined) {
       this.dataPreferences = await preferences.getPreferences(getContext(this), preferencesName)
     }
@@ -34,14 +34,15 @@ class PreferencesStore {
     }
   }
 
-  async get(key, defaultValue) {
+  async get(key: string, defaultValue: string): Promise<string> {
     if (this.dataPreferences === undefined) {
       this.dataPreferences = await preferences.getPreferences(getContext(this), preferencesName)
     }
     try {
-      return await this.dataPreferences.get(key, defaultValue)
+      return await this.dataPreferences.get(key, defaultValue) as string
     } catch (err) {
-      logger.error(TAG, `put error, ${JSON.stringify(err)}`)
+      logger.error(TAG, `get error, ${JSON.stringify(err)}`)
+      return defaultValue
     }
   }
 }
