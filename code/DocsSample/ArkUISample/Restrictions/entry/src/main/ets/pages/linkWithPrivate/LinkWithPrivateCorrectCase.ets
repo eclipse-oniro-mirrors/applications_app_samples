@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-// [Start LlinkWithPrivate_ErrorCase]
+// [Start LinkWithPrivate_CorrectCase]
 @Entry
 @Component
-struct LinkErrorAccessRestrictions {
+struct LinkAccessRestrictions {
   @Builder
   buildTest() {
     Text('Parent builder')
@@ -24,7 +24,7 @@ struct LinkErrorAccessRestrictions {
 
   build() {
     Column() {
-      LinkErrorComponentChild({
+      LinkComponentChild({
         stateValue: 'Hello',
         propValue: 'Hello',
         provideValue: 'Hello',
@@ -37,17 +37,13 @@ struct LinkErrorAccessRestrictions {
 }
 
 @Component
-struct LinkErrorComponentChild {
-  // 此处使用private修饰符时会出现告警日志
-  @State private stateValue: string = 'Hello';
-  // 此处使用private修饰符时会出现告警日志
-  @Prop private propValue: string = 'Hello';
-  // 此处使用private修饰符时会出现告警日志
-  @Provide private provideValue: string = 'Hello';
-  // 此处使用private修饰符时会出现告警日志
-  @BuilderParam private builderValue: () => void = this.buildTest;
-  // 此处使用private修饰符时会出现告警日志
-  private regularValue: string = 'Hello';
+struct LinkComponentChild {
+  // 正确用法
+  @State stateValue: string = 'Hello';
+  @Prop propValue: string = 'Hello';
+  @Provide provideValue: string = 'Hello';
+  @BuilderParam builderValue: () => void = this.buildTest;
+  regularValue: string = 'Hello';
 
   @Builder
   buildTest() {
@@ -63,4 +59,4 @@ struct LinkErrorComponentChild {
   }
 }
 
-// [End LlinkWithPrivate_ErrorCase]
+// [End LinkWithPrivate_CorrectCase]

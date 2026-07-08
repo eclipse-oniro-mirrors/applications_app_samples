@@ -1,10 +1,10 @@
 {
   "src": [
     "pages/Index",
-    "pages/linkWithPrivate/LlinkWithPrivateCorrectCase",
-    "pages/linkWithPrivate/LlinkWithPrivateErrorCase",
+    "pages/linkWithPrivate/LinkWithPrivateCorrectCase",
+    "pages/linkWithPrivate/LinkWithPrivateErrorCase",
     "pages/privateWithLink/PrivateWithLinkCorrectCase",
-    "pages/privateWithLink/PrivateWithLinkEerrorCase",
+    "pages/privateWithLink/PrivateWithLinkErrorCase",
     "pages/privateWithRequire/PrivateWithRequireCorrectCase",
     "pages/privateWithRequire/PrivateWithRequireErrorCase",
     "pages/protectedInStruct/ProtectedInStructCorrectCase",

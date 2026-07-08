@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-// [Start LlinkWithPrivate_CorrectCase]
+// [Start LinkWithPrivate_ErrorCase]
 @Entry
 @Component
-struct LinkAccessRestrictions {
+struct LinkErrorAccessRestrictions {
   @Builder
   buildTest() {
     Text('Parent builder')
@@ -24,7 +24,7 @@ struct LinkAccessRestrictions {
 
   build() {
     Column() {
-      LinkComponentChild({
+      LinkErrorComponentChild({
         stateValue: 'Hello',
         propValue: 'Hello',
         provideValue: 'Hello',
@@ -37,13 +37,17 @@ struct LinkAccessRestrictions {
 }
 
 @Component
-struct LinkComponentChild {
-  // 正确用法
-  @State stateValue: string = 'Hello';
-  @Prop propValue: string = 'Hello';
-  @Provide provideValue: string = 'Hello';
-  @BuilderParam builderValue: () => void = this.buildTest;
-  regularValue: string = 'Hello';
+struct LinkErrorComponentChild {
+  // 此处使用private修饰符时会出现告警日志
+  @State private stateValue: string = 'Hello';
+  // 此处使用private修饰符时会出现告警日志
+  @Prop private propValue: string = 'Hello';
+  // 此处使用private修饰符时会出现告警日志
+  @Provide private provideValue: string = 'Hello';
+  // 此处使用private修饰符时会出现告警日志
+  @BuilderParam private builderValue: () => void = this.buildTest;
+  // 此处使用private修饰符时会出现告警日志
+  private regularValue: string = 'Hello';
 
   @Builder
   buildTest() {
@@ -59,4 +63,4 @@ struct LinkComponentChild {
   }
 }
 
-// [End LlinkWithPrivate_CorrectCase]
+// [End LinkWithPrivate_ErrorCase]
