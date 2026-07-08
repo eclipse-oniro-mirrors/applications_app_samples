@@ -13,21 +13,8 @@
  * limitations under the License.
  */
 
-import { window } from '@kit.ArkUI';
-import Constants from './Constants';
+import uiAutoTest from './UIAutoTest.test';
 
-export class SubWindowManager {
-  private static window: window.Window = window.findWindow(Constants.SUB_WINDOW_NAME);
-
-  public static open() {
-    SubWindowManager.window.showWindow()
-  }
-
-  public static hide() {
-    SubWindowManager.window.minimize()
-  }
-
-  public static destroy() {
-    SubWindowManager.window.destroyWindow()
-  }
+export default function testsuite() {
+  uiAutoTest();
 }

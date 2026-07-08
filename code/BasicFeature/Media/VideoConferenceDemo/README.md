@@ -41,10 +41,9 @@
 │       ├── capabilities
 │       │   ├── AVScreenCapture.cpp                  // 录屏采集实现
 │       │   └── AVScreenCapture.h                    // 录屏能力头文件
-│       ├── types/libentry
-│       │   ├── index.d.ts                           // 类型声明
-│       │   └── oh-package.json5                     // 原生模块包配置
-│       └── libboundscheck/                          // 第三方依赖
+│       └── types/libentry
+│           ├── index.d.ts                           // 类型声明
+│           └── oh-package.json5                     // 原生模块包配置
 └──entry/src/main/resources                          // 资源文件
 ```
 
