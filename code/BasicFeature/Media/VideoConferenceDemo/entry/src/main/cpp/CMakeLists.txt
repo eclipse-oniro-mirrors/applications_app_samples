@@ -13,5 +13,5 @@ include_directories(${NATIVERENDER_ROOT_PATH}
 
 add_library(entry SHARED napi_init.cpp capabilities/AVScreenCapture.cpp capabilities/AVScreenCapture.cpp capabilities/AVScreenCapture.h napi_init.cpp)
 # [Start addLibraries]
-target_link_libraries(entry PUBLIC libace_napi.z.so libhilog_ndk.z.so libnative_avscreen_capture.so)
+target_link_libraries(entry PUBLIC libace_napi.z.so libnative_avscreen_capture.so)
 # [End addLibraries]
