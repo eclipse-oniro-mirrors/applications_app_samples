@@ -19,7 +19,10 @@
 #undef LOG_TAG
 #define LOG_TAG "Demuxer"
 
-Demuxer::~Demuxer() { Release(); }
+Demuxer::~Demuxer()
+{
+    Release();
+}
 
 int32_t Demuxer::Create(SampleInfo &info)
 {
@@ -115,4 +118,7 @@ int32_t Demuxer::GetTrackInfo(std::shared_ptr<OH_AVFormat> sourceFormat, SampleI
     return SAMPLE_ERR_OK;
 }
 
-int32_t Demuxer::GetAudioTrackId() { return audioTrackId_; }
+int32_t Demuxer::GetAudioTrackId()
+{
+    return audioTrackId_;
+}

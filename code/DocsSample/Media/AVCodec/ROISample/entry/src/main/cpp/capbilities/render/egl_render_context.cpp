@@ -81,7 +81,9 @@ static EGLDisplay GetPlatformEglDisplay(EGLenum platform, void *native_display, 
     return eglGetDisplay(reinterpret_cast<EGLNativeDisplayType>(native_display));
 }
 
-EglRenderContext::EglRenderContext() {}
+EglRenderContext::EglRenderContext()
+{
+}
 
 EglRenderContext::~EglRenderContext() noexcept
 {

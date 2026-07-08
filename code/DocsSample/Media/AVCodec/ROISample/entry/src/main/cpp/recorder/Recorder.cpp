@@ -29,7 +29,9 @@ constexpr float BGM_VOLUME_SCALE = 0.2f;
 AudioBgmQueue g_bgmQueue;
 } // namespace
 
-Recorder::~Recorder() {}
+Recorder::~Recorder()
+{
+}
 
 AudioBgmQueue* Recorder::GetBgmQueue()
 {

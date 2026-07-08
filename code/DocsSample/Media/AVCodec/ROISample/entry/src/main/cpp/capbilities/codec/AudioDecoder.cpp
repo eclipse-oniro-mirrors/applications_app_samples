@@ -19,7 +19,10 @@
 #undef LOG_TAG
 #define LOG_TAG "AudioDecoder"
 
-AudioDecoder::~AudioDecoder() { Release(); }
+AudioDecoder::~AudioDecoder()
+{
+    Release();
+}
 
 int32_t AudioDecoder::Create(const std::string &codecMime)
 {

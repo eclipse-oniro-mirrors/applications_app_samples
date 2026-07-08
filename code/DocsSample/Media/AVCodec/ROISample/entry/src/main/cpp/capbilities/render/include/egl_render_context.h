@@ -39,10 +39,19 @@ public:
     void operator==(const EglRenderContext &&) = delete;
     
     bool Init();
-    bool IsEglContextReady() const { return eglContext_ != EGL_NO_CONTEXT; }
-    
-    EGLDisplay GetEGLDisplay() const { return eglDisplay_; }
-    EGLDisplay GetEGLContext() const { return eglContext_; }
+    bool IsEglContextReady() const
+    {
+        return eglContext_ != EGL_NO_CONTEXT;
+    }
+
+    EGLDisplay GetEGLDisplay() const
+    {
+        return eglDisplay_;
+    }
+    EGLDisplay GetEGLContext() const
+    {
+        return eglContext_;
+    }
     
     EGLSurface CreateEglSurface(EGLNativeWindowType surface, const EGLint *attribList = nullptr);
     void DestroyEglSurface(EGLSurface surface);

@@ -20,7 +20,10 @@
 #undef LOG_TAG
 #define LOG_TAG "Muxer"
 
-Muxer::~Muxer() { Release(); }
+Muxer::~Muxer()
+{
+    Release();
+}
 
 // Create an encapsulator instance object and set the encapsulation format to mp4
 int32_t Muxer::Create(int32_t fd)
@@ -98,5 +101,11 @@ int32_t Muxer::Release()
     return SAMPLE_ERR_OK;
 }
 
-int32_t Muxer::GetVideoTrackId() { return videoTrackId_; }
-int32_t Muxer::GetAudioTrackId() { return audioTrackId_; }
+int32_t Muxer::GetVideoTrackId()
+{
+    return videoTrackId_;
+}
+int32_t Muxer::GetAudioTrackId()
+{
+    return audioTrackId_;
+}

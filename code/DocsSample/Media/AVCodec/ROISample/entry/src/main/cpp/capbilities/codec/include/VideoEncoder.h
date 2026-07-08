@@ -61,10 +61,16 @@ public:
     void ClearRoiQueue();
 
     // ROI path type setter
-    void SetRoiPathType(RoiPathType type) { roiPathType_ = type; }
+    void SetRoiPathType(RoiPathType type)
+    {
+        roiPathType_ = type;
+    }
 
     // Buffer模式: Frame queue for Buffer mode encoding
-    void SetFrameQueue(FrameQueue *queue) { frameQueue_ = queue; }
+    void SetFrameQueue(FrameQueue *queue)
+    {
+        frameQueue_ = queue;
+    }
 
 private:
     int32_t SetCallback(CodecUserData *codecUserData);

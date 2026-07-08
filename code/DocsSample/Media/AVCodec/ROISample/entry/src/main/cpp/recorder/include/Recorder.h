@@ -37,7 +37,9 @@
 
 class Recorder {
 public:
-    Recorder(){};
+    Recorder()
+    {
+    };
     ~Recorder();
 
     int32_t Init(SampleInfo &sampleInfo);

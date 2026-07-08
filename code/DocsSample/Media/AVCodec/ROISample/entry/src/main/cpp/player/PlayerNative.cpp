@@ -21,7 +21,8 @@
 #define LOG_DOMAIN 0xFF00
 #define LOG_TAG "player"
 
-napi_value PlayerNative::CreatePlayer(napi_env env, napi_callback_info info) {
+napi_value PlayerNative::CreatePlayer(napi_env env, napi_callback_info info)
+{
     OH_LOG_INFO(LOG_APP, "enter CreatePlayer");
     napi_value result;
     auto player = new Player();
@@ -31,7 +32,8 @@ napi_value PlayerNative::CreatePlayer(napi_env env, napi_callback_info info) {
     return result;
 }
 
-napi_value PlayerNative::ReleasePlayer(napi_env env, napi_callback_info info) {
+napi_value PlayerNative::ReleasePlayer(napi_env env, napi_callback_info info)
+{
     OH_LOG_INFO(LOG_APP, "enter ReleasePlayer");
     size_t argc = 1;
     napi_value args[1] = {nullptr};
@@ -39,7 +41,7 @@ napi_value PlayerNative::ReleasePlayer(napi_env env, napi_callback_info info) {
 
     int64_t addrValue = 0;
     [[maybe_unused]] bool flag = false;
-    napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
+    napi_get_value_bigint_int64(env, args[NAPI_FIRST_PARAM], &addrValue, &flag);
     Player *player = reinterpret_cast<Player *>(addrValue);
     if (player) {
         delete player;
@@ -49,7 +51,8 @@ napi_value PlayerNative::ReleasePlayer(napi_env env, napi_callback_info info) {
     return nullptr;
 }
 
-napi_value PlayerNative::StartPlay(napi_env env, napi_callback_info info) {
+napi_value PlayerNative::StartPlay(napi_env env, napi_callback_info info)
+{
     SampleInfo sampleInfo;
     size_t argc = 5;
     napi_value args[5] = {nullptr};
@@ -57,11 +60,11 @@ napi_value PlayerNative::StartPlay(napi_env env, napi_callback_info info) {
     int64_t addrValue = 0;
     [[maybe_unused]] bool flag = false;
     int32_t ret = SAMPLE_ERR_ERROR;
-    napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
+    napi_get_value_bigint_int64(env, args[NAPI_FIRST_PARAM], &addrValue, &flag);
     Player *player = reinterpret_cast<Player *>(addrValue);
-    napi_get_value_int32(env, args[1], &sampleInfo.fileInfo.inputFd);
-    napi_get_value_int64(env, args[2], &sampleInfo.fileInfo.inputFileOffset);
-    napi_get_value_int64(env, args[3], &sampleInfo.fileInfo.inputFileSize);
+    napi_get_value_int32(env, args[NAPI_SECOND_PARAM], &sampleInfo.fileInfo.inputFd);
+    napi_get_value_int64(env, args[NAPI_THIRD_PARAM], &sampleInfo.fileInfo.inputFileOffset);
+    napi_get_value_int64(env, args[NAPI_FOURTH_PARAM], &sampleInfo.fileInfo.inputFileSize);
     if (player) {
         ret = player->Init(sampleInfo);
         if (ret == SAMPLE_ERR_OK) {
@@ -71,14 +74,15 @@ napi_value PlayerNative::StartPlay(napi_env env, napi_callback_info info) {
     return nullptr;
 }
 
-napi_value PlayerNative::StopPlay(napi_env env, napi_callback_info info) {
+napi_value PlayerNative::StopPlay(napi_env env, napi_callback_info info)
+{
     size_t argc = 1;
     napi_value args[1] = {nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     int64_t addrValue = 0;
     [[maybe_unused]] bool flag = false;
-    napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
+    napi_get_value_bigint_int64(env, args[NAPI_FIRST_PARAM], &addrValue, &flag);
     Player *player = reinterpret_cast<Player *>(addrValue);
     if (player) {
         player->WaitForStop();
@@ -87,7 +91,8 @@ napi_value PlayerNative::StopPlay(napi_env env, napi_callback_info info) {
 }
 
 EXTERN_C_START
-static napi_value Init(napi_env env, napi_value exports) {
+static napi_value Init(napi_env env, napi_value exports)
+{
     napi_property_descriptor classProp[] = {
         {"createPlayer", nullptr, PlayerNative::CreatePlayer, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"releasePlayer", nullptr, PlayerNative::ReleasePlayer, nullptr, nullptr, nullptr, napi_default, nullptr},

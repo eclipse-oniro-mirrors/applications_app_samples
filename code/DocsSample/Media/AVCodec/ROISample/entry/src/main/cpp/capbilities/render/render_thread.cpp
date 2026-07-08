@@ -75,13 +75,13 @@ static void CreateGLTex(GLenum target, uint32_t& outTextureId, bool openMipmap =
 
 static void LeftProd(float* lmatrix, float* rmatrix, float* out)
 {
-    for (int y = 0; y < 4; y++) {
-        for (int z = 0; z < 4; z++) {
+    for (int y = 0; y < MAT4_DIM; y++) {
+        for (int z = 0; z < MAT4_DIM; z++) {
             float res = 0;
-            for (int x = 0; x < 4; x++) {
-                res += lmatrix[y * 4 + x] * rmatrix[x * 4 + z];
+            for (int x = 0; x < MAT4_DIM; x++) {
+                res += lmatrix[y * MAT4_DIM + x] * rmatrix[x * MAT4_DIM + z];
             }
-            out[y * 4 + z] = res;
+            out[y * MAT4_DIM + z] = res;
         }
     }
 }
@@ -150,7 +150,10 @@ uniform samplerExternalOES texture;
 void main()
 {
     vec4 tc = texture2D(texture, vTexCoord);
-    float color = tc.r * 0.3 + tc.g * 0.59 + tc.b * 0.11;
+    float lumR = 0.299;
+    float lumG = 0.587;
+    float lumB = 0.114;
+    float color = tc.r * lumR + tc.g * lumG + tc.b * lumB;
     gl_FragColor = vec4(color, color, color, 1.0);
 }
 )delimiter";
@@ -276,12 +279,13 @@ void RenderThread::SetupMainVao()
     glBindVertexArray(vertexArrayObject_);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject_);
     glBufferData(GL_ARRAY_BUFFER, sizeof(Detail::vertices), Detail::vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, VERTEX_POSITION_FLOATS, GL_FLOAT, GL_FALSE,
+    glVertexAttribPointer(POSITION_ATTRIB_INDEX, VERTEX_POSITION_FLOATS, GL_FLOAT, GL_FALSE,
                           VERTEX_STRIDE_FLOATS * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, VERTEX_STRIDE_FLOATS * sizeof(float),
+    glEnableVertexAttribArray(POSITION_ATTRIB_INDEX);
+    glVertexAttribPointer(TEXCOORD_ATTRIB_INDEX, TEXCOORD_FLOATS, GL_FLOAT, GL_FALSE,
+                          VERTEX_STRIDE_FLOATS * sizeof(float),
                           reinterpret_cast<void *>(VERTEX_POSITION_FLOATS * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(TEXCOORD_ATTRIB_INDEX);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
@@ -315,8 +319,9 @@ void RenderThread::SetupRoiVao()
     glBufferData(GL_ARRAY_BUFFER,
                  sizeof(GLfloat) * ROI_QUAD_VERTICES * ROI_VERTEX_FLOATS * ROI_MAX_BORDER_RECTS,
                  nullptr, GL_DYNAMIC_DRAW);
-    glVertexAttribPointer(0, ROI_VERTEX_FLOATS, GL_FLOAT, GL_FALSE, ROI_VERTEX_FLOATS * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(POSITION_ATTRIB_INDEX, ROI_VERTEX_FLOATS, GL_FLOAT, GL_FALSE,
+                          ROI_VERTEX_FLOATS * sizeof(float), nullptr);
+    glEnableVertexAttribArray(POSITION_ATTRIB_INDEX);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
@@ -629,26 +634,26 @@ void RenderThread::PostTask(const RenderTask &task)
 
 void RenderThread::ConfigSceneMatrix()
 {
-    std::array<float, 16> translate_matrix = {
+    std::array<float, MAT4_ELEMENT_COUNT> translate_matrix = {
         1.0, 0.0, 0.0, UV_CENTER_OFFSET,
         0.0, 1.0, 0.0, UV_CENTER_OFFSET,
         0.0, 0.0, 1.0, 0.0,
         0.0, 0.0, 0.0, 1.0
     };
-    std::array<float, 16> scale_matrix = {
+    std::array<float, MAT4_ELEMENT_COUNT> scale_matrix = {
         NOISE_SCALE_X, 0.0, 0.0, 0.0,
         0.0, NOISE_SCALE_Y, 0.0, 0.0,
         0.0, 0.0, 1.0, 0.0,
         0.0, 0.0, 0.0, 1.0
     };
-    std::array<float, 16> rotate_matrix = {
+    std::array<float, MAT4_ELEMENT_COUNT> rotate_matrix = {
         -1.0, 0.0, 0.0, 0.0,
         0.0, -1.0, 0.0, 0.0,
         0.0, 0.0, 1.0, 0.0,
         0.0, 0.0, 0.0, 1.0
     };
-    std::array<float, 16> imageMatrixTmp;
-    std::array<float, 16> imageMatrix;
+    std::array<float, MAT4_ELEMENT_COUNT> imageMatrixTmp;
+    std::array<float, MAT4_ELEMENT_COUNT> imageMatrix;
     Detail::LeftProd(rotate_matrix.data(), scale_matrix.data(), imageMatrixTmp.data());
     Detail::LeftProd(translate_matrix.data(), imageMatrixTmp.data(), imageMatrix.data());
     OH_LOG_Print(LOG_APP, LOG_DEBUG, LOG_PRINT_DOMAIN, "RenderThread", "isCameraFront_:%{public}d.",
@@ -685,9 +690,9 @@ void RenderThread::UpdateImageResource(void* data, int32_t width, int32_t height
         constexpr uint32_t w = 32;
         constexpr uint32_t h = 32;
         constexpr uint32_t r = 720;
-        constexpr uint32_t g = 1023;
+        constexpr uint32_t g = A2R10G10B10_10BIT_MAX;
         constexpr uint32_t b = 0;
-        constexpr uint32_t a = 3;
+        constexpr uint32_t a = A2R10G10B10_2BIT_ALPHA_MAX;
         constexpr uint32_t mockColor = (a << A2R10G10B10_ALPHA_SHIFT) |
             (b << A2R10G10B10_BLUE_SHIFT) | (g << A2R10G10B10_GREEN_SHIFT) | r;
         std::vector<uint32_t> data(w * h, mockColor);
@@ -798,7 +803,8 @@ void RenderThread::DrawRoiOverlay(OHNativeWindowBuffer *outBuffer, ViewportParam
     float tbThickNdc = NDC_RANGE_SIZE * desiredPixelThickness / static_cast<float>(vp.height);
 
     // Compute image dimensions for NDC conversion (ROI coords are relative to image frame)
-    int32_t encWidth = 0, encHeight = 0;
+    int32_t encWidth = 0;
+    int32_t encHeight = 0;
     if (encoderNativeWindow_ != nullptr) {
         OH_NativeWindow_NativeWindowHandleOpt(encoderNativeWindow_, GET_BUFFER_GEOMETRY, &encHeight, &encWidth);
     } else {
@@ -808,7 +814,7 @@ void RenderThread::DrawRoiOverlay(OHNativeWindowBuffer *outBuffer, ViewportParam
     int32_t imageWidth = encWidth;
     int32_t imageHeight = encHeight;
     int imageRotation = cameraRotation_;
-    if (imageRotation == 0 || imageRotation == 180) {
+    if (imageRotation == CAMERA_ROTATION_NONE || imageRotation == CAMERA_ROTATION_HALF_TURN) {
         imageWidth = encHeight;
         imageHeight = encWidth;
     }
@@ -849,10 +855,10 @@ void RenderThread::DrawRoiRects(const std::vector<OH_AVFormat*> &parsedFormats, 
         roiShader_->SetFloat4v("uColor", color, VEC4_COMPONENT_COUNT);
 
         // Convert pixel coordinates to NDC
-        float ndcXLeft = NDC_RANGE_SIZE * left / static_cast<float>(vp.width) - 1.0f;
-        float ndcXRight = NDC_RANGE_SIZE * right / static_cast<float>(vp.width) - 1.0f;
-        float ndcYLow = NDC_RANGE_SIZE * top / static_cast<float>(vp.height) - 1.0f;
-        float ndcYHigh = NDC_RANGE_SIZE * bottom / static_cast<float>(vp.height) - 1.0f;
+        float ndcXLeft = NDC_RANGE_SIZE * left / static_cast<float>(vp.width) + NDC_MIN;
+        float ndcXRight = NDC_RANGE_SIZE * right / static_cast<float>(vp.width) + NDC_MIN;
+        float ndcYLow = NDC_RANGE_SIZE * top / static_cast<float>(vp.height) + NDC_MIN;
+        float ndcYHigh = NDC_RANGE_SIZE * bottom / static_cast<float>(vp.height) + NDC_MIN;
 
         DrawRoiQuad(ndcXLeft - lrThickNdc, ndcXRight + lrThickNdc, ndcYHigh, ndcYHigh + tbThickNdc);
         DrawRoiQuad(ndcXLeft - lrThickNdc, ndcXRight + lrThickNdc, ndcYLow - tbThickNdc, ndcYLow);
@@ -1125,8 +1131,9 @@ void RenderThread::DrawImage()
 
     // [Start roi_render_flow]
     int imageRotation = cameraRotation_;
-    ViewportParams previewVp, encoderVp;
-    if (imageRotation == 0 || imageRotation == 180) {
+    ViewportParams previewVp;
+    ViewportParams encoderVp;
+    if (imageRotation == CAMERA_ROTATION_NONE || imageRotation == CAMERA_ROTATION_HALF_TURN) {
         previewVp = ComputeCenteredViewport(viewHeight, viewWidth, xcomponentWidth_, xcomponentHeight_);
         encoderVp = ComputeCenteredViewport(viewHeight, viewWidth, viewWidth, viewHeight);
     } else {

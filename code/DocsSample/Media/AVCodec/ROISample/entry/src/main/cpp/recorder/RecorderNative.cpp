@@ -54,7 +54,10 @@ void DealCallBack(napi_env env, void *data)
     delete asyncCallbackInfo;
 }
 
-void SetCallBackResult(AsyncCallbackInfo *asyncCallbackInfo, int32_t code) { asyncCallbackInfo->resultCode = code; }
+void SetCallBackResult(AsyncCallbackInfo *asyncCallbackInfo, int32_t code)
+{
+    asyncCallbackInfo->resultCode = code;
+}
 
 void SurfaceIdCallBack(AsyncCallbackInfo *asyncCallbackInfo, std::string surfaceId)
 {
@@ -106,7 +109,7 @@ napi_value RecorderNative::ReleaseRecorder(napi_env env, napi_callback_info info
 
     int64_t addrValue = 0;
     [[maybe_unused]] bool flag = false;
-    napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
+    napi_get_value_bigint_int64(env, args[NAPI_FIRST_PARAM], &addrValue, &flag);
     Recorder *recorder = reinterpret_cast<Recorder *>(addrValue);
     if (recorder) {
         delete recorder;
@@ -123,7 +126,7 @@ napi_value RecorderNative::Init(napi_env env, napi_callback_info info)
     napi_value args[NAPI_INIT_ARG_COUNT] = {nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
-    Recorder *recorder = ParseRecorderPtr(env, args[0]);
+    Recorder *recorder = ParseRecorderPtr(env, args[NAPI_FIRST_PARAM]);
     ParseInitArgs(env, args, sampleInfo);
     FillAudioDefaults(sampleInfo);
 
@@ -161,20 +164,20 @@ Recorder *RecorderNative::ParseRecorderPtr(napi_env env, napi_value arg)
 
 void RecorderNative::ParseInitArgs(napi_env env, napi_value *args, SampleInfo &sampleInfo)
 {
-    napi_get_value_int32(env, args[1], &sampleInfo.fileInfo.outputFd);
+    napi_get_value_int32(env, args[NAPI_SECOND_PARAM], &sampleInfo.fileInfo.outputFd);
     char videoCodecMime[NAPI_STRING_BUFFER_SIZE] = {0};
     size_t videoCodecMimeStrlen = 0;
     size_t len = NAPI_STRING_BUFFER_SIZE;
-    napi_get_value_string_utf8(env, args[2], videoCodecMime, len, &videoCodecMimeStrlen);
-    napi_get_value_int32(env, args[3], &sampleInfo.videoInfo.videoWidth);
-    napi_get_value_int32(env, args[4], &sampleInfo.videoInfo.videoHeight);
-    napi_get_value_double(env, args[5], &sampleInfo.videoInfo.frameRate);
-    napi_get_value_int32(env, args[6], &sampleInfo.videoInfo.isHDRVivid);
-    napi_get_value_int64(env, args[7], &sampleInfo.videoInfo.bitrate);
-    napi_get_value_int32(env, args[8], &sampleInfo.audioInfo.isOpenEchoCancel);
-    napi_get_value_int32(env, args[9], &sampleInfo.fileInfo.roiFd);
+    napi_get_value_string_utf8(env, args[NAPI_THIRD_PARAM], videoCodecMime, len, &videoCodecMimeStrlen);
+    napi_get_value_int32(env, args[NAPI_FOURTH_PARAM], &sampleInfo.videoInfo.videoWidth);
+    napi_get_value_int32(env, args[NAPI_FIFTH_PARAM], &sampleInfo.videoInfo.videoHeight);
+    napi_get_value_double(env, args[NAPI_SIXTH_PARAM], &sampleInfo.videoInfo.frameRate);
+    napi_get_value_int32(env, args[NAPI_SEVENTH_PARAM], &sampleInfo.videoInfo.isHDRVivid);
+    napi_get_value_int64(env, args[NAPI_EIGHTH_PARAM], &sampleInfo.videoInfo.bitrate);
+    napi_get_value_int32(env, args[NAPI_NINTH_PARAM], &sampleInfo.audioInfo.isOpenEchoCancel);
+    napi_get_value_int32(env, args[NAPI_TENTH_PARAM], &sampleInfo.fileInfo.roiFd);
     int32_t roiPathType = 0;
-    napi_get_value_int32(env, args[10], &roiPathType);
+    napi_get_value_int32(env, args[NAPI_ELEVENTH_PARAM], &roiPathType);
     sampleInfo.videoInfo.roiPathType = static_cast<RoiPathType>(roiPathType);
     sampleInfo.videoInfo.videoCodecMime = videoCodecMime;
 
@@ -203,12 +206,12 @@ napi_value RecorderNative::Start(napi_env env, napi_callback_info info)
 
     int64_t addrValue = 0;
     [[maybe_unused]] bool flag = false;
-    napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
+    napi_get_value_bigint_int64(env, args[NAPI_FIRST_PARAM], &addrValue, &flag);
     Recorder *recorder = reinterpret_cast<Recorder *>(addrValue);
     char previewSurfaceId[NAPI_STRING_BUFFER_SIZE] = {0};
     size_t previewSurfaceIdStrlen = 0;
     size_t len = NAPI_STRING_BUFFER_SIZE;
-    napi_get_value_string_utf8(env, args[1], previewSurfaceId, len, &previewSurfaceIdStrlen);
+    napi_get_value_string_utf8(env, args[NAPI_SECOND_PARAM], previewSurfaceId, len, &previewSurfaceIdStrlen);
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_DOMAIN, "Recoder", "previewSurfaceId:%{public}s.", previewSurfaceId);
     std::string id(previewSurfaceId);
     if (recorder) {
@@ -224,9 +227,9 @@ napi_value RecorderNative::SetPlayerAsLiveBgm(napi_env env, napi_callback_info i
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
     int64_t addrValue = 0;
     [[maybe_unused]] bool flag = false;
-    napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
+    napi_get_value_bigint_int64(env, args[NAPI_FIRST_PARAM], &addrValue, &flag);
     Recorder *recorder = reinterpret_cast<Recorder *>(addrValue);
-    napi_get_value_bigint_int64(env, args[1], &addrValue, &flag);
+    napi_get_value_bigint_int64(env, args[NAPI_SECOND_PARAM], &addrValue, &flag);
     Player *player = reinterpret_cast<Player *>(addrValue);
     if (recorder && player) {
         auto bgmQueue = recorder->GetBgmQueue();
@@ -243,10 +246,10 @@ napi_value RecorderNative::UpdateInfoForCamera(napi_env env, napi_callback_info 
 
     int64_t addrValue = 0;
     [[maybe_unused]] bool flag = false;
-    napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
+    napi_get_value_bigint_int64(env, args[NAPI_FIRST_PARAM], &addrValue, &flag);
     Recorder *recorder = reinterpret_cast<Recorder *>(addrValue);
     bool isFront = false;
-    napi_get_value_bool(env, args[1], &isFront);
+    napi_get_value_bool(env, args[NAPI_SECOND_PARAM], &isFront);
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_DOMAIN, "Recoder", "isFront :%{public}d.", isFront);
     if (recorder) {
         recorder->UpdateInfoForCamera(isFront);
@@ -262,10 +265,10 @@ napi_value RecorderNative::UpdateCameraRotation(napi_env env, napi_callback_info
 
     int64_t addrValue = 0;
     [[maybe_unused]] bool flag = false;
-    napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
+    napi_get_value_bigint_int64(env, args[NAPI_FIRST_PARAM], &addrValue, &flag);
     Recorder *recorder = reinterpret_cast<Recorder *>(addrValue);
     int rotation = NativeXComponentSample::DEFAULT_CAMERA_ROTATION;
-    napi_get_value_int32(env, args[1], &rotation);
+    napi_get_value_int32(env, args[NAPI_SECOND_PARAM], &rotation);
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_DOMAIN, "Recoder", "fhmrotation :%{public}d.", rotation);
     if (recorder) {
         recorder->UpdateCameraRotation(rotation);
@@ -297,7 +300,7 @@ napi_value RecorderNative::Stop(napi_env env, napi_callback_info info)
 
     int64_t addrValue = 0;
     [[maybe_unused]] bool flag = false;
-    napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
+    napi_get_value_bigint_int64(env, args[NAPI_FIRST_PARAM], &addrValue, &flag);
     Recorder *recorder = reinterpret_cast<Recorder *>(addrValue);
     AsyncCallbackInfo *asyncCallbackInfo = new AsyncCallbackInfo();
 
@@ -324,10 +327,10 @@ napi_value RecorderNative::SetIsOpenROI(napi_env env, napi_callback_info info)
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
     int64_t addrValue = 0;
     [[maybe_unused]] bool flag = false;
-    napi_get_value_bigint_int64(env, args[0], &addrValue, &flag);
+    napi_get_value_bigint_int64(env, args[NAPI_FIRST_PARAM], &addrValue, &flag);
     Recorder *recorder = reinterpret_cast<Recorder *>(addrValue);
     bool isOpenROI = false;
-    napi_get_value_bool(env, args[1], &isOpenROI);
+    napi_get_value_bool(env, args[NAPI_SECOND_PARAM], &isOpenROI);
     if (recorder) {
         recorder->SetIsOpenROI(isOpenROI);
     }

@@ -55,14 +55,33 @@ constexpr int32_t ROI_MAX_BORDER_RECTS = 4;     // Top, bottom, left, right side
 // Main vertex format constants
 constexpr int32_t VERTEX_STRIDE_FLOATS = 5;     // 3 position + 2 texcoord
 constexpr int32_t VERTEX_POSITION_FLOATS = 3;   // x, y, z before texcoord
+constexpr int32_t TEXCOORD_ATTRIB_INDEX = 1;    // GL attribute index for texture coords
+constexpr int32_t TEXCOORD_FLOATS = 2;          // 2D UV per vertex (u, v)
+constexpr int32_t POSITION_ATTRIB_INDEX = 0;    // GL attribute index for position
 
 // NDC coordinate system
 constexpr float NDC_RANGE_SIZE = 2.0f;          // Full range from -1.0f to +1.0f
+constexpr float NDC_MIN = -1.0f;                // Left/bottom edge of NDC space
+constexpr float NDC_MAX = 1.0f;                 // Right/top edge of NDC space
+
+// Matrix dimension
+constexpr int32_t MAT4_DIM = 4;                 // 4x4 matrix side length
+
+// BT.601 luminance weights for grayscale conversion
+constexpr float LUMINANCE_WEIGHT_R = 0.299f;
+constexpr float LUMINANCE_WEIGHT_G = 0.587f;
+constexpr float LUMINANCE_WEIGHT_B = 0.114f;
+
+// Camera rotation angles (degrees)
+constexpr int32_t CAMERA_ROTATION_NONE = 0;
+constexpr int32_t CAMERA_ROTATION_HALF_TURN = 180;
 
 // GL color packing shifts (A2R10G10B10 format)
 constexpr int32_t A2R10G10B10_ALPHA_SHIFT = 30;
 constexpr int32_t A2R10G10B10_BLUE_SHIFT = 20;
 constexpr int32_t A2R10G10B10_GREEN_SHIFT = 10;
+constexpr uint32_t A2R10G10B10_10BIT_MAX = 1023;  // Max value for 10-bit channel
+constexpr uint32_t A2R10G10B10_2BIT_ALPHA_MAX = 3; // Max value for 2-bit alpha
 
 // Matrix and draw constants
 constexpr int32_t MAT4_ELEMENT_COUNT = 16;
@@ -126,17 +145,34 @@ public:
     void UpdateCameraRotation(int rotation);
 
     // Set ROI toggle state from UI
-    void SetIsOpenROI(bool isOpenROI) { isOpenROI_ = isOpenROI; }
+    void SetIsOpenROI(bool isOpenROI)
+    {
+        isOpenROI_ = isOpenROI;
+    }
     // Set ROI log file fd
-    void SetRoiFd(int fd) { roiFd_ = fd; }
+    void SetRoiFd(int fd)
+    {
+        roiFd_ = fd;
+    }
     // Set ROI path type
-    void SetRoiPathType(RoiPathType type) { roiPathType_ = type; }
+    void SetRoiPathType(RoiPathType type)
+    {
+        roiPathType_ = type;
+    }
     // Set frame queue for Buffer模式
-    void SetFrameQueue(FrameQueue *queue) { frameQueue_ = queue; }
+    void SetFrameQueue(FrameQueue *queue)
+    {
+        frameQueue_ = queue;
+    }
     // Set video dimensions for Buffer模式 (no encoder surface to query)
-    void SetVideoDimensions(int32_t width, int32_t height) { encoderWidth = width; encoderHeight = height; }
+    void SetVideoDimensions(int32_t width, int32_t height)
+    {
+        encoderWidth = width;
+        encoderHeight = height;
+    }
     // Set callback for 参数回调配置: pass assembled ROI string with PTS to VideoEncoder
-    void SetOnRoiStrAssembled(std::function<void(int64_t, const std::string&)> callback) {
+    void SetOnRoiStrAssembled(std::function<void(int64_t, const std::string&)> callback)
+    {
         onRoiStrAssembled_ = callback;
     }
 private:

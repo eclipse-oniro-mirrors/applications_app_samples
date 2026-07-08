@@ -28,7 +28,9 @@
 
 class Player {
 public:
-    Player(){};
+    Player()
+    {
+    };
     ~Player();
 
     int32_t Init(SampleInfo &sampleInfo);

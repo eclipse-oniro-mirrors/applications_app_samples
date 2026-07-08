@@ -29,21 +29,26 @@ constexpr auto AUDIO_RENDER_BALANCE_TIMEOUT = 20ms;
 constexpr auto AUDIO_FINAL_FLUSH_TIMEOUT = 500ms;
 } // namespace
 
-Player::~Player() {}
+Player::~Player()
+{
+}
 
-void Player::SetBgmQueue(AudioBgmQueue *bgmQueue) {
+void Player::SetBgmQueue(AudioBgmQueue *bgmQueue)
+{
     if (audioDecContext_ && bgmQueue) {
         audioDecContext_->decodedBgmQueue = bgmQueue;
         bgmQueue->Start();
     }
 }
 
-int32_t Player::CreateAudioRender(CodecUserData *userData, const AudioInfo &audioInfo) {
+int32_t Player::CreateAudioRender(CodecUserData *userData, const AudioInfo &audioInfo)
+{
     audioRender_->CreateAudioRender(userData, audioInfo);
     return SAMPLE_ERR_OK;
 }
 
-int32_t Player::CreateAudioDecoder() {
+int32_t Player::CreateAudioDecoder()
+{
     SAMPLE_LOGW("audio mime:%{public}s", sampleInfo_.audioInfo.audioCodecMime.c_str());
     int32_t ret = audioDecoder_->Create(sampleInfo_.audioInfo.audioCodecMime);
     if (ret != SAMPLE_ERR_OK) {
@@ -57,7 +62,8 @@ int32_t Player::CreateAudioDecoder() {
     return SAMPLE_ERR_OK;
 }
 
-int32_t Player::Init(SampleInfo &sampleInfo) {
+int32_t Player::Init(SampleInfo &sampleInfo)
+{
     std::unique_lock<std::mutex> lock(mutex_);
     CHECK_AND_RETURN_RET_LOG(!isStarted_, SAMPLE_ERR_ERROR, "Already started.");
     CHECK_AND_RETURN_RET_LOG(demuxer_ == nullptr && audioDecoder_ == nullptr, SAMPLE_ERR_ERROR, "Already started.");
@@ -90,7 +96,8 @@ int32_t Player::Init(SampleInfo &sampleInfo) {
     return SAMPLE_ERR_OK;
 }
 
-int32_t Player::Start() {
+int32_t Player::Start()
+{
     std::unique_lock<std::mutex> lock(mutex_);
     int32_t ret;
     CHECK_AND_RETURN_RET_LOG(!isStarted_, SAMPLE_ERR_ERROR, "Already started.");
@@ -129,7 +136,8 @@ int32_t Player::Start() {
     return SAMPLE_ERR_OK;
 }
 
-void Player::StartRelease() {
+void Player::StartRelease()
+{
     std::unique_lock<std::mutex> lock(doneMutex);
     if (audioRender_) {
         audioRender_->StopAudioRender();
@@ -140,7 +148,8 @@ void Player::StartRelease() {
     }
 }
 
-void Player::ReleaseThread() {
+void Player::ReleaseThread()
+{
     if (audioDecInputThread_ && audioDecInputThread_->joinable()) {
         audioDecInputThread_->join();
         audioDecInputThread_.reset();
@@ -151,7 +160,8 @@ void Player::ReleaseThread() {
     }
 }
 
-void Player::WaitForStop() {
+void Player::WaitForStop()
+{
     isStarted_ = false;
     // Wake up waiting threads to check exit condition
     if (audioDecContext_) {
@@ -162,7 +172,8 @@ void Player::WaitForStop() {
     StartRelease();
 }
 
-void Player::Release() {
+void Player::Release()
+{
     std::lock_guard<std::mutex> lock(mutex_);
     isStarted_ = false;
 
@@ -185,7 +196,8 @@ void Player::Release() {
     SAMPLE_LOGI("Succeed");
 }
 
-void Player::AudioDecInputThread() {
+void Player::AudioDecInputThread()
+{
     while (isStarted_) {
         CHECK_AND_BREAK_LOG(isStarted_, "Decoder input thread out");
         std::unique_lock<std::mutex> lock(audioDecContext_->inputMutex);
@@ -211,7 +223,8 @@ void Player::AudioDecInputThread() {
     }
 }
 
-void Player::AudioDecOutputThread() {
+void Player::AudioDecOutputThread()
+{
     isAudioDone = false;
     while (isStarted_) {
         CHECK_AND_BREAK_LOG(isStarted_, "Decoder output thread out");

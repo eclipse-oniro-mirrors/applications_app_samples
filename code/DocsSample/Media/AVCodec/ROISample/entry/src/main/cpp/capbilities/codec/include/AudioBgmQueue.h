@@ -28,7 +28,9 @@ constexpr auto BGM_QUEUE_POP_TIMEOUT = 2ms;
 // Support PCM audio queue with flexible buffer size
 class AudioBgmQueue {
 public:
-    AudioBgmQueue() : m_stop(true) {}
+    AudioBgmQueue() : m_stop(true)
+    {
+    }
     
     // Disable copy constructor and assignment operator
     AudioBgmQueue(const AudioBgmQueue&) = delete;
