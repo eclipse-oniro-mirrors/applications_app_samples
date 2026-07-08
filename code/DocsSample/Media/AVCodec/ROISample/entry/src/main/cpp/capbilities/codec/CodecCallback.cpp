@@ -19,20 +19,20 @@
 #include <algorithm>
 
 void CodecCallback::OnCodecError([[maybe_unused]]OH_AVCodec *codec, [[maybe_unused]]int32_t errorCode,
-                                 [[maybe_unused]]void *userData)
+    [[maybe_unused]]void *userData)
 {
     SAMPLE_LOGI("On codec error, error code: %{public}d", errorCode);
 }
 
 void CodecCallback::OnCodecFormatChange([[maybe_unused]]OH_AVCodec *codec, [[maybe_unused]]OH_AVFormat *format,
-                                         [[maybe_unused]]void *userData)
+    [[maybe_unused]]void *userData)
 {
     SAMPLE_LOGI("On codec format change");
 }
 
 // [Start roi_buffer_mode_callback]
 static void FillBufferModeInput(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer,
-                                CodecUserData *codecUserData)
+    CodecUserData *codecUserData)
 {
     FrameItem frameItem;
     if (!codecUserData->frameQueue->pop(frameItem, std::chrono::milliseconds(FRAME_QUEUE_POP_TIMEOUT_MS))) {

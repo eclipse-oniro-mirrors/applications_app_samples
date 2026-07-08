@@ -101,8 +101,8 @@ public:
         remainlen = remainlen - bufferLen;
         if (remainlen > 0) {
             std::copy(cache.data() + bufferLen,
-                  cache.data() + bufferLen + remainlen,
-                  cache.data());
+                cache.data() + bufferLen + remainlen,
+                cache.data());
         }
         return true;
     }

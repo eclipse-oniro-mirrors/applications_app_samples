@@ -29,9 +29,9 @@ int32_t Demuxer::Create(SampleInfo &info)
     source_ =
         OH_AVSource_CreateWithFD(info.fileInfo.inputFd, info.fileInfo.inputFileOffset, info.fileInfo.inputFileSize);
     CHECK_AND_RETURN_RET_LOG(source_ != nullptr, SAMPLE_ERR_ERROR,
-                             "Create demuxer source failed, fd: %{public}d, offset: %{public}" PRId64
-                             ", file size: %{public}" PRId64,
-                             info.fileInfo.inputFd, info.fileInfo.inputFileOffset, info.fileInfo.inputFileSize);
+        "Create demuxer source failed, fd: %{public}d, offset: %{public}" PRId64
+        ", file size: %{public}" PRId64,
+        info.fileInfo.inputFd, info.fileInfo.inputFileOffset, info.fileInfo.inputFileSize);
     demuxer_ = OH_AVDemuxer_CreateWithSource(source_);
     CHECK_AND_RETURN_RET_LOG(demuxer_ != nullptr, SAMPLE_ERR_ERROR, "Create demuxer failed");
 

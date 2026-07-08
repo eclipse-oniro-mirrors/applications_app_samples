@@ -144,6 +144,9 @@ public:
 
     void ImageDraw(OHNativeWindowBuffer *InBuffer, OHNativeWindowBuffer *OutBuffer, ViewportParams vp);
     void DrawRoiOverlay(OHNativeWindowBuffer *outBuffer, ViewportParams vp, const std::string& roiStr);
+    bool ParseRoiOverlayData(const std::string &roiStr, std::vector<OH_AVFormat*> &outFormats, uint32_t &outCount);
+    bool SetupOverlayFramebuffer(OHNativeWindowBuffer *outBuffer, EGLImageKHR &outImg);
+    ViewportParams ComputeOverlayImageViewport();
     OH_NativeImage *GetNativeImageEncoder();
     void SetCameraFront(bool isCameraFront);
     void UpdateCameraRotation(int rotation);

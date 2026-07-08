@@ -19,7 +19,7 @@
 #include "dfx/error/SampleError.h"
 
 // Customize the audio stream event function
-static int32_t OnRenderStreamEvent([[maybe_unused]]OH_AudioRenderer *renderer, [[maybe_unused]]void *userData, 
+static int32_t OnRenderStreamEvent([[maybe_unused]]OH_AudioRenderer *renderer, [[maybe_unused]]void *userData,
     [[maybe_unused]]OH_AudioStream_Event event)
 {
     // Update the player status and interface based on the audio stream event information represented by the event
@@ -28,7 +28,7 @@ static int32_t OnRenderStreamEvent([[maybe_unused]]OH_AudioRenderer *renderer, [
 
 // [Start AudioRender_Interrupt]
 // Customize the audio interrupt event function
-static int32_t OnRenderInterruptEvent(OH_AudioRenderer *renderer, [[maybe_unused]]void *userData, 
+static int32_t OnRenderInterruptEvent(OH_AudioRenderer *renderer, [[maybe_unused]]void *userData,
     OH_AudioInterrupt_ForceType type, OH_AudioInterrupt_Hint hint)
 {
     if ((type == AUDIOSTREAM_INTERRUPT_SHARE) && (hint == AUDIOSTREAM_INTERRUPT_HINT_RESUME)) {
@@ -38,7 +38,7 @@ static int32_t OnRenderInterruptEvent(OH_AudioRenderer *renderer, [[maybe_unused
 }
 // [End AudioRender_Interrupt]
 // Custom exception callback functions
-static int32_t OnRenderError([[maybe_unused]]OH_AudioRenderer *renderer, [[maybe_unused]]void *userData, 
+static int32_t OnRenderError([[maybe_unused]]OH_AudioRenderer *renderer, [[maybe_unused]]void *userData,
     [[maybe_unused]]OH_AudioStream_Result error)
 {
     SAMPLE_LOGE("OnRenderError");

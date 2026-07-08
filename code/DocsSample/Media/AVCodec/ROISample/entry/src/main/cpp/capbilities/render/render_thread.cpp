@@ -452,12 +452,14 @@ void RenderThread::AddBW(void)
         if (isVertexShader) {
             isVertexShader = false;
             videoShader_ =
-                std::make_unique<NativeXComponentSample::ShaderProgram>(Detail::g_vertexShader, Detail::g_fragmentShader);
+                std::make_unique<NativeXComponentSample::ShaderProgram>(
+                    Detail::g_vertexShader, Detail::g_fragmentShader);
             OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread", "Shader shader fragmentShader.");
         } else {
             isVertexShader = true;
             videoShader_ =
-                std::make_unique<NativeXComponentSample::ShaderProgram>(Detail::g_vertexShader, Detail::g_fragmentShaderBW);
+                std::make_unique<NativeXComponentSample::ShaderProgram>(
+                    Detail::g_vertexShader, Detail::g_fragmentShaderBW);
             OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread", "Shader shader fragmentShaderBW.");
         }
     });
@@ -527,7 +529,7 @@ void RenderThread::OnNativeImageFrameAvailable(void *data)
         return;
     }
     renderThread->availableFrameCnt_++;
-    renderThread->wakeUpCond_.notify_one();    
+    renderThread->wakeUpCond_.notify_one();
 }
 // [Start Create_Native_Image]
 bool RenderThread::CreateNativeImage()
@@ -749,60 +751,46 @@ void RenderThread::ImageDraw(OHNativeWindowBuffer *InBuffer, OHNativeWindowBuffe
 }
 
 // [Start roi_overlay_drawing]
-void RenderThread::DrawRoiOverlay(OHNativeWindowBuffer *outBuffer, ViewportParams vp, const std::string& roiStr)
+bool RenderThread::ParseRoiOverlayData(const std::string &roiStr,
+    std::vector<OH_AVFormat*> &outFormats, uint32_t &outCount)
 {
-    if (roiStr.empty() || !roiShader_ || !roiShader_->Valid()) {
-        return;
-    }
-
-    // Parse ROI string
     uint32_t roiCount = 0;
     OH_AVErrCode ret = OH_VideoMetadata_GetRoiCount(roiStr.c_str(), &roiCount);
     if (ret != AV_ERR_OK || roiCount == 0) {
-        return;
+        return false;
     }
 
     constexpr uint32_t MAX_ROI_CAPACITY = 8;
-    std::vector<OH_AVFormat*> parsedFormats(std::min(roiCount, MAX_ROI_CAPACITY), nullptr);
-    uint32_t actualCount = 0;
-    ret = OH_VideoMetadata_ParseRoiString(roiStr.c_str(), parsedFormats.data(),
-        std::min(roiCount, MAX_ROI_CAPACITY), &actualCount);
-    if (ret != AV_ERR_OK || actualCount == 0) {
-        return;
+    outFormats.assign(std::min(roiCount, MAX_ROI_CAPACITY), nullptr);
+    outCount = 0;
+    ret = OH_VideoMetadata_ParseRoiString(roiStr.c_str(), outFormats.data(),
+        std::min(roiCount, MAX_ROI_CAPACITY), &outCount);
+    if (ret != AV_ERR_OK || outCount == 0) {
+        return false;
     }
+    return true;
+}
 
-    // Create EGLImage for outBuffer and set up FBO (draw on top of existing content)
-    EGLImageKHR imgOut = renderContext_->CreateEGLImage(outBuffer);
+bool RenderThread::SetupOverlayFramebuffer(OHNativeWindowBuffer *outBuffer, EGLImageKHR &outImg)
+{
+    outImg = renderContext_->CreateEGLImage(outBuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, vertexFrameObject_);
     glBindTexture(GL_TEXTURE_EXTERNAL_OES, outTexId_);
-    renderContext_->EGLImageTargetTexture2DOES(imgOut);
+    renderContext_->EGLImageTargetTexture2DOES(outImg);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_EXTERNAL_OES, outTexId_, 0);
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread",
                      "DrawRoiOverlay FBO status check failed");
-        for (uint32_t i = 0; i < actualCount; i++) {
-            if (parsedFormats[i]) {
-                OH_AVFormat_Destroy(parsedFormats[i]);
-            }
-        }
-        renderContext_->DeleteEGLImage(imgOut);
+        renderContext_->DeleteEGLImage(outImg);
+        outImg = EGL_NO_IMAGE_KHR;
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        return;
+        return false;
     }
+    return true;
+}
 
-    // Use passed viewport (center-aligned aspect ratio)
-    glViewport(vp.x, vp.y, vp.width, vp.height);
-
-    roiShader_->Use();
-    glBindVertexArray(roiVao_);
-    glBindBuffer(GL_ARRAY_BUFFER, roiVbo_);
-
-    // Compute border thickness based on viewport to ensure equal pixel width on all sides
-    float desiredPixelThickness = ROI_BORDER_THICKNESS;
-    float lrThickNdc = desiredPixelThickness / static_cast<float>(vp.width);
-    float tbThickNdc = NDC_RANGE_SIZE * desiredPixelThickness / static_cast<float>(vp.height);
-
-    // Compute image dimensions for NDC conversion (ROI coords are relative to image frame)
+ViewportParams RenderThread::ComputeOverlayImageViewport()
+{
     int32_t encWidth = 0;
     int32_t encHeight = 0;
     if (encoderNativeWindow_ != nullptr) {
@@ -818,8 +806,40 @@ void RenderThread::DrawRoiOverlay(OHNativeWindowBuffer *outBuffer, ViewportParam
         imageWidth = encHeight;
         imageHeight = encWidth;
     }
-    ViewportParams imageVp{0, 0, imageWidth, imageHeight};
+    return ViewportParams{0, 0, imageWidth, imageHeight};
+}
 
+void RenderThread::DrawRoiOverlay(OHNativeWindowBuffer *outBuffer, ViewportParams vp, const std::string& roiStr)
+{
+    if (roiStr.empty() || !roiShader_ || !roiShader_->Valid()) {
+        return;
+    }
+
+    std::vector<OH_AVFormat*> parsedFormats;
+    uint32_t actualCount = 0;
+    if (!ParseRoiOverlayData(roiStr, parsedFormats, actualCount)) {
+        return;
+    }
+
+    EGLImageKHR imgOut = EGL_NO_IMAGE_KHR;
+    if (!SetupOverlayFramebuffer(outBuffer, imgOut)) {
+        for (uint32_t i = 0; i < actualCount; i++) {
+            if (parsedFormats[i]) {
+                OH_AVFormat_Destroy(parsedFormats[i]);
+            }
+        }
+        return;
+    }
+
+    glViewport(vp.x, vp.y, vp.width, vp.height);
+    roiShader_->Use();
+    glBindVertexArray(roiVao_);
+    glBindBuffer(GL_ARRAY_BUFFER, roiVbo_);
+
+    float lrThickNdc = ROI_BORDER_THICKNESS / static_cast<float>(vp.width);
+    float tbThickNdc = NDC_RANGE_SIZE * ROI_BORDER_THICKNESS / static_cast<float>(vp.height);
+
+    ViewportParams imageVp = ComputeOverlayImageViewport();
     DrawRoiRects(parsedFormats, actualCount, lrThickNdc, tbThickNdc, imageVp);
 
     glFinish();
@@ -1068,7 +1088,7 @@ bool RenderThread::AcquireInputBuffer(OHNativeWindowBuffer **outBuffer, int32_t 
 }
 
 bool RenderThread::RequestOutputBuffers(OHNativeWindowBuffer **outPreviewBuffer,
-                                         OHNativeWindowBuffer **outEncoderBuffer)
+    OHNativeWindowBuffer **outEncoderBuffer)
 {
     int32_t fenceFd2 = -1;
     int32_t ret = OH_NativeWindow_NativeWindowRequestBuffer(nativeWindow_, outPreviewBuffer, &fenceFd2);
@@ -1124,7 +1144,7 @@ std::pair<ViewportParams, ViewportParams> RenderThread::ComputeDrawViewports()
 }
 
 void RenderThread::FlushAndCleanup(OHNativeWindowBuffer *InBuffer, int32_t fenceFd1,
-                                    OHNativeWindowBuffer *OutBuffer, OHNativeWindowBuffer *OutBufferEncoder)
+    OHNativeWindowBuffer *OutBuffer, OHNativeWindowBuffer *OutBufferEncoder)
 {
     OH_NativeWindow_NativeObjectUnreference(InBuffer);
     OH_NativeImage_ReleaseNativeWindowBuffer(nativeImage_, InBuffer, fenceFd1);
