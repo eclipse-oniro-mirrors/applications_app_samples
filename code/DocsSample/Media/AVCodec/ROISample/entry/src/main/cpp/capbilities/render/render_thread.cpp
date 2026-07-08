@@ -25,7 +25,7 @@
 namespace NativeXComponentSample {
 constexpr char DEMO_NAME[] = "HMOSLiveStream";
 constexpr uint32_t LOG_PRINT_DOMAIN = 0xFF00;
-const std::string g_texture2dSrc = "#define TEXTURE_2D_SRC 1\n";
+const std::string TEXTURE2D_SRC = "#define TEXTURE_2D_SRC 1\n";
 
 ViewportParams ComputeCenteredViewport(int32_t imageWidth, int32_t imageHeight,
                                        int32_t viewWidth, int32_t viewHeight)
@@ -46,8 +46,8 @@ ViewportParams ComputeCenteredViewport(int32_t imageWidth, int32_t imageHeight,
     }
     return vp;
 }
-const std::string g_versionGlsl = "#version 300 es\n";
-const std::string g_version310Glsl = "#version 310 es\n";
+const std::string VERSION_GLSL = "#version 300 es\n";
+const std::string VERSION310_GLSL = "#version 310 es\n";
 constexpr GLuint RECTANGLE_INDICES[] = {
     0, 1, 2,  // first triangle
     0, 2, 3   // second triangle
@@ -263,10 +263,10 @@ bool RenderThread::CreateGLResources()
 
 void RenderThread::CreateShaders()
 {
-    videoShader_ = std::make_unique<NativeXComponentSample::ShaderProgram>(g_versionGlsl + Detail::g_vertexShader,
-        g_versionGlsl + Detail::g_fragmentShader);
+    videoShader_ = std::make_unique<NativeXComponentSample::ShaderProgram>(VERSION_GLSL + Detail::g_vertexShader,
+        VERSION_GLSL + Detail::g_fragmentShader);
     imageShader_ = std::make_unique<NativeXComponentSample::ShaderProgram>(
-        g_versionGlsl + Detail::g_vertexShader, g_versionGlsl + g_texture2dSrc + Detail::g_fragmentShader);
+        VERSION_GLSL + Detail::g_vertexShader, VERSION_GLSL + TEXTURE2D_SRC + Detail::g_fragmentShader);
     frameShader_ = std::make_unique<NativeXComponentSample::ShaderProgram>(
         Detail::g_vertexShader, Detail::g_frameFragmentShader);
 }
@@ -760,11 +760,11 @@ bool RenderThread::ParseRoiOverlayData(const std::string &roiStr,
         return false;
     }
 
-    constexpr uint32_t MAX_ROI_CAPACITY = 8;
-    outFormats.assign(std::min(roiCount, MAX_ROI_CAPACITY), nullptr);
+    constexpr uint32_t maxRoiCapacity = 8;
+    outFormats.assign(std::min(roiCount, maxRoiCapacity), nullptr);
     outCount = 0;
     ret = OH_VideoMetadata_ParseRoiString(roiStr.c_str(), outFormats.data(),
-        std::min(roiCount, MAX_ROI_CAPACITY), &outCount);
+        std::min(roiCount, maxRoiCapacity), &outCount);
     if (ret != AV_ERR_OK || outCount == 0) {
         return false;
     }
@@ -1029,7 +1029,7 @@ void RenderThread::PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, const 
     std::copy(static_cast<uint8_t *>(virAddr),
               static_cast<uint8_t *>(virAddr) + frameSize,
               frameItem.pixels.data());
-    frameQueue_->push(frameItem);
+    frameQueue_->Push(frameItem);
     OH_NativeBuffer_Unmap(cameraNativeBuffer);
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "RenderThread",
                  "Buffer模式: pushed frame to queue, size: %{public}d, ROI: %{public}s",

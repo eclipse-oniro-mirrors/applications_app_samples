@@ -251,7 +251,7 @@ void Player::AudioDecOutputThread()
         }
         int16_t *pcmData = reinterpret_cast<int16_t *>(source);
         if (audioDecContext_->decodedBgmQueue) {
-            audioDecContext_->decodedBgmQueue->push(pcmData, bufferInfo.attr.size / AUDIO_BYTES_PER_SAMPLE);
+            audioDecContext_->decodedBgmQueue->Push(pcmData, bufferInfo.attr.size / AUDIO_BYTES_PER_SAMPLE);
         }
         lock.unlock();
 

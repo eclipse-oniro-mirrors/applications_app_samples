@@ -40,7 +40,7 @@ struct FrameItem {
 class FrameQueue {
 public:
     // Push a frame into the queue. Drops oldest frame if queue is full.
-    void push(const FrameItem &item)
+    void Push(const FrameItem &item)
     {
         std::lock_guard<std::mutex> lock(mtx_);
         if (queue_.size() >= FRAME_QUEUE_MAX_SIZE) {
@@ -51,7 +51,7 @@ public:
     }
 
     // Pop a frame with timeout. Returns true if successful.
-    bool pop(FrameItem &outItem, const std::chrono::milliseconds &timeout)
+    bool Pop(FrameItem &outItem, const std::chrono::milliseconds &timeout)
     {
         std::unique_lock<std::mutex> lock(mtx_);
         if (!cv_.wait_for(lock, timeout, [this]() { return !queue_.empty() || isStopped_; })) {
@@ -65,7 +65,7 @@ public:
         return true;
     }
 
-    void clear()
+    void Clear()
     {
         std::lock_guard<std::mutex> lock(mtx_);
         while (!queue_.empty()) {
@@ -73,7 +73,7 @@ public:
         }
     }
 
-    void stop()
+    void Stop()
     {
         std::lock_guard<std::mutex> lock(mtx_);
         isStopped_ = true;
@@ -82,7 +82,7 @@ public:
 
     ~FrameQueue()
     {
-        stop();
+        Stop();
     }
 
 private:

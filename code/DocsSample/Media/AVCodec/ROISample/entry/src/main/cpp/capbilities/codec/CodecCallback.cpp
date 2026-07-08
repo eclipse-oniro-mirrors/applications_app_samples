@@ -35,7 +35,7 @@ static void FillBufferModeInput(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *
     CodecUserData *codecUserData)
 {
     FrameItem frameItem;
-    if (!codecUserData->frameQueue->pop(frameItem, std::chrono::milliseconds(FRAME_QUEUE_POP_TIMEOUT_MS))) {
+    if (!codecUserData->frameQueue->Pop(frameItem, std::chrono::milliseconds(FRAME_QUEUE_POP_TIMEOUT_MS))) {
         OH_VideoEncoder_PushInputBuffer(codec, index);
         return;
     }

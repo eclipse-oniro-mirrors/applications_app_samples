@@ -37,7 +37,7 @@ public:
     AudioBgmQueue& operator=(const AudioBgmQueue&) = delete;
     
     // Add PCM data to the queue
-    void push(int16_t* data, size_t sampleCount)
+    void Push(int16_t* data, size_t sampleCount)
     {
         if (data == nullptr || sampleCount == 0) {
             return;
@@ -54,7 +54,7 @@ public:
     
     // Fetch specified amount of PCM data from the queue (blocks until sufficient data is available or stopped)
     // Returns actual number of samples fetched; 0 indicates stopped
-    size_t pop(int16_t* output, size_t requestedSamples)
+    size_t Pop(int16_t* output, size_t requestedSamples)
     {
         if (output == nullptr || requestedSamples == 0) {
             return 0;
@@ -115,7 +115,7 @@ public:
     }
     
     // Get the number of samples currently in the buffer
-    size_t size() const
+    size_t Size() const
     {
         std::lock_guard<std::mutex> lock(m_mutex);
         return m_buffer.size();

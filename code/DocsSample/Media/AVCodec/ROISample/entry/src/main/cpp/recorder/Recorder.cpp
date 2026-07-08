@@ -215,7 +215,7 @@ int32_t Recorder::StartAudio()
 
 void Recorder::VideoEncOutputThread()
 {
-    while (true) {
+    while (isStarted_) {
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         std::unique_lock<std::mutex> lock(encContext_->outputMutex);
         bool condRet = encContext_->outputCond.wait_for(
@@ -268,7 +268,7 @@ void Recorder::Release()
     std::lock_guard<std::mutex> lock(mutex_);
     isStarted_ = false;
     if (frameQueue_) {
-        frameQueue_->stop();
+        frameQueue_->Stop();
         frameQueue_.reset();
     }
     if (renderThread_) {
@@ -471,7 +471,7 @@ void Recorder::MixMicAndBgm(int16_t *mainPcm, AudioBgmQueue* bgmQueue, int32_t s
 {
     if (bgmQueue && bgmQueue->IsStart()) {
         std::vector<int16_t> bgmPcm(sampleCount); // S16LE
-        size_t samplesReceived = bgmQueue->pop(bgmPcm.data(), sampleCount);
+        size_t samplesReceived = bgmQueue->Pop(bgmPcm.data(), sampleCount);
         if (samplesReceived == sampleCount) {
             // Audio capture and background sound mixing
             for (int i = 0; i < sampleCount; i++) {
