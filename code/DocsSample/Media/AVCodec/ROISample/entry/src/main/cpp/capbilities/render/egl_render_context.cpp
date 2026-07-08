@@ -43,33 +43,33 @@ bool CheckEglExtension(const char *extensions, const char *extension)
     return false;
 }
 
-#define CASE_EGL_STR(value)                                                                                            \
-    case value:                                                                                                        \
-        return #value
 const char *GetEglErrorString()
 {
     EGLint error = eglGetError();
-    switch (error) {
-        CASE_EGL_STR(EGL_SUCCESS);
-        CASE_EGL_STR(EGL_NOT_INITIALIZED);
-        CASE_EGL_STR(EGL_BAD_ACCESS);
-        CASE_EGL_STR(EGL_BAD_ALLOC);
-        CASE_EGL_STR(EGL_BAD_ATTRIBUTE);
-        CASE_EGL_STR(EGL_BAD_CONTEXT);
-        CASE_EGL_STR(EGL_BAD_CONFIG);
-        CASE_EGL_STR(EGL_BAD_CURRENT_SURFACE);
-        CASE_EGL_STR(EGL_BAD_DISPLAY);
-        CASE_EGL_STR(EGL_BAD_SURFACE);
-        CASE_EGL_STR(EGL_BAD_MATCH);
-        CASE_EGL_STR(EGL_BAD_PARAMETER);
-        CASE_EGL_STR(EGL_BAD_NATIVE_PIXMAP);
-        CASE_EGL_STR(EGL_BAD_NATIVE_WINDOW);
-        CASE_EGL_STR(EGL_CONTEXT_LOST);
-    default:
-        return "Unknow Error";
+    static const struct { EGLint code; const char *name; } errorNames[] = {
+        {EGL_SUCCESS, "EGL_SUCCESS"},
+        {EGL_NOT_INITIALIZED, "EGL_NOT_INITIALIZED"},
+        {EGL_BAD_ACCESS, "EGL_BAD_ACCESS"},
+        {EGL_BAD_ALLOC, "EGL_BAD_ALLOC"},
+        {EGL_BAD_ATTRIBUTE, "EGL_BAD_ATTRIBUTE"},
+        {EGL_BAD_CONTEXT, "EGL_BAD_CONTEXT"},
+        {EGL_BAD_CONFIG, "EGL_BAD_CONFIG"},
+        {EGL_BAD_CURRENT_SURFACE, "EGL_BAD_CURRENT_SURFACE"},
+        {EGL_BAD_DISPLAY, "EGL_BAD_DISPLAY"},
+        {EGL_BAD_SURFACE, "EGL_BAD_SURFACE"},
+        {EGL_BAD_MATCH, "EGL_BAD_MATCH"},
+        {EGL_BAD_PARAMETER, "EGL_BAD_PARAMETER"},
+        {EGL_BAD_NATIVE_PIXMAP, "EGL_BAD_NATIVE_PIXMAP"},
+        {EGL_BAD_NATIVE_WINDOW, "EGL_BAD_NATIVE_WINDOW"},
+        {EGL_CONTEXT_LOST, "EGL_CONTEXT_LOST"},
+    };
+    for (const auto &entry : errorNames) {
+        if (entry.code == error) {
+            return entry.name;
+        }
     }
+    return "Unknown Error";
 }
-#undef CASE_EGL_STR
 
 constexpr const char EGL_KHR_SURFACELESS_CONTEXT[] = "EGL_KHR_surfaceless_context";
 
@@ -112,7 +112,8 @@ bool EglRenderContext::Init()
         return false;
     }
 
-    EGLint major, minor;
+    EGLint major = 0;
+    EGLint minor = 0;
     if (eglInitialize(eglDisplay_, &major, &minor) == EGL_FALSE) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "EglRenderContext",
                      "EglRenderContext::Init: Failed to initialize EGLDisplay, error: %{public}s.",

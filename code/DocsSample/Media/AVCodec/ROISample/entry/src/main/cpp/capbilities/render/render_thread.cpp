@@ -14,6 +14,7 @@
  */
 
 #include "include/render_thread.h"
+#include <algorithm>
 #include <GLES2/gl2ext.h>
 #include <sys/poll.h>
 #include <unistd.h>
@@ -275,9 +276,11 @@ void RenderThread::SetupMainVao()
     glBindVertexArray(vertexArrayObject_);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject_);
     glBufferData(GL_ARRAY_BUFFER, sizeof(Detail::vertices), Detail::vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, VERTEX_POSITION_FLOATS, GL_FLOAT, GL_FALSE, VERTEX_STRIDE_FLOATS * sizeof(float), nullptr);
+    glVertexAttribPointer(0, VERTEX_POSITION_FLOATS, GL_FLOAT, GL_FALSE,
+                          VERTEX_STRIDE_FLOATS * sizeof(float), nullptr);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, VERTEX_STRIDE_FLOATS * sizeof(float), reinterpret_cast<void *>(VERTEX_POSITION_FLOATS * sizeof(float)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, VERTEX_STRIDE_FLOATS * sizeof(float),
+                          reinterpret_cast<void *>(VERTEX_POSITION_FLOATS * sizeof(float)));
     glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -309,7 +312,9 @@ void RenderThread::SetupRoiVao()
     glGenBuffers(1, &roiVbo_);
     glBindVertexArray(roiVao_);
     glBindBuffer(GL_ARRAY_BUFFER, roiVbo_);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * ROI_QUAD_VERTICES * ROI_VERTEX_FLOATS * ROI_MAX_BORDER_RECTS, nullptr, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER,
+                 sizeof(GLfloat) * ROI_QUAD_VERTICES * ROI_VERTEX_FLOATS * ROI_MAX_BORDER_RECTS,
+                 nullptr, GL_DYNAMIC_DRAW);
     glVertexAttribPointer(0, ROI_VERTEX_FLOATS, GL_FLOAT, GL_FALSE, ROI_VERTEX_FLOATS * sizeof(float), nullptr);
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -318,49 +323,56 @@ void RenderThread::SetupRoiVao()
 
 void RenderThread::UpdateNativeWindow(void *window, uint64_t width, uint64_t height)
 {
-    OH_LOG_Print(LOG_APP, LOG_DEBUG, LOG_PRINT_DOMAIN, "RenderThread", "UpdateNativeWindow,window:%{public}p.", window);
+    OH_LOG_Print(LOG_APP, LOG_DEBUG, LOG_PRINT_DOMAIN, "RenderThread",
+                 "UpdateNativeWindow,window:%{public}p.", window);
     auto nativeWindow = reinterpret_cast<OHNativeWindow *>(window);
     xcomponentWindows_ = nativeWindow;
-    
-    int xcomponentHeight, xcomponentWidth;
+
+    int xcomponentHeight = 0;
+    int xcomponentWidth = 0;
     OH_NativeWindow_NativeWindowHandleOpt(
         xcomponentWindows_, GET_BUFFER_GEOMETRY, &xcomponentHeight, &xcomponentWidth);
     OH_LOG_Print(LOG_APP, LOG_DEBUG, LOG_PRINT_DOMAIN, "RenderThread",
-                 "12xcomponentHeight_:%{public}d, xcomponentWidth_:%{public}d", xcomponentHeight, xcomponentWidth);
-    
-    PostTask([this, nativeWindow, width, height](EglRenderContext &renderContext) {
-        if (nativeWindow_ != nativeWindow) {
-            nativeWindow_ = nativeWindow;
-            if (eglSurface_ != EGL_NO_SURFACE) {
-                renderContext_->DestroyEglSurface(eglSurface_);
-                eglSurface_ = EGL_NO_SURFACE;
-                CleanGLResources();
-            }
-        }
-        if (nativeWindow_ != nullptr) {
-            // [Start Display_native_window]
-            // SDR set BT709
-            int32_t ret = OH_NativeWindow_SetColorSpace(nativeWindow_, OH_COLORSPACE_BT709_LIMIT);
-            // [End Display_native_window]
+                 "xcomponentHeight_:%{public}d, xcomponentWidth_:%{public}d", xcomponentHeight, xcomponentWidth);
 
-            ret |=
-                OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, SET_FORMAT, NATIVEBUFFER_PIXEL_FMT_YCBCR_420_SP);
-            if (ret != 0) {
-                OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread",
-                             "nativeWindow_:%{public}p, ret:%{public}d", nativeWindow_, ret);
-            }
-            if (eglSurface_ == EGL_NO_SURFACE) {
-                eglSurface_ = renderContext_->CreateEglSurface(static_cast<EGLNativeWindowType>(nativeWindow_));
-            }
-            if (eglSurface_ == EGL_NO_SURFACE) {
-                OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread", "xfl CreateEglSurface failed.");
-                return;
-            }
-            renderContext_->MakeCurrent(eglSurface_);
-            CreateGLResources();
-
-        }
+    PostTask([this, nativeWindow](EglRenderContext &renderContext) {
+        SetupNativeWindowSurface(nativeWindow);
     });
+}
+
+void RenderThread::SetupNativeWindowSurface(OHNativeWindow *nativeWindow)
+{
+    if (nativeWindow_ != nativeWindow) {
+        nativeWindow_ = nativeWindow;
+        if (eglSurface_ != EGL_NO_SURFACE) {
+            renderContext_->DestroyEglSurface(eglSurface_);
+            eglSurface_ = EGL_NO_SURFACE;
+            CleanGLResources();
+        }
+    }
+    if (nativeWindow_ == nullptr) {
+        return;
+    }
+    // [Start Display_native_window]
+    // SDR set BT709
+    int32_t ret = OH_NativeWindow_SetColorSpace(nativeWindow_, OH_COLORSPACE_BT709_LIMIT);
+    // [End Display_native_window]
+
+    ret = OH_NativeWindow_SetColorSpace(nativeWindow_, OH_COLORSPACE_BT709_LIMIT) |
+        OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, SET_FORMAT, NATIVEBUFFER_PIXEL_FMT_YCBCR_420_SP);
+    if (ret != 0) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread",
+                     "nativeWindow_:%{public}p, ret:%{public}d", nativeWindow_, ret);
+    }
+    if (eglSurface_ == EGL_NO_SURFACE) {
+        eglSurface_ = renderContext_->CreateEglSurface(static_cast<EGLNativeWindowType>(nativeWindow_));
+    }
+    if (eglSurface_ == EGL_NO_SURFACE) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread", "CreateEglSurface failed.");
+        return;
+    }
+    renderContext_->MakeCurrent(eglSurface_);
+    CreateGLResources();
 }
 
 void RenderThread::CreateEncoderSurface(void *window, int32_t width, int32_t height)
@@ -376,46 +388,50 @@ void RenderThread::CreateEncoderSurface(void *window, int32_t width, int32_t hei
 
     auto nativeWindow = reinterpret_cast<OHNativeWindow *>(window);
     PostTask([this, nativeWindow, width, height](EglRenderContext &renderContext) {
-        if (encoderNativeWindow_ != nativeWindow) {
-            if (encoderNativeWindow_ != nullptr) {
-                OH_NativeWindow_NativeObjectUnreference(encoderNativeWindow_);
-            }
-            encoderNativeWindow_ = nativeWindow;
-            if (encoderNativeWindow_ != nullptr) {
-                OH_NativeWindow_NativeObjectReference(encoderNativeWindow_);
-            }
-
-            if (encoderSurface_ != EGL_NO_SURFACE) {
-                renderContext_->DestroyEglSurface(encoderSurface_);
-                encoderSurface_ = EGL_NO_SURFACE;
-            }
-        }
-        if (encoderNativeWindow_ != nullptr) {
-            // [Start Encode_native_window]
-            OH_NativeWindow_NativeWindowHandleOpt(encoderNativeWindow_, SET_BUFFER_GEOMETRY,
-                                                        static_cast<int>(width), static_cast<int>(height));
-            // [End Encode_native_window]
-
-            // SDR set BT709
-            int32_t ret = OH_NativeWindow_SetColorSpace(nativeWindow_, OH_COLORSPACE_BT709_LIMIT);
-            ret |=
-                OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, SET_FORMAT, NATIVEBUFFER_PIXEL_FMT_YCBCR_420_SP);
-            if (ret != 0) {
-                OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread",
-                             "encoderNativeWindow_:%{public}p, ret:%{public}d", nativeWindow_, ret);
-            }
-            if (encoderSurface_ == EGL_NO_SURFACE) {
-                encoderSurface_ =
-                    renderContext_->CreateEglSurface(static_cast<EGLNativeWindowType>(encoderNativeWindow_));
-            }
-            if (encoderSurface_ == EGL_NO_SURFACE) {
-                OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread", "xfl CreateEglSurface failed.");
-                return;
-            }
-        }
+        SetupEncoderWindowSurface(nativeWindow, width, height);
     });
     encoderWidth = width;
     encoderHeight = height;
+}
+
+void RenderThread::SetupEncoderWindowSurface(OHNativeWindow *nativeWindow, int32_t width, int32_t height)
+{
+    if (encoderNativeWindow_ != nativeWindow) {
+        if (encoderNativeWindow_ != nullptr) {
+            OH_NativeWindow_NativeObjectUnreference(encoderNativeWindow_);
+        }
+        encoderNativeWindow_ = nativeWindow;
+        if (encoderNativeWindow_ != nullptr) {
+            OH_NativeWindow_NativeObjectReference(encoderNativeWindow_);
+        }
+
+        if (encoderSurface_ != EGL_NO_SURFACE) {
+            renderContext_->DestroyEglSurface(encoderSurface_);
+            encoderSurface_ = EGL_NO_SURFACE;
+        }
+    }
+    if (encoderNativeWindow_ == nullptr) {
+        return;
+    }
+    // [Start Encode_native_window]
+    OH_NativeWindow_NativeWindowHandleOpt(encoderNativeWindow_, SET_BUFFER_GEOMETRY,
+                                           static_cast<int>(width), static_cast<int>(height));
+    // [End Encode_native_window]
+
+    // SDR set BT709
+    int32_t ret = OH_NativeWindow_SetColorSpace(nativeWindow, OH_COLORSPACE_BT709_LIMIT) |
+        OH_NativeWindow_NativeWindowHandleOpt(nativeWindow, SET_FORMAT, NATIVEBUFFER_PIXEL_FMT_YCBCR_420_SP);
+    if (ret != 0) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread",
+                     "encoderNativeWindow_:%{public}p, ret:%{public}d", nativeWindow, ret);
+    }
+    if (encoderSurface_ == EGL_NO_SURFACE) {
+        encoderSurface_ =
+            renderContext_->CreateEglSurface(static_cast<EGLNativeWindowType>(encoderNativeWindow_));
+    }
+    if (encoderSurface_ == EGL_NO_SURFACE) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread", "CreateEglSurface failed.");
+    }
 }
 
 void RenderThread::DeleteEncoderSurface(void)
@@ -611,7 +627,7 @@ void RenderThread::PostTask(const RenderTask &task)
     }
 }
 
- void RenderThread::ConfigSceneMatrix()
+void RenderThread::ConfigSceneMatrix()
 {
     std::array<float, 16> translate_matrix = {
         1.0, 0.0, 0.0, UV_CENTER_OFFSET,
@@ -666,11 +682,17 @@ void RenderThread::UpdateImageResource(void* data, int32_t width, int32_t height
 {
     glBindTexture(GL_TEXTURE_2D, noiseImageTexId_);
     if (!data) {
-        constexpr uint32_t w = 32, h = 32;
-        constexpr uint32_t r = 720, g = 1023, b = 0, a = 3;
-        constexpr uint32_t mockColor = (a << A2R10G10B10_ALPHA_SHIFT) | (b << A2R10G10B10_BLUE_SHIFT) | (g << A2R10G10B10_GREEN_SHIFT) | r;
+        constexpr uint32_t w = 32;
+        constexpr uint32_t h = 32;
+        constexpr uint32_t r = 720;
+        constexpr uint32_t g = 1023;
+        constexpr uint32_t b = 0;
+        constexpr uint32_t a = 3;
+        constexpr uint32_t mockColor = (a << A2R10G10B10_ALPHA_SHIFT) |
+            (b << A2R10G10B10_BLUE_SHIFT) | (g << A2R10G10B10_GREEN_SHIFT) | r;
         std::vector<uint32_t> data(w * h, mockColor);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB10_A2, w, h, 0, GL_RGBA, GL_UNSIGNED_INT_2_10_10_10_REV_EXT, data.data());
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB10_A2, w, h, 0, GL_RGBA,
+                     GL_UNSIGNED_INT_2_10_10_10_REV_EXT, data.data());
     } else {
         glPixelStorei(GL_UNPACK_ROW_LENGTH, static_cast<int32_t>(stride / sizeof(uint32_t)));
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB10_A2, width, height, 0,
@@ -683,8 +705,7 @@ void RenderThread::UpdateImageResource(void* data, int32_t width, int32_t height
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void RenderThread::ImageDraw(OHNativeWindowBuffer *InBuffer, OHNativeWindowBuffer *OutBuffer,
-    int32_t imageWidth, int32_t imageHeight, int32_t viewWidth, int32_t viewHeight)
+void RenderThread::ImageDraw(OHNativeWindowBuffer *InBuffer, OHNativeWindowBuffer *OutBuffer, ViewportParams vp)
 {
     EGLImageKHR imgIn = renderContext_->CreateEGLImage(InBuffer);
     EGLImageKHR imgOut = renderContext_->CreateEGLImage(OutBuffer);
@@ -701,12 +722,9 @@ void RenderThread::ImageDraw(OHNativeWindowBuffer *InBuffer, OHNativeWindowBuffe
     }
     glBindTexture(GL_TEXTURE_EXTERNAL_OES, GL_NONE);
 
-    // Center alignment
-    ViewportParams vp = ComputeCenteredViewport(imageWidth, imageHeight, viewWidth, viewHeight);
-    OH_LOG_Print(
-        LOG_APP, LOG_DEBUG, LOG_PRINT_DOMAIN, "RenderThread",
-        "DrawImagefhm. %{public}d %{public}d %{public}d %{public}d => %{public}d %{public}d %{public}d %{public}d",
-        imageWidth, imageHeight, viewWidth, viewHeight, vp.x, vp.y, vp.width, vp.height);
+    OH_LOG_Print(LOG_APP, LOG_DEBUG, LOG_PRINT_DOMAIN, "RenderThread",
+                 "DrawImagefhm. vp %{public}d %{public}d %{public}d %{public}d",
+                 vp.x, vp.y, vp.width, vp.height);
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT);
     glViewport(vp.x, vp.y, vp.width, vp.height);
@@ -726,8 +744,7 @@ void RenderThread::ImageDraw(OHNativeWindowBuffer *InBuffer, OHNativeWindowBuffe
 }
 
 // [Start roi_overlay_drawing]
-void RenderThread::DrawRoiOverlay(OHNativeWindowBuffer *outBuffer, int32_t imageWidth, int32_t imageHeight,
-    int32_t viewWidth, int32_t viewHeight, const std::string& roiStr)
+void RenderThread::DrawRoiOverlay(OHNativeWindowBuffer *outBuffer, ViewportParams vp, const std::string& roiStr)
 {
     if (roiStr.empty() || !roiShader_ || !roiShader_->Valid()) {
         return;
@@ -759,15 +776,16 @@ void RenderThread::DrawRoiOverlay(OHNativeWindowBuffer *outBuffer, int32_t image
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderThread",
                      "DrawRoiOverlay FBO status check failed");
         for (uint32_t i = 0; i < actualCount; i++) {
-            if (parsedFormats[i]) OH_AVFormat_Destroy(parsedFormats[i]);
+            if (parsedFormats[i]) {
+                OH_AVFormat_Destroy(parsedFormats[i]);
+            }
         }
         renderContext_->DeleteEGLImage(imgOut);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         return;
     }
 
-    // Use same viewport as camera image (center-aligned aspect ratio)
-    ViewportParams vp = ComputeCenteredViewport(imageWidth, imageHeight, viewWidth, viewHeight);
+    // Use passed viewport (center-aligned aspect ratio)
     glViewport(vp.x, vp.y, vp.width, vp.height);
 
     roiShader_->Use();
@@ -779,7 +797,24 @@ void RenderThread::DrawRoiOverlay(OHNativeWindowBuffer *outBuffer, int32_t image
     float lrThickNdc = desiredPixelThickness / static_cast<float>(vp.width);
     float tbThickNdc = NDC_RANGE_SIZE * desiredPixelThickness / static_cast<float>(vp.height);
 
-    DrawRoiRects(parsedFormats, actualCount, lrThickNdc, tbThickNdc, imageWidth, imageHeight);
+    // Compute image dimensions for NDC conversion (ROI coords are relative to image frame)
+    int32_t encWidth = 0, encHeight = 0;
+    if (encoderNativeWindow_ != nullptr) {
+        OH_NativeWindow_NativeWindowHandleOpt(encoderNativeWindow_, GET_BUFFER_GEOMETRY, &encHeight, &encWidth);
+    } else {
+        encWidth = encoderWidth;
+        encHeight = encoderHeight;
+    }
+    int32_t imageWidth = encWidth;
+    int32_t imageHeight = encHeight;
+    int imageRotation = cameraRotation_;
+    if (imageRotation == 0 || imageRotation == 180) {
+        imageWidth = encHeight;
+        imageHeight = encWidth;
+    }
+    ViewportParams imageVp{0, 0, imageWidth, imageHeight};
+
+    DrawRoiRects(parsedFormats, actualCount, lrThickNdc, tbThickNdc, imageVp);
 
     glFinish();
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -790,13 +825,18 @@ void RenderThread::DrawRoiOverlay(OHNativeWindowBuffer *outBuffer, int32_t image
 // [End roi_overlay_drawing]
 
 void RenderThread::DrawRoiRects(const std::vector<OH_AVFormat*> &parsedFormats, uint32_t actualCount,
-                                float lrThickNdc, float tbThickNdc, int32_t imageWidth, int32_t imageHeight)
+                                float lrThickNdc, float tbThickNdc, ViewportParams vp)
 {
-    int32_t frameArea = imageWidth * imageHeight;
+    int32_t frameArea = vp.width * vp.height;
     for (uint32_t i = 0; i < actualCount; i++) {
-        if (!parsedFormats[i]) continue;
+        if (!parsedFormats[i]) {
+            continue;
+        }
 
-        int32_t left = 0, top = 0, right = 0, bottom = 0;
+        int32_t left = 0;
+        int32_t top = 0;
+        int32_t right = 0;
+        int32_t bottom = 0;
         OH_AVFormat_GetIntValue(parsedFormats[i], OH_MD_KEY_VIDEO_METADATA_ROI_LEFT, &left);
         OH_AVFormat_GetIntValue(parsedFormats[i], OH_MD_KEY_VIDEO_METADATA_ROI_TOP, &top);
         OH_AVFormat_GetIntValue(parsedFormats[i], OH_MD_KEY_VIDEO_METADATA_ROI_RIGHT, &right);
@@ -809,10 +849,10 @@ void RenderThread::DrawRoiRects(const std::vector<OH_AVFormat*> &parsedFormats, 
         roiShader_->SetFloat4v("uColor", color, VEC4_COMPONENT_COUNT);
 
         // Convert pixel coordinates to NDC
-        float ndcXLeft = NDC_RANGE_SIZE * left / static_cast<float>(imageWidth) - 1.0f;
-        float ndcXRight = NDC_RANGE_SIZE * right / static_cast<float>(imageWidth) - 1.0f;
-        float ndcYLow = NDC_RANGE_SIZE * top / static_cast<float>(imageHeight) - 1.0f;
-        float ndcYHigh = NDC_RANGE_SIZE * bottom / static_cast<float>(imageHeight) - 1.0f;
+        float ndcXLeft = NDC_RANGE_SIZE * left / static_cast<float>(vp.width) - 1.0f;
+        float ndcXRight = NDC_RANGE_SIZE * right / static_cast<float>(vp.width) - 1.0f;
+        float ndcYLow = NDC_RANGE_SIZE * top / static_cast<float>(vp.height) - 1.0f;
+        float ndcYHigh = NDC_RANGE_SIZE * bottom / static_cast<float>(vp.height) - 1.0f;
 
         DrawRoiQuad(ndcXLeft - lrThickNdc, ndcXRight + lrThickNdc, ndcYHigh, ndcYHigh + tbThickNdc);
         DrawRoiQuad(ndcXLeft - lrThickNdc, ndcXRight + lrThickNdc, ndcYLow - tbThickNdc, ndcYLow);
@@ -838,6 +878,160 @@ void RenderThread::DrawRoiQuad(float x1, float x2, float y1, float y2)
     glDrawArrays(GL_TRIANGLES, 0, ROI_QUAD_VERTICES);
 }
 // [End roi_quad_drawing]
+
+std::string RenderThread::ExtractRoiFromBuffer(OHNativeWindowBuffer *InBuffer)
+{
+    // [Start roi_buffer_roi_extraction]
+    OH_NativeBuffer *nativeBuffer = nullptr;
+    int32_t ret = OH_NativeBuffer_FromNativeWindowBuffer(InBuffer, &nativeBuffer);
+    if (ret == 0 && nativeBuffer != nullptr) {
+        int32_t roiSize = 0;
+        uint8_t *roiData = nullptr;
+        ret = OH_NativeBuffer_GetMetadataValue(nativeBuffer,
+            OH_NativeBuffer_MetadataKey::OH_REGION_OF_INTEREST_METADATA, &roiSize, &roiData);
+        if (ret == 0 && roiData != nullptr && roiSize > 0) {
+            return std::string(reinterpret_cast<char*>(roiData), roiSize);
+        }
+    }
+    // [End roi_buffer_roi_extraction]
+    return "";
+}
+
+std::string RenderThread::AssembleRoiString(const std::string &currentRoiStr)
+{
+    // [Start roi_buffer_roi_assembly]
+    if (currentRoiStr.empty()) {
+        return "";
+    }
+    uint32_t roiCount = 0;
+    OH_AVErrCode roiRet = OH_VideoMetadata_GetRoiCount(currentRoiStr.c_str(), &roiCount);
+    if (roiRet != AV_ERR_OK || roiCount == 0) {
+        return "";
+    }
+    std::vector<OH_AVFormat*> parsedFormats(roiCount, nullptr);
+    uint32_t actualCount = 0;
+    roiRet = OH_VideoMetadata_ParseRoiString(currentRoiStr.c_str(), parsedFormats.data(),
+                                             roiCount, &actualCount);
+    if (roiRet != AV_ERR_OK || actualCount == 0) {
+        return "";
+    }
+    char *assembledStr = nullptr;
+    for (uint32_t i = 0; i < actualCount; i++) {
+        if (parsedFormats[i] != nullptr) {
+            OH_AVFormat_SetIntValue(parsedFormats[i], OH_MD_KEY_VIDEO_METADATA_ROI_DELTA_QP,
+                                     ROI_DELTA_QP);
+            OH_VideoMetadata_AppendRoiString(&assembledStr, parsedFormats[i]);
+            OH_AVFormat_Destroy(parsedFormats[i]);
+            parsedFormats[i] = nullptr;
+        }
+    }
+    std::string result;
+    if (assembledStr != nullptr) {
+        result = std::string(assembledStr);
+        free(assembledStr);
+    }
+    // [End roi_buffer_roi_assembly]
+    return result;
+}
+
+void RenderThread::LogRoiData(const std::string &currentRoiStr, const std::string &assembledRoiStr)
+{
+    // ROI extraction logging
+    if (!currentRoiStr.empty()) {
+        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "RenderThread",
+                     "ROI extracted from buffer: %{public}s", currentRoiStr.c_str());
+    } else {
+        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "RenderThread", "No ROI metadata in buffer");
+        if (roiFd_ >= 0) { write(roiFd_, "\n", 1); }
+    }
+
+    // ROI file logging (not in guide scope)
+    if (roiFd_ >= 0) {
+        if (!assembledRoiStr.empty()) {
+            std::string line = assembledRoiStr + "\n";
+            write(roiFd_, line.c_str(), line.size());
+        } else {
+            write(roiFd_, "\n", 1);
+        }
+    }
+}
+
+bool RenderThread::PollFence(int32_t fenceFd)
+{
+    if (fenceFd == -1) {
+        return true;
+    }
+    int32_t retCode = -1;
+    uint32_t timeout = FENCE_POLL_TIMEOUT_MS;
+    struct pollfd pollfds = {0};
+    pollfds.fd = fenceFd;
+    pollfds.events = POLLIN;
+    do {
+        retCode = poll(&pollfds, 1, timeout);
+    } while (retCode == -1 && (errno == EINTR || errno == EAGAIN));
+    close(fenceFd);
+    return (retCode >= 0);
+}
+
+void RenderThread::PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, const std::string &assembledRoiStr)
+{
+    // [Start roi_buffer_pixel_read]
+    // Buffer模式：从相机帧读取像素数据并推入帧队列
+    BufferHandle *bufferHandle = OH_NativeWindow_GetBufferHandleFromNative(InBuffer);
+    if (bufferHandle == nullptr) {
+        return;
+    }
+    OH_NativeBuffer *cameraNativeBuffer = nullptr;
+    int32_t ret = OH_NativeBuffer_FromNativeWindowBuffer(InBuffer, &cameraNativeBuffer);
+    if (ret != 0 || cameraNativeBuffer == nullptr) {
+        return;
+    }
+    void *virAddr = nullptr;
+    ret = OH_NativeBuffer_Map(cameraNativeBuffer, &virAddr);
+    if (ret != 0 || virAddr == nullptr) {
+        return;
+    }
+    int32_t frameWidth = bufferHandle->width;
+    int32_t frameHeight = bufferHandle->height;
+    int32_t stride = bufferHandle->stride;
+    int32_t frameSize = stride * frameHeight;
+    FrameItem frameItem;
+    frameItem.width = frameWidth;
+    frameItem.height = frameHeight;
+    frameItem.roiStr = assembledRoiStr;
+    frameItem.pixels.resize(frameSize);
+    std::copy(static_cast<uint8_t *>(virAddr),
+              static_cast<uint8_t *>(virAddr) + frameSize,
+              frameItem.pixels.data());
+    frameQueue_->push(frameItem);
+    OH_NativeBuffer_Unmap(cameraNativeBuffer);
+    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "RenderThread",
+                 "Buffer模式: pushed frame to queue, size: %{public}d, ROI: %{public}s",
+                 frameSize, assembledRoiStr.c_str());
+    // [End roi_buffer_pixel_read]
+}
+
+void RenderThread::WriteRoiToEncoderBuffer(OHNativeWindowBuffer *OutBufferEncoder, const std::string &assembledRoiStr)
+{
+    // [Start roi_nativebuffer_metadata_config]
+    OH_NativeBuffer *encoderNativeBuffer = nullptr;
+    int32_t ret = OH_NativeBuffer_FromNativeWindowBuffer(OutBufferEncoder, &encoderNativeBuffer);
+    if (ret == 0 && encoderNativeBuffer != nullptr) {
+        int32_t roiStrSize = static_cast<int32_t>(assembledRoiStr.size());
+        ret = OH_NativeBuffer_SetMetadataValue(encoderNativeBuffer,
+            OH_NativeBuffer_MetadataKey::OH_REGION_OF_INTEREST_METADATA,
+            roiStrSize, reinterpret_cast<uint8_t*>(const_cast<char*>(assembledRoiStr.data())));
+        if (ret != 0) {
+            OH_LOG_Print(LOG_APP, LOG_WARN, LOG_PRINT_DOMAIN, "RenderThread",
+                         "OH_NativeBuffer_SetMetadataValue failed, ret: %{public}d", ret);
+        } else {
+            OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "RenderThread",
+                         "ROI metadata written to encoder buffer: %{public}s", assembledRoiStr.c_str());
+        }
+    }
+    // [End roi_nativebuffer_metadata_config]
+}
+
 void RenderThread::DrawImage()
 {
     OH_LOG_Print(LOG_APP, LOG_DEBUG, LOG_PRINT_DOMAIN, "RenderThread", "DrawImage.");
@@ -846,7 +1040,7 @@ void RenderThread::DrawImage()
         return;
     }
 
-    // Get camera output buffer
+    // Acquire camera output buffer
     OHNativeWindowBuffer *InBuffer;
     int32_t fenceFd1 = -1;
     int32_t ret = OH_NativeImage_AcquireNativeWindowBuffer(nativeImage_, &InBuffer, &fenceFd1);
@@ -855,9 +1049,9 @@ void RenderThread::DrawImage()
                      "OH_NativeImage_AcquireNativeWindowBuffer failed, ret: %{public}d", ret);
         return;
     }
-    
+
     int64_t pts = OH_NativeImage_GetTimestamp(nativeImage_);
-    OH_LOG_Print(LOG_APP, LOG_DEBUG, LOG_PRINT_DOMAIN, "RenderThread", 
+    OH_LOG_Print(LOG_APP, LOG_DEBUG, LOG_PRINT_DOMAIN, "RenderThread",
                  "HMOS_LiveStream: ROI OH_NativeImage_GetTimestamp pts %{public}"" PRId64 ", pts);
 
     if (OH_NativeImage_GetTransformMatrixV2(nativeImage_, drawCameraImageMatrix_.data())) {
@@ -873,71 +1067,13 @@ void RenderThread::DrawImage()
         return;
     }
 
-    // ROI extraction and processing (all paths: NativeBuffer metadata)
+    // ROI processing
     std::string currentRoiStr;
     std::string assembledRoiStr;
     if (isOpenROI_) {
-        // [Start roi_buffer_roi_extraction]
-        OH_NativeBuffer *nativeBuffer = nullptr;
-        ret = OH_NativeBuffer_FromNativeWindowBuffer(InBuffer, &nativeBuffer);
-        if (ret == 0 && nativeBuffer != nullptr) {
-            int32_t roiSize = 0;
-            uint8_t *roiData = nullptr;
-            ret = OH_NativeBuffer_GetMetadataValue(nativeBuffer,
-                OH_NativeBuffer_MetadataKey::OH_REGION_OF_INTEREST_METADATA, &roiSize, &roiData);
-            if (ret == 0 && roiData != nullptr && roiSize > 0) {
-                currentRoiStr = std::string(reinterpret_cast<char*>(roiData), roiSize);
-            }
-        }
-        // [End roi_buffer_roi_extraction]
-
-        // ROI extraction logging
-        if (!currentRoiStr.empty()) {
-            OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "RenderThread",
-                         "ROI extracted from buffer: %{public}s", currentRoiStr.c_str());
-        } else {
-            OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "RenderThread", "No ROI metadata in buffer");
-            if (roiFd_ >= 0) { write(roiFd_, "\n", 1); }
-        }
-
-        // [Start roi_buffer_roi_assembly]
-        if (!currentRoiStr.empty()) {
-            uint32_t roiCount = 0;
-            OH_AVErrCode roiRet = OH_VideoMetadata_GetRoiCount(currentRoiStr.c_str(), &roiCount);
-            if (roiRet == AV_ERR_OK && roiCount > 0) {
-                std::vector<OH_AVFormat*> parsedFormats(roiCount, nullptr);
-                uint32_t actualCount = 0;
-                roiRet = OH_VideoMetadata_ParseRoiString(currentRoiStr.c_str(), parsedFormats.data(),
-                                                         roiCount, &actualCount);
-                if (roiRet == AV_ERR_OK && actualCount > 0) {
-                    char *assembledStr = nullptr;
-                    for (uint32_t i = 0; i < actualCount; i++) {
-                        if (parsedFormats[i] != nullptr) {
-                            OH_AVFormat_SetIntValue(parsedFormats[i], OH_MD_KEY_VIDEO_METADATA_ROI_DELTA_QP,
-                                                     ROI_DELTA_QP);
-                            OH_VideoMetadata_AppendRoiString(&assembledStr, parsedFormats[i]);
-                            OH_AVFormat_Destroy(parsedFormats[i]);
-                            parsedFormats[i] = nullptr;
-                        }
-                    }
-                    if (assembledStr != nullptr) {
-                        assembledRoiStr = std::string(assembledStr);
-                        free(assembledStr);
-                    }
-                }
-            }
-        }
-        // [End roi_buffer_roi_assembly]
-
-        // ROI file logging (not in guide scope)
-        if (roiFd_ >= 0) {
-            if (!assembledRoiStr.empty()) {
-                std::string line = assembledRoiStr + "\n";
-                write(roiFd_, line.c_str(), line.size());
-            } else {
-                write(roiFd_, "\n", 1);
-            }
-        }
+        currentRoiStr = ExtractRoiFromBuffer(InBuffer);
+        assembledRoiStr = AssembleRoiString(currentRoiStr);
+        LogRoiData(currentRoiStr, assembledRoiStr);
     }
 
     // [Start roi_parameter_callback_str_passing]
@@ -947,7 +1083,7 @@ void RenderThread::DrawImage()
     }
     // [End roi_parameter_callback_str_passing]
 
-    // Get preview buffer (always needed)
+    // Request preview buffer
     OHNativeWindowBuffer *OutBuffer;
     int32_t fenceFd2 = -1;
     ret = OH_NativeWindow_NativeWindowRequestBuffer(nativeWindow_, &OutBuffer, &fenceFd2);
@@ -956,19 +1092,9 @@ void RenderThread::DrawImage()
                      "OH_NativeWindow_NativeWindowRequestBuffer for preview failed, ret: %{public}d", ret);
         return;
     }
-    int retCode = -1;
-    uint32_t timeout = FENCE_POLL_TIMEOUT_MS;
-    if (fenceFd2 != -1) {
-        struct pollfd pollfds = {0};
-        pollfds.fd = fenceFd2;
-        pollfds.events = POLLIN;
-        do {
-            retCode = poll(&pollfds, 1, timeout);
-        } while (retCode == -1 && (errno == EINTR || errno == EAGAIN));
-        close(fenceFd2);
-    }
+    PollFence(fenceFd2);
 
-    // Get encoder buffer only for Surface mode (NativeBuffer元数据配置 and 参数回调配置)
+    // Request encoder buffer (Surface mode)
     OHNativeWindowBuffer *OutBufferEncoder = nullptr;
     int32_t fenceFd3 = -1;
     if (roiPathType_ == ROI_PATH_NATIVEBUFFER || roiPathType_ == ROI_PATH_METADATA_CALLBACK) {
@@ -978,27 +1104,18 @@ void RenderThread::DrawImage()
                          "OH_NativeWindow_NativeWindowRequestBuffer for encoder failed, ret: %{public}d", ret);
             return;
         }
-        if (fenceFd3 != -1) {
-            struct pollfd pollfds = {0};
-            pollfds.fd = fenceFd3;
-            pollfds.events = POLLIN;
-            do {
-                retCode = poll(&pollfds, 1, timeout);
-            } while (retCode == -1 && (errno == EINTR || errno == EAGAIN));
-            close(fenceFd3);
-        }
+        PollFence(fenceFd3);
     }
 
+    // Get dimensions
     int viewWidth = 0;
     int viewHeight = 0;
     if (encoderNativeWindow_ != nullptr) {
         OH_NativeWindow_NativeWindowHandleOpt(encoderNativeWindow_, GET_BUFFER_GEOMETRY, &viewHeight, &viewWidth);
     } else {
-        // Buffer模式: No encoder surface, use stored video dimensions
         viewWidth = encoderWidth;
         viewHeight = encoderHeight;
     }
-
     ret = OH_NativeWindow_NativeWindowHandleOpt(xcomponentWindows_, GET_BUFFER_GEOMETRY, &xcomponentHeight_,
                                                 &xcomponentWidth_);
     if (ret != 0 || xcomponentHeight_ == 0 || xcomponentWidth_ == 0) {
@@ -1008,82 +1125,37 @@ void RenderThread::DrawImage()
 
     // [Start roi_render_flow]
     int imageRotation = cameraRotation_;
-    // Render preview (always)
+    ViewportParams previewVp, encoderVp;
     if (imageRotation == 0 || imageRotation == 180) {
-        ImageDraw(InBuffer, OutBuffer, viewHeight, viewWidth, xcomponentWidth_, xcomponentHeight_);
-        if (isOpenROI_) {
-            DrawRoiOverlay(OutBuffer, viewHeight, viewWidth, xcomponentWidth_, xcomponentHeight_, currentRoiStr);
-        }
-        // Render encoder (Surface mode only)
-        if (OutBufferEncoder != nullptr) {
-            ImageDraw(InBuffer, OutBufferEncoder, viewHeight, viewWidth, viewWidth, viewHeight);
-        }
+        previewVp = ComputeCenteredViewport(viewHeight, viewWidth, xcomponentWidth_, xcomponentHeight_);
+        encoderVp = ComputeCenteredViewport(viewHeight, viewWidth, viewWidth, viewHeight);
     } else {
-        ImageDraw(InBuffer, OutBuffer, viewWidth, viewHeight, xcomponentWidth_, xcomponentHeight_);
-        if (isOpenROI_) {
-            DrawRoiOverlay(OutBuffer, viewWidth, viewHeight, xcomponentWidth_, xcomponentHeight_, currentRoiStr);
-        }
-        if (OutBufferEncoder != nullptr) {
-            ImageDraw(InBuffer, OutBufferEncoder, viewWidth, viewHeight, viewWidth, viewHeight);
-        }
+        previewVp = ComputeCenteredViewport(viewWidth, viewHeight, xcomponentWidth_, xcomponentHeight_);
+        encoderVp = ComputeCenteredViewport(viewWidth, viewHeight, viewWidth, viewHeight);
+    }
+    ImageDraw(InBuffer, OutBuffer, previewVp);
+    if (isOpenROI_) {
+        DrawRoiOverlay(OutBuffer, previewVp, currentRoiStr);
+    }
+    if (OutBufferEncoder != nullptr) {
+        ImageDraw(InBuffer, OutBufferEncoder, encoderVp);
     }
     // [End roi_render_flow]
 
-    // [Start roi_buffer_pixel_read]
-    // Buffer模式：从相机帧读取像素数据并推入帧队列
+    // Buffer mode push
     if (roiPathType_ == ROI_PATH_BUFFER_MODE && frameQueue_ != nullptr) {
-        BufferHandle *bufferHandle = OH_NativeWindow_GetBufferHandleFromNative(InBuffer);
-        if (bufferHandle != nullptr) {
-            OH_NativeBuffer *cameraNativeBuffer = nullptr;
-            ret = OH_NativeBuffer_FromNativeWindowBuffer(InBuffer, &cameraNativeBuffer);
-            if (ret == 0 && cameraNativeBuffer != nullptr) {
-                void *virAddr = nullptr;
-                ret = OH_NativeBuffer_Map(cameraNativeBuffer, &virAddr);
-                if (ret == 0 && virAddr != nullptr) {
-                    int32_t frameWidth = bufferHandle->width;
-                    int32_t frameHeight = bufferHandle->height;
-                    int32_t stride = bufferHandle->stride;
-                    int32_t frameSize = stride * frameHeight;
-                    FrameItem frameItem;
-                    frameItem.width = frameWidth;
-                    frameItem.height = frameHeight;
-                    frameItem.roiStr = assembledRoiStr;
-                    frameItem.pixels.resize(frameSize);
-                    memcpy(frameItem.pixels.data(), virAddr, frameSize);
-                    frameQueue_->push(frameItem);
-                    OH_NativeBuffer_Unmap(cameraNativeBuffer);
-                    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "RenderThread",
-                                 "Buffer模式: pushed frame to queue, size: %{public}d, ROI: %{public}s",
-                                 frameSize, assembledRoiStr.c_str());
-                }
-            }
-        }
+        PushFrameToBufferQueue(InBuffer, assembledRoiStr);
     }
-    // [End roi_buffer_pixel_read]
 
+    // NativeBuffer metadata ROI write
+    if (roiPathType_ == ROI_PATH_NATIVEBUFFER && isOpenROI_ &&
+        !assembledRoiStr.empty() && OutBufferEncoder != nullptr) {
+        WriteRoiToEncoderBuffer(OutBufferEncoder, assembledRoiStr);
+    }
+
+    // Flush and cleanup
     OH_NativeWindow_NativeObjectUnreference(InBuffer);
     OH_NativeImage_ReleaseNativeWindowBuffer(nativeImage_, InBuffer, fenceFd1);
-
-    // NativeBuffer元数据配置: Write assembled ROI string into encoder output buffer's NativeBuffer metadata
-    // [Start roi_nativebuffer_metadata_config]
-    if (roiPathType_ == ROI_PATH_NATIVEBUFFER && isOpenROI_ && !assembledRoiStr.empty() && OutBufferEncoder != nullptr) {
-        OH_NativeBuffer *encoderNativeBuffer = nullptr;
-        ret = OH_NativeBuffer_FromNativeWindowBuffer(OutBufferEncoder, &encoderNativeBuffer);
-        if (ret == 0 && encoderNativeBuffer != nullptr) {
-            int32_t roiStrSize = static_cast<int32_t>(assembledRoiStr.size());
-            ret = OH_NativeBuffer_SetMetadataValue(encoderNativeBuffer,
-                OH_NativeBuffer_MetadataKey::OH_REGION_OF_INTEREST_METADATA,
-                roiStrSize, reinterpret_cast<uint8_t*>(assembledRoiStr.data()));
-            if (ret != 0) {
-                OH_LOG_Print(LOG_APP, LOG_WARN, LOG_PRINT_DOMAIN, "RenderThread",
-                             "OH_NativeBuffer_SetMetadataValue failed, ret: %{public}d", ret);
-            } else {
-                OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "RenderThread",
-                             "ROI metadata written to encoder buffer: %{public}s", assembledRoiStr.c_str());
-            }
-        }
-    }
-    // [End roi_nativebuffer_metadata_config]
 
     Region region{nullptr, 0};
     int acquireFenceFd1 = -1;

@@ -142,9 +142,10 @@ napi_value RecorderNative::Init(napi_env env, napi_callback_info info)
     napi_value resourceName;
     napi_create_string_latin1(env, "recorder", NAPI_AUTO_LENGTH, &resourceName);
     napi_create_async_work(
-        env, nullptr, resourceName, [](napi_env env, void *data) { NativeInit(env, data); },
-        [](napi_env env, napi_status status, void *data) { DealCallBack(env, data); }, static_cast<void *>(asyncCallbackInfo),
-        &asyncCallbackInfo->asyncWork);
+        env, nullptr, resourceName,
+        [](napi_env env, void *data) { NativeInit(env, data); },
+        [](napi_env env, napi_status status, void *data) { DealCallBack(env, data); },
+        static_cast<void *>(asyncCallbackInfo), &asyncCallbackInfo->asyncWork);
     napi_queue_async_work(env, asyncCallbackInfo->asyncWork);
     return promise;
 }
@@ -308,9 +309,10 @@ napi_value RecorderNative::Stop(napi_env env, napi_callback_info info)
     napi_value resourceName;
     napi_create_string_latin1(env, "recorder", NAPI_AUTO_LENGTH, &resourceName);
     napi_create_async_work(
-        env, nullptr, resourceName, [](napi_env env, void *data) { NativeStop(env, data); },
-        [](napi_env env, napi_status status, void *data) { DealCallBack(env, data); }, static_cast<void *>(asyncCallbackInfo),
-        &asyncCallbackInfo->asyncWork);
+        env, nullptr, resourceName,
+        [](napi_env env, void *data) { NativeStop(env, data); },
+        [](napi_env env, napi_status status, void *data) { DealCallBack(env, data); },
+        static_cast<void *>(asyncCallbackInfo), &asyncCallbackInfo->asyncWork);
     napi_queue_async_work(env, asyncCallbackInfo->asyncWork);
     return promise;
 }

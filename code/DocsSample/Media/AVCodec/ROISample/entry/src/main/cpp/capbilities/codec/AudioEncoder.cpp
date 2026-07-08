@@ -83,7 +83,8 @@ int32_t AudioEncoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
     // Prepare audio encoder
     {
         int32_t prepareRet = OH_AudioCodec_Prepare(encoder_);
-        CHECK_AND_RETURN_RET_LOG(prepareRet == AV_ERR_OK, SAMPLE_ERR_ERROR, "Prepare failed, ret: %{public}d", prepareRet);
+        CHECK_AND_RETURN_RET_LOG(prepareRet == AV_ERR_OK, SAMPLE_ERR_ERROR,
+                                 "Prepare failed, ret: %{public}d", prepareRet);
     }
 
     return SAMPLE_ERR_OK;

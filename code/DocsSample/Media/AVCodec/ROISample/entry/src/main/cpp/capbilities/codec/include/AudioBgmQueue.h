@@ -37,7 +37,9 @@ public:
     // Add PCM data to the queue
     void push(int16_t* data, size_t sampleCount)
     {
-        if (data == nullptr || sampleCount == 0) return;
+        if (data == nullptr || sampleCount == 0) {
+            return;
+        }
         
         std::lock_guard<std::mutex> lock(m_mutex);
         
@@ -52,7 +54,9 @@ public:
     // Returns actual number of samples fetched; 0 indicates stopped
     size_t pop(int16_t* output, size_t requestedSamples)
     {
-        if (output == nullptr || requestedSamples == 0) return 0;
+        if (output == nullptr || requestedSamples == 0) {
+            return 0;
+        }
 
         std::unique_lock<std::mutex> lock(m_mutex);
         // Wait until sufficient data is available or stop is requested
@@ -60,7 +64,9 @@ public:
             return m_stop || m_buffer.size() >= requestedSamples;
         });
         // Return 0 if stop is requested
-        if (m_stop) return 0;
+        if (m_stop) {
+            return 0;
+        }
         
         // Determine actual number of samples that can be provided (not exceeding requested amount)
         size_t actualSamples = std::min(requestedSamples, m_buffer.size());

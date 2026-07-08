@@ -18,6 +18,7 @@
 
 #include <condition_variable>
 #include <queue>
+#include <algorithm>
 #include "AudioBgmQueue.h"
 #include "SampleInfo.h"
 #include "FrameQueue.h"
@@ -80,7 +81,9 @@ public:
         if (bufferLen + remainlen > cache.size()) {
             cache.resize(remainlen + bufferLen);
         }
-        std::memcpy(cache.data() + remainlen, buffer, bufferLen);
+        std::copy(static_cast<const char *>(buffer),
+                  static_cast<const char *>(buffer) + bufferLen,
+                  cache.data() + remainlen);
         remainlen += bufferLen;
     }
 
@@ -89,10 +92,13 @@ public:
         if (remainlen < bufferLen) {
             return false;
         }
-        std::memcpy(buffer, cache.data(), bufferLen);
+        std::copy(cache.data(), cache.data() + bufferLen,
+                  static_cast<char *>(buffer));
         remainlen = remainlen - bufferLen;
         if (remainlen > 0) {
-            std::memmove(cache.data(), cache.data() + bufferLen, remainlen);
+            std::copy(cache.data() + bufferLen,
+                  cache.data() + bufferLen + remainlen,
+                  cache.data());
         }
         return true;
     }

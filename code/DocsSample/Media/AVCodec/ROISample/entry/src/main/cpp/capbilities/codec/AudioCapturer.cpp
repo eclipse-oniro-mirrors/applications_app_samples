@@ -33,8 +33,10 @@ using IsAcousticEchoCancelerSupportedApiType = OH_AudioCommon_Result(*)(OH_Audio
 // 2. Declare API (directly associated with function pointer type)
 constexpr int32_t API_VERSION_AUDIO_STREAM_MANAGER = 19;
 constexpr int32_t API_VERSION_ECHO_CANCEL_CHECK = 20;
-DECLARE_API(OH_AudioManager_GetAudioStreamManager, GetAudioStreamManagerApiType, API_VERSION_AUDIO_STREAM_MANAGER, "libohaudio.so");
-DECLARE_API(OH_AudioStreamManager_IsAcousticEchoCancelerSupported, IsAcousticEchoCancelerSupportedApiType, API_VERSION_ECHO_CANCEL_CHECK,
+DECLARE_API(OH_AudioManager_GetAudioStreamManager, GetAudioStreamManagerApiType,
+            API_VERSION_AUDIO_STREAM_MANAGER, "libohaudio.so");
+DECLARE_API(OH_AudioStreamManager_IsAcousticEchoCancelerSupported,
+            IsAcousticEchoCancelerSupportedApiType, API_VERSION_ECHO_CANCEL_CHECK,
             "libohaudio.so");
 
 AudioCapturer::~AudioCapturer()
@@ -43,7 +45,8 @@ AudioCapturer::~AudioCapturer()
 }
 
 // AudioCapturer Callback
-static int32_t AudioCapturerOnReadData([[maybe_unused]]OH_AudioCapturer *capturer, void *userData, void *buffer, int32_t bufferLen)
+static int32_t AudioCapturerOnReadData([[maybe_unused]]OH_AudioCapturer *capturer,
+                                       void *userData, void *buffer, int32_t bufferLen)
 {
     CodecUserData *codecUserData = static_cast<CodecUserData *>(userData);
     if (codecUserData != nullptr) {

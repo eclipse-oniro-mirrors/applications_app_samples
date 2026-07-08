@@ -190,7 +190,8 @@ void Player::AudioDecInputThread() {
         CHECK_AND_BREAK_LOG(isStarted_, "Decoder input thread out");
         std::unique_lock<std::mutex> lock(audioDecContext_->inputMutex);
         bool condRet = audioDecContext_->inputCond.wait_for(
-            lock, AUDIO_DEC_BUFFER_TIMEOUT, [this]() { return !isStarted_ || !audioDecContext_->inputBufferInfoQueue.empty(); });
+            lock, AUDIO_DEC_BUFFER_TIMEOUT,
+            [this]() { return !isStarted_ || !audioDecContext_->inputBufferInfoQueue.empty(); });
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         CHECK_AND_CONTINUE_LOG(!audioDecContext_->inputBufferInfoQueue.empty(),
                                "Buffer queue is empty, continue, cond ret: %{public}d", condRet);
@@ -216,7 +217,8 @@ void Player::AudioDecOutputThread() {
         CHECK_AND_BREAK_LOG(isStarted_, "Decoder output thread out");
         std::unique_lock<std::mutex> lock(audioDecContext_->outputMutex);
         bool condRet = audioDecContext_->outputCond.wait_for(
-            lock, AUDIO_DEC_BUFFER_TIMEOUT, [this]() { return !isStarted_ || !audioDecContext_->outputBufferInfoQueue.empty(); });
+            lock, AUDIO_DEC_BUFFER_TIMEOUT,
+            [this]() { return !isStarted_ || !audioDecContext_->outputBufferInfoQueue.empty(); });
         CHECK_AND_BREAK_LOG(isStarted_, "Decoder output thread out");
         CHECK_AND_CONTINUE_LOG(!audioDecContext_->outputBufferInfoQueue.empty(),
                                "Buffer queue is empty, continue, cond ret: %{public}d", condRet);

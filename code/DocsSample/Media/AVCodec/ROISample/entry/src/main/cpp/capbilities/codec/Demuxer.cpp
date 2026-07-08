@@ -14,6 +14,7 @@
  */
 
 #include "include/Demuxer.h"
+#include <algorithm>
 
 #undef LOG_TAG
 #define LOG_TAG "Demuxer"
@@ -87,11 +88,14 @@ int32_t Demuxer::GetTrackInfo(std::shared_ptr<OH_AVFormat> sourceFormat, SampleI
                                   &info.audioInfo.codecConfigLen);
             if (info.audioInfo.codecConfigLen > 0 &&
                 info.audioInfo.codecConfigLen < sizeof(info.audioInfo.codecConfig)) {
-                memcpy(info.audioInfo.codecConfig, codecConfig, info.audioInfo.codecConfigLen);
+                std::copy(codecConfig, codecConfig + info.audioInfo.codecConfigLen,
+                          info.audioInfo.codecConfig);
                 SAMPLE_LOGI(
-                    "codecConfig:%{public}p, len:%{public}i, 0:0x%{public}02x 1:0x:%{public}02x, bufLen:%{public}u",
-                    info.audioInfo.codecConfig, static_cast<int>(info.audioInfo.codecConfigLen), info.audioInfo.codecConfig[0],
-                    info.audioInfo.codecConfig[1], sizeof(info.audioInfo.codecConfig));
+                    "codecConfig:%{public}p, len:%{public}i, 0:0x%{public}02x 1:0x:%{public}02x,"
+                    " bufLen:%{public}u",
+                    info.audioInfo.codecConfig, static_cast<int>(info.audioInfo.codecConfigLen),
+                    info.audioInfo.codecConfig[0], info.audioInfo.codecConfig[1],
+                    sizeof(info.audioInfo.codecConfig));
             }
             OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_AAC_IS_ADTS, &info.audioInfo.aacAdts);
 

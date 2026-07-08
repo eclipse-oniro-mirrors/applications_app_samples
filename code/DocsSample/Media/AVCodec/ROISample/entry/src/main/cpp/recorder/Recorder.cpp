@@ -217,7 +217,8 @@ void Recorder::VideoEncOutputThread()
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         std::unique_lock<std::mutex> lock(encContext_->outputMutex);
         bool condRet = encContext_->outputCond.wait_for(
-            lock, std::chrono::seconds(THREAD_WAIT_TIMEOUT_SEC), [this]() { return !isStarted_ || !encContext_->outputBufferInfoQueue.empty(); });
+            lock, std::chrono::seconds(THREAD_WAIT_TIMEOUT_SEC),
+            [this]() { return !isStarted_ || !encContext_->outputBufferInfoQueue.empty(); });
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         CHECK_AND_CONTINUE_LOG(!encContext_->outputBufferInfoQueue.empty(),
                                "Buffer queue is empty, continue, cond ret: %{public}d", condRet);
@@ -397,10 +398,12 @@ void Recorder::AudioEncInputThread()
     while (true) {
         CHECK_AND_BREAK_LOG(isStarted_, "Encoder input thread out");
         std::unique_lock<std::mutex> lock(audioEncContext_->inputMutex);
-        bool condRet = audioEncContext_->inputCond.wait_for(lock, std::chrono::seconds(THREAD_WAIT_TIMEOUT_SEC), [this]() {
-            return !isStarted_ || (!audioEncContext_->inputBufferInfoQueue.empty() &&
-                                   (audioEncContext_->remainlen >= sampleInfo_.audioInfo.audioMaxInputSize));
-        });
+        bool condRet = audioEncContext_->inputCond.wait_for(
+            lock, std::chrono::seconds(THREAD_WAIT_TIMEOUT_SEC),
+            [this]() {
+                return !isStarted_ || (!audioEncContext_->inputBufferInfoQueue.empty() &&
+                                       (audioEncContext_->remainlen >= sampleInfo_.audioInfo.audioMaxInputSize));
+            });
 
         CHECK_AND_CONTINUE_LOG(!audioEncContext_->inputBufferInfoQueue.empty(),
                                "Audio Buffer queue is empty, continue, cond ret: %{public}d", condRet);
@@ -441,7 +444,8 @@ void Recorder::AudioEncOutputThread()
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         std::unique_lock<std::mutex> lock(audioEncContext_->outputMutex);
         bool condRet = audioEncContext_->outputCond.wait_for(
-            lock, std::chrono::seconds(THREAD_WAIT_TIMEOUT_SEC), [this]() { return !isStarted_ || !audioEncContext_->outputBufferInfoQueue.empty(); });
+            lock, std::chrono::seconds(THREAD_WAIT_TIMEOUT_SEC),
+            [this]() { return !isStarted_ || !audioEncContext_->outputBufferInfoQueue.empty(); });
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         CHECK_AND_CONTINUE_LOG(!audioEncContext_->outputBufferInfoQueue.empty(),
                                "Buffer queue is empty, continue, cond ret: %{public}d", condRet);

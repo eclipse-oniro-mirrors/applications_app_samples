@@ -119,10 +119,8 @@ public:
         isVertical_ = isVertical;
     }
 
-    void ImageDraw(OHNativeWindowBuffer *InBuffer, OHNativeWindowBuffer *OutBuffer,
-        int32_t imageWidth, int32_t imageHeight, int32_t viewWidth, int32_t viewHeight);
-    void DrawRoiOverlay(OHNativeWindowBuffer *outBuffer, int32_t imageWidth, int32_t imageHeight,
-        int32_t viewWidth, int32_t viewHeight, const std::string& roiStr);
+    void ImageDraw(OHNativeWindowBuffer *InBuffer, OHNativeWindowBuffer *OutBuffer, ViewportParams vp);
+    void DrawRoiOverlay(OHNativeWindowBuffer *outBuffer, ViewportParams vp, const std::string& roiStr);
     OH_NativeImage *GetNativeImageEncoder();
     void SetCameraFront(bool isCameraFront);
     void UpdateCameraRotation(int rotation);
@@ -179,7 +177,19 @@ private:
     void CreateTextures();
     void SetupRoiVao();
     void CleanGLResources();
-    
+
+    // DrawImage() decomposed helper functions
+    std::string ExtractRoiFromBuffer(OHNativeWindowBuffer *InBuffer);
+    std::string AssembleRoiString(const std::string &currentRoiStr);
+    void LogRoiData(const std::string &currentRoiStr, const std::string &assembledRoiStr);
+    bool PollFence(int32_t fenceFd);
+    void PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, const std::string &assembledRoiStr);
+    void WriteRoiToEncoderBuffer(OHNativeWindowBuffer *OutBufferEncoder, const std::string &assembledRoiStr);
+
+    // Setup native window/encoder surfaces on the render thread
+    void SetupNativeWindowSurface(OHNativeWindow *nativeWindow);
+    void SetupEncoderWindowSurface(OHNativeWindow *nativeWindow, int32_t width, int32_t height);
+
     OHNativeWindow *nativeWindow_ = nullptr;
     EGLSurface eglSurface_ = EGL_NO_SURFACE;
     OHNativeWindow *encoderNativeWindow_ = nullptr;
@@ -189,7 +199,7 @@ private:
     void DrawImage();
     void DrawRoiQuad(float x1, float x2, float y1, float y2);
     void DrawRoiRects(const std::vector<OH_AVFormat*> &parsedFormats, uint32_t actualCount,
-                      float lrThickNdc, float tbThickNdc, int32_t imageWidth, int32_t imageHeight);
+                      float lrThickNdc, float tbThickNdc, ViewportParams vp);
     static void OnNativeImageFrameAvailable(void *data);
     OH_OnFrameAvailableListener nativeImageFrameAvailableListener_{};
     OH_NativeImage *nativeImage_ = nullptr;
