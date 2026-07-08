@@ -364,7 +364,7 @@ async function testSetPickerMode() {
 
 // [Start screenCapture_arkts_interface_excludePickerWindows]
 async function testExcludePickerWindows() {
-  let excludedWindows: Array<number> = [101, 102, 103];
+  let excludedWindows: number[] = [101, 102, 103];
   
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
