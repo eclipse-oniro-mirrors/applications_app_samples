@@ -83,7 +83,7 @@ async function getCurrentAudioCapturerInfoArray(updateCallback?:
   await audioStreamManager.getCurrentAudioCapturerInfoArray()
     .then((audioCapturerChangeInfoArray: audio.AudioCapturerChangeInfoArray) => {
       console.info('getCurrentAudioCapturerInfoArray Get Promise Called');
-      // [Start get_CurrentAudioCapturerInfoArray]
+      // [StartExclude get_CurrentAudioCapturerInfoArray]
       let detailInfo = 'getCurrentAudioCapturerInfoArray Get Promise Called\n';
       // [EndExclude get_CurrentAudioCapturerInfoArray]
       if (audioCapturerChangeInfoArray != null) {
@@ -92,9 +92,11 @@ async function getCurrentAudioCapturerInfoArray(updateCallback?:
           console.info(`Source for ${i} is: ${audioCapturerChangeInfoArray[i].capturerInfo.source}`);
           console.info(`Flag  ${i} is: ${audioCapturerChangeInfoArray[i].capturerInfo.capturerFlags}`);
 
+          // [StartExclude get_CurrentAudioCapturerInfoArray]
           detailInfo += `StreamId for ${i} is: ${audioCapturerChangeInfoArray[i].streamId}\n`;
           detailInfo += `Source for ${i} is: ${audioCapturerChangeInfoArray[i].capturerInfo.source}\n`;
           detailInfo += `Flag ${i} is: ${audioCapturerChangeInfoArray[i].capturerInfo.capturerFlags}\n`;
+          // [EndExclude get_CurrentAudioCapturerInfoArray]
 
           for (let j = 0; j < audioCapturerChangeInfoArray[i].deviceDescriptors.length; j++) {
             console.info(`Id: ${i} : ${audioCapturerChangeInfoArray[i].deviceDescriptors[j].id}`);
@@ -109,21 +111,21 @@ async function getCurrentAudioCapturerInfoArray(updateCallback?:
           }
         }
       }
-      // [Start get_CurrentAudioCapturerInfoArray]
+      // [StartExclude get_CurrentAudioCapturerInfoArray]
       if (updateCallback) {
         updateCallback(detailInfo, false);
       }
       // [EndExclude get_CurrentAudioCapturerInfoArray]
     }).catch((err: BusinessError) => {
       console.error(`Invoke getCurrentAudioCapturerInfoArray failed, code is ${err.code}, message is ${err.message}`);
-      // [Start get_CurrentAudioCapturerInfoArray]
+      // [StartExclude get_CurrentAudioCapturerInfoArray]
       const errorMsg = `Invoke getCurrentAudioCapturerInfoArray failed, code is ${err.code}, message is ${err.message}`;
       if (updateCallback) {
         updateCallback(errorMsg, true);
       }
       // [EndExclude get_CurrentAudioCapturerInfoArray]
     });
-  // [Start get_CurrentAudioCapturerInfoArray]
+  // [StartExclude get_CurrentAudioCapturerInfoArray]
   // 获取后取消监听
   cancelListenAudioStreamManager();
   // [EndExclude get_CurrentAudioCapturerInfoArray]
