@@ -134,6 +134,7 @@ void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
     codecUserData->inputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>(index, buffer));
 }
 
+// [Start quick_start]
 static int32_t GetTemporalLayerID(OH_AVBuffer *buffer)
 {
     int32_t layerID = -1;
@@ -147,6 +148,7 @@ void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
     if (userData == nullptr) {
         return;
     }
+    // [StartExclude quick_start]
     (void)codec;
     CodecUserData *codecUserData = static_cast<CodecUserData *>(userData);
     if (codecUserData->isDecFirstFrame) {
@@ -159,7 +161,9 @@ void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
         codecUserData->isDecFirstFrame = false;
     }
     codecUserData->outputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>(index, buffer));
+    // [EndExclude quick_start]
 
     // 从AVBuffer中获取时域层级信息。
     int32_t layerID = GetTemporalLayerID(buffer);
 }
+// [End quick_start]
