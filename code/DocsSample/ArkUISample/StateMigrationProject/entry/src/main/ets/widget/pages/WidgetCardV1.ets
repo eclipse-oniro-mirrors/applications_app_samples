@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 // [Start CardMigrationV1]
+// 创建LocalStorage实例，用于在卡片入口组件与卡片提供方之间传递刷新数据
 let storage = new LocalStorage();
 
 // V1卡片入口组件需通过@Entry传入LocalStorage实例，用于接收卡片提供方updateForm推送的数据
@@ -20,6 +21,7 @@ let storage = new LocalStorage();
 @Component
 struct WidgetCardV1 {
   // 通过@LocalStorageProp的入参key值匹配updateForm数据中的对应字段
+  // 此处入参key为'title'，将匹配updateForm数据中key为'title'的字段
   @LocalStorageProp('title') title: string = 'Default title';
   @LocalStorageProp('detail') detail: string = 'Default detail';
 
@@ -40,6 +42,8 @@ struct WidgetCardV1 {
       Button('update')
         .margin({ top: '15%' })
         .onClick(() => {
+          // 点击按钮通过postCardAction触发message事件
+          // 该事件会被卡片提供方FormExtensionAbility的onFormEvent回调接收
           postCardAction(this, {
             'action': 'message',
             'params': { 'msgTest': 'messageEvent' }

@@ -18,6 +18,7 @@
 @ComponentV2
 struct WidgetCard {
   // @LocalStorageProp迁移为@Local，系统改为按变量名匹配updateForm数据
+  // 此处变量名为title，将匹配updateForm数据中key为'title'的字段
   @Local title: string = 'Default title';
   @Local detail: string = 'Default detail';
 
@@ -38,6 +39,8 @@ struct WidgetCard {
       Button('update')
         .margin({ top: '15%' })
         .onClick(() => {
+          // 点击按钮通过postCardAction触发message事件
+          // 该事件会被卡片提供方FormExtensionAbility的onFormEvent回调接收
           postCardAction(this, {
             'action': 'message',
             'params': { 'msgTest': 'messageEvent' }
