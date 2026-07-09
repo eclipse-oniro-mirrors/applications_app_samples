@@ -1,0 +1,36 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "button_background",
+      "value": "#0D000000"
+    },
+    {
+      "name": "textInput_background",
+      "value": "#F2F2F2"
+    },
+    {
+      "name": "button_fontColor",
+      "value": "#E6FFFFFF"
+    },
+    {
+      "name": "linearGradient_color1",
+      "value": "#0A59F7"
+    },
+    {
+      "name": "shadow_color",
+      "value": "#1400001E"
+    },
+    {
+      "name": "text_fontColor7",
+      "value": "#99000000"
+    },
+    {
+      "name": "backgroundColor",
+      "value": "#45598E"
+    }
+  ]
+}
