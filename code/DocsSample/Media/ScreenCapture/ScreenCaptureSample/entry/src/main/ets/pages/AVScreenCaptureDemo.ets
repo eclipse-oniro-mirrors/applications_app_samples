@@ -309,12 +309,12 @@ async function testAddWaterMark() {
   let watermarkConfig: media.WatermarkConfiguration = { top: 100, left: 100, width: 100, height: 100 };
 
   if (watermark && avScreenCaptureRecorder) {
-      avScreenCaptureRecorder.addWatermark(watermark, watermarkConfig).then((num: number) => {
-        console.info(`Succeeded in adding watermark, watermarkNum is ${num}`);
-      })
-      .catch((error: BusinessError) => {
-        console.error(`Failed to add watermark and catch error is: Code: ${error.code}, message: ${error.message}`);
-      });
+    avScreenCaptureRecorder.addWatermark(watermark, watermarkConfig).then((num: number) => {
+      console.info(`Succeeded in adding watermark, watermarkNum is ${num}`);
+    })
+    .catch((error: BusinessError) => {
+      console.error(`Failed to add watermark and catch error is: Code: ${error.code}, message: ${error.message}`);
+    });
   }
 }
 // [End screenCapture_arkts_interface_addWatermark]
