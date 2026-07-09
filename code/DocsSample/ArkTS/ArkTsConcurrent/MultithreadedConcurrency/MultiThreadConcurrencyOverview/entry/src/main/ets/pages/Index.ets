@@ -24,17 +24,17 @@ struct Index {
   build() {
     Scroll() {
       Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {
-        Text(resource.resourceToString($r('app.string.Multi_thread_concurrency')))
+        Text(resource.resourceToString($r('app.string.Multi_thread_concurrency').id))
           .padding('15vp')
           .width('100%')
           .fontSize('25fp')
           .textAlign(TextAlign.Center)
         CommonButton({
-          buttonName: resource.resourceToString($r('app.string.Actor_model')),
+          buttonName: resource.resourceToString($r('app.string.Actor_model').id),
           buttonUrl: 'managers/actormodel'
         });
         CommonButton({
-          buttonName: resource.resourceToString($r('app.string.Actor_model2')),
+          buttonName: resource.resourceToString($r('app.string.Actor_model2').id),
           buttonUrl: 'managers/actormodel2'
         });
       }
