@@ -35,6 +35,7 @@ struct Index {
           .height('5%')
           // 按钮绑定onClick事件，点击时打印日志，注意realse hap包默认无法打印debug级别日志
           .onClick(() => {
+            hilog.setOutputType(hilog.OutputType.SHARE_SANDBOX_WITH_CONSOLE);
             hilog.info(0xFF00, 'testTag', 'hilog_info_test');
             hilog.debug(0xFF00, 'testTag', 'hilog_debug_test');
             hilog.warn(0xFF00, 'testTag', 'hilog_warn_test');
@@ -46,6 +47,7 @@ struct Index {
               hilog.info(0xFF00, 'testTag',
               'A log with a domainID of 0xFF00 and a label of testTag can print logs at the Info level or higher.');
             }
+            hilog.flush();
           })
 // [StartExclude HiLog_ArkTS]
         Button($r('app.string.HiLogCPP_Button'))
