@@ -52,7 +52,7 @@ struct Index {
     try {
       let context = this.getUIContext().getHostContext() as Context;
       // 通话开始时创建voice_call类型的avsession。
-      this.session = await avSession.createAVSession(context, 'voiptest', 'voice_call');
+      this.session = await avSession.createAVSession(context, 'SESSION_NAME', 'voice_call');
     } catch (err) {
       console.error(`AVSession create :  Error: Code: ${err.code}, message: ${err.message}`);
     }

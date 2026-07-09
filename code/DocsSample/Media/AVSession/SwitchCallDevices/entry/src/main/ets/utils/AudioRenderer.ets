@@ -91,7 +91,7 @@ export default class AudioRenderer {
     if (this.audioRenderer !== undefined) {
       return;
     }
-    this.getStageFileDescriptor(this.audioSource).then((res) => {
+    await this.getStageFileDescriptor(this.audioSource).then((res) => {
       this.fileDescriptor = res;
     });
     if (!this.fileDescriptor) {

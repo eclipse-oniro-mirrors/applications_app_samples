@@ -39,7 +39,7 @@ struct InputCastPicker {
       Column() {
         AVInputCastPicker(
           {
-            customPicker: this.ImageBuilder.bind(this), // 新增自定义参数。
+            customPicker: (): void => this.ImageBuilder(), // 新增自定义参数。
             onStateChange: this.onStateChange
           }
         )
