@@ -106,7 +106,7 @@ struct ListItemView {
   @State item: string = '';
 
   aboutToAppear(): void {
-    // 点击 update，首次进入，上下滑动，由于Foreach折叠展开属性，无法复用。
+    // 点击 update，首次进入，上下滑动，由于ForEach折叠展开属性，无法复用。
     hilog.info(DOMAIN, TAG, BUNDLE + '=====aboutToAppear=====ListItemView==创建了==' + this.item);
   }
 

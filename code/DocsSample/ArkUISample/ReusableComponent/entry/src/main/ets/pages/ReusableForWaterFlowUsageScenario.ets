@@ -101,7 +101,6 @@ struct ReusableFlowItem {
 struct Index {
   @State minSize: number = 50; // 最小值50
   @State maxSize: number = 80; // 最大值80
-  @State fontSize: number = 24; // 字体大小为24
   @State colors: number[] = [0xFFC0CB, 0xDA70D6, 0x6B8E23, 0x6A5ACD, 0x00FFFF, 0x00FF7F];
   scroller: Scroller = new Scroller();
   dataSource: WaterFlowDataSource = new WaterFlowDataSource();
