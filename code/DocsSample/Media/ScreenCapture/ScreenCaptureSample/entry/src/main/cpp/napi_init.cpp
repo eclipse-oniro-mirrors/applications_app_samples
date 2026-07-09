@@ -72,7 +72,7 @@ void OpenFile02()
     }
 }
 
-void SetRecorderInfo02(RecorderInfo &recorderInfo)
+void SetRecorderInfo02(OH_RecorderInfo &recorderInfo)
 {
     std::string fileUrl = "fd://" + std::to_string(g_fileOutputFd);
     recorderInfo.url = const_cast<char *>(fileUrl.c_str());
@@ -80,7 +80,7 @@ void SetRecorderInfo02(RecorderInfo &recorderInfo)
     OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture fileUrl %{public}s", fileUrl.c_str());
 }
 
-void SetRecorderInfo04(RecorderInfo &recorderInfo)
+void SetRecorderInfo04(OH_RecorderInfo &recorderInfo)
 {
     std::string fileUrl = "fd://" + std::to_string(g_windowOutputFd);
     recorderInfo.url = const_cast<char *>(fileUrl.c_str());
@@ -102,6 +102,127 @@ void CloseFile(void)
         fclose(g_vFile);
         g_vFile = nullptr;
     }
+}
+
+// [Start screenCapture_config_buffer_callback]
+// 设置回调。
+// 错误事件发生回调函数OnError()。
+void OnError(OH_AVScreenCapture *capture, int32_t errorCode, void *userData)
+{
+    (void)capture;
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnError errorCode is %{public}d", errorCode);
+    (void)userData;
+}
+
+// 状态变更事件处理函数OnStateChange()。
+void OnStateChange(struct OH_AVScreenCapture *capture, OH_AVScreenCaptureStateCode stateCode, void *userData)
+{
+    if (stateCode == OH_SCREEN_CAPTURE_STATE_STARTED) {
+        OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnStateChange started");
+        // 处理状态变更。
+        // 可选，配置录屏旋转。
+        int32_t ret = OH_AVScreenCapture_SetCanvasRotation(capture, true);
+        // 可选，修改Canvas分辨率。
+        ret = OH_AVScreenCapture_ResizeCanvas(g_avCapture, CANVAS_RESIZE_WIDTH, CANVAS_RESIZE_HEIGHT);
+        // 可选，设置是否显示光标。
+        ret = OH_AVScreenCapture_ShowCursor(g_avCapture, true);
+        // 可选，设置视频最大帧率。
+        ret = OH_AVScreenCapture_SetMaxVideoFrameRate(g_avCapture, CAPTURE_VIDEO_FRAME_RATE);
+    }
+    if (stateCode == OH_SCREEN_CAPTURE_STATE_INTERRUPTED_BY_OTHER) {
+        // 处理状态变更。
+    }
+    (void)userData;
+}
+
+// [Start screenCapture_config_buffer_OnBufferAvailable]
+// 获取并处理音视频原始码流数据回调函数OnBufferAvailable()。
+void HandleVideoBuffer(OH_AVBuffer *buffer)
+{
+    OH_NativeBuffer *nativebuffer = OH_AVBuffer_GetNativeBuffer(buffer);
+    if (nativebuffer == nullptr) {
+        return;
+    }
+    int bufferLen = OH_AVBuffer_GetCapacity(buffer);
+    OH_AVCodecBufferAttr info;
+    int32_t ret = OH_AVBuffer_GetBufferAttr(buffer, &info);
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture size %{public}d", info.size);
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture bufferLen %{public}d", bufferLen);
+
+    OH_NativeBuffer_Config config;
+    OH_NativeBuffer_GetConfig(nativebuffer, &config);
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture height %{public}d width %{public}d",
+        config.height, config.width);
+    uint8_t *buf = OH_AVBuffer_GetAddr(buffer);
+    if (buf == nullptr) {
+        return;
+    }
+    size_t written = fwrite(buf, 1, bufferLen, g_vFile);
+    if (written != bufferLen) {
+        OH_LOG_ERROR(LOG_APP, "fwrite failed");
+    }
+    OH_NativeBuffer_Unreference(nativebuffer);
+    buffer = nullptr;
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable inner audio");
+}
+
+void HandleAudioBuffer(OH_AVBuffer *buffer, FILE *file, const char *logMsg)
+{
+    int bufferLen = OH_AVBuffer_GetCapacity(buffer);
+    uint8_t *buf = OH_AVBuffer_GetAddr(buffer);
+    if (buf == nullptr) {
+        return;
+    }
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable inner audio");
+    size_t written = fwrite(buf, 1, bufferLen, g_innerFile);
+    if (written != bufferLen) {
+        OH_LOG_ERROR(LOG_APP, "fwrite failed");
+    }
+}
+
+void OnBufferAvailable(OH_AVScreenCapture *capture, OH_AVBuffer *buffer, OH_AVScreenCaptureBufferType bufferType,
+                       int64_t timestamp, void *userData)
+{
+    if (!g_isRunning) {
+        return;
+    }
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable bufferType is %{public}d",
+        bufferType);
+    if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_VIDEO) {
+        // 处理视频buffer。
+        HandleVideoBuffer(buffer);
+    } else if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_AUDIO_INNER) {
+        // 处理内录buffer。
+        HandleAudioBuffer(buffer, g_innerFile, "ScreenCapture OnBufferAvailable inner audio");
+    } else if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_AUDIO_MIC) {
+        // 处理麦克风buffer。
+        HandleAudioBuffer(buffer, g_micFile, "ScreenCapture OnBufferAvailable mic audio");
+    }
+    return;
+}
+// [End screenCapture_config_buffer_OnBufferAvailable]
+// 设置获取录屏屏幕ID的回调函数OnDisplaySelected()。
+void OnDisplaySelected(struct OH_AVScreenCapture *capture, uint64_t displayId, void *userData)
+{
+    (void)capture;
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnError errorCode is %{public}uld", displayId);
+    (void)userData;
+}
+
+void SetCallback(struct OH_AVScreenCapture *capture)
+{
+    OH_AVScreenCapture_SetErrorCallback(capture, OnError, nullptr);
+    OH_AVScreenCapture_SetStateCallback(capture, OnStateChange, nullptr);
+    OH_AVScreenCapture_SetDataCallback(capture, OnBufferAvailable, nullptr);
+    OH_AVScreenCapture_SetDisplayCallback(capture, OnDisplaySelected, nullptr);
+}
+// [End screenCapture_config_buffer_callback]
+
+void SetCallbackFile(struct OH_AVScreenCapture *capture)
+{
+    OH_AVScreenCapture_SetErrorCallback(capture, OnError, nullptr);
+    OH_AVScreenCapture_SetStateCallback(capture, OnStateChange, nullptr);
+    OH_AVScreenCapture_SetDisplayCallback(capture, OnDisplaySelected, nullptr);
 }
 
 void SetConfig01(OH_AVScreenCaptureConfig &config)
@@ -168,12 +289,12 @@ void SetConfig01(OH_AVScreenCaptureConfig &config)
         .audioInfo = audioInfo,
         .videoInfo = videoInfo
     };
-    // 在StartScreenCapture01()函数中调用OH_AVScreenCapture_Init方法将配置项设置到OH_AVScreenCapture中。
+    // 在StartScreenCapture_01()函数中调用OH_AVScreenCapture_Init方法将配置项设置到OH_AVScreenCapture中。
     // [End screenCapture_config_buffer_init]
 }
 
 // [Start screenCapture_config]
-void SetConfig02(OH_AVScreenCaptureConfig &config, RecorderInfo &recorderInfo)
+void SetConfig02(OH_AVScreenCaptureConfig &config, OH_RecorderInfo &recorderInfo)
 {
     // 录屏时获取麦克风或者内录，内录参数必填，如果都设置了，内录和麦克风的参数设置需要一致。
     OH_AudioCaptureInfo micCapInfo = {.audioSampleRate = 48000, .audioChannels = 2, .audioSource = OH_MIC};
@@ -233,7 +354,7 @@ void SetConfig02(OH_AVScreenCaptureConfig &config, RecorderInfo &recorderInfo)
     SetCallbackFile(g_avCapture);
 }
 // [End screenCapture_config]
-// [Start screenCapture_arkts_interface_offError]
+
 void SetConfig03(OH_AVScreenCaptureConfig &config)
 {
     // 录屏时获取麦克风或者内录，内录参数必填，如果都设置了，内录和麦克风的参数设置需要一致。
@@ -526,127 +647,6 @@ void SetSpecifiedWindowIdForWindowCapture(OH_AVScreenCaptureConfig &config)
     OH_AVScreenCapture_StrategyForPickerPopUp(strategy, false);
     OH_AVScreenCapture_SetCaptureStrategy(g_avCapture, strategy);
     // [End screenCapture_withWindow_forID]
-}
-
-// [Start screenCapture_config_buffer_callback]
-// 设置回调。
-// 错误事件发生回调函数OnError()。
-void OnError(OH_AVScreenCapture *capture, int32_t errorCode, void *userData)
-{
-    (void)capture;
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnError errorCode is %{public}d", errorCode);
-    (void)userData;
-}
-
-// 状态变更事件处理函数OnStateChange()。
-void OnStateChange(struct OH_AVScreenCapture *capture, OH_AVScreenCaptureStateCode stateCode, void *userData)
-{
-    if (stateCode == OH_SCREEN_CAPTURE_STATE_STARTED) {
-        OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnStateChange started");
-        // 处理状态变更。
-        // 可选，配置录屏旋转。
-        int32_t ret = OH_AVScreenCapture_SetCanvasRotation(capture, true);
-        // 可选，修改Canvas分辨率。
-        ret = OH_AVScreenCapture_ResizeCanvas(g_avCapture, CANVAS_RESIZE_WIDTH, CANVAS_RESIZE_HEIGHT);
-        // 可选，设置是否显示光标。
-        ret = OH_AVScreenCapture_ShowCursor(g_avCapture, true);
-        // 可选，设置视频最大帧率。
-        ret = OH_AVScreenCapture_SetMaxVideoFrameRate(g_avCapture, CAPTURE_VIDEO_FRAME_RATE);
-    }
-    if (stateCode == OH_SCREEN_CAPTURE_STATE_INTERRUPTED_BY_OTHER) {
-        // 处理状态变更。
-    }
-    (void)userData;
-}
-
-// [Start screenCapture_config_buffer_OnBufferAvailable]
-// 获取并处理音视频原始码流数据回调函数OnBufferAvailable()。
-void HandleVideoBuffer(OH_AVBuffer *buffer)
-{
-    OH_NativeBuffer *nativebuffer = OH_AVBuffer_GetNativeBuffer(buffer);
-    if (nativebuffer == nullptr) {
-        return;
-    }
-    int bufferLen = OH_AVBuffer_GetCapacity(buffer);
-    OH_AVCodecBufferAttr info;
-    int32_t ret = OH_AVBuffer_GetBufferAttr(buffer, &info);
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture size %{public}d", info.size);
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture bufferLen %{public}d", bufferLen);
-
-    OH_NativeBuffer_Config config;
-    OH_NativeBuffer_GetConfig(nativebuffer, &config);
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture height %{public}d width %{public}d",
-        config.height, config.width);
-    uint8_t *buf = OH_AVBuffer_GetAddr(buffer);
-    if (buf == nullptr) {
-        return;
-    }
-    size_t written = fwrite(buf, 1, bufferLen, g_vFile);
-    if (written != bufferLen) {
-        OH_LOG_ERROR(LOG_APP, "fwrite failed");
-    }
-    OH_NativeBuffer_Unreference(nativebuffer);
-    buffer = nullptr;
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable inner audio");
-}
-
-void HandleAudioBuffer(OH_AVBuffer *buffer, FILE *file, const char *logMsg)
-{
-    int bufferLen = OH_AVBuffer_GetCapacity(buffer);
-    uint8_t *buf = OH_AVBuffer_GetAddr(buffer);
-    if (buf == nullptr) {
-        return;
-    }
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable inner audio");
-    size_t written = fwrite(buf, 1, bufferLen, g_innerFile);
-    if (written != bufferLen) {
-        OH_LOG_ERROR(LOG_APP, "fwrite failed");
-    }
-}
-
-void OnBufferAvailable(OH_AVScreenCapture *capture, OH_AVBuffer *buffer, OH_AVScreenCaptureBufferType bufferType,
-                       int64_t timestamp, void *userData)
-{
-    if (!g_isRunning) {
-        return;
-    }
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable bufferType is %{public}d",
-        bufferType);
-    if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_VIDEO) {
-        // 处理视频buffer。
-        HandleVideoBuffer(buffer);
-    } else if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_AUDIO_INNER) {
-        // 处理内录buffer。
-        HandleAudioBuffer(buffer, g_innerFile, "ScreenCapture OnBufferAvailable inner audio");
-    } else if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_AUDIO_MIC) {
-        // 处理麦克风buffer。
-        HandleAudioBuffer(buffer, g_micFile, "ScreenCapture OnBufferAvailable mic audio");
-    }
-    return;
-}
-// [End screenCapture_config_buffer_OnBufferAvailable]
-// 设置获取录屏屏幕ID的回调函数OnDisplaySelected()。
-void OnDisplaySelected(struct OH_AVScreenCapture *capture, uint64_t displayId, void *userData)
-{
-    (void)capture;
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnError errorCode is %{public}uld", displayId);
-    (void)userData;
-}
-
-void SetCallback(struct OH_AVScreenCapture *capture)
-{
-    OH_AVScreenCapture_SetErrorCallback(capture, OnError, nullptr);
-    OH_AVScreenCapture_SetStateCallback(capture, OnStateChange, nullptr);
-    OH_AVScreenCapture_SetDataCallback(capture, OnBufferAvailable, nullptr);
-    OH_AVScreenCapture_SetDisplayCallback(capture, OnDisplaySelected, nullptr);
-}
-// [End screenCapture_config_buffer_callback]
-
-void SetCallbackFile(struct OH_AVScreenCapture *capture)
-{
-    OH_AVScreenCapture_SetErrorCallback(capture, OnError, nullptr);
-    OH_AVScreenCapture_SetStateCallback(capture, OnStateChange, nullptr);
-    OH_AVScreenCapture_SetDisplayCallback(capture, OnDisplaySelected, nullptr);
 }
 
 // 开始录屏原始码流。

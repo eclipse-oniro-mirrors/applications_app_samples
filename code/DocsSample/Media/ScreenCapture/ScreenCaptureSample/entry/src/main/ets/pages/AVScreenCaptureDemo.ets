@@ -188,6 +188,8 @@ export class AVScreenCaptureDemo {
 // [End screenCapture_arkts_demo]
 
 // [Start screenCapture_arkts_interface_init]
+// 导入相关模块。
+
 async function testInit() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -215,6 +217,8 @@ async function testInit() {
 // [End screenCapture_arkts_interface_init]
 
 // [Start screenCapture_arkts_interface_startRecording]
+// 导入相关模块。
+
 async function testStartRecording() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -233,6 +237,8 @@ async function testStartRecording() {
 // [End screenCapture_arkts_interface_startRecording]
 
 // [Start screenCapture_arkts_interface_stopRecording]
+// 导入相关模块。
+
 async function testStopRecording() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -251,6 +257,8 @@ async function testStopRecording() {
 // [End screenCapture_arkts_interface_stopRecording]
 
 // [Start screenCapture_arkts_interface_pauseRecording]
+// 导入相关模块。
+
 async function testPauseRecording() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -269,6 +277,8 @@ async function testPauseRecording() {
 // [End screenCapture_arkts_interface_pauseRecording]
 
 // [Start screenCapture_arkts_interface_resumeRecording]
+// 导入相关模块。
+
 async function testResumeRecording() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -287,6 +297,8 @@ async function testResumeRecording() {
 // [End screenCapture_arkts_interface_resumeRecording]
 
 // [Start screenCapture_arkts_interface_addWatermark]
+// 导入相关模块。
+
 async function testAddWaterMark() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -308,6 +320,8 @@ async function testAddWaterMark() {
 // [End screenCapture_arkts_interface_addWatermark]
 
 // [Start screenCapture_arkts_interface_skipPrivacyMode]
+// 导入相关模块。
+
 async function testSkipPrivacyMode() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -327,6 +341,8 @@ async function testSkipPrivacyMode() {
 // [End screenCapture_arkts_interface_skipPrivacyMode]
 
 // [Start screenCapture_arkts_interface_setMicEnabled]
+// 导入相关模块。
+
 async function testSetMicEnable() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -345,6 +361,8 @@ async function testSetMicEnable() {
 // [End screenCapture_arkts_interface_setMicEnabled]
 
 // [Start screenCapture_arkts_interface_setPickerMode]
+// 导入相关模块。
+
 async function testSetPickerMode() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -363,6 +381,8 @@ async function testSetPickerMode() {
 // [End screenCapture_arkts_interface_setPickerMode]
 
 // [Start screenCapture_arkts_interface_excludePickerWindows]
+// 导入相关模块。
+
 async function testExcludePickerWindows() {
   let excludedWindows: number[] = [101, 102, 103];
   
@@ -383,6 +403,8 @@ async function testExcludePickerWindows() {
 // [End screenCapture_arkts_interface_excludePickerWindows]
 
 // [Start screenCapture_arkts_interface_presentPicker]
+// 导入相关模块。
+
 async function testPresentPicker() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -401,6 +423,8 @@ async function testPresentPicker() {
 // [End screenCapture_arkts_interface_presentPicker]
 
 // [Start screenCapture_arkts_interface_setContentAutoRotation]
+// 导入相关模块。
+
 async function testSetContentAutoRotation() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -419,6 +443,8 @@ async function testSetContentAutoRotation() {
 // [End screenCapture_arkts_interface_setContentAutoRotation]
 
 // [Start screenCapture_arkts_interface_release]
+// 导入相关模块。
+
 async function testRelease() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -437,6 +463,8 @@ async function testRelease() {
 // [End screenCapture_arkts_interface_release]
 
 // [Start screenCapture_arkts_interface_onStateChange]
+// 导入相关模块。
+
 async function testOnStateChange() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -453,6 +481,8 @@ async function testOnStateChange() {
 // [End screenCapture_arkts_interface_onStateChange]
 
 // [Start screenCapture_arkts_interface_onError]
+// 导入相关模块。
+
 async function testOnError() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -469,6 +499,8 @@ async function testOnError() {
 // [End screenCapture_arkts_interface_onError]
 
 // [Start screenCapture_arkts_interface_offStateChange]
+// 导入相关模块。
+
 async function testOffStateChange() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
@@ -483,6 +515,8 @@ async function testOffStateChange() {
 // [End screenCapture_arkts_interface_offStateChange]
 
 // [Start screenCapture_arkts_interface_offError]
+// 导入相关模块。
+
 async function testOffError() {
   // 创建录屏实例。
   let avScreenCaptureRecorder = await media.createAVScreenCaptureRecorder();
