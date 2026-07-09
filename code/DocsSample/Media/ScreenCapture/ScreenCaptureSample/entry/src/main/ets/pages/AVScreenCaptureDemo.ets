@@ -16,14 +16,11 @@
 // [Start screenCapture_arkts_demo]
 // [Start screenCapture_arkts_import]
 import { common } from '@kit.AbilityKit';
-// [Start screenCapture_arkts_interface_import]
-import { BusinessError } from '@kit.BasicServicesKit';
-import { image } from '@kit.ImageKit';
 import { media } from '@kit.MediaKit';
 import { fileIo } from '@kit.CoreFileKit';
-// [End screenCapture_arkts_interface_import]
 import { display } from '@kit.ArkUI';
 // [End screenCapture_arkts_import]
+import { BusinessError } from '@kit.BasicServicesKit';
 
 export class AVScreenCaptureDemo {
   private captureFile: fileIo.File | undefined = undefined;
