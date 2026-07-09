@@ -82,7 +82,6 @@ struct Index {
       })
       .height('40%')
       .width('90%')
-      // [EndExclude xcomponent_index]
       Row() {
         Button('Draw Star')
           .fontSize('16fp')
@@ -106,6 +105,7 @@ struct Index {
       .justifyContent(FlexAlign.Center)
       .alignItems(VerticalAlign.Bottom)
       .layoutWeight(1)
+      // [EndExclude xcomponent_index]
     }
     .width('100%')
     .height('100%')

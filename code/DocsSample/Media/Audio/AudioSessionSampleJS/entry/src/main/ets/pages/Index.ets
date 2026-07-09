@@ -24,6 +24,7 @@
 // [Start enable_mute_suggestion]
 // [Start set_default_output_device]
 // [Start set_session_behavior]
+// [Start print_session_info]
 import { audio } from '@kit.AudioKit';
 // [StartExclude get_session_manager]
 // [StartExclude on_audio_session_deactivated]
@@ -41,8 +42,11 @@ import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude enable_mute_suggestion]
 // [StartExclude set_default_output_device]
 // [StartExclude set_session_behavior]
+// [StartExclude print_session_info]
 import { common, abilityAccessCtrl, PermissionRequestResult } from '@kit.AbilityKit';
+// [EndExclude print_session_info]
 import { fileIo as fs } from '@kit.CoreFileKit';
+// [StartExclude print_session_info]
 
 // 全局UI更新回调
 let globalLogUpdate: ((msg: string, isError: boolean) => void) | undefined;
@@ -81,7 +85,7 @@ let writeDataCallback: audio.AudioRendererWriteDataCallback;
 let readDataCallback: Callback<ArrayBuffer> = (_buffer: ArrayBuffer) => {};
 // [EndExclude renderer_interrupt]
 
-let isPlay: boolean; // 是否正在播放，实际开发中，对应与音频播放状态相关的模块。
+let isPlaying: boolean; // 是否正在播放，实际开发中，对应与音频播放状态相关的模块。
 let isDucked: boolean; // 是否降低音量，实际开发中，对应与音频音量相关的模块。
 let started: boolean; // 标识符，记录“开始播放（start）”操作是否成功。
 
@@ -106,12 +110,12 @@ async function onAudioInterrupt(): Promise<void> {
         case audio.InterruptHint.INTERRUPT_HINT_PAUSE:
           // 此分支表示系统已将音频流暂停（临时失去焦点），为保持状态一致，应用需切换至音频暂停状态。
           // 临时失去焦点：待其他音频流释放音频焦点后，本音频流会收到resume对应的音频焦点事件，到时可自行继续播放。
-          isPlay = false; // 此句为简化处理，代表应用切换至音频暂停状态的若干操作。
+          isPlaying = false; // 此句为简化处理，代表应用切换至音频暂停状态的若干操作。
           break;
         case audio.InterruptHint.INTERRUPT_HINT_STOP:
           // 此分支表示系统已将音频流停止（永久失去焦点），为保持状态一致，应用需切换至音频暂停状态。
           // 永久失去焦点：后续不会再收到任何音频焦点事件，若想恢复播放，需要用户主动触发。
-          isPlay = false; // 此句为简化处理，代表应用切换至音频暂停状态的若干操作。
+          isPlaying = false; // 此句为简化处理，代表应用切换至音频暂停状态的若干操作。
           break;
         case audio.InterruptHint.INTERRUPT_HINT_DUCK:
           // 此分支表示系统已将音频音量降低（默认降到正常音量的20%）。
@@ -134,14 +138,17 @@ async function onAudioInterrupt(): Promise<void> {
           if (audioRenderer == undefined) {
             return;
           }
-          await audioRenderer.start().then(() => {
-            started = true; // start()执行成功。
-          }).catch((err: BusinessError) => {
-            started = false; // start()执行失败。
-          });
+          try {
+            await audioRenderer.start();
+            started = true;
+          } catch (err) {
+            let error = err as BusinessError;
+            console.error(`Failed to start audio renderer. Code: ${error.code}, message: ${error.message}`);
+            started = false;
+          }
           // 若start()执行成功，则切换至音频播放状态。
           if (started) {
-            isPlay = true; // 此句为简化处理，代表应用切换至音频播放状态的若干操作。
+            isPlaying = true; // 此句为简化处理，代表应用切换至音频播放状态的若干操作。
           } else {
             // 音频继续播放的操作执行失败。
           }
@@ -601,9 +608,7 @@ async function setSessionBehavior(){
 
   // 本接口应在激活音频会话前调用。
   // 若音频会话在激活状态时调用此接口后，必须重新激活音频会话使其生效。
-  // behavior参数支持位或操作，可同时设置多个会话行为标志。
-  let behavior =
-    audio.AudioSessionBehaviorFlags.VOIP_PRIVACY_TYPE_PUBLIC | audio.AudioSessionBehaviorFlags.MUTE_WHEN_INTERRUPTED;
+  let behavior = audio.AudioSessionBehaviorFlags.MUTE_WHEN_INTERRUPTED;
   audioSessionManager.setAudioSessionBehavior(behavior);
 
   // 设置音频会话策略。
@@ -709,6 +714,31 @@ async function setDefaultOutputDeviceToDefault(){
     console.error(`Failed to set default output device. Code: ${err.code}, message: ${err.message}`);
   });
   // [End set_default_output_device]
+}
+
+async function printAudioSessionInfo(context: common.UIAbilityContext){
+  // [EndExclude print_session_info]
+  // 设置音频并发模式。
+  let strategy: audio.AudioSessionStrategy = {
+    concurrencyMode: audio.AudioConcurrencyMode.CONCURRENCY_MIX_WITH_OTHERS
+  };
+  // 激活音频会话。
+  await audioSessionManager.activateAudioSession(strategy);
+
+  // 创建音频调试管理器。
+  let audioDebuggingManager: audio.AudioDebuggingManager = audioManager.getDebuggingManager();
+
+  // 输出到hilog日志。
+  audioDebuggingManager.printSessionInfo(audioSessionManager, -1);
+
+  // fd 文件描述符，实际使用时请根据具体情况获取
+  let filePath = context.filesDir + '/audio_session_info.txt';
+  let fd = fs.openSync(filePath, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC).fd;
+  // 输出到文件。
+  audioDebuggingManager.printSessionInfo(audioSessionManager, fd);
+  fs.closeSync(fd);
+  // [End print_session_info]
+  console.info('print audio session info filePath: ' + filePath);
 }
 
 @Entry
@@ -868,8 +898,12 @@ struct Index {
           .width('80%')
           .height(40)
           .onClick(async (): Promise<void> => {
-            await useAudioSessionV2();
-            this.runningResult = 'Activate audioSession V2 success.';
+            try {
+              await useAudioSessionV2();
+              this.runningResult = 'Activate audioSession V2 success.';
+            } catch (err) {
+              this.runningResult = 'Activate audioSession V2 fail.';
+            }
           })
         }
         .width('80%')
@@ -1034,8 +1068,23 @@ struct Index {
         .width('80%')
         .height(50)
         .justifyContent(FlexAlign.Center)
+
+        Row() {
+          Button() {
+            Text('打印音频会话调试信息').fontSize(15).fontColor(Color.White)
+          }
+          .width('80%')
+          .height(40)
+          .onClick(async (): Promise<void> => {
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            await printAudioSessionInfo(context);
+            this.runningResult = 'Print audioSession info success.';
+          })
+        }
+        .width('80%')
+        .height(50)
+        .justifyContent(FlexAlign.Center)
       }
-      .height('100%')
       .width('100%')
       .backgroundColor('#F1F3F5');
     }

@@ -15,21 +15,15 @@
 
 // 泛型类中的Sendable class，collections.Array，collections.Map，collections.Set的模板类型必须是Sendable类型
 // [Start counter_example]
-// 正例：
 import { collections } from '@kit.ArkTS';
 
-
-// 反例：
-// import { collections } from '@kit.ArkTS';
-//
-// try {
-//   let arr1: collections.Array<Array<number>> = new collections.Array<Array<number>>();
-//   let arr2: Array<number> = new Array<number>();
-//   arr2.push(1);
-//   arr1.push(arr2);
-// } catch (e) {
-//   console.error(`taskpool execute: Code: ${e.code}, message: ${e.message}`);
-// }
+try {
+  let arr: collections.Array<number> = new collections.Array<number>();
+  let num: number = 1;
+  arr.push(num);
+} catch (e) {
+  console.error(`create collections error: Code: ${e.code}, message: ${e.message}`);
+}
 // [End counter_example]
 
 @Entry
@@ -52,10 +46,11 @@ struct Index {
             let arr1: collections.Array<number> = new collections.Array<number>();
             let num: number = 1;
             arr1.push(num);
+            this.message = 'success';
           } catch (e) {
-            console.error(`taskpool execute: Code: ${e.code}, message: ${e.message}`);
+            this.message = 'failed';
+            console.error(`create collections error: Code: ${e.code}, message: ${e.message}`);
           }
-          this.message = 'success';
         })
     }
     .height('100%')

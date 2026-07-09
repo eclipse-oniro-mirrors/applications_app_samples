@@ -20,9 +20,11 @@
 #include <ohaudiosuite/native_audio_suite_engine.h>
 // [End audioSuite_ManualRenderingInclude]
 #include <cstdint>
+#include <memory>
 #include "hilog/log.h"
 #include "pcm_file_utils.h"
 #include "manual_rendering.h"
+#include "audio_effect/audio_effect.h"
 
 const int GLOBAL_RESMGR = 0xFF00;
 static const char *TAG = "[AudioSuiteApp_manual_cpp]";
@@ -79,10 +81,11 @@ static int32_t InputNodeWriteDataCallBack(OH_AudioNode *audioNode, void *userDat
 }
 // [End audioSuite_InputNodeWriteDataCallBack]
 
-static BaseEditorNodes CreateBaseEditorNodes(OH_AudioSuitePipeline *audioSuiteEngine, AudioDataInfo *audioInfo)
+static BaseEditorNodes CreateBaseEditorNodes(OH_AudioSuitePipeline *audioSuiteEngine, AudioDataInfo *audioInfo,
+                                             int effectType, const EffectParams &params)
 {
     BaseEditorNodes nodes;
-    // [Start audioSuite_CreateBaseNode]
+    // [Start audioSuite_CreateBaseNodeOne]
     // 示例接口未包含返回值校验，实际使用时请务必添加校验逻辑。
     // 创建节点构造器。
     OH_AudioNodeBuilder *nodeBuilder = nullptr;
@@ -102,14 +105,17 @@ static BaseEditorNodes CreateBaseEditorNodes(OH_AudioSuitePipeline *audioSuiteEn
     // 创建输入节点。
     OH_AudioSuiteEngine_CreateNode(audioSuiteEngine, nodeBuilder, &nodes.inputNode);
 
-    // 重置构造器配置并设置为均衡器节点类型。
+    // 重置构造器配置，创建效果节点。
     OH_AudioSuiteNodeBuilder_Reset(nodeBuilder);
-    OH_AudioSuiteNodeBuilder_SetNodeType(nodeBuilder, OH_AudioNode_Type::EFFECT_NODE_TYPE_EQUALIZER);
-    // 创建均衡器节点。
-    OH_AudioSuiteEngine_CreateNode(audioSuiteEngine, nodeBuilder, &nodes.eqNode);
-    // 设置均衡器节点效果为默认。
-    OH_AudioSuiteEngine_SetEqualizerFrequencyBandGains(nodes.eqNode, OH_EQUALIZER_PARAM_DEFAULT);
-
+    // 可根据需要设置不同的效果节点类型。
+    // [End audioSuite_CreateBaseNodeOne]
+    // [StartExclude audioSuite_CreateBaseNode]
+    auto strategy = CreateEffectStrategy(effectType);
+    if (strategy != nullptr) {
+        strategy->CreateAndApply(audioSuiteEngine, nodeBuilder, &nodes.eqNode, params);
+    }
+    // [EndExclude audioSuite_CreateBaseNode]
+    // [Start audioSuite_CreateBaseNodeTwo]
     // 重置构造器配置并设置为输出节点类型。
     OH_AudioSuiteNodeBuilder_Reset(nodeBuilder);
     OH_AudioSuiteNodeBuilder_SetNodeType(nodeBuilder, OH_AudioNode_Type::OUTPUT_NODE_TYPE_DEFAULT);
@@ -130,8 +136,7 @@ static BaseEditorNodes CreateBaseEditorNodes(OH_AudioSuitePipeline *audioSuiteEn
     // 连接各个节点组成组网。
     OH_AudioSuiteEngine_ConnectNodes(nodes.inputNode, nodes.eqNode);
     OH_AudioSuiteEngine_ConnectNodes(nodes.eqNode, nodes.outputNode);
-    // [End audioSuite_CreateBaseNode]
-
+    // [End audioSuite_CreateBaseNodeTwo]
     return nodes;
 }
 
@@ -496,7 +501,7 @@ static void DestroyMixingResources(OH_AudioSuitePipeline *audioSuitePipeline, OH
  * 基础离线编辑
  * @return
  */
-void BaseEditorEffect(AudioDataInfo *audioInfo, const char *newFilePath)
+void BaseEditorEffect(AudioDataInfo *audioInfo, const char *newFilePath, int effectType, const EffectParams &params)
 {
     CheckAndDeleteFile(newFilePath);
     // [Start audioSuite_CreateEngineAndPipeline]
@@ -510,8 +515,7 @@ void BaseEditorEffect(AudioDataInfo *audioInfo, const char *newFilePath)
     OH_AudioSuiteEngine_CreatePipeline(audioSuiteEngine, &audioSuitePipeline,
                                        OH_AudioSuite_PipelineWorkMode::AUDIOSUITE_PIPELINE_EDIT_MODE);
     // [End audioSuite_CreateEngineAndPipeline]
-
-    auto nodes = CreateBaseEditorNodes(audioSuitePipeline, audioInfo);
+    auto nodes = CreateBaseEditorNodes(audioSuitePipeline, audioInfo, effectType, params);
     RunBaseEditorPipeline(audioSuitePipeline, newFilePath);
     DestroyBaseEditorResources(audioSuitePipeline, audioSuiteEngine, nodes);
 }

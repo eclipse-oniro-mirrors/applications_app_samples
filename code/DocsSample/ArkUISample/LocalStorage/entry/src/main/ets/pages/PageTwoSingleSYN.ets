@@ -28,11 +28,14 @@ struct ParentOne {
     Column({ space: 15 }) {
       // 点击后从47开始加1，只改变当前组件显示的storagePropOne ，不会同步到LocalStorage中
       Button(`ParentOne from LocalStorage ${this.storagePropOne}`)
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.storagePropOne += 1;
         })
       ChildOne()
     }
+    .width('100%')
   }
 }
 
@@ -44,9 +47,11 @@ struct ChildOne {
   build() {
     Column({ space: 15 }) {
       // 当ParentOne改变时，当前storagePropTwo不会改变，显示47
-      Text(`ParentOne from LocalStorage ${this.storagePropTwo}`)
+      Text(`ChildOne from LocalStorage ${this.storagePropTwo}`)
+        .fontSize(20)
+        .margin(10)
     }
+    .width('100%')
   }
 }
-
 // [End localStorage_page_two_single_syn]

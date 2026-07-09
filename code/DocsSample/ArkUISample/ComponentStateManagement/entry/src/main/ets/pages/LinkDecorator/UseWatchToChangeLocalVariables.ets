@@ -22,9 +22,12 @@ struct ChangeVariables {
   build() {
     Column() {
       Text(`sourceNumber of the parent component:` + this.sourceNumber)
+        .fontSize(20)
+        .margin(10)
       ChangeVariablesChild({ sourceNumber: this.sourceNumber })
-      // sourceNumber的修改不会影响到父组件中的变量改变
       Button('Change sourceNumber in Parent Component')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.sourceNumber++;
         })
@@ -40,18 +43,26 @@ struct ChangeVariablesChild {
   @Link @Watch('onSourceChange') sourceNumber: number;
 
   onSourceChange() {
+    // memberMessage在子组件中本地修改不会影响到父组件中的变量改变
     this.memberMessage = this.sourceNumber.toString();
   }
 
   build() {
     Column() {
       Text(this.memberMessage)
+        .fontSize(20)
+        .margin(10)
       Text(`sourceNumber of the child component:` + this.sourceNumber.toString())
+        .fontSize(20)
+        .margin(10)
       Button('Change memberMessage in Child Component')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.memberMessage = 'Hello memberMessage';
         })
     }
+    .width('100%')
   }
 }
 // [End link_watch]

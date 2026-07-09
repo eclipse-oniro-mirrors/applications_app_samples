@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -93,13 +93,13 @@ static JSVM_Value GetVMInfo(JSVM_Env env, JSVM_CallbackInfo info)
     return nullptr;
 }
 
-// IsStrictEquals注册回调
+// GetVersion和GetVMInfo注册回调
 static JSVM_CallbackStruct param[] = {
     {.data = nullptr, .callback = GetVersion},
     {.data = nullptr, .callback = GetVMInfo},
 };
 static JSVM_CallbackStruct *method = param;
-// IsStrictEquals方法别名，供JS调用
+// GetVersion和GetVMInfo方法别名，供JS调用
 static JSVM_PropertyDescriptor descriptor[] = {
     {"getVersion", nullptr, method, nullptr, nullptr, nullptr, JSVM_DEFAULT},
     {"getVMInfo", nullptr, method + 1, nullptr, nullptr, nullptr, JSVM_DEFAULT},
@@ -125,8 +125,8 @@ static int32_t TestJSVM()
     }
     // 创建JSVM环境
     CHECK(OH_JSVM_CreateVM(nullptr, &vm));
-    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK(OH_JSVM_OpenVMScope(vm, &vmScope));
+    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK_RET(OH_JSVM_OpenEnvScope(env, &envScope));
     CHECK_RET(OH_JSVM_OpenHandleScope(env, &handleScope));
 
@@ -140,8 +140,8 @@ static int32_t TestJSVM()
     // 销毁JSVM环境
     CHECK_RET(OH_JSVM_CloseHandleScope(env, handleScope));
     CHECK_RET(OH_JSVM_CloseEnvScope(env, envScope));
-    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyEnv(env));
+    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyVM(vm));
     return 0;
 }

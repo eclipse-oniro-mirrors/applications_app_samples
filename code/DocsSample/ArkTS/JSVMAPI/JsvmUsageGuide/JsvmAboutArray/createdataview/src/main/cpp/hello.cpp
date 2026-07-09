@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,10 +62,10 @@ static int g_aa = 0;
 
 // JSVM_CALL_BASE的简化版本，返回nullptr
 #define JSVM_CALL(theCall) JSVM_CALL_BASE(env, theCall, nullptr)
+// [EndExclude oh_jsvm_create_dataview]
 
 static int g_diffValueFour = 4;
 static int g_diffValueTwelve = 12;
-// [EndExclude oh_jsvm_create_dataview]
 
 // OH_JSVM_CreateDataview的样例方法
 static JSVM_Value CreateDataView(JSVM_Env env, JSVM_CallbackInfo info)
@@ -92,19 +92,19 @@ static JSVM_Value CreateDataView(JSVM_Env env, JSVM_CallbackInfo info)
     for (size_t i = 0; i < length; i++) {
         data[i] = static_cast<uint8_t>(i + 1);
     }
-    int32_t infoType;
+    int32_t infoType = 0;
     OH_JSVM_GetValueInt32(env, args[1], &infoType);
-    size_t returnLength;
+    size_t returnLength = 0;
     JSVM_Value returnArrayBuffer = nullptr;
-    size_t returnOffset;
-    enum InfoType { BYTE_LENGTHE, ARRAY_BUFFERE, BYTE_OFFSET };
+    size_t returnOffset = 0;
+    enum InfoType { BYTE_LENGTH, ARRAY_BUFFER, BYTE_OFFSET };
     // 获取dataview信息
     OH_JSVM_GetDataviewInfo(env, result, &returnLength, (void **)&data, &returnArrayBuffer, &returnOffset);
     JSVM_Value returnResult = nullptr;
     switch (infoType) {
-        case BYTE_LENGTHE:
-            JSVM_Value len;
-            OH_JSVM_CreateInt32(env, returnLength, &len);
+        case BYTE_LENGTH:
+            JSVM_Value len = nullptr;
+            JSVM_CALL(OH_JSVM_CreateInt32(env, returnLength, &len));
             returnResult = len;
             if (status != JSVM_OK) {
                 OH_LOG_ERROR(LOG_APP, "JSVM CreateDataView fail");
@@ -112,11 +112,11 @@ static JSVM_Value CreateDataView(JSVM_Env env, JSVM_CallbackInfo info)
                 OH_LOG_INFO(LOG_APP, "JSVM CreateDataView success, returnLength: %{public}d", returnLength);
             }
             break;
-        case ARRAY_BUFFERE:
-            bool isArraybuffer;
-            OH_JSVM_IsArraybuffer(env, returnArrayBuffer, &isArraybuffer);
-            JSVM_Value isArray;
-            OH_JSVM_GetBoolean(env, isArraybuffer, &isArray);
+        case ARRAY_BUFFER:
+            bool isArraybuffer = false;
+            JSVM_CALL(OH_JSVM_IsArraybuffer(env, returnArrayBuffer, &isArraybuffer));
+            JSVM_Value isArray = nullptr;
+            JSVM_CALL(OH_JSVM_GetBoolean(env, isArraybuffer, &isArray));
             returnResult = isArray;
             if (status != JSVM_OK) {
                 OH_LOG_ERROR(LOG_APP, "JSVM CreateDataView fail");
@@ -125,8 +125,8 @@ static JSVM_Value CreateDataView(JSVM_Env env, JSVM_CallbackInfo info)
             }
             break;
         case BYTE_OFFSET:
-            JSVM_Value offset;
-            OH_JSVM_CreateInt32(env, returnOffset, &offset);
+            JSVM_Value offset = nullptr;
+            JSVM_CALL(OH_JSVM_CreateInt32(env, returnOffset, &offset));
             returnResult = offset;
             if (status != JSVM_OK) {
                 OH_LOG_ERROR(LOG_APP, "JSVM CreateDataView fail");
@@ -175,8 +175,8 @@ static int32_t TestJSVM()
     }
     // 创建JSVM环境
     CHECK(OH_JSVM_CreateVM(nullptr, &vm));
-    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK(OH_JSVM_OpenVMScope(vm, &vmScope));
+    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK_RET(OH_JSVM_OpenEnvScope(env, &envScope));
     CHECK_RET(OH_JSVM_OpenHandleScope(env, &handleScope));
 
@@ -190,8 +190,8 @@ static int32_t TestJSVM()
     // 销毁JSVM环境
     CHECK_RET(OH_JSVM_CloseHandleScope(env, handleScope));
     CHECK_RET(OH_JSVM_CloseEnvScope(env, envScope));
-    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyEnv(env));
+    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyVM(vm));
     return 0;
 }

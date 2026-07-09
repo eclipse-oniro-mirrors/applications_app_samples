@@ -25,12 +25,13 @@ struct GrandParent {
     Column() {
       Parent()
     }
+    .width('100%')
   }
 }
 
 @Component
 struct Parent {
-  // @Provide默认不支持重载，支持重载需设置allowOverride函数
+  // @Provide默认不支持重载，支持重载需设置allowOverride选项
   @Provide({ allowOverride: 'reviewVotes' }) reviewVotes: number = PARENT_REVIEW_VOTES_INITIAL;
 
   build() {
@@ -43,7 +44,9 @@ struct Child {
   @Consume('reviewVotes') reviewVotes: number;
 
   build() {
-    Text(this.reviewVotes.toString()) // Text显示20
+    Text(this.reviewVotes.toString())
+      .fontSize(20)
+      .margin(10)
   }
 }
 // [End GrandParent1_start]

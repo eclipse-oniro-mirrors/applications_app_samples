@@ -23,36 +23,47 @@ class ObservedClass {
 
 @Entry
 @ComponentV2
-struct CompV1 {
+struct CompV2 {
   @Local observedClass: ObservedClass = UIUtils.enableV2Compatibility(new ObservedClass());
 
   build() {
     Column() {
-      Text(`name: ${this.observedClass.name}`).onClick(() => {
-        // 触发刷新
-        this.observedClass.name += 'a';
-      })
+      Text(`name: ${this.observedClass.name}`)
+        .fontSize(20)
+        .margin(10)
+        .onClick(() => {
+          // 触发刷新
+          this.observedClass.name += 'a';
+        })
       // 使用非@Track的变量在V2中不会崩溃，但不响应更新
-      Text(`count: ${this.observedClass.count}`).onClick(() => {
-        this.observedClass.count++;
-      })
+      Text(`count: ${this.observedClass.count}`)
+        .fontSize(20)
+        .margin(10)
+        .onClick(() => {
+          this.observedClass.count++;
+        })
 
-      CompV2({ observedClass: this.observedClass })
+      CompV1({ observedClass: this.observedClass })
     }
+    .width('100%')
   }
 }
 
 @Component
-struct CompV2 {
+struct CompV1 {
   @ObjectLink observedClass: ObservedClass;
 
   build() {
     Column() {
-      Text(`count: ${this.observedClass.name}`).onClick(() => {
-        // 触发刷新
-        this.observedClass.name += 'a';
-      })
+      Text(`name: ${this.observedClass.name}`)
+        .fontSize(20)
+        .margin(10)
+        .onClick(() => {
+          // 触发刷新
+          this.observedClass.name += 'a';
+        })
     }
+    .width('100%')
   }
 }
 // [End state_mixed_scene_observed_class_v2_v1]
@@ -63,7 +74,7 @@ export struct StateMixedSceneObservedClassV2V1 {
 
   build() {
     NavDestination() {
-      CompV1()
+      CompV2()
     }
     .backgroundColor('#f1f2f3')
     .title($r('app.string.state_mixed_scene_observed_class_v2_v1'))

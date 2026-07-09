@@ -20,7 +20,7 @@ import { window } from '@kit.ArkUI';
 import { PreferencesUtil } from '../common/PreferencesUtil';
 import { preferences } from '@kit.ArkData';
 
-const DOMAIN = 0x0000;
+const DOMAIN: number = 0x0000;
 
 export default class EntryEditAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
@@ -35,9 +35,9 @@ export default class EntryEditAbility extends UIAbility {
     try {
       this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
     } catch (err) {
-      hilog.error(DOMAIN, 'testTag', 'Failed to set colorMode. Code:${err.code}, message:${err.message}');
+      hilog.error(DOMAIN, 'testTag', `Failed to set colorMode. Code:${err.code}, message:${err.message}`);
     }
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onCreate');
+    hilog.info(DOMAIN, 'testTag', 'Ability onCreate');
   }
 
   onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam) {
@@ -53,16 +53,16 @@ export default class EntryEditAbility extends UIAbility {
   }
 
   onDestroy(): void {
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onDestroy');
+    hilog.info(DOMAIN, 'testTag', 'Ability onDestroy');
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
+    hilog.info(DOMAIN, 'testTag', 'Ability onWindowStageCreate');
 
     windowStage.loadContent('pages/FormEditIndex', (err) => {
       if (err.code) {
-        hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Code:${err.code}, message:${err.message}');
+        hilog.error(DOMAIN, 'testTag', `Failed to load the content. Code:${err.code}, message:${err.message}`);
         return;
       }
       hilog.info(DOMAIN, 'testTag', 'Succeeded in loading the content.');
@@ -72,17 +72,17 @@ export default class EntryEditAbility extends UIAbility {
 
   onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
+    hilog.info(DOMAIN, 'testTag', 'Ability onWindowStageDestroy');
   }
 
   onForeground(): void {
     // Ability has brought to foreground
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onForeground');
+    hilog.info(DOMAIN, 'testTag', 'Ability onForeground');
   }
 
   onBackground(): void {
     // Ability has back to background
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onBackground');
+    hilog.info(DOMAIN, 'testTag', 'Ability onBackground');
   }
 }
 

@@ -17,7 +17,13 @@ export const CreateAudioRender: (type: number) => string;
 
 export const DestroyAudioRender: (type: number) => string;
 
-export const BaseEditor: (callback: (result: string) => void) => void;
+export interface EffectParams {
+  eqPresetIndex?: number;
+  eqGains?: number[];
+  voiceBeautifierType?: number;
+}
+
+export const BaseEditor: (effectType: number, params: EffectParams, callback: (result: string) => void) => void;
 
 export const AudioSourceSeparationNapi: (callback: (result: string) => void) => void;
 
@@ -28,3 +34,5 @@ export const EqualizerEffectNapi: () => string;
 export const AudioFormatConverterNapi: (callback: (result: string) => void) => void;
 
 export const TestPrintInfoToFile: () => boolean;
+
+export const SpaceRenderRotationNapi: () => string;

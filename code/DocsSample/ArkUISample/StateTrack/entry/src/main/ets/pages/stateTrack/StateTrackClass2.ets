@@ -43,7 +43,7 @@ struct AddLog {
   @State logTrack: LogTrack = new LogTrack('Hello');
   @State logNotTrack: LogNotTrack = new LogNotTrack('Hello');
 
-  isRender(index: number) {
+  isRender(index: number): number {
     hilog.info(DOMAIN_NUMBER, TAG, `Text ${index} is rendered`);
     return 50;
   }
@@ -55,21 +55,29 @@ struct AddLog {
           .id('str1')
           .fontSize(this.isRender(1))
           .fontWeight(FontWeight.Bold)
+          .margin(10)
         Text(this.logTrack.str2) // Text2
           .fontSize(this.isRender(2))
           .fontWeight(FontWeight.Bold)
+          .margin(10)
         Button('change logTrack.str1')
           .id('str2')
+          .width(300)
+          .margin(10)
           .onClick(() => {
             this.logTrack.str1 = 'Bye';
           })
         Text(this.logNotTrack.str1) // Text3
           .fontSize(this.isRender(3))
           .fontWeight(FontWeight.Bold)
+          .margin(10)
         Text(this.logNotTrack.str2) // Text4
           .fontSize(this.isRender(4))
           .fontWeight(FontWeight.Bold)
+          .margin(10)
         Button('change logNotTrack.str1')
+          .width(300)
+          .margin(10)
           .onClick(() => {
             this.logNotTrack.str1 = 'Bye';
           })

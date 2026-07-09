@@ -20,6 +20,9 @@
 #include "ohaudio/native_audiostreambuilder.h"
 #include <sstream>
 #include <vector>
+// [Start print_session_info]
+#include "ohaudio/native_audio_debugging_manager.h"
+// [StartExclude print_session_info]
 
 // [Start csessionactive_process]
 #include <cstdint>
@@ -56,10 +59,12 @@ int32_t MyAudioSessionDeactivatedCallback(OH_AudioSession_DeactivatedEvent event
 
 // [Start cget_sessionmanager]
 // [Start clistencallback_process]
+// [EndExclude print_session_info]
 OH_AudioSessionManager *audioSessionManager;
 // [StartExclude cget_sessionmanager]
 // [StartExclude csessionactive_process]
 // [End cint_deacticatedcallback]
+// [StartExclude print_session_info]
 
 void AudioSessionStateChangedCallback(OH_AudioSession_StateChangedEvent event)
 {
@@ -142,14 +147,14 @@ napi_value AudioSessionActive(napi_env env, napi_callback_info info)
     // [EndExclude csessionactive_process]
     OH_AudioCommon_Result resultManager = OH_AudioManager_GetAudioSessionManager(&audioSessionManager);
     // [StartExclude csessionactive_process]
-    // [EndExclude clistencallback_process]
-    OH_AudioCommon_Result result = OH_AudioSessionManager_RegisterStateChangeCallback(audioSessionManager,
-                                                                                      AudioSessionStateChangedCallback);
-    // [StartExclude clistencallback_process]
     if (resultManager == 0) {
         OH_LOG_Print(LOG_APP, LOG_INFO, g_audioSessionVariable->globalResmgr, SESSION_TAG,
                      " OH_AudioManager_GetAudioSessionManager success! ");
     }
+    // [EndExclude clistencallback_process]
+    OH_AudioCommon_Result result = OH_AudioSessionManager_RegisterStateChangeCallback(audioSessionManager,
+                                                                                      AudioSessionStateChangedCallback);
+    // [StartExclude clistencallback_process]
     // [End cget_sessionmanager]
     // [Start cset_audioscene]
     // [Start cenable_muteSuggestion]
@@ -248,9 +253,7 @@ napi_value SetAudioSessionBehavior(napi_env env, napi_callback_info info)
     
     // 本接口应在激活音频会话前调用。
     // 若音频会话在激活状态时调用此接口后，必须重新激活音频会话使其生效。
-    // behavior参数支持位或操作，可同时设置多个会话行为标志。
-    uint32_t behavior =
-        OH_AudioSession_BehaviorFlags::MUTE_WHEN_INTERRUPTED | OH_AudioSession_BehaviorFlags::VOIP_PRIVACY_TYPE_PUBLIC;
+    uint32_t behavior = OH_AudioSession_BehaviorFlags::MUTE_WHEN_INTERRUPTED;
     OH_AudioSessionManager_SetBehavior(audioSessionManager, behavior);
     
     OH_AudioSession_Strategy strategy = {CONCURRENCY_PAUSE_OTHERS};
@@ -322,6 +325,40 @@ napi_value SetAudioSessionCapturerMuteHint(napi_env env, napi_callback_info info
     return retVal;
 }
 
+napi_value printAudioSessionInfo(napi_env env, napi_callback_info info)
+{
+    size_t argc = 1;
+    napi_value args[1];
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    
+    int32_t fd = -1;
+    napi_get_value_int32(env, args[0], &fd);
+    
+    // [EndExclude print_session_info]
+    // 创建音频会话管理器。
+    OH_AudioManager_GetAudioSessionManager(&audioSessionManager);
+    // 设置音频并发模式。
+    OH_AudioSession_Strategy strategy = {CONCURRENCY_MIX_WITH_OTHERS};
+    // 激活音频会话。
+    OH_AudioSessionManager_ActivateAudioSession(audioSessionManager, &strategy);
+    
+    // 创建音频调试管理器。
+    OH_AudioDebuggingManager *audioDebuggingManager;
+    OH_AudioManager_GetAudioDebuggingManager(&audioDebuggingManager);
+    
+    // 输出到hilog日志。
+    OH_AudioDebuggingManager_PrintSessionInfo(audioDebuggingManager, audioSessionManager, -1);
+    
+    // fd 文件描述符，实际使用时请根据具体情况获取
+    // 输出到文件
+    OH_AudioDebuggingManager_PrintSessionInfo(audioDebuggingManager, audioSessionManager, fd);
+    // [End print_session_info]
+    
+    napi_value retVal;
+    napi_create_int32(env, 0, &retVal);
+    return retVal;
+}
+
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
@@ -331,6 +368,7 @@ static napi_value Init(napi_env env, napi_value exports)
         {"SetAudioSessionBehavior", nullptr, SetAudioSessionBehavior, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"SetAudioSessionCapturerMuteHint", nullptr, SetAudioSessionCapturerMuteHint, nullptr, nullptr, nullptr,
          napi_default, nullptr},
+        {"printAudioSessionInfo", nullptr, printAudioSessionInfo, nullptr, nullptr, nullptr, napi_default, nullptr},
     };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;

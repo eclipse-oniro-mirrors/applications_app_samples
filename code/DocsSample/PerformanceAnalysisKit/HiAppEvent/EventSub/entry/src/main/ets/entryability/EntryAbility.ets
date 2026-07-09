@@ -57,10 +57,6 @@ export default class EntryAbility extends UIAbility {
           for (const eventInfo of eventGroup.appEventInfos) {
             // 开发者可以获取到崩溃事件发生的时间戳
             hilog.info(0x0000, 'testTag', `AppEvents HiAppEvent eventInfo.params.time=${JSON.stringify(eventInfo.params['time'])}`);
-            // 开发者可以获取到崩溃事件发生的应用运行时唯一关联id
-            hilog.info(0x0000, 'testTag', `AppEvents HiAppEvent eventInfo.params.app_running_unique_id=${eventInfo.params['app_running_unique_id']}`);
-            // 开发者可以获取到崩溃应用的版本信息
-            hilog.info(0x0000, 'testTag', `AppEvents HiAppEvent eventInfo.params.bundle_version=${eventInfo.params['bundle_version']}`);
             // 开发者可以获取到崩溃应用的包名
             hilog.info(0x0000, 'testTag', `AppEvents HiAppEvent eventInfo.params.bundle_name=${JSON.stringify(eventInfo.params['bundle_name'])}`);
             // 开发者可以获取到崩溃事件发生时的故障日志文件
@@ -136,14 +132,14 @@ export default class EntryAbility extends UIAbility {
     }
 
     if (deviceInfo.sdkApiVersion >= 24) {  // API Version 24及以后版本，支持设置页面切换日志
-      // 配置页面切换日志
-      let switchLogPolicy : hiAppEvent.EventPolicy = {
-        "appCrashPolicy": {
-          "pageSwitchLogEnable": true
+      let crashEventPolicy : hiAppEvent.EventPolicy = {
+        "appCrashPolicy": { // 崩溃事件配置策略
+          "pageSwitchLogEnable": true, // 使能页面切换日志
+          "collectMinidump": true // native崩溃场景，使能minidump
         }
       };
-      // 开发者可以设置崩溃日志配置参数
-      hiAppEvent.configEventPolicy(switchLogPolicy).then(() => {
+      // 开发者可以设置崩溃事件配置策略
+      hiAppEvent.configEventPolicy(crashEventPolicy).then(() => {
         hilog.info(0x0000, 'testTag', `HiAppEvent success to config event policy.`);
       }).catch((err: BusinessError) => {
         hilog.error(0x0000, 'testTag', `HiAppEvent code: ${err.code}, message: ${err.message}`);
@@ -487,7 +483,7 @@ export default class EntryAbility extends UIAbility {
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.start_time=${eventInfo.params['start_time']}`);
             // 开发者可以获取到抛滑动效持续的时间长度
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.duration=${eventInfo.params['duration']}`);
-            // 开发者可以获取到发生卡顿的的web页面对应的Id
+            // 开发者可以获取到发生卡顿的web页面对应的Id
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.web_id=${eventInfo.params['web_id']}`);
             // 开发者可以获取抛滑阶段发生丢帧的最大时长
             hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.max_app_frame_time=${eventInfo.params['max_app_frame_time']}`);

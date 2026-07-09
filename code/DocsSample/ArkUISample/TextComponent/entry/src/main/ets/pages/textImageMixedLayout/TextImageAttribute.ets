@@ -27,21 +27,9 @@ const BUNDLE = 'Textcomponent_';
 @Entry
 @Component
 struct styled_string_demo {
-  @State message: string = 'Hello World';
   imagePixelMap: image.PixelMap | undefined = undefined;
-  @State imagePixelMap3: image.PixelMap | undefined = undefined;
   mutableStr: MutableStyledString = new MutableStyledString('123');
   controller: TextController = new TextController();
-  mutableStr2: MutableStyledString = new MutableStyledString('This is set decoration line style to the mutableStr2', [{
-    start: 0,
-    length: 15,
-    styledKey: StyledStringKey.DECORATION,
-    styledValue: new DecorationStyle({
-      type: TextDecorationType.Overline,
-      color: Color.Orange,
-      style: TextDecorationStyle.DOUBLE
-    })
-  }]);
 
   async aboutToAppear() {
     hilog.info(DOMAIN, TAG, BUNDLE + 'aboutToAppear initial imagePixelMap');
@@ -70,11 +58,11 @@ struct styled_string_demo {
     overflow: TextOverflow.Ellipsis,
     textVerticalAlign: TextVerticalAlign.BASELINE
   });
-  //行高样式对象
+  // 行高样式对象
   lineHeightStyle1: LineHeightStyle = new LineHeightStyle(new LengthMetrics(24));
-  //Bold样式
+  // Bold样式
   boldTextStyle: TextStyle = new TextStyle({ fontWeight: FontWeight.Bold });
-  //创建含段落样式的对象paragraphStyledString1
+  // 创建含段落样式的对象paragraphStyledString1
   paragraphStyledString1: MutableStyledString =
     // 请将$r('app.string.print_photo')替换为实际资源文件，在本示例中该资源文件的value值为"\n高质量冲洗照片，高清冲印3/4/5/6寸包邮塑封，品质保证，"
     new MutableStyledString(resourceGetString.resourceToString($r('app.string.print_photo')), [

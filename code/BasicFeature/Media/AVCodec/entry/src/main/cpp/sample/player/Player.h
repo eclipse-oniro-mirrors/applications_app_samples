@@ -49,6 +49,9 @@ public:
     int32_t Start();
     void SetSpeed(float multiplier);
     void SetTransform(int32_t hint);
+    void SetSmartFluencySupported(bool supported);
+    void OnThermalWarningReceived(double ratio);
+    void OnThermalLevelRecovered();
 
 private:
     void VideoDecInputAsyncThread();
@@ -62,6 +65,8 @@ private:
     void Release();
     void StartRelease();
     void ReleaseThread();
+    void ReleaseVideoDecoder();
+    void ReleaseAudioDecoder();
     int32_t CreateAudioDecoder();
     int32_t CreateVideoDecoder();
     int64_t GetCurrentTime();
@@ -115,6 +120,8 @@ private:
 #endif
     float speed = 1.0f;
     int32_t transformHint = 0;
+    bool isSmartFluencySupported_ = false;
+    bool thermalWarningActive_ = false;
 };
 
 #endif // VIDEO_CODEC_PLAYER_H
