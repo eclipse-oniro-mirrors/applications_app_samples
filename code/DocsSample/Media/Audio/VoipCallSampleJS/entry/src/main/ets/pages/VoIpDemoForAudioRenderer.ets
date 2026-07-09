@@ -73,9 +73,13 @@ async function initArguments(context: common.UIAbilityContext) {
           view.setUint8(i, 0);
         }
       }
-      // API version 11不支持返回回调结果,从API version 12开始支持返回回调结果。
-      // 如果开发者不希望播放某段buffer,返回audio.AudioDataCallbackResult.INVALID即可。
-      return audio.AudioDataCallbackResult.VALID;
+      // API version 11不支持返回回调结果，从API version 12开始支持返回回调结果。
+      // 如果开发者不希望播放某段buffer，返回audio.AudioDataCallbackResult.INVALID即可。
+      if (typeof audio.AudioDataCallbackResult != 'undefined') {
+        return audio.AudioDataCallbackResult.VALID;
+      } else {
+        return;
+      }
     } catch (error) {
       console.error('Error reading file:', error);
 
@@ -215,7 +219,6 @@ async function stop() {
         }
         // [EndExclude all_VoIPDemoForAudioRenderer]
       } else {
-        fs.close(file);
         console.info('Renderer stop success.');
         // [StartExclude all_VoIPDemoForAudioRenderer]
         const successMsg = `Renderer stop success.`;
@@ -260,6 +263,7 @@ async function release() {
         // [EndExclude all_VoIPDemoForAudioRenderer]
       }
     });
+    fs.close(file.fd);
   }
 }
 // [End all_VoIPDemoForAudioRenderer]
