@@ -15,6 +15,8 @@
 
 // [Start example_pass_obj]
 import { image } from '@kit.ImageKit';
+import { resourceManager } from '@kit.LocalizationKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 @Concurrent
 export async function loadPixelMap(rawFileDescriptor: number): Promise<PixelMap> {
@@ -24,8 +26,12 @@ export async function loadPixelMap(rawFileDescriptor: number): Promise<PixelMap>
   const pixelMap = imageSource.createPixelMapSync();
   // 释放imageSource。
   imageSource.release();
-  // 使pixelMap在跨线程传输完成后，断开原线程的引用。
-  pixelMap.setTransferDetached(true);
+  // 使pixelMap在跨线程传输完成后，脱离原线程的引用。
+  try {
+ 	  pixelMap.setTransferDetached(true);
+ 	} catch (err) {
+ 	  hilog.error(0x0000, 'testTag', 'Failed to set transferDetached. Cause: %{public}s', JSON.stringify(err));
+ 	}
   // 返回pixelMap给主线程。
   return pixelMap;
 }
