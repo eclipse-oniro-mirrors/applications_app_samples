@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <oatconfig>
+        <policylist>
+            <policy name="projectPolicy" desc="">
+                <policyitem type="license" name="CC-BY-4.0" path=".*" rule="may" group="defaultGroup"
+                            filefilter="defaultPolicyFilter" desc="License for documents"/>
+            </policy>
+        </policylist>
+
+        <filefilterlist>
+            <filefilter name="defaultFilter" desc="Files not to check">
+            </filefilter>
+            <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">\
+            </filefilter>
+            <filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies">
+            </filefilter>
+            <filefilter name="licenseFileNamePolicyFilter" desc="Filters for LICENSE file policies">
+                <filteritem type="filename" name="license-and-copyright-specifications.md" desc="already checked"/>
+            </filefilter>
+            <filefilter name="readmeFileNamePolicyFilter" desc="Filters for README file policies">
+            </filefilter>
+            <filefilter name="readmeOpenSourcefileNamePolicyFilter" desc="Filters for README.OpenSource file policies">
+            </filefilter>
+            <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies">
+                <filteritem type="filename" name="*.jpg|*.png|*.gif|*.pdf|*.xlsm|*.zip|*.lrc|*.pcm"
+                            desc="already checked"/>
+            </filefilter>
+        </filefilterlist>
+    </oatconfig>
+</configuration>
