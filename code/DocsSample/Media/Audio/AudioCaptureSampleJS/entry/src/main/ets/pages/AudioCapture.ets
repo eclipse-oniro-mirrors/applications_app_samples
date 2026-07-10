@@ -66,7 +66,7 @@ let audioRendererOptions: audio.AudioRendererOptions = {
 };
 
 let file: fs.File;
-let readDataCallback: Callback<ArrayBuffer>;
+let onReadData: Callback<ArrayBuffer>;
 let writeDataCallback: audio.AudioRendererWriteDataCallback;
 
 // [StartExclude all_audioCapturer]
@@ -79,13 +79,13 @@ async function requestMicrophonePermission(context: common.UIAbilityContext): Pr
 
 // [EndExclude all_audioCapturer]
 
-async function initArguments(context: common.UIAbilityContext): Promise<void> {
+async function initRecordingResources(context: common.UIAbilityContext): Promise<void> {
   // [EndExclude listen_AudioCapturer]
-  let bufferSize: number = 0;
+  let writtenBytes: number = 0;
   let path = context.cacheDir;
   let filePath = path + '/S16LE_2_48000.pcm';
   file = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
-  readDataCallback = (buffer: ArrayBuffer) => {
+  onReadData = (buffer: ArrayBuffer) => {
     // [StartExclude listen_AudioCapturer]
     if (capturerMuteHintEnabledByApp) {
       let view = new DataView(buffer);
@@ -95,11 +95,11 @@ async function initArguments(context: common.UIAbilityContext): Promise<void> {
     }
     // [EndExclude listen_AudioCapturer]
     let options: Options = {
-      offset: bufferSize,
+      offset: writtenBytes,
       length: buffer.byteLength
     }
     fs.writeSync(file.fd, buffer, options);
-    bufferSize += buffer.byteLength;
+    writtenBytes += buffer.byteLength;
   };
   // [StartExclude listen_AudioCapturer]
 }
@@ -201,7 +201,7 @@ async function releaseRender(updateCallback?: (msg: string, isError: boolean) =>
       if (err) {
         console.error('Renderer release failed.');
       } else {
-        fs.closeSync(file);
+        fs.closeSync(file.fd);
         console.info('Renderer release success.');
       }
     });
@@ -214,10 +214,10 @@ async function init(updateCallback?: (msg: string, isError: boolean) => void, st
   // [EndExclude create_AudioCapturer]
   audio.createAudioCapturer(audioCapturerOptions, (err, capturer) => { // 创建AudioCapturer实例。
     if (err) {
-      console.error(`Invoke createAudioCapturer failed, code is ${err.code}, message is ${err.message}`);
+      console.error(`${TAG}: Invoke createAudioCapturer failed, code is ${err.code}, message is ${err.message}`);
       // [StartExclude all_audioCapturer]
       // [StartExclude create_AudioCapturer]
-      const errorMsg = `Invoke createAudioCapturer failed, code is ${err.code}, message is ${err.message}`;
+      const errorMsg = `${TAG}: Invoke createAudioCapturer failed, code is ${err.code}, message is ${err.message}`;
       if (updateCallback) {
         updateCallback(errorMsg, true);
       }
@@ -237,7 +237,7 @@ async function init(updateCallback?: (msg: string, isError: boolean) => void, st
     audioCapturer = capturer;
     if (audioCapturer !== undefined) {
       // [EndExclude listen_AudioCapturer]
-      audioCapturer.on('readData', readDataCallback);
+      audioCapturer.on('readData', onReadData);
       // [End listen_AudioCapturer]
       // [StartExclude all_audioCapturer]
       // [StartExclude create_AudioCapturer]
@@ -269,29 +269,29 @@ async function start(updateCallback?: (msg: string, isError: boolean) => void): 
 
     // 启动采集。
     // [EndExclude start_AudioCapturer]
-    audioCapturer.start((err: BusinessError) => {
-      if (err) {
-        // [StartExclude all_audioCapturer]
-        // [StartExclude start_AudioCapturer]
-        const errorMsg = 'Capturer start failed.';
-        if (updateCallback) {
-          updateCallback(errorMsg, true);
-        }
-        // [EndExclude start_AudioCapturer]
-        // [EndExclude all_audioCapturer]
-        console.error('Capturer start failed.');
-      } else {
-        // [StartExclude all_audioCapturer]
-        // [StartExclude start_AudioCapturer]
-        const successMsg = 'Capturer start success.';
-        if (updateCallback) {
-          updateCallback(successMsg, false);
-        }
-        // [EndExclude start_AudioCapturer]
-        // [EndExclude all_audioCapturer]
-        console.info('Capturer start success.');
+    try {
+      await audioCapturer.start();
+      // [StartExclude all_audioCapturer]
+      // [StartExclude start_AudioCapturer]
+      const successMsg = `${TAG}: Capturer start success.`;
+      if (updateCallback) {
+        updateCallback(successMsg, false);
       }
-    });
+      // [EndExclude start_AudioCapturer]
+      // [EndExclude all_audioCapturer]
+      console.info(`${TAG}: Capturer start success.`);
+    } catch (err) {
+      let error = err as BusinessError;
+      // [StartExclude all_audioCapturer]
+      // [StartExclude start_AudioCapturer]
+      const errorMsg = `${TAG}: Capturer start failed, code: ${error.code}, message: ${error.message}`;
+      if (updateCallback) {
+        updateCallback(errorMsg, true);
+      }
+      // [EndExclude start_AudioCapturer]
+      // [EndExclude all_audioCapturer]
+      console.error(`${TAG}: Capturer start failed, code: ${error.code}, message: ${error.message}`);
+    }
     // [End start_AudioCapturer]
   }
 }
@@ -347,9 +347,9 @@ async function stop(updateCallback?: (msg: string, isError: boolean) => void): P
     // 只有采集器状态为STATE_RUNNING或STATE_PAUSED的时候才可以停止。
     if (audioCapturer.state.valueOf() !== audio.AudioState.STATE_RUNNING &&
       audioCapturer.state.valueOf() !== audio.AudioState.STATE_PAUSED) {
-      console.info('Capturer is not running or paused');
+      console.info(`${TAG}: Capturer is not running or paused`);
       // [StartExclude all_audioCapturer]
-      const infoMsg = 'Capturer is not running or paused';
+      const infoMsg = `${TAG}: Capturer is not running or paused`;
       if (updateCallback) {
         updateCallback(infoMsg, false);
       }
@@ -359,29 +359,29 @@ async function stop(updateCallback?: (msg: string, isError: boolean) => void): P
 
     // 停止采集。
     // [EndExclude stop_AudioCapturer]
-    audioCapturer.stop((err: BusinessError) => {
-      if (err) {
-        // [StartExclude all_audioCapturer]
-        // [StartExclude stop_AudioCapturer]
-        const errorMsg = 'Capturer stop failed.';
-        if (updateCallback) {
-          updateCallback(errorMsg, true);
-        }
-        // [EndExclude stop_AudioCapturer]
-        // [EndExclude all_audioCapturer]
-        console.error('Capturer stop failed.');
-      } else {
-        // [StartExclude all_audioCapturer]
-        // [StartExclude stop_AudioCapturer]
-        const successMsg = 'Capturer stop success.';
-        if (updateCallback) {
-          updateCallback(successMsg, false);
-        }
-        // [EndExclude stop_AudioCapturer]
-        // [EndExclude all_audioCapturer]
-        console.info('Capturer stop success.');
+    try {
+      await audioCapturer.stop();
+      // [StartExclude all_audioCapturer]
+      // [StartExclude stop_AudioCapturer]
+      const successMsg = `${TAG}: Capturer stop success.`;
+      if (updateCallback) {
+        updateCallback(successMsg, false);
       }
-    });
+      // [EndExclude stop_AudioCapturer]
+      // [EndExclude all_audioCapturer]
+      console.info(`${TAG}: Capturer stop success.`);
+    } catch (err) {
+      let error = err as BusinessError;
+      // [StartExclude all_audioCapturer]
+      // [StartExclude stop_AudioCapturer]
+      const errorMsg = `${TAG}: Capturer stop failed, code: ${error.code}, message: ${error.message}`;
+      if (updateCallback) {
+        updateCallback(errorMsg, true);
+      }
+      // [EndExclude stop_AudioCapturer]
+      // [EndExclude all_audioCapturer]
+      console.error(`${TAG}: Capturer stop failed, code: ${error.code}, message: ${error.message}`);
+    }
     // [End stop_AudioCapturer]
   }
 }
@@ -392,9 +392,9 @@ async function release(updateCallback?: (msg: string, isError: boolean) => void)
     // 采集器状态不是STATE_RELEASED或STATE_NEW状态,才能release。
     if (audioCapturer.state.valueOf() === audio.AudioState.STATE_RELEASED ||
       audioCapturer.state.valueOf() === audio.AudioState.STATE_NEW) {
-      console.info('Capturer already released');
+      console.info(`${TAG}: Capturer already released`);
       // [StartExclude all_audioCapturer]
-      const infoMsg = 'Capturer already released';
+      const infoMsg = `${TAG}: Capturer already released`;
       if (updateCallback) {
         updateCallback(infoMsg, false);
       }
@@ -404,31 +404,32 @@ async function release(updateCallback?: (msg: string, isError: boolean) => void)
 
     // 释放资源。
     // [EndExclude release_AudioCapturer]
-    audioCapturer.release((err: BusinessError) => {
-      if (err) {
-        // [StartExclude all_audioCapturer]
-        // [StartExclude release_AudioCapturer]
-        const errorMsg = 'Capturer release failed.';
-        if (updateCallback) {
-          updateCallback(errorMsg, true);
-        }
-        // [EndExclude release_AudioCapturer]
-        // [EndExclude all_audioCapturer]
-        console.error('Capturer release failed.');
-      } else {
-        fs.closeSync(file);
-        capturerMuteHintEnabledByApp = false;
-        console.info('Capturer release success.');
-        // [StartExclude all_audioCapturer]
-        // [StartExclude release_AudioCapturer]
-        const successMsg = 'Capturer release success.';
-        if (updateCallback) {
-          updateCallback(successMsg, false);
-        }
-        // [EndExclude release_AudioCapturer]
-        // [EndExclude all_audioCapturer]
+    try {
+      await audioCapturer.release();
+      capturerMuteHintEnabledByApp = false;
+      console.info(`${TAG}: Capturer release success.`);
+      // [StartExclude all_audioCapturer]
+      // [StartExclude release_AudioCapturer]
+      const successMsg = `${TAG}: Capturer release success.`;
+      if (updateCallback) {
+        updateCallback(successMsg, false);
       }
-    });
+      // [EndExclude release_AudioCapturer]
+      // [EndExclude all_audioCapturer]
+    } catch (err) {
+      let error = err as BusinessError;
+      // [StartExclude all_audioCapturer]
+      // [StartExclude release_AudioCapturer]
+      const errorMsg = `${TAG}: Capturer release failed, code: ${error.code}, message: ${error.message}`;
+      if (updateCallback) {
+        updateCallback(errorMsg, true);
+      }
+      // [EndExclude release_AudioCapturer]
+      // [EndExclude all_audioCapturer]
+      console.error(`${TAG}: Capturer release failed, code: ${error.code}, message: ${error.message}`);
+    } finally {
+      fs.closeSync(file.fd);
+    }
     // [End release_AudioCapturer]
   }
 }
@@ -583,7 +584,7 @@ struct Index {
               this.currentState = '权限未授权';
               return;
             }
-            initArguments(context);
+            initRecordingResources(context);
             init((msg, isError) => this.updateLogInfo(msg, isError), (msg) => this.updateCallbackInfo(msg));
             this.currentState = '已初始化';
           });
