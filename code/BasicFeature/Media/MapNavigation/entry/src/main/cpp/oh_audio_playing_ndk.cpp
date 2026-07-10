@@ -22,6 +22,8 @@
 #undef LOG_TAG
 #define LOG_DOMAIN 0x3200
 #define LOG_TAG "transcoding"
+static const uint32_t ARG_SONG_DURATION_TWO = 2;
+static const uint32_t ARG_SONG_DURATION_THREE = 3;
 
 struct PlayStatusCallbackContext {
     napi_env env = nullptr;
@@ -73,9 +75,9 @@ static napi_value LoadPcmInfoNDK(napi_env env, napi_callback_info info) {
     uint32_t songFileSize = 0;
     napi_get_value_uint32(env, argValues[1], &songFileSize);
     uint32_t songDuration = 0;
-    napi_get_value_uint32(env, argValues[2], &songDuration);
+    napi_get_value_uint32(env, argValues[ARG_SONG_DURATION_TWO], &songDuration);
     uint32_t songFileOffset = 0;
-    napi_get_value_uint32(env, argValues[3], &songFileOffset);
+    napi_get_value_uint32(env, argValues[ARG_SONG_DURATION_THREE], &songFileOffset);
     OHAudioPlayer::GetInstance().LoadPcmInfo(songFd, songFileSize, songDuration, songFileOffset);
     return nullptr;
 }

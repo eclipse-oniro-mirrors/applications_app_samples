@@ -24,6 +24,7 @@
 #undef LOG_TAG
 #define LOG_DOMAIN 0x3200
 #define LOG_TAG "OH_AUDIO_PLAYING"
+static const uint32_t SAMPLE_RATE = 16000;
 
 // Customize the audio interrupt event function
 static void OnAudioInterruptEvent(OH_AudioRenderer *audioRenderer, [[maybe_unused]] void *userData,
@@ -74,7 +75,7 @@ static OH_AudioData_Callback_Result OnAudioRendererWriteDataEvent(
     }
 
     // 计算本次实际要读取的字节数（不超过缓冲区大小和剩余字节）
-    int32_t bytesToRead = (remaining < audioDataSize) ? (int32_t)remaining : audioDataSize;
+    int32_t bytesToRead = (remaining < audioDataSize) ? static_cast<int32_t>(remaining) : audioDataSize;
     ssize_t bytesRead = read(audioFileOprInfo->pcmFd, audioData, bytesToRead);
 
     if (bytesRead < 0) {
@@ -97,7 +98,13 @@ static OH_AudioData_Callback_Result OnAudioRendererWriteDataEvent(
 // [Start GetAudioFileOffset]
 // Get audio file offset value by seek timeStamp
 static uint32_t GetAudioFileOffset(uint32_t songDuration, float targetTimeStamp, uint32_t fileSize) {
-    uint32_t fileOffset = floor((targetTimeStamp / songDuration) * fileSize);
+//    uint32_t fileOffset = floor((targetTimeStamp / songDuration) * fileSize);
+    uint32_t fileOffset = 0;
+    if (songDuration != 0) {
+        fileOffset = floor((targetTimeStamp / songDuration) * fileSize);
+    } else {
+        fileOffset = 0;
+    }
     uint32_t frameOffset = fileOffset - fileOffset % OHAudioPlayer::GetInstance().SecondBufferWalk;
     OH_LOG_INFO(LOG_APP,
                 "file offset: %{public}d,"
@@ -123,7 +130,6 @@ void OHAudioPlayer::InitPlayer() {
         return;
     }
 
-//    ret = OH_AudioStreamBuilder_SetLatencyMode(rendererBuilder, AUDIOSTREAM_LATENCY_MODE_FAST);
     if (ret != AUDIOSTREAM_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Set latencyMode failed, ret: %{public}d", ret);
         return;
@@ -136,7 +142,7 @@ void OHAudioPlayer::InitPlayer() {
     // [Start SecondBufferWalk]
     // Configure audio parameters
     // Set audio sample rate
-    (void)OH_AudioStreamBuilder_SetSamplingRate(rendererBuilder, 16000);
+    (void)OH_AudioStreamBuilder_SetSamplingRate(rendererBuilder, SAMPLE_RATE);
     // Set audio channel count
     (void)OH_AudioStreamBuilder_SetChannelCount(rendererBuilder, 1);
     // Set audio sample format
@@ -147,7 +153,7 @@ void OHAudioPlayer::InitPlayer() {
     // Set audio render info
     (void)OH_AudioStreamBuilder_SetRendererInfo(rendererBuilder, AUDIOSTREAM_USAGE_NAVIGATION);
     // [EndExclude SecondBufferWalk]
-    SecondBufferWalk = (16000 * 2 * 16) / 8;
+    SecondBufferWalk = (SAMPLE_RATE * 2 * 16) / 8;
     // [End SecondBufferWalk]
     // Configure audio callback
     // Set audio interrupt callback
