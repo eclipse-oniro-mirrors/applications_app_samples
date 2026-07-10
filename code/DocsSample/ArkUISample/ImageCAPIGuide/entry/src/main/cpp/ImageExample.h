@@ -25,6 +25,7 @@
  */
 
 // entry/src/main/cpp/ImageExample.h
+// [Start image_example_h]
 #ifndef IMAGE_EXAMPLE_H
 #define IMAGE_EXAMPLE_H
 
@@ -33,4 +34,8 @@
 // 创建图片示例界面
 ArkUI_NodeHandle CreateImageExample();
 
+// 清理图片示例资源
+void CleanupImageExample();
+
 #endif // IMAGE_EXAMPLE_H
+// [End image_example_h]
