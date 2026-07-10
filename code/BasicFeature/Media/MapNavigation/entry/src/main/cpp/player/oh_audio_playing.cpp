@@ -54,10 +54,7 @@ static void OnAudioErrorEvent([[maybe_unused]] OH_AudioRenderer *audioRenderer, 
 // [Start OnAudioRendererWriteDataEvent]
 // Custom data write function
 static OH_AudioData_Callback_Result OnAudioRendererWriteDataEvent(
-    [[maybe_unused]] OH_AudioRenderer *audioRenderer,
-    void *userData,
-    void *audioData,
-    int32_t audioDataSize)
+    [[maybe_unused]] OH_AudioRenderer *audioRenderer, void *userData, void *audioData, int32_t audioDataSize)
 {
     auto audioFileOprInfo = reinterpret_cast<AudioFileOprInfo *>(userData);
 
@@ -94,8 +91,8 @@ static OH_AudioData_Callback_Result OnAudioRendererWriteDataEvent(
     // 关键：若未填满缓冲区，剩余部分必须清零，否则会有杂音
     if (bytesRead < audioDataSize) {
         errno_t ret = memset_s(static_cast<uint8_t*>(audioData) + bytesRead,
-                               audioDataSize - bytesRead, 
-                               0, 
+                               audioDataSize - bytesRead,
+                               0,
                                audioDataSize - bytesRead);
         if (ret != 0) {
             OH_LOG_ERROR(LOG_APP, "memset_s failed, ret: %{public}d", ret);
