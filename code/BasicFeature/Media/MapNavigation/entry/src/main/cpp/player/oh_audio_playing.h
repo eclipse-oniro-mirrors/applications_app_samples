@@ -23,7 +23,7 @@
 #include <js_native_api.h>
 #include <js_native_api_types.h>
 
-enum PlayStatus { Play = 1, Pause = 2 };
+enum PlayStatus { PLAY = 1, PAUSE = 2 };
 
 struct AudioFileOprInfo {
     uint32_t pcmFd = -1;
@@ -58,7 +58,7 @@ public:
     void ReleasePlayer();
     void (*PlayStatusCallback)(void *context, PlayStatus playStatus) = nullptr;
     void *PlayStatusCallbackContext = nullptr;
-    int32_t SecondBufferWalk = 0;
+    int32_t secondBufferWalk = 0;
 
     static OHAudioPlayer &GetInstance() {
         static OHAudioPlayer instance;

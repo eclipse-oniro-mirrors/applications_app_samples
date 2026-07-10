@@ -51,7 +51,8 @@ export class MediaControlCenterHandle {
     })
   }
 
-  // Load the current pcm information. The pcm information can be obtained from this interface, including fd length offset
+  // Load the current pcm information.
+  // The pcm information can be obtained from this interface, including fd length offset.
   loadPcmAssent(pcmRawFileDescriptor: resourceManager.RawFileDescriptor) {
     audioPlayer.loadPcmInfo(pcmRawFileDescriptor.fd, pcmRawFileDescriptor.length,
       MediaTools.getMsFromByteLength(pcmRawFileDescriptor.length), pcmRawFileDescriptor.offset);

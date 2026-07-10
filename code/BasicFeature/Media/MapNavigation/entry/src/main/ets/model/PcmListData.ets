@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { PcmItem } from "../viewmodel/PcmData"
+import { PcmItem } from '../viewmodel/PcmData';
 
 const pcmList: PcmItem[] = [
   {

@@ -86,7 +86,8 @@ export class MediaControlCenter {
     await this.activateAudioSession();
   }
 
-  private async activateAudioSession(concurrencyMode: audio.AudioConcurrencyMode = audio.AudioConcurrencyMode.CONCURRENCY_PAUSE_OTHERS) {
+  private async activateAudioSession(concurrencyMode: audio.AudioConcurrencyMode) {
+    concurrencyMode = audio.AudioConcurrencyMode.CONCURRENCY_PAUSE_OTHERS;
     if (!this.audioSessionManager) {
       return;
     }

@@ -23,19 +23,19 @@ import { MediaControlCenter } from '../controller/MediaControlCenter';
 export struct NavigationPage {
   @State currentIndex: number = 0;
   @State isEnglish: boolean = false;
-  // 设置播报内容
-  @State originalText: string = "\n\t\t古人学问无遗力，少壮工夫老始成；\n\t\t" + "纸上得来终觉浅，绝知此事要躬行。\n\t\t";
+  // Set the broadcast content.
+  @State originalText: string = '古人学问无遗力，少壮工夫老始成,纸上得来终觉浅，绝知此事要躬行。';
   private tabList: ResourceStr[] =
     [$r('app.string.driving'), $r('app.string.take_a_taxi'), $r('app.string.bus_and_subway'), $r('app.string.ride'),
       $r('app.string.walking'), $r('app.string.train'), $r('app.string.coach')];
   private tabsController: TabsController = new TabsController();
   @State isRecord: boolean = false;
 
-  async  aboutToAppear(){
+  async aboutToAppear() {
     TextToSpeechController.createEngine();
-    setTimeout(()=>{
+    setTimeout(() => {
       TextToSpeechController.setSpeakListener();
-    },500)
+    }, 500)
     MediaControlCenter.getInstance().init();
   }
 

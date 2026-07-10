@@ -20,18 +20,17 @@ export class PcmItem {
   /**
    * Primary key ID.
    */
-  id: number = 0;
+  public id: number = 0;
   /**
    * Music avatar information.
    */
-  label: ResourceStr = '';
+  public label: ResourceStr = '';
   /**
    * Music file path information.
    */
-  src: string = '';
+  public src: string = '';
   /**
    * Index of the current music list.
    */
-  index: number = 0;
-
+  public index: number = 0;
 }

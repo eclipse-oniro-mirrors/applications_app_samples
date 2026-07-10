@@ -25,13 +25,15 @@
 static const uint32_t ARG_SONG_DURATION_TWO = 2;
 static const uint32_t ARG_SONG_DURATION_THREE = 3;
 
-struct PlayStatusCallbackContext {
+struct PlayStatusCallbackContext 
+{
     napi_env env = nullptr;
     napi_ref callbackRef = nullptr;
     int32_t playStatus = 1;
 };
 
-void PlayStateCallback(void *asyncContext, PlayStatus playStatus) {
+void PlayStateCallback(void *asyncContext, PlayStatus playStatus) 
+{
     uv_loop_s *loop = nullptr;
     PlayStatusCallbackContext *context = (PlayStatusCallbackContext *)asyncContext;
     napi_get_uv_event_loop(context->env, &loop);
@@ -60,13 +62,15 @@ void PlayStateCallback(void *asyncContext, PlayStatus playStatus) {
 
 
 // Initialize player
-static napi_value InitPlayerNDK(napi_env env, napi_callback_info info) {
+static napi_value InitPlayerNDK(napi_env env, napi_callback_info info) 
+{
     OHAudioPlayer::GetInstance().InitPlayer();
     return nullptr;
 }
 
 // Load song information
-static napi_value LoadPcmInfoNDK(napi_env env, napi_callback_info info) {
+static napi_value LoadPcmInfoNDK(napi_env env, napi_callback_info info) 
+{
     size_t argCount = 4;
     napi_value argValues[4] = {nullptr};
     napi_get_cb_info(env, info, &argCount, argValues, nullptr, nullptr);
@@ -83,25 +87,29 @@ static napi_value LoadPcmInfoNDK(napi_env env, napi_callback_info info) {
 }
 
 // Start to play song
-static napi_value PlayPcmNDK(napi_env env, napi_callback_info info) {
+static napi_value PlayPcmNDK(napi_env env, napi_callback_info info) 
+{
     OHAudioPlayer::GetInstance().PlayPcm();
     return nullptr;
 }
 
 // Pause to play song
-static napi_value PausePcmNDK(napi_env env, napi_callback_info info) {
+static napi_value PausePcmNDK(napi_env env, napi_callback_info info) 
+{
     OHAudioPlayer::GetInstance().PausePcm();
     return nullptr;
 }
 
 // Stop to play song
-static napi_value StopPcmNDK(napi_env env, napi_callback_info info) {
+static napi_value StopPcmNDK(napi_env env, napi_callback_info info) 
+{
     OHAudioPlayer::GetInstance().StopPcm();
     return nullptr;
 }
 
 // Watch play status
-static napi_value OnPlayStatusNDK(napi_env env, napi_callback_info info) {
+static napi_value OnPlayStatusNDK(napi_env env, napi_callback_info info) 
+{
     size_t argc = 1;
     napi_value args[1] = {nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
@@ -113,14 +121,16 @@ static napi_value OnPlayStatusNDK(napi_env env, napi_callback_info info) {
     return nullptr;
 }
 // Release player
-static napi_value ReleasePlayerNDK(napi_env env, napi_callback_info info) {
+static napi_value ReleasePlayerNDK(napi_env env, napi_callback_info info) 
+{
     OHAudioPlayer::GetInstance().ReleasePlayer();
     return nullptr;
 }
 
 EXTERN_C_START
-static napi_value Init(napi_env env, napi_value exports) {
-      OH_LOG_INFO(LOG_APP, "@Failed to visit path.");
+static napi_value Init(napi_env env, napi_value exports) 
+{
+    OH_LOG_INFO(LOG_APP, "@Failed to visit path.");
     napi_property_descriptor desc[] = {
         {"initPlayer", nullptr, InitPlayerNDK, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"loadPcmInfo", nullptr, LoadPcmInfoNDK, nullptr, nullptr, nullptr, napi_default, nullptr},

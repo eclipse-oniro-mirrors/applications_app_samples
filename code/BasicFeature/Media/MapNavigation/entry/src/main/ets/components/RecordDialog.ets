@@ -23,9 +23,7 @@ export struct RecordDialog {
   @Link isRecord: boolean;
   @StorageLink('RWOffset') rwOffset: number = 0;
   private audioCapturerMgr: AudioCapturerManager = new AudioCapturerManager(this.getUIContext().getHostContext()!);
-  @State originalText: string =
-    "\n\t\t古人学问无遗力，少壮工夫老始成,古人学问无遗力，少壮工夫老始成,古人学问无遗力，少壮工夫老始成,古人学问无遗力，少壮工夫老始成,古人学问无遗力，少壮工夫老始成；\n\t\t" +
-      "纸上得来终觉浅，绝知此事要躬行。\n\t\t";
+  @State originalText: string = '古人学问无遗力，少壮工夫老始成,纸上得来终觉浅，绝知此事要躬行。';
   @State waveIndex: number[] = new Array(50);
   @State isChecked: boolean = false;
   @State index: number = 0;

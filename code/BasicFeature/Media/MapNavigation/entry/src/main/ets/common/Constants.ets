@@ -16,10 +16,10 @@
 import { Permissions } from '@kit.AbilityKit';
 
 export class Constants {
-  static MIN_DB = -90;
-  static LINE_SPACE = 6;
-  static VOLUME_MAX = 32768;
-  static CANVAS_ASPECT_RADIO = 8;
-  static DATA_DIR = '/audio_files';
-  static MICROPHONE_PERMISSION: Permissions = 'ohos.permission.MICROPHONE';
+  public static MIN_DB = -90;
+  public static LINE_SPACE = 6;
+  public static VOLUME_MAX = 32768;
+  public static CANVAS_ASPECT_RADIO = 8;
+  public static DATA_DIR = '/audio_files';
+  public public static MICROPHONE_PERMISSION: Permissions = 'ohos.permission.MICROPHONE';
 }

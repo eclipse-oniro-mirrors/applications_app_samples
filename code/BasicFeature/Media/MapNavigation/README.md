@@ -439,9 +439,9 @@ flowchart TD
    static void OnAudioInterruptEvent(OH_AudioRenderer *audioRenderer, void *userData,
                                      OH_AudioInterrupt_ForceType type, OH_AudioInterrupt_Hint hint) {
        if ((type == AUDIOSTREAM_INTERRUPT_SHARE) && (hint == AUDIOSTREAM_INTERRUPT_HINT_RESUME)) {
-           OHAudioPlayer::GetInstance().PlayStatusCallback(..., PlayStatus::Play);
+           OHAudioPlayer::GetInstance().PlayStatusCallback(..., PlayStatus::PLAY);
        } else if (hint == AUDIOSTREAM_INTERRUPT_HINT_PAUSE) {
-           OHAudioPlayer::GetInstance().PlayStatusCallback(..., PlayStatus::Pause);
+           OHAudioPlayer::GetInstance().PlayStatusCallback(..., PlayStatus::PAUSE);
        }
    }
 

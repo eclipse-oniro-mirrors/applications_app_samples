@@ -23,7 +23,7 @@ const TAG = 'AVSessionController';
 
 export class AVSessionController {
   private context: common.UIAbilityContext | undefined = undefined;
-  private AVSession: avSession.AVSession | undefined = undefined;
+  private avSession: avSession.AVSession | undefined = undefined;
   private musicIndex: number | undefined = 0;
   private mediaControlCenter: MediaControlCenter | undefined = undefined;
   private static avSessionController: AVSessionController;
@@ -43,9 +43,9 @@ export class AVSessionController {
       return;
     }
     this.mediaControlCenter = MediaControlCenter.getInstance();
-    this.AVSession = await avSession.createAVSession(this.context, "PLAY_AUDIO", 'audio');
-    await this.AVSession.activate();
-    Logger.info(TAG, `session create successed : sessionId : ${this.AVSession.sessionId}`);
+    this.avSession = await avSession.createAVSession(this.context, 'PLAY_AUDIO', 'audio');
+    await this.avSession.activate();
+    Logger.info(TAG, `session create successed : sessionId : ${this.avSession.sessionId}`);
     await this.setAVMetadata();
     this.setLaunchAbility();
     this.setListenerForMesFromController();
@@ -71,8 +71,8 @@ export class AVSessionController {
       wantAgentFlags: [wantAgent.WantAgentFlags.UPDATE_PRESENT_FLAG]
     };
     wantAgent.getWantAgent(wantAgentInfo).then((agent) => {
-      if (this.AVSession) {
-        this.AVSession.setLaunchAbility(agent);
+      if (this.avSession) {
+        this.avSession.setLaunchAbility(agent);
       }
     })
       .catch((err: BusinessError) => {
@@ -98,8 +98,8 @@ export class AVSessionController {
           avQueueName: 'OHAudioQueue',
           avQueueId: 'OHAudioQueueQueueId',
         };
-        if (this.AVSession) {
-          this.AVSession.setAVMetadata(metadata).then(() => {
+        if (this.avSession) {
+          this.avSession.setAVMetadata(metadata).then(() => {
             Logger.info(TAG, 'SetAVMetadata successfully');
           }).catch((err: BusinessError) => {
             Logger.error(TAG, `SetAVMetadata BusinessError: code: ${err.code}, message: ${err.message}`);
@@ -116,11 +116,11 @@ export class AVSessionController {
   // [Start setListenerForMesFromController]
   // Set listening events
   async setListenerForMesFromController() {
-    if (!this.AVSession) {
+    if (!this.avSession) {
       return;
     }
-    this.AVSession.on('play', this.onPlay);
-    this.AVSession.on('pause', this.onPause);
+    this.avSession.on('play', this.onPlay);
+    this.avSession.on('pause', this.onPause);
   }
 
   // [End setListenerForMesFromController]
@@ -145,11 +145,11 @@ export class AVSessionController {
   }
 
   async unregisterSessionListener() {
-    if (!this.AVSession) {
+    if (!this.avSession) {
       return;
     }
-    this.AVSession.off('play');
-    this.AVSession.off('pause');
-    this.AVSession.destroy();
+    this.avSession.off('play');
+    this.avSession.off('pause');
+    this.avSession.destroy();
   }
 }

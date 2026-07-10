@@ -150,14 +150,14 @@ class TextToSpeechController {
     let originalText: string = text;
     // 设置播报相关参数
     let extraParam: Record<string, Object> = {
-      "queueMode": 0,
-      "speed": 1,
-      "volume": 2,
-      "pitch": 1,
-      "languageContext": 'zh-CN',
-      "audioType": "pcm",
-      "soundChannel": 3,
-      "playType": 1
+      'queueMode': 0,
+      'speed': 1,
+      'volume': 2,
+      'pitch': 1,
+      'languageContext': 'zh-CN',
+      'audioType': 'pcm',
+      'soundChannel': 3,
+      'playType': 1
     };
     let speakParams: textToSpeech.SpeakParams = {
       requestId: '123456' + Date.now(), // requestId在同一实例内仅能用一次，请勿重复设置
