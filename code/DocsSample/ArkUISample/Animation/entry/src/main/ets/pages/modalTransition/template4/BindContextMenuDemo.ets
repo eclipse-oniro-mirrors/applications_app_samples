@@ -33,7 +33,7 @@ struct BindContextMenuDemo {
   @Builder
   myMenu() {
     Column() {
-      ForEach(this.menu, (item: string) => {
+      ForEach(this.menu, (item: Resource) => {
         Row() {
           Text(item)
             .fontSize(18)

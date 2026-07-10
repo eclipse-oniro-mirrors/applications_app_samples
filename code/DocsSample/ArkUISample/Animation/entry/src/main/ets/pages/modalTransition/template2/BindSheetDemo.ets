@@ -42,7 +42,7 @@ struct BindSheetDemo {
   mySheet() {
     Column() {
       Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {
-        ForEach(this.menuList, (item: string) => {
+        ForEach(this.menuList, (item: Resource) => {
           Text(item)
             .fontSize(16)
             .fontColor(0x333333)
