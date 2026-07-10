@@ -16,62 +16,25 @@
 export {};
 
 let globalLogUpdate: ((msg: string, isError: boolean) => void) | undefined;
-// [Start generic_define]
-class CustomStack<Element> {
-  public push(e: Element):void {
-    // ...
-  }
-}
-// [End generic_define]
-// [Start generic_define_example]
-let s = new CustomStack<string>();
-s.push('hello');
-// [End generic_define_example]
-// [Start generic_constraint]
-interface Hashable {
-  hash(): number;
-}
-class MyHashMap<Key extends Hashable, Value> {
-  public set(k: Key, v: Value) {
-    let h = k.hash();
-    // ...其他代码...
-  }
-}
-// [End generic_constraint]
-// [Start generic_function]
-function last(x: number[]): number {
+
+// [Start generic_array]
+function last<T>(x: T[]): T {
   return x[x.length - 1];
 }
-  // [StartExclude generic_function]
-function testGenericTypes() {
-  // [EndExclude generic_function]
+// [End generic_array]
+
+function testGenericArray() {
   last([1, 2, 3]); // 3
-  // [End generic_function]
   console.info(`last([1, 2, 3]): , ${last([1, 2, 3])}`);
   let logMsg = `last([1, 2, 3]): ${last([1, 2, 3])}`;
   if (globalLogUpdate) {
     globalLogUpdate(logMsg, false);
   }
 }
-// [Start generic_defaultValue]
-class SomeType {}
-interface Interface <T1 = SomeType> { }
-class Base <T2 = SomeType> { }
-class Derived1 extends Base implements Interface { }
-// Derived1在语义上等价于Derived2
-class Derived2 extends Base<SomeType> implements Interface<SomeType> { }
-
-function foo<T = number>(): void {
-  // ...
-}
-foo();
-// 此函数在语义上等价于下面的调用
-foo<number>();
-// [End generic_defaultValue]
 
 @Entry
 @Component
-struct GenericDemoPage {
+struct GenericArrayPage {
   @State currentState: string | ResourceStr = $r('app.string.Uninitialized');
   @State logMessages: string | ResourceStr = $r('app.string.No_log_information_available');
 
@@ -138,7 +101,7 @@ struct GenericDemoPage {
         .margin({ bottom: 16 })
 
         Column() {
-          Text($r('app.string.Test_GenericTypes')).fontColor(Color.Black).fontSize(14);
+          Text($r('app.string.Test_GenericArray')).fontColor(Color.Black).fontSize(14);
         }
         .backgroundColor(Color.White)
         .borderRadius(20)
@@ -147,8 +110,8 @@ struct GenericDemoPage {
         .justifyContent(FlexAlign.Center)
         .margin({ bottom: 12 })
         .onClick(() => {
-          testGenericTypes();
-          this.currentState = $r('app.string.Test_GenericTypes_finish');
+          testGenericArray();
+          this.currentState = $r('app.string.Test_GenericArray_finish');
         })
       }
       .height('100%')
