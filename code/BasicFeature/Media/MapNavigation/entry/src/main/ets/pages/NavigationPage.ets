@@ -314,10 +314,7 @@ export struct NavigationPage {
           blurStyle: BlurStyle.Thick,
           showClose: false,
           dragBar: false,
-          backgroundColor: Color.White,
-          onDisappear: (() => {
-            // this.loadAudioFiles();
-          })
+          backgroundColor: Color.White
         })
 
         this.myBuilder();

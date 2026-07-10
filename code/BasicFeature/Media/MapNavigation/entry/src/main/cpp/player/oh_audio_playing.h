@@ -57,10 +57,11 @@ public:
     void StopPcm();
     void ReleasePlayer();
     void (*PlayStatusCallback)(void *context, PlayStatus playStatus) = nullptr;
-    void *PlayStatusCallbackContext = nullptr;
+    void *playStatusCallbackContext = nullptr;
     int32_t secondBufferWalk = 0;
 
-    static OHAudioPlayer &GetInstance() {
+    static OHAudioPlayer &GetInstance()
+    {
         static OHAudioPlayer instance;
         return instance;
     }

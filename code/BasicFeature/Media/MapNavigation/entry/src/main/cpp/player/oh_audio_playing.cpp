@@ -26,25 +26,27 @@
 #define LOG_TAG "OH_AUDIO_PLAYING"
 static const uint32_t SAMPLE_RATE = 16000;
 static const uint32_t CHANNEL_COUNT = 2;
+static const uint32_t BITS_PER_SAMPLE = 16;
+static const uint32_t BITS_PER_BYTE = 8;
 
 // Customize the audio interrupt event function
 static void OnAudioInterruptEvent(OH_AudioRenderer *audioRenderer, [[maybe_unused]] void *userData,
-                                  OH_AudioInterrupt_ForceType type, OH_AudioInterrupt_Hint hint) 
+                                  OH_AudioInterrupt_ForceType type, OH_AudioInterrupt_Hint hint)
 {
     if ((type == AUDIOSTREAM_INTERRUPT_SHARE) && (hint == AUDIOSTREAM_INTERRUPT_HINT_RESUME)) {
         OH_LOG_INFO(LOG_APP, "PlayState is play.");
-        OHAudioPlayer::GetInstance().PlayStatusCallback(OHAudioPlayer::GetInstance().PlayStatusCallbackContext,
+        OHAudioPlayer::GetInstance().PlayStatusCallback(OHAudioPlayer::GetInstance().playStatusCallbackContext,
                                                         PlayStatus::PLAY);
     } else if (hint == AUDIOSTREAM_INTERRUPT_HINT_PAUSE || hint == AUDIOSTREAM_INTERRUPT_HINT_STOP) {
         OH_LOG_INFO(LOG_APP, "PlayState is pause.");
-        OHAudioPlayer::GetInstance().PlayStatusCallback(OHAudioPlayer::GetInstance().PlayStatusCallbackContext,
+        OHAudioPlayer::GetInstance().PlayStatusCallback(OHAudioPlayer::GetInstance().playStatusCallbackContext,
                                                         PlayStatus::PAUSE);
     }
 }
 
 // Custom exception callback functions
 static void OnAudioErrorEvent([[maybe_unused]] OH_AudioRenderer *audioRenderer, [[maybe_unused]] void *userData,
-                              OH_AudioStream_Result error) 
+                              OH_AudioStream_Result error)
 {
     OH_LOG_ERROR(LOG_APP, "Audio render error, ret: %{public}d", error);
 }
@@ -92,7 +94,7 @@ static OH_AudioData_Callback_Result OnAudioRendererWriteDataEvent(
 
     // 关键：若未填满缓冲区，剩余部分必须清零，否则会有杂音
     if (bytesRead < audioDataSize) {
-        memset(static_cast<uint8_t*>(audioData) + bytesRead, 0, audioDataSize - bytesRead);
+        memset_s(static_cast<uint8_t*>(audioData) + bytesRead, 0, audioDataSize - bytesRead);
     }
 
     return AUDIO_DATA_CALLBACK_RESULT_VALID;
@@ -101,7 +103,7 @@ static OH_AudioData_Callback_Result OnAudioRendererWriteDataEvent(
 
 // [Start GetAudioFileOffset]
 // Get audio file offset value by seek timeStamp
-static uint32_t GetAudioFileOffset(uint32_t songDuration, float targetTimeStamp, uint32_t fileSize) 
+static uint32_t GetAudioFileOffset(uint32_t songDuration, float targetTimeStamp, uint32_t fileSize)
 {
     uint32_t fileOffset = 0;
     if (songDuration != 0) {
@@ -119,7 +121,7 @@ static uint32_t GetAudioFileOffset(uint32_t songDuration, float targetTimeStamp,
 // [End GetAudioFileOffset]
 
 // [Start InitPlayer]
-void OHAudioPlayer::InitPlayer() 
+void OHAudioPlayer::InitPlayer()
 {
     // Check the residual status of the previous player
     if ((audioRenderer != nullptr) || (rendererBuilder != nullptr) || (audioFileOprInfo != nullptr)) {
@@ -158,7 +160,7 @@ void OHAudioPlayer::InitPlayer()
     // Set audio render info
     (void)OH_AudioStreamBuilder_SetRendererInfo(rendererBuilder, AUDIOSTREAM_USAGE_NAVIGATION);
     // [EndExclude SecondBufferWalk]
-    secondBufferWalk = (SAMPLE_RATE * CHANNEL_COUNT * 16) / 8;
+    secondBufferWalk = (SAMPLE_RATE * CHANNEL_COUNT * BITS_PER_SAMPLE) / BITS_PER_BYTE;
     // [End SecondBufferWalk]
     // Configure audio callback
     // Set audio interrupt callback
@@ -179,7 +181,7 @@ void OHAudioPlayer::InitPlayer()
 // [End InitPlayer]
 
 // [Start LoadSongInfo]
-void OHAudioPlayer::LoadPcmInfo(uint32_t pcmFd, uint32_t pcmFileSize, uint32_t pcmDuration, uint32_t pcmFileOffset) 
+void OHAudioPlayer::LoadPcmInfo(uint32_t pcmFd, uint32_t pcmFileSize, uint32_t pcmDuration, uint32_t pcmFileOffset)
 {
     if (audioFileOprInfo == nullptr) {
         OH_LOG_ERROR(LOG_APP, "The audioFileOprInfo is null.");
@@ -204,7 +206,7 @@ void OHAudioPlayer::LoadPcmInfo(uint32_t pcmFd, uint32_t pcmFileSize, uint32_t p
 // [End LoadSongInfo]
 
 // [Start PlaySong]
-void OHAudioPlayer::PlayPcm() 
+void OHAudioPlayer::PlayPcm()
 {
     if (audioRenderer == nullptr) {
         OH_LOG_ERROR(LOG_APP, "The audioRenderer is null.");
@@ -222,7 +224,7 @@ void OHAudioPlayer::PlayPcm()
 // [End PlaySong]
 
 // [Start PauseSong]
-void OHAudioPlayer::PausePcm() 
+void OHAudioPlayer::PausePcm()
 {
     if (audioRenderer == nullptr) {
         OH_LOG_ERROR(LOG_APP, "The audioRenderer is null.");
@@ -240,7 +242,7 @@ void OHAudioPlayer::PausePcm()
 // [End PauseSong]
 
 // [Start StopSong]
-void OHAudioPlayer::StopPcm() 
+void OHAudioPlayer::StopPcm()
 {
     if (audioRenderer == nullptr) {
         OH_LOG_ERROR(LOG_APP, "The audioRenderer is null.");
@@ -263,7 +265,7 @@ void OHAudioPlayer::StopPcm()
 
 
 // [Start ReleasePlayer]
-void OHAudioPlayer::ReleasePlayer() 
+void OHAudioPlayer::ReleasePlayer()
 {
     if (rendererBuilder != nullptr) {
         OH_AudioStreamBuilder_Destroy(rendererBuilder);

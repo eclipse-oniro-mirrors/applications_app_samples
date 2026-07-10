@@ -62,7 +62,7 @@ class TextToSpeechController {
   public onComplete = (requestId: string, response: textToSpeech.CompleteResponse) => {
     let context: common.UIAbilityContext | undefined = AppStorage.get('context');
     Logger.info(TAG, `onComplete, requestId: ${requestId} response: ${JSON.stringify(response)}`);
-    let buffers: ArrayBuffer[] = new Array();
+    let buffers: ArrayBuffer[] = [];
     try {
       this.pcmData?.forEach((value: Uint8Array) => {
         buffers.push(value.buffer.slice(0));
