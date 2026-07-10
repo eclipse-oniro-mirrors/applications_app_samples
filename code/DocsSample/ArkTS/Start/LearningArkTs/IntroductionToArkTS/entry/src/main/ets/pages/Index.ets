@@ -28,6 +28,7 @@ struct Index {
         this.buttonComponent($r('app.string.Function'), 'pages/Function');
         this.buttonComponent($r('app.string.Class'), 'pages/Class');
         this.buttonComponent($r('app.string.GenericTypesAndFunctions'), 'pages/GenericTypesAndFunctions');
+        this.buttonComponent($r('app.string.GenericArray'), 'pages/GenericArray');
       }
       .width('100%')
       .padding(20)
