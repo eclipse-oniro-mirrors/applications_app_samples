@@ -34,10 +34,10 @@ function createImageTask(arrayBuffer: ArrayBuffer, isParamsByTransfer: boolean):
   if (!isParamsByTransfer) {
     // 传递空数组[]，全部arrayBuffer参数传递均采用拷贝方式
     try {
- 	    task.setTransferList([]);
- 	  } catch (err) {
- 	    hilog.error(0x0000, 'testTag', 'Failed to set transferList. Cause: %{public}s', JSON.stringify(err));
- 	  }
+      task.setTransferList([]);
+    } catch (err) {
+      hilog.error(0x0000, 'testTag', 'Failed to set transferList. Cause: %{public}s', JSON.stringify(err));
+    }
   }
   return task;
 }

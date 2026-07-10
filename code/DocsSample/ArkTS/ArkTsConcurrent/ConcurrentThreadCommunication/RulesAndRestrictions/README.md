@@ -188,7 +188,7 @@ variablesupport/src/
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkTS/ArkTsConcurrent/ConcurrentThreadCommunication/InterThreadCommunicationObjects/SendableObject/RulesAndRestrictions > .git/info/sparse-checkout
+echo code/DocsSample/ArkTS/ArkTsConcurrent/ConcurrentThreadCommunication/RulesAndRestrictions > .git/info/sparse-checkout
 git remote add origin https://gitee.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

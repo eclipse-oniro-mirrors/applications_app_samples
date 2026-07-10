@@ -72,7 +72,7 @@ entry/src/ohosTest/
 ```git
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkTS/ArkTsConcurrent/ConcurrentThreadCommunication/InterThreadCommunicationObjects/SendableObject/AsynchronousWaiting/ > .git/info/sparse-checkout
-git remote add origin OpenHarmony/applications_app_samples
+echo code/DocsSample/ArkTS/ArkTsConcurrent/ConcurrentThreadCommunication/AsynchronousWaiting/ > .git/info/sparse-checkout
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
