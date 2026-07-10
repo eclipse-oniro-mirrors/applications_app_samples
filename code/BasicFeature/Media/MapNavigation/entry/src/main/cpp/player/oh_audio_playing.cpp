@@ -55,7 +55,7 @@ static void OnAudioErrorEvent([[maybe_unused]] OH_AudioRenderer *audioRenderer, 
 // Custom data write function
 static OH_AudioData_Callback_Result OnAudioRendererWriteDataEvent(
     [[maybe_unused]] OH_AudioRenderer *audioRenderer,
-    void *userData, 
+    void *userData,
     void *audioData,
     int32_t audioDataSize)
 {
@@ -83,7 +83,6 @@ static OH_AudioData_Callback_Result OnAudioRendererWriteDataEvent(
     // 计算本次实际要读取的字节数（不超过缓冲区大小和剩余字节）
     int32_t bytesToRead = (remaining < audioDataSize) ? static_cast<int32_t>(remaining) : audioDataSize;
     ssize_t bytesRead = read(audioFileOprInfo->pcmFd, audioData, bytesToRead);
-
     if (bytesRead < 0) {
         OH_LOG_ERROR(LOG_APP, "read error: %{public}s");
         return AUDIO_DATA_CALLBACK_RESULT_INVALID;
@@ -94,7 +93,14 @@ static OH_AudioData_Callback_Result OnAudioRendererWriteDataEvent(
 
     // 关键：若未填满缓冲区，剩余部分必须清零，否则会有杂音
     if (bytesRead < audioDataSize) {
-        memset_s(static_cast<uint8_t*>(audioData) + bytesRead, 0, audioDataSize - bytesRead);
+        errno_t ret = memset_s(static_cast<uint8_t*>(audioData) + bytesRead,
+                               audioDataSize - bytesRead, 
+                               0, 
+                               audioDataSize - bytesRead);
+        if (ret != 0) {
+            OH_LOG_ERROR(LOG_APP, "memset_s failed, ret: %{public}d", ret);
+            return AUDIO_DATA_CALLBACK_RESULT_INVALID;
+        }
     }
 
     return AUDIO_DATA_CALLBACK_RESULT_VALID;
