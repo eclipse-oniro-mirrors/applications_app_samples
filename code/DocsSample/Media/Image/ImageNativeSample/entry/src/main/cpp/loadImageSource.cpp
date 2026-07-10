@@ -130,9 +130,13 @@ napi_value GetImageProperty(napi_env env, napi_callback_info info)
         return GetJsResult(env, IMAGE_BAD_PARAMETER);
     }
     // 修改指定属性键的值。
-    char key[MAX_STRING_LENGTH];
-    size_t keySize = MAX_STRING_LENGTH;
-    napi_get_value_string_utf8(env, argValue[0], (char *)key, sizeof(key), &keySize);
+    char key[MAX_STRING_LENGTH] = {0};
+    size_t keySize = 0;
+    if (napi_get_value_string_utf8(env, argValue[0], key, sizeof(key), &keySize) != napi_ok) {
+        OH_LOG_ERROR(LOG_APP, "GetImageProperty napi_get_value_string_utf8 failed!");
+        return GetJsResult(env, IMAGE_BAD_PARAMETER);
+    }
+    key[MAX_STRING_LENGTH - 1] = '\0';
     Image_String getKey;
     getKey.data = key;
     getKey.size = keySize;
@@ -164,18 +168,26 @@ napi_value ModifyImageProperty(napi_env env, napi_callback_info info)
     }
 
     // 获取要修改的key值。
-    char key[MAX_STRING_LENGTH];
-    size_t keySize = MAX_STRING_LENGTH;
-    napi_get_value_string_utf8(env, argValue[0], (char *)key, sizeof(key), &keySize);
+    char key[MAX_STRING_LENGTH] = {0};
+    size_t keySize = 0;
+    if (napi_get_value_string_utf8(env, argValue[0], key, sizeof(key), &keySize) != napi_ok) {
+        OH_LOG_ERROR(LOG_APP, "ModifyImageProperty key napi_get_value_string_utf8 failed!");
+        return GetJsResult(env, IMAGE_BAD_PARAMETER);
+    }
+    key[MAX_STRING_LENGTH - 1] = '\0';
     Image_String setKey;
     setKey.data = key;
     setKey.size = keySize;
     OH_LOG_INFO(LOG_APP, "ModifyImageProperty key: %{public}s.", setKey.data);
     
     // 获取要修改的value值。
-    char value[MAX_STRING_LENGTH];
-    size_t valueSize;
-    napi_get_value_string_utf8(env, argValue[1], (char *)value, MAX_STRING_LENGTH, &valueSize);
+    char value[MAX_STRING_LENGTH] = {0};
+    size_t valueSize = 0;
+    if (napi_get_value_string_utf8(env, argValue[1], value, sizeof(value), &valueSize) != napi_ok) {
+        OH_LOG_ERROR(LOG_APP, "ModifyImageProperty value napi_get_value_string_utf8 failed!");
+        return GetJsResult(env, IMAGE_BAD_PARAMETER);
+    }
+    value[MAX_STRING_LENGTH - 1] = '\0';
     Image_String setValue;
     setValue.data = value;
     setValue.size = valueSize;
@@ -442,7 +454,7 @@ Image_ErrorCode packToFileFromImageSourceTest(int fd, OH_ImageSourceNative* imag
     OH_PackingOptions_SetMimeType(option, &image_MimeType);
     // 当设备支持HDR编码，资源本身为HDR图且图片资源的格式为jpeg时，编码产物才能为HDR内容。
     OH_PackingOptions_SetDesiredDynamicRange(option, IMAGE_PACKER_DYNAMIC_RANGE_AUTO);
-    // 设置编码质量，quality默认为0，建议quality的值不低于80
+    // 设置编码质量。quality默认值为0，建议不低于80；本示例统一设置为90，兼顾图片质量和文件体积。
     uint32_t quality = 90;
     OH_PackingOptions_SetQuality(option, quality);
     errCode = OH_ImagePackerNative_PackToFileFromImageSource(testPacker, option, imageSource, fd);
@@ -488,8 +500,13 @@ Image_ErrorCode packToFileFromPixelmapTest(int fd, OH_PixelmapNative *pixelmap)
     OH_PackingOptions_Create(&option);
     char type[] = "image/jpeg";
     Image_MimeType image_MimeType = {type, strlen(type)};
-    OH_PackingOptions_SetMimeType(option, &image_MimeType);
-    // 设置编码质量，quality默认为0，建议quality的值不低于80
+    errCode = OH_PackingOptions_SetMimeType(option, &image_MimeType);
+    if (errCode != IMAGE_SUCCESS) {
+        OH_PackingOptions_Release(option);
+        OH_ImagePackerNative_Release(testPacker);
+        return errCode;
+    }
+    // 设置编码质量。quality默认值为0，建议不低于80；本示例统一设置为90，兼顾图片质量和文件体积。
     uint32_t quality = 90;
     OH_PackingOptions_SetQuality(option, quality);
     errCode = OH_ImagePackerNative_PackToFileFromPixelmap(testPacker, option, pixelmap, fd);

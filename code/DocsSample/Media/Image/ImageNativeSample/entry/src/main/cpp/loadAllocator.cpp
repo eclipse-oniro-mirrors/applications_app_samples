@@ -39,8 +39,8 @@ int32_t GetPixelFormatBytes(int32_t pixelFormat)
             return 8; // 每通道16位浮点数，共4通道，合计8字节。
         case PIXEL_FORMAT_NV21:
         case PIXEL_FORMAT_NV12:
-            // NV21和NV12格式是YUV 4:2:0半平面格式，返回2作为每像素字节。
-            return 2; // 每像素2字节（简化处理）。
+            // NV21和NV12是YUV 4:2:0半平面格式，不能用整数每像素字节数计算行跨度。
+            return 0;
         case PIXEL_FORMAT_RGBA_1010102:
             return 4; // 每像素4字节。
         case PIXEL_FORMAT_YCBCR_P010:
@@ -81,29 +81,14 @@ static void GetPixelmapAddrInfo(OH_PixelmapNative *pixelmap, PixelmapInfo *info)
     return;
 }
 
-void DataCopy(OH_PixelmapNative *pixelmap, OH_ImageSourceNative* imageSource, OH_DecodingOptions *options,
-              IMAGE_ALLOCATOR_TYPE allocatorType)
+static void CopyPixelRows(void *pixels, void *newPixels, const PixelmapInfo &srcInfo, uint32_t dstRowStride,
+    IMAGE_ALLOCATOR_TYPE allocatorType)
 {
-    PixelmapInfo srcInfo;
-    GetPixelmapInfo(pixelmap, &srcInfo);
-    GetPixelmapAddrInfo(pixelmap, &srcInfo);
-
-    void *pixels = nullptr;
-    OH_PixelmapNative_AccessPixels(pixelmap, &pixels);
-    OH_PixelmapNative *newPixelmap = nullptr;
-    OH_ImageSourceNative_CreatePixelmap(imageSource, options, &newPixelmap);
-    uint32_t dstRowStride = srcInfo.width * GetPixelFormatBytes(srcInfo.pixelFormat);
-    void *newPixels = nullptr;
-    OH_PixelmapNative_AccessPixels(newPixelmap, &newPixels);
     uint8_t *src = reinterpret_cast<uint8_t *>(pixels);
     uint8_t *dst = reinterpret_cast<uint8_t *>(newPixels);
     uint32_t dstSize = srcInfo.byteCount;
-    uint32_t rowSize;
-    if (allocatorType == IMAGE_ALLOCATOR_TYPE::IMAGE_ALLOCATOR_TYPE_DMA) {
-        rowSize = srcInfo.rowStride;
-    } else {
-        rowSize = dstRowStride;
-    }
+    uint32_t rowSize = allocatorType == IMAGE_ALLOCATOR_TYPE::IMAGE_ALLOCATOR_TYPE_DMA ? srcInfo.rowStride :
+        dstRowStride;
     for (uint32_t i = 0; i < srcInfo.height; ++i) {
         if (dstSize >= dstRowStride) {
             std::copy(src, src + dstRowStride, dst);
@@ -114,6 +99,41 @@ void DataCopy(OH_PixelmapNative *pixelmap, OH_ImageSourceNative* imageSource, OH
         dst += dstRowStride;
         dstSize -= dstRowStride;
     }
+}
+
+void DataCopy(OH_PixelmapNative *pixelmap, OH_ImageSourceNative* imageSource, OH_DecodingOptions *options,
+              IMAGE_ALLOCATOR_TYPE allocatorType)
+{
+    PixelmapInfo srcInfo;
+    GetPixelmapInfo(pixelmap, &srcInfo);
+    GetPixelmapAddrInfo(pixelmap, &srcInfo);
+    void *pixels = nullptr;
+    OH_PixelmapNative_AccessPixels(pixelmap, &pixels);
+    OH_PixelmapNative *newPixelmap = nullptr;
+    Image_ErrorCode image_ErrorCode = OH_ImageSourceNative_CreatePixelmap(imageSource, options, &newPixelmap);
+    if (image_ErrorCode != IMAGE_SUCCESS || newPixelmap == nullptr) {
+        OH_PixelmapNative_UnaccessPixels(pixelmap);
+        OH_DecodingOptions_Release(options);
+        OH_ImageSourceNative_Release(imageSource);
+        OH_PixelmapNative_Release(pixelmap);
+        if (newPixelmap != nullptr) {
+            OH_PixelmapNative_Release(newPixelmap);
+        }
+        return;
+    }
+    int32_t pixelBytes = GetPixelFormatBytes(srcInfo.pixelFormat);
+    if (pixelBytes == 0) {
+        OH_PixelmapNative_UnaccessPixels(pixelmap);
+        OH_DecodingOptions_Release(options);
+        OH_ImageSourceNative_Release(imageSource);
+        OH_PixelmapNative_Release(pixelmap);
+        OH_PixelmapNative_Release(newPixelmap);
+        return;
+    }
+    uint32_t dstRowStride = srcInfo.width * pixelBytes;
+    void *newPixels = nullptr;
+    OH_PixelmapNative_AccessPixels(newPixelmap, &newPixels);
+    CopyPixelRows(pixels, newPixels, srcInfo, dstRowStride, allocatorType);
     OH_PixelmapNative_UnaccessPixels(newPixelmap);
     OH_PixelmapNative_UnaccessPixels(pixelmap);
     OH_DecodingOptions_Release(options);

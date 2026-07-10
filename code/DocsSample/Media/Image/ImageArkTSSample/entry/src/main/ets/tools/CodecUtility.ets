@@ -40,8 +40,8 @@ export function isFormatSupported(format: string): boolean {
 // [Start create_picturePackOpts]
 let packOpts: image.PackingOption = {
   format: 'image/jpeg',
-  quality: 95,
-  desiredDynamicRange: image.PackingDynamicRange.AUTO,
+  // quality默认值为0，建议不低于80；本示例统一设置为90，兼顾图片质量和文件体积。
+  quality: 90,
   needsPackProperties: true
 };
 // [End create_picturePackOpts]
@@ -104,7 +104,8 @@ async function packToDataFromPixelMap(pixelMap : image.PixelMap) {
   const imagePackerApi = image.createImagePacker();
   // [End create_packer]
   // [Start create_packOpts]
-  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 95 };
+  // quality默认值为0，建议不低于80；本示例统一设置为90，兼顾图片质量和文件体积。
+  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 90 };
   // [End create_packOpts]
   // [Start packOpts_isHdr]
   // 资源本身为hdr且设备支持HDR编码则会编码为hdr内容(需要资源本身为hdr且设备支持HDR编码，支持jpeg格式)。
@@ -126,7 +127,8 @@ async function packToDataFromPixelMap(pixelMap : image.PixelMap) {
 // [Start packToData_imageSource]
 async function packToDataFromImageSource(imageSource : image.ImageSource) {
   const imagePackerApi = image.createImagePacker();
-  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 95 };
+  // quality默认值为0，建议不低于80；本示例统一设置为90，兼顾图片质量和文件体积。
+  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 90 };
   try {
     let data = await imagePackerApi.packToData(imageSource, packOpts);
     // data 为编码获取到的文件流，写入文件保存即可得到一张图片。
@@ -143,7 +145,8 @@ async function packToDataFromImageSource(imageSource : image.ImageSource) {
 // [Start packToFile_pixelMap]
 async function packToFileFromPixelMap(context : Context, pixelMap : image.PixelMap) {
   const imagePackerApi = image.createImagePacker();
-  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 95 };
+  // quality默认值为0，建议不低于80；本示例统一设置为90，兼顾图片质量和文件体积。
+  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 90 };
   const path : string = context.cacheDir + '/pixel_map.jpg';
   try {
     let file = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE);
@@ -157,7 +160,8 @@ async function packToFileFromPixelMap(context : Context, pixelMap : image.PixelM
 // [Start packToFile_imageSource]
 async function packToFileFromImageSource(context : Context, imageSource : image.ImageSource) {
   const imagePackerApi = image.createImagePacker();
-  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 95 };
+  // quality默认值为0，建议不低于80；本示例统一设置为90，兼顾图片质量和文件体积。
+  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 90 };
   const filePath : string = context.cacheDir + '/image_source.jpg';
   try {
     let file = fs.openSync(filePath, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE);
@@ -500,28 +504,29 @@ export class ImageInterfaceCalled {
     return undefined;
   }
 
+  // [Start createImageRawData]
   async createImageRawData(imageSource: image.ImageSource | undefined) : Promise<image.ImageRawData | undefined> {
     if (!imageSource) {
       console.error('imageSource is undefined.');
       return undefined;
     }
-    await imageSource.createImageRawData().then((data: image.ImageRawData) => {
-      let array: Uint16Array = new Uint16Array();
+    try {
+      const data = await imageSource.createImageRawData();
       if (data.bitsPerPixel == 16 && data.buffer) {
-        array = new Uint16Array(data.buffer);
+        let array: Uint16Array = new Uint16Array(data.buffer);
+        let length = array.byteLength.valueOf();
+        console.info(`uint16Array length: ${length}`);
+        let value: string = '';
+        for (let i = 0; i < array.length && i < 10; i++) {
+          value += array[i] + ', ';
+        }
+        console.info(`get dng rawdata is:${value}.`);
       }
-      let length = array.byteLength.valueOf();
-      console.info(`uint16Array length: ${length}`);
-      let value: string = '';
-      for (let i = 0; i < array.length && i < 10; i++) {
-        value += array[i] + ', ';
-      }
-      console.info(`get dng rawdata is:${value}.`);
-      return data
-    }).catch((err: BusinessError) => {
+      return data;
+    } catch (err) {
       console.error(`get dng rawdata failed.err: ${JSON.stringify(err)}`);
       return undefined;
-    })
-    return undefined;
+    }
   }
+  // [End createImageRawData]
 }
