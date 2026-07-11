@@ -21,10 +21,10 @@ export struct AccessibilityLevelCase01 {
     // [StartExclude accessibility_level_start01]
     NavDestination() {
       // [EndExclude accessibility_level_start01]
-        Column() {
-          Text('HelloWorld')
-          Text('文本1')
-            .accessibilityLevel('yes')
+      Column() {
+        Text('HelloWorld')
+        Text('文本1')
+          .accessibilityLevel('yes')
       }
       .accessibilityGroup(true)
       // [StartExclude accessibility_level_start01]

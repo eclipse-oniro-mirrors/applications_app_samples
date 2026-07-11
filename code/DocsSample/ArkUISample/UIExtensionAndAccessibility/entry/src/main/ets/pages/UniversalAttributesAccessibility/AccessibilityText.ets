@@ -14,6 +14,7 @@
  */
 
 // [Start accessibility_text_start]
+@Entry
 @Component
 export struct AccessibilityText {
   @Builder
@@ -22,7 +23,7 @@ export struct AccessibilityText {
       Text(`virtual node`)
     }
     .width(10)
-      .height(10)
+    .height(10)
   }
 
   build() {
@@ -78,10 +79,10 @@ export struct AccessibilityText {
           Text('HelloWorld').fontSize(50).fontWeight(FontWeight.Bold)
         }
         .accessibilityGroup(true)
-          .accessibilityLevel('yes')
-          .accessibilityText('分组')
-          .accessibilityDescription('Column组件可以被选中，播报的内容是“分组”')
-          .accessibilityChecked(true)
+        .accessibilityLevel('yes')
+        .accessibilityText('分组')
+        .accessibilityDescription('Column组件可以被选中，播报的内容是"分组"')
+        .accessibilityChecked(true)
 
         // [End accessibility_checked_start]
         // [Start accessibility_selected_start]
@@ -106,13 +107,13 @@ export struct AccessibilityText {
             .fontWeight(FontWeight.Bold)
         }
         .width('100%')
-          .accessibilityGroup(true)
-          .accessibilityLevel('yes')
-          .accessibilityText('分组')
-          .accessibilityDescription('Column组件可以被选中，播报的内容是“分组”')
-          .accessibilityVirtualNode(this.customAccessibilityNode)
-          .accessibilityChecked(true)
-          .accessibilitySelected(undefined)
+        .accessibilityGroup(true)
+        .accessibilityLevel('yes')
+        .accessibilityText('分组')
+        .accessibilityDescription('Column组件可以被选中，播报的内容是"分组"')
+        .accessibilityVirtualNode(this.customAccessibilityNode)
+        .accessibilityChecked(true)
+        .accessibilitySelected(undefined)
       }
       .height('100%')
       //[StartExclude accessibility_text_start]
