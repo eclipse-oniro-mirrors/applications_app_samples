@@ -183,3 +183,4 @@ export class AVScreenCaptureDemo {
   }
 }
 // [End screenCapture_arkts_demo]
+
