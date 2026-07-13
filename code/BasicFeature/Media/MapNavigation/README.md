@@ -1,4 +1,4 @@
-# HarmonyOS导航应用
+# 导航应用
 
 ## 概述
 
@@ -486,7 +486,7 @@ flowchart TD
    }
    ```
 
-5. **控制播放**: 实现播放、暂停、停止功能，通过NDK层导出给ETS调用。
+5. **控制播放**: 实现播放、暂停、停止功能。
 
    **实现文件**: `entry/src/main/cpp/player/oh_audio_playing.cpp` 和 `entry/src/main/cpp/oh_audio_playing_ndk.cpp`。
 
@@ -532,7 +532,9 @@ flowchart TD
 
 **开发步骤**:
 
-1. **AudioSession初始化与创建**: 通过 `audio.getAudioManager()` 获取音频管理器，调用 `getSessionManager()` 创建 `AudioSessionManager` 实例，并使用 `activateAudioSession()` 激活会话，配置并发模式为 `CONCURRENCY_PAUSE_OTHERS`（暂停其他音频）。
+1. **AudioSession初始化与创建**: 通过 `audio.getAudioManager()` 获取音频管理器，调用 `getSessionManager()` 创建
+   `AudioSessionManager` 实例，并使用 `activateAudioSession()` 激活会话，配置并发模式为 `CONCURRENCY_PAUSE_OTHERS`
+   （暂停其他音频）。
 
    **实现文件**: `entry/src/main/ets/controller/MediaControlCenter.ets`。
 
@@ -643,22 +645,18 @@ flowchart TD
 
 ## 技术依赖
 
-- **[textToSpeech](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/hms-ai-texttospeech)**: 文本转语音。
-- **[audio](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-audio)**: 音频管理。
--
-    *
-*[PermissionRequestResult](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-permissionrequestresult)
-**: 权限申请。
-- **[resourceManager](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-resource-manager)**:
-  资源管理。
-- **[fileIo](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-file-fs)**: 文件管理。
+- textToSpeech: 文本转语音。
+- audio: 音频管理。
+- PermissionRequestResult: 权限申请。
+- resourceManager: 资源管理。
+- fileIo: 文件管理。
 
 ## 约束与限制
 
-1. 本示例仅支持标准系统上运行，支持设备：直板机。
-2. HarmonyOS系统：HarmonyOS 6.0.1 Release及以上。
-3. DevEco Studio版本：DevEco Studio 6.0.1 Release及以上。
-4. HarmonyOS SDK版本：HarmonyOS 6.0.1 Release SDK及以上。
+- **设备**: 直板机
+- **系统**: 6.0.1 Release 及以上
+- **IDE**: DevEco Studio 6.0.1 Release 及以上
+- **SDK**: 6.0.1 Release SDK
 
 ## 常见问题
 
