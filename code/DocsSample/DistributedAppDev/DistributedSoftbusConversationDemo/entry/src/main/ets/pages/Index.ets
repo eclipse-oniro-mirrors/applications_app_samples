@@ -79,10 +79,10 @@ struct Index {
     try {
       let devices = conversation.getTrustedDevices() as conversation.DeviceNodeInfo[];
       if (devices && devices.length > 0) {
-        let deviceInfo = devices.map((d, idx) =>
+          let deviceInfo = devices.map((d, idx) =>
           `${idx + 1}. ${d.deviceName} (${d.networkId}) - Type:${d.deviceTypeId} - Nearby:${d.nearby}`
         ).join('\n');
-        hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
+          hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
           hilog.info(DOMAIN, TAG, 'Devices list: \n %{public}s', deviceInfo);
         } else {
           hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
@@ -102,7 +102,7 @@ struct Index {
       conversation.registerConversationListener(bundleName, abilityName, messageCallback);
       hilog.info(DOMAIN, TAG, 'Listener registered for %{public}s/%{public}s', bundleName, abilityName);
     } catch (err) {
-    let error = err as BusinessError;
+      let error = err as BusinessError;
       hilog.error(DOMAIN, TAG, 'registerConversationListener error: %{public}s - %{public}s', error.code, error.message);
     }
   }
@@ -116,7 +116,7 @@ struct Index {
       conversation.unregisterConversationListener(bundleName, abilityName);
       hilog.info(DOMAIN, TAG, 'Listener unregistered');
     } catch (err) {
-    let error = err as BusinessError;
+      let error = err as BusinessError;
       hilog.error(DOMAIN, TAG, 'unregisterConversationListener error: %{public}s - %{public}s', error.code, error.message);
     }
   }
