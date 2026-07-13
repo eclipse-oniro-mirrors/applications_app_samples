@@ -2,7 +2,7 @@
 
 ## 概述
 
-在车载导航和步行导航场景中，语音交互是核心体验之一。本项目模拟了一个完整的地图导航语音交互闭环，用户通过AI助手进行语音交互，系统将路线文本信息合成为语音进行导航播报，同时支持音频录制与波形实时展示。
+在车载导航和步行导航场景中，语音交互是核心体验之一。本项目模拟了一个完整的导航语音交互闭环，用户通过AI助手进行语音交互，系统将路线文本信息合成为语音进行导航播报，同时支持音频录制与波形实时展示。
 本项目围绕导航场景的语音交互需求，实现了以下四个核心功能：
 
 1. **文本转语音 (TTS)** — 将导航路线文本通过离线TTS引擎合成为PCM音频数据，支持语速/音量/音调调节
@@ -18,7 +18,7 @@
 
 ## 使用说明
 
-1. **权限授权**: 首次运行应用，自动弹出麦克风授权弹窗，点击允许。
+1. **权限授权**: 启动应用，自动弹出麦克风授权弹窗，点击允许。
 2. **进入导航**: 点击「路线」按钮，进入导航详情页。
 3. **AI助手**: 点击「模拟AI助手」按钮，弹出录音弹窗。
 4. **录音结束**: 等待5秒后录制自动结束，开始TTS语音播报。
@@ -28,7 +28,7 @@
 
 ### 1. 文本转语音 (TTS) 实现原理
 
-**核心原理**: 通过HarmonyOS的TTS引擎将文本转换为PCM音频数据，采用回调机制分段接收合成的音频流，最终拼接为完整的PCM文件。
+**核心原理**: 通过TTS引擎将文本转换为PCM音频数据，采用回调机制分段接收合成的音频流，最终拼接为完整的PCM文件。
 
 **技术要点**:
 
@@ -90,7 +90,7 @@ flowchart TD
 
 ### 3. 语音播报 (Native层) 实现原理
 
-**核心原理**: 基于HarmonyOS Native层OH_Audio C++ API实现低延迟音频播放，通过回调机制从PCM文件读取数据并推送到音频渲染器，同时处理音频焦点冲突。
+**核心原理**: 基于Native层OH_Audio C++ API实现低延迟音频播放，通过回调机制从PCM文件读取数据并推送到音频渲染器，同时处理音频焦点冲突。
 
 **技术要点**:
 
@@ -98,7 +98,7 @@ flowchart TD
 - 设置三个关键回调：中断回调(处理焦点)、错误回调、写数据回调(推送PCM数据)
 - 写数据回调中通过`lseek`和`read`从文件描述符读取PCM数据到音频缓冲区
 - 音频焦点冲突时，中断回调根据`OH_AudioInterrupt_Hint`自动暂停/恢复播放
-- 通过NDK层将C++接口导出为ArkTS可调用的函数(如`PlayPcmNDK`)
+- 将C++接口导出为ArkTS可调用的函数(如`PlayPcmNDK`)
 
 **流程图**:
 
@@ -499,7 +499,6 @@ flowchart TD
    auto ret = OH_AudioRenderer_Stop(audioRenderer);
    auto ret = OH_AudioRenderer_Flush(audioRenderer);
 
-   // NDK导出
    static napi_value PlayPcmNDK(napi_env env, napi_callback_info info) {
        OHAudioPlayer::GetInstance().PlayPcm();
        return nullptr;
@@ -533,8 +532,7 @@ flowchart TD
 **开发步骤**:
 
 1. **AudioSession初始化与创建**: 通过 `audio.getAudioManager()` 获取音频管理器，调用 `getSessionManager()` 创建
-   `AudioSessionManager` 实例，并使用 `activateAudioSession()` 激活会话，配置并发模式为 `CONCURRENCY_PAUSE_OTHERS`
-   （暂停其他音频）。
+   `AudioSessionManager` 实例，并使用 `activateAudioSession()` 激活会话，配置并发模式为 `CONCURRENCY_PAUSE_OTHERS`。
 
    **实现文件**: `entry/src/main/ets/controller/MediaControlCenter.ets`。
 
@@ -595,10 +593,6 @@ flowchart TD
    **实现文件**: `entry/src/main/ets/controller/AudioRendererManager.ets`。
 
    ```
-   this.renderer.on('stateChange', (state: audio.AudioState) => {
-     Logger.info(TAG, `Audio renderer state changed: ${audioStateString(state)}`);
-   });
-
    this.renderer.on('writeData', (buffer: ArrayBuffer) => {
      let lastLen: number = this.fileSize - this.readOffset;
      let readLen: number = lastLen >= buffer.byteLength ? buffer.byteLength : lastLen;
@@ -629,13 +623,6 @@ flowchart TD
 6. **音频焦点处理**: 通过 `AudioRenderer` 的状态机自动处理焦点冲突，当焦点丢失时自动暂停，恢复后继续播放。
 
    **实现文件**: `entry/src/main/ets/controller/AudioRendererManager.ets`。
-
-   ```
-   if (state === audio.AudioState.STATE_INVALID) {
-     this.renderer = undefined;
-     throw new Error(`Start AudioRenderer at invalid state.`);
-   }
-   ```
 
 ---
 
@@ -689,14 +676,14 @@ flowchart TD
 
 ### 2. 音频焦点冲突导致播放自动暂停
 
-**问题描述**: 播放过程中被其他应用（如导航语音、闹钟）中断，自动暂停。
+**问题描述**: 播放过程中被其它应用（如导航语音、闹钟）中断，自动暂停。
 
 **解决方案**: 已在`OnAudioInterruptEvent`回调中处理焦点冲突，通过`PlayStatusCallback`通知ETS层更新播放状态UI。如需更精细的焦点策略，可调用
 `OH_AudioStreamBuilder_SetAudioConcurrencyMode`配置`CONCURRENCY_PAUSE_OTHERS`或`CONCURRENCY_MUTE_OTHERS`模式。
 
 ---
 
-### 3. NDK接口调用失败
+### 3. 接口调用失败
 
 **问题描述**: 调用`initPlayer`、`playPcm`等接口返回失败或无响应。
 
@@ -706,4 +693,4 @@ flowchart TD
 - CMakeLists.txt中链接库路径错误
 - 异步调用时播放器未完成初始化
 
-**解决方案**: 确保CMakeLists.txt正确链接`ohaudio`库，并在ETS层等待`initPlayer`异步完成后再调用其他接口。
+**解决方案**: 确保CMakeLists.txt正确链接`ohaudio`库，并在ETS层等待`initPlayer`异步完成后再调用接口。
