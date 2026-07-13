@@ -42,11 +42,22 @@ struct DecodingPixelmap {
   @State visible: Visibility = Visibility.Hidden;
 
   // [Start release_pixelMapDecoder]
-  async release(pixelMap: image.PixelMap | undefined, imageSource: image.ImageSource | undefined) {
-    await pixelMap?.release();
-    pixelMap = undefined;
-    await imageSource?.release();
-    imageSource = undefined;
+  async release() {
+    try {
+      await this.pixelMap?.release();
+    } catch (error) {
+      console.error(`Failed to release PixelMap: ${error}.`);
+    } finally {
+      this.pixelMap = undefined;
+    }
+
+    try {
+      await this.imageSource?.release();
+    } catch (error) {
+      console.error(`Failed to release ImageSource: ${error}.`);
+    } finally {
+      this.imageSource = undefined;
+    }
   }
   // [End release_pixelMapDecoder]
 
@@ -159,7 +170,7 @@ struct DecodingPixelmap {
           .width('50%')
           .margin(10)
         Button('资源释放').onClick(async () => {
-          this.release(this.pixelMap, this.imageSource);
+          await this.release();
           this.visible = Visibility.None;
           this.infoVisible = Visibility.None;
         })

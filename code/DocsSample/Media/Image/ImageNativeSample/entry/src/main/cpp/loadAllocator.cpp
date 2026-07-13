@@ -39,8 +39,8 @@ int32_t GetPixelFormatBytes(int32_t pixelFormat)
             return 8; // 每通道16位浮点数，共4通道，合计8字节。
         case PIXEL_FORMAT_NV21:
         case PIXEL_FORMAT_NV12:
-            // NV21和NV12格式是YUV 4:2:0半平面格式，返回2作为每像素字节。
-            return 2; // 每像素2字节（简化处理）。
+            // NV21和NV12是YUV 4:2:0半平面格式，不能用整数每像素字节数计算行跨度。
+            return 0;
         case PIXEL_FORMAT_RGBA_1010102:
             return 4; // 每像素4字节。
         case PIXEL_FORMAT_YCBCR_P010:
@@ -107,7 +107,6 @@ void DataCopy(OH_PixelmapNative *pixelmap, OH_ImageSourceNative* imageSource, OH
     PixelmapInfo srcInfo;
     GetPixelmapInfo(pixelmap, &srcInfo);
     GetPixelmapAddrInfo(pixelmap, &srcInfo);
-
     void *pixels = nullptr;
     OH_PixelmapNative_AccessPixels(pixelmap, &pixels);
     OH_PixelmapNative *newPixelmap = nullptr;
@@ -122,7 +121,16 @@ void DataCopy(OH_PixelmapNative *pixelmap, OH_ImageSourceNative* imageSource, OH
         }
         return;
     }
-    uint32_t dstRowStride = srcInfo.width * GetPixelFormatBytes(srcInfo.pixelFormat);
+    int32_t pixelBytes = GetPixelFormatBytes(srcInfo.pixelFormat);
+    if (pixelBytes == 0) {
+        OH_PixelmapNative_UnaccessPixels(pixelmap);
+        OH_DecodingOptions_Release(options);
+        OH_ImageSourceNative_Release(imageSource);
+        OH_PixelmapNative_Release(pixelmap);
+        OH_PixelmapNative_Release(newPixelmap);
+        return;
+    }
+    uint32_t dstRowStride = srcInfo.width * pixelBytes;
     void *newPixels = nullptr;
     OH_PixelmapNative_AccessPixels(newPixelmap, &newPixels);
     CopyPixelRows(pixels, newPixels, srcInfo, dstRowStride, allocatorType);
