@@ -22,26 +22,39 @@ import { AppStorage, Button, ClickEvent, Column, Component, Entry, Row, StorageL
 @Entry
 @Component
 struct SetSample {
-  @StorageLink('set') memberSet: Set<number> = new Set<number>([0, 1, 2, 3, 4]);
+  @StorageLink('set') memberSet: Set<number> = new Set<number>([0, 1, 2, 3, 4]); // 使用@StorageLink装饰Set类型变量
 
   build() {
     Row() {
       Column() {
-        Text(`${this.memberSet}`)
+        Text(`${Array.from(this.memberSet)}`)
+          .fontSize(20)
+          .margin(10)
         Button('init set')
+          .width(300)
+          .margin(10)
           .onClick((e: ClickEvent) => {
             this.memberSet = new Set<number>([0, 1, 2, 3, 4]);
           })
         Button('set new one')
+          .width(300)
+          .margin(10)
           .onClick((e: ClickEvent) => {
+            // 新增元素，触发UI刷新
             AppStorage.get<Set<number>>('set')?.add(5);
           })
         Button('clear')
+          .width(300)
+          .margin(10)
           .onClick((e: ClickEvent) => {
+            // 清空Set，触发UI刷新
             this.memberSet.clear();
           })
         Button('delete the first one')
+          .width(300)
+          .margin(10)
           .onClick((e: ClickEvent) => {
+            // 删除元素，触发UI刷新
             this.memberSet.delete(0);
           })
       }

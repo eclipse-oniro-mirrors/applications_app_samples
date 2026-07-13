@@ -26,7 +26,7 @@ export struct Pinch {
   @State pinchX: double = 0;
   @State pinchY: double = 0;
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
         Column() {

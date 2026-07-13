@@ -41,7 +41,7 @@ export class MyNodeController extends NodeController {
         width: 100,
         height: 100
       };
-      renderChildNode.backgroundColor = 0xffff0000.toInt();
+      renderChildNode.backgroundColor = 0xff519db4.toInt();
       renderChildNode.label = 'customRenderChildNode';
       console.info('label:', renderChildNode.label);
       renderNode.appendChild(renderChildNode);
@@ -61,7 +61,7 @@ struct Index {
       NodeContainer(this.myNodeController)
         .width(300)
         .height(700)
-        .backgroundColor(Color.Gray)
+        .backgroundColor(0xffd5d5d5.toInt())
     }
   }
 }

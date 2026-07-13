@@ -163,11 +163,23 @@ napi_value TestStrideWithAllocatorType(napi_env env, napi_callback_info info)
 
     OH_ImageSourceNative* imageSource = nullptr;
     Image_ErrorCode image_ErrorCode = OH_ImageSourceNative_CreateFromUri(filePath, pathSize, &imageSource);
+    if (image_ErrorCode != IMAGE_SUCCESS || imageSource == nullptr) {
+        return GetJsResult(env, image_ErrorCode == IMAGE_SUCCESS ? IMAGE_BAD_PARAMETER : image_ErrorCode);
+    }
     OH_DecodingOptions *options = nullptr;
-    OH_DecodingOptions_Create(&options);
+    image_ErrorCode = OH_DecodingOptions_Create(&options);
+    if (image_ErrorCode != IMAGE_SUCCESS || options == nullptr) {
+        OH_ImageSourceNative_Release(imageSource);
+        return GetJsResult(env, image_ErrorCode == IMAGE_SUCCESS ? IMAGE_BAD_PARAMETER : image_ErrorCode);
+    }
     IMAGE_ALLOCATOR_TYPE allocatorType = IMAGE_ALLOCATOR_TYPE::IMAGE_ALLOCATOR_TYPE_DMA;  // 使用DMA创建pixelMap。
     OH_PixelmapNative *pixelmap = nullptr;
     image_ErrorCode = OH_ImageSourceNative_CreatePixelmapUsingAllocator(imageSource, options, allocatorType, &pixelmap);
+    if (image_ErrorCode != IMAGE_SUCCESS || pixelmap == nullptr) {
+        OH_DecodingOptions_Release(options);
+        OH_ImageSourceNative_Release(imageSource);
+        return GetJsResult(env, image_ErrorCode == IMAGE_SUCCESS ? IMAGE_BAD_PARAMETER : image_ErrorCode);
+    }
     DataCopy(pixelmap, imageSource, options, allocatorType);
     return GetJsResult(env, image_ErrorCode);
 }

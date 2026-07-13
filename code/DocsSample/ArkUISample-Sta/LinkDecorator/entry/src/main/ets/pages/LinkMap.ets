@@ -24,17 +24,30 @@ struct Child {
   build() {
     Column() {
       ForEach(Array.from(this.value.entries()), (item: [int, string]) => {
-        Text(`${item[0]}`).fontSize(30)
-        Text(`${item[1]}`).fontSize(30)
+        Text(`${item[0]}`)
+          .fontSize(20)
+          .margin(10)
+        Text(`${item[1]}`)
+          .fontSize(20)
+          .margin(10)
         Divider()
       })
-      Button('child replace the first one').onClick((e: ClickEvent) => {
-        this.value.set(0, 'aa');
+      Button('child replace the first one')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 更新键值对，触发UI刷新
+          this.value.set(0, 'aa');
       })
-      Button('child delete the first one').onClick((e: ClickEvent) => {
-        this.value.delete(0);
+      Button('child delete the first one')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 删除键值对，触发UI刷新
+          this.value.delete(0);
       })
     }
+    .width('100%')
   }
 }
 
@@ -47,14 +60,25 @@ struct MapSample {
     Row() {
       Column() {
         Child({ value: this.message })
-        Button('parent init one').onClick((e: ClickEvent) => {
-          this.message = new Map<int, string>([[0, 'a'], [1, 'b'], [2, 'c']]);
+        Button('parent init one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            this.message = new Map<int, string>([[0, 'a'], [1, 'b'], [2, 'c']]);
         })
-        Button('parent set new one').onClick((e: ClickEvent) => {
-          this.message.set(3, 'd');
+        Button('parent set new one')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            // 新增键值对，触发UI刷新
+            this.message.set(3, 'd');
         })
-        Button('parent clear').onClick((e: ClickEvent) => {
-          this.message.clear();
+        Button('parent clear')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
+            // 清空Map，触发UI刷新
+            this.message.clear();
         })
       }
       .width('100%')

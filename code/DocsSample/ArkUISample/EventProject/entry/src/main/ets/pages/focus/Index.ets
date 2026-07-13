@@ -56,12 +56,12 @@ const routes: Route[] = [
     description: resource.resourceToString($r('app.string.Focus_Index_FocusableExample_description1')),
   },
   {
-    name: `${Focus_ROUTE_PREFIX}/FocusableExample`,
+    name: `${Focus_ROUTE_PREFIX}/DefaultFocus`,
     title: resource.resourceToString($r('app.string.Focus_Index_FocusableExample_title2')),
     description: resource.resourceToString($r('app.string.Focus_Index_FocusableExample_description2')),
   },
   {
-    name: `${Focus_ROUTE_PREFIX}/FocusableExample`,
+    name: `${Focus_ROUTE_PREFIX}/FocusPriority`,
     title: resource.resourceToString($r('app.string.Focus_Index_FocusableExample_title3')),
     description: resource.resourceToString($r('app.string.Focus_Index_FocusableExample_description3')),
   },

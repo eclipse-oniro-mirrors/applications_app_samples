@@ -3,7 +3,8 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file or copy of the License.
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -40,6 +41,7 @@ import {
   Divider,
   ItemAlign,
   $r,
+  Visibility,
 } from '@kit.ArkUI';
 
 @CustomDialog
@@ -61,7 +63,7 @@ struct DeleteDeviceDialog {
         .margin({ bottom: 26 })
 
       Flex({ justifyContent: FlexAlign.SpaceAround }) {
-        Button('Cancel')
+        Button($r('app.string.cancel'))
           .onClick(() => {
             this.controller!.close();
             this.cancel();
@@ -75,7 +77,7 @@ struct DeleteDeviceDialog {
           .color('#182431')
           .opacity(0.2)
           .alignSelf(ItemAlign.Center)
-        Button('Delete')
+        Button($r('app.string.delete'))
           .onClick(() => {
             this.controller!.close();
             this.confirm();
@@ -96,6 +98,7 @@ struct DeleteDeviceDialog {
 @Component
 export struct ListDeviceView {
   @State deviceInfo: distributedDeviceManager.DeviceBasicInfo | undefined = undefined;
+  @State visible: Visibility = Visibility.None;
   dialogController: CustomDialogController | null = null;
 
   aboutToAppear(): void {
@@ -107,7 +110,7 @@ export struct ListDeviceView {
           logger.info('Callback when the first button is clicked');
         },
         confirm: () => {
-          logger.info('[DeviceManager.RemoteDeviceModel] listDeviceView ' + JSON.stringify(this.deviceInfo));
+          logger.info('listDeviceView ' + JSON.stringify(this.deviceInfo));
           remoteDeviceModel.unAuthenticateDevice(this.deviceInfo!);
           logger.info('Callback when the second button is clicked');
         },
@@ -163,7 +166,7 @@ export struct ListDeviceView {
         Blank()
 
         Row() {
-          Text('Certified')
+          Text($r('app.string.certified'))
             .fontColor('#182431')
             .fontSize(14)
             .opacity(0.6)
@@ -174,6 +177,7 @@ export struct ListDeviceView {
             .margin({ left: 6 })
         }
         .margin({ left: 24 })
+        .visibility(this.visible)
         .onClick(() => {
           this.dialogController?.open();
         })

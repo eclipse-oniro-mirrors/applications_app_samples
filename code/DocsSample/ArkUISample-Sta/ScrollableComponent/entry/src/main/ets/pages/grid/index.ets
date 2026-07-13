@@ -25,6 +25,7 @@ import { GridSideToSide } from './GridSideToSide';
 import { GridScrollbar } from './GridScrollbar';
 import { LongGrid } from './LongGrid';
 import { GridCalculator } from './GridCalculator';
+import { GridSwipeSelect } from './GridSwipeSelect';
 import resource from '../../common/resource';
 import {
   Entry,
@@ -105,6 +106,13 @@ const routes: Route[] = [
     resource.resourceToString($r('app.string.GridCalculator_title')),
     // 请将$r('app.string.GridCalculator')替换为实际资源文件，在本示例中该资源文件的value值为"实现不同大小的网格组成不均匀分布的网格布局场景"
     $r('app.string.GridCalculator_description')
+  ),
+  new Route(
+    'grid/GridSwipeSelect',
+    // 请将$r('app.string.GridSwipeSelect_title')替换为实际资源文件，在本示例中该资源文件的value值为"手指滑动多选"
+    resource.resourceToString($r('app.string.GridSwipeSelect_title')),
+    // 请将$r('app.string.GridSwipeSelect_description')替换为实际资源文件，在本示例中该资源文件的value值为"网格在编辑模式下实现手指滑动多选能力。"
+    $r('app.string.GridSwipeSelect_description')
   )
 ];
 
@@ -128,6 +136,8 @@ export function gridDestination(name: string): void {
     LongGrid();
   } else if (name === routes[7].name) {
     GridCalculator();
+  } else if (name === routes[8].name) {
+    GridSwipeSelect();
   }
 }
 

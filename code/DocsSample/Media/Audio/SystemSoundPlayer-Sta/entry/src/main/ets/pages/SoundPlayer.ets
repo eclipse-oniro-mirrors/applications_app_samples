@@ -103,7 +103,7 @@ async function release() {
 
 // 播放系统音效。
 async function playSystemSound() {
-  console.info('Succeeded in calling the playSystemSound method.');
+  console.info(`Succeeded in calling the playSystemSound method, systemSoundType is ${systemSoundType}`);
 
   // 创建SystemSoundPlayer对象。
   // await create();
@@ -235,7 +235,7 @@ struct Index {
           right: 16
         })
         .margin({
-          bottom: 16
+          bottom: 120
         })
       }
       .height('100%')

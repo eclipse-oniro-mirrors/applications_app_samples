@@ -34,6 +34,7 @@ struct Index {
     Column() {
       Child()
     }
+    .width('100%')
   }
 }
 
@@ -52,29 +53,46 @@ struct Child {
   build() {
     Column() {
       Button('Child change count')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.count += 1;
         })
-      Text(`Child count ${this.count}`);
+      Text(`Child count ${this.count}`)
+        .fontSize(20)
+        .margin(10)
 
       Button('Child change v.num')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.v.num += 2;
         })
-      Text(`Child v ${this.v.num}`);
+      Text(`Child v ${this.v.num}`)
+        .fontSize(20)
+        .margin(10)
 
       Button('Child change p.info')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.p.info += 100;
         })
-      Text(`Child p.info.userInfo ${this.p.info}`);
+      Text(`Child p.info.userInfo ${this.p.info}`)
+        .fontSize(20)
+        .margin(10)
 
       Button('Child change message')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
-          this.message += 'a';
+          this.message += '!';
         })
-      Text(`Child count ${this.message}`);
+      Text(`Child count ${this.message}`)
+        .fontSize(20)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 // [End ConsumeDefaultValue]

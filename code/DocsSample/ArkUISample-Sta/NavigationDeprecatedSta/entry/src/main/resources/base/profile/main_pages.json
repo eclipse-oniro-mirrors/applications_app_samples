@@ -1,0 +1,11 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/routerAndNavigation/ohosRouter",
+    "pages/swiper/SwiperDeprecated",
+    "pages/swiper/SwiperAutoLinear",
+    "pages/routerAndNavigation/systemRouter",
+    "pages/routerAndNavigation/navigationDep",
+    "pages/routerAndNavigation/navRouterExample"
+  ]
+}

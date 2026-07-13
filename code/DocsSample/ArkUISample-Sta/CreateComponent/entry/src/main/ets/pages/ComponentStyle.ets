@@ -22,6 +22,8 @@ import { Button, Color, Component, Entry, Row } from '@kit.ArkUI';
 struct ChildComponent {
   build() {
     Button(`Hello World`)
+      .width('90%')
+      .margin(10)
   }
 }
 
@@ -31,10 +33,11 @@ struct MyComponent {
   build() {
     Row() {
       ChildComponent()
-        .width(200)
+        .width(300)
         .height(300)
-        .backgroundColor(Color.Red)
+        .backgroundColor(Color.Pink)
     }
+    .height('100%')
   }
 }
 // [End ComponentStyle]

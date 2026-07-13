@@ -40,7 +40,7 @@ export struct MoreDrag {
     instance.opacity(0.4);
   }
 
-  onPageShow(): void {
+  aboutToAppear(): void {
     let i: int = 0;
     for (i = 0; i < 100; i++) {
       this.numbers.push(i);
@@ -50,7 +50,7 @@ export struct MoreDrag {
   }
 
   @Builder
-  RandomBuilder(idx: int) {
+  RandomBuilder(idx: int): void {
     Column()
       .backgroundColor(this.colors[idx % 9])
       .width(50)
@@ -58,7 +58,7 @@ export struct MoreDrag {
       .opacity(1.0)
   }
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
 

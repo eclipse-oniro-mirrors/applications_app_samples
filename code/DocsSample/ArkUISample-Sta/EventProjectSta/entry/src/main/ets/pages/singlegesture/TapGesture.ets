@@ -23,7 +23,7 @@ import { $r, Column, ColumnOptions, Component, Entry, GestureEvent, NavDestinati
 export struct Tap {
   @State value: string = '';
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
         Column() {
@@ -33,7 +33,12 @@ export struct Tap {
               TapGesture({ count: 2 })
                 .onAction((event: GestureEvent|undefined) => {
                   if(event){
-                    this.value = JSON.stringify(event.fingerList[0]);
+                    this.value = `{\"id\":${event.fingerList[0].id},\"hand\":${event.fingerList[0].hand},` +
+                      `\"globalX\":${event.fingerList[0].globalX},\"globalY\":${event.fingerList[0].globalY},` +
+                      `\"localX\":${event.fingerList[0].localX},\"localY\":${event.fingerList[0].localY},` +
+                      `\"displayX\":${event.fingerList[0].displayX},\"displayY\":${event.fingerList[0].displayY},` +
+                      `\"globalDisplayX\":${event.fingerList[0].globalDisplayX},` +
+                      `\"globalDisplayY\":${event.fingerList[0].globalDisplayY}}`;
                   }
                 }))
           Text(this.value)

@@ -13,14 +13,18 @@
  * limitations under the License.
  */
 {
+  // [Start module_json_config]
   "module": {
+    // [StartExclude module_json_config]
     "name": "entry",
     "type": "entry",
     "description": "$string:module_desc",
     "mainElement": "EntryAbility",
+    // [EndExclude module_json_config]
     "deviceTypes": [
       "phone"
     ],
+    // [StartExclude module_json_config]
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:main_pages",
@@ -46,5 +50,7 @@
         ]
       }
     ]
+    // [EndExclude module_json_config]
   }
+  // [End module_json_config]
 }

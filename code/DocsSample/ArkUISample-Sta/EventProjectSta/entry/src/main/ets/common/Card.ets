@@ -21,7 +21,7 @@ export struct CompletedRoutableCard {
   @State title: string = '';
   @State description: string = '';
 
-  build() {
+  build(): void {
     CardTop() {
       Button({ type: ButtonType.Circle } as ButtonOptions) {
         SymbolGlyph(this.symbol)
@@ -49,7 +49,7 @@ export struct Card {
   @BuilderParam
   content: () => void;
 
-  build() {
+  build(): void {
     Row({ space: 12 } as RowOptions) {
       this.content();
     }
@@ -66,7 +66,7 @@ export struct CardTop {
   @BuilderParam
   content: () => void;
 
-  build() {
+  build(): void {
     Row({ space: 12 } as RowOptions) {
       this.content();
     }
@@ -83,7 +83,7 @@ export struct RoutableCard {
   @State icon: Resource = $r('sys.symbol.label');
   @State title: ResourceStr = '';
 
-  build() {
+  build(): void {
     Card() {
       Button({ type: ButtonType.Circle } as ButtonOptions) {
         SymbolGlyph(this.icon)

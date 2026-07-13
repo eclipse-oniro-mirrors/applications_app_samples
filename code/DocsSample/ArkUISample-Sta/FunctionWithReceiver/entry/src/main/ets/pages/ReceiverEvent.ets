@@ -20,7 +20,7 @@ import { NavDestination, $r } from '@kit.ArkUI';
 import { ClickEvent, Color, Component, Entry, Row, Text, TextAttribute, State } from '@kit.ArkUI';
 
 function makeMeClick(this: TextAttribute, onClick: (e: ClickEvent) => void): TextAttribute {
-  this.backgroundColor(Color.Blue);
+  this.backgroundColor(Color.Pink);
   this.onClick(onClick);
   return this;
 }
@@ -37,10 +37,13 @@ struct FancyUse {
   build() {
     Row() {
       Text(`${this.label}`)
+        .fontSize(20)
+        .margin(10)
         .makeMeClick((e: ClickEvent) => {
           this.onClickHandler();
         })
     }
+    .height('100%')
   }
 }
 

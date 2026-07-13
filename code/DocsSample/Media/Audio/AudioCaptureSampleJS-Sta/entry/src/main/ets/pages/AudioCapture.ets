@@ -62,14 +62,20 @@ class AudioRendererOptionsCompat implements audio.AudioRendererOptions {
   }
 }
 
-let audioCapturerOptions: AudioCapturerOptionsCompat = new AudioCapturerOptionsCompat(audioStreamInfo, audioCapturerInfo);
+let audioCapturerOptions: audio.AudioCapturerOptions = {
+  streamInfo: audioStreamInfo,
+  capturerInfo: audioCapturerInfo
+};
 
 let audioRendererInfo: audio.AudioRendererInfo = {
   usage: audio.StreamUsage.STREAM_USAGE_MUSIC,
   rendererFlags: 0
 };
 
-let audioRendererOptions: AudioRendererOptionsCompat = new AudioRendererOptionsCompat(audioStreamInfo, audioRendererInfo);
+let audioRendererOptions: audio.AudioRendererOptions = {
+  streamInfo: audioStreamInfo,
+  rendererInfo: audioRendererInfo
+};
 
 let file: fs.File | undefined = undefined;
 let readDataCallback: Callback<ArrayBuffer> = (_buffer: ArrayBuffer): void => {};
@@ -178,6 +184,80 @@ async function startRender(updateCallback?: (msg: string, isError: boolean) => v
   }
 }
 // [EndExclude all_audioCapturer]
+
+// 应用级快照：同时写入缓存文件并输出到 Hilog。
+async function printAppSnapshot(context: common.UIAbilityContext,
+  updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
+  try {
+    let path = context.cacheDir + '/app_snapshot.txt';
+    let snapshotFile = fs.openSync(path, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+    audio.getAudioManager().getDebuggingManager().printAppInfo(snapshotFile.fd);
+    fs.closeSync(snapshotFile);
+    audio.getAudioManager().getDebuggingManager().printAppInfo(-1);
+    if (updateCallback) {
+      updateCallback(`App snapshot printed to system log and ${path}.`, false);
+    }
+  } catch (err) {
+    let error = err as BusinessError;
+    if (updateCallback) {
+      updateCallback(`Print app snapshot failed: ${error.message}`, true);
+    }
+  }
+}
+
+// 录音快照：同时写入缓存文件并输出到 Hilog。
+async function printCapturerSnapshot(context: common.UIAbilityContext,
+  updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
+  let capturer = audioCapturer;
+  if (capturer === undefined) {
+    if (updateCallback) {
+      updateCallback('AudioCapturer is not created.', true);
+    }
+    return;
+  }
+  try {
+    let path = context.cacheDir + '/capturer_snapshot.txt';
+    let snapshotFile = fs.openSync(path, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+    audio.getAudioManager().getDebuggingManager().printCapturerInfo(capturer, snapshotFile.fd);
+    fs.closeSync(snapshotFile);
+    audio.getAudioManager().getDebuggingManager().printCapturerInfo(capturer, -1);
+    if (updateCallback) {
+      updateCallback(`Capturer snapshot printed to system log and ${path}.`, false);
+    }
+  } catch (err) {
+    let error = err as BusinessError;
+    if (updateCallback) {
+      updateCallback(`Print capturer snapshot failed: ${error.message}`, true);
+    }
+  }
+}
+
+// 播放快照：同时写入缓存文件并输出到 Hilog。
+async function printRendererSnapshot(context: common.UIAbilityContext,
+  updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
+  let renderer = audioRenderer;
+  if (renderer === undefined) {
+    if (updateCallback) {
+      updateCallback('AudioRenderer is not created.', true);
+    }
+    return;
+  }
+  try {
+    let path = context.cacheDir + '/renderer_snapshot.txt';
+    let snapshotFile = fs.openSync(path, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+    audio.getAudioManager().getDebuggingManager().printRendererInfo(renderer, snapshotFile.fd);
+    fs.closeSync(snapshotFile);
+    audio.getAudioManager().getDebuggingManager().printRendererInfo(renderer, -1);
+    if (updateCallback) {
+      updateCallback(`Renderer snapshot printed to system log and ${path}.`, false);
+    }
+  } catch (err) {
+    let error = err as BusinessError;
+    if (updateCallback) {
+      updateCallback(`Print renderer snapshot failed: ${error.message}`, true);
+    }
+  }
+}
 
 // [StartExclude all_audioCapturer]
 // 停止音频渲染，文件句柄在 release 阶段统一关闭。
@@ -684,6 +764,60 @@ struct Index {
             (async (): Promise<void> => {
             await releaseRender((msg, isError) => this.updateLogInfo(msg, isError));
             this.currentState = '释放成功';
+
+            })();
+          });
+        }
+
+        // 快照按钮区
+        Row() {
+          Column() {
+            Text('Renderer Snapshot').fontColor(Color.Black).fontSize(14);
+          }
+          .backgroundColor(Color.White)
+          .borderRadius(20)
+          .width('30%')
+          .height(60)
+          .justifyContent(FlexAlign.Center)
+          .margin({ right: 8, bottom: 12 })
+          .onClick((event: ClickEvent): void => {
+            (async (): Promise<void> => {
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            await printRendererSnapshot(context, (msg, isError) => this.updateLogInfo(msg, isError));
+
+            })();
+          });
+
+          Column() {
+            Text('Capturer Snapshot').fontColor(Color.Black).fontSize(14);
+          }
+          .backgroundColor(Color.White)
+          .borderRadius(20)
+          .width('30%')
+          .height(60)
+          .justifyContent(FlexAlign.Center)
+          .margin({ right: 8, bottom: 12 })
+          .onClick((event: ClickEvent): void => {
+            (async (): Promise<void> => {
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            await printCapturerSnapshot(context, (msg, isError) => this.updateLogInfo(msg, isError));
+
+            })();
+          });
+
+          Column() {
+            Text('App Snapshot').fontColor(Color.Black).fontSize(14);
+          }
+          .backgroundColor(Color.White)
+          .borderRadius(20)
+          .width('30%')
+          .height(60)
+          .justifyContent(FlexAlign.Center)
+          .margin({ bottom: 12 })
+          .onClick((event: ClickEvent): void => {
+            (async (): Promise<void> => {
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            await printAppSnapshot(context, (msg, isError) => this.updateLogInfo(msg, isError));
 
             })();
           });

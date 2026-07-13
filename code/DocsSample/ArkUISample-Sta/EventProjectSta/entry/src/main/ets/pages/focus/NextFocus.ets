@@ -21,7 +21,7 @@ import { $r, Button, Column, ColumnOptions, Component, Entry, NavDestination, Ro
 @Entry
 @Component
 export struct NextFocusExample {
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 30 } as ColumnOptions) {
         Row().height('30%')

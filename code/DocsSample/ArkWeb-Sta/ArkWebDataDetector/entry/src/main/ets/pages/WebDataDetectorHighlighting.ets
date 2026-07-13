@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-
+// [Start web_DataDetector_Highlighting]
 import { Entry, Row, Column, Component, Button, ClickEvent, Web, $rawfile } from '@ohos.arkui.component'
 import { State } from '@ohos.arkui.stateManagement'
 import { webview } from '@kit.ArkWeb'
@@ -21,7 +21,6 @@ import { webview } from '@kit.ArkWeb'
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World';
   webController: webview.WebviewController = new webview.WebviewController(undefined);
 
   build() {
@@ -46,3 +45,4 @@ struct Index {
     .width('100%')
   }
 }
+// [End web_DataDetector_Highlighting]

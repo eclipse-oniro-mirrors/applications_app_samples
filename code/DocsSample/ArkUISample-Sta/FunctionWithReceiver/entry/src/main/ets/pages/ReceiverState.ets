@@ -32,11 +32,13 @@ struct FancyUse {
   build() {
     Row() {
       Text('Fancy')
+        .margin(10)
         .fancy(this.fontSizeValue)
         .onClick((e: ClickEvent) => {
           this.fontSizeValue = 30;
         })
     }
+    .height('100%')
   }
 }
 

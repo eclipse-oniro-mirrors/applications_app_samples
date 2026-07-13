@@ -25,12 +25,16 @@ struct Child {
   build() {
     Column() {
       Text(`count(${this.count})`)
+        .fontSize(20)
+        .margin(10)
       Button(`count(${this.count}), Child`)
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.count = 'Ancestors';
         })
     }
-    .width('50%')
+    .width('100%')
   }
 }
 
@@ -52,11 +56,14 @@ struct Ancestors {
   build() {
     Column() {
       Button(`count(${this.count}), Child`)
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.count = undefined;
         })
       Parent()
     }
+    .width('100%')
   }
 }
 // [End ProvideConsumeUnion]

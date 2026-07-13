@@ -145,7 +145,7 @@ export struct SpringLoadingPage {
 
   //[End springLoading_handleSpringLoading]
   //[Start springLoading_example]
-  build() {
+  build(): void {
     Column() {
       //[StartExclude springLoading_example]
       //[StartExclude SpringLoading_start]

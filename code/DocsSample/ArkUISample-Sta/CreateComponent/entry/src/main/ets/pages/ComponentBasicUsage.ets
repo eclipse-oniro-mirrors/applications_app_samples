@@ -16,7 +16,7 @@
  */
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start ComponentBasicUsage]
-import { ClickEvent, Column, Component, Divider, Entry, State, Text } from '@kit.ArkUI';
+import { Column, Component, Divider, Entry, State, Text } from '@kit.ArkUI';
 
 @Component
 struct HelloComponent {
@@ -26,10 +26,13 @@ struct HelloComponent {
     // HelloComponent自定义组件组合系统组件Row和Text
     Column() {
       Text(this.message)
-        .onClick((e: ClickEvent) => {
+        .onClick(() => {
+        .fontSize(20)
+        .margin(10)
           this.message = 'Hello, ArkUI!';
         })
     }
+    .width('100%')
   }
 }
 
@@ -39,10 +42,13 @@ struct ParentComponent {
   build() {
     Column() {
       Text('ArkUI message')
+        .fontSize(20)
+        .margin(10)
       HelloComponent({ message: 'Hello World!' });
       Divider()
       HelloComponent({ message: '你好，世界!' });
     }
+    .width('100%')
   }
 }
 // [End ComponentBasicUsage]

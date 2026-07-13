@@ -23,10 +23,13 @@ struct ModuleComponent {
       // 正例：使用if判断
       if (this.aVar > 10) {
         Text('...')
+          .fontSize(20)
+          .margin(10)
       } else {
         Image('...')
       }
     }
+    .width('100%')
   }
 
   // [End if_component]

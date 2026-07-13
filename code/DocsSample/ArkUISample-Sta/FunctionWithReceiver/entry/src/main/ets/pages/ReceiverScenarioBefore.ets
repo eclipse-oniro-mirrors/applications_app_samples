@@ -30,16 +30,21 @@ struct FancyUse {
       Text(`${this.label}`)
         .fontStyle(FontStyle.Italic)
         .fontWeight(100)
-        .backgroundColor(Color.Blue)
+        .backgroundColor(Color.Grey)
+        .fontSize(20)
       Text(`${this.label}`)
         .fontStyle(FontStyle.Italic)
         .fontWeight(200)
         .backgroundColor(Color.Pink)
+        .fontSize(20)
       Text(`${this.label}`)
         .fontStyle(FontStyle.Italic)
         .fontWeight(300)
         .backgroundColor(Color.Orange)
-    }.margin('20%')
+        .fontSize(20)
+    }
+    .margin('5%')
+    .height('100%')
   }
 }
 

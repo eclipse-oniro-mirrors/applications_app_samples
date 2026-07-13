@@ -26,14 +26,17 @@ struct Parent {
   build() {
     Column() {
       Text(`父组件的sourceNumber：` + this.sourceNumber)
+        .fontSize(20)
+        .margin(10)
       Child({ sourceNumber: this.sourceNumber })
       Button('父组件更改sourceNumber')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.sourceNumber++;
         })
     }
     .width('100%')
-    .height('100%')
   }
 }
 
@@ -43,18 +46,26 @@ struct Child {
   @Link @Watch('onSourceChange') sourceNumber: int;
 
   onSourceChange(propertyName: string) {
+    // 给memberMessage变量赋新的值
     this.memberMessage = this.sourceNumber.toString();
   }
 
   build() {
     Column() {
       Text(this.memberMessage)
+        .fontSize(20)
+        .margin(10)
       Text(`子组件的sourceNumber：` + this.sourceNumber.toString())
+        .fontSize(20)
+        .margin(10)
       Button('子组件更改memberMessage')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.memberMessage = 'Hello memberMessage';
         })
     }
+    .width('100%')
   }
 }
 // [End LinkWatch]

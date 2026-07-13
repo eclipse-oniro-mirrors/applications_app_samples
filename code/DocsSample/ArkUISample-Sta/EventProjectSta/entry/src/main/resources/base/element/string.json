@@ -214,7 +214,7 @@
     },
     {
       "name": "gesture_GestureJudge_text",
-      "value": "以下示例中，Image和Stack两个组件位于同一区域。长按Stack组件的上半部分可触发挂载在Stack组件上的长按手势，长按Stack组件的下半部分则会响应Image组件的拖拽操作。"
+      "value": "以下示例展示外层Scroll和内层Scroll嵌套时的手势拦截。通过控制内外层滚动组件的Pan手势识别器状态，在内层滚动到顶部或底部时，将滑动手势交由外层Scroll继续处理。"
     },
     {
       "name": "gesture_GestureJudge_title",

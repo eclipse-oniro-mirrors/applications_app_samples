@@ -62,6 +62,7 @@ import { DisplayedTogether } from './DisplayedTogether';
 import { TextLong } from './TextLong';
 import { TextLongTow } from './TextLongTow';
 import { CustomAndBlockMenus } from './CustomAndBlockMenus';
+import { TextMenuShowSubWindow } from './TextMenuShowSubWindow';
 
 export const TEXT_ROUTE_PREFIX: string = 'text';
 
@@ -140,7 +141,10 @@ const routes: Array<Route> = [
     $r('app.string.Text_Long_Tow_description')),
   new Route('text/CustomAndBlockMenus',
     resourceToStringManager.resourceToString($r('app.string.CustomAndBlockMenus')),
-    $r('app.string.CustomAndBlockMenus'))
+    $r('app.string.CustomAndBlockMenus')),
+  new Route('text/TextMenuShowSubWindow',
+    resourceToStringManager.resourceToString($r('app.string.TextMenuShow_title')),
+    $r('app.string.TextMenuShow_description'))
 ];
 
 @Builder
@@ -197,6 +201,8 @@ export function TextDestination(name: string): void {
     TextLongTow();
   } else if (name === routes[24].name) {
     CustomAndBlockMenus();
+  } else if (name === routes[25].name) {
+    TextMenuShowSubWindow();
   }
 }
 

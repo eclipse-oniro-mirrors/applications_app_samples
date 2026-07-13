@@ -28,11 +28,14 @@ struct Index {
     Column() {
       MyComponent({ count: this.count })
       Button('change')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           // 将count从number变为null，类型变化可观察到，UI会刷新
           this.count = null;
         })
     }
+    .width('100%')
   }
 }
 
@@ -43,7 +46,10 @@ struct MyComponent {
   build() {
     Column() {
       Text(`count(${this.count})`)
+        .fontSize(20)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 

@@ -17,7 +17,7 @@ class ConnectionCallback implements webNativeMessagingExtensionManager.WebExtens
   }
   onDisconnect(connection:webNativeMessagingExtensionManager.ConnectionNativeInfo) {
     // disconnect
-    console.error(`onDisconnect id ${connection.connectionId} is connected`);
+    console.error(`onDisconnect id ${connection.connectionId} is disconnected`);
   }
   onFailed(code:webNativeMessagingExtensionManager.NmErrorCode, errMsg:string) {
     console.error(`onFailed error code is ${code}, errMsg is ${errMsg}`);

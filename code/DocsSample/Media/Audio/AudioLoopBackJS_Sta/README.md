@@ -62,11 +62,13 @@
 
 ### 约束与限制
 
-1.本示例仅支持标准系统上运行，支持设备：RK3568;
+1.本示例仅支持标准系统上运行;
 
 2.本示例仅支持API26版本SDK，SDK版本号(API Version 26 Beta)，镜像版本号(7.0Beta);
 
-3.本示例需要使用DevEco Studio 6.0.0 Canary1 (Build Version: 6.0.0.94SP4, built on April 8, 2026)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio 6.0.0 Canary1 (Build Version: 6.0.0.94SP4, built on April 8, 2026)及以上版本才可编译运行；
+
+4.RK3568不支持低时延，故无法在该设备上运行
 
 ### 下载
 

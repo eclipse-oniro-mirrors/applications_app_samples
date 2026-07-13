@@ -23,12 +23,17 @@ struct IfPage {
       // 正例：使用if
       if (this.expression == 1) {
         Text('...')
+          .fontSize(20)
+          .margin(10)
       } else if (this.expression == 2) {
         Image('...')
       } else {
         Text('...')
+          .fontSize(20)
+          .margin(10)
       }
     }
+    .width('100%')
   }
 
   // [End switch_syntax]

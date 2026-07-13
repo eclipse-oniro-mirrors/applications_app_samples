@@ -23,7 +23,7 @@ import { KeyCode } from '@kit.InputKit';
 @Component
 export struct FocusPrioritySample {
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
         Column({ space: 8 } as ColumnOptions) {

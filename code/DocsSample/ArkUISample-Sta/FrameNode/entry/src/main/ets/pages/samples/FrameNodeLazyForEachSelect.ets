@@ -42,7 +42,9 @@ import {
   Text,
   TextAlign,
   UIContext,
-  wrapBuilder
+  wrapBuilder,
+  Axis,
+  ColumnOptions
 } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
@@ -166,7 +168,7 @@ class Params {
 
 @Builder
 function buildData(params: Params) {
-  List() {
+  List({ scroller: params.scroller! }) {
     LazyForEach(params.data!, (item: StringData, index: int) => {
       ListItem() {
         Column() {
@@ -188,6 +190,7 @@ function buildData(params: Params) {
     })
   }
   .cachedCount(5)
+  .listDirection(Axis.Horizontal)
 }
 
 class MyNodeController extends NodeController {
@@ -261,7 +264,7 @@ struct Index {
 
   build() {
     Scroll(this.scroller) {
-      Column() {
+      Column({ space: 8 } as ColumnOptions) {
         Column() {
           Text('This is a NodeContainer.')
             .textAlign(TextAlign.Center)

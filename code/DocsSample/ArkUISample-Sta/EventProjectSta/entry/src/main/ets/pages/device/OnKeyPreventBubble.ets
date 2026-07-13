@@ -76,7 +76,7 @@ struct KeyEventPreventBubble {
 // [End listen_response_key_event]
 
 @Builder
-export function OnKeyPreventBubble() {
+export function OnKeyPreventBubble(): void {
   NavDestination() {
     Column({ space: 12 } as ColumnOptions) {
       KeyEventPreventBubble()

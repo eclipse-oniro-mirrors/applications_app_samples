@@ -36,7 +36,7 @@ export default class MyWebNativeMessageExtAbility extends WebNativeMessagingExte
       let writeLen = await fs.write(fdWrite, writeBuffer.buffer);
       hilog.info(DOMAIN_NUMBER, TAG, 'write pipe length %{public}d', writeLen);
     } catch (err) {
-      hilog.error(DOMAIN_NUMBER, TAG, 'fs io failed, error code: ' + err.code + " message: " + err.code);
+      hilog.error(DOMAIN_NUMBER, TAG, 'fileIo failed, error code: ' + err.code + " message: " + err.message);
     }
   }
 

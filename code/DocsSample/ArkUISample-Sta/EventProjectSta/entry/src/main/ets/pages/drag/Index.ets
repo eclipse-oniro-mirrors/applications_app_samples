@@ -40,7 +40,7 @@ const routes: Route[] = [
 ];
 
 @Builder
-export function DragGestureDestination(name: string) {
+export function DragGestureDestination(name: string): void {
   if (name === Drag_ROUTE_PREFIX) {
     DragGestureExample();
   } else if (name === routes[0].name) {
@@ -60,7 +60,7 @@ struct DragGestureExample {
       List({ space: 12 } as ListOptions) {
         ForEach(routes, (route: Route, index: int) => {
           ListItem() {
-            CompletedRoutableCard({ title: route.title, description: route.description })
+            CompletedRoutableCard({ title: route.title, description: route.description as string })
           }
           .width('100%')
           .onClick(() => {

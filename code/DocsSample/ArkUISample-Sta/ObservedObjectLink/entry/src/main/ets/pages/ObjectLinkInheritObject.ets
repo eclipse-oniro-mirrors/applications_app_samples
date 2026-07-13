@@ -16,7 +16,7 @@
  */
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start ObjectLinkInheritObject]
-import { Button, Column, CommonMethod, Component, Entry, Observed, State, Text, TextAlign, TextAttribute } from '@kit.ArkUI';
+import { Button, Column, Component, Entry, Observed, State, Text } from '@kit.ArkUI';
 
 @Observed
 class Animal {
@@ -39,55 +39,35 @@ class Dog extends Animal {
   }
 }
 
-function commonStyles(this: TextAttribute): TextAttribute {
-  return this.width(320).margin(10).fontSize(30).textAlign(TextAlign.Center);
-}
-
 @Entry
 @Component
 struct Index {
-  @State dog: Dog = new Dog('Molly', 2, 'Husky');
-
-  pressedStyles(instance: CommonMethod) {
-    instance.backgroundColor('#ffd5d5d5');
-  }
-
-  normalStyles(instance: CommonMethod) {
-    instance.backgroundColor('#ffffff');
-  }
+  @State dog: Dog = new Dog('Molly', 2, 'Husky'); // 初始化dog对象
 
   build() {
     Column() {
-      Text(`${this.dog.name}`)
-        .commonStyles()
-        .stateStyles({
-          pressed: this.pressedStyles,
-          normal: this.normalStyles
-        })
+      Button(`${this.dog.name}`)
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.dog.name = 'DouDou';
         })
 
-      Text(`${this.dog.age}`)
-        .commonStyles()
-        .stateStyles({
-          pressed: this.pressedStyles,
-          normal: this.normalStyles
-        })
+      Button(`${this.dog.age}`)
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.dog.age = 3;
         })
 
-      Text(`${this.dog.kinds}`)
-        .commonStyles()
-        .stateStyles({
-          pressed: this.pressedStyles,
-          normal: this.normalStyles
-        })
+      Button(`${this.dog.kinds}`)
+        .width(300)
+        .margin(10)
         .onClick((e) => {
           this.dog.kinds = 'Samoyed';
         })
     }
+    .width('100%')
   }
 }
 // [End ObjectLinkInheritObject]

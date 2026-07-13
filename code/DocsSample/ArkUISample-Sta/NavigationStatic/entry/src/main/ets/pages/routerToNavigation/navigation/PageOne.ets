@@ -1,0 +1,60 @@
+﻿'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start nav_page_one]
+import {
+  Entry,
+  Component,
+  Button,
+  Column,
+  ButtonType,
+  NavPathStack,
+  NavDestinationContext,
+  $r,
+  NavDestination
+} from '@kit.ArkUI';
+
+@Builder
+export function PageOneBuilder(): void {
+  PageOne();
+}
+
+@Entry
+@Component
+export struct PageOne {
+  pathStack: NavPathStack = new NavPathStack();
+
+  build(): void {
+    NavDestination() {
+      Column() {
+        // 请将$r('app.string.routerToNavigation_nav_text1_backHome')替换为实际资源文件，在本示例中该资源文件的value值为"回到首页"
+        Button($r('app.string.routerToNavigation_nav_text1_backHome'), { stateEffect: true, type: ButtonType.Capsule })
+          .width('80%')
+          .height(40)
+          .margin(20)
+          .onClick(() => {
+            this.pathStack.clear();
+          })
+      }.width('100%').height('100%')
+    }.title('PageOne')
+    .onReady((context: NavDestinationContext) => {
+      this.pathStack = context.pathStack;
+    })
+  }
+}
+
+// [End nav_page_one]

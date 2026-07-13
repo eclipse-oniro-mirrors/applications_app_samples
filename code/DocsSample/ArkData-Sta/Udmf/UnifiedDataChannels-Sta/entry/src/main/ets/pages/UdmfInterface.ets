@@ -51,12 +51,12 @@ export function insertUnifiedData() {
       if (!err) {
         hilog.info(0xFF00, '[Sample_Udmf]', `Succeeded in inserting data. key = ${key}`);
       } else {
-        hilog.error(0xFF00, '[Sample_Udmf]', `Failed to insert data. code is ${err.code},message is ${err.message}`);
+        hilog.error(0xFF00, '[Sample_Udmf]', `Failed to insert data. code is ${err.code}, message is ${err.message}`);
       }
     });
   } catch (e) {
     hilog.error(0xFF00, '[Sample_Udmf]',
-      `Insert data throws an exception. code is ${e.code},message is ${e.message}`);
+      `Insert data throws an exception. code is ${e.code}, message is ${e.message}`);
   }
   // [End unified_data_channels_insert_data]
 }
@@ -88,12 +88,12 @@ export function updateUnifiedData() {
       if (!err) {
         hilog.info(0xFF00, '[Sample_Udmf]', `Succeeded in updating data.`);
       } else {
-        hilog.error(0xFF00, '[Sample_Udmf]', `Failed to update data. code is ${err.code},message is ${err.message}`);
+        hilog.error(0xFF00, '[Sample_Udmf]', `Failed to update data. code is ${err.code}, message is ${err.message}`);
       }
     });
   } catch (e) {
     hilog.error(0xFF00, '[Sample_Udmf]',
-      `Update data throws an exception. code is ${e.code},message is ${e.message}`);
+      `Update data throws an exception. code is ${e.code}, message is ${e.message}`);
   }
   // [End unified_data_channels_update_data]
 }
@@ -126,12 +126,12 @@ export function deleteUnifiedData() {
           }
         }
       } else {
-        hilog.error(0xFF00, '[Sample_Udmf]', `Failed to delete data. code is ${err.code},message is ${err.message}`);
+        hilog.error(0xFF00, '[Sample_Udmf]', `Failed to delete data. code is ${err.code}, message is ${err.message}`);
       }
     });
   } catch (e) {
     hilog.error(0xFF00, '[Sample_Udmf]',
-      `Delete data throws an exception. code is ${e.code},message is ${e.message}`);
+      `Delete data throws an exception. code is ${e.code}, message is ${e.message}`);
   }
   // [End unified_data_channels_delete_data]
 }
@@ -164,12 +164,12 @@ export function queryUnifiedData() {
           }
         }
       } else {
-        hilog.error(0xFF00, '[Sample_Udmf]', `Failed to query data. code is ${err.code},message is ${err.message}`);
+        hilog.error(0xFF00, '[Sample_Udmf]', `Failed to query data. code is ${err.code}, message is ${err.message}`);
       }
     });
   } catch (e) {
     hilog.error(0xFF00, '[Sample_Udmf]',
-      `Query data throws an exception. code is ${e.code},message is ${e.message}`);
+      `Query data throws an exception. code is ${e.code}, message is ${e.message}`);
   }
   // [End unified_data_channels_query_data]
 }

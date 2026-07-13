@@ -26,17 +26,27 @@ struct Parent {
   build() {
     Column() {
       ForEach(Array.from(this.message.entries()), (item: [number, number]) => {
-        Text(`${item[0]}`).fontSize(30)
+        Text(`${item[0]}`)
+          .fontSize(20)
+          .margin(10)
         Divider()
       })
-      Button('parent init set').onClick((e: ClickEvent) => {
-        this.message = new Set<number>([1, 2, 3, 4]);
+      Button('parent init set')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          this.message = new Set<number>([1, 2, 3, 4]);
       })
-      Button('parent set new one').onClick((e: ClickEvent) => {
-        this.message.add(5);
+      Button('parent set new one')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 新增元素，触发UI刷新
+          this.message.add(5);
       })
       Child()
     }
+    .width('100%')
   }
 }
 
@@ -46,16 +56,28 @@ struct Child {
 
   build() {
     Column() {
-      Button('child init set').onClick((e: ClickEvent) => {
-        this.message = new Set<number>([1, 2, 3, 4, 5, 6]);
+      Button('child init set')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          this.message = new Set<number>([1, 2, 3, 4, 5, 6]);
       })
-      Button('child clear').onClick((e: ClickEvent) => {
-        this.message.clear();
+      Button('child clear')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 清空Set，触发UI刷新
+          this.message.clear();
       })
-      Button('child delete the first one').onClick((e: ClickEvent) => {
-        this.message.delete(1);
+      Button('child delete the first one')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 删除元素，触发UI刷新
+          this.message.delete(1);
       })
     }
+    .width('100%')
   }
 }
 // [End ProviderConsumerSet]

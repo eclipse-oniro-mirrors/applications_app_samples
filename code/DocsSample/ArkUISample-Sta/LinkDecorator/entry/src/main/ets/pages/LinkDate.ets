@@ -25,19 +25,31 @@ struct DateComponent {
   build() {
     Column() {
       Text(`${this.selectedDate}`)
+        .fontSize(20)
+        .margin(10)
       Button('child increase the year by 1')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 调用Date的setFullYear接口修改年份，触发UI刷新
           this.selectedDate.setFullYear(this.selectedDate.getFullYear() + 1);
         })
       Button('child increase the day by 1')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 调用Date的setDate接口修改日期，触发UI刷新
           this.selectedDate.setDate(this.selectedDate.getDate() + 1);
         })
       Button('child update the new date')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 通过给selectedDate重新赋值新的Date实例，触发UI刷新
           this.selectedDate = new Date('2023-09-09');
         })
     }
+    .width('100%')
   }
 }
 @Entry
@@ -48,16 +60,25 @@ struct ParentComponent {
   build() {
     Column() {
       Text(`${this.parentSelectedDate}`)
+        .fontSize(20)
+        .margin(10)
       Button('parent increase the month by 1')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 调用Date的setMonth接口修改月份，触发UI刷新
           this.parentSelectedDate.setMonth(this.parentSelectedDate.getMonth() + 1);
         })
       Button('parent update the new date')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 通过给parentSelectedDate重新赋值新的Date实例，触发UI刷新
           this.parentSelectedDate = new Date('2023-07-07');
         })
       DateComponent({ selectedDate:this.parentSelectedDate })
     }
+    .width('100%')
   }
 }
 // [End LinkDate]

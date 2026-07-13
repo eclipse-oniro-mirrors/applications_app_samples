@@ -26,7 +26,7 @@ export struct FocusTransferExample {
     this.logText = (this.logText + `${message}\n`) as string;
   }
 
-  build() {
+  build(): void {
     NavDestination() {
       Column() {
         Row() {

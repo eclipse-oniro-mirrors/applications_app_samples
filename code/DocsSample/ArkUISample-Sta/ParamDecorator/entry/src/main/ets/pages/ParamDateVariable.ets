@@ -26,7 +26,10 @@ struct DateComponent {
   build() {
     Column() {
       Text(`${this.selectedDate}`)
+        .fontSize(20)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 
@@ -38,29 +41,36 @@ struct ParentComponent {
   build() {
     Column() {
       Button('parent update the new date')
+        .width(300)
         .margin(10)
         .onClick((e: ClickEvent) => {
           // 对Date整体赋值，变化可观察到
           this.parentSelectedDate = new Date('2023-07-07');
         })
       Button('increase the year by 1')
+        .width(300)
         .margin(10)
         .onClick((e: ClickEvent) => {
           // 通过setFullYear API修改Date，变化可观察到
           this.parentSelectedDate.setFullYear(this.parentSelectedDate.getFullYear() + 1);
         })
       Button('increase the month by 1')
+        .width(300)
         .margin(10)
         .onClick((e: ClickEvent) => {
+          // 通过setMonth API修改Date，变化可观察到
           this.parentSelectedDate.setMonth(this.parentSelectedDate.getMonth() + 1);
         })
       Button('parent increase the day by 1')
+        .width(300)
         .margin(10)
         .onClick((e: ClickEvent) => {
+          // 通过setDate API修改Date，变化可观察到
           this.parentSelectedDate.setDate(this.parentSelectedDate.getDate() + 1);
         })
       DateComponent({ selectedDate: this.parentSelectedDate })
     }
+    .width('100%')
   }
 }
 

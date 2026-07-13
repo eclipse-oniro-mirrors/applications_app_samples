@@ -25,7 +25,10 @@ import {
   NodeController,
   RenderNode,
   Row,
-  UIContext
+  UIContext,
+  Column,
+  Text,
+  State
 } from '@kit.ArkUI';
 
 const TEST_TAG: string = 'RenderNode';
@@ -36,7 +39,7 @@ renderNode.frame = {
   width: 200,
   height: 350
 };
-renderNode.backgroundColor = 0xffff0000.toInt();
+renderNode.backgroundColor = 0xfff5f5f5.toInt();
 for (let i = 0; i < 5; i++) {
   const node = new RenderNode();
   // 设置node节点的Frame大小
@@ -47,7 +50,7 @@ for (let i = 0; i < 5; i++) {
     height: 50
   };
   // 设置node节点的背景颜色
-  node.backgroundColor = 0xff00ff00.toInt();
+  node.backgroundColor = 0xff00bfff.toInt();
   // 将新增节点挂载在renderNode上
   renderNode.appendChild(node);
 }
@@ -70,12 +73,14 @@ export class MyNodeController extends NodeController {
 @Component
 struct Index {
   private myNodeController: MyNodeController = new MyNodeController();
+  @State myLog: string = '';
 
   build(): void {
-    Row() {
+    Column() {
       NodeContainer(this.myNodeController)
         .width(200)
         .height(350)
+        Text(this.myLog).width(300).height(40).margin({ top: 20, left: 20, bottom: 20 });
       Button('getNextSibling')
         .onClick((event: ClickEvent) => {
           const child = renderNode.getChild(1);
@@ -86,9 +91,11 @@ struct Index {
             // 获取子节点的位置信息
             console.info(`${TEST_TAG} the position of child is x: ${child.position.x}, y: ${child.position.y}, ` +
               `the position of nextSibling is x: ${nextSibling.position.x}, y: ${nextSibling.position.y}`);
+            this.myLog = `the position of child is x: ${child.position.x}, y: ${child.position.y}, ` +
+              `the position of nextSibling is x: ${nextSibling.position.x}, y: ${nextSibling.position.y}`;
           }
         })
-    }
+    }.width(300).margin({ left: 20 });
   }
 }
 // [End operation_node_tree_sta]

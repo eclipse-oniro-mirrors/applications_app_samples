@@ -30,11 +30,11 @@ export struct GestureJudge {
 
   // [EndExclude set_gesture_judge]
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
-        /* 请将$r('app.string.gesture_GestureJudge_text')替换为实际资源文件，在本示例中该资源文件的value值为"以下示例中，Image和Stack两个组件
-           位于同一区域。长按Stack组件的上半部分可触发挂载在Stack组件上的长按手势，长按Stack组件的下半部分则会响应Image组件的拖拽操作。" */
+        /* 请将$r('app.string.gesture_GestureJudge_text')替换为实际资源文件，在本示例中该资源文件的value值为"以下示例展示外层Scroll和内层Scroll嵌套时的手势拦截。
+           通过控制内外层滚动组件的Pan手势识别器状态，在内层滚动到顶部或底部时，将滑动手势交由外层Scroll继续处理。" */
         Text($r('app.string.gesture_GestureJudge_text'))
           .fontSize(14)
           .fontColor('#666')

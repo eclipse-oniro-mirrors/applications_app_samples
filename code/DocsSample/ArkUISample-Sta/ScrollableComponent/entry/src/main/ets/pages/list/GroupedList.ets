@@ -45,7 +45,7 @@ export struct GroupedList {
             { space: 12 }
             // [EndExclude set_the_head_component_of_the_list_grouping_by_header]
           ) {
-            ListItemGroup({ header: this.itemHead('A') }) {
+            ListItemGroup({ header: () => { this.itemHead('A') }}) {
               // 循环渲染分组A的ListItem
               // [StartExclude set_the_head_component_of_the_list_grouping_by_header]
               ListItem() {
@@ -58,7 +58,7 @@ export struct GroupedList {
               // [EndExclude set_the_head_component_of_the_list_grouping_by_header]
             }
 
-            ListItemGroup({ header: this.itemHead('B') }) {
+            ListItemGroup({ header: () => { this.itemHead('B') }}) {
               // 循环渲染分组B的ListItem
               // [StartExclude set_the_head_component_of_the_list_grouping_by_header]
               ListItem() {

@@ -22,7 +22,7 @@ import { $r, BorderStyle, Button, Color, Column, ColumnOptions, Component, Entry
 export struct FocusScopePriority {
   @State inputValue: string = '';
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
 

@@ -24,7 +24,7 @@ export struct DefaultFocus {
   @State twoButtonColor: Color = Color.Gray;
   @State threeButtonColor: Color = Color.Gray;
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 20 } as ColumnOptions) {
         // 通过外接键盘的上下键可以让焦点在三个按钮间移动，按钮获焦时颜色变化，失焦时变回原背景色

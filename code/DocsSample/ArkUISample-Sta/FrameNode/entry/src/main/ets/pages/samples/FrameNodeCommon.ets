@@ -59,12 +59,6 @@ function buttonBuilder(params: Params) {
       .borderRadius(8)
       .borderWidth(2)
       .backgroundColor(Color.Orange)
-
-    Button(params.text)
-      .fontSize(12)
-      .borderRadius(8)
-      .borderWidth(2)
-      .backgroundColor(Color.Pink)
   }
 }
 
@@ -117,6 +111,16 @@ export class MyNodeController extends NodeController {
     }
   }
 
+  modifyNodeSize(frameNode: FrameNode | null | undefined, heightValue: Length | LayoutPolicy | undefined,
+    widthValue: Length | LayoutPolicy | undefined, positionValue: Position): void {
+    if (frameNode) {
+      frameNode.commonAttribute
+        .height(heightValue)
+        .width(widthValue)
+        .position(positionValue);
+    }
+  }
+
   addClickEvent(frameNode: FrameNode | null | undefined): void {
     if (frameNode) {
       frameNode.commonEvent.setOnClick((event: ClickEvent) => {
@@ -140,7 +144,7 @@ struct Index {
             // 获取到的是当前页面中的开发者创建的FrameNode对象，该节点可修改。即节点宽与背景色。
             console.info('Check the weather the node can be modified ' + this.myNodeController?.frameNode
             ?.isModifiable());
-            this.myNodeController.modifyNode(this.myNodeController?.frameNode, 50, Color.Gray)
+            this.myNodeController.modifyNodeSize(this.myNodeController?.frameNode, 100, 150, { x: 100, y: 0 })
           })
         Button('modify FrameNode get by BuilderNode')
           .onClick((event: ClickEvent) => {

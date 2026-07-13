@@ -1,0 +1,75 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { NavDestination, $r } from '@kit.ArkUI';
+// [Start BuilderMutableBindingNoSetter]
+import { UIUtils, Binding, MutableBinding, ObservedV2, Trace, Builder,
+         Column, Text, Button, Entry, ComponentV2, Local, ColumnOptions } from '@kit.ArkUI';
+
+@ObservedV2
+class GlobalTmp2 {
+  @Trace public strValue: string = 'Hello';
+}
+
+// 定义@Builder函数，接收Binding和MutableBinding类型的参数
+@Builder
+function builderWithTwoParams2(param1: Binding<GlobalTmp2>, param2: MutableBinding<number>) {
+  Column({ space: 5 } as ColumnOptions) {
+    Text(`strValue: ${param1.value.strValue}`)
+    Button(`num: ${param2.value}`)
+      .onClick(() => {
+        param2.value += 1; // 修改了MutableBinding类型参数的value属性
+      })
+  }
+  .borderWidth(1)
+  .padding(5)
+}
+
+@Entry
+@ComponentV2
+struct MakeBindingTest2 {
+  @Local GlobalTmp2: GlobalTmp2 = new GlobalTmp2();
+  @Local num: number = 0;
+
+  build() {
+    Column({ space: 5 } as ColumnOptions) {
+      Text(`${this.GlobalTmp2.strValue}`)
+      // 正确用法：构造MutableBinding时传递了SetterCallback
+      builderWithTwoParams2(UIUtils.makeBinding(() => this.GlobalTmp2),
+        UIUtils.makeBinding<number>(() => this.num,
+          val => {
+            this.num = val;
+          }))
+      Button('Update Values').onClick(() => {
+        // 点击按钮更新状态变量的值
+        this.GlobalTmp2.strValue = 'Hello World 2025';
+        this.num = 1;
+      })
+    }
+    .width('100%')
+  }
+}
+
+// [End BuilderMutableBindingNoSetter]
+
+@Builder
+export function builderMutableBindingNoSetter(): void {
+  NavDestination() {
+    MakeBindingTest2();
+  }
+  .backgroundColor('#f1f2f3')
+}

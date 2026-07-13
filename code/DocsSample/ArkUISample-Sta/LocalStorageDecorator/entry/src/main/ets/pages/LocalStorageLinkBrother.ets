@@ -32,15 +32,18 @@ struct Child {
   @LocalStorageLink('countStorage') playCountLink: int = 0;
 
   build() {
-    Row() {
+    Column() {
       Text(this.label)
-        .width(50).height(60).fontSize(12)
-      Text(`playCountLink ${this.playCountLink}: inc by 1`)
+        .fontSize(20)
+        .margin(10)
+      Button(`playCountLink ${this.playCountLink}: inc by 1`)
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.playCountLink += 1;
         })
-        .width(200).height(60).fontSize(12)
-    }.width(300).height(60)
+    }
+    .width(300)
   }
 }
 
@@ -51,32 +54,34 @@ struct Parent {
 
   build() {
     Column() {
-      Row() {
-        Text('Parent')
-          .width(50).height(60).fontSize(12)
-        Text(`playCount ${this.playCount} dec by 1`)
-          .onClick((e: ClickEvent) => {
-            this.playCount -= 1;
-          })
-          .width(250).height(60).fontSize(12)
-      }.width(300).height(60)
+      Text('Parent')
+        .fontSize(20)
+        .margin(10)
+      Button(`playCount ${this.playCount} dec by 1`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          this.playCount -= 1;
+        })
 
-      Row() {
-        Text('LocalStorage')
-          .width(50).height(60).fontSize(12)
-        Text(`countStorage ${this.playCount} incr by 1`)
-          .onClick((e: ClickEvent) => {
-            storageA.set<int>('countStorage', storageA.get<int>('countStorage')! + 1);
-          })
-          .width(250).height(60).fontSize(12)
-      }.width(300).height(60)
+      Text('LocalStorage')
+        .fontSize(20)
+        .margin(10)
+      Button(`countStorage ${this.playCount} incr by 1`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          storageA.set<int>('countStorage', storageA.get<int>('countStorage')! + 1);
+        })
 
       Child({ label: 'ChildA' })
       Child({ label: 'ChildB' })
 
       Text(`playCount in LocalStorage for debug ${storageA.get<int>('countStorage')}`)
-        .width(300).height(60).fontSize(12)
+        .fontSize(20)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 // [End LocalStorageLinkBrother]

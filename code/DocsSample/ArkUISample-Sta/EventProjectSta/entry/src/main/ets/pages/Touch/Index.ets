@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BarStyle, BlurStyle, Builder, Component, Consume, Entry, ForEach, List, ListItem, NavDestination, NavPathInfo, NavPathStack, Padding, $r } from '@kit.ArkUI';
+import { BarStyle, BlurStyle, Builder, Component, Consume, Entry, ForEach, List, ListItem, ListOptions, NavDestination, NavPathInfo, NavPathStack, Padding, $r } from '@kit.ArkUI';
 import { CompletedRoutableCard } from '../../common/Card';
 import { Route } from '../../common/Route';
 import { Click } from './ClickEvent';
@@ -36,7 +36,7 @@ const routes: Route[] = [
 ];
 
 @Builder
-export function TouchDestination(name: string) {
+export function TouchDestination(name: string): void {
   if (name === Touch_ROUTE_PREFIX) {
     TouchExample();
   } else if (name === routes[0].name) {
@@ -53,10 +53,10 @@ struct TouchExample {
 
   build() {
     NavDestination() {
-      List({ space: 12 }) {
+      List({ space: 12 } as ListOptions) {
         ForEach(routes, (route: Route, index: int) => {
           ListItem() {
-            CompletedRoutableCard({ title: route.title, description: route.description })
+            CompletedRoutableCard({ title: route.title, description: route.description as string })
           }
           .width('100%')
           .onClick(() => {

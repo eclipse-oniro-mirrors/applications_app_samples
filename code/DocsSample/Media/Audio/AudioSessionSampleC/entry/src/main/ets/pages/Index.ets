@@ -14,6 +14,20 @@
 */
 
 import testNapi from 'libentry.so';
+import fs from '@ohos.file.fs';
+import { common, abilityAccessCtrl, PermissionRequestResult } from '@kit.AbilityKit';
+
+async function requestMicrophonePermission(context: common.UIAbilityContext): Promise<boolean> {
+  let atManager = abilityAccessCtrl.createAtManager();
+  try {
+    let result: PermissionRequestResult = await atManager
+      .requestPermissionsFromUser(context, ['ohos.permission.MICROPHONE']);
+    return result.authResults[0] === 0;
+  } catch (err) {
+    console.error(`request microphone permission failed: ${JSON.stringify(err)}`);
+    return false;
+  }
+}
 
 // 激活音频会话Native实现
 async function active() {
@@ -34,6 +48,22 @@ async function setAudioSessionBehavior() {
   let result = testNapi.SetAudioSessionBehavior();
   console.info('set audio session behavior result: ' + result);
   return '设置音频会话行为和激活音频会话完成';
+}
+
+async function setAudioSessionCapturerMuteHint(): Promise<string> {
+  let result: string = testNapi.SetAudioSessionCapturerMuteHint();
+  console.info('set audio session capturer mute hint result: ' + result);
+  return result || '上报会话级录音流静音提示完成，接口不实际触发静音';
+}
+
+async function printAudioSessionInfo() {
+  let filePath = getContext().filesDir + '/audio_session_info.txt';
+  let file = fs.openSync(filePath, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+  let fd = file.fd;
+  let result = testNapi.printAudioSessionInfo(fd);
+  fs.closeSync(file);
+  console.info('print audio session info filePath: ' + filePath);
+  return 'Print audioSession info success.';
 }
 
 @Entry
@@ -148,6 +178,37 @@ struct Index {
 
         Row() {
           Button() {
+            Text('设置会话级录音流静音提示').fontSize(10).fontColor(Color.White).fontSize(18)
+          }
+          .width('80%')
+          .height(40)
+          .onClick(async () => {
+            try {
+              let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+              let hasPermission = await requestMicrophonePermission(context);
+              const timestamp = new Date().toLocaleTimeString();
+              if (!hasPermission) {
+                this.runningResult = '设置失败';
+                this.logMessages = `[${timestamp}] 错误: 麦克风权限未授权，无法启动录音流`;
+                return;
+              }
+              let result: string = await setAudioSessionCapturerMuteHint();
+              this.runningResult = '设置完成';
+              this.logMessages = `[${timestamp}] ${result}`;
+            } catch (err) {
+              const timestamp = new Date().toLocaleTimeString();
+              this.runningResult = '设置失败';
+              this.logMessages = `[${timestamp}] 错误: ${err}`;
+            };
+          })
+        }
+        .width('100%')
+        .height(50)
+        .justifyContent(FlexAlign.Center)
+        .margin({ bottom: 12 })
+
+        Row() {
+          Button() {
             Text('注销焦点+注销监听').fontSize(10).fontColor(Color.White).fontSize(18)
           }
           .width('80%')
@@ -161,6 +222,30 @@ struct Index {
             } catch (err) {
               const timestamp = new Date().toLocaleTimeString();
               this.runningResult = '停用失败';
+              this.logMessages = `[${timestamp}] 错误: ${err}`;
+            };
+          })
+        }
+        .width('100%')
+        .height(50)
+        .justifyContent(FlexAlign.Center)
+        .margin({ bottom: 12 })
+
+        Row() {
+          Button() {
+            Text('打印音频会话调试信息').fontSize(10).fontColor(Color.White).fontSize(18)
+          }
+          .width('80%')
+          .height(40)
+          .onClick(async (): Promise<void> => {
+            try {
+              let result = await printAudioSessionInfo();
+              const timestamp = new Date().toLocaleTimeString();
+              this.runningResult = '打印成功';
+              this.logMessages = `[${timestamp}] ${result}`;
+            } catch (err) {
+              const timestamp = new Date().toLocaleTimeString();
+              this.runningResult = '打印失败';
               this.logMessages = `[${timestamp}] 错误: ${err}`;
             };
           })

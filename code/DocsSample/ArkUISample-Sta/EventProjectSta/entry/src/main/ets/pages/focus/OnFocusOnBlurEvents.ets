@@ -26,7 +26,7 @@ const BUNDLE: string = 'MyApp_FocusAndBlurExample';
 @Entry
 @Component
 export struct FocusAndBlurExample {
-  build() {
+  build(): void {
     NavDestination() {
       Column() {
         Column({ space: 5 } as ColumnOptions) {

@@ -27,9 +27,12 @@ struct TabContentTest {
   build() {
     Row() {
       Column() {
-        Button('change message').onClick(() => {
-          this.message++;
-        })
+        Button('change message')
+          .width(300)
+          .margin(10)
+          .onClick(() => {
+            this.message++;
+          })
 
         Tabs() {
           Repeat<number>(this.data).each(ri => {
@@ -58,6 +61,7 @@ struct FreezeChild {
     Text('message' + `${this.message}, index: ${this.index}`)
       .fontSize(50)
       .fontWeight(FontWeight.Bold)
+      .margin(10)
   }
 }
 

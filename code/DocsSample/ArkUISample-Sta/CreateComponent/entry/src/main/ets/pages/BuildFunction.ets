@@ -26,6 +26,7 @@ struct MyComponent {
     Row() {
       ChildComponent()
     }
+    .height('100%')
   }
 }
 
@@ -34,6 +35,8 @@ struct ChildComponent {
   build() {
     // 根节点唯一且必要，可为非容器组件
     Text('Hello world')
+      .fontSize(20)
+      .margin(10)
   }
 }
 // [End BuildFunction]

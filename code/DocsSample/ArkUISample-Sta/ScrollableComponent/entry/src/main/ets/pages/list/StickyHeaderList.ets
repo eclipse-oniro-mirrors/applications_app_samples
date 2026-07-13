@@ -150,7 +150,7 @@ export struct StickyHeaderList {
           List() {
             // 懒加载ListItemGroup，contactsGroups为多个分组联系人contacts和标题title的数据集合
             LazyForEach(contactsGroupsDataSource, (itemGroup: ContactsGroup) => {
-              ListItemGroup({ header: this.itemHead(itemGroup.title) }) {
+              ListItemGroup({ header: () => { this.itemHead(itemGroup.title) }}) {
                 // 循环渲染ListItem
                 if (itemGroup.contacts) {
                   LazyForEach(new ContactDataSource(itemGroup.contacts as Contact[]), (item: Contact) => {

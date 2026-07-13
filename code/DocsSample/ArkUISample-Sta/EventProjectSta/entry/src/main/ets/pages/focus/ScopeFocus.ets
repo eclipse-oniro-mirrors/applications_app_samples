@@ -28,7 +28,7 @@ const BUNDLE: string = 'MyApp_FocusAndBlurExample';
 export struct ScopeFocusExample {
   @State scopeFocusState: boolean = true;
 
-  build() {
+  build(): void {
     NavDestination() {
       Column() {
         Column({ space: 5 } as ColumnOptions) {

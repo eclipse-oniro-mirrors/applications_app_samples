@@ -20,17 +20,28 @@ import { Entry, Column, Component, Button, ForEach, Scroll } from '@ohos.arkui.c
 interface DemoItem {
   name: string;
   path: string;
+  usePageParams: boolean;
+  isEnable: boolean;
+}
+
+class PageParams {
+  isEnable: boolean;
+
+  constructor(isEnable: boolean) {
+    this.isEnable = isEnable;
+  }
 }
 
 @Entry
 @Component
 struct Index {
   demos: DemoItem[] = [
-    { name: 'ParallelizeUI外部状态变量示例', path: 'pages/ExternalState' },
-    { name: 'ParallelizeUI参数构造示例', path: 'pages/ParameterConstruction' },
-    { name: '并行化创建组件示例', path: 'pages/Page' },
-    { name: '非List和Grid并行循环创建示例', path: 'pages/ParallelDemo' },
-    { name: 'List并行创建子组件示例', path: 'pages/ListParallel' },
+    { name: 'ParallelizeUI外部状态变量示例', path: 'pages/ExternalState', usePageParams: false, isEnable: false },
+    { name: 'ParallelizeUI参数构造示例', path: 'pages/ParameterConstruction', usePageParams: false, isEnable: false },
+    { name: '并行化创建组件示例（开启并行）', path: 'pages/Page', usePageParams: true, isEnable: true },
+    { name: '并行化创建组件示例（关闭并行）', path: 'pages/Page', usePageParams: true, isEnable: false },
+    { name: '非List和Grid并行循环创建示例', path: 'pages/ParallelDemo', usePageParams: false, isEnable: false },
+    { name: 'List并行创建子组件示例', path: 'pages/ListParallel', usePageParams: false, isEnable: false },
   ];
 
   build() {
@@ -39,7 +50,14 @@ struct Index {
         ForEach(this.demos, (item: DemoItem) => {
           Button(item.name)
             .onClick(() => {
-              this.getUIContext().getRouter().pushUrl({ url: item.path })
+              if (item.usePageParams) {
+                this.getUIContext().getRouter().pushUrl({
+                  url: item.path,
+                  params: new PageParams(item.isEnable)
+                })
+              } else {
+                this.getUIContext().getRouter().pushUrl({ url: item.path })
+              }
             })
             .fontSize(18)
             .margin(15)

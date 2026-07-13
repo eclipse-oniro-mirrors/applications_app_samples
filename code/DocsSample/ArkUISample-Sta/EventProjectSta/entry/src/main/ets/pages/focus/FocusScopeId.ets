@@ -20,7 +20,7 @@ import { $r, BorderStyle, Button, Color, Column, ColumnOptions, Component, Entry
 @Entry
 @Component
 export struct FocusScopeIdExample {
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 20 } as ColumnOptions) {
         Column() {

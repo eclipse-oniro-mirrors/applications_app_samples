@@ -47,8 +47,13 @@ struct ChildComponent {
   build() {
     Column() {
       Text(`ChildComponent message ${this.message}`)
+        .fontSize(20)
+        .margin(10)
       Text(`ChildComponent info ${this.info}`)
+        .fontSize(20)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 
@@ -60,6 +65,8 @@ struct MyComponent {
   build() {
     Column() {
       Text(`MyComponent ${this.message}`)
+        .fontSize(20)
+        .margin(10)
 
       ChildComponent({ message: this.message, info: this.message })
         .width(200)

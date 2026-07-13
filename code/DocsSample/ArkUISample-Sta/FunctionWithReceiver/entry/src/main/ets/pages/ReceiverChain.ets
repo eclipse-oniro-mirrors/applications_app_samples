@@ -35,10 +35,12 @@ struct FancyUse {
   build() {
     Row() {
       Text('Fancy')
+        .margin(10)
         .fancySize(16)
         .fancyColor() // 链式调用Function-with-Receiver
         .onClick((e) => { }) // 链式调用Text组件其他方法
     }
+    .height('100%')
   }
 }
 

@@ -21,7 +21,7 @@ import { $r, Button, Column, ColumnOptions, Component, Entry, Margin, NavDestina
 @Entry
 @Component
 export struct TabStopExample {
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 20 } as ColumnOptions) {
         Button('Button1')

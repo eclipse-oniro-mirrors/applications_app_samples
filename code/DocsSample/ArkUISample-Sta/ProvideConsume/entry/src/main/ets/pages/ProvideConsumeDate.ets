@@ -24,16 +24,24 @@ struct Child {
   build() {
     Column() {
       Text(`Provide: ${this.selectedDate}`)
+        .fontSize(20)
+        .margin(10)
       Button('child increase the day by 1')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
+          // 调用Date的setDate接口修改日期，触发UI刷新
           this.selectedDate.setDate(this.selectedDate.getDate() + 1);
         })
       Button('child update the new date')
+        .width(300)
         .margin(10)
         .onClick((e: ClickEvent) => {
+          // 通过给selectedDate重新赋值新的Date实例，触发UI刷新
           this.selectedDate = new Date('2023-09-09');
         })
     }
+    .width('100%')
   }
 }
 
@@ -45,18 +53,23 @@ struct Parent {
   build() {
     Column() {
       Text(`Provide: ${this.selectedDate}`)
+        .fontSize(20)
+        .margin(10)
       Button('parent increase the day by 1')
+        .width(300)
         .margin(10)
         .onClick((e: ClickEvent) => {
           this.selectedDate.setDate(this.selectedDate.getDate() + 1);
         })
       Button('parent update the new date')
+        .width(300)
         .margin(10)
         .onClick((e: ClickEvent) => {
           this.selectedDate = new Date('2023-07-07');
         })
       Child()
     }
+    .width('100%')
   }
 }
 // [End ProvideConsumeDate]

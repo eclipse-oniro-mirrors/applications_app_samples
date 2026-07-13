@@ -25,6 +25,7 @@ struct Index {
     Column() {
       Child({ arr: this.arr })
     }
+    .width('100%')
   }
 }
 @Component
@@ -33,13 +34,24 @@ struct Child {
   build() {
     Column() {
       Text(`${this.arr}`)
-      Button(`change arr[0]: ${this.arr[0]}`).onClick((e: ClickEvent) => {
+        .fontSize(20)
+        .margin(10)
+      Button(`change arr[0]: ${this.arr[0]}`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 修改arr变量中元素的值，触发UI刷新
           this.arr[0]++;
       })
-      Button(`push item: ${this.arr.length}`).onClick((e: ClickEvent) => {
+      Button(`push item: ${this.arr.length}`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 向arr变量中添加元素，触发UI刷新
           this.arr.push(Double.toInt(this.arr.length));
       })
     }
+    .width('100%')
   }
 }
 // [End PropRefArray]

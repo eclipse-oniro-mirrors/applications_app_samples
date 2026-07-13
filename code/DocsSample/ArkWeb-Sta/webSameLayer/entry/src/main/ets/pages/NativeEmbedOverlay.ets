@@ -60,7 +60,7 @@ export class MyNodeController extends NodeController {
     this.type_ = params.type;
   }
 
-  // 必须要重写的方法，用于构建节点数、返回节点数挂载在对应NodeContainer中。
+  // 必须要重写的方法，用于构建节点树、返回节点树挂载在对应NodeContainer中。
   // 在对应NodeContainer创建的时候调用、或者通过rebuild方法调用刷新。
   makeNode(uiContext: UIContext): FrameNode | null {
     if (this.isDestroy_) { // rootNode为null。
@@ -212,7 +212,7 @@ struct Page{
                 this.widthMap.set(componentId, this.uiContext.px2vp(embed.info?.width as int));
                 this.heightMap.set(componentId, this.uiContext.px2vp(embed.info?.height as int));
                 this.positionMap.set(componentId, this.edges);
-                // 将Web传入的embed的id属性存入@State状态数组变量中，用于动态创建nodeContainer节点容器,需要将push动作放在set之后。
+                // 将Web传入的embed的id属性存入@State状态数组变量中，用于动态创建NodeContainer节点容器,需要将push动作放在set之后。
                 this.componentIdArr.push(componentId);
               } else if (embed.status === NativeEmbedStatus.UPDATE) {
                 let nodeController = this.nodeControllerMap.get(componentId);

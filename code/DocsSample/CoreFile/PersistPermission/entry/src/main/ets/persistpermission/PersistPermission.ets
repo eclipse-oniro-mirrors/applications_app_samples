@@ -38,6 +38,8 @@ export async function persistPermissionExample() {
       uri: uris[0],
       operationMode: fileShare.OperationMode.READ_MODE,
     };
+    // 可以组合授予多个权限，例如读写权限可使用 fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE。 
+ 	  // 注意：只能对已获取到的临时权限进行持久化授权操作，否则会报错。
     let policies: fileShare.PolicyInfo[] = [policyInfo];
     fileShare.persistPermission(policies).then(() => {
       console.info('persistPermission successfully');
@@ -61,6 +63,8 @@ export async function persistPermissionExample() {
 export async function revokePermissionExample() {
   try {
     let uri = 'file://docs/storage/Users/username/tmp.txt';
+    // 可以组合授予多个权限，例如读写权限可使用 fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE。 
+ 	  // 注意：只能对已获取到的临时权限进行持久化授权操作，否则会报错。
     let policyInfo: fileShare.PolicyInfo = {
       uri: uri,
       operationMode: fileShare.OperationMode.READ_MODE,
@@ -88,6 +92,8 @@ export async function revokePermissionExample() {
 export async function activatePermissionExample() {
   try {
     let uri = 'file://docs/storage/Users/username/tmp.txt';
+    // 可以组合授予多个权限，例如读写权限可使用 fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE。 
+ 	  // 注意：只能对已获取到的临时权限进行持久化授权操作，否则会报错。
     let policyInfo: fileShare.PolicyInfo = {
       uri: uri,
       operationMode: fileShare.OperationMode.READ_MODE,
@@ -103,7 +109,7 @@ export async function activatePermissionExample() {
           console.error('error uri : ' + JSON.stringify(err.data[i].uri));
           console.error('error reason : ' + JSON.stringify(err.data[i].message));
           if (err.data[i].code == fileShare.PolicyErrorCode.PERMISSION_NOT_PERSISTED) {
-            //可以选择进行持久化后再激活。
+          // 可以选择进行持久化后再激活。
           }
         }
       }

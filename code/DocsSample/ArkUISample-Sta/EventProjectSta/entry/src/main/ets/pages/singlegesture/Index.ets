@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { $r, BarStyle, BlurStyle, Builder, Component, Consume, Entry, ForEach, List, ListItem, NavDestination, NavPathInfo, NavPathStack, Padding, Scroll } from '@kit.ArkUI';
+import { $r, BarStyle, BlurStyle, Builder, Component, Consume, Entry, ForEach, List, ListItem, ListOptions, NavDestination, NavPathInfo, NavPathStack, Padding, Scroll } from '@kit.ArkUI';
 import { CompletedRoutableCard } from '../../common/Card';
 import { Route } from '../../common/Route';
 import { LongPress } from './LongPressGesture';
@@ -77,7 +77,7 @@ const routes: Route[] = [
 ];
 
 @Builder
-export function GestureDestination(name: string) {
+export function GestureDestination(name: string): void {
   if (name === Gesture_ROUTE_PREFIX) {
     GestureExample();
   } else if (name === routes[0].name) {
@@ -107,10 +107,10 @@ struct GestureExample {
   build() {
     NavDestination() {
       Scroll() {
-        List({ space: 12 }) {
+        List({ space: 12 } as ListOptions) {
           ForEach(routes, (route: Route, index: int) => {
             ListItem() {
-              CompletedRoutableCard({ title: route.title, description: route.description })
+              CompletedRoutableCard({ title: route.title, description: route.description as string })
             }
             .width('100%')
             .onClick(() => {

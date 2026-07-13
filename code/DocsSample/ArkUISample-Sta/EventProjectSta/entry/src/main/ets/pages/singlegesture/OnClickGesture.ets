@@ -26,7 +26,7 @@ export struct OnClickGesture {
     this.judgeCount++;
   }
 
-  build() {
+  build(): void {
     NavDestination() {
       Column() {
         Column() {

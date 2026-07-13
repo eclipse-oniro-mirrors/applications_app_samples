@@ -33,13 +33,18 @@ struct Index {
     Row() {
       Column() {
         Text(this.message)
+          .fontSize(20)
+          .margin(10)
         // 应用退出时会保存当前结果；重新启动后，会显示上一次的保存结果。
         // 未修改时默认值为47
-        Text(`${this.aProp}`)
-          .onClick((e: ClickEvent) => {
-            this.aProp += 1;
-          })
+        Button(`aProp value is ${this.aProp}`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          this.aProp += 1;
+        })
       }
+      .width('100%')
     }
   }
 }

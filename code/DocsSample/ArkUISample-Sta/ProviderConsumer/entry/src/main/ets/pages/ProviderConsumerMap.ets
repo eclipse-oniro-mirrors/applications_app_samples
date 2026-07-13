@@ -26,21 +26,38 @@ struct Parent {
   build() {
     Column() {
       ForEach(Array.from(this.message.entries()), (item: [number, string]) => {
-        Text(`${item[0]}`).fontSize(30)
-        Text(`${item[1]}`).fontSize(30)
+        Text(`${item[0]}`)
+          .fontSize(20)
+          .margin(10)
+        Text(`${item[1]}`)
+          .fontSize(20)
+          .margin(10)
         Divider()
       })
-      Button('parent init map').onClick((e: ClickEvent) => {
-        this.message = new Map<number, string>([[0, 'aa'], [1, 'bb'], [2, 'cc']]);
+      Button('parent init map')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 赋值message变量，触发UI刷新
+          this.message = new Map<number, string>([[0, 'aa'], [1, 'bb'], [2, 'cc']]);
       })
-      Button('parent set new one').onClick((e: ClickEvent) => {
-        this.message.set(4, 'd');
+      Button('parent set new one')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 新增键值对，触发UI刷新
+          this.message.set(4, 'd');
       })
-      Button('clear').onClick((e: ClickEvent) => {
-        this.message.clear();
+      Button('clear')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 清空Map，触发UI刷新
+          this.message.clear();
       })
       Child()
     }
+    .width('100%')
   }
 }
 
@@ -50,16 +67,29 @@ struct Child {
 
   build() {
     Column() {
-      Button('child init map').onClick((e: ClickEvent) => {
-        this.message = new Map<number, string>([[0, 'dd'], [1, 'ee'], [2, 'ff']]);
+      Button('child init map')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 赋值message变量，触发UI刷新
+          this.message = new Map<number, string>([[0, 'dd'], [1, 'ee'], [2, 'ff']]);
       })
-      Button('child replace the first one').onClick((e: ClickEvent) => {
-        this.message.set(0, 'a*');
+      Button('child replace the first one')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 更新键值对，触发UI刷新
+          this.message.set(0, 'a*');
       })
-      Button('child delete the first one').onClick((e: ClickEvent) => {
-        this.message.delete(0);
+      Button('child delete the first one')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 删除键值对，触发UI刷新
+          this.message.delete(0);
       })
     }
+    .width('100%')
   }
 }
 // [End ProviderConsumerMap]

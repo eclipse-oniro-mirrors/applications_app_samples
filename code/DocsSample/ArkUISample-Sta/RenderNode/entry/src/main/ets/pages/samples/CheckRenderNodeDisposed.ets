@@ -26,7 +26,8 @@ import {
   RenderNode,
   State,
   Text,
-  UIContext
+  UIContext,
+  ColumnOptions
 } from '@kit.ArkUI';
 
 export class MyNodeController extends NodeController {
@@ -64,12 +65,12 @@ export class MyNodeController extends NodeController {
 
 @Entry
 @Component
-export struct CheckRanderNodeDisposed {
+export struct CheckRenderNodeDisposed {
   @State text: string = '';
   private myNodeController: MyNodeController = new MyNodeController();
 
   build(): void {
-    Column() {
+    Column({ space: 4 } as ColumnOptions) {
       NodeContainer(this.myNodeController);
       Button('RenderNode dispose')
         .onClick(() => {

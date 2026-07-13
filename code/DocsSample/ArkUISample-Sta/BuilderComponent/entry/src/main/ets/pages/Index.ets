@@ -46,6 +46,9 @@ struct Index {
     { name: 'BuilderComponentV2Refresh', path: 'pages/BuilderComponentV2Refresh' },
     { name: 'BuilderModifyParamPositive', path: 'pages/BuilderModifyParamPositive' },
     { name: 'BuilderComponentParam', path: 'pages/BuilderComponentParam' },
+    { name: 'BuilderMutableBindingNoSetter', path: 'pages/BuilderMutableBindingNoSetter' },
+    { name: 'BuilderChangeVariableRight', path: 'pages/BuilderChangeVariableRight' },
+    { name: 'BuilderCallInWatch', path: 'pages/BuilderCallInWatch' },
   ]
 
   build() {

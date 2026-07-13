@@ -35,17 +35,25 @@ struct Page2 {
   build() {
     Column() {
 
-      Text(`second Page ${this.getValue()}`).fontSize(50)
-      Button('back')
+      Text(`second Page ${this.getValue()}`)
+        .fontSize(20)
+        .margin(10)
+      Button('back') // 返回页面1
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.getUIContext().getRouter().back();
         })
 
-      Button('second page storageLink2 + 2').fontSize(30)
+      Button('second page storageLink2 + 2') // 修改状态变量storageLink2
+        .width(300)
+        .margin(10)
+        .fontSize(15)
         .onClick(() => {
           this.storageLink2 += 2;
         })
     }
+    .width('100%')
   }
 }
 // [End FreezePage2]

@@ -25,6 +25,7 @@ struct Index {
     Column() {
       Child({ set: this.set })
     }
+    .width('100%')
   }
 }
 @Component
@@ -32,20 +33,38 @@ struct Child {
   @PropRef set: Set<int>;
   build() {
     Column() {
-      Text(`${this.set}`)
-      Button('init set').onClick((e: ClickEvent) => {
-        this.set = new Set<int>([0, 1, 2, 3, 4]);
+      Text(`${Array.from(this.set)}`)
+        .fontSize(20)
+        .margin(10)
+      Button('init set')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          this.set = new Set<int>([0, 1, 2, 3, 4]);
       })
-      Button('set new one').onClick((e: ClickEvent) => {
-        this.set.add(5);
+      Button('set new one')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 新增元素，触发UI刷新
+          this.set.add(5);
       })
-      Button('clear').onClick((e: ClickEvent) => {
-        this.set.clear();
+      Button('clear')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 清空Set，触发UI刷新
+          this.set.clear();
       })
-      Button('delete the first one').onClick((e: ClickEvent) => {
-        this.set.delete(0);
+      Button('delete the first one')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 删除元素，触发UI刷新
+          this.set.delete(0);
       })
     }
+    .width('100%')
   }
 }
 // [End PropRefSet]

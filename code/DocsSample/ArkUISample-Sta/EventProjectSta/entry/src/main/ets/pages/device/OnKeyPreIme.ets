@@ -47,7 +47,7 @@ struct PreImeEventExample {
 // [End key_event_intercept]
 
 @Builder
-export function PreIme() {
+export function PreIme(): void {
   NavDestination() {
     Column({ space: 12 } as ColumnOptions) {
       PreImeEventExample()

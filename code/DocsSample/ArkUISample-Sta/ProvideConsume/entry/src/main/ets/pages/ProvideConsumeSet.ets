@@ -24,20 +24,37 @@ struct Child {
   build() {
     Column() {
       ForEach(Array.from(this.message.entries()), (item: [number, number]) => {
-        Text(`${item[0]}`).fontSize(30)
+        Text(`${item[0]}`)
+          .fontSize(20)
+          .margin(10)
         Divider()
       })
-      Button('Consume init set').onClick((e: ClickEvent) => {
-        this.message = new Set<number>([0, 1, 2, 3, 4]);
+      Button('Consume init set')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          this.message = new Set<number>([0, 1, 2, 3, 4]);
       })
-      Button('Consume set new one').onClick((e: ClickEvent) => {
-        this.message.add(5);
+      Button('Consume set new one')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 新增元素，触发UI刷新
+          this.message.add(5);
       })
-      Button('Consume clear').onClick((e: ClickEvent) => {
-        this.message.clear();
+      Button('Consume clear')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 清空Set，触发UI刷新
+          this.message.clear();
       })
-      Button('Consume delete the first one').onClick((e: ClickEvent) => {
-        this.message.delete(0);
+      Button('Consume delete the first one')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 删除元素，触发UI刷新
+          this.message.delete(0);
       })
     }
     .width('100%')
@@ -52,7 +69,10 @@ struct SetSample {
   build() {
     Row() {
       Column() {
-        Button('Provide init set').onClick((e: ClickEvent) => {
+        Button('Provide init set')
+          .width(300)
+          .margin(10)
+          .onClick((e: ClickEvent) => {
           this.message = new Set<number>([0, 1, 2, 3, 4, 5]);
         })
         Child()

@@ -25,6 +25,7 @@ struct Index {
     Column() {
       Child({ date: this.date })
     }
+    .width('100%')
   }
 }
 @Component
@@ -33,19 +34,38 @@ struct Child {
   build() {
     Column() {
       Text(`${this.date}`)
-      Button(`change update`).onClick((e: ClickEvent) => {
-        this.date = new Date('2023-09-09');
+        .fontSize(20)
+        .margin(10)
+      Button(`change update`)
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 通过给date重新赋值新的Date实例，触发UI刷新
+          this.date = new Date('2023-09-09');
       })
-      Button('increase the year by 1').onClick((e: ClickEvent) => {
-        this.date.setFullYear(this.date.getFullYear() + 1);
+      Button('increase the year by 1')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 调用Date的setFullYear接口修改年份，触发UI刷新
+          this.date.setFullYear(this.date.getFullYear() + 1);
       })
-      Button('increase the month by 1').onClick((e: ClickEvent) => {
-        this.date.setMonth(this.date.getMonth() + 1);
+      Button('increase the month by 1')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 调用Date的setMonth接口修改月份，触发UI刷新
+          this.date.setMonth(this.date.getMonth() + 1);
       })
-      Button('parent increase the day by 1').onClick((e: ClickEvent) => {
-        this.date.setDate(this.date.getDate() + 1);
+      Button('increase the day by 1')
+        .width(300)
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          // 调用Date的setDate接口修改日期，触发UI刷新
+          this.date.setDate(this.date.getDate() + 1);
       })
     }
+    .width('100%')
   }
 }
 // [End PropRefDate]

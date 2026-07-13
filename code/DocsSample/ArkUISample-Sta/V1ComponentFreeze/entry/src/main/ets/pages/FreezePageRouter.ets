@@ -34,16 +34,25 @@ struct Page1 {
 
   build() {
     Column() {
-      Text(`From first Page ${this.getValue()}`).fontSize(50)
-      Button('first page storageLink + 1').fontSize(30)
+      Text(`From first Page ${this.getValue()}`)
+        .fontSize(20)
+        .margin(10)
+      Button('first page storageLink + 1') // 修改状态变量storageLink
+        .width(300)
+        .margin(10)
+        .fontSize(15)
         .onClick(() => {
           this.storageLink += 1;
         })
-      Button('go to next page').fontSize(30)
+      Button('go to next page') // 跳转到页面2
+        .width(300)
+        .margin(10)
+        .fontSize(15)
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/FreezePage2' });
         })
     }
+    .width('100%')
   }
 }
 // [End FreezePageRouter]

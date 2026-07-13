@@ -25,6 +25,8 @@ struct MyStateSample {
     Column() {
       let num: int = 1; // 在build()根节点中进行变量声明
       Text('show text1')
+        .fontSize(20)
+        .margin(10)
     }
     .width('100%')
     .height('100%')

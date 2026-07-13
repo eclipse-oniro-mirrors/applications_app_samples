@@ -23,7 +23,7 @@ export struct Touch {
   @State text: string = '';
   @State eventType: string = '';
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
 

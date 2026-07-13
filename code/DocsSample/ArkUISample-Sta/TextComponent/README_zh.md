@@ -102,6 +102,7 @@ entry/src/main/ets/
 |   |       |---TextSpan.ets
 |   |       |---TextSpanOnHover.ets
 |   |       |---WordBreakd.ets
+|   |       |---TextMenuShowSubWindow.ets
 |   |---textImageMixedLayout                         // 图文混排
 |   |       |---index.ets
 |   |       |---TextImageAttribute.ets
@@ -121,6 +122,7 @@ entry/src/main/ets/
 |   |       |---SetTextInputType.ets
 |   |       |---SetTextMargin.ets
 |   |       |---TextInputAddEvent.ets
+|   |       |---TextMenuShowSubWindow.ets
 |   |---manageKeyBoard                               // 键盘管理
 |   |       |---index.ets
 |   |       |---RequestFocusCloseKeyBoard.ets

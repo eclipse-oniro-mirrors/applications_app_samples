@@ -19,19 +19,13 @@ import { State } from '@ohos.arkui.stateManagement'
 import hilog from '@ohos.hilog'
 
 import {
-  Entry,
-  Component,
   Builder,
-  Column,
   Flex,
   FlexDirection,
   ItemAlign,
   FlexAlign,
   HorizontalAlign,
-  Text,
-  TextAlign,
-  Button,
-  ClickEvent
+  TextAlign
 } from '@kit.ArkUI';
 import {Router} from '@ohos.arkui.UIContext';
 const router = new Router();

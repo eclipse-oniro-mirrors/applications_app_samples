@@ -1,0 +1,116 @@
+'use static'
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { ComponentCard } from '../../common/Card';
+import {
+  Entry,
+  Component,
+  Button,
+  ButtonType,
+  ButtonOptions,
+  Column,
+  ColumnOptions,
+  NavDestination,
+  NavPathStack,
+  Color,
+  Image,
+  Resource,
+  $r
+} from '@kit.ArkUI'
+import resourceToStringManager from '../../common/resource';
+
+@Entry
+@Component
+export struct ButtonCustomStyle {
+  pathStack: NavPathStack = new NavPathStack();
+
+  resourceToString(resource: Resource): string {
+    return resourceToStringManager.resourceToString(resource);
+  }
+
+  build(): void {
+    NavDestination() {
+      Column({ space: 12 } as ColumnOptions) {
+        ComponentCard({
+          title: $r('app.string.ButtonCustomStyle_titleOne'),
+          description: $r('app.string.ButtonCustomStyle_descriptionOne')
+        }) {
+          // [Start custom_button_border_radius]
+          Button('Button', { type: ButtonType.Normal } as ButtonOptions)
+            .id('circle_border')
+            .borderRadius(10)
+          // [End custom_button_border_radius]
+
+          // [Start custom_button_border_radius2]
+          Button('circle border', { type: ButtonType.Normal } as ButtonOptions)
+            .borderRadius(20)
+            .height(40)
+          // [End custom_button_border_radius2]
+        }
+
+        ComponentCard({
+          title: $r('app.string.ButtonCustomStyle_titleTwo'),
+          description: $r('app.string.ButtonCustomStyle_descriptionTwo')
+        }) {
+          // [Start custom_font_style]
+          Button('Button').id('font_style')
+            .fontSize(20)
+            .fontColor(Color.Pink)
+            .fontWeight(800)
+          // [End custom_font_style]
+
+          // [Start custom_font_style2]
+          Button('font style', { type: ButtonType.Normal } as ButtonOptions)
+            .fontSize(20)
+            .fontColor(Color.Pink)
+            .fontWeight(800)
+          // [End custom_font_style2]
+        }
+
+        ComponentCard({
+          title: $r('app.string.ButtonCustomStyle_titleThree'),
+          description: $r('app.string.ButtonCustomStyle_descriptionThree')
+        }) {
+          // [Start custom_background_color]
+          Button('Button').id('background_color')
+            .backgroundColor(Color.Red)
+          // [End custom_background_color]
+          // [Start custom_background_color2]
+          Button('background color').backgroundColor(0xF55A42)
+          // [End custom_background_color2]
+        }
+
+        ComponentCard({
+          title: $r('app.string.SetButtonType_titleFive'),
+          description: $r('app.string.SetButtonType_descriptionFive')
+        }) {
+          // [Start custom_create_function_button]
+          Button({ type: ButtonType.Circle, stateEffect: true } as ButtonOptions) {
+            // 请将$r('app.media.ic_public_delete_filled3')替换为实际资源文件
+            Image($r('app.media.ic_public_delete_filled')).width(30).height(30)
+          }.width(55).height(55).margin({ 'left': 20 }).backgroundColor(0xF55A42)
+          // [End custom_create_function_button]
+        }
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 12, right: 12 })
+    }
+    .backgroundColor('#f1f2f3')
+    .title(this.resourceToString($r('app.string.ButtonCustomStyle_title')))
+  }
+}

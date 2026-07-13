@@ -24,6 +24,7 @@
 // [Start enable_mute_suggestion]
 // [Start set_default_output_device]
 // [Start set_session_behavior]
+// [Start print_session_info]
 import { audio } from '@kit.AudioKit';
 // [StartExclude get_session_manager]
 // [StartExclude on_audio_session_deactivated]
@@ -41,8 +42,11 @@ import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude enable_mute_suggestion]
 // [StartExclude set_default_output_device]
 // [StartExclude set_session_behavior]
-import { common } from '@kit.AbilityKit';
+// [StartExclude print_session_info]
+import { common, abilityAccessCtrl, PermissionRequestResult } from '@kit.AbilityKit';
+// [EndExclude print_session_info]
 import { fileIo as fs } from '@kit.CoreFileKit';
+// [StartExclude print_session_info]
 
 // 全局UI更新回调
 let globalLogUpdate: ((msg: string, isError: boolean) => void) | undefined;
@@ -52,7 +56,9 @@ class Options {
   public offset?: number;
   public length?: number;
 }
+
 let audioRenderer: audio.AudioRenderer | undefined = undefined;
+let audioCapturer: audio.AudioCapturer | undefined = undefined;
 let audioStreamInfo: audio.AudioStreamInfo = {
   samplingRate: audio.AudioSamplingRate.SAMPLE_RATE_48000, // 采样率。
   channels: audio.AudioChannel.CHANNEL_2, // 通道。
@@ -67,7 +73,16 @@ let audioRendererOptions: audio.AudioRendererOptions = {
   streamInfo: audioStreamInfo,
   rendererInfo: audioRendererInfo
 };
+let audioCapturerInfo: audio.AudioCapturerInfo = {
+  source: audio.SourceType.SOURCE_TYPE_MIC,
+  capturerFlags: 0
+};
+let audioCapturerOptions: audio.AudioCapturerOptions = {
+  streamInfo: audioStreamInfo,
+  capturerInfo: audioCapturerInfo
+};
 let writeDataCallback: audio.AudioRendererWriteDataCallback;
+let readDataCallback: Callback<ArrayBuffer> = (_buffer: ArrayBuffer) => {};
 // [EndExclude renderer_interrupt]
 
 let isPlay: boolean; // 是否正在播放，实际开发中，对应与音频播放状态相关的模块。
@@ -192,6 +207,128 @@ async function init() {
   });
 }
 
+async function requestMicrophonePermission(context: common.UIAbilityContext): Promise<boolean> {
+  let atManager = abilityAccessCtrl.createAtManager();
+  try {
+    let result: PermissionRequestResult = await atManager
+      .requestPermissionsFromUser(context, ['ohos.permission.MICROPHONE']);
+    return result.authResults[0] === 0;
+  } catch (err) {
+    let error = err as BusinessError;
+    console.error(`request microphone permission failed. Code: ${error.code}, message: ${error.message}`);
+    return false;
+  }
+}
+
+async function initAudioCapturerForSession(): Promise<boolean> {
+  if (audioCapturer !== undefined && audioCapturer.state.valueOf() !== audio.AudioState.STATE_RELEASED) {
+    if (globalLogUpdate) {
+      globalLogUpdate('AudioCapturer has been created.', false);
+    }
+    return true;
+  }
+
+  return new Promise<boolean>((resolve) => {
+    audio.createAudioCapturer(audioCapturerOptions, (err, capturer) => {
+      if (err) {
+        const errorMsg = `Failed to create audio capturer. Code: ${err.code}, message: ${err.message}`;
+        console.error(errorMsg);
+        if (globalLogUpdate) {
+          globalLogUpdate(errorMsg, true);
+        }
+        resolve(false);
+        return;
+      }
+
+      audioCapturer = capturer;
+      if (audioCapturer !== undefined) {
+        audioCapturer.on('readData', readDataCallback);
+      }
+      console.info('Succeeded in creating audio capturer.');
+      if (globalLogUpdate) {
+        globalLogUpdate('Succeeded in creating audio capturer.', false);
+      }
+      resolve(true);
+    });
+  });
+}
+
+async function startAudioCapturerForSession(): Promise<boolean> {
+  if (audioCapturer === undefined) {
+    if (globalLogUpdate) {
+      globalLogUpdate('AudioCapturer has not been created.', true);
+    }
+    return false;
+  }
+
+  let stateGroup = [audio.AudioState.STATE_PREPARED, audio.AudioState.STATE_PAUSED, audio.AudioState.STATE_STOPPED];
+  if (stateGroup.indexOf(audioCapturer.state.valueOf()) === -1) {
+    if (globalLogUpdate) {
+      globalLogUpdate('AudioCapturer state is invalid.', true);
+    }
+    return false;
+  }
+
+  return new Promise<boolean>((resolve) => {
+    audioCapturer?.start((err: BusinessError) => {
+      if (err) {
+        const errorMsg = `Failed to start audio capturer. Code: ${err.code}, message: ${err.message}`;
+        console.error(errorMsg);
+        if (globalLogUpdate) {
+          globalLogUpdate(errorMsg, true);
+        }
+        resolve(false);
+        return;
+      }
+
+      console.info('Succeeded in starting audio capturer.');
+      if (globalLogUpdate) {
+        globalLogUpdate('Succeeded in starting audio capturer.', false);
+      }
+      resolve(true);
+    });
+  });
+}
+
+async function releaseAudioCapturerForSession(): Promise<boolean> {
+  if (audioCapturer === undefined || audioCapturer.state.valueOf() === audio.AudioState.STATE_RELEASED) {
+    if (globalLogUpdate) {
+      globalLogUpdate('AudioCapturer has been released.', false);
+    }
+    return true;
+  }
+
+  if (audioCapturer.state.valueOf() === audio.AudioState.STATE_RUNNING ||
+    audioCapturer.state.valueOf() === audio.AudioState.STATE_PAUSED) {
+    await new Promise<void>((resolve) => {
+      audioCapturer?.stop(() => {
+        resolve();
+      });
+    });
+  }
+
+  return new Promise<boolean>((resolve) => {
+    audioCapturer?.release((err: BusinessError) => {
+      if (err) {
+        const errorMsg = `Failed to release audio capturer. Code: ${err.code}, message: ${err.message}`;
+        console.error(errorMsg);
+        if (globalLogUpdate) {
+          globalLogUpdate(errorMsg, true);
+        }
+        resolve(false);
+        return;
+      }
+
+      audioCapturer = undefined;
+      console.info('Succeeded in releasing audio capturer.');
+      if (globalLogUpdate) {
+        globalLogUpdate('Succeeded in releasing audio capturer.', false);
+      }
+      resolve(true);
+    });
+  });
+}
+
 async function start() {
   if (audioRenderer !== undefined) {
     let stateGroup = [audio.AudioState.STATE_PREPARED, audio.AudioState.STATE_PAUSED, audio.AudioState.STATE_STOPPED];
@@ -253,6 +390,39 @@ let audioSessionManager: audio.AudioSessionManager = audioManager.getSessionMana
 // [End get_session_manager]
 // [StartExclude audio_session_v1]
 // [StartExclude set_default_output_device]
+
+async function setSessionCapturerMuteHint(muteHint: boolean): Promise<boolean> {
+  if (audioCapturer === undefined || audioCapturer.state.valueOf() !== audio.AudioState.STATE_RUNNING) {
+    const errorMsg = 'AudioCapturer is not running.';
+    console.error(errorMsg);
+    if (globalLogUpdate) {
+      globalLogUpdate(errorMsg, true);
+    }
+    return false;
+  }
+
+  // [Start set_capturer_mute_hint]
+  try {
+    await audioSessionManager.setCapturerMuteHint(muteHint);
+    console.info(`setCapturerMuteHint ${muteHint} success.`);
+    // [StartExclude set_capturer_mute_hint]
+    if (globalLogUpdate) {
+      globalLogUpdate(`setCapturerMuteHint ${muteHint} success.`, false);
+    }
+    return true;
+    // [EndExclude set_capturer_mute_hint]
+  } catch (err) {
+    let error = err as BusinessError;
+    console.error(`setCapturerMuteHint ${muteHint} failed. Code: ${error.code}, message: ${error.message}`);
+    // [StartExclude set_capturer_mute_hint]
+    if (globalLogUpdate) {
+      globalLogUpdate(`setCapturerMuteHint ${muteHint} failed. Code: ${error.code}, message: ${error.message}`, true);
+    }
+    return false;
+    // [EndExclude set_capturer_mute_hint]
+  }
+  // [End set_capturer_mute_hint]
+}
 
 async function useAudioSessionV1(){
   // [EndExclude activate_audio_session_v1]
@@ -435,9 +605,7 @@ async function setSessionBehavior(){
 
   // 本接口应在激活音频会话前调用。
   // 若音频会话在激活状态时调用此接口后，必须重新激活音频会话使其生效。
-  // behavior参数支持位或操作，可同时设置多个会话行为标志。
-  let behavior =
-    audio.AudioSessionBehaviorFlags.VOIP_PRIVACY_TYPE_PUBLIC | audio.AudioSessionBehaviorFlags.MUTE_WHEN_INTERRUPTED;
+  let behavior = audio.AudioSessionBehaviorFlags.MUTE_WHEN_INTERRUPTED;
   audioSessionManager.setAudioSessionBehavior(behavior);
 
   // 设置音频会话策略。
@@ -543,6 +711,31 @@ async function setDefaultOutputDeviceToDefault(){
     console.error(`Failed to set default output device. Code: ${err.code}, message: ${err.message}`);
   });
   // [End set_default_output_device]
+}
+
+async function printAudioSessionInfo(context: common.UIAbilityContext){
+  // [EndExclude print_session_info]
+  // 设置音频并发模式。
+  let strategy: audio.AudioSessionStrategy = {
+    concurrencyMode: audio.AudioConcurrencyMode.CONCURRENCY_MIX_WITH_OTHERS
+  };
+  // 激活音频会话。
+  await audioSessionManager.activateAudioSession(strategy);
+
+  // 创建音频调试管理器。
+  let audioDebuggingManager: audio.AudioDebuggingManager = audioManager.getDebuggingManager();
+
+  // 输出到hilog日志。
+  audioDebuggingManager.printSessionInfo(audioSessionManager, -1);
+
+  // fd 文件描述符，实际使用时请根据具体情况获取
+  let filePath = context.filesDir + '/audio_session_info.txt';
+  let fd = fs.openSync(filePath, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC).fd;
+  // 输出到文件。
+  audioDebuggingManager.printSessionInfo(audioSessionManager, fd);
+  fs.closeSync(fd);
+  // [End print_session_info]
+  console.info('print audio session info filePath: ' + filePath);
 }
 
 @Entry
@@ -702,8 +895,12 @@ struct Index {
           .width('80%')
           .height(40)
           .onClick(async (): Promise<void> => {
-            await useAudioSessionV2();
-            this.runningResult = 'Activate audioSession V2 success.';
+            try {
+              await useAudioSessionV2();
+              this.runningResult = 'Activate audioSession V2 success.';
+            } catch (err) {
+              this.runningResult = 'Activate audioSession V2 fail.';
+            }
           })
         }
         .width('80%')
@@ -719,6 +916,75 @@ struct Index {
           .onClick(async (): Promise<void> => {
             await setSessionBehavior();
             this.runningResult = 'Set session behavior and activate audioSession V2 success.';
+          })
+        }
+        .width('80%')
+        .height(50)
+        .justifyContent(FlexAlign.Center)
+
+        Row() {
+          Button() {
+            Text('初始化audioCapturer').fontSize(15).fontColor(Color.White)
+          }
+          .width('80%')
+          .height(40)
+          .onClick(async (): Promise<void> => {
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            let hasPermission = await requestMicrophonePermission(context);
+            if (!hasPermission) {
+              this.runningResult = 'Microphone permission denied.';
+              this.updateLogInfo('Microphone permission denied.', true);
+              return;
+            }
+            const isSuccess = await initAudioCapturerForSession();
+            this.runningResult = isSuccess ? 'Init audioCapturer success.' : 'Init audioCapturer failed.';
+          })
+        }
+        .width('80%')
+        .height(50)
+        .justifyContent(FlexAlign.Center)
+
+        Row() {
+          Button() {
+            Text('开始录制').fontSize(15).fontColor(Color.White)
+          }
+          .width('80%')
+          .height(40)
+          .onClick(async (): Promise<void> => {
+            const isSuccess = await startAudioCapturerForSession();
+            this.runningResult = isSuccess ? 'Start audioCapturer success.' : 'Start audioCapturer failed.';
+          })
+        }
+        .width('80%')
+        .height(50)
+        .justifyContent(FlexAlign.Center)
+
+        Row() {
+          Button() {
+            Text('设置会话录音静音提示').fontSize(15).fontColor(Color.White)
+          }
+          .width('80%')
+          .height(40)
+          .onClick(async (): Promise<void> => {
+            const isSuccess = await setSessionCapturerMuteHint(true);
+            this.runningResult = isSuccess ? 'Report session capturer mute hint success.' :
+              'Report session capturer mute hint failed.';
+          })
+        }
+        .width('80%')
+        .height(50)
+        .justifyContent(FlexAlign.Center)
+
+        Row() {
+          Button() {
+            Text('解除会话录音静音提示').fontSize(15).fontColor(Color.White)
+          }
+          .width('80%')
+          .height(40)
+          .onClick(async (): Promise<void> => {
+            const isSuccess = await setSessionCapturerMuteHint(false);
+            this.runningResult = isSuccess ? 'Clear session capturer mute hint success.' :
+              'Clear session capturer mute hint failed.';
           })
         }
         .width('80%')
@@ -772,6 +1038,21 @@ struct Index {
 
         Row() {
           Button() {
+            Text('释放audioCapturer').fontSize(15).fontColor(Color.White)
+          }
+          .width('80%')
+          .height(40)
+          .onClick(async (): Promise<void> => {
+            const isSuccess = await releaseAudioCapturerForSession();
+            this.runningResult = isSuccess ? 'Release audioCapturer success.' : 'Release audioCapturer failed.';
+          })
+        }
+        .width('80%')
+        .height(50)
+        .justifyContent(FlexAlign.Center)
+
+        Row() {
+          Button() {
             Text('停用音频会话').fontSize(15).fontColor(Color.White)
           }
           .width('80%')
@@ -784,8 +1065,23 @@ struct Index {
         .width('80%')
         .height(50)
         .justifyContent(FlexAlign.Center)
+
+        Row() {
+          Button() {
+            Text('打印音频会话调试信息').fontSize(15).fontColor(Color.White)
+          }
+          .width('80%')
+          .height(40)
+          .onClick(async (): Promise<void> => {
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            await printAudioSessionInfo(context);
+            this.runningResult = 'Print audioSession info success.';
+          })
+        }
+        .width('80%')
+        .height(50)
+        .justifyContent(FlexAlign.Center)
       }
-      .height('100%')
       .width('100%')
       .backgroundColor('#F1F3F5');
     }

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { BarStyle, BlurStyle, Builder, Column, Component, Entry, FlexAlign, ForEach, LengthMetrics, List, ListItem, NavPathInfo, NavPathStack, Navigation, Provide, Search, State, $r } from '@kit.ArkUI';
+import { BarStyle, BlurStyle, Builder, Column, Component, Entry, FlexAlign, ForEach, LengthMetrics, List, ListItem, ListOptions, NavPathInfo, NavPathStack, Navigation, Provide, Search, State, $r } from '@kit.ArkUI';
 import { RoutableCard } from '../common/Card';
 import { Route } from '../common/Route';
 import { DeviceDestination, Device_ROUTE_PREFIX } from './device/Index';
@@ -27,7 +27,7 @@ import { Gesture_ROUTE_PREFIX, GestureDestination } from './singlegesture/Index'
 import { TouchDestination, Touch_ROUTE_PREFIX } from './Touch/Index';
 import { DropAnimationExample, dropAnimationRoutePrefix} from './drop/DropAnimationExample';
 import resource from '../common/resource';
-import { GridEts, gridRoutePrefix } from './grid/GridEts';
+import { GridNav, gridRoutePrefix } from './grid/GridNav';
 import { springLoadingRoutePrefix, SpringLoadingPage} from './springloading/SpringLoading';
 
 // [Start route_push]
@@ -95,7 +95,7 @@ function Destination(name: string) {
   } else if (name.startsWith(dropAnimationRoutePrefix)) {
     DropAnimationExample();
   } else if (name.startsWith(gridRoutePrefix)) {
-    GridEts();
+    GridNav();
   } else if (name.startsWith(springLoadingRoutePrefix)) {
     SpringLoadingPage();
   }
@@ -131,7 +131,7 @@ struct Index {
 
   build() {
     Navigation(this.pathStack) {
-      List({ space: 12 }) {
+      List({ space: 12 } as ListOptions) {
         ForEach(this.getFilteredRoutes(), (route: Route, index: int) => {
           ListItem() {
             RoutableCard({ title: route.title })

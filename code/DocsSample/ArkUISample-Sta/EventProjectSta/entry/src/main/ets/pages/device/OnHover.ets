@@ -23,7 +23,7 @@ export struct Hover {
   @State hoverText: string = 'Not Hover';
   @State color: Color = Color.Gray;
 
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 12 } as ColumnOptions) {
 

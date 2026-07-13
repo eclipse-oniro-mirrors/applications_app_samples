@@ -28,7 +28,11 @@ struct MyStateSample {
     Column() {
       hilog.info(0X0000, 'testTag', `${this.stateVar}`); // 在build()根节点中打印日志
       Text('show text1')
+        .fontSize(20)
+        .margin(10)
       Button('change stateVar')
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.stateVar = (this.stateVar + 1) % 4;
         })

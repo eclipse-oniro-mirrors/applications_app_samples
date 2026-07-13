@@ -31,24 +31,32 @@ struct DateSample {
   build() {
     Column() {
       Button('set selectedDate to 2023-07-08')
+        .width(300)
         .margin(10)
         .onClick((e) => {
-          this.info.selectedDate = new Date('2023-07-08');
+        // 通过给info.selectedDate重新赋值新的Date实例，触发UI刷新
+        this.info.selectedDate = new Date('2023-07-08');
         })
       Button('increase the year by 1')
+        .width(300)
         .margin(10)
         .onClick((e) => {
-          this.info.selectedDate.setFullYear(this.info.selectedDate.getFullYear() + 1);
+        // 调用Date的setFullYear接口修改年份，触发UI刷新
+        this.info.selectedDate.setFullYear(this.info.selectedDate.getFullYear() + 1);
         })
       Button('increase the month by 1')
+        .width(300)
         .margin(10)
         .onClick((e) => {
-          this.info.selectedDate.setMonth(this.info.selectedDate.getMonth() + 1);
+        // 调用Date的setMonth接口修改月份，触发UI刷新
+        this.info.selectedDate.setMonth(this.info.selectedDate.getMonth() + 1);
         })
       Button('increase the day by 1')
+        .width(300)
         .margin(10)
         .onClick((e) => {
-          this.info.selectedDate.setDate(this.info.selectedDate.getDate() + 1);
+        // 调用Date的setDate接口修改日期，触发UI刷新
+        this.info.selectedDate.setDate(this.info.selectedDate.getDate() + 1);
         })
       DatePicker({
         start: new Date('1970-1-1'),

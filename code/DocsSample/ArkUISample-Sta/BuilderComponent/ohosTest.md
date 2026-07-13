@@ -24,3 +24,6 @@
 | @ComponentV2中@Builder刷新 | 设备正常运行 | 进入页面 | builderParams值自动递增 | 是 | Pass |
 | 正确修改@Builder参数 | 设备正常运行 | 点击click me | 文本从Hello变为ArkUI | 是 | Pass |
 | 自定义组件拆分参数 | 设备正常运行 | 点击Click me | 张三变为李四，18变为20 | 是 | Pass |
+| MutableBinding参数无SetterCallback | 设备正常运行 | 点击按钮 | strValue和num值正确更新 | 是 | Pass |
+| 正确修改变量值 | 设备正常运行 | 点击按钮 | 参数值正确修改并更新UI | 是 | Pass |
+| @Watch中不调用@Builder | 设备正常运行 | 点击按钮 | content值正确更新并显示 | 是 | Pass |

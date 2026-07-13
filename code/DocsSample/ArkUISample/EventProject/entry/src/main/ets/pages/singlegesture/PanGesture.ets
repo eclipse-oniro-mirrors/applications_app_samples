@@ -28,7 +28,7 @@ export struct Pan {
         Column() {
           Text('PanGesture Offset:\nX: ' + this.offsetX + '\n' + 'Y: ' + this.offsetY)
             .fontSize(28)
-            .height(200)
+            .height(300)
             .width(300)
             .padding(20)
             .border({ width: 3 })
@@ -53,7 +53,7 @@ export struct Pan {
                 })
             )
         }
-        .height(200)
+        .height(300)
         .width(250)
       }
       .width('100%')

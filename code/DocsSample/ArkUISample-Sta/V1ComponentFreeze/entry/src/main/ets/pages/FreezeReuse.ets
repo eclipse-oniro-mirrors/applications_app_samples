@@ -40,9 +40,13 @@ struct ChildComponent {
     Column() {
       Text(`ChildComponent index: ${this.index} item: ${this.item}`)
         .fontSize(20)
+        .margin(10)
       Text(`desc: ${this.getValue()}`)
         .fontSize(20)
-    }.border({width: 2, color: Color.Pink})
+        .margin(10)
+    }
+      .border({width: 2, color: Color.Pink})
+      .width('100%')
   }
 }
 
@@ -60,18 +64,23 @@ struct Page {
 
   build() {
     Column() {
-      Button(`change desc`).onClick(() => {
-        this.desc += '!';
-      })
+      Button(`change desc`)
+        .width(300)
+        .margin(10)
+        .onClick(() => {
+          this.desc += '!';
+        })
       List({ space: 3 }) {
         LazyForEach(this.data, (item: string, index: int) => {
           ListItem() {
             ChildComponent({index: index, item: item, desc: this.desc})
           }
         }, (item: string) => item)
-      }.cachedCount(5)
+      }
+      .cachedCount(5) // 设置ListItem的缓存数量
     }
     .height('100%')
+    .width('100%')
   }
 }
 

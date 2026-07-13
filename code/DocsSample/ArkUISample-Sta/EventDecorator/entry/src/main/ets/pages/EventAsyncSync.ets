@@ -16,7 +16,7 @@
  */
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start EventAsyncSync]
-import { ClickEvent, Column, ComponentV2, Entry, Event, Local, Param, Text } from '@kit.ArkUI';
+import { ClickEvent, Column, ComponentV2, Entry, Event, Local, Param, Text, Button } from '@kit.ArkUI';
 
 @ComponentV2
 struct Child {
@@ -26,12 +26,18 @@ struct Child {
   build() {
     Column() {
       Text(`Child index: ${this.index}`)
+        .fontSize(20)
+        .margin(10)
+      Button(`Change index`)
+        .width(300)
+        .margin(10)
         .onClick((e: ClickEvent) => {
           this.changeIndex(20);
           // 从父组件将变化同步回子组件的不是立刻生效
           console.info(`after changeIndex ${this.index}`);
         })
     }
+    .width('100%')
   }
 }
 @Entry
@@ -50,6 +56,7 @@ struct Index {
         }
       })
     }
+    .width('100%')
   }
 }
 

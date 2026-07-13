@@ -22,12 +22,17 @@ import { Button, ClickEvent, Column, ComponentV2, Entry, Text } from '@kit.ArkUI
 struct Page2 {
   build() {
     Column() {
-      Text('This is the page2').fontSize(25)
-      Button('Back')
+      Text('This is the page2')
+        .fontSize(25)
+        .margin(10)
+      Button('Back') // 跳转回上一个页面
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.getUIContext().getRouter().back();
         })
     }
+    .width('100%')
   }
 }
 // [End FreezePageRouter2]

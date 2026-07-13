@@ -26,29 +26,29 @@ struct Index {
   build() {
     Scroll() {
       Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {
-        Text(resource.resourceToString($r('app.string.Communication_Objects')))
+        Text(resource.resourceToString($r('app.string.Communication_Objects').id))
           .padding('15vp')
           .width('100%')
           .fontSize('25fp')
           .textAlign(TextAlign.Center)
         CommonButton({
-          buttonName: resource.resourceToString($r('app.string.Normal_Object')),
+          buttonName: resource.resourceToString($r('app.string.Normal_Object').id),
           buttonUrl: 'managers/NormalObject'
         });
         CommonButton({
-          buttonName: resource.resourceToString($r('app.string.ArrayBuffer_Object')),
+          buttonName: resource.resourceToString($r('app.string.ArrayBuffer_Object').id),
           buttonUrl: 'managers/ArrayBufferObject'
         });
         CommonButton({
-          buttonName: resource.resourceToString($r('app.string.SharedArrayBuffer_Object')),
+          buttonName: resource.resourceToString($r('app.string.SharedArrayBuffer_Object').id),
           buttonUrl: 'managers/SharedArrayBufferObject'
         });
         CommonButton({
-          buttonName: resource.resourceToString($r('app.string.Transferabled_Object')),
+          buttonName: resource.resourceToString($r('app.string.Transferabled_Object').id),
           buttonUrl: 'managers/TransferabledObject'
         });
         CommonButton({
-          buttonName: resource.resourceToString($r('app.string.Container_Object')),
+          buttonName: resource.resourceToString($r('app.string.Container_Object').id),
           buttonUrl: 'managers/ContainerObject'
         });
       }

@@ -98,7 +98,7 @@ export struct GridEts {
   }
 
   @Builder
-  RandomBuilder(idx: int) {
+  RandomBuilder(idx: int): void {
     Column()
       .backgroundColor(Color.Blue)
       .width(50)
@@ -109,7 +109,7 @@ export struct GridEts {
   //[EndExclude grid_previewData_start]
   //[EndExclude grid_styles_start]
   //[EndExclude grid_numberBadge_start]
-  build() {
+  build(): void {
     NavDestination() {
       Column({ space: 5 } as ColumnOptions) {
         //[StartExclude grid_previewData_start]
@@ -172,9 +172,10 @@ export struct GridEts {
             } as DragItemInfo)
             //[End dragPreview_Start]
             .dragPreview(this.previewData[idx])
-            // //[EndExclude grid_start]
-            // // .onDragStart(() => {
-            // // })
+            //[EndExclude grid_start]
+            .onDragStart(() => {
+              return {} as DragItemInfo;
+            })
             .selectable(true)
             //[StartExclude grid_start]
             //[Start grid_isSelected_start]

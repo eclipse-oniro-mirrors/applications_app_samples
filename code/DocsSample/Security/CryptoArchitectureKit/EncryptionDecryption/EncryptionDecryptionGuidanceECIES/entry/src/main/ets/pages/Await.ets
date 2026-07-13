@@ -16,6 +16,7 @@
 // [Start use_sample_await_test]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 namespace ECIES {
   export async function genGcmParamsSpec() {

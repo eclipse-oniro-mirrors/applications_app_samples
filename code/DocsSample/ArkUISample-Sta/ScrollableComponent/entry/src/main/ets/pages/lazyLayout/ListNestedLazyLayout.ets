@@ -123,6 +123,7 @@ export struct ListNestedLazyLayout {
               .fontColor(Color.Gray)
           }
 
+          // 等宽的网格布局
           LazyVGridLayout() {
             LazyForEach(this.gridData, (item: int) => {
               Text('item' + item.toString())
@@ -140,6 +141,7 @@ export struct ListNestedLazyLayout {
             console.info('LazyVGridLayout visible indexes: start: ' + start + ', end: ' + end);
           })
 
+          // 不等宽的网格布局
           LazyVGridLayout() {
             LazyForEach(this.gridData, (item: int) => {
               Text('item' + (this.gridData.totalCount() + item).toString())
@@ -168,6 +170,7 @@ export struct ListNestedLazyLayout {
           }
 
           // [EndExclude lazy_water_flow_load_data]
+          // 瀑布流布局
           LazyVWaterFlowLayout() {
             LazyForEach(this.flowData, (item: int) => {
               // [StartExclude lazy_water_flow_load_data]

@@ -20,7 +20,7 @@ import { $r, Button, Color, Column, Component, Entry, Margin, NavDestination, Ro
 @Entry
 @Component
 export struct FocusLinerExample {
-  build() {
+  build(): void {
     NavDestination() {
       Column() {
         Column() {

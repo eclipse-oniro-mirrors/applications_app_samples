@@ -40,22 +40,28 @@ struct MyView {
 
   build() {
     Column() {
-      Row() {
-        Button('-')
-          .onClick((e: ClickEvent) => {
-            this.celsius--;
-          })
+      Button('-')
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          this.celsius--;
+        })
 
-        Text(`Celsius ${this.celsius.toFixed(1)}`).fontSize(50)
+      Text(`Celsius ${this.celsius.toFixed(1)}`)
+        .fontSize(20)
+        .margin(10)
 
-        Button('+')
-          .onClick((e: ClickEvent) => {
-            this.celsius++;
-          })
-      }
+      Button('+')
+        .margin(10)
+        .onClick((e: ClickEvent) => {
+          this.celsius++;
+        })
 
-      Text(`Fahrenheit ${this.fahrenheit.toFixed(2)}`).fontSize(50)
-      Text(`Kelvin ${this.kelvin.toFixed(2)}`).fontSize(50)
+      Text(`Fahrenheit ${this.fahrenheit.toFixed(2)}`)
+        .fontSize(20)
+        .margin(10)
+      Text(`Kelvin ${this.kelvin.toFixed(2)}`)
+        .fontSize(20)
+        .margin(10)
     }
     .width('100%')
   }

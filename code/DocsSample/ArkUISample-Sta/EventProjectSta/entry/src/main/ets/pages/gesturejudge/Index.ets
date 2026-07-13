@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { $r, BarStyle, BlurStyle, Builder, Component, Consume, Entry, ForEach, List, ListItem, NavDestination, NavPathInfo, NavPathStack, Padding } from '@kit.ArkUI';
+import { $r, BarStyle, BlurStyle, Builder, Component, Consume, Entry, ForEach, List, ListItem, ListOptions, NavDestination, NavPathInfo, NavPathStack, Padding } from '@kit.ArkUI';
 import { CompletedRoutableCard } from '../../common/Card';
 import { Route } from '../../common/Route';
 import { GestureJudge } from './GestureJudge';
@@ -34,7 +34,7 @@ const routes: Route[] = [
 ];
 
 @Builder
-export function GestureJudgeDestination(name: string) {
+export function GestureJudgeDestination(name: string): void {
   if (name === GestureJudge_ROUTE_PREFIX) {
     GestureJudgeExample();
   } else if (name === routes[0].name) {
@@ -49,10 +49,10 @@ struct GestureJudgeExample {
 
   build() {
     NavDestination() {
-      List({ space: 12 }) {
+      List({ space: 12 } as ListOptions) {
         ForEach(routes, (route: Route, index: int) => {
           ListItem() {
-            CompletedRoutableCard({ title: route.title, description: route.description })
+            CompletedRoutableCard({ title: route.title, description: route.description as string })
           }
           .width('100%')
           .onClick(() => {

@@ -38,7 +38,7 @@ export struct DialogNavDestination {
     .backgroundColor(this.backColor)
     .mode(NavDestinationMode.DIALOG)
     .onWillAppear(() => {
-      //启动时候蒙层渐现
+      // 启动时候蒙层渐现
       this.getUIContext().animateTo({ duration:450 }, () => {
         this.backColor = '#66000000';
       });
