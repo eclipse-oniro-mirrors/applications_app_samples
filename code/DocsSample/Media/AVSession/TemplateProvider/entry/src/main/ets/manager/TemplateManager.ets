@@ -12,9 +12,6 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-/*
- * Copyright (c) Huawei Technologies Co., Ltd. 2026-2026. All rights reserved.
- */
 
 // [Start manager_create_template]
 // [Start template_register_listener]
@@ -183,305 +180,245 @@ export class TemplateManager {
   // [EndExclude register_query_main_tabs]
   // [StartExclude set_user_info]
   private queryMainTabsEvent: avMusicTemplate.QueryMainTabsEvent = async () => {
-    return new Promise<avMusicTemplate.MediaTab[]>(async (resolve, reject) => {
-      try {
-        let tabs: avMusicTemplate.MediaTab[] = await this.getMainTabs();
-        resolve(tabs);
-      } catch (e) {
-        console.error(`queryMainTabsEvent fail, errCode: ${e?.code}`);
-        reject(e);
-      }
-    });
+    try {
+      return await this.getMainTabs();
+    } catch (e) {
+      console.error(`queryMainTabsEvent fail, errCode: ${e?.code}`);
+      throw e instanceof Error ? e : new Error(e?.message ?? `queryMainTabsEvent error, code: ${e?.code}`);
+    }
   };
   // [StartExclude register_query_main_tabs]
   // [EndExclude register_query_media_tab_content]
   private queryMediaTabContentEvent: avMusicTemplate.QueryMediaTabContentEvent = async (tabId: string) => {
-    return new Promise<avMusicTemplate.MediaTabContent>(async (resolve, reject) => {
-      try {
-        let tabContent: avMusicTemplate.MediaTabContent = await this.createMediaTabContent();
-        resolve(tabContent);
-      } catch (e) {
-        console.error(`queryMediaTabContentEvent fail, errCode: ${e?.code}`);
-        reject(e);
-      }
-    });
+    try {
+      return await this.createMediaTabContent();
+    } catch (e) {
+      console.error(`queryMediaTabContentEvent fail, errCode: ${e?.code}`);
+      throw e instanceof Error ? e : new Error(e?.message ?? `queryMediaTabContentEvent error, code: ${e?.code}`);
+    }
   };
   // [StartExclude template_register_listener]
   // [StartExclude register_query_media_tab_content]
   // [EndExclude register_query_media_entity]
   private queryMediaEntityEvent: avMusicTemplate.QueryMediaEntityEvent =
     async (params: avMusicTemplate.QueryMediaEntityParam) => {
-      return new Promise<avMusicTemplate.PageMediaEntity>(async (resolve, reject) => {
-        try {
-          let pageMediaEntity: avMusicTemplate.PageMediaEntity = await this.createPageMediaEntity();
-          resolve(pageMediaEntity);
-        } catch (e) {
-          console.error(`queryMediaEntityEvent fail, errCode: ${e?.code}`);
-          reject(e);
-        }
-      });
+      try {
+        return await this.createPageMediaEntity();
+      } catch (e) {
+        console.error(`queryMediaEntityEvent fail, errCode: ${e?.code}`);
+        throw e instanceof Error ? e : new Error(e?.message ?? `queryMediaEntityEvent error, code: ${e?.code}`);
+      }
     };
   // [StartExclude register_query_media_entity]
   // [EndExclude register_query_compilation]
   private queryCompilationEvent: avMusicTemplate.QueryCompilationEvent =
     async (compilationId: string, pageIndex: number) => {
-      return new Promise<avMusicTemplate.PageMediaEntity>(async (resolve, reject) => {
-        try {
-          let pageMediaEntity: avMusicTemplate.PageMediaEntity = await this.createPageMediaEntity();
-          resolve(pageMediaEntity);
-        } catch (e) {
-          console.error(`queryCompilationEvent fail, errCode: ${e?.code}`);
-          reject(e);
-        }
-      });
+      try {
+        return await this.createPageMediaEntity();
+      } catch (e) {
+        console.error(`queryCompilationEvent fail, errCode: ${e?.code}`);
+        throw e instanceof Error ? e : new Error(e?.message ?? `queryCompilationEvent error, code: ${e?.code}`);
+      }
     };
   // [StartExclude register_query_compilation]
   // [EndExclude register_query_play_list]
   private queryPlaylistEvent: avMusicTemplate.QueryPlaylistEvent =
     async (pageIndex: number, sort: avMusicTemplate.Sort) => {
-      return new Promise<avMusicTemplate.PageMediaEntity>(async (resolve, reject) => {
-        try {
-          let pageMediaEntity: avMusicTemplate.PageMediaEntity = await this.createPageMediaEntity();
-          resolve(pageMediaEntity);
-        } catch (e) {
-          console.error(`queryPlaylistEvent fail, errCode: ${e?.code}`);
-          reject(e);
-        }
-      });
+      try {
+        return await this.createPageMediaEntity();
+      } catch (e) {
+        console.error(`queryPlaylistEvent fail, errCode: ${e?.code}`);
+        throw e instanceof Error ? e : new Error(e?.message ?? `queryPlaylistEvent error, code: ${e?.code}`);
+      }
     };
   // [StartExclude register_query_play_list]
   // [EndExclude register_query_current_single]
   private queryCurrentSingleEvent: avMusicTemplate.QueryCurrentSingleEvent = async () => {
-    return new Promise<avMusicTemplate.Single>(async (resolve, reject) => {
-      try {
-        let single: avMusicTemplate.Single = await this.createCurrentSingle();
-        resolve(single);
-      } catch (e) {
-        console.error(`queryCurrentSingleEvent fail, errCode: ${e?.code}`);
-        reject(e);
-      }
-    });
+    try {
+      return await this.createCurrentSingle();
+    } catch (e) {
+      console.error(`queryCurrentSingleEvent fail, errCode: ${e?.code}`);
+      throw e instanceof Error ? e : new Error(e?.message ?? `queryCurrentSingleEvent error, code: ${e?.code}`);
+    }
   };
   // [StartExclude register_query_current_single]
   // [EndExclude register_query_compilation_by_keyword]
   private queryCompilationByKeywordEvent: avMusicTemplate.QueryCompilationByKeywordEvent = async (keyword: string) => {
-    return new Promise<avMusicTemplate.Compilation[]>(async (resolve, reject) => {
-      try {
-        let compilation: avMusicTemplate.Compilation = await this.createCompilation();
-        let compilations: avMusicTemplate.Compilation[] = [compilation];
-        resolve(compilations);
-      } catch (e) {
-        console.error(`queryCompilationByKeywordEvent fail, errCode: ${e?.code}`);
-        reject(e);
-      }
-    });
+    try {
+      let compilation: avMusicTemplate.Compilation = await this.createCompilation();
+      let compilations: avMusicTemplate.Compilation[] = [compilation];
+      return compilations;
+    } catch (e) {
+      console.error(`queryCompilationByKeywordEvent fail, errCode: ${e?.code}`);
+      throw e instanceof Error ? e : new Error(e?.message ?? `queryCompilationByKeywordEvent error, code: ${e?.code}`);
+    }
   };
   // [StartExclude register_query_compilation_by_keyword]
   // [EndExclude register_query_media_entity_by_keyword]
   private queryMediaEntityByKeywordEvent: avMusicTemplate.QueryMediaEntityByKeywordEvent =
     async (keyword: string, searchType: avMusicTemplate.EntityType, pageIndex: number) => {
-      return new Promise<avMusicTemplate.PageMediaEntity>(async (resolve, reject) => {
-        try {
-          let pageMediaEntity: avMusicTemplate.PageMediaEntity = await this.createPageMediaEntity();
-          resolve(pageMediaEntity);
-        } catch (e) {
-          console.error(`queryMediaEntityByKeywordEvent fail, errCode: ${e?.code}`);
-          reject(e);
-        }
-      });
+      try {
+        return await this.createPageMediaEntity();
+      } catch (e) {
+        console.error(`queryMediaEntityByKeywordEvent fail, errCode: ${e?.code}`);
+        throw e instanceof Error ? e :
+          new Error(e?.message ?? `queryMediaEntityByKeywordEvent error, code: ${e?.code}`);
+      }
     };
   // [StartExclude register_query_media_entity_by_keyword]
   // [EndExclude register_query_recommend_media_entity_list]
   private queryRecommendMediaEntityListEvent: avMusicTemplate.QueryRecommendMediaEntityListEvent = async () => {
-    return new Promise<avMusicTemplate.MediaEntity[]>(async (resolve, reject) => {
-      try {
-        let mediaEntity: avMusicTemplate.MediaEntity = await this.createMediaEntity();
-        let mediaEntities: avMusicTemplate.MediaEntity[] = [mediaEntity];
-        resolve(mediaEntities);
-      } catch (e) {
-        console.error(`queryRecommendMediaEntityListEvent fail, errCode: ${e?.code}`);
-        reject(e);
-      }
-    });
+    try {
+      let mediaEntity: avMusicTemplate.MediaEntity = await this.createMediaEntity();
+      let mediaEntities: avMusicTemplate.MediaEntity[] = [mediaEntity];
+      return mediaEntities;
+    } catch (e) {
+      console.error(`queryRecommendMediaEntityListEvent fail, errCode: ${e?.code}`);
+      throw e instanceof Error ? e :
+        new Error(e?.message ?? `queryRecommendMediaEntityListEvent error, code: ${e?.code}`);
+    }
   };
   // [StartExclude register_query_recommend_media_entity_list]
   // [EndExclude register_query_hot_words]
   private queryHotWordsEvent: avMusicTemplate.QueryHotWordsEvent = async () => {
-    return new Promise<string[]>(async (resolve, reject) => {
-      try {
-        let hotWords: string[] = ['热词1', '热词2', '热词3', '热词4', '热词5'];
-        resolve(hotWords);
-      } catch (e) {
-        console.error(`queryHotWordsEvent fail, errCode: ${e?.code}`);
-        reject(e);
-      }
-    });
+    try {
+      return ['热词1', '热词2', '热词3', '热词4', '热词5'];
+    } catch (e) {
+      console.error(`queryHotWordsEvent fail, errCode: ${e?.code}`);
+      throw e instanceof Error ? e : new Error(e?.message ?? `queryHotWordsEvent error, code: ${e?.code}`);
+    }
   };
   // [StartExclude register_query_hot_words]
   // [EndExclude register_query_search_history]
   private querySearchHistoryEvent: avMusicTemplate.QuerySearchHistoryEvent = async () => {
-    return new Promise<string[]>(async (resolve, reject) => {
-      try {
-        let searchHistory: string[] = ['搜索历史1', '搜索历史2', '搜索历史3', '搜索历史4', '搜索历史5'];
-        resolve(searchHistory);
-      } catch (e) {
-        console.error(`querySearchHistoryEvent fail, errCode: ${e?.code}`);
-        reject(e);
-      }
-    });
+    try {
+      return ['搜索历史1', '搜索历史2', '搜索历史3', '搜索历史4', '搜索历史5'];
+    } catch (e) {
+      console.error(`querySearchHistoryEvent fail, errCode: ${e?.code}`);
+      throw e instanceof Error ? e : new Error(e?.message ?? `querySearchHistoryEvent error, code: ${e?.code}`);
+    }
   };
   // [StartExclude register_query_search_history]
   // [EndExclude register_clear_search_history]
   private clearSearchHistoryEvent: avMusicTemplate.ClearSearchHistoryEvent = async () => {
-    return new Promise<avMusicTemplate.OperResult>(async (resolve, reject) => {
-      try {
-        let operResult: avMusicTemplate.OperResult = await this.createOperResult();
-        resolve(operResult);
-      } catch (e) {
-        console.error(`clearSearchHistoryEvent fail, errCode: ${e?.code}`);
-        reject(e);
-      }
-    });
+    try {
+      return await this.createOperResult();
+    } catch (e) {
+      console.error(`clearSearchHistoryEvent fail, errCode: ${e?.code}`);
+      throw e instanceof Error ? e : new Error(e?.message ?? `clearSearchHistoryEvent error, code: ${e?.code}`);
+    }
   };
   // [StartExclude register_clear_search_history]
   // [EndExclude register_on_login]
   private loginEvent: avMusicTemplate.LoginEvent = async (controlType: avMusicTemplate.LoginType, id?: string) => {
-    return new Promise<avMusicTemplate.QrCodeInfo[]>(async (resolve, reject) => {
-      try {
-        let qrCodeInfo: avMusicTemplate.QrCodeInfo = await this.createQrCodeInfo();
-        let qrCodeInfos: avMusicTemplate.QrCodeInfo[] = [qrCodeInfo];
-        resolve(qrCodeInfos);
-      } catch (e) {
-        console.error(`loginEvent fail, errCode: ${e?.code}`);
-        reject(e);
-      }
-    });
+    try {
+      let qrCodeInfo: avMusicTemplate.QrCodeInfo = await this.createQrCodeInfo();
+      let qrCodeInfos: avMusicTemplate.QrCodeInfo[] = [qrCodeInfo];
+      return qrCodeInfos;
+    } catch (e) {
+      console.error(`loginEvent fail, errCode: ${e?.code}`);
+      throw e instanceof Error ? e : new Error(e?.message ?? `loginEvent error, code: ${e?.code}`);
+    }
   };
   // [StartExclude register_on_login]
   // [EndExclude register_request_dialog_info]
   private requestDialogInfoEvent: avMusicTemplate.RequestDialogInfoEvent =
     async (actionType: avMusicTemplate.DialogActionType, actionInfo?: avMusicTemplate.DialogActionInfo) => {
-      return new Promise<avMusicTemplate.DialogInfo>(async (resolve, reject) => {
-        try {
-          let dialogInfo: avMusicTemplate.DialogInfo = await this.createDialogInfo();
-          resolve(dialogInfo);
-        } catch (e) {
-          console.error(`requestDialogInfoEvent fail, errCode: ${e?.code}`);
-          reject(e);
-        }
-      });
+      try {
+        return await this.createDialogInfo();
+      } catch (e) {
+        console.error(`requestDialogInfoEvent fail, errCode: ${e?.code}`);
+        throw e instanceof Error ? e : new Error(e?.message ?? `requestDialogInfoEvent error, code: ${e?.code}`);
+      }
     };
   // [StartExclude register_request_dialog_info]
   // [EndExclude register_handle_member_purchase]
   private handleMemberPurchaseEvent: avMusicTemplate.HandleMemberPurchaseEvent =
     async (info: avMusicTemplate.MemberPurchaseInfo) => {
-      return new Promise<avMusicTemplate.DialogInfo>(async (resolve, reject) => {
-        try {
-          let dialogInfo: avMusicTemplate.DialogInfo = await this.createDialogInfo();
-          resolve(dialogInfo);
-        } catch (e) {
-          console.error(`handleMemberPurchaseEvent fail, errCode: ${e?.code}`);
-          reject(e);
-        }
-      });
+      try {
+        return await this.createDialogInfo();
+      } catch (e) {
+        console.error(`handleMemberPurchaseEvent fail, errCode: ${e?.code}`);
+        throw e instanceof Error ? e : new Error(e?.message ?? `handleMemberPurchaseEvent error, code: ${e?.code}`);
+      }
     };
   // [StartExclude register_handle_member_purchase]
   // [EndExclude register_query_member_purchase]
   private queryMemberPurchaseEvent: avMusicTemplate.QueryMemberPurchaseEvent =
     async (memberPurchaseType: avMusicTemplate.MemberPurchaseType) => {
-      return new Promise<avMusicTemplate.MemberPurchaseInfo[]>(async (resolve, reject) => {
-        try {
-          let memberPurchaseInfo: avMusicTemplate.MemberPurchaseInfo = await this.createQueryMemberPurchase();
-          let memberPurchaseInfos: avMusicTemplate.MemberPurchaseInfo[] = [memberPurchaseInfo];
-          resolve(memberPurchaseInfos);
-        } catch (e) {
-          console.error(`queryMemberPurchaseEvent fail, errCode: ${e?.code}`);
-          reject(e);
-        }
-      });
+      try {
+        let memberPurchaseInfo: avMusicTemplate.MemberPurchaseInfo = await this.createQueryMemberPurchase();
+        let memberPurchaseInfos: avMusicTemplate.MemberPurchaseInfo[] = [memberPurchaseInfo];
+        return memberPurchaseInfos;
+      } catch (e) {
+        console.error(`queryMemberPurchaseEvent fail, errCode: ${e?.code}`);
+        throw e instanceof Error ? e : new Error(e?.message ?? `queryMemberPurchaseEvent error, code: ${e?.code}`);
+      }
     };
   // [StartExclude register_query_member_purchase]
   // [EndExclude register_query_custom_content]
   private queryCustomContentEvent: avMusicTemplate.QueryCustomContentEvent =
     async (queryTypes: avMusicTemplate.CustomType[]) => {
-      return new Promise<avMusicTemplate.CustomElement>(async (resolve, reject) => {
-        try {
-          let customElement: avMusicTemplate.CustomElement = await this.createCustomContent();
-          resolve(customElement);
-        } catch (e) {
-          console.error(`queryCustomContentEvent fail, errCode: ${e?.code}`);
-          reject(e);
-        }
-      });
+      try {
+        return await this.createCustomContent();
+      } catch (e) {
+        console.error(`queryCustomContentEvent fail, errCode: ${e?.code}`);
+        throw e instanceof Error ? e : new Error(e?.message ?? `queryCustomContentEvent error, code: ${e?.code}`);
+      }
     };
   // [StartExclude register_query_custom_content]
   // [EndExclude register_download_media_entity]
   private downloadMediaEntityEvent: avMusicTemplate.DownloadMediaEntityEvent =
     async (controlType: avMusicTemplate.DownloadControlType, mediaEntity: avMusicTemplate.MediaEntity) => {
-      return new Promise<avMusicTemplate.OperResult>(async (resolve, reject) => {
-        try {
-          let operResult: avMusicTemplate.OperResult = await this.createOperResult();
-          this.downloadMediaEntity(mediaEntity);
-          resolve(operResult);
-        } catch (e) {
-          console.error(`downloadMediaEntityEvent fail, errCode: ${e?.code}`);
-          reject(e);
-        }
-      });
+      try {
+        this.downloadMediaEntity(mediaEntity);
+        return await this.createOperResult();
+      } catch (e) {
+        console.error(`downloadMediaEntityEvent fail, errCode: ${e?.code}`);
+        throw e instanceof Error ? e : new Error(e?.message ?? `downloadMediaEntityEvent error, code: ${e?.code}`);
+      }
     };
   // [StartExclude register_download_media_entity]
   // [EndExclude register_settings_change]
   private settingsChangeEvent: avMusicTemplate.SettingsChangeEvent =
     async (settingItem: avMusicTemplate.SettingItem) => {
-      return new Promise<avMusicTemplate.SettingItem>(async (resolve, reject) => {
-        try {
-          let settingItem: avMusicTemplate.SettingItem = await this.settingsChange();
-          resolve(settingItem);
-        } catch (e) {
-          console.error(`settingsChangeEvent fail, errCode: ${e?.code}`);
-          reject(e);
-        }
-      });
+      try {
+        return await this.settingsChange();
+      } catch (e) {
+        console.error(`settingsChangeEvent fail, errCode: ${e?.code}`);
+        throw e instanceof Error ? e : new Error(e?.message ?? `settingsChangeEvent error, code: ${e?.code}`);
+      }
     };
   // [StartExclude register_settings_change]
   // [EndExclude register_problem_and_advice]
   private problemAndAdviceEvent: avMusicTemplate.ProblemAndAdviceEvent = async (advice: string) => {
-    return new Promise<avMusicTemplate.OperResult>(async (resolve, reject) => {
-      try {
-        let operResult: avMusicTemplate.OperResult = await this.createOperResult();
-        resolve(operResult);
-      } catch (e) {
-        console.error(`problemAndAdviceEvent fail, errCode: ${e?.code}`);
-        reject(e);
-      }
-    });
+    try {
+      return await this.createOperResult();
+    } catch (e) {
+      console.error(`problemAndAdviceEvent fail, errCode: ${e?.code}`);
+      throw e instanceof Error ? e : new Error(e?.message ?? `problemAndAdviceEvent error, code: ${e?.code}`);
+    }
   };
   // [StartExclude register_problem_and_advice]
   // [EndExclude register_play_for_search]
   private playForSearchEvent: avMusicTemplate.PlayForSearchEvent = async (command: avMusicTemplate.SearchPlayInfoType,
     args: avMusicTemplate.SearchPlayInfo) => {
-    return new Promise<avMusicTemplate.OperResult>(async (resolve, reject) => {
-      try {
-        let operResult: avMusicTemplate.OperResult = await this.createOperResult();
-        resolve(operResult);
-      } catch (e) {
-        console.error(`playForSearchEvent fail, errCode: ${e?.code}`);
-        reject(e);
-      }
-    });
+    try {
+      return await this.createOperResult();
+    } catch (e) {
+      console.error(`playForSearchEvent fail, errCode: ${e?.code}`);
+      throw e instanceof Error ? e : new Error(e?.message ?? `playForSearchEvent error, code: ${e?.code}`);
+    }
   };
   // [StartExclude register_play_for_search]
   // [EndExclude register_execute_action]
   private executeActionEvent: avMusicTemplate.ExecuteActionEvent = async (actionType: string, params: string) => {
-    return new Promise<string>(async (resolve, reject) => {
-      try {
-        let result: string = 'success';
-        resolve(result);
-      } catch (e) {
-        console.error(`executeActionEvent fail, errCode: ${e?.code}`);
-        reject(e);
-      }
-    });
+    try {
+      return 'success';
+    } catch (e) {
+      console.error(`executeActionEvent fail, errCode: ${e?.code}`);
+      throw e instanceof Error ? e : new Error(e?.message ?? `executeActionEvent error, code: ${e?.code}`);
+    }
   };
   // [StartExclude register_execute_action]
   // [EndExclude register_play_media_entity]
@@ -493,15 +430,12 @@ export class TemplateManager {
   // [EndExclude register_favorite_media_entity]
   private favoriteMediaEntityEvent: avMusicTemplate.FavoriteMediaEntityEvent =
     async (actionType: avMusicTemplate.MediaFavoriteType, mediaEntity: avMusicTemplate.MediaEntity) => {
-      return new Promise<avMusicTemplate.OperResult>(async (resolve, reject) => {
-        try {
-          let operResult: avMusicTemplate.OperResult = await this.createOperResult();
-          resolve(operResult);
-        } catch (e) {
-          console.error(`favoriteMediaEntityEvent fail, errCode: ${e?.code}`);
-          reject(e);
-        }
-      });
+      try {
+        return await this.createOperResult();
+      } catch (e) {
+        console.error(`favoriteMediaEntityEvent fail, errCode: ${e?.code}`);
+        throw e instanceof Error ? e : new Error(e?.message ?? `favoriteMediaEntityEvent error, code: ${e?.code}`);
+      }
     };
   // [StartExclude register_favorite_media_entity]
 
@@ -868,7 +802,7 @@ export class TemplateManager {
   }
 
   /**
-   * 用户信息发生变化后通知界面刷新用户信息，如登陆账号后。
+   * 用户信息发生变化后通知界面刷新用户信息，如登录账号后。
    */
   public setUserInfo() {
     let userInfo: avMusicTemplate.UserInfo = {
