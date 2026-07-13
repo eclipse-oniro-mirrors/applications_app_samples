@@ -166,3 +166,48 @@ class ImmutableConfig {
   }
 }
 // [End ts_immutable_config_readonly]
+
+// ===== ts_required_properties_initialization =====
+// [Start ts_required_properties_initialization]
+class StrictInitialization {
+  // 必需属性：必须初始化
+  public name: string;  // 编译警告：未初始化
+  public age: number;   // 编译警告：未初始化
+  
+  constructor() {
+    // 未初始化name和age
+    // TypeScript会提示警告
+  }
+  
+  // 正确做法：初始化所有属性
+  correctConstructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+}
+
+class ProperInitialization {
+  // 声明时初始化
+  public name: string = '';
+  public age: number = 0;
+  
+  constructor() {
+    // 属性已初始化
+  }
+}
+
+class OptionalInitialization {
+  // 可选属性：可不初始化
+  public name?: string;
+  public age?: number;
+  
+  constructor() {
+    // 可选属性允许未初始化
+  }
+  
+  initialize(name: string, age: number): void {
+    this.name = name;
+    this.age = age;
+  }
+}
+// [End ts_required_properties_initialization]

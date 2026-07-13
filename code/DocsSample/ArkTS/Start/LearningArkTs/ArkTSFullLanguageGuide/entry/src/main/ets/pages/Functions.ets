@@ -363,8 +363,7 @@ function logAll(...messages: string[]): void {
 
 // ===== parameter_destructuring_limitation =====
 // [Start parameter_destructuring_limitation]
-// TypeScript支持：function foo({x, y}: Point)
-// ArkTS不支持，需要手动提取
+// ArkTS不支持解构参数，需通过接口类型参数接收后手动提取
 
 interface PdPoint {
   x: number;
