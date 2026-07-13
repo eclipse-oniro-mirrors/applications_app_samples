@@ -97,6 +97,7 @@ export default class AVRecorderService {
     } catch (error) {
       let err = error as BusinessError;
       console.error(`Failed to prepare avRecorder, error code: ${err.code}, message: ${err.message}`);
+      await this.closeFd();
     }
   }
   // [End prepare_audio_recorder]
@@ -132,6 +133,7 @@ export default class AVRecorderService {
     } catch (error) {
       let err = error as BusinessError;
       console.error(`Failed to prepare avRecorder, error code: ${err.code}, message: ${err.message}`);
+      await this.closeFd();
     }
   }
   // [End prepare_video_recorder]
@@ -194,11 +196,13 @@ export default class AVRecorderService {
       if (this.avRecorder?.state === 'started' || this.avRecorder?.state === 'paused') {
         // [Start stop_recorder]
         await this.avRecorder?.stop();
+        await this.closeFd();
         // [End stop_recorder]
       }
     } catch (error) {
       let err = error as BusinessError;
       console.error(`Failed to stop avRecorder, error code: ${err.code}, message: ${err.message}`);
+      await this.closeFd();
     }
   }
 
