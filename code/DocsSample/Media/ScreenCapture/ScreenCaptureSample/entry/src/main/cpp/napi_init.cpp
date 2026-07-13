@@ -622,7 +622,7 @@ void ExcludeContent(OH_AVScreenCapture *capture)
     OH_AVScreenCapture_ContentFilter *contentFilter = OH_AVScreenCapture_CreateContentFilter();
     // 添加过滤通知音。
     OH_AVScreenCapture_ContentFilter_AddAudioContent(contentFilter, OH_SCREEN_CAPTURE_NOTIFICATION_AUDIO);
-    // 排除指定窗口ID。
+    // 如果需要排除指定窗口，先填充窗口ID数组。
     std::vector<int> windowIdsExclude = {};
     OH_AVScreenCapture_ContentFilter_AddWindowContent(contentFilter, windowIdsExclude.empty() ?
         nullptr : &windowIdsExclude[0], static_cast<int32_t>(windowIdsExclude.size()));
@@ -646,6 +646,7 @@ void SetSpecifiedWindowIdForWindowCapture(OH_AVScreenCaptureConfig &config)
     OH_AVScreenCapture_CaptureStrategy* strategy = OH_AVScreenCapture_CreateCaptureStrategy();
     OH_AVScreenCapture_StrategyForPickerPopUp(strategy, false);
     OH_AVScreenCapture_SetCaptureStrategy(g_avCapture, strategy);
+    OH_AVScreenCapture_ReleaseCaptureStrategy(strategy);
     // [End screenCapture_withWindow_forID]
 }
 
@@ -944,6 +945,7 @@ static napi_value StartScreenCapture_04(napi_env env, napi_callback_info info)
     OH_AVScreenCapture_CaptureStrategy *strategy = OH_AVScreenCapture_CreateCaptureStrategy();
     OH_AVScreenCapture_StrategyForPickerPopUp(strategy, true);
     OH_AVScreenCapture_SetCaptureStrategy(g_avCapture, strategy);
+    OH_AVScreenCapture_ReleaseCaptureStrategy(strategy);
     // [End screenCapture_createCaptureStrategy]
 
     // 可选，传入期望录制的窗口ID进行录屏。
@@ -1043,6 +1045,8 @@ static napi_value StartScreenCapture_05(napi_env env, napi_callback_info info)
     OH_AVScreenCapture_SetCaptureArea(g_avCapture, regionDisplayId, region);
     // 开始录屏。
     result = OH_AVScreenCapture_StartScreenCapture(g_avCapture);
+    delete region;
+    region = nullptr;
     // [End screenCapture_startScreenCapture_rectangular]
     if (result != AV_SCREEN_CAPTURE_ERR_OK) {
         OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture Started failed %{public}d", result);
@@ -1052,8 +1056,6 @@ static napi_value StartScreenCapture_05(napi_env env, napi_callback_info info)
     OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture Started %{public}d", result);
 
     g_isRunning = true;
-    delete region;
-    region = nullptr;
 
     napi_value res;
     napi_create_int32(env, result, &res);
