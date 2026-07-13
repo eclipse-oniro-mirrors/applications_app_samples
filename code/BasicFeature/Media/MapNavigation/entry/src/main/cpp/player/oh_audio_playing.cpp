@@ -53,11 +53,10 @@ static void OnAudioErrorEvent([[maybe_unused]] OH_AudioRenderer *audioRenderer, 
 
 // [Start OnAudioRendererWriteDataEvent]
 // Custom data write function
-static OH_AudioData_Callback_Result OnAudioRendererWriteDataEvent(
-    [[maybe_unused]] OH_AudioRenderer *audioRenderer,
-    void *userData,
-    void *audioData,
-    int32_t audioDataSize)
+static OH_AudioData_Callback_Result OnAudioRendererWriteDataEvent([[maybe_unused]] OH_AudioRenderer *audioRenderer,
+                                                                  void *userData,
+                                                                  void *audioData,
+                                                                  int32_t audioDataSize)
 {
     auto audioFileOprInfo = reinterpret_cast<AudioFileOprInfo *>(userData);
 
