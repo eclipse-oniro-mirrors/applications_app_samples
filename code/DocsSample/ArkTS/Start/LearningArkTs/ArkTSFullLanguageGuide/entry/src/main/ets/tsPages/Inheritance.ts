@@ -274,8 +274,8 @@ class SuperChild extends SuperBase {
     // super调用父类方法
     super.method();  // 正确
 
-    // super不能访问父类属性
-    console.info(`${super.value}`);  // 编译错误
+    // super不能直接访问父类实例属性
+    console.info(`${super.value}`);  // 运行时为undefined，应使用this访问
 
     // 应使用this或父类名访问属性
     console.info(`${this.value}`);          // 20（子类属性）
@@ -292,10 +292,10 @@ class SuperChild extends SuperBase {
   }
 
   static childStaticMethod(): void {
-    // 静态方法不能使用super
-    super.staticMethod();  // 编译错误
+    // 静态方法中使用super调用父类静态方法
+    super.staticMethod();
 
-    // 应使用类名调用
+    // 也可使用类名调用
     SuperBase.staticMethod();
   }
 

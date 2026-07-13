@@ -36,7 +36,7 @@ class C {
 // [Start annotation_statement]
 // 注解的声明：
 @interface ClassAuthor {
-  authorName: string
+  authorName: string;
 }
 
 // 注解的使用：

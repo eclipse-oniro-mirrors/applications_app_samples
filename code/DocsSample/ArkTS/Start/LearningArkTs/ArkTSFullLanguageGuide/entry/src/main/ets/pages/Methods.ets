@@ -370,8 +370,7 @@ console.info(`${processor.join('-', 'a', 'b', 'c')}`);  // 'a-b-c'
 
 // ===== object_parameters =====
 // [Start object_parameters]
-// TypeScript支持：function foo({x, y}: Point)
-// ArkTS不支持，需要手动提取
+// ArkTS不支持解构参数，需通过接口类型参数接收后手动提取
 
 class PointOperations {
   move(point: Point, dx: number, dy: number): Point {
