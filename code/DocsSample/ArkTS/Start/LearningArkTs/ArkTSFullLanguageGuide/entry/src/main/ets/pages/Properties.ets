@@ -382,7 +382,7 @@ class BatchUpdate {
 
 // ===== manual_property_observation =====
 // [Start manual_property_observation]
-// ArkTS不支持装饰器，使用手动模式
+// 属性观察者：在set方法中比较新旧值并触发回调
 
 class PropertyObserver {
   private propertyName: string;
