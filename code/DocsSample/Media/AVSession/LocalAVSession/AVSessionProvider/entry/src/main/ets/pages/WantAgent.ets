@@ -16,6 +16,7 @@
 // [Start wantAgent]
 import { avSession as AVSessionManager } from '@kit.AVSessionKit';
 import { wantAgent } from '@kit.AbilityKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 @Entry
 @Component
@@ -44,6 +45,8 @@ struct Index {
           }
           wantAgent.getWantAgent(wantAgentInfo).then((agent) => {
             session.setLaunchAbility(agent);
+          }).catch((err: BusinessError) => {
+            console.error(`Failed to getWantAgent. Code: ${err.code}, message: ${err.message}`);
           })
           // [StartExclude wantAgent]
           session.destroy((err) => {

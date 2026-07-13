@@ -85,8 +85,8 @@ struct Index {
               // [EndExclude advancedPlayback]
               // 实现具体功能。
             });
-            session.on('outputDeviceChange', (device) => {
-              console.info(`on outputDeviceChange , the device info is ${JSON.stringify(device)}`);
+            session.on('outputDeviceChange', (state: AVSessionManager.ConnectionState, device: AVSessionManager.OutputDeviceInfo) => {
+              console.info(`on outputDeviceChange , the state is ${JSON.stringify(state)} and device info is ${JSON.stringify(device)}`);
               // [StartExclude advancedPlayback]
               if (globalLogUpdate) {
                 globalLogUpdate(`on outputDeviceChange registered`, false);

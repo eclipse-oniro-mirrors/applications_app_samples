@@ -64,11 +64,11 @@ struct Index {
           await session.activate();
           // [EndExclude performingProgressControl]
 
-          session.on('seek', (position: number) => {
-            console.info(`on seek , the time is ${JSON.stringify(position)}`);
+          session.on('seek', (time: number) => {
+            console.info(`on seek , the time is ${time}`);
             // [StartExclude performingProgressControl]
             if (globalLogUpdate) {
-              globalLogUpdate(`on seek , the time is ${JSON.stringify(position)}`, false);
+              globalLogUpdate(`on seek , the time is ${time}`, false);
             }
             // [EndExclude performingProgressControl]
 
@@ -99,7 +99,7 @@ struct Index {
             // 应用内更新新的位置后，也需要同步更新状态给系统。
             playbackState.state = AVSessionManager.PlaybackState.PLAYBACK_STATE_PLAY; // 播放状态。
             playbackState.position = {
-              elapsedTime: position, // 已经播放的位置，以ms为单位。
+              elapsedTime: time, // 已经播放的位置，以ms为单位。
               updateTime: new Date().getTime(), // 应用更新当前位置的时间戳，以ms为单位。
             }
             session.setAVPlaybackState(playbackState, (err) => {
