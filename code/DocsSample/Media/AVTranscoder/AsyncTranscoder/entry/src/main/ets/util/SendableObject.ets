@@ -12,8 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start CreateParameterObject]
 import { sendableContextManager } from '@kit.AbilityKit';
-
 
 //发送的参数必须加上@Sendable标注
 @Sendable
@@ -23,17 +23,15 @@ export class SendableObject {
     this.data = data;
   }
 
-
   private sendableContext: sendableContextManager.SendableContext;
   private data: string;
-
 
   public getSendableContext() {
     return this.sendableContext;
   }
 
-
   public getData() {
     return this.data;
   }
 }
+// [End CreateParameterObject]
