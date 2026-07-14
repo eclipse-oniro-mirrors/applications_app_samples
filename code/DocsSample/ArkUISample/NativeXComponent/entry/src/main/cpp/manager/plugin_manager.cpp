@@ -381,10 +381,10 @@ ArkUI_NodeHandle CreateNodeHandleUsingSurfaceHolder(const std::string &tag)
     OH_ArkUI_SurfaceCallback_SetSurfaceChangedEvent(callback, OnSurfaceChangedNative); // 注册OnSurfaceChanged回调
     OH_ArkUI_SurfaceCallback_SetSurfaceDestroyedEvent(callback, OnSurfaceDestroyedNative); // 注册OnSurfaceDestroyed回调
     OH_ArkUI_SurfaceHolder_AddSurfaceCallback(holder, callback); // 添加SurfaceCallback回调
-    if (!nodeAPI->addNodeEventReceiver(xc, onEvent)) {           // 添加事件监听，返回成功码 0
+    if (nodeAPI->addNodeEventReceiver(xc, onEvent)) {            // 添加事件监听，返回0表示成功，非0表示失败
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "onBind", "addNodeEventReceiver error");
     }
-    if (!nodeAPI->registerNodeEvent(xc, NODE_TOUCH_EVENT, 0, nullptr)) { // 用C接口注册touch事件，返回成功码 0
+    if (nodeAPI->registerNodeEvent(xc, NODE_TOUCH_EVENT, 0, nullptr)) { // 用C接口注册touch事件，返回0表示成功，非0表示失败
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "onBind", "registerTouchEvent error");
     }
     nodeAPI->addChild(column, xc); // 将XComponent挂载到Column下
@@ -652,10 +652,10 @@ napi_value PluginManager::BindNode(napi_env env, napi_callback_info info)
     OH_ArkUI_SurfaceCallback_SetSurfaceHideEvent(callback, OnSurfaceHideNative);           // 注册OnSurfaceHide回调
     OH_ArkUI_XComponent_RegisterOnFrameCallback(handle, OnFrameCallbackNative); // 注册OnFrameCallback回调
     // [Start surface_holder_declarative_register_event]
-    if (!nodeAPI->addNodeEventReceiver(handle, onEvent)) { // 添加事件监听，返回成功码 0
+    if (nodeAPI->addNodeEventReceiver(handle, onEvent)) { // 添加事件监听，返回0表示成功，非0表示失败
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "onBind", "addNodeEventReceiver error");
     }
-    if (!nodeAPI->registerNodeEvent(handle, NODE_TOUCH_EVENT, 0, nullptr)) { // 用C接口注册touch事件，返回成功码 0
+    if (nodeAPI->registerNodeEvent(handle, NODE_TOUCH_EVENT, 0, nullptr)) { // 用C接口注册touch事件，返回0表示成功，非0表示失败
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "onBind", "registerTouchEvent error");
     }
     // [End surface_holder_declarative_register_event]
