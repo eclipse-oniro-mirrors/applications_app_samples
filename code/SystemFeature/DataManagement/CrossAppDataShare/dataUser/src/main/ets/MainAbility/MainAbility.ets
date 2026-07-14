@@ -13,23 +13,25 @@
  * limitations under the License.
  */
 
-import Ability from '@ohos.app.ability.UIAbility'
+import UIAbility from '@ohos.app.ability.UIAbility'
 import Window from '@ohos.window'
 import { logger } from '@ohos/common'
+import type Want from '@ohos.app.ability.Want'
+import type AbilityConstant from '@ohos.app.ability.AbilityConstant'
+import { BusinessError } from '@ohos.base'
 
 const TAG: string = 'MainAbility'
 
-export default class MainAbility extends Ability {
-  onCreate(want, launchParam) {
+export default class MainAbility extends UIAbility {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     logger.info(TAG, `onCreate want param: ${JSON.stringify(want) ?? ''}`)
   }
 
-  onDestroy() {
+  onDestroy(): void {
     logger.info(TAG, 'onDestroy')
   }
 
-  onWindowStageCreate(windowStage: Window.WindowStage) {
-    // Main window is created, set main page for this ability
+  onWindowStageCreate(windowStage: Window.WindowStage): void {
     logger.info(TAG, 'onWindowStageCreate')
     windowStage.loadContent('pages/Home', (err, data) => {
       if (err.code) {
@@ -40,18 +42,15 @@ export default class MainAbility extends Ability {
     });
   }
 
-  onWindowStageDestroy() {
-    // Main window is destroyed, release UI related resources
+  onWindowStageDestroy(): void {
     logger.info(TAG, 'onWindowStageDestroy')
   }
 
-  onForeground() {
-    // Ability has brought to foreground
+  onForeground(): void {
     logger.info(TAG, 'onForeground')
   }
 
-  onBackground() {
-    // Ability has back to background
+  onBackground(): void {
     logger.info(TAG, 'onBackground')
   }
 }

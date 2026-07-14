@@ -24,7 +24,7 @@ const TAG: string = 'HomeContent'
 export default struct HomeContent {
   @StorageLink('isRefresh') @Watch('refreshData') isRefresh: boolean = false
   @State isLoading: boolean = false
-  private contactsData: ContactDataSource = new ContactDataSource()
+  private contactsData: ContactDataSource<Contact> = new ContactDataSource<Contact>()
 
   build() {
     Navigation() {
@@ -49,7 +49,7 @@ export default struct HomeContent {
       .width('100%')
 
       List() {
-        LazyForEach(this.contactsData, (item, index) => {
+        LazyForEach(this.contactsData, (item: Contact, index: number) => {
           ListItem() {
             this.ContactItem(item, index)
           }
@@ -61,7 +61,7 @@ export default struct HomeContent {
               }
             })
           })
-        }, item => item.name)
+        }, (item: Contact, index: number) => item.name)
       }
       .divider({ startMargin: 50, strokeWidth: 1 })
       .padding({ left: $r('app.float.page_space_24'), right: $r('app.float.page_space_24') })
@@ -79,11 +79,12 @@ export default struct HomeContent {
   ContactItem(contact: Contact, index: number) {
     Column() {
       if (index === 0) {
-        Text(this.contactsData['dataArray'][index].name.substr(0, 1).toUpperCase())
+        Text(this.contactsData.dataArray[index]!.name.substr(0, 1).toUpperCase())
           .fontSize($r('app.float.font_size_24'))
           .margin({ top: $r('app.float.page_space_24'), bottom: $r('app.float.page_space_24') })
-      } else if (this.contactsData['dataArray'][index].name.substr(0, 1) !== this.contactsData['dataArray'][index-1].name.substr(0, 1)) {
-        Text(this.contactsData['dataArray'][index].name.substr(0, 1).toUpperCase())
+      } else if (this.contactsData.dataArray[index]!.name.substr(0, 1) !==
+        this.contactsData.dataArray[index - 1]!.name.substr(0, 1)) {
+        Text(this.contactsData.dataArray[index]!.name.substr(0, 1).toUpperCase())
           .fontSize($r('app.float.font_size_24'))
           .margin({ top: $r('app.float.page_space_24'), bottom: $r('app.float.page_space_24') })
       }
@@ -135,14 +136,14 @@ export default struct HomeContent {
     await ContactStore.getRdbStore(getContext(this))
     let contacts = await ContactStore.queryAll()
     logger.info(TAG, `contacts size = ${contacts.length}`)
-    this.contactsData['dataArray'] = contacts
+    this.contactsData.dataArray = contacts
     this.contactsData.notifyDataReload()
   }
   syncContacts = async () => {
     this.isLoading = true
     let contacts = await syncContact(getContext(this))
     logger.info(TAG, `contacts size = ${contacts.length}`)
-    this.contactsData['dataArray'] = contacts
+    this.contactsData.dataArray = contacts
     this.contactsData.notifyDataReload()
     this.isLoading = false
   }

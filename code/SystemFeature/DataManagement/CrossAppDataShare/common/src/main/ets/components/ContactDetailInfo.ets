@@ -17,11 +17,12 @@ import { Contact } from '../model/Contact'
 
 @Component
 export struct ContactDetailInfo {
-  @Link contact: Contact
+  @Link contact: Contact | undefined
 
   build() {
+    if (this.contact) {
     Column() {
-      Text(this.contact.name.substring(0, 1)
+      Text(this.contact!.name.substring(0, 1)
         .toUpperCase())
         .width($r('app.float.head_size_big'))
         .height($r('app.float.head_size_big'))
@@ -32,12 +33,12 @@ export struct ContactDetailInfo {
         .textAlign(TextAlign.Center)
         .backgroundColor('#B6C5D1')
 
-      Text(this.contact.name)
+      Text(this.contact!.name)
         .fontSize($r('app.float.font_size_32'))
         .margin({ bottom: $r('app.float.page_space_16') })
 
       Column() {
-        ForEach(this.contact.phone.split(','), item => {
+        ForEach(this.contact!.phone.split(','), (item: string) => {
           Column() {
             Row() {
               Text(item)
@@ -100,5 +101,6 @@ export struct ContactDetailInfo {
     }
     .width('100%')
     .height('100%')
+    }
   }
 }

@@ -18,7 +18,7 @@ import { Contact, ContactDataSource, contactDataShareUtil } from '@ohos/common'
 
 @Component
 export default struct SearchContact {
-  private contactsData: ContactDataSource = new ContactDataSource()
+  private contactsData: ContactDataSource<Contact> = new ContactDataSource<Contact>()
   private searchHolder: string = ''
   private searchBegin: string = ''
   private searchEnd: string = ''
@@ -67,11 +67,11 @@ export default struct SearchContact {
               .padding({ top: 12, bottom: 12 })
           }
           List() {
-            LazyForEach(this.contactsData, (item, index) => {
+            LazyForEach(this.contactsData, (item: Contact, index: number) => {
               ListItem() {
                 this.ContactItem(item, index)
               }
-            }, item => item.id.toString())
+            }, (item: Contact, index: number) => item.id.toString())
           }
           .divider({ startMargin: 50, strokeWidth: 1 })
           .listDirection(Axis.Vertical)
@@ -90,11 +90,12 @@ export default struct SearchContact {
   @Builder ContactItem(contact: Contact, index: number) {
     Column() {
       if (index === 0) {
-        Text(this.contactsData['dataArray'][index].name.substr(0, 1).toUpperCase())
+        Text(this.contactsData.dataArray[index]!.name.substr(0, 1).toUpperCase())
           .fontSize(24)
           .margin({ top: 24, bottom: 24 })
-      } else if (this.contactsData['dataArray'][index].name.substr(0, 1) !== this.contactsData['dataArray'][index-1].name.substr(0, 1)) {
-        Text(this.contactsData['dataArray'][index].name.substr(0, 1).toUpperCase())
+      } else if (this.contactsData.dataArray[index]!.name.substr(0, 1) !==
+        this.contactsData.dataArray[index - 1]!.name.substr(0, 1)) {
+        Text(this.contactsData.dataArray[index]!.name.substr(0, 1).toUpperCase())
           .fontSize(24)
           .margin({ top: 24, bottom: 24 })
       }
@@ -118,8 +119,8 @@ export default struct SearchContact {
 
   searchContacts = async () => {
     let contacts = await contactDataShareUtil.searchContactsFromName(getContext(this), this.searchValue)
-    this.contactsData['dataArray'] = contacts
-    this.searchCount = this.contactsData['dataArray'].length
+    this.contactsData.dataArray = contacts
+    this.searchCount = this.contactsData.dataArray.length
     this.contactsData.notifyDataReload()
   }
 }
