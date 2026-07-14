@@ -630,11 +630,19 @@
     },
     {
       "name": "Scroll_Title",
-      "value": "Scroll"
+      "value": "滚动/Scroll"
     },
     {
       "name": "ScrollModifier_Title",
-      "value": "ScrollModifier"
+      "value": "滚动修饰/ScrollModifier"
+    },
+    {
+      "name": "Scroll_description",
+      "value": "展示在List、Grid、WaterFlow、Scroll中的滚动效果。"
+    },
+    {
+      "name": "ScrollModifier_description",
+      "value": "展示在List、Grid、WaterFlow、Scroll中的滚动修饰效果。"
     },
     {
       "name": "Support_Sliding_Hand_Event",
