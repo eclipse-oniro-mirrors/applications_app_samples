@@ -13,7 +13,7 @@
 ### 使用说明
 
 1. 运行Index主界面。
-2. 页面中呈现四个按钮，点击之后可分别进入到对应的分页面。
+2. 页面中呈现五个按钮，点击之后可分别进入到对应的分页面。
 3. 运行测试用例ArkTsLanguage.test.ets文件对页面代码进行测试可以全部通过。
 
 ### 工程目录
@@ -32,6 +32,7 @@ entry/src/
  │   │       ├── Class.ets                        // 类的语法使用
  │   │       ├── Function.ets                     // 函数的语法使用
  │   │       ├── GenericTypesAndFunctions.ets     // 泛型类型和函数的语法使用
+ │   │       ├── GenericArray.ets                 // 泛型数组的语法使用
  │   │       ├── Index.ets                        // 首页
  │   │       ├── Interface.ets                    // 接口的语法使用
  │   │       ├── ModuleAndKeyword.ets             // 模块和关键字的语法使用

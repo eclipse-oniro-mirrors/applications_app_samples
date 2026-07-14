@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,7 +73,7 @@ static JSVM_Value CreateArrayWithLength(JSVM_Env env, JSVM_CallbackInfo info)
     // 解析传递的参数OH_JSVM_GetCbInfo
     OH_JSVM_GetCbInfo(env, info, &argc, argv, nullptr, nullptr);
     // 获取传递的数组长度
-    int32_t length;
+    int32_t length = 0;
     OH_JSVM_GetValueInt32(env, argv[0], &length);
     // 使用OH_JSVM_CreateArrayWithLength创建传递固定长度的数组
     JSVM_Status status = OH_JSVM_CreateArrayWithLength(env, length, &result);
@@ -81,8 +81,8 @@ static JSVM_Value CreateArrayWithLength(JSVM_Env env, JSVM_CallbackInfo info)
         // 给创建的数组设置值
         for (int32_t i = 0; i < length; i++) {
             JSVM_Value value;
-            OH_JSVM_CreateInt32(env, i, &value);
-            OH_JSVM_SetElement(env, result, i, value);
+            JSVM_CALL(OH_JSVM_CreateInt32(env, i, &value));
+            JSVM_CALL(OH_JSVM_SetElement(env, result, i, value));
         }
         OH_LOG_INFO(LOG_APP, "JSVM CreateArrayWithLength success");
     } else {
@@ -125,8 +125,8 @@ static int32_t TestJSVM()
     }
     // 创建JSVM环境
     CHECK(OH_JSVM_CreateVM(nullptr, &vm));
-    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK(OH_JSVM_OpenVMScope(vm, &vmScope));
+    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK_RET(OH_JSVM_OpenEnvScope(env, &envScope));
     CHECK_RET(OH_JSVM_OpenHandleScope(env, &handleScope));
 
@@ -140,8 +140,8 @@ static int32_t TestJSVM()
     // 销毁JSVM环境
     CHECK_RET(OH_JSVM_CloseHandleScope(env, handleScope));
     CHECK_RET(OH_JSVM_CloseEnvScope(env, envScope));
-    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyEnv(env));
+    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyVM(vm));
     return 0;
 }

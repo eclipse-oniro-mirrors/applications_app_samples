@@ -17,6 +17,7 @@ import { common } from '@kit.AbilityKit';
 import { fileUri, picker } from '@kit.CoreFileKit';
 import fs from '@ohos.file.fs';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { UIContext } from '@kit.ArkUI';
 const TAG: string = 'DirInit';
 
 export const rootPath = `/storage/Users/currentUser/Download/com.example.audiosuitesample`;
@@ -26,6 +27,15 @@ const dirCheckList: string[] = ['printfile'];
  * Directory initialization utility class.
  */
 export class DirInitHelper {
+  private static uiContextInstance: UIContext | null = null;
+
+  static setUIContext(uiContext: UIContext): void {
+    DirInitHelper.uiContextInstance = uiContext;
+  }
+
+  static getUIContext(): UIContext | null {
+    return DirInitHelper.uiContextInstance;
+  }
   static async checkAndCreateDefaultDir(): Promise<boolean> {
     try {
       // Check if rootPath exists, create it if not.
@@ -53,7 +63,8 @@ export class DirInitHelper {
     return new Promise<boolean>((resolve) => {
       let documentSaveOptions = new picker.DocumentSaveOptions();
       documentSaveOptions.pickerMode = 1;
-      let context = getContext() as common.Context;
+      let uiContext = DirInitHelper.getUIContext() as UIContext;
+      let context = uiContext.getHostContext() as common.Context;
       let documentPicker = new picker.DocumentViewPicker(context);
       documentPicker.save(documentSaveOptions, (err: BusinessError, documentSaveResult: Array<string>) => {
         if (err) {

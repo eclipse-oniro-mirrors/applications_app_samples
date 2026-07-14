@@ -33,7 +33,6 @@ struct OutputCastPicker {
         AVCastPicker({
           normalColor: this.normalColor,
           activeColor: this.activeColor,
-          customPicker: this.ImageBuilder.bind(this), // 新增自定义参数。
         })
           .size({ width: '50%', height: '20%' })
           .id('AVCastPicker')
@@ -52,16 +51,6 @@ struct OutputCastPicker {
     .alignItems(VerticalAlign.Center)
     .width('100%')
     .height('100%')
-  }
-
-  // 自定义内容。
-  @Builder
-  ImageBuilder() {
-    Text($r('app.string.switch_OutputDevice'))
-    Image(this.pickerImage)
-      .size({ width: '100%', height: '100%' })
-      .backgroundColor('#00000000')
-      .fillColor(Color.Black)
   }
 }
 // [End create_castPicker]

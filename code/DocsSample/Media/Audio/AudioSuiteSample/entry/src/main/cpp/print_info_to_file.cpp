@@ -14,12 +14,13 @@
 */
 
 #include "print_info_to_file.h"
-// [Start audioSuite_PrintInfo]
+
 #include <ohaudiosuite/native_audio_suite_base.h>
 #include <fcntl.h>
 #include <unistd.h>
 // [StartExclude audioSuite_PrintInfo]
-
+// 文件权限常量。
+constexpr mode_t FILE_PERMISSION = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH; // 0644
 static OH_AudioSuiteEngine *g_printInfoEngine = nullptr;
 
 napi_value TestPrintInfoToFile(napi_env env, napi_callback_info info)
@@ -28,6 +29,7 @@ napi_value TestPrintInfoToFile(napi_env env, napi_callback_info info)
     napi_get_boolean(env, false, &result);
 
     // [EndExclude audioSuite_PrintInfo]
+    // [Start audioSuite_PrintInfo]
     // engine为已创建的OH_AudioSuiteEngine实例，必须确保engine参数有效，否则输出内容为空。
     // pipeline为nullptr时输出所有管线，传入具体管线实例则仅输出该管线。
     OH_AudioSuiteEngine *engine = audioSuiteEngine;
@@ -35,11 +37,10 @@ napi_value TestPrintInfoToFile(napi_env env, napi_callback_info info)
         OH_AudioSuiteEngine_Create(&g_printInfoEngine);
         engine = g_printInfoEngine;
     }
-
     // 打印编创快照到文件。
     const char *filePath =
         "/storage/Users/currentUser/Download/com.example.audiosuitesample/printfile/audio_snapshot.txt";
-    int fd = open(filePath, O_WRONLY | O_CREAT | O_APPEND, 0644);
+    int fd = open(filePath, O_WRONLY | O_CREAT | O_APPEND, FILE_PERMISSION);
     if (fd < 0) {
         // 文件打开失败，回退到日志输出。
         // fd < 0表示输出到日志。
@@ -47,7 +48,6 @@ napi_value TestPrintInfoToFile(napi_env env, napi_callback_info info)
         napi_get_boolean(env, true, &result);
         return result;
     }
-    
     // 输出所有管线信息到文件。
     // nullptr表示输出engine下所有pipeline，fd为文件描述符。
     OH_AudioSuite_Result ret = OH_AudioSuite_PrintInfo(engine, nullptr, fd);

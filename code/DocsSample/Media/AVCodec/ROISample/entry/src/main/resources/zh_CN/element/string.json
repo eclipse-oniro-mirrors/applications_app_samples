@@ -1,0 +1,92 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "直播开发示例主界面"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "HMOSLiveStream"
+    },
+    {
+      "name": "reason",
+      "value": "允许应用使用麦克风"
+    },
+    {
+      "name": "camera_reason",
+      "value": "允许应用使用相机"
+    },
+    {
+      "name": "distribute_file_reason",
+      "value": "允许应用访问不同设备的分布式文件"
+    },
+    {
+      "name": "background_running_reason",
+      "value": "允许应用在后台运行"
+    },
+    {
+      "name": "saveButtonNote",
+      "value": "是否允许HMOSLiveStream保存拍摄的视频到分布式文件？"
+    },
+    {
+      "name": "saveButtonTitle",
+      "value": "视频保存位置确认"
+    },
+    {
+      "name": "home_page_title",
+      "value": "ROI视频编码示例"
+    },
+    {
+      "name": "people_in_live_room",
+      "value": "直播间人数：1213"
+    },
+    {
+      "name": "start_live_stream",
+      "value": "开直播"
+    },
+    {
+      "name": "set_roi",
+      "value": "ROI"
+    },
+    {
+      "name": "set_bgm",
+      "value": "背景音乐"
+    },
+    {
+      "name": "setting_title",
+      "value": "设置"
+    },
+    {
+      "name": "setting_ok",
+      "value": "确定"
+    },
+    {
+      "name": "setting_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "roi_path_native_buffer",
+      "value": "NativeBuffer元数据配置"
+    },
+    {
+      "name": "roi_path_metadata_callback",
+      "value": "参数回调配置"
+    },
+    {
+      "name": "roi_path_buffer_mode",
+      "value": "Buffer帧数据配置"
+    },
+    {
+      "name": "dynamic_frame_rate",
+      "value": "动态帧率"
+    },
+    {
+      "name": "fixed_frame_rate",
+      "value": "固定帧率"
+    }
+  ]
+}

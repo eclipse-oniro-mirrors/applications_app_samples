@@ -72,6 +72,22 @@ void OpenFile02()
     }
 }
 
+void SetRecorderInfo02(OH_RecorderInfo &recorderInfo)
+{
+    std::string fileUrl = "fd://" + std::to_string(g_fileOutputFd);
+    recorderInfo.url = const_cast<char *>(fileUrl.c_str());
+    recorderInfo.fileFormat = OH_ContainerFormatType::CFT_MPEG_4;
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture fileUrl %{public}s", fileUrl.c_str());
+}
+
+void SetRecorderInfo04(OH_RecorderInfo &recorderInfo)
+{
+    std::string fileUrl = "fd://" + std::to_string(g_windowOutputFd);
+    recorderInfo.url = const_cast<char *>(fileUrl.c_str());
+    recorderInfo.fileFormat = OH_ContainerFormatType::CFT_MPEG_4;
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture fileUrl %{public}s", fileUrl.c_str());
+}
+
 void CloseFile(void)
 {
     if (g_micFile != nullptr) {
@@ -86,6 +102,127 @@ void CloseFile(void)
         fclose(g_vFile);
         g_vFile = nullptr;
     }
+}
+
+// [Start screenCapture_config_buffer_callback]
+// 设置回调。
+// 错误事件发生回调函数OnError()。
+void OnError(OH_AVScreenCapture *capture, int32_t errorCode, void *userData)
+{
+    (void)capture;
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnError errorCode is %{public}d", errorCode);
+    (void)userData;
+}
+
+// 状态变更事件处理函数OnStateChange()。
+void OnStateChange(struct OH_AVScreenCapture *capture, OH_AVScreenCaptureStateCode stateCode, void *userData)
+{
+    if (stateCode == OH_SCREEN_CAPTURE_STATE_STARTED) {
+        OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnStateChange started");
+        // 处理状态变更。
+        // 可选，配置录屏旋转。
+        int32_t ret = OH_AVScreenCapture_SetCanvasRotation(capture, true);
+        // 可选，修改Canvas分辨率。
+        ret = OH_AVScreenCapture_ResizeCanvas(g_avCapture, CANVAS_RESIZE_WIDTH, CANVAS_RESIZE_HEIGHT);
+        // 可选，设置是否显示光标。
+        ret = OH_AVScreenCapture_ShowCursor(g_avCapture, true);
+        // 可选，设置视频最大帧率。
+        ret = OH_AVScreenCapture_SetMaxVideoFrameRate(g_avCapture, CAPTURE_VIDEO_FRAME_RATE);
+    }
+    if (stateCode == OH_SCREEN_CAPTURE_STATE_INTERRUPTED_BY_OTHER) {
+        // 处理状态变更。
+    }
+    (void)userData;
+}
+
+// [Start screenCapture_config_buffer_OnBufferAvailable]
+// 获取并处理音视频原始码流数据回调函数OnBufferAvailable()。
+void HandleVideoBuffer(OH_AVBuffer *buffer)
+{
+    OH_NativeBuffer *nativebuffer = OH_AVBuffer_GetNativeBuffer(buffer);
+    if (nativebuffer == nullptr) {
+        return;
+    }
+    int bufferLen = OH_AVBuffer_GetCapacity(buffer);
+    OH_AVCodecBufferAttr info;
+    int32_t ret = OH_AVBuffer_GetBufferAttr(buffer, &info);
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture size %{public}d", info.size);
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture bufferLen %{public}d", bufferLen);
+
+    OH_NativeBuffer_Config config;
+    OH_NativeBuffer_GetConfig(nativebuffer, &config);
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture height %{public}d width %{public}d",
+        config.height, config.width);
+    uint8_t *buf = OH_AVBuffer_GetAddr(buffer);
+    if (buf == nullptr) {
+        return;
+    }
+    size_t written = fwrite(buf, 1, bufferLen, g_vFile);
+    if (written != bufferLen) {
+        OH_LOG_ERROR(LOG_APP, "fwrite failed");
+    }
+    OH_NativeBuffer_Unreference(nativebuffer);
+    buffer = nullptr;
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable inner audio");
+}
+
+void HandleAudioBuffer(OH_AVBuffer *buffer, FILE *file, const char *logMsg)
+{
+    int bufferLen = OH_AVBuffer_GetCapacity(buffer);
+    uint8_t *buf = OH_AVBuffer_GetAddr(buffer);
+    if (buf == nullptr) {
+        return;
+    }
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable inner audio");
+    size_t written = fwrite(buf, 1, bufferLen, g_innerFile);
+    if (written != bufferLen) {
+        OH_LOG_ERROR(LOG_APP, "fwrite failed");
+    }
+}
+
+void OnBufferAvailable(OH_AVScreenCapture *capture, OH_AVBuffer *buffer, OH_AVScreenCaptureBufferType bufferType,
+                       int64_t timestamp, void *userData)
+{
+    if (!g_isRunning) {
+        return;
+    }
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable bufferType is %{public}d",
+        bufferType);
+    if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_VIDEO) {
+        // 处理视频buffer。
+        HandleVideoBuffer(buffer);
+    } else if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_AUDIO_INNER) {
+        // 处理内录buffer。
+        HandleAudioBuffer(buffer, g_innerFile, "ScreenCapture OnBufferAvailable inner audio");
+    } else if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_AUDIO_MIC) {
+        // 处理麦克风buffer。
+        HandleAudioBuffer(buffer, g_micFile, "ScreenCapture OnBufferAvailable mic audio");
+    }
+    return;
+}
+// [End screenCapture_config_buffer_OnBufferAvailable]
+// 设置获取录屏屏幕ID的回调函数OnDisplaySelected()。
+void OnDisplaySelected(struct OH_AVScreenCapture *capture, uint64_t displayId, void *userData)
+{
+    (void)capture;
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnError errorCode is %{public}uld", displayId);
+    (void)userData;
+}
+
+void SetCallback(struct OH_AVScreenCapture *capture)
+{
+    OH_AVScreenCapture_SetErrorCallback(capture, OnError, nullptr);
+    OH_AVScreenCapture_SetStateCallback(capture, OnStateChange, nullptr);
+    OH_AVScreenCapture_SetDataCallback(capture, OnBufferAvailable, nullptr);
+    OH_AVScreenCapture_SetDisplayCallback(capture, OnDisplaySelected, nullptr);
+}
+// [End screenCapture_config_buffer_callback]
+
+void SetCallbackFile(struct OH_AVScreenCapture *capture)
+{
+    OH_AVScreenCapture_SetErrorCallback(capture, OnError, nullptr);
+    OH_AVScreenCapture_SetStateCallback(capture, OnStateChange, nullptr);
+    OH_AVScreenCapture_SetDisplayCallback(capture, OnDisplaySelected, nullptr);
 }
 
 void SetConfig01(OH_AVScreenCaptureConfig &config)
@@ -124,6 +261,8 @@ void SetConfig01(OH_AVScreenCaptureConfig &config)
     }
     int32_t screenWidth = displayInfo->width;
     int32_t screenHeight = displayInfo->height;
+    OH_NativeDisplayManager_DestroyDisplay(displayInfo);
+    displayInfo = nullptr;
     // 录屏输入规格配置。
     OH_VideoCaptureInfo videoCapInfo = {
         .videoFrameWidth = screenWidth,
@@ -150,25 +289,17 @@ void SetConfig01(OH_AVScreenCaptureConfig &config)
         .audioInfo = audioInfo,
         .videoInfo = videoInfo
     };
-    // 在StartScreenCapture01()函数中调用OH_AVScreenCapture_Init方法将配置项设置到OH_AVScreenCapture中。
+    // 在StartScreenCapture_01()函数中调用OH_AVScreenCapture_Init方法将配置项设置到OH_AVScreenCapture中。
     // [End screenCapture_config_buffer_init]
 }
 
-void SetConfig02(OH_AVScreenCaptureConfig &config)
+// [Start screenCapture_config]
+void SetConfig02(OH_AVScreenCaptureConfig &config, OH_RecorderInfo &recorderInfo)
 {
-    // [Start screenCapture_config]
     // 录屏时获取麦克风或者内录，内录参数必填，如果都设置了，内录和麦克风的参数设置需要一致。
-    OH_AudioCaptureInfo micCapInfo = {
-        .audioSampleRate = 48000,
-        .audioChannels = 2,
-        .audioSource = OH_MIC
-    };
+    OH_AudioCaptureInfo micCapInfo = {.audioSampleRate = 48000, .audioChannels = 2, .audioSource = OH_MIC};
 
-    OH_AudioCaptureInfo innerCapInfo = {
-        .audioSampleRate = 48000,
-        .audioChannels = 2,
-        .audioSource = OH_ALL_PLAYBACK
-    };
+    OH_AudioCaptureInfo innerCapInfo = {.audioSampleRate = 48000, .audioChannels = 2, .audioSource = OH_ALL_PLAYBACK};
     // 录屏音频输出规格配置。audioBitrate保证输出文件的比特率为设置的预期比特率，和audioSampleRate无强关联。
     // 为保证音频质量，此处音频比特率取值128000。如果录屏内容以语音为主，不包含音乐、游戏音效等，可以降低为96000或48000。
     OH_AudioEncInfo audioEncInfo = {
@@ -187,6 +318,69 @@ void SetConfig02(OH_AVScreenCaptureConfig &config)
     }
     int32_t screenWidth = displayInfo->width;
     int32_t screenHeight = displayInfo->height;
+    OH_NativeDisplayManager_DestroyDisplay(displayInfo);
+    displayInfo = nullptr;
+    OH_VideoCaptureInfo videoCapInfo = {
+        .videoFrameWidth = screenWidth,
+        .videoFrameHeight = screenHeight,
+        .videoSource = OH_VIDEO_SOURCE_SURFACE_RGBA
+    };
+
+    OH_VideoEncInfo videoEncInfo = {
+        .videoCodec = OH_H264,
+        .videoBitrate = 2000000,
+        .videoFrameRate = 30
+    };
+
+    OH_AudioInfo audioInfo = {
+        .micCapInfo = micCapInfo,
+        .innerCapInfo = innerCapInfo,
+        .audioEncInfo = audioEncInfo
+    };
+
+    OH_VideoInfo videoInfo = {
+        .videoCapInfo = videoCapInfo,
+        .videoEncInfo = videoEncInfo
+    };
+
+    config = {
+        .captureMode = OH_CAPTURE_HOME_SCREEN,
+        .dataType = OH_CAPTURE_FILE, // 录屏数据类型，文件。
+        .audioInfo = audioInfo,
+        .videoInfo = videoInfo,
+        .recorderInfo = recorderInfo // 录制文件信息。
+    };
+    // 设置状态回调函数、错误回调函数和录屏屏幕ID回调函数等。
+    SetCallbackFile(g_avCapture);
+}
+// [End screenCapture_config]
+
+void SetConfig03(OH_AVScreenCaptureConfig &config)
+{
+    // 录屏时获取麦克风或者内录，内录参数必填，如果都设置了，内录和麦克风的参数设置需要一致。
+    OH_AudioCaptureInfo micCapInfo = {.audioSampleRate = 48000, .audioChannels = 2, .audioSource = OH_MIC};
+
+    OH_AudioCaptureInfo innerCapInfo = {.audioSampleRate = 48000, .audioChannels = 2, .audioSource = OH_ALL_PLAYBACK};
+    // 录屏音频输出规格配置。audioBitrate保证输出文件的比特率为设置的预期比特率，和audioSampleRate无强关联。
+    // 为保证音频质量，此处音频比特率取值128000。如果录屏内容以语音为主，不包含音乐、游戏音效等，可以降低为96000或48000。
+    OH_AudioEncInfo audioEncInfo = {
+        .audioBitrate = 128000,
+        .audioCodecformat = OH_AAC_LC
+    };
+
+    // 获取屏幕信息。
+    uint64_t displayId = 0;
+    NativeDisplayManager_ErrorCode ret = OH_NativeDisplayManager_GetDefaultDisplayId(&displayId);
+
+    NativeDisplayManager_DisplayInfo* displayInfo = nullptr;
+    ret = OH_NativeDisplayManager_CreateDisplayById(displayId, &displayInfo);
+    if (ret != DISPLAY_MANAGER_OK || !displayInfo) {
+        return;
+    }
+    int32_t screenWidth = displayInfo->width;
+    int32_t screenHeight = displayInfo->height;
+    OH_NativeDisplayManager_DestroyDisplay(displayInfo);
+    displayInfo = nullptr;
     OH_VideoCaptureInfo videoCapInfo = {
         .videoFrameWidth = screenWidth,
         .videoFrameHeight = screenHeight,
@@ -216,7 +410,6 @@ void SetConfig02(OH_AVScreenCaptureConfig &config)
         .audioInfo = audioInfo,
         .videoInfo = videoInfo
     };
-    // [End screenCapture_config]
 }
 
 void SetSpecifiedScreenConfigBuffer(OH_AVScreenCaptureConfig &config)
@@ -233,8 +426,9 @@ void SetSpecifiedScreenConfigBuffer(OH_AVScreenCaptureConfig &config)
     // 根据设备分辨率在config中配置录屏的宽度、高度。
     config.videoInfo.videoCapInfo.videoFrameWidth = displayInfo->width;
     config.videoInfo.videoCapInfo.videoFrameHeight = displayInfo->height;
-
-    // 设置录屏模式为OH_CAPTURE_SPECIFIED_SCREEN，传入屏幕Id。
+    OH_NativeDisplayManager_DestroyDisplay(displayInfo);
+    displayInfo = nullptr;
+    // 设置录屏模式为OH_CAPTURE_SPECIFIED_SCREEN，传入屏幕ID。
     config.captureMode = OH_CAPTURE_SPECIFIED_SCREEN;
     config.videoInfo.videoCapInfo.displayId = 0;
     // [End screenCapture_PCSpecifiedScreenConfigBuffer]
@@ -254,7 +448,8 @@ void SetHomeScreenConfigBuffer(OH_AVScreenCaptureConfig &config)
     // 根据设备分辨率在config中配置录屏的宽度、高度。
     config.videoInfo.videoCapInfo.videoFrameWidth = displayInfo->width;
     config.videoInfo.videoCapInfo.videoFrameHeight = displayInfo->height;
-
+    OH_NativeDisplayManager_DestroyDisplay(displayInfo);
+    displayInfo = nullptr;
     // 设置录屏模式为OH_CAPTURE_HOME_SCREEN。
     config.captureMode = OH_CAPTURE_HOME_SCREEN;
     // [End screenCapture_PCHomeScreenConfigBuffer]
@@ -274,12 +469,13 @@ void SetSpecifiedWindowScreenConfigBuffer(OH_AVScreenCaptureConfig &config)
     // 根据设备分辨率在config中配置录屏的宽度、高度。
     config.videoInfo.videoCapInfo.videoFrameWidth = displayInfo->width;
     config.videoInfo.videoCapInfo.videoFrameHeight = displayInfo->height;
-
-    // 设置录屏模式为OH_CAPTURE_SPECIFIED_WINDOW，传入屏幕Id。
+    OH_NativeDisplayManager_DestroyDisplay(displayInfo);
+    displayInfo = nullptr;
+    // 设置录屏模式为OH_CAPTURE_SPECIFIED_WINDOW，传入屏幕ID。
     config.captureMode = OH_CAPTURE_SPECIFIED_WINDOW;
     config.videoInfo.videoCapInfo.displayId = 0;
 
-    // (可选)若有期望录制的窗口，可传入单个窗口Id。
+    // (可选)若有期望录制的窗口，可传入单个窗口ID。
     g_missionIds = {61}; // 表示弹出的Picker默认选中61号窗口。
     config.videoInfo.videoCapInfo.missionIDs = g_missionIds.data();
     config.videoInfo.videoCapInfo.missionIDsLen = static_cast<int32_t>(g_missionIds.size());
@@ -302,12 +498,13 @@ void SetSpecifiedWindowScreenConfigBuffer2(OH_AVScreenCaptureConfig &config)
     // 根据设备分辨率在config中配置录屏的宽度、高度。
     config.videoInfo.videoCapInfo.videoFrameWidth = displayInfo->width;
     config.videoInfo.videoCapInfo.videoFrameHeight = displayInfo->height;
-
-    // 设置录屏模式为OH_CAPTURE_SPECIFIED_WINDOW，传入屏幕Id。
+    OH_NativeDisplayManager_DestroyDisplay(displayInfo);
+    displayInfo = nullptr;
+    // 设置录屏模式为OH_CAPTURE_SPECIFIED_WINDOW，传入屏幕ID。
     config.captureMode = OH_CAPTURE_SPECIFIED_WINDOW;
     config.videoInfo.videoCapInfo.displayId = 0;
 
-    // 传入多个窗口Id。
+    // 传入多个窗口ID。
     g_missionIds2 = {60, 61}; // 表示期望同时录制60、61号窗口。
     config.videoInfo.videoCapInfo.missionIDs = g_missionIds2.data();
     config.videoInfo.videoCapInfo.missionIDsLen = static_cast<int32_t>(g_missionIds2.size());
@@ -412,7 +609,7 @@ void SetCaptureArea(OH_AVScreenCapture *capture)
     region->y = 0;
     region->width = CAPTURE_REGION_SIZE;
     region->height = CAPTURE_REGION_SIZE;
-    uint64_t regionDisplayId = 0; // 传入矩形区域所在的屏幕Id。
+    uint64_t regionDisplayId = 0; // 传入矩形区域所在的屏幕ID。
     OH_AVScreenCapture_SetCaptureArea(capture, regionDisplayId, region);
     delete region;
     region = nullptr;
@@ -425,7 +622,7 @@ void ExcludeContent(OH_AVScreenCapture *capture)
     OH_AVScreenCapture_ContentFilter *contentFilter = OH_AVScreenCapture_CreateContentFilter();
     // 添加过滤通知音。
     OH_AVScreenCapture_ContentFilter_AddAudioContent(contentFilter, OH_SCREEN_CAPTURE_NOTIFICATION_AUDIO);
-    // 排除指定窗口id。
+    // 排除指定窗口ID。
     std::vector<int> windowIdsExclude = {};
     OH_AVScreenCapture_ContentFilter_AddWindowContent(contentFilter, windowIdsExclude.empty() ?
         nullptr : &windowIdsExclude[0], static_cast<int32_t>(windowIdsExclude.size()));
@@ -451,120 +648,6 @@ void SetSpecifiedWindowIdForWindowCapture(OH_AVScreenCaptureConfig &config)
     OH_AVScreenCapture_SetCaptureStrategy(g_avCapture, strategy);
     // [End screenCapture_withWindow_forID]
 }
-
-// [Start screenCapture_config_buffer_callback]
-// 设置回调。
-// 错误事件发生回调函数OnError()。
-void OnError(OH_AVScreenCapture *capture, int32_t errorCode, void *userData)
-{
-    (void)capture;
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnError errorCode is %{public}d", errorCode);
-    (void)userData;
-}
-
-// 状态变更事件处理函数OnStateChange()。
-void OnStateChange(struct OH_AVScreenCapture *capture, OH_AVScreenCaptureStateCode stateCode, void *userData)
-{
-    if (stateCode == OH_SCREEN_CAPTURE_STATE_STARTED) {
-        OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnStateChange started");
-        // 处理状态变更。
-        // 可选，配置录屏旋转。
-        int32_t ret = OH_AVScreenCapture_SetCanvasRotation(capture, true);
-        // 可选，修改Canvas分辨率。
-        ret = OH_AVScreenCapture_ResizeCanvas(g_avCapture, CANVAS_RESIZE_WIDTH, CANVAS_RESIZE_HEIGHT);
-        // 可选，设置是否显示光标。
-        ret = OH_AVScreenCapture_ShowCursor(g_avCapture, true);
-        // 可选，设置视频最大帧率。
-        ret = OH_AVScreenCapture_SetMaxVideoFrameRate(g_avCapture, CAPTURE_VIDEO_FRAME_RATE);
-    }
-    if (stateCode == OH_SCREEN_CAPTURE_STATE_INTERRUPTED_BY_OTHER) {
-        // 处理状态变更。
-    }
-    (void)userData;
-}
-
-// [Start screenCapture_config_buffer_OnBufferAvailable]
-// 获取并处理音视频原始码流数据回调函数OnBufferAvailable()。
-void HandleVideoBuffer(OH_AVBuffer *buffer)
-{
-    OH_NativeBuffer *nativebuffer = OH_AVBuffer_GetNativeBuffer(buffer);
-    if (nativebuffer == nullptr) {
-        return;
-    }
-    int bufferLen = OH_AVBuffer_GetCapacity(buffer);
-    OH_AVCodecBufferAttr info;
-    int32_t ret = OH_AVBuffer_GetBufferAttr(buffer, &info);
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture size %{public}d", info.size);
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture bufferLen %{public}d", bufferLen);
-
-    OH_NativeBuffer_Config config;
-    OH_NativeBuffer_GetConfig(nativebuffer, &config);
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture height %{public}d width %{public}d",
-        config.height, config.width);
-    uint8_t *buf = OH_AVBuffer_GetAddr(buffer);
-    if (buf == nullptr) {
-        return;
-    }
-    size_t written = fwrite(buf, 1, bufferLen, g_vFile);
-    if (written != bufferLen) {
-        OH_LOG_ERROR(LOG_APP, "fwrite failed");
-    }
-    OH_NativeBuffer_Unreference(nativebuffer);
-    buffer = nullptr;
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable inner audio");
-}
-
-void HandleAudioBuffer(OH_AVBuffer *buffer, FILE *file, const char *logMsg)
-{
-    int bufferLen = OH_AVBuffer_GetCapacity(buffer);
-    uint8_t *buf = OH_AVBuffer_GetAddr(buffer);
-    if (buf == nullptr) {
-        return;
-    }
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable inner audio");
-    size_t written = fwrite(buf, 1, bufferLen, g_innerFile);
-    if (written != bufferLen) {
-        OH_LOG_ERROR(LOG_APP, "fwrite failed");
-    }
-}
-
-void OnBufferAvailable(OH_AVScreenCapture *capture, OH_AVBuffer *buffer, OH_AVScreenCaptureBufferType bufferType,
-                       int64_t timestamp, void *userData)
-{
-    if (!g_isRunning) {
-        return;
-    }
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable bufferType is %{public}d",
-        bufferType);
-    if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_VIDEO) {
-        // 处理视频buffer。
-        HandleVideoBuffer(buffer);
-    } else if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_AUDIO_INNER) {
-        // 处理内录buffer。
-        HandleAudioBuffer(buffer, g_innerFile, "ScreenCapture OnBufferAvailable inner audio");
-    } else if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_AUDIO_MIC) {
-        // 处理麦克风buffer。
-        HandleAudioBuffer(buffer, g_micFile, "ScreenCapture OnBufferAvailable mic audio");
-    }
-    return;
-}
-// [End screenCapture_config_buffer_OnBufferAvailable]
-// 设置获取录屏屏幕Id的回调函数OnDisplaySelected()。
-void OnDisplaySelected(struct OH_AVScreenCapture *capture, uint64_t displayId, void *userData)
-{
-    (void)capture;
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnError errorCode is %{public}uld", displayId);
-    (void)userData;
-}
-
-void SetCallback(struct OH_AVScreenCapture *capture)
-{
-    OH_AVScreenCapture_SetErrorCallback(capture, OnError, nullptr);
-    OH_AVScreenCapture_SetStateCallback(capture, OnStateChange, nullptr);
-    OH_AVScreenCapture_SetDataCallback(capture, OnBufferAvailable, nullptr);
-    OH_AVScreenCapture_SetDisplayCallback(capture, OnDisplaySelected, nullptr);
-}
-// [End screenCapture_config_buffer_callback]
 
 // 开始录屏原始码流。
 static napi_value StartScreenCapture_01(napi_env env, napi_callback_info info)
@@ -632,19 +715,12 @@ static napi_value StartScreenCapture_02(napi_env env, napi_callback_info info)
     OH_AVScreenCaptureConfig config_;
     OpenFile02();
     OH_RecorderInfo recorderInfo;
-    std::string fileUrl = "fd://" + std::to_string(g_fileOutputFd);
-    recorderInfo.url = const_cast<char *>(fileUrl.c_str());
-    recorderInfo.fileFormat = OH_ContainerFormatType::CFT_MPEG_4;
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture fileUrl %{public}s", fileUrl.c_str());
-
-    SetConfig02(config_);
+    SetRecorderInfo02(recorderInfo);
+    SetConfig02(config_, recorderInfo);
     config_.captureMode = OH_CAPTURE_HOME_SCREEN;
     config_.dataType = OH_CAPTURE_FILE;
-    config_.recorderInfo = recorderInfo;
     bool isMicrophone = true;
     OH_AVScreenCapture_SetMicrophoneEnabled(g_avCapture, isMicrophone);
-    OH_AVScreenCapture_SetStateCallback(g_avCapture, OnStateChange, nullptr);
-    OH_AVScreenCapture_SetDisplayCallback(g_avCapture, OnDisplaySelected, nullptr);
     OH_AVSCREEN_CAPTURE_ErrCode result = OH_AVScreenCapture_Init(g_avCapture, config_);
     if (result != AV_SCREEN_CAPTURE_ERR_OK) {
         OH_LOG_INFO(LOG_APP,
@@ -810,7 +886,7 @@ static napi_value StartScreenCapture_03(napi_env env, napi_callback_info info)
         OH_LOG_ERROR(LOG_APP, "create screen capture failed");
     }
     OH_AVScreenCaptureConfig config_;
-    SetConfig02(config_);
+    SetConfig03(config_);
     bool isMicrophone = false;
     OH_AVScreenCapture_SetMicrophoneEnabled(g_avCapture, isMicrophone);
     OH_AVScreenCapture_SetErrorCallback(g_avCapture, OnError, nullptr);
@@ -856,17 +932,12 @@ static napi_value StartScreenCapture_04(napi_env env, napi_callback_info info)
     OH_AVScreenCaptureConfig config_;
     OpenFile02();
     OH_RecorderInfo recorderInfo;
-    std::string fileUrl = "fd://" + std::to_string(g_windowOutputFd);
-    recorderInfo.url = const_cast<char *>(fileUrl.c_str());
-    recorderInfo.fileFormat = OH_ContainerFormatType::CFT_MPEG_4;
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture fileUrl %{public}s", fileUrl.c_str());
-
-    SetConfig02(config_);
+    SetRecorderInfo04(recorderInfo);
+    SetConfig02(config_, recorderInfo);
     
     // 设置录屏模式为OH_CAPTURE_SPECIFIED_WINDOW。
     config_.captureMode = OH_CAPTURE_SPECIFIED_WINDOW;
     config_.dataType = OH_CAPTURE_FILE;
-    config_.recorderInfo = recorderInfo;
 
     // [Start screenCapture_createCaptureStrategy]
     // 通过弹出屏幕捕获Picker列表方式，选择已打开的应用窗口进行窗口级录屏。
@@ -881,8 +952,6 @@ static napi_value StartScreenCapture_04(napi_env env, napi_callback_info info)
 
     bool isMicrophone = true;
     OH_AVScreenCapture_SetMicrophoneEnabled(g_avCapture, isMicrophone);
-    OH_AVScreenCapture_SetStateCallback(g_avCapture, OnStateChange, nullptr);
-    OH_AVScreenCapture_SetDisplayCallback(g_avCapture, OnDisplaySelected, nullptr);
     OH_AVSCREEN_CAPTURE_ErrCode result = OH_AVScreenCapture_Init(g_avCapture, config_);
     if (result != AV_SCREEN_CAPTURE_ERR_OK) {
         OH_LOG_INFO(LOG_APP,
@@ -929,6 +998,8 @@ void SetConfig05(OH_AVScreenCaptureConfig &config)
     }
     int32_t screenWidth = displayInfo->width;
     int32_t screenHeight = displayInfo->height;
+    OH_NativeDisplayManager_DestroyDisplay(displayInfo);
+    displayInfo = nullptr;
     OH_VideoCaptureInfo videoCapInfo = {.videoFrameWidth = screenWidth, .videoFrameHeight = screenHeight,
                                         .videoSource = OH_VIDEO_SOURCE_SURFACE_RGBA};
     OH_VideoEncInfo videoEncInfo = {.videoCodec = OH_H264, .videoBitrate = 2000000, .videoFrameRate = 30};
@@ -967,7 +1038,7 @@ static napi_value StartScreenCapture_05(napi_env env, napi_callback_info info)
     region->y = 0;
     region->width = CAPTURE_REGION_SIZE;
     region->height = CAPTURE_REGION_SIZE;
-    // 2.传入矩形区域所在的屏幕Id。
+    // 2.传入矩形区域所在的屏幕ID。
     uint64_t regionDisplayId = 0;
     OH_AVScreenCapture_SetCaptureArea(g_avCapture, regionDisplayId, region);
     // 开始录屏。

@@ -68,7 +68,9 @@ export struct SurfaceHolderDeclarative {
           Text(this.currentStatus)
             .fontSize('24fp')
             .fontWeight(500)
+          // [EndExclude surface_holder_declarative_ets]
         }
+          // [StartExclude surface_holder_declarative_ets]
         .onClick(() => {
           let hasChangeColor: boolean = false;
           if (this.xcNode) {

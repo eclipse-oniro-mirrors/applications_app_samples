@@ -401,19 +401,19 @@ static napi_value NAPI_Global_Setup(napi_env env, napi_callback_info info) {
     SampleManager::GetInstance()->SetAVPlayer(player);
     // [Start OH_AVPlayer_SetOnInfoCallback]
     // 设置回调，监听信息。
-    LOG("call OH_AVPlayer_SetPlayerOnInfoCallback");
+    LOG("call OH_AVPlayer_SetOnInfoCallback");
     int32_t ret = OH_AVPlayer_SetOnInfoCallback(player, OHAVPlayerOnInfoCallback, nullptr);
-    LOG("OH_AVPlayer_SetPlayerOnInfoCallback ret:%{public}d", ret);
+    LOG("OH_AVPlayer_SetOnInfoCallback ret:%{public}d", ret);
     // [End OH_AVPlayer_SetOnInfoCallback]
     // [Start OH_AVPlayer_SetOnErrorCallback]
-    LOG("call OH_AVPlayer_SetPlayerOnErrorCallback");
+    LOG("call OH_AVPlayer_SetOnErrorCallback");
     ret = OH_AVPlayer_SetOnErrorCallback(player, OHAVPlayerOnErrorCallback, nullptr);
-    LOG("OH_AVPlayer_SetPlayerOnErrorCallback ret:%{public}d", ret);
+    LOG("OH_AVPlayer_SetOnErrorCallback ret:%{public}d", ret);
     // [End OH_AVPlayer_SetOnErrorCallback]
     {
         // [Start OH_AVPlayer_SetURLSource]
         LOG("player %{public}s >> URL source", url);
-        LOG("call %{public}s", "OH_AVPlayer_SetUrlSource");
+        LOG("call %{public}s", "OH_AVPlayer_SetURLSource");
         ret = OH_AVPlayer_SetURLSource(player, url);
         LOG("OH_AVPlayer_SetUrlSource ret:%{public}d", ret);
         // [End OH_AVPlayer_SetURLSource]

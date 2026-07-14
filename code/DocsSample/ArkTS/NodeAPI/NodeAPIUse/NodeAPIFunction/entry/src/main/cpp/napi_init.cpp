@@ -94,17 +94,18 @@ static napi_value CalculateArea(napi_env env, napi_callback_info info)
     napi_create_double(env, width * height, &area);
     return area;
 }
-// [End napi_create_function]
 
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
+    // [StartExclude napi_create_function]
     napi_property_descriptor desc[] = {
         {"getCbArgs", nullptr, GetCbArgs, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getCbArgQuantity", nullptr, GetCbArgQuantity, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getCbContext", nullptr, GetCbContext, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"callFunction", nullptr, CallFunction, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"objCallFunction", nullptr, ObjCallFunction, nullptr, nullptr, nullptr, napi_default, nullptr}};
+    // [EndExclude napi_create_function]
     napi_value fn = nullptr;
     napi_create_function(env, nullptr, 0, CalculateArea, nullptr, &fn);
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
@@ -112,6 +113,7 @@ static napi_value Init(napi_env env, napi_value exports)
     return exports;
 }
 EXTERN_C_END
+// [End napi_create_function]
 
 static napi_module demoModule = {
     .nm_version = 1,

@@ -29,7 +29,7 @@
 #include "NativeEntry.h"
 
 EXTERN_C_START
-// [start napi_initialization]
+// [Start napi_initialization]
 static napi_value Init(napi_env env, napi_value exports)
 {
     // 绑定Native侧的创建组件和销毁组件
@@ -59,4 +59,4 @@ extern "C" __attribute__((constructor)) void RegisterEntryModule(void)
 {
     napi_module_register(&demoModule);
 }
-// [end napi_initialization]
+// [End napi_initialization]

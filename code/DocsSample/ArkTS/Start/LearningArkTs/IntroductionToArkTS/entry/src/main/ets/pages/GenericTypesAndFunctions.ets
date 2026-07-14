@@ -53,11 +53,6 @@ function testGenericTypes() {
     globalLogUpdate(logMsg, false);
   }
 }
-// [Start generic_array]
-function last1<T>(x: T[]): T {
-  return x[x.length - 1];
-}
-// [End generic_array]
 // [Start generic_defaultValue]
 class SomeType {}
 interface Interface <T1 = SomeType> { }

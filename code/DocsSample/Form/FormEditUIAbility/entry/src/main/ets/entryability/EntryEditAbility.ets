@@ -20,7 +20,7 @@ import { window } from '@kit.ArkUI';
 import { PreferencesUtil } from '../common/PreferencesUtil';
 import { preferences } from '@kit.ArkData';
 
-const DOMAIN = 0x0000;
+const DOMAIN: number = 0x0000;
 
 export default class EntryEditAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
@@ -62,7 +62,7 @@ export default class EntryEditAbility extends UIAbility {
 
     windowStage.loadContent('pages/FormEditIndex', (err) => {
       if (err.code) {
-        hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Code:${err.code}, message:${err.message}');
+        hilog.error(DOMAIN, 'testTag', `Failed to load the content. Code:${err.code}, message:${err.message}`);
         return;
       }
       hilog.info(DOMAIN, 'testTag', 'Succeeded in loading the content.');

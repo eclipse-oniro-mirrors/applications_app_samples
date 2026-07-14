@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,7 +73,7 @@ static int g_aa = 0;
 // 判断一个 JSVM_Value 是否是 wasm module
 static bool IsWasmModuleObject(JSVM_Env env, JSVM_Value value)
 {
-    bool result;
+    bool result = false;
     JSVM_Status status = OH_JSVM_IsWasmModuleObject(env, value, &result);
     CHECK_STATUS(status == JSVM_OK);
     return result;
@@ -123,15 +123,16 @@ static JSVM_Value InstantiateWasmModule(JSVM_Env env, JSVM_Value wasmModule)
 // 获取 wasm 字节码 (add 模块)
 static std::vector<uint8_t> GetAddWasmBuffer()
 {
-    // 以下 wasmBuffer 对应的 wasm 字节码文本格式如下所示，只包含了一个函数 add
-    // (module
-    //   (func $add (param $lhs i32) (param $rhs i32) (result i32)
-    //     local.get $lhs
-    //     local.get $rhs
-    //     i32.add
-    //   )
-    //   (export "add" (func $add))
-    // )
+    /* 以下 wasmBuffer 对应的 wasm 字节码文本格式如下所示，只包含了一个函数 add
+     * (module
+     *   (func $add (param $lhs i32) (param $rhs i32) (result i32)
+     *     local.get $lhs
+     *     local.get $rhs
+     *     i32.add
+     *   )
+     *   (export "add" (func $add))
+     * )
+     */
     std::vector<uint8_t> wasmBuffer = {0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00, 0x01, 0x07, 0x01,
                                        0x60, 0x02, 0x7f, 0x7f, 0x01, 0x7f, 0x03, 0x02, 0x01, 0x00, 0x07,
                                        0x07, 0x01, 0x03, 0x61, 0x64, 0x64, 0x00, 0x00, 0x0a, 0x09, 0x01,
@@ -162,7 +163,7 @@ static void VerifyAddWasmInstance(JSVM_Env env, JSVM_Value wasmInstance)
     const int argumentCount = 2;
     status = OH_JSVM_CallFunction(env, undefined, add, argumentCount, argv, &result);
     CHECK_STATUS(status == JSVM_OK);
-    int32_t resultInt32;
+    int32_t resultInt32 = 0;
     OH_JSVM_GetValueInt32(env, result, &resultInt32);
     CHECK_STATUS(resultInt32 == 3);
 }
@@ -208,7 +209,7 @@ static JSVM_Value WasmDemo(JSVM_Env env, JSVM_CallbackInfo info)
     CHECK_STATUS(status == JSVM_OK);
 
     // 使用 wasm code 反序列化来生成 wasm module
-    bool cacheRejected;
+    bool cacheRejected = false;
     JSVM_Value wasmModule2;
     status = OH_JSVM_CompileWasmModule(env, wasmBytecode, wasmBytecodeLength, cacheBuffer.data(), cacheBuffer.size(),
                                        &cacheRejected, &wasmModule2);
@@ -221,7 +222,7 @@ static JSVM_Value WasmDemo(JSVM_Env env, JSVM_CallbackInfo info)
     status = OH_JSVM_CompileWasmFunction(env, wasmModule2, functionIndex, JSVM_WASM_OPT_HIGH);
     CHECK_STATUS(status == JSVM_OK);
 
-    JSVM_Value wasmInstance2 = InstantiateWasmModule(env, wasmModule);
+    JSVM_Value wasmInstance2 = InstantiateWasmModule(env, wasmModule2);
     VerifyAddWasmInstance(env, wasmInstance2);
 
     JSVM_Value result;
@@ -260,8 +261,8 @@ static int32_t TestJSVM()
     }
     // 创建JSVM环境
     CHECK(OH_JSVM_CreateVM(nullptr, &vm));
-    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK(OH_JSVM_OpenVMScope(vm, &vmScope));
+    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK_RET(OH_JSVM_OpenEnvScope(env, &envScope));
     CHECK_RET(OH_JSVM_OpenHandleScope(env, &handleScope));
 
@@ -275,8 +276,8 @@ static int32_t TestJSVM()
     // 销毁JSVM环境
     CHECK_RET(OH_JSVM_CloseHandleScope(env, handleScope));
     CHECK_RET(OH_JSVM_CloseEnvScope(env, envScope));
-    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyEnv(env));
+    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyVM(vm));
     return 0;
 }
