@@ -178,7 +178,7 @@ export class AVScreenCaptureDemo {
     await this.screenCapture?.release();
     // [End screenCapture_arkts_release]
 
-    // 最后需要关闭创建的录屏文件;
+    // 最后需要关闭创建的录屏文件。
     this.closeFile();
   }
 }
