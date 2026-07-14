@@ -25,7 +25,7 @@
 #include <cstdint>
 
 // [Start roi_frame_item_struct]
-// Buffer模式编码的帧数据项
+// Buffer模式编码的帧数据项。
 constexpr uint32_t FRAME_QUEUE_POP_TIMEOUT_MS = 4;
 constexpr size_t FRAME_QUEUE_MAX_SIZE = 3;
 

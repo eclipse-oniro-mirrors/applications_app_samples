@@ -65,7 +65,7 @@ int32_t VideoEncoder::Config(SampleInfo &sampleInfo, CodecUserData *codecUserDat
     height_ = sampleInfo.videoInfo.videoHeight;
 
     // [Start roi_register_parameter_callback]
-    // 参数回调配置：在Configure之前注册参数回调
+    // 参数回调配置：在Configure之前注册参数回调。
     if (roiPathType_ == ROI_PATH_METADATA_CALLBACK) {
         userData_ = std::make_unique<CodecUserRoi>();
         if (userData_) {
@@ -143,13 +143,13 @@ int32_t VideoEncoder::Release()
 }
 
 // [Start roi_parameter_callback_queue_storage]
-// 参数回调配置：将ROI条目按PTS推入RoiQueue
+// 参数回调配置：将ROI条目按PTS推入RoiQueue。
 void VideoEncoder::PushRoiEntry(int64_t pts, const std::string &roiStr)
 {
     roiQueue_.Push(pts, roiStr);
 }
 
-// 参数回调配置：ROI关闭时清空RoiQueue
+// 参数回调配置：ROI关闭时清空RoiQueue。
 void VideoEncoder::ClearRoiQueue()
 {
     roiQueue_.Clear();
