@@ -65,7 +65,7 @@ void CodecCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBu
     }
     CodecUserData *codecUserData = static_cast<CodecUserData *>(userData);
 
-    // Buffer模式：用帧队列的像素数据和ROI填充编码器Buffer
+    // Buffer模式：用帧队列的像素数据和ROI填充编码器Buffer。
     if (codecUserData->roiPathType == ROI_PATH_BUFFER_MODE && codecUserData->frameQueue != nullptr) {
         FillBufferModeInput(codec, index, buffer, codecUserData);
         return;

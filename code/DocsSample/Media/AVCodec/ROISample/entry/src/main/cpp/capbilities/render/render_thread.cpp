@@ -1002,7 +1002,7 @@ bool RenderThread::PollFence(int32_t fenceFd)
 void RenderThread::PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, const std::string &assembledRoiStr)
 {
     // [Start roi_buffer_pixel_read]
-    // Buffer模式：从相机帧读取像素数据并推入帧队列
+    // Buffer模式：从相机帧读取像素数据并推入帧队列。
     BufferHandle *bufferHandle = OH_NativeWindow_GetBufferHandleFromNative(InBuffer);
     if (bufferHandle == nullptr) {
         return;
@@ -1143,6 +1143,7 @@ std::pair<ViewportParams, ViewportParams> RenderThread::ComputeDrawViewports()
     return {previewVp, encoderVp};
 }
 
+// [Start roi_surface_flush_buffer]
 void RenderThread::FlushAndCleanup(OHNativeWindowBuffer *InBuffer, int32_t fenceFd1,
     OHNativeWindowBuffer *OutBuffer, OHNativeWindowBuffer *OutBufferEncoder)
 {
@@ -1156,6 +1157,7 @@ void RenderThread::FlushAndCleanup(OHNativeWindowBuffer *InBuffer, int32_t fence
         OH_NativeWindow_NativeWindowFlushBuffer(encoderNativeWindow_, OutBufferEncoder, acquireFenceFd, region);
     }
 }
+// [End roi_surface_flush_buffer]
 
 void RenderThread::DrawImage()
 {

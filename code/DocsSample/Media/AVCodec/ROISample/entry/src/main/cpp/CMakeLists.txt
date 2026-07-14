@@ -20,18 +20,13 @@ include_directories(${NATIVERENDER_ROOT_PATH}
                     ${NATIVERENDER_ROOT_PATH}/recorder/include
 )
 
+# [Start roi_cmake_link_libraries]
 set(BASE_LIBRARY
     libace_napi.z.so libEGL.so libGLESv3.so libace_ndk.z.so libuv.so libhilog_ndk.z.so
     libnative_media_codecbase.so libnative_media_core.so libnative_media_vdec.so libnative_window.so
     libnative_media_venc.so libnative_media_acodec.so libnative_media_avdemuxer.so libnative_media_avsource.so
     libnative_media_avmuxer.so libohaudio.so libnative_buffer.so libnative_vsync.so libnative_image.so libdeviceinfo_ndk.z.so
 )
-add_library(player SHARED player/PlayerNative.cpp
-                          player/Player.cpp
-                          capbilities/codec/Demuxer.cpp
-                          capbilities/codec/AudioDecoder.cpp
-                          capbilities/codec/CodecCallback.cpp
-                          capbilities/codec/AudioRender.cpp)
 
 add_library(recorder SHARED recorder/RecorderNative.cpp
                             recorder/Recorder.cpp
@@ -46,5 +41,14 @@ add_library(recorder SHARED recorder/RecorderNative.cpp
                             common/RoiQueue.cpp
 )
 
-target_link_libraries(player PUBLIC ${BASE_LIBRARY})
 target_link_libraries(recorder PUBLIC ${BASE_LIBRARY} player)
+# [End roi_cmake_link_libraries]
+
+add_library(player SHARED player/PlayerNative.cpp
+                          player/Player.cpp
+                          capbilities/codec/Demuxer.cpp
+                          capbilities/codec/AudioDecoder.cpp
+                          capbilities/codec/CodecCallback.cpp
+                          capbilities/codec/AudioRender.cpp)
+
+target_link_libraries(player PUBLIC ${BASE_LIBRARY})

@@ -35,7 +35,7 @@
 class VideoEncoder {
 public:
     // [Start roi_user_data_struct]
-    // 参数回调配置的用户数据结构
+    // 参数回调配置的用户数据结构。
     struct CodecUserRoi {
         VideoEncoder* vencoder = nullptr;
         RoiQueue* roiQueue = nullptr;
