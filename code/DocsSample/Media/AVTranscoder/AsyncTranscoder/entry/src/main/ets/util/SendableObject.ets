@@ -33,7 +33,7 @@ export class SendableObject {
     return this.sendableContext;
   }
 
-  
+
   public getData() {
     return this.data;
   }
