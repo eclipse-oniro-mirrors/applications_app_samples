@@ -47,8 +47,8 @@ struct Index {
                 this.name = name;
                 this.age = age;
               }
-              name: string;
-              age:  number;
+              public name: string;
+              public age:  number;
             }
             let peter: Person = new Person("peter", 15);
             hilog.info(0xFF00, "testTag", "peter is %{public}o", peter);
