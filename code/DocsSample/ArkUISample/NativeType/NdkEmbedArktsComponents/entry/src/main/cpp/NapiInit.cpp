@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 // [Start native_init]
-// native_init.cpp
+// NapiInit.cpp
 #include "napi/native_api.h"
 #include "ArkUIMixedRefresh.h"
 #include "NativeEntry.h"

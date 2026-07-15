@@ -70,7 +70,7 @@ void ArkUIMixedRefresh::Attribute2Descriptor(const NativeRefreshAttribute &attri
         desc[REFRESH_OFFSET_INDEX6].method = [](napi_env env, napi_callback_info info) -> napi_value {
             OH_LOG_INFO(LOG_APP, "onRefreshing callback");
             size_t argc = 0;
-            napi_value args[0];
+            napi_value *args = nullptr;
             void *data;
             napi_get_cb_info(env, info, &argc, args, nullptr, &data);
             auto refresh = reinterpret_cast<ArkUIMixedRefresh *>(data);
@@ -162,6 +162,7 @@ const std::shared_ptr<ArkUIMixedRefresh> ArkUIMixedRefresh::Create(const NativeR
     refresh->nodeContent_ = nodeContentRef;
     refresh->contentHandle_ = contentHandle;
     refresh->attribute_ = attribute;
+    napi_close_handle_scope(g_env, scope);
     return refresh;
 }
 // 更新函数实现。
@@ -187,6 +188,7 @@ void ArkUIMixedRefresh::FlushMixedModeCmd()
     // 调用ArkTS的Update函数进行更新。
     napi_value result = nullptr;
     napi_call_function(g_env, nullptr, updateRefresh, sizeof(argv) / sizeof(argv[0]), argv, &result);
+    napi_close_handle_scope(g_env, scope);
 }
 
 napi_value ArkUIMixedRefresh::RegisterCreateRefresh(napi_env env, napi_callback_info info)

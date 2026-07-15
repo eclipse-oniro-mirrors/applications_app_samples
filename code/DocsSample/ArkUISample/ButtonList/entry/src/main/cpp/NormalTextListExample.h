@@ -44,7 +44,6 @@ std::shared_ptr<ArkUIBaseNode> CreateTextListExample()
         textNode->SetTextContent(std::to_string(i));
         textNode->SetFontSize(fontSizes);
         textNode->SetFontColor(0xFF000000);
-        textNode->SetPercentWidth(1);
         textNode->SetPercentWidth(screenWidth);
         textNode->SetHeight(defaultHeight);
         textNode->SetBackgroundColor(0xFFfffacd);

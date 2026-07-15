@@ -26,13 +26,7 @@ namespace NativeModule {
 std::shared_ptr<ArkUIBaseNode> CreateGetNodeByIdExample()
 {
     auto nodeAPI = NativeModuleInstance::GetInstance()->GetNativeNodeAPI();
-    
-    // 创建传入事件节点结构体
-    struct A {
-        ArkUI_NodeHandle node;
-    };
-    A* a = new A;
-    
+
     // 创建根节点Scroll
     ArkUI_NodeHandle scroll = nodeAPI->createNode(ARKUI_NODE_SCROLL);
     ArkUI_NumberValue length_value[] = {{.f32 = 480}};
@@ -70,7 +64,6 @@ std::shared_ptr<ArkUIBaseNode> CreateGetNodeByIdExample()
     nodeAPI->setAttribute(text0, NODE_MARGIN, &item_margin);
     ArkUI_AttributeItem text0_id = {.string = "Text0_CAPI"};
     nodeAPI->setAttribute(text0, NODE_ID, &text0_id);
-    a->node = text0;
     
     // 创建Row
     ArkUI_NodeHandle row0 = nodeAPI->createNode(ARKUI_NODE_ROW);
@@ -89,18 +82,17 @@ std::shared_ptr<ArkUIBaseNode> CreateGetNodeByIdExample()
     nodeAPI->setAttribute(bt0, NODE_MARGIN, &item_margin);
     ArkUI_AttributeItem bt0_item = {.string = "GetAttachedNodeHandleById"};
     nodeAPI->setAttribute(bt0, NODE_BUTTON_LABEL, &bt0_item);
-    nodeAPI->registerNodeEvent(bt0, NODE_ON_CLICK, 0, a);
+    nodeAPI->registerNodeEvent(bt0, NODE_ON_CLICK, 0, text0);
     
     // 注册事件
     auto onClick = [](ArkUI_NodeEvent *event) {
-        ArkUI_NodeHandle node = OH_ArkUI_NodeEvent_GetNodeHandle(event);
         auto nodeAPI = NativeModuleInstance::GetInstance()->GetNativeNodeAPI();
-        
+
         if (OH_ArkUI_NodeEvent_GetTargetId(event) == 0) {  // GetAttachedNodeHandleById
-            A* a = (A*)OH_ArkUI_NodeEvent_GetUserData(event);
+            auto text0 = (ArkUI_NodeHandle)OH_ArkUI_NodeEvent_GetUserData(event);
             ArkUI_NodeHandle node = nullptr;
             auto res = OH_ArkUI_NodeUtils_GetAttachedNodeHandleById("Text0_CAPI", &node);
-            if (node == a->node) {
+            if (res == ARKUI_ERROR_CODE_NO_ERROR && node == text0) {
                 OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "GetNodeByIdExample", "get Text0_CAPI success");
             } else {
                 OH_LOG_Print(LOG_APP, LOG_ERROR, 0xFF00, "GetNodeByIdExample", "get Text0_CAPI failed");
