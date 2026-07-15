@@ -15,7 +15,7 @@
 // [Start Common_PixelUtils]
 // Common/UIContext.ets
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { display } from '@kit.ArkUI';
+import { display, UIContext } from '@kit.ArkUI';
 
 const DOMAIN = 0x0000;
 
@@ -45,7 +45,7 @@ export class PixelUtils {
     return _uiContext.fp2px(fpValue)
   }
 
-  lpx2px(lpxValue: number, uiContext?: UIContext): number | undefined {
+  static lpx2px(lpxValue: number, uiContext?: UIContext): number | undefined {
     let _uiContext = uiContext ?? PixelUtils.uiContext;
     if (!_uiContext || !_uiContext.isAvailable()) {
       hilog.error(DOMAIN, 'testTag', `Can't get UIContext`);

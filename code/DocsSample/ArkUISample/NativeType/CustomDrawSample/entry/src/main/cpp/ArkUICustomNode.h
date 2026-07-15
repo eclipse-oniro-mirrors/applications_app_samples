@@ -91,6 +91,7 @@ namespace NativeModule {
             OH_Drawing_BrushSetColor(brush, color_);
             OH_Drawing_CanvasAttachBrush(drawCanvas, brush);
             OH_Drawing_CanvasDrawPath(drawCanvas, path);
+            OH_Drawing_CanvasDetachBrush(drawCanvas);
             // 释放资源
             OH_Drawing_BrushDestroy(brush);
             OH_Drawing_PathDestroy(path);
