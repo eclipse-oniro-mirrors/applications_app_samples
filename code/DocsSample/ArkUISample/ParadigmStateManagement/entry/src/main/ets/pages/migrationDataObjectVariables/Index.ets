@@ -20,10 +20,15 @@ import { MigrationClassAttributeV1 } from './MigrationClassAttributeV1';
 import { MigrationClassAttributeV2 } from './MigrationClassAttributeV2';
 import { MigrationNestedObjectPropertiesV1 } from './MigrationNestedObjectPropertiesV1';
 import { MigrationNestedObjectPropertiesV2 } from './MigrationNestedObjectPropertiesV2';
+import { MigrationSyncDollarDollar } from './MigrationSyncDollarDollar';
 
 export const MIGRATION_DATA: string = 'migration_data';
 
 const routes: Route[] = [
+  {
+    name: `${MIGRATION_DATA}/MigrationSyncDollarDollar`,
+    title: resource.resourceToString($r('app.string.migration_sync_dollar_dollar')),
+  },
   {
     name: `${MIGRATION_DATA}/MigrationNestedObjectProperties`,
     title: resource.resourceToString($r('app.string.migration_nested_object_properties')),
@@ -46,6 +51,8 @@ const routes: Route[] = [
 export function MigrationDestination(name: string) {
   if (name === MIGRATION_DATA) {
     migrationExample();
+  } else if (name === `${MIGRATION_DATA}/MigrationSyncDollarDollar`) {
+    MigrationSyncDollarDollar();
   } else if (name === `${MIGRATION_DATA}/MigrationNestedObjectProperties`) {
     MigrationNestedObjectPropertiesV1();
   } else if (name === `${MIGRATION_DATA}/MigrationNestedObjectPropertiesV2`) {
