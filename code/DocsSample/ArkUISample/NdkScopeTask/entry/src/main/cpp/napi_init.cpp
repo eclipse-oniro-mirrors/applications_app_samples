@@ -26,7 +26,6 @@
 const unsigned int LOG_PRINT_DOMAIN = 0xFF00;
 // [Start runtaskinscopethree_start]
 const uint32_t VALUE_2 = 250;
-const uint32_t VALUE_3 = 480;
 // [End runtaskinscopethree_start]
 namespace ConstIde {
 const uint32_t NUMBER_0 = 0;
@@ -123,7 +122,7 @@ static napi_value ModifyPageOneButton(napi_env env, napi_callback_info info)
         auto *nodeAPI = reinterpret_cast<ArkUI_NativeNodeAPI_1 *>(
             OH_ArkUI_QueryModuleInterfaceByName(ARKUI_NATIVE_NODE, "ArkUI_NativeNodeAPI_1"));
         auto pageOneButton = (ArkUI_NodeHandle)userData;
-        ArkUI_NumberValue value[] = {VALUE_3};
+        ArkUI_NumberValue value[1] = {};
         ArkUI_AttributeItem LABEL_Item = {.string = "success"};
         value[0].f32 = VALUE_2;
         ArkUI_AttributeItem button_Item = {value, sizeof(value) / sizeof(ArkUI_NumberValue)};
