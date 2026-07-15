@@ -27,6 +27,7 @@ struct Index {
         this.buttonComponent('跳转到音频录制流管理页面', 'pages/AudioStreamManager');
         this.buttonComponent('跳转到实现低时延耳返页面', 'pages/AudioLoopback');
         this.buttonComponent('跳转到查询音频调试信息页面', 'pages/AudioLoopbackDebugInfo');
+        this.buttonComponent('跳转到音频内录页面', 'pages/PlaybackCapture');
       }.size({ width: '100%', height: '100%' })
     }
     .width('100%')
