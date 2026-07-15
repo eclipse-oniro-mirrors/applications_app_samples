@@ -100,9 +100,10 @@ void copyBuffer(OH_NativeBuffer *srcBuffer, size_t srcSize, OHNativeWindowBuffer
 void ShowImage(OH_ImageNative *image)
 {
     OH_LOG_INFO(LOG_APP, "ImageReceiverNativeCTest %{public}s IN", __func__);
+    if (g_ndkCamera == nullptr) {
+        return;
+    }
     uint64_t xComponentSurfaceId = std::stoull(g_xComponentSurfaceIdSlave);
-    OH_LOG_ERROR(LOG_APP, "ImageReceiverNativeCTest %{public}s XComponentId is : %{public}lu.", __func__,
-        xComponentSurfaceId);
     OHNativeWindow *nativeWindow = nullptr;
     int32_t res = OH_NativeWindow_CreateNativeWindowFromSurfaceId(xComponentSurfaceId, &nativeWindow);
     if (res != 0) {
@@ -146,7 +147,6 @@ void ShowImage(OH_ImageNative *image)
 
     // 将image数据拷贝到nativeWindowBuffer上。
     copyBuffer(imageBuffer, bufSize, nativeWindowBuffer);
-
     Region region1{};
     res = OH_NativeWindow_NativeWindowFlushBuffer(nativeWindow, nativeWindowBuffer, fenceFd, region1);
     if (res != 0) {

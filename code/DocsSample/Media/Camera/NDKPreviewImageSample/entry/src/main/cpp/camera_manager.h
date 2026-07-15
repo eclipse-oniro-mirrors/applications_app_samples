@@ -50,6 +50,9 @@
 #include <window_manager/oh_display_info.h>
 #include <window_manager/oh_display_manager.h>
 
+#include <multimedia/player_framework/avrecorder.h>
+#include <multimedia/player_framework/avrecorder_base.h>
+
 namespace OHOS_CAMERA_NDK_SAMPLE {
 
 class NDKCamera {
@@ -84,12 +87,15 @@ public:
     Camera_ErrorCode UnRegisterFoldCallback();
     Camera_ErrorCode UpdateRotateForCamera(int32_t rotation);
     Camera_ImageRotation GetVideoRotation(int32_t deviceDegree);
+    Camera_ImageRotation GetVideoRotationWithoutDeviceDegree();
     Camera_ErrorCode VideoOutputStart(char *videoId);
     Camera_ErrorCode VideoOutputStop(void);
     Camera_ImageRotation GetDeviceRotation();
     Camera_ImageRotation GetPreviewRotation(int32_t rotation);
     int32_t GetDefaultDisplayRotation();
-    void InitPreviewRotation();
+    void GetAndSetPreviewRotation();
+    void GetAndSetPreviewRotationWithoutDisplayRotation();
+    void DisplayChangeCallback(uint64_t displayId);
     OH_NativeBuffer_TransformType GetNativeBufferTransformType(int32_t previewRotation, bool isFront);
 
 private:
@@ -98,7 +104,10 @@ private:
         RATIO4_3,
         RATIO16_9,
     };
-
+    
+    Camera_ImageRotation GetPhotoRotation(Camera_PhotoOutput* photoOutput, int32_t deviceDegree);
+    Camera_ImageRotation GetPhotoRotationWithoutDeviceDegree(Camera_PhotoOutput* photoOutput);
+    Camera_ErrorCode EnablePhysicalCameraOrientation(Camera_Input* cameraInput);
     void  GetCameraDevice();
     NDKCamera(const NDKCamera &) = delete;
     NDKCamera &operator=(const NDKCamera &) = delete;

@@ -14,6 +14,8 @@
  */
 
 #include "camera_manager.h"
+#include <multimedia/player_framework/avrecorder.h>
+#include <multimedia/player_framework/avrecorder_base.h>
 
 #define LOG_TAG "NDK_CAMERA_MANAGER"
 #define LOG_DOMAIN 0x3210
@@ -21,6 +23,7 @@
 namespace OHOS_CAMERA_NDK_SAMPLE {
 static void *g_foldCb = nullptr;
 const int32_t NUM_FIVE = 5;
+const int32_t NUM_TEN = 10;
 const int32_t NUM_720 = 720;
 const int32_t NUM_1080 = 1080;
 const int32_t NUM_1920 = 1920;
@@ -81,6 +84,7 @@ NDKCamera::NDKCamera(char *previewSurfaceId, char *videoSurfaceId, Camera_SceneM
     if (cameraInput_ == nullptr || ret_ != CAMERA_OK) {
         OH_LOG_INFO(LOG_APP, "CreateCameraInput failed.");
     }
+    EnablePhysicalCameraOrientation(cameraInput_);
     ret_ = OH_CameraInput_Open(cameraInput_);
     if (ret_ != CAMERA_OK) {
         OH_LOG_INFO(LOG_APP, "CameraInput_Open failed.");
@@ -130,6 +134,38 @@ NDKCamera::~NDKCamera()
     }
     OH_LOG_INFO(LOG_APP, "~NDKCamera exit");
 }
+
+// [Start enable_physical_camera_orientation]
+Camera_ErrorCode NDKCamera::EnablePhysicalCameraOrientation(Camera_Input* cameraInput)
+{
+    bool isVariable = false;
+    // 查询设备的相机镜头安装角度是否可变
+    Camera_ErrorCode ret = OH_CameraInput_IsPhysicalCameraOrientationVariable(cameraInput, &isVariable);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraInput_IsPhysicalCameraOrientationVariable failed.");
+        return ret;
+    }
+    if (!isVariable) {
+        OH_LOG_INFO(LOG_APP, "Physical Camera Orientation is not variable.");
+        return CAMERA_OK;
+    }
+    // 获取设备当前折叠状态下真实的相机镜头安装角度
+    uint32_t physicalOrientation = 0;
+    ret = OH_CameraInput_GetPhysicalCameraOrientation(cameraInput, &physicalOrientation);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraInput_GetPhysicalCameraOrientation failed.");
+        return ret;
+    }
+    // 选择是否使用真实的相机镜头安装角度, 以实现无损出图
+    bool isUsed = true;
+    ret = OH_CameraInput_UsePhysicalCameraOrientation(cameraInput, isUsed);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_CameraInput_UsePhysicalCameraOrientation failed.");
+        return ret;
+    }
+    return ret;
+}
+// [End enable_physical_camera_orientation]
 
 Camera_ErrorCode NDKCamera::CreatePreviewOutput()
 {
@@ -201,7 +237,7 @@ Camera_ErrorCode NDKCamera::SessionFlowFn()
             OH_VideoOutput_EnableMirror(videoOutput_, isMirrorSupported);
         }
     }
-    InitPreviewRotation();
+    GetAndSetPreviewRotation();
     ret_ = OH_CaptureSession_Start(captureSession_);
     OH_LOG_INFO(LOG_APP, "SessionFlowFn end.");
     return ret_;
@@ -271,6 +307,16 @@ Camera_ErrorCode NDKCamera::ReleaseCamera(void)
     return ret_;
 }
 
+// [Start cal_device_degree]
+Sensor_SubscriptionId *id;
+Sensor_Subscriber *subscriber;
+Sensor_SubscriptionAttribute *attr;
+
+// Sensor获取方式为注册监听获取单次数据后解注册,监听回调为异步触发,等待g_isDegreeReady设置为true后说明获取设备角度成功;
+// 角度保存在g_deviceDegree,使用角度后将g_isDegreeReady置为false;
+float g_deviceDegree = 0.0f;
+bool g_isDegreeReady = false;
+
 float GetDeviceDegreeFromXYZ(float x, float y, float z)
 {
     // 判断条件 (x * x + y * y) * 3 < z * z
@@ -292,12 +338,6 @@ float GetDeviceDegreeFromXYZ(float x, float y, float z)
         return getDeviceDegree;
     }
 }
-
-Sensor_SubscriptionId *id;
-Sensor_Subscriber *subscriber;
-Sensor_SubscriptionAttribute *attr;
-float g_deviceDegree = 0.0f;
-bool g_isDegreeReady = false;
 
 void SensorDataCallback(Sensor_Event *event)
 {
@@ -333,32 +373,69 @@ void GetCurGravity()
     Sensor_Type SENSOR_ID{ SENSOR_TYPE_GRAVITY };
     id = OH_Sensor_CreateSubscriptionId(); // 创建一个Sensor_SubscriptionId实例。
     if (id == nullptr) {
-        OH_LOG_ERROR(LOG_APP, "sensor error0");
+        OH_LOG_ERROR(LOG_APP, "OH_Sensor_CreateSubscriptionId error");
     }
     int32_t res = OH_SensorSubscriptionId_SetType(id, SENSOR_ID); // 设置传感器类型为重力。
     if (res != 0) {
-        OH_LOG_ERROR(LOG_APP, "sensor error1");
+        OH_LOG_ERROR(LOG_APP, "OH_SensorSubscriptionId_SetType error");
     }
     attr = OH_Sensor_CreateSubscriptionAttribute(); // 创建Sensor_SubscriptionAttribute实例。
     if (attr == nullptr) {
-        OH_LOG_ERROR(LOG_APP, "sensor error2");
+        OH_LOG_ERROR(LOG_APP, "OH_Sensor_CreateSubscriptionAttribute error");
     }
     int64_t sensorSamplePeriod = 15000000;
     res = OH_SensorSubscriptionAttribute_SetSamplingInterval(attr, sensorSamplePeriod); // 设置传感器数据报告间隔。
     if (res != 0) {
-        OH_LOG_ERROR(LOG_APP, "sensor error3");
+        OH_LOG_ERROR(LOG_APP, "OH_SensorSubscriptionAttribute_SetSamplingInterval error");
     }
     subscriber = OH_Sensor_CreateSubscriber();
     if (subscriber == nullptr) {
-        OH_LOG_ERROR(LOG_APP, "sensor error2");
+        OH_LOG_ERROR(LOG_APP, "OH_Sensor_CreateSubscriber error");
     }
 
     OH_SensorSubscriber_SetCallback(subscriber, SensorDataCallback);
     Sensor_Result sensorRes = OH_Sensor_Subscribe(id, attr, subscriber); // 订阅传感器数据。
     if (sensorRes != SENSOR_SUCCESS) {
-        OH_LOG_INFO(LOG_APP, "sensor error:%{public}d", sensorRes);
+        OH_LOG_INFO(LOG_APP, "OH_Sensor_Subscribe error");
     }
 }
+
+int32_t CalDeviceDegree()
+{
+    float deviceDegree = 0.0f;
+    GetCurGravity();
+    while (!g_isDegreeReady) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(NUM_TEN));
+    }
+    deviceDegree = g_deviceDegree;
+    g_isDegreeReady = false;
+    return deviceDegree;
+}
+// [End cal_device_degree]
+
+// [Start get_photo_rotation]
+Camera_ImageRotation NDKCamera::GetPhotoRotation(Camera_PhotoOutput* photoOutput, int32_t deviceDegree)
+{
+    Camera_ImageRotation photoRotation = IAMGE_ROTATION_0;
+    Camera_ErrorCode ret = OH_PhotoOutput_GetPhotoRotation(photoOutput, deviceDegree, &photoRotation);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_PhotoOutput_GetPhotoRotation failed.");
+    }
+    return photoRotation;
+}
+// [End get_photo_rotation]
+
+// [Start get_photo_rotation_without_device_degree]
+Camera_ImageRotation NDKCamera::GetPhotoRotationWithoutDeviceDegree(Camera_PhotoOutput* photoOutput)
+{
+    Camera_ImageRotation photoRotation = IAMGE_ROTATION_0;
+    Camera_ErrorCode ret = OH_PhotoOutput_GetPhotoRotationWithoutDeviceDegree(photoOutput, &photoRotation);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_PhotoOutput_GetPhotoRotationWithoutDeviceDegree failed.");
+    }
+    return photoRotation;
+}
+// [End get_photo_rotation_without_device_degree]
 
 Camera_ErrorCode NDKCamera::TakePicture(int rotation)
 {
@@ -372,10 +449,9 @@ Camera_ErrorCode NDKCamera::TakePicture(int rotation)
         std::this_thread::sleep_for(std::chrono::milliseconds(NUM_FIVE)); // 延时100毫秒，避免高CPU占用
     }
     OH_LOG_INFO(LOG_APP, "TakePicture ready");
-    Camera_ImageRotation imageRotation;
     bool isMirSupported;
     OH_PhotoOutput_IsMirrorSupported(photoOutput_, &isMirSupported);
-    OH_PhotoOutput_GetPhotoRotation(photoOutput_, rotation, &imageRotation);
+    Camera_ImageRotation imageRotation = GetPhotoRotation(photoOutput_, rotation);
 
     Camera_PhotoCaptureSetting curPhotoSetting = {
         quality : QUALITY_LEVEL_HIGH,
@@ -603,25 +679,37 @@ Camera_ImageRotation NDKCamera::GetDeviceRotation()
 
 Camera_ImageRotation NDKCamera::GetPreviewRotation(int32_t rotation)
 {
-    Camera_ImageRotation previewRotation;
+    Camera_ImageRotation previewRotation = IAMGE_ROTATION_0;
+    if (previewOutput_ == nullptr) {
+        return previewRotation;
+    }
     OH_PreviewOutput_GetPreviewRotation(previewOutput_, static_cast<Camera_ImageRotation>(rotation), &previewRotation);
     return previewRotation;
 }
 
+// [Start get_video_rotation]
 Camera_ImageRotation NDKCamera::GetVideoRotation(int32_t deviceDegree)
 {
-    OH_LOG_INFO(LOG_APP, "GetVideoRotation start deviceDegree:%{public}d", deviceDegree);
-    Camera_ImageRotation videoRotation;
-    if (!videoOutput_) {
-        OH_LOG_INFO(LOG_APP, "GetVideoRotation failed 111.");
+    Camera_ImageRotation videoRotation = IAMGE_ROTATION_0;
+    Camera_ErrorCode ret = OH_VideoOutput_GetVideoRotation(videoOutput_, deviceDegree, &videoRotation);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_VideoOutput_GetVideoRotation failed.");
     }
-    ret_ = OH_VideoOutput_GetVideoRotation(videoOutput_, deviceDegree, &videoRotation);
-    if (ret_ != CAMERA_OK) {
-        OH_LOG_INFO(LOG_APP, "GetVideoRotation failed.");
-    }
-    OH_LOG_INFO(LOG_APP, "GetVideoRotation start videoRotation:%{public}d", videoRotation);
     return videoRotation;
 }
+// [End get_video_rotation]
+
+// [Start get_video_rotation_without_device_degree]
+Camera_ImageRotation NDKCamera::GetVideoRotationWithoutDeviceDegree()
+{
+    Camera_ImageRotation videoRotation = IAMGE_ROTATION_0;
+    Camera_ErrorCode ret = OH_VideoOutput_GetVideoRotationWithoutDeviceDegree(videoOutput_, &videoRotation);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_VideoOutput_GetVideoRotationWithoutDeviceDegree failed.");
+    }
+    return videoRotation;
+}
+// [End get_video_rotation_without_device_degree]
 
 Camera_ErrorCode NDKCamera::VideoOutputStart(char *videoId)
 {
@@ -635,6 +723,42 @@ Camera_ErrorCode NDKCamera::VideoOutputStart(char *videoId)
     return ret;
 }
 
+// [Start get_video_rotation_and_update]
+void GetVideoRotationAndUpdate(
+    Camera_VideoOutput* videoOutput, int32_t deviceDegree, OH_AVRecorder* recorder, OH_AVRecorder_State state)
+{
+    Camera_ImageRotation videoRotation = IAMGE_ROTATION_0;
+    Camera_ErrorCode ret = OH_VideoOutput_GetVideoRotation(videoOutput, deviceDegree, &videoRotation);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_VideoOutput_GetVideoRotation failed.");
+    }
+    if (state == OH_AVRecorder_State::AVRECORDER_PREPARED) {
+        OH_AVErrCode retCode = OH_AVRecorder_UpdateRotation(recorder, videoRotation);
+        if (retCode != AV_ERR_OK) {
+            OH_LOG_ERROR(LOG_APP, "OH_AVRecorder_UpdateRotation failed.");
+        }
+    }
+}
+// [End get_video_rotation_and_update]
+
+// [Start get_video_rotation_without_device_degree_and_update]
+void GetVideoRotationWithoutDeviceDegreeAndUpdate(
+    Camera_VideoOutput* videoOutput, OH_AVRecorder* recorder, OH_AVRecorder_State state)
+{
+    Camera_ImageRotation videoRotation = IAMGE_ROTATION_0;
+    Camera_ErrorCode ret = OH_VideoOutput_GetVideoRotationWithoutDeviceDegree(videoOutput, &videoRotation);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_VideoOutput_GetVideoRotationWithoutDeviceDegree failed.");
+    }
+    if (state == OH_AVRecorder_State::AVRECORDER_PREPARED) {
+        OH_AVErrCode retCode = OH_AVRecorder_UpdateRotation(recorder, videoRotation);
+        if (retCode != AV_ERR_OK) {
+            OH_LOG_ERROR(LOG_APP, "OH_AVRecorder_UpdateRotation failed.");
+        }
+    }
+}
+// [End get_video_rotation_without_device_degree_and_update]
+
 Camera_ErrorCode NDKCamera::VideoOutputStop(void)
 {
     OH_LOG_ERROR(LOG_APP, "enter VideoOutputStop.");
@@ -646,32 +770,72 @@ Camera_ErrorCode NDKCamera::VideoOutputStop(void)
     return ret_;
 }
 
+// [Start get_and_set_preview_rotation]
 int32_t NDKCamera::GetDefaultDisplayRotation()
 {
     int32_t imageRotation = 0;
     NativeDisplayManager_Rotation displayRotation = DISPLAY_MANAGER_ROTATION_0;
     int32_t ret = OH_NativeDisplayManager_GetDefaultDisplayRotation(&displayRotation);
     if (ret != DISPLAY_MANAGER_OK) {
-        OH_LOG_INFO(LOG_APP, "OH_NativeDisplayManager_GetDefaultDisplayRotation failed.");
+        OH_LOG_ERROR(LOG_APP, "OH_NativeDisplayManager_GetDefaultDisplayRotation failed.");
     }
     imageRotation = displayRotation * IAMGE_ROTATION_90;
     return imageRotation;
 }
 
-void NDKCamera::InitPreviewRotation()
+void NDKCamera::GetAndSetPreviewRotation()
 {
     // previewOutput_是创建的预览输出
     Camera_ImageRotation previewRotation = IAMGE_ROTATION_0;
     int32_t imageRotation = GetDefaultDisplayRotation();
     Camera_ErrorCode ret = OH_PreviewOutput_GetPreviewRotation(previewOutput_, imageRotation, &previewRotation);
     if (ret != CAMERA_OK) {
-        OH_LOG_INFO(LOG_APP, "OH_PreviewOutput_GetPreviewRotation failed.");
+        OH_LOG_ERROR(LOG_APP, "OH_PreviewOutput_GetPreviewRotation failed.");
     }
-    ret = OH_PreviewOutput_SetPreviewRotation(previewOutput_, previewRotation, false);
+    bool isDisplayLocked = false; // 建议与setXComponentSurfaceRotation入参的lock属性保持一致
+    ret = OH_PreviewOutput_SetPreviewRotation(previewOutput_, previewRotation, isDisplayLocked);
     if (ret != CAMERA_OK) {
-        OH_LOG_INFO(LOG_APP, "OH_PreviewOutput_SetPreviewRotation failed.");
+        OH_LOG_ERROR(LOG_APP, "OH_PreviewOutput_SetPreviewRotation failed.");
     }
 }
+// [End get_and_set_preview_rotation]
+
+// [Start get_and_set_preview_rotation_without_display_rotation]
+void NDKCamera::GetAndSetPreviewRotationWithoutDisplayRotation()
+{
+    // previewOutput_是创建的预览输出
+    Camera_ImageRotation previewRotation = IAMGE_ROTATION_0;
+    Camera_ErrorCode ret = OH_PreviewOutput_GetPreviewRotationWithoutDisplayRotation(previewOutput_, &previewRotation);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_PreviewOutput_GetPreviewRotationWithoutDisplayRotation failed.");
+    }
+    bool isDisplayLocked = false; // 建议与setXComponentSurfaceRotation入参的lock属性保持一致
+    ret = OH_PreviewOutput_SetPreviewRotation(previewOutput_, previewRotation, isDisplayLocked);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_PreviewOutput_SetPreviewRotation failed.");
+    }
+}
+// [End get_and_set_preview_rotation_without_display_rotation]
+
+// [Start display_change_callback]
+// 应用需监听屏幕状态变化，使用如下回调函数对预览流进行角度修正
+void NDKCamera::DisplayChangeCallback(uint64_t displayId)
+{
+    // previewOutput是创建的预览输出
+    OH_LOG_INFO(LOG_APP, "DisplayChangeCallback displayId=%{public}lu.", displayId);
+    Camera_ImageRotation previewRotation = IAMGE_ROTATION_0;
+    int32_t imageRotation = GetDefaultDisplayRotation();
+    Camera_ErrorCode ret = OH_PreviewOutput_GetPreviewRotation(previewOutput_, imageRotation, &previewRotation);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_PreviewOutput_GetPreviewRotation failed.");
+    }
+    bool isDisplayLocked = false; // 建议与setXComponentSurfaceRotation入参的lock属性保持一致
+    ret = OH_PreviewOutput_SetPreviewRotation(previewOutput_, previewRotation, isDisplayLocked);
+    if (ret != CAMERA_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_PreviewOutput_SetPreviewRotation failed.");
+    }
+}
+// [End display_change_callback]
 
 OH_NativeBuffer_TransformType NDKCamera::GetNativeBufferTransformType(int32_t previewRotation, bool isFront)
 {

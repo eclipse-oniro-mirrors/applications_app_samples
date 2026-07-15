@@ -17,6 +17,7 @@ add_library(entry SHARED
 
 target_link_libraries(entry PUBLIC
     libace_napi.z.so
+    libavrecorder.so
     libhilog_ndk.z.so
     libohcamera.so
     libohimage.so
