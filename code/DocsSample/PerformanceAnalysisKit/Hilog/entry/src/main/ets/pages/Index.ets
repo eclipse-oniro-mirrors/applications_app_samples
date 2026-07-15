@@ -41,7 +41,7 @@ struct Index {
               hilog.info(0xFF00, 'testTag',
               'A log with a domainID of 0xFF00 and a label of testTag can print logs at the Info level or higher.');
             }
-            hilog.info(0xFF00, "testTag", "%{public}s World %{public}d", "hello", 3);
+            hilog.info(0xFF00, 'testTag', '%{public}s World %{public}d', 'hello', 3);
             class Person {
               constructor(name: string, age: number) {
                 this.name = name;
@@ -50,8 +50,8 @@ struct Index {
               public name: string;
               public age:  number;
             }
-            let peter: Person = new Person("peter", 15);
-            hilog.info(0xFF00, "testTag", "peter is %{public}o", peter);
+            let peter: Person = new Person('peter', 15);
+            hilog.info(0xFF00, 'testTag', 'peter is %{public}o', peter);
             // 设置应用日志最低打印级别，设置完成后，低于Warn级别的日志将无法打印
             hilog.setMinLogLevel(hilog.LogLevel.WARN);
             hilog.info(0xFF00, 'testTag', 'this is an info level log');
