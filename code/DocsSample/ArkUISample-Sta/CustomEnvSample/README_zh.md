@@ -37,6 +37,7 @@ entry/src/
 │   │   │   ├── CESupportMonitor.ets
 │   │   │   ├── CESupportMultipleTypes.ets
 │   │   │   ├── CESupportResponseCapability.ets
+│   │   │   └── CESupportUseWatchDecorator.ets
 │   └── resources
 │       ├── ...
 ├─── ... 

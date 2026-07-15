@@ -15,6 +15,7 @@
     "pages/CESupportMonitor",
     "pages/CESupportResponseCapability",
     "pages/CESupportAddMonitor",
-    "pages/CESupportMultipleTypes"
+    "pages/CESupportMultipleTypes",
+    "pages/CESupportUseWatchDecorator"
   ]
 }
