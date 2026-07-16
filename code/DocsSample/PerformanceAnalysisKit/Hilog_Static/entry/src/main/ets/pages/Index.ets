@@ -39,11 +39,14 @@ struct Index {
         Button(this.message).backgroundColor('#FFFF00FF')
           .width('40%')
           .height('5%')
+          .margin({
+            top:20
+          })
           .onClick((e: ClickEvent) => {
             let ret = hilog.isLoggable(0xFF00, 'testTag', hilog.LogLevel.INFO);
             if (ret) {
               hilog.info(0xFF00, 'testTag',
-              'A log with a domainID of 0xFF00 and a label of testTag can print logs at the Info level or higher.');
+                'A log with a domainID of 0xFF00 and a label of testTag can print logs at the Info level or higher.');
             }
             hilog.info(0xFF00, 'testTag', '%{public}s World %{public}d', 'hello', 3);
             let peter: Person = new Person('peter', 15);
@@ -61,6 +64,9 @@ struct Index {
         Button(this.message2).backgroundColor('#FFFF00FF')
           .width('40%')
           .height('5%')
+          .margin({
+            top:20
+          })
           .onClick((e: ClickEvent) => {
             // 设置日志输出类型SHARE_SANDBOX_WITH_CONSOLE，同时输出公有沙箱和控制台
             hilog.setOutputType(hilog.OutputType.SHARE_SANDBOX_WITH_CONSOLE);
