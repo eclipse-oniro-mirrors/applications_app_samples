@@ -86,6 +86,10 @@ struct Index {
       name: 'CESupportResponseCapability',
       path: 'pages/CESupportResponseCapability'
     },
+    {
+      name: 'CESupportUseWatchDecorator',
+      path: 'pages/CESupportUseWatchDecorator'
+    },
   ]
 
   build() {

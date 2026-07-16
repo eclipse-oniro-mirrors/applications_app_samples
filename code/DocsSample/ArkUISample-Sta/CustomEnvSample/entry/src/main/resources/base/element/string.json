@@ -71,6 +71,10 @@
     {
       "name": "ce_response_capability_title",
       "value": "@CustomEnv支持响应式能力"
+    },
+    {
+      "name": "ce_use_watch_title",
+      "value": "@CustomEnv支持和@Watch连用"
     }
   ]
 }
