@@ -31,7 +31,7 @@ struct Index {
             if (this.xComponentContext) {
               this.xComponentContext.drawPattern();
             }
-          }).width('640px') // Multiples of 64
+          }).width('100%') // Multiples of 64
       }.height('88%')
       .backgroundColor(Color.White)
       Row() {
