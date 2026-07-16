@@ -24,6 +24,7 @@ const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 
 workerPort.onmessage = async (event: MessageEvents) => {
   console.info(`onmessage in`);
+  // [Start ExecuteTranscodingLogic]
   //worker线程接收参数
   const sendableObject: SendableObject = event.data;
   const sendableContext: sendableContextManager.SendableContext =
@@ -34,6 +35,7 @@ workerPort.onmessage = async (event: MessageEvents) => {
   await doSome(context);
   // 向主线程发送消息
   workerPort.postMessage('start end');
+  // [End ExecuteTranscodingLogic]
 };
 
 workerPort.onmessageerror = (event: MessageEvents) => {
@@ -44,10 +46,13 @@ workerPort.onerror = (event: ErrorEvent) => {
   console.info('workerPort onerror err is: ', event.message);
 };
 
+// [Start performingTranscoding]
 async function doSome(context: common.Context) {
   console.info(`doSome in`);
   try {
     let transcoder = await media.createAVTranscoder();
+    
+    // [Start transcoderCompleteCallback]
     // 转码完成回调函数
     transcoder.on('complete', async () => {
       console.info(`transcode complete`);
@@ -61,6 +66,8 @@ async function doSome(context: common.Context) {
       // 向主线程发送转码结束的消息
       workerPort.postMessage('complete');
     })
+    // [End transcoderCompleteCallback]
+
     // 转码错误回调函数
     transcoder.on('error', async (err: BusinessError) => {
       await transcoder?.release();
@@ -102,3 +109,4 @@ async function doSome(context: common.Context) {
     console.error(`transcode error: code = ` + e.code.toString() + `, message = ${JSON.stringify(e.message)}`);
   }
 }
+// [End performingTranscoding]

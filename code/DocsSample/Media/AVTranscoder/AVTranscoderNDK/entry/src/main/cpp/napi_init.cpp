@@ -256,6 +256,7 @@ static OH_AVTranscoder_Config *createDefaultTransCoderConfig(int32_t dstFd)
 // [EndExclude setTranscoderCallback]
 static napi_value OHAvTranscoderNdkPlay(napi_env env, napi_callback_info info)
 {
+    // [StartExclude setTranscoderCallback]
     napi_value result = nullptr;
     int backParam = FAIL;
     size_t argc = PARAM_4;
@@ -269,11 +270,13 @@ static napi_value OHAvTranscoderNdkPlay(napi_env env, napi_callback_info info)
     napi_get_value_int64(env, args[PARAM_2], &length);
     int32_t dstFd = PARAM_0;
     napi_get_value_int32(env, args[PARAM_3], &dstFd);
+    // [EndExclude setTranscoderCallback]
 
     // [Start linkLibrary]
     OH_AVTranscoder *transcoder = OH_AVTranscoder_Create();
     // [End linkLibrary]
     NdkAVTransCoderUser *transcoderUser = nullptr;
+    // [StartExclude setTranscoderCallback]
     transcoderUser = new NdkAVTransCoderUser();
     transcoderUser->transcoder = transcoder;
     g_ctx.transcoder = transcoder;
@@ -282,9 +285,11 @@ static napi_value OHAvTranscoderNdkPlay(napi_env env, napi_callback_info info)
     // [Start setFdsrc]
     OH_AVErrCode errCode = OH_AVTranscoderConfig_SetSrcFD(g_ctx.config, srcFd, srcOffset, length); // 设置转码源视频FD
     // [End setFdsrc]
+    // [EndExclude setTranscoderCallback]
     OH_AVTranscoder_SetStateCallback(transcoder, AvTranscoderStateChangeCbImpl, transcoderUser); // 设置状态回调
     OH_AVTranscoder_SetErrorCallback(transcoder, AvTranscoderErrorCbImpl, transcoderUser); // 设置错误码回调
     OH_AVTranscoder_SetProgressUpdateCallback(transcoder, AvTranscoderProgressUpdateCbImpl, transcoderUser); // 设置进度值回调
+    // [StartExclude setTranscoderCallback]
     g_ctx.transcoderUser = transcoderUser;
     AvTranscoderStateChangeFuncs(transcoderUser);
     if (errCode != AV_ERR_OK) {
@@ -300,6 +305,7 @@ static napi_value OHAvTranscoderNdkPlay(napi_env env, napi_callback_info info)
     }
     napi_create_int32(env, backParam, &result);
     return result;
+    // [EndExclude setTranscoderCallback]
 }
 // [End setTranscoderCallback]
 
