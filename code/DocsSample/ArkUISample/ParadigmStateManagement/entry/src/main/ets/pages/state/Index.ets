@@ -16,6 +16,7 @@
 import { CompletedRoutableCard } from '../../common/Card';
 import { Route } from '../../common/Route';
 import resource from '../../common/Resource';
+import { StateManagementIntroduce } from './StateManagementIntroduce';
 import { StateSceneSimpleType } from './StateSceneSimpleType';
 import { StateChangeObservationObject } from './StateChangeObservationObject';
 import { StateChangeObservationArray } from './StateChangeObservationArray';
@@ -44,6 +45,10 @@ import { StateInputUndefined } from './StateInputUndefined';
 export const STATE: string = 'state_text';
 
 const routes: Route[] = [
+  {
+    name: `${STATE}/StateManagementIntroduce`,
+    title: resource.resourceToString($r('app.string.state_management_introduce')),
+  },
   {
     name: `${STATE}/StateSceneSimpleType`,
     title: resource.resourceToString($r('app.string.state_scene_simple_type')),
@@ -146,6 +151,8 @@ const routes: Route[] = [
 export function stateDestination(name: string) {
   if (name === STATE) {
     StateExample();
+  } else if (name === `${STATE}/StateManagementIntroduce`) {
+    StateManagementIntroduce()
   } else if (name === `${STATE}/StateSceneSimpleType`) {
     StateSceneSimpleType()
   } else if (name === `${STATE}/StateChangeObservationObject`) {

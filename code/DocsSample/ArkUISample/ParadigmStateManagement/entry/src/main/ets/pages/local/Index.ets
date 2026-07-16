@@ -21,6 +21,8 @@ import { LocalObserveChangesDecorator } from './LocalObserveChangesDecorator';
 import { LocalObserveChangesDeepObject } from './LocalObserveChangesDeepObject';
 import { LocalObserveChangesType } from './LocalObserveChangesType';
 import { LocalQuestionExpectedEffect } from './LocalQuestionExpectedEffect';
+import { LocalAnimateToV2Problem } from './LocalAnimateToV2Problem';
+import { LocalApplySyncEffect } from './LocalApplySyncEffect';
 import { LocalQuestionSparkUpdate } from './LocalQuestionSparkUpdate';
 import { LocalQuestionUIUtils } from './LocalQuestionUIUtils';
 import { LocalQuestionV2animateTo } from './LocalQuestionV2animateTo';
@@ -105,6 +107,14 @@ const routes: Route[] = [
     name: `${LOCAL}/LocalQuestionExpectedEffect`,
     title: resource.resourceToString($r('app.string.local_question_expected_effect')),
   },
+  {
+    name: `${LOCAL}/LocalAnimateToV2Problem`,
+    title: resource.resourceToString($r('app.string.local_animate_to_v2_problem')),
+  },
+  {
+    name: `${LOCAL}/LocalApplySyncEffect`,
+    title: resource.resourceToString($r('app.string.local_apply_sync_effect')),
+  },
 
 ];
 
@@ -146,6 +156,10 @@ export function localDestination(name: string) {
     LocalQuestionAnimateToImmediately();
   } else if (name === `${LOCAL}/LocalQuestionExpectedEffect`) {
     LocalQuestionExpectedEffect()
+  } else if (name === `${LOCAL}/LocalAnimateToV2Problem`) {
+    LocalAnimateToV2Problem()
+  } else if (name === `${LOCAL}/LocalApplySyncEffect`) {
+    LocalApplySyncEffect()
   }
 }
 

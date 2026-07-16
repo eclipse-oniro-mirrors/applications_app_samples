@@ -173,6 +173,14 @@
       "value": "状态管理V2中使用animateTo动画效果异常--使用applySync接口实现预期的显示效果"
     },
     {
+      "name": "local_animate_to_v2_problem",
+      "value": "状态管理V2中使用animateTo动画效果异常示例"
+    },
+    {
+      "name": "local_apply_sync_effect",
+      "value": "使用applySync接口实现预期动画效果"
+    },
+    {
       "name": "persistenceV2",
       "value": "PersistenceV2: 持久化存储UI状态"
     },
@@ -349,6 +357,10 @@
       "value": "数据对象状态变量的迁移指导"
     },
     {
+      "name": "migration_sync_dollar_dollar",
+      "value": "系统组件参数双向同步V1实现（$$语法）"
+    },
+    {
       "name": "migration_nested_object_properties",
       "value": "嵌套对象属性观察方法V1实现"
     },
@@ -487,6 +499,10 @@
     {
       "name": "monitor_problem_state_change_use_addMonitor",
       "value": "@Monitor常见问题：无法监听变量从可访问变为不可访问和从不可访问变为可访问"
+    },
+    {
+      "name": "state_management_introduce",
+      "value": "状态管理原理介绍"
     },
     {
       "name": "state",
