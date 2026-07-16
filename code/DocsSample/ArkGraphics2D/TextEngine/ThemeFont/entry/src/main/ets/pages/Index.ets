@@ -39,18 +39,18 @@ class MyRenderNode extends RenderNode {
     let myParagraphStyle: text.ParagraphStyle = {
       textStyle: myTextStyle,
       align: 3,
-      wordBreak:text.WordBreak.NORMAL
+      wordBreak: text.WordBreak.NORMAL
     };
     // 创建一个段落生成器
-    let paragraphGraphBuilder = new text.ParagraphBuilder(myParagraphStyle, fontCollection);
+    let paragraphBuilder = new text.ParagraphBuilder(myParagraphStyle, fontCollection);
     // [End arkts_theme_font_text_style]
     // [Start arkts_theme_font_build]
     // 在段落生成器中设置文本样式
-    paragraphGraphBuilder.pushStyle(myTextStyle);
+    paragraphBuilder.pushStyle(myTextStyle);
     // 在段落生成器中设置文本内容
-    paragraphGraphBuilder.addText("Hello World. \nThis is the theme font.");
+    paragraphBuilder.addText("Hello World. \nThis is the theme font.");
     // 通过段落生成器生成段落
-    let paragraph = paragraphGraphBuilder.build();
+    let paragraph = paragraphBuilder.build();
     // [End arkts_theme_font_build]
     // 布局
     paragraph.layoutSync(2500);

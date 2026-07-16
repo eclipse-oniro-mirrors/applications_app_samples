@@ -49,24 +49,24 @@ class MyRenderNode extends RenderNode {
       wordBreak: text.WordBreak.NORMAL
     };
     // 获取全局字体集实例
-    let fontCollection = text.FontCollection.getGlobalInstance(); // 获取Arkui全局FC
+    let fontCollection = text.FontCollection.getGlobalInstance();
     // 创建一个段落生成器
-    let ParagraphGraphBuilder = new text.ParagraphBuilder(myParagraphStyle, fontCollection);
+    let paragraphBuilder = new text.ParagraphBuilder(myParagraphStyle, fontCollection);
     // [End arkts_use_and_change_system_font_step3]
     
     // [Start arkts_use_and_change_system_font_step4]
-    let str:string = '模块描述\n';
+    let str: string = '模块描述\n';
     // 添加第一种文本样式和对应文本内容
-    ParagraphGraphBuilder.pushStyle(textStyle1);
-    ParagraphGraphBuilder.addText(str);
+    paragraphBuilder.pushStyle(textStyle1);
+    paragraphBuilder.addText(str);
     // 添加第二种文本样式和对应文本内容
-    ParagraphGraphBuilder.pushStyle(textStyle2);
-    ParagraphGraphBuilder.addText(str);
+    paragraphBuilder.pushStyle(textStyle2);
+    paragraphBuilder.addText(str);
     // [End arkts_use_and_change_system_font_step4]
 
     // 通过段落生成器生成段落
     // [Start arkts_use_and_change_system_font_build]
-    let paragraph = ParagraphGraphBuilder.build();
+    let paragraph = paragraphBuilder.build();
     // [End arkts_use_and_change_system_font_build]
     // 布局
     paragraph.layoutSync(1000);
