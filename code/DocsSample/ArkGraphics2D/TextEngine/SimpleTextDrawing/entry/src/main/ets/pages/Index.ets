@@ -27,7 +27,7 @@ class MyRenderNode extends RenderNode {
     let canvas = context.canvas;
     // [End arkts_drawing_simple_text_create_canvas]
     // [Start arkts_drawing_simple_text_create_text_style]
-    // 获取文本样式
+    // 初始化文本样式
     let myTextStyle: text.TextStyle = {
       // 文本颜色
       color: {
@@ -48,16 +48,16 @@ class MyRenderNode extends RenderNode {
     // [End arkts_drawing_simple_text_create_paragraph_style]
     // [Start arkts_drawing_simple_text_builder_add_text]
     let fontCollection = text.FontCollection.getGlobalInstance();
-    let ParagraphGraphBuilder = new text.ParagraphBuilder(myParagraphStyle, fontCollection);
+    let paragraphBuilder = new text.ParagraphBuilder(myParagraphStyle, fontCollection);
     // 更新文本样式
-    ParagraphGraphBuilder.pushStyle(myTextStyle);
+    paragraphBuilder.pushStyle(myTextStyle);
     // 添加文本
-    ParagraphGraphBuilder.addText("Hello World");
+    paragraphBuilder.addText("Hello World");
     // [End arkts_drawing_simple_text_builder_add_text]
 
     // [Start arkts_drawing_simple_text_layout_paint]
     // 生成段落
-    let paragraph = ParagraphGraphBuilder.build();
+    let paragraph = paragraphBuilder.build();
     // 布局
     paragraph.layoutSync(1250);
     // 绘制文本
