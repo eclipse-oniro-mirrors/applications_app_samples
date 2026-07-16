@@ -138,7 +138,7 @@ export class TemplateManager {
     try {
       return 'success';
     } catch (e) {
-      const msg: string = `Failed to downloadMediaEntityEvent. Code: ${e?.code}`;
+      const msg: string = `Failed to executeActionEvent. Code: ${e?.code}`;
       console.error(msg);
       throw e instanceof Error ? e : new Error(e?.message ?? msg);
     }
