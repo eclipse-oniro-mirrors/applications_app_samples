@@ -151,8 +151,8 @@ export class TemplateManager {
     async (actionType: avMusicTemplate.MediaFavoriteType, mediaEntity: avMusicTemplate.MediaEntity) => {
       return this.handPromiseReturnFunc(() => this.createOperResult(), 'favoriteMediaEntityEvent');
     };
-
   // [EndExclude manager_create_template]
+
   private constructor() {
   }
 
@@ -220,9 +220,9 @@ export class TemplateManager {
     this.template?.onFavoriteMediaEntity(this.favoriteMediaEntityEvent);
     // [EndExclude template_register_listener]
   };
+  // [EndExclude unregister_listener]
 
   // [StartExclude template_register_listener]
-  // [EndExclude unregister_listener]
   /**
    * 注销监听。
    */
@@ -747,10 +747,10 @@ export class TemplateManager {
     return setting;
   };
 
-  // [EndExclude template_register_listener]
-  private async handPromiseReturnFunc<T>(func: () => Promise<T>, errFunc: string): Promise<T> {
+  private async handPromiseArrayReturnFunc<T>(func: () => Promise<T>, errFunc: string): Promise<T[]> {
     try {
-      return await func();
+      let t: T = await func();
+      return [t];
     } catch (e) {
       const msg = `Failed to ${errFunc}. Code: ${e?.code}`;
       console.error(msg);
@@ -758,10 +758,10 @@ export class TemplateManager {
     }
   }
 
-  private async handPromiseArrayReturnFunc<T>(func: () => Promise<T>, errFunc: string): Promise<T[]> {
+  // [EndExclude template_register_listener]
+  private async handPromiseReturnFunc<T>(func: () => Promise<T>, errFunc: string): Promise<T> {
     try {
-      let t: T = await func();
-      return [t];
+      return await func();
     } catch (e) {
       const msg = `Failed to ${errFunc}. Code: ${e?.code}`;
       console.error(msg);
