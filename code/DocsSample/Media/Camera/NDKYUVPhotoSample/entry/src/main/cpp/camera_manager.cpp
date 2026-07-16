@@ -956,71 +956,6 @@ MediaLibrary_ErrorCode NDKCamera::MediaAssetGetDisplayName(OH_MediaAsset *mediaA
     DRAWING_LOGD("NDKCamera::MediaAssetGetDisplayName return with ret code: %{public}d!", result);
     return result;
 }
-
-MediaLibrary_ErrorCode NDKCamera::MediaAssetGetSize(OH_MediaAsset *mediaAsset)
-{
-    DRAWING_LOGD("NDKCamera::MediaAssetGetSize start!");
-    uint32_t mediaAssetSize;
-    result = OH_MediaAsset_GetSize(mediaAsset, &mediaAssetSize);
-    if (result != MEDIA_LIBRARY_OK) {
-        DRAWING_LOGD("NDKCamera::MediaAssetGetSize failed.");
-    }
-    DRAWING_LOGD("NDKCamera::MediaAssetGetSize mediaAssetSize: %{public}d", mediaAssetSize);
-    DRAWING_LOGD("NDKCamera::MediaAssetGetSize return with ret code: %{public}d!", result);
-    return result;
-}
-
-MediaLibrary_ErrorCode NDKCamera::MediaAssetGetDateModifiedMs(OH_MediaAsset *mediaAsset)
-{
-    DRAWING_LOGD("NDKCamera::MediaAssetGetDateModifiedMs start!");
-    uint32_t dateModifiedMs;
-    result = OH_MediaAsset_GetDateModifiedMs(mediaAsset, &dateModifiedMs);
-    if (result != MEDIA_LIBRARY_OK) {
-        DRAWING_LOGD("NDKCamera::MediaAssetGetDateModifiedMs failed.");
-    }
-    DRAWING_LOGD("NDKCamera::MediaAssetGetDateModifiedMs dateModifiedMs: %{public}lu", dateModifiedMs);
-    DRAWING_LOGD("NDKCamera::MediaAssetGetDateModifiedMs return with ret code: %{public}d!", result);
-    return result;
-}
-
-MediaLibrary_ErrorCode NDKCamera::MediaAssetGetWidth(OH_MediaAsset *mediaAsset)
-{
-    DRAWING_LOGD("NDKCamera::MediaAssetGetWidth start!");
-    uint32_t width;
-    result = OH_MediaAsset_GetWidth(mediaAsset, &width);
-    if (result != MEDIA_LIBRARY_OK) {
-        DRAWING_LOGD("NDKCamera::MediaAssetGetWidth failed.");
-    }
-    DRAWING_LOGD("NDKCamera::MediaAssetGetWidth width: %{public}d", width);
-    DRAWING_LOGD("NDKCamera::MediaAssetGetWidth return with ret code: %{public}d!", result);
-    return result;
-}
-
-MediaLibrary_ErrorCode NDKCamera::MediaAssetGetHeight(OH_MediaAsset *mediaAsset)
-{
-    DRAWING_LOGD("NDKCamera::MediaAssetGetHeight start!");
-    uint32_t height;
-    result = OH_MediaAsset_GetHeight(mediaAsset, &height);
-    if (result != MEDIA_LIBRARY_OK) {
-        DRAWING_LOGD("NDKCamera::MediaAssetGetHeight failed.");
-    }
-    DRAWING_LOGD("NDKCamera::MediaAssetGetHeight height: %{public}d", height);
-    DRAWING_LOGD("NDKCamera::MediaAssetGetHeight return with ret code: %{public}d!", result);
-    return result;
-}
-
-MediaLibrary_ErrorCode NDKCamera::MediaAssetGetOrientation(OH_MediaAsset *mediaAsset)
-{
-    DRAWING_LOGD("NDKCamera::MediaAssetGetOrientation start!");
-    uint32_t orientation;
-    result = OH_MediaAsset_GetOrientation(mediaAsset, &orientation);
-    if (result != MEDIA_LIBRARY_OK) {
-        DRAWING_LOGD("NDKCamera::MediaAssetGetOrientation failed.");
-    }
-    DRAWING_LOGD("NDKCamera::MediaAssetGetOrientation orientation: %{public}d", orientation);
-    DRAWING_LOGD("NDKCamera::MediaAssetGetOrientation return with ret code: %{public}d!", result);
-    return result;
-}
 // [End get_media_asset_info]
 
 int32_t NDKCamera::GetDefaultDisplayRotation()
@@ -1170,16 +1105,6 @@ void OnPhotoAssetAvailable(Camera_PhotoOutput* photoOutput, OH_MediaAsset* media
     NDKCamera::MediaAssetGetUri(mediaAsset);
     // 尝试获取mediaAsset中的displayName信息。
     NDKCamera::MediaAssetGetDisplayName(mediaAsset);
-    // 尝试获取mediaAsset中的size信息。
-    NDKCamera::MediaAssetGetSize(mediaAsset);
-    // 尝试获取mediaAsset中的修改时间信息。
-    NDKCamera::MediaAssetGetDateModifiedMs(mediaAsset);
-    // 尝试获取mediaAsset中的图片宽度信息。
-    NDKCamera::MediaAssetGetWidth(mediaAsset);
-    // 尝试获取mediaAsset中的图片高度信息。
-    NDKCamera::MediaAssetGetHeight(mediaAsset);
-    // 尝试获取mediaAsset中的图片方向信息。
-    NDKCamera::MediaAssetGetOrientation(mediaAsset);
     // 创建媒体资产管理对象。
     OH_MediaAssetManager* mediaAssetManager = OH_MediaAssetManager_Create();
     if (mediaAssetManager == nullptr) {
