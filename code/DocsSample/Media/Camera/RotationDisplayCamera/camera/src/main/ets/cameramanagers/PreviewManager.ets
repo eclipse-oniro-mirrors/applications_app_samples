@@ -58,39 +58,36 @@ export class PreviewManager implements OutputManager {
     this.addFrameEndEventListener(output);
   }
 
-  initPreviewRotation() {
-    // [Start Init_PreviewRotation]
-    // previewOutput是创建的预览输出
+  // [Start get_and_set_preview_rotation]
+  GetAndSetPreviewRotation() {
+    // this.output是创建的预览输出
     try {
-      let initDisplayRotation = display.getDefaultDisplaySync().rotation;
-      let initPreviewRotation = this.output?.getPreviewRotation(initDisplayRotation * camera.ImageRotation.ROTATION_90);
-      let isDisplayLocked: boolean = true; // 建议与setXComponentSurfaceRotation入参的lock属性保持一致
-      this.output?.setPreviewRotation(initPreviewRotation, isDisplayLocked);
+      let displayRotation = display.getDefaultDisplaySync().rotation;
+      let previewRotation = this.output?.getPreviewRotation(displayRotation * camera.ImageRotation.ROTATION_90);
+      let isDisplayLocked: boolean = false; // 建议与setXComponentSurfaceRotation入参的lock属性保持一致
+      this.output?.setPreviewRotation(previewRotation, isDisplayLocked);
     } catch (error) {
       // 失败返回错误码error.code并处理
       let err = error as BusinessError;
-      console.error(`initPreviewRotation call failed. error code: ${err.code}`);
+      console.error(`GetAndSetPreviewRotation call failed. error code: ${err.code}`);
     }
-    // [End Init_PreviewRotation]
   }
+  // [End get_and_set_preview_rotation]
 
-  // [Start setRotate]
-  setRotate(){
+  // [Start get_and_set_preview_rotation_without_display_rotation]
+  GetAndSetPreviewRotationWithoutDisplayRotation() {
+    // this.output是创建的预览输出
     try {
-      Logger.info(TAG_LOG,`setRotate enter`);
-      // [Start preview_rotation]
-      let displayRotation = display.getDefaultDisplaySync().rotation;
-      let imageRotation = displayRotation * camera.ImageRotation.ROTATION_90;
-      // [End preview_rotation]
-      let previewRotation = this.output?.getPreviewRotation(imageRotation);
-      let isDisplayLocked: boolean = true;// 建议与setXComponentSurfaceRotation入参的lock属性保持一致
+      let previewRotation = this.output?.getPreviewRotation();
+      let isDisplayLocked: boolean = false; // 建议与setXComponentSurfaceRotation入参的lock属性保持一致
       this.output?.setPreviewRotation(previewRotation, isDisplayLocked);
     } catch (error) {
+      // 失败返回错误码error.code并处理
       let err = error as BusinessError;
-      Logger.info(TAG_LOG,`setRotate call failed. error code: ${err.code}`);
+      console.error(`GetAndSetPreviewRotationWithoutDisplayRotation call failed. error code: ${err.code}`);
     }
   }
-  // [End setRotate]
+  // [End get_and_set_preview_rotation_without_display_rotation]
 
   // [Start onFrame]
   addFrameStartEventListener(output: camera.PreviewOutput) {
