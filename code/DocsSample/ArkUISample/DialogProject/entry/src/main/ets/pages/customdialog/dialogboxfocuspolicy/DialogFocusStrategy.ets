@@ -75,7 +75,7 @@ export struct Index {
                 try {
                   this.getUIContext().getPromptAction().closeCustomDialog(dialogId);
                 } catch (error) {
-                  console.error("closeCustomDialog error");
+                  console.error('closeCustomDialog error');
                 }
                 // 关闭弹窗后移除已完成定时器记录
                 const idx = this.timerIdList.findIndex(item => item === timerId);
