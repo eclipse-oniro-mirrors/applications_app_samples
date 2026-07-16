@@ -87,7 +87,7 @@ export struct Index {
               this.timerIdList.push(timerId);
             })
             .catch(() => {
-              console.error("openCustomDialog failed");
+              console.error('openCustomDialog failed');
             });
           })
         // [End dialog_focus_text_input]

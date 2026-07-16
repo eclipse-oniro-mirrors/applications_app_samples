@@ -17,7 +17,8 @@
 @Entry
 @Component
 export struct SupportAvoidCentralAxisMenuExample {
-  // 请在resources\base\element\string.json文件中配置name为'Upper_half_screen'、'Middle_axle'、'Lower_half_screen'、'zone'、'hoverMode_start'，value为非空字符串的资源
+  // 请在resources\base\element\string.json文件中配置name为'Upper_half_screen'、'Middle_axle'、'Lower_half_screen'、'zone'、
+  // 'hoverMode_start'，value为非空字符串的资源
   @State upScreen: string =
     this.getUIContext().getHostContext()?.resourceManager.getStringByNameSync('Upper_half_screen') as string;
   @State middleAxle: string =
