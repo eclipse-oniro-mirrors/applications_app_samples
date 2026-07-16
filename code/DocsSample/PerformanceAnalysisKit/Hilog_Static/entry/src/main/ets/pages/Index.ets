@@ -40,18 +40,22 @@ struct Index {
           .width('40%')
           .height('5%')
           .onClick((e: ClickEvent) => {
-            hilog.isLoggable(0xFF00, 'testTag', hilog.LogLevel.INFO);
+            let ret = hilog.isLoggable(0xFF00, 'testTag', hilog.LogLevel.INFO);
+            if (ret) {
+              hilog.info(0xFF00, 'testTag',
+              'A log with a domainID of 0xFF00 and a label of testTag can print logs at the Info level or higher.');
+            }
             hilog.info(0xFF00, 'testTag', '%{public}s World %{public}d', 'hello', 3);
-            let peter: Person = new Person("peter", 15);
+            let peter: Person = new Person('peter', 15);
             hilog.info(0xFF00, 'testTag', 'peter is %{public}o', peter);
             // 设置应用日志最低打印级别，设置完成后，低于Warn级别的日志将无法打印
             hilog.setMinLogLevel(hilog.LogLevel.WARN);
-            hilog.info(0x0000, 'testTag', 'this is an info level log');
-            hilog.error(0x0000, 'testTag', 'this is an error level log');
+            hilog.info(0xFF00, 'testTag', 'this is an info level log');
+            hilog.error(0xFF00, 'testTag', 'this is an error level log');
             // 设置应用日志PREFER_OPEN_LOG策略的最低打印级别，设置完成后，不低于INFO级别的日志都可打印
             hilog.setLogLevel(hilog.LogLevel.INFO, hilog.PreferStrategy.PREFER_OPEN_LOG);
-            hilog.info(0x0000, 'testTag', 'this is an another info level log');
-            hilog.error(0x0000, 'testTag', 'this is an another error level log');
+            hilog.info(0xFF00, 'testTag', 'this is an another info level log');
+            hilog.error(0xFF00, 'testTag', 'this is an another error level log');
           })
         // 添加沙箱日志按钮，以响应用户点击
         Button(this.message2).backgroundColor('#FFFF00FF')

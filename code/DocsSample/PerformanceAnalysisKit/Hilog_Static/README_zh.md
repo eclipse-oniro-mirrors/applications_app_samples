@@ -25,11 +25,12 @@ HiLog日志系统，提供给系统框架、服务、以及应用，用于打印
 2.在DevEco界面切换到"Log"窗口，日志过滤选择"No filters",搜索内容设置为"testTag"。此时窗口仅显示符合条件的日志，打印日志结果为：
 
 ```
-08-05 06:32:35.928   10753-10753   A0FF00/testTag                  com.samples.hilog  I     hello World 3
-08-05 06:32:35.928   10753-10753   A0FF00/testTag                  com.samples.hilog  I     peter is {"name":"peter","age":15}
-08-05 06:32:35.928   10753-10753   A00000/testTag                  com.samples.hilog  E     this is an error level log
-08-05 06:32:35.928   10753-10753   A00000/testTag                  com.samples.hilog  I     this is an another info level log
-08-05 06:32:35.928   10753-10753   A00000/testTag                  com.samples.hilog  E     this is an another error level log
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.samples.hilog  I     A log with a domainID of 0xFF00 and a label of testTag can print logs at the Info level or higher.
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.samples.hilog  I     hello World 3
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.samples.hilog  I     peter is {"name":"peter","age":15}
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.samples.hilog  E     this is an error level log
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.samples.hilog  I     this is an another info level log
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.samples.hilog  E     this is an another error level log
 ```
 
 3.在应用侧主界面，点击"SandboxLog Static"按钮；
