@@ -161,10 +161,10 @@ static napi_value AudioRendererPlayerInitVoIP(napi_env env, napi_callback_info i
         rendererBuilder = nullptr;
     }
 
-    // create builder.
+    // 构造rendererBuilder。
     OH_AudioStreamBuilder_Create(&rendererBuilder, AUDIOSTREAM_TYPE_RENDERER);
 
-    // set params and callbacks.
+    // 设置参数和回调。
     OH_AudioStreamBuilder_SetSamplingRate(rendererBuilder, AUDIO_SAMPLINGRATE_VOIP);
     OH_AudioStreamBuilder_SetChannelCount(rendererBuilder, AUDIO_CHANNELCOUNT_VOIP);
     OH_AudioStreamBuilder_SetSampleFormat(rendererBuilder, AUDIOSTREAM_SAMPLE_S16LE);
@@ -181,7 +181,7 @@ static napi_value AudioRendererPlayerInitVoIP(napi_env env, napi_callback_info i
     rendererCallbacks.OH_AudioRenderer_OnError = nullptr;
     OH_AudioStreamBuilder_SetRendererCallback(rendererBuilder, rendererCallbacks, nullptr);
 
-    // create OH_AudioRenderer.
+    // 创建renderer。
     OH_AudioStreamBuilder_GenerateRenderer(rendererBuilder, &g_audioRendererVoIP);
     OH_AudioStreamBuilder_Destroy(rendererBuilder);
     rendererBuilder = nullptr;
@@ -196,7 +196,6 @@ static napi_value AudioRendererPlayerInitVoIP(napi_env env, napi_callback_info i
 
 static napi_value AudioRendererPlayerStartVoIP(napi_env env, napi_callback_info info)
 {
-    // start.
     if (g_audioRendererVoIP != nullptr) {
         OH_AudioRenderer_Start(g_audioRendererVoIP);
     }
@@ -301,7 +300,6 @@ static napi_value AudioCapturerInitVoIP(napi_env env, napi_callback_info info)
 
 static napi_value AudioCapturerStartVoIP(napi_env env, napi_callback_info info)
 {
-    // start.
     if (g_audioCapturerVoIP != nullptr) {
         OH_AudioCapturer_Start(g_audioCapturerVoIP);
     }
