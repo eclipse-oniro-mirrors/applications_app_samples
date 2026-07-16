@@ -460,14 +460,14 @@ void SampleBitMap::DrawFontFeatureText()
     OH_Drawing_TypographyHandlerPushTextStyle(handler, txtStyleWithFeature);
     // 将文本添加到 handler 中
     OH_Drawing_TypographyHandlerAddText(handler, text);
-    // 销毁之前创建的 TextStyle
+    // 弹出之前添加的 TextStyle
     OH_Drawing_TypographyHandlerPopTextStyle(handler);
 
     // 后续加入的不带字体特征的文本样式
     OH_Drawing_TypographyHandlerPushTextStyle(handler, txtStyleNoFeature);
     // 将文本添加到 handler 中
     OH_Drawing_TypographyHandlerAddText(handler, text);
-    // 销毁之前创建的 TextStyle
+    // 弹出之前添加的 TextStyle
     OH_Drawing_TypographyHandlerPopTextStyle(handler);
 
     OH_Drawing_Typography *typography = OH_Drawing_CreateTypography(handler);
@@ -780,6 +780,8 @@ void SampleBitMap::DrawGradientText()
     OH_Drawing_TypographyPaint(typography, cCanvas_, 0, DIV_TEN(width_));
 
     // 释放对象
+    OH_Drawing_PointDestroy(startPt);
+    OH_Drawing_PointDestroy(endPt);
     OH_Drawing_DestroyFontCollection(fc);
     OH_Drawing_ShaderEffectDestroy(colorShaderEffect);
     OH_Drawing_BrushDestroy(brush);
@@ -917,8 +919,7 @@ void SampleBitMap::DrawStyleCopyText()
     // 设置段落最大行数为3行
     OH_Drawing_SetTypographyTextMaxLines(typoStyle, 3);
     // 设置省略号模式为尾部省略号
-    OH_Drawing_SetTypographyStyleAttributeInt(typoStyle,
-        OH_Drawing_TypographyStyleAttributeId::TYPOGRAPHY_STYLE_ATTR_I_ELLIPSIS_MODAL, ELLIPSIS_MODAL_TAIL);
+    OH_Drawing_SetTypographyStyleAttributeInt(typoStyle, TYPOGRAPHY_STYLE_ATTR_I_ELLIPSIS_MODAL, ELLIPSIS_MODAL_TAIL);
     // 设置省略号文本
     OH_Drawing_SetTypographyTextEllipsis(typoStyle, "...");
     // 设置对齐方式为居中对齐
@@ -944,8 +945,7 @@ void SampleBitMap::DrawStyleCopyText()
     // 设置阴影偏移量为(5, 5)
     OH_Drawing_Point *offset = OH_Drawing_PointCreate(5, 5);
     // 定义阴影模糊半径为4
-    double blurRadius = 4;
-    OH_Drawing_SetTextShadow(shadow, OH_Drawing_ColorSetArgb(0xFF, 0xFF, 0x00, 0xFF), offset, blurRadius);
+    OH_Drawing_SetTextShadow(shadow, OH_Drawing_ColorSetArgb(0xFF, 0xFF, 0x00, 0xFF), offset, 4);
 
     // 拷贝阴影对象
     OH_Drawing_TextShadow *shadowCopy = OH_Drawing_CopyTextShadow(shadow);
@@ -995,6 +995,9 @@ void SampleBitMap::DrawStyleCopyText()
     OH_Drawing_DestroyTextStyle(textStyleCopy);
     OH_Drawing_DestroyTypographyHandler(handlerCopy);
     OH_Drawing_DestroyTypography(typographyCopy);
+    OH_Drawing_PointDestroy(offset);
+    OH_Drawing_DestroyTextShadow(shadow);
+    OH_Drawing_DestroyTextShadow(shadowCopy);
     // [End complex_text_c_style_copy_text]
 }
 
@@ -1113,8 +1116,7 @@ void SampleBitMap::DrawIndependentShapingText()
     // [Start complex_text_c_independent_shaping_text_step2]
     // 设置文本内容，并将文本添加到 handler 中
     OH_Drawing_TypographyHandlerPushTextStyle(handler, txtStyle);
-    const char *text = "Hello World";
-    OH_Drawing_TypographyHandlerAddText(handler, text);
+    OH_Drawing_TypographyHandlerAddText(handler, "Hello World");
     // [End complex_text_c_independent_shaping_text_step2]
 
     // [Start complex_text_c_independent_shaping_text_step3]
@@ -1155,8 +1157,7 @@ void SampleBitMap::DrawIndependentShapingText()
             float pos = 0;
             OH_Drawing_PointGetX(advance, &pos);
             x += pos + 10; // 每个字形间水平间隔10px
-            OH_Drawing_PointGetY(advance, &pos);
-            y += pos + 30; // 每个字形间垂直间隔30px
+            y += 30; // 每个字形间垂直间隔30px
         }
 
         // 自定义绘制一串具有相同属性的一系列连续字形
@@ -1169,6 +1170,8 @@ void SampleBitMap::DrawIndependentShapingText()
         OH_Drawing_FontDestroy(font);
         OH_Drawing_DestroyRunGlyphAdvances(advances);
         OH_Drawing_DestroyRunGlyphs(glyphs);
+        OH_Drawing_TextBlobBuilderDestroy(builder);
+        OH_Drawing_RectDestroy(rect);
     }
     // [End complex_text_c_independent_shaping_text_step4]
 

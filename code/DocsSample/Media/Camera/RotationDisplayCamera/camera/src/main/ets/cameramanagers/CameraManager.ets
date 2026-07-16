@@ -138,6 +138,7 @@ export class CameraManager {
       }
       // [Start cameraInput]
       this.cameraInput = this.cameraManager.createCameraInput(device);
+      this.enablePhysicalCameraOrientation(this.cameraInput);
       await this.cameraInput.open();
       // [End cameraInput]
       // [Start session]
@@ -170,11 +171,11 @@ export class CameraManager {
       await session.commitConfig();
       for (const outputManager of this.outputManagers) {
         if (outputManager.isActive && outputManager instanceof PreviewManager) {
-            outputManager.initPreviewRotation;
+            outputManager.GetAndSetPreviewRotation();
             // [Start display_change_listener]
             display.off('change');
             display.on('change', () => {
-              outputManager.setRotate();
+              outputManager.GetAndSetPreviewRotation();
             });
             // [End display_change_listener]
         }
@@ -188,6 +189,23 @@ export class CameraManager {
       Logger.error(TAG, `Failed to start camera session. Cause ${JSON.stringify(e)}`);
     }
   }
+
+  // [Start enable_physical_camera_orientation]
+  enablePhysicalCameraOrientation(cameraInput: camera.CameraInput) {
+    // 查询设备的相机镜头安装角度是否可变
+    let isVariable: boolean = cameraInput.isPhysicalCameraOrientationVariable();
+
+    if (isVariable) {
+      // 获取设备当前折叠状态下真实的相机镜头安装角度
+      let physicalOrientation: number = cameraInput.getPhysicalCameraOrientation();
+      console.info(`physical Orientation is ${physicalOrientation}`);
+
+      // 选择是否使用真实的相机镜头安装角度, 以实现无损出图
+      let isUsed: boolean = true;
+      cameraInput.usePhysicalCameraOrientation(isUsed);
+    }
+  }
+  // [End enable_physical_camera_orientation]
 
   async refreshOutput(oldOutput: camera.CameraOutput, newOutput: camera.CameraOutput) {
     await this.session?.stop();
