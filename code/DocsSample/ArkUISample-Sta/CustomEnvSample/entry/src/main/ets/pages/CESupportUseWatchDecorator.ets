@@ -51,7 +51,7 @@ struct Index {
 struct Child {
   @CustomEnv('custom') @Watch('onChange') message: string = "Hello";
   onChange(propName: string): void {
-    console.log(`[CustomEnv], this.message: ${this.message} has changed!`);
+    console.info(`[CustomEnv], this.message: ${this.message} has changed!`);
   }
 
   build() {
