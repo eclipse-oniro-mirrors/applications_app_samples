@@ -41,36 +41,36 @@ export class TemplateManager {
   // [EndExclude template_register_listener]
   // [StartExclude set_user_info]
   private queryMainTabsEvent: avMusicTemplate.QueryMainTabsEvent = async () => {
-    return this.handPromiseReturnFunc(() => this.getMainTabs(), 'queryMainTabsEvent');
+    return this.handlePromiseReturnFunc(() => this.getMainTabs(), 'queryMainTabsEvent');
   };
   private queryMediaTabContentEvent: avMusicTemplate.QueryMediaTabContentEvent = async (tabId: string) => {
-    return this.handPromiseReturnFunc(() => this.createMediaTabContent(), 'queryMediaTabContentEvent');
+    return this.handlePromiseReturnFunc(() => this.createMediaTabContent(), 'queryMediaTabContentEvent');
   };
   // [StartExclude template_register_listener]
   private queryMediaEntityEvent: avMusicTemplate.QueryMediaEntityEvent =
     async (params: avMusicTemplate.QueryMediaEntityParam) => {
-      return this.handPromiseReturnFunc(() => this.createPageMediaEntity(), 'queryMediaEntityEvent');
+      return this.handlePromiseReturnFunc(() => this.createPageMediaEntity(), 'queryMediaEntityEvent');
     };
   private queryCompilationEvent: avMusicTemplate.QueryCompilationEvent =
     async (compilationId: string, pageIndex: number) => {
-      return this.handPromiseReturnFunc(() => this.createPageMediaEntity(), 'queryCompilationEvent');
+      return this.handlePromiseReturnFunc(() => this.createPageMediaEntity(), 'queryCompilationEvent');
     };
   private queryPlaylistEvent: avMusicTemplate.QueryPlaylistEvent =
     async (pageIndex: number, sort: avMusicTemplate.Sort) => {
-      return this.handPromiseReturnFunc(() => this.createPageMediaEntity(), 'queryPlaylistEvent');
+      return this.handlePromiseReturnFunc(() => this.createPageMediaEntity(), 'queryPlaylistEvent');
     };
   private queryCurrentSingleEvent: avMusicTemplate.QueryCurrentSingleEvent = async () => {
-    return this.handPromiseReturnFunc(() => this.createCurrentSingle(), 'queryCurrentSingleEvent');
+    return this.handlePromiseReturnFunc(() => this.createCurrentSingle(), 'queryCurrentSingleEvent');
   };
   private queryCompilationByKeywordEvent: avMusicTemplate.QueryCompilationByKeywordEvent = async (keyword: string) => {
-    return this.handPromiseArrayReturnFunc(() => this.createCompilation(), 'queryCompilationByKeywordEvent');
+    return this.handlePromiseArrayReturnFunc(() => this.createCompilation(), 'queryCompilationByKeywordEvent');
   };
   private queryMediaEntityByKeywordEvent: avMusicTemplate.QueryMediaEntityByKeywordEvent =
     async (keyword: string, searchType: avMusicTemplate.EntityType, pageIndex: number) => {
-      return this.handPromiseReturnFunc(() => this.createPageMediaEntity(), 'queryMediaEntityByKeywordEvent');
+      return this.handlePromiseReturnFunc(() => this.createPageMediaEntity(), 'queryMediaEntityByKeywordEvent');
     };
   private queryRecommendMediaEntityListEvent: avMusicTemplate.QueryRecommendMediaEntityListEvent = async () => {
-    return this.handPromiseArrayReturnFunc(() => this.createMediaEntity(), 'queryRecommendMediaEntityListEvent');
+    return this.handlePromiseArrayReturnFunc(() => this.createMediaEntity(), 'queryRecommendMediaEntityListEvent');
   };
   private queryHotWordsEvent: avMusicTemplate.QueryHotWordsEvent = async () => {
     try {
@@ -91,26 +91,26 @@ export class TemplateManager {
     }
   };
   private clearSearchHistoryEvent: avMusicTemplate.ClearSearchHistoryEvent = async () => {
-    return this.handPromiseReturnFunc(() => this.createOperResult(), 'clearSearchHistoryEvent');
+    return this.handlePromiseReturnFunc(() => this.createOperResult(), 'clearSearchHistoryEvent');
   };
   private loginEvent: avMusicTemplate.LoginEvent = async (controlType: avMusicTemplate.LoginType, id?: string) => {
-    return this.handPromiseArrayReturnFunc(() => this.createQrCodeInfo(), 'loginEvent');
+    return this.handlePromiseArrayReturnFunc(() => this.createQrCodeInfo(), 'loginEvent');
   };
   private requestDialogInfoEvent: avMusicTemplate.RequestDialogInfoEvent =
     async (actionType: avMusicTemplate.DialogActionType, actionInfo?: avMusicTemplate.DialogActionInfo) => {
-      return this.handPromiseReturnFunc(() => this.createDialogInfo(), 'requestDialogInfoEvent');
+      return this.handlePromiseReturnFunc(() => this.createDialogInfo(), 'requestDialogInfoEvent');
     };
   private handleMemberPurchaseEvent: avMusicTemplate.HandleMemberPurchaseEvent =
     async (info: avMusicTemplate.MemberPurchaseInfo) => {
-      return this.handPromiseReturnFunc(() => this.createDialogInfo(), 'handleMemberPurchaseEvent');
+      return this.handlePromiseReturnFunc(() => this.createDialogInfo(), 'handleMemberPurchaseEvent');
     };
   private queryMemberPurchaseEvent: avMusicTemplate.QueryMemberPurchaseEvent =
     async (memberPurchaseType: avMusicTemplate.MemberPurchaseType) => {
-      return this.handPromiseArrayReturnFunc(() => this.createQueryMemberPurchase(), 'queryMemberPurchaseEvent');
+      return this.handlePromiseArrayReturnFunc(() => this.createQueryMemberPurchase(), 'queryMemberPurchaseEvent');
     };
   private queryCustomContentEvent: avMusicTemplate.QueryCustomContentEvent =
     async (queryTypes: avMusicTemplate.CustomType[]) => {
-      return this.handPromiseReturnFunc(() => this.createCustomContent(), 'queryCustomContentEvent');
+      return this.handlePromiseReturnFunc(() => this.createCustomContent(), 'queryCustomContentEvent');
     };
   private downloadMediaEntityEvent: avMusicTemplate.DownloadMediaEntityEvent =
     async (controlType: avMusicTemplate.DownloadControlType, mediaEntity: avMusicTemplate.MediaEntity) => {
@@ -125,14 +125,14 @@ export class TemplateManager {
     };
   private settingsChangeEvent: avMusicTemplate.SettingsChangeEvent =
     async (settingItem: avMusicTemplate.SettingItem) => {
-      return this.handPromiseReturnFunc(() => this.settingsChange(), 'settingsChangeEvent');
+      return this.handlePromiseReturnFunc(() => this.settingsChange(), 'settingsChangeEvent');
     };
   private problemAndAdviceEvent: avMusicTemplate.ProblemAndAdviceEvent = async (advice: string) => {
-    return this.handPromiseReturnFunc(() => this.createOperResult(), 'problemAndAdviceEvent');
+    return this.handlePromiseReturnFunc(() => this.createOperResult(), 'problemAndAdviceEvent');
   };
   private playForSearchEvent: avMusicTemplate.PlayForSearchEvent = async (command: avMusicTemplate.SearchPlayInfoType,
     args: avMusicTemplate.SearchPlayInfo) => {
-    return this.handPromiseReturnFunc(() => this.createOperResult(), 'playForSearchEvent');
+    return this.handlePromiseReturnFunc(() => this.createOperResult(), 'playForSearchEvent');
   };
   private executeActionEvent: avMusicTemplate.ExecuteActionEvent = async (actionType: string, params: string) => {
     try {
@@ -149,7 +149,7 @@ export class TemplateManager {
     };
   private favoriteMediaEntityEvent: avMusicTemplate.FavoriteMediaEntityEvent =
     async (actionType: avMusicTemplate.MediaFavoriteType, mediaEntity: avMusicTemplate.MediaEntity) => {
-      return this.handPromiseReturnFunc(() => this.createOperResult(), 'favoriteMediaEntityEvent');
+      return this.handlePromiseReturnFunc(() => this.createOperResult(), 'favoriteMediaEntityEvent');
     };
   // [EndExclude manager_create_template]
 
@@ -747,7 +747,7 @@ export class TemplateManager {
     return setting;
   };
 
-  private async handPromiseArrayReturnFunc<T>(func: () => Promise<T>, errFunc: string): Promise<T[]> {
+  private async handlePromiseArrayReturnFunc<T>(func: () => Promise<T>, errFunc: string): Promise<T[]> {
     try {
       let t: T = await func();
       return [t];
@@ -759,7 +759,7 @@ export class TemplateManager {
   }
 
   // [EndExclude template_register_listener]
-  private async handPromiseReturnFunc<T>(func: () => Promise<T>, errFunc: string): Promise<T> {
+  private async handlePromiseReturnFunc<T>(func: () => Promise<T>, errFunc: string): Promise<T> {
     try {
       return await func();
     } catch (e) {
