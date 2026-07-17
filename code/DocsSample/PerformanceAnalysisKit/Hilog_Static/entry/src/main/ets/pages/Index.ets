@@ -22,8 +22,8 @@ class Person {
     this.name = name;
     this.age = age;
   }
-  name: string;
-  age:  number;
+  public name: string;
+  public age:  number;
 }
 
 @Entry
@@ -80,7 +80,7 @@ struct Index {
             hilog.fatal(0xFF00, 'testTag', 'hilog_fatal_test');
             hilog.error(0xFF00, 'testTag', 'hilog_error_test');
             // 获取沙箱目录中2分钟之内写入过的日志文件
-            let logs:Array<string> = hilog.getLogFile(120);
+            let logs:string[] = hilog.getLogFile(120);
             hilog.info(0xFF00, 'testTag', 'current log files:%{public}s', logs.toString());
             // 将沙箱日志刷入磁盘
             hilog.flush();
