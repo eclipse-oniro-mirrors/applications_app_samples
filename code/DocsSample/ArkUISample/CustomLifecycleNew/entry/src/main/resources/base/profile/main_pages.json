@@ -1,0 +1,17 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/ComponentActiveRecycle",
+    "pages/ComponentActivePageVisible",
+    "pages/ComponentNesting",
+    "pages/ComponentRecycleReuse",
+    "pages/ComponentLifecycleObserver",
+    "pages/ComponentReuseDifference",
+    "pages/ComponentActiveLazyCreate",
+    "pages/PageOne",
+    "pages/PageTwo",
+    "pages/ComponentActivePreRender",
+    "pages/LifecycleDifference",
+    "pages/SwiperPage"
+  ]
+}
