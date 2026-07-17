@@ -26,6 +26,7 @@ class SendableA {
 }
 
 let a1: A = new SendableA() as A;
+// [End counter_example]
 
 // 反例：
 // class A {
@@ -38,7 +39,6 @@ let a1: A = new SendableA() as A;
 // }
 
 // let a2: SendableA = new A() as SendableA;
-// [End counter_example]
 
 @Entry
 @Component
