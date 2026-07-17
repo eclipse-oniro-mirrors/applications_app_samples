@@ -230,9 +230,9 @@ void NativeRender::DrawBaseColor()
         return;
     }
     TestReadWriteWindow(nativeWindow);
-    int fenceFd = -1;
+    int releaseFenceFd = -1;
     OHNativeWindowBuffer *nativeWindowBuffer = nullptr;
-    ret = OH_NativeWindow_NativeWindowRequestBuffer(nativeWindow, &nativeWindowBuffer, &fenceFd);
+    ret = OH_NativeWindow_NativeWindowRequestBuffer(nativeWindow, &nativeWindowBuffer, &releaseFenceFd);
     BufferHandle *bufferHandle = OH_NativeWindow_GetBufferHandleFromNative(nativeWindowBuffer);
     void *mappedAddr =
         mmap(bufferHandle->virAddr, bufferHandle->size, PROT_READ | PROT_WRITE, MAP_SHARED, bufferHandle->fd, 0);
@@ -244,7 +244,8 @@ void NativeRender::DrawBaseColor()
         }
     }
     struct Region *region = new Region();
-    ret = OH_NativeWindow_NativeWindowFlushBuffer(nativeWindow, nativeWindowBuffer, fenceFd, *region);
+    int acquireFenceFd = -1;
+    ret = OH_NativeWindow_NativeWindowFlushBuffer(nativeWindow, nativeWindowBuffer, acquireFenceFd, *region);
     if (ret != NATIVE_ERROR_OK) {
         LOGE("flush failed");
         (void)OH_NativeWindow_NativeWindowAbortBuffer(nativeWindow, nativeWindowBuffer);
