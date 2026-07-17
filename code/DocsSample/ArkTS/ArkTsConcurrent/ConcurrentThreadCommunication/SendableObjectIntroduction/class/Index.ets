@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-// [Start example_modify_class]
 export { MainPage } from './src/main/ets/components/MainPage';
 
+// [Start example_modify_class]
 @Sendable
 class SendableTestClass {
   desc: string = 'sendable: this is SendableTestClass ';
