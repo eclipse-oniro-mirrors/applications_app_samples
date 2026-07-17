@@ -36,7 +36,7 @@ class MyRenderNode extends RenderNode {
       blue: 180
     });
     canvas.attachBrush(brush);
-    // 绘制矩阵
+    // 绘制矩形
     canvas.drawRect({
       left: 0,
       right: this.width,

@@ -102,6 +102,7 @@ namespace NativeModule {
             const int paddingMultiplier = 2;
             nativeModule_->setMeasuredSize(handle_, maxWidth + paddingMultiplier * padding_,
                                            maxHeight + paddingMultiplier * padding_);
+            OH_ArkUI_LayoutConstraint_Dispose(childLayoutConstrain);
         }
 
         void OnLayout(ArkUI_NodeCustomEvent *event)
