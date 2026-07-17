@@ -14,7 +14,7 @@ HiLog日志系统，提供给系统框架、服务、以及应用，用于打印
 
 |                             主页                             |
 | :----------------------------------------------------------: |
-| <img src="./screenshots/Screenshot_20260518192833753.jpeg" alt="z" width = "400" /> |
+| <img src="./screenshots/Screenshot_20260716192133753.jpeg" alt="z" width = "400" /> |
 
 #### 使用说明
 
@@ -25,11 +25,27 @@ HiLog日志系统，提供给系统框架、服务、以及应用，用于打印
 2.在DevEco界面切换到"Log"窗口，日志过滤选择"No filters",搜索内容设置为"testTag"。此时窗口仅显示符合条件的日志，打印日志结果为：
 
 ```
-01-02 08:18:24.947   30988-30988   A0FF00/testTag                  com.samples.hilog  I     hello World 3
-01-02 08:18:24.947   30988-30988   A0FF00/testTag                  com.samples.hilog  I     peter is {"name":"peter","age":15}
-01-02 08:18:24.947   30988-30988   A00000/testTag                  com.samples.hilog  E     this is an error level log
-01-02 08:18:24.947   30988-30988   A00000/testTag                  com.samples.hilog  I     this is an another info level log
-01-02 08:18:24.947   30988-30988   A00000/testTag                  com.samples.hilog  E     this is an another error level log
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.samples.hilog  I     A log with a domainID of 0xFF00 and a label of testTag can print logs at the Info level or higher.
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.samples.hilog  I     hello World 3
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.samples.hilog  I     peter is {"name":"peter","age":15}
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.samples.hilog  E     this is an error level log
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.samples.hilog  I     this is an another info level log
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.samples.hilog  E     this is an another error level log
+```
+
+3.在应用侧主界面，点击"SandboxLog Static"按钮；
+
+4.打开应用公共沙箱日志，打印结果为：
+
+```
+08-05 06:32:35.928 10753 10753 I A0ff00/testTag: current log type:4
+08-05 06:32:35.928 10753 10753 I A0ff00/testTag: current log dir:/data/storage/el2/log/hiapplog
+08-05 06:32:35.929 10753 10753 I A0ff00/testTag: hilog_info_test
+08-05 06:32:35.929 10753 10753 D A0ff00/testTag: hilog_debug_test
+08-05 06:32:35.929 10753 10753 W A0ff00/testTag: hilog_warn_test
+08-05 06:32:35.929 10753 10753 F A0ff00/testTag: hilog_fatal_test
+08-05 06:32:35.929 10753 10753 E A0ff00/testTag: hilog_error_test
+08-05 06:32:35.930 10753 10753 I A0ff00/testTag: current log files:hiapplog.10753.001.20170805-063235.log
 ```
 
 ###  工程目录
@@ -57,7 +73,7 @@ ArkTS Static实现时只需在按钮的点击事件中添加各种类型日志�
 ###  约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568；
-2. 本示例已适配API26版本SDK，版本号：26.0.0.25，镜像版本号：OpenHarmony 7.0.0.25；
+2. 本示例已适配API26版本SDK，版本号：26.0.0.34，镜像版本号：OpenHarmony 7.0.0.34；
 3. 本示例需要使用DevEco Studio(6.0.0.94)及以上版本才可编译运行。
 
 ### 下载
