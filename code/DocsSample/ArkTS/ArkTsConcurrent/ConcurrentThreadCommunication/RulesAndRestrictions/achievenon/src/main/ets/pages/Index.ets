@@ -23,6 +23,7 @@ interface I {
 class B implements I {
   a: string = 'hello world';
 };
+// [End counter_example_achieve_non]
 
 // 反例：
 // import { lang } from '@kit.ArkTS';
@@ -32,13 +33,13 @@ class B implements I {
 // interface I extends ISendable {};
 
 // class B implements I {};
-// [End counter_example_achieve_non]
 
 // Sendable装饰器修饰类型时仅支持修饰函数类型
 // [Start counter_example_only_support]
 // 正例：
 @Sendable
 type SendableFuncType = () => void;
+// [End counter_example_only_support]
 
 // 反例：
 // @Sendable
@@ -49,7 +50,6 @@ type SendableFuncType = () => void;
 
 // @Sendable
 // type D = C; // 编译报错
-// [End counter_example_only_support]
 
 @Entry
 @Component

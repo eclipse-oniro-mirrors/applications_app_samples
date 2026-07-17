@@ -22,6 +22,7 @@ class A {
   }
   a: number = 0;
 }
+// [End counter_example]
 
 // 反例：
 // @Sendable
@@ -29,7 +30,6 @@ class A {
 //   constructor() {}
 //   a!: number;
 // }
-// [End counter_example]
 
 @Entry
 @Component

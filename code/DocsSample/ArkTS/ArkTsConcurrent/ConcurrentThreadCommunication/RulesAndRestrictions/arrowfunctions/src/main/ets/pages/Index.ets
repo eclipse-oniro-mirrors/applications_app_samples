@@ -34,6 +34,7 @@ class SendableClass {
 }
 
 let sendableClass = new SendableClass(sendableFunc);
+// [End counter_example]
 
 // 反例：
 // @Sendable
@@ -44,7 +45,6 @@ let sendableClass = new SendableClass(sendableFunc);
 // class SendableClass {
 //   func: SendableFuncType = () => {}; // 编译报错
 // }
-// [End counter_example]
 
 @Entry
 @Component
