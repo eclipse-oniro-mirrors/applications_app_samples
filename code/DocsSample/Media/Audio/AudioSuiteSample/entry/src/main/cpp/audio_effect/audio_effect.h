@@ -193,26 +193,37 @@ public:
         OH_AudioSuiteNodeBuilder_SetNodeType(builder, OH_AudioNode_Type::EFFECT_NODE_TYPE_SPACE_RENDER);
         // 创建空间渲染节点。
         OH_AudioSuiteEngine_CreateNode(pipeline, builder, node);
-        // 设置空间渲染位置参数。
-        OH_AudioSuite_SpaceRenderPositionParams position;
-        position.x = params.spacePositionX;
-        position.y = params.spacePositionY;
-        position.z = params.spacePositionZ;
-        OH_AudioSuiteEngine_SetSpaceRenderPositionParams(*node, position);
-        // 设置空间渲染旋转参数。
-        OH_AudioSuite_SpaceRenderRotationParams rotation;
-        rotation.x = params.spaceRotationX;
-        rotation.y = params.spaceRotationY;
-        rotation.z = params.spaceRotationZ;
-        rotation.surroundTime = params.spaceRotationSurroundTime;
-        rotation.surroundDirection =
-            static_cast<OH_AudioSuite_SurroundDirection>(params.spaceRotationSurroundDirection);
-        OH_AudioSuiteEngine_SetSpaceRenderRotationParams(*node, rotation);
-        // 设置空间渲染扩展参数。
-        OH_AudioSuite_SpaceRenderExtensionParams extension;
-        extension.extRadius = params.spaceExtensionRadius;
-        extension.extAngle = params.spaceExtensionAngle;
-        OH_AudioSuiteEngine_SetSpaceRenderExtensionParams(*node, extension);
+        // 按场景仅设置选中的空间渲染参数。
+        switch (params.spaceRenderMode) {
+            case 0: {
+                OH_AudioSuite_SpaceRenderPositionParams position;
+                position.x = params.spacePositionX;
+                position.y = params.spacePositionY;
+                position.z = params.spacePositionZ;
+                OH_AudioSuiteEngine_SetSpaceRenderPositionParams(*node, position);
+                break;
+            }
+            case 1: {
+                OH_AudioSuite_SpaceRenderRotationParams rotation;
+                rotation.x = params.spaceRotationX;
+                rotation.y = params.spaceRotationY;
+                rotation.z = params.spaceRotationZ;
+                rotation.surroundTime = params.spaceRotationSurroundTime;
+                rotation.surroundDirection =
+                    static_cast<OH_AudioSuite_SurroundDirection>(params.spaceRotationSurroundDirection);
+                OH_AudioSuiteEngine_SetSpaceRenderRotationParams(*node, rotation);
+                break;
+            }
+            case 2: {
+                OH_AudioSuite_SpaceRenderExtensionParams extension;
+                extension.extRadius = params.spaceExtensionRadius;
+                extension.extAngle = params.spaceExtensionAngle;
+                OH_AudioSuiteEngine_SetSpaceRenderExtensionParams(*node, extension);
+                break;
+            }
+            default:
+                break;
+        }
         // [End audioSuite_SetSpaceRenderParams]
     }
 };

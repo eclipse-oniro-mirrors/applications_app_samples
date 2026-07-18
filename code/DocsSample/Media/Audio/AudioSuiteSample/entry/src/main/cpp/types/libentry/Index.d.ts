@@ -39,6 +39,7 @@ export interface EffectParams {
   spaceRotationSurroundDirection?: number;
   spaceExtensionRadius?: number;
   spaceExtensionAngle?: number;
+  spaceRenderMode?: number;
 }
 
 export const BaseEditor: (effectType: number, params: EffectParams, callback: (result: string) => void) => void;

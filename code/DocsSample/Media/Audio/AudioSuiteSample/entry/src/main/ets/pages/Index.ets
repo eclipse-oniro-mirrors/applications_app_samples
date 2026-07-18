@@ -64,6 +64,10 @@ const GENERAL_VOICE_CHANGE_OPTIONS: SelectOption[] = [
 ];
 const SURROUND_DIRECTION_NAMES = ['逆时针', '顺时针'];
 const SURROUND_DIRECTION_OPTIONS: SelectOption[] = [{ value: '逆时针' }, { value: '顺时针' }];
+const SPACE_RENDER_MODE_NAMES = ['位置', '旋转', '扩展'];
+const SPACE_RENDER_MODE_OPTIONS: SelectOption[] = [
+  { value: '位置' }, { value: '旋转' }, { value: '扩展' }
+];
 const EFFECT_TYPE_NAMES = [
   '均衡器效果', '声音美化效果', '降噪效果', '声场效果', '环境效果',
   '空间渲染效果', '传统变声效果', '通用变声效果', '变速变调效果'
@@ -114,6 +118,7 @@ struct Index {
   @State spaceRotationSurroundDirection: number = 0;
   @State spaceExtensionRadius: number = 2.0;
   @State spaceExtensionAngle: number = 180;
+  @State spaceRenderMode: number = 0;
   @State showEffectDialog: boolean = false;
   @State dialogEffectType: number = 0;
   @State dialogEqPresetIndex: number = 0;
@@ -137,6 +142,7 @@ struct Index {
   @State dialogSpaceRotationSurroundDirection: number = 0;
   @State dialogSpaceExtensionRadius: number = 2.0;
   @State dialogSpaceExtensionAngle: number = 180;
+  @State dialogSpaceRenderMode: number = 0;
 
   // 更新NAPI返回信息
   updateNapiLog(msg: string) {
@@ -641,8 +647,17 @@ struct Index {
             }
 
             if (this.dialogEffectType === 5) {
-              Text('位置参数（x/y/z 范围 -5.0~5.0）')
+              Text('空间渲染场景')
                 .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
+              Select(SPACE_RENDER_MODE_OPTIONS)
+                .selected(this.dialogSpaceRenderMode)
+                .value(SPACE_RENDER_MODE_NAMES[this.dialogSpaceRenderMode])
+                .width('100%')
+                .onSelect((index: number) => { this.dialogSpaceRenderMode = index; })
+
+              if (this.dialogSpaceRenderMode === 0) {
+                Text('位置参数（x/y/z 范围 -5.0~5.0）')
+                  .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
               Row() {
                 Text('X').fontSize(12).width('10%')
                 Slider({ value: this.dialogSpacePositionX, min: -5, max: 5, step: 0.1, style: SliderStyle.OutSet })
@@ -664,7 +679,9 @@ struct Index {
                   .onChange((v: number) => { this.dialogSpacePositionZ = Math.round(v * 10) / 10; })
                 Text(`${this.dialogSpacePositionZ}`).fontSize(12).width('20%').textAlign(TextAlign.Center)
               }.width('100%').justifyContent(FlexAlign.SpaceBetween)
+              }
 
+              if (this.dialogSpaceRenderMode === 1) {
               Text('旋转参数（x/y/z 范围 -5.0~5.0）')
                 .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
               Row() {
@@ -703,7 +720,9 @@ struct Index {
                   .width('70%')
                   .onSelect((index: number) => { this.dialogSpaceRotationSurroundDirection = index; })
               }.width('100%').justifyContent(FlexAlign.SpaceBetween)
+              }
 
+              if (this.dialogSpaceRenderMode === 2) {
               Text('扩展参数（半径 1.0~5.0；角度 0~360）')
                 .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
               Row() {
@@ -720,6 +739,7 @@ struct Index {
                   .onChange((v: number) => { this.dialogSpaceExtensionAngle = Math.round(v); })
                 Text(`${this.dialogSpaceExtensionAngle}°`).fontSize(12).width('20%').textAlign(TextAlign.Center)
               }.width('100%').justifyContent(FlexAlign.SpaceBetween)
+              }
             }
 
             if (this.dialogEffectType === 6) {
@@ -851,6 +871,7 @@ struct Index {
     this.dialogSpaceRotationSurroundDirection = this.spaceRotationSurroundDirection;
     this.dialogSpaceExtensionRadius = this.spaceExtensionRadius;
     this.dialogSpaceExtensionAngle = this.spaceExtensionAngle;
+    this.dialogSpaceRenderMode = this.spaceRenderMode;
   }
 
   commitDialogToCommitted() {
@@ -876,6 +897,7 @@ struct Index {
     this.spaceRotationSurroundDirection = this.dialogSpaceRotationSurroundDirection;
     this.spaceExtensionRadius = this.dialogSpaceExtensionRadius;
     this.spaceExtensionAngle = this.dialogSpaceExtensionAngle;
+    this.spaceRenderMode = this.dialogSpaceRenderMode;
   }
 
   buildEffectParams(): audioSuiteNapi.EffectParams {
@@ -905,6 +927,7 @@ struct Index {
   }
 
   fillSpaceRenderParams(params: audioSuiteNapi.EffectParams) {
+    params.spaceRenderMode = this.spaceRenderMode;
     params.spacePositionX = this.spacePositionX;
     params.spacePositionY = this.spacePositionY;
     params.spacePositionZ = this.spacePositionZ;

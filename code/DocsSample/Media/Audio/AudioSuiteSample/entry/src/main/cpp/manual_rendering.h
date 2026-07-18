@@ -69,6 +69,7 @@ struct EffectParams {
     int spaceRotationSurroundDirection;
     float spaceExtensionRadius;
     int32_t spaceExtensionAngle;
+    int spaceRenderMode;
 };
 
 void BaseEditorEffect(AudioDataInfo *audioInfo, const char *newFilePath, int effectType, const EffectParams &params);
