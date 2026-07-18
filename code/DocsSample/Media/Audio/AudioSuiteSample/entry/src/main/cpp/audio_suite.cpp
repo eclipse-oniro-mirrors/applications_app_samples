@@ -117,6 +117,133 @@ void BaseEditorComplete(napi_env env, napi_status status, void *data)
     delete asyncData;
 }
 
+// 从 JS 对象读取 int32 字段。
+static int32_t ReadInt32Field(napi_env env, napi_value obj, const char *name)
+{
+    napi_value value = nullptr;
+    napi_get_named_property(env, obj, name, &value);
+    int32_t result = 0;
+    napi_get_value_int32(env, value, &result);
+    return result;
+}
+
+// 从 JS 对象读取 float 字段（经由 double 中转）。
+static float ReadFloatField(napi_env env, napi_value obj, const char *name)
+{
+    napi_value value = nullptr;
+    napi_get_named_property(env, obj, name, &value);
+    double result = 0.0;
+    napi_get_value_double(env, value, &result);
+    return static_cast<float>(result);
+}
+
+// 解析均衡器参数。
+static void ParseEqualizerParams(napi_env env, napi_value obj, EffectParams &params)
+{
+    params.eqPresetIndex = ReadInt32Field(env, obj, "eqPresetIndex");
+    napi_value eqGainsArray = nullptr;
+    napi_get_named_property(env, obj, "eqGains", &eqGainsArray);
+    for (int i = 0; i < AUDIO_EQ_BAND_NUM; i++) {
+        napi_value gainValue = nullptr;
+        napi_get_element(env, eqGainsArray, i, &gainValue);
+        napi_get_value_int32(env, gainValue, &params.eqGains[i]);
+    }
+    params.voiceBeautifierType = 0;
+}
+
+// 解析声音美化参数。
+static void ParseVoiceBeautifierParams(napi_env env, napi_value obj, EffectParams &params)
+{
+    params.eqPresetIndex = EQ_PRESET_CUSTOM;
+    params.voiceBeautifierType = ReadInt32Field(env, obj, "voiceBeautifierType");
+    for (int i = 0; i < AUDIO_EQ_BAND_NUM; i++) {
+        params.eqGains[i] = 0;
+    }
+}
+
+// 解析声场参数。
+static void ParseSoundFieldParams(napi_env env, napi_value obj, EffectParams &params)
+{
+    params.soundFieldType = ReadInt32Field(env, obj, "soundFieldType");
+}
+
+// 解析环境效果参数。
+static void ParseEnvironmentParams(napi_env env, napi_value obj, EffectParams &params)
+{
+    params.environmentType = ReadInt32Field(env, obj, "environmentType");
+}
+
+// 解析空间渲染参数。
+static void ParseSpaceRenderParams(napi_env env, napi_value obj, EffectParams &params)
+{
+    params.spacePositionX = ReadFloatField(env, obj, "spacePositionX");
+    params.spacePositionY = ReadFloatField(env, obj, "spacePositionY");
+    params.spacePositionZ = ReadFloatField(env, obj, "spacePositionZ");
+    params.spaceRotationX = ReadFloatField(env, obj, "spaceRotationX");
+    params.spaceRotationY = ReadFloatField(env, obj, "spaceRotationY");
+    params.spaceRotationZ = ReadFloatField(env, obj, "spaceRotationZ");
+    params.spaceRotationSurroundTime = ReadInt32Field(env, obj, "spaceRotationSurroundTime");
+    params.spaceRotationSurroundDirection = ReadInt32Field(env, obj, "spaceRotationSurroundDirection");
+    params.spaceExtensionRadius = ReadFloatField(env, obj, "spaceExtensionRadius");
+    params.spaceExtensionAngle = ReadInt32Field(env, obj, "spaceExtensionAngle");
+}
+
+// 解析传统变声参数。
+static void ParsePureVoiceChangeParams(napi_env env, napi_value obj, EffectParams &params)
+{
+    params.pureVoiceChangeGender = ReadInt32Field(env, obj, "pureVoiceChangeGender");
+    params.pureVoiceChangeType = ReadInt32Field(env, obj, "pureVoiceChangeType");
+    params.pureVoiceChangePitch = ReadFloatField(env, obj, "pureVoiceChangePitch");
+}
+
+// 解析通用变声参数。
+static void ParseGeneralVoiceChangeParams(napi_env env, napi_value obj, EffectParams &params)
+{
+    params.generalVoiceChangeType = ReadInt32Field(env, obj, "generalVoiceChangeType");
+}
+
+// 解析变速变调参数。
+static void ParseTempoPitchParams(napi_env env, napi_value obj, EffectParams &params)
+{
+    params.tempoSpeed = ReadFloatField(env, obj, "tempoSpeed");
+    params.tempoPitch = ReadFloatField(env, obj, "tempoPitch");
+}
+
+// 按效果类型分派参数解析。
+static void ParseEffectParams(napi_env env, napi_value obj, int effectType, EffectParams &params)
+{
+    switch (effectType) {
+        case AUDIO_EFFECT_TYPE_EQUALIZER:
+            ParseEqualizerParams(env, obj, params);
+            break;
+        case AUDIO_EFFECT_TYPE_VOICE_BEAUTIFIER:
+            ParseVoiceBeautifierParams(env, obj, params);
+            break;
+        case AUDIO_EFFECT_TYPE_NOISE_REDUCTION:
+            break;
+        case AUDIO_EFFECT_TYPE_SOUND_FIELD:
+            ParseSoundFieldParams(env, obj, params);
+            break;
+        case AUDIO_EFFECT_TYPE_ENVIRONMENT_EFFECT:
+            ParseEnvironmentParams(env, obj, params);
+            break;
+        case AUDIO_EFFECT_TYPE_SPACE_RENDER:
+            ParseSpaceRenderParams(env, obj, params);
+            break;
+        case AUDIO_EFFECT_TYPE_PURE_VOICE_CHANGE:
+            ParsePureVoiceChangeParams(env, obj, params);
+            break;
+        case AUDIO_EFFECT_TYPE_GENERAL_VOICE_CHANGE:
+            ParseGeneralVoiceChangeParams(env, obj, params);
+            break;
+        case AUDIO_EFFECT_TYPE_TEMPO_PITCH:
+            ParseTempoPitchParams(env, obj, params);
+            break;
+        default:
+            break;
+    }
+}
+
 napi_value BaseEditor(napi_env env, napi_callback_info info)
 {
     size_t argc = 3;
@@ -133,28 +260,7 @@ napi_value BaseEditor(napi_env env, napi_callback_info info)
     asyncData->params.effectType = asyncData->effectType;
 
     // 根据效果类型解析参数（NAPI层逻辑）。
-    if (asyncData->effectType == AUDIO_EFFECT_TYPE_EQUALIZER) {
-        napi_value eqPresetValue;
-        napi_get_named_property(env, argv[1], "eqPresetIndex", &eqPresetValue);
-        napi_get_value_int32(env, eqPresetValue, &asyncData->params.eqPresetIndex);
-
-        napi_value eqGainsArray;
-        napi_get_named_property(env, argv[1], "eqGains", &eqGainsArray);
-        for (int i = 0; i < AUDIO_EQ_BAND_NUM; i++) {
-            napi_value gainValue;
-            napi_get_element(env, eqGainsArray, i, &gainValue);
-            napi_get_value_int32(env, gainValue, &asyncData->params.eqGains[i]);
-        }
-        asyncData->params.voiceBeautifierType = 0;
-    } else if (asyncData->effectType == AUDIO_EFFECT_TYPE_VOICE_BEAUTIFIER) {
-        asyncData->params.eqPresetIndex = EQ_PRESET_CUSTOM;
-        napi_value voiceTypeValue;
-        napi_get_named_property(env, argv[1], "voiceBeautifierType", &voiceTypeValue);
-        napi_get_value_int32(env, voiceTypeValue, &asyncData->params.voiceBeautifierType);
-        for (int i = 0; i < AUDIO_EQ_BAND_NUM; i++) {
-            asyncData->params.eqGains[i] = 0;
-        }
-    }
+    ParseEffectParams(env, argv[1], asyncData->effectType, asyncData->params);
 
     // 保存回调函数。
     napi_create_reference(env, argv[PARAM_NUM], 1, &asyncData->callback);

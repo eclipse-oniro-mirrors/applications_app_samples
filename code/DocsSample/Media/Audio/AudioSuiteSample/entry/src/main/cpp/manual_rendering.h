@@ -21,7 +21,17 @@
 
 const int AUDIO_EQ_BAND_NUM = 10;
 
-enum AudioEffectType { AUDIO_EFFECT_TYPE_EQUALIZER = 0, AUDIO_EFFECT_TYPE_VOICE_BEAUTIFIER = 1 };
+enum AudioEffectType {
+    AUDIO_EFFECT_TYPE_EQUALIZER = 0,
+    AUDIO_EFFECT_TYPE_VOICE_BEAUTIFIER = 1,
+    AUDIO_EFFECT_TYPE_NOISE_REDUCTION = 2,
+    AUDIO_EFFECT_TYPE_SOUND_FIELD = 3,
+    AUDIO_EFFECT_TYPE_ENVIRONMENT_EFFECT = 4,
+    AUDIO_EFFECT_TYPE_SPACE_RENDER = 5,
+    AUDIO_EFFECT_TYPE_PURE_VOICE_CHANGE = 6,
+    AUDIO_EFFECT_TYPE_GENERAL_VOICE_CHANGE = 7,
+    AUDIO_EFFECT_TYPE_TEMPO_PITCH = 8
+};
 
 enum EqualizerPresetType {
     EQ_PRESET_CUSTOM = -1,
@@ -41,6 +51,24 @@ struct EffectParams {
     int eqPresetIndex;
     int32_t eqGains[AUDIO_EQ_BAND_NUM];
     int voiceBeautifierType;
+    int soundFieldType;
+    int environmentType;
+    int generalVoiceChangeType;
+    int pureVoiceChangeGender;
+    int pureVoiceChangeType;
+    float pureVoiceChangePitch;
+    float tempoSpeed;
+    float tempoPitch;
+    float spacePositionX;
+    float spacePositionY;
+    float spacePositionZ;
+    float spaceRotationX;
+    float spaceRotationY;
+    float spaceRotationZ;
+    int32_t spaceRotationSurroundTime;
+    int spaceRotationSurroundDirection;
+    float spaceExtensionRadius;
+    int32_t spaceExtensionAngle;
 };
 
 void BaseEditorEffect(AudioDataInfo *audioInfo, const char *newFilePath, int effectType, const EffectParams &params);

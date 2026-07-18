@@ -21,6 +21,24 @@ export interface EffectParams {
   eqPresetIndex?: number;
   eqGains?: number[];
   voiceBeautifierType?: number;
+  soundFieldType?: number;
+  environmentType?: number;
+  generalVoiceChangeType?: number;
+  pureVoiceChangeGender?: number;
+  pureVoiceChangeType?: number;
+  pureVoiceChangePitch?: number;
+  tempoSpeed?: number;
+  tempoPitch?: number;
+  spacePositionX?: number;
+  spacePositionY?: number;
+  spacePositionZ?: number;
+  spaceRotationX?: number;
+  spaceRotationY?: number;
+  spaceRotationZ?: number;
+  spaceRotationSurroundTime?: number;
+  spaceRotationSurroundDirection?: number;
+  spaceExtensionRadius?: number;
+  spaceExtensionAngle?: number;
 }
 
 export const BaseEditor: (effectType: number, params: EffectParams, callback: (result: string) => void) => void;
