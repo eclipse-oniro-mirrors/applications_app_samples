@@ -29,6 +29,7 @@ import { ProvideConsumeThisObject } from './ProvideConsumeThisObject';
 import { ProvideConsumeTwoWay } from './ProvideConsumeTwoWay';
 import { ProvideConsumeArraySyncDecorator } from './ProvideConsumeArraySync';
 import { ProvideConsumeUndefined } from './ProvideConsumeUndefined';
+import { ProvideConsumeBuilderNode } from './ProvideConsumeBuilderNode';
 
 
 export const PROVIDE_AND_CONSUME: string = 'provide_and_consume';
@@ -89,6 +90,10 @@ const routes: Route[] = [
   {
     name: `${PROVIDE_AND_CONSUME}/ProvideConsumeUndefined`,
     title: resource.resourceToString($r('app.string.provide_consume_undefined')),
+  },
+  {
+    name: `${PROVIDE_AND_CONSUME}/ProvideConsumeBuilderNode`,
+    title: resource.resourceToString($r('app.string.provide_consume_builder_node')),
   }
 ];
 
@@ -124,6 +129,8 @@ export function provideAndConsumeDestination(name: string) {
     ProvideConsumeArraySyncDecorator();
   } else if (name === `${PROVIDE_AND_CONSUME}/ProvideConsumeUndefined`) {
     ProvideConsumeUndefined();
+  } else if (name === `${PROVIDE_AND_CONSUME}/ProvideConsumeBuilderNode`) {
+    ProvideConsumeBuilderNode();
   }
 }
 
