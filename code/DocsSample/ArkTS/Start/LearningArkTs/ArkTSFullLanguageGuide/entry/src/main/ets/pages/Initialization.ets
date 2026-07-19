@@ -1059,7 +1059,12 @@ console.info(`${dfiHouse.resident.breed}`);  // Labrador
 
 // [Start init_order]
 class IoBase {
+  public static baseStatic: number = 10;
   public name: string = 'base';
+
+  static {
+    console.info('Base static block');
+  }
 
   constructor() {
     console.info(`Base constructor: name = ${this.name}`);
@@ -1067,7 +1072,12 @@ class IoBase {
 }
 
 class IoDerived extends IoBase {
+  public static derivedStatic: number = 20;
   public name: string = 'derived';
+
+  static {
+    console.info('Derived static block');
+  }
 
   constructor() {
     super();
@@ -1077,6 +1087,8 @@ class IoDerived extends IoBase {
 
 let ioD: IoDerived = new IoDerived();
 // 输出：
+// Base static block（类加载时执行静态初始化块，先于实例创建）
+// Derived static block
 // Base constructor: name = base（派生类字段尚未初始化）
 // Derived constructor: name = derived
 // [End init_order]
