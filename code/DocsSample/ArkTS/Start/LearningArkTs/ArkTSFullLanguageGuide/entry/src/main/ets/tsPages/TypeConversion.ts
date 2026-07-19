@@ -243,17 +243,17 @@ interface MockDocument {
   getElementById: (id: string) => HTMLInputElement;
 }
 
-let document: MockDocument = {
+let mockDoc: MockDocument = {
   getElementById: (id: string): HTMLInputElement => {
     let element: HTMLInputElement = { value: '' };
     return element;
   }
 };
-let inputElement = document.getElementById('username') as HTMLInputElement;
+let inputElement = mockDoc.getElementById('username') as HTMLInputElement;
 inputElement.value = 'Alice';
 
 // 或者使用可选链
-let element = document.getElementById('password') as HTMLInputElement | null;
+let element = mockDoc.getElementById('password') as HTMLInputElement | null;
 if (element) {
   console.info(`${element.value}`);
 }
