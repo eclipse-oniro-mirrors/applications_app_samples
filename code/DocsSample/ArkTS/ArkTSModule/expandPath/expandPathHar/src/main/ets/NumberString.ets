@@ -15,5 +15,5 @@
 // [Start export_numberString]
 // expandPathHar/src/main/ets/NumberString.ets
 export const One: string = '1';
-console.info('har NumberString.ets execute.');
+console.info('expandPathHar NumberString.ets execute.');
 // [End export_numberString]

@@ -17,5 +17,5 @@
 export * from './OtherModule3'
 export * from './OtherModule4'
 export * from './NumberString'
-console.info('har Utils.ets execute.');
+console.info('expandPathHar Utils.ets execute.');
 // [End Utils]
