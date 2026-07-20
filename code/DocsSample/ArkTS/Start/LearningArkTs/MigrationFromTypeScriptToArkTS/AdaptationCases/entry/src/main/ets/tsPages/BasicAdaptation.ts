@@ -116,7 +116,7 @@ try {
     new (value: string): Controller;
   }
 
-  class testMenu {
+  class TestMenu {
     controller: ControllerConstructor = Controller
     createController() {
       if (this.controller) {
@@ -126,7 +126,7 @@ try {
     }
   }
 
-  let t = new testMenu();
+  let t = new TestMenu();
   console.info(t.createController()!.value);
   // [End ts_no_ctor_signatures_type]
 }
@@ -175,7 +175,7 @@ function foo1(data: { [key: string]: string }) {
     new (value: string): Controller;
   }
 
-  class testMenu {
+  class TestMenu {
     controller: ControllerConstructor = Controller
     createController() {
       if (this.controller) {
@@ -185,7 +185,7 @@ function foo1(data: { [key: string]: string }) {
     }
   }
 
-  let t = new testMenu();
+  let t = new TestMenu();
   console.info(t.createController()!.value);
   // [End ts_no_ctor_signatures_iface]
 }
@@ -207,7 +207,7 @@ function foo2(params: Object) {
 
   let arr: Array<A> = [];
 
-  let originMenusMap:Map<string, C> = new Map(arr.map(item => [item.str, (item instanceof C) ? item: null]));
+  let originMenusMap: Map<string, C> = new Map(arr.map(item => [item.str, (item instanceof C) ? item: null]));
   // [End ts_no_inferred_generic_params]
 }
 
@@ -450,7 +450,7 @@ foo.apply(obj);
 
   type ControllerConstructor = new (value: string) => Controller;
 
-  class testMenu {
+  class TestMenu {
     controller: ControllerConstructor = Controller
     createController() {
       if (this.controller) {
@@ -460,8 +460,8 @@ foo.apply(obj);
     }
   }
 
-  let t = new testMenu()
-  console.info(t.createController()!.value)
+  let t = new TestMenu();
+  console.info(t.createController()!.value);
   // [End ts_no_ctor_signatures_funcs]
 }
 
