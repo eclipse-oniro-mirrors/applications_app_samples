@@ -393,7 +393,7 @@ void SetConfig03(OH_AVScreenCaptureConfig &config)
 
     config = {
         .captureMode = OH_CAPTURE_HOME_SCREEN,
-        .dataType = OH_CAPTURE_FILE, // 录屏数据类型，文件。
+        .dataType = OH_ORIGINAL_STREAM, // 录屏数据类型，文件。
         .audioInfo = audioInfo,
         .videoInfo = videoInfo
     };
@@ -944,6 +944,8 @@ static napi_value StartScreenCapture_04(napi_env env, napi_callback_info info)
     }
     const std::string filePath = fileDirPath;
     OH_RecorderInfo recorderInfo;
+    g_windowOutputFd = open((filePath + "saving_window_file.mp4").c_str(), O_RDWR | O_CREAT,
+        FILE_PERMISSION_FULL_ACCESS);
     std::string fileUrl = "fd://" + std::to_string(g_windowOutputFd);
     recorderInfo.url = const_cast<char *>(fileUrl.c_str());
     recorderInfo.fileFormat = OH_ContainerFormatType::CFT_MPEG_4;
