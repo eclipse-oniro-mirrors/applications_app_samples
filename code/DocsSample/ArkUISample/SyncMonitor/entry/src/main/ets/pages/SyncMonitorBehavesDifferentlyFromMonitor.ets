@@ -51,3 +51,12 @@ struct Index {
   }
 }
 // [End syncmonitor_behaves_differently_from_monitor]
+
+@Builder
+export function syncMonitorBehavesDifferentlyFromMonitor() {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.syncmonitor_behaves_differently_from_monitor'))
+}
