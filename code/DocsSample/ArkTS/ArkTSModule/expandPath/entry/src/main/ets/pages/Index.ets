@@ -16,7 +16,7 @@
 // src/main/ets/pages/Index.ets
 import * as har from 'expandPathHar';
 
-console.info('har.One is ', har.One); // 这里的One变量是har/src/main/ets/NumberString.ets导出的
+console.info('har.One is ', har.One); // 这里的One变量是expandPathHar/src/main/ets/NumberString.ets导出的
 // [End unOptIndex]
 @Entry
 @Component

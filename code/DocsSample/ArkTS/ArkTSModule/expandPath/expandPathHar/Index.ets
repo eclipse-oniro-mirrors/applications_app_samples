@@ -18,5 +18,5 @@ export { MainPage } from './src/main/ets/components/MainPage';
 export * from './src/main/ets/OtherModule1'
 export * from './src/main/ets/OtherModule2'
 export * from './src/main/ets/Utils'
-console.info('har Index.ets execute.');
+console.info('expandPathHar Index.ets execute.');
 // [End expandPathHarIndex]
