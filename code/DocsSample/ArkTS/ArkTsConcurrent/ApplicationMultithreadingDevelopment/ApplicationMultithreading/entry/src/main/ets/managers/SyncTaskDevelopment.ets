@@ -54,7 +54,7 @@ struct Index {
           .fontWeight(FontWeight.Bold)
           .onClick(async () => {
             // [StartExclude worker_handle_associated_sync_task]
-            mainFunc();
+            await mainFunc();
             // [StartExclude taskpool_handle_sync_task]
             // [EndExclude worker_handle_associated_sync_task]
             let w: worker.ThreadWorker = new worker.ThreadWorker('entry/ets/workers/MyWorker2.ts');
