@@ -17,429 +17,142 @@
 // [Start template_register_listener]
 // [Start set_user_info]
 // [Start unregister_listener]
-// [Start start_template]
-// [Start register_query_main_tabs]
-// [Start register_query_media_tab_content]
-// [Start register_query_media_entity]
-// [Start register_query_compilation]
-// [Start register_query_play_list]
-// [Start register_query_current_single]
-// [Start register_query_compilation_by_keyword]
-// [Start register_query_media_entity_by_keyword]
-// [Start register_query_recommend_media_entity_list]
-// [Start register_query_hot_words]
-// [Start register_query_search_history]
-// [Start register_clear_search_history]
-// [Start register_on_login]
-// [Start register_request_dialog_info]
-// [Start register_handle_member_purchase]
-// [Start register_query_member_purchase]
-// [Start register_query_custom_content]
-// [Start register_download_media_entity]
-// [Start register_settings_change]
-// [Start register_problem_and_advice]
-// [Start register_play_for_search]
-// [Start register_execute_action]
-// [Start register_play_media_entity]
-// [Start register_favorite_media_entity]
-// [Start set_dialog_command]
-// [Start set_current_single]
-// [Start set_media_entities]
-// [Start set_tab_content]
-// [Start set_play_list]
-// [Start set_custom_elements]
-// [Start set_settings]
-// [Start report_execute_action]
-// [Start set_extension_ability]
-// [Start destroy]
 import { avMusicTemplate } from '@kit.AVSessionKit';
 // [StartExclude manager_create_template]
 // [StartExclude template_register_listener]
 // [StartExclude set_user_info]
 // [StartExclude unregister_listener]
-// [StartExclude start_template]
-// [StartExclude register_query_main_tabs]
-// [StartExclude register_query_media_tab_content]
-// [StartExclude register_query_media_entity]
-// [StartExclude register_query_compilation]
-// [StartExclude register_query_play_list]
-// [StartExclude register_query_current_single]
-// [StartExclude register_query_compilation_by_keyword]
-// [StartExclude register_query_media_entity_by_keyword]
-// [StartExclude register_query_recommend_media_entity_list]
-// [StartExclude register_query_hot_words]
-// [StartExclude register_query_search_history]
-// [StartExclude register_clear_search_history]
-// [StartExclude register_on_login]
-// [StartExclude register_request_dialog_info]
-// [StartExclude register_handle_member_purchase]
-// [StartExclude register_query_member_purchase]
-// [StartExclude register_query_custom_content]
-// [StartExclude register_download_media_entity]
-// [StartExclude register_settings_change]
-// [StartExclude register_problem_and_advice]
-// [StartExclude register_play_for_search]
-// [StartExclude register_execute_action]
-// [StartExclude register_play_media_entity]
-// [StartExclude register_favorite_media_entity]
-// [StartExclude set_dialog_command]
-// [StartExclude set_current_single]
-// [StartExclude set_media_entities]
-// [StartExclude set_tab_content]
-// [StartExclude set_play_list]
-// [StartExclude set_custom_elements]
-// [StartExclude set_settings]
-// [StartExclude report_execute_action]
-// [StartExclude destroy]
 import { wantAgent } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 // [EndExclude manager_create_template]
 // [EndExclude template_register_listener]
 // [EndExclude set_user_info]
 // [EndExclude unregister_listener]
-// [EndExclude start_template]
-// [EndExclude register_query_main_tabs]
-// [EndExclude register_query_media_tab_content]
-// [EndExclude register_query_media_entity]
-// [EndExclude register_query_compilation]
-// [EndExclude register_query_play_list]
-// [EndExclude register_query_current_single]
-// [EndExclude register_query_compilation_by_keyword]
-// [EndExclude register_query_media_entity_by_keyword]
-// [EndExclude register_query_recommend_media_entity_list]
-// [EndExclude register_query_hot_words]
-// [EndExclude register_query_search_history]
-// [EndExclude register_clear_search_history]
-// [EndExclude register_on_login]
-// [EndExclude register_request_dialog_info]
-// [EndExclude register_handle_member_purchase]
-// [EndExclude register_query_member_purchase]
-// [EndExclude register_query_custom_content]
-// [EndExclude register_download_media_entity]
-// [EndExclude register_settings_change]
-// [EndExclude register_problem_and_advice]
-// [EndExclude register_play_for_search]
-// [EndExclude register_execute_action]
-// [EndExclude register_play_media_entity]
-// [EndExclude register_favorite_media_entity]
-// [EndExclude set_dialog_command]
-// [EndExclude set_current_single]
-// [EndExclude set_media_entities]
-// [EndExclude set_tab_content]
-// [EndExclude set_play_list]
-// [EndExclude set_custom_elements]
-// [EndExclude set_settings]
-// [EndExclude report_execute_action]
-// [EndExclude destroy]
 
 export class TemplateManager {
   private template: avMusicTemplate.AVMusicTemplate | undefined = undefined;
   // [StartExclude template_register_listener]
   // [StartExclude set_user_info]
   // [StartExclude unregister_listener]
-  // [StartExclude start_template]
-  // [StartExclude register_query_main_tabs]
-  // [StartExclude register_query_media_tab_content]
-  // [StartExclude register_query_media_entity]
-  // [StartExclude register_query_compilation]
-  // [StartExclude register_query_play_list]
-  // [StartExclude register_query_current_single]
-  // [StartExclude register_query_compilation_by_keyword]
-  // [StartExclude register_query_media_entity_by_keyword]
-  // [StartExclude register_query_recommend_media_entity_list]
-  // [StartExclude register_query_hot_words]
-  // [StartExclude register_query_search_history]
-  // [StartExclude register_clear_search_history]
-  // [StartExclude register_on_login]
-  // [StartExclude register_request_dialog_info]
-  // [StartExclude register_handle_member_purchase]
-  // [StartExclude register_query_member_purchase]
-  // [StartExclude register_query_custom_content]
-  // [StartExclude register_download_media_entity]
-  // [StartExclude register_settings_change]
-  // [StartExclude register_problem_and_advice]
-  // [StartExclude register_play_for_search]
-  // [StartExclude register_execute_action]
-  // [StartExclude register_play_media_entity]
-  // [StartExclude register_favorite_media_entity]
-  // [StartExclude set_dialog_command]
-  // [StartExclude set_current_single]
-  // [StartExclude set_media_entities]
-  // [StartExclude set_tab_content]
-  // [StartExclude set_play_list]
-  // [StartExclude set_custom_elements]
-  // [StartExclude set_settings]
-  // [StartExclude report_execute_action]
-  // [StartExclude set_extension_ability]
-  // [StartExclude destroy]
   private static sInstance: TemplateManager;
   // [EndExclude set_user_info]
   // [StartExclude manager_create_template]
   private isLogin: boolean = false;
   // [EndExclude template_register_listener]
-  // [EndExclude register_query_main_tabs]
   // [StartExclude set_user_info]
   private queryMainTabsEvent: avMusicTemplate.QueryMainTabsEvent = async () => {
-    try {
-      return await this.getMainTabs();
-    } catch (e) {
-      console.error(`queryMainTabsEvent fail, errCode: ${e?.code}`);
-      throw e instanceof Error ? e : new Error(e?.message ?? `queryMainTabsEvent error, code: ${e?.code}`);
-    }
+    return this.handlePromiseReturnFunc(() => this.getMainTabs(), 'queryMainTabsEvent');
   };
-  // [StartExclude register_query_main_tabs]
-  // [EndExclude register_query_media_tab_content]
   private queryMediaTabContentEvent: avMusicTemplate.QueryMediaTabContentEvent = async (tabId: string) => {
-    try {
-      return await this.createMediaTabContent();
-    } catch (e) {
-      console.error(`queryMediaTabContentEvent fail, errCode: ${e?.code}`);
-      throw e instanceof Error ? e : new Error(e?.message ?? `queryMediaTabContentEvent error, code: ${e?.code}`);
-    }
+    return this.handlePromiseReturnFunc(() => this.createMediaTabContent(), 'queryMediaTabContentEvent');
   };
   // [StartExclude template_register_listener]
-  // [StartExclude register_query_media_tab_content]
-  // [EndExclude register_query_media_entity]
   private queryMediaEntityEvent: avMusicTemplate.QueryMediaEntityEvent =
     async (params: avMusicTemplate.QueryMediaEntityParam) => {
-      try {
-        return await this.createPageMediaEntity();
-      } catch (e) {
-        console.error(`queryMediaEntityEvent fail, errCode: ${e?.code}`);
-        throw e instanceof Error ? e : new Error(e?.message ?? `queryMediaEntityEvent error, code: ${e?.code}`);
-      }
+      return this.handlePromiseReturnFunc(() => this.createPageMediaEntity(), 'queryMediaEntityEvent');
     };
-  // [StartExclude register_query_media_entity]
-  // [EndExclude register_query_compilation]
   private queryCompilationEvent: avMusicTemplate.QueryCompilationEvent =
     async (compilationId: string, pageIndex: number) => {
-      try {
-        return await this.createPageMediaEntity();
-      } catch (e) {
-        console.error(`queryCompilationEvent fail, errCode: ${e?.code}`);
-        throw e instanceof Error ? e : new Error(e?.message ?? `queryCompilationEvent error, code: ${e?.code}`);
-      }
+      return this.handlePromiseReturnFunc(() => this.createPageMediaEntity(), 'queryCompilationEvent');
     };
-  // [StartExclude register_query_compilation]
-  // [EndExclude register_query_play_list]
   private queryPlaylistEvent: avMusicTemplate.QueryPlaylistEvent =
     async (pageIndex: number, sort: avMusicTemplate.Sort) => {
-      try {
-        return await this.createPageMediaEntity();
-      } catch (e) {
-        console.error(`queryPlaylistEvent fail, errCode: ${e?.code}`);
-        throw e instanceof Error ? e : new Error(e?.message ?? `queryPlaylistEvent error, code: ${e?.code}`);
-      }
+      return this.handlePromiseReturnFunc(() => this.createPageMediaEntity(), 'queryPlaylistEvent');
     };
-  // [StartExclude register_query_play_list]
-  // [EndExclude register_query_current_single]
   private queryCurrentSingleEvent: avMusicTemplate.QueryCurrentSingleEvent = async () => {
-    try {
-      return await this.createCurrentSingle();
-    } catch (e) {
-      console.error(`queryCurrentSingleEvent fail, errCode: ${e?.code}`);
-      throw e instanceof Error ? e : new Error(e?.message ?? `queryCurrentSingleEvent error, code: ${e?.code}`);
-    }
+    return this.handlePromiseReturnFunc(() => this.createCurrentSingle(), 'queryCurrentSingleEvent');
   };
-  // [StartExclude register_query_current_single]
-  // [EndExclude register_query_compilation_by_keyword]
   private queryCompilationByKeywordEvent: avMusicTemplate.QueryCompilationByKeywordEvent = async (keyword: string) => {
-    try {
-      let compilation: avMusicTemplate.Compilation = await this.createCompilation();
-      let compilations: avMusicTemplate.Compilation[] = [compilation];
-      return compilations;
-    } catch (e) {
-      console.error(`queryCompilationByKeywordEvent fail, errCode: ${e?.code}`);
-      throw e instanceof Error ? e : new Error(e?.message ?? `queryCompilationByKeywordEvent error, code: ${e?.code}`);
-    }
+    return this.handlePromiseArrayReturnFunc(() => this.createCompilation(), 'queryCompilationByKeywordEvent');
   };
-  // [StartExclude register_query_compilation_by_keyword]
-  // [EndExclude register_query_media_entity_by_keyword]
   private queryMediaEntityByKeywordEvent: avMusicTemplate.QueryMediaEntityByKeywordEvent =
     async (keyword: string, searchType: avMusicTemplate.EntityType, pageIndex: number) => {
-      try {
-        return await this.createPageMediaEntity();
-      } catch (e) {
-        console.error(`queryMediaEntityByKeywordEvent fail, errCode: ${e?.code}`);
-        throw e instanceof Error ? e :
-          new Error(e?.message ?? `queryMediaEntityByKeywordEvent error, code: ${e?.code}`);
-      }
+      return this.handlePromiseReturnFunc(() => this.createPageMediaEntity(), 'queryMediaEntityByKeywordEvent');
     };
-  // [StartExclude register_query_media_entity_by_keyword]
-  // [EndExclude register_query_recommend_media_entity_list]
   private queryRecommendMediaEntityListEvent: avMusicTemplate.QueryRecommendMediaEntityListEvent = async () => {
-    try {
-      let mediaEntity: avMusicTemplate.MediaEntity = await this.createMediaEntity();
-      let mediaEntities: avMusicTemplate.MediaEntity[] = [mediaEntity];
-      return mediaEntities;
-    } catch (e) {
-      console.error(`queryRecommendMediaEntityListEvent fail, errCode: ${e?.code}`);
-      throw e instanceof Error ? e :
-        new Error(e?.message ?? `queryRecommendMediaEntityListEvent error, code: ${e?.code}`);
-    }
+    return this.handlePromiseArrayReturnFunc(() => this.createMediaEntity(), 'queryRecommendMediaEntityListEvent');
   };
-  // [StartExclude register_query_recommend_media_entity_list]
-  // [EndExclude register_query_hot_words]
   private queryHotWordsEvent: avMusicTemplate.QueryHotWordsEvent = async () => {
     try {
       return ['热词1', '热词2', '热词3', '热词4', '热词5'];
     } catch (e) {
-      console.error(`queryHotWordsEvent fail, errCode: ${e?.code}`);
-      throw e instanceof Error ? e : new Error(e?.message ?? `queryHotWordsEvent error, code: ${e?.code}`);
+      const msg = `Failed to queryHotWordsEvent. Code: ${e?.code}`;
+      console.error(msg);
+      throw e instanceof Error ? e : new Error(e?.message ?? msg);
     }
   };
-  // [StartExclude register_query_hot_words]
-  // [EndExclude register_query_search_history]
   private querySearchHistoryEvent: avMusicTemplate.QuerySearchHistoryEvent = async () => {
     try {
       return ['搜索历史1', '搜索历史2', '搜索历史3', '搜索历史4', '搜索历史5'];
     } catch (e) {
-      console.error(`querySearchHistoryEvent fail, errCode: ${e?.code}`);
-      throw e instanceof Error ? e : new Error(e?.message ?? `querySearchHistoryEvent error, code: ${e?.code}`);
+      const msg = `Failed to querySearchHistoryEvent. Code: ${e?.code}`;
+      console.error(msg);
+      throw e instanceof Error ? e : new Error(e?.message ?? msg);
     }
   };
-  // [StartExclude register_query_search_history]
-  // [EndExclude register_clear_search_history]
   private clearSearchHistoryEvent: avMusicTemplate.ClearSearchHistoryEvent = async () => {
-    try {
-      return await this.createOperResult();
-    } catch (e) {
-      console.error(`clearSearchHistoryEvent fail, errCode: ${e?.code}`);
-      throw e instanceof Error ? e : new Error(e?.message ?? `clearSearchHistoryEvent error, code: ${e?.code}`);
-    }
+    return this.handlePromiseReturnFunc(() => this.createOperResult(), 'clearSearchHistoryEvent');
   };
-  // [StartExclude register_clear_search_history]
-  // [EndExclude register_on_login]
   private loginEvent: avMusicTemplate.LoginEvent = async (controlType: avMusicTemplate.LoginType, id?: string) => {
-    try {
-      let qrCodeInfo: avMusicTemplate.QrCodeInfo = await this.createQrCodeInfo();
-      let qrCodeInfos: avMusicTemplate.QrCodeInfo[] = [qrCodeInfo];
-      return qrCodeInfos;
-    } catch (e) {
-      console.error(`loginEvent fail, errCode: ${e?.code}`);
-      throw e instanceof Error ? e : new Error(e?.message ?? `loginEvent error, code: ${e?.code}`);
-    }
+    return this.handlePromiseArrayReturnFunc(() => this.createQrCodeInfo(), 'loginEvent');
   };
-  // [StartExclude register_on_login]
-  // [EndExclude register_request_dialog_info]
   private requestDialogInfoEvent: avMusicTemplate.RequestDialogInfoEvent =
     async (actionType: avMusicTemplate.DialogActionType, actionInfo?: avMusicTemplate.DialogActionInfo) => {
-      try {
-        return await this.createDialogInfo();
-      } catch (e) {
-        console.error(`requestDialogInfoEvent fail, errCode: ${e?.code}`);
-        throw e instanceof Error ? e : new Error(e?.message ?? `requestDialogInfoEvent error, code: ${e?.code}`);
-      }
+      return this.handlePromiseReturnFunc(() => this.createDialogInfo(), 'requestDialogInfoEvent');
     };
-  // [StartExclude register_request_dialog_info]
-  // [EndExclude register_handle_member_purchase]
   private handleMemberPurchaseEvent: avMusicTemplate.HandleMemberPurchaseEvent =
     async (info: avMusicTemplate.MemberPurchaseInfo) => {
-      try {
-        return await this.createDialogInfo();
-      } catch (e) {
-        console.error(`handleMemberPurchaseEvent fail, errCode: ${e?.code}`);
-        throw e instanceof Error ? e : new Error(e?.message ?? `handleMemberPurchaseEvent error, code: ${e?.code}`);
-      }
+      return this.handlePromiseReturnFunc(() => this.createDialogInfo(), 'handleMemberPurchaseEvent');
     };
-  // [StartExclude register_handle_member_purchase]
-  // [EndExclude register_query_member_purchase]
   private queryMemberPurchaseEvent: avMusicTemplate.QueryMemberPurchaseEvent =
     async (memberPurchaseType: avMusicTemplate.MemberPurchaseType) => {
-      try {
-        let memberPurchaseInfo: avMusicTemplate.MemberPurchaseInfo = await this.createQueryMemberPurchase();
-        let memberPurchaseInfos: avMusicTemplate.MemberPurchaseInfo[] = [memberPurchaseInfo];
-        return memberPurchaseInfos;
-      } catch (e) {
-        console.error(`queryMemberPurchaseEvent fail, errCode: ${e?.code}`);
-        throw e instanceof Error ? e : new Error(e?.message ?? `queryMemberPurchaseEvent error, code: ${e?.code}`);
-      }
+      return this.handlePromiseArrayReturnFunc(() => this.createQueryMemberPurchase(), 'queryMemberPurchaseEvent');
     };
-  // [StartExclude register_query_member_purchase]
-  // [EndExclude register_query_custom_content]
   private queryCustomContentEvent: avMusicTemplate.QueryCustomContentEvent =
     async (queryTypes: avMusicTemplate.CustomType[]) => {
-      try {
-        return await this.createCustomContent();
-      } catch (e) {
-        console.error(`queryCustomContentEvent fail, errCode: ${e?.code}`);
-        throw e instanceof Error ? e : new Error(e?.message ?? `queryCustomContentEvent error, code: ${e?.code}`);
-      }
+      return this.handlePromiseReturnFunc(() => this.createCustomContent(), 'queryCustomContentEvent');
     };
-  // [StartExclude register_query_custom_content]
-  // [EndExclude register_download_media_entity]
   private downloadMediaEntityEvent: avMusicTemplate.DownloadMediaEntityEvent =
     async (controlType: avMusicTemplate.DownloadControlType, mediaEntity: avMusicTemplate.MediaEntity) => {
       try {
         this.downloadMediaEntity(mediaEntity);
         return await this.createOperResult();
       } catch (e) {
-        console.error(`downloadMediaEntityEvent fail, errCode: ${e?.code}`);
-        throw e instanceof Error ? e : new Error(e?.message ?? `downloadMediaEntityEvent error, code: ${e?.code}`);
+        const msg: string = `Failed to downloadMediaEntityEvent. Code: ${e?.code}`;
+        console.error(msg);
+        throw e instanceof Error ? e : new Error(e?.message ?? msg);
       }
     };
-  // [StartExclude register_download_media_entity]
-  // [EndExclude register_settings_change]
   private settingsChangeEvent: avMusicTemplate.SettingsChangeEvent =
     async (settingItem: avMusicTemplate.SettingItem) => {
-      try {
-        return await this.settingsChange();
-      } catch (e) {
-        console.error(`settingsChangeEvent fail, errCode: ${e?.code}`);
-        throw e instanceof Error ? e : new Error(e?.message ?? `settingsChangeEvent error, code: ${e?.code}`);
-      }
+      return this.handlePromiseReturnFunc(() => this.settingsChange(), 'settingsChangeEvent');
     };
-  // [StartExclude register_settings_change]
-  // [EndExclude register_problem_and_advice]
   private problemAndAdviceEvent: avMusicTemplate.ProblemAndAdviceEvent = async (advice: string) => {
-    try {
-      return await this.createOperResult();
-    } catch (e) {
-      console.error(`problemAndAdviceEvent fail, errCode: ${e?.code}`);
-      throw e instanceof Error ? e : new Error(e?.message ?? `problemAndAdviceEvent error, code: ${e?.code}`);
-    }
+    return this.handlePromiseReturnFunc(() => this.createOperResult(), 'problemAndAdviceEvent');
   };
-  // [StartExclude register_problem_and_advice]
-  // [EndExclude register_play_for_search]
   private playForSearchEvent: avMusicTemplate.PlayForSearchEvent = async (command: avMusicTemplate.SearchPlayInfoType,
     args: avMusicTemplate.SearchPlayInfo) => {
-    try {
-      return await this.createOperResult();
-    } catch (e) {
-      console.error(`playForSearchEvent fail, errCode: ${e?.code}`);
-      throw e instanceof Error ? e : new Error(e?.message ?? `playForSearchEvent error, code: ${e?.code}`);
-    }
+    return this.handlePromiseReturnFunc(() => this.createOperResult(), 'playForSearchEvent');
   };
-  // [StartExclude register_play_for_search]
-  // [EndExclude register_execute_action]
   private executeActionEvent: avMusicTemplate.ExecuteActionEvent = async (actionType: string, params: string) => {
     try {
       return 'success';
     } catch (e) {
-      console.error(`executeActionEvent fail, errCode: ${e?.code}`);
-      throw e instanceof Error ? e : new Error(e?.message ?? `executeActionEvent error, code: ${e?.code}`);
+      const msg: string = `Failed to executeActionEvent. Code: ${e?.code}`;
+      console.error(msg);
+      throw e instanceof Error ? e : new Error(e?.message ?? msg);
     }
   };
-  // [StartExclude register_execute_action]
-  // [EndExclude register_play_media_entity]
   private playMediaEntityEvent: avMusicTemplate.PlayMediaEntityEvent =
     async (mediaEntity: avMusicTemplate.MediaEntity) => {
       console.info('playMediaEntity');
     };
-  // [StartExclude register_play_media_entity]
-  // [EndExclude register_favorite_media_entity]
   private favoriteMediaEntityEvent: avMusicTemplate.FavoriteMediaEntityEvent =
     async (actionType: avMusicTemplate.MediaFavoriteType, mediaEntity: avMusicTemplate.MediaEntity) => {
-      try {
-        return await this.createOperResult();
-      } catch (e) {
-        console.error(`favoriteMediaEntityEvent fail, errCode: ${e?.code}`);
-        throw e instanceof Error ? e : new Error(e?.message ?? `favoriteMediaEntityEvent error, code: ${e?.code}`);
-      }
+      return this.handlePromiseReturnFunc(() => this.createOperResult(), 'favoriteMediaEntityEvent');
     };
-  // [StartExclude register_favorite_media_entity]
-
   // [EndExclude manager_create_template]
+
   private constructor() {
   }
 
@@ -474,321 +187,81 @@ export class TemplateManager {
     }
   }
   // [StartExclude manager_create_template]
-  // [EndExclude register_query_main_tabs]
-  // [EndExclude register_query_media_tab_content]
   // [EndExclude template_register_listener]
-  // [EndExclude register_query_media_entity]
-  // [EndExclude register_query_compilation]
-  // [EndExclude register_query_play_list]
-  // [EndExclude register_query_current_single]
-  // [EndExclude register_query_compilation_by_keyword]
-  // [EndExclude register_query_media_entity_by_keyword]
-  // [EndExclude register_query_recommend_media_entity_list]
-  // [EndExclude register_query_hot_words]
-  // [EndExclude register_query_search_history]
-  // [EndExclude register_clear_search_history]
-  // [EndExclude register_on_login]
-  // [EndExclude register_request_dialog_info]
-  // [EndExclude register_handle_member_purchase]
-  // [EndExclude register_query_member_purchase]
-  // [EndExclude register_query_custom_content]
-  // [EndExclude register_download_media_entity]
-  // [EndExclude register_settings_change]
-  // [EndExclude register_problem_and_advice]
-  // [EndExclude register_play_for_search]
-  // [EndExclude register_execute_action]
-  // [EndExclude register_play_media_entity]
-  // [EndExclude register_favorite_media_entity]
 
   /**
    * 注册监听。
    */
   private registerListener() {
-    // [StartExclude register_query_media_tab_content]
-    // [StartExclude register_query_media_entity]
-    // [StartExclude register_query_compilation]
-    // [StartExclude register_query_play_list]
-    // [StartExclude register_query_current_single]
-    // [StartExclude register_query_compilation_by_keyword]
-    // [StartExclude register_query_media_entity_by_keyword]
-    // [StartExclude register_query_recommend_media_entity_list]
-    // [StartExclude register_query_hot_words]
-    // [StartExclude register_query_search_history]
-    // [StartExclude register_clear_search_history]
-    // [StartExclude register_on_login]
-    // [StartExclude register_request_dialog_info]
-    // [StartExclude register_handle_member_purchase]
-    // [StartExclude register_query_member_purchase]
-    // [StartExclude register_query_custom_content]
-    // [StartExclude register_download_media_entity]
-    // [StartExclude register_settings_change]
-    // [StartExclude register_problem_and_advice]
-    // [StartExclude register_play_for_search]
-    // [StartExclude register_execute_action]
-    // [StartExclude register_play_media_entity]
-    // [StartExclude register_favorite_media_entity]
     this.template?.onQueryMainTabs(this.queryMainTabsEvent);
-    // [StartExclude register_query_main_tabs]
-    // [EndExclude register_query_media_tab_content]
     this.template?.onQueryMediaTabContent(this.queryMediaTabContentEvent);
     // [StartExclude template_register_listener]
-    // [StartExclude register_query_media_tab_content]
-    // [EndExclude register_query_media_entity]
     this.template?.onQueryMediaEntity(this.queryMediaEntityEvent);
-    // [StartExclude register_query_media_entity]
-    // [EndExclude register_query_compilation]
     this.template?.onQueryCompilation(this.queryCompilationEvent);
-    // [StartExclude register_query_compilation]
-    // [EndExclude register_query_play_list]
     this.template?.onQueryPlaylist(this.queryPlaylistEvent);
-    // [StartExclude register_query_play_list]
-    // [EndExclude register_query_current_single]
     this.template?.onQueryCurrentSingle(this.queryCurrentSingleEvent);
-    // [StartExclude register_query_current_single]
-    // [EndExclude register_query_compilation_by_keyword]
     this.template?.onQueryCompilationByKeyword(this.queryCompilationByKeywordEvent);
-    // [StartExclude register_query_compilation_by_keyword]
-    // [EndExclude register_query_media_entity_by_keyword]
     this.template?.onQueryMediaEntityByKeyword(this.queryMediaEntityByKeywordEvent);
-    // [StartExclude register_query_media_entity_by_keyword]
-    // [EndExclude register_query_recommend_media_entity_list]
     this.template?.onQueryRecommendMediaEntityList(this.queryRecommendMediaEntityListEvent);
-    // [StartExclude register_query_recommend_media_entity_list]
-    // [EndExclude register_query_hot_words]
     this.template?.onQueryHotWords(this.queryHotWordsEvent);
-    // [StartExclude register_query_hot_words]
-    // [EndExclude register_query_search_history]
     this.template?.onQuerySearchHistory(this.querySearchHistoryEvent);
-    // [StartExclude register_query_search_history]
-    // [EndExclude register_clear_search_history]
     this.template?.onClearSearchHistory(this.clearSearchHistoryEvent);
-    // [StartExclude register_clear_search_history]
-    // [EndExclude register_on_login]
     this.template?.onLogin(this.loginEvent);
-    // [StartExclude register_on_login]
-    // [EndExclude register_request_dialog_info]
     this.template?.onRequestDialogInfo(this.requestDialogInfoEvent);
-    // [StartExclude register_request_dialog_info]
-    // [EndExclude register_handle_member_purchase]
     this.template?.onHandleMemberPurchase(this.handleMemberPurchaseEvent);
-    // [StartExclude register_handle_member_purchase]
-    // [EndExclude register_query_member_purchase]
     this.template?.onQueryMemberPurchase(this.queryMemberPurchaseEvent);
-    // [StartExclude register_query_member_purchase]
-    // [EndExclude register_query_custom_content]
     this.template?.onQueryCustomContent(this.queryCustomContentEvent);
-    // [StartExclude register_query_custom_content]
-    // [EndExclude register_download_media_entity]
     this.template?.onDownloadMediaEntity(this.downloadMediaEntityEvent);
-    // [StartExclude register_download_media_entity]
-    // [EndExclude register_settings_change]
     this.template?.onSettingsChange(this.settingsChangeEvent);
-    // [StartExclude register_settings_change]
-    // [EndExclude register_problem_and_advice]
     this.template?.onProblemAndAdvice(this.problemAndAdviceEvent);
-    // [StartExclude register_problem_and_advice]
-    // [EndExclude register_play_for_search]
     this.template?.onPlayForSearch(this.playForSearchEvent);
-    // [StartExclude register_play_for_search]
-    // [EndExclude register_execute_action]
     this.template?.onExecuteAction(this.executeActionEvent);
-    // [StartExclude register_execute_action]
-    // [EndExclude register_play_media_entity]
     this.template?.onPlayMediaEntity(this.playMediaEntityEvent);
-    // [StartExclude register_play_media_entity]
-    // [EndExclude register_favorite_media_entity]
     this.template?.onFavoriteMediaEntity(this.favoriteMediaEntityEvent);
     // [EndExclude template_register_listener]
-    // [EndExclude register_query_main_tabs]
-    // [EndExclude register_query_media_tab_content]
-    // [EndExclude register_query_media_entity]
-    // [EndExclude register_query_compilation]
-    // [EndExclude register_query_play_list]
-    // [EndExclude register_query_current_single]
-    // [EndExclude register_query_compilation_by_keyword]
-    // [EndExclude register_query_media_entity_by_keyword]
-    // [EndExclude register_query_recommend_media_entity_list]
-    // [EndExclude register_query_hot_words]
-    // [EndExclude register_query_search_history]
-    // [EndExclude register_clear_search_history]
-    // [EndExclude register_on_login]
-    // [EndExclude register_request_dialog_info]
-    // [EndExclude register_handle_member_purchase]
-    // [EndExclude register_query_member_purchase]
-    // [EndExclude register_query_custom_content]
-    // [EndExclude register_download_media_entity]
-    // [EndExclude register_settings_change]
-    // [EndExclude register_problem_and_advice]
-    // [EndExclude register_play_for_search]
-    // [EndExclude register_execute_action]
-    // [EndExclude register_play_media_entity]
   };
-  // [EndExclude destroy]
+  // [EndExclude unregister_listener]
 
   // [StartExclude template_register_listener]
-  // [EndExclude unregister_listener]
   /**
    * 注销监听。
    */
   public unregisterListener() {
-    // [StartExclude register_query_media_tab_content]
-    // [StartExclude register_query_media_entity]
-    // [StartExclude register_query_compilation]
-    // [StartExclude register_query_play_list]
-    // [StartExclude register_query_current_single]
-    // [StartExclude register_query_compilation_by_keyword]
-    // [StartExclude register_query_media_entity_by_keyword]
-    // [StartExclude register_query_recommend_media_entity_list]
-    // [StartExclude register_query_hot_words]
-    // [StartExclude register_query_search_history]
-    // [StartExclude register_clear_search_history]
-    // [StartExclude register_on_login]
-    // [StartExclude register_request_dialog_info]
-    // [StartExclude register_handle_member_purchase]
-    // [StartExclude register_query_member_purchase]
-    // [StartExclude register_query_custom_content]
-    // [StartExclude register_download_media_entity]
-    // [StartExclude register_settings_change]
-    // [StartExclude register_problem_and_advice]
-    // [StartExclude register_play_for_search]
-    // [StartExclude register_execute_action]
-    // [StartExclude register_play_media_entity]
-    // [StartExclude register_favorite_media_entity]
-    // [StartExclude destroy]
     this.template?.offQueryMainTabs();
-    // [EndExclude register_query_media_tab_content]
-    // [StartExclude register_query_main_tabs]
     this.template?.offQueryMediaTabContent();
-    // [StartExclude register_query_media_tab_content]
-    // [EndExclude register_query_media_entity]
     this.template?.offQueryMediaEntity();
-    // [StartExclude register_query_media_entity]
-    // [EndExclude register_query_compilation]
     this.template?.offQueryCompilation();
-    // [StartExclude register_query_compilation]
-    // [EndExclude register_query_play_list]
     this.template?.offQueryPlaylist();
-    // [StartExclude register_query_play_list]
-    // [EndExclude register_query_current_single]
     this.template?.offQueryCurrentSingle();
-    // [StartExclude register_query_current_single]
-    // [EndExclude register_query_compilation_by_keyword]
     this.template?.offQueryCompilationByKeyword();
-    // [StartExclude register_query_compilation_by_keyword]
-    // [EndExclude register_query_media_entity_by_keyword]
     this.template?.offQueryMediaEntityByKeyword();
-    // [StartExclude register_query_media_entity_by_keyword]
-    // [EndExclude register_query_recommend_media_entity_list]
     this.template?.offQueryRecommendMediaEntityList();
-    // [StartExclude register_query_recommend_media_entity_list]
-    // [EndExclude register_query_hot_words]
     this.template?.offQueryHotWords();
-    // [StartExclude register_query_hot_words]
-    // [EndExclude register_query_search_history]
     this.template?.offQuerySearchHistory();
-    // [StartExclude register_query_search_history]
-    // [EndExclude register_clear_search_history]
     this.template?.offClearSearchHistory();
-    // [StartExclude register_clear_search_history]
-    // [EndExclude register_on_login]
     this.template?.offLogin();
-    // [StartExclude register_on_login]
-    // [EndExclude register_request_dialog_info]
     this.template?.offRequestDialogInfo();
-    // [StartExclude register_request_dialog_info]
-    // [EndExclude register_handle_member_purchase]
     this.template?.offHandleMemberPurchase();
-    // [StartExclude register_handle_member_purchase]
-    // [EndExclude register_query_member_purchase]
     this.template?.offQueryMemberPurchase();
-    // [StartExclude register_query_member_purchase]
-    // [EndExclude register_query_custom_content]
     this.template?.offQueryCustomContent();
-    // [StartExclude register_query_custom_content]
-    // [EndExclude register_download_media_entity]
     this.template?.offDownloadMediaEntity();
-    // [StartExclude register_download_media_entity]
-    // [EndExclude register_settings_change]
     this.template?.offSettingsChange();
-    // [StartExclude register_settings_change]
-    // [EndExclude register_problem_and_advice]
     this.template?.offProblemAndAdvice();
-    // [StartExclude register_problem_and_advice]
-    // [EndExclude register_play_for_search]
     this.template?.offPlayForSearch();
-    // [StartExclude register_play_for_search]
-    // [EndExclude register_execute_action]
     this.template?.offExecuteAction();
-    // [StartExclude register_execute_action]
-    // [EndExclude register_play_media_entity]
     this.template?.offPlayMediaEntity();
-    // [StartExclude register_play_media_entity]
-    // [EndExclude register_favorite_media_entity]
     this.template?.offFavoriteMediaEntity();
-    // [StartExclude register_favorite_media_entity]
-    // [EndExclude destroy]
     this.template?.destroy();
     this.template = undefined;
-    // [EndExclude register_query_main_tabs]
-    // [EndExclude register_query_media_tab_content]
-    // [EndExclude register_query_media_entity]
-    // [EndExclude register_query_compilation]
-    // [EndExclude register_query_play_list]
-    // [EndExclude register_query_current_single]
-    // [EndExclude register_query_compilation_by_keyword]
-    // [EndExclude register_query_media_entity_by_keyword]
-    // [EndExclude register_query_recommend_media_entity_list]
-    // [EndExclude register_query_hot_words]
-    // [EndExclude register_query_search_history]
-    // [EndExclude register_clear_search_history]
-    // [EndExclude register_on_login]
-    // [EndExclude register_request_dialog_info]
-    // [EndExclude register_handle_member_purchase]
-    // [EndExclude register_query_member_purchase]
-    // [EndExclude register_query_custom_content]
-    // [EndExclude register_download_media_entity]
-    // [EndExclude register_settings_change]
-    // [EndExclude register_problem_and_advice]
-    // [EndExclude register_play_for_search]
-    // [EndExclude register_execute_action]
-    // [EndExclude register_play_media_entity]
-    // [EndExclude register_favorite_media_entity]
   };
   // [StartExclude unregister_listener]
-  // [EndExclude start_template]
-  // [StartExclude register_query_hot_words]
-  // [StartExclude register_query_search_history]
-  // [StartExclude register_execute_action]
-  // [StartExclude register_play_media_entity]
-  // [StartExclude destroy]
 
-  // [StartExclude register_query_main_tabs]
-  // [StartExclude register_query_media_tab_content]
-  // [StartExclude register_query_media_entity]
-  // [StartExclude register_query_compilation]
-  // [StartExclude register_query_play_list]
-  // [StartExclude register_query_current_single]
-  // [StartExclude register_query_compilation_by_keyword]
-  // [StartExclude register_query_media_entity_by_keyword]
-  // [StartExclude register_query_recommend_media_entity_list]
-  // [StartExclude register_clear_search_history]
-  // [StartExclude register_on_login]
-  // [StartExclude register_request_dialog_info]
-  // [StartExclude register_handle_member_purchase]
-  // [StartExclude register_query_member_purchase]
-  // [StartExclude register_query_custom_content]
-  // [StartExclude register_download_media_entity]
-  // [StartExclude register_settings_change]
-  // [StartExclude register_problem_and_advice]
-  // [StartExclude register_play_for_search]
-  // [StartExclude register_favorite_media_entity]
   /**
    * 模拟开启模板。
    */
   public startTemplate() {
     this.template?.startTemplate();
   }
-  // [StartExclude start_template]
   // [EndExclude set_user_info]
 
   /**
@@ -816,7 +289,6 @@ export class TemplateManager {
     this.template?.setUserInfo(userInfo);
   };
   // [StartExclude set_user_info]
-  // [EndExclude set_dialog_command]
 
   /**
    * 对话框相关的操作，如：打开，关闭。
@@ -839,16 +311,12 @@ export class TemplateManager {
     };
     this.template?.setDialogCommand(type, dialogInfo);
   };
-  // [StartExclude set_dialog_command]
-  // [EndExclude set_current_single]
 
   public async setCurrentSingle() {
     let single: avMusicTemplate.Single = await this.createCurrentSingle()
     this.template?.setCurrentSingle(single);
   };
-  // [EndExclude set_media_entities]
 
-  // [StartExclude set_current_single]
   /**
    * 媒体播放后信息后，如：歌单的播放状态。
    */
@@ -864,8 +332,6 @@ export class TemplateManager {
     }];
     this.template?.setMediaEntities(mediaEntities);
   };
-  // [StartExclude set_media_entities]
-  // [EndExclude set_tab_content]
 
   /**
    * 某个tab页签下的内容发生变化后通知界面刷新。
@@ -898,8 +364,6 @@ export class TemplateManager {
     }
     this.template?.setTabContent('tabId', mediaTabContent);
   };
-  // [StartExclude set_tab_content]
-  // [EndExclude set_play_list]
 
   /**
    * 播放列表发送变化后通知界面刷新。
@@ -926,18 +390,14 @@ export class TemplateManager {
     }
     this.template?.setPlaylist(pageMediaEntity);
   };
-  // [StartExclude set_play_list]
 
-  // [EndExclude register_download_media_entity]
   /**
    * 下载状态，进度刷新。
    */
   public setDownloadMediaEntityStatus(mediaEntity: avMusicTemplate.MediaEntity) {
     this.template?.setDownloadMediaEntityStatus(mediaEntity);
   };
-  // [EndExclude set_custom_elements]
 
-  // [StartExclude register_download_media_entity]
   /**
    * 自定义数据发生变化后通知。
    */
@@ -968,8 +428,6 @@ export class TemplateManager {
     }
     this.template?.setCustomElements('add', 'COMPILATION', customElement);
   };
-  // [StartExclude set_custom_elements]
-  // [EndExclude set_settings]
 
   /**
    * 设置项变化后通知。
@@ -985,8 +443,6 @@ export class TemplateManager {
     }];
     this.template?.setSettings(settingItems);
   };
-  // [StartExclude set_settings]
-  // [EndExclude report_execute_action]
 
   /**
    * 模拟向媒体中心同步执行操作信息。
@@ -996,8 +452,6 @@ export class TemplateManager {
     let params: string = 'params';
     this.template?.reportExecuteAction(actionType, params);
   };
-  // [StartExclude report_execute_action]
-  // [EndExclude set_extension_ability]
 
   /**
    * 媒体应用需要拉起应用的自定义界面时调用。
@@ -1023,10 +477,8 @@ export class TemplateManager {
       console.error(`getWantAgent, errCode: ${e?.code}`);
     })
   };
-  // [StartExclude set_extension_ability]
 
   // [EndExclude template_register_listener]
-  // [EndExclude register_query_main_tabs]
   /**
    * 模拟获取主界面的所有TAB。
    *
@@ -1044,9 +496,7 @@ export class TemplateManager {
     let mainTabs: avMusicTemplate.MediaTab[] = [homeTab, mineTab];
     return mainTabs;
   };
-  // [StartExclude register_query_main_tabs]
 
-  // [EndExclude register_query_media_tab_content]
   /**
    * 模拟获取TAB内容。
    *
@@ -1082,11 +532,6 @@ export class TemplateManager {
     return compilation;
   };
 
-  // [EndExclude register_query_media_entity]
-  // [EndExclude register_query_compilation]
-  // [EndExclude register_query_play_list]
-  // [EndExclude register_query_media_entity_by_keyword]
-  // [EndExclude register_query_recommend_media_entity_list]
   /**
    * 模拟获取媒体数据。
    *
@@ -1104,11 +549,8 @@ export class TemplateManager {
     };
     return mediaEntity;
   };
-  // [StartExclude template_register_listener]
-  // [StartExclude register_query_media_tab_content]
-  // [StartExclude register_query_compilation_by_keyword]
-  // [StartExclude register_query_recommend_media_entity_list]
 
+  // [StartExclude template_register_listener]
   /**
    * 模拟获取PageMediaEntity。
    *
@@ -1127,13 +569,7 @@ export class TemplateManager {
     }
     return pageMediaEntity;
   };
-  // [StartExclude register_query_media_entity]
-  // [StartExclude register_query_compilation]
-  // [StartExclude register_query_play_list]
-  // [StartExclude register_query_media_entity_by_keyword]
 
-  // [EndExclude register_query_current_single]
-  // [EndExclude set_current_single]
   /**
    * 模拟获取当前单曲。
    *
@@ -1182,14 +618,7 @@ export class TemplateManager {
     }
     return single;
   };
-  // [StartExclude register_query_current_single]
-  // [StartExclude set_current_single]
 
-  // [EndExclude register_clear_search_history]
-  // [EndExclude register_download_media_entity]
-  // [EndExclude register_problem_and_advice]
-  // [EndExclude register_play_for_search]
-  // [EndExclude register_favorite_media_entity]
   /**
    * 模拟操作结果。
    *
@@ -1201,13 +630,7 @@ export class TemplateManager {
     }
     return operResult;
   };
-  // [StartExclude register_clear_search_history]
-  // [StartExclude register_problem_and_advice]
-  // [StartExclude register_play_for_search]
-  // [StartExclude register_favorite_media_entity]
 
-  // [StartExclude register_download_media_entity]
-  // [EndExclude register_on_login]
   /**
    * 模拟创建二维码信息数组。
    *
@@ -1225,10 +648,7 @@ export class TemplateManager {
     };
     return qrCodeInfo;
   };
-  // [StartExclude register_on_login]
 
-  // [EndExclude register_request_dialog_info]
-  // [EndExclude register_handle_member_purchase]
   /**
    * 模拟对话框信息。
    *
@@ -1252,10 +672,7 @@ export class TemplateManager {
     };
     return dialogInfo;
   };
-  // [StartExclude register_request_dialog_info]
-  // [StartExclude register_handle_member_purchase]
 
-  // [EndExclude register_query_member_purchase]
   /**
    * 模拟查询会员购买信息。
    *
@@ -1270,9 +687,7 @@ export class TemplateManager {
     };
     return memberPurchaseInfo;
   };
-  // [StartExclude register_query_member_purchase]
 
-  // [EndExclude register_query_custom_content]
   /**
    * 模拟获取自定义内容。
    *
@@ -1304,9 +719,7 @@ export class TemplateManager {
     };
     return customElement;
   };
-  // [StartExclude register_query_custom_content]
 
-  // [EndExclude register_download_media_entity]
   /**
    * 模拟下载过程。
    *
@@ -1316,9 +729,7 @@ export class TemplateManager {
     // 下载完成之后。
     this.setDownloadMediaEntityStatus(mediaEntity);
   };
-  // [StartExclude register_download_media_entity]
 
-  // [EndExclude register_settings_change]
   /**
    * 模拟设置改变。
    *
@@ -1335,81 +746,33 @@ export class TemplateManager {
     }
     return setting;
   };
-  // [EndExclude manager_create_template]
+
+  private async handlePromiseArrayReturnFunc<T>(func: () => Promise<T>, errFunc: string): Promise<T[]> {
+    try {
+      let t: T = await func();
+      return [t];
+    } catch (e) {
+      const msg = `Failed to ${errFunc}. Code: ${e?.code}`;
+      console.error(msg);
+      throw e instanceof Error ? e : new Error(e?.message ?? msg);
+    }
+  }
+
   // [EndExclude template_register_listener]
+  private async handlePromiseReturnFunc<T>(func: () => Promise<T>, errFunc: string): Promise<T> {
+    try {
+      return await func();
+    } catch (e) {
+      const msg = `Failed to ${errFunc}. Code: ${e?.code}`;
+      console.error(msg);
+      throw e instanceof Error ? e : new Error(e?.message ?? msg);
+    }
+  }
+  // [EndExclude manager_create_template]
   // [EndExclude set_user_info]
   // [EndExclude unregister_listener]
-  // [EndExclude start_template]
-  // [EndExclude register_query_main_tabs]
-  // [EndExclude register_query_media_tab_content]
-  // [EndExclude register_query_media_entity]
-  // [EndExclude register_query_compilation]
-  // [EndExclude register_query_play_list]
-  // [EndExclude register_query_current_single]
-  // [EndExclude register_query_compilation_by_keyword]
-  // [EndExclude register_query_media_entity_by_keyword]
-  // [EndExclude register_query_recommend_media_entity_list]
-  // [EndExclude register_query_hot_words]
-  // [EndExclude register_query_search_history]
-  // [EndExclude register_clear_search_history]
-  // [EndExclude register_on_login]
-  // [EndExclude register_request_dialog_info]
-  // [EndExclude register_handle_member_purchase]
-  // [EndExclude register_query_member_purchase]
-  // [EndExclude register_query_custom_content]
-  // [EndExclude register_download_media_entity]
-  // [EndExclude register_problem_and_advice]
-  // [EndExclude register_play_for_search]
-  // [EndExclude register_execute_action]
-  // [EndExclude register_play_media_entity]
-  // [EndExclude register_favorite_media_entity]
-  // [EndExclude set_dialog_command]
-  // [EndExclude set_current_single]
-  // [EndExclude set_media_entities]
-  // [EndExclude set_tab_content]
-  // [EndExclude set_play_list]
-  // [EndExclude set_custom_elements]
-  // [EndExclude set_settings]
-  // [EndExclude report_execute_action]
-  // [EndExclude set_extension_ability]
-  // [EndExclude destroy]
 }
 // [End manager_create_template]
 // [End template_register_listener]
 // [End set_user_info]
 // [End unregister_listener]
-// [End start_template]
-// [End register_query_main_tabs]
-// [End register_query_media_tab_content]
-// [End register_query_media_entity]
-// [End register_query_compilation]
-// [End register_query_play_list]
-// [End register_query_current_single]
-// [End register_query_compilation_by_keyword]
-// [End register_query_media_entity_by_keyword]
-// [End register_query_recommend_media_entity_list]
-// [End register_query_hot_words]
-// [End register_query_search_history]
-// [End register_clear_search_history]
-// [End register_on_login]
-// [End register_request_dialog_info]
-// [End register_handle_member_purchase]
-// [End register_query_member_purchase]
-// [End register_query_custom_content]
-// [End register_download_media_entity]
-// [End register_settings_change]
-// [End register_problem_and_advice]
-// [End register_play_for_search]
-// [End register_execute_action]
-// [End register_play_media_entity]
-// [End register_favorite_media_entity]
-// [End set_dialog_command]
-// [End set_current_single]
-// [End set_media_entities]
-// [End set_tab_content]
-// [End set_play_list]
-// [End set_custom_elements]
-// [End set_settings]
-// [End report_execute_action]
-// [End set_extension_ability]
-// [End destroy]
