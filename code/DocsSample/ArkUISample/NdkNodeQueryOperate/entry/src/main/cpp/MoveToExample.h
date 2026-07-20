@@ -129,12 +129,16 @@ std::shared_ptr<ArkUIBaseNode> CreateMoveToExample()
 
     // 注册事件
     auto onClick = [](ArkUI_NodeEvent *event) {
-        ArkUI_NodeHandle node = OH_ArkUI_NodeEvent_GetNodeHandle(event);
         auto nodeAPI = NativeModuleInstance::GetInstance()->GetNativeNodeAPI();
-        
+
         if (OH_ArkUI_NodeEvent_GetTargetId(event) == 0) {  // MoveTo
+            ArkUI_NodeHandle eventNode = OH_ArkUI_NodeEvent_GetNodeHandle(event);
             A* a = (A*)OH_ArkUI_NodeEvent_GetUserData(event);
-            auto res = OH_ArkUI_NodeUtils_MoveTo(a->node, a->targetParent, 2);
+            if (a != nullptr) {
+                OH_ArkUI_NodeUtils_MoveTo(a->node, a->targetParent, 2);
+                nodeAPI->unregisterNodeEvent(eventNode, NODE_ON_CLICK);
+                delete a;
+            }
         }
     };
     nodeAPI->registerNodeEventReceiver(onClick);
@@ -156,5 +160,5 @@ std::shared_ptr<ArkUIBaseNode> CreateMoveToExample()
 }
 } // namespace NativeModule
 
-#endif //MYAPPLICATION_MOVETO_H
+#endif // MYAPPLICATION_MOVETO_H
 // [End ndknodequeryoperate5_start]
