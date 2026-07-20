@@ -939,8 +939,7 @@ static napi_value StartScreenCapture_04(napi_env env, napi_callback_info info)
     AbilityRuntime_ErrorCode resultWindow = OH_AbilityRuntime_ApplicationContextGetFilesDir(fileDirPath,
         bufferSize, &writeLength);
     if (resultWindow != ABILITY_RUNTIME_ERROR_CODE_NO_ERROR) {
-        OH_LOG_ERROR(LOG_APP,
-            "==ScreenCaptureSample== ScreenCapture getFileDirPath failed %{public}d", resultWindow);
+        OH_LOG_ERROR(LOG_APP, "==ScreenCaptureSample== ScreenCapture getFileDirPath failed %{public}d", resultWindow);
     }
     const std::string filePath = fileDirPath;
     OH_RecorderInfo recorderInfo;
@@ -954,7 +953,6 @@ static napi_value StartScreenCapture_04(napi_env env, napi_callback_info info)
     
     // 设置录屏模式为OH_CAPTURE_SPECIFIED_WINDOW。
     config_.captureMode = OH_CAPTURE_SPECIFIED_WINDOW;
-    config_.dataType = OH_CAPTURE_FILE;
 
     // [Start screenCapture_createCaptureStrategy]
     // 通过弹出屏幕捕获Picker列表方式，选择已打开的应用窗口进行窗口级录屏。
