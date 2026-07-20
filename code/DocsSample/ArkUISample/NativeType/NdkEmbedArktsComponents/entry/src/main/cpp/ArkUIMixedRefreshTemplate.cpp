@@ -25,7 +25,7 @@ napi_ref g_createRefresh;
 napi_ref g_updateRefresh;
 } // namespace
 
-napi_value ArkUIMixedRefresh::RegisterCreateAndUpdateRefresh(napi_env env, napi_callback_info info)
+napi_value ArkUIMixedRefresh::RegisterCreateRefresh(napi_env env, napi_callback_info info)
 {
     size_t argc = 1;
     napi_value args[1] = {nullptr};

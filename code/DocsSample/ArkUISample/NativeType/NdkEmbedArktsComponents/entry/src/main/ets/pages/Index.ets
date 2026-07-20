@@ -27,7 +27,7 @@ struct Index {
   aboutToAppear(): void {
     // 设置uiContext;
     AppStorage.setOrCreate<UIContext>('context', this.getUIContext());
-    // 设置混合模式下的builder函数。
+    // 设置混合模式下的创建和更新函数。
     nativeNode.registerCreateMixedRefreshNode(createMixedRefresh);
     nativeNode.registerUpdateMixedRefreshNode(updateMixedRefresh);
   }

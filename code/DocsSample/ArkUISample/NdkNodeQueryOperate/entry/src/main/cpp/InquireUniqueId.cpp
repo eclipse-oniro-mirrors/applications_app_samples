@@ -37,16 +37,16 @@ const unsigned int VALUE_3 = 50;
         struct IdList {
             int32_t id = -1;
         };
-        IdList *idl = new IdList;
+        static IdList idl;
         int32_t uid = -1;
         OH_ArkUI_NodeUtils_GetNodeUniqueId(testNode, &uid);
-        idl->id = uid;
+        idl.id = uid;
         auto button = nodeAPI->createNode(ARKUI_NODE_BUTTON);
         value[0].f32 = VALUE_3;
         nodeAPI->setAttribute(button, NODE_WIDTH, &item);
         nodeAPI->setAttribute(button, NODE_HEIGHT, &item);
         nodeAPI->addChild(testNode, button);
-        nodeAPI->registerNodeEvent(button, NODE_ON_CLICK, 1, idl);
+        nodeAPI->registerNodeEvent(button, NODE_ON_CLICK, 1, &idl);
         OH_LOG_Print(LOG_APP, LOG_WARN, LOG_PRINT, "GetNodeUniqueId", "GetNodeHandleByUniqueId success1");
         nodeAPI->registerNodeEventReceiver([](ArkUI_NodeEvent *event) {
             auto targetId = OH_ArkUI_NodeEvent_GetTargetId(event);

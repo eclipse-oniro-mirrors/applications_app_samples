@@ -15,8 +15,8 @@
 
 // [Start Common_Utils]
 // common/Utils.ets
-import hilog from '@ohos.hilog';
-import { UIContext } from '@ohos.arkui';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { UIContext } from '@kit.ArkUI';
 
 export function GetUIContextByAtomicInterface(): UIContext {
   let callingScopeUIContext = UIContext.getCallingScopeUIContext();
