@@ -46,21 +46,21 @@ let messageCallback: conversation.DataCallback = (deviceId: string, msg: ArrayBu
 struct Index {
   // 权限申请
   requesPermission(): void {
-      let permissions: Permissions[] = [
-          'ohos.permission.DISTRIBUTED_DATASYNC',
-          'ohos.permission.sec.ACCESS_UDID'
-          ];
-      let context: Context = getContext(this);
-      let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
-      atManager.requestPermissionsFromUser(context, permissions).then((data) => {
-        let grantStatus: number[] = data.authResults;
-        let length: number = grantStatus.length;
-        for (let i = 0; i < length; i++) {
-          if (grantStatus[i] === 0) {
-            hilog.info(DOMAIN, TAG, 'Permission %{public}s granted', permissions[i]);
-          } else {
-            hilog.info(DOMAIN, TAG, 'Permission %{public}s denied', permissions[i]);
-          }
+    let permissions: Permissions[] = [
+      'ohos.permission.DISTRIBUTED_DATASYNC',
+      'ohos.permission.sec.ACCESS_UDID'
+    ];
+    let context: Context = getContext(this);
+    let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
+    atManager.requestPermissionsFromUser(context, permissions).then((data) => {
+      let grantStatus: number[] = data.authResults;
+      let length: number = grantStatus.length;
+      for (let i = 0; i < length; i++) {
+        if (grantStatus[i] === 0) {
+          hilog.info(DOMAIN, TAG, 'Permission %{public}s granted', permissions[i]);
+        } else {
+          hilog.info(DOMAIN, TAG, 'Permission %{public}s denied', permissions[i]);
+        }
       }
     }).catch((err: BusinessError) => {
       hilog.error(DOMAIN, TAG, 'Request permission Failed: %{public}s', JSON.stringify(err));
@@ -80,11 +80,11 @@ struct Index {
       let devices = conversation.getTrustedDevices() as conversation.DeviceNodeInfo[];
       if (devices && devices.length > 0) {
           let deviceInfo = devices.map((d, idx) =>
-          `${idx + 1}. ${d.deviceName} (${d.networkId}) - Type:${d.deviceTypeId} - Nearby:${d.nearby}`
-        ).join('\n');
+            `${idx + 1}. ${d.deviceName} (${d.networkId}) - Type:${d.deviceTypeId} - Nearby:${d.nearby}`
+          ).join('\n');
           hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
           hilog.info(DOMAIN, TAG, 'Devices list: \n %{public}s', deviceInfo);
-        } else {
+      } else {
           hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
       }
     } catch (err) {
@@ -174,12 +174,12 @@ struct Index {
         .justifyContent(FlexAlign.SpaceBetween)
         .margin({ bottom: 20})
   
-        Button('Send Message')
-          .onClick(() => this.sendMessage())
-          .margin({ bottom: 20})
-          .width('100%')
-          .height(40)
-      }
+      Button('Send Message')
+        .onClick(() => this.sendMessage())
+        .margin({ bottom: 20})
+        .width('100%')
+        .height(40)
+    }
     .width('100%')
     .height('100%')
     .padding(20)
