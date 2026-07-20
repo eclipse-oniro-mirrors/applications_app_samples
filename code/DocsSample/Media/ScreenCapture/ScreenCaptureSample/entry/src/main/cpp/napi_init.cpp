@@ -393,7 +393,7 @@ void SetConfig03(OH_AVScreenCaptureConfig &config)
 
     config = {
         .captureMode = OH_CAPTURE_HOME_SCREEN,
-        .dataType = OH_ORIGINAL_STREAM, // 录屏数据类型，文件。
+        .dataType = OH_ORIGINAL_STREAM, // 录屏数据类型，原始码流。
         .audioInfo = audioInfo,
         .videoInfo = videoInfo
     };
