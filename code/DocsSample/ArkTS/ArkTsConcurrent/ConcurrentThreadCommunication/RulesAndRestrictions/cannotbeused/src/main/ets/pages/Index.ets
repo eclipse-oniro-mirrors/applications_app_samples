@@ -20,6 +20,7 @@
 class A {
   num: number = 1;
 }
+// [End counter_example]
 
 // 反例：
 // @Sendable
@@ -27,7 +28,6 @@ class A {
 // class C {
 //   num: number = 1;
 // }
-// [End counter_example]
 
 @Entry
 @Component
