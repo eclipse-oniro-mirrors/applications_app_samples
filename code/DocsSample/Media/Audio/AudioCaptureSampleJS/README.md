@@ -2,7 +2,7 @@
 
 ## 介绍
 
-本示例基于AudioRender、AudioCapturer、AVPlayer以及CallServiceKit等能力，实现了音频录制、管理麦克风、音频录制流管理以及音频低时延耳返等功能，包含了功能调用接口的完整链路。
+本示例基于AudioRender、AudioCapturer、AVPlayer以及CallServiceKit等能力，实现了音频录制、音频内录、管理麦克风、音频录制流管理以及音频低时延耳返等功能，包含了功能调用接口的完整链路。
 
 ## 效果图预览
 
@@ -44,6 +44,12 @@
 
   <img src='screenshots/loopback.png' width=320> 
 
+**音频内录页**
+
+- 点击'启动音频内录'按钮，通过`AudioCapturerOptions.playbackCaptureMode`配置`MODE_MEDIA | MODE_EXCLUDING_SELF`内录模式，并调用`requestPlaybackCaptureStart`请求启动内录。
+- 点击'查询音频内录状态'按钮，可查看启动回调状态和已读取的PCM数据字节数。
+- 点击'停止音频内录'按钮，停止内录并释放AudioCapturer资源。
+
 ## 工程结构&模块类型
 
 ```
@@ -54,6 +60,7 @@
 │   │   └───AudioLoopback.ets               // 实现音频低时延耳返页。
 │   │   └───MacManager.ets                  // 音频录制流管理页。
 │   │   └───AudioStreamManager.ets          // 管理麦克风页。
+│   │   └───PlaybackCapture.ets              // 音频内录页。
 └───entry/src/main/resources                // 资源目录。
 ```
 
@@ -101,9 +108,21 @@
   - 点击'查询均衡器类型'按钮，调用`audioLoopback.getEqualizerPreset`来获取当前流音频返听的均衡器类型。
   - 点击'启用音频返听'按钮，调用`audioLoopback.enable`，配置参数为true，将当前流音频返听状态设置为启用。
   - 点击'禁用音频返听'按钮，调用`audioLoopback.enable`，配置参数为false，将当前流音频返听状态设置为禁用。
+
+### 使用AudioCapturer采集内录音频
+- 源码参考：[PlaybackCapture.ets](entry/src/main/ets/pages/PlaybackCapture.ets)
+- 使用流程：
+  - 点击'启动音频内录'按钮，配置采样率、声道数、采样格式和编码格式，并通过`AudioCapturerOptions.playbackCaptureMode`将内录模式设为`MODE_MEDIA | MODE_EXCLUDING_SELF`。该模式采集媒体类音频并排除应用自身播放的音频。
+  - 调用`audio.createAudioCapturer`创建实例并订阅`readData`回调，再调用`requestPlaybackCaptureStart`异步请求启动内录。启动结果为`STATE_SUCCESS`、`STATE_FAILED`或`STATE_NOT_AUTHORIZED`，示例以回调状态作为最终结果。
+  - 点击'查询音频内录状态'按钮查看当前状态和已接收的PCM数据字节数；点击'停止音频内录'按钮注销监听、停止采集并释放实例。
+  - 内录流必须通过`requestPlaybackCaptureStart`启动，不能调用普通`start`接口。目标播放流标记为隐私保护时不会被采集。
 ## 相关权限
 
 麦克风使用权限：ohos.permission.MICROPHONE
+
+音频内录启动时由系统进行用户授权检查，授权结果通过`requestPlaybackCaptureStart`回调返回。
+
+不同设备形态的授权弹窗表现可能存在差异，请以实际设备表现为准。
 
 ## 模块依赖
 

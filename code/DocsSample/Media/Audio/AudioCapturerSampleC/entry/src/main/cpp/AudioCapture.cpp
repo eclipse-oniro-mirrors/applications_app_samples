@@ -14,13 +14,56 @@
 */
 
 #include "napi/native_api.h"
+#include <hilog/log.h>
 #include "ohaudio/native_audiorenderer.h"
 // [Start header_file]
 #include <ohaudio/native_audiocapturer.h>
 #include <ohaudio/native_audiostreambuilder.h>
 // [End header_file]
-#include <sstream>
+#include <atomic>
+#include <cstdint>
 #include <cstring>
+#include <mutex>
+#include <sstream>
+#include <string>
+
+extern "C" OH_AudioStream_Result OH_AudioStreamBuilder_SetCapturerLoopbackEffectEnabled(
+    OH_AudioStreamBuilder* builder, bool enabled) __attribute__((weak));
+
+namespace {
+constexpr int32_t PLAYBACK_CAPTURE_SAMPLE_RATE = 48000;
+constexpr int32_t PLAYBACK_CAPTURE_CHANNEL_COUNT = 2;
+constexpr uint32_t PLAYBACK_CAPTURE_MODE = AUDIOSTREAM_PLAYBACKCAPTURE_MODE_MEDIA |
+    AUDIOSTREAM_PLAYBACKCAPTURE_MODE_EXCLUDING_SELF;
+constexpr unsigned int AUDIO_CAPTURE_LOG_DOMAIN = 0xF811;
+constexpr const char* AUDIO_CAPTURE_LOG_TAG = "AudioCaptureDemo";
+
+std::mutex g_playbackCaptureMutex;
+OH_AudioCapturer* g_playbackCaptureCapturer = nullptr;
+std::atomic<int32_t> g_playbackCaptureStartState{-1};
+std::atomic<uint64_t> g_playbackCaptureReadBytes{0};
+
+napi_value CreateStringResult(napi_env env, const std::string& message)
+{
+    napi_value retVal;
+    napi_create_string_utf8(env, message.c_str(), NAPI_AUTO_LENGTH, &retVal);
+    return retVal;
+}
+
+const char* PlaybackCaptureStateToText(int32_t state)
+{
+    switch (state) {
+        case AUDIOSTREAM_PLAYBACKCAPTURE_START_STATE_SUCCESS:
+            return "SUCCESS";
+        case AUDIOSTREAM_PLAYBACKCAPTURE_START_STATE_FAILED:
+            return "FAILED";
+        case AUDIOSTREAM_PLAYBACKCAPTURE_START_STATE_NOT_AUTHORIZED:
+            return "NOT_AUTHORIZED";
+        default:
+            return "WAITING";
+    }
+}
+} // namespace
 
 // [Start Set_AudioCallbackFunction]
 void MyOnReadData_NewAPI(
@@ -47,6 +90,45 @@ void MyOnError_NewAPI(
     OH_AudioStream_Result error)
 {
     // 根据error表示的音频异常信息，做出相应的处理。
+}
+
+void MyOnPlaybackCaptureReadData(
+    OH_AudioCapturer* capturer,
+    void* userData,
+    void* audioData,
+    int32_t audioDataSize)
+{
+    if (audioData == nullptr || audioDataSize <= 0) {
+        return;
+    }
+    g_playbackCaptureReadBytes.fetch_add(static_cast<uint64_t>(audioDataSize));
+}
+
+void MyOnPlaybackCaptureStart(
+    OH_AudioCapturer* capturer,
+    void* userData,
+    OH_AudioStream_PlaybackCaptureStartState state)
+{
+    int32_t stateValue = static_cast<int32_t>(state);
+    g_playbackCaptureStartState.store(stateValue);
+    OH_LOG_Print(LOG_APP, LOG_INFO, AUDIO_CAPTURE_LOG_DOMAIN, AUDIO_CAPTURE_LOG_TAG,
+        "Playback capture start callback state=%{public}d", stateValue);
+
+    if (state == AUDIOSTREAM_PLAYBACKCAPTURE_START_STATE_SUCCESS) {
+        return;
+    }
+
+    OH_AudioCapturer* capturerToRelease = nullptr;
+    {
+        std::lock_guard<std::mutex> lock(g_playbackCaptureMutex);
+        if (g_playbackCaptureCapturer == capturer) {
+            capturerToRelease = g_playbackCaptureCapturer;
+            g_playbackCaptureCapturer = nullptr;
+        }
+    }
+    if (capturerToRelease != nullptr) {
+        OH_AudioCapturer_Release(capturerToRelease);
+    }
 }
 // [StartExclude Set_AudioCallbackFunction]
 
@@ -503,6 +585,170 @@ napi_value SetAudioCapturerMuteHint(napi_env env, napi_callback_info info)
     return retVal;
 }
 
+bool ConfigurePlaybackCaptureBuilder(OH_AudioStreamBuilder* builder, std::stringstream& ss)
+{
+    OH_AudioStream_Result samplingRateResult =
+        OH_AudioStreamBuilder_SetSamplingRate(builder, PLAYBACK_CAPTURE_SAMPLE_RATE);
+    OH_AudioStream_Result channelCountResult =
+        OH_AudioStreamBuilder_SetChannelCount(builder, PLAYBACK_CAPTURE_CHANNEL_COUNT);
+    OH_AudioStream_Result sampleFormatResult =
+        OH_AudioStreamBuilder_SetSampleFormat(builder, AUDIOSTREAM_SAMPLE_S16LE);
+    OH_AudioStream_Result encodingTypeResult =
+        OH_AudioStreamBuilder_SetEncodingType(builder, AUDIOSTREAM_ENCODING_TYPE_RAW);
+    OH_AudioStream_Result callbackResult =
+        OH_AudioStreamBuilder_SetCapturerReadDataCallback(builder, MyOnPlaybackCaptureReadData, nullptr);
+
+    // [Start SetPlaybackCaptureMode]
+    OH_AudioStream_Result playbackCaptureModeResult =
+        OH_AudioStreamBuilder_SetPlaybackCaptureMode(builder, PLAYBACK_CAPTURE_MODE);
+    // [End SetPlaybackCaptureMode]
+    ss << "OH_AudioStreamBuilder_SetSamplingRate 返回值: " << samplingRateResult << "\n";
+    ss << "OH_AudioStreamBuilder_SetChannelCount 返回值: " << channelCountResult << "\n";
+    ss << "OH_AudioStreamBuilder_SetSampleFormat 返回值: " << sampleFormatResult << "\n";
+    ss << "OH_AudioStreamBuilder_SetEncodingType 返回值: " << encodingTypeResult << "\n";
+    ss << "OH_AudioStreamBuilder_SetCapturerReadDataCallback 返回值: " << callbackResult << "\n";
+    ss << "OH_AudioStreamBuilder_SetPlaybackCaptureMode 返回值: " << playbackCaptureModeResult << "\n";
+    return playbackCaptureModeResult == AUDIOSTREAM_SUCCESS;
+}
+
+OH_AudioCapturer* CreatePlaybackCapture(std::stringstream& ss)
+{
+    OH_AudioStreamBuilder* builder = nullptr;
+    OH_AudioStream_Result result = OH_AudioStreamBuilder_Create(&builder, AUDIOSTREAM_TYPE_CAPTURER);
+    ss << "OH_AudioStreamBuilder_Create 返回值: " << result << "\n";
+    if (result != AUDIOSTREAM_SUCCESS || builder == nullptr) {
+        ss << "创建音频内录构造器失败";
+        return nullptr;
+    }
+    if (!ConfigurePlaybackCaptureBuilder(builder, ss)) {
+        OH_AudioStreamBuilder_Destroy(builder);
+        ss << "设置音频内录模式失败";
+        return nullptr;
+    }
+    OH_AudioCapturer* audioCapturer = nullptr;
+    result = OH_AudioStreamBuilder_GenerateCapturer(builder, &audioCapturer);
+    ss << "OH_AudioStreamBuilder_GenerateCapturer 返回值: " << result << "\n";
+    OH_AudioStreamBuilder_Destroy(builder);
+    if (result != AUDIOSTREAM_SUCCESS || audioCapturer == nullptr) {
+        ss << "构造音频内录流失败";
+        return nullptr;
+    }
+    return audioCapturer;
+}
+
+bool StorePlaybackCapture(OH_AudioCapturer* audioCapturer)
+{
+    std::lock_guard<std::mutex> lock(g_playbackCaptureMutex);
+    if (g_playbackCaptureCapturer != nullptr) {
+        return false;
+    }
+    g_playbackCaptureCapturer = audioCapturer;
+    g_playbackCaptureStartState.store(-1);
+    g_playbackCaptureReadBytes.store(0);
+    return true;
+}
+
+bool RequestPlaybackCaptureStart(OH_AudioCapturer* audioCapturer, std::stringstream& ss)
+{
+    // [Start RequestPlaybackCaptureStart]
+    OH_AudioStream_Result result = OH_AudioCapturer_RequestPlaybackCaptureStart(
+        audioCapturer, MyOnPlaybackCaptureStart, nullptr);
+    // [End RequestPlaybackCaptureStart]
+    ss << "OH_AudioCapturer_RequestPlaybackCaptureStart 返回值: " << result << "\n";
+    if (result == AUDIOSTREAM_SUCCESS) {
+        return true;
+    }
+    bool shouldRelease = false;
+    {
+        std::lock_guard<std::mutex> lock(g_playbackCaptureMutex);
+        if (g_playbackCaptureCapturer == audioCapturer) {
+            g_playbackCaptureCapturer = nullptr;
+            shouldRelease = true;
+        }
+    }
+    if (shouldRelease) {
+        OH_AudioCapturer_Release(audioCapturer);
+    }
+    ss << "请求启动音频内录失败";
+    return false;
+}
+
+// 启动音频内录
+napi_value StartPlaybackCapture(napi_env env, napi_callback_info info)
+{
+    std::stringstream ss;
+    {
+        std::lock_guard<std::mutex> lock(g_playbackCaptureMutex);
+        if (g_playbackCaptureCapturer != nullptr) {
+            ss << "音频内录已存在，请先停止后再启动\n";
+            ss << "当前状态: " << PlaybackCaptureStateToText(g_playbackCaptureStartState.load()) << "\n";
+            ss << "已读取字节数: " << g_playbackCaptureReadBytes.load();
+            return CreateStringResult(env, ss.str());
+        }
+    }
+    OH_AudioCapturer* audioCapturer = CreatePlaybackCapture(ss);
+    if (audioCapturer == nullptr) {
+        return CreateStringResult(env, ss.str());
+    }
+    if (!StorePlaybackCapture(audioCapturer)) {
+        OH_AudioCapturer_Release(audioCapturer);
+        ss << "音频内录已由其他请求启动，本次创建的流已释放";
+        return CreateStringResult(env, ss.str());
+    }
+    if (!RequestPlaybackCaptureStart(audioCapturer, ss)) {
+        return CreateStringResult(env, ss.str());
+    }
+    ss << "音频内录启动请求已发起\n";
+    ss << "采集模式: MEDIA | EXCLUDING_SELF\n";
+    ss << "回调结果: 请稍后点击\"查询音频内录状态\"查看";
+    return CreateStringResult(env, ss.str());
+}
+
+// 查询音频内录状态
+napi_value GetPlaybackCaptureStatus(napi_env env, napi_callback_info info)
+{
+    bool isActive = false;
+    {
+        std::lock_guard<std::mutex> lock(g_playbackCaptureMutex);
+        isActive = g_playbackCaptureCapturer != nullptr;
+    }
+
+    int32_t state = g_playbackCaptureStartState.load();
+    std::stringstream ss;
+    ss << "音频内录状态: " << PlaybackCaptureStateToText(state) << "\n";
+    ss << "是否存在内录流: " << (isActive ? "true" : "false") << "\n";
+    ss << "已读取字节数: " << g_playbackCaptureReadBytes.load();
+    return CreateStringResult(env, ss.str());
+}
+
+// 停止音频内录
+napi_value StopPlaybackCapture(napi_env env, napi_callback_info info)
+{
+    OH_AudioCapturer* capturerToRelease = nullptr;
+    {
+        std::lock_guard<std::mutex> lock(g_playbackCaptureMutex);
+        capturerToRelease = g_playbackCaptureCapturer;
+        g_playbackCaptureCapturer = nullptr;
+    }
+
+    std::stringstream ss;
+    if (capturerToRelease == nullptr) {
+        ss << "当前没有正在运行或等待授权的音频内录流\n";
+        ss << "最后状态: " << PlaybackCaptureStateToText(g_playbackCaptureStartState.load());
+        return CreateStringResult(env, ss.str());
+    }
+
+    OH_AudioStream_Result stopResult = OH_AudioCapturer_Stop(capturerToRelease);
+    OH_AudioStream_Result releaseResult = OH_AudioCapturer_Release(capturerToRelease);
+    ss << "停止音频内录完成\n";
+    ss << "OH_AudioCapturer_Stop 返回值: " << stopResult << "\n";
+    ss << "OH_AudioCapturer_Release 返回值: " << releaseResult << "\n";
+    ss << "本次读取字节数: " << g_playbackCaptureReadBytes.load();
+    g_playbackCaptureStartState.store(-1);
+    g_playbackCaptureReadBytes.store(0);
+    return CreateStringResult(env, ss.str());
+}
+
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
@@ -522,6 +768,10 @@ static napi_value Init(napi_env env, napi_value exports)
          nullptr},
         {"SetAudioCapturerMuteHint", nullptr, SetAudioCapturerMuteHint, nullptr, nullptr, nullptr, napi_default,
          nullptr},
+        {"StartPlaybackCapture", nullptr, StartPlaybackCapture, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"GetPlaybackCaptureStatus", nullptr, GetPlaybackCaptureStatus, nullptr, nullptr, nullptr, napi_default,
+         nullptr},
+        {"StopPlaybackCapture", nullptr, StopPlaybackCapture, nullptr, nullptr, nullptr, napi_default, nullptr},
     };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;

@@ -22,3 +22,6 @@ export const CreateAudioCapturerLoopbackEffect: () => string;
 export const CreateLowLatencyModeCapturer: () => string;
 export const CreateAudioRendererLoopback: () => string;
 export const SetAudioCapturerMuteHint: () => string;
+export const StartPlaybackCapture: () => string;
+export const GetPlaybackCaptureStatus: () => string;
+export const StopPlaybackCapture: () => string;

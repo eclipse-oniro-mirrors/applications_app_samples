@@ -5,6 +5,7 @@
     "pages/AudioLoopback",
     "pages/AudioLoopbackDebugInfo",
     "pages/AudioStreamManager",
-    "pages/MacManager"
+    "pages/MacManager",
+    "pages/PlaybackCapture"
   ]
 }
