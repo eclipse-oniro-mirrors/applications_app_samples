@@ -368,22 +368,9 @@ void SetConfig03(OH_AVScreenCaptureConfig &config)
         .audioCodecformat = OH_AAC_LC
     };
 
-    // 获取屏幕信息。
-    uint64_t displayId = 0;
-    NativeDisplayManager_ErrorCode ret = OH_NativeDisplayManager_GetDefaultDisplayId(&displayId);
-
-    NativeDisplayManager_DisplayInfo* displayInfo = nullptr;
-    ret = OH_NativeDisplayManager_CreateDisplayById(displayId, &displayInfo);
-    if (ret != DISPLAY_MANAGER_OK || !displayInfo) {
-        return;
-    }
-    int32_t screenWidth = displayInfo->width;
-    int32_t screenHeight = displayInfo->height;
-    OH_NativeDisplayManager_DestroyDisplay(displayInfo);
-    displayInfo = nullptr;
     OH_VideoCaptureInfo videoCapInfo = {
-        .videoFrameWidth = screenWidth,
-        .videoFrameHeight = screenHeight,
+        .videoFrameWidth = 768,
+        .videoFrameHeight = 1280,
         .videoSource = OH_VIDEO_SOURCE_SURFACE_RGBA
     };
 
@@ -714,12 +701,25 @@ static napi_value StartScreenCapture_02(napi_env env, napi_callback_info info)
         OH_LOG_ERROR(LOG_APP, "create screen capture failed");
     }
     OH_AVScreenCaptureConfig config_;
-    OpenFile02();
+    // 获取沙箱路径。
+    char *fileDirPath;
+    int32_t bufferSize = 1000;
+    int32_t writeLength = 0;
+    AbilityRuntime_ErrorCode resultFile = OH_AbilityRuntime_ApplicationContextGetFilesDir(fileDirPath,
+        bufferSize, &writeLength);
+    if (resultFile != ABILITY_RUNTIME_ERROR_CODE_NO_ERROR) {
+        OH_LOG_ERROR(LOG_APP,
+            "==ScreenCaptureSample== ScreenCapture getFileDirPath failed %{public}d", resultFile);
+    }
+    const std::string filePath = fileDirPath;
+    g_fileOutputFd = open((filePath + "saving_file.mp4").c_str(), O_RDWR | O_CREAT,
+        FILE_PERMISSION_FULL_ACCESS);
     OH_RecorderInfo recorderInfo;
-    SetRecorderInfo02(recorderInfo);
+    std::string fileUrl = "fd://" + std::to_string(g_fileOutputFd);
+    recorderInfo.url = const_cast<char *>(fileUrl.c_str());
+    recorderInfo.fileFormat = OH_ContainerFormatType::CFT_MPEG_4;
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture fileUrl %{public}s", fileUrl.c_str());
     SetConfig02(config_, recorderInfo);
-    config_.captureMode = OH_CAPTURE_HOME_SCREEN;
-    config_.dataType = OH_CAPTURE_FILE;
     bool isMicrophone = true;
     OH_AVScreenCapture_SetMicrophoneEnabled(g_avCapture, isMicrophone);
     OH_AVSCREEN_CAPTURE_ErrCode result = OH_AVScreenCapture_Init(g_avCapture, config_);
@@ -837,7 +837,9 @@ int GetInputSurface()
     const char *name = OH_AVCapability_GetName(capability);
     g_videoEnc = OH_VideoEncoder_CreateByName(name);
     g_muxer = std::make_unique<Muxer>();
-    OpenFile02();
+    const std::string filePath = "data/storage/el2/base/files/";
+    g_surfaceOutputFd = open((filePath + "surface.mp4").c_str(), O_RDWR | O_CREAT,
+        FILE_PERMISSION_FULL_ACCESS);
     g_muxer->Create(g_surfaceOutputFd);
     g_encContext = new CodecUserData;
     g_encContext->sampleInfo = &g_sampleInfo;
@@ -931,9 +933,21 @@ static napi_value StartScreenCapture_04(napi_env env, napi_callback_info info)
         OH_LOG_ERROR(LOG_APP, "create screen capture failed");
     }
     OH_AVScreenCaptureConfig config_;
-    OpenFile02();
+    char *fileDirPath;
+    int32_t bufferSize = 1000;
+    int32_t writeLength = 0;
+    AbilityRuntime_ErrorCode resultWindow = OH_AbilityRuntime_ApplicationContextGetFilesDir(fileDirPath,
+        bufferSize, &writeLength);
+    if (resultWindow != ABILITY_RUNTIME_ERROR_CODE_NO_ERROR) {
+        OH_LOG_ERROR(LOG_APP,
+            "==ScreenCaptureSample== ScreenCapture getFileDirPath failed %{public}d", resultWindow);
+    }
+    const std::string filePath = fileDirPath;
     OH_RecorderInfo recorderInfo;
-    SetRecorderInfo04(recorderInfo);
+    std::string fileUrl = "fd://" + std::to_string(g_windowOutputFd);
+    recorderInfo.url = const_cast<char *>(fileUrl.c_str());
+    recorderInfo.fileFormat = OH_ContainerFormatType::CFT_MPEG_4;
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture fileUrl %{public}s", fileUrl.c_str());
     SetConfig02(config_, recorderInfo);
     
     // 设置录屏模式为OH_CAPTURE_SPECIFIED_WINDOW。
