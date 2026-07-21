@@ -49,14 +49,14 @@ function add(x: number, y: number): number {
   // [StartExclude swift_function_definition]
 
 // [Start function_overload_demo]
-function foo(x: number): void;            /* 第一个函数定义。 */
-function foo(x: string): void;            /* 第二个函数定义。 */
-function foo(x: number | string): void {  /* 函数实现。 */
+function foo(x: number): void;            /* 第一个函数定义 */
+function foo(x: string): void;            /* 第二个函数定义 */
+function foo(x: number | string): void {  /* 函数实现 */
 }
   // [StartExclude function_overload_demo]
 
 // [Start optional_parameter]
-function foo2(name?: string) {}  /* name为可选参数。 */
+function foo2(name?: string) {}  /* name为可选参数 */
   // [StartExclude optional_parameter]
 
 // [Start namespace_demo]
@@ -154,8 +154,8 @@ function testThisContext() {
   let a: A = new A();
   let b: B = new B();
 
-  // callFunction(a.foo); // 程序crash。this的上下文发生了变化
-  // b.callFunction(a.foo); // 程序crash。this的上下文发生了变化
+  // callFunction(a.foo); // 程序crash，this的上下文发生了变化
+  // b.callFunction(a.foo); // 程序crash，this的上下文发生了变化
   b.callFunction(a.foo.bind(b)) // 输出'I am B'
   // [End this_context]
 

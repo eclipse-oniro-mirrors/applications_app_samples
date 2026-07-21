@@ -16,16 +16,16 @@
 let globalLogUpdate: ((msg: string, isError: boolean) => void) | undefined;
 
 // [Start const_variable]
-const index = 10000; // 该变量在后续过程中未发生改变，建议声明成常量。
+const index = 10000; // 该变量在后续过程中未发生改变，建议声明成常量
 // [End const_variable]
 
 function testVariable() {
 // [Start number_int_float]
   let intNum = 1;
-  intNum = 1.1;  // 该变量在声明时为整型数据，建议后续不要赋值浮点型数据。
+  intNum = 1.1;  // 该变量在声明时为整型数据，建议后续不要赋值浮点型数据
 
   let doubleNum = 1.1;
-  doubleNum = 1;  // 该变量在声明时为浮点型数据，建议后续不要赋值整型数据。
+  doubleNum = 1;  // 该变量在声明时为浮点型数据，建议后续不要赋值整型数据
 // [End number_int_float]
 
   console.info(`const index = ${index}`);
@@ -51,7 +51,7 @@ class Time {
 function getNum(num: number): number {
   let total: number = 348;
   for (let index: number = 0x8000; index > 0x8; index >>= 1) {
-    // 此处会多次对Time的info及start进行查找，并且每次查找出来的值是相同的。
+    // 此处会多次对Time的info及start进行查找，并且每次查找出来的值是相同的
     total += ((Time.info[num - Time.start] & index) !== 0) ? 1 : 0;
   }
   return total;
@@ -66,7 +66,7 @@ class TimeBetter {
 
 function getNumBetter(num: number): number {
   let total: number = 348;
-  const info = TimeBetter.info[num - TimeBetter.start];  // 从循环中提取不变量。
+  const info = TimeBetter.info[num - TimeBetter.start];  // 从循环中提取不变量
   for (let index: number = 0x8000; index > 0x8; index >>= 1) {
     if ((info & index) != 0) {
       total++;
@@ -194,11 +194,11 @@ function testTypeArray() {
 
 function testBigArray() {
   // [Start avoid_sparse_array]
-  // 直接分配100000大小的数组，运行时会处理成用hash表来存储元素。
+  // 直接分配100000大小的数组，运行时会处理成用hash表来存储元素
   let count = 100000;
   let res: number[] = new Array(count).fill(0);
 
-  // 创建数组后，直接在9999处赋值，会变成稀疏数组。
+  // 创建数组后，直接在9999处赋值，会变成稀疏数组
   let result: number[] = [];
   result[9999] = 0;
   // [End avoid_sparse_array]
@@ -214,8 +214,8 @@ function testBigArray() {
 
 function testUnionTypeArray() {
   // [Start avoid_joint_type_poor]
-  let arrNum: number[] = [1, 1.1, 2]; // 数值数组中混合使用整型数据和浮点型数据。
-  let arrUnion: (number | string)[] = [1, 'hello']; // 联合类型数组。
+  let arrNum: number[] = [1, 1.1, 2]; // 数值数组中混合使用整型数据和浮点型数据
+  let arrUnion: (number | string)[] = [1, 'hello']; // 联合类型数组
   // [End avoid_joint_type_poor]
   // [Start avoid_joint_type_batter]
   let arrInt: number[] = [1, 2, 3];

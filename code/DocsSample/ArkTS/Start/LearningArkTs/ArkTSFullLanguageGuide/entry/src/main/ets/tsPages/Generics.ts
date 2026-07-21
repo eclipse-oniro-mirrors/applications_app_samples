@@ -257,3 +257,15 @@ type Lower = Lowercase<'WORLD'>;   // 'world'
 type Cap = Capitalize<'foo'>;      // 'Foo'
 type Uncap = Uncapitalize<'Bar'>;  // 'bar'
 // [End ts_string_utils]
+
+// [Start ts_thistype_usage]
+// TypeScript对照写法（ArkTS不支持）
+interface MyContext {
+  name: string;
+}
+const obj: ThisType<MyContext> = {
+  greet() {
+    return this.name;
+  }
+};
+// [End ts_thistype_usage]

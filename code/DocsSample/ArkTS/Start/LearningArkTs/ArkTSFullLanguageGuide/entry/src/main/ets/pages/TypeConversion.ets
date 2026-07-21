@@ -997,3 +997,13 @@ let fcGreeter: FcGreeter = (name: string): string => `Hello, ${name}`;
 type FcBinaryOp = (a: number, b: number) => number;
 let fcUnary: FcBinaryOp = (a: number): number => a * 2; // 少一个参数，兼容赋值
 // [End function_compatibility]
+
+// [Start generic_type_compatibility]
+interface Empty<T> {
+  value: T;
+}
+
+let strContainer: Empty<string> = { value: 'hello' };
+let numContainer: Empty<number> = { value: 42 };
+// strContainer和numContainer不兼容，因为T参与了成员结构
+// [End generic_type_compatibility]
