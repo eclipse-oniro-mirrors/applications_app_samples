@@ -1672,3 +1672,22 @@ let mixinResource: MixinResource = new MixinResource('config');
 console.info(`${mixinResource.serialize()}`); // "config"
 mixinResource.dispose(); // Disposing config
 // [End mixin_interface_alternative]
+
+// [Start string_builder_explicit_return]
+class StringBuilder {
+  public parts: string[] = [];
+
+  append(text: string): StringBuilder {
+    this.parts.push(text);
+    return this;
+  }
+
+  toString(): string {
+    return this.parts.join('');
+  }
+}
+
+let sb: StringBuilder = new StringBuilder();
+let sbResult: string = sb.append('Hello').append(', ').append('World').toString();
+console.info(`${sbResult}`); // Hello, World
+// [End string_builder_explicit_return]

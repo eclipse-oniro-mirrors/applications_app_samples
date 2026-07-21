@@ -611,3 +611,10 @@ let coalesceValue2: string = coalesceInput !== null ? coalesceInput : 'default';
 // 推荐：空值合并
 let coalesceValue22: string = coalesceInput ?? 'default';
 // [End nullish_coalescing_over_ternary]
+
+// [Start loose_equality_not_recommended]
+let inputValue: string | null = null;
+let itemCount: number = 0;
+if (inputValue == null) { }
+if (itemCount == 0) { }
+// [End loose_equality_not_recommended]
