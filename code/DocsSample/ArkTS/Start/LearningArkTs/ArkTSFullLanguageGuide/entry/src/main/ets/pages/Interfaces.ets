@@ -1356,3 +1356,13 @@ abstract class AvicAbstractClass {
   constructor() {}
 }
 // [End abstract_vs_interface_constructor]
+
+// [Start map_replaces_index_signature]
+// ArkTS替代方案：使用Map
+let dictMap: Map<string, string | number> = new Map();
+dictMap.set('name', 'Alice');
+dictMap.set('age', 25);
+dictMap.set('city', 'New York');
+
+console.info(`${dictMap.get('city')}`);  // New York
+// [End map_replaces_index_signature]
