@@ -79,7 +79,7 @@ std::shared_ptr<ArkUIBaseNode> CreateMoveToExample()
     // 创建Stack
     ArkUI_NodeHandle stack0 = nodeAPI->createNode(ARKUI_NODE_STACK);
     ArkUI_NumberValue stack_value[] = {{.f32=50}};
-    ArkUI_AttributeItem stack_item1 = {stack_value, sizeof(width_value) / sizeof(ArkUI_NumberValue)};
+    ArkUI_AttributeItem stack_item1 = {stack_value, sizeof(stack_value) / sizeof(ArkUI_NumberValue)};
     nodeAPI->setAttribute(stack0, NODE_WIDTH, &stack_item1);
     nodeAPI->setAttribute(stack0, NODE_HEIGHT, &stack_item1);
     ArkUI_NumberValue stack_bc[] = {{.u32 = 0xFFFFB6C1}};
