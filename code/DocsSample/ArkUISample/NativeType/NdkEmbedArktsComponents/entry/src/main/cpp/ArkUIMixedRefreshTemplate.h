@@ -31,6 +31,7 @@ namespace NativeModule {
 class ArkUIMixedRefresh : public ArkUIMixedNode {
 public:
     static napi_value RegisterCreateRefresh(napi_env env, napi_callback_info info);
+    static napi_value RegisterUpdateRefresh(napi_env env, napi_callback_info info);
 };
 
 } // namespace NativeModule
