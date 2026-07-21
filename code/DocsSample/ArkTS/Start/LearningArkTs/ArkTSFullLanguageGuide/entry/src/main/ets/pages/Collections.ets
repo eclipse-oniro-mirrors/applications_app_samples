@@ -329,8 +329,6 @@ for (let key of keys) {
 let convSet: Set<number> = new Set([1, 2, 3]);
 let convArr: number[] = Array.from(convSet);
 console.info(`${convArr.join(', ')}`);  // 1, 2, 3
-let convArr2: number[] = Array.from(convSet);
-console.info(`${convArr2.join(', ')}`);  // 1, 2, 3
 
 // 数组转Set
 let convNumbers: number[] = [1, 2, 2, 3];
@@ -712,6 +710,11 @@ let ffnNested: number[][] = [[1, 2], [3, 4], [5, 6]];
 // flat：将二维数组展平为一维
 let ffnFlat: number[] = ffnNested.flat();
 console.info(`${ffnFlat.join(', ')}`); // 1, 2, 3, 4, 5, 6
+
+// flatMap：对每个元素映射后展平一级
+let ffnWords: string[] = ['hello world', 'foo bar'];
+let ffnFlatMapped: string[] = ffnWords.flatMap((s: string): string[] => s.split(' '));
+console.info(`${ffnFlatMapped.join(', ')}`); // hello, world, foo, bar
 
 // reduce和展开运算符替代flat
 let ffnFlatReduce: number[] = ffnNested.reduce((acc: number[], arr: number[]): number[] => {

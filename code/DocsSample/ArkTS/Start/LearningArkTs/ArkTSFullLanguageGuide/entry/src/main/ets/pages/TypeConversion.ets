@@ -841,7 +841,7 @@ if (typeof unionTypeValue === 'string') {
 let runtimeTypeValue: Object = 123;
 
 // 类型断言不会将数字转换为字符串
-let assertedString = runtimeTypeValue as string;
+let assertedString: string = runtimeTypeValue as string;
 
 console.info(`${typeof assertedString}`); // "number"（运行时类型仍然是number）
 assertedString.toUpperCase(); // 运行时错误：toUpperCase is not a function
@@ -959,12 +959,12 @@ processUserEmail(optUser2);
 
 // ===== as_keyword_type_assertion =====
 // [Start as_keyword_type_assertion]
-let asertValue: Object = 'Hello, ArkTS';
+let assertValueObj: Object = 'Hello, ArkTS';
 
 // 使用as关键字进行类型断言
-if (typeof asertValue === 'string') {
-  let asertLength: number = (asertValue as string).length;
-  console.info(`${asertLength}`); // 13
+if (typeof assertValueObj === 'string') {
+  let assertLength: number = (assertValueObj as string).length;
+  console.info(`${assertLength}`); // 13
 }
 
 // 断言为联合类型
@@ -972,20 +972,20 @@ let mixedValue: Object = 42;
 let numValue: number | string = mixedValue as number | string;
 
 // 断言为自定义类型
-interface AsertUser {
+interface AssertUser {
   id: number;
   name: string;
   email: string;
 }
 
-let userData: AsertUser = {
+let userData: AssertUser = {
   id: 1,
   name: 'Alice',
   email: 'alice@example.com'
 };
 
-let asertUser: AsertUser = userData as AsertUser;
-console.info(`${asertUser.name}`); // Alice
+let assertUser: AssertUser = userData as AssertUser;
+console.info(`${assertUser.name}`); // Alice
 // [End as_keyword_type_assertion]
 
 // ===== function_compatibility =====
