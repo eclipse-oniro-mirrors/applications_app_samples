@@ -1,0 +1,40 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Troubleshooting of state management"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Troubleshooting of state management"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "TroubleshootingStateManage"
+    },
+    {
+      "name": "title_main",
+      "value": "State variable change does not trigger refresh"
+    },
+    {
+      "name": "step_state_value_change",
+      "value": "Step 2: state variable changed"
+    },
+    {
+      "name": "step_observability_v1",
+      "value": "Step 3 (V1): is the assignment observable"
+    },
+    {
+      "name": "step_observability_v2",
+      "value": "Step 3 (V2): is the assignment observable"
+    },
+    {
+      "name": "step_foreach_sync",
+      "value": "Step 4: data source and sync object association (ForEach break)"
+    },
+    {
+      "name": "step_render_update",
+      "value": "Step 5: is the component update function executed (Image callback)"
+    }
+  ]
+}
