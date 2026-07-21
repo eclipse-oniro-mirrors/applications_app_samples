@@ -66,8 +66,10 @@ let audioRendererOptions: audio.AudioRendererOptions = {
 };
 
 let file: fs.File;
+let recordingFile: fs.File;
 let onReadData: Callback<ArrayBuffer>;
 let writeDataCallback: audio.AudioRendererWriteDataCallback;
+let pendingRecordingWrite: Promise<void> = Promise.resolve();
 
 // [StartExclude all_audioCapturer]
 async function requestMicrophonePermission(context: common.UIAbilityContext): Promise<boolean> {
@@ -82,24 +84,23 @@ async function requestMicrophonePermission(context: common.UIAbilityContext): Pr
 async function initRecordingResources(context: common.UIAbilityContext): Promise<void> {
   // [EndExclude listen_AudioCapturer]
   let writtenBytes: number = 0;
+  pendingRecordingWrite = Promise.resolve();
   let path = context.cacheDir;
   let filePath = path + '/S16LE_2_48000.pcm';
-  file = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
+  recordingFile = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
   onReadData = (buffer: ArrayBuffer) => {
-    // [StartExclude listen_AudioCapturer]
-    if (capturerMuteHintEnabledByApp) {
-      let view = new DataView(buffer);
-      for (let i = 0; i < buffer.byteLength; i++) {
-        view.setUint8(i, 0);
-      }
-    }
-    // [EndExclude listen_AudioCapturer]
+    let recordingBuffer = buffer.slice(0);
+    let writeOffset = writtenBytes;
+    writtenBytes += recordingBuffer.byteLength;
     let options: Options = {
-      offset: writtenBytes,
-      length: buffer.byteLength
+      offset: writeOffset,
+      length: recordingBuffer.byteLength
     }
-    fs.writeSync(file.fd, buffer, options);
-    writtenBytes += buffer.byteLength;
+    pendingRecordingWrite = pendingRecordingWrite.then(async () => {
+      await fs.write(recordingFile.fd, recordingBuffer, options);
+    }).catch((error: BusinessError) => {
+      console.error(`${TAG}: Write recording data failed, code: ${error.code}, message: ${error.message}`);
+    });
   };
   // [StartExclude listen_AudioCapturer]
 }
@@ -428,7 +429,8 @@ async function release(updateCallback?: (msg: string, isError: boolean) => void)
       // [EndExclude all_audioCapturer]
       console.error(`${TAG}: Capturer release failed, code: ${error.code}, message: ${error.message}`);
     } finally {
-      fs.closeSync(file.fd);
+      await pendingRecordingWrite;
+      fs.closeSync(recordingFile.fd);
     }
     // [End release_AudioCapturer]
   }
@@ -618,7 +620,6 @@ struct Index {
             stop((msg, isError) => this.updateLogInfo(msg, isError));
             this.currentState = '已停止';
           });
-
           Column() {
             Text('释放资源').fontColor(Color.Black).fontSize(14);
           }
