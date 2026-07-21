@@ -46,7 +46,7 @@ struct CSharedArrayBuffer {
           let task: taskpool.Task = new taskpool.Task(transferAtomics, int32);
           taskpool.execute(task).then((res) => {
             this.message = 'success';
-            console.info('this res is: ' + res);
+            console.info(`this res is:`, res);
           }).catch((e: BusinessError) => {
               this.message = 'fail';
               console.error(`taskpool: execute task: code: ${e.code}, message: ${e.message}`);
