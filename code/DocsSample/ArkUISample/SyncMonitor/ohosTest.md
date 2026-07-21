@@ -22,3 +22,14 @@
 |                  测试使用SyncMonitor监听失效时机场景                  |  启动应用进入Effective and ineffective times of variable monitoring页面   | 点击按钮 | 可正常输出日志 |  No   | Pass |
 |                  测试使用SyncMonitor监听Computed变量场景                  |  启动应用进入Monitor computed variable页面   | 点击按钮 | 可正常输出日志 |  No   | Pass |
 |                  测试使用SyncMonitor监听变量从可访问到不可访问场景                  |  启动应用进入Monitor variable from accessible to inaccessible页面   | 点击按钮 | 可正常输出日志 |  No   | Pass |
+|                  测试SyncMonitor监听多维数组属性的场景                  |  启动应用进入Monitor variables in multidimensional arrays页面   | 点击按钮 | 可正常输出日志 |  No   | Pass |
+|                  测试SyncMonitor监听数组多路径场景                  |  启动应用进入SyncMonitor array multi path页面   | 点击Change array by making separate assignments按钮和Change array with array functions按钮 | 可正常输出日志 |  No   | Pass |
+|                  测试SyncMonitor多路径参数重复监听场景                  |  启动应用进入Monitor duplicate multiple paths页面   | 点击change name按钮 | 可正常输出日志 |  No   | Pass |
+|                  测试SyncMonitor监听深层属性变化场景                  |  启动应用进入Monitor deep property change页面   | 点击change!按钮 | 可正常输出日志 |  No   | Pass |
+|                  测试类中SyncMonitor生效时机场景                  |  启动应用进入SyncMonitor class effective time页面   | 点击change message按钮 | 可正常输出日志 |  No   | Pass |
+|                  测试类中SyncMonitor依赖GC失效的场景                  |  启动应用进入SyncMonitor class gc destruction页面   | 点击change showFlag按钮后点击change number按钮 | 可正常输出日志 |  No   | Pass |
+|                  测试自定义组件中SyncMonitor失效时机场景                  |  启动应用进入SyncMonitor component destruction页面   | 点击change showFlag按钮后点击change number按钮 | 可正常输出日志 |  No   | Pass |
+|                  测试SyncMonitor监听非状态变量的反例                  |  启动应用进入Monitor non state variable negative页面   | 点击change age&name按钮 | 可正常输出日志 |  No   | Pass |
+|                  测试SyncMonitor正确监听状态变量的正例                  |  启动应用进入Monitor non state variable positive页面   | 点击change age&name按钮 | 可正常输出日志 |  No   | Pass |
+|                  测试SyncMonitor监听非Computed getter的反例                  |  启动应用进入Monitor non computed getter negative页面   | 点击change age按钮 | 可正常输出日志 |  No   | Pass |
+|                  测试SyncMonitor直接监听状态变量的正例                  |  启动应用进入Monitor state variable directly页面   | 点击change age按钮 | 可正常输出日志 |  No   | Pass |

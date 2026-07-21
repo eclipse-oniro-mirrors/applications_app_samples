@@ -17,6 +17,16 @@
     "pages/MonitorTheSameVariableTwoTimes",
     "pages/EffectiveAndIneffectiveTimesOfVariableMonitoring",
     "pages/MonitorComputedVariable",
-    "pages/MonitorVariableFromAccessibleToInaccessible"
+    "pages/MonitorVariableFromAccessibleToInaccessible",
+    "pages/SyncMonitorArrayMultiPath",
+    "pages/MonitorDuplicateMultiplePaths",
+    "pages/MonitorDeepPropertyChange",
+    "pages/SyncMonitorClassEffectiveTime",
+    "pages/SyncMonitorClassGcDestruction",
+    "pages/SyncMonitorComponentDestruction",
+    "pages/MonitorNonStateVariableNegative",
+    "pages/MonitorNonStateVariablePositive",
+    "pages/MonitorNonComputedGetterNegative",
+    "pages/MonitorStateVariableDirectly"
   ]
 }

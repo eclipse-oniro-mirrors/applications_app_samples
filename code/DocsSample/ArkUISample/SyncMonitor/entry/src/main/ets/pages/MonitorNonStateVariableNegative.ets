@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [Start monitor_computed_variable]
+// [Start monitor_non_state_variable_negative]
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 @ObservedV2
@@ -21,16 +21,14 @@ class Info {
   public name: string = 'John';
   @Trace public age: number = 24;
 
-  // 给myAge添加@Computed成为状态变量
-  @Computed
-  get myAge() {
-    return this.age;
-  }
-
-  // 监听@Computed装饰的getter访问器
-  @SyncMonitor('myAge')
-  onPropertyChange() {
-    hilog.info(0xFF00, 'testTag', '%{public}s', 'age changed');
+  // 只允许监听状态变量age。监听非状态变量name，会编译告警，
+  // 提示：`Cannot observe non-existent variables or non-state variables, except in wildcard-based monitoring scenarios.`
+  @SyncMonitor('age', 'name')
+  onPropertyChange(monitor: IMonitor) {
+    monitor.dirty.forEach((path: string) => {
+      hilog.info(0xFF00, 'testTag', '%{public}s',
+        `property path:${path} change from ${monitor.value(path)?.before} to ${monitor.value(path)?.now}`);
+    })
   }
 }
 
@@ -41,20 +39,21 @@ struct Index {
 
   build() {
     Column() {
-      Button('change age')
+      Button('change age&name')
         .onClick(() => {
-          this.info.age = 25; // 状态变量age改变
+          this.info.age = 25; // 同时改变状态变量age和非状态变量name
+          this.info.name = 'Johny';
         })
     }
   }
 }
-// [End monitor_computed_variable]
+// [End monitor_non_state_variable_negative]
 
 @Builder
-export function monitorComputedVariable() {
+export function monitorNonStateVariableNegative() {
   NavDestination() {
     Index();
   }
   .backgroundColor('#f1f2f3')
-  .title($r('app.string.monitor_computed_variable'))
+  .title($r('app.string.monitor_non_state_variable_negative'))
 }

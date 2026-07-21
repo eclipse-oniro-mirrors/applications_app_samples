@@ -13,46 +13,49 @@
  * limitations under the License.
  */
 
-// [Start monitor_object_variable]
+// [Start syncmonitor_class_effective_time]
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
+@ObservedV2
 class Info {
-  public name: string;
-  public age: number;
+  @Trace public message: string = 'not initialized';
 
-  constructor(name: string, age: number) {
-    this.name = name;
-    this.age = age;
+  constructor() {
+    this.message = 'initialized';
+  }
+
+  @SyncMonitor('message')
+  onMessageChange(monitor: IMonitor) {
+    hilog.info(0xFF00, 'testTag', '%{public}s',
+      `message change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
   }
 }
 
 @Entry
 @ComponentV2
 struct Index {
-  @Local info: Info = new Info('Tom', 25);
+  info: Info = new Info();
 
-  @SyncMonitor('info')
-  infoChange(monitor: IMonitor) {
-    hilog.info(0xFF00, 'testTag', '%{public}s', `info change`);
+  aboutToAppear(): void {
+    this.info.message = 'Index aboutToAppear';
   }
 
   build() {
     Column() {
-      Text(`name: ${this.info.name}, age: ${this.info.age}`)
-      Button('change info')
+      Button('change message')
         .onClick(() => {
-          this.info = new Info('Lucy', 18); // 能够监听到
+          this.info.message = 'Index click to change message';
         })
     }
   }
 }
-// [End monitor_object_variable]
+// [End syncmonitor_class_effective_time]
 
 @Builder
-export function monitorObjectVariable() {
+export function syncMonitorClassEffectiveTime() {
   NavDestination() {
     Index();
   }
   .backgroundColor('#f1f2f3')
-  .title($r('app.string.monitor_object_variable'))
+  .title($r('app.string.syncmonitor_class_effective_time'))
 }

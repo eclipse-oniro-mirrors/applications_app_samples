@@ -13,46 +13,42 @@
  * limitations under the License.
  */
 
-// [Start monitor_object_variable]
+// [Start monitor_state_variable_directly]
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
+@ObservedV2
 class Info {
-  public name: string;
-  public age: number;
+  public name: string = 'John';
+  @Trace public age: number = 24;
 
-  constructor(name: string, age: number) {
-    this.name = name;
-    this.age = age;
+  // 监听状态变量age
+  @SyncMonitor('age')
+  onPropertyChange() {
+    hilog.info(0xFF00, 'testTag', '%{public}s', 'age changed');
   }
 }
 
 @Entry
 @ComponentV2
 struct Index {
-  @Local info: Info = new Info('Tom', 25);
-
-  @SyncMonitor('info')
-  infoChange(monitor: IMonitor) {
-    hilog.info(0xFF00, 'testTag', '%{public}s', `info change`);
-  }
+  info: Info = new Info();
 
   build() {
     Column() {
-      Text(`name: ${this.info.name}, age: ${this.info.age}`)
-      Button('change info')
+      Button('change age')
         .onClick(() => {
-          this.info = new Info('Lucy', 18); // 能够监听到
+          this.info.age = 25; // 状态变量age改变
         })
     }
   }
 }
-// [End monitor_object_variable]
+// [End monitor_state_variable_directly]
 
 @Builder
-export function monitorObjectVariable() {
+export function monitorStateVariableDirectly() {
   NavDestination() {
     Index();
   }
   .backgroundColor('#f1f2f3')
-  .title($r('app.string.monitor_object_variable'))
+  .title($r('app.string.monitor_state_variable_directly'))
 }

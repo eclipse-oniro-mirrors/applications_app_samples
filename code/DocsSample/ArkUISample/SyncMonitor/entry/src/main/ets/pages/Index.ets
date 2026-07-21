@@ -100,6 +100,56 @@ let  demandList: ListItemObject[] = [
     description: 'This is monitoring variable from accessible to inaccessible scene',
     router: 'pages/MonitorVariableFromAccessibleToInaccessible',
   },
+  {
+    name: 'SyncMonitor array multi path',
+    description: 'This is SyncMonitor array multi path scene',
+    router: 'pages/SyncMonitorArrayMultiPath',
+  },
+  {
+    name: 'Monitor duplicate multiple paths',
+    description: 'This is monitoring duplicate multiple paths scene',
+    router: 'pages/MonitorDuplicateMultiplePaths',
+  },
+  {
+    name: 'Monitor deep property change',
+    description: 'This is monitoring deep property change scene',
+    router: 'pages/MonitorDeepPropertyChange',
+  },
+  {
+    name: 'SyncMonitor class effective time',
+    description: 'This is SyncMonitor class effective time scene',
+    router: 'pages/SyncMonitorClassEffectiveTime',
+  },
+  {
+    name: 'SyncMonitor class gc destruction',
+    description: 'This is SyncMonitor class gc destruction scene',
+    router: 'pages/SyncMonitorClassGcDestruction',
+  },
+  {
+    name: 'SyncMonitor component destruction',
+    description: 'This is SyncMonitor component destruction scene',
+    router: 'pages/SyncMonitorComponentDestruction',
+  },
+  {
+    name: 'Monitor non state variable negative',
+    description: 'This is monitoring non state variable negative example scene',
+    router: 'pages/MonitorNonStateVariableNegative',
+  },
+  {
+    name: 'Monitor non state variable positive',
+    description: 'This is monitoring non state variable positive example scene',
+    router: 'pages/MonitorNonStateVariablePositive',
+  },
+  {
+    name: 'Monitor non computed getter negative',
+    description: 'This is monitoring non computed getter negative example scene',
+    router: 'pages/MonitorNonComputedGetterNegative',
+  },
+  {
+    name: 'Monitor state variable directly',
+    description: 'This is monitoring state variable directly scene',
+    router: 'pages/MonitorStateVariableDirectly',
+  },
 ];
 
 @Entry

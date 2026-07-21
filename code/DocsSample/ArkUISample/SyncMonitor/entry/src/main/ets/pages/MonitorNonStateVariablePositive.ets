@@ -13,46 +13,46 @@
  * limitations under the License.
  */
 
-// [Start monitor_object_variable]
+// [Start monitor_non_state_variable_positive]
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
+@ObservedV2
 class Info {
-  public name: string;
-  public age: number;
+  public name: string = 'John';
+  @Trace public age: number = 24;
 
-  constructor(name: string, age: number) {
-    this.name = name;
-    this.age = age;
+  // 仅监听状态变量age
+  @SyncMonitor('age')
+  onPropertyChange(monitor: IMonitor) {
+    monitor.dirty.forEach((path: string) => {
+      hilog.info(0xFF00, 'testTag', '%{public}s',
+        `property path:${path} change from ${monitor.value(path)?.before} to ${monitor.value(path)?.now}`);
+    })
   }
 }
 
 @Entry
 @ComponentV2
 struct Index {
-  @Local info: Info = new Info('Tom', 25);
-
-  @SyncMonitor('info')
-  infoChange(monitor: IMonitor) {
-    hilog.info(0xFF00, 'testTag', '%{public}s', `info change`);
-  }
+  info: Info = new Info();
 
   build() {
     Column() {
-      Text(`name: ${this.info.name}, age: ${this.info.age}`)
-      Button('change info')
+      Button('change age&name')
         .onClick(() => {
-          this.info = new Info('Lucy', 18); // 能够监听到
+          this.info.age = 25; // 状态变量age改变
+          this.info.name = 'Johny';
         })
     }
   }
 }
-// [End monitor_object_variable]
+// [End monitor_non_state_variable_positive]
 
 @Builder
-export function monitorObjectVariable() {
+export function monitorNonStateVariablePositive() {
   NavDestination() {
     Index();
   }
   .backgroundColor('#f1f2f3')
-  .title($r('app.string.monitor_object_variable'))
+  .title($r('app.string.monitor_non_state_variable_positive'))
 }

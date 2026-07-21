@@ -134,3 +134,12 @@ struct DocSampleArrayOfArrays {
   }
 }
 // [End wildcard_monitor_array_first_item_change]
+
+@Builder
+export function wildcardMonitorArrayFirstItemChange() {
+  NavDestination() {
+    DocSampleArrayOfArrays();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.wildcard_monitor_array_first_item_change'))
+}

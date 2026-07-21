@@ -59,3 +59,12 @@ struct Index {
   }
 }
 // [End monitor_variable_base_derived_class]
+
+@Builder
+export function monitorVariableInBaseDerivedClass() {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.monitor_variable_base_derived_class'))
+}

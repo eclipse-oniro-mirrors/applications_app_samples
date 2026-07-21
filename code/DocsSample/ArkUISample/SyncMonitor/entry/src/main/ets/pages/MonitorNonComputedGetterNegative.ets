@@ -13,46 +13,49 @@
  * limitations under the License.
  */
 
-// [Start monitor_object_variable]
+// [Start monitor_non_computed_getter_negative]
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
+@ObservedV2
 class Info {
-  public name: string;
-  public age: number;
+  public name: string = 'John';
+  public age: number = 24;
 
-  constructor(name: string, age: number) {
-    this.name = name;
-    this.age = age;
+  get myAge() {
+    return this.age; // age为非状态变量
+  }
+
+  // 监听非@Computed装饰的getter访问器，编译会告警
+  @SyncMonitor('myAge')
+  onPropertyChange(monitor: IMonitor) {
+    monitor.dirty.forEach((path: string) => {
+      hilog.info(0xFF00, 'testTag', '%{public}s',
+        `property path:${path} change from ${monitor.value(path)?.before} to ${monitor.value(path)?.now}`);
+    })
   }
 }
 
 @Entry
 @ComponentV2
 struct Index {
-  @Local info: Info = new Info('Tom', 25);
-
-  @SyncMonitor('info')
-  infoChange(monitor: IMonitor) {
-    hilog.info(0xFF00, 'testTag', '%{public}s', `info change`);
-  }
+  info: Info = new Info();
 
   build() {
     Column() {
-      Text(`name: ${this.info.name}, age: ${this.info.age}`)
-      Button('change info')
+      Button('change age')
         .onClick(() => {
-          this.info = new Info('Lucy', 18); // 能够监听到
+          this.info.age = 25; // 状态变量age改变
         })
     }
   }
 }
-// [End monitor_object_variable]
+// [End monitor_non_computed_getter_negative]
 
 @Builder
-export function monitorObjectVariable() {
+export function monitorNonComputedGetterNegative() {
   NavDestination() {
     Index();
   }
   .backgroundColor('#f1f2f3')
-  .title($r('app.string.monitor_object_variable'))
+  .title($r('app.string.monitor_non_computed_getter_negative'))
 }
