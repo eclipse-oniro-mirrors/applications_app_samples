@@ -31,7 +31,7 @@ function adjustImageValue(arrayBuffer: ArrayBuffer): ArrayBuffer {
  */
 function createImageTask(arrayBuffer: ArrayBuffer, isParamsByCopy: boolean): taskpool.Task {
   let task: taskpool.Task = new taskpool.Task(adjustImageValue, arrayBuffer);
-  if (!isParamsByCopy) {
+  if (isParamsByCopy) {
     // 传递空数组[]，全部arrayBuffer参数传递均采用拷贝方式
     try {
       task.setTransferList([]);
@@ -67,11 +67,11 @@ struct Index {
             let arrayBufferSlice: ArrayBuffer =
               arrayBuffer.slice(arrayBuffer.byteLength / taskNum * i, arrayBuffer.byteLength / taskNum * (i + 1));
             // isParamsByCopy为true时，就可以实现拷贝方式的传输
-            taskPoolGroup.addTask(createImageTask(arrayBufferSlice, false));
+            taskPoolGroup.addTask(createImageTask(arrayBufferSlice, true));
           }
           // 执行Task，UI主线程接收处理完成后的结果
           taskpool.execute(taskPoolGroup).then((data) => {
-            // 将各Task返回的ArrayBuffer数据进行拼接
+            // 将各Task返回的ArrayBuffer数据（即data，此处data为包含4组arrayBufferSlice的长度为4的数组）进行拼接等后续处理，此处不再列举具体操作
             // [StartExclude copy_arraybuffer_transfer]
             this.message = 'success';
             // [EndExclude copy_arraybuffer_transfer]

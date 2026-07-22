@@ -25,7 +25,7 @@ function sendableCompareFunc(firstValue: number, secondValue: number): boolean {
 @Concurrent
 function treeSetTestFunc(treeSet: TreeSet<number>) {
   for (let value of treeSet) {
-    console.info(`value:`, value);
+    console.info(`value: ${value}`);
   }
 }
 
