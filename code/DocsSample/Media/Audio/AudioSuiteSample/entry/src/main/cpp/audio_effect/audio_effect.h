@@ -35,7 +35,7 @@ public:
     {
         return OH_AudioNode_Type::EFFECT_NODE_TYPE_EQUALIZER;
     }
-    
+
     // 根据预置类型或自定义参数获取均衡器增益值。
     static OH_EqualizerFrequencyBandGains GetEqualizerGains(const EffectParams &params)
     {
@@ -193,8 +193,9 @@ public:
         OH_AudioSuiteNodeBuilder_SetNodeType(builder, OH_AudioNode_Type::EFFECT_NODE_TYPE_SPACE_RENDER);
         // 创建空间渲染节点。
         OH_AudioSuiteEngine_CreateNode(pipeline, builder, node);
-        // 按场景仅设置选中的空间渲染参数。
+        // 按场景设置空间渲染参数。
         switch (params.spaceRenderMode) {
+            // 固定摆位模式。
             case 0: {
                 OH_AudioSuite_SpaceRenderPositionParams position;
                 position.x = params.spacePositionX;
@@ -203,6 +204,7 @@ public:
                 OH_AudioSuiteEngine_SetSpaceRenderPositionParams(*node, position);
                 break;
             }
+            // 旋转模式。
             case 1: {
                 OH_AudioSuite_SpaceRenderRotationParams rotation;
                 rotation.x = params.spaceRotationX;
@@ -214,6 +216,7 @@ public:
                 OH_AudioSuiteEngine_SetSpaceRenderRotationParams(*node, rotation);
                 break;
             }
+            // 扩展模式。
             case 2: {
                 OH_AudioSuite_SpaceRenderExtensionParams extension;
                 extension.extRadius = params.spaceExtensionRadius;
