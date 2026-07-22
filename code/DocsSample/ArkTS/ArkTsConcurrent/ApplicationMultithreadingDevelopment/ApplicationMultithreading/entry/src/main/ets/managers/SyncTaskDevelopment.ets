@@ -36,8 +36,8 @@ async function mainFunc(): Promise<void> {
   let task2: taskpool.Task = new taskpool.Task(taskpoolFunc, res1);
   let res2: number = await taskpool.execute(task2) as number;
   // 步骤3: 对任务返回的结果进行操作
-  console.info('taskpool: task res1 is: ' + res1);
-  console.info('taskpool: task res2 is: ' + res2);
+  console.info(`taskpool: task res1 is: ${res1}`);
+  console.info(`taskpool: task res2 is: ${res2}`);
 }
 
 // [EndExclude worker_handle_associated_sync_task]
@@ -60,7 +60,7 @@ struct Index {
             let w: worker.ThreadWorker = new worker.ThreadWorker('entry/ets/workers/MyWorker2.ts');
             w.onmessage = (e: MessageEvents): void => {
               // 接收Worker子线程的结果
-              console.info('main thread onmessage, ' + e.data.message);
+              console.info(`main thread onmessage, ${e.data.message}`);
               // 销毁Worker
               if (e.data.isTerminate) {
                 w.terminate();

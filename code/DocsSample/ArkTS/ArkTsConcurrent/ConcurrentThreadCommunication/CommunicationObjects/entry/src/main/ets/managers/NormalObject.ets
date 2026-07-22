@@ -20,7 +20,7 @@ import { TestA } from './Test';
 
 @Concurrent
 async function test1(arg: TestA) {
-  console.info(`TestA name is:`, arg.name);
+  console.info(`TestA name is: ${arg.name}`);
 }
 
 @Entry
