@@ -15,7 +15,8 @@
 
 import { dateTime } from '../utils/DateTimeUtil';
 import Logger from '../utils/Logger';
-import display from '@ohos.display';
+import { display } from '@kit.ArkUI';
+import { media } from '@kit.MediaKit';
 import AVRecorderService from '../services/AVRecorderService';
 import { Resolution } from '../services/CommonTypes';
 import CameraService from '../services/CameraService';
@@ -85,7 +86,7 @@ struct VideoRecorder {
   async startRecordingProcess(): Promise<void> {
     Logger.info(TAG, 'startRecordingProcess begin');
     await this.recorderService.createRecorder();
-    this.recorderService.setCallback((state, reason) => {
+    this.recorderService.setCallback((state: media.AVRecorderState, reason: media.StateChangeReason) => {
       switch (state) {
         case 'started':
           this.getRecordTime();
@@ -235,16 +236,16 @@ struct VideoRecorder {
     }
   }
 
-  onCancel() {
+  onCancel = () => {
     Logger.info(TAG, 'Callback when the cancel button is clicked')
   }
 
-  onConfirm(videoResolution: Resolution) {
+  onConfirm = (videoResolution: Resolution) => {
     Logger.info(TAG, 'Callback when the confirm button is clicked')
     this.recorderService.configVideoResolution(videoResolution);
   }
 
-  existApp() {
+  existApp = () => {
     Logger.info(TAG, 'Click the callback in the blank area')
   }
 
