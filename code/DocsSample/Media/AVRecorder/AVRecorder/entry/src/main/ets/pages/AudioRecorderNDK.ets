@@ -15,7 +15,7 @@
 
 import Logger from '../utils/Logger';
 import { dateTime } from '../utils/DateTimeUtil';
-import ndk from 'libentry.so';
+import recorderLib from 'libentry.so';
 
 const TAG: string = 'Sample_AudioRecorderNDK';
 
@@ -45,8 +45,8 @@ struct AudioRecorderNDK {
 
   startRecordingProcess(): void {
     Logger.info(TAG, 'startRecordingProcess begin');
-    ndk.createRecorder();
-    ndk.setRecorderStateCallback((state: number, reason: number) => {
+    recorderLib.createRecorder();
+    recorderLib.setRecorderStateCallback((state: number, reason: number) => {
       Logger.info(TAG, `AVRecorder state: ${state}, reason: ${reason}`);
       switch (state) {
         case 2:
@@ -65,31 +65,31 @@ struct AudioRecorderNDK {
           break;
       }
     });
-    ndk.setRecorderErrorCallback((errorCode: number, errorMsg: string) => {
+    recorderLib.setRecorderErrorCallback((errorCode: number, errorMsg: string) => {
       Logger.error(TAG, `AVRecorder error: ${errorCode}, msg: ${errorMsg}`);
     });
-    ndk.setRecorderUriCallback();
-    ndk.prepareAudioRecorder();
-    ndk.startRecorder();
+    recorderLib.setRecorderUriCallback();
+    recorderLib.prepareAudioRecorder();
+    recorderLib.startRecorder();
     Logger.info(TAG, 'startRecordingProcess end');
   }
 
   pauseRecordingProcess(): void {
     Logger.info(TAG, 'pauseRecordingProcess begin');
-    ndk.pauseRecorder();
+    recorderLib.pauseRecorder();
     Logger.info(TAG, 'pauseRecordingProcess end');
   }
 
   resumeRecordingProcess(): void {
     Logger.info(TAG, 'resumeRecordingProcess begin');
-    ndk.resumeRecorder();
+    recorderLib.resumeRecorder();
     Logger.info(TAG, 'resumeRecordingProcess end');
   }
 
   stopRecordingProcess(): void {
     Logger.info(TAG, 'stopRecordingProcess begin');
-    ndk.stopRecorder();
-    ndk.releaseRecorder();
+    recorderLib.stopRecorder();
+    recorderLib.releaseRecorder();
     clearInterval(this.timer);
     this.isStartRecording = false;
     this.isPauseRecording = false;

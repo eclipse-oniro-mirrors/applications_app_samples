@@ -159,7 +159,7 @@ struct VideoRecorder {
                 surfaceWidth: displayObj.width,
                 surfaceHeight: displayObj.height
               });
-              Logger.info(TAG, '[VideoRecorder] surface size: ' + displayObj.height + 'x' + displayObj.width);
+              Logger.info(TAG, '[VideoRecorder] surfaceSize: ' + displayObj.height + 'x' + displayObj.width);
               this.surfaceId = this.xComponentController.getXComponentSurfaceId();
               Logger.info(TAG, '[VideoRecorder] surfaceId: ' + this.surfaceId);
               Logger.info(TAG, 'XComponent1 loaded');

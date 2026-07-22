@@ -16,7 +16,7 @@
 import { dateTime } from '../utils/DateTimeUtil';
 import Logger from '../utils/Logger';
 import display from '@ohos.display';
-import ndk from 'libentry.so';
+import recorderLib from 'libentry.so';
 import CameraServiceNDK from '../services/CameraServiceNDK';
 
 const TAG: string = 'Sample_VideoRecorderNDK';
@@ -77,8 +77,8 @@ struct VideoRecorderNDK {
 
   async startRecordingProcess(): Promise<void> {
     Logger.info(TAG, 'startRecordingProcess begin');
-    ndk.createRecorder();
-    ndk.setRecorderStateCallback((state: number, reason: number) => {
+    recorderLib.createRecorder();
+    recorderLib.setRecorderStateCallback((state: number, reason: number) => {
       Logger.info(TAG, `AVRecorder state: ${state}, reason: ${reason}`);
       switch (state) {
         case 2:
@@ -97,22 +97,22 @@ struct VideoRecorderNDK {
           break;
       }
     });
-    ndk.setRecorderErrorCallback((errorCode: number, errorMsg: string) => {
+    recorderLib.setRecorderErrorCallback((errorCode: number, errorMsg: string) => {
       Logger.error(TAG, `AVRecorder error: ${errorCode}, msg: ${errorMsg}`);
     });
-    ndk.setRecorderUriCallback();
-    ndk.prepareVideoRecorder();
-    let surfaceId: string = ndk.getInputSurfaceId();
+    recorderLib.setRecorderUriCallback();
+    recorderLib.prepareVideoRecorder();
+    let surfaceId: string = recorderLib.getInputSurfaceId();
     if (surfaceId && surfaceId.length > 0) {
       await this.cameraService.restartVideoOutput(surfaceId);
     }
-    ndk.startRecorder();
+    recorderLib.startRecorder();
     Logger.info(TAG, 'startRecordingProcess end');
   }
 
   async pauseRecordingProcess(): Promise<void> {
     Logger.info(TAG, 'pauseRecordingProcess begin');
-    ndk.pauseRecorder();
+    recorderLib.pauseRecorder();
     await this.cameraService.stopVideoOutput();
     Logger.info(TAG, 'pauseRecordingProcess end');
   }
@@ -120,14 +120,14 @@ struct VideoRecorderNDK {
   async resumeRecordingProcess(): Promise<void> {
     Logger.info(TAG, 'resumeRecordingProcess begin');
     await this.cameraService.startVideoOutput();
-    ndk.resumeRecorder();
+    recorderLib.resumeRecorder();
     Logger.info(TAG, 'resumeRecordingProcess end');
   }
 
   async stopRecordingProcess(): Promise<void> {
     Logger.info(TAG, 'stopRecordingProcess begin');
-    ndk.stopRecorder();
-    ndk.releaseRecorder();
+    recorderLib.stopRecorder();
+    recorderLib.releaseRecorder();
     await this.cameraService.stopVideoOutput();
     clearInterval(this.timer);
     this.isStartRecording = false;
@@ -151,7 +151,7 @@ struct VideoRecorderNDK {
                 surfaceWidth: displayObj.width,
                 surfaceHeight: displayObj.height
               });
-              Logger.info(TAG, '[VideoRecorderNDK] surface size: ' + displayObj.height + 'x' + displayObj.width);
+              Logger.info(TAG, '[VideoRecorderNDK] surfaceSize: ' + displayObj.height + 'x' + displayObj.width);
               this.surfaceId = this.xComponentController.getXComponentSurfaceId();
               Logger.info(TAG, '[VideoRecorderNDK] surfaceId: ' + this.surfaceId);
               Logger.info(TAG, 'XComponent loaded');
@@ -176,8 +176,7 @@ struct VideoRecorderNDK {
               .margin({ left: 132, top: 612, right: 132, bottom: 72})
               .onClick(() => { this.startRecordingProcess(); })
               .id('videoStartNDK')
-          }
-          else {
+          } else {
             Image($r('app.media.ic_circle_open'))
               .width(120)
               .height(56)
