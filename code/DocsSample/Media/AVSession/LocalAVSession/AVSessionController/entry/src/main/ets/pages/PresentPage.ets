@@ -52,11 +52,61 @@ struct PresentPage {
     this.canPrevious = !!this.validCommands?.includes('playPrevious');
   }
 
+  @Builder
+  commandBuild() {
+    Image($r('app.media.previous'))
+      .width('24vp').height('24vp')
+      .id('Previous')
+      .onClick(async () => {
+        if (this.canPrevious) {
+          let command: avSession.AVControlCommand = {
+            command: 'playPrevious', // 上一首指令
+          }
+          await this.currentController?.sendControlCommand(command);
+          Log.info(TAG, 'on previous click');
+        }
+      })
+    Image(this.playbackState == avSession.PlaybackState.PLAYBACK_STATE_PLAY ? $r('app.media.stopmusic') : $r('app.media.playmusic'))
+      .width('24vp')
+      .height('24vp')
+      .id('PlayOrPause:')
+      .onClick(async () => {
+        if (this.playbackState == avSession.PlaybackState.PLAYBACK_STATE_PLAY) {
+          if (this.canPause) {
+            let command: avSession.AVControlCommand = {
+              command: 'pause', // 暂停指令
+            }
+            await this.currentController?.sendControlCommand(command);
+          }
+        } else {
+          if (this.canPlay) {
+            let command: avSession.AVControlCommand = {
+              command: 'play', // 播放指令
+            }
+            await this.currentController?.sendControlCommand(command);
+          }
+        }
+        Log.info(TAG, 'on play/pause click');
+      })
+    Image($r('app.media.next'))
+      .width('24vp').height('24vp')
+      .id('Next')
+      .onClick(async () => {
+        if (this.canNext) {
+          let command: avSession.AVControlCommand = {
+            command: 'playNext', // 下一首指令
+          }
+          await this.currentController?.sendControlCommand(command);
+          Log.info(TAG, 'on next click ');
+        }
+      })
+  }
+  // [End commands]
+
   build() {
     Stack() {
       Column() {
         Stack({ alignContent: Alignment.TopStart }) {
-          // [StartExclude commands]
           Column() {}
           .width('100%')
           .height('100%')
@@ -64,10 +114,8 @@ struct PresentPage {
           .zIndex(1)
           .borderRadius('16vp')
           .id('FirstPanel')
-          // [EndExclude commands]
 
           Column() {
-            // [StartExclude commands]
             Row() {
               Image(this.metaData?.mediaImage || $r('app.media.no_music'))
                 .width('48vp')
@@ -96,10 +144,8 @@ struct PresentPage {
             .justifyContent(FlexAlign.Start)
             .width('100%')
             .margin({ top: '12vp' })
-            // [EndExclude commands]
 
             Row() {
-              // [StartExclude commands]
               Image(this.isShowQueue ? $r('app.media.list_activate') : $r('app.media.list_none'))
                 .width('24vp')
                 .height('24vp')
@@ -108,56 +154,9 @@ struct PresentPage {
                   this.isShowQueue = !this.isShowQueue;
                   Log.info(TAG, 'isShowQueue set to : ' + this.isShowQueue);
                 })
-              // [EndExclude commands]
 
-              Image($r('app.media.previous'))
-                .width('24vp').height('24vp')
-                .id('Previous')
-                .onClick(async () => {
-                  if (this.canPrevious) {
-                    let command: avSession.AVControlCommand = {
-                      command: 'playPrevious', // 上一首指令
-                    }
-                    await this.currentController?.sendControlCommand(command);
-                    Log.info(TAG, 'on previous click');
-                  }
-                })
-              Image(this.playbackState == avSession.PlaybackState.PLAYBACK_STATE_PLAY ? $r('app.media.stopmusic') : $r('app.media.playmusic'))
-                .width('24vp')
-                .height('24vp')
-                .id('PlayOrPause:')
-                .onClick(async () => {
-                    if (this.playbackState == avSession.PlaybackState.PLAYBACK_STATE_PLAY) {
-                      if (this.canPause) {
-                        let command: avSession.AVControlCommand = {
-                          command: 'pause', // 暂停指令
-                        }
-                        await this.currentController?.sendControlCommand(command);
-                      }
-                    } else {
-                      if (this.canPlay) {
-                        let command: avSession.AVControlCommand = {
-                          command: 'play', // 播放指令
-                        }
-                        await this.currentController?.sendControlCommand(command);
-                      }
-                    }
-                    Log.info(TAG, 'on play/pause click');
-                })
-              Image($r('app.media.next'))
-                .width('24vp').height('24vp')
-                .id('Next')
-                .onClick(async () => {
-                  if (this.canNext) {
-                    let command: avSession.AVControlCommand = {
-                      command: 'playNext', // 下一首指令
-                    }
-                    await this.currentController?.sendControlCommand(command);
-                    Log.info(TAG, 'on next click ');
-                  }
-                })
+              this.commandBuild();
 
-              // [StartExclude commands]
               Image(this.isLyricVisible ? $r('app.media.list_activate') : $r('app.media.lyric_none'))
                 .width('24vp')
                 .height('24vp')
@@ -168,9 +167,7 @@ struct PresentPage {
                   }
                   Log.info(TAG, 'set DesktopLyric Visible' + this.isLyricVisible);
                 })
-              // [EndExclude commands]
             }
-            // [StartExclude commands]
             .justifyContent(FlexAlign.SpaceBetween)
             .margin({ left: '12vp', right: '12vp', top: '20vp', bottom: '12vp' })
             .width('264vp')
@@ -190,16 +187,12 @@ struct PresentPage {
             .alignItems(VerticalAlign.Center)
             .justifyContent(FlexAlign.Center)
             .visibility(this.isLyricVisible ? Visibility.Visible : Visibility.None)
-            // [EndExclude commands]
           }
-          // [StartExclude commands]
           .width('288vp')
           .height('100%')
           .zIndex(2)
           .margin({ top: '4vp', bottom: '4vp', left: '12vp', right: '12vp' })
-          // [EndExclude commands]
         }
-        // [StartExclude commands]
         .width('312vp')
         .height(this.getMediaCardHeight())
         .margin({ top: '40vp' })
@@ -276,24 +269,18 @@ struct PresentPage {
         .height('153vp')
         .margin({ top: '12vp' })
         .visibility(this.isShowQueue ? Visibility.Visible : Visibility.None)
-        // [EndExclude commands]
       }
-      // [StartExclude commands]
       .height(this.getTotalHeight())
       .width('312vp')
       .margin({ top: '40vp', left: '24vp', right: '24vp' })
       .backgroundColor('#00000000')
-      // [EndExclude commands]
     }
-    // [StartExclude commands]
     .backgroundImage($r('app.media.background'))
     .backgroundImageSize(ImageSize.Cover)
     .alignContent(Alignment.Top)
     .width('100%')
     .height('100%')
-    // [EndExclude commands]
   }
-  // [End commands]
 
   getMediaCardHeight(): string {
     let mediaNum: number = 1; // only has one session
