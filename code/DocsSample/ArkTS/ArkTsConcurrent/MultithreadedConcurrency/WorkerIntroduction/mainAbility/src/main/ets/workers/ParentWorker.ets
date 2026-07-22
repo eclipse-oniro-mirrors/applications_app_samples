@@ -23,7 +23,7 @@ const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 workerPort.onmessage = (e : MessageEvents) => {
   console.info('父Worker收到宿主线程的信息 ' + e.data);
 
-  // 父Worker销毁后创建子Worker
+  // 父Worker发起销毁操作后创建子Worker
   workerPort.close();
   let childWorker = new worker.ThreadWorker('entry/ets/workers/ChildWorker.ets');
 

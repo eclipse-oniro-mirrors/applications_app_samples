@@ -23,15 +23,6 @@ function add(num1: number, num2: number): number {
   return num1 + num2;
 }
 
-async function concurrentFunc(): Promise<void> {
-  try {
-    const task: taskpool.Task = new taskpool.Task(add, 1, 2);
-    console.info(`taskpool res is: ${await taskpool.execute(task)}`); // 输出结果：taskpool res is: 3
-  } catch (e) {
-    console.error(`taskpool execute error is: ${e}`);
-  }
-}
-
 @Entry
 @Component
 struct Index {
@@ -44,14 +35,12 @@ struct Index {
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
           .onClick(() => {
-            concurrentFunc().then(() => {
-              // [StartExclude update_message_on_success]
-              this.message = 'success';
-              // [EndExclude update_message_on_success]
-            }).catch((e: object) => {
-              this.message = 'failed';
-              console.error(`taskpool execute concurrentFunc error is: ${e}`);
-            })
+            try {
+              const task: taskpool.Task = new taskpool.Task(add, 1, 2);
+              console.info(`taskpool res is: ${await taskpool.execute(task)}`); // 输出结果：taskpool res is: 3
+            } catch (e) {
+              console.error(`taskpool execute error is: ${e}`);
+            }
           })
       }
       .width('100%')
