@@ -15,10 +15,10 @@
 
 // [Start full_audio_recorder]
 // [Start full_video_recorder]
-import { BusinessError } from '@ohos.base';
-import media from '@ohos.multimedia.media';
-import fileIo from '@ohos.file.fs';
-import common from '@ohos.app.ability.common';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { media } from '@kit.MediaKit';
+import { fileIo } from '@kit.CoreFileKit';
+import { common } from '@kit.AbilityKit';
 import { Resolution } from './CommonTypes';
 
 export default class AVRecorderService {
@@ -86,7 +86,7 @@ export default class AVRecorderService {
         audioCodec: media.CodecMimeType.AUDIO_AAC, // 音频编码格式。
         audioSampleRate: this.audioSampleRate, // 音频采样率。
         fileFormat: media.ContainerFormatType.CFT_MPEG_4A // 封装格式。
-      },
+      } as media.AVRecorderProfile,
       url: 'fd://' + file.fd.toString()
     };
 
@@ -119,10 +119,10 @@ export default class AVRecorderService {
         videoFrameHeight: this.videoResolution.frameHeight, // 视频分辨率的高。
         videoFrameRate: 30, // 视频帧率。
         fileFormat: media.ContainerFormatType.CFT_MPEG_4 // 封装格式。
-      },
+      } as media.AVRecorderProfile,
       metadata: {
         videoOrientation: '90' // 视频旋转角度，默认为0不旋转，支持的值为0、90、180、270。
-      },
+      } as media.AVMetadata,
       url: 'fd://' + file.fd.toString()
     };
 

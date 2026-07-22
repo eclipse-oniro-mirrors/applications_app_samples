@@ -15,6 +15,7 @@
 
 import Logger from '../utils/Logger';
 import { dateTime } from '../utils/DateTimeUtil';
+import { media } from '@kit.MediaKit';
 import AVRecorderService from '../services/AVRecorderService';
 
 const TAG: string = 'Sample_AudioRecorder';
@@ -51,7 +52,7 @@ struct AudioRecorder {
   async startRecordingProcess(): Promise<void> {
     Logger.info(TAG, 'startRecordingProcess begin');
     await this.recorderService.createRecorder();
-    this.recorderService.setCallback((state, reason) => {
+    this.recorderService.setCallback((state: media.AVRecorderState, reason: media.StateChangeReason) => {
       switch (state) {
         case 'started':
           this.getRecordTime();
@@ -234,16 +235,16 @@ struct AudioRecorder {
     }
   }
 
-  onCancel() {
+  onCancel = () => {
     Logger.info(TAG, 'Callback when the cancel button is clicked');
   }
 
-  onConfirm(audioSampleRate: number) {
+  onConfirm = (audioSampleRate: number) => {
     Logger.info(TAG, 'Callback when the confirm button is clicked');
     this.recorderService.configAudioSampleRate(audioSampleRate);
   }
 
-  existApp() {
+  existApp = () => {
     Logger.info(TAG, 'Click the callback in the blank area');
   }
 

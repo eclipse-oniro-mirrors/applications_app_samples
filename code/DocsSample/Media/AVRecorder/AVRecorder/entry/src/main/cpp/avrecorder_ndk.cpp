@@ -332,10 +332,11 @@ static napi_value PrepareAudioRecorder(napi_env env, napi_callback_info info)
     const std::string avrecorderRoot = fileDirPath;
     g_outputFd = open((avrecorderRoot + "/audio_example.m4a").c_str(), O_RDWR | O_CREAT, FILE_PERMISSIONS);
     std::string fileUrl = "fd://" + std::to_string(g_outputFd);
-    config.url = const_cast<char *>(fileUrl.c_str());
+    config.url = strdup(fileUrl.c_str());
     OH_LOG_INFO(LOG_APP, "config.url is: %s", config.url);
 
     OH_AVErrCode err = OH_AVRecorder_Prepare(g_recorder, &config);
+    free(config.url);
     if (err != AV_ERR_OK) {
         OH_LOG_ERROR(LOG_APP, "Failed to prepare audio recorder, error: %{public}d", err);
     }
@@ -365,7 +366,7 @@ static napi_value PrepareVideoRecorder(napi_env env, napi_callback_info info)
     config.profile.enableTemporalScale = false;
     config.profile.fileFormat = AVRECORDER_CFT_MPEG_4;
     config.fileGenerationMode = AVRECORDER_APP_CREATE;
-    config.metadata.videoOrientation = const_cast<char *>("90");
+    config.metadata.videoOrientation = strdup("90");
 
     char fileDirPath[1000] = {0};
     int32_t bufferSize = 1000;
@@ -381,10 +382,12 @@ static napi_value PrepareVideoRecorder(napi_env env, napi_callback_info info)
     const std::string avrecorderRoot = fileDirPath;
     g_outputFd = open((avrecorderRoot + "/video_example.mp4").c_str(), O_RDWR | O_CREAT, FILE_PERMISSIONS);
     std::string fileUrl = "fd://" + std::to_string(g_outputFd);
-    config.url = const_cast<char *>(fileUrl.c_str());
+    config.url = strdup(fileUrl.c_str());
     OH_LOG_INFO(LOG_APP, "config.url is: %s", config.url);
 
     OH_AVErrCode err = OH_AVRecorder_Prepare(g_recorder, &config);
+    free(config.url);
+    free(config.metadata.videoOrientation);
     if (err != AV_ERR_OK) {
         OH_LOG_ERROR(LOG_APP, "Failed to prepare video recorder, error: %{public}d", err);
     }
