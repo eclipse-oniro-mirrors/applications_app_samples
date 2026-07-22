@@ -194,7 +194,7 @@ async function checkMicOccupiedByAmplitude(updateCallback?: (msg: string, isErro
     }
 
     if (hasInputDevice) {
-      detailInfo += `首次读取用于建立采样窗口，等待${MIC_OCCUPATION_AMPLITUDE_SAMPLE_INTERVAL_MS}ms后正式读取\n`;
+      detailInfo += `第一次读取用于建立采样窗口，等待${MIC_OCCUPATION_AMPLITUDE_SAMPLE_INTERVAL_MS}ms后进行第二次读取\n`;
       await waitForMicAmplitudeSample();
     } else {
       detailInfo += '未获取到输入设备，无法通过最大电平判断麦克风占用\n';
