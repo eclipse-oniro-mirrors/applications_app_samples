@@ -18,6 +18,7 @@
 #include <cstdio>
 #include <cstring>
 #include <string>
+#include <inttypes.h>
 #include <fcntl.h>
 #include <unistd.h>
 
@@ -160,13 +161,14 @@ void OnUri(OH_AVRecorder *recorder, OH_MediaAsset *asset, void *userData)
         auto changeRequest = OH_MediaAssetChangeRequest_Create(asset);
         if (changeRequest == nullptr) {
             OH_LOG_ERROR(LOG_APP, "==NDKDemo== changeRequest is null!");
+            OH_MediaAsset_Release(asset);
             return;
         }
         MediaLibrary_ImageFileType imageFileType = MEDIA_LIBRARY_FILE_VIDEO;
-        uint32_t result = OH_MediaAssetChangeRequest_SaveCameraPhoto(changeRequest, imageFileType);
+        int32_t result = OH_MediaAssetChangeRequest_SaveCameraPhoto(changeRequest, imageFileType);
         OH_LOG_INFO(LOG_APP, "result of OH_MediaAssetChangeRequest_SaveCameraPhoto: %d", result);
 
-        uint32_t resultChange = OH_MediaAccessHelper_ApplyChanges(changeRequest);
+        int32_t resultChange = OH_MediaAccessHelper_ApplyChanges(changeRequest);
         OH_LOG_INFO(LOG_APP, "result of OH_MediaAccessHelper_ApplyChanges: %d", resultChange);
 
         OH_MediaAsset_Release(asset);
@@ -413,7 +415,7 @@ static std::string GetSurfaceIdString()
         return "";
     }
     char surfaceIdStr[32] = {0};
-    int32_t snprintfRet = snprintf(surfaceIdStr, sizeof(surfaceIdStr), "%lu", surfaceId);
+    int32_t snprintfRet = snprintf(surfaceIdStr, sizeof(surfaceIdStr), "%" PRIu64, surfaceId);
     if (snprintfRet < 0) {
         OH_LOG_ERROR(LOG_APP, "snprintf failed");
         return "";
