@@ -17,12 +17,15 @@ entry/src/main/ets/
     └── ScopeName.ts // 作用域名称。
     └── DuplicateName.ts // 重名序号。
     └── OriginalFuncName.ts // 原函数名。
+    └── Disassembler.ts // 反汇编工具示例。
 ```
 
 ## 具体实现
 
 * ArkTS编程规范
     * 源码参考：[Index.ets](./entry/src/main/ets/pages/Index.ets)
+* Disassembler反汇编工具
+    * 源码参考：[Disassembler.ts](./entry/src/main/ets/pages/Disassembler.ts)
 
 ## 依赖
 
