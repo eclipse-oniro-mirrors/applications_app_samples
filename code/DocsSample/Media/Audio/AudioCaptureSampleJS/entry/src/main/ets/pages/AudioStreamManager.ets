@@ -18,10 +18,24 @@ import { BusinessError } from '@kit.BasicServicesKit';
 
 let audioManager = audio.getAudioManager();
 let audioStreamManager = audioManager.getStreamManager();
+let audioVolumeGroupManager: audio.AudioVolumeGroupManager | undefined;
+const micCapturerInfo: audio.AudioCapturerInfo = {
+  source: audio.SourceType.SOURCE_TYPE_MIC,
+  capturerFlags: 0
+};
+const MIC_OCCUPATION_AMPLITUDE_SAMPLE_INTERVAL_MS: number = 500;
 // [End get_StreamManager]
 
 // 全局UI更新回调
 let globalCallbackUpdate: ((msg: string) => void) | undefined;
+
+function waitForMicAmplitudeSample(): Promise<void> {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, MIC_OCCUPATION_AMPLITUDE_SAMPLE_INTERVAL_MS);
+  });
+}
 
 function listenAudioStreamManager(): void {
   // [Start audioStreamManager_on]
@@ -132,6 +146,90 @@ async function getCurrentAudioCapturerInfoArray(updateCallback?:
 }
 // [End get_CurrentAudioCapturerInfoArray]
 
+// [Start is_RecordingAvailable]
+function checkRecordingAvailable(updateCallback?: (msg: string, isError: boolean) => void): boolean {
+  try {
+    const isAvailable = audioStreamManager.isRecordingAvailable(micCapturerInfo);
+    const status = isAvailable
+      ? '方法一判断结果：录制可以启动'
+      : '方法一判断结果：录制不可启动';
+    const detailInfo = `${status}\nisRecordingAvailable: ${isAvailable}`;
+    console.info(detailInfo);
+    if (updateCallback) {
+      updateCallback(detailInfo, false);
+    }
+    return isAvailable;
+  } catch (err) {
+    const error = err as BusinessError;
+    const errorMsg = `Invoke isRecordingAvailable failed, code is ${error.code}, message is ${error.message}`;
+    console.error(errorMsg);
+    if (updateCallback) {
+      updateCallback(errorMsg, true);
+    }
+    return false;
+  }
+}
+// [End is_RecordingAvailable]
+
+// [Start check_MicOccupiedByAmplitude]
+async function checkMicOccupiedByAmplitude(updateCallback?: (msg: string, isError: boolean) => void): Promise<boolean> {
+  try {
+    if (!audioVolumeGroupManager) {
+      audioVolumeGroupManager = await audioManager.getVolumeManager()
+        .getVolumeGroupManager(audio.DEFAULT_VOLUME_GROUP_ID);
+    }
+
+    const capturerChangeInfoArray = await audioStreamManager.getCurrentAudioCapturerInfoArray();
+    let detailInfo = `当前音频采集器数量: ${capturerChangeInfoArray.length}\n`;
+    let isMicOccupied = false;
+    let hasInputDevice = false;
+
+    for (const changeInfo of capturerChangeInfoArray) {
+      detailInfo += `StreamId: ${changeInfo.streamId}, Source: ${changeInfo.capturerInfo.source}\n`;
+      for (const deviceDescriptor of changeInfo.deviceDescriptors) {
+        hasInputDevice = true;
+        const warmupAmplitude = await audioVolumeGroupManager.getMaxAmplitudeForInputDevice(deviceDescriptor);
+        detailInfo += `Device: ${deviceDescriptor.name}, WarmupAmplitude: ${warmupAmplitude}\n`;
+      }
+    }
+
+    if (hasInputDevice) {
+      detailInfo += `第一次读取用于建立采样窗口，等待${MIC_OCCUPATION_AMPLITUDE_SAMPLE_INTERVAL_MS}ms后进行第二次读取\n`;
+      await waitForMicAmplitudeSample();
+    } else {
+      detailInfo += '未获取到输入设备，无法通过最大电平判断麦克风占用\n';
+    }
+
+    for (const changeInfo of capturerChangeInfoArray) {
+      for (const deviceDescriptor of changeInfo.deviceDescriptors) {
+        const maxAmplitude = await audioVolumeGroupManager.getMaxAmplitudeForInputDevice(deviceDescriptor);
+        detailInfo += `Device: ${deviceDescriptor.name}, MaxAmplitude: ${maxAmplitude}\n`;
+        if (maxAmplitude > 0) {
+          isMicOccupied = true;
+        }
+      }
+    }
+
+    detailInfo += isMicOccupied
+      ? '方法二判断结果：最大电平大于0，麦克风已被占用'
+      : '方法二判断结果：未检测到大于0的最大电平，麦克风未被占用';
+    console.info(detailInfo);
+    if (updateCallback) {
+      updateCallback(detailInfo, false);
+    }
+    return isMicOccupied;
+  } catch (err) {
+    const error = err as BusinessError;
+    const errorMsg = `Invoke microphone occupation check failed, code is ${error.code}, message is ${error.message}`;
+    console.error(errorMsg);
+    if (updateCallback) {
+      updateCallback(errorMsg, true);
+    }
+    return false;
+  }
+}
+// [End check_MicOccupiedByAmplitude]
+
 @Entry
 @Component
 struct Index {
@@ -142,6 +240,10 @@ struct Index {
   aboutToAppear(): void {
     // 设置全局回调
     globalCallbackUpdate = (msg) => this.updateCallbackInfo(msg);
+  }
+
+  aboutToDisappear(): void {
+    globalCallbackUpdate = undefined;
   }
 
   // 更新日志信息
@@ -253,6 +355,39 @@ struct Index {
               this.currentState = '获取失败';
             }
           });
+        });
+
+        Column() {
+          Text('方法一：isRecordingAvailable判断录制是否可以启动').fontColor(Color.Black).fontSize(12);
+        }
+        .backgroundColor(Color.White)
+        .borderRadius(20)
+        .width('90%')
+        .height(72)
+        .justifyContent(FlexAlign.Center)
+        .margin({ bottom: 12 })
+        .onClick((): void => {
+          const canStartRecording = checkRecordingAvailable((msg, isError) =>
+            this.updateLogInfo(msg, isError));
+          this.currentState = canStartRecording ? '录制可以启动' : '录制不可启动';
+        });
+
+        Column() {
+          Text('方法二：电平判断麦克风占用')
+            .fontColor(Color.Black)
+            .fontSize(12);
+        }
+        .backgroundColor(Color.White)
+        .borderRadius(20)
+        .width('90%')
+        .height(72)
+        .justifyContent(FlexAlign.Center)
+        .margin({ bottom: 12 })
+        .onClick(async (): Promise<void> => {
+          this.currentState = '正在通过最大电平判断麦克风占用...';
+          const isMicOccupied = await checkMicOccupiedByAmplitude((msg, isError) =>
+            this.updateLogInfo(msg, isError));
+          this.currentState = isMicOccupied ? '麦克风已被占用' : '麦克风未被占用';
         });
       }
       .height('100%')

@@ -88,5 +88,41 @@ export default function AudioStreamManagerTest() {
         done
       );
     });
+
+    /**
+      * @tc.number AudioCapturerInfo_IsRecordingAvailable_0001
+      * @tc.name AudioCapturerInfo_IsRecordingAvailable_0001
+      * @tc.desc Check whether recording can start by isRecordingAvailable
+      * @tc.size MediumTest
+      * @tc.type Function
+      * @tc.level Level 1
+      */
+    it('AudioCapturerInfo_IsRecordingAvailable_0001', Level.LEVEL1, async (done: Function) => {
+      await runTest(
+        'AudioCapturerInfo_IsRecordingAvailable_0001',
+        '方法一：isRecordingAvailable判断录制是否可以启动',
+        3000,
+        'Check whether recording can start by isRecordingAvailable',
+        done
+      );
+    });
+ 	 
+    /**
+      * @tc.number AudioCapturerInfo_MaxAmplitude_0001
+      * @tc.name AudioCapturerInfo_MaxAmplitude_0001
+      * @tc.desc Check microphone recording state by input device amplitude
+      * @tc.size MediumTest
+      * @tc.type Function
+      * @tc.level Level 1
+      */
+    it('AudioCapturerInfo_MaxAmplitude_0001', Level.LEVEL1, async (done: Function) => {
+      await runTest(
+        'AudioCapturerInfo_MaxAmplitude_0001',
+        '方法二：电平判断麦克风占用',
+        3000,
+        'Check microphone occupation by max amplitude',
+        done
+      );
+    });
   });
 }

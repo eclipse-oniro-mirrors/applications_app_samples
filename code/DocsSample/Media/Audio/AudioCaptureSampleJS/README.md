@@ -33,6 +33,8 @@
 **图4**：音频录制流管理页
 
 点击'获取当前录制流信息'按钮，即可进行录制流更改事件监听、获取当前录制流信息以及注销监听操作，其中获取到的录制流信息会在日志信息中打印。
+点击'方法一：isRecordingAvailable判断录制是否可以启动'按钮，即可通过`isRecordingAvailable`接口判断当前录制是否可以启动。
+点击'方法二：电平判断麦克风占用'按钮，即可通过当前音频采集器信息和输入设备最大电平判断当前麦克风是否被占用。第一次最大电平读取仅用于建立采样窗口，示例会等待500毫秒后进行第二次读取，并使用第二次读取结果判断。
 
 <img src='screenshots/group.png' width=320> 
 
@@ -58,8 +60,8 @@
 │   │   └───Index.ets                       // 首页。
 │   │   └───AudioCapture.ets                // 使用AudioCapturer开发音频录制功能页。
 │   │   └───AudioLoopback.ets               // 实现音频低时延耳返页。
-│   │   └───MacManager.ets                  // 音频录制流管理页。
-│   │   └───AudioStreamManager.ets          // 管理麦克风页。
+│   │   └───MacManager.ets                  // 管理麦克风页。
+│   │   └───AudioStreamManager.ets          // 音频录制流管理及麦克风占用判断页。
 │   │   └───PlaybackCapture.ets              // 音频内录页。
 └───entry/src/main/resources                // 资源目录。
 ```
@@ -94,6 +96,8 @@
   - 通过`audioManager.getStreamManager`创建`audioStreamManager`实例，再通过`on('audioCapturerChange')`监听音频录制流变更时间相应流状态以及设备变化事件。
   - 通过调用`audioStreamManager.getCurrentAudioCapturerInfoArray`获取当前录制流信息，包括音频录制流的唯一ID、音频采集器信息以及音频录制设备信息。
   - 通过`off('audioCapturerChange')`注销监听音频录制流变化。
+  - 点击'方法一：isRecordingAvailable判断录制是否可以启动'按钮，调用`audioStreamManager.isRecordingAvailable`检查当前录制是否可以启动。返回`true`时，示例判定录制可以启动；返回`false`时，示例判定录制不可启动。
+  - 点击'方法二：电平判断麦克风占用'按钮，先调用`audioStreamManager.getCurrentAudioCapturerInfoArray`获取当前音频采集器信息，再遍历每个采集器的`deviceDescriptors`。第一次调用`audioVolumeGroupManager.getMaxAmplitudeForInputDevice`用于建立采样窗口，不参与占用判断；等待500毫秒后再次读取输入设备最大电平值。当第二次读取到的任一输入设备最大电平值大于0时，示例判定当前麦克风已被占用；否则判定当前麦克风未被占用。
 
 ### 实现音频低时延耳返
 - 源码参考：[AudioLoopback.ets](entry/src/main/ets/pages/AudioLoopback.ets)  
