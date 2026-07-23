@@ -836,16 +836,6 @@ if (typeof unionTypeValue === 'string') {
 }
 // [End union_type_guard_vs_assertion]
 
-// ===== assertion_runtime_type =====
-// [Start assertion_runtime_type]
-let runtimeTypeValue: Object = 123;
-
-// 类型断言不会将数字转换为字符串
-let assertedString: string = runtimeTypeValue as string;
-
-console.info(`${typeof assertedString}`); // "number"（运行时类型仍然是number）
-assertedString.toUpperCase(); // 运行时错误：toUpperCase is not a function
-// [End assertion_runtime_type]
 
 // ===== downcast_with_instanceof_check =====
 // [Start downcast_with_instanceof_check]
