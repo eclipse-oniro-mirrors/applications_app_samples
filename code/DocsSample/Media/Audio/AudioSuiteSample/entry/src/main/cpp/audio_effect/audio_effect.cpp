@@ -13,48 +13,30 @@
 * limitations under the License.
 */
 
-#include "print_info_to_file.h"
+#include "audio_effect.h"
 
-#include <ohaudiosuite/native_audio_suite_base.h>
-#include <fcntl.h>
-#include <unistd.h>
-// [StartExclude audioSuite_PrintInfo]
-// 文件权限常量。
-constexpr mode_t FILE_PERMISSION = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH; // 0644
-static OH_AudioSuiteEngine *g_printInfoEngine = nullptr;
-
-napi_value TestPrintInfoToFile(napi_env env, napi_callback_info info)
+std::unique_ptr<AudioEffectStrategy> CreateEffectStrategy(int effectType)
 {
-    napi_value result;
-    napi_get_boolean(env, false, &result);
-
-    // [EndExclude audioSuite_PrintInfo]
-    // [Start audioSuite_PrintInfo]
-    // engine为已创建的OH_AudioSuiteEngine实例，必须确保engine参数有效，否则输出内容为空。
-    // pipeline为nullptr时输出所有管线，传入具体管线实例则仅输出该管线。
-    OH_AudioSuiteEngine *engine = audioSuiteEngine;
-    if (!engine) {
-        OH_AudioSuiteEngine_Create(&g_printInfoEngine);
-        engine = g_printInfoEngine;
+    switch (effectType) {
+        case AUDIO_EFFECT_TYPE_EQUALIZER:
+            return std::make_unique<EqualizerStrategy>();
+        case AUDIO_EFFECT_TYPE_VOICE_BEAUTIFIER:
+            return std::make_unique<VoiceBeautifierStrategy>();
+        case AUDIO_EFFECT_TYPE_NOISE_REDUCTION:
+            return std::make_unique<NoiseReductionStrategy>();
+        case AUDIO_EFFECT_TYPE_SOUND_FIELD:
+            return std::make_unique<SoundFieldStrategy>();
+        case AUDIO_EFFECT_TYPE_ENVIRONMENT_EFFECT:
+            return std::make_unique<EnvironmentEffectStrategy>();
+        case AUDIO_EFFECT_TYPE_SPACE_RENDER:
+            return std::make_unique<SpaceRenderStrategy>();
+        case AUDIO_EFFECT_TYPE_PURE_VOICE_CHANGE:
+            return std::make_unique<PureVoiceChangeStrategy>();
+        case AUDIO_EFFECT_TYPE_GENERAL_VOICE_CHANGE:
+            return std::make_unique<GeneralVoiceChangeStrategy>();
+        case AUDIO_EFFECT_TYPE_TEMPO_PITCH:
+            return std::make_unique<TempoPitchStrategy>();
+        default:
+            return nullptr;
     }
-    // 打印编创快照到文件。
-    const char *filePath =
-        "/storage/Users/currentUser/Download/com.example.audiosuitesample/printfile/audio_snapshot.txt";
-    int fd = open(filePath, O_WRONLY | O_CREAT | O_APPEND, FILE_PERMISSION);
-    if (fd < 0) {
-        // 文件打开失败，回退到日志输出。
-        // fd < 0表示输出到日志。
-        OH_AudioSuite_PrintInfo(engine, nullptr, -1);
-        napi_get_boolean(env, true, &result);
-        return result;
-    }
-    // 输出所有管线信息到文件。
-    // nullptr表示输出engine下所有pipeline，fd为文件描述符。
-    OH_AudioSuite_Result ret = OH_AudioSuite_PrintInfo(engine, nullptr, fd);
-    close(fd);
-    // [End audioSuite_PrintInfo]
-    if (ret == AUDIOSUITE_SUCCESS) {
-        napi_get_boolean(env, true, &result);
-    }
-    return result;
 }
