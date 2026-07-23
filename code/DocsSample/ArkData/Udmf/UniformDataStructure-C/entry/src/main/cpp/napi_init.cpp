@@ -59,7 +59,7 @@ static napi_value NAPI_Global_getFileUri(napi_env env, napi_callback_info info)
     // 1.创建fileUri类型的数据结构
     const char *uri = "https://xxx/xx/xx.jpg";
     OH_UdsFileUri *fileUri = OH_UdsFileUri_Create();
-    // 2. 设置fileUri中的URL和描述信息。
+    // 2. 设置fileUri中的URL和文件类型信息。
     OH_UdsFileUri_SetFileUri(fileUri, uri);
     OH_UdsFileUri_SetFileType(fileUri, UDMF_META_IMAGE);
     // 3. 创建OH_UdmfRecord对象，并向OH_UdmfRecord中添加fileUri类型数据。
