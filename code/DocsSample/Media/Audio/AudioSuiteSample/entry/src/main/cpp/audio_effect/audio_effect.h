@@ -195,8 +195,8 @@ public:
         OH_AudioSuiteEngine_CreateNode(pipeline, builder, node);
         // 按场景设置空间渲染参数。
         switch (params.spaceRenderMode) {
-            // 固定摆位模式。
-            case 0: {
+            /* 固定摆位模式 */
+            case SPACE_RENDER_MODE_POSITION: {
                 OH_AudioSuite_SpaceRenderPositionParams position;
                 position.x = params.spacePositionX;
                 position.y = params.spacePositionY;
@@ -204,8 +204,8 @@ public:
                 OH_AudioSuiteEngine_SetSpaceRenderPositionParams(*node, position);
                 break;
             }
-            // 旋转模式。
-            case 1: {
+            /* 旋转模式 */
+            case SPACE_RENDER_MODE_ROTATION: {
                 OH_AudioSuite_SpaceRenderRotationParams rotation;
                 rotation.x = params.spaceRotationX;
                 rotation.y = params.spaceRotationY;
@@ -216,8 +216,8 @@ public:
                 OH_AudioSuiteEngine_SetSpaceRenderRotationParams(*node, rotation);
                 break;
             }
-            // 扩展模式。
-            case 2: {
+            /* 扩展模式 */
+            case SPACE_RENDER_MODE_EXTENSION: {
                 OH_AudioSuite_SpaceRenderExtensionParams extension;
                 extension.extRadius = params.spaceExtensionRadius;
                 extension.extAngle = params.spaceExtensionAngle;
@@ -299,30 +299,6 @@ public:
     }
 };
 
-inline std::unique_ptr<AudioEffectStrategy> CreateEffectStrategy(int effectType)
-{
-    switch (effectType) {
-        case AUDIO_EFFECT_TYPE_EQUALIZER:
-            return std::make_unique<EqualizerStrategy>();
-        case AUDIO_EFFECT_TYPE_VOICE_BEAUTIFIER:
-            return std::make_unique<VoiceBeautifierStrategy>();
-        case AUDIO_EFFECT_TYPE_NOISE_REDUCTION:
-            return std::make_unique<NoiseReductionStrategy>();
-        case AUDIO_EFFECT_TYPE_SOUND_FIELD:
-            return std::make_unique<SoundFieldStrategy>();
-        case AUDIO_EFFECT_TYPE_ENVIRONMENT_EFFECT:
-            return std::make_unique<EnvironmentEffectStrategy>();
-        case AUDIO_EFFECT_TYPE_SPACE_RENDER:
-            return std::make_unique<SpaceRenderStrategy>();
-        case AUDIO_EFFECT_TYPE_PURE_VOICE_CHANGE:
-            return std::make_unique<PureVoiceChangeStrategy>();
-        case AUDIO_EFFECT_TYPE_GENERAL_VOICE_CHANGE:
-            return std::make_unique<GeneralVoiceChangeStrategy>();
-        case AUDIO_EFFECT_TYPE_TEMPO_PITCH:
-            return std::make_unique<TempoPitchStrategy>();
-        default:
-            return nullptr;
-    }
-}
+std::unique_ptr<AudioEffectStrategy> CreateEffectStrategy(int effectType);
 
 #endif

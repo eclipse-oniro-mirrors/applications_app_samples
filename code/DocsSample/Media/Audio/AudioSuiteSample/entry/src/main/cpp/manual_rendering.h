@@ -19,6 +19,13 @@
 #include "pcm_file_utils.h"
 #include <cstdint>
 
+/* 空间渲染模式枚举 */
+enum SpaceRenderMode : int {
+    SPACE_RENDER_MODE_POSITION = 0,  /* 固定摆位模式 */
+    SPACE_RENDER_MODE_ROTATION = 1,  /* 旋转模式 */
+    SPACE_RENDER_MODE_EXTENSION = 2, /* 扩展模式 */
+};
+
 const int AUDIO_EQ_BAND_NUM = 10;
 
 enum AudioEffectType {
@@ -69,7 +76,7 @@ struct EffectParams {
     int spaceRotationSurroundDirection;
     float spaceExtensionRadius;
     int32_t spaceExtensionAngle;
-    int spaceRenderMode;
+    SpaceRenderMode spaceRenderMode;
 };
 
 void BaseEditorEffect(AudioDataInfo *audioInfo, const char *newFilePath, int effectType, const EffectParams &params);

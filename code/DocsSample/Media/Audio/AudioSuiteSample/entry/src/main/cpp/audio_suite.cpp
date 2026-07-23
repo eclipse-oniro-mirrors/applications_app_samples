@@ -176,7 +176,7 @@ static void ParseEnvironmentParams(napi_env env, napi_value obj, EffectParams &p
 // 解析空间渲染参数。
 static void ParseSpaceRenderParams(napi_env env, napi_value obj, EffectParams &params)
 {
-    params.spaceRenderMode = ReadInt32Field(env, obj, "spaceRenderMode");
+    params.spaceRenderMode = static_cast<SpaceRenderMode>(ReadInt32Field(env, obj, "spaceRenderMode"));
     params.spacePositionX = ReadFloatField(env, obj, "spacePositionX");
     params.spacePositionY = ReadFloatField(env, obj, "spacePositionY");
     params.spacePositionZ = ReadFloatField(env, obj, "spacePositionZ");
