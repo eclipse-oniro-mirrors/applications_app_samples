@@ -51,7 +51,7 @@ export default class control {
   }
   // [EndExclude getAVSessionDescriptorsInfo]
 
-  // 获取媒体会话描述符及媒体会话控制器
+  // 获取媒体会话描述符及媒体会话控制器。
   async getAVSessionDescriptorsInfo(): Promise<void> {
     try {
       // 获取所有设置过媒体信息且注册过控制回调的会话的描述符信息。
