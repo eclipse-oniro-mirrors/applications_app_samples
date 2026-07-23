@@ -19,11 +19,11 @@ import { router } from '@kit.ArkUI';
 import { Want } from '@kit.AbilityKit';
   // [StartExclude import_want]
 // [Start import_myInfo]
-// ExportCompositeInterface.ts
-import { MyInfo } from './ExportCompositeInterface';
+// MainPage.ets
+import { MyInfo } from './ExportInterface';
   // [StartExclude import_myInfo]
 // [Start import_ns]
-// import.ts
+// MainPage.ets
 import { NS } from './ExportNs';
   // [StartExclude import_ns]
 
@@ -69,7 +69,7 @@ function testPropertyObfuscation() {
 }
 
 // [Start import_utils]
-// main.ts
+// MainPage.ets
 async function loadAndUseAdd() {
     try {
         const mathUtils = await import('./ExportUtils');
