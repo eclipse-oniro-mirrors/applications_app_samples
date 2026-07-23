@@ -1202,9 +1202,9 @@ void RenderThread::DrawImage()
     if (roiPathType_ == ROI_PATH_BUFFER_MODE && frameQueue_ != nullptr) {
         PushFrameToBufferQueue(InBuffer, assembledRoiStr);
     }
-    if (roiPathType_ == ROI_PATH_NATIVEBUFFER && isOpenROI_ &&
-        !assembledRoiStr.empty() && OutBufferEncoder != nullptr) {
-        WriteRoiToEncoderBuffer(OutBufferEncoder, assembledRoiStr);
+    if (roiPathType_ == ROI_PATH_NATIVEBUFFER && isOpenROI_ && OutBufferEncoder != nullptr) {
+        const std::string &roiToWrite = assembledRoiStr.empty() ? ";" : assembledRoiStr;
+        WriteRoiToEncoderBuffer(OutBufferEncoder, roiToWrite);
     }
 
     FlushAndCleanup(InBuffer, fenceFd1, OutBuffer, OutBufferEncoder);
