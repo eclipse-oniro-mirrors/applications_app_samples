@@ -357,3 +357,13 @@ let ecS: EcStatus = ecC; // 编译错误：不同枚举不兼容
 let ecN: number = ecC; // 数值枚举可与number兼容
 console.info(`${ecN}`); // 0
 // [End ts_enum_compatibility]
+
+// [Start ts_assertion_runtime_type]
+let runtimeTypeValue: Object = 123;
+
+// 类型断言不会将数字转换为字符串
+let assertedString: string = runtimeTypeValue as string;
+
+console.info(`${typeof assertedString}`); // "number"（运行时类型仍然是number）
+assertedString.toUpperCase(); // 运行时错误：toUpperCase is not a function
+// [End ts_assertion_runtime_type]
