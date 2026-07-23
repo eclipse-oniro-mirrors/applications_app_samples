@@ -168,11 +168,11 @@ public:
                         const EffectParams &params) override
     {
         // [Start audioSuite_SetEnvironmentType]
-        // 设置为场景效果节点类型。
+        // 设置为环境效果节点类型。
         OH_AudioSuiteNodeBuilder_SetNodeType(builder, OH_AudioNode_Type::EFFECT_NODE_TYPE_ENVIRONMENT_EFFECT);
-        // 创建场景效果节点。
+        // 创建环境效果节点。
         OH_AudioSuiteEngine_CreateNode(pipeline, builder, node);
-        // 设置场景效果节点效果。
+        // 设置环境效果节点效果。
         OH_AudioSuiteEngine_SetEnvironmentType(*node, static_cast<OH_EnvironmentType>(params.environmentType));
         // [End audioSuite_SetEnvironmentType]
     }
