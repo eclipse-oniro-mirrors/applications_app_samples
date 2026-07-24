@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025-2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -23,28 +23,16 @@ interface Ary {
 struct Index {
   ary:Ary[]=[
     {
-      name:'PageTwo',
-      path:'pages/PageTwo'
+      name:'MutableBuilderDynamic',
+      path:'pages/MutableBuilderDynamic'
     },
     {
-      name:'PageThree',
-      path:'pages/PageThree'
+      name:'MutableBuilderContextMenu',
+      path:'pages/MutableBuilderContextMenu'
     },
     {
-      name:'PageFour',
-      path:'pages/PageFour'
-    },
-    {
-      name:'PageFive',
-      path:'pages/PageFive'
-    },
-    {
-      name:'PageComponentV2',
-      path:'pages/PageComponentV2'
-    },
-    {
-      name:'WrapBuilderAsField',
-      path:'pages/WrapBuilderAsField'
+      name:'MutableBuilderBinding',
+      path:'pages/MutableBuilderBinding'
     },
   ];
   build() {
