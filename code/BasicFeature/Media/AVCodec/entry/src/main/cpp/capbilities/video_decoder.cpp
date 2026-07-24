@@ -98,9 +98,9 @@ int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codecSyncMode);
     }
     if (sampleInfo.isSmartFluencySupported) {
-        // 在初始化阶段配置ADAPTIVE模式，确保MV上报链路在起播时即建立。
-        // MV上报不支持动态启停，仅在初始化阶段配置ADAPTIVE模式时才会启用。
-        // 若中途动态切入ADAPTIVE模式，MV上报不会启用，感知自适应丢帧收益将降低。
+        // 在初始化阶段配置ADAPTIVE模式，确保解码过程MV信息输出到丢帧判决模块。
+        // MV信息输出需在初始化阶段使能ADAPTIVE模式，不支持运行态动态使能。
+        // 若中途动态切入ADAPTIVE模式，丢帧判决模块将无法获取MV信息，退化为按固定间隔丢帧。
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_DECODER_FRAME_RETENTION_MODE,
             OH_FRAME_RETENTION_MODE_ADAPTIVE);
     }
