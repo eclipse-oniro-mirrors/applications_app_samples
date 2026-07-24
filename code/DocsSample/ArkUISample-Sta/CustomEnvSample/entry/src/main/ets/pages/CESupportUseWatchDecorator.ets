@@ -38,6 +38,7 @@ struct Index {
 
         Button('change')
           .onClick(() => {
+            // 点击Button后，this.defaultMessage的值会更新为'Hello World'，触发@Watch监听回调。
             this.defaultMessage = 'Hello World';
           })
       }
@@ -49,7 +50,9 @@ struct Index {
 
 @Component
 struct Child {
+  // @CustomEnv与@Watch装饰器联用，监听变量变化。
   @CustomEnv('custom') @Watch('onChange') message: string = "Hello";
+  // 当message变量值发生变化时会触发@Watch监听回调。
   onChange(propName: string): void {
     console.info(`[CustomEnv], this.message: ${this.message} has changed!`);
   }
