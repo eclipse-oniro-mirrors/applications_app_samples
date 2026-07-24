@@ -21,7 +21,7 @@ type SendableFuncType = () => void;
 class TopLevelSendableClass {
   num: number = 1;
 
-  PrintNum() {
+  printNum() {
     console.info('Top level sendable class');
   }
 }
@@ -34,7 +34,7 @@ function topLevelSendableFunction() {
 @Sendable
 function sendableTestFunction() {
   const topClass = new TopLevelSendableClass(); // 顶层sendable class
-  topClass.PrintNum();
+  topClass.printNum();
   topLevelSendableFunction(); // 顶层sendable function
   console.info('Sendable test function');
 }
@@ -47,7 +47,7 @@ class SendableTestClass {
 
   callback: SendableFuncType; // 顶层sendable function
 
-  CallSendableFunc() {
+  callSendableFunc() {
     sendableTestFunction(); // 顶层sendable function
   }
 }
@@ -71,7 +71,7 @@ struct FunctionUsage {
         .onClick(() => {
           let sendableClass = new SendableTestClass(sendableTestFunction);
           sendableClass.callback();
-          sendableClass.CallSendableFunc();
+          sendableClass.callSendableFunc();
           this.message = 'success';
         })
     }

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 // [Start directly_operate_obj]
-import { ErrorEvent, MessageEvents, ThreadWorkerGlobalScope, worker } from '@kit.ArkTS';
+import { MessageEvents, ThreadWorkerGlobalScope, worker } from '@kit.ArkTS';
 import { GlobalConfig } from '../managers/SendableFreeze';
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
