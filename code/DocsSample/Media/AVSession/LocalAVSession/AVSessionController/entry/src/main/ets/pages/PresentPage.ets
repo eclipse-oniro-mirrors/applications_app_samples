@@ -60,7 +60,7 @@ struct PresentPage {
       .onClick(async () => {
         if (this.canPrevious) {
           let command: avSession.AVControlCommand = {
-            command: 'playPrevious', // 上一首指令
+            command: 'playPrevious', // 上一首指令。
           }
           await this.currentController?.sendControlCommand(command);
           Log.info(TAG, 'on previous click');
@@ -74,14 +74,14 @@ struct PresentPage {
         if (this.playbackState == avSession.PlaybackState.PLAYBACK_STATE_PLAY) {
           if (this.canPause) {
             let command: avSession.AVControlCommand = {
-              command: 'pause', // 暂停指令
+              command: 'pause', // 暂停指令。
             }
             await this.currentController?.sendControlCommand(command);
           }
         } else {
           if (this.canPlay) {
             let command: avSession.AVControlCommand = {
-              command: 'play', // 播放指令
+              command: 'play', // 播放指令。
             }
             await this.currentController?.sendControlCommand(command);
           }
@@ -94,7 +94,7 @@ struct PresentPage {
       .onClick(async () => {
         if (this.canNext) {
           let command: avSession.AVControlCommand = {
-            command: 'playNext', // 下一首指令
+            command: 'playNext', // 下一首指令。
           }
           await this.currentController?.sendControlCommand(command);
           Log.info(TAG, 'on next click ');
