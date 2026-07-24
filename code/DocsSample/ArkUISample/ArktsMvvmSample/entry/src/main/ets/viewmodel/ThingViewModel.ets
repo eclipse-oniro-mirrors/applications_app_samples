@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import resource from '../common/Resource';
 // [Start thing_view_model]
 import ThingModel from '../model/ThingModel';
 
@@ -32,8 +33,8 @@ export default class ThingViewModel {
   }
 
   addSuffixes(): void {
-    this.thingName += 'lala';
+    // 请将$r('app.string.la_la')替换为实际资源文件，在本示例中该资源文件的value值为"啦"
+    this.thingName += resource.resourceToString($r('app.string.la_la'));
   }
 }
-
 // [End thing_view_model]

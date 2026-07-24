@@ -16,7 +16,7 @@
 import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
-import resource from '../common/Resource';
+import resource from '../common/resource';
 
 const DOMAIN = 0x0000;
 
