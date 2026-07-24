@@ -18,7 +18,7 @@
 #include <cstdio>
 #include <cstring>
 #include <string>
-#include <inttypes.h>
+#include <cinttypes>
 #include <fcntl.h>
 #include <unistd.h>
 
