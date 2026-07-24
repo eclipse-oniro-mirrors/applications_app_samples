@@ -25,35 +25,6 @@
 #undef LOG_TAG
 #define LOG_TAG "recorder"
 
-// [Start roi_buffer_mode_fill_input]
-static void FillBufferModeInput(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer,
-    CodecUserData *codecUserData)
-{
-    FrameItem frameItem;
-    if (!codecUserData->frameQueue->Pop(frameItem, std::chrono::milliseconds(FRAME_QUEUE_POP_TIMEOUT_MS))) {
-        OH_VideoEncoder_PushInputBuffer(codec, index);
-        return;
-    }
-    uint8_t *bufferAddr = OH_AVBuffer_GetAddr(buffer);
-    int32_t bufferCapacity = OH_AVBuffer_GetCapacity(buffer);
-    if (bufferAddr != nullptr && bufferCapacity >= static_cast<int32_t>(frameItem.pixels.size())) {
-        std::copy(frameItem.pixels.data(), frameItem.pixels.data() + frameItem.pixels.size(), bufferAddr);
-        OH_AVCodecBufferAttr attr;
-        attr.size = static_cast<int32_t>(frameItem.pixels.size());
-        attr.offset = 0;
-        attr.flags = AVCODEC_BUFFER_FLAGS_NONE;
-        OH_AVBuffer_SetBufferAttr(buffer, &attr);
-    }
-    if (!frameItem.roiStr.empty()) {
-        OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
-        if (format != nullptr) {
-            OH_AVFormat_SetStringValue(format, OH_MD_KEY_VIDEO_ENCODER_ROI_PARAMS, frameItem.roiStr.c_str());
-        }
-    }
-    OH_VideoEncoder_PushInputBuffer(codec, index);
-}
-// [End roi_buffer_mode_fill_input]
-
 namespace {
 using namespace std::chrono_literals;
 constexpr int64_t MICROSECOND = 1000000;
@@ -319,10 +290,38 @@ void Recorder::VideoEncBufferInputThread()
         lock.unlock();
 
         OH_AVBuffer *buffer = reinterpret_cast<OH_AVBuffer *>(bufferInfo.buffer);
-        FillBufferModeInput(videoEncoder_->GetCodec(), bufferInfo.bufferIndex, buffer, encContext_);
+        FillBufferModeInput(bufferInfo.bufferIndex, buffer);
     }
 }
 // [End roi_buffer_mode_callback]
+
+// [Start roi_buffer_mode_fill_input]
+void Recorder::FillBufferModeInput(uint32_t index, OH_AVBuffer *buffer)
+{
+    FrameItem frameItem;
+    if (!encContext_->frameQueue->Pop(frameItem, std::chrono::milliseconds(FRAME_QUEUE_POP_TIMEOUT_MS))) {
+        OH_VideoEncoder_PushInputBuffer(videoEncoder_->GetCodec(), index);
+        return;
+    }
+    uint8_t *bufferAddr = OH_AVBuffer_GetAddr(buffer);
+    int32_t bufferCapacity = OH_AVBuffer_GetCapacity(buffer);
+    if (bufferAddr != nullptr && bufferCapacity >= static_cast<int32_t>(frameItem.pixels.size())) {
+        std::copy(frameItem.pixels.data(), frameItem.pixels.data() + frameItem.pixels.size(), bufferAddr);
+        OH_AVCodecBufferAttr attr;
+        attr.size = static_cast<int32_t>(frameItem.pixels.size());
+        attr.offset = 0;
+        attr.flags = AVCODEC_BUFFER_FLAGS_NONE;
+        OH_AVBuffer_SetBufferAttr(buffer, &attr);
+    }
+    if (!frameItem.roiStr.empty()) {
+        OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
+        if (format != nullptr) {
+            OH_AVFormat_SetStringValue(format, OH_MD_KEY_VIDEO_ENCODER_ROI_PARAMS, frameItem.roiStr.c_str());
+        }
+    }
+    OH_VideoEncoder_PushInputBuffer(videoEncoder_->GetCodec(), index);
+}
+// [End roi_buffer_mode_fill_input]
 
 void Recorder::Release()
 {
