@@ -17,6 +17,7 @@
 
 import UIAbility from '@ohos.app.ability.UIAbility';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
+import ConfigurationConstant from '@ohos.app.ability.ConfigurationConstant';
 import Want from '@ohos.app.ability.Want';
 import window from '@ohos.window';
 import { BusinessError } from '@ohos.base'
@@ -25,6 +26,7 @@ import resource from '../common/resource';
 
 class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
     resource.setContext(this.context);
     hilog.info(0x0000, 'testTag', 'EntryAbility onCreate');
   }

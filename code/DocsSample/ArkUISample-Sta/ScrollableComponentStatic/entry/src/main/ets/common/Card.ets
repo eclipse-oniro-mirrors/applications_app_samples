@@ -35,8 +35,7 @@ import {
   ButtonOptions,
   RowOptions,
   PropRef,
-  Require,
-  Blank
+  Require
 } from '@kit.ArkUI';
 
 @Component
@@ -54,7 +53,7 @@ export struct CompletedRoutableCard {
     Card({ verticalAlign: VerticalAlign.Top }) {
       Button({ type: ButtonType.Circle } as ButtonOptions) {
         SymbolGlyph(this.symbol)
-          .fontColor(['#fff'])
+          .fontColor([$r('sys.color.icon_on_primary')])
           .fontSize(16)
       }
       .borderRadius(14)
@@ -85,7 +84,7 @@ export struct Card {
       this.content()
     }
     .alignItems(this.verticalAlign)
-    .backgroundColor('#fff')
+    .backgroundColor($r('app.color.navigation_card_background'))
     .borderRadius(12)
     .padding(12)
     .width('100%')
@@ -104,19 +103,17 @@ export struct RoutableCard {
     Card() {
       Button({ type: ButtonType.Circle } as ButtonOptions) {
         SymbolGlyph(this.icon)
-          .fontColor(['#fff'])
+          .fontColor([$r('sys.color.icon_on_primary')])
           .fontSize(16)
       }
       .borderRadius(14)
 
       Text(this.title)
         .fontColor($r('sys.color.font_primary'))
-        .minFontSize(12)
-        .maxFontSize(16)
+        .fontSize(16)
         .maxLines(1)
         .textOverflow({ overflow: TextOverflow.Ellipsis })
-
-      Blank()
+        .layoutWeight(1)
 
       Button({ type: ButtonType.Normal, buttonStyle: ButtonStyleMode.TEXTUAL } as ButtonOptions) {
         SymbolGlyph($r('sys.symbol.chevron_right'))
@@ -134,7 +131,7 @@ export struct ComponentCard {
   title: ResourceStr;
   @BuilderParam content: () => void;
   @PropRef
-  description?: ResourceStr;
+  description: ResourceStr = '';
 
   build(): void {
     Column({ space: 8 } as ColumnOptions) {

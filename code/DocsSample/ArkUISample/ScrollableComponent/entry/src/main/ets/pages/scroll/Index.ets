@@ -26,11 +26,11 @@ export const Scroll_ROUTE_PREFIX: string = 'scroll';
 const routes: Route[] = [
   {
     name: `${Scroll_ROUTE_PREFIX}/${ScrollSnap_ROUTE_PREFIX}/Index`,
-    title: resource.resourceToString($r('app.string.Scroll_Title'))
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.Scroll_Title'))},
   },
   {
     name: `${Scroll_ROUTE_PREFIX}/${ScrollModifier_ROUTE_PREFIX}/Index`,
-    title: resource.resourceToString($r('app.string.ScrollModifier_Title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.ScrollModifier_Title'))},
   }
 ];
 
@@ -55,7 +55,8 @@ struct ScrollExample {
       List({ space: 12 }) {
         ForEach(routes, (route: Route) => {
           ListItem() {
-            CompletedRoutableCard({ title: route.title, description: route.description })
+            CompletedRoutableCard({ title: route.title(this.getUIContext().getHostContext()!),
+            description: route.description })
           }
           .width('100%')
           .onClick(() => {
@@ -67,9 +68,9 @@ struct ScrollExample {
       .contentStartOffset(56)
       .padding({ left: 16, right: 16 })
     }
-    .backgroundColor('#f1f3f5')
+    .backgroundColor($r('app.color.navigation_background'))
     .title('Scroll', {
-      backgroundBlurStyle: BlurStyle.COMPONENT_THICK,
+      backgroundColor: $r('app.color.navigation_background'),
       barStyle: BarStyle.STACK
     })
   }
