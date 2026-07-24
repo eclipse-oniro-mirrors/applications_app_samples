@@ -45,8 +45,6 @@
 
 // [Start assert_sta_sample]
 import { describe, expect, it, Level } from '../../../../hypium/index';
-import { promiseReject } from '../Util.test'
-
 
 export default function exampleTest(): void {
   describe('ExampleTest', (): void => {
@@ -169,12 +167,12 @@ export default function exampleTest(): void {
     })
 
     it('assertPromiseIsRejectedTest', Level.LEVEL1, async () => {
-      let p: Promise<Error> = promiseReject('no');
+      let p: Promise<Error> = Promise.reject(new TypeError('no'));
       await expect(p).assertPromiseIsRejected();
     })
 
     it('assertPromiseIsRejectedWithTest', Level.LEVEL1, async () => {
-      let p: Promise<Error> = promiseReject('reject value')
+      let p: Promise<Error> = Promise.reject(new TypeError('reject value'));
       await expect(p).assertPromiseIsRejectedWith('reject value');
     })
 
