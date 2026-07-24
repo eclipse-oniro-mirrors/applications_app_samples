@@ -39,15 +39,15 @@ struct Index {
           // 创建Worker对象
           let workerInstance = new worker.ThreadWorker('entry/ets/workers/worker.ets');
 
-          // 注册onmessage回调，捕获宿主线程接收到来自其创建的Worker通过workerPort.postMessage接口发送的消息。该回调在宿主线程执行
+          // 注册onmessage回调，接收当前创建的Worker线程通过workerPort.postMessage接口发送的消息。该回调在宿主线程执行
           workerInstance.onmessage = (e: MessageEvents) => {
             let data: string = e.data;
-            console.info('workerInstance onmessage is: ', data);
+            console.info(`workerInstance onmessage is: ${data}`);
           }
 
           // 注册onAllErrors回调，捕获Worker线程的onmessage回调、timer回调以及文件执行等流程产生的全局异常。该回调在宿主线程执行
           workerInstance.onAllErrors = (err: ErrorEvent) => {
-            console.error('workerInstance onAllErrors message is: ' + err.message);
+            console.error(`workerInstance onAllErrors message is: ${err.message}`);
           }
 
           // 注册onmessageerror回调，当Worker对象接收到无法序列化的消息时被调用，在宿主线程执行
@@ -58,7 +58,7 @@ struct Index {
           // 注册onexit回调，当Worker销毁时被调用，在宿主线程执行
           workerInstance.onexit = (e: number) => {
             // Worker正常退出时，code为0；异常退出时，code为1
-            console.info('workerInstance onexit code is: ', e);
+            console.info(`workerInstance onexit code is: ${e}`);
           }
 
           // 发送消息给Worker线程

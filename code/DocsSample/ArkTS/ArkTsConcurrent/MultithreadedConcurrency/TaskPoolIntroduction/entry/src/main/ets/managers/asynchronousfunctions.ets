@@ -48,17 +48,17 @@ async function testConcurrentFunc() {
 
   taskpool.execute(task1).then((d: object) => {
     console.info(`task1 res is: ${d}`);
-  }).catch((e: object) => {
+  }).catch((e: BusinessError) => {
     console.error(`task1 catch e: ${e}`); // task1 catch e: Error: testPromise Error
   })
   taskpool.execute(task2).then((d: object) => {
     console.info(`task2 res is: ${d}`);
-  }).catch((e: object) => {
+  }).catch((e: BusinessError) => {
     console.error(`task2 catch e: ${e}`); // task2 catch e: testPromiseError1 Error msg
   })
   taskpool.execute(task3).then((d: object) => {
     console.info(`task3 res is: ${d}`);
-  }).catch((e: object) => {
+  }).catch((e: BusinessError) => {
     console.error(`task3 catch e: ${e}`); // task3 catch e: testPromiseError2 Error msg
   })
 }
