@@ -414,13 +414,8 @@ static std::string GetSurfaceIdString()
         OH_LOG_ERROR(LOG_APP, "Failed to get surface ID from native window, error: %{public}d", nErr);
         return "";
     }
-    char surfaceIdStr[32] = {0};
-    int32_t snprintfRet = snprintf(surfaceIdStr, sizeof(surfaceIdStr), "%" PRIu64, surfaceId);
-    if (snprintfRet < 0) {
-        OH_LOG_ERROR(LOG_APP, "snprintf failed");
-        return "";
-    }
-    OH_LOG_INFO(LOG_APP, "Input surface ID: %{public}s", surfaceIdStr);
+    std::string surfaceIdStr = std::to_string(surfaceId);
+    OH_LOG_INFO(LOG_APP, "Input surface ID: %{public}s", surfaceIdStr.c_str());
     return surfaceIdStr;
 }
 // [End get_input_surface_id]
