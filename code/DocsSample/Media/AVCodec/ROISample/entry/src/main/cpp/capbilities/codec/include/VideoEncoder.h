@@ -66,6 +66,12 @@ public:
         roiPathType_ = type;
     }
 
+    // Get encoder handle
+    OH_AVCodec *GetCodec() const
+    {
+        return encoder_;
+    }
+
     // Buffer模式: Frame queue for Buffer mode encoding
     void SetFrameQueue(FrameQueue *queue)
     {
