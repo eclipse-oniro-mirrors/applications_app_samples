@@ -204,17 +204,17 @@ export class AudioPlayer {
           let list: string[] = ['audioPlayback'];
           backgroundTaskManager.startBackgroundRunning(context, list, wantAgentObj)
             .then(() => {
-              console.info('Operation startBackgroundRunning succeeded');
+              console.info('Operate startBackgroundRunning succeeded');
             })
             .catch((error: BusinessError) => {
-              console.error(`Failed to Operation startBackgroundRunning. code is ${error.code} message is ${error.message}`);
+              console.error(`Failed to operate startBackgroundRunning. code is ${error.code} message is ${error.message}`);
             });
         } catch (error) {
-          console.error(`Failed to Operation startBackgroundRunning. code is ${(error as BusinessError).code} message is ${(error as BusinessError).message}`);
+          console.error(`Failed to operate startBackgroundRunning. code is ${(error as BusinessError).code} message is ${(error as BusinessError).message}`);
         };
       });
     } catch (error) {
-      console.error(`Failed to Operation getWantAgent. code is ${(error as BusinessError).code} message is ${(error as BusinessError).message}`);
+      console.error(`Failed to operate getWantAgent. code is ${(error as BusinessError).code} message is ${(error as BusinessError).message}`);
     }
   }
   // [End background_task]
@@ -223,9 +223,9 @@ export class AudioPlayer {
   // 取消长时任务。
   stopContinuousTask(context: Context) {
     backgroundTaskManager.stopBackgroundRunning(context).then(() => {
-      console.info(`Succeeded in operationing stopBackgroundRunning.`);
+      console.info(`Succeeded in operating stopBackgroundRunning.`);
     }).catch((err: BusinessError) => {
-      console.error(`Failed to operation stopBackgroundRunning. Code is ${err.code}, message is ${err.message}`);
+      console.error(`Failed to operate stopBackgroundRunning. Code is ${err.code}, message is ${err.message}`);
     });
   }
   // [End background_task_cancel]
