@@ -24,7 +24,7 @@ export struct Bottom {
   @State placeholderVal: string = '请输入你的新年愿望...';
   @Link textVal: string;
 
-  build() {
+  build(): void {
     Column() {
       Text('📝 你输入的内容:')
         .fontSize(SIZES.fontSizeSmall)

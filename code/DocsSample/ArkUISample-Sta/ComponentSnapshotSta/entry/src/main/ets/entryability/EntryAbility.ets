@@ -72,16 +72,16 @@ export default class EntryAbility extends UIAbility {
       let area: window.AvoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
       const uiContext: UIContext = windowClass.getUIContext();
       AppStorage.setOrCreate<int>('naviIndicatorHeight',
-        Math.round(uiContext.px2vp(naviBarArea.bottomRect.height)) as int);
-      AppStorage.setOrCreate<int>('statusBarHeight', Math.round(uiContext.px2vp(area.topRect.height)) as int);
+        Math.round(uiContext.px2vp(naviBarArea.bottomRect.height)) .toInt());
+      AppStorage.setOrCreate<int>('statusBarHeight', Math.round(uiContext.px2vp(area.topRect.height)) .toInt());
 
       let size = windowClass.getWindowProperties().windowRect;
-      AppStorage.setOrCreate<int>('screenHeight', Math.round(uiContext.px2vp(size.height)) as int);
-      AppStorage.setOrCreate<int>('screenWidth', Math.round(uiContext.px2vp(size.width)) as int);
+      AppStorage.setOrCreate<int>('screenHeight', Math.round(uiContext.px2vp(size.height)) .toInt());
+      AppStorage.setOrCreate<int>('screenWidth', Math.round(uiContext.px2vp(size.width)) .toInt());
 
       windowClass.onWindowSizeChange((data: window.Size) => {
-        AppStorage.setOrCreate<int>('screenHeight', Math.round(uiContext.px2vp(data.height)) as int);
-        AppStorage.setOrCreate<int>('screenWidth', Math.round(uiContext.px2vp(data.width)) as int);
+        AppStorage.setOrCreate<int>('screenHeight', Math.round(uiContext.px2vp(data.height)) .toInt());
+        AppStorage.setOrCreate<int>('screenWidth', Math.round(uiContext.px2vp(data.width)) .toInt());
       });
     } catch (err) {
       let error = err as BusinessError;

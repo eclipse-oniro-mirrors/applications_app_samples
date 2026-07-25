@@ -22,7 +22,9 @@ import {
   Builder,
   NavDestination,
   Column,
+  ColumnOptions,
   Row,
+  RowOptions,
   Blank,
   Button,
   Grid,
@@ -40,7 +42,7 @@ import {
   $r
 } from '@kit.ArkUI';
 
-class GridMultiSelectData {
+export class GridMultiSelectData {
   public id: number;
   public name: string;
   public category: string;
@@ -56,16 +58,16 @@ class GridMultiSelectData {
   }
 }
 
-class GridMultiSelectDataSource implements IDataSource {
+export class GridMultiSelectDataSource implements IDataSource<GridMultiSelectData> {
   private dataArray: GridMultiSelectData[] = [];
   private listeners: DataChangeListener[] = [];
 
-  public totalCount(): number {
-    return this.dataArray.length;
+  public totalCount(): int {
+    return this.dataArray.length.toInt();
   }
 
   public getData(index: number): GridMultiSelectData {
-    return this.dataArray[index];
+    return this.dataArray[index.toInt()];
   }
 
   public registerDataChangeListener(listener: DataChangeListener): void {
@@ -105,8 +107,8 @@ export struct GridSwipeSelect {
     let categories: string[] = ['Docs', 'Assets', 'Meeting', 'Legal', 'Report', 'Image'];
     for (let index = 0; index < 96; index++) {
       let sourceIndex: number = index % names.length;
-      this.dataSource.pushData(new GridMultiSelectData(index, names[sourceIndex] + ' ' + (index + 1).toString(),
-        categories[sourceIndex], (12 + index % 36).toString() + ' files',
+      this.dataSource.pushData(new GridMultiSelectData(index, names[sourceIndex.toInt()] + ' ' + (index + 1).toString(),
+        categories[sourceIndex.toInt()], (12 + index % 36).toString() + ' files',
         (24 + index % 80).toString() + ' MB'));
     }
   }
@@ -135,12 +137,12 @@ export struct GridSwipeSelect {
   }
 
   private itemColor(index: number): string {
-    return this.colors[index % this.colors.length];
+    return this.colors[(index % this.colors.length).toInt()];
   }
 
   @Builder
   private OperationBar() {
-    Row({ space: 12 }) {
+    Row({ space: 12 } as RowOptions) {
       Column({ space: 2 }) {
         Text('Project Files')
           .fontSize(20)
@@ -204,9 +206,9 @@ export struct GridSwipeSelect {
     .padding(12)
   }
 
-  build() {
+  build(): void {
     NavDestination() {
-      Column({ space: 12 }) {
+      Column({ space: 12 } as ColumnOptions) {
         this.OperationBar()
 
         // [Start Add_grid_select]

@@ -20,7 +20,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { Logger } from './Logger';
 import { UIContext, AppStorage } from '@kit.ArkUI';
 
-const uiContext: UIContext | undefined = AppStorage.get('uiContext');
+const uiContext: UIContext | undefined = AppStorage.get<UIContext>('uiContext');
 const TAG = 'ImageUtilsLogTag';
 
 export class ImageUtils {
@@ -48,9 +48,9 @@ export class ImageUtils {
       // Realistic roll distance
       let realScrollHeight = scrollYOffsets[len-1] - scrollYOffsets[len-2];
       if (listHeight - realScrollHeight > 0) {
-        let yVal: int = Math.round(uiContext!.vp2px(listHeight - realScrollHeight)) as int;
-        let hVal: int = Math.round(uiContext!.vp2px(realScrollHeight)) as int;
-        let wVal: int = Math.round(uiContext!.vp2px(listWidth)) as int;
+        let yVal: int = Math.round(uiContext!.vp2px(listHeight - realScrollHeight)) .toInt();
+        let hVal: int = Math.round(uiContext!.vp2px(realScrollHeight)) .toInt();
+        let wVal: int = Math.round(uiContext!.vp2px(listWidth)) .toInt();
         let cropRegion: image.Region = {
           x: 0,
           y: yVal,
@@ -108,8 +108,8 @@ export class ImageUtils {
   static async mergeImage(areaArray: image.PositionArea[], lastOffsetY: int, listWidth: int,
     listHeight: int): Promise<image.PixelMap> {
     // 创建一个长截图位图对象
-    let wVal: int = Math.round(uiContext!.vp2px(listWidth)) as int;
-    let hVal: int = Math.round(uiContext!.vp2px(lastOffsetY + listHeight)) as int;
+    let wVal: int = Math.round(uiContext!.vp2px(listWidth)) .toInt();
+    let hVal: int = Math.round(uiContext!.vp2px(lastOffsetY + listHeight)) .toInt();
     let opts: image.InitializationOptions = {
       editable: true,
       pixelFormat: image.PixelMapFormat.RGBA_8888,

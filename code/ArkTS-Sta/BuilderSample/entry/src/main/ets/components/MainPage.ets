@@ -57,7 +57,7 @@ function customTextInput(placeHolderValue: Binding<string>, textValue: MutableBi
       })
   }
   .backgroundColor(COLORS.bgCard)
-  .padding(SIZES.padding as number)
+  .padding(SIZES.padding.toDouble())
   .borderRadius(SIZES.radius)
   .shadow({
     radius: 6,
@@ -73,7 +73,7 @@ export struct MainPage {
   @State placeholderVal: string = '请输入你的新年愿望...';
   @Link textVal: string;
 
-  build() {
+  build(): void {
     Column() {
       //被修改的父组件参数
       Text(this.textVal)

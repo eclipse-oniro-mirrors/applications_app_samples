@@ -20,13 +20,17 @@ import { NavDestination, $r, Entry, Builder, ComponentV2, Local, Text, Button, C
 // [Start static_no_mutable_builder]
 import { Entry, Builder, ComponentV2, Local, Text, Button, Column } from '@kit.ArkUI';
 
+interface textParam {
+  text: string
+}
+
 @Builder
-function textBuilder(p: { text: string }) {
+function textBuilder(p: textParam) {
   Text(p.text)
 }
 
 @Builder
-function buttonBuilder(p: { text: string }) {
+function buttonBuilder(p: textParam) {
   Button(p.text)
 }
 

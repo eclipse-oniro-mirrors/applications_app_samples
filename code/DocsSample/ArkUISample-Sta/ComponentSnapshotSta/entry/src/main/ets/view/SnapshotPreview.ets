@@ -264,7 +264,7 @@ export struct SnapshotPreview {
     } as Padding)
   }
 
-  build() {
+  build():void {
     Column() {
       // The preview pane is displayed after the build
       if (this.mergedImage) {
