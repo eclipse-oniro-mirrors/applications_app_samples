@@ -18,6 +18,7 @@
     "component/BuilderMethod",
     "component/If",
     "component/ModuleComponent",
-    "component/ForEachFilter"
+    "component/ForEachFilter",
+    "component/UIInspectorProfiler"
   ]
 }
