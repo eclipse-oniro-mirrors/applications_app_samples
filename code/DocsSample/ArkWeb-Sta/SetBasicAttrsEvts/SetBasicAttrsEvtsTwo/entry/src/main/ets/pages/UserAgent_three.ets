@@ -17,7 +17,7 @@
 // [Start get_a_custom_user_agent_static]
 import { State, Web, Column, Button, Entry, Component } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError } from '@ohos.base';
 
 @Entry
 @Component

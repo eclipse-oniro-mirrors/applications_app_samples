@@ -17,7 +17,7 @@
 // [Start set_lazy_initialize_web_engine_static]
 import { Web, Column, Entry, Component } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError } from '@ohos.base';
 
 webview.WebCookieManager.setLazyInitializeWebEngine(true);
 

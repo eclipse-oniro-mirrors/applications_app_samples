@@ -17,7 +17,7 @@
 // [Start clear_the_cached_resources_that_have_been_stored_static]
 import { State, Web, Column, Button, Entry, Component, CacheMode } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError } from '@ohos.base';
 
 @Entry
 @Component

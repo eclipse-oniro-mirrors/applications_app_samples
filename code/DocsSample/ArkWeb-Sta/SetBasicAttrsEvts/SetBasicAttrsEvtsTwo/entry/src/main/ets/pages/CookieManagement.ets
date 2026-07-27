@@ -17,7 +17,7 @@
 // [Start set_the_value_of_a_single_cookie_static]
 import { Web, Column, Button, Entry, Component } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError } from '@ohos.base';
 
 @Entry
 @Component
