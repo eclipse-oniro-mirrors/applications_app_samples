@@ -1,0 +1,209 @@
+﻿{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "同应用内音频焦点管理最佳实践示例"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "同应用内焦点管理主入口"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "IntraAppFocusDemo"
+    },
+    {
+      "name": "app_name",
+      "value": "同应用内焦点管理"
+    },
+    {
+      "name": "reason_background",
+      "value": "Allows audio playback in the background for audio focus demonstration"
+    },
+    {
+      "name": "page_title",
+      "value": "同应用内焦点管理最佳实践"
+    },
+    {
+      "name": "page_subtitle",
+      "value": "同一个App里有多条声音在响，谁来管它们互不打架？"
+    },
+    {
+      "name": "focus_mode_label",
+      "value": "焦点模式:"
+    },
+    {
+      "name": "share_mode_btn",
+      "value": "SHARE_MODE (推荐)"
+    },
+    {
+      "name": "independent_mode_btn",
+      "value": "INDEPENDENT_MODE"
+    },
+    {
+      "name": "share_mode_desc",
+      "value": "共享焦点（推荐）"
+    },
+    {
+      "name": "independent_mode_desc",
+      "value": "独立焦点"
+    },
+    {
+      "name": "share_mode_detail",
+      "value": "多条声音共享一个焦点，系统不管，你自己决定谁先谁后。好处：你可以选择「暂停」（能恢复），比「停止」（恢复不了）好。"
+    },
+    {
+      "name": "independent_mode_detail",
+      "value": "每条声音各自抢焦点，系统自动处理。后播的声音会「停止」前播的声音，而且前播的声音再也恢复不了。"
+    },
+    {
+      "name": "scenario_label",
+      "value": "场景演示"
+    },
+    {
+      "name": "enter_btn",
+      "value": "进入"
+    },
+    {
+      "name": "back_btn",
+      "value": "返回"
+    },
+    {
+      "name": "play_btn",
+      "value": "播放"
+    },
+    {
+      "name": "stop_btn",
+      "value": "停止"
+    },
+    {
+      "name": "clear_log_btn",
+      "value": "清除日志"
+    },
+    {
+      "name": "app_control_label",
+      "value": "应用管控:"
+    },
+    {
+      "name": "app_control_on",
+      "value": "ON: B开始播时暂停A，B停下后A自动接着播"
+    },
+    {
+      "name": "app_control_off",
+      "value": "OFF: 两条同时响"
+    },
+    {
+      "name": "comparison_label",
+      "value": "对比一下"
+    },
+    {
+      "name": "music_vs_music_title",
+      "value": "音乐与音乐 (MUSIC vs MUSIC)"
+    },
+    {
+      "name": "music_vs_video_title",
+      "value": "音乐与视频 (MUSIC vs MOVIE)"
+    },
+    {
+      "name": "music_vs_game_title",
+      "value": "音乐与游戏 (MUSIC vs GAME)"
+    },
+    {
+      "name": "scenario_music_vs_music",
+      "value": "音乐与音乐"
+    },
+    {
+      "name": "scenario_music_vs_video",
+      "value": "音乐与视频"
+    },
+    {
+      "name": "scenario_music_vs_game",
+      "value": "音乐与游戏"
+    },
+    {
+      "name": "music_vs_music_share_control_detail",
+      "value": "B开始播放时你主动暂停A，B停下后A自动接着播。比「停止」好——停了就没了，暂停还能恢复。"
+    },
+    {
+      "name": "music_vs_music_share_no_control_detail",
+      "value": "两条音乐共享焦点，不会互相打断，同时响。开「应用管控」可以主动暂停A。"
+    },
+    {
+      "name": "music_vs_music_independent_detail",
+      "value": "两条音乐各自抢焦点，后播的会「停止」前播的，前播的再也恢复不了。"
+    },
+    {
+      "name": "comparison_independent_music",
+      "value": "独立模式：后播的音乐会把前播「停止」，而且前播再也恢复不了"
+    },
+    {
+      "name": "comparison_share_control_music",
+      "value": "共享模式+管控：你主动「暂停」前播，后播结束时前播自动恢复"
+    },
+    {
+      "name": "app_control_stream_a_auto_resume",
+      "value": "应用管控: Stream A 自动恢复"
+    },
+    {
+      "name": "app_control_stream_a_pause",
+      "value": "应用管控: 暂停 Stream A"
+    },
+    {
+      "name": "app_control_on_video",
+      "value": "ON: 视频开始时暂停音乐，视频停下后音乐恢复"
+    },
+    {
+      "name": "music_vs_video_share_control_detail",
+      "value": "视频开始播时你主动暂停音乐，视频停下来后音乐自动接着播。推荐做法！"
+    },
+    {
+      "name": "music_vs_video_share_no_control_detail",
+      "value": "音乐和视频共享焦点，不互相打断，同时响。开「应用管控」可以让视频播时暂停音乐。"
+    },
+    {
+      "name": "music_vs_video_independent_detail",
+      "value": "视频一播，音乐就被「停止」了，视频关了音乐也不回来。"
+    },
+    {
+      "name": "comparison_independent_video",
+      "value": "独立模式：视频会把音乐「停止」，音乐再也恢复不了"
+    },
+    {
+      "name": "comparison_share_control_video",
+      "value": "共享模式+管控：你主动「暂停」音乐，视频结束时音乐自动恢复"
+    },
+    {
+      "name": "share_mode_benefit",
+      "value": "这就是共享模式的好处：你选「暂停」而不是「停止」，音乐还能回来"
+    },
+    {
+      "name": "app_control_music_auto_resume",
+      "value": "应用管控: MUSIC 自动恢复"
+    },
+    {
+      "name": "app_control_music_pause",
+      "value": "应用管控: 暂停 MUSIC"
+    },
+    {
+      "name": "game_coexist_desc",
+      "value": "游戏声音和音乐天生就能一起响，不管选哪种模式都不会互相打断。这个场景不需要管控。"
+    },
+    {
+      "name": "game_no_control_reason",
+      "value": "为什么不需要管控？"
+    },
+    {
+      "name": "game_coexist_explanation",
+      "value": "游戏声音就是设计成可以和音乐一起响的。游戏配乐和背景音乐本来就是共存场景。"
+    },
+    {
+      "name": "game_type_warning",
+      "value": "如果你确实需要游戏声音打断音乐，那说明你选错了类型——应该用「音乐」或「视频」而不是「游戏」。"
+    },
+    {
+      "name": "page_open_failed",
+      "value": "页面打开失败"
+    }
+  ]
+}
+
