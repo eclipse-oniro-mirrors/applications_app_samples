@@ -88,19 +88,6 @@ async function sleep(count: int): Promise<int> {
   })
 }
 
-async function promiseReject(msg: string): Promise<Error> {
-  return new Promise<Error>((resolve, reject) => {
-    reject(new Error(msg));
-  })
-}
-
-async function promiseResole(msg: string): Promise<string> {
-  return new Promise<string>((resolve, reject) => {
-    resolve(msg);
-  })
-}
-
-
 interface SuitParam {
   suiteParams1: string,
   suiteParams2: string,
@@ -114,6 +101,4 @@ export {
   stopApplication,
   sleep,
   SuitParam,
-  promiseReject,
-  promiseResole
 }

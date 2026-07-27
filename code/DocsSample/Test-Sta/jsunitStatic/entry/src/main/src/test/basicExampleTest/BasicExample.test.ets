@@ -17,8 +17,16 @@
 import { describe, expect, it, TestType, Level, Size } from '../../../../hypium/index';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { UIAbility, Want } from '@kit.AbilityKit';
-import { sleep } from '../Util.test'
+
 const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+
+async function sleep(count: int): Promise<int> {
+  return new Promise<int>((resolve, reject) => {
+    setTimeout(() => {
+      resolve(0)
+    }, count)
+  })
+}
 
 export default function abilityTest(): void {
   describe('ActsAbilityTest', (): void => {
@@ -37,7 +45,6 @@ export default function abilityTest(): void {
       // 获取设备上前台显示的页面并断言检查
       const ability: UIAbility = await delegator.getCurrentTopAbility();
       expect(ability.context.abilityInfo.name).assertEqual('EntryAbility');
-
     })
   })
 }
