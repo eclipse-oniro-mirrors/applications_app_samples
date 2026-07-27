@@ -25,6 +25,10 @@ import resource from '../common/resource';
 import { Scroll_ROUTE_PREFIX, scrollDestination } from './scroll/Index';
 import { LAZY_LAYOUT_ROUTE_PREFIX, lazyLayoutDestination } from './lazyLayout/Index'
 import {
+  LAZY_CUSTOM_LAYOUT_ROUTE_PREFIX,
+  lazyCustomLayoutDestination
+} from './lazyCustomLayout/Index';
+import {
   Entry,
   Component,
   Builder,
@@ -54,7 +58,11 @@ const routes: Array<Route> = [
   new Route(GRID_ROUTE_PREFIX, resource.resourceToString($r('app.string.pageIndex_Grid'))),
   new Route(WATERFLOW_ROUTE_PREFIX, resource.resourceToString($r('app.string.pageIndex_WaterFlow'))),
   new Route(Scroll_ROUTE_PREFIX, resource.resourceToString($r('app.string.Scroll_Title'))),
-  new Route(LAZY_LAYOUT_ROUTE_PREFIX, resource.resourceToString($r('app.string.lazyLayout_Title')))
+  new Route(LAZY_LAYOUT_ROUTE_PREFIX, resource.resourceToString($r('app.string.lazyLayout_Title'))),
+  new Route(
+    LAZY_CUSTOM_LAYOUT_ROUTE_PREFIX,
+    resource.resourceToString($r('app.string.lazyCustomLayout_Title'))
+  )
 ];
 
 
@@ -72,6 +80,8 @@ export function destination(name: string): void {
     scrollDestination(name);
   } else if (name.startsWith(LAZY_LAYOUT_ROUTE_PREFIX)) {
     lazyLayoutDestination(name);
+  } else if (name.startsWith(LAZY_CUSTOM_LAYOUT_ROUTE_PREFIX)) {
+    lazyCustomLayoutDestination(name);
   }
 }
 
@@ -119,10 +129,18 @@ struct Index {
         }, (route: Route): string => route.name)
       }
       .padding({ start: LengthMetrics.vp(16), end: LengthMetrics.vp(16) })
+      .contentStartOffset(56)
       .height('100%')
       .width('100%')
     }
-    .backgroundColor('#f1f3f5')
+    .backgroundColor($r('app.color.navigation_background'))
+    .navBarWidth('40%')
+    .navBarWidthRange([320, 400])
+    .minContentWidth(360)
+    .title({ builder: this.Title, height: 56 }, {
+      backgroundColor: $r('app.color.navigation_background'),
+      barStyle: BarStyle.STACK
+    })
     .navDestination(destination)
   }
 }

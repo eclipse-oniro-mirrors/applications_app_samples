@@ -29,28 +29,28 @@ const routes: Route[] = [
   {
     name: `${LAZY_LAYOUT_ROUTE_PREFIX}/LazyVGridLayoutSample`,
     // 请将$r('app.string.LazyVGridLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"懒加载网格布局/LazyVGridLayout"
-    title: resource.resourceToString($r('app.string.lazyVGridLayout_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.lazyVGridLayout_title'))},
     // 请将$r('app.string.LazyVGridLayout_description')替换为实际资源文件，在本示例中该资源文件的value值为"示例设置了网格中子组件列数占比和行列间距。"
     description: $r('app.string.lazyVGridLayout_description')
   },
   {
     name: `${LAZY_LAYOUT_ROUTE_PREFIX}/LazyVWaterFlowLayoutSample`,
     // 请将$r('app.string.LazyVWaterFlowLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"懒加载瀑布流布局/LazyVWaterFlowLayout"
-    title: resource.resourceToString($r('app.string.lazyVWaterFlowLayout_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.lazyVWaterFlowLayout_title'))},
     // 请将$r('app.string.LazyVWaterFlowLayout_description')替换为实际资源文件，在本示例中该资源文件的value值为"示例设置了瀑布流中子组件列数占比和行列间距。"
     description: $r('app.string.lazyVWaterFlowLayout_description')
   },
   {
     name: `${LAZY_LAYOUT_ROUTE_PREFIX}/LazyColumnLayoutSample`,
     // 请将$r('app.string.LazyColumnLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"懒加载线性布局/LazyColumnLayout"
-    title: resource.resourceToString($r('app.string.lazyColumnLayout_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.lazyColumnLayout_title'))},
     // 请将$r('app.string.LazyColumnLayout_description')替换为实际资源文件，在本示例中该资源文件的value值为"示例设置了线性布局中子组件行间距和水平对齐方式。"
     description: $r('app.string.lazyColumnLayout_description')
   },
   {
     name: `${LAZY_LAYOUT_ROUTE_PREFIX}/ListNestedLazyLayout`,
     // 请将$r('app.string.list_nested_lazyLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"List嵌套懒加载布局容器"
-    title: resource.resourceToString($r('app.string.list_nested_lazyLayout_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.list_nested_lazyLayout_title'))},
     // 请将$r('app.string.list_nested_lazyLayout_description')替换为实际资源文件
     // 在本示例中该资源文件的value值为"在List组件中嵌套多个不同的懒加载布局容器，分别为每个容器内容配置独立的列数和行列间距，实现多种布局方式的混合展示。"
     description: $r('app.string.list_nested_lazyLayout_description')
@@ -58,7 +58,7 @@ const routes: Route[] = [
   {
     name: `${LAZY_LAYOUT_ROUTE_PREFIX}/LazyColumnLayoutNestedLazyLayout`,
     // 请将$r('app.string.lazyColumnLayout_nested_lazyLayout_title')替换为实际资源文件，在本示例中该资源文件的value值为"LazyColumnLayout嵌套懒加载布局容器"
-    title: resource.resourceToString($r('app.string.lazyColumnLayout_nested_lazyLayout_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.lazyColumnLayout_nested_lazyLayout_title'))},
     // 请将$r('app.string.lazyColumnLayout_nested_lazyLayout_description')替换为实际资源文件
     // 在本示例中该资源文件的value值为"在Scroll组件中使用LazyColumnLayout作为主布局容器，其内部嵌套多个不同的懒加载布局容器，实现多种布局方式的混合展示。"
     description: $r('app.string.lazyColumnLayout_nested_lazyLayout_description')
@@ -66,7 +66,7 @@ const routes: Route[] = [
   {
     name: `${LAZY_LAYOUT_ROUTE_PREFIX}/LazyLayoutGroup`,
     // 请将$r('app.string.lazyLayout_group_title')替换为实际资源文件，在本示例中该资源文件的value值为"分组展示与粘性标题"
-    title: resource.resourceToString($r('app.string.lazyLayout_group_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.lazyLayout_group_title'))},
     // 请将$r('app.string.lazyLayout_group_description')替换为实际资源文件
     // 在本示例中该资源文件的value值为"示例展示了懒加载布局的分组能力，通过LazyForEach动态创建按月份分组的照片网格，配合sticky属性实现分组标题吸顶。"
     description: $r('app.string.lazyLayout_group_description')
@@ -102,7 +102,8 @@ struct LazyLayoutExample {
       List({ space: 12 }) {
         ForEach(routes, (route: Route) => {
           ListItem() {
-            CompletedRoutableCard({ title: route.title, description: route.description })
+            CompletedRoutableCard({ title: route.title(this.getUIContext().getHostContext()!),
+              description: route.description })
           }
           .width('100%')
           .onClick(() => {
@@ -113,11 +114,11 @@ struct LazyLayoutExample {
       .contentStartOffset(56)
       .padding({ left: 16, right: 16 })
     }
-    .backgroundColor('#f1f3f5')
+    .backgroundColor($r('app.color.navigation_background'))
     // 请将$r('app.string.lazyLayout_Title')替换为实际资源文件
     // 在本示例中该资源文件的value值为"懒加载布局"
     .title($r('app.string.lazyLayout_Title'), {
-      backgroundBlurStyle: BlurStyle.COMPONENT_THICK,
+      backgroundColor: $r('app.color.navigation_background'),
       barStyle: BarStyle.STACK
     })
   }

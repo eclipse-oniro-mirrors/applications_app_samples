@@ -25,7 +25,6 @@ import {
   List,
   ForEach,
   ListItem,
-  ResourceStr,
   NavPathInfo,
   ListOptions,
   $r,
@@ -121,7 +120,7 @@ struct LazyLayoutExample {
       List({ space: 12 } as ListOptions) {
         ForEach(routes, (route: Route) => {
           ListItem() {
-            CompletedRoutableCard({ title: route.title, description: route.description as ResourceStr })
+            CompletedRoutableCard({ title: route.title, description: route.description })
           }
           .width('100%')
           .onClick(() => {
@@ -132,11 +131,11 @@ struct LazyLayoutExample {
       .contentStartOffset(56)
       .padding({ left: 16, right: 16 })
     }
-    .backgroundColor('#f1f3f5')
+    .backgroundColor($r('app.color.navigation_background'))
     // 请将$r('app.string.lazyLayout_Title')替换为实际资源文件
     // 在本示例中该资源文件的value值为"懒加载布局"
     .title($r('app.string.lazyLayout_Title'), {
-      backgroundBlurStyle: BlurStyle.COMPONENT_THICK,
+      backgroundColor: $r('app.color.navigation_background'),
       barStyle: BarStyle.STACK
     })
   }

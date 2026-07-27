@@ -26,22 +26,22 @@ export const WATERFLOW_ROUTE_PREFIX: string = 'waterFlow';
 const routes: Route[] = [
   {
     name: `${WATERFLOW_ROUTE_PREFIX}/WaterFlowInfiniteScrolling`,
-    title: resource.resourceToString($r('app.string.WaterFlowInfiniteScrolling_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.WaterFlowInfiniteScrolling_title'))},
     description: $r('app.string.WaterFlowInfiniteScrolling_description')
   },
   {
     name: `${WATERFLOW_ROUTE_PREFIX}/WaterFlowInfiniteScrollingEarly`,
-    title: resource.resourceToString($r('app.string.WaterFlowInfiniteScrollingEarly_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.WaterFlowInfiniteScrollingEarly_title'))},
     description: $r('app.string.WaterFlowInfiniteScrollingEarly_description')
   },
   {
     name: `${WATERFLOW_ROUTE_PREFIX}/WaterFlowGroupingMixing`,
-    title: resource.resourceToString($r('app.string.WaterFlowGroupingMixing_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.WaterFlowGroupingMixing_title'))},
     description: $r('app.string.WaterFlowGroupingMixing_description')
   },
   {
     name: `${WATERFLOW_ROUTE_PREFIX}/WaterFlowDynamicSwitchover`,
-    title: resource.resourceToString($r('app.string.WaterFlowDynamicSwitchover_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.WaterFlowDynamicSwitchover_title'))},
     description: $r('app.string.WaterFlowDynamicSwitchover_description')
   }
 
@@ -72,7 +72,8 @@ struct WaterFlowExample {
       List({ space: 12 }) {
         ForEach(routes, (route: Route) => {
           ListItem() {
-            CompletedRoutableCard({ title: route.title, description: route.description })
+            CompletedRoutableCard({ title: route.title(this.getUIContext().getHostContext()!),
+            description: route.description })
           }
           .width('100%')
           .onClick(() => {
@@ -83,9 +84,9 @@ struct WaterFlowExample {
       .contentStartOffset(56)
       .padding({ left: 16, right: 16 })
     }
-    .backgroundColor('#f1f3f5')
+    .backgroundColor($r('app.color.navigation_background'))
     .title('WaterFlow', {
-      backgroundBlurStyle: BlurStyle.COMPONENT_THICK,
+      backgroundColor: $r('app.color.navigation_background'),
       barStyle: BarStyle.STACK
     })
   }

@@ -42,6 +42,10 @@ import { RoutableCard } from '../common/Card';
 import { swiperDestination, SWIPER_ROUTE_PREFIX } from './swiper';
 import { tabsDestination, TABS_ROUTE_PREFIX } from './tabs';
 import { arcSwiperDestination, ARCSWIPER_ROUTE_PREFIX } from './arcSwiper';
+import {
+  LAZY_CUSTOM_LAYOUT_ROUTE_PREFIX,
+  lazyCustomLayoutDestination
+} from './lazyCustomLayout/Index';
 import resource from '../common/resource';
 
 const routes: Route[] = [
@@ -56,6 +60,10 @@ const routes: Route[] = [
   {
     title: resource.resourceToString($r('app.string.pageIndex_Tabs')),
     name: TABS_ROUTE_PREFIX
+  },
+  {
+    title: resource.resourceToString($r('app.string.lazyCustomLayout_Title')),
+    name: LAZY_CUSTOM_LAYOUT_ROUTE_PREFIX
   }
 ];
 
@@ -67,6 +75,8 @@ function destination(name: string) {
     arcSwiperDestination(name);
   } else if (name.startsWith(TABS_ROUTE_PREFIX)) {
     tabsDestination(name);
+  } else if (name.startsWith(LAZY_CUSTOM_LAYOUT_ROUTE_PREFIX)) {
+    lazyCustomLayoutDestination(name);
   }
 }
 
@@ -116,9 +126,12 @@ struct Index {
       .height('100%')
       .width('100%');
     }
-    .backgroundColor('#f1f3f5')
+    .backgroundColor($r('app.color.navigation_background'))
+    .navBarWidth('40%')
+    .navBarWidthRange([320, 400])
+    .minContentWidth(360)
     .title({ builder: this.Title, height: 56 }, {
-      backgroundBlurStyle: BlurStyle.COMPONENT_THICK,
+      backgroundColor: $r('app.color.navigation_background'),
       barStyle: BarStyle.STACK
     })
     .navDestination(destination);

@@ -26,43 +26,48 @@ import { arcListDestination, ARCLIST_ROUTE_PREFIX } from './arcList';
 import resource from '../common/resource';
 import { Scroll_ROUTE_PREFIX, scrollDestination } from './scroll/Index';
 import { LAZY_LAYOUT_ROUTE_PREFIX, lazyLayoutDestination } from './lazyLayout/Index'
+import { LAZY_CUSTOM_LAYOUT_ROUTE_PREFIX, lazyCustomLayoutDestination } from './lazyCustomLayout/Index'
 
 const routes: Route[] = [
   {
-    title: resource.resourceToString($r('app.string.pageIndex_List')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.pageIndex_List'))},
     name: List_ROUTE_PREFIX
   },
   {
-    title: resource.resourceToString($r('app.string.pageIndex_ArcList')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.pageIndex_ArcList'))},
     name: ARCLIST_ROUTE_PREFIX
   },
   {
-    title: resource.resourceToString($r('app.string.pageIndex_Grid')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.pageIndex_Grid'))},
     name: GRID_ROUTE_PREFIX
   },
   {
-    title: resource.resourceToString($r('app.string.pageIndex_WaterFlow')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.pageIndex_WaterFlow'))},
     name: WATERFLOW_ROUTE_PREFIX
   },
   {
-    title: resource.resourceToString($r('app.string.pageIndex_Swiper')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.pageIndex_Swiper'))},
     name: SWIPER_ROUTE_PREFIX
   },
   {
-    title: resource.resourceToString($r('app.string.pageIndex_ArcSwiper')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.pageIndex_ArcSwiper'))},
     name: ARCSWIPER_ROUTE_PREFIX
   },
   {
-    title: resource.resourceToString($r('app.string.pageIndex_Tabs')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.pageIndex_Tabs'))},
     name: TABS_ROUTE_PREFIX
   },
   {
-    title: resource.resourceToString($r('app.string.Scroll_Title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.Scroll_Title'))},
     name: Scroll_ROUTE_PREFIX
   },
   {
-    title: resource.resourceToString($r('app.string.lazyLayout_Title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.lazyLayout_Title'))},
     name: LAZY_LAYOUT_ROUTE_PREFIX
+  },
+  {
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.lazyCustomLayout_Title'))},
+    name: LAZY_CUSTOM_LAYOUT_ROUTE_PREFIX
   }
 ];
 
@@ -86,6 +91,8 @@ function destination(name: string) {
     scrollDestination(name);
   } else if (name.startsWith(LAZY_LAYOUT_ROUTE_PREFIX)) {
     lazyLayoutDestination(name);
+  } else if (name.startsWith(LAZY_CUSTOM_LAYOUT_ROUTE_PREFIX)) {
+    lazyCustomLayoutDestination(name);
   }
 }
 
@@ -100,7 +107,7 @@ struct Index {
       return routes;
     }
     return routes.filter((route: Route) => {
-      return route.title.includes(this.condition);
+      return route.title(this.getUIContext().getHostContext()!).includes(this.condition);
     })
   }
 
@@ -122,7 +129,7 @@ struct Index {
       List({ space: 12 }) {
         ForEach(this.getFilteredRoutes(), (route: Route) => {
           ListItem() {
-            RoutableCard({ title: route.title })
+            RoutableCard({ title: route.title(this.getUIContext().getHostContext()!) })
           }
           .width('100%')
           .onClick(() => {
@@ -135,9 +142,12 @@ struct Index {
       .height('100%')
       .width('100%')
     }
-    .backgroundColor('#f1f3f5')
+    .backgroundColor($r('app.color.navigation_background'))
+    .navBarWidth('40%')
+    .navBarWidthRange([320, 400])
+    .minContentWidth(360)
     .title({ builder: this.Title, height: 56 }, {
-      backgroundBlurStyle: BlurStyle.COMPONENT_THICK,
+      backgroundColor: $r('app.color.navigation_background'),
       barStyle: BarStyle.STACK
     })
     .navDestination(destination)

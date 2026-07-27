@@ -7,6 +7,7 @@
 1. [Swiper](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-container-swiper.md)。
 2. [ArcSwiper](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-container-arcswiper.md)。
 3. [Tabs](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-container-tabs.md)。
+4. [创建懒加载自定义布局 (LazyDynamicLayout)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-layout-development-create-lazy-custom-layout.md)。
 
 ### 效果预览
 
@@ -54,6 +55,14 @@
 |       |   |   |   |-- EntryAbility.ets
 |       |   |   |-- pages
 |       |   |   |   |-- Index.ets
+|       |   |   |   |-- lazyCustomLayout
+|       |   |   |   |   |-- Index.ets
+|       |   |   |   |   |-- CustomLazyColumnLayoutSample.ets
+|       |   |   |   |   |-- CustomLazyGridLayoutSample.ets
+|       |   |   |   |   |-- CustomLazyWaterFlowLayoutSample.ets
+|       |   |   |   |   |-- LazyColumnLayoutAlgorithm.ets
+|       |   |   |   |   |-- LazyGridLayoutAlgorithm.ets
+|       |   |   |   |   |-- LazyWaterFlowLayoutAlgorithm.ets
 |       |   |   |   |-- arcSwiper
 |       |   |   |   |   |-- ArcSwiperAction.ets
 |       |   |   |   |   |-- ArcSwiperHorizontal.ets
@@ -183,6 +192,8 @@
    - **内容与标签同步（ContentPageNoAndTabLinkage）**：通过`onChange`和`onSelected`回调实现标签与内容的同步切换。
    - **适老化（AgeFriendlyTabs）**：通过`BottomTabBarStyle`自定义样式，支持字体大小缩放和深色模式。
    - **缓存配置（NumberOfCachesTabBar）**：通过`cachedMaxCount`和`TabsCacheMode`配置标签页缓存数量。
+
+4. **懒加载自定义布局（LazyDynamicLayout）**：通过自定义布局算法实现懒加载列布局、网格布局和瀑布流布局，按需完成子节点的测量、布局与回收。
 
 ### 相关权限
 
