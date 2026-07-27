@@ -12,12 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start Text_Long_Tow]
+// [Start Text_Long_Two]
 import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component
-struct TextLongTow {
+struct TextLongTwo {
   private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
   private manager = this.context.resourceManager;
 
@@ -38,12 +38,12 @@ struct TextLongTow {
       .borderWidth(1)
       .justifyContent(FlexAlign.Center)
     }
-    // [StartExclude Text_Long_Tow]
+    // [StartExclude Text_Long_Two]
     .backgroundColor('#f1f 2f3')
-    .title($r('app.string.Text_Long_Tow'))
-    // [EndExclude Text_Long_Tow]
+    .title($r('app.string.Text_Long_Two'))
+    // [EndExclude Text_Long_Two]
   }
 }
-// [End Text_Long_Tow]
+// [End Text_Long_Two]
 
-export { TextLongTow };
+export { TextLongTwo };
