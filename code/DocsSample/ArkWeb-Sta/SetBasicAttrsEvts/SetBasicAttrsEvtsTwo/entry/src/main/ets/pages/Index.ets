@@ -20,7 +20,7 @@ import { Entry, Component, Column, Button } from '@kit.ArkUI';
 @Component
 struct Index {
   build() {
-    Column({ space: 10 }) {
+    Column() {
       Button('UserAgent_one')
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/UserAgent_one' });
