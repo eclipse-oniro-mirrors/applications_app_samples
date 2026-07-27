@@ -22,7 +22,7 @@ import { BusinessError } from '@ohos.base';
 @Entry
 @Component
 struct WebComponent {
-  @State mode: CacheMode = CacheMode.None;
+  @State mode: CacheMode = CacheMode.NONE;
   controller: webview.WebviewController = new webview.WebviewController(undefined);
 
   build() {

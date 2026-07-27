@@ -21,7 +21,7 @@ import { webview } from '@kit.ArkWeb';
 @Entry
 @Component
 struct WebComponent {
-  @State mode: CacheMode = CacheMode.None;
+  @State mode: CacheMode = CacheMode.NONE;
   controller: webview.WebviewController = new webview.WebviewController(undefined);
 
   build() {
