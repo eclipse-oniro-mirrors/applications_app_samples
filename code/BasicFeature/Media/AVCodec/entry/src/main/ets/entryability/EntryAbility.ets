@@ -16,32 +16,15 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit'
 import { BusinessError } from '@kit.BasicServicesKit'
 import { window } from '@kit.ArkUI'
-import abilityAccessCtrl from '@ohos.abilityAccessCtrl'
 import Logger from '../common/utils/Logger'
 import { hilog } from '@kit.PerformanceAnalysisKit'
 
 const TAG: string = 'EntryAbility'
 
-function requestPre() {
-  let atManager = abilityAccessCtrl.createAtManager();
-  try {
-    atManager.requestPermissionsFromUser(globalThis.context,
-      ['ohos.permission.CAMERA', 'ohos.permission.MICROPHONE'])
-      .then((data) => {
-        Logger.info('requestPre() data: ' + JSON.stringify(data));
-      }).catch((err: BusinessError) => {
-      Logger.info('requestPre() data: ' + JSON.stringify(err));
-    })
-  } catch (err) {
-    Logger.error('requestPre() data: ' + JSON.stringify(err));
-  }
-}
-
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
     Logger.info('Ability onCreate');
     globalThis.context = this.context;
-    requestPre();
   }
 
   onDestroy() {

@@ -13,14 +13,19 @@
  * limitations under the License.
  */
 
-import cameraDataModelTest from './CameraDataModel.test';
-import commonConstantsTest from './CommonConstants.test';
-import dateTimeUtilsTest from './DateTimeUtils.test';
-import mediaUtilsTest from './MediaUtils.test';
+export const INVALID_PICKER_INDEX: number = -1;
 
-export default function testsuite() {
-  cameraDataModelTest();
-  commonConstantsTest();
-  dateTimeUtilsTest();
-  mediaUtilsTest();
+export function getPickerSelectedIndex(index: number | number[]): number {
+  if (typeof index === 'number') {
+    return index;
+  }
+  return index.length > 0 ? index[0] : INVALID_PICKER_INDEX;
+}
+
+export function isPickerIndexValid(index: number, optionCount: number): boolean {
+  return index >= 0 && index < optionCount;
+}
+
+export function isMediaFileEmpty(fileSize: number): boolean {
+  return fileSize <= 0;
 }

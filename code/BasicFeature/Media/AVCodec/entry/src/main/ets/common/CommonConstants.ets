@@ -82,27 +82,38 @@ export class CommonConstants {
    */
   public static readonly VIDEO_DECODER_SYNC_MODE: string[] = ['ASYNC', 'SYNC'];
   /**
+   * Whether to dump decoded video frames in BufferMode.
+   */
+  public static readonly VIDEO_DUMP_MODE: string[] = ['NoDump', 'Dump'];
+  /**
    * Video transform type.
    */
-  public static readonly TRANSFORM_TYPE: string[] = [
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_NONE').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_90').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_180').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_270').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT90').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT90').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT180').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT180').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT270').id),
-    globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT270').id)
-  ];
+  public static getTransformTypes(): string[] {
+    return [
+      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_NONE').id),
+      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_90').id),
+      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_180').id),
+      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_270').id),
+      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H').id),
+      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V').id),
+      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT90').id),
+      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT90').id),
+      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT180').id),
+      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT180').id),
+      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT270').id),
+      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT270').id)
+    ];
+  }
+  /**
+   * Number of NativeWindow transform options.
+   */
+  public static readonly TRANSFORM_TYPE_COUNT: number = 12;
   /**
    * Video playerInfo.
    */
   public static readonly PLAYER_INFO: string[][] = [
-    CommonConstants.VIDEO_DECODE_TYPE, CommonConstants.VIDEO_DECODER_RUN_MODE, CommonConstants.VIDEO_DECODER_SYNC_MODE
+    CommonConstants.VIDEO_DECODE_TYPE, CommonConstants.VIDEO_DECODER_RUN_MODE,
+    CommonConstants.VIDEO_DECODER_SYNC_MODE, CommonConstants.VIDEO_DUMP_MODE
   ];
   /**
    * Video recorderInfo.

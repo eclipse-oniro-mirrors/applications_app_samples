@@ -21,8 +21,9 @@ export const playNative: (
   videoDecoderRunMode: number,
   videoDecoderSyncMode: number,
   isSmartFluencySupported: boolean,
-  cbFn: () => void
-) => void
+  enableVideoDump: boolean,
+  cbFn: (success: boolean) => void
+) => boolean
 
 export const setPlaybackSpeed: (
   speed: number,

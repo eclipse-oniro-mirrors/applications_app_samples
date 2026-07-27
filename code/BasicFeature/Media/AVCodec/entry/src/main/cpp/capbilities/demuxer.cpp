@@ -150,7 +150,7 @@ void Demuxer::HandleCodecConfig(std::shared_ptr<OH_AVFormat> trackFormat, Sample
     uint8_t *codecConfig = nullptr;
     OH_AVFormat_GetBuffer(trackFormat.get(), OH_MD_KEY_CODEC_CONFIG, &codecConfig, &info.codecConfigLen);
     
-    if (info.codecConfig != nullptr && info.codecConfigLen > 0 && info.codecConfigLen < sizeof(info.codecConfig)) {
+    if (codecConfig != nullptr && info.codecConfigLen > 0 && info.codecConfigLen < sizeof(info.codecConfig)) {
         copy(codecConfig, codecConfig + info.codecConfigLen, info.codecConfig);
         LogCodecConfigDetails(info);
     }

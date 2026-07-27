@@ -16,9 +16,31 @@
 #include "sample_callback.h"
 #include "av_codec_sample_log.h"
 
+#undef LOG_TAG
+#define LOG_TAG "sampleCallback"
+
 namespace {
 constexpr int LIMIT_LOGD_FREQUENCY = 50;
 constexpr int32_t BYTES_PER_SAMPLE_2 = 2;
+
+void UpdateVideoOutputInfo(OH_AVFormat *format, CodecUserData *codecUserData)
+{
+    if (format == nullptr || codecUserData == nullptr) {
+        return;
+    }
+
+    OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_WIDTH, &codecUserData->width);
+    OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_HEIGHT, &codecUserData->height);
+    OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_STRIDE, &codecUserData->widthStride);
+    OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_SLICE_HEIGHT, &codecUserData->heightStride);
+
+    if (codecUserData->sampleInfo != nullptr) {
+        int32_t pixelFormat = codecUserData->sampleInfo->pixelFormat;
+        if (OH_AVFormat_GetIntValue(format, OH_MD_KEY_PIXEL_FORMAT, &pixelFormat)) {
+            codecUserData->sampleInfo->pixelFormat = static_cast<OH_AVPixelFormat>(pixelFormat);
+        }
+    }
+}
 } // namespace
 
 int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *userData, void *buffer, int32_t length)
@@ -46,7 +68,8 @@ int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *user
     }
     AVCODEC_SAMPLE_LOGD("render BufferLength:%{public}d Out buffer count: %{public}u, renderQueue.size: %{public}u "
                         "renderReadSize: %{public}u",
-                        length, codecUserData->outputFrameCount, codecUserData->renderQueue.size(), index);
+                        length, codecUserData->outputFrameCount,
+                        static_cast<uint32_t>(codecUserData->renderQueue.size()), static_cast<uint32_t>(index));
 
     if (codecUserData->sampleInfo != nullptr) {
         codecUserData->frameWrittenForSpeed +=
@@ -84,8 +107,14 @@ int32_t SampleCallback::OnRenderInterruptEvent(OH_AudioRenderer *renderer, void 
 int32_t SampleCallback::OnRenderError(OH_AudioRenderer *renderer, void *userData, OH_AudioStream_Result error)
 {
     (void)renderer;
-    (void)userData;
     (void)error;
+    CodecUserData *codecUserData = static_cast<CodecUserData *>(userData);
+    if (codecUserData != nullptr) {
+        codecUserData->hasError.store(true);
+        if (codecUserData->runningFlag != nullptr) {
+            codecUserData->runningFlag->store(false);
+        }
+    }
     AVCODEC_SAMPLE_LOGE("OnRenderError");
     return 0;
 }
@@ -93,8 +122,13 @@ int32_t SampleCallback::OnRenderError(OH_AudioRenderer *renderer, void *userData
 void SampleCallback::OnCodecError(OH_AVCodec *codec, int32_t errorCode, void *userData)
 {
     (void)codec;
-    (void)errorCode;
-    (void)userData;
+    CodecUserData *codecUserData = static_cast<CodecUserData *>(userData);
+    if (codecUserData != nullptr) {
+        codecUserData->hasError.store(true);
+        if (codecUserData->runningFlag != nullptr) {
+            codecUserData->runningFlag->store(false);
+        }
+    }
     AVCODEC_SAMPLE_LOGE("On codec error, error code: %{public}d", errorCode);
 }
 
@@ -106,13 +140,13 @@ void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format,
         return;
     }
     CodecUserData *codecUserData = static_cast<CodecUserData *>(userData);
-    OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_WIDTH, &codecUserData->width);
-    OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_HEIGHT, &codecUserData->height);
-    OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_STRIDE, &codecUserData->widthStride);
-    OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_SLICE_HEIGHT, &codecUserData->heightStride);
-    AVCODEC_SAMPLE_LOGI("Format changed: %{public}d*%{public}d, stride: %{public}d*%{public}d",
+    std::unique_lock<std::shared_mutex> codecLock(codecUserData->codecMutex);
+    UpdateVideoOutputInfo(format, codecUserData);
+    int32_t pixelFormat = codecUserData->sampleInfo != nullptr ? codecUserData->sampleInfo->pixelFormat : -1;
+    AVCODEC_SAMPLE_LOGI("Format changed: %{public}d*%{public}d, stride: %{public}d*%{public}d, "
+        "pixel format: %{public}d",
                         codecUserData->width, codecUserData->height,
-                        codecUserData->widthStride, codecUserData->heightStride);
+                        codecUserData->widthStride, codecUserData->heightStride, pixelFormat);
 }
 
 void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData)
@@ -138,8 +172,15 @@ void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
 static int32_t GetTemporalLayerID(OH_AVBuffer *buffer)
 {
     int32_t layerID = -1;
+#ifdef AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID
     OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
-    OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_TEMPORAL_LAYER_ID, &layerID);
+    if (format != nullptr) {
+        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_TEMPORAL_LAYER_ID, &layerID);
+        OH_AVFormat_Destroy(format);
+    }
+#else
+    (void)buffer;
+#endif
     return layerID;
 }
 
@@ -153,10 +194,7 @@ void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
     CodecUserData *codecUserData = static_cast<CodecUserData *>(userData);
     if (codecUserData->isDecFirstFrame) {
         OH_AVFormat *format = OH_VideoDecoder_GetOutputDescription(codec);
-        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_WIDTH, &codecUserData->width);
-        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_HEIGHT, &codecUserData->height);
-        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_STRIDE, &codecUserData->widthStride);
-        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_SLICE_HEIGHT, &codecUserData->heightStride);
+        UpdateVideoOutputInfo(format, codecUserData);
         OH_AVFormat_Destroy(format);
         codecUserData->isDecFirstFrame = false;
     }

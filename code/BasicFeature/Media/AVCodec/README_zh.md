@@ -2,7 +2,7 @@
 
 ### 介绍
 
-AVCodec 部件示例 Sample，基于 API12 构建，提供视频播放（含音频）和录制的功能。
+AVCodec 部件示例 Sample，基于 API26 构建，提供视频播放（含音频）和录制的功能。
 
 - 视频播放的主要流程是将视频文件通过解封装->解码->送显/播放。
 - 视频录制的主要流程是相机采集->编码->封装成mp4文件。
@@ -38,8 +38,9 @@ AVCodec 部件示例 Sample，基于 API12 构建，提供视频播放（含音�
 | ![播放_垂直翻转并旋转90度.jpeg](screenshots/播放_垂直翻转并旋转90度.jpeg) | ![录制_模式选择.jpeg](screenshots/录制_模式选择.jpeg) | ![录制_开始录制.jpeg](screenshots/录制_开始录制.jpeg) |
 ### 使用说明
 
-弹出是否允许“AVCodec”使用相机？点击“允许”
-弹出是否允许“AVCodec”使用麦克风？点击“允许”
+播放功能不需要相机和麦克风权限。用户点击 MP4/FLV 录制按钮时，应用会检查并申请相机、麦克风权限；授权成功后才会进入录制流程。
+
+如果用户拒绝授权，系统不会允许应用再次通过普通动态授权接口拉起相同弹窗。应用会调用 `requestPermissionOnSetting()` 拉起权限设置弹窗，引导用户重新授权。相关流程可参考 OpenHarmony 应用权限管理中的用户授权指南。
 
 - 推送视频到文件管理？
   hdc file send xx.xx storage/media/100/local/files/Docs
@@ -66,6 +67,29 @@ AVCodec 部件示例 Sample，基于 API12 构建，提供视频播放（含音�
 4. 点击“开始录制”
 
 5. 点击“停止录制”
+
+### 测试
+
+自动化测试位于 `entry/src/ohosTest/ets/test`，使用 Hypium 覆盖以下可重复验证的逻辑：
+
+- 时间和录制计时格式化；
+- 文件选择索引、索引边界和空文件判断；
+- 相机录制参数默认值及编码格式、分辨率更新；
+- 播放、录制、封装格式、Dump 和 NativeWindow 变换配置完整性。
+
+可在 DevEco Studio 中选择 `entry > ohosTest` 目标并执行测试。音视频解封装、软硬件编解码、Surface/BufferMode
+送显、权限弹窗和相机录制依赖真实设备能力，继续通过真机手工测试验证。详细的测试环境、测试素材和操作步骤请参考：
+[AVCodecSample 手工测试用例](./ohosTest.md)。
+
+也可以连接设备后通过命令行构建并执行：
+
+```text
+hvigorw --mode module -p product=default -p module=entry@ohosTest assembleHap
+hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
+hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
+ability_command=$(printf '\141\141')
+hdc shell "${ability_command} test -b com.samples.avcodecsample -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 300000"
+```
 
 ### 目录
 
@@ -133,6 +157,325 @@ video-codec-sample/entry/src/main/
 
 ### 具体实现
 
+#### *整体链路总览*
+
+本示例可以按“UI 选择业务场景 -> ArkTS 侧准备参数/Surface -> Native 侧创建媒体能力对象 -> 多线程搬运输入输出 Buffer -> 图形/音频/文件侧消费”的方式理解。
+
+| 场景 | UI入口 | Native入口 | 主要能力模块 | 数据去向 |
+|------|--------|------------|--------------|----------|
+| 播放 | `entry/src/main/ets/pages/Index.ets` 中的播放按钮和 `XComponent` | `PlayerNative.cpp`、`Player.cpp` | `Demuxer`、`VideoDecoder`、`AudioDecoder`、`BufferRenderer`、`PluginRender` | 视频送到 XComponent 对应的 NativeWindow，音频送到 AudioRenderer |
+| 录制 | `Index.ets` 中的录制按钮、`recorder/Recorder.ets` 中的预览页 | `RecorderNative.cpp`、`Recorder.cpp` | `VideoEncoder`、`AudioCapturer`、`AudioEncoder`、`Muxer` | 相机视频流和麦克风音频流封装成 mp4/flv 文件 |
+| 图形显示 | 播放页/录制页的 `XComponent` | `PluginManager`、`PluginRender`、`BufferRenderer` | Native XComponent、NativeWindow、NativeBuffer | SurfaceMode 直接由 codec 送显；BufferMode 由应用手动拷贝送显 |
+| 解封装 | 播放前打开媒体文件后进入 Native | `Demuxer.cpp` | `OH_AVSource`、`OH_AVDemuxer` | 读取音视频 track 信息并向解码器输入压缩帧 |
+| 封装 | 录制前创建媒体库输出文件后进入 Native | `Muxer.cpp` | `OH_AVMuxer` | 写入音视频编码后数据并生成目标媒体文件 |
+
+几个核心对象的分工如下：
+
+- `SampleInfo`：ArkTS 传入 Native 的参数集合，也承载解封装后解析出的音视频格式信息，例如 mime、分辨率、采样率、声道数、codec config、运行模式等。
+- `CodecUserData`：codec 回调和工作线程之间共享的上下文，包含输入/输出 Buffer 队列、音频播放/采集缓存、首帧标记、宽高步长等运行期状态。
+- `CodecBufferInfo`：对 codec buffer index、`OH_AVBuffer` 指针和 `OH_AVCodecBufferAttr` 的封装，便于在解封装、编解码、送显、封装之间传递。
+- `SampleCallback`：异步模式下 codec 的统一回调入口，负责接收 `OnNeedInputBuffer` / `OnNewOutputBuffer` 并放入 `CodecUserData` 的队列。
+
+#### *UI侧页面与交互*
+
+UI 层使用 ArkUI 声明式范式组织页面，主页面为 `Index.ets`，录制预览页面为 `Recorder.ets`。页面入口在 `entry/src/main/resources/base/profile/main_pages.json` 中声明：
+
+ArkUI 组件、状态和页面构建方式可参考当前 SDK 随附的 ArkUI 开发指南。
+
+```json
+{
+  "src": [
+    "pages/Index",
+    "recorder/Recorder"
+  ]
+}
+```
+
+主页面 `Index.ets` 同时承载播放和录制入口：
+
+- 播放区域使用 `XComponent({ id: 'player', type: XComponentType.SURFACE, libraryname: 'player' })`。`libraryname: 'player'` 会加载 `libplayer.so`，Native 侧在模块初始化时通过 `PluginManager::Export()` 取得 XComponent 对象并注册 Surface 回调。
+- 播放设置通过 `TextPickerDialog` 选择解码器类型、运行模式、同步模式和是否dump解码帧，对应 `CommonConstants.ets` 中的 `VIDEO_DECODE_TYPE`、`VIDEO_DECODER_RUN_MODE`、`VIDEO_DECODER_SYNC_MODE`、`VIDEO_DUMP_MODE`。dump选项仅在Buffer模式下生效，默认关闭。
+- 点击播放后，UI 侧通过文件管理器或图库拿到 uri，再用 `fileIo.openSync()` 获取 fd 和文件大小，最终调用 `player.playNative(fd, offset, size, codecType, runMode, syncMode, smartFluency, enableVideoDump, callback)`。
+- 播放过程中，长按播放窗口会临时调用 `player.setPlaybackSpeed(2)`，松手恢复 `player.setPlaybackSpeed(1)`；点击“倍速”按钮可选择 1/2/3 倍速。
+- 播放过程中点击 Flip 按钮会调用 `player.setTransform(transformHint)`，Native 侧再通过 `OH_NativeWindow_NativeWindowHandleOpt(..., SET_TRANSFORM, ...)` 作用到当前显示 window。
+
+录制入口也在 `Index.ets` 中：
+
+- 点击“设置”后，通过 `RECORDER_INFO` 选择视频编码格式、分辨率、帧率和同步模式。
+- `checkIsProfileSupport()` 使用 `camera.getCameraManager()` 查询当前设备是否支持所选的录像 profile。若不支持，会回退到默认 1080P；如果默认配置也不支持，则取相机能力列表中的第一个 video profile。
+- 点击录制 mp4/flv 后，UI 侧通过 `photoAccessHelper.createAsset()` 创建媒体库目标文件，再用 `fileIo.open()` 获取输出 fd。
+- UI 调用 `recorder.initNative(...)`。Native 侧创建编码器和封装器后，会通过 `OH_NativeWindow_GetSurfaceId()` 返回编码器输入 Surface 的 `surfaceId`。
+- 拿到 `surfaceId` 后，主页面通过 `this.getUIContext().getRouter().pushUrl({ url: 'recorder/Recorder', params: this.cameraData })` 跳转到录制页，并把 `CameraDataModel` 作为路由参数传入。
+
+录制页 `Recorder.ets` 的职责是连接相机和两个输出 Surface：
+
+- 页面加载时，`XComponent` 的 `.onLoad()` 会通过 `xComponentController.getXComponentSurfaceId()` 获取预览 SurfaceId。
+- `createRecorder()` 创建 CameraManager、CameraInput、VideoSession、预览输出流和录像输出流。
+- 预览输出流使用 XComponent 的 SurfaceId，负责在录制页展示实时预览。
+- 录像输出流使用 Native 返回的编码器 SurfaceId，负责把相机帧送到 Native 视频编码器。
+- 点击开始录制时，先 `encoderVideoOutput.start()` 打开相机录像输出，再调用 `recorder.startNative()` 启动 Native 侧 muxer、video encoder、audio capturer 和 audio encoder。
+- 点击停止录制时，先停止相机录像输出，再调用 `recorder.stopBeginNative()` / `recorder.stopEndNative()` 让 Native 侧发送 EOS、等待编码器输出结束并关闭封装器。
+
+#### *图形侧与XComponent送显*
+
+本示例的图形侧由 ArkUI `XComponent` 和 Native 侧 `PluginManager` / `PluginRender` / `BufferRenderer` 共同完成。
+
+播放页的 XComponent 由 `libraryname: 'player'` 绑定到 `libplayer.so`。模块加载后，`PlayerNative.cpp` 调用 `NativeXComponentSample::PluginManager::GetInstance()->Export(env, exports)`，在 `PluginManager::Export()` 中：
+
+1. 通过 `napi_get_named_property(env, exports, OH_NATIVE_XCOMPONENT_OBJ, ...)` 获取 ArkUI 传入的 XComponent 对象。
+2. 通过 `napi_unwrap()` 得到 `OH_NativeXComponent*`。
+3. 通过 `OH_NativeXComponent_GetXComponentId()` 获取组件 id。
+4. 将 XComponent 保存到 `PluginManager`，并创建/获取对应的 `PluginRender`。
+5. 调用 `PluginRender::RegisterCallback()` 注册 Surface 生命周期回调。
+
+`PluginRender` 关注几个 Native XComponent 回调：
+
+- `OnSurfaceCreatedCB()`：XComponent Surface 创建后触发。这里拿到 `void* window`，转换为 `OHNativeWindow*` 保存到 `PluginManager::pluginWindow_`，并设置 `OH_SCALING_MODE_SCALE_FIT_V2`。
+- `OnSurfaceChangedCB()`：Surface 尺寸或状态变化时触发，本示例记录 offset、width、height，可用于后续适配布局。
+- `OnSurfaceDestroyedCB()`：Surface 销毁时触发，如果当前保存的 `pluginWindow_` 指向该 window，则置空，避免后续使用悬空 window。
+- `DispatchTouchEventCB()`：触摸事件回调，本示例读取触摸工具类型和倾角信息，作为 XComponent 交互能力示例。
+
+播放送显分为 SurfaceMode 和 BufferMode 两条路径：
+
+- SurfaceMode：`Player::CreateVideoDecoder()` 将 `sampleInfo_.window` 设置为 XComponent 对应的 `pluginWindow_`。`VideoDecoder::Config()` 发现 `sampleInfo.window != nullptr` 后调用 `OH_VideoDecoder_SetSurface()`。之后应用释放输出帧时调用 `OH_VideoDecoder_RenderOutputBufferAtTime()` 或 `OH_VideoDecoder_RenderOutputBuffer()`，由解码器和图形系统完成送显。
+- BufferMode：`Player::CreateVideoDecoder()` 明确将 `sampleInfo_.window = nullptr`，因此不会给解码器配置 surface。应用从 `OH_AVBuffer_GetAddr()` 获取解码后的 YUV/RGBA 数据，再由 `BufferRenderer` 手动送到 XComponent 对应的 NativeWindow。
+
+BufferMode 的手动送显流程如下：
+
+1. `BufferRenderer::Render()` 根据实际解码输出格式，将 `OH_AVPixelFormat` 映射到 `NATIVEBUFFER_PIXEL_FMT_*`。
+2. `ConfigureWindow()` 对 XComponent 的 NativeWindow 设置 buffer 几何尺寸、usage、format 和缩放模式。
+3. `OH_NativeWindow_NativeWindowRequestBuffer()` 申请一个可写的 `OHNativeWindowBuffer`，同时拿到 fence fd。
+4. `OH_NativeBuffer_FromNativeWindowBuffer()` 转成 `OH_NativeBuffer`。
+5. 如果有 fence，使用 `OH_NativeBuffer_MapWaitFence()` 等待后 map；否则使用 `OH_NativeBuffer_Map()`。
+6. `CopyToWindowBuffer()` 按源 stride、slice height、目标 stride 分平面拷贝 NV12/NV21/YUV420P/RGBA/RGBA1010102 数据。
+7. 拷贝完成后 `OH_NativeBuffer_Unmap()`。
+8. 使用 `SET_DESIRED_PRESENT_TIMESTAMP` 设置期望显示时间。
+9. `OH_NativeWindow_NativeWindowFlushBuffer()` 将 buffer 送回 NativeWindow 显示。
+10. 若任一步失败，`NativeWindowBufferGuard` 会调用 `OH_NativeWindow_NativeWindowAbortBuffer()` 归还 buffer。
+
+需要特别注意：BufferMode 不能同时给解码器配置 surface。本示例保持该约束，BufferMode 输出帧处理完后始终调用 `OH_VideoDecoder_FreeOutputBuffer(..., false)` 释放给解码器；图形显示由 `BufferRenderer` 走 NativeWindow 图形接口完成。
+
+#### *解封装*
+
+解封装由 `entry/src/main/cpp/capbilities/demuxer.cpp` 实现，主要用于播放链路。UI 侧把 fd、offset、size 传入 Native 后，`Player::Init()` 创建 `Demuxer`：
+
+```cpp
+source_ = OH_AVSource_CreateWithFD(info.inputFd, info.inputFileOffset, info.inputFileSize);
+demuxer_ = OH_AVDemuxer_CreateWithSource(source_);
+```
+
+创建成功后，`Demuxer` 会通过 `OH_AVSource_GetSourceFormat()` 获取媒体源整体信息，并读取 track 数量：
+
+```cpp
+OH_AVFormat_GetIntValue(sourceFormat.get(), OH_MD_KEY_TRACK_COUNT, &trackCount);
+```
+
+随后遍历每个 track：
+
+- `OH_AVSource_GetTrackFormat(source_, index)` 获取当前 track 的 `OH_AVFormat`。
+- `OH_MD_KEY_TRACK_TYPE` 区分视频轨和音频轨。
+- 视频轨调用 `ProcessVideoTrack()`，读取 mime、宽高、帧率、码率、旋转角、profile 等信息，并保存 `videoTrackId_`。
+- 音频轨调用 `ProcessAudioTrack()`，读取采样格式、声道数、声道布局、采样率、mime、AAC ADTS 标记等信息，并保存 `audioTrackId_`。
+- 如果 track 中存在 `OH_MD_KEY_CODEC_CONFIG`，会拷贝到 `SampleInfo::codecConfig`，后续配置音频解码器时作为 codec config 传给 `OH_AudioCodec_Configure()`。
+
+播放输入线程每次拿到解码器输入 buffer 后，会调用：
+
+```cpp
+OH_AVDemuxer_ReadSampleBuffer(demuxer_, trackId, buffer);
+OH_AVBuffer_GetBufferAttr(buffer, &attr);
+```
+
+`ReadSample()` 的输出就是压缩音视频帧和对应的 `OH_AVCodecBufferAttr`。应用随后调用 `OH_AVBuffer_SetBufferAttr()` 和 `OH_*Decoder_PushInputBuffer()` 将该帧送入对应解码器。读到 EOS 时，attr flags 会带有 `AVCODEC_BUFFER_FLAGS_EOS`，输入线程据此结束或在循环播放场景下 seek 到起点继续读取。
+
+#### *音频解码与播放*
+
+音频解码由 `AudioDecoder` 和 `Player` 的音频线程配合完成。整体链路如下：
+
+```text
+Demuxer 读取音频压缩帧
+        ↓
+AudioDecoder 输入 buffer
+        ↓
+OH_AudioCodec 解码成 PCM
+        ↓
+Player 将 PCM 放入 renderQueue
+        ↓
+OH_AudioRenderer_OnWriteData 从 renderQueue 取数据播放
+```
+
+`AudioDecoder::Create()` 使用解封装得到的音频 mime 创建解码器：
+
+```cpp
+decoder_ = OH_AudioCodec_CreateByMime(codecMime.c_str(), false);
+```
+
+`AudioDecoder::Configure()` 根据 `SampleInfo` 配置输出 PCM 格式：
+
+- `OH_MD_KEY_AUDIO_SAMPLE_FORMAT`：本示例设置为 `SAMPLE_S16LE`。
+- `OH_MD_KEY_AUD_CHANNEL_COUNT`：声道数。
+- `OH_MD_KEY_AUD_SAMPLE_RATE`：采样率。
+- `OH_MD_KEY_CHANNEL_LAYOUT`：声道布局。
+- `OH_MD_KEY_ENABLE_SYNC_MODE`：同步模式下设置。
+- `OH_MD_KEY_CODEC_CONFIG`：如果解封装拿到了 codec config，则写入该字段，AAC 等格式依赖该信息正确解码。
+
+异步模式下，`AudioDecoder::Config()` 注册 `SampleCallback`：
+
+- `OnNeedInputBuffer()` 将输入 buffer index 和 `OH_AVBuffer*` 放入 `inputBufferQueue`。
+- `OnNewOutputBuffer()` 将输出 buffer index 和 `OH_AVBuffer*` 放入 `outputBufferQueue`。
+
+同步模式下，不走 codec 回调，线程直接调用 `AudioDecoder::GetInputBuffer()` / `GetOutputBuffer()` 查询 buffer。
+
+播放侧的 `OH_AudioRenderer` 在 `Player::CreateAudioDecoder()` 中创建：
+
+1. `OH_AudioStreamBuilder_Create(&builder_, AUDIOSTREAM_TYPE_RENDERER)`。
+2. 设置采样率、声道数、采样格式、编码类型和 usage。
+3. 注册 `SampleCallback::OnRenderWriteData`。
+4. `OH_AudioStreamBuilder_GenerateRenderer()` 得到 `audioRenderer_`。
+
+音频输出线程拿到解码后的 PCM 后，会把数据逐字节写入 `audioDecContext_->renderQueue`，再释放 codec 输出 buffer。AudioRenderer 真正需要数据时，会触发 `OnRenderWriteData()`：
+
+```cpp
+while (!codecUserData->renderQueue.empty() && index < length) {
+    dest[index++] = codecUserData->renderQueue.front();
+    codecUserData->renderQueue.pop();
+}
+```
+
+音画同步也依赖 AudioRenderer。视频输出线程调用 `OH_AudioRenderer_GetTimestamp(audioRenderer_, CLOCK_MONOTONIC, &framePosition, &timestamp)` 获取音频实际播放位置，再用视频帧 pts 计算 `waitTimeUs`。视频帧过晚时丢帧，过早时 sleep 等待，以音频播放进度作为主时钟。
+
+#### *相机采集与录制*
+
+录制由 ArkTS 相机能力和 Native 编码封装能力共同完成。这里有两个 Surface：
+
+- 预览 Surface：录制页 `Recorder.ets` 中 XComponent 的 surfaceId，用于显示相机预览。
+- 编码 Surface：Native 视频编码器通过 `OH_VideoEncoder_GetSurface()` 返回的 `OHNativeWindow`，再由 `OH_NativeWindow_GetSurfaceId()` 转成 surfaceId，传给 CameraKit 的 `createVideoOutput()`，用于把相机帧送入编码器。
+
+主页面创建输出文件并初始化 Native：
+
+```text
+Index.ets
+  createAsset() 创建媒体库视频资源
+  fileIo.open() 获取 output fd
+  recorder.initNative(...) 传入编码参数和 fd
+  Native 返回 encoder surfaceId
+  router.pushUrl('recorder/Recorder', params)
+```
+
+录制页 `Recorder.ets` 进入后：
+
+1. `XComponent.onLoad()` 通过 `xComponentController.getXComponentSurfaceId()` 获取预览 surfaceId。
+2. `camera.getCameraManager()` 获取 CameraManager。
+3. `getSupportedCameras()` 选择相机设备。
+4. `getSupportedSceneModes()` 确认支持 `NORMAL_VIDEO`。
+5. `encoderProfileCameraCheck()` 从 camera videoProfiles 中选择与用户设置匹配的录像 profile。
+6. `previewProfileCameraCheck()` 为 XComponent 预览选择 preview profile。
+7. `createVideoOutput(encoderProfile, params.surfaceId)` 创建录像输出流，目标是 Native 编码器 Surface。
+8. `createPreviewOutput(xComponentPreviewProfile, this.xComponentSurfaceId)` 创建预览输出流，目标是 UI 预览 XComponent。
+9. `createCameraInput()` 创建相机输入，并调用 `cameraInput.open()` 打开相机。
+10. `createSession(camera.SceneMode.NORMAL_VIDEO)` 创建 `VideoSession`。
+11. `beginConfig()` 后依次 `addInput(cameraInput)`、`addOutput(xComponentPreviewOutput)`、`addOutput(encoderVideoOutput)`。
+12. `commitConfig()` 提交配置，再调用 `videoSession.start()` 启动预览。
+
+开始录制时：
+
+```text
+encoderVideoOutput.start()
+recorder.startNative()
+```
+
+其中 `encoderVideoOutput.start()` 让 CameraKit 开始向编码 Surface 输出录像帧，`recorder.startNative()` 启动 Native 侧 muxer、video encoder、audio capturer、audio encoder 和对应输出线程。
+
+停止录制时：
+
+1. UI 调用 `encoderVideoOutput.stop()` 停止相机录像输出。
+2. Native `stopBeginNative()` 将 `isStopping_` 置为 true，让音频采集/编码线程停止继续塞新数据。
+3. CameraKit 触发 `frameEnd` 后，UI 调用 `stopEndNative()`。
+4. Native 向 video encoder 和 audio encoder 发送 EOS。
+5. 等待视频 EOS 输出完成后，停止 muxer 并释放 camera、encoder、capturer、muxer 等资源。
+
+录制页还实现了两个图形/相机相关能力：
+
+- HDR Vivid 场景下，根据能力选择 P010 格式，并尝试设置 `BT2020_HLG_LIMIT` 色彩空间。
+- 预览页支持双指缩放，通过 `PinchGesture` 调用 `videoSession.setZoomRatio()` 调节相机 zoom。
+
+#### *音频采集与编码*
+
+录制时的音频链路如下：
+
+```text
+OH_AudioCapturer 采集 PCM
+        ↓
+AudioCapturerOnReadData 写入 CodecUserData::cache
+        ↓
+AudioEncoder 输入线程按 audioMaxInputSize 取 PCM
+        ↓
+OH_AudioCodec 编码 AAC
+        ↓
+AudioEncoder 输出线程取编码后 buffer
+        ↓
+Muxer 写入音频 track
+```
+
+`RecorderNative::Init()` 会设置音频默认参数：
+
+- mime：`OH_AVCODEC_MIMETYPE_AUDIO_AAC`
+- sample format：`SAMPLE_S16LE`
+- sample rate：48000
+- channel count：2
+- bit rate：32000
+- channel layout：`CH_LAYOUT_STEREO`
+- `audioMaxInputSize`：按 20ms PCM 数据量计算
+
+`AudioCapturer::AudioCapturerInit()` 创建音频采集器：
+
+1. `OH_AudioStreamBuilder_Create(&builder_, AUDIOSTREAM_TYPE_CAPTURER)`。
+2. 设置采样率、声道数、采样格式、latency mode、encoding type。
+3. 注册 `AudioCapturerOnReadData`。
+4. `OH_AudioStreamBuilder_GenerateCapturer()` 得到 `audioCapturer_`。
+
+采集回调 `AudioCapturerOnReadData()` 将系统给到的 PCM 数据写入 `CodecUserData::cache`，并通过 `inputCond.notify_all()` 唤醒音频编码输入线程。
+
+音频编码器由 `AudioEncoder` 封装：
+
+- `Create()` 使用 `OH_AudioCodec_CreateByMime(codecMime.c_str(), true)` 创建编码器。
+- `Configure()` 设置采样格式、声道数、采样率、码率、声道布局、最大输入大小。
+- 异步模式注册 `SampleCallback`；同步模式由线程主动 query buffer。
+- 输入线程从 cache 中读取 `audioMaxInputSize` 大小的 PCM，调用 `OH_AVBuffer_SetBufferAttr()` 后 `OH_AudioCodec_PushInputBuffer()`。
+- 输出线程拿到编码后的 AAC buffer 后调用 `muxer_->WriteSample(muxer_->GetAudioTrackId(), ...)` 写入封装器。
+
+停止录制时，`AudioEncoder::NotifyEndOfStream()` 会获取一个输入 buffer，设置 `AVCODEC_BUFFER_FLAGS_EOS` 后推给编码器，使输出线程能收到 EOS 并退出。
+
+#### *封装*
+
+封装由 `entry/src/main/cpp/capbilities/muxer.cpp` 实现，用于录制链路。`Recorder::Init()` 在创建视频编码器后创建 `Muxer`：
+
+```cpp
+muxer_ = OH_AVMuxer_Create(fd, static_cast<OH_AVOutputFormat>(outputFormat));
+```
+
+`outputFormat` 来自 UI：
+
+- `2`：MP4。
+- `14`：FLV。
+
+`Muxer::Config()` 会先后添加音频轨和视频轨：
+
+- 音频轨通过 `OH_AVFormat_CreateAudioFormat(sampleInfo.audioCodecMime.data(), sampleRate, channelCount)` 创建 format，并设置 `AAC_PROFILE_LC`。
+- 视频轨通过 `OH_AVFormat_CreateVideoFormat(videoMime, width, height)` 创建 format，并设置帧率、宽高、mime。
+- HDR Vivid 场景下，还会设置 `OH_MD_KEY_VIDEO_IS_HDR_VIVID`、range、color primaries、transfer、matrix 等色彩信息。
+- 非 FLV 输出时，调用 `OH_AVMuxer_SetRotation(muxer_, 90)` 写入旋转元数据，使竖屏录像在播放时按预期方向显示。
+
+`Muxer::Start()` 必须在所有 track 添加完成后调用。录制过程中，视频编码输出线程和音频编码输出线程分别调用：
+
+```cpp
+muxer_->WriteSample(muxer_->GetVideoTrackId(), buffer, attr);
+muxer_->WriteSample(muxer_->GetAudioTrackId(), buffer, attr);
+```
+
+`WriteSample()` 内部会先调用 `OH_AVBuffer_SetBufferAttr(buffer, &attr)`，再调用 `OH_AVMuxer_WriteSampleBuffer()`。由于音频和视频输出线程可能并发写入，本示例使用 `writeMutex_` 保护 muxer 写入，避免多线程同时操作封装器。
+
+停止录制时，编码器输出 EOS 后，`Recorder::Release()` 释放 muxer。封装器释放前会停止写入，最终文件由系统媒体库资源对应的 fd 承载，UI 侧已通过 `photoAccessHelper.createAsset()` 创建了该文件资源。
+
 #### *视频播放*
 
 - 应用启动，Xcomponent加载， 触发OnSurfaceCreatedCB()， 此时能拿到一个surface，同时调用OH_NativeWindow_NativeWindowSetScalingModeV2接口给window配置一个自适应等比例拉伸原图像尺寸的Key，后续无论播放横屏视频还是竖屏视频，都不用更改XComponent的尺寸。
@@ -157,7 +500,7 @@ video-codec-sample/entry/src/main/
   ```
 - 待传给解码器解码完成后，会触发输出回调给应用。
   - 若是Surface模式，则输出侧实际的buffer只会在框架、解码器、surface侧轮转，回调给应用的OH_AVBuffer只是个壳子，里面会带一些flag，size等信息，以及应用在输入时配置的pts信息，但由于实际的buffer不会随着OH_AVBuffer回调给用户，所以Surface模式下调用OH_AVBuffer_GetAddr拿不到buffer的地址，不能直接拷贝解码后的buffer数据，如果有这个需求，则需把surface配置成NativeImage的window，调用NativeImage的接口获取。
-  - 若是Buffer模式，实际的buffer会通过回调给到应用。由于buffer模式没法通过解码直接送显，本示例会将解码后的yuv/rgba图像dump到应用的沙箱目录/data/app/el2/100/base/com.samples.avcodecsample/haps/entry/files/haps/entry/files/下，应用可将此文件提取上来检验效果。
+  - 若是Buffer模式，实际的buffer会通过回调给到应用。由于Buffer模式不能给解码器同时配置surface，本示例会通过OH_AVBuffer_GetAddr获取解码后的yuv/rgba图像内容，拷贝到XComponent对应的NativeWindowBuffer后调用NativeWindow图形接口送显；同时也可以选择dump到应用的沙箱目录/data/storage/el2/base/haps/entry/files/下，应用可将此文件提取上来检验效果。dump功能默认关闭，可在播放设置中选择是否启用。
     ```text
     Surface里维护着一个surfaceBuffer队列，供生产者、消费者轮换使用，且生产者和消费者往往不在同一个进程。
       - 生产者的逻辑：
@@ -168,7 +511,7 @@ video-codec-sample/entry/src/main/
           · AcquireBuffer: 消费者获取一个已生产好的buffer，同时获取出这个buffer对应的acquireFence。当fence等到后，消费者可以开始读取这块buffer里的内容。
           · ReleaseBuffer：消费者消费完成后将buffer以及该buffer对应的releaseFence归还给surface。
     ```
-- 应用收到解码后的OH_AVBuffer后，需要及时调用OH_VideoDecoder_FreeOutputBuffer或OH_VideoDecoder_RenderOutputBuffer或OH_VideoDecoder_RenderOutputBufferAtTime释放归还buffer。
+- 应用收到解码后的OH_AVBuffer后，需要及时释放归还buffer。Surface模式可调用OH_VideoDecoder_RenderOutputBuffer或OH_VideoDecoder_RenderOutputBufferAtTime送显并释放；Buffer模式处理完共享内存数据后调用OH_VideoDecoder_FreeOutputBuffer释放，本示例的Buffer模式送显由NativeWindow图形接口完成。
   ```text
   用RK3568设备播放，由于调用OH_NativeWindow_NativeWindowSetScalingModeV2接口后，实际未生效，最后显示画面可能会有拉伸，应用可以用另一种方法解决：
   在解封装拿到视频的宽高信息后，回调到UI层，UI层根据这个宽高，更改XComponet的尺寸，达到一样的效果，参考如下代码：
@@ -401,11 +744,7 @@ audioTimeStamp = timestamp;
 
 ```cpp
     if (ret != AUDIOSTREAM_SUCCESS || (timestamp == 0) || (framePosition == 0)) {
-        DumpOutput(bufferInfo);
-        ret = videoDecoder_->FreeOutputBuffer(bufferInfo.bufferIndex, sampleInfo_.codecRunMode ? false : true,
-                                              GetCurrentTime());
-        if (ret != AVCODEC_SAMPLE_ERR_OK) {
-            AVCODEC_SAMPLE_LOGW("FreeOutputBuffer failed: %{public}d", ret);
+        if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
             return false;
         }
         std::this_thread::sleep_until(lastPushTime + std::chrono::microseconds(sampleInfo_.frameInterval));
@@ -463,15 +802,8 @@ if (static_cast<double>(waitTimeUs) > VSYNC_TIME * LIP_SYNC_BALANCE_VALUE) {
     std::this_thread::sleep_for(std::chrono::microseconds(
         static_cast<int64_t>(static_cast<double>(waitTimeUs) - VSYNC_TIME * LIP_SYNC_BALANCE_VALUE)));
 }
-DumpOutput(bufferInfo);
-int32_t ret = videoDecoder_->FreeOutputBuffer(bufferInfo.bufferIndex,
-    sampleInfo_.codecRunMode ? false : !dropFrame,
-    VSYNC_TIME * LIP_SYNC_BALANCE_VALUE * MICROSECOND_TO_S + GetCurrentTime());
-if (ret != AVCODEC_SAMPLE_ERR_OK) {
-    AVCODEC_SAMPLE_LOGE("FreeOutputBuffer failed: %{public}d", ret);
-    return false;
-}
-return true;
+return PresentAndReleaseVideoBuffer(bufferInfo, !dropFrame,
+    VSYNC_TIME * LIP_SYNC_BALANCE_VALUE * US_PER_SECOND + GetCurrentTime());
 ```
 
 ### 倍速播放方案
@@ -549,7 +881,7 @@ XComponent Camera
 
 1.本示例仅支持标准系统上运行，支持Phone, RK3568;
 
-2.本示例为Stage模型，仅支持 API20 及以上版本SDK, SDK版本号6.0.0.47及以上版本,镜像版本号支持5.0.0.19及以上版本;
+2.本示例为Stage模型，仅支持 API26 及以上版本SDK, SDK版本号6.1.0.31及以上版本,镜像版本号支持6.1.0.19及以上版本;
 
 3.本示例需要使用DevEco Studio 6.0 才可编译运行。
 

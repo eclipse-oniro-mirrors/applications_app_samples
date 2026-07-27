@@ -43,6 +43,7 @@ const unordered_map<OH_AVPixelFormat, string> PIXEL_FORMAT_TO_STRING = {
     {AV_PIXEL_FORMAT_NV21,              "NV21"},
     {AV_PIXEL_FORMAT_SURFACE_FORMAT,    "SURFACE_FORMAT"},
     {AV_PIXEL_FORMAT_RGBA,              "RGBA"},
+    {AV_PIXEL_FORMAT_RGBA1010102,       "RGBA1010102"},
 };
 
 struct SampleInfo {
@@ -65,6 +66,7 @@ struct SampleInfo {
     int32_t codecType = 0;
     int32_t codecRunMode = 0;
     int32_t codecSyncMode = 0;
+    bool enableVideoDump = false;
     string outputFilePath;
     int32_t outputFormat = 2; // AV_OUTPUT_FORMAT_MPEG_4 = 2, AV_OUTPUT_FORMAT_FLV = 14
 
@@ -90,7 +92,7 @@ struct SampleInfo {
     bool isSmartFluencySupported = false; // 标记设备是否支持智能流畅倍速解码(API>=26)
     double speed = 1.0;                   // 当前播放倍速
 
-    void (*playDoneCallback)(void *context) = nullptr;
+    void (*playDoneCallback)(void *context, bool success) = nullptr;
     void *playDoneCallbackData = nullptr;
     uint8_t codecConfig[1024];
     size_t codecConfigLen = 0;
@@ -195,6 +197,8 @@ public:
     int64_t currentPosAudioBufferPts = 0;
 
     std::atomic<bool> isDestroyed { false };
+    std::atomic<bool> hasError { false };
+    std::atomic<bool> *runningFlag = nullptr;
 
     void ClearQueue()
     {

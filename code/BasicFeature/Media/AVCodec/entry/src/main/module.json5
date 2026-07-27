@@ -61,7 +61,7 @@
         "name": "ohos.permission.MICROPHONE",
         "reason": "$string:reason",
         "usedScene": {
-          "abilities": ["FormAbility"],
+          "abilities": ["EntryAbility"],
           "when": "inuse"
         }
       }
