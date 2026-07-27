@@ -52,6 +52,7 @@ public:
     void SetIsOpenROI(bool isOpenROI);
 private:
     void VideoEncOutputThread();
+    void VideoEncBufferInputThread();
     void AudioEncInputThread();
     void AudioEncOutputThread();
     void Release();
@@ -77,6 +78,7 @@ private:
     std::atomic<bool> isFirstSyncFrame_{true};
     int32_t isFirstFrame_ = true;
     std::unique_ptr<std::thread> videoEncOutputThread_ = nullptr;
+    std::unique_ptr<std::thread> videoEncBufferInputThread_ = nullptr;
     std::unique_ptr<std::thread> audioEncInputThread_ = nullptr;
     std::unique_ptr<std::thread> audioEncOutputThread_ = nullptr;
     std::unique_ptr<std::thread> releaseThread_ = nullptr;

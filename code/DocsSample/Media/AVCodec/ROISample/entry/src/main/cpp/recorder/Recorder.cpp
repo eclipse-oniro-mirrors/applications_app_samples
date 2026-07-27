@@ -15,8 +15,12 @@
 
 #include "include/Recorder.h"
 #include <climits>
+#include <algorithm>
 #include "SampleLog.h"
 #include "dfx/error/SampleError.h"
+#include "multimedia/player_framework/native_avcodec_videoencoder.h"
+#include "multimedia/player_framework/native_avbuffer_info.h"
+#include "multimedia/player_framework/native_avcodec_videobase.h"
 
 #undef LOG_TAG
 #define LOG_TAG "recorder"
@@ -186,6 +190,11 @@ int32_t Recorder::Start(std::string previewSurfaceId)
     videoEncOutputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncOutputThread, this);
     CHECK_AND_RETURN_RET_LOG(videoEncOutputThread_ != nullptr, SAMPLE_ERR_ERROR, "Create thread failed");
 
+    // Buffer模式：启动视频编码输入消费线程。
+    if (sampleInfo_.videoInfo.roiPathType == ROI_PATH_BUFFER_MODE) {
+        videoEncBufferInputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncBufferInputThread, this);
+    }
+
     return StartAudio();
 }
 
@@ -263,6 +272,57 @@ void Recorder::StartRelease()
     }
 }
 
+// [Start roi_buffer_mode_callback]
+void Recorder::VideoEncBufferInputThread()
+{
+    while (isStarted_) {
+        CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
+        std::unique_lock<std::mutex> lock(encContext_->inputMutex);
+        bool condRet = encContext_->inputCond.wait_for(
+            lock, std::chrono::seconds(THREAD_WAIT_TIMEOUT_SEC),
+            [this]() { return !isStarted_ || !encContext_->inputBufferInfoQueue.empty(); });
+        CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
+        CHECK_AND_CONTINUE_LOG(!encContext_->inputBufferInfoQueue.empty(),
+                               "Buffer queue is empty, continue, cond ret: %{public}d", condRet);
+
+        CodecBufferInfo bufferInfo = encContext_->inputBufferInfoQueue.front();
+        encContext_->inputBufferInfoQueue.pop();
+        lock.unlock();
+
+        OH_AVBuffer *buffer = reinterpret_cast<OH_AVBuffer *>(bufferInfo.buffer);
+        FillBufferModeInput(bufferInfo.bufferIndex, buffer);
+    }
+}
+// [End roi_buffer_mode_callback]
+
+// [Start roi_buffer_mode_fill_input]
+void Recorder::FillBufferModeInput(uint32_t index, OH_AVBuffer *buffer)
+{
+    FrameItem frameItem;
+    if (!encContext_->frameQueue->Pop(frameItem, std::chrono::milliseconds(FRAME_QUEUE_POP_TIMEOUT_MS))) {
+        OH_VideoEncoder_PushInputBuffer(videoEncoder_->GetCodec(), index);
+        return;
+    }
+    uint8_t *bufferAddr = OH_AVBuffer_GetAddr(buffer);
+    int32_t bufferCapacity = OH_AVBuffer_GetCapacity(buffer);
+    if (bufferAddr != nullptr && bufferCapacity >= static_cast<int32_t>(frameItem.pixels.size())) {
+        std::copy(frameItem.pixels.data(), frameItem.pixels.data() + frameItem.pixels.size(), bufferAddr);
+        OH_AVCodecBufferAttr attr;
+        attr.size = static_cast<int32_t>(frameItem.pixels.size());
+        attr.offset = 0;
+        attr.flags = AVCODEC_BUFFER_FLAGS_NONE;
+        OH_AVBuffer_SetBufferAttr(buffer, &attr);
+    }
+    if (!frameItem.roiStr.empty()) {
+        OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
+        if (format != nullptr) {
+            OH_AVFormat_SetStringValue(format, OH_MD_KEY_VIDEO_ENCODER_ROI_PARAMS, frameItem.roiStr.c_str());
+        }
+    }
+    OH_VideoEncoder_PushInputBuffer(videoEncoder_->GetCodec(), index);
+}
+// [End roi_buffer_mode_fill_input]
+
 void Recorder::Release()
 {
     std::lock_guard<std::mutex> lock(mutex_);
@@ -286,6 +346,11 @@ void Recorder::JoinThreads()
     if (videoEncOutputThread_ && videoEncOutputThread_->joinable()) {
         videoEncOutputThread_->join();
         videoEncOutputThread_.reset();
+    }
+    if (videoEncBufferInputThread_ && videoEncBufferInputThread_->joinable()) {
+        encContext_->inputCond.notify_all();
+        videoEncBufferInputThread_->join();
+        videoEncBufferInputThread_.reset();
     }
     if (audioEncInputThread_ && audioEncInputThread_->joinable()) {
         audioEncContext_->inputCond.notify_all();
