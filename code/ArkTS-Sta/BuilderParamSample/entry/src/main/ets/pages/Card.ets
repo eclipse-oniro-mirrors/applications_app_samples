@@ -31,7 +31,7 @@ export struct CustomCard {
   description: ResourceStr;
 
   @Builder
-  textBuilder() {
+  textBuilder(): void {
     Column() {
       Text(this.title)
         .fontColor($r('sys.color.font_primary'))
@@ -46,14 +46,14 @@ export struct CustomCard {
   }
 
   @Builder
-  dividerBuilder() {
+  dividerBuilder(): void {
     Divider()
       .backgroundColor(Color.Blue)
       .margin({ left: 10, right: 10 })
   }
 
   @Builder
-  labelBuilder() {
+  labelBuilder(): void {
     Button() {
       SymbolGlyph(this.symbol)
         .fontColor(['#fff'])
@@ -63,7 +63,7 @@ export struct CustomCard {
     .borderRadius(14)
   }
 
-  build() {
+  build(): void {
     // 在创建Card组件时，通过其后紧跟一个大括号“{}”形成尾随闭包，同时支持Card组件中包含多个@BuilderParam属性。
     Card({
       verticalAlign: VerticalAlign.Top,
@@ -92,7 +92,7 @@ export struct Card {
   @BuilderParam
   labelContent: () => void;
 
-  build() {
+  build(): void {
     Column() {
       Row() {
         this.labelContent()

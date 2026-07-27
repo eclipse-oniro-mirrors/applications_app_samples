@@ -21,7 +21,7 @@ import { SIZES, COLORS } from '../common/Contants'
 
 @Component
 export struct Header {
-  build() {
+  build(): void {
     Column() {
       Column() {
         Text('🎈 新年愿望填写')

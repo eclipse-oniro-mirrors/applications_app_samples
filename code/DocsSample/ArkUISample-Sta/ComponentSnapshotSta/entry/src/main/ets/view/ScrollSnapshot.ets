@@ -116,7 +116,7 @@ export struct ScrollSnapshot {
    */
   async snapAndMerge(): Promise<void> {
     try {
-      this.scrollYOffsets.push(Math.round(this.curYOffset) as int);
+      this.scrollYOffsets.push(Math.round(this.curYOffset).toInt());
       // Call the component screenshot interface to obtain the current screenshot
       let snapshot = this.getUIContext().getComponentSnapshot();
       let pixelMapPromise = snapshot.get(LIST_ID);
@@ -131,18 +131,18 @@ export struct ScrollSnapshot {
       }
       // Gets the number of bytes per line of image pixels.
       let area: image.PositionArea =
-        await ImageUtils.getSnapshotArea(pixelMap, this.scrollYOffsets, Math.round(this.listComponentWidth) as int,
-          Math.round(this.listComponentHeight) as int);
+        await ImageUtils.getSnapshotArea(pixelMap, this.scrollYOffsets, Math.round(this.listComponentWidth).toInt(),
+          Math.round(this.listComponentHeight).toInt());
       this.areaArray.push(area);
       // Determine whether the bottom has been reached during the loop process
       if (!this.scroller.isAtEnd()) {
-        CommonUtils.scrollAnimation(this.scroller, 200, Math.round(this.scrollHeight) as int);
+        CommonUtils.scrollAnimation(this.scroller, 200, Math.round(this.scrollHeight).toInt());
         await CommonUtils.sleep(200);
         await this.snapAndMerge();
       } else {
         this.mergedImage =
           await ImageUtils.mergeImage(this.areaArray, this.scrollYOffsets[this.scrollYOffsets.length - 1],
-            Math.round(this.listComponentWidth) as int, Math.round(this.listComponentHeight) as int);
+            Math.round(this.listComponentWidth).toInt(), Math.round(this.listComponentHeight).toInt());
       }
     } catch (err) {
       let error = err as BusinessError;
@@ -158,7 +158,7 @@ export struct ScrollSnapshot {
   async scrollSnapAndMerge(): Promise<void> {
     try {
       // 记录滚动偏移
-      this.scrollYOffsets.push(Math.round(this.curYOffset - this.yOffsetBefore) as int);
+      this.scrollYOffsets.push(Math.round(this.curYOffset - this.yOffsetBefore).toInt());
       // 调用组件截图接口，获取list组件的截图
       let snapshot = this.getUIContext().getComponentSnapshot();
       let pixelMapPromise = snapshot.get(LIST_ID);
@@ -173,21 +173,21 @@ export struct ScrollSnapshot {
       }
       // 获取位图像素字节，并保存在数组中
       let area: image.PositionArea =
-        await ImageUtils.getSnapshotArea(pixelMap, this.scrollYOffsets, Math.round(this.listComponentWidth) as int,
-          Math.round(this.listComponentHeight) as int);
+        await ImageUtils.getSnapshotArea(pixelMap, this.scrollYOffsets, Math.round(this.listComponentWidth).toInt(),
+          Math.round(this.listComponentHeight).toInt());
       this.areaArray.push(area);
 
       // 判断是否滚动到底以及用户是否已经强制停止
       if (!this.scroller.isAtEnd() && !this.isClickStop) {
         // 如果没有到底或被停止，则播放一个滚动动效，延迟一段时间后，继续递归截图
-        CommonUtils.scrollAnimation(this.scroller, 1000, Math.round(this.scrollHeight) as int);
+        CommonUtils.scrollAnimation(this.scroller, 1000, Math.round(this.scrollHeight).toInt());
         await CommonUtils.sleep(1500);
         await this.scrollSnapAndMerge();
       } else {
         // 当滚动到底时，调用`mergeImage`将所有保存的位图数据进行拼接，返回长截图位图对象
         this.mergedImage =
           await ImageUtils.mergeImage(this.areaArray, this.scrollYOffsets[this.scrollYOffsets.length - 1],
-            Math.round(this.listComponentWidth) as int, Math.round(this.listComponentHeight) as int);
+            Math.round(this.listComponentWidth).toInt(), Math.round(this.listComponentHeight).toInt());
       }
     } catch (err) {
       let error = err as BusinessError;
@@ -261,7 +261,7 @@ export struct ScrollSnapshot {
   }
 
   // [EndExclude scroll_snapshot]
-  build() {
+  build():void {
     // [StartExclude scroll_snapshot]
     NavDestination() {
       Column() {

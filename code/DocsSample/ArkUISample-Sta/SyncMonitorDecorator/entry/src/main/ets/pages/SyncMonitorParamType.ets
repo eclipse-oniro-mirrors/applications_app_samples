@@ -40,8 +40,8 @@ class Info {
     hilog.info(0xFF00, 'testTag', '%{public}s', `propA change from ${monitor.value<number>()?.before} to ${monitor.value<number>()?.now}`);
   }
 
-  // @SyncMonitor入参类型为const常量
-  @SyncMonitor([propB])
+  // @SyncMonitor入参类型为constant字面量，顶层的const不能被当作constant字面量使用，需传入'propB'，而非propB
+  @SyncMonitor(['propB'])
   onPropBChange(monitor: IMonitor): void {
     hilog.info(0xFF00, 'testTag', '%{public}s', `propB change from ${monitor.value<number>()?.before} to ${monitor.value<number>()?.now}`);
   }

@@ -18,8 +18,8 @@ import { Entry, Component, State, Stack, Column, Text, Flex, Slider, Color, Marg
 @Entry
 @Component
 struct PreventIdentification {
-  @State progress: long = 496000 as long;
-  @State total: long = 27490000 as long;
+  @State progress: long = 496000 .toLong();
+  @State total: long = 27490000 .toLong();
   @State currentWidth: string = '100%';
   @State currentHeight: string = '100%';
   private currentPosX: double = 0.0;
@@ -38,7 +38,7 @@ struct PreventIdentification {
       this.stopNormalPlayTimer();
     }
     this.normalPlayTimer = setInterval(() => {
-      this.progress = this.progress + 1000 as long;
+      this.progress = this.progress + 1000 .toLong();
     }, 1000);
   }
 
@@ -55,7 +55,7 @@ struct PreventIdentification {
       this.stopFastForwardTimer();
     }
     this.fastForwardTimer = setInterval(() => {
-      this.progress = this.progress + 100000 as long;
+      this.progress = this.progress + 100000 .toLong();
     }, 100);
   }
 
@@ -121,8 +121,8 @@ struct PreventIdentification {
       return;
     }
     let offsetY: double = newY - this.currentPosY;
-    if (Math.abs(offsetY) > 10 as double) {
-      this.showMessage((offsetY > 0.0 as double)
+    if (Math.abs(offsetY) > 10 .toDouble()) {
+      this.showMessage((offsetY > 0.0 .toDouble())
         ? this.getUIContext().getHostContext()!.resourceManager.getStringSync($r('app.string.Reduce_brightness').id)
         : this.getUIContext().getHostContext()!.resourceManager.getStringSync($r('app.string.Increase_brightness').id))
       this.currentPosY = newY;
@@ -138,7 +138,7 @@ struct PreventIdentification {
       return;
     }
     let offsetX: double = newX - this.currentPosX;
-    this.progress = (this.progress + Math.floor(offsetX * 10000.0 as double) as long) as long;
+    this.progress = (this.progress + Math.floor(offsetX * 10000.0 .toDouble()) .toLong()) .toLong();
     this.currentPosX = newX;
   }
 
@@ -152,13 +152,13 @@ struct PreventIdentification {
 
         Flex({ alignItems: ItemAlign.Center, justifyContent: FlexAlign.SpaceBetween } as FlexOptions) {
           Slider({
-            value: this.progress as double,
-            min: 0.0 as double,
-            max: this.total as double,
+            value: this.progress .toDouble(),
+            min: 0.0 .toDouble(),
+            max: this.total .toDouble(),
             style: SliderStyle.OutSet
           } as SliderOptions)
             .onChange((value: double, mode: SliderChangeMode) => {
-              this.progress = value as long;
+              this.progress = value .toLong();
             })
             .id('progress_layer')
             // [Start disable_gesturetype]

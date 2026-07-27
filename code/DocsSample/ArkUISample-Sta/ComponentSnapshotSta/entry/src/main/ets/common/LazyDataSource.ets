@@ -20,7 +20,7 @@ import { IDataSource, DataChangeListener } from '@kit.ArkUI';
 
 const TAG = '[LazyDataSource]';
 
-class BasicDataSource<T> implements IDataSource<T> {
+export class BasicDataSource<T> implements IDataSource<T> {
   private listeners: DataChangeListener[] = [];
 
   public totalCount(): int {

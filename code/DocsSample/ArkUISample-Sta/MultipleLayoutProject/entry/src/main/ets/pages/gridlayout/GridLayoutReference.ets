@@ -42,7 +42,7 @@ struct WindowRefGridLayout {
       'rgb(255,192,0)', 'rgb(170,10,33)'];
 
   build() {
-    Column({ space: 6 }) {
+    Column({ space: 6 } as ColumnOptions) {
       Text(this.currentBp)
 
       GridRow({

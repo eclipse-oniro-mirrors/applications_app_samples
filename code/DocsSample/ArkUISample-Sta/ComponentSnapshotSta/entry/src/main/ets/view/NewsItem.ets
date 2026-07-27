@@ -24,7 +24,7 @@ import {
 export struct NewsItem {
   @State index: int = 0; // 索引值，默认值为0
 
-  build() {
+  build(): void {
     Row() {
       Column() {
         // $r('app.string.news_item_content')需要替换为开发者所需的资源文件
