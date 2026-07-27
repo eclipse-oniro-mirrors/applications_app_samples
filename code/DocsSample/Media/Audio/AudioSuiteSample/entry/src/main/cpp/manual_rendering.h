@@ -80,7 +80,7 @@ struct EffectParams {
 };
 
 void BaseEditorEffect(AudioDataInfo *audioInfo, const char *newFilePath, int effectType, const EffectParams &params);
-void AudioSourceSeparation(AudioDataInfo *audioInfo, const char *vocalsFilePath, const char *accompanimentFilePath);
+bool AudioSourceSeparation(AudioDataInfo *audioInfo, const char *vocalsFilePath, const char *accompanimentFilePath);
 void MixingAndCascading(AudioDataInfo *audioInfoForField, AudioDataInfo *audioInfoForMix, const char *mixFilePath);
 
 #endif
