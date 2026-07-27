@@ -268,6 +268,7 @@ function sum(num: number): number {
 }
 // [End exception_handling_poor]
 
+// [Start exception_handling_batter]
 function divBetter(a: number, b: number): number {
   if (a <= 0 || b <= 0) {
     return NaN;
@@ -275,7 +276,6 @@ function divBetter(a: number, b: number): number {
   return a / b;
 }
 
-// [Start exception_handling_batter]
 function sumBetter(num: number): number {
   let sum = 0;
   for (let t = 1; t < 100; t++) {
