@@ -39,6 +39,7 @@ import { Consume } from '@ohos.arkui.stateManagement';
 import { OverlayManagerComponent } from './OverlayManagerComponent';
 import { OverlayManagerAlertDialog } from './OverlayManagerAlertDialog';
 import { OverlayManagerWithOrder } from './OverlayManagerWithOrder';
+import { OverlayManagerOnBackPress } from './OverlayManagerOnBackPress';
 
 export const OverlayManager_ROUTE_PREFIX: string = 'OverlayManager_ROUTE_PREFIX';
 
@@ -61,6 +62,12 @@ const routes: Array<Route> = [
     `OverlayManager_ROUTE_PREFIX/OverlayManagerWithOrder`,
     undefined,
     $r('app.string.OverlayManager_withOrder_des')
+  ),
+  new Route(
+    resourceToStringManager.resourceToString($r('app.string.OverlayManager_onBackPress_title')),
+    `OverlayManager_ROUTE_PREFIX/OverlayManagerOnBackPress`,
+    undefined,
+    $r('app.string.OverlayManager_onBackPress_des')
   )
 ];
 
@@ -74,6 +81,8 @@ export function OverlayManagerDestination(name: string): void {
     OverlayManagerAlertDialog();
   } else if (name === routes[2].name) {
     OverlayManagerWithOrder();
+  } else if (name === routes[3].name) {
+    OverlayManagerOnBackPress();
   }
 }
 
