@@ -1,9 +1,9 @@
 ---
-name: music-assistant
+name: example-org-music-assistant
 description: 提供音乐搜索播放与播控能力，响应“放首歌”、“切歌”、“暂停”等播放控制类指令
 ---
 
-# music-assistant
+# example-org-music-assistant
 
 本Skill基于ArkTS函数`playMusicByName`与`controlPlayback`,
 响应自然语言中"听歌"、"放歌"、"暂停"、"下一首"等播放意图,
@@ -33,7 +33,7 @@ description: 提供音乐搜索播放与播控能力，响应“放首歌”、�
 示例如下:
 
 ```
-exec-cli(command: ohos-arkTSScript --skillName 'music-assistant' --scriptPath 'scripts/MusicSkill.ets' --functionName 'playMusicByName' --args '{
+exec-cli(command: ohos-arkTSScript --skillName 'example-org-music-assistant' --scriptPath 'scripts/MusicSkill.ets' --functionName 'playMusicByName' --args '{
     "arg1": "SongA",
     "arg2": "SingerA"
 }'
@@ -54,7 +54,7 @@ exec-cli(command: ohos-arkTSScript --skillName 'music-assistant' --scriptPath 's
         "skillName": {
             "type": "string",
             "description": "skill名称",
-            "const": "music-assistant"
+            "const": "example-org-music-assistant"
         },
         "scriptPath": {
             "type": "string",
@@ -275,7 +275,7 @@ exec-cli(command: ohos-arkTSScript --skillName 'music-assistant' --scriptPath 's
 示例如下:
 
 ```
-exec-cli(command: ohos-arkTSScript --skillName 'music-assistant' --scriptPath 'scripts/MusicSkill.ets' --functionName 'controlPlayback' --args '{
+exec-cli(command: ohos-arkTSScript --skillName 'example-org-music-assistant' --scriptPath 'scripts/MusicSkill.ets' --functionName 'controlPlayback' --args '{
     "arg1": "next"
 }'
 )
@@ -295,7 +295,7 @@ exec-cli(command: ohos-arkTSScript --skillName 'music-assistant' --scriptPath 's
         "skillName": {
             "type": "string",
             "description": "skill名称",
-            "const": "music-assistant"
+            "const": "example-org-music-assistant"
         },
         "scriptPath": {
             "type": "string",
