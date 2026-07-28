@@ -89,32 +89,27 @@ struct MusicVsVideoPage {
   }
 
   // [Start toggle_video]
-  async toggleVideo() {
-    await this.initStreams();
-    if (this.videoPlaying) {
+  async toggleVideo() { // 切换视频音频流的播放状态
+    await this.initStreams(); // 惰性初始化两条音频流
+    if (this.videoPlaying) { // 视频正在播放 → 用户要停止视频
       // [StartExclude toggle_video]
-      await this.videoStream.stopPlay();
+      await this.videoStream.stopPlay(); // 停止视频音频输出
       // [EndExclude toggle_video]
-      // [Start paused_by_app_resume_video]
-      if (this.musicPausedByApp) {
-        this.musicPausedByApp = false;
-        await this.musicStream.startPlay();
-        // [StartExclude paused_by_app_resume_video]
-        this.promptAction.showToast({ message: $r('app.string.app_control_music_auto_resume'), duration: TOAST_DURATION });
-        // [EndExclude paused_by_app_resume_video]
+      if (this.musicPausedByApp) { // 音乐是被应用管控暂停的，停止视频后应自动恢复音乐
+        this.musicPausedByApp = false; // 清除标记
+        await this.musicStream.startPlay(); // 恢复音乐播放，完成PAUSE→RESUME
+        this.promptAction.showToast({
+          message: $r('app.string.app_control_music_auto_resume'),
+          duration: TOAST_DURATION
+        });
       }
-      // [End paused_by_app_resume_video]
-    } else {
-      // [Start app_control_pause_video]
-      if (this.appControl && this.currentMode === InterruptMode.SHARE_MODE && this.musicPlaying) {
-        await this.musicStream.pausePlay();
-        this.musicPausedByApp = true;
-        // [StartExclude app_control_pause_video]
+    } else { // 视频未播放 → 用户要开始播放视频
+      if (this.appControl && this.currentMode === InterruptMode.SHARE_MODE && this.musicPlaying) { // 管控+SHARE+音乐播放中：暂停
+        await this.musicStream.pausePlay(); // 主动暂停音乐（PAUSE策略，可恢复）
+        this.musicPausedByApp = true; // 标记音乐是被应用管控暂停的，视频停止后需要自动恢复
         this.promptAction.showToast({ message: $r('app.string.app_control_music_pause'), duration: TOAST_DURATION });
-        // [EndExclude app_control_pause_video]
       }
-      // [End app_control_pause_video]
-      await this.videoStream.startPlay();
+      await this.videoStream.startPlay(); // 开始视频音频输出
     }
   }
   // [End toggle_video]
