@@ -12,7 +12,4 @@ include_directories(${NATIVERENDER_ROOT_PATH}
                     ${NATIVERENDER_ROOT_PATH}/include)
 
 add_library(entry SHARED napi_init.cpp)
-target_link_libraries(entry PUBLIC libace_napi.z.so libhilog_ndk.z.so libace_ndk.z.so)
-// [Start injectTouchEvent]
-target_link_libraries(entry PUBLIC libnative_window_manager.so libohinput.so)
-// [End injectTouchEvent]
+target_link_libraries(entry PUBLIC libace_napi.z.so  hilog_ndk.z libace_ndk.z.so libnative_window_manager.so  libohinput.so)
