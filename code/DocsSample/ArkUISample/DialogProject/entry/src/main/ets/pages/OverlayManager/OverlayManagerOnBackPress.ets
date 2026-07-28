@@ -42,7 +42,6 @@ function floatBuilder(params: FloatParams) {
     Button('关闭')
       .height(32)
       .fontSize(13)
-      .backgroundColor('#FFFFFF33')
       .fontColor(Color.White)
       .onClick(() => params.onDismiss())
   }
@@ -151,13 +150,11 @@ export struct OverlayManagerOnBackPress {
           Button('显示浮层')
             .fontSize(15)
             .height(40)
-            .backgroundColor('#2196F3')
             .onClick(() => this.showFloat())
 
           Button('关闭浮层')
             .fontSize(15)
             .height(40)
-            .backgroundColor('#F44336')
             .onClick(() => this.dismissFloat())
         }
 
