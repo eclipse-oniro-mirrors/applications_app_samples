@@ -28,6 +28,7 @@ void CodecCallback::OnCodecFormatChange([[maybe_unused]]OH_AVCodec *codec, [[may
     SAMPLE_LOGI("On codec format change");
 }
 
+// [Start roi_buffer_input_callback_queue]
 void CodecCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData)
 {
     if (userData == nullptr) {
@@ -38,6 +39,7 @@ void CodecCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBu
     codecUserData->inputBufferInfoQueue.emplace(index, buffer);
     codecUserData->inputCond.notify_all();
 }
+// [End roi_buffer_input_callback_queue]
 
 void CodecCallback::OnNewOutputBuffer([[maybe_unused]]OH_AVCodec *codec, uint32_t index,
                                       OH_AVBuffer *buffer, void *userData)

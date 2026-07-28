@@ -283,7 +283,7 @@ void Recorder::VideoEncBufferInputThread()
             [this]() { return !isStarted_ || !encContext_->inputBufferInfoQueue.empty(); });
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         CHECK_AND_CONTINUE_LOG(!encContext_->inputBufferInfoQueue.empty(),
-                               "Buffer queue is empty, continue, cond ret: %{public}d", condRet);
+            "Buffer queue is empty, continue, cond ret: %{public}d", condRet);
 
         CodecBufferInfo bufferInfo = encContext_->inputBufferInfoQueue.front();
         encContext_->inputBufferInfoQueue.pop();
