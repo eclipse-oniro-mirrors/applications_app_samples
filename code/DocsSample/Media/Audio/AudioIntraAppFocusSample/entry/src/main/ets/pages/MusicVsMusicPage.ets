@@ -89,32 +89,29 @@ struct MusicVsMusicPage {
   }
 
   // [Start toggle_stream_b]
-  async toggleStreamB() {
-    await this.initStreams();
-    if (this.streamBPlaying) {
+  async toggleStreamB() { // 切换Stream B的播放状态
+    await this.initStreams(); // 惰性初始化两条音频流（首次播放时才创建Renderer）
+    if (this.streamBPlaying) { // B正在播放 → 用户要停止B
       // [StartExclude toggle_stream_b]
-      await this.streamB.stopPlay();
+      await this.streamB.stopPlay(); // 停止B的音频输出
       // [EndExclude toggle_stream_b]
-      // [Start paused_by_app_resume]
-      if (this.streamAPausedByApp) {
-        this.streamAPausedByApp = false;
-        await this.streamA.startPlay();
-        // [StartExclude paused_by_app_resume]
-        this.promptAction.showToast({ message: $r('app.string.app_control_stream_a_auto_resume'), duration: TOAST_DURATION });
-        // [EndExclude paused_by_app_resume]
+      if (this.streamAPausedByApp) { // A是被应用管控暂停的（不是用户自己暂停的），停止B后应自动恢复A
+        this.streamAPausedByApp = false; // 清除标记：A即将恢复，不再是"被管控暂停"状态
+        await this.streamA.startPlay(); // 恢复A的音频输出，完成PAUSE→RESUME
+        this.promptAction.showToast({
+          message: $r('app.string.app_control_stream_a_auto_resume'),
+          duration: TOAST_DURATION
+        });
       }
-      // [End paused_by_app_resume]
-    } else {
-      // [Start app_control_pause]
-      if (this.appControl && this.currentMode === InterruptMode.SHARE_MODE && this.streamAPlaying) {
-        await this.streamA.pausePlay();
-        this.streamAPausedByApp = true;
-        // [StartExclude app_control_pause]
-        this.promptAction.showToast({ message: $r('app.string.app_control_stream_a_pause'), duration: TOAST_DURATION });
-        // [EndExclude app_control_pause]
+    } else { // B未播放 → 用户要开始播放B
+      if (this.appControl && this.currentMode === InterruptMode.SHARE_MODE && 
+      this.streamAPlaying) { // 管控开启+SHARE+A播放中：暂停A
+        await this.streamA.pausePlay(); // 主动暂停A（PAUSE策略，可恢复），而非让系统STOP（不可恢复）
+        this.streamAPausedByApp = true; // 标记A是被应用管控暂停的，B停止后需要自动恢复A
+        this.promptAction.showToast({ message: $r('app.string.app_control_stream_a_pause'),
+         duration: TOAST_DURATION });
       }
-      // [End app_control_pause]
-      await this.streamB.startPlay();
+      await this.streamB.startPlay(); // 开始B的音频输出
     }
   }
   // [End toggle_stream_b]

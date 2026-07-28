@@ -85,13 +85,11 @@ export class AudioStreamController {
     };
 
     try {
-      // [Start set_interrupt_mode]
-      this.renderer = await audio.createAudioRenderer(audioRendererOptions);
-      this.renderer.on('audioInterrupt', (interruptEvent: audio.InterruptEvent) => {
+      this.renderer = await audio.createAudioRenderer(audioRendererOptions); // 创建AudioRenderer实例
+      this.renderer.on('audioInterrupt', (interruptEvent: audio.InterruptEvent) => { // 注册音频中断事件回调，系统打断时回调此方法
         this.handleInterrupt(interruptEvent);
       });
-      await this.renderer.setInterruptMode(this.interruptMode);
-      // [End set_interrupt_mode]
+      await this.renderer.setInterruptMode(this.interruptMode); // 设置焦点模式，必须在start之前
       this.bufferSize = await this.renderer.getBufferSize();
       this.renderer.on('writeData', (buffer: ArrayBuffer) => {
         this.fillBuffer(buffer);
@@ -133,57 +131,49 @@ export class AudioStreamController {
     }
   }
 
-  // [Start handle_interrupt]
-  private handleInterrupt(interruptEvent: audio.InterruptEvent): void {
-    const forceType = interruptEvent.forceType;
-    const hintType = interruptEvent.hintType;
+  private handleInterrupt(interruptEvent: audio.InterruptEvent): void { // 系统音频中断回调，收到焦点事件后更新播放状态
+    const forceType = interruptEvent.forceType; // FORCE=系统强制处理，SHARE=系统建议处理（应用可自行决定）
+    const hintType = interruptEvent.hintType; // 中断提示类型：PAUSE/STOP/DUCK/UNDUCK/RESUME等
     const forceStr = forceType === audio.InterruptForceType.INTERRUPT_FORCE ? 'FORCE' : 'SHARE';
     const hintStr = this.getHintString(hintType);
     const logEntry = `[Interrupt] ${forceStr} ${hintStr}`;
-    this.interruptLog.push(logEntry);
+    this.interruptLog.push(logEntry); // 记录中断日志
     logger.info(`Stream interrupt: ${logEntry}`);
 
-    if (this.notifyInterruptCallback) {
+    if (this.notifyInterruptCallback) { // 通知UI层显示中断信息
       this.notifyInterruptCallback(logEntry);
     }
 
-    // [Start handle_interrupt_force]
-    if (forceType === audio.InterruptForceType.INTERRUPT_FORCE) {
+    if (forceType === audio.InterruptForceType.INTERRUPT_FORCE) { // FORCE类型：系统已自动完成打断，应用只需更新状态
       switch (hintType) {
-        // [Start interrupt_hint_stop]
-        case audio.InterruptHint.INTERRUPT_HINT_STOP:
-          this.isPlaying = false;
-          this.notifyState(AudioStreamState.STOPPED);
+        case audio.InterruptHint.INTERRUPT_HINT_STOP: // STOP：流被永久停止，不会收到RESUME，无法自动恢复
+          this.isPlaying = false; // 停止播放
+          this.notifyState(AudioStreamState.STOPPED); // 通知UI：流已停止
           break;
-        // [End interrupt_hint_stop]
-        case audio.InterruptHint.INTERRUPT_HINT_PAUSE:
-          this.isPlaying = false;
-          this.notifyState(AudioStreamState.PAUSED);
+        case audio.InterruptHint.INTERRUPT_HINT_PAUSE: // PAUSE：流被暂停，结束后会收到RESUME可恢复
+          this.isPlaying = false; // 暂停播放
+          this.notifyState(AudioStreamState.PAUSED); // 通知UI：流已暂停
           break;
-        case audio.InterruptHint.INTERRUPT_HINT_DUCK:
-          this.notifyState(AudioStreamState.RUNNING);
+        case audio.InterruptHint.INTERRUPT_HINT_DUCK: // DUCK：降低音量，流仍在播放
+          this.notifyState(AudioStreamState.RUNNING); // 通知UI：流仍在播放（音量降低）
           break;
-        case audio.InterruptHint.INTERRUPT_HINT_UNDUCK:
-          this.notifyState(AudioStreamState.RUNNING);
-          break;
-        default:
-          break;
-      } // [End handle_interrupt_force] // [Start handle_interrupt_share]
-    } else if (forceType === audio.InterruptForceType.INTERRUPT_SHARE) {
-      // [Start interrupt_hint_resume]
-      switch (hintType) {
-        case audio.InterruptHint.INTERRUPT_HINT_RESUME:
-          this.isPlaying = true;
-          this.notifyState(AudioStreamState.RUNNING);
+        case audio.InterruptHint.INTERRUPT_HINT_UNDUCK: // UNDUCK：音量恢复，流仍在播放
+          this.notifyState(AudioStreamState.RUNNING); // 通知UI：音量恢复
           break;
         default:
           break;
       }
-      // [End interrupt_hint_resume]
+    } else if (forceType === audio.InterruptForceType.INTERRUPT_SHARE) { // SHARE类型：系统建议处理，应用需自行响应
+      switch (hintType) {
+        case audio.InterruptHint.INTERRUPT_HINT_RESUME: // RESUME：之前被暂停的流可以恢复播放
+          this.isPlaying = true; // 恢复播放
+          this.notifyState(AudioStreamState.RUNNING); // 通知UI：流已恢复播放
+          break;
+        default:
+          break;
+      }
     }
-    // [End handle_interrupt_share]
   }
-  // [End handle_interrupt]
 
   private getHintString(hintType: audio.InterruptHint): string {
     switch (hintType) {
