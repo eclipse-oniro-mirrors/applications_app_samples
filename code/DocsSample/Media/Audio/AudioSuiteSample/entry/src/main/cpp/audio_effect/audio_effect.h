@@ -35,7 +35,7 @@ public:
     {
         return OH_AudioNode_Type::EFFECT_NODE_TYPE_EQUALIZER;
     }
-    
+
     // 根据预置类型或自定义参数获取均衡器增益值。
     static OH_EqualizerFrequencyBandGains GetEqualizerGains(const EffectParams &params)
     {
@@ -117,16 +117,188 @@ public:
     }
 };
 
-inline std::unique_ptr<AudioEffectStrategy> CreateEffectStrategy(int effectType)
-{
-    switch (effectType) {
-        case AUDIO_EFFECT_TYPE_EQUALIZER:
-            return std::make_unique<EqualizerStrategy>();
-        case AUDIO_EFFECT_TYPE_VOICE_BEAUTIFIER:
-            return std::make_unique<VoiceBeautifierStrategy>();
-        default:
-            return nullptr;
+class NoiseReductionStrategy : public AudioEffectStrategy {
+public:
+    OH_AudioNode_Type GetNodeType() const override
+    {
+        return OH_AudioNode_Type::EFFECT_NODE_TYPE_NOISE_REDUCTION;
     }
-}
+
+    void CreateAndApply(OH_AudioSuitePipeline *pipeline, OH_AudioNodeBuilder *builder, OH_AudioNode **node,
+                        const EffectParams &params) override
+    {
+        // [Start audioSuite_SetNoiseReductionType]
+        // 设置为降噪节点类型。
+        OH_AudioSuiteNodeBuilder_SetNodeType(builder, OH_AudioNode_Type::EFFECT_NODE_TYPE_NOISE_REDUCTION);
+        // 创建降噪节点。
+        OH_AudioSuiteEngine_CreateNode(pipeline, builder, node);
+        // [End audioSuite_SetNoiseReductionType]
+    }
+};
+
+class SoundFieldStrategy : public AudioEffectStrategy {
+public:
+    OH_AudioNode_Type GetNodeType() const override
+    {
+        return OH_AudioNode_Type::EFFECT_NODE_TYPE_SOUND_FIELD;
+    }
+
+    void CreateAndApply(OH_AudioSuitePipeline *pipeline, OH_AudioNodeBuilder *builder, OH_AudioNode **node,
+                        const EffectParams &params) override
+    {
+        // [Start audioSuite_SetSoundFieldType]
+        // 设置为声场节点类型。
+        OH_AudioSuiteNodeBuilder_SetNodeType(builder, OH_AudioNode_Type::EFFECT_NODE_TYPE_SOUND_FIELD);
+        // 创建声场节点。
+        OH_AudioSuiteEngine_CreateNode(pipeline, builder, node);
+        // 设置声场节点效果。
+        OH_AudioSuiteEngine_SetSoundFieldType(*node, static_cast<OH_SoundFieldType>(params.soundFieldType));
+        // [End audioSuite_SetSoundFieldType]
+    }
+};
+
+class EnvironmentEffectStrategy : public AudioEffectStrategy {
+public:
+    OH_AudioNode_Type GetNodeType() const override
+    {
+        return OH_AudioNode_Type::EFFECT_NODE_TYPE_ENVIRONMENT_EFFECT;
+    }
+
+    void CreateAndApply(OH_AudioSuitePipeline *pipeline, OH_AudioNodeBuilder *builder, OH_AudioNode **node,
+                        const EffectParams &params) override
+    {
+        // [Start audioSuite_SetEnvironmentType]
+        // 设置为环境效果节点类型。
+        OH_AudioSuiteNodeBuilder_SetNodeType(builder, OH_AudioNode_Type::EFFECT_NODE_TYPE_ENVIRONMENT_EFFECT);
+        // 创建环境效果节点。
+        OH_AudioSuiteEngine_CreateNode(pipeline, builder, node);
+        // 设置环境效果节点效果。
+        OH_AudioSuiteEngine_SetEnvironmentType(*node, static_cast<OH_EnvironmentType>(params.environmentType));
+        // [End audioSuite_SetEnvironmentType]
+    }
+};
+
+class SpaceRenderStrategy : public AudioEffectStrategy {
+public:
+    OH_AudioNode_Type GetNodeType() const override
+    {
+        return OH_AudioNode_Type::EFFECT_NODE_TYPE_SPACE_RENDER;
+    }
+
+    void CreateAndApply(OH_AudioSuitePipeline *pipeline, OH_AudioNodeBuilder *builder, OH_AudioNode **node,
+                        const EffectParams &params) override
+    {
+        // [Start audioSuite_SetSpaceRenderParams]
+        // 设置为空间渲染节点类型。
+        OH_AudioSuiteNodeBuilder_SetNodeType(builder, OH_AudioNode_Type::EFFECT_NODE_TYPE_SPACE_RENDER);
+        // 创建空间渲染节点。
+        OH_AudioSuiteEngine_CreateNode(pipeline, builder, node);
+        // 按场景设置空间渲染参数。
+        switch (params.spaceRenderMode) {
+            /* 固定摆位模式 */
+            case SPACE_RENDER_MODE_POSITION: {
+                OH_AudioSuite_SpaceRenderPositionParams position;
+                position.x = params.spacePositionX;
+                position.y = params.spacePositionY;
+                position.z = params.spacePositionZ;
+                OH_AudioSuiteEngine_SetSpaceRenderPositionParams(*node, position);
+                break;
+            }
+            /* 旋转模式 */
+            case SPACE_RENDER_MODE_ROTATION: {
+                OH_AudioSuite_SpaceRenderRotationParams rotation;
+                rotation.x = params.spaceRotationX;
+                rotation.y = params.spaceRotationY;
+                rotation.z = params.spaceRotationZ;
+                rotation.surroundTime = params.spaceRotationSurroundTime;
+                rotation.surroundDirection =
+                    static_cast<OH_AudioSuite_SurroundDirection>(params.spaceRotationSurroundDirection);
+                OH_AudioSuiteEngine_SetSpaceRenderRotationParams(*node, rotation);
+                break;
+            }
+            /* 扩展模式 */
+            case SPACE_RENDER_MODE_EXTENSION: {
+                OH_AudioSuite_SpaceRenderExtensionParams extension;
+                extension.extRadius = params.spaceExtensionRadius;
+                extension.extAngle = params.spaceExtensionAngle;
+                OH_AudioSuiteEngine_SetSpaceRenderExtensionParams(*node, extension);
+                break;
+            }
+            default:
+                break;
+        }
+        // [End audioSuite_SetSpaceRenderParams]
+    }
+};
+
+class PureVoiceChangeStrategy : public AudioEffectStrategy {
+public:
+    OH_AudioNode_Type GetNodeType() const override
+    {
+        return OH_AudioNode_Type::EFFECT_NODE_TYPE_PURE_VOICE_CHANGE;
+    }
+
+    void CreateAndApply(OH_AudioSuitePipeline *pipeline, OH_AudioNodeBuilder *builder, OH_AudioNode **node,
+                        const EffectParams &params) override
+    {
+        // [Start audioSuite_SetPureVoiceChangeOption]
+        // 设置为传统变声节点类型。
+        OH_AudioSuiteNodeBuilder_SetNodeType(builder, OH_AudioNode_Type::EFFECT_NODE_TYPE_PURE_VOICE_CHANGE);
+        // 创建传统变声节点。
+        OH_AudioSuiteEngine_CreateNode(pipeline, builder, node);
+        // 设置传统变声节点效果。
+        OH_AudioSuite_PureVoiceChangeOption option;
+        option.optionGender = static_cast<OH_AudioSuite_PureVoiceChangeGenderOption>(params.pureVoiceChangeGender);
+        option.optionType = static_cast<OH_AudioSuite_PureVoiceChangeType>(params.pureVoiceChangeType);
+        option.pitch = params.pureVoiceChangePitch;
+        OH_AudioSuiteEngine_SetPureVoiceChangeOption(*node, option);
+        // [End audioSuite_SetPureVoiceChangeOption]
+    }
+};
+
+class GeneralVoiceChangeStrategy : public AudioEffectStrategy {
+public:
+    OH_AudioNode_Type GetNodeType() const override
+    {
+        return OH_AudioNode_Type::EFFECT_NODE_TYPE_GENERAL_VOICE_CHANGE;
+    }
+
+    void CreateAndApply(OH_AudioSuitePipeline *pipeline, OH_AudioNodeBuilder *builder, OH_AudioNode **node,
+                        const EffectParams &params) override
+    {
+        // [Start audioSuite_SetGeneralVoiceChangeType]
+        // 设置为通用变声节点类型。
+        OH_AudioSuiteNodeBuilder_SetNodeType(builder, OH_AudioNode_Type::EFFECT_NODE_TYPE_GENERAL_VOICE_CHANGE);
+        // 创建通用变声节点。
+        OH_AudioSuiteEngine_CreateNode(pipeline, builder, node);
+        // 设置通用变声节点效果。
+        OH_AudioSuiteEngine_SetGeneralVoiceChangeType(
+            *node, static_cast<OH_AudioSuite_GeneralVoiceChangeType>(params.generalVoiceChangeType));
+        // [End audioSuite_SetGeneralVoiceChangeType]
+    }
+};
+
+class TempoPitchStrategy : public AudioEffectStrategy {
+public:
+    OH_AudioNode_Type GetNodeType() const override
+    {
+        return OH_AudioNode_Type::EFFECT_NODE_TYPE_TEMPO_PITCH;
+    }
+
+    void CreateAndApply(OH_AudioSuitePipeline *pipeline, OH_AudioNodeBuilder *builder, OH_AudioNode **node,
+                        const EffectParams &params) override
+    {
+        // [Start audioSuite_SetTempoAndPitch]
+        // 设置为变速变调节点类型。
+        OH_AudioSuiteNodeBuilder_SetNodeType(builder, OH_AudioNode_Type::EFFECT_NODE_TYPE_TEMPO_PITCH);
+        // 创建变速变调节点。
+        OH_AudioSuiteEngine_CreateNode(pipeline, builder, node);
+        // 设置变速变调节点效果。
+        OH_AudioSuiteEngine_SetTempoAndPitch(*node, params.tempoSpeed, params.tempoPitch);
+        // [End audioSuite_SetTempoAndPitch]
+    }
+};
+
+std::unique_ptr<AudioEffectStrategy> CreateEffectStrategy(int effectType);
 
 #endif
