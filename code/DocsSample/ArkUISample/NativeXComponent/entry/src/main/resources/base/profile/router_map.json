@@ -24,6 +24,11 @@
       "name": "SurfaceHolderNDK",
       "pageSourceFile": "src/main/ets/pages/SurfaceHolderNDK.ets",
       "buildFunction": "SurfaceHolderNDKBuilder"
+    },
+    {
+      "name": "XComponentTypeNodeController",
+      "pageSourceFile": "src/main/ets/pages/XComponentTypeNodeController.ets",
+      "buildFunction": "XComponentTypeNodeControllerBuilder"
     }
   ]
 }
