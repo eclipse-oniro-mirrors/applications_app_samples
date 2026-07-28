@@ -85,7 +85,7 @@ export class LazyColumnLayoutAlgorithm extends LazyCustomLayoutAlgorithm {
 
   // === 锚点信息（滚动时保持稳定） ===
   private anchorChildIndex: int = -1;                 // 锚点元素的索引
-  private anchorChildRelativePos: double = 0;         // 锚点距离可视区域边缘的距离
+  private anchorChildRelativePos: double = 0;         // 锚点位置（正向距内容顶部，反向距内容底部）
   // [End lazy_custom_layout_algorithm_class]
 
   // === UI上下文（用于单位转换） ===
@@ -274,7 +274,7 @@ export class LazyColumnLayoutAlgorithm extends LazyCustomLayoutAlgorithm {
         this.anchorChildIndex = this.startIndex;
         const arrayIndex = this.anchorChildIndex - this.itemArrStartIndex;
         if (arrayIndex >= 0 && arrayIndex < this.itemArr.length) {
-          this.anchorChildRelativePos = this.itemArr[arrayIndex].start;
+          this.anchorChildRelativePos = this.itemArr[arrayIndex].start; // 锚点子组件距离总高度顶部的位置
         }
       }
     } else {
@@ -296,8 +296,8 @@ export class LazyColumnLayoutAlgorithm extends LazyCustomLayoutAlgorithm {
    * 作用：释放滚动后离开可视区域的元素，节省内存
    *
    * 回收范围：
-   * - 向前滚动：回收 this.prevStartIndex -> this.startIndex 之间的元素
-   * - 向后滚动：回收 this.endIndex -> this.prevEndIndex 之间的元素
+   * - 向前滚动：回收 [this.prevStartIndex, this.startIndex) 范围内的元素
+   * - 向后滚动：回收 (this.endIndex, this.prevEndIndex] 范围内的元素
    */
   private recycleChildren(helper: LazyLayoutHelper): void {
     let recycleList: Array<int> = new Array<int>();
@@ -328,7 +328,7 @@ export class LazyColumnLayoutAlgorithm extends LazyCustomLayoutAlgorithm {
       if (helper.getLazyLayoutDirection() === LazyLayoutDirection.FORWARD) {
         const arrayIndex = this.anchorChildIndex - this.itemArrStartIndex;
         if (arrayIndex >= 0 && arrayIndex < this.itemArr.length) {
-          let newPos = this.itemArr[arrayIndex].start;
+          let newPos = this.itemArr[arrayIndex].start; // 锚点子组件重新测量后距离总高度顶部的位置
           if (newPos !== this.anchorChildRelativePos) {
             helper.setAdjustedOffset(Math.round(this.anchorChildRelativePos - newPos).toInt());
           }
