@@ -17,7 +17,7 @@
 import { ArkTSUtils, taskpool } from '@kit.ArkTS';
 import { singletonA } from './sharedModule';
 
-// [StartExclude napi_create_function]
+// [StartExclude multi_thread_operate_exported_obj]
 @Sendable
 export class A {
   private count_: number = 0;
@@ -35,7 +35,7 @@ export class A {
     })
   }
 }
-// [EndExclude  napi_create_function]
+// [EndExclude multi_thread_operate_exported_obj]
 
 @Concurrent
 async function increaseCount() {
