@@ -19,6 +19,7 @@ import { Route } from '../../common/Route';
 import { OverlayManagerComponent } from './OverlayManagerComponent';
 import { OverlayManagerAlertDialog } from './OverlayManagerAlertDialog';
 import { OverlayManagerWithOrder } from './OverlayManagerWithOrder';
+import { OverlayManagerOnBackPress } from './OverlayManagerOnBackPress';
 
 export const OverlayManager_ROUTE_PREFIX: string = 'OverlayManager_ROUTE_PREFIX';
 
@@ -38,6 +39,11 @@ const routes: Route[] = [
     name: `${OverlayManager_ROUTE_PREFIX}/OverlayManagerWithOrder`,
     title: resource.resourceToString($r('app.string.OverlayManager_withOrder_title')),
     description: $r('app.string.OverlayManager_withOrder_des'),
+  },
+  {
+    name: `${OverlayManager_ROUTE_PREFIX}/OverlayManagerOnBackPress`,
+    title: resource.resourceToString($r('app.string.OverlayManager_onBackPress_title')),
+    description: $r('app.string.OverlayManager_onBackPress_des'),
   }
 
 ]
@@ -52,6 +58,8 @@ export function OverlayManagerDestination(name: string) {
     OverlayManagerAlertDialog();
   } else if (name === routes[2].name) {
     OverlayManagerWithOrder();
+  } else if (name === routes[3].name) {
+    OverlayManagerOnBackPress();
   }
 }
 

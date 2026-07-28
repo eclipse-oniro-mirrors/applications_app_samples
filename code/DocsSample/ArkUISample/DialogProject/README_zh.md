@@ -103,6 +103,7 @@ entry/src/main/ets/
 |   |       |---Index.ets
 |   |       |---OverlayManagerAlertDialog.ets
 |   |       |---OverlayManagerComponent.ets
+|   |       |---OverlayManagerOnBackPress.ets
 |   |       |---OverlayManagerWithOrder.ets
 |   |---popup                                 //气泡提示
 |   |       |---ButtonPopup.ets
@@ -197,6 +198,8 @@ entry/src/ohosTest/
     * 显示一个始终在屏幕左侧的悬浮球，点击可以弹出alertDialog弹窗。代码参考[OverlayManagerAlertDialog.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/DocsSample/ArkUISample/DialogProject/entry/src/main/ets/pages/OverlayManager/OverlayManagerAlertDialog.ets)。
 
     * 调用UIContext中getOverlayManager方法获取OverlayManager对象，并利用该对象在指定层级上新增指定节点（addComponentContentWithOrder），层次高的浮层会覆盖在层级低的浮层之上。代码参考[OverlayManagerWithOrder.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/DocsSample/ArkUISample/DialogProject/entry/src/main/ets/pages/OverlayManager/OverlayManagerWithOrder.ets)。
+
+    * 从API版本 26.0.0开始，在获取OverlayManager时传入OverlayManagerOptions，设置enableBackPressedEvent为true并注册onBackPress回调，即可拦截Overlay的侧滑返回事件，由回调返回值决定事件是否向下层组件传递。代码参考[OverlayManagerOnBackPress.ets](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/DocsSample/ArkUISample/DialogProject/entry/src/main/ets/pages/OverlayManager/OverlayManagerOnBackPress.ets)。
 
 8. 弹出框蒙层控制（MaskDialog）
 

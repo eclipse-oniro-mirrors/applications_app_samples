@@ -318,6 +318,14 @@
       "value": "从API version 18开始，可以通过调用UIContext中getOverlayManager方法获取OverlayManager对象，并利用该对象在指定层级上新增指定节点（addComponentContentWithOrder），层次高的浮层会覆盖在层级低的浮层之上。"
     },
     {
+      "name": "OverlayManager_onBackPress_title",
+      "value": "拦截侧滑返回onBackPress"
+    },
+    {
+      "name": "OverlayManager_onBackPress_des",
+      "value": "从API版本 26.0.0开始，在获取OverlayManager时传入OverlayManagerOptions，设置enableBackPressedEvent为true并注册onBackPress回调，即可拦截Overlay的侧滑返回事件，由回调返回值决定事件是否向下层组件传递。"
+    },
+    {
       "name": "close_dialog",
       "value": "关闭弹窗"
     },
