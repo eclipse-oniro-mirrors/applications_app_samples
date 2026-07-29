@@ -19,7 +19,7 @@ import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component
-struct ObtainMediaQueryFlex {
+struct MediaQueryFlex {
   @State color: string = '#DB7093';
   @State text: string = 'Portrait';
   @State dir: FlexDirection = FlexDirection.Column
