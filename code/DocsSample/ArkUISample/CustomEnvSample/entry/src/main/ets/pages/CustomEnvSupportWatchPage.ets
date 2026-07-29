@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [Start CusotmEnvSupportWatch]
+// [Start CustomEnvSupportWatch]
 import { WithEnv, WithEnvAttribute } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
@@ -59,4 +59,4 @@ struct WatchChild {
     .justifyContent(FlexAlign.Center)
   }
 }
-// [End CusotmEnvSupportWatch]
+// [End CustomEnvSupportWatch]
