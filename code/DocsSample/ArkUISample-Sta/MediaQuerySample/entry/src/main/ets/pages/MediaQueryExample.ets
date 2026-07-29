@@ -22,15 +22,13 @@ import {
   Column,
   ColumnOptions,
   Text,
-  Flex,
-  FlexOptions,
-  FlexDirection,
-  LengthMetrics,
+  Row,
+  RowOptions,
+  ForEach,
   Color,
-  TextAlign,
-  window
-} from '@kit.ArkUI';
+} from '@ohos.arkui.component';
 import { State } from '@ohos.arkui.stateManagement';
+import { window } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 
 @Entry
@@ -38,26 +36,18 @@ import { common } from '@kit.AbilityKit';
 struct MediaQueryExample {
   @State color: string = '#DB7093';
   @State text: string = 'Portrait';
-  @State dir: FlexDirection = FlexDirection.Column
-  @State textHeight: string = "30%"
-  @State textWidth: string = "100%"
   // 当设备横屏时条件成立
-  listener:mediaquery.MediaQueryListener = this.getUIContext().getMediaQuery().matchMediaSync('(orientation: landscape)');
+  listener: mediaquery.MediaQueryListener =
+    this.getUIContext().getMediaQuery().matchMediaSync('(orientation: landscape)');
 
   // 当满足媒体查询条件时，触发回调
-  onPortrait(mediaQueryResult:mediaquery.MediaQueryResult) {
-    if (mediaQueryResult.matches as boolean) { // 若设备为横屏状态，更改相应的文本内容与字体颜色
+  onPortrait(mediaQueryResult: mediaquery.MediaQueryResult) {
+    if (mediaQueryResult.matches as boolean) { // 若设备为横屏状态，更改相应的页面布局
       this.color = '#FFD700';
       this.text = 'Landscape';
-      this.dir = FlexDirection.Row;
-      this.textHeight = "100%"
-      this.textWidth = "33%"
     } else {
       this.color = '#DB7093';
       this.text = 'Portrait';
-      this.dir = FlexDirection.Column;
-      this.textHeight = "33%"
-      this.textWidth = "100%"
     }
   }
 
@@ -65,7 +55,7 @@ struct MediaQueryExample {
     // 绑定当前应用实例
     // 绑定回调函数
     this.listener.onChange((mediaQueryResult: mediaquery.MediaQueryResult) => {
-      this.onPortrait(mediaQueryResult);
+      this.onPortrait(mediaQueryResult)
     });
   }
 
@@ -77,16 +67,16 @@ struct MediaQueryExample {
   // 改变设备横竖屏状态函数
   private changeOrientation(isLandscape: boolean) {
     // 获取UIAbility实例的上下文信息
-    let context:common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    let context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
     // 调用该接口手动改变设备横竖屏状态
     window.getLastWindow(context).then((lastWindow) => {
-      lastWindow.setPreferredOrientation(isLandscape ? window.Orientation.LANDSCAPE : window.Orientation.PORTRAIT);
+      lastWindow.setPreferredOrientation(isLandscape ? window.Orientation.LANDSCAPE : window.Orientation.PORTRAIT)
     });
   }
 
   build() {
-    Column({ space: 30 } as ColumnOptions) {
-      Text(this.text).fontSize(24).fontColor(this.color)
+    Column({ space: 50 } as ColumnOptions) {
+      Text(this.text).fontSize(50).fontColor(this.color)
       Text('Landscape').fontSize(50).fontColor(this.color).backgroundColor(Color.Orange)
         .onClick(() => {
           this.changeOrientation(true);
@@ -95,24 +85,6 @@ struct MediaQueryExample {
         .onClick(() => {
           this.changeOrientation(false);
         })
-      Flex({ direction: this.dir, space: { main: LengthMetrics.vp(10), cross: LengthMetrics.vp(5) } } as FlexOptions) {
-        Text('1')
-          .height(this.textHeight)
-          .width(this.textWidth)
-          .textAlign(TextAlign.Center)
-          .backgroundColor('rgb(0, 74, 175)')
-        Text('2')
-          .height(this.textHeight)
-          .width(this.textWidth)
-          .textAlign(TextAlign.Center)
-          .backgroundColor('rgb(39, 135, 217)')
-        Text('3')
-          .height(this.textHeight)
-          .width(this.textWidth)
-          .textAlign(TextAlign.Center)
-          .backgroundColor('rgb(240, 250, 255)')
-      }.layoutWeight(1)
-      .width("100%")
     }
     .width('100%').height('100%')
   }

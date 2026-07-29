@@ -8,7 +8,7 @@
 
 ### 效果预览
 
-| 首页                                 | CanvasRenderingContext2D示例                   
+| 首页                                 | CanvasRenderingContext2D示例     |
 |------------------------------------|------------------------------------|
 | ![](screenshots/device/image1.png) | ![](screenshots/device/image2.png) |
 
@@ -42,6 +42,8 @@ entry/src/main/ets/
 |   |       |---DrawIrregularFigures.ets
 |   |       |---InitCanvasComponent.ets 
 |   |       |---OffScreenDrawing.ets 
+|   |       |---CanvasContentSetOnVisibleAreaApproximateChange.ets
+|   |       |---CanvasContentOnVisibleAreaApproximateChange.ets
 |---pages
 |   |---Index.ets                       // 应用主页面
 entry/src/ohosTest/

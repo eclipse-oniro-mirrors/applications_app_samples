@@ -14,94 +14,96 @@
  * limitations under the License.
  */
 
-// [Start obtain_mediaquery_all]
-// [Start obtain_mediaquery_import]
-import mediaquery from '@ohos.mediaquery';
-// [End obtain_mediaquery_import]
+import router from '@ohos.router'
 import {
   Entry,
   Component,
   Column,
   ColumnOptions,
   Text,
-  Row,
-  RowOptions,
+  List,
+  ListOptions,
   ForEach,
+  ListItem,
+  $r,
   Color,
+  TextAlign,
+  FontWeight,
+  Axis,
+  BarState,
+  EdgeEffect,
+  ResourceColor
 } from '@ohos.arkui.component';
 import { State } from '@ohos.arkui.stateManagement';
-import { window } from '@kit.ArkUI';
-import { common } from '@kit.AbilityKit';
+
+interface listItem {
+  router: string;
+  name: string;
+  description?: string;
+}
+
+let demandList: listItem[] = [
+  {
+    name: 'MediaQueryExample',
+    router: 'pages/MediaQueryExample',
+  },
+  {
+    name: 'MediaQueryFlex',
+    router: 'pages/MediaQueryFlex',
+  }
+]
 
 @Entry
 @Component
-struct MediaQueryExample {
-  @State color: string = '#DB7093';
-  @State text: string = 'Portrait';
-  // 当设备横屏时条件成立
-  // [Start obtain_mediaquery_listener]
-  listener:mediaquery.MediaQueryListener = this.getUIContext().getMediaQuery().matchMediaSync('(orientation: landscape)');
-  // [End obtain_mediaquery_listener]
-
-  // 当满足媒体查询条件时，触发回调
-  // [Start obtain_mediaquery_Portrait]
-  onPortrait(mediaQueryResult:mediaquery.MediaQueryResult) {
-    if (mediaQueryResult.matches as boolean) { // 若设备为横屏状态，更改相应的页面布局
-      // [StartExclude obtain_mediaquery_Portrait]
-      this.color = '#FFD700';
-      this.text = 'Landscape';
-      // [EndExclude obtain_mediaquery_Portrait]
-    } else {
-      // [StartExclude obtain_mediaquery_Portrait]
-      this.color = '#DB7093';
-      this.text = 'Portrait';
-      // [EndExclude obtain_mediaquery_Portrait]
-    }
-  }
-
-  // [StartExclude obtain_mediaquery_Portrait]
-  aboutToAppear() {
-    // 绑定当前应用实例
-    // 绑定回调函数
-    // [EndExclude obtain_mediaquery_Portrait]
-    this.listener.onChange((mediaQueryResult: mediaquery.MediaQueryResult) => {
-      // [StartExclude obtain_mediaquery_Portrait]
-      this.onPortrait(mediaQueryResult);
-      // [EndExclude obtain_mediaquery_Portrait]
-    });
-    // [StartExclude obtain_mediaquery_Portrait]
-  }
-  // [EndExclude obtain_mediaquery_Portrait]
-  // [End obtain_mediaquery_Portrait]
-
-  aboutToDisappear() {
-    // 解绑listener中注册的回调函数
-    this.listener.offChange();
-  }
-
-  // 改变设备横竖屏状态函数
-  private changeOrientation(isLandscape: boolean) {
-    // 获取UIAbility实例的上下文信息
-    let context:common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
-    // 调用该接口手动改变设备横竖屏状态
-    window.getLastWindow(context).then((lastWindow) => {
-      lastWindow.setPreferredOrientation(isLandscape ? window.Orientation.LANDSCAPE : window.Orientation.PORTRAIT);
-    });
-  }
+struct MainPage {
+  @State bgColor: ResourceColor = '#39b5fa';
 
   build() {
-    Column({ space: 50 } as ColumnOptions) {
-      Text(this.text).fontSize(50).fontColor(this.color);
-      Text('Landscape').fontSize(50).fontColor(this.color).backgroundColor(Color.Orange)
-        .onClick(() => {
-          this.changeOrientation(true);
-        });
-      Text('Portrait').fontSize(50).fontColor(this.color).backgroundColor(Color.Orange)
-        .onClick(() => {
-          this.changeOrientation(false);
-        });
+    Column() {
+      Text($r('app.string.MediaQuery_Stage_Sample'))
+        .height('5%')
+        .width('100%')
+        .textAlign(TextAlign.Center)
+        .fontSize(15)
+        .fontWeight(FontWeight.Bold)
+        .backgroundColor(this.bgColor)
+        .fontColor(Color.White)
+
+      Column() {
+        List({ space: 20, initialIndex: 0 }) {
+          ForEach(demandList, (listitem: listItem, index: Int) => {
+            ListItem() {
+              Column() {
+                Text(listitem.name)
+                  .fontSize(15)
+                  .fontColor(this.bgColor)
+                  .maxLines(1)
+              }
+              .onClick(() => {
+                if (!!listitem.router) {
+                  this.getUIContext().getRouter().pushUrl({ url: listitem.router })
+                }
+              })
+            }
+          })
+        }
+        .listDirection(Axis.Vertical)
+        .scrollBar(BarState.Off)
+        .friction(0.6)
+        .divider({
+          strokeWidth: 2,
+          color: 0xFFFFFF,
+          startMargin: 20,
+          endMargin: 20
+        })
+        .edgeEffect(EdgeEffect.Spring)
+        .contentEndOffset(50)
+        .width('90%')
+      }
+      .width('100%')
+      .height('100%')
+      .backgroundColor('#fff4f3f3')
+      .padding({ top: 5 })
     }
-    .width('100%').height('100%')
   }
 }
-// [End obtain_mediaquery_all]
