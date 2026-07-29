@@ -6,6 +6,8 @@
 
 [组件内状态变量迁移指导](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/state-management/arkts-v1-v2-migration-inner-component.md)。
 
+[组件复用迁移](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/state-management/arkts-v1-v2-migration-reusable.md)。
+
 [卡片状态变量迁移](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/state-management/arkts-v1-v2-migration-card.md)。
 
 
@@ -62,6 +64,17 @@ entry/src/main/ets/
 |   |       |---WatchMoreVarV2.ets    //V2 @Monitor装饰器
 |   |       |---ComputedV1.ets     /V1 @State装饰器
 |   |       |---ComputedV2.ets     //V2 @Computed装饰器
+|   |---reusablemigration                                //组件复用迁移指导
+|   |       |---ReusableIfScene.ets    //if使用场景复用组件
+|   |       |---ReusableRepeatScene.ets    //列表滚动Repeat使用场景复用组件
+|   |       |---ReusableListIfScene.ets    //列表滚动if使用场景复用组件
+|   |       |---ReusableRepeatAllLoadScene.ets    //列表滚动Repeat全量加载使用场景复用组件
+|   |       |---ReusableGridScene.ets    //Grid使用场景复用组件
+|   |       |---ReusableWaterFlowScene.ets    //WaterFlow使用场景复用组件
+|   |       |---ReusableSwiperScene.ets    //Swiper使用场景复用组件
+|   |       |---ReusableListItemGroupScene.ets    //ListItemGroup使用场景复用组件
+|   |       |---ReusableLimitTypeScene.ets    //多种条目类型有限变化型复用组件
+|   |       |---ReusableGroupTypeScene.ets    //多种条目类型组合型复用组件
 |---widget
 |   |---pages
 |   |       |---WidgetCardV1.ets    //V1 卡片入口组件，@LocalStorageProp按key值接收数据
@@ -77,6 +90,7 @@ entry/src/main/ets/
 entry/src/ohosTest/
 |---ets
 |   |---ComponentStateMigration.test.ets           // 组件内状态变量迁移指导示例代码测试代码
+|   |---ReusableMigration.test.ets                 // 组件复用迁移指导示例代码测试代码
 ```
 
 ### 具体实现
@@ -96,6 +110,10 @@ entry/src/ohosTest/
 4. 卡片数据接收机制迁移
 
    V1 卡片入口组件需通过 @Entry 传入 LocalStorage 实例，使用 @LocalStorageProp 按入参 key 值匹配卡片提供方 updateForm 推送的数据。V2 迁移后入口组件使用 @ComponentV2，无需传入 LocalStorage，改为通过 @Local、@Provider 等装饰器按变量名直接接收 updateForm 数据；需跨组件共享的数据可使用 @Provider/@Consumer 替代原 LocalStorage 共享方式。
+
+5. 组件复用迁移
+
+   V1 使用 @Reusable 装饰复用组件，配合 reuseId 标记复用组，在 aboutToReuse 中手动重置状态变量。V2 迁移后使用 @ReusableV2，aboutToReuse 去除参数并自动重置状态变量；reuseId 替换为 reuse 属性；LazyForEach 推荐替换为 Repeat 实现更简洁的懒加载与复用。涵盖 if 分支、列表滚动、Grid、WaterFlow、Swiper、ListItemGroup 及多种条目类型等常见复用场景。
 
 ### 相关权限
 
