@@ -20,6 +20,7 @@ import { audio } from '@kit.AudioKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude audioRenderer_setDefaultOutputDevice]
 // [StartExclude audioSessionManager_setDefaultOutputDevice]
+// [StartExclude audioSessionManager_setMediaOutputDevice]
 import { common } from '@kit.AbilityKit';
 import { fileIo as fs, ReadOptions } from '@kit.CoreFileKit';
 
@@ -44,10 +45,12 @@ let audioRendererOptions: audio.AudioRendererOptions = {
 };
 let writeDataCallback: audio.AudioRendererWriteDataCallback;
 // [EndExclude audioSessionManager_setDefaultOutputDevice]
+// [EndExclude audioSessionManager_setMediaOutputDevice]
 
 let audioManager = audio.getAudioManager();
 let audioSessionManager = audioManager.getSessionManager();
 // [StartExclude audioSessionManager_setDefaultOutputDevice]
+// [StartExclude audioSessionManager_setMediaOutputDevice]
 
 async function initArguments(context: common.UIAbilityContext) {
   let bufferSize: number = 0;
@@ -275,37 +278,49 @@ async function audioRendererSetEarpieceOutput(){
   }
 }
 
-// [Start audioSessionManager_setMediaOutputDevice]
 async function audioSessionSetSpeakerMediaOutput(){
+  // [EndExclude audioSessionManager_setMediaOutputDevice]
+
   // 连接蓝牙耳机后，强制将媒体输出设备切换为扬声器。
   audioSessionManager.setMediaOutputDevice(audio.DeviceType.SPEAKER).then(() => {
     console.info('Succeeded in setting media output device to speaker.');
+    // [StartExclude audioSessionManager_setMediaOutputDevice]
     if (globalLogUpdate) {
       globalLogUpdate('Succeeded in audio session setting speaker media output device.', false);
     }
+    // [EndExclude audioSessionManager_setMediaOutputDevice]
   }).catch((err: BusinessError) => {
     console.error(`Failed to set media output device. Code: ${err.code}, message: ${err.message}`);
+    // [StartExclude audioSessionManager_setMediaOutputDevice]
     if (globalLogUpdate) {
       globalLogUpdate(`Failed to set media output device. Code: ${err.code}, message: ${err.message}`, true);
     }
+    // [EndExclude audioSessionManager_setMediaOutputDevice]
   });
+  // [StartExclude audioSessionManager_setMediaOutputDevice]
 }
 
 async function audioSessionSetDefaultMediaOutput(){
+  // [EndExclude audioSessionManager_setMediaOutputDevice]
+
   // 取消强制切换，将媒体输出设备选择权交还给系统默认路由规则。
   audioSessionManager.setMediaOutputDevice(audio.DeviceType.DEFAULT).then(() => {
     console.info('Succeeded in setting media output device to default.');
+    // [StartExclude audioSessionManager_setMediaOutputDevice]
     if (globalLogUpdate) {
       globalLogUpdate('Succeeded in audio session setting default media output device.', false);
     }
+    // [EndExclude audioSessionManager_setMediaOutputDevice]
   }).catch((err: BusinessError) => {
     console.error(`Failed to set media output device. Code: ${err.code}, message: ${err.message}`);
+    // [StartExclude audioSessionManager_setMediaOutputDevice]
     if (globalLogUpdate) {
       globalLogUpdate(`Failed to set media output device. Code: ${err.code}, message: ${err.message}`, true);
     }
+    // [EndExclude audioSessionManager_setMediaOutputDevice]
   });
+  // [End audioSessionManager_setMediaOutputDevice]
 }
-// [End audioSessionManager_setMediaOutputDevice]
 
 @Entry
 @Component
