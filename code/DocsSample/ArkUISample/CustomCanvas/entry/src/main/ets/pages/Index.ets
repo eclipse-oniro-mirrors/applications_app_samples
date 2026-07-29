@@ -76,6 +76,14 @@ let demandList: listItem[] = [
     name: "DrawDraggableCursor",
     router: "pages/canvas/DrawDraggableCursor",
   },
+  {
+    name: "CanvasContentSetOnVisibleAreaApproximateChange",
+    router: "pages/canvas/CanvasContentSetOnVisibleAreaApproximateChange",
+  },
+  {
+    name: "CanvasContentOnVisibleAreaApproximateChange",
+    router: "pages/canvas/CanvasContentOnVisibleAreaApproximateChange",
+  },
 ]
 
 @Entry

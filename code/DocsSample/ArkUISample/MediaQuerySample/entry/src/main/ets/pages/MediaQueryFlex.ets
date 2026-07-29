@@ -13,32 +13,40 @@
  * limitations under the License.
  */
 
-// [Start obtain_mediaquery_all]
-import { mediaquery, window } from '@kit.ArkUI';
+// [Start obtain_mediaquery_flex]
+import { LengthMetrics, mediaquery, window } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component
-struct MediaQueryExample {
+struct ObtainMediaQueryFlex {
   @State color: string = '#DB7093';
   @State text: string = 'Portrait';
+  @State dir: FlexDirection = FlexDirection.Column
+  @State textHeight: string = '30%'
+  @State textWidth: string = '100%'
   // 当设备横屏时条件成立
   listener: mediaquery.MediaQueryListener =
     this.getUIContext().getMediaQuery().matchMediaSync('(orientation: landscape)');
 
   // 当满足媒体查询条件时，触发回调
   onPortrait(mediaQueryResult: mediaquery.MediaQueryResult) {
-    if (mediaQueryResult.matches as boolean) { // 若设备为横屏状态，更改相应的页面布局
+    if (mediaQueryResult.matches as boolean) { // 若设备为横屏状态，更改相应的文本内容、字体颜色、布局方向及尺寸
       this.color = '#FFD700';
       this.text = 'Landscape';
+      this.dir = FlexDirection.Row;
+      this.textHeight = '100%'
+      this.textWidth = '33%'
     } else {
       this.color = '#DB7093';
       this.text = 'Portrait';
+      this.dir = FlexDirection.Column;
+      this.textHeight = '33%'
+      this.textWidth = '100%'
     }
   }
 
   aboutToAppear() {
-    // 绑定当前应用实例
     // 绑定回调函数
     this.listener.on('change', (mediaQueryResult: mediaquery.MediaQueryResult) => {
       this.onPortrait(mediaQueryResult)
@@ -61,8 +69,8 @@ struct MediaQueryExample {
   }
 
   build() {
-    Column({ space: 50 }) {
-      Text(this.text).fontSize(50).fontColor(this.color)
+    Column({ space: 30 }) {
+      Text(this.text).fontSize(24).fontColor(this.color)
       Text('Landscape').fontSize(50).fontColor(this.color).backgroundColor(Color.Orange)
         .onClick(() => {
           this.changeOrientation(true);
@@ -71,8 +79,26 @@ struct MediaQueryExample {
         .onClick(() => {
           this.changeOrientation(false);
         })
+      Flex({ direction: this.dir, space: { main: LengthMetrics.vp(10), cross: LengthMetrics.vp(5) } }) {
+        Text('1')
+          .height(this.textHeight)
+          .width(this.textWidth)
+          .textAlign(TextAlign.Center)
+          .backgroundColor('rgb(0, 74, 175)')
+        Text('2')
+          .height(this.textHeight)
+          .width(this.textWidth)
+          .textAlign(TextAlign.Center)
+          .backgroundColor('rgb(39, 135, 217)')
+        Text('3')
+          .height(this.textHeight)
+          .width(this.textWidth)
+          .textAlign(TextAlign.Center)
+          .backgroundColor('rgb(240, 250, 255)')
+      }.layoutWeight(1)
+      .width('100%')
     }
     .width('100%').height('100%')
   }
 }
-// [End obtain_mediaquery_all]
+// [End obtain_mediaquery_flex]
