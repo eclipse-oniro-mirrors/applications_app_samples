@@ -1,4 +1,3 @@
-
 /*
 * Copyright (C) 2026 Huawei Device Co., Ltd.
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +15,7 @@
 
 // [Start audioRenderer_setDefaultOutputDevice]
 // [Start audioSessionManager_setDefaultOutputDevice]
+// [Start audioSessionManager_setMediaOutputDevice]
 import { audio } from '@kit.AudioKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude audioRenderer_setDefaultOutputDevice]
@@ -275,7 +275,37 @@ async function audioRendererSetEarpieceOutput(){
   }
 }
 
+// [Start audioSessionManager_setMediaOutputDevice]
+async function audioSessionSetSpeakerMediaOutput(){
+  // 连接蓝牙耳机后，强制将媒体输出设备切换为扬声器。
+  audioSessionManager.setMediaOutputDevice(audio.DeviceType.SPEAKER).then(() => {
+    console.info('Succeeded in setting media output device to speaker.');
+    if (globalLogUpdate) {
+      globalLogUpdate('Succeeded in audio session setting speaker media output device.', false);
+    }
+  }).catch((err: BusinessError) => {
+    console.error(`Failed to set media output device. Code: ${err.code}, message: ${err.message}`);
+    if (globalLogUpdate) {
+      globalLogUpdate(`Failed to set media output device. Code: ${err.code}, message: ${err.message}`, true);
+    }
+  });
+}
 
+async function audioSessionSetDefaultMediaOutput(){
+  // 取消强制切换，将媒体输出设备选择权交还给系统默认路由规则。
+  audioSessionManager.setMediaOutputDevice(audio.DeviceType.DEFAULT).then(() => {
+    console.info('Succeeded in setting media output device to default.');
+    if (globalLogUpdate) {
+      globalLogUpdate('Succeeded in audio session setting default media output device.', false);
+    }
+  }).catch((err: BusinessError) => {
+    console.error(`Failed to set media output device. Code: ${err.code}, message: ${err.message}`);
+    if (globalLogUpdate) {
+      globalLogUpdate(`Failed to set media output device. Code: ${err.code}, message: ${err.message}`, true);
+    }
+  });
+}
+// [End audioSessionManager_setMediaOutputDevice]
 
 @Entry
 @Component
@@ -505,6 +535,38 @@ struct Index {
             .onClick(async (): Promise<void> => {
               await audioRendererSetEarpieceOutput();
               this.runningResult = 'Succeeded in setting default output device.';
+            })
+          }
+          .width('80%')
+          .height(50)
+          .justifyContent(FlexAlign.Center)
+
+          Row() {
+            Button() {
+              Text('Session强制媒体输出设备为扬声器').fontSize(15).fontColor(Color.White)
+            }
+            .id('output_switcher_audioSessionSetSpeakerMediaOutput')
+            .width('80%')
+            .height(40)
+            .onClick(async (): Promise<void> => {
+              await audioSessionSetSpeakerMediaOutput();
+              this.runningResult = 'Succeeded in setting media output device to speaker.';
+            })
+          }
+          .width('80%')
+          .height(50)
+          .justifyContent(FlexAlign.Center)
+
+          Row() {
+            Button() {
+              Text('Session恢复媒体输出设备为默认路由').fontSize(15).fontColor(Color.White)
+            }
+            .id('output_switcher_audioSessionSetDefaultMediaOutput')
+            .width('80%')
+            .height(40)
+            .onClick(async (): Promise<void> => {
+              await audioSessionSetDefaultMediaOutput();
+              this.runningResult = 'Succeeded in setting media output device to default.';
             })
           }
           .width('80%')
