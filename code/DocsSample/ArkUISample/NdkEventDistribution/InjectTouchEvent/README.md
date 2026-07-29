@@ -44,6 +44,17 @@ entry/src/
  │   │       ├── Index.test.ets          // 自动化测试代码
 ```
 
+### 具体实现
+
++ 触摸事件注入功能封装在napi_init.cpp中，源码参考:[napi_init.cpp](entry/src/main/cpp/napi_init.cpp)：
+    + 创建触摸事件对象：使用OH_Input_CreateTouchEvent()创建触摸事件结构体；
+    + 设置事件属性：调用OH_Input_SetTouchEventAction、OH_Input_SetTouchEventFingerId、OH_Input_SetTouchEventDisplayX、OH_Input_SetTouchEventDisplayY等函数设置触摸事件的各项属性；
+    + 注入触摸事件：调用OH_WindowManager_InjectTouchEvent向指定窗口注入触摸事件；
+    + 销毁事件对象：使用OH_Input_DestroyTouchEvent释放触摸事件资源。
++ ArkTS层实现，源码参考:[Index.ets](entry/src/main/ets/pages/Index.ets)：
+    + 获取窗口ID：通过windowStage.getMainWindowSync()获取窗口属性，取得windowId；
+    + 调用注入接口：通过testNapi.injectEvent()调用C++层的注入函数，传入windowId、displayId、坐标、action等参数。
+
 ### 相关权限
 
 不涉及。

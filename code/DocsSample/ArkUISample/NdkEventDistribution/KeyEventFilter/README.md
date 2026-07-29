@@ -48,6 +48,16 @@ entry/src/
  │   │       ├── Index.test.ets          // 自动化测试代码
 ```
 
+### 具体实现
+
++ 按键事件过滤功能封装在napi_init.cpp中，源码参考:[napi_init.cpp](entry/src/main/cpp/napi_init.cpp)：
+    + 实现过滤函数：filterFunc函数通过OH_Input_GetKeyEventKeyCode和OH_Input_GetKeyEventAction获取按键码和动作，过滤数字键0-9(KEYCODE_0到KEYCODE_9)的按下事件和ESC键；
+    + 注册过滤函数：调用OH_NativeWindowManager_RegisterKeyEventFilter为指定窗口注册按键事件过滤回调函数；
+    + 取消注册：调用OH_NativeWindowManager_UnregisterKeyEventFilter取消按键事件过滤回调函数。
++ ArkTS层实现，源码参考:[Index.ets](entry/src/main/ets/pages/Index.ets)：
+    + 注册过滤回调：通过testNapi.registerFilter(windowId)注册按键事件过滤函数，成功后输入框无法输入0-9数字；
+    + 取消过滤回调：通过testNapi.clearFilter(windowId)取消过滤函数，恢复正常的按键输入。
+
 ### 相关权限
 
 不涉及。
