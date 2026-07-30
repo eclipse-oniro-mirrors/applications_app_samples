@@ -15,7 +15,7 @@
 
 // [Start CustomEnvSupportClass]
 @ObservedV2
-class CustomEnvValueT {
+class CustomVal {
   @Trace public id: number = 123;
   @Trace public userName: string = 'admin';
 }
@@ -23,7 +23,7 @@ class CustomEnvValueT {
 const customStr = CustomEnvKey.create<string>();
 const customNum = CustomEnvKey.create<number>();
 const customBool = CustomEnvKey.create<boolean>();
-const customObj = CustomEnvKey.create<CustomEnvValueT>();
+const customObj = CustomEnvKey.create<CustomVal>();
 
 @Entry
 @ComponentV2
@@ -31,7 +31,7 @@ struct ClassIndex {
   @CustomEnv(customStr) customStrVarName: string = 'hello world';
   @CustomEnv(customNum) customNumVarName: number = 1;
   @CustomEnv(customBool) customBoolVarName: boolean = true;
-  @CustomEnv(customObj) customObjVarName: CustomEnvValueT = new CustomEnvValueT();
+  @CustomEnv(customObj) customObjVarName: CustomVal = new CustomVal();
 
   build() {
     Column() {

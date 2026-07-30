@@ -15,18 +15,18 @@
 
 // [Start V2ToV1Mix]
 @ObservedV2
-class CustomValueX {
+class CustomDefaultvalue {
   @Trace public defaultVal: string = 'hello';
 }
 
 const customOne = CustomEnvKey.create<string>();
-const customTwo = CustomEnvKey.create<CustomValueX>();
+const customTwo = CustomEnvKey.create<CustomDefaultvalue>();
 
 @Entry
 @ComponentV2
 struct PageTwo {
   @CustomEnv(customOne) defaultMessage: string = 'parent Value';
-  @CustomEnv(customTwo) defaultMessage1: CustomValueX = new CustomValueX();
+  @CustomEnv(customTwo) defaultMessage1: CustomDefaultvalue = new CustomDefaultvalue();
 
   build() {
     Column() {
