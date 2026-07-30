@@ -192,7 +192,7 @@ struct Index {
                   // [EndExclude hap_const_dynamic_import_api]
                   import('@ohos.hilog').then((ns: ESObject) => {
                     ns.default.info(0x0000, 'testTag', '%{public}s', 'DynamicImport @ohos.hilog.');
-                    hilog.info(0x000, 'testTag', '%{public}s', ns.default.LogLevel.DEBUG);
+                    hilog.info(0x000, 'testTag', '%{public}d', ns.default.LogLevel.DEBUG);
                   });
                   // [End hap_const_dynamic_import_api]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_module_myhar'))) {
