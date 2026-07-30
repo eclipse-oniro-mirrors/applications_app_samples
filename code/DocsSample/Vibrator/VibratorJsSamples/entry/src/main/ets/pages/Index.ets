@@ -103,7 +103,7 @@ struct Index {
   @State private callbackContent: string = '';
 
   build() {
-    Flex({ direction: FlexDirection.Column, justifyContent: FlexAlign.Start, alignItems: ItemAlign.Center }) {
+    Column() {
       Scroll(this.scroller) {
         Column() {
           Text(`${this.callbackContent}`)
@@ -113,7 +113,20 @@ struct Index {
         }
       }
       .width('96%')
-      .height('20%')
+      .height('10%')
+      .backgroundColor('#F1F1F1')
+      .borderRadius(10)
+      .borderColor($r('sys.color.popup_border_color'))
+      Scroll(this.scroller) {
+        Column() {
+          Text(`${this.vibratorInfoContent}`)
+            .fontSize(14)
+            .margin({ top: 15 })
+            .id('vibratorInfoContentText')
+        }
+      }
+      .width('96%')
+      .height('10%')
       .backgroundColor('#F1F1F1')
       .borderRadius(10)
       .borderColor($r('sys.color.popup_border_color'))
@@ -543,7 +556,7 @@ struct Index {
               }
               // [End vibrator_js_get_vibrator_info_sync_by_device_id_example]
               logger.info('getVibratorInfoSyncByDeviceId end');
-              this.callbackContent = 'Click the getVibratorInfoSync button successfully';
+              this.callbackContent = 'Click the getVibratorInfoSyncByDeviceId button successfully';
               hilog.info(0xF811, 'Sample_Vibrator', 'Click the getVibratorInfoSync button successfully');
             })
 
@@ -583,18 +596,14 @@ struct Index {
               this.callbackContent = 'Click the isHdHapticSupported button successfully';
               hilog.info(0xF811, 'Sample_Vibrator', 'Click the isHdHapticSupported button successfully');
             })
-
-          Text(`${this.vibratorStateChangeCallback}`)
-            .fontSize(20)
-            .margin({ top: 20 })
-
-          Text(`${this.vibratorInfoContent}`)
-            .fontSize(20)
-            .margin({ top: 20 })
         }
         .width('100%')
+        .padding({ bottom: 40 })
       }
-      .height('100%')
+      .layoutWeight(1)
     }
+    .width('100%')
+    .height('100%')
+    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
   }
 }
