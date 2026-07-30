@@ -15,16 +15,16 @@
 
 // [Start V1ToV2MixParam]
 @ObservedV2
-class CustomValueM {
+class CustomStrValue {
   @Trace public defaultVal: string = 'hello';
 }
 
-const customMix = CustomEnvKey.create<CustomValueM>();
+const customMix = CustomEnvKey.create<CustomStrValue>();
 
 @Entry
 @Component
 struct PageOne {
-  @CustomEnv(customMix) defaultMessage: CustomValueM = new CustomValueM();
+  @CustomEnv(customMix) defaultMessage: CustomStrValue = new CustomStrValue();
 
   build() {
     Column() {
@@ -42,7 +42,7 @@ struct PageOne {
 
 @ComponentV2
 struct PageOneChild {
-  @Require @Param message: CustomValueM;
+  @Require @Param message: CustomStrValue;
 
   build() {
     Column() {
