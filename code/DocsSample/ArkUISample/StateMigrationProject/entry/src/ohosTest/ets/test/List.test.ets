@@ -14,8 +14,10 @@
  */
 import abilityTest from './Ability.test';
 import ComponentStateMigration from './ComponentStateMigration.test';
+import ReusableMigration from './ReusableMigration.test';
 
 export default function testsuite() {
   abilityTest();
   ComponentStateMigration();
+  ReusableMigration();
 }
