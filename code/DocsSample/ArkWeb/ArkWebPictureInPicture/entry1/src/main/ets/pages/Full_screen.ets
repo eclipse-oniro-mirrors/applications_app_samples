@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Switch between portrait and landscape]
+// [Start switch between portrait and landscape]
 import web_webview from '@ohos.web.webview';
 import { window, router } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
