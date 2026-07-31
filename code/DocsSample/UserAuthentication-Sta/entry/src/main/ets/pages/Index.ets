@@ -574,7 +574,7 @@ struct Index {
   // [Start obtain_enrolled_capabilities]
   obtainingEnrolledCredentialInformation() {
     try {
-      let enrolledState = userAuth.getEnrolledState(userAuth.UserAuthType.PIN);
+      let enrolledState = userAuth.getEnrolledState(userAuth.UserAuthType.FACE);
       Logger.info('get current enrolled state successfully.');
       return enrolledState.credentialDigest;
     } catch (error) {
