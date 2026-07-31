@@ -162,7 +162,7 @@ struct Index {
                   // [Start hap_const_dynamic_import_native_index]
                   // HAP's src/main/ets/pages/Index.ets
                   import('libentry.so').then((ns: ESObject) => {
-                    console.info('DynamicImport libnativeapi.so: ' + ns.default.add(2, 3));
+                    console.info('DynamicImport libentry.so: ' + ns.default.add(2, 3));
                   });
                   // [End hap_const_dynamic_import_native_index]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_system_app'))) {
@@ -264,7 +264,7 @@ struct Index {
                   // HAP's src/main/ets/pages/Index.ets
                   let soName = 'libentry.so';
                   import(soName).then((ns: ESObject) => {
-                    console.info('DynamicImport libnativeapi.so: ' + ns.default.add(2, 3));
+                    console.info('DynamicImport libentry.so: ' + ns.default.add(2, 3));
                   });
                   // [End hap_variable_dynamic_import_native]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_system_app_variable'))) {
