@@ -89,29 +89,29 @@ struct MusicVsMusicPage {
   }
 
   // [Start toggle_stream_b]
-  async toggleStreamB() { // 切换Stream B的播放状态
-    await this.initStreams(); // 惰性初始化两条音频流（首次播放时才创建Renderer）
-    if (this.streamBPlaying) { // B正在播放 → 用户要停止B
+  async toggleStreamB() { // 切换流B的播放状态。
+    await this.initStreams(); // 惰性初始化两条音频流，首次播放时才创建Renderer。
+    if (this.streamBPlaying) { // 流B正在播放，用户要停止流B。
       // [StartExclude toggle_stream_b]
-      await this.streamB.stopPlay(); // 停止B的音频输出
+      await this.streamB.stopPlay(); // 停止流B的音频输出。
       // [EndExclude toggle_stream_b]
-      if (this.streamAPausedByApp) { // A是被应用管控暂停的（不是用户自己暂停的），停止B后应自动恢复A
-        this.streamAPausedByApp = false; // 清除标记：A即将恢复，不再是"被管控暂停"状态
-        await this.streamA.startPlay(); // 恢复A的音频输出，完成PAUSE→RESUME
+      if (this.streamAPausedByApp) { // 流A是被应用自行管控暂停的，停止流B后应自动恢复流A。
+        this.streamAPausedByApp = false; // 清除标记，流A即将恢复，不再是被管控暂停状态。
+        await this.streamA.startPlay(); // 恢复流A的音频输出，完成暂停→恢复。
         this.promptAction.showToast({
           message: $r('app.string.app_control_stream_a_auto_resume'),
           duration: TOAST_DURATION
         });
       }
-    } else { // B未播放 → 用户要开始播放B
+    } else { // 流B未播放，用户要开始播放流B。
       if (this.appControl && this.currentMode === InterruptMode.SHARE_MODE && 
-      this.streamAPlaying) { // 管控开启+SHARE+A播放中：暂停A
-        await this.streamA.pausePlay(); // 主动暂停A（PAUSE策略，可恢复），而非让系统STOP（不可恢复）
-        this.streamAPausedByApp = true; // 标记A是被应用管控暂停的，B停止后需要自动恢复A
+      this.streamAPlaying) { // 流A正在播放，暂停流A。
+        await this.streamA.pausePlay(); // 主动暂停流A，后续可恢复，而非让系统停止流A导致不可恢复。
+        this.streamAPausedByApp = true; // 标记流A是被应用管控暂停的，流B停止后需要自动恢复流A。
         this.promptAction.showToast({ message: $r('app.string.app_control_stream_a_pause'),
          duration: TOAST_DURATION });
       }
-      await this.streamB.startPlay(); // 开始B的音频输出
+      await this.streamB.startPlay(); // 开始流B的音频输出。
     }
   }
   // [End toggle_stream_b]
