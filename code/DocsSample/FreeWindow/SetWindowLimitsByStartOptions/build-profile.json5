@@ -5,13 +5,13 @@
         "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "C:\\Users\\29409\\.ohos\\config\\default_AvoidWindowTitleButton_2ZfqG9nvt-Z9pZhQXi6uuWpw8cCgIAvVj9T6jMjsaEc=.cer",
+          "certpath": "C:\\Users\\29409\\.ohos\\config\\default_SetWindowLimitsByStartOptions_zjqJDVnojSXl1mEY76holy_O3qpaOJKb8-EF2e-fblY=.cer",
           "keyAlias": "debugKey",
-          "keyPassword": "00000019BAF2CBE71CA5642CB300CEC31CF8822BE84391B5E1F946CE0CDE7AAD72B3C4076551A3D595",
-          "profile": "C:\\Users\\29409\\.ohos\\config\\default_AvoidWindowTitleButton_2ZfqG9nvt-Z9pZhQXi6uuWpw8cCgIAvVj9T6jMjsaEc=.p7b",
+          "keyPassword": "00000019EA5DEC65DB83BC794DFD646C89BA31AD8B1CA03DA2F6CE78507F69E14255F508B236F7F8B9",
+          "profile": "C:\\Users\\29409\\.ohos\\config\\default_SetWindowLimitsByStartOptions_zjqJDVnojSXl1mEY76holy_O3qpaOJKb8-EF2e-fblY=.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\29409\\.ohos\\config\\default_AvoidWindowTitleButton_2ZfqG9nvt-Z9pZhQXi6uuWpw8cCgIAvVj9T6jMjsaEc=.p12",
-          "storePassword": "00000019E533B79386EABF62DE422F96D4B605A08B35DB809FE914064E835DF4D763382AAA65F54417"
+          "storeFile": "C:\\Users\\29409\\.ohos\\config\\default_SetWindowLimitsByStartOptions_zjqJDVnojSXl1mEY76holy_O3qpaOJKb8-EF2e-fblY=.p12",
+          "storePassword": "000000193F5B4B78DFE7D24B25208B90B5D7DCE969FF73BEA98E650C0530F004E7CFAB6165C755976E"
         }
       }
     ],
