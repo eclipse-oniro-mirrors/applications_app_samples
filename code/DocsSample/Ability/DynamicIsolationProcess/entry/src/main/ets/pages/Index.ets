@@ -12,6 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { Want, common } from '@kit.AbilityKit'
+import { GlobalThis } from '../utils/GlobalThis'; 
 function log(info: string) {
   console.log('testTag', info)
 }
@@ -30,13 +32,16 @@ struct Index {
         })
         .onClick(async () => {
           let want: Want = {
-            bundleName: "com.sample.dynamicisolationprocess",
-            moduleName: "entry",
-            abilityName: "EntryAbility1"
+            bundleName: 'com.sample.dynamicisolationprocess',
+            moduleName: 'entry',
+            abilityName: 'EntryAbility1'
           }
-          await globalThis.abilityContext.startAbility(want, (err: Error | null) => {
-            log("start EntryAbility1: " + JSON.stringify(err));
-          })
+          let tmpUIAbilityContext: common.UIAbilityContext | undefined = GlobalThis.getInstance().getContext('test');
+          if (tmpUIAbilityContext) {
+            await tmpUIAbilityContext.startAbility(want, (err: Error | null) => {
+              log('start EntryAbility1: ' + JSON.stringify(err));
+            })
+          }
         })
     }
     .height('100%')
