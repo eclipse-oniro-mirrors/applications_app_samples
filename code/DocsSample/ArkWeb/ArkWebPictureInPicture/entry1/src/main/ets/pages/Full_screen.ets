@@ -46,7 +46,7 @@ struct WebVideo {
   build() {
     Column() {
       Web({
-        src:$rawfile("video.html"),
+        src:$rawfile(‘video.html’),
         controller: this.controller
       })
         .domStorageAccess(true)
