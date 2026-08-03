@@ -1,0 +1,222 @@
+'use static'
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start geometry_transition]
+import { common } from '@kit.AbilityKit';
+import {
+  Entry,
+  Component,
+  State,
+  Column,
+  ColumnOptions,
+  Row,
+  RowOptions,
+  Text,
+  Image,
+  $r,
+  Color,
+  HorizontalAlign,
+  FlexAlign,
+  Alignment,
+  Stack,
+  ForEach,
+  TransitionEffect,
+  Curve,
+  AnimateParam,
+  ModalTransition,
+  ContentCoverOptions,
+  Resource,
+  ResourceStr,
+  Padding,
+  PropRef,
+  GeometryTransitionOptions
+} from '@kit.ArkUI';
+
+export class PostData {
+  // 请将$r('app.media.flower')替换为实际资源文件
+  avatar: Resource = $r('app.media.flower');
+  name: string = '';
+  message: ResourceStr = '';
+  images: Resource[] = [];
+}
+
+@Entry
+@Component
+struct Index {
+  @State isPersonalPageShow: boolean = false;
+  @State selectedIndex: int = 0;
+  @State alphaValue: int = 1;
+  private context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+
+  // 数组中图片均使用Resource资源，需用户自定义
+  private allPostData: PostData[] = [
+    {
+      // 请将$r('app.media.flower')替换为实际资源文件
+      avatar: $r('app.media.flower'),
+      name: 'Alice',
+      // 请将$r('app.string.shareTransition_text1')替换为实际资源文件，在本示例中该资源文件的value值为"天气晴朗"
+      message: $r('app.string.shareTransition_text1'),
+      // 请将$r('app.media.spring')替换为实际资源文件
+      // 请将$r('app.media.tall_tree')替换为实际资源文件
+      images: [$r('app.media.spring'), $r('app.media.tall_tree')]
+    },
+    {
+      // 请将$r('app.media.sunset_sky')替换为实际资源文件
+      avatar: $r('app.media.sunset_sky'),
+      name: 'Bob',
+      // 请将$r('app.string.shareTransition_text2')替换为实际资源文件，在本示例中该资源文件的value值为"你好世界"
+      message: $r('app.string.shareTransition_text2'),
+      // 请将$r('app.media.island')替换为实际资源文件
+      images: [$r('app.media.island')]
+    },
+    {
+      // 请将$r('app.media.tall_tree')替换为实际资源文件
+      avatar: $r('app.media.tall_tree'),
+      name: 'Carl',
+      // 请将$r('app.string.shareTransition_text3')替换为实际资源文件，在本示例中该资源文件的value值为"万物生长"
+      message: $r('app.string.shareTransition_text3'),
+      // 请将$r('app.media.flower')替换为实际资源文件
+      // 请将$r('app.media.sunset_sky')替换为实际资源文件
+      // 请将$r('app.media.spring')替换为实际资源文件
+      images: [$r('app.media.flower'), $r('app.media.sunset_sky'), $r('app.media.spring')]
+    }];
+
+  private onAvatarClicked(index: int): void {
+    this.selectedIndex = index;
+    this.getUIContext()?.animateTo({
+      duration: 350,
+      curve: Curve.Friction
+    }, () => {
+      this.isPersonalPageShow = !this.isPersonalPageShow;
+      this.alphaValue = 0;
+    });
+  }
+
+  private onPersonalPageBack(index: int): void {
+    this.getUIContext()?.animateTo({
+      duration: 350,
+      curve: Curve.Friction
+    }, () => {
+      this.isPersonalPageShow = !this.isPersonalPageShow;
+      this.alphaValue = 1;
+    });
+  }
+
+  @Builder
+  PersonalPageBuilder(): void {
+    Column({ space: 20 } as ColumnOptions) {
+      Image(this.allPostData[this.selectedIndex].avatar)
+        .size({ width: 200, height: 200 })
+        .borderRadius(100)
+        // 头像配置共享元素效果，与点击的头像的id匹配
+        .geometryTransition(this.selectedIndex.toString())
+        .clip(true)
+        .transition(TransitionEffect.opacity(0.99))
+
+      Text(this.allPostData[this.selectedIndex].name)
+        .font({ size: 30, weight: 600 })
+        // 对文本添加出现转场效果
+        .transition(TransitionEffect.asymmetric(
+          TransitionEffect.OPACITY
+            .combine(TransitionEffect.translate({ y: 100 })),
+          TransitionEffect.OPACITY.animation({ duration: 0 })
+        ))
+
+      // 请在resources\base\element\string.json文件中配置name为'shareTransition_text11'，value为非空字符串的资源
+      Text(this.context.resourceManager.getStringByNameSync('shareTransition_text11') + this.allPostData[this.selectedIndex].name)
+      // 对文本添加出现转场效果
+        .transition(TransitionEffect.asymmetric(
+          TransitionEffect.OPACITY
+            .combine(TransitionEffect.translate({ y: 100 })),
+          TransitionEffect.OPACITY.animation({ duration: 0 })
+        ))
+    }
+    .padding({ top: 20 } as Padding)
+    .size({ width: 360, height: 780 })
+    .backgroundColor(Color.White)
+    .onClick(() => {
+      this.onPersonalPageBack(this.selectedIndex);
+    })
+    .transition(TransitionEffect.asymmetric(
+      TransitionEffect.opacity(0.99),
+      TransitionEffect.OPACITY
+    ))
+  }
+
+  build(): void {
+    Column({ space: 20 } as ColumnOptions) {
+      ForEach(this.allPostData, (postData: PostData, index: int) => {
+        Column() {
+          Post({
+            data: postData, index: index, onAvatarClicked: (index: int): void => {
+              this.onAvatarClicked(index);
+            }
+          })
+        }
+        .width('100%')
+      }, (postData: PostData, index: int): string => index.toString())
+    }
+    .size({ width: '100%', height: '100%' })
+    .backgroundColor('#40808080')
+    .bindContentCover(this.isPersonalPageShow,
+      this.PersonalPageBuilder, { modalTransition: ModalTransition.NONE })
+    .opacity(this.alphaValue)
+  }
+}
+
+@Component
+export default struct Post {
+  @PropRef data: PostData;
+  @PropRef index: int;
+  @State expandImageSize: number = 100;
+  @State avatarSize: number = 50;
+  private onAvatarClicked: (index: int) => void = (index: int): void => {};
+
+  build(): void {
+    Column({ space: 20 } as ColumnOptions) {
+      Row({ space: 10 } as RowOptions) {
+        Image(this.data.avatar)
+          .size({ width: this.avatarSize, height: this.avatarSize })
+          .borderRadius(this.avatarSize / 2)
+          .clip(true)
+          .onClick(() => {
+            this.onAvatarClicked(this.index);
+          })
+          // 对头像绑定共享元素转场的id
+          .geometryTransition(this.index.toString(), { follow: true } as GeometryTransitionOptions)
+          .transition(TransitionEffect.OPACITY.animation({ duration: 350, curve: Curve.Friction }))
+
+        Text(this.data.name)
+      }
+      .justifyContent(FlexAlign.Start)
+
+      Text(this.data.message)
+
+      Row({ space: 15 } as RowOptions) {
+        ForEach(this.data.images, (imageResource: Resource, index: int) => {
+          Image(imageResource)
+            .size({ width: 100, height: 100 })
+        }, (imageResource: Resource, index: int): string => index.toString())
+      }
+    }
+    .backgroundColor(Color.White)
+    .size({ width: '100%', height: 250 })
+    .alignItems(HorizontalAlign.Start)
+    .padding({ left: 10, top: 10 } as Padding)
+  }
+}
+
+// [End geometry_transition]

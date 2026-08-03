@@ -1,0 +1,146 @@
+'use static'
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start bind_sheet_demo]
+import {
+  $r,
+  Entry,
+  Component,
+  Builder,
+  Column,
+  Row,
+  Text,
+  Flex,
+  FlexDirection,
+  FlexWrap,
+  ForEach,
+  Color,
+  FontWeight,
+  HorizontalAlign,
+  VerticalAlign,
+  Blank,
+  Resource,
+  Padding,
+  Margin,
+  BorderOptions
+} from '@ohos.arkui.component';
+import { State } from '@ohos.arkui.stateManagement';
+
+@Entry
+@Component
+struct BindSheetDemo {
+  // 半模态转场显示隐藏控制
+  @State isShowSheet: boolean = false;
+  // 请将$r('app.string.modal_transition_text14')替换为实际资源文件，在本示例中该资源文件的value值为"不要辣"
+  private menuList: Array<Resource> = [$r('app.string.modal_transition_text14'),
+    // 请将$r('app.string.modal_transition_text15')替换为实际资源文件，在本示例中该资源文件的value值为"少放辣"
+    $r('app.string.modal_transition_text15'),
+    // 请将$r('app.string.modal_transition_text16')替换为实际资源文件，在本示例中该资源文件的value值为"多放辣"
+    $r('app.string.modal_transition_text16'),
+    // 请将$r('app.string.modal_transition_text17')替换为实际资源文件，在本示例中该资源文件的value值为"不要香菜"
+    $r('app.string.modal_transition_text17'),
+    // 请将$r('app.string.modal_transition_text18')替换为实际资源文件，在本示例中该资源文件的value值为"不要香葱"
+    $r('app.string.modal_transition_text18'),
+    // 请将$r('app.string.modal_transition_text19')替换为实际资源文件，在本示例中该资源文件的value值为"不要一次性餐具"
+    $r('app.string.modal_transition_text19'),
+    // 请将$r('app.string.modal_transition_text20')替换为实际资源文件，在本示例中该资源文件的value值为"需要一次性餐具"
+    $r('app.string.modal_transition_text20')];
+
+  // 通过@Builder构建半模态展示界面
+  @Builder
+  mySheet(): void {
+    Column() {
+      Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {
+        ForEach(this.menuList, (item: Resource) => {
+          Text(item)
+            .fontSize(16)
+            .fontColor(0x333333)
+            .backgroundColor(0xf1f1f1)
+            .borderRadius(8)
+            .margin(10)
+            .padding(15)
+        })
+      }
+      .padding({ top: 18 } as Padding)
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor(Color.White)
+  }
+
+  build(): void {
+    Column() {
+      // 请将$r('app.string.modal_transition_text21')替换为实际资源文件，在本示例中该资源文件的value值为"口味与餐具"
+      Text($r('app.string.modal_transition_text21'))
+        .fontSize(28)
+        .padding({ top: 30, bottom: 30 } as Padding)
+      Column() {
+        Row() {
+          Row()
+            .width(10)
+            .height(10)
+            .backgroundColor('#a8a8a8')
+            .margin({ right: 12 } as Margin)
+            .borderRadius(20)
+
+          Column() {
+            // 请将$r('app.string.modal_transition_text22')替换为实际资源文件，在本示例中该资源文件的value值为"选择点餐口味和餐具"
+            Text($r('app.string.modal_transition_text22'))
+              .fontSize(16)
+              .fontWeight(FontWeight.Medium)
+          }
+          .alignItems(HorizontalAlign.Start)
+
+          Blank()
+
+          Row()
+            .width(12)
+            .height(12)
+            .margin({ right: 15 } as Margin)
+            .border({
+              width: { top: 2, right: 2 },
+              color: 0xcccccc
+            } as BorderOptions)
+            .rotate({ angle: 45 })
+        }
+        .borderRadius(15)
+        .shadow({ radius: 100, color: '#ededed' })
+        .width('90%')
+        .alignItems(VerticalAlign.Center)
+        .padding({ left: 15, top: 15, bottom: 15 } as Padding)
+        .backgroundColor(Color.White)
+        // 通过选定的半模态接口，绑定模态展示界面，style中包含两个参数，一个是设置半模态的高度，不设置时默认高度是Large，
+        // 一个是是否显示控制条DragBar，默认是true显示控制条，通过onDisappear控制状态变量变换。
+        .bindSheet(this.isShowSheet, this.mySheet, {
+          height: 300,
+          dragBar: false,
+          onDisappear: () => {
+            this.isShowSheet = !this.isShowSheet;
+          }
+        })
+        .onClick(() => {
+          this.isShowSheet = !this.isShowSheet;
+        })
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor(0xf1f1f1)
+  }
+}
+
+// [End bind_sheet_demo]

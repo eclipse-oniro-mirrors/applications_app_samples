@@ -1,0 +1,9 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/bindContentCover/template6/BindContentCoverDemo",
+    "pages/bindSheet/template10/SheetDemo",
+    "pages/bindSheet/template11/OnWillDismiss_Dismiss",
+    "pages/bindSheet/template12/SheetTransitionExample"
+  ]
+}

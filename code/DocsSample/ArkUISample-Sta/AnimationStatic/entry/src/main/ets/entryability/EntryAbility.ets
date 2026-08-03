@@ -1,0 +1,167 @@
+'use static'
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+// [Start bind_sheet_entry_ability]
+// EntryAbility.ets
+// 程序入口处的onWindowStageCreate增加对窗口宽高等的抓取
+
+import UIAbility from '@ohos.app.ability.UIAbility';
+import AbilityConstant from '@ohos.app.ability.AbilityConstant';
+import Want from '@ohos.app.ability.Want';
+import { WindowUtils } from '../utils/WindowUtils';
+import { BusinessError } from '@ohos.base';
+// [Start window_stage]
+import window from '@ohos.window';
+import display from '@ohos.display';
+import hilog from '@ohos.hilog';
+import { AppStorage } from '@ohos.arkui.stateManagement';
+
+const DOMAIN: int = 0x0000;
+const TAG: string = 'EntryAbility';
+// [StartExclude window_stage]
+
+export default class EntryAbility extends UIAbility {
+  private currentBreakPoint: string = '';
+
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'Ability onCreate');
+  }
+
+  onDestroy(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'Ability onDestroy');
+  }
+
+  // [EndExclude window_stage]
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    // [StartExclude window_stage]
+    // Main window is created, set main page for this ability
+    // [EndExclude window_stage]
+    hilog.info(DOMAIN, TAG, '%{public}s', 'Ability onWindowStageCreate');
+    // [StartExclude bind_sheet_entry_ability]
+    let mainWindow: window.Window;
+    try {
+      mainWindow = windowStage.getMainWindowSync();
+      let displayClass: display.Display = display.getDefaultDisplaySync();
+      AppStorage.setOrCreate('orientation', displayClass.orientation);
+      // 监听窗口的windowSizeChange事件，旋转屏时会触发该事件
+      mainWindow.onWindowSizeChange((data: window.Size): void => {
+        hilog.info(DOMAIN, TAG, 'Succeeded in enabling the listener for window size changes. Data: ' + data);
+        let displayClass: display.Display | null = null;
+        try {
+          displayClass = display.getDefaultDisplaySync();
+          hilog.info(DOMAIN, TAG, 'display orientation is ' + displayClass.orientation);
+          // 获取屏幕的显示方向
+          AppStorage.set('orientation', displayClass.orientation);
+        } catch(e) {
+          return;
+        }
+      });
+    } catch(e) {
+      hilog.error(DOMAIN, TAG, '%{public}s', 'error');
+      return;
+    }
+    // [EndExclude bind_sheet_entry_ability]
+    // [StartExclude window_stage]
+    // 获取窗口宽高
+    WindowUtils.window = windowStage.getMainWindowSync();
+    WindowUtils.windowWidthPx = WindowUtils.window!.getWindowProperties().windowRect.width;
+    WindowUtils.windowHeightPx = WindowUtils.window!.getWindowProperties().windowRect.height;
+
+    this.updateBreakpoint(WindowUtils.windowWidthPx);
+
+    // 获取上方避让区(状态栏等)高度
+    let avoidArea = WindowUtils.window!.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
+    WindowUtils.topAvoidAreaHeightPx = avoidArea.topRect.height;
+
+    // 获取导航条高度
+    let navigationArea = WindowUtils.window!.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
+    WindowUtils.navigationIndicatorHeightPx = navigationArea.bottomRect.height;
+
+    hilog.info(DOMAIN, TAG, 'the width is ' + WindowUtils.windowWidthPx + '  ' + WindowUtils.windowHeightPx + '  ' +
+      WindowUtils.topAvoidAreaHeightPx + '  ' + WindowUtils.navigationIndicatorHeightPx);
+
+    // 监听窗口尺寸、状态栏高度及导航条高度的变化并更新
+    try {
+      WindowUtils.window!.onWindowSizeChange((data: window.Size): void => {
+        hilog.info(DOMAIN, TAG, 'on windowSizeChange, the width is ' + data.width + ', the height is ' + data.height);
+        WindowUtils.windowWidthPx = data.width;
+        WindowUtils.windowHeightPx = data.height;
+        this.updateBreakpoint(data.width);
+        AppStorage.setOrCreate('windowSizeChanged', Date.now());
+      });
+
+      WindowUtils.window!.onAvoidAreaChange((data: window.AvoidAreaOptions): void => {
+        if (data.type === window.AvoidAreaType.TYPE_SYSTEM) {
+          let topRectHeight: int = data.area.topRect.height;
+          hilog.info(DOMAIN, TAG, 'on avoidAreaChange, the top avoid area height is ' + topRectHeight);
+          WindowUtils.topAvoidAreaHeightPx = topRectHeight;
+        } else if (data.type === window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR) {
+          let bottomRectHeight: int = data.area.bottomRect.height;
+          hilog.info(DOMAIN, TAG, 'on avoidAreaChange, the navigation indicator height is ' + bottomRectHeight);
+          WindowUtils.navigationIndicatorHeightPx = bottomRectHeight;
+        }
+      });
+    } catch (exception) {
+      hilog.error(DOMAIN, TAG, `register failed. code: ${exception.code}, message: ${exception.message}`);
+    }
+    // [EndExclude window_stage]
+
+    windowStage.loadContent('pages/Index', (err: BusinessError<void> | null, data: void | undefined): void => {
+      if (err && err.code) {
+        hilog.error(DOMAIN, TAG, 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+        return;
+      }
+      hilog.info(DOMAIN, TAG, 'Succeeded in loading the content.');
+    });
+  }
+
+  // [StartExclude window_stage]
+  updateBreakpoint(width: int): void {
+    let windowWidthVp: double = width / (display.getDefaultDisplaySync().densityDPI / 160);
+    let newBreakPoint: string = '';
+    if (windowWidthVp < 400) {
+      newBreakPoint = 'xs';
+    } else if (windowWidthVp < 600) {
+      newBreakPoint = 'sm';
+    } else if (windowWidthVp < 800) {
+      newBreakPoint = 'md';
+    } else {
+      newBreakPoint = 'lg';
+    }
+    if (this.currentBreakPoint !== newBreakPoint) {
+      this.currentBreakPoint = newBreakPoint;
+      // 使用状态变量记录当前断点值
+      AppStorage.setOrCreate('currentBreakpoint', this.currentBreakPoint);
+    }
+  }
+  // [EndExclude window_stage]
+  // [End window_stage]
+  onWindowStageDestroy(): void {
+    // Main window is destroyed, release UI related resources
+    hilog.info(DOMAIN, TAG, '%{public}s', 'Ability onWindowStageDestroy');
+  }
+
+  onForeground(): void {
+    // Ability has brought to foreground
+    hilog.info(DOMAIN, TAG, '%{public}s', 'Ability onForeground');
+  }
+
+  onBackground(): void {
+    // Ability has back to background
+    hilog.info(DOMAIN, TAG, '%{public}s', 'Ability onBackground');
+  }
+}
+
+// [End bind_sheet_entry_ability]
