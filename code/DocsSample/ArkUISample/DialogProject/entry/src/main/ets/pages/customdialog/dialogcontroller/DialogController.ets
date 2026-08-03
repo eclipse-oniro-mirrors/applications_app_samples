@@ -13,6 +13,17 @@
  * limitations under the License.
  */
 
+/**
+ * DialogController 示例
+ * 
+ * 本示例展示如何使用 promptAction.DialogController 控制自定义对话框：
+ * 1. 使用 ComponentContent 创建对话框内容
+ * 2. 使用 CustomBuilder 构建对话框 UI
+ * 3. 通过 DialogController 打开和关闭对话框
+ * 4. 获取对话框状态信息
+ * 5. 使用 dialogId 关闭对话框
+ */
+
 // [Start dialog_example_controller]
 import { ComponentContent, promptAction } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -21,6 +32,10 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 const DOMAIN = 0x0000;
 
 // [Start dialog_params]
+/**
+ * Params - 对话框参数类
+ * 用于传递对话框的文本内容和控制器对象
+ */
 class Params {
   public text: string = '';
   public dialogController: promptAction.CommonController = new promptAction.DialogController();
@@ -34,6 +49,10 @@ class Params {
 // [End dialog_params]
 
 // [Start dialog_my_component]
+/**
+ * MyComponent - 内部组件
+ * 演示如何在组件内部通过内置方法关闭对话框
+ */
 @Component
 struct MyComponent {
   build() {
@@ -52,6 +71,11 @@ struct MyComponent {
 // [End dialog_my_component]
 
 // [Start build_text]
+/**
+ * buildText - 构建对话框文本内容
+ * @param params - 对话框参数对象，包含文本和控制器
+ * 使用 @Builder 装饰器，可被 ComponentContent 调用
+ */
 @Builder
 function buildText(params: Params) {
   Column({ space: 5 }) {
@@ -73,6 +97,11 @@ function buildText(params: Params) {
 // [End build_text]
 
 // [Start custom_dialog_example]
+/**
+ * CustomDialogExample - 自定义对话框组件
+ * 演示如何使用 @CustomDialog 装饰器创建自定义对话框
+ * 支持内置控制器关闭对话框
+ */
 @CustomDialog
 @Component
 struct CustomDialogExample {
@@ -97,6 +126,10 @@ struct CustomDialogExample {
 
 // [End custom_dialog_example]
 
+/**
+ * DialogController - 主页面组件
+ * 演示多种对话框控制方式
+ */
 @Entry
 @Component
 export struct DialogController {
@@ -120,6 +153,10 @@ export struct DialogController {
   };
 
   // [Start dialog_component]
+  /**
+   * customDialogComponent - 自定义对话框内容构建器
+   * @param dialogController - 对话框控制器，用于外部关闭对话框
+   */
   @Builder
   customDialogComponent(dialogController: promptAction.DialogController) {
     Column({ space: 5 }) {
@@ -141,6 +178,12 @@ export struct DialogController {
   // [End dialog_component]
 
   // [Start dialog_component_id]
+  /**
+   * customDialogComponentWithId - 带 dialogId 的对话框内容构建器
+   * @param dialogId - 对话框唯一标识符
+   * @param dialogController - 对话框控制器
+   * 演示两种关闭方式：通过 dialogId 或通过 controller
+   */
   @Builder
   customDialogComponentWithId(dialogId: number, dialogController: promptAction.DialogController) {
     Column({ space: 5 }) {
@@ -168,6 +211,11 @@ export struct DialogController {
   // [End dialog_component_id]
 
   // [Start dialog_component_get_state]
+  /**
+   * customDialogComponentGetState - 可获取状态的对话框内容构建器
+   * @param dialogController - 对话框控制器
+   * 演示如何获取对话框当前状态（打开/关闭/正在关闭）
+   */
   @Builder
   customDialogComponentGetState(dialogController: promptAction.DialogController) {
     Column({ space: 5 }) {
@@ -195,6 +243,7 @@ export struct DialogController {
   build() {
     NavDestination() {
       Column({ space: 5 }) {
+        // 方式1: 使用 ComponentContent 创建对话框
         Button('OpenCustomDialogWithController')
           .onClick(() => {
             // [Start content_node]
@@ -209,6 +258,7 @@ export struct DialogController {
             });
             // [End content_node]
           })
+        // 方式2: 使用 presentCustomDialog + CustomBuilder
         Button('PresentCustomDialog+CustomBuilder')
           .onClick(() => {
             // [Start dialog_controller_component]
@@ -220,6 +270,7 @@ export struct DialogController {
             });
             // [End dialog_controller_component]
           })
+        // 方式3: 使用 presentCustomDialog + CustomBuilder 带参数
         Button('PresentCustomDialog+CustomBuilderWithId')
           .onClick(() => {
             // [Start dialog_controller_id]
@@ -231,6 +282,7 @@ export struct DialogController {
             });
             // [End dialog_controller_id]
           })
+        // 方式4: 获取对话框状态
         Button('PresentCustomDialog+CustomBuilderGetState')
           .onClick(() => {
             let dialogController: promptAction.CommonController = new promptAction.DialogController();
@@ -240,6 +292,7 @@ export struct DialogController {
               hilog.error(DOMAIN, 'dialogController', 'presentCustomDialog error: ' + err.code + ' ' + err.message);
             });
           })
+        // 方式5: 使用传统的 CustomDialogController
         Button('CustomDialogController')
           .onClick(() => {
             // [Start custom_dialog_example_click]
