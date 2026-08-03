@@ -60,11 +60,11 @@ struct Clock {
 
   onPageShow() {
     Logger.info(TAG, `onPageShow`);
-    Logger.info(TAG, `onPageShow intervalId = ${this.intervalId}`);
     if (this.canvasReady) {
+      clearInterval(this.intervalId);
+      clearInterval(this.intervalIdGC);
       this.updateTime();
       this.intervalId = setInterval(this.updateTime, UPDATE_DELAY);
-      Logger.info(TAG, `onPageShow canvasReady intervalId = ${this.intervalId}`);
       this.intervalIdGC = setInterval(forceGC, DELAY); // 2小时GC一次
     }
   }
@@ -218,6 +218,7 @@ struct Clock {
         .height(this.canvasWidth + HEIGHT_ADD)
         .onReady(() => {
           Logger.info(TAG, `onReady`)
+          this.canvasReady = true;
           clearInterval(this.intervalId)
           Logger.info(TAG, `onReady clear intervalId=${this.intervalId}`);
           clearInterval(this.intervalIdGC)
@@ -233,8 +234,6 @@ struct Clock {
 
   onPageHide() {
     Logger.info(TAG, `onPageHide`)
-    this.canvasReady = true
-    Logger.info(TAG, `onPageHide intervalId=${this.intervalId}`);
     clearInterval(this.intervalId)
     clearInterval(this.intervalIdGC);
   }
