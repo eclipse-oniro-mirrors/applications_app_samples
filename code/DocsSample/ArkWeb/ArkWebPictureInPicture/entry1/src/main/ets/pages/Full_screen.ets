@@ -65,3 +65,4 @@ struct WebVideo {
     .backgroundColor('#000000')
   }
 }
+// [End switch between portrait and landscape]
