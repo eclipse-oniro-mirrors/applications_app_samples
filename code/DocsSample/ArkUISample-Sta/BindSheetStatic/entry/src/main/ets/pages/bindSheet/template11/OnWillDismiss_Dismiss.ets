@@ -29,9 +29,9 @@ import {
   DialogAlignment,
   DialogButtonStyle,
   AlertDialogParamWithButtons,
-  $$
+  $$,
+  State
 } from '@kit.ArkUI';
-import { State } from '@ohos.arkui.stateManagement';
 
 const TAG = '[Sample_SupportingAgingFriendly]';
 const DOMAIN: int = 0xF811;

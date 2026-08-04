@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Entry, Component, Column, Button, Image, Text, Row, TransitionEffect, Curve, $r, Margin } from '@kit.ArkUI';
-import { State } from '@ohos.arkui.stateManagement';
+import { Entry, Component, Column, Button, Image, Text, Row, TransitionEffect, Curve, $r, Margin, State } from '@kit.ArkUI';
 
 @Entry
 @Component

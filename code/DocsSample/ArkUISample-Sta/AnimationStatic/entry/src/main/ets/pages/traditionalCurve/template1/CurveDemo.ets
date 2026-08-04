@@ -15,8 +15,7 @@
  */
 
 // [Start traditional_curve]
-import { Entry, Component, Column, Stack, Curve, Color, ClickEvent, Row, ForEach, Margin, GridItem, Text, Grid } from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+import { Entry, Component, Column, Stack, Curve, Color, ClickEvent, Row, ForEach, Margin, GridItem, Text, Grid, State } from '@kit.ArkUI';
 
 class TraditionalCurve {
   public title: string;

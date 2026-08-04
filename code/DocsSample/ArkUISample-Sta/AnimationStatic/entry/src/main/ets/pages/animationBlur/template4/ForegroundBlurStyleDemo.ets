@@ -30,9 +30,9 @@ import {
   FlexAlign,
   BlurStyle,
   ThemeColorMode,
-  AdaptiveColor
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  AdaptiveColor,
+  State
+} from '@kit.ArkUI';
 
 @Entry
 @Component

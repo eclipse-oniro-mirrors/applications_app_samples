@@ -24,13 +24,13 @@ import {
   Stack,
   Alignment,
   $r,
-  Text
-} from '@ohos.arkui.component';
+  Text,
+  State
+} from '@kit.ArkUI';
 import { AnimatorOptions, AnimatorResult } from '@ohos.animator';
-import { State } from '@ohos.arkui.stateManagement';
 import { common } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import resourceManager from '@ohos.resourceManager'
+import resourceManager from '@ohos.resourceManager';
 
 const DOMAIN = 0x0000;
 const TAG: string = '[AnimatorTest]';

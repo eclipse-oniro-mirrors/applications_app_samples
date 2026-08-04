@@ -23,7 +23,7 @@ import {
   Grid,
   GridItem,
   FlexAlign
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 
 @Entry
 @Component

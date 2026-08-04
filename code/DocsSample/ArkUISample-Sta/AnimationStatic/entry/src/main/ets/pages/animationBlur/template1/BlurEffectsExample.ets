@@ -25,7 +25,7 @@ import {
   Margin,
   Text,
   TextAlign
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 
 @Entry
 @Component

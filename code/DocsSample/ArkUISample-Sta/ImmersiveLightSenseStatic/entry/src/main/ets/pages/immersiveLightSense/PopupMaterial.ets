@@ -22,9 +22,9 @@ import {
   FlexDirection,
   Button,
   Placement,
-  $r
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  $r,
+  State
+} from '@kit.ArkUI';
 import uiMaterial from '@ohos.arkui.uiMaterial';
 
 @Entry

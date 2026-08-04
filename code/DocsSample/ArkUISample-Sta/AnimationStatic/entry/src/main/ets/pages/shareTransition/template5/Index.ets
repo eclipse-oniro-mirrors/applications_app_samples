@@ -48,9 +48,9 @@ import {
   Dimension,
   NodeContainer,
   ColumnOptions,
-  RowOptions
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  RowOptions,
+  State
+} from '@kit.ArkUI';
 import curves from '@ohos.curves';
 
 class AnimationInfo {

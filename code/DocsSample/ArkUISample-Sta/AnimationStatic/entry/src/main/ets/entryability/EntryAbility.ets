@@ -26,7 +26,7 @@ import { BusinessError } from '@ohos.base';
 import window from '@ohos.window';
 import display from '@ohos.display';
 import hilog from '@ohos.hilog';
-import { AppStorage } from '@ohos.arkui.stateManagement';
+import { AppStorage } from '@kit.ArkUI';
 
 const DOMAIN: int = 0x0000;
 const TAG: string = 'EntryAbility';

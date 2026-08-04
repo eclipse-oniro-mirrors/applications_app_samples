@@ -25,9 +25,9 @@ import {
   Button,
   FlexAlign,
   ResourceStr,
-  MenuElement
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  MenuElement,
+  State
+} from '@kit.ArkUI';
 
 const DOMAIN: int = 0xF811;
 const TAG: string = '[Sample_Animation]';

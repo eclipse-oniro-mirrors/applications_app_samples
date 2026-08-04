@@ -27,9 +27,10 @@ import {
   Button,
   FlexAlign,
   TextAlign,
-  FontWeight
-} from '@ohos.arkui.component';
-import { State, Observed } from '@ohos.arkui.stateManagement';
+  FontWeight,
+  State,
+  Observed
+} from '@kit.ArkUI';
 import curves from '@ohos.curves';
 
 @Observed

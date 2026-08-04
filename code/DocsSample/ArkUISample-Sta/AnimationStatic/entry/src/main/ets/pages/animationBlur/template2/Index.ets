@@ -29,10 +29,10 @@ import {
   Image,
   TouchType,
   ImageFit,
-  ItemAlign
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
-import { common } from '@kit.AbilityKit'
+  ItemAlign,
+  State
+} from '@kit.ArkUI';
+import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component

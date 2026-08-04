@@ -24,9 +24,9 @@ import {
   Text,
   ForEach,
   Color,
-  FlexAlign
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  FlexAlign,
+  State
+} from '@kit.ArkUI';
 import uiMaterial from '@ohos.arkui.uiMaterial';
 
 @Entry

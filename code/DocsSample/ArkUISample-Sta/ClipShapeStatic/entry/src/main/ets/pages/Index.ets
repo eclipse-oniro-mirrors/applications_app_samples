@@ -22,9 +22,9 @@ import {
   Column,
   Text,
   Scroll,
-  BarState
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement'
+  BarState,
+  State
+} from '@kit.ArkUI';
 @Entry
 @Component
 struct Index {

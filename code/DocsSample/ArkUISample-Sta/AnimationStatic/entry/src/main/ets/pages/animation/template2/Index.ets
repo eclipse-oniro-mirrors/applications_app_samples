@@ -15,8 +15,7 @@
  */
 
 // [Start attrAnimateToDemo2]
-import { Entry, Component, Column, Row, Text, ClickEvent, FlexAlign, RotateOptions } from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+import { Entry, Component, Column, Row, Text, ClickEvent, FlexAlign, RotateOptions, State } from '@kit.ArkUI';
 import curves from '@ohos.curves';
 
 @Entry

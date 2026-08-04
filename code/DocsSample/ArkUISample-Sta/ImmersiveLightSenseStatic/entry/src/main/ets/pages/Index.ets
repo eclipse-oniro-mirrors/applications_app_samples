@@ -31,7 +31,7 @@ import {
   BarState,
   EdgeEffect,
   TextOverflow
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 
 interface PageRoute {
   router: string;

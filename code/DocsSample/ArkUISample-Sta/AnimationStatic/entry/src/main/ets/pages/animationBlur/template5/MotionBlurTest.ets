@@ -22,9 +22,9 @@ import {
   Column,
   Image,
   Margin,
-  PlayMode
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  PlayMode,
+  State
+} from '@kit.ArkUI';
 import curves from '@ohos.curves';
 
 @Entry

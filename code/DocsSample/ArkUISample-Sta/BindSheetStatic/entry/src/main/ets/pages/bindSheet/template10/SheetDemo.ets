@@ -38,9 +38,9 @@ import {
   ListItemAlign,
   SheetOptions,
   TripleLengthDetents,
-  $$
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  $$,
+  State
+} from '@kit.ArkUI';
 
 @Entry
 @Component

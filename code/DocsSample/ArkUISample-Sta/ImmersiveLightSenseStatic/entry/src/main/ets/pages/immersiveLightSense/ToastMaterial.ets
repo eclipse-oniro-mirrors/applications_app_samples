@@ -21,7 +21,7 @@ import {
   Column,
   Button,
   $r
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 import { PromptAction } from '@ohos.arkui.UIContext';
 import { BusinessError } from '@kit.BasicServicesKit';
 import uiMaterial from '@ohos.arkui.uiMaterial';

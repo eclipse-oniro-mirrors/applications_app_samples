@@ -28,9 +28,9 @@ import {
   Column,
   Color,
   SheetOptions,
-  $$
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  $$,
+  State
+} from '@kit.ArkUI';
 
 @Entry
 @Component

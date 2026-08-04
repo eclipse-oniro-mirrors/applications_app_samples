@@ -27,9 +27,9 @@ import {
   Stack,
   Alignment,
   Resource,
-  $r
+  $r,
+  State
 } from '@kit.ArkUI';
-import { State } from '@ohos.arkui.stateManagement';
 import { common } from '@kit.AbilityKit';
 import resourceManager from '@ohos.resourceManager';
 import { hilog } from '@kit.PerformanceAnalysisKit';

@@ -35,10 +35,13 @@ import {
   ResourceStr,
   SizeOptions,
   Padding,
-  ClickEvent
-} from '@ohos.arkui.component';
-import { State, Link, PropRef, Watch } from '@ohos.arkui.stateManagement';
-import { Curve } from '@kit.ArkUI';
+  ClickEvent,
+  State,
+  Link,
+  PropRef,
+  Watch,
+  Curve
+} from '@kit.ArkUI';
 
 export class PostData {
   // 请将$r('app.media.flower')替换为实际资源文件
