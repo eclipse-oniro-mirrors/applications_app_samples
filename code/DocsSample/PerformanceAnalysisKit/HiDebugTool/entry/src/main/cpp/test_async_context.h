@@ -13,8 +13,12 @@
  * limitations under the License.
  */
 
-// [Start TestHidebugNdk]
-export const testGetThreadCpuUsage: () => void;
-export const testBackTrace: () => void;
-export const testAsyncContext: () => void;
-// [End TestHidebugNdk]
+// [Start TestHidebugNdk_AsyncContextHeader]
+#ifndef MYAPPLICATION_TESTASYNCCONTEXT_H
+#define MYAPPLICATION_TESTASYNCCONTEXT_H
+
+// 测试异步上下文管理接口，构造A->B->C最小三方异步调用链。
+void TestAsyncContextChain();
+
+#endif // MYAPPLICATION_TESTASYNCCONTEXT_H
+// [End TestHidebugNdk_AsyncContextHeader]
