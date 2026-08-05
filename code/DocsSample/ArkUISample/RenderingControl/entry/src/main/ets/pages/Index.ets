@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -63,6 +63,7 @@ struct renderingControl {
         { name: 'RepeatVirtualScroll2T', label: $r('app.string.RenderingRepeat_label16') },
         { name: 'RepeatVirtualScrollOnMove', label: $r('app.string.RenderingRepeat_label17') },
         { name: 'RepeatAnimation', label: $r('app.string.RenderingRepeat_label18') },
+        { name: 'RepeatKeyGeneration', label: $r('app.string.RenderingRepeat_label19') },
       ]
     },
     {
@@ -81,6 +82,7 @@ struct renderingControl {
         { name: 'ForEach3', label: $r('app.string.RenderingForeach_label10') },
         { name: 'ForEachSort', label: $r('app.string.RenderingForeach_label11') },
         { name: 'NonNecessaryMem', label: $r('app.string.RenderingForeach_label12') },
+        { name: 'ForEachKeyGeneration', label: $r('app.string.RenderingForeach_label13') },
       ]
     },
     {
@@ -117,6 +119,31 @@ struct renderingControl {
         { name: 'SwappingData', label: $r('app.string.RenderingLazyForeach_label18') },
         { name: 'UINotRerenderedWhenObjectLinkIsChanged', label: $r('app.string.RenderingLazyForeach_label19') },
         { name: 'UnexpectedRenderingResults', label: $r('app.string.RenderingLazyForeach_label20') },
+      ]
+    },
+    {
+      name: 'RepeatMigration',
+      label: $r('app.string.RepeatMigration'),
+      children: [
+        { name: 'ForEachToRepeatChildProperties', label: $r('app.string.RepeatMigration_label1') },
+        { name: 'LazyForEachToRepeatInitialRendering', label: $r('app.string.RepeatMigration_label2') },
+        { name: 'LazyForEachToRepeatDataUpdate', label: $r('app.string.RepeatMigration_label3') },
+        { name: 'LazyForEachToRepeatChildProperties', label: $r('app.string.RepeatMigration_label4') },
+        { name: 'LazyForEachToRepeatInternalState', label: $r('app.string.RepeatMigration_label5') },
+        { name: 'LazyForEachToRepeatExternalInput', label: $r('app.string.RepeatMigration_label6') },
+        { name: 'LazyForEachToRepeatDragSort', label: $r('app.string.RepeatMigration_label7') },
+        { name: 'LazyForEachToRepeatReuseSelf', label: $r('app.string.RepeatMigration_label8') },
+        { name: 'LazyForEachToRepeatReuseV2', label: $r('app.string.RepeatMigration_label9') },
+        { name: 'LazyForEachToRepeatTemplateSelf', label: $r('app.string.RepeatMigration_label10') },
+        { name: 'LazyForEachToRepeatTemplateCustom', label: $r('app.string.RepeatMigration_label11') },
+        { name: 'LazyForEachToRepeatInitialRenderingBefore', label: $r('app.string.RepeatMigration_label12') },
+        { name: 'LazyForEachToRepeatDataUpdateBefore', label: $r('app.string.RepeatMigration_label13') },
+        { name: 'LazyForEachToRepeatChildPropertiesBefore', label: $r('app.string.RepeatMigration_label14') },
+        { name: 'LazyForEachToRepeatInternalStateBefore', label: $r('app.string.RepeatMigration_label15') },
+        { name: 'LazyForEachToRepeatExternalInputBefore', label: $r('app.string.RepeatMigration_label16') },
+        { name: 'LazyForEachToRepeatDragSortBefore', label: $r('app.string.RepeatMigration_label17') },
+        { name: 'LazyForEachToRepeatReuseBefore', label: $r('app.string.RepeatMigration_label18') },
+        { name: 'LazyForEachToRepeatTemplateBefore', label: $r('app.string.RepeatMigration_label19') },
       ]
     },
   ];

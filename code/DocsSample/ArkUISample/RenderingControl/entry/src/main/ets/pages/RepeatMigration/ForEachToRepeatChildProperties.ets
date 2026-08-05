@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the "License")
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -13,14 +13,15 @@
  * limitations under the License.
  */
 
-// [Start article_list_view_three]
-@Observed
-class ArticleChangeData {
+// ForEach迁移Repeat示例：数据源数组项子属性变化
+// [Start foreach_to_repeat_child_properties]
+@ObservedV2
+export class ArticleChangeChild {
   public id: string;
   public title: string;
   public brief: string;
-  public isLiked: boolean;
-  public likesCount: number;
+  @Trace public isLiked: boolean;
+  @Trace public likesCount: number;
 
   constructor(id: string, title: string, brief: string, isLiked: boolean, likesCount: number) {
     this.id = id;
@@ -32,55 +33,38 @@ class ArticleChangeData {
 }
 
 @Entry
-@Component
-struct ArticleListChangeData {
-  @State articleList: Array<ArticleChangeData> = [
-    new ArticleChangeData('001', 'Article 0', 'Abstract', false, 100),
-    new ArticleChangeData('002', 'Article 1', 'Abstract', false, 100),
-    new ArticleChangeData('003', 'Article 2', 'Abstract', false, 100),
-    new ArticleChangeData('004', 'Article 4', 'Abstract', false, 100),
-    new ArticleChangeData('005', 'Article 5', 'Abstract', false, 100),
-    new ArticleChangeData('006', 'Article 6', 'Abstract', false, 100),
+@ComponentV2
+export struct ArticleListChangeView {
+  @Local articleList: Array<ArticleChangeChild> = [
+    new ArticleChangeChild('001', 'Article 0', 'Abstract', false, 100),
+    new ArticleChangeChild('002', 'Article 1', 'Abstract', false, 100),
+    new ArticleChangeChild('003', 'Article 2', 'Abstract', false, 100),
+    new ArticleChangeChild('004', 'Article 4', 'Abstract', false, 100),
+    new ArticleChangeChild('005', 'Article 5', 'Abstract', false, 100),
+    new ArticleChangeChild('006', 'Article 6', 'Abstract', false, 100),
   ];
 
   build() {
-    Column() {
-      Button('Replace first article')
-        .onClick(() => {
-          this.articleList[0] = new ArticleChangeData('001', 'Article 0', 'Abstract', false, 100);
-        })
-        .width(300)
-        .margin(10)
-
-      Button('Like/Unlike first article')
-        .onClick(() => {
-          this.articleList[0].isLiked = !this.articleList[0].isLiked;
-          this.articleList[0].likesCount =
-            this.articleList[0].isLiked ? this.articleList[0].likesCount + 1 : this.articleList[0].likesCount - 1;
-        })
-        .width(300)
-        .margin(10)
-
-      List() {
-        ForEach(this.articleList, (item: ArticleChangeData) => {
+    List() {
+      // Repeat结构体
+      Repeat(this.articleList)
+        .each((obj: RepeatItem<ArticleChangeChild>) => {
           ListItem() {
-            ArticleCardChangeData({
-              article: item
-            })
+            ArticleCardChangeChild({ article: obj.item })
               .margin({ top: 20 })
           }
-        }, (item: ArticleChangeData) => item.id)
-      }
-      .padding(20)
-      .scrollBar(BarState.Off)
-      .backgroundColor(0xF1F3F5)
+        })
+        .key(item => item.id)
     }
+    .padding(20)
+    .scrollBar(BarState.Off)
+    .backgroundColor(0xF1F3F5)
   }
 }
 
-@Component
-struct ArticleCardChangeData {
-  @ObjectLink article: ArticleChangeData;
+@ComponentV2
+export struct ArticleCardChangeChild {
+  @Require @Param article: ArticleChangeChild;
 
   handleLiked() {
     this.article.isLiked = !this.article.isLiked;
@@ -105,7 +89,7 @@ struct ArticleCardChangeData {
           .margin({ bottom: 8 })
 
         Row() {
-          // 此处'app.media.iconLiked'，'app.media.iconUnliked'仅作示例，请开发者自行替换，否则imageSource创建失败会导致后续无法正常执行。
+          // 此处app.media.iconLiked'，'app.media.iconUnliked'仅作示例，请开发者自行替换，否则imageSource创建失败会导致后续无法正常执行。
           Image(this.article.isLiked ? $r('app.media.iconLiked') : $r('app.media.iconUnliked'))
             .width(24)
             .height(24)
@@ -128,4 +112,4 @@ struct ArticleCardChangeData {
     .justifyContent(FlexAlign.SpaceBetween)
   }
 }
-// [End article_list_view_three]
+// [End foreach_to_repeat_child_properties]

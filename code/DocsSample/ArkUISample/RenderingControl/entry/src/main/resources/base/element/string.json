@@ -65,6 +65,10 @@
       "value": "RenderingForeach12"
     },
     {
+      "name": "RenderingForeach_label13",
+      "value": "ForeachKeyGeneration"
+    },
+    {
       "name": "RenderingIf",
       "value": "RenderingIf"
     },
@@ -161,6 +165,10 @@
       "value": "RenderingRepeat18"
     },
     {
+      "name": "RenderingRepeat_label19",
+      "value": "RenderingRepeat19"
+    },
+    {
       "name": "RenderingLazyForeach",
       "value": "RenderingLazyForeach"
     },
@@ -243,6 +251,86 @@
     {
       "name": "RenderingLazyForeach_label20",
       "value": "UnexpectedRenderingResults"
+    },
+    {
+      "name": "RepeatMigration",
+      "value": "RepeatMigration"
+    },
+    {
+      "name": "RepeatMigration_label1",
+      "value": "ForEachToRepeatChildProperties"
+    },
+    {
+      "name": "RepeatMigration_label2",
+      "value": "LazyForEachToRepeatInitialRendering"
+    },
+    {
+      "name": "RepeatMigration_label3",
+      "value": "LazyForEachToRepeatDataUpdate"
+    },
+    {
+      "name": "RepeatMigration_label4",
+      "value": "LazyForEachToRepeatChildProperties"
+    },
+    {
+      "name": "RepeatMigration_label5",
+      "value": "LazyForEachToRepeatInternalState"
+    },
+    {
+      "name": "RepeatMigration_label6",
+      "value": "LazyForEachToRepeatExternalInput"
+    },
+    {
+      "name": "RepeatMigration_label7",
+      "value": "LazyForEachToRepeatDragSort"
+    },
+    {
+      "name": "RepeatMigration_label8",
+      "value": "LazyForEachToRepeatReuseSelf"
+    },
+    {
+      "name": "RepeatMigration_label9",
+      "value": "LazyForEachToRepeatReuseV2"
+    },
+    {
+      "name": "RepeatMigration_label10",
+      "value": "LazyForEachToRepeatTemplateSelf"
+    },
+    {
+      "name": "RepeatMigration_label11",
+      "value": "LazyForEachToRepeatTemplateCustom"
+    },
+    {
+      "name": "RepeatMigration_label12",
+      "value": "LazyForEachToRepeatInitialRenderingBefore"
+    },
+    {
+      "name": "RepeatMigration_label13",
+      "value": "LazyForEachToRepeatDataUpdateBefore"
+    },
+    {
+      "name": "RepeatMigration_label14",
+      "value": "LazyForEachToRepeatChildPropertiesBefore"
+    },
+    {
+      "name": "RepeatMigration_label15",
+      "value": "LazyForEachToRepeatInternalStateBefore"
+    },
+    {
+      "name": "RepeatMigration_label16",
+      "value": "LazyForEachToRepeatExternalInputBefore"
+    },
+    {
+      "name": "RepeatMigration_label17",
+      "value": "LazyForEachToRepeatDragSortBefore"
+    },
+    {
+      "name": "RepeatMigration_label18",
+      "value": "LazyForEachToRepeatReuseBefore"
+    },
+    {
+      "name": "RepeatMigration_label19",
+      "value": "LazyForEachToRepeatTemplateBefore"
     }
   ]
 }
