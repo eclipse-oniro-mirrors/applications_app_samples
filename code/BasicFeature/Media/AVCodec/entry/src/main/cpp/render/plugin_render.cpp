@@ -101,6 +101,10 @@ void OnSurfaceDestroyedCB(OH_NativeXComponent* component, void* window)
     }
 
     std::string id(idStr);
+    auto context = PluginManager::GetInstance();
+    if (context->pluginWindow_ == window) {
+        context->pluginWindow_ = nullptr;
+    }
     PluginRender::Release(id);
 }
 

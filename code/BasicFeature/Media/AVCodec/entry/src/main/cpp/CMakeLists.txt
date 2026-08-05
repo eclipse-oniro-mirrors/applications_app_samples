@@ -17,12 +17,13 @@ include_directories(${NATIVERENDER_ROOT_PATH}
 
 set(BASE_LIBRARY
     libace_napi.z.so libGLESv3.so libace_ndk.z.so libuv.so libhilog_ndk.z.so
-    libnative_media_codecbase.so libnative_media_core.so libnative_media_vdec.so libnative_window.so
+    libnative_media_codecbase.so libnative_media_core.so libnative_media_vdec.so libnative_window.so libnative_buffer.so
     libnative_media_venc.so libnative_media_acodec.so libnative_media_avdemuxer.so libnative_media_avsource.so libnative_media_avmuxer.so
     libohaudio.so
 )
 add_library(player SHARED sample/player/PlayerNative.cpp
                           sample/player/Player.cpp
+                          sample/player/BufferRenderer.cpp
                           capbilities/demuxer.cpp
                           capbilities/video_decoder.cpp
                           capbilities/audio_decoder.cpp

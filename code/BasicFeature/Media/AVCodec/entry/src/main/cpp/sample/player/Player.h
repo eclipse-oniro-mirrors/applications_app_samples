@@ -26,8 +26,8 @@
 #include <multimedia/player_framework/native_avbuffer.h>
 #include <ohaudio/native_audiostreambuilder.h>
 #include <native_window/external_window.h>
-#include <native_buffer/native_buffer.h>
 #include <fstream>
+#include "BufferRenderer.h"
 #include "video_decoder.h"
 #include "audio_decoder.h"
 #include "demuxer.h"
@@ -74,15 +74,26 @@ private:
     void WriteOutputFileWithStrideYUV420P(uint8_t *bufferAddr);
     void WriteOutputFileWithStrideYUV420SP(uint8_t *bufferAddr);
     void WriteOutputFileWithStrideRGBA(uint8_t *bufferAddr);
+    bool PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool render, int64_t renderTimestamp);
+    bool RenderBufferToWindow(CodecBufferInfo& bufferInfo, int64_t renderTimestamp);
     int32_t HandleInitError(std::unique_lock<std::mutex>& outerLock);
     int32_t StartVideoDecoder();
     int32_t StartAudioDecoder();
-    void CleanupAfterStartFailure();
+    void CleanupAfterStartFailure(bool videoStarted, bool audioStarted);
     bool ProcessAudioOutput(CodecBufferInfo &bufferInfo);
+    bool EnqueueAudioOutput(CodecBufferInfo &bufferInfo);
+    bool ProcessAsyncAudioOutputBuffer();
+    bool ProcessSyncAudioOutputBuffer();
+    void FinishAudioOutput(bool stopRenderer);
     bool ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo,
         std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
     bool ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
         std::chrono::time_point<std::chrono::system_clock>& lastPushTime, int64_t perSinkTimeThreshold);
+    bool GetSyncVideoOutputBuffer(CodecBufferInfo& bufferInfo);
+    void InitSyncVideoOutputContext();
+    bool ProcessSyncVideoOutput(std::chrono::time_point<std::chrono::system_clock>& lastPushTime,
+        int64_t perSinkTimeThreshold);
+    void FinishVideoOutput();
     bool CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t framePosition,
                                      int64_t& waitTimeUs, bool& dropFrame,
                                      int64_t perSinkTimeThreshold);
@@ -98,6 +109,7 @@ private:
     std::atomic<bool> isReleased_ { false };
     std::atomic<bool> isAudioDone { false };
     std::atomic<bool> isVideoDone { false };
+    std::atomic<bool> playbackFailed_ { false };
     std::atomic<bool> isLoop_ { false };
     std::unique_ptr<std::thread> videoDecInputThread_ = nullptr;
     std::unique_ptr<std::thread> videoDecOutputThread_ = nullptr;
@@ -122,6 +134,7 @@ private:
     int32_t transformHint = 0;
     bool isSmartFluencySupported_ = false;
     bool thermalWarningActive_ = false;
+    BufferRenderer bufferRenderer_;
 };
 
 #endif // VIDEO_CODEC_PLAYER_H

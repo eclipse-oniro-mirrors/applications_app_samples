@@ -24,28 +24,64 @@
 struct CallbackContext {
     napi_env env = nullptr;
     napi_ref callbackRef = nullptr;
+    bool success = false;
 };
 
-void Callback(void *asyncContext)
+void DestroyCallbackContext(CallbackContext *context)
 {
+    if (context == nullptr) {
+        return;
+    }
+    if (context->env != nullptr && context->callbackRef != nullptr) {
+        napi_delete_reference(context->env, context->callbackRef);
+        context->callbackRef = nullptr;
+    }
+    delete context;
+}
+
+void Callback(void *asyncContext, bool success)
+{
+    CallbackContext *context = static_cast<CallbackContext *>(asyncContext);
+    if (context == nullptr || context->env == nullptr) {
+        DestroyCallbackContext(context);
+        return;
+    }
+    context->success = success;
+
     uv_loop_s *loop = nullptr;
-    CallbackContext *context = (CallbackContext *)asyncContext;
-    napi_get_uv_event_loop(context->env, &loop);
+    napi_status status = napi_get_uv_event_loop(context->env, &loop);
+    if (status != napi_ok || loop == nullptr) {
+        AVCODEC_SAMPLE_LOGE("Get uv event loop failed");
+        DestroyCallbackContext(context);
+        return;
+    }
+
     uv_work_t *work = new uv_work_t;
     work->data = context;
-    uv_queue_work(
+    int32_t ret = uv_queue_work(
         loop, work, [](uv_work_t *work) {},
         [](uv_work_t *work, int status) {
+            (void)status;
             CallbackContext *context = (CallbackContext *)work->data;
             napi_handle_scope scope = nullptr;
-            napi_open_handle_scope(context->env, &scope);
-            napi_value callback = nullptr;
-            napi_get_reference_value(context->env, context->callbackRef, &callback);
-            napi_call_function(context->env, nullptr, callback, 0, nullptr, nullptr);
-            napi_close_handle_scope(context->env, scope);
-            delete context;
+            if (napi_open_handle_scope(context->env, &scope) == napi_ok) {
+                napi_value callback = nullptr;
+                if (napi_get_reference_value(context->env, context->callbackRef, &callback) == napi_ok &&
+                    callback != nullptr) {
+                    napi_value callbackArgs[1] = {nullptr};
+                    napi_get_boolean(context->env, context->success, &callbackArgs[0]);
+                    napi_call_function(context->env, nullptr, callback, 1, callbackArgs, nullptr);
+                }
+                napi_close_handle_scope(context->env, scope);
+            }
+            DestroyCallbackContext(context);
             delete work;
     });
+    if (ret != 0) {
+        AVCODEC_SAMPLE_LOGE("Queue play done callback failed, ret: %{public}d", ret);
+        DestroyCallbackContext(context);
+        delete work;
+    }
 }
 
 napi_value PlayerNative::SetPlaybackSpeed(napi_env env, napi_callback_info info)
@@ -105,8 +141,8 @@ napi_value PlayerNative::OnThermalLevelRecovered(napi_env env, napi_callback_inf
 napi_value PlayerNative::Play(napi_env env, napi_callback_info info)
 {
     SampleInfo sampleInfo;
-    size_t argc = 8;
-    napi_value args[8] = {nullptr};
+    size_t argc = 9;
+    napi_value args[9] = {nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     int index = 0;
@@ -117,6 +153,7 @@ napi_value PlayerNative::Play(napi_env env, napi_callback_info info)
     napi_get_value_int32(env, args[index++], &sampleInfo.codecRunMode);
     napi_get_value_int32(env, args[index++], &sampleInfo.codecSyncMode);
     napi_get_value_bool(env, args[index++], &sampleInfo.isSmartFluencySupported);
+    napi_get_value_bool(env, args[index++], &sampleInfo.enableVideoDump);
 
     auto asyncContext = new CallbackContext();
     asyncContext->env = env;
@@ -126,9 +163,12 @@ napi_value PlayerNative::Play(napi_env env, napi_callback_info info)
     sampleInfo.playDoneCallbackData = asyncContext;
     int32_t ret = Player::GetInstance().Init(sampleInfo);
     if (ret == AVCODEC_SAMPLE_ERR_OK) {
-        Player::GetInstance().Start();
+        ret = Player::GetInstance().Start();
     }
-    return nullptr;
+
+    napi_value result = nullptr;
+    napi_get_boolean(env, ret == AVCODEC_SAMPLE_ERR_OK, &result);
+    return result;
 }
 
 EXTERN_C_START

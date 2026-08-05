@@ -147,6 +147,26 @@
     {
       "name": "record_flv",
       "value": "FLV录制"
+    },
+    {
+      "name": "record_permission_required",
+      "value": "录制需要相机和麦克风权限，请在权限设置中授权。"
+    },
+    {
+      "name": "media_file_empty",
+      "value": "媒体文件为空，无法播放。"
+    },
+    {
+      "name": "media_file_invalid",
+      "value": "媒体文件已损坏或格式不受支持，无法播放。"
+    },
+    {
+      "name": "media_file_open_failed",
+      "value": "媒体文件打开失败，请重新选择。"
+    },
+    {
+      "name": "media_file_select_failed",
+      "value": "媒体文件选择失败，请重试。"
     }
   ]
 }

@@ -57,8 +57,8 @@ int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
 
     if (sampleInfo.codecConfigLen > 0) {
         AVCODEC_SAMPLE_LOGI("====== AudioDecoder config ====== codecConfig:%{public}p, len:%{public}i, "
-                            "adts:${public}i, 0:0x%{public}02x, 1:0x%{public}02x",
-                            sampleInfo.codecConfig, sampleInfo.codecConfigLen, sampleInfo.aacAdts,
+                            "adts:%{public}i, 0:0x%{public}02x, 1:0x%{public}02x",
+                            sampleInfo.codecConfig, static_cast<int>(sampleInfo.codecConfigLen), sampleInfo.aacAdts,
                             sampleInfo.codecConfig[0], sampleInfo.codecConfig[1]);
         uint8_t tmpCodecConfig[2];
         tmpCodecConfig[0] = 0x13;

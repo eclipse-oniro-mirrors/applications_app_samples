@@ -101,8 +101,12 @@ int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
         // 在初始化阶段配置ADAPTIVE模式，确保解码过程MV信息输出到丢帧判决模块。
         // MV信息输出需在初始化阶段使能ADAPTIVE模式，不支持运行态动态使能。
         // 若中途动态切入ADAPTIVE模式，丢帧判决模块将无法获取MV信息，退化为按固定间隔丢帧。
+#ifdef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_DECODER_FRAME_RETENTION_MODE,
-            OH_FRAME_RETENTION_MODE_ADAPTIVE);
+                                OH_FRAME_RETENTION_MODE_ADAPTIVE);
+#else
+        AVCODEC_SAMPLE_LOGW("Smart fluency is not enabled in current native SDK build");
+#endif
     }
 
     int ret = OH_VideoDecoder_Configure(decoder_, format);
@@ -317,6 +321,11 @@ int32_t VideoDecoder::FreeOutputBuffer(uint32_t bufferIndex, bool render, int64_
 // [Start onUserSpeedChanged]
 int32_t VideoDecoder::OnUserSpeedChanged(double targetSpeed)
 {
+#ifndef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
+    (void)targetSpeed;
+    AVCODEC_SAMPLE_LOGW("Smart fluency is not enabled in current native SDK build");
+    return AVCODEC_SAMPLE_ERR_OK;
+#else
     OH_AVFormat *param = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(param != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
@@ -342,12 +351,18 @@ int32_t VideoDecoder::OnUserSpeedChanged(double targetSpeed)
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
                              "SetParameter failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
+#endif
 }
 // [End onUserSpeedChanged]
 
 // [Start onThermalWarningReceived]
 int32_t VideoDecoder::OnThermalWarningReceived(double ratio)
 {
+#ifndef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
+    (void)ratio;
+    AVCODEC_SAMPLE_LOGW("Smart fluency is not enabled in current native SDK build");
+    return AVCODEC_SAMPLE_ERR_OK;
+#else
     OH_AVFormat *param = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(param != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
@@ -364,6 +379,7 @@ int32_t VideoDecoder::OnThermalWarningReceived(double ratio)
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
                              "SetParameter failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
+#endif
 }
 // [End onThermalWarningReceived]
 

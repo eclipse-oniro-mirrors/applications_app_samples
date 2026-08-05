@@ -26,6 +26,8 @@ import DateTimeUtil from '../common/utils/DateTimeUtils'
 import { CommonConstants as Const } from '../common/CommonConstants'
 import { CameraDataModel } from '../model/CameraDateModel'
 import { encoderProfileCameraCheck, setFirstCameraProfile } from '../common/utils/CameraCheck'
+import { requestRecordPermissions } from '../common/utils/PermissionUtil'
+import { getPickerSelectedIndex, isMediaFileEmpty, isPickerIndexValid } from '../common/utils/MediaUtils'
 import picker from '@ohos.file.picker'
 
 const TAG: string = 'Sample_Player';
@@ -43,6 +45,7 @@ export struct Player {
   private videoDecoderType: number = 0;
   private videoDecoderRunMode: number = 0;
   private videoDecoderSyncMode: number = 0;
+  private enableVideoDump: boolean = false;
   private cameraData: CameraDataModel = new CameraDataModel();
   private selectFilePath: string | null = null;
   private display = display.getDefaultDisplaySync();
@@ -72,65 +75,81 @@ export struct Player {
     Logger.info(TAG, 'Smart fluency supported: ' + this.isSmartFluencySupported + ', apiVersion: ' + apiVersion);
   }
 
-  selectFile() {
+  selectFile(): void {
     TextPickerDialog.show({
       range: this.sourcePath,
       canLoop: false,
       selected: 0,
       onAccept: (value: TextPickerResult) => {
-        switch (value.value) {
-          case globalThis.context.resourceManager.getStringSync($r('app.string.select_from_filemanager').id):
+        const selectedIndex = getPickerSelectedIndex(value.index);
+        Logger.info(TAG, 'Media source accepted, selected index: ' + selectedIndex);
+        switch (selectedIndex) {
+          case 0:
             this.selectDocFile();
             break;
-          case globalThis.context.resourceManager.getStringSync($r('app.string.select_from_album').id):
+          case 1:
             this.selectAlbumFile();
             break;
           default:
-            this.selectAlbumFile();
+            Logger.error(TAG, 'Invalid media source index: ' + selectedIndex);
+            this.getUIContext().getPromptAction().showToast({
+              message: $r('app.string.media_file_select_failed'),
+              duration: Const.DURATION,
+              bottom: Const.BOTTOM
+            });
             break;
         }
+      },
+      onCancel: () => {
+        Logger.info(TAG, 'Media source selection canceled');
       }
-    })
+    });
   }
 
-  selectDocFile() {
-    let documentSelectOptions = new picker.DocumentSelectOptions;
-    let documentViewPicker = new picker.DocumentViewPicker;
-    documentViewPicker.select(documentSelectOptions)
-      .then((documentSelectResult) => {
-        this.selectFilePath = documentSelectResult[0];
-        if (this.selectFilePath == null) {
-          this.getUIContext().getPromptAction().showToast({
-            message: $r('app.string.alert'),
-            duration: Const.DURATION,
-            bottom: Const.BOTTOM
-          })
-        } else {
-          this.play();
-          Logger.info(TAG, 'documentViewPicker.select to file succeed and URI is:' + this.selectFilePath);
-        }
-      })
+  async selectDocFile(): Promise<void> {
+    try {
+      const documentSelectOptions = new picker.DocumentSelectOptions();
+      const documentViewPicker = new picker.DocumentViewPicker();
+      const documentSelectResult = await documentViewPicker.select(documentSelectOptions);
+      if (documentSelectResult.length === 0) {
+        Logger.info(TAG, 'No document selected');
+        return;
+      }
+      this.selectFilePath = documentSelectResult[0];
+      Logger.info(TAG, 'Document selected, start playback, URI: ' + this.selectFilePath);
+      this.play();
+    } catch (error) {
+      Logger.error(TAG, 'Document selection failed: ' + JSON.stringify(error));
+      this.getUIContext().getPromptAction().showToast({
+        message: $r('app.string.media_file_select_failed'),
+        duration: Const.DURATION,
+        bottom: Const.BOTTOM
+      });
+    }
   }
 
-  selectAlbumFile() {
-    let photoPicker = new photoAccessHelper.PhotoViewPicker();
-    photoPicker.select({
-      MIMEType: photoAccessHelper.PhotoViewMIMETypes.VIDEO_TYPE,
-      maxSelectNumber: 1
-    })
-      .then((photoSelectResult) => {
-        this.selectFilePath = photoSelectResult.photoUris[0];
-        if (this.selectFilePath == null) {
-          this.getUIContext().getPromptAction().showToast({
-            message: $r('app.string.alert'),
-            duration: Const.DURATION,
-            bottom: Const.BOTTOM
-          });
-        } else {
-          this.play();
-          Logger.info(TAG, 'documentViewPicker.select to file succeed and URI is:' + this.selectFilePath);
-        }
-      })
+  async selectAlbumFile(): Promise<void> {
+    try {
+      const photoPicker = new photoAccessHelper.PhotoViewPicker();
+      const photoSelectResult = await photoPicker.select({
+        MIMEType: photoAccessHelper.PhotoViewMIMETypes.VIDEO_TYPE,
+        maxSelectNumber: 1
+      });
+      if (photoSelectResult.photoUris.length === 0) {
+        Logger.info(TAG, 'No album file selected');
+        return;
+      }
+      this.selectFilePath = photoSelectResult.photoUris[0];
+      Logger.info(TAG, 'Album file selected, start playback, URI: ' + this.selectFilePath);
+      this.play();
+    } catch (error) {
+      Logger.error(TAG, 'Album selection failed: ' + JSON.stringify(error));
+      this.getUIContext().getPromptAction().showToast({
+        message: $r('app.string.media_file_select_failed'),
+        duration: Const.DURATION,
+        bottom: Const.BOTTOM
+      });
+    }
   }
 
   setPlaybackSpeed(speed: number) {
@@ -141,22 +160,95 @@ export struct Player {
     player.setTransform(transformHint);
   }
 
-  play() {
-    let inputFile = fileIo.openSync(this.selectFilePath, fileIo.OpenMode.READ_ONLY);
-    if (!inputFile) {
-      Logger.error(TAG, 'player inputFile is null');
+  play(): void {
+    if (this.selectFilePath === null) {
+      this.getUIContext().getPromptAction().showToast({
+        message: $r('app.string.alert'),
+        duration: Const.DURATION,
+        bottom: Const.BOTTOM
+      });
+      return;
     }
-    let inputFileState = fileIo.statSync(inputFile.fd);
-    if (inputFileState.size <= 0) {
-      Logger.error(TAG, 'player inputFile size is 0');
+
+    try {
+      const inputFile = fileIo.openSync(this.selectFilePath, fileIo.OpenMode.READ_ONLY);
+      const closeInputFile = (): void => {
+        try {
+          fileIo.close(inputFile);
+        } catch (error) {
+          Logger.error(TAG, 'Close player input file failed: ' + JSON.stringify(error));
+        }
+      };
+      let closeInCallback = false;
+      try {
+        const inputFileState = fileIo.statSync(inputFile.fd);
+        if (isMediaFileEmpty(inputFileState.size)) {
+          Logger.error(TAG, 'Player input file is empty');
+          this.getUIContext().getPromptAction().showToast({
+            message: $r('app.string.media_file_empty'),
+            duration: Const.DURATION,
+            bottom: Const.BOTTOM
+          });
+          return;
+        }
+
+        this.buttonEnabled = false;
+        let failurePromptShown = false;
+        const started = player.playNative(inputFile.fd, Const.DEFAULT_VALUE, inputFileState.size,
+          this.videoDecoderType, this.videoDecoderRunMode, this.videoDecoderSyncMode,
+          this.isSmartFluencySupported, this.enableVideoDump, (success: boolean) => {
+            Logger.info(TAG, 'Player JS callback, success: ' + success);
+            this.buttonEnabled = true;
+            closeInputFile();
+            if (!success && !failurePromptShown) {
+              failurePromptShown = true;
+              this.getUIContext().getPromptAction().showToast({
+                message: $r('app.string.media_file_invalid'),
+                duration: Const.DURATION,
+                bottom: Const.BOTTOM
+              });
+            }
+          });
+        closeInCallback = true;
+        if (!started) {
+          failurePromptShown = true;
+          Logger.error(TAG, 'Player initialization or startup failed');
+          this.getUIContext().getPromptAction().showToast({
+            message: $r('app.string.media_file_invalid'),
+            duration: Const.DURATION,
+            bottom: Const.BOTTOM
+          });
+        }
+      } finally {
+        if (!closeInCallback) {
+          closeInputFile();
+        }
+      }
+    } catch (error) {
+      this.buttonEnabled = true;
+      Logger.error(TAG, 'Open or inspect player input file failed: ' + JSON.stringify(error));
+      this.getUIContext().getPromptAction().showToast({
+        message: $r('app.string.media_file_open_failed'),
+        duration: Const.DURATION,
+        bottom: Const.BOTTOM
+      });
     }
-    this.buttonEnabled = false;
-    player.playNative(inputFile.fd, Const.DEFAULT_VALUE, inputFileState.size, this.videoDecoderType,
-      this.videoDecoderRunMode, this.videoDecoderSyncMode, this.isSmartFluencySupported, () => {
-        Logger.info(TAG, 'player JSCallback');
-        this.buttonEnabled = true;
-        fileIo.close(inputFile);
-      })
+  }
+
+  async prepareRecording(outputFormat: number): Promise<void> {
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined || !await requestRecordPermissions(context)) {
+      this.getUIContext().getPromptAction().showToast({
+        message: $r('app.string.record_permission_required'),
+        duration: Const.DURATION,
+        bottom: Const.BOTTOM
+      });
+      return;
+    }
+
+    this.cameraData.outputFormat = outputFormat;
+    this.isShow = outputFormat === Const.FORMAT_MP4;
+    this.isShowFlv = outputFormat === Const.FORMAT_FLV;
   }
 
   async checkIsProfileSupport(): Promise<void> {
@@ -268,6 +360,8 @@ export struct Player {
               default:
                 break;
             }
+
+            this.enableVideoDump = value.value[3] === Const.VIDEO_DUMP_MODE[1];
 
             this.getUIContext().getPromptAction().showToast({
               message: $r('app.string.success'),
@@ -505,85 +599,16 @@ export struct Player {
                       size: Const.SELECTED_TEXT_STYLE_FONT_SIZE
                     })
                   }),
-                  range: Const.TRANSFORM_TYPE,
+                  range: Const.getTransformTypes(),
                   canLoop: false,
                   alignment: DialogAlignment.Center,
                   backgroundColor: Color.White,
                   backgroundBlurStyle: BlurStyle.BACKGROUND_ULTRA_THICK,
                   onAccept: (value: TextPickerResult) => {
-                    switch (value.value) {
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_NONE')
-                        .id): {
-                        this.transformType = 0;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_90')
-                        .id): {
-                        this.transformType = 1;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_180')
-                        .id): {
-                        this.transformType = 2;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_270')
-                        .id): {
-                        this.transformType = 3;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H').id): {
-                        this.transformType = 4;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V').id): {
-                        this.transformType = 5;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT90')
-                        .id): {
-                        this.transformType = 6;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT90')
-                        .id): {
-                        this.transformType = 7;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT180')
-                        .id): {
-                        this.transformType = 8;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT180')
-                        .id): {
-                        this.transformType = 9;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT270')
-                        .id): {
-                        this.transformType = 10;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      case globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT270')
-                        .id): {
-                        this.transformType = 11;
-                        this.setTransform(this.transformType);
-                        break;
-                      }
-                      default:
-                        break;
+                    const transformIndex = getPickerSelectedIndex(value.index);
+                    if (isPickerIndexValid(transformIndex, Const.TRANSFORM_TYPE_COUNT)) {
+                      this.transformType = transformIndex;
+                      this.setTransform(this.transformType);
                     }
                   }
                 })
@@ -655,9 +680,8 @@ export struct Player {
           this.RecorderSettingButton()
           Blank(5)
           Button($r('app.string.record_mp4'))
-            .onClick(() => {
-              this.cameraData.outputFormat = Const.FORMAT_MP4;
-              this.isShow = true;
+            .onClick(async () => {
+              await this.prepareRecording(Const.FORMAT_MP4);
             })
             .bindSheet($$this.isShow, this.Authorized, {
               height: 210,
@@ -672,9 +696,8 @@ export struct Player {
             .enabled(this.buttonEnabled)
           Blank(5)
           Button($r('app.string.record_flv'))
-            .onClick(() => {
-              this.cameraData.outputFormat = Const.FORMAT_FLV;
-              this.isShowFlv = true;
+            .onClick(async () => {
+              await this.prepareRecording(Const.FORMAT_FLV);
             })
             .bindSheet($$this.isShowFlv, this.Authorized, {
               height: 210,

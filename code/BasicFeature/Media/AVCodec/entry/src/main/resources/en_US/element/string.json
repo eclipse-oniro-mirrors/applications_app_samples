@@ -147,6 +147,26 @@
     {
       "name": "record_flv",
       "value": "FLV Record"
+    },
+    {
+      "name": "record_permission_required",
+      "value": "Camera and microphone permissions are required for recording. Please grant them in Settings."
+    },
+    {
+      "name": "media_file_empty",
+      "value": "The media file is empty and cannot be played."
+    },
+    {
+      "name": "media_file_invalid",
+      "value": "The media file is corrupted or its format is not supported."
+    },
+    {
+      "name": "media_file_open_failed",
+      "value": "Failed to open the media file. Please select it again."
+    },
+    {
+      "name": "media_file_select_failed",
+      "value": "Failed to select the media file. Please try again."
     }
   ]
 }
