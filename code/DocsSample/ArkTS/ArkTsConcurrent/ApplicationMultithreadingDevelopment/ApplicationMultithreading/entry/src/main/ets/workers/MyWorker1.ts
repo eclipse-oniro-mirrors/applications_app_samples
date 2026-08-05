@@ -38,13 +38,13 @@ workerPort.onmessage = (e: MessageEvents): void => {
     case 0:
       // 进行训练
       optimize();
-      // 训练之后发送宿主线程训练成功的消息
+      // 训练之后给宿主线程发送训练成功的消息
       workerPort.postMessage({ type: 'message', value: 'train success.' });
       break;
     case 1:
       // 执行预测
       const output: number = predict(e.data.value as number);
-      // 发送宿主线程预测的结果
+      // 给宿主线程发送预测的结果
       workerPort.postMessage({ type: 'predict', value: output });
       break;
     default:

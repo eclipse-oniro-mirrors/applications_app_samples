@@ -12,24 +12,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start define_resolveThree]
-// SoluteMismatchTypeThree.ets
+// [Start define_resolveTwo]
+// SolveMismatchTypeTwo.ets
 import { collections } from '@kit.ArkTS'
 
 @Sendable
 export class CollectionsArray extends collections.Array<string> {
   public ans: string = 'test';
-
-  constructor() {
+  constructor(heldValue: string) {
     super();
-  }
-
-  set(str: string) {
-    this.ans = str;
+    this.ans = heldValue;
   }
 }
-
-let arr = new CollectionsArray();
+let arr = new CollectionsArray('test');
 arr.slice(1);
-arr.set('success');
-// [End define_resolveThree]
+// [End define_resolveTwo]

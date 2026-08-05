@@ -26,7 +26,7 @@ workerPort.onmessage = async (e: MessageEvents) => {
     // 调用TaskPool执行并发任务
     const task = new taskpool.Task(parallelTask, processedData);
     const result = await taskpool.execute(task);
-    console.info('Worker线程返回结果: ', result);
+    console.info('TaskPool线程返回结果: ', result);
 
     // 将最终结果返回主线程
     workerPort.postMessage({

@@ -33,13 +33,13 @@ struct Index {
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
           .onClick(() => {
-            console.info('test start');
+            console.info(`test start`);
             // 其他业务逻辑
             // ...
             let task: taskpool.Task = new taskpool.Task(createTask, 1, 2);
             taskpool.execute(task).then((res: Object) => {
               // 任务执行完处理结果
-              this.message = '任务执行结果:'+ res;
+              this.message = '任务执行结果: '+ res;
               // ...
             }).catch((e: Error) => {
               // 任务发生异常后处理异常

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 // [Start test_instanceof]
-// pages/TestInstancof.ets
+// pages/TestInstanceof.ets
 import { worker, ErrorEvent } from '@kit.ArkTS'
 import { A } from './Sendable'
 
@@ -25,7 +25,7 @@ function testInstanceof() {
     // 打印test instanceof in main thread success
     console.info('test instanceof in main thread success');
   } else {
-    console.info('test instanceof in main thread failed');
+    console.error('test instanceof in main thread failed');
   }
   workerInstance.postMessageWithSharedSendable(a);
   workerInstance.onerror = (err: ErrorEvent) => {
