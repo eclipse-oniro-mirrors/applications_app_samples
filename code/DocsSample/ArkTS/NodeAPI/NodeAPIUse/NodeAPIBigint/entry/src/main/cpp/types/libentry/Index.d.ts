@@ -34,5 +34,5 @@ export const getValueBigintUint64t: (bigUint64: bigint) => boolean | undefined; 
 // [End napi_get_value_bigint_uint64_api]
 
 // [Start napi_get_value_bigint_words_api]
-export const getValueBigintWords: (bigIntWords: bigint) => bigint | undefined; // napi_get_value_bigint_words
+export const getValueBigintWords: (bigIntWords: bigint) => number | undefined; // napi_get_value_bigint_words
 // [End napi_get_value_bigint_words_api]

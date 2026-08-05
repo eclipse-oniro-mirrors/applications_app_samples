@@ -31,7 +31,7 @@
         ]
       }
     },
-  // [End napi_load_module_napi_build]
+  // [StartExclude napi_load_module_napi_build]
     "externalNativeOptions": {
       "path": "./src/main/cpp/CMakeLists.txt",
       "arguments": "",
@@ -43,6 +43,8 @@
       ]
     }
   },
+  // [EndExclude napi_load_module_napi_build]
+  // [End napi_load_module_napi_build]
   "buildOptionSet": [
     {
       "name": "release",
