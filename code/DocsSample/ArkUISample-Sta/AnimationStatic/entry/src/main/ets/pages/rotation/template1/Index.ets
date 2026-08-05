@@ -23,7 +23,7 @@ import {
   Image,
   $r,
   Position
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 
 @Entry
 @Component

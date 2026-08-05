@@ -23,7 +23,7 @@ import {
   Select,
   FontWeight,
   FlexAlign
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 import uiMaterial from '@ohos.arkui.uiMaterial';
 
 @Entry

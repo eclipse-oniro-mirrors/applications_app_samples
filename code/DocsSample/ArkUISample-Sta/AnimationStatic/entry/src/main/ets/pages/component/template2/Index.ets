@@ -19,8 +19,6 @@ import curves from '@ohos.curves';
 import window from '@ohos.window';
 import display from '@ohos.display';
 import mediaquery from '@ohos.mediaquery';
-import { UIContext } from '@ohos.arkui.UIContext';
-import UIAbility from '@ohos.app.ability.UIAbility'
 import {
   Entry,
   Component,
@@ -46,9 +44,12 @@ import {
   ScaleOptions,
   TranslateOptions,
   Resource,
-  RowOptions
-} from '@ohos.arkui.component';
-import { State, AppStorage } from '@ohos.arkui.stateManagement';
+  RowOptions,
+  UIContext,
+  State,
+  AppStorage
+} from '@kit.ArkUI';
+import UIAbility from '@ohos.app.ability.UIAbility';
 
 export default class GlobalContext {
   static mainWin: window.Window | undefined = undefined;

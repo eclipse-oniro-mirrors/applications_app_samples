@@ -32,9 +32,10 @@ import {
   Observed,
   Position,
   Length,
-  componentUtils
+  componentUtils,
+  PropRef,
+  Link
 } from '@kit.ArkUI';
-import { PropRef, Link } from '@ohos.arkui.stateManagement';
 import curves from '@ohos.curves';
 
 @Entry

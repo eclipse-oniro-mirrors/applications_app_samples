@@ -17,8 +17,7 @@
 // [Start particle_example4]
 import { Stack, Text, Entry, Component, Color, Alignment,
   Particle, ParticleType, ParticleEmitterShape,
-  ParticleUpdater, EmitterProperty } from '@kit.ArkUI';
-import { State } from '@ohos.arkui.stateManagement';
+  ParticleUpdater, EmitterProperty, State } from '@kit.ArkUI';
 import curves from '@ohos.curves';
 
 @Entry

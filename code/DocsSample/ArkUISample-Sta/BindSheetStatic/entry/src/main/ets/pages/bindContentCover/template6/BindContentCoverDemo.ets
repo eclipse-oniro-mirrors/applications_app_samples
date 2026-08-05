@@ -38,10 +38,10 @@ import {
   EdgeWidths,
   ContentCoverOptions,
   FontWeight,
-  TransitionEffect
-} from '@ohos.arkui.component';
-import resourceManager from '@ohos.resourceManager'
-import { State } from '@ohos.arkui.stateManagement';
+  TransitionEffect,
+  State
+} from '@kit.ArkUI';
+import resourceManager from '@ohos.resourceManager';
 import curves from '@ohos.curves';
 
 interface PersonList {

@@ -16,9 +16,9 @@
 
 // [Start spring_curve]
 import { $r, Entry, Component, Column, Stack, Curve, Color, ClickEvent, Row, ForEach, Margin, GridItem, Text,
-  ICurve, Circle, FlexAlign, VerticalAlign, EdgeWidths, HorizontalAlign, ResourceStr
-} from '@ohos.arkui.component';
-import { State, PropRef } from '@ohos.arkui.stateManagement';
+  ICurve, Circle, FlexAlign, VerticalAlign, EdgeWidths, HorizontalAlign, ResourceStr,
+  State, PropRef
+} from '@kit.ArkUI';
 import curves from '@ohos.curves';
 
 export class Spring {

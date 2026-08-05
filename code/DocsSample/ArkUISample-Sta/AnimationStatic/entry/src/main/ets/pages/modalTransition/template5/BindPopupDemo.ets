@@ -28,9 +28,9 @@ import {
   FlexAlign,
   Placement,
   Color,
-  CustomPopupOptions
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  CustomPopupOptions,
+  State
+} from '@kit.ArkUI';
 
 @Entry
 @Component

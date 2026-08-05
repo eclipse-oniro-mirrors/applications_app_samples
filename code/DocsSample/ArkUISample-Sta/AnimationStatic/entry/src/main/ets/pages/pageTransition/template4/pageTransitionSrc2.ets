@@ -20,7 +20,7 @@ import {
   $r, Entry, Component, Column, Row, Button, Image, ImageFit,
   HorizontalAlign, FlexAlign, SlideEffect, RowOptions,
   PageTransitionEnter, PageTransitionExit, ClickEvent, TranslateOptions
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 
 @Entry
 @Component

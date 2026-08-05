@@ -18,8 +18,7 @@
 import { Column, Stack, Text, Entry, Component, Color, Alignment,
   Particle, ParticleType, ParticleEmitterShape,
   ParticleAnnulusRegion, EmitterProperty, ColumnOptions,
-  LengthMetrics } from '@kit.ArkUI';
-import { State } from '@ohos.arkui.stateManagement';
+  LengthMetrics, State } from '@kit.ArkUI';
 
 @Entry
 @Component

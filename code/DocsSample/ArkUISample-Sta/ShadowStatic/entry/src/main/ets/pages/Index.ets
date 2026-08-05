@@ -21,9 +21,9 @@ import {
   BarState,
   EdgeEffect,
   ForEach,
-  $r
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  $r,
+  State
+} from '@kit.ArkUI';
 
 interface listItem {
   router?: string;

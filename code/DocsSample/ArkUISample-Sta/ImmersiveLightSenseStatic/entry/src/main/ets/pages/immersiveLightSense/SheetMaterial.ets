@@ -28,9 +28,9 @@ import {
   Color,
   FlexAlign,
   $r,
-  SystemUiMaterial
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  SystemUiMaterial,
+  State
+} from '@kit.ArkUI';
 import uiMaterial from '@ohos.arkui.uiMaterial';
 
 @Entry

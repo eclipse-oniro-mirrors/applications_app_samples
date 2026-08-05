@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import { Column, Button, Image, TransitionEffect, Curve, Entry, Component, AnimateParam, $r } from '@kit.ArkUI';
-import { State } from '@ohos.arkui.stateManagement';
+import { Column, Button, Image, TransitionEffect, Curve, Entry, Component, AnimateParam, $r, State } from '@kit.ArkUI';
 
 @Entry
 @Component

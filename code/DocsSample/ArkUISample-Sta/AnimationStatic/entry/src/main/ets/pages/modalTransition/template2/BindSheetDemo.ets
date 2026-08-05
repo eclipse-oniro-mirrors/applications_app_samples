@@ -35,9 +35,9 @@ import {
   Resource,
   Padding,
   Margin,
-  BorderOptions
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  BorderOptions,
+  State
+} from '@kit.ArkUI';
 
 @Entry
 @Component

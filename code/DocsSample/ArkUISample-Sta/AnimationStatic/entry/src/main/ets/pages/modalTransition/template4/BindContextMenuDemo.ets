@@ -33,7 +33,7 @@ import {
   Padding,
   BorderOptions,
   ShadowOptions
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 
 @Entry
 @Component

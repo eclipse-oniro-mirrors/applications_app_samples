@@ -30,11 +30,11 @@ import {
   FlexDirection,
   ItemAlign,
   TouchType,
-  TouchEvent
-} from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+  TouchEvent,
+  State
+} from '@kit.ArkUI';
 import curves from '@ohos.curves';
-import hilog from '@ohos.hilog'
+import hilog from '@ohos.hilog';
 
 const DOMAIN = 0x0000;
 const TAG: string = '[AnimatorTest]';

@@ -15,8 +15,7 @@
  */
 
 // [Start Animation_AnimatableProperty]
-import { Entry, Component, Column, Button, Text, ClickEvent, Padding, AnimatableExtend, TextAttribute, Curve } from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+import { Entry, Component, Column, Button, Text, ClickEvent, Padding, AnimatableExtend, TextAttribute, Curve, State } from '@kit.ArkUI';
 
 // 第一步：使用@AnimatableExtend装饰器，自定义可动画属性接口
 @AnimatableExtend

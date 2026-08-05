@@ -17,7 +17,7 @@
 // [Start custom_navigation_utils]
 // CustomNavigationUtils.ets
 // 配置Navigation自定义转场动画
-import { NavigationTransitionProxy } from '@ohos.arkui.component';
+import { NavigationTransitionProxy } from '@kit.ArkUI';
 
 export interface AnimateCallback {
   animation: ((isPush: boolean, isExit: boolean, transitionProxy: NavigationTransitionProxy) => void | undefined)

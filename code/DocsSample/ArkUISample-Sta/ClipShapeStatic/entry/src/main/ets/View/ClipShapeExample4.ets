@@ -16,7 +16,7 @@
 
 // [Start ClipShapeExampleD]
 // xxx.ets
-import { Entry, Component, Column, Row, ColumnOptions, Image, Margin, $r } from '@ohos.arkui.component';
+import { Entry, Component, Column, Row, ColumnOptions, Image, Margin, $r } from '@kit.ArkUI';
 import { PathShape } from '@ohos.arkui.shape';
 
 @Entry

@@ -24,7 +24,7 @@ import {
   Curve,
   ClickEvent,
   Margin
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 
 @Entry
 @Component

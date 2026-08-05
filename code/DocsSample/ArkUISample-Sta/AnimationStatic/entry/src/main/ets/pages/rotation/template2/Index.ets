@@ -15,8 +15,7 @@
  */
 
 // [Start rotation_page]
-import { Entry, Component, Stack, Color, Image, $r, Position } from '@ohos.arkui.component';
-import { StorageLink } from '@ohos.arkui.stateManagement';
+import { Entry, Component, Stack, Color, Image, $r, Position, StorageLink } from '@kit.ArkUI';
 import display from '@ohos.display';
 
 @Entry

@@ -24,7 +24,7 @@ import {
   FlexAlign,
   Color,
   ShadowOptions
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 
 @Entry
 @Component

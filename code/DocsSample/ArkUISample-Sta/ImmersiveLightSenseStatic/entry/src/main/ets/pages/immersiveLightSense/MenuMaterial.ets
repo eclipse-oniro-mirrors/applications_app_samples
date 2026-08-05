@@ -24,7 +24,7 @@ import {
   MenuItem,
   $r,
   ImageSize
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 import uiMaterial from '@ohos.arkui.uiMaterial';
 
 @Entry

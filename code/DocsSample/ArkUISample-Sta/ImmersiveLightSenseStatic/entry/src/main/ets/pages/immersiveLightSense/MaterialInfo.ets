@@ -27,7 +27,7 @@ import {
   FlexAlign,
   Color,
   ImageSize
-} from '@ohos.arkui.component';
+} from '@kit.ArkUI';
 
 @Entry
 @Component
