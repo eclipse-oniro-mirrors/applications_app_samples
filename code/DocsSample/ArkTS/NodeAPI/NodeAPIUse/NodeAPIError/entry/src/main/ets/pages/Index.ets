@@ -261,9 +261,10 @@ struct Index {
                   // [Start ark_napi_get_and_clear_last_exception]
                   // napi_get_and_clear_last_exception
                   // 这里获取到最后一个未处理的异常
+                  let exception = testNapi.getAndClearLastException();
                   hilog.info(0x0000, 'testTag',
                     'Test Node-API napi_get_and_clear_last_exception, error.message: %{public}s',
-                    testNapi.getAndClearLastException());
+                    exception ? exception.message : '');
                   // [End ark_napi_get_and_clear_last_exception]
                   this.result = 'napiGetAndClearLastExceptionSuccess';
                 } else if (item === '11.napiIsExceptionPending') {

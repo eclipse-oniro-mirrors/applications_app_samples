@@ -530,6 +530,7 @@ static napi_value Init(napi_env env, napi_value exports)
     // 通过napi_property_descriptor结构体，可以定义需要导出的属性，并在Node-API模块中使用。napi_define_properties将属性与实际的C++函数进行关联，使其可以被ArkTS层访问和调用
     napi_property_descriptor desc[] = {
         {"add", nullptr, Add, nullptr, nullptr, nullptr, napi_default, nullptr},
+        // [StartExclude node_api_module_add]
         {"createObjectWithProperties", nullptr, CreateObjectWithProperties, nullptr, nullptr, nullptr, napi_default,
          nullptr},
         {"createObjectWithNameProperties", nullptr, CreateObjectWithNameProperties, nullptr, nullptr, nullptr,
@@ -552,13 +553,16 @@ static napi_value Init(napi_env env, napi_value exports)
         {"wrapSendableWithSize", nullptr, WrapSendableWithSize, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"unwrapSendable", nullptr, UnwrapSendable, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"removeWrapSendable", nullptr, RemoveWrapSendable, nullptr, nullptr, nullptr, napi_default, nullptr}};
+    // [EndExclude node_api_module_add]
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
+    // [StartExclude node_api_module_add]
     auto object = Object::GetInstance();
     napi_wrap(env, exports, reinterpret_cast<void *>(object), FinializeCallback, nullptr, nullptr);
     napi_coerce_to_native_binding_object(env, exports, DetachCallback, AttachCallback, reinterpret_cast<void *>(object),
                                          nullptr);
     napi_value cons = DefineSendableClass(env);
     napi_set_named_property(env, exports, "SendableClass", cons);
+    // [EndExclude node_api_module_add]
     return exports;
 }
 EXTERN_C_END
@@ -575,6 +579,9 @@ static napi_module demoModule = {
 };
 
 // 在RegisterEntryModule函数中，使用napi_module_register函数注册并导出了这个插件
-extern "C" __attribute__((constructor)) void RegisterEntryModule(void) { napi_module_register(&demoModule); }
+extern "C" __attribute__((constructor)) void RegisterEntryModule(void)
+{
+    napi_module_register(&demoModule);
+}
 // [End napi_coerce_to_native_binding_object]
 // [End node_api_module_add]

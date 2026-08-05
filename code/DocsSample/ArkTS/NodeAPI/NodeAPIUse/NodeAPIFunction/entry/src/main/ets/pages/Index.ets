@@ -43,8 +43,8 @@ class Student {
 // [End ark_napi_get_cb_info_header]
 
 // [Start ark_napi_call_function_header]
-function returnNumber() {
-  return 10;
+function returnNumber(num: number) {
+  return num;
 }
 
 class Person {
