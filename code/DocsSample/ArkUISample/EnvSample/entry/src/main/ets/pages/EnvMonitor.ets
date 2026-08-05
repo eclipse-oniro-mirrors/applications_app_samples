@@ -21,7 +21,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 @Entry
 @ComponentV2
 struct MonitorTest {
-  @Local message: number = 20;
+  @Local message: number = 2;
 
   build() {
     Row() {
