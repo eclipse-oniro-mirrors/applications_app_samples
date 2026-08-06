@@ -44,7 +44,7 @@ workerInstance.postMessage({ 'type': 0 });
 // [Start after_destroy_callback]
 // Worker线程销毁后，执行onexit回调方法
 workerInstance.onexit = (): void => {
-  console.info('main thread terminate');
+  console.info('worker thread terminate');
 }
 // [End after_destroy_callback]
 // [EndExclude process_image_histogram]
