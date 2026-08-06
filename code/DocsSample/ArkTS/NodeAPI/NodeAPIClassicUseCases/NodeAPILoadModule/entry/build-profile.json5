@@ -42,8 +42,8 @@
         "armeabi-v7a"
       ]
     }
-  },
   // [EndExclude napi_load_module_napi_build]
+  },
   // [End napi_load_module_napi_build]
   "buildOptionSet": [
     {
