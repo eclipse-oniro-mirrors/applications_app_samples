@@ -12,7 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Want } from '@kit.AbilityKit'
+import { Want, common } from '@kit.AbilityKit'
+import { GlobalThis } from '../utils/GlobalThis'; 
 function log(info: string) {
   console.log('testTag', info)
 }
@@ -32,13 +33,16 @@ struct Index {
           })
           .onClick(async () => {
             let want: Want = {
-              bundleName: "com.sample.staticisolationprocess",
-              moduleName: "entry",
-              abilityName: "EntryAbility1"
+              bundleName: 'com.sample.staticisolationprocess',
+              moduleName: 'entry',
+              abilityName: 'EntryAbility1'
             }
-            await globalThis.abilityContext.startAbility(want, (err: Error | null) => {
-              log("start EntryAbility1: " + JSON.stringify(err));
-            })
+            let tmpUIAbilityContext: common.UIAbilityContext | undefined = GlobalThis.getInstance().getContext('test');
+            if (tmpUIAbilityContext) {
+              await tmpUIAbilityContext.startAbility(want, (err: Error | null) => {
+                log('start EntryAbility1: ' + JSON.stringify(err));
+              })
+            }
           })
         Text('Start EntryAbility2')
           .fontSize($r('app.float.page_text_font_size'))
@@ -49,13 +53,16 @@ struct Index {
           })
           .onClick(async () => {
             let want: Want = {
-              bundleName: "com.sample.staticisolationprocess",
-              moduleName: "entry",
-              abilityName: "EntryAbility2"
+              bundleName: 'com.sample.staticisolationprocess',
+              moduleName: 'entry',
+              abilityName: 'EntryAbility2'
             }
-            await globalThis.abilityContext.startAbility(want, (err: Error | null) => {
-              log("start EntryAbility2: " + JSON.stringify(err));
-            })
+            let tmpUIAbilityContext: common.UIAbilityContext | undefined = GlobalThis.getInstance().getContext('test');
+            if (tmpUIAbilityContext) {
+              await tmpUIAbilityContext.startAbility(want, (err: Error | null) => {
+                log('start EntryAbility2: ' + JSON.stringify(err));
+              })
+            }
           })
       }
       .width('100%')
