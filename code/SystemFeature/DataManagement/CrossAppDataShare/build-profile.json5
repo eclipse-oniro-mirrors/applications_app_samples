@@ -16,6 +16,11 @@
 {
   "app": {
     "signingConfigs": [],
+<<<<<<< HEAD
+=======
+    "compileSdkVersion": 9,
+    "compatibleSdkVersion": 9,
+>>>>>>> parent of 0b6bf8ac42 (3.0.2)
     "products": [
       {
         "name": "default",
