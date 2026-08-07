@@ -36,12 +36,14 @@ entry/src/main/ets/
 |   |---inheritFreezeRouterPage1.ets 
 |   |---inheritFreezeRouterPage2.ets                                     
 |   |---IsDisposedPage.ets                             //查询当前BuilderNode是否解除引用 
-|   |---LocalStoragePage.ets                             //BuilderNode中使用LocalStorage  
-|   |---NavigationPage.ets                            
-|   |---PostTouchEvent.ets                            //注入触摸事件 
-|   |---RenderNode.ets                                 //BuilderNode与RenderNode结合使用  
-|   |---RepeatPage.ets          
-|   |---RepeatTabPage.ets                               
+|   |---LocalStoragePage.ets                             //BuilderNode中使用LocalStorage
+|   |---MemoryManagementPage.ets                       //BuilderNode内存管理和引用关系示例
+|   |---NavigationPage.ets
+|   |---CircularReferenceDisposePage.ets               //BuilderNode循环引用和dispose示例
+|   |---PostTouchEvent.ets                            //注入触摸事件
+|   |---RenderNode.ets                                 //BuilderNode与RenderNode结合使用
+|   |---RepeatPage.ets
+|   |---RepeatTabPage.ets
 |   |---ReusablePage01.ets                                 //调用reuse和recycle接口实现节点复用能力
 |   |---ReusablePage02.ets                               //使用@Reusable装饰器
 |   |---RouterPage1.ets                                 //跨页面复用
