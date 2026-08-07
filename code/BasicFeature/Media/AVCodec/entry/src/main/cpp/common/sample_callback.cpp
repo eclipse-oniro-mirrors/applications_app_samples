@@ -23,6 +23,11 @@ namespace {
 constexpr int LIMIT_LOGD_FREQUENCY = 50;
 constexpr int32_t BYTES_PER_SAMPLE_2 = 2;
 
+bool IsCallbackUnavailable(const CodecUserData *codecUserData)
+{
+    return codecUserData == nullptr || codecUserData->isDestroyed.load();
+}
+
 void UpdateVideoOutputInfo(OH_AVFormat *format, CodecUserData *codecUserData)
 {
     if (format == nullptr || codecUserData == nullptr) {
@@ -46,20 +51,23 @@ void UpdateVideoOutputInfo(OH_AVFormat *format, CodecUserData *codecUserData)
 int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *userData, void *buffer, int32_t length)
 {
     (void)renderer;
-    (void)length;
-    CodecUserData *codecUserData = static_cast<CodecUserData *>(userData);
+    auto *codecUserData = static_cast<CodecUserData *>(userData);
 
     if (codecUserData == nullptr) {
         AVCODEC_SAMPLE_LOGE("codecUserData is nullptr in OnRenderWriteData");
         return -1;
     }
 
-    if (codecUserData->isDestroyed.load()) {
+    if (IsCallbackUnavailable(codecUserData)) {
         AVCODEC_SAMPLE_LOGD("codecUserData is being destroyed, skip callback");
         return 0;
     }
+    if (buffer == nullptr || length <= 0) {
+        AVCODEC_SAMPLE_LOGE("Invalid audio render buffer");
+        return -1;
+    }
 
-    uint8_t *dest = (uint8_t *)buffer;
+    auto *dest = static_cast<uint8_t *>(buffer);
     size_t index = 0;
     std::unique_lock<std::mutex> lock(codecUserData->outputMutex);
     while (!codecUserData->renderQueue.empty() && index < length) {
@@ -108,8 +116,8 @@ int32_t SampleCallback::OnRenderError(OH_AudioRenderer *renderer, void *userData
 {
     (void)renderer;
     (void)error;
-    CodecUserData *codecUserData = static_cast<CodecUserData *>(userData);
-    if (codecUserData != nullptr) {
+    auto *codecUserData = static_cast<CodecUserData *>(userData);
+    if (!IsCallbackUnavailable(codecUserData)) {
         codecUserData->hasError.store(true);
         if (codecUserData->runningFlag != nullptr) {
             codecUserData->runningFlag->store(false);
@@ -122,8 +130,8 @@ int32_t SampleCallback::OnRenderError(OH_AudioRenderer *renderer, void *userData
 void SampleCallback::OnCodecError(OH_AVCodec *codec, int32_t errorCode, void *userData)
 {
     (void)codec;
-    CodecUserData *codecUserData = static_cast<CodecUserData *>(userData);
-    if (codecUserData != nullptr) {
+    auto *codecUserData = static_cast<CodecUserData *>(userData);
+    if (!IsCallbackUnavailable(codecUserData)) {
         codecUserData->hasError.store(true);
         if (codecUserData->runningFlag != nullptr) {
             codecUserData->runningFlag->store(false);
@@ -136,10 +144,10 @@ void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format,
 {
     (void)codec;
     AVCODEC_SAMPLE_LOGI("On codec format change");
-    if (userData == nullptr || format == nullptr) {
+    auto *codecUserData = static_cast<CodecUserData *>(userData);
+    if (IsCallbackUnavailable(codecUserData) || format == nullptr) {
         return;
     }
-    CodecUserData *codecUserData = static_cast<CodecUserData *>(userData);
     std::unique_lock<std::shared_mutex> codecLock(codecUserData->codecMutex);
     UpdateVideoOutputInfo(format, codecUserData);
     int32_t pixelFormat = codecUserData->sampleInfo != nullptr ? codecUserData->sampleInfo->pixelFormat : -1;
@@ -151,18 +159,19 @@ void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format,
 
 void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData)
 {
-    if (userData == nullptr) {
+    auto *codecUserData = static_cast<CodecUserData *>(userData);
+    if (IsCallbackUnavailable(codecUserData) || buffer == nullptr) {
         return;
     }
-    (void)codec;
-    CodecUserData *codecUserData = static_cast<CodecUserData *>(userData);
     if (codecUserData->isEncFirstFrame) {
         OH_AVFormat *format = OH_VideoEncoder_GetInputDescription(codec);
-        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_WIDTH, &codecUserData->width);
-        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_HEIGHT, &codecUserData->height);
-        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_STRIDE, &codecUserData->widthStride);
-        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_SLICE_HEIGHT, &codecUserData->heightStride);
-        OH_AVFormat_Destroy(format);
+        if (format != nullptr) {
+            OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_WIDTH, &codecUserData->width);
+            OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_HEIGHT, &codecUserData->height);
+            OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_STRIDE, &codecUserData->widthStride);
+            OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_SLICE_HEIGHT, &codecUserData->heightStride);
+            OH_AVFormat_Destroy(format);
+        }
         codecUserData->isEncFirstFrame = false;
     }
     codecUserData->inputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>(index, buffer));
@@ -186,16 +195,17 @@ static int32_t GetTemporalLayerID(OH_AVBuffer *buffer)
 
 void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData)
 {
-    if (userData == nullptr) {
+    // [StartExclude quick_start]
+    auto *codecUserData = static_cast<CodecUserData *>(userData);
+    if (IsCallbackUnavailable(codecUserData) || buffer == nullptr) {
         return;
     }
-    // [StartExclude quick_start]
-    (void)codec;
-    CodecUserData *codecUserData = static_cast<CodecUserData *>(userData);
     if (codecUserData->isDecFirstFrame) {
         OH_AVFormat *format = OH_VideoDecoder_GetOutputDescription(codec);
-        UpdateVideoOutputInfo(format, codecUserData);
-        OH_AVFormat_Destroy(format);
+        if (format != nullptr) {
+            UpdateVideoOutputInfo(format, codecUserData);
+            OH_AVFormat_Destroy(format);
+        }
         codecUserData->isDecFirstFrame = false;
     }
     codecUserData->outputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>(index, buffer));
@@ -203,5 +213,8 @@ void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
 
     // 从AVBuffer中获取时域层级信息。
     int32_t layerID = GetTemporalLayerID(buffer);
+    if (layerID >= 0 && index % LIMIT_LOGD_FREQUENCY == 0) {
+        AVCODEC_SAMPLE_LOGD("Temporal layer ID: %{public}d", layerID);
+    }
 }
 // [End quick_start]

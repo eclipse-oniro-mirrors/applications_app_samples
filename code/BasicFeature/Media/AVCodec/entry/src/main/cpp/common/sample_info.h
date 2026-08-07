@@ -185,7 +185,6 @@ public:
 
     uint32_t outputFrameCount = 0;
     mutex outputMutex;
-    mutex renderMutex;
     condition_variable renderCond;
     CodecBufferQueue outputBufferQueue;
 
