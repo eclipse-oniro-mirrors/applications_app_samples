@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>视频播放</title>
+  <style>
+    * { margin: 0; padding: 0; }
+    body { 
+      background: #000; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      height: 100vh; 
+      overflow: hidden;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+  <video 
+    id="myVideo"
+    src=""
+    controls
+    playsinline
+    webkit-playsinline
+    x5-playsinline
+  ></video>
+  <script>
+    console.log('视频页面加载完成');
+    const video = document.getElementById('myVideo');
+    video.addEventListener('loadedmetadata', function() {
+      console.log('视频元数据加载完成');
+    });
+    video.addEventListener('error', function(e) {
+      console.error('视频加载错误:', e);
+    });
+  </script>
+</body>
+</html>
