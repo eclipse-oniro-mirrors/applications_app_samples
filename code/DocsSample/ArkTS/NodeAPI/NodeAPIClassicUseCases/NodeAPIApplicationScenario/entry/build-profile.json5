@@ -40,9 +40,9 @@
         "arm64-v8a",
       ]
     }
-  },
 // [EndExclude napi_event_loop_build]
 // [EndExclude napi_ark_runtime_build]
+  },
 // [End napi_event_loop_build]
 // [End napi_ark_runtime_build]
   "buildOptionSet": [
