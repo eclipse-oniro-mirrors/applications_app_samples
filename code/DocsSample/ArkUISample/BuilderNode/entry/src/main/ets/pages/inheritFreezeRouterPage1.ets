@@ -43,7 +43,7 @@ class TextNodeController extends NodeController {
   makeNode(context: UIContext): FrameNode | null {
     this.rootNode = new FrameNode(context);
     this.textNode = new BuilderNode(context, { selfIdealSize: { width: 150, height: 150 } });
-    this.textNode.build(wrapBuilder<[Book]>(buildText), new Book (this.name));
+    this.textNode.build(wrapBuilder<[Book]>(buildText), new Book(this.name));
     this.textNode.inheritFreezeOptions(true); // 设置BuilderNode的冻结继承状态为true。
     if (this.rootNode !== null) {
       this.rootNode.appendChild(this.textNode.getFrameNode()); // 将BuilderNode上树。
