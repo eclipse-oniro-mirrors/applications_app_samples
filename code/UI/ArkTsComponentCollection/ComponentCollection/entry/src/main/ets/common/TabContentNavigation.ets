@@ -124,23 +124,9 @@ struct ThirdLevelNavigation {
       .width('100%')
       .onClick(() => {
         if (this.thirdLevelCategory.childNodes === undefined) {
-          // Click to jump to the corresponding page
-          if (this.thirdLevelCategory.url === 'pages/universal/events/dragEventSample/DragEventSample') {
-            let context: common.UIAbilityContext | undefined = AppStorage.get('context');
-            let want: Want = {
-              bundleName: "com.samples.drag_event",
-              abilityName: "EntryAbility",
-            };
-            context && context.startAbility(want,  (err) => {
-              if (err.code) {
-                Logger.error('StartAbility', `Failed to startAbility. Code: ${err.code}, message: ${err.message}`);
-              }
-            });
-          } else {
-            router.pushUrl({
-              url: this.thirdLevelCategory.url
-            });
-          }
+          router.pushUrl({
+            url: this.thirdLevelCategory.url
+          });
         } else {
           this.isUnfold = !this.isUnfold;
         }

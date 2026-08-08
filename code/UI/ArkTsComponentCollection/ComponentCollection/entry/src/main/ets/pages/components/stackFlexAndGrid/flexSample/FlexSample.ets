@@ -116,17 +116,17 @@ struct FlexSample {
             Column(){
               Flex({direction:this.flexDirection,alignItems:this.alignItems,justifyContent : FlexAlign.Center}) {
                 Text('1')
-                  .width(this.flexDirection != FlexDirection.Row || this.flexDirection!= FlexDirection.RowReverse ? 30:'33%')
+                  .width(this.flexDirection != FlexDirection.Row && this.flexDirection!= FlexDirection.RowReverse ? 30:'33%')
                   .height(30)
                   .elementStyle($r('app.color.background_orange'))
                 Text('2')
                   .elementStyle($r('app.color.background_pink'))
-                  .width(this.flexDirection != FlexDirection.Row || this.flexDirection!= FlexDirection.RowReverse ? 40:'33%')
-                  .height(this.flexDirection != FlexDirection.Row || this.flexDirection!= FlexDirection.RowReverse? 30: 40)
+                  .width(this.flexDirection != FlexDirection.Row && this.flexDirection!= FlexDirection.RowReverse ? 40:'33%')
+                  .height(this.flexDirection != FlexDirection.Row && this.flexDirection!= FlexDirection.RowReverse? 30: 40)
                 Text('3')
                   .elementStyle($r('app.color.background_orange'))
-                  .width(this.flexDirection != FlexDirection.Row || this.flexDirection!= FlexDirection.RowReverse ? 50:'33%')
-                  .height(this.flexDirection != FlexDirection.Row || this.flexDirection!= FlexDirection.RowReverse? 30: 50)
+                  .width(this.flexDirection != FlexDirection.Row && this.flexDirection!= FlexDirection.RowReverse ? 50:'33%')
+                  .height(this.flexDirection != FlexDirection.Row && this.flexDirection!= FlexDirection.RowReverse? 30: 50)
               }
               .height('100%')
               .width('100%')
