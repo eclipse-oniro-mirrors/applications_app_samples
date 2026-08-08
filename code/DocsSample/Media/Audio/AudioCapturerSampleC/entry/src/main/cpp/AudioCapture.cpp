@@ -31,17 +31,21 @@ extern "C" OH_AudioStream_Result OH_AudioStreamBuilder_SetCapturerLoopbackEffect
     OH_AudioStreamBuilder* builder, bool enabled) __attribute__((weak));
 
 namespace {
+// [Start PlaybackCaptureConstants]
 constexpr int32_t PLAYBACK_CAPTURE_SAMPLE_RATE = 48000;
 constexpr int32_t PLAYBACK_CAPTURE_CHANNEL_COUNT = 2;
 constexpr uint32_t PLAYBACK_CAPTURE_MODE = AUDIOSTREAM_PLAYBACKCAPTURE_MODE_MEDIA |
     AUDIOSTREAM_PLAYBACKCAPTURE_MODE_EXCLUDING_SELF;
+// [End PlaybackCaptureConstants]
 constexpr unsigned int AUDIO_CAPTURE_LOG_DOMAIN = 0xF811;
 constexpr const char* AUDIO_CAPTURE_LOG_TAG = "AudioCaptureDemo";
 
+// [Start PlaybackCaptureGlobalState]
 std::mutex g_playbackCaptureMutex;
 OH_AudioCapturer* g_playbackCaptureCapturer = nullptr;
 std::atomic<int32_t> g_playbackCaptureStartState{-1};
 std::atomic<uint64_t> g_playbackCaptureReadBytes{0};
+// [End PlaybackCaptureGlobalState]
 
 napi_value CreateStringResult(napi_env env, const std::string& message)
 {
@@ -50,6 +54,7 @@ napi_value CreateStringResult(napi_env env, const std::string& message)
     return retVal;
 }
 
+// [Start PlaybackCaptureStateToText]
 const char* PlaybackCaptureStateToText(int32_t state)
 {
     switch (state) {
@@ -63,6 +68,7 @@ const char* PlaybackCaptureStateToText(int32_t state)
             return "WAITING";
     }
 }
+// [End PlaybackCaptureStateToText]
 } // namespace
 
 // [Start Set_AudioCallbackFunction]
@@ -92,6 +98,7 @@ void MyOnError_NewAPI(
     // 根据error表示的音频异常信息，做出相应的处理。
 }
 
+// [Start PlaybackCaptureReadDataCallback]
 void MyOnPlaybackCaptureReadData(
     OH_AudioCapturer* capturer,
     void* userData,
@@ -103,7 +110,9 @@ void MyOnPlaybackCaptureReadData(
     }
     g_playbackCaptureReadBytes.fetch_add(static_cast<uint64_t>(audioDataSize));
 }
+// [End PlaybackCaptureReadDataCallback]
 
+// [Start PlaybackCaptureStartCallback]
 void MyOnPlaybackCaptureStart(
     OH_AudioCapturer* capturer,
     void* userData,
@@ -130,6 +139,7 @@ void MyOnPlaybackCaptureStart(
         OH_AudioCapturer_Release(capturerToRelease);
     }
 }
+// [End PlaybackCaptureStartCallback]
 // [StartExclude Set_AudioCallbackFunction]
 
 // [Start callback_Capture]
@@ -585,6 +595,7 @@ napi_value SetAudioCapturerMuteHint(napi_env env, napi_callback_info info)
     return retVal;
 }
 
+// [Start ConfigurePlaybackCaptureBuilder]
 bool ConfigurePlaybackCaptureBuilder(OH_AudioStreamBuilder* builder, std::stringstream& ss)
 {
     OH_AudioStream_Result samplingRateResult =
@@ -610,7 +621,9 @@ bool ConfigurePlaybackCaptureBuilder(OH_AudioStreamBuilder* builder, std::string
     ss << "OH_AudioStreamBuilder_SetPlaybackCaptureMode 返回值: " << playbackCaptureModeResult << "\n";
     return playbackCaptureModeResult == AUDIOSTREAM_SUCCESS;
 }
+// [End ConfigurePlaybackCaptureBuilder]
 
+// [Start CreatePlaybackCapture]
 OH_AudioCapturer* CreatePlaybackCapture(std::stringstream& ss)
 {
     OH_AudioStreamBuilder* builder = nullptr;
@@ -635,7 +648,9 @@ OH_AudioCapturer* CreatePlaybackCapture(std::stringstream& ss)
     }
     return audioCapturer;
 }
+// [End CreatePlaybackCapture]
 
+// [Start StorePlaybackCapture]
 bool StorePlaybackCapture(OH_AudioCapturer* audioCapturer)
 {
     std::lock_guard<std::mutex> lock(g_playbackCaptureMutex);
@@ -647,7 +662,9 @@ bool StorePlaybackCapture(OH_AudioCapturer* audioCapturer)
     g_playbackCaptureReadBytes.store(0);
     return true;
 }
+// [End StorePlaybackCapture]
 
+// [Start RequestPlaybackCaptureStartProcess]
 bool RequestPlaybackCaptureStart(OH_AudioCapturer* audioCapturer, std::stringstream& ss)
 {
     // [Start RequestPlaybackCaptureStart]
@@ -672,8 +689,10 @@ bool RequestPlaybackCaptureStart(OH_AudioCapturer* audioCapturer, std::stringstr
     ss << "请求启动音频内录失败";
     return false;
 }
+// [End RequestPlaybackCaptureStartProcess]
 
 // 启动音频内录
+// [Start StartPlaybackCapture]
 napi_value StartPlaybackCapture(napi_env env, napi_callback_info info)
 {
     std::stringstream ss;
@@ -703,6 +722,7 @@ napi_value StartPlaybackCapture(napi_env env, napi_callback_info info)
     ss << "回调结果: 请稍后点击\"查询音频内录状态\"查看";
     return CreateStringResult(env, ss.str());
 }
+// [End StartPlaybackCapture]
 
 // 查询音频内录状态
 napi_value GetPlaybackCaptureStatus(napi_env env, napi_callback_info info)
@@ -722,6 +742,7 @@ napi_value GetPlaybackCaptureStatus(napi_env env, napi_callback_info info)
 }
 
 // 停止音频内录
+// [Start StopPlaybackCapture]
 napi_value StopPlaybackCapture(napi_env env, napi_callback_info info)
 {
     OH_AudioCapturer* capturerToRelease = nullptr;
@@ -748,6 +769,7 @@ napi_value StopPlaybackCapture(napi_env env, napi_callback_info info)
     g_playbackCaptureReadBytes.store(0);
     return CreateStringResult(env, ss.str());
 }
+// [End StopPlaybackCapture]
 
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
