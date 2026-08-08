@@ -14,78 +14,6 @@
  */
 
 // [Start respond_worker_instant_message]
-import { worker } from '@kit.ArkTS';
-import { BusinessError } from '@kit.BasicServicesKit';
-
-function promiseCase() {
-  let p: Promise<void> = new Promise<void>((resolve: Function, reject: Function) => {
-    setTimeout(() => {
-      resolve(1);
-    }, 100)
-  }).catch((e: BusinessError) => {
-    console.error(`worker: execute task: code: ${e.code}, message: ${e.message}`);
-  })
-  return p;
-}
-
-async function postMessageTest() {
-  let ss = new worker.ThreadWorker('entry/ets/workers/Worker.ets');
-  let res = undefined;
-  let flag = false;
-  let isTerminate = false;
-  ss.onexit = () => {
-    isTerminate = true;
-  }
-  // 接收Worker线程发送的消息
-  ss.onmessage = (e) => {
-    res = e.data;
-    flag = true;
-    console.info('worker:: res is  ' + res);
-  }
-  // 给Worker线程发送消息
-  ss.postMessage('hello world');
-  while (!flag) {
-    await promiseCase();
-  }
-
-  ss.terminate();
-  while (!isTerminate) {
-    await promiseCase();
-  }
-}
-
-@Entry
-@Component
-struct Index {
-  @State message: string = 'Hello World';
-
-  build() {
-    Row() {
-      Column() {
-        Text(this.message)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
-          .onClick(() => {
-            postMessageTest().then(() => {
-              this.message = 'success';
-            }).catch((e: BusinessError) => {
-              this.message = 'failed';
-              console.error(`worker execute postMessageTest error is: ${e}`);
-            })
-          })
-      }
-      .width('100%')
-    }
-    .height('100%')
-  }
-}
-// [End respond_worker_instant_message]
-
-
-
-
-
-/*
 import { worker, ErrorEvent, MessageEvents } from '@kit.ArkTS';
 
 @Entry
@@ -126,4 +54,4 @@ struct Index {
     .height('100%')
   }
 }
-*/
+// [End respond_worker_instant_message]

@@ -20,7 +20,7 @@ import { taskpool } from '@kit.ArkTS';
 import { worker } from '@kit.ArkTS';
 import { BusinessError } from '@kit.BasicServicesKit';
 
-const workerInstance: worker.ThreadWorker = new worker.ThreadWorker('entry/ets/workers/MyWorker1.ts');
+const workerInstance: worker.ThreadWorker = new worker.ThreadWorker('entry/ets/workers/MyWorker1.ets');
 
 let done = false;
 
