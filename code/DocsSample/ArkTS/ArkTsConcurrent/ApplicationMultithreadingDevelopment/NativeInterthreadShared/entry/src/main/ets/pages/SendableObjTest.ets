@@ -16,8 +16,12 @@
 // [Start arkts_define_obj]
 @Sendable
 export class SendableObjTest {
-  static newSendable() {
-    return 1024;
+  value: number = 1024;
+  static newSendable(): SendableObjTest {
+    return new SendableObjTest();
+  }
+  public getValue(): number {
+    return this.value;
   }
 }
 // [End arkts_define_obj]

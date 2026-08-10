@@ -18,17 +18,20 @@ import { worker, ThreadWorkerGlobalScope, MessageEvents, ErrorEvent } from '@kit
 
 let workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 
-// 定义训练模型及结果
+// 定义训练模型及结果，result[0]存储权重，result[1]存储偏置
 let result: Array<number>;
 
 // 定义预测函数
 function predict(x: number): number {
-  return result[x];
+  return result[0] * x + result[1];
 }
 
 // 定义优化器训练过程
 function optimize(): void {
-  result = [0];
+  // 样例主要演示整体流程，训练过程简化处理
+  // 假设训练数据：版本号 -> 占用储存空间大小（MB）
+  // (1, 50), (2, 60), (3, 70)，求得 y = 10x + 40
+  result = [10, 40];
 }
 
 // Worker线程的onmessage逻辑
@@ -38,13 +41,13 @@ workerPort.onmessage = (e: MessageEvents): void => {
     case 0:
       // 进行训练
       optimize();
-      // 训练之后发送宿主线程训练成功的消息
+      // 训练之后给宿主线程发送训练成功的消息
       workerPort.postMessage({ type: 'message', value: 'train success.' });
       break;
     case 1:
       // 执行预测
       const output: number = predict(e.data.value as number);
-      // 发送宿主线程预测的结果
+      // 给宿主线程发送预测的结果
       workerPort.postMessage({ type: 'predict', value: output });
       break;
     default:

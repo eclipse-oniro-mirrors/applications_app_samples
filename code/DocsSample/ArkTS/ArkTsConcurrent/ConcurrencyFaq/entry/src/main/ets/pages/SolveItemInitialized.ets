@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 // [Start initialize_item]
-// SoluteItemInitialized.ets
+// SolveItemInitialized.ets
 import { taskpool } from '@kit.ArkTS'
 import { BusinessError } from '@kit.BasicServicesKit'
 import { SendableItem } from './Sendable'
@@ -26,9 +26,9 @@ function createTask() {
 function executeTask() {
   let task = new taskpool.Task(createTask);
   taskpool.execute(task).then((res) => {
-    console.info('execute task success');
+    console.info(`execute task success`);
   }).catch((e: BusinessError) => {
-    console.error('execute task error: ' + e.message);
+    console.error(`execute task error: ${e.message}`);
   })
 }
 

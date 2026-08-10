@@ -19,7 +19,7 @@ import { ErrorEvent, MessageEvents, ThreadWorkerGlobalScope, worker } from '@kit
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 
-workerPort.onmessage = async (e: MessageEvents) => {
+workerPort.onmessage = (e: MessageEvents) => {
   // [StartExclude create_worker_execute_multi_task]
   if (e.data === 'start') {
     try {

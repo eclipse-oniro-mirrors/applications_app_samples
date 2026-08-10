@@ -24,5 +24,5 @@ export const erase: (a: number) => void;
 
 export const clear: () => void;
 
-export const setTransferDetached: (b: boolean) => number;
+export const setTransferDetached: (b: boolean) => void;
 // [End declare_function]
