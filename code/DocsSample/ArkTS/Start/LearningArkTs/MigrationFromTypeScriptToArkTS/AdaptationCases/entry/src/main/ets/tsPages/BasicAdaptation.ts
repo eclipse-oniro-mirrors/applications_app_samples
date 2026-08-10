@@ -528,7 +528,7 @@ foo4.apply(obj);
 {
   // [Start ts_strict_typing_required]
   interface I {
-    name:string
+    name: string;
   }
 
   class A {}
