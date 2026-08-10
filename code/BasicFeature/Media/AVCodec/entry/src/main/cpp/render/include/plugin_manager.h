@@ -20,6 +20,8 @@
 #include <js_native_api.h>
 #include <js_native_api_types.h>
 #include <napi/native_api.h>
+#include <memory>
+#include <mutex>
 #include <string>
 #include <unordered_map>
 #include "native_window/external_window.h"
@@ -38,16 +40,22 @@ public:
 
     static napi_value GetContext(napi_env env, napi_callback_info info);
 
-    void SetNativeXComponent(std::string& id, OH_NativeXComponent* nativeXComponent);
-    PluginRender* GetRender(std::string& id);
+    void SetNativeXComponent(const std::string& id, OH_NativeXComponent* nativeXComponent);
+    std::shared_ptr<PluginRender> GetRender(const std::string& id);
+    void ReleaseRender(const std::string& id);
+    void SetPluginWindow(OHNativeWindow *window);
+    OHNativeWindow *GetPluginWindow() const;
+    void ClearPluginWindow(OHNativeWindow *window);
     void Export(napi_env env, napi_value exports);
-    OHNativeWindow *pluginWindow_;
 
 private:
     static PluginManager pluginManager_;
 
+    // XComponent is owned by the framework; this map only tracks non-owning pointers.
     std::unordered_map<std::string, OH_NativeXComponent*> nativeXComponentMap_;
-    std::unordered_map<std::string, PluginRender*> pluginRenderMap_;
+    std::unordered_map<std::string, std::shared_ptr<PluginRender>> pluginRenderMap_;
+    OHNativeWindow *pluginWindow_ = nullptr;
+    mutable std::mutex mutex_;
 };
 }
 #endif

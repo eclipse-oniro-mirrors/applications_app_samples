@@ -36,6 +36,14 @@
 
 class AudioOutputPump;
 
+enum PlayerState : int32_t {
+    IDLE = 0,
+    INITIALIZING,
+    READY,
+    PLAYING,
+    STOPPING,
+};
+
 class Player {
 public:
     Player(){};
@@ -49,6 +57,9 @@ public:
 
     int32_t Init(SampleInfo &sampleInfo);
     int32_t Start();
+    int32_t Stop();
+    PlayerState GetState() const;
+    bool IsSmartFluencyAvailable() const;
     void SetSpeed(float multiplier);
     void SetTransform(int32_t hint);
     void SetSmartFluencySupported(bool supported);
@@ -72,6 +83,9 @@ private:
     bool HasWorkerThreads() const;
     void ReleaseVideoDecoder();
     void ReleaseAudioDecoder();
+    void PrepareForInitialization(const SampleInfo &sampleInfo);
+    PlaybackCompletionReason GetCompletionReason(bool &playbackSucceeded) const;
+    void ReleasePlaybackResources();
     int32_t CreateAudioDecoder();
     int32_t CreateVideoDecoder();
     int64_t GetCurrentTime();
@@ -91,15 +105,13 @@ private:
     bool ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo,
         std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
     bool ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
-        std::chrono::time_point<std::chrono::system_clock>& lastPushTime, int64_t perSinkTimeThreshold);
+        std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
     bool GetSyncVideoOutputBuffer(CodecBufferInfo& bufferInfo);
     void InitSyncVideoOutputContext();
-    bool ProcessSyncVideoOutput(std::chrono::time_point<std::chrono::system_clock>& lastPushTime,
-        int64_t perSinkTimeThreshold);
+    bool ProcessSyncVideoOutput(std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
     void FinishVideoOutput();
     bool CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t framePosition,
-                                     int64_t& waitTimeUs, bool& dropFrame,
-                                     int64_t perSinkTimeThreshold);
+        int64_t& waitTimeUs, bool& dropFrame);
     bool RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame);
 
     std::unique_ptr<std::ofstream> outputFile_ = nullptr;
@@ -113,7 +125,9 @@ private:
     std::atomic<bool> isAudioDone { false };
     std::atomic<bool> isVideoDone { false };
     std::atomic<bool> playbackFailed_ { false };
+    std::atomic<bool> stopRequested_ { false };
     std::atomic<bool> isLoop_ { false };
+    std::atomic<PlayerState> state_ { PlayerState::IDLE };
     std::unique_ptr<std::thread> videoDecInputThread_ = nullptr;
     std::unique_ptr<std::thread> videoDecOutputThread_ = nullptr;
     std::unique_ptr<std::thread> audioDecInputThread_ = nullptr;
@@ -134,9 +148,10 @@ private:
 #ifdef DEBUG_DECODE
     std::ofstream audioOutputFile_; // for debug
 #endif
-    float speed = 1.0f;
+    std::atomic<float> speed { 1.0f };
     int32_t transformHint = 0;
     bool isSmartFluencySupported_ = false;
+    std::atomic<bool> smartFluencyAvailable_ { false };
     bool thermalWarningActive_ = false;
     BufferRenderer bufferRenderer_;
 };

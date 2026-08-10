@@ -4,6 +4,8 @@ project(videoCodecSample)
 
 set(CMAKE_CXX_STANDARD 17)
 set(NATIVERENDER_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+option(AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY "Enable smart fluency video decoding" ON)
+option(AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID "Read temporal layer ID from encoded video output" ON)
 
 include_directories(${NATIVERENDER_ROOT_PATH}
                     ${NATIVERENDER_ROOT_PATH}/capbilities/include
@@ -41,6 +43,14 @@ add_library(recorder SHARED sample/recorder/RecorderNative.cpp
                             capbilities/audio_encoder.cpp
                             common/sample_callback.cpp
 )
+
+if(AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY)
+    target_compile_definitions(player PRIVATE AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY)
+endif()
+
+if(AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID)
+    target_compile_definitions(recorder PRIVATE AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID)
+endif()
 
 target_link_libraries(player PUBLIC ${BASE_LIBRARY})
 target_link_libraries(recorder PUBLIC ${BASE_LIBRARY})
