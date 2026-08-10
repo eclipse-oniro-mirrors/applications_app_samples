@@ -1266,44 +1266,6 @@ multi.methodA();
 multi.methodB();
 // [End interface_multi_implementation]
 
-// ===== override_access_permission =====
-// [Start override_access_permission]
-class AccessParent {
-  // public方法
-  public publicMethod(): void {
-    console.info(`Parent public`);
-  }
-
-  // protected方法
-  protected protectedMethod(): void {
-    console.info(`Parent protected`);
-  }
-}
-
-class OverrideAccessChild extends AccessParent {
-  // 重写public方法：必须保持public
-  public publicMethod(): void {
-    console.info(`Child public`);
-  }
-
-  // 重写protected方法：可保持protected或改为public
-  public protectedMethod(): void {
-    console.info(`Child public (was protected)`);
-  }
-
-  // 不能降低访问权限
-  protected loweredAccessMethod(): void {}  // 编译错误：不能从public改为protected
-
-  // 不能重写private方法（因为无法访问）
-  privateMethod(): void {}  // 编译错误：父类方法不可见
-}
-
-let overrideChild: OverrideAccessChild = new OverrideAccessChild();
-
-overrideChild.publicMethod();     // 'Child public'
-overrideChild.protectedMethod();  // 'Child public (was protected)'
-// [End override_access_permission]
-
 // ===== static_method_call =====
 // [Start static_method_call]
 class StaticBase {
@@ -1337,20 +1299,21 @@ class StaticChild extends StaticBase {
     return StaticChild.getValue();  // 继承的静态方法
   }
 
-  // 注意：静态方法中不能使用super
-  static invalidMethod(): void {
-    super.baseMethod();  // 编译错误：super不能用于静态方法
+  // 静态方法中可通过super调用父类静态方法
+  static callViaSuper(): void {
+    super.baseMethod();  // 通过super调用父类静态方法
   }
 }
 
 StaticChild.combinedMethod();       // 'Base static method', 'Base static method'
 console.info(`${StaticChild.getTotalValue()}`);       // 30
 console.info(`${StaticChild.getInheritedValue()}`);   // 10
+StaticChild.callViaSuper();         // 'Base static method'
 
 // 静态方法调用规则：
 // 通过类名调用静态成员
 // 子类名可调用继承的静态成员
-// 不能在静态方法中使用super
+// 可通过super调用父类静态方法
 // [End static_method_call]
 
 // [Start extends_syntax]
