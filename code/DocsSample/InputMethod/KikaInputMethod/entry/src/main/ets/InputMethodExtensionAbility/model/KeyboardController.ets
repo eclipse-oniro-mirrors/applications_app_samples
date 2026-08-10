@@ -484,7 +484,7 @@ class KeyboardController {
         Log.showError(TAG, `Failed to setUiContent: ${err.code} ${err.message}`);
       });
     }).catch((err: BusinessError) => {
-      Log.showError(TAG, `Failed to resize: ${err.code} ${err.message}`);
+      Log.showError(TAG, `Failed to createPanel: ${err.code} ${err.message}`);
     });
   }
 
