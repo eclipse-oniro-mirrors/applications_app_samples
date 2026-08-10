@@ -425,7 +425,7 @@ function foo4() {
 }
 
 let obj = { value: 'abc' };
-foo.apply(obj);
+foo4.apply(obj);
 // [End ts_no_standalone_this]
 
 {

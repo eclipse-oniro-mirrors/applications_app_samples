@@ -477,6 +477,27 @@ console.info(`${orderedMap.size}`);  // 3
 let objSize: number = Object.keys(obj).length;
 // [End map_vs_object]
 
+// ===== record_type_basic =====
+// [Start record_type_basic]
+let ages: Record<string, number> = {
+  'John': 25,
+  'Mary': 21
+};
+ages['John']; // 25
+// [End record_type_basic]
+
+// ===== record_type_complex =====
+// [Start record_type_complex]
+interface PersonInfo {
+  age: number;
+  salary: number;
+}
+let staff: Record<string, PersonInfo> = {
+  'John': { age: 25, salary: 10},
+  'Mary': { age: 21, salary: 20}
+};
+// [End record_type_complex]
+
 // ===== readonly_map_set_interfaces =====
 // [Start readonly_map_set_interfaces]
 interface ReadonlyMap<K, V> {

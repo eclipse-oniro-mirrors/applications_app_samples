@@ -25,6 +25,6 @@ class Label {
 
 // 'Label'类型
 let z: Label = {
-  public text: 'hello',
+  text: 'hello'
 }
 // [End no_asConst]
