@@ -60,7 +60,7 @@ export class AudioCapturerController {
     try{
       this.saveRecordingMetadata();
     } catch (e) {
-      Logger.info(TAG, `capturer stop ${e}}`);
+      Logger.error(TAG, `capturer stop ${e}`);
     }
   }
 
@@ -119,7 +119,7 @@ export class AudioCapturerController {
 
   registerInterruptCallback() {
     audio.onCapturerInterrupt((forceType, hintType) => {
-      Logger.info(`Capturer audioInterrupt: hintType: ${hintType}`);
+      Logger.info(TAG, `Capturer audioInterrupt: hintType: ${hintType}`);
       switch (hintType) {
         case InterruptHintType.INTERRUPT_HINT_PAUSE:
           this.pause();
