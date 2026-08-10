@@ -43,10 +43,9 @@
 
 ### 具体实现
 
-* Web组件支持视频沉浸式全屏播放
-  * Web组件可通过[onFullScreenEnter](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkweb/arkts-basic-components-web-events.md#onfullscreenenter9)和[onFullScreenExit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkweb/arkts-basic-components-web-events.md#onfullscreenexit9)回调监听全屏按键的点击事件。onFullScreenEnter表示Web组件进入全屏模式，onFullScreenExit表示Web组件退出全屏模式。
-  * 监听这两个回调函数，拿到状态变化值。开发者可通过window.setPreferredOrientation方法设置屏幕方向，全屏时切换为横屏，退出时恢复竖屏。
-  * 通过onBackPress生命周期回调，在全屏状态下拦截返回键，优先退出全屏而非退出应用。
+* Web组件可通过[onFullScreenEnter](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkweb/arkts-basic-components-web-events.md#onfullscreenenter9)和[onFullScreenExit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkweb/arkts-basic-components-web-events.md#onfullscreenexit9)回调监听全屏按键的点击事件。onFullScreenEnter表示Web组件进入全屏模式，onFullScreenExit表示Web组件退出全屏模式。
+ * 监听这两个回调函数，拿到状态变化值。开发者可通过window.setPreferredOrientation方法设置屏幕方向，全屏时切换为横屏，退出时恢复竖屏。
+ * 通过onBackPress生命周期回调，在全屏状态下拦截返回键，优先退出全屏而非退出应用。
 
 ### 相关权限
 
