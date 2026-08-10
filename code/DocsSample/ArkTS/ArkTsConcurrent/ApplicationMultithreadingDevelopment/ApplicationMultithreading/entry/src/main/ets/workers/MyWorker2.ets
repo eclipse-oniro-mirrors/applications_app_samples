@@ -28,12 +28,12 @@ workerPort.onmessage = (e : MessageEvents): void => {
   switch (e.data.type as number) {
     case 0:
       let result: boolean = handler.syncSet(e.data.data);
-      console.info("worker: result is " + result);
+      console.info('worker: result is ' + result);
       workerPort.postMessage({'message': 'the result of syncSet() is ' + result, 'isTerminate': false});
       break;
     case 1:
       let num: number = handler.syncGet();
-      console.info("worker: num is " + num);
+      console.info('worker: num is ' + num);
       workerPort.postMessage({'message': 'the result of syncGet() is ' + num, 'isTerminate': true});
       break;
     default:

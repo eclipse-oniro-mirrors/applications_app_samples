@@ -19,7 +19,7 @@ import { worker, ThreadWorkerGlobalScope, MessageEvents, ErrorEvent } from '@kit
 let workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 
 // 定义训练模型及结果，result[0]存储权重，result[1]存储偏置
-let result: Array<number>;
+let result: number[];
 
 // 定义预测函数
 function predict(x: number): number {

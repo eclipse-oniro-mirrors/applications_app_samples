@@ -16,7 +16,7 @@
 // [Start arkts_define_obj]
 @Sendable
 export class SendableObjTest {
-  value: number = 1024;
+  private value: number = 1024;
   static newSendable(): SendableObjTest {
     return new SendableObjTest();
   }
