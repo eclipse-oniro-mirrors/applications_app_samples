@@ -18,6 +18,12 @@
 #include <cstring>
 #include "napi/native_api.h"
 #include "hilog/log.h"
+
+#undef LOG_DOMAIN
+#undef LOG_TAG
+#define LOG_DOMAIN 0x3200
+#define LOG_TAG "OH_AUDIO_NAPI"
+
 #include "renderer/oh_audio_renderer.h"
 #include "capturer/oh_audio_capturer.h"
 #include <uv.h>
@@ -163,7 +169,7 @@ static napi_value SetCapturerParams(napi_env env, napi_callback_info info)
         OHAudioCapturer::GetInstance().SetCapturerParams(sourceType, samplingRate,
             channelCount, sampleFormat, isLowLatencyMode);
     }
-    OH_LOG_ERROR(LOG_APP, "SetCapturerAudioParams success, samplingRate %{public}d, channelCount: %{public}d",
+    OH_LOG_INFO(LOG_APP, "SetCapturerAudioParams success, samplingRate %{public}d, channelCount: %{public}d",
         samplingRate, channelCount);
     return nullptr;
 }
@@ -191,7 +197,7 @@ static napi_value SetRendererParams(napi_env env, napi_callback_info info)
     if (samplingRate > 0 && channelCount > 0 && sampleFormat >= 0) {
         OHAudioRenderer::GetInstance().SetRendererParams(samplingRate, channelCount, sampleFormat, isLowLatencyMode);
     }
-    OH_LOG_ERROR(LOG_APP,
+    OH_LOG_INFO(LOG_APP,
         "SetRendererParams success, samplingRate %{public}d, channelCount: %{public}d, isLowLatencyMode: %{public}d",
         samplingRate, channelCount, isLowLatencyMode);
     return nullptr;
