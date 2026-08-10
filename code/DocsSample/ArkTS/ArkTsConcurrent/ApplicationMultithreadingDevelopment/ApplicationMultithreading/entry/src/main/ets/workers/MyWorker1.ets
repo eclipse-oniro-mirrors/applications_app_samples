@@ -54,7 +54,6 @@ workerPort.onmessage = (e: MessageEvents): void => {
       workerPort.postMessage({ type: 'message', value: 'send message is invalid' });
       break;
   }
-  // 销毁线程
-  // workerPort.close();
+  // 按需销毁线程，本样例不需要
 }
 // [End interact_main_thread]

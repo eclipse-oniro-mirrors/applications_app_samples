@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 // [Start initialize_item]
-// SolveItemInitialized.ets
+// pages/SolveItemInitialized.ets
 import { taskpool } from '@kit.ArkTS'
 import { BusinessError } from '@kit.BasicServicesKit'
 import { SendableItem } from './Sendable'

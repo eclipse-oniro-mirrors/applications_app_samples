@@ -18,6 +18,8 @@
 #include <thread>
 
 #include "napi/native_api.h"
+// 用于对比确认获取的sendable对象的value的值
+const int sendableValue = 1024;
 
 static void* g_serializationData = nullptr;
 static void* CreateEnvAndSendSendable(void*)
@@ -104,7 +106,7 @@ static void* CreateEnvAndReceiveSendable(void*)
     // 7. 1024是判断ArkTS返回的结果是否正确
     int value0;
     napi_get_value_int32(env, valueResult, &value0);
-    if (value0 != 1024) {
+    if (value0 != sendableValue) {
         std::abort();
     }
     napi_destroy_ark_runtime(&env);

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 // [Start define_resolveTwo]
-// SolveMismatchTypeTwo.ets
+// pages/SolveMismatchTypeTwo.ets
 import { collections } from '@kit.ArkTS'
 
 @Sendable
