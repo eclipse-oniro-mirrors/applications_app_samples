@@ -34,6 +34,8 @@
 #include "sample_info.h"
 #include "plugin_manager.h"
 
+class AudioOutputPump;
+
 class Player {
 public:
     Player(){};
@@ -64,7 +66,10 @@ private:
     void AudioDecOutputSyncThread();
     void Release();
     void StartRelease();
-    void ReleaseThread();
+    void ReleaseWorker();
+    void JoinReleaseThread();
+    void JoinWorkerThreads();
+    bool HasWorkerThreads() const;
     void ReleaseVideoDecoder();
     void ReleaseAudioDecoder();
     int32_t CreateAudioDecoder();
@@ -79,11 +84,9 @@ private:
     int32_t HandleInitError(std::unique_lock<std::mutex>& outerLock);
     int32_t StartVideoDecoder();
     int32_t StartAudioDecoder();
-    void CleanupAfterStartFailure(bool videoStarted, bool audioStarted);
+    void CleanupAfterStartFailure(bool videoStarted);
     bool ProcessAudioOutput(CodecBufferInfo &bufferInfo);
-    bool EnqueueAudioOutput(CodecBufferInfo &bufferInfo);
-    bool ProcessAsyncAudioOutputBuffer();
-    bool ProcessSyncAudioOutputBuffer();
+    AudioOutputPump CreateAudioOutputPump();
     void FinishAudioOutput(bool stopRenderer);
     bool ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo,
         std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
@@ -115,11 +118,12 @@ private:
     std::unique_ptr<std::thread> videoDecOutputThread_ = nullptr;
     std::unique_ptr<std::thread> audioDecInputThread_ = nullptr;
     std::unique_ptr<std::thread> audioDecOutputThread_ = nullptr;
+    std::unique_ptr<std::thread> releaseThread_ = nullptr;
     std::condition_variable doneCond_;
     std::mutex doneMutex;
     SampleInfo sampleInfo_;
-    CodecUserData *videoDecContext_ = nullptr;
-    CodecUserData *audioDecContext_ = nullptr;
+    std::unique_ptr<CodecUserData> videoDecContext_ = nullptr;
+    std::unique_ptr<CodecUserData> audioDecContext_ = nullptr;
     OH_AudioStreamBuilder* builder_ = nullptr;
     OH_AudioRenderer* audioRenderer_ = nullptr;
     

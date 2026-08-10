@@ -78,7 +78,7 @@ AVCodec 部件示例 Sample，基于 API26 构建，提供视频播放（含音�
 - 播放、录制、封装格式、Dump 和 NativeWindow 变换配置完整性。
 
 可在 DevEco Studio 中选择 `entry > ohosTest` 目标并执行测试。音视频解封装、软硬件编解码、Surface/BufferMode
-送显、权限弹窗和相机录制依赖真实设备能力，继续通过真机手工测试验证。详细的测试环境、测试素材和操作步骤请参考：
+送显、音频 async/sync 输出、权限弹窗和相机录制依赖真实设备能力，继续通过真机手工测试验证。详细的测试环境、测试素材和操作步骤请参考：
 [AVCodecSample 手工测试用例](./ohosTest.md)。
 
 也可以连接设备后通过命令行构建并执行：
@@ -93,66 +93,85 @@ hdc shell "${ability_command} test -b com.samples.avcodecsample -m entry_test -s
 
 ### 目录
 
-仓目录结构如下：
+与本示例功能相关的主要目录结构如下：
 
 ```
-video-codec-sample/entry/src/main/          
-├── cpp                                # Native层
-│   ├── capbilities                    # 能力接口和实现
-│   │   ├── include                    # 能力接口
-│   │   ├── audio_capturer.cpp         # 音频采集实现
-│   │   ├── audio_decoder.cpp          # 音频解码实现
-│   │   ├── audio_encoder.cpp          # 音频编码实现
-│   │   ├── demuxer.cpp                # 解封装实现
-│   │   ├── muxer.cpp                  # 封装实现
-│   │   ├── video_decoder.cpp          # 视频解码实现
-│   │   └── video_encoder.cpp          # 视频编码实现
-│   ├── common                         # 公共模块
-│   │   ├── dfx                        # 日志
-│   │   ├── sample_callback.cpp        # 编解码回调实现   
-│   │   ├── sample_callback.h          # 编解码回调定义
-│   │   └── sample_info.h              # 功能实现公共类  
-│   ├── render                         # 送显模块接口和实现
-│   │   ├── include                    # 送显模块接口
-│   │   ├── plugin_manager.cpp         # 送显模块管理实现
-│   │   └── plugin_render.cpp          # 送显逻辑实现
-│   ├── sample                         # Native层
-│   │   ├── player                     # Native层播放接口和实现
-│   │   │   ├── Player.cpp             # Native层播放功能调用逻辑的实现
-│   │   │   ├── Player.h               # Native层播放功能调用逻辑的接口
-│   │   │   ├── PlayerNative.cpp       # Native层 播放的入口
-│   │   │   └── PlayerNative.h         # 
-│   │   └── recorder                   # Native层录制接口和实现
-│   │       ├── Recorder.cpp           # Native层录制功能调用逻辑的实现
-│   │       ├── Recorder.h             # Native层录制功能调用逻辑的接口
-│   │       ├── RecorderNative.cpp     # Native层 录制的入口
-│   │       └── RecorderNative.h       # 
-│   ├── types                          # Native层暴露上来的接口
-│   │   ├── libplayer                  # 播放模块暴露给UI层的接口
-│   │   └── librecorder                # 录制模块暴露给UI层的接口
-│   └── CMakeLists.txt                 # 编译入口       
-├── ets                                # UI层
-│   ├── common                         # 公共模块
-│   │   └──utils                       # 共用的工具类
-│   │       ├── CameraCheck.ets        # 相机能力查询
-│   │       ├── DateTimeUtils.ets      # 获取当前时间
-│   │       └── Logger.ts              # 日志工具
-│   ├── CommonConstants.ets            # 参数常量
-│   ├── entryability                   # 应用的入口
-│   │   └── EntryAbility.ts            # 申请权限弹窗实现
-│   ├── pages                          # EntryAbility 包含的页面
-│   │   └── Index.ets                  # 首页/播放页面
-│   └── sample                         # sample
-│       └── recorder                   # 录制
-│           └── Recorder.ets           # 录制页面
-├── resources                          # 用于存放应用所用到的资源文件
-│   ├── base                           # 该目录下的资源文件会被赋予唯一的ID
-│   │   ├── element                    # 用于存放字体和颜色 
-│   │   ├── media                      # 用于存放图片
-│   │   └── profile                    # 应用入口首页
-│   ├── en_US                          # 设备语言是美式英文时，优先匹配此目录下资源
-│   └── zh_CN                          # 设备语言是简体中文时，优先匹配此目录下资源
-└── module.json5                       # 模块配置信息
+AVCodec/
+├── README_zh.md                              # 示例说明和实现文档
+├── ohosTest.md                               # 真机手工测试用例
+└── entry/src/
+    ├── main/
+    │   ├── cpp                               # Native 层
+    │   │   ├── capbilities                   # 媒体能力接口和实现
+    │   │   │   ├── include                   # 音视频编解码、封装和解封装接口
+    │   │   │   ├── audio_capturer.cpp        # 音频采集实现
+    │   │   │   ├── audio_decoder.cpp         # 音频解码实现
+    │   │   │   ├── audio_encoder.cpp         # 音频编码实现
+    │   │   │   ├── demuxer.cpp               # 解封装实现
+    │   │   │   ├── muxer.cpp                 # 封装实现
+    │   │   │   ├── video_decoder.cpp         # 视频解码实现
+    │   │   │   └── video_encoder.cpp         # 视频编码实现
+    │   │   ├── common                        # Native 公共模块
+    │   │   │   ├── dfx                       # 日志和错误码
+    │   │   │   ├── sample_callback.cpp       # codec 和 AudioRenderer 回调实现
+    │   │   │   ├── sample_callback.h         # 公共回调定义
+    │   │   │   └── sample_info.h             # 参数、Buffer 队列和回调上下文
+    │   │   ├── render                        # XComponent 和 NativeWindow 送显模块
+    │   │   │   ├── include                   # 送显模块接口
+    │   │   │   ├── plugin_manager.cpp        # XComponent 与窗口管理
+    │   │   │   └── plugin_render.cpp         # Surface 生命周期和交互回调
+    │   │   ├── sample
+    │   │   │   ├── player                    # Native 播放接口和实现
+    │   │   │   │   ├── AudioOutputPump.cpp   # 音频 async/sync 公共输出数据泵
+    │   │   │   │   ├── AudioOutputPump.h     # 音频输出数据泵接口
+    │   │   │   │   ├── BufferRenderer.cpp    # BufferMode 手动拷贝送显实现
+    │   │   │   │   ├── BufferRenderer.h      # BufferMode 送显接口
+    │   │   │   │   ├── Player.cpp            # 播放、同步和资源释放实现
+    │   │   │   │   ├── Player.h              # Player 接口和状态定义
+    │   │   │   │   ├── PlayerNative.cpp      # 播放 NAPI 入口
+    │   │   │   │   └── PlayerNative.h        # 播放 NAPI 接口
+    │   │   │   └── recorder                  # Native 录制接口和实现
+    │   │   │       ├── Recorder.cpp          # 录制生命周期和数据流实现
+    │   │   │       ├── Recorder.h            # Recorder 接口和状态定义
+    │   │   │       ├── RecorderNative.cpp    # 录制 NAPI 入口
+    │   │   │       └── RecorderNative.h      # 录制 NAPI 接口
+    │   │   ├── types                         # Native 模块对 ArkTS 暴露的类型
+    │   │   │   ├── libplayer                 # 播放模块类型声明
+    │   │   │   └── librecorder               # 录制模块类型声明
+    │   │   └── CMakeLists.txt                # Native 编译入口
+    │   ├── ets                               # ArkTS UI 和业务逻辑
+    │   │   ├── common
+    │   │   │   ├── CommonConstants.ets       # 播放、录制和选择器常量
+    │   │   │   └── utils
+    │   │   │       ├── CameraCheck.ets       # 相机能力查询
+    │   │   │       ├── DateTimeUtils.ets     # 时间格式化
+    │   │   │       ├── Logger.ets            # 日志工具
+    │   │   │       ├── MediaUtils.ets        # 文件选择和媒体文件校验
+    │   │   │       └── PermissionUtil.ets    # 相机、麦克风权限处理
+    │   │   ├── entryability/EntryAbility.ets # 应用入口 Ability
+    │   │   ├── model/CameraDateModel.ets      # 相机录制参数模型
+    │   │   ├── pages/Index.ets                # 首页、播放和录制入口
+    │   │   └── recorder/Recorder.ets          # 相机预览和录制页面
+    │   ├── resources                         # 主模块资源
+    │   │   ├── base                          # 默认语言和公共资源
+    │   │   ├── en_US                         # 美式英文资源
+    │   │   └── zh_CN                         # 简体中文资源
+    │   └── module.json5                      # 主模块配置
+    └── ohosTest/                             # Hypium 自动化测试模块
+        ├── ets
+        │   ├── test
+        │   │   ├── CameraDataModel.test.ets  # 相机参数模型测试
+        │   │   ├── CommonConstants.test.ets  # 播放和录制常量测试
+        │   │   ├── DateTimeUtils.test.ets    # 时间格式化测试
+        │   │   ├── List.test.ets             # 测试套件统一入口
+        │   │   └── MediaUtils.test.ets       # 文件选择和空文件判断测试
+        │   ├── testability
+        │   │   ├── TestAbility.ets           # 测试 Ability
+        │   │   └── pages/Index.ets            # 测试页面
+        │   └── testrunner
+        │       └── OpenHarmonyTestRunner.ts   # Hypium 测试运行器
+        ├── resources                         # 测试模块资源
+        └── module.json5                      # 测试模块配置
 ```
 
 ### 具体实现
@@ -163,7 +182,7 @@ video-codec-sample/entry/src/main/
 
 | 场景 | UI入口 | Native入口 | 主要能力模块 | 数据去向 |
 |------|--------|------------|--------------|----------|
-| 播放 | `entry/src/main/ets/pages/Index.ets` 中的播放按钮和 `XComponent` | `PlayerNative.cpp`、`Player.cpp` | `Demuxer`、`VideoDecoder`、`AudioDecoder`、`BufferRenderer`、`PluginRender` | 视频送到 XComponent 对应的 NativeWindow，音频送到 AudioRenderer |
+| 播放 | `entry/src/main/ets/pages/Index.ets` 中的播放按钮和 `XComponent` | `PlayerNative.cpp`、`Player.cpp` | `Demuxer`、`VideoDecoder`、`AudioDecoder`、`AudioOutputPump`、`BufferRenderer`、`PluginRender` | 视频送到 XComponent 对应的 NativeWindow，音频送到 AudioRenderer |
 | 录制 | `Index.ets` 中的录制按钮、`recorder/Recorder.ets` 中的预览页 | `RecorderNative.cpp`、`Recorder.cpp` | `VideoEncoder`、`AudioCapturer`、`AudioEncoder`、`Muxer` | 相机视频流和麦克风音频流封装成 mp4/flv 文件 |
 | 图形显示 | 播放页/录制页的 `XComponent` | `PluginManager`、`PluginRender`、`BufferRenderer` | Native XComponent、NativeWindow、NativeBuffer | SurfaceMode 直接由 codec 送显；BufferMode 由应用手动拷贝送显 |
 | 解封装 | 播放前打开媒体文件后进入 Native | `Demuxer.cpp` | `OH_AVSource`、`OH_AVDemuxer` | 读取音视频 track 信息并向解码器输入压缩帧 |
@@ -172,9 +191,10 @@ video-codec-sample/entry/src/main/
 几个核心对象的分工如下：
 
 - `SampleInfo`：ArkTS 传入 Native 的参数集合，也承载解封装后解析出的音视频格式信息，例如 mime、分辨率、采样率、声道数、codec config、运行模式等。
-- `CodecUserData`：codec 回调和工作线程之间共享的上下文，包含输入/输出 Buffer 队列、音频播放/采集缓存、首帧标记、宽高步长等运行期状态。
+- `CodecUserData`：codec 回调和工作线程之间共享的上下文，包含输入/输出 Buffer 队列、音频播放/采集缓存、首帧标记、宽高步长等运行期状态。播放侧由 `Player` 使用 `unique_ptr` 独占，传给 C 接口时仅临时使用 `.get()`，避免手工 `new/delete` 造成所有权不清晰。
 - `CodecBufferInfo`：对 codec buffer index、`OH_AVBuffer` 指针和 `OH_AVCodecBufferAttr` 的封装，便于在解封装、编解码、送显、封装之间传递。
 - `SampleCallback`：异步模式下 codec 的统一回调入口，负责接收 `OnNeedInputBuffer` / `OnNewOutputBuffer` 并放入 `CodecUserData` 的队列。
+- `AudioOutputPump`：统一处理音频 async 输出队列和 sync 主动查询，将 PCM 写入 `renderQueue`，并把释放 Buffer、音频时钟统计等动作回调给 `Player`。
 
 #### *UI侧页面与交互*
 
@@ -289,7 +309,7 @@ OH_AVBuffer_GetBufferAttr(buffer, &attr);
 
 #### *音频解码与播放*
 
-音频解码由 `AudioDecoder` 和 `Player` 的音频线程配合完成。整体链路如下：
+音频解码由 `AudioDecoder`、`AudioOutputPump` 和 `Player` 的音频线程配合完成。整体链路如下：
 
 ```text
 Demuxer 读取音频压缩帧
@@ -298,7 +318,7 @@ AudioDecoder 输入 buffer
         ↓
 OH_AudioCodec 解码成 PCM
         ↓
-Player 将 PCM 放入 renderQueue
+AudioOutputPump 将 PCM 放入 renderQueue
         ↓
 OH_AudioRenderer_OnWriteData 从 renderQueue 取数据播放
 ```
@@ -332,7 +352,9 @@ decoder_ = OH_AudioCodec_CreateByMime(codecMime.c_str(), false);
 3. 注册 `SampleCallback::OnRenderWriteData`。
 4. `OH_AudioStreamBuilder_GenerateRenderer()` 得到 `audioRenderer_`。
 
-音频输出线程拿到解码后的 PCM 后，会把数据逐字节写入 `audioDecContext_->renderQueue`，再释放 codec 输出 buffer。AudioRenderer 真正需要数据时，会触发 `OnRenderWriteData()`：
+音频输出线程创建一个局部 `AudioOutputPump`。异步模式从 `outputBufferQueue` 取回调送来的 Buffer，同步模式调用 `AudioDecoder::GetOutputBuffer()` 主动查询；两条路径随后复用同一个 Buffer 校验、PCM 入队和错误传播流程。`AudioOutputPump` 不拥有线程、解码器、`CodecUserData` 或 AudioRenderer，也不调用 `StartRelease()`，这些生命周期职责仍由 `Player` 管理。
+
+拿到解码后的 PCM 后，`AudioOutputPump` 会把数据逐字节写入 `audioDecContext_->renderQueue`，再通过回调让 `Player` 释放 codec 输出 Buffer、更新已写采样数和音频 PTS。AudioRenderer 真正需要数据时，会触发 `OnRenderWriteData()`：
 
 ```cpp
 while (!codecUserData->renderQueue.empty() && index < length) {
@@ -342,6 +364,20 @@ while (!codecUserData->renderQueue.empty() && index < length) {
 ```
 
 音画同步也依赖 AudioRenderer。视频输出线程调用 `OH_AudioRenderer_GetTimestamp(audioRenderer_, CLOCK_MONOTONIC, &framePosition, &timestamp)` 获取音频实际播放位置，再用视频帧 pts 计算 `waitTimeUs`。视频帧过晚时丢帧，过早时 sleep 等待，以音频播放进度作为主时钟。
+
+#### *播放线程与释放生命周期*
+
+播放侧为存在的音频轨和视频轨分别创建输入、输出线程。输入线程只负责向解码器送入压缩帧，输出线程负责消费解码结果；`isAudioDone` 和 `isVideoDone` 只表示对应输出线程已完成，不再由输入线程修改，避免输入 EOS 早于输出 EOS 时提前释放资源。
+
+`Player::Start()` 在解码线程启动完成后创建独立的 `ReleaseWorker`。该协调线程等待音频和视频输出均完成；媒体不存在某一轨道时，对应完成标志在启动前直接置为 true。完成条件满足后，协调线程执行以下释放顺序：
+
+1. 将播放状态置为停止，并 `join` 音视频输入、输出线程。
+2. 将 `CodecUserData::isDestroyed` 置为 true，使迟到的 codec 和 AudioRenderer 回调立即返回。
+3. 释放 AudioRenderer、Demuxer、视频/音频 Decoder、BufferRenderer 和 AudioStreamBuilder。
+4. 在 Decoder 已停止回调后清空 Buffer 队列并销毁 `CodecUserData`。
+5. 解除 `Player` 内部互斥锁后再通知 ArkTS 播放完成，避免完成回调再次进入播放器时产生锁重入问题。
+
+工作线程不再 `detach`，也不会从音频或视频输出线程内部直接释放播放器，因此不存在输出线程 join 自身的问题。下一次 `Init()` 会先回收已经结束的协调线程，确保上一轮资源完整释放后再创建新任务。音频 `renderQueue` 的写入、消费和水位等待统一由 `outputMutex` 保护，避免使用不同互斥锁读取同一队列造成数据竞争。
 
 #### *相机采集与录制*
 
