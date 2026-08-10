@@ -1,0 +1,64 @@
+{
+  "apiType": "stageMode",
+  "buildOption": {
+    "resOptions": {
+      "copyCodeResource": {
+        "enable": false
+      }
+    },
+    "externalNativeOptions": {
+      "path": "./src/main/cpp/CMakeLists.txt",
+      "arguments": "",
+      "cppFlags": "",
+    }
+  },
+  "buildOptionSet": [
+    {
+      "name": "release",
+      "arkOptions": {
+        "obfuscation": {
+          "ruleOptions": {
+            "enable": false,
+            "files": [
+              "./obfuscation-rules.txt"
+            ]
+          }
+        }
+      },
+      "nativeLib": {
+        "debugSymbol": {
+          "strip": true,
+          "exclude": []
+        }
+      }
+    },
+  ],
+  "targets": [
+    {
+      "name": "default"
+    },
+    {
+      "name": "ohosTest",
+    }
+  ],
+  // HarmonyOS工程
+  "buildOption": {
+    "externalNativeOptions": {
+      "abiFilters": [
+        "arm64-v8a",
+        "x86_64",
+        "armeabi-v7a"
+      ]
+    },
+  },
+  // OpenHarmony工程
+  "buildOption": {
+    "externalNativeOptions": {
+      "abiFilters": [
+        "arm64-v8a",
+        "x86_64",
+        "armeabi-v7a"
+      ]
+    }
+  }
+}
