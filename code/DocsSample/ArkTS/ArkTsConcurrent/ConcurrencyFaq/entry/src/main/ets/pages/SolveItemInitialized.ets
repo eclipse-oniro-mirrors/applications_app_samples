@@ -12,18 +12,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start define_resolveTwo]
-// SoluteMismatchTypeTwo.ets
-import { collections } from '@kit.ArkTS'
+// [Start initialize_item]
+// pages/SolveItemInitialized.ets
+import { taskpool } from '@kit.ArkTS'
+import { BusinessError } from '@kit.BasicServicesKit'
+import { SendableItem } from './Sendable'
 
-@Sendable
-export class CollectionsArray extends collections.Array<string> {
-  public ans: string = 'test';
-  constructor(heldValue: string) {
-    super();
-    this.ans = heldValue;
-  }
+@Concurrent
+function createTask() {
+  let data = new SendableItem();
 }
-let arr = new CollectionsArray('test');
-arr.slice(1);
-// [End define_resolveTwo]
+
+function executeTask() {
+  let task = new taskpool.Task(createTask);
+  taskpool.execute(task).then((res) => {
+    console.info(`execute task success`);
+  }).catch((e: BusinessError) => {
+    console.error(`execute task error: ${e.message}`);
+  })
+}
+
+executeTask();
+// [End initialize_item]

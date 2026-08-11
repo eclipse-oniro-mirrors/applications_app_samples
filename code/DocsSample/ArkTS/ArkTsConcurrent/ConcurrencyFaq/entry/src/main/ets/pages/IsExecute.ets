@@ -33,7 +33,7 @@ struct Index {
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
           .onClick(() => {
-            console.info('test start');
+            console.info(`test start`);
             // 其他业务逻辑
             // ...
             let task: taskpool.Task = new taskpool.Task(createTask, 1, 2);

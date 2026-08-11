@@ -22,9 +22,9 @@ workerPort.onmessage = (e: MessageEvents) => {
   let a: A = e.data as A;
   if (a instanceof A) {
     // 打印test instanceof in worker thread success
-    console.info('test instanceof in worker thread success');
+    console.info(`test instanceof in worker thread success`);
   } else {
-    console.info('test instanceof in worker thread failed');
+    console.error(`test instanceof in worker thread failed`);
   }
 }
 // [End define_workers]
