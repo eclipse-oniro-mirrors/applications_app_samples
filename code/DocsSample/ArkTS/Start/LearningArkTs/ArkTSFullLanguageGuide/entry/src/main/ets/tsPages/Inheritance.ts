@@ -160,6 +160,49 @@ console.info(`${permChild.privateProp}`);   // 编译错误
 // private：仅类内部访问
 // [End ts_access_permission_rules]
 
+// [Start ts_override_access_permission]
+class AccessParent {
+  // public方法
+  public publicMethod(): void {
+    console.info(`Parent public`);
+  }
+
+  // protected方法
+  protected protectedMethod(): void {
+    console.info(`Parent protected`);
+  }
+
+  // public方法（演示降低访问权限）
+  public loweredAccessMethod(): void {}
+
+  // private方法（子类不可见，不能重写）
+  private privateMethod(): void {}
+}
+
+class OverrideAccessChild extends AccessParent {
+  // 重写public方法：必须保持public
+  public publicMethod(): void {
+    console.info(`Child public`);
+  }
+
+  // 重写protected方法：可保持protected或改为public
+  public protectedMethod(): void {
+    console.info(`Child public (was protected)`);
+  }
+
+  // 不能降低访问权限
+  protected loweredAccessMethod(): void {}  // 编译错误：不能从public改为protected
+
+  // 不能重写private方法（因为无法访问）
+  privateMethod(): void {}  // 编译错误：父类方法不可见
+}
+
+let overrideChild: OverrideAccessChild = new OverrideAccessChild();
+
+overrideChild.publicMethod();     // 'Child public'
+overrideChild.protectedMethod();  // 'Child public (was protected)'
+// [End ts_override_access_permission]
+
 // [Start ts_private_member_restriction]
 class SecretBase {
   private secretKey: string = 'secret';
