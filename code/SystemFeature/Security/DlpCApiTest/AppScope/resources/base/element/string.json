@@ -1,9 +1,8 @@
 {
-    "string": [
-      {
-        "name": "app_name",
-        "value": "DlpApiTest"
-      }
-    ]
-  }
-  
+  "string": [
+    {
+      "name": "app_name",
+      "value": "DlpApiTest"
+    }
+  ]
+}
