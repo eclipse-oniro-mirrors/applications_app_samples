@@ -7,7 +7,7 @@
 ### 效果预览
 | Index                                     | 
 |-----------------------------------------|
-| ![Index](screenshots/devices/index_pages.jpg) | 
+| ![Index](screenshots/index_pages.jpg) | 
 
 使用说明:
 1. 启动后点击”c api test“按钮
@@ -27,8 +27,6 @@ entry/src/main/cpp/
 |---napi_init.cpp                           // 定义接口
 ```
 
-```
-
 ### 约束与限制
 
 1. 本示例仅支持标准系统上运行。
@@ -36,7 +34,9 @@ entry/src/main/cpp/
 
 ## samples代码运行及其环境配置
 1. 在将项目克隆下来后，需要配置签名。点击如下图所示“打开签名配置”，完成签名配置。
+
 ![signature](screenshots/signature.png)
 
 2. 在完成签名配置后，需要点击运行（绿色小三角）。
+
 ![Index](screenshots/operations.png)
