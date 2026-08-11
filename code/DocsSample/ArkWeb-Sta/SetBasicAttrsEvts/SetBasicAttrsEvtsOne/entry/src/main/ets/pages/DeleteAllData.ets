@@ -15,7 +15,7 @@
  */
 
 // [Start clear_all_storage_currently_used_by_web_sql_in_privacy_mode]
-import { Web, Column, Button, Entry, Component } from '@kit.ArkUI';
+import { Web, Column, Button, Entry, Component, $rawfile } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
 
