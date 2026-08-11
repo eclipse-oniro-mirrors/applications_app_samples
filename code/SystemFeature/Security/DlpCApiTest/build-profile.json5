@@ -1,20 +1,5 @@
 {
   "app": {
-    "signingConfigs": [
-      {
-        "name": "default",
-        "type": "HarmonyOS",
-        "material": {
-          "certpath": "C:\\Users\\ictuc\\.ohos\\config\\default_DlpApiTest-main_SMLG4ElJDTURzJA0X394nzJeRx0MVAFy9nX1ptsThWI=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001A4FD7CC4164088237998C5D26D9FF0BB6F9D7B6DA6D00B246830C99BC87CA741A27ABD01C89DA",
-          "profile": "C:\\Users\\ictuc\\.ohos\\config\\default_DlpApiTest-main_SMLG4ElJDTURzJA0X394nzJeRx0MVAFy9nX1ptsThWI=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\ictuc\\.ohos\\config\\default_DlpApiTest-main_SMLG4ElJDTURzJA0X394nzJeRx0MVAFy9nX1ptsThWI=.p12",
-          "storePassword": "0000001A90A292C7125123A4731331653CAE6AF434B95E32D61FDAC080ED2F3A0A73BB4A0E5A0655B3F6"
-        }
-      }
-    ],
     "products": [
       {
         "name": "default",
