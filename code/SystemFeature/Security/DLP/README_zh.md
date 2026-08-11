@@ -11,7 +11,7 @@
 
 使用说明:
 1.启动后点击文件图标，选择一个文件
-2.点击对应文字按钮，完成对应的接口调用（具体接口说明可以参考https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/DataProtectionKit/dlp-guidelines.md）
+2.点击对应文字按钮，完成对应的接口调用，具体接口说明可以参考https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/DataProtectionKit/dlp-guidelines.md
 
 ### 工程目录
 ```
