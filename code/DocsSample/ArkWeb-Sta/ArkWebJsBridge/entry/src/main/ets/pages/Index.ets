@@ -15,7 +15,8 @@
  */
 
 // [Start webview_and_native_modules_are_used_to_implement_complex_message_interaction_between_applications_and_h5_pages]
-import { $rawfile, BarState, Button, Column, Component, Entry, Row, Scroll, ScrollDirection, State, Text, Web } from '@kit.ArkUI';
+import { $rawfile, Entry, Row, Scroll, ScrollDirection, State, Text, Web } from '@kit.ArkUI';
+import { EdgeEffect, BarState, Button, Column, Component } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
 
