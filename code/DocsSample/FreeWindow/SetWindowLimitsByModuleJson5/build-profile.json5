@@ -1,20 +1,5 @@
 {
   "app": {
-    "signingConfigs": [
-      {
-        "name": "default",
-        "type": "HarmonyOS",
-        "material": {
-          "certpath": "C:\\Users\\29409\\.ohos\\config\\default_SetWindowLimitsByModuleJson5_bsyJjyGN4s2Gbm1UZiOpg_5rB1VSVSZoBKqZUO9rqRU=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "00000019DF38F8707E08752D7BD1E213BEC454340000CD3DF7465859F00178112F51F1BACA8B8522F7",
-          "profile": "C:\\Users\\29409\\.ohos\\config\\default_SetWindowLimitsByModuleJson5_bsyJjyGN4s2Gbm1UZiOpg_5rB1VSVSZoBKqZUO9rqRU=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\29409\\.ohos\\config\\default_SetWindowLimitsByModuleJson5_bsyJjyGN4s2Gbm1UZiOpg_5rB1VSVSZoBKqZUO9rqRU=.p12",
-          "storePassword": "00000019CC4BC3025257DBA85C37E8F66B68171220B7D338BC1ABC1A788F586530069B2971B3FAB764"
-        }
-      }
-    ],
     "products": [
       {
         "name": "default",
