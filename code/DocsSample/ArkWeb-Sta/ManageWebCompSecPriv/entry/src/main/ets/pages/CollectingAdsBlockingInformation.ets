@@ -16,7 +16,7 @@
 
 // [Start collect_information_about_ad_filtering]
 import { Column, Component, Entry, State, Web } from '@kit.ArkUI';
-import { AdsBlockedDetails } from '@kit.ArkWeb';
+import { AdsBlockedDetails } from '@ohos.arkui.component';
 import { webview } from '@kit.ArkWeb';
 
 @Entry	
