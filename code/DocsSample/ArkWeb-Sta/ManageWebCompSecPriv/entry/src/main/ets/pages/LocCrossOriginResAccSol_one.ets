@@ -16,7 +16,8 @@
 
 // [Start cors_loccross_one]
 import { $rawfile, Column, Component, Entry, Row, State, Web } from '@kit.ArkUI';
-import { webview, WebResourceResponse } from '@kit.ArkWeb';
+import { Stack, ThreatType, WebRotateEffect, WebResourceResponse, CopyOptions } from '@kit.ArkUI';
+import { webview } from '@kit.ArkWeb';
 
 @Entry
 @Component
@@ -24,12 +25,12 @@ struct Index {
   @State message: string = 'Hello World';
   webviewController: webview.WebviewController = new webview.WebviewController(undefined);
   // 构造域名和本地文件的映射表
-  schemeMap = new Map([
+  schemeMap: <string, string> = new Map<string, string>([
     ['https://www.example.com/index.html', 'index.html'],
     ['https://www.example.com/js/script.js', 'js/script.js'],
   ]);
   // 构造本地文件和构造返回的格式mimeType
-  mimeTypeMap = new Map([
+  mimeTypeMap: <string, string> = new Map<string, string>([
     ['index.html', 'text/html'],
     ['js/script.js', 'text/javascript']
   ]);
@@ -48,12 +49,12 @@ struct Index {
           .height('100%')
           .onInterceptRequest((event) => {
             if (!event) {
-              return;
+              return null;
             }
             // 此处匹配自己想要加载的本地离线资源，进行资源拦截替换，绕过跨域
             if (this.schemeMap.has(event.request.getRequestUrl())) {
               let rawfileName: string = this.schemeMap.get(event.request.getRequestUrl())!;
-              let mimeType = this.mimeTypeMap.get(rawfileName);
+              let mimeType: string = this.mimeTypeMap.get(rawfileName)!;
               if (typeof mimeType === 'string') {
                 let response = new WebResourceResponse();
                 // 构造响应数据，如果本地文件在rawfile下，可以通过如下方式设置

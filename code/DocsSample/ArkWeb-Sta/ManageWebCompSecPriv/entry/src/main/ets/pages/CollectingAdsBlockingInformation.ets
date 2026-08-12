@@ -19,25 +19,25 @@ import { Column, Component, Entry, State, Web } from '@kit.ArkUI';
 import { AdsBlockedDetails } from '@ohos.arkui.component';
 import { webview } from '@kit.ArkWeb';
 
-@Entry	
-@Component	
-struct WebComponent {	
-  @State totalAdsBlockCounts: number = 0;	
+@Entry
+@Component
+struct WebComponent {
+  @State totalAdsBlockCounts: number = 0;
 
-  controller: webview.WebviewController = new webview.WebviewController(undefined);	
+  controller: webview.WebviewController = new webview.WebviewController(undefined);
 
-  build() {	
-    Column() {	
-      Web({ src: 'https://www.example.com', controller: this.controller })	
-        .onAdsBlocked((details: AdsBlockedDetails) => {	
-          if (details) {	
-            console.info(' Blocked ' + details.adsBlocked.length + ' in ' + details.url);	
-            let adList: Array<string> = Array.from(new Set<string>(details.adsBlocked));	
-            this.totalAdsBlockCounts += adList.length;	
-            console.info('Total blocked counts :' + this.totalAdsBlockCounts);	
-          }	
-        })	
-    }	
-  }	
+  build() {
+    Column() {
+      Web({ src: 'https://www.example.com', controller: this.controller })
+        .onAdsBlocked((details: AdsBlockedDetails) => {
+          if (details) {
+            console.info(' Blocked ' + details.adsBlocked.length + ' in ' + details.url);
+            let adList: Array<string> = Array.from(new Set<string>(details.adsBlocked));
+            this.totalAdsBlockCounts += adList.length;
+            console.info('Total blocked counts :' + this.totalAdsBlockCounts);
+          }
+        })
+    }
+  }
 }
 // [End collect_information_about_ad_filtering]

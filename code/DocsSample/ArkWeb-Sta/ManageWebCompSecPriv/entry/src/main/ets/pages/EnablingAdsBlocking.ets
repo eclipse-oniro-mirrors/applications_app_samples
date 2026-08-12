@@ -36,9 +36,9 @@ struct WebComponent {
           Button('setAdsBlockRules')
             .onClick(() => {
               try {
-                let documentSelectionOptions: ESObject = new picker.DocumentSelectOptions();
-                let documentPicker: ESObject = new picker.DocumentViewPicker();
-                documentPicker.select(documentSelectionOptions).then((documentSelectResult: ESObject) => {
+                let documentSelectionOptions: picker.DocumentSelectOptions = {};
+                let documentPicker: picker.DocumentViewPicker = {};
+                documentPicker.select(documentSelectionOptions).then((documentSelectResult: Array<string>) => {
                   if (documentSelectResult && documentSelectResult.length > 0) {
                     let fileRealPath = new fileUri.FileUri(documentSelectResult[0]);
                     console.info('DocumentViewPicker.select successfully, uri: ' + fileRealPath);

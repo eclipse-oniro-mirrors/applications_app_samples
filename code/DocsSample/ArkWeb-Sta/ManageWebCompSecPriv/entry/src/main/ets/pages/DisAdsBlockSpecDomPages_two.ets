@@ -18,51 +18,51 @@
 import { Button, ButtonType, Color, Column, Component, Entry, Flex, Row, State, Text, TextInput, TextInputController, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 
-@Entry	
-@Component	
-struct WebComponent {	
-  main_url: string = 'https://www.example.com';	
-  text_input_controller: TextInputController = new TextInputController();	
-  controller: webview.WebviewController = new webview.WebviewController(undefined);	
+@Entry
+@Component
+struct WebComponent {
+  main_url: string = 'https://www.example.com';
+  text_input_controller: TextInputController = new TextInputController();
+  controller: webview.WebviewController = new webview.WebviewController(undefined);
 
-  @State input_text: string = 'https://www.example.com';	
+  @State input_text: string = 'https://www.example.com';
 
-  build() {	
-    Column() {	
-      Row() {	
-        Flex() {	
-          TextInput({ text: this.input_text, placeholder: this.main_url, controller: this.text_input_controller})	
-            .id('urlInput')	
-            .height(40)	
-            .margin(5)	
-            .borderColor(Color.Blue)	
-            .onChange((value: string) => {	
-              this.input_text = value;	
-            })	
+  build() {
+    Column() {
+      Row() {
+        Flex() {
+          TextInput({ text: this.input_text, placeholder: this.main_url, controller: this.text_input_controller})
+            .id('urlInput')
+            .height(40)
+            .margin(5)
+            .borderColor(Color.Blue)
+            .onChange((value: string) => {
+              this.input_text = value;
+            })
 
-          Button({type: ButtonType.Capsule}) { Text('Go') }	
-          .onClick(() => {	
-            this.controller.loadUrl(this.input_text);	
-          })	
+          Button({type: ButtonType.Capsule}) { Text('Go') }
+          .onClick(() => {
+            this.controller.loadUrl(this.input_text);
+          })
 
-          Button({type: ButtonType.Capsule}) { Text('addAdsBlockAllowedList') }	
-          .onClick(() => {	
-            let arrDisallowDomainSuffixes = new Array<string>();	
+          Button({type: ButtonType.Capsule}) { Text('addAdsBlockAllowedList') }
+          .onClick(() => {
+            let arrDisallowDomainSuffixes = new Array<string>();
             arrDisallowDomainSuffixes.push('example.com');
-            webview.AdsBlockManager.addAdsBlockDisallowedList(arrDisallowDomainSuffixes);	
+            webview.AdsBlockManager.addAdsBlockDisallowedList(arrDisallowDomainSuffixes);
 
-            let arrAllowedDomainSuffixes = new Array<string>();	
+            let arrAllowedDomainSuffixes = new Array<string>();
             arrAllowedDomainSuffixes.push('news.example.com');
             arrAllowedDomainSuffixes.push('sport.example.com');
-            webview.AdsBlockManager.addAdsBlockAllowedList(arrAllowedDomainSuffixes);	
-          })	
-        }	
-      }	
-      Web({ src: this.main_url, controller: this.controller })	
-        .onControllerAttached(()=>{	
-          this.controller.enableAdsBlock(true);	
-        })	
-    }	
-  }	
+            webview.AdsBlockManager.addAdsBlockAllowedList(arrAllowedDomainSuffixes);
+          })
+        }
+      }
+      Web({ src: this.main_url, controller: this.controller })
+        .onControllerAttached(()=>{
+          this.controller.enableAdsBlock(true);
+        })
+    }
+  }
 }
 // [End set_up_page_level_ad_filtering_switch]
