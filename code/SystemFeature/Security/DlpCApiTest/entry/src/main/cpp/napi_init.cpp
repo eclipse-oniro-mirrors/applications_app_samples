@@ -1,7 +1,10 @@
+// [Start dlp_C_include]
 #include "napi/native_api.h"
 #include <cstdint>
 #include <cstdlib>
 #include "DataProtectionKit/dlp_permission_api.h"
+// [End dlp_C_include]
+
 // [Start dlp_C_GetDlpPermissionInfo]
 static napi_value GetDlpPermissionInfo(napi_env env, napi_callback_info info)
 {
