@@ -2,7 +2,7 @@
 
 ### 介绍
 
-本示例是一个安全类App，使用[dlp_permission_api.h](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/DataProtectionKit/dlp-guidelines-ndk.md) 接口展示了在eTS中常用接口的调用。
+本示例是一个安全类App，使用[dlp_permission_api.h](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/DataProtectionKit) 接口展示了在eTS中常用接口的调用。
 
 ### 效果预览
 | Index                                     | 
@@ -11,7 +11,7 @@
 
 使用说明:
 1. 启动后点击”c api test“按钮
-2. [具体接口说明可以参考](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/DataProtectionKit/dlp-guidelines-ndk.md)
+2. [具体接口说明可以参考](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/DataProtectionKit)
 
 ### 工程目录
 ```
