@@ -44,6 +44,10 @@ entry/src/main/cpp/
 
 本示例该应用无需声明额外权限。
 
+## 依赖
+
+不涉及。
+
 ## 约束与限制
 
 1. 本示例仅支持标准系统上运行。
@@ -57,3 +61,13 @@ entry/src/main/cpp/
 4. 在完成签名配置后，需要点击运行（绿色小三角）。
 
 ![Index](screenshots/operations.png)
+
+## 下载
+
+```
+git init
+git config core.sparsecheckout true
+echo code/SystemFeature/Security/DLP/  > .git/info/sparse-checkout
+git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git pull origin master
+```
