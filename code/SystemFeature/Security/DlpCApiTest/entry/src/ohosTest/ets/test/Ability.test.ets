@@ -59,21 +59,6 @@ export default function localUnitTest() {
     /**
      * 获取指定DLP文件名的原始文件名
      */
-    it('GGetOriginalFileName_001', 0, () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + "GGetOriginalFileName_001, begin");
-
-
-      const result = testNapi.GetOriginalFileName();
-      let message: string = result.toString();
-
-      hilog.info(DOMAIN, TAG, BUNDLE + "GGetOriginalFileName_001, message" + message);
-      expect(message).assertContain("test.txt");
-      hilog.info(DOMAIN, TAG, BUNDLE + "GGetOriginalFileName_001, begin");
-    });
-
-    /**
-     * 获取指定DLP文件名的原始文件名
-     */
     it('GetOriginalFileName_001', 0, () => {
       hilog.info(DOMAIN, TAG, BUNDLE + "GetOriginalFileName_001, begin");
 
