@@ -18,6 +18,7 @@ import { $rawfile, Web, Row, Column, Button, Component, Entry, CacheMode } from 
 import testNapi from 'libentry.so';
 import { webview } from '@kit.ArkWeb';
 import { resourceManager } from '@kit.LocalizationKit';
+import { WebNetErrorList } from '@ohos.web.netErrorList';
 
 @Entry
 @Component
@@ -38,7 +39,7 @@ struct Index {
           .databaseAccess(true)
           .fileAccess(false)
           .domStorageAccess(true)
-          .cacheMode(CacheMode.Default)
+          .cacheMode(CacheMode.DEFAULT)
           .onPageBegin( event => {
             if (this.getUIContext().getHostContext()) {
               testNapi.initResourceManager(this.getUIContext().getHostContext()!.resourceManager);

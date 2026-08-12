@@ -21,6 +21,7 @@ import window from '@ohos.window';
 import hilog from '@ohos.hilog';
 import testNapi from 'libentry.so';
 import { webview } from '@kit.ArkWeb';
+import { BusinessError } from '@ohos.base';
 
 // [Start register_init_scheme]
 export default class EntryAbility extends UIAbility {
@@ -34,10 +35,6 @@ export default class EntryAbility extends UIAbility {
   }
 
 // [StartExclude register_init_scheme]
-  onDestroy(): void {
-
-  }
-
   onWindowStageCreate(windowStage: window.WindowStage): void {
     windowStage.loadContent('pages/Index', (err, data) => {
       if (err.code) {
@@ -46,17 +43,6 @@ export default class EntryAbility extends UIAbility {
     });
   }
 
-  onWindowStageDestroy(): void {
-
-  }
-
-  onForeground(): void {
-
-  }
-
-  onBackground(): void {
-
-  }
-  // [EndExclude register_init_scheme]
+// [EndExclude register_init_scheme]
 };
 // [End register_init_scheme]

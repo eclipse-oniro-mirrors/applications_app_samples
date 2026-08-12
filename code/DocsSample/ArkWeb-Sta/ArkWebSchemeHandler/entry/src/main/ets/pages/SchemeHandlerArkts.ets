@@ -15,7 +15,8 @@
  */
 
 import { Web, Column, Component, Entry } from '@kit.ArkUI';
-import { webview, WebNetErrorList } from '@kit.ArkWeb';
+import { webview } from '@kit.ArkWeb';
+import { WebNetErrorList } from '@ohos.web.netErrorList';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { buffer } from '@kit.ArkTS';
 

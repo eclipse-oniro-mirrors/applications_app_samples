@@ -21,23 +21,17 @@ import { BusinessError } from '@kit.BasicServicesKit';
 @Component
 struct Index {
   build() {
-    Column({ space: 10 }) {
+    Column() {
       Button('SchemeHandlerArkts')
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({
             url: 'pages/SchemeHandlerArkts',
-          })
-          .catch((error: BusinessError) => {
-            console.error(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
           })
         })
       Button('SchemeHandlerNdk')
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({
             url: 'pages/SchemeHandlerNdk',
-          })
-          .catch((error: BusinessError) => {
-            console.error(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
           })
         })
     }.height('100%')
