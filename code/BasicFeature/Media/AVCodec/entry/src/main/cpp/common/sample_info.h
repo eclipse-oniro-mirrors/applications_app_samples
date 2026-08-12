@@ -46,6 +46,12 @@ const unordered_map<OH_AVPixelFormat, string> PIXEL_FORMAT_TO_STRING = {
     {AV_PIXEL_FORMAT_RGBA1010102,       "RGBA1010102"},
 };
 
+enum PlaybackCompletionReason : int32_t {
+    COMPLETED = 0,
+    STOPPED,
+    ERROR,
+};
+
 struct SampleInfo {
     int32_t inputFd = -1;
     int32_t outputFd = -1;
@@ -92,7 +98,7 @@ struct SampleInfo {
     bool isSmartFluencySupported = false; // 标记设备是否支持智能流畅倍速解码(API>=26)
     double speed = 1.0;                   // 当前播放倍速
 
-    void (*playDoneCallback)(void *context, bool success) = nullptr;
+    void (*playDoneCallback)(void *context, bool success, PlaybackCompletionReason reason) = nullptr;
     void *playDoneCallbackData = nullptr;
     uint8_t codecConfig[1024];
     size_t codecConfigLen = 0;
@@ -128,8 +134,9 @@ public:
     std::shared_ptr<CodecBufferInfo> Dequeue(int32_t timeoutMs = 1000)
     {
         std::unique_lock<std::mutex> lock(mutex_);
-        (void)cond_.wait_for(lock, std::chrono::milliseconds(timeoutMs), [this]() { return !bufferQueue_.empty(); });
-        if (bufferQueue_.empty()) {
+        (void)cond_.wait_for(lock, std::chrono::milliseconds(timeoutMs),
+            [this]() { return cancelled_ || !bufferQueue_.empty(); });
+        if (cancelled_ || bufferQueue_.empty()) {
             return nullptr;
         }
         std::shared_ptr<CodecBufferInfo> bufferInfo = bufferQueue_.front();
@@ -147,10 +154,18 @@ public:
         }
     }
 
+    void CancelWait()
+    {
+        std::unique_lock<std::mutex> lock(mutex_);
+        cancelled_ = true;
+        cond_.notify_all();
+    }
+
 private:
     std::mutex mutex_;
     std::condition_variable cond_;
     std::queue<std::shared_ptr<CodecBufferInfo>> bufferQueue_;
+    bool cancelled_ = false;
 };
 
 enum CodecType {
@@ -190,8 +205,7 @@ public:
 
     queue<unsigned char> renderQueue;
 
-    int64_t speed = 1.0f;
-    int64_t frameWrittenForSpeed = 0;
+    int64_t audioFramesWritten = 0;
     int64_t endPosAudioBufferPts = 0;
     int64_t currentPosAudioBufferPts = 0;
 

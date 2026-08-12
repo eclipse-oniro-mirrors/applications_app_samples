@@ -14,6 +14,8 @@
  */
 
 #include "sample_callback.h"
+#include <algorithm>
+#include <cstdint>
 #include "av_codec_sample_log.h"
 
 #undef LOG_TAG
@@ -22,6 +24,21 @@
 namespace {
 constexpr int LIMIT_LOGD_FREQUENCY = 50;
 constexpr int32_t BYTES_PER_SAMPLE_2 = 2;
+constexpr int64_t US_PER_SECOND = 1'000'000;
+
+int64_t GetQueuedAudioDurationUs(size_t queuedBytes, const SampleInfo &sampleInfo)
+{
+    if (sampleInfo.audioSampleRate <= 0 || sampleInfo.audioChannelCount <= 0) {
+        return 0;
+    }
+    const uint64_t bytesPerFrame = static_cast<uint64_t>(sampleInfo.audioChannelCount) * BYTES_PER_SAMPLE_2;
+    const uint64_t queuedFrames = queuedBytes / bytesPerFrame;
+    const uint64_t remainingBytes = queuedBytes % bytesPerFrame;
+    const auto sampleRate = static_cast<uint64_t>(sampleInfo.audioSampleRate);
+    const uint64_t durationUs = queuedFrames * US_PER_SECOND / sampleRate +
+        remainingBytes * US_PER_SECOND / (sampleRate * bytesPerFrame);
+    return static_cast<int64_t>(durationUs);
+}
 
 bool IsCallbackUnavailable(const CodecUserData *codecUserData)
 {
@@ -74,18 +91,23 @@ int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *user
         dest[index++] = codecUserData->renderQueue.front();
         codecUserData->renderQueue.pop();
     }
+    if (index < static_cast<size_t>(length)) {
+        std::fill(dest + index, dest + length, 0);
+    }
     AVCODEC_SAMPLE_LOGD("render BufferLength:%{public}d Out buffer count: %{public}u, renderQueue.size: %{public}u "
                         "renderReadSize: %{public}u",
                         length, codecUserData->outputFrameCount,
                         static_cast<uint32_t>(codecUserData->renderQueue.size()), static_cast<uint32_t>(index));
 
     if (codecUserData->sampleInfo != nullptr) {
-        codecUserData->frameWrittenForSpeed +=
-            length / codecUserData->speed / codecUserData->sampleInfo->audioChannelCount / BYTES_PER_SAMPLE_2;
-        codecUserData->currentPosAudioBufferPts =
-            codecUserData->endPosAudioBufferPts - codecUserData->renderQueue.size() /
-                                                      codecUserData->sampleInfo->audioSampleRate /
-                                                      codecUserData->sampleInfo->audioChannelCount / BYTES_PER_SAMPLE_2;
+        const int32_t channelCount = codecUserData->sampleInfo->audioChannelCount;
+        const int32_t sampleRate = codecUserData->sampleInfo->audioSampleRate;
+        if (channelCount > 0 && sampleRate > 0) {
+            const size_t bytesPerFrame = static_cast<size_t>(channelCount) * BYTES_PER_SAMPLE_2;
+            codecUserData->audioFramesWritten += static_cast<int64_t>(index / bytesPerFrame);
+            codecUserData->currentPosAudioBufferPts = codecUserData->endPosAudioBufferPts -
+                GetQueuedAudioDurationUs(codecUserData->renderQueue.size(), *codecUserData->sampleInfo);
+        }
     }
 
     if (codecUserData->renderQueue.size() < length) {
@@ -181,6 +203,9 @@ void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
 static int32_t GetTemporalLayerID(OH_AVBuffer *buffer)
 {
     int32_t layerID = -1;
+    // 该能力依赖 API 26 Native SDK 中的 OH_MD_KEY_VIDEO_ENCODER_TEMPORAL_LAYER_ID。
+    // 若编译找不到该 Key，请确认 SDK 路径并清理 CMake 缓存；兼容旧 SDK 时可在cmake中将
+    // AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID 设为 OFF。
 #ifdef AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID
     OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
     if (format != nullptr) {

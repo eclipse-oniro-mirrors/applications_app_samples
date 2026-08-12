@@ -1,6 +1,14 @@
 {
   "string": [
     {
+      "name": "smart_fluency_x2",
+      "value": "X2 (Smart Fluency)"
+    },
+    {
+      "name": "smart_fluency_x3",
+      "value": "X3 (Smart Fluency)"
+    },
+    {
       "name": "module_desc",
       "value": "This module template implements List functions."
     },
@@ -27,6 +35,14 @@
     {
       "name": "play",
       "value": "play"
+    },
+    {
+      "name": "stop_playback",
+      "value": "stop"
+    },
+    {
+      "name": "stopping",
+      "value": "stopping"
     },
     {
       "name": "alert",

@@ -196,6 +196,13 @@ AVCodec/
 - `SampleCallback`：异步模式下 codec 的统一回调入口，负责接收 `OnNeedInputBuffer` / `OnNewOutputBuffer` 并放入 `CodecUserData` 的队列。
 - `AudioOutputPump`：统一处理音频 async 输出队列和 sync 主动查询，将 PCM 写入 `renderQueue`，并把释放 Buffer、音频时钟统计等动作回调给 `Player`。
 
+Native 构建默认开启以下两个 API 26 能力开关：
+
+- `AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY`：仅作用于 `player`，编译智能流畅解码的帧保留模式、倍速参数和温控参数下发能力。支持该能力的视频在 X1 时使用 FULL；切换到 X2/X3 时，无论是否包含音频轨，都下发 ADAPTIVE 和目标倍速；恢复 X1 时切回 FULL。
+- `AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID`：仅作用于 `recorder`，从视频编码输出 Buffer 的参数中读取时域层级 ID。
+
+如需使用不包含相应接口的旧版 Native SDK 构建，可在 CMake 参数中分别设置 `-DAVCODEC_SAMPLE_ENABLE_SMART_FLUENCY=OFF` 或 `-DAVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID=OFF`。
+
 #### *UI侧页面与交互*
 
 UI 层使用 ArkUI 声明式范式组织页面，主页面为 `Index.ets`，录制预览页面为 `Recorder.ets`。页面入口在 `entry/src/main/resources/base/profile/main_pages.json` 中声明：
@@ -215,8 +222,11 @@ ArkUI 组件、状态和页面构建方式可参考当前 SDK 随附的 ArkUI �
 
 - 播放区域使用 `XComponent({ id: 'player', type: XComponentType.SURFACE, libraryname: 'player' })`。`libraryname: 'player'` 会加载 `libplayer.so`，Native 侧在模块初始化时通过 `PluginManager::Export()` 取得 XComponent 对象并注册 Surface 回调。
 - 播放设置通过 `TextPickerDialog` 选择解码器类型、运行模式、同步模式和是否dump解码帧，对应 `CommonConstants.ets` 中的 `VIDEO_DECODE_TYPE`、`VIDEO_DECODER_RUN_MODE`、`VIDEO_DECODER_SYNC_MODE`、`VIDEO_DUMP_MODE`。dump选项仅在Buffer模式下生效，默认关闭。
-- 点击播放后，UI 侧通过文件管理器或图库拿到 uri，再用 `fileIo.openSync()` 获取 fd 和文件大小，最终调用 `player.playNative(fd, offset, size, codecType, runMode, syncMode, smartFluency, enableVideoDump, callback)`。
-- 播放过程中，长按播放窗口会临时调用 `player.setPlaybackSpeed(2)`，松手恢复 `player.setPlaybackSpeed(1)`；点击“倍速”按钮可选择 1/2/3 倍速。
+- 点击播放后，UI 侧通过文件管理器或图库拿到 uri，再用 `fileIo.openSync()` 获取 fd 和文件大小，最终调用结构化接口 `player.play(options, callback)`。`options` 包含 fd、offset、size、解码器类型、Surface/BufferMode、同步模式、智能流畅能力和 dump 开关，避免位置参数顺序错误。
+- 播放完成回调返回 `{ success, reason }`，其中 `reason` 为 `completed`、`stopped` 或 `error`。只有 `error` 会触发文件无效提示，用户主动 Stop 按正常结束处理。
+- 播放过程中主按钮切换为“停止”。点击后调用 `player.stop()`，按钮进入“停止中”状态，等待 Native 统一释放资源并触发完成回调后恢复。
+- 播放启动成功后，UI 调用 `player.isSmartFluencyAvailable()` 查询本次播放是否可使用智能流畅。设备和 Native SDK 支持该能力，并且当前媒体包含可用视频轨时返回 true，是否包含音频轨不影响该结果。
+- 播放过程中，长按播放窗口会临时调用 `player.setPlaybackSpeed(2)`，松手恢复 `player.setPlaybackSpeed(1)`；点击“倍速”按钮可选择 1/2/3 倍速。本次播放可使用智能流畅时，X2/X3 提示会额外显示“智能流畅”。
 - 播放过程中点击 Flip 按钮会调用 `player.setTransform(transformHint)`，Native 侧再通过 `OH_NativeWindow_NativeWindowHandleOpt(..., SET_TRANSFORM, ...)` 作用到当前显示 window。
 
 录制入口也在 `Index.ets` 中：
@@ -250,14 +260,14 @@ ArkUI 组件、状态和页面构建方式可参考当前 SDK 随附的 ArkUI �
 
 `PluginRender` 关注几个 Native XComponent 回调：
 
-- `OnSurfaceCreatedCB()`：XComponent Surface 创建后触发。这里拿到 `void* window`，转换为 `OHNativeWindow*` 保存到 `PluginManager::pluginWindow_`，并设置 `OH_SCALING_MODE_SCALE_FIT_V2`。
+- `OnSurfaceCreatedCB()`：XComponent Surface 创建后触发。这里拿到 `void* window`，转换为 `OHNativeWindow*`，通过 `PluginManager::SetPluginWindow()` 登记为当前窗口，并设置 `OH_SCALING_MODE_SCALE_FIT_V2`。窗口指针只作为框架拥有的非拥有引用保存，PluginManager 不负责释放它。
 - `OnSurfaceChangedCB()`：Surface 尺寸或状态变化时触发，本示例记录 offset、width、height，可用于后续适配布局。
-- `OnSurfaceDestroyedCB()`：Surface 销毁时触发，如果当前保存的 `pluginWindow_` 指向该 window，则置空，避免后续使用悬空 window。
+- `OnSurfaceDestroyedCB()`：Surface 销毁时触发，通过 `ClearPluginWindow()` 清除当前窗口引用，并通过 `ReleaseRender()` 释放对应的 `PluginRender`。即使回调没有提供 window，也会清理当前引用，避免后续使用悬空 window。
 - `DispatchTouchEventCB()`：触摸事件回调，本示例读取触摸工具类型和倾角信息，作为 XComponent 交互能力示例。
 
 播放送显分为 SurfaceMode 和 BufferMode 两条路径：
 
-- SurfaceMode：`Player::CreateVideoDecoder()` 将 `sampleInfo_.window` 设置为 XComponent 对应的 `pluginWindow_`。`VideoDecoder::Config()` 发现 `sampleInfo.window != nullptr` 后调用 `OH_VideoDecoder_SetSurface()`。之后应用释放输出帧时调用 `OH_VideoDecoder_RenderOutputBufferAtTime()` 或 `OH_VideoDecoder_RenderOutputBuffer()`，由解码器和图形系统完成送显。
+- SurfaceMode：`Player::CreateVideoDecoder()` 通过 `PluginManager::GetPluginWindow()` 获取 XComponent 窗口并设置 `sampleInfo_.window`。`VideoDecoder::Config()` 发现 `sampleInfo.window != nullptr` 后调用 `OH_VideoDecoder_SetSurface()`。之后应用释放输出帧时调用 `OH_VideoDecoder_RenderOutputBufferAtTime()` 或 `OH_VideoDecoder_RenderOutputBuffer()`，由解码器和图形系统完成送显。
 - BufferMode：`Player::CreateVideoDecoder()` 明确将 `sampleInfo_.window = nullptr`，因此不会给解码器配置 surface。应用从 `OH_AVBuffer_GetAddr()` 获取解码后的 YUV/RGBA 数据，再由 `BufferRenderer` 手动送到 XComponent 对应的 NativeWindow。
 
 BufferMode 的手动送显流程如下：
@@ -361,13 +371,34 @@ while (!codecUserData->renderQueue.empty() && index < length) {
     dest[index++] = codecUserData->renderQueue.front();
     codecUserData->renderQueue.pop();
 }
+std::fill(dest + index, dest + length, 0);
 ```
 
-音画同步也依赖 AudioRenderer。视频输出线程调用 `OH_AudioRenderer_GetTimestamp(audioRenderer_, CLOCK_MONOTONIC, &framePosition, &timestamp)` 获取音频实际播放位置，再用视频帧 pts 计算 `waitTimeUs`。视频帧过晚时丢帧，过早时 sleep 等待，以音频播放进度作为主时钟。
+当队列中的 PCM 不足一次 AudioRenderer 请求长度时，剩余区域填充静音，避免把未写入的旧内存当作音频输出。时钟统计只累计回调实际取出的 PCM：`audioFramesWritten += index / bytesPerFrame`；不足部分填入的静音不计入媒体帧数。队列剩余字节会按采样率、声道数和 16 bit 采样宽度换算为微秒，用于更新当前音频 PTS。
+
+音画同步也依赖 AudioRenderer。视频输出线程调用倍速感知的 `OH_AudioRenderer_GetAudioTimestampInfo()` 获取音频实际播放位置，再结合已写入帧数、硬件待播帧数、当前倍速和单调时钟锚点计算 `waitTimeUs`。视频帧过晚时丢帧，过早时 sleep 等待，以音频播放进度作为主时钟。
+
+智能流畅只改变视频解码器的保帧/丢帧分布，不会修改被保留视频帧的 PTS/DTS，也不会产生一个需要同步给 AudioRenderer 的“动态实际倍速”。AudioRenderer、音频主时钟和视频解码器都使用 UI 下发的同一个目标倍速。初始化时视频解码器使用 FULL；切换到 X2/X3 时，不论媒体是否包含音频轨，都下发 ADAPTIVE 和 `OH_MD_KEY_VIDEO_DECODER_SPEED`；恢复 X1 时切回 FULL。
+
+`OH_MD_KEY_VIDEO_DECODER_FRAME_RETENTION_RATIO` 只在 UNIFORM 模式下生效。本示例仅在温控告警时切换到 UNIFORM 并下发固定保留比例，正常 X2/X3 播放不配置该参数。ADAPTIVE 会根据目标倍速、运动信息和系统状态自行决定保留帧，不应额外叠加固定 ratio。
 
 #### *播放线程与释放生命周期*
 
 播放侧为存在的音频轨和视频轨分别创建输入、输出线程。输入线程只负责向解码器送入压缩帧，输出线程负责消费解码结果；`isAudioDone` 和 `isVideoDone` 只表示对应输出线程已完成，不再由输入线程修改，避免输入 EOS 早于输出 EOS 时提前释放资源。
+
+`Player` 使用显式状态机约束生命周期：
+
+```text
+IDLE -> INITIALIZING -> READY -> PLAYING -> STOPPING -> IDLE
+```
+
+- `Init()` 只接受 `IDLE`，初始化期间进入 `INITIALIZING`，成功后进入 `READY`。
+- `Start()` 只接受 `READY`，音视频线程启动完成后进入 `PLAYING`。
+- `Stop()` 只接受 `PLAYING`；重复 Stop 在 `STOPPING` 状态下按幂等成功处理。
+- 自然结束、主动 Stop 和错误清理都进入同一条 `STOPPING` 释放路径，资源释放完成后回到 `IDLE`。
+- `getState()` 向 ArkTS 返回当前 `PlayerState`，非法状态调用会被拒绝，不再只依赖 `isStarted_` 等布尔量推断生命周期。
+
+结构化 NAPI 包含 `play(options, callback)`、`stop()` 和 `getState()`。原有九参数 `playNative(...)` 继续保留用于兼容已有调用，但主页面已迁移到结构化接口。
 
 `Player::Start()` 在解码线程启动完成后创建独立的 `ReleaseWorker`。该协调线程等待音频和视频输出均完成；媒体不存在某一轨道时，对应完成标志在启动前直接置为 true。完成条件满足后，协调线程执行以下释放顺序：
 
@@ -378,6 +409,8 @@ while (!codecUserData->renderQueue.empty() && index < length) {
 5. 解除 `Player` 内部互斥锁后再通知 ArkTS 播放完成，避免完成回调再次进入播放器时产生锁重入问题。
 
 工作线程不再 `detach`，也不会从音频或视频输出线程内部直接释放播放器，因此不存在输出线程 join 自身的问题。下一次 `Init()` 会先回收已经结束的协调线程，确保上一轮资源完整释放后再创建新任务。音频 `renderQueue` 的写入、消费和水位等待统一由 `outputMutex` 保护，避免使用不同互斥锁读取同一队列造成数据竞争。
+
+主动 Stop 不直接在 NAPI 线程销毁 decoder。`Stop()` 将状态切换为 `STOPPING`、停止工作循环并取消 Buffer 队列等待；各输出线程完成收尾后仍由 `ReleaseWorker` 执行上述释放顺序，避免 Stop 与自然结束并发形成两套资源销毁逻辑。
 
 #### *相机采集与录制*
 
@@ -719,48 +752,40 @@ hcodec flushBuffer给surface， 让消费者消费(即us->surface)————ow
 
 音频和视频的管道必须同时以相同的时间戳呈现每帧数据。音频播放位置用作主时间参考，而视频管道只输出与最新渲染音频匹配的视频帧。对于所有可能的实现，精确计算最后一次呈现的音频时间戳是至关重要的。OS提供API来查询音频管道各个阶段的音频时间戳和延迟。
 
-音频管道支持查询最新呈现的时间戳，getTimeStamp()
-方法提供了一种简单的方法来确定我们要查找的值。如果时间戳可用，则audioTimestamp实例将填充以帧单位表示的位置，以及显示该帧时的估计时间。此信息可用于控制视频管道，使视频帧与音频帧匹配。
+音频管道通过 `OH_AudioRenderer_GetAudioTimestampInfo()` 查询最新提交到硬件的媒体采样帧位置和对应单调时钟时间。该接口能够适配倍速变化，例如 X2 播放时 `framePosition` 的增长速度约为 X1 的两倍，因此应用不再自行反推跨倍速区间的硬件位置。
 
 ##### 接口说明
 
 ```cpp
 /*
- * Query the the time at which a particular frame was presented.
- *
- * @since 10
+ * Query the time at which a particular frame was presented.
  *
  * @param renderer Reference created by OH_AudioStreamBuilder_GenerateRenderer()
- * @param clockId {@link #CLOCK_MONOTONIC}
  * @param framePosition Pointer to a variable to receive the position
  * @param timestamp Pointer to a variable to receive the timestamp
  * @return Function result code:
  *         {@link AUDIOSTREAM_SUCCESS} If the execution is successful.
- *         {@link AUDIOSTREAM_ERROR_INVALID_PARAM}:
- *                                                 1.The param of renderer is nullptr;
- *                                                 2.The param of clockId invalid.
+ *         {@link AUDIOSTREAM_ERROR_INVALID_PARAM} Invalid renderer or output pointer.
  *         {@link AUDIOSTREAM_ERROR_ILLEGAL_STATE} Execution status exception.
  */
-OH_AudioStream_Result OH_AudioRenderer_GetTimestamp(OH_AudioRenderer* renderer,
-    clockid_t clockId, int64_t* framePosition, int64_t* timestamp);
+OH_AudioStream_Result OH_AudioRenderer_GetAudioTimestampInfo(OH_AudioRenderer* renderer,
+    int64_t* framePosition, int64_t* timestamp);
 ```
 
 注意事项：
 
 (1)
-OH_AudioRenderer_Start到真正写入硬件有一定延迟，因此该接口在OH_AudioRenderer_Start之后过一会儿才会再拿到有效值，期间音频未发声时建议画面帧先按照正常速度播放，后续再逐步追赶音频位置从而提升用户看到画面的起搏时延。
+`OH_AudioRenderer_Start` 到真正写入硬件有一定延迟，因此启动后需要一段时间才能拿到有效值。音频未发声期间，画面先按当前帧间隔播放，时间戳稳定后再切换为音频主时钟。
 
-(2)当framePosition和timeStamp稳定之前，调用可以比较频繁(如100ms)
-，当以稳定的速度增长前进后，建议OH_AudioRenderer_GetTimestamp的频率不要太频繁，可以每分钟一次，最好不要低于500ms一次，因为频繁调用可能会带来功耗问题，因此在能保证音画同步效果的情况下，不需要频繁地查询时间戳。
+(2)`OH_AudioRenderer_GetAudioTimestampInfo` 的 `framePosition` 已适配播放倍速，表示媒体时间线上的硬件提交位置。应用累计的 `audioFramesWritten` 同样使用未除以倍速的媒体采样帧单位，两者可以直接相减。
 
 (3)OH_AudioRenderer_Flush接口执行后，framePosition返回值会重新(从0)开始计算。
 
-(4)OH_AudioRenderer_GetFramesWritten 接口在Flush的时候不会清空，该接口和OH_AudioRenderer_GetTimestamp接口并不建议配合使用。
+(4)`OH_AudioRenderer_GetFramesWritten` 接口在 Flush 时不会清空，不应与 `OH_AudioRenderer_GetAudioTimestampInfo` 的位置混合计算。
 
-(5)音频设备切换过程中OH_AudioRenderer_GetTimestamp返回的framePosition和timestamp不会倒退，但由于新设备写入有时延，会出现短暂时间内音频进度无增长，建议画面帧保持流程播放不要产生卡顿。
+(5)音频设备切换时 `framePosition` 可能被重置，而 `timestamp` 仍单调递增。切换后的时间戳恢复稳定之前，视频按现有帧间隔继续送显，避免画面卡住。
 
-(6)
-OH_AudioRenderer_GetTimeStamp获取的是实际写到硬件的采样帧数，不受倍速影响。对AudioRender设置了倍速的场景下，播放进度计算需要特殊处理，系统保证应用设置完倍速播放接口后，新写入AudioRender的采样点才会做倍速处理。
+(6)系统保证设置倍速后，新写入 AudioRenderer 的采样点按新倍速处理。应用侧以当前目标倍速外推 `timestamp` 到当前单调时钟的媒体时间，但不把解码器 ADAPTIVE 的动态保帧比例当作音频倍速。
 
 ##### 关键代码片段
 
@@ -769,8 +794,8 @@ OH_AudioRenderer_GetTimeStamp获取的是实际写到硬件的采样帧数，不
 ```cpp
 int64_t framePosition = 0;
 int64_t timestamp = 0;
-int32_t ret = OH_AudioRenderer_GetTimestamp(audioRenderer_, CLOCK_MONOTONIC, &framePosition, &timestamp);
-AVCODEC_SAMPLE_LOGI("VD framePosition: %{public}li, nowTimeStamp: %{public}li", framePosition, nowTimeStamp);
+int32_t ret = OH_AudioRenderer_GetAudioTimestampInfo(audioRenderer_, &framePosition, &timestamp);
+AVCODEC_SAMPLE_LOGI("VD framePosition: %{public}li, audioTimestamp: %{public}li", framePosition, timestamp);
 audioTimeStamp = timestamp;
 ```
 
@@ -795,18 +820,22 @@ audioTimeStamp = timestamp;
 - videoPlayedTime视频帧期望送显时间
 
 ```cpp
-int64_t latency = (audioDecContext_->frameWrittenForSpeed - framePosition) * 1000 *
-                1000 / sampleInfo_.audioSampleRate / speed;
-AVCODEC_SAMPLE_LOGI("VD latency: %{public}li writtenSampleCnt: %{public}li", latency, writtenSampleCnt);
+int64_t pendingFrames = std::max(audioFramesWritten - framePosition, int64_t { 0 });
+int64_t latency = pendingFrames * 1000 * 1000 / sampleInfo_.audioSampleRate;
 
 nowTimeStamp = GetCurrentTime();
-int64_t anchordiff = (nowTimeStamp - audioTimeStamp) / 1000;
+int64_t anchorDiff = (nowTimeStamp - audioTimeStamp) / 1000;
 
-int64_t audioPlayedTime = audioDecContext_->currentPosAudioBufferPts - latency + anchorDiff;
+int64_t audioPlayedTime = currentAudioPts - latency + anchorDiff * speed;
 int64_t videoPlayedTime = bufferInfo.attr.pts;
 
-int64_t waitTimeUs = videoPlayedTime - audioPlayedTime;
+int64_t mediaWaitTimeUs = videoPlayedTime - audioPlayedTime;
+int64_t waitTimeUs = mediaWaitTimeUs / speed;
 ```
+
+`videoPlayedTime - audioPlayedTime` 是媒体时间差，而线程 sleep 和 `renderAtTime` 使用的是墙钟时间，因此倍速播放时还需要除以当前目标倍速。例如视频在媒体时间线上领先音频 60ms，X3 时真实只需等待约 20ms。
+
+对于 240fps 等超过 RS 最大消费帧率的视频，X1 使用 FULL；带音频或纯视频进入 X2/X3 时都可切到 ADAPTIVE，并同步下发目标倍速。智能流畅可能使相邻输出帧的 PTS 间隔变大，但保留帧的 PTS/DTS 不变，因此应用必须直接按音频主时钟和当前视频 PTS 计算等待时间，不能再把等待时间截断为一个或两个源视频帧间隔。RS 的实际显示帧数和 ADAPTIVE 的动态保帧结果都不参与音频倍速计算。
 
 (4)根据业务延迟做音画同步策略
 
@@ -823,59 +852,39 @@ if (waitTimeUs < WAIT_TIME_US_THRESHOLD_WARNING) {
     if (waitTimeUs > WAIT_TIME_US_THRESHOLD) {
         waitTimeUs = WAIT_TIME_US_THRESHOLD;
     }
-    if (waitTimeUs > sampleInfo_.frameInterval + perSinkTimeThreshold) {
-        waitTimeUs = sampleInfo_.frameInterval + perSinkTimeThreshold;
-        AVCODEC_SAMPLE_LOGE("VD buffer is too early and reduced, waitTimeUs: %{public}ld", waitTimeUs);
-    }
 }
 ```
 
 (5)进行音画同步
-若视频帧的时间大于2倍vsync的时间，则需要sleep超过的时间。
+若视频帧需要等待较长时间，先 sleep 到送显时间附近，再最多提前两个 60Hz VSync 周期调用 `renderAtTime`。这样既不会一次压入过多未来帧，也不会破坏 ADAPTIVE 输出帧的真实 PTS 间隔。
 
 ```cpp
-if (static_cast<double>(waitTimeUs) > VSYNC_TIME * LIP_SYNC_BALANCE_VALUE) {
-    std::this_thread::sleep_for(std::chrono::microseconds(
-        static_cast<int64_t>(static_cast<double>(waitTimeUs) - VSYNC_TIME * LIP_SYNC_BALANCE_VALUE)));
+const int64_t renderLeadUs = std::clamp(waitTimeUs, int64_t { 0 }, RENDER_AHEAD_US);
+if (waitTimeUs > RENDER_AHEAD_US) {
+    std::this_thread::sleep_for(std::chrono::microseconds(waitTimeUs - RENDER_AHEAD_US));
 }
 return PresentAndReleaseVideoBuffer(bufferInfo, !dropFrame,
-    VSYNC_TIME * LIP_SYNC_BALANCE_VALUE * US_PER_SECOND + GetCurrentTime());
+    renderLeadUs * NS_PER_US + GetCurrentTime());
 ```
 
 ### 倍速播放方案
 
-#### 当前问题
+#### 当前方案
 
 ![img_4.png](screenshots/img_4.png)
 
-通过Audio GetTimeStamp拿到的Position始终是一倍速参考系下计算的，导致应用写下多倍速的音频帧后不清楚底层实际播放的原始位置。
+Position 表示媒体时间线中的音频帧，一个音频帧由同一采样时刻的各声道采样点组成。例如双声道 S16 数据每帧为 4 字节，48kHz 音频每秒包含 48000 帧。
 
-**比如假设采样率是48k，应用写的frameIn A一共写了48000，2倍速后的frameOut A' 只有24000，
-底层播了一半后返回给应用的position是12000 - 硬件latency(假设是100ms)
-，也就是倍速后播了150ms，但应用实际播放的pts应该是24000-硬件latency×2 = 300ms**
+应用在 AudioRenderer 写回调中累计实际取出的 PCM 帧数 `audioFramesWritten`，并从最新 PCM PTS 中扣除队列剩余时长，得到已提交数据末端的媒体位置。`OH_AudioRenderer_GetAudioTimestampInfo()` 返回倍速感知的 `framePosition` 和单调时钟锚点，两者计算如下：
 
-Position表示的是音频帧，一个音频帧包括左右声道的采样点交织形成的数据包，比如双声道16bit采样点，一帧数据是4个字节，48k采样率的音频，一秒播放48000帧
+```text
+pendingFrames = max(audioFramesWritten - framePosition, 0)
+latencyUs = pendingFrames * 1000000 / sampleRate
+anchorDiffUs = (nowNs - timestampNs) / 1000
+audioPlayedTimeUs = currentAudioPts - latencyUs + anchorDiffUs * targetSpeed
+```
 
-应用一般音画同步做法：
-
-视频每解码一帧，获取一下音频clock，视频帧永远跟随音频pts
-
-#### **倍速的音频时间戳计算算法(此方法也同样适用于三方自研播放器)**
-
-原理：记录每次setSpeed时的最后position状态作为基准，更新speed之后，按照上一次speed末尾的基准+数据delta×最新speed返回给应用
-
-|     **时间线**     | **应用行为** |       **播放范围(写给AudioRender的数据)**        | **此刻音频服务处理的位置(frameOutC)** |                                            **pulseaudio实际返回的position**                                            | **audiorender矫正后返回给应用的值** |                       **音频PTS(假设起始时间是X)**                        |
-|:---------------:|:--------:|:---------------------------------------:|:--------------------------:|:-----------------------------------------------------------------------------------------------------------------:|:-------------------------:|:----------------------------------------------------------------:|
-|    **T0时刻**     |   先一倍速   |                 1-1000                  |            800             |                                                        600                                                        |            600            |                          X + 600/48000                           |
-|    **T1时刻**     |  倍速调节成2  |                                         |                            |                       记录倍速调节之前写的位置<br/>lastSpeedX = 1000<br/>lastSpeedFramesWritten = 1000                        |                           |                                                                  |
-|    **T2时刻**     |   2倍速    | 原始数据1001-2000，倍速后送给Audio服务的是(1001-1500) |            1400            |                                                       1200                                                        |                           |                                                                  |
-| **计算T2时刻音频PTS** |          |                                         |                            | 1200如何倒推音源Position?<br/>实际位置=(position-lastSpeedIdx)*speed + lastSpeedFramesWritten<br/>(1200-1000)×2+1000 = 1400 |           1400            | X+1400/48000<br/>记录lastPosition = 1400<br/>lastPositionTime = T2 |
-|  **视频出帧T2'时刻**  |          |                                         |                            |                                                                                                                   |                           |        送显delay = 视频PTS - (X + 1400 / 48000 + (T2' - T2)*2        |
-|    **T3时刻**     |  倍速调节成3  |                                         |                            |                      记录倍速调节之前写的位置<br/>lastSpeedIdx = 1500<br/>lastSpeedFramesWritten = 2000                       |                           |                                                                  |
-|    **T4时刻**     |   3倍速    | 原始数据2001-3500，倍速后送欸Audio服务的是(1501-2000) |            1600            |                                                       1400                                                        |                           |                                                                  |
-| **计算T4时刻音频PTS** |          |                                         |                            |                                     1400 < 1500, 说明底层还在播老倍速的数据，复用上一次的音频pts做偏移                                     |      1400+(T4-T2)×2       |                    X+(lastPosition+(T4-T2)×2)                    |
-|    **T5时刻**     |   3倍速    |            原始数据2001-3500 播放中            |            1900            |                                                       1700                                                        |                           |                                                                  |
-| **计算T5时刻音频PTS** |          |                 Content                 |                            |             实际位置=(position-lastSpeedIdx)*speed + lastSpeedFramesWritten<br/>(1700-1500)×3+2000 = 2600             |           2600            |                           X+2600/48000                           |
+长按窗口和倍速菜单下发的是明确的目标倍速，当前长按为 X2，菜单可选择 X1/X2/X3。智能流畅中的 ADAPTIVE 只按目标倍速、运动信息和系统状态动态选择保留哪些视频帧，并不改变媒体时间线。带音频和纯视频使用同一套模式切换：初始化和 X1 使用 FULL，进入 X2/X3 时更新 `OH_MD_KEY_VIDEO_DECODER_SPEED` 并启用 ADAPTIVE，恢复 X1 时切回 FULL。带音频视频额外以 AudioRenderer 为主时钟，并把媒体时间差除以目标倍速后再调度送显；UI 通过 Native 查询本次播放是否支持该能力，仅在实际可用时显示“X2/X3（智能流畅）”。固定的 `OH_MD_KEY_VIDEO_DECODER_FRAME_RETENTION_RATIO` 不参与正常倍速播放，只用于 UNIFORM 温控降载。
 
 ### 环境配置
 #### OpenHarmony

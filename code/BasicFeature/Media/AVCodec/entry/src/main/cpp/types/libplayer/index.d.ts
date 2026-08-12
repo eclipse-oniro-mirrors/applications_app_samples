@@ -13,6 +13,37 @@
  * limitations under the License.
  */
 
+export enum PlayerState {
+  IDLE = 0,
+  INITIALIZING = 1,
+  READY = 2,
+  PLAYING = 3,
+  STOPPING = 4,
+}
+
+export type PlaybackCompletionReason = 'completed' | 'stopped' | 'error'
+
+export interface PlayOptions {
+  inputFileFd: number;
+  inputFileOffset: number;
+  inputFileSize: number;
+  videoDecoderType: number;
+  videoDecoderRunMode: number;
+  videoDecoderSyncMode: number;
+  isSmartFluencySupported: boolean;
+  enableVideoDump: boolean;
+}
+
+export interface PlaybackResult {
+  success: boolean;
+  reason: PlaybackCompletionReason;
+}
+
+export const play: (
+  options: PlayOptions,
+  cbFn: (result: PlaybackResult) => void
+) => boolean
+
 export const playNative: (
   inputFileFd: number,
   inputFileOffset: number,
@@ -24,6 +55,12 @@ export const playNative: (
   enableVideoDump: boolean,
   cbFn: (success: boolean) => void
 ) => boolean
+
+export const stop: () => boolean
+
+export const getState: () => PlayerState
+
+export const isSmartFluencyAvailable: () => boolean
 
 export const setPlaybackSpeed: (
   speed: number,

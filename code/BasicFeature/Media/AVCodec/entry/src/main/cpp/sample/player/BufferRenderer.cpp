@@ -205,7 +205,7 @@ void BufferRenderer::Reset()
 bool BufferRenderer::ConfigureWindow(const SampleInfo& sampleInfo, const CodecUserData& videoDecContext,
     int32_t graphicPixelFormat)
 {
-    OHNativeWindow *window = NativeXComponentSample::PluginManager::GetInstance()->pluginWindow_;
+    OHNativeWindow *window = NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
     CHECK_AND_RETURN_RET_LOG(window != nullptr, false, "XComponent window is null");
 
     int32_t width = videoDecContext.width > 0 ? videoDecContext.width : sampleInfo.videoWidth;
@@ -323,7 +323,7 @@ bool BufferRenderer::CopyToNativeBuffer(OHNativeWindowBuffer *windowBuffer, int 
         AVCODEC_SAMPLE_LOGE("Map native window buffer failed, ret: %{public}d", ret);
         return false;
     }
-    uint8_t *dstAddr = static_cast<uint8_t *>(mappedAddr);
+    auto *dstAddr = static_cast<uint8_t *>(mappedAddr);
     bool copied = CopyToWindowBuffer(dstAddr, dstConfig, srcAddr, sampleInfo, videoDecContext);
     int32_t unmapRet = OH_NativeBuffer_Unmap(nativeBuffer);
     if (!copied || unmapRet != 0) {
@@ -362,7 +362,7 @@ bool BufferRenderer::Render(CodecBufferInfo& bufferInfo, const SampleInfo& sampl
     CHECK_AND_RETURN_RET_LOG(ConfigureWindow(sampleInfo, videoDecContext, graphicPixelFormat), false,
         "Configure buffer render window failed");
 
-    OHNativeWindow *window = NativeXComponentSample::PluginManager::GetInstance()->pluginWindow_;
+    OHNativeWindow *window = NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
     CHECK_AND_RETURN_RET_LOG(window != nullptr, false, "XComponent window is null");
     OHNativeWindowBuffer *windowBuffer = nullptr;
     int fenceFd = -1;

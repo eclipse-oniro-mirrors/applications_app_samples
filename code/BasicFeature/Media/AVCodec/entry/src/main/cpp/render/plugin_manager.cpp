@@ -31,21 +31,10 @@ PluginManager PluginManager::pluginManager_;
 PluginManager::~PluginManager()
 {
     OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "Callback", "~PluginManager");
-    for (auto iter = nativeXComponentMap_.begin(); iter != nativeXComponentMap_.end(); ++iter) {
-        if (iter->second != nullptr) {
-            delete iter->second;
-            iter->second = nullptr;
-        }
-    }
+    std::lock_guard<std::mutex> lock(mutex_);
     nativeXComponentMap_.clear();
-
-    for (auto iter = pluginRenderMap_.begin(); iter != pluginRenderMap_.end(); ++iter) {
-        if (iter->second != nullptr) {
-            delete iter->second;
-            iter->second = nullptr;
-        }
-    }
     pluginRenderMap_.clear();
+    pluginWindow_ = nullptr;
 }
 
 napi_value PluginManager::GetContext(napi_env env, napi_callback_info info)
@@ -131,33 +120,55 @@ void PluginManager::Export(napi_env env, napi_value exports)
     }
 }
 
-void PluginManager::SetNativeXComponent(std::string& id, OH_NativeXComponent* nativeXComponent)
+void PluginManager::SetNativeXComponent(const std::string& id, OH_NativeXComponent* nativeXComponent)
 {
     if (nativeXComponent == nullptr) {
         return;
     }
 
-    if (nativeXComponentMap_.find(id) == nativeXComponentMap_.end()) {
-        nativeXComponentMap_[id] = nativeXComponent;
-        return;
-    }
-
-    if (nativeXComponentMap_[id] != nativeXComponent) {
-        OH_NativeXComponent* tmp = nativeXComponentMap_[id];
-        delete tmp;
-        tmp = nullptr;
-        nativeXComponentMap_[id] = nativeXComponent;
-    }
+    std::lock_guard<std::mutex> lock(mutex_);
+    // The XComponent is unwrapped from ArkUI and remains framework-owned.
+    nativeXComponentMap_[id] = nativeXComponent;
 }
 
-PluginRender* PluginManager::GetRender(std::string& id)
+std::shared_ptr<PluginRender> PluginManager::GetRender(const std::string& id)
 {
-    if (pluginRenderMap_.find(id) == pluginRenderMap_.end()) {
-        PluginRender* instance = PluginRender::GetInstance(id);
-        pluginRenderMap_[id] = instance;
-        return instance;
+    std::lock_guard<std::mutex> lock(mutex_);
+    auto iter = pluginRenderMap_.find(id);
+    if (iter == pluginRenderMap_.end()) {
+        auto render = std::make_shared<PluginRender>(id);
+        pluginRenderMap_.emplace(id, render);
+        return render;
     }
+    return iter->second;
+}
 
-    return pluginRenderMap_[id];
+void PluginManager::ReleaseRender(const std::string& id)
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    pluginRenderMap_.erase(id);
+    nativeXComponentMap_.erase(id);
+}
+
+void PluginManager::SetPluginWindow(OHNativeWindow *window)
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    pluginWindow_ = window;
+}
+
+OHNativeWindow *PluginManager::GetPluginWindow() const
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    return pluginWindow_;
+}
+
+void PluginManager::ClearPluginWindow(OHNativeWindow *window)
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    // A destroy callback may omit the window handle; the current handle is
+    // still invalid once the surface has been destroyed.
+    if (window == nullptr || pluginWindow_ == window) {
+        pluginWindow_ = nullptr;
+    }
 }
 } // namespace NativeXComponentSample

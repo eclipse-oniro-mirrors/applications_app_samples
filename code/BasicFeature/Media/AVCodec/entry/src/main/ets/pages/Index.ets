@@ -40,7 +40,9 @@ export struct Player {
   @State isShow: boolean = false;
   @State isShowFlv: boolean = false;
   @State isSmartFluencySupported: boolean = false;
+  @State isSmartFluencyAvailable: boolean = false;
   @State thermalWarningActive: boolean = false;
+  @State isStopping: boolean = false;
   private transformType: number = 0;
   private videoDecoderType: number = 0;
   private videoDecoderRunMode: number = 0;
@@ -160,6 +162,18 @@ export struct Player {
     player.setTransform(transformHint);
   }
 
+  stopPlayback(): void {
+    if (this.isStopping) {
+      return;
+    }
+    if (player.stop()) {
+      this.isStopping = true;
+      Logger.info(TAG, 'Player stop requested');
+    } else {
+      Logger.error(TAG, 'Player stop request rejected, state: ' + player.getState());
+    }
+  }
+
   play(): void {
     if (this.selectFilePath === null) {
       this.getUIContext().getPromptAction().showToast({
@@ -172,9 +186,14 @@ export struct Player {
 
     try {
       const inputFile = fileIo.openSync(this.selectFilePath, fileIo.OpenMode.READ_ONLY);
+      let inputFileClosed = false;
       const closeInputFile = (): void => {
+        if (inputFileClosed) {
+          return;
+        }
         try {
           fileIo.close(inputFile);
+          inputFileClosed = true;
         } catch (error) {
           Logger.error(TAG, 'Close player input file failed: ' + JSON.stringify(error));
         }
@@ -194,23 +213,33 @@ export struct Player {
 
         this.buttonEnabled = false;
         let failurePromptShown = false;
-        const started = player.playNative(inputFile.fd, Const.DEFAULT_VALUE, inputFileState.size,
-          this.videoDecoderType, this.videoDecoderRunMode, this.videoDecoderSyncMode,
-          this.isSmartFluencySupported, this.enableVideoDump, (success: boolean) => {
-            Logger.info(TAG, 'Player JS callback, success: ' + success);
-            this.buttonEnabled = true;
-            closeInputFile();
-            if (!success && !failurePromptShown) {
-              failurePromptShown = true;
-              this.getUIContext().getPromptAction().showToast({
-                message: $r('app.string.media_file_invalid'),
-                duration: Const.DURATION,
-                bottom: Const.BOTTOM
-              });
-            }
-          });
+        const started = player.play({
+          inputFileFd: inputFile.fd,
+          inputFileOffset: Const.DEFAULT_VALUE,
+          inputFileSize: inputFileState.size,
+          videoDecoderType: this.videoDecoderType,
+          videoDecoderRunMode: this.videoDecoderRunMode,
+          videoDecoderSyncMode: this.videoDecoderSyncMode,
+          isSmartFluencySupported: this.isSmartFluencySupported,
+          enableVideoDump: this.enableVideoDump
+        }, (result) => {
+          Logger.info(TAG, 'Player JS callback, success: ' + result.success + ', reason: ' + result.reason);
+          this.buttonEnabled = true;
+          this.isStopping = false;
+          this.isSmartFluencyAvailable = false;
+          closeInputFile();
+          if (!result.success && !failurePromptShown) {
+            failurePromptShown = true;
+            this.getUIContext().getPromptAction().showToast({
+              message: $r('app.string.media_file_invalid'),
+              duration: Const.DURATION,
+              bottom: Const.BOTTOM
+            });
+          }
+        });
         closeInCallback = true;
         if (!started) {
+          this.isSmartFluencyAvailable = false;
           failurePromptShown = true;
           Logger.error(TAG, 'Player initialization or startup failed');
           this.getUIContext().getPromptAction().showToast({
@@ -218,6 +247,9 @@ export struct Player {
             duration: Const.DURATION,
             bottom: Const.BOTTOM
           });
+        } else {
+          this.isSmartFluencyAvailable = player.isSmartFluencyAvailable();
+          Logger.info(TAG, 'Smart fluency available: ' + this.isSmartFluencyAvailable);
         }
       } finally {
         if (!closeInCallback) {
@@ -226,6 +258,8 @@ export struct Player {
       }
     } catch (error) {
       this.buttonEnabled = true;
+      this.isStopping = false;
+      this.isSmartFluencyAvailable = false;
       Logger.error(TAG, 'Open or inspect player input file failed: ' + JSON.stringify(error));
       this.getUIContext().getPromptAction().showToast({
         message: $r('app.string.media_file_open_failed'),
@@ -543,14 +577,15 @@ export struct Player {
           GestureGroup(GestureMode.Exclusive,
             LongPressGesture({ repeat: true })// 长按动作存在会连续触发
               .onAction((event: GestureEvent | undefined) => {
-                if (!this.buttonEnabled) {
+                if (!this.buttonEnabled && !this.isStopping) {
                   this.setPlaybackSpeed(2);
-                  let msg = this.isSmartFluencySupported ? $r('app.string.smart_fluency_adaptive_tip') : 'X2';
-                  this.getUIContext().getPromptAction().showToast({ message: msg });
+                  const message = this.isSmartFluencyAvailable ?
+                    $r('app.string.smart_fluency_x2') : 'X2';
+                  this.getUIContext().getPromptAction().showToast({ message: message });
                 }
               })// 长按动作一结束触发
               .onActionEnd(() => {
-                if (!this.buttonEnabled) {
+                if (!this.buttonEnabled && !this.isStopping) {
                   this.setPlaybackSpeed(1);
                   this.getUIContext().getPromptAction().showToast({ message: 'X1' });
                 }
@@ -591,6 +626,7 @@ export struct Player {
                 height: $r('app.float.index_button_height')
               })
               .margin({ bottom: $r('app.float.button_margin_bottom') })
+              .enabled(!this.isStopping)
               .onClick(() => {
                 this.getUIContext().showTextPickerDialog({
                   defaultPickerItemHeight: Const.DEFAULT_PICKER_ITEM_HEIGHT,
@@ -617,19 +653,24 @@ export struct Player {
 
 
           Blank(5)
-          Button(this.buttonEnabled ? $r('app.string.play') : $r('app.string.playing'))
+          Button(this.buttonEnabled ? $r('app.string.play') :
+            this.isStopping ? $r('app.string.stopping') : $r('app.string.stop_playback'))
             .onClick(() => {
-              this.selectFile()
+              if (this.buttonEnabled) {
+                this.selectFile()
+              } else {
+                this.stopPlayback()
+              }
             })
             .size({
               width: '60%',
               height: $r('app.float.index_button_height')
             })
-            .enabled(this.buttonEnabled)
+            .enabled(this.buttonEnabled || !this.isStopping)
             .margin({ bottom: $r('app.float.button_margin_bottom') })
           Blank(5)
           Button($r('app.string.adjust_playback_speed'))
-            .enabled(!this.buttonEnabled)
+            .enabled(!this.buttonEnabled && !this.isStopping)
             .size({
               width: '18.5%',
               height: $r('app.float.index_button_height')
@@ -658,14 +699,16 @@ export struct Player {
                     }
                     case Const.PLAYBACK_SPEED[1]: {
                       this.setPlaybackSpeed(2);
-                      let msg = this.isSmartFluencySupported ? $r('app.string.smart_fluency_adaptive_tip') : 'X2';
-                      this.getUIContext().getPromptAction().showToast({ message: msg });
+                      const message = this.isSmartFluencyAvailable ?
+                        $r('app.string.smart_fluency_x2') : 'X2';
+                      this.getUIContext().getPromptAction().showToast({ message: message });
                       break;
                     }
                     case Const.PLAYBACK_SPEED[2]: {
                       this.setPlaybackSpeed(3);
-                      let msg = this.isSmartFluencySupported ? $r('app.string.smart_fluency_adaptive_tip') : 'X3';
-                      this.getUIContext().getPromptAction().showToast({ message: msg });
+                      const message = this.isSmartFluencyAvailable ?
+                        $r('app.string.smart_fluency_x3') : 'X3';
+                      this.getUIContext().getPromptAction().showToast({ message: message });
                       break;
                     }
                     default:

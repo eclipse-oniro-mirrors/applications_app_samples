@@ -1,6 +1,14 @@
 {
   "string": [
     {
+      "name": "smart_fluency_x2",
+      "value": "X2（智能流畅）"
+    },
+    {
+      "name": "smart_fluency_x3",
+      "value": "X3（智能流畅）"
+    },
+    {
       "name": "module_desc",
       "value": "该模板实现了列表页的功能"
     },
@@ -27,6 +35,14 @@
     {
       "name": "play",
       "value": "播放"
+    },
+    {
+      "name": "stop_playback",
+      "value": "停止"
+    },
+    {
+      "name": "stopping",
+      "value": "停止中"
     },
     {
       "name": "alert",
