@@ -24,7 +24,7 @@ entry/src/main/cpp/
 |   |---libentry
 |   |   |---index.d.ts                      // 导出接口
 |---CMakeLists.txt                          // 编译C代码
-|---napi_init.cpp                           // 定义接口
+|---napi_init.cpp                           // 定义接口（具体实现）
 ```
 
 ## 约束与限制
