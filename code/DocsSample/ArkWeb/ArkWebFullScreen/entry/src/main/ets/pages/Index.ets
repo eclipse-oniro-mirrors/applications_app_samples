@@ -23,6 +23,7 @@ struct WebVideo {
   controller: web_webview.WebviewController = new web_webview.WebviewController();
   @State isFullScreen: boolean = false;
 
+  // [Start toggle screen orientation]
   private changeOrientation(isLandscape: boolean) {
     let context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
     window.getLastWindow(context).then((lastWindow) => {
@@ -31,7 +32,9 @@ struct WebVideo {
       console.error(`获取窗口失败: ${err.message}`);
     });
   }
+  // [End toggle screen orientation]
 
+  // [Start exit full screen]
   onBackPress(): boolean | void {
     if (this.isFullScreen) {
       this.isFullScreen = false;
@@ -42,11 +45,13 @@ struct WebVideo {
       return true;
     }
   }
+  // [End exit full screen]
 
   build() {
     Column() {
+      // [Start toggle fullscreen]
       Web({
-        src:$rawfile('video.html'),
+        src:$rawfile('video.html'), // 需要替换
         controller: this.controller
       })
         .domStorageAccess(true)
@@ -59,6 +64,7 @@ struct WebVideo {
           this.isFullScreen = false;
           this.changeOrientation(false);
         })
+        // [End toggle fullscreen]
     }
     .height('100%')
     .width('100%')
