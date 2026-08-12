@@ -15,7 +15,7 @@
  */
 
 // [Start set_up_page_level_ad_filtering_switch]
-import { Array, Button, ButtonType, Color, Column, Component, Entry, Flex, Row, State, Text, TextInput, TextInputController, Web } from '@kit.ArkUI';
+import { Button, ButtonType, Color, Column, Component, Entry, Flex, Row, State, Text, TextInput, TextInputController, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 
 @Entry	

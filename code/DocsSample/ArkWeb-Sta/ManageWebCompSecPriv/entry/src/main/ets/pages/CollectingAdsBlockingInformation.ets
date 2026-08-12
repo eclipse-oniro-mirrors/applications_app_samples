@@ -15,8 +15,9 @@
  */
 
 // [Start collect_information_about_ad_filtering]
-import { Array, Column, Component, Entry, State, Web } from '@kit.ArkUI';
-import { webview, AdsBlockedDetails } from '@kit.ArkWeb';
+import { Column, Component, Entry, State, Web } from '@kit.ArkUI';
+import { AdsBlockedDetails } from '@kit.ArkWeb';
+import { webview } from '@kit.ArkWeb';
 
 @Entry	
 @Component	
@@ -31,7 +32,7 @@ struct WebComponent {
         .onAdsBlocked((details: AdsBlockedDetails) => {	
           if (details) {	
             console.info(' Blocked ' + details.adsBlocked.length + ' in ' + details.url);	
-            let adList: Array<string> = Array.from(new Set(details.adsBlocked));	
+            let adList: Array<string> = Array.from(new Set<string>(details.adsBlocked));	
             this.totalAdsBlockCounts += adList.length;	
             console.info('Total blocked counts :' + this.totalAdsBlockCounts);	
           }	

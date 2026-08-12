@@ -15,7 +15,7 @@
  */
 
 // [Start turn_off_ad_filtering_for_specific_domain_pages]
-import { Array, Button, ButtonType, Color, Column, Component, Entry, Flex, Row, State, Text, TextInput, TextInputController, Web } from '@kit.ArkUI';
+import { Button, ButtonType, Color, Column, Component, Entry, Flex, Row, State, Text, TextInput, TextInputController, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 
 @Entry	

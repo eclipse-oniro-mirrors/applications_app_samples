@@ -15,9 +15,11 @@
  */
 
 // [Start app_select_list_rule_file_for_ad_filter]
-import { Button, ButtonType, Column, Component, ESObject, Entry, Flex, Row, State, Text, Web } from '@kit.ArkUI';
+import { Button, Column, State, Component, Flex, Row, Entry, Web } from '@kit.ArkUI';
+import { Stack, ThreatType, WebRotateEffect, WebResourceResponse, CopyOptions } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
-import { picker, fileUri } from '@kit.CoreFileKit';
+import picker from '@ohos.file.picker';
+import fileUri from '@ohos.file.fileUri';
 
 @Entry	
 @Component	
@@ -31,24 +33,22 @@ struct WebComponent {
     Column() {	
       Row() {	
         Flex() {	
-          Button({type: ButtonType.Capsule}) {	
-            Text('setAdsBlockRules')
-          }	
-          .onClick(() => {	
-            try {	
-              let documentSelectionOptions: ESObject = new picker.DocumentSelectOptions();	
-              let documentPicker: ESObject = new picker.DocumentViewPicker();	
-              documentPicker.select(documentSelectionOptions).then((documentSelectResult: ESObject) => {	
-                if (documentSelectResult && documentSelectResult.length > 0) {	
-                  let fileRealPath = new fileUri.FileUri(documentSelectResult[0]);	
-                  console.info('DocumentViewPicker.select successfully, uri: ' + fileRealPath);	
-                  webview.AdsBlockManager.setAdsBlockRules(fileRealPath.path, true);	
-                }	
-              })	
-            } catch (err) {	
-              console.error('DocumentViewPicker.select failed with err:' + err);	
-            }	
-          })	
+          Button('setAdsBlockRules')
+            .onClick(() => {	
+              try {	
+                let documentSelectionOptions: ESObject = new picker.DocumentSelectOptions();	
+                let documentPicker: ESObject = new picker.DocumentViewPicker();	
+                documentPicker.select(documentSelectionOptions).then((documentSelectResult: ESObject) => {	
+                  if (documentSelectResult && documentSelectResult.length > 0) {	
+                    let fileRealPath = new fileUri.FileUri(documentSelectResult[0]);	
+                    console.info('DocumentViewPicker.select successfully, uri: ' + fileRealPath);	
+                    webview.AdsBlockManager.setAdsBlockRules(fileRealPath.path, true);	
+                  }	
+                })	
+              } catch (err) {	
+                console.error('DocumentViewPicker.select failed with err:' + err);	
+              }	
+            })	
         }	
       }	
       Web({ src: this.main_url, controller: this.controller })	
