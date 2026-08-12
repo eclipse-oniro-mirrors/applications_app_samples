@@ -24,6 +24,7 @@
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:main_pages",
+    // [Start permission configuration]
     "requestPermissions": [
       {
         "name": "ohos.permission.INTERNET",
@@ -36,6 +37,7 @@
         }
       }
     ],
+    // [End permission configuration]
     "abilities": [
       {
         "name": "EntryAbility",
