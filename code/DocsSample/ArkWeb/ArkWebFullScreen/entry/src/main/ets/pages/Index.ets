@@ -13,14 +13,14 @@
  * limitations under the License.
  */
 // [Start switch between portrait and landscape]
-import web_webview from '@ohos.web.webview';
+import { webview } from '@kit.ArkWeb';
 import { window, router } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component
 struct WebVideo {
-  controller: web_webview.WebviewController = new web_webview.WebviewController();
+  controller: webview.WebviewController = new webview.WebviewController();
   @State isFullScreen: boolean = false;
 
   // [Start toggle screen orientation]
