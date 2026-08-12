@@ -1,3 +1,4 @@
+# [Start dlp_C_makeLists]
 # the minimum version of CMake.
 cmake_minimum_required(VERSION 3.5.0)
 project(DlpApiTest)
@@ -13,3 +14,4 @@ include_directories(${NATIVERENDER_ROOT_PATH}
 
 add_library(entry SHARED napi_init.cpp)
 target_link_libraries(entry PUBLIC libace_napi.z.so libohdlp_permission.so)
+# [End dlp_C_makeLists]
