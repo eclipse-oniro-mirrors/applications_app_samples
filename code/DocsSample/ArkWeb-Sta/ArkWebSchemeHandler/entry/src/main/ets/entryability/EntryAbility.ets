@@ -50,8 +50,6 @@ export default class EntryAbility extends UIAbility {
       hilog.info(0x0000, 'testTag', 'loadContent catch error：-----------' + e.message);
     }
   }
-}
-
 // [EndExclude register_init_scheme]
 };
 // [End register_init_scheme]
