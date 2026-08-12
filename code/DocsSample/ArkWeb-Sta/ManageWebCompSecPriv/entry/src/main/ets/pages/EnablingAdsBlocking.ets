@@ -19,7 +19,7 @@ import { Button, Column, State, Component, Flex, Row, Entry, Web } from '@kit.Ar
 import { Stack, ThreatType, WebRotateEffect, WebResourceResponse, CopyOptions } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import picker from '@ohos.file.picker';
-import fileUri from '@ohos.file.fileUri';
+import fileUri from '@ohos.file.fileuri';
 
 @Entry
 @Component
@@ -42,7 +42,7 @@ struct WebComponent {
                   if (documentSelectResult && documentSelectResult.length > 0) {
                     let fileRealPath = new fileUri.FileUri(documentSelectResult[0]);
                     console.info('DocumentViewPicker.select successfully, uri: ' + fileRealPath);
-                    webview.AdsBlockManager.setAdsBlockRules(fileRealPath.path, true);
+                    webview.AdsBlockManager.setAdsBlockRules(fileRealPath.path!, true);
                   }
                 })
               } catch (err) {

@@ -25,12 +25,12 @@ struct Index {
   @State message: string = 'Hello World';
   webviewController: webview.WebviewController = new webview.WebviewController(undefined);
   // 构造域名和本地文件的映射表
-  schemeMap: <string, string> = new Map<string, string>([
+  schemeMap: Map<string, string> = new Map<string, string>([
     ['https://www.example.com/index.html', 'index.html'],
     ['https://www.example.com/js/script.js', 'js/script.js'],
   ]);
   // 构造本地文件和构造返回的格式mimeType
-  mimeTypeMap: <string, string> = new Map<string, string>([
+  mimeTypeMap: Map<string, string> = new Map<string, string>([
     ['index.html', 'text/html'],
     ['js/script.js', 'text/javascript']
   ]);
