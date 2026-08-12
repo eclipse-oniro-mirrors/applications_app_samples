@@ -13,40 +13,18 @@
  * limitations under the License.
  */
 
-import { commonEventManager } from '@kit.BasicServicesKit';
-import { BusinessError } from '@kit.BasicServicesKit';
-import Logger from '../common/Logger';
-
-const TAG = 'UsbKeyAuth';
+import {
+  bindUsbKey,
+  unbindUsbKey,
+  queryCredentials,
+  setUnlockPolicy,
+  getUnlockPolicy
+} from '../service/UsbKeyAuthService';
 
 @Entry
 @Component
 struct MainPage {
   @State resultText: string = '';
-  private subscribeInfo: commonEventManager.CommonEventSubscribeInfo = {
-    events: ['EVENT_RESULT'],
-  };
-
-  aboutToAppear() {
-    commonEventManager.createSubscriber(this.subscribeInfo, (error, data) => {
-      if (error) {
-        Logger.error(`createSubscriber failed: ${JSON.stringify(error)}`);
-        return;
-      }
-      this.resultText = data.data ?? '';
-    });
-  }
-
-  private publishEvent(event: string) {
-    commonEventManager.publish(event, {
-      code: 0,
-      data: ''
-    }, (err: BusinessError) => {
-      if (err) {
-        Logger.error(`Publish event ${event} failed: ${JSON.stringify(err)}`);
-      }
-    });
-  }
 
   build() {
     Column() {
@@ -58,36 +36,36 @@ struct MainPage {
       Button('绑定 USB Key')
         .width('80%')
         .margin({ bottom: 10 })
-        .onClick(() => {
-          this.publishEvent('EVENT_BIND');
+        .onClick(async () => {
+          this.resultText = await bindUsbKey();
         })
 
       Button('解绑 USB Key')
         .width('80%')
         .margin({ bottom: 10 })
-        .onClick(() => {
-          this.publishEvent('EVENT_UNBIND');
+        .onClick(async () => {
+          this.resultText = await unbindUsbKey();
         })
 
       Button('查询已绑定凭据')
         .width('80%')
         .margin({ bottom: 10 })
-        .onClick(() => {
-          this.publishEvent('EVENT_QUERY');
+        .onClick(async () => {
+          this.resultText = await queryCredentials();
         })
 
       Button('设置解锁策略')
         .width('80%')
         .margin({ bottom: 10 })
         .onClick(() => {
-          this.publishEvent('EVENT_SET_POLICY');
+          this.resultText = setUnlockPolicy();
         })
 
       Button('查询解锁策略')
         .width('80%')
         .margin({ bottom: 10 })
         .onClick(() => {
-          this.publishEvent('EVENT_GET_POLICY');
+          this.resultText = getUnlockPolicy();
         })
 
       Text(`结果：${this.resultText}`)

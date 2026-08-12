@@ -22,9 +22,12 @@
 ```
 entry/src/main/ets/
 |---common
-|   |---Logger.ts                         // 日志工具
+|   |---Constants.ets                      // 常量定义
+|   |---Logger.ets                         // 日志工具
+|---service
+|   |---UsbKeyAuthService.ets              // USB Key认证业务逻辑
 |---enterpriseadminability
-|   |---EnterpriseAdminAbility.ets         // USB Key认证核心逻辑
+|   |---EnterpriseAdminAbility.ets         // 企业设备管理扩展能力生命周期回调
 |---entryability
 |   |---EntryAbility.ets                   // 程序入口
 |---pages
