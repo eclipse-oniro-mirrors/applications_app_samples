@@ -34,7 +34,7 @@ entry/src/main/cpp/
 
 * 设置、获取和清理沙箱应用配置信息、查询当前运行DLP沙箱环境、查询当前DLP沙箱的权限信息和获取指定DLP文件名的原始文件名封装在[napi_init.cpp](https://gitcode.com/openharmony/applications_app_samples/blob/master/code/SystemFeature/Security/DlpCApiTest/entry/src/main/cpp/napi_init.cpp)
   * 在该文件的实现中对入参预先进行了设置，若需要测试其他入参，需要修改该文件中函数的入参。
-  * 在设置、获取和清理沙箱应用配置信息时，配置信息为“configinfo”。
+  * 在设置、获取和清理沙箱应用配置信息时，配置信息为“configInfo”。
   * 在查询当前运行DLP沙箱环境时，由于该应用一直处于非沙箱环境，该接口只会返回false。
   * 查询当前DLP沙箱的权限信息为19100006。
   * 默认的DLP的文件名为“test.txt.dlp”，即原始文件名为“test.txt”。
