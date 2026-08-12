@@ -14,36 +14,136 @@
  */
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import testNapi from 'libentry.so';
 
-export default function abilityTest() {
-  describe('ActsAbilityTest', () => {
+const TAG = '[Sample_MyApp]'
+const DOMAIN = 0xF888
+const BUNDLE = 'dlp_'
+
+export default function localUnitTest() {
+  describe('localUnitTest', () => {
     // Defines a test suite. Two parameters are supported: test suite name and test suite function.
     beforeAll(() => {
       // Presets an action, which is performed only once before all test cases of the test suite start.
       // This API supports only one parameter: preset action function.
-    })
+    });
     beforeEach(() => {
       // Presets an action, which is performed before each unit test case starts.
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: preset action function.
-    })
+    });
     afterEach(() => {
       // Presets a clear action, which is performed after each unit test case ends.
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: clear action function.
-    })
+    });
     afterAll(() => {
       // Presets a clear action, which is performed after all test cases of the test suite end.
       // This API supports only one parameter: clear action function.
-    })
-    it('assertContain', 0, () => {
-      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
-      let a = 'abc';
-      let b = 'b';
-      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
-      expect(a).assertContain(b);
-      expect(a).assertEqual(a);
-    })
-  })
+    });
+    /**
+     * 查询当前DLP沙箱的权限信息
+     */
+    it('GetDlpPermissionInfo_001', 0, () => {
+      hilog.info(DOMAIN, TAG, BUNDLE + "GetDlpPermissionInfo_001, begin");
+
+
+      const result = testNapi.GetDlpPermissionInfo();
+      let message: string = result.toString();
+
+      hilog.info(DOMAIN, TAG, BUNDLE + "GetDlpPermissionInfo_001, message" + message);
+      expect(message).assertContain("19100006");
+      hilog.info(DOMAIN, TAG, BUNDLE + "GetDlpPermissionInfo_001, begin");
+    });
+
+    /**
+     * 获取指定DLP文件名的原始文件名
+     */
+    it('GGetOriginalFileName_001', 0, () => {
+      hilog.info(DOMAIN, TAG, BUNDLE + "GGetOriginalFileName_001, begin");
+
+
+      const result = testNapi.GetOriginalFileName();
+      let message: string = result.toString();
+
+      hilog.info(DOMAIN, TAG, BUNDLE + "GGetOriginalFileName_001, message" + message);
+      expect(message).assertContain("test.txt");
+      hilog.info(DOMAIN, TAG, BUNDLE + "GGetOriginalFileName_001, begin");
+    });
+
+    /**
+     * 获取指定DLP文件名的原始文件名
+     */
+    it('GetOriginalFileName_001', 0, () => {
+      hilog.info(DOMAIN, TAG, BUNDLE + "GetOriginalFileName_001, begin");
+
+
+      const result = testNapi.GetOriginalFileName();
+      let message: string = result.toString();
+
+      hilog.info(DOMAIN, TAG, BUNDLE + "GetOriginalFileName_001, message" + message);
+      expect(message).assertContain("test.txt");
+      hilog.info(DOMAIN, TAG, BUNDLE + "GetOriginalFileName_001, begin");
+    });
+
+    /**
+     * 查询当前运行DLP沙箱环境
+     */
+    it('IsInSandbox_001', 0, () => {
+      hilog.info(DOMAIN, TAG, BUNDLE + "IsInSandbox_001, begin");
+
+
+      const result = testNapi.IsInSandbox();
+      let message: string = result.toString();
+
+      hilog.info(DOMAIN, TAG, BUNDLE + "IsInSandbox_001, message" + message);
+      expect(message).assertContain("false");
+      hilog.info(DOMAIN, TAG, BUNDLE + "IsInSandbox_001, begin");
+    });
+
+    /**
+     * 设置沙箱应用配置信息
+     */
+    it('SetSandboxAppConfig_001', 0, () => {
+      hilog.info(DOMAIN, TAG, BUNDLE + "SetSandboxAppConfig_001, begin");
+
+
+      const result = testNapi.SetSandboxAppConfig();
+      let message: string = result.toString();
+
+      hilog.info(DOMAIN, TAG, BUNDLE + "SetSandboxAppConfig_001, message" + message);
+      expect(message).assertContain("0");
+      hilog.info(DOMAIN, TAG, BUNDLE + "SetSandboxAppConfig_001, begin");
+    });
+
+    /**
+     * 获取沙箱应用配置信息
+     */
+    it('GetSandboxAppConfig_001', 0, () => {
+      hilog.info(DOMAIN, TAG, BUNDLE + "GetSandboxAppConfig_001, begin");
+
+
+      const result = testNapi.GetSandboxAppConfig();
+      let message: string = result.toString();
+
+      hilog.info(DOMAIN, TAG, BUNDLE + "GetSandboxAppConfig_001, message" + message);
+      expect(message).assertContain("configInfo");
+      hilog.info(DOMAIN, TAG, BUNDLE + "GetSandboxAppConfig_001, begin");
+    });
+
+    /**
+     * 清理沙箱应用配置信息
+     */
+    it('CleanSandboxAppConfig_001', 0, () => {
+      hilog.info(DOMAIN, TAG, BUNDLE + "CleanSandboxAppConfig_001, begin");
+
+
+      const result = testNapi.CleanSandboxAppConfig();
+      let message: string = result.toString();
+
+      hilog.info(DOMAIN, TAG, BUNDLE + "CleanSandboxAppConfig_001, message" + message);
+      expect(message).assertContain("0");
+      hilog.info(DOMAIN, TAG, BUNDLE + "CleanSandboxAppConfig_001, begin");
+    });
+  });
 }
