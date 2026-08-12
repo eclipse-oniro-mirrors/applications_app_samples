@@ -36,7 +36,6 @@ export default class EntryAbility extends UIAbility {
 
 // [StartExclude register_init_scheme]
   onWindowStageCreate(windowStage: window.WindowStage): void {
-  onWindowStageCreate(windowStage: window.WindowStage): void {
     hilog.info(0x0000, 'testTag', 'EntryAbility onWindowStageCreate');
     try {
       windowStage.loadContent('pages/Index', (err: BusinessError<void> | null): void => {
