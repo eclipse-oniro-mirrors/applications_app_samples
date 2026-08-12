@@ -6,16 +6,15 @@
 
 ## 效果预览
 
-1. 在主界面中有“clear”消除按钮，该按钮可以清除主界面的显示字符串，比如“点击按钮开始测试”。
-2. 在主界面的下部分，有多个功能按钮，每个按钮对应着不同的CAPI接口。
-
 | Index                                     | 
 |-----------------------------------------|
 | ![Index](screenshots/index_pages.jpg) | 
 
 使用方法:
 1. 启动后点击”c api test“按钮。
-2. [具体接口说明可以参考](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/DataProtectionKit)。
+2. 在主界面中有“clear”消除按钮，该按钮可以清除主界面的显示字符串，比如“点击按钮开始测试”。
+3. 在主界面的下部分，有多个功能按钮，每个按钮对应着不同的CAPI接口。
+4. [具体接口说明可以参考](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/DataProtectionKit)。
 
 ## 工程目录
 ```
