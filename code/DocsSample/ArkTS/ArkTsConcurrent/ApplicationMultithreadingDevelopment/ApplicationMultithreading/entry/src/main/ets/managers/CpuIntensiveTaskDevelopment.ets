@@ -28,7 +28,8 @@ let done = false;
 workerInstance.onmessage = (() => {
   console.info('MyWorker.ts onmessage');
   if (!done) {
-    workerInstance.postMessage({ 'type': 1, 'value': 0 });
+    // 执行预测，传入预测条件
+    workerInstance.postMessage({ 'type': 1, 'area': 80, 'room': 4 });
     done = true;
   }
 })
