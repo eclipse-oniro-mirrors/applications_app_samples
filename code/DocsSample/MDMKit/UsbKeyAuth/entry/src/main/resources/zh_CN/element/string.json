@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "USB Key身份认证示例"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "USB Key认证入口"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "USB Key认证"
+    }
+  ]
+}

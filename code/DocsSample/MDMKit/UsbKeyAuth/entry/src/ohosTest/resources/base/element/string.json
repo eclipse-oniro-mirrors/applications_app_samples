@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "USB Key Auth Test"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "USB Key Auth Test Ability"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "UsbKeyAuthTest"
+    }
+  ]
+}

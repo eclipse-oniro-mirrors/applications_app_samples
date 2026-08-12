@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "USB Key Authentication Sample"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "USB Key Auth Entry"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "UsbKeyAuth"
+    }
+  ]
+}
