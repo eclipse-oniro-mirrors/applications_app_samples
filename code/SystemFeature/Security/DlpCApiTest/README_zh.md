@@ -14,8 +14,8 @@
 | ![Index](screenshots/index_pages.jpg) | 
 
 使用方法:
-1. 启动后点击”c api test“按钮
-2. [具体接口说明可以参考](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/DataProtectionKit)
+1. 启动后点击”c api test“按钮。
+2. [具体接口说明可以参考](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/DataProtectionKit)。
 
 ## 工程目录
 ```
