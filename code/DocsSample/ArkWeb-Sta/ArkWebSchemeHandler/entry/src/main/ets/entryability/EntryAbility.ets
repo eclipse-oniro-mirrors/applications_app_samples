@@ -36,12 +36,22 @@ export default class EntryAbility extends UIAbility {
 
 // [StartExclude register_init_scheme]
   onWindowStageCreate(windowStage: window.WindowStage): void {
-    windowStage.loadContent('pages/Index', (err, data) => {
-      if (err.code) {
-        return;
-      }
-    });
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    hilog.info(0x0000, 'testTag', 'EntryAbility onWindowStageCreate');
+    try {
+      windowStage.loadContent('pages/Index', (err: BusinessError<void> | null): void => {
+        hilog.info(0x0000, 'testTag', 'loadContent entering');
+        if (err && err.code) {
+          hilog.info(0x0000, 'testTag', 'loadContent error');
+          return;
+        }
+        hilog.info(0x0000, 'testTag', 'loadContent ok');
+      });
+    } catch (e) {
+      hilog.info(0x0000, 'testTag', 'loadContent catch error：-----------' + e.message);
+    }
   }
+}
 
 // [EndExclude register_init_scheme]
 };

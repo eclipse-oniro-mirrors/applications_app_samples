@@ -21,3 +21,5 @@ declare namespace testNapi {
   function setSchemeHandler(): void;
   function initResourceManager(resmgr: resourceManager.ResourceManager): void;
 }
+
+export default testNapi;
