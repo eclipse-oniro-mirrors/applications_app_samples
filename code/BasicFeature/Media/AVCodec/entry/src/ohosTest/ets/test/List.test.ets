@@ -17,10 +17,18 @@ import cameraDataModelTest from './CameraDataModel.test';
 import commonConstantsTest from './CommonConstants.test';
 import dateTimeUtilsTest from './DateTimeUtils.test';
 import mediaUtilsTest from './MediaUtils.test';
+import playerSettingsModelTest from './PlayerSettingsModel.test';
+import recorderSettingsModelTest from './RecorderSettingsModel.test';
+import playbackInfoModelTest from './PlaybackInfoModel.test';
+import mediaInfoModelTest from './MediaInfoModel.test';
 
 export default function testsuite() {
   cameraDataModelTest();
   commonConstantsTest();
   dateTimeUtilsTest();
   mediaUtilsTest();
+  playerSettingsModelTest();
+  recorderSettingsModelTest();
+  playbackInfoModelTest();
+  mediaInfoModelTest();
 }

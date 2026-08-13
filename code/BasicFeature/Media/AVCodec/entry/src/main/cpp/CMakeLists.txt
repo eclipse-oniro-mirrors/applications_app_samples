@@ -27,6 +27,7 @@ add_library(player SHARED sample/player/PlayerNative.cpp
                           sample/player/Player.cpp
                           sample/player/AudioOutputPump.cpp
                           sample/player/BufferRenderer.cpp
+                          sample/player/HdrMetadataHelper.cpp
                           capbilities/demuxer.cpp
                           capbilities/video_decoder.cpp
                           capbilities/audio_decoder.cpp

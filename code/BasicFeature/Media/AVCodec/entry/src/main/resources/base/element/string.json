@@ -195,6 +195,18 @@
     {
       "name": "media_file_select_failed",
       "value": "Failed to select the media file. Please try again."
+    },
+    {
+      "name": "media_info",
+      "value": "Info"
+    },
+    {
+      "name": "media_info_title",
+      "value": "Media information"
+    },
+    {
+      "name": "media_info_subtitle",
+      "value": "Demuxed source, track, and decoder details"
     }
   ]
 }

@@ -25,9 +25,15 @@ import Logger from '../common/utils/Logger'
 import DateTimeUtil from '../common/utils/DateTimeUtils'
 import { CommonConstants as Const } from '../common/CommonConstants'
 import { CameraDataModel } from '../model/CameraDateModel'
+import { PlayerSettingsModel } from '../model/PlayerSettingsModel'
+import { RecorderSettingsModel } from '../model/RecorderSettingsModel'
+import { formatPlaybackInfo } from '../model/PlaybackInfoModel'
+import { buildMediaInfoSections, MediaInfoRow, MediaInfoSection } from '../model/MediaInfoModel'
 import { encoderProfileCameraCheck, setFirstCameraProfile } from '../common/utils/CameraCheck'
 import { requestRecordPermissions } from '../common/utils/PermissionUtil'
-import { getPickerSelectedIndex, isMediaFileEmpty, isPickerIndexValid } from '../common/utils/MediaUtils'
+import {
+  getPickerSelectedIndex, getPickerSelectedValues, isMediaFileEmpty, isPickerIndexValid
+} from '../common/utils/MediaUtils'
 import picker from '@ohos.file.picker'
 
 const TAG: string = 'Sample_Player';
@@ -43,13 +49,16 @@ export struct Player {
   @State isSmartFluencyAvailable: boolean = false;
   @State thermalWarningActive: boolean = false;
   @State isStopping: boolean = false;
+  @State playbackInfoText: string = '';
+  @State isHdrVividConfirmed: boolean = false;
+  @State isMediaInfoVisible: boolean = false;
+  @State mediaInfoSections: MediaInfoSection[] = [];
   private transformType: number = 0;
-  private videoDecoderType: number = 0;
-  private videoDecoderRunMode: number = 0;
-  private videoDecoderSyncMode: number = 0;
-  private enableVideoDump: boolean = false;
+  private playerSettings: PlayerSettingsModel = new PlayerSettingsModel();
+  private recorderSettings: RecorderSettingsModel = new RecorderSettingsModel();
   private cameraData: CameraDataModel = new CameraDataModel();
   private selectFilePath: string | null = null;
+  private playbackInfoTimer: number = 0;
   private display = display.getDefaultDisplaySync();
   private sourcePath: string[] =
     [globalThis.context.resourceManager.getStringSync($r('app.string.select_from_filemanager').id),
@@ -108,6 +117,42 @@ export struct Player {
     });
   }
 
+  aboutToDisappear(): void {
+    this.stopPlaybackInfoUpdates();
+    this.isHdrVividConfirmed = false;
+  }
+
+  startPlaybackInfoUpdates(): void {
+    this.stopPlaybackInfoUpdates();
+    this.updatePlaybackInfo();
+    this.playbackInfoTimer = setInterval(() => {
+      this.updatePlaybackInfo();
+    }, 1000);
+  }
+
+  stopPlaybackInfoUpdates(): void {
+    if (this.playbackInfoTimer !== 0) {
+      clearInterval(this.playbackInfoTimer);
+      this.playbackInfoTimer = 0;
+    }
+  }
+
+  updatePlaybackInfo(): void {
+    const info = player.getPlaybackInfo();
+    this.isHdrVividConfirmed = info.isHdrVividConfirmed;
+    this.playbackInfoText = formatPlaybackInfo(info.state, info.speed, info.durationUs, info.positionUs,
+      info.hasVideo, info.hasAudio, info.isSmartFluencyAvailable);
+  }
+
+  updateMediaInfo(): void {
+    this.mediaInfoSections = buildMediaInfoSections(player.getMediaInfo());
+  }
+
+  showMediaInfo(): void {
+    this.updateMediaInfo();
+    this.isMediaInfoVisible = this.mediaInfoSections.length > 0;
+  }
+
   async selectDocFile(): Promise<void> {
     try {
       const documentSelectOptions = new picker.DocumentSelectOptions();
@@ -156,6 +201,7 @@ export struct Player {
 
   setPlaybackSpeed(speed: number) {
     player.setPlaybackSpeed(speed);
+    this.updatePlaybackInfo();
   }
 
   setTransform(transformHint: number) {
@@ -212,21 +258,23 @@ export struct Player {
         }
 
         this.buttonEnabled = false;
+        this.isHdrVividConfirmed = false;
         let failurePromptShown = false;
-        const started = player.play({
+        const started = player.play(this.playerSettings.createPlayOptions({
           inputFileFd: inputFile.fd,
           inputFileOffset: Const.DEFAULT_VALUE,
           inputFileSize: inputFileState.size,
-          videoDecoderType: this.videoDecoderType,
-          videoDecoderRunMode: this.videoDecoderRunMode,
-          videoDecoderSyncMode: this.videoDecoderSyncMode,
-          isSmartFluencySupported: this.isSmartFluencySupported,
-          enableVideoDump: this.enableVideoDump
-        }, (result) => {
+          isSmartFluencySupported: this.isSmartFluencySupported
+        }), (result) => {
           Logger.info(TAG, 'Player JS callback, success: ' + result.success + ', reason: ' + result.reason);
           this.buttonEnabled = true;
           this.isStopping = false;
           this.isSmartFluencyAvailable = false;
+          this.isHdrVividConfirmed = false;
+          this.stopPlaybackInfoUpdates();
+          this.playbackInfoText = '';
+          this.isMediaInfoVisible = false;
+          this.mediaInfoSections = [];
           closeInputFile();
           if (!result.success && !failurePromptShown) {
             failurePromptShown = true;
@@ -240,6 +288,7 @@ export struct Player {
         closeInCallback = true;
         if (!started) {
           this.isSmartFluencyAvailable = false;
+          this.isHdrVividConfirmed = false;
           failurePromptShown = true;
           Logger.error(TAG, 'Player initialization or startup failed');
           this.getUIContext().getPromptAction().showToast({
@@ -249,6 +298,8 @@ export struct Player {
           });
         } else {
           this.isSmartFluencyAvailable = player.isSmartFluencyAvailable();
+          this.updateMediaInfo();
+          this.startPlaybackInfoUpdates();
           Logger.info(TAG, 'Smart fluency available: ' + this.isSmartFluencyAvailable);
         }
       } finally {
@@ -260,6 +311,7 @@ export struct Player {
       this.buttonEnabled = true;
       this.isStopping = false;
       this.isSmartFluencyAvailable = false;
+      this.isHdrVividConfirmed = false;
       Logger.error(TAG, 'Open or inspect player input file failed: ' + JSON.stringify(error));
       this.getUIContext().getPromptAction().showToast({
         message: $r('app.string.media_file_open_failed'),
@@ -352,51 +404,11 @@ export struct Player {
           backgroundColor: Color.White,
           backgroundBlurStyle: BlurStyle.BACKGROUND_ULTRA_THICK,
           onAccept: (value: TextPickerResult) => {
-            switch (value.value[0]) {
-              case Const.VIDEO_DECODE_TYPE[0]: {
-                this.videoDecoderType = 0;
-                break;
-              }
-              case Const.VIDEO_DECODE_TYPE[1]: {
-                this.videoDecoderType = 1;
-                break;
-              }
-              case Const.VIDEO_DECODE_TYPE[2]: {
-                this.videoDecoderType = 2;
-                break;
-              }
-              default:
-                break;
+            const values = getPickerSelectedValues(value.value);
+            if (!this.playerSettings.applyPickerValues(values)) {
+              Logger.error(TAG, 'Invalid player settings: ' + JSON.stringify(values));
+              return;
             }
-
-            switch (value.value[1]) {
-              case Const.VIDEO_DECODER_RUN_MODE[0]: {
-                this.videoDecoderRunMode = 0;
-                break;
-              }
-              case Const.VIDEO_DECODER_RUN_MODE[1]: {
-                this.videoDecoderRunMode = 1;
-                break;
-              }
-              default:
-                break;
-            }
-
-            switch (value.value[2]) {
-              case Const.VIDEO_DECODER_SYNC_MODE[0]: {
-                this.videoDecoderSyncMode = 0;
-                break;
-              }
-              case Const.VIDEO_DECODER_SYNC_MODE[1]: {
-                this.videoDecoderSyncMode = 1;
-                break;
-              }
-              default:
-                break;
-            }
-
-            this.enableVideoDump = value.value[3] === Const.VIDEO_DUMP_MODE[1];
-
             this.getUIContext().getPromptAction().showToast({
               message: $r('app.string.success'),
               duration: Const.DURATION,
@@ -437,65 +449,10 @@ export struct Player {
           backgroundColor: Color.White,
           backgroundBlurStyle: BlurStyle.BACKGROUND_ULTRA_THICK,
           onAccept: (value: TextPickerResult) => {
-            switch (value.value[0]) {
-              case Const.VIDEO_MIMETYPE[0]: {
-                this.cameraData.setCodecFormat(Const.TRUE, Const.MIME_VIDEO_HEVC);
-                break;
-              }
-              case Const.VIDEO_MIMETYPE[1]: {
-                this.cameraData.setCodecFormat(Const.FALSE, Const.MIME_VIDEO_AVC);
-                break;
-              }
-              case Const.VIDEO_MIMETYPE[2]: {
-                this.cameraData.setCodecFormat(Const.FALSE, Const.MIME_VIDEO_HEVC);
-                break;
-              }
-              default:
-                break;
-            }
-
-            switch (value.value[1]) {
-              case Const.VIDEO_RESOLUTION[0]: {
-                this.cameraData.setResolution(Const.VIDEO_WIDTH_4K, Const.VIDEO_HEIGHT_4K, Const.BITRATE_VIDEO_30M);
-                break;
-              }
-              case Const.VIDEO_RESOLUTION[1]: {
-                this.cameraData.setResolution(Const.VIDEO_WIDTH_1080P, Const.VIDEO_HEIGHT_1080P,
-                  Const.BITRATE_VIDEO_20M);
-                break;
-              }
-              case Const.VIDEO_RESOLUTION[2]: {
-                this.cameraData.setResolution(Const.VIDEO_WIDTH_720P, Const.VIDEO_HEIGHT_720P, Const.BITRATE_VIDEO_10M);
-                break;
-              }
-              default:
-                break;
-            }
-
-            switch (value.value[2]) {
-              case Const.VIDEO_FRAMERATE[0]: {
-                this.cameraData.frameRate = Const.FRAMERATE_VIDEO_30FPS;
-                break;
-              }
-              case Const.VIDEO_FRAMERATE[1]: {
-                this.cameraData.frameRate = Const.FRAMERATE_VIDEO_60FPS;
-                break;
-              }
-              default:
-                break;
-            }
-
-            switch (value.value[3]) {
-              case Const.VIDEO_DECODER_SYNC_MODE[0]: {
-                this.cameraData.isSync = 0;
-                break;
-              }
-              case Const.VIDEO_DECODER_SYNC_MODE[1]: {
-                this.cameraData.isSync = 1;
-                break;
-              }
-              default:
-                break;
+            const values = getPickerSelectedValues(value.value);
+            if (!this.recorderSettings.applyPickerValues(values, this.cameraData)) {
+              Logger.error(TAG, 'Invalid recorder settings: ' + JSON.stringify(values));
+              return;
             }
             this.checkIsProfileSupport();
           }
@@ -564,8 +521,68 @@ export struct Player {
   }
 
   @Builder
-  Window() {
+  MediaInfoRowView(row: MediaInfoRow) {
     Row() {
+      Text(row.label)
+        .width('42%')
+        .fontSize('14fp')
+        .fontColor('#66727D')
+      Text(row.value)
+        .width('58%')
+        .fontSize('14fp')
+        .fontColor('#182431')
+    }
+    .width('100%')
+    .alignItems(VerticalAlign.Top)
+  }
+
+  @Builder
+  MediaInfoSectionView(section: MediaInfoSection) {
+    Column({ space: 8 }) {
+      Text(section.title)
+        .width('100%')
+        .fontSize('18fp')
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#182431')
+      ForEach(section.rows, (row: MediaInfoRow) => {
+        this.MediaInfoRowView(row)
+      }, (row: MediaInfoRow) => row.label)
+      if (section.rawText.length > 0) {
+        Text(section.rawText)
+          .width('100%')
+          .fontSize('12fp')
+          .fontFamily('monospace')
+          .fontColor('#E6EDF3')
+          .backgroundColor('#202830')
+          .borderRadius('8vp')
+          .padding('12vp')
+      }
+    }
+    .width('100%')
+    .alignItems(HorizontalAlign.Start)
+    .backgroundColor(Color.White)
+    .borderRadius('8vp')
+    .padding('14vp')
+  }
+
+  @Builder
+  MediaInfoPanel() {
+    Scroll() {
+      Column({ space: 12 }) {
+        ForEach(this.mediaInfoSections, (section: MediaInfoSection) => {
+          this.MediaInfoSectionView(section)
+        }, (section: MediaInfoSection) => section.title)
+      }
+      .width('100%')
+      .padding({ left: '16vp', right: '16vp', bottom: '24vp' })
+    }
+    .size({ width: '100%', height: '100%' })
+    .scrollBar(BarState.Auto)
+  }
+
+  @Builder
+  Window() {
+    Stack({ alignContent: Alignment.TopEnd }) {
       XComponent({
         id: 'player',
         type: XComponentType.SURFACE,
@@ -601,10 +618,23 @@ export struct Player {
              *     }
              *     this.isStart = !this.isStart
              *   })
-             */
+              */
           )
         )
+
+      if (this.isHdrVividConfirmed) {
+        Text('HDR Vivid')
+          .fontSize('13fp')
+          .fontColor('#E8FFFFFF')
+          .backgroundColor('#4D101820')
+          .padding({ left: '10vp', right: '10vp', top: '5vp', bottom: '5vp' })
+          .borderRadius('4vp')
+          .margin({ top: '48vp', right: '16vp' })
+          .hitTestBehavior(HitTestMode.None)
+      }
     }
+    .width(Const.FULL_SIZE)
+    .height(Const.FULL_SIZE)
     .alignRules({
       'top': { 'anchor': '__container__', 'align': VerticalAlign.Top },
       'left': { 'anchor': '__container__', 'align': HorizontalAlign.Start }
@@ -616,6 +646,34 @@ export struct Player {
       this.Window()
 
       Column() {
+        if (this.playbackInfoText.length > 0) {
+          Row() {
+            Text(this.playbackInfoText)
+              .layoutWeight(1)
+              .fontSize('12fp')
+              .fontColor(Color.White)
+              .textAlign(TextAlign.Center)
+            Button($r('app.string.media_info'))
+              .height('24vp')
+              .fontSize('12fp')
+              .fontColor(Color.White)
+              .backgroundColor('#335F8C')
+              .onClick(() => {
+                this.showMediaInfo();
+              })
+          }
+            .width('100%')
+            .height('28vp')
+            .backgroundColor('#99000000')
+            .margin({ bottom: '8vp' })
+            .bindSheet($$this.isMediaInfoVisible, this.MediaInfoPanel(), {
+              height: '85%',
+              title: {
+                title: $r('app.string.media_info_title'),
+                subtitle: $r('app.string.media_info_subtitle')
+              }
+            })
+        }
         Row() {
           if (this.buttonEnabled) {
             this.PlayerSettingButton()

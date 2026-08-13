@@ -40,6 +40,8 @@ private:
     int32_t GetTrackInfo(std::shared_ptr<OH_AVFormat> sourceFormat, SampleInfo &info);
     std::shared_ptr<OH_AVFormat> GetTrackFormat(int32_t index);
     int GetTrackType(std::shared_ptr<OH_AVFormat> trackFormat);
+    void SaveTrackFormat(std::shared_ptr<OH_AVFormat> trackFormat, int32_t index, int32_t trackType,
+        SampleInfo &info);
     void ProcessVideoTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_t index, SampleInfo &info);
     void ProcessAudioTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_t index, SampleInfo &info);
     void HandleCodecConfig(std::shared_ptr<OH_AVFormat> trackFormat, SampleInfo &info);

@@ -26,6 +26,7 @@ import { encoderProfileCameraCheck, previewProfileCameraCheck } from '../common/
 import { colorSpaceManager } from '@kit.ArkGraphics2D';
 
 const TAG: string = 'Sample_Recorder';
+const FRAME_END_TIMEOUT_MS: number = 5000;
 
 const context = AppStorage.get('context') as UIContext;
 const params: CameraDataModel = context.getRouter().getParams() as CameraDataModel;
@@ -34,24 +35,6 @@ let cameraInput: camera.CameraInput;
 let xComponentPreviewOutput: camera.PreviewOutput;
 let encoderVideoOutput: camera.VideoOutput;
 let videoSession: camera.VideoSession;
-
-async function releaseCamera() {
-  // 停止当前会话
-  await videoSession.stop();
-  // 关闭文件fd
-  fileIo.close(params.outputfd);
-  // 释放相机输入流
-  await cameraInput.close();
-
-  unregisterVideoOutputFrameEnd(encoderVideoOutput);
-
-  // 释放预览输出流
-  await xComponentPreviewOutput.release();
-  // 释放录像输出流
-  await encoderVideoOutput.release();
-  // 释放会话
-  await videoSession.release();
-}
 
 // 查询是否支持视频防抖。HDR录像需要支持视频防抖。
 function isVideoStabilizationModeSupported(session: camera.VideoSession, mode: camera.VideoStabilizationMode): boolean {
@@ -111,29 +94,6 @@ function setColorSpaceBeforeCommitConfig(session: camera.VideoSession, isHdr: nu
   }
 }
 
-
-function callback(err?: BusinessError): void {
-  if (err && err.code) {
-    Logger.error(TAG, `Callback Error, errorCode: ${err.code}`);
-    return;
-  }
-  recorder.stopEndNative()
-    .then((data) => {
-      if (data.code == 0) {
-        releaseCamera();
-      }
-    })
-  Logger.info(TAG, 'Video frame ended');
-}
-
-function registerVideoOutputFrameEnd(videoOutput: camera.VideoOutput): void {
-  videoOutput.on('frameEnd', callback);
-}
-
-function unregisterVideoOutputFrameEnd(videoOutput: camera.VideoOutput): void {
-  videoOutput.off('frameEnd');
-}
-
 @Entry
 @Component
 export struct Recorder {
@@ -153,18 +113,27 @@ export struct Recorder {
   private heightPx = (this.display.width * this.cameraWidth / this.cameraHeight) + 'px';
   private timer: number = Const.DEFAULT_VALUE;
   private seconds: number = Const.DEFAULT_VALUE;
-  private isReleased: boolean = false;
-  private isBack: boolean = false;
+  private isRecording: boolean = false;
+  private isOutputFdClosed: boolean = false;
+  private isCameraReleased: boolean = false;
+  private isNavigatingBack: boolean = false;
+  private releaseTask: Promise<void> | undefined = undefined;
+  private frameEndResolver: (() => void) | undefined = undefined;
+  private frameEndTimer: number = Const.DEFAULT_VALUE;
   private range: number[] = [];
 
-  onBackPress() {
-    this.isBack = true;
+  onBackPress(): boolean {
+    this.stopAndNavigateBack().catch((error: Object) => {
+      Logger.error(TAG, `Failed to stop recording on back press. error: ${JSON.stringify(error)}`);
+    });
+    return true;
   }
 
-  onPageHide() {
-    this.release();
-    if (!this.isBack) {
-      this.getUIContext().getRouter().back();
+  onPageHide(): void {
+    if (!this.isNavigatingBack) {
+      this.stopAndNavigateBack().catch((error: Object) => {
+        Logger.error(TAG, `Failed to stop recording when page hides. error: ${JSON.stringify(error)}`);
+      });
     }
   }
 
@@ -175,22 +144,156 @@ export struct Recorder {
     }, 1000);
   }
 
-  async release() {
-    if (!this.isReleased) {
-      this.isReleased = true;
-      clearInterval(this.timer);
-      this.seconds = 0;
-      this.videoRecorderTimeText = '00:00';
-      // 停止录像输出流
-      encoderVideoOutput.stop((err: BusinessError) => {
-        if (err) {
-          Logger.error(TAG, `Failed to stop the encoder video output. error: ${JSON.stringify(err)}`);
-          return;
+  private waitForVideoFrameEnd(): Promise<void> {
+    return new Promise<void>((resolve: () => void) => {
+      this.frameEndResolver = resolve;
+      this.frameEndTimer = setTimeout(() => {
+        Logger.warn(TAG, 'Timed out waiting for the video frameEnd event; continue stopping the recorder.');
+        this.resolveVideoFrameEnd();
+      }, FRAME_END_TIMEOUT_MS);
+    });
+  }
+
+  private resolveVideoFrameEnd(): void {
+    if (this.frameEndResolver === undefined) {
+      return;
+    }
+    clearTimeout(this.frameEndTimer);
+    const resolve = this.frameEndResolver;
+    this.frameEndResolver = undefined;
+    resolve();
+  }
+
+  private onVideoFrameEnd(err?: BusinessError): void {
+    if (err && err.code) {
+      Logger.error(TAG, `Video frameEnd failed. errorCode: ${err.code}`);
+    } else {
+      Logger.info(TAG, 'Video frame ended');
+    }
+    this.resolveVideoFrameEnd();
+  }
+
+  private async closeOutputFile(): Promise<void> {
+    if (this.isOutputFdClosed || params.outputfd < 0) {
+      return;
+    }
+    this.isOutputFdClosed = true;
+    try {
+      await fileIo.close(params.outputfd);
+      params.outputfd = -1;
+      Logger.info(TAG, 'Recorder output file closed');
+    } catch (error) {
+      Logger.error(TAG, `Failed to close the recorder output file. error: ${JSON.stringify(error)}`);
+    }
+  }
+
+  private async releaseCamera(): Promise<void> {
+    if (this.isCameraReleased) {
+      return;
+    }
+    this.isCameraReleased = true;
+
+    try {
+      await videoSession.stop();
+    } catch (error) {
+      Logger.error(TAG, `Failed to stop the video session. error: ${JSON.stringify(error)}`);
+    }
+    try {
+      await cameraInput.close();
+    } catch (error) {
+      Logger.error(TAG, `Failed to close the camera input. error: ${JSON.stringify(error)}`);
+    }
+    try {
+      await xComponentPreviewOutput.release();
+    } catch (error) {
+      Logger.error(TAG, `Failed to release the preview output. error: ${JSON.stringify(error)}`);
+    }
+    try {
+      await encoderVideoOutput.release();
+    } catch (error) {
+      Logger.error(TAG, `Failed to release the video output. error: ${JSON.stringify(error)}`);
+    }
+    try {
+      await videoSession.release();
+    } catch (error) {
+      Logger.error(TAG, `Failed to release the video session. error: ${JSON.stringify(error)}`);
+    }
+  }
+
+  private async stopVideoOutput(): Promise<void> {
+    if (!this.isRecording) {
+      return;
+    }
+    const frameEndTask = this.waitForVideoFrameEnd();
+    try {
+      encoderVideoOutput.on('frameEnd', (err?: BusinessError) => {
+        this.onVideoFrameEnd(err);
+      });
+    } catch (error) {
+      Logger.error(TAG, `Failed to register the video frameEnd event. error: ${JSON.stringify(error)}`);
+      this.resolveVideoFrameEnd();
+    }
+    try {
+      await encoderVideoOutput.stop();
+      Logger.info(TAG, 'Encoder video output stopped');
+    } catch (error) {
+      Logger.error(TAG, `Failed to stop the encoder video output. error: ${JSON.stringify(error)}`);
+      this.resolveVideoFrameEnd();
+    }
+    try {
+      const stopBeginResult = await recorder.stopBeginNative();
+      if (stopBeginResult.code !== 0) {
+        Logger.error(TAG, `stopBeginNative failed. code: ${stopBeginResult.code}`);
+      }
+    } catch (error) {
+      Logger.error(TAG, `Failed to begin stopping the native recorder. error: ${JSON.stringify(error)}`);
+    }
+    await frameEndTask;
+  }
+
+  private async stopRecorder(): Promise<void> {
+    clearInterval(this.timer);
+    this.seconds = 0;
+    this.videoRecorderTimeText = '00:00';
+    this.buttonText = this.START_RECORDER;
+
+    try {
+      await this.stopVideoOutput();
+      const stopEndResult = await recorder.stopEndNative();
+      if (stopEndResult.code !== 0) {
+        Logger.error(TAG, `stopEndNative failed. code: ${stopEndResult.code}`);
+      }
+    } catch (error) {
+      Logger.error(TAG, `Failed to finalize the native recorder. error: ${JSON.stringify(error)}`);
+    } finally {
+      this.resolveVideoFrameEnd();
+      if (encoderVideoOutput !== undefined) {
+        try {
+          encoderVideoOutput.off('frameEnd');
+        } catch (error) {
+          Logger.error(TAG, `Failed to unregister the video frameEnd event. error: ${JSON.stringify(error)}`);
         }
-        recorder.stopBeginNative()
-        this.buttonText == this.START_RECORDER;
-        Logger.info(TAG, 'Callback invoked to indicate the encoder video output stop success.');
-      })
+      }
+      // Native 完成 EOS 和 Muxer 释放后再关闭 fd，媒体库才能及时确认文件写入完成。
+      await this.closeOutputFile();
+      await this.releaseCamera();
+      this.isRecording = false;
+    }
+  }
+
+  async release(): Promise<void> {
+    if (this.releaseTask === undefined) {
+      this.releaseTask = this.stopRecorder();
+    }
+    await this.releaseTask;
+  }
+
+  private async stopAndNavigateBack(): Promise<void> {
+    this.buttonEnabled = false;
+    await this.release();
+    if (!this.isNavigatingBack) {
+      this.isNavigatingBack = true;
+      this.getUIContext().getRouter().back();
     }
   }
 
@@ -316,8 +419,6 @@ export struct Recorder {
       Logger.error(TAG, `Failed to add encoderVideoOutput. error: ${JSON.stringify(err)}`);
     }
 
-    registerVideoOutputFrameEnd(encoderVideoOutput);
-
     // Submit configuration information.
     try {
       await videoSession.commitConfig();
@@ -400,13 +501,11 @@ export struct Recorder {
                 Logger.info(TAG, 'Callback invoked to indicate the encoder video output start success.')
               });
               recorder.startNative();
+              this.isRecording = true;
               this.isRecorderTimeTextHide = false;
               this.getRecordTime();
             } else {
-              this.buttonEnabled = false;
-              this.isBack = true
-              await this.release();
-              this.getUIContext().getRouter().back();
+              await this.stopAndNavigateBack();
             }
           })
           .enabled(this.buttonEnabled)

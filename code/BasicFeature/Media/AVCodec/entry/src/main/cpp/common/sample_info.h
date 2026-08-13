@@ -52,14 +52,25 @@ enum PlaybackCompletionReason : int32_t {
     ERROR,
 };
 
-struct SampleInfo {
+struct MediaTrackFormatInfo {
+    int32_t trackIndex = -1;
+    int32_t trackType = -1;
+    string formatDump;
+};
+
+struct MediaSourceInfo {
     int32_t inputFd = -1;
-    int32_t outputFd = -1;
     int64_t inputFileOffset = 0;
     int64_t inputFileSize = 0;
     string inputFilePath;
+    int64_t durationUs = 0;
+    int32_t trackCount = 0;
+    string sourceFormatDump;
+    vector<MediaTrackFormatInfo> trackFormats;
+};
+
+struct VideoSampleInfo {
     string videoCodecMime = "";
-    string audioCodecMime = "";
     int32_t videoWidth = 0;
     int32_t videoHeight = 0;
     double frameRate = 0.0;
@@ -69,40 +80,55 @@ struct SampleInfo {
     uint32_t bitrateMode = CBR;
     int32_t iFrameInterval = 100;
     int32_t rangFlag = 1;
-    int32_t codecType = 0;
-    int32_t codecRunMode = 0;
-    int32_t codecSyncMode = 0;
-    bool enableVideoDump = false;
-    string outputFilePath;
-    int32_t outputFormat = 2; // AV_OUTPUT_FORMAT_MPEG_4 = 2, AV_OUTPUT_FORMAT_FLV = 14
-
-    int32_t audioSampleForamt = 0;
-    int32_t audioSampleRate = 0;
-    int32_t audioChannelCount = 0;
-    int64_t audioChannelLayout = 0;
-    int32_t audioBitRate = 0;
-    uint8_t audioCodecConfig[100] = { 0 };
-    size_t audioCodecSize = 0;
-    int32_t audioMaxInputSize = 0;
-    OH_AVFormat *audioFormat;
-
     int32_t isHDRVivid = 0;
+    bool hdrVividContainerSignaled = false;
     int32_t hevcProfile = HEVC_PROFILE_MAIN;
     OH_ColorPrimary primary = COLOR_PRIMARY_BT2020;
     OH_TransferCharacteristic transfer = TRANSFER_CHARACTERISTIC_HLG;
     OH_MatrixCoefficient matrix = MATRIX_COEFFICIENT_BT2020_CL;
-
     int32_t rotation = 0;
     OHNativeWindow *window = nullptr;
+};
 
-    bool isSmartFluencySupported = false; // 标记设备是否支持智能流畅倍速解码(API>=26)
-    double speed = 1.0;                   // 当前播放倍速
-
-    void (*playDoneCallback)(void *context, bool success, PlaybackCompletionReason reason) = nullptr;
-    void *playDoneCallbackData = nullptr;
-    uint8_t codecConfig[1024];
+struct AudioSampleInfo {
+    string audioCodecMime = "";
+    int32_t audioSampleFormat = 0;
+    int32_t audioSampleRate = 0;
+    int32_t audioChannelCount = 0;
+    int64_t audioChannelLayout = 0;
+    int64_t audioBitRate = 0;
+    int32_t audioMaxInputSize = 0;
+    uint8_t codecConfig[1024] = { 0 };
     size_t codecConfigLen = 0;
     int32_t aacAdts = -1;
+};
+
+struct CodecOptions {
+    int32_t codecType = 0;
+    int32_t codecRunMode = 0;
+    int32_t codecSyncMode = 0;
+    bool isSmartFluencySupported = false;
+};
+
+struct OutputOptions {
+    int32_t outputFd = -1;
+    bool enableVideoDump = false;
+    string outputFilePath;
+    int32_t outputFormat = 2; // AV_OUTPUT_FORMAT_MPEG_4 = 2, AV_OUTPUT_FORMAT_FLV = 14
+};
+
+struct PlaybackCallbackInfo {
+    void (*playDoneCallback)(void *context, bool success, PlaybackCompletionReason reason) = nullptr;
+    void *playDoneCallbackData = nullptr;
+};
+
+struct SampleInfo {
+    MediaSourceInfo source;
+    VideoSampleInfo video;
+    AudioSampleInfo audio;
+    CodecOptions codec;
+    OutputOptions output;
+    PlaybackCallbackInfo playback;
 };
 
 struct CodecBufferInfo {
@@ -212,6 +238,7 @@ public:
     std::atomic<bool> isDestroyed { false };
     std::atomic<bool> hasError { false };
     std::atomic<bool> *runningFlag = nullptr;
+    std::atomic<int64_t> *playbackPositionUs = nullptr;
 
     void ClearQueue()
     {

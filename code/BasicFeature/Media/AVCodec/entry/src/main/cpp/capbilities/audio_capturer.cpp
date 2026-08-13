@@ -40,8 +40,8 @@ void AudioCapturer::AudioCapturerInit(SampleInfo &sampleInfo, CodecUserData *aud
 
     OH_AudioStream_Type type = AUDIOSTREAM_TYPE_CAPTURER;
     OH_AudioStreamBuilder_Create(&builder_, type);
-    OH_AudioStreamBuilder_SetSamplingRate(builder_, sampleInfo.audioSampleRate);
-    OH_AudioStreamBuilder_SetChannelCount(builder_, sampleInfo.audioChannelCount);
+    OH_AudioStreamBuilder_SetSamplingRate(builder_, sampleInfo.audio.audioSampleRate);
+    OH_AudioStreamBuilder_SetChannelCount(builder_, sampleInfo.audio.audioChannelCount);
     OH_AudioStreamBuilder_SetSampleFormat(builder_, AUDIOSTREAM_SAMPLE_S16LE);
     OH_AudioStreamBuilder_SetLatencyMode(builder_, AUDIOSTREAM_LATENCY_MODE_NORMAL);
     OH_AudioStreamBuilder_SetEncodingType(builder_, AUDIOSTREAM_ENCODING_TYPE_RAW);

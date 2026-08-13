@@ -28,13 +28,13 @@ constexpr int64_t US_PER_SECOND = 1'000'000;
 
 int64_t GetQueuedAudioDurationUs(size_t queuedBytes, const SampleInfo &sampleInfo)
 {
-    if (sampleInfo.audioSampleRate <= 0 || sampleInfo.audioChannelCount <= 0) {
+    if (sampleInfo.audio.audioSampleRate <= 0 || sampleInfo.audio.audioChannelCount <= 0) {
         return 0;
     }
-    const uint64_t bytesPerFrame = static_cast<uint64_t>(sampleInfo.audioChannelCount) * BYTES_PER_SAMPLE_2;
+    const uint64_t bytesPerFrame = static_cast<uint64_t>(sampleInfo.audio.audioChannelCount) * BYTES_PER_SAMPLE_2;
     const uint64_t queuedFrames = queuedBytes / bytesPerFrame;
     const uint64_t remainingBytes = queuedBytes % bytesPerFrame;
-    const auto sampleRate = static_cast<uint64_t>(sampleInfo.audioSampleRate);
+    const auto sampleRate = static_cast<uint64_t>(sampleInfo.audio.audioSampleRate);
     const uint64_t durationUs = queuedFrames * US_PER_SECOND / sampleRate +
         remainingBytes * US_PER_SECOND / (sampleRate * bytesPerFrame);
     return static_cast<int64_t>(durationUs);
@@ -57,9 +57,9 @@ void UpdateVideoOutputInfo(OH_AVFormat *format, CodecUserData *codecUserData)
     OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_SLICE_HEIGHT, &codecUserData->heightStride);
 
     if (codecUserData->sampleInfo != nullptr) {
-        int32_t pixelFormat = codecUserData->sampleInfo->pixelFormat;
+        int32_t pixelFormat = codecUserData->sampleInfo->video.pixelFormat;
         if (OH_AVFormat_GetIntValue(format, OH_MD_KEY_PIXEL_FORMAT, &pixelFormat)) {
-            codecUserData->sampleInfo->pixelFormat = static_cast<OH_AVPixelFormat>(pixelFormat);
+            codecUserData->sampleInfo->video.pixelFormat = static_cast<OH_AVPixelFormat>(pixelFormat);
         }
     }
 }
@@ -88,7 +88,8 @@ int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *user
     size_t index = 0;
     std::unique_lock<std::mutex> lock(codecUserData->outputMutex);
     while (!codecUserData->renderQueue.empty() && index < length) {
-        dest[index++] = codecUserData->renderQueue.front();
+        dest[index] = codecUserData->renderQueue.front();
+        ++index;
         codecUserData->renderQueue.pop();
     }
     if (index < static_cast<size_t>(length)) {
@@ -100,13 +101,16 @@ int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *user
                         static_cast<uint32_t>(codecUserData->renderQueue.size()), static_cast<uint32_t>(index));
 
     if (codecUserData->sampleInfo != nullptr) {
-        const int32_t channelCount = codecUserData->sampleInfo->audioChannelCount;
-        const int32_t sampleRate = codecUserData->sampleInfo->audioSampleRate;
+        const int32_t channelCount = codecUserData->sampleInfo->audio.audioChannelCount;
+        const int32_t sampleRate = codecUserData->sampleInfo->audio.audioSampleRate;
         if (channelCount > 0 && sampleRate > 0) {
             const size_t bytesPerFrame = static_cast<size_t>(channelCount) * BYTES_PER_SAMPLE_2;
             codecUserData->audioFramesWritten += static_cast<int64_t>(index / bytesPerFrame);
             codecUserData->currentPosAudioBufferPts = codecUserData->endPosAudioBufferPts -
                 GetQueuedAudioDurationUs(codecUserData->renderQueue.size(), *codecUserData->sampleInfo);
+            if (codecUserData->playbackPositionUs != nullptr) {
+                codecUserData->playbackPositionUs->store(codecUserData->currentPosAudioBufferPts);
+            }
         }
     }
 
@@ -172,7 +176,8 @@ void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format,
     }
     std::unique_lock<std::shared_mutex> codecLock(codecUserData->codecMutex);
     UpdateVideoOutputInfo(format, codecUserData);
-    int32_t pixelFormat = codecUserData->sampleInfo != nullptr ? codecUserData->sampleInfo->pixelFormat : -1;
+    int32_t pixelFormat = codecUserData->sampleInfo != nullptr ?
+        codecUserData->sampleInfo->video.pixelFormat : -1;
     AVCODEC_SAMPLE_LOGI("Format changed: %{public}d*%{public}d, stride: %{public}d*%{public}d, "
         "pixel format: %{public}d",
                         codecUserData->width, codecUserData->height,
