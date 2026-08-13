@@ -29,4 +29,6 @@ declare namespace testNapi {
   function setMessageEventHandlerThread(webName: string): void;
   function postMessageThread(webName: string): void;
 }
+export default testNapi;
+
 // [End the_arkts_interface_is_exposed_on_the_node_api_side]
