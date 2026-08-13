@@ -6,11 +6,11 @@
 
 ### 效果预览
 
-| 主页                                                         | 通信                                                         |
+| 适用架构                                                     | 通信方案对比                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="./screenshots/EstabDataChannelC_C_1.png" width="360;" /> | <img src="./screenshots/EstabDataChannelC_C_2.png" width="360;" /> |
+| <img src="./screenshots/arkweb_jsbridge_arch.png" width="360;" /> | <img src="./screenshots/arkweb_postwebmessage_diff.png" width="360;" /> |
 
-使用说明
+### 使用说明
 
 1. 点击createNoControllerTagPort按钮ETS侧调用testNapi.createWebMessagePorts("noTag")。
 2. 点击createPort按钮ETS侧调用 testNapi.createWebMessagePorts(this.webTaag)。
