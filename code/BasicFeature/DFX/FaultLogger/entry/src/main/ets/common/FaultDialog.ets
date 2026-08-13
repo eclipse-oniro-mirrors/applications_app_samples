@@ -18,7 +18,7 @@ import testNapi from 'libentry.so';
 import Logger from '../model/Logger';
 
 const INDEX: number = 0; // 初始索引值
-const DURATION: number = 100; // 定时器时间
+const DURATION: number = 500; // 定时器时间
 
 @Preview
 @CustomDialog
