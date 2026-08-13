@@ -1,4 +1,5 @@
-<!--/*
+'use static'
+/*
 * Copyright (c) 2026 Huawei Device Co., Ltd.
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -11,24 +12,23 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/-->
-// [Start switch between portrait and landscape]
-import { webview } from '@kit.ArkWeb';
+*/
+  // [Start switch between portrait and landscape]
 import { window, router } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component
-struct WebVideo {
-  controller: webview.WebviewController = new webview.WebviewController();
+struct StaticVideo {
   @State isFullScreen: boolean = false;
+  controller: VideoController = new VideoController();
 
   // [Start toggle screen orientation]
   // 改变设备横竖屏状态
   private changeOrientation(isLandscape: boolean) {
-  // 获取UIAbility实例的上下文信息
-  let context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
-  // 调用该接口手动改变设备横竖屏状态
+    // 获取UIAbility实例的上下文信息
+    let context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    // 调用该接口手动改变设备横竖屏状态
     window.getLastWindow(context).then((lastWindow) => {
       lastWindow.setPreferredOrientation(isLandscape ? window.Orientation.LANDSCAPE : window.Orientation.PORTRAIT);
     }).catch((err: Error) => {
@@ -41,6 +41,7 @@ struct WebVideo {
   onBackPress(): boolean | void {
     if (this.isFullScreen) {
       this.isFullScreen = false;
+      this.controller.exitFullscreen();
       this.changeOrientation(false);
       return true;
     } else {
@@ -53,21 +54,26 @@ struct WebVideo {
   build() {
     Column() {
       // [Start toggle fullscreen]
-      Web({
-        src:$rawfile('video.html'), // 需要替换
+      Video({
+        src: 'https://vd3.bdstatic.com/mda-rbpgy4b7vrvhefgv/sc/wz265_v3/1740471943366551394/mda-rbpgy4b7vrvhefgv.mp4',
         controller: this.controller
       })
-        .domStorageAccess(true)
+        .controls(true)
+        .objectFit(ImageFit.Contain)
         .expandSafeArea([SafeAreaType.SYSTEM])
-        .onFullScreenEnter(() => {
-          this.isFullScreen = true;
-          this.changeOrientation(true);
+        .onFullscreenChange((event: FullscreenInfo) => {
+          if (event.fullscreen) {
+            this.isFullScreen = true;
+            this.changeOrientation(true);
+          } else {
+            this.isFullScreen = false;
+            this.changeOrientation(false);
+          }
         })
-        .onFullScreenExit(() => {
-          this.isFullScreen = false;
-          this.changeOrientation(false);
+        .onError(() => {
+          console.error('视频加载错误');
         })
-        // [End toggle fullscreen]
+      // [End toggle fullscreen]
     }
     .height('100%')
     .width('100%')
