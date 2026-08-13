@@ -46,7 +46,6 @@ let audioLoopback: audio.AudioLoopback | undefined = undefined;
 // [StartExclude create_AudioLoopback]
 let currentReverbPreset: audio.AudioLoopbackReverbPreset = audio.AudioLoopbackReverbPreset.THEATER;
 let currentEqualizerPreset: audio.AudioLoopbackEqualizerPreset = audio.AudioLoopbackEqualizerPreset.FULL;
-// [StartExclude all_audioLoopback]
 let statusChangeCallback = (status: audio.AudioLoopbackStatus) => {
   if (status == audio.AudioLoopbackStatus.UNAVAILABLE_DEVICE) {
     console.info('Audio loopback status is: UNAVAILABLE_DEVICE');
@@ -58,16 +57,13 @@ let statusChangeCallback = (status: audio.AudioLoopbackStatus) => {
     console.info('Audio loopback status is: AVAILABLE_RUNNING');
   }
 };
-// [EndExclude all_audioLoopback]
 
-// [StartExclude all_audioLoopback]
 async function requestMicrophonePermission(context: common.UIAbilityContext): Promise<boolean> {
   let atManager = abilityAccessCtrl.createAtManager();
   let result: PermissionRequestResult = await atManager
     .requestPermissionsFromUser(context, ['ohos.permission.MICROPHONE']);
   return result.authResults[0] === 0;
 }
-// [EndExclude all_audioLoopback]
 
 // 查询能力，创建实例。
 function init(updateCallback?: (msg: string, isError: boolean) => void): void {
