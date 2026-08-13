@@ -60,6 +60,69 @@ export const stop: () => boolean
 
 export const getState: () => PlayerState
 
+export interface PlaybackInfo {
+  state: PlayerState;
+  speed: number;
+  durationUs: number;
+  positionUs: number;
+  hasVideo: boolean;
+  hasAudio: boolean;
+  isSmartFluencyAvailable: boolean;
+  isHdrVividConfirmed: boolean;
+}
+
+export const getPlaybackInfo: () => PlaybackInfo
+
+export interface VideoMediaInfo {
+  codecMime: string;
+  width: number;
+  height: number;
+  frameRate: number;
+  bitrate: number;
+  profile: number;
+  rotation: number;
+  isHdrVividContainerSignaled: boolean;
+  isHdrVividConfirmed: boolean;
+}
+
+export interface AudioMediaInfo {
+  codecMime: string;
+  sampleFormat: number;
+  sampleRate: number;
+  channelCount: number;
+  channelLayout: number;
+  bitrate: number;
+  aacAdts: number;
+  codecConfigLength: number;
+}
+
+export interface DecoderInfo {
+  type: number;
+  runMode: number;
+  syncMode: number;
+  videoDumpEnabled: boolean;
+}
+
+export interface MediaTrackInfo {
+  index: number;
+  type: number;
+  formatDump: string;
+}
+
+export interface MediaInfo {
+  available: boolean;
+  fileSize: number;
+  durationUs: number;
+  trackCount: number;
+  sourceFormatDump: string;
+  video: VideoMediaInfo;
+  audio: AudioMediaInfo;
+  decoder: DecoderInfo;
+  tracks: MediaTrackInfo[];
+}
+
+export const getMediaInfo: () => MediaInfo
+
 export const isSmartFluencyAvailable: () => boolean
 
 export const setPlaybackSpeed: (

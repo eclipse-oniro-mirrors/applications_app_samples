@@ -183,6 +183,18 @@
     {
       "name": "media_file_select_failed",
       "value": "媒体文件选择失败，请重试。"
+    },
+    {
+      "name": "media_info",
+      "value": "信息"
+    },
+    {
+      "name": "media_info_title",
+      "value": "媒体信息"
+    },
+    {
+      "name": "media_info_subtitle",
+      "value": "解封装媒体源、轨道与解码输出详情"
     }
   ]
 }

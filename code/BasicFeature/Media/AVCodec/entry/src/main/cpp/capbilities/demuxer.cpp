@@ -22,6 +22,12 @@
 
 namespace {
 using namespace std;
+
+string CopyFormatDump(OH_AVFormat *format)
+{
+    const char *dump = OH_AVFormat_DumpInfo(format);
+    return dump == nullptr ? "" : dump;
+}
 }
 
 Demuxer::~Demuxer() { Release(); }
@@ -33,10 +39,10 @@ int32_t Demuxer::Create(SampleInfo &info)
      * const char *url = "https://hd.ijycnd.com/play/Ddw1W2Ra/index.m3u8";
      * source_ = OH_AVSource_CreateWithURI(const_cast<char *>(url));
      */
-    source_ = OH_AVSource_CreateWithFD(info.inputFd, info.inputFileOffset, info.inputFileSize);
+    source_ = OH_AVSource_CreateWithFD(info.source.inputFd, info.source.inputFileOffset, info.source.inputFileSize);
     CHECK_AND_RETURN_RET_LOG(source_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
         "Create demuxer source failed, fd: %{public}d, offset: %{public}" PRId64", file size: %{public}" PRId64,
-        info.inputFd, info.inputFileOffset, info.inputFileSize);
+        info.source.inputFd, info.source.inputFileOffset, info.source.inputFileSize);
     demuxer_ = OH_AVDemuxer_CreateWithSource(source_);
     CHECK_AND_RETURN_RET_LOG(demuxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create demuxer failed");
 
@@ -74,11 +80,18 @@ int32_t Demuxer::Release()
 
 int32_t Demuxer::GetTrackInfo(std::shared_ptr<OH_AVFormat> sourceFormat, SampleInfo &info)
 {
-    int32_t trackCount = 0;
-    OH_AVFormat_GetIntValue(sourceFormat.get(), OH_MD_KEY_TRACK_COUNT, &trackCount);
-    for (int32_t index = 0; index < trackCount; index++) {
+    OH_AVFormat_GetLongValue(sourceFormat.get(), OH_MD_KEY_DURATION, &info.source.durationUs);
+    OH_AVFormat_GetIntValue(sourceFormat.get(), OH_MD_KEY_TRACK_COUNT, &info.source.trackCount);
+    info.source.sourceFormatDump = CopyFormatDump(sourceFormat.get());
+    info.source.trackFormats.clear();
+    for (int32_t index = 0; index < info.source.trackCount; index++) {
         auto trackFormat = GetTrackFormat(index);
+        if (trackFormat == nullptr) {
+            AVCODEC_SAMPLE_LOGW("Get track format failed, index: %{public}d", index);
+            continue;
+        }
         int trackType = GetTrackType(trackFormat);
+        SaveTrackFormat(trackFormat, index, trackType, info);
         if (trackType == MEDIA_TYPE_VID) {
             ProcessVideoTrack(trackFormat, index, info);
         } else if (trackType == MEDIA_TYPE_AUD) {
@@ -100,6 +113,16 @@ int Demuxer::GetTrackType(std::shared_ptr<OH_AVFormat> trackFormat)
     return trackType;
 }
 
+void Demuxer::SaveTrackFormat(std::shared_ptr<OH_AVFormat> trackFormat, int32_t index, int32_t trackType,
+    SampleInfo &info)
+{
+    MediaTrackFormatInfo trackInfo;
+    trackInfo.trackIndex = index;
+    trackInfo.trackType = trackType;
+    trackInfo.formatDump = CopyFormatDump(trackFormat.get());
+    info.source.trackFormats.push_back(std::move(trackInfo));
+}
+
 void Demuxer::ProcessVideoTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_t index, SampleInfo &info)
 {
     OH_AVDemuxer_SelectTrackByID(demuxer_, index);
@@ -111,14 +134,19 @@ void Demuxer::ProcessVideoTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_
         return;
     }
     
-    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_WIDTH, &info.videoWidth);
-    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_HEIGHT, &info.videoHeight);
-    OH_AVFormat_GetDoubleValue(trackFormat.get(), OH_MD_KEY_FRAME_RATE, &info.frameRate);
-    OH_AVFormat_GetLongValue(trackFormat.get(), OH_MD_KEY_BITRATE, &info.bitrate);
-    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_ROTATION, &info.rotation);
+    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_WIDTH, &info.video.videoWidth);
+    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_HEIGHT, &info.video.videoHeight);
+    OH_AVFormat_GetDoubleValue(trackFormat.get(), OH_MD_KEY_FRAME_RATE, &info.video.frameRate);
+    OH_AVFormat_GetLongValue(trackFormat.get(), OH_MD_KEY_BITRATE, &info.video.bitrate);
+    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_ROTATION, &info.video.rotation);
+    int32_t hdrVividContainerSignaled = 0;
+    if (OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_VIDEO_IS_HDR_VIVID,
+        &hdrVividContainerSignaled)) {
+        info.video.hdrVividContainerSignaled = hdrVividContainerSignaled == 1;
+    }
     
-    info.videoCodecMime = videoCodecMime;
-    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_PROFILE, &info.hevcProfile);
+    info.video.videoCodecMime = videoCodecMime;
+    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_PROFILE, &info.video.hevcProfile);
     videoTrackId_ = index;
     
     LogVideoConfig(info, videoCodecMime);
@@ -128,18 +156,19 @@ void Demuxer::ProcessAudioTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_
 {
     OH_AVDemuxer_SelectTrackByID(demuxer_, index);
     
-    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_AUDIO_SAMPLE_FORMAT, &info.audioSampleForamt);
-    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_AUD_CHANNEL_COUNT, &info.audioChannelCount);
-    OH_AVFormat_GetLongValue(trackFormat.get(), OH_MD_KEY_CHANNEL_LAYOUT, &info.audioChannelLayout);
-    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_AUD_SAMPLE_RATE, &info.audioSampleRate);
+    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_AUDIO_SAMPLE_FORMAT, &info.audio.audioSampleFormat);
+    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_AUD_CHANNEL_COUNT, &info.audio.audioChannelCount);
+    OH_AVFormat_GetLongValue(trackFormat.get(), OH_MD_KEY_CHANNEL_LAYOUT, &info.audio.audioChannelLayout);
+    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_AUD_SAMPLE_RATE, &info.audio.audioSampleRate);
+    OH_AVFormat_GetLongValue(trackFormat.get(), OH_MD_KEY_BITRATE, &info.audio.audioBitRate);
     
     char *audioCodecMime;
     OH_AVFormat_GetStringValue(trackFormat.get(), OH_MD_KEY_CODEC_MIME, const_cast<char const **>(&audioCodecMime));
     
     HandleCodecConfig(trackFormat, info);
     
-    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_AAC_IS_ADTS, &info.aacAdts);
-    info.audioCodecMime = audioCodecMime;
+    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_AAC_IS_ADTS, &info.audio.aacAdts);
+    info.audio.audioCodecMime = audioCodecMime;
     audioTrackId_ = index;
     
     LogAudioConfig(info, audioCodecMime);
@@ -148,10 +177,11 @@ void Demuxer::ProcessAudioTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_
 void Demuxer::HandleCodecConfig(std::shared_ptr<OH_AVFormat> trackFormat, SampleInfo &info)
 {
     uint8_t *codecConfig = nullptr;
-    OH_AVFormat_GetBuffer(trackFormat.get(), OH_MD_KEY_CODEC_CONFIG, &codecConfig, &info.codecConfigLen);
+    OH_AVFormat_GetBuffer(trackFormat.get(), OH_MD_KEY_CODEC_CONFIG, &codecConfig, &info.audio.codecConfigLen);
     
-    if (codecConfig != nullptr && info.codecConfigLen > 0 && info.codecConfigLen < sizeof(info.codecConfig)) {
-        copy(codecConfig, codecConfig + info.codecConfigLen, info.codecConfig);
+    if (codecConfig != nullptr && info.audio.codecConfigLen > 0 &&
+        info.audio.codecConfigLen < sizeof(info.audio.codecConfig)) {
+        copy(codecConfig, codecConfig + info.audio.codecConfigLen, info.audio.codecConfig);
         LogCodecConfigDetails(info);
     }
 }
@@ -161,7 +191,7 @@ void Demuxer::LogVideoConfig(const SampleInfo &info, const char *videoCodecMime)
     AVCODEC_SAMPLE_LOGI("====== Demuxer Video config ======");
     AVCODEC_SAMPLE_LOGI("Mime: %{public}s", videoCodecMime);
     AVCODEC_SAMPLE_LOGI("%{public}d * %{public}d, %{public}.1ffps, %{public}" PRId64 "kbps",
-                        info.videoWidth, info.videoHeight, info.frameRate, info.bitrate / 1024);
+                        info.video.videoWidth, info.video.videoHeight, info.video.frameRate, info.video.bitrate / 1024);
     AVCODEC_SAMPLE_LOGI("====== Demuxer Video config ======");
 }
 
@@ -170,17 +200,17 @@ void Demuxer::LogAudioConfig(const SampleInfo &info, const char *audioCodecMime)
     AVCODEC_SAMPLE_LOGI("====== Demuxer Audio config ======");
     AVCODEC_SAMPLE_LOGI("audioMime:%{public}s sampleForamt:%{public}d sampleRate:%{public}d "
                         "channelCount:%{public}d channelLayout:%{public}ld adts:%{public}i",
-                        audioCodecMime, info.audioSampleForamt, info.audioSampleRate,
-                        info.audioChannelCount, info.audioChannelLayout, info.aacAdts);
+                        audioCodecMime, info.audio.audioSampleFormat, info.audio.audioSampleRate,
+                        info.audio.audioChannelCount, info.audio.audioChannelLayout, info.audio.aacAdts);
     AVCODEC_SAMPLE_LOGI("====== Demuxer Audio config ======");
 }
 
 void Demuxer::LogCodecConfigDetails(const SampleInfo &info)
 {
     AVCODEC_SAMPLE_LOGI("codecConfig:%{public}p, len:%{public}i, 0:0x%{public}02x 1:0x:%{public}02x, bufLen:%{public}u",
-                        info.codecConfig, static_cast<int>(info.codecConfigLen),
-                        info.codecConfig[0], info.codecConfig[1],
-                        static_cast<unsigned int>(sizeof(info.codecConfig)));
+                        info.audio.codecConfig, static_cast<int>(info.audio.codecConfigLen),
+                        info.audio.codecConfig[0], info.audio.codecConfig[1],
+                        static_cast<unsigned int>(sizeof(info.audio.codecConfig)));
 }
 
 int32_t Demuxer::GetVideoTrackId() { return videoTrackId_; }

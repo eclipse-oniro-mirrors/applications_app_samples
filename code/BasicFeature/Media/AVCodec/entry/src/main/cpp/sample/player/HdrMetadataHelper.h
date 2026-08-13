@@ -13,23 +13,16 @@
  * limitations under the License.
  */
 
-export const INVALID_PICKER_INDEX: number = -1;
+#ifndef VIDEO_CODEC_HDR_METADATA_HELPER_H
+#define VIDEO_CODEC_HDR_METADATA_HELPER_H
 
-export function getPickerSelectedIndex(index: number | number[]): number {
-  if (typeof index === 'number') {
-    return index;
-  }
-  return index.length > 0 ? index[0] : INVALID_PICKER_INDEX;
-}
+#include <multimedia/player_framework/native_avbuffer.h>
+#include <native_buffer/native_buffer.h>
 
-export function getPickerSelectedValues(value: string | string[]): string[] {
-  return typeof value === 'string' ? [value] : value;
-}
+class HdrMetadataHelper {
+public:
+    static bool IsHdrVivid(OH_AVBuffer *buffer);
+    static bool CopyToNativeBuffer(OH_AVBuffer *sourceBuffer, OH_NativeBuffer *targetBuffer);
+};
 
-export function isPickerIndexValid(index: number, optionCount: number): boolean {
-  return index >= 0 && index < optionCount;
-}
-
-export function isMediaFileEmpty(fileSize: number): boolean {
-  return fileSize <= 0;
-}
+#endif // VIDEO_CODEC_HDR_METADATA_HELPER_H

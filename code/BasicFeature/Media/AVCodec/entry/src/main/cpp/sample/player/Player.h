@@ -44,6 +44,47 @@ enum PlayerState : int32_t {
     STOPPING,
 };
 
+struct PlaybackInfo {
+    PlayerState state = PlayerState::IDLE;
+    float speed = 1.0f;
+    int64_t durationUs = 0;
+    int64_t positionUs = 0;
+    bool hasVideo = false;
+    bool hasAudio = false;
+    bool smartFluencyAvailable = false;
+    bool hdrVividConfirmed = false;
+};
+
+struct MediaInfo {
+    bool available = false;
+    int64_t fileSize = 0;
+    int64_t durationUs = 0;
+    int32_t trackCount = 0;
+    std::string videoCodecMime;
+    int32_t videoWidth = 0;
+    int32_t videoHeight = 0;
+    double frameRate = 0.0;
+    int64_t videoBitrate = 0;
+    int32_t codecProfile = 0;
+    int32_t rotation = 0;
+    bool hdrVividContainerSignaled = false;
+    bool hdrVividConfirmed = false;
+    std::string audioCodecMime;
+    int32_t audioSampleFormat = 0;
+    int32_t audioSampleRate = 0;
+    int32_t audioChannelCount = 0;
+    int64_t audioChannelLayout = 0;
+    int64_t audioBitrate = 0;
+    int32_t aacAdts = -1;
+    int64_t codecConfigLength = 0;
+    int32_t decoderType = 0;
+    int32_t decoderRunMode = 0;
+    int32_t decoderSyncMode = 0;
+    bool videoDumpEnabled = false;
+    std::string sourceFormatDump;
+    std::vector<MediaTrackFormatInfo> trackFormats;
+};
+
 class Player {
 public:
     Player(){};
@@ -59,6 +100,8 @@ public:
     int32_t Start();
     int32_t Stop();
     PlayerState GetState() const;
+    PlaybackInfo GetPlaybackInfo() const;
+    MediaInfo GetMediaInfo() const;
     bool IsSmartFluencyAvailable() const;
     void SetSpeed(float multiplier);
     void SetTransform(int32_t hint);
@@ -84,6 +127,8 @@ private:
     void ReleaseVideoDecoder();
     void ReleaseAudioDecoder();
     void PrepareForInitialization(const SampleInfo &sampleInfo);
+    void UpdateSmartFluencyAvailability();
+    void UpdateMediaInfoSnapshot();
     PlaybackCompletionReason GetCompletionReason(bool &playbackSucceeded) const;
     void ReleasePlaybackResources();
     int32_t CreateAudioDecoder();
@@ -119,7 +164,7 @@ private:
     std::shared_ptr<AudioDecoder> audioDecoder_ = nullptr;
     std::unique_ptr<Demuxer> demuxer_ = nullptr;
     
-    std::mutex mutex_;
+    mutable std::mutex mutex_;
     std::atomic<bool> isStarted_ { false };
     std::atomic<bool> isReleased_ { false };
     std::atomic<bool> isAudioDone { false };
@@ -136,6 +181,7 @@ private:
     std::condition_variable doneCond_;
     std::mutex doneMutex;
     SampleInfo sampleInfo_;
+    MediaInfo mediaInfo_;
     std::unique_ptr<CodecUserData> videoDecContext_ = nullptr;
     std::unique_ptr<CodecUserData> audioDecContext_ = nullptr;
     OH_AudioStreamBuilder* builder_ = nullptr;
@@ -149,6 +195,11 @@ private:
     std::ofstream audioOutputFile_; // for debug
 #endif
     std::atomic<float> speed { 1.0f };
+    std::atomic<int64_t> playbackPositionUs_ { 0 };
+    std::atomic<int64_t> playbackDurationUs_ { 0 };
+    std::atomic<bool> hasVideoTrack_ { false };
+    std::atomic<bool> hasAudioTrack_ { false };
+    std::atomic<bool> hdrVividConfirmed_ { false };
     int32_t transformHint = 0;
     bool isSmartFluencySupported_ = false;
     std::atomic<bool> smartFluencyAvailable_ { false };

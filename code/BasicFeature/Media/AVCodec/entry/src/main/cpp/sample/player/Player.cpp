@@ -15,6 +15,7 @@
 
 #include "Player.h"
 #include "AudioOutputPump.h"
+#include "HdrMetadataHelper.h"
 #include "av_codec_sample_log.h"
 #include "dfx/error/av_codec_sample_error.h"
 #include <algorithm>
@@ -84,6 +85,34 @@ PlayerState Player::GetState() const
     return state_.load();
 }
 
+PlaybackInfo Player::GetPlaybackInfo() const
+{
+    PlaybackInfo info;
+    info.state = state_.load();
+    if (info.state == PlayerState::IDLE) {
+        return info;
+    }
+    info.speed = speed.load();
+    info.durationUs = playbackDurationUs_.load();
+    info.hasVideo = hasVideoTrack_.load();
+    info.hasAudio = hasAudioTrack_.load();
+    info.smartFluencyAvailable = smartFluencyAvailable_.load();
+    info.hdrVividConfirmed = hdrVividConfirmed_.load();
+    info.positionUs = playbackPositionUs_.load();
+    if (info.durationUs > 0) {
+        info.positionUs = std::clamp(info.positionUs, int64_t { 0 }, info.durationUs);
+    }
+    return info;
+}
+
+MediaInfo Player::GetMediaInfo() const
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    MediaInfo info = mediaInfo_;
+    info.hdrVividConfirmed = hdrVividConfirmed_.load();
+    return info;
+}
+
 bool Player::IsSmartFluencyAvailable() const
 {
     return smartFluencyAvailable_.load();
@@ -120,30 +149,32 @@ int32_t Player::Stop()
 
 int32_t Player::CreateAudioDecoder()
 {
-    AVCODEC_SAMPLE_LOGW("audio mime:%{public}s", sampleInfo_.audioCodecMime.c_str());
-    int32_t ret = audioDecoder_->Create(sampleInfo_.audioCodecMime);
+    AVCODEC_SAMPLE_LOGW("audio mime:%{public}s", sampleInfo_.audio.audioCodecMime.c_str());
+    int32_t ret = audioDecoder_->Create(sampleInfo_.audio.audioCodecMime);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         isAudioDone.store(true);
-        AVCODEC_SAMPLE_LOGE("Create audio decoder failed, mime:%{public}s", sampleInfo_.audioCodecMime.c_str());
+        AVCODEC_SAMPLE_LOGE("Create audio decoder failed, mime:%{public}s",
+            sampleInfo_.audio.audioCodecMime.c_str());
     } else {
         audioDecContext_ = std::make_unique<CodecUserData>();
         audioDecContext_->runningFlag = &isStarted_;
+        audioDecContext_->playbackPositionUs = &playbackPositionUs_;
         ret = audioDecoder_->Config(sampleInfo_, audioDecContext_.get());
         CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Audio Decoder config failed");
         OH_AudioStreamBuilder_Create(&builder_, AUDIOSTREAM_TYPE_RENDERER);
         OH_AudioStreamBuilder_SetLatencyMode(builder_, AUDIOSTREAM_LATENCY_MODE_NORMAL);
          // Set the audio sampling rate.
-        OH_AudioStreamBuilder_SetSamplingRate(builder_, sampleInfo_.audioSampleRate);
+        OH_AudioStreamBuilder_SetSamplingRate(builder_, sampleInfo_.audio.audioSampleRate);
         // 设置音频声道
-        OH_AudioStreamBuilder_SetChannelCount(builder_, sampleInfo_.audioChannelCount);
+        OH_AudioStreamBuilder_SetChannelCount(builder_, sampleInfo_.audio.audioChannelCount);
         // 设置音频采样格式
         OH_AudioStreamBuilder_SetSampleFormat(builder_, AUDIOSTREAM_SAMPLE_S16LE);
         // 设置音频流的编码类型
         OH_AudioStreamBuilder_SetEncodingType(builder_, AUDIOSTREAM_ENCODING_TYPE_RAW);
         // 设置输出音频流的工作场景
         OH_AudioStreamBuilder_SetRendererInfo(builder_, AUDIOSTREAM_USAGE_MOVIE);
-        AVCODEC_SAMPLE_LOGW("Init audioSampleRate: %{public}d, ChannelCount: %{public}d", sampleInfo_.audioSampleRate,
-                            sampleInfo_.audioChannelCount);
+        AVCODEC_SAMPLE_LOGW("Init audioSampleRate: %{public}d, ChannelCount: %{public}d",
+            sampleInfo_.audio.audioSampleRate, sampleInfo_.audio.audioChannelCount);
         OH_AudioRenderer_Callbacks callbacks;
         // 配置回调函数
 #ifndef DEBUG_DECODE
@@ -163,20 +194,21 @@ int32_t Player::CreateAudioDecoder()
 
 int32_t Player::CreateVideoDecoder()
 {
-    AVCODEC_SAMPLE_LOGW("video mime:%{public}s", sampleInfo_.videoCodecMime.c_str());
-    int32_t ret = videoDecoder_->Create(sampleInfo_.videoCodecMime, sampleInfo_.codecType);
+    AVCODEC_SAMPLE_LOGW("video mime:%{public}s", sampleInfo_.video.videoCodecMime.c_str());
+    int32_t ret = videoDecoder_->Create(sampleInfo_.video.videoCodecMime, sampleInfo_.codec.codecType);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         isVideoDone.store(true);
-        AVCODEC_SAMPLE_LOGW("Create video decoder failed, mime:%{public}s", sampleInfo_.videoCodecMime.c_str());
+        AVCODEC_SAMPLE_LOGW("Create video decoder failed, mime:%{public}s",
+            sampleInfo_.video.videoCodecMime.c_str());
     } else {
         videoDecContext_ = std::make_unique<CodecUserData>();
         videoDecContext_->runningFlag = &isStarted_;
         videoDecContext_->sampleInfo = &sampleInfo_;
         videoDecContext_->isDecFirstFrame = true;
-        if (sampleInfo_.codecRunMode == SURFACE) {
-            sampleInfo_.window = NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
+        if (sampleInfo_.codec.codecRunMode == SURFACE) {
+            sampleInfo_.video.window = NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
         } else {
-            sampleInfo_.window = nullptr;
+            sampleInfo_.video.window = nullptr;
         }
         ret = videoDecoder_->Config(sampleInfo_, videoDecContext_.get());
         CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Video Decoder config failed");
@@ -205,13 +237,59 @@ int32_t Player::HandleInitError(std::unique_lock<std::mutex>& outerLock)
 void Player::PrepareForInitialization(const SampleInfo &sampleInfo)
 {
     sampleInfo_ = sampleInfo;
+    mediaInfo_ = {};
     playbackFailed_ = false;
     stopRequested_ = false;
     speed.store(1.0f);
-    isSmartFluencySupported_ = sampleInfo.isSmartFluencySupported;
+    playbackPositionUs_.store(0);
+    playbackDurationUs_.store(0);
+    hasVideoTrack_.store(false);
+    hasAudioTrack_.store(false);
+    hdrVividConfirmed_.store(false);
+    isSmartFluencySupported_ = sampleInfo.codec.isSmartFluencySupported;
     videoDecoder_ = std::make_unique<VideoDecoder>();
     audioDecoder_ = std::make_unique<AudioDecoder>();
     demuxer_ = std::make_unique<Demuxer>();
+}
+
+void Player::UpdateSmartFluencyAvailability()
+{
+#ifdef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
+    smartFluencyAvailable_ = isSmartFluencySupported_ && videoDecContext_ != nullptr;
+#else
+    smartFluencyAvailable_ = false;
+#endif
+    AVCODEC_SAMPLE_LOGI("Smart fluency available for this playback: %{public}d", smartFluencyAvailable_.load());
+}
+
+void Player::UpdateMediaInfoSnapshot()
+{
+    mediaInfo_.available = true;
+    mediaInfo_.fileSize = sampleInfo_.source.inputFileSize;
+    mediaInfo_.durationUs = sampleInfo_.source.durationUs;
+    mediaInfo_.trackCount = sampleInfo_.source.trackCount;
+    mediaInfo_.videoCodecMime = sampleInfo_.video.videoCodecMime;
+    mediaInfo_.videoWidth = sampleInfo_.video.videoWidth;
+    mediaInfo_.videoHeight = sampleInfo_.video.videoHeight;
+    mediaInfo_.frameRate = sampleInfo_.video.frameRate;
+    mediaInfo_.videoBitrate = sampleInfo_.video.bitrate;
+    mediaInfo_.codecProfile = sampleInfo_.video.hevcProfile;
+    mediaInfo_.rotation = sampleInfo_.video.rotation;
+    mediaInfo_.hdrVividContainerSignaled = sampleInfo_.video.hdrVividContainerSignaled;
+    mediaInfo_.audioCodecMime = sampleInfo_.audio.audioCodecMime;
+    mediaInfo_.audioSampleFormat = sampleInfo_.audio.audioSampleFormat;
+    mediaInfo_.audioSampleRate = sampleInfo_.audio.audioSampleRate;
+    mediaInfo_.audioChannelCount = sampleInfo_.audio.audioChannelCount;
+    mediaInfo_.audioChannelLayout = sampleInfo_.audio.audioChannelLayout;
+    mediaInfo_.audioBitrate = sampleInfo_.audio.audioBitRate;
+    mediaInfo_.aacAdts = sampleInfo_.audio.aacAdts;
+    mediaInfo_.codecConfigLength = static_cast<int64_t>(sampleInfo_.audio.codecConfigLen);
+    mediaInfo_.decoderType = sampleInfo_.codec.codecType;
+    mediaInfo_.decoderRunMode = sampleInfo_.codec.codecRunMode;
+    mediaInfo_.decoderSyncMode = sampleInfo_.codec.codecSyncMode;
+    mediaInfo_.videoDumpEnabled = sampleInfo_.output.enableVideoDump;
+    mediaInfo_.sourceFormatDump = sampleInfo_.source.sourceFormatDump;
+    mediaInfo_.trackFormats = sampleInfo_.source.trackFormats;
 }
 
 int32_t Player::Init(SampleInfo &sampleInfo)
@@ -248,13 +326,7 @@ int32_t Player::Init(SampleInfo &sampleInfo)
         return HandleInitError(lock);
     }
 
-#ifdef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
-    smartFluencyAvailable_ = isSmartFluencySupported_ && videoDecContext_ != nullptr;
-#else
-    smartFluencyAvailable_ = false;
-#endif
-    AVCODEC_SAMPLE_LOGI("Smart fluency available for this playback: %{public}d",
-        smartFluencyAvailable_.load());
+    UpdateSmartFluencyAvailability();
 
     if (audioDecContext_ == nullptr && videoDecContext_ == nullptr) {
         AVCODEC_SAMPLE_LOGE("No supported audio or video track found");
@@ -265,6 +337,10 @@ int32_t Player::Init(SampleInfo &sampleInfo)
         audioDecContext_->sampleInfo = &sampleInfo_;
     }
 
+    playbackDurationUs_.store(sampleInfo_.source.durationUs);
+    hasVideoTrack_.store(videoDecContext_ != nullptr);
+    hasAudioTrack_.store(audioDecContext_ != nullptr);
+    UpdateMediaInfoSnapshot();
     isReleased_ = false;
     state_ = PlayerState::READY;
     AVCODEC_SAMPLE_LOGI("Succeed");
@@ -282,7 +358,7 @@ int32_t Player::StartVideoDecoder()
         return ret;
     }
 
-    if (sampleInfo_.codecSyncMode) {
+    if (sampleInfo_.codec.codecSyncMode) {
         videoDecInputThread_ = std::make_unique<std::thread>(&Player::VideoDecInputSyncThread, this);
         videoDecOutputThread_ = std::make_unique<std::thread>(&Player::VideoDecOutputSyncThread, this);
     } else {
@@ -315,7 +391,7 @@ int32_t Player::StartAudioDecoder()
         return ret;
     }
 
-    if (sampleInfo_.codecSyncMode) {
+    if (sampleInfo_.codec.codecSyncMode) {
         audioDecInputThread_ = std::make_unique<std::thread>(&Player::AudioDecInputSyncThread, this);
         audioDecOutputThread_ = std::make_unique<std::thread>(&Player::AudioDecOutputSyncThread, this);
     } else {
@@ -463,7 +539,7 @@ void Player::SetTransform(int32_t hint)
     }
     this->transformHint = hint;
     int32_t operationCode = SET_TRANSFORM;
-    OHNativeWindow *window = sampleInfo_.window != nullptr ? sampleInfo_.window :
+    OHNativeWindow *window = sampleInfo_.video.window != nullptr ? sampleInfo_.video.window :
         NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
     CHECK_AND_RETURN_LOG(window != nullptr, "Native window is null");
     OH_NativeWindow_NativeWindowHandleOpt(window, operationCode, this->transformHint);
@@ -607,11 +683,16 @@ void Player::Release()
     isStarted_ = false;
     JoinWorkerThreads();
     ReleasePlaybackResources();
-    auto playDoneCallback = sampleInfo_.playDoneCallback;
-    void *playDoneCallbackData = sampleInfo_.playDoneCallbackData;
-    sampleInfo_.playDoneCallback = nullptr;
-    sampleInfo_.playDoneCallbackData = nullptr;
+    auto playDoneCallback = sampleInfo_.playback.playDoneCallback;
+    void *playDoneCallbackData = sampleInfo_.playback.playDoneCallbackData;
+    sampleInfo_.playback.playDoneCallback = nullptr;
+    sampleInfo_.playback.playDoneCallbackData = nullptr;
     smartFluencyAvailable_ = false;
+    speed.store(1.0f);
+    playbackPositionUs_.store(0);
+    playbackDurationUs_.store(0);
+    hasVideoTrack_.store(false);
+    hasAudioTrack_.store(false);
     state_ = PlayerState::IDLE;
     lock.unlock();
     if (playDoneCallback != nullptr) {
@@ -623,19 +704,19 @@ void Player::Release()
 void Player::DumpOutput(CodecBufferInfo &bufferInfo)
 {
     auto &info = sampleInfo_;
-    if (info.codecRunMode != BUFFER || !info.enableVideoDump) {
+    if (info.codec.codecRunMode != BUFFER || !info.output.enableVideoDump) {
         return;
     }
     if (outputFile_ == nullptr) {
         auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         // dump file /data/app/el2/100/base/com.samples.avcodecsample/haps/entry/files
-        if (info.outputFilePath.empty()) {
-            info.outputFilePath = "/data/storage/el2/base/haps/entry/files/VideoDecoderOut_"s +
-                                  ToString(info.pixelFormat) + "_" + std::to_string(info.videoWidth) + "_" +
-                                  std::to_string(info.videoHeight) + "_" + std::to_string(time) + ".yuv";
+        if (info.output.outputFilePath.empty()) {
+            info.output.outputFilePath = "/data/storage/el2/base/haps/entry/files/VideoDecoderOut_"s +
+                                  ToString(info.video.pixelFormat) + "_" + std::to_string(info.video.videoWidth) + "_" +
+                                  std::to_string(info.video.videoHeight) + "_" + std::to_string(time) + ".yuv";
         }
 
-        outputFile_ = std::make_unique<std::ofstream>(info.outputFilePath, std::ios::out | std::ios::trunc);
+        outputFile_ = std::make_unique<std::ofstream>(info.output.outputFilePath, std::ios::out | std::ios::trunc);
         if (!outputFile_->is_open()) {
             outputFile_ = nullptr;
             AVCODEC_SAMPLE_LOGE("Output file open failed");
@@ -645,7 +726,7 @@ void Player::DumpOutput(CodecBufferInfo &bufferInfo)
 
     uint8_t *bufferAddr = GetBufferDataAddr(bufferInfo);
     CHECK_AND_RETURN_LOG(bufferAddr != nullptr, "Buffer is nullptr");
-    switch (info.pixelFormat) {
+    switch (info.video.pixelFormat) {
         case AV_PIXEL_FORMAT_YUVI420:
             WriteOutputFileWithStrideYUV420P(bufferAddr);
             break;
@@ -677,11 +758,16 @@ bool Player::RenderBufferToWindow(CodecBufferInfo& bufferInfo, int64_t renderTim
 
 bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool render, int64_t renderTimestamp)
 {
+    if (sampleInfo_.codec.codecRunMode == BUFFER && !hdrVividConfirmed_.load() &&
+        HdrMetadataHelper::IsHdrVivid(bufferInfo.buffer)) {
+        hdrVividConfirmed_.store(true);
+        AVCODEC_SAMPLE_LOGI("HDR Vivid confirmed from decoded bitstream metadata");
+    }
     DumpOutput(bufferInfo);
 
     int32_t ret = AVCODEC_SAMPLE_ERR_OK;
     bool renderResult = true;
-    if (sampleInfo_.codecRunMode == BUFFER) {
+    if (sampleInfo_.codec.codecRunMode == BUFFER) {
         renderResult = !render || RenderBufferToWindow(bufferInfo, renderTimestamp);
         ret = videoDecoder_->FreeOutputBuffer(bufferInfo.bufferIndex, false);
     } else {
@@ -700,6 +786,9 @@ bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool rend
         isStarted_ = false;
         return false;
     }
+    if (render && !hasAudioTrack_.load()) {
+        playbackPositionUs_.store(bufferInfo.attr.pts);
+    }
     return true;
 }
 
@@ -709,7 +798,8 @@ void Player::WriteOutputFileWithStrideYUV420P(uint8_t *bufferAddr)
     auto &info = sampleInfo_;
     int32_t videoWidth =
         videoDecContext_->width *
-        ((info.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_HEVC && info.hevcProfile == HEVC_PROFILE_MAIN_10) ? 2 : 1);
+        ((info.video.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_HEVC &&
+            info.video.hevcProfile == HEVC_PROFILE_MAIN_10) ? 2 : 1);
     int32_t &stride = videoDecContext_->widthStride;
     int32_t uvWidth = videoWidth / YUV420_SAMPLE_RATIO;
     int32_t uvStride = stride / YUV420_SAMPLE_RATIO;
@@ -740,7 +830,8 @@ void Player::WriteOutputFileWithStrideYUV420SP(uint8_t *bufferAddr)
     auto &info = sampleInfo_;
     int32_t videoWidth =
         videoDecContext_->width *
-        ((info.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_HEVC && info.hevcProfile == HEVC_PROFILE_MAIN_10) ? 2 : 1);
+        ((info.video.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_HEVC &&
+            info.video.hevcProfile == HEVC_PROFILE_MAIN_10) ? 2 : 1);
     int32_t &stride = videoDecContext_->widthStride;
 
     // copy Y
@@ -872,12 +963,12 @@ bool Player::ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo,
         return false;
     }
     const float speedSnapshot = speed.load();
-    speedSnapshot == 1 ? sampleInfo_.frameInterval = US_PER_SECOND / sampleInfo_.frameRate
-        : speedSnapshot == DOUBLE_SPEED_MULTIPLIER ? sampleInfo_.frameInterval =
-                        US_PER_SECOND / sampleInfo_.frameRate / DOUBLE_SPEED_MULTIPLIER
-                   : sampleInfo_.frameInterval =
-                        US_PER_SECOND / sampleInfo_.frameRate / TRIPLE_SPEED_MULTIPLIER;
-    std::this_thread::sleep_until(lastPushTime + std::chrono::microseconds(sampleInfo_.frameInterval));
+    speedSnapshot == 1 ? sampleInfo_.video.frameInterval = US_PER_SECOND / sampleInfo_.video.frameRate
+        : speedSnapshot == DOUBLE_SPEED_MULTIPLIER ? sampleInfo_.video.frameInterval =
+                        US_PER_SECOND / sampleInfo_.video.frameRate / DOUBLE_SPEED_MULTIPLIER
+                   : sampleInfo_.video.frameInterval =
+                        US_PER_SECOND / sampleInfo_.video.frameRate / TRIPLE_SPEED_MULTIPLIER;
+    std::this_thread::sleep_until(lastPushTime + std::chrono::microseconds(sampleInfo_.video.frameInterval));
     lastPushTime = std::chrono::system_clock::now();
     
     return true;
@@ -894,10 +985,10 @@ bool Player::CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t frameP
         currentAudioPts = audioDecContext_->currentPosAudioBufferPts;
     }
     const auto speedSnapshot = static_cast<double>(speed.load());
-    CHECK_AND_RETURN_RET_LOG(sampleInfo_.audioSampleRate > 0 && speedSnapshot > 0.0, false,
+    CHECK_AND_RETURN_RET_LOG(sampleInfo_.audio.audioSampleRate > 0 && speedSnapshot > 0.0, false,
         "Invalid audio clock parameters");
     const int64_t pendingFrames = std::max(audioFramesWritten - framePosition, int64_t { 0 });
-    const auto latency = static_cast<int64_t>(pendingFrames * US_PER_SECOND / sampleInfo_.audioSampleRate);
+    const auto latency = static_cast<int64_t>(pendingFrames * US_PER_SECOND / sampleInfo_.audio.audioSampleRate);
     AVCODEC_SAMPLE_LOGI("VD latency: %{public}li audioFramesWritten: %{public}li",
         latency, audioFramesWritten);
     
@@ -960,7 +1051,7 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
         if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
             return false;
         }
-        std::this_thread::sleep_until(lastPushTime + std::chrono::microseconds(sampleInfo_.frameInterval));
+        std::this_thread::sleep_until(lastPushTime + std::chrono::microseconds(sampleInfo_.video.frameInterval));
         lastPushTime = std::chrono::system_clock::now();
         return true;
     }
@@ -983,16 +1074,16 @@ void Player::InitSyncVideoOutputContext()
         OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_HEIGHT, &videoDecContext_->height);
         OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_STRIDE, &videoDecContext_->widthStride);
         OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_SLICE_HEIGHT, &videoDecContext_->heightStride);
-        int32_t pixelFormat = sampleInfo_.pixelFormat;
+        int32_t pixelFormat = sampleInfo_.video.pixelFormat;
         if (OH_AVFormat_GetIntValue(format, OH_MD_KEY_PIXEL_FORMAT, &pixelFormat)) {
-            sampleInfo_.pixelFormat = static_cast<OH_AVPixelFormat>(pixelFormat);
+            sampleInfo_.video.pixelFormat = static_cast<OH_AVPixelFormat>(pixelFormat);
         }
         OH_AVFormat_Destroy(format);
     }
     videoDecContext_->isDecFirstFrame = false;
     AVCODEC_SAMPLE_LOGI("Sync mode init: %{public}d*%{public}d, stride: %{public}d*%{public}d, "
         "pixel format: %{public}d", videoDecContext_->width, videoDecContext_->height,
-        videoDecContext_->widthStride, videoDecContext_->heightStride, sampleInfo_.pixelFormat);
+        videoDecContext_->widthStride, videoDecContext_->heightStride, sampleInfo_.video.pixelFormat);
 }
 
 bool Player::GetSyncVideoOutputBuffer(CodecBufferInfo& bufferInfo)
@@ -1034,7 +1125,7 @@ void Player::FinishVideoOutput()
 
 void Player::VideoDecOutputSyncThread()
 {
-    sampleInfo_.frameInterval = US_PER_SECOND / sampleInfo_.frameRate;
+    sampleInfo_.video.frameInterval = US_PER_SECOND / sampleInfo_.video.frameRate;
     thread_local auto lastPushTime = std::chrono::system_clock::now();
     while (isStarted_) {
         if (!ProcessSyncVideoOutput(lastPushTime)) {
@@ -1046,7 +1137,7 @@ void Player::VideoDecOutputSyncThread()
 
 void Player::VideoDecOutputAsyncThread()
 {
-    sampleInfo_.frameInterval = US_PER_SECOND / sampleInfo_.frameRate;
+    sampleInfo_.video.frameInterval = US_PER_SECOND / sampleInfo_.video.frameRate;
     while (true) {
         thread_local auto lastPushTime = std::chrono::system_clock::now();
         CHECK_AND_BREAK_LOG(isStarted_, "VD Decoder output thread out");
@@ -1162,10 +1253,10 @@ bool Player::ProcessAudioOutput(CodecBufferInfo &bufferInfo)
     }
 
     // SAMPLE_S16LE 2 bytes per frame
-    writtenSampleCnt += (bufferInfo.attr.size / sampleInfo_.audioChannelCount / BYTES_PER_SAMPLE_2);
+    writtenSampleCnt += (bufferInfo.attr.size / sampleInfo_.audio.audioChannelCount / BYTES_PER_SAMPLE_2);
     AVCODEC_SAMPLE_LOGI("writtenSampleCnt_: %{public}ld, bufferInfo.attr.size: %{public}d, "
                         "sampleInfo_.audioChannelCount: %{public}d",
-                        writtenSampleCnt, bufferInfo.attr.size, sampleInfo_.audioChannelCount);
+                        writtenSampleCnt, bufferInfo.attr.size, sampleInfo_.audio.audioChannelCount);
 
     audioBufferPts = bufferInfo.attr.pts;
     audioDecContext_->endPosAudioBufferPts = audioBufferPts;

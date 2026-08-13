@@ -61,11 +61,11 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
     videoEncoder_ = std::make_unique<VideoEncoder>();
     muxer_ = std::make_unique<Muxer>();
 
-    int32_t ret = videoEncoder_->Create(sampleInfo_.videoCodecMime);
+    int32_t ret = videoEncoder_->Create(sampleInfo_.video.videoCodecMime);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create video encoder failed");
-    ret = muxer_->Create(sampleInfo_.outputFd, sampleInfo_.outputFormat);
+    ret = muxer_->Create(sampleInfo_.output.outputFd, sampleInfo_.output.outputFormat);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create muxer with fd(%{public}d) failed",
-                             sampleInfo_.outputFd);
+                             sampleInfo_.output.outputFd);
 
     ret = muxer_->Config(sampleInfo_);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Recorder muxer config failed");
@@ -80,7 +80,7 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
     ret = CreateVideoEncoder();
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create video encoder failed");
 
-    sampleInfo.window = sampleInfo_.window;
+    sampleInfo.video.window = sampleInfo_.video.window;
 
     releaseThread_ = nullptr;
     AVCODEC_SAMPLE_LOGI("Succeed");
@@ -103,7 +103,7 @@ int32_t Recorder::Start()
 
     isEos_ = false;
     isStarted_ = true;
-    if (sampleInfo_.codecSyncMode) {
+    if (sampleInfo_.codec.codecSyncMode) {
         encOutputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncOutputSyncThread, this);
     } else {
         encOutputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncOutputAsyncThread, this);
@@ -120,7 +120,7 @@ int32_t Recorder::Start()
         ret = audioEncoder_->Start();
         CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Audio Encoder start failed");
         isStarted_ = true;
-        if (sampleInfo_.codecSyncMode) {
+        if (sampleInfo_.codec.codecSyncMode) {
             audioEncInputThread_ = std::make_unique<std::thread>(&Recorder::AudioEncInputSyncThread, this);
             audioEncOutputThread_ = std::make_unique<std::thread>(&Recorder::AudioEncOutputSyncThread, this);
         } else {
@@ -286,9 +286,9 @@ void Recorder::ReleaseVideoEncoder()
             std::unique_lock<std::shared_mutex> codecLock(encContext_->codecMutex);
             encContext_->ClearQueue();
         }
-        if (sampleInfo_.window != nullptr) {
-            OH_NativeWindow_DestroyNativeWindow(sampleInfo_.window);
-            sampleInfo_.window = nullptr;
+        if (sampleInfo_.video.window != nullptr) {
+            OH_NativeWindow_DestroyNativeWindow(sampleInfo_.video.window);
+            sampleInfo_.video.window = nullptr;
         }
         videoEncoder_->Release();
         videoEncoder_.reset();
@@ -403,7 +403,7 @@ int32_t Recorder::StopEnd()
 
 int32_t Recorder::CreateVideoEncoder()
 {
-    int32_t ret = videoEncoder_->Create(sampleInfo_.videoCodecMime);
+    int32_t ret = videoEncoder_->Create(sampleInfo_.video.videoCodecMime);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create video encoder failed");
 
     encContext_ = new CodecUserData;
@@ -415,10 +415,10 @@ int32_t Recorder::CreateVideoEncoder()
 
 int32_t Recorder::CreateAudioEncoder()
 {
-    int32_t ret = audioEncoder_->Create(sampleInfo_.audioCodecMime);
+    int32_t ret = audioEncoder_->Create(sampleInfo_.audio.audioCodecMime);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create audio encoder(%{public}s) failed",
-                             sampleInfo_.audioCodecMime.c_str());
-    AVCODEC_SAMPLE_LOGI("Create audio encoder(%{public}s)", sampleInfo_.audioCodecMime.c_str());
+                             sampleInfo_.audio.audioCodecMime.c_str());
+    AVCODEC_SAMPLE_LOGI("Create audio encoder(%{public}s)", sampleInfo_.audio.audioCodecMime.c_str());
 
     audioEncContext_ = new CodecUserData;
     ret = audioEncoder_->Config(sampleInfo_, audioEncContext_);
@@ -441,11 +441,11 @@ void Recorder::AudioEncInputThread()
         {
             std::unique_lock<std::mutex> lock(audioEncContext_->inputMutex);
             audioEncContext_->inputCond.wait_for(lock, 5s, [this]() {
-                return !isStarted_ || (audioEncContext_->remainlen >= sampleInfo_.audioMaxInputSize);
+                return !isStarted_ || (audioEncContext_->remainlen >= sampleInfo_.audio.audioMaxInputSize);
             });
         }
 
-        if (!isStarted_ || audioEncContext_->remainlen < sampleInfo_.audioMaxInputSize) {
+        if (!isStarted_ || audioEncContext_->remainlen < sampleInfo_.audio.audioMaxInputSize) {
             continue;
         }
 
@@ -459,10 +459,10 @@ void Recorder::AudioEncInputThread()
         uint8_t *inputBufferAddr = OH_AVBuffer_GetAddr(bufferInfo->buffer);
         {
             std::unique_lock<std::mutex> lock(audioEncContext_->inputMutex);
-            audioEncContext_->ReadCache(inputBufferAddr, sampleInfo_.audioMaxInputSize);
+            audioEncContext_->ReadCache(inputBufferAddr, sampleInfo_.audio.audioMaxInputSize);
         }
 
-        bufferInfo->attr.size = sampleInfo_.audioMaxInputSize;
+        bufferInfo->attr.size = sampleInfo_.audio.audioMaxInputSize;
         if (isAudioEncFirstFrame_) {
             bufferInfo->attr.flags = AVCODEC_BUFFER_FLAGS_CODEC_DATA;
             isAudioEncFirstFrame_ = false;
@@ -513,7 +513,8 @@ void Recorder::AudioEncInputSyncThread()
         {
             std::unique_lock<std::mutex> lock(audioEncContext_->inputMutex);
             audioEncContext_->inputCond.wait_for(lock, 100ms, [this]() {
-                return !isStarted_ || isEos_.load() || (audioEncContext_->remainlen >= sampleInfo_.audioMaxInputSize);
+                return !isStarted_ || isEos_.load() ||
+                    (audioEncContext_->remainlen >= sampleInfo_.audio.audioMaxInputSize);
             });
         }
 
@@ -529,12 +530,12 @@ void Recorder::AudioEncInputSyncThread()
         uint8_t *inputBufferAddr = OH_AVBuffer_GetAddr(buffer);
         {
             std::unique_lock<std::mutex> lock(audioEncContext_->inputMutex);
-            bool readSuccess = audioEncContext_->ReadCache(inputBufferAddr, sampleInfo_.audioMaxInputSize);
+            bool readSuccess = audioEncContext_->ReadCache(inputBufferAddr, sampleInfo_.audio.audioMaxInputSize);
             CHECK_AND_CONTINUE_LOG(readSuccess, "Read cache failed, insufficient data");
         }
 
         bufferInfo.buffer = buffer;
-        bufferInfo.attr.size = sampleInfo_.audioMaxInputSize;
+        bufferInfo.attr.size = sampleInfo_.audio.audioMaxInputSize;
         if (isAudioEncFirstFrame_) {
             bufferInfo.attr.flags = AVCODEC_BUFFER_FLAGS_CODEC_DATA;
             isAudioEncFirstFrame_ = false;

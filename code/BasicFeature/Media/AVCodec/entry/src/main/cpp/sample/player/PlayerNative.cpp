@@ -194,14 +194,14 @@ bool ParsePlayOptions(napi_env env, napi_value options, SampleInfo &sampleInfo)
         napi_throw_type_error(env, nullptr, "Play options must be an object");
         return false;
     }
-    return ReadInt32Property(env, options, "inputFileFd", sampleInfo.inputFd) &&
-        ReadInt64Property(env, options, "inputFileOffset", sampleInfo.inputFileOffset) &&
-        ReadInt64Property(env, options, "inputFileSize", sampleInfo.inputFileSize) &&
-        ReadInt32Property(env, options, "videoDecoderType", sampleInfo.codecType) &&
-        ReadInt32Property(env, options, "videoDecoderRunMode", sampleInfo.codecRunMode) &&
-        ReadInt32Property(env, options, "videoDecoderSyncMode", sampleInfo.codecSyncMode) &&
-        ReadBoolProperty(env, options, "isSmartFluencySupported", sampleInfo.isSmartFluencySupported) &&
-        ReadBoolProperty(env, options, "enableVideoDump", sampleInfo.enableVideoDump);
+    return ReadInt32Property(env, options, "inputFileFd", sampleInfo.source.inputFd) &&
+        ReadInt64Property(env, options, "inputFileOffset", sampleInfo.source.inputFileOffset) &&
+        ReadInt64Property(env, options, "inputFileSize", sampleInfo.source.inputFileSize) &&
+        ReadInt32Property(env, options, "videoDecoderType", sampleInfo.codec.codecType) &&
+        ReadInt32Property(env, options, "videoDecoderRunMode", sampleInfo.codec.codecRunMode) &&
+        ReadInt32Property(env, options, "videoDecoderSyncMode", sampleInfo.codec.codecSyncMode) &&
+        ReadBoolProperty(env, options, "isSmartFluencySupported", sampleInfo.codec.isSmartFluencySupported) &&
+        ReadBoolProperty(env, options, "enableVideoDump", sampleInfo.output.enableVideoDump);
 }
 
 bool IsFunction(napi_env env, napi_value value)
@@ -228,8 +228,8 @@ napi_value StartPlayback(napi_env env, SampleInfo &sampleInfo, napi_value callba
         return result;
     }
 
-    sampleInfo.playDoneCallback = &Callback;
-    sampleInfo.playDoneCallbackData = asyncContext.get();
+    sampleInfo.playback.playDoneCallback = &Callback;
+    sampleInfo.playback.playDoneCallbackData = asyncContext.get();
     int32_t ret = Player::GetInstance().Init(sampleInfo);
     if (ret == AVCODEC_SAMPLE_ERR_OK) {
         asyncContext.release();
@@ -263,6 +263,131 @@ bool ExportPlayerState(napi_env env, napi_value exports)
         return false;
     }
     return napi_set_named_property(env, exports, "PlayerState", stateObject) == napi_ok;
+}
+
+bool SetInt32Property(napi_env env, napi_value object, const char *name, int32_t value)
+{
+    napi_value property = nullptr;
+    return napi_create_int32(env, value, &property) == napi_ok &&
+        napi_set_named_property(env, object, name, property) == napi_ok;
+}
+
+bool SetInt64Property(napi_env env, napi_value object, const char *name, int64_t value)
+{
+    napi_value property = nullptr;
+    return napi_create_int64(env, value, &property) == napi_ok &&
+        napi_set_named_property(env, object, name, property) == napi_ok;
+}
+
+bool SetDoubleProperty(napi_env env, napi_value object, const char *name, double value)
+{
+    napi_value property = nullptr;
+    return napi_create_double(env, value, &property) == napi_ok &&
+        napi_set_named_property(env, object, name, property) == napi_ok;
+}
+
+bool SetBoolProperty(napi_env env, napi_value object, const char *name, bool value)
+{
+    napi_value property = nullptr;
+    return napi_get_boolean(env, value, &property) == napi_ok &&
+        napi_set_named_property(env, object, name, property) == napi_ok;
+}
+
+bool SetStringProperty(napi_env env, napi_value object, const char *name, const std::string &value)
+{
+    napi_value property = nullptr;
+    return napi_create_string_utf8(env, value.c_str(), value.length(), &property) == napi_ok &&
+        napi_set_named_property(env, object, name, property) == napi_ok;
+}
+
+bool PopulatePlaybackInfo(napi_env env, napi_value object, const PlaybackInfo &info)
+{
+    return SetInt32Property(env, object, "state", static_cast<int32_t>(info.state)) &&
+        SetDoubleProperty(env, object, "speed", info.speed) &&
+        SetInt64Property(env, object, "durationUs", info.durationUs) &&
+        SetInt64Property(env, object, "positionUs", info.positionUs) &&
+        SetBoolProperty(env, object, "hasVideo", info.hasVideo) &&
+        SetBoolProperty(env, object, "hasAudio", info.hasAudio) &&
+        SetBoolProperty(env, object, "isSmartFluencyAvailable", info.smartFluencyAvailable) &&
+        SetBoolProperty(env, object, "isHdrVividConfirmed", info.hdrVividConfirmed);
+}
+
+bool PopulateVideoMediaInfo(napi_env env, napi_value object, const MediaInfo &info)
+{
+    return SetStringProperty(env, object, "codecMime", info.videoCodecMime) &&
+        SetInt32Property(env, object, "width", info.videoWidth) &&
+        SetInt32Property(env, object, "height", info.videoHeight) &&
+        SetDoubleProperty(env, object, "frameRate", info.frameRate) &&
+        SetInt64Property(env, object, "bitrate", info.videoBitrate) &&
+        SetInt32Property(env, object, "profile", info.codecProfile) &&
+        SetInt32Property(env, object, "rotation", info.rotation) &&
+        SetBoolProperty(env, object, "isHdrVividContainerSignaled", info.hdrVividContainerSignaled) &&
+        SetBoolProperty(env, object, "isHdrVividConfirmed", info.hdrVividConfirmed);
+}
+
+bool PopulateAudioMediaInfo(napi_env env, napi_value object, const MediaInfo &info)
+{
+    return SetStringProperty(env, object, "codecMime", info.audioCodecMime) &&
+        SetInt32Property(env, object, "sampleFormat", info.audioSampleFormat) &&
+        SetInt32Property(env, object, "sampleRate", info.audioSampleRate) &&
+        SetInt32Property(env, object, "channelCount", info.audioChannelCount) &&
+        SetInt64Property(env, object, "channelLayout", info.audioChannelLayout) &&
+        SetInt64Property(env, object, "bitrate", info.audioBitrate) &&
+        SetInt32Property(env, object, "aacAdts", info.aacAdts) &&
+        SetInt64Property(env, object, "codecConfigLength", info.codecConfigLength);
+}
+
+bool PopulateDecoderInfo(napi_env env, napi_value object, const MediaInfo &info)
+{
+    return SetInt32Property(env, object, "type", info.decoderType) &&
+        SetInt32Property(env, object, "runMode", info.decoderRunMode) &&
+        SetInt32Property(env, object, "syncMode", info.decoderSyncMode) &&
+        SetBoolProperty(env, object, "videoDumpEnabled", info.videoDumpEnabled);
+}
+
+bool SetMediaSection(napi_env env, napi_value target, const char *name, const MediaInfo &info,
+    bool (*populate)(napi_env, napi_value, const MediaInfo &))
+{
+    napi_value section = nullptr;
+    return napi_create_object(env, &section) == napi_ok && populate(env, section, info) &&
+        napi_set_named_property(env, target, name, section) == napi_ok;
+}
+
+bool CreateTrackInfo(napi_env env, const MediaTrackFormatInfo &trackInfo, napi_value &object)
+{
+    return napi_create_object(env, &object) == napi_ok &&
+        SetInt32Property(env, object, "index", trackInfo.trackIndex) &&
+        SetInt32Property(env, object, "type", trackInfo.trackType) &&
+        SetStringProperty(env, object, "formatDump", trackInfo.formatDump);
+}
+
+bool SetTrackFormats(napi_env env, napi_value target, const std::vector<MediaTrackFormatInfo> &trackFormats)
+{
+    napi_value tracks = nullptr;
+    if (napi_create_array_with_length(env, trackFormats.size(), &tracks) != napi_ok) {
+        return false;
+    }
+    for (size_t index = 0; index < trackFormats.size(); index++) {
+        napi_value track = nullptr;
+        if (!CreateTrackInfo(env, trackFormats[index], track) ||
+            napi_set_element(env, tracks, static_cast<uint32_t>(index), track) != napi_ok) {
+            return false;
+        }
+    }
+    return napi_set_named_property(env, target, "tracks", tracks) == napi_ok;
+}
+
+bool PopulateMediaInfo(napi_env env, napi_value object, const MediaInfo &info)
+{
+    return SetBoolProperty(env, object, "available", info.available) &&
+        SetInt64Property(env, object, "fileSize", info.fileSize) &&
+        SetInt64Property(env, object, "durationUs", info.durationUs) &&
+        SetInt32Property(env, object, "trackCount", info.trackCount) &&
+        SetStringProperty(env, object, "sourceFormatDump", info.sourceFormatDump) &&
+        SetMediaSection(env, object, "video", info, PopulateVideoMediaInfo) &&
+        SetMediaSection(env, object, "audio", info, PopulateAudioMediaInfo) &&
+        SetMediaSection(env, object, "decoder", info, PopulateDecoderInfo) &&
+        SetTrackFormats(env, object, info.trackFormats);
 }
 } // namespace
 
@@ -333,14 +458,14 @@ napi_value PlayerNative::Play(napi_env env, napi_callback_info info)
         return nullptr;
     }
 
-    bool parsed = napi_get_value_int32(env, args[0], &sampleInfo.inputFd) == napi_ok &&
-        napi_get_value_int64(env, args[1], &sampleInfo.inputFileOffset) == napi_ok &&
-        napi_get_value_int64(env, args[2], &sampleInfo.inputFileSize) == napi_ok &&
-        napi_get_value_int32(env, args[3], &sampleInfo.codecType) == napi_ok &&
-        napi_get_value_int32(env, args[4], &sampleInfo.codecRunMode) == napi_ok &&
-        napi_get_value_int32(env, args[5], &sampleInfo.codecSyncMode) == napi_ok &&
-        napi_get_value_bool(env, args[6], &sampleInfo.isSmartFluencySupported) == napi_ok &&
-        napi_get_value_bool(env, args[7], &sampleInfo.enableVideoDump) == napi_ok;
+    bool parsed = napi_get_value_int32(env, args[0], &sampleInfo.source.inputFd) == napi_ok &&
+        napi_get_value_int64(env, args[1], &sampleInfo.source.inputFileOffset) == napi_ok &&
+        napi_get_value_int64(env, args[2], &sampleInfo.source.inputFileSize) == napi_ok &&
+        napi_get_value_int32(env, args[3], &sampleInfo.codec.codecType) == napi_ok &&
+        napi_get_value_int32(env, args[4], &sampleInfo.codec.codecRunMode) == napi_ok &&
+        napi_get_value_int32(env, args[5], &sampleInfo.codec.codecSyncMode) == napi_ok &&
+        napi_get_value_bool(env, args[6], &sampleInfo.codec.isSmartFluencySupported) == napi_ok &&
+        napi_get_value_bool(env, args[7], &sampleInfo.output.enableVideoDump) == napi_ok;
     if (!parsed) {
         napi_throw_type_error(env, nullptr, "Invalid playNative argument type");
         return nullptr;
@@ -382,6 +507,30 @@ napi_value PlayerNative::GetState(napi_env env, napi_callback_info info)
     return result;
 }
 
+napi_value PlayerNative::GetPlaybackInfo(napi_env env, napi_callback_info info)
+{
+    (void)info;
+    const PlaybackInfo playbackInfo = Player::GetInstance().GetPlaybackInfo();
+    napi_value result = nullptr;
+    if (napi_create_object(env, &result) != napi_ok || !PopulatePlaybackInfo(env, result, playbackInfo)) {
+        napi_throw_error(env, nullptr, "Create playback info failed");
+        return nullptr;
+    }
+    return result;
+}
+
+napi_value PlayerNative::GetMediaInfo(napi_env env, napi_callback_info info)
+{
+    (void)info;
+    const MediaInfo mediaInfo = Player::GetInstance().GetMediaInfo();
+    napi_value result = nullptr;
+    if (napi_create_object(env, &result) != napi_ok || !PopulateMediaInfo(env, result, mediaInfo)) {
+        napi_throw_error(env, nullptr, "Create media info failed");
+        return nullptr;
+    }
+    return result;
+}
+
 napi_value PlayerNative::IsSmartFluencyAvailable(napi_env env, napi_callback_info info)
 {
     (void)info;
@@ -398,6 +547,10 @@ static napi_value Init(napi_env env, napi_value exports)
         {"playNative", nullptr, PlayerNative::Play, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"stop", nullptr, PlayerNative::Stop, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getState", nullptr, PlayerNative::GetState, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getPlaybackInfo", nullptr, PlayerNative::GetPlaybackInfo,
+            nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getMediaInfo", nullptr, PlayerNative::GetMediaInfo,
+            nullptr, nullptr, nullptr, napi_default, nullptr},
         {"isSmartFluencyAvailable", nullptr, PlayerNative::IsSmartFluencyAvailable,
             nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setPlaybackSpeed", nullptr, PlayerNative::SetPlaybackSpeed,
