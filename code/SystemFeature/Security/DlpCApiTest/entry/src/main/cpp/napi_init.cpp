@@ -41,7 +41,7 @@ static napi_value GetDlpPermissionInfo(napi_env env, napi_callback_info info)
 // [Start dlp_C_GetOriginalFileName]
 static napi_value GetOriginalFileName(napi_env env, napi_callback_info info)
 {
-    const char *fileName = "test.txt.dlp"; //表示dlp文件名，用以获取原始文件名
+    const char *fileName = "test.txt.dlp"; //表示DLP文件名，用以获取原始文件名
     char *originalFileName = nullptr; //表示原始文件名
     DLP_ErrCode ret = OH_DLP_GetOriginalFileName(fileName, &originalFileName);
     if (ret == DLP_ErrCode::ERR_OH_SUCCESS) {
@@ -59,7 +59,7 @@ static napi_value GetOriginalFileName(napi_env env, napi_callback_info info)
 // [Start dlp_C_IsInSandbox]
 static napi_value IsInSandbox(napi_env env, napi_callback_info info)
 {
-    bool isInSandbox = false; //true 表示当前应用在沙箱中，false 表示应用不在沙箱
+    bool isInSandbox = false; //true表示当前应用在沙箱中，false表示应用不在沙箱
     DLP_ErrCode ret = OH_DLP_IsInSandbox(&isInSandbox);
     if (ret == DLP_ErrCode::ERR_OH_SUCCESS) {
         napi_value result = nullptr;
