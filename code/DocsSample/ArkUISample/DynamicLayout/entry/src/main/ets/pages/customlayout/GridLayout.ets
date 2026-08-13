@@ -15,7 +15,7 @@
 
 // [Start GridLayout]
 import {
-  DynamicLayout, DynamicLayoutAttribute, CustomLayoutAlgorithm, LayoutAlgorithm, FrameNode, LayoutConstraint, Position
+  DynamicLayout, CustomLayoutAlgorithm, LayoutAlgorithm, FrameNode, LayoutConstraint, Position
 } from '@kit.ArkUI';
 
 // 2x2网格布局算法
