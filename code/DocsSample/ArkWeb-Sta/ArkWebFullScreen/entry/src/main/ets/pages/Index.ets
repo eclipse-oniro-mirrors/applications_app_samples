@@ -55,7 +55,7 @@ struct StaticVideo {
     Column() {
       // [Start toggle fullscreen]
       Video({
-        src: 'https://vd3.bdstatic.com/mda-rbpgy4b7vrvhefgv/sc/wz265_v3/1740471943366551394/mda-rbpgy4b7vrvhefgv.mp4',
+        src: '', // 视频网址
         controller: this.controller
       })
         .controls(true)
