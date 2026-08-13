@@ -16,9 +16,10 @@
 
 // [Start webview_and_native_modules_are_used_to_implement_complex_message_interaction_between_applications_and_h5_pages]
 import { $rawfile, Entry, Row, Scroll, ScrollDirection, State, Text, Web } from '@kit.ArkUI';
-import { EdgeEffect, BarState, Button, Column, Component } from '@kit.ArkUI';
+import { EdgeEffect, BarState, Button, Column, Component, TextArea } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
+import testNapi from 'libentry.so';
 
 @Entry
 @Component
@@ -39,7 +40,7 @@ struct Index {
 
   build() {
     Scroll() {
-      Column({ space: 10 }) {
+      Column() {
         // 展示H5接收到的内容
         Text('H5_Side_Message_Display_From_App')
         TextArea({text: this.h5Log})
@@ -71,8 +72,7 @@ struct Index {
             })
         }
 
-        Row({ space: 10 }) {
-
+        Row() {
           Button('setHandler')
             .id('set_handler_btn')
             .onClick(() => {
@@ -96,7 +96,7 @@ struct Index {
             })
         }
 
-        Row({ space: 10 }) {
+        Row() {
           Button('SendString')
             .id('send_string_btn')
             .onClick(() => {
@@ -121,7 +121,7 @@ struct Index {
             })
         }
 
-        Row({ space: 10 }) {
+        Row() {
           Button('SendBuffer')
             .id('send_buffer_btn')
             .onClick(() => {
@@ -146,8 +146,7 @@ struct Index {
             })
         }
 
-        Row({ space: 10 }) {
-
+        Row() {
           Button('closePort')
             .id('close_port_btn')
             .onClick(() => {
@@ -183,9 +182,9 @@ struct Index {
         .padding(10)
         .border({ width: 1 })
 
-        Column({ space: 10 }) {
+        Column() {
           Text('H5_Side_Send_Button')
-          Row({ space: 10 }) {
+          Row() {
             Button('H5String')
               .id('h5_send_string_btn')
               .onClick(() => {
@@ -218,7 +217,7 @@ struct Index {
               })
           }
 
-          Row({ space: 10 }) {
+          Row() {
             Button('H5Json')
               .id('h5_send_json_btn')
               .onClick(() => {
