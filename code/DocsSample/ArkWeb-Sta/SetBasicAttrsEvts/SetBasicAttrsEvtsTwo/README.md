@@ -1,157 +1,33 @@
-# 管理Cookie及数据存储
+# 管理Cookie及数据存储与定制UserAgent
 
 ### 介绍
 
-1. 实现对以下指南文档中 https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-cookie-and-data-storage-mgmt.md 示例代码片段的工程化，保证指南中示例代码与sample工程文件同源。
+本示例主要展示了Web组件管理Cookie及数据存储与定制UserAgent相关的功能，使用[cacheMode()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-arkweb/arkts-basic-components-web-attributes.md#cachemode) 、[removeCache()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-arkweb/arkts-apis-webview-WebviewController.md#removecache) 、[webview.WebCookieManager.configCookieSync()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-arkweb/arkts-apis-webview-WebCookieManager.md#configcookiesync11) 、[domStorageAccess()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-arkweb/arkts-basic-components-web-attributes.md#domstorageaccess) 、[getUserAgent()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-arkweb/arkts-apis-webview-WebviewController.md#getuseragent) 、[setCustomUserAgent()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-arkweb/arkts-apis-webview-WebviewController.md#setcustomuseragent10) 、[getCustomUserAgent()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-arkweb/arkts-apis-webview-WebviewController.md#getcustomuseragent10) 、[setAppCustomUserAgent()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-arkweb/arkts-apis-webview-WebviewController.md#setappcustomuseragent20) 等接口，实现了配置页面资源的缓存模式、清除已缓存的资源、设置单个Cookie的值、配置Dom Storage、获取默认及自定义用户代理、设置应用级自定义用户代理等功能。
 
-### Cache_one
+本示例包含以下两部分：
 
-#### 介绍
+1. 实现对以下指南文档中 [管理Cookie及数据存储](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-cookie-and-data-storage-mgmt.md) 示例代码片段的工程化，保证指南中示例代码与sample工程文件同源。
+2. 实现对以下指南文档中 [User-Agent开发指导](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-default-userAgent.md) 示例代码片段的工程化，保证指南中示例代码与sample工程文件同源。
 
-1. 本示例主要介绍管理Cookie及数据存储的缓存与存储管理。使用了cacheMode()接口配置页面资源的缓存模式。
+### 效果预览
 
-#### 效果预览
-
-| 主页                                                 |
-| ---------------------------------------------------- |
-| <img src="screenshots\Cache_one.png" width="360;" /> |
-
-使用说明
-
-1. 使用cacheMode()配置页面资源的缓存模式为None，加载资源使用cache，如果cache中无该资源则从网络中获取。
-
-### Cache_two
-
-#### 介绍
-
-1. 本示例主要介绍管理Cookie及数据存储的缓存与存储管理相关功能，通过removeCache()接口清除已经缓存的资源。
-
-#### 效果预览
-
-| 主页                                                 |
-| ---------------------------------------------------- |
-| <img src="screenshots\Cache_two.png" width="360;" /> |
+| 缓存模式配置                                             | Cookie管理                                                  | Dom Storage                                               | UserAgent定制                                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ![缓存模式配置](screenshots/Cache_one.png) | ![Cookie管理](screenshots/CookieManagement.png) | ![Dom Storage](screenshots/DomStorage.png) | ![UserAgent定制](screenshots/UserAgent_two.png) |
 
 使用说明
 
-1. 点击按钮触发removeCache()接口清除已经缓存的资源。
+1. 在主界面，点击对应按钮进入各功能页面；
+2. 缓存模式配置页面（Cache_one）：使用cacheMode()接口配置页面资源的缓存模式为None，加载资源时优先使用缓存，如果缓存中无该资源则从网络中获取；
+3. 缓存清除页面（Cache_two）：点击按钮触发removeCache()接口清除已经缓存的资源；
+4. Cookie管理页面（CookieManagement）：点击按钮使用configCookieSync()接口为https://www.example.com设置单个Cookie的值；
+5. Dom Storage页面（DomStorage）：通过Web组件的属性接口domStorageAccess()配置Dom Storage；
+6. 默认UserAgent页面（UserAgent_one）：点击按钮获取当前默认用户代理；
+7. 自定义UserAgent页面（UserAgent_two）：通过getUserAgent()获取当前的默认UserAgent字符串，并与自定义字符串' DemoApp'进行拼接，再通过setCustomUserAgent()将定制后的UserAgent设置到Web组件中；
+8. 自定义UserAgent获取页面（UserAgent_three）：点击按钮，通过getCustomUserAgent()接口获取自定义用户代理；
+9. 应用级自定义UserAgent页面（UserAgent_four）：通过setAppCustomUserAgent()设置应用级自定义用户代理，并通过setUserAgentForHosts()对特定网站设置应用级自定义用户代理。
 
-### CookieManagement
-
-#### 介绍
-
-1. 本示例主要介绍管理Cookie及数据存储。使用了configCookieSync()接口来设置单个Cookie的值。
-
-#### 效果预览
-
-| 主页                                                        |
-| ----------------------------------------------------------- |
-| <img src="screenshots\CookieManagement.png" width="360;" /> |
-
-使用说明
-
-1. 点击按钮使用configCookieSync()接口为example.com设置单个Cookie的值。
-
-### DomStorage
-
-#### 介绍
-
-1. 本示例主要介绍管理Cookie及数据存储的缓存与存储管理相关部分Dom Storage。使用domStorageAccess()接口进行使能配置。
-
-#### 效果预览
-
-| 主页                                                  |
-| ----------------------------------------------------- |
-| <img src="screenshots\DomStorage.png" width="360;" /> |
-
-使用说明
-
-1. 通过Web组件的属性接口domStorageAccess()配置Dom Storage。
-
-### 具体实现
-* Web组件提供WebCookieManager类来管理Cookie信息。参考源码：[CookieManagement.ets](./entry/src/main/ets/pages/CookieManagement.ets)
-
-#  UserAgent开发指导
-
-### 介绍
-
-1. UserAgent（简称UA）是一个特殊的字符串，它包含了设备类型、操作系统及版本等关键信息。如果页面无法正确识别UA，可能会导致一系列异常情况，例如页面布局错误、渲染问题以及逻辑错误等。
-2. 实现对以下指南文档中 https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-default-userAgent.md 示例代码片段的工程化，保证指南中示例代码与sample工程文件同源。
-
-### UserAgent_one
-
-#### 介绍
-
-1. 通过getUserAgent()接口获取当前默认用户代理，支持开发者基于默认的UserAgent去定制UserAgent。
-
-#### 效果预览
-
-| 主页                                                     |
-| -------------------------------------------------------- |
-| <img src="screenshots\UserAgent_one.png" width="360;" /> |
-
-使用说明
-
-1. 在主界面，可以点击按钮获取当前默认用户代理。
-
-### UserAgent_two
-
-#### 介绍
-
-1. 本示例主要展示了设置UserAgent相关的功能，使用了getUserAgent()，setCustomUserAgent()接口实现了定制UserAgent。
-
-#### 效果预览
-
-| 主页                                                       |
-| ---------------------------------------------------------- |
-| <img src="./screenshots/UserAgent_two.png" width="360;" /> |
-
-使用说明
-
-1. 通过this.controller.getUserAgent()获取当前的默认UserAgent字符串，并将其与自定义的字符串'xxx'进行拼接，得到定制后的UserAgent字符串，然后赋值给this.ua。
-2. 使用this.controller.setCustomUserAgent(this.ua);将定制后的UserAgent设置到Web组件中，在后续加载网页等操作时，就会使用定制后的UserAgent。
-
-### UserAgent_three
-
-#### 介绍
-
-1. 本示例主要介绍设置UserAgent相关的功能，通过getCustomUserAgent()接口获取自定义用户代理。
-
-#### 效果预览
-
-| 主页                                                         |
-| ------------------------------------------------------------ |
-| <img src="./screenshots/UserAgent_three.png" width="360;" /> |
-
-使用说明
-
-1. 点击按钮，通过getCustomUserAgent()接口获取自定义用户代理。
-
-### UserAgent_four
-
-#### 介绍
-
-1. 本示例主要介绍设置应用级自定义UserAgent的功能，使用了setAppCustomUserAgent()和setUserAgentForHosts()接口实现应用级自定义用户代理。
-
-#### 效果预览
-
-| 主页                                                     |
-| -------------------------------------------------------- |
-| <img src="screenshots\UserAgent_one.png" width="360;" /> |
-
-使用说明
-
-1. 通过webview.WebviewController.getDefaultUserAgent()获取默认的用户代理，并追加自定义字段。
-2. 通过webview.WebviewController.setAppCustomUserAgent()设置应用级自定义用户代理。
-3. 通过webview.WebviewController.setUserAgentForHosts()对特定网站设置应用级自定义用户代理。
-
-### 具体实现
-* 通过getUserAgent()接口获取当前默认的用户代理。参考源码：[UserAgent_one.ets](./entry/src/main/ets/pages/UserAgent_one.ets)
-* 通过setCustomUserAgent()接口设置自定义用户代理。参考源码：[UserAgent_two.ets](./entry/src/main/ets/pages/UserAgent_two.ets)
-* 通过getCustomUserAgent()接口获取自定义用户代理。参考源码：[UserAgent_three.ets](./entry/src/main/ets/pages/UserAgent_three.ets)
-* 通过setAppCustomUserAgent()接口设置应用级自定义用户代理。参考源码：[UserAgent_four.ets](./entry/src/main/ets/pages/UserAgent_four.ets)
-
-## 工程目录
+### 工程目录
 
 ```
 entry/src/main/
@@ -160,15 +36,15 @@ entry/src/main/
 |---|---|---EntryAbility.ets
 |---|---pages
 |---|---|---Index.ets						// 首页
-|---|---|---Cache_one.ets
-|---|---|---Cache_two.ets
-|---|---|---CookieManagement.ets
+|---|---|---Cache_one.ets					// 配置页面资源的缓存模式
+|---|---|---Cache_two.ets					// 清除已缓存的资源
+|---|---|---CookieManagement.ets			// 设置单个Cookie的值
 |---|---|---CookieManagement_LazyInitializeWebEngine.ets
-|---|---|---DomStorage.ets
-|---|---|---UserAgent_one.ets
-|---|---|---UserAgent_two.ets
-|---|---|---UserAgent_three.ets
-|---|---|---UserAgent_four.ets
+|---|---|---DomStorage.ets					// 配置Dom Storage
+|---|---|---UserAgent_one.ets				// 获取默认用户代理
+|---|---|---UserAgent_two.ets				// 设置自定义用户代理
+|---|---|---UserAgent_three.ets				// 获取自定义用户代理
+|---|---|---UserAgent_four.ets				// 设置应用级自定义用户代理
 |---resources								// 静态资源
 |---ohosTest
 |---|---ets
@@ -176,28 +52,35 @@ entry/src/main/
 |---|---|---|---Ability.test.ets            // 自动化测试用例
 ```
 
-## 相关权限
+### 具体实现
+
+1. 缓存与存储管理：通过cacheMode()接口配置页面资源的缓存模式，通过removeCache()接口清除已经缓存的资源。参考源码：[Cache_one.ets](./entry/src/main/ets/pages/Cache_one.ets)、[Cache_two.ets](./entry/src/main/ets/pages/Cache_two.ets)
+2. Cookie管理：通过webview.WebCookieManager.configCookieSync()接口设置单个Cookie的值。参考源码：[CookieManagement.ets](./entry/src/main/ets/pages/CookieManagement.ets)
+3. Dom Storage：通过domStorageAccess()接口配置Dom Storage。参考源码：[DomStorage.ets](./entry/src/main/ets/pages/DomStorage.ets)
+4. UserAgent定制：通过getUserAgent()、setCustomUserAgent()、getCustomUserAgent()接口获取或设置自定义用户代理，通过setAppCustomUserAgent()和setUserAgentForHosts()接口设置应用级自定义用户代理。参考源码：[UserAgent_one.ets](./entry/src/main/ets/pages/UserAgent_one.ets)、[UserAgent_two.ets](./entry/src/main/ets/pages/UserAgent_two.ets)、[UserAgent_three.ets](./entry/src/main/ets/pages/UserAgent_three.ets)、[UserAgent_four.ets](./entry/src/main/ets/pages/UserAgent_four.ets)
+
+### 相关权限
 
 [ohos.permission.INTERNET](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissioninternet)
 
-## 依赖
+### 依赖
 
 不涉及。
 
-## 约束与限制
+### 约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568。
 2. 本示例支持API20版本SDK。
 3. 本示例建议使用最新DevEco Studio版本。
 
-## 下载
+### 下载
 
 如需单独下载本工程，执行如下命令：
 
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkWeb-Sta/SetBasicAttrsEvts/SetBasicAttrsEvtsTwo > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+echo code/DocsSample/ArkWeb-Sta/SetBasicAttrsEvts/SetBasicAttrsEvtsTwo/ > .git/info/sparse-checkout
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
