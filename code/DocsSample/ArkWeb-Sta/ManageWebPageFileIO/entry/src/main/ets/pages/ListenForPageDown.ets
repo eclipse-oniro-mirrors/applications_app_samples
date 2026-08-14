@@ -17,7 +17,7 @@
 // [Start download_delegate]
 import { $rawfile, Button, Column, Component, Entry, State, Text, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError } from '@kit.base';
 
 @Entry
 @Component

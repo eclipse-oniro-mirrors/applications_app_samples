@@ -17,7 +17,7 @@
 // [Start task_info_persistence_util]
 import { UIContext } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError } from '@kit.base';
 
 const helper = new util.Base64Helper();
 

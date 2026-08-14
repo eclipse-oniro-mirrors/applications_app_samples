@@ -20,7 +20,7 @@ import { Button, Column, ColumnOptions, Component, Entry } from '@ohos.arkui.com
 @Component
 struct Index {
   build() {
-    Column({ space: 10 } as ColumnOptions) {
+    Column() {
       Button('UploadFiles')
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/UploadFiles' });
