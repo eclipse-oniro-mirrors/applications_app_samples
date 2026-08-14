@@ -21,7 +21,7 @@ import { webview } from '@kit.ArkWeb';
 @Component
 struct Index {
   build() {
-    Column({ space: 10 }) {
+    Column() {
       Button('OnInterceptRequest_one')
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/OnInterceptRequest_one' });
