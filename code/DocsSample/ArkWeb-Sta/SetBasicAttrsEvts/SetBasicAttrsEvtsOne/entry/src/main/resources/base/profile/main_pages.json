@@ -1,6 +1,16 @@
 {
   "src": [
     "pages/Index",
+    "pages/AllowGeolocation",
+    "pages/ClearAllCookiesSync",
+    "pages/ConfigCookieSync",
+    "pages/DeleteAllData",
+    "pages/DeleteGeolocation",
+    "pages/ExistCookie",
+    "pages/FetchCookieSync",
+    "pages/GetAccessibleGeolocation",
+    "pages/IncognitoMode_one",
+    "pages/IncognitoMode_two",
     "pages/OpenPageNewWin"
   ]
 }

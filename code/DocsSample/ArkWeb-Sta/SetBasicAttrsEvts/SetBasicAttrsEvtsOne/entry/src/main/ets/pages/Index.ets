@@ -22,6 +22,46 @@ import router from '@ohos.router';
 struct Index {
   build() {
     Column({ space: 10 } as ColumnOptions) {
+      Button('AllowGeolocation')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/AllowGeolocation' });
+        })
+      Button('ClearAllCookiesSync')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/ClearAllCookiesSync' });
+        })
+      Button('ConfigCookieSync')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/ConfigCookieSync' });
+        })
+      Button('DeleteAllData')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/DeleteAllData' });
+        })
+      Button('DeleteGeolocation')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/DeleteGeolocation' });
+        })
+      Button('ExistCookie')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/ExistCookie' });
+        })
+      Button('FetchCookieSync')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/FetchCookieSync' });
+        })
+      Button('GetAccessibleGeolocation')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/GetAccessibleGeolocation' });
+        })
+      Button('IncognitoMode_one')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/IncognitoMode_one' });
+        })
+      Button('IncognitoMode_two')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/IncognitoMode_two' });
+        })
       Button('OpenPageNewWin')
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/OpenPageNewWin' });
