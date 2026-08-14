@@ -1,4 +1,4 @@
-## 拦截Web组件发起的网络请求
+# 拦截Web组件发起的网络请求
 
 ### 介绍
 
@@ -172,12 +172,10 @@
 │           ├── ets                                 // ArkTS代码区
 │           │   ├── entryability
 │           │   │   └── EntryAbility.ets            // 入口类
-│           │   ├── entrybackupability
-│           │   │   └── EntryBackupAbility.ets      // 备份恢复框架
 │           │   └── pages
-│           │       └── Index.ets                   // 主页
-|           |       |── SchemeHandlerArkts.ets
-|           |       |── SchemeHandlerNdk.ets
+│           │       ├── Index.ets                   // 主页
+│           │       ├── SchemeHandlerArkts.ets
+│           │       └── SchemeHandlerNdk.ets
 │           └── resources                           // 应用资源文件
 ```
 
@@ -199,8 +197,8 @@
 ### 约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568。
-2. 本示例支持API14版本SDK，SDK版本号(API Version 14 Release)。
-3. 本示例需要使用DevEco Studio 版本号(5.0.1Release)才可编译运行。
+2. 本示例支持API14版本SDK，SDK版本号(API Version 20 Release)。
+3. 本示例需要使用DevEco Studio 版本号(6.0.0Release)才可编译运行。
 
 ### 下载
 
@@ -209,7 +207,7 @@
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkWeb/ArkWebSchemeHandler > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+echo code/DocsSample/ArkWeb-Sta/ArkWebSchemeHandler/ > .git/info/sparse-checkout
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
