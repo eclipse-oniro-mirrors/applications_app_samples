@@ -19,7 +19,7 @@ import { UIContext } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@ohos.base';
 import fileIo from '@ohos.file.fs';
-import { util } from '@ohos.base';
+import { util } from '@kit.ArkTS';
 
 const helper = new util.Base64Helper();
 
