@@ -200,6 +200,11 @@ struct Index {
       console.error(`${this.tag}: selectTrack failed, error message is = ${JSON.stringify(error.message)}`);
     }
     // [End selectTrack]
+    // [Start trackChange]
+    this.avPlayer.on('trackChange', (index: number, isSelect: boolean) => {
+      console.info(`trackChange info, index: ${index}, isSelect: ${isSelect}`);
+    })
+    // [End trackChange]
     // 取消选择目标视频轨道
     /*
     try {
