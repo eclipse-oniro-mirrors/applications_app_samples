@@ -134,7 +134,7 @@
     },
     {
       "name": "CustomDialog_ActionSheet",
-      "value": "列表选择弹窗"
+      "value": "列表选择弹出框"
     },
     {
       "name": "CustomDialog_AlertDialog",
@@ -754,7 +754,7 @@
       "value": "点我查询弹窗状态:通过自定义组件自带controller"
     },
     {
-      "name": "close_widows",
+      "name": "close_windows",
       "value": "点我关闭弹窗"
     },
     {

@@ -157,7 +157,7 @@ export default function CustomDialogTest() {
       await button_button_getDialogStatus_custom.click();
       let button_button_getDialogStatus_custom_controller = await driver.findComponent(ON.text(resource.resourceToString($r('app.string.search_by_dialog_controller')), MatchPattern.CONTAINS));
       await button_button_getDialogStatus_custom_controller.click();
-      let button_button_getDialogStatus_close = await driver.findComponent(ON.text(resource.resourceToString($r('app.string.close_widows')), MatchPattern.CONTAINS));
+      let button_button_getDialogStatus_close = await driver.findComponent(ON.text(resource.resourceToString($r('app.string.close_windows')), MatchPattern.CONTAINS));
       await button_button_getDialogStatus_close.click();
       await driver.pressBack();
       await sleep(1000);
