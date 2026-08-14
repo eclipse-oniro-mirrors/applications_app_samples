@@ -1,0 +1,43 @@
+'use static'
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start collect_information_about_ad_filtering]
+import { Column, Component, Entry, State, Web } from '@kit.ArkUI';
+import { AdsBlockedDetails } from '@ohos.arkui.component';
+import { webview } from '@kit.ArkWeb';
+
+@Entry
+@Component
+struct WebComponent {
+  @State totalAdsBlockCounts: number = 0;
+
+  controller: webview.WebviewController = new webview.WebviewController(undefined);
+
+  build() {
+    Column() {
+      Web({ src: 'https://www.example.com', controller: this.controller })
+        .onAdsBlocked((details: AdsBlockedDetails) => {
+          if (details) {
+            console.info(' Blocked ' + details.adsBlocked.length + ' in ' + details.url);
+            let adList: Array<string> = Array.from(new Set<string>(details.adsBlocked));
+            this.totalAdsBlockCounts += adList.length;
+            console.info('Total blocked counts :' + this.totalAdsBlockCounts);
+          }
+        })
+    }
+  }
+}
+// [End collect_information_about_ad_filtering]
