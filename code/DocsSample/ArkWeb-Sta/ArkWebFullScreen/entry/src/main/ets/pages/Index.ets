@@ -13,15 +13,16 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-  // [Start switch between portrait and landscape]
+// [Start switch between portrait and landscape]
+import { webview } from '@kit.ArkWeb';
 import { window, router } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component
-struct StaticVideo {
+struct WebVideo {
+  controller: webview.WebviewController = new webview.WebviewController();
   @State isFullScreen: boolean = false;
-  controller: VideoController = new VideoController();
 
   // [Start toggle screen orientation]
   // 改变设备横竖屏状态
@@ -41,7 +42,6 @@ struct StaticVideo {
   onBackPress(): boolean | void {
     if (this.isFullScreen) {
       this.isFullScreen = false;
-      this.controller.exitFullscreen();
       this.changeOrientation(false);
       return true;
     } else {
@@ -54,24 +54,19 @@ struct StaticVideo {
   build() {
     Column() {
       // [Start toggle fullscreen]
-      Video({
-        src: '', // 视频网址
+      Web({
+        src: $rawfile('video.html'),
         controller: this.controller
       })
-        .controls(true)
-        .objectFit(ImageFit.Contain)
+        .domStorageAccess(true)
         .expandSafeArea([SafeAreaType.SYSTEM])
-        .onFullscreenChange((event: FullscreenInfo) => {
-          if (event.fullscreen) {
-            this.isFullScreen = true;
-            this.changeOrientation(true);
-          } else {
-            this.isFullScreen = false;
-            this.changeOrientation(false);
-          }
+        .onFullScreenEnter(() => {
+          this.isFullScreen = true;
+          this.changeOrientation(true);
         })
-        .onError(() => {
-          console.error('视频加载错误');
+        .onFullScreenExit(() => {
+          this.isFullScreen = false;
+          this.changeOrientation(false);
         })
       // [End toggle fullscreen]
     }
