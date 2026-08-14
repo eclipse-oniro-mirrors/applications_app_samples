@@ -16,9 +16,8 @@
 // 创建NodeController。
 // common.ets
 // [Start Common_CommonIndex]
-import { UIContext } from '@kit.ArkUI';
+import { UIContext, NodeController, BuilderNode, Size, FrameNode } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
-import { NodeController, BuilderNode, Size, FrameNode } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 // @Builder中为动态组件的具体组件内容。
