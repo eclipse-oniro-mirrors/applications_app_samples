@@ -21,9 +21,10 @@ import window from '@ohos.window';
 import hilog from '@ohos.hilog';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@ohos.base';
+import { AppStorage } from '@kit.ArkUI';
 
 export default class Entry1Ability extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     console.info('EntryAbility onCreate');
     webview.WebviewController.initializeWebEngine();
     // 预连接时，需要將'https://www.example.com'替换成真实要访问的网站地址。
