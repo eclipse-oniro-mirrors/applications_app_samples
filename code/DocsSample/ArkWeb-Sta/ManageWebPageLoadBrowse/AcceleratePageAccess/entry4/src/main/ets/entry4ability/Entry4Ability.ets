@@ -14,56 +14,40 @@
  * limitations under the License.
  */
 
-// [Start save_uiContext_to_localstorage_in_entry_ability]
 import UIAbility from '@ohos.app.ability.UIAbility';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import Want from '@ohos.app.ability.Want';
 import window from '@ohos.window';
-// [StartExclude save_uiContext_to_localstorage_in_entry_ability]
 import hilog from '@ohos.hilog';
-// [EndExclude save_uiContext_to_localstorage_in_entry_ability]
-
-const localStorage: LocalStorage = new LocalStorage('uiContext');
+import { webview } from '@kit.ArkWeb';
+import { BusinessError } from '@ohos.base';
 
 export default class Entry4Ability extends UIAbility {
-  public storage: LocalStorage = localStorage;
-  // [StartExclude save_uiContext_to_localstorage_in_entry_ability]
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
-  }
-  // [EndExclude save_uiContext_to_localstorage_in_entry_ability]
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
+    console.info('EntryAbility onCreate');
+    webview.WebviewController.initializeWebEngine();
+    // 预连接时，需要將'https://www.example.com'替换成真实要访问的网站地址。
 
-  // [StartExclude save_uiContext_to_localstorage_in_entry_ability]
-  onDestroy(): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
+    webview.WebviewController.prepareForPageLoad('https://www.example.com/', true, 2);
+    AppStorage.setOrCreate('abilityWant', want);
+    console.info('EntryAbility onCreate done');
   }
-  // [EndExclude save_uiContext_to_localstorage_in_entry_ability]
-  onWindowStageCreate(windowStage: window.WindowStage) {
-    windowStage.loadContent('pages/Index', this.storage, (err, data) => {
-      if (err.code) {
-        return;
-      }
 
-      this.storage.setOrCreate<UIContext>('uiContext', windowStage.getMainWindowSync().getUIContext());
-    });
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    // Main window is created, set main page for this ability
+    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
+
+    try {
+      windowStage.loadContent('pages/Index', (err: BusinessError<void> | null): void => {
+        if (err && err.code) {
+          hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
+          return;
+        }
+        hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
+      });
+
+    } catch (e) {
+      hilog.info(0x000, 'testTag', 'loadContent catch error: ' + e.message)
+    }
   }
-  // [StartExclude save_uiContext_to_localstorage_in_entry_ability]
-  onWindowStageDestroy(): void {
-    // Main window is destroyed, release UI related resources
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
-  }
-  // [EndExclude save_uiContext_to_localstorage_in_entry_ability]
-  // [StartExclude save_uiContext_to_localstorage_in_entry_ability]
-  onForeground(): void {
-    // Ability has brought to foreground
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onForeground');
-  }
-  // [EndExclude save_uiContext_to_localstorage_in_entry_ability]
-  // [StartExclude save_uiContext_to_localstorage_in_entry_ability]
-  onBackground(): void {
-    // Ability has back to background
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
-  }
-  // [EndExclude save_uiContext_to_localstorage_in_entry_ability]
 }
-// [End save_uiContext_to_localstorage_in_entry_ability]

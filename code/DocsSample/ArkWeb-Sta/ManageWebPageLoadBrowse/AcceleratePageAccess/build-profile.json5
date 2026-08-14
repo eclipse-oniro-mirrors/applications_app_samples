@@ -20,10 +20,16 @@
       {
         "name": "default",
         "signingConfig": "default",
-        "compileSdkVersion": 18,
-        "compatibleSdkVersion": 18,
-        "targetSdkVersion": 18,
+        "targetSdkVersion": "26.0.0",
+        "arkTSVersion": "1.2",
+        "compatibleSdkVersion": "26.0.0",
         "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
       }
     ],
     "buildModeSet": [

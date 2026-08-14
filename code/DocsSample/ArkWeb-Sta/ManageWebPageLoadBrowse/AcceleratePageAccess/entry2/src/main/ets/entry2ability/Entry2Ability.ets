@@ -13,47 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 import UIAbility from '@ohos.app.ability.UIAbility';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import Want from '@ohos.app.ability.Want';
-import hilog from '@ohos.hilog';
 import window from '@ohos.window';
+import hilog from '@ohos.hilog';
+import { webview } from '@kit.ArkWeb';
+import { BusinessError } from '@ohos.base';
 
 export default class Entry2Ability extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
-  }
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
+    console.info('EntryAbility onCreate');
+    webview.WebviewController.initializeWebEngine();
+    // 预连接时，需要將'https://www.example.com'替换成真实要访问的网站地址。
 
-  onDestroy(): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
+    webview.WebviewController.prepareForPageLoad('https://www.example.com/', true, 2);
+    AppStorage.setOrCreate('abilityWant', want);
+    console.info('EntryAbility onCreate done');
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
-    windowStage.loadContent('pages/Index', (err) => {
-      if (err.code) {
-        hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
-        return;
-      }
-      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
-    });
-  }
+    try {
+      windowStage.loadContent('pages/Index', (err: BusinessError<void> | null): void => {
+        if (err && err.code) {
+          hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
+          return;
+        }
+        hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
+      });
 
-  onWindowStageDestroy(): void {
-    // Main window is destroyed, release UI related resources
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
-  }
-
-  onForeground(): void {
-    // Ability has brought to foreground
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onForeground');
-  }
-
-  onBackground(): void {
-    // Ability has back to background
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
+    } catch (e) {
+      hilog.info(0x000, 'testTag', 'loadContent catch error: ' + e.message)
+    }
   }
 }

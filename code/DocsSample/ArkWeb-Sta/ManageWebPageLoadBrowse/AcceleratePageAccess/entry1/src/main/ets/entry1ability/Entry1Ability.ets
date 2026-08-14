@@ -17,9 +17,10 @@
 import UIAbility from '@ohos.app.ability.UIAbility';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import Want from '@ohos.app.ability.Want';
-import hilog from '@ohos.hilog';
 import window from '@ohos.window';
+import hilog from '@ohos.hilog';
 import { webview } from '@kit.ArkWeb';
+import { BusinessError } from '@ohos.base';
 
 export default class Entry1Ability extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
@@ -33,37 +34,24 @@ export default class Entry1Ability extends UIAbility {
   }
 
   // [StartExclude initialize_kernel_in_onCreate_and_pre_connect_to_homepage]
-  onDestroy(): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
-  }
-
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
-    windowStage.loadContent('pages/Index', (err) => {
-      if (err.code) {
-        hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
-        return;
-      }
-      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
-    });
+    try {
+      windowStage.loadContent('pages/Index', (err: BusinessError<void> | null): void => {
+        if (err && err.code) {
+          hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
+          return;
+        }
+        hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
+      });
+
+    } catch (e) {
+      hilog.info(0x000, 'testTag', 'loadContent catch error: ' + e.message)
+    }
   }
 
-  onWindowStageDestroy(): void {
-    // Main window is destroyed, release UI related resources
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
-  }
-
-  onForeground(): void {
-    // Ability has brought to foreground
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onForeground');
-  }
-
-  onBackground(): void {
-    // Ability has back to background
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
-  }
   // [EndExclude initialize_kernel_in_onCreate_and_pre_connect_to_homepage]
 }
 // [End initialize_kernel_in_onCreate_and_pre_connect_to_homepage]
