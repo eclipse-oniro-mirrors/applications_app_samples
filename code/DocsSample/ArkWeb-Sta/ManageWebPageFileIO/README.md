@@ -8,7 +8,7 @@
 
 #### 介绍
 
-1. 本示例主要介绍Web组件上传文件功能，Web组件支持前端页面选择文件上传功能,应用开发者可以使用onShowvfileSelector接口来处理前端页面文件上传的请求，如果应用开发者不做任何处理,Web会提供默认行为来处理前端页面文件上传的请求。
+1. 本示例主要介绍Web组件上传文件功能，Web组件支持前端页面选择文件上传功能，应用开发者可以使用onShowFileSelector接口来处理前端页面文件上传的请求，如果应用开发者不做任何处理，Web会提供默认行为来处理前端页面文件上传的请求。
 
 #### 效果预览
 
@@ -59,7 +59,7 @@
 使用说明
 
 1. 点击setDownloadDelegate按钮，定义下载委托回调。
-1. 使用startDownload()接口发起一个下载。 
+2. 使用startDownload()接口发起一个下载。
 
 ### ResumeDownload
 
@@ -77,9 +77,9 @@
 使用说明
 
 1. 点击setDownloadDelegate按钮，定义下载委托回调。
-1. 使用startDownload()接口发起一个下载。 
-1. 通过record按钮将当前下载任务保存至持久化文件中，记录下载任务信息。
-1. 点击recovery按钮恢复下载任务。
+2. 使用startDownload()接口发起一个下载。
+3. 通过record按钮将当前下载任务保存至持久化文件中，记录下载任务信息。
+4. 点击recovery按钮恢复下载任务。
 
 ### 工程目录
 
@@ -104,7 +104,7 @@ entry/src/main/
 
 ### 具体实现
 * 上传文件，源码参考[UploadFiles.ets](./entry/src/main/ets/pages/UploadFiles.ets)
-  * 在拦截回调中调用ocumentViewPicker启动文件选择器，通过异步方式允许用户从设备存储中选择目标文档，获取对应的文件url。调用FileSelectorResult对象的handleFileList方法，通知Web组件进行文件选择操作。
+  * 在拦截回调中调用DocumentViewPicker启动文件选择器，通过异步方式允许用户从设备存储中选择目标文档，获取对应的文件url。调用FileSelectorResult对象的handleFileList方法，通知Web组件进行文件选择操作。
 * 使用Web组件的下载能力，源码参考[ResumeDownload.ets](./entry/src/main/ets/pages/ResumeDownload.ets)
   * 实例化WebDownloadDelegate对象并通过setDownloadDelegate接口将其绑定至当前Web控制器，接管Web组件的下载行为。
   * 在onBeforeDownload中指定文件存储路径，在onDownloadUpdated中实时获取进度。
