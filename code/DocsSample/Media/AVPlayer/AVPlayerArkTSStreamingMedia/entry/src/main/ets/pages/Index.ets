@@ -115,17 +115,17 @@ struct Index {
     });
 
     // 情况一：HTTP视频播放
-    this.avPlayer.url = "http://media.iyuns.top:1000/http/720p_1m.mp4";
+    this.avPlayer.url = "http://example/abc.mp4";
 
     // 情况二：HLS视频播放
-    // this.avPlayer.url = "http://media.iyuns.top:1000/720-270-480.m3u8";
+    // this.avPlayer.url = "http://example/abc.m3u8";
 
     // 情况三：DASH视频播放
-    // this.avPlayer.url = "http://media.iyuns.top:1000/dash/720p/720-1/720-1.mpd";
+    // this.avPlayer.url = "http://example/abc.mpd";
 
     // 情况四：通过setMediaSource设置自定义头域及播放优选参数实现初始播放参数设置，以流媒体HTTP点播为例
     /*
-    let mediaSource : media.MediaSource = media.createMediaSourceWithUrl("http://media.iyuns.top:1000/http/720p_1m.mp4", {"":""});
+    let mediaSource : media.MediaSource = media.createMediaSourceWithUrl("http://example/abc.mp4", {"":""});
     // 设置播放策略，设置为缓冲区数据为20s
     let playbackStrategy : media.PlaybackStrategy = {preferredBufferDuration: 20};
     // 为avPlayer设置媒体来源和播放策略
@@ -134,7 +134,7 @@ struct Index {
 
     // 情况五：HLS切码率
     /*
-    this.avPlayer.url = "https://upftimae.dailyworkout.cn/videos/course/c800f81a209b5ee7891f1128ed301db/4/master.m3u8";
+    this.avPlayer.url = "https://example/abc.m3u8";
     let bitrate: number = 0;
     // 监听当前HLS协议流可用的码率
     // [Start availableBitrates]
@@ -151,7 +151,7 @@ struct Index {
 
     // 情况六：DASH切换音视频轨道
     /*
-    this.avPlayer.url = "http://poster-inland.hwcloudtest.cn/AiMaxEngine/ProductionEnvVideo/DASH_SDR_MultiAudio_MultiSubtitle_yinHeHuWeiDui3/DASH_SDR_MultiAudio_MultiSubtitle_yinHeHuWeiDui3.mpd";
+    this.avPlayer.url = "http://example/abc.mpd";
     // [Start getTrackDescription] 
     this.avPlayer.getTrackDescription((error: BusinessError, arrList: Array<media.MediaDescription>) => {
       if (arrList != null) {
