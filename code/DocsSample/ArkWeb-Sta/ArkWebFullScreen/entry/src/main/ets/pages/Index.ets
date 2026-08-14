@@ -55,7 +55,7 @@ struct WebVideo {
     Column() {
       // [Start toggle fullscreen]
       Web({
-        src: $rawfile('video.html'),
+        src: $rawfile('video.html'), // 注意替换
         controller: this.controller
       })
         .domStorageAccess(true)
