@@ -34,14 +34,14 @@ export default class EntryAbility extends UIAbility {
     try {
       windowStage.loadContent('pages/Index', (err: BusinessError<void> | null): void => {
         if (err && err.code) {
-          hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+          hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
           return;
         }
         hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
       });
 
     } catch (e) {
-      hilog.info(0x000, 'testTag', 'loadContent catch error: ---------' + message)
+      hilog.info(0x000, 'testTag', 'loadContent catch error: ---------' + e.message)
     }
   }
 }
