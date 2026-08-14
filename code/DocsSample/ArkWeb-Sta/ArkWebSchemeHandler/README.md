@@ -6,17 +6,9 @@
 
 ### 效果预览
 
-| 拦截web组件加载                                                | 主页                             | 拦截视频资源                                                   |
-| ------------------------------------------------------------ | -------------------------------- | ------------------------------------------------------------ |
-| <img src="./screenshots/image.png" width="360;" />          | <img src="./screenshots/home.png" width="360;" /> | <img src="./screenshots/mp4.png" width="360;" />            |
-
-| 忽略csp检查并拦截                                               | 拦截ISOLATED属性                                                 | 拦截LOCAL属性                                                   |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="./screenshots/csp.png" width="360;" />            | <img src="./screenshots/ISOLATED.png" width="360;" />        | <img src="./screenshots/LOCAL.png" width="360;" />          |
-
-| 拦截service worker                                             | 测试读取blob类型http body stream                                | 测试读取chunked类型http body stream                             |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="./screenshots/service_worker.png" width="360;" /> | <img src="./screenshots/blob.png" width="360;" />            | <img src="./screenshots/chunked.png" width="360;" />         |
+| 主页 | 拦截视频资源 | 忽略csp检查并拦截 | 拦截service worker |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| <img src="./screenshots/home.png" width="360;" /> | <img src="./screenshots/mp4.png" width="360;" /> | <img src="./screenshots/csp.png" width="360;" /> | <img src="./screenshots/service_worker.png" width="360;" /> |
 
 使用说明
 
