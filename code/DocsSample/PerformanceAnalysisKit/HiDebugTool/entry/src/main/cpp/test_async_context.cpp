@@ -78,7 +78,7 @@ static void OuterTaskFunc()
     OH_LOG_INFO(LogType::LOG_APP, "[Async-A] Released context");
 }
 
-// 构造A->B单层异步调用链，演示管理异步上下文的四个接口。
+// 构造A->B最小三方异步调用，演示管理异步上下文的四个接口。
 void TestAsyncContextChain()
 {
     // 在独立线程执行A，避免阻塞napi调用线程。
