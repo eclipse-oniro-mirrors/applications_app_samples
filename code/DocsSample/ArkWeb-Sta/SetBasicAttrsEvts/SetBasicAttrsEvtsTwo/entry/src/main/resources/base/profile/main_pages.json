@@ -1,0 +1,13 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/UserAgent_one",
+    "pages/UserAgent_two",
+    "pages/UserAgent_three",
+    "pages/UserAgent_four",
+    "pages/CookieManagement",
+    "pages/Cache_one",
+    "pages/Cache_two",
+    "pages/DomStorage"
+  ]
+}
