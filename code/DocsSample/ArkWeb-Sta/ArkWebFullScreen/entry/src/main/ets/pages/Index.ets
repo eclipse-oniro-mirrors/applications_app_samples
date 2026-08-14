@@ -14,34 +14,38 @@
 * limitations under the License.
 */
 // [Start switch between portrait and landscape]
-import { webview } from '@kit.ArkWeb';
 import { window, router } from '@kit.ArkUI';
+import { webview } from '@kit.ArkWeb';
 import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component
 struct WebVideo {
-  controller: webview.WebviewController = new webview.WebviewController();
+  controller: webview.WebviewController = new webview.WebviewController(undefined);
   @State isFullScreen: boolean = false;
+  private handler: FullScreenExitHandler = new FullScreenExitHandler();
 
   // [Start toggle screen orientation]
   // 改变设备横竖屏状态
-  private changeOrientation(isLandscape: boolean) {
+  private changeOrientation(isLandscape: boolean): void {
     // 获取UIAbility实例的上下文信息
     let context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
     // 调用该接口手动改变设备横竖屏状态
-    window.getLastWindow(context).then((lastWindow) => {
+    window.getLastWindow(context).then((lastWindow: window.Window): void => {
       lastWindow.setPreferredOrientation(isLandscape ? window.Orientation.LANDSCAPE : window.Orientation.PORTRAIT);
-    }).catch((err: Error) => {
+    }).catch((err: Error): void => {
       console.error(`获取窗口失败: ${err.message}`);
     });
   }
   // [End toggle screen orientation]
 
   // [Start exit full screen]
-  onBackPress(): boolean | void {
+  onBackPress(): boolean {
     if (this.isFullScreen) {
       this.isFullScreen = false;
+      if (this.handler) {
+        this.handler.exitFullScreen();
+      }
       this.changeOrientation(false);
       return true;
     } else {
@@ -60,13 +64,17 @@ struct WebVideo {
       })
         .domStorageAccess(true)
         .expandSafeArea([SafeAreaType.SYSTEM])
-        .onFullScreenEnter(() => {
+        .onFullScreenEnter((event: FullScreenEnterEvent): void => {
           this.isFullScreen = true;
+          this.handler = event.handler;
           this.changeOrientation(true);
         })
-        .onFullScreenExit(() => {
-          this.isFullScreen = false;
-          this.changeOrientation(false);
+        .onFullScreenExit((): void => {
+          if (this.handler) {
+            this.handler.exitFullScreen();
+            this.isFullScreen = false;
+            this.changeOrientation(false);
+          }
         })
       // [End toggle fullscreen]
     }
