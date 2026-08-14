@@ -17,8 +17,7 @@
 // [Start recovery_download_task]
 import { Button, Column, Component, Entry, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
-import { BusinessError } from '@kit.base';
-
+import { BusinessError } from '@ohos.base';
 import { DownloadUtil, fileName, filePath } from './downloadUtil'; // downloadUtil.ets 见下文
 
 @Entry

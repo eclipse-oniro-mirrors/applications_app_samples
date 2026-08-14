@@ -17,12 +17,14 @@
 // [Start task_info_persistence_util]
 import { UIContext } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
-import { BusinessError } from '@kit.base';
+import { BusinessError } from '@ohos.base';
+import fileIo from '@ohos.file.fs';
+import { util } from '@ohos.base';
 
 const helper = new util.Base64Helper();
 
 export let filePath : string;
-export const fileName = 'demoFile.txt';
+export const fileName: string = 'demoFile.txt';
 export namespace  DownloadUtil {
 
   export function init(context: UIContext): void {
