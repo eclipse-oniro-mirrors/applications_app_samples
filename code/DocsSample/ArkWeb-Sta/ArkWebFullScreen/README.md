@@ -57,9 +57,14 @@
 
 ### 约束与限制
 
+### 约束与限制
+
 1. 本示例仅支持标准系统上运行。
-2. 本示例支持API22版本SDK，SDK版本号(6.0.2.57)。
-3. 本示例需要使用DevEco Studio 版本号(6.1.0Release)才可编译运行。
+
+2. 本示例SDK版本为6.1.0(23) 。
+
+3. 本示例需要使用DevEco Studio 5.0.0或更高版本才可编译运行。
+
 4. 若系统开启了方向锁定功能，自动横竖屏切换可能失效。
 
 ### 下载
@@ -69,7 +74,7 @@
 ```bash
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkWeb/ArkWebFullScreen > .git/info/sparse-checkout
-git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
+echo ArkWeb/ArkWebFullScreen > .git/info/sparse-checkout
+git remote add origin https://gitcode.com/HarmonyOS_Samples/guide-snippets.git
 git pull origin master
 ```
