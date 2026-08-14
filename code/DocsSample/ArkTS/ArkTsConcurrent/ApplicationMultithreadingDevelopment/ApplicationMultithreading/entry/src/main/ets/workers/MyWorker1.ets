@@ -18,20 +18,28 @@ import { worker, ThreadWorkerGlobalScope, MessageEvents, ErrorEvent } from '@kit
 
 let workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 
-// 定义训练模型及结果，result[0]存储权重，result[1]存储偏置
-let result: number[];
+// 假设模型为：每平米价格 = (model.areaCoefficient * area + model.roomCoefficient * room) * model.basePrice
+class PriceModel {
+  public areaCoefficient: number = 0;   // 房屋面积系数
+  public roomCoefficient: number = 0;   // 房间数量系数
+  public basePrice: number = 0;         // 基础值
+}
+
+// 全局模型实例
+const model: PriceModel = new PriceModel();
 
 // 定义预测函数
-function predict(x: number): number {
-  return result[0] * x + result[1];
+function predict(area: number, room: number): number {
+  // 数据举例：80平米4室，房价预计为22400元每平米
+  return (model.areaCoefficient * area + model.roomCoefficient * room) * model.basePrice;
 }
 
 // 定义优化器训练过程
 function optimize(): void {
   // 样例主要演示整体流程，训练过程简化处理
-  // 假设训练数据：版本号 -> 占用储存空间大小（MB）
-  // (1, 50), (2, 60), (3, 70)，求得 y = 10x + 40
-  result = [10, 40];
+  model.areaCoefficient = 3;
+  model.roomCoefficient = 500;
+  model.basePrice = 10;
 }
 
 // Worker线程的onmessage逻辑
@@ -46,7 +54,7 @@ workerPort.onmessage = (e: MessageEvents): void => {
       break;
     case 1:
       // 执行预测
-      const output: number = predict(e.data.value as number);
+      const output: number = predict(e.data.area as number, e.data.room as number);
       // 给宿主线程发送预测的结果
       workerPort.postMessage({ type: 'predict', value: output });
       break;
