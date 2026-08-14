@@ -137,10 +137,12 @@ struct Index {
     this.avPlayer.url = "https://upftimae.dailyworkout.cn/videos/course/c800f81a209b5ee7891f1128ed301db/4/master.m3u8";
     let bitrate: number = 0;
     // 监听当前HLS协议流可用的码率
+    // [Start availableBitrates]
     this.avPlayer.on('availableBitrates', (bitrates: Array<number>) => {
       console.info('availableBitrates called, and availableBitrates length is: ' + bitrates.length);
       this.bitrate = bitrates[0]; // 保存需要切换的码率
     })
+    // [End availableBitrates]
     // 监听码率设置是否生效
     this.avPlayer.on('bitrateDone', (bitrate: number) => {
       console.info('bitrateDone called, and bitrate value is: ' + bitrate);
@@ -150,7 +152,7 @@ struct Index {
     // 情况六：DASH切换音视频轨道
     /*
     this.avPlayer.url = "http://poster-inland.hwcloudtest.cn/AiMaxEngine/ProductionEnvVideo/DASH_SDR_MultiAudio_MultiSubtitle_yinHeHuWeiDui3/DASH_SDR_MultiAudio_MultiSubtitle_yinHeHuWeiDui3.mpd";
-    // 
+    // [Start getTrackDescription] 
     this.avPlayer.getTrackDescription((error: BusinessError, arrList: Array<media.MediaDescription>) => {
       if (arrList != null) {
         for (let i = 0; i < arrList.length; i++) {
@@ -166,6 +168,7 @@ struct Index {
         console.error(`getTrackDescription fail, error:${error}`);
       }
     });
+    // [End getTrackDescription]
     * */
   }
 
@@ -174,12 +177,14 @@ struct Index {
     if (this.avPlayer == null) {
       return;
     }
+    // [Start setBitrate]
     // 设置播放码率
     try {
       this.avPlayer.setBitrate(bitrate);
     } catch (error) {
       console.error(`${this.tag}: setBitrate failed, error message is = ${JSON.stringify(error.message)}`);
     }
+    // [End setBitrate]
   }
 
   // DASH切换音视频轨道
@@ -187,12 +192,14 @@ struct Index {
     if (this.avPlayer == null) {
       return;
     }
+    // [Start selectTrack]
     // 切换至目标视频轨道
     try {
       this.avPlayer.selectTrack(track);
     } catch (error) {
       console.error(`${this.tag}: selectTrack failed, error message is = ${JSON.stringify(error.message)}`);
     }
+    // [End selectTrack]
     // 取消选择目标视频轨道
     /*
     try {
@@ -289,9 +296,11 @@ struct Index {
           break;
         case 'prepared': // prepare调用成功后上报该状态机
           console.info(`${this.tag}: setAVPlayerCallback AVPlayer state prepared called.`);
+          // [Start bufferingUpdate]
           this.avPlayer.on('bufferingUpdate', (infoType: media.BufferingInfoType, value: number) => {
             console.info(`${this.tag}: bufferingUpdate called, infoType value: ${infoType}, value:${value}}`);
           })
+          // [End bufferingUpdate]
           this.durationTime = this.avPlayer.duration;
           this.currentTime = this.avPlayer.currentTime;
           this.avPlayer.play(); // 调用播放接口开始播放
