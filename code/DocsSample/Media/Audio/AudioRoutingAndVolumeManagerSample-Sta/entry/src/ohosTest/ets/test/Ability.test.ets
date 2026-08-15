@@ -900,7 +900,7 @@ export default function abilityTest(): void {
     /**
      * @tc.number AudioOutputDeviceSwitcher_Test_008
      * @tc.name AudioOutputDeviceSwitcher_Test_008
-     * @tc.desc Stop audioRenderer
+     * @tc.desc Set speaker media output
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -908,6 +908,42 @@ export default function abilityTest(): void {
     it('AudioOutputDeviceSwitcher_Test_008', Level.LEVEL1, async (done: Function) => {
       await runTest(
         'AudioOutputDeviceSwitcher_Test_008',
+        'output_switcher_audioSessionSetSpeakerMediaOutput',
+        3000,
+        'Succeeded in setting media output device to speaker.',
+        done
+      );
+    });
+
+    /**
+     * @tc.number AudioOutputDeviceSwitcher_Test_009
+     * @tc.name AudioOutputDeviceSwitcher_Test_009
+     * @tc.desc Set default media output
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('AudioOutputDeviceSwitcher_Test_009', Level.LEVEL1, async (done: Function) => {
+      await runTest(
+        'AudioOutputDeviceSwitcher_Test_009',
+        'output_switcher_audioSessionSetDefaultMediaOutput',
+        3000,
+        'Succeeded in setting media output device to default.',
+        done
+      );
+    });
+
+    /**
+     * @tc.number AudioOutputDeviceSwitcher_Test_010
+     * @tc.name AudioOutputDeviceSwitcher_Test_010
+     * @tc.desc Stop audioRenderer
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('AudioOutputDeviceSwitcher_Test_010', Level.LEVEL1, async (done: Function) => {
+      await runTest(
+        'AudioOutputDeviceSwitcher_Test_010',
         'output_switcher_stop',
         3000,
         'Succeeded in stopping audio renderer.',
