@@ -55,7 +55,7 @@ entry/src/main/ets/
 |   |       |---FocusStyle.ets
 |   |       |---FocusTransfer.ets
 |   |       |---FocusTraversalGuidelines.ets
-|   |       |---FrojectAreaFocusFlex.ets
+|   |       |---ProjectAreaFocusFlex.ets
 |   |       |---Index.ets
 |   |       |---NextFocus.ets
 |   |       |---onFocusBlur.ets
