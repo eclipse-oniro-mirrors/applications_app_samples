@@ -25,11 +25,11 @@ entry/src/main/ets/
     └── IsExecute.ets
     └── SaveResult.ets
     └── Sendable.ets
-    └── SoluteItemInitialized.ets
-    └── SoluteMismatchTypeOne.ets
-    └── SoluteMismatchTypeThree.ets
-    └── SoluteMismatchTypeTwo.ets
-    └── TestInstancof.ets
+    └── SolveItemInitialized.ets
+    └── SolveMismatchTypeOne.ets
+    └── SolveMismatchTypeThree.ets
+    └── SolveMismatchTypeTwo.ets
+    └── TestInstanceof.ets
     └── ui.ets
     └── utils.ets   
 └── workers    

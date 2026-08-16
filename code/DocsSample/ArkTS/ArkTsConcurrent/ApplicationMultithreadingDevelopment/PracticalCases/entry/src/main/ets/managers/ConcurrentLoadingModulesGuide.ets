@@ -59,7 +59,7 @@ struct Index {
             center: { anchor: '__container__', align: VerticalAlign.Center },
             middle: { anchor: '__container__', align: HorizontalAlign.Center }
           })
-          .onClick(async () => {
+          .onClick(() => {
             let result = this.calc?.add(1, 2)
             console.info(`Result is ${result}`)
             this.calculateAdd = 'success';
@@ -72,7 +72,7 @@ struct Index {
             center: { anchor: '__container__', align: VerticalAlign.Center },
             middle: { anchor: '__container__', align: HorizontalAlign.Center }
           })
-          .onClick(async () => {
+          .onClick(() => {
             this.calc?.showHistory();
             this.showHistory = 'success';
           })

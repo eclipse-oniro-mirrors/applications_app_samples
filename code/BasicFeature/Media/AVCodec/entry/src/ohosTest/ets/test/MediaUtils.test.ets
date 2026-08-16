@@ -16,6 +16,7 @@
 import { describe, expect, it } from '@ohos/hypium';
 import {
   getPickerSelectedIndex,
+  getPickerSelectedValues,
   INVALID_PICKER_INDEX,
   isMediaFileEmpty,
   isPickerIndexValid
@@ -27,6 +28,11 @@ export default function mediaUtilsTest(): void {
       expect(getPickerSelectedIndex(1)).assertEqual(1);
       expect(getPickerSelectedIndex([2])).assertEqual(2);
       expect(getPickerSelectedIndex([3, 4])).assertEqual(3);
+    });
+
+    it('shouldNormalizePickerValues', 0, () => {
+      expect(getPickerSelectedValues('X1')[0]).assertEqual('X1');
+      expect(getPickerSelectedValues(['X1', 'X2'])[1]).assertEqual('X2');
     });
 
     it('shouldRejectEmptyPickerIndexArray', 0, () => {

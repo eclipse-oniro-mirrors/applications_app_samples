@@ -53,18 +53,18 @@ int32_t AudioEncoder::Configure(const SampleInfo &sampleInfo)
     OH_AVFormat *format = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, sampleInfo.audioSampleForamt);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUD_CHANNEL_COUNT, sampleInfo.audioChannelCount);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUD_SAMPLE_RATE, sampleInfo.audioSampleRate);
-    OH_AVFormat_SetLongValue(format, OH_MD_KEY_BITRATE, sampleInfo.audioBitRate);
-    OH_AVFormat_SetLongValue(format, OH_MD_KEY_CHANNEL_LAYOUT, sampleInfo.audioChannelLayout);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_MAX_INPUT_SIZE, sampleInfo.audioMaxInputSize);
-    AVCODEC_SAMPLE_LOGI("audioChannelCount:%{public}d audioSampleRate:%{public}d audioBitRate:%{public}d "
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, sampleInfo.audio.audioSampleFormat);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUD_CHANNEL_COUNT, sampleInfo.audio.audioChannelCount);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUD_SAMPLE_RATE, sampleInfo.audio.audioSampleRate);
+    OH_AVFormat_SetLongValue(format, OH_MD_KEY_BITRATE, sampleInfo.audio.audioBitRate);
+    OH_AVFormat_SetLongValue(format, OH_MD_KEY_CHANNEL_LAYOUT, sampleInfo.audio.audioChannelLayout);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_MAX_INPUT_SIZE, sampleInfo.audio.audioMaxInputSize);
+    AVCODEC_SAMPLE_LOGI("audioChannelCount:%{public}d audioSampleRate:%{public}d audioBitRate:%{public}" PRId64 " "
                         "audioChannelLayout:%{public}ld",
-                        sampleInfo.audioChannelCount, sampleInfo.audioSampleRate, sampleInfo.audioBitRate,
-                        sampleInfo.audioChannelLayout);
-    if (sampleInfo.codecSyncMode) {
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codecSyncMode);
+                        sampleInfo.audio.audioChannelCount, sampleInfo.audio.audioSampleRate,
+                        sampleInfo.audio.audioBitRate, sampleInfo.audio.audioChannelLayout);
+    if (sampleInfo.codec.codecSyncMode) {
+        OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
     }
 
     int ret = OH_AudioCodec_Configure(encoder_, format);
@@ -83,7 +83,7 @@ int32_t AudioEncoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
     int32_t ret = Configure(sampleInfo);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Configure failed");
 
-    if (!sampleInfo.codecSyncMode) {
+    if (!sampleInfo.codec.codecSyncMode) {
         ret = SetCallback(codecUserData);
         CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
                                  "Set callback failed, ret: %{public}d", ret);

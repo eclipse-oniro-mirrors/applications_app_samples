@@ -13,9 +13,10 @@
  * limitations under the License.
  */
 // [Start transferableObject_Layout]
+// 本文件在工程中的路径：entry/src/main/ets/turbotrans_JSON/layout.ets
 import { Serializable, SerialName } from '@hadss/turbo-trans-core';
-// [StartExclude transferableObject_Layout]
 import { collections } from '@kit.ArkTS';
+// [StartExclude transferableObject_Layout]
 // [EndExclude transferableObject_Layout]
 
 @Serializable({ generateSendable: true})

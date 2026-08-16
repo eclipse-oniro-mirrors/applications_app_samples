@@ -493,16 +493,16 @@ export default function IndexTest() {
 
     /**
      * @tc.number UiTest_018
-     * @tc.name FrojectAreaFocusFlex
+     * @tc.name ProjectAreaFocusFlex
      * @tc.desc 测试焦点传递事件示例
      */
-    it('testFrojectAreaFocusFlex', 0, async (done: Function) => {
+    it('testProjectAreaFocusFlex', 0, async (done: Function) => {
       let driver = Driver.create();
       let button_list = await driver.findComponent(ON.text('FocusEvent', MatchPattern.CONTAINS));
       expect(button_list === null).assertFalse();
       await button_list.click();
       let scrollBar: Component = await driver.findComponent(ON.type('Scroll'));
-      let button_list1 = await scrollBar.scrollSearch(ON.text(resource.resourceToString($r('app.string.Focus_Index_FrojectAreaFocusFlex_title')), MatchPattern.CONTAINS));
+      let button_list1 = await scrollBar.scrollSearch(ON.text(resource.resourceToString($r('app.string.Focus_Index_ProjectAreaFocusFlex_title')), MatchPattern.CONTAINS));
       await button_list1.click();
       //已进入测试界面
       await driver.triggerKey(2049);

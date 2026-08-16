@@ -491,13 +491,13 @@ export class KeyboardController {
   public inputHardKeyCode(keyValue: string, keyCode: number): boolean {
     this.inputHandle.addLog(`inputHardKeyCode keyValue is: ${keyValue}`);
     if (this.processFunctionKeys(keyValue)) {
-      return false;
+      return true;
     }
     if (this.shiftKeys(keyValue)) {
       return false;
     }
     this.inputHandle.insertText(keyValue);
-    return false;
+    return true;
   }
 
   public shiftKeys(keyValue: string): boolean {

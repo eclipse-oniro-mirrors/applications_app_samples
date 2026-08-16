@@ -28,9 +28,9 @@ function executeTask() {
   let task: taskpool.Task = new taskpool.Task(createTask, 1)
   taskpool.execute(task).then((res) => {
     testObject.setName(res as string);
-    console.info('execute task success, name is ' + testObject.getName());
+    console.info(`execute task success, name is ${testObject.getName()}`);
   }).catch((e: BusinessError) => {
-    console.error('execute task error: ' + e.message);
+    console.error(`execute task error: ${e.message}`);
   })
 }
 // [End save_result]

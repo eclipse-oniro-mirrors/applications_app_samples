@@ -15,6 +15,7 @@
 
 import { RadioExample } from './RadioSample';
 import { RadioSample2 } from './RadioButton';
+import { RadioSwiperSample } from './RadioSwiper';
 import { CompletedRoutableCard } from '../../common/Card';
 import { Route } from '../../common/Route';
 import resource from '../../common/resource';
@@ -33,6 +34,12 @@ const routes: Route[] = [
     name: `${RADIO_ROUTE_PREFIX}/RadioSample2`,
     title: resource.resourceToString($r('app.string.RadioSample2_title')),
     description: $r('app.string.RadioSample2_description')
+  },
+  {
+    // 请将$r('app.string.RadioSwiper_title')替换为实际资源文件，在本示例中该资源文件的value值为"单选框与滑动容器联动示例"
+    name: `${RADIO_ROUTE_PREFIX}/RadioSwiper`,
+    title: resource.resourceToString($r('app.string.RadioSwiper_title')),
+    description: $r('app.string.RadioSwiper_description')
   }
 ]
 
@@ -44,6 +51,8 @@ export function radioDestination(name: string) {
     RadioExample();
   } else if (name === routes[1].name) {
     RadioSample2();
+  } else if (name === routes[2].name) {
+    RadioSwiperSample();
   }
 }
 

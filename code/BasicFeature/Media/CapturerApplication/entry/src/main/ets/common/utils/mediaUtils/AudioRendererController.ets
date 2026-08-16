@@ -151,7 +151,7 @@ export class AudioRendererController {
           this.notifyStateChangeCallback(AudioState.STOPPED, false);
         }
       }
-      console.info(`wrbin progress ${progress}`)
+      console.info(`progress ${progress}`)
     }, 250);
   }
 
@@ -161,7 +161,7 @@ export class AudioRendererController {
       const stat = await fileIo.stat(this.recordingFilePath);
       this.duration = MediaTools.getMsFromByteLength(stat.size)
       audio.loadRendererRecordingInfo(this.recordingFile.fd, stat.size,this.duration, 0);
-      console.info(`wrbin load ${MediaTools.getMsFromByteLength(stat.size)}`)
+      console.info(`load ${MediaTools.getMsFromByteLength(stat.size)}`)
     }
   }
 }

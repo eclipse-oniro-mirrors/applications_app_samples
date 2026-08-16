@@ -15,7 +15,7 @@
 
 // [Start CustomLayoutBasic]
 import {
-  DynamicLayout, DynamicLayoutAttribute, CustomLayoutAlgorithm, FrameNode, LayoutConstraint, Position, LayoutAlgorithm
+  DynamicLayout, CustomLayoutAlgorithm, FrameNode, LayoutConstraint, Position, LayoutAlgorithm
 } from '@kit.ArkUI';
 
 // 自定义布局算法类

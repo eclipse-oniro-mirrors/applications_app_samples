@@ -58,7 +58,7 @@ function getNum(num: number): number {
 }
 // [End constant_in_loop_poor]
 
-// [Start constant_in_loop_batter]
+// [Start constant_in_loop_better]
 class TimeBetter {
   static start: number = 0;
   static info: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -74,7 +74,7 @@ function getNumBetter(num: number): number {
   }
   return total;
 }
-// [End constant_in_loop_batter]
+// [End constant_in_loop_better]
 
 function testGetNum() {
   let res = getNum(1);
@@ -101,7 +101,7 @@ function fooWithout(): number {
 fooWithout();
 // [End outside_variable_poor]
 
-// [Start outside_variable_batter]
+// [Start outside_variable_better]
 let arr_ = [0, 1, 2];
 
 function fooWithArray(array: number[]): number {
@@ -109,7 +109,7 @@ function fooWithArray(array: number[]): number {
 }
 
 fooWithArray(arr_);
-// [End outside_variable_batter]
+// [End outside_variable_better]
 
 function testArrayUse() {
   let res = fooWithout();
@@ -134,11 +134,11 @@ function add(left?: number, right?: number): number | undefined {
 }
 // [End avoid_optional_parameters_poor]
 
-// [Start avoid_optional_parameters_batter]
+// [Start avoid_optional_parameters_better]
 function addWithParams(left: number = 0, right: number = 0): number {
   return left + right;
 }
-// [End avoid_optional_parameters_batter]
+// [End avoid_optional_parameters_better]
 
 function testParameter() {
   let res = add();
@@ -163,14 +163,14 @@ for (let i = 0; i < 3; i++) {
 }
 // [End use_typearray_poor]
 
-// [Start use_typearray_batter]
+// [Start use_typearray_better]
 const typedArray1 = Int8Array.from([1, 2, 3]);
 const typedArray2 = Int8Array.from([4, 5, 6]);
 let res1 = new Array<number>(3);
 for (let i = 0; i < 3; i++) {
   res1[i] = typedArray1[i] + typedArray2[i];
 }
-// [End use_typearray_batter]
+// [End use_typearray_better]
 
 function testTypeArray() {
   let res = new Array<number>(3);
@@ -217,11 +217,11 @@ function testUnionTypeArray() {
   let arrNum: number[] = [1, 1.1, 2]; // 数值数组中混合使用整型数据和浮点型数据
   let arrUnion: (number | string)[] = [1, 'hello']; // 联合类型数组
   // [End avoid_joint_type_poor]
-  // [Start avoid_joint_type_batter]
+  // [Start avoid_joint_type_better]
   let arrInt: number[] = [1, 2, 3];
   let arrDouble: number[] = [0.1, 0.2, 0.3];
   let arrString: string[] = ['hello', 'world'];
-  // [End avoid_joint_type_batter]
+  // [End avoid_joint_type_better]
 
   console.log(`arrNum size is ${typeof arrNum[0]}`);
   console.log(`arrNum size is ${typeof arrNum[1]}`);
@@ -268,7 +268,7 @@ function sum(num: number): number {
 }
 // [End exception_handling_poor]
 
-// [Start exception_handling_batter]
+// [Start exception_handling_better]
 function divBetter(a: number, b: number): number {
   if (a <= 0 || b <= 0) {
     return NaN;
@@ -287,7 +287,7 @@ function sumBetter(num: number): number {
   }
   return sum;
 }
-// [End exception_handling_batter]
+// [End exception_handling_better]
 
 function testExceptionAvoidance() {
   let res = sum(-1);

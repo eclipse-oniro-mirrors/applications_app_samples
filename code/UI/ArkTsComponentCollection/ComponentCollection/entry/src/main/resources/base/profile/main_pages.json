@@ -30,6 +30,7 @@
     "pages/globalMethods/dialogs/timeDialogSample/TimeDialogSample",
     "pages/universal/events/clickEventSample/ClickEventSample",
     "pages/universal/events/touchEventSample/TouchEventSample",
+    "pages/universal/events/dragEventSample/DragEventSample",
     "pages/universal/events/focusEventSample/FocusEventSample",
     "pages/universal/properties/foregroundSample/ForegroundSample",
     "pages/universal/events/keyPressEventSample/KeyPressEventSample",

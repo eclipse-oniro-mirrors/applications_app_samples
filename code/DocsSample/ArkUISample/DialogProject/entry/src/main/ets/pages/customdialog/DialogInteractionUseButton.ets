@@ -18,6 +18,7 @@ const DOMAIN = 0x0000;
 // [Start dialog_interaction_use_button]
 @CustomDialog
 struct CustomDialogExample {
+  // 数据监听仅支持@Link或@Consume，其他方式如@Prop、@ObjectLink不适用此场景
   @Link textValue: string;
   controller?: CustomDialogController;
   cancel: () => void = () => {

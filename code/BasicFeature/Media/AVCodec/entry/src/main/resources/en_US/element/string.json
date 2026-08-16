@@ -1,6 +1,14 @@
 {
   "string": [
     {
+      "name": "smart_fluency_x2",
+      "value": "X2 (Smart Fluency)"
+    },
+    {
+      "name": "smart_fluency_x3",
+      "value": "X3 (Smart Fluency)"
+    },
+    {
       "name": "module_desc",
       "value": "This module template implements List functions."
     },
@@ -27,6 +35,14 @@
     {
       "name": "play",
       "value": "play"
+    },
+    {
+      "name": "stop_playback",
+      "value": "stop"
+    },
+    {
+      "name": "stopping",
+      "value": "stopping"
     },
     {
       "name": "alert",
@@ -167,6 +183,18 @@
     {
       "name": "media_file_select_failed",
       "value": "Failed to select the media file. Please try again."
+    },
+    {
+      "name": "media_info",
+      "value": "Info"
+    },
+    {
+      "name": "media_info_title",
+      "value": "Media information"
+    },
+    {
+      "name": "media_info_subtitle",
+      "value": "Demuxed source, track, and decoder details"
     }
   ]
 }

@@ -16,4 +16,5 @@
 // [Start TestHidebugNdk]
 export const testGetThreadCpuUsage: () => void;
 export const testBackTrace: () => void;
+export const testAsyncContext: () => void;
 // [End TestHidebugNdk]

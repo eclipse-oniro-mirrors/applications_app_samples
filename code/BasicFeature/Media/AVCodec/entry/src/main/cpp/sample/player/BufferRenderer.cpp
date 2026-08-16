@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <unistd.h>
 #include "BufferRenderer.h"
+#include "HdrMetadataHelper.h"
 #include "av_codec_sample_log.h"
 #include "plugin_manager.h"
 
@@ -60,8 +61,8 @@ int32_t ToGraphicPixelFormat(OH_AVPixelFormat pixelFormat, int32_t hevcProfile)
 
 bool IsTenBitOutput(const SampleInfo &sampleInfo)
 {
-    return sampleInfo.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_HEVC &&
-        sampleInfo.hevcProfile == HEVC_PROFILE_MAIN_10;
+    return sampleInfo.video.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_HEVC &&
+        sampleInfo.video.hevcProfile == HEVC_PROFILE_MAIN_10;
 }
 
 struct PlaneCopyConfig {
@@ -200,16 +201,17 @@ void BufferRenderer::Reset()
     windowHeight_ = 0;
     windowFormat_ = 0;
     window_ = nullptr;
+    metadataCopyFailureLogged_ = false;
 }
 
 bool BufferRenderer::ConfigureWindow(const SampleInfo& sampleInfo, const CodecUserData& videoDecContext,
     int32_t graphicPixelFormat)
 {
-    OHNativeWindow *window = NativeXComponentSample::PluginManager::GetInstance()->pluginWindow_;
+    OHNativeWindow *window = NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
     CHECK_AND_RETURN_RET_LOG(window != nullptr, false, "XComponent window is null");
 
-    int32_t width = videoDecContext.width > 0 ? videoDecContext.width : sampleInfo.videoWidth;
-    int32_t height = videoDecContext.height > 0 ? videoDecContext.height : sampleInfo.videoHeight;
+    int32_t width = videoDecContext.width > 0 ? videoDecContext.width : sampleInfo.video.videoWidth;
+    int32_t height = videoDecContext.height > 0 ? videoDecContext.height : sampleInfo.video.videoHeight;
     CHECK_AND_RETURN_RET_LOG(width > 0 && height > 0, false,
         "Invalid render size, width: %{public}d, height: %{public}d", width, height);
 
@@ -244,10 +246,10 @@ bool BufferRenderer::CopyToWindowBuffer(uint8_t *dstAddr, const OH_NativeBuffer_
 {
     CHECK_AND_RETURN_RET_LOG(dstAddr != nullptr && srcAddr != nullptr, false, "Invalid buffer address");
 
-    int32_t width = videoDecContext.width > 0 ? videoDecContext.width : sampleInfo.videoWidth;
-    int32_t height = videoDecContext.height > 0 ? videoDecContext.height : sampleInfo.videoHeight;
-    const bool isRgba = sampleInfo.pixelFormat == AV_PIXEL_FORMAT_RGBA ||
-        sampleInfo.pixelFormat == AV_PIXEL_FORMAT_RGBA1010102;
+    int32_t width = videoDecContext.width > 0 ? videoDecContext.width : sampleInfo.video.videoWidth;
+    int32_t height = videoDecContext.height > 0 ? videoDecContext.height : sampleInfo.video.videoHeight;
+    const bool isRgba = sampleInfo.video.pixelFormat == AV_PIXEL_FORMAT_RGBA ||
+        sampleInfo.video.pixelFormat == AV_PIXEL_FORMAT_RGBA1010102;
     constexpr int32_t rgbaBytesPerPixel = 4;
     const int32_t bytesPerSample = IsTenBitOutput(sampleInfo) ? 2 : 1;
     const int32_t bytesPerRow = isRgba ? width * rgbaBytesPerPixel : width * bytesPerSample;
@@ -266,7 +268,7 @@ bool BufferRenderer::CopyToWindowBuffer(uint8_t *dstAddr, const OH_NativeBuffer_
         copyConfig.srcSliceHeight > 0 && copyConfig.dstStride > 0 && copyConfig.dstSliceHeight > 0,
         false, "Invalid stride or size");
 
-    switch (sampleInfo.pixelFormat) {
+    switch (sampleInfo.video.pixelFormat) {
         case AV_PIXEL_FORMAT_RGBA:
         case AV_PIXEL_FORMAT_RGBA1010102:
             return CopyRgbaBuffer(copyConfig);
@@ -277,7 +279,7 @@ bool BufferRenderer::CopyToWindowBuffer(uint8_t *dstAddr, const OH_NativeBuffer_
         case AV_PIXEL_FORMAT_NV21:
             return CopyYuv420SpBuffer(copyConfig);
         default:
-            AVCODEC_SAMPLE_LOGE("Unsupported copy pixel format: %{public}d", sampleInfo.pixelFormat);
+            AVCODEC_SAMPLE_LOGE("Unsupported copy pixel format: %{public}d", sampleInfo.video.pixelFormat);
             return false;
     }
 }
@@ -297,8 +299,8 @@ bool BufferRenderer::RequestWindowBuffer(OHNativeWindow *window, OHNativeWindowB
     return false;
 }
 
-bool BufferRenderer::CopyToNativeBuffer(OHNativeWindowBuffer *windowBuffer, int &fenceFd, const uint8_t *srcAddr,
-    const SampleInfo& sampleInfo, const CodecUserData& videoDecContext)
+bool BufferRenderer::CopyToNativeBuffer(OHNativeWindowBuffer *windowBuffer, int &fenceFd,
+    const BufferRenderContext& renderContext)
 {
     OH_NativeBuffer *nativeBuffer = nullptr;
     int32_t ret = OH_NativeBuffer_FromNativeWindowBuffer(windowBuffer, &nativeBuffer);
@@ -323,12 +325,18 @@ bool BufferRenderer::CopyToNativeBuffer(OHNativeWindowBuffer *windowBuffer, int 
         AVCODEC_SAMPLE_LOGE("Map native window buffer failed, ret: %{public}d", ret);
         return false;
     }
-    uint8_t *dstAddr = static_cast<uint8_t *>(mappedAddr);
-    bool copied = CopyToWindowBuffer(dstAddr, dstConfig, srcAddr, sampleInfo, videoDecContext);
+    auto *dstAddr = static_cast<uint8_t *>(mappedAddr);
+    bool copied = CopyToWindowBuffer(dstAddr, dstConfig, renderContext.srcAddr, renderContext.sampleInfo,
+        renderContext.videoDecContext);
     int32_t unmapRet = OH_NativeBuffer_Unmap(nativeBuffer);
     if (!copied || unmapRet != 0) {
         AVCODEC_SAMPLE_LOGE("Copy or unmap native window buffer failed, unmapRet: %{public}d", unmapRet);
         return false;
+    }
+    if (!HdrMetadataHelper::CopyToNativeBuffer(renderContext.bufferInfo.buffer, nativeBuffer) &&
+        !metadataCopyFailureLogged_) {
+        metadataCopyFailureLogged_ = true;
+        AVCODEC_SAMPLE_LOGW("Copy decoded HDR metadata or color space failed; continue rendering pixels");
     }
     return true;
 }
@@ -351,25 +359,27 @@ bool BufferRenderer::FlushWindowBuffer(OHNativeWindow *window, OHNativeWindowBuf
 bool BufferRenderer::Render(CodecBufferInfo& bufferInfo, const SampleInfo& sampleInfo,
     const CodecUserData& videoDecContext, int64_t renderTimestamp)
 {
-    if (sampleInfo.codecRunMode != BUFFER) {
+    if (sampleInfo.codec.codecRunMode != BUFFER) {
         return true;
     }
     uint8_t *srcAddr = GetBufferDataAddr(bufferInfo);
     CHECK_AND_RETURN_RET_LOG(srcAddr != nullptr, false, "Decoded buffer address is null");
-    int32_t graphicPixelFormat = ToGraphicPixelFormat(sampleInfo.pixelFormat, sampleInfo.hevcProfile);
+    int32_t graphicPixelFormat = ToGraphicPixelFormat(sampleInfo.video.pixelFormat, sampleInfo.video.hevcProfile);
     CHECK_AND_RETURN_RET_LOG(graphicPixelFormat != NATIVEBUFFER_PIXEL_FMT_BUTT, false,
-        "Unsupported buffer render pixel format: %{public}d", sampleInfo.pixelFormat);
+        "Unsupported buffer render pixel format: %{public}d", sampleInfo.video.pixelFormat);
     CHECK_AND_RETURN_RET_LOG(ConfigureWindow(sampleInfo, videoDecContext, graphicPixelFormat), false,
         "Configure buffer render window failed");
 
-    OHNativeWindow *window = NativeXComponentSample::PluginManager::GetInstance()->pluginWindow_;
+    OHNativeWindow *window = NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
     CHECK_AND_RETURN_RET_LOG(window != nullptr, false, "XComponent window is null");
     OHNativeWindowBuffer *windowBuffer = nullptr;
     int fenceFd = -1;
     CHECK_AND_RETURN_RET_LOG(RequestWindowBuffer(window, windowBuffer, fenceFd), false,
         "Request buffer render window failed");
     NativeWindowBufferGuard windowBufferGuard(window, windowBuffer);
-    CHECK_AND_RETURN_RET_LOG(CopyToNativeBuffer(windowBuffer, fenceFd, srcAddr, sampleInfo, videoDecContext), false,
+    BufferRenderContext renderContext = {bufferInfo, srcAddr, sampleInfo, videoDecContext};
+    CHECK_AND_RETURN_RET_LOG(
+        CopyToNativeBuffer(windowBuffer, fenceFd, renderContext), false,
         "Copy decoded buffer to native buffer failed");
     CHECK_AND_RETURN_RET_LOG(FlushWindowBuffer(window, windowBuffer, renderTimestamp), false,
         "Flush buffer render window failed");

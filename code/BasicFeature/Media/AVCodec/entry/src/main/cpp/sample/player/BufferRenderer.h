@@ -28,13 +28,20 @@ public:
     void Reset();
 
 private:
+    struct BufferRenderContext {
+        CodecBufferInfo& bufferInfo;
+        const uint8_t *srcAddr;
+        const SampleInfo& sampleInfo;
+        const CodecUserData& videoDecContext;
+    };
+
     bool ConfigureWindow(const SampleInfo& sampleInfo, const CodecUserData& videoDecContext,
         int32_t graphicPixelFormat);
     bool CopyToWindowBuffer(uint8_t *dstAddr, const OH_NativeBuffer_Config& dstConfig,
         const uint8_t *srcAddr, const SampleInfo& sampleInfo, const CodecUserData& videoDecContext);
     bool RequestWindowBuffer(OHNativeWindow *window, OHNativeWindowBuffer *&windowBuffer, int &fenceFd);
-    bool CopyToNativeBuffer(OHNativeWindowBuffer *windowBuffer, int &fenceFd, const uint8_t *srcAddr,
-        const SampleInfo& sampleInfo, const CodecUserData& videoDecContext);
+    bool CopyToNativeBuffer(OHNativeWindowBuffer *windowBuffer, int &fenceFd,
+        const BufferRenderContext& renderContext);
     bool FlushWindowBuffer(OHNativeWindow *window, OHNativeWindowBuffer *windowBuffer, int64_t renderTimestamp);
 
     bool windowConfigured_ = false;
@@ -42,6 +49,7 @@ private:
     int32_t windowHeight_ = 0;
     int32_t windowFormat_ = 0;
     OHNativeWindow *window_ = nullptr;
+    bool metadataCopyFailureLogged_ = false;
 };
 
 #endif // VIDEO_CODEC_BUFFER_RENDERER_H

@@ -195,7 +195,7 @@ public:
         OH_AudioSuiteEngine_CreateNode(pipeline, builder, node);
         // 按场景设置空间渲染参数。
         switch (params.spaceRenderMode) {
-            /* 固定摆位模式 */
+            // 固定摆位模式。
             case SPACE_RENDER_MODE_POSITION: {
                 OH_AudioSuite_SpaceRenderPositionParams position;
                 position.x = params.spacePositionX;
@@ -204,7 +204,7 @@ public:
                 OH_AudioSuiteEngine_SetSpaceRenderPositionParams(*node, position);
                 break;
             }
-            /* 旋转模式 */
+            // 旋转模式。
             case SPACE_RENDER_MODE_ROTATION: {
                 OH_AudioSuite_SpaceRenderRotationParams rotation;
                 rotation.x = params.spaceRotationX;
@@ -216,7 +216,7 @@ public:
                 OH_AudioSuiteEngine_SetSpaceRenderRotationParams(*node, rotation);
                 break;
             }
-            /* 扩展模式 */
+            // 扩展模式。
             case SPACE_RENDER_MODE_EXTENSION: {
                 OH_AudioSuite_SpaceRenderExtensionParams extension;
                 extension.extRadius = params.spaceExtensionRadius;

@@ -61,7 +61,7 @@ int32_t VideoEncoder::Config(SampleInfo &sampleInfo, CodecUserData *codecUserDat
     ret = GetSurface(sampleInfo);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Get surface failed");
 
-    if (!sampleInfo.codecSyncMode) {
+    if (!sampleInfo.codec.codecSyncMode) {
         ret = SetCallback(codecUserData);
         CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
                                  "Set callback failed, ret: %{public}d", ret);
@@ -188,28 +188,28 @@ int32_t VideoEncoder::Configure(const SampleInfo &sampleInfo)
     OH_AVFormat *format = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_WIDTH, sampleInfo.videoWidth);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_HEIGHT, sampleInfo.videoHeight);
-    OH_AVFormat_SetDoubleValue(format, OH_MD_KEY_FRAME_RATE, sampleInfo.frameRate);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_PIXEL_FORMAT, sampleInfo.pixelFormat);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE, sampleInfo.bitrateMode);
-    OH_AVFormat_SetLongValue(format, OH_MD_KEY_BITRATE, sampleInfo.bitrate);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_PROFILE, sampleInfo.hevcProfile);
-    if (sampleInfo.codecSyncMode) {
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codecSyncMode);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_WIDTH, sampleInfo.video.videoWidth);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_HEIGHT, sampleInfo.video.videoHeight);
+    OH_AVFormat_SetDoubleValue(format, OH_MD_KEY_FRAME_RATE, sampleInfo.video.frameRate);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_PIXEL_FORMAT, sampleInfo.video.pixelFormat);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE, sampleInfo.video.bitrateMode);
+    OH_AVFormat_SetLongValue(format, OH_MD_KEY_BITRATE, sampleInfo.video.bitrate);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_PROFILE, sampleInfo.video.hevcProfile);
+    if (sampleInfo.codec.codecSyncMode) {
+        OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
     }
-    if (sampleInfo.isHDRVivid) {
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_I_FRAME_INTERVAL, sampleInfo.iFrameInterval);
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_RANGE_FLAG, sampleInfo.rangFlag);
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_COLOR_PRIMARIES, sampleInfo.primary);
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_TRANSFER_CHARACTERISTICS, sampleInfo.transfer);
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_MATRIX_COEFFICIENTS, sampleInfo.matrix);
+    if (sampleInfo.video.isHDRVivid) {
+        OH_AVFormat_SetIntValue(format, OH_MD_KEY_I_FRAME_INTERVAL, sampleInfo.video.iFrameInterval);
+        OH_AVFormat_SetIntValue(format, OH_MD_KEY_RANGE_FLAG, sampleInfo.video.rangFlag);
+        OH_AVFormat_SetIntValue(format, OH_MD_KEY_COLOR_PRIMARIES, sampleInfo.video.primary);
+        OH_AVFormat_SetIntValue(format, OH_MD_KEY_TRANSFER_CHARACTERISTICS, sampleInfo.video.transfer);
+        OH_AVFormat_SetIntValue(format, OH_MD_KEY_MATRIX_COEFFICIENTS, sampleInfo.video.matrix);
     }
     AVCODEC_SAMPLE_LOGI("====== VideoEncoder config ======");
     AVCODEC_SAMPLE_LOGI("%{public}d*%{public}d, %{public}.1ffps",
-        sampleInfo.videoWidth, sampleInfo.videoHeight, sampleInfo.frameRate);
+        sampleInfo.video.videoWidth, sampleInfo.video.videoHeight, sampleInfo.video.frameRate);
     AVCODEC_SAMPLE_LOGI("BitRate Mode: %{public}d, BitRate: %{public}" PRId64 "kbps",
-        sampleInfo.bitrateMode, sampleInfo.bitrate / 1024);
+        sampleInfo.video.bitrateMode, sampleInfo.video.bitrate / 1024);
     AVCODEC_SAMPLE_LOGI("====== VideoEncoder config ======");
 
     int ret = OH_VideoEncoder_Configure(encoder_, format);
@@ -221,8 +221,8 @@ int32_t VideoEncoder::Configure(const SampleInfo &sampleInfo)
 
 int32_t VideoEncoder::GetSurface(SampleInfo &sampleInfo)
 {
-    int32_t ret = OH_VideoEncoder_GetSurface(encoder_, &sampleInfo.window);
-    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && sampleInfo.window, AVCODEC_SAMPLE_ERR_ERROR,
+    int32_t ret = OH_VideoEncoder_GetSurface(encoder_, &sampleInfo.video.window);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && sampleInfo.video.window, AVCODEC_SAMPLE_ERR_ERROR,
         "Get surface failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }

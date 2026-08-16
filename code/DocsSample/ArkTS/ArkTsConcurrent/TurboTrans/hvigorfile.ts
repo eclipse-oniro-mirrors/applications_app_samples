@@ -21,7 +21,7 @@ export default {
   system: appTasks, /* Built-in plugin of Hvigor. It cannot be modified. */
   plugins: [
     turboTransJsonPlugin(hvigor, {
-      ignoreModuleNames: ['TurboTransCore' , 'TurboTransJSON',  'PerformanceBaseline','TurboTransProtobuf'], // 忽略的模块
+      ignoreModuleNames: ['TurboTransCore', 'TurboTransJSON', 'PerformanceBaseline', 'TurboTransProtobuf'], // 忽略的模块
       scanDir: ['src/main/ets'], // 扫描目录
       deserializationMode: 'performance', // 反序列化模式
     }),

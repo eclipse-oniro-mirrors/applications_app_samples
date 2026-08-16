@@ -20,8 +20,6 @@
 #include <uv.h>
 #include "hilog/log.h"
 
-static constexpr int INT_ARG_100 = 100; // 入参索引
-
 // [Start node_api_module_add]
 // 模块加载
 static napi_value Add(napi_env env, napi_callback_info info)
@@ -456,6 +454,8 @@ static napi_value WrapSendable(napi_env env, napi_callback_info info)
 }
 // [End napi_wrap_sendable]
 // [Start napi_wrap_sendable_with_size]
+static constexpr int INT_ARG_100 = 100; // 入参索引
+
 // Sendable相关 napi_wrap_sendable_with_size
 static napi_value WrapSendableWithSize(napi_env env, napi_callback_info info)
 {
@@ -552,8 +552,9 @@ static napi_value Init(napi_env env, napi_value exports)
         {"wrapSendable", nullptr, WrapSendable, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"wrapSendableWithSize", nullptr, WrapSendableWithSize, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"unwrapSendable", nullptr, UnwrapSendable, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"removeWrapSendable", nullptr, RemoveWrapSendable, nullptr, nullptr, nullptr, napi_default, nullptr}};
+        {"removeWrapSendable", nullptr, RemoveWrapSendable, nullptr, nullptr, nullptr, napi_default, nullptr}
     // [EndExclude node_api_module_add]
+    };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     // [StartExclude node_api_module_add]
     auto object = Object::GetInstance();

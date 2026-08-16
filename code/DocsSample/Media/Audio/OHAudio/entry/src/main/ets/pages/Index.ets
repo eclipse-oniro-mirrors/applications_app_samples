@@ -38,26 +38,25 @@ struct Index {
         }
         .width('50%')
         .justifyContent(FlexAlign.End)
-
-
-        Row() {
-          Column() {
-            Image($r('app.media.pic_Audiovivid')).width(72).height(72).margin({ top: 36 })
-            Text($r('app.string.AUDIOVIVID_PLAYBACK')).fontColor(Color.Black).fontSize(16).margin({ top: 12 })
-              .fontFamily($r('sys.string.ohos_id_text_font_family_medium'))
-          }
-          .backgroundColor(Color.White)
-          .width(162)
-          .height(188)
-          .borderRadius(24)
-          .margin({left: 6})
-          .id('audiovivid_page_card')
-          .onClick(async() => {
-            await router.pushUrl({ url:'pages/AudioVividPlayback' })
-          })
-        }
-        .width('50%')
-        .justifyContent(FlexAlign.Start)
+        // OH暂不支持audio vivid
+        // Row() {
+        //   Column() {
+        //     Image($r('app.media.pic_Audiovivid')).width(72).height(72).margin({ top: 36 })
+        //     Text($r('app.string.AUDIOVIVID_PLAYBACK')).fontColor(Color.Black).fontSize(16).margin({ top: 12 })
+        //       .fontFamily($r('sys.string.ohos_id_text_font_family_medium'))
+        //   }
+        //   .backgroundColor(Color.White)
+        //   .width(162)
+        //   .height(188)
+        //   .borderRadius(24)
+        //   .margin({left: 6})
+        //   .id('audiovivid_page_card')
+        //   .onClick(async() => {
+        //     await router.pushUrl({ url:'pages/AudioVividPlayback' })
+        //   })
+        // }
+        // .width('50%')
+        // .justifyContent(FlexAlign.Start)
       }
       .margin({ top: 32 })
       .width('100%')

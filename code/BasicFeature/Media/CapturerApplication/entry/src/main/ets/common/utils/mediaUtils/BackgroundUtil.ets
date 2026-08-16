@@ -57,7 +57,7 @@ export class BackgroundUtil {
       }
     })
       .catch((error: BusinessError) => {
-        Logger.error('this audioRenderer: ', `getWantAgent failed Cause: code ${error.code}`);
+        Logger.error(TAG, `getWantAgent failed Cause: code ${error.code}`);
       });
   }
 
@@ -69,9 +69,9 @@ export class BackgroundUtil {
   public static stopContinuousTask(context: common.UIAbilityContext): void {
     try {
       backgroundTaskManager.stopBackgroundRunning(context).then(() => {
-        Logger.info('this audioRenderer: ', 'stopBackgroundRunning succeeded');
+        Logger.info(TAG, 'stopBackgroundRunning succeeded');
       }).catch((error: BusinessError) => {
-        Logger.error('this audioRenderer: ', `stopBackgroundRunning failed Cause: code ${error.code}`);
+        Logger.error(TAG, `stopBackgroundRunning failed Cause: code ${error.code}`);
       });
     } catch (error) {
       Logger.error(TAG, `stopBackgroundRunning failed. message ${error}`);

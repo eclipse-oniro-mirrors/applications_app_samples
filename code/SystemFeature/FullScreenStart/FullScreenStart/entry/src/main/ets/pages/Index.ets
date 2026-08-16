@@ -23,7 +23,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 @Component
 struct Index {
   // Developers need to create an AtomicService within AppGallery Connect and replace this appId.
-  private appId: string = '5765880207854787517';
+  private appId: string = '6917613105616497761';
   private options: AtomicServiceOptions = {
     displayId: 0
   };
@@ -50,7 +50,7 @@ struct Index {
         FullScreenLaunchComponent({
           content: fullScreenStart,
           appId: this.appId,
-          options: {}
+          options: { displayId: 0 }
         }).margin({ bottom: '3.08%' })
 
         Button($r('app.string.UIAbilityStart'))

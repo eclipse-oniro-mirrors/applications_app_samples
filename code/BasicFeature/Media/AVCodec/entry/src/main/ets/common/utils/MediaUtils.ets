@@ -22,6 +22,10 @@ export function getPickerSelectedIndex(index: number | number[]): number {
   return index.length > 0 ? index[0] : INVALID_PICKER_INDEX;
 }
 
+export function getPickerSelectedValues(value: string | string[]): string[] {
+  return typeof value === 'string' ? [value] : value;
+}
+
 export function isPickerIndexValid(index: number, optionCount: number): boolean {
   return index >= 0 && index < optionCount;
 }
