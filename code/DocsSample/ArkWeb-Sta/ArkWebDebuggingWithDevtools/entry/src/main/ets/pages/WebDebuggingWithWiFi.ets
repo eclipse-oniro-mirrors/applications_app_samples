@@ -17,7 +17,7 @@
 // [Start web_Debugging_Wireless]
 import { Column, Component, Entry, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError } from '@ohos.base';
 
 const DEBUGGING_PORT: number = 8888;
 

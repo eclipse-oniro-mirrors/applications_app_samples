@@ -19,9 +19,10 @@
       {
         "name": "default",
         "signingConfig": "default",
-        "compileSdkVersion": 22,
-        "targetSdkVersion": 20,
-        "compatibleSdkVersion": 20,
+        "targetSdkVersion": "26.0.0",
+        "arkTSVersion": "1.2",
+        "compatibleSdkVersion": "26.0.0",
+        "compileSdkVersion": "26.0.0",
         "runtimeOS": "HarmonyOS",
         "buildOption": {
           "strictMode": {
