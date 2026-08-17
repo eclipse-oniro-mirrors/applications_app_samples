@@ -18,19 +18,18 @@ import { Button, Column, Component, Entry } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@ohos.base';
 
-const COLUMN_SPACE: Int = 10;
 @Entry
 @Component
 struct Index {
   build() {
-    Column({ space: COLUMN_SPACE }) {
+    Column() {
       Button('debugging WiFi')
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({
             url: 'pages/WebDebuggingWithWiFi',
           })
             .catch((error: Error) => {
-              console.error(`pushUrl failed, code is ${(error as BusinessError).code}, message is ${(error as BusinessError).message}`);
+              console.error(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
             })
         })
       Button('debugging USB')
@@ -39,7 +38,7 @@ struct Index {
             url: 'pages/WebDebuggingWithUSB',
           })
             .catch((error: Error) => {
-              console.error(`pushUrl failed, code is ${(error as BusinessError).code}, message is ${(error as BusinessError).message}`);
+              console.error(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
             })
         })
     }.height('100%')
