@@ -735,7 +735,7 @@ struct FilePicker {
       hilog.error(HILOG_DLP_DOMAIN, HILOG_TAG, 'error message' + err.message);
     }
   }
-  // [End dlp_decryptDlpFile]
+  // [End dlp_generateDlpFileForEnterprise]
 
   // 19. 加密文件
   // [Start dlp_decryptDlpFile]
