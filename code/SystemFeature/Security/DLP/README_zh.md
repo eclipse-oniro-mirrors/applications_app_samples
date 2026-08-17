@@ -47,6 +47,10 @@ entry/src/main/ets/
 
 允许MDM应用识别文件敏感内容：[ohos.permission.ENTERPRISE_DATA_IDENTIFY_FILE](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-mdm-apps.md#ohospermissionenterprise_data_identify_file)
 
+允许设备管理应用生成、解密DLP文件，查询DLP文件策略：[ohos.permission.ENTERPRISE_ACCESS_DLP_FILE](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-mdm-apps.md#ohospermissionenterprise_access_dlp_file)
+
+允许设备管理应用识别文件敏感内容：[ohos.permission.ENTERPRISE_DATA_IDENTIFY_FILE](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-mdm-apps.md#ohospermissionenterprise_data_identify_file)
+
 ### 依赖
 
 需要依赖三方应用文本编辑FileEdit的[hap](screenshots/haps)。
@@ -54,7 +58,7 @@ entry/src/main/ets/
 ### 约束与限制
 
 1. 本示例仅支持标准系统上运行。
-2. 本示例可在API21及其以上版本的full SDK上运行。
+2. 本示例可在API26及其以上版本的SDK上运行。
 3. 本示例需要使用@ohos.dlpPermission系统权限的系统接口。
 4. 需要链接DLP凭据服务器。
 
@@ -75,22 +79,10 @@ entry/src/main/ets/
   }
 }
 ```
-2.配置build-profile.json5 （.\DLP\build-profile.json5）
-```
-"products": [
-   {
-     "name": "default",
-     "signingConfig": "default",
-     "compileSdkVersion": 21,
-     "compatibleSdkVersion": 21,
-     "runtimeOS": "OpenHarmony",
-   }
-],
-```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;若出现sync failed,可以尝试点击Migrate Assistant <br>
 ![Index](screenshots/devices/syn出错.png)<br>
-3.执行Build Hap(s)，顺利编译后，产生entry-default-unsigned.hap；  
-4.添加签名<br>
+2.执行Build Hap(s)，顺利编译后，产生entry-default-unsigned.hap；  
+3.添加签名<br>
 （1）装一个假应用  （在DLP目录下新建假应用，该应用的所有配置均默认）  
 ![Index](screenshots/devices/new_application.png)  
 （2）点击运行，将假应用烧录到开发板中，删除假应用代码  
@@ -150,7 +142,9 @@ https://gitcode.com/openharmony/developtools_hapsigner<br>
             "ohos.permission.MANAGE_DISTRIBUTED_ACCOUNTS",
             "ohos.permission.MANAGE_LOCAL_ACCOUNTS",
             "ohos.permission.ENTERPRISE_DATA_IDENTIFY_FILE",
-            "ohos.permission.GET_LOCAL_ACCOUNTS"
+            "ohos.permission.GET_LOCAL_ACCOUNTS",
+            "ohos.permission.ENTERPRISE_ACCESS_DLP_FILE",
+            "ohos.permission.ENTERPRISE_DATA_IDENTIFY_FILE"
         ]
     },
     "permissions": {
@@ -158,6 +152,7 @@ https://gitcode.com/openharmony/developtools_hapsigner<br>
     },
     "issuer": "pki_internal"
 }
+
 ```
 （9）签名应用（需要配置java环境）
 hdc uninstall com.samples.dlp<br>
