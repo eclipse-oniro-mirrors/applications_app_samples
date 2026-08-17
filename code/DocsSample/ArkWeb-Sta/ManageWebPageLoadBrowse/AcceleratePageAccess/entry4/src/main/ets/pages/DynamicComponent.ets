@@ -15,9 +15,8 @@
  */
 
 // [Start underlying_code_required_for_dynamic_components]
-import { UIContext } from '@kit.ArkUI';
 import { Builder, UIContext, Web, WebviewController, wrapBuilder, BuilderNode } from '@kit.ArkUI';
-import { LocalStorage, WrappedBuilder, frameNode, NodeController } from '@kit.ArkUI';
+import { LocalStorage, WrappedBuilder, FrameNode, NodeController } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 
 export interface BuilderData {
@@ -40,7 +39,7 @@ export class NodeControllerImpl extends NodeController {
 
   makeNode(uiContext: UIContext): FrameNode | null {
     if (this.rootNode != null) {
-      return this.rootNode.getFrameNode();
+      return this.rootNode!.getFrameNode();
     }
     return null;
   }
@@ -55,7 +54,7 @@ export class NodeControllerImpl extends NodeController {
       return;
     }
     this.rootNode = new BuilderNode<(p1: BuilderData) => void>(uiContext);
-    this.rootNode.build(this.wrappedBuilder, { url: url, controller: controller });
+    this.rootNode.build(this.wrappedBuilder!, { url: url, controller: controller });
   }
 }
 

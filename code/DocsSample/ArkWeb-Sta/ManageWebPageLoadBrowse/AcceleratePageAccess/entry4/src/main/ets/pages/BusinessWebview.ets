@@ -15,7 +15,7 @@
  */
 
 // [Start write_code_for_business_components]
-import { Builder, CacheMode, UIContext Web, wrapBuilder, WrappedBuilder } from '@kit.ArkUI';
+import { Builder, CacheMode, UIContext, Web, wrapBuilder, WrappedBuilder } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BuilderData } from './DynamicComponent';
 

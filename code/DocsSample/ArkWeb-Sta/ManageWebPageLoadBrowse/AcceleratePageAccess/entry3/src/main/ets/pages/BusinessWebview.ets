@@ -22,7 +22,7 @@ import { webview } from '@kit.ArkWeb';
 function webBuilder(data: BuilderData) {
   // 此处组件可根据业务需要自行扩展
   Web({ src: data.url, controller: data.controller })
-    .cacheMode(CacheMode.Default)
+    .cacheMode(CacheMode.DEFAULT)
 }
 
 export const businessWebview: wrapBuilder<BuilderData[]> = wrapBuilder<BuilderData[]>(webBuilder);

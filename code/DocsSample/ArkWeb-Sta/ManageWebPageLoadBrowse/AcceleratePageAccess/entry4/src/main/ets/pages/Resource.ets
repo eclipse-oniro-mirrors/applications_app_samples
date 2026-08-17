@@ -19,8 +19,6 @@
 import { webview } from '@kit.ArkWeb';
 import { Builder, UIContext, Web, wrapBuilder } from '@kit.ArkUI';
 
-
-
 export interface ResourceConfig {
   urlList: Array<string>,
   type: webview.OfflineResourceType,

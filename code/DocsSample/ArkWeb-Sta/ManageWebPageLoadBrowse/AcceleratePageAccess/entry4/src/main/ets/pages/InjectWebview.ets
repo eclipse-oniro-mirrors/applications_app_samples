@@ -18,9 +18,10 @@
 import { Builder, UIContext, Web, wrapBuilder, WrappedBuilder } from '@kit.ArkUI';
 import { NodeController } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
-import { injectWebview } from './InjectWebview';
+import { BusinessError } from '@ohos.base';
+import { resourceConfigs } from './Resource';
 import { businessWebview } from './BusinessWebview';
-import { createNode, BuilderData } from './DynamicComponent';
+import { BuilderData } from './DynamicComponent';
 
 @Builder
 function webBuilder(data: BuilderData) {
