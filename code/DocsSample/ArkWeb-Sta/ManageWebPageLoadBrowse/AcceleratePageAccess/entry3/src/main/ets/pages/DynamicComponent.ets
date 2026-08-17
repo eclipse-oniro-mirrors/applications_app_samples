@@ -15,8 +15,8 @@
  */
 
 // [Start underlying_code_required_for_dynamic_components]
-import { Builder, UIContext, Web, BuilderNode, FrameNode, wrappedBuilder, WebviewController } from '@kit.ArkUI';
-import { NodeContainer, LocalStorage } from '@kit.ArkUI';
+import { Builder, UIContext, Web, BuilderNode, FrameNode, WrappedBuilder, WebviewController } from '@kit.ArkUI';
+import { NodeController, LocalStorage } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 
 export interface BuilderData {
