@@ -103,37 +103,43 @@ static JSVM_Value CreateDataView(JSVM_Env env, JSVM_CallbackInfo info)
     JSVM_Value returnResult = nullptr;
     switch (infoType) {
         case BYTE_LENGTH:
-            JSVM_Value len = nullptr;
-            JSVM_CALL(OH_JSVM_CreateInt32(env, returnLength, &len));
-            returnResult = len;
-            if (status != JSVM_OK) {
-                OH_LOG_ERROR(LOG_APP, "JSVM CreateDataView fail");
-            } else {
-                OH_LOG_INFO(LOG_APP, "JSVM CreateDataView success, returnLength: %{public}d", returnLength);
+            {
+                JSVM_Value len = nullptr;
+                JSVM_CALL(OH_JSVM_CreateInt32(env, returnLength, &len));
+                returnResult = len;
+                if (status != JSVM_OK) {
+                    OH_LOG_ERROR(LOG_APP, "JSVM CreateDataView fail");
+                } else {
+                    OH_LOG_INFO(LOG_APP, "JSVM CreateDataView success, returnLength: %{public}d", returnLength);
+                }
+                break;
             }
-            break;
         case ARRAY_BUFFER:
-            bool isArraybuffer = false;
-            JSVM_CALL(OH_JSVM_IsArraybuffer(env, returnArrayBuffer, &isArraybuffer));
-            JSVM_Value isArray = nullptr;
-            JSVM_CALL(OH_JSVM_GetBoolean(env, isArraybuffer, &isArray));
-            returnResult = isArray;
-            if (status != JSVM_OK) {
-                OH_LOG_ERROR(LOG_APP, "JSVM CreateDataView fail");
-            } else {
-                OH_LOG_INFO(LOG_APP, "JSVM CreateDataView success, isArraybuffer: %{public}d", isArraybuffer);
+            {
+                bool isArraybuffer = false;
+                JSVM_CALL(OH_JSVM_IsArraybuffer(env, returnArrayBuffer, &isArraybuffer));
+                JSVM_Value isArray = nullptr;
+                JSVM_CALL(OH_JSVM_GetBoolean(env, isArraybuffer, &isArray));
+                returnResult = isArray;
+                if (status != JSVM_OK) {
+                    OH_LOG_ERROR(LOG_APP, "JSVM CreateDataView fail");
+                } else {
+                    OH_LOG_INFO(LOG_APP, "JSVM CreateDataView success, isArraybuffer: %{public}d", isArraybuffer);
+                }
+                break;
             }
-            break;
         case BYTE_OFFSET:
-            JSVM_Value offset = nullptr;
-            JSVM_CALL(OH_JSVM_CreateInt32(env, returnOffset, &offset));
-            returnResult = offset;
-            if (status != JSVM_OK) {
-                OH_LOG_ERROR(LOG_APP, "JSVM CreateDataView fail");
-            } else {
-                OH_LOG_INFO(LOG_APP, "JSVM CreateDataView success, returnOffset: %{public}d", returnOffset);
+            {
+                JSVM_Value offset = nullptr;
+                JSVM_CALL(OH_JSVM_CreateInt32(env, returnOffset, &offset));
+                returnResult = offset;
+                if (status != JSVM_OK) {
+                    OH_LOG_ERROR(LOG_APP, "JSVM CreateDataView fail");
+                } else {
+                    OH_LOG_INFO(LOG_APP, "JSVM CreateDataView success, returnOffset: %{public}d", returnOffset);
+                }
+                break;
             }
-            break;
         default:
             break;
     }
