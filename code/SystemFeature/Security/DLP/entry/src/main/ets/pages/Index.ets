@@ -894,7 +894,7 @@ struct FilePicker {
   // 23. 保留沙箱。
   // [Start dlp_setRetentionState]
   async setRetentionState() {
-    let docUris: Array<string> = ['file://docs/storage/Users/currentUser/Desktop/test.txt.dlp']
+    let docUris: string[]= ['file://docs/storage/Users/currentUser/Desktop/test.txt.dlp']
     try {
       if (canIUse('SystemCapability.Security.DataLossPrevention')) {
         await dlpPermission.setRetentionState(docUris); // 设置沙箱保留
@@ -914,7 +914,7 @@ struct FilePicker {
   // 24. 取消沙箱。
   // [Start dlp_cancelRetentionState]
   async cancelRetentionState() {
-    let docUris: Array<string> = ['file://docs/storage/Users/currentUser/Desktop/test.txt.dlp']
+    let docUris: string[] = ['file://docs/storage/Users/currentUser/Desktop/test.txt.dlp']
     try {
       if (canIUse('SystemCapability.Security.DataLossPrevention')) {
         await dlpPermission.cancelRetentionState(docUris); // 取消保留沙箱
