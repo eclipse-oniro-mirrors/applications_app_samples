@@ -721,13 +721,13 @@ struct FilePicker {
           ownerAccount: 'accountInfo.accountName',
           ownerAccountType: dlpPermission.AccountType.ENTERPRISE_ACCOUNT,
           authUserList: [{
-            authAccount: "a012345678",
+            authAccount: 'a012345678',
             authAccountType: 1,
             dlpFileAccess: 2,
             permExpiryTime: 3,
           }],
 
-          contactAccount: "b012345678",
+          contactAccount: 'b012345678',
           offlineAccess: true,
           ownerAccountID: 'accountInfo.ownerAccountID',
           everyoneAccessList: [],
@@ -745,7 +745,7 @@ struct FilePicker {
         let ciphertextFd =
           fileIo.openSync(fileDir + '/' + fileName + '.dlp', fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE).fd;
         await dlpPermission.generateDlpFileForEnterprise(plaintextFd, ciphertextFd, property, customProperty);
-        this.result = "generate DLP file for enterprise successful"
+        this.result = 'generate DLP file for enterprise successful'
         console.info('generate DLP file for enterprise successful');
         hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'generate DLP file for enterprise successful');
       }
@@ -761,19 +761,19 @@ struct FilePicker {
   // 19. 加密文件
   // [Start dlp_decryptDlpFile]
   async decryptDlpFile() {
-    let fileName = "test.pptx.dlp";
+    let fileName = 'test.pptx.dlp';
 
     try {
       if (canIUse('SystemCapability.Security.DataLossPrevention')) {
         let context = this.context as common.UIAbilityContext;
         let fileDir = context.getApplicationContext().filesDir;
-        let oriFileName: string = fileName.split(".dlp")[0];
+        let oriFileName: string = fileName.split('.dlp')[0];
         let plaintextFd =
           fileIo.openSync(fileDir + '/' + oriFileName, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE).fd;
         let ciphertextFd = fileIo.openSync(fileDir + '/' + fileName, fileIo.OpenMode.READ_ONLY).fd;
         await dlpPermission.decryptDlpFile(ciphertextFd, plaintextFd);
       }
-      this.result = "decrypt DLP file for enterprise successful"
+      this.result = 'decrypt DLP file for enterprise successful'
       console.info('decrypt DLP file for enterprise successful');
       hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'decrypt DLP file for enterprise successful');
     } catch (err) {
@@ -840,7 +840,7 @@ struct FilePicker {
         this.result = 'error message' + err.message;
         hilog.error(HILOG_DLP_DOMAIN, HILOG_TAG, 'error message' + err.message);
       }).finally(() => {
-        console.info("after querying opened enterprise dlp files");
+        console.info('after querying opened enterprise dlp files');
         hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'after querying opened enterprise dlp files');
       });
     }
@@ -864,7 +864,7 @@ struct FilePicker {
         this.result = 'error message' + err.message;
         hilog.error(HILOG_DLP_DOMAIN, HILOG_TAG, 'error message' + err.message);
       }).finally(() => {
-        console.info("after closing opened enterprise dlp files");
+        console.info('after closing opened enterprise dlp files');
         hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'after closing opened enterprise dlp files');
       });
     }
@@ -894,7 +894,7 @@ struct FilePicker {
   // 23. 保留沙箱。
   // [Start dlp_setRetentionState]
   async setRetentionState() {
-    let docUris: Array<string> = ["file://docs/storage/Users/currentUser/Desktop/test.txt.dlp"]
+    let docUris: Array<string> = ['file://docs/storage/Users/currentUser/Desktop/test.txt.dlp']
     try {
       if (canIUse('SystemCapability.Security.DataLossPrevention')) {
         await dlpPermission.setRetentionState(docUris); // 设置沙箱保留
@@ -914,7 +914,7 @@ struct FilePicker {
   // 24. 取消沙箱。
   // [Start dlp_cancelRetentionState]
   async cancelRetentionState() {
-    let docUris: Array<string> = ["file://docs/storage/Users/currentUser/Desktop/test.txt.dlp"]
+    let docUris: Array<string> = ['file://docs/storage/Users/currentUser/Desktop/test.txt.dlp']
     try {
       if (canIUse('SystemCapability.Security.DataLossPrevention')) {
         await dlpPermission.cancelRetentionState(docUris); // 取消保留沙箱
@@ -936,7 +936,7 @@ struct FilePicker {
   getOriginalFileName() {
     if (canIUse('SystemCapability.Security.DataLossPrevention')) {
       try {
-        this.result = dlpPermission.getOriginalFileName("test.txt.dlp");
+        this.result = dlpPermission.getOriginalFileName('test.txt.dlp');
         console.info('res', JSON.stringify(this.result));
         hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'getOriginalFileName result: ' + JSON.stringify(this.result));
       } catch (err) {
@@ -971,7 +971,7 @@ struct FilePicker {
   // [Start dlp_queryDlpPolicy]
   async queryDlpPolicy() {
     if (canIUse('SystemCapability.Security.DataLossPrevention')) {
-      let fileName = "test.pptx.dlp";
+      let fileName = 'test.pptx.dlp';
       try {
         let context = this.context as common.UIAbilityContext;
         let fileDir = context.getApplicationContext().filesDir;
