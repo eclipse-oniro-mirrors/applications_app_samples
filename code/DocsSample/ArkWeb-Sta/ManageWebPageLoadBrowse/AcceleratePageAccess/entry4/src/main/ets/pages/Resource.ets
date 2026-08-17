@@ -15,8 +15,11 @@
  */
 
 // [Start compile_resource_allocation_information]
-import { Array } from '@kit.ArkUI';
+
 import { webview } from '@kit.ArkWeb';
+import { Builder, UIContext, Web, wrapBuilder } from '@kit.ArkUI';
+
+
 
 export interface ResourceConfig {
   urlList: Array<string>,

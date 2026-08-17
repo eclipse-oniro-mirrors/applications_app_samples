@@ -15,7 +15,7 @@
  */
 
 // [Start read_local_js_resource_from_rawfile_dir_via_file_api]
-import { Array, Builder, UIContext, Web } from '@kit.ArkUI';
+import { Builder, UIContext, Web, WebviewController, wrapBuilder, BuilderData } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 
 @Builder

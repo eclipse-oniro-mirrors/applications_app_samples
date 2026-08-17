@@ -15,7 +15,7 @@
  */
 
 // [Start write_code_for_business_components]
-import { Builder, CacheMode, Web } from '@kit.ArkUI';
+import { Builder, CacheMode, Web, BuilderData } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 
 @Builder
@@ -25,5 +25,5 @@ function webBuilder(data: BuilderData) {
     .cacheMode(CacheMode.Default)
 }
 
-export const businessWebview = wrapBuilder<BuilderData[]>(webBuilder);
+export const businessWebview: wrapBuilder<BuilderData[]> = wrapBuilder<BuilderData[]>(webBuilder);
 // [End write_code_for_business_components]

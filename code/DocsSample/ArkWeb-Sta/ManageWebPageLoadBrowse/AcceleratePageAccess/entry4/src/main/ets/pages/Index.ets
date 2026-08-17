@@ -15,8 +15,11 @@
  */
 
 // [Start dynamic_webview_component_loading]
-import { Button, Column, Component, Entry, State } from '@kit.ArkUI';
+import { Button, Column, Component, Entry, State, NodeContainer, NodeController } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
+import { injectWebview } from './InjectWebview';
+import { businessWebview } from './BusinessWebview';
+import { createNode, BuilderData } from './DynamicComponent';
 
 @Entry
 @Component
@@ -42,10 +45,10 @@ struct Index {
             url: 'https://www.example.com/business.html',
             controller: this.businessController,
             context: this.getUIContext()
-          });
+          } as BuilderData);
         })
       // 用于业务的Web组件
-      NodeContainer(this.businessNode);
+      NodeContainer(this.businessNode!);
     }
   }
 }

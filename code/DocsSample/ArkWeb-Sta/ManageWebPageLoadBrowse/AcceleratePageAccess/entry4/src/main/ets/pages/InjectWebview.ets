@@ -15,8 +15,12 @@
  */
 
 // [Start local_resources_content_read_from_rawfile_directory_by_file_operation]
-import { Builder, UIContext, Web } from '@kit.ArkUI';
+import { Builder, UIContext, Web, wrapBuilder, WrappedBuilder } from '@kit.ArkUI';
+import { NodeController } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
+import { injectWebview } from './InjectWebview';
+import { businessWebview } from './BusinessWebview';
+import { createNode, BuilderData } from './DynamicComponent';
 
 @Builder
 function webBuilder(data: BuilderData) {
@@ -33,7 +37,7 @@ function webBuilder(data: BuilderData) {
 
 export const injectWebview = wrapBuilder<BuilderData[]>(webBuilder);
 
-export async function getData(context: UIContext) {
+export async function getData(context: UIContext): Promise<webview.OfflineResourceMap[]> {
   const resourceMapArr: webview.OfflineResourceMap[] = [];
 
   // 读取配置，从rawfile目录中读取文件内容
@@ -54,7 +58,7 @@ export async function getData(context: UIContext) {
   return resourceMapArr;
 }
 
-export async function readRawFile(url: string, context: UIContext) {
+export async function readRawFile(url: string, context: UIContext): Promise<Uint8Array> {
   try {
     return await context.getHostContext()!.resourceManager.getRawFileContent(url);
   } catch (err) {

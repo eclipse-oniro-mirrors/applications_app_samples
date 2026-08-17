@@ -15,7 +15,7 @@
  */
 
 // [Start initialize_kernel_in_onCreate_and_pre_fetch_post_request]
-import { Column, Component, Entry, Web } from '@kit.ArkUI';
+import { Column, Component, Entry, Web, $r } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 
 @Entry

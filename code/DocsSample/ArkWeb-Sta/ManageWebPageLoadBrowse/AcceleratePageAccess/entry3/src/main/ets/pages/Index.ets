@@ -15,7 +15,7 @@
  */
 
 // [Start dynamic_webview_component_loading]
-import { Button, Column, Component, Entry, State } from '@kit.ArkUI';
+import { Button, Column, Component, Entry, State, NodeContainer, NodeController } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 
 @Entry

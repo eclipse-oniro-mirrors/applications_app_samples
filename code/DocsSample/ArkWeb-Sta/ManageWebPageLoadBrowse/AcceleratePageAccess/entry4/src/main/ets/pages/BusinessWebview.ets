@@ -15,14 +15,15 @@
  */
 
 // [Start write_code_for_business_components]
-import { Builder, CacheMode, Web } from '@kit.ArkUI';
+import { Builder, CacheMode, UIContext Web, wrapBuilder, WrappedBuilder } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
+import { BuilderData } from './DynamicComponent';
 
 @Builder
 function webBuilder(data: BuilderData) {
   // 此处组件可根据业务需要自行扩展
   Web({ src: data.url, controller: data.controller })
-    .cacheMode(CacheMode.Default)
+    .cacheMode(CacheMode.DEFAULT)
 }
 
 export const businessWebview = wrapBuilder<BuilderData[]>(webBuilder);
