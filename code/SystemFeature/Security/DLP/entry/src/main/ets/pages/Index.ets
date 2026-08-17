@@ -66,7 +66,6 @@ export default class DataCapsulePlugin implements dlpPermission.DlpConnPlugin {
     callback(callbackJson);
   }
 }
-
 // [End dlp_DlpConnPlugin]
 
 // 读取FUSE
@@ -97,7 +96,6 @@ function getParams(want: Want) {
   let dlpName: string = (want.parameters?.fileAsset as DLPNameObj).displayName; // DLP文件的文件名
   let dlpFuseName: string = (want.parameters?.linkFileName as DLPLinkNameObj).name; // FUSE文件的文件名
 }
-
 // [End dlp_PrepareOpenFuseFile]
 
 // [Start dlp_OpenFuseFile]
@@ -145,7 +143,6 @@ function bufferToString(buffer: ArrayBuffer): string {
     stream: true
   });
 }
-
 // [End dlp_OpenFuseFile]
 
 // [Start dlp_WriteFuseFile]
@@ -169,8 +166,7 @@ function writeFileContent(dlpFuseUri: string, content: string): void {
     }
   }
 }
-
-// [Start dlp_WriteFuseFile]
+// [End dlp_WriteFuseFile]
 
 @Entry
 @Component
@@ -340,7 +336,6 @@ struct FilePicker {
     this.openDlpFile(this.uri, this.fileName, file.fd);
 
   }
-
   // [End dlp_prepareForOpenDlpFile]
 
   //3，生成DLP文件
@@ -372,7 +367,6 @@ struct FilePicker {
         'startDLPManagerForResult error:' + (err as BusinessError).code + (err as BusinessError).message);
     }
   }
-
   // [End dlp_generateDlpFiles]
 
   // 4，查询当前应用是否在沙箱中
@@ -390,7 +384,6 @@ struct FilePicker {
       });
     }
   }
-
   // [End dlp_isInSandBox]
 
   // 5，查询当前编辑的文件权限
@@ -408,7 +401,6 @@ struct FilePicker {
       });
     }
   }
-
   // [End dlp_getDLPPermissionInfo]
 
   //6，获取当前可支持DLP方案的文件拓展名类型列表
@@ -424,7 +416,6 @@ struct FilePicker {
       });
     }
   }
-
   // [End dlp_getDLPSupportedFileTypes]
 
   //7，判断当前打开文件是否是DLP文件
@@ -458,7 +449,6 @@ struct FilePicker {
       });
     }
   }
-
   // [End dlp_isCurrentDlpFile]
 
   // 8，订阅、取消订阅DLP打开事件
@@ -497,7 +487,6 @@ struct FilePicker {
       }
     }
   }
-
   // [End dlp_subscribe]
 
   // 9，获取DLP文件打开记录
@@ -516,7 +505,6 @@ struct FilePicker {
       });
     }
   }
-
   // [End dlp_getDLPFileAccessRecords]
 
   // 10，获取DLP文件保留沙箱记录
@@ -535,7 +523,6 @@ struct FilePicker {
       });
     }
   }
-
   // [End dlp_getRetentionSandboxList]
 
   // 11，设置沙箱应用配置
@@ -554,7 +541,6 @@ struct FilePicker {
       });
     }
   }
-
   // [End dlp_setSandboxAppConfig]
 
   // 12，清理沙箱应用配置信息
@@ -573,7 +559,6 @@ struct FilePicker {
       });
     }
   }
-
   // [End dlp_cleanSandboxAppConfig]
 
   // 13，获取DLP文件保留沙箱记录
@@ -592,7 +577,6 @@ struct FilePicker {
       });
     }
   }
-
   // [End dlp_getSandboxAppConfig]
 
   // 14，以无边框形式打开DLP权限管理应用
@@ -622,7 +606,6 @@ struct FilePicker {
       }
     }
   }
-
   // [End dlp_startDLPManagerForResult]
 
   // 15，查询当前系统是否提供DLP特性
@@ -641,7 +624,6 @@ struct FilePicker {
       });
     }
   }
-
   // [End dlp_isDLPFeature]
 
   // 16，设置企业应用防护策略
@@ -680,7 +662,6 @@ struct FilePicker {
       }
     }
   }
-
   // [End dlp_setDLPProtectPolicy]
 
   // 17，识别指定文件中的敏感内容
@@ -708,7 +689,6 @@ struct FilePicker {
       }
     }
   }
-
   // [End dlp_scanSensitiveInfo]
 
   // 18. 加密文件
@@ -755,7 +735,6 @@ struct FilePicker {
       hilog.error(HILOG_DLP_DOMAIN, HILOG_TAG, 'error message' + err.message);
     }
   }
-
   // [End dlp_decryptDlpFile]
 
   // 19. 加密文件
@@ -782,7 +761,6 @@ struct FilePicker {
       hilog.error(HILOG_DLP_DOMAIN, HILOG_TAG, 'error message' + err.message);
     }
   }
-
   // [End dlp_decryptDlpFile]
 
   // 20. 设置防护策略
@@ -820,8 +798,7 @@ struct FilePicker {
       hilog.error(HILOG_DLP_DOMAIN, HILOG_TAG, 'error message' + err.message);
     }
   }
-
-  // [Start dlp_setEnterprisePolicy]
+  // [End dlp_setEnterprisePolicy]
 
   // 21. 设置防护策略
   // [Start dlp_queryOpenedEnterpriseDlpFiles]
@@ -845,8 +822,7 @@ struct FilePicker {
       });
     }
   }
-
-  // [Start dlp_queryOpenedEnterpriseDlpFiles]
+  // [End dlp_queryOpenedEnterpriseDlpFiles]
 
   // 21. 输入指定的文件标签，关闭当前正打开的拥有该标签的 DLP 文件。
   // [Start dlp_closeOpenedEnterpriseDlpFiles]
@@ -869,7 +845,6 @@ struct FilePicker {
       });
     }
   }
-
   // [End dlp_closeOpenedEnterpriseDlpFiles]
 
   // 22. 注册通信插件。
@@ -888,7 +863,6 @@ struct FilePicker {
       hilog.error(HILOG_DLP_DOMAIN, HILOG_TAG, 'error message' + err.message);
     }
   }
-
   // [End dlp_registerPlugin]
 
   // 23. 保留沙箱。
@@ -908,7 +882,6 @@ struct FilePicker {
       hilog.error(HILOG_DLP_DOMAIN, HILOG_TAG, 'error message' + err.message);
     }
   }
-
   // [End dlp_setRetentionState]
 
   // 24. 取消沙箱。
@@ -928,7 +901,6 @@ struct FilePicker {
       hilog.error(HILOG_DLP_DOMAIN, HILOG_TAG, 'error message' + err.message);
     }
   }
-
   // [End dlp_cancelRetentionState]
 
   // 25. 获取dlp文件原始名。
@@ -946,7 +918,6 @@ struct FilePicker {
       }
     }
   }
-
   // [End dlp_getOriginalFileName]
 
   // 26. 获取dlp文件的后缀名。
@@ -964,7 +935,6 @@ struct FilePicker {
       }
     }
   }
-
   // [End dlp_getDLPSuffix]
 
   // 27. 获取dlp文件的后缀名。
@@ -986,7 +956,6 @@ struct FilePicker {
       }
     }
   }
-
   // [End dlp_queryDlpPolicy]
 
   build() {
@@ -1175,4 +1144,6 @@ struct FilePicker {
     .padding(12)
     .backgroundColor('#f1f3f5')
   }
+
+
 }
