@@ -142,7 +142,9 @@ https://gitcode.com/openharmony/developtools_hapsigner<br>
             "ohos.permission.MANAGE_DISTRIBUTED_ACCOUNTS",
             "ohos.permission.MANAGE_LOCAL_ACCOUNTS",
             "ohos.permission.ENTERPRISE_DATA_IDENTIFY_FILE",
-            "ohos.permission.GET_LOCAL_ACCOUNTS"
+            "ohos.permission.GET_LOCAL_ACCOUNTS",
+            "ohos.permission.ENTERPRISE_ACCESS_DLP_FILE",
+            "ohos.permission.ENTERPRISE_DATA_IDENTIFY_FILE"
         ]
     },
     "permissions": {
@@ -150,6 +152,7 @@ https://gitcode.com/openharmony/developtools_hapsigner<br>
     },
     "issuer": "pki_internal"
 }
+
 ```
 （9）签名应用（需要配置java环境）
 hdc uninstall com.samples.dlp<br>
