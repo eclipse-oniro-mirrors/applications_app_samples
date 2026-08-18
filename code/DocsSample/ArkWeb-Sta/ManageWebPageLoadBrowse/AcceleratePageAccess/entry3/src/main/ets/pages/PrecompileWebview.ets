@@ -16,7 +16,10 @@
 
 // [Start read_local_js_resource_from_rawfile_dir_via_file_api]
 import { Builder, UIContext, Web, WebviewController, wrapBuilder, BuilderData } from '@kit.ArkUI';
+import { CustomBuilderT } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
+import { Config, configs } from './PrecompileConfig';
+import { BuilderData } from './DynamicComponent';
 
 @Builder
 function webBuilder(data: BuilderData) {
@@ -27,9 +30,9 @@ function webBuilder(data: BuilderData) {
     .fileAccess(true)
 }
 
-export const precompileWebview = wrapBuilder<BuilderData[]>(webBuilder);
+export const precompileWebview: WrappedBuilder<CustomBuilderT<BuillderData>> = wrapBuilder<CustomBuilderT<BuilderData>>(webBuilder);
 
-export const precompile = async (controller: WebviewController, configs: Array<Config>, context: UIContext) => {
+export const precompile: (controller: WebviewController, configs: Array<Config>, context: UIContext) => Promise<void> = async (controller: WebviewController, configs: Array<Config>, context: UIContext) => Promise<void> {
   for (const config of configs) {
     let content = await readRawFile(config.localPath, context);
 
@@ -37,8 +40,8 @@ export const precompile = async (controller: WebviewController, configs: Array<C
       controller.precompileJavaScript(config.url, content, config.options)
         .then(errCode => {
           console.info('precompile successfully! ' + errCode);
-        }).catch((errCode: number) => {
-          console.error('precompile failed. ' + errCode);
+        }).catch((errCode: Error) => {
+          console.error('precompile failed. ' + errCode.code);
       });
     } catch (err) {
       console.error('precompile failed. ' + err.code + ' ' + err.message);
@@ -46,7 +49,7 @@ export const precompile = async (controller: WebviewController, configs: Array<C
   }
 }
 
-async function readRawFile(path: string, context: UIContext) {
+async function readRawFile(path: string, context: UIContext): Promise<Uint8Array> {
   try {
     return await context.getHostContext()!.resourceManager.getRawFileContent(path);
   } catch (err) {

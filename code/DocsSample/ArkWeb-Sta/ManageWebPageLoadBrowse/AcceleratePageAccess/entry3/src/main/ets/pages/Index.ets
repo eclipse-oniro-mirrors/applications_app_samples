@@ -17,6 +17,9 @@
 // [Start dynamic_webview_component_loading]
 import { Button, Column, Component, Entry, State, NodeContainer, NodeController } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
+import { createNode, BuilderData } from './DynamicComponent';
+import { husinessWebview } from './BusinessWebview';
+import { precompileWebview } from './PrecompileWebview';
 
 @Entry
 @Component
@@ -30,7 +33,7 @@ struct Index {
   aboutToAppear(): void {
     // 初始化用于注入本地资源的Web组件
     this.precompileNode = createNode(precompileWebview,
-      { url: 'https://www.example.com/empty.html', controller: this.precompileController, context: this.getUIContext()});
+      { url: 'https://www.example.com/empty.html', controller: this.precompileController, context: this.getUIContext()} as BuilderData);
   }
 
   build() {
@@ -42,10 +45,10 @@ struct Index {
             url: 'https://www.example.com/business.html',
             controller: this.businessController,
             context: this.getUIContext()
-          });
+          } as BuilderData);
         })
       // 用于业务的Web组件
-      NodeContainer(this.businessNode);
+      NodeContainer(this.businessNode!);
     }
   }
 }
