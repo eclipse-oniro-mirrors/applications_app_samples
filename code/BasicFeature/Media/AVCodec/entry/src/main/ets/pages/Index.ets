@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,7 +32,7 @@ import { buildMediaInfoSections, MediaInfoRow, MediaInfoSection } from '../model
 import { encoderProfileCameraCheck, setFirstCameraProfile } from '../common/utils/CameraCheck'
 import { requestRecordPermissions } from '../common/utils/PermissionUtil'
 import {
-  getPickerSelectedIndex, getPickerSelectedValues, isMediaFileEmpty, isPickerIndexValid
+  getPickerSelectedIndex, isMediaFileEmpty, isPickerIndexValid
 } from '../common/utils/MediaUtils'
 import picker from '@ohos.file.picker'
 
@@ -52,6 +52,16 @@ export struct Player {
   @State playbackInfoText: string = '';
   @State isHdrVividConfirmed: boolean = false;
   @State isMediaInfoVisible: boolean = false;
+  @State isPlayerSettingsVisible: boolean = false;
+  @State isRecorderSettingsVisible: boolean = false;
+  @State draftPlayerDecoderType: number = 0;
+  @State draftPlayerRunMode: number = 0;
+  @State draftPlayerSyncMode: number = 0;
+  @State draftPlayerDump: boolean = false;
+  @State draftRecorderCodec: number = 1;
+  @State draftRecorderResolution: number = 1;
+  @State draftRecorderFrameRate: number = 0;
+  @State draftRecorderSyncMode: number = 0;
   @State mediaInfoSections: MediaInfoSection[] = [];
   private transformType: number = 0;
   private playerSettings: PlayerSettingsModel = new PlayerSettingsModel();
@@ -377,47 +387,321 @@ export struct Player {
     }
   }
 
+  private preparePlayerSettings(): void {
+    this.draftPlayerDecoderType = this.playerSettings.videoDecoderType;
+    this.draftPlayerRunMode = this.playerSettings.videoDecoderRunMode;
+    this.draftPlayerSyncMode = this.playerSettings.videoDecoderSyncMode;
+    this.draftPlayerDump = this.playerSettings.enableVideoDump;
+  }
+
+  private prepareRecorderSettings(): void {
+    this.draftRecorderCodec = this.cameraData.isHDRVivid === Const.TRUE ? 0 :
+      this.cameraData.videoCodecMime === Const.MIME_VIDEO_AVC ? 1 : 2;
+    this.draftRecorderResolution = this.cameraData.cameraWidth >= Const.VIDEO_WIDTH_4K ? 0 :
+      this.cameraData.cameraWidth >= Const.VIDEO_WIDTH_1080P ? 1 : 2;
+    this.draftRecorderFrameRate = this.cameraData.frameRate >= Const.FRAMERATE_VIDEO_60FPS ? 1 : 0;
+    this.draftRecorderSyncMode = this.cameraData.isSync;
+  }
+
+  private getSettingText(resource: Resource): string {
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      return '';
+    }
+    try {
+      return context.resourceManager.getStringSync(resource.id);
+    } catch (error) {
+      Logger.error(TAG, 'Get setting text failed: ' + JSON.stringify(error));
+      return '';
+    }
+  }
+
+  private getDecoderTypeLabels(): string[] {
+    return [
+      this.getSettingText($r('app.string.setting_decoder_auto')),
+      this.getSettingText($r('app.string.setting_decoder_hardware')),
+      this.getSettingText($r('app.string.setting_decoder_software'))
+    ];
+  }
+
+  private getRenderModeLabels(): string[] {
+    return [
+      this.getSettingText($r('app.string.setting_render_direct')),
+      this.getSettingText($r('app.string.setting_render_buffer'))
+    ];
+  }
+
+  private getSyncModeLabels(): string[] {
+    return [
+      this.getSettingText($r('app.string.setting_mode_async')),
+      this.getSettingText($r('app.string.setting_mode_sync'))
+    ];
+  }
+
+  private getRecorderCodecLabels(): string[] {
+    return [
+      this.getSettingText($r('app.string.setting_codec_hdr_vivid')),
+      this.getSettingText($r('app.string.setting_codec_h264')),
+      this.getSettingText($r('app.string.setting_codec_h265'))
+    ];
+  }
+
+  private getResolutionLabels(): string[] {
+    return [
+      this.getSettingText($r('app.string.setting_resolution_4k')),
+      this.getSettingText($r('app.string.setting_resolution_1080p')),
+      this.getSettingText($r('app.string.setting_resolution_720p'))
+    ];
+  }
+
+  private getFrameRateLabels(): string[] {
+    return [
+      this.getSettingText($r('app.string.setting_fps_30')),
+      this.getSettingText($r('app.string.setting_fps_60'))
+    ];
+  }
+
+  private showSettingPicker(range: string[], selected: number, onSelected: (index: number) => void): void {
+    this.getUIContext().showTextPickerDialog({
+      defaultPickerItemHeight: '48vp',
+      selected,
+      selectedTextStyle: ({
+        font: ({
+          size: '18fp'
+        })
+      }),
+      textStyle: ({
+        font: ({
+          size: '16fp'
+        })
+      }),
+      range,
+      canLoop: false,
+      alignment: DialogAlignment.Center,
+      backgroundColor: Color.White,
+      backgroundBlurStyle: BlurStyle.BACKGROUND_ULTRA_THICK,
+      onAccept: (value: TextPickerResult) => {
+        const index = getPickerSelectedIndex(value.index);
+        if (isPickerIndexValid(index, range.length)) {
+          onSelected(index);
+        }
+      }
+    });
+  }
+
+  private applyPlayerSettings(): void {
+    const values: string[] = [
+      Const.VIDEO_DECODE_TYPE[this.draftPlayerDecoderType],
+      Const.VIDEO_DECODER_RUN_MODE[this.draftPlayerRunMode],
+      Const.VIDEO_DECODER_SYNC_MODE[this.draftPlayerSyncMode],
+      this.draftPlayerDump ? Const.VIDEO_DUMP_MODE[1] : Const.VIDEO_DUMP_MODE[0]
+    ];
+    if (!this.playerSettings.applyPickerValues(values)) {
+      Logger.error(TAG, 'Invalid player settings: ' + JSON.stringify(values));
+      return;
+    }
+    this.isPlayerSettingsVisible = false;
+    try {
+      this.getUIContext().getPromptAction().showToast({
+        message: $r('app.string.success'),
+        duration: Const.DURATION,
+        bottom: Const.BOTTOM
+      });
+    } catch (error) {
+      Logger.error(TAG, 'Show player settings success prompt failed: ' + JSON.stringify(error));
+    }
+  }
+
+  private applyRecorderSettings(): void {
+    const values: string[] = [
+      Const.VIDEO_MIMETYPE[this.draftRecorderCodec],
+      Const.VIDEO_RESOLUTION[this.draftRecorderResolution],
+      Const.VIDEO_FRAMERATE[this.draftRecorderFrameRate],
+      Const.VIDEO_DECODER_SYNC_MODE[this.draftRecorderSyncMode]
+    ];
+    if (!this.recorderSettings.applyPickerValues(values, this.cameraData)) {
+      Logger.error(TAG, 'Invalid recorder settings: ' + JSON.stringify(values));
+      return;
+    }
+    this.isRecorderSettingsVisible = false;
+    this.checkIsProfileSupport();
+  }
+
+  @Builder
+  SettingOptionRow(title: Resource, value: string, onClick: () => void) {
+    Row() {
+      Text(title)
+        .fontSize('16fp')
+        .fontColor('#202124')
+        .maxLines(1)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
+        .layoutWeight(1)
+      Text(value)
+        .fontSize('14fp')
+        .fontColor('#5F6368')
+        .maxLines(1)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
+      Text('›')
+        .fontSize('24fp')
+        .fontColor('#8A8A8A')
+        .margin({ left: '8vp' })
+    }
+      .width('100%')
+      .height('56vp')
+      .padding({ left: '4vp', right: '4vp' })
+      .onClick(onClick)
+  }
+
+  @Builder
+  SettingSheetFooter(onCancel: () => void, onReset: () => void, onApply: () => void) {
+    Row({ space: '8vp' }) {
+      Button($r('app.string.setting_restore_defaults'))
+        .layoutWeight(1)
+        .height('44vp')
+        .backgroundColor('#E9EEF6')
+        .fontColor('#1A5FB4')
+        .onClick(onReset)
+      Button($r('app.string.setting_cancel'))
+        .layoutWeight(1)
+        .height('44vp')
+        .backgroundColor('#E9EEF6')
+        .fontColor('#1A5FB4')
+        .onClick(onCancel)
+      Button($r('app.string.setting_apply'))
+        .layoutWeight(1)
+        .height('44vp')
+        .backgroundColor('#0A59F7')
+        .fontColor(Color.White)
+        .onClick(onApply)
+    }
+      .width('100%')
+      .padding({ top: '12vp', bottom: '8vp' })
+  }
+
+  @Builder
+  PlayerSettingsSheet() {
+    Column() {
+      Scroll() {
+        Column() {
+          this.SettingOptionRow($r('app.string.setting_decoder_type'),
+            this.getDecoderTypeLabels()[this.draftPlayerDecoderType], () => {
+              this.showSettingPicker(this.getDecoderTypeLabels(), this.draftPlayerDecoderType,
+                (index: number) => this.draftPlayerDecoderType = index);
+            })
+          Divider().color('#E5E7EB')
+          this.SettingOptionRow($r('app.string.setting_run_mode'),
+            this.getRenderModeLabels()[this.draftPlayerRunMode], () => {
+              this.showSettingPicker(this.getRenderModeLabels(), this.draftPlayerRunMode,
+                (index: number) => this.draftPlayerRunMode = index);
+            })
+          Divider().color('#E5E7EB')
+          this.SettingOptionRow($r('app.string.setting_sync_mode'),
+            this.getSyncModeLabels()[this.draftPlayerSyncMode], () => {
+              this.showSettingPicker(this.getSyncModeLabels(), this.draftPlayerSyncMode,
+                (index: number) => this.draftPlayerSyncMode = index);
+            })
+          Divider().color('#E5E7EB')
+          Row() {
+            Text($r('app.string.setting_dump'))
+              .fontSize('16fp')
+              .fontColor('#202124')
+              .layoutWeight(1)
+            Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerDump })
+              .onChange((isOn: boolean) => this.draftPlayerDump = isOn)
+          }
+            .width('100%')
+            .height('56vp')
+            .padding({ left: '4vp', right: '4vp' })
+        }
+          .width('100%')
+      }
+        .layoutWeight(1)
+        .scrollBar(BarState.Auto)
+      this.SettingSheetFooter(
+        () => this.isPlayerSettingsVisible = false,
+        () => {
+          this.draftPlayerDecoderType = 0;
+          this.draftPlayerRunMode = 0;
+          this.draftPlayerSyncMode = 0;
+          this.draftPlayerDump = false;
+        },
+        () => this.applyPlayerSettings()
+      )
+    }
+      .width('100%')
+      .height('100%')
+      .padding({ left: '20vp', right: '20vp' })
+      .backgroundColor('#F8F9FA')
+  }
+
+  @Builder
+  RecorderSettingsSheet() {
+    Column() {
+      Scroll() {
+        Column() {
+          this.SettingOptionRow($r('app.string.setting_codec'),
+            this.getRecorderCodecLabels()[this.draftRecorderCodec], () => {
+              this.showSettingPicker(this.getRecorderCodecLabels(), this.draftRecorderCodec,
+                (index: number) => this.draftRecorderCodec = index);
+            })
+          Divider().color('#E5E7EB')
+          this.SettingOptionRow($r('app.string.setting_resolution'),
+            this.getResolutionLabels()[this.draftRecorderResolution], () => {
+              this.showSettingPicker(this.getResolutionLabels(), this.draftRecorderResolution,
+                (index: number) => this.draftRecorderResolution = index);
+            })
+          Divider().color('#E5E7EB')
+          this.SettingOptionRow($r('app.string.setting_frame_rate'),
+            this.getFrameRateLabels()[this.draftRecorderFrameRate], () => {
+              this.showSettingPicker(this.getFrameRateLabels(), this.draftRecorderFrameRate,
+                (index: number) => this.draftRecorderFrameRate = index);
+            })
+          Divider().color('#E5E7EB')
+          this.SettingOptionRow($r('app.string.setting_sync_mode'),
+            this.getSyncModeLabels()[this.draftRecorderSyncMode], () => {
+              this.showSettingPicker(this.getSyncModeLabels(), this.draftRecorderSyncMode,
+                (index: number) => this.draftRecorderSyncMode = index);
+            })
+        }
+          .width('100%')
+      }
+        .layoutWeight(1)
+        .scrollBar(BarState.Auto)
+      this.SettingSheetFooter(
+        () => this.isRecorderSettingsVisible = false,
+        () => {
+          this.draftRecorderCodec = 1;
+          this.draftRecorderResolution = 1;
+          this.draftRecorderFrameRate = 0;
+          this.draftRecorderSyncMode = 0;
+        },
+        () => this.applyRecorderSettings()
+      )
+    }
+      .width('100%')
+      .height('100%')
+      .padding({ left: '20vp', right: '20vp' })
+      .backgroundColor('#F8F9FA')
+  }
+
   @Builder
   PlayerSettingButton() {
     Button($r('app.string.setting'))
       .size({
         width: '18.5%',
         height: $r('app.float.index_button_height')
-      })// .enabled(this.buttonEnabled)
+      })
       .margin({ bottom: $r('app.float.button_margin_bottom') })
       .onClick(() => {
-        this.getUIContext().showTextPickerDialog({
-          defaultPickerItemHeight: Const.DEFAULT_PICKER_ITEM_HEIGHT,
-          selectedTextStyle: ({
-            font: ({
-              size: Const.SELECTED_TEXT_STYLE_FONT_SIZE
-            })
-          }),
-          textStyle: ({
-            font: ({
-              size: Const.SELECTED_TEXT_STYLE_FONT_SIZE
-            })
-          }),
-          range: Const.PLAYER_INFO,
-          canLoop: false,
-          alignment: DialogAlignment.Center,
-          backgroundColor: Color.White,
-          backgroundBlurStyle: BlurStyle.BACKGROUND_ULTRA_THICK,
-          onAccept: (value: TextPickerResult) => {
-            const values = getPickerSelectedValues(value.value);
-            if (!this.playerSettings.applyPickerValues(values)) {
-              Logger.error(TAG, 'Invalid player settings: ' + JSON.stringify(values));
-              return;
-            }
-            this.getUIContext().getPromptAction().showToast({
-              message: $r('app.string.success'),
-              duration: Const.DURATION,
-              bottom: Const.BOTTOM,
-              backgroundColor: Color.White,
-              backgroundBlurStyle: BlurStyle.NONE
-            });
-          }
-        })
+        this.preparePlayerSettings();
+        this.isPlayerSettingsVisible = true;
+      })
+      .bindSheet($$this.isPlayerSettingsVisible, this.PlayerSettingsSheet(), {
+        height: '70%',
+        title: {
+          title: $r('app.string.player_settings_title'),
+          subtitle: $r('app.string.player_settings_subtitle')
+        }
       })
   }
 
@@ -429,34 +713,16 @@ export struct Player {
         width: '18.5%',
         height: $r('app.float.index_button_height')
       })
-      .enabled(this.buttonEnabled)
       .onClick(() => {
-        this.getUIContext().showTextPickerDialog({
-          defaultPickerItemHeight: Const.DEFAULT_PICKER_ITEM_HEIGHT,
-          selectedTextStyle: ({
-            font: ({
-              size: Const.SELECTED_TEXT_STYLE_FONT_SIZE
-            })
-          }),
-          textStyle: ({
-            font: ({
-              size: Const.SELECTED_TEXT_STYLE_FONT_SIZE
-            })
-          }),
-          range: Const.RECORDER_INFO,
-          canLoop: false,
-          alignment: DialogAlignment.Center,
-          backgroundColor: Color.White,
-          backgroundBlurStyle: BlurStyle.BACKGROUND_ULTRA_THICK,
-          onAccept: (value: TextPickerResult) => {
-            const values = getPickerSelectedValues(value.value);
-            if (!this.recorderSettings.applyPickerValues(values, this.cameraData)) {
-              Logger.error(TAG, 'Invalid recorder settings: ' + JSON.stringify(values));
-              return;
-            }
-            this.checkIsProfileSupport();
-          }
-        })
+        this.prepareRecorderSettings();
+        this.isRecorderSettingsVisible = true;
+      })
+      .bindSheet($$this.isRecorderSettingsVisible, this.RecorderSettingsSheet(), {
+        height: '70%',
+        title: {
+          title: $r('app.string.recorder_settings_title'),
+          subtitle: $r('app.string.recorder_settings_subtitle')
+        }
       })
   }
 

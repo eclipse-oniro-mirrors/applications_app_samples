@@ -279,7 +279,7 @@ ArkUI 组件、状态和页面构建方式可参考当前 SDK 随附的 ArkUI �
 主页面 `Index.ets` 同时承载播放和录制入口：
 
 - 播放区域使用 `XComponent({ id: 'player', type: XComponentType.SURFACE, libraryname: 'player' })`。`libraryname: 'player'` 会加载 `libplayer.so`，Native 侧在模块初始化时通过 `PluginManager::Export()` 取得 XComponent 对象并注册 Surface 回调。
-- 播放设置通过 `TextPickerDialog` 选择解码器类型、运行模式、同步模式和是否dump解码帧。`PlayerSettingsModel` 负责将四列文本完整解析为 Native 数值，并构造结构化 `PlayOptions`；只有全部选项合法时才一次性更新，避免页面出现部分配置生效。dump选项仅在Buffer模式下生效，默认关闭。
+- 播放设置使用可滚动的 ArkUI `bindSheet` 底部面板展示。解码器类型、送显模式和同步模式分别占一行，点击后打开单列 Picker；保存解码帧使用独立开关。界面使用“自动选择”“硬件解码”“软件解码”“Surface模式直接送显”等易理解的名称，应用时仍按选项索引映射为 Native 层使用的原始配置值，不改变接口协议。页面打开面板时从 `PlayerSettingsModel` 复制一份临时配置，修改期间不影响当前值，只有点击“应用”才把完整配置一次性写回模型；“取消”会放弃临时修改，“恢复默认”只重置面板中的临时值。`PlayerSettingsModel` 继续负责校验文本并构造结构化 `PlayOptions`。保存解码帧仅在 BufferMode 下生效，默认关闭。
 - 点击播放后，UI 侧通过文件管理器或图库拿到 uri，再用 `fileIo.openSync()` 获取 fd 和文件大小，最终调用结构化接口 `player.play(options, callback)`。`options` 包含 fd、offset、size、解码器类型、Surface/BufferMode、同步模式、智能流畅能力和 dump 开关，避免位置参数顺序错误。
 - 播放完成回调返回 `{ success, reason }`，其中 `reason` 为 `completed`、`stopped` 或 `error`。只有 `error` 会触发文件无效提示，用户主动 Stop 按正常结束处理。
 - 播放过程中主按钮切换为“停止”。点击后调用 `player.stop()`，按钮进入“停止中”状态，等待 Native 统一释放资源并触发完成回调后恢复。
@@ -313,7 +313,7 @@ ArkUI 组件、状态和页面构建方式可参考当前 SDK 随附的 ArkUI �
 
 录制入口也在 `Index.ets` 中：
 
-- 点击“设置”后，通过 `RECORDER_INFO` 选择视频编码格式、分辨率、帧率和同步模式。`RecorderSettingsModel` 负责校验四列值，并统一更新 `CameraDataModel`；页面只负责弹窗、相机 profile 能力检查和结果提示。
+- 点击录制区域的“设置”后，页面打开独立的可滚动底部面板。编码格式、分辨率、帧率和同步模式分别占一行，点击单项后使用单列 Picker 选择；界面显示“H.264 编码”“1080P（1920×1080）”“30 帧/秒”等友好名称，应用时仍按索引映射为编码器所需的原始配置值。面板同样提供恢复默认、取消和应用。点击应用后，`RecorderSettingsModel` 才校验全部临时值并统一更新 `CameraDataModel`，随后执行相机 profile 能力检查和结果提示。新增录制选项时只需继续增加设置行，不会压缩已有选项的横向空间。
 - `checkIsProfileSupport()` 使用 `camera.getCameraManager()` 查询当前设备是否支持所选的录像 profile。若不支持，会回退到默认 1080P；如果默认配置也不支持，则取相机能力列表中的第一个 video profile。
 - 点击录制 mp4/flv 后，UI 侧通过 `photoAccessHelper.createAsset()` 创建媒体库目标文件，再用 `fileIo.open()` 获取输出 fd。
 - UI 调用 `recorder.initNative(...)`。Native 侧创建编码器和封装器后，会通过 `OH_NativeWindow_GetSurfaceId()` 返回编码器输入 Surface 的 `surfaceId`。
