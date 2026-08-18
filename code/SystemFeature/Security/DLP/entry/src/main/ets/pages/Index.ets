@@ -854,7 +854,7 @@ struct FilePicker {
       if (canIUse('SystemCapability.Security.DataLossPrevention')) {
         let pluginId: number = dlpPermission.DlpConnManager.registerPlugin(new DataCapsulePlugin());
         console.info('registerPlugin pluginId:', JSON.stringify(pluginId));
-        this.result = 'try to close opened enterprise dlp files';
+        this.result = 'registerPlugin pluginId:' + JSON.stringify(pluginId);
         hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'registerPlugin pluginId:', JSON.stringify(pluginId));
       }
     } catch (err) {
