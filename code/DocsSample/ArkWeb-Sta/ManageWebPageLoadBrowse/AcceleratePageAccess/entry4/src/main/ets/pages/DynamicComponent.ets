@@ -55,7 +55,7 @@ export class NodeControllerImpl extends NodeController {
       return;
     }
     this.rootNode = new BuilderNode<BuilderData>(uiContext);
-    this.rootNode!.build(this.wrappedBuilder!, { url: url, controller: controller, context: uiContext} as BuilderData);
+    this.rootNode!.build(this.wrappedBuilder!, { url: url, controller: controller, context: uiContext } as BuilderData);
   }
 }
 

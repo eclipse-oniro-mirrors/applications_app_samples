@@ -15,7 +15,7 @@
  */
 
 // [Start read_local_js_resource_from_rawfile_dir_via_file_api]
-import { Builder, UIContext, Web, WebviewController, wrapBuilder, BuilderData } from '@kit.ArkUI';
+import { Builder, UIContext, Web, WebviewController, wrapBuilder, WrappedBuilder } from '@kit.ArkUI';
 import { CustomBuilderT } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { Config, configs } from './PrecompileConfig';
@@ -30,9 +30,9 @@ function webBuilder(data: BuilderData) {
     .fileAccess(true)
 }
 
-export const precompileWebview: WrappedBuilder<CustomBuilderT<BuillderData>> = wrapBuilder<CustomBuilderT<BuilderData>>(webBuilder);
+export const precompileWebview: WrappedBuilder<CustomBuilderT<BuilderData>> = wrapBuilder<CustomBuilderT<BuilderData>>(webBuilder);
 
-export const precompile: (controller: WebviewController, configs: Array<Config>, context: UIContext) => Promise<void> = async (controller: WebviewController, configs: Array<Config>, context: UIContext) => Promise<void> {
+export const precompile: (controller: WebviewController, configs: Array<Config>, context: UIContext) => Promise<void> = async (controller: WebviewController, configs: Array<Config>, context: UIContext): Promise<void> => {
   for (const config of configs) {
     let content = await readRawFile(config.localPath, context);
 

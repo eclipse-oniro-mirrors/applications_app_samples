@@ -17,6 +17,7 @@
 // [Start local_resources_content_read_from_rawfile_directory_by_file_operation]
 import { Builder, UIContext, Web, wrapBuilder, WrappedBuilder } from '@kit.ArkUI';
 import { NodeController } from '@kit.ArkUI';
+import { CustomBuilderT } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@ohos.base';
 import { resourceConfigs } from './Resource';
@@ -33,11 +34,11 @@ function webBuilder(data: BuilderData) {
 }
 
 async function injectOfflineData(controller: webview.WebviewController, context: UIContext)
-: Pormise<void> {
+  : Promise<void> {
   try {
     controller.injectOfflineResources(await getData(context));
   } catch (err) {
-    console.error('error: ' + err.code + ', ' + err.message)
+    console.error('error: ' + err.code + ', ' + err.message);
   }
 }
 

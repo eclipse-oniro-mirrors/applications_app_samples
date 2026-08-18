@@ -31,7 +31,7 @@ export class NodeControllerImpl extends NodeController {
   private rootNode: BuilderNode<BuilderData> | null = null;
   private wrappedBuilder: WrappedBuilder<CustomBuilderT<BuilderData>> | null = null;
 
-  constructor(wrappedBuilder: WrappedBuilder<BuilderData[]>, context: UIContext) {
+  constructor(wrappedBuilder: WrappedBuilder<CustomBuilderT<BuilderData>>, context: UIContext) {
     super();
     storage = context.getSharedLocalStorage();
     this.wrappedBuilder = wrappedBuilder;
@@ -54,11 +54,11 @@ export class NodeControllerImpl extends NodeController {
       return;
     }
     this.rootNode = new BuilderNode<BuilderData>(uiContext);
-    this.rootNode!.build(this.wrappedBuilder!, { url: url, controller: controller } as BuilderData);
+    this.rootNode!.build(this.wrappedBuilder!, { url: url, controller: controller, context: uiContext } as BuilderData);
   }
 }
 
-export const createNode: (wrappedBuilder: WrappedBuilder<CustomBuilderT<BuilderData>>, data: BuilderData) => NodeController = (wrappedBuilder: WrappedBuilder<CustomBuilderT<BuilderData>>, data: BuilderData) => NodeController {
+export const createNode: (wrappedBuilder: WrappedBuilder<CustomBuilderT<BuilderData>>, data: BuilderData) => NodeController = (wrappedBuilder: WrappedBuilder<CustomBuilderT<BuilderData>>, data: BuilderData): NodeController => {
   const baseNode = new NodeControllerImpl(wrappedBuilder, data.context);
   baseNode.initWeb(data.url, data.controller);
   return baseNode;

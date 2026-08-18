@@ -18,7 +18,7 @@
 import { Button, Column, Component, Entry, State, NodeContainer, NodeController } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { createNode, BuilderData } from './DynamicComponent';
-import { husinessWebview } from './BusinessWebview';
+import { businessWebview } from './BusinessWebview';
 import { precompileWebview } from './PrecompileWebview';
 
 @Entry
