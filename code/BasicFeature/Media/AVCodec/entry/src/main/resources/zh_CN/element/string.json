@@ -145,6 +145,122 @@
       "value": "设置"
     },
     {
+      "name": "player_settings_title",
+      "value": "播放设置"
+    },
+    {
+      "name": "player_settings_subtitle",
+      "value": "配置解码、送显、同步和调试选项"
+    },
+    {
+      "name": "recorder_settings_title",
+      "value": "录制设置"
+    },
+    {
+      "name": "recorder_settings_subtitle",
+      "value": "配置编码、分辨率、帧率和输出模式"
+    },
+    {
+      "name": "setting_decoder_type",
+      "value": "解码器类型"
+    },
+    {
+      "name": "setting_run_mode",
+      "value": "送显模式"
+    },
+    {
+      "name": "setting_sync_mode",
+      "value": "同步模式"
+    },
+    {
+      "name": "setting_dump",
+      "value": "保存解码帧"
+    },
+    {
+      "name": "setting_codec",
+      "value": "编码格式"
+    },
+    {
+      "name": "setting_resolution",
+      "value": "分辨率"
+    },
+    {
+      "name": "setting_frame_rate",
+      "value": "帧率"
+    },
+    {
+      "name": "setting_decoder_auto",
+      "value": "自动选择"
+    },
+    {
+      "name": "setting_decoder_hardware",
+      "value": "硬件解码"
+    },
+    {
+      "name": "setting_decoder_software",
+      "value": "软件解码"
+    },
+    {
+      "name": "setting_render_direct",
+      "value": "Surface模式直接送显"
+    },
+    {
+      "name": "setting_render_buffer",
+      "value": "Buffer模式拷贝送显"
+    },
+    {
+      "name": "setting_mode_async",
+      "value": "异步模式"
+    },
+    {
+      "name": "setting_mode_sync",
+      "value": "同步模式"
+    },
+    {
+      "name": "setting_codec_hdr_vivid",
+      "value": "HDR Vivid 录制"
+    },
+    {
+      "name": "setting_codec_h264",
+      "value": "H.264 编码"
+    },
+    {
+      "name": "setting_codec_h265",
+      "value": "H.265 编码"
+    },
+    {
+      "name": "setting_resolution_4k",
+      "value": "4K（3840×2160）"
+    },
+    {
+      "name": "setting_resolution_1080p",
+      "value": "1080P（1920×1080）"
+    },
+    {
+      "name": "setting_resolution_720p",
+      "value": "720P（1280×720）"
+    },
+    {
+      "name": "setting_fps_30",
+      "value": "30 帧/秒"
+    },
+    {
+      "name": "setting_fps_60",
+      "value": "60 帧/秒"
+    },
+    {
+      "name": "setting_restore_defaults",
+      "value": "恢复默认"
+    },
+    {
+      "name": "setting_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "setting_apply",
+      "value": "应用"
+    },
+    {
       "name": "adjust_playback_speed",
       "value": "倍速"
     },

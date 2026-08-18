@@ -10,7 +10,7 @@ option(AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID "Read temporal layer ID from enco
 include_directories(${NATIVERENDER_ROOT_PATH}
                     ${NATIVERENDER_ROOT_PATH}/capbilities/include
                     ${NATIVERENDER_ROOT_PATH}/common
-                    ${NATIVERENDER_ROOT_PATH}/common/dfx/err
+                    ${NATIVERENDER_ROOT_PATH}/common/dfx/error
                     ${NATIVERENDER_ROOT_PATH}/common/dfx/log
                     ${NATIVERENDER_ROOT_PATH}/render/include
                     ${NATIVERENDER_ROOT_PATH}/sample/player
