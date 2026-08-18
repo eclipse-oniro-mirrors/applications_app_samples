@@ -16,6 +16,7 @@
 
 // [Start write_code_for_business_components]
 import { Builder, CacheMode, UIContext, Web, wrapBuilder, WrappedBuilder } from '@kit.ArkUI';
+import { CustomBuilderT } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BuilderData } from './DynamicComponent';
 
@@ -26,5 +27,5 @@ function webBuilder(data: BuilderData) {
     .cacheMode(CacheMode.DEFAULT)
 }
 
-export const businessWebview = wrapBuilder<BuilderData[]>(webBuilder);
+export const businessWebview: WrappedBuilder<CustomBuilderT<BuilderData>> = wrapBuilder<CustomBuilderT<BuilderData>>(webBuilder);
 // [End write_code_for_business_components]

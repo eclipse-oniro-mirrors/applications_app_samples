@@ -16,6 +16,7 @@
 
 // [Start dynamic_webview_component_loading]
 import { Button, Column, Component, Entry, State, NodeContainer, NodeController } from '@kit.ArkUI';
+import { CustomBuilderT } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { injectWebview } from './InjectWebview';
 import { businessWebview } from './BusinessWebview';
@@ -33,7 +34,7 @@ struct Index {
   aboutToAppear(): void {
     // 初始化用于注入本地资源的Web组件, 提供一个空的html页面作为url即可
     this.injectNode = createNode(injectWebview,
-      { url: 'https://www.example.com/empty.html', controller: this.injectController, context: this.getUIContext()});
+      { url: 'https://www.example.com/empty.html', controller: this.injectController, context: this.getUIContext()} as BuilderData);
   }
 
   build() {

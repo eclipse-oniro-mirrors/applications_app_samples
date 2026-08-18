@@ -22,7 +22,7 @@ import { Builder, UIContext, Web, wrapBuilder } from '@kit.ArkUI';
 export interface ResourceConfig {
   urlList: Array<string>,
   type: webview.OfflineResourceType,
-  responseHeaders: Array<Header>,
+  responseHeaders: Array<webview.WebHeader>,
   localPath: string, // 本地资源存放在rawfile目录下的路径
 }
 

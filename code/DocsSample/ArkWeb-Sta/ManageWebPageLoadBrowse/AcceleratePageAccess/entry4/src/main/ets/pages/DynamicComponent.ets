@@ -17,6 +17,7 @@
 // [Start underlying_code_required_for_dynamic_components]
 import { Builder, UIContext, Web, WebviewController, wrapBuilder, BuilderNode } from '@kit.ArkUI';
 import { LocalStorage, WrappedBuilder, FrameNode, NodeController } from '@kit.ArkUI';
+import { CustomBuilderT } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 
 export interface BuilderData {
@@ -28,10 +29,10 @@ export interface BuilderData {
 let storage : LocalStorage | undefined = undefined;
 
 export class NodeControllerImpl extends NodeController {
-  private rootNode: BuilderNode<BuilderData[]> | null = null;
-  private wrappedBuilder: WrappedBuilder<BuilderData[]> | null = null;
+  private rootNode: BuilderNode<BuilderData> | null = null;
+  private wrappedBuilder: WrappedBuilder<CustomBuilderT<BuilderData>> | null = null;
 
-  constructor(wrappedBuilder: WrappedBuilder<BuilderData[]>, context: UIContext) {
+  constructor(wrappedBuilder: WrappedBuilder<CustomBuilderT<BuilderData>>, context: UIContext) {
     super();
     storage = context.getSharedLocalStorage();
     this.wrappedBuilder = wrappedBuilder;
@@ -53,12 +54,12 @@ export class NodeControllerImpl extends NodeController {
     if (!uiContext) {
       return;
     }
-    this.rootNode = new BuilderNode<(p1: BuilderData) => void>(uiContext);
-    this.rootNode!.build(this.wrappedBuilder!, { url: url, controller: controller });
+    this.rootNode = new BuilderNode<BuilderData>(uiContext);
+    this.rootNode!.build(this.wrappedBuilder!, { url: url, controller: controller, context: uiContext} as BuilderData);
   }
 }
 
-export const createNode = (wrappedBuilder: WrappedBuilder<BuilderData[]>, data: BuilderData) => {
+export const createNode: (wrappedBuilder: WrappedBuilder<CustomBuilderT<BuilderData>>, data: BuilderData) => NodeController = (wrappedBuilder: WrappedBuilder<CustomBuilderT<BuilderData>>, data: BuilderData): NodeController => {
   const baseNode = new NodeControllerImpl(wrappedBuilder, data.context);
   baseNode.initWeb(data.url, data.controller);
   return baseNode;

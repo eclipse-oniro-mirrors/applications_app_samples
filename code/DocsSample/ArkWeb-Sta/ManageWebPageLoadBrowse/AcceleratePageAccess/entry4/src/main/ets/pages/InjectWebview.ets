@@ -26,17 +26,22 @@ import { BuilderData } from './DynamicComponent';
 @Builder
 function webBuilder(data: BuilderData) {
   Web({ src: data.url, controller: data.controller })
-    .onControllerAttached(async () => {
-      try {
-        data.controller.injectOfflineResources(await getData (data.context));
-      } catch (err) {
-        console.error('error: ' + err.code + ' ' + err.message);
-      }
+    .onControllerAttached(() => {
+      injectOfflineData(data.controller, data.context);
     })
     .fileAccess(true)
 }
 
-export const injectWebview = wrapBuilder<BuilderData[]>(webBuilder);
+async function injectOfflineData(controller: webview.WebviewController, context: UIContext)
+: Pormise<void> {
+  try {
+    controller.injectOfflineResources(await getData(context));
+  } catch (err) {
+    console.error('error: ' + err.code + ', ' + err.message)
+  }
+}
+
+export const injectWebview: WrappedBuilder<CustomBuilderT<BuilderData>> = wrapBuilder<CustomBuilderT<BuilderData>>(webBuilder);
 
 export async function getData(context: UIContext): Promise<webview.OfflineResourceMap[]> {
   const resourceMapArr: webview.OfflineResourceMap[] = [];
