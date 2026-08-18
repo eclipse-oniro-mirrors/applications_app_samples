@@ -2,148 +2,37 @@
 
 ### 介绍
 
-1. 本工程主要实现了对以下指南文档中 https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-predictor.md 示例代码片段的工程化，主要目标是实现指南中示例代码需要与sample工程文件同源。
+本工程主要实现了对以下指南文档中 https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-predictor.md 示例代码片段的工程化，主要目标是实现指南中示例代码需要与sample工程文件同源。
 
-### Entry:
+本示例主要介绍加速Web页面的访问，可以通过以下方式实现页面加载加速：
 
-#### PrepareForPageLoad_one
+1. 通过 [prepareForPageLoad()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-predictor.md) 来预解析或者预连接将要加载的页面；
+2. 通过 [initializeBrowserEngine()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-predictor.md) 来提前初始化内核，然后在初始化内核后调用 prepareForPageLoad() 对即将要加载的页面进行预解析、预连接；
+3. 通过 [prefetchPage()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-predictor.md) 来预加载即将要加载页面；
+4. 通过 [prefetchResource()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-predictor.md) 预获取将要加载页面中的post请求；
+5. 通过 [precompileJavaScript()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-predictor.md) 在页面加载前提前生成脚本文件的编译缓存；
+6. 通过 [injectOfflineResources()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-predictor.md) 在页面加载前提前将图片、样式表或脚本资源注入到应用的内存缓存中。
 
-##### 介绍
+### 效果预览
 
-1. 本示例主要介绍加速Web页面的访问，可以通过prepareForPageLoad()来预解析或者预连接将要加载的页面。
+|PrepareForPageLoad_one|PrepareForPageLoad_two|Prefetching|PrefetchingAPOSTRequest_one|
+|---|---|---|---|
+|![image](./screenshots/PrepareForPageLoad_one_1.png)|![image](./screenshots/PrepareForPageLoad_two_1.png)|![image](./screenshots/Prefetching.png)|![image](./screenshots/PrefetchingAPOSTRequest_one.png)|
 
-##### 效果预览
-
-| 主页                                                         | loadDate                                                     |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="./screenshots/PrepareForPageLoad_one_1.png" width="360;" /> | <img src="./screenshots/PrepareForPageLoad_one_2.png" width="360;" /> |
-
-使用说明
-
-1. 在Web组件的onAppear中对要加载的页面进行预连接。
-1. 点击超链接跳转下一界面。
-1. 点击loadData按钮返回上个界面。
-
-### Entry1:
-
-#### PrepareForPageLoad_two
-
-##### 介绍
-
-1. 本示例主要介绍加速Web页面的访问，可以通过initializeBrowserEngine()来提前初始化内核，然后在初始化内核后调用 prepareForPageLoad()对即将要加载的页面进行预解析、预连接。
-##### 效果预览
-
-| 主页                                                         | loadDate                                                     |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="./screenshots/PrepareForPageLoad_two_1.png" width="360;" /> | <img src="./screenshots/PrepareForPageLoad_two_2.png" width="360;" /> |
+|PrefetchingAPOSTRequest_two|PrefetchingAPOSTRequest_three|PrecompForCompCache|InjOffResNoInt|
+|---|---|---|---|
+|![image](./screenshots/PrefetchingAPOSTRequest_two.png)|![image](./screenshots/PrefetchingAPOSTRequest_three.png)|![image](./screenshots/PrecompForCompCache_1.png)|![image](./screenshots/InjOffResNoInt_1.png)|
 
 使用说明
 
-1. Ability的onCreate中提前初始化Web内核并对首页进行预连接。
-
-### Entry2:
-
-#### Prefetching
-
-##### 介绍
-
-1. 本示例主要介绍加速Web页面的访问，如果能够预测到Web组件将要加载的页面或者即将要跳转的页面，可以通过prefetchPage()来预加载即将要加载页面。
-
-##### 效果预览
-
-| 主页                                                     |
-| -------------------------------------------------------- |
-| <img src="./screenshots/Prefetching.png" width="360;" /> |
-
-使用说明
-
-1. 在onPageEnd的时候触发下一个要访问的页面的预加载。
-
-#### PrefetchingAPOSTRequest_one
-
-##### 介绍
-
-1. 本示例主要介绍加速Web页面的访问，通过prefetchResource()预获取将要加载页面中的post请求。在页面加载结束时，可以通过clearPrefetchedResource()清除后续不再使用的预获取资源缓存。
-
-##### 效果预览
-
-| 主页                                                         |
-| ------------------------------------------------------------ |
-| <img src="./screenshots/PrefetchingAPOSTRequest_one.png" width="360;" /> |
-
-使用说明
-
-1. 对要加载页面中的post请求进行预获取。在onPageEnd中，可以清除预获取的post请求缓存。
-
-#### PrefetchingAPOSTRequest_two
-
-##### 介绍
-
-1. 本示例主要介绍加速Web页面的访问，如果能够预测到Web组件将要加载页面或者即将要跳转页面中的post请求。可以通过prefetchResource()预获取即将要加载页面的post请求。
-
-##### 效果预览
-
-| 主页                                                         |
-| ------------------------------------------------------------ |
-| <img src="./screenshots/PrefetchingAPOSTRequest_two.png" width="360;" /> |
-
-使用说明
-
-1. 在onPageEnd中，触发预获取一个要访问页面的post请求。
-
-#### PrefetchingAPOSTRequest_three
-
-##### 介绍
-
-1. 本示例主要介绍加速Web页面的访问，通过initializeBrowserEngine()提前初始化内核，然后在初始化内核后调用prefetchResource()预获取将要加载页面中的post请求。这种方式适合提前预获取首页的post请求。
-
-##### 效果预览
-
-| 主页                                                         |
-| ------------------------------------------------------------ |
-| <img src="./screenshots/PrefetchingAPOSTRequest_three.png" width="360;" /> |
-
-使用说明
-
-1. 在Ability的onCreate中，提前初始化Web内核并预获取首页的post请求。
-
-### Entry3:
-
-#### PrecompForCompCache
-
-##### 介绍
-
-1. 本示例主要介绍加速Web页面的访问，通过precompileJavaScript()在页面加载前提前生成脚本文件的编译缓存。
-
-##### 效果预览
-
-| 主页                                                         | 加载页面                                                     |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="./screenshots/PrecompForCompCache_1.png" width="360;" /> | <img src="./screenshots/PrecompForCompCache_2.png" width="360;" /> |
-
-使用说明
-
-1. 应用启动时EntryAbility将UIContext存到localstorage，初始化预编译Web组件生成编译缓存。
-2. 点击加载页面按钮，创建businessNode，加载业务用Web组件展示business.html页面，此时会使用之前生成的编译缓存。
-
-### Entry4:
-
-#### InjOffResNoInt
-
-##### 介绍
-
-1. 本示例主要介绍加速Web页面的访问，可以通过injectOfflineResources()在页面加载前提前将图片、样式表或脚本资源注入到应用的内存缓存中。
-
-##### 效果预览
-
-| 主页                                                         | 加载页面                                                     |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="./screenshots/InjOffResNoInt_1.png" width="360;" /> | <img src="./screenshots/InjOffResNoInt_2.png" width="360;" /> |
-
-使用说明
-
-1. 进入Index.ets页面自动触发aboutToAppear方法。
-2. 点击加载页面按钮创建businessNode，加载业务用Web组件，展示business.html页面。
+1. 在Web组件的onAppear中对要加载的页面进行预连接；
+2. Ability的onCreate中提前初始化Web内核并对首页进行预连接；
+3. 在onPageEnd的时候触发下一个要访问的页面的预加载；
+4. 对要加载页面中的post请求进行预获取，在onPageEnd中可以清除预获取的post请求缓存；
+5. 在onPageEnd中，触发预获取一个要访问页面的post请求；
+6. 在Ability的onCreate中，提前初始化Web内核并预获取首页的post请求；
+7. 应用启动时EntryAbility将UIContext存到localstorage，初始化预编译Web组件生成编译缓存，点击加载页面按钮加载业务用Web组件展示business.html页面，此时会使用之前生成的编译缓存；
+8. 进入Index.ets页面自动触发aboutToAppear方法，点击加载页面按钮加载业务用Web组件展示business.html页面。
 
 ### 工程目录
 
@@ -222,6 +111,7 @@ entry4/src/main/
 ```
 
 ### 具体实现
+
 * 加速Web页面的访问
   * 调用prepareForPageLoad接口对目标URL进行预处理。参考源码：[Index.ets](./entry/src/main/ets/pages/Index.ets)
   * 在Web组件的onAppear或onPageEnd生命周期进行预加载，调用prefetchPage对预测的下一个页面URL进行后台预下载，或通过prefetchResource实现请求的预获取。参考源码：[Index.ets](./entry1/src/main/ets/pages/Index.ets)
@@ -249,7 +139,7 @@ entry4/src/main/
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkWeb/ManageWebPageLoadBrowse/AcceleratePageAccess > .git/info/sparse-checkout
+echo code/DocsSample/ArkWeb-Sta/ManageWebPageLoadBrowse/AcceleratePageAccess/ > .git/info/sparse-checkout
 git remote add origin https://gitee.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

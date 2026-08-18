@@ -2,39 +2,20 @@
 
 ### 介绍
 
-1. 本工程主要实现了对以下指南文档中 https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-resource-interception-request-mgmt.md 示例代码片段的工程化，主要目标是实现指南中示例代码需要与sample工程文件同源。
+本工程主要实现了对以下指南文档中 https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-resource-interception-request-mgmt.md 示例代码片段的工程化，主要目标是实现指南中示例代码需要与sample工程文件同源。
 
-### OnInterceptRequest_one
+本示例主要介绍自定义页面请求响应，Web网页上发起资源加载请求，应用层收到资源请求消息，应用层构造本地资源响应消息发送给Web内核，Web内核解析应用层响应信息，根据此响应信息进行页面资源加载。
 
-#### 介绍
+### 效果预览
 
-1. 本示例主要介绍自定义页面请求响应，Web网页上发起资源加载请求，应用层收到资源请求消息。应用层构造本地资源响应消息发送给Web内核。Web内核解析应用层响应信息，根据此响应信息进行页面资源加载。
-
-#### 效果预览
-
-| 主页                                                         |                                                              |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="./screenshots/OnInterceptRequest_one_1.png" width="360;" /> | <img src="./screenshots/OnInterceptRequest_one_2.png" width="360;" /> |
+|OnInterceptRequest_one|OnInterceptRequest_two|
+|---|---|
+|![image](./screenshots/OnInterceptRequest_one_1.png)|![image](./screenshots/OnInterceptRequest_two.png)|
 
 使用说明
 
-1. 通过拦截页面请求，在应用侧代码构建响应资源，实现自定义页面响应场景。
-
-### OnInterceptRequest_two
-
-#### 介绍
-
-1. 本示例主要介绍自定义页面请求响应，Web组件通过拦截页面请求，应用侧代码构建响应资源，在响应头中添加“ResponseDataID”字段，开启生成CodeCache的功能。
-
-#### 效果预览
-
-| 主页                                                         |
-| ------------------------------------------------------------ |
-| <img src="./screenshots/OnInterceptRequest_two.png" width="360;" /> |
-
-使用说明
-
-1. 拦截页面请求，应用侧代码构建响应资源。
+1. 通过拦截页面请求，在应用侧代码构建响应资源，实现自定义页面响应场景；
+2. Web组件通过拦截页面请求，应用侧代码构建响应资源，在响应头中添加"ResponseDataID"字段，开启生成CodeCache的功能。
 
 ### 工程目录
 
@@ -55,9 +36,10 @@ entry/src/main/
 ```
 
 ### 具体实现
+
 * 自定义页面请求响应，源码参考[OnInterceptRequest_one.ets](./entry/src/main/ets/pages/OnInterceptRequest_one.ets)
   * 通过onInterceptRequest接口拦截网络请求，通过检测getRequestUrl实现对特定目标URL的匹配。在拦截命中后，实例化WebResourceResponse对象构造自定义HTTP响应。
-  * 利用onInterceptRequest拦截特定JavaScript资源的请求，并手动构造WebResourceResponse返回自定义的脚本内容。在响应头中添加“ResponseDataID”字段，开启生成CodeCache的功能。
+  * 利用onInterceptRequest拦截特定JavaScript资源的请求，并手动构造WebResourceResponse返回自定义的脚本内容。在响应头中添加"ResponseDataID"字段，开启生成CodeCache的功能。
 
 ### 相关权限
 
@@ -80,7 +62,7 @@ entry/src/main/
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkWeb/ManageWebPageLoadBrowse/CustomizePageResp > .git/info/sparse-checkout
+echo code/DocsSample/ArkWeb-Sta/ManageWebPageLoadBrowse/CustomizePageResp/ > .git/info/sparse-checkout
 git remote add origin https://gitee.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

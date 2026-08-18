@@ -17,7 +17,6 @@
 // [Start compile_resource_allocation_information]
 import { webview } from '@kit.ArkWeb';
 
-
 export interface Config {
   url:  string,
   localPath: string, // 本地资源路径
