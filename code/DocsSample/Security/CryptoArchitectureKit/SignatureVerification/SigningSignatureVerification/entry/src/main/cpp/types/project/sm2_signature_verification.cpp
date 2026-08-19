@@ -64,18 +64,21 @@ bool DoTestSm2Signature()
     if (ret != CRYPTO_SUCCESS) {
         OH_CryptoVerify_Destroy(verify);
         OH_CryptoAsymKeyGenerator_Destroy(keyCtx);
+        OH_CryptoKeyPair_Destroy(keyPair);
         return false;
     }
     ret = OH_CryptoVerify_Init(verify, pubKey);
     if (ret != CRYPTO_SUCCESS) {
         OH_CryptoVerify_Destroy(verify);
         OH_CryptoAsymKeyGenerator_Destroy(keyCtx);
+        OH_CryptoKeyPair_Destroy(keyPair);
         return false;
     }
     bool res = OH_CryptoVerify_Final(verify, &msgBlob, &signBlob);
     if (res != true) {
         OH_CryptoVerify_Destroy(verify);
         OH_CryptoAsymKeyGenerator_Destroy(keyCtx);
+        OH_CryptoKeyPair_Destroy(keyPair);
         return false;
     }
 

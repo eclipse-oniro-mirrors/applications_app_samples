@@ -42,7 +42,7 @@ export default function signingSignatureVerificationTest() {
     })
 
     /**
-     * 点击按钮，使用RSA密钥对（PKCS1模式）验签(C/C++)
+     * 点击按钮，使用RSA密钥对（PKCS1模式）签名(C/C++)
      */
     it('testSigningSignatureVerificationTest001', 0, async () => {
       console.info('uitest: testSigningSignatureVerificationTest001 begin');
@@ -56,99 +56,155 @@ export default function signingSignatureVerificationTest() {
     })
 
     /**
-     * 点击按钮，使用RSA密钥对（PKCS1模式）签名恢复(C/C++)
+     * 点击按钮，使用RSA密钥对（PKCS1模式）验签(C/C++)
      */
     it('testSigningSignatureVerificationTest002', 0, async () => {
       console.info('uitest: testSigningSignatureVerificationTest002 begin');
+      const driver = Driver.create();
+      const button1 = await driver.findComponent(ON.text('Call VerifySeg'));
+      await driver.delayMs(1000);
+      await button1.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('VerifySegSuccess Result:true'));
+      console.info('uitest: testSigningSignatureVerificationTest002 end');
+    })
+
+    /**
+     * 点击按钮，使用RSA密钥对（PKCS1模式）签名(C/C++)
+     */
+    it('testSigningSignatureVerificationTest003', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationTest003 begin');
       const driver = Driver.create();
       const button1 = await driver.findComponent(ON.text('Call Signature'));
       await driver.delayMs(1000);
       await button1.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('SignatureSuccess Result:true'));
-      console.info('uitest: testSigningSignatureVerificationTest002 end');
+      console.info('uitest: testSigningSignatureVerificationTest003 end');
     })
 
     /**
-     * 点击按钮，使用RSA密钥对分段验签（PKCS1模式）(C/C++)
+     * 点击按钮，使用RSA密钥对（PKCS1模式）签名验签(C/C++)
      */
-    it('testSigningSignatureVerificationTest003', 0, async () => {
-      console.info('uitest: testSigningSignatureVerificationTest003 begin');
+    it('testSigningSignatureVerificationTest004', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationTest004 begin');
+      const driver = Driver.create();
+      const button1 = await driver.findComponent(ON.text('Call Verify'));
+      await driver.delayMs(1000);
+      await button1.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('VerifySuccess Result:true'));
+      console.info('uitest: testSigningSignatureVerificationTest004 end');
+    })
+
+    /**
+     * 点击按钮，使用RSA密钥对（PKCS1模式）签名恢复(C/C++)
+     */
+    it('testSigningSignatureVerificationTest005', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationTest005 begin');
       const driver = Driver.create();
       const button1 = await driver.findComponent(ON.text('Call SignatureRecover'));
       await driver.delayMs(1000);
       await button1.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('SignatureRecoverSuccess Result:0'));
-      console.info('uitest: testSigningSignatureVerificationTest003 end');
+      console.info('uitest: testSigningSignatureVerificationTest005 end');
     })
 
     /**
      * 点击按钮，使用RSA密钥对验签（PSS模式）(C/C++)
      */
-    it('testSigningSignatureVerificationTest004', 0, async () => {
-      console.info('uitest: testSigningSignatureVerificationTest004 begin');
+    it('testSigningSignatureVerificationTest006', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationTest006 begin');
       const driver = Driver.create();
       const button = await driver.findComponent(ON.text('Call PSSSignatureSeg'));
       await driver.delayMs(1000);
       await button.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('PSSSignatureSegSuccess Result:true'));
-      console.info('uitest: testSigningSignatureVerificationTest004 end');
+      console.info('uitest: testSigningSignatureVerificationTest006 end');
     })
 
     /**
-     * 点击按钮，使用ECDSA密钥对验签(C/C++)
+     * 点击按钮，使用RSA密钥对验签（PSS模式）(C/C++)
      */
-    it('testSigningSignatureVerificationTest005', 0, async () => {
-      console.info('uitest: testSigningSignatureVerificationTest005 begin');
+    it('testSigningSignatureVerificationTest007', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationTest007 begin');
+      const driver = Driver.create();
+      const button = await driver.findComponent(ON.text('Call PSSVerifySeg'));
+      await driver.delayMs(1000);
+      await button.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('PSSVerifySegSuccess Result:true'));
+      console.info('uitest: testSigningSignatureVerificationTest007 end');
+    })
+
+    /**
+     * 点击按钮，使用ECDSA密钥对签名(C/C++)
+     */
+    it('testSigningSignatureVerificationTest008', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationTest008 begin');
       const driver = Driver.create();
       const button1 = await driver.findComponent(ON.text('Call ECDSASignature'));
       await driver.delayMs(1000);
       await button1.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('ECDSASignatureSuccess Result:true'));
-      console.info('uitest: testSigningSignatureVerificationTest005 end');
+      console.info('uitest: testSigningSignatureVerificationTest008 end');
+    })
+
+    /**
+     * 点击按钮，使用ECDSA密钥对验签(C/C++)
+     */
+    it('testSigningSignatureVerificationTest009', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationTest009 begin');
+      const driver = Driver.create();
+      const button1 = await driver.findComponent(ON.text('Call ECDSAVerify'));
+      await driver.delayMs(1000);
+      await button1.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('ECDSAVerifySuccess Result:true'));
+      console.info('uitest: testSigningSignatureVerificationTest009 end');
     })
 
     /**
      * 点击按钮，使用SM2密钥对验签(C/C++)
      */
-    it('testSigningSignatureVerificationTest006', 0, async () => {
-      console.info('uitest: testSigningSignatureVerificationTest006 begin');
+    it('testSigningSignatureVerificationTest010', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationTest010 begin');
       const driver = Driver.create();
       const button1 = await driver.findComponent(ON.text('Call SM2Signature'));
       await driver.delayMs(1000);
       await button1.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('SM2SignatureSuccess Result:true'));
-      console.info('uitest: testSigningSignatureVerificationTest006 end');
+      console.info('uitest: testSigningSignatureVerificationTest010 end');
     })
     /**
      * 点击按钮，SM2签名数据R,S格式转换为DER格式(C/C++)
      */
-    it('testSigningSignatureVerificationTest007', 0, async () => {
-      console.info('uitest: testSigningSignatureVerificationTest007 begin');
+    it('testSigningSignatureVerificationTest011', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationTest011 begin');
       const driver = Driver.create();
       const button1 = await driver.findComponent(ON.text('Call SM2 RS to DER'));
       await driver.delayMs(1000);
       await button1.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('SM2RStoDERSuccess Result:0'));
-      console.info('uitest: testSigningSignatureVerificationTest007 end');
+      console.info('uitest: testSigningSignatureVerificationTest011 end');
     })
     /**
      * 点击按钮，SM2签名数据DER格式转换为R,S格式(C/C++)
      */
-    it('testSigningSignatureVerificationTest008', 0, async () => {
-      console.info('uitest: testSigningSignatureVerificationTest008 begin');
+    it('testSigningSignatureVerificationTest012', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationTest012 begin');
       const driver = Driver.create();
       const button1 = await driver.findComponent(ON.text('Call SM2 DER Convert RS'));
       await driver.delayMs(1000);
       await button1.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('SM2DerConvertRSSuccess Result:0'));
-      console.info('uitest: testSigningSignatureVerificationTest008 end');
+      console.info('uitest: testSigningSignatureVerificationTest012 end');
     })
   })
 }
