@@ -1,0 +1,128 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "DRM Kit C API and ArkTS API sample."
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "DrmSample entry ability."
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "DrmSample"
+    },
+    {
+      "name": "page_title",
+      "value": "DRM Kit Sample"
+    },
+    {
+      "name": "arkts_api_section_title",
+      "value": "ArkTS API Demo"
+    },
+    {
+      "name": "c_api_section_title",
+      "value": "C API Demo"
+    },
+    {
+      "name": "result_section_title",
+      "value": "Result"
+    },
+    {
+      "name": "result_hint",
+      "value": "Tap a button to run the sample. DRM solution name: %s"
+    },
+    {
+      "name": "ts_query_supported_list",
+      "value": "TS API: Query Supported List"
+    },
+    {
+      "name": "ts_query_if_supported",
+      "value": "TS API: Query If Supported"
+    },
+    {
+      "name": "ts_session_full_flow",
+      "value": "TS API: Complete Session Flow"
+    },
+    {
+      "name": "c_query_if_supported",
+      "value": "C API: Query If Supported"
+    },
+    {
+      "name": "c_query_supported_list",
+      "value": "C API: Query Supported List"
+    },
+    {
+      "name": "c_query_support_level",
+      "value": "C API: Query Support Level"
+    },
+    {
+      "name": "c_media_key_system_flow",
+      "value": "C API: MediaKeySystem Flow"
+    },
+    {
+      "name": "c_media_key_session_flow",
+      "value": "C API: MediaKeySession Flow"
+    },
+    {
+      "name": "oh_is_supported_result",
+      "value": "OH_MediaKeySystem_IsSupported: %s"
+    },
+    {
+      "name": "log_step_separator",
+      "value": ": "
+    },
+    {
+      "name": "log_success",
+      "value": "success"
+    },
+    {
+      "name": "log_success_count",
+      "value": "success, count: %d"
+    },
+    {
+      "name": "log_solution",
+      "value": "Solution %d"
+    },
+    {
+      "name": "log_solution_info",
+      "value": "name: %s, uuid: %s"
+    },
+    {
+      "name": "log_failed_with_code",
+      "value": "failed, error code: %d"
+    },
+    {
+      "name": "log_success_request_type",
+      "value": "success, request type: %d"
+    },
+    {
+      "name": "log_on_session_events",
+      "value": "on('keyRequired' etc.)"
+    },
+    {
+      "name": "log_provision_flow",
+      "value": "device certificate flow"
+    },
+    {
+      "name": "log_media_key_flow",
+      "value": "media key flow"
+    },
+    {
+      "name": "log_flow_exception",
+      "value": "flow exception"
+    },
+    {
+      "name": "log_error_code_message",
+      "value": "error code: %d, message: %s"
+    },
+    {
+      "name": "log_success_status_count",
+      "value": "success, status count: %d"
+    },
+    {
+      "name": "log_success_offline_count",
+      "value": "success, offline media key count: %d"
+    }
+  ]
+}
