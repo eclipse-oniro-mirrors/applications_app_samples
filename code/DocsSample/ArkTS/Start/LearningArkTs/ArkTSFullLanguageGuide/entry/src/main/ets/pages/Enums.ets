@@ -1084,3 +1084,15 @@ enum ConstExampleEnum {
   C = ConstExampleEnum.A + ConstExampleEnum.B // 常量：常量表达式
 }
 // [End constant_enum_members]
+
+// ===== ambient_enum =====
+// [Start ambient_enum]
+declare enum AmbientExternalEnum {
+  A = 1,
+  B,
+  C
+}
+
+let ambValue: AmbientExternalEnum = AmbientExternalEnum.A;
+console.info(`${ambValue}`); // 1
+// [End ambient_enum]
