@@ -205,20 +205,21 @@ OH_AVBuffer *VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
     return nullptr;
 }
 
-bool VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
+int32_t VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
-    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, false, "Decoder is null.");
+    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null.");
     std::shared_lock<std::shared_mutex> lock(codecMutex);
 
-    int32_t  ret = OH_VideoDecoder_QueryOutputBuffer(decoder_, &info.bufferIndex, timeoutUs);
+    int32_t ret = OH_VideoDecoder_QueryOutputBuffer(decoder_, &info.bufferIndex, timeoutUs);
     switch (ret) {
         case AV_ERR_OK: {
             OH_AVBuffer *buffer = OH_VideoDecoder_GetOutputBuffer(decoder_, info.bufferIndex);
-            CHECK_AND_RETURN_RET_LOG(buffer != nullptr, false, "Output buffer is null.");
+            CHECK_AND_RETURN_RET_LOG(buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Output buffer is null.");
             OH_AVErrCode getBufferRet = OH_AVBuffer_GetBufferAttr(buffer, &info.attr);
-            CHECK_AND_RETURN_RET_LOG(getBufferRet == AV_ERR_OK, false, "Get buffer attr error.");
+            CHECK_AND_RETURN_RET_LOG(getBufferRet == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+                "Get buffer attr error.");
             info.buffer = buffer;
-            return true;
+            return AVCODEC_SAMPLE_ERR_OK;
         /**
             if (info.flags & AVCODEC_BUFFER_FLAGS_EOS) {
                 outputDone = 1;
@@ -252,8 +253,8 @@ bool VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
             **/
         }
         case AV_ERR_TRY_AGAIN_LATER: {
-            AVCODEC_SAMPLE_LOGE("Get input buffer timeout.");
-            return false;
+            AVCODEC_SAMPLE_LOGD("Get output buffer timeout.");
+            return AVCODEC_SAMPLE_ERR_AGAIN;
         }
         case AV_ERR_STREAM_CHANGED: {
             int32_t width = 0;
@@ -265,13 +266,15 @@ bool VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
                              OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_PIC_HEIGHT, &height);
             CHECK_AND_BREAK_LOG(getIntRet, "Decoder get int value failed.");
             AVCODEC_SAMPLE_LOGI("Stream Changed. Width: %{public}i, height: %{public}i", width, height);
+            lock.unlock();
             return GetOutputBuffer(info, timeoutUs);
         }
         default: {
-            return false;
+            AVCODEC_SAMPLE_LOGE("Query output buffer failed, ret: %{public}d", ret);
+            return AVCODEC_SAMPLE_ERR_ERROR;
         }
     }
-    return false;
+    return AVCODEC_SAMPLE_ERR_ERROR;
 }
 
 int32_t VideoDecoder::Start()

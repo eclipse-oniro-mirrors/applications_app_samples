@@ -14,7 +14,9 @@
  */
 
 import { describe, expect, it } from '@ohos/hypium';
-import { formatMediaTime, formatPlaybackInfo } from '../../../main/ets/model/PlaybackInfoModel';
+import {
+  formatMediaTime, formatPlaybackInfo, normalizeSeekPosition
+} from '../../../main/ets/model/PlaybackInfoModel';
 
 export default function playbackInfoModelTest(): void {
   describe('PlaybackInfoModelTest', () => {
@@ -26,6 +28,18 @@ export default function playbackInfoModelTest(): void {
     it('shouldFormatPlaybackSnapshot', 0, () => {
       const text = formatPlaybackInfo(3, 2, 125000000, 65000000, true, true, true);
       expect(text).assertEqual('PLAYING  X2.0  01:05 / 02:05  A+V  SF');
+    });
+
+    it('shouldFormatSeekingState', 0, () => {
+      const text = formatPlaybackInfo(5, 1, 125000000, 65000000, true, false, false);
+      expect(text).assertEqual('SEEKING  X1.0  01:05 / 02:05  V');
+    });
+
+    it('shouldNormalizeSeekPosition', 0, () => {
+      expect(normalizeSeekPosition(-1, 1000000)).assertEqual(0);
+      expect(normalizeSeekPosition(500000, 1000000)).assertEqual(500000);
+      expect(normalizeSeekPosition(2000000, 1000000)).assertEqual(1000000);
+      expect(normalizeSeekPosition(100, 0)).assertEqual(0);
     });
   });
 }

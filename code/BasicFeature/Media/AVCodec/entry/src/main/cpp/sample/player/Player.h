@@ -42,6 +42,7 @@ enum PlayerState : int32_t {
     READY,
     PLAYING,
     STOPPING,
+    SEEKING,
 };
 
 struct PlaybackInfo {
@@ -99,6 +100,7 @@ public:
     int32_t Init(SampleInfo &sampleInfo);
     int32_t Start();
     int32_t Stop();
+    int32_t SeekTo(int64_t positionUs);
     PlayerState GetState() const;
     PlaybackInfo GetPlaybackInfo() const;
     MediaInfo GetMediaInfo() const;
@@ -155,6 +157,23 @@ private:
     void InitSyncVideoOutputContext();
     bool ProcessSyncVideoOutput(std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
     void FinishVideoOutput();
+    void CancelWorkerWaits();
+    void StopWorkersForSeek();
+    void ReleaseCodecResourcesForSeek();
+    void ResetPlaybackClockForSeek(int64_t positionUs);
+    bool DiscardVideoOutputBeforeSeekTarget(CodecBufferInfo &bufferInfo, bool &discarded);
+    bool GetAudioSeekBufferLayout(CodecBufferInfo &bufferInfo, int32_t &sampleRate,
+        int32_t &capacity, int64_t &bytesPerFrame);
+    bool TrimAudioOutputToSeekTarget(CodecBufferInfo &bufferInfo, int64_t targetUs,
+        int32_t sampleRate, int32_t capacity, int64_t bytesPerFrame);
+    bool PrepareAudioOutputAfterSeek(CodecBufferInfo &bufferInfo);
+    int32_t RecreateDecodersAfterSeek(bool hadVideo, bool hadAudio);
+    void PreparePlaybackStateAfterSeek(bool hadVideo, bool hadAudio, int64_t positionUs);
+    int32_t RestartAudioAfterSeek(float speedSnapshot);
+    int32_t RestoreVideoPolicyAfterSeek(float speedSnapshot);
+    int32_t RecreateCodecResourcesAfterSeek(bool hadVideo, bool hadAudio, float speedSnapshot,
+        int64_t positionUs);
+    int32_t HandleSeekFailure();
     bool CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t framePosition,
         int64_t& waitTimeUs, bool& dropFrame);
     bool RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame);
@@ -170,7 +189,12 @@ private:
     std::atomic<bool> isAudioDone { false };
     std::atomic<bool> isVideoDone { false };
     std::atomic<bool> playbackFailed_ { false };
+    std::atomic<bool> hasDecodedOutput_ { false };
     std::atomic<bool> stopRequested_ { false };
+    std::atomic<bool> seekInProgress_ { false };
+    std::atomic<int64_t> seekTargetUs_ { 0 };
+    std::atomic<bool> discardVideoUntilSeekTarget_ { false };
+    std::atomic<bool> discardAudioUntilSeekTarget_ { false };
     std::atomic<bool> isLoop_ { false };
     std::atomic<PlayerState> state_ { PlayerState::IDLE };
     std::unique_ptr<std::thread> videoDecInputThread_ = nullptr;
@@ -204,6 +228,7 @@ private:
     bool isSmartFluencySupported_ = false;
     std::atomic<bool> smartFluencyAvailable_ { false };
     bool thermalWarningActive_ = false;
+    double thermalFrameRetentionRatio_ = 0.0;
     BufferRenderer bufferRenderer_;
 };
 

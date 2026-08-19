@@ -19,6 +19,7 @@ export enum PlayerState {
   READY = 2,
   PLAYING = 3,
   STOPPING = 4,
+  SEEKING = 5,
 }
 
 export type PlaybackCompletionReason = 'completed' | 'stopped' | 'error'
@@ -57,6 +58,8 @@ export const playNative: (
 ) => boolean
 
 export const stop: () => boolean
+
+export const seekTo: (positionUs: number) => boolean
 
 export const getState: () => PlayerState
 

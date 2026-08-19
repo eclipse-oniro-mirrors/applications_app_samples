@@ -24,12 +24,14 @@
 #define LOG_TAG "AudioOutputPump"
 
 namespace {
-constexpr int64_t CODEC_BUFFER_TIMEOUT_US = 5000000;
+constexpr int64_t CODEC_BUFFER_TIMEOUT_US = 100000;
 }
 
 AudioOutputPump::AudioOutputPump(Config config)
     : decoder_(config.decoder), context_(config.context), running_(config.running),
-      playbackFailed_(config.playbackFailed), outputCallback_(std::move(config.outputCallback)),
+      playbackFailed_(config.playbackFailed),
+      outputPrepareCallback_(std::move(config.outputPrepareCallback)),
+      outputCallback_(std::move(config.outputCallback)),
       dumpCallback_(std::move(config.dumpCallback))
 {
 }
@@ -52,6 +54,17 @@ bool AudioOutputPump::EnqueueOutput(CodecBufferInfo &bufferInfo)
         MarkPlaybackFailed("Audio output buffer address is null");
         return false;
     }
+    if (bufferInfo.attr.offset < 0 || bufferInfo.attr.size <= 0) {
+        MarkPlaybackFailed("Audio output buffer range is invalid");
+        return false;
+    }
+    const int32_t capacity = OH_AVBuffer_GetCapacity(bufferInfo.buffer);
+    if (capacity < 0 || bufferInfo.attr.offset > capacity ||
+        bufferInfo.attr.size > capacity - bufferInfo.attr.offset) {
+        MarkPlaybackFailed("Audio output buffer exceeds its capacity");
+        return false;
+    }
+    source += bufferInfo.attr.offset;
 
     std::unique_lock<std::mutex> lock(context_.outputMutex);
     for (int32_t i = 0; i < bufferInfo.attr.size; i++) {
@@ -65,6 +78,14 @@ bool AudioOutputPump::HandleOutputBuffer(CodecBufferInfo &bufferInfo, bool dumpO
     context_.outputFrameCount++;
     AVCODEC_SAMPLE_LOGW("Output count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
         context_.outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
+    if (outputPrepareCallback_ && !outputPrepareCallback_(bufferInfo)) {
+        int32_t ret = decoder_.FreeOutputBuffer(bufferInfo.bufferIndex, false);
+        if (ret != AVCODEC_SAMPLE_ERR_OK) {
+            MarkPlaybackFailed("Free discarded audio output buffer failed");
+            return false;
+        }
+        return running_ && !playbackFailed_;
+    }
     if (!EnqueueOutput(bufferInfo)) {
         return false;
     }

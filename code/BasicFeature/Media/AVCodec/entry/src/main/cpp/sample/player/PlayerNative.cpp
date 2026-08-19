@@ -259,7 +259,8 @@ bool ExportPlayerState(napi_env env, napi_value exports)
         !SetStateValue(env, stateObject, "INITIALIZING", PlayerState::INITIALIZING) ||
         !SetStateValue(env, stateObject, "READY", PlayerState::READY) ||
         !SetStateValue(env, stateObject, "PLAYING", PlayerState::PLAYING) ||
-        !SetStateValue(env, stateObject, "STOPPING", PlayerState::STOPPING)) {
+        !SetStateValue(env, stateObject, "STOPPING", PlayerState::STOPPING) ||
+        !SetStateValue(env, stateObject, "SEEKING", PlayerState::SEEKING)) {
         return false;
     }
     return napi_set_named_property(env, exports, "PlayerState", stateObject) == napi_ok;
@@ -499,6 +500,22 @@ napi_value PlayerNative::Stop(napi_env env, napi_callback_info info)
     return result;
 }
 
+napi_value PlayerNative::SeekTo(napi_env env, napi_callback_info info)
+{
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    int64_t positionUs = 0;
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc != 1 ||
+        napi_get_value_int64(env, args[0], &positionUs) != napi_ok) {
+        napi_throw_type_error(env, nullptr, "seekTo requires a position in microseconds");
+        return nullptr;
+    }
+    napi_value result = nullptr;
+    int32_t ret = Player::GetInstance().SeekTo(positionUs);
+    napi_get_boolean(env, ret == AVCODEC_SAMPLE_ERR_OK, &result);
+    return result;
+}
+
 napi_value PlayerNative::GetState(napi_env env, napi_callback_info info)
 {
     (void)info;
@@ -546,6 +563,7 @@ static napi_value Init(napi_env env, napi_value exports)
         {"play", nullptr, PlayerNative::PlayWithOptions, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"playNative", nullptr, PlayerNative::Play, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"stop", nullptr, PlayerNative::Stop, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"seekTo", nullptr, PlayerNative::SeekTo, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getState", nullptr, PlayerNative::GetState, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getPlaybackInfo", nullptr, PlayerNative::GetPlaybackInfo,
             nullptr, nullptr, nullptr, napi_default, nullptr},
