@@ -1,9 +1,0 @@
-{
-  "src": [
-    "pages/Index",
-    "pages/Prefetching",
-    "pages/PrefetchingAPOSTRequest_one",
-    "pages/PrefetchingAPOSTRequest_two",
-    "pages/PrefetchingAPOSTRequest_three"
-  ]
-}
