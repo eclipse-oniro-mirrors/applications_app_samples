@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,31 +13,20 @@
  * limitations under the License.
  */
 
-{
-  "app": {
-    "products": [
-      {
-        "name": "default",
-        "signingConfig": "default",
-        "compileSdkVersion": 12,
-        "compatibleSdkVersion": 12,
-        "runtimeOS": "OpenHarmony"
-      }
-    ],
-    "signingConfigs": []
-  },
-  "modules": [
-    {
-      "name": "entry",
-      "srcPath": "./entry",
-      "targets": [
-        {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
-    }
-  ]
+/**
+ * Use these variables when you tailor your ArkTS code. They must be of the const type.
+ */
+export const HAR_VERSION = '1.0.0';
+export const BUILD_MODE_NAME = 'debug';
+export const DEBUG = true;
+export const TARGET_NAME = 'default';
+
+/**
+ * BuildProfile Class is used only for compatibility purposes.
+ */
+export default class BuildProfile { 
+	static readonly HAR_VERSION = HAR_VERSION;
+	static readonly BUILD_MODE_NAME = BUILD_MODE_NAME;
+	static readonly DEBUG = DEBUG;
+	static readonly TARGET_NAME = TARGET_NAME;
 }
