@@ -76,12 +76,14 @@ OH_Crypto_ErrCode DoTestRsaSignatureRecover()
     if (ret != CRYPTO_SUCCESS) {
         OH_CryptoVerify_Destroy(verify);
         OH_CryptoAsymKeyGenerator_Destroy(keyCtx);
+        OH_CryptoKeyPair_Destroy(keyPair);
         return ret;
     }
     ret = OH_CryptoVerify_Init(verify, pubKey);
     if (ret != CRYPTO_SUCCESS) {
         OH_CryptoVerify_Destroy(verify);
         OH_CryptoAsymKeyGenerator_Destroy(keyCtx);
+        OH_CryptoKeyPair_Destroy(keyPair);
         return ret;
     }
     Crypto_DataBlob rawSignData = {.data = nullptr, .len = 0};
@@ -89,6 +91,7 @@ OH_Crypto_ErrCode DoTestRsaSignatureRecover()
     if (ret != CRYPTO_SUCCESS) {
         OH_CryptoVerify_Destroy(verify);
         OH_CryptoAsymKeyGenerator_Destroy(keyCtx);
+        OH_CryptoKeyPair_Destroy(keyPair);
         return ret;
     }
 

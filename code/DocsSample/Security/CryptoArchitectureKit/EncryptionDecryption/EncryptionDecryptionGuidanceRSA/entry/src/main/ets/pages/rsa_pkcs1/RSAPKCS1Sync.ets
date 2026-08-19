@@ -16,6 +16,7 @@
 // [Start rsa_pkcs1_encrypt_decrypt_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 // 加密消息
 function encryptMessage(publicKey: cryptoFramework.PubKey, plainText: cryptoFramework.DataBlob) {
@@ -79,22 +80,28 @@ function main() {
       210, 195, 56, 250, 147, 195, 61, 205, 208, 189, 185, 40, 52, 50, 119, 137, 23, 246, 46, 220, 108, 52, 23, 152,
       154, 94, 32, 144, 195, 184, 249, 21, 168, 12, 57, 222, 18, 60, 117, 81, 157, 72, 30, 155, 190, 165, 242, 228, 139,
       240, 184, 145, 170, 103, 210, 160, 161, 135, 13]);
-  let keyPair = genKeyPairByData(pkData, skData);
-  let pubKey = keyPair.pubKey;
-  let priKey = keyPair.priKey;
-  let message = 'This is a test';
-  // 把字符串按utf-8解码为Uint8Array
-  let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
-  let encryptText = encryptMessage(pubKey, plainText);
-  let decryptText = decryptMessage(priKey, encryptText);
-  if (plainText.data.toString() === decryptText.data.toString()) {
-    console.info('decrypt ok.');
-    // 把Uint8Array按utf-8编码为字符串
-    let messageDecrypted = buffer.from(decryptText.data).toString('utf-8');
-    console.info('decrypted result string: ' + messageDecrypted);
-  } else {
-    console.error('decrypt failed.');
+  try {
+    let keyPair = genKeyPairByData(pkData, skData);
+    let pubKey = keyPair.pubKey;
+    let priKey = keyPair.priKey;
+    let message = 'This is a test';
+    // 把字符串按utf-8解码为Uint8Array
+    let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
+    let encryptText = encryptMessage(pubKey, plainText);
+    let decryptText = decryptMessage(priKey, encryptText);
+    if (plainText.data.toString() === decryptText.data.toString()) {
+      console.info('decrypt ok.');
+      // 把Uint8Array按utf-8编码为字符串
+      let messageDecrypted = buffer.from(decryptText.data).toString('utf-8');
+      console.info('decrypted result string: ' + messageDecrypted);
+    } else {
+      console.error('decrypt failed.');
+    }
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
   }
+
 }
 
 // [End rsa_pkcs1_encrypt_decrypt_sync]
