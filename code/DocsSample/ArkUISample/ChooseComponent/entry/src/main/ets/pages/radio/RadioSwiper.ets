@@ -21,7 +21,7 @@ export struct RadioSwiperSample {
   // 当前展示的页面索引
   @State currentIndex: number = 0;
   // 各页面的主题色
-  private colors: string[] = ['#f0a58f', '#699eec', '#7fd69c'];
+  private colors: string[] = ['#699eec', '#699eec', '#699eec'];
   // 各页面的标题文字
   private titles: string[] = ['Spring', 'Summer', 'Autumn'];
   // 各页面对应的独立Radio分组名称，不同页面的分组互不影响
