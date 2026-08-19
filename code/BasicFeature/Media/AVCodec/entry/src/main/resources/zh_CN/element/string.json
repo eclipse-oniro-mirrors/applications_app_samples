@@ -301,6 +301,10 @@
       "value": "媒体文件选择失败，请重试。"
     },
     {
+      "name": "seek_failed",
+      "value": "无法跳转到所选播放位置。"
+    },
+    {
       "name": "media_info",
       "value": "信息"
     },

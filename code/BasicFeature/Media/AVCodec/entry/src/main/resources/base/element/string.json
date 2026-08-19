@@ -313,6 +313,10 @@
       "value": "Failed to select the media file. Please try again."
     },
     {
+      "name": "seek_failed",
+      "value": "Unable to seek to the selected position."
+    },
+    {
       "name": "media_info",
       "value": "Info"
     },

@@ -35,7 +35,7 @@ public:
     int32_t Config(const SampleInfo &sampleInfo, CodecUserData *codecUserData);
     int32_t PushInputBuffer(CodecBufferInfo &info);
     OH_AVBuffer* GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
-    bool GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
+    int32_t GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     int32_t FreeOutputBuffer(uint32_t bufferIndex, bool render);
     int32_t FreeOutputBuffer(uint32_t bufferIndex, bool render, int64_t timeStamp);
     int32_t Start();

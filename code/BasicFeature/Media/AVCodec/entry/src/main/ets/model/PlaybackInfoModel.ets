@@ -18,12 +18,19 @@ const SECONDS_PER_MINUTE: number = 60;
 
 export function formatPlaybackInfo(stateValue: number, speed: number, durationUs: number,
   positionUs: number, hasVideo: boolean, hasAudio: boolean, isSmartFluencyAvailable: boolean): string {
-  const stateNames: string[] = ['IDLE', 'INITIALIZING', 'READY', 'PLAYING', 'STOPPING'];
+  const stateNames: string[] = ['IDLE', 'INITIALIZING', 'READY', 'PLAYING', 'STOPPING', 'SEEKING'];
   const state = stateValue >= 0 && stateValue < stateNames.length ? stateNames[stateValue] : 'UNKNOWN';
   const track = hasVideo && hasAudio ? 'A+V' : hasVideo ? 'V' : hasAudio ? 'A' : '-';
   const smartFluency = isSmartFluencyAvailable ? '  SF' : '';
   return state + '  X' + speed.toFixed(1) + '  ' + formatMediaTime(positionUs) + ' / ' +
     formatMediaTime(durationUs) + '  ' + track + smartFluency;
+}
+
+export function normalizeSeekPosition(positionUs: number, durationUs: number): number {
+  if (durationUs <= 0) {
+    return 0;
+  }
+  return Math.round(Math.max(0, Math.min(positionUs, durationUs)));
 }
 
 export function formatMediaTime(timeUs: number): string {

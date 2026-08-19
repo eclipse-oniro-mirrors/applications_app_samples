@@ -24,6 +24,7 @@
 class AudioOutputPump {
 public:
     using OutputCallback = std::function<bool(CodecBufferInfo &)>;
+    using OutputPrepareCallback = std::function<bool(CodecBufferInfo &)>;
     using DumpCallback = std::function<void(CodecBufferInfo &)>;
 
     struct Config {
@@ -31,6 +32,7 @@ public:
         CodecUserData &context;
         std::atomic<bool> &running;
         std::atomic<bool> &playbackFailed;
+        OutputPrepareCallback outputPrepareCallback;
         OutputCallback outputCallback;
         DumpCallback dumpCallback;
     };
@@ -49,6 +51,7 @@ private:
     CodecUserData &context_;
     std::atomic<bool> &running_;
     std::atomic<bool> &playbackFailed_;
+    OutputPrepareCallback outputPrepareCallback_;
     OutputCallback outputCallback_;
     DumpCallback dumpCallback_;
 };

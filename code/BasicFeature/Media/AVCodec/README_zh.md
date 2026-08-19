@@ -1,5 +1,7 @@
 # AVCodecSample
 
+[English](./README.md) | 简体中文
+
 ### 介绍
 
 AVCodec 部件示例 Sample，基于 API26 构建，提供视频播放（含音频）和录制的功能。
@@ -31,7 +33,8 @@ AVCodec 部件示例 Sample，基于 API26 构建，提供视频播放（含音�
 | 智能流畅 | X2/X3 使用 ADAPTIVE 保帧策略，X1 恢复 FULL；温控告警时可切换 UNIFORM | [智能流畅](#smart-fluency) |
 | 音画同步 | 以 AudioRenderer 实际播放位置为主时钟，对视频帧执行等待、定时送显或丢帧 | [音画同步](#av-sync) |
 | 画面变换 | 播放中支持旋转、水平/垂直翻转及组合变换 | [画面变换](#video-transform) |
-| 播放状态与进度 | 显示状态、目标倍速、位置/时长、音视频轨和智能流畅可用性 | [播放状态与媒体信息](#playback-info) |
+| 播放进度与拖动跳转 | 显示当前位置和总时长；从同步帧恢复解码，并丢弃目标时间之前的音视频输出，实现精确 Seek | [播放进度与 Seek](#playback-seek) |
+| 播放状态 | 显示状态、目标倍速、音视频轨和智能流畅可用性 | [播放状态与媒体信息](#playback-info) |
 | 媒体详情 | 展示媒体源、音视频轨、解码配置和原始 Source/Track Format 信息 | [播放状态与媒体信息](#playback-info) |
 | Stop 与资源释放 | 支持主动停止、自然结束和异常结束，并通过统一状态机完成线程和资源回收 | [播放线程与释放生命周期](#player-lifecycle) |
 
@@ -118,7 +121,7 @@ AVCodec 部件示例 Sample，基于 API26 构建，提供视频播放（含音�
 - 文件选择索引、索引边界和空文件判断；
 - 相机录制参数默认值及编码格式、分辨率更新；
 - 播放、录制设置的完整解析和非法值拒绝；
-- 播放状态、倍速、轨道和媒体时间的显示格式化；
+- 播放状态、倍速、轨道、媒体时间和 Seek 位置边界的格式化；
 - 媒体源、音视频轨、解码配置和原始 Format 信息的面板格式化；
 - 播放、录制、封装格式、Dump 和 NativeWindow 变换配置完整性。
 
@@ -142,6 +145,7 @@ hdc shell "${ability_command} test -b com.samples.avcodecsample -m entry_test -s
 
 ```
 AVCodec/
+├── README.md                                 # 英文示例说明和实现文档
 ├── README_zh.md                              # 示例说明和实现文档
 ├── ohosTest.md                               # 真机手工测试用例
 └── entry/src/
@@ -570,15 +574,36 @@ OH_NativeWindow_NativeWindowHandleOpt(window, SET_TRANSFORM, transformHint);
 
 变换作用于显示层，不修改解码后的像素内容、媒体 PTS 或 Dump 文件。连续选择相同 transform 时会直接返回，避免重复下发。
 
+<a id="playback-seek"></a>
+
+#### *播放进度与 Seek*
+
+播放窗口顶部显示当前位置、总时长和可拖动 `Slider`。页面每 250 ms 调用一次 `getPlaybackInfo()`，将 Native 返回的 `positionUs` 和 `durationUs` 更新到进度条。用户正在拖动时，定时刷新只更新底层状态文本，不覆盖 Slider 的预览位置；UI 使用独立文件描述符和 `AVImageGenerator.fetchFrameByTime()` 提取最新目标位置附近的同步帧缩略图。开始拖动时立即发起取帧，后续请求以不短于 100 ms 的间隔节流；上一轮取帧尚未完成时只记录最新位置，完成后继续处理最新请求，避免持续拖动导致预览请求一直被推迟。松手或点击轨道后，页面才调用一次 `player.seekTo(positionUs)`，不会在移动过程中反复重建正在播放的解码链路。
+
+`seekTo()` 只在 `PLAYING` 状态接受请求，并将目标位置限制在 `[0, durationUs]` 范围内。播放器进入 `SEEKING` 后按以下顺序切换时间线：
+
+1. 暂停 AudioRenderer，停止音视频工作循环，并唤醒异步 Buffer 队列等待。
+2. `join` 原有音视频输入、输出线程，确保不再有线程访问旧 Decoder Buffer。
+3. 将旧 `CodecUserData` 标记为销毁态，释放 AudioRenderer、AudioStreamBuilder 和音视频 Decoder。
+4. 将 NAPI 使用的微秒位置换算为毫秒，调用 `OH_AVDemuxer_SeekToTime(..., SEEK_MODE_PREVIOUS_SYNC)` 定位到目标时间之前最近的同步帧。压缩码流必须从可独立解码的同步帧恢复，但该同步帧只作为解码起点，不直接作为最终播放位置。选择前一个同步帧可保证解码区间覆盖用户目标，避免“最近同步帧”恰好位于目标之后而直接越过目标。
+5. 根据当前媒体轨道重新创建并启动 Decoder、AudioRenderer 和工作线程，重新绑定音频采样参数，清空 PCM 队列并重置音画同步时钟，同时记录用户请求的精确目标时间。
+6. 视频解码输出的 PTS 小于目标时间时，直接以“不送显”方式归还 Decoder Buffer；BufferMode 同样不会拷贝送显或写入 Dump。第一个 PTS 大于等于目标时间的视频帧才进入正常的音画同步和送显流程。
+7. 音频解码输出完整位于目标时间之前时，直接归还 Buffer，不写入 PCM 播放队列。若目标落在一个 S16LE PCM Buffer 中间，则根据采样率、声道数和每采样 2 字节计算需要跳过的完整采样帧，调整 Buffer 的 `offset`、`size` 和 `pts`，只播放并调试保存目标时间之后的 PCM 数据。
+8. 恢复 Seek 前的目标倍速、智能流畅保帧模式和温控策略，然后重新进入 `PLAYING`。
+
+本示例选择重建 Decoder，而不是在旧实例上直接 Flush 后继续解码。视频 Flush 可能清除缓存的 SPS/PPS 等参数；重新配置 Decoder 可以再次应用解封装阶段取得的 Codec Config，也能彻底隔离 Seek 前后的异步回调和 Buffer 索引。SurfaceMode 与 BufferMode、SYNC 与 ASYNC 共用同一套精确 Seek 策略，区别仍只存在于解码输出的获取和送显方式。
+
+若 Seek 或解码链路重建失败，播放器进入 `STOPPING`，继续复用统一的 `ReleaseWorker` 释放路径；UI 会显示跳转失败提示。Seek 成功后不会播放从同步帧到目标位置之间的预滚内容：视频从第一个 PTS 大于等于目标时间的可用帧开始显示，音频最多保留目标所在 PCM Buffer 中从目标采样帧开始的数据。进度条随后继续以解码输出的真实 PTS 或 AudioRenderer 实际消费位置推进。
+
 <a id="playback-info"></a>
 
 #### *播放状态与媒体信息*
 
-页面每秒调用一次 `getPlaybackInfo()`，展示播放器状态、目标倍速、当前位置/总时长、当前轨道组合和智能流畅状态。带音频媒体的位置由 AudioRenderer 实际取走的 PCM 更新；纯视频由成功送显的视频 PTS 更新。播放结束、失败或页面退出时停止定时器并清理状态文本和 HDR Vivid 水印。
+页面每 250 ms 调用一次 `getPlaybackInfo()`，展示播放器状态、目标倍速、当前位置/总时长、当前轨道组合和智能流畅状态。带音频媒体的位置由 AudioRenderer 实际取走的 PCM 更新；纯视频由成功送显的视频 PTS 更新。播放结束、失败或页面退出时停止定时器并清理状态文本、进度条和 HDR Vivid 水印。
 
 点击状态栏右侧“信息”后，UI 调用 `getMediaInfo()` 获取初始化阶段冻结的媒体快照。Native 快照包含文件大小、时长、轨道数、视频编码/宽高/帧率/码率/Profile、音频编码/采样率/声道/码率、解码器模式、Dump 开关、Source Format Dump 和每条 Track Format Dump。`MediaInfoModel` 将常用字段格式化为分区行，同时保留原始 Format 文本，便于查看解封装器返回但 UI 未单独建模的字段。
 
-媒体快照和实时播放信息职责分离：大段 Format 文本不会参与每秒轮询；实时查询只读取原子状态，不持有 Codec 回调上下文，也不会影响音画同步和送显线程。
+媒体快照和实时播放信息职责分离：大段 Format 文本不会参与周期轮询；实时查询只读取原子状态，不持有 Codec 回调上下文，也不会影响音画同步和送显线程。
 
 <a id="player-lifecycle"></a>
 
@@ -590,17 +615,21 @@ OH_NativeWindow_NativeWindowHandleOpt(window, SET_TRANSFORM, transformHint);
 
 ```text
 IDLE -> INITIALIZING -> READY -> PLAYING -> STOPPING -> IDLE
+                                  |   ^
+                                  v   |
+                                SEEKING
 ```
 
 - `Init()` 只接受 `IDLE`，初始化期间进入 `INITIALIZING`，成功后进入 `READY`。
 - `Start()` 只接受 `READY`，音视频线程启动完成后进入 `PLAYING`。
 - `Stop()` 只接受 `PLAYING`；重复 Stop 在 `STOPPING` 状态下按幂等成功处理。
+- `seekTo()` 只接受 `PLAYING`，处理期间进入 `SEEKING`；成功后回到 `PLAYING`，失败后进入 `STOPPING`。
 - 自然结束、主动 Stop 和错误清理都进入同一条 `STOPPING` 释放路径，资源释放完成后回到 `IDLE`。
 - `getState()` 向 ArkTS 返回当前 `PlayerState`，非法状态调用会被拒绝，不再只依赖 `isStarted_` 等布尔量推断生命周期。
 - `getPlaybackInfo()` 返回状态、目标倍速、媒体总时长、当前位置、音视频轨存在性和智能流畅可用性。带音频媒体的位置由 AudioRenderer 实际消费 PCM 时更新；纯视频由成功送显的视频 PTS 更新。查询读取原子快照，不持有 codec 上下文，也不参与音画同步或帧调度。
 - `getMediaInfo()` 返回初始化阶段冻结的只读快照，包括文件大小、总时长、轨道数量、音视频常用参数、当前解码/输出配置、Source Format Dump 和全部 Track Format Dump。快照使用 `Player` 互斥锁保护，不读取 codec 回调上下文；播放器释放后仍保留到本轮完成回调，UI 会在完成回调中清理显示。
 
-结构化 NAPI 包含 `play(options, callback)`、`stop()`、`getState()`、`getPlaybackInfo()` 和 `getMediaInfo()`。原有九参数 `playNative(...)` 继续保留用于兼容已有调用，但主页面已迁移到结构化接口。
+结构化 NAPI 包含 `play(options, callback)`、`stop()`、`seekTo(positionUs)`、`getState()`、`getPlaybackInfo()` 和 `getMediaInfo()`。原有九参数 `playNative(...)` 继续保留用于兼容已有调用，但主页面已迁移到结构化接口。
 
 `Player::Start()` 在解码线程启动完成后创建独立的 `ReleaseWorker`。该协调线程等待音频和视频输出均完成；媒体不存在某一轨道时，对应完成标志在启动前直接置为 true。完成条件满足后，协调线程执行以下释放顺序：
 
