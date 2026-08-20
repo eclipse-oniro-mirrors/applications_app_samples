@@ -1,0 +1,90 @@
+'use static'
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start task_info_persistence_util]
+import { UIContext } from '@kit.ArkUI';
+import { webview } from '@kit.ArkWeb';
+import { BusinessError } from '@ohos.base';
+import fileIo from '@ohos.file.fs';
+import { util } from '@kit.ArkTS';
+
+const helper = new util.Base64Helper();
+
+export let filePath : string;
+export const fileName: string = 'demoFile.txt';
+export namespace  DownloadUtil {
+
+  export function init(context: UIContext): void {
+    filePath = context.getHostContext()!.filesDir;
+  }
+
+  export function uint8ArrayToStr(uint8Array: Uint8Array): string {
+    return helper.encodeToStringSync(uint8Array);
+  }
+
+  export function strToUint8Array(str: string): Uint8Array {
+    return helper.decodeSync(str);
+  }
+
+  export function saveDownloadInfo(downloadInfo: string): void {
+    if (!fileExists(filePath)) {
+      mkDirectorySync(filePath);
+    }
+
+    writeToFileSync(filePath, fileName, downloadInfo);
+  }
+
+  export function fileExists(filePath: string): boolean {
+    try {
+      return fileIo.accessSync(filePath);
+    } catch (error) {
+      return false;
+    }
+  }
+
+  export function mkDirectorySync(directoryPath: string, recursion?: boolean): void {
+    try {
+      fileIo.mkdirSync(directoryPath, recursion ?? false);
+    } catch (error) {
+      console.error(`mk dir error. err message: ${error.message}, err code: ${error.code}`);
+    }
+  }
+
+  export function writeToFileSync(dir: string, fileName: string, msg: string): void {
+    let file: fileIo.File | null = null;
+    try {
+      file = fileIo.openSync(dir + '/' + fileName, fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.CREATE);
+      fileIo.writeSync(file.fd, msg);
+    } catch (error) {
+      console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
+    } finally {
+      if (file) {
+        fileIo.closeSync(file);
+      }
+    }
+  }
+
+  export function readFileSync(dir: string, fileName: string): string {
+    try {
+      return fileIo.readTextSync(dir + '/' + fileName);
+    } catch (error) {
+      console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
+      return '';
+    }
+  }
+
+}
+// [End task_info_persistence_util]

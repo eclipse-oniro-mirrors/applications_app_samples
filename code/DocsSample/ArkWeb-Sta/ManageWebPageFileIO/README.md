@@ -1,4 +1,4 @@
-## 上传文件
+# 上传文件
 
 ### 介绍
 
@@ -8,7 +8,7 @@
 
 #### 介绍
 
-1. 本示例主要介绍Web组件上传文件功能，Web组件支持前端页面选择文件上传功能,应用开发者可以使用onShowvfileSelector接口来处理前端页面文件上传的请求，如果应用开发者不做任何处理,Web会提供默认行为来处理前端页面文件上传的请求。
+1. 本示例主要介绍Web组件上传文件功能，Web组件支持前端页面选择文件上传功能，应用开发者可以使用onShowFileSelector接口来处理前端页面文件上传的请求，如果应用开发者不做任何处理，Web会提供默认行为来处理前端页面文件上传的请求。
 
 #### 效果预览
 
@@ -20,9 +20,9 @@
 
 1. 在主页点击选择文件按钮触发onShowFileSelector事件创建DocumentSelectOptions和DocumentViewPicker，用于打开文件选择器，弹出文件选择器，用户可选择一个文件。
 
-## 使用Web组件的下载能力
+### 使用Web组件的下载能力
 
-### 介绍
+#### 介绍
 
 1. 本工程主要实现了对以下指南文档中 https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-download.md 示例代码片段的工程化，主要目标是实现指南中示例代码需要与sample工程文件同源。
 
@@ -49,7 +49,6 @@
 
 1. 本示例主要介绍使用Web组件的下载能力。在Web组件启动时，可通过resumeDownload()接口恢复未完成的下载任务。
 
-
 #### 效果预览
 
 | 主页                                                         | 下载                                                         |
@@ -59,14 +58,13 @@
 使用说明
 
 1. 点击setDownloadDelegate按钮，定义下载委托回调。
-1. 使用startDownload()接口发起一个下载。 
+2. 使用startDownload()接口发起一个下载。
 
 ### ResumeDownload
 
 #### 介绍
 
 1. 本示例主要介绍使用Web组件的下载能力。使用startDownload()接口发起一个下载，Web组件发起的下载会根据当前显示的url以及Web组件默认的Referrer Policy来计算referrer。
-
 
 #### 效果预览
 
@@ -77,34 +75,36 @@
 使用说明
 
 1. 点击setDownloadDelegate按钮，定义下载委托回调。
-1. 使用startDownload()接口发起一个下载。 
-1. 通过record按钮将当前下载任务保存至持久化文件中，记录下载任务信息。
-1. 点击recovery按钮恢复下载任务。
+2. 使用startDownload()接口发起一个下载。
+3. 通过record按钮将当前下载任务保存至持久化文件中，记录下载任务信息。
+4. 点击recovery按钮恢复下载任务。
 
 ### 工程目录
 
 ```
-entry/src/main/
-|---ets
-|---|---entryability
-|---|---|---EntryAbility.ets
-|---|---pages
-|---|---|---UploadFiles.ets
-|---|---|---downloadUtil.ets
-|---|---|---Index.ets						// 首页
-|---|---|---InitiatingADownloadTask.ets
-|---|---|---ListenForPageDown.ets
-|---|---|---ResumeDownload.ets
-|---resources								// 静态资源
-|---ohosTest
-|---|---ets
-|---|---|---tests
-|---|---|---|---Ability.test.ets            // 自动化测试用例
+├── entry
+│   └── src
+│       └── main
+│           ├── ets                                 // ArkTS代码区
+│           │   ├── entryability
+│           │   │   └── EntryAbility.ets            // 入口类
+│           │   └── pages
+│           │       ├── Index.ets                   // 主页
+│           │       ├── UploadFiles.ets             // 上传文件
+│           │       ├── UploadFilesCamera.ets       // 相机上传
+│           │       ├── UploadFilesDefault.ets      // 默认上传
+│           │       ├── downloadUtil.ets            // 下载工具
+│           │       ├── InitiatingADownloadTask.ets // 发起下载
+│           │       ├── ListenForPageDown.ets       // 监听下载
+│           │       ├── ResumeDownload.ets          // 恢复下载
+│           │       └── SaveFile.ets                // 保存文件
+│           └── resources                           // 应用资源文件
 ```
 
 ### 具体实现
+
 * 上传文件，源码参考[UploadFiles.ets](./entry/src/main/ets/pages/UploadFiles.ets)
-  * 在拦截回调中调用ocumentViewPicker启动文件选择器，通过异步方式允许用户从设备存储中选择目标文档，获取对应的文件url。调用FileSelectorResult对象的handleFileList方法，通知Web组件进行文件选择操作。
+  * 在拦截回调中调用DocumentViewPicker启动文件选择器，通过异步方式允许用户从设备存储中选择目标文档，获取对应的文件url。调用FileSelectorResult对象的handleFileList方法，通知Web组件进行文件选择操作。
 * 使用Web组件的下载能力，源码参考[ResumeDownload.ets](./entry/src/main/ets/pages/ResumeDownload.ets)
   * 实例化WebDownloadDelegate对象并通过setDownloadDelegate接口将其绑定至当前Web控制器，接管Web组件的下载行为。
   * 在onBeforeDownload中指定文件存储路径，在onDownloadUpdated中实时获取进度。
@@ -132,7 +132,7 @@ entry/src/main/
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkWeb/ManageWebPageFileIO > .git/info/sparse-checkout
+echo code/DocsSample/ArkWeb-Sta/ManageWebPageFileIO > .git/info/sparse-checkout
 git remote add origin https://gitee.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
