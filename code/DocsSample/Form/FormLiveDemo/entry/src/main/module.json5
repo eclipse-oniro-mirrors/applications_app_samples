@@ -12,9 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start liveform_moudlejson5]
+// [Start liveform_modulejson5]
 // entry/src/main/module.json5
-// [StartExclude liveform_moudlejson5]
+// [StartExclude liveform_modulejson5]
 {
   "module": {
     "name": "entry",
@@ -50,9 +50,9 @@
         ]
       }
     ],
-    // [EndExclude liveform_moudlejson5]
+    // [EndExclude liveform_modulejson5]
     "extensionAbilities": [
-      // [StartExclude liveform_moudlejson5]
+      // [StartExclude liveform_modulejson5]
       {
         "name": "EntryFormAbility",
         "srcEntry": "./ets/entryformability/EntryFormAbility.ets",
@@ -66,7 +66,7 @@
           }
         ]
       },
-      // [EndExclude liveform_moudlejson5]
+      // [EndExclude liveform_modulejson5]
       {
         "name": "MyLiveFormExtensionAbility",
         "srcEntry": "./ets/myliveformextensionability/MyLiveFormExtensionAbility.ets",
@@ -74,8 +74,8 @@
         "type": "liveForm"
       }
     ],
-    // [StartExclude liveform_moudlejson5]
+    // [StartExclude liveform_modulejson5]
   },
 }
-// [EndExclude liveform_moudlejson5]
-// [End liveform_moudlejson5]
+// [EndExclude liveform_modulejson5]
+// [End liveform_modulejson5]
