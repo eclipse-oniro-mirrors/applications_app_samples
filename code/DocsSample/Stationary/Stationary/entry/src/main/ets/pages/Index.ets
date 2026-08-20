@@ -43,9 +43,7 @@ struct Index {
   private unsubscribe() {
     // [Start stationary_unsubscribe]
     try {
-      stationary.off('still', stationary.ActivityEvent.ENTER, (data) => {
-        console.info('data=' + JSON.stringify(data));
-      })
+      stationary.off('still', stationary.ActivityEvent.ENTER)
       // [StartExclude stationary_unsubscribe]
       this.message = 'stationary unsubscribe';
       // [EndExclude stationary_unsubscribe]
