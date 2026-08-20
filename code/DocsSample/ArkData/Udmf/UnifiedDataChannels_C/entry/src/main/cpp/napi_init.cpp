@@ -55,6 +55,7 @@ int32_t SetHyperlinkData(OH_UdsHyperlink* hyperlink, OH_UdmfRecord* record, OH_U
     }
     return UDMF_E_OK;
 }
+
 int32_t CreateDataTest()
 {
     // 1. 创建hyperlink的UDS数据结构、OH_UdmfRecord对象及OH_UdmfData对象。
@@ -428,6 +429,7 @@ int32_t ProviderSetDataTest()
     OH_UdmfRecord_Destroy(record);
     OH_UdmfData_Destroy(data);
     OH_UdmfOptions_Destroy(options);
+    OH_UdmfRecordProvider_Destroy(provider);
     return UDMF_E_OK;
 }
 // [End unified_data_channels_c_delay_write_data]
