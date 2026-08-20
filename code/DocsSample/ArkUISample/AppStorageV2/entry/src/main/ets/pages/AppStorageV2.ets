@@ -50,7 +50,7 @@ struct Index {
           this.message.userName += 'suf';
         })
       // remove key Message, 会从AppStorageV2中删除key为Message的对象
-      // remove之后，修改父组件的userId，子组件能同步变化，因为remove只是从AppStorageV2删除，不会影响组件中已存在的数据
+      // remove之后，修改父组件的userID，子组件能同步变化，因为remove只是从AppStorageV2删除，不会影响组件中已存在的数据
       Button('remove key: Message')
         .width(300)
         .margin(10)
