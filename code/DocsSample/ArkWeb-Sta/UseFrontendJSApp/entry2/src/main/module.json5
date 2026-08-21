@@ -48,18 +48,6 @@
       }
     ],
     "extensionAbilities": [
-      {
-        "name": "Entry2BackupAbility",
-        "srcEntry": "./ets/entry2backupability/Entry2BackupAbility.ets",
-        "type": "backup",
-        "exported": false,
-        "metadata": [
-          {
-            "name": "ohos.extension.backup",
-            "resource": "$profile:backup_config"
-          }
-        ]
-      }
     ],
     "requestPermissions": [
       {

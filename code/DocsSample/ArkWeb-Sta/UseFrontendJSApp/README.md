@@ -42,15 +42,11 @@
 entry/src/main/ets/
 |---entryability
 |---|---EntryAbility.ets
-|---entrybackupability
-|---|---EntryBackupAbility.ets
 |---pages
 |---|---Index.ets                      // 应用侧调用前端页面函数入口
 entry2/src/main/ets/
 |---entry2ability
 |---|---Entry2Ability.ets
-|---entry2backupability
-|---|---Entry2BackupAbility.ets
 |---pages
 |---|---Index.ets                      // 前端页面调用应用侧函数入口
 |---|---JavaScriptProxy.ets            // javaScriptProxy()接口注册应用侧代码
