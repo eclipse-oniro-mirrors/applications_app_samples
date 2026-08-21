@@ -96,8 +96,8 @@ struct WebComponent {
           } else {
             console.error(`ports is null, not need close`);
           }
-          } catch (err) {
-            console.error(`ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
+        } catch (err) {
+          console.error(`ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
         }
       })
       Web({ src: $rawfile('index.html'), controller: this.controller })

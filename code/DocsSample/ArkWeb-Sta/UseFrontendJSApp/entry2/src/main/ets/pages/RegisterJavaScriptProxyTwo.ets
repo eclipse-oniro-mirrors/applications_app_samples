@@ -56,7 +56,7 @@ struct Index {
         .onPageEnd(()=>{
           try {
             if(!this.isRegistered){
-            this.webviewController.registerJavaScriptProxy(this.testObj, 'testObjName', ['test', 'toString'],
+              this.webviewController.registerJavaScriptProxy(this.testObj, 'testObjName', ['test', 'toString'],
                     // 可选参数, asyncMethodList
                     [],
                     // 可选参数, permission
