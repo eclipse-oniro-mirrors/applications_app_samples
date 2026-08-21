@@ -38,7 +38,7 @@ struct Index {
 
   build() {
     Scroll() {
-      Column({ space: 10 }) {
+      Column() {
         // 展示H5接收到的内容
         Text('H5_Side_Message_Display_From_App')
         TextArea({text: this.h5Log})
@@ -53,9 +53,9 @@ struct Index {
             .onClick(() => {
               try {
                 testNapi.createWebMessagePorts('noTag');
-              } catch (error) {
+              } catch (err) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
               }
             })
           Button('createPort')
@@ -63,23 +63,22 @@ struct Index {
             .onClick(() => {
               try {
                 testNapi.createWebMessagePorts(this.webTag);
-              } catch (error) {
+              } catch (err) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
               }
             })
         }
 
-        Row({ space: 10 }) {
-
+        Row() {
           Button('setHandler')
             .id('set_handler_btn')
             .onClick(() => {
               try {
                 testNapi.setMessageEventHandler(this.webTag);
-              } catch (error) {
+              } catch (err) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
               }
             })
 
@@ -88,23 +87,23 @@ struct Index {
             .onClick(() => {
               try {
                 testNapi.setMessageEventHandlerThread(this.webTag);
-              } catch (error) {
+              } catch (err) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
               }
             })
         }
 
-        Row({ space: 10 }) {
+        Row() {
           Button('SendString')
             .id('send_string_btn')
             .onClick(() => {
               try {
                 this.h5Log = ''
                 testNapi.postMessage(this.webTag);
-              } catch (error) {
+              } catch (err) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
               }
             })
           Button('SendStringThread')
@@ -113,23 +112,23 @@ struct Index {
               try {
                 this.h5Log = ''
                 testNapi.postMessageThread(this.webTag);
-              } catch (error) {
+              } catch (err) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
               }
             })
         }
 
-        Row({ space: 10 }) {
+        Row() {
           Button('SendBuffer')
             .id('send_buffer_btn')
             .onClick(() => {
               try {
                 this.h5Log = ''
                 testNapi.postBufferMessage(this.webTag);
-              } catch (error) {
+              } catch (err) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
               }
             })
           Button('SendNone')
@@ -138,23 +137,22 @@ struct Index {
               try {
                 this.h5Log = ''
                 testNapi.postNoneMessage(this.webTag);
-              } catch (error) {
+              } catch (err) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
               }
             })
         }
 
-        Row({ space: 10 }) {
-
+        Row() {
           Button('closePort')
             .id('close_port_btn')
             .onClick(() => {
               try {
                 testNapi.closeMessagePort(this.webTag);
-              } catch (error) {
+              } catch (err) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
               }
             })
           Button('destroyNullPort')
@@ -162,9 +160,9 @@ struct Index {
             .onClick(() => {
               try {
                 testNapi.destroyNullMessagePort(this.webTag);
-              } catch (error) {
+              } catch (err) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
               }
             })
           Button('destroyPort')
@@ -172,9 +170,9 @@ struct Index {
             .onClick(() => {
               try {
                 testNapi.destroyMessagePort(this.webTag);
-              } catch (error) {
+              } catch (err) {
                 console.error(
-                  `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
               }
             })
         }
@@ -182,17 +180,17 @@ struct Index {
         .padding(10)
         .border({ width: 1 })
 
-        Column({ space: 10 }) {
+        Column() {
           Text('H5_Side_Send_Button')
-          Row({ space: 10 }) {
+          Row() {
             Button('H5String')
               .id('h5_send_string_btn')
               .onClick(() => {
                 try {
                   this.controller.runJavaScript('for(var i = 0; i < 2000; i++) postStringToApp()');
-                } catch (error) {
+                } catch (err) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
                 }
               })
             Button('H5Buffer')
@@ -200,9 +198,9 @@ struct Index {
               .onClick(() => {
                 try {
                   this.controller.runJavaScript('postBufferToApp()');
-                } catch (error) {
+                } catch (err) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
                 }
               })
             Button('H5Number')
@@ -210,22 +208,22 @@ struct Index {
               .onClick(() => {
                 try {
                   this.controller.runJavaScript('postNumberToApp()');
-                } catch (error) {
+                } catch (err) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
                 }
               })
           }
 
-          Row({ space: 10 }) {
+          Row() {
             Button('H5Json')
               .id('h5_send_json_btn')
               .onClick(() => {
                 try {
                   this.controller.runJavaScript('postJsonToApp()');
-                } catch (error) {
+                } catch (err) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
                 }
               })
             Button('H5Array')
@@ -233,9 +231,9 @@ struct Index {
               .onClick(() => {
                 try {
                   this.controller.runJavaScript('postArrayStringToApp()');
-                } catch (error) {
+                } catch (err) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
                 }
               })
             Button('H5Object')
@@ -243,9 +241,9 @@ struct Index {
               .onClick(() => {
                 try {
                   this.controller.runJavaScript('postObjectToApp()');
-                } catch (error) {
+                } catch (err) {
                   console.error(
-                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                    `ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
                 }
               })
           }
