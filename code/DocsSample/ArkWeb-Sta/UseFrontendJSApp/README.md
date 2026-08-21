@@ -13,7 +13,7 @@
 ### 效果预览
 
 | 应用侧调用前端页面函数 | 前端页面调用应用侧函数 | 建立应用侧与前端页面数据通道 | 应用侧与前端页面相互调用(C/C++) |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
 | ![应用侧调用前端页面函数](screenshots/AppCallFrontendFn_1.png) | ![前端页面调用应用侧函数](screenshots/JavaScriptProxy_1.png) | ![建立应用侧与前端页面数据通道](screenshots/EstabDataChannel_1.png) | ![应用侧与前端页面相互调用(C/C++)](screenshots/MutualInvokeCCpp.png) |
 
 使用说明
@@ -125,7 +125,7 @@ entry6/src/main/cpp/
 
 ### 相关权限
 
-entry2模块需要配置[ohos.permission.INTERNET](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissioninternet)，其余模块无特殊权限。
+entry2模块需要配置[ohos.permission.INTERNET](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissioninternet)权限，其余模块无特殊权限。
 
 ### 依赖
 
