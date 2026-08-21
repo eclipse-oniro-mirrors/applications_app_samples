@@ -49,6 +49,11 @@
       }
     ],
     "extensionAbilities": [
+    ],
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.INTERNET"
+      }
     ]
   }
 }

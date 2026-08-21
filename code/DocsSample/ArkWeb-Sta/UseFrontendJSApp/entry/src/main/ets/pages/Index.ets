@@ -1,3 +1,4 @@
+'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,6 +15,7 @@
  */
 
 // [Start interact_with_web_pages_through_button_click_events]
+import { $rawfile, Button, Column, Component, Entry, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 
 @Entry
