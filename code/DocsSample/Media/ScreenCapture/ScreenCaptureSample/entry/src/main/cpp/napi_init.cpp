@@ -46,8 +46,8 @@ void OpenFile(std::string fileName)
 void OpenFile02()
 {
     // 获取沙箱路径。
-    char *fileDirPath;
-    int32_t bufferSize = 1000;
+    char fileDirPath[1000] = {0};
+    int32_t bufferSize = sizeof(fileDirPath);
     int32_t writeLength = 0;
     AbilityRuntime_ErrorCode result = OH_AbilityRuntime_ApplicationContextGetFilesDir(fileDirPath,
         bufferSize, &writeLength);
@@ -702,8 +702,8 @@ static napi_value StartScreenCapture_02(napi_env env, napi_callback_info info)
     }
     OH_AVScreenCaptureConfig config_;
     // 获取沙箱路径。
-    char *fileDirPath;
-    int32_t bufferSize = 1000;
+    char fileDirPath[1000] = {0};
+    int32_t bufferSize = sizeof(fileDirPath);
     int32_t writeLength = 0;
     AbilityRuntime_ErrorCode resultFile = OH_AbilityRuntime_ApplicationContextGetFilesDir(fileDirPath,
         bufferSize, &writeLength);
@@ -933,8 +933,8 @@ static napi_value StartScreenCapture_04(napi_env env, napi_callback_info info)
         OH_LOG_ERROR(LOG_APP, "create screen capture failed");
     }
     OH_AVScreenCaptureConfig config_;
-    char *fileDirPath;
-    int32_t bufferSize = 1000;
+    char fileDirPath[1000] = {0};
+    int32_t bufferSize = sizeof(fileDirPath);
     int32_t writeLength = 0;
     AbilityRuntime_ErrorCode resultWindow = OH_AbilityRuntime_ApplicationContextGetFilesDir(fileDirPath,
         bufferSize, &writeLength);
