@@ -16,6 +16,6 @@
 
 // [Start the_arkts_interface_is_exposed_on_the_node_api_side]
 // entry6/src/main/cpp/types/libentry6/index.d.ts
-export function nativeWebInit: (webName: string) => void;
-export function runJavaScript: (webName: string, jsCode: string) => void;
+export function nativeWebInit(webName: string): void {}
+export function runJavaScript(webName: string, jsCode: string): void {}
 // [End the_arkts_interface_is_exposed_on_the_node_api_side]

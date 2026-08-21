@@ -16,8 +16,9 @@
 // [Start interact_with_the_webview_via_the_native_api]
 // [Start use_the_native_interface_to_bind_arkweb]
 // entry6/src/main/ets/pages/Index.ets
-import testNapi from 'libentry6.so';
+import { $rawfile, Button, Column, Component, Entry, Row, State, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
+import * as testNapi from 'libentry6.so';
 
 class testObj {
   constructor() {
@@ -28,8 +29,9 @@ class testObj {
     return 'ArkUI Web Component';
   }
 
-  toString(): void {
+  toString(): string {
     console.info('Web Component toString');
+    return 'Web Component toString';
   }
 }
 
