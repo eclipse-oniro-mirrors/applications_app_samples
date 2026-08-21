@@ -51,7 +51,7 @@ struct WebComponent {
       Web({ src: $rawfile('index1.html'), controller: this.webviewController})
         // 将对象注入到web端
         .javaScriptProxy({
-          object: this.testObj,
+          jsObject: this.testObj,
           name: 'testObjName',
           methodList: ['test'],
           controller: this.webviewController,

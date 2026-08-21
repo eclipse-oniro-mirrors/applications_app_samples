@@ -23,7 +23,7 @@ class TestClass {
   constructor() {
   }
 
-  test(param: Function): void {
+  test(param: (arg: string) => void): void {
     param('call callback');
   }
 

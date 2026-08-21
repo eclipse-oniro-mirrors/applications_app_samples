@@ -27,8 +27,9 @@ class TestClass {
     return 'ArkUI Web Component';
   }
 
-  toString(): void {
+  toString(): string {
     console.info('Web Component toString');
+    return 'Web Component toString';
   }
 }
 

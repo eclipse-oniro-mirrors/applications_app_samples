@@ -15,7 +15,7 @@
  */
 
 // [Start the_base_type_is_passed_between_the_app_side_and_front_end_pages]
-import { $rawfile, Button, Column, Component, ESObject, Entry, State, Web } from '@kit.ArkUI';
+import { $rawfile, Button, Column, Component, Entry, State, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -34,8 +34,8 @@ class TestClass {
     return st;
   }
 
-  toString(param: ESObject): void {
-    console.info('Web Component toString' + param['name']);
+  toString(param: object): void {
+    console.info('Web Component toString' + (param as Record<string, Object>)['name']);
   }
 }
 

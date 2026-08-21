@@ -15,7 +15,7 @@
  */
 
 // [Start pass_an_array_between_the_application_side_and_the_front_end_page]
-import { $rawfile, Array, Button, Column, Component, Entry, State, Web } from '@kit.ArkUI';
+import { $rawfile, Button, Column, Component, Entry, State, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
 

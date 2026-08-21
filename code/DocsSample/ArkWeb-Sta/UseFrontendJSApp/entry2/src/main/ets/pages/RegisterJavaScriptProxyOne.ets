@@ -27,8 +27,9 @@ class TestClass {
     return 'ArkUI Web Component';
   }
 
-  toString(): void {
+  toString(): string {
     console.info('Web Component toString');
+    return 'Web Component toString';
   }
 }
 
@@ -52,7 +53,7 @@ struct Index {
         })
       Web({ src: $rawfile('index1.html'), controller: this.webviewController })
       // 在页面加载前注册，页面加载完成后生效
-        .onControllerAttached(()=>{
+        .onControllerAttached((): void =>{
           try {
             this.webviewController.registerJavaScriptProxy(this.testObj, 'testObjName', ['test', 'toString'],
                     // 可选参数, asyncMethodList

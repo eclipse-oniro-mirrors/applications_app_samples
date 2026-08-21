@@ -15,7 +15,7 @@
  */
 
 // [Start the_front_end_page_calls_the_function_in_the_object_on_the_application_side]
-import { $rawfile, Button, Column, Component, ESObject, Entry, State, Web } from '@kit.ArkUI';
+import { $rawfile, Button, Column, Component, Entry, State, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -38,7 +38,7 @@ public objReturn: ObjOther
     this.objReturn = new ObjOther(['testOther']);
   }
 
-  test(): ESObject {
+  test(): ObjOther {
     return this.objReturn
   }
 

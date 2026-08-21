@@ -15,9 +15,11 @@
  */
 
 // [Start webview_and_native_modules_are_used_to_implement_complex_message_interaction_between_applications_and_h5_pages]
-import { $rawfile, BarState, Button, Column, Component, Entry, Row, Scroll, ScrollDirection, State, Text, Web } from '@kit.ArkUI';
+import { $rawfile, BarState, Button, Column, Component, Entry, Row, Scroll } from '@kit.ArkUI';
+import { TextArea, ScrollDirection, State, Text, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
+import * as testNapi from 'libentry5.so';;
 
 @Entry
 @Component

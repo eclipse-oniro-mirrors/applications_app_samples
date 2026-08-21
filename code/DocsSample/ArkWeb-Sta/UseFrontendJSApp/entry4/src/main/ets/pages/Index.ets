@@ -17,6 +17,7 @@
 // [Start interact_with_the_webview_via_the_native_api]
 import { $rawfile, Button, Column, Component, Entry, Row, State, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
+import * as testNapi from 'libentry4.so';
 
 class testObj {
   constructor() {
@@ -27,8 +28,9 @@ class testObj {
     return 'ArkUI Web Component';
   }
 
-  toString(): void {
+  toString(): string {
     console.info('Web Component toString');
+    return 'Web Component toString';
   }
 }
 

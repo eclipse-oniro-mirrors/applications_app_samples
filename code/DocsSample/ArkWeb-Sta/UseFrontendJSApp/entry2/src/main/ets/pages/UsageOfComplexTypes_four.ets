@@ -15,7 +15,7 @@
  */
 
 // [Start call_the_function_in_the_object_of_the_front_end_page_on_the_application_side]
-import { $rawfile, Button, Column, Component, ESObject, Entry, State, Web } from '@kit.ArkUI';
+import { $rawfile, Button, Column, Component, Entry, State, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -23,8 +23,10 @@ class TestClass {
   constructor() {
   }
 
-  test(param: ESObject): void {
-    param.hello('call obj func');
+  test(param: object): void {
+    let obj = param as Record<string, Object>;
+    let hello = obj['hello'] as (arg: string) => void;
+    hello('call obj func');
   }
 
   toString(param: string): void {

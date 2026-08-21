@@ -23,8 +23,8 @@ class TestClass {
   constructor() {
   }
 
-  test(param:Function): void {
-    setTimeout( () => { param('suc') }, 10000)
+  test(param: (arg: string) => void): void {
+    setTimeout((): void => { param('suc') }, 10000 as int)
   }
 
   toString(param:string): void {

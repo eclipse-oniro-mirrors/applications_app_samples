@@ -24,10 +24,10 @@ class TestClass {
   }
 
   test(): Promise<string> {
-    let p: Promise<string> = new Promise((resolve, reject) => {
+    let p: Promise<string> = new Promise<string>((resolve: (value: string) => void, reject: (reason: Error) => void) => {
       setTimeout(() => {
         console.info('Execute Finished');
-        reject('fail');
+        reject(new Error('fail'));
       }, 10000);
     });
     return p;
