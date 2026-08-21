@@ -2,7 +2,7 @@
 
 ### 介绍
 
-本示例主要介绍Web组件应用侧与前端页面的交互功能，包含5个模块，分别实现对以下指南文档中示例代码片段的工程化，保证指南中示例代码与sample工程文件同源：
+本示例主要展示了Web组件应用侧与前端页面的交互功能，使用[@ohos.web.webview](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-arkweb/js-apis-webview.md)等接口，实现了应用侧调用前端页面函数、前端页面调用应用侧函数、建立应用侧与前端页面数据通道，以及基于C/C++的应用侧与前端页面相互调用和数据通道共5个功能场景，分别是对以下指南文档中示例代码片段的工程化，保证指南中示例代码与sample工程文件同源：
 
 1. entry模块：应用侧调用前端页面函数，对应指南[web-in-app-frontend-page-function-invoking](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-in-app-frontend-page-function-invoking.md)，应用侧通过[runJavaScript()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-arkweb/arkts-apis-webview-WebviewController.md#runjavascript)和[runJavaScriptExt()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-arkweb/arkts-apis-webview-WebviewController.md#runjavascriptext10)方法调用前端页面的JavaScript相关函数；
 2. entry2模块：前端页面调用应用侧函数，对应指南[web-in-page-app-function-invoking](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/web/web-in-page-app-function-invoking.md)，在Web组件初始化时使用[javaScriptProxy()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-arkweb/arkts-basic-components-web-attributes.md#javascriptproxy)接口注册应用侧代码，或初始化完成后使用[registerJavaScriptProxy()](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-arkweb/arkts-apis-webview-WebviewController.md#registerjavascriptproxy)接口注册应用侧代码，并通过[deleteJavaScriptRegister](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-arkweb/arkts-apis-webview-WebviewController.md#deletejavascriptregister)接口反注册，防止内存泄漏；
@@ -134,7 +134,7 @@ entry2模块需要配置[ohos.permission.INTERNET](https://docs.openharmony.cn/p
 ### 约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568。
-2. 本示例支持API20版本SDK，SDK版本号(API Version 20 Release)。
+2. 本示例为Stage模型，仅支持API20版本SDK，SDK版本号(API Version 20 Release)。
 3. 本示例需要使用DevEco Studio 版本号(6.0.0Release)及以上版本才可编译运行。
 
 ### 下载
