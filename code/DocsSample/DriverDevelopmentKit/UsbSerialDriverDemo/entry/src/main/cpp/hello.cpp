@@ -223,7 +223,7 @@ void Test()
     params.baudRate = NUM_BAUDRATE;
     params.nDataBits = NUM_EIGHT;
     params.nStopBits = 1;
-    params.parity = USB_SERIAL_NO_PARITY;
+    params.parity = USB_SERIAL_PARITY_NONE;
     // 设置串口参数
     OH_UsbSerial_SetParams(dev, &params);
     
