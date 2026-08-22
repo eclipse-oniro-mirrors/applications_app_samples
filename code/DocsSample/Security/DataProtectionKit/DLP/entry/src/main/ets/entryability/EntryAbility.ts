@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,12 +32,14 @@ export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
     let permissions: Array<Permissions> = [
       'ohos.permission.FILE_ACCESS_MANAGER',
+      'ohos.permission.STORAGE_MANAGER',
       'ohos.permission.GET_BUNDLE_INFO_PRIVILEGED',
       'ohos.permission.ACCESS_DLP_FILE',
-      "ohos.permission.MANAGE_DISTRIBUTED_ACCOUNTS",
-      "ohos.permission.MANAGE_LOCAL_ACCOUNTS",
-      "ohos.permission.GET_LOCAL_ACCOUNTS",
-      "ohos.permission.MANAGE_DISTRIBUTED_ACCOUNTS"
+      'ohos.permission.MANAGE_DISTRIBUTED_ACCOUNTS',
+      'ohos.permission.MANAGE_LOCAL_ACCOUNTS',
+      'ohos.permission.GET_LOCAL_ACCOUNTS',
+      'ohos.permission.ENTERPRISE_ACCESS_DLP_FILE',
+      'ohos.permission.ENTERPRISE_DATA_IDENTIFY_FILE'
     ]
     let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
     atManager.requestPermissionsFromUser(this.context, permissions, (code, result) => {
