@@ -80,8 +80,10 @@ export struct Submenu {
   // [Start input_case_input_switchInputMethodgetInputMethods]
   async switchCurrentInputMethodSubtype(item: InputMethodSubtype) {
     try {
-      await inputMethod.switchCurrentInputMethodSubtype(item);
-      this.currentInputMethodSubtype = inputMethod.getCurrentInputMethodSubtype().id;
+      let isSuccess = await inputMethod.switchCurrentInputMethodSubtype(item);
+      if (isSuccess) {
+        this.currentInputMethodSubtype = inputMethod.getCurrentInputMethodSubtype().id;
+      }
     } catch (err) {
       let error: BusinessError = err as BusinessError;
       console.error(`SwitchCurrentInputMethodSubtype error: ${error.code} ${error.message}`);

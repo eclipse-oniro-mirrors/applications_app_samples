@@ -17,7 +17,7 @@
 import { deviceInfo } from '@kit.BasicServicesKit';
 import Log from '../../model/Log';
 import { EditView } from '../../components/EditView';
-import { InputHandler } from '../model/KeyboardController';
+import { InputHandler, CustomInputMethodSubtype } from '../model/KeyboardController';
 import {
   MenuType,
   SubMenuType,
@@ -44,7 +44,7 @@ struct Index {
   @StorageLink('isRkDevice') isRkDevice: boolean = true;
   @StorageLink('inputStyle') inputStyle: KeyStyle = StyleConfiguration.getInputStyle(this.isLandscape, this.isRkDevice, DEVICE_TYPE);
   private panel: inputMethodEngine.Panel | undefined;
-  @StorageLink('subtypeChange') subtypeChange: number = 0;
+  @StorageLink('subtypeChange') subtypeChange: number = CustomInputMethodSubtype.english;
 
 
   aboutToAppear(): void {
@@ -96,7 +96,7 @@ struct Index {
             }
           } else {
             if (this.menuType === MenuType.NORMAL) {
-              if (this.subtypeChange == 0) {
+              if (this.subtypeChange == CustomInputMethodSubtype.english) {
                 KeyMenu()
               } else {
                 NumberMenu()

@@ -21,7 +21,6 @@ import { getHardKeyValue } from '../../model/HardKeyUtils';
 import { KeyCode } from '@kit.InputKit';
 import { StyleConfiguration } from '../../common/StyleConfiguration';
 
-
 interface DeviceSize {
   width: number;
   height: number;
@@ -37,6 +36,7 @@ const previewContent: string = 'hello world';
 const inputMethodAbility: inputMethodEngine.InputMethodAbility = inputMethodEngine.getInputMethodAbility();
 const TAG: string = 'KeyboardController->';
 const isDebug: boolean = false;
+
 // 定义不同设备的宽高，用于键盘显示适配不同设备
 const DEVICE_PHONE: DeviceSize = {
   width: 1344,
@@ -56,8 +56,6 @@ const KEYBOARD_HEIGHT_RATE_PHONE: number = 0.38;
 const KEYBOARD_HEIGHT_RATE_PHONE_LAND: number = 0.5;
 const KEYBOARD_HEIGHT_RATE_BIG_LAND: number = 0.38;
 const KEYBOARD_HEIGHT_RATE_BIG: number = 0.3;
-// 定义默认的底部导航栏高度
-const NAVIGATIONBAR_HEIGHT_DEFAULT: number = 72;
 
 export class InputHandler {
   private mKbController: inputMethodEngine.KeyboardController | undefined;
@@ -387,8 +385,14 @@ export class InputHandler {
 }
 
 // [Start input_case_input_KeyboardController358]
+
+// 定义输入法的两个子类型
+export enum CustomInputMethodSubtype {
+  english = 0,
+  chinese = 1
+};
+
 class KeyboardController {
-  private barPosition: number = 0;
   private keyCodes: Array<number> = [];
   private mContext: InputMethodExtensionContext | undefined;
   private panel: inputMethodEngine.Panel | undefined;
@@ -435,7 +439,6 @@ class KeyboardController {
     this.inputHandle.addLog("initWindow-oncall display");
     let dWidth = dis.width;
     let dHeight = dis.height;
-    let navigationBar_height = NAVIGATIONBAR_HEIGHT_DEFAULT;
     let keyHeightRate = KEYBOARD_HEIGHT_RATE_DEFAULT;
     AppStorage.setOrCreate('windowWidth', dis.width);
     AppStorage.setOrCreate('windowHeight', dis.height);
@@ -448,24 +451,18 @@ class KeyboardController {
       AppStorage.setOrCreate('isLandscape', false);
     }
     if (dWidth === DEVICE_PHONE.width && dHeight === DEVICE_PHONE.height) {
-      navigationBar_height = 0;
       keyHeightRate = KEYBOARD_HEIGHT_RATE_PHONE;
     } else if (dWidth === DEVICE_PHONE.height && dHeight === DEVICE_PHONE.width) {
-      navigationBar_height = 0;
       keyHeightRate = KEYBOARD_HEIGHT_RATE_PHONE_LAND;
     } else if (dWidth === DEVICE_RK.width && dHeight === DEVICE_RK.height) {
-      navigationBar_height = KEYBOARD_HEIGHT_RATE_DEFAULT;
       AppStorage.setOrCreate('isRkDevice', true);
       isRkDevice = true;
     } else if (dWidth === DEVICE_BIG.width && dHeight === DEVICE_BIG.height) {
-      navigationBar_height = 0;
       keyHeightRate = KEYBOARD_HEIGHT_RATE_BIG_LAND;
     } else if (dWidth === DEVICE_BIG.height && dHeight === DEVICE_BIG.width) {
-      navigationBar_height = 0;
       keyHeightRate = KEYBOARD_HEIGHT_RATE_BIG;
     }
     let keyHeight = dHeight * keyHeightRate;
-    this.barPosition = dHeight - keyHeight - navigationBar_height;
     this.inputHandle.addLog(`initWindow-dWidth = ${dWidth};dHeight = ${dHeight};keyboard height = ${keyHeight};;navibar height = navigationBar_height`);
     this.inputHandle.addLog(`initWindow-deviceType = ${deviceInfo.deviceType}`);
     let panelInfo: inputMethodEngine.PanelInfo = {
@@ -573,10 +570,10 @@ class KeyboardController {
     // 设置监听子类型事件，改变输入法应用界面
     inputMethodAbility.on('setSubtype', (inputMethodSubtype: InputMethodSubtype) => {
       if (inputMethodSubtype.id === 'InputMethodExtAbility') {
-        AppStorage.setOrCreate('subtypeChange', 0);
+        AppStorage.setOrCreate('subtypeChange', CustomInputMethodSubtype.english);
       }
       if (inputMethodSubtype.id === 'InputMethodExtAbility1') {
-        AppStorage.setOrCreate('subtypeChange', 1);
+        AppStorage.setOrCreate('subtypeChange', CustomInputMethodSubtype.chinese);
       }
     });
     // [End input_case_input_KeyboardControllersetSubtype]
@@ -762,7 +759,12 @@ class KeyboardController {
 
   private unRegisterListener(): void {
     this.inputHandle.addLog('unRegisterListener');
-
+    try {
+      display.off('change');
+    } catch (err) {
+      let error = err as BusinessError;
+      Log.showError(TAG, `display off change catch error: ${error.code} ${error.message}`);
+    }
     inputMethodAbility.off('inputStop', () => {
       this.inputHandle.addLog('inputStop off');
     });
