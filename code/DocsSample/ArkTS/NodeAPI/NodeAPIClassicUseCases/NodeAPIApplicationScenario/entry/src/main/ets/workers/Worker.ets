@@ -23,7 +23,7 @@ const port = worker.workerPort;
 
 port.onmessage = (e: MessageEvents) => {
   console.info('Worker thread received:' + e.data);
-  nativeModule.startWithCallback('Hello', (result: string) => {
+  nativeModule.startWithCallback('Worker', (result: string) => {
     console.info('[Worker] Got from native:', result);
     port.postMessage(result);
   });
