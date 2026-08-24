@@ -33,7 +33,7 @@ struct Index {
   aboutToAppear(): void {
     testNapi.nativeInit();
   }
-  // 页面离开到屏幕时
+  // 页面离开屏幕时
   aboutToDisappear(): void {
     testNapi.nativeRelease();
   }
