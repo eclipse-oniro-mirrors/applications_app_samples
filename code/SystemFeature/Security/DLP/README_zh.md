@@ -1,19 +1,19 @@
 # DLP
 
-### 介绍
+## 介绍
 
 本示例是一个安全类App，使用[@ohos.dlpPermission](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/DataProtectionKit/dlp-guidelines.md) 接口展示了在eTS中常用接口的调用。
 
-### 效果预览
+## 效果预览
 | Index                                     | 
 |-----------------------------------------|
 | ![Index](screenshots/devices/index_pages.jpg) | 
 
-使用说明:
+**使用说明：**
 1.启动后点击文件图标，选择一个文件
-2.点击对应文字按钮，完成对应的接口调用，具体接口说明可以参考https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/DataProtectionKit/dlp-guidelines.md
+2.点击对应文字按钮，完成对应的接口调用，具体接口说明可以参考[@ohos.dlpPermission]https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/DataProtectionKit/dlp-guidelines.md
 
-### 工程目录
+## 工程目录
 ```
 entry/src/main/ets/
 |---component
@@ -29,7 +29,15 @@ entry/src/main/ets/
 |   |---ResourceUtils.ets                       // 资源转换
 ```
 
-### 相关权限
+## 具体实现
+
+* 该应用中的17个按钮，对应着不同的接口函数。除了右上角的打开和选择文件按钮外，其它按钮的具体功能都已经在按钮上的字体进行了说明。
+
+* 可以通过不同按钮的排列组合完成特定功能，比如设置沙箱应用配置信息和查找沙箱应用配置信息。
+
+* 在选择文件按钮中，可以存储选择文件的URI，从而完成文件打开和文件类型判断操作等。
+
+## 相关权限
 
 允许文件管理类应用通过FAF框架访问公共数据文件：[ohos.permission.FILE_ACCESS_MANAGER](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md#ohospermissionfile_access_manager)
 
@@ -51,11 +59,11 @@ entry/src/main/ets/
 
 允许设备管理应用识别文件敏感内容：[ohos.permission.ENTERPRISE_DATA_IDENTIFY_FILE](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-mdm-apps.md#ohospermissionenterprise_data_identify_file)
 
-### 依赖
+## 依赖
 
 需要依赖三方应用文本编辑FileEdit的[hap](screenshots/haps)。
 
-### 约束与限制
+## 约束与限制
 
 1. 本示例仅支持标准系统上运行。
 2. 本示例可在API26及其以上版本的SDK上运行。
@@ -169,3 +177,13 @@ java -jar hap-sign-tool.jar sign-app -keyAlias "openharmony application release"
 （12）安装应用<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hdc install app1-signed.hap<br>
 （13）如果之后更改了DLP samples项目，再次执行Build Hap(s)，然后将entry-default-unsigned.hap移到目录 .\developtools_hapsigner-master\dist下，运行签名应用.bat，执行hdc install app1-signed.hap
+
+## 下载
+
+```
+git init
+git config core.sparsecheckout true
+echo code/SystemFeature/Security/DLP/ > .git/info/sparse-checkout
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
+git pull origin master
+```
