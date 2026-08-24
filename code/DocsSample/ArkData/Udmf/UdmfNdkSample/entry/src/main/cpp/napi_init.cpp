@@ -59,7 +59,7 @@ int32_t GetTypeId()
 // [End udmf_sample_get_typeId]
 
 // [Start udmf_sample_send_unifieddata]
-int32_t SendUnifieddata()
+int32_t SendUnifiedData()
 {
     // 1. 创建超链接hyperlink数据的UDS数据结构。
     OH_UdsHyperlink* hyperlink = OH_UdsHyperlink_Create();
@@ -110,7 +110,7 @@ static void ProcessHyperlinkFromRecord(OH_UdmfRecord* record, OH_UdsHyperlink* h
     }
 }
 
-int32_t GetUnifieddata()
+int32_t GetUnifiedData()
 {
     // 1. 创建统一数据OH_UdmfData。
     OH_UdmfData* readData = OH_UdmfData_Create();
@@ -149,7 +149,7 @@ int32_t GetUnifieddata()
 }
 // [End udmf_sample_get_unifieddata]
 
-// [Start udmf_ample_get_data_callback]
+// [Start udmf_sample_get_data_callback]
 // 为了代码可读性，代码中省略了各个步骤操作结果的校验，实际开发中需要确认每次调用的成功。
 // 1. 获取数据时触发的提供UDS数据的回调函数。
 static void* GetDataCallback(void* context, const char* type)
@@ -166,10 +166,10 @@ static void* GetDataCallback(void* context, const char* type)
 }
 // 4. OH_UdmfRecordProvider销毁时触发的回调函数。
 static void ProviderFinalizeCallback(void* context) { OH_LOG_INFO(LOG_APP, "OH_UdmfRecordProvider finalize."); }
-// [End udmf_ample_get_data_callback]
+// [End udmf_sample_get_data_callback]
 
 // [Start udmf_sample_send_delay_unifieddata]
-int32_t SendDelayUnifieddata()
+int32_t SendDelayUnifiedData()
 {
     // 为了代码可读性，代码中省略了各个步骤操作结果的校验，实际开发中需要确认每次调用的成功。
     // 1. 创建一个统一数据提供者，并配置它提供数据、销毁时的两个回调函数。
@@ -206,25 +206,25 @@ static napi_value NAPI_Global_getTypeId(napi_env env, napi_callback_info info)
     return result;
 }
 
-static napi_value NAPI_Global_sendUnifieddata(napi_env env, napi_callback_info info)
+static napi_value NAPI_Global_sendUnifiedData(napi_env env, napi_callback_info info)
 {
-    int32_t ret = SendUnifieddata();
+    int32_t ret = SendUnifiedData();
     napi_value result;
     napi_create_int32(env, ret, &result);
     return result;
 }
 
-static napi_value NAPI_Global_getUnifieddata(napi_env env, napi_callback_info info)
+static napi_value NAPI_Global_getUnifiedData(napi_env env, napi_callback_info info)
 {
-    int32_t ret = GetUnifieddata();
+    int32_t ret = GetUnifiedData();
     napi_value result;
     napi_create_int32(env, ret, &result);
     return result;
 }
 
-static napi_value NAPI_Global_sendDelayUnifieddata(napi_env env, napi_callback_info info)
+static napi_value NAPI_Global_sendDelayUnifiedData(napi_env env, napi_callback_info info)
 {
-    int32_t ret = SendDelayUnifieddata();
+    int32_t ret = SendDelayUnifiedData();
     napi_value result;
     napi_create_int32(env, ret, &result);
     return result;
@@ -234,9 +234,9 @@ EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports) {
     napi_property_descriptor desc[] = {
         {"getTypeId", nullptr, NAPI_Global_getTypeId, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"sendUnifieddata", nullptr, NAPI_Global_sendUnifieddata, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"getUnifieddata", nullptr, NAPI_Global_getUnifieddata, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"sendDelayUnifieddata", nullptr, NAPI_Global_sendDelayUnifieddata, nullptr, nullptr, nullptr, napi_default,
+        {"sendUnifiedData", nullptr, NAPI_Global_sendUnifiedData, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getUnifiedData", nullptr, NAPI_Global_getUnifiedData, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"sendDelayUnifiedData", nullptr, NAPI_Global_sendDelayUnifiedData, nullptr, nullptr, nullptr, napi_default,
             nullptr},
     };
     napi_define_properties(env, exports, sizeof(desc)/sizeof(desc[0]), desc);
