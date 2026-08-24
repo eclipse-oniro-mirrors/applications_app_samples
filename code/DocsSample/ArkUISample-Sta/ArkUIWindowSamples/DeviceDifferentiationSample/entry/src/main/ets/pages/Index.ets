@@ -16,8 +16,8 @@
  */
 
 // [Start rotation_policy]
-import { window, display, Entry, Component, RelativeContainer, Text, TextAlign, State } from '@kit.ArkUI'
-import common from '@ohos.app.ability.common';
+import { window, display, Entry, Component, RelativeContainer, Text, TextAlign, State } from '@kit.ArkUI';
+import { common } from '@kit.AbilityKit';
 import { Callback } from '@kit.BasicServicesKit';
 
 @Entry
