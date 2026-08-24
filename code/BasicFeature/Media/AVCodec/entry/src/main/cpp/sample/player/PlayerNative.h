@@ -16,15 +16,7 @@
 #ifndef VIDEO_CODEC_SAMPLE_PLAYER_NATIVE_H
 #define VIDEO_CODEC_SAMPLE_PLAYER_NATIVE_H
 
-#include "Player.h"
-#include "av_codec_sample_log.h"
-#include "dfx/error/av_codec_sample_error.h"
 #include "napi/native_api.h"
-#include "plugin_manager.h"
-#include <js_native_api.h>
-#include <js_native_api_types.h>
-#include <memory>
-#include <uv.h>
 
 class PlayerNative {
 public:

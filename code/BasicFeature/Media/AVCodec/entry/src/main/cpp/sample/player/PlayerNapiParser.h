@@ -13,11 +13,18 @@
  * limitations under the License.
  */
 
-#ifndef AVCODEC_SAMPLE_INFO_H
-#define AVCODEC_SAMPLE_INFO_H
+#ifndef VIDEO_CODEC_PLAYER_NAPI_PARSER_H
+#define VIDEO_CODEC_PLAYER_NAPI_PARSER_H
 
-#include "codec_buffer.h"
-#include "codec_user_data.h"
+#include "napi/native_api.h"
 #include "sample_config.h"
 
-#endif // AVCODEC_SAMPLE_INFO_H
+namespace PlayerNapiParser {
+bool ParseLegacyPlayArguments(napi_env env, napi_callback_info info, SampleInfo &sampleInfo,
+    napi_value &callback);
+bool ParseStructuredPlayArguments(napi_env env, napi_callback_info info, SampleInfo &sampleInfo,
+    napi_value &callback);
+bool ParseSeekPosition(napi_env env, napi_callback_info info, int64_t &positionUs);
+} // namespace PlayerNapiParser
+
+#endif // VIDEO_CODEC_PLAYER_NAPI_PARSER_H
