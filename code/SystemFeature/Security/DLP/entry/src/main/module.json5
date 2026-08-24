@@ -72,7 +72,14 @@
       },
       {
         "name": "ohos.permission.GET_LOCAL_ACCOUNTS"
+      },
+      {
+        "name": "ohos.permission.ENTERPRISE_ACCESS_DLP_FILE"
+      },
+      {
+        "name": "ohos.permission.ENTERPRISE_DATA_IDENTIFY_FILE"
       }
+
     ]
   }
 }
