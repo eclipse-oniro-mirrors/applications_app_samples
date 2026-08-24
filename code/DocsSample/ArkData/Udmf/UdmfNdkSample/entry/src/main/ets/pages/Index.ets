@@ -34,28 +34,28 @@ struct Index {
             testNapi.getTypeId();
           })
 
-        Button('sendUnifieddata')
+        Button('sendUnifiedData')
           .width('50%')
           .height('5%')
           .margin({ top: 15, bottom: 15 } as Margin)
           .onClick(() => {
-            testNapi.sendUnifieddata();
+            testNapi.sendUnifiedData();
           })
 
-        Button('getUnifieddata')
+        Button('getUnifiedData')
           .width('50%')
           .height('5%')
           .margin({ top: 15, bottom: 15 } as Margin)
           .onClick(() => {
-            testNapi.getUnifieddata();
+            testNapi.getUnifiedData();
           })
 
-        Button('sendDelayUnifieddata')
+        Button('sendDelayUnifiedData')
           .width('50%')
           .height('5%')
           .margin({ top: 15, bottom: 15 } as Margin)
           .onClick(() => {
-            testNapi.sendDelayUnifieddata();
+            testNapi.sendDelayUnifiedData();
           })
       }
       .width('100%')

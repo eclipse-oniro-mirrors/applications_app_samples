@@ -14,6 +14,6 @@
  */
 
 export declare function getTypeId(): void;
-export declare function sendUnifieddata(): void;
-export declare function getUnifieddata(): void;
-export declare function sendDelayUnifieddata(): void;
+export declare function sendUnifiedData(): void;
+export declare function getUnifiedData(): void;
+export declare function sendDelayUnifiedData(): void;
