@@ -1,0 +1,9 @@
+{
+  "routerMap": [
+    {
+      "name": "c_api_test",
+      "pageSourceFile": "src/main/ets/pages/CApiTest.ets",
+      "buildFunction": "CApiTestBuilder"
+    }
+  ]
+}
