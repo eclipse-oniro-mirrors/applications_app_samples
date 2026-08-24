@@ -36,7 +36,7 @@ import {
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { AppStorage, StorageLink } from '@ohos.arkui.stateManagement';
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const DOMAIN = 0x0000;
 const TAG = 'SubWindowPage';
