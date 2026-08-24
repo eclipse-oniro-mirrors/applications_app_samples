@@ -27,11 +27,11 @@ struct DialogWindow {
       return;
     }
     // [Start destroy_dialog_window]
-    // 4.销毁子窗口。当不再需要子窗口时，可根据具体实现逻辑，使用destroy对其进行销毁。
+    // 4.销毁模态窗口。当不再需要模态窗口时，可根据具体实现逻辑，使用destroy对其进行销毁。
     dialogWindowClass.destroyWindow((err: BusinessError) => {
       let errCode: number = err.code;
       if (errCode) {
-        console.error('Failed to destroy the window. Cause: ' + JSON.stringify(err));
+        console.error(`Failed to destroy the window. Cause code: ${err.code}, message: ${err.message}`);
         return;
       }
       console.info('Succeeded in destroying the window.');
