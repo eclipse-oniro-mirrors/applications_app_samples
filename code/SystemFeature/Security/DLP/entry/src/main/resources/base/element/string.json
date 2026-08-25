@@ -25,6 +25,10 @@
       "value": "work"
     },
     {
+      "name": "encryption_reminder",
+      "value": "This file is already encrypted. Please select an unencrypted file for encryption."
+    },
+    {
       "name": "authorization_reminder",
       "value": "Please select authorization."
     },
