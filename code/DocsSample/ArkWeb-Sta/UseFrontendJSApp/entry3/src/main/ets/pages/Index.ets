@@ -67,9 +67,8 @@ struct WebComponent {
             } else {
               console.error(`ports is null, Please initialize first`);
             }
-          } catch (error) {
-            console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+          } catch (err) {
+            console.error(`ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
           }
         })
 
@@ -82,27 +81,25 @@ struct WebComponent {
             } else {
               console.error(`ports is null, Please initialize first`);
             }
-          } catch (error) {
-            console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+          } catch (err) {
+            console.error(`ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
           }
         })
 
       // 5、关闭端口。  
       Button('closePort')
-      .onClick(() => {
-        try {
-          if (this.ports && this.ports.length == 2) {
-            this.ports[0].close();
-            this.ports = [];
-          } else {
-            console.error(`ports is null, not need close`);
+        .onClick(() => {
+          try {
+            if (this.ports && this.ports.length == 2) {
+              this.ports[0].close();
+              this.ports = [];
+            } else {
+              console.error(`ports is null, not need close`);
+            }
+          } catch (err) {
+            console.error(`ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
           }
-        } catch (error) {
-          console.error(
-            `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
-        }
-      })
+        })
       Web({ src: $rawfile('index.html'), controller: this.controller })
     }
   }

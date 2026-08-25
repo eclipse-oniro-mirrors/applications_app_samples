@@ -15,7 +15,7 @@
  */
 
 // [Start call_the_function_in_the_object_of_the_front_end_page_on_the_application_side]
-import { $rawfile, Button, Column, Component, ESObject, Entry, State, Web } from '@kit.ArkUI';
+import { $rawfile, Button, Column, Component, Entry, State, Web } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -23,8 +23,10 @@ class TestClass {
   constructor() {
   }
 
-  test(param: ESObject): void {
-    param.hello('call obj func');
+  test(param: object): void {
+    let obj = param as Record<string, Object>;
+    let hello = obj['hello'] as (arg: string) => void;
+    hello('call obj func');
   }
 
   toString(param: string): void {
@@ -44,27 +46,24 @@ struct Index {
         .onClick(() => {
           try {
             this.webviewController.refresh();
-          } catch (error) {
-            console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+          } catch (err) {
+            console.error(`ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
           }
         })
       Button('Register JavaScript To Window')
         .onClick(() => {
           try {
             this.webviewController.registerJavaScriptProxy(this.testObj, 'testObjName', ['test', 'toString']);
-          } catch (error) {
-            console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+          } catch (err) {
+            console.error(`ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
           }
         })
       Button('deleteJavaScriptRegister')
         .onClick(() => {
           try {
             this.webviewController.deleteJavaScriptRegister('testObjName');
-          } catch (error) {
-            console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+          } catch (err) {
+            console.error(`ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
           }
         })
       Web({ src: $rawfile('index6.html'), controller: this.webviewController })

@@ -1,3 +1,4 @@
+'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,15 +16,15 @@
 
 // [Start the_arkts_interface_is_exposed_on_the_node_api_side]
 // entry5/src/main/cpp/types/libentry5/index.d.ts
-export const nativeWebInit: (webName: string) => void;
-export const createWebMessagePorts: (webName: string) => void;
-export const postMessage: (webName: string) => void;
-export const postNoneMessage: (webName: string) => void;
-export const setMessageEventHandler: (webName: string) => void;
-export const closeMessagePort: (webName: string) => void;
-export const destroyMessagePort: (webName: string) => void;
-export const postBufferMessage: (webName: string) => void;
-export const destroyNullMessagePort: (webName: string) => void;
-export const setMessageEventHandlerThread: (webName: string) => void;
-export const postMessageThread: (webName: string) => void;
+export function nativeWebInit(webName: string): void {}
+export function createWebMessagePorts(webName: string): void {}
+export function postMessage(webName: string): void {}
+export function postNoneMessage(webName: string): void {}
+export function setMessageEventHandler(webName: string): void {}
+export function closeMessagePort(webName: string): void {}
+export function destroyMessagePort(webName: string): void {}
+export function postBufferMessage(webName: string): void {}
+export function destroyNullMessagePort(webName: string): void {}
+export function setMessageEventHandlerThread(webName: string): void {}
+export function postMessageThread(webName: string): void {}
 // [End the_arkts_interface_is_exposed_on_the_node_api_side]

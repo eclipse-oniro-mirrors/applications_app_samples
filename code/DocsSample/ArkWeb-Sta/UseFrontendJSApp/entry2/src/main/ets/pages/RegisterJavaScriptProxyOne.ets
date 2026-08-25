@@ -27,8 +27,9 @@ class TestClass {
     return 'ArkUI Web Component';
   }
 
-  toString(): void {
+  toString(): string {
     console.info('Web Component toString');
+    return 'Web Component toString';
   }
 }
 
@@ -46,13 +47,13 @@ struct Index {
           try {
             this.webviewController.deleteJavaScriptRegister('testObjName');
             this.webviewController.refresh();
-          } catch (error) {
-            console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+          } catch (err) {
+            console.error(`ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
           }
         })
       Web({ src: $rawfile('index1.html'), controller: this.webviewController })
       // 在页面加载前注册，页面加载完成后生效
-        .onControllerAttached(()=>{
+        .onControllerAttached((): void => {
           try {
             this.webviewController.registerJavaScriptProxy(this.testObj, 'testObjName', ['test', 'toString'],
                     // 可选参数, asyncMethodList
@@ -64,8 +65,8 @@ struct Index {
                     '{"methodName":"test11","urlPermissionList":[{"scheme":"q","host":"r","port":"","path":"t"},' +
                     '{"scheme":"u","host":"v","port":"","path":""}]}]}}'
             );
-          } catch (error) {
-            console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+          } catch (err) {
+            console.error(`ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
           }
         })
     }

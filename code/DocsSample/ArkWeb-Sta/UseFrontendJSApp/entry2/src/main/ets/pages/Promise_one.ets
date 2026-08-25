@@ -24,10 +24,10 @@ class TestClass {
   }
 
   test(): Promise<string> {
-    let p: Promise<string> = new Promise((resolve, reject) => {
+    let p: Promise<string> = new Promise<string>((resolve: (value: string) => void, reject: (reason: Error) => void) => {
       setTimeout(() => {
         console.info('Execute Finished');
-        reject('fail');
+        reject(new Error('fail'));
       }, 10000);
     });
     return p;
@@ -50,27 +50,24 @@ struct Index {
         .onClick(() => {
           try {
             this.webviewController.refresh();
-          } catch (error) {
-            console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+          } catch (err) {
+            console.error(`ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
           }
         })
       Button('Register JavaScript To Window')
         .onClick(() => {
           try {
             this.webviewController.registerJavaScriptProxy(this.testObj, 'testObjName', ['test', 'toString']);
-          } catch (error) {
-            console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+          } catch (err) {
+            console.error(`ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
           }
         })
       Button('deleteJavaScriptRegister')
         .onClick(() => {
           try {
             this.webviewController.deleteJavaScriptRegister('testObjName');
-          } catch (error) {
-            console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+          } catch (err) {
+            console.error(`ErrorCode: ${(err as BusinessError).code},  Message: ${(err as BusinessError).message}`);
           }
         })
       Web({ src: $rawfile('index2.html'), controller: this.webviewController })

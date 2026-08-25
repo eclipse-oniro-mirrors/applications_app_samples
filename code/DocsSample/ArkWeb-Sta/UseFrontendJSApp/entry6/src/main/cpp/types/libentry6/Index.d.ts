@@ -1,3 +1,4 @@
+'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +16,6 @@
 
 // [Start the_arkts_interface_is_exposed_on_the_node_api_side]
 // entry6/src/main/cpp/types/libentry6/index.d.ts
-export const nativeWebInit: (webName: string) => void;
-export const runJavaScript: (webName: string, jsCode: string) => void;
+export function nativeWebInit(webName: string): void {}
+export function runJavaScript(webName: string, jsCode: string): void {}
 // [End the_arkts_interface_is_exposed_on_the_node_api_side]
