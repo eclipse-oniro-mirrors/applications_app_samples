@@ -65,7 +65,7 @@ function drawChineseStrokeText(canvas: drawing.Canvas) {
   let pen = new drawing.Pen();
   // 设置抗锯齿
   brush.setAntiAlias(true);
-  // 设置描边颜色
+  // 设置填充颜色
   brush.setColor(0xFF, 0xFF, 0xFF, 0xFF);
 
   pen.setAntiAlias(true);
