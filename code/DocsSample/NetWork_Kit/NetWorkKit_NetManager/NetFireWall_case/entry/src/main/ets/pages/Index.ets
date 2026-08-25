@@ -222,8 +222,8 @@ struct Index {
           isWildcard: false,
           domain: 'www.HarmonyOS.cn'
         },{
-        isWildcard: true,
-        domain: '*.HarmonyOS.cn'
+          isWildcard: true,
+          domain: '*.HarmonyOS.cn'
         },{
           isWildcard: true,
           domain: '*w.HarmonyOS.cn' // 从API版本26.0.0开始支持
