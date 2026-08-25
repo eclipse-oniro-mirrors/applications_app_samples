@@ -76,7 +76,7 @@ struct Index {
         this.currentProgress = data;
       }
     }
-    // [Start DestroyWorkerThread]
+    // [End DestroyWorkerThread]
 
 
     // 注册onErrors回调，可以捕获Worker线程的onmessage回调、timer回调以及文件执行等流程产生的全局异常，
