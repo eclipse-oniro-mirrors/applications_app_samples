@@ -380,6 +380,8 @@ void SampleGraphics::DisPlayGPU()
     OH_Drawing_CanvasDrawBitmap(cScreenCanvas_, cOffScreenBitmap_, 0, 0);
     // [End ndk_graphics_draw_drawing_to_window_canvas_gpu]
     DisPlay();
+    OH_Drawing_BitmapDestroy(cOffScreenBitmap_);
+    free(dstPixels);
 }
 
 void SampleGraphics::DrawClipOperation(OH_Drawing_Canvas *canvas)
@@ -393,7 +395,7 @@ void SampleGraphics::DrawClipOperation(OH_Drawing_Canvas *canvas)
     OH_Drawing_CanvasAttachBrush(canvas, brush);
     OH_Drawing_Rect *rect = OH_Drawing_RectCreate(value400_, value400_, value1200_, value1200_);
     // 裁剪矩形区域
-    OH_Drawing_CanvasClipRect(canvas, rect, OH_Drawing_CanvasClipOp::INTERSECT, true);
+    OH_Drawing_CanvasClipRect(canvas, rect, INTERSECT, true);
     OH_Drawing_Point *point = OH_Drawing_PointCreate(value600_, value600_);
     // 绘制圆形
     OH_Drawing_CanvasDrawCircle(canvas, point, value600_);
@@ -401,6 +403,8 @@ void SampleGraphics::DrawClipOperation(OH_Drawing_Canvas *canvas)
     OH_Drawing_CanvasDetachBrush(canvas);
     // 销毁画刷对象并收回其占的内存
     OH_Drawing_BrushDestroy(brush);
+    OH_Drawing_PointDestroy(point);
+    OH_Drawing_RectDestroy(rect);
     // [End ndk_graphics_draw_canvas_clip]
 }
 
@@ -424,6 +428,7 @@ void SampleGraphics::DrawTranslationOperation(OH_Drawing_Canvas *canvas)
     OH_Drawing_CanvasDetachBrush(canvas);
     OH_Drawing_RectDestroy(rect);
     OH_Drawing_MatrixDestroy(matrix);
+    OH_Drawing_BrushDestroy(brush);
     // [End ndk_graphics_draw_canvas_translation]
 }
 
@@ -447,6 +452,7 @@ void SampleGraphics::DrawRotationOperation(OH_Drawing_Canvas *canvas)
     OH_Drawing_CanvasDetachBrush(canvas);
     OH_Drawing_RectDestroy(rect);
     OH_Drawing_MatrixDestroy(matrix);
+    OH_Drawing_BrushDestroy(brush);
     // [End ndk_graphics_draw_canvas_rotation]
 }
 
@@ -469,6 +475,8 @@ void SampleGraphics::DrawScaleOperation(OH_Drawing_Canvas *canvas)
     // 去除画布中的画刷
     OH_Drawing_CanvasDetachBrush(canvas);
     OH_Drawing_RectDestroy(rect);
+    OH_Drawing_MatrixDestroy(matrix);
+    OH_Drawing_BrushDestroy(brush);
     // [End ndk_graphics_draw_canvas_scale]
 }
 
@@ -559,11 +567,11 @@ void SampleGraphics::DrawStroke(OH_Drawing_Canvas *canvas)
     // [End ndk_graphics_draw_pen_set_antialias]
     // [Start ndk_graphics_draw_pen_set_cap_style]
     // 设置画笔线帽样式
-    OH_Drawing_PenSetCap(pen, OH_Drawing_PenLineCapStyle::LINE_ROUND_CAP);
+    OH_Drawing_PenSetCap(pen, LINE_ROUND_CAP);
     // [End ndk_graphics_draw_pen_set_cap_style]
     // [Start ndk_graphics_draw_pen_set_join_style]
     // 设置画笔转角样式
-    OH_Drawing_PenSetJoin(pen, OH_Drawing_PenLineJoinStyle::LINE_BEVEL_JOIN);
+    OH_Drawing_PenSetJoin(pen, LINE_BEVEL_JOIN);
     // [End ndk_graphics_draw_pen_set_join_style]
     // [Start ndk_graphics_draw_canvas_attach_pen]
     // 设置画布的画笔
@@ -615,7 +623,7 @@ void SampleGraphics::DrawMixedMode(OH_Drawing_Canvas *canvas)
     // 设置源像素颜色
     OH_Drawing_BrushSetColor(brush, OH_Drawing_ColorSetArgb(RGBA_MAX, RGBA_MIN, RGBA_MIN, 0xFF));
     // 设置混合模式为叠加模式
-    OH_Drawing_BrushSetBlendMode(brush, OH_Drawing_BlendMode::BLEND_MODE_PLUS);
+    OH_Drawing_BrushSetBlendMode(brush, BLEND_MODE_PLUS);
     // 将源像素的画刷效果设置到Canvas中
     OH_Drawing_CanvasAttachBrush(canvas, brush);
     // 创建圆心的点对象
@@ -673,7 +681,7 @@ void SampleGraphics::DrawLinearGradient(OH_Drawing_Canvas *canvas)
     float pos[] = {0.0f, 0.5f, 1.0f};
     // 创建线性渐变着色器效果
     OH_Drawing_ShaderEffect *colorShaderEffect =
-        OH_Drawing_ShaderEffectCreateLinearGradient(startPt, endPt, colors, pos, 3, OH_Drawing_TileMode::CLAMP);
+        OH_Drawing_ShaderEffectCreateLinearGradient(startPt, endPt, colors, pos, 3, CLAMP);
     // 创建画刷对象
     OH_Drawing_Brush* brush = OH_Drawing_BrushCreate();
     // 基于画刷设置着色器效果
@@ -707,7 +715,7 @@ void SampleGraphics::DrawPathGradient(OH_Drawing_Canvas *canvas)
     float_t gPos[] = {0.0f, 0.25f, 0.75f};
     // 创建径向渐变着色器效果
     OH_Drawing_ShaderEffect *colorShaderEffect =
-        OH_Drawing_ShaderEffectCreateRadialGradient(centerPt, radius, gColors, gPos, 3, OH_Drawing_TileMode::REPEAT);
+        OH_Drawing_ShaderEffectCreateRadialGradient(centerPt, radius, gColors, gPos, 3, REPEAT);
     // 创建画刷对象
     OH_Drawing_Brush* brush = OH_Drawing_BrushCreate();
     // 基于画刷设置着色器效果
@@ -738,7 +746,7 @@ void SampleGraphics::DrawSectorGradient(OH_Drawing_Canvas *canvas)
     float pos[3] = {0.0f, 0.5f, 1.0f};
     // 创建扇形渐变着色器效果
     OH_Drawing_ShaderEffect* colorShaderEffect =
-        OH_Drawing_ShaderEffectCreateSweepGradient(centerPt, colors, pos, 3, OH_Drawing_TileMode::CLAMP);
+        OH_Drawing_ShaderEffectCreateSweepGradient(centerPt, colors, pos, 3, CLAMP);
     // 创建画刷对象
     OH_Drawing_Brush* brush = OH_Drawing_BrushCreate();
     // 基于画刷设置着色器效果
@@ -775,7 +783,7 @@ void SampleGraphics::DrawColorFilter(OH_Drawing_Canvas *canvas)
         0, 0, 0.5f, 0.5f, 0
     };
     
-    // 创建滤波器颜色
+    // 创建颜色滤波器
     OH_Drawing_ColorFilter* colorFilter = OH_Drawing_ColorFilterCreateMatrix(matrix);
     // 创建一个滤波器对象
     OH_Drawing_Filter *filter = OH_Drawing_FilterCreate();
@@ -812,7 +820,7 @@ void SampleGraphics::DrawImageFilter(OH_Drawing_Canvas *canvas)
     OH_Drawing_PenSetWidth(pen, 20);
     // 创建图像滤波器实现模糊效果
     OH_Drawing_ImageFilter *imageFilter =
-        OH_Drawing_ImageFilterCreateBlur(20.0f, 20.0f, OH_Drawing_TileMode::CLAMP, nullptr);
+        OH_Drawing_ImageFilterCreateBlur(20.0f, 20.0f, CLAMP, nullptr);
     // 创建一个滤波器对象
     OH_Drawing_Filter *filter = OH_Drawing_FilterCreate();
     // 为滤波器对象设置图像滤波器
@@ -847,7 +855,7 @@ void SampleGraphics::DrawMaskFilter(OH_Drawing_Canvas *canvas)
     // 设置画笔线宽为20
     OH_Drawing_PenSetWidth(pen, 20);
     // 创建蒙版滤波器
-    OH_Drawing_MaskFilter *maskFilter = OH_Drawing_MaskFilterCreateBlur(OH_Drawing_BlurType::NORMAL, 20, true);
+    OH_Drawing_MaskFilter *maskFilter = OH_Drawing_MaskFilterCreateBlur(NORMAL, 20, true);
     // 创建一个滤波器对象
     OH_Drawing_Filter *filter = OH_Drawing_FilterCreate();
     // 为滤波器对象设置蒙版滤波器
@@ -883,7 +891,6 @@ void SampleGraphics::DrawPoint(OH_Drawing_Canvas *canvas)
     // 设置画布的画笔
     OH_Drawing_CanvasAttachPen(canvas, pen);
     // 绘制5个点
-    AdaptationUtil* adaptationUtil = AdaptationUtil::GetInstance();
     OH_Drawing_Point2D point1 = {value200_, value200_};
     OH_Drawing_CanvasDrawPoint(canvas, &point1);
     OH_Drawing_Point2D point2 = {value400_, value400_};
@@ -1017,7 +1024,7 @@ void SampleGraphics::DrawRegion(OH_Drawing_Canvas *canvas)
     OH_Drawing_Rect *rect2 = OH_Drawing_RectCreate(value300_, value300_, value900_, value900_);
     OH_Drawing_RegionSetRect(region2, rect2);
     // 两个矩形区域组合
-    OH_Drawing_RegionOp(region1, region2, OH_Drawing_RegionOpMode::REGION_OP_MODE_XOR);
+    OH_Drawing_RegionOp(region1, region2, REGION_OP_MODE_XOR);
     OH_Drawing_CanvasDrawRegion(canvas, region1);
     // 去除掉画布中的画刷
     OH_Drawing_CanvasDetachBrush(canvas);
@@ -1099,7 +1106,7 @@ void SampleGraphics::DrawPixelMap(OH_Drawing_Canvas *canvas)
             pixels[i * RGBA_SIZE + 2] = 0xFF; // +2表示蓝色通道赋值，其余通道为0，颜色显蓝色
         }
     }
-    // 设置位图格式（长、宽、颜色类型、透明度类型）
+    // 设置位图格式（宽、高、颜色类型、透明度类型）
     OH_Pixelmap_InitializationOptions *createOps = nullptr;
     OH_PixelmapInitializationOptions_Create(&createOps);
     OH_PixelmapInitializationOptions_SetWidth(createOps, width);
@@ -1120,12 +1127,17 @@ void SampleGraphics::DrawPixelMap(OH_Drawing_Canvas *canvas)
     OH_Drawing_Rect *dst = OH_Drawing_RectCreate(value200_, value200_, value800_, value600_);
     // 采样选项对象
     OH_Drawing_SamplingOptions* samplingOptions = OH_Drawing_SamplingOptionsCreate(
-        OH_Drawing_FilterMode::FILTER_MODE_LINEAR, OH_Drawing_MipmapMode::MIPMAP_MODE_LINEAR);
+        FILTER_MODE_LINEAR, MIPMAP_MODE_LINEAR);
     // 绘制PixelMap
     OH_Drawing_CanvasDrawPixelMapRect(canvas, pixelMap, src, dst, samplingOptions);
     // [End ndk_graphics_draw_image_to_canvas]
     // [Start ndk_graphics_draw_release_pixelmap]
     OH_PixelmapNative_Release(pixelMapNative);
+    OH_PixelmapInitializationOptions_Release(createOps);
+    OH_Drawing_PixelMapDissolve(pixelMap);
+    OH_Drawing_RectDestroy(src);
+    OH_Drawing_RectDestroy(dst);
+    OH_Drawing_SamplingOptionsDestroy(samplingOptions);
     delete[] pixels;
     // [End ndk_graphics_draw_release_pixelmap]
     // [End ndk_graphics_draw_image]
@@ -1142,7 +1154,7 @@ void SampleGraphics::DrawBaseText(OH_Drawing_Canvas *canvas)
     const char *str = "Hello world";
     // 创建字块对象
     OH_Drawing_TextBlob *textBlob =
-        OH_Drawing_TextBlobCreateFromString(str, font, OH_Drawing_TextEncoding::TEXT_ENCODING_UTF8);
+        OH_Drawing_TextBlobCreateFromString(str, font, TEXT_ENCODING_UTF8);
     // 绘制字块
     OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, value200_, value800_);
     // 释放字块对象
@@ -1172,7 +1184,7 @@ void SampleGraphics::DrawStrokeText(OH_Drawing_Canvas *canvas)
     const char *str = "Hello world";
     // 创建字块对象
     OH_Drawing_TextBlob *textBlob =
-        OH_Drawing_TextBlobCreateFromString(str, font, OH_Drawing_TextEncoding::TEXT_ENCODING_UTF8);
+        OH_Drawing_TextBlobCreateFromString(str, font, TEXT_ENCODING_UTF8);
     // 绘制字块
     OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, value200_, value800_);
     // 去除描边效果
@@ -1193,7 +1205,7 @@ void SampleGraphics::DrawChineseStrokeText(OH_Drawing_Canvas *canvas)
     OH_Drawing_Pen *pen = OH_Drawing_PenCreate();
     // 设置画刷抗锯齿
     OH_Drawing_BrushSetAntiAlias(brush, true);
-    // 设置画刷描边颜色
+    // 设置画刷填充颜色
     OH_Drawing_BrushSetColor(brush, OH_Drawing_ColorSetArgb(0xFF, 0xFF, 0xFF, 0xFF));
     // 设置画笔抗锯齿
     OH_Drawing_PenSetAntiAlias(pen, true);
@@ -1210,14 +1222,16 @@ void SampleGraphics::DrawChineseStrokeText(OH_Drawing_Canvas *canvas)
     const char *str = "你好";
     // 创建字块对象
     OH_Drawing_TextBlob *textBlob =
-        OH_Drawing_TextBlobCreateFromString(str, font, OH_Drawing_TextEncoding::TEXT_ENCODING_UTF8);
+        OH_Drawing_TextBlobCreateFromString(str, font, TEXT_ENCODING_UTF8);
     // 绘制字块
     OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, value200_, value800_);
     // 去除描边效果
     OH_Drawing_CanvasDetachPen(canvas);
-    // 设置画刷描边效果
+    // 设置画刷填充效果
     OH_Drawing_CanvasAttachBrush(canvas, brush);
     OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, value200_, value800_);
+    // 去除画布中的画刷
+    OH_Drawing_CanvasDetachBrush(canvas);
 
     // 销毁各类对象
     OH_Drawing_TextBlobDestroy(textBlob);
@@ -1240,7 +1254,7 @@ void SampleGraphics::DrawGradientText(OH_Drawing_Canvas *canvas)
     float pos[] = {0.0f, 0.5f, 1.0f};
     // 创建线性渐变着色器效果
     OH_Drawing_ShaderEffect *colorShaderEffect =
-        OH_Drawing_ShaderEffectCreateLinearGradient(startPt, endPt, colors, pos, 3, OH_Drawing_TileMode::CLAMP);
+        OH_Drawing_ShaderEffectCreateLinearGradient(startPt, endPt, colors, pos, 3, CLAMP);
     // 创建画刷对象
     OH_Drawing_Brush *brush = OH_Drawing_BrushCreate();
     // 基于画刷设置着色器效果
@@ -1254,7 +1268,7 @@ void SampleGraphics::DrawGradientText(OH_Drawing_Canvas *canvas)
     const char *str = "Hello world";
     // 创建字块对象
     OH_Drawing_TextBlob *textBlob =
-        OH_Drawing_TextBlobCreateFromString(str, font, OH_Drawing_TextEncoding::TEXT_ENCODING_UTF8);
+        OH_Drawing_TextBlobCreateFromString(str, font, TEXT_ENCODING_UTF8);
     // 绘制字块
     OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, value200_, value800_);
     // 取消填充效果
@@ -1263,6 +1277,9 @@ void SampleGraphics::DrawGradientText(OH_Drawing_Canvas *canvas)
     OH_Drawing_TextBlobDestroy(textBlob);
     OH_Drawing_FontDestroy(font);
     OH_Drawing_BrushDestroy(brush);
+    OH_Drawing_ShaderEffectDestroy(colorShaderEffect);
+    OH_Drawing_PointDestroy(startPt);
+    OH_Drawing_PointDestroy(endPt);
     // [End ndk_graphics_draw_gradient_text]
 }
 
@@ -1279,7 +1296,7 @@ void SampleGraphics::DrawThemeText(OH_Drawing_Canvas *canvas)
     const char *str = "Hello World";
     // 创建字块对象
     OH_Drawing_TextBlob *textBlob =
-        OH_Drawing_TextBlobCreateFromString(str, font, OH_Drawing_TextEncoding::TEXT_ENCODING_UTF8);
+        OH_Drawing_TextBlobCreateFromString(str, font, TEXT_ENCODING_UTF8);
     // 绘制字块
     OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, value200_, value800_);
     // 释放字块对象
