@@ -16,7 +16,7 @@
 // [Start startMoving]
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const DOMAIN = 0x0000;
 const TAG = 'Sample_AdjustLayout';

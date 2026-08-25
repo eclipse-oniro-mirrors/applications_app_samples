@@ -65,6 +65,6 @@ export default class EntryAbility extends UIAbility {
     // Ability has back to background
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onBackground');
   }
-}
 // [EndExclude HideDecorationBar_start]
+}
 // [End HideDecorationBar_start]
