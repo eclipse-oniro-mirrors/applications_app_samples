@@ -33,7 +33,7 @@ import { Row, ButtonType, Margin, Scroller, Scroll, ForEach, FontWeight } from '
 
 // [Start linear_container]
 import { ArrayList, Deque, Stack, List } from '@kit.ArkTS'; // 导入ArrayList，Deque，Stack，List模块
-
+// [StartExclude linear_container]
 let logMsg = ''
 
 function testArrayList() {
