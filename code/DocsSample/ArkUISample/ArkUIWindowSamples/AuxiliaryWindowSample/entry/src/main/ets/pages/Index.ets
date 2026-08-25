@@ -49,7 +49,7 @@ struct Index {
         // 1.使用createSubWindow接口创建子窗
         windowStage_.createSubWindow('SubWindow', (err, data) => {
           if (err?.code) {
-            console.error('Failed to create the subwindow. Cause: ' + JSON.stringify(err));
+            console.error(`Failed to create the subwindow. Cause code: ${err.code}, message: ${err.message}`);
           }
           subWindowClass = data;
           if (!subWindowClass) {
@@ -62,7 +62,7 @@ struct Index {
           // 2.子窗口创建成功后，设置子窗口的位置、大小及相关属性等。
           subWindowClass.moveWindowTo(100, 100, (err) => {
             if (err?.code) {
-              console.error('Failed to move the window. Cause:' + JSON.stringify(err));
+              console.error(`Failed to move the window. Cause code: ${err.code}, message: ${err.message}`);
               return;
             }
             console.info('Succeeded in moving the window.');
@@ -72,7 +72,7 @@ struct Index {
             }
             subWindowClass.resize(600, 600, (err) => {
               if (err?.code) {
-                console.error('Failed to change the window size. Cause:' + JSON.stringify(err));
+                console.error(`Failed to change the window size. Cause code: ${err.code}, message: ${err.message}`);
                 return;
               }
               console.info('Succeeded in changing the window size.');
@@ -81,7 +81,7 @@ struct Index {
           // 3.为子窗口加载对应的目标页面。
           subWindowClass.setUIContent('pages/SubWindow', (err) => {
             if (err?.code) {
-              console.error('Failed to load the content. Cause:' + JSON.stringify(err));
+              console.error(`Failed to load the content. Cause code: ${err.code}, message: ${err.message}`);
               return;
             }
             console.info('Succeeded in loading the content.');
@@ -92,7 +92,7 @@ struct Index {
             // 显示子窗口。
             subWindowClass.showWindow((err) => {
               if (err?.code) {
-                console.error('Failed to show the window. Cause: ' + JSON.stringify(err));
+                console.error(`Failed to show the window. Cause code: ${err.code}, message: ${err.message}`);
                 return;
               }
               console.info('Succeeded in showing the window.');
@@ -101,8 +101,8 @@ struct Index {
           // [End subWindow_uiContent]
           // [EndExclude create_subWindow]
         })
-        // [End create_subWindow]
       }
+      // [End create_subWindow]
     } catch(e) {
       console.error('TAG', `OnCreateSubWindowWithOptions failed ${JSON.stringify(e)}`);
     }
@@ -116,7 +116,7 @@ struct Index {
     // 4.销毁子窗口。当不再需要子窗口时，可根据具体实现逻辑，使用destroy对其进行销毁。
     subWindowClass.destroyWindow((err) => {
       if (err?.code) {
-        console.error('Failed to destroy the window. Cause: ' + JSON.stringify(err));
+        console.error(`Failed to destroy the window. Cause code: ${err.code}, message: ${err.message}`);
         return;
       }
       console.info('Succeeded in destroying the window.');
@@ -153,7 +153,7 @@ struct Index {
           // 2.子窗口创建成功后，设置子窗口的位置、大小及相关属性等。
           independentWindowClass.moveWindowTo(100, 100, (err) => {
             if (err?.code) {
-              console.error('Failed to move the window. Cause:' + JSON.stringify(err));
+              console.error(`Failed to move the window. Cause code: ${err.code}, message: ${err.message}`);
               return;
             }
             console.info('Succeeded in moving the window.');
@@ -163,7 +163,7 @@ struct Index {
             }
             independentWindowClass.resize(1000, 500, (err) => {
               if (err?.code) {
-                console.error('Failed to change the window size. Cause:' + JSON.stringify(err));
+                console.error(`Failed to change the window size. Cause code: ${err.code}, message: ${err.message}`);
                 return;
               }
               console.info('Succeeded in changing the window size.');
@@ -174,7 +174,7 @@ struct Index {
           // 3.为子窗口加载对应的目标页面。
           independentWindowClass.setUIContent('pages/IndependentSubWindow', (err) => {
             if (err?.code) {
-              console.error('Failed to load the content. Cause:' + JSON.stringify(err));
+              console.error(`Failed to load the content. Cause code: ${err.code}, message: ${err.message}`);
               return;
             }
             console.info('Succeeded in loading the content.');
@@ -185,14 +185,14 @@ struct Index {
             // 显示子窗口。
             independentWindowClass.showWindow((err) => {
               if (err?.code) {
-                console.error('Failed to show the window. Cause: ' + JSON.stringify(err));
+                console.error(`Failed to show the window. Cause code: ${err.code}, message: ${err.message}`);
                 return;
               }
               console.info('Succeeded in showing the window.');
             });
-            // [End independent_subWindow_uiContent]
             // [EndExclude create_independent_subWindow]
           });
+          // [End independent_subWindow_uiContent]
           // [End create_independent_subWindow]
         }).catch((err: Error) => {
           let businessError = err as BusinessError;
@@ -213,7 +213,7 @@ struct Index {
     // 4.销毁子窗口。当不再需要子窗口时，可根据具体实现逻辑，使用destroy对其进行销毁。
     independentWindowClass.destroyWindow((err) => {
       if (err?.code) {
-        console.error('Failed to destroy the window. Cause: ' + JSON.stringify(err));
+        console.error(`Failed to destroy the window. Cause code: ${err.code}, message: ${err.message}`);
         return;
       }
       console.info('Succeeded in destroying the window.');
@@ -231,7 +231,7 @@ struct Index {
       };
       window.createWindow(config, (err, data) => {
         if (err?.code) {
-          console.error('Failed to create the floatWindow. Cause: ' + JSON.stringify(err));
+          console.error(`Failed to create the floatWindow. Cause code: ${err.code}, message: ${err.message}`);
           return;
         }
         floatWindowClass = data;
@@ -241,7 +241,7 @@ struct Index {
         // 2.全局悬浮窗窗口创建成功后，设置全局悬浮窗的位置、大小及相关属性等。
         floatWindowClass.moveWindowTo(100, 100, (err) => {
           if (err?.code) {
-            console.error('Failed to move the window. Cause:' + JSON.stringify(err));
+            console.error(`Failed to move the window. Cause code: ${err.code}, message: ${err.message}`);
             return;
           }
           console.info('Succeeded in moving the window.');
@@ -251,7 +251,7 @@ struct Index {
           }
           floatWindowClass.resize(600, 900, (err) => {
             if (err?.code) {
-              console.error('Failed to change the window size. Cause:' + JSON.stringify(err));
+              console.error(`Failed to change the window size. Cause code: ${err.code}, message: ${err.message}`);
               return;
             }
             console.info('Succeeded in changing the window size.');
@@ -262,14 +262,14 @@ struct Index {
         // 3.为全局悬浮窗加载对应的目标页面。
         floatWindowClass.setUIContent('pages/FloatWindow', (err) => {
           if (err?.code) {
-            console.error('Failed to load the content. Cause:' + JSON.stringify(err));
+            console.error(`Failed to load the content. Cause code: ${err.code}, message: ${err.message}`);
             return;
           }
           console.info('Succeeded in loading the content.');
           // 显示全局悬浮窗。
           (floatWindowClass as window.Window).showWindow((err) => {
             if (err?.code) {
-              console.error('Failed to show the window. Cause: ' + JSON.stringify(err));
+              console.error(`Failed to show the window. Cause code: ${err.code}, message: ${err.message}`);
               return;
             }
             console.info('Succeeded in showing the window.');
@@ -290,10 +290,10 @@ struct Index {
       return;
     }
     // [Start destroy_floating_window]
-    // 4.销毁子窗口。当不再需要子窗口时，可根据具体实现逻辑，使用destroy对其进行销毁。
+    // 4.销毁全局悬浮窗。当不再需要全局悬浮窗时，可根据具体实现逻辑，使用destroy对其进行销毁。
     floatWindowClass.destroyWindow((err) => {
       if (err?.code) {
-        console.error('Failed to destroy the window. Cause: ' + JSON.stringify(err));
+        console.error(`Failed to destroy the window. Cause code: ${err.code}, message: ${err.message}`);
         return;
       }
       console.info('Succeeded in destroying the window.');
@@ -311,7 +311,7 @@ struct Index {
     };
     window.createWindow(config, (err, data) => {
       if (err?.code) {
-        console.error('Failed to create the dialogWindow. Cause: ' + JSON.stringify(err));
+        console.error(`Failed to create the dialogWindow. Cause code: ${err.code}, message: ${err.message}`);
         return;
       }
       console.info('Succeeded in creating the dialogWindow. Data: ' + JSON.stringify(data));
@@ -321,7 +321,7 @@ struct Index {
       // 2.模态窗口创建成功后，设置模态窗口的位置、大小及相关属性等。
       dialogWindowClass.moveWindowTo(100, 100, (err) => {
         if (err?.code) {
-          console.error('Failed to move the window. Cause:' + JSON.stringify(err));
+          console.error(`Failed to move the window. Cause code: ${err.code}, message: ${err.message}`);
           return;
         }
         console.info('Succeeded in moving the window.');
@@ -331,7 +331,7 @@ struct Index {
         }
         dialogWindowClass.resize(500, 500, (err) => {
           if (err?.code) {
-            console.error('Failed to change the window size. Cause:' + JSON.stringify(err));
+            console.error(`Failed to change the window size. Cause code: ${err.code}, message: ${err.message}`);
             return;
           }
           console.info('Succeeded in changing the window size.');
@@ -342,14 +342,14 @@ struct Index {
       // 3.为模态窗口加载对应的目标页面。
       dialogWindowClass.setUIContent('pages/DialogWindow', (err) => {
         if (err?.code) {
-          console.error('Failed to load the content. Cause:' + JSON.stringify(err));
+          console.error(`Failed to load the content. Cause code: ${err.code}, message: ${err.message}`);
           return;
         }
         console.info('Succeeded in loading the content.');
         // 显示模态窗口。
         (dialogWindowClass as window.Window).showWindow((err) => {
           if (err?.code) {
-            console.error('Failed to show the window. Cause: ' + JSON.stringify(err));
+            console.error(`Failed to show the window. Cause code: ${err.code}, message: ${err.message}`);
             return;
           }
           console.info('Succeeded in showing the window.');
