@@ -18,17 +18,12 @@ import { NavDestination, $r } from '@kit.ArkUI';
 // [Start LinkStateVarInit]
 import { Column, Component, Entry, Link, State, Text } from '@kit.ArkUI';
 
-class Info {
-  info: string = 'Hello';
-}
-
 @Component
 struct Child {
   @Link msg: string;
-  @Link info: Info;
 
   build() {
-    Text(this.msg + this.info.info)
+    Text(this.msg)
   }
 }
 
@@ -36,12 +31,11 @@ struct Child {
 @Component
 struct LinkExample {
   @State message: string = 'Hello';
-  @State info: Info = new Info();
 
   build() {
     Column() {
       // 正确写法
-      Child({msg: this.message, info: this.info})
+      Child({msg: this.message})
     }
   }
 }
