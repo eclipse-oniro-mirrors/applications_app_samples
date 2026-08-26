@@ -195,7 +195,7 @@ struct FilePicker {
       let documentSelectOptions = new picker.DocumentSelectOptions();
       documentSelectOptions.isEncryptionSupported = true; // 显示加密分享按钮。
       let documentPicker = new picker.DocumentViewPicker(context);
-      const documentSelectResult: Array<string> = await documentPicker.select(documentSelectOptions); // 获取文件URI。
+      const documentSelectResult: string[] = await documentPicker.select(documentSelectOptions); // 获取文件URI。
     } catch (err) {
       console.error('CallFilePickerSelectFile failed');
     }
