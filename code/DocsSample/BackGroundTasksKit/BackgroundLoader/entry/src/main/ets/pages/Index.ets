@@ -1,5 +1,40 @@
+/*
+ * Copyright (c) 2024-2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @file Index.ets
+ * @brief 后台加载任务示例的主界面
+ *
+ * 本文件提供了BackgroundLoader示例的用户交互界面，包含以下功能按钮：
+ * - Register Task: 注册后台加载任务，弹出对话框输入abilityName和taskId
+ * - Get Task Info: 查询后台加载任务信息，弹出对话框输入taskId
+ * - Finish Task: 完成后台加载任务，弹出对话框输入abilityName和taskId
+ * - Unregister Task: 注销后台加载任务，弹出对话框输入abilityName和taskId
+ *
+ * 自定义对话框：
+ * - TaskInfoDialog: 输入abilityName和taskId的对话框
+ * - TaskIdDialog: 输入taskId的对话框
+ * - ResultDialog: 显示操作结果的对话框
+ */
+
 import { testCases } from '../entryability/EntryAbility'
 
+/**
+ * TaskInfoDialog 自定义对话框
+ * 用于输入abilityName和taskId，支持注册/完成/注销任务时使用
+ */
 @CustomDialog
 struct TaskInfoDialog {
   controller!: CustomDialogController
@@ -47,6 +82,10 @@ struct TaskInfoDialog {
   }
 }
 
+/**
+ * TaskIdDialog 自定义对话框
+ * 用于输入taskId，支持查询任务信息时使用
+ */
 @CustomDialog
 struct TaskIdDialog {
   controller!: CustomDialogController
@@ -84,6 +123,10 @@ struct TaskIdDialog {
   }
 }
 
+/**
+ * ResultDialog 自定义对话框
+ * 用于展示API调用的返回结果，支持滚动查看长内容
+ */
 @CustomDialog
 struct ResultDialog {
   controller!: CustomDialogController
@@ -116,6 +159,11 @@ struct ResultDialog {
   }
 }
 
+/**
+ * Index 主页面
+ * 提供四个操作按钮，分别对应注册、查询、完成、注销后台加载任务
+ * 每个按钮点击后弹出对应的输入对话框，确认后调用TestCases中的API并显示结果
+ */
 @Entry
 @Component
 struct Index {
