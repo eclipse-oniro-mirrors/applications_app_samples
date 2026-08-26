@@ -53,6 +53,7 @@ public:
 private:
     void VideoEncOutputThread();
     void VideoEncBufferInputThread();
+    void FillBufferModeInput(uint32_t index, OH_AVBuffer *buffer);
     void AudioEncInputThread();
     void AudioEncOutputThread();
     void Release();
