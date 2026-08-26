@@ -226,6 +226,8 @@ static void GetDevices()
     if (ret != USB_DDK_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "OH_Usb_GetDevices failed, ret=%{public}d", ret);
     }
+    // ... 使用 deviceArray 的逻辑 ...
+    delete[] deviceArray.deviceIds;
     // [End driver_usb_step7]
 }
 
