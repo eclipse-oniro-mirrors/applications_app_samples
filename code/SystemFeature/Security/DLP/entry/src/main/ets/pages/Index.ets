@@ -188,6 +188,20 @@ struct FilePicker {
   @StorageLink('dlpFileInfos') dlpFileInfos: Array<TestDlpFileInfo> = [];
   private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
+  // [Start dlp_callFilePicker]
+  async callFilePicker(): Promise<void> {
+    try {
+      let context = this.getUIContext()?.getHostContext() as common.UIAbilityContext;
+      let documentSelectOptions = new picker.DocumentSelectOptions();
+      documentSelectOptions.isEncryptionSupported = true; // 显示加密分享按钮。
+      let documentPicker = new picker.DocumentViewPicker(context);
+      const documentSelectResult: Array<string> = await documentPicker.select(documentSelectOptions); // 获取文件URI。
+    } catch (err) {
+      console.error('CallFilePickerSelectFile failed');
+    }
+  }
+  // [End dlp_callFilePicker]
+
   async aboutToAppear() {
     Logger.info(`aboutToAppear start`);
     hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'aboutToAppear start');
