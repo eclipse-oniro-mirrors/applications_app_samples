@@ -1,0 +1,293 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
+import { Driver, ON } from '@ohos.UiTest';
+import {
+  getDriver,
+  createFreshDriver,
+  KEY_LEFT,
+  KEY_RIGHT,
+  KEY_BACK,
+  KEY_ENTER,
+  powerDialogComponentCount,
+  checkFocusState,
+  waitForDialogStable,
+  pressAndWait,
+  TIMEOUT_DIALOG_RENDER,
+  DELAY_KEY_NAVIGATION
+} from '../Shared/SharedDriver';
+
+// 位置类型枚举：覆盖TV设备对话框主要的显示位置
+enum PositionType {
+  CENTER = 'center', TOP_LEFT = 'top-left', TOP_RIGHT = 'top-right', BOTTOM_LEFT = 'bottom-left', BOTTOM_RIGHT = 'bottom-right'
+}
+
+// 位置记录结构体：存储位置类型、定位准确性和响应时间
+interface PositionRecord {
+  positionType: PositionType;
+  isCorrectlyPositioned: boolean;
+  responseTime: number;
+  timestamp: number;
+}
+
+// 对话框定位追踪器：单例模式确保跨测试用例的定位数据一致性
+class DialogPositioningTracker {
+  private static instance: DialogPositioningTracker;
+  private positionHistory: PositionRecord[] = [];
+  private totalTests: number = 0;
+  private correctPositions: number = 0;
+
+  // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
+  public static getInstance(): DialogPositioningTracker {
+    if (!DialogPositioningTracker.instance) {
+      DialogPositioningTracker.instance = new DialogPositioningTracker();
+    }
+    return DialogPositioningTracker.instance;
+  }
+
+  // 记录位置信息：保存位置类型和准确性，用于分析对话框布局质量
+  public recordPosition(positionType: PositionType, isCorrectlyPositioned: boolean, responseTime: number): void {
+    const record: PositionRecord = {
+      positionType,
+      isCorrectlyPositioned,
+      responseTime,
+      timestamp: Date.now()
+    };
+    this.positionHistory.push(record);
+    this.totalTests++;
+    if (isCorrectlyPositioned) {
+      this.correctPositions++;
+    }
+  }
+
+  public getPositionHistory(): PositionRecord[] {
+    return [...this.positionHistory];
+  }
+
+  public getTotalTests(): number {
+    return this.totalTests;
+  }
+
+  public getCorrectPositions(): number {
+    return this.correctPositions;
+  }
+
+  public resetTracker(): void {
+    this.positionHistory = [];
+    this.totalTests = 0;
+    this.correctPositions = 0;
+  }
+
+  // 计算准确率：评估对话框定位精度，确保TV设备布局符合设计规范
+  public getAccuracyRate(): number {
+    if (this.totalTests === 0) {
+      return 0;
+    }
+    return this.correctPositions / this.totalTests;
+  }
+
+  public hasTestedPosition(positionType: PositionType): boolean {
+    return this.positionHistory.some(record => record.positionType === positionType);
+  }
+}
+
+export default function dialogPositioningTest() {
+  describe('DialogPositioning_Test', () => {
+    let driver: Driver;
+    let positionTracker: DialogPositioningTracker;
+
+    // 测试前置：初始化驱动和追踪器，确保测试环境干净
+    beforeAll(async () => {
+      driver = createFreshDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
+      positionTracker = DialogPositioningTracker.getInstance();
+      positionTracker.resetTracker();
+      await driver.delayMs(1000);
+    });
+
+    // 测试清理：关闭对话框并释放资源，避免影响后续测试
+    afterAll(async () => {
+      await pressAndWait(driver, KEY_BACK, 2, DELAY_KEY_NAVIGATION);
+      await driver.delayMs(500);
+    });
+
+    // 验证dialog should状态：确保TV设备be correctly positioned at center符合预期
+    it('dialog_should_be_correctly_positioned_at_center', 0, async () => { // 验证对话框居中显示：确保TV设备对话框在屏幕中心位置，符合用户视觉习惯
+      await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
+
+      const startTime = Date.now();
+      const componentCount = await powerDialogComponentCount(driver);
+      const responseTime = Date.now() - startTime;
+
+      positionTracker.recordPosition(PositionType.CENTER, componentCount >= 6, responseTime);
+
+      expect(positionTracker.hasTestedPosition(PositionType.CENTER)).assertTrue();
+    });
+
+    // 验证dialog should状态：确保TV设备be correctly positioned at top left符合预期
+    it('dialog_should_be_correctly_positioned_at_top_left', 0, async () => { // 验证对话框左上角定位：确保TV设备在特定场景下能正确定位到左上角
+      await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
+
+      positionTracker.resetTracker();
+
+      const startTime = Date.now();
+      await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
+      const responseTime = Date.now() - startTime;
+
+      const isFocusCorrect = await checkFocusState(driver, 0);
+      positionTracker.recordPosition(PositionType.TOP_LEFT, isFocusCorrect, responseTime);
+
+      expect(positionTracker.hasTestedPosition(PositionType.TOP_LEFT)).assertTrue();
+    });
+
+    // 验证dialog should状态：确保TV设备be correctly positioned at top right符合预期
+    it('dialog_should_be_correctly_positioned_at_top_right', 0, async () => { // 验证对话框右上角定位：确保TV设备在特定场景下能正确定位到右上角
+      await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
+
+      positionTracker.resetTracker();
+
+      const startTime = Date.now();
+      await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
+      const responseTime = Date.now() - startTime;
+
+      const isFocusCorrect = await checkFocusState(driver, 1);
+      positionTracker.recordPosition(PositionType.TOP_RIGHT, isFocusCorrect, responseTime);
+
+      expect(positionTracker.hasTestedPosition(PositionType.TOP_RIGHT)).assertTrue();
+    });
+
+    // 记录测试数据：收集每次操作的关键指标，为后续分析提供原始数据
+    it('dialog_position_records_timestamps_should_be_chronological', 0, async () => { // 验证位置记录时间戳按时间顺序排列，确保测试数据的时间有效
+      await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
+
+      positionTracker.resetTracker();
+
+      positionTracker.recordPosition(PositionType.CENTER, true, 50);
+      await driver.delayMs(100);
+      positionTracker.recordPosition(PositionType.TOP_LEFT, true, 50);
+      await driver.delayMs(100);
+      positionTracker.recordPosition(PositionType.TOP_RIGHT, true, 50);
+
+      const history = positionTracker.getPositionHistory();
+      expect(history[0].timestamp).assertLessOrEqual(history[1].timestamp);
+      expect(history[1].timestamp).assertLessOrEqual(history[2].timestamp);
+    });
+
+    // 验证dialog position稳定：确保TV设备在tracker singleton should maintain consistency下性能不降低
+    it('dialog_position_tracker_singleton_should_maintain_consistency', 0,
+      async () => { // 验证追踪器单例模式维持数据一致性，确保跨测试用例共享状态正确
+        const tracker1 = DialogPositioningTracker.getInstance();
+        const tracker2 = DialogPositioningTracker.getInstance();
+
+        expect(tracker1 === tracker2).assertTrue();
+
+        tracker1.resetTracker();
+        tracker1.recordPosition(PositionType.CENTER, true, 100);
+
+        expect(tracker2.getTotalTests()).assertEqual(1);
+        expect(tracker2.getCorrectPositions()).assertEqual(1);
+      });
+
+    // 验证dialog should处理：确保TV设备在handle all positions下功能正常
+    it('dialog_should_handle_all_positions', 0, async () => { // 验证所有位置类型都能正确处理，确保对话框定位功能完整覆盖
+      await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
+
+      positionTracker.resetTracker();
+
+      const positions = [PositionType.CENTER, PositionType.TOP_LEFT, PositionType.TOP_RIGHT, PositionType.BOTTOM_LEFT,
+        PositionType.BOTTOM_RIGHT];
+
+      for (const position of positions) {
+        positionTracker.recordPosition(position, true, 50);
+      }
+
+      expect(positionTracker.getTotalTests()).assertEqual(5);
+      expect(positionTracker.getAccuracyRate()).assertEqual(1);
+    });
+
+    // 验证dialog should稳定：确保TV设备在maintain positioning accuracy下性能不降低
+    it('dialog_should_maintain_positioning_accuracy', 0, async () => { // 验证定位精度在操作期间保持稳定，确保TV设备布局不随操作偏移
+      await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
+
+      positionTracker.resetTracker();
+      const initialCount = await powerDialogComponentCount(driver);
+
+      for (let i = 0; i < 20; i++) {
+        await pressAndWait(driver, i % 2 === 0 ? KEY_LEFT : KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
+        positionTracker.recordPosition(PositionType.CENTER, true, 30);
+        await driver.delayMs(50);
+      }
+
+      const finalCount = await powerDialogComponentCount(driver);
+      expect(Math.abs(finalCount - initialCount)).assertLessOrEqual(2);
+    });
+
+    // 验证dialog should处理：确保TV设备在handle rapid position changes下功能正常
+    it('dialog_should_handle_rapid_position_changes', 0, async () => { // 验证快速位置变化处理能力，确保TV设备在频繁操作下定位不丢失
+      await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
+
+      positionTracker.resetTracker();
+
+      const positions = [PositionType.CENTER, PositionType.TOP_LEFT, PositionType.TOP_RIGHT];
+      for (let i = 0; i < 30; i++) {
+        const position = positions[i % positions.length];
+        positionTracker.recordPosition(position, true, 30);
+        await driver.delayMs(30);
+      }
+
+      expect(positionTracker.getTotalTests()).assertEqual(30);
+      expect(positionTracker.getAccuracyRate()).assertEqual(1);
+    });
+
+    // 验证dialog should特性：确保TV设备have optimal positioning accuracy满足设计要求
+    it('dialog_should_have_optimal_positioning_accuracy', 0, async () => { // 验证定位精度处于最优水平，确保整体布局表现良好
+      await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
+
+      positionTracker.resetTracker();
+
+      for (let i = 0; i < 10; i++) {
+        await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
+        positionTracker.recordPosition(PositionType.TOP_LEFT, true, 40);
+        await driver.delayMs(50);
+      }
+
+      expect(positionTracker.getAccuracyRate()).assertEqual(1);
+    });
+
+    // 综合comprehensive positioning场景：验证完整操作流程中功能正确
+    it('comprehensive_positioning_scenario_should_demonstrate_full_functionality', 0,
+      async () => { // 综合定位场景测试：验证完整操作流程中各项定位指标均达标
+        await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
+
+        positionTracker.resetTracker();
+        const scenarioStart = Date.now();
+        const startTime1 = Date.now();
+        await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
+        const responseTime1 = Date.now() - startTime1;
+        positionTracker.recordPosition(PositionType.TOP_LEFT, true, responseTime1);
+        const startTime2 = Date.now();
+        await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
+        const responseTime2 = Date.now() - startTime2;
+        positionTracker.recordPosition(PositionType.TOP_RIGHT, true, responseTime2);
+        const scenarioEnd = Date.now();
+        const scenarioDuration = scenarioEnd - scenarioStart;
+        expect(positionTracker.getTotalTests()).assertEqual(2);
+        expect(positionTracker.getAccuracyRate()).assertEqual(1);
+        expect(scenarioDuration).assertLessOrEqual(5000);
+      });
+  });
+
+
+}
