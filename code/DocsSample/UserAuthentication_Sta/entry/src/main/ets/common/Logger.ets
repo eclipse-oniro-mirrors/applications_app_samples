@@ -16,13 +16,14 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: int = 0x0000; // 此处使用自行申请的应用代码号
+export const DOMAIN: int = 0x0000; // 此处使用自行申请的应用代码号
+export const FORMAT: string = '%{public}s';
 const PREFIX: string = '[Sample_UserAuthentication]'; // 应用log标签
 
 export class Logger {
   private domain: int;
   private prefix: string;
-  private format: string = '%{public}s';
+  private format: string = FORMAT;
 
   constructor(prefix: string) {
     this.prefix = prefix;

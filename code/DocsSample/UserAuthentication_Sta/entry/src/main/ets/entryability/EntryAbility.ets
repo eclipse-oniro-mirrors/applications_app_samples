@@ -15,14 +15,12 @@
 */
 
 import { AbilityConstant, UIAbility, Want, Context } from '@kit.AbilityKit';
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { window, AppStorage } from '@kit.ArkUI';
-import Logger from '../common/Logger';
+import { AppStorage, window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { DOMAIN, FORMAT } from '../common/Logger';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: int = Logger.getDomain();
-const PREFIX: string = Logger.getPrefix();
-const FORMAT: string = Logger.getFormat();
+const PREFIX: string = 'EntryAbility: ';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
@@ -37,8 +35,13 @@ export default class EntryAbility extends UIAbility {
     // Main window is created, set main page for this ability
     hilog.info(DOMAIN, PREFIX, FORMAT, 'Ability onWindowStageCreate');
     AppStorage.setOrCreate<Context>('pageContext', this.context);
-    windowStage.loadContent('pages/Index');
-    windowStage.getMainWindowSync().getUIContext();
+    windowStage.loadContent('pages/Index', (err: BusinessError<void> | null) => {
+      if (err && err.code) {
+        hilog.error(DOMAIN, PREFIX, FORMAT, 'failed to load the content.');
+        return;
+      }
+      hilog.info(DOMAIN, PREFIX, FORMAT, 'Succeeded in loading the content.');
+    });
   }
 
   onWindowStageDestroy(): void {

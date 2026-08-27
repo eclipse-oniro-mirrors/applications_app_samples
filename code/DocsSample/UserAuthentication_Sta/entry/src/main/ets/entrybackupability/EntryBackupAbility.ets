@@ -14,13 +14,11 @@
 * limitations under the License.
 */
 
-import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BackupExtensionAbility, BundleVersion } from '@kit.CoreFileKit';
-import Logger from '../common/Logger';
+import { DOMAIN, FORMAT } from '../common/Logger';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: int = Logger.getDomain();
-const PREFIX: string = Logger.getPrefix();
-const FORMAT: string = Logger.getFormat();
+const PREFIX: string = 'EntryBackupAbility: ';
 
 export default class EntryBackupAbility extends BackupExtensionAbility {
   onBackup(): void {
