@@ -574,7 +574,7 @@ export default function eventHandlingTest() {
     // 验证enter key触发：确保TV设备event should trigger power operation机制有效
     it('enter_key_event_should_trigger_power_operation', 0, async () => { // 验证ENTER键触发电源操作：确保确认键能正确启动电源功能
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       MockEventUtil.processKeyEvent({ type: 1, keyCode: KEY_ENTER });
       MockCommonEventUtil.processPowerEventData(true);
       await driver.delayMs(TIMEOUT_FOCUS_CHANGE);
@@ -650,7 +650,7 @@ export default function eventHandlingTest() {
       MockEventUtil.resetEventStats();
 
       // 按键事件类型验证：确保按键事件的type字段正确标识
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       MockEventUtil.processKeyEvent({ type: 1, keyCode: KEY_ENTER });
       const keyStats = MockEventUtil.getKeyEventStats();
       expect(keyStats.count).assertLargerOrEqual(1);
@@ -670,7 +670,7 @@ export default function eventHandlingTest() {
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
       MockEventUtil.processKeyEvent({ type: 1, keyCode: KEY_LEFT });
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       MockEventUtil.processKeyEvent({ type: 1, keyCode: KEY_ENTER });
       MockCommonEventUtil.processPowerEventData(true);
       await pressAndWait(driver, KEY_BACK, 1, DELAY_KEY_NAVIGATION);

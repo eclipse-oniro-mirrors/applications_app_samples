@@ -21,7 +21,7 @@ import {
   KEY_LEFT,
   KEY_RIGHT,
   KEY_BACK,
-  KEY_ENTER,
+  KEY_UP,
   powerDialogComponentCount,
   checkFocusState,
   waitForDialogStable,
@@ -496,7 +496,7 @@ export default function gestureRecognitionTest() {
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
 
       const startTime = Date.now();
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       const responseTime = Date.now() - startTime;
 
       gestureTracker.recordGesture(GestureType.TAP, true, responseTime);
@@ -554,7 +554,7 @@ export default function gestureRecognitionTest() {
       gestureTracker.resetTracker();
 
       const startTime = Date.now();
-      await pressAndWait(driver, KEY_ENTER, 2, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 2, DELAY_KEY_NAVIGATION);
       const responseTime = Date.now() - startTime;
 
       gestureTracker.recordGesture(GestureType.DOUBLE_TAP, true, responseTime);

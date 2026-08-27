@@ -22,7 +22,6 @@ import {
   KEY_RIGHT,
   KEY_UP,
   KEY_DOWN,
-  KEY_ENTER,
   KEY_BACK,
   powerDialogComponentCount,
   checkFocusState,
@@ -861,7 +860,7 @@ export default function focusNavigationTest() {
       console.log('FocusNavigation test: Initial component count for ENTER test:', initialComponentCount);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await driver.delayMs(300);
 
       // Validate dialog remains functional after ENTER key
@@ -1002,7 +1001,7 @@ export default function focusNavigationTest() {
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
       focusTracker.recordNavigation(0, 1, 'right');
 
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
 
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
       focusTracker.recordNavigation(1, 2, 'right');

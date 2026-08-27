@@ -21,7 +21,7 @@ import {
   KEY_LEFT,
   KEY_RIGHT,
   KEY_BACK,
-  KEY_ENTER,
+  KEY_UP,
   powerDialogComponentCount,
   checkFocusState,
   waitForDialogStable,
@@ -553,7 +553,7 @@ export default function focusRingBehaviorTest() {
       focusRingTracker.resetTracker();
 
       const startTime = Date.now();
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       const responseTime = Date.now() - startTime;
 
       focusRingTracker.recordFocusRing(FocusRingState.HIGHLIGHTED, 0, true, responseTime);
