@@ -20,7 +20,7 @@ import {
   createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
-  KEY_ENTER,
+  KEY_UP,
   KEY_BACK,
   powerDialogComponentCount,
   checkFocusState,
@@ -586,7 +586,7 @@ export default function dialogStateManagementTest() {
       stateManager.transitionTo(DialogState.OPENED, 'initial_render');
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await driver.delayMs(200);
 
       const componentCount = await powerDialogComponentCount(driver);
@@ -816,7 +816,7 @@ export default function dialogStateManagementTest() {
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
 
       stateManager.transitionTo(DialogState.CLOSING, 'operation_complete');
       stateManager.transitionTo(DialogState.CLOSED, 'close_complete');

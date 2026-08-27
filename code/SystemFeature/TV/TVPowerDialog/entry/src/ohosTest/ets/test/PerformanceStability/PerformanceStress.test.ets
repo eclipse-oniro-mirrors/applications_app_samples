@@ -19,7 +19,7 @@ import {
   createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
-  KEY_ENTER,
+  KEY_UP,
   KEY_BACK,
   powerDialogComponentCount,
   isPowerDialogVisible,
@@ -555,7 +555,7 @@ export default function performanceStressTest() {
         TIMEOUT_DIALOG_RENDER); // 移除无效键码测试，避免并发问题 // 验证异常操作后对话框能快速恢复正常响应，确保系统鲁棒性
       perfMonitor.startMeasurement('recovery_performance');
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
 
       perfMonitor.endMeasurement('recovery_performance');
       const stats: MetricStats = perfMonitor.getMetricStats('recovery_performance');
@@ -572,7 +572,7 @@ export default function performanceStressTest() {
         await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
 
         if (i % 3 === 0) {
-          await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+          await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
           await serializedDelay(driver, 30); // 减少延迟时间
         }
 
