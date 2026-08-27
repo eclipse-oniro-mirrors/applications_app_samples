@@ -19,7 +19,7 @@ import {
   createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
-  KEY_ENTER,
+  KEY_UP,
   KEY_BACK,
   powerDialogComponentCount,
   waitForDialogStable,
@@ -542,7 +542,7 @@ export default function powerInputInteractionTest() {
     // ===== 交互 =====
     it('back_key_should_work_without_deadlock', 0, async () => {
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       const componentCount = await powerDialogComponentCount(driver);
       expect(componentCount).assertLargerOrEqual(0);
     });

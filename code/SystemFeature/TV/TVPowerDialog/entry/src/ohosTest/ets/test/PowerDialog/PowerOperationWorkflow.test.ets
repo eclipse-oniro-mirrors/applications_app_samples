@@ -19,7 +19,7 @@ import {
   createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
-  KEY_ENTER,
+  KEY_UP,
   KEY_BACK,
   powerDialogComponentCount,
   checkFocusState,
@@ -433,7 +433,7 @@ export default function powerOperationWorkflowTest() {
       const isFocusCorrect = await checkFocusState(driver, -1);
       expect(isFocusCorrect).assertTrue();
       mockPowerService.suspend();
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       expect(mockPowerService.getOperationCount(PowerOperationType.POWEROPERATION_SUSPEND)).assertEqual(1);
     });
@@ -444,7 +444,7 @@ export default function powerOperationWorkflowTest() {
       const isFocusCorrect = await checkFocusState(driver, -1);
       expect(isFocusCorrect).assertTrue();
       mockPowerService.shutdown();
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       expect(mockPowerService.getOperationCount(PowerOperationType.POWEROPERATION_SHUTDOWN)).assertEqual(1);
     });
@@ -456,7 +456,7 @@ export default function powerOperationWorkflowTest() {
       const isFocusCorrect = await checkFocusState(driver, -1);
       expect(isFocusCorrect).assertTrue();
       mockPowerService.reboot();
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       expect(mockPowerService.getOperationCount(PowerOperationType.POWEROPERATION_REBOOT)).assertEqual(1);
     });
@@ -488,7 +488,7 @@ export default function powerOperationWorkflowTest() {
     it('operation_state_should_persist_after_execution', 0, async () => {
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       const componentCount = await powerDialogComponentCount(driver);
       expect(componentCount).assertLargerOrEqual(0);

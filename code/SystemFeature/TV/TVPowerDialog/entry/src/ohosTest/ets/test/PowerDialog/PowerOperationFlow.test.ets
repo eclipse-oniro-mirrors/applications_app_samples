@@ -20,7 +20,7 @@ import {
   createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
-  KEY_ENTER,
+  KEY_UP,
   KEY_BACK,
   powerDialogComponentCount,
   checkFocusState,
@@ -456,7 +456,7 @@ export default function powerOperationFlowTest() {
       const isFocusCorrect = await checkFocusState(driver, -1);
       expect(isFocusCorrect).assertTrue();
 
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await driver.delayMs(500); // 替换serializedDelay为直接delayMs
 
       const executionTime = Date.now() - startTime;
@@ -475,7 +475,7 @@ export default function powerOperationFlowTest() {
       const isFocusCorrect = await checkFocusState(driver, -1);
       expect(isFocusCorrect).assertTrue();
 
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await driver.delayMs(500); // 替换serializedDelay为直接delayMs
 
       const executionTime = Date.now() - startTime;
@@ -494,7 +494,7 @@ export default function powerOperationFlowTest() {
       const isFocusCorrect = await checkFocusState(driver, -1);
       expect(isFocusCorrect).assertTrue();
 
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await driver.delayMs(500); // 替换serializedDelay为直接delayMs
 
       const executionTime = Date.now() - startTime;
@@ -524,13 +524,13 @@ export default function powerOperationFlowTest() {
       operationTracker.resetTracker();
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.SUSPEND, 0, true, 100);
 
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_RIGHT, 2, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.REBOOT, 2, true, 200);
 
@@ -548,7 +548,7 @@ export default function powerOperationFlowTest() {
 
       for (const op of operations) {
         await pressAndWait(driver, op.key, 1, DELAY_KEY_NAVIGATION);
-        await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+        await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
         await serializedDelay(driver, DELAY_AFTER_POWER_OP);
         operationTracker.recordOperation(op.type, op.index, true, 150);
 
@@ -563,7 +563,7 @@ export default function powerOperationFlowTest() {
       const startTime = Date.now();
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
 
       const executionTime = Date.now() - startTime;
@@ -595,7 +595,7 @@ export default function powerOperationFlowTest() {
       operationTracker.resetTracker();
 
       for (let i = 0; i < 5; i++) {
-        await pressAndWait(driver, KEY_ENTER, 1, 50);
+        await pressAndWait(driver, KEY_UP, 1, 50);
         await serializedDelay(driver, 100);
         operationTracker.recordOperation(PowerOperationType.SHUTDOWN, 1, false, 50);
       }
@@ -631,19 +631,19 @@ export default function powerOperationFlowTest() {
       operationTracker.resetTracker();
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.SUSPEND, 0, true, 150);
 
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.SHUTDOWN, 1, true, 200);
 
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.REBOOT, 2, true, 250);
 
@@ -680,7 +680,7 @@ export default function powerOperationFlowTest() {
       operationTracker.resetTracker();
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.SUSPEND, 0, true, 100);
 
@@ -688,7 +688,7 @@ export default function powerOperationFlowTest() {
 
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_RIGHT, 2, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.REBOOT, 2, true, 200);
 
@@ -703,19 +703,19 @@ export default function powerOperationFlowTest() {
       operationTracker.resetTracker();
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.SUSPEND, 0, true, 150);
 
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.SHUTDOWN, 1, true, 200);
 
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.REBOOT, 2, true, 250);
 
@@ -750,13 +750,13 @@ export default function powerOperationFlowTest() {
       operationTracker.resetTracker();
 
       await pressAndWait(driver, KEY_LEFT, 5, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.SUSPEND, 0, true, 100);
 
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_RIGHT, 5, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.REBOOT, 2, true, 100);
 
@@ -770,7 +770,7 @@ export default function powerOperationFlowTest() {
       operationTracker.resetTracker();
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.SUSPEND, 0, true, 150);
 
@@ -791,13 +791,13 @@ export default function powerOperationFlowTest() {
       const scenarioStart = Date.now();
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.SUSPEND, 0, true, 200);
 
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, DELAY_AFTER_POWER_OP);
       operationTracker.recordOperation(PowerOperationType.SHUTDOWN, 1, true, 250);
 

@@ -20,7 +20,7 @@ import {
   createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
-  KEY_ENTER,
+  KEY_UP,
   KEY_BACK,
   powerDialogComponentCount,
   checkFocusState,
@@ -388,7 +388,7 @@ export default function powerOperationsTest() {
       const isFocusCorrect = await checkFocusState(driver, -1);
       expect(isFocusCorrect).assertTrue();
 
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await driver.delayMs(DELAY_AFTER_POWER_OP);
       const componentCount = await powerDialogComponentCount(driver);
       expect(componentCount).assertLargerOrEqual(0);
@@ -401,7 +401,7 @@ export default function powerOperationsTest() {
       const isFocusCorrect = await checkFocusState(driver, -1);
       expect(isFocusCorrect).assertTrue();
 
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await driver.delayMs(DELAY_AFTER_POWER_OP); // 验证对话框状态（重启操作可能不会立即关闭对话框）
       const componentCount = await powerDialogComponentCount(driver);
       expect(componentCount).assertLargerOrEqual(0); // 调整期望值，允许对话框仍然存在
@@ -413,7 +413,7 @@ export default function powerOperationsTest() {
       const isFocusCorrect = await checkFocusState(driver, -1);
       expect(isFocusCorrect).assertTrue();
 
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await driver.delayMs(DELAY_AFTER_POWER_OP); // 验证对话框状态（关机操作可能不会立即关闭对话框）
       const componentCount = await powerDialogComponentCount(driver);
       expect(componentCount).assertLargerOrEqual(0); // 调整期望值，允许对话框仍然存在
@@ -441,7 +441,7 @@ export default function powerOperationsTest() {
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       const startTime = Date.now();
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       const endTime = Date.now();
 
       const responseTime = endTime - startTime;
@@ -467,7 +467,7 @@ export default function powerOperationsTest() {
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       mockPowerService.clearOperationLog();
       for (let i = 0; i < 3; i++) {
-        await pressAndWait(driver, KEY_ENTER, 1, 50);
+        await pressAndWait(driver, KEY_UP, 1, 50);
       }
       await driver.delayMs(DELAY_AFTER_POWER_OP);
       const operationLog = mockPowerService.getOperationLog();
@@ -476,7 +476,7 @@ export default function powerOperationsTest() {
     it('power_operation_state_should_persist_correctly', 0, async () => { // 验证电源操作状态正确持久化，确保操作后状态一致性
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await driver.delayMs(DELAY_AFTER_POWER_OP);
       const componentCount = await powerDialogComponentCount(driver);
       expect(componentCount).assertLargerOrEqual(1);
@@ -519,7 +519,7 @@ export default function powerOperationsTest() {
       }
 
       // 执行电源操作
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await driver.delayMs(DELAY_AFTER_POWER_OP);
 
       // 验证操作后状态 - 对话框可能被关闭或处于新状态
