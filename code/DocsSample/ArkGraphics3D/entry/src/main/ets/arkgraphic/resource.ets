@@ -331,7 +331,7 @@ struct materialPage {
           .height(40)
           // [EndExclude environment_button_action]
           .onClick(async (): Promise<void> => {
-            console.info('Start to replace with a material of image');
+            console.info('Start to add environment to scene');
 
             if (!this.scene || !this.cam) {
               return;
