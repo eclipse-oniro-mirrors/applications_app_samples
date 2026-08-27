@@ -119,7 +119,7 @@ function createEnvironmentPromise() : Promise<Environment> {
           envEntity.indirectDiffuseFactor.w = 1;
           resolve(envEntity);
         }).catch((err: string) => {
-          console.error('Environment mapping material create failed: ' + err + '.');
+          console.error('Environment create failed: ' + err + '.');
           reject(err);
         });
       }).catch((err: string) => {
