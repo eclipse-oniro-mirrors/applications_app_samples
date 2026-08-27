@@ -68,7 +68,7 @@ interface PerformanceStats {
 
 // 回归测试记录器：记录所有测试结果和性能指标，用于生成回归报告
 class RegressionTestRecorder {
-  private static instance: RegressionTestRecorder;
+  private static instance: RegressionTestRecorder | undefined;
   private testResults: Map<string, TestResult> = new Map();
   private performanceMetrics: Map<string, number[]> = new Map();
 
@@ -266,7 +266,7 @@ export default function comprehensiveRegressionTest() {
 
       try {
         await ensurePowerDialogVisible(driver);
-
+        // TODO: 此处需补充触发 KEY_ENTER 并验证对应公共事件发布的逻辑
         await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
         const screenOutPassed = await isPowerDialogVisible(driver);
 

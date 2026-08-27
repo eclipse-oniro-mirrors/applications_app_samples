@@ -21,7 +21,7 @@ import {
   KEY_LEFT,
   KEY_RIGHT,
   KEY_BACK,
-  KEY_ENTER,
+  KEY_UP,
   powerDialogComponentCount,
   checkFocusState,
   waitForDialogStable,
@@ -500,7 +500,7 @@ export default function userScenariosTest() {
       const startTime = Date.now();
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await driver.delayMs(DELAY_AFTER_POWER_OP);
 
       const executionTime = Date.now() - startTime;
@@ -517,7 +517,7 @@ export default function userScenariosTest() {
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
 
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await driver.delayMs(DELAY_AFTER_POWER_OP);
 
       const executionTime = Date.now() - startTime;

@@ -21,7 +21,7 @@ import {
   KEY_LEFT,
   KEY_RIGHT,
   KEY_BACK,
-  KEY_ENTER,
+  KEY_UP,
   powerDialogComponentCount,
   checkFocusState,
   waitForDialogStable,
@@ -149,7 +149,7 @@ export default function systemIntegrationTest() {
       const isFocusCorrect = await checkFocusState(driver, focusIndex);
       expect(isFocusCorrect).assertTrue();
 
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await driver.delayMs(DELAY_AFTER_POWER_OP);
 
       const responseTime = Date.now() - startTime;
@@ -357,7 +357,7 @@ export default function systemIntegrationTest() {
       integrationTracker.recordIntegration(IntegrationType.FOCUS_MANAGER, 'focus_navigation', true, responseTime1);
 
       const startTime2 = Date.now();
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       await driver.delayMs(DELAY_AFTER_POWER_OP);
       const responseTime2 = Date.now() - startTime2;
       integrationTracker.recordIntegration(IntegrationType.POWER_MANAGER, 'power_operation', true, responseTime2);
