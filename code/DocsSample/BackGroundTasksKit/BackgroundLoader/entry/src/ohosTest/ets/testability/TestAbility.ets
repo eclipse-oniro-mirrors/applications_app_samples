@@ -31,8 +31,16 @@ const DOMAIN: number = 0x0000;
 export default class TestAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'TestAbility onCreate');
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
+    try {
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want));
+    } catch (e) {
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'want param: error');
+    }
+    try {
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'launchParam:' + JSON.stringify(launchParam));
+    } catch (e) {
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'launchParam: error');
+    }
     let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
     let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'start run testcase!!!');
