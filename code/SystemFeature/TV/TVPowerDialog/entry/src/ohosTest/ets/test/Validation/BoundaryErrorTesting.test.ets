@@ -19,7 +19,7 @@ import {
   createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
-  KEY_ENTER,
+  KEY_UP,
   KEY_BACK,
   powerDialogComponentCount,
   checkFocusState,
@@ -542,7 +542,7 @@ export default function boundaryErrorTestingTest() {
       }
       const componentCount = await powerDialogComponentCount(driver);
       expect(componentCount).assertLargerOrEqual(1);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       boundaryUtil.recordRecovery();
     });
 
@@ -680,7 +680,7 @@ export default function boundaryErrorTestingTest() {
         boundaryUtil.recordError();
       } // 阶段2：发送有效按键验证系统能恢复
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       boundaryUtil.recordRecovery();
 
       // 阶段3：快速连续导航操作验证系统稳定性

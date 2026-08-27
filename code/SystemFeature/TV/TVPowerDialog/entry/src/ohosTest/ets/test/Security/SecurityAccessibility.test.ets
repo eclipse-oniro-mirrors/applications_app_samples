@@ -20,7 +20,7 @@ import {
   createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
-  KEY_ENTER,
+  KEY_UP,
   KEY_BACK,
   powerDialogComponentCount,
   checkFocusState,
@@ -244,7 +244,7 @@ export default function securityAccessibilityTest() {
     it('operation_confirmation_should_provide_screen_reader_feedback', 0, async () => {
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       accessibilityUtil.simulateScreenReaderAnnouncement('重启确认提示', 'confirmation_2');
       securityUtil.checkPermission('ohos.permission.REBOOT');
       const powerOpDetails: SecurityEventDetails = {
@@ -339,7 +339,7 @@ export default function securityAccessibilityTest() {
       };
       securityUtil.recordSecurityEvent('permission_check', permissionCheckDetails);
 
-      await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
+      await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
       accessibilityUtil.simulateScreenReaderAnnouncement('操作确认提示', 'operation_confirm');
 
       const powerOpDetails: SecurityEventDetails = { type: 'suspend' };
