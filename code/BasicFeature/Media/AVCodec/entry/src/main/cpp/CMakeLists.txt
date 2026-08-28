@@ -24,6 +24,8 @@ set(BASE_LIBRARY
     libohaudio.so
 )
 add_library(player SHARED sample/player/PlayerNative.cpp
+                          sample/player/PlayerNapiParser.cpp
+                          sample/player/PlayerNapiSerializer.cpp
                           sample/player/Player.cpp
                           sample/player/AudioOutputPump.cpp
                           sample/player/BufferRenderer.cpp
