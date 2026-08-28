@@ -16,7 +16,7 @@
 // [Start style_not_parameter]
 // 正确写法
   @Styles
-  function globalFancy () {
+  function globalFancy() {
     .width(100)
   }
 // [End style_not_parameter]
