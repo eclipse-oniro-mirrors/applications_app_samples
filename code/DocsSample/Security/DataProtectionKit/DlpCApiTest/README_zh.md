@@ -66,7 +66,7 @@ entry/src/main/cpp/
 ```
 git init
 git config core.sparsecheckout true
-echo code/SystemFeature/Security/DlpCApiTest/ > .git/info/sparse-checkout
+echo code/DocsSample/Security/DataProtectionKit/DlpCApiTest/  > .git/info/sparse-checkout
 git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
