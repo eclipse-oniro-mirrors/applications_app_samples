@@ -153,7 +153,7 @@ struct CursorMoving {
     this.canvasContext.strokeStyle = this.isTouchDown ? '#ff1a5cae' : '#ff9ba59b';
     this.canvasContext.fillStyle = this.isTouchDown ? '#ff1a5cae' : '#ff9ba59b';
     this.canvasContext.arc(this.cursorPosition.x + this.cursorPosition.width / 2,
-      this.cursorPosition.y + this.cursorPosition.width / 2, this.arcRadius, 0, 2 * Math.PI);
+      this.cursorPosition.y + this.cursorPosition.height / 2, this.arcRadius, 0, 2 * Math.PI);
     this.canvasContext.fill();
     this.canvasContext.stroke();
 
