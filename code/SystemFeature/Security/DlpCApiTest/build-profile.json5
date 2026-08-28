@@ -23,7 +23,6 @@
         "compileSdkVersion": "23",
         "runtimeOS": "OpenHarmony",
         "buildOption": {
-          "nativeCompiler": "BiSheng",
           "strictMode": {
             "caseSensitiveCheck": true,
             "useNormalizedOHMUrl": true
@@ -33,10 +32,24 @@
     ],
     "buildModeSet": [
       {
-        "name": "debug",
+        "name": "debug"
       },
       {
         "name": "release"
+      }
+    ],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:/Users/ictuc/.ohos/config/openharmony/default_DlpCApiTest_3FC0HHphEkkUrCisI3puxtB8bSZtJveKXziSYJgFHFw=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001A09007F003C78B672AA90E7509FA5056BE45ADE5DD2EB374F91FA94C521CAF97945D0B161933E",
+          "profile": "C:/Users/ictuc/.ohos/config/openharmony/default_DlpCApiTest_3FC0HHphEkkUrCisI3puxtB8bSZtJveKXziSYJgFHFw=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/ictuc/.ohos/config/openharmony/default_DlpCApiTest_3FC0HHphEkkUrCisI3puxtB8bSZtJveKXziSYJgFHFw=.p12",
+          "storePassword": "0000001A27572CCF4EEB779864611831692F5F20439341D64139B7578773B6E7B71E448B28AA318D4AD1"
+        }
       }
     ]
   },
