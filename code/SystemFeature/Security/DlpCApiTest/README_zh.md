@@ -68,5 +68,5 @@ git init
 git config core.sparsecheckout true
 echo code/SystemFeature/Security/DlpCApiTest/ > .git/info/sparse-checkout
 git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
-git pull origin OpenHarmony_feature_sta_20260331
+git pull origin master
 ```
