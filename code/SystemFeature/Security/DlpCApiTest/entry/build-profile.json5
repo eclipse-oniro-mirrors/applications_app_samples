@@ -24,6 +24,11 @@
       "path": "./src/main/cpp/CMakeLists.txt",
       "arguments": "",
       "cppFlags": "",
+      "abiFilters": [
+        "arm64-v8a",
+        "x86_64",
+        "armeabi-v7a"
+      ]
     }
   },
   "buildOptionSet": [
@@ -54,25 +59,5 @@
     {
       "name": "ohosTest",
     }
-  ],
-  // HarmonyOS工程
-  "buildOption": {
-    "externalNativeOptions": {
-      "abiFilters": [
-        "arm64-v8a",
-        "x86_64",
-        "armeabi-v7a"
-      ]
-    },
-  },
-  // OpenHarmony工程
-  "buildOption": {
-    "externalNativeOptions": {
-      "abiFilters": [
-        "arm64-v8a",
-        "x86_64",
-        "armeabi-v7a"
-      ]
-    }
-  }
+  ]
 }

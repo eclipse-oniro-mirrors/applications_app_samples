@@ -31,7 +31,7 @@ struct CApiTest {
       .height(40)
       .margin(20)
       .onClick(() => {
-        const result = testNapi.GetDlpPermissionInfo();
+        const result: number = testNapi.GetDlpPermissionInfo();
         this.message = result.toString();
       })
 
@@ -39,7 +39,7 @@ struct CApiTest {
       .height(40)
       .margin(20)
       .onClick(() => {
-        const result = testNapi.GetOriginalFileName();
+        const result: number = testNapi.GetOriginalFileName();
         this.message = result.toString();
       })
 
@@ -47,7 +47,7 @@ struct CApiTest {
       .height(40)
       .margin(20)
       .onClick(() => {
-        const result = testNapi.IsInSandbox();
+        const result: boolean = testNapi.IsInSandbox();
         this.message = result.toString();
       })
 
@@ -55,7 +55,7 @@ struct CApiTest {
       .height(40)
       .margin(20)
       .onClick(() => {
-        const result = testNapi.SetSandboxAppConfig();
+        const result: number = testNapi.SetSandboxAppConfig();
         this.message = result.toString();
       })
 
@@ -63,7 +63,7 @@ struct CApiTest {
       .height(40)
       .margin(20)
       .onClick(() => {
-        const result = testNapi.GetSandboxAppConfig();
+        const result: number = testNapi.GetSandboxAppConfig();
         this.message = result.toString();
       })
 
@@ -71,7 +71,7 @@ struct CApiTest {
       .height(40)
       .margin(20)
       .onClick(() => {
-        const result = testNapi.CleanSandboxAppConfig();
+        const result: number = testNapi.CleanSandboxAppConfig();
         this.message = result.toString();
       })
   }
