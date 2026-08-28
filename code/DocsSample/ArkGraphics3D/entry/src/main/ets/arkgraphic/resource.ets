@@ -187,7 +187,7 @@ struct materialPage {
           this.rf = this.scene.getResourceFactory();
           // [StartExclude scene_load_init]
           // [Start scene_camera_init]
-          this.cam = await this.rf.createCamera({ 'name': 'Camera1' });
+          this.cam = await this.rf.createCamera({ name: 'Camera1' });
           this.cam.enabled = true;
           this.cam.position.z = 5;
           // [End scene_camera_init]
