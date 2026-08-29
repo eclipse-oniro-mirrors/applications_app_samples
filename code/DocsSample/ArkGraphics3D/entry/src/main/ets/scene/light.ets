@@ -21,46 +21,31 @@ import { router } from '@kit.ArkUI';
 let globalScene: Scene | null = null;
 
 function createLightPromise(): Promise<Light> {
-  return new Promise((resolve, reject) => {
-    // Switched from .gltf to .glb; same content, different format
-    // [Start light_load_and_factory]
-    let scene: Promise<Scene> = Scene.load($rawfile('gltf/CubeWithFloor/glTF/AnimatedCube.glb'));
-    scene.then(async (result: Scene) => {
-      // [StartExclude light_load_and_factory]
-      // Save loaded scene globally for reuse (e.g., in LightPage)
-      globalScene = result;
-      // [EndExclude light_load_and_factory]
-      let sceneFactory: SceneResourceFactory = result.getResourceFactory();
-      let lightParameter: SceneNodeParameters = { name: 'light' };
-      // [StartExclude light_load_and_factory]
-      // Create directional light.
-      // [Start light_create_and_config]
-      let light: Promise<Light> = sceneFactory.createLight(lightParameter, LightType.DIRECTIONAL);
-      light.then(async (lightEntity: Light) => {
-        // Set the color of the directional light.
-        lightEntity.color = { r: 0.8, g: 0.1, b: 0.2, a: 1.0 };
+  // Switched from .gltf to .glb; same content, different format
+  // [Start light_load_and_factory]
+  return Scene.load($rawfile('gltf/CubeWithFloor/glTF/AnimatedCube.glb')).then(async (result: Scene) => {
+    // [StartExclude light_load_and_factory]
+    // Save loaded scene globally for reuse (e.g., in LightPage)
+    globalScene = result;
+    // [EndExclude light_load_and_factory]
+    let sceneFactory: SceneResourceFactory = result.getResourceFactory();
+    let lightParameter: SceneNodeParameters = { name: 'light' };
+    // [StartExclude light_load_and_factory]
+    // Create directional light.
+    // [Start light_create_and_config]
+    let lightEntity: Light = await sceneFactory.createLight(lightParameter, LightType.DIRECTIONAL);
+    // Set the color of the directional light.
+    lightEntity.color = { r: 0.8, g: 0.1, b: 0.2, a: 1.0 };
 
-        // Set other light parameters.
-        // ...
-        // [StartExclude light_create_and_config]
-        resolve(lightEntity);
-        // [EndExclude light_create_and_config]
-      }).catch((err: string) => {
-        console.error('Light create failed: ' + err + '.');
-        // [StartExclude light_create_and_config]
-        reject(err);
-        // [EndExclude light_create_and_config]
-      });
-      // [End light_create_and_config]
-      // [EndExclude light_load_and_factory]
-    }).catch((error: string) => {
-      console.error('Scene load failed: ' + error);
-      // [StartExclude light_load_and_factory]
-      reject(error);
-      // [EndExclude light_load_and_factory]
-    });
-    // [End light_load_and_factory]
+    // Set other light parameters.
+    // ...
+    // [StartExclude light_create_and_config]
+    return lightEntity;
+    // [EndExclude light_create_and_config]
+    // [End light_create_and_config]
+    // [EndExclude light_load_and_factory]
   });
+  // [End light_load_and_factory]
 }
 
 @Entry
