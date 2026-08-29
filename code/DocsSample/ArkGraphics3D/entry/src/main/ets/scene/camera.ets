@@ -21,37 +21,50 @@ import { router } from '@kit.ArkUI';
 let globalScene: Scene | null = null;
 
 function createCameraPromise(): Promise<Camera> {
-  // Switched from .gltf to .glb; same content, different format
-  // [Start cam_load_and_factory]
-  return Scene.load($rawfile('gltf/CubeWithFloor/glTF/AnimatedCube.glb')).then(async (result: Scene) => {
-    // [StartExclude cam_load_and_factory]
-    // Save loaded scene globally for reuse (e.g., in CameraPage)
-    globalScene = result;
-    // [EndExclude cam_load_and_factory]
-    let sceneFactory: SceneResourceFactory = result.getResourceFactory();
-    let sceneCameraParameter: SceneNodeParameters = { name: 'camera' };
-    // [StartExclude cam_load_and_factory]
-    // Create a Camera.
-    // [Start cam_create_and_config]
-    let cameraEntity: Camera = await sceneFactory.createCamera(sceneCameraParameter);
-    // Enable the camera node.
-    cameraEntity.enabled = true;
+  return new Promise((resolve, reject) => {
+    // Switched from .gltf to .glb; same content, different format
+    // [Start cam_load_and_factory]
+    let scene: Promise<Scene> = Scene.load($rawfile('gltf/CubeWithFloor/glTF/AnimatedCube.glb'));
+    scene.then(async (result: Scene) => {
+      // [StartExclude cam_load_and_factory]
+      // Save loaded scene globally for reuse (e.g., in CameraPage)
+      globalScene = result;
+      // [EndExclude cam_load_and_factory]
+      let sceneFactory: SceneResourceFactory = result.getResourceFactory();
+      let sceneCameraParameter: SceneNodeParameters = { name: 'camera' };
+      // [StartExclude cam_load_and_factory]
+      // Create a Camera.
+      // [Start cam_create_and_config]
+      let camera: Promise<Camera> = sceneFactory.createCamera(sceneCameraParameter);
+      camera.then(async (cameraEntity: Camera) => {
+        // Enable the camera node.
+        cameraEntity.enabled = true;
 
-    // Set the camera position.
-    cameraEntity.position.z = 5;
+        // Set the camera position.
+        cameraEntity.position.z = 5;
 
-    // Set the FoV.
-    cameraEntity.fov = 60 * Math.PI / 180;
+        // Set the FoV.
+        cameraEntity.fov = 60 * Math.PI / 180;
 
-    // Set other camera parameters.
-    // ...
-    // [StartExclude cam_create_and_config]
-    return cameraEntity;
-    // [EndExclude cam_create_and_config]
-    // [End cam_create_and_config]
-    // [EndExclude cam_load_and_factory]
+        // Set other camera parameters.
+        // ...
+        // [StartExclude cam_create_and_config]
+        resolve(cameraEntity);
+        // [EndExclude cam_create_and_config]
+      }).catch((error: string) => {
+        console.error('Camera create failed: ' + error + '.');
+        // [StartExclude cam_create_and_config]
+        reject(error);
+        // [EndExclude cam_create_and_config]
+      });
+      // [End cam_create_and_config]
+      // [EndExclude cam_load_and_factory]
+    }).catch((error: string) => {
+      console.error('Scene load failed: ' + error);
+      reject(error);
+    });
+    // [End cam_load_and_factory]
   });
-  // [End cam_load_and_factory]
 }
 
 @Entry
