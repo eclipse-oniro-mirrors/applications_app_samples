@@ -16,7 +16,7 @@
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
-  createFreshDriver,
+  getDriver,
   KEY_BACK,
   pressAndWait,
   DELAY_KEY_NAVIGATION,
@@ -460,7 +460,7 @@ export default function powerDialogErrorRecoveryTest() {
     let driver: Driver;
 
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       await serializedDelay(driver, 1000);
     });
 

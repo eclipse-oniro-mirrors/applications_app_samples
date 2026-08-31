@@ -17,7 +17,6 @@ import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
   getDriver,
-  createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_BACK,
@@ -482,7 +481,7 @@ export default function userScenariosTest() {
     let scenariosTracker: UserScenariosTracker;
 
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       scenariosTracker = UserScenariosTracker.getInstance();
       scenariosTracker.resetTracker();
       await driver.delayMs(1000);

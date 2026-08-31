@@ -17,7 +17,6 @@ import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
   getDriver,
-  createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_BACK,
@@ -429,7 +428,7 @@ export default function powerConsumptionTest() {
     let powerTracker: PowerConsumptionTracker;
 
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       powerTracker = PowerConsumptionTracker.getInstance();
       powerTracker.resetTracker();
       await runSerializedUiOperation(async () => {

@@ -90,10 +90,14 @@ class RegressionTestRecorder {
 
   // 记录性能指标：收集特定性能指标的多组数据用于统计分析
   public recordPerformanceMetric(metricName: string, value: number): void {
-    if (!this.performanceMetrics.has(metricName)) {
-      this.performanceMetrics.set(metricName, []);
+    const metrics: number[] | undefined = this.performanceMetrics.get(metricName);
+    if (metrics === undefined) {
+      const newMetrics: number[] = [];
+      newMetrics.push(value);
+      this.performanceMetrics.set(metricName, newMetrics);
+    } else {
+      metrics.push(value);
     }
-    this.performanceMetrics.get(metricName)!.push(value);
   }
 
   // 获取测试统计：计算总测试数、通过数、失败数和通过率

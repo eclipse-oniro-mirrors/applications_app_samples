@@ -16,7 +16,7 @@
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@ohos.UiTest';
 import {
-  createFreshDriver,
+  getDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_BACK,
@@ -126,7 +126,7 @@ export default function dataBindingTest() {
     let bindingTracker: DataBindingTracker;
 
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       bindingTracker = DataBindingTracker.getInstance();
       bindingTracker.resetTracker();
       await closeDialogIfExists(driver);

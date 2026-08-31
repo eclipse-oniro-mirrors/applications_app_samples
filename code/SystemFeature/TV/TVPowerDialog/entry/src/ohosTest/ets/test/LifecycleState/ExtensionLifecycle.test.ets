@@ -17,7 +17,6 @@ import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
   getDriver,
-  createFreshDriver,
   KEY_BACK,
   KEY_ENTER,
   powerDialogComponentCount,
@@ -551,7 +550,7 @@ export default function extensionLifecycleTest() {
 
     // 测试前置：初始化驱动和追踪器，确保测试环境干净
     beforeAll(async () => {
-      driver = createFreshDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
+      driver = getDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
       mockSession = MockExtensionSession.getInstance();
       await driver.delayMs(1000);
     });

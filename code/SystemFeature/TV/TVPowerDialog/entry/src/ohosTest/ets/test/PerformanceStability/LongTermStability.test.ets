@@ -16,7 +16,7 @@
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@ohos.UiTest';
 import {
-  createFreshDriver,
+  getDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_BACK,
@@ -35,7 +35,7 @@ export default function longTermStabilityTest() {
 
     // 测试前置：初始化驱动，确保测试环境干净
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       await serializedDelay(driver, 1000);
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
     });

@@ -17,7 +17,6 @@ import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
   getDriver,
-  createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_UP,
@@ -145,7 +144,7 @@ export default function securityAccessibilityTest() {
     let accessibilityUtil: AccessibilityTestUtil;
 
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       securityUtil = SecurityTestUtil.getInstance();
       accessibilityUtil = AccessibilityTestUtil.getInstance();
       securityUtil.clearRecords();

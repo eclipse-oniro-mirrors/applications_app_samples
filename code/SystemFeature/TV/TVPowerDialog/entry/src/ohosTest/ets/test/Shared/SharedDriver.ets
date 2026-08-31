@@ -135,14 +135,6 @@ export function resetDriver(): void {
   _queueLock = false;
 }
 
-/** 创建Driver实例：复用全局串行化队列，避免跨测试套件beforeAll并发时打断已有UI操作
- *  多个测试文件可能并行启动，若此处重置队列，会让新的delayMs/triggerKey绕过前一个套件尚未完成的操作
- *  从而触发"uitest-api dose not allow calling concurrently"错误
- */
-export function createFreshDriver(): Driver {
-  return getDriver();
-}
-
 /** 统计对话框组件数量：采用简化但更可靠的查找策略
  *  直接查找所有组件类型，避免复杂的降级策略导致的性能问题和误判
  */

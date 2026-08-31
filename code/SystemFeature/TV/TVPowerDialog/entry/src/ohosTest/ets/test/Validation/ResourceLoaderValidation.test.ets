@@ -17,7 +17,6 @@ import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
   getDriver,
-  createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_ENTER,
@@ -210,7 +209,7 @@ export default function resourceLoaderValidationTest() {
     let resourceLoader: ResourceLoaderSimulator;
 
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       resourceLoader = ResourceLoaderSimulator.getInstance();
       resourceLoader.resetLoader();
       await driver.delayMs(1000);

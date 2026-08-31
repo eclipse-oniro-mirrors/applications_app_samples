@@ -16,7 +16,7 @@
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@ohos.UiTest';
 import {
-  createFreshDriver,
+  getDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_BACK,
@@ -34,7 +34,7 @@ export default function deviceCompatibilityTest() {
 
     // 测试前置：初始化驱动，确保测试环境干净
     beforeAll(async () => {
-      driver = createFreshDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
+      driver = getDriver(); // 复用全局Driver单例：确保跨测试用例数据一致性，避免状态污染
       await driver.delayMs(1000);
     });
 

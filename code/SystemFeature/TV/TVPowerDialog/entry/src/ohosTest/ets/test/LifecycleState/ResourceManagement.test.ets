@@ -17,7 +17,6 @@ import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
   getDriver,
-  createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_BACK,
@@ -117,7 +116,7 @@ export default function resourceManagementTest() {
     let resourceTracker: ResourceManagementTracker;
 
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       resourceTracker = ResourceManagementTracker.getInstance();
       resourceTracker.resetTracker();
       await runSerializedUiOperation(async () => {

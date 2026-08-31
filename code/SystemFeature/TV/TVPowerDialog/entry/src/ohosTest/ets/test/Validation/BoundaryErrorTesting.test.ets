@@ -16,7 +16,7 @@
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@ohos.UiTest';
 import {
-  createFreshDriver,
+  getDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_UP,
@@ -471,7 +471,7 @@ export default function boundaryErrorTestingTest() {
 
     // 测试前置：初始化驱动和追踪器，确保测试环境干净
     beforeAll(async () => {
-      driver = createFreshDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
+      driver = getDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
       boundaryUtil = BoundaryTestUtil.getInstance();
       boundaryUtil.resetStats();
     });

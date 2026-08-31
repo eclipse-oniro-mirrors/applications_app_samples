@@ -17,7 +17,6 @@ import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
   getDriver,
-  createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_ENTER,
@@ -552,7 +551,7 @@ export default function powerModelDeepTest() {
 
     // 测试前置：初始化驱动和追踪器，确保测试环境干净
     beforeAll(async () => { // 初始化Driver和列表管理器，确保测试从干净状态开始
-      driver = createFreshDriver();
+      driver = getDriver();
       itemManager = new PowerItemListManager();
       await serializedDelay(driver, 1000);
     });

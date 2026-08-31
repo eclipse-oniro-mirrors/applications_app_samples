@@ -16,7 +16,10 @@
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@ohos.UiTest';
 import {
-  createFreshDriver, KEY_BACK, pressAndWait, DELAY_KEY_NAVIGATION
+  getDriver,
+  KEY_BACK,
+  pressAndWait,
+  DELAY_KEY_NAVIGATION
 } from '../Shared/SharedDriver';
 
 // 生命周期阶段枚举：覆盖对话框从创建到销毁的完整状态机
@@ -107,7 +110,7 @@ export default function dialogLifecycleTest() {
 
     // 测试前置：初始化驱动和追踪器，确保测试环境干净
     beforeAll(async () => { // 初始化Driver和生命周期追踪器，确保测试从干净状态开始
-      driver = createFreshDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
+      driver = getDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
       lifecycleTracker = DialogLifecycleTracker.getInstance();
       lifecycleTracker.resetTracker();
       await driver.delayMs(1000);

@@ -16,7 +16,7 @@
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
-  createFreshDriver,
+  getDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_ENTER,
@@ -393,7 +393,7 @@ export default function powerDialogConcurrencyTest() {
     let tracker: ConcurrencyTracker;
 
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       tracker = ConcurrencyTracker.getInstance();
       tracker.reset();
       await serializedDelay(driver, 1000);

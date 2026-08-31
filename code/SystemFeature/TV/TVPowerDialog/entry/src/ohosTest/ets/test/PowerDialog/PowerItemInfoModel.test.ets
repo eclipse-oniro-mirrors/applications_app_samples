@@ -17,7 +17,6 @@ import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
   getDriver,
-  createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_ENTER,
@@ -434,7 +433,7 @@ export default function powerItemInfoModelTest() {
 
     // 测试前置：初始化驱动，确保测试环境干净
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       await serializedDelay(driver, 1000);
     });
 

@@ -17,7 +17,6 @@ import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
   getDriver,
-  createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_ENTER,
@@ -375,7 +374,7 @@ export default function powerDialogUITest() {
 
     // 测试前置：初始化驱动和追踪器，确保测试环境干净
     beforeAll(async () => { // 创建干净的Driver实例并触发电源对话框，为整个测试套件准备初始状态
-      driver = createFreshDriver();
+      driver = getDriver();
       await driver.delayMs(1000);
       await triggerPowerDialog(driver);
     });

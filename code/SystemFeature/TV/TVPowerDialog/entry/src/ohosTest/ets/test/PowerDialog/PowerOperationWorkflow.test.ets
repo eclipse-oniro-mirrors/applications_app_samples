@@ -16,7 +16,7 @@
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
-  createFreshDriver,
+  getDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_UP,
@@ -399,7 +399,7 @@ export default function powerOperationWorkflowTest() {
     let mockPowerService: MockPowerService;
 
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       mockPowerService = MockPowerService.getInstance();
       mockPowerService.clearOperationLog();
       await serializedDelay(driver, 1000);

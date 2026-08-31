@@ -16,7 +16,7 @@
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
-  createFreshDriver,
+  getDriver,
   KEY_BACK,
   pressAndWait,
   DELAY_KEY_NAVIGATION,
@@ -470,7 +470,7 @@ export default function powerNotificationTest() {
     let manager: PowerNotificationManager;
 
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       manager = PowerNotificationManager.getInstance();
       manager.clear();
       await serializedDelay(driver, 1000);

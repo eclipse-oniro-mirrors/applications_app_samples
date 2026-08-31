@@ -17,7 +17,6 @@ import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
   getDriver,
-  createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_ENTER,
@@ -199,7 +198,7 @@ export default function commonEventUtilValidationTest() {
     let driver: Driver;
     let eventSystem: CommonEventSystem; // 测试前置：初始化驱动和事件系统，确保测试环境干净
     beforeAll(async () => {
-      driver = createFreshDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
+      driver = getDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
       eventSystem = CommonEventSystem.getInstance();
       eventSystem.resetSystem();
       await driver.delayMs(1000);

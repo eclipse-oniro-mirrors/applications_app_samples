@@ -16,7 +16,10 @@
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@ohos.UiTest';
 import {
-  createFreshDriver, KEY_BACK, pressAndWait, DELAY_KEY_NAVIGATION
+  getDriver,
+  KEY_BACK,
+  pressAndWait,
+  DELAY_KEY_NAVIGATION
 } from '../Shared/SharedDriver';
 
 enum EventPhase {
@@ -530,7 +533,7 @@ export default function eventPropagationTest() {
 
     // 测试前置：初始化驱动和追踪器，确保测试环境干净
     beforeAll(async () => {
-      driver = createFreshDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
+      driver = getDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
       eventTracker = EventPropagationTracker.getInstance();
       eventTracker.resetTracker();
       await driver.delayMs(1000);

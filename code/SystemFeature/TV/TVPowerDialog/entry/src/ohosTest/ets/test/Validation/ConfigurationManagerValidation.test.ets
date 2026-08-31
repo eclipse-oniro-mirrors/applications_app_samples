@@ -17,7 +17,6 @@ import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
   getDriver,
-  createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_ENTER,
@@ -79,7 +78,8 @@ class ConfigurationManager {
 
   // 设置配置：验证配置能被正确存储并记录变更历史
   public setConfig(key: string, value: string | number | boolean | ConfigObjectValue, type: ConfigType): void {
-    const oldValue = this.configStore.has(key) ? this.configStore.get(key)!.value : undefined;
+    const existingItem: ConfigItem | undefined = this.configStore.get(key);
+    const oldValue = existingItem === undefined ? undefined : existingItem.value;
 
     const configItem: ConfigItem = {
       key,
@@ -202,7 +202,7 @@ export default function configurationManagerValidationTest() {
 
     // 测试前置：初始化驱动和配置管理器，确保测试环境干净
     beforeAll(async () => {
-      driver = createFreshDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
+      driver = getDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
       configManager = ConfigurationManager.getInstance();
       configManager.resetSystem();
       await driver.delayMs(1000);

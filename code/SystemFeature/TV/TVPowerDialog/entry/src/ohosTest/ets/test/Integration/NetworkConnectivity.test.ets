@@ -16,7 +16,7 @@
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver } from '@ohos.UiTest';
 import {
-  createFreshDriver,
+  getDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_BACK,
@@ -34,7 +34,7 @@ export default function networkConnectivityTest() {
     let driver: Driver;
 
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       await serializedDelay(driver, 1000);
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
     });

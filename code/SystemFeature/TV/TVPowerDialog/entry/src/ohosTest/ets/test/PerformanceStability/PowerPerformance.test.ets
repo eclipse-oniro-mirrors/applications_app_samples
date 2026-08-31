@@ -16,7 +16,7 @@
 import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
-  createFreshDriver,
+  getDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_BACK,
@@ -408,7 +408,7 @@ export default function powerPerformanceTest() {
     let monitor: PerformanceMonitor;
 
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       monitor = new PerformanceMonitor();
       await serializedDelay(driver, 1000);
     });

@@ -17,7 +17,6 @@ import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import {
   getDriver,
-  createFreshDriver,
   KEY_LEFT,
   KEY_RIGHT,
   KEY_UP,
@@ -533,7 +532,7 @@ export default function eventHandlingTest() {
 
     // 测试前置：初始化驱动和追踪器，确保测试环境干净
     beforeAll(async () => {
-      driver = createFreshDriver();
+      driver = getDriver();
       MockEventUtil.resetEventStats();
       MockCommonEventUtil.resetEventData();
       await driver.delayMs(1000);
