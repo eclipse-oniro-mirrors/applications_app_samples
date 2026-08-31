@@ -924,26 +924,28 @@ static napi_value RegisterPacketCallbackNapi(napi_env env, napi_callback_info in
 }
 // [End register_packet_callback]
 
+// [Start unregister_packet_callback]
 static napi_value UnregisterPacketCallbackNapi(napi_env env, napi_callback_info info)
 {
     size_t argc = 1;
     napi_value args[1] = {nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
-    uint32_t id;
+    int ret = -1;
     if (argc >= 1) {
+        uint32_t id;
         napi_get_value_uint32(env, args[0], &id);
+        OH_TrafficFilter_PacketController* controller = g_controllerMap[id];
+        if (controller != nullptr) {
+            ret = OH_TrafficFilter_UnregisterPacketCallback(controller);
+        }
     }
 
-    int ret = -1;
-    OH_TrafficFilter_PacketController* controller = g_controllerMap[id];
-    static_cast<void>(controller);
-    static_cast<void>(ret);
-
     napi_value result;
-    napi_create_int32(env, 0, &result);
+    napi_create_int32(env, ret, &result);
     return result;
 }
+// [End unregister_packet_callback]
 
 EXTERN_C_START
 // [Start init_exports]
