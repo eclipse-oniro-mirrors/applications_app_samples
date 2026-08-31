@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "nearlink_library",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}

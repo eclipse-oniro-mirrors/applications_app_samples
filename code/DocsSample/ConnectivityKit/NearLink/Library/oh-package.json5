@@ -1,0 +1,9 @@
+{
+  "name": "nearlink_library",
+  "version": "1.0.0",
+  "description": "NearLink feature interface library for OpenHarmony sample.",
+  "main": "Index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {}
+}

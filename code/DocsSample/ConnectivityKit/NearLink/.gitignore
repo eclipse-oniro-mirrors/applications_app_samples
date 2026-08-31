@@ -1,0 +1,31 @@
+# IDE
+.idea/
+*.iml
+
+# Build outputs
+**/build/
+.hvigor/
+
+# Local configuration
+local.properties
+
+# Dependencies
+oh_modules/
+**/oh_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Generated files
+**/node_modules/
+package-lock.json
+oh-package-lock.json5
+**/oh-package-lock.json5
+**/.preview/
+**/BuildProfile.ets
+
+# Signing files
+*.p12
+*.p7b
+*.cer

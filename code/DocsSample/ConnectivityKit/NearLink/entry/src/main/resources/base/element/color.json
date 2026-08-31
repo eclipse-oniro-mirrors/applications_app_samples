@@ -1,0 +1,29 @@
+{
+  "color": [
+    { "name": "start_window_background", "value": "#FFFFFF" },
+    { "name": "text_primary", "value": "#212121" },
+    { "name": "text_secondary", "value": "#333333" },
+    { "name": "text_hint", "value": "#757575" },
+    { "name": "text_disabled", "value": "#9E9E9E" },
+    { "name": "text_light", "value": "#999999" },
+    { "name": "color_primary", "value": "#1565C0" },
+    { "name": "color_primary_dark", "value": "#0D47A1" },
+    { "name": "color_accent", "value": "#2196F3" },
+    { "name": "color_success", "value": "#4CAF50" },
+    { "name": "color_danger", "value": "#FF6B6B" },
+    { "name": "color_error", "value": "#F44336" },
+    { "name": "color_warning", "value": "#FF9800" },
+    { "name": "bg_page", "value": "#F5F5F5" },
+    { "name": "bg_white", "value": "#FFFFFF" },
+    { "name": "bg_light_blue", "value": "#E3F2FD" },
+    { "name": "divider", "value": "#E0E0E0" },
+    { "name": "divider_dark", "value": "#BDBDBD" },
+    { "name": "shadow_overlay", "value": "#08000000" },
+    { "name": "overlay_light", "value": "#20FFFFFF" },
+    { "name": "text_dark_bg", "value": "#FFFFFF" },
+    { "name": "menu_card_purple", "value": "#9C27B0" },
+    { "name": "menu_card_indigo", "value": "#3F51B5" },
+    { "name": "menu_card_teal", "value": "#009688" },
+    { "name": "menu_card_pink", "value": "#E91E63" }
+  ]
+}

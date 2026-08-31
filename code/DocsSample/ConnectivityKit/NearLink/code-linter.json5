@@ -1,0 +1,102 @@
+{
+  "files": [
+    "**/*.ets",
+    "**/*.ts"
+  ],
+  "ignore": [
+    "**/oh_modules/**",
+    "**/build/**",
+    "**/node_modules/**",
+    "**/.preview/**"
+  ],
+  "rules": {
+    "@hw-stylistic/file-naming-convention": [
+      "warn",
+      {
+        "ets": "PascalCase",
+        "ts": "PascalCase"
+      }
+    ],
+    "@hw-stylistic/indent": [
+      "warn",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "@hw-stylistic/quotes": [
+      "warn",
+      "single",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
+    ],
+    "@hw-stylistic/semi": [
+      "warn",
+      "always"
+    ],
+    "@hw-stylistic/comma-dangle": [
+      "warn",
+      "never"
+    ],
+    "@hw-stylistic/no-multi-spaces": "warn",
+    "@hw-stylistic/keyword-spacing": [
+      "warn",
+      {
+        "before": true,
+        "after": true
+      }
+    ],
+    "@hw-stylistic/space-before-function-paren": [
+      "warn",
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "@hw-stylistic/brace-style": [
+      "warn",
+      "1tbs",
+      {
+        "allowSingleLine": true
+      }
+    ],
+    "@hw-stylistic/space-infix-ops": "warn",
+    "@hw-stylistic/space-before-blocks": "warn",
+    "@hw-stylistic/comma-spacing": [
+      "warn",
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "@hw-stylistic/no-trailing-spaces": "warn",
+    "@hw-stylistic/eol-last": "warn",
+    "@hw-stylistic/max-len": [
+      "warn",
+      {
+        "code": 120,
+        "ignoreComments": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreUrls": true
+      }
+    ],
+    "@hw-stylistic/array-type": [
+      "warn",
+      "array"
+    ],
+    "@hw-stylistic/prefer-for-of": "warn",
+    "@hw-stylistic/no-unused-vars": "warn",
+    "@hw-stylistic/no-console": "off",
+    "@hw-stylistic/prefer-const": "warn",
+    "@hw-stylistic/newline-per-chained-call": [
+      "warn",
+      {
+        "ignoreChainWithDepth": 2
+      }
+    ]
+  }
+}
