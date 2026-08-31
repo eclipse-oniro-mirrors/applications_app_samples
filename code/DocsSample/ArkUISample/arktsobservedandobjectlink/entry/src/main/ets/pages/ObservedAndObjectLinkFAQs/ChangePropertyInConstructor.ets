@@ -42,6 +42,10 @@ struct Index {
     this.dataDownloader.startIntervalUpdate(); // @Observed装饰的类构建后再修改属性可以触发更新UI
   }
 
+  aboutToDisappear() {
+    this.dataDownloader.stopIntervalUpdate();
+  }
+
   build() {
     Column() {
       Text(`Download state is ${this.dataDownloader.state}`)
