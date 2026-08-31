@@ -50,7 +50,7 @@ struct Model {
           // [StartExclude model_load]
           // [Start camera_scene_params]
           // Create a Camera.
-          this.cam = await rf.createCamera({ 'name': 'Camera' });
+          this.cam = await rf.createCamera({ name: 'Camera' });
           // Set proper camera parameters.
           this.cam.enabled = true;
           this.cam.position.z = 5;
