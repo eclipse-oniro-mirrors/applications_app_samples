@@ -10,11 +10,11 @@
     },
     {
       "name": "module_desc",
-      "value": "该模板实现了列表页的功能"
+      "value": "AVCodec 播放与录制示例模块"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "提供 AVCodec 播放与录制能力"
     },
     {
       "name": "EntryAbility_label",
@@ -158,7 +158,7 @@
     },
     {
       "name": "recorder_settings_subtitle",
-      "value": "配置编码、分辨率、帧率和输出模式"
+      "value": "配置音视频编码参数、分辨率和封装输出"
     },
     {
       "name": "setting_decoder_type",
@@ -177,8 +177,36 @@
       "value": "保存解码帧"
     },
     {
+      "name": "setting_retain_last_frame",
+      "value": "停止时保留最后一帧"
+    },
+    {
+      "name": "setting_low_latency",
+      "value": "低时延解码"
+    },
+    {
+      "name": "setting_decoding_order_output",
+      "value": "按解码顺序输出"
+    },
+    {
+      "name": "setting_hdr_vivid_to_bt709",
+      "value": "HDR Vivid 转 BT.709"
+    },
+    {
+      "name": "setting_audio_volume",
+      "value": "音频音量"
+    },
+    {
+      "name": "setting_audio_latency",
+      "value": "音频输出低时延"
+    },
+    {
       "name": "setting_codec",
       "value": "编码格式"
+    },
+    {
+      "name": "setting_output_format",
+      "value": "封装格式"
     },
     {
       "name": "setting_resolution",
@@ -187,6 +215,90 @@
     {
       "name": "setting_frame_rate",
       "value": "帧率"
+    },
+    {
+      "name": "setting_video_bitrate",
+      "value": "视频码率"
+    },
+    {
+      "name": "setting_bitrate_mode",
+      "value": "码率模式"
+    },
+    {
+      "name": "setting_i_frame_interval",
+      "value": "关键帧间隔"
+    },
+    {
+      "name": "setting_bitrate_10m",
+      "value": "10 Mbps"
+    },
+    {
+      "name": "setting_bitrate_20m",
+      "value": "20 Mbps"
+    },
+    {
+      "name": "setting_bitrate_30m",
+      "value": "30 Mbps"
+    },
+    {
+      "name": "setting_bitrate_mode_cbr",
+      "value": "恒定码率（CBR）"
+    },
+    {
+      "name": "setting_bitrate_mode_vbr",
+      "value": "可变码率（VBR）"
+    },
+    {
+      "name": "setting_i_frame_interval_100ms",
+      "value": "100 毫秒"
+    },
+    {
+      "name": "setting_i_frame_interval_1s",
+      "value": "1 秒"
+    },
+    {
+      "name": "setting_i_frame_interval_2s",
+      "value": "2 秒"
+    },
+    {
+      "name": "setting_audio_sample_rate",
+      "value": "音频采样率"
+    },
+    {
+      "name": "setting_audio_channel_count",
+      "value": "音频声道"
+    },
+    {
+      "name": "setting_audio_bitrate",
+      "value": "音频码率"
+    },
+    {
+      "name": "setting_audio_sample_rate_44100",
+      "value": "44.1 kHz"
+    },
+    {
+      "name": "setting_audio_sample_rate_48000",
+      "value": "48 kHz"
+    },
+    {
+      "name": "setting_audio_channel_mono",
+      "value": "单声道"
+    },
+    {
+      "name": "setting_audio_channel_stereo",
+      "value": "双声道"
+    },
+    {
+      "name": "setting_audio_bitrate_32k",
+      "value": "32 kbps"
+    },
+    {
+      "name": "setting_audio_bitrate_64k",
+      "value": "64 kbps"
+    },
+    {
+      "name": "setting_audio_bitrate_128k",
+      "value": "128 kbps"
     },
     {
       "name": "setting_decoder_auto",
@@ -285,6 +397,10 @@
       "value": "录制需要相机和麦克风权限，请在权限设置中授权。"
     },
     {
+      "name": "recorder_configuration_unsupported",
+      "value": "当前录制配置不受设备支持，请调整编码格式、分辨率或帧率。"
+    },
+    {
       "name": "media_file_empty",
       "value": "媒体文件为空，无法播放。"
     },
@@ -301,8 +417,81 @@
       "value": "媒体文件选择失败，请重试。"
     },
     {
+      "name": "media_file_not_selected",
+      "value": "未选择媒体文件，请重新选择。"
+    },
+    {
+      "name": "playback_pause",
+      "value": "暂停"
+    },
+    {
+      "name": "playback_resume",
+      "value": "继续播放"
+    },
+    {
+      "name": "playback_rewind_15s",
+      "value": "快退15秒"
+    },
+    {
+      "name": "playback_forward_15s",
+      "value": "快进15秒"
+    },
+    {
+      "name": "playback_replay",
+      "value": "重播"
+    },
+    { "name": "playback_mute", "value": "静音" },
+    { "name": "playback_unmute", "value": "取消静音" },
+    { "name": "playback_audio_track", "value": "音轨" },
+    { "name": "playback_subtitle", "value": "字幕" },
+    { "name": "playback_no_audio_track", "value": "当前文件只有一个音轨" },
+    { "name": "playback_audio_track_failed", "value": "读取音轨信息失败" },
+    { "name": "playback_subtitle_loaded", "value": "SRT 字幕已加载" },
+    { "name": "playback_subtitle_empty", "value": "SRT 字幕无有效内容" },
+    { "name": "playback_subtitle_failed", "value": "SRT 字幕加载失败" },
+    {
       "name": "seek_failed",
       "value": "无法跳转到所选播放位置。"
+    },
+    {
+      "name": "setting_group_output",
+      "value": "封装与输出"
+    },
+    {
+      "name": "setting_group_video",
+      "value": "视频编码"
+    },
+    {
+      "name": "setting_group_audio",
+      "value": "音频编码"
+    },
+    {
+      "name": "setting_group_control",
+      "value": "编码控制"
+    },
+    {
+      "name": "setting_audio_capture_latency",
+      "value": "音频采集时延"
+    },
+    {
+      "name": "setting_audio_latency_normal",
+      "value": "普通时延"
+    },
+    {
+      "name": "setting_audio_latency_low",
+      "value": "低时延"
+    },
+    {
+      "name": "setting_video_stabilization",
+      "value": "视频防抖"
+    },
+    {
+      "name": "setting_stabilization_disabled",
+      "value": "关闭"
+    },
+    {
+      "name": "setting_stabilization_auto",
+      "value": "自动"
     },
     {
       "name": "media_info",

@@ -20,6 +20,7 @@ export enum PlayerState {
   PLAYING = 3,
   STOPPING = 4,
   SEEKING = 5,
+  PAUSED = 6,
 }
 
 export type PlaybackCompletionReason = 'completed' | 'stopped' | 'error'
@@ -33,6 +34,16 @@ export interface PlayOptions {
   videoDecoderSyncMode: number;
   isSmartFluencySupported: boolean;
   enableVideoDump: boolean;
+  retainLastFrame?: boolean;
+  enableLowLatency?: boolean;
+  outputInDecodingOrder?: boolean;
+  convertHdrVividToBt709?: boolean;
+  /** Renderer volume in the range [0, 1]. */
+  audioVolume?: number;
+  /** Applied when creating the audio renderer for a playback task. */
+  enableAudioLowLatency?: boolean;
+  /** Container track index for the audio track; -1 selects the first audio track. */
+  audioTrackIndex?: number;
 }
 
 export interface PlaybackResult {
@@ -58,6 +69,10 @@ export const playNative: (
 ) => boolean
 
 export const stop: () => boolean
+
+export const pause: () => boolean
+
+export const resume: () => boolean
 
 export const seekTo: (positionUs: number) => boolean
 
@@ -130,6 +145,10 @@ export const isSmartFluencyAvailable: () => boolean
 
 export const setPlaybackSpeed: (
   speed: number,
+) => void
+
+export const setVolume: (
+  volume: number,
 ) => void
 
 export const setTransform: (

@@ -16,6 +16,7 @@
 import { describe, expect, it } from '@ohos/hypium';
 import { MediaInfo } from 'libplayer.so';
 import { buildMediaInfoSections, MediaInfoSection } from '../../../main/ets/model/MediaInfoModel';
+import { runTestCase } from './TestCaseLogger';
 
 function createMediaInfo(): MediaInfo {
   return {
@@ -43,32 +44,38 @@ function createMediaInfo(): MediaInfo {
 
 export default function mediaInfoModelTest(): void {
   describe('MediaInfoModelTest', () => {
-    it('shouldBuildStructuredAndRawSections', 0, () => {
-      const sections = buildMediaInfoSections(createMediaInfo());
-      expect(sections.length).assertEqual(7);
-      expect(sections[0].rows[0].value).assertEqual('2.00 MiB（2097152 bytes）');
-      expect(sections[1].rows[1].value).assertEqual('1920 × 1080');
-      expect(sections[1].rows[6].value).assertEqual('是');
-      expect(sections[1].rows[7].value).assertEqual('尚未确认');
-      expect(sections[2].rows[1].value).assertEqual('48000 Hz');
-      expect(sections[5].rawText).assertContain('video/avc');
-      expect(sections[6].rawText).assertContain('audio/mp4a-latm');
+    it('AVCodec_MediaInfo_StructuredAndRawSections_001', 0, () => {
+      runTestCase('AVCodec_MediaInfo_StructuredAndRawSections_001', () => {
+        const sections = buildMediaInfoSections(createMediaInfo());
+        expect(sections.length).assertEqual(7);
+        expect(sections[0].rows[0].value).assertEqual('2.00 MiB（2097152 bytes）');
+        expect(sections[1].rows[1].value).assertEqual('1920 × 1080');
+        expect(sections[1].rows[6].value).assertEqual('是');
+        expect(sections[1].rows[7].value).assertEqual('尚未确认');
+        expect(sections[2].rows[1].value).assertEqual('48000 Hz');
+        expect(sections[5].rawText).assertContain('video/avc');
+        expect(sections[6].rawText).assertContain('audio/mp4a-latm');
+      });
     });
 
-    it('shouldHideMissingTrackAndHandleEmptyDump', 0, () => {
-      const info = createMediaInfo();
-      info.audio.codecMime = '';
-      info.tracks = [{ index: 0, type: 1, formatDump: '' }];
-      const sections: MediaInfoSection[] = buildMediaInfoSections(info);
-      expect(sections.length).assertEqual(5);
-      expect(sections[2].title).assertEqual('解码与输出');
-      expect(sections[4].rawText).assertEqual('无可用信息');
+    it('AVCodec_MediaInfo_MissingTrackHandling_002', 0, () => {
+      runTestCase('AVCodec_MediaInfo_MissingTrackHandling_002', () => {
+        const info = createMediaInfo();
+        info.audio.codecMime = '';
+        info.tracks = [{ index: 0, type: 1, formatDump: '' }];
+        const sections: MediaInfoSection[] = buildMediaInfoSections(info);
+        expect(sections.length).assertEqual(5);
+        expect(sections[2].title).assertEqual('解码与输出');
+        expect(sections[4].rawText).assertEqual('无可用信息');
+      });
     });
 
-    it('shouldReturnEmptySectionsWhenUnavailable', 0, () => {
-      const info = createMediaInfo();
-      info.available = false;
-      expect(buildMediaInfoSections(info).length).assertEqual(0);
+    it('AVCodec_MediaInfo_UnavailableMedia_003', 0, () => {
+      runTestCase('AVCodec_MediaInfo_UnavailableMedia_003', () => {
+        const info = createMediaInfo();
+        info.available = false;
+        expect(buildMediaInfoSections(info).length).assertEqual(0);
+      });
     });
   });
 }

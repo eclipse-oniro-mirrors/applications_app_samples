@@ -24,16 +24,21 @@ The sample covers more than the basic codec APIs. It also demonstrates file sele
 | Decoder selection | Supports automatic, hardware, and software decoder selection | [Video decoding](#video-decoding) |
 | Synchronous/asynchronous codec mode | Async mode uses callback queues; sync mode actively queries input and output buffers from worker threads | [Video decoding](#video-decoding) |
 | SurfaceMode output | The decoder outputs directly to the XComponent Surface and releases frames at the scheduled render time | [SurfaceMode output](#surface-output) |
+| Last-frame behavior on stop | Choose whether SurfaceMode retains the last frame or outputs a blank frame when stopped/destroyed | [SurfaceMode output](#surface-output) |
 | BufferMode output | The application obtains decoded buffers, copies them to a NativeWindowBuffer with stride awareness, and submits them through graphics APIs | [BufferMode output](#buffer-output) |
 | BufferMode HDR Vivid | Propagates color space and HDR static/dynamic metadata and displays an HDR Vivid watermark after bitstream confirmation | [HDR Vivid detection and output](#hdr-vivid-output) |
 | Decoded-frame dump | BufferMode can optionally save decoded frames in the application sandbox; disabled by default | [Buffer dump](#buffer-dump) |
 | Audio decoding and playback | Decodes compressed audio to PCM and continuously feeds AudioRenderer | [Audio decoding and playback](#audio-playback) |
+| Multi-track audio | Lists audio tracks and restarts playback with the selected container track | [Audio decoding and playback](#audio-playback) |
+| Mute | Mutes or restores the configured volume during playback | [Audio decoding and playback](#audio-playback) |
+| External SRT subtitles | Selects an `.srt` file and displays the cue matching the playback position | [External subtitles](#subtitle-playback) |
 | Press-and-hold speed | Press and hold the playback window for X2; release to return to X1 | [Variable-speed playback](#playback-speed) |
 | Speed menu | Select X1, X2, or X3 during playback | [Variable-speed playback](#playback-speed) |
 | Smart fluency | Uses ADAPTIVE frame retention at X2/X3 and FULL at X1; thermal events may switch to UNIFORM | [Smart fluency](#smart-fluency) |
 | A/V synchronization | Uses the AudioRenderer playback position as the master clock and waits, schedules, or drops video frames | [A/V synchronization](#av-sync) |
 | Video transforms | Supports rotation, horizontal/vertical flip, and combined transforms | [Video transforms](#video-transform) |
 | Progress and precise seek | Shows current position and duration; resumes decoding from a sync frame and discards output before the requested target | [Playback progress and seek](#playback-seek) |
+| Playback controls | Supports pause/resume, 15-second rewind, 15-second forward, and replay while retaining the active decoders and position during pause | [Playback progress and seek](#playback-seek) |
 | Playback status | Shows state, requested speed, active tracks, and smart-fluency availability | [Playback and media information](#playback-info) |
 | Media details | Shows source, track, decoder, output, and raw Source/Track Format information | [Playback and media information](#playback-info) |
 | Stop and cleanup | Handles explicit stop, natural completion, and errors through one state machine and release path | [Playback threads and lifecycle](#player-lifecycle) |
@@ -43,12 +48,14 @@ The sample covers more than the basic codec APIs. It also demonstrates file sele
 | Feature | Behavior in this sample | Details |
 |---|---|---|
 | Camera preview and page navigation | Initializes the encoder Surface on the home page, passes its SurfaceId to the recording page, and creates preview/recording streams | [Camera capture and recording](#camera-recording) |
-| Video encoding | Camera frames are sent directly to the encoder Surface; H.264/H.265 and sync/async output are supported | [Video encoding](#video-encoding) |
-| Audio capture and encoding | AudioCapturer collects PCM, AudioCodec encodes AAC, and the result is written to the muxer | [Audio capture and encoding](#audio-encoding) |
+| Video encoding | Camera frames are sent directly to the encoder Surface; H.264/H.265, sync/async output, bitrate, bitrate mode, and key-frame interval are configurable | [Video encoding](#video-encoding) |
+| Audio capture and encoding | AudioCapturer collects PCM, AudioCodec encodes AAC, and the result is written to the muxer; sample rate, channel count, and AAC bitrate are configurable | [Audio capture and encoding](#audio-encoding) |
 | HDR Vivid recording | Selects P010 and the corresponding color space when device capabilities support HDR recording | [Camera capture and recording](#camera-recording) |
 | MP4/FLV muxing | Concurrently writes encoded audio and video; MP4 also stores rotation metadata | [Muxing](#muxing) |
 | Recording finalization | Waits for CameraKit, encoder EOS, muxer release, and output-fd closure before returning | [Recording stop flow](#recording-stop) |
 | Automated and device tests | Hypium covers deterministic logic; device tests cover codecs, output, synchronization, recording, and errors | [Testing](#testing) |
+
+Encoder configuration is capability-driven. B-frames are optional and remain disabled by default; this sample neither queries nor writes `VIDEO_ENCODER_B_FRAME`, so devices that do not expose the optional feature do not emit an unnecessary warning or reject the default recording path.
 
 ### Playback Capability Summary
 
@@ -67,21 +74,13 @@ For the complete list, see [AVCodec supported formats](https://gitcode.com/openh
 
 ### Preview
 
-| Playback settings | Source selection | Landscape playback |
-|---|---|---|
-| ![Playback settings](screenshots/播放_模式选择.jpeg) | ![Source selection](screenshots/播放_选择播放路径.jpeg) | ![Landscape playback](screenshots/播放_横屏.jpeg) |
-
-| Portrait playback | Playback speed | Transform selection |
-|---|---|---|
-| ![Portrait playback](screenshots/播放_竖屏.jpeg) | ![Playback speed](screenshots/播放_倍速.jpeg) | ![Transform selection](screenshots/播放_变换矩阵.jpeg) |
-
-| Rotated and flipped output | Recording settings | Recording page |
-|---|---|---|
-| ![Rotated and flipped output](screenshots/播放_垂直翻转并旋转90度.jpeg) | ![Recording settings](screenshots/录制_模式选择.jpeg) | ![Recording page](screenshots/录制_开始录制.jpeg) |
+| Playback settings | Source selection | Playback speed | Recording page |
+|---|---|---|---|
+| ![Playback settings](screenshots/playback-settings.jpeg) | ![Source selection](screenshots/playback-source-picker.jpeg) | ![Playback speed](screenshots/playback-speed.jpeg) | ![Recording page](screenshots/recording-page.jpeg) |
 
 ### Usage
 
-Playback does not require camera or microphone permission. Camera and microphone permissions are requested only when the user starts MP4 or FLV recording.
+Playback does not require camera or microphone permission. Camera and microphone permissions are requested only when the user taps **Record**. The MP4 or FLV container is selected through **Container format** in recording settings; MP4 is the default.
 
 If a permission is denied, the system may prevent the application from showing the same ordinary runtime-permission dialog again. The sample therefore calls `requestPermissionOnSetting()` to open the permission settings dialog and guide the user through granting the missing permission.
 
@@ -107,8 +106,8 @@ hdc shell mediatool send /storage/media/100/local/files/xx.mp4
 
 #### Recording
 
-1. Optionally open **Settings** and configure the encoder, resolution, frame rate, and codec mode.
-2. Tap **Record MP4** or **Record FLV**.
+1. Optionally open recording **Settings** and configure container format, encoder, resolution, frame rate, codec mode, video bitrate, CBR/VBR bitrate mode, key-frame interval, AAC sample rate, channel count, and bitrate.
+2. Tap **Record**.
 3. Select the output location and tap **Save**.
 4. Tap **Start Recording**.
 5. Tap **Stop Recording** and wait for the recording page to return after the file has been finalized.
@@ -149,7 +148,7 @@ AVCodec/
 └── entry/src/
     ├── main/
     │   ├── cpp                              # Native layer
-    │   │   ├── capbilities                  # Media capability wrappers and implementations
+    │   │   ├── capabilities                 # Media capability wrappers and implementations
     │   │   │   ├── include                  # Codec, muxer, and demuxer interfaces
     │   │   │   ├── audio_capturer.cpp       # Audio capture
     │   │   │   ├── audio_decoder.cpp        # Audio decoding
@@ -180,7 +179,16 @@ AVCodec/
     │   │   │   │   ├── PlayerNapiParser.h   # NAPI argument parser interface
     │   │   │   │   ├── PlayerNapiSerializer.cpp # Playback/media result serialization
     │   │   │   │   ├── PlayerNapiSerializer.h # NAPI serializer interface
-    │   │   │   │   └── PlayerNative.cpp     # NAPI registration, callbacks, and dispatch
+    │   │   │   │   ├── VideoSink.h            # Surface/Buffer video output abstraction
+    │   │   │   │   ├── SurfaceVideoSink.h     # Direct Surface presentation
+    │   │   │   │   ├── BufferVideoSink.h      # Buffer copy-and-submit presentation
+    │   │   │   │   ├── VideoPipeline.h/.cpp   # Video decoder thread lifecycle
+    │   │   │   │   ├── AudioPipeline.h        # Audio decoder thread lifecycle
+    │   │   │   │   ├── PlayerNative.cpp       # NAPI registration, callbacks, and dispatch
+    │   │   │   │   ├── PlaybackClock.cpp/.h # Shared audio playback clock state
+    │   │   │   │   ├── AvSyncController.cpp/.h # A/V sync wait/drop decisions
+    │   │   │   │   ├── SeekController.cpp/.h # Precise seek frame/PCM trimming
+    │   │   │   │   └── PlayerStateMachine.cpp/.h # Legal playback state transitions
     │   │   │   └── recorder/
     │   │   │       ├── Recorder.cpp         # Recording lifecycle and data flow
     │   │   │       └── RecorderNative.cpp   # Recording NAPI entry
@@ -190,12 +198,29 @@ AVCodec/
     │   │   ├── common                       # Constants and utilities
     │   │   ├── entryability/EntryAbility.ets
     │   │   ├── model                        # UI state and settings models
+    │   │   ├── viewmodel                    # Playback state ViewModel
+    │   │   │   └── PlaybackViewModel.ets    # Polling, progress, HDR, and reset state
+    │   │   ├── components                   # Reusable UI components
+    │   │   │   ├── MediaInfoPanel.ets       # Scrollable media information panel
+    │   │   │   └── PlaybackProgressPanel.ets # Status, slider, and seek preview
     │   │   ├── pages/Index.ets              # Home, playback, and recording entry
-    │   │   └── recorder/Recorder.ets        # Camera preview and recording page
+    │   │   └── recorder/pages/Recorder.ets  # Camera preview and recording page
     │   ├── resources                        # Localized resources
     │   └── module.json5
     └── ohosTest/                            # Hypium test module
-        ├── ets/test                         # Test cases and suite entry
+        ├── ets/test
+        │   ├── CameraDataModel.test.ets     # Camera configuration model tests
+        │   ├── CommonConstants.test.ets     # Playback and recording constants tests
+        │   ├── DateTimeUtil.test.ets        # Time formatting tests
+        │   ├── List.test.ets                # Suite entry
+        │   ├── MediaInfoModel.test.ets      # Media information formatting tests
+        │   ├── MediaUtils.test.ets          # File selection and empty file tests
+        │   ├── PlaybackInfoModel.test.ets   # Playback status and seek formatting tests
+        │   ├── PlaybackViewModel.test.ets   # Playback ViewModel state tests
+        │   ├── PlayerSettingsModel.test.ets # Playback setting model tests
+        │   ├── SubtitleModel.test.ets       # SRT parsing and cue lookup tests
+        │   ├── RecorderSettingsModel.test.ets # Recording setting model tests
+        │   └── TestCaseLogger.ets           # Case naming and Hilog helper
         ├── ets/testability                  # Test Ability and page
         ├── ets/testrunner                   # OpenHarmony test runner
         ├── resources
@@ -224,6 +249,16 @@ Core data structures:
 - `SampleCallback` receives async `OnNeedInputBuffer` and `OnNewOutputBuffer` callbacks and enqueues work in `CodecUserData`.
 - `AudioOutputPump` unifies asynchronous queue consumption and synchronous output queries, appends PCM to `renderQueue`, and delegates buffer release and clock accounting to `Player`.
 
+#### Codec Capability Checks and Configuration Feedback
+
+Before writing supported codec parameters to an `OH_AVFormat`, the sample queries the capability of the codec that will actually be used. `OH_AVCodec_GetCapability()` is used for the recommended codec; selecting a hardware or software video decoder uses `OH_AVCodec_GetCapabilityByCategory()` with the matching category. The shared `CodecCapability` module checks video size, size/frame-rate combinations, pixel formats, encoder bitrate mode/range and profile, plus audio sample-rate lists and channel-count ranges.
+
+Capability objects are owned by the framework and are not destroyed by the sample. A failed query or unsupported value stops configuration before the format is submitted and logs the MIME type, direction, category, and offending value. Recording initialization propagates this failure to ArkTS, which tells the user to adjust the codec, resolution, or frame rate. Rotation, sync mode, HDR Vivid metadata, codec configuration bytes, and similar fields have no generic capability query in the Native API; their codec configure return value remains the final check and its error code is logged.
+
+The playback settings expose `OH_MD_KEY_VIDEO_DECODER_BLANK_FRAME_ON_SHUTDOWN`, allowing SurfaceMode to retain the last frame or output a blank frame when stopped or destroyed. `OH_MD_KEY_ENABLE_SYNC_MODE` is controlled by the Sync/Async selection. Smart-fluency retention mode, target speed, and thermal retention ratio remain runtime policies. Low-latency decoding and decoding-order output are possible advanced settings, but require capability checks and separate validation because they affect buffering, frame order, and A/V synchronization.
+
+The current settings sheet now includes three advanced switches: low-latency decoding, output in decoding order, and HDR Vivid to BT.709 conversion. The first two are checked with `OH_AVCapability_IsFeatureSupported()` before configuration and reject unsupported codec/device combinations. The color-space key `OH_MD_KEY_VIDEO_DECODER_OUTPUT_COLOR_SPACE=OH_COLORSPACE_BT709_LIMIT` is only sent when the selected media is signaled as HDR Vivid; ordinary media is left unchanged.
+
 Two API 26 capabilities are enabled by default in the Native build:
 
 - `AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY` for playback frame-retention, speed, and thermal parameters.
@@ -241,7 +276,7 @@ The UI uses ArkUI's declarative programming model. `Index.ets` is the home and p
 {
   "src": [
     "pages/Index",
-    "recorder/Recorder"
+    "recorder/pages/Recorder"
   ]
 }
 ```
@@ -250,7 +285,7 @@ The home page provides both playback and recording entry points:
 
 - Playback uses `XComponent({ id: 'player', type: XComponentType.SURFACE, libraryname: 'player' })`. Loading `libplayer.so` lets the Native module unwrap the XComponent and register Surface callbacks through `PluginManager::Export()`.
 - Playback settings are displayed in a scrollable ArkUI `bindSheet`. Decoder type, output mode, and codec mode each occupy one row and open a single-column picker. Decoded-frame dump uses a switch. User-facing labels such as **Automatic**, **Hardware decoder**, **Software decoder**, **SurfaceMode direct output**, and **BufferMode copy output** are mapped to the original Native enum values.
-- Opening the settings sheet creates a temporary copy of `PlayerSettingsModel`. **Apply** validates and commits the complete configuration, **Cancel** discards the temporary copy, and **Restore Defaults** only resets the temporary values until Apply is selected.
+- Opening the settings sheet creates a temporary copy of `PlayerSettingsModel`. **Apply** validates and commits the complete configuration, **Cancel** discards the temporary copy, and **Restore Defaults** only resets the temporary values until Apply is selected. Audio volume is available from 0% to 100% and is applied immediately to the active output through `OH_AudioRenderer_SetVolume()`. Audio output latency can be Normal or Low and is applied through `OH_AudioStreamBuilder_SetLatencyMode()` when the next AudioRenderer is created. Low latency reduces output buffering but increases underrun risk.
 - After a source is selected, ArkTS opens the URI with `fileIo.openSync()`, records the fd and file size, and calls the structured `player.play(options, callback)` API.
 - The completion callback returns `{ success, reason }`, where `reason` is `completed`, `stopped`, or `error`. Only an actual error produces the invalid-media prompt.
 - During playback the main button becomes **Stop**. `player.stop()` moves the UI into a stopping state until the shared Native release path invokes the completion callback.
@@ -271,9 +306,17 @@ The structured `PlayOptions` object has the following shape:
   videoDecoderRunMode,
   videoDecoderSyncMode,
   isSmartFluencySupported,
-  enableVideoDump
+  enableVideoDump,
+  retainLastFrame,
+  enableLowLatency,
+  outputInDecodingOrder,
+  convertHdrVividToBt709,
+  audioVolume,
+  enableAudioLowLatency
 }
 ```
+
+Audio playback settings also expose volume (0–100%), applied immediately through `OH_AudioRenderer_SetVolume()`, and Normal/Low output latency, applied with `OH_AudioStreamBuilder_SetLatencyMode()` when the next `AudioRenderer` is created. Low latency reduces buffering but may increase underrun risk. Track-derived sample rate, channel count, channel layout, and sample format are not overridden by the UI.
 
 `PlayerNapiParser` reads named fields and fills `SampleInfo`. `PlayerNative` retains NAPI registration,
 completion-callback dispatch, and the calls to `Player::Init()` / `Player::Start()`. `PlayerNapiSerializer` converts
@@ -286,11 +329,11 @@ playback orchestration independent while preserving the existing NAPI contract.
 
 Recording also starts from `Index.ets`:
 
-- A separate scrollable settings sheet configures codec, resolution, frame rate, and sync/async mode. `RecorderSettingsModel` validates all temporary values and updates `CameraDataModel` only when **Apply** is selected.
+- A separate scrollable settings sheet, sized to 85% of the screen, groups recording options into Container and output, Video encoding, Audio encoding, and Encoding control. Users select MP4 or FLV, video parameters, AAC sample rate/channel count/bitrate, audio capture latency, video stabilization, and sync/async mode there. `RecorderSettingsModel` validates all temporary values and updates `CameraDataModel` only when **Apply** is selected.
 - `checkIsProfileSupport()` queries `camera.getCameraManager()` for the selected video profile. Unsupported settings fall back to 1080p, or to the first device-supported profile if 1080p is unavailable.
 - `photoAccessHelper.createAsset()` creates the destination media asset and `fileIo.open()` obtains the output fd.
 - `recorder.initNative(...)` creates the encoder and muxer. `OH_NativeWindow_GetSurfaceId()` returns the encoder input SurfaceId.
-- The home page navigates with `getUIContext().getRouter().pushUrl()` and passes `CameraDataModel`, including the encoder SurfaceId, to `recorder/Recorder`.
+- The home page navigates with `getUIContext().getRouter().pushUrl()` and passes `CameraDataModel`, including the encoder SurfaceId, to `recorder/pages/Recorder`.
 
 The recording page connects the camera to two Surfaces:
 
@@ -409,6 +452,8 @@ The selected decoder MIME and decoder type are used to create and configure `Vid
 - BufferMode leaves `sampleInfo.video.window` null and routes decoded pixels to `BufferRenderer`.
 - Output release is centralized so rendering, dropping, dump, HDR propagation, playback position, and error handling remain consistent.
 
+SurfaceMode also exposes **Retain last frame on stop**. When enabled, the sample sets `OH_MD_KEY_VIDEO_DECODER_BLANK_FRAME_ON_SHUTDOWN` to `0`, so the last displayed image remains after decoder stop or destroy. When disabled, it sets the key to `1`, so the decoder outputs a blank frame and avoids a stale image. This key is SurfaceMode-only and is not configured in BufferMode.
+
 <a id="audio-playback"></a>
 
 #### Audio Decoding and Playback
@@ -434,6 +479,14 @@ Release decoder output buffer
 ```
 
 The output path validates `offset`, `size`, and buffer capacity before reading PCM. Async and sync modes share the same preparation, queue, accounting, and release behavior.
+
+When a file contains multiple audio tracks, `Demuxer` selects the first audio track by default and accepts an explicit container track index through `PlayOptions.audioTrackIndex`. The **Audio track** control lists the tracks exposed by the media-information snapshot. Selecting another track safely stops the current task and starts a new task with that track. Single-track files produce an explanatory toast. **Mute/Unmute** calls `OH_AudioRenderer_SetVolume()` immediately; unmute restores the volume saved in playback settings.
+
+<a id="subtitle-playback"></a>
+
+#### External SRT Subtitles
+
+Subtitles are an optional UI-side feature and do not alter the Native decode pipeline. The **Subtitle** control opens `DocumentViewPicker` with an `.srt` filter. `SubtitleModel.parseSrt()` parses cue time ranges and multiline text, while `PlaybackViewModel` reports the current position every 250 ms and `findSubtitleText()` selects the active cue for the bottom overlay. Empty, invalid, or unreadable files produce separate prompts. Subtitle state is cleared when playback stops or the media changes, and follows the seek-preview position while dragging.
 
 <a id="playback-speed"></a>
 
@@ -476,7 +529,9 @@ The page displays current position, total duration, and a draggable Slider. It p
 
 ArkTS uses a separate file descriptor and `AVImageGenerator.fetchFrameByTime()` to generate a preview thumbnail. The first request is immediate; later requests are throttled to at least 100 ms. If a request is already running, only the newest position is retained and processed next. Native seek is invoked once when the user releases the slider or taps the track.
 
-`seekTo()` is accepted only in `PLAYING`, clamps the target to `[0, durationUs]`, and performs the following sequence:
+The playback controls provide pause/resume, 15-second rewind, 15-second forward, and replay. Pause moves Native playback to `PAUSED`; worker loops wait without destroying decoders while `AudioRenderer` is paused. Resume restarts the renderer and wakes the workers. Rewind/forward adjust the current position by 15 seconds and reuse precise `seekTo()`, clamped to `[0, durationUs]`. Replay keeps the selected file and starts a new playback task from 0.
+
+`seekTo()` is accepted in `PLAYING` or `PAUSED`, clamps the target to `[0, durationUs]`, and performs the following sequence:
 
 1. Enter `SEEKING`, pause AudioRenderer, stop codec loops, and wake all queue waits.
 2. Join the old input/output threads so no thread can access an old decoder buffer.
@@ -485,7 +540,9 @@ ArkTS uses a separate file descriptor and `AVImageGenerator.fetchFrameByTime()` 
 5. Recreate the required decoders and AudioRenderer, clear PCM queues, reset synchronization clocks, and store the exact requested target.
 6. Decode video preroll normally, but immediately return every output frame whose PTS is below the target without rendering or dumping it. Only the first frame at or after the target enters A/V scheduling and display.
 7. Drop audio PCM buffers that end before the target. If the target lies inside a PCM buffer, calculate complete sample frames from sample rate, channel count, and two bytes per S16LE sample; then adjust `offset`, `size`, and `pts` so playback starts from the first sample frame at or after the target.
-8. Restore requested speed, smart-fluency mode, and thermal policy, then return to `PLAYING`.
+8. Restore requested speed, smart-fluency mode, and thermal policy, then restore the state active before seek.
+
+Audio/video seeks use a first-video-frame gate. After recreation, the AudioRenderer remains stopped and decoded PCM is held until the first video frame at or after the requested target has been presented. The renderer is then started and the requested speed is restored, preventing audio from resuming noticeably before the video.
 
 Recreating decoders instead of simply flushing them avoids stale callback indexes and reapplies codec configuration that may include SPS/PPS or other initialization data. SurfaceMode, BufferMode, sync mode, and async mode all share this precise-seek policy.
 
@@ -508,6 +565,14 @@ Audio/video media uses the AudioRenderer-consumed PCM position. Video-only media
 
 The larger `MediaInfo` snapshot is frozen during initialization and contains source size, duration, track count, common audio/video fields, decoder and output configuration, Source Format dump, and every Track Format dump. Separating these snapshots keeps large strings out of the 250 ms polling path.
 
+After the refactoring, `Index.ets` remains responsible for page orchestration, file selection, settings, and player callbacks. `PlaybackViewModel` owns the 250 ms playback snapshot polling, position normalization, seek-preview state, HDR Vivid marker, and smart-fluency status. `MediaInfoPanel` renders the sectioned media details, while `PlaybackProgressPanel` renders the status row, slider, drag callbacks, and thumbnail container. New playback fields or layout changes can therefore be added without growing the page's responsibilities.
+
+Native playback policies are separated by purpose. `PlaybackClock` stores the AudioRenderer timestamp, monotonic clock anchor, written sample count, and audio-buffer PTS. `AvSyncController` converts video/audio timing, pending audio frames, and playback speed into a wait/drop decision. `SeekController` drops video frames before the requested target and trims PCM sample frames when the target falls inside an audio buffer. `Player` coordinates these policies with Decoder and Renderer lifecycles, preserving the existing Surface/Buffer, SYNC/ASYNC, and speed behavior.
+
+Video presentation is isolated behind `VideoSink`. `SurfaceVideoSink` uses the decoder's Surface output path and returns the output buffer. `BufferVideoSink` uses `BufferRenderer` to copy decoded pixels into a NativeWindow buffer, propagate HDR/color metadata, and then return the decoder buffer. Both sinks share the existing PTS scheduling, A/V sync, dump, and HDR Vivid bitstream detection logic, so the abstraction does not change SurfaceMode or BufferMode behavior.
+
+`VideoPipeline` and `AudioPipeline` encapsulate input/output thread creation, startup rollback, running-state queries, and joining for their respective decoder paths. They do not own a decoder or select the SYNC/ASYNC algorithm; `Player` still supplies the concrete worker functions. This reduces direct thread bookkeeping in `Player` without changing callback contexts or the `ReleaseWorker` cleanup order.
+
 <a id="player-lifecycle"></a>
 
 #### Playback Threads and Resource Lifecycle
@@ -515,19 +580,20 @@ The larger `MediaInfo` snapshot is frozen during initialization and contains sou
 The player uses an explicit state machine:
 
 ```text
-IDLE -> INITIALIZING -> READY -> PLAYING -> STOPPING -> IDLE
-                                  |   ^
-                                  v   |
-                                SEEKING
+IDLE -> INITIALIZING -> READY -> PLAYING <-> PAUSED -> STOPPING -> IDLE
+                                  |                  ^
+                                  v                  |
+                                SEEKING -------------+
 ```
 
 - `Init()` accepts only `IDLE` and enters `INITIALIZING`.
 - `Start()` accepts only `READY` and enters `PLAYING` after worker startup.
-- `Stop()` accepts `PLAYING`; a repeated call while stopping is treated idempotently.
-- `seekTo()` accepts only `PLAYING`, temporarily enters `SEEKING`, and returns to `PLAYING` or transitions to `STOPPING` on failure.
+- `Stop()` accepts `PLAYING` or `PAUSED`; a repeated call while stopping is treated idempotently.
+- `pause()` accepts `PLAYING` and `resume()` accepts `PAUSED`; neither destroys the active decoders.
+- `seekTo()` accepts `PLAYING` or `PAUSED`, temporarily enters `SEEKING`, and restores the state active before seek or transitions to `STOPPING` on failure.
 - Natural EOS, explicit Stop, and errors converge on the same release path.
 
-The structured NAPI surface includes `play(options, callback)`, `stop()`, `seekTo(positionUs)`, `getState()`, `getPlaybackInfo()`, and `getMediaInfo()`. The older positional `playNative(...)` API remains for compatibility, while the page uses the structured API.
+The structured NAPI surface includes `play(options, callback)`, `stop()`, `pause()`, `resume()`, `seekTo(positionUs)`, `getState()`, `getPlaybackInfo()`, and `getMediaInfo()`. The older positional `playNative(...)` API remains for compatibility, while the page uses the structured API.
 
 `ReleaseWorker` waits until active audio and video outputs are complete. Missing tracks are marked complete before startup. The worker then:
 
@@ -540,6 +606,8 @@ The structured NAPI surface includes `play(options, callback)`, `stop()`, `seekT
 7. invokes the ArkTS completion callback outside the player mutex.
 
 Worker threads are joined rather than detached. `CodecUserData` is owned by `unique_ptr`, callback entry points check destruction/running state, and `renderQueue` access is consistently protected by its mutex.
+
+`PlayerStateMachine` defines the only legal transitions: `IDLE -> INITIALIZING -> READY -> PLAYING <-> PAUSED -> STOPPING -> IDLE` and `PLAYING/PAUSED <-> SEEKING`. `Player` is no longer a global singleton. The NAPI module owns one `Player` through environment instance data, and environment cleanup destroys it; every NAPI call resolves the player associated with its current environment.
 
 <a id="camera-recording"></a>
 
@@ -557,7 +625,7 @@ Camera     -> VideoEncoder                  ├-> Muxer -> MP4/FLV
                                              ┘
 ```
 
-The selected camera profile is validated before navigation. The preview page creates a `VideoSession`, attaches preview and recording outputs, and starts the session. Native recording starts only after the user taps **Start Recording**.
+The selected camera profile is validated before navigation. The preview page creates a `VideoSession`, attaches preview and recording outputs, and starts the session. The **Encoding control** group exposes disabled/auto video stabilization; auto mode queries `VideoSession` support before it is enabled, and an unsupported device does not block recording. Native recording starts only after the user taps **Start Recording**.
 
 For supported HDR recording configurations, the sample selects P010 output and the required color-space/encoder options. Actual availability is device dependent and must be checked against camera and codec capabilities.
 
@@ -585,7 +653,7 @@ Closing the fd before muxer finalization can make Gallery visibility lag for min
 
 #### Video Encoding
 
-`VideoEncoder` is created from the selected H.264/H.265 MIME and configured with dimensions, frame rate, pixel format, bitrate, and codec mode. Its input is a Surface returned by `OH_VideoEncoder_GetSurface()`.
+`VideoEncoder` is created from the selected H.264/H.265 MIME and configured with dimensions, frame rate, pixel format, bitrate, CBR/VBR bitrate mode, key-frame interval, and codec mode. The recording settings organize these options under **Video encoding** and provide 10/20/30 Mbps and 100 ms/1 s/2 s presets. Bitrate and bitrate mode are validated through encoder capability query; the encoder validates the key-frame interval when the format is configured. Its input is a Surface returned by `OH_VideoEncoder_GetSurface()`.
 
 CameraKit produces frames directly into that Surface. Encoder output is handled in either callback-driven async mode or active-query sync mode:
 
@@ -603,7 +671,7 @@ Output starts from the first sync frame so the resulting file begins with a deco
 
 #### Audio Capture and Encoding
 
-`AudioCapturer` is configured for S16LE PCM using the selected sample rate and channel count. Captured bytes are accumulated until a codec input buffer can be filled, then submitted to `AudioEncoder` with monotonically increasing PTS.
+`AudioCapturer` is configured for S16LE PCM using the selected sample rate and channel count. The **Audio encoding** group provides 44.1/48 kHz, mono/stereo, 32/64/128 kbps AAC presets and normal/low-latency capture (default: 48 kHz, stereo, 32 kbps, normal latency). Sample rate and channel count are checked against AAC encoder capability; codec configuration remains the final validation for bitrate and parameter combinations. The selected latency mode is passed to `OH_AudioStreamBuilder_SetLatencyMode()`. Captured bytes are accumulated until a codec input buffer can be filled, then submitted to `AudioEncoder` with monotonically increasing PTS.
 
 ```text
 Microphone
@@ -719,9 +787,9 @@ The scheduling policy is:
 When a frame is early, the worker sleeps until it is near the presentation point and submits it at most two 60 Hz VSync periods in advance:
 
 ```cpp
-const int64_t renderLeadUs = std::clamp(waitTimeUs, int64_t { 0 }, RENDER_AHEAD_US);
-if (waitTimeUs > RENDER_AHEAD_US) {
-    std::this_thread::sleep_for(std::chrono::microseconds(waitTimeUs - RENDER_AHEAD_US));
+const int64_t renderLeadUs = std::clamp(waitTimeUs, int64_t { 0 }, AvSyncController::renderAheadUs);
+if (waitTimeUs > AvSyncController::renderAheadUs) {
+    std::this_thread::sleep_for(std::chrono::microseconds(waitTimeUs - AvSyncController::renderAheadUs));
 }
 return PresentAndReleaseVideoBuffer(bufferInfo, !dropFrame,
     renderLeadUs * NS_PER_US + GetCurrentTime());
@@ -756,7 +824,7 @@ The UI always sends an explicit target speed. Smart-fluency ADAPTIVE mode decide
 
 After switching to an OpenHarmony project and signing it, a missing system-capability error may appear. Add the required capability to `entry/src/main/syscap.json`.
 
-![OpenHarmony system-capability error](screenshots/img_5.png)
+![OpenHarmony system-capability error](screenshots/syscap-configuration-error.png)
 
 ### Permissions
 

@@ -14,6 +14,7 @@
  */
 
 #include "video_encoder.h"
+#include "codec_capability.h"
 
 #undef LOG_TAG
 #define LOG_TAG "VideoEncoder"
@@ -185,6 +186,8 @@ int32_t VideoEncoder::SetCallback(CodecUserData *codecUserData)
 
 int32_t VideoEncoder::Configure(const SampleInfo &sampleInfo)
 {
+    CHECK_AND_RETURN_RET_LOG(CodecCapability::ValidateVideoConfiguration(sampleInfo, true),
+        AVCODEC_SAMPLE_ERR_ERROR, "Video encoder configuration is not supported");
     OH_AVFormat *format = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
@@ -195,11 +198,14 @@ int32_t VideoEncoder::Configure(const SampleInfo &sampleInfo)
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE, sampleInfo.video.bitrateMode);
     OH_AVFormat_SetLongValue(format, OH_MD_KEY_BITRATE, sampleInfo.video.bitrate);
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_PROFILE, sampleInfo.video.hevcProfile);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_I_FRAME_INTERVAL, sampleInfo.video.iFrameInterval);
+    // B-frame is intentionally left at the codec default. Some devices do not
+    // expose VIDEO_ENCODER_B_FRAME at all, and querying or writing this optional
+    // key can produce a capability warning or reject an otherwise valid setup.
     if (sampleInfo.codec.codecSyncMode) {
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
     }
     if (sampleInfo.video.isHDRVivid) {
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_I_FRAME_INTERVAL, sampleInfo.video.iFrameInterval);
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_RANGE_FLAG, sampleInfo.video.rangFlag);
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_COLOR_PRIMARIES, sampleInfo.video.primary);
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_TRANSFER_CHARACTERISTICS, sampleInfo.video.transfer);

@@ -34,6 +34,9 @@ Demuxer::~Demuxer() { Release(); }
 
 int32_t Demuxer::Create(SampleInfo &info)
 {
+    videoTrackId_ = -1;
+    audioTrackId_ = -1;
+    info.audio.trackIndex = -1;
     /**
      * // Need request Internet Permission first in module.json.
      * const char *url = "https://hd.ijycnd.com/play/Ddw1W2Ra/index.m3u8";
@@ -48,6 +51,17 @@ int32_t Demuxer::Create(SampleInfo &info)
 
     auto sourceFormat = std::shared_ptr<OH_AVFormat>(OH_AVSource_GetSourceFormat(source_), OH_AVFormat_Destroy);
     CHECK_AND_RETURN_RET_LOG(sourceFormat != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Get source format failed");
+
+    // Validate an explicitly requested audio track before scanning tracks. If
+    // it is not an audio track, retain the historical first-audio fallback.
+    if (info.codec.audioTrackIndex >= 0) {
+        auto requestedFormat = GetTrackFormat(info.codec.audioTrackIndex);
+        if (requestedFormat == nullptr || GetTrackType(requestedFormat) != MEDIA_TYPE_AUD) {
+            AVCODEC_SAMPLE_LOGW("Requested audio track is unavailable, fallback to first audio track: %{public}d",
+                info.codec.audioTrackIndex);
+            info.codec.audioTrackIndex = -1;
+        }
+    }
 
     int32_t ret = GetTrackInfo(sourceFormat, info);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Get video track info failed");
@@ -154,6 +168,13 @@ void Demuxer::ProcessVideoTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_
 
 void Demuxer::ProcessAudioTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_t index, SampleInfo &info)
 {
+    // Keep the first audio track by default. A caller may explicitly select a
+    // container track index through CodecOptions::audioTrackIndex.
+    if (info.audio.trackIndex >= 0 ||
+        (info.codec.audioTrackIndex >= 0 && info.codec.audioTrackIndex != index)) {
+        return;
+    }
+    info.audio.trackIndex = index;
     OH_AVDemuxer_SelectTrackByID(demuxer_, index);
     
     OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_AUDIO_SAMPLE_FORMAT, &info.audio.audioSampleFormat);

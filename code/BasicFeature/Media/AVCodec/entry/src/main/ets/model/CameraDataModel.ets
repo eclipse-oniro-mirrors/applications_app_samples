@@ -26,6 +26,13 @@ export class CameraDataModel {
   public previewProfile: camera.Profile = Const.DEFAULT_PROFILE;
   public videoCodecMime: string | null = Const.MIME_VIDEO_AVC;
   public bitRate: number = Const.BITRATE_VIDEO_20M;
+  public bitrateMode: number = Const.VIDEO_BITRATE_MODE_CBR;
+  public iFrameInterval: number = Const.I_FRAME_INTERVAL_100_MS;
+  public audioSampleRate: number = Const.AUDIO_SAMPLE_RATE_48000;
+  public audioChannelCount: number = Const.AUDIO_CHANNEL_COUNT_STEREO;
+  public audioBitRate: number = Const.AUDIO_BITRATE_32K;
+  public audioCaptureLatencyMode: number = Const.AUDIO_CAPTURE_LATENCY_NORMAL;
+  public videoStabilizationMode: number = Const.VIDEO_STABILIZATION_AUTO;
   public format: camera.CameraFormat = camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP;
   public isSync: number = 0;
   public outputFormat: number = Const.FORMAT_MP4;

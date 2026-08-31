@@ -46,6 +46,8 @@ int32_t Muxer::Config(SampleInfo &sampleInfo)
     OH_AVFormat_SetIntValue(formatAudio, OH_MD_KEY_PROFILE, AAC_PROFILE_LC);
     int32_t ret = OH_AVMuxer_AddTrack(muxer_, &audioTrackId_, formatAudio);
     OH_AVFormat_Destroy(formatAudio);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+        "Add audio track failed, ret: %{public}d", ret);
 
     OH_AVFormat *formatVideo = OH_AVFormat_CreateVideoFormat(sampleInfo.video.videoCodecMime.data(),
         sampleInfo.video.videoWidth, sampleInfo.video.videoHeight);

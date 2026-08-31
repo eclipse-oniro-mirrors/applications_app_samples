@@ -1,6 +1,6 @@
 {
   "src": [
     "pages/Index",
-    "recorder/Recorder"
+    "recorder/pages/Recorder"
   ]
 }

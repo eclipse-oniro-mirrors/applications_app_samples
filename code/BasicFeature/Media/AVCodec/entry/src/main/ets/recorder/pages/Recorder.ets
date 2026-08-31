@@ -18,11 +18,11 @@ import { fileIo } from '@kit.CoreFileKit';
 import { display } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import recorder from 'librecorder.so';
-import Logger from '../common/utils/Logger';
-import { dateTime } from '../common/utils/DateTimeUtils';
-import { CommonConstants as Const } from '../common/CommonConstants';
-import { CameraDataModel } from '../model/CameraDateModel';
-import { encoderProfileCameraCheck, previewProfileCameraCheck } from '../common/utils/CameraCheck';
+import Logger from '../../common/utils/Logger';
+import { dateTime } from '../../common/utils/DateTimeUtil';
+import { CommonConstants as Const } from '../../common/CommonConstants';
+import { CameraDataModel } from '../../model/CameraDataModel';
+import { encoderProfileCameraCheck, previewProfileCameraCheck } from '../../common/utils/CameraCheck';
 import { colorSpaceManager } from '@kit.ArkGraphics2D';
 
 const TAG: string = 'Sample_Recorder';
@@ -42,16 +42,17 @@ function isVideoStabilizationModeSupported(session: camera.VideoSession, mode: c
   try {
     isSupported = session.isVideoStabilizationModeSupported(mode);
   } catch (error) {
-    // 失败返回错误码error.code并处理
+    // 防抖属于可选能力。查询不可用时安全降级为不启用防抖，不影响录制流程。
     let err = error as BusinessError;
-    Logger.error(TAG, `The isVideoStabilizationModeSupported call failed. error code: ${err.code}`);
+    Logger.info(TAG, `Video stabilization is unavailable; continue without stabilization. code: ${err.code}`);
   }
   return isSupported;
 }
 
 // 设置视频防抖。
-function setVideoStabilizationMode(session: camera.VideoSession): boolean {
-  let mode: camera.VideoStabilizationMode = camera.VideoStabilizationMode.AUTO;
+function setVideoStabilizationMode(session: camera.VideoSession, enabled: boolean): boolean {
+  let mode: camera.VideoStabilizationMode = enabled ? camera.VideoStabilizationMode.AUTO :
+    camera.VideoStabilizationMode.OFF;
   // 查询是否支持视频防抖
   let isSupported: boolean = isVideoStabilizationModeSupported(session, mode);
   if (isSupported) {
@@ -327,7 +328,7 @@ export struct Recorder {
       return;
     }
 
-    let encoderProfile: undefined | camera.VideoProfile = encoderProfileCameraCheck(cameraManager, params);
+    let encoderProfile = encoderProfileCameraCheck(cameraManager, params);
     if (!encoderProfile) {
       Logger.error(TAG, 'encoderProfile is not found!');
       return;
@@ -419,18 +420,16 @@ export struct Recorder {
       Logger.error(TAG, `Failed to add encoderVideoOutput. error: ${JSON.stringify(err)}`);
     }
 
+    // Configure optional session features before committing the camera session.
+    setVideoStabilizationMode(videoSession, params.videoStabilizationMode !== Const.VIDEO_STABILIZATION_DISABLED);
+    setColorSpaceBeforeCommitConfig(videoSession, params.isHDRVivid);
+
     // Submit configuration information.
     try {
       await videoSession.commitConfig();
     } catch (error) {
       let err = error as BusinessError;
       Logger.error(TAG, `videoSession commitConfig error: ${JSON.stringify(err)}`);
-    }
-
-    // 设置视频防抖
-    if (setVideoStabilizationMode(videoSession)) {
-      // 设置色彩空间
-      setColorSpaceBeforeCommitConfig(videoSession, params.isHDRVivid);
     }
 
     // Session start.

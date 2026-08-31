@@ -29,6 +29,27 @@
 #define LOG_TAG "player"
 
 namespace {
+struct NativePlayerContext {
+    std::unique_ptr<Player> player = std::make_unique<Player>();
+};
+
+void DestroyNativePlayerContext(napi_env env, void *data, void *hint)
+{
+    (void)env;
+    (void)hint;
+    delete static_cast<NativePlayerContext *>(data);
+}
+
+Player *GetPlayer(napi_env env)
+{
+    void *data = nullptr;
+    if (napi_get_instance_data(env, &data) != napi_ok || data == nullptr) {
+        return nullptr;
+    }
+    auto *context = static_cast<NativePlayerContext *>(data);
+    return context->player.get();
+}
+
 struct CallbackContext {
     napi_env env = nullptr;
     napi_ref callbackRef = nullptr;
@@ -123,7 +144,13 @@ napi_value StartPlayback(napi_env env, SampleInfo &sampleInfo, napi_value callba
         return nullptr;
     }
 
-    if (Player::GetInstance().GetState() != PlayerState::IDLE) {
+    Player *player = GetPlayer(env);
+    if (player == nullptr) {
+        napi_throw_error(env, nullptr, "Player context is unavailable");
+        DestroyCallbackContext(asyncContext.release());
+        return nullptr;
+    }
+    if (player->GetState() != PLAYER_STATE_IDLE) {
         AVCODEC_SAMPLE_LOGE("Player is not idle");
         Callback(asyncContext.release(), false, PlaybackCompletionReason::ERROR);
         napi_get_boolean(env, false, &result);
@@ -132,11 +159,11 @@ napi_value StartPlayback(napi_env env, SampleInfo &sampleInfo, napi_value callba
 
     sampleInfo.playback.playDoneCallback = &Callback;
     sampleInfo.playback.playDoneCallbackData = asyncContext.get();
-    int32_t ret = Player::GetInstance().Init(sampleInfo);
+    int32_t ret = player->Init(sampleInfo);
     if (ret == AVCODEC_SAMPLE_ERR_OK) {
         asyncContext.release();
-        ret = Player::GetInstance().Start();
-    } else if (Player::GetInstance().GetState() == PlayerState::STOPPING) {
+        ret = player->Start();
+    } else if (player->GetState() == PLAYER_STATE_STOPPING) {
         asyncContext.release();
     } else {
         Callback(asyncContext.release(), false, PlaybackCompletionReason::ERROR);
@@ -156,7 +183,9 @@ napi_value PlayerNative::SetPlaybackSpeed(napi_env env, napi_callback_info info)
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     napi_get_value_double(env, args[0], &speed);
-    Player::GetInstance().SetSpeed(static_cast<float>(speed));
+    if (Player *player = GetPlayer(env); player != nullptr) {
+        player->SetSpeed(static_cast<float>(speed));
+    }
     return nullptr;
 }
 
@@ -168,7 +197,9 @@ napi_value PlayerNative::SetTransform(napi_env env, napi_callback_info info)
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     napi_get_value_int32(env, args[0], &transformHint);
-    Player::GetInstance().SetTransform(transformHint);
+    if (Player *player = GetPlayer(env); player != nullptr) {
+        player->SetTransform(transformHint);
+    }
     return nullptr;
 }
 
@@ -180,7 +211,9 @@ napi_value PlayerNative::SetSmartFluencyEnabled(napi_env env, napi_callback_info
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     napi_get_value_bool(env, args[0], &enabled);
-    Player::GetInstance().SetSmartFluencySupported(enabled);
+    if (Player *player = GetPlayer(env); player != nullptr) {
+        player->SetSmartFluencySupported(enabled);
+    }
     return nullptr;
 }
 
@@ -192,7 +225,9 @@ napi_value PlayerNative::OnThermalWarningReceived(napi_env env, napi_callback_in
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     napi_get_value_double(env, args[0], &ratio);
-    Player::GetInstance().OnThermalWarningReceived(ratio);
+    if (Player *player = GetPlayer(env); player != nullptr) {
+        player->OnThermalWarningReceived(ratio);
+    }
     return nullptr;
 }
 
@@ -200,7 +235,9 @@ napi_value PlayerNative::OnThermalLevelRecovered(napi_env env, napi_callback_inf
 {
     (void)env;
     (void)info;
-    Player::GetInstance().OnThermalLevelRecovered();
+    if (Player *player = GetPlayer(env); player != nullptr) {
+        player->OnThermalLevelRecovered();
+    }
     return nullptr;
 }
 
@@ -212,6 +249,22 @@ napi_value PlayerNative::Play(napi_env env, napi_callback_info info)
         return nullptr;
     }
     return StartPlayback(env, sampleInfo, callback, false);
+}
+
+napi_value PlayerNative::SetVolume(napi_env env, napi_callback_info info)
+{
+    double volume = 1.0;
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc != 1 ||
+        napi_get_value_double(env, args[0], &volume) != napi_ok || volume < 0.0 || volume > 1.0) {
+        napi_throw_range_error(env, nullptr, "volume must be a number in the range [0, 1]");
+        return nullptr;
+    }
+    if (Player *player = GetPlayer(env); player != nullptr) {
+        player->SetVolume(static_cast<float>(volume));
+    }
+    return nullptr;
 }
 
 napi_value PlayerNative::PlayWithOptions(napi_env env, napi_callback_info info)
@@ -228,7 +281,28 @@ napi_value PlayerNative::Stop(napi_env env, napi_callback_info info)
 {
     (void)info;
     napi_value result = nullptr;
-    int32_t ret = Player::GetInstance().Stop();
+    Player *player = GetPlayer(env);
+    int32_t ret = player == nullptr ? AVCODEC_SAMPLE_ERR_ERROR : player->Stop();
+    napi_get_boolean(env, ret == AVCODEC_SAMPLE_ERR_OK, &result);
+    return result;
+}
+
+napi_value PlayerNative::Pause(napi_env env, napi_callback_info info)
+{
+    (void)info;
+    napi_value result = nullptr;
+    Player *player = GetPlayer(env);
+    int32_t ret = player == nullptr ? AVCODEC_SAMPLE_ERR_ERROR : player->Pause();
+    napi_get_boolean(env, ret == AVCODEC_SAMPLE_ERR_OK, &result);
+    return result;
+}
+
+napi_value PlayerNative::Resume(napi_env env, napi_callback_info info)
+{
+    (void)info;
+    napi_value result = nullptr;
+    Player *player = GetPlayer(env);
+    int32_t ret = player == nullptr ? AVCODEC_SAMPLE_ERR_ERROR : player->Resume();
     napi_get_boolean(env, ret == AVCODEC_SAMPLE_ERR_OK, &result);
     return result;
 }
@@ -240,7 +314,8 @@ napi_value PlayerNative::SeekTo(napi_env env, napi_callback_info info)
         return nullptr;
     }
     napi_value result = nullptr;
-    int32_t ret = Player::GetInstance().SeekTo(positionUs);
+    Player *player = GetPlayer(env);
+    int32_t ret = player == nullptr ? AVCODEC_SAMPLE_ERR_ERROR : player->SeekTo(positionUs);
     napi_get_boolean(env, ret == AVCODEC_SAMPLE_ERR_OK, &result);
     return result;
 }
@@ -249,14 +324,16 @@ napi_value PlayerNative::GetState(napi_env env, napi_callback_info info)
 {
     (void)info;
     napi_value result = nullptr;
-    napi_create_int32(env, static_cast<int32_t>(Player::GetInstance().GetState()), &result);
+    Player *player = GetPlayer(env);
+    napi_create_int32(env, static_cast<int32_t>(player == nullptr ? PLAYER_STATE_IDLE : player->GetState()), &result);
     return result;
 }
 
 napi_value PlayerNative::GetPlaybackInfo(napi_env env, napi_callback_info info)
 {
     (void)info;
-    const PlaybackInfo playbackInfo = Player::GetInstance().GetPlaybackInfo();
+    Player *player = GetPlayer(env);
+    const PlaybackInfo playbackInfo = player == nullptr ? PlaybackInfo {} : player->GetPlaybackInfo();
     napi_value result = nullptr;
     if (!PlayerNapiSerializer::CreatePlaybackInfo(env, playbackInfo, result)) {
         napi_throw_error(env, nullptr, "Create playback info failed");
@@ -268,7 +345,8 @@ napi_value PlayerNative::GetPlaybackInfo(napi_env env, napi_callback_info info)
 napi_value PlayerNative::GetMediaInfo(napi_env env, napi_callback_info info)
 {
     (void)info;
-    const MediaInfo mediaInfo = Player::GetInstance().GetMediaInfo();
+    Player *player = GetPlayer(env);
+    const MediaInfo mediaInfo = player == nullptr ? MediaInfo {} : player->GetMediaInfo();
     napi_value result = nullptr;
     if (!PlayerNapiSerializer::CreateMediaInfo(env, mediaInfo, result)) {
         napi_throw_error(env, nullptr, "Create media info failed");
@@ -281,17 +359,26 @@ napi_value PlayerNative::IsSmartFluencyAvailable(napi_env env, napi_callback_inf
 {
     (void)info;
     napi_value result = nullptr;
-    napi_get_boolean(env, Player::GetInstance().IsSmartFluencyAvailable(), &result);
+    Player *player = GetPlayer(env);
+    napi_get_boolean(env, player != nullptr && player->IsSmartFluencyAvailable(), &result);
     return result;
 }
 
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
+    auto *context = new NativePlayerContext;
+    if (napi_set_instance_data(env, context, DestroyNativePlayerContext, nullptr) != napi_ok) {
+        delete context;
+        napi_throw_error(env, nullptr, "Set player instance data failed");
+        return nullptr;
+    }
     napi_property_descriptor classProp[] = {
         {"play", nullptr, PlayerNative::PlayWithOptions, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"playNative", nullptr, PlayerNative::Play, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"stop", nullptr, PlayerNative::Stop, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"pause", nullptr, PlayerNative::Pause, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"resume", nullptr, PlayerNative::Resume, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"seekTo", nullptr, PlayerNative::SeekTo, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getState", nullptr, PlayerNative::GetState, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getPlaybackInfo", nullptr, PlayerNative::GetPlaybackInfo,
@@ -301,6 +388,8 @@ static napi_value Init(napi_env env, napi_value exports)
         {"isSmartFluencyAvailable", nullptr, PlayerNative::IsSmartFluencyAvailable,
             nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setPlaybackSpeed", nullptr, PlayerNative::SetPlaybackSpeed,
+            nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"setVolume", nullptr, PlayerNative::SetVolume,
             nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setTransform", nullptr, PlayerNative::SetTransform, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setSmartFluencyEnabled", nullptr, PlayerNative::SetSmartFluencyEnabled,

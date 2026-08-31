@@ -14,6 +14,7 @@
  */
 
 #include "audio_encoder.h"
+#include "codec_capability.h"
 
 #undef LOG_TAG
 #define LOG_TAG "AudioEncoder"
@@ -50,6 +51,8 @@ int32_t AudioEncoder::SetCallback(CodecUserData *codecUserData)
 
 int32_t AudioEncoder::Configure(const SampleInfo &sampleInfo)
 {
+    CHECK_AND_RETURN_RET_LOG(CodecCapability::ValidateAudioConfiguration(sampleInfo, true),
+        AVCODEC_SAMPLE_ERR_ERROR, "Audio encoder configuration is not supported");
     OH_AVFormat *format = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 

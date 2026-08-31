@@ -191,12 +191,13 @@ bool PlayerNapiSerializer::ExportPlayerState(napi_env env, napi_value exports)
 {
     napi_value stateObject = nullptr;
     if (napi_create_object(env, &stateObject) != napi_ok ||
-        !SetStateValue(env, stateObject, "IDLE", PlayerState::IDLE) ||
-        !SetStateValue(env, stateObject, "INITIALIZING", PlayerState::INITIALIZING) ||
-        !SetStateValue(env, stateObject, "READY", PlayerState::READY) ||
-        !SetStateValue(env, stateObject, "PLAYING", PlayerState::PLAYING) ||
-        !SetStateValue(env, stateObject, "STOPPING", PlayerState::STOPPING) ||
-        !SetStateValue(env, stateObject, "SEEKING", PlayerState::SEEKING)) {
+        !SetStateValue(env, stateObject, "IDLE", PLAYER_STATE_IDLE) ||
+        !SetStateValue(env, stateObject, "INITIALIZING", PLAYER_STATE_INITIALIZING) ||
+        !SetStateValue(env, stateObject, "READY", PLAYER_STATE_READY) ||
+        !SetStateValue(env, stateObject, "PLAYING", PLAYER_STATE_PLAYING) ||
+        !SetStateValue(env, stateObject, "STOPPING", PLAYER_STATE_STOPPING) ||
+        !SetStateValue(env, stateObject, "SEEKING", PLAYER_STATE_SEEKING) ||
+        !SetStateValue(env, stateObject, "PAUSED", PLAYER_STATE_PAUSED)) {
         return false;
     }
     return napi_set_named_property(env, exports, "PlayerState", stateObject) == napi_ok;

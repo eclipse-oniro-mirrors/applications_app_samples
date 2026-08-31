@@ -23,7 +23,7 @@
 
 namespace {
 constexpr int32_t RGBA = 3;
-constexpr size_t RECORDER_ARG_COUNT = 10;
+constexpr size_t RECORDER_ARG_COUNT = 16;
 constexpr size_t OUTPUT_FD_ARG = 0;
 constexpr size_t VIDEO_MIME_ARG = 1;
 constexpr size_t VIDEO_WIDTH_ARG = 2;
@@ -34,6 +34,12 @@ constexpr size_t BITRATE_ARG = 6;
 constexpr size_t PIXEL_FORMAT_ARG = 7;
 constexpr size_t SYNC_MODE_ARG = 8;
 constexpr size_t OUTPUT_FORMAT_ARG = 9;
+constexpr size_t BITRATE_MODE_ARG = 10;
+constexpr size_t I_FRAME_INTERVAL_ARG = 11;
+constexpr size_t AUDIO_SAMPLE_RATE_ARG = 12;
+constexpr size_t AUDIO_CHANNEL_COUNT_ARG = 13;
+constexpr size_t AUDIO_BITRATE_ARG = 14;
+constexpr size_t AUDIO_LATENCY_MODE_ARG = 15;
 constexpr size_t VIDEO_MIME_LENGTH = 20;
 constexpr int32_t AUDIO_SAMPLE_RATE = 48000;
 constexpr int32_t AUDIO_CHANNEL_COUNT = 2;
@@ -82,19 +88,25 @@ void NativeInit(void *data)
     auto *asyncCallbackInfo = static_cast<AsyncCallbackInfo *>(data);
     int32_t ret = Recorder::GetInstance().Init(asyncCallbackInfo->sampleInfo);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        SetCallBackResult(asyncCallbackInfo, -1);
+        AVCODEC_SAMPLE_LOGE("Recorder::Init failed, ret: %{public}d", ret);
+        SetCallBackResult(asyncCallbackInfo, ret);
+        return;
     }
 
     uint64_t id = 0;
     ret = OH_NativeWindow_GetSurfaceId(asyncCallbackInfo->sampleInfo.video.window, &id);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        SetCallBackResult(asyncCallbackInfo, -1);
+        AVCODEC_SAMPLE_LOGE("Get encoder surface id failed, ret: %{public}d, window: %{public}p", ret,
+            asyncCallbackInfo->sampleInfo.video.window);
+        SetCallBackResult(asyncCallbackInfo, ret);
+        return;
     }
     asyncCallbackInfo->surfaceId = std::to_string(id);
     SurfaceIdCallBack(asyncCallbackInfo, asyncCallbackInfo->surfaceId);
+    SetCallBackResult(asyncCallbackInfo, AVCODEC_SAMPLE_ERR_OK);
 }
 
-static SampleInfo ParseSampleInfo(napi_env env, napi_value args[])
+static SampleInfo ParseSampleInfo(napi_env env, napi_value args[], size_t argc)
 {
     SampleInfo sampleInfo;
     napi_get_value_int32(env, args[OUTPUT_FD_ARG], &sampleInfo.output.outputFd);
@@ -115,10 +127,34 @@ static SampleInfo ParseSampleInfo(napi_env env, napi_value args[])
 
     napi_get_value_int32(env, args[SYNC_MODE_ARG], &sampleInfo.codec.codecSyncMode);
     napi_get_value_int32(env, args[OUTPUT_FORMAT_ARG], &sampleInfo.output.outputFormat);
+    if (argc > BITRATE_MODE_ARG) {
+        int32_t bitrateMode = CBR;
+        napi_get_value_int32(env, args[BITRATE_MODE_ARG], &bitrateMode);
+        sampleInfo.video.bitrateMode = static_cast<uint32_t>(bitrateMode);
+    }
+    if (argc > I_FRAME_INTERVAL_ARG) {
+        napi_get_value_int32(env, args[I_FRAME_INTERVAL_ARG], &sampleInfo.video.iFrameInterval);
+    }
+    if (argc > AUDIO_SAMPLE_RATE_ARG) {
+        napi_get_value_int32(env, args[AUDIO_SAMPLE_RATE_ARG], &sampleInfo.audio.audioSampleRate);
+    }
+    if (argc > AUDIO_CHANNEL_COUNT_ARG) {
+        napi_get_value_int32(env, args[AUDIO_CHANNEL_COUNT_ARG], &sampleInfo.audio.audioChannelCount);
+    }
+    if (argc > AUDIO_BITRATE_ARG) {
+        napi_get_value_int64(env, args[AUDIO_BITRATE_ARG], &sampleInfo.audio.audioBitRate);
+    }
+    if (argc > AUDIO_LATENCY_MODE_ARG) {
+        napi_get_value_int32(env, args[AUDIO_LATENCY_MODE_ARG], &sampleInfo.audio.audioLatencyMode);
+    }
 
     sampleInfo.video.videoCodecMime = videoCodecMime;
     if (sampleInfo.video.isHDRVivid) {
         sampleInfo.video.hevcProfile = HEVC_PROFILE_MAIN_10;
+    } else if (sampleInfo.video.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_AVC) {
+        // Keep the default recording stream on AVC Baseline. It is broadly
+        // supported and does not request the optional B-frame feature.
+        sampleInfo.video.hevcProfile = AVC_PROFILE_BASELINE;
     }
     return sampleInfo;
 }
@@ -150,14 +186,17 @@ napi_value RecorderNative::Init(napi_env env, napi_callback_info info)
     napi_value args[RECORDER_ARG_COUNT] = { nullptr };
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
     
-    SampleInfo sampleInfo = ParseSampleInfo(env, args);
+    SampleInfo sampleInfo = ParseSampleInfo(env, args, argc);
 
     sampleInfo.audio.audioCodecMime = OH_AVCODEC_MIMETYPE_AUDIO_AAC;
     sampleInfo.audio.audioSampleFormat = OH_BitsPerSample::SAMPLE_S16LE;
-    sampleInfo.audio.audioSampleRate = AUDIO_SAMPLE_RATE;
-    sampleInfo.audio.audioChannelCount = AUDIO_CHANNEL_COUNT;
-    sampleInfo.audio.audioBitRate = AUDIO_BITRATE;
-    sampleInfo.audio.audioChannelLayout = OH_AudioChannelLayout::CH_LAYOUT_STEREO;
+    sampleInfo.audio.audioSampleRate = sampleInfo.audio.audioSampleRate > 0 ?
+        sampleInfo.audio.audioSampleRate : AUDIO_SAMPLE_RATE;
+    sampleInfo.audio.audioChannelCount = sampleInfo.audio.audioChannelCount > 0 ?
+        sampleInfo.audio.audioChannelCount : AUDIO_CHANNEL_COUNT;
+    sampleInfo.audio.audioBitRate = sampleInfo.audio.audioBitRate > 0 ? sampleInfo.audio.audioBitRate : AUDIO_BITRATE;
+    sampleInfo.audio.audioChannelLayout = sampleInfo.audio.audioChannelCount == 1 ?
+        OH_AudioChannelLayout::CH_LAYOUT_MONO : OH_AudioChannelLayout::CH_LAYOUT_STEREO;
     sampleInfo.audio.audioMaxInputSize = sampleInfo.audio.audioSampleRate * sampleInfo.audio.audioChannelCount *
         sizeof(short) * AUDIO_FRAME_DURATION_SECONDS;
 

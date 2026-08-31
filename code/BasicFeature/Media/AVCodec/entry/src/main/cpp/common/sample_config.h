@@ -92,6 +92,9 @@ struct AudioSampleInfo {
     uint8_t codecConfig[1024] = { 0 };
     size_t codecConfigLen = 0;
     int32_t aacAdts = -1;
+    int32_t audioLatencyMode = 0;
+    // Demuxer track index selected for playback. -1 means the first audio track.
+    int32_t trackIndex = -1;
 };
 
 struct CodecOptions {
@@ -99,6 +102,12 @@ struct CodecOptions {
     int32_t codecRunMode = 0;
     int32_t codecSyncMode = 0;
     bool isSmartFluencySupported = false;
+    bool retainLastFrame = true;
+    bool enableLowLatency = false;
+    bool outputInDecodingOrder = false;
+    bool convertHdrVividToBt709 = false;
+    // Audio track selected by the caller. The value is a container track index.
+    int32_t audioTrackIndex = -1;
 };
 
 struct OutputOptions {
@@ -106,6 +115,13 @@ struct OutputOptions {
     bool enableVideoDump = false;
     std::string outputFilePath;
     int32_t outputFormat = 2; // AV_OUTPUT_FORMAT_MPEG_4 = 2, AV_OUTPUT_FORMAT_FLV = 14
+};
+
+struct AudioPlaybackOptions {
+    // Renderer volume, normalized to [0.0, 1.0].
+    float volume = 1.0f;
+    // Applied while the AudioRenderer is being built; changing it requires a new renderer.
+    bool enableLowLatency = false;
 };
 
 struct PlaybackCallbackInfo {
@@ -119,6 +135,7 @@ struct SampleInfo {
     AudioSampleInfo audio;
     CodecOptions codec;
     OutputOptions output;
+    AudioPlaybackOptions audioPlayback;
     PlaybackCallbackInfo playback;
 };
 

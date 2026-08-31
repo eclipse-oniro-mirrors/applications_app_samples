@@ -8,7 +8,7 @@ option(AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY "Enable smart fluency video decoding"
 option(AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID "Read temporal layer ID from encoded video output" ON)
 
 include_directories(${NATIVERENDER_ROOT_PATH}
-                    ${NATIVERENDER_ROOT_PATH}/capbilities/include
+                    ${NATIVERENDER_ROOT_PATH}/capabilities/include
                     ${NATIVERENDER_ROOT_PATH}/common
                     ${NATIVERENDER_ROOT_PATH}/common/dfx/error
                     ${NATIVERENDER_ROOT_PATH}/common/dfx/log
@@ -27,12 +27,18 @@ add_library(player SHARED sample/player/PlayerNative.cpp
                           sample/player/PlayerNapiParser.cpp
                           sample/player/PlayerNapiSerializer.cpp
                           sample/player/Player.cpp
+                          sample/player/PlayerStateMachine.cpp
+                          sample/player/PlaybackClock.cpp
+                          sample/player/AvSyncController.cpp
+                          sample/player/SeekController.cpp
+                          sample/player/VideoPipeline.cpp
                           sample/player/AudioOutputPump.cpp
                           sample/player/BufferRenderer.cpp
                           sample/player/HdrMetadataHelper.cpp
-                          capbilities/demuxer.cpp
-                          capbilities/video_decoder.cpp
-                          capbilities/audio_decoder.cpp
+                          capabilities/demuxer.cpp
+                          capabilities/codec_capability.cpp
+                          capabilities/video_decoder.cpp
+                          capabilities/audio_decoder.cpp
                           render/plugin_render.cpp
                           render/plugin_manager.cpp
                           common/sample_callback.cpp
@@ -40,10 +46,11 @@ add_library(player SHARED sample/player/PlayerNative.cpp
 
 add_library(recorder SHARED sample/recorder/RecorderNative.cpp
                             sample/recorder/Recorder.cpp
-                            capbilities/muxer.cpp
-                            capbilities/video_encoder.cpp
-                            capbilities/audio_capturer.cpp
-                            capbilities/audio_encoder.cpp
+                            capabilities/muxer.cpp
+                            capabilities/codec_capability.cpp
+                            capabilities/video_encoder.cpp
+                            capabilities/audio_capturer.cpp
+                            capabilities/audio_encoder.cpp
                             common/sample_callback.cpp
 )
 
