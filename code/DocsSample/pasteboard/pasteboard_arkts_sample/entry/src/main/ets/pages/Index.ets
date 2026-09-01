@@ -121,7 +121,13 @@ struct Index {
           // [EndExclude pasteboard_permission]
           .onClick(async () => {
             const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
-            if (!(await isNeedGetPermissionFromUser())) {
+            let needPermission: boolean = false;
+            try {
+              needPermission = await isNeedGetPermissionFromUser();
+            } catch (err) {
+              hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to check permission. Cause: ${err.message}`);
+            }
+            if (!needPermission) {
               hilog.info(0xFF00, '[Sample_pasteboard]', 'No need to bring up the permission pop-up window');
               return;
             }
