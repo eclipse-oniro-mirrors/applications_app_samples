@@ -137,7 +137,7 @@ struct Index {
       this.text = ret;
     } catch (err) {
       let error = err as BusinessError;
-      this.printLog('get failed.');
+      hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to get plainData. Cause: ${error.message}`);
     }
     // [EndExclude pasteboard_permission]
     // 执行判断口令逻辑，如果是本应用口令，建议获取完数据后使用cleardata清除剪贴板口令内容
@@ -161,7 +161,7 @@ struct Index {
       }
     } catch (err) {
       let error = err as BusinessError;
-      hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to updata ChangeCount. Cause: ${error.message}`);
+      hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to update ChangeCount. Cause: ${error.message}`);
     } finally {
       if (needFlush && mdataPreferences) {
         try {
