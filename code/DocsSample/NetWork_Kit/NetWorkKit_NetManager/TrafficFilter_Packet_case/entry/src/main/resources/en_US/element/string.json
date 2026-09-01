@@ -1,0 +1,8 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "Network packet redirector API test" },
+    { "name": "EntryAbility_desc", "value": "Redirector API test entry" },
+    { "name": "EntryAbility_label", "value": "NetPacket Test" },
+    { "name": "app_name", "value": "NetPacket Test" }
+  ]
+}

@@ -44,7 +44,7 @@ struct Parent {
         .fontSize(20)
         .margin(10)
     }
-  };
+  }
 
   build() {
     Column() {

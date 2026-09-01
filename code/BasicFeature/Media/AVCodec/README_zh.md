@@ -162,9 +162,12 @@ AVCodec/
     │   │   │   └── video_encoder.cpp         # 视频编码实现
     │   │   ├── common                        # Native 公共模块
     │   │   │   ├── dfx                       # 日志和错误码
+    │   │   │   ├── codec_buffer.h            # codec Buffer 描述和线程安全队列
+    │   │   │   ├── codec_user_data.h         # codec 回调与工作线程的运行时上下文
     │   │   │   ├── sample_callback.cpp       # codec 和 AudioRenderer 回调实现
     │   │   │   ├── sample_callback.h         # 公共回调定义
-    │   │   │   └── sample_info.h             # 参数、Buffer 队列和回调上下文
+    │   │   │   ├── sample_config.h           # 输入源、音视频和编解码配置结构
+    │   │   │   └── sample_info.h             # 公共媒体类型的兼容聚合入口
     │   │   ├── render                        # XComponent 和 NativeWindow 送显模块
     │   │   │   ├── include                   # 送显模块接口
     │   │   │   ├── plugin_manager.cpp        # XComponent 与窗口管理
@@ -179,7 +182,11 @@ AVCodec/
     │   │   │   │   ├── HdrMetadataHelper.h   # HDR 元数据辅助接口
     │   │   │   │   ├── Player.cpp            # 播放、同步和资源释放实现
     │   │   │   │   ├── Player.h              # Player 接口和状态定义
-    │   │   │   │   ├── PlayerNative.cpp      # 播放 NAPI 入口
+    │   │   │   │   ├── PlayerNapiParser.cpp  # 播放和 Seek 参数解析
+    │   │   │   │   ├── PlayerNapiParser.h    # NAPI 参数解析接口
+    │   │   │   │   ├── PlayerNapiSerializer.cpp # 播放状态和媒体信息序列化
+    │   │   │   │   ├── PlayerNapiSerializer.h # NAPI 序列化接口
+    │   │   │   │   ├── PlayerNative.cpp      # 播放 NAPI 注册、回调和业务调用
     │   │   │   │   └── PlayerNative.h        # 播放 NAPI 接口
     │   │   │   └── recorder                  # Native 录制接口和实现
     │   │   │       ├── Recorder.cpp          # 录制生命周期和数据流实现
@@ -250,9 +257,9 @@ AVCodec/
 
 几个核心对象的分工如下：
 
-- `SampleInfo`：Native 媒体任务参数的组合对象。它按职责拆为 `MediaSourceInfo`、`VideoSampleInfo`、`AudioSampleInfo`、`CodecOptions`、`OutputOptions` 和 `PlaybackCallbackInfo`，分别保存输入源、视频、音频、编解码运行选项、输出选项和播放回调，避免所有调用方依赖一个平铺的大结构。
-- `CodecUserData`：codec 回调和工作线程之间共享的上下文，包含输入/输出 Buffer 队列、音频播放/采集缓存、首帧标记、宽高步长等运行期状态。播放侧由 `Player` 使用 `unique_ptr` 独占，传给 C 接口时仅临时使用 `.get()`，避免手工 `new/delete` 造成所有权不清晰。
-- `CodecBufferInfo`：对 codec buffer index、`OH_AVBuffer` 指针和 `OH_AVCodecBufferAttr` 的封装，便于在解封装、编解码、送显、封装之间传递。
+- `SampleInfo`：Native 媒体任务参数的组合对象，定义在 `sample_config.h`。它按职责组合 `MediaSourceInfo`、`VideoSampleInfo`、`AudioSampleInfo`、`CodecOptions`、`OutputOptions` 和 `PlaybackCallbackInfo`，分别保存输入源、视频、音频、编解码运行选项、输出选项和播放回调。
+- `CodecUserData`：定义在 `codec_user_data.h`，是 codec 回调和工作线程之间共享的运行时上下文，包含输入/输出 Buffer 队列、音频播放/采集缓存、首帧标记、宽高步长等状态。播放侧由 `Player` 使用 `unique_ptr` 独占，传给 C 接口时仅临时使用 `.get()`。
+- `CodecBufferInfo` / `CodecBufferQueue`：定义在 `codec_buffer.h`，分别封装 codec buffer 信息和线程安全队列，便于在解封装、编解码、送显、封装之间传递数据。`sample_info.h` 保留为兼容聚合入口，让原有调用方无需改变包含方式。
 - `SampleCallback`：异步模式下 codec 的统一回调入口，负责接收 `OnNeedInputBuffer` / `OnNewOutputBuffer` 并放入 `CodecUserData` 的队列。
 - `AudioOutputPump`：统一处理音频 async 输出队列和 sync 主动查询，将 PCM 写入 `renderQueue`，并把释放 Buffer、音频时钟统计等动作回调给 `Player`。
 
@@ -309,7 +316,7 @@ ArkUI 组件、状态和页面构建方式可参考当前 SDK 随附的 ArkUI �
 }
 ```
 
-`PlayerNative::Play()` 按字段读取该对象并填充 `SampleInfo`，Native 侧再依次执行 `Player::Init()` 和 `Player::Start()`。这种结构避免了位置参数过多时发生顺序错误，也便于继续增加播放选项。UI 在打开文件后先检查文件大小；Native 初始化失败或播放过程中发生错误时，完成回调返回 `reason: 'error'`，页面恢复按钮并显示媒体文件异常提示。
+`PlayerNapiParser` 按字段读取该对象并填充 `SampleInfo`，`PlayerNative` 只负责 NAPI 注册、完成回调调度以及依次调用 `Player::Init()` / `Player::Start()`。`PlayerNapiSerializer` 负责把播放结果、播放状态和媒体信息转换为 ArkTS 对象。这种结构避免参数解析、对象序列化和播放业务互相混杂，也便于继续增加播放选项。UI 在打开文件后先检查文件大小；Native 初始化失败或播放过程中发生错误时，完成回调返回 `reason: 'error'`，页面恢复按钮并显示媒体文件异常提示。
 
 <a id="recording-entry"></a>
 

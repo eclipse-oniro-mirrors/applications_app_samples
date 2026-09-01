@@ -160,9 +160,12 @@ AVCodec/
     │   │   │   └── video_encoder.cpp        # Video encoding
     │   │   ├── common                       # Shared Native utilities
     │   │   │   ├── dfx                      # Logging and error codes
+    │   │   │   ├── codec_buffer.h           # Codec buffer description and thread-safe queue
+    │   │   │   ├── codec_user_data.h        # Runtime context shared by callbacks and workers
     │   │   │   ├── sample_callback.cpp      # Codec and AudioRenderer callbacks
     │   │   │   ├── sample_callback.h        # Shared callback declarations
-    │   │   │   └── sample_info.h            # Options, buffer queues, and callback context
+    │   │   │   ├── sample_config.h          # Source, media, codec, and output options
+    │   │   │   └── sample_info.h            # Compatibility aggregate for shared media types
     │   │   ├── render                       # XComponent and NativeWindow output
     │   │   │   ├── include                  # Graphics output interfaces
     │   │   │   ├── plugin_manager.cpp       # XComponent/window management
@@ -173,7 +176,11 @@ AVCodec/
     │   │   │   │   ├── BufferRenderer.cpp   # BufferMode copy-and-submit output
     │   │   │   │   ├── HdrMetadataHelper.cpp # HDR metadata detection/propagation
     │   │   │   │   ├── Player.cpp           # Playback, sync, seek, and cleanup
-    │   │   │   │   └── PlayerNative.cpp     # Playback NAPI entry
+    │   │   │   │   ├── PlayerNapiParser.cpp # Playback and seek argument parsing
+    │   │   │   │   ├── PlayerNapiParser.h   # NAPI argument parser interface
+    │   │   │   │   ├── PlayerNapiSerializer.cpp # Playback/media result serialization
+    │   │   │   │   ├── PlayerNapiSerializer.h # NAPI serializer interface
+    │   │   │   │   └── PlayerNative.cpp     # NAPI registration, callbacks, and dispatch
     │   │   │   └── recorder/
     │   │   │       ├── Recorder.cpp         # Recording lifecycle and data flow
     │   │   │       └── RecorderNative.cpp   # Recording NAPI entry
@@ -211,9 +218,9 @@ The sample can be understood as: **UI selects a scenario -> ArkTS prepares optio
 
 Core data structures:
 
-- `SampleInfo` groups task options by responsibility: `MediaSourceInfo`, `VideoSampleInfo`, `AudioSampleInfo`, `CodecOptions`, `OutputOptions`, and `PlaybackCallbackInfo`.
-- `CodecUserData` is the shared context between codec callbacks and worker threads. It owns input/output queues and runtime state. `Player` owns playback contexts with `unique_ptr`; C callbacks receive only temporary non-owning pointers from `.get()`.
-- `CodecBufferInfo` packages a codec buffer index, `OH_AVBuffer`, and `OH_AVCodecBufferAttr` for transfer between demuxers, codecs, renderers, and muxers.
+- `SampleInfo`, defined in `sample_config.h`, groups source, video, audio, codec, output, and playback-callback options.
+- `CodecUserData`, defined in `codec_user_data.h`, is the runtime context shared by codec callbacks and worker threads. `Player` owns playback contexts with `unique_ptr`; C callbacks receive temporary non-owning pointers from `.get()`.
+- `CodecBufferInfo` and `CodecBufferQueue`, defined in `codec_buffer.h`, package codec buffer data and provide the thread-safe handoff queue. `sample_info.h` remains as a compatibility aggregate for existing includes.
 - `SampleCallback` receives async `OnNeedInputBuffer` and `OnNewOutputBuffer` callbacks and enqueues work in `CodecUserData`.
 - `AudioOutputPump` unifies asynchronous queue consumption and synchronous output queries, appends PCM to `renderQueue`, and delegates buffer release and clock accounting to `Player`.
 
@@ -268,7 +275,10 @@ The structured `PlayOptions` object has the following shape:
 }
 ```
 
-`PlayerNative::Play()` reads named fields, fills `SampleInfo`, and invokes `Player::Init()` followed by `Player::Start()`. Named options avoid positional-argument ordering mistakes and make future settings easier to add.
+`PlayerNapiParser` reads named fields and fills `SampleInfo`. `PlayerNative` retains NAPI registration,
+completion-callback dispatch, and the calls to `Player::Init()` / `Player::Start()`. `PlayerNapiSerializer` converts
+playback results, playback state, and media information into ArkTS objects. This keeps parsing, serialization, and
+playback orchestration independent while preserving the existing NAPI contract.
 
 <a id="recording-entry"></a>
 

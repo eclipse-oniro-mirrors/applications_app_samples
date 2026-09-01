@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Fujian Newland Auto-ID Tech.Co.,Ltd.
+ * Copyright (c) 2023-2026 Fujian Newland Auto-ID Tech.Co.,Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,17 +31,11 @@ export struct InputConsumer {
   callback(KeyOptions: inputConsumer.KeyOptions): void {
     this.mInputConsumerInfo = formatJson(JSON.stringify(KeyOptions))
     const finalKey: number = KeyOptions.finalKey
-    switch (finalKey) {
-      case keyCode.KeyCode.KEYCODE_S: {
-        this.mIsShowImage = true
-        break
-      }
-      case keyCode.KeyCode.KEYCODE_D: {
-        this.mIsShowImage = false
-        break
-      }
-      default: {
-        break
+    if (finalKey === keyCode.KeyCode.KEYCODE_TAB) {
+      if (!this.mIsShowImage) {
+        this.mIsShowImage = true;
+      } else {
+        this.mIsShowImage = false;
       }
     }
   }
