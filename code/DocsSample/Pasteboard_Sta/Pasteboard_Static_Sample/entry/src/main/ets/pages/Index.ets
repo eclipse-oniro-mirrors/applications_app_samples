@@ -155,16 +155,16 @@ struct Index {
       currentChangeCount = systemPasteboard.getChangeCount();
       hilog.info(0xFF00, '[Sample_pasteboard]', `Current ChangeCount: ${currentChangeCount}`);
       // 更新 Preferences 中的 ChangeCount
-      if (dataPreferences) {
-        dataPreferences.putSync('pasteboardChangeCount', currentChangeCount);
+      if (mdataPreferences) {
+        mdataPreferences.putSync('pasteboardChangeCount', currentChangeCount);
         needFlush = true;
       }
     } catch (err) {
       hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to updata ChangeCount. Cause: ${err.message}`);
     } finally {
-      if (needFlush && dataPreferences) {
+      if (needFlush && mdataPreferences) {
         try {
-          dataPreferences.flushSync(); // 确保数据写入持久化存储
+          mdataPreferences.flushSync(); // 确保数据写入持久化存储
           hilog.info(0xFF00, '[Sample_pasteboard]', `ChangeCount has been updated to: ${currentChangeCount}`);
         } catch (err) {
           hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to flush ChangeCount. Cause: ${err.message}`);
