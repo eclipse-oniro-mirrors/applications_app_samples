@@ -290,7 +290,7 @@ export struct DataTransferPage {
 
     // [Start datatransfer_write_data]
     try {
-      // Fill the payload with fixed demo bytes; replace with business data in real development
+      // 使用固定示例数据填充负载，实际开发中替换为业务数据
       let dataBuffer = new ArrayBuffer(4);
       let data = new Uint8Array(dataBuffer);
       data[0] = 0x01;

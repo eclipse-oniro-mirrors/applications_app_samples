@@ -154,7 +154,7 @@ export struct SsapServerPage {
     // [End ssap_server_on_property_read]
     // [Start ssap_server_on_property_write]
     try {
-      // Property write request: save the written value to the matching property
+      // 写属性请求：将写入的值保存到对应属性
       server.onPropertyWrite((data: ssap.PropertyWriteRequest) => {
         hilog.info(0x0000, 'testTag', `Property write: ${JSON.stringify(data)}`);
         // [StartExclude ssap_server_on_property_write]
@@ -185,7 +185,7 @@ export struct SsapServerPage {
   async notifyPropertyChanged(): Promise<void> {
     // [Start ssap_server_notify]
     try {
-      // Update the property with a fixed demo value; replace with business data in real development
+      // 使用固定示例值更新属性，实际开发中替换为业务数据
       propertyValue1 = 0x4E;
       let buffer = new ArrayBuffer(1);
       new Uint8Array(buffer)[0] = propertyValue1;

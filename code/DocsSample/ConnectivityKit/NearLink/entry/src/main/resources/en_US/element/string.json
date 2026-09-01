@@ -142,7 +142,7 @@
     },
     {
       "name": "menu_cdsm_desc",
-      "value": "Cooperative Device Set",
+      "value": "Coordinated Device Set",
       "description": "CDSM menu item subtitle."
     },
     {
@@ -262,7 +262,7 @@
     },
     {
       "name": "cdsm_description",
-      "value": "Cooperative Device Set Management (CDSM) manages a group of devices working together, such as left and right earbuds.",
+      "value": "Coordinated Device Set Management (CDSM) manages a group of devices working together, such as left and right earbuds.",
       "description": "CDSM feature description."
     },
     {

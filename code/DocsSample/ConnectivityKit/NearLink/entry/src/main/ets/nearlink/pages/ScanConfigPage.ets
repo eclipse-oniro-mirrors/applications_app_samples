@@ -23,24 +23,24 @@ import { MAX_LOG_MESSAGES, MAX_SCAN_RESULTS_FULL } from 'nearlink_library';
 import { NavBar, ScanDeviceItem, LogArea, SectionCard, ScanDeviceInfo } from '../components/CommonComponents';
 
 // [Start scan_parse_result]
-const ADV_DATA_TYPE_DISCOVERY_LEVEL = 0x01; // Discovery level
-const ADV_DATA_TYPE_SERVICE_DATA_16_BIT_UUID = 0x03; // Standard service data (16-bit UUID)
-const ADV_DATA_TYPE_SERVICE_DATA_128_BIT_UUID = 0x04; // Custom service data (128-bit UUID)
-const ADV_DATA_TYPE_COMPLETE_LIST_16_BIT_SERVICE_UUIDS = 0x05; // Complete standard service UUID list
-const ADV_DATA_TYPE_COMPLETE_LIST_128_BIT_SERVICE_UUIDS = 0x06; // Complete custom service UUID list
-const ADV_DATA_TYPE_INCOMPLETE_LIST_16_BIT_SERVICE_UUIDS = 0x07; // Incomplete standard service UUID list
-const ADV_DATA_TYPE_INCOMPLETE_LIST_128_BIT_SERVICE_UUIDS = 0x08; // Incomplete custom service UUID list
-const ADV_DATA_TYPE_SHORTENED_LOCAL_NAME = 0x0A; // Shortened local name
-const ADV_DATA_TYPE_COMPLETE_LOCAL_NAME = 0x0B; // Complete local name
-const ADV_DATA_TYPE_MANUFACTURER_SPECIFIC_DATA = 0xFF; // Manufacturer specific data
+const ADV_DATA_TYPE_DISCOVERY_LEVEL = 0x01; // 发现等级
+const ADV_DATA_TYPE_SERVICE_DATA_16_BIT_UUID = 0x03; // 标准服务数据（16比特UUID）
+const ADV_DATA_TYPE_SERVICE_DATA_128_BIT_UUID = 0x04; // 自定义服务数据（128比特UUID）
+const ADV_DATA_TYPE_COMPLETE_LIST_16_BIT_SERVICE_UUIDS = 0x05; // 完整的标准服务UUID列表
+const ADV_DATA_TYPE_COMPLETE_LIST_128_BIT_SERVICE_UUIDS = 0x06; // 完整的自定义服务UUID列表
+const ADV_DATA_TYPE_INCOMPLETE_LIST_16_BIT_SERVICE_UUIDS = 0x07; // 不完整的标准服务UUID列表
+const ADV_DATA_TYPE_INCOMPLETE_LIST_128_BIT_SERVICE_UUIDS = 0x08; // 不完整的自定义服务UUID列表
+const ADV_DATA_TYPE_SHORTENED_LOCAL_NAME = 0x0A; // 缩短的本地名称
+const ADV_DATA_TYPE_COMPLETE_LOCAL_NAME = 0x0B; // 完整的本地名称
+const ADV_DATA_TYPE_MANUFACTURER_SPECIFIC_DATA = 0xFF; // 厂商自定义数据
 
 const NEARLINK_UUID_16_BIT_LENGTH = 2;
 const NEARLINK_UUID_128_BIT_LENGTH = 16;
 const NEARLINK_MANUFACTURER_ID_LENGTH = 2;
-// Base prefix (112 bits) of the 128-bit UUID form for standard 16-bit UUIDs
+// 标准16比特UUID对应的128比特UUID形式的基础标识（前112比特）
 const STANDARD_UUID_BASE_PREFIX = '37BEA880-FC70-11EA-B720-00000000';
 
-// Parsed result of the advertising packet data
+// 广播报文数据的解析结果
 interface ScanResultData {
   discoveryLevel: number;
   serviceData: Record<string, Uint8Array>;
@@ -139,11 +139,11 @@ export struct ScanConfigPage {
     }
     let curPos = 0;
     while (curPos < advData.byteLength) {
-      // Each item is composed of a 1-byte type, a 1-byte length, and the value bytes
+      // 每个条目由1字节类型、1字节长度和值组成
       let dataType = advData[curPos++];
       let dataLength = advData[curPos++];
       if (dataLength === 0) {
-        break; // A zero length indicates the end of valid items
+        break; // 长度为零表示有效条目结束
       }
       switch (dataType) {
         case ADV_DATA_TYPE_DISCOVERY_LEVEL:
@@ -176,7 +176,7 @@ export struct ScanConfigPage {
         default:
           break;
       }
-      curPos += dataLength; // Move to the next item
+      curPos += dataLength; // 移动到下一个条目
     }
     hilog.info(0x0000, 'testTag',
       `discoveryLevel: ${result.discoveryLevel}, serviceData: ${JSON.stringify(result.serviceData)}, ` +
