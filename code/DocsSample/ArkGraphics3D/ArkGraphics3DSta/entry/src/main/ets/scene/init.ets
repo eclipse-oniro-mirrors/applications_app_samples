@@ -49,7 +49,7 @@ struct Model {
           // [StartExclude model_load]
           // [Start camera_scene_params]
           // 创建相机
-          this.cam = await rf.createCamera({ 'name': 'Camera' });
+          this.cam = await rf.createCamera({ name: 'Camera' });
           // 设置相机参数
           this.cam!.enabled = true;
           this.cam!.position.z = 5;

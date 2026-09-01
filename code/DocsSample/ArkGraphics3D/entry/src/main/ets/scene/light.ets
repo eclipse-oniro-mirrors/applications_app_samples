@@ -1,6 +1,5 @@
-'use static'
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,66 +13,78 @@
  * limitations under the License.
  */
 
+// [Start light_header]
 import { Camera, Light, LightType, Scene, SceneNodeParameters, SceneResourceFactory } from '@kit.ArkGraphics3D';
-import router from '@ohos.router';
-import { Component3D, Column, Row, Button, Text, Component, Entry, SceneOptions, $rawfile, ModelType, Slider, SliderStyle, SliderChangeMode } from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
+// [End light_header]
+import { router } from '@kit.ArkUI';
 
 let globalScene: Scene | null = null;
 
-async function createLightPromise(): Promise<Light> {
-  // [Start light_load_and_factory]
-  try {
-    // 加载场景资源，支持.gltf和.glb格式，路径和文件名可根据项目实际资源自定义
-    let scene = await Scene.load($rawfile('gltf/CubeWithFloor/glTF/AnimatedCube.glb'));
-    // [StartExclude light_load_and_factory]
-    // 全局保存已加载的场景，以便复用
-    globalScene = scene;
-    // [EndExclude light_load_and_factory]
-    let sceneFactory: SceneResourceFactory = scene.getResourceFactory();
-    let lightParameter: SceneNodeParameters = { name: 'light' };
-    // [StartExclude light_load_and_factory]
-    // 创建平行光
-    // [Start light_create_and_config]
-    let lightEntity = await sceneFactory.createLight(lightParameter, LightType.DIRECTIONAL);
-    // 设置平行光颜色
-    lightEntity.color = { r: 0.8, g: 0.1, b: 0.2, a: 1.0 };
+function createLightPromise(): Promise<Light> {
+  return new Promise((resolve, reject) => {
+    // Switched from .gltf to .glb; same content, different format
+    // [Start light_load_and_factory]
+    let scene: Promise<Scene> = Scene.load($rawfile('gltf/CubeWithFloor/glTF/AnimatedCube.glb'));
+    scene.then(async (result: Scene) => {
+      // [StartExclude light_load_and_factory]
+      // Save loaded scene globally for reuse (e.g., in LightPage)
+      globalScene = result;
+      // [EndExclude light_load_and_factory]
+      let sceneFactory: SceneResourceFactory = result.getResourceFactory();
+      let lightParameter: SceneNodeParameters = { name: 'light' };
+      // [StartExclude light_load_and_factory]
+      // Create directional light.
+      // [Start light_create_and_config]
+      let light: Promise<Light> = sceneFactory.createLight(lightParameter, LightType.DIRECTIONAL);
+      light.then(async (lightEntity: Light) => {
+        // Set the color of the directional light.
+        lightEntity.color = { r: 0.8, g: 0.1, b: 0.2, a: 1.0 };
 
-    // 设置其他灯光参数
-    // ...
-    // [End light_create_and_config]
-    return lightEntity;
-    // [EndExclude light_load_and_factory]
-  } catch (error) {
-    console.error('Light creation failed: ' + error);
-    // [StartExclude light_load_and_factory]
-    throw error;
-    // [EndExclude light_load_and_factory]
-  }
-  // [End light_load_and_factory]
+        // Set other light parameters.
+        // ...
+        // [StartExclude light_create_and_config]
+        resolve(lightEntity);
+        // [EndExclude light_create_and_config]
+      }).catch((err: string) => {
+        console.error('Light create failed: ' + err + '.');
+        // [StartExclude light_create_and_config]
+        reject(err);
+        // [EndExclude light_create_and_config]
+      });
+      // [End light_create_and_config]
+      // [EndExclude light_load_and_factory]
+    }).catch((error: string) => {
+      console.error('Scene load failed: ' + error);
+      // [StartExclude light_load_and_factory]
+      reject(error);
+      // [EndExclude light_load_and_factory]
+    });
+    // [End light_load_and_factory]
+  });
 }
 
 @Entry
 @Component
 struct LightPage {
   scene: Scene | null = null;
-  @State sceneOpt: SceneOptions | undefined = undefined;
+  @State sceneOpt: SceneOptions | null = null;
   cam: Camera | null = null;
   light: Light | null = null;
   rf: SceneResourceFactory | null = null;
-  @State red: double = 0;
-  @State green: double = 0;
-  @State blue: double = 0;
+  @State red: number = 0;
+  @State green: number = 0;
+  @State blue: number = 0;
 
-  aboutToAppear(): void {
+  onPageShow(): void {
     this.init();
   }
 
-  aboutToDisappear(): void {
+  onPageHide(): void {
     if (this.scene) {
-      this.scene!.destroy();
+      this.scene.destroy();
     }
     this.scene = null;
+    this.sceneOpt = null;
     this.cam = null;
     this.light = null;
     this.rf = null;
@@ -85,15 +96,15 @@ struct LightPage {
     this.light = await createLightPromise();
     if (globalScene && this.light) {
       this.scene = globalScene;
-      this.sceneOpt = { scene: this.scene!, modelType: ModelType.SURFACE } as SceneOptions;
-      this.rf = this.scene!.getResourceFactory();
-      this.cam = await this.rf!.createCamera({ name: 'Camera1' });
-      this.cam!.enabled = true;
-      this.cam!.position.z = 5;
-      // 初始化颜色值
-      this.red = this.light!.color.r;
-      this.green = this.light!.color.g;
-      this.blue = this.light!.color.b;
+      this.sceneOpt = { scene: this.scene, modelType: ModelType.SURFACE } as SceneOptions;
+      this.rf = this.scene.getResourceFactory();
+      this.cam = await this.rf.createCamera({ name: 'Camera1' });
+      this.cam.enabled = true;
+      this.cam.position.z = 5;
+      // Initialize color value
+      this.red = this.light.color.r;
+      this.green = this.light.color.g;
+      this.blue = this.light.color.b;
     }
     // [End light_init_bind]
   }
@@ -104,7 +115,7 @@ struct LightPage {
         if (this.sceneOpt) {
           Component3D(this.sceneOpt);
         } else {
-          Text('Loading...');
+          Text('Loading···');
         }
 
         Column() {
@@ -118,13 +129,13 @@ struct LightPage {
             style: SliderStyle.OutSet
           })
             .showTips(false)
-            .onChange((value: double, mode: SliderChangeMode) => {
+            .onChange((value: number, mode: SliderChangeMode) => {
               this.red = value;
               if (mode === SliderChangeMode.End) {
                 if (!this.scene || !this.light) {
                   return;
                 }
-                this.light!.color = {
+                this.light.color = {
                   r: this.red,
                   g: this.green,
                   b: this.blue,
@@ -147,13 +158,14 @@ struct LightPage {
             style: SliderStyle.OutSet
           })
             .showTips(false)
-            .onChange((value: double, mode: SliderChangeMode) => {
+            .onChange((value: number, mode: SliderChangeMode) => {
               this.green = value;
               if (mode === SliderChangeMode.End) {
                 if (!this.scene || !this.light) {
                   return;
                 }
-                this.light!.color = {
+
+                this.light.color = {
                   r: this.red,
                   g: this.green,
                   b: this.blue,
@@ -175,13 +187,14 @@ struct LightPage {
             style: SliderStyle.OutSet
           })
             .showTips(false)
-            .onChange((value: double, mode: SliderChangeMode) => {
+            .onChange((value: number, mode: SliderChangeMode) => {
               this.blue = value;
               if (mode === SliderChangeMode.End) {
                 if (!this.scene || !this.light) {
                   return;
                 }
-                this.light!.color = {
+
+                this.light.color = {
                   r: this.red,
                   g: this.green,
                   b: this.blue,
@@ -199,7 +212,7 @@ struct LightPage {
           .fontWeight(500)
           .margin({ top: 20, left: 6 })
           .onClick(() => {
-            this.getUIContext().getRouter().back();
+            router.back();
           })
           .width('80%')
           .height(40)
