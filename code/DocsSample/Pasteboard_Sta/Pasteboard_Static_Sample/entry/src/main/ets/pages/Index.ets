@@ -160,14 +160,16 @@ struct Index {
         needFlush = true;
       }
     } catch (err) {
-      hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to updata ChangeCount. Cause: ${err.message}`);
+      let error = err as BusinessError;
+      hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to updata ChangeCount. Cause: ${error.message}`);
     } finally {
       if (needFlush && mdataPreferences) {
         try {
           mdataPreferences.flushSync(); // 确保数据写入持久化存储
           hilog.info(0xFF00, '[Sample_pasteboard]', `ChangeCount has been updated to: ${currentChangeCount}`);
         } catch (err) {
-          hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to flush ChangeCount. Cause: ${err.message}`);
+          let error = err as BusinessError;
+          hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to flush ChangeCount. Cause: ${error.message}`);
         }
       }
     }
