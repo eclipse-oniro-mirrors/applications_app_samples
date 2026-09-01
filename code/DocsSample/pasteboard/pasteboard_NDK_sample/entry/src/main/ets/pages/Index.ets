@@ -56,7 +56,7 @@ async function isNeedGetPermissionFromUser(): Promise<boolean> {
     }
     // (可选)涉及口令等应用自身特殊复制内容的，使用detectPatterns过滤口令格式
     let data: pasteboard.Pattern[] = await systemPasteboard.detectPatterns(patterns);
-    if (patterns.sort().join('') != data.sort().join('')) {
+    if (!patterns.every(p => data.includes(p))) {
       hilog.info(0xFF00, '[Sample_pasteboard]', 'Not all needed patterns detected, no need to get data.');
       return false;
     }

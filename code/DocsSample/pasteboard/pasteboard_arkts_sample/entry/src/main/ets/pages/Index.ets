@@ -61,7 +61,7 @@ async function isNeedGetPermissionFromUser(): Promise<boolean> {
     }
     // (可选)涉及口令等应用自身特殊复制内容的，使用detectPatterns过滤口令格式
     let data: pasteboard.Pattern[] = await systemPasteboard.detectPatterns(patterns);
-    if (patterns.sort().join('') != data.sort().join('')) {
+    if (!patterns.every(p => data.includes(p))) {
       hilog.info(0xFF00, '[Sample_pasteboard]', 'Not all needed patterns detected, no need to get data.');
       return false;
     }
@@ -130,35 +130,49 @@ struct Index {
             try {
               let data = await atManager.requestPermissionsFromUser(context, permissions);
               let grantStatus: number[] = data.authResults;
-              for (const status of grantStatus) {
-                if (status === 0) {
-                  // 用户授权，使用get操作读取剪贴板内容。
-                  // [StartExclude pasteboard_permission]
+
+              let allGranted: boolean = grantStatus.some(status => status === 0);
+              if (!allGranted) {
+                // 用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限。
+                hilog.error(0xFF00, '[Sample_pasteboard]', 'All permissions denied');
+                return;
+              }
+              // 用户授权，使用get操作读取剪贴板内容。
+              // [StartExclude pasteboard_permission]
+              try {
+                this.text = await TestJs.getPlainData(pasteboard.MIMETYPE_TEXT_PLAIN)
+              } catch (err) {
+                this.printLog('get failed.');
+              }
+              // [EndExclude pasteboard_permission]
+              // 执行判断口令逻辑，如果是本应用口令，建议获取完数据后使用cleardata清除剪贴板口令内容
+              try {
+                await systemPasteboard.clearData();
+                hilog.info(0xFF00, '[Sample_pasteboard]', 'Succeeded in clearing the pasteboard.');
+              } catch (err) {
+                hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to clear the pasteboard. Cause: ${err.message}`);
+              }
+              let needFlush: boolean = false;
+              let currentChangeCount: number = 0;
+              try {
+                // 获取当前 ChangeCount
+                currentChangeCount = systemPasteboard.getChangeCount();
+                hilog.info(0xFF00, '[Sample_pasteboard]', `Current ChangeCount: ${currentChangeCount}`);
+                // 更新 Preferences 中的 ChangeCount
+                if (dataPreferences) {
+                  dataPreferences.putSync('pasteboardChangeCount', currentChangeCount);
+                  needFlush = true;
+                }
+              } catch (err) {
+                hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to updata ChangeCount. Cause: ${err.message}`);
+              } finally {
+                if (needFlush && dataPreferences) {
                   try {
-                    this.text = await TestJs.getPlainData()
-                  } catch (err) {
-                    this.printLog('get failed.');
-                  }
-                  // [EndExclude pasteboard_permission]
-                  // 执行判断口令逻辑，如果是本应用口令，建议获取完数据后使用cleardata清除剪贴板口令内容
-                  try {
-                    await systemPasteboard.clearData();
-                    hilog.info(0xFF00, '[Sample_pasteboard]', 'Succeeded in clearing the pasteboard.');
-                  } catch (err) {
-                    hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to clear the pasteboard. Cause: ${err.message}`);
-                  }
-                  // 获取当前 ChangeCount
-                  let currentChangeCount: number = systemPasteboard.getChangeCount();
-                  hilog.info(0xFF00, '[Sample_pasteboard]', `Current ChangeCount: ${currentChangeCount}`);
-                  // 更新 Preferences 中的 ChangeCount
-                  if (dataPreferences) {
-                    dataPreferences.putSync('pasteboardChangeCount', currentChangeCount);
                     dataPreferences.flushSync(); // 确保数据写入持久化存储
                     hilog.info(0xFF00, '[Sample_pasteboard]', `ChangeCount has been updated to: ${currentChangeCount}`);
+                  } catch (err) {
+                    hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to flush ChangeCount. Cause: ${err.message}`);
                   }
-                } else {
-                  // 用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限。
-                  return;
                 }
               }
               // 授权成功。
