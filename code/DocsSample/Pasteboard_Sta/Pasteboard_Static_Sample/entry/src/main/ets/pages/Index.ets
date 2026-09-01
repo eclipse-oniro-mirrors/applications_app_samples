@@ -113,9 +113,10 @@ struct Index {
     }
     let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
     // requestPermissionsFromUser会判断权限的授权状态来决定是否唤起弹窗。
-    try {
-      let contexts: Context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-      let data: PermissionRequestResult = await atManager.requestPermissionsFromUser(contexts, permissions);
+    let contexts: Context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    let data: PermissionRequestResult;
+    try { 
+      data = await atManager.requestPermissionsFromUser(contexts, permissions);
       let grantStatus: Array<int> = data.authResults;
 
       let allGranted: boolean = grantStatus.some(status => status === 0);
@@ -124,51 +125,51 @@ struct Index {
         hilog.error(0xFF00, '[Sample_pasteboard]', 'All permissions denied');
         return;
       }
-      // 用户授权，使用get操作读取剪贴板内容。
-      // [StartExclude pasteboard_permission]
-      try {
-        let ret: string = await TestJs.getPlainData(pasteboard.MIMETYPE_TEXT_PLAIN);
-        this.text = ret;
-      } catch (err) {
-        let error = err as BusinessError;
-        this.printLog('get failed.');
-      }
-      // [EndExclude pasteboard_permission]
-      // 执行判断口令逻辑，如果是本应用口令，建议获取完数据后使用cleardata清除剪贴板口令内容
-      try {
-        await systemPasteboard.clearData();
-        hilog.info(0xFF00, '[Sample_pasteboard]', 'Succeeded in clearing the pasteboard.');
-      } catch (err) {
-        let error = err as BusinessError;
-        hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to clear the pasteboard. Cause: ${error.message}`);
-      }
-      let needFlush: boolean = false;
-      let currentChangeCount: number = 0;
-      try {
-        // 获取当前 ChangeCount
-        currentChangeCount = systemPasteboard.getChangeCount();
-        hilog.info(0xFF00, '[Sample_pasteboard]', `Current ChangeCount: ${currentChangeCount}`);
-        // 更新 Preferences 中的 ChangeCount
-        if (dataPreferences) {
-          dataPreferences.putSync('pasteboardChangeCount', currentChangeCount);
-          needFlush = true;
-        }
-      } catch (err) {
-        hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to updata ChangeCount. Cause: ${err.message}`);
-      } finally {
-        if (needFlush && dataPreferences) {
-          try {
-            dataPreferences.flushSync(); // 确保数据写入持久化存储
-            hilog.info(0xFF00, '[Sample_pasteboard]', `ChangeCount has been updated to: ${currentChangeCount}`);
-          } catch (err) {
-            hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to flush ChangeCount. Cause: ${err.message}`);
-          }
-        }
-      }
       // 授权成功。
     } catch (err) {
       let error = err as BusinessError;
       hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to request permissions from user. Cause: ${error.message}`);
+    }
+    // 用户授权，使用get操作读取剪贴板内容。
+    // [StartExclude pasteboard_permission]
+    try {
+      let ret: string = await TestJs.getPlainData(pasteboard.MIMETYPE_TEXT_PLAIN);
+      this.text = ret;
+    } catch (err) {
+      let error = err as BusinessError;
+      this.printLog('get failed.');
+    }
+    // [EndExclude pasteboard_permission]
+    // 执行判断口令逻辑，如果是本应用口令，建议获取完数据后使用cleardata清除剪贴板口令内容
+    try {
+      await systemPasteboard.clearData();
+      hilog.info(0xFF00, '[Sample_pasteboard]', 'Succeeded in clearing the pasteboard.');
+    } catch (err) {
+      let error = err as BusinessError;
+      hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to clear the pasteboard. Cause: ${error.message}`);
+    }
+    let needFlush: boolean = false;
+    let currentChangeCount: number = 0;
+    try {
+      // 获取当前 ChangeCount
+      currentChangeCount = systemPasteboard.getChangeCount();
+      hilog.info(0xFF00, '[Sample_pasteboard]', `Current ChangeCount: ${currentChangeCount}`);
+      // 更新 Preferences 中的 ChangeCount
+      if (dataPreferences) {
+        dataPreferences.putSync('pasteboardChangeCount', currentChangeCount);
+        needFlush = true;
+      }
+    } catch (err) {
+      hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to updata ChangeCount. Cause: ${err.message}`);
+    } finally {
+      if (needFlush && dataPreferences) {
+        try {
+          dataPreferences.flushSync(); // 确保数据写入持久化存储
+          hilog.info(0xFF00, '[Sample_pasteboard]', `ChangeCount has been updated to: ${currentChangeCount}`);
+        } catch (err) {
+          hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to flush ChangeCount. Cause: ${err.message}`);
+        }
+      }
     }
   }
   build() {
