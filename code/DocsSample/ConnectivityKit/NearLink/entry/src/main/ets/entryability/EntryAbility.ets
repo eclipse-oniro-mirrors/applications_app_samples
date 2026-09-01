@@ -57,7 +57,7 @@ export default class EntryAbility extends UIAbility {
   private requestNearLinkPermission(): void {
     try {
       let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
-      let permissions: Array<Permissions> = ['ohos.permission.ACCESS_NEARLINK'];
+      const permissions: Permissions[] = ['ohos.permission.ACCESS_NEARLINK'];
       atManager.requestPermissionsFromUser(this.context, permissions, (err: BusinessError, data) => {
         if (err) {
           hilog.error(0x0000, 'testTag', `Permission request failed: code=${err.code}, message=${err.message}`);
