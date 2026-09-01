@@ -87,7 +87,7 @@ struct LightPage {
       this.scene = globalScene;
       this.sceneOpt = { scene: this.scene!, modelType: ModelType.SURFACE } as SceneOptions;
       this.rf = this.scene!.getResourceFactory();
-      this.cam = await this.rf!.createCamera({ 'name': 'Camera1' });
+      this.cam = await this.rf!.createCamera({ name: 'Camera1' });
       this.cam!.enabled = true;
       this.cam!.position.z = 5;
       // 初始化颜色值

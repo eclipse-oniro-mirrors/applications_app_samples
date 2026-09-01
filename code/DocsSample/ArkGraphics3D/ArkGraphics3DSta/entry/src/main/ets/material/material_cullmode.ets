@@ -58,7 +58,7 @@ struct material_cullmode {
           let meshRes: MeshResource = await rf.createMesh({ name: 'planeMesh' }, planeGeom);
           let plane: Geometry = await rf.createGeometry({ name: 'plane' }, meshRes);
           // 创建平面几何体及其对应的mesh对象
-          this.material = await rf.createMaterial({ 'name': 'planeMat' }, MaterialType.SHADER);
+          this.material = await rf.createMaterial({ name: 'planeMat' }, MaterialType.SHADER);
           plane.mesh.subMeshes[0].material = this.material!;
 
           // 创建基于image的光照环境
@@ -78,7 +78,7 @@ struct material_cullmode {
               { x: -0.239390164613724, y: -0.200478553771973, z: -0.132790848612785 }];
 
           // 创建相机
-          this.cam = await rf.createCamera({ 'name': 'CullCam' });
+          this.cam = await rf.createCamera({ name: 'CullCam' });
           this.cam!.enabled = true;
           lookAt(this.cam!, { x: 0, y: 0, z: -3 }, { x: 0, y: 0, z: 0 }, { x: 0, y: 1, z: 0 });
           this.sceneOpt = { scene: this.scene!, modelType: ModelType.SURFACE } as SceneOptions;

@@ -63,7 +63,7 @@ struct material_render_slot {
           // 生成第一个平面几何体，颜色为半透明红色
           {
             let plane1: Geometry = await rf.createGeometry({ name: 'plane1' }, meshRes);
-            this.material = await rf.createMaterial({ 'name': 'material' }, MaterialType.SHADER);
+            this.material = await rf.createMaterial({ name: 'material' }, MaterialType.SHADER);
             let helmAlbedo = $rawfile('gltf/DamagedHelmet/glTF/Default_albedo.jpg');
             let helmTexture: Image | null = await rf.createImage({ name: 'helmTexture', uri: helmAlbedo });
             (this.material as MetallicRoughnessMaterial).baseColor.image = helmTexture;
@@ -76,7 +76,7 @@ struct material_render_slot {
           {
             let plane2: Geometry = await rf.createGeometry({ name: 'plane2' }, meshRes);
             let material2: Material | null =
-              await rf.createMaterial({ 'name': 'material2' }, MaterialType.SHADER);
+              await rf.createMaterial({ name: 'material2' }, MaterialType.SHADER);
             material2.blend = { enabled: true };
             material2.cullMode = CullMode.NONE;
             (material2 as MetallicRoughnessMaterial).baseColor.factor = { x: 1, y: 1, z: 1, w: 0.9 };
@@ -102,7 +102,7 @@ struct material_render_slot {
               { x: -0.566255271434784, y: -0.476870059967041, z: -0.314557582139969 },
               { x: -0.239390164613724, y: -0.200478553771973, z: -0.132790848612785 }];
           // 创建相机
-          this.cam = await rf.createCamera({ 'name': 'HelmetCamera' });
+          this.cam = await rf.createCamera({ name: 'HelmetCamera' });
           this.cam!.enabled = true;
           lookAt(this.cam!, { x: 0, y: 0, z: -3 }, { x: 0, y: 0, z: 0 }, { x: 0, y: 1, z: 0 });
           this.sceneOpt = { scene: this.scene!, modelType: ModelType.SURFACE } as SceneOptions;

@@ -78,7 +78,7 @@ struct sceneAnimation {
           // [End anim_pick_anim]
           // [Start anim_camera_sceneopt]
           // 创建相机
-          this.cam = await rf.createCamera({ 'name': 'Camera' });
+          this.cam = await rf.createCamera({ name: 'Camera' });
           // 设置相机属性
           this.cam.enabled = true;
           this.cam.position.z = 5;
