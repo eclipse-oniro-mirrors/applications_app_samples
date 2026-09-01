@@ -15,32 +15,13 @@
  */
 
 // 本页代码为标准实例，没有使用同步语法，不涉及测试，更多关于测试信息，详见readme。
-import {
-  Entry,
-  Text,
-  Column,
-  Row,
-  Component,
-  Tabs,
-  TabContent,
-  Button,
-  ClickEvent,
-  Resource,
-  Context,
-  UIContext,
-  $r,
-  FlexAlign,
-  TextAlign,
-  Blank,
-  RowOptions,
-  BarMode,
-  Alignment
-} from '@ohos.arkui.component'
-import { State, Watch, AppStorage } from '@ohos.arkui.stateManagement'
+import Logger from '../common/Logger';
+import { Alignment, BarMode, Blank, Button, ClickEvent, Column, Component, Context, Entry, FlexAlign,
+  Resource, Row, RowOptions, TabContent, Tabs, Text, TextAlign, UIContext, $r } from '@ohos.arkui.component'
+import { AppStorage, State, Watch } from '@ohos.arkui.stateManagement'
 import { BusinessError } from '@kit.BasicServicesKit';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { userAuth } from '@kit.UserAuthenticationKit';
-import Logger from '../common/Logger';
 
 // 用于获取资源字符串
 function resourceToString(resource: Resource): string {
