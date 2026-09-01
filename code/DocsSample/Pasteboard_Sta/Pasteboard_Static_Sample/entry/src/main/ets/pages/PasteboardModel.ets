@@ -89,7 +89,7 @@ export namespace TestJs {
       let pasteData = await systemPasteboard.getUnifiedData();
       let records: unifiedDataChannel.UnifiedRecord[] = pasteData.getRecords();
       for (let j = 0; j < records.length; j++) {
-        if (records[j].getType() === uniformTypeDescriptor.UniformDataType.PLAIN_TEXT as string) {
+        if (records[j].getType() === uniformTypeDescriptor.UniformDataType.PLAIN_TEXT.valueOf()) {
           let text = records[j].getValue() as uniformDataStruct.PlainText;
           hilog.info(0xFF00, '[Sample_pasteboard]', `${j + 1}.${text.textContent}`);
         }

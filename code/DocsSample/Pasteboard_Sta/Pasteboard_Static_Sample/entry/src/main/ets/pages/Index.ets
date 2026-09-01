@@ -100,8 +100,15 @@ struct Index {
   // [EndExclude pasteboard_permission]
 
   async handlePaste(): Promise<void> {
-    if (!(await isNeedGetPermissionFromUser())) {
-      hilog.info(0xFF00, '[Sample_pasteboard]', 'No neded to bring up the permission pop-up window');
+    let needPermission: boolean = false;
+    try {
+      needPermission = await isNeedGetPermissionFromUser();
+    } catch (err) {
+      let error = err as BusinessError;
+      hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to check permission. Cause: ${error.message}`);
+    }
+    if (!needPermission) {
+      hilog.info(0xFF00, '[Sample_pasteboard]', 'No need to bring up the permission pop-up window');
       return;
     }
     let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
@@ -121,9 +128,9 @@ struct Index {
       // [StartExclude pasteboard_permission]
       try {
         let ret: string = await TestJs.getPlainData(pasteboard.MIMETYPE_TEXT_PLAIN);
-            this.text = ret;
+        this.text = ret;
       } catch (err) {
-let error = err as BusinessError;
+        let error = err as BusinessError;
         this.printLog('get failed.');
       }
       // [EndExclude pasteboard_permission]
@@ -133,7 +140,7 @@ let error = err as BusinessError;
         hilog.info(0xFF00, '[Sample_pasteboard]', 'Succeeded in clearing the pasteboard.');
       } catch (err) {
         let error = err as BusinessError;
-            hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to clear the pasteboard. Cause: ${error.message}`);
+        hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to clear the pasteboard. Cause: ${error.message}`);
       }
       let needFlush: boolean = false;
       let currentChangeCount: number = 0;
