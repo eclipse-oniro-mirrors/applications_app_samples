@@ -37,8 +37,8 @@ export namespace TestJs {
       await systemPasteboard.setData(pasteData);
       hilog.info(0xFF00, '[Sample_pasteboard]', 'Set data to pasteboard successfully');
     } catch (err) {
-      let error = err as BusinessError;
-      hilog.error(0xFF00, '[Sample_pasteboard]', 'Failed to set data to pasteboard, error:' + error);
+      let error = err as BusinessError; 
+      hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to set data to pasteboard, error: ${error.message}`);
     }
   }
   export async function getPlainData(type: string): Promise<string> {
@@ -49,13 +49,13 @@ export namespace TestJs {
       let result = '';
       for (let i = 0; i < recordCount; i++) {
         let record = data.getRecord(i).toPlainText();
-        hilog.info(0xFF00, '[Sample_pasteboard]', 'Get data success, record:' + record);
+        hilog.info(0xFF00, '[Sample_pasteboard]', `Get data success, record: ${record}`);
         result = record;
       }
       return result;
     } catch (err) {
       let error = err as BusinessError;
-      hilog.error(0xFF00, '[Sample_pasteboard]', 'Failed to get data from pasteboard, error:' + error);
+      hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to get data from pasteboard, error: ${error.message}`);
       return '';
     }
   }
@@ -75,28 +75,30 @@ export namespace TestJs {
     let data = new unifiedDataChannel.UnifiedData();
     data.addRecord(record);
     // 2.向系统剪贴板中存入一条PlainText数据
-    systemPasteboard.setUnifiedData(data).then(() => {
+    try {
+      await systemPasteboard.setUnifiedData(data);
       hilog.info(0xFF00, '[Sample_pasteboard]', 'Succeeded in setting UnifiedData.');
       // 存入成功，处理正常场景
-    }).catch((err) => {
+    } catch (err) {
       let error = err as BusinessError;
-      hilog.error(0xFF00, '[Sample_pasteboard]', 'Failed to set UnifiedData. Cause: ' + error.message);
+      hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to set UnifiedData. Cause: ${error.message}`);
       // 处理异常场景
-    });
+    };
     // 3.从系统剪贴板中读取这条text数据
-    systemPasteboard.getUnifiedData().then((data: unifiedDataChannel.UnifiedData) => {
-      let records: unifiedDataChannel.UnifiedRecord[] = data.getRecords();
+    try {
+      let pasteData = await systemPasteboard.getUnifiedData();
+      let records: unifiedDataChannel.UnifiedRecord[] = pasteData.getRecords();
       for (let j = 0; j < records.length; j++) {
         if (records[j].getType() === uniformTypeDescriptor.UniformDataType.PLAIN_TEXT as string) {
           let text = records[j].getValue() as uniformDataStruct.PlainText;
           hilog.info(0xFF00, '[Sample_pasteboard]', `${j + 1}.${text.textContent}`);
         }
       }
-    }).catch((err) => {
+    } catch (err) {
       let error = err as BusinessError;
-      hilog.error(0xFF00, '[Sample_pasteboard]', 'Failed to get UnifiedData. Cause: ' + error.message);
+      hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to get UnifiedData. Cause: ${error.message}`);
       // 处理异常场景
-    });
+    };
   }
   // [End pasteboard_useudc]
 }
