@@ -21,29 +21,29 @@ import { BusinessError } from '@ohos.base';
 
 // 设备A复制数据，写入剪贴板服务。
 export async function setPasteDataTest(): Promise<void> {
-    let text: string = 'hello world';
-    let pasteData: pasteboard.PasteData = pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, text);
-    let systemPasteBoard: pasteboard.SystemPasteboard = pasteboard.getSystemPasteboard();
-    try {
-      await systemPasteBoard.setData(pasteData);
-    } catch (err) {
-      console.error(`Failed to set pastedata. Code: ${err.code}, message: ${err.message}`);
-    }
+  let text: string = 'hello world';
+  let pasteData: pasteboard.PasteData = pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, text);
+  let systemPasteBoard: pasteboard.SystemPasteboard = pasteboard.getSystemPasteboard();
+  try {
+    await systemPasteBoard.setData(pasteData);
+  } catch (err) {
+    console.error(`Failed to set pastedata. Code: ${err.code}, message: ${err.message}`);
+  }
 }
 // [End set_pasteboard_data]
 // [EndExclude get_pasteboard_data]
 
 // 设备B粘贴数据，读取剪贴板内容
 export async function getPasteDataTest(): Promise<void> {
-    let systemPasteBoard: pasteboard.SystemPasteboard = pasteboard.getSystemPasteboard();
-    try {
+  let systemPasteBoard: pasteboard.SystemPasteboard = pasteboard.getSystemPasteboard();
+  try {
     let data: pasteboard.PasteData = await systemPasteBoard.getData();
     // 对pastedata进行处理，获取类型，个数等
     let recordCount: number = data.getRecordCount(); // 获取剪贴板内record的个数
     let types: string = data.getPrimaryMimeType(); // 获取剪贴板内数据的类型
     let primaryText: string = data.getPrimaryText(); // 获取剪贴板内数据的内容
-    } catch (err) {
+  } catch (err) {
     console.error(`Failed to get pastedata. Code: ${err.code}, message: ${err.message}`);
-    }
+  }
 }
 // [End get_pasteboard_data]
