@@ -29,7 +29,7 @@ struct CustomComponentUse {
   @Computed
   get fullName() {
     hilog.info(DOMAIN, TAG, BUNDLE + '---------Computed----------');
-    return this.firstName + ' ' + this.lastName + this.age;
+    return this.lastName + ' ' + this.firstName + this.age;
   }
 
   build() {

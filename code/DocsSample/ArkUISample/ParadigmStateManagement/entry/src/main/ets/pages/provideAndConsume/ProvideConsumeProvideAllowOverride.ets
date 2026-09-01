@@ -29,7 +29,7 @@ struct MyComponent {
 // [Start Provide_Consume_Provide_AllowOverride2]
 @Component
 struct GrandSon {
-  // @Consume装饰的变量通过相同的属性名绑定其祖先内的@Provide装饰的变量
+  // @Consume装饰的变量通过相同的别名绑定其祖先内的@Provide装饰的变量
   @Consume('reviewVotes') reviewVotes: number;
 
   build() {

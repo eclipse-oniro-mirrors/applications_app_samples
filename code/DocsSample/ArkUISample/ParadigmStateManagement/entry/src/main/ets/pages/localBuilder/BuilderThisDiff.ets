@@ -99,7 +99,7 @@ struct Child {
 
   @Builder
   customBuilder() {
-  };
+  }
 
   @BuilderParam contentBuilder: ((data: Data) => void) = this.customBuilder;
   @BuilderParam contentLocalBuilder: ((data: Data) => void) = this.customBuilder;
