@@ -151,11 +151,11 @@ export struct LogArea {
 // Scan device info with queried class and name
 @Observed
 export class ScanDeviceInfo {
-  address: string = '';
-  deviceName: string = '';
-  rssi: number = 127; // 127 indicates an invalid RSSI
-  parsedLocalName: string = ''; // Local name parsed from the advertising packet
-  parsedServiceUuids: string = ''; // Service UUIDs parsed from the advertising packet
+  public address: string = '';
+  public deviceName: string = '';
+  public rssi: number = 127; // 127 indicates an invalid RSSI
+  public parsedLocalName: string = ''; // Local name parsed from the advertising packet
+  public parsedServiceUuids: string = ''; // Service UUIDs parsed from the advertising packet
 }
 
 // Scan result item with the parsed advertising data
