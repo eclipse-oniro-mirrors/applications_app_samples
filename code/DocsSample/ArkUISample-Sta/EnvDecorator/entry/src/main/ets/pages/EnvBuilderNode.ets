@@ -279,7 +279,7 @@ struct Comp {
 @Builder
 export function envBuilderNode(): void {
   NavDestination() {
-    index();
+    Index();
   }
   .backgroundColor('#f1f2f3')
   .title($r('app.string.env_builder_node_title'))
