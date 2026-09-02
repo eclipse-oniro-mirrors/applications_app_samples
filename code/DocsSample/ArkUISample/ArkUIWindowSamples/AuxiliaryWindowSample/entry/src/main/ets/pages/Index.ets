@@ -113,7 +113,7 @@ struct Index {
       console.error('sub_windowClass is null');
       return;
     }
-    // 4.销毁子窗口。当不再需要子窗口时，可根据具体实现逻辑，使用destroy对其进行销毁。
+    // 4.销毁子窗口。当不再需要子窗口时，可根据具体实现逻辑，使用destroyWindow对其进行销毁。
     subWindowClass.destroyWindow((err) => {
       if (err?.code) {
         console.error(`Failed to destroy the window. Cause code: ${err.code}, message: ${err.message}`);
@@ -210,7 +210,7 @@ struct Index {
       return;
     }
     // [Start destroy_independent_subWindow]
-    // 4.销毁子窗口。当不再需要子窗口时，可根据具体实现逻辑，使用destroy对其进行销毁。
+    // 4.销毁子窗口。当不再需要子窗口时，可根据具体实现逻辑，使用destroyWindow对其进行销毁。
     independentWindowClass.destroyWindow((err) => {
       if (err?.code) {
         console.error(`Failed to destroy the window. Cause code: ${err.code}, message: ${err.message}`);
@@ -290,7 +290,7 @@ struct Index {
       return;
     }
     // [Start destroy_floating_window]
-    // 4.销毁全局悬浮窗。当不再需要全局悬浮窗时，可根据具体实现逻辑，使用destroy对其进行销毁。
+    // 4.销毁全局悬浮窗。当不再需要全局悬浮窗时，可根据具体实现逻辑，使用destroyWindow对其进行销毁。
     floatWindowClass.destroyWindow((err) => {
       if (err?.code) {
         console.error(`Failed to destroy the window. Cause code: ${err.code}, message: ${err.message}`);
