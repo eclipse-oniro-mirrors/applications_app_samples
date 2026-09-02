@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { LengthMetrics, LazyVWaterFlowLayout, LazyVWaterFlowLayoutAttribute } from "@kit.ArkUI";
+import { LengthMetrics, LazyVWaterFlowLayout, LazyVWaterFlowLayoutAttribute } from '@kit.ArkUI';
 
 // [Start nested_lazy_layout]
 
