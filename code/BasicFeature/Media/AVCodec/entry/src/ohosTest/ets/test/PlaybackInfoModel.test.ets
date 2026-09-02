@@ -17,29 +17,38 @@ import { describe, expect, it } from '@ohos/hypium';
 import {
   formatMediaTime, formatPlaybackInfo, normalizeSeekPosition
 } from '../../../main/ets/model/PlaybackInfoModel';
+import { runTestCase } from './TestCaseLogger';
 
 export default function playbackInfoModelTest(): void {
   describe('PlaybackInfoModelTest', () => {
-    it('shouldFormatMediaTime', 0, () => {
-      expect(formatMediaTime(0)).assertEqual('00:00');
-      expect(formatMediaTime(65000000)).assertEqual('01:05');
+    it('AVCodec_PlaybackInfo_MediaTime_001', 0, () => {
+      runTestCase('AVCodec_PlaybackInfo_MediaTime_001', () => {
+        expect(formatMediaTime(0)).assertEqual('00:00');
+        expect(formatMediaTime(65000000)).assertEqual('01:05');
+      });
     });
 
-    it('shouldFormatPlaybackSnapshot', 0, () => {
-      const text = formatPlaybackInfo(3, 2, 125000000, 65000000, true, true, true);
-      expect(text).assertEqual('PLAYING  X2.0  01:05 / 02:05  A+V  SF');
+    it('AVCodec_PlaybackInfo_PlayingSnapshot_002', 0, () => {
+      runTestCase('AVCodec_PlaybackInfo_PlayingSnapshot_002', () => {
+        const text = formatPlaybackInfo(3, 2, 125000000, 65000000, true, true, true);
+        expect(text).assertEqual('PLAYING  X2.0  01:05 / 02:05  A+V  SF');
+      });
     });
 
-    it('shouldFormatSeekingState', 0, () => {
-      const text = formatPlaybackInfo(5, 1, 125000000, 65000000, true, false, false);
-      expect(text).assertEqual('SEEKING  X1.0  01:05 / 02:05  V');
+    it('AVCodec_PlaybackInfo_SeekingSnapshot_003', 0, () => {
+      runTestCase('AVCodec_PlaybackInfo_SeekingSnapshot_003', () => {
+        const text = formatPlaybackInfo(5, 1, 125000000, 65000000, true, false, false);
+        expect(text).assertEqual('SEEKING  X1.0  01:05 / 02:05  V');
+      });
     });
 
-    it('shouldNormalizeSeekPosition', 0, () => {
-      expect(normalizeSeekPosition(-1, 1000000)).assertEqual(0);
-      expect(normalizeSeekPosition(500000, 1000000)).assertEqual(500000);
-      expect(normalizeSeekPosition(2000000, 1000000)).assertEqual(1000000);
-      expect(normalizeSeekPosition(100, 0)).assertEqual(0);
+    it('AVCodec_PlaybackInfo_SeekPositionNormalization_004', 0, () => {
+      runTestCase('AVCodec_PlaybackInfo_SeekPositionNormalization_004', () => {
+        expect(normalizeSeekPosition(-1, 1000000)).assertEqual(0);
+        expect(normalizeSeekPosition(500000, 1000000)).assertEqual(500000);
+        expect(normalizeSeekPosition(2000000, 1000000)).assertEqual(1000000);
+        expect(normalizeSeekPosition(100, 0)).assertEqual(0);
+      });
     });
   });
 }

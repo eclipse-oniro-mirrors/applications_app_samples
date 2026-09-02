@@ -28,6 +28,15 @@
 #include <native_window/external_window.h>
 #include <fstream>
 #include "BufferRenderer.h"
+#include "AvSyncController.h"
+#include "PlaybackClock.h"
+#include "SeekController.h"
+#include "PlayerStateMachine.h"
+#include "VideoSink.h"
+#include "SurfaceVideoSink.h"
+#include "BufferVideoSink.h"
+#include "VideoPipeline.h"
+#include "AudioPipeline.h"
 #include "video_decoder.h"
 #include "audio_decoder.h"
 #include "demuxer.h"
@@ -36,17 +45,8 @@
 
 class AudioOutputPump;
 
-enum PlayerState : int32_t {
-    IDLE = 0,
-    INITIALIZING,
-    READY,
-    PLAYING,
-    STOPPING,
-    SEEKING,
-};
-
 struct PlaybackInfo {
-    PlayerState state = PlayerState::IDLE;
+    PlayerState state = PLAYER_STATE_IDLE;
     float speed = 1.0f;
     int64_t durationUs = 0;
     int64_t positionUs = 0;
@@ -88,24 +88,21 @@ struct MediaInfo {
 
 class Player {
 public:
-    Player(){};
+    Player() = default;
     ~Player();
-    
-    static Player& GetInstance()
-    {
-        static Player player;
-        return player;
-    }
 
     int32_t Init(SampleInfo &sampleInfo);
     int32_t Start();
     int32_t Stop();
+    int32_t Pause();
+    int32_t Resume();
     int32_t SeekTo(int64_t positionUs);
     PlayerState GetState() const;
     PlaybackInfo GetPlaybackInfo() const;
     MediaInfo GetMediaInfo() const;
     bool IsSmartFluencyAvailable() const;
     void SetSpeed(float multiplier);
+    void SetVolume(float volume);
     void SetTransform(int32_t hint);
     void SetSmartFluencySupported(bool supported);
     void OnThermalWarningReceived(double ratio);
@@ -141,12 +138,12 @@ private:
     void WriteOutputFileWithStrideYUV420SP(uint8_t *bufferAddr);
     void WriteOutputFileWithStrideRGBA(uint8_t *bufferAddr);
     bool PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool render, int64_t renderTimestamp);
-    bool RenderBufferToWindow(CodecBufferInfo& bufferInfo, int64_t renderTimestamp);
     int32_t HandleInitError(std::unique_lock<std::mutex>& outerLock);
     int32_t StartVideoDecoder();
     int32_t StartAudioDecoder();
     void CleanupAfterStartFailure(bool videoStarted);
     bool ProcessAudioOutput(CodecBufferInfo &bufferInfo);
+    void StartAudioAfterVideoSeek();
     AudioOutputPump CreateAudioOutputPump();
     void FinishAudioOutput(bool stopRenderer);
     bool ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo,
@@ -158,14 +155,11 @@ private:
     bool ProcessSyncVideoOutput(std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
     void FinishVideoOutput();
     void CancelWorkerWaits();
+    void WaitIfPaused();
     void StopWorkersForSeek();
     void ReleaseCodecResourcesForSeek();
     void ResetPlaybackClockForSeek(int64_t positionUs);
     bool DiscardVideoOutputBeforeSeekTarget(CodecBufferInfo &bufferInfo, bool &discarded);
-    bool GetAudioSeekBufferLayout(CodecBufferInfo &bufferInfo, int32_t &sampleRate,
-        int32_t &capacity, int64_t &bytesPerFrame);
-    bool TrimAudioOutputToSeekTarget(CodecBufferInfo &bufferInfo, int64_t targetUs,
-        int32_t sampleRate, int32_t capacity, int64_t bytesPerFrame);
     bool PrepareAudioOutputAfterSeek(CodecBufferInfo &bufferInfo);
     int32_t RecreateDecodersAfterSeek(bool hadVideo, bool hadAudio);
     void PreparePlaybackStateAfterSeek(bool hadVideo, bool hadAudio, int64_t positionUs);
@@ -196,11 +190,16 @@ private:
     std::atomic<bool> discardVideoUntilSeekTarget_ { false };
     std::atomic<bool> discardAudioUntilSeekTarget_ { false };
     std::atomic<bool> isLoop_ { false };
-    std::atomic<PlayerState> state_ { PlayerState::IDLE };
-    std::unique_ptr<std::thread> videoDecInputThread_ = nullptr;
-    std::unique_ptr<std::thread> videoDecOutputThread_ = nullptr;
-    std::unique_ptr<std::thread> audioDecInputThread_ = nullptr;
-    std::unique_ptr<std::thread> audioDecOutputThread_ = nullptr;
+    std::atomic<bool> paused_ { false };
+    std::atomic<bool> audioStartPendingAfterVideoSeek_ { false };
+    std::mutex pauseMutex_;
+    std::condition_variable pauseCond_;
+    std::mutex audioStartMutex_;
+    std::condition_variable audioStartCond_;
+    bool resumeAfterSeek_ = true;
+    PlayerStateMachine stateMachine_;
+    VideoPipeline videoPipeline_;
+    AudioPipeline audioPipeline_;
     std::unique_ptr<std::thread> releaseThread_ = nullptr;
     std::condition_variable doneCond_;
     std::mutex doneMutex;
@@ -211,10 +210,6 @@ private:
     OH_AudioStreamBuilder* builder_ = nullptr;
     OH_AudioRenderer* audioRenderer_ = nullptr;
     
-    int64_t nowTimeStamp = 0;
-    int64_t audioTimeStamp = 0;
-    int64_t writtenSampleCnt = 0;
-    int64_t audioBufferPts = 0;
 #ifdef DEBUG_DECODE
     std::ofstream audioOutputFile_; // for debug
 #endif
@@ -229,7 +224,10 @@ private:
     std::atomic<bool> smartFluencyAvailable_ { false };
     bool thermalWarningActive_ = false;
     double thermalFrameRetentionRatio_ = 0.0;
-    BufferRenderer bufferRenderer_;
+    std::unique_ptr<VideoSink> videoSink_ = nullptr;
+    PlaybackClock playbackClock_;
+    AvSyncController avSyncController_;
+    SeekController seekController_;
 };
 
 #endif // VIDEO_CODEC_PLAYER_H

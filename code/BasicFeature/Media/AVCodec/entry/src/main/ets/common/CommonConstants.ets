@@ -70,6 +70,24 @@ export class CommonConstants {
    */
   public static readonly VIDEO_FRAMERATE: string[] = ['30Fps', '60Fps'];
   /**
+   * Video encoding bitrate presets.
+   */
+  public static readonly VIDEO_BITRATE: string[] = ['10Mbps', '20Mbps', '30Mbps'];
+  /**
+   * Video encoder bitrate control modes.
+   */
+  public static readonly VIDEO_BITRATE_MODE: string[] = ['CBR', 'VBR'];
+  /**
+   * Video encoder key-frame intervals in milliseconds.
+   */
+  public static readonly VIDEO_I_FRAME_INTERVAL: string[] = ['100ms', '1s', '2s'];
+  /** Audio recording presets. */
+  public static readonly AUDIO_SAMPLE_RATE: string[] = ['44100Hz', '48000Hz'];
+  public static readonly AUDIO_CHANNEL_COUNT: string[] = ['Mono', 'Stereo'];
+  public static readonly AUDIO_BITRATE: string[] = ['32kbps', '64kbps', '128kbps'];
+  public static readonly AUDIO_CAPTURE_LATENCY_MODE: string[] = ['NormalLatency', 'LowLatency'];
+  public static readonly VIDEO_STABILIZATION_MODE: string[] = ['Disabled', 'Auto'];
+  /**
    * Video decode type (hardware vs software).
    */
   public static readonly VIDEO_DECODE_TYPE: string[] = ['Auto', 'Hardware', 'Software'];
@@ -85,6 +103,12 @@ export class CommonConstants {
    * Whether to dump decoded video frames in BufferMode.
    */
   public static readonly VIDEO_DUMP_MODE: string[] = ['NoDump', 'Dump'];
+  public static readonly VIDEO_LAST_FRAME_MODE: string[] = ['RetainLastFrame', 'ClearLastFrame'];
+  public static readonly VIDEO_FEATURE_MODE: string[] = ['Disabled', 'Enabled'];
+  /**
+   * Audio renderer output latency modes.
+   */
+  public static readonly AUDIO_RENDERER_LATENCY_MODE: string[] = ['NormalLatency', 'LowLatency'];
   /**
    * Video transform type.
    */
@@ -119,8 +143,11 @@ export class CommonConstants {
    * Video recorderInfo.
    */
   public static readonly RECORDER_INFO: string[][] = [
-    CommonConstants.VIDEO_MIMETYPE, CommonConstants.VIDEO_RESOLUTION, CommonConstants.VIDEO_FRAMERATE,
-    CommonConstants.VIDEO_DECODER_SYNC_MODE
+    CommonConstants.OUTPUT_FORMAT, CommonConstants.VIDEO_MIMETYPE, CommonConstants.VIDEO_RESOLUTION,
+    CommonConstants.VIDEO_FRAMERATE, CommonConstants.VIDEO_DECODER_SYNC_MODE, CommonConstants.VIDEO_BITRATE,
+    CommonConstants.VIDEO_BITRATE_MODE, CommonConstants.VIDEO_I_FRAME_INTERVAL,
+    CommonConstants.AUDIO_SAMPLE_RATE, CommonConstants.AUDIO_CHANNEL_COUNT, CommonConstants.AUDIO_BITRATE,
+    CommonConstants.AUDIO_CAPTURE_LATENCY_MODE, CommonConstants.VIDEO_STABILIZATION_MODE
   ];
   /**
    * Playback speed.
@@ -158,6 +185,31 @@ export class CommonConstants {
    * 30M bitrate.
    */
   public static readonly BITRATE_VIDEO_30M: number = 30 * 1024 * 1024;
+  /**
+   * Default video bitrate mode, matching OH_BitrateMode::BITRATE_MODE_CBR.
+   */
+  public static readonly VIDEO_BITRATE_MODE_CBR: number = 0;
+  /**
+   * Variable video bitrate mode, matching OH_BitrateMode::BITRATE_MODE_VBR.
+   */
+  public static readonly VIDEO_BITRATE_MODE_VBR: number = 1;
+  /**
+   * Key-frame intervals in milliseconds.
+   */
+  public static readonly I_FRAME_INTERVAL_100_MS: number = 100;
+  public static readonly I_FRAME_INTERVAL_1_S: number = 1000;
+  public static readonly I_FRAME_INTERVAL_2_S: number = 2000;
+  public static readonly AUDIO_SAMPLE_RATE_44100: number = 44100;
+  public static readonly AUDIO_SAMPLE_RATE_48000: number = 48000;
+  public static readonly AUDIO_CHANNEL_COUNT_MONO: number = 1;
+  public static readonly AUDIO_CHANNEL_COUNT_STEREO: number = 2;
+  public static readonly AUDIO_BITRATE_32K: number = 32000;
+  public static readonly AUDIO_BITRATE_64K: number = 64000;
+  public static readonly AUDIO_BITRATE_128K: number = 128000;
+  public static readonly AUDIO_CAPTURE_LATENCY_NORMAL: number = 0;
+  public static readonly AUDIO_CAPTURE_LATENCY_LOW: number = 1;
+  public static readonly VIDEO_STABILIZATION_DISABLED: number = 0;
+  public static readonly VIDEO_STABILIZATION_AUTO: number = 1;
   /**
    * 30 FPS.
    */

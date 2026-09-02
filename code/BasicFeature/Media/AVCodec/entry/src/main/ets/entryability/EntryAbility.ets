@@ -17,9 +17,6 @@ import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit'
 import { BusinessError } from '@kit.BasicServicesKit'
 import { window } from '@kit.ArkUI'
 import Logger from '../common/utils/Logger'
-import { hilog } from '@kit.PerformanceAnalysisKit'
-
-const TAG: string = 'EntryAbility'
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
@@ -49,11 +46,10 @@ export default class EntryAbility extends UIAbility {
     let isLayoutFullScreen = true;
     windowClass.setWindowLayoutFullScreen(isLayoutFullScreen)
       .then(() => {
-        hilog.info(0x0000, TAG, 'Succeeded in setting the window layout to full-screen mode. Data: %{public}s');
+        Logger.info('Succeeded in setting the window layout to full-screen mode.');
       })
       .catch((err: BusinessError) => {
-        hilog.error(0x0000, TAG, 'Failed to set the window layout to full-screen mode. Cause: %{public}s',
-          JSON.stringify(err) ?? '');
+        Logger.error('Failed to set the window layout to full-screen mode.', JSON.stringify(err) ?? '');
       })
     // Set the font color of the status bar.
     let systemBarProperties: window.SystemBarProperties = {

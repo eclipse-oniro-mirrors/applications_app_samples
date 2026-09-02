@@ -15,34 +15,51 @@
 
 import { describe, expect, it } from '@ohos/hypium';
 import { CommonConstants as Const } from '../../../main/ets/common/CommonConstants';
-import { CameraDataModel } from '../../../main/ets/model/CameraDateModel';
+import { CameraDataModel } from '../../../main/ets/model/CameraDataModel';
 import { RecorderSettingsModel } from '../../../main/ets/model/RecorderSettingsModel';
+import { runTestCase } from './TestCaseLogger';
 
 export default function recorderSettingsModelTest(): void {
   describe('RecorderSettingsModelTest', () => {
-    it('shouldApplyRecorderSettingsTogether', 0, () => {
-      const settings = new RecorderSettingsModel();
-      const cameraData = new CameraDataModel();
-      const applied = settings.applyPickerValues([
-        Const.VIDEO_MIMETYPE[0], Const.VIDEO_RESOLUTION[0],
-        Const.VIDEO_FRAMERATE[1], Const.VIDEO_DECODER_SYNC_MODE[1]
-      ], cameraData);
-      expect(applied).assertTrue();
-      expect(cameraData.isHDRVivid).assertEqual(Const.TRUE);
-      expect(cameraData.cameraWidth).assertEqual(Const.VIDEO_WIDTH_4K);
-      expect(cameraData.frameRate).assertEqual(Const.FRAMERATE_VIDEO_60FPS);
-      expect(cameraData.isSync).assertEqual(1);
+    it('AVCodec_RecorderSettings_AllOptions_001', 0, () => {
+      runTestCase('AVCodec_RecorderSettings_AllOptions_001', () => {
+        const settings = new RecorderSettingsModel();
+        const cameraData = new CameraDataModel();
+        const applied = settings.applyPickerValues([
+          Const.OUTPUT_FORMAT[1], Const.VIDEO_MIMETYPE[0], Const.VIDEO_RESOLUTION[0],
+          Const.VIDEO_FRAMERATE[1], Const.VIDEO_DECODER_SYNC_MODE[1], Const.VIDEO_BITRATE[0],
+          Const.VIDEO_BITRATE_MODE[1], Const.VIDEO_I_FRAME_INTERVAL[2], Const.AUDIO_SAMPLE_RATE[0],
+          Const.AUDIO_CHANNEL_COUNT[0], Const.AUDIO_BITRATE[2], Const.AUDIO_CAPTURE_LATENCY_MODE[1],
+          Const.VIDEO_STABILIZATION_MODE[0]
+        ], cameraData);
+        expect(applied).assertTrue();
+        expect(cameraData.outputFormat).assertEqual(Const.FORMAT_FLV);
+        expect(cameraData.isHDRVivid).assertEqual(Const.TRUE);
+        expect(cameraData.cameraWidth).assertEqual(Const.VIDEO_WIDTH_4K);
+        expect(cameraData.frameRate).assertEqual(Const.FRAMERATE_VIDEO_60FPS);
+        expect(cameraData.isSync).assertEqual(1);
+        expect(cameraData.bitRate).assertEqual(Const.BITRATE_VIDEO_10M);
+        expect(cameraData.bitrateMode).assertEqual(Const.VIDEO_BITRATE_MODE_VBR);
+        expect(cameraData.iFrameInterval).assertEqual(Const.I_FRAME_INTERVAL_2_S);
+        expect(cameraData.audioSampleRate).assertEqual(Const.AUDIO_SAMPLE_RATE_44100);
+        expect(cameraData.audioChannelCount).assertEqual(Const.AUDIO_CHANNEL_COUNT_MONO);
+        expect(cameraData.audioBitRate).assertEqual(Const.AUDIO_BITRATE_128K);
+        expect(cameraData.audioCaptureLatencyMode).assertEqual(Const.AUDIO_CAPTURE_LATENCY_LOW);
+        expect(cameraData.videoStabilizationMode).assertEqual(Const.VIDEO_STABILIZATION_DISABLED);
+      });
     });
 
-    it('shouldRejectIncompleteRecorderSettings', 0, () => {
-      const settings = new RecorderSettingsModel();
-      const cameraData = new CameraDataModel();
-      const applied = settings.applyPickerValues([
-        Const.VIDEO_MIMETYPE[2], Const.VIDEO_RESOLUTION[2]
-      ], cameraData);
-      expect(applied).assertFalse();
-      expect(cameraData.videoCodecMime).assertEqual(Const.MIME_VIDEO_AVC);
-      expect(cameraData.cameraWidth).assertEqual(Const.DEFAULT_WIDTH);
+    it('AVCodec_RecorderSettings_IncompleteOptions_002', 0, () => {
+      runTestCase('AVCodec_RecorderSettings_IncompleteOptions_002', () => {
+        const settings = new RecorderSettingsModel();
+        const cameraData = new CameraDataModel();
+        const applied = settings.applyPickerValues([
+          Const.OUTPUT_FORMAT[0], Const.VIDEO_MIMETYPE[2], Const.VIDEO_RESOLUTION[2]
+        ], cameraData);
+        expect(applied).assertFalse();
+        expect(cameraData.videoCodecMime).assertEqual(Const.MIME_VIDEO_AVC);
+        expect(cameraData.cameraWidth).assertEqual(Const.DEFAULT_WIDTH);
+      });
     });
   });
 }

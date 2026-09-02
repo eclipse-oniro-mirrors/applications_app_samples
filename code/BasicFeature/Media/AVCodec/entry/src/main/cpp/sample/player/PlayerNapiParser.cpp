@@ -76,6 +76,45 @@ bool ReadBoolProperty(napi_env env, napi_value object, const char *name, bool &r
     return true;
 }
 
+bool ReadOptionalBoolProperty(napi_env env, napi_value object, const char *name, bool &result)
+{
+    bool hasProperty = false;
+    if (napi_has_named_property(env, object, name, &hasProperty) != napi_ok || !hasProperty) {
+        return true;
+    }
+    return ReadBoolProperty(env, object, name, result);
+}
+
+bool ReadOptionalInt32Property(napi_env env, napi_value object, const char *name, int32_t &result)
+{
+    bool hasProperty = false;
+    if (napi_has_named_property(env, object, name, &hasProperty) != napi_ok || !hasProperty) {
+        return true;
+    }
+    napi_value value = nullptr;
+    if (napi_get_named_property(env, object, name, &value) != napi_ok ||
+        napi_get_value_int32(env, value, &result) != napi_ok) {
+        napi_throw_type_error(env, nullptr, "Play option must be a number");
+        return false;
+    }
+    return true;
+}
+
+bool ReadOptionalDoubleProperty(napi_env env, napi_value object, const char *name, double &result)
+{
+    bool hasProperty = false;
+    if (napi_has_named_property(env, object, name, &hasProperty) != napi_ok || !hasProperty) {
+        return true;
+    }
+    napi_value value = nullptr;
+    if (napi_get_named_property(env, object, name, &value) != napi_ok ||
+        napi_get_value_double(env, value, &result) != napi_ok) {
+        napi_throw_type_error(env, nullptr, "Play option must be a number");
+        return false;
+    }
+    return true;
+}
+
 bool ParsePlayOptions(napi_env env, napi_value options, SampleInfo &sampleInfo)
 {
     napi_valuetype type = napi_undefined;
@@ -83,14 +122,30 @@ bool ParsePlayOptions(napi_env env, napi_value options, SampleInfo &sampleInfo)
         napi_throw_type_error(env, nullptr, "Play options must be an object");
         return false;
     }
-    return ReadInt32Property(env, options, "inputFileFd", sampleInfo.source.inputFd) &&
+    double audioVolume = sampleInfo.audioPlayback.volume;
+    const bool parsed = ReadInt32Property(env, options, "inputFileFd", sampleInfo.source.inputFd) &&
         ReadInt64Property(env, options, "inputFileOffset", sampleInfo.source.inputFileOffset) &&
         ReadInt64Property(env, options, "inputFileSize", sampleInfo.source.inputFileSize) &&
         ReadInt32Property(env, options, "videoDecoderType", sampleInfo.codec.codecType) &&
         ReadInt32Property(env, options, "videoDecoderRunMode", sampleInfo.codec.codecRunMode) &&
         ReadInt32Property(env, options, "videoDecoderSyncMode", sampleInfo.codec.codecSyncMode) &&
         ReadBoolProperty(env, options, "isSmartFluencySupported", sampleInfo.codec.isSmartFluencySupported) &&
-        ReadBoolProperty(env, options, "enableVideoDump", sampleInfo.output.enableVideoDump);
+        ReadBoolProperty(env, options, "enableVideoDump", sampleInfo.output.enableVideoDump) &&
+        ReadOptionalBoolProperty(env, options, "retainLastFrame", sampleInfo.codec.retainLastFrame) &&
+        ReadOptionalBoolProperty(env, options, "enableLowLatency", sampleInfo.codec.enableLowLatency) &&
+        ReadOptionalBoolProperty(env, options, "outputInDecodingOrder", sampleInfo.codec.outputInDecodingOrder) &&
+        ReadOptionalBoolProperty(env, options, "convertHdrVividToBt709", sampleInfo.codec.convertHdrVividToBt709) &&
+        ReadOptionalInt32Property(env, options, "audioTrackIndex", sampleInfo.codec.audioTrackIndex) &&
+        ReadOptionalDoubleProperty(env, options, "audioVolume", audioVolume) &&
+        ReadOptionalBoolProperty(env, options, "enableAudioLowLatency", sampleInfo.audioPlayback.enableLowLatency);
+    if (!parsed || audioVolume < 0.0 || audioVolume > 1.0) {
+        if (parsed) {
+            napi_throw_range_error(env, nullptr, "audioVolume must be in the range [0, 1]");
+        }
+        return false;
+    }
+    sampleInfo.audioPlayback.volume = static_cast<float>(audioVolume);
+    return true;
 }
 } // namespace
 

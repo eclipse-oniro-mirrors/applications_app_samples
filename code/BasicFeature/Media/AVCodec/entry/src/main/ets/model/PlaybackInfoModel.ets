@@ -18,7 +18,7 @@ const SECONDS_PER_MINUTE: number = 60;
 
 export function formatPlaybackInfo(stateValue: number, speed: number, durationUs: number,
   positionUs: number, hasVideo: boolean, hasAudio: boolean, isSmartFluencyAvailable: boolean): string {
-  const stateNames: string[] = ['IDLE', 'INITIALIZING', 'READY', 'PLAYING', 'STOPPING', 'SEEKING'];
+  const stateNames: string[] = ['IDLE', 'INITIALIZING', 'READY', 'PLAYING', 'STOPPING', 'SEEKING', 'PAUSED'];
   const state = stateValue >= 0 && stateValue < stateNames.length ? stateNames[stateValue] : 'UNKNOWN';
   const track = hasVideo && hasAudio ? 'A+V' : hasVideo ? 'V' : hasAudio ? 'A' : '-';
   const smartFluency = isSmartFluencyAvailable ? '  SF' : '';

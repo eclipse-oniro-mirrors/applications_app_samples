@@ -14,6 +14,7 @@
  */
 
 #include "video_decoder.h"
+#include "codec_capability.h"
 
 #undef LOG_TAG
 #define LOG_TAG "VideoDecoder"
@@ -21,6 +22,48 @@
 namespace {
 constexpr int LIMIT_LOGD_FREQUENCY = 50;
 constexpr int ROTATION_ANGLE = 90;
+
+bool SetOptionalFormatFeatures(OH_AVFormat *format, const SampleInfo &sampleInfo)
+{
+    if (sampleInfo.codec.codecRunMode == SURFACE) {
+        const int32_t blankFrameOnShutdown = sampleInfo.codec.retainLastFrame ? 0 : 1;
+        if (!OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_DECODER_BLANK_FRAME_ON_SHUTDOWN,
+            blankFrameOnShutdown)) {
+            AVCODEC_SAMPLE_LOGE("Set blank-frame-on-shutdown failed, retain last frame: %{public}d",
+                sampleInfo.codec.retainLastFrame);
+            return false;
+        }
+    }
+    if (sampleInfo.codec.enableLowLatency &&
+        !OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_ENABLE_LOW_LATENCY, 1)) {
+        AVCODEC_SAMPLE_LOGE("Set video low-latency mode failed");
+        return false;
+    }
+    if (sampleInfo.codec.outputInDecodingOrder &&
+        !OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_DECODER_OUTPUT_IN_DECODING_ORDER, 1)) {
+        AVCODEC_SAMPLE_LOGE("Set decoding-order output failed");
+        return false;
+    }
+    if (sampleInfo.codec.convertHdrVividToBt709 && sampleInfo.video.hdrVividContainerSignaled &&
+        !OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_DECODER_OUTPUT_COLOR_SPACE, OH_COLORSPACE_BT709_LIMIT)) {
+        AVCODEC_SAMPLE_LOGE("Set HDR Vivid to BT.709 output color space failed");
+        return false;
+    }
+    if (sampleInfo.codec.codecSyncMode) {
+        OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
+    }
+    if (sampleInfo.codec.isSmartFluencySupported) {
+        // This API 26 key requires a matching Native SDK. If compilation fails because the key or enum is missing,
+        // disable AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY in CMake and rebuild with the installed SDK.
+#ifdef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
+        OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_DECODER_FRAME_RETENTION_MODE,
+            OH_FRAME_RETENTION_MODE_FULL);
+#else
+        AVCODEC_SAMPLE_LOGW("Smart fluency is not enabled in current native SDK build");
+#endif
+    }
+    return true;
+}
 } // namespace
 
 VideoDecoder::~VideoDecoder() { Release(); }
@@ -86,6 +129,10 @@ int32_t VideoDecoder::SetCallback(CodecUserData *codecUserData)
 // [Start configure_full_baseline]
 int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
 {
+    CHECK_AND_RETURN_RET_LOG(CodecCapability::ValidateVideoConfiguration(sampleInfo, false),
+        AVCODEC_SAMPLE_ERR_ERROR, "Video decoder configuration is not supported");
+    CHECK_AND_RETURN_RET_LOG(CodecCapability::ValidateVideoFeatureConfiguration(sampleInfo),
+        AVCODEC_SAMPLE_ERR_ERROR, "Video decoder feature configuration is not supported");
     OH_AVFormat *format = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
@@ -94,20 +141,9 @@ int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
     OH_AVFormat_SetDoubleValue(format, OH_MD_KEY_FRAME_RATE, sampleInfo.video.frameRate);
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_PIXEL_FORMAT, sampleInfo.video.pixelFormat);
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_ROTATION, sampleInfo.video.rotation);
-    if (sampleInfo.codec.codecSyncMode) {
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
-    }
-    if (sampleInfo.codec.isSmartFluencySupported) {
-        // 该能力依赖 API 26 Native SDK 中的智能流畅 Key 和枚举。若编译提示符号未定义，
-        // 请确认 SDK 路径并清理 CMake 缓存；兼容旧 SDK 时可在 CMake 中将
-        // AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY 设为 OFF。
-#ifdef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
-        // Configure FULL before playback, then switch to ADAPTIVE at X2/X3.
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_DECODER_FRAME_RETENTION_MODE,
-            OH_FRAME_RETENTION_MODE_FULL);
-#else
-        AVCODEC_SAMPLE_LOGW("Smart fluency is not enabled in current native SDK build");
-#endif
+    if (!SetOptionalFormatFeatures(format, sampleInfo)) {
+        OH_AVFormat_Destroy(format);
+        return AVCODEC_SAMPLE_ERR_ERROR;
     }
 
     int ret = OH_VideoDecoder_Configure(decoder_, format);
@@ -400,7 +436,6 @@ int32_t VideoDecoder::OnThermalWarningReceived(double ratio)
 int32_t VideoDecoder::Release()
 {
     if (decoder_ != nullptr) {
-        OH_VideoDecoder_Stop(decoder_);
         OH_VideoDecoder_Destroy(decoder_);
         decoder_ = nullptr;
     }

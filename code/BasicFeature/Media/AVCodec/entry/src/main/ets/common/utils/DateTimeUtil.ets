@@ -15,17 +15,17 @@
 
 export default class DateTimeUtil {
   getTime(): string {
-    const DATETIME = new Date();
-    return this.concatTime(DATETIME.getHours(), DATETIME.getMinutes(), DATETIME.getSeconds());
+    const currentDateTime = new Date();
+    return this.concatTime(currentDateTime.getHours(), currentDateTime.getMinutes(), currentDateTime.getSeconds());
   }
 
   getDate(): string {
-    const DATETIME = new Date();
-    return this.concatDate(DATETIME.getFullYear(), DATETIME.getMonth() + 1, DATETIME.getDate());
+    const currentDateTime = new Date();
+    return this.concatDate(currentDateTime.getFullYear(), currentDateTime.getMonth() + 1, currentDateTime.getDate());
   }
 
   fill(value: number): string {
-    return (value > 9 ? '' : '0') + value;
+    return `${value > 9 ? '' : '0'}${value}`;
   }
 
   concatDate(year: number, month: number, date: number): string {
@@ -38,18 +38,18 @@ export default class DateTimeUtil {
 }
 
 export function getShownTimer(ms: number): string {
-  let seconds: number = Math.round(ms / 1000);
-  let sec: number = seconds % 60;
-  let min: number = (seconds - sec) / 60;
-  let secStr = (sec >= 0 && sec < 10) ? ('0' + sec) : sec;
-  let minStr = (min >= 0 && min < 10) ? ('0' + min) : min;
-  return (minStr + ':' + secStr);
+  const totalSeconds: number = Math.round(ms / 1000);
+  const seconds: number = totalSeconds % 60;
+  const minutes: number = (totalSeconds - seconds) / 60;
+  const secondText: string | number = seconds >= 0 && seconds < 10 ? `0${seconds}` : seconds;
+  const minuteText: string | number = minutes >= 0 && minutes < 10 ? `0${minutes}` : minutes;
+  return `${minuteText}:${secondText}`;
 }
 
 export function dateTime(t: number): string {
-  let minute: number = Math.floor(t / 60) % 60;
-  let m = minute < 10 ? '0' + minute : minute;
-  let second: number = t % 60;
-  let s = second < 10 ? '0' + second : second;
-  return m + ':' + s;
+  const minutes: number = Math.floor(t / 60) % 60;
+  const minuteText: string | number = minutes < 10 ? `0${minutes}` : minutes;
+  const seconds: number = t % 60;
+  const secondText: string | number = seconds < 10 ? `0${seconds}` : seconds;
+  return `${minuteText}:${secondText}`;
 }

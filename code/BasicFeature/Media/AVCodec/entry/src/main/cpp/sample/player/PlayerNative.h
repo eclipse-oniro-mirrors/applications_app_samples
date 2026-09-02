@@ -23,12 +23,15 @@ public:
     static napi_value Play(napi_env env, napi_callback_info info);
     static napi_value PlayWithOptions(napi_env env, napi_callback_info info);
     static napi_value Stop(napi_env env, napi_callback_info info);
+    static napi_value Pause(napi_env env, napi_callback_info info);
+    static napi_value Resume(napi_env env, napi_callback_info info);
     static napi_value SeekTo(napi_env env, napi_callback_info info);
     static napi_value GetState(napi_env env, napi_callback_info info);
     static napi_value GetPlaybackInfo(napi_env env, napi_callback_info info);
     static napi_value GetMediaInfo(napi_env env, napi_callback_info info);
     static napi_value IsSmartFluencyAvailable(napi_env env, napi_callback_info info);
     static napi_value SetPlaybackSpeed(napi_env env, napi_callback_info info);
+    static napi_value SetVolume(napi_env env, napi_callback_info info);
     static napi_value SetTransform(napi_env env, napi_callback_info info);
     static napi_value SetSmartFluencyEnabled(napi_env env, napi_callback_info info);
     static napi_value OnThermalWarningReceived(napi_env env, napi_callback_info info);

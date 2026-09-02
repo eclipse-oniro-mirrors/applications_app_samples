@@ -55,23 +55,28 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
     releaseThread_.reset();
 
     sampleInfo_ = sampleInfo;
+    AVCODEC_SAMPLE_LOGI("Init config: mime=%{public}s, size=%{public}dx%{public}d, fps=%{public}.2f, "
+                         "bitrate=%{public}" PRId64 ", pixelFormat=%{public}d, sync=%{public}d, "
+                         "outputFormat=%{public}d, "
+                        "audio=%{public}dHz/%{public}dch/%{public}" PRId64 "bps",
+                        sampleInfo_.video.videoCodecMime.c_str(), sampleInfo_.video.videoWidth,
+                        sampleInfo_.video.videoHeight, sampleInfo_.video.frameRate, sampleInfo_.video.bitrate,
+                        sampleInfo_.video.pixelFormat, sampleInfo_.codec.codecSyncMode,
+                        sampleInfo_.output.outputFormat, sampleInfo_.audio.audioSampleRate,
+                        sampleInfo_.audio.audioChannelCount, sampleInfo_.audio.audioBitRate);
     audioEncoder_ = std::make_unique<AudioEncoder>();
     audioCapturer_ = std::make_unique<AudioCapturer>();
 
     videoEncoder_ = std::make_unique<VideoEncoder>();
     muxer_ = std::make_unique<Muxer>();
 
-    int32_t ret = videoEncoder_->Create(sampleInfo_.video.videoCodecMime);
-    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create video encoder failed");
-    ret = muxer_->Create(sampleInfo_.output.outputFd, sampleInfo_.output.outputFormat);
+    int32_t ret = muxer_->Create(sampleInfo_.output.outputFd, sampleInfo_.output.outputFormat);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create muxer with fd(%{public}d) failed",
                              sampleInfo_.output.outputFd);
 
     ret = muxer_->Config(sampleInfo_);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Recorder muxer config failed");
 
-    encContext_ = new CodecUserData;
-    encContext_->isEncFirstFrame = true;
     ret = CreateAudioEncoder();
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create audio encoder failed");
 

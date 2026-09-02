@@ -2,11 +2,11 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "This module template implements List functions."
+      "value": "AVCodec playback and recording sample module."
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "Provides AVCodec playback and recording capabilities."
     },
     {
       "name": "EntryAbility_label",
@@ -14,7 +14,7 @@
     },
     {
       "name": "ability_desc",
-      "value": "This ability loads ListPage"
+      "value": "Loads the AVCodec sample home page"
     },
     {
       "name": "reason",
@@ -58,7 +58,7 @@
     },
     {
       "name": "record",
-      "value": "record"
+      "value": "Record"
     },
     {
       "name": "saveButtonNote",
@@ -154,7 +154,7 @@
     },
     {
       "name": "recorder_settings_subtitle",
-      "value": "Configure codec, resolution, frame rate and output mode"
+      "value": "Configure audio/video encoding, resolution, and container output"
     },
     {
       "name": "setting_decoder_type",
@@ -173,8 +173,36 @@
       "value": "Save decoded frames"
     },
     {
+      "name": "setting_retain_last_frame",
+      "value": "Retain last frame on stop"
+    },
+    {
+      "name": "setting_low_latency",
+      "value": "Low-latency decoding"
+    },
+    {
+      "name": "setting_decoding_order_output",
+      "value": "Output in decoding order"
+    },
+    {
+      "name": "setting_hdr_vivid_to_bt709",
+      "value": "Convert HDR Vivid to BT.709"
+    },
+    {
+      "name": "setting_audio_volume",
+      "value": "Audio volume"
+    },
+    {
+      "name": "setting_audio_latency",
+      "value": "Low-latency audio output"
+    },
+    {
       "name": "setting_codec",
       "value": "Codec"
+    },
+    {
+      "name": "setting_output_format",
+      "value": "Container format"
     },
     {
       "name": "setting_resolution",
@@ -183,6 +211,90 @@
     {
       "name": "setting_frame_rate",
       "value": "Frame rate"
+    },
+    {
+      "name": "setting_video_bitrate",
+      "value": "Video bitrate"
+    },
+    {
+      "name": "setting_bitrate_mode",
+      "value": "Bitrate mode"
+    },
+    {
+      "name": "setting_i_frame_interval",
+      "value": "Key-frame interval"
+    },
+    {
+      "name": "setting_bitrate_10m",
+      "value": "10 Mbps"
+    },
+    {
+      "name": "setting_bitrate_20m",
+      "value": "20 Mbps"
+    },
+    {
+      "name": "setting_bitrate_30m",
+      "value": "30 Mbps"
+    },
+    {
+      "name": "setting_bitrate_mode_cbr",
+      "value": "Constant bitrate (CBR)"
+    },
+    {
+      "name": "setting_bitrate_mode_vbr",
+      "value": "Variable bitrate (VBR)"
+    },
+    {
+      "name": "setting_i_frame_interval_100ms",
+      "value": "100 ms"
+    },
+    {
+      "name": "setting_i_frame_interval_1s",
+      "value": "1 second"
+    },
+    {
+      "name": "setting_i_frame_interval_2s",
+      "value": "2 seconds"
+    },
+    {
+      "name": "setting_audio_sample_rate",
+      "value": "Audio sample rate"
+    },
+    {
+      "name": "setting_audio_channel_count",
+      "value": "Audio channels"
+    },
+    {
+      "name": "setting_audio_bitrate",
+      "value": "Audio bitrate"
+    },
+    {
+      "name": "setting_audio_sample_rate_44100",
+      "value": "44.1 kHz"
+    },
+    {
+      "name": "setting_audio_sample_rate_48000",
+      "value": "48 kHz"
+    },
+    {
+      "name": "setting_audio_channel_mono",
+      "value": "Mono"
+    },
+    {
+      "name": "setting_audio_channel_stereo",
+      "value": "Stereo"
+    },
+    {
+      "name": "setting_audio_bitrate_32k",
+      "value": "32 kbps"
+    },
+    {
+      "name": "setting_audio_bitrate_64k",
+      "value": "64 kbps"
+    },
+    {
+      "name": "setting_audio_bitrate_128k",
+      "value": "128 kbps"
     },
     {
       "name": "setting_decoder_auto",
@@ -297,6 +409,10 @@
       "value": "Camera and microphone permissions are required for recording. Please grant them in Settings."
     },
     {
+      "name": "recorder_configuration_unsupported",
+      "value": "The recording configuration is not supported. Adjust the codec, resolution, or frame rate."
+    },
+    {
       "name": "media_file_empty",
       "value": "The media file is empty and cannot be played."
     },
@@ -313,8 +429,81 @@
       "value": "Failed to select the media file. Please try again."
     },
     {
+      "name": "media_file_not_selected",
+      "value": "No media file selected."
+    },
+    {
+      "name": "playback_pause",
+      "value": "Pause"
+    },
+    {
+      "name": "playback_resume",
+      "value": "Resume"
+    },
+    {
+      "name": "playback_rewind_15s",
+      "value": "Rewind 15s"
+    },
+    {
+      "name": "playback_forward_15s",
+      "value": "Forward 15s"
+    },
+    {
+      "name": "playback_replay",
+      "value": "Replay"
+    },
+    { "name": "playback_mute", "value": "Mute" },
+    { "name": "playback_unmute", "value": "Unmute" },
+    { "name": "playback_audio_track", "value": "Audio track" },
+    { "name": "playback_subtitle", "value": "Subtitle" },
+    { "name": "playback_no_audio_track", "value": "The file has only one audio track" },
+    { "name": "playback_audio_track_failed", "value": "Failed to read audio tracks" },
+    { "name": "playback_subtitle_loaded", "value": "SRT subtitle loaded" },
+    { "name": "playback_subtitle_empty", "value": "No valid SRT cues found" },
+    { "name": "playback_subtitle_failed", "value": "Failed to load SRT subtitle" },
+    {
       "name": "seek_failed",
       "value": "Unable to seek to the selected position."
+    },
+    {
+      "name": "setting_group_output",
+      "value": "Container and output"
+    },
+    {
+      "name": "setting_group_video",
+      "value": "Video encoding"
+    },
+    {
+      "name": "setting_group_audio",
+      "value": "Audio encoding"
+    },
+    {
+      "name": "setting_group_control",
+      "value": "Encoding control"
+    },
+    {
+      "name": "setting_audio_capture_latency",
+      "value": "Audio capture latency"
+    },
+    {
+      "name": "setting_audio_latency_normal",
+      "value": "Normal latency"
+    },
+    {
+      "name": "setting_audio_latency_low",
+      "value": "Low latency"
+    },
+    {
+      "name": "setting_video_stabilization",
+      "value": "Video stabilization"
+    },
+    {
+      "name": "setting_stabilization_disabled",
+      "value": "Disabled"
+    },
+    {
+      "name": "setting_stabilization_auto",
+      "value": "Auto"
     },
     {
       "name": "media_info",
