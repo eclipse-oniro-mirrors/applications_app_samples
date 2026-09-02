@@ -15,9 +15,8 @@
  * limitations under the License.
  */
 
+// 以下 MyNodeControllerLambda / buildComponent / Index / CompV2 与上例（EnvBuilderNode）相同，仅为可独立编译而保留。
 import { NavDestination, $r } from '@kit.ArkUI';
-// [Start env_lambda_closure]
-// EnvLambdaClosure.ets
 import {
   Entry,
   Text,
@@ -61,7 +60,7 @@ class ParamsInt {
 }
 
 // 自定义NodeController类，用于控制节点容器的行为
-export class MyNodeController extends NodeController {
+export class MyNodeControllerLambda extends NodeController {
   private rootNode: FrameNode | null = null;
   private uiContext: UIContext | null = null;
 
@@ -120,7 +119,7 @@ function buildComponent(params: ParamsInt) {
 @ComponentV2
 struct Index {
   // 创建MyNodeController实例，用于控制NodeContainer中的节点
-  private nodeController: MyNodeController = new MyNodeController();
+  private nodeController: MyNodeControllerLambda = new MyNodeControllerLambda();
 
   private createSubWindow() {
     // 从AppStorage中获取windowStage实例
@@ -228,6 +227,22 @@ struct Index {
   }
 }
 
+@ComponentV2
+struct CompV2 {
+  @Require @Param breakpoint: uiObserver.WindowSizeLayoutBreakpointInfo;
+
+  build() {
+    Column() {
+      // 打印当前窗口宽度所在的布局断点枚举值
+      Text(`CompV2 breakpoint width: ${this.breakpoint.widthBreakpoint}`)
+      // 打印当前窗口高度所在的布局断点枚举值
+      Text(`CompV2 breakpoint height: ${this.breakpoint.heightBreakpoint}`)
+    }
+  }
+}
+
+// [Start env_lambda_closure]
+// 仅修改 ComponentUnderBuilderNode 与 Comp，其余与上例相同
 @Component
 struct ComponentUnderBuilderNode {
   // 使用@Env装饰器监听窗口的断点信息
@@ -243,20 +258,6 @@ struct ComponentUnderBuilderNode {
       CompV2({ breakpoint: this.breakpoint })
       // 通过lambda闭包函数，使得@Env可以关联到Comp内的组件
       Comp({ getEnv: () => this.breakpoint })
-    }
-  }
-}
-
-@ComponentV2
-struct CompV2 {
-  @Require @Param breakpoint: uiObserver.WindowSizeLayoutBreakpointInfo;
-
-  build() {
-    Column() {
-      // 打印当前窗口宽度所在的布局断点枚举值
-      Text(`CompV2 breakpoint width: ${this.breakpoint.widthBreakpoint}`)
-      // 打印当前窗口高度所在的布局断点枚举值
-      Text(`CompV2 breakpoint height: ${this.breakpoint.heightBreakpoint}`)
     }
   }
 }
