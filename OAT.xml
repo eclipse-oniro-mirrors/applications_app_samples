@@ -1243,6 +1243,15 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/ConnectivityKit/NFC/HCECardSimulationDevelopment/screenshots/image.jpeg" desc="Provided by code/DocsSample/ConnectivityKit"/>
 				<filteritem type="filepath" name="code/DocsSample/ConnectivityKit/NFC/SecureElement/screenshots/image.jpeg" desc="Provided by code/DocsSample/ConnectivityKit"/>
                 <filteritem type="filepath" name="code/DocsSample/ConnectivityKit/Wlan/screenshots/sample.jpeg" desc="Provided by code/DocsSample/ConnectivityKit"/>
+				<filteritem type="filepath" name="code/DocsSample/ConnectivityKit/NearLink/AppScope/resources/base/media/app_icon.png" desc="Provided by code/DocsSample/ConnectivityKit"/>
+				<filteritem type="filepath" name="code/DocsSample/ConnectivityKit/NearLink/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/ConnectivityKit"/>
+				<filteritem type="filepath" name="code/DocsSample/ConnectivityKit/NearLink/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/ConnectivityKit"/>
+				<filteritem type="filepath" name="code/DocsSample/ConnectivityKit/NearLink/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/ConnectivityKit"/>
+				<filteritem type="filepath" name="code/DocsSample/ConnectivityKit/NearLink/entry/src/ohosTest/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/ConnectivityKit"/>
+				<filteritem type="filepath" name="code/DocsSample/ConnectivityKit/NearLink/screenshots/cdsm.png" desc="Provided by code/DocsSample/ConnectivityKit"/>
+				<filteritem type="filepath" name="code/DocsSample/ConnectivityKit/NearLink/screenshots/main_page.png" desc="Provided by code/DocsSample/ConnectivityKit"/>
+				<filteritem type="filepath" name="code/DocsSample/ConnectivityKit/NearLink/screenshots/manager.png" desc="Provided by code/DocsSample/ConnectivityKit"/>
+				<filteritem type="filepath" name="code/DocsSample/ConnectivityKit/NearLink/screenshots/ssap_client.png" desc="Provided by code/DocsSample/ConnectivityKit"/>
 				<filteritem type="filepath" name="code/DocsSample/EnterpriseAdminExtensionAbility/EnterpriseAdminExtensionAbility/screenshots/device/first.jpg" desc="Provided by code/DocsSample/EnterpriseAdminExtensionAbility"/>
 				<filteritem type="filepath" name="code/DocsSample/EnterpriseAdminExtensionAbility/EnterpriseAdminExtensionAbility/screenshots/device/second.jpg" desc="Provided by code/DocsSample/EnterpriseAdminExtensionAbility"/>
 				<filteritem type="filepath" name="code/DocsSample/EnterpriseAdminExtensionAbility/EnterpriseAdminExtensionAbility/screenshots/device/third.jpg" desc="Provided by code/DocsSample/EnterpriseAdminExtensionAbility"/>
