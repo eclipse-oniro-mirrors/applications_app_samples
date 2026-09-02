@@ -1,0 +1,12 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/MaterialScopeAdaptExample",
+    "pages/AppLevelCompatibilityExample",
+    "pages/ComponentLevelCompatibilityExample",
+    "pages/MaterialColorInvertExample",
+    "pages/MaterialColorExample",
+    "pages/MaterialInteractiveLightExample",
+    "pages/CustomShadowExample"
+  ]
+}
