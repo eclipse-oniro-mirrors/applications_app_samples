@@ -39,7 +39,7 @@ struct HomePage {
           } else {
             this.name = 'ddd';
           }
-          })
+        })
         .width(300)
         .margin(10)
       // 修正点2：CustomWidget不再声明@Provide，仅作为容器传递builder
