@@ -22,6 +22,7 @@ import { LazyColumnLayoutSample } from './LazyColumnLayoutSample';
 import { ListNestedLazyLayout } from './ListNestedLazyLayout';
 import { LazyColumnLayoutNestedLazyLayout } from './LazyColumnLayoutNestedLazyLayout';
 import { LazyLayoutGroup } from './LazyLayoutGroup';
+import { NestedLazyLayout } from './NestedLazyLayout';
 
 export const LAZY_LAYOUT_ROUTE_PREFIX: string = 'lazyLayout';
 
@@ -70,6 +71,14 @@ const routes: Route[] = [
     // 请将$r('app.string.lazyLayout_group_description')替换为实际资源文件
     // 在本示例中该资源文件的value值为"示例展示了懒加载布局的分组能力，通过LazyForEach动态创建按月份分组的照片网格，配合sticky属性实现分组标题吸顶。"
     description: $r('app.string.lazyLayout_group_description')
+  },
+  {
+    name: `${LAZY_LAYOUT_ROUTE_PREFIX}/NestedLazyLayout`,
+    // 请将$r('app.string.lazyLayout_nested_layout_title')替换为实际资源文件，在本示例中该资源文件的value值为"分组展示与粘性标题"
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.lazyLayout_nested_layout_title'))},
+    // 请将$r('app.string.lazyLayout_nested_layout_description')替换为实际资源文件
+    // 在本示例中该资源文件的value值为"示例展示了懒加载布局的分组能力，通过LazyForEach动态创建按月份分组的照片网格，配合sticky属性实现分组标题吸顶。"
+    description: $r('app.string.lazyLayout_nested_layout_description')
   }
 ];
 
@@ -89,6 +98,8 @@ export function lazyLayoutDestination(name: string) {
     LazyColumnLayoutNestedLazyLayout();
   } else if (name === routes[5].name) {
     LazyLayoutGroup();
+  } else if (name === routes[6].name) {
+    NestedLazyLayout();
   }
 }
 
