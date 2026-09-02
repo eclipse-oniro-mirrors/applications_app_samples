@@ -79,6 +79,11 @@ let demandList: PageRoute[] = [
     name: '自动反色',
     description: '通过colorInvert自动反色功能，使文字颜色自动适配材质到背景色的反色。',
     router: 'pages/immersiveLightSense/ColorInvert',
+  },
+  {
+    name: '最佳实践',
+    description: '搜索框标题以及悬浮标题场景接入沉浸光感',
+    router: 'pages/immersiveLightSense/BestPractice'
   }
 ];
 
