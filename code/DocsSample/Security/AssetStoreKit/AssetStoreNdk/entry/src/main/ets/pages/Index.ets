@@ -32,7 +32,7 @@ struct Index {
       Button('AddAsset')
         .width('70%')
         .onClick(() => {
-          let ret = testNapi.AddAsset();
+          let ret: number = testNapi.AddAsset();
           hilog.info(0x0000, 'testTag', 'AddAsset %{public}s', ret);
           if (ret === ASSET_SUCCESS) {
             this.message = 'AddAsset success';
@@ -43,7 +43,7 @@ struct Index {
       Button('QueryAssetPlaintext')
         .width('70%')
         .onClick(() => {
-          let ret = testNapi.QueryAssetPlaintext();
+          let ret: number = testNapi.QueryAssetPlaintext();
           hilog.info(0x0000, 'testTag', 'QueryAssetPlaintext %{public}s', ret);
           if (ret === ASSET_SUCCESS) {
             this.message = 'QueryAssetPlaintext success';
@@ -54,7 +54,7 @@ struct Index {
       Button('QueryAssetAttribute')
         .width('70%')
         .onClick(() => {
-          let ret = testNapi.QueryAssetAttribute();
+          let ret: number = testNapi.QueryAssetAttribute();
           hilog.info(0x0000, 'testTag', 'QueryAssetAttribute %{public}s', ret);
           if (ret === ASSET_SUCCESS) {
             this.message = 'QueryAssetAttribute success';
@@ -65,7 +65,7 @@ struct Index {
       Button('QueryBatchAssetAttributes')
         .width('70%')
         .onClick(() => {
-          let ret = testNapi.BatchQuery();
+          let ret: number = testNapi.BatchQuery();
           hilog.info(0x0000, 'testTag', 'QueryBatchAssetAttributes %{public}s', ret);
           if (ret === ASSET_SUCCESS) {
             this.message = 'QueryBatchAssetAttributes success';
@@ -76,7 +76,7 @@ struct Index {
       Button('UpdateAsset')
         .width('70%')
         .onClick(() => {
-          let ret = testNapi.UpdateAsset();
+          let ret: number = testNapi.UpdateAsset();
           hilog.info(0x0000, 'testTag', 'UpdateAsset %{public}s', ret);
           if (ret === ASSET_SUCCESS) {
             this.message = 'UpdateAsset success';
@@ -87,7 +87,7 @@ struct Index {
       Button('RemoveAsset')
         .width('70%')
         .onClick(() => {
-          let ret = testNapi.RemoveAsset();
+          let ret: number = testNapi.RemoveAsset();
           hilog.info(0x0000, 'testTag', 'RemoveAsset %{public}s', ret);
           if (ret === ASSET_SUCCESS) {
             this.message = 'RemoveAsset success';
@@ -98,7 +98,7 @@ struct Index {
       Button('AddGroupAsset')
         .width('70%')
         .onClick(() => {
-          let ret = testNapi.AddGroupAsset();
+          let ret: number = testNapi.AddGroupAsset();
           hilog.info(0x0000, 'testTag', 'AddGroupAsset %{public}s', ret);
           if (ret === ASSET_SUCCESS) {
             this.message = 'AddGroupAsset success';
@@ -109,7 +109,7 @@ struct Index {
       Button('QueryGroupAssetPlaintext')
         .width('70%')
         .onClick(() => {
-          let ret = testNapi.QueryGroupPlaintext();
+          let ret: number = testNapi.QueryGroupPlaintext();
           hilog.info(0x0000, 'testTag', 'QueryGroupAssetPlaintext %{public}s', ret);
           if (ret === ASSET_SUCCESS) {
             this.message = 'QueryGroupAssetPlaintext success';
@@ -120,7 +120,7 @@ struct Index {
       Button('QueryGroupAssetAttribute')
         .width('70%')
         .onClick(() => {
-          let ret = testNapi.QueryGroupAttribute();
+          let ret: number = testNapi.QueryGroupAttribute();
           hilog.info(0x0000, 'testTag', 'QueryGroupAssetAttribute %{public}s', ret);
           if (ret === ASSET_SUCCESS) {
             this.message = 'QueryGroupAssetAttribute success';
@@ -131,7 +131,7 @@ struct Index {
       Button('UpdateGroupAsset')
         .width('70%')
         .onClick(() => {
-          let ret = testNapi.UpdateGroupAsset();
+          let ret: number = testNapi.UpdateGroupAsset();
           hilog.info(0x0000, 'testTag', 'UpdateGroupAsset %{public}s', ret);
           if (ret === ASSET_SUCCESS) {
             this.message = 'UpdateGroupAsset success';
@@ -142,7 +142,7 @@ struct Index {
       Button('RemoveGroupAsset')
         .width('70%')
         .onClick(() => {
-          let ret = testNapi.RemoveGroupAsset();
+          let ret: number = testNapi.RemoveGroupAsset();
           hilog.info(0x0000, 'testTag', 'RemoveGroupAsset %{public}s', ret);
           if (ret === ASSET_SUCCESS) {
             this.message = 'RemoveGroupAsset success';
@@ -153,7 +153,7 @@ struct Index {
       Button('AddSyncAsset')
         .width('70%')
         .onClick(() => {
-          let ret = testNapi.AddSyncAsset();
+          let ret: number = testNapi.AddSyncAsset();
           hilog.info(0x0000, 'testTag', 'AddSyncAsset %{public}s', ret);
           if (ret === ASSET_SUCCESS) {
             this.message = 'AddSyncAsset success';
@@ -164,7 +164,7 @@ struct Index {
       Button('QuerySyncResult')
         .width('70%')
         .onClick(() => {
-          let ret = testNapi.QuerySyncResult();
+          let ret: number = testNapi.QuerySyncResult();
           hilog.info(0x0000, 'testTag', 'QuerySyncResult %{public}s', ret);
           if (ret === ASSET_SUCCESS) {
             this.message = 'QuerySyncResult success';
