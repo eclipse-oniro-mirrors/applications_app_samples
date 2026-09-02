@@ -27,6 +27,7 @@ function testArrayBuffer() {
   const group = new taskpool.TaskGroup();
   const task = new taskpool.Task(printArrayBuffer, buffer);
   group.addTask(task);
+  // 设置任务需要克隆的参数列表，避免在不同线程间共享可变状态
   task.setCloneList([buffer]);
   for (let i = 0; i < 5; i++) {
     taskpool.execute(group).then(() => {

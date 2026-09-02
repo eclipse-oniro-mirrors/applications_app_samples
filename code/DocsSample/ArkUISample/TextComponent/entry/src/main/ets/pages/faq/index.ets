@@ -23,6 +23,7 @@ import { HowToFixIncorrectCharacterDisplayDemoAdaptExample } from './HowToFixInc
 import { HowToFixIncorrectCharacterDisplayDemoLeftExample } from './HowToFixIncorrectCharacterDisplayDemoLeft';
 import { HowToFixIncorrectCharacterDisplayShowEffectExample } from './HowToFixIncorrectCharacterDisplayShowEffect';
 import { HowToSetCustomSelectionMenuExample } from './HowToSetCustomSelectionMenu';
+import { HowToDisableTextLongPressExample } from './HowToDisableTextLongPress';
 import { SpecialCharactersDisplayIncorrectlyExample } from './SpecialCharactersDisplayIncorrectly';
 
 
@@ -65,6 +66,11 @@ const routes: Route[] = [
     title: resource.resourceToString($r('app.string.How_To_Set_Custom_Selection_Menu')),
     description: $r('app.string.How_To_Set_Custom_Selection_Menu_Description')
   },
+  {
+    name: `${TEXT_FAQ}/HowToDisableTextLongPress`,
+    title: resource.resourceToString($r('app.string.How_To_Disable_Text_Long_Press')),
+    description: $r('app.string.How_To_Disable_Text_Long_Press_description')
+  },
 ];
 
 
@@ -86,6 +92,8 @@ export function TextFAQDestination(name: string) {
     SpecialCharactersDisplayIncorrectlyExample();
   } else if (name === routes[6].name) {
     HowToSetCustomSelectionMenuExample();
+  } else if (name === routes[7].name) {
+    HowToDisableTextLongPressExample();
   }
 }
 

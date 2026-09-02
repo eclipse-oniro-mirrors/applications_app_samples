@@ -66,13 +66,13 @@ export struct Submenu {
       this.inputMethods = await inputMethod.getSetting().getInputMethods(true); // 获取已使能的输入法列表
       let currentInputMethod = inputMethod.getCurrentInputMethod(); // 获取当前输入法
       for (let i = 0; i < this.inputMethods.length; i++) {
-        if (item != currentInputMethod.name) { // 判断不是当前输入法时，切换到该输入法，实际开发中可以切换到固定输入法
+        if (this.inputMethods[i].name === item && item != currentInputMethod.name) { // 判断是目标输入法且不是当前输入法时，切换到该输入法
           await inputMethod.switchInputMethod(this.inputMethods[i]);
         }
       }
     } catch (err) {
       let error = err as BusinessError;
-      Log.showError(TAG, `switchInputMethod catch error: ${error.code} ${error.message}`);
+      console.error(`switchInputMethod catch error: ${error.code} ${error.message}`);
     }
   }
   // [End input_case_input_switchInputMethod]
@@ -80,8 +80,10 @@ export struct Submenu {
   // [Start input_case_input_switchInputMethodgetInputMethods]
   async switchCurrentInputMethodSubtype(item: InputMethodSubtype) {
     try {
-      await inputMethod.switchCurrentInputMethodSubtype(item);
-      this.currentInputMethodSubtype = inputMethod.getCurrentInputMethodSubtype().id;
+      let isSuccess = await inputMethod.switchCurrentInputMethodSubtype(item);
+      if (isSuccess) {
+        this.currentInputMethodSubtype = inputMethod.getCurrentInputMethodSubtype().id;
+      }
     } catch (err) {
       let error: BusinessError = err as BusinessError;
       console.error(`SwitchCurrentInputMethodSubtype error: ${error.code} ${error.message}`);

@@ -28,7 +28,7 @@ struct Index {
   build() {
     RelativeContainer() {
       Button(this.message)
-        .fontSize(25)
+        .fontSize(19)
         .id('HelloWorld')
         .fontWeight(FontWeight.Bold)
         .alignRules({

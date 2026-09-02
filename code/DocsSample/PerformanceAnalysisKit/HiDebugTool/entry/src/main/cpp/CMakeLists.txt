@@ -12,5 +12,5 @@ include_directories(${NATIVERENDER_ROOT_PATH}
                     ${NATIVERENDER_ROOT_PATH}/include)
 
 # 新增动态库依赖libohhidebug.so和libhilog_ndk.z.so（日志输出）
-add_library(entry SHARED napi_init.cpp test_backtrace.cpp)
+add_library(entry SHARED napi_init.cpp test_backtrace.cpp test_async_context.cpp)
 target_link_libraries(entry PUBLIC libace_napi.z.so libhilog_ndk.z.so libohhidebug.so)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,19 +16,18 @@
 #ifndef VIDEO_CODEC_SAMPLE_PLAYER_NATIVE_H
 #define VIDEO_CODEC_SAMPLE_PLAYER_NATIVE_H
 
-#include "Player.h"
-#include "av_codec_sample_log.h"
-#include "dfx/error/av_codec_sample_error.h"
 #include "napi/native_api.h"
-#include "plugin_manager.h"
-#include <js_native_api.h>
-#include <js_native_api_types.h>
-#include <memory>
-#include <uv.h>
 
 class PlayerNative {
 public:
     static napi_value Play(napi_env env, napi_callback_info info);
+    static napi_value PlayWithOptions(napi_env env, napi_callback_info info);
+    static napi_value Stop(napi_env env, napi_callback_info info);
+    static napi_value SeekTo(napi_env env, napi_callback_info info);
+    static napi_value GetState(napi_env env, napi_callback_info info);
+    static napi_value GetPlaybackInfo(napi_env env, napi_callback_info info);
+    static napi_value GetMediaInfo(napi_env env, napi_callback_info info);
+    static napi_value IsSmartFluencyAvailable(napi_env env, napi_callback_info info);
     static napi_value SetPlaybackSpeed(napi_env env, napi_callback_info info);
     static napi_value SetTransform(napi_env env, napi_callback_info info);
     static napi_value SetSmartFluencyEnabled(napi_env env, napi_callback_info info);

@@ -1277,7 +1277,7 @@
       "value": "运动45分钟"
     },
     {
-      "name": "CreateApply_Text_Third_Five",
+      "name": "CreateApply_Text_Thirty_Five",
       "value": "运动35分钟"
     },
     {
@@ -1757,7 +1757,7 @@
       "value": "文本超长时如何展示1"
     },
     {
-      "name": "Text_Long_Tow",
+      "name": "Text_Long_Two",
       "value": "文本超长时如何展示2"
     },
     {
@@ -1769,7 +1769,7 @@
       "value": "Text组件中内容太多，超出父组件容器Column的高度，导致显示混乱。如何让文本显示在父组件容器的区域内"
     },
     {
-      "name": "Text_Long_Tow_description",
+      "name": "Text_Long_Two_description",
       "value": "可以把Text组件放在滚动容器Scroll里面，通过手势滑动来浏览全部文本。"
     },
     {
@@ -1879,6 +1879,46 @@
     {
       "name": "TextMenuShow_description",
       "value": "通过设置TextMenuShowMode实现文本菜单在子窗口显示"
+    },
+    {
+      "name": "RequestFocusShowKeyboard_title",
+      "value": "通过requestFocus请求焦点弹出软键盘"
+    },
+    {
+      "name": "TabKeyFocusShowKeyboard_title",
+      "value": "通过Tab键走焦显示物理键盘悬浮栏"
+    },
+    {
+      "name": "CloseButtonClickKeyboard_title",
+      "value": "点击软键盘关闭按钮收起软键盘"
+    },
+    {
+      "name": "DragTextCloseKeyboard_title",
+      "value": "拖拽文本收起软键盘"
+    },
+    {
+      "name": "PageChangeSource_title",
+      "value": "页面跳转收起软键盘"
+    },
+    {
+      "name": "ListScrollClearFocus_title",
+      "value": "List滚动时clearFocus收起软键盘"
+    },
+    {
+      "name": "EmptyCustomKeyboard_title",
+      "value": "通过空自定义键盘阻止弹出软键盘"
+    },
+    {
+      "name": "KeepEditableStateOnSubmit_title",
+      "value": "通过keepEditableState点击发送不收起软键盘"
+    },
+    {
+      "name": "How_To_Disable_Text_Long_Press",
+      "value": "如何屏蔽文本的长按手势"
+    },
+    {
+      "name": "How_To_Disable_Text_Long_Press_description",
+      "value": "设置触发时间小于系统菜单触发时间的自定义长按手势使长按不生效"
     }
   ]
 }

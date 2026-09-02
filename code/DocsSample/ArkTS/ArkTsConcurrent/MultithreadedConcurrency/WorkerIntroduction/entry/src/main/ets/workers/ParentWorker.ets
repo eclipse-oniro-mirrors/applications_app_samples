@@ -22,13 +22,13 @@ const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 
 workerPort.onmessage = (e : MessageEvents) => {
   // 收到宿主线程指令后，创建子Worker
-  if (e.data == '宿主线程发送消息给父Worker-推荐示例') {
+  if (e.data === '宿主线程发送消息给父Worker-推荐示例') {
     let childWorker = new worker.ThreadWorker('entry/ets/workers/ChildWorker.ets');
 
     // 接收子Worker的执行结果
     childWorker.onmessage = (e: MessageEvents) => {
       console.info('父Worker收到子Worker的信息 ' + e.data);
-      if (e.data == '子Worker向父Worker发送信息') {
+      if (e.data === '子Worker向父Worker发送信息') {
         // 子Worker任务完成后，通知宿主线程
         workerPort.postMessage('父Worker向宿主线程发送信息');
       }

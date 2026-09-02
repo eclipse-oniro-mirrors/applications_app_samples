@@ -88,52 +88,61 @@ static JSVM_Value GetTypedArrayInfo(JSVM_Env env, JSVM_CallbackInfo info)
     // 根据属性名，返回TypedArray对应的属性值
     switch (infoTypeParam) {
         case INFO_TYPE:
-            // 如果传入的参数是int8类型的TypedArray数据，它的类型（type）为JSVM_INT8_ARRAY
-            JSVM_Value int8_type;
-            OH_JSVM_GetBoolean(env, type == JSVM_INT8_ARRAY, &int8_type);
-            result = int8_type;
-            if (status != JSVM_OK) {
-                OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
-            } else {
-                OH_LOG_INFO(
-                    LOG_APP, "JSVM GetTypedArrayInfo success, JSVM_INT8_ARRAY: %{public}d", type == JSVM_INT8_ARRAY);
+            {
+                // 如果传入的参数是int8类型的TypedArray数据，它的类型（type）为JSVM_INT8_ARRAY
+                JSVM_Value int8_type;
+                OH_JSVM_GetBoolean(env, type == JSVM_INT8_ARRAY, &int8_type);
+                result = int8_type;
+                if (status != JSVM_OK) {
+                    OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
+                } else {
+                    OH_LOG_INFO(
+                        LOG_APP, "JSVM GetTypedArrayInfo success, JSVM_INT8_ARRAY: %{public}d",
+                        type == JSVM_INT8_ARRAY);
+                }
+                break;
             }
-            break;
         case INFO_LENGTH:
-            // TypedArray中的元素数
-            JSVM_Value jsvmLength;
-            JSVM_CALL(OH_JSVM_CreateInt32(env, length, &jsvmLength));
-            result = jsvmLength;
-            if (status != JSVM_OK) {
-                OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
-            } else {
-                OH_LOG_INFO(LOG_APP, "JSVM GetTypedArrayInfo success, length: %{public}d", length);
+            {
+                // TypedArray中的元素数
+                JSVM_Value jsvmLength;
+                JSVM_CALL(OH_JSVM_CreateInt32(env, length, &jsvmLength));
+                result = jsvmLength;
+                if (status != JSVM_OK) {
+                    OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
+                } else {
+                    OH_LOG_INFO(LOG_APP, "JSVM GetTypedArrayInfo success, length: %{public}d", length);
+                }
+                break;
             }
-            break;
         case INFO_BYTE_OFFSET:
-            // TypedArray数组的第一个元素所在的基础原生数组中的字节偏移量
-            JSVM_Value jsvmOffset;
-            JSVM_CALL(OH_JSVM_CreateInt32(env, byteOffset, &jsvmOffset));
-            result = jsvmOffset;
-            if (status != JSVM_OK) {
-                OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
-            } else {
-                OH_LOG_INFO(LOG_APP, "JSVM GetTypedArrayInfo success, byteOffset: %{public}d", byteOffset);
+            {
+                // TypedArray数组的第一个元素所在的基础原生数组中的字节偏移量
+                JSVM_Value jsvmOffset;
+                JSVM_CALL(OH_JSVM_CreateInt32(env, byteOffset, &jsvmOffset));
+                result = jsvmOffset;
+                if (status != JSVM_OK) {
+                    OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
+                } else {
+                    OH_LOG_INFO(LOG_APP, "JSVM GetTypedArrayInfo success, byteOffset: %{public}d", byteOffset);
+                }
+                break;
             }
-            break;
         case INFO_ARRAY_BUFFER:
-            // TypedArray下的ArrayBuffer
-            bool isArrayBuffer = false;
-            JSVM_CALL(OH_JSVM_IsArraybuffer(env, arrayBuffer, &isArrayBuffer));
-            JSVM_Value isArray = nullptr;
-            OH_JSVM_GetBoolean(env, isArrayBuffer, &isArray);
-            result = isArray;
-            if (status != JSVM_OK) {
-                OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
-            } else {
-                OH_LOG_INFO(LOG_APP, "JSVM GetTypedArrayInfo success, isArrayBuffer: %{public}d", isArrayBuffer);
+            {
+                // TypedArray下的ArrayBuffer
+                bool isArrayBuffer = false;
+                JSVM_CALL(OH_JSVM_IsArraybuffer(env, arrayBuffer, &isArrayBuffer));
+                JSVM_Value isArray = nullptr;
+                OH_JSVM_GetBoolean(env, isArrayBuffer, &isArray);
+                result = isArray;
+                if (status != JSVM_OK) {
+                    OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
+                } else {
+                    OH_LOG_INFO(LOG_APP, "JSVM GetTypedArrayInfo success, isArrayBuffer: %{public}d", isArrayBuffer);
+                }
+                break;
             }
-            break;
         default:
             break;
     }

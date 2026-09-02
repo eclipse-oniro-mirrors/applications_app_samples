@@ -43,3 +43,12 @@ struct DocSampleArraySum {
   }
 }
 // [End compare_syncmonitor_with_monitor]
+
+@Builder
+export function compareSyncMonitorWithMonitor() {
+  NavDestination() {
+    DocSampleArraySum();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.compare_syncmonitor_with_monitor'))
+}

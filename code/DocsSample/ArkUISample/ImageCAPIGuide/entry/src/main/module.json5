@@ -25,7 +25,14 @@
  */
  
 {
+  // [Start apply_internet]
   "module": {
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.INTERNET"
+      },
+    ],
+    // [End apply_internet]
     "name": "entry",
     "type": "entry",
     "description": "$string:module_desc",
@@ -73,13 +80,5 @@
         ]
       }
     ],
-    "requestPermissions": [
-      {
-        "name": "ohos.permission.INTERNET"
-      },
-      {
-        "name": "ohos.permission.GET_NETWORK_INFO"
-      }
-    ]
   }
 }

@@ -226,6 +226,8 @@ static void GetDevices()
     if (ret != USB_DDK_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "OH_Usb_GetDevices failed, ret=%{public}d", ret);
     }
+    // ... 使用 deviceArray 的逻辑 ...
+    delete[] deviceArray.deviceIds;
     // [End driver_usb_step7]
 }
 
@@ -309,7 +311,7 @@ static bool GetPipeInfo()
         OH_LOG_ERROR(LOG_APP, "GetInterfaceAndEndpoint failed");
         return false;
     }
-    // 释放配置描述符，防止内存泄露
+    // 释放配置描述符，防止内存泄漏
     OH_Usb_FreeConfigDescriptor(config);
     g_dataEp = endpoint;
     g_maxPktSize = maxPktSize;

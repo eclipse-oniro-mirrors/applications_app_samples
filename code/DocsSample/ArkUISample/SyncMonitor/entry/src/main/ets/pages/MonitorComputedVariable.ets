@@ -49,3 +49,12 @@ struct Index {
   }
 }
 // [End monitor_computed_variable]
+
+@Builder
+export function monitorComputedVariable() {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.monitor_computed_variable'))
+}

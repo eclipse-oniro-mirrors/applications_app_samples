@@ -105,6 +105,9 @@
       "name": "stepperIndex_text17",
       "value": "示例4（NavDestination配置页面方向和对应状态栏、导航条显隐）"
     }, {
+      "name": "navDestination_text4",
+      "value": "示例5(NavDestination页面加载失败示例)"
+    }, {
       "name": "stepperIndex_text18",
       "value": "无感监听"
     }, {

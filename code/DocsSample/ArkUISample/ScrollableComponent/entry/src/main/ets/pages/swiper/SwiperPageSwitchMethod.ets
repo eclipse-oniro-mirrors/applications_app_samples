@@ -21,7 +21,7 @@ import { ComponentCard } from '../../common/Card';
 // @Entry
 @Component
 export struct SwiperPageSwitchMethod {
-  private swiperBackgroundColors: Color[] = [Color.Blue, Color.Brown, Color.Gray, Color.Green, Color.Orange,
+  private swiperBackgroundColors: Color[] = [Color.Blue, Color.Gray, Color.Green, Color.Orange, Color.Brown,
     Color.Pink, Color.Red, Color.Yellow];
   private swiperAnimationMode: (SwiperAnimationMode | boolean | undefined)[] = [undefined, true, false,
     SwiperAnimationMode.NO_ANIMATION, SwiperAnimationMode.DEFAULT_ANIMATION, SwiperAnimationMode.FAST_ANIMATION];

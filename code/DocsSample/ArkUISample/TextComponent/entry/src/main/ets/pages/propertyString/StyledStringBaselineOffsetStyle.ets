@@ -20,7 +20,7 @@ import { LengthMetrics } from '@kit.ArkUI';
 @Component
 struct styled_string_demo5 {
   @State str: string =
-    this.getUIContext().getHostContext()?.resourceManager.getStringByNameSync('CreateApply_Text_Third_Five') as string;
+    this.getUIContext().getHostContext()?.resourceManager.getStringByNameSync('CreateApply_Text_Thirty_Five') as string;
 
   mutableStyledString: MutableStyledString = new MutableStyledString(this.str, [
     {

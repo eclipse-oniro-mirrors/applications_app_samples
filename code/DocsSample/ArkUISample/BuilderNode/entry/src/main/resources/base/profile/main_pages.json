@@ -23,6 +23,8 @@
     "pages/TabContentPage",
     "pages/NavigationPage",
     "pages/RepeatPage",
-    "pages/RepeatTabPage"
+    "pages/RepeatTabPage",
+    "pages/MemoryManagementPage",
+    "pages/CircularReferenceDisposePage"
   ]
 }

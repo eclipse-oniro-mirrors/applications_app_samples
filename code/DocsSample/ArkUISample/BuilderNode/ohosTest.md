@@ -1,4 +1,4 @@
-# Navigation 测试用例归档
+# BuilderNode 测试用例归档
 
 ## 用例表
 
@@ -28,3 +28,9 @@
 | 测试通过BuilderNode的build可以实现组件树的创建                                                                    | 设备正常运行 | 在TabContentPage页面点击'change message'按钮3次，切换到'tab1'后再点击'change message'按钮3次                        | 组件树正常创建和更新，页面跳转和返回功能正常                                      | 是       | Pass     |
 | 测试通过BuilderNode的build可以实现组件树的创建                                                                    | 设备正常运行 | 在NavigationPage页面点击'Next Page'按钮，点击'update builderNode'按钮4次，再次点击'Next Page'按钮，最后点击'Back Page'按钮两次                       | 组件树正常创建和更新，导航功能正常                                     | 是       | Pass     |
 | 测试通过BuilderNode的build可以实现组件树的创建                                                                    | 设备正常运行 | 在RepeatPage页面点击'Reduce length to 5'按钮，然后点击'Change bgColor'按钮                     | 组件树正常创建和更新，长度减少和背景色更改功能正常                                    | 是       | Pass     |
+| 测试BuilderNode的全局引用需手动清除后才能被GC回收                                                                     | 设备正常运行 | 进入MemoryManagementPage页面，点击'Page1'进入pageOneTmp页面，返回主页后点击'Remove Global References'按钮                  | 移除全局引用后自定义组件计数归零，BuilderNode对象可被GC回收                                   | 是       | Pass     |
+| 测试通过NodeContent移除BuilderNode根节点并调用dispose解除引用关系                                                          | 设备正常运行 | 进入MemoryManagementPage页面，点击'Page2'进入pageTwoTmp页面，再返回主页                                                  | pageTwoTmp在aboutToDisappear时移除节点并调用dispose，自定义组件计数减少                          | 是       | Pass     |
+| 测试通过FrameNode移除BuilderNode子节点并调用dispose解除引用关系                                                            | 设备正常运行 | 进入MemoryManagementPage页面，点击'Page3'进入pageThreeTmp页面，再返回主页                                                  | pageThreeTmp在aboutToDisappear时移除子节点并调用dispose，自定义组件计数减少                        | 是       | Pass     |
+| 测试在循环引用场景下通过置空NodeController使BuilderNode节点下树                                                            | 设备正常运行 | 进入CircularReferenceDisposePage页面，点击'Destroy'按钮                                                                 | 调用clearParams清理参数后置空NodeController，BuilderNode节点下树                               | 是       | Pass     |
+| 测试在循环引用场景下通过dispose接口解除BuilderNode与后端实体的引用关系                                                        | 设备正常运行 | 进入CircularReferenceDisposePage页面，点击'Destroy with dispose'按钮                                                  | 调用clearParams清理参数后调用dispose解除引用关系，BuilderNode节点下树                            | 是       | Pass     |
+| 测试通过Create按钮重新创建BuilderNode节点                                                                              | 设备正常运行 | 进入CircularReferenceDisposePage页面，点击'Destroy'按钮后，再点击'Create'按钮                                           | BuilderNode节点重新创建并正常显示                                                       | 是       | Pass     |

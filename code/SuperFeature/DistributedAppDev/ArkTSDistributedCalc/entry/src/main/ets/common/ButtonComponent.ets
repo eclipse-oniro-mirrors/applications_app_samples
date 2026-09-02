@@ -103,6 +103,6 @@ export struct ButtonComponent {
       .rowsTemplate('1fr 1fr 1fr 1fr ')
     }
     .padding(10)
-    .size({ width: $r('app.string.percent_80'), height: '56%' })
+    .size({ width: '100%', height: '56%' })
   }
 }

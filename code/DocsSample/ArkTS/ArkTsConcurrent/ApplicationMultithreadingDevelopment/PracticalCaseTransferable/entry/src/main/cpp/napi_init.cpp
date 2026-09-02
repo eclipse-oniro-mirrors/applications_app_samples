@@ -197,13 +197,13 @@ public:
     }
 
     bool isDetached_ = false;
+    std::mutex numberSetMutex_{};
 
 private:
     CustomNativeObject(const CustomNativeObject &) = delete;
     CustomNativeObject &operator=(const CustomNativeObject &) = delete;
 
     std::unordered_set<uint32_t> numberSet_{};
-    std::mutex numberSetMutex_{};
 };
 
 void FinalizeCallback(napi_env env, void *data, void *hint)
@@ -217,10 +217,17 @@ void* DetachCallback(napi_env env, void *value, void *hint)
     if (hint == nullptr) {
         return value;
     }
-    napi_value jsObject = nullptr;
-    napi_get_reference_value(env, reinterpret_cast<napi_ref>(hint), &jsObject);
-    void *object = nullptr;
-    if (static_cast<CustomNativeObject *>(value)->isDetached_) {
+    CustomNativeObject *obj = static_cast<CustomNativeObject *>(value);
+    // 加锁保护 isDetached_ 的读取，与 SetTransferDetached 的写入互斥
+    bool isDetached = false;
+    {
+        std::lock_guard<std::mutex> lock(obj->numberSetMutex_); // 需要std::mutex numberSetMutex_{};改为public
+        isDetached = obj->isDetached_;
+    }
+    if (isDetached) {
+        napi_value jsObject = nullptr;
+        napi_get_reference_value(env, reinterpret_cast<napi_ref>(hint), &jsObject);
+        void *object = nullptr;
         napi_remove_wrap(env, jsObject, &object);
     }
     return value;
@@ -240,8 +247,13 @@ napi_value AttachCallback(napi_env env, void* value, void* hint)
     napi_define_properties(env, object, sizeof(desc) / sizeof(desc[0]), desc);
     // 将JS对象object和native对象value生命周期进行绑定
     napi_wrap(env, object, value, FinalizeCallback, nullptr, nullptr);
+
+    // 创建指向新 JS 对象的强引用
+    napi_ref objectRef = nullptr;
+    napi_create_reference(env, object, 1, &objectRef);
+
     // JS对象携带native信息
-    napi_coerce_to_native_binding_object(env, object, DetachCallback, AttachCallback, value, nullptr);
+    napi_coerce_to_native_binding_object(env, object, DetachCallback, AttachCallback, value, objectRef);
     return object;
 }
 

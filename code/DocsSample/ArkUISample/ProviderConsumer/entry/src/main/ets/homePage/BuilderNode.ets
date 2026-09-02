@@ -56,6 +56,7 @@ class TextNodeController extends NodeController {
   disposeNode(): void {
     if (this.rootNode && globalBuilderNode) {
       globalBuilderNode.dispose();
+      globalBuilderNode = null;
     }
   }
 }

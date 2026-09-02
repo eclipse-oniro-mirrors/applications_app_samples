@@ -66,7 +66,7 @@ static int g_aa = 0;
 // OH_JSVM_StrictEquals的样例方法
 static JSVM_Value IsStrictEquals(JSVM_Env env, JSVM_CallbackInfo info)
 {
-    // 接受两个入参
+    // 接收两个入参
     size_t argc = 2;
     JSVM_Value args[2] = {nullptr};
     OH_JSVM_GetCbInfo(env, info, &argc, args, nullptr, nullptr);

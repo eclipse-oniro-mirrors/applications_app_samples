@@ -333,6 +333,10 @@
       "value": "传入undefined时，@Provide装饰的变量使用本地默认值进行初始化"
     },
     {
+      "name": "provide_consume_builder_node",
+      "value": "@Provide/@Consume跨BuilderNode支持"
+    },
+    {
       "name": "link",
       "value": "@Link装饰器：父子双向同步"
     },

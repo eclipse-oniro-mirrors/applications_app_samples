@@ -199,7 +199,7 @@ async function stop() {
 // 销毁实例，释放资源。
 async function release() {
   if (audioCapturer !== undefined) {
-    // 采集器状态不是STATE_RELEASED或STATE_NEW状态,才能release。
+    // 采集器状态不是STATE_RELEASED或STATE_NEW状态，才能release。
     if (audioCapturer.state.valueOf() === audio.AudioState.STATE_RELEASED ||
       audioCapturer.state.valueOf() === audio.AudioState.STATE_NEW) {
       console.info('Capturer already released');

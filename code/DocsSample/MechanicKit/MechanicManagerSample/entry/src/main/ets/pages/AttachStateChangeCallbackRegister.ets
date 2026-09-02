@@ -28,7 +28,7 @@ function handleDeviceAttached(mechInfo: mechanicManager.MechInfo) {
 
 function handleDeviceDetached(mechInfo: mechanicManager.MechInfo) {
   console.info(`Device disconnected: ${mechInfo.mechName} (ID: ${mechInfo.mechId})`);
-  savedMechanicIds.filter(id => id !== mechInfo.mechId);
+  savedMechanicIds = savedMechanicIds.filter(id => id !== mechInfo.mechId);
   // To do sth.
 }
 // [End handle_device_attached_detached]

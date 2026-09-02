@@ -16,6 +16,7 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import testNapi from 'libentry.so';
 import { webview } from '@kit.ArkWeb'
+import { router } from '@kit.ArkUI'
 
 const DOMAIN = 0x0000;
 
@@ -34,6 +35,10 @@ struct Index {
           .onClick(() => {
             this.message = 'Welcome';
             hilog.info(DOMAIN, 'testTag', 'Test NAPI 2 + 3 = %{public}d', testNapi.add(2, 3));
+          })
+        Button('executeAIPageCommand 示例')
+          .onClick(() => {
+            router.pushUrl({ url: 'pages/ExecuteAIPageDemo' });
           })
         Web({src:'www.baidu.com', controller: this.webviewcontroller})
       }

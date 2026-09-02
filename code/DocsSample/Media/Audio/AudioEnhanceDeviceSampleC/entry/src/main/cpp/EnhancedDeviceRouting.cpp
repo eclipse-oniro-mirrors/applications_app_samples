@@ -32,6 +32,7 @@
 // [Start select_InputDevice]
 // [Start select_OutputDeviceForAudioRenderer]
 // [Start select_InputDeviceForAudioCapturer]
+// 获取音频设备增强管理器。
 static OH_AudioDeviceEnhanceManager *GetEnhanceManager(std::string &errorMsg)
 {
     OH_AudioDeviceEnhanceManager *manager = nullptr;
@@ -55,6 +56,7 @@ struct DeviceSearchResult {
     OH_AudioDeviceDescriptor *targetDescriptor;
 };
 
+// 获取音频可选设备。
 static DeviceSearchResult FindDescriptorById(int32_t deviceId, OH_AudioDevice_Usage usage)
 {
     DeviceSearchResult search = {nullptr, nullptr, nullptr};
@@ -82,8 +84,8 @@ static void ReleaseDeviceSearch(DeviceSearchResult &search)
 }
 // [StartExclude select_OutputDevice]
 // [StartExclude select_InputDevice]
-// [StartExclude select_OutputDeviceForAudioRenderer]
 // [StartExclude select_InputDeviceForAudioCapturer]
+// 创建音频渲染器。
 static OH_AudioRenderer *CreateAudioRenderer()
 {
     OH_AudioStreamBuilder *builder = nullptr;
@@ -101,6 +103,9 @@ static OH_AudioRenderer *CreateAudioRenderer()
     return renderer;
 }
 
+// [StartExclude select_OutputDeviceForAudioRenderer]
+// [EndExclude select_InputDeviceForAudioCapturer]
+// 创建音频采集器。
 static OH_AudioCapturer *CreateAudioCapturer()
 {
     OH_AudioStreamBuilder *builder = nullptr;
@@ -118,6 +123,7 @@ static OH_AudioCapturer *CreateAudioCapturer()
     return capturer;
 }
 
+// [StartExclude select_InputDeviceForAudioCapturer]
 static napi_value CreateNapiString(napi_env env, const std::string &msg)
 {
     napi_value retVal;
@@ -140,6 +146,7 @@ napi_value IsEnhancedRoutingSupported(napi_env env, napi_callback_info info)
     OH_AudioDeviceEnhanceManager *enhanceManager = nullptr;
     OH_AudioCommon_Result result = OH_AudioManager_GetAudioDeviceEnhanceManager(&enhanceManager);
     bool isSupported = false;
+    // 查询系统是否支持当前管理器提供的增强路由能力。
     result = OH_AudioDeviceEnhanceManager_IsEnhancedRoutingSupported(enhanceManager, &isSupported);
     // [StartExclude isEnhancedRoutingSupported]
 
@@ -155,6 +162,7 @@ napi_value IsEnhancedRoutingSupported(napi_env env, napi_callback_info info)
 // [End isEnhancedRoutingSupported]
 
 // [EndExclude select_OutputDevice]
+// 为应用选择输出设备。
 napi_value SelectOutputDevice(napi_env env, napi_callback_info info)
 {
     int32_t deviceId = 0;
@@ -187,6 +195,7 @@ napi_value SelectOutputDevice(napi_env env, napi_callback_info info)
 // [End select_OutputDevice]
 
 // [EndExclude select_InputDevice]
+// 为应用选择输入设备。
 napi_value SelectInputDevice(napi_env env, napi_callback_info info)
 {
     int32_t deviceId = 0;
@@ -219,6 +228,7 @@ napi_value SelectInputDevice(napi_env env, napi_callback_info info)
 // [End select_InputDevice]
 
 // [EndExclude select_OutputDeviceForAudioRenderer]
+// 为指定音频播放流设置首选输出设备。
 napi_value SelectOutputDeviceForAudioRenderer(napi_env env, napi_callback_info info)
 {
     int32_t deviceId = 0;
@@ -258,6 +268,7 @@ napi_value SelectOutputDeviceForAudioRenderer(napi_env env, napi_callback_info i
 // [End select_OutputDeviceForAudioRenderer]
 
 // [EndExclude select_InputDeviceForAudioCapturer]
+// 为指定音频播放流设置首选输入设备。
 napi_value SelectInputDeviceForAudioCapturer(napi_env env, napi_callback_info info)
 {
     int32_t deviceId = 0;

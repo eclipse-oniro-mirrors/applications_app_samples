@@ -216,7 +216,7 @@ void RenderEngine::UpdateTextureMatrix()
     int32_t ret = OH_NativeImage_GetTransformMatrixV2(nativeImage_, matrix);
     if (ret != 0) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RenderEngine",
-                     "OH_NativeImage_GetTransformMatrix failed, ret: %{public}d", ret);
+                     "OH_NativeImage_GetTransformMatrixV2 failed, ret: %{public}d", ret);
         return;
     }
     imageRender_->SetTransformMatrix(matrix);

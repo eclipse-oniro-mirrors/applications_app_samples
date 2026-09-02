@@ -250,7 +250,7 @@ capA += 5;  // 先计算右侧表达式，再赋值
 
 // 复合表达式
 let capB: number = 5;
-capA += capB * 2;  // a = a + (b * 2) = 10 + 10 = 20
+capA += capB * 2;  // a = a + (b * 2) = 15 + 10 = 25
 
 // 反例：链式复合赋值
 let capX: number = 10;

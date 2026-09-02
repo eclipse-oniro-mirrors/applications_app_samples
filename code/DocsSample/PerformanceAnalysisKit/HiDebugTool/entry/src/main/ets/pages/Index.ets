@@ -48,6 +48,10 @@ function testBackTrace() : void {
 function testGetThreadCpuUsage() : void {
   testNapi.testGetThreadCpuUsage();
 }
+
+function testAsyncContext() : void {
+  testNapi.testAsyncContext();
+}
 // [End TestHidebugNdk_Function]
 
 @Entry
@@ -91,6 +95,17 @@ struct Index {
           .height('5%')
           // 添加点击事件
           .onClick(testBackTrace);
+
+        Button('testAsyncContext')
+          .type(ButtonType.Capsule)
+          .margin({
+            top: 20
+          })
+          .backgroundColor('#0D9FFB')
+          .width('60%')
+          .height('5%')
+          // 添加点击事件
+          .onClick(testAsyncContext);
         // [End TestHidebugNdk_Buttons]
       }
       .width('100%')

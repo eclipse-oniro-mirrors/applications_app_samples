@@ -88,3 +88,12 @@ struct Index {
   }
 }
 // [End effective_and_ineffective_times_of_variable_monitoring]
+
+@Builder
+export function effectiveAndIneffectiveTimesOfVariableMonitoring() {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.effective_and_ineffective_times_of_variable_monitoring'))
+}

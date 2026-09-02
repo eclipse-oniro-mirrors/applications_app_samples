@@ -31,11 +31,11 @@ import { Want } from '@kit.AbilityKit';
 import jsonData from './ImportJson.json';
 // [StartExclude import_json]
 // [Start call_myInfo]
-// FileOutside.ts
+// Index.ets
 import { MyInfo } from './FileInside';
   // [StartExclude call_myInfo]
 // [Start ns_import]
-// import.ts
+// Index.ets
 import { NS } from './ExportNs';
   // [StartExclude ns_import]
 // [Start call_addNum]
@@ -92,7 +92,7 @@ function testPropertyObfuscation() {
 }
 
 // [Start add_call]
-// main.ts
+// Index.ets
 async function loadAndUseAdd() {
   let result: number = 0;
   try {

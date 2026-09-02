@@ -54,11 +54,11 @@ export class AudioRecordingToTextController {
       speechRecognizer.createEngine(initParamsInfo, (err: BusinessError, speechRecognitionEngine:
         speechRecognizer.SpeechRecognitionEngine) => {
           if (!err) {
-            console.info(TAG, 'succeeded in creating engine.');
+            Logger.info(TAG, 'succeeded in creating engine.');
             this.asrEngine = speechRecognitionEngine;
             resolve();
           } else {
-            console.error(TAG, `Failed to create engine. Message: ${err.message}.`);
+            Logger.error(TAG, `Failed to create engine. Message: ${err.message}.`);
             reject(err);
           }
         });
@@ -78,11 +78,11 @@ export class AudioRecordingToTextController {
       audioInfo: audioParam,
       extraParams: extraParam
     }
-    console.info(TAG, 'startListening start');
+    Logger.info(TAG, 'startListening start');
     try {
       this.asrEngine?.startListening(recognizerParams);
     } catch (err) {
-      console.error(`error code: ${err.code}, message: ${err.message}.`)
+      Logger.error(TAG, `error code: ${err.code}, message: ${err.message}.`)
     }
   }
 
@@ -94,7 +94,7 @@ export class AudioRecordingToTextController {
     try {
       this.asrEngine?.finish(this.sessionId);
     } catch (err) {
-      console.error(`error code: ${err.code}, message: ${err.message}.`)
+      Logger.error(TAG, `error code: ${err.code}, message: ${err.message}.`)
     }
   }
 
@@ -103,7 +103,7 @@ export class AudioRecordingToTextController {
     try {
       this.asrEngine?.shutdown();
     } catch (err) {
-      console.error(`error code: ${err.code}, message: ${err.message}.`)
+      Logger.error(TAG, `error code: ${err.code}, message: ${err.message}.`)
     }
   }
 
@@ -113,10 +113,9 @@ export class AudioRecordingToTextController {
     };
     this.asrEngine?.listLanguages(languageQuery, (err: BusinessError, languages: Array<string>) => {
       if (!err) {
-        // 接收目前支持的语种信息
-        console.info(TAG, `succeeded in listing languages, result: ${JSON.stringify(languages)}`);
+        Logger.info(TAG, `succeeded in listing languages, result: ${JSON.stringify(languages)}`);
       } else {
-        console.error(TAG, `Failed to create engine. Message: ${err.message}.`);
+        Logger.error(TAG, `Failed to list languages. Message: ${err.message}.`);
       }
     });
   }
@@ -125,29 +124,25 @@ export class AudioRecordingToTextController {
     let setListener: speechRecognizer.RecognitionListener = {
       // 开始识别成功回调
       onStart: (sessionId: string, eventMessage: string) => {
-        console.info(TAG, `onStart, sessionId: ${sessionId} eventMessage: ${eventMessage}`);
+        Logger.info(TAG, `onStart, sessionId: ${sessionId} eventMessage: ${eventMessage}`);
       },
-      // 事件回调
       onEvent: (sessionId: string, eventCode: number, eventMessage: string) => {
-        console.info(TAG, `onEvent, sessionId: ${sessionId} eventCode: ${eventCode} eventMessage: ${eventMessage}`);
+        Logger.info(TAG, `onEvent, sessionId: ${sessionId} eventCode: ${eventCode} eventMessage: ${eventMessage}`);
       },
-      // 识别结果回调，包括中间结果和最终结果
       onResult: (sessionId: string, result: speechRecognizer.SpeechRecognitionResult) => {
-        console.info(TAG, `onResult, sessionId: ${sessionId} result: ${JSON.stringify(result)}`);
+        Logger.info(TAG, `onResult, sessionId: ${sessionId} result: ${JSON.stringify(result)}`);
         if (this.notifyResultCallback){
           this.notifyResultCallback(result.result, false);
         }
       },
-      // 识别完成回调
       onComplete: (sessionId: string, eventMessage: string) => {
-        console.info(TAG, `onComplete, sessionId: ${sessionId} eventMessage: ${eventMessage}`);
+        Logger.info(TAG, `onComplete, sessionId: ${sessionId} eventMessage: ${eventMessage}`);
         if (this.notifyResultCallback){
            this.notifyResultCallback('', true);
         }
       },
-      // 错误回调，错误码通过本方法返回
       onError: (sessionId: string, errorCode: number, errorMessage: string) => {
-        console.error(TAG, `onError, sessionId: ${sessionId} errorCode: ${errorCode} errorMessage: ${errorMessage}`);
+        Logger.error(TAG, `onError, sessionId: ${sessionId} errorCode: ${errorCode} errorMessage: ${errorMessage}`);
       },
     }
     this.asrEngine?.setListener(setListener);

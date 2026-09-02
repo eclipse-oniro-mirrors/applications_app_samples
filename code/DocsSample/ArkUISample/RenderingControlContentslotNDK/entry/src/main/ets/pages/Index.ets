@@ -48,7 +48,7 @@ struct Parent {
       ContentSlot(this.nodeContent);
       // [EndExclude contentslot_two]
       // [StartExclude contentslot_one]
-      ContentSlot(this.nodeContent_1);// nodeContent_1将被挂载到下一个Contentslot节点，此处无法显示
+      ContentSlot(this.nodeContent_1);// nodeContent_1将被挂载到下一个ContentSlot节点，此处无法显示
       ContentSlot(this.nodeContent_1); // 正常显示
       ContentSlot(this.nodeContent_2); // 正常显示
       // [EndExclude contentslot_one]

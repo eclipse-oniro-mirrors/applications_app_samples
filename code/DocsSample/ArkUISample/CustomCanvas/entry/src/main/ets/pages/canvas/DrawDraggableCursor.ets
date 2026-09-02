@@ -153,7 +153,7 @@ struct CursorMoving {
     this.canvasContext.strokeStyle = this.isTouchDown ? '#ff1a5cae' : '#ff9ba59b';
     this.canvasContext.fillStyle = this.isTouchDown ? '#ff1a5cae' : '#ff9ba59b';
     this.canvasContext.arc(this.cursorPosition.x + this.cursorPosition.width / 2,
-      this.cursorPosition.y + this.cursorPosition.width / 2, this.arcRadius, 0, 2 * Math.PI);
+      this.cursorPosition.y + this.cursorPosition.height / 2, this.arcRadius, 0, 2 * Math.PI);
     this.canvasContext.fill();
     this.canvasContext.stroke();
 
@@ -175,7 +175,7 @@ struct CursorMoving {
     this.canvasContext.stroke();
   }
 
-  // 判断点击位置是否在棱形中
+  // 判断点击位置是否在菱形中
   isTouchCursorArea(touch: TouchObject) {
     let tempLength = Math.sqrt((touch.x - this.cursorCenterPosition.x) * (touch.x - this.cursorCenterPosition.x) +
       (touch.y - this.cursorCenterPosition.y) * (touch.y - this.cursorCenterPosition.y));

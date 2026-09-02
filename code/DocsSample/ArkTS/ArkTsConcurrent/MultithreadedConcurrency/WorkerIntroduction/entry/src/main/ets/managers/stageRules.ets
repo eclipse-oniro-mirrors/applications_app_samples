@@ -77,9 +77,9 @@ struct stageRules {
           }
 
           // 注册onexit回调，当Worker销毁时被调用，在宿主线程执行
-          workerStage1.onexit = (e: number) => {
+          workerStage1.onexit = (code: number) => {
             // 当Worker正常退出时code为0，异常退出时code为1
-            console.info('workerStage1 onexit code is: ', e);
+            console.info('workerStage1 onexit code is: ', code);
           }
 
           // 向Worker线程发送消息

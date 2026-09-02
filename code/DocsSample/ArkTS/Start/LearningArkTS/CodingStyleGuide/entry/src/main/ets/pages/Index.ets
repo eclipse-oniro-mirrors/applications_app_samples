@@ -440,7 +440,7 @@ try {
   doSomething();
 }
 catch (err) {
-  // 处理错误。
+  // 处理错误
 }
 // [End put_catch_incorrectExample]
 
@@ -448,7 +448,7 @@ catch (err) {
 try {
   doSomething();
 } catch (err) {
-  // 处理错误。
+  // 处理错误
 }
 // [End put_catch_correctExample]
 
@@ -600,7 +600,7 @@ let obj2: I = getObject2(123);
 
 {
   // [Start use_T_correctExample]
-  // 统一使用T[]语法。
+  // 统一使用T[]语法
   let x: number[] = [1, 2, 3];
   let y: string[] = ['a', 'b', 'c'];
   // [End use_T_correctExample]

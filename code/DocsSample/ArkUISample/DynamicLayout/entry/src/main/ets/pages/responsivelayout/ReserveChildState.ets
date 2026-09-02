@@ -15,7 +15,7 @@
 
 // [Start ReserveChildState]
 import {
-  DynamicLayout, DynamicLayoutAttribute, ColumnLayoutAlgorithm, LayoutAlgorithm, curves, LengthMetrics,
+  DynamicLayout, ColumnLayoutAlgorithm, LayoutAlgorithm, curves, LengthMetrics,
   GridLayoutAlgorithm
 } from '@kit.ArkUI';
 

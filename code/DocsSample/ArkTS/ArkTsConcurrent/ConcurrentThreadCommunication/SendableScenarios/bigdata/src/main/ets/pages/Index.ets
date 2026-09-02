@@ -21,7 +21,7 @@ import { BusinessError, emitter } from '@kit.BasicServicesKit';
 // 在并发函数中模拟数据处理
 @Concurrent
 async function taskFunc(obj: Test) {
-  console.info('test task res1 is: ' + obj.data1.name + ' res2 is: ' + obj.data2.name);
+  console.info(`test task res1 is: ${obj.data1.name} res2 is: ${obj.data2.name}`);
 }
 
 async function test() {
@@ -54,10 +54,12 @@ struct Index {
         .fontWeight(FontWeight.Bold)
         .onClick(() => {
           let sensorTask = new taskpool.LongTask(sensorListener);
+          // [StartExclude across_concurrent_instance_transfer_large_data]
           emitter.on({ eventId: 0 }, (data) => {
             // Do something here
             console.info(`Receive ACCELEROMETER data: {${data.data?.x}, ${data.data?.y}, ${data.data?.z}}`);
           });
+          // [EndExclude across_concurrent_instance_transfer_large_data]
           taskpool.execute(sensorTask).then(() => {
             this.listenerTask = 'success';
             console.info('Add listener of ACCELEROMETER success');

@@ -33,6 +33,14 @@
       "value": "play"
     },
     {
+      "name": "stop_playback",
+      "value": "stop"
+    },
+    {
+      "name": "stopping",
+      "value": "stopping"
+    },
+    {
       "name": "alert",
       "value": "None video selected"
     },
@@ -133,6 +141,122 @@
       "value": "setting"
     },
     {
+      "name": "player_settings_title",
+      "value": "Playback settings"
+    },
+    {
+      "name": "player_settings_subtitle",
+      "value": "Configure decoding, rendering, synchronization and debug options"
+    },
+    {
+      "name": "recorder_settings_title",
+      "value": "Recording settings"
+    },
+    {
+      "name": "recorder_settings_subtitle",
+      "value": "Configure codec, resolution, frame rate and output mode"
+    },
+    {
+      "name": "setting_decoder_type",
+      "value": "Decoder type"
+    },
+    {
+      "name": "setting_run_mode",
+      "value": "Rendering mode"
+    },
+    {
+      "name": "setting_sync_mode",
+      "value": "Sync mode"
+    },
+    {
+      "name": "setting_dump",
+      "value": "Save decoded frames"
+    },
+    {
+      "name": "setting_codec",
+      "value": "Codec"
+    },
+    {
+      "name": "setting_resolution",
+      "value": "Resolution"
+    },
+    {
+      "name": "setting_frame_rate",
+      "value": "Frame rate"
+    },
+    {
+      "name": "setting_decoder_auto",
+      "value": "Auto select"
+    },
+    {
+      "name": "setting_decoder_hardware",
+      "value": "Hardware decoding"
+    },
+    {
+      "name": "setting_decoder_software",
+      "value": "Software decoding"
+    },
+    {
+      "name": "setting_render_direct",
+      "value": "Surface rendering"
+    },
+    {
+      "name": "setting_render_buffer",
+      "value": "Buffer copy rendering"
+    },
+    {
+      "name": "setting_mode_async",
+      "value": "Asynchronous"
+    },
+    {
+      "name": "setting_mode_sync",
+      "value": "Synchronous"
+    },
+    {
+      "name": "setting_codec_hdr_vivid",
+      "value": "HDR Vivid recording"
+    },
+    {
+      "name": "setting_codec_h264",
+      "value": "H.264 encoding"
+    },
+    {
+      "name": "setting_codec_h265",
+      "value": "H.265 encoding"
+    },
+    {
+      "name": "setting_resolution_4k",
+      "value": "4K (3840x2160)"
+    },
+    {
+      "name": "setting_resolution_1080p",
+      "value": "1080P (1920x1080)"
+    },
+    {
+      "name": "setting_resolution_720p",
+      "value": "720P (1280x720)"
+    },
+    {
+      "name": "setting_fps_30",
+      "value": "30 fps"
+    },
+    {
+      "name": "setting_fps_60",
+      "value": "60 fps"
+    },
+    {
+      "name": "setting_restore_defaults",
+      "value": "Reset"
+    },
+    {
+      "name": "setting_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "setting_apply",
+      "value": "Apply"
+    },
+    {
       "name": "adjust_playback_speed",
       "value": "adjust_playback_speed"
     },
@@ -161,8 +285,48 @@
       "value": "Smart fluency decoding requires API 26+"
     },
     {
-      "name": "smart_fluency_adaptive_tip",
-      "value": "X2/X3 (智能流畅已启用)"
+      "name": "smart_fluency_x2",
+      "value": "X2 (Smart Fluency)"
+    },
+    {
+      "name": "smart_fluency_x3",
+      "value": "X3 (Smart Fluency)"
+    },
+    {
+      "name": "record_permission_required",
+      "value": "Camera and microphone permissions are required for recording. Please grant them in Settings."
+    },
+    {
+      "name": "media_file_empty",
+      "value": "The media file is empty and cannot be played."
+    },
+    {
+      "name": "media_file_invalid",
+      "value": "The media file is corrupted or its format is not supported."
+    },
+    {
+      "name": "media_file_open_failed",
+      "value": "Failed to open the media file. Please select it again."
+    },
+    {
+      "name": "media_file_select_failed",
+      "value": "Failed to select the media file. Please try again."
+    },
+    {
+      "name": "seek_failed",
+      "value": "Unable to seek to the selected position."
+    },
+    {
+      "name": "media_info",
+      "value": "Info"
+    },
+    {
+      "name": "media_info_title",
+      "value": "Media information"
+    },
+    {
+      "name": "media_info_subtitle",
+      "value": "Demuxed source, track, and decoder details"
     }
   ]
 }

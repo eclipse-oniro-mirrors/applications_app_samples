@@ -1,6 +1,14 @@
 {
   "string": [
     {
+      "name": "smart_fluency_x2",
+      "value": "X2（智能流畅）"
+    },
+    {
+      "name": "smart_fluency_x3",
+      "value": "X3（智能流畅）"
+    },
+    {
       "name": "module_desc",
       "value": "该模板实现了列表页的功能"
     },
@@ -27,6 +35,14 @@
     {
       "name": "play",
       "value": "播放"
+    },
+    {
+      "name": "stop_playback",
+      "value": "停止"
+    },
+    {
+      "name": "stopping",
+      "value": "停止中"
     },
     {
       "name": "alert",
@@ -129,6 +145,122 @@
       "value": "设置"
     },
     {
+      "name": "player_settings_title",
+      "value": "播放设置"
+    },
+    {
+      "name": "player_settings_subtitle",
+      "value": "配置解码、送显、同步和调试选项"
+    },
+    {
+      "name": "recorder_settings_title",
+      "value": "录制设置"
+    },
+    {
+      "name": "recorder_settings_subtitle",
+      "value": "配置编码、分辨率、帧率和输出模式"
+    },
+    {
+      "name": "setting_decoder_type",
+      "value": "解码器类型"
+    },
+    {
+      "name": "setting_run_mode",
+      "value": "送显模式"
+    },
+    {
+      "name": "setting_sync_mode",
+      "value": "同步模式"
+    },
+    {
+      "name": "setting_dump",
+      "value": "保存解码帧"
+    },
+    {
+      "name": "setting_codec",
+      "value": "编码格式"
+    },
+    {
+      "name": "setting_resolution",
+      "value": "分辨率"
+    },
+    {
+      "name": "setting_frame_rate",
+      "value": "帧率"
+    },
+    {
+      "name": "setting_decoder_auto",
+      "value": "自动选择"
+    },
+    {
+      "name": "setting_decoder_hardware",
+      "value": "硬件解码"
+    },
+    {
+      "name": "setting_decoder_software",
+      "value": "软件解码"
+    },
+    {
+      "name": "setting_render_direct",
+      "value": "Surface模式直接送显"
+    },
+    {
+      "name": "setting_render_buffer",
+      "value": "Buffer模式拷贝送显"
+    },
+    {
+      "name": "setting_mode_async",
+      "value": "异步模式"
+    },
+    {
+      "name": "setting_mode_sync",
+      "value": "同步模式"
+    },
+    {
+      "name": "setting_codec_hdr_vivid",
+      "value": "HDR Vivid 录制"
+    },
+    {
+      "name": "setting_codec_h264",
+      "value": "H.264 编码"
+    },
+    {
+      "name": "setting_codec_h265",
+      "value": "H.265 编码"
+    },
+    {
+      "name": "setting_resolution_4k",
+      "value": "4K（3840×2160）"
+    },
+    {
+      "name": "setting_resolution_1080p",
+      "value": "1080P（1920×1080）"
+    },
+    {
+      "name": "setting_resolution_720p",
+      "value": "720P（1280×720）"
+    },
+    {
+      "name": "setting_fps_30",
+      "value": "30 帧/秒"
+    },
+    {
+      "name": "setting_fps_60",
+      "value": "60 帧/秒"
+    },
+    {
+      "name": "setting_restore_defaults",
+      "value": "恢复默认"
+    },
+    {
+      "name": "setting_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "setting_apply",
+      "value": "应用"
+    },
+    {
       "name": "adjust_playback_speed",
       "value": "倍速"
     },
@@ -147,6 +279,42 @@
     {
       "name": "record_flv",
       "value": "FLV录制"
+    },
+    {
+      "name": "record_permission_required",
+      "value": "录制需要相机和麦克风权限，请在权限设置中授权。"
+    },
+    {
+      "name": "media_file_empty",
+      "value": "媒体文件为空，无法播放。"
+    },
+    {
+      "name": "media_file_invalid",
+      "value": "媒体文件已损坏或格式不受支持，无法播放。"
+    },
+    {
+      "name": "media_file_open_failed",
+      "value": "媒体文件打开失败，请重新选择。"
+    },
+    {
+      "name": "media_file_select_failed",
+      "value": "媒体文件选择失败，请重试。"
+    },
+    {
+      "name": "seek_failed",
+      "value": "无法跳转到所选播放位置。"
+    },
+    {
+      "name": "media_info",
+      "value": "信息"
+    },
+    {
+      "name": "media_info_title",
+      "value": "媒体信息"
+    },
+    {
+      "name": "media_info_subtitle",
+      "value": "解封装媒体源、轨道与解码输出详情"
     }
   ]
 }

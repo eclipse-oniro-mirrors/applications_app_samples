@@ -32,6 +32,16 @@
     "pages/componentstatemigration/WatchMoreVarV1",
     "pages/componentstatemigration/WatchMoreVarV2",
     "pages/componentstatemigration/ComputedV1",
-    "pages/componentstatemigration/ComputedV2"
+    "pages/componentstatemigration/ComputedV2",
+    "pages/reusablemigration/ReusableIfScene",
+    "pages/reusablemigration/ReusableRepeatScene",
+    "pages/reusablemigration/ReusableListIfScene",
+    "pages/reusablemigration/ReusableRepeatAllLoadScene",
+    "pages/reusablemigration/ReusableGridScene",
+    "pages/reusablemigration/ReusableWaterFlowScene",
+    "pages/reusablemigration/ReusableSwiperScene",
+    "pages/reusablemigration/ReusableListItemGroupScene",
+    "pages/reusablemigration/ReusableLimitTypeScene",
+    "pages/reusablemigration/ReusableGroupTypeScene"
   ]
 }

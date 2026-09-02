@@ -39,7 +39,7 @@ async function fetchDataWithError(): Promise<string> {
 async function handleFetch(): Promise<void> {
   try {
     let data = await fetchDataWithError();
-    console.info(`${'Data:', data}`);
+    console.info(`Data: ${data}`);
   } catch (error) {
     console.error('Handler error:', (error as Error).message);
   }

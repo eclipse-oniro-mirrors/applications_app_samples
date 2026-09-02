@@ -76,7 +76,7 @@ export const getSendableArrayBuffer: () => ArrayBuffer; // Sendable相关 napi_c
 // [End napi_create_sendable_arraybuffer_api]
 
 // [Start napi_create_sendable_typed_array_api]
-export const getSendableTypedArray: () => void; // Sendable相关 napi_create_sendable_typedarray
+export const getSendableTypedArray: () => Uint8Array; // Sendable相关 napi_create_sendable_typedarray
 // [End napi_create_sendable_typed_array_api]
 
 // [Start napi_wrap_sendable_api]

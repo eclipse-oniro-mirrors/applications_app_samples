@@ -425,7 +425,7 @@ function foo4() {
 }
 
 let obj = { value: 'abc' };
-foo.apply(obj);
+foo4.apply(obj);
 // [End ts_no_standalone_this]
 
 {
@@ -528,7 +528,7 @@ foo.apply(obj);
 {
   // [Start ts_strict_typing_required]
   interface I {
-    name:string
+    name: string;
   }
 
   class A {}

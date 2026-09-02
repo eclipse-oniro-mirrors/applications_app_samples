@@ -195,3 +195,14 @@ enum ComputedExample {
   Next,                    // 编译错误：计算成员后不能有无初始化值成员
 }
 // [End ts_computed_enum_member]
+
+// [Start ts_ambient_enum]
+declare enum AmbientExternalEnum {
+  A = 1,
+  B,
+  C
+}
+
+let ambValue: AmbientExternalEnum = AmbientExternalEnum.A; // 运行时错误：AmbientExternalEnum is not defined
+console.info(`${ambValue}`); // 1
+// [End ts_ambient_enum]

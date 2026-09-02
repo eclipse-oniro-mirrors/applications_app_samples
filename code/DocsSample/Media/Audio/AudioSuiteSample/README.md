@@ -15,7 +15,7 @@
 
 点击'停止播放'按钮，即可销毁音频流。
 
-选择效果类型（均衡器效果或声音美化效果），配置相应参数后点击'添加音频效果'按钮，即可对音频添加相应效果（异步处理）。均衡器效果支持预置效果选择和自定义10个频带增益设置；声音美化效果支持清澈、剧场、CD、录音棚四种模式。
+选择效果类型（均衡器效果、声音美化效果、降噪效果、声场效果、环境效果、空间渲染效果、传统变声效果、通用变声效果、变速变调效果），配置相应参数后点击'添加音频效果'按钮，即可对音频添加相应效果（异步处理）。均衡器效果支持预置效果选择和自定义10个频带增益设置；声音美化效果支持清澈、剧场、CD、录音棚四种模式；降噪效果无需配置参数；声场效果支持前向、宏大、近场、宽广四种模式；环境效果支持广播、听筒、水下、留声机四种场景；空间渲染效果支持位置、旋转、扩展三种模式；传统变声效果支持设置说话人性别、变声类型和音高；通用变声效果支持可爱、赛博朋克、女声、男声、混声、怪兽、沧桑、合成、颤音、战争十种类型；变速变调效果支持设置速度 speed 和音高 pitch。
 
 点击'播放添加音频效果后音频'按钮，即可播放添加音频效果后的音频。
 
@@ -47,6 +47,8 @@
 │   │   ├── CMakeLists.txt         # CMake 编译配置文件
 │   │   ├── audio_suite.cpp         # NAPI 接口和音频播放实现
 │   │   ├── manual_rendering.cpp    # 离线编辑实现
+│   │   ├── audio_effect/            # 音频效果节点策略实现
+│   │   │   └── audio_effect.h      # 各效果节点（均衡器、降噪、声场、变声等）创建与参数设置
 │   │   ├── real_time_rendering.cpp  # 实时预览实现
 │   │   ├── audio_format_converter.cpp  # PCM音频格式转换实现
 │   │   ├── pcm_file_utils.cpp       # PCM 文件工具类
@@ -74,9 +76,16 @@
 
 #### 音频效果
 
-点击'添加音频效果'按钮，首先选择效果类型（均衡器效果或声音美化效果），配置相应参数后，调用 `OH_AudioSuiteEngine_Create` 创建音频编创引擎，然后调用 `OH_AudioSuiteEngine_CreatePipeline` 创建管线（使用 `AUDIOSUITE_PIPELINE_EDIT_MODE` 编辑模式）。接着根据效果类型创建相应的效果节点：
+点击'添加音频效果'按钮，首先选择效果类型（均衡器效果、声音美化效果、降噪效果、声场效果、环境效果、空间渲染效果、传统变声效果、通用变声效果、变速变调效果），配置相应参数后，调用 `OH_AudioSuiteEngine_Create` 创建音频编创引擎，然后调用 `OH_AudioSuiteEngine_CreatePipeline` 创建管线（使用 `AUDIOSUITE_PIPELINE_EDIT_MODE` 编辑模式）。接着根据效果类型创建相应的效果节点：
 - 均衡器效果：创建均衡器节点，通过 `OH_AudioSuiteEngine_SetEqualizerFrequencyBandGains` 设置10个频带增益参数
 - 声音美化效果：创建声音美化节点，通过 `OH_AudioSuiteEngine_SetVoiceBeautifierType` 设置美化类型
+- 降噪效果：创建降噪节点，无需设置额外参数
+- 声场效果：创建声场节点，通过 `OH_AudioSuiteEngine_SetSoundFieldType` 设置声场类型
+- 环境效果：创建环境效果节点，通过 `OH_AudioSuiteEngine_SetEnvironmentType` 设置环境场景类型
+- 空间渲染效果：创建空间渲染节点，根据模式分别通过 `OH_AudioSuiteEngine_SetSpaceRenderPositionParams`、`OH_AudioSuiteEngine_SetSpaceRenderRotationParams`、`OH_AudioSuiteEngine_SetSpaceRenderExtensionParams` 设置位置、旋转、扩展参数
+- 传统变声效果：创建传统变声节点，通过 `OH_AudioSuiteEngine_SetPureVoiceChangeOption` 设置说话人性别、变声类型和音高
+- 通用变声效果：创建通用变声节点，通过 `OH_AudioSuiteEngine_SetGeneralVoiceChangeType` 设置通用变声类型
+- 变速变调效果：创建变速变调节点，通过 `OH_AudioSuiteEngine_SetTempoAndPitch` 设置速度和音高
 
 最后调用 `OH_AudioSuiteEngine_ConnectNodes` 连接各个节点组成组网，调用 `OH_AudioSuiteEngine_ProcessFrame` 处理音频帧并将结果写入文件。
 
@@ -123,7 +132,7 @@
 
 ## 约束与限制
 
-1.  本示例支持在标准系统上运行，支持设备：RK3568。
+1.  本示例支持在真机上运行。
 
 2.  本示例支持API version 23，版本号： 6.0.0。
 

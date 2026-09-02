@@ -242,5 +242,43 @@ export default function IndexTest() {
       await sleep(ONE_SECONDS_TIME);
       done();
     })
+
+    it('testOverlayManagerOnBackPress', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, 'uitest: testOverlayManagerOnBackPress begin');
+      let driver = Driver.create();
+      let button_list = await driver.findComponent(ON.text(resource.resourceToString($r('app.string.OverlayManager1')),
+        MatchPattern.CONTAINS));
+      expect(button_list === null).assertFalse();
+      await button_list.click();
+      await sleep(ONE_SECONDS_TIME);
+      let button_list1 =
+        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.OverlayManager_onBackPress_title')),
+          MatchPattern.CONTAINS));
+      expect(button_list1 === null).assertFalse();
+      await button_list1.click();
+      await sleep(ONE_SECONDS_TIME);
+      // 点击「显示浮层」通过overlayManager添加浮层
+      let button_show = await driver.findComponent(ON.text('显示浮层', MatchPattern.CONTAINS));
+      expect(button_show === null).assertFalse();
+      await button_show.click();
+      await sleep(ONE_SECONDS_TIME);
+      // 存在浮层时，返回事件被onBackPress拦截（return true），浮层不会被关闭
+      await driver.pressBack();
+      await sleep(ONE_SECONDS_TIME);
+      let float_text = await driver.findComponent(ON.text('我是浮层', MatchPattern.CONTAINS));
+      expect(float_text === null).assertFalse();
+      // 点击「关闭浮层」移除浮层
+      let button_close = await driver.findComponent(ON.text('关闭浮层', MatchPattern.CONTAINS));
+      await button_close.click();
+      await sleep(ONE_SECONDS_TIME);
+      // 无浮层时，返回事件透传（return false），依次退出示例页与分类列表
+      await driver.pressBack();
+      await sleep(ONE_SECONDS_TIME);
+      await driver.pressBack();
+      await sleep(ONE_SECONDS_TIME);
+      await driver.pressBack();
+      await sleep(ONE_SECONDS_TIME);
+      done();
+    })
   })
 }

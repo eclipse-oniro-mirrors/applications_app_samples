@@ -42,6 +42,8 @@ entry/src/main/ets/
 |   |       |---DrawIrregularFigures.ets
 |   |       |---InitCanvasComponent.ets 
 |   |       |---OffScreenDrawing.ets 
+|   |       |---CanvasContentSetOnVisibleAreaApproximateChange.ets 
+|   |       |---CanvasContentOnVisibleAreaApproximateChange.ets 
 |---pages
 |   |---Index.ets                       // 应用主页面
 entry/src/ohosTest/

@@ -57,7 +57,7 @@ async function test(): Promise<void> {
   testNapi.setTransferDetached(true);
   let address: number = testNapi.getAddress();
   console.info('host thread address is ' + address);
-
+  // 传递testNapi是为了触发转移，不是供函数使用
   let task1 = new taskpool.Task(getAddress, testNapi);
   await taskpool.execute(task1);
 

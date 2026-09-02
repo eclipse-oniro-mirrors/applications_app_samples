@@ -14,6 +14,6 @@
  */
 
 // [Start hap_const_dynamic_import_native]
-// libnativeapi.so's index.d.ts
+// libentry.so's index.d.ts
 export const add: (a: number, b: number) => number;
 // [End hap_const_dynamic_import_native]

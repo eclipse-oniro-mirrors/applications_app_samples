@@ -55,8 +55,8 @@ entry/src/
  │   │       ├── resource.ets 		                 // 资源引用转换
  │   │   ├── workers
  │   │       ├── handle.ts 		                     // 同步任务开发指导
- │   │       ├── MyWorker1.ts 		                 // CPU密集型任务开发指导
- │   │       ├── MyWorker2.ts 		                 // 同步任务开发指导
+ │   │       ├── MyWorker1.ets 		                 // CPU密集型任务开发指导
+ │   │       ├── MyWorker2.ets 		                 // 同步任务开发指导
  │   │       ├── Worker.ets 		                 // 常驻任务开发指导
  │   ├── module.json5
  │   └── resources

@@ -100,6 +100,9 @@ ArkUI_NodeHandle test_draw(ArkUI_NativeNodeAPI_1 *nodeAPI)
             OH_Drawing_PenSetColor(pen, OH_Drawing_ColorSetArgb(0xFF, 0x00, 0x4A, 0x4F));
             OH_Drawing_CanvasAttachPen(canvas, pen);
             OH_Drawing_CanvasDrawPath(canvas, path);
+            // 释放资源。
+            OH_Drawing_PenDestroy(pen);
+            OH_Drawing_PathDestroy(path);
             // [End drawCanvas_Start]
             // [EndExclude nodeCustomEvent_start]
         }

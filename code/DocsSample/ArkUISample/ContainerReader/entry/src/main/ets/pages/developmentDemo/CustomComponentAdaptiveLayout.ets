@@ -14,7 +14,7 @@
  */
 
 // [Start CustomComponentAdaptiveLayout]
-import {ContainerReader, ContainerReaderAttribute, Size} from '@kit.ArkUI';
+import {ContainerReader,  Size} from '@kit.ArkUI';
 
 // 自适应卡片组件，内部使用ContainerReader感知容器尺寸
 @Component

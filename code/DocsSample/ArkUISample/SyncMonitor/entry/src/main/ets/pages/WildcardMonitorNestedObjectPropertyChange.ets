@@ -88,3 +88,12 @@ export struct DocSampleNestedClass {
   }
 }
 // [End wildcard_monitor_nested_object_property_change]
+
+@Builder
+export function wildcardMonitorNestedObjectPropertyChange() {
+  NavDestination() {
+    DocSampleNestedClass();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.wildcard_monitor_nested_object_property_change'))
+}

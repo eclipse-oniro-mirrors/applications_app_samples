@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -34,12 +34,14 @@ public:
     int32_t Release();
     int32_t GetVideoTrackId();
     int32_t GetAudioTrackId();
-    int32_t Seek(int64_t position);
+    int32_t Seek(int64_t positionMs, OH_AVSeekMode mode = SEEK_MODE_NEXT_SYNC);
 
 private:
     int32_t GetTrackInfo(std::shared_ptr<OH_AVFormat> sourceFormat, SampleInfo &info);
     std::shared_ptr<OH_AVFormat> GetTrackFormat(int32_t index);
     int GetTrackType(std::shared_ptr<OH_AVFormat> trackFormat);
+    void SaveTrackFormat(std::shared_ptr<OH_AVFormat> trackFormat, int32_t index, int32_t trackType,
+        SampleInfo &info);
     void ProcessVideoTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_t index, SampleInfo &info);
     void ProcessAudioTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_t index, SampleInfo &info);
     void HandleCodecConfig(std::shared_ptr<OH_AVFormat> trackFormat, SampleInfo &info);

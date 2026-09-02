@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -89,18 +89,25 @@ int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
     OH_AVFormat *format = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_WIDTH, sampleInfo.videoWidth);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_HEIGHT, sampleInfo.videoHeight);
-    OH_AVFormat_SetDoubleValue(format, OH_MD_KEY_FRAME_RATE, sampleInfo.frameRate);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_PIXEL_FORMAT, sampleInfo.pixelFormat);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_ROTATION, sampleInfo.rotation);
-    if (sampleInfo.codecSyncMode) {
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codecSyncMode);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_WIDTH, sampleInfo.video.videoWidth);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_HEIGHT, sampleInfo.video.videoHeight);
+    OH_AVFormat_SetDoubleValue(format, OH_MD_KEY_FRAME_RATE, sampleInfo.video.frameRate);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_PIXEL_FORMAT, sampleInfo.video.pixelFormat);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_ROTATION, sampleInfo.video.rotation);
+    if (sampleInfo.codec.codecSyncMode) {
+        OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
     }
-    if (sampleInfo.isSmartFluencySupported) {
-        // 配置FULL模式，为后续ADAPTIVE模式性能体验最大化准备好运行环境。
+    if (sampleInfo.codec.isSmartFluencySupported) {
+        // 该能力依赖 API 26 Native SDK 中的智能流畅 Key 和枚举。若编译提示符号未定义，
+        // 请确认 SDK 路径并清理 CMake 缓存；兼容旧 SDK 时可在 CMake 中将
+        // AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY 设为 OFF。
+#ifdef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
+        // Configure FULL before playback, then switch to ADAPTIVE at X2/X3.
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_DECODER_FRAME_RETENTION_MODE,
-                                OH_FRAME_RETENTION_MODE_FULL);
+            OH_FRAME_RETENTION_MODE_FULL);
+#else
+        AVCODEC_SAMPLE_LOGW("Smart fluency is not enabled in current native SDK build");
+#endif
     }
 
     int ret = OH_VideoDecoder_Configure(decoder_, format);
@@ -119,13 +126,13 @@ int32_t VideoDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
     int32_t ret = Configure(sampleInfo);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Configure failed");
 
-    if (sampleInfo.window != nullptr) {
-        int ret = OH_VideoDecoder_SetSurface(decoder_, sampleInfo.window);
-        CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && sampleInfo.window, AVCODEC_SAMPLE_ERR_ERROR,
+    if (sampleInfo.video.window != nullptr) {
+        int ret = OH_VideoDecoder_SetSurface(decoder_, sampleInfo.video.window);
+        CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && sampleInfo.video.window, AVCODEC_SAMPLE_ERR_ERROR,
                                  "Set surface failed, ret: %{public}d", ret);
     }
 
-    if (!sampleInfo.codecSyncMode) {
+    if (!sampleInfo.codec.codecSyncMode) {
         ret = SetCallback(codecUserData);
         CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
                                  "Set callback failed, ret: %{public}d", ret);
@@ -198,20 +205,21 @@ OH_AVBuffer *VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
     return nullptr;
 }
 
-bool VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
+int32_t VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
-    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, false, "Decoder is null.");
+    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null.");
     std::shared_lock<std::shared_mutex> lock(codecMutex);
 
-    int32_t  ret = OH_VideoDecoder_QueryOutputBuffer(decoder_, &info.bufferIndex, timeoutUs);
+    int32_t ret = OH_VideoDecoder_QueryOutputBuffer(decoder_, &info.bufferIndex, timeoutUs);
     switch (ret) {
         case AV_ERR_OK: {
             OH_AVBuffer *buffer = OH_VideoDecoder_GetOutputBuffer(decoder_, info.bufferIndex);
-            CHECK_AND_RETURN_RET_LOG(buffer != nullptr, false, "Output buffer is null.");
+            CHECK_AND_RETURN_RET_LOG(buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Output buffer is null.");
             OH_AVErrCode getBufferRet = OH_AVBuffer_GetBufferAttr(buffer, &info.attr);
-            CHECK_AND_RETURN_RET_LOG(getBufferRet == AV_ERR_OK, false, "Get buffer attr error.");
+            CHECK_AND_RETURN_RET_LOG(getBufferRet == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+                "Get buffer attr error.");
             info.buffer = buffer;
-            return true;
+            return AVCODEC_SAMPLE_ERR_OK;
         /**
             if (info.flags & AVCODEC_BUFFER_FLAGS_EOS) {
                 outputDone = 1;
@@ -245,8 +253,8 @@ bool VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
             **/
         }
         case AV_ERR_TRY_AGAIN_LATER: {
-            AVCODEC_SAMPLE_LOGE("Get input buffer timeout.");
-            return false;
+            AVCODEC_SAMPLE_LOGD("Get output buffer timeout.");
+            return AVCODEC_SAMPLE_ERR_AGAIN;
         }
         case AV_ERR_STREAM_CHANGED: {
             int32_t width = 0;
@@ -258,13 +266,15 @@ bool VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
                              OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_PIC_HEIGHT, &height);
             CHECK_AND_BREAK_LOG(getIntRet, "Decoder get int value failed.");
             AVCODEC_SAMPLE_LOGI("Stream Changed. Width: %{public}i, height: %{public}i", width, height);
+            lock.unlock();
             return GetOutputBuffer(info, timeoutUs);
         }
         default: {
-            return false;
+            AVCODEC_SAMPLE_LOGE("Query output buffer failed, ret: %{public}d", ret);
+            return AVCODEC_SAMPLE_ERR_ERROR;
         }
     }
-    return false;
+    return AVCODEC_SAMPLE_ERR_ERROR;
 }
 
 int32_t VideoDecoder::Start()
@@ -315,13 +325,21 @@ int32_t VideoDecoder::FreeOutputBuffer(uint32_t bufferIndex, bool render, int64_
 // [Start onUserSpeedChanged]
 int32_t VideoDecoder::OnUserSpeedChanged(double targetSpeed)
 {
+    // 该能力依赖 API 26 Native SDK 中的智能流畅 Key 和枚举。若编译提示符号未定义，
+    // 请确认 SDK 路径并清理 CMake 缓存；兼容旧 SDK 时可将 AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY 设为 OFF。
+#ifndef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
+    (void)targetSpeed;
+    AVCODEC_SAMPLE_LOGW("Smart fluency is not enabled in current native SDK build");
+    return AVCODEC_SAMPLE_ERR_OK;
+#else
     OH_AVFormat *param = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(param != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
     // 引入epsilon处理double类型的精度比较。
     const double EPSILON = 1e-6;
 
-    if (targetSpeed > 1.0 + EPSILON) {
+    const bool enableAdaptive = targetSpeed > 1.0 + EPSILON;
+    if (enableAdaptive) {
         // 场景：高倍速播放(如1.5x，2.0x，3.0x等)。
         // 策略：使能感知自适应模式。
         OH_AVFormat_SetIntValue(param, OH_MD_KEY_VIDEO_DECODER_FRAME_RETENTION_MODE,
@@ -339,13 +357,26 @@ int32_t VideoDecoder::OnUserSpeedChanged(double targetSpeed)
     OH_AVFormat_Destroy(param);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
                              "SetParameter failed, ret: %{public}d", ret);
+    if (enableAdaptive) {
+        AVCODEC_SAMPLE_LOGI("Smart fluency mode changed to ADAPTIVE, speed: %{public}.2f", targetSpeed);
+    } else {
+        AVCODEC_SAMPLE_LOGI("Smart fluency mode changed to FULL");
+    }
     return AVCODEC_SAMPLE_ERR_OK;
+#endif
 }
 // [End onUserSpeedChanged]
 
 // [Start onThermalWarningReceived]
 int32_t VideoDecoder::OnThermalWarningReceived(double ratio)
 {
+    // 该能力依赖 API 26 Native SDK 中的智能流畅 Key 和枚举。若编译提示符号未定义，
+    // 请确认 SDK 路径并清理 CMake 缓存；兼容旧 SDK 时可将 AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY 设为 OFF。
+#ifndef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
+    (void)ratio;
+    AVCODEC_SAMPLE_LOGW("Smart fluency is not enabled in current native SDK build");
+    return AVCODEC_SAMPLE_ERR_OK;
+#else
     OH_AVFormat *param = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(param != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
@@ -362,6 +393,7 @@ int32_t VideoDecoder::OnThermalWarningReceived(double ratio)
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
                              "SetParameter failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
+#endif
 }
 // [End onThermalWarningReceived]
 

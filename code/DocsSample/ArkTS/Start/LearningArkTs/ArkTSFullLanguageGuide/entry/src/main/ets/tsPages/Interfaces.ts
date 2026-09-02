@@ -273,7 +273,7 @@ function tsCreateSquare(config: TsSquareConfig): { color: string; area: number }
 }
 
 let tsEpSquare2 = tsCreateSquare({ colour: 'red', width: 100 });
-// 编译错误：'colour' does not exist in type 'SquareConfig'
+// 编译错误：'colour' does not exist in type 'TsSquareConfig'
 // [End ts_excess_property_error]
 
 // [Start ts_implements_optional_error]

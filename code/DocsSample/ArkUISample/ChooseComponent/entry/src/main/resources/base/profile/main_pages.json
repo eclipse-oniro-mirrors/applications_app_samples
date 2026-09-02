@@ -5,6 +5,7 @@
     "pages/button/ButtonCustomStyle",
     "pages/button/FloatingButton",
     "pages/radio/RadioSample",
+    "pages/radio/RadioSwiper",
     "pages/button/SetButtonType",
     "pages/button/SubmitForm",
     "pages/toggle/CreateToggle",

@@ -15,7 +15,7 @@
 
 // [Start StackLayoutAlgorithm]
 import {
-  DynamicLayout, DynamicLayoutAttribute, StackLayoutAlgorithm
+  DynamicLayout, StackLayoutAlgorithm
 } from '@kit.ArkUI';
 
 @Entry

@@ -13,6 +13,7 @@
 |横屏|竖屏|
 |------------------------------|--------------------------------|
 |![main](screenshots/landscape.jpg)| ![new](screenshots/portralit.jpg)|
+|![main](screenshots/LandscapeWidthFlex.png)| ![new](screenshots/PortraitWidthFlex.png)|
 
 ## 使用说明
 1. 安装编译生成的hap包，并打开应用；
@@ -25,7 +26,9 @@
 MediaQuerySample
 entry/src/main/ets/
 └── pages
-    └── Index.ets (应用主页面)
+    ├── Index.ets (应用主页面)
+    ├── MediaQueryExample.ets
+    └── MediaQueryFlex.ets
 entry/src/main/
 └── resources
     ├── base

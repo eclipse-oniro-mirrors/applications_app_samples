@@ -140,7 +140,7 @@ struct ThreadData {
 void NativeThread(void* arg)
 {
     auto* data = static_cast<ThreadData*>(arg);
-    OH_LOG_INFO(LOG_APP, "[C++ SubThread] Received from Worker: %{public}s\n", data->inputStr.c_str());
+    OH_LOG_INFO(LOG_APP, "[C++ SubThread] Received from %{public}s\n", data->inputStr.c_str());
     std::string str = "Hello from C++!";
     std::string msg = "Echo of " + str;
     char* cstr = strdup(msg.c_str());

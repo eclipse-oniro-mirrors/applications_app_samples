@@ -1,0 +1,20 @@
+| 测试功能                           | 预置条件     | 输入               | 预期输出                                                     | 测试结果 |
+|--------------------------------| ------------ | ------------------|----------------------------------------------------------| -------- |
+| 首页加载测试                         | 设备正常运行 | 验证基础元素渲染    | 检查列表组件                                                   | Pass     |
+| addMonitor/clearMonitor传入数组添加/取消监听 | 设备正常运行 | 点击"addMonitorArray" | 跳转成功且可通过数组一次性给多个状态变量添加或删除回调函数                            | Pass     |
+| addMonitor无法重复注册同名监听函数          | 设备正常运行 | 点击"addMonitorDuplicateFunc" | 跳转成功且添加同名监听函数失败并打印错误日志                                  | Pass     |
+| addMonitor设置isSynchronous仅第一次有效 | 设备正常运行 | 点击"addMonitorIsSynchronous" | 跳转成功且更改isSynchronous失败并打印错误日志                          | Pass     |
+| clearMonitor删除指定/全部监听函数         | 设备正常运行 | 点击"clearMonitorUsage" | 跳转成功且可删除指定监听函数或当前path对应的所有监听回调函数                        | Pass     |
+| 监听@ObservedV2类和@ComponentV2组件状态变量变化 | 设备正常运行 | 点击"monitorObservedV2ComponentV2" | 跳转成功且可监听@ObservedV2类中@Trace属性和@ComponentV2组件状态变量的变化        | Pass     |
+| 监听数组类型状态变量下标和length变化          | 设备正常运行 | 点击"monitorArrayIndexLength" | 跳转成功且可监听Array数组下标和length的变化                             | Pass     |
+| addMonitor独立监听Path              | 设备正常运行 | 点击"monitorIndependentPath" | 跳转成功且对不同path独立监听，仅监听真正发生变化的状态变量                        | Pass     |
+| 监听变量从可访问变为不可访问                  | 设备正常运行 | 点击"monitorAccessibleChange" | 跳转成功且可监听变量从可访问到不访问和从不可访问到可访问                            | Pass     |
+| addMonitor配置同步监听函数              | 设备正常运行 | 点击"addMonitorSynchronous" | 跳转成功且addMonitor可配置成同步监听函数                               | Pass     |
+| @Monitor仅支持异步监听                 | 设备正常运行 | 点击"monitorAsyncOnly" | 跳转成功且@Monitor仅支持异步监听，一次点击仅回调一次                          | Pass     |
+| 监听构造函数中同步修改的状态变量变化             | 设备正常运行 | 点击"monitorConstructorSync" | 跳转成功且addMonitor可监听构造函数中同步修改的状态变量变化                    | Pass     |
+| 动态取消@ObservedV2/@ComponentV2实例的监听 | 设备正常运行 | 点击"dynamicCancelMonitor" | 跳转成功且可对不同实例动态添加或取消监听函数                                  | Pass     |
+| 使用通配符监听对象属性变化                   | 设备正常运行 | 点击"monitorWildcardObject" | 跳转成功且可通过通配符路径监听对象属性变化并可取消监听                            | Pass     |
+| 使用通配符监听Array对象变化                | 设备正常运行 | 点击"monitorWildcardArray" | 跳转成功且可通过通配符监听Array对象API调用并可取消监听                        | Pass     |
+| 使用通配符监听Date对象变化                | 设备正常运行 | 点击"monitorWildcardDate" | 跳转成功且可通过通配符监听Date对象API调用并可取消监听                         | Pass     |
+| 使用通配符监听Map对象变化                 | 设备正常运行 | 点击"monitorWildcardMap" | 跳转成功且可通过通配符监听Map对象API调用并可取消监听                          | Pass     |
+| 使用通配符监听Set对象变化                 | 设备正常运行 | 点击"monitorWildcardSet" | 跳转成功且可通过通配符监听Set对象API调用并可取消监听                          | Pass     |

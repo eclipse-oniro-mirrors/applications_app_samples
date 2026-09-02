@@ -147,6 +147,46 @@ let demandList: listItem[] = [
   {
     name: 'ComputedV2',
     router: 'pages/componentstatemigration/ComputedV2',
+  },
+  {
+    name: 'ReusableIfScene',
+    router: 'pages/reusablemigration/ReusableIfScene',
+  },
+  {
+    name: 'ReusableRepeatScene',
+    router: 'pages/reusablemigration/ReusableRepeatScene',
+  },
+  {
+    name: 'ReusableListIfScene',
+    router: 'pages/reusablemigration/ReusableListIfScene',
+  },
+  {
+    name: 'ReusableRepeatAllLoadScene',
+    router: 'pages/reusablemigration/ReusableRepeatAllLoadScene',
+  },
+  {
+    name: 'ReusableGridScene',
+    router: 'pages/reusablemigration/ReusableGridScene',
+  },
+  {
+    name: 'ReusableWaterFlowScene',
+    router: 'pages/reusablemigration/ReusableWaterFlowScene',
+  },
+  {
+    name: 'ReusableSwiperScene',
+    router: 'pages/reusablemigration/ReusableSwiperScene',
+  },
+  {
+    name: 'ReusableListItemGroupScene',
+    router: 'pages/reusablemigration/ReusableListItemGroupScene',
+  },
+  {
+    name: 'ReusableLimitTypeScene',
+    router: 'pages/reusablemigration/ReusableLimitTypeScene',
+  },
+  {
+    name: 'ReusableGroupTypeScene',
+    router: 'pages/reusablemigration/ReusableGroupTypeScene',
   }
 ];
 

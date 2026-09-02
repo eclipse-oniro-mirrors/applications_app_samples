@@ -47,3 +47,12 @@ struct Index {
   }
 }
 // [End monitor_two_layer_variables_in_observedv2_class]
+
+@Builder
+export function monitorTwoLayerVariablesInObservedV2Class() {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.monitor_two_layer_variables_in_observedv2_class'))
+}

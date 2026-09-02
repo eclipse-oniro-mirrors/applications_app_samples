@@ -62,13 +62,34 @@ static constexpr const int MAX_STRING_LENGTH = 1024;
 static std::string GetStringFromValueUtf8(napi_env env, napi_value value)
 {
     std::string result;
+    napi_valuetype valType = napi_undefined;
+    napi_status status = napi_typeof(env, value, &valType);
+    if (status != napi_ok || valType != napi_string) {
+        NETMANAGER_VPN_LOGE("value is not string type, status: %{public}d, type: %{public}d", status, valType);
+        return result;
+    }
+
+    size_t strLen = 0;
+    status = napi_get_value_string_utf8(env, value, nullptr, 0, &strLen);
+    if (status != napi_ok || strLen == 0) {
+        NETMANAGER_VPN_LOGE("napi_get_value_string_utf8 get length failed, status: %{public}d", status);
+        return result;
+    }
+
+    if (strLen >= MAX_STRING_LENGTH) {
+        NETMANAGER_VPN_LOGE("string length %{public}zu exceeds buffer size %{public}d, will be truncated", strLen,
+                            MAX_STRING_LENGTH);
+    }
+
     char str[MAX_STRING_LENGTH] = {0};
     size_t length = 0;
-    napi_get_value_string_utf8(env, value, str, MAX_STRING_LENGTH, &length);
-    if (length > 0) {
-        return result.append(str, length);
+    status = napi_get_value_string_utf8(env, value, str, MAX_STRING_LENGTH, &length);
+    if (status != napi_ok || length == 0) {
+        NETMANAGER_VPN_LOGE("napi_get_value_string_utf8 copy failed, status: %{public}d, length: %{public}zu", status,
+                            length);
+        return result;
     }
-    return result;
+    return result.append(str, length);
 }
 
 static void HandleReadTunfd(FdInfo fdInfo)

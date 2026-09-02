@@ -29,6 +29,8 @@ entry/src/
 │   │   │   └── EntryAbility2.ets    // 静态指定进程Ability（process: ":processTag"），与EntryAbility1同进程
 │   │   ├── entrybackupability
 │   │   │   └── EntryBackupAbility.ets  // 备份能力
+│   │   ├── utils
+│   │   │   └── GlobalThis.ets  // 全局访问单例类
 │   │   └── pages
 │   │       └── Index.ets            // 主页面，点击拉起EntryAbility1和EntryAbility2
 │   ├── module.json5                 // 模块配置（含process静态指定进程配置）

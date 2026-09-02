@@ -24,10 +24,24 @@ static napi_value TestRsaSignatureSeg(napi_env env, napi_callback_info info)
     return ret;
 }
 
+static napi_value TestRsaVerifySeg(napi_env env, napi_callback_info info)
+{
+    napi_value ret;
+    napi_get_boolean(env, DoTestRsaSignatureVerifySeg(), &ret);
+    return ret;
+}
+
 static napi_value TestRsaSignature(napi_env env, napi_callback_info info)
 {
     napi_value ret;
     napi_get_boolean(env, DoTestRsaSignature(), &ret);
+    return ret;
+}
+
+static napi_value TestRsaVerify(napi_env env, napi_callback_info info)
+{
+    napi_value ret;
+    napi_get_boolean(env, DoTestRsaVerify(), &ret);
     return ret;
 }
 
@@ -41,14 +55,28 @@ static napi_value TestRsaSignatureRecover(napi_env env, napi_callback_info info)
 static napi_value TestRsaPssSignatureSeg(napi_env env, napi_callback_info info)
 {
     napi_value ret;
-    napi_get_boolean(env, DoTestRsaPssSignatureSeg(), &ret);
+    napi_get_boolean(env, DoTestRsaPssSignSeg(), &ret);
     return ret;
 }
 
-static napi_value TestEcdsaSignature(napi_env env, napi_callback_info info)
+static napi_value TestRsaPssVerifySeg(napi_env env, napi_callback_info info)
 {
     napi_value ret;
-    napi_get_boolean(env, DoTestEcdsaSignature(), &ret);
+    napi_get_boolean(env, DoTestRsaPssVerifySeg(), &ret);
+    return ret;
+}
+
+static napi_value TestEcdsaVerify(napi_env env, napi_callback_info info)
+{
+    napi_value ret;
+    napi_get_boolean(env, DoTestEcdsaVerify(), &ret);
+    return ret;
+}
+
+static napi_value TestEcdsaSign(napi_env env, napi_callback_info info)
+{
+    napi_value ret;
+    napi_get_boolean(env, DoTestEcdsaSign(), &ret);
     return ret;
 }
 
@@ -78,10 +106,14 @@ static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor desc[] = {
         {"signatureSeg", nullptr, TestRsaSignatureSeg, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"verifySeg", nullptr, TestRsaVerifySeg, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"signature", nullptr, TestRsaSignature, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"verify", nullptr, TestRsaVerify, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"signatureRecover", nullptr, TestRsaSignatureRecover, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"pssSignatureSeg", nullptr, TestRsaPssSignatureSeg, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"ecdsaSignature", nullptr, TestEcdsaSignature, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"pssVerifySeg", nullptr, TestRsaPssVerifySeg, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"ecdsaVerify", nullptr, TestEcdsaVerify, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"ecdsaSignature", nullptr, TestEcdsaSign, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"sm2Signature", nullptr, TestSm2Signature, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"sm2RStoDER", nullptr, TestSm2RStoDER, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"sm2DerConvertRS", nullptr, TestSm2DerConvertRS, nullptr, nullptr, nullptr, napi_default, nullptr},

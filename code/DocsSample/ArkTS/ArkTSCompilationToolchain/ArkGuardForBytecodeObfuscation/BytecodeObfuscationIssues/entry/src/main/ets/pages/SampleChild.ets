@@ -13,7 +13,7 @@
 * limitations under the License.
 */
 // [Start export_decorator]
-// Sample.ets
+// SampleChild.ets
 import { Type } from '@kit.ArkUI';
 
 @ObservedV2

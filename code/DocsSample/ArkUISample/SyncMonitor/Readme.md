@@ -23,16 +23,27 @@ entry/src/main/ets/
     ├── MonitorVariablesInObservedV2Class.ets          // 测试@SyncMonitor中监听@ObservedV2中属性的场景
     ├── MonitorTwoLayerVariablesInObservedV2Class.ets         // 测试SyncMonitor监听嵌套对象属性的场景
     ├── MonitorVariableInBaseDerivedClass.ets                     // 测试基类和继承类中监听变量属性的场景
+    ├── MonitorVariablesInMultidimensionalArrays.ets                    // 测试SyncMonitor监听多维数组属性的场景
     ├── MonitorEntireObjectChangeButPropertyNoChange.ets                     // 测试监听对象变化，属性未变化的场景
     ├── SyncMonitorBehavesDifferentlyFromMonitor.ets                     // 测试SyncMonitor跟Monitor行为不一样的场景
+    ├── SyncMonitorArrayMultiPath.ets                     // 测试SyncMonitor监听数组多路径场景
     ├── WildcardMonitorObjectPropertyChange.ets                     // 测试使用通配符监听对象属性的场景
     ├── WildcardMonitorArrayItemChange.ets                     // 测试使用通配符监听数组项的场景
     ├── WildcardMonitorNestedObjectPropertyChange.ets                     // 测试使用通配符监听嵌套对象属性的场景
     ├── WildcardMonitorArrayFirstItemChange.ets                     // 测试使用通配符监听数组第1项对象属性变化的场景
     ├── MonitorTheSameVariableTwoTimes.ets                     // 测试使用SyncMonitor监听变量两次的场景
+    ├── MonitorDuplicateMultiplePaths.ets                     // 测试SyncMonitor多路径参数重复监听场景
     ├── EffectiveAndIneffectiveTimesOfVariableMonitoring.ets                     // 测试使用SyncMonitor监听失效时机场景
+    ├── SyncMonitorClassEffectiveTime.ets                     // 测试类中SyncMonitor生效时机场景
+    ├── SyncMonitorClassGcDestruction.ets                     // 测试类中SyncMonitor依赖GC失效的场景
+    ├── SyncMonitorComponentDestruction.ets                     // 测试自定义组件中SyncMonitor失效时机场景
+    ├── MonitorDeepPropertyChange.ets                     // 测试SyncMonitor监听深层属性变化场景
     ├── MonitorComputedVariable.ets                     // 测试使用SyncMonitor监听Computed变量场景
     ├── MonitorVariableFromAccessibleToInaccessible.ets                     // 测试使用SyncMonitor监听变量从可访问到不可访问场景
+    ├── MonitorNonStateVariableNegative.ets                     // 测试SyncMonitor监听非状态变量的反例
+    ├── MonitorNonStateVariablePositive.ets                     // 测试SyncMonitor正确监听状态变量的正例
+    ├── MonitorNonComputedGetterNegative.ets                     // 测试SyncMonitor监听非Computed getter的反例
+    ├── MonitorStateVariableDirectly.ets                     // 测试SyncMonitor直接监听状态变量的正例
 entry/src/ohosTest/
 ├── ets
 │   └── test

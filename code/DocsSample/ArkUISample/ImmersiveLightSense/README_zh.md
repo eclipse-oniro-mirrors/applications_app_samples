@@ -51,6 +51,10 @@ ImmersiveLightSense
 │       │   │           ├── MenuMaterial.ets               // Menu系统材质
 │       │   │           ├── CloseMaterial.ets              // 关闭组件材质
 │       │   │           ├── AllStyles.ets                  // 五种材质样式展示
+|       |   |           ├── Utils.ets                      // 工具类
+|       |   |           ├── ExploreHomePage.ets            // 沉浸光感示例首页
+|       |   |           ├── GamePage.ets                   // 沉浸光感第二个示例
+|       |   |           ├── BestPractice.ets               // 沉浸光感悬浮Tab示例
 │       │   │           └── ColorInvert.ets                // 自动反色
 │       │   ├── module.json5
 │       │   └── resources

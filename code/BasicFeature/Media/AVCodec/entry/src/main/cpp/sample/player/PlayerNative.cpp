@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,39 +14,139 @@
  */
 
 #include "PlayerNative.h"
+#include <memory>
+#include <uv.h>
+#include "Player.h"
+#include "PlayerNapiParser.h"
+#include "PlayerNapiSerializer.h"
+#include "av_codec_sample_log.h"
 #include "dfx/error/av_codec_sample_error.h"
+#include "plugin_manager.h"
 
 #undef LOG_DOMAIN
 #undef LOG_TAG
 #define LOG_DOMAIN 0xFF00
 #define LOG_TAG "player"
 
+namespace {
 struct CallbackContext {
     napi_env env = nullptr;
     napi_ref callbackRef = nullptr;
+    bool success = false;
+    bool structuredResult = false;
+    PlaybackCompletionReason reason = PlaybackCompletionReason::ERROR;
 };
 
-void Callback(void *asyncContext)
+void DestroyCallbackContext(CallbackContext *context)
 {
-    uv_loop_s *loop = nullptr;
-    CallbackContext *context = (CallbackContext *)asyncContext;
-    napi_get_uv_event_loop(context->env, &loop);
-    uv_work_t *work = new uv_work_t;
-    work->data = context;
-    uv_queue_work(
-        loop, work, [](uv_work_t *work) {},
-        [](uv_work_t *work, int status) {
-            CallbackContext *context = (CallbackContext *)work->data;
-            napi_handle_scope scope = nullptr;
-            napi_open_handle_scope(context->env, &scope);
-            napi_value callback = nullptr;
-            napi_get_reference_value(context->env, context->callbackRef, &callback);
-            napi_call_function(context->env, nullptr, callback, 0, nullptr, nullptr);
-            napi_close_handle_scope(context->env, scope);
-            delete context;
-            delete work;
-    });
+    if (context == nullptr) {
+        return;
+    }
+    if (context->env != nullptr && context->callbackRef != nullptr) {
+        napi_delete_reference(context->env, context->callbackRef);
+        context->callbackRef = nullptr;
+    }
+    delete context;
 }
+
+void InvokeJsCallback(CallbackContext &context)
+{
+    napi_handle_scope scope = nullptr;
+    if (napi_open_handle_scope(context.env, &scope) != napi_ok) {
+        return;
+    }
+
+    napi_value callback = nullptr;
+    const bool callbackAvailable = napi_get_reference_value(context.env, context.callbackRef, &callback) == napi_ok &&
+                                   callback != nullptr;
+    if (callbackAvailable) {
+        napi_value callbackArgs[1] = {nullptr};
+        const bool resultCreated = PlayerNapiSerializer::CreatePlaybackResult(context.env, context.success,
+            context.reason, context.structuredResult, callbackArgs[0]);
+        if (resultCreated) {
+            napi_call_function(context.env, nullptr, callback, 1, callbackArgs, nullptr);
+        }
+    }
+    napi_close_handle_scope(context.env, scope);
+}
+
+void ExecuteCallbackWork(uv_work_t *work)
+{
+    (void)work;
+}
+
+void CompleteCallbackWork(uv_work_t *work, int status)
+{
+    (void)status;
+    auto *context = static_cast<CallbackContext *>(work->data);
+    InvokeJsCallback(*context);
+    DestroyCallbackContext(context);
+    delete work;
+}
+
+void Callback(void *asyncContext, bool success, PlaybackCompletionReason reason)
+{
+    auto *context = static_cast<CallbackContext *>(asyncContext);
+    if (context == nullptr || context->env == nullptr) {
+        DestroyCallbackContext(context);
+        return;
+    }
+    context->success = success;
+    context->reason = reason;
+
+    uv_loop_s *loop = nullptr;
+    napi_status status = napi_get_uv_event_loop(context->env, &loop);
+    if (status != napi_ok || loop == nullptr) {
+        AVCODEC_SAMPLE_LOGE("Get uv event loop failed");
+        DestroyCallbackContext(context);
+        return;
+    }
+
+    auto *work = new uv_work_t;
+    work->data = context;
+    int32_t ret = uv_queue_work(loop, work, ExecuteCallbackWork, CompleteCallbackWork);
+    if (ret != 0) {
+        AVCODEC_SAMPLE_LOGE("Queue play done callback failed, ret: %{public}d", ret);
+        DestroyCallbackContext(context);
+        delete work;
+    }
+}
+
+napi_value StartPlayback(napi_env env, SampleInfo &sampleInfo, napi_value callback, bool structuredResult)
+{
+    napi_value result = nullptr;
+    auto asyncContext = std::make_unique<CallbackContext>();
+    asyncContext->env = env;
+    asyncContext->structuredResult = structuredResult;
+    if (napi_create_reference(env, callback, 1, &asyncContext->callbackRef) != napi_ok) {
+        napi_throw_error(env, nullptr, "Create play callback reference failed");
+        return nullptr;
+    }
+
+    if (Player::GetInstance().GetState() != PlayerState::IDLE) {
+        AVCODEC_SAMPLE_LOGE("Player is not idle");
+        Callback(asyncContext.release(), false, PlaybackCompletionReason::ERROR);
+        napi_get_boolean(env, false, &result);
+        return result;
+    }
+
+    sampleInfo.playback.playDoneCallback = &Callback;
+    sampleInfo.playback.playDoneCallbackData = asyncContext.get();
+    int32_t ret = Player::GetInstance().Init(sampleInfo);
+    if (ret == AVCODEC_SAMPLE_ERR_OK) {
+        asyncContext.release();
+        ret = Player::GetInstance().Start();
+    } else if (Player::GetInstance().GetState() == PlayerState::STOPPING) {
+        asyncContext.release();
+    } else {
+        Callback(asyncContext.release(), false, PlaybackCompletionReason::ERROR);
+    }
+
+    napi_get_boolean(env, ret == AVCODEC_SAMPLE_ERR_OK, &result);
+    return result;
+}
+
+} // namespace
 
 napi_value PlayerNative::SetPlaybackSpeed(napi_env env, napi_callback_info info)
 {
@@ -98,6 +198,8 @@ napi_value PlayerNative::OnThermalWarningReceived(napi_env env, napi_callback_in
 
 napi_value PlayerNative::OnThermalLevelRecovered(napi_env env, napi_callback_info info)
 {
+    (void)env;
+    (void)info;
     Player::GetInstance().OnThermalLevelRecovered();
     return nullptr;
 }
@@ -105,37 +207,99 @@ napi_value PlayerNative::OnThermalLevelRecovered(napi_env env, napi_callback_inf
 napi_value PlayerNative::Play(napi_env env, napi_callback_info info)
 {
     SampleInfo sampleInfo;
-    size_t argc = 8;
-    napi_value args[8] = {nullptr};
-    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
-
-    int index = 0;
-    napi_get_value_int32(env, args[index++], &sampleInfo.inputFd);
-    napi_get_value_int64(env, args[index++], &sampleInfo.inputFileOffset);
-    napi_get_value_int64(env, args[index++], &sampleInfo.inputFileSize);
-    napi_get_value_int32(env, args[index++], &sampleInfo.codecType);
-    napi_get_value_int32(env, args[index++], &sampleInfo.codecRunMode);
-    napi_get_value_int32(env, args[index++], &sampleInfo.codecSyncMode);
-    napi_get_value_bool(env, args[index++], &sampleInfo.isSmartFluencySupported);
-
-    auto asyncContext = new CallbackContext();
-    asyncContext->env = env;
-    napi_create_reference(env, args[index], 1, &asyncContext->callbackRef);
-
-    sampleInfo.playDoneCallback = &Callback;
-    sampleInfo.playDoneCallbackData = asyncContext;
-    int32_t ret = Player::GetInstance().Init(sampleInfo);
-    if (ret == AVCODEC_SAMPLE_ERR_OK) {
-        Player::GetInstance().Start();
+    napi_value callback = nullptr;
+    if (!PlayerNapiParser::ParseLegacyPlayArguments(env, info, sampleInfo, callback)) {
+        return nullptr;
     }
-    return nullptr;
+    return StartPlayback(env, sampleInfo, callback, false);
+}
+
+napi_value PlayerNative::PlayWithOptions(napi_env env, napi_callback_info info)
+{
+    SampleInfo sampleInfo;
+    napi_value callback = nullptr;
+    if (!PlayerNapiParser::ParseStructuredPlayArguments(env, info, sampleInfo, callback)) {
+        return nullptr;
+    }
+    return StartPlayback(env, sampleInfo, callback, true);
+}
+
+napi_value PlayerNative::Stop(napi_env env, napi_callback_info info)
+{
+    (void)info;
+    napi_value result = nullptr;
+    int32_t ret = Player::GetInstance().Stop();
+    napi_get_boolean(env, ret == AVCODEC_SAMPLE_ERR_OK, &result);
+    return result;
+}
+
+napi_value PlayerNative::SeekTo(napi_env env, napi_callback_info info)
+{
+    int64_t positionUs = 0;
+    if (!PlayerNapiParser::ParseSeekPosition(env, info, positionUs)) {
+        return nullptr;
+    }
+    napi_value result = nullptr;
+    int32_t ret = Player::GetInstance().SeekTo(positionUs);
+    napi_get_boolean(env, ret == AVCODEC_SAMPLE_ERR_OK, &result);
+    return result;
+}
+
+napi_value PlayerNative::GetState(napi_env env, napi_callback_info info)
+{
+    (void)info;
+    napi_value result = nullptr;
+    napi_create_int32(env, static_cast<int32_t>(Player::GetInstance().GetState()), &result);
+    return result;
+}
+
+napi_value PlayerNative::GetPlaybackInfo(napi_env env, napi_callback_info info)
+{
+    (void)info;
+    const PlaybackInfo playbackInfo = Player::GetInstance().GetPlaybackInfo();
+    napi_value result = nullptr;
+    if (!PlayerNapiSerializer::CreatePlaybackInfo(env, playbackInfo, result)) {
+        napi_throw_error(env, nullptr, "Create playback info failed");
+        return nullptr;
+    }
+    return result;
+}
+
+napi_value PlayerNative::GetMediaInfo(napi_env env, napi_callback_info info)
+{
+    (void)info;
+    const MediaInfo mediaInfo = Player::GetInstance().GetMediaInfo();
+    napi_value result = nullptr;
+    if (!PlayerNapiSerializer::CreateMediaInfo(env, mediaInfo, result)) {
+        napi_throw_error(env, nullptr, "Create media info failed");
+        return nullptr;
+    }
+    return result;
+}
+
+napi_value PlayerNative::IsSmartFluencyAvailable(napi_env env, napi_callback_info info)
+{
+    (void)info;
+    napi_value result = nullptr;
+    napi_get_boolean(env, Player::GetInstance().IsSmartFluencyAvailable(), &result);
+    return result;
 }
 
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor classProp[] = {
+        {"play", nullptr, PlayerNative::PlayWithOptions, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"playNative", nullptr, PlayerNative::Play, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"stop", nullptr, PlayerNative::Stop, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"seekTo", nullptr, PlayerNative::SeekTo, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getState", nullptr, PlayerNative::GetState, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getPlaybackInfo", nullptr, PlayerNative::GetPlaybackInfo,
+            nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getMediaInfo", nullptr, PlayerNative::GetMediaInfo,
+            nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"isSmartFluencyAvailable", nullptr, PlayerNative::IsSmartFluencyAvailable,
+            nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setPlaybackSpeed", nullptr, PlayerNative::SetPlaybackSpeed,
             nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setTransform", nullptr, PlayerNative::SetTransform, nullptr, nullptr, nullptr, napi_default, nullptr},
@@ -148,7 +312,10 @@ static napi_value Init(napi_env env, napi_value exports)
     };
     
     NativeXComponentSample::PluginManager::GetInstance()->Export(env, exports);
-    napi_define_properties(env, exports, sizeof(classProp) / sizeof(classProp[0]), classProp);
+    if (napi_define_properties(env, exports, sizeof(classProp) / sizeof(classProp[0]), classProp) != napi_ok ||
+        !PlayerNapiSerializer::ExportPlayerState(env, exports)) {
+        napi_throw_error(env, nullptr, "Export player NAPI failed");
+    }
     return exports;
 }
 EXTERN_C_END

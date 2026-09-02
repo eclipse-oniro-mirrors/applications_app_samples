@@ -19,7 +19,6 @@ import { ComponentActive, ComponentInactive, ComponentReuse, ComponentRecycle } 
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World';
   @State changeChild: boolean = false;
 
   build() {

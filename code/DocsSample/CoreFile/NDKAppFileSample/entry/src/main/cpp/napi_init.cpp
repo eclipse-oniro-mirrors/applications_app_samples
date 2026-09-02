@@ -27,7 +27,8 @@
 void GetFileLocationExample(char *uri)
 {
     FileIO_FileLocation location;
-    FileManagement_ErrCode ret = OH_FileIO_GetFileLocation(uri, strlen(uri), &location);
+    int uriLength = static_cast<int>(strlen(uri));
+    FileManagement_ErrCode ret = OH_FileIO_GetFileLocation(uri, uriLength, &location);
     if (ret == 0) {
         if (location == FileIO_FileLocation::LOCAL) {
             printf("Succeeded in getting file location, this file is on local.");

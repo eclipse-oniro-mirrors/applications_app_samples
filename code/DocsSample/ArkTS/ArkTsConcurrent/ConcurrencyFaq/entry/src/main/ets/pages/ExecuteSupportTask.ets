@@ -32,7 +32,7 @@ function executeTask() {
     // task1
     let task1: taskpool.Task = new taskpool.Task(printArgs, res);
   }).catch((e: BusinessError) => {
-    console.error('execute task failed ' + e.message);
+    console.error(`execute task failed ${e.message}`);
   })
 }
 // [End support_task]

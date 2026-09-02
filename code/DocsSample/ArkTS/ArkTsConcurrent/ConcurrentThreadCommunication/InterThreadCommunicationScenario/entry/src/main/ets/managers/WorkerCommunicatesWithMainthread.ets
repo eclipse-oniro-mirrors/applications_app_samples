@@ -14,44 +14,7 @@
  */
 
 // [Start respond_worker_instant_message]
-import { worker } from '@kit.ArkTS';
-import { BusinessError } from '@kit.BasicServicesKit';
-
-function promiseCase() {
-  let p: Promise<void> = new Promise<void>((resolve: Function, reject: Function) => {
-    setTimeout(() => {
-      resolve(1);
-    }, 100)
-  }).then(undefined, (error: BusinessError) => {
-  })
-  return p;
-}
-
-async function postMessageTest() {
-  let ss = new worker.ThreadWorker('entry/ets/workers/Worker.ets');
-  let res = undefined;
-  let flag = false;
-  let isTerminate = false;
-  ss.onexit = () => {
-    isTerminate = true;
-  }
-  // 接收Worker线程发送的消息
-  ss.onmessage = (e) => {
-    res = e.data;
-    flag = true;
-    console.info('worker:: res is  ' + res);
-  }
-  // 给Worker线程发送消息
-  ss.postMessage('hello world');
-  while (!flag) {
-    await promiseCase();
-  }
-
-  ss.terminate();
-  while (!isTerminate) {
-    await promiseCase();
-  }
-}
+import { worker, ErrorEvent, MessageEvents } from '@kit.ArkTS';
 
 @Entry
 @Component
@@ -65,12 +28,25 @@ struct Index {
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
           .onClick(() => {
-            postMessageTest().then(() => {
+            // 创建Worker线程实例
+            const ss: worker.ThreadWorker = new worker.ThreadWorker('entry/ets/workers/Worker.ets');
+
+            // 接收Worker线程发送的消息，收到后刷新成功并销毁Worker
+            ss.onmessage = (e: MessageEvents): void => {
+              console.info('worker:: res is ' + e.data);
               this.message = 'success';
-            }).catch((e: BusinessError) => {
+              // 在回调中销毁Worker线程，避免资源泄漏
+              ss.terminate();
+            };
+
+            // 捕获Worker线程生命周期内的全局异常，刷新失败状态（API version 18+）
+            ss.onAllErrors = (err: ErrorEvent): void => {
+              console.error('worker:: error is ' + err.message);
               this.message = 'failed';
-              console.error(`taskpool execute postMessageTest error is: ${e}`);
-            })
+            };
+
+            // 给Worker线程发送消息
+            ss.postMessage('hello world');
           })
       }
       .width('100%')

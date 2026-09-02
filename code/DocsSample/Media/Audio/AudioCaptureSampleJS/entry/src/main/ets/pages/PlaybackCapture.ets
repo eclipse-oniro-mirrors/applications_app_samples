@@ -12,15 +12,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start PlaybackCaptureImport]
 import { audio } from '@kit.AudioKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+// [End PlaybackCaptureImport]
 
+// [Start PlaybackCaptureGlobalState]
 let audioCapturer: audio.AudioCapturer | undefined = undefined;
 let isPlaybackCaptureStarted: boolean = false;
 let readBytes: number = 0;
 let playbackCaptureRequestId: number = 0;
 let playbackCaptureStartState: audio.PlaybackCaptureStartState | undefined = undefined;
+// [End PlaybackCaptureGlobalState]
 
+// [Start PlaybackCaptureStateToText]
 function playbackCaptureStateToText(state: audio.PlaybackCaptureStartState | undefined): string {
   switch (state) {
     case audio.PlaybackCaptureStartState.STATE_SUCCESS:
@@ -33,6 +38,7 @@ function playbackCaptureStateToText(state: audio.PlaybackCaptureStartState | und
       return 'WAITING';
   }
 }
+// [End PlaybackCaptureStateToText]
 
 @Entry
 @Component
@@ -40,11 +46,14 @@ struct PlaybackCapture {
   @State message: string = '当前状态：未启动';
   @State bytes: number = 0;
 
+  // [Start PlaybackCaptureReadDataCallback]
   private readDataCallback: Callback<ArrayBuffer> = (buffer: ArrayBuffer): void => {
     readBytes += buffer.byteLength;
     this.bytes = readBytes;
   };
+  // [End PlaybackCaptureReadDataCallback]
 
+  // [Start ReleasePlaybackCapture]
   private async releasePlaybackCapture(): Promise<void> {
     if (audioCapturer === undefined) {
       return;
@@ -62,7 +71,9 @@ struct PlaybackCapture {
       await capturer.release();
     }
   }
+  // [End ReleasePlaybackCapture]
 
+  // [Start StartPlaybackCapture]
   private async startPlaybackCapture(): Promise<void> {
     if (audioCapturer !== undefined) {
       this.message = '内录流已存在，请先停止';
@@ -121,7 +132,9 @@ struct PlaybackCapture {
       await this.releasePlaybackCapture();
     }
   }
+  // [End StartPlaybackCapture]
 
+  // [Start StopPlaybackCapture]
   private async stopPlaybackCapture(): Promise<void> {
     if (audioCapturer === undefined) {
       this.message = `当前没有正在运行或等待授权的音频内录流\n` +
@@ -141,6 +154,7 @@ struct PlaybackCapture {
       this.message = `停止失败：${err.code} ${err.message}`;
     }
   }
+  // [End StopPlaybackCapture]
 
   aboutToDisappear(): void {
     this.releasePlaybackCapture().catch((error: BusinessError): void => {

@@ -1,0 +1,21 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/CustomEnvDefaultValPage",
+    "pages/CustomEnvMixParamV1ToV2Page",
+    "pages/CustomEnvNearPage",
+    "pages/CustomEnvObservedMixV2ToV1WithenableV2CompatibilityPage",
+    "pages/CustomEnvObservedV2MixV2ToV1Page",
+    "pages/CustomEnvSupportArrayPage",
+    "pages/CustomEnvSupportComponentFreezePage",
+    "pages/CustomEnvSupportDatePage",
+    "pages/CustomEnvSupportMapPage",
+    "pages/CustomEnvSupportMonitorPage",
+    "pages/CustomEnvSupportSetPage",
+    "pages/CustomEnvSupportWatchPage",
+    "pages/CustomEnvValueClassPage",
+    "pages/CustomEnvValUpdatePage",
+    "pages/CustomValuePage",
+    "pages/CustomEnvSupportDeepWatchPage"
+  ]
+}

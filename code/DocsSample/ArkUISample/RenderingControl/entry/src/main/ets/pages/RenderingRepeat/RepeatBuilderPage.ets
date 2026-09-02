@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,92 +14,66 @@
  */
 
 // [Start repeat_builder]
+import { UIUtils, Binding } from '@kit.ArkUI';
+
 @Entry
 @ComponentV2
 struct RepeatBuilderPage {
-  @Local simpleList1: Array<number> = [];
-  @Local simpleList2: Array<number> = [];
+  @Local simpleList: Array<number> = [];
 
   aboutToAppear(): void {
     for (let i = 0; i < 100; i++) {
-      this.simpleList1.push(i);
-      this.simpleList2.push(i);
+      this.simpleList.push(i);
     }
-  }
-
-  build() {
-    Column({ space: 20 }) {
-      Text('Repeat + @Builder: Left (incorrect) vs. Right (correct). Scroll to see differences.')
-        .fontSize(15)
-        .fontColor(Color.Gray)
-
-      Row({ space: 20 }) {
-        List({ initialIndex: 5, space: 20 }) {
-          Repeat<number>(this.simpleList1)
-            .each((ri) => {
-            })
-            .virtualScroll({ totalCount: this.simpleList1.length })
-            .templateId((item: number, index: number) => 'default')
-            .template('default', (ri) => {
-              ListItem() {
-                Column() {
-                  Text('Text id = ' + ri.item)
-                    .fontSize(20)
-                  this.buildItem1(ri.item) // 错误示例，为避免渲染异常，应修改为：this.buildItem1(ri)
-                }
-              }
-              .border({ width: 1 })
-              .width('90%')
-            }, { cachedCount: 3 })
-        }
-        .cachedCount(1)
-        .border({ width: 1 })
-        .width('45%')
-        .height('60%')
-
-        List({ initialIndex: 5, space: 20 }) {
-          Repeat<number>(this.simpleList2)
-            .each((ri) => {
-            })
-            .virtualScroll({ totalCount: this.simpleList2.length })
-            .templateId((item: number, index: number) => 'default')
-            .template('default', (ri) => {
-              ListItem() {
-                Column() {
-                  Text('Text id = ' + ri.item)
-                    .fontSize(20)
-                  this.buildItem2(ri) // 正确示例，渲染正常
-                }
-              }
-              .border({ width: 1 })
-              .width('90%')
-            }, { cachedCount: 3 })
-        }
-        .cachedCount(1)
-        .border({ width: 1 })
-        .width('45%')
-        .height('60%')
-      }
-    }
-    .height('100%')
-    .justifyContent(FlexAlign.Center)
   }
 
   @Builder
-  // @Builder参数必须传RepeatItem类型才能正常渲染
-  buildItem1(item: number) {
-    Text('Builder1 id = ' + item)
+  buildItem1(bindingData: Binding<number>) { // 使用Binding类/MutableBinding类接收传参，通过value属性访问值。
+    Text('[Binding] item: ' + bindingData.value)
       .fontSize(20)
-      .fontColor(Color.Red)
-      .margin({ top: 2 })
   }
 
   @Builder
   buildItem2(ri: RepeatItem<number>) {
-    Text('Builder2 id = ' + ri.item)
+    Text('[RepeatItem] item: ' + ri.item)
       .fontSize(20)
-      .fontColor(Color.Red)
-      .margin({ top: 2 })
+  }
+
+  @Builder
+  buildItem3(data: number) {
+    Text('[number] item: ' + data)
+      .fontSize(20).fontColor(Color.Red)
+  }
+
+  build() {
+    Column({ space: 10 }) {
+      List({ space: 20 }) {
+        Repeat<number>(this.simpleList)
+          .each((ri) => {
+            ListItem() {
+              Column({ space: 2 }) {
+                // 使用UIUtils.makeBinding()函数实现@Builder函数中状态变量的刷新。
+                this.buildItem1(UIUtils.makeBinding<number>(() => ri.item))
+                // 按引用传递，状态变量的改变会引起@Builder函数内的UI刷新。
+                this.buildItem2(ri)
+                // 反例。按值传递，状态变量的改变不会引起@Builder函数内的UI刷新。
+                this.buildItem3(ri.item)
+              }
+            }.border({ width: 1 })
+          }).virtualScroll()
+      }
+      .cachedCount(1)
+      .border({ width: 1 })
+      .width('70%')
+      .height('60%')
+      .alignListItem(ListItemAlign.Center)
+
+      Button('click to change data.').onClick(() => {
+        this.simpleList[0] = 10000; // 修改第一项数据为10000。
+      })
+    }
+    .width('100%').height('100%')
+    .justifyContent(FlexAlign.Center)
   }
 }
 

@@ -59,6 +59,54 @@
     {
       "name": "page_color_invert",
       "value": "自动反色"
+    },
+    {
+      "name": "discovery",
+      "value": "探索发现"
+    },
+    {
+      "name": "trend",
+      "value": "热门推荐"
+    },
+    {
+      "name": "new_product",
+      "value": "新品上线"
+    },
+    {
+      "name": "limited_time",
+      "value": "限时活动"
+    },
+    {
+      "name": "featured",
+      "value": "精选专题"
+    },
+    {
+      "name": "rank",
+      "value": "排行榜"
+    },
+    {
+      "name": "classic",
+      "value": "经典必玩"
+    },
+    {
+      "name": "new",
+      "value": "每日更新"
+    },
+    {
+      "name": "unique",
+      "value": "独家首发"
+    },
+    {
+      "name": "popularity",
+      "value": "人气飙升"
+    },
+    {
+      "name": "rave_reviews",
+      "value": "好评如潮"
+    },
+    {
+      "name": "recommendation",
+      "value": "为你推荐"
     }
   ]
 }

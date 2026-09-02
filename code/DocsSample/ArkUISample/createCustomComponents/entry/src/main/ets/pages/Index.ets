@@ -41,6 +41,7 @@ const createRouterList: CreateRouter[] = [
   new CreateRouter('IfPage', 'component/If'),
   new CreateRouter('ModuleComponentPage', 'component/ModuleComponent'),
   new CreateRouter('ForEachFilterPage', 'component/ForEachFilter'),
+  new CreateRouter('UIInspectorProfilerPage', 'component/UIInspectorProfiler'),
 ];
 
 @Entry

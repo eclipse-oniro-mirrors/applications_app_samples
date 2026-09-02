@@ -1,0 +1,2 @@
+export const injectEvent: (windowId: number, TE_displayId: number, windowX: number, windowY: number, action: number,
+  fingerId: number, displayX: number, displayY: number, actionTime: number, TE_WindowId: number) => number;

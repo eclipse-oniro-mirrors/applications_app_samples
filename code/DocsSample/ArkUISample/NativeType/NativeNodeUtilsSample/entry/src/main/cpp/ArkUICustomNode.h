@@ -33,7 +33,7 @@ public:
     {
         // 注册自定义事件监听器。
         nativeModule_->addNodeCustomEventReceiver(handle_, OnStaticCustomEvent);
-        // 声明自定义事件并转递自身作为自定义数据。
+        // 声明自定义事件并传递自身作为自定义数据。
         nativeModule_->registerNodeCustomEvent(handle_, ARKUI_NODE_CUSTOM_EVENT_ON_DRAW_FRONT, 0, this);
         nativeModule_->registerNodeCustomEvent(handle_, ARKUI_NODE_CUSTOM_EVENT_ON_DRAW, 0, this);
         nativeModule_->registerNodeCustomEvent(handle_, ARKUI_NODE_CUSTOM_EVENT_ON_DRAW_BEHIND, 0, this);

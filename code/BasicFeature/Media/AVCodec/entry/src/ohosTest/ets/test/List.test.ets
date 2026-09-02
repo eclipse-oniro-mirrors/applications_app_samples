@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,8 +13,22 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test';
+import cameraDataModelTest from './CameraDataModel.test';
+import commonConstantsTest from './CommonConstants.test';
+import dateTimeUtilsTest from './DateTimeUtils.test';
+import mediaUtilsTest from './MediaUtils.test';
+import playerSettingsModelTest from './PlayerSettingsModel.test';
+import recorderSettingsModelTest from './RecorderSettingsModel.test';
+import playbackInfoModelTest from './PlaybackInfoModel.test';
+import mediaInfoModelTest from './MediaInfoModel.test';
 
 export default function testsuite() {
-  abilityTest();
+  cameraDataModelTest();
+  commonConstantsTest();
+  dateTimeUtilsTest();
+  mediaUtilsTest();
+  playerSettingsModelTest();
+  recorderSettingsModelTest();
+  playbackInfoModelTest();
+  mediaInfoModelTest();
 }

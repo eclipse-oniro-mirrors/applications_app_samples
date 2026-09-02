@@ -42,4 +42,4 @@ class Logger {
   }
 }
 
-export default new Logger('[AudioRenderer]');
+export default new Logger('[CapturerApp]');

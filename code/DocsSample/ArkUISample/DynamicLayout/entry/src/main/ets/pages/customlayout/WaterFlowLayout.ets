@@ -15,7 +15,7 @@
 
 // [Start WaterFlowLayout]
 import {
-  DynamicLayout, DynamicLayoutAttribute, CustomLayoutAlgorithm, LayoutAlgorithm, FrameNode, LayoutConstraint, Position
+  DynamicLayout, CustomLayoutAlgorithm, LayoutAlgorithm, FrameNode, LayoutConstraint, Position
 } from '@kit.ArkUI';
 
 // 瀑布流布局算法

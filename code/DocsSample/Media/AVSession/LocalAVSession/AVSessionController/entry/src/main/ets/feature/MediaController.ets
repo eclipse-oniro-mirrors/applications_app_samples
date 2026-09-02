@@ -19,10 +19,8 @@ import { avSession } from '@kit.AVSessionKit';
 import Log from '../common/Logger';
 
 const TAG = "ControllerComponent";
-// [EndExclude getAVSessionDescriptorsInfo]
 
 export default class control {
-  // [StartExclude getAVSessionDescriptorsInfo]
   private currentController: avSession.AVSessionController | undefined = undefined;
   private currentControllerLink: SubscribedAbstractProperty<avSession.AVSessionController> | undefined = undefined;
   private metaDataLink: SubscribedAbstractProperty<avSession.AVMetadata> | undefined = undefined;
@@ -53,7 +51,7 @@ export default class control {
   }
   // [EndExclude getAVSessionDescriptorsInfo]
 
-  // 获取媒体会话描述符及媒体会话控制器
+  // 获取媒体会话描述符及媒体会话控制器。
   async getAVSessionDescriptorsInfo(): Promise<void> {
     try {
       // 获取所有设置过媒体信息且注册过控制回调的会话的描述符信息。
@@ -124,6 +122,7 @@ export default class control {
       this.playbackStateLink?.set(state?.state);
     });
 
+    // [StartExclude getControllerInfo]
     // 获取当前会话播放列表相关信息。
     this.currentController?.getAVQueueItems((error: BusinessError, items: avSession.AVQueueItem[]) => {
       if (error) {
@@ -149,6 +148,7 @@ export default class control {
         console.error(`DesktopLyric Error: Code: ${error.code}, message: ${error.message}`);
       }
     }
+    // [EndExclude getControllerInfo]
   }
   // [End getControllerInfo]
 
@@ -169,6 +169,7 @@ export default class control {
         this.playbackStateLink?.set(playbackState.state);
       });
 
+      // [StartExclude listenControllerInfo]
       // 媒体控制器设置会话自定义播放列表变化的监听器。
       this.currentController?.on('queueItemsChange', (items: avSession.AVQueueItem[]) => {
         Log.info(TAG, 'OnQueueItemsChange, items length is ' + items.length);
@@ -188,9 +189,10 @@ export default class control {
           });
         }
       })
+      // [EndExclude listenControllerInfo]
     } catch (error) {
       if (error) {
-        console.error(`DesktopLyric Error: Code: ${error.code}, message: ${error.message}`);
+        console.error(`listenControllerInfo Error: Code: ${error.code}, message: ${error.message}`);
       }
     }
   }

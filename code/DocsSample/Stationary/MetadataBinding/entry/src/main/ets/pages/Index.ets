@@ -21,7 +21,7 @@ import { Callback } from '@kit.BasicServicesKit';
 
 // [Start metadata_binding_parameter]
 let callback : Callback<number> = (event: number) => {};
-let bundleName: string = '';
+let bundleName: string = 'com.example.app';
 // [End metadata_binding_parameter]
 
 @Entry
@@ -49,7 +49,7 @@ struct Index {
 
   private submitData() {
     // [Start metadata_binding_submit]
-    let metadata: string = '';
+    let metadata: string = 'sample metadata';
     try {
       metadataBinding.submitMetadata(metadata);
       // [StartExclude metadata_binding_submit]

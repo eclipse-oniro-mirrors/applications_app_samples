@@ -146,6 +146,31 @@ struct Index {
             heightAdaptivePolicy: TextHeightAdaptivePolicy.MIN_FONT_SIZE_FIRST,
             font: { size: 20 }
           }))
+
+        TabContent() {
+          Column() {
+            Button('点击此处进入', { stateEffect: true, type: ButtonType.Capsule })
+              .width('80%')
+              .height(40)
+              .margin(20)
+              .onClick(() => {
+                this.pageInfos.pushPath({ name: 'XComponentTypeNodeController' });
+              })
+            Text('  使用自定义节点创建XComponent，并结合XComponentController管理Surface生命周期')
+          }
+          .width('100%')
+          .height('100%')
+          .justifyContent(FlexAlign.Start)
+        }
+        .tabBar(SubTabBarStyle.of('自定义节点 XComponentController')
+          .labelStyle({
+            overflow: TextOverflow.Clip,
+            maxLines: 2,
+            minFontSize: 10,
+            maxFontSize: 10,
+            heightAdaptivePolicy: TextHeightAdaptivePolicy.MIN_FONT_SIZE_FIRST,
+            font: { size: 20 }
+          }))
       }
     }.title('XComponent')
   }

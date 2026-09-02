@@ -221,7 +221,7 @@ export default function dynamicImportTest() {
       console.info('uitest: testDynamicImport026 begin');
       let harName = 'har1';
       let har: ESObject = await import(harName);
-      expect(har.addHar1(4, 5)).assertEqual(9);
+      expect(har.ClassHar1.add(4, 5)).assertEqual(9);
       console.info('uitest: testDynamicImport026 end');
     })
   })

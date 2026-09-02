@@ -104,7 +104,7 @@ class ConsumerTest {
   }
 }
 
-export function Main(): void {
+export function main(): void {
   let consumer: ConsumerTest = new ConsumerTest();
   let producer: Producer = new Producer();
   let threadNum: number = 10;

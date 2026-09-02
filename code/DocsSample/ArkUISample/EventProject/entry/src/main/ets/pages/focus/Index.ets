@@ -30,7 +30,7 @@ import { FocusScopeIdExample } from './FocusScopeId';
 import { FocusScopePriorityPrevious } from './FocusScopePriorityPrevious';
 import { FocusTransferExample } from './FocusTransfer';
 import { FocusLinerExample } from './FocusTraversalGuidelines';
-import { ProjectAreaFocusFlexExample } from './FrojectAreaFocusFlex';
+import { ProjectAreaFocusFlexExample } from './ProjectAreaFocusFlex';
 import { NextFocusExample } from './NextFocus';
 import { FocusAndBlurExample } from './OnFocusOnBlurEvents';
 import { ProjectAreaFocusExample } from './ProjectionBasedFocus';
@@ -116,9 +116,9 @@ const routes: Route[] = [
     description: resource.resourceToString($r('app.string.Focus_Index_FocusTransfer_desFocus_Index_FocusTraver_descriptioncription')),
   },
   {
-    name: `${Focus_ROUTE_PREFIX}/ FrojectAreaFocusFlex`,
-    title: resource.resourceToString($r('app.string.Focus_Index_FrojectAreaFocusFlex_title')),
-    description: resource.resourceToString($r('app.string.Focus_Index_FrojectAreaFocusFlex_description')),
+    name: `${Focus_ROUTE_PREFIX}/ ProjectAreaFocusFlex`,
+    title: resource.resourceToString($r('app.string.Focus_Index_ProjectAreaFocusFlex_title')),
+    description: resource.resourceToString($r('app.string.Focus_Index_ProjectAreaFocusFlex_description')),
   },
   {
     name: `${Focus_ROUTE_PREFIX}/ NextFocus`,

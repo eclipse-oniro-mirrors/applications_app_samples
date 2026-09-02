@@ -5,6 +5,7 @@
     "pages/PageThree",
     "pages/PageFour",
     "pages/PageFive",
-    "pages/PageComponentV2"
+    "pages/PageComponentV2",
+    "pages/WrapBuilderAsField"
   ]
 }

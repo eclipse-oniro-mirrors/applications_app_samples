@@ -204,9 +204,9 @@ void OHAudioRenderer::LoadRecordingInfo(uint32_t recordingFd, uint32_t recording
 
     OH_LOG_INFO(LOG_APP,
                 "OHAudioRenderer Load recording information successfully. "
-                "recording fd: %{public}d, "
+                "recording fd: %{private}d, "
                 "file size: %{public}d, "
-                "recording duration: %{public}d."
+                "recording duration: %{public}d. "
                 "file offset: %{public}d.",
                 recordingFd, recordingFileSize, recordingDuration, recordingFileOffset);
 }

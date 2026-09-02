@@ -14,8 +14,8 @@
  */
 
 // [Start quick_start]
-import { window } from '@kit.ArkUI'
-import common from '@ohos.app.ability.common';
+import { window } from '@kit.ArkUI';
+import { common } from '@kit.AbilityKit';
 import { Callback } from '@kit.BasicServicesKit';
 import { display } from '@kit.ArkUI';
 

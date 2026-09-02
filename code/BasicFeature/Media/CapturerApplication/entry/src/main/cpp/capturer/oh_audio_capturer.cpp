@@ -34,7 +34,7 @@ static void OnAudioInterruptEvent(OH_AudioCapturer *audioCapturer, [[maybe_unuse
 static void OnAudioErrorEvent([[maybe_unused]] OH_AudioCapturer *audioCapturer, [[maybe_unused]] void *userData,
     OH_AudioStream_Result error)
 {
-    OH_LOG_ERROR(LOG_APP, "Audio render error, ret: %{public}d", error);
+    OH_LOG_ERROR(LOG_APP, "Audio capture error, ret: %{public}d", error);
 }
 
 static void OnAudioReadData([[maybe_unused]] OH_AudioCapturer* capturer, void* userData,
@@ -52,7 +52,7 @@ static void OnAudioReadData([[maybe_unused]] OH_AudioCapturer* capturer, void* u
 void OHAudioCapturer::Init()
 {
     if ((audioCapturer_ != nullptr) || (capturerBuilder_ != nullptr) || (audioFileOprInfo_ != nullptr)) {
-        OH_LOG_INFO(LOG_APP, "Previous audio player or builder or fileInfo remained and release it.");
+        OH_LOG_INFO(LOG_APP, "Previous audio capturer or builder or fileInfo remained and release it.");
         Release();
     }
     
@@ -118,7 +118,7 @@ void OHAudioCapturer::Pause()
 void OHAudioCapturer::Stop()
 {
     if (audioCapturer_ == nullptr) {
-        OH_LOG_ERROR(LOG_APP, "The audioRenderer_ is null.");
+        OH_LOG_ERROR(LOG_APP, "The audioCapturer_ is null.");
         return;
     }
 
@@ -144,7 +144,7 @@ void OHAudioCapturer::Release()
         delete audioFileOprInfo_;
         audioFileOprInfo_ = nullptr;
     }
-    OH_LOG_INFO(LOG_APP, "Release player successfully.");
+    OH_LOG_INFO(LOG_APP, "Release capturer successfully.");
 }
 
 void OHAudioCapturer::LoadRecordingInfo(uint32_t recordingFd)
@@ -157,7 +157,7 @@ void OHAudioCapturer::LoadRecordingInfo(uint32_t recordingFd)
     audioFileOprInfo_->recordingCurrentOffset = 0;
     OH_LOG_INFO(LOG_APP,
                 "OHAudioCapturer Load recording information successfully. "
-                "recording fd: %{public}d",
+                "recording fd: %{private}d",
                 recordingFd);
 }
 
@@ -170,6 +170,6 @@ void OHAudioCapturer::SetCapturerParams(uint32_t sourceType, uint32_t samplingRa
     sampleFormat_ = static_cast<OH_AudioStream_SampleFormat>(sampleFormat);
     isLowLatencyMode_ = isLowLatencyMode;
     OH_LOG_INFO(LOG_APP,
-        "Set renderer params: samplingRate_: %{public}d, channelCount_: %{public}d, isLowLatencyMode_: %{public}d",
+        "Set capturer params: samplingRate_: %{public}d, channelCount_: %{public}d, isLowLatencyMode_: %{public}d",
         samplingRate_, channelCount_, isLowLatencyMode_);
 }

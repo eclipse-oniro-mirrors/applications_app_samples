@@ -12,6 +12,7 @@
     "pages/immersiveLightSense/MenuMaterial",
     "pages/immersiveLightSense/CloseMaterial",
     "pages/immersiveLightSense/AllStyles",
-    "pages/immersiveLightSense/ColorInvert"
+    "pages/immersiveLightSense/ColorInvert",
+    "pages/immersiveLightSense/BestPractice"
   ]
 }

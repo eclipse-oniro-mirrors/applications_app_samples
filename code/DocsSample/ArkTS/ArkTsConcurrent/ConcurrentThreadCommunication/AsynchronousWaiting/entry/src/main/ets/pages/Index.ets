@@ -29,16 +29,14 @@ function notifyOne(conditionVariable: ArkTSUtils.locks.ConditionVariable) {
 
 @Concurrent
 async function wait(conditionVariable: ArkTSUtils.locks.ConditionVariable) {
-  conditionVariable.wait().then(() => {
-    console.info(`TaskPool Thread Wait: success`);
-  });
+  await conditionVariable.wait();
+  console.info(`TaskPool Thread Wait: success`);
 }
 
 @Concurrent
 async function waitFor(conditionVariable: ArkTSUtils.locks.ConditionVariable) {
-  conditionVariable.waitFor(3000).then(() => {
-    console.info(`TaskPool Thread WaitFor: success`);
-  });
+  await conditionVariable.waitFor(3000);
+  console.info(`TaskPool Thread WaitFor: success`);
 }
 
 @Entry
@@ -56,11 +54,11 @@ struct Index {
             // 创建conditionVariable对象。
             const conditionVariable: ArkTSUtils.locks.ConditionVariable = new ArkTSUtils.locks.ConditionVariable();
             // 将实例conditionVariable传递给wait线程。
-            await taskpool.execute(wait, conditionVariable);
+            taskpool.execute(wait, conditionVariable);
             // 将实例conditionVariable传递给notifyAll线程，唤醒wait线程，日志输出"TaskPool Thread Wait: success"。
             await taskpool.execute(notifyAll, conditionVariable);
             // 将实例conditionVariable传递给waitFor线程。
-            await taskpool.execute(waitFor, conditionVariable);
+            taskpool.execute(waitFor, conditionVariable);
             // 将实例conditionVariable传递给notifyOne线程，唤醒waitFor线程，日志输出"TaskPool Thread WaitFor: success"。
             await taskpool.execute(notifyOne, conditionVariable);
 
@@ -68,11 +66,11 @@ struct Index {
             const conditionVariableRequest: ArkTSUtils.locks.ConditionVariable =
               ArkTSUtils.locks.ConditionVariable.request('Request1');
             // 将实例conditionVariableRequest传递给wait线程。
-            await taskpool.execute(wait, conditionVariableRequest);
+            taskpool.execute(wait, conditionVariableRequest);
             // 将实例conditionVariableRequest传递给notifyAll线程，唤醒wait线程，日志输出"TaskPool Thread Wait: success"。
             await taskpool.execute(notifyAll, conditionVariableRequest);
             // 将实例conditionVariableRequest传递给waitFor线程。
-            await taskpool.execute(waitFor, conditionVariableRequest);
+            taskpool.execute(waitFor, conditionVariableRequest);
             // 将实例conditionVariableRequest传递给notifyOne线程，唤醒waitFor线程，日志输出"TaskPool Thread WaitFor: success"。
             await taskpool.execute(notifyOne, conditionVariableRequest);
           })

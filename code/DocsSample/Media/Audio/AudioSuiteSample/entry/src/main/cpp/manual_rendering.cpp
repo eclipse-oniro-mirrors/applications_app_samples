@@ -45,6 +45,7 @@ struct SeparationNodes {
     OH_AudioNode *inputNode = nullptr;
     OH_AudioNode *aissNode = nullptr;
     OH_AudioNode *outputNode = nullptr;
+    bool isNodeSupported = true;
 };
 
 struct MixingNodes {
@@ -209,6 +210,17 @@ static void DestroyBaseEditorResources(OH_AudioSuitePipeline *audioSuitePipeline
 static SeparationNodes CreateSeparationNodes(OH_AudioSuitePipeline *audioSuitePipeline, AudioDataInfo *audioInfo)
 {
     SeparationNodes nodes;
+    // [Start audioSuite_IsSupportedSeparationNode]
+    // 判断是否支持音源分离节点。
+    bool isSupported = false;
+    OH_AudioSuiteEngine_IsNodeTypeSupported(OH_AudioNode_Type::EFFECT_MULTII_OUTPUT_NODE_TYPE_AUDIO_SEPARATION,
+                                            &isSupported);
+    if (!isSupported) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, GLOBAL_RESMGR, TAG, "Audio separation node is not supported on this device.");
+        nodes.isNodeSupported = false;
+        return nodes;
+    }
+    // [End audioSuite_IsSupportedSeparationNode]
     // [Start audioSuite_CreateSeparationNode]
     // 示例接口未包含返回值校验，实际使用时请务必添加校验逻辑。
     // 创建节点构造器。
@@ -523,7 +535,7 @@ void BaseEditorEffect(AudioDataInfo *audioInfo, const char *newFilePath, int eff
 /***
  * 音源分离场景
  */
-void AudioSourceSeparation(AudioDataInfo *audioInfo, const char *vocalsFilePath, const char *accompanimentFilePath)
+bool AudioSourceSeparation(AudioDataInfo *audioInfo, const char *vocalsFilePath, const char *accompanimentFilePath)
 {
     OH_LOG_Print(LOG_APP, LOG_INFO, GLOBAL_RESMGR, TAG, "AudioSourceSeparation start");
 
@@ -543,10 +555,16 @@ void AudioSourceSeparation(AudioDataInfo *audioInfo, const char *vocalsFilePath,
     // [End audioSuite_CreateSeparationEngineAndPipeline]
 
     auto nodes = CreateSeparationNodes(audioSuitePipeline, audioInfo);
+    if (!nodes.isNodeSupported) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, GLOBAL_RESMGR, TAG, "AudioSourceSeparation failed: node not supported");
+        DestroySeparationResources(audioSuitePipeline, audioSuiteEngine, nodes);
+        return false;
+    }
     RunSeparationPipeline(audioSuitePipeline, vocalsFilePath, accompanimentFilePath);
     DestroySeparationResources(audioSuitePipeline, audioSuiteEngine, nodes);
 
     OH_LOG_Print(LOG_APP, LOG_INFO, GLOBAL_RESMGR, TAG, "AudioSourceSeparation end");
+    return true;
 }
 
 /**

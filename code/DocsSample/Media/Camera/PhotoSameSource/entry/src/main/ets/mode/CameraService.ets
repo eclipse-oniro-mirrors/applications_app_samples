@@ -785,22 +785,16 @@ class CameraService {
   previewOutputCallBack(previewOutput: camera.PreviewOutput): void {
     Logger.info(TAG, 'previewOutputCallBack is called');
     try {
-      // [Start camera_video_frameStart]
       previewOutput.on('frameStart', (): void => {
         Logger.debug(TAG, 'Preview frame started');
         AppStorage.setOrCreate('frameStart', ++this.frameStartFlag);
       });
-      // [End camera_video_frameStart]
-      // [Start camera_video_frameEnd]
       previewOutput.on('frameEnd', (): void => {
         Logger.debug(TAG, 'Preview frame ended');
       });
-      // [End camera_video_frameEnd]
-      // [Start camera_video_error]
       previewOutput.on('error', (previewOutputError: BusinessError): void => {
         Logger.info(TAG, `Preview output previewOutputError: ${JSON.stringify(previewOutputError)}`);
       });
-      // [End camera_video_error]
     } catch (err) {
       Logger.error(TAG, 'previewOutputCallBack error');
     }
@@ -809,30 +803,35 @@ class CameraService {
   /**
    * 监听录像事件
    */
-
   videoOutputCallback(videoOutput: camera.VideoOutput): void {
     Logger.info(TAG, 'VideoOutputCallback is called');
     try {
+      // [Start camera_video_frameStart]
       videoOutput.on('frameStart', (err: BusinessError) => {
         if (err !== undefined && err.code !== 0) {
           return;
         }
         console.info('Video frame started');
       });
+      // [End camera_video_frameStart]
+      // [Start camera_video_frameEnd]
       videoOutput.on('frameEnd', (err: BusinessError) => {
         if (err !== undefined && err.code !== 0) {
           return;
         }
         console.info('Video frame ended');
       });
+      // [End camera_video_frameEnd]
+      // [Start camera_video_error]
       videoOutput.on('error', (error: BusinessError) => {
         console.error(`Video output error code: ${error.code}`);
       });
+      // [End camera_video_error]
     } catch (err) {
       Logger.error(TAG, `videoOutputCallback error`);
     }
-
   }
+
   /**
    * 注册相机状态变化的回调函数
    * @param err - 错误信息（如果有）

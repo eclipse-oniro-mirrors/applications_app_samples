@@ -28,7 +28,7 @@ struct MyNavigationTestStack {
 
   @Monitor('message')
   info() {
-    hilog.info(DOMAIN, 'testTag', `freeze-test MyNavigation message callback ${this.message}`);
+    hilog.info(DOMAIN, 'FreezeChild', `freeze-test MyNavigation message callback ${this.message}`);
   }
 
   @Builder
@@ -158,8 +158,8 @@ struct NavigationContentMsgStack {
 
   @Monitor('message')
   info() {
-    hilog.info(DOMAIN, 'testTag', `freeze-test NavigationContent message callback ${this.message}`);
-    hilog.info(DOMAIN, 'testTag', `freeze-test ---- called by content ${this.index}`);
+    hilog.info(DOMAIN, 'FreezeChild', `freeze-test NavigationContent message callback ${this.message}`);
+    hilog.info(DOMAIN, 'FreezeChild', `freeze-test ---- called by content ${this.index}`);
   }
 
   build() {

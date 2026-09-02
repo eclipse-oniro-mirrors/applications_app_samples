@@ -32,7 +32,7 @@ function executeTask() {
   taskpool.execute(task).then((res) => {
   }).catch((e: BusinessError) => {
     // 打印“返回结果序列化失败”异常信息
-    console.error('execute task failed ' + e.message);
+    console.error(`execute task failed ${e.message}`);
   })
 }
 // [End unsupport_task]

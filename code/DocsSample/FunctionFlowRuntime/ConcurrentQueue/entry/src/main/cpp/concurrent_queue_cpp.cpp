@@ -17,7 +17,7 @@
 
 // [Start concurrent_cpp]
 
-const int SLEEP_TIME = 100 * 1000;
+const int SLEEP_TIME = 100 * 1000; // 100ms
 const int BANK_CONCURRENCY = 2;
 
 class BankQueueSystem {

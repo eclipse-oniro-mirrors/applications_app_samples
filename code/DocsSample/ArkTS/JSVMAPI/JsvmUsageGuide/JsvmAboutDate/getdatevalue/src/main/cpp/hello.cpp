@@ -84,12 +84,12 @@ static JSVM_Value GetDateValue(JSVM_Env env, JSVM_CallbackInfo info)
     return returnValue;
 }
 
-// CreateDate注册回调
+// GetDateValue注册回调
 static JSVM_CallbackStruct param[] = {
     {.data = nullptr, .callback = GetDateValue},
 };
 static JSVM_CallbackStruct *method = param;
-// CreateDate方法别名，供JS调用
+// GetDateValue方法别名，供JS调用
 static JSVM_PropertyDescriptor descriptor[] = {
     {"getDateValue", nullptr, method++, nullptr, nullptr, nullptr, JSVM_DEFAULT},
 };

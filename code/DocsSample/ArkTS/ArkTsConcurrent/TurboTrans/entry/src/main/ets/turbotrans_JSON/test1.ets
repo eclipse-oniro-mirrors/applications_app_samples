@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 // [Start transferableObject_testJSON]
+// 本文件在工程中的路径：entry/src/main/ets/turbotrans_JSON/test1.ets
 import { TJSON } from '@hadss/turbo-trans-json';
 import { Layout, LayoutS } from 'entry/ets/turbotrans_JSON/layout';
 import type { ITSerializable } from '@hadss/turbo-trans-json';
@@ -24,7 +25,7 @@ export function testJSON1(): LayoutS {
   obj.arr = [3, 4];
   let str = JSON.stringify(obj);
   let layoutNormal = TJSON.fromString<Layout>(str, Layout);
-  console.info('111 layout arr: ' + layoutNormal.arr);
+  console.info('testJSON1 layout arr: ' + layoutNormal.arr);
   let layoutSendable = (layoutNormal as object as ITSerializable).toSendable();
   if (ArkTSUtils.isSendable(layoutSendable)) {
     console.info('expect layout from JSON string is Sendable');
@@ -38,7 +39,7 @@ export function testJSON1(): LayoutS {
 export function testJSON2(): LayoutS {
   let layoutStr = '{"type":"Text","arr":[3,4]}';
   let layoutNormal = TJSON.fromString<Layout>(layoutStr, Layout);
-  console.info('222 layout arr: ' + layoutNormal.arr);
+  console.info('testJSON2 layout arr: ' + layoutNormal.arr);
   let layoutSendable = (layoutNormal as object as ITSerializable).toSendable();
   if (ArkTSUtils.isSendable(layoutSendable)) {
     console.info('expect layout from simple string is Sendable');

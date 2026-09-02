@@ -35,12 +35,12 @@ import { SelectionChange } from './SelectionChange';
 import { ServiceMenuItems } from './ServiceMenuItems';
 import { DisableMenuItems } from './DisableMenuItems';
 import { PrepareMenu } from './PrepareMenu';
-import { WordBreakd } from './WordBreakd';
+import { WordBreakExample } from './WordBreakExample';
 import { HeightAdaptivePolicy } from './HeightAdaptivePolicy';
 import { LengthMetric } from './LengthMetric';
 import { DisplayedTogether } from './DisplayedTogether';
 import { TextLong } from './TextLong';
-import { TextLongTow } from './TextLongTow';
+import { TextLongTwo } from './TextLongTwo';
 import { CustomAndBlockMenus } from './CustomAndBlockMenus';
 import { TextMenuShowSubWindow } from './TextMenuShowSubWindow';
 
@@ -143,7 +143,7 @@ const routes: Route[] = [
     description: $r('app.string.Prepare_Menu_description')
   },
   {
-    name: `${TEXT_ROUTE_PREFIX}/WordBreakd`,
+    name: `${TEXT_ROUTE_PREFIX}/WordBreakExample`,
     title: resource.resourceToString($r('app.string.Word_Break')),
     description: $r('app.string.Word_Break_description')
   },
@@ -168,9 +168,9 @@ const routes: Route[] = [
     description: $r('app.string.Text_Long_description')
   },
   {
-    name: `${TEXT_ROUTE_PREFIX}/TextLongTow`,
-    title: resource.resourceToString($r('app.string.Text_Long_Tow')),
-    description: $r('app.string.Text_Long_Tow_description')
+    name: `${TEXT_ROUTE_PREFIX}/TextLongTwo`,
+    title: resource.resourceToString($r('app.string.Text_Long_Two')),
+    description: $r('app.string.Text_Long_Two_description')
   },
   {
     name: `${TEXT_ROUTE_PREFIX}/CustomAndBlockMenus`,
@@ -227,7 +227,7 @@ export function TextDestination(name: string) {
   } else if (name === routes[18].name) {
     PrepareMenu();
   } else if (name === routes[19].name) {
-    WordBreakd();
+    WordBreakExample();
   } else if (name === routes[20].name) {
     HeightAdaptivePolicy();
   } else if (name === routes[21].name) {
@@ -237,7 +237,7 @@ export function TextDestination(name: string) {
   } else if (name === routes[23].name) {
     TextLong();
   } else if (name === routes[24].name) {
-    TextLongTow();
+    TextLongTwo();
   } else if (name === routes[25].name) {
     CustomAndBlockMenus();
   } else if (name === routes[26].name) {

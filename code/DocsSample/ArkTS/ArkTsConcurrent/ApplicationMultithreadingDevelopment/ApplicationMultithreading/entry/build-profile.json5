@@ -18,8 +18,8 @@
   "buildOption": {
     "sourceOption": {
       "workers": [
-        "./src/main/ets/workers/MyWorker1.ts",
-        "./src/main/ets/workers/MyWorker2.ts",
+        "./src/main/ets/workers/MyWorker1.ets",
+        "./src/main/ets/workers/MyWorker2.ets",
         "./src/main/ets/workers/Worker.ets"
       ]
     }

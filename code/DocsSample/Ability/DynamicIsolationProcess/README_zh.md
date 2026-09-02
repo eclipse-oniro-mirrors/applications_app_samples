@@ -30,6 +30,8 @@ entry/src/
 │   │   │   └── EntryAbility1.ets    // 动态独立进程Ability（isolationProcess: true），加载Page页面
 │   │   ├── entrybackupability
 │   │   │   └── EntryBackupAbility.ets  // 备份能力
+│   │   ├── utils
+│   │   │   └── GlobalThis.ets  // 全局访问单例类
 │   │   └── pages
 │   │       ├── Index.ets            // 主页面，点击拉起EntryAbility1
 │   │       └── Page.ets             // EntryAbility1加载的页面

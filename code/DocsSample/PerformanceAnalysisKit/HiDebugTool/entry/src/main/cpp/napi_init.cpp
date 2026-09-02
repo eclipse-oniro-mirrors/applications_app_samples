@@ -21,6 +21,7 @@
 #include "hidebug/hidebug.h"
 #include "hilog/log.h"
 #include "test_backtrace.h"
+#include "test_async_context.h"
 
 #undef LOG_TAG
 #define LOG_TAG "testTag"
@@ -51,6 +52,12 @@ napi_value TestGetThreadCpuUsage(napi_env env, napi_callback_info info)
     OH_HiDebug_FreeThreadCpuUsage(&cpuUsage); // 释放内存，防止内存泄露。
     return nullptr;
 }
+
+napi_value TestAsyncContext(napi_env env, napi_callback_info info)
+{
+    TestAsyncContextChain();
+    return nullptr;
+}
 // [End TestHidebugNdk_Function]
 
 EXTERN_C_START
@@ -60,6 +67,7 @@ static napi_value Init(napi_env env, napi_value exports)
     napi_property_descriptor desc[] = {
         { "testGetThreadCpuUsage", nullptr, TestGetThreadCpuUsage, nullptr, nullptr, nullptr, napi_default, nullptr },
         { "testBackTrace", nullptr, TestBackTrace, nullptr, nullptr, nullptr, napi_default, nullptr },
+        { "testAsyncContext", nullptr, TestAsyncContext, nullptr, nullptr, nullptr, napi_default, nullptr },
     };
     // [End TestHidebugNdk_Define]
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);

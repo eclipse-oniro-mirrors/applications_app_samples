@@ -20,7 +20,7 @@ import { buffer } from '@kit.ArkTS';
 // 完整的明文被拆分为input1和input2
 let input1: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from('This is Sign test plan1', 'utf-8').buffer) };
 
-function signMessagePromise(priKey: cryptoFramework.PriKey) {
+function signMessageSync(priKey: cryptoFramework.PriKey) {
   let signAlg = 'RSA1024|PKCS1|NoHash|OnlySign';
   let signer = cryptoFramework.createSign(signAlg);
   signer.initSync(priKey);
@@ -28,7 +28,7 @@ function signMessagePromise(priKey: cryptoFramework.PriKey) {
   return signData;
 }
 
-function verifyMessagePromise(signMessageBlob: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey) {
+function verifyMessageSync(signMessageBlob: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey) {
   let verifyAlg = 'RSA1024|PKCS1|NoHash|Recover';
   let verifier = cryptoFramework.createVerify(verifyAlg);
   verifier.initSync(pubKey);
@@ -40,8 +40,8 @@ function main() {
   let keyGenAlg = 'RSA1024';
   let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
   let keyPair = generator.generateKeyPairSync();
-  let signData = signMessagePromise(keyPair.priKey);
-  let rawSignData = verifyMessagePromise(signData, keyPair.pubKey);
+  let signData = signMessageSync(keyPair.priKey);
+  let rawSignData = verifyMessageSync(signData, keyPair.pubKey);
   if (rawSignData != null) {
     console.info('recover result: ' + rawSignData.data);
   } else {

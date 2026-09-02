@@ -56,6 +56,7 @@ wrapbuilder
     │   │       ├── PageFour.ets  //示例4：引用传递
     │   │       ├── PageThree.ets //示例3：@Builder方法赋值给变量在UI语法中使用
     │   │       └── PageTwo.ets   //示例2：@Builder方法赋值给变量
+    │   │       └── WrapBuilderAsField.ets   //示例6：@Builder方法赋值给类或者接口的属性
     │   ├── module.json5
     │   └── resources
     │       ├── base

@@ -20,7 +20,7 @@ import { taskpool } from '@kit.ArkTS';
 import { worker } from '@kit.ArkTS';
 import { BusinessError } from '@kit.BasicServicesKit';
 
-const workerInstance: worker.ThreadWorker = new worker.ThreadWorker('entry/ets/workers/MyWorker1.ts');
+const workerInstance: worker.ThreadWorker = new worker.ThreadWorker('entry/ets/workers/MyWorker1.ets');
 
 let done = false;
 
@@ -28,7 +28,8 @@ let done = false;
 workerInstance.onmessage = (() => {
   console.info('MyWorker.ts onmessage');
   if (!done) {
-    workerInstance.postMessage({ 'type': 1, 'value': 0 });
+    // 执行预测，传入预测条件
+    workerInstance.postMessage({ 'type': 1, 'area': 80, 'room': 4 });
     done = true;
   }
 })
@@ -44,7 +45,7 @@ workerInstance.postMessage({ 'type': 0 });
 // [Start after_destroy_callback]
 // Worker线程销毁后，执行onexit回调方法
 workerInstance.onexit = (): void => {
-  console.info('main thread terminate');
+  console.info('worker thread terminate');
 }
 // [End after_destroy_callback]
 // [EndExclude process_image_histogram]

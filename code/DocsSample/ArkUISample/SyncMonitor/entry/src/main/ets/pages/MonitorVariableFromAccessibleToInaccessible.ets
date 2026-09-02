@@ -53,3 +53,12 @@ struct Page {
   }
 }
 // [End monitor_variable_from_accessible_to_inaccessible]
+
+@Builder
+export function monitorVariableFromAccessibleToInaccessible() {
+  NavDestination() {
+    Page();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.monitor_variable_from_accessible_to_inaccessible'))
+}

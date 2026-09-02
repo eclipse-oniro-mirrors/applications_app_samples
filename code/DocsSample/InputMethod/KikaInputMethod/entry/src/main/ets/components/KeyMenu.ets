@@ -46,7 +46,7 @@ export struct KeyMenu {
   aboutToAppear(): void {
 
     inputMethodEngine.getKeyboardDelegate().on('editorAttributeChanged', (attr : inputMethodEngine.EditorAttribute) => {
-      if (attr.immersiveMode == 1) {
+      if (attr.immersiveMode == inputMethodEngine.ImmersiveMode.IMMERSIVE) {
         this.styleMode = 0;
       } else {
         this.styleMode = 1;

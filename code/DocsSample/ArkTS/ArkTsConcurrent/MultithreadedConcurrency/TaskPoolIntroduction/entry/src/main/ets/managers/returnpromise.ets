@@ -68,32 +68,32 @@ async function testConcurrentFunc() {
 
   taskpool.execute(task1).then((d: object) => {
     console.info(`task1 res is: ${d}`); // 输出结果：task1 res is: 3
-  }).catch((e: object) => {
+  }).catch((e: BusinessError) => {
     console.error(`task1 catch e: ${e}`);
   })
   taskpool.execute(task2).then((d: object) => {
     console.info(`task2 res is: ${d}`);
-  }).catch((e: object) => {
+  }).catch((e: BusinessError) => {
     console.error(`task2 catch e: ${e}`); // 输出结果：task2 catch e: Error: Can't return Promise in pending state
   })
   taskpool.execute(task3).then((d: object) => {
     console.info(`task3 res is: ${d}`); // 输出结果：task3 res is: 3
-  }).catch((e: object) => {
+  }).catch((e: BusinessError) => {
     console.error(`task3 catch e: ${e}`);
   })
   taskpool.execute(task4).then((d: object) => {
     console.info(`task4 res is: ${d}`); // 输出结果：task4 res is: 1
-  }).catch((e: object) => {
+  }).catch((e: BusinessError) => {
     console.error(`task4 catch e: ${e}`);
   })
   taskpool.execute(task5).then((d: object) => {
     console.info(`task5 res is: ${d}`); // 输出结果：task5 res is: 1
-  }).catch((e: object) => {
+  }).catch((e: BusinessError) => {
     console.error(`task5 catch e: ${e}`);
   })
   taskpool.execute(task6).then((d: object) => {
     console.info(`task6 res is: ${d}`); // 输出结果：task6 res is: Promise setTimeout after resolve
-  }).catch((e: object) => {
+  }).catch((e: BusinessError) => {
     console.error(`task6 catch e: ${e}`);
   })
 }
@@ -114,7 +114,7 @@ struct Index {
               // [StartExclude update_message_on_success]
               this.message = 'success';
               // [EndExclude update_message_on_success]
-            }).catch((e: object) => {
+            }).catch((e: BusinessError) => {
               this.message = 'failed';
               console.error(`testConcurrentFunc catch e: ${e}`);
             })

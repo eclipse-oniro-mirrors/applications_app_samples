@@ -17,8 +17,7 @@
 import { ArkTSUtils, taskpool } from '@kit.ArkTS';
 import { singletonA } from './sharedModule';
 
-export { num, str } from './test'; // 正确示例，导出对象合集
-
+// [StartExclude multi_thread_operate_exported_obj]
 @Sendable
 export class A {
   private count_: number = 0;
@@ -36,16 +35,17 @@ export class A {
     })
   }
 }
+// [EndExclude multi_thread_operate_exported_obj]
 
 @Concurrent
 async function increaseCount() {
   await singletonA.increaseCount();
-  console.info('SharedModule: count is:' + await singletonA.getCount());
+  console.info(`SharedModule: count is: ${await singletonA.getCount()}`);
 }
 
 @Concurrent
 async function printCount() {
-  console.info('SharedModule: count is:' + await singletonA.getCount());
+  console.info(`SharedModule: count is: ${await singletonA.getCount()}`);
 }
 
 @Entry
