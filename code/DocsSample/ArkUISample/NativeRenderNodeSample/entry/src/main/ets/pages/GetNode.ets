@@ -22,7 +22,6 @@ import { webview } from '@kit.ArkWeb';
 // 定义传递参数的接口
 interface ParamsInterface {
   text: string;
-  func: Function;
 }
 class MyNodeController extends NodeController {
   private imperativeNode: FrameNode | null = null;
@@ -41,27 +40,25 @@ class MyNodeController extends NodeController {
     let buildNode = new BuilderNode<[ParamsInterface]>(uiContext);
     // 创建节点树
     buildNode.build(wrapBuilder<[ParamsInterface]>(buildText), {
-      text: message, func: () => {
-        return 'FUNCTION';
-      }
+      text: message
     }, { nestingBuilderSupported: true });
     this.buildNode = buildNode.getFrameNode();
     entry.adopt(buildNode);
   }
-  removeAdoptedNode(uiContext:UIContext):void {
+  removeAdoptedNode(): void {
     entry.removeAdopt();
   }
 }
 
 @Builder
-function buildTextWithFunc(fun: Function) {
+function buildTextWithFunc() {
   Web({ src: 'https://www.example.com', controller: new webview.WebviewController() })
 }
 
 @Builder
 function buildText(params: ParamsInterface) {
   Column() {
-    buildTextWithFunc(params.func)
+    buildTextWithFunc()
   }
 }
 
@@ -111,7 +108,7 @@ struct Index {
           Button(this.adoptmsg)
             .onClick(() => {
               if (this.isAdopt) {
-                this.myNodeController.removeAdoptedNode(this.getUIContext());
+                this.myNodeController.removeAdoptedNode();
                 this.adoptmsg = 'adopt web component';
               } else {
                 this.myNodeController.adoptNode(this.getUIContext(),this.message);

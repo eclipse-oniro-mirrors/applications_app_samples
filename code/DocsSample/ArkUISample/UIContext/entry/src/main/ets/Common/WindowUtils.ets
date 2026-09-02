@@ -35,7 +35,7 @@ export class WindowUIContextUtils {
         }
       });
     } catch (exception) {
-      console.error(`Failed to unregister callback. Cause: ${exception}`);
+      console.error(`Failed to register callback. Cause: ${exception}`);
     }
   }
 
