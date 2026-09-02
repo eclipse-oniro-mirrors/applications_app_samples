@@ -53,9 +53,7 @@ export default class EntryAbility extends UIAbility {
       let pxValue = resolvedUIContext.vp2px(20);
       hilog.info(DOMAIN, 'testTag', `20vp equals to ${pxValue}px`);
     });
-    // loadContent是异步接口，在此处调用不能保证UI实例已经创建成功。
-    pxValue = vp2px(20);
-    hilog.info(DOMAIN, 'testTag', `20vp equals to ${pxValue}px`);
+    // loadContent是异步接口，在loadContent之后并不能保证UI实例已经创建并初始化。此时调用例如vp2px等依赖UI实例的函数，可能应实例不正确导致结果不符合预期。
   }
 
   onWindowStageDestroy(): void {

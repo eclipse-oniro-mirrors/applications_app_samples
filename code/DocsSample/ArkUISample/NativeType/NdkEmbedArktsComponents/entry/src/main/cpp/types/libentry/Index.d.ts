@@ -13,9 +13,12 @@
  * limitations under the License.
  */
 // [Start bridge_index]
-export const createNativeRoot: (content: Object) => void;
+import { NodeContent } from '@kit.ArkUI';
+
+export const createNativeRoot: (content: NodeContent) => void;
 export const destroyNativeRoot: () => void;
 
-export const registerCreateMixedRefreshNode: (content: Object) => void;
-export const registerUpdateMixedRefreshNode: (content: Object) => void;
+export const registerCreateMixedRefreshNode: (callback: (value: Object) => Object) => void;
+export const registerUpdateMixedRefreshNode: (
+  callback: (refresh: Object, childSlot: Object, value: Object) => void) => void;
 // [End bridge_index]

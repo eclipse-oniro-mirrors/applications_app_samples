@@ -26,6 +26,10 @@ export class PixelUtils {
     PixelUtils.uiContext = uiContext;
   }
 
+  static removeUIContext(): void {
+    PixelUtils.uiContext = undefined;
+  }
+
   static vp2px(vpValue: number, uiContext?: UIContext): number | undefined {
     let _uiContext = uiContext ?? PixelUtils.uiContext;
     if (!_uiContext || !_uiContext.isAvailable()) {

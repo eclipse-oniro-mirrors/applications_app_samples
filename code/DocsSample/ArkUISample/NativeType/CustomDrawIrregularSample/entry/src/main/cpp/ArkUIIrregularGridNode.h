@@ -27,7 +27,6 @@ namespace NativeModule {
 
 // 网格单元配置
 struct GridItemConfig {
-    int32_t rowSpan = 1;    // 占据的行数
     int32_t columnSpan = 1; // 占据的列数
 };
 
@@ -68,10 +67,9 @@ public:
     }
 
     // 设置子组件的网格配置
-    void SetItemConfig(ArkUI_NodeHandle child, int32_t rowSpan, int32_t columnSpan)
+    void SetItemConfig(ArkUI_NodeHandle child, int32_t columnSpan)
     {
         GridItemConfig config;
-        config.rowSpan = rowSpan;
         config.columnSpan = columnSpan;
         itemConfigs_[child] = config;
         nativeModule_->markDirty(handle_, NODE_NEED_MEASURE);
@@ -99,7 +97,7 @@ private:
     void MeasureChild(ArkUI_NodeHandle child, int32_t cellWidth,
         ArkUI_LayoutConstraint *childConstraint, std::vector<int32_t> &columnHeights)
     {
-        GridItemConfig config = {1, 1};
+        GridItemConfig config = {1};
         auto it = itemConfigs_.find(child);
         if (it != itemConfigs_.end()) {
             config = it->second;
