@@ -37,7 +37,7 @@ struct PageTransitionSrc3 {
         Button('pushUrl')
           // 路由到下一页面，push操作
           .onClick((e: ClickEvent) => {
-            this.getUIContext().getRouter().pushUrl({ url: 'pages/pageTransition/template5/pageB' });
+            this.getUIContext().getRouter().pushUrl({ url: 'pages/pageTransition/template5/PageTransitionDst3' });
           })
         Button('back')
           // 返回到上一页面，相当于pop操作
