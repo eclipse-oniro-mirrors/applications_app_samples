@@ -148,30 +148,19 @@ struct Index {
       let error = err as BusinessError;
       hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to clear the pasteboard. Cause: ${error.message}`);
     }
-    let needFlush: boolean = false;
-    let currentChangeCount: number = 0;
     try {
       // 获取当前 ChangeCount
-      currentChangeCount = systemPasteboard.getChangeCount();
+      let currentChangeCount = systemPasteboard.getChangeCount();
       hilog.info(0xFF00, '[Sample_pasteboard]', `Current ChangeCount: ${currentChangeCount}`);
       // 更新 Preferences 中的 ChangeCount
       if (mdataPreferences) {
         mdataPreferences.putSync('pasteboardChangeCount', currentChangeCount);
-        needFlush = true;
+        mdataPreferences.flushSync(); // 确保数据写入持久化存储
+        hilog.info(0xFF00, '[Sample_pasteboard]', `ChangeCount has been updated to: ${currentChangeCount}`);
       }
     } catch (err) {
       let error = err as BusinessError;
       hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to update ChangeCount. Cause: ${error.message}`);
-    } finally {
-      if (needFlush && mdataPreferences) {
-        try {
-          mdataPreferences.flushSync(); // 确保数据写入持久化存储
-          hilog.info(0xFF00, '[Sample_pasteboard]', `ChangeCount has been updated to: ${currentChangeCount}`);
-        } catch (err) {
-          let error = err as BusinessError;
-          hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to flush ChangeCount. Cause: ${error.message}`);
-        }
-      }
     }
   }
   build() {
