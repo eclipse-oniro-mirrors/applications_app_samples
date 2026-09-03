@@ -150,7 +150,7 @@ struct Index {
     }
     try {
       // 获取当前 ChangeCount
-      let currentChangeCount = systemPasteboard.getChangeCount();
+      let currentChangeCount: long = systemPasteboard.getChangeCount();
       hilog.info(0xFF00, '[Sample_pasteboard]', `Current ChangeCount: ${currentChangeCount}`);
       // 更新 Preferences 中的 ChangeCount
       if (mdataPreferences) {
