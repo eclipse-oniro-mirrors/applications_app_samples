@@ -24,8 +24,21 @@ class ParamTmp {
   @Trace count : number = 0;
 }
 
+export interface ParamInter {
+  count : number;
+}
+
 @Builder
 function renderText(param: ParamTmp) {
+  Column() {
+    Text(`param : ${param.count}`)
+      .fontSize(20)
+      .fontWeight(FontWeight.Bold)
+  }
+}
+
+@Builder
+function renderTextInter(param: ParamInter) {
   Column() {
     Text(`param : ${param.count}`)
       .fontSize(20)
@@ -92,7 +105,7 @@ struct PageBuilder {
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
       renderText(this.builderParams)
-      renderText({ count: this.builderParams.count })
+      renderTextInter({ count: this.builderParams.count })
       renderMap(this.map_value)
       renderSet(this.set_value)
       renderNumberArr(this.numArr_value)
