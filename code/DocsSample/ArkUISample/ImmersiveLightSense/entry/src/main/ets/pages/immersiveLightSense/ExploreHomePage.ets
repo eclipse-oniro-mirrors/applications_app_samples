@@ -108,4 +108,4 @@ struct ExploreHomePage {
     .expandSafeArea([SafeAreaType.SYSTEM])
   }
 }
-// [End export_home_page]
+// [End expore_home_page]
