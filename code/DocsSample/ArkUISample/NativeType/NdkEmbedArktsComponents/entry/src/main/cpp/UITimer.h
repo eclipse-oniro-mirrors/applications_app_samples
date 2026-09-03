@@ -43,18 +43,18 @@ struct UIData {
     napi_threadsafe_function threadSafeFunction = nullptr;
 };
 
-inline void DeleteTimerHandle(uv_handle_t *handle)
+static void DeleteTimerHandle(uv_handle_t *handle)
 {
     delete reinterpret_cast<uv_timer_t *>(handle);
 }
 
-inline void CloseTimer(uv_timer_t *timer)
+static void CloseTimer(uv_timer_t *timer)
 {
     uv_timer_stop(timer);
     uv_close(reinterpret_cast<uv_handle_t *>(timer), DeleteTimerHandle);
 }
 
-inline void CallRefreshOnUI(napi_env, napi_value, void *, void *data)
+static void CallRefreshOnUI(napi_env, napi_value, void *, void *data)
 {
     auto *callbackData = reinterpret_cast<UIData *>(data);
     auto refresh = callbackData->refresh.lock();
@@ -64,7 +64,7 @@ inline void CallRefreshOnUI(napi_env, napi_value, void *, void *data)
     delete callbackData;
 }
 
-inline napi_status CreateTimerThreadSafeFunction(napi_env env, UIData *customData)
+static napi_status CreateTimerThreadSafeFunction(napi_env env, UIData *customData)
 {
     napi_value name = nullptr;
     const std::string callbackName = "UICallback";
@@ -76,7 +76,7 @@ inline napi_status CreateTimerThreadSafeFunction(napi_env env, UIData *customDat
                                            CallRefreshOnUI, &customData->threadSafeFunction);
 }
 
-inline void OnTimer(uv_timer_t *timer)
+static void OnTimer(uv_timer_t *timer)
 {
     OH_LOG_INFO(LOG_APP, "on timeout");
     auto *customData = reinterpret_cast<UIData *>(timer->data);
@@ -92,13 +92,13 @@ inline void OnTimer(uv_timer_t *timer)
     CloseTimer(timer);
 }
 
-inline void ReleaseTimerData(UIData *customData)
+static void ReleaseTimerData(UIData *customData)
 {
     napi_release_threadsafe_function(customData->threadSafeFunction, napi_tsfn_release);
     delete customData;
 }
 
-inline void RunTimer(UIData *customData)
+static void RunTimer(UIData *customData)
 {
     uv_loop_t *loop = uv_loop_new();
     if (loop == nullptr) {
@@ -123,7 +123,7 @@ inline void RunTimer(UIData *customData)
     uv_loop_delete(loop);
 }
 
-inline void CreateNativeTimer(napi_env env, const std::weak_ptr<ArkUIMixedRefresh> &refresh, int32_t totalCount,
+static void CreateNativeTimer(napi_env env, const std::weak_ptr<ArkUIMixedRefresh> &refresh, int32_t totalCount,
                               TimerCallback func)
 {
     auto *customData = new UIData {refresh, 0, totalCount, func, nullptr};
