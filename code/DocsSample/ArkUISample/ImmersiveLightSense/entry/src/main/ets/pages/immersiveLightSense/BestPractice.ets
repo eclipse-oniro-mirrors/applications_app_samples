@@ -70,15 +70,13 @@ struct BestPractise {
       }.tabBar(this.BottomTabBarItem('应用', $r('sys.symbol.grid'), 2))
 
       TabContent() {
-      }.tabBar(this.BottomTabBarItem('元服务', $r('sys.symbol.gearshape'), 4))
+      }.tabBar(this.BottomTabBarItem('元服务', $r('sys.symbol.gearshape'), 3))
     }
     .barPosition(BarPosition.End)
     .barMode(BarMode.Fixed)
     .barOverlap(true)
     .barHeight(56)
-    .barFloatingStyle({ barBottomMargin: 8, systemMaterial: new uiMaterial.ImmersiveMaterial({
-      style: uiMaterial.ImmersiveStyle.ULTRA_THIN
-    }) })
+    .barFloatingStyle({ barBottomMargin: 8, systemMaterial: new uiMaterial.ImmersiveMaterial({}) })
     .scrollable(true)
     .expandSafeArea([SafeAreaType.SYSTEM])
     .onChange((index: number) => {
