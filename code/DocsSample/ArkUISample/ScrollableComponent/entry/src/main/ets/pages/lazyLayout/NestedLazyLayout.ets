@@ -14,8 +14,6 @@
  */
 import { LengthMetrics, LazyVWaterFlowLayout, LazyVWaterFlowLayoutAttribute } from '@kit.ArkUI';
 
-// [Start nested_lazy_layout]
-
 class BasicDataSource implements IDataSource {
   private listeners: DataChangeListener[] = [];
   protected dataArray: number[] = [];
@@ -111,10 +109,10 @@ export struct NestedLazyLayout {
                   }, (item: number) => item.toString())
                 }
                 .columnsTemplate('1fr 1fr 1fr')
-                [StartExclude GridProperty]
+                // [StartExclude GridProperty]
                 .rowsGap(10)
                 .columnsGap(10)
-                [EndExclude GridProperty]
+                // [EndExclude GridProperty]
                 .height(280) // 必须设置固定高度
                 .nestedScroll({
                   scrollForward: NestedScrollMode.PARENT_FIRST,
@@ -127,7 +125,7 @@ export struct NestedLazyLayout {
                 WaterFlow() {
                   LazyForEach(this.flowData, (item: number) => {
                     FlowItem() {
-                      [StartExclude FlowItemChild]
+                      // [StartExclude FlowItemChild]
                       Column() {
                         Image($r('app.media.startIcon'))
                           .width('100%')
@@ -142,15 +140,15 @@ export struct NestedLazyLayout {
                       .backgroundColor(0xFAEEE0)
                       .borderRadius(8)
                       .padding(8)
-                      [EndExclude FlowItemChild]
+                      // [EndExclude FlowItemChild]
                     }
                   }, (item: number) => item.toString())
                 }
                 .columnsTemplate('1fr 1fr')
-                [StartExclude WaterFlowProperty]
+                // [StartExclude WaterFlowProperty]
                 .columnsGap(10)
                 .rowsGap(10)
-                [EndExclude WaterFlowProperty]
+                // [EndExclude WaterFlowProperty]
                 .height(500) // 必须设置固定高度
                 .nestedScroll({
                   scrollForward: NestedScrollMode.PARENT_FIRST,
@@ -164,23 +162,23 @@ export struct NestedLazyLayout {
           }.tabBar('传统嵌套懒加载实现')
 
           TabContent() {
-            [Start NGNestedLazyLayout]
+            // [Start NGNestedLazyLayout]
             List({ space: 10 }) {
               // 横幅区域
               ListItem() {
-                [StartExclude NGListItemChild]
+                // [StartExclude NGListItemChild]
                 Image($r('app.media.startIcon'))
                   .width('100%')
                   .height(200)
                   .backgroundColor(0xFAEEE0)
                   .objectFit(ImageFit.Contain)
-                [EndExclude NGListItemChild]
+                // [EndExclude NGListItemChild]
               }
 
               // 网格分类区域：LazyVGridLayout直接作为List的子组件，无需固定高度，无需nestedScroll
               LazyVGridLayout() {
                 LazyForEach(this.gridData, (item: number) => {
-                  [StartExclude LazyVGridLayoutChild]
+                  // [StartExclude LazyVGridLayoutChild]
                   Column() {
                     Image($r('app.media.startIcon'))
                       .width(40)
@@ -193,19 +191,19 @@ export struct NestedLazyLayout {
                   .height(80)
                   .backgroundColor(0xFAEEE0)
                   .justifyContent(FlexAlign.Center)
-                  [EndExclude LazyVGridLayoutChild]
+                  // [EndExclude LazyVGridLayoutChild]
                 }, (item: number) => item.toString())
               }
               .columnsTemplate('1fr 1fr 1fr')
-              [StartExclude LazyVGridLayoutProperty]
+              // [StartExclude LazyVGridLayoutProperty]
               .rowsGap(LengthMetrics.vp(10))
               .columnsGap(LengthMetrics.vp(10))
-              [EndExclude LazyVGridLayoutProperty]
+              // [EndExclude LazyVGridLayoutProperty]
 
               // 瀑布流商品区域：LazyVWaterFlowLayout直接作为List的子组件，无需固定高度，无需nestedScroll
               LazyVWaterFlowLayout() {
                 LazyForEach(this.flowData, (item: number) => {
-                  [StartExclude LazyVWaterFlowLayoutChild]
+                  // [StartExclude LazyVWaterFlowLayoutChild]
                   Column() {
                     Image($r('app.media.startIcon'))
                       .width('100%')
@@ -220,11 +218,11 @@ export struct NestedLazyLayout {
                   .backgroundColor(0xFAEEE0)
                   .borderRadius(8)
                   .padding(8)
-                  [EndExclude LazyVWaterFlowLayoutChild]
+                  // [EndExclude LazyVWaterFlowLayoutChild]
                 }, (item: number) => item.toString())
               }
               .columnsTemplate('1fr 1fr')
-              [StartExclude LazyVWaterFlowLayoutProperty]
+              // [StartExclude LazyVWaterFlowLayoutProperty]
               .rowsGap(LengthMetrics.vp(10))
               .columnsGap(LengthMetrics.vp(10))
               .onVisibleIndexesChange((start: number, end: number) => {
@@ -236,12 +234,12 @@ export struct NestedLazyLayout {
                   }
                 }
               })
-              [StartExclude LazyVWaterFlowLayoutProperty]
+              // [EndExclude LazyVWaterFlowLayoutProperty]
             }
             .listDirection(Axis.Vertical)
             .width('100%')
             .height('100%')
-            [End NGNestedLazyLayout]
+            // [End NGNestedLazyLayout]
           }.tabBar('全新嵌套懒加载实现')
         }
       }.height('100%')
@@ -253,5 +251,3 @@ export struct NestedLazyLayout {
     .title($r('app.string.lazyLayout_nested_layout_title'))
   }
 }
-
-// [End nested_lazy_layout]
