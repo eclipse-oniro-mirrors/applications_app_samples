@@ -32,6 +32,15 @@ struct MenuPanel {
 
   CreateMainPanel() {
     this.selectionInfo = SelectionModel.getInstance()?.getSelectionInfo();
+    let existingPanel = SelectionModel.getInstance()?.getSelectionPanel();
+    if (existingPanel !== undefined) {
+      try {
+        existingPanel.show();
+      } catch (error) {
+        SelectionModel.getInstance()?.setSelectionPanel(undefined);
+      }
+      return;
+    }
     let panelInfo: PanelInfo = {
       panelType: PanelType.MAIN_PANEL,
       x: 0,
@@ -53,24 +62,27 @@ struct MenuPanel {
           try {
             panel.onDestroy(() => {
               hilog.info(0x0000, 'SelectionExtensionAbility', 'panel has destroyed');
+              SelectionModel.getInstance()?.setSelectionPanel(undefined);
             })
           } catch (error) {
             hilog.info(0x0000, 'SelectionExtensionAbility', 'Failed to listen window destroy');
           }
-          panel.setUiContent('pages/MainPanel')
-            .then(() => {
-              hilog.info(0x0000, 'SelectionExtensionAbility', 'Succeed to setUiContent [pages/MainPanel].');
-            })
-            .catch((error) => {
-              hilog.info(0x0000, 'SelectionExtensionAbility',
-                `Failed to setUiContent of main panel, error code: ${error.code}, error message: ${error.message}`);
-              return;
-            });
+          try {
+            await panel.setUiContent('pages/MainPanel');
+            hilog.info(0x0000, 'SelectionExtensionAbility', 'Succeed to setUiContent [pages/MainPanel].');
+          } catch (error) {
+            hilog.info(0x0000, 'SelectionExtensionAbility',
+              `Failed to setUiContent of main panel, error code: ${error.code}, error message: ${error.message}`);
+            return;
+          }
 
-          await panel.show()
-            .then(() => {
-              hilog.info(0x0000, 'SelectionExtensionAbility', 'Succeed to show main panel.');
-            })
+          try {
+            await panel.show();
+            hilog.info(0x0000, 'SelectionExtensionAbility', 'Succeed to show main panel.');
+          } catch (error) {
+            hilog.info(0x0000, 'SelectionExtensionAbility',
+              `Failed to show main panel, error code: ${error.code}, error message: ${error.message}`);
+          }
         })
     }
   }

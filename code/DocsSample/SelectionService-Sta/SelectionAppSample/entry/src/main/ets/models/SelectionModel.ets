@@ -60,7 +60,7 @@ export class SelectionModel {
     return this.selectionPanel;
   }
 
-  public setSelectionPanel(selectionPanel: selectionManager.Panel): void {
+  public setSelectionPanel(selectionPanel: selectionManager.Panel | undefined): void {
     this.selectionPanel = selectionPanel;
   }
 
