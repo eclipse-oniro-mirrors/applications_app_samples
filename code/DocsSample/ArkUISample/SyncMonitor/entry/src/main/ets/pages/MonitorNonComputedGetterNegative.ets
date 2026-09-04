@@ -44,7 +44,7 @@ struct Index {
     Column() {
       Button('change age')
         .onClick(() => {
-          this.info.age = 25; // 状态变量age改变
+          this.info.age = 25; // age改变
         })
     }
   }

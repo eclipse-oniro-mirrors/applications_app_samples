@@ -45,7 +45,7 @@ struct UpdateChild {
 
   build() {
     Column() {
-      Text(`Child: ${this.customMessage}`);
+      Text(`Child: ${this.customMessage}`)
     }
   }
 }

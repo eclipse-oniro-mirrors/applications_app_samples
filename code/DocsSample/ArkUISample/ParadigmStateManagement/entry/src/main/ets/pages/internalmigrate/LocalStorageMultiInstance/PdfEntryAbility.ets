@@ -14,7 +14,7 @@
 */
 
 // [Start Internal_localStorage_multi_instance_3]
-import { UIAbility, Want } from '@kit.AbilityKit';
+import { UIAbility } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import PDFData from './model/PDFData';
 
