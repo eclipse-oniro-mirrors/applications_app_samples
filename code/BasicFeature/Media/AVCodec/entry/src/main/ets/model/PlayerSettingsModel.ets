@@ -51,6 +51,8 @@ export class PlayerSettingsModel {
   public enableAudioLowLatency: boolean = false;
   /** Container audio track index; -1 selects the first audio track. */
   public audioTrackIndex: number = -1;
+  /** Automatically hide playback controls after a period of inactivity. */
+  public autoHideControls: boolean = true;
 
   applyPickerValues(values: string[], audioVolume: number = this.audioVolume): boolean {
     if (values.length < Const.PLAYER_INFO.length) {

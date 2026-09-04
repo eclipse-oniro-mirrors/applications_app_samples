@@ -45,8 +45,14 @@ int32_t AudioDecoder::SetCallback(CodecUserData *codecUserData)
 
 int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
 {
-    CHECK_AND_RETURN_RET_LOG(CodecCapability::ValidateAudioConfiguration(sampleInfo, false),
-        AVCODEC_SAMPLE_ERR_ERROR, "Audio decoder configuration is not supported");
+    // Decoder capability tables can omit valid container codecs or report an
+    // incomplete sample-rate/channel list. The codec create/configure calls
+    // below are authoritative for decoding support; keep capability results
+    // as diagnostics instead of rejecting a valid Vorbis track prematurely.
+    if (!CodecCapability::ValidateAudioConfiguration(sampleInfo, false)) {
+        AVCODEC_SAMPLE_LOGW("Audio capability query did not fully describe mime: %{public}s; "
+            "continue with decoder configure", sampleInfo.audio.audioCodecMime.c_str());
+    }
     OH_AVFormat *format = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
@@ -58,19 +64,21 @@ int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
     }
 
-    if (sampleInfo.audio.codecConfigLen > 0) {
+    if (sampleInfo.audio.codecConfigLen > 0 &&
+        sampleInfo.audio.codecConfig.size() >= sampleInfo.audio.codecConfigLen) {
         AVCODEC_SAMPLE_LOGI("====== AudioDecoder config ====== codecConfig:%{public}p, len:%{public}i, "
                             "adts:%{public}i, 0:0x%{public}02x, 1:0x%{public}02x",
-                            sampleInfo.audio.codecConfig, static_cast<int>(sampleInfo.audio.codecConfigLen),
-                            sampleInfo.audio.aacAdts, sampleInfo.audio.codecConfig[0], sampleInfo.audio.codecConfig[1]);
+                            sampleInfo.audio.codecConfig.data(), static_cast<int>(sampleInfo.audio.codecConfigLen),
+                            sampleInfo.audio.aacAdts, sampleInfo.audio.codecConfig[0],
+                            sampleInfo.audio.codecConfig.size() > 1 ? sampleInfo.audio.codecConfig[1] : 0);
         uint8_t tmpCodecConfig[2];
         tmpCodecConfig[0] = 0x13;
         tmpCodecConfig[1] = 0x10;
         tmpCodecConfig[0] = sampleInfo.audio.codecConfig[0];
-        tmpCodecConfig[1] = sampleInfo.audio.codecConfig[1];
+        tmpCodecConfig[1] = sampleInfo.audio.codecConfig.size() > 1 ? sampleInfo.audio.codecConfig[1] : 0;
         AVCODEC_SAMPLE_LOGI("====== AudioDecoder config ====== 0:0x%{public}02x, 1:0x%{public}02x", tmpCodecConfig[0],
                             tmpCodecConfig[1]);
-        OH_AVFormat_SetBuffer(format, OH_MD_KEY_CODEC_CONFIG, sampleInfo.audio.codecConfig,
+        OH_AVFormat_SetBuffer(format, OH_MD_KEY_CODEC_CONFIG, sampleInfo.audio.codecConfig.data(),
             sampleInfo.audio.codecConfigLen);
     }
 

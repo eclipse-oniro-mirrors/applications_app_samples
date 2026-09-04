@@ -18,6 +18,7 @@
 
 #include <bits/alltypes.h>
 #include <algorithm>
+#include <mutex>
 #include "napi/native_api.h"
 #include "multimedia/player_framework/native_avdemuxer.h"
 #include "sample_info.h"
@@ -34,6 +35,7 @@ public:
     int32_t Release();
     int32_t GetVideoTrackId();
     int32_t GetAudioTrackId();
+    int32_t SelectAudioTrack(int32_t trackIndex, SampleInfo &info);
     int32_t Seek(int64_t positionMs, OH_AVSeekMode mode = SEEK_MODE_NEXT_SYNC);
 
 private:
@@ -53,6 +55,7 @@ private:
     OH_AVDemuxer *demuxer_;
     int32_t videoTrackId_;
     int32_t audioTrackId_;
+    mutable std::mutex demuxerMutex_;
 };
 
 #endif

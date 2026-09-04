@@ -80,6 +80,19 @@ public:
         cond_.notify_all();
     }
 
+    // CancelWait is used to wake workers during stop/seek. A codec context
+    // can be reused for an in-place audio-track switch, so the queue must be
+    // explicitly reopened before the replacement workers are started.
+    void Reset()
+    {
+        std::unique_lock<std::mutex> lock(mutex_);
+        while (!bufferQueue_.empty()) {
+            bufferQueue_.front()->isValid = false;
+            bufferQueue_.pop();
+        }
+        cancelled_ = false;
+    }
+
 private:
     std::mutex mutex_;
     std::condition_variable cond_;

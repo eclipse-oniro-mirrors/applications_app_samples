@@ -29,7 +29,7 @@ The sample covers more than the basic codec APIs. It also demonstrates file sele
 | BufferMode HDR Vivid | Propagates color space and HDR static/dynamic metadata and displays an HDR Vivid watermark after bitstream confirmation | [HDR Vivid detection and output](#hdr-vivid-output) |
 | Decoded-frame dump | BufferMode can optionally save decoded frames in the application sandbox; disabled by default | [Buffer dump](#buffer-dump) |
 | Audio decoding and playback | Decodes compressed audio to PCM and continuously feeds AudioRenderer | [Audio decoding and playback](#audio-playback) |
-| Multi-track audio | Lists audio tracks and restarts playback with the selected container track | [Audio decoding and playback](#audio-playback) |
+| Multi-track audio | Lists audio tracks and switches the active track without restarting video | [Audio decoding and playback](#audio-playback) |
 | Mute | Mutes or restores the configured volume during playback | [Audio decoding and playback](#audio-playback) |
 | External SRT subtitles | Selects an `.srt` file and displays the cue matching the playback position | [External subtitles](#subtitle-playback) |
 | Press-and-hold speed | Press and hold the playback window for X2; release to return to X1 | [Variable-speed playback](#playback-speed) |
@@ -38,7 +38,12 @@ The sample covers more than the basic codec APIs. It also demonstrates file sele
 | A/V synchronization | Uses the AudioRenderer playback position as the master clock and waits, schedules, or drops video frames | [A/V synchronization](#av-sync) |
 | Video transforms | Supports rotation, horizontal/vertical flip, and combined transforms | [Video transforms](#video-transform) |
 | Progress and precise seek | Shows current position and duration; resumes decoding from a sync frame and discards output before the requested target | [Playback progress and seek](#playback-seek) |
-| Playback controls | Supports pause/resume, 15-second rewind, 15-second forward, and replay while retaining the active decoders and position during pause | [Playback progress and seek](#playback-seek) |
+| Playback controls | Supports pause/resume, previous/next frame, 15-second rewind, 15-second forward, and replay; paused operations update the picture immediately | [Playback progress and seek](#playback-seek) |
+| Playback queue and resume | Add multiple media files, continue with the next item automatically, and restore the last position | [Playback queue and resume](#playback-queue) |
+| Fullscreen and display ratio | Toggle fullscreen/orientation and choose fit-window or fill-window display | [Fullscreen and display ratio](#display-mode) |
+| Playback diagnostics | Inspect position, speed, output/presented/dropped frames, FPS, drop rate, audio buffers, and capability status | [Playback diagnostics](#playback-diagnostics) |
+| A-B loop and frame stepping | Set A/B positions for looping and move one video frame at a time | [A-B loop and frame stepping](#ab-frame-control) |
+| Picture-in-picture and background playback | Continue viewing in the system PiP window and optionally enter PiP on home | [Picture-in-picture and background playback](#pip-background) |
 | Playback status | Shows state, requested speed, active tracks, and smart-fluency availability | [Playback and media information](#playback-info) |
 | Media details | Shows source, track, decoder, output, and raw Source/Track Format information | [Playback and media information](#playback-info) |
 | Stop and cleanup | Handles explicit stop, natural completion, and errors through one state machine and release path | [Playback threads and lifecycle](#player-lifecycle) |
@@ -198,6 +203,12 @@ AVCodec/
     │   │   ├── common                       # Constants and utilities
     │   │   ├── entryability/EntryAbility.ets
     │   │   ├── model                        # UI state and settings models
+    │   │   │   ├── CameraDataModel.ets      # Camera recording settings
+    │   │   │   ├── MediaInfoModel.ets       # Media information formatting
+    │   │   │   ├── PlaybackInfoModel.ets    # Playback status formatting
+    │   │   │   ├── PlaybackHistoryModel.ets # Playback queue and resume history
+    │   │   │   ├── PlayerSettingsModel.ets  # Playback settings and NAPI options
+    │   │   │   └── RecorderSettingsModel.ets # Recording settings parsing
     │   │   ├── viewmodel                    # Playback state ViewModel
     │   │   │   └── PlaybackViewModel.ets    # Polling, progress, HDR, and reset state
     │   │   ├── components                   # Reusable UI components
@@ -216,6 +227,7 @@ AVCodec/
         │   ├── MediaInfoModel.test.ets      # Media information formatting tests
         │   ├── MediaUtils.test.ets          # File selection and empty file tests
         │   ├── PlaybackInfoModel.test.ets   # Playback status and seek formatting tests
+        │   ├── PlaybackHistoryModel.test.ets # Playback queue/history helper tests
         │   ├── PlaybackViewModel.test.ets   # Playback ViewModel state tests
         │   ├── PlayerSettingsModel.test.ets # Playback setting model tests
         │   ├── SubtitleModel.test.ets       # SRT parsing and cue lookup tests
@@ -285,7 +297,7 @@ The home page provides both playback and recording entry points:
 
 - Playback uses `XComponent({ id: 'player', type: XComponentType.SURFACE, libraryname: 'player' })`. Loading `libplayer.so` lets the Native module unwrap the XComponent and register Surface callbacks through `PluginManager::Export()`.
 - Playback settings are displayed in a scrollable ArkUI `bindSheet`. Decoder type, output mode, and codec mode each occupy one row and open a single-column picker. Decoded-frame dump uses a switch. User-facing labels such as **Automatic**, **Hardware decoder**, **Software decoder**, **SurfaceMode direct output**, and **BufferMode copy output** are mapped to the original Native enum values.
-- Opening the settings sheet creates a temporary copy of `PlayerSettingsModel`. **Apply** validates and commits the complete configuration, **Cancel** discards the temporary copy, and **Restore Defaults** only resets the temporary values until Apply is selected. Audio volume is available from 0% to 100% and is applied immediately to the active output through `OH_AudioRenderer_SetVolume()`. Audio output latency can be Normal or Low and is applied through `OH_AudioStreamBuilder_SetLatencyMode()` when the next AudioRenderer is created. Low latency reduces output buffering but increases underrun risk.
+- Opening the settings sheet creates a temporary copy of `PlayerSettingsModel`. **Apply** validates and commits the complete configuration, **Cancel** discards the temporary copy, and **Restore Defaults** only resets the temporary values until Apply is selected. Audio volume is available from 0% to 100% and is applied immediately to the active output through `OH_AudioRenderer_SetVolume()`. Audio output latency can be Normal or Low and is applied through `OH_AudioStreamBuilder_SetLatencyMode()` when the next AudioRenderer is created. Low latency reduces output buffering but increases underrun risk. The **Auto-hide playback controls** switch applies to both normal and fullscreen modes: controls and the progress bar hide after four seconds of inactivity and reappear when the playback surface is tapped or long-pressed; disabling it keeps them visible.
 - After a source is selected, ArkTS opens the URI with `fileIo.openSync()`, records the fd and file size, and calls the structured `player.play(options, callback)` API.
 - The completion callback returns `{ success, reason }`, where `reason` is `completed`, `stopped`, or `error`. Only an actual error produces the invalid-media prompt.
 - During playback the main button becomes **Stop**. `player.stop()` moves the UI into a stopping state until the shared Native release path invokes the completion callback.
@@ -480,7 +492,7 @@ Release decoder output buffer
 
 The output path validates `offset`, `size`, and buffer capacity before reading PCM. Async and sync modes share the same preparation, queue, accounting, and release behavior.
 
-When a file contains multiple audio tracks, `Demuxer` selects the first audio track by default and accepts an explicit container track index through `PlayOptions.audioTrackIndex`. The **Audio track** control lists the tracks exposed by the media-information snapshot. Selecting another track safely stops the current task and starts a new task with that track. Single-track files produce an explanatory toast. **Mute/Unmute** calls `OH_AudioRenderer_SetVolume()` immediately; unmute restores the volume saved in playback settings.
+When a file contains multiple audio tracks, `Demuxer` selects the first audio track by default and accepts an explicit container track index through `PlayOptions.audioTrackIndex`. The **Audio track** control lists the tracks exposed by the media-information snapshot. During playback, selecting another track rebuilds only the audio decoder, `AudioRenderer`, and audio workers; video decoding, presentation, and the current playback position continue without restarting the video. The new track first discards audio frames older than the current playback position and resumes A/V synchronization after its clock catches up, preventing the video scheduler from dropping a long run of frames while the replacement audio starts. If the new track cannot be configured, the previous track is restored when possible. Single-track files produce an explanatory toast. **Mute/Unmute** calls `OH_AudioRenderer_SetVolume()` immediately; unmute restores the volume saved in playback settings.
 
 <a id="subtitle-playback"></a>
 
@@ -547,6 +559,42 @@ Audio/video seeks use a first-video-frame gate. After recreation, the AudioRende
 Recreating decoders instead of simply flushing them avoids stale callback indexes and reapplies codec configuration that may include SPS/PPS or other initialization data. SurfaceMode, BufferMode, sync mode, and async mode all share this precise-seek policy.
 
 If rebuilding fails, playback enters `STOPPING` and reuses the common `ReleaseWorker` path. A successful seek does not play the preroll interval between the previous sync frame and the requested target.
+
+<a id="playback-queue"></a>
+
+#### Playback Queue and Resume
+
+The queue panel lets the user select multiple media files from File Manager. URIs remain in the current-session queue; when a file completes naturally, the completion callback advances the index and starts the next item automatically. Explicit stop and playback errors do not advance the queue. The same panel lists recent playback entries.
+
+Recent entries are persisted with `@ohos.data.preferences` and contain the URI, display name, last position, duration, and update time. Position writes are throttled. When a URI is opened again and initialization succeeds, the UI performs one precise `seekTo()` after the player enters the playback state. Positions close to the end restart from zero, while the Replay button always starts from zero.
+
+<a id="display-mode"></a>
+
+#### Fullscreen and Display Ratio
+
+The playback controls provide fullscreen and display-ratio choices. Fullscreen uses the main window's `setWindowLayoutFullScreen(true)` and requests landscape orientation; exiting restores the normal layout and portrait orientation. XComponent does not expose an `objectFit` attribute. Surface aspect handling belongs to the NativeWindow presentation path; the UI keeps the selected fit/fill mode without applying Image-only ArkUI APIs, and decoded frames are unchanged.
+
+<a id="playback-diagnostics"></a>
+
+#### Playback Diagnostics
+
+The optional diagnostics overlay reports the player state, position/duration, playback speed, decoded output buffers, presented frames, dropped frames, approximate output FPS, cumulative drop rate, audio buffers submitted to AudioRenderer, active track types, and smart-fluency/HDR Vivid status. Native atomic counters are exposed through structured `getPlaybackInfo()` and refreshed by the UI every 250 ms. Counters reset on stop, failure, or the next playback task; the overlay is read-only and does not participate in rendering or synchronization decisions.
+
+<a id="ab-frame-control"></a>
+
+#### A-B loop and frame stepping
+
+In More playback options, select Set A at the current position and then Set B to enable looping. When playback reaches B, the page calls the structured `seekTo(A)` API. Starting another media item, stopping playback, or clearing the markers resets the loop. B must be later than A.
+
+Previous frame and Next frame derive a frame interval from the media frame rate. If playback is active, the page pauses first, seeks by one frame, and leaves playback paused. During a paused seek, the video workers are temporarily allowed to decode and present the target frame while the audio renderer remains paused; frames before the target are discarded, so the picture, progress, and diagnostics counters update immediately. A 30 fps fallback is used when the container does not expose a valid frame rate.
+
+<a id="pip-background"></a>
+
+#### Picture-in-picture and background playback
+
+The Picture in picture action uses `@ohos.PiPWindow` to create a `VIDEO_PLAY` system PiP controller and reuses the player XComponent's `XComponentController` as the content source. PiP playback, pause, fast-forward, and fast-backward actions are forwarded to the Native player. Unsupported devices and creation failures produce a visible prompt without breaking normal playback.
+
+The Background playback switch controls the PiP controller's `setAutoStartEnabled()` setting. When enabled, returning home may automatically move the current video into PiP; the Native playback workers are not stopped merely because the UI enters the background. When disabled, PiP is not entered automatically, while manual PiP remains available.
 
 <a id="playback-info"></a>
 

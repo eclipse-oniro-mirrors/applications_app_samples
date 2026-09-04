@@ -21,7 +21,9 @@
 #define LOG_TAG "Demuxer"
 
 namespace {
+constexpr size_t CODEC_CONFIG_LOG_BYTES = 2;
 using namespace std;
+constexpr size_t MAX_CODEC_CONFIG_SIZE = 1024 * 1024;
 
 string CopyFormatDump(OH_AVFormat *format)
 {
@@ -71,6 +73,7 @@ int32_t Demuxer::Create(SampleInfo &info)
 
 int32_t Demuxer::ReadSample(int32_t trackId, OH_AVBuffer *buffer, OH_AVCodecBufferAttr &attr)
 {
+    std::lock_guard<std::mutex> lock(demuxerMutex_);
     CHECK_AND_RETURN_RET_LOG(demuxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Demuxer is null");
     int32_t ret = OH_AVDemuxer_ReadSampleBuffer(demuxer_, trackId, buffer);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Read sample failed");
@@ -79,8 +82,66 @@ int32_t Demuxer::ReadSample(int32_t trackId, OH_AVBuffer *buffer, OH_AVCodecBuff
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
+int32_t Demuxer::SelectAudioTrack(int32_t trackIndex, SampleInfo &info)
+{
+    std::lock_guard<std::mutex> lock(demuxerMutex_);
+    CHECK_AND_RETURN_RET_LOG(demuxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Demuxer is null");
+    auto trackFormat = GetTrackFormat(trackIndex);
+    CHECK_AND_RETURN_RET_LOG(trackFormat != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
+        "Get audio track format failed, index: %{public}d", trackIndex);
+    CHECK_AND_RETURN_RET_LOG(GetTrackType(trackFormat) == MEDIA_TYPE_AUD, AVCODEC_SAMPLE_ERR_ERROR,
+        "Selected track is not an audio track, index: %{public}d", trackIndex);
+    char *audioCodecMime = nullptr;
+    OH_AVFormat_GetStringValue(trackFormat.get(), OH_MD_KEY_CODEC_MIME,
+        const_cast<char const **>(&audioCodecMime));
+    CHECK_AND_RETURN_RET_LOG(audioCodecMime != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
+        "Audio track mime is null, index: %{public}d", trackIndex);
+
+    // Parse into a temporary object first. A failed switch must leave both the
+    // current metadata and the demuxer's selected-track set untouched.
+    SampleInfo candidateInfo = info;
+    candidateInfo.audio = AudioSampleInfo {};
+    candidateInfo.audio.trackIndex = trackIndex;
+    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_AUDIO_SAMPLE_FORMAT,
+        &candidateInfo.audio.audioSampleFormat);
+    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_AUD_CHANNEL_COUNT,
+        &candidateInfo.audio.audioChannelCount);
+    OH_AVFormat_GetLongValue(trackFormat.get(), OH_MD_KEY_CHANNEL_LAYOUT,
+        &candidateInfo.audio.audioChannelLayout);
+    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_AUD_SAMPLE_RATE,
+        &candidateInfo.audio.audioSampleRate);
+    OH_AVFormat_GetLongValue(trackFormat.get(), OH_MD_KEY_BITRATE,
+        &candidateInfo.audio.audioBitRate);
+    HandleCodecConfig(trackFormat, candidateInfo);
+    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_AAC_IS_ADTS, &candidateInfo.audio.aacAdts);
+    candidateInfo.audio.audioCodecMime = audioCodecMime;
+
+    // Keep the selected-track set in sync for APIs that require a track to be
+    // selected before seeking or reading. Remove the old audio track first so
+    // the demuxer does not keep advancing an abandoned audio stream.
+    const int32_t previousTrackId = audioTrackId_;
+    if (previousTrackId >= 0 && previousTrackId != trackIndex) {
+        OH_AVDemuxer_UnselectTrackByID(demuxer_, static_cast<uint32_t>(previousTrackId));
+    }
+    if (OH_AVDemuxer_SelectTrackByID(demuxer_, static_cast<uint32_t>(trackIndex)) != AV_ERR_OK) {
+        if (previousTrackId >= 0) {
+            OH_AVDemuxer_SelectTrackByID(demuxer_, static_cast<uint32_t>(previousTrackId));
+        }
+        AVCODEC_SAMPLE_LOGE("Select audio track failed, index: %{public}d", trackIndex);
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
+
+    info.audio = candidateInfo.audio;
+    // ReadSample() uses this explicit container track id for every audio
+    // request. Keep it in sync with the metadata selected above.
+    audioTrackId_ = trackIndex;
+    LogAudioConfig(info, audioCodecMime);
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
 int32_t Demuxer::Release()
 {
+    std::lock_guard<std::mutex> lock(demuxerMutex_);
     if (demuxer_ != nullptr) {
         OH_AVDemuxer_Destroy(demuxer_);
         demuxer_ = nullptr;
@@ -197,13 +258,19 @@ void Demuxer::ProcessAudioTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_
 
 void Demuxer::HandleCodecConfig(std::shared_ptr<OH_AVFormat> trackFormat, SampleInfo &info)
 {
-    uint8_t *codecConfig = nullptr;
-    OH_AVFormat_GetBuffer(trackFormat.get(), OH_MD_KEY_CODEC_CONFIG, &codecConfig, &info.audio.codecConfigLen);
-    
-    if (codecConfig != nullptr && info.audio.codecConfigLen > 0 &&
-        info.audio.codecConfigLen < sizeof(info.audio.codecConfig)) {
-        copy(codecConfig, codecConfig + info.audio.codecConfigLen, info.audio.codecConfig);
+    uint8_t *sourceCodecConfig = nullptr;
+    size_t sourceLength = 0;
+    info.audio.codecConfigLen = 0;
+    info.audio.codecConfig.clear();
+    OH_AVFormat_GetBuffer(trackFormat.get(), OH_MD_KEY_CODEC_CONFIG, &sourceCodecConfig, &sourceLength);
+
+    if (sourceCodecConfig != nullptr && sourceLength > 0 && sourceLength <= MAX_CODEC_CONFIG_SIZE) {
+        info.audio.codecConfigLen = sourceLength;
+        info.audio.codecConfig.assign(sourceCodecConfig, sourceCodecConfig + sourceLength);
         LogCodecConfigDetails(info);
+    } else if (sourceLength > MAX_CODEC_CONFIG_SIZE) {
+        AVCODEC_SAMPLE_LOGW("Codec config is too large, skip it, size: %{public}zu, limit: %{public}zu",
+            sourceLength, MAX_CODEC_CONFIG_SIZE);
     }
 }
 
@@ -228,10 +295,14 @@ void Demuxer::LogAudioConfig(const SampleInfo &info, const char *audioCodecMime)
 
 void Demuxer::LogCodecConfigDetails(const SampleInfo &info)
 {
+    if (info.audio.codecConfigLen < CODEC_CONFIG_LOG_BYTES ||
+        info.audio.codecConfig.size() < CODEC_CONFIG_LOG_BYTES) {
+        return;
+    }
     AVCODEC_SAMPLE_LOGI("codecConfig:%{public}p, len:%{public}i, 0:0x%{public}02x 1:0x:%{public}02x, bufLen:%{public}u",
-                        info.audio.codecConfig, static_cast<int>(info.audio.codecConfigLen),
+                        info.audio.codecConfig.data(), static_cast<int>(info.audio.codecConfigLen),
                         info.audio.codecConfig[0], info.audio.codecConfig[1],
-                        static_cast<unsigned int>(sizeof(info.audio.codecConfig)));
+                        static_cast<unsigned int>(info.audio.codecConfig.size()));
 }
 
 int32_t Demuxer::GetVideoTrackId() { return videoTrackId_; }
@@ -239,6 +310,7 @@ int32_t Demuxer::GetAudioTrackId() { return audioTrackId_; }
 
 int32_t Demuxer::Seek(int64_t positionMs, OH_AVSeekMode mode)
 {
+    std::lock_guard<std::mutex> lock(demuxerMutex_);
     int32_t ret = OH_AVDemuxer_SeekToTime(demuxer_, positionMs, mode);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Seek failed");
     return AVCODEC_SAMPLE_ERR_OK;

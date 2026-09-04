@@ -40,6 +40,7 @@ export default function playerSettingsModelTest(): void {
         expect(model.convertHdrVividToBt709).assertTrue();
         expect(model.enableAudioLowLatency).assertTrue();
         expect(model.audioVolume).assertEqual(100);
+        expect(model.autoHideControls).assertTrue();
       });
     });
 

@@ -73,7 +73,11 @@ bool PopulatePlaybackInfo(napi_env env, napi_value object, const PlaybackInfo &i
         SetBoolProperty(env, object, "hasVideo", info.hasVideo) &&
         SetBoolProperty(env, object, "hasAudio", info.hasAudio) &&
         SetBoolProperty(env, object, "isSmartFluencyAvailable", info.smartFluencyAvailable) &&
-        SetBoolProperty(env, object, "isHdrVividConfirmed", info.hdrVividConfirmed);
+        SetBoolProperty(env, object, "isHdrVividConfirmed", info.hdrVividConfirmed) &&
+        SetInt64Property(env, object, "videoOutputFrames", static_cast<int64_t>(info.videoOutputFrames)) &&
+        SetInt64Property(env, object, "videoRenderedFrames", static_cast<int64_t>(info.videoRenderedFrames)) &&
+        SetInt64Property(env, object, "videoDroppedFrames", static_cast<int64_t>(info.videoDroppedFrames)) &&
+        SetInt64Property(env, object, "audioOutputBuffers", static_cast<int64_t>(info.audioOutputBuffers));
 }
 
 bool PopulateVideoMediaInfo(napi_env env, napi_value object, const MediaInfo &info)

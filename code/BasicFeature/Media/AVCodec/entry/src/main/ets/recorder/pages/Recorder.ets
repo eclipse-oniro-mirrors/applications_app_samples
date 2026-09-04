@@ -487,6 +487,8 @@ export struct Recorder {
         }
 
         Button(this.buttonText)
+          .backgroundColor('#E67E22')
+          .fontColor(Color.White)
           .onClick(async () => {
             if (this.buttonText == this.START_RECORDER) {
               this.buttonText = this.STOP_RECORDER;
