@@ -27,8 +27,13 @@ struct MenuPanel {
 
   CreateMainPanel() {
     this.selectionInfo = SelectionModel.getInstance().getSelectionInfo();
-    if (SelectionModel.getInstance().getSelectionPanel() !== undefined) {
-      hilog.info(0x0000, 'SelectionExtensionAbility', 'Main panel already exists, skip creating.');
+    let existingPanel = SelectionModel.getInstance().getSelectionPanel();
+    if (existingPanel !== undefined) {
+      try {
+        existingPanel.show();
+      } catch (error) {
+        SelectionModel.getInstance().setSelectionPanel(undefined);
+      }
       return;
     }
     let panelInfo: PanelInfo = {
@@ -48,6 +53,7 @@ struct MenuPanel {
         try {
           panel.on('destroyed', () => {
             hilog.info(0x0000, 'SelectionExtensionAbility', 'panel has destroyed');
+            SelectionModel.getInstance().setSelectionPanel(undefined);
           })
         } catch (error) {
           hilog.info(0x0000, 'SelectionExtensionAbility', 'Failed to listen window destroy');
