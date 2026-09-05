@@ -106,6 +106,8 @@ void ShowImage(OH_ImageNative *image)
     uint64_t xComponentSurfaceId = std::stoull(g_xComponentSurfaceIdSlave);
     OHNativeWindow *nativeWindow = nullptr;
     int32_t res = OH_NativeWindow_CreateNativeWindowFromSurfaceId(xComponentSurfaceId, &nativeWindow);
+    OH_LOG_INFO(LOG_APP, "ImageReceiverNativeCTest %{public}s XComponentId is : %{public}lu.",
+        __func__, xComponentSurfaceId);
     if (res != 0) {
         OH_LOG_ERROR(LOG_APP,
             "ShowImage CreateNativeWindowFromSurfaceId failed, errCode: %{public}d.", res);
