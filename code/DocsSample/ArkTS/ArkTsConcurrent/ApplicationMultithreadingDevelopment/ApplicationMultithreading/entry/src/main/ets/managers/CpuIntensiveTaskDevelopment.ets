@@ -26,7 +26,7 @@ let done = false;
 
 // 接收Worker子线程的结果
 workerInstance.onmessage = (() => {
-  console.info('MyWorker.ts onmessage');
+  console.info('MyWorker.ets onmessage');
   if (!done) {
     // 执行预测，传入预测条件
     workerInstance.postMessage({ 'type': 1, 'area': 80, 'room': 4 });
