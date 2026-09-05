@@ -19,7 +19,7 @@ import { BusinessError } from '@kit.BasicServicesKit'; // 导入BusinessError。
 import { fileIo as fs } from '@kit.CoreFileKit'; // 导入文件操作模块。
 import { common } from '@kit.AbilityKit'; // 导入UIAbilityContext。
 
-// 与使用AudioRenderer开发音频播放功能过程相似,关键区别在于audioRendererInfo参数和音频数据来源。
+// 与使用AudioRenderer开发音频播放功能过程相似，关键区别在于audioRendererInfo参数和音频数据来源。
 const TAG = 'VoIPDemoForAudioRenderer';
 
 class Options {
@@ -37,8 +37,8 @@ let audioStreamInfo: audio.AudioStreamInfo = {
 };
 let audioRendererInfo: audio.AudioRendererInfo = {
   // 需使用通话场景相应的参数。
-  usage: audio.StreamUsage.STREAM_USAGE_VOICE_COMMUNICATION, // 音频流使用类型:VoIP通话。
-  rendererFlags: 0 // 音频渲染器标志:默认为0即可。
+  usage: audio.StreamUsage.STREAM_USAGE_VOICE_COMMUNICATION, // 音频流使用类型：VoIP通话。
+  rendererFlags: 0 // 音频渲染器标志：默认为0即可。
 };
 let audioRendererOptions: audio.AudioRendererOptions = {
   streamInfo: audioStreamInfo,
@@ -53,7 +53,7 @@ let globalCallbackUpdate: ((msg: string) => void) | undefined;
 // [EndExclude all_VoIPDemoForAudioRenderer]
 async function initArguments(context: common.UIAbilityContext) {
   let path = context.cacheDir;
-  // 此处仅作示例,实际使用时需要将文件替换为应用要播放的PCM文件。
+  // 此处仅作示例，实际使用时需要将文件替换为应用要播放的PCM文件。
   let filePath = path + '/StarWars10s-2C-48000-4SW.pcm';
   file = fs.openSync(filePath, fs.OpenMode.READ_ONLY);
   writeDataCallback = (buffer: ArrayBuffer) => {
@@ -65,16 +65,16 @@ async function initArguments(context: common.UIAbilityContext) {
     try {
       let bufferLength = fs.readSync(file.fd, buffer, options);
       bufferSize += buffer.byteLength;
-      // 如果当前回调传入的数据不足一帧,空白区域需要使用静音数据填充,否则会导致播放出现杂音。
+      // 如果当前回调传入的数据不足一帧，空白区域需要使用静音数据填充，否则会导致播放出现杂音。
       if (bufferLength < buffer.byteLength) {
         let view = new DataView(buffer);
         for (let i = bufferLength; i < buffer.byteLength; i++) {
-          // 空白区域填充静音数据。当使用音频采样格式为SAMPLE_FORMAT_U8时0x7F为静音数据,使用其他采样格式时0为静音数据。
+          // 空白区域填充静音数据。当使用音频采样格式为SAMPLE_FORMAT_U8时0x80为静音数据，使用其他采样格式时0为静音数据。本示例采样格式为SAMPLE_FORMAT_S16LE，因此静音数据填充0。
           view.setUint8(i, 0);
         }
       }
-      // API version 11不支持返回回调结果,从API version 12开始支持返回回调结果。
-      // 如果开发者不希望播放某段buffer,返回audio.AudioDataCallbackResult.INVALID即可。
+      // API version 11不支持返回回调结果，从API version 12开始支持返回回调结果。
+      // 如果开发者不希望播放某段buffer，返回audio.AudioDataCallbackResult.INVALID即可。
       return audio.AudioDataCallbackResult.VALID;
     } catch (error) {
       console.error('Error reading file:', error);
@@ -82,13 +82,13 @@ async function initArguments(context: common.UIAbilityContext) {
       if (globalLogUpdate) {
         globalLogUpdate(`Error reading file: ${error}`, true);
       }
-      // API version 11不支持返回回调结果,从API version 12开始支持返回回调结果。
+      // API version 11不支持返回回调结果，从API version 12开始支持返回回调结果。
       return audio.AudioDataCallbackResult.INVALID;
     }
   };
 }
 
-// 初始化,创建实例,设置监听事件。
+// 初始化，创建实例，设置监听事件。
 async function init() {
   audio.createAudioRenderer(audioRendererOptions, (err, renderer) => { // 创建AudioRenderer实例。
     if (!err) {
@@ -226,10 +226,10 @@ async function stop() {
   }
 }
 
-// 销毁实例,释放资源。
+// 销毁实例，释放资源。
 async function release() {
   if (audioRenderer !== undefined) {
-    // 渲染器状态不是released状态,才能release。
+    // 渲染器状态不是released状态，才能release。
     if (audioRenderer.state.valueOf() === audio.AudioState.STATE_RELEASED) {
       console.info('Renderer already released');
       // [StartExclude all_VoIPDemoForAudioRenderer]
