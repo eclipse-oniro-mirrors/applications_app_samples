@@ -21,9 +21,9 @@ let tmp = one;
 one = two;
 two = tmp;
 
-let data: Number[] = [1, 2, 3, 4];
+let data: number[] = [1, 2, 3, 4];
 let head = data[0];
-let tail: Number[] = [];
+let tail: number[] = [];
 for (let i = 1; i < data.length; ++i) {
   tail.push(data[i]);
 }
