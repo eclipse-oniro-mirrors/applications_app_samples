@@ -147,19 +147,19 @@ struct ChildComponent {
   @Require @Param data: string;
 
   aboutToAppear(): void {
-    hilog.info(DOMAIN, TAG, 'ChildComponent aboutToAppear', this.data);
+    hilog.info(DOMAIN, TAG, `ChildComponent aboutToAppear ${this.data}`);
   }
 
   aboutToDisappear(): void {
-    hilog.info(DOMAIN, TAG, 'ChildComponent aboutToDisappear', this.data);
+    hilog.info(DOMAIN, TAG, `ChildComponent aboutToDisappear ${this.data}`);
   }
 
   aboutToReuse(): void {
-    hilog.info(DOMAIN, TAG, 'ChildComponent aboutToReuse', this.data); // 复用时触发
+    hilog.info(DOMAIN, TAG, `ChildComponent aboutToReuse ${this.data}`); // 复用时触发
   }
 
   aboutToRecycle(): void {
-    hilog.info(DOMAIN, TAG, 'ChildComponent aboutToRecycle', this.data); // 回收时触发
+    hilog.info(DOMAIN, TAG, `ChildComponent aboutToRecycle ${this.data}`); // 回收时触发
   }
 
   build() {

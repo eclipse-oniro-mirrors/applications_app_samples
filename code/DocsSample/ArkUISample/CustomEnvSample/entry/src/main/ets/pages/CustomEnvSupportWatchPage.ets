@@ -46,13 +46,13 @@ struct WatchChild {
 
   // Watch回调
   onParentValChanged() {
-    hilog.info(0x0000, 'testTag','@Watch message update');
+    hilog.info(0x0000, 'testTag', '@Watch message update');
   }
 
   build() {
     Column() {
       Text('parentVal is: ' + this.parentVal)
-        .fontSize(22);
+        .fontSize(22)
     }
     .height('100%')
     .width('100%')
