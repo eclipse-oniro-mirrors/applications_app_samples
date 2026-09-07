@@ -146,6 +146,7 @@ struct Index {
               // 授权成功。
             } catch (err) {
               hilog.error(0xFF00, '[Sample_pasteboard]', 'Failed to request permissions from user.');
+              return;
             }
             // 用户授权，使用get操作读取剪贴板内容。
             // [StartExclude pasteboard_permission]
