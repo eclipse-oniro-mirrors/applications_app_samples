@@ -87,7 +87,7 @@ class SelectionExtAbility extends SelectionExtensionAbility {
           hilog.info(0x0000, 'SelectionExtensionAbility', 'panel has hidden.');
         })
       } catch (error) {
-        hilog.info(0x0000, 'SelectionExtensionAbility', 'Failed to listen panel hidden');
+        hilog.error(0x0000, 'SelectionExtensionAbility', 'Failed to listen panel hidden');
       }
       await panel.setUiContent('pages/MenuPanel')   // 设置菜单面板样式
     } catch(error) {
@@ -115,7 +115,7 @@ class SelectionExtAbility extends SelectionExtensionAbility {
         await panelTemp.moveToGlobalDisplay(info.startDisplayX, info.startDisplayY)    // 将弹窗移动到用户鼠标划词的起始点
         hilog.info(0x0000, 'SelectionExtensionAbility', 'Move succeed.');
       } catch (error) {
-        hilog.info(0x0000, 'SelectionExtensionAbility',
+        hilog.error(0x0000, 'SelectionExtensionAbility',
           `Failed to move, error code: ${error.code}, error message: ${error.message}`);
         return;
       }
@@ -124,7 +124,7 @@ class SelectionExtAbility extends SelectionExtensionAbility {
         await panelTemp.show()    // 显示弹窗
         hilog.info(0x0000, 'SelectionExtensionAbility', 'Show succeed.');
       } catch (error) {
-        hilog.info(0x0000, 'SelectionExtensionAbility',
+        hilog.error(0x0000, 'SelectionExtensionAbility',
           `Failed to show panel, error code: ${error.code}, error message: ${error.message}`);
         return;
       }

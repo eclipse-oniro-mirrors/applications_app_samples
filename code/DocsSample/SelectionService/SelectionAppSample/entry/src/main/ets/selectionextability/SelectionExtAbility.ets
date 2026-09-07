@@ -69,13 +69,13 @@ class SelectionExtAbility extends SelectionExtensionAbility {
           hilog.info(0x0000, 'SelectionExtensionAbility', 'panel has hidden.');
         })
       } catch (error) {
-        hilog.info(0x0000, 'SelectionExtensionAbility', 'Failed to listen panel hidden');
+        hilog.error(0x0000, 'SelectionExtensionAbility', 'Failed to listen panel hidden');
       }
       try {
         await panel.setUiContent('pages/MenuPanel')   // 设置菜单面板样式
         hilog.info(0x0000, 'SelectionExtensionAbility', 'Succeed to setUiContent [pages/MenuPanel].');
       } catch (error) {
-        hilog.info(0x0000, 'SelectionExtensionAbility', `Failed to setUiContent, error: ${JSON.stringify(error)}`);
+        hilog.error(0x0000, 'SelectionExtensionAbility', `Failed to setUiContent, error: ${JSON.stringify(error)}`);
       }
     } catch(error) {
       hilog.info(0x0000, 'SelectionExtensionAbility', `Failed to createPanel, error: ${JSON.stringify(error)}`);
@@ -88,7 +88,7 @@ class SelectionExtAbility extends SelectionExtensionAbility {
       let content = await selectionManager.getSelectionContent();   // 获取划词内容
       SelectionModel.getInstance().setSelectionContent(content);
     } catch (error) {
-      hilog.info(0x0000, 'SelectionExtensionAbility', `Failed to get selection content: ${JSON.stringify(error)}`);
+      hilog.error(0x0000, 'SelectionExtensionAbility', `Failed to get selection content: ${JSON.stringify(error)}`);
       return;
     }
     if (!this.panel_) {
@@ -99,7 +99,7 @@ class SelectionExtAbility extends SelectionExtensionAbility {
       await this.panel_.moveToGlobalDisplay(info.startDisplayX, info.startDisplayY)    // 将弹窗移动到用户鼠标划词的起始点
       hilog.info(0x0000, 'SelectionExtensionAbility', 'Move succeed.');
     } catch (error) {
-      hilog.info(0x0000, 'SelectionExtensionAbility', `Failed to move, error: ${JSON.stringify(error)}`);
+      hilog.error(0x0000, 'SelectionExtensionAbility', `Failed to move, error: ${JSON.stringify(error)}`);
       return;
     }
 
@@ -107,7 +107,7 @@ class SelectionExtAbility extends SelectionExtensionAbility {
       await this.panel_.show()    // 显示弹窗
       hilog.info(0x0000, 'SelectionExtensionAbility', 'Show succeed.');
     } catch (error) {
-      hilog.info(0x0000, 'SelectionExtensionAbility', `Failed to show panel, error: ${JSON.stringify(error)}`);
+      hilog.error(0x0000, 'SelectionExtensionAbility', `Failed to show panel, error: ${JSON.stringify(error)}`);
       return;
     }
   }

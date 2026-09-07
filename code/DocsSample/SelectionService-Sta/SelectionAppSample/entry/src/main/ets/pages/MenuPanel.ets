@@ -65,13 +65,13 @@ struct MenuPanel {
               SelectionModel.getInstance()?.setSelectionPanel(undefined);
             })
           } catch (error) {
-            hilog.info(0x0000, 'SelectionExtensionAbility', 'Failed to listen window destroy');
+            hilog.error(0x0000, 'SelectionExtensionAbility', 'Failed to listen window destroy');
           }
           try {
             await panel.setUiContent('pages/MainPanel');
             hilog.info(0x0000, 'SelectionExtensionAbility', 'Succeed to setUiContent [pages/MainPanel].');
           } catch (error) {
-            hilog.info(0x0000, 'SelectionExtensionAbility',
+            hilog.error(0x0000, 'SelectionExtensionAbility',
               `Failed to setUiContent of main panel, error code: ${error.code}, error message: ${error.message}`);
             return;
           }
@@ -80,7 +80,7 @@ struct MenuPanel {
             await panel.show();
             hilog.info(0x0000, 'SelectionExtensionAbility', 'Succeed to show main panel.');
           } catch (error) {
-            hilog.info(0x0000, 'SelectionExtensionAbility',
+            hilog.error(0x0000, 'SelectionExtensionAbility',
               `Failed to show main panel, error code: ${error.code}, error message: ${error.message}`);
           }
         })
