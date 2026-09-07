@@ -10,7 +10,7 @@
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "ClipShape"
     },{
       "name": "EntryAbility_title1",
       "value": "裁剪圆形"
@@ -23,6 +23,9 @@
     },{
       "name": "EntryAbility_title4",
       "value": "裁剪不规则形状"
+    },{
+      "name": "ClipShapeIndex",
+      "value": "ClipShape"
     }
   ]
 }
