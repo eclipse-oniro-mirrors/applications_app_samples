@@ -129,6 +129,7 @@ struct Index {
     } catch (err) {
       let error = err as BusinessError;
       hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to request permissions from user. Cause: ${error.message}`);
+      return;
     }
     // 用户授权，使用get操作读取剪贴板内容。
     // [StartExclude pasteboard_permission]
