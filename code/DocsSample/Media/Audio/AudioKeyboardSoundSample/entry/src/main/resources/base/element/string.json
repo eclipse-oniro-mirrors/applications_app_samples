@@ -1,0 +1,14 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "键盘音示例入口模块" },
+    { "name": "EntryAbility_desc", "value": "按键音示例" },
+    { "name": "EntryAbility_label", "value": "按键音示例" },
+    { "name": "title", "value": "按键音打断音视频示例" },
+    { "name": "description", "value": "请先在外部打开音乐或视频播放，然后点击下方按钮测试按键音是否打断外部音视频。" },
+    { "name": "default_button", "value": "默认场景(MUSIC，会打断)" },
+    { "name": "solution_button", "value": "解决方案(NOTIFICATION + MIX)" },
+    { "name": "default_count", "value": "已点击 %d 次" },
+    { "name": "solution_count", "value": "已点击 %d 次" },
+    { "name": "explanation", "value": "默认场景：MUSIC流类型，与外部音视频默认策略STOP，打断后不恢复。\n\n解决方案：NOTIFICATION流类型 + activateAudioSession(CONCURRENCY_MIX_WITH_OTHERS)，播放时激活MIX，结束后停用恢复默认策略。" }
+  ]
+}

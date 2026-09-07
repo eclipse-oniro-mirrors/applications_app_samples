@@ -1,0 +1,2 @@
+# Obfuscation rules for this project.
+# Adjust the applied configuration files as needed.
