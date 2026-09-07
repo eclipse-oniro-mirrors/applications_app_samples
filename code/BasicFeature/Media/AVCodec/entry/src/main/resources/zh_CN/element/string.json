@@ -201,6 +201,10 @@
       "value": "音频输出低时延"
     },
     {
+      "name": "setting_auto_hide_controls",
+      "value": "播放控件自动隐藏"
+    },
+    {
       "name": "setting_codec",
       "value": "编码格式"
     },
@@ -440,6 +444,15 @@
       "name": "playback_replay",
       "value": "重播"
     },
+    { "name": "playback_more", "value": "更多" },
+    { "name": "playback_more_title", "value": "更多播放选项" },
+    { "name": "playback_queue", "value": "播放队列" },
+    { "name": "playback_diagnostics", "value": "性能诊断" },
+    { "name": "playback_diagnostics_close", "value": "关闭诊断" },
+    { "name": "playback_fullscreen", "value": "全屏" },
+    { "name": "playback_exit_fullscreen", "value": "退出全屏" },
+    { "name": "playback_display_scale", "value": "显示比例" },
+    { "name": "playback_resume_position", "value": "已恢复上次播放位置" },
     { "name": "playback_mute", "value": "静音" },
     { "name": "playback_unmute", "value": "取消静音" },
     { "name": "playback_audio_track", "value": "音轨" },
@@ -449,6 +462,26 @@
     { "name": "playback_subtitle_loaded", "value": "SRT 字幕已加载" },
     { "name": "playback_subtitle_empty", "value": "SRT 字幕无有效内容" },
     { "name": "playback_subtitle_failed", "value": "SRT 字幕加载失败" },
+    { "name": "playback_ab_set_start", "value": "设置 A 点" },
+    { "name": "playback_ab_set_start_done", "value": "A 点已设置" },
+    { "name": "playback_ab_set_end", "value": "设置 B 点" },
+    { "name": "playback_ab_set_end_done", "value": "B 点已启用" },
+    { "name": "playback_ab_clear", "value": "清除 A-B" },
+    { "name": "playback_ab_start_set", "value": "A 点已设置" },
+    { "name": "playback_ab_start_required", "value": "请先设置 A 点" },
+    { "name": "playback_ab_end_invalid", "value": "B 点必须晚于 A 点" },
+    { "name": "playback_ab_enabled", "value": "A-B 循环已启用" },
+    { "name": "playback_previous_frame", "value": "上一帧" },
+    { "name": "playback_next_frame", "value": "下一帧" },
+    { "name": "playback_frame_step_failed", "value": "单帧跳转失败" },
+    { "name": "playback_pip_enter", "value": "画中画" },
+    { "name": "playback_pip_exit", "value": "退出画中画" },
+    { "name": "playback_pip_unsupported", "value": "当前设备不支持画中画" },
+    { "name": "playback_pip_failed", "value": "画中画启动失败" },
+    { "name": "playback_background_on", "value": "后台播放：开" },
+    { "name": "playback_background_off", "value": "后台播放：关" },
+    { "name": "playback_background_enabled", "value": "已允许后台自动进入画中画" },
+    { "name": "playback_background_disabled", "value": "已关闭后台自动进入画中画" },
     {
       "name": "seek_failed",
       "value": "无法跳转到所选播放位置。"
@@ -504,6 +537,34 @@
     {
       "name": "media_info_subtitle",
       "value": "解封装媒体源、轨道与解码输出详情"
-    }
+    },
+    { "name": "playback_display_scale_fit", "value": "适应窗口" },
+    { "name": "playback_display_scale_fill", "value": "铺满窗口" },
+    { "name": "playback_audio_track_switched", "value": " 已切换" },
+    { "name": "playback_queue_add", "value": "添加到播放队列" },
+    { "name": "playback_queue_clear", "value": "清空队列" },
+    { "name": "playback_queue_current", "value": "当前队列（播放结束后自动播放下一项）" },
+    { "name": "playback_queue_playing", "value": "播放中" },
+    { "name": "playback_recent", "value": "最近播放" },
+    { "name": "playback_recent_empty", "value": "暂无播放记录" },
+    { "name": "playback_recent_position", "value": "上次播放至 " },
+    { "name": "playback_recent_completed", "value": "已播放完成" },
+    { "name": "playback_recent_play", "value": "播放" },
+    { "name": "playback_queue_sheet_title", "value": "播放队列与最近播放" },
+    { "name": "playback_diagnostics_state", "value": "状态 " },
+    { "name": "playback_diagnostics_position", "value": "位置 " },
+    { "name": "playback_diagnostics_speed", "value": "  速度 X" },
+    { "name": "playback_diagnostics_output", "value": "输出 " },
+    { "name": "playback_diagnostics_rendered", "value": "  送显 " },
+    { "name": "playback_diagnostics_dropped", "value": "  丢帧 " },
+    { "name": "playback_diagnostics_output_fps", "value": "输出帧率 " },
+    { "name": "playback_diagnostics_drop_rate", "value": "  丢帧率 " },
+    { "name": "playback_diagnostics_audio_buffers", "value": "音频输出 Buffer " },
+    { "name": "playback_diagnostics_smart_fluency", "value": "智能流畅 " },
+    { "name": "playback_diagnostics_hdr_vivid", "value": "  HDR Vivid " },
+    { "name": "playback_diagnostics_available", "value": "可用" },
+    { "name": "playback_diagnostics_unavailable", "value": "不可用" },
+    { "name": "playback_diagnostics_confirmed", "value": "已确认" },
+    { "name": "playback_diagnostics_unconfirmed", "value": "未确认" }
   ]
 }

@@ -32,30 +32,47 @@ export default class EntryAbility extends UIAbility {
     // Main window is created, set main page for this ability
     Logger.info('Ability onWindowStageCreate');
 
-    windowStage.getMainWindowSync().setWindowKeepScreenOn(true);
-    windowStage.loadContent('pages/Index', (err, data) => {
-      if (err.code) {
-        Logger.error('Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
-        return;
-      }
-      AppStorage.setOrCreate('context', windowStage.getMainWindowSync().getUIContext());
-      Logger.info('Succeeded in loading the content. Data: %{public}s', JSON.stringify(data) ?? '');
-    })
-    let windowClass: window.Window = windowStage.getMainWindowSync(); // 获取应用主窗口
-    // Set the window to full screen
-    let isLayoutFullScreen = true;
-    windowClass.setWindowLayoutFullScreen(isLayoutFullScreen)
+    const windowClass: window.Window = windowStage.getMainWindowSync(); // 获取应用主窗口
+    windowClass.setWindowKeepScreenOn(true);
+    const loadMainPage = (): void => {
+      windowStage.loadContent('pages/Index', (err, data) => {
+        if (err.code) {
+          Logger.error('Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+          return;
+        }
+        AppStorage.setOrCreate('context', windowClass.getUIContext());
+        Logger.info('Succeeded in loading the content. Data: %{public}s', JSON.stringify(data) ?? '');
+      });
+    };
+    const systemBarProperties: window.SystemBarProperties = {
+      statusBarColor: '#000000',
+      navigationBarColor: '#000000',
+      statusBarContentColor: '#FFFFFF',
+      navigationBarContentColor: '#FFFFFF',
+      isStatusBarLightIcon: false,
+      isNavigationBarLightIcon: false
+    };
+    // Keep the initial window layout consistent with the page's non-fullscreen
+    // state. Fullscreen is entered explicitly from the playback controls.
+    windowClass.setWindowLayoutFullScreen(false)
       .then(() => {
-        Logger.info('Succeeded in setting the window layout to full-screen mode.');
+        Logger.info('Succeeded in setting the initial window layout.');
+        // Explicitly enable both system bars before applying their colors.
+        // This avoids a transient/default white navigation area on startup.
+        return windowClass.setWindowSystemBarEnable(['status', 'navigation']);
+      })
+      .then(() => {
+        return windowClass.setWindowSystemBarProperties(systemBarProperties);
+      })
+      .then(() => {
+        // Load the page only after the initial window colors are in place.
+        loadMainPage();
       })
       .catch((err: BusinessError) => {
-        Logger.error('Failed to set the window layout to full-screen mode.', JSON.stringify(err) ?? '');
-      })
-    // Set the font color of the status bar.
-    let systemBarProperties: window.SystemBarProperties = {
-      statusBarContentColor: '#FFFFFF'
-    };
-    windowStage.getMainWindowSync().setWindowSystemBarProperties(systemBarProperties);
+        Logger.error('Failed to set the initial window layout.', JSON.stringify(err) ?? '');
+        // A layout API failure must not prevent the page from opening.
+        loadMainPage();
+      });
   }
 
   onWindowStageDestroy() {

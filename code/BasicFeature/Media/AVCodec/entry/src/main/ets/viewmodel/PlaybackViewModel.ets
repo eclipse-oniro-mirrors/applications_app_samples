@@ -19,9 +19,20 @@ export class PlaybackViewModel {
   public hasVideo: boolean;
   public isHdrVividConfirmed: boolean;
   public isSmartFluencyAvailable: boolean;
+  public videoOutputFrames: number;
+  public videoRenderedFrames: number;
+  public videoDroppedFrames: number;
+  public audioOutputBuffers: number;
+  public speed: number;
+  public hasAudio: boolean;
+  public videoOutputFps: number;
+  public videoDropRatePercent: number;
   public seekPreviewFrame: PixelMap | undefined;
+  public seekPreviewRotation: number;
   public onPlaybackPositionChanged: ((positionUs: number) => void) | undefined;
   private updateTimer: number;
+  private lastStatsTimeMs: number;
+  private lastOutputFrames: number;
 
   constructor() {
     this.infoText = '';
@@ -33,9 +44,20 @@ export class PlaybackViewModel {
     this.hasVideo = false;
     this.isHdrVividConfirmed = false;
     this.isSmartFluencyAvailable = false;
+    this.videoOutputFrames = 0;
+    this.videoRenderedFrames = 0;
+    this.videoDroppedFrames = 0;
+    this.audioOutputBuffers = 0;
+    this.speed = 1.0;
+    this.hasAudio = false;
+    this.videoOutputFps = 0;
+    this.videoDropRatePercent = 0;
     this.seekPreviewFrame = undefined;
+    this.seekPreviewRotation = 0;
     this.onPlaybackPositionChanged = undefined;
     this.updateTimer = 0;
+    this.lastStatsTimeMs = 0;
+    this.lastOutputFrames = 0;
   }
 
   startUpdates(): void {
@@ -55,6 +77,22 @@ export class PlaybackViewModel {
     const info = player.getPlaybackInfo();
     this.isHdrVividConfirmed = info.isHdrVividConfirmed;
     this.isSmartFluencyAvailable = info.isSmartFluencyAvailable;
+    this.videoOutputFrames = info.videoOutputFrames;
+    this.videoRenderedFrames = info.videoRenderedFrames;
+    this.videoDroppedFrames = info.videoDroppedFrames;
+    this.audioOutputBuffers = info.audioOutputBuffers;
+    this.speed = info.speed;
+    this.hasAudio = info.hasAudio;
+    const nowMs: number = Date.now();
+    if (this.lastStatsTimeMs > 0 && nowMs > this.lastStatsTimeMs) {
+      const elapsedSeconds: number = (nowMs - this.lastStatsTimeMs) / 1000;
+      this.videoOutputFps = Math.max(0, (info.videoOutputFrames - this.lastOutputFrames) / elapsedSeconds);
+    }
+    const totalVideoFrames: number = info.videoOutputFrames;
+    this.videoDropRatePercent = totalVideoFrames > 0 ?
+      info.videoDroppedFrames * 100 / totalVideoFrames : 0;
+    this.lastStatsTimeMs = nowMs;
+    this.lastOutputFrames = info.videoOutputFrames;
     this.state = info.state;
     this.hasVideo = info.hasVideo;
     this.durationUs = Math.max(0, info.durationUs);
@@ -86,6 +124,17 @@ export class PlaybackViewModel {
     this.hasVideo = false;
     this.isHdrVividConfirmed = false;
     this.isSmartFluencyAvailable = false;
+    this.videoOutputFrames = 0;
+    this.videoRenderedFrames = 0;
+    this.videoDroppedFrames = 0;
+    this.audioOutputBuffers = 0;
+    this.speed = 1.0;
+    this.hasAudio = false;
+    this.videoOutputFps = 0;
+    this.videoDropRatePercent = 0;
     this.seekPreviewFrame = undefined;
+    this.seekPreviewRotation = 0;
+    this.lastStatsTimeMs = 0;
+    this.lastOutputFrames = 0;
   }
 }

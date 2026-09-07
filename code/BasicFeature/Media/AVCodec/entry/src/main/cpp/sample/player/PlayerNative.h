@@ -26,6 +26,7 @@ public:
     static napi_value Pause(napi_env env, napi_callback_info info);
     static napi_value Resume(napi_env env, napi_callback_info info);
     static napi_value SeekTo(napi_env env, napi_callback_info info);
+    static napi_value SelectAudioTrack(napi_env env, napi_callback_info info);
     static napi_value GetState(napi_env env, napi_callback_info info);
     static napi_value GetPlaybackInfo(napi_env env, napi_callback_info info);
     static napi_value GetMediaInfo(napi_env env, napi_callback_info info);

@@ -89,7 +89,7 @@ struct AudioSampleInfo {
     int64_t audioChannelLayout = 0;
     int64_t audioBitRate = 0;
     int32_t audioMaxInputSize = 0;
-    uint8_t codecConfig[1024] = { 0 };
+    std::vector<uint8_t> codecConfig;
     size_t codecConfigLen = 0;
     int32_t aacAdts = -1;
     int32_t audioLatencyMode = 0;

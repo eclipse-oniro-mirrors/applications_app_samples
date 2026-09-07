@@ -17,6 +17,7 @@
 #define VIDEO_CODEC_PLAYER_H
 
 #include <bits/alltypes.h>
+#include <cstdint>
 #include <mutex>
 #include <memory>
 #include <atomic>
@@ -54,6 +55,10 @@ struct PlaybackInfo {
     bool hasAudio = false;
     bool smartFluencyAvailable = false;
     bool hdrVividConfirmed = false;
+    uint64_t videoOutputFrames = 0;
+    uint64_t videoRenderedFrames = 0;
+    uint64_t videoDroppedFrames = 0;
+    uint64_t audioOutputBuffers = 0;
 };
 
 struct MediaInfo {
@@ -97,6 +102,7 @@ public:
     int32_t Pause();
     int32_t Resume();
     int32_t SeekTo(int64_t positionUs);
+    int32_t SelectAudioTrack(int32_t trackIndex);
     PlayerState GetState() const;
     PlaybackInfo GetPlaybackInfo() const;
     MediaInfo GetMediaInfo() const;
@@ -131,6 +137,12 @@ private:
     PlaybackCompletionReason GetCompletionReason(bool &playbackSucceeded) const;
     void ReleasePlaybackResources();
     int32_t CreateAudioDecoder();
+    int32_t CreateAudioRenderer();
+    void PrepareAudioTrackSwitch();
+    void CleanupAudioTrackFailure(std::unique_lock<std::mutex>& lock);
+    void ReleaseAudioTrackResources();
+    int32_t StartSelectedAudioTrack(bool resumeRenderer, float speedSnapshot);
+    int32_t RestoreAudioTrack(int32_t oldTrackIndex, bool resumeRenderer, float speedSnapshot);
     int32_t CreateVideoDecoder();
     int64_t GetCurrentTime();
     void DumpOutput(CodecBufferInfo &bufferInfo);
@@ -141,6 +153,7 @@ private:
     int32_t HandleInitError(std::unique_lock<std::mutex>& outerLock);
     int32_t StartVideoDecoder();
     int32_t StartAudioDecoder();
+    int32_t StartPlaybackDecoders(bool &videoStarted);
     void CleanupAfterStartFailure(bool videoStarted);
     bool ProcessAudioOutput(CodecBufferInfo &bufferInfo);
     void StartAudioAfterVideoSeek();
@@ -150,12 +163,16 @@ private:
         std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
     bool ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
         std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
+    bool ProcessVideoAfterSeek(CodecBufferInfo& bufferInfo,
+        std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
+    bool ProcessVideoDuringTrackSwitch(CodecBufferInfo& bufferInfo,
+        std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
     bool GetSyncVideoOutputBuffer(CodecBufferInfo& bufferInfo);
     void InitSyncVideoOutputContext();
     bool ProcessSyncVideoOutput(std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
     void FinishVideoOutput();
     void CancelWorkerWaits();
-    void WaitIfPaused();
+    void WaitIfPaused(bool audioWorker = false);
     void StopWorkersForSeek();
     void ReleaseCodecResourcesForSeek();
     void ResetPlaybackClockForSeek(int64_t positionUs);
@@ -192,6 +209,13 @@ private:
     std::atomic<bool> isLoop_ { false };
     std::atomic<bool> paused_ { false };
     std::atomic<bool> audioStartPendingAfterVideoSeek_ { false };
+    // A paused seek still needs to decode and present exactly one target frame
+    // so that pause/step/seek controls update the visible picture immediately.
+    std::atomic<bool> renderSingleFrameAfterSeek_ { false };
+    // Audio can be rebuilt independently when the user switches tracks. This
+    // token stops only the audio workers while the video pipeline continues.
+    std::atomic<bool> audioWorkerRunning_ { false };
+    std::atomic<bool> audioTrackSwitching_ { false };
     std::mutex pauseMutex_;
     std::condition_variable pauseCond_;
     std::mutex audioStartMutex_;
@@ -209,6 +233,7 @@ private:
     std::unique_ptr<CodecUserData> audioDecContext_ = nullptr;
     OH_AudioStreamBuilder* builder_ = nullptr;
     OH_AudioRenderer* audioRenderer_ = nullptr;
+    mutable std::mutex audioRendererMutex_;
     
 #ifdef DEBUG_DECODE
     std::ofstream audioOutputFile_; // for debug
@@ -222,6 +247,10 @@ private:
     int32_t transformHint = 0;
     bool isSmartFluencySupported_ = false;
     std::atomic<bool> smartFluencyAvailable_ { false };
+    std::atomic<uint64_t> videoOutputFrames_ { 0 };
+    std::atomic<uint64_t> videoRenderedFrames_ { 0 };
+    std::atomic<uint64_t> videoDroppedFrames_ { 0 };
+    std::atomic<uint64_t> audioOutputBuffers_ { 0 };
     bool thermalWarningActive_ = false;
     double thermalFrameRetentionRatio_ = 0.0;
     std::unique_ptr<VideoSink> videoSink_ = nullptr;

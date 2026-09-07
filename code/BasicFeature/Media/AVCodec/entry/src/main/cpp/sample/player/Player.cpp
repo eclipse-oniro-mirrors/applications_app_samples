@@ -97,6 +97,10 @@ PlaybackInfo Player::GetPlaybackInfo() const
     info.hasAudio = hasAudioTrack_.load();
     info.smartFluencyAvailable = smartFluencyAvailable_.load();
     info.hdrVividConfirmed = hdrVividConfirmed_.load();
+    info.videoOutputFrames = videoOutputFrames_.load();
+    info.videoRenderedFrames = videoRenderedFrames_.load();
+    info.videoDroppedFrames = videoDroppedFrames_.load();
+    info.audioOutputBuffers = audioOutputBuffers_.load();
     info.positionUs = playbackPositionUs_.load();
     if (info.durationUs > 0) {
         info.positionUs = std::clamp(info.positionUs, int64_t { 0 }, info.durationUs);
@@ -133,9 +137,12 @@ int32_t Player::Stop()
     stateMachine_.BeginStop();
     stopRequested_ = true;
     isStarted_ = false;
+    audioWorkerRunning_ = false;
     paused_ = false;
+    renderSingleFrameAfterSeek_ = false;
     pauseCond_.notify_all();
     audioStartPendingAfterVideoSeek_ = false;
+    audioTrackSwitching_ = false;
     audioStartCond_.notify_all();
     if (videoDecContext_ != nullptr) {
         videoDecContext_->inputBufferQueue.CancelWait();
@@ -158,6 +165,7 @@ int32_t Player::Pause()
         "Pause is only allowed while playing");
     CHECK_AND_RETURN_RET_LOG(!playbackFailed_.load(), AVCODEC_SAMPLE_ERR_ERROR, "Playback is already failing");
     if (audioRenderer_ != nullptr) {
+        std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
         const int32_t ret = OH_AudioRenderer_Pause(audioRenderer_);
         CHECK_AND_RETURN_RET_LOG(ret == AUDIOSTREAM_SUCCESS, AVCODEC_SAMPLE_ERR_ERROR,
             "Pause audio renderer failed: %{public}d", ret);
@@ -174,17 +182,182 @@ int32_t Player::Resume()
     std::lock_guard<std::mutex> lock(mutex_);
     CHECK_AND_RETURN_RET_LOG(stateMachine_.GetState() == PLAYER_STATE_PAUSED, AVCODEC_SAMPLE_ERR_ERROR,
         "Resume is only allowed while paused");
-    if (audioRenderer_ != nullptr) {
-        const int32_t ret = OH_AudioRenderer_Start(audioRenderer_);
-        CHECK_AND_RETURN_RET_LOG(ret == AUDIOSTREAM_SUCCESS, AVCODEC_SAMPLE_ERR_ERROR,
-            "Resume audio renderer failed: %{public}d", ret);
+    {
+        std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
+        if (audioRenderer_ != nullptr) {
+            const int32_t ret = OH_AudioRenderer_Start(audioRenderer_);
+            CHECK_AND_RETURN_RET_LOG(ret == AUDIOSTREAM_SUCCESS, AVCODEC_SAMPLE_ERR_ERROR,
+                "Resume audio renderer failed: %{public}d", ret);
+        }
     }
     CHECK_AND_RETURN_RET_LOG(stateMachine_.BeginResume(), AVCODEC_SAMPLE_ERR_ERROR,
         "Failed to leave paused state");
     paused_ = false;
+    renderSingleFrameAfterSeek_ = false;
     pauseCond_.notify_all();
     AVCODEC_SAMPLE_LOGI("Playback resumed");
     return AVCODEC_SAMPLE_ERR_OK;
+}
+
+int32_t Player::SelectAudioTrack(int32_t trackIndex)
+{
+    std::unique_lock<std::mutex> lock(mutex_);
+    const PlayerState currentState = stateMachine_.GetState();
+    CHECK_AND_RETURN_RET_LOG(currentState == PLAYER_STATE_PLAYING || currentState == PLAYER_STATE_PAUSED,
+        AVCODEC_SAMPLE_ERR_ERROR, "Audio track selection is only allowed while playing or paused");
+    CHECK_AND_RETURN_RET_LOG(demuxer_ != nullptr && audioDecContext_ != nullptr && audioDecoder_ != nullptr,
+        AVCODEC_SAMPLE_ERR_ERROR, "Audio playback is not initialized");
+    CHECK_AND_RETURN_RET_LOG(trackIndex >= 0, AVCODEC_SAMPLE_ERR_ERROR,
+        "Invalid audio track index: %{public}d", trackIndex);
+    if (trackIndex == sampleInfo_.audio.trackIndex) {
+        return AVCODEC_SAMPLE_ERR_OK;
+    }
+
+    const SampleInfo oldSampleInfo = sampleInfo_;
+    const int32_t oldTrackIndex = sampleInfo_.audio.trackIndex;
+    const float speedSnapshot = speed.load();
+    const bool resumeRenderer = currentState == PLAYER_STATE_PLAYING;
+    PrepareAudioTrackSwitch();
+    lock.unlock();
+    audioPipeline_.Join();
+    lock.lock();
+    ReleaseAudioTrackResources();
+    int32_t ret = demuxer_->SelectAudioTrack(trackIndex, sampleInfo_);
+    if (ret == AVCODEC_SAMPLE_ERR_OK) {
+        sampleInfo_.codec.audioTrackIndex = trackIndex;
+        ret = StartSelectedAudioTrack(resumeRenderer, speedSnapshot);
+    }
+    if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        AVCODEC_SAMPLE_LOGE("Switch audio track failed, restoring track: %{public}d", oldTrackIndex);
+        PrepareAudioTrackSwitch();
+        lock.unlock();
+        audioPipeline_.Join();
+        lock.lock();
+        ReleaseAudioTrackResources();
+        sampleInfo_ = oldSampleInfo;
+        const int32_t restoreRet = RestoreAudioTrack(oldTrackIndex, resumeRenderer, speedSnapshot);
+        if (restoreRet != AVCODEC_SAMPLE_ERR_OK) {
+            CleanupAudioTrackFailure(lock);
+            isStarted_ = false;
+            AVCODEC_SAMPLE_LOGE("Restore previous audio track failed, ret: %{public}d", restoreRet);
+        }
+        UpdateMediaInfoSnapshot();
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
+    UpdateMediaInfoSnapshot();
+    AVCODEC_SAMPLE_LOGI("Audio track switched without restarting video, track: %{public}d", trackIndex);
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
+void Player::PrepareAudioTrackSwitch()
+{
+    audioTrackSwitching_ = true;
+    audioWorkerRunning_ = false;
+    pauseCond_.notify_all();
+    if (audioDecContext_ != nullptr) {
+        audioDecContext_->isDestroyed = true;
+        audioDecContext_->inputBufferQueue.CancelWait();
+        audioDecContext_->outputBufferQueue.CancelWait();
+        audioDecContext_->renderCond.notify_all();
+    }
+    std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
+    if (audioRenderer_ != nullptr && OH_AudioRenderer_Pause(audioRenderer_) != AUDIOSTREAM_SUCCESS) {
+        AVCODEC_SAMPLE_LOGW("Pause audio renderer before track switch failed");
+    }
+}
+
+void Player::CleanupAudioTrackFailure(std::unique_lock<std::mutex>& lock)
+{
+    PrepareAudioTrackSwitch();
+    lock.unlock();
+    audioPipeline_.Join();
+    lock.lock();
+    ReleaseAudioTrackResources();
+    audioTrackSwitching_ = false;
+    audioWorkerRunning_ = false;
+}
+
+void Player::ReleaseAudioTrackResources()
+{
+    {
+        std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
+        if (audioRenderer_ != nullptr) {
+            OH_AudioRenderer_Release(audioRenderer_);
+            audioRenderer_ = nullptr;
+        }
+    }
+    if (builder_ != nullptr) {
+        OH_AudioStreamBuilder_Destroy(builder_);
+        builder_ = nullptr;
+    }
+    if (audioDecoder_ != nullptr) {
+        audioDecoder_->Release();
+        audioDecoder_.reset();
+    }
+    if (audioDecContext_ == nullptr) {
+        return;
+    }
+    std::unique_lock<std::shared_mutex> codecLock(audioDecContext_->codecMutex);
+    audioDecContext_->ClearQueue();
+    audioDecContext_->inputBufferQueue.Reset();
+    audioDecContext_->outputBufferQueue.Reset();
+    {
+        std::lock_guard<std::mutex> outputLock(audioDecContext_->outputMutex);
+        std::queue<unsigned char> emptyQueue;
+        audioDecContext_->renderQueue.swap(emptyQueue);
+    }
+    audioDecContext_->isDestroyed = false;
+    audioDecContext_->audioFramesWritten = 0;
+    audioDecContext_->currentPosAudioBufferPts = playbackPositionUs_.load();
+    audioDecContext_->endPosAudioBufferPts = playbackPositionUs_.load();
+}
+
+int32_t Player::StartSelectedAudioTrack(bool resumeRenderer, float speedSnapshot)
+{
+    audioDecoder_ = std::make_shared<AudioDecoder>();
+    int32_t ret = CreateAudioDecoder();
+    if (ret != AVCODEC_SAMPLE_ERR_OK || audioDecContext_ == nullptr) {
+        return ret;
+    }
+    {
+        std::lock_guard<std::mutex> doneLock(doneMutex);
+        isAudioDone = false;
+    }
+    audioWorkerRunning_ = true;
+    ret = StartAudioDecoder();
+    if (ret != AVCODEC_SAMPLE_ERR_OK || !resumeRenderer) {
+        if (ret == AVCODEC_SAMPLE_ERR_OK) {
+            seekTargetUs_ = 0;
+            discardAudioUntilSeekTarget_ = false;
+        }
+        return ret;
+    }
+    std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
+    if (audioRenderer_ == nullptr || OH_AudioRenderer_Start(audioRenderer_) != AUDIOSTREAM_SUCCESS) {
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
+    if (speedSnapshot != 1.0f && OH_AudioRenderer_SetSpeed(audioRenderer_, speedSnapshot) != AUDIOSTREAM_SUCCESS) {
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
+    seekTargetUs_ = 0;
+    discardAudioUntilSeekTarget_ = false;
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
+int32_t Player::RestoreAudioTrack(int32_t oldTrackIndex, bool resumeRenderer, float speedSnapshot)
+{
+    sampleInfo_.codec.audioTrackIndex = oldTrackIndex;
+    if (demuxer_->SelectAudioTrack(oldTrackIndex, sampleInfo_) != AVCODEC_SAMPLE_ERR_OK) {
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
+    const int32_t ret = StartSelectedAudioTrack(resumeRenderer, speedSnapshot);
+    if (ret == AVCODEC_SAMPLE_ERR_OK) {
+        seekTargetUs_ = 0;
+        discardAudioUntilSeekTarget_ = false;
+        audioTrackSwitching_ = false;
+        audioWorkerRunning_ = true;
+    }
+    return ret;
 }
 
 void Player::CancelWorkerWaits()
@@ -200,10 +373,13 @@ void Player::CancelWorkerWaits()
     }
 }
 
-void Player::WaitIfPaused()
+void Player::WaitIfPaused(bool audioWorker)
 {
     std::unique_lock<std::mutex> lock(pauseMutex_);
-    pauseCond_.wait(lock, [this]() { return !paused_.load() || !isStarted_.load(); });
+    pauseCond_.wait(lock, [this, audioWorker]() {
+        return !paused_.load() || !isStarted_.load() || (audioWorker && !audioWorkerRunning_.load()) ||
+            (!audioWorker && renderSingleFrameAfterSeek_.load());
+    });
 }
 
 void Player::StartAudioAfterVideoSeek()
@@ -212,7 +388,11 @@ void Player::StartAudioAfterVideoSeek()
         return;
     }
     audioStartCond_.notify_all();
-    if (audioRenderer_ == nullptr || !isStarted_.load() || paused_.load()) {
+    if (!isStarted_.load() || paused_.load()) {
+        return;
+    }
+    std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
+    if (audioRenderer_ == nullptr) {
         return;
     }
     const int32_t ret = OH_AudioRenderer_Start(audioRenderer_);
@@ -241,6 +421,8 @@ void Player::StopWorkersForSeek()
     pauseCond_.notify_all();
     // Wake an audio output thread that may be waiting for the first video frame.
     audioStartPendingAfterVideoSeek_ = false;
+    audioWorkerRunning_ = false;
+    audioTrackSwitching_ = false;
     audioStartCond_.notify_all();
     if (audioRenderer_ != nullptr) {
         int32_t ret = OH_AudioRenderer_Pause(audioRenderer_);
@@ -260,9 +442,12 @@ void Player::ReleaseCodecResourcesForSeek()
     if (audioDecContext_ != nullptr) {
         audioDecContext_->isDestroyed = true;
     }
-    if (audioRenderer_ != nullptr) {
-        OH_AudioRenderer_Release(audioRenderer_);
-        audioRenderer_ = nullptr;
+    {
+        std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
+        if (audioRenderer_ != nullptr) {
+            OH_AudioRenderer_Release(audioRenderer_);
+            audioRenderer_ = nullptr;
+        }
     }
     if (builder_ != nullptr) {
         OH_AudioStreamBuilder_Destroy(builder_);
@@ -315,6 +500,8 @@ bool Player::DiscardVideoOutputBeforeSeekTarget(CodecBufferInfo &bufferInfo, boo
         isStarted_ = false;
         return false;
     }
+    videoOutputFrames_.fetch_add(1);
+    videoDroppedFrames_.fetch_add(1);
     AVCODEC_SAMPLE_LOGD("Discard pre-target video frame, pts: %{public}" PRId64 ", target: %{public}" PRId64,
         bufferInfo.attr.pts, targetUs);
     return true;
@@ -332,11 +519,18 @@ bool Player::PrepareAudioOutputAfterSeek(CodecBufferInfo &bufferInfo)
         }
     }
     if (!discardAudioUntilSeekTarget_.load()) {
+        if (audioTrackSwitching_.load()) {
+            audioTrackSwitching_ = false;
+        }
         return true;
     }
     const int64_t targetUs = seekTargetUs_.load();
     if (bufferInfo.attr.pts >= targetUs) {
         discardAudioUntilSeekTarget_ = false;
+        if (audioTrackSwitching_.load()) {
+            audioTrackSwitching_ = false;
+            AVCODEC_SAMPLE_LOGI("Audio track reached current playback position, resume A/V sync");
+        }
         AVCODEC_SAMPLE_LOGI("Audio reached seek target, pts: %{public}" PRId64, bufferInfo.attr.pts);
         return true;
     }
@@ -354,6 +548,10 @@ bool Player::PrepareAudioOutputAfterSeek(CodecBufferInfo &bufferInfo)
         return false;
     }
     discardAudioUntilSeekTarget_ = false;
+    if (audioTrackSwitching_.load()) {
+        audioTrackSwitching_ = false;
+        AVCODEC_SAMPLE_LOGI("Audio track trimmed to current playback position, resume A/V sync");
+    }
     AVCODEC_SAMPLE_LOGI("Trim audio at seek target, output pts: %{public}" PRId64, bufferInfo.attr.pts);
     return true;
 }
@@ -391,7 +589,11 @@ void Player::PreparePlaybackStateAfterSeek(bool hadVideo, bool hadAudio, int64_t
     }
     isStarted_ = true;
     paused_ = !resumeAfterSeek_;
-    audioStartPendingAfterVideoSeek_ = hadVideo && hadAudio && resumeAfterSeek_;
+    // Keep audio paused for a paused seek, but let the video pipeline present
+    // the first frame at the requested position. This is also used by frame
+    // stepping, which is implemented as a precise paused seek.
+    renderSingleFrameAfterSeek_ = hadVideo && !resumeAfterSeek_;
+    audioStartPendingAfterVideoSeek_ = hadVideo && hadAudio;
 }
 
 int32_t Player::RestartAudioAfterSeek(float speedSnapshot)
@@ -462,6 +664,7 @@ int32_t Player::HandleSeekFailure()
     playbackFailed_ = true;
     isStarted_ = false;
     paused_ = false;
+    renderSingleFrameAfterSeek_ = false;
     pauseCond_.notify_all();
     audioStartPendingAfterVideoSeek_ = false;
     audioStartCond_.notify_all();
@@ -533,58 +736,77 @@ int32_t Player::SeekTo(int64_t positionUs)
 
 int32_t Player::CreateAudioDecoder()
 {
+    CHECK_AND_RETURN_RET_LOG(audioDecoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
+        "Audio decoder object is null");
     AVCODEC_SAMPLE_LOGW("audio mime:%{public}s", sampleInfo_.audio.audioCodecMime.c_str());
     int32_t ret = audioDecoder_->Create(sampleInfo_.audio.audioCodecMime);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         isAudioDone.store(true);
         AVCODEC_SAMPLE_LOGE("Create audio decoder failed, mime:%{public}s",
             sampleInfo_.audio.audioCodecMime.c_str());
-    } else {
+        return ret;
+    }
+    if (audioDecContext_ == nullptr) {
         audioDecContext_ = std::make_unique<CodecUserData>();
-        audioDecContext_->runningFlag = &isStarted_;
-        audioDecContext_->playbackPositionUs = &playbackPositionUs_;
-        audioDecContext_->sampleInfo = &sampleInfo_;
-        ret = audioDecoder_->Config(sampleInfo_, audioDecContext_.get());
-        CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Audio Decoder config failed");
-        OH_AudioStreamBuilder_Create(&builder_, AUDIOSTREAM_TYPE_RENDERER);
-        const auto latencyMode = sampleInfo_.audioPlayback.enableLowLatency ?
-            AUDIOSTREAM_LATENCY_MODE_FAST : AUDIOSTREAM_LATENCY_MODE_NORMAL;
-        int32_t latencyRet = OH_AudioStreamBuilder_SetLatencyMode(builder_, latencyMode);
-        if (latencyRet != AUDIOSTREAM_SUCCESS) {
-            AVCODEC_SAMPLE_LOGW("Set audio latency mode failed, mode: %{public}d, ret: %{public}d",
-                static_cast<int32_t>(latencyMode), latencyRet);
-        }
-         // Set the audio sampling rate.
-        OH_AudioStreamBuilder_SetSamplingRate(builder_, sampleInfo_.audio.audioSampleRate);
-        // 设置音频声道
-        OH_AudioStreamBuilder_SetChannelCount(builder_, sampleInfo_.audio.audioChannelCount);
-        // 设置音频采样格式
-        OH_AudioStreamBuilder_SetSampleFormat(builder_, AUDIOSTREAM_SAMPLE_S16LE);
-        // 设置音频流的编码类型
-        OH_AudioStreamBuilder_SetEncodingType(builder_, AUDIOSTREAM_ENCODING_TYPE_RAW);
-        // 设置输出音频流的工作场景
-        OH_AudioStreamBuilder_SetRendererInfo(builder_, AUDIOSTREAM_USAGE_MOVIE);
+    }
+    audioDecContext_->isDestroyed = false;
+    audioDecContext_->runningFlag = &audioWorkerRunning_;
+    audioDecContext_->playbackPositionUs = &playbackPositionUs_;
+    audioDecContext_->sampleInfo = &sampleInfo_;
+    ret = audioDecoder_->Config(sampleInfo_, audioDecContext_.get());
+    if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        AVCODEC_SAMPLE_LOGE("Audio Decoder config failed, mime:%{public}s, ret:%{public}d",
+            sampleInfo_.audio.audioCodecMime.c_str(), ret);
+        audioDecoder_->Release();
+        return ret;
+    }
+    return CreateAudioRenderer();
+}
+
+int32_t Player::CreateAudioRenderer()
+{
+    int32_t ret = AVCODEC_SAMPLE_ERR_OK;
+    ret = OH_AudioStreamBuilder_Create(&builder_, AUDIOSTREAM_TYPE_RENDERER);
+    if (ret != AUDIOSTREAM_SUCCESS || builder_ == nullptr) {
+        AVCODEC_SAMPLE_LOGE("Create audio stream builder failed, ret:%{public}d", ret);
+        audioDecoder_->Release();
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
+    const auto latencyMode = sampleInfo_.audioPlayback.enableLowLatency ?
+        AUDIOSTREAM_LATENCY_MODE_FAST : AUDIOSTREAM_LATENCY_MODE_NORMAL;
+    int32_t latencyRet = OH_AudioStreamBuilder_SetLatencyMode(builder_, latencyMode);
+    if (latencyRet != AUDIOSTREAM_SUCCESS) {
+        AVCODEC_SAMPLE_LOGW("Set audio latency mode failed, mode: %{public}d, ret: %{public}d",
+            static_cast<int32_t>(latencyMode), latencyRet);
+    }
+    OH_AudioStreamBuilder_SetSamplingRate(builder_, sampleInfo_.audio.audioSampleRate);
+    OH_AudioStreamBuilder_SetChannelCount(builder_, sampleInfo_.audio.audioChannelCount);
+    OH_AudioStreamBuilder_SetSampleFormat(builder_, AUDIOSTREAM_SAMPLE_S16LE);
+    OH_AudioStreamBuilder_SetEncodingType(builder_, AUDIOSTREAM_ENCODING_TYPE_RAW);
+    OH_AudioStreamBuilder_SetRendererInfo(builder_, AUDIOSTREAM_USAGE_MOVIE);
         AVCODEC_SAMPLE_LOGW("Init audioSampleRate: %{public}d, ChannelCount: %{public}d",
             sampleInfo_.audio.audioSampleRate, sampleInfo_.audio.audioChannelCount);
         OH_AudioRenderer_Callbacks callbacks;
-        // 配置回调函数
 #ifndef DEBUG_DECODE
-        callbacks.OH_AudioRenderer_OnWriteData = SampleCallback::OnRenderWriteData;
+    callbacks.OH_AudioRenderer_OnWriteData = SampleCallback::OnRenderWriteData;
 #else
-        callbacks.OH_AudioRenderer_OnWriteData = nullptr;
+    callbacks.OH_AudioRenderer_OnWriteData = nullptr;
 #endif
-        callbacks.OH_AudioRenderer_OnStreamEvent = SampleCallback::OnRenderStreamEvent;
-        callbacks.OH_AudioRenderer_OnInterruptEvent = SampleCallback::OnRenderInterruptEvent;
-        callbacks.OH_AudioRenderer_OnError = SampleCallback::OnRenderError;
-        // 设置输出音频流的回调
-        OH_AudioStreamBuilder_SetRendererCallback(builder_, callbacks, audioDecContext_.get());
-        OH_AudioStreamBuilder_GenerateRenderer(builder_, &audioRenderer_);
-        if (audioRenderer_ != nullptr) {
-            const int32_t volumeRet = OH_AudioRenderer_SetVolume(audioRenderer_, sampleInfo_.audioPlayback.volume);
-            if (volumeRet != AUDIOSTREAM_SUCCESS) {
-                AVCODEC_SAMPLE_LOGW("Set initial audio volume failed, ret: %{public}d", volumeRet);
-            }
-        }
+    callbacks.OH_AudioRenderer_OnStreamEvent = SampleCallback::OnRenderStreamEvent;
+    callbacks.OH_AudioRenderer_OnInterruptEvent = SampleCallback::OnRenderInterruptEvent;
+    callbacks.OH_AudioRenderer_OnError = SampleCallback::OnRenderError;
+    OH_AudioStreamBuilder_SetRendererCallback(builder_, callbacks, audioDecContext_.get());
+    ret = OH_AudioStreamBuilder_GenerateRenderer(builder_, &audioRenderer_);
+    if (ret != AUDIOSTREAM_SUCCESS || audioRenderer_ == nullptr) {
+        AVCODEC_SAMPLE_LOGE("Generate audio renderer failed, ret:%{public}d", ret);
+        OH_AudioStreamBuilder_Destroy(builder_);
+        builder_ = nullptr;
+        audioDecoder_->Release();
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
+    const int32_t volumeRet = OH_AudioRenderer_SetVolume(audioRenderer_, sampleInfo_.audioPlayback.volume);
+    if (volumeRet != AUDIOSTREAM_SUCCESS) {
+        AVCODEC_SAMPLE_LOGW("Set initial audio volume failed, ret: %{public}d", volumeRet);
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }
@@ -649,6 +871,10 @@ void Player::PrepareForInitialization(const SampleInfo &sampleInfo)
     speed.store(1.0f);
     playbackPositionUs_.store(0);
     playbackDurationUs_.store(0);
+    videoOutputFrames_.store(0);
+    videoRenderedFrames_.store(0);
+    videoDroppedFrames_.store(0);
+    audioOutputBuffers_.store(0);
     hasVideoTrack_.store(false);
     hasAudioTrack_.store(false);
     hdrVividConfirmed_.store(false);
@@ -712,30 +938,24 @@ int32_t Player::Init(SampleInfo &sampleInfo)
         AVCODEC_SAMPLE_LOGE("Player resources were not released before Init");
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
-
     PrepareForInitialization(sampleInfo);
     AVCODEC_SAMPLE_LOGI("Smart fluency supported: %{public}d", isSmartFluencySupported_);
-
     int32_t ret = demuxer_->Create(sampleInfo_);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         AVCODEC_SAMPLE_LOGE("Create demuxer failed");
         return HandleInitError(lock);
     }
-
     ret = CreateAudioDecoder();
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         AVCODEC_SAMPLE_LOGE("Create audio decoder failed");
         return HandleInitError(lock);
     }
-
     ret = CreateVideoDecoder();
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         AVCODEC_SAMPLE_LOGE("Create video decoder failed");
         return HandleInitError(lock);
     }
-
     UpdateSmartFluencyAvailability();
-
     if (audioDecContext_ == nullptr && videoDecContext_ == nullptr) {
         AVCODEC_SAMPLE_LOGE("No supported audio or video track found");
         return HandleInitError(lock);
@@ -800,13 +1020,13 @@ int32_t Player::StartAudioDecoder()
         std::queue<unsigned char> emptyQueue;
         audioDecContext_->renderQueue.swap(emptyQueue);
     }
-
+    audioWorkerRunning_ = true;
     int32_t ret = audioDecoder_->Start();
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        audioWorkerRunning_ = false;
         AVCODEC_SAMPLE_LOGE("Audio Decoder start failed");
         return ret;
     }
-
     PipelineWorkers::StartConfig startConfig;
     startConfig.syncMode = sampleInfo_.codec.codecSyncMode;
     startConfig.inputSync = [this]() {
@@ -827,15 +1047,14 @@ int32_t Player::StartAudioDecoder()
     };
     bool started = audioPipeline_.Start(std::move(startConfig));
     if (!started) {
+        audioWorkerRunning_ = false;
         AVCODEC_SAMPLE_LOGE("Create audio threads failed");
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
-
 #ifdef DEBUG_DECODE
     audioOutputFile_.open("/data/storage/el2/base/haps/entry/files/audio_decode_out.pcm",
                           std::ios::out | std::ios::binary);
 #endif
-
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
@@ -844,6 +1063,7 @@ void Player::CleanupAfterStartFailure(bool videoStarted)
     playbackFailed_ = true;
     stateMachine_.BeginStop();
     isStarted_ = false;
+    audioWorkerRunning_ = false;
     {
         std::lock_guard<std::mutex> lock(doneMutex);
         if (!videoStarted) {
@@ -870,44 +1090,47 @@ int32_t Player::Start()
         isVideoDone = (videoDecContext_ == nullptr);
     }
     isStarted_ = true;
-    int32_t ret = AVCODEC_SAMPLE_ERR_OK;
+    audioWorkerRunning_ = audioDecContext_ != nullptr;
     bool videoStarted = false;
-    
-    ret = demuxer_->Seek(0);
+    const int32_t ret = StartPlaybackDecoders(videoStarted);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        AVCODEC_SAMPLE_LOGE("Seek failed");
         lock.unlock();
         CleanupAfterStartFailure(videoStarted);
         return ret;
     }
-    
-    if (videoDecContext_) {
-        ret = StartVideoDecoder();
-        if (ret != AVCODEC_SAMPLE_ERR_OK) {
-            lock.unlock();
-            CleanupAfterStartFailure(videoStarted);
-            return ret;
-        }
-        videoStarted = true;
-    }
-    
-    if (audioDecContext_) {
-        ret = StartAudioDecoder();
-        if (ret == AVCODEC_SAMPLE_ERR_OK && audioRenderer_) {
-            OH_AudioRenderer_Start(audioRenderer_);
-        }
-        
-        if (ret != AVCODEC_SAMPLE_ERR_OK) {
-            lock.unlock();
-            CleanupAfterStartFailure(videoStarted);
-            return ret;
-        }
-    }
-    
     CHECK_AND_RETURN_RET_LOG(stateMachine_.BeginPlayback(), AVCODEC_SAMPLE_ERR_ERROR,
         "Failed to enter playing state");
     AVCODEC_SAMPLE_LOGI("Player started successfully");
     StartRelease();
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
+int32_t Player::StartPlaybackDecoders(bool &videoStarted)
+{
+    int32_t ret = demuxer_->Seek(0);
+    if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        AVCODEC_SAMPLE_LOGE("Seek failed");
+        return ret;
+    }
+    if (videoDecContext_ != nullptr) {
+        ret = StartVideoDecoder();
+        if (ret != AVCODEC_SAMPLE_ERR_OK) {
+            return ret;
+        }
+        videoStarted = true;
+    }
+    if (audioDecContext_ == nullptr) {
+        return AVCODEC_SAMPLE_ERR_OK;
+    }
+    ret = StartAudioDecoder();
+    if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        return ret;
+    }
+    std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
+    if (audioRenderer_ != nullptr && OH_AudioRenderer_Start(audioRenderer_) != AUDIOSTREAM_SUCCESS) {
+        AVCODEC_SAMPLE_LOGE("Start audio renderer failed");
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
@@ -921,9 +1144,12 @@ void Player::SetSpeed(float multiplier)
         AVCODEC_SAMPLE_LOGW("Same speed value");
         return;
     }
-    if (audioRenderer_) {
-        int32_t ret = OH_AudioRenderer_SetSpeed(audioRenderer_, multiplier);
-        CHECK_AND_RETURN_LOG(ret == AUDIOSTREAM_SUCCESS, "Set audio renderer speed failed: %{public}d", ret);
+    {
+        std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
+        if (audioRenderer_ != nullptr) {
+            int32_t ret = OH_AudioRenderer_SetSpeed(audioRenderer_, multiplier);
+            CHECK_AND_RETURN_LOG(ret == AUDIOSTREAM_SUCCESS, "Set audio renderer speed failed: %{public}d", ret);
+        }
     }
     speed.store(multiplier);
     if (smartFluencyAvailable_.load() && videoDecoder_ != nullptr) {
@@ -1068,15 +1294,20 @@ PlaybackCompletionReason Player::GetCompletionReason(bool &playbackSucceeded) co
 
 void Player::ReleasePlaybackResources()
 {
+    audioWorkerRunning_ = false;
+    audioTrackSwitching_ = false;
     if (videoDecContext_ != nullptr) {
         videoDecContext_->isDestroyed = true;
     }
     if (audioDecContext_ != nullptr) {
         audioDecContext_->isDestroyed = true;
     }
-    if (audioRenderer_ != nullptr) {
-        OH_AudioRenderer_Release(audioRenderer_);
-        audioRenderer_ = nullptr;
+    {
+        std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
+        if (audioRenderer_ != nullptr) {
+            OH_AudioRenderer_Release(audioRenderer_);
+            audioRenderer_ = nullptr;
+        }
     }
 #ifdef DEBUG_DECODE
     if (audioOutputFile_.is_open()) {
@@ -1109,6 +1340,7 @@ void Player::Release()
     const PlaybackCompletionReason completionReason = GetCompletionReason(playbackSucceeded);
     isStarted_ = false;
     paused_ = false;
+    renderSingleFrameAfterSeek_ = false;
     pauseCond_.notify_all();
     audioStartPendingAfterVideoSeek_ = false;
     audioStartCond_.notify_all();
@@ -1122,6 +1354,10 @@ void Player::Release()
     speed.store(1.0f);
     playbackPositionUs_.store(0);
     playbackDurationUs_.store(0);
+    videoOutputFrames_.store(0);
+    videoRenderedFrames_.store(0);
+    videoDroppedFrames_.store(0);
+    audioOutputBuffers_.store(0);
     hasVideoTrack_.store(false);
     hasAudioTrack_.store(false);
     hasDecodedOutput_ = false;
@@ -1188,6 +1424,12 @@ void Player::DumpOutput(CodecBufferInfo &bufferInfo)
 
 bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool render, int64_t renderTimestamp)
 {
+    videoOutputFrames_.fetch_add(1);
+    if (render) {
+        videoRenderedFrames_.fetch_add(1);
+    } else {
+        videoDroppedFrames_.fetch_add(1);
+    }
     if (sampleInfo_.codec.codecRunMode == BUFFER && !hdrVividConfirmed_.load() &&
         HdrMetadataHelper::IsHdrVivid(bufferInfo.buffer)) {
         hdrVividConfirmed_.store(true);
@@ -1395,6 +1637,7 @@ bool Player::ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo,
         isStarted_ = false;
         return false;
     }
+    renderSingleFrameAfterSeek_ = false;
     const float speedSnapshot = speed.load();
     speedSnapshot == 1 ? sampleInfo_.video.frameInterval = US_PER_SECOND / sampleInfo_.video.frameRate
         : speedSnapshot == DOUBLE_SPEED_MULTIPLIER ? sampleInfo_.video.frameInterval =
@@ -1439,6 +1682,7 @@ void Player::SetVolume(float volume)
 {
     const float clampedVolume = std::clamp(volume, 0.0f, 1.0f);
     sampleInfo_.audioPlayback.volume = clampedVolume;
+    std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
     if (audioRenderer_ == nullptr) {
         return;
     }
@@ -1469,24 +1713,24 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
         return true;
     }
     if (audioStartPendingAfterVideoSeek_.load()) {
-        // Present the first target frame immediately, then let the audio clock drive later frames.
-        if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
-            return false;
-        }
-        StartAudioAfterVideoSeek();
-        lastPushTime = std::chrono::system_clock::now();
-        return true;
+        return ProcessVideoAfterSeek(bufferInfo, lastPushTime);
     }
-    // get audio render position
+    if (audioTrackSwitching_.load()) {
+        return ProcessVideoDuringTrackSwitch(bufferInfo, lastPushTime);
+    }
     int64_t framePosition = 0;
     int64_t timestamp = 0;
-    int32_t ret = OH_AudioRenderer_GetAudioTimestampInfo(audioRenderer_, &framePosition, &timestamp);
+    int32_t ret = AUDIOSTREAM_SUCCESS;
+    {
+        std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
+        if (audioRenderer_ == nullptr) {
+            return false;
+        }
+        ret = OH_AudioRenderer_GetAudioTimestampInfo(audioRenderer_, &framePosition, &timestamp);
+    }
     AVCODEC_SAMPLE_LOGI("VD framePosition: %{public}li, audioTimestamp: %{public}li", framePosition, timestamp);
     playbackClock_.SetAudioTimestampNs(timestamp);
-    
-    // Render at the nominal interval until the audio hardware timestamp becomes available.
     if (ret != AUDIOSTREAM_SUCCESS || (timestamp == 0) || (framePosition == 0)) {
-        // first frame, render without wait
         if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
             return false;
         }
@@ -1505,6 +1749,30 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
         StartAudioAfterVideoSeek();
     }
     return rendered;
+}
+
+bool Player::ProcessVideoAfterSeek(CodecBufferInfo& bufferInfo,
+    std::chrono::time_point<std::chrono::system_clock>& lastPushTime)
+{
+    if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
+        return false;
+    }
+    renderSingleFrameAfterSeek_ = false;
+    StartAudioAfterVideoSeek();
+    lastPushTime = std::chrono::system_clock::now();
+    return true;
+}
+
+bool Player::ProcessVideoDuringTrackSwitch(CodecBufferInfo& bufferInfo,
+    std::chrono::time_point<std::chrono::system_clock>& lastPushTime)
+{
+    if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
+        return false;
+    }
+    const auto frameInterval = std::chrono::microseconds(sampleInfo_.video.frameInterval);
+    std::this_thread::sleep_until(lastPushTime + frameInterval);
+    lastPushTime = std::chrono::system_clock::now();
+    return true;
 }
 
 void Player::InitSyncVideoOutputContext()
@@ -1618,11 +1886,11 @@ void Player::VideoDecOutputAsyncThread()
 void Player::AudioDecInputThread()
 {
     while (true) {
-        WaitIfPaused();
-        CHECK_AND_BREAK_LOG(isStarted_, "Decoder input thread out");
+        WaitIfPaused(true);
+        CHECK_AND_BREAK_LOG(isStarted_ && audioWorkerRunning_, "Decoder input thread out");
         std::shared_ptr<CodecBufferInfo> bufferInfo = audioDecContext_->inputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(audioDecContext_->codecMutex);
-        CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
+        CHECK_AND_BREAK_LOG(isStarted_ && audioWorkerRunning_, "Work done, thread out");
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr && bufferInfo->isValid,
                                "Buffer queue is empty or invalid, continue");
 
@@ -1651,13 +1919,13 @@ void Player::AudioDecInputThread()
 void Player::AudioDecInputSyncThread()
 {
     while (true) {
-        WaitIfPaused();
-        CHECK_AND_BREAK_LOG(isStarted_, "Decoder input thread out");
+        WaitIfPaused(true);
+        CHECK_AND_BREAK_LOG(isStarted_ && audioWorkerRunning_, "Decoder input thread out");
         std::unique_lock<std::mutex> lock(audioDecContext_->inputMutex);
         CodecBufferInfo bufferInfo(nullptr);
         auto buffer = audioDecoder_->GetInputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
         CHECK_AND_CONTINUE_LOG(buffer != nullptr, "Get input buffer timeout, retry");
-        CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
+        CHECK_AND_BREAK_LOG(isStarted_ && audioWorkerRunning_, "Work done, thread out");
         bufferInfo.buffer = buffer;
         AVCODEC_SAMPLE_LOGW("bufferInfo.attr.size:%{public}d", bufferInfo.attr.size);
         audioDecContext_->inputFrameCount++;
@@ -1698,6 +1966,7 @@ void Player::AudioDecInputSyncThread()
 
 bool Player::ProcessAudioOutput(CodecBufferInfo &bufferInfo)
 {
+    audioOutputBuffers_.fetch_add(1);
     int32_t ret = audioDecoder_->FreeOutputBuffer(bufferInfo.bufferIndex, true);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         AVCODEC_SAMPLE_LOGW("FreeOutputBuffer failed: %{public}d", ret);
@@ -1705,24 +1974,18 @@ bool Player::ProcessAudioOutput(CodecBufferInfo &bufferInfo)
         isStarted_ = false;
         return false;
     }
-
-    // SAMPLE_S16LE 2 bytes per frame
-    playbackClock_.AddWrittenSamples(
-        bufferInfo.attr.size / sampleInfo_.audio.audioChannelCount / BYTES_PER_SAMPLE_2);
+    playbackClock_.AddWrittenSamples(bufferInfo.attr.size / sampleInfo_.audio.audioChannelCount / BYTES_PER_SAMPLE_2);
     AVCODEC_SAMPLE_LOGI("writtenSampleCnt_: %{public}ld, bufferInfo.attr.size: %{public}d, "
                         "sampleInfo_.audioChannelCount: %{public}d",
                         playbackClock_.GetWrittenSamples(), bufferInfo.attr.size,
                         sampleInfo_.audio.audioChannelCount);
-
     playbackClock_.SetAudioBufferPts(bufferInfo.attr.pts);
     audioDecContext_->endPosAudioBufferPts = playbackClock_.GetAudioBufferPts();
     hasDecodedOutput_ = true;
-
     std::unique_lock<std::mutex> lockRender(audioDecContext_->outputMutex);
     audioDecContext_->renderCond.wait_for(lockRender, 20ms, [this, bufferInfo]() {
         return audioDecContext_->renderQueue.size() < BALANCE_VALUE * bufferInfo.attr.size;
     });
-
     return true;
 }
 
@@ -1743,7 +2006,7 @@ AudioOutputPump Player::CreateAudioOutputPump()
     return AudioOutputPump({
         *audioDecoder_,
         *audioDecContext_,
-        isStarted_,
+        audioWorkerRunning_,
         playbackFailed_,
         [this](CodecBufferInfo &bufferInfo) { return PrepareAudioOutputAfterSeek(bufferInfo); },
         [this](CodecBufferInfo &bufferInfo) { return ProcessAudioOutput(bufferInfo); },
@@ -1753,9 +2016,16 @@ AudioOutputPump Player::CreateAudioOutputPump()
 
 void Player::FinishAudioOutput(bool stopRenderer)
 {
-    if (seekInProgress_.load()) {
-        AVCODEC_SAMPLE_LOGI("Audio output paused for seek");
+    // The old audio workers exit during a track switch and must not publish
+    // an "audio done" signal that could let ReleaseWorker tear down the new
+    // audio chain. The replacement workers keep audioWorkerRunning_ set.
+    if (seekInProgress_.load() || (audioTrackSwitching_.load() && !audioWorkerRunning_.load())) {
+        AVCODEC_SAMPLE_LOGI("Audio output paused for seek or track switch");
         return;
+    }
+    if (audioTrackSwitching_.load() && audioWorkerRunning_.load()) {
+        audioTrackSwitching_ = false;
+        discardAudioUntilSeekTarget_ = false;
     }
     std::unique_lock<std::mutex> lockRender(audioDecContext_->outputMutex);
     audioDecContext_->renderCond.wait_for(lockRender, 500ms,
@@ -1765,8 +2035,11 @@ void Player::FinishAudioOutput(bool stopRenderer)
         return;
     }
     AVCODEC_SAMPLE_LOGI("Out buffer end");
-    if (stopRenderer && audioRenderer_) {
-        OH_AudioRenderer_Stop(audioRenderer_);
+    if (stopRenderer) {
+        std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
+        if (audioRenderer_ != nullptr) {
+            OH_AudioRenderer_Stop(audioRenderer_);
+        }
     }
     std::lock_guard<std::mutex> lock(doneMutex);
     if (seekInProgress_.load()) {
@@ -1780,7 +2053,7 @@ void Player::AudioDecOutputThread()
 {
     AudioOutputPump outputPump = CreateAudioOutputPump();
     while (true) {
-        WaitIfPaused();
+        WaitIfPaused(true);
         if (!outputPump.ProcessAsyncOutput()) {
             break;
         }
@@ -1792,7 +2065,7 @@ void Player::AudioDecOutputSyncThread()
 {
     AudioOutputPump outputPump = CreateAudioOutputPump();
     while (true) {
-        WaitIfPaused();
+        WaitIfPaused(true);
         if (!outputPump.ProcessSyncOutput()) {
             break;
         }

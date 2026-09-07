@@ -177,24 +177,36 @@ bool ValidateAudioConfiguration(const SampleInfo &sampleInfo, bool isEncoder)
     uint32_t sampleRateCount = 0;
     OH_AVErrCode ret = OH_AVCapability_GetAudioSupportedSampleRates(capability, &sampleRates, &sampleRateCount);
     if (ret != AV_ERR_OK) {
-        AVCODEC_SAMPLE_LOGE("Query supported audio sample rates failed, ret: %{public}d", ret);
-        return false;
+        AVCODEC_SAMPLE_LOGW("Query supported audio sample rates failed, ret: %{public}d", ret);
+        // Some decoder capabilities do not expose a complete sample-rate
+        // list (notably container codecs such as Vorbis). Let the decoder's
+        // Configure call perform the authoritative validation.
+        return !isEncoder;
     }
     if (!ContainsValue(sampleRates, sampleRateCount, sampleInfo.audio.audioSampleRate)) {
-        AVCODEC_SAMPLE_LOGE("Unsupported audio sample rate: %{public}d", sampleInfo.audio.audioSampleRate);
-        return false;
+        if (isEncoder) {
+            AVCODEC_SAMPLE_LOGE("Unsupported audio sample rate: %{public}d", sampleInfo.audio.audioSampleRate);
+            return false;
+        }
+        AVCODEC_SAMPLE_LOGW("Audio decoder capability does not list sample rate: %{public}d",
+            sampleInfo.audio.audioSampleRate);
     }
     OH_AVRange channelCountRange = {};
     ret = OH_AVCapability_GetAudioChannelCountRange(capability, &channelCountRange);
     if (ret != AV_ERR_OK) {
-        AVCODEC_SAMPLE_LOGE("Query audio channel count range failed, ret: %{public}d", ret);
-        return false;
+        AVCODEC_SAMPLE_LOGW("Query audio channel count range failed, ret: %{public}d", ret);
+        return !isEncoder;
     }
     if (sampleInfo.audio.audioChannelCount < channelCountRange.minVal ||
         sampleInfo.audio.audioChannelCount > channelCountRange.maxVal) {
-        AVCODEC_SAMPLE_LOGE("Unsupported audio channel count: %{public}d, supported range: [%{public}d, %{public}d]",
-            sampleInfo.audio.audioChannelCount, channelCountRange.minVal, channelCountRange.maxVal);
-        return false;
+        if (isEncoder) {
+            AVCODEC_SAMPLE_LOGE(
+                "Unsupported audio channel count: %{public}d, supported range: [%{public}d, %{public}d]",
+                sampleInfo.audio.audioChannelCount, channelCountRange.minVal, channelCountRange.maxVal);
+            return false;
+        }
+        AVCODEC_SAMPLE_LOGW("Audio decoder capability does not list channel count: %{public}d",
+            sampleInfo.audio.audioChannelCount);
     }
     return true;
 }

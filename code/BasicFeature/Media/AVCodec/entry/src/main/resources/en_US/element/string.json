@@ -201,6 +201,10 @@
       "value": "Low-latency audio output"
     },
     {
+      "name": "setting_auto_hide_controls",
+      "value": "Auto-hide playback controls"
+    },
+    {
       "name": "setting_codec",
       "value": "Codec"
     },
@@ -440,6 +444,15 @@
       "name": "playback_replay",
       "value": "Replay"
     },
+    { "name": "playback_more", "value": "More" },
+    { "name": "playback_more_title", "value": "More playback options" },
+    { "name": "playback_queue", "value": "Playback queue" },
+    { "name": "playback_diagnostics", "value": "Performance diagnostics" },
+    { "name": "playback_diagnostics_close", "value": "Close diagnostics" },
+    { "name": "playback_fullscreen", "value": "Fullscreen" },
+    { "name": "playback_exit_fullscreen", "value": "Exit fullscreen" },
+    { "name": "playback_display_scale", "value": "Display ratio" },
+    { "name": "playback_resume_position", "value": "Resumed from the last position" },
     { "name": "playback_mute", "value": "Mute" },
     { "name": "playback_unmute", "value": "Unmute" },
     { "name": "playback_audio_track", "value": "Audio track" },
@@ -449,6 +462,26 @@
     { "name": "playback_subtitle_loaded", "value": "SRT subtitle loaded" },
     { "name": "playback_subtitle_empty", "value": "No valid SRT cues found" },
     { "name": "playback_subtitle_failed", "value": "Failed to load SRT subtitle" },
+    { "name": "playback_ab_set_start", "value": "Set A" },
+    { "name": "playback_ab_set_start_done", "value": "A is set" },
+    { "name": "playback_ab_set_end", "value": "Set B" },
+    { "name": "playback_ab_set_end_done", "value": "B is active" },
+    { "name": "playback_ab_clear", "value": "Clear A-B" },
+    { "name": "playback_ab_start_set", "value": "A point set" },
+    { "name": "playback_ab_start_required", "value": "Set A before B" },
+    { "name": "playback_ab_end_invalid", "value": "B must be later than A" },
+    { "name": "playback_ab_enabled", "value": "A-B loop enabled" },
+    { "name": "playback_previous_frame", "value": "Previous frame" },
+    { "name": "playback_next_frame", "value": "Next frame" },
+    { "name": "playback_frame_step_failed", "value": "Frame step failed" },
+    { "name": "playback_pip_enter", "value": "Picture in picture" },
+    { "name": "playback_pip_exit", "value": "Exit picture in picture" },
+    { "name": "playback_pip_unsupported", "value": "Picture in picture is not supported" },
+    { "name": "playback_pip_failed", "value": "Failed to start picture in picture" },
+    { "name": "playback_background_on", "value": "Background playback: On" },
+    { "name": "playback_background_off", "value": "Background playback: Off" },
+    { "name": "playback_background_enabled", "value": "Background PiP is enabled" },
+    { "name": "playback_background_disabled", "value": "Background PiP is disabled" },
     {
       "name": "seek_failed",
       "value": "Unable to seek to the selected position."
@@ -504,6 +537,34 @@
     {
       "name": "media_info_subtitle",
       "value": "Demuxed source, track, and decoder details"
-    }
+    },
+    { "name": "playback_display_scale_fit", "value": "Fit to window" },
+    { "name": "playback_display_scale_fill", "value": "Fill window" },
+    { "name": "playback_audio_track_switched", "value": " switched" },
+    { "name": "playback_queue_add", "value": "Add to queue" },
+    { "name": "playback_queue_clear", "value": "Clear queue" },
+    { "name": "playback_queue_current", "value": "Current queue (automatically plays the next item when playback ends)" },
+    { "name": "playback_queue_playing", "value": "Playing" },
+    { "name": "playback_recent", "value": "Recently played" },
+    { "name": "playback_recent_empty", "value": "No playback history" },
+    { "name": "playback_recent_position", "value": "Last played at " },
+    { "name": "playback_recent_completed", "value": "Playback completed" },
+    { "name": "playback_recent_play", "value": "Play" },
+    { "name": "playback_queue_sheet_title", "value": "Playback queue and recent history" },
+    { "name": "playback_diagnostics_state", "value": "State " },
+    { "name": "playback_diagnostics_position", "value": "Position " },
+    { "name": "playback_diagnostics_speed", "value": "  Speed X" },
+    { "name": "playback_diagnostics_output", "value": "Output " },
+    { "name": "playback_diagnostics_rendered", "value": "  Rendered " },
+    { "name": "playback_diagnostics_dropped", "value": "  Dropped " },
+    { "name": "playback_diagnostics_output_fps", "value": "Output fps " },
+    { "name": "playback_diagnostics_drop_rate", "value": "  Drop rate " },
+    { "name": "playback_diagnostics_audio_buffers", "value": "Audio output buffers " },
+    { "name": "playback_diagnostics_smart_fluency", "value": "Smart fluency " },
+    { "name": "playback_diagnostics_hdr_vivid", "value": "  HDR Vivid " },
+    { "name": "playback_diagnostics_available", "value": "Available" },
+    { "name": "playback_diagnostics_unavailable", "value": "Unavailable" },
+    { "name": "playback_diagnostics_confirmed", "value": "Confirmed" },
+    { "name": "playback_diagnostics_unconfirmed", "value": "Unconfirmed" }
   ]
 }

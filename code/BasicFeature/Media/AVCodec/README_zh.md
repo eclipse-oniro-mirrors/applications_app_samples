@@ -29,7 +29,7 @@ AVCodec 部件示例 Sample，基于 API26 构建，提供视频播放（含音�
 | BufferMode HDR Vivid | 透传色彩空间及 HDR 静态/动态元数据，确认后在播放窗口右上角显示水印 | [HDR Vivid 检测与送显](#hdr-vivid-output) |
 | 解码帧 Dump | BufferMode 下可选择将原始解码帧写入应用沙箱，默认关闭且不影响正常送显 | [Buffer Dump](#buffer-dump) |
 | 音频解码与播放 | 解码压缩音频为 PCM，通过 AudioRenderer 回调持续播放 | [音频解码与播放](#audio-playback) |
-| 多音轨选择 | 媒体包含多个音频轨时，可在播放控制区选择轨道并自动重新播放 | [音频解码与播放](#audio-playback) |
+| 多音轨选择 | 媒体包含多个音频轨时，可在播放控制区实时切换轨道且不重启视频 | [音频解码与播放](#audio-playback) |
 | 静音 | 播放中可静音或恢复到应用设置的音量 | [音频解码与播放](#audio-playback) |
 | 外挂 SRT 字幕 | 选择 `.srt` 文件，按播放位置解析并显示当前字幕 | [字幕](#subtitle-playback) |
 | 长按倍速 | 播放时长按窗口进入 X2，松开恢复 X1 | [倍速播放](#playback-speed) |
@@ -38,7 +38,12 @@ AVCodec 部件示例 Sample，基于 API26 构建，提供视频播放（含音�
 | 音画同步 | 以 AudioRenderer 实际播放位置为主时钟，对视频帧执行等待、定时送显或丢帧 | [音画同步](#av-sync) |
 | 画面变换 | 播放中支持旋转、水平/垂直翻转及组合变换 | [画面变换](#video-transform) |
 | 播放进度与拖动跳转 | 显示当前位置和总时长；从同步帧恢复解码，并丢弃目标时间之前的音视频输出，实现精确 Seek | [播放进度与 Seek](#playback-seek) |
-| 播放控制 | 支持暂停/继续播放、快退 15 秒、快进 15 秒和重播；暂停时保留解码资源和当前位置 | [播放进度与 Seek](#playback-seek) |
+| 播放控制 | 支持暂停/继续播放、上一帧/下一帧、快退 15 秒、快进 15 秒和重播；暂停时操作会立即更新画面 | [播放进度与 Seek](#playback-seek) |
+| 播放队列与断点续播 | 支持一次加入多个媒体，当前媒体结束后自动播放下一项，并记录最近播放位置 | [播放队列与断点续播](#playback-queue) |
+| 全屏与显示比例 | 播放时切换全屏/退出全屏、横竖屏和适应窗口/铺满窗口 | [全屏与显示比例](#display-mode) |
+| 播放性能诊断 | 查看位置、倍速、输出/送显/丢帧、帧率、丢帧率、音频 Buffer 和能力状态 | [播放性能诊断](#playback-diagnostics) |
+| A-B 循环与单帧控制 | 设置 A/B 时间点循环播放，按视频帧率逐帧前进或后退 | [A-B 循环与单帧控制](#ab-frame-control) |
+| 画中画与后台播放 | 使用系统 PiP 窗口继续观看，可选择返回桌面时自动进入 PiP | [画中画与后台播放](#pip-background) |
 | 播放状态 | 显示状态、目标倍速、音视频轨和智能流畅可用性 | [播放状态与媒体信息](#playback-info) |
 | 媒体详情 | 展示媒体源、音视频轨、解码配置和原始 Source/Track Format 信息 | [播放状态与媒体信息](#playback-info) |
 | Stop 与资源释放 | 支持主动停止、自然结束和异常结束，并通过统一状态机完成线程和资源回收 | [播放线程与释放生命周期](#player-lifecycle) |
@@ -219,6 +224,7 @@ AVCodec/
     │   │   │   ├── CameraDataModel.ets       # 相机录制参数模型
     │   │   │   ├── MediaInfoModel.ets        # 解封装媒体信息面板格式化
     │   │   │   ├── PlaybackInfoModel.ets     # 播放信息显示格式化
+    │   │   │   ├── PlaybackHistoryModel.ets  # 播放队列和断点续播记录
     │   │   │   ├── PlayerSettingsModel.ets   # 播放设置解析和 NAPI 参数构建
     │   │   │   └── RecorderSettingsModel.ets # 录制设置解析
     │   │   ├── viewmodel
@@ -243,6 +249,7 @@ AVCodec/
         │   │   ├── MediaUtils.test.ets       # 文件选择和空文件判断测试
         │   │   ├── MediaInfoModel.test.ets   # 媒体信息面板格式化测试
         │   │   ├── PlaybackInfoModel.test.ets # 播放信息格式化测试
+        │   │   ├── PlaybackHistoryModel.test.ets # 播放队列和历史记录辅助测试
         │   │   ├── PlaybackViewModel.test.ets # 播放 ViewModel 初始化和重置测试
         │   │   ├── PlayerSettingsModel.test.ets # 播放设置模型测试
         │   │   ├── SubtitleModel.test.ets       # SRT 字幕解析和时间定位测试
@@ -334,7 +341,7 @@ ArkUI 组件、状态和页面构建方式可参考当前 SDK 随附的 ArkUI �
 - 播放过程中，长按播放窗口会临时调用 `player.setPlaybackSpeed(2)`，松手恢复 `player.setPlaybackSpeed(1)`；点击“倍速”按钮可选择 1/2/3 倍速。本次播放可使用智能流畅时，X2/X3 提示会额外显示“智能流畅”。
 - 播放过程中点击 Flip 按钮会调用 `player.setTransform(transformHint)`，Native 侧再通过 `OH_NativeWindow_NativeWindowHandleOpt(..., SET_TRANSFORM, ...)` 作用到当前显示 window。
 
-播放设置由 `PlayerSettingsModel` 统一解析，最终形成结构化 `PlayOptions`：
+播放设置由 `PlayerSettingsModel` 统一解析，最终形成结构化 `PlayOptions`。播放设置还提供“播放控件自动隐藏”开关：开启后普通模式和全屏模式在 4 秒无操作后隐藏进度条及按钮，点击或长按播放画面会重新显示；关闭后控件常驻。
 
 ```ts
 {
@@ -581,7 +588,7 @@ std::fill(dest + index, dest + length, 0);
 
 音画同步也依赖 AudioRenderer。视频输出线程调用倍速感知的 `OH_AudioRenderer_GetAudioTimestampInfo()` 获取音频实际播放位置，再结合已写入帧数、硬件待播帧数、当前倍速和单调时钟锚点计算 `waitTimeUs`。视频帧过晚时丢帧，过早时 sleep 等待，以音频播放进度作为主时钟。
 
-当解封装结果包含多个音频轨时，`Demuxer` 默认选择第一条音频轨，也支持通过 `PlayOptions.audioTrackIndex` 指定容器轨道索引。播放控制区的“音轨”按钮读取当前媒体信息中的音频轨列表，用户切换后播放器安全停止当前任务并使用新的轨道重新打开文件；单音轨文件会给出提示。播放控制区的“静音/取消静音”按钮通过 `OH_AudioRenderer_SetVolume()` 即时设置音量，取消静音时恢复设置页中保存的音量。
+当解封装结果包含多个音频轨时，`Demuxer` 默认选择第一条音频轨，也支持通过 `PlayOptions.audioTrackIndex` 指定容器轨道索引。播放控制区的“音轨”按钮读取当前媒体信息中的音频轨列表，播放过程中切换轨道时只重建音频解码器、`AudioRenderer` 和音频工作线程，视频解码、送显与当前播放位置保持连续，不重新开始视频。新音轨启动后会先丢弃早于当前播放位置的音频帧，待音频时钟追上后再恢复音画同步，避免视频因音频时钟落后而连续丢帧；如果新轨道配置失败，会尝试恢复原音轨。单音轨文件会给出提示。播放控制区的“静音/取消静音”按钮通过 `OH_AudioRenderer_SetVolume()` 即时设置音量，取消静音时恢复设置页中保存的音量。
 
 <a id="subtitle-playback"></a>
 
@@ -656,6 +663,42 @@ OH_NativeWindow_NativeWindowHandleOpt(window, SET_TRANSFORM, transformHint);
 本示例选择重建 Decoder，而不是在旧实例上直接 Flush 后继续解码。视频 Flush 可能清除缓存的 SPS/PPS 等参数；重新配置 Decoder 可以再次应用解封装阶段取得的 Codec Config，也能彻底隔离 Seek 前后的异步回调和 Buffer 索引。SurfaceMode 与 BufferMode、SYNC 与 ASYNC 共用同一套精确 Seek 策略，区别仍只存在于解码输出的获取和送显方式。
 
 若 Seek 或解码链路重建失败，播放器进入 `STOPPING`，继续复用统一的 `ReleaseWorker` 释放路径；UI 会显示跳转失败提示。Seek 成功后不会播放从同步帧到目标位置之间的预滚内容：视频从第一个 PTS 大于等于目标时间的可用帧开始显示，音频最多保留目标所在 PCM Buffer 中从目标采样帧开始的数据。进度条随后继续以解码输出的真实 PTS 或 AudioRenderer 实际消费位置推进。
+
+<a id="playback-queue"></a>
+
+#### *播放队列与断点续播*
+
+播放队列面板支持通过文件管理器一次选择多个媒体文件。选中的 URI 保存在当前会话队列中，当前文件自然播放完成后，完成回调将队列索引推进并自动启动下一项；主动停止或播放失败不会自动跳转。面板同时展示最近播放记录。
+
+最近播放记录使用 `@ohos.data.preferences` 保存 URI、显示名称、最近位置、媒体时长和更新时间。播放过程中按位置变化节流写入；下次打开同一 URI 并成功初始化后，UI 在解码器进入播放状态后调用一次精准 `seekTo()` 恢复位置。接近媒体尾部的记录会从 0 秒重新开始，避免恢复后立即结束；重播按钮显式从 0 秒开始。
+
+<a id="display-mode"></a>
+
+#### *全屏与显示比例*
+
+播放控制区提供全屏切换和显示比例选择。全屏时通过主窗口的 `setWindowLayoutFullScreen(true)` 扩展内容区域，并请求横屏方向；退出全屏恢复普通窗口布局和竖屏方向。XComponent 不支持 `objectFit` 属性，视频 Surface 的比例由 NativeWindow 送显链路控制；UI 保留“适应窗口/铺满窗口”模式状态，避免调用仅适用于 Image 的 ArkUI API，不改变解码帧本身。
+
+<a id="playback-diagnostics"></a>
+
+#### *播放性能诊断*
+
+开启“性能诊断”后，播放窗口显示实时统计：当前状态、播放位置/总时长、倍速、解码输出 Buffer 数、实际送显帧数、丢帧数、近似输出帧率、累计丢帧率、音频输出 Buffer 数、音视频轨道以及智能流畅/HDR Vivid 状态。统计值由 Native 播放器原子计数器维护，通过结构化 `getPlaybackInfo()` 每 250 ms 更新到 UI；停止、失败或开始下一轮播放时自动清零。该面板只读统计，不参与送显和音画同步决策。
+
+<a id="ab-frame-control"></a>
+
+#### *A-B 循环与单帧控制*
+
+在“更多播放选项”中点击“设置 A 点”记录当前播放位置，再点击“设置 B 点”启用循环。播放位置到达 B 点后，UI 调用结构化 `seekTo(A)` 回到 A 点；新的媒体、停止播放或清除操作会重置 A/B 点。B 点必须晚于 A 点，避免产生零长度循环。
+
+“上一帧”和“下一帧”按媒体视频帧率计算单帧时间间隔，播放中会先暂停，再调用 `seekTo()` 定位到相邻帧，并保持暂停状态。暂停时 Seek/单帧操作会临时放行视频解码线程，丢弃目标时间之前的帧并立即送显目标帧，音频渲染器仍保持暂停，因此画面和进度会同步更新，诊断中的输出/送显计数也会变化。若媒体没有有效帧率，则使用 30 fps 作为安全回退值。
+
+<a id="pip-background"></a>
+
+#### *画中画与后台播放*
+
+“画中画”按钮使用 `@ohos.PiPWindow` 创建 `VIDEO_PLAY` 类型的系统 PiP 控制器，并复用播放器 XComponent 的 `XComponentController` 作为内容源。PiP 面板支持系统播放/暂停、快进和快退操作，状态变化会同步到 Native 播放器。设备不支持 PiP 或系统创建失败时，页面显示可识别的提示，不影响普通播放。
+
+“后台播放”开关控制 PiP 控制器的 `setAutoStartEnabled()`。开启后，用户返回桌面时系统可自动将当前视频切换到 PiP；Native 播放线程不会因为 UI 页面进入后台而主动停止，音频和视频继续由播放器生命周期管理。关闭后不再自动进入 PiP，但仍可手动点击“画中画”。
 
 <a id="playback-info"></a>
 

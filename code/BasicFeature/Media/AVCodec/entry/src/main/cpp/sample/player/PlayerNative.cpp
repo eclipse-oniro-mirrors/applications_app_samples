@@ -320,6 +320,23 @@ napi_value PlayerNative::SeekTo(napi_env env, napi_callback_info info)
     return result;
 }
 
+napi_value PlayerNative::SelectAudioTrack(napi_env env, napi_callback_info info)
+{
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    int32_t trackIndex = -1;
+    napi_value result = nullptr;
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc != 1 ||
+        napi_get_value_int32(env, args[0], &trackIndex) != napi_ok) {
+        napi_throw_type_error(env, nullptr, "trackIndex must be an integer");
+        return nullptr;
+    }
+    Player *player = GetPlayer(env);
+    const int32_t ret = player == nullptr ? AVCODEC_SAMPLE_ERR_ERROR : player->SelectAudioTrack(trackIndex);
+    napi_get_boolean(env, ret == AVCODEC_SAMPLE_ERR_OK, &result);
+    return result;
+}
+
 napi_value PlayerNative::GetState(napi_env env, napi_callback_info info)
 {
     (void)info;
@@ -380,6 +397,8 @@ static napi_value Init(napi_env env, napi_value exports)
         {"pause", nullptr, PlayerNative::Pause, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"resume", nullptr, PlayerNative::Resume, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"seekTo", nullptr, PlayerNative::SeekTo, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"selectAudioTrack", nullptr, PlayerNative::SelectAudioTrack,
+            nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getState", nullptr, PlayerNative::GetState, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getPlaybackInfo", nullptr, PlayerNative::GetPlaybackInfo,
             nullptr, nullptr, nullptr, napi_default, nullptr},

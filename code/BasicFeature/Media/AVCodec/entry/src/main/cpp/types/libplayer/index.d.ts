@@ -76,6 +76,8 @@ export const resume: () => boolean
 
 export const seekTo: (positionUs: number) => boolean
 
+export const selectAudioTrack: (trackIndex: number) => boolean
+
 export const getState: () => PlayerState
 
 export interface PlaybackInfo {
@@ -87,6 +89,10 @@ export interface PlaybackInfo {
   hasAudio: boolean;
   isSmartFluencyAvailable: boolean;
   isHdrVividConfirmed: boolean;
+  videoOutputFrames: number;
+  videoRenderedFrames: number;
+  videoDroppedFrames: number;
+  audioOutputBuffers: number;
 }
 
 export const getPlaybackInfo: () => PlaybackInfo
