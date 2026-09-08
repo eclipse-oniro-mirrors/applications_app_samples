@@ -13,11 +13,14 @@
 
 using namespace std;
 // [Start create_packet_controller]
+// 报文控制器创建：解析 JS 入参并创建 NFQueue 报文控制器
 constexpr int BUFFER_SIZE = 128;
 constexpr int GLOBAL_NETSTACK = 0xFF00;
 constexpr int IP_ADDR_BUF_LEN = 16;
 constexpr int IPV4_ADDR_LEN = 4;
 constexpr int MAX_STR_ARRAY_LEN = 46;
+
+// 默认配置常量：分组 ID、优先级、NFQueue 拷贝长度/队列长度/标志位/拷贝模式
 constexpr uint32_t DEFAULT_GROUP_ID = 1001;
 constexpr uint32_t DEFAULT_PRIORITY = 100;
 constexpr uint32_t DEFAULT_PACKET_COPY_LEN = 0xFFFF;
@@ -31,7 +34,7 @@ constexpr int MAX_IP_MULTI_COUNT = 8;
 constexpr int32_t ERR_CONTROLLER_NOT_FOUND = 29410101;
 constexpr int DUMMY_CALLBACK_ARG = 23;
 
-// Argument indices for CreatePacketControllerNapi
+// CreatePacketControllerNapi的参数索引
 constexpr int PACKET_CTRL_ARG_IDX_GROUP_ID = 0;
 constexpr int PACKET_CTRL_ARG_IDX_PRIORITY = 1;
 constexpr int PACKET_CTRL_ARG_IDX_PACKET_COPY_LEN = 2;
@@ -39,6 +42,7 @@ constexpr int PACKET_CTRL_ARG_IDX_NFQUEUE_MAXLEN = 3;
 constexpr int PACKET_CTRL_ARG_IDX_NFQUEUE_FLAGS = 4;
 constexpr int PACKET_CTRL_ARG_IDX_PACKET_COPY_MODE = 5;
 
+// Netfilter钩子点数值映射
 constexpr int HOOK_INPUT_VALUE = 0;
 constexpr int HOOK_OUTPUT_VALUE = 1;
 constexpr int HOOK_FORWARD_VALUE = 2;
@@ -50,29 +54,34 @@ constexpr int ARG_IDX_RULE_CONFIG = 2;
 
 constexpr size_t MAX_PORT_STRING_LEN = 1024;
 
+// 全局控制器映射表与自增ID
 map<int, OH_TrafficFilter_PacketController*> g_controllerMap;
 int g_controllerId = 1;
 
 static const char *TAG = "[packet]";
 
+// 线程安全函数与回调上下文
 napi_threadsafe_function tsFn;
 static int g_value = 0;
 
 struct PacketCallbackCtx {
-    napi_env env;
-    napi_ref jsCallbackRef;
-    const OH_TrafficFilter_PacketDesc* packet;
+    napi_env env;                       // N-API环境
+    napi_ref jsCallbackRef;             // JS回调引用
+    const OH_TrafficFilter_PacketDesc* packet; // 报文描述指针
 };
 
+// 全局异步回调上下文
 auto g_asyncContext = new PacketCallbackCtx();
 
 static napi_value CreatePacketControllerNapi(napi_env env, napi_callback_info info)
 {
+    // 获取JS调用参数
     size_t argc = PACKET_CTRL_ARG_IDX_PACKET_COPY_MODE + 1;
     napi_value args[PACKET_CTRL_ARG_IDX_PACKET_COPY_MODE + 1] = {nullptr};
 
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
+    // 使用默认值初始化参数，若JS端传入则覆盖
     uint32_t groupId = DEFAULT_GROUP_ID;
     uint32_t priority = DEFAULT_PRIORITY;
     uint32_t packetCopyLen = DEFAULT_PACKET_COPY_LEN;
@@ -96,6 +105,7 @@ static napi_value CreatePacketControllerNapi(napi_env env, napi_callback_info in
         napi_get_value_uint32(env, args[PACKET_CTRL_ARG_IDX_PACKET_COPY_MODE], &packetCopyMode);
     }
 
+    // 填充OH_TrafficFilter_Config配置结构体
     OH_TrafficFilter_Config config;
     config.size = sizeof(OH_TrafficFilter_Config);
     config.packetCopyLen = packetCopyLen;
@@ -103,6 +113,7 @@ static napi_value CreatePacketControllerNapi(napi_env env, napi_callback_info in
     config.nfqueueFlags = nfqueueFlags;
     config.packetCopyMode = packetCopyMode;
 
+    // 调用系统API创建报文控制器
     OH_TrafficFilter_PacketController* controller = nullptr;
     int32_t ret = OH_TrafficFilter_CreatePacketController(groupId, priority, &config, &controller);
 // [StartExclude create_packet_controller]
@@ -110,6 +121,7 @@ static napi_value CreatePacketControllerNapi(napi_env env, napi_callback_info in
                  "CreatePacketControllerNapi ret: %{public}d", ret);
 // [EndExclude create_packet_controller]
 
+    // 将控制器存入全局映射表，便于后续按ID操作
     g_controllerMap[g_controllerId] = controller;
 
     napi_value resultObj;
@@ -734,12 +746,15 @@ static OH_TrafficFilter_FilterRule BuildFilterRuleFromConfig(
 }
 
 // [Start add_packet_rule]
+// 添加报文过滤规则：按控制器ID查找控制器并添加过滤规则
 static napi_value AddPacketRuleNapi(napi_env env, napi_callback_info info)
 {
+    // 获取JS调用参数
     size_t argc = ARG_IDX_RULE_CONFIG;
     napi_value args[ARG_IDX_RULE_CONFIG] = {nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
+    // 解析控制器ID并查找对应控制器
     uint32_t id = -1;
     napi_get_value_uint32(env, args[0], &id);
     OH_TrafficFilter_PacketController* controller = g_controllerMap[id];
@@ -749,8 +764,10 @@ static napi_value AddPacketRuleNapi(napi_env env, napi_callback_info info)
         return result;
     }
 
+    // 规则配置对象
     napi_value configObj = args[1];
 
+    // 从配置对象中读取规则优先级
     uint32_t priority = DEFAULT_PRIORITY;
     bool hasProp = false;
     napi_value propVal;
@@ -759,13 +776,17 @@ static napi_value AddPacketRuleNapi(napi_env env, napi_callback_info info)
         napi_get_value_uint32(env, propVal, &priority);
     }
 
+    // 解析钩子点与协议类型
     OH_TrafficFilter_HookPoint hookPoint = ParseHookPointFromConfig(env, configObj);
     uint32_t protocol = ParseProtocolFromConfig(env, configObj);
+
+    // 根据配置构建OH_TrafficFilter_FilterRule过滤规则
     OH_TrafficFilter_FilterRule rule = BuildFilterRuleFromConfig(env, configObj, priority, hookPoint, protocol);
 
     OH_LOG_Print(LOG_APP, LOG_INFO, GLOBAL_NETSTACK, TAG,
                  "AddPacketRuleNapi srcMac: %{public}s", rule.macMatch.srcMac);
 
+    // 调用系统API添加过滤规则
     int ret = OH_TrafficFilter_AddPacketRule(controller, &rule);
     OH_LOG_Print(LOG_APP, LOG_INFO, GLOBAL_NETSTACK, TAG,
                  "AddPacketRuleNapi ret: %{public}d", ret);
@@ -877,24 +898,29 @@ static void ThreadSafeCallJs(napi_env env, napi_value jsCb, void* asyncCtx, void
 }
 
 // [Start register_packet_callback]
+// 注册报文回调：将内核报文通过线程安全函数转发到JS层
 OH_TrafficFilter_PacketDecision MyPacketHandler(
     const OH_TrafficFilter_PacketDesc* packet,
     void* userData)
 {
+    // 通过线程安全函数将报文信息转发到JS线程
     napi_acquire_threadsafe_function(tsFn);
     g_asyncContext->packet = packet;
     napi_call_threadsafe_function(tsFn, g_asyncContext, napi_tsfn_nonblocking);
     napi_release_threadsafe_function(tsFn, napi_tsfn_release);
 
+    // 默认丢弃该报文
     return OH_TRAFFICFILTER_DECISION_DROP;
 }
 
 static napi_value RegisterPacketCallbackNapi(napi_env env, napi_callback_info info)
 {
+    // 注册报文回调的N-API入口
     size_t argc = ARG_IDX_JS_CALLBACK + 1;
     napi_value args[ARG_IDX_JS_CALLBACK + 1] = {nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
+    // 解析控制器ID并查找对应控制器
     uint32_t id = -1;
     napi_get_value_uint32(env, args[0], &id);
     OH_TrafficFilter_PacketController* controller = g_controllerMap[id];
@@ -904,11 +930,13 @@ static napi_value RegisterPacketCallbackNapi(napi_env env, napi_callback_info in
         return result;
     }
 
+    // 读取用户自定义数据
     size_t copyLen = 0;
     char buf[BUFFER_SIZE] = {0};
     napi_get_value_string_utf8(env, args[1], buf, BUFFER_SIZE, &copyLen);
     void* userData = reinterpret_cast<void*>(buf);
 
+    // 创建线程安全函数，用于将报文信息转发到JS线程
     napi_value workName;
     napi_create_string_utf8(env, "ThreadSafeCase", NAPI_AUTO_LENGTH, &workName);
     napi_create_threadsafe_function(env, nullptr, nullptr, workName, 0, 1, nullptr, nullptr,
@@ -917,6 +945,7 @@ static napi_value RegisterPacketCallbackNapi(napi_env env, napi_callback_info in
     g_asyncContext->env = env;
     napi_create_reference(env, args[ARG_IDX_JS_CALLBACK], 1, &g_asyncContext->jsCallbackRef);
 
+    // 向控制器注册报文处理回调
     int ret = OH_TrafficFilter_RegisterPacketCallback(controller, MyPacketHandler, userData);
     napi_value result;
     napi_create_int32(env, 0, &result);
@@ -947,8 +976,8 @@ static napi_value UnregisterPacketCallbackNapi(napi_env env, napi_callback_info 
 }
 // [End unregister_packet_callback]
 
-EXTERN_C_START
 // [Start init_exports]
+EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor desc[] = {
