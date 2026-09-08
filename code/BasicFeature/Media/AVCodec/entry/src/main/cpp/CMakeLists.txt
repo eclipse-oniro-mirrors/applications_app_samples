@@ -14,6 +14,10 @@ include_directories(${NATIVERENDER_ROOT_PATH}
                     ${NATIVERENDER_ROOT_PATH}/common/dfx/log
                     ${NATIVERENDER_ROOT_PATH}/render/include
                     ${NATIVERENDER_ROOT_PATH}/sample/player
+                    ${NATIVERENDER_ROOT_PATH}/sample/player/core
+                    ${NATIVERENDER_ROOT_PATH}/sample/player/output
+                    ${NATIVERENDER_ROOT_PATH}/sample/player/sync
+                    ${NATIVERENDER_ROOT_PATH}/sample/player/napi
                     ${NATIVERENDER_ROOT_PATH}/sample/recorder
 )
 
@@ -23,18 +27,24 @@ set(BASE_LIBRARY
     libnative_media_venc.so libnative_media_acodec.so libnative_media_avdemuxer.so libnative_media_avsource.so libnative_media_avmuxer.so
     libohaudio.so
 )
-add_library(player SHARED sample/player/PlayerNative.cpp
-                          sample/player/PlayerNapiParser.cpp
-                          sample/player/PlayerNapiSerializer.cpp
-                          sample/player/Player.cpp
-                          sample/player/PlayerStateMachine.cpp
-                          sample/player/PlaybackClock.cpp
-                          sample/player/AvSyncController.cpp
-                          sample/player/SeekController.cpp
-                          sample/player/VideoPipeline.cpp
-                          sample/player/AudioOutputPump.cpp
-                          sample/player/BufferRenderer.cpp
-                          sample/player/HdrMetadataHelper.cpp
+add_library(player SHARED sample/player/napi/PlayerNative.cpp
+                          sample/player/napi/PlayerNapiParser.cpp
+                          sample/player/napi/PlayerNapiSerializer.cpp
+                          sample/player/core/Player.cpp
+                          sample/player/core/PlayerLifecycle.cpp
+                          sample/player/core/PlayerRelease.cpp
+                          sample/player/core/PlayerSeek.cpp
+                          sample/player/sync/PlayerStateMachine.cpp
+                          sample/player/sync/PlaybackClock.cpp
+                          sample/player/sync/AvSyncController.cpp
+                          sample/player/sync/SeekController.cpp
+                          sample/player/output/VideoPipeline.cpp
+                          sample/player/output/AudioOutputPump.cpp
+                          sample/player/output/PlayerVideoPresentation.cpp
+                          sample/player/output/PlayerVideoOutput.cpp
+                          sample/player/output/PlayerAudioOutput.cpp
+                          sample/player/output/BufferRenderer.cpp
+                          sample/player/output/HdrMetadataHelper.cpp
                           capabilities/demuxer.cpp
                           capabilities/codec_capability.cpp
                           capabilities/video_decoder.cpp

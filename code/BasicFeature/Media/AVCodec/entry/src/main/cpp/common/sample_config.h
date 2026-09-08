@@ -46,6 +46,10 @@ enum PlaybackCompletionReason : int32_t {
 struct MediaTrackFormatInfo {
     int32_t trackIndex = -1;
     int32_t trackType = -1;
+    std::string codecMime;
+    int32_t audioSampleRate = 0;
+    int32_t audioChannelCount = 0;
+    int64_t bitrate = 0;
     std::string formatDump;
 };
 

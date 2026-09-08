@@ -201,6 +201,10 @@
       "value": "Auto-hide playback controls"
     },
     {
+      "name": "playback_controls_auto_hide_tip",
+      "value": "Playback controls are hidden. You can disable auto-hide in Playback Settings."
+    },
+    {
       "name": "setting_codec",
       "value": "Codec"
     },
@@ -471,6 +475,7 @@
     { "name": "playback_subtitle", "value": "Subtitle" },
     { "name": "playback_no_audio_track", "value": "The file has only one audio track" },
     { "name": "playback_audio_track_failed", "value": "Failed to read audio tracks" },
+    { "name": "playback_audio_track_unsupported", "value": "The selected audio track is not supported" },
     { "name": "playback_subtitle_loaded", "value": "SRT subtitle loaded" },
     { "name": "playback_subtitle_empty", "value": "No valid SRT cues found" },
     { "name": "playback_subtitle_failed", "value": "Failed to load SRT subtitle" },
@@ -577,6 +582,20 @@
     { "name": "playback_diagnostics_available", "value": "Available" },
     { "name": "playback_diagnostics_unavailable", "value": "Unavailable" },
     { "name": "playback_diagnostics_confirmed", "value": "Confirmed" },
-    { "name": "playback_diagnostics_unconfirmed", "value": "Unconfirmed" }
+    { "name": "playback_diagnostics_unconfirmed", "value": "Unconfirmed" },
+    { "name": "playback_audio_channel_unit", "value": " ch" },
+    { "name": "playback_subtitle_sync", "value": "Subtitle timing" },
+    { "name": "playback_subtitle_style", "value": "Subtitle style" },
+    { "name": "playback_subtitle_early", "value": "Subtitle early by 0.5 s" },
+    { "name": "playback_subtitle_late", "value": "Subtitle late by 0.5 s" },
+    { "name": "playback_subtitle_style_small", "value": "Small subtitle" },
+    { "name": "playback_subtitle_style_medium", "value": "Medium subtitle" },
+    { "name": "playback_subtitle_style_large", "value": "Large subtitle" },
+    { "name": "playback_diagnostics_buffer_present", "value": "Buffer present " },
+    { "name": "playback_diagnostics_buffer_average", "value": "  Average " },
+    { "name": "playback_diagnostics_buffer_failures", "value": "  Failures " },
+    { "name": "playback_diagnostics_software_fallback", "value": "Software fallback " },
+    { "name": "playback_diagnostics_used", "value": "Used" },
+    { "name": "playback_diagnostics_not_used", "value": "Not used" }
   ]
 }

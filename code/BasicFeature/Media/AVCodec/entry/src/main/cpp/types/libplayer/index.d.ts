@@ -89,10 +89,15 @@ export interface PlaybackInfo {
   hasAudio: boolean;
   isSmartFluencyAvailable: boolean;
   isHdrVividConfirmed: boolean;
+  isSoftwareDecoderFallbackUsed: boolean;
+  isBufferMode: boolean;
   videoOutputFrames: number;
   videoRenderedFrames: number;
   videoDroppedFrames: number;
   audioOutputBuffers: number;
+  bufferPresentFrames: number;
+  bufferPresentFailures: number;
+  bufferPresentAverageUs: number;
 }
 
 export const getPlaybackInfo: () => PlaybackInfo
@@ -125,11 +130,16 @@ export interface DecoderInfo {
   runMode: number;
   syncMode: number;
   videoDumpEnabled: boolean;
+  softwareDecoderFallbackUsed: boolean;
 }
 
 export interface MediaTrackInfo {
   index: number;
   type: number;
+  codecMime: string;
+  audioSampleRate: number;
+  audioChannelCount: number;
+  bitrate: number;
   formatDump: string;
 }
 

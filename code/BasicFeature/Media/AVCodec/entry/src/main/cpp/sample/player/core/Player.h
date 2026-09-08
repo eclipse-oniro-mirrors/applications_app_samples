@@ -18,6 +18,7 @@
 
 #include <bits/alltypes.h>
 #include <cstdint>
+#include <chrono>
 #include <mutex>
 #include <memory>
 #include <atomic>
@@ -55,10 +56,15 @@ struct PlaybackInfo {
     bool hasAudio = false;
     bool smartFluencyAvailable = false;
     bool hdrVividConfirmed = false;
+    bool softwareDecoderFallbackUsed = false;
+    bool isBufferMode = false;
     uint64_t videoOutputFrames = 0;
     uint64_t videoRenderedFrames = 0;
     uint64_t videoDroppedFrames = 0;
     uint64_t audioOutputBuffers = 0;
+    uint64_t bufferPresentFrames = 0;
+    uint64_t bufferPresentFailures = 0;
+    double bufferPresentAverageUs = 0.0;
 };
 
 struct MediaInfo {
@@ -87,6 +93,7 @@ struct MediaInfo {
     int32_t decoderRunMode = 0;
     int32_t decoderSyncMode = 0;
     bool videoDumpEnabled = false;
+    bool softwareDecoderFallbackUsed = false;
     std::string sourceFormatDump;
     std::vector<MediaTrackFormatInfo> trackFormats;
 };
@@ -137,13 +144,17 @@ private:
     PlaybackCompletionReason GetCompletionReason(bool &playbackSucceeded) const;
     void ReleasePlaybackResources();
     int32_t CreateAudioDecoder();
+    bool CanConfigureAudioTrack(const AudioSampleInfo &audioInfo) const;
     int32_t CreateAudioRenderer();
     void PrepareAudioTrackSwitch();
+    int32_t RestorePreviousAudioTrackAfterFailedSwitch(std::unique_lock<std::mutex>& lock,
+        const SampleInfo& oldSampleInfo, int32_t oldTrackIndex, bool resumeRenderer, float speedSnapshot);
     void CleanupAudioTrackFailure(std::unique_lock<std::mutex>& lock);
     void ReleaseAudioTrackResources();
     int32_t StartSelectedAudioTrack(bool resumeRenderer, float speedSnapshot);
     int32_t RestoreAudioTrack(int32_t oldTrackIndex, bool resumeRenderer, float speedSnapshot);
     int32_t CreateVideoDecoder();
+    int32_t CreateVideoDecoderForType(int32_t decoderType);
     int64_t GetCurrentTime();
     void DumpOutput(CodecBufferInfo &bufferInfo);
     void WriteOutputFileWithStrideYUV420P(uint8_t *bufferAddr);
@@ -247,10 +258,17 @@ private:
     int32_t transformHint = 0;
     bool isSmartFluencySupported_ = false;
     std::atomic<bool> smartFluencyAvailable_ { false };
+    std::atomic<bool> isBufferMode_ { false };
     std::atomic<uint64_t> videoOutputFrames_ { 0 };
     std::atomic<uint64_t> videoRenderedFrames_ { 0 };
     std::atomic<uint64_t> videoDroppedFrames_ { 0 };
     std::atomic<uint64_t> audioOutputBuffers_ { 0 };
+    std::atomic<uint64_t> bufferPresentFrames_ { 0 };
+    std::atomic<uint64_t> bufferPresentFailures_ { 0 };
+    std::atomic<uint64_t> bufferPresentDurationNs_ { 0 };
+    int32_t requestedVideoDecoderType_ = AUTO;
+    int32_t activeVideoDecoderType_ = AUTO;
+    std::atomic<bool> softwareDecoderFallbackUsed_ { false };
     bool thermalWarningActive_ = false;
     double thermalFrameRetentionRatio_ = 0.0;
     std::unique_ptr<VideoSink> videoSink_ = nullptr;

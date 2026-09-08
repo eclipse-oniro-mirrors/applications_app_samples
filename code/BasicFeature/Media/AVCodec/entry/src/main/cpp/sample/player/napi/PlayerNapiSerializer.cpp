@@ -74,10 +74,15 @@ bool PopulatePlaybackInfo(napi_env env, napi_value object, const PlaybackInfo &i
         SetBoolProperty(env, object, "hasAudio", info.hasAudio) &&
         SetBoolProperty(env, object, "isSmartFluencyAvailable", info.smartFluencyAvailable) &&
         SetBoolProperty(env, object, "isHdrVividConfirmed", info.hdrVividConfirmed) &&
+        SetBoolProperty(env, object, "isSoftwareDecoderFallbackUsed", info.softwareDecoderFallbackUsed) &&
+        SetBoolProperty(env, object, "isBufferMode", info.isBufferMode) &&
         SetInt64Property(env, object, "videoOutputFrames", static_cast<int64_t>(info.videoOutputFrames)) &&
         SetInt64Property(env, object, "videoRenderedFrames", static_cast<int64_t>(info.videoRenderedFrames)) &&
         SetInt64Property(env, object, "videoDroppedFrames", static_cast<int64_t>(info.videoDroppedFrames)) &&
-        SetInt64Property(env, object, "audioOutputBuffers", static_cast<int64_t>(info.audioOutputBuffers));
+        SetInt64Property(env, object, "audioOutputBuffers", static_cast<int64_t>(info.audioOutputBuffers)) &&
+        SetInt64Property(env, object, "bufferPresentFrames", static_cast<int64_t>(info.bufferPresentFrames)) &&
+        SetInt64Property(env, object, "bufferPresentFailures", static_cast<int64_t>(info.bufferPresentFailures)) &&
+        SetDoubleProperty(env, object, "bufferPresentAverageUs", info.bufferPresentAverageUs);
 }
 
 bool PopulateVideoMediaInfo(napi_env env, napi_value object, const MediaInfo &info)
@@ -110,7 +115,8 @@ bool PopulateDecoderInfo(napi_env env, napi_value object, const MediaInfo &info)
     return SetInt32Property(env, object, "type", info.decoderType) &&
         SetInt32Property(env, object, "runMode", info.decoderRunMode) &&
         SetInt32Property(env, object, "syncMode", info.decoderSyncMode) &&
-        SetBoolProperty(env, object, "videoDumpEnabled", info.videoDumpEnabled);
+        SetBoolProperty(env, object, "videoDumpEnabled", info.videoDumpEnabled) &&
+        SetBoolProperty(env, object, "softwareDecoderFallbackUsed", info.softwareDecoderFallbackUsed);
 }
 
 bool SetMediaSection(napi_env env, napi_value target, const char *name, const MediaInfo &info,
@@ -126,6 +132,10 @@ bool CreateTrackInfo(napi_env env, const MediaTrackFormatInfo &trackInfo, napi_v
     return napi_create_object(env, &object) == napi_ok &&
         SetInt32Property(env, object, "index", trackInfo.trackIndex) &&
         SetInt32Property(env, object, "type", trackInfo.trackType) &&
+        SetStringProperty(env, object, "codecMime", trackInfo.codecMime) &&
+        SetInt32Property(env, object, "audioSampleRate", trackInfo.audioSampleRate) &&
+        SetInt32Property(env, object, "audioChannelCount", trackInfo.audioChannelCount) &&
+        SetInt64Property(env, object, "bitrate", trackInfo.bitrate) &&
         SetStringProperty(env, object, "formatDump", trackInfo.formatDump);
 }
 

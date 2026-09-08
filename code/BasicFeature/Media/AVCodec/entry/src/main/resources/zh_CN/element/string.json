@@ -205,6 +205,10 @@
       "value": "播放控件自动隐藏"
     },
     {
+      "name": "playback_controls_auto_hide_tip",
+      "value": "播放控件已自动隐藏，可在播放设置中关闭自动隐藏。"
+    },
+    {
       "name": "setting_codec",
       "value": "编码格式"
     },
@@ -459,6 +463,7 @@
     { "name": "playback_subtitle", "value": "字幕" },
     { "name": "playback_no_audio_track", "value": "当前文件只有一个音轨" },
     { "name": "playback_audio_track_failed", "value": "读取音轨信息失败" },
+    { "name": "playback_audio_track_unsupported", "value": "当前音轨不支持播放" },
     { "name": "playback_subtitle_loaded", "value": "SRT 字幕已加载" },
     { "name": "playback_subtitle_empty", "value": "SRT 字幕无有效内容" },
     { "name": "playback_subtitle_failed", "value": "SRT 字幕加载失败" },
@@ -565,6 +570,20 @@
     { "name": "playback_diagnostics_available", "value": "可用" },
     { "name": "playback_diagnostics_unavailable", "value": "不可用" },
     { "name": "playback_diagnostics_confirmed", "value": "已确认" },
-    { "name": "playback_diagnostics_unconfirmed", "value": "未确认" }
+    { "name": "playback_diagnostics_unconfirmed", "value": "未确认" },
+    { "name": "playback_audio_channel_unit", "value": " 声道" },
+    { "name": "playback_subtitle_sync", "value": "字幕同步" },
+    { "name": "playback_subtitle_style", "value": "字幕样式" },
+    { "name": "playback_subtitle_early", "value": "字幕提前 0.5 秒" },
+    { "name": "playback_subtitle_late", "value": "字幕延后 0.5 秒" },
+    { "name": "playback_subtitle_style_small", "value": "小号字幕" },
+    { "name": "playback_subtitle_style_medium", "value": "中号字幕" },
+    { "name": "playback_subtitle_style_large", "value": "大号字幕" },
+    { "name": "playback_diagnostics_buffer_present", "value": "Buffer 送显 " },
+    { "name": "playback_diagnostics_buffer_average", "value": "  平均 " },
+    { "name": "playback_diagnostics_buffer_failures", "value": "  失败 " },
+    { "name": "playback_diagnostics_software_fallback", "value": "软件解码回退 " },
+    { "name": "playback_diagnostics_used", "value": "已启用" },
+    { "name": "playback_diagnostics_not_used", "value": "未启用" }
   ]
 }

@@ -34,10 +34,16 @@ function createMediaInfo(): MediaInfo {
       codecMime: 'audio/mp4a-latm', sampleFormat: 1, sampleRate: 48000, channelCount: 2,
       channelLayout: 3, bitrate: 192000, aacAdts: 0, codecConfigLength: 2
     },
-    decoder: { type: 1, runMode: 0, syncMode: 0, videoDumpEnabled: false },
+    decoder: { type: 1, runMode: 0, syncMode: 0, videoDumpEnabled: false, softwareDecoderFallbackUsed: false },
     tracks: [
-      { index: 0, type: 1, formatDump: 'codec_mime = video/avc' },
-      { index: 1, type: 0, formatDump: 'codec_mime = audio/mp4a-latm' }
+      {
+        index: 0, type: 1, codecMime: 'video/avc', audioSampleRate: 0, audioChannelCount: 0,
+        bitrate: 8000000, formatDump: 'codec_mime = video/avc'
+      },
+      {
+        index: 1, type: 0, codecMime: 'audio/mp4a-latm', audioSampleRate: 48000, audioChannelCount: 2,
+        bitrate: 192000, formatDump: 'codec_mime = audio/mp4a-latm'
+      }
     ]
   };
 }
@@ -62,7 +68,10 @@ export default function mediaInfoModelTest(): void {
       runTestCase('AVCodec_MediaInfo_MissingTrackHandling_002', () => {
         const info = createMediaInfo();
         info.audio.codecMime = '';
-        info.tracks = [{ index: 0, type: 1, formatDump: '' }];
+        info.tracks = [{
+          index: 0, type: 1, codecMime: 'video/avc', audioSampleRate: 0, audioChannelCount: 0,
+          bitrate: 0, formatDump: ''
+        }];
         const sections: MediaInfoSection[] = buildMediaInfoSections(info);
         expect(sections.length).assertEqual(5);
         expect(sections[2].title).assertEqual('解码与输出');

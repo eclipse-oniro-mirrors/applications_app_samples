@@ -49,7 +49,7 @@ const DATETIME: DateTimeUtil = new DateTimeUtil();
 const SEEK_PREVIEW_INTERVAL_MS: number = 100;
 const SEEK_PREVIEW_WIDTH: number = 320;
 const SEEK_PREVIEW_HEIGHT: number = 180;
-const PLAYBACK_CONTROLS_HIDE_DELAY_MS: number = 4000;
+const PLAYBACK_CONTROLS_HIDE_DELAY_MS: number = 5000;
 const VISIBLE_SYSTEM_BARS: ('status' | 'navigation')[] = ['navigation', 'status'];
 const BLACK_SYSTEM_BAR_PROPERTIES: window.SystemBarProperties = {
   statusBarColor: '#000000',
@@ -97,6 +97,8 @@ export struct Player {
   @State isPipActive: boolean = false;
   @State isBackgroundPlaybackEnabled: boolean = false;
   @State subtitleText: string = '';
+  @State subtitleDelayIndex: number = 1;
+  @State subtitleStyleIndex: number = 1;
   @State audioMuted: boolean = false;
   @State draftRecorderCodec: number = 1;
   @State draftRecorderOutputFormat: number = 0;
@@ -130,6 +132,8 @@ export struct Player {
   private resumeSeekTimer: number = 0;
   private seekPreviewLastFetchTimeMs: number = 0;
   private playbackControlsTimer: number = 0;
+  private hasShownAutoHideControlsHint: boolean = false;
+  private abLoopTimer: number = 0;
   private abLoopSeekPending: boolean = false;
   private pipController: PiPWindow.PiPController | undefined;
   private readonly xComponentController: XComponentController = new XComponentController();
@@ -141,6 +145,7 @@ export struct Player {
     this.loadPlaybackHistory();
     this.playbackViewModel.onPlaybackPositionChanged = (positionUs: number): void => {
       this.updateSubtitle(positionUs);
+      this.checkAbLoop(positionUs);
       if (this.playbackViewModel.state === player.PlayerState.PLAYING ||
         this.playbackViewModel.state === player.PlayerState.PAUSED) {
         this.persistPlaybackProgress(positionUs, this.playbackViewModel.durationUs);
@@ -341,8 +346,27 @@ export struct Player {
         this.showPlaybackControls();
       } else if (this.playerSettings.autoHideControls && (this.isFullscreen || !this.buttonEnabled)) {
         this.isPlaybackControlsVisible = false;
+        if (!this.hasShownAutoHideControlsHint) {
+          this.hasShownAutoHideControlsHint = true;
+          this.getUIContext().getPromptAction().showToast({
+            message: $r('app.string.playback_controls_auto_hide_tip'),
+            duration: Const.DURATION,
+            bottom: Const.BOTTOM
+          });
+        }
       }
     }, PLAYBACK_CONTROLS_HIDE_DELAY_MS);
+  }
+
+  private handlePlaybackControlInteraction(): void {
+    if (!this.buttonEnabled && !this.isStopping) {
+      this.showPlaybackControls();
+    }
+  }
+
+  private closePlaybackTools(): void {
+    this.isPlaybackToolsVisible = false;
+    this.handlePlaybackControlInteraction();
   }
 
   private selectDisplayScaleMode(): void {
@@ -377,7 +401,9 @@ export struct Player {
   }
 
   private updateSubtitle(positionUs: number): void {
-    this.subtitleText = findSubtitleText(this.subtitleCues, positionUs);
+    const delayUs: number[] = [500000, 0, -500000];
+    this.subtitleText = findSubtitleText(this.subtitleCues,
+      Math.max(0, positionUs + delayUs[this.subtitleDelayIndex]));
   }
 
   async selectSubtitleFile(): Promise<void> {
@@ -405,6 +431,70 @@ export struct Player {
     }
   }
 
+  private selectSubtitleDelay(): void {
+    const labels: string[] = [
+      this.getSettingText($r('app.string.playback_subtitle_early')),
+      this.getSettingText($r('app.string.playback_subtitle_sync')),
+      this.getSettingText($r('app.string.playback_subtitle_late'))
+    ];
+    TextPickerDialog.show({
+      range: labels,
+      selected: this.subtitleDelayIndex,
+      canLoop: false,
+      onAccept: (value: TextPickerResult) => {
+        const selected = getPickerSelectedIndex(value.index);
+        if (selected >= 0 && selected < labels.length) {
+          this.subtitleDelayIndex = selected;
+          this.updateSubtitle(this.playbackViewModel.positionUs);
+        }
+      }
+    });
+  }
+
+  private selectSubtitleStyle(): void {
+    const labels: string[] = [
+      this.getSettingText($r('app.string.playback_subtitle_style_small')),
+      this.getSettingText($r('app.string.playback_subtitle_style_medium')),
+      this.getSettingText($r('app.string.playback_subtitle_style_large'))
+    ];
+    TextPickerDialog.show({
+      range: labels,
+      selected: this.subtitleStyleIndex,
+      canLoop: false,
+      onAccept: (value: TextPickerResult) => {
+        const selected = getPickerSelectedIndex(value.index);
+        if (selected >= 0 && selected < labels.length) {
+          this.subtitleStyleIndex = selected;
+        }
+      }
+    });
+  }
+
+  private getSubtitleFontSize(): string {
+    const sizes: string[] = ['16fp', '18fp', '22fp'];
+    return this.subtitleStyleIndex >= 0 && this.subtitleStyleIndex < sizes.length ?
+      sizes[this.subtitleStyleIndex] : sizes[1];
+  }
+
+  private formatAudioTrackLabel(track: MediaTrackInfo, position: number): string {
+    const details: string[] = [];
+    if (track.codecMime.length > 0) {
+      details.push(track.codecMime);
+    }
+    if (track.audioSampleRate > 0) {
+      details.push((track.audioSampleRate / 1000).toFixed(1) + ' kHz');
+    }
+    if (track.audioChannelCount > 0) {
+      details.push(track.audioChannelCount + this.getSettingText($r('app.string.playback_audio_channel_unit')));
+    }
+    if (track.bitrate > 0) {
+      details.push((track.bitrate / 1000).toFixed(0) + ' kbps');
+    }
+    const label = this.getSettingText($r('app.string.playback_audio_track')) + ' ' + (position + 1) +
+      ' (ID ' + track.index + ')';
+    return details.length > 0 ? label + ' | ' + details.join(' | ') : label;
+  }
+
   private selectAudioTrack(): void {
     let tracks: MediaTrackInfo[] = [];
     try {
@@ -422,9 +512,7 @@ export struct Player {
       this.getUIContext().getPromptAction().showToast({ message: $r('app.string.playback_no_audio_track') });
       return;
     }
-    const labels = tracks.map((track: MediaTrackInfo, index: number) =>
-      this.getSettingText($r('app.string.playback_audio_track')) + ' ' +
-      (index + 1) + ' (ID ' + track.index + ')');
+    const labels = tracks.map((track: MediaTrackInfo, index: number) => this.formatAudioTrackLabel(track, index));
     TextPickerDialog.show({
       range: labels,
       canLoop: false,
@@ -436,7 +524,8 @@ export struct Player {
           const switched = player.selectAudioTrack(tracks[selected].index);
           if (!switched) {
             this.getUIContext().getPromptAction().showToast({
-              message: $r('app.string.playback_audio_track_failed'), duration: Const.DURATION, bottom: Const.BOTTOM
+              message: $r('app.string.playback_audio_track_unsupported'), duration: Const.DURATION,
+              bottom: Const.BOTTOM
             });
             return;
           }
@@ -693,6 +782,7 @@ export struct Player {
     this.abLoopEndUs = positionUs;
     this.isAbLoopEnabled = true;
     this.abLoopSeekPending = false;
+    this.startAbLoopMonitor();
     this.showControlToast($r('app.string.playback_ab_enabled'));
   }
 
@@ -701,26 +791,63 @@ export struct Player {
     this.abLoopEndUs = -1;
     this.isAbLoopEnabled = false;
     this.abLoopSeekPending = false;
+    this.stopAbLoopMonitor();
+  }
+
+  private startAbLoopMonitor(): void {
+    this.stopAbLoopMonitor();
+    // Keep A-B checking independent from the UI refresh cadence.  Audio
+    // playback can advance between view-model updates, and a 250 ms poll can
+    // otherwise miss the B boundary when the stream has a large timestamp
+    // step or is being seeked.
+    this.abLoopTimer = setInterval(() => {
+      if (this.isAbLoopEnabled) {
+        this.checkAbLoop(this.currentPlaybackPositionUs());
+      }
+    }, 50);
+  }
+
+  private stopAbLoopMonitor(): void {
+    if (this.abLoopTimer !== 0) {
+      clearInterval(this.abLoopTimer);
+      this.abLoopTimer = 0;
+    }
   }
 
   private checkAbLoop(positionUs: number): void {
-    if (!this.isAbLoopEnabled || this.abLoopStartUs < 0 || this.abLoopEndUs <= this.abLoopStartUs ||
-      this.abLoopSeekPending || this.playbackViewModel.state !== player.PlayerState.PLAYING) {
+    if (!this.isAbLoopEnabled || this.abLoopStartUs < 0 || this.abLoopEndUs <= this.abLoopStartUs) {
       return;
     }
+    // Use the native state as the source of truth.  The view model is
+    // refreshed periodically and can briefly lag behind the decoder after a
+    // seek, which used to suppress the loop exactly at the B point.
+    const info = player.getPlaybackInfo();
+    if (info.state !== player.PlayerState.PLAYING) {
+      return;
+    }
+    // Prefer the native clock over a possibly stale callback argument.
+    positionUs = Math.max(0, Math.min(info.durationUs, info.positionUs));
     const toleranceUs = 150000;
+    if (this.abLoopSeekPending) {
+      // Seek completion can report a frame slightly after A (especially when
+      // the demuxer seeks to a sync frame).  Treat any position back inside
+      // the configured interval as completion; requiring an exact A-point
+      // timestamp could leave the pending flag latched forever and disable
+      // subsequent loops.
+      if (positionUs + toleranceUs < this.abLoopEndUs) {
+        this.abLoopSeekPending = false;
+      }
+      return;
+    }
     if (positionUs + toleranceUs < this.abLoopEndUs) {
       return;
     }
     this.abLoopSeekPending = true;
+    Logger.info(TAG, 'A-B loop reached B, seek to A: ' + this.abLoopStartUs);
     if (!player.seekTo(this.abLoopStartUs)) {
       this.abLoopSeekPending = false;
       Logger.error(TAG, 'A-B loop seek failed');
-      return;
     }
-    setTimeout(() => {
-      this.abLoopSeekPending = false;
-    }, 300);
   }
 
   private stepFrame(direction: number): void {
@@ -1747,6 +1874,7 @@ export struct Player {
       })
       .margin({ bottom: $r('app.float.button_margin_bottom') })
       .onClick(() => {
+        this.handlePlaybackControlInteraction();
         this.preparePlayerSettings();
         this.isPlayerSettingsVisible = true;
       })
@@ -1936,7 +2064,7 @@ export struct Player {
         Button($r('app.string.playback_queue'))
           .layoutWeight(1)
           .onClick(() => {
-            this.isPlaybackToolsVisible = false;
+            this.closePlaybackTools();
             setTimeout(() => {
               this.isQueueVisible = true;
             }, 300);
@@ -1946,35 +2074,49 @@ export struct Player {
           .layoutWeight(1)
           .onClick(() => {
             this.isDiagnosticsVisible = !this.isDiagnosticsVisible;
-            this.isPlaybackToolsVisible = false;
+            this.closePlaybackTools();
           })
       }
       Row({ space: '8vp' }) {
         Button($r('app.string.playback_display_scale'))
           .layoutWeight(1)
           .onClick(() => {
-            this.isPlaybackToolsVisible = false;
+            this.closePlaybackTools();
             this.selectDisplayScaleMode();
           })
         Button(this.audioMuted ? $r('app.string.playback_unmute') : $r('app.string.playback_mute'))
           .layoutWeight(1)
           .onClick(() => {
             this.toggleMute();
-            this.isPlaybackToolsVisible = false;
+            this.closePlaybackTools();
           })
       }
       Row({ space: '8vp' }) {
         Button($r('app.string.playback_audio_track'))
           .layoutWeight(1)
           .onClick(() => {
-            this.isPlaybackToolsVisible = false;
+            this.closePlaybackTools();
             this.selectAudioTrack();
           })
         Button($r('app.string.playback_subtitle'))
           .layoutWeight(1)
           .onClick(() => {
-            this.isPlaybackToolsVisible = false;
+            this.closePlaybackTools();
             this.selectSubtitleFile();
+          })
+      }
+      Row({ space: '8vp' }) {
+        Button($r('app.string.playback_subtitle_sync'))
+          .layoutWeight(1)
+          .onClick(() => {
+            this.closePlaybackTools();
+            this.selectSubtitleDelay();
+          })
+        Button($r('app.string.playback_subtitle_style'))
+          .layoutWeight(1)
+          .onClick(() => {
+            this.closePlaybackTools();
+            this.selectSubtitleStyle();
           })
       }
       Row({ space: '8vp' }) {
@@ -1984,7 +2126,7 @@ export struct Player {
           .enabled(!this.buttonEnabled && !this.isStopping)
           .onClick(() => {
             this.setAbLoopStart();
-            this.isPlaybackToolsVisible = false;
+            this.closePlaybackTools();
           })
         Button(this.isAbLoopEnabled ? $r('app.string.playback_ab_set_end_done') :
           $r('app.string.playback_ab_set_end'))
@@ -1992,14 +2134,14 @@ export struct Player {
           .enabled(!this.buttonEnabled && !this.isStopping && this.abLoopStartUs >= 0)
           .onClick(() => {
             this.setAbLoopEnd();
-            this.isPlaybackToolsVisible = false;
+            this.closePlaybackTools();
           })
         Button($r('app.string.playback_ab_clear'))
           .layoutWeight(1)
           .enabled(this.abLoopStartUs >= 0 || this.abLoopEndUs >= 0)
           .onClick(() => {
             this.resetAbLoop();
-            this.isPlaybackToolsVisible = false;
+            this.closePlaybackTools();
           })
       }
       Row({ space: '8vp' }) {
@@ -2009,7 +2151,7 @@ export struct Player {
           .enabled(!this.buttonEnabled && !this.isStopping)
           .onClick(async () => {
             await this.toggleBackgroundPlayback();
-            this.isPlaybackToolsVisible = false;
+            this.closePlaybackTools();
           })
         Blank().layoutWeight(1)
         Blank().layoutWeight(1)
@@ -2024,7 +2166,7 @@ export struct Player {
             } else {
               await this.togglePictureInPicture();
             }
-            this.isPlaybackToolsVisible = false;
+            this.closePlaybackTools();
           })
         if (this.isAbLoopEnabled) {
           Text(this.formatHistoryPosition(this.abLoopStartUs) + ' - ' +
@@ -2078,6 +2220,15 @@ export struct Player {
         Text(this.getSettingText($r('app.string.playback_diagnostics_audio_buffers')) +
           this.playbackViewModel.audioOutputBuffers)
           .fontSize('12fp').fontColor('#E8FFFFFF')
+        if (this.playbackViewModel.isBufferMode) {
+          Text(this.getSettingText($r('app.string.playback_diagnostics_buffer_present')) +
+            this.playbackViewModel.bufferPresentFrames +
+            this.getSettingText($r('app.string.playback_diagnostics_buffer_average')) +
+            this.playbackViewModel.bufferPresentAverageUs.toFixed(1) + ' us' +
+            this.getSettingText($r('app.string.playback_diagnostics_buffer_failures')) +
+            this.playbackViewModel.bufferPresentFailures)
+            .fontSize('12fp').fontColor('#E8FFFFFF')
+        }
         Text(this.getSettingText($r('app.string.playback_diagnostics_smart_fluency')) +
           (this.playbackViewModel.isSmartFluencyAvailable ?
             this.getSettingText($r('app.string.playback_diagnostics_available')) :
@@ -2086,6 +2237,11 @@ export struct Player {
           (this.playbackViewModel.isHdrVividConfirmed ?
             this.getSettingText($r('app.string.playback_diagnostics_confirmed')) :
             this.getSettingText($r('app.string.playback_diagnostics_unconfirmed'))))
+          .fontSize('12fp').fontColor('#E8FFFFFF')
+        Text(this.getSettingText($r('app.string.playback_diagnostics_software_fallback')) +
+          (this.playbackViewModel.isSoftwareDecoderFallbackUsed ?
+            this.getSettingText($r('app.string.playback_diagnostics_used')) :
+            this.getSettingText($r('app.string.playback_diagnostics_not_used'))))
           .fontSize('12fp').fontColor('#E8FFFFFF')
       }
       .padding({ left: '8vp', right: '8vp', top: '6vp', bottom: '6vp' })
@@ -2158,7 +2314,7 @@ export struct Player {
       this.DiagnosticsPanel()
       if (this.subtitleText.length > 0) {
         Text(this.subtitleText)
-          .fontSize('18fp')
+          .fontSize(this.getSubtitleFontSize())
           .fontColor(Color.White)
           .textAlign(TextAlign.Center)
           .backgroundColor('#99000000')
@@ -2182,9 +2338,14 @@ export struct Player {
       seekEnabled: (this.playbackViewModel.state === player.PlayerState.PLAYING ||
         this.playbackViewModel.state === player.PlayerState.PAUSED) &&
         !this.isStopping && this.playbackViewModel.durationUs > 0,
-      onShowMediaInfo: () => this.showMediaInfo(),
-      onProgressChange: (value: number, mode: SliderChangeMode) =>
-        this.handlePlaybackProgressChange(value, mode)
+      onShowMediaInfo: () => {
+        this.handlePlaybackControlInteraction();
+        this.showMediaInfo();
+      },
+      onProgressChange: (value: number, mode: SliderChangeMode) => {
+        this.handlePlaybackControlInteraction();
+        this.handlePlaybackProgressChange(value, mode);
+      }
     })
       .bindSheet($$this.isMediaInfoVisible, this.MediaInfoPanel(), {
         height: '85%',
@@ -2220,7 +2381,10 @@ export struct Player {
                 .padding({ left: '0vp', right: '0vp' })
                 .backgroundColor('#1976D2')
                 .fontColor(Color.White)
-                .onClick(() => this.seekBySeconds(-15))
+                .onClick(() => {
+                  this.handlePlaybackControlInteraction();
+                  this.seekBySeconds(-15);
+                })
               Button($r('app.string.playback_previous_frame'))
                 .layoutWeight(1)
                 .fontSize('9fp')
@@ -2228,7 +2392,10 @@ export struct Player {
                 .padding({ left: '0vp', right: '0vp' })
                 .backgroundColor('#1976D2')
                 .fontColor(Color.White)
-                .onClick(() => this.stepFrame(-1))
+                .onClick(() => {
+                  this.handlePlaybackControlInteraction();
+                  this.stepFrame(-1);
+                })
               Button(this.playbackViewModel.state === player.PlayerState.PAUSED ?
                 $r('app.string.playback_resume') : $r('app.string.playback_pause'))
                 .layoutWeight(1)
@@ -2237,7 +2404,10 @@ export struct Player {
                 .padding({ left: '0vp', right: '0vp' })
                 .backgroundColor('#1976D2')
                 .fontColor(Color.White)
-                .onClick(() => this.togglePlaybackPause())
+                .onClick(() => {
+                  this.handlePlaybackControlInteraction();
+                  this.togglePlaybackPause();
+                })
               Button($r('app.string.playback_next_frame'))
                 .layoutWeight(1)
                 .fontSize('9fp')
@@ -2245,7 +2415,10 @@ export struct Player {
                 .padding({ left: '0vp', right: '0vp' })
                 .backgroundColor('#1976D2')
                 .fontColor(Color.White)
-                .onClick(() => this.stepFrame(1))
+                .onClick(() => {
+                  this.handlePlaybackControlInteraction();
+                  this.stepFrame(1);
+                })
               Button($r('app.string.playback_forward_15s'))
                 .layoutWeight(1)
                 .fontSize('9fp')
@@ -2253,7 +2426,10 @@ export struct Player {
                 .padding({ left: '0vp', right: '0vp' })
                 .backgroundColor('#1976D2')
                 .fontColor(Color.White)
-                .onClick(() => this.seekBySeconds(15))
+                .onClick(() => {
+                  this.handlePlaybackControlInteraction();
+                  this.seekBySeconds(15);
+                })
             }
             .width('100%')
             .height('30vp')
@@ -2268,7 +2444,10 @@ export struct Player {
             .width('32%')
             .height('34vp')
             .margin({ bottom: '4vp' })
-            .onClick(() => this.replaySelectedFile())
+            .onClick(() => {
+              this.handlePlaybackControlInteraction();
+              this.replaySelectedFile();
+            })
         }
         if (!this.isFullscreen && (this.buttonEnabled || (!this.buttonEnabled && !this.isStopping))) {
           Row({ space: '8vp' }) {
@@ -2277,7 +2456,10 @@ export struct Player {
               .fontSize('12fp')
               .backgroundColor('#3F51B5')
               .fontColor(Color.White)
-              .onClick(() => this.isPlaybackToolsVisible = true)
+              .onClick(() => {
+                this.handlePlaybackControlInteraction();
+                this.isPlaybackToolsVisible = true;
+              })
               .bindSheet($$this.isPlaybackToolsVisible, this.PlaybackToolsPanel(), {
                 height: this.isFullscreen ? '70%' : '55%',
                 title: { title: $r('app.string.playback_more_title') }
@@ -2285,7 +2467,10 @@ export struct Player {
             Button($r('app.string.playback_fullscreen'))
               .layoutWeight(1)
               .fontSize('12fp')
-              .onClick(() => this.toggleFullscreen())
+              .onClick(() => {
+                this.handlePlaybackControlInteraction();
+                this.toggleFullscreen();
+              })
           }
           .width('100%')
           .height('32vp')
@@ -2299,7 +2484,10 @@ export struct Player {
               .fontSize('10fp')
               .backgroundColor('#3F51B5')
               .fontColor(Color.White)
-              .onClick(() => this.isPlaybackToolsVisible = true)
+              .onClick(() => {
+                this.handlePlaybackControlInteraction();
+                this.isPlaybackToolsVisible = true;
+              })
               .bindSheet($$this.isPlaybackToolsVisible, this.PlaybackToolsPanel(), {
                 height: '70%',
                 title: { title: $r('app.string.playback_more_title') }
@@ -2309,7 +2497,10 @@ export struct Player {
                 .width('16%')
                 .height('34vp')
                 .fontSize('10fp')
-                .onClick(() => this.replaySelectedFile())
+                .onClick(() => {
+                  this.handlePlaybackControlInteraction();
+                  this.replaySelectedFile();
+                })
             } else {
               Blank().width('16%').height('34vp')
             }
@@ -2318,6 +2509,7 @@ export struct Player {
               .height('34vp')
               .fontSize('10fp')
               .onClick(() => {
+                this.handlePlaybackControlInteraction();
                 this.getUIContext().showTextPickerDialog({
                   range: Const.getTransformTypes(),
                   canLoop: false,
@@ -2343,6 +2535,7 @@ export struct Player {
               .margin({ bottom: $r('app.float.button_margin_bottom') })
               .enabled(!this.isStopping)
               .onClick(() => {
+                this.handlePlaybackControlInteraction();
                 this.getUIContext().showTextPickerDialog({
                   defaultPickerItemHeight: Const.DEFAULT_PICKER_ITEM_HEIGHT,
                   selectedTextStyle: ({
@@ -2374,6 +2567,7 @@ export struct Player {
             this.isStopping ? $r('app.string.stopping') : $r('app.string.stop_playback'))
             .fontSize('12fp')
             .onClick(() => {
+              this.handlePlaybackControlInteraction();
               if (this.buttonEnabled) {
                 this.selectFile()
               } else {
@@ -2397,6 +2591,7 @@ export struct Player {
               })
               .margin({ bottom: $r('app.float.button_margin_bottom') })
               .onClick(() => {
+              this.handlePlaybackControlInteraction();
               this.getUIContext().getPromptAction().showToast({ message: $r('app.string.alert2') });
               TextPickerDialog.show({
                 defaultPickerItemHeight: Const.DEFAULT_PICKER_ITEM_HEIGHT,
@@ -2444,6 +2639,7 @@ export struct Player {
               .width('16%')
               .height('34vp')
               .onClick(() => {
+                this.handlePlaybackControlInteraction();
                 TextPickerDialog.show({
                   range: Const.PLAYBACK_SPEED,
                   canLoop: false,
@@ -2471,7 +2667,10 @@ export struct Player {
                 height: '34vp'
               })
               .margin({ bottom: $r('app.float.button_margin_bottom') })
-              .onClick(() => this.toggleFullscreen())
+              .onClick(() => {
+                this.handlePlaybackControlInteraction();
+                this.toggleFullscreen();
+              })
           }
         }
 

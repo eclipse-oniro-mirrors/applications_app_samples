@@ -28,6 +28,7 @@ public:
     ~AudioDecoder();
 
     int32_t Create(const std::string &codecMime);
+    int32_t ValidateConfiguration(const SampleInfo &sampleInfo);
     int32_t Config(const SampleInfo &sampleInfo, CodecUserData *codecUserData);
     int32_t Start();
     int32_t PushInputBuffer(CodecBufferInfo &info);
