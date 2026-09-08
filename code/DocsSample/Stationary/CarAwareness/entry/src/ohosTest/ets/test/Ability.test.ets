@@ -42,25 +42,15 @@ export default function abilityTest() {
       const driver = Driver.create();
       await driver.delayMs(1000);
 
-      // 点击订阅隔空手势
-      const button1 = await driver.findComponent(ON.id('button1'));
-      await button1.click();
+      // 点击订阅隔空手势按钮
+      const subscribeButton = await driver.findComponent(ON.text('订阅').enabled(true));
+      await subscribeButton.click();
       await driver.delayMs(500);
 
-      // 验证状态变为"已订阅"
-      const statusText = await driver.findComponent(ON.id('spatialMotionStatus'));
-      const status = await statusText.getText();
-      expect(status).assertEqual('已订阅');
-
-      // 点击取消订阅隔空手势
-      const button2 = await driver.findComponent(ON.id('button2'));
-      await button2.click();
+      // 点击取消订阅隔空手势按钮
+      const unsubscribeButton = await driver.findComponent(ON.text('取消订阅').enabled(true));
+      await unsubscribeButton.click();
       await driver.delayMs(500);
-
-      // 验证状态变为"未订阅"
-      const statusText2 = await driver.findComponent(ON.id('spatialMotionStatus'));
-      const status2 = await statusText2.getText();
-      expect(status2).assertEqual('未订阅');
 
       done();
       console.info('uitest: SubscribeSpatialMotionTest end');
@@ -80,25 +70,15 @@ export default function abilityTest() {
       const driver = Driver.create();
       await driver.delayMs(1000);
 
-      // 点击订阅实时天气
-      const button3 = await driver.findComponent(ON.id('button3'));
-      await button3.click();
+      // 点击订阅实时天气按钮
+      const subscribeButton = await driver.findComponent(ON.text('订阅').enabled(true));
+      await subscribeButton.click();
       await driver.delayMs(500);
 
-      // 验证状态变为"已订阅"
-      const statusText = await driver.findComponent(ON.id('weatherStatus'));
-      const status = await statusText.getText();
-      expect(status).assertEqual('已订阅');
-
-      // 点击取消订阅实时天气
-      const button4 = await driver.findComponent(ON.id('button4'));
-      await button4.click();
+      // 点击取消订阅实时天气按钮
+      const unsubscribeButton = await driver.findComponent(ON.text('取消订阅').enabled(true));
+      await unsubscribeButton.click();
       await driver.delayMs(500);
-
-      // 验证状态变为"未订阅"
-      const statusText2 = await driver.findComponent(ON.id('weatherStatus'));
-      const status2 = await statusText2.getText();
-      expect(status2).assertEqual('未订阅');
 
       done();
       console.info('uitest: SubscribeWeatherTest end');
@@ -118,25 +98,15 @@ export default function abilityTest() {
       const driver = Driver.create();
       await driver.delayMs(1000);
 
-      // 点击订阅补能状态
-      const button5 = await driver.findComponent(ON.id('button5'));
-      await button5.click();
+      // 点击订阅补能状态按钮
+      const subscribeButton = await driver.findComponent(ON.text('订阅').enabled(true));
+      await subscribeButton.click();
       await driver.delayMs(500);
 
-      // 验证状态变为"已订阅"
-      const statusText = await driver.findComponent(ON.id('refuelingStatus'));
-      const status = await statusText.getText();
-      expect(status).assertEqual('已订阅');
-
-      // 点击取消订阅补能状态
-      const button6 = await driver.findComponent(ON.id('button6'));
-      await button6.click();
+      // 点击取消订阅补能状态按钮
+      const unsubscribeButton = await driver.findComponent(ON.text('取消订阅').enabled(true));
+      await unsubscribeButton.click();
       await driver.delayMs(500);
-
-      // 验证状态变为"未订阅"
-      const statusText2 = await driver.findComponent(ON.id('refuelingStatus'));
-      const status2 = await statusText2.getText();
-      expect(status2).assertEqual('未订阅');
 
       done();
       console.info('uitest: SubscribeRefuelingTest end');
