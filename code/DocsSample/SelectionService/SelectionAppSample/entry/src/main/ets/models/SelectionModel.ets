@@ -61,7 +61,7 @@ export class SelectionModel {
     return this.selectionPanel;
   }
 
-  public setSelectionPanel(selectionPanel: selectionManager.Panel) {
+  public setSelectionPanel(selectionPanel: selectionManager.Panel | undefined) {
     this.selectionPanel = selectionPanel;
   }
 
