@@ -139,6 +139,7 @@ struct Index {
     } catch (err) {
       let error = err as BusinessError;
       hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to get plainData. Cause: ${error.message}`);
+      return;
     }
     // [EndExclude pasteboard_permission]
     // 执行判断口令逻辑，如果是本应用口令，建议获取完数据后使用cleardata清除剪贴板口令内容
