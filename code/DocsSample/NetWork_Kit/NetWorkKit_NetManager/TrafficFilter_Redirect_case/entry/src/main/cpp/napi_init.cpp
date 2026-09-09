@@ -13,6 +13,7 @@
 // [End header_file]
 
 // [Start create_redirector]
+// 流量重定向器创建：解析JS入参并调用OH_TrafficFilter_CreateRedirector创建实例
 constexpr int BUFFER_SIZE = 128;
 constexpr size_t IP_ADDR_BUF_LEN = 16;
 constexpr size_t IPV4_ADDR_LEN = 4;
@@ -37,6 +38,7 @@ constexpr uint32_t LOG_DOMAIN_DEFAULT = 0x0000;
 constexpr size_t ARRAY_BRACKET_PAIR_LEN = 2;
 constexpr size_t ARRAY_CONTENT_START_OFFSET = 1;
 
+// JS入参索引定义
 constexpr int ARG_IDX_GROUP_ID = 0;
 constexpr int ARG_IDX_PRIORITY = 1;
 constexpr int ARG_IDX_PACKET_COPY_LEN = 2;
@@ -44,15 +46,18 @@ constexpr int ARG_IDX_NFQUEUE_MAXLEN = 3;
 constexpr int ARG_IDX_NFQUEUE_FLAGS = 4;
 constexpr int REQUIRED_ARG_COUNT = 5;
 
+// 全局重定向器实例指针
 OH_TrafficFilter_Redirector* g_redirector = nullptr;
 
 static napi_value CreateRedirectorNapi(napi_env env, napi_callback_info info)
 {
+    // 获取JS调用时传入的参数个数与参数值
     size_t argc = ARG_IDX_NFQUEUE_FLAGS + 1;
     napi_value args[ARG_IDX_NFQUEUE_FLAGS + 1] = {nullptr};
 
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
+    // 使用默认值初始化参数，若JS端传入则覆盖
     uint32_t groupId = DEFAULT_GROUP_ID;
     uint32_t priority = DEFAULT_PRIORITY;
     uint32_t packetCopyLen = DEFAULT_PACKET_COPY_LEN;
@@ -77,6 +82,7 @@ static napi_value CreateRedirectorNapi(napi_env env, napi_callback_info info)
 
 // [StartExclude create_redirector]
 
+    // 填充NFQueue相关配置
     OH_TrafficFilter_Config config;
     config.packetCopyLen = packetCopyLen;
     config.nfqueueMaxlen = nfqueueMaxlen;
@@ -84,8 +90,10 @@ static napi_value CreateRedirectorNapi(napi_env env, napi_callback_info info)
 
 // [EndExclude create_redirector]
 
+    // 调用系统API创建流量重定向实例
     int32_t ret = OH_TrafficFilter_CreateRedirector(groupId, priority, &g_redirector);
 
+    // 构造结果字符串并返回给JS
     char msg[BUFFER_SIZE * 2];
 
     napi_value result;
@@ -930,13 +938,16 @@ static napi_value DestroyRedirectorNapi(napi_env env, napi_callback_info info)
 // [End destroy_redirect_rule]
 
 // [Start add_redirect_rule]
+// 添加重定向规则：解析JSON字符串并调用系统API将规则加入重定向器
 static napi_value AddRedirectRuleNapi(napi_env env, napi_callback_info info)
 {
+    // 获取JS调用参数
     size_t argc = 1;
     napi_value args[1] = {nullptr};
 
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
+    // 校验ruleJson参数是否传入
     if (argc <= 0) {
         char msg[] = "ERROR: ruleJson parameter required";
         napi_value result;
@@ -944,6 +955,7 @@ static napi_value AddRedirectRuleNapi(napi_env env, napi_callback_info info)
         return result;
     }
 
+    // 读取JSON字符串长度并分配缓冲区
     size_t jsonLen = 0;
     napi_get_value_string_utf8(env, args[0], nullptr, 0, &jsonLen);
     char* jsonStr = new char[jsonLen + 1];
@@ -951,6 +963,7 @@ static napi_value AddRedirectRuleNapi(napi_env env, napi_callback_info info)
     std::string json(jsonStr);
     delete[] jsonStr;
 
+    // 将JSON字符串解析为OH_TrafficFilter_RedirectRule结构体
     OH_TrafficFilter_RedirectRule rule;
     int32_t parseRet = BuildRedirectRuleFromJson(json, rule);
     if (parseRet != OH_TRAFFICFILTER_OK) {
@@ -960,8 +973,10 @@ static napi_value AddRedirectRuleNapi(napi_env env, napi_callback_info info)
         return result;
     }
 
+    // 调用系统API向重定向器添加规则
     int32_t ret = OH_TrafficFilter_AddRedirectRule(g_redirector, &rule);
 
+    // 构造结果字符串并返回给JS
     char msg[BUFFER_SIZE * 2];
     napi_value result;
     napi_create_string_utf8(env, msg, strlen(msg), &result);
@@ -1077,22 +1092,25 @@ static napi_value GetRuleTemplateNapi(napi_env env, napi_callback_info info)
 }
 
 // [Start query_process]
+// 查询连接所属进程：根据五元组信息查询发起该连接的进程
 struct QueryArgs {
-    std::string srcIp;
-    std::string dstIp;
-    uint32_t srcPort = 0;
-    uint32_t dstPort = 0;
-    uint32_t protocol = PROTOCOL_TCP;
+    std::string srcIp;      // 源IP地址
+    std::string dstIp;      // 目的IP地址
+    uint32_t srcPort = 0;   // 源端口
+    uint32_t dstPort = 0;   // 目的端口
+    uint32_t protocol = PROTOCOL_TCP; // 协议类型
 };
 
 static std::string ParseQueryArgsFromNapi(napi_env env, const napi_value args[], QueryArgs& queryArgs)
 {
+    // 从 JS参数中解析五元组（源/目的IP、端口、协议）
     int ardIdxDstIp = 2;
     int argIdxDstPort = 3;
     int argIdxProtocol = 4;
     size_t srcIpLen = 0;
     size_t dstIpLen = 0;
 
+    // 获取源IP与目的IP字符串长度
     napi_get_value_string_utf8(env, args[0], nullptr, 0, &srcIpLen);
     napi_get_value_string_utf8(env, args[ardIdxDstIp], nullptr, 0, &dstIpLen);
 
@@ -1105,10 +1123,12 @@ static std::string ParseQueryArgsFromNapi(napi_env env, const napi_value args[],
     queryArgs.srcIp = srcIpBuf.data();
     queryArgs.dstIp = dstIpBuf.data();
 
+    // 获取源端口、目的端口与协议类型
     napi_get_value_uint32(env, args[1], &queryArgs.srcPort);
     napi_get_value_uint32(env, args[argIdxDstPort], &queryArgs.dstPort);
     napi_get_value_uint32(env, args[argIdxProtocol], &queryArgs.protocol);
 
+    // 校验端口范围与协议类型是否合法
     if (queryArgs.srcPort > PORT_MAX_VALUE || queryArgs.dstPort > PORT_MAX_VALUE) {
         return "ERROR: Invalid port value";
     }
@@ -1125,6 +1145,7 @@ static std::string BuildQueryConnectionInfo(
     const napi_value args[],
     OH_TrafficFilter_ConnectionInfo& connectionInfo)
 {
+    // 根据五元组构建OH_TrafficFilter_ConnectionInfo结构体
     QueryArgs queryArgs;
     std::string error = ParseQueryArgsFromNapi(env, args, queryArgs);
     if (!error.empty()) {
@@ -1140,6 +1161,7 @@ static std::string BuildQueryConnectionInfo(
     memset(&connectionInfo, 0, sizeof(connectionInfo));
     connectionInfo.size = sizeof(OH_TrafficFilter_ConnectionInfo);
 
+    // 解析源IP并按地址族填充
     connectionInfo.srcIp.family = DetectIPFamilyFromAddr(queryArgs.srcIp);
     if (!ParseIPAddressByFamily(queryArgs.srcIp, connectionInfo.srcIp.family,
         connectionInfo.srcIp.addr)) {
@@ -1183,6 +1205,7 @@ static napi_value CreateQueryResponseNapi(
 
 static napi_value QueryProcessNapi(napi_env env, napi_callback_info info)
 {
+    // 查询连接所属进程的主入口
     size_t argc = REQUIRED_ARG_COUNT;
     napi_value args[REQUIRED_ARG_COUNT] = {nullptr};
 
@@ -1194,28 +1217,32 @@ static napi_value QueryProcessNapi(napi_env env, napi_callback_info info)
         return result;
     };
 
+    // 校验必需参数个数
     if (argc < REQUIRED_ARG_COUNT) {
         return CreateStringResult("ERROR: Missing required parameters");
     }
 
+    // 构建连接信息结构体
     OH_TrafficFilter_ConnectionInfo connectionInfo;
     std::string error = BuildQueryConnectionInfo(env, args, connectionInfo);
     if (!error.empty()) {
         return CreateStringResult(error.c_str());
     }
 
+    // 清零并设置进程信息结构体大小
     OH_TrafficFilter_ProcessInfo processInfo;
     memset(&processInfo, 0, sizeof(processInfo));
     processInfo.size = sizeof(OH_TrafficFilter_ProcessInfo);
 
+    // 调用系统 API 查询进程信息
     int32_t ret = OH_TrafficFilter_QueryProcess(&connectionInfo, &processInfo);
 
     return CreateQueryResponseNapi(env, ret, processInfo);
 }
 // [End query_process]
 
-EXTERN_C_START
 // [Start init_exports]
+EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor desc[] = {
