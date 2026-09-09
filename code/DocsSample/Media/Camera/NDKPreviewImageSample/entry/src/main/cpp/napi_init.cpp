@@ -100,16 +100,16 @@ void copyBuffer(OH_NativeBuffer *srcBuffer, size_t srcSize, OHNativeWindowBuffer
 void ShowImage(OH_ImageNative *image)
 {
     OH_LOG_INFO(LOG_APP, "ImageReceiverNativeCTest %{public}s IN", __func__);
+    if (g_ndkCamera == nullptr) {
+        return;
+    }
     uint64_t xComponentSurfaceId = std::stoull(g_xComponentSurfaceIdSlave);
-    OH_LOG_ERROR(LOG_APP, "ImageReceiverNativeCTest %{public}s XComponentId is : %{public}lu.", __func__,
-        xComponentSurfaceId);
     OHNativeWindow *nativeWindow = nullptr;
     int32_t res = OH_NativeWindow_CreateNativeWindowFromSurfaceId(xComponentSurfaceId, &nativeWindow);
     OH_LOG_INFO(LOG_APP, "ImageReceiverNativeCTest %{public}s XComponentId is : %{public}lu.",
         __func__, xComponentSurfaceId);
     if (res != 0) {
-        OH_LOG_ERROR(LOG_APP,
-            "ShowImage CreateNativeWindowFromSurfaceId failed, errCode: %{public}d.", res);
+        OH_LOG_ERROR(LOG_APP, "CreateSurfaceId failed, errCode: %{public}d.", res);
         return;
     }
 
@@ -133,8 +133,7 @@ void ShowImage(OH_ImageNative *image)
     }
     Image_Size imgSize = {};
     OH_ImageNative_GetImageSize(image, &imgSize);
-    OH_LOG_INFO(LOG_APP, "ImageReceiverNativeCTest %{public}s imgSize is : %{public}u, %{public}u.", __func__,
-        imgSize.width, imgSize.height);
+    OH_LOG_INFO(LOG_APP, "%{public}s imgSize is : %{public}u, %{public}u.", __func__, imgSize.width, imgSize.height);
     size_t bufSize = 0;
     OH_ImageNative_GetBufferSize(image, g_jpegComponent, &bufSize);
 
@@ -148,7 +147,6 @@ void ShowImage(OH_ImageNative *image)
 
     // 将image数据拷贝到nativeWindowBuffer上。
     copyBuffer(imageBuffer, bufSize, nativeWindowBuffer);
-
     Region region1{};
     res = OH_NativeWindow_NativeWindowFlushBuffer(nativeWindow, nativeWindowBuffer, fenceFd, region1);
     if (res != 0) {
