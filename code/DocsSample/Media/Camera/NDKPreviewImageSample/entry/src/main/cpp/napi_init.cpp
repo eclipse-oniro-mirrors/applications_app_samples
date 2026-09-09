@@ -109,8 +109,7 @@ void ShowImage(OH_ImageNative *image)
     OH_LOG_INFO(LOG_APP, "ImageReceiverNativeCTest %{public}s XComponentId is : %{public}lu.",
         __func__, xComponentSurfaceId);
     if (res != 0) {
-        OH_LOG_ERROR(LOG_APP,
-            "ShowImage CreateNativeWindowFromSurfaceId failed, errCode: %{public}d.", res);
+        OH_LOG_ERROR(LOG_APP, "CreateSurfaceId failed, errCode: %{public}d.", res);
         return;
     }
 
@@ -134,8 +133,7 @@ void ShowImage(OH_ImageNative *image)
     }
     Image_Size imgSize = {};
     OH_ImageNative_GetImageSize(image, &imgSize);
-    OH_LOG_INFO(LOG_APP, "ImageReceiverNativeCTest %{public}s imgSize is : %{public}u, %{public}u.", __func__,
-        imgSize.width, imgSize.height);
+    OH_LOG_INFO(LOG_APP, "%{public}s imgSize is : %{public}u, %{public}u.", __func__, imgSize.width, imgSize.height);
     size_t bufSize = 0;
     OH_ImageNative_GetBufferSize(image, g_jpegComponent, &bufSize);
 
