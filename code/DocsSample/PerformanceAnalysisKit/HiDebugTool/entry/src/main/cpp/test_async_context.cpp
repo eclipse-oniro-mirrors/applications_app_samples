@@ -24,7 +24,7 @@
 #undef LOG_TAG
 #define LOG_TAG "testTag"
 
-// IsDebuggableHap()与DfxInvokeHiDebugCallback均检查
+// IsDebuggableHap()与DfxInvokeHiDebugCallback均检查。
 // 环境变量 HAP_DEBUGGABLE；setenv 须早于注入，故用 constructor 在 libentry.so 加载时设置。
 __attribute__((constructor)) static void SetHapDebuggableEnv()
 {
