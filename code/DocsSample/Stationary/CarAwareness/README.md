@@ -10,15 +10,16 @@
 
 ### 效果预览
 
-|         页面说明          |                                          截图                                          |
-|:---------------------:|:------------------------------------------------------------------------------------:|
-|      **index页面**      | <img src="./screenshots/CarAwareness_01.jpg" width="360" style="zoom:33%;" /> |
-|      **订阅隔空手势**      | <img src="./screenshots/CarAwareness_02.jpg" width="360" style="zoom:33%;" /> |
-|      **取消订阅隔空手势**      | <img src="./screenshots/CarAwareness_03.jpg" width="360" style="zoom:33%;" /> |
-|      **订阅实时天气**      | <img src="./screenshots/CarAwareness_04.jpg" width="360" style="zoom:33%;" /> |
-|      **取消订阅实时天气**      | <img src="./screenshots/CarAwareness_05.jpg" width="360" style="zoom:33%;" /> |
-|      **订阅补能状态**      | <img src="./screenshots/CarAwareness_06.jpg" width="360" style="zoom:33%;" /> |
-|      **取消订阅补能状态**      | <img src="./screenshots/CarAwareness_07.jpg" width="360" style="zoom:33%;" /> |
+|     页面说明     |                                       截图                                        |
+|:------------:|:-------------------------------------------------------------------------------:|
+| **index页面**  | <img src="./screenshots/CarAwareness_01.jpg" width="1920" style="zoom:33%;" />  |
+|  **订阅隔空手势**  | <img src="./screenshots/CarAwareness_02.jpg" width="1920" style="zoom:33%;" /> |
+| **取消订阅隔空手势** | <img src="./screenshots/CarAwareness_03.jpg" width="1920" style="zoom:33%;" /> |
+|  **订阅实时天气**  | <img src="./screenshots/CarAwareness_04.jpg" width="1920" style="zoom:33%;" /> |
+| **取消订阅实时天气** | <img src="./screenshots/CarAwareness_05.jpg" width="1920" style="zoom:33%;" /> |
+|  **订阅补能状态**  | <img src="./screenshots/CarAwareness_06.jpg" width="1920" style="zoom:33%;" /> |
+| **取消订阅补能状态** | <img src="./screenshots/CarAwareness_07.jpg" width="1920" style="zoom:33%;" /> |
+|  **查询能力列表**  | <img src="./screenshots/CarAwareness_08.jpg" width="1920" style="zoom:33%;" /> |
 
 
 ### 使用说明
