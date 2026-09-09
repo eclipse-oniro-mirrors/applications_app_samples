@@ -111,13 +111,13 @@ void AddGridItems(
     const std::vector<uint32_t>& colors)
 {
     for (size_t i = 0; i < itemSizes.size(); ++i) {
-        auto itemNode = nodeAPI->createNode(ARKUI_NODE_STACK);
-        SetNodeColorAttribute(nodeAPI, itemNode, colors[i % colors.size()]);
-        SetNodeBorderRadiusAttribute(nodeAPI, itemNode, GRID_ITEM_RADIUS);
-        SetNodeBorderStyle(nodeAPI, itemNode);
-        SetNodeHeightByRowSpan(nodeAPI, itemNode, itemSizes[i].first);
-        gridNode->SetItemConfig(itemNode, itemSizes[i].first, itemSizes[i].second);
-        nodeAPI->addChild(gridNode->GetHandle(), itemNode);
+        auto itemNode = std::make_shared<ArkUINode>(nodeAPI->createNode(ARKUI_NODE_STACK));
+        SetNodeColorAttribute(nodeAPI, itemNode->GetHandle(), colors[i % colors.size()]);
+        SetNodeBorderRadiusAttribute(nodeAPI, itemNode->GetHandle(), GRID_ITEM_RADIUS);
+        SetNodeBorderStyle(nodeAPI, itemNode->GetHandle());
+        SetNodeHeightByRowSpan(nodeAPI, itemNode->GetHandle(), itemSizes[i].first);
+        gridNode->SetItemConfig(itemNode->GetHandle(), itemSizes[i].second);
+        gridNode->AddChild(itemNode);
     }
 }
 } // namespace
