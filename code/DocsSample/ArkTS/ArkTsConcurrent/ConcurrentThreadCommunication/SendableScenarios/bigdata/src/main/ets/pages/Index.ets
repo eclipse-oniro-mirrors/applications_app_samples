@@ -66,8 +66,8 @@ struct Index {
           }).catch((e: BusinessError) => {
             // Process error
             this.listenerTask = 'failed';
-          })
-        })
+          });
+        });
       Text(this.dataProcessingTask)
         .id('Data processing task')
         .fontSize(50)
@@ -78,8 +78,8 @@ struct Index {
           }).catch((e: BusinessError) => {
             this.dataProcessingTask = 'failed';
             console.error('taskpool execute failed. Code: ' + e.code + ', message: ' + e.message);
-          })
-        })
+          });
+        });
     }
     .height('100%')
     .width('100%')

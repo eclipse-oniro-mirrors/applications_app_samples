@@ -14,7 +14,7 @@
  */
 
 // [Start define_concurrent_function]
-import { write } from './write'
+import { write } from './write';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { taskpool } from '@kit.ArkTS';
 import { common } from '@kit.AbilityKit';
@@ -32,7 +32,7 @@ async function concurrentTest(context: common.UIAbilityContext): Promise<boolean
     const writePromise = write('Hello World!', fileList[i]).then(() => {
       console.info(`Succeeded in writing the file. FileList: ${fileList[i]}`);
     }).catch((err: BusinessError) => {
-      console.error(`Failed to write the file. Code is ${err.code}, message is ${err.message}`)
+      console.error(`Failed to write the file. Code is ${err.code}, message is ${err.message}`);
       return false;
     });
     writePromises.push(writePromise);
@@ -70,7 +70,7 @@ struct Index {
             }).catch((e: BusinessError) => {
               this.message = 'failed';
               console.error('concurrentTest is failed.');
-            })
+            });
           })
       }
       .width('100%')

@@ -16,7 +16,7 @@
 // [Start multi_worker_high_performance_communication]
 // Index.ets
 import { worker, collections } from '@kit.ArkTS';
-import { CopyEntry } from '../Sendable/CopyEntry'
+import { CopyEntry } from '../Sendable/CopyEntry';
 
 function promiseCase() {
   let p: Promise<void> = new Promise<void>((resolve: Function, reject: Function) => {
@@ -32,7 +32,7 @@ async function postMessageTest() {
   let isTerminate = false;
   ss.onexit = () => {
     isTerminate = true;
-  }
+  };
   let array = new collections.Array<CopyEntry>();
   // 准备数据
   for (let i = 0; i < 4; i++) {

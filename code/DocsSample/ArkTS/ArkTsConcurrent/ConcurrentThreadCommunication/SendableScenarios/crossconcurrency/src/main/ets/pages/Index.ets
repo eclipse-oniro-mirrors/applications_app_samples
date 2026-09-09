@@ -62,7 +62,7 @@ struct Index {
         .onClick(async () => {
           await test();
           this.message = 'success';
-        })
+        });
     }
     .height('100%')
     .width('100%')

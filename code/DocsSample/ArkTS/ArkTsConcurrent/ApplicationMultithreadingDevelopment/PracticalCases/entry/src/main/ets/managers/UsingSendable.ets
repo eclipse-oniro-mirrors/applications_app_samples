@@ -111,7 +111,7 @@ struct Index {
           let context: Context = this.getUIContext().getHostContext() as Context;
 
           // 数据准备
-          const count = 5
+          const count = 5;
           let valueBucketArray = collections.Array.create<SharedValuesBucket | undefined>(count, undefined);
           for (let i = 0; i < count; i++) {
             let v: IValueBucket = {
