@@ -305,19 +305,20 @@ void Recorder::FillBufferModeInput(uint32_t index, OH_AVBuffer *buffer)
     }
     uint8_t *bufferAddr = OH_AVBuffer_GetAddr(buffer);
     int32_t bufferCapacity = OH_AVBuffer_GetCapacity(buffer);
-    if (bufferAddr != nullptr && bufferCapacity >= static_cast<int32_t>(frameItem.pixels.size())) {
-        std::copy(frameItem.pixels.data(), frameItem.pixels.data() + frameItem.pixels.size(), bufferAddr);
-        OH_AVCodecBufferAttr attr;
-        attr.size = static_cast<int32_t>(frameItem.pixels.size());
-        attr.offset = 0;
-        attr.flags = AVCODEC_BUFFER_FLAGS_NONE;
-        OH_AVBuffer_SetBufferAttr(buffer, &attr);
+    if (bufferAddr == nullptr || bufferCapacity < static_cast<int32_t>(frameItem.pixels.size())) {
+        SAMPLE_LOGE("Buffer capacity %{public}d is less than frame size %{public}d, skip this frame",
+            bufferCapacity, static_cast<int32_t>(frameItem.pixels.size()));
+        return;
     }
-    if (!frameItem.roiStr.empty()) {
-        OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
-        if (format != nullptr) {
-            OH_AVFormat_SetStringValue(format, OH_MD_KEY_VIDEO_ENCODER_ROI_PARAMS, frameItem.roiStr.c_str());
-        }
+    std::copy(frameItem.pixels.data(), frameItem.pixels.data() + frameItem.pixels.size(), bufferAddr);
+    OH_AVCodecBufferAttr attr;
+    attr.size = static_cast<int32_t>(frameItem.pixels.size());
+    attr.offset = 0;
+    attr.flags = AVCODEC_BUFFER_FLAGS_NONE;
+    OH_AVBuffer_SetBufferAttr(buffer, &attr);
+    OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
+    if (format != nullptr) {
+        OH_AVFormat_SetStringValue(format, OH_MD_KEY_VIDEO_ENCODER_ROI_PARAMS, frameItem.roiStr.c_str());
     }
     OH_VideoEncoder_PushInputBuffer(videoEncoder_->GetCodec(), index);
 }

@@ -1020,7 +1020,7 @@ void RenderThread::PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, const 
     int32_t frameWidth = bufferHandle->width;
     int32_t frameHeight = bufferHandle->height;
     int32_t stride = bufferHandle->stride;
-    int32_t frameSize = stride * frameHeight;
+    int32_t frameSize = stride * frameHeight * 3 / 2;
     FrameItem frameItem;
     frameItem.width = frameWidth;
     frameItem.height = frameHeight;
