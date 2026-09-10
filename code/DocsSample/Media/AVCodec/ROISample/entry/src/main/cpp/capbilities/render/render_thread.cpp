@@ -1071,7 +1071,7 @@ void RenderThread::RotateFrame(const RotateFrameParams &params, int32_t rot)
 }
 
 const uint8_t *RenderThread::MapCameraBuffer(OHNativeWindowBuffer *InBuffer, OH_NativeBuffer *&cameraNativeBuffer,
-                                              int32_t &rawW, int32_t &rawH, int32_t &srcStride)
+    int32_t &rawW, int32_t &rawH, int32_t &srcStride)
 {
     BufferHandle *bufferHandle = OH_NativeWindow_GetBufferHandleFromNative(InBuffer);
     if (bufferHandle == nullptr) {
