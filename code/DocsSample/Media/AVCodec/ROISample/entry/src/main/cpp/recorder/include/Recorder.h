@@ -55,6 +55,14 @@ private:
     void VideoEncOutputThread();
     void VideoEncBufferInputThread();
     void FillBufferModeInput(uint32_t index, OH_AVBuffer *buffer);
+    // FillBufferModeInput辅助: 获取编码器输入Buffer的stride和sliceHeight。
+    void GetEncoderStride(int32_t frameHeight, int32_t &encStride, int32_t &encSliceHeight);
+    // FillBufferModeInput辅助: 逐行拷贝Y平面。
+    void CopyYPlane(const uint8_t *src, uint8_t *dst, int32_t width, int32_t height,
+                     int32_t srcStride, int32_t encStride);
+    // FillBufferModeInput辅助: 逐行拷贝UV平面并逐对交换U/V(NV21->NV12)。
+    void CopyUvPlaneWithSwap(const uint8_t *src, uint8_t *dst, int32_t width, int32_t height,
+                             int32_t srcStride, int32_t encStride);
     void AudioEncInputThread();
     void AudioEncOutputThread();
     void Release();

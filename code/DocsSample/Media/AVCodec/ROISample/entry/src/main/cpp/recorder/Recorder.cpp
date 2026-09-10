@@ -30,6 +30,13 @@ using namespace std::chrono_literals;
 constexpr int64_t MICROSECOND = 1000000;
 constexpr int32_t INPUT_FRAME_BYTES = 2 * 1024;
 constexpr float BGM_VOLUME_SCALE = 0.2f;
+constexpr int32_t NV12_SIZE_RATIO_NUM = 3;     // YUV420总大小 = width*height*3/2
+constexpr int32_t NV12_SIZE_RATIO_DEN = 2;
+constexpr int32_t UV_PLANE_RATIO = 2;            // UV平面行数为Y的一半
+constexpr int32_t UV_PAIR_SIZE = 2;              // UV交织对每对2字节
+constexpr int32_t STRIDE_ALIGNMENT_16 = 16;      // sliceHeight按16对齐
+constexpr int32_t STRIDE_ALIGN_MASK = 15;         // 16对齐掩码 (~15)
+constexpr int64_t NS_PER_US = 1000;               // 纳秒转微秒
 AudioBgmQueue g_bgmQueue;
 } // namespace
 
@@ -306,6 +313,44 @@ void Recorder::VideoEncBufferInputThread()
 // [End roi_buffer_mode_callback]
 
 // [Start roi_buffer_mode_fill_input]
+void Recorder::GetEncoderStride(int32_t frameHeight, int32_t &encStride, int32_t &encSliceHeight)
+{
+    OH_AVFormat *desc = OH_VideoEncoder_GetInputDescription(videoEncoder_->GetCodec());
+    if (desc != nullptr) {
+        OH_AVFormat_GetIntValue(desc, "stride", &encStride);
+        OH_AVFormat_GetIntValue(desc, "sliceHeight", &encSliceHeight);
+        OH_AVFormat_Destroy(desc);
+    }
+    // sliceHeight取不到时按16对齐。
+    if (encSliceHeight <= 0) {
+        encSliceHeight = (frameHeight + STRIDE_ALIGN_MASK) & ~STRIDE_ALIGN_MASK;
+    }
+}
+
+void Recorder::CopyYPlane(const uint8_t *src, uint8_t *dst, int32_t width, int32_t height,
+                           int32_t srcStride, int32_t encStride)
+{
+    for (int32_t i = 0; i < height; i++) {
+        std::copy(src, src + width, dst);
+        src += srcStride;
+        dst += encStride;
+    }
+}
+
+void Recorder::CopyUvPlaneWithSwap(const uint8_t *src, uint8_t *dst, int32_t width, int32_t height,
+                                   int32_t srcStride, int32_t encStride)
+{
+    for (int32_t i = 0; i < height / UV_PLANE_RATIO; i++) {
+        // 相机输出为NV21，编码器期望NV12，逐对交换U/V。
+        for (int32_t j = 0; j < width; j += UV_PAIR_SIZE) {
+            dst[j] = src[j + 1];
+            dst[j + 1] = src[j];
+        }
+        src += srcStride;
+        dst += encStride;
+    }
+}
+
 void Recorder::FillBufferModeInput(uint32_t index, OH_AVBuffer *buffer)
 {
     FrameItem frameItem;
@@ -334,45 +379,22 @@ void Recorder::FillBufferModeInput(uint32_t index, OH_AVBuffer *buffer)
     // 获取编码器输入Buffer的跨距和切片高度，按跨距逐行拷贝Y和UV平面。
     int32_t encStride = frameItem.stride;
     int32_t encSliceHeight = frameItem.height;
-    OH_AVFormat *desc = OH_VideoEncoder_GetInputDescription(videoEncoder_->GetCodec());
-    if (desc != nullptr) {
-        OH_AVFormat_GetIntValue(desc, "stride", &encStride);
-        OH_AVFormat_GetIntValue(desc, "sliceHeight", &encSliceHeight);
-        OH_AVFormat_Destroy(desc);
-    }
-    // sliceHeight取不到时按16对齐。
-    if (encSliceHeight <= 0) {
-        encSliceHeight = (frameItem.height + 15) & ~15;
-    }
+    GetEncoderStride(frameItem.height, encStride, encSliceHeight);
     int32_t width = frameItem.width;
     int32_t height = frameItem.height;
     int32_t srcStride = frameItem.stride;
-    int32_t frameSize = encStride * encSliceHeight * 3 / 2;
+    int32_t frameSize = encStride * encSliceHeight * NV12_SIZE_RATIO_NUM / NV12_SIZE_RATIO_DEN;
     if (bufferCapacity < frameSize) {
         SAMPLE_LOGE("Buffer capacity %{public}d is less than frame size %{public}d, skip this frame",
             bufferCapacity, frameSize);
         return;
     }
     // Y平面逐行拷贝。
-    uint8_t *src = frameItem.pixels.data();
-    uint8_t *dst = bufferAddr;
-    for (int32_t i = 0; i < height; i++) {
-        std::copy(src, src + width, dst);
-        src += srcStride;
-        dst += encStride;
-    }
+    CopyYPlane(frameItem.pixels.data(), bufferAddr, width, height, srcStride, encStride);
     // UV平面逐行拷贝。编码器UV起点为 encStride*encSliceHeight，源UV紧跟Y（srcStride*height）。
-    src = frameItem.pixels.data() + srcStride * height;
-    dst = bufferAddr + encStride * encSliceHeight;
-    for (int32_t i = 0; i < height / 2; i++) {
-        // 相机输出为NV21，编码器期望NV12，逐对交换U/V。
-        for (int32_t j = 0; j < width; j += 2) {
-            dst[j] = src[j + 1];
-            dst[j + 1] = src[j];
-        }
-        src += srcStride;
-        dst += encStride;
-    }
+    const uint8_t *uvSrc = frameItem.pixels.data() + static_cast<size_t>(srcStride) * height;
+    uint8_t *uvDst = bufferAddr + static_cast<size_t>(encStride) * encSliceHeight;
+    CopyUvPlaneWithSwap(uvSrc, uvDst, width, height, srcStride, encStride);
     OH_AVCodecBufferAttr attr;
     attr.size = frameSize;
     attr.offset = 0;
@@ -381,7 +403,7 @@ void Recorder::FillBufferModeInput(uint32_t index, OH_AVBuffer *buffer)
         firstFramePts_ = frameItem.pts;
         firstFramePtsSet_ = true;
     }
-    attr.pts = (frameItem.pts - firstFramePts_) / 1000; // 相机时间戳(ns)转us，归零首帧
+    attr.pts = (frameItem.pts - firstFramePts_) / NS_PER_US; // 相机时间戳(ns)转us，归零首帧
     OH_AVBuffer_SetBufferAttr(buffer, &attr);
     OH_VideoEncoder_PushInputBuffer(videoEncoder_->GetCodec(), index);
 }

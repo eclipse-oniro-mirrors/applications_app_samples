@@ -78,7 +78,15 @@ constexpr float LUMINANCE_WEIGHT_B = 0.114f;
 
 // Camera rotation angles (degrees)
 constexpr int32_t CAMERA_ROTATION_NONE = 0;
+constexpr int32_t CAMERA_ROTATION_CW_90 = 90;       // 后摄: 顺时针90°
 constexpr int32_t CAMERA_ROTATION_HALF_TURN = 180;
+constexpr int32_t CAMERA_ROTATION_CCW_270 = 270;     // 前摄: 逆时针90°（含水平镜像）
+
+// NV21/NV12 (YUV420 semi-planar) pixel layout constants
+constexpr int32_t NV12_SIZE_RATIO_NUM = 3;           // YUV420总大小 = width*height*3/2
+constexpr int32_t NV12_SIZE_RATIO_DEN = 2;
+constexpr int32_t UV_PLANE_RATIO = 2;                // UV平面行数为Y的一半
+constexpr int32_t UV_PAIR_SIZE = 2;                  // UV交织对每对2字节
 
 // GL color packing shifts (A2R10G10B10 format)
 constexpr int32_t A2R10G10B10_ALPHA_SHIFT = 30;
@@ -227,6 +235,9 @@ private:
     void LogRoiData(const std::string &currentRoiStr, const std::string &assembledRoiStr);
     bool PollFence(int32_t fenceFd);
     void PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, int64_t pts);
+    // PushFrameToBufferQueue旋转辅助: 按相机旋转角度旋转原始帧到frameItem.pixels。
+    void RotateFrame(const uint8_t *raw, uint8_t *dst, int32_t rawW, int32_t rawH,
+                     int32_t srcStride, int32_t dstStride, int32_t rotW, int32_t rotH, int32_t rot);
     void WriteRoiToEncoderBuffer(OHNativeWindowBuffer *OutBufferEncoder, const std::string &assembledRoiStr);
 
     // DrawImage() further decomposed helpers
