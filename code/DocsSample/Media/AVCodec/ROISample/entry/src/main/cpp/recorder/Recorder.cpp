@@ -51,6 +51,9 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
     sampleInfo_ = sampleInfo;
     sampleInfo_.videoInfo.videoWidth = sampleInfo.videoInfo.videoHeight;
     sampleInfo_.videoInfo.videoHeight = sampleInfo.videoInfo.videoWidth;
+    needEosFrame_ = false;
+    firstFramePtsSet_ = false;
+    firstFramePts_ = 0;
     RoiPathType roiPathType = sampleInfo_.videoInfo.roiPathType;
 
     if (!sampleInfo_.videoInfo.isHDRVivid) {
@@ -90,9 +93,15 @@ int32_t Recorder::InitRenderThread(RoiPathType roiPathType)
 
     if (roiPathType == ROI_PATH_BUFFER_MODE) {
         frameQueue_ = std::make_unique<FrameQueue>();
+        roiQueue_ = std::make_unique<RoiQueue>();
         renderThread_->SetFrameQueue(frameQueue_.get());
         renderThread_->SetVideoDimensions(sampleInfo_.videoInfo.videoWidth,
                                           sampleInfo_.videoInfo.videoHeight);
+        renderThread_->SetOnRoiStrAssembled([this](int64_t pts, const std::string &str) {
+            if (encContext_ && encContext_->roiQueue) {
+                encContext_->roiQueue->Push(pts, str);
+            }
+        });
     }
 
     if (roiPathType == ROI_PATH_METADATA_CALLBACK) {
@@ -245,7 +254,8 @@ void Recorder::VideoEncOutputThread()
         }
         if ((bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_SYNC_FRAME) ||
             (bufferInfo.attr.flags == AVCODEC_BUFFER_FLAGS_NONE)) {
-            if (!isFirstSyncFrame_) {
+            // Buffer模式用编码器透传的相机时间戳，不按帧数重算PTS；Surface模式仍按帧数重算。
+            if (sampleInfo_.videoInfo.roiPathType != ROI_PATH_BUFFER_MODE && !isFirstSyncFrame_) {
                 bufferInfo.attr.pts = encContext_->outputFrameCount * MICROSECOND / sampleInfo_.videoInfo.frameRate;
             }
             encContext_->outputFrameCount++;
@@ -300,26 +310,79 @@ void Recorder::FillBufferModeInput(uint32_t index, OH_AVBuffer *buffer)
 {
     FrameItem frameItem;
     if (!encContext_->frameQueue->Pop(frameItem, std::chrono::milliseconds(FRAME_QUEUE_POP_TIMEOUT_MS))) {
-        OH_VideoEncoder_PushInputBuffer(videoEncoder_->GetCodec(), index);
+        if (needEosFrame_) {
+            // 剩余帧消费完，空buffer+EOS通知编码器输入结束。
+            OH_AVCodecBufferAttr attr;
+            attr.size = 0;
+            attr.offset = 0;
+            attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
+            attr.pts = 0;
+            OH_AVBuffer_SetBufferAttr(buffer, &attr);
+            OH_VideoEncoder_PushInputBuffer(videoEncoder_->GetCodec(), index);
+            needEosFrame_ = false;
+        } else {
+            OH_VideoEncoder_PushInputBuffer(videoEncoder_->GetCodec(), index);
+        }
         return;
     }
     uint8_t *bufferAddr = OH_AVBuffer_GetAddr(buffer);
     int32_t bufferCapacity = OH_AVBuffer_GetCapacity(buffer);
-    if (bufferAddr == nullptr || bufferCapacity < static_cast<int32_t>(frameItem.pixels.size())) {
-        SAMPLE_LOGE("Buffer capacity %{public}d is less than frame size %{public}d, skip this frame",
-            bufferCapacity, static_cast<int32_t>(frameItem.pixels.size()));
+    if (bufferAddr == nullptr) {
+        SAMPLE_LOGE("Buffer addr is nullptr, skip this frame");
         return;
     }
-    std::copy(frameItem.pixels.data(), frameItem.pixels.data() + frameItem.pixels.size(), bufferAddr);
+    // 获取编码器输入Buffer的跨距和切片高度，按跨距逐行拷贝Y和UV平面。
+    int32_t encStride = frameItem.stride;
+    int32_t encSliceHeight = frameItem.height;
+    OH_AVFormat *desc = OH_VideoEncoder_GetInputDescription(videoEncoder_->GetCodec());
+    if (desc != nullptr) {
+        OH_AVFormat_GetIntValue(desc, "stride", &encStride);
+        OH_AVFormat_GetIntValue(desc, "sliceHeight", &encSliceHeight);
+        OH_AVFormat_Destroy(desc);
+    }
+    // sliceHeight取不到时按16对齐。
+    if (encSliceHeight <= 0) {
+        encSliceHeight = (frameItem.height + 15) & ~15;
+    }
+    int32_t width = frameItem.width;
+    int32_t height = frameItem.height;
+    int32_t srcStride = frameItem.stride;
+    int32_t frameSize = encStride * encSliceHeight * 3 / 2;
+    if (bufferCapacity < frameSize) {
+        SAMPLE_LOGE("Buffer capacity %{public}d is less than frame size %{public}d, skip this frame",
+            bufferCapacity, frameSize);
+        return;
+    }
+    // Y平面逐行拷贝。
+    uint8_t *src = frameItem.pixels.data();
+    uint8_t *dst = bufferAddr;
+    for (int32_t i = 0; i < height; i++) {
+        std::copy(src, src + width, dst);
+        src += srcStride;
+        dst += encStride;
+    }
+    // UV平面逐行拷贝。编码器UV起点为 encStride*encSliceHeight，源UV紧跟Y（srcStride*height）。
+    src = frameItem.pixels.data() + srcStride * height;
+    dst = bufferAddr + encStride * encSliceHeight;
+    for (int32_t i = 0; i < height / 2; i++) {
+        // 相机输出为NV21，编码器期望NV12，逐对交换U/V。
+        for (int32_t j = 0; j < width; j += 2) {
+            dst[j] = src[j + 1];
+            dst[j + 1] = src[j];
+        }
+        src += srcStride;
+        dst += encStride;
+    }
     OH_AVCodecBufferAttr attr;
-    attr.size = static_cast<int32_t>(frameItem.pixels.size());
+    attr.size = frameSize;
     attr.offset = 0;
     attr.flags = AVCODEC_BUFFER_FLAGS_NONE;
-    OH_AVBuffer_SetBufferAttr(buffer, &attr);
-    OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
-    if (format != nullptr) {
-        OH_AVFormat_SetStringValue(format, OH_MD_KEY_VIDEO_ENCODER_ROI_PARAMS, frameItem.roiStr.c_str());
+    if (!firstFramePtsSet_) {
+        firstFramePts_ = frameItem.pts;
+        firstFramePtsSet_ = true;
     }
+    attr.pts = (frameItem.pts - firstFramePts_) / 1000; // 相机时间戳(ns)转us，归零首帧
+    OH_AVBuffer_SetBufferAttr(buffer, &attr);
     OH_VideoEncoder_PushInputBuffer(videoEncoder_->GetCodec(), index);
 }
 // [End roi_buffer_mode_fill_input]
@@ -328,15 +391,18 @@ void Recorder::Release()
 {
     std::lock_guard<std::mutex> lock(mutex_);
     isStarted_ = false;
-    if (frameQueue_) {
-        frameQueue_->Stop();
-        frameQueue_.reset();
-    }
+    // 先停止RenderThread（相机帧生产者），避免其在DrawImage中访问frameQueue_导致use-after-free。
     if (renderThread_) {
         renderThread_.reset();
         renderThread_ = nullptr;
     }
+    if (frameQueue_) {
+        frameQueue_->Stop();
+    }
     JoinThreads();
+    if (frameQueue_) {
+        frameQueue_.reset();
+    }
     ReleaseResources();
     doneCond_.notify_all();
     SAMPLE_LOGI("Succeed");
@@ -423,8 +489,19 @@ int32_t Recorder::WaitForDone()
 
 int32_t Recorder::Stop()
 {
-    int32_t ret = videoEncoder_->NotifyEndOfStream();
-    CHECK_AND_RETURN_RET_LOG(ret == SAMPLE_ERR_OK, ret, "Encoder notifyEndOfStream failed");
+    if (sampleInfo_.videoInfo.roiPathType == ROI_PATH_BUFFER_MODE) {
+        // Buffer模式：停止RenderThread(相机帧生产者)并置EOS标志，由FillBufferModeInput消费完剩余帧后下发空buffer+EOS。
+        needEosFrame_ = true;
+        if (renderThread_) {
+            renderThread_.reset();
+            renderThread_ = nullptr;
+        }
+        encContext_->inputCond.notify_all();
+    } else {
+        // Surface模式：通知编码器输入流结束。
+        int32_t ret = videoEncoder_->NotifyEndOfStream();
+        CHECK_AND_RETURN_RET_LOG(ret == SAMPLE_ERR_OK, ret, "Encoder notifyEndOfStream failed");
+    }
     return WaitForDone();
 }
 
@@ -434,9 +511,12 @@ int32_t Recorder::CreateVideoEncoder()
     CHECK_AND_RETURN_RET_LOG(ret == SAMPLE_ERR_OK, ret, "Create video encoder failed");
 
     encContext_ = new CodecUserData;
-    // Buffer模式: Set FrameQueue on CodecUserData for encoder callback access
+    // Buffer模式: Set FrameQueue and RoiQueue on CodecUserData for encoder callback access
     if (sampleInfo_.videoInfo.roiPathType == ROI_PATH_BUFFER_MODE && frameQueue_) {
         encContext_->frameQueue = frameQueue_.get();
+        if (roiQueue_) {
+            encContext_->roiQueue = roiQueue_.get();
+        }
     }
     ret = videoEncoder_->Config(sampleInfo_, encContext_);
     CHECK_AND_RETURN_RET_LOG(ret == SAMPLE_ERR_OK, ret, "Encoder config failed");

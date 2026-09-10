@@ -999,7 +999,7 @@ bool RenderThread::PollFence(int32_t fenceFd)
     return (retCode >= 0);
 }
 
-void RenderThread::PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, const std::string &assembledRoiStr)
+void RenderThread::PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, int64_t pts)
 {
     // [Start roi_buffer_pixel_read]
     // Buffer模式：从相机帧读取像素数据并推入帧队列。
@@ -1017,23 +1017,90 @@ void RenderThread::PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, const 
     if (ret != 0 || virAddr == nullptr) {
         return;
     }
-    int32_t frameWidth = bufferHandle->width;
-    int32_t frameHeight = bufferHandle->height;
-    int32_t stride = bufferHandle->stride;
-    int32_t frameSize = stride * frameHeight * 3 / 2;
+    int32_t rawW = bufferHandle->width;
+    int32_t rawH = bufferHandle->height;
+    int32_t srcStride = bufferHandle->stride;
+    const uint8_t *raw = static_cast<const uint8_t *>(virAddr);
+    // 相机ROI按竖屏检测，需把原始横屏帧旋转成竖屏(匹配ROI坐标 + 编码器竖屏配置)。
+    // cameraRotation_ = 270(前摄)→90°CCW；90(后摄)→90°CW；0/180→不旋转(保持横屏)。
+    int32_t rot = cameraRotation_.load();
+    int32_t rotW, rotH;
+    if (rot == 90 || rot == 270) {
+        rotW = rawH;
+        rotH = rawW;
+    } else {
+        rotW = rawW;
+        rotH = rawH;
+    }
+    int32_t dstStride = rotW;
+    int32_t frameSize = dstStride * rotH * 3 / 2;
     FrameItem frameItem;
-    frameItem.width = frameWidth;
-    frameItem.height = frameHeight;
-    frameItem.roiStr = assembledRoiStr;
+    frameItem.width = rotW;
+    frameItem.height = rotH;
+    frameItem.stride = dstStride;
+    frameItem.pts = pts;
     frameItem.pixels.resize(frameSize);
-    std::copy(static_cast<uint8_t *>(virAddr),
-              static_cast<uint8_t *>(virAddr) + frameSize,
-              frameItem.pixels.data());
+    uint8_t *dst = frameItem.pixels.data();
+
+    if (rot == 270) {
+        // 前摄: 90°CCW后水平镜像，new[r][rotW-1-c] = old[c][rawW-1-r]
+        for (int32_t r = 0; r < rotH; r++) {
+            for (int32_t c = 0; c < rotW; c++) {
+                dst[r * dstStride + (rotW - 1 - c)] = raw[c * srcStride + (rawW - 1 - r)];
+            }
+        }
+        uint8_t *dstUv = dst + static_cast<size_t>(dstStride) * rotH;
+        const uint8_t *srcUv = raw + static_cast<size_t>(srcStride) * rawH;
+        int32_t uvW = rawW / 2;
+        int32_t uvRotW = rotW / 2;
+        for (int32_t r = 0; r < rotH / 2; r++) {
+            for (int32_t c = 0; c < uvRotW; c++) {
+                const uint8_t *sp = srcUv + static_cast<size_t>(c) * srcStride + (uvW - 1 - r) * 2;
+                uint8_t *dp = dstUv + static_cast<size_t>(r) * dstStride + (uvRotW - 1 - c) * 2;
+                dp[0] = sp[0];
+                dp[1] = sp[1];
+            }
+        }
+    } else if (rot == 90) {
+        // 90°CW: new[r][c] = old[rawH-1-c][r]
+        for (int32_t r = 0; r < rotH; r++) {
+            for (int32_t c = 0; c < rotW; c++) {
+                dst[r * dstStride + c] = raw[(rawH - 1 - c) * srcStride + r];
+            }
+        }
+        uint8_t *dstUv = dst + static_cast<size_t>(dstStride) * rotH;
+        const uint8_t *srcUv = raw + static_cast<size_t>(srcStride) * rawH;
+        int32_t uvH = rawH / 2;
+        for (int32_t r = 0; r < rotH / 2; r++) {
+            for (int32_t c = 0; c < rotW / 2; c++) {
+                const uint8_t *sp = srcUv + (uvH - 1 - c) * srcStride + r * 2;
+                uint8_t *dp = dstUv + static_cast<size_t>(r) * dstStride + c * 2;
+                dp[0] = sp[0];
+                dp[1] = sp[1];
+            }
+        }
+    } else {
+        // 0/180: 不旋转，紧凑拷贝(去stride padding)
+        for (int32_t y = 0; y < rawH; y++) {
+            std::copy(raw + static_cast<size_t>(y) * srcStride,
+                      raw + static_cast<size_t>(y) * srcStride + rawW,
+                      dst + static_cast<size_t>(y) * dstStride);
+        }
+        const uint8_t *srcUv = raw + static_cast<size_t>(srcStride) * rawH;
+        uint8_t *dstUv = dst + static_cast<size_t>(dstStride) * rawH;
+        for (int32_t y = 0; y < rawH / 2; y++) {
+            std::copy(srcUv + static_cast<size_t>(y) * srcStride,
+                      srcUv + static_cast<size_t>(y) * srcStride + rawW,
+                      dstUv + static_cast<size_t>(y) * dstStride);
+        }
+    }
+
     frameQueue_->Push(frameItem);
     OH_NativeBuffer_Unmap(cameraNativeBuffer);
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "RenderThread",
-                 "Buffer模式: pushed frame to queue, size: %{public}d, ROI: %{public}s",
-                 frameSize, assembledRoiStr.c_str());
+                 "Buffer模式: pushed frame to queue, rawW:%{public}d rawH:%{public}d rot:%{public}d "
+                 "-> rotW:%{public}d rotH:%{public}d",
+                 rawW, rawH, rot, rotW, rotH);
     // [End roi_buffer_pixel_read]
 }
 
@@ -1177,7 +1244,7 @@ void RenderThread::DrawImage()
 
     // [Start roi_parameter_callback_str_passing]
     int64_t pts = OH_NativeImage_GetTimestamp(nativeImage_);
-    if (roiPathType_ == ROI_PATH_METADATA_CALLBACK && onRoiStrAssembled_) {
+    if ((roiPathType_ == ROI_PATH_METADATA_CALLBACK || roiPathType_ == ROI_PATH_BUFFER_MODE) && onRoiStrAssembled_) {
         onRoiStrAssembled_(pts, assembledRoiStr);
     }
     // [End roi_parameter_callback_str_passing]
@@ -1200,7 +1267,7 @@ void RenderThread::DrawImage()
     // [End roi_render_flow]
 
     if (roiPathType_ == ROI_PATH_BUFFER_MODE && frameQueue_ != nullptr) {
-        PushFrameToBufferQueue(InBuffer, assembledRoiStr);
+        PushFrameToBufferQueue(InBuffer, pts);
     }
     if (roiPathType_ == ROI_PATH_NATIVEBUFFER && isOpenROI_ && OutBufferEncoder != nullptr) {
         const std::string &roiToWrite = assembledRoiStr.empty() ? ";" : assembledRoiStr;

@@ -20,6 +20,7 @@
 #include "Muxer.h"
 #include "SampleInfo.h"
 #include "FrameQueue.h"
+#include "RoiQueue.h"
 
 #include <mutex>
 #include <memory>
@@ -75,6 +76,9 @@ private:
 
     std::mutex mutex_;
     std::atomic<bool> isStarted_{false};
+    std::atomic<bool> needEosFrame_{false};
+    int64_t firstFramePts_ = 0;
+    bool firstFramePtsSet_ = false;
     std::atomic<bool> isFirstCodecData_{true};
     std::atomic<bool> isFirstSyncFrame_{true};
     int32_t isFirstFrame_ = true;
@@ -91,6 +95,7 @@ private:
     std::unique_ptr<AudioCapturer> audioCapturer_ = nullptr;
     std::unique_ptr<NativeXComponentSample::RenderThread> renderThread_ = nullptr;
     std::unique_ptr<FrameQueue> frameQueue_ = nullptr;
+    std::unique_ptr<RoiQueue> roiQueue_ = nullptr;
 };
 
 #endif // RECODER_H

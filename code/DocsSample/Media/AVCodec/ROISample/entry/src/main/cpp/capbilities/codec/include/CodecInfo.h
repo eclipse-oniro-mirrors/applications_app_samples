@@ -22,6 +22,7 @@
 #include "AudioBgmQueue.h"
 #include "SampleInfo.h"
 #include "FrameQueue.h"
+#include "RoiQueue.h"
 
 // Frame data for Buffer模式
 struct FrameData {
@@ -54,6 +55,7 @@ public:
     SampleInfo *sampleInfo = nullptr;
     RoiPathType roiPathType = ROI_PATH_NATIVEBUFFER;
     FrameQueue *frameQueue = nullptr;
+    RoiQueue *roiQueue = nullptr;
 
     uint32_t inputFrameCount = 0;
     std::mutex inputMutex;

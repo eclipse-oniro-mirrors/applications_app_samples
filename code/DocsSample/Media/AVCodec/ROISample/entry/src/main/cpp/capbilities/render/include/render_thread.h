@@ -226,7 +226,7 @@ private:
     std::string AssembleRoiString(const std::string &currentRoiStr);
     void LogRoiData(const std::string &currentRoiStr, const std::string &assembledRoiStr);
     bool PollFence(int32_t fenceFd);
-    void PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, const std::string &assembledRoiStr);
+    void PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, int64_t pts);
     void WriteRoiToEncoderBuffer(OHNativeWindowBuffer *OutBufferEncoder, const std::string &assembledRoiStr);
 
     // DrawImage() further decomposed helpers
