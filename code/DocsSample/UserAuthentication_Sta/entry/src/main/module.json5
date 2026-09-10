@@ -26,6 +26,16 @@
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:main_pages",
+    "definePermissions": [
+      {
+        "name": "ohos.permission.ACCESS_USER_PASSIVE_RECOGNITION",
+        "grantMode": "system_grant",
+        "availableLevel": "normal",
+        "provisionEnable": false,
+        "distributedSceneEnable": false,
+        "label": "$string:EntryAbility_label"
+      }
+    ],
     "abilities": [
       {
         "name": "EntryAbility",
@@ -55,6 +65,9 @@
         "usedScene": {
           "when": "always"
         }
+      },
+      {
+        "name": "ohos.permission.ACCESS_USER_PASSIVE_RECOGNITION"
       }
     ]
   }
