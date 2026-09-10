@@ -88,6 +88,18 @@ constexpr int32_t NV12_SIZE_RATIO_DEN = 2;
 constexpr int32_t UV_PLANE_RATIO = 2;                // UV平面行数为Y的一半
 constexpr int32_t UV_PAIR_SIZE = 2;                  // UV交织对每对2字节
 
+// 旋转帧的源/目标参数（避免RotateFrame参数过多）。
+struct RotateFrameParams {
+    const uint8_t *raw = nullptr;   // 源像素
+    uint8_t *dst = nullptr;          // 目标像素
+    int32_t rawW = 0;                // 源宽
+    int32_t rawH = 0;                // 源高
+    int32_t srcStride = 0;           // 源跨距
+    int32_t dstStride = 0;           // 目标跨距
+    int32_t rotW = 0;                // 旋转后宽
+    int32_t rotH = 0;                // 旋转后高
+};
+
 // GL color packing shifts (A2R10G10B10 format)
 constexpr int32_t A2R10G10B10_ALPHA_SHIFT = 30;
 constexpr int32_t A2R10G10B10_BLUE_SHIFT = 20;
@@ -235,9 +247,15 @@ private:
     void LogRoiData(const std::string &currentRoiStr, const std::string &assembledRoiStr);
     bool PollFence(int32_t fenceFd);
     void PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, int64_t pts);
+    // PushFrameToBufferQueue辅助: Map相机帧并返回像素地址与尺寸，失败返回nullptr。
+    const uint8_t *MapCameraBuffer(OHNativeWindowBuffer *InBuffer, OH_NativeBuffer *&cameraNativeBuffer,
+                                    int32_t &rawW, int32_t &rawH, int32_t &srcStride);
     // PushFrameToBufferQueue旋转辅助: 按相机旋转角度旋转原始帧到frameItem.pixels。
-    void RotateFrame(const uint8_t *raw, uint8_t *dst, int32_t rawW, int32_t rawH,
-                     int32_t srcStride, int32_t dstStride, int32_t rotW, int32_t rotH, int32_t rot);
+    void RotateFrame(const RotateFrameParams &params, int32_t rot);
+    // RotateFrame各方向实现: Y平面与UV平面逐像素旋转。
+    void RotateFrame270(const RotateFrameParams &p);
+    void RotateFrame90(const RotateFrameParams &p);
+    void CopyFrameNoRotation(const RotateFrameParams &p);
     void WriteRoiToEncoderBuffer(OHNativeWindowBuffer *OutBufferEncoder, const std::string &assembledRoiStr);
 
     // DrawImage() further decomposed helpers

@@ -327,27 +327,46 @@ void Recorder::GetEncoderStride(int32_t frameHeight, int32_t &encStride, int32_t
     }
 }
 
-void Recorder::CopyYPlane(const uint8_t *src, uint8_t *dst, int32_t width, int32_t height,
-                           int32_t srcStride, int32_t encStride)
+void Recorder::CopyYPlane(const PlaneCopyParams &p)
 {
-    for (int32_t i = 0; i < height; i++) {
-        std::copy(src, src + width, dst);
-        src += srcStride;
-        dst += encStride;
+    const uint8_t *src = p.src;
+    uint8_t *dst = p.dst;
+    for (int32_t i = 0; i < p.height; i++) {
+        std::copy(src, src + p.width, dst);
+        src += p.srcStride;
+        dst += p.encStride;
     }
 }
 
-void Recorder::CopyUvPlaneWithSwap(const uint8_t *src, uint8_t *dst, int32_t width, int32_t height,
-                                   int32_t srcStride, int32_t encStride)
+void Recorder::CopyUvPlaneWithSwap(const PlaneCopyParams &p)
 {
-    for (int32_t i = 0; i < height / UV_PLANE_RATIO; i++) {
+    const uint8_t *src = p.src;
+    uint8_t *dst = p.dst;
+    for (int32_t i = 0; i < p.height / UV_PLANE_RATIO; i++) {
         // 相机输出为NV21，编码器期望NV12，逐对交换U/V。
-        for (int32_t j = 0; j < width; j += UV_PAIR_SIZE) {
+        for (int32_t j = 0; j < p.width; j += UV_PAIR_SIZE) {
             dst[j] = src[j + 1];
             dst[j + 1] = src[j];
         }
-        src += srcStride;
-        dst += encStride;
+        src += p.srcStride;
+        dst += p.encStride;
+    }
+}
+
+void Recorder::PushEmptyOrEosBuffer(uint32_t index, OH_AVBuffer *buffer)
+{
+    if (needEosFrame_) {
+        // 剩余帧消费完，空buffer+EOS通知编码器输入结束。
+        OH_AVCodecBufferAttr attr;
+        attr.size = 0;
+        attr.offset = 0;
+        attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
+        attr.pts = 0;
+        OH_AVBuffer_SetBufferAttr(buffer, &attr);
+        OH_VideoEncoder_PushInputBuffer(videoEncoder_->GetCodec(), index);
+        needEosFrame_ = false;
+    } else {
+        OH_VideoEncoder_PushInputBuffer(videoEncoder_->GetCodec(), index);
     }
 }
 
@@ -355,19 +374,7 @@ void Recorder::FillBufferModeInput(uint32_t index, OH_AVBuffer *buffer)
 {
     FrameItem frameItem;
     if (!encContext_->frameQueue->Pop(frameItem, std::chrono::milliseconds(FRAME_QUEUE_POP_TIMEOUT_MS))) {
-        if (needEosFrame_) {
-            // 剩余帧消费完，空buffer+EOS通知编码器输入结束。
-            OH_AVCodecBufferAttr attr;
-            attr.size = 0;
-            attr.offset = 0;
-            attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
-            attr.pts = 0;
-            OH_AVBuffer_SetBufferAttr(buffer, &attr);
-            OH_VideoEncoder_PushInputBuffer(videoEncoder_->GetCodec(), index);
-            needEosFrame_ = false;
-        } else {
-            OH_VideoEncoder_PushInputBuffer(videoEncoder_->GetCodec(), index);
-        }
+        PushEmptyOrEosBuffer(index, buffer);
         return;
     }
     uint8_t *bufferAddr = OH_AVBuffer_GetAddr(buffer);
@@ -376,7 +383,6 @@ void Recorder::FillBufferModeInput(uint32_t index, OH_AVBuffer *buffer)
         SAMPLE_LOGE("Buffer addr is nullptr, skip this frame");
         return;
     }
-    // 获取编码器输入Buffer的跨距和切片高度，按跨距逐行拷贝Y和UV平面。
     int32_t encStride = frameItem.stride;
     int32_t encSliceHeight = frameItem.height;
     GetEncoderStride(frameItem.height, encStride, encSliceHeight);
@@ -389,12 +395,19 @@ void Recorder::FillBufferModeInput(uint32_t index, OH_AVBuffer *buffer)
             bufferCapacity, frameSize);
         return;
     }
-    // Y平面逐行拷贝。
-    CopyYPlane(frameItem.pixels.data(), bufferAddr, width, height, srcStride, encStride);
-    // UV平面逐行拷贝。编码器UV起点为 encStride*encSliceHeight，源UV紧跟Y（srcStride*height）。
-    const uint8_t *uvSrc = frameItem.pixels.data() + static_cast<size_t>(srcStride) * height;
-    uint8_t *uvDst = bufferAddr + static_cast<size_t>(encStride) * encSliceHeight;
-    CopyUvPlaneWithSwap(uvSrc, uvDst, width, height, srcStride, encStride);
+    // Y/UV平面逐行拷贝。UV起点: 编码器 encStride*encSliceHeight，源 srcStride*height(紧跟Y)。
+    PlaneCopyParams yParams;
+    yParams.src = frameItem.pixels.data();
+    yParams.dst = bufferAddr;
+    yParams.width = width;
+    yParams.height = height;
+    yParams.srcStride = srcStride;
+    yParams.encStride = encStride;
+    CopyYPlane(yParams);
+    PlaneCopyParams uvParams = yParams;
+    uvParams.src = frameItem.pixels.data() + static_cast<size_t>(srcStride) * height;
+    uvParams.dst = bufferAddr + static_cast<size_t>(encStride) * encSliceHeight;
+    CopyUvPlaneWithSwap(uvParams);
     OH_AVCodecBufferAttr attr;
     attr.size = frameSize;
     attr.offset = 0;

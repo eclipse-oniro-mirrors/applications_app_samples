@@ -999,85 +999,111 @@ bool RenderThread::PollFence(int32_t fenceFd)
     return (retCode >= 0);
 }
 
-void RenderThread::RotateFrame(const uint8_t *raw, uint8_t *dst, int32_t rawW, int32_t rawH,
-                               int32_t srcStride, int32_t dstStride, int32_t rotW, int32_t rotH, int32_t rot)
+void RenderThread::RotateFrame270(const RotateFrameParams &p)
 {
-    if (rot == CAMERA_ROTATION_CCW_270) {
-        // 前摄: 90°CCW后水平镜像，new[r][rotW-1-c] = old[c][rawW-1-r]
-        for (int32_t r = 0; r < rotH; r++) {
-            for (int32_t c = 0; c < rotW; c++) {
-                dst[r * dstStride + (rotW - 1 - c)] = raw[c * srcStride + (rawW - 1 - r)];
-            }
-        }
-        uint8_t *dstUv = dst + static_cast<size_t>(dstStride) * rotH;
-        const uint8_t *srcUv = raw + static_cast<size_t>(srcStride) * rawH;
-        int32_t uvW = rawW / UV_PAIR_SIZE;
-        int32_t uvRotW = rotW / UV_PAIR_SIZE;
-        for (int32_t r = 0; r < rotH / UV_PLANE_RATIO; r++) {
-            for (int32_t c = 0; c < uvRotW; c++) {
-                const uint8_t *sp = srcUv + static_cast<size_t>(c) * srcStride + (uvW - 1 - r) * UV_PAIR_SIZE;
-                uint8_t *dp = dstUv + static_cast<size_t>(r) * dstStride + (uvRotW - 1 - c) * UV_PAIR_SIZE;
-                dp[0] = sp[0];
-                dp[1] = sp[1];
-            }
-        }
-    } else if (rot == CAMERA_ROTATION_CW_90) {
-        // 90°CW: new[r][c] = old[rawH-1-c][r]
-        for (int32_t r = 0; r < rotH; r++) {
-            for (int32_t c = 0; c < rotW; c++) {
-                dst[r * dstStride + c] = raw[(rawH - 1 - c) * srcStride + r];
-            }
-        }
-        uint8_t *dstUv = dst + static_cast<size_t>(dstStride) * rotH;
-        const uint8_t *srcUv = raw + static_cast<size_t>(srcStride) * rawH;
-        int32_t uvH = rawH / UV_PLANE_RATIO;
-        for (int32_t r = 0; r < rotH / UV_PLANE_RATIO; r++) {
-            for (int32_t c = 0; c < rotW / UV_PAIR_SIZE; c++) {
-                const uint8_t *sp = srcUv + (uvH - 1 - c) * srcStride + r * UV_PAIR_SIZE;
-                uint8_t *dp = dstUv + static_cast<size_t>(r) * dstStride + c * UV_PAIR_SIZE;
-                dp[0] = sp[0];
-                dp[1] = sp[1];
-            }
-        }
-    } else {
-        // 0/180: 不旋转，紧凑拷贝(去stride padding)
-        for (int32_t y = 0; y < rawH; y++) {
-            std::copy(raw + static_cast<size_t>(y) * srcStride,
-                      raw + static_cast<size_t>(y) * srcStride + rawW,
-                      dst + static_cast<size_t>(y) * dstStride);
-        }
-        const uint8_t *srcUv = raw + static_cast<size_t>(srcStride) * rawH;
-        uint8_t *dstUv = dst + static_cast<size_t>(dstStride) * rawH;
-        for (int32_t y = 0; y < rawH / UV_PLANE_RATIO; y++) {
-            std::copy(srcUv + static_cast<size_t>(y) * srcStride,
-                      srcUv + static_cast<size_t>(y) * srcStride + rawW,
-                      dstUv + static_cast<size_t>(y) * dstStride);
+    // 前摄: 90°CCW后水平镜像，new[r][rotW-1-c] = old[c][rawW-1-r]
+    for (int32_t r = 0; r < p.rotH; r++) {
+        for (int32_t c = 0; c < p.rotW; c++) {
+            p.dst[r * p.dstStride + (p.rotW - 1 - c)] = p.raw[c * p.srcStride + (p.rawW - 1 - r)];
         }
     }
+    uint8_t *dstUv = p.dst + static_cast<size_t>(p.dstStride) * p.rotH;
+    const uint8_t *srcUv = p.raw + static_cast<size_t>(p.srcStride) * p.rawH;
+    int32_t uvW = p.rawW / UV_PAIR_SIZE;
+    int32_t uvRotW = p.rotW / UV_PAIR_SIZE;
+    for (int32_t r = 0; r < p.rotH / UV_PLANE_RATIO; r++) {
+        for (int32_t c = 0; c < uvRotW; c++) {
+            const uint8_t *sp = srcUv + static_cast<size_t>(c) * p.srcStride + (uvW - 1 - r) * UV_PAIR_SIZE;
+            uint8_t *dp = dstUv + static_cast<size_t>(r) * p.dstStride + (uvRotW - 1 - c) * UV_PAIR_SIZE;
+            dp[0] = sp[0];
+            dp[1] = sp[1];
+        }
+    }
+}
+
+void RenderThread::RotateFrame90(const RotateFrameParams &p)
+{
+    // 90°CW: new[r][c] = old[rawH-1-c][r]
+    for (int32_t r = 0; r < p.rotH; r++) {
+        for (int32_t c = 0; c < p.rotW; c++) {
+            p.dst[r * p.dstStride + c] = p.raw[(p.rawH - 1 - c) * p.srcStride + r];
+        }
+    }
+    uint8_t *dstUv = p.dst + static_cast<size_t>(p.dstStride) * p.rotH;
+    const uint8_t *srcUv = p.raw + static_cast<size_t>(p.srcStride) * p.rawH;
+    int32_t uvH = p.rawH / UV_PLANE_RATIO;
+    for (int32_t r = 0; r < p.rotH / UV_PLANE_RATIO; r++) {
+        for (int32_t c = 0; c < p.rotW / UV_PAIR_SIZE; c++) {
+            const uint8_t *sp = srcUv + (uvH - 1 - c) * p.srcStride + r * UV_PAIR_SIZE;
+            uint8_t *dp = dstUv + static_cast<size_t>(r) * p.dstStride + c * UV_PAIR_SIZE;
+            dp[0] = sp[0];
+            dp[1] = sp[1];
+        }
+    }
+}
+
+void RenderThread::CopyFrameNoRotation(const RotateFrameParams &p)
+{
+    // 0/180: 不旋转，紧凑拷贝(去stride padding)
+    for (int32_t y = 0; y < p.rawH; y++) {
+        std::copy(p.raw + static_cast<size_t>(y) * p.srcStride,
+                  p.raw + static_cast<size_t>(y) * p.srcStride + p.rawW,
+                  p.dst + static_cast<size_t>(y) * p.dstStride);
+    }
+    const uint8_t *srcUv = p.raw + static_cast<size_t>(p.srcStride) * p.rawH;
+    uint8_t *dstUv = p.dst + static_cast<size_t>(p.dstStride) * p.rawH;
+    for (int32_t y = 0; y < p.rawH / UV_PLANE_RATIO; y++) {
+        std::copy(srcUv + static_cast<size_t>(y) * p.srcStride,
+                  srcUv + static_cast<size_t>(y) * p.srcStride + p.rawW,
+                  dstUv + static_cast<size_t>(y) * p.dstStride);
+    }
+}
+
+void RenderThread::RotateFrame(const RotateFrameParams &params, int32_t rot)
+{
+    if (rot == CAMERA_ROTATION_CCW_270) {
+        RotateFrame270(params);
+    } else if (rot == CAMERA_ROTATION_CW_90) {
+        RotateFrame90(params);
+    } else {
+        CopyFrameNoRotation(params);
+    }
+}
+
+const uint8_t *RenderThread::MapCameraBuffer(OHNativeWindowBuffer *InBuffer, OH_NativeBuffer *&cameraNativeBuffer,
+                                              int32_t &rawW, int32_t &rawH, int32_t &srcStride)
+{
+    BufferHandle *bufferHandle = OH_NativeWindow_GetBufferHandleFromNative(InBuffer);
+    if (bufferHandle == nullptr) {
+        return nullptr;
+    }
+    int32_t ret = OH_NativeBuffer_FromNativeWindowBuffer(InBuffer, &cameraNativeBuffer);
+    if (ret != 0 || cameraNativeBuffer == nullptr) {
+        return nullptr;
+    }
+    void *virAddr = nullptr;
+    ret = OH_NativeBuffer_Map(cameraNativeBuffer, &virAddr);
+    if (ret != 0 || virAddr == nullptr) {
+        return nullptr;
+    }
+    rawW = bufferHandle->width;
+    rawH = bufferHandle->height;
+    srcStride = bufferHandle->stride;
+    return static_cast<const uint8_t *>(virAddr);
 }
 
 void RenderThread::PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, int64_t pts)
 {
     // [Start roi_buffer_pixel_read]
     // Buffer模式：从相机帧读取像素数据并推入帧队列。
-    BufferHandle *bufferHandle = OH_NativeWindow_GetBufferHandleFromNative(InBuffer);
-    if (bufferHandle == nullptr) {
-        return;
-    }
     OH_NativeBuffer *cameraNativeBuffer = nullptr;
-    int32_t ret = OH_NativeBuffer_FromNativeWindowBuffer(InBuffer, &cameraNativeBuffer);
-    if (ret != 0 || cameraNativeBuffer == nullptr) {
+    int32_t rawW = 0;
+    int32_t rawH = 0;
+    int32_t srcStride = 0;
+    const uint8_t *raw = MapCameraBuffer(InBuffer, cameraNativeBuffer, rawW, rawH, srcStride);
+    if (raw == nullptr) {
         return;
     }
-    void *virAddr = nullptr;
-    ret = OH_NativeBuffer_Map(cameraNativeBuffer, &virAddr);
-    if (ret != 0 || virAddr == nullptr) {
-        return;
-    }
-    int32_t rawW = bufferHandle->width;
-    int32_t rawH = bufferHandle->height;
-    int32_t srcStride = bufferHandle->stride;
-    const uint8_t *raw = static_cast<const uint8_t *>(virAddr);
     // 相机ROI按竖屏检测，需把原始横屏帧旋转成竖屏(匹配ROI坐标 + 编码器竖屏配置)。
     int32_t rot = cameraRotation_.load();
     int32_t rotW = rawW;
@@ -1094,7 +1120,16 @@ void RenderThread::PushFrameToBufferQueue(OHNativeWindowBuffer *InBuffer, int64_
     frameItem.stride = dstStride;
     frameItem.pts = pts;
     frameItem.pixels.resize(frameSize);
-    RotateFrame(raw, frameItem.pixels.data(), rawW, rawH, srcStride, dstStride, rotW, rotH, rot);
+    RotateFrameParams params;
+    params.raw = raw;
+    params.dst = frameItem.pixels.data();
+    params.rawW = rawW;
+    params.rawH = rawH;
+    params.srcStride = srcStride;
+    params.dstStride = dstStride;
+    params.rotW = rotW;
+    params.rotH = rotH;
+    RotateFrame(params, rot);
 
     frameQueue_->Push(frameItem);
     OH_NativeBuffer_Unmap(cameraNativeBuffer);

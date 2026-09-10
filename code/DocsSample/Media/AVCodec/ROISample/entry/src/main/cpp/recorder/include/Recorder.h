@@ -36,6 +36,16 @@
 #include "../../capbilities/codec/include/AudioCapturer.h"
 #include "../../capbilities/render/include/render_thread.h"
 
+// Y/UV平面逐行拷贝参数（避免CopyYPlane/CopyUvPlaneWithSwap参数过多）。
+struct PlaneCopyParams {
+    const uint8_t *src = nullptr;
+    uint8_t *dst = nullptr;
+    int32_t width = 0;
+    int32_t height = 0;
+    int32_t srcStride = 0;
+    int32_t encStride = 0;
+};
+
 class Recorder {
 public:
     Recorder()
@@ -55,14 +65,14 @@ private:
     void VideoEncOutputThread();
     void VideoEncBufferInputThread();
     void FillBufferModeInput(uint32_t index, OH_AVBuffer *buffer);
+    // FillBufferModeInput辅助: 帧队列空时按EOS标志下发空buffer+EOS或直接归还buffer。
+    void PushEmptyOrEosBuffer(uint32_t index, OH_AVBuffer *buffer);
     // FillBufferModeInput辅助: 获取编码器输入Buffer的stride和sliceHeight。
     void GetEncoderStride(int32_t frameHeight, int32_t &encStride, int32_t &encSliceHeight);
     // FillBufferModeInput辅助: 逐行拷贝Y平面。
-    void CopyYPlane(const uint8_t *src, uint8_t *dst, int32_t width, int32_t height,
-                     int32_t srcStride, int32_t encStride);
+    void CopyYPlane(const PlaneCopyParams &p);
     // FillBufferModeInput辅助: 逐行拷贝UV平面并逐对交换U/V(NV21->NV12)。
-    void CopyUvPlaneWithSwap(const uint8_t *src, uint8_t *dst, int32_t width, int32_t height,
-                             int32_t srcStride, int32_t encStride);
+    void CopyUvPlaneWithSwap(const PlaneCopyParams &p);
     void AudioEncInputThread();
     void AudioEncOutputThread();
     void Release();
