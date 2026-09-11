@@ -49,6 +49,7 @@ add_library(player SHARED player/PlayerNative.cpp
                           capbilities/codec/Demuxer.cpp
                           capbilities/codec/AudioDecoder.cpp
                           capbilities/codec/CodecCallback.cpp
-                          capbilities/codec/AudioRender.cpp)
+                          capbilities/codec/AudioRender.cpp
+                          common/RoiQueue.cpp)
 
 target_link_libraries(player PUBLIC ${BASE_LIBRARY})
