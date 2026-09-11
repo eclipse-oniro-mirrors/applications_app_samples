@@ -115,7 +115,7 @@ export class SolutionKeyboardController {
       },
 // [EndExclude keyboard_stream_info]
       rendererInfo: {
-        // 使用通知音类型，将默认焦点策略从 STOP 降为 DUCK。
+        // 使用通知音类型，将默认焦点策略从STOP降为DUCK。
         usage: audio.StreamUsage.STREAM_USAGE_NOTIFICATION,
         rendererFlags: 0,
       },
@@ -135,7 +135,7 @@ export class SolutionKeyboardController {
       await this.renderer.stop();
       this.isStarted = false;
     }
-    // 设置 MIX 策略，优先级低于 DUCK，实现完全并发。
+    // 设置MIX策略，优先级低于DUCK，实现完全并发。
     this.renderer.setIndependentAudioSessionStrategy({
       concurrencyMode: audio.AudioConcurrencyMode.CONCURRENCY_MIX_WITH_OTHERS
     }, audio.AudioSessionBehaviorFlags.DEFAULT_BEHAVIOR);
