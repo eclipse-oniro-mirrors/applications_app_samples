@@ -35,6 +35,7 @@ public:
     int32_t Release();
     int32_t GetVideoTrackId();
     int32_t GetAudioTrackId();
+    int32_t GetAudioTrackInfo(int32_t trackIndex, AudioSampleInfo &audioInfo);
     int32_t SelectAudioTrack(int32_t trackIndex, SampleInfo &info);
     int32_t Seek(int64_t positionMs, OH_AVSeekMode mode = SEEK_MODE_NEXT_SYNC);
 
@@ -42,6 +43,8 @@ private:
     int32_t GetTrackInfo(std::shared_ptr<OH_AVFormat> sourceFormat, SampleInfo &info);
     std::shared_ptr<OH_AVFormat> GetTrackFormat(int32_t index);
     int GetTrackType(std::shared_ptr<OH_AVFormat> trackFormat);
+    int32_t PopulateAudioTrackInfo(std::shared_ptr<OH_AVFormat> trackFormat, int32_t trackIndex,
+        SampleInfo &info);
     void SaveTrackFormat(std::shared_ptr<OH_AVFormat> trackFormat, int32_t index, int32_t trackType,
         SampleInfo &info);
     void ProcessVideoTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_t index, SampleInfo &info);

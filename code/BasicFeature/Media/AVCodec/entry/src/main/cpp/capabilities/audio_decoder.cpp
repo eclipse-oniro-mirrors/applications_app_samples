@@ -119,6 +119,12 @@ int32_t AudioDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
+int32_t AudioDecoder::ValidateConfiguration(const SampleInfo &sampleInfo)
+{
+    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
+    return Configure(sampleInfo);
+}
+
 OH_AVBuffer *AudioDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, nullptr, "Decoder is null");

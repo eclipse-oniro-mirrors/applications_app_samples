@@ -79,6 +79,7 @@ void OnSurfaceChangedCB(OH_NativeXComponent* component, void* window)
     std::string id(idStr);
     auto render = PluginManager::GetInstance()->GetRender(id);
     if (render != nullptr) {
+        PluginManager::GetInstance()->SetPluginWindow(static_cast<OHNativeWindow *>(window));
         render->OnSurfaceChanged(component, window);
         OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "Callback", "surface changed");
     }

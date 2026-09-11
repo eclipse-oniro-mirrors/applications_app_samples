@@ -49,6 +49,7 @@ private:
     int32_t windowHeight_ = 0;
     int32_t windowFormat_ = 0;
     OHNativeWindow *window_ = nullptr;
+    uint64_t windowGeneration_ = 0;
     bool metadataCopyFailureLogged_ = false;
 };
 

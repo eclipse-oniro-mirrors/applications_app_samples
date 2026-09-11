@@ -154,12 +154,19 @@ void PluginManager::SetPluginWindow(OHNativeWindow *window)
 {
     std::lock_guard<std::mutex> lock(mutex_);
     pluginWindow_ = window;
+    pluginWindowGeneration_++;
 }
 
 OHNativeWindow *PluginManager::GetPluginWindow() const
 {
     std::lock_guard<std::mutex> lock(mutex_);
     return pluginWindow_;
+}
+
+uint64_t PluginManager::GetPluginWindowGeneration() const
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    return pluginWindowGeneration_;
 }
 
 void PluginManager::ClearPluginWindow(OHNativeWindow *window)
@@ -169,6 +176,7 @@ void PluginManager::ClearPluginWindow(OHNativeWindow *window)
     // still invalid once the surface has been destroyed.
     if (window == nullptr || pluginWindow_ == window) {
         pluginWindow_ = nullptr;
+        pluginWindowGeneration_++;
     }
 }
 } // namespace NativeXComponentSample

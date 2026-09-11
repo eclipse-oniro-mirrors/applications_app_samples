@@ -45,6 +45,7 @@ public:
     void ReleaseRender(const std::string& id);
     void SetPluginWindow(OHNativeWindow *window);
     OHNativeWindow *GetPluginWindow() const;
+    uint64_t GetPluginWindowGeneration() const;
     void ClearPluginWindow(OHNativeWindow *window);
     void Export(napi_env env, napi_value exports);
 
@@ -55,6 +56,7 @@ private:
     std::unordered_map<std::string, OH_NativeXComponent*> nativeXComponentMap_;
     std::unordered_map<std::string, std::shared_ptr<PluginRender>> pluginRenderMap_;
     OHNativeWindow *pluginWindow_ = nullptr;
+    uint64_t pluginWindowGeneration_ = 0;
     mutable std::mutex mutex_;
 };
 }

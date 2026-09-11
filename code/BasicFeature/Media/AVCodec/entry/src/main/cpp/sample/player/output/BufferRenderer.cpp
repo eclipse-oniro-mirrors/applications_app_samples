@@ -201,6 +201,7 @@ void BufferRenderer::Reset()
     windowHeight_ = 0;
     windowFormat_ = 0;
     window_ = nullptr;
+    windowGeneration_ = 0;
     metadataCopyFailureLogged_ = false;
 }
 
@@ -209,6 +210,8 @@ bool BufferRenderer::ConfigureWindow(const SampleInfo& sampleInfo, const CodecUs
 {
     OHNativeWindow *window = NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
     CHECK_AND_RETURN_RET_LOG(window != nullptr, false, "XComponent window is null");
+    const uint64_t windowGeneration =
+        NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindowGeneration();
 
     int32_t width = videoDecContext.width > 0 ? videoDecContext.width : sampleInfo.video.videoWidth;
     int32_t height = videoDecContext.height > 0 ? videoDecContext.height : sampleInfo.video.videoHeight;
@@ -216,7 +219,7 @@ bool BufferRenderer::ConfigureWindow(const SampleInfo& sampleInfo, const CodecUs
         "Invalid render size, width: %{public}d, height: %{public}d", width, height);
 
     if (windowConfigured_ && window_ == window && windowWidth_ == width &&
-        windowHeight_ == height && windowFormat_ == graphicPixelFormat) {
+        windowHeight_ == height && windowFormat_ == graphicPixelFormat && windowGeneration_ == windowGeneration) {
         return true;
     }
 
@@ -238,6 +241,7 @@ bool BufferRenderer::ConfigureWindow(const SampleInfo& sampleInfo, const CodecUs
     windowHeight_ = height;
     windowFormat_ = graphicPixelFormat;
     window_ = window;
+    windowGeneration_ = windowGeneration;
     return true;
 }
 
