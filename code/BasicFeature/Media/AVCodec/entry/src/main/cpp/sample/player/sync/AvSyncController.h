@@ -23,6 +23,8 @@ struct AvSyncDecision {
     int64_t waitTimeUs = 0;
     bool dropFrame = false;
     bool valid = false;
+    int64_t mediaOffsetUs = 0;
+    int64_t audioPendingUs = 0;
 };
 
 class AvSyncController {

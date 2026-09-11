@@ -24,6 +24,8 @@ import mediaInfoModelTest from './MediaInfoModel.test';
 import playbackViewModelTest from './PlaybackViewModel.test';
 import subtitleModelTest from './SubtitleModel.test';
 import playbackHistoryModelTest from './PlaybackHistoryModel.test';
+import playbackPolicyTest from './PlaybackPolicy.test';
+import seekRequestControllerTest from './SeekRequestController.test';
 
 export default function testsuite() {
   cameraDataModelTest();
@@ -37,4 +39,6 @@ export default function testsuite() {
   playbackViewModelTest();
   subtitleModelTest();
   playbackHistoryModelTest();
+  playbackPolicyTest();
+  seekRequestControllerTest();
 }

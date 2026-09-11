@@ -106,6 +106,9 @@ void Player::AudioDecInputSyncThread()
 
 bool Player::ProcessAudioOutput(CodecBufferInfo &bufferInfo)
 {
+    if (!hasVideoTrack_.load()) {
+        diagnostics_.RecordSeekOutput();
+    }
     audioOutputBuffers_.fetch_add(1);
     const int32_t ret = audioDecoder_->FreeOutputBuffer(bufferInfo.bufferIndex, true);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {

@@ -25,6 +25,15 @@
 
 int32_t Player::CreateAudioDecoder()
 {
+    if (sampleInfo_.audio.audioCodecMime.empty()) {
+        // A media source without an audio track is valid. Keep the audio
+        // context absent so Start() only launches the video pipeline.
+        audioDecoder_.reset();
+        audioDecContext_.reset();
+        isAudioDone.store(true);
+        AVCODEC_SAMPLE_LOGI("No audio track found, skip audio decoder creation");
+        return AVCODEC_SAMPLE_ERR_OK;
+    }
     CHECK_AND_RETURN_RET_LOG(audioDecoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
         "Audio decoder object is null");
     AVCODEC_SAMPLE_LOGW("audio mime:%{public}s", sampleInfo_.audio.audioCodecMime.c_str());
@@ -40,6 +49,17 @@ int32_t Player::CreateAudioDecoder()
     }
     audioDecContext_->isDestroyed = false;
     audioDecContext_->runningFlag = &audioWorkerRunning_;
+    audioDecContext_->playbackFailure = &playbackFailed_;
+    audioDecContext_->pausedFlag = &paused_;
+    audioDecContext_->audioInterrupted = &audioInterrupted_;
+    audioDecContext_->audioResumePending = &audioResumePending_;
+    audioDecContext_->audioInterruptCount = &audioInterruptCount_;
+    audioDecContext_->audioInterruptHint = &audioInterruptHint_;
+    audioDecContext_->audioVolume = &audioVolume_;
+    audioDecContext_->audioDucked = &audioDucked_;
+    audioDecContext_->pauseCond = &pauseCond_;
+    audioDecContext_->audioUnderruns = &diagnostics_.audioUnderruns;
+    audioDecContext_->audioQueueDurationUs = &diagnostics_.audioQueueDurationUs;
     audioDecContext_->playbackPositionUs = &playbackPositionUs_;
     audioDecContext_->sampleInfo = &sampleInfo_;
     ret = audioDecoder_->Config(sampleInfo_, audioDecContext_.get());
@@ -80,6 +100,26 @@ int32_t Player::CreateAudioRenderer()
         audioDecoder_->Release();
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
+    ConfigureAudioRendererBuilder();
+    ConfigureAudioRendererCallbacks();
+    ret = OH_AudioStreamBuilder_GenerateRenderer(builder_, &audioRenderer_);
+    if (ret != AUDIOSTREAM_SUCCESS || audioRenderer_ == nullptr) {
+        AVCODEC_SAMPLE_LOGE("Generate audio renderer failed, ret:%{public}d", ret);
+        OH_AudioStreamBuilder_Destroy(builder_);
+        builder_ = nullptr;
+        audioDecoder_->Release();
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
+    const int32_t volumeRet = OH_AudioRenderer_SetVolume(audioRenderer_, sampleInfo_.audioPlayback.volume);
+    audioVolume_.store(sampleInfo_.audioPlayback.volume);
+    if (volumeRet != AUDIOSTREAM_SUCCESS) {
+        AVCODEC_SAMPLE_LOGW("Set initial audio volume failed, ret: %{public}d", volumeRet);
+    }
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
+void Player::ConfigureAudioRendererBuilder()
+{
     const auto latencyMode = sampleInfo_.audioPlayback.enableLowLatency ?
         AUDIOSTREAM_LATENCY_MODE_FAST : AUDIOSTREAM_LATENCY_MODE_NORMAL;
     const int32_t latencyRet = OH_AudioStreamBuilder_SetLatencyMode(builder_, latencyMode);
@@ -94,6 +134,10 @@ int32_t Player::CreateAudioRenderer()
     OH_AudioStreamBuilder_SetRendererInfo(builder_, AUDIOSTREAM_USAGE_MOVIE);
     AVCODEC_SAMPLE_LOGW("Init audioSampleRate: %{public}d, ChannelCount: %{public}d",
         sampleInfo_.audio.audioSampleRate, sampleInfo_.audio.audioChannelCount);
+}
+
+void Player::ConfigureAudioRendererCallbacks()
+{
     OH_AudioRenderer_Callbacks callbacks;
 #ifndef DEBUG_DECODE
     callbacks.OH_AudioRenderer_OnWriteData = SampleCallback::OnRenderWriteData;
@@ -104,19 +148,11 @@ int32_t Player::CreateAudioRenderer()
     callbacks.OH_AudioRenderer_OnInterruptEvent = SampleCallback::OnRenderInterruptEvent;
     callbacks.OH_AudioRenderer_OnError = SampleCallback::OnRenderError;
     OH_AudioStreamBuilder_SetRendererCallback(builder_, callbacks, audioDecContext_.get());
-    ret = OH_AudioStreamBuilder_GenerateRenderer(builder_, &audioRenderer_);
-    if (ret != AUDIOSTREAM_SUCCESS || audioRenderer_ == nullptr) {
-        AVCODEC_SAMPLE_LOGE("Generate audio renderer failed, ret:%{public}d", ret);
-        OH_AudioStreamBuilder_Destroy(builder_);
-        builder_ = nullptr;
-        audioDecoder_->Release();
-        return AVCODEC_SAMPLE_ERR_ERROR;
+    const OH_AudioStream_Result interruptRet = OH_AudioStreamBuilder_SetRendererInterruptCallback(
+        builder_, SampleCallback::OnRenderInterrupt, audioDecContext_.get());
+    if (interruptRet != AUDIOSTREAM_SUCCESS) {
+        AVCODEC_SAMPLE_LOGW("Set audio interruption callback failed, ret: %{public}d", interruptRet);
     }
-    const int32_t volumeRet = OH_AudioRenderer_SetVolume(audioRenderer_, sampleInfo_.audioPlayback.volume);
-    if (volumeRet != AUDIOSTREAM_SUCCESS) {
-        AVCODEC_SAMPLE_LOGW("Set initial audio volume failed, ret: %{public}d", volumeRet);
-    }
-    return AVCODEC_SAMPLE_ERR_OK;
 }
 
 int32_t Player::CreateVideoDecoder()
@@ -164,6 +200,7 @@ int32_t Player::CreateVideoDecoderForType(int32_t decoderType)
     }
     videoDecContext_ = std::make_unique<CodecUserData>();
     videoDecContext_->runningFlag = &isStarted_;
+    videoDecContext_->playbackFailure = &playbackFailed_;
     videoDecContext_->sampleInfo = &sampleInfo_;
     videoDecContext_->isDecFirstFrame = true;
     sampleInfo_.video.window = sampleInfo_.codec.codecRunMode == SURFACE ?
@@ -200,7 +237,15 @@ void Player::PrepareForInitialization(const SampleInfo &sampleInfo)
 {
     sampleInfo_ = sampleInfo;
     mediaInfo_ = {};
+    diagnostics_.Reset();
     playbackFailed_ = false;
+    audioInterrupted_ = false;
+    audioResumePending_ = false;
+    audioInterruptCount_ = 0;
+    audioInterruptHint_ = AUDIOSTREAM_INTERRUPT_HINT_NONE;
+    audioDucked_ = false;
+    appBackgrounded_ = false;
+    backgroundPausedPlayback_ = false;
     hasDecodedOutput_ = false;
     stopRequested_ = false;
     paused_ = false;
@@ -277,6 +322,31 @@ void Player::UpdateMediaInfoSnapshot()
     mediaInfo_.trackFormats = sampleInfo_.source.trackFormats;
 }
 
+int32_t Player::CreateTrackDecoders()
+{
+    int32_t ret = CreateAudioDecoder();
+    if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        if (sampleInfo_.video.videoCodecMime.empty()) {
+            AVCODEC_SAMPLE_LOGE("Create audio decoder failed for audio-only media");
+            return ret;
+        }
+        AVCODEC_SAMPLE_LOGW("Audio decoder unavailable, continue with video-only playback");
+        if (audioDecoder_ != nullptr) {
+            audioDecoder_->Release();
+        }
+        audioDecoder_.reset();
+        audioDecContext_.reset();
+        builder_ = nullptr;
+        sampleInfo_.audio = {};
+        isAudioDone.store(true);
+    }
+    ret = CreateVideoDecoder();
+    if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        AVCODEC_SAMPLE_LOGE("Create video decoder failed");
+    }
+    return ret;
+}
+
 int32_t Player::Init(SampleInfo &sampleInfo)
 {
     JoinReleaseThread();
@@ -296,14 +366,8 @@ int32_t Player::Init(SampleInfo &sampleInfo)
         AVCODEC_SAMPLE_LOGE("Create demuxer failed");
         return HandleInitError(lock);
     }
-    ret = CreateAudioDecoder();
+    ret = CreateTrackDecoders();
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        AVCODEC_SAMPLE_LOGE("Create audio decoder failed");
-        return HandleInitError(lock);
-    }
-    ret = CreateVideoDecoder();
-    if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        AVCODEC_SAMPLE_LOGE("Create video decoder failed");
         return HandleInitError(lock);
     }
     UpdateSmartFluencyAvailability();

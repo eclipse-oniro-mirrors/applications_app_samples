@@ -55,12 +55,52 @@ struct CodecUserData {
     std::atomic<bool> isDestroyed { false };
     std::atomic<bool> hasError { false };
     std::atomic<bool> *runningFlag = nullptr;
+    std::atomic<bool> *playbackFailure = nullptr;
+    // Shared playback state used by the AudioRenderer interruption callback.
+    std::atomic<bool> *pausedFlag = nullptr;
+    std::atomic<bool> *audioInterrupted = nullptr;
+    std::atomic<bool> *audioResumePending = nullptr;
+    std::atomic<uint64_t> *audioInterruptCount = nullptr;
+    std::atomic<int32_t> *audioInterruptHint = nullptr;
+    std::atomic<float> *audioVolume = nullptr;
+    std::atomic<bool> *audioDucked = nullptr;
+    std::condition_variable *pauseCond = nullptr;
+    std::atomic<uint64_t> *audioUnderruns = nullptr;
+    std::atomic<int64_t> *audioQueueDurationUs = nullptr;
     std::atomic<int64_t> *playbackPositionUs = nullptr;
+
+    void SignalError()
+    {
+        hasError = true;
+        if (playbackFailure != nullptr) {
+            playbackFailure->store(true);
+        }
+        if (runningFlag != nullptr) {
+            runningFlag->store(false);
+        }
+        inputBufferQueue.CancelWait();
+        outputBufferQueue.CancelWait();
+        renderCond.notify_all();
+    }
 
     void ClearQueue()
     {
         inputBufferQueue.Flush();
         outputBufferQueue.Flush();
+    }
+
+    // Call while holding outputMutex. Playback PCM is normalized to S16LE.
+    void UpdateAudioQueueDuration()
+    {
+        constexpr int64_t usPerSecond = 1'000'000;
+        constexpr int32_t s16BytesPerSample = 2;
+        if (audioQueueDurationUs == nullptr || sampleInfo == nullptr ||
+            sampleInfo->audio.audioChannelCount <= 0 || sampleInfo->audio.audioSampleRate <= 0) {
+            return;
+        }
+        const int64_t queuedFrames = static_cast<int64_t>(renderQueue.size()) /
+            sampleInfo->audio.audioChannelCount / s16BytesPerSample;
+        audioQueueDurationUs->store(queuedFrames * usPerSecond / sampleInfo->audio.audioSampleRate);
     }
 
     std::vector<char> cache;

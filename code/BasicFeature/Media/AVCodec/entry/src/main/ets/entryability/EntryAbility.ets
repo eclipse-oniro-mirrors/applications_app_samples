@@ -17,6 +17,7 @@ import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit'
 import { BusinessError } from '@kit.BasicServicesKit'
 import { window } from '@kit.ArkUI'
 import Logger from '../common/utils/Logger'
+import player from 'libplayer.so'
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
@@ -83,10 +84,12 @@ export default class EntryAbility extends UIAbility {
   onForeground() {
     // Ability has brought to foreground
     Logger.info('Ability onForeground');
+    player.setAppBackground(false);
   }
 
   onBackground() {
     // Ability has back to background
     Logger.info('Ability onBackground');
+    player.setAppBackground(true);
   }
 }

@@ -37,5 +37,7 @@ public:
     static napi_value SetSmartFluencyEnabled(napi_env env, napi_callback_info info);
     static napi_value OnThermalWarningReceived(napi_env env, napi_callback_info info);
     static napi_value OnThermalLevelRecovered(napi_env env, napi_callback_info info);
+    static napi_value SetBackgroundPlaybackEnabled(napi_env env, napi_callback_info info);
+    static napi_value SetAppBackground(napi_env env, napi_callback_info info);
 };
 #endif

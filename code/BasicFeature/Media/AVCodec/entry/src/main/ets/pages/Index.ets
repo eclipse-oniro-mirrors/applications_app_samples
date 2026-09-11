@@ -21,7 +21,7 @@ import { photoAccessHelper } from '@kit.MediaLibraryKit'
 import { media } from '@kit.MediaKit'
 import { deviceInfo } from '@kit.BasicServicesKit'
 import thermal from '@ohos.thermal'
-import player, { MediaTrackInfo } from 'libplayer.so'
+import player, { MediaInfo, MediaTrackInfo } from 'libplayer.so'
 import recorder from 'librecorder.so'
 import Logger from '../common/utils/Logger'
 import DateTimeUtil from '../common/utils/DateTimeUtil'
@@ -34,6 +34,14 @@ import { PlaybackViewModel } from '../viewmodel/PlaybackViewModel'
 import { formatMediaTime } from '../model/PlaybackInfoModel'
 import { PlaybackHistoryEntry, PlaybackHistoryModel, getPlaybackTitle } from '../model/PlaybackHistoryModel'
 import { findSubtitleText, parseSrt, SubtitleCue } from '../model/SubtitleModel'
+import { PlaybackMode, nextPlaybackIndex } from '../model/PlaybackModeModel'
+import { PlaybackRecoveryModel, PlaybackRecoverySnapshot, PlaybackRecoveryReason } from '../model/PlaybackRecoveryModel'
+import { SubtitleStyleModel } from '../model/SubtitleStyleModel'
+import { SeekRequestController, SeekRequestResult } from '../controller/SeekRequestController'
+import { PlaybackSessionCallbacks, PlaybackSessionController, PlaybackSessionMedia } from
+  '../controller/PlaybackSessionController'
+import { SubtitleSettingsPanel } from '../components/SubtitleSettingsPanel'
+import { AvDiagnosticsPanel } from '../components/AvDiagnosticsPanel'
 import { MediaInfoPanel as MediaInfoPanelComponent } from '../components/MediaInfoPanel'
 import { PlaybackProgressPanel as PlaybackProgressPanelComponent } from '../components/PlaybackProgressPanel'
 import { encoderProfileCameraCheck, setFirstCameraProfile } from '../common/utils/CameraCheck'
@@ -98,7 +106,20 @@ export struct Player {
   @State isBackgroundPlaybackEnabled: boolean = false;
   @State subtitleText: string = '';
   @State subtitleDelayIndex: number = 1;
-  @State subtitleStyleIndex: number = 1;
+  @State subtitleStyle: SubtitleStyleModel = new SubtitleStyleModel();
+  @State isSubtitleSettingsVisible: boolean = false;
+  @State playbackMode: PlaybackMode = PlaybackMode.SEQUENTIAL;
+  @State autoRecoveryEnabled: boolean = true;
+  private seekRequests: SeekRequestController = new SeekRequestController(
+    (targetUs: number): Promise<boolean> => player.seekToAsync(targetUs));
+  private playbackSessionController: PlaybackSessionController = new PlaybackSessionController();
+  private recovery: PlaybackRecoveryModel = new PlaybackRecoveryModel();
+  private playbackSession: number = 0;
+  private seekRequestId: number = 0;
+  private sliderDragging: boolean = false;
+  private pageActive: boolean = true;
+  private requestedSpeed: number = 1;
+  private currentMediaInfo: MediaInfo | undefined = undefined;
   @State audioMuted: boolean = false;
   @State draftRecorderCodec: number = 1;
   @State draftRecorderOutputFormat: number = 0;
@@ -128,11 +149,12 @@ export struct Player {
   private playbackHistory: PlaybackHistoryModel = new PlaybackHistoryModel();
   private queuePaths: string[] = [];
   private queueIndex: number = -1;
+  private pendingQueueIndex: number = -1;
   private lastHistoryPositionUs: number = -1;
   private resumeSeekTimer: number = 0;
   private seekPreviewLastFetchTimeMs: number = 0;
   private playbackControlsTimer: number = 0;
-  private hasShownAutoHideControlsHint: boolean = false;
+  private playbackWindowWidth: number = 0;
   private abLoopTimer: number = 0;
   private abLoopSeekPending: boolean = false;
   private pipController: PiPWindow.PiPController | undefined;
@@ -142,6 +164,9 @@ export struct Player {
       globalThis.context.resourceManager.getStringSync($r('app.string.select_from_album').id)];
 
   aboutToAppear() {
+    this.pageActive = true;
+    player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
+    player.setAppBackground(false);
     this.loadPlaybackHistory();
     this.playbackViewModel.onPlaybackPositionChanged = (positionUs: number): void => {
       this.updateSubtitle(positionUs);
@@ -149,6 +174,9 @@ export struct Player {
       if (this.playbackViewModel.state === player.PlayerState.PLAYING ||
         this.playbackViewModel.state === player.PlayerState.PAUSED) {
         this.persistPlaybackProgress(positionUs, this.playbackViewModel.durationUs);
+        this.recovery.observe(positionUs, this.requestedSpeed,
+          this.playbackViewModel.state === player.PlayerState.PAUSED,
+          this.playbackViewModel.videoOutputFrames > 0 || this.playbackViewModel.audioOutputBuffers > 0);
       }
     };
     // API 26+ 设备支持智能流畅倍速解码
@@ -204,6 +232,11 @@ export struct Player {
   }
 
   aboutToDisappear(): void {
+    this.pageActive = false;
+    this.recovery.cancel();
+    this.seekRequests.cancel();
+    void this.playbackSessionController.stop();
+    this.stopPlayback();
     this.clearPlaybackControlsTimer();
     if (this.resumeSeekTimer !== 0) {
       clearTimeout(this.resumeSeekTimer);
@@ -294,6 +327,116 @@ export struct Player {
     this.isQueueVisible = false;
   }
 
+  private createPlaybackSessionCallbacks(): PlaybackSessionCallbacks {
+    return {
+      onPlay: (): void => this.handleSessionPlay(),
+      onPause: (): void => this.handleSessionPause(),
+      onStop: (): void => this.handleSessionStop(),
+      onNext: (): void => this.handleSessionNext(),
+      onPrevious: (): void => this.handleSessionPrevious(),
+      onSeek: (positionMs: number): void => this.handleSessionSeek(positionMs),
+      onFastForward: (offsetSeconds: number): void => {
+        this.seekBySeconds(offsetSeconds);
+      },
+      onRewind: (offsetSeconds: number): void => {
+        this.seekBySeconds(-offsetSeconds);
+      },
+      onSetSpeed: (speed: number): void => this.setPlaybackSpeed(speed)
+    };
+  }
+
+  private startPlaybackSession(): void {
+    const hostContext = this.getUIContext().getHostContext();
+    if (hostContext === undefined || this.selectFilePath === null) {
+      return;
+    }
+    const mediaInfo = this.currentMediaInfo ?? player.getMediaInfo();
+    const queueTitles: string[] = this.queuePaths.map((path: string): string => getPlaybackTitle(path));
+    const media: PlaybackSessionMedia = {
+      assetId: 'queue-' + Math.max(0, this.queueIndex).toString(),
+      title: getPlaybackTitle(this.selectFilePath),
+      queueTitle: this.getSettingText($r('app.string.playback_queue_sheet_title')),
+      durationMs: Math.max(0, Math.round(mediaInfo.durationUs / 1000)),
+      hasVideo: mediaInfo.video.width > 0 && mediaInfo.video.height > 0,
+      queueTitles,
+      queueIndex: Math.max(0, this.queueIndex)
+    };
+    void this.playbackSessionController.start(hostContext as common.UIAbilityContext, media,
+      this.createPlaybackSessionCallbacks());
+  }
+
+  private handleSessionPlay(): void {
+    if (!this.buttonEnabled && this.playbackViewModel.state === player.PlayerState.PAUSED) {
+      this.togglePlaybackPause();
+    }
+  }
+
+  private handleSessionPause(): void {
+    if (!this.buttonEnabled && this.playbackViewModel.state === player.PlayerState.PLAYING) {
+      this.togglePlaybackPause();
+    }
+  }
+
+  private handleSessionStop(): void {
+    if (!this.buttonEnabled) {
+      void this.stopPlayback();
+    }
+  }
+
+  private handleSessionSeek(positionMs: number): void {
+    if (this.buttonEnabled || this.isStopping) {
+      return;
+    }
+    const requestedUs = Math.max(0, Math.round(positionMs * 1000));
+    const durationUs = this.playbackViewModel.durationUs;
+    const targetUs = durationUs > 0 ? Math.min(durationUs, requestedUs) : requestedUs;
+    this.requestSeek(targetUs);
+  }
+
+  private handleSessionNext(): void {
+    this.requestQueueSwitch(1);
+  }
+
+  private handleSessionPrevious(): void {
+    this.requestQueueSwitch(-1);
+  }
+
+  private requestQueueSwitch(direction: number): void {
+    if (this.buttonEnabled || this.isStopping || this.queuePaths.length < 2) {
+      return;
+    }
+    const targetIndex = this.getAdjacentQueueIndex(direction);
+    if (targetIndex < 0 || targetIndex === this.queueIndex) {
+      return;
+    }
+    this.pendingQueueIndex = targetIndex;
+    void this.stopPlayback();
+  }
+
+  private getAdjacentQueueIndex(direction: number): number {
+    const count = this.queuePaths.length;
+    if (this.queueIndex < 0 || this.queueIndex >= count || direction === 0) {
+      return -1;
+    }
+    let targetIndex = this.queueIndex + (direction > 0 ? 1 : -1);
+    if (this.playbackMode === PlaybackMode.REPEAT_ALL) {
+      targetIndex = (targetIndex + count) % count;
+    }
+    return targetIndex >= 0 && targetIndex < count ? targetIndex : -1;
+  }
+
+  private async continuePendingQueuePlayback(): Promise<void> {
+    const targetIndex = this.pendingQueueIndex;
+    this.pendingQueueIndex = -1;
+    if (targetIndex < 0 || targetIndex >= this.queuePaths.length || !this.pageActive) {
+      return;
+    }
+    await this.playbackSessionController.stop();
+    this.queueIndex = targetIndex;
+    this.queueEntries = this.queuePaths.slice();
+    await this.continuePlayback(this.playbackSession, this.queuePaths[targetIndex], 0);
+  }
+
   private toggleFullscreen(): void {
     const hostContext = this.getUIContext().getHostContext();
     if (hostContext === undefined) {
@@ -346,14 +489,11 @@ export struct Player {
         this.showPlaybackControls();
       } else if (this.playerSettings.autoHideControls && (this.isFullscreen || !this.buttonEnabled)) {
         this.isPlaybackControlsVisible = false;
-        if (!this.hasShownAutoHideControlsHint) {
-          this.hasShownAutoHideControlsHint = true;
-          this.getUIContext().getPromptAction().showToast({
-            message: $r('app.string.playback_controls_auto_hide_tip'),
-            duration: Const.DURATION,
-            bottom: Const.BOTTOM
-          });
-        }
+        this.getUIContext().getPromptAction().showToast({
+          message: $r('app.string.playback_controls_auto_hide_tip'),
+          duration: Const.DURATION,
+          bottom: Const.BOTTOM
+        });
       }
     }, PLAYBACK_CONTROLS_HIDE_DELAY_MS);
   }
@@ -361,6 +501,43 @@ export struct Player {
   private handlePlaybackControlInteraction(): void {
     if (!this.buttonEnabled && !this.isStopping) {
       this.showPlaybackControls();
+    }
+  }
+
+  private handlePlaybackWindowTap(): void {
+    this.handlePlaybackControlInteraction();
+    const playbackState = this.playbackViewModel.state;
+    const canTogglePlayback = !this.buttonEnabled && !this.isStopping && !this.sliderDragging &&
+      (playbackState === player.PlayerState.PLAYING || playbackState === player.PlayerState.PAUSED);
+    if (canTogglePlayback) {
+      this.togglePlaybackPause(true);
+    }
+  }
+
+  private updatePlaybackWindowWidth(area: Area): void {
+    if (typeof area.width === 'number' && area.width > 0) {
+      this.playbackWindowWidth = area.width;
+    }
+  }
+
+  private handlePlaybackWindowDoubleTap(event: GestureEvent): void {
+    this.handlePlaybackControlInteraction();
+    const playbackState = this.playbackViewModel.state;
+    const canSeek = !this.buttonEnabled && !this.isStopping && !this.sliderDragging &&
+      this.playbackViewModel.hasVideo && this.playbackWindowWidth > 0 &&
+      (playbackState === player.PlayerState.PLAYING || playbackState === player.PlayerState.PAUSED ||
+        this.seekRequests.isBusy());
+    if (!canSeek) {
+      return;
+    }
+    const finger = event.fingerList[0];
+    if (finger === undefined) {
+      return;
+    }
+    const offsetSeconds = finger.localX < this.playbackWindowWidth / 2 ? -15 : 15;
+    if (this.seekBySeconds(offsetSeconds)) {
+      this.showControlToast(offsetSeconds < 0 ? $r('app.string.playback_rewind_15s') :
+        $r('app.string.playback_forward_15s'));
     }
   }
 
@@ -392,6 +569,9 @@ export struct Player {
 
   updatePlaybackInfo(): void {
     this.playbackViewModel.update();
+    this.playbackSessionController.updateState(this.playbackViewModel.state,
+      this.playbackViewModel.speed, this.playbackViewModel.positionUs,
+      this.playbackViewModel.durationUs);
     this.updateSubtitle(this.playbackViewModel.positionUs);
     this.checkAbLoop(this.playbackViewModel.positionUs);
     if (this.playbackViewModel.state === player.PlayerState.PLAYING ||
@@ -452,28 +632,19 @@ export struct Player {
   }
 
   private selectSubtitleStyle(): void {
-    const labels: string[] = [
-      this.getSettingText($r('app.string.playback_subtitle_style_small')),
-      this.getSettingText($r('app.string.playback_subtitle_style_medium')),
-      this.getSettingText($r('app.string.playback_subtitle_style_large'))
-    ];
-    TextPickerDialog.show({
-      range: labels,
-      selected: this.subtitleStyleIndex,
-      canLoop: false,
-      onAccept: (value: TextPickerResult) => {
-        const selected = getPickerSelectedIndex(value.index);
-        if (selected >= 0 && selected < labels.length) {
-          this.subtitleStyleIndex = selected;
-        }
+    setTimeout(() => {
+      if (this.pageActive) {
+        this.isSubtitleSettingsVisible = true;
       }
-    });
+    }, 300);
   }
 
-  private getSubtitleFontSize(): string {
-    const sizes: string[] = ['16fp', '18fp', '22fp'];
-    return this.subtitleStyleIndex >= 0 && this.subtitleStyleIndex < sizes.length ?
-      sizes[this.subtitleStyleIndex] : sizes[1];
+  private rejectWhileSeeking(): boolean {
+    if (!this.seekRequests.isBusy()) {
+      return false;
+    }
+    this.showControlToast($r('app.string.playback_seek_busy'));
+    return true;
   }
 
   private formatAudioTrackLabel(track: MediaTrackInfo, position: number): string {
@@ -496,6 +667,9 @@ export struct Player {
   }
 
   private selectAudioTrack(): void {
+    if (this.rejectWhileSeeking()) {
+      return;
+    }
     let tracks: MediaTrackInfo[] = [];
     try {
       tracks = player.getMediaInfo().tracks.filter(
@@ -520,7 +694,7 @@ export struct Player {
         tracks.findIndex((track: MediaTrackInfo) => track.index === this.playerSettings.audioTrackIndex)),
       onAccept: (value: TextPickerResult) => {
         const selected = getPickerSelectedIndex(value.index);
-        if (selected >= 0 && selected < tracks.length) {
+        if (selected >= 0 && selected < tracks.length && !this.rejectWhileSeeking()) {
           const switched = player.selectAudioTrack(tracks[selected].index);
           if (!switched) {
             this.getUIContext().getPromptAction().showToast({
@@ -542,6 +716,9 @@ export struct Player {
   }
 
   private toggleMute(): void {
+    if (this.rejectWhileSeeking()) {
+      return;
+    }
     if (this.audioMuted) {
       player.setVolume(this.volumeBeforeMute / 100);
       this.audioMuted = false;
@@ -556,6 +733,8 @@ export struct Player {
     this.seekPreviewGeneration++;
     this.cancelSeekPreviewRequest();
     this.releaseSeekPreviewFrame();
+    this.currentMediaInfo = undefined;
+    this.mediaInfoSections = [];
     this.playbackViewModel.reset();
     this.isPlaybackProgressVisible = false;
     this.seekPreviewLastFetchTimeMs = 0;
@@ -610,7 +789,7 @@ export struct Player {
     let fetchedFrame: PixelMap | undefined = undefined;
     try {
       try {
-        const mediaInfo = player.getMediaInfo();
+        const mediaInfo = this.currentMediaInfo ?? player.getMediaInfo();
         const rotation = mediaInfo.video.rotation % 360;
         const normalizedRotation = rotation < 0 ? rotation + 360 : rotation;
         const hasVideoGeometry: boolean = mediaInfo.video.width > 0 && mediaInfo.video.height > 0;
@@ -705,6 +884,7 @@ export struct Player {
   handlePlaybackProgressChange(value: number, mode: SliderChangeMode): void {
     const targetUs = this.playbackViewModel.setSeekPosition(value);
     if (mode === SliderChangeMode.Begin || mode === SliderChangeMode.Moving) {
+      this.sliderDragging = true;
       this.playbackViewModel.isSeeking = true;
       this.scheduleSeekPreview();
       return;
@@ -713,44 +893,62 @@ export struct Player {
       return;
     }
 
-    this.playbackViewModel.isSeeking = true;
+    this.sliderDragging = false;
     this.cancelSeekPreviewRequest();
-    let seekSucceeded = false;
-    try {
-      if (this.playbackViewModel.state === player.PlayerState.PLAYING ||
-        this.playbackViewModel.state === player.PlayerState.PAUSED) {
-        seekSucceeded = player.seekTo(targetUs);
-      }
-    } catch (error) {
-      Logger.error(TAG, 'Seek playback exception: ' + JSON.stringify(error));
-    }
-    this.playbackViewModel.isSeeking = false;
     this.releaseSeekPreviewFrame();
-    if (!seekSucceeded) {
-      Logger.error(TAG, 'Seek playback failed, targetUs: ' + targetUs);
-      this.getUIContext().getPromptAction().showToast({
-        message: $r('app.string.seek_failed'),
-        duration: Const.DURATION,
-        bottom: Const.BOTTOM
-      });
-    }
-    this.updatePlaybackInfo();
+    this.requestSeek(targetUs);
   }
 
-  private seekBySeconds(offsetSeconds: number): void {
+  private async requestSeek(targetUs: number): Promise<SeekRequestResult> {
+    if (this.buttonEnabled || this.isStopping || !this.pageActive) {
+      return 'cancelled';
+    }
+    const requestId = ++this.seekRequestId;
+    const session = this.playbackSession;
+    this.playbackViewModel.setSeekPosition(targetUs);
+    this.playbackViewModel.isSeeking = true;
+    const pending = this.seekRequests.request(targetUs);
+    this.updateSeekStatistics();
+    const result = await pending;
+    if (session !== this.playbackSession || requestId !== this.seekRequestId || !this.pageActive) {
+      return result;
+    }
+    this.updateSeekStatistics();
+    if (!this.seekRequests.isBusy() && !this.sliderDragging) {
+      this.playbackViewModel.isSeeking = false;
+      if (!this.isStopping) {
+        player.setPlaybackSpeed(this.requestedSpeed);
+        if (this.thermalWarningActive) {
+          player.onThermalWarningReceived(0.3);
+        } else {
+          player.onThermalLevelRecovered();
+        }
+        this.updatePlaybackInfo();
+      }
+    }
+    if (result === 'failed' && !this.isStopping) {
+      this.showControlToast($r('app.string.seek_failed'));
+    }
+    return result;
+  }
+
+  private updateSeekStatistics(): void {
+    this.playbackViewModel.seekSubmitted = this.seekRequests.submitted;
+    this.playbackViewModel.seekMerged = this.seekRequests.merged;
+    this.playbackViewModel.seekCompleted = this.seekRequests.completed;
+  }
+
+  private seekBySeconds(offsetSeconds: number): boolean {
     const info = player.getPlaybackInfo();
-    if ((info.state !== player.PlayerState.PLAYING && info.state !== player.PlayerState.PAUSED) ||
+    if ((info.state !== player.PlayerState.PLAYING && info.state !== player.PlayerState.PAUSED &&
+      !this.seekRequests.isBusy()) ||
       info.durationUs <= 0) {
-      return;
+      return false;
     }
-    const targetUs = Math.max(0, Math.min(info.durationUs, info.positionUs + offsetSeconds * 1000000));
-    if (!player.seekTo(targetUs)) {
-      this.getUIContext().getPromptAction().showToast({
-        message: $r('app.string.seek_failed'), duration: Const.DURATION, bottom: Const.BOTTOM
-      });
-      return;
-    }
-    this.playbackViewModel.update();
+    const positionUs = this.seekRequests.isBusy() ? this.playbackViewModel.seekPreviewUs : info.positionUs;
+    const targetUs = Math.max(0, Math.min(info.durationUs, positionUs + offsetSeconds * 1000000));
+    this.requestSeek(targetUs);
+    return true;
   }
 
   private currentPlaybackPositionUs(): number {
@@ -815,6 +1013,9 @@ export struct Player {
   }
 
   private checkAbLoop(positionUs: number): void {
+    if (this.seekRequests.isBusy() || this.playbackViewModel.isSeeking || this.isStopping) {
+      return;
+    }
     if (!this.isAbLoopEnabled || this.abLoopStartUs < 0 || this.abLoopEndUs <= this.abLoopStartUs) {
       return;
     }
@@ -844,13 +1045,19 @@ export struct Player {
     }
     this.abLoopSeekPending = true;
     Logger.info(TAG, 'A-B loop reached B, seek to A: ' + this.abLoopStartUs);
-    if (!player.seekTo(this.abLoopStartUs)) {
-      this.abLoopSeekPending = false;
-      Logger.error(TAG, 'A-B loop seek failed');
-    }
+    this.requestSeek(this.abLoopStartUs).then((result: SeekRequestResult) => {
+      if (result === 'failed') {
+        this.resetAbLoop();
+      } else {
+        this.abLoopSeekPending = false;
+      }
+    });
   }
 
   private stepFrame(direction: number): void {
+    if (this.rejectWhileSeeking()) {
+      return;
+    }
     if (this.buttonEnabled || this.isStopping || this.playbackViewModel.durationUs <= 0) {
       return;
     }
@@ -864,11 +1071,7 @@ export struct Player {
       this.showControlToast($r('app.string.playback_frame_step_failed'));
       return;
     }
-    if (!player.seekTo(targetUs)) {
-      this.showControlToast($r('app.string.playback_frame_step_failed'));
-      return;
-    }
-    this.playbackViewModel.update();
+    this.requestSeek(targetUs);
   }
 
   private showControlToast(message: Resource): void {
@@ -884,6 +1087,9 @@ export struct Player {
   }
 
   private async togglePictureInPicture(): Promise<void> {
+    if (this.rejectWhileSeeking()) {
+      return;
+    }
     if (this.buttonEnabled || this.playbackViewModel.durationUs <= 0) {
       return;
     }
@@ -953,6 +1159,7 @@ export struct Player {
 
   private async toggleBackgroundPlayback(): Promise<void> {
     this.isBackgroundPlaybackEnabled = !this.isBackgroundPlaybackEnabled;
+    player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
     if (this.isBackgroundPlaybackEnabled && this.pipController === undefined) {
       await this.togglePictureInPicture();
       if (!this.isPipActive) {
@@ -967,7 +1174,10 @@ export struct Player {
       $r('app.string.playback_background_enabled') : $r('app.string.playback_background_disabled'));
   }
 
-  private togglePlaybackPause(): void {
+  private togglePlaybackPause(showPrompt: boolean = false): void {
+    if (this.rejectWhileSeeking()) {
+      return;
+    }
     const paused = this.playbackViewModel.state === player.PlayerState.PAUSED;
     const success = paused ? player.resume() : player.pause();
     if (!success) {
@@ -975,6 +1185,13 @@ export struct Player {
       return;
     }
     this.playbackViewModel.update();
+    this.playbackSessionController.updateState(this.playbackViewModel.state,
+      this.playbackViewModel.speed, this.playbackViewModel.positionUs,
+      this.playbackViewModel.durationUs);
+    if (showPrompt) {
+      this.showControlToast(paused ? $r('app.string.playback_gesture_play') :
+        $r('app.string.playback_pause'));
+    }
   }
 
   private replaySelectedFile(): void {
@@ -986,7 +1203,12 @@ export struct Player {
   }
 
   updateMediaInfo(): void {
-    this.mediaInfoSections = buildMediaInfoSections(player.getMediaInfo());
+    if (!this.seekRequests.isBusy()) {
+      this.currentMediaInfo = player.getMediaInfo();
+    }
+    if (this.currentMediaInfo !== undefined) {
+      this.mediaInfoSections = buildMediaInfoSections(this.currentMediaInfo);
+    }
   }
 
   showMediaInfo(): void {
@@ -1062,28 +1284,49 @@ export struct Player {
     }
   }
 
-  setPlaybackSpeed(speed: number) {
-    player.setPlaybackSpeed(speed);
+  setPlaybackSpeed(speed: number): void {
+    this.requestedSpeed = speed;
+    if (!this.seekRequests.isBusy()) {
+      player.setPlaybackSpeed(speed);
+    }
     this.updatePlaybackInfo();
   }
 
   setTransform(transformHint: number) {
+    if (this.rejectWhileSeeking()) {
+      return;
+    }
     player.setTransform(transformHint);
   }
 
-  stopPlayback(): void {
+  async stopPlayback(): Promise<void> {
     if (this.isStopping) {
       return;
     }
+    this.isStopping = true;
+    this.sliderDragging = false;
+    this.recovery.cancel();
+    this.seekRequests.cancel();
+    this.playbackSessionController.updateState(player.PlayerState.STOPPING,
+      this.requestedSpeed, this.playbackViewModel.positionUs, this.playbackViewModel.durationUs);
+    if (this.resumeSeekTimer !== 0) {
+      clearTimeout(this.resumeSeekTimer);
+      this.resumeSeekTimer = 0;
+    }
+    await this.seekRequests.waitForIdle();
     if (player.stop()) {
-      this.isStopping = true;
       Logger.info(TAG, 'Player stop requested');
     } else {
+      this.isStopping = false;
       Logger.error(TAG, 'Player stop request rejected, state: ' + player.getState());
+      this.updatePlaybackInfo();
     }
   }
 
-  play(startPositionUs: number = -1): void {
+  play(startPositionUs: number = -1, recoverySnapshot?: PlaybackRecoverySnapshot): void {
+    if (!this.buttonEnabled || this.seekRequests.isBusy() || !this.pageActive || this.isStopping) {
+      return;
+    }
     if (this.selectFilePath === null) {
       this.getUIContext().getPromptAction().showToast({
         message: $r('app.string.alert'),
@@ -1093,6 +1336,14 @@ export struct Player {
       return;
     }
 
+    const session = ++this.playbackSession;
+    const playbackPath = this.selectFilePath;
+    if (recoverySnapshot === undefined) {
+      this.recovery.reset();
+      this.playbackViewModel.clearRecoveryDiagnostics();
+      this.requestedSpeed = 1;
+    }
+    this.seekRequests.resetStatistics();
     // A new playback task invalidates any delayed resume seek from the
     // previous task, including when the new file has no saved position.
     if (this.resumeSeekTimer !== 0) {
@@ -1101,14 +1352,14 @@ export struct Player {
     }
 
     try {
-      const inputFile = fileIo.openSync(this.selectFilePath, fileIo.OpenMode.READ_ONLY);
+      const inputFile = fileIo.openSync(playbackPath, fileIo.OpenMode.READ_ONLY);
       let inputFileClosed = false;
       const closeInputFile = (): void => {
         if (inputFileClosed) {
           return;
         }
         try {
-          fileIo.close(inputFile);
+          fileIo.closeSync(inputFile);
           inputFileClosed = true;
         } catch (error) {
           Logger.error(TAG, 'Close player input file failed: ' + JSON.stringify(error));
@@ -1130,7 +1381,9 @@ export struct Player {
         this.buttonEnabled = false;
         this.resetAbLoop();
         this.showPlaybackControls();
-        this.audioMuted = false;
+        if (recoverySnapshot === undefined) {
+          this.audioMuted = false;
+        }
         this.volumeBeforeMute = this.playerSettings.audioVolume;
         this.lastHistoryPositionUs = -1;
         this.playbackViewModel.isHdrVividConfirmed = false;
@@ -1143,7 +1396,16 @@ export struct Player {
           isSmartFluencySupported: this.isSmartFluencySupported
         }), (result) => {
           Logger.info(TAG, 'Player JS callback, success: ' + result.success + ', reason: ' + result.reason);
-          const completedPath = this.selectFilePath;
+          closeInputFile();
+          if (session !== this.playbackSession) {
+            return;
+          }
+          const retry = result.reason === 'error' && this.autoRecoveryEnabled &&
+            !this.isStopping && this.pageActive ? this.recovery.takeRetry() : undefined;
+          if (result.reason === 'error' && retry !== undefined) {
+            this.playbackViewModel.markRecoveryPending(PlaybackRecoveryReason.RUNTIME_ERROR);
+          }
+          const completedPath = playbackPath;
           const completedPositionUs = this.playbackViewModel.positionUs;
           const completedDurationUs = this.playbackViewModel.durationUs;
           if (completedPath !== null && completedDurationUs > 0) {
@@ -1153,6 +1415,9 @@ export struct Player {
               this.persistPlaybackProgress(completedPositionUs, completedDurationUs, true);
             }
           }
+          this.playbackSessionController.updateState(player.PlayerState.STOPPING,
+            this.requestedSpeed, completedPositionUs, completedDurationUs);
+          const requestedQueueIndex = this.pendingQueueIndex;
           this.buttonEnabled = true;
           this.isStopping = false;
           this.playbackViewModel.isSmartFluencyAvailable = false;
@@ -1163,7 +1428,24 @@ export struct Player {
           this.stopPictureInPicture();
           this.isMediaInfoVisible = false;
           this.mediaInfoSections = [];
-          closeInputFile();
+          this.seekRequests.cancel();
+          this.seekRequestId++;
+          if (!this.pageActive) {
+            void this.playbackSessionController.stop();
+            return;
+          }
+          if (retry !== undefined) {
+            this.showControlToast($r('app.string.playback_recovering'));
+            this.continuePlayback(session, playbackPath, retry.positionUs, retry);
+            return;
+          }
+          if (result.reason === 'error' && this.playbackViewModel.recoveryAttemptCount > 0) {
+            this.playbackViewModel.markRecoveryFailed();
+          }
+          if (requestedQueueIndex >= 0) {
+            void this.continuePendingQueuePlayback();
+            return;
+          }
           // stop() is an expected completion when changing the selected audio track.
           // Do not report an expected user stop as a corrupt file.
           if (!result.success && result.reason !== 'stopped' && !failurePromptShown) {
@@ -1174,20 +1456,26 @@ export struct Player {
               bottom: Const.BOTTOM
             });
           }
-          if (result.reason === 'completed' && this.queueIndex >= 0 &&
-            this.queueIndex + 1 < this.queuePaths.length) {
-            this.queueIndex += 1;
-            this.selectFilePath = this.queuePaths[this.queueIndex];
+          const nextIndex = result.reason === 'completed' ?
+            nextPlaybackIndex(this.playbackMode, this.queueIndex, this.queuePaths.length) : -1;
+          if (nextIndex >= 0) {
+            this.queueIndex = nextIndex;
             this.queueEntries = this.queuePaths.slice();
-            setTimeout(() => this.play(0), 0);
+            this.continuePlayback(session, this.queuePaths[nextIndex], 0);
+          } else {
+            void this.playbackSessionController.stop();
           }
         });
         // The callback owns the descriptor only after a successful start. If
         // startup is rejected, the finally block closes it immediately.
         closeInCallback = started;
         if (!started) {
+          this.buttonEnabled = true;
           this.playbackViewModel.isSmartFluencyAvailable = false;
           this.playbackViewModel.isHdrVividConfirmed = false;
+          if (recoverySnapshot !== undefined) {
+            this.playbackViewModel.markRecoveryFailed();
+          }
           this.resetPlaybackProgress();
           failurePromptShown = true;
           Logger.error(TAG, 'Player initialization or startup failed');
@@ -1197,21 +1485,35 @@ export struct Player {
             bottom: Const.BOTTOM
           });
         } else {
+          if (recoverySnapshot !== undefined) {
+            this.playbackViewModel.markRecoverySucceeded();
+          }
           this.playbackViewModel.isSmartFluencyAvailable = player.isSmartFluencyAvailable();
           this.updateMediaInfo();
           this.startPlaybackInfoUpdates();
-          const mediaDurationUs = player.getMediaInfo().durationUs;
+          this.startPlaybackSession();
+          const mediaDurationUs = this.currentMediaInfo?.durationUs ?? 0;
           const resumePositionUs = startPositionUs >= 0 ? startPositionUs :
             this.playbackHistory.getResumePosition(this.selectFilePath ?? '', mediaDurationUs);
-          if (resumePositionUs > 0) {
+          if (recoverySnapshot !== undefined) {
+            this.requestedSpeed = recoverySnapshot.speed;
+            player.setVolume(this.audioMuted ? 0 : this.playerSettings.audioVolume / 100);
+            player.setPlaybackSpeed(recoverySnapshot.speed);
+            if (recoverySnapshot.paused) {
+              player.pause();
+            }
+          }
+          if (resumePositionUs > 0 || recoverySnapshot !== undefined) {
             if (this.resumeSeekTimer !== 0) {
               clearTimeout(this.resumeSeekTimer);
             }
-            this.resumeSeekTimer = setTimeout(() => {
+            this.resumeSeekTimer = setTimeout(async () => {
               this.resumeSeekTimer = 0;
-              if (!this.isStopping && player.seekTo(resumePositionUs)) {
+              if (!this.isStopping && session === this.playbackSession &&
+                await this.requestSeek(Math.max(0, resumePositionUs)) === 'completed') {
                 this.getUIContext().getPromptAction().showToast({
-                  message: $r('app.string.playback_resume_position'), duration: Const.DURATION, bottom: Const.BOTTOM
+                  message: recoverySnapshot === undefined ? $r('app.string.playback_resume_position') :
+                    $r('app.string.playback_recovered'), duration: Const.DURATION, bottom: Const.BOTTOM
                 });
               }
             }, 300);
@@ -1228,6 +1530,9 @@ export struct Player {
       this.isStopping = false;
       this.playbackViewModel.isSmartFluencyAvailable = false;
       this.playbackViewModel.isHdrVividConfirmed = false;
+      if (recoverySnapshot !== undefined) {
+        this.playbackViewModel.markRecoveryFailed();
+      }
       this.resetPlaybackProgress();
       Logger.error(TAG, 'Open or inspect player input file failed: ' + JSON.stringify(error));
       this.getUIContext().getPromptAction().showToast({
@@ -1236,6 +1541,16 @@ export struct Player {
         bottom: Const.BOTTOM
       });
     }
+  }
+
+  private async continuePlayback(session: number, path: string, positionUs: number,
+    snapshot?: PlaybackRecoverySnapshot): Promise<void> {
+    await this.seekRequests.waitForIdle();
+    if (session !== this.playbackSession || !this.pageActive || this.isStopping) {
+      return;
+    }
+    this.selectFilePath = path;
+    this.play(positionUs, snapshot);
   }
 
   async prepareRecording(): Promise<void> {
@@ -1994,6 +2309,20 @@ export struct Player {
   QueuePanel() {
     Scroll() {
       Column({ space: '8vp' }) {
+        Select([
+          { value: $r('app.string.playback_mode_sequential') },
+          { value: $r('app.string.playback_mode_repeat_one') },
+          { value: $r('app.string.playback_mode_repeat_all') },
+          { value: $r('app.string.playback_mode_shuffle') }
+        ]).selected(this.playbackMode)
+          .onSelect((index: number) => this.playbackMode = index)
+          .width('100%')
+        Text($r('app.string.playback_mode_hint')).fontSize('12fp').fontColor('#66000000')
+        Row() {
+          Text($r('app.string.playback_auto_recovery')).layoutWeight(1)
+          Toggle({ type: ToggleType.Switch, isOn: this.autoRecoveryEnabled })
+            .onChange((value: boolean) => this.autoRecoveryEnabled = value)
+        }.width('100%')
         Row({ space: '8vp' }) {
           Button($r('app.string.playback_queue_add'))
             .layoutWeight(1)
@@ -2077,47 +2406,82 @@ export struct Player {
             this.closePlaybackTools();
           })
       }
-      Row({ space: '8vp' }) {
-        Button($r('app.string.playback_display_scale'))
-          .layoutWeight(1)
-          .onClick(() => {
-            this.closePlaybackTools();
-            this.selectDisplayScaleMode();
-          })
-        Button(this.audioMuted ? $r('app.string.playback_unmute') : $r('app.string.playback_mute'))
-          .layoutWeight(1)
-          .onClick(() => {
-            this.toggleMute();
-            this.closePlaybackTools();
-          })
+      if (this.playbackViewModel.hasVideo) {
+        Row({ space: '8vp' }) {
+          Button($r('app.string.playback_display_scale'))
+            .layoutWeight(1)
+            .onClick(() => {
+              this.closePlaybackTools();
+              this.selectDisplayScaleMode();
+            })
+          if (this.playbackViewModel.hasAudio) {
+            Button(this.audioMuted ? $r('app.string.playback_unmute') : $r('app.string.playback_mute'))
+              .layoutWeight(1)
+              .onClick(() => {
+                this.toggleMute();
+                this.closePlaybackTools();
+              })
+          } else {
+            Blank().layoutWeight(1)
+          }
+        }
+      } else if (this.playbackViewModel.hasAudio) {
+        Row({ space: '8vp' }) {
+          Button(this.audioMuted ? $r('app.string.playback_unmute') : $r('app.string.playback_mute'))
+            .layoutWeight(1)
+            .onClick(() => {
+              this.toggleMute();
+              this.closePlaybackTools();
+            })
+          Blank().layoutWeight(1)
+        }
       }
-      Row({ space: '8vp' }) {
-        Button($r('app.string.playback_audio_track'))
-          .layoutWeight(1)
-          .onClick(() => {
-            this.closePlaybackTools();
-            this.selectAudioTrack();
-          })
-        Button($r('app.string.playback_subtitle'))
-          .layoutWeight(1)
-          .onClick(() => {
-            this.closePlaybackTools();
-            this.selectSubtitleFile();
-          })
+      if (this.playbackViewModel.hasAudio) {
+        Row({ space: '8vp' }) {
+          Button($r('app.string.playback_audio_track'))
+            .layoutWeight(1)
+            .onClick(() => {
+              this.closePlaybackTools();
+              this.selectAudioTrack();
+            })
+          if (this.playbackViewModel.hasVideo) {
+            Button($r('app.string.playback_subtitle'))
+              .layoutWeight(1)
+              .onClick(() => {
+                this.closePlaybackTools();
+                this.selectSubtitleFile();
+              })
+          } else {
+            Blank().layoutWeight(1)
+          }
+        }
       }
-      Row({ space: '8vp' }) {
-        Button($r('app.string.playback_subtitle_sync'))
-          .layoutWeight(1)
-          .onClick(() => {
-            this.closePlaybackTools();
-            this.selectSubtitleDelay();
-          })
-        Button($r('app.string.playback_subtitle_style'))
-          .layoutWeight(1)
-          .onClick(() => {
-            this.closePlaybackTools();
-            this.selectSubtitleStyle();
-          })
+      if (this.playbackViewModel.hasVideo && !this.playbackViewModel.hasAudio) {
+        Row({ space: '8vp' }) {
+          Button($r('app.string.playback_subtitle'))
+            .layoutWeight(1)
+            .onClick(() => {
+              this.closePlaybackTools();
+              this.selectSubtitleFile();
+            })
+          Blank().layoutWeight(1)
+        }
+      }
+      if (this.playbackViewModel.hasVideo) {
+        Row({ space: '8vp' }) {
+          Button($r('app.string.playback_subtitle_sync'))
+            .layoutWeight(1)
+            .onClick(() => {
+              this.closePlaybackTools();
+              this.selectSubtitleDelay();
+            })
+          Button($r('app.string.playback_subtitle_style'))
+            .layoutWeight(1)
+            .onClick(() => {
+              this.closePlaybackTools();
+              this.selectSubtitleStyle();
+            })
+        }
       }
       Row({ space: '8vp' }) {
         Button(this.abLoopStartUs >= 0 ? $r('app.string.playback_ab_set_start_done') :
@@ -2156,7 +2520,8 @@ export struct Player {
         Blank().layoutWeight(1)
         Blank().layoutWeight(1)
       }
-      Row({ space: '8vp' }) {
+      if (this.playbackViewModel.hasVideo) {
+        Row({ space: '8vp' }) {
         Button(this.isPipActive ? $r('app.string.playback_pip_exit') : $r('app.string.playback_pip_enter'))
           .layoutWeight(1)
           .enabled(!this.buttonEnabled && !this.isStopping)
@@ -2179,6 +2544,7 @@ export struct Player {
           Blank().layoutWeight(1)
         }
         Blank().layoutWeight(1)
+        }
       }
     }
     .width('100%')
@@ -2190,6 +2556,11 @@ export struct Player {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
     return (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+  }
+
+  @Builder
+  SubtitleSettings() {
+    SubtitleSettingsPanel({ style: this.subtitleStyle })
   }
 
   @Builder
@@ -2205,22 +2576,26 @@ export struct Player {
           this.getSettingText($r('app.string.playback_diagnostics_speed')) +
           this.playbackViewModel.speed.toFixed(1))
           .fontSize('12fp').fontColor('#E8FFFFFF')
-        Text(this.getSettingText($r('app.string.playback_diagnostics_output')) +
-          this.playbackViewModel.videoOutputFrames +
-          this.getSettingText($r('app.string.playback_diagnostics_rendered')) +
-          this.playbackViewModel.videoRenderedFrames +
-          this.getSettingText($r('app.string.playback_diagnostics_dropped')) +
-          this.playbackViewModel.videoDroppedFrames)
-          .fontSize('12fp').fontColor('#E8FFFFFF')
-        Text(this.getSettingText($r('app.string.playback_diagnostics_output_fps')) +
-          this.playbackViewModel.videoOutputFps.toFixed(1) + ' fps' +
-          this.getSettingText($r('app.string.playback_diagnostics_drop_rate')) +
-          this.playbackViewModel.videoDropRatePercent.toFixed(1) + '%')
-          .fontSize('12fp').fontColor('#E8FFFFFF')
-        Text(this.getSettingText($r('app.string.playback_diagnostics_audio_buffers')) +
-          this.playbackViewModel.audioOutputBuffers)
-          .fontSize('12fp').fontColor('#E8FFFFFF')
-        if (this.playbackViewModel.isBufferMode) {
+        if (this.playbackViewModel.hasVideo) {
+          Text(this.getSettingText($r('app.string.playback_diagnostics_output')) +
+            this.playbackViewModel.videoOutputFrames +
+            this.getSettingText($r('app.string.playback_diagnostics_rendered')) +
+            this.playbackViewModel.videoRenderedFrames +
+            this.getSettingText($r('app.string.playback_diagnostics_dropped')) +
+            this.playbackViewModel.videoDroppedFrames)
+            .fontSize('12fp').fontColor('#E8FFFFFF')
+          Text(this.getSettingText($r('app.string.playback_diagnostics_output_fps')) +
+            this.playbackViewModel.videoOutputFps.toFixed(1) + ' fps' +
+            this.getSettingText($r('app.string.playback_diagnostics_drop_rate')) +
+            this.playbackViewModel.videoDropRatePercent.toFixed(1) + '%')
+            .fontSize('12fp').fontColor('#E8FFFFFF')
+        }
+        if (this.playbackViewModel.hasAudio) {
+          Text(this.getSettingText($r('app.string.playback_diagnostics_audio_buffers')) +
+            this.playbackViewModel.audioOutputBuffers)
+            .fontSize('12fp').fontColor('#E8FFFFFF')
+        }
+        if (this.playbackViewModel.hasVideo && this.playbackViewModel.isBufferMode) {
           Text(this.getSettingText($r('app.string.playback_diagnostics_buffer_present')) +
             this.playbackViewModel.bufferPresentFrames +
             this.getSettingText($r('app.string.playback_diagnostics_buffer_average')) +
@@ -2229,20 +2604,38 @@ export struct Player {
             this.playbackViewModel.bufferPresentFailures)
             .fontSize('12fp').fontColor('#E8FFFFFF')
         }
-        Text(this.getSettingText($r('app.string.playback_diagnostics_smart_fluency')) +
-          (this.playbackViewModel.isSmartFluencyAvailable ?
-            this.getSettingText($r('app.string.playback_diagnostics_available')) :
-            this.getSettingText($r('app.string.playback_diagnostics_unavailable'))) +
-          this.getSettingText($r('app.string.playback_diagnostics_hdr_vivid')) +
-          (this.playbackViewModel.isHdrVividConfirmed ?
-            this.getSettingText($r('app.string.playback_diagnostics_confirmed')) :
-            this.getSettingText($r('app.string.playback_diagnostics_unconfirmed'))))
+        if (this.playbackViewModel.hasVideo) {
+          Text(this.getSettingText($r('app.string.playback_diagnostics_smart_fluency')) +
+            (this.playbackViewModel.isSmartFluencyAvailable ?
+              this.getSettingText($r('app.string.playback_diagnostics_available')) :
+              this.getSettingText($r('app.string.playback_diagnostics_unavailable'))) +
+            this.getSettingText($r('app.string.playback_diagnostics_hdr_vivid')) +
+            (this.playbackViewModel.isHdrVividConfirmed ?
+              this.getSettingText($r('app.string.playback_diagnostics_confirmed')) :
+              this.getSettingText($r('app.string.playback_diagnostics_unconfirmed'))))
+            .fontSize('12fp').fontColor('#E8FFFFFF')
+          Text(this.getSettingText($r('app.string.playback_diagnostics_software_fallback')) +
+            (this.playbackViewModel.isSoftwareDecoderFallbackUsed ?
+              this.getSettingText($r('app.string.playback_diagnostics_used')) :
+              this.getSettingText($r('app.string.playback_diagnostics_not_used'))))
+            .fontSize('12fp').fontColor('#E8FFFFFF')
+        }
+        Text(this.getSettingText($r('app.string.playback_diagnostics_recovery')) +
+          (this.playbackViewModel.recoveryStatus === 0 ?
+            this.getSettingText($r('app.string.playback_diagnostics_recovery_idle')) :
+            this.playbackViewModel.recoveryStatus === 1 ?
+              this.getSettingText($r('app.string.playback_diagnostics_recovery_pending')) :
+              this.playbackViewModel.recoveryStatus === 2 ?
+                this.getSettingText($r('app.string.playback_diagnostics_recovery_succeeded')) :
+                this.getSettingText($r('app.string.playback_diagnostics_recovery_failed'))) +
+          (this.playbackViewModel.recoveryAttemptCount > 0 ?
+            this.getSettingText($r('app.string.playback_diagnostics_recovery_attempt')) +
+            this.playbackViewModel.recoveryAttemptCount +
+            this.getSettingText($r('app.string.playback_diagnostics_recovery_attempt_suffix')) : '') +
+          (this.playbackViewModel.recoveryReason === PlaybackRecoveryReason.RUNTIME_ERROR ?
+            this.getSettingText($r('app.string.playback_diagnostics_recovery_reason')) : ''))
           .fontSize('12fp').fontColor('#E8FFFFFF')
-        Text(this.getSettingText($r('app.string.playback_diagnostics_software_fallback')) +
-          (this.playbackViewModel.isSoftwareDecoderFallbackUsed ?
-            this.getSettingText($r('app.string.playback_diagnostics_used')) :
-            this.getSettingText($r('app.string.playback_diagnostics_not_used'))))
-          .fontSize('12fp').fontColor('#E8FFFFFF')
+        AvDiagnosticsPanel({ model: this.playbackViewModel })
       }
       .padding({ left: '8vp', right: '8vp', top: '6vp', bottom: '6vp' })
       .backgroundColor('#99101820')
@@ -2264,44 +2657,46 @@ export struct Player {
       })
         .height(Const.FULL_SIZE)
         .width(Const.FULL_SIZE)
+        .onAreaChange((_: Area, newArea: Area): void => this.updatePlaybackWindowWidth(newArea))
         // XComponent does not expose objectFit. Keep scaling in the native
         // renderer and retain the selected display mode in the UI state.
         .gesture(
           GestureGroup(GestureMode.Exclusive,
+            TapGesture({ count: 2, fingers: 1 })
+              .onAction((event: GestureEvent) => this.handlePlaybackWindowDoubleTap(event)),
             TapGesture({ count: 1, fingers: 1 })
-              .onAction(() => this.showPlaybackControls()),
+              .onAction(() => this.handlePlaybackWindowTap()),
             LongPressGesture({ repeat: true })// 长按动作存在会连续触发
               .onAction(() => {
                 this.showPlaybackControls();
-                if (!this.buttonEnabled && !this.isStopping) {
+                if (!this.buttonEnabled && !this.isStopping && this.playbackViewModel.hasVideo) {
                   this.setPlaybackSpeed(2);
                   const message = this.playbackViewModel.isSmartFluencyAvailable ?
-                    $r('app.string.smart_fluency_x2') : 'X2';
+                    $r('app.string.smart_fluency_x2') : $r('app.string.playback_speed_x2');
                   this.getUIContext().getPromptAction().showToast({ message: message });
                 }
               })// 长按动作一结束触发
               .onActionEnd(() => {
-                if (!this.buttonEnabled && !this.isStopping) {
+                if (!this.buttonEnabled && !this.isStopping && this.playbackViewModel.hasVideo) {
                   this.setPlaybackSpeed(1);
-                  this.getUIContext().getPromptAction().showToast({ message: 'X1' });
+                  this.getUIContext().getPromptAction().showToast({
+                    message: $r('app.string.playback_speed_x1')
+                  });
                 }
-              }),
-            /**
-             * todo:单击播放窗口播放/暂停
-             * TapGesture({ count: 1, fingers: 1 })
-             *   .onAction(() => {
-             *     if (!this.isStart) {
-             *       this.resume()
-             *     } else {
-             *       this.pause()
-             *     }
-             *     this.isStart = !this.isStart
-             *   })
-              */
+              })
           )
         )
 
-      if (this.playbackViewModel.isHdrVividConfirmed) {
+      if (this.selectFilePath !== null && !this.playbackViewModel.hasVideo &&
+        this.playbackViewModel.hasAudio) {
+        Text($r('app.string.playback_audio_only'))
+          .fontSize('20fp')
+          .fontColor('#B3FFFFFF')
+          .align(Alignment.Center)
+          .hitTestBehavior(HitTestMode.None)
+      }
+
+      if (this.playbackViewModel.hasVideo && this.playbackViewModel.isHdrVividConfirmed) {
         Text('HDR Vivid')
           .fontSize('13fp')
           .fontColor('#E8FFFFFF')
@@ -2312,15 +2707,16 @@ export struct Player {
           .hitTestBehavior(HitTestMode.None)
       }
       this.DiagnosticsPanel()
-      if (this.subtitleText.length > 0) {
+      if (this.subtitleText.length > 0 && this.subtitleStyle.visible) {
         Text(this.subtitleText)
-          .fontSize(this.getSubtitleFontSize())
-          .fontColor(Color.White)
+          .fontSize(this.subtitleStyle.fontSize())
+          .fontColor(this.subtitleStyle.fontColor())
           .textAlign(TextAlign.Center)
-          .backgroundColor('#99000000')
+          .backgroundColor(this.subtitleStyle.backgroundColor())
+          .textShadow({ radius: 2, color: '#FF000000', offsetX: 1, offsetY: 1 })
           .padding({ left: '12vp', right: '12vp', top: '4vp', bottom: '4vp' })
-          .margin({ left: '24vp', right: '24vp', bottom: '72vp' })
-          .align(Alignment.Bottom)
+          .margin({ left: '24vp', right: '24vp', top: '72vp', bottom: '72vp' })
+          .align(this.subtitleStyle.positionIndex === 0 ? Alignment.Bottom : Alignment.Top)
           .hitTestBehavior(HitTestMode.None)
       }
     }
@@ -2336,7 +2732,7 @@ export struct Player {
       model: this.playbackViewModel,
       previewRotation: this.playbackViewModel.seekPreviewRotation,
       seekEnabled: (this.playbackViewModel.state === player.PlayerState.PLAYING ||
-        this.playbackViewModel.state === player.PlayerState.PAUSED) &&
+        this.playbackViewModel.state === player.PlayerState.PAUSED || this.seekRequests.isBusy()) &&
         !this.isStopping && this.playbackViewModel.durationUs > 0,
       onShowMediaInfo: () => {
         this.handlePlaybackControlInteraction();
@@ -2385,17 +2781,19 @@ export struct Player {
                   this.handlePlaybackControlInteraction();
                   this.seekBySeconds(-15);
                 })
-              Button($r('app.string.playback_previous_frame'))
-                .layoutWeight(1)
-                .fontSize('9fp')
-                .height('30vp')
-                .padding({ left: '0vp', right: '0vp' })
-                .backgroundColor('#1976D2')
-                .fontColor(Color.White)
-                .onClick(() => {
-                  this.handlePlaybackControlInteraction();
-                  this.stepFrame(-1);
-                })
+              if (this.playbackViewModel.hasVideo) {
+                Button($r('app.string.playback_previous_frame'))
+                  .layoutWeight(1)
+                  .fontSize('9fp')
+                  .height('30vp')
+                  .padding({ left: '0vp', right: '0vp' })
+                  .backgroundColor('#1976D2')
+                  .fontColor(Color.White)
+                  .onClick(() => {
+                    this.handlePlaybackControlInteraction();
+                    this.stepFrame(-1);
+                  })
+              }
               Button(this.playbackViewModel.state === player.PlayerState.PAUSED ?
                 $r('app.string.playback_resume') : $r('app.string.playback_pause'))
                 .layoutWeight(1)
@@ -2408,17 +2806,19 @@ export struct Player {
                   this.handlePlaybackControlInteraction();
                   this.togglePlaybackPause();
                 })
-              Button($r('app.string.playback_next_frame'))
-                .layoutWeight(1)
-                .fontSize('9fp')
-                .height('30vp')
-                .padding({ left: '0vp', right: '0vp' })
-                .backgroundColor('#1976D2')
-                .fontColor(Color.White)
-                .onClick(() => {
-                  this.handlePlaybackControlInteraction();
-                  this.stepFrame(1);
-                })
+              if (this.playbackViewModel.hasVideo) {
+                Button($r('app.string.playback_next_frame'))
+                  .layoutWeight(1)
+                  .fontSize('9fp')
+                  .height('30vp')
+                  .padding({ left: '0vp', right: '0vp' })
+                  .backgroundColor('#1976D2')
+                  .fontColor(Color.White)
+                  .onClick(() => {
+                    this.handlePlaybackControlInteraction();
+                    this.stepFrame(1);
+                  })
+              }
               Button($r('app.string.playback_forward_15s'))
                 .layoutWeight(1)
                 .fontSize('9fp')
@@ -2464,20 +2864,22 @@ export struct Player {
                 height: this.isFullscreen ? '70%' : '55%',
                 title: { title: $r('app.string.playback_more_title') }
               })
-            Button($r('app.string.playback_fullscreen'))
-              .layoutWeight(1)
-              .fontSize('12fp')
-              .onClick(() => {
-                this.handlePlaybackControlInteraction();
-                this.toggleFullscreen();
-              })
+            if (this.playbackViewModel.hasVideo) {
+              Button($r('app.string.playback_fullscreen'))
+                .layoutWeight(1)
+                .fontSize('12fp')
+                .onClick(() => {
+                  this.handlePlaybackControlInteraction();
+                  this.toggleFullscreen();
+                })
+            }
           }
           .width('100%')
           .height('32vp')
           .margin({ bottom: '4vp' })
         }
         Row({ space: '4vp' }) {
-          if (this.isFullscreen) {
+          if (this.isFullscreen && this.playbackViewModel.hasVideo) {
             Button($r('app.string.playback_more'))
               .width('16%')
               .height('34vp')
@@ -2525,7 +2927,7 @@ export struct Player {
           }
           if (this.buttonEnabled && !this.isFullscreen) {
             this.PlayerSettingButton()
-          } else if (!this.isFullscreen) {
+          } else if (!this.isFullscreen && this.playbackViewModel.hasVideo) {
             Button('Flip')
               .fontSize('12fp')
               .size({
@@ -2716,5 +3118,9 @@ export struct Player {
     // startup layout cannot expose a white strip below the controls.
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
     .backgroundColor(Color.Black)
+    .bindSheet($$this.isSubtitleSettingsVisible, this.SubtitleSettings(), {
+      height: '85%',
+      title: { title: $r('app.string.playback_subtitle_style') }
+    })
   }
 }

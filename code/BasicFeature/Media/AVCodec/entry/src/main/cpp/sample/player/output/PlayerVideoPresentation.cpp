@@ -98,9 +98,7 @@ void Player::DumpOutput(CodecBufferInfo &bufferInfo)
 bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool render, int64_t renderTimestamp)
 {
     videoOutputFrames_.fetch_add(1);
-    if (render) {
-        videoRenderedFrames_.fetch_add(1);
-    } else {
+    if (!render) {
         videoDroppedFrames_.fetch_add(1);
     }
     if (sampleInfo_.codec.codecRunMode == BUFFER && !hdrVividConfirmed_.load() &&
@@ -138,6 +136,10 @@ bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool rend
         return false;
     }
     hasDecodedOutput_ = true;
+    if (render) {
+        videoRenderedFrames_.fetch_add(1);
+        diagnostics_.RecordSeekOutput();
+    }
     if (render && !hasAudioTrack_.load()) {
         playbackPositionUs_.store(bufferInfo.attr.pts);
     }

@@ -64,6 +64,27 @@ bool SetStringProperty(napi_env env, napi_value object, const char *name, const 
         napi_set_named_property(env, object, name, property) == napi_ok;
 }
 
+bool PopulateDiagnostics(napi_env env, napi_value object, const PlaybackDiagnosticsInfo &info)
+{
+    napi_value diagnostics = nullptr;
+    return napi_create_object(env, &diagnostics) == napi_ok &&
+        SetBoolProperty(env, diagnostics, "syncAvailable", info.syncAvailable) &&
+        SetInt64Property(env, diagnostics, "avOffsetUs", info.avOffsetUs) &&
+        SetDoubleProperty(env, diagnostics, "averageAbsoluteOffsetUs", info.averageAbsoluteOffsetUs) &&
+        SetInt64Property(env, diagnostics, "maxAbsoluteOffsetUs", info.maxAbsoluteOffsetUs) &&
+        SetInt64Property(env, diagnostics, "audioDevicePendingUs", info.audioDevicePendingUs) &&
+        SetInt64Property(env, diagnostics, "audioQueueDurationUs", info.audioQueueDurationUs) &&
+        SetInt64Property(env, diagnostics, "audioUnderruns", static_cast<int64_t>(info.audioUnderruns)) &&
+        SetInt64Property(env, diagnostics, "syncDrops", static_cast<int64_t>(info.syncDrops)) &&
+        SetInt64Property(env, diagnostics, "seekRebuildUs", info.seekRebuildUs) &&
+        SetInt64Property(env, diagnostics, "seekFirstOutputUs", info.seekFirstOutputUs) &&
+        SetBoolProperty(env, diagnostics, "audioInterrupted", info.audioInterrupted) &&
+        SetInt64Property(env, diagnostics, "audioInterruptions", static_cast<int64_t>(info.audioInterruptions)) &&
+        SetInt32Property(env, diagnostics, "lastAudioInterruptHint", info.lastAudioInterruptHint) &&
+        SetBoolProperty(env, diagnostics, "backgroundPaused", info.backgroundPaused) &&
+        napi_set_named_property(env, object, "diagnostics", diagnostics) == napi_ok;
+}
+
 bool PopulatePlaybackInfo(napi_env env, napi_value object, const PlaybackInfo &info)
 {
     return SetInt32Property(env, object, "state", static_cast<int32_t>(info.state)) &&
@@ -82,7 +103,8 @@ bool PopulatePlaybackInfo(napi_env env, napi_value object, const PlaybackInfo &i
         SetInt64Property(env, object, "audioOutputBuffers", static_cast<int64_t>(info.audioOutputBuffers)) &&
         SetInt64Property(env, object, "bufferPresentFrames", static_cast<int64_t>(info.bufferPresentFrames)) &&
         SetInt64Property(env, object, "bufferPresentFailures", static_cast<int64_t>(info.bufferPresentFailures)) &&
-        SetDoubleProperty(env, object, "bufferPresentAverageUs", info.bufferPresentAverageUs);
+        SetDoubleProperty(env, object, "bufferPresentAverageUs", info.bufferPresentAverageUs) &&
+        PopulateDiagnostics(env, object, info.diagnostics);
 }
 
 bool PopulateVideoMediaInfo(napi_env env, napi_value object, const MediaInfo &info)

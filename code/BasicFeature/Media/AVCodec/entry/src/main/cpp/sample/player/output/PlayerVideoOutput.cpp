@@ -167,6 +167,7 @@ bool Player::CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t frameP
         static_cast<double>(speed.load()),
     });
     CHECK_AND_RETURN_RET_LOG(decision.valid, false, "Invalid audio clock parameters");
+    diagnostics_.RecordSync(decision);
     waitTimeUs = decision.waitTimeUs;
     dropFrame = decision.dropFrame;
     AVCODEC_SAMPLE_LOGI("VD sync decision, index: %{public}u, waitTimeUs: %{public}" PRId64
@@ -178,6 +179,7 @@ void Player::SetVolume(float volume)
 {
     const float clampedVolume = std::clamp(volume, 0.0f, 1.0f);
     sampleInfo_.audioPlayback.volume = clampedVolume;
+    audioVolume_.store(clampedVolume);
     std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
     if (audioRenderer_ == nullptr) {
         return;

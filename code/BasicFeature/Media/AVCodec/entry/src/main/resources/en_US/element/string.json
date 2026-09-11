@@ -437,6 +437,18 @@
       "value": "Resume"
     },
     {
+      "name": "playback_gesture_play",
+      "value": "Play"
+    },
+    {
+      "name": "playback_speed_x1",
+      "value": "X1"
+    },
+    {
+      "name": "playback_speed_x2",
+      "value": "X2"
+    },
+    {
       "name": "playback_rewind_15s",
       "value": "Rewind 15s"
     },
@@ -584,6 +596,49 @@
     { "name": "playback_diagnostics_buffer_failures", "value": "  Failures " },
     { "name": "playback_diagnostics_software_fallback", "value": "Software fallback " },
     { "name": "playback_diagnostics_used", "value": "Used" },
-    { "name": "playback_diagnostics_not_used", "value": "Not used" }
+    { "name": "playback_diagnostics_not_used", "value": "Not used" },
+    { "name": "playback_diagnostics_recovery", "value": "Recovery " },
+    { "name": "playback_diagnostics_recovery_idle", "value": "Not triggered" },
+    { "name": "playback_diagnostics_recovery_pending", "value": "In progress" },
+    { "name": "playback_diagnostics_recovery_succeeded", "value": "Succeeded" },
+    { "name": "playback_diagnostics_recovery_failed", "value": "Failed" },
+    { "name": "playback_diagnostics_recovery_attempt", "value": ", attempt " },
+    { "name": "playback_diagnostics_recovery_attempt_suffix", "value": "" },
+    { "name": "playback_diagnostics_recovery_reason", "value": ", reason: runtime playback error" },
+    { "name": "playback_audio_only", "value": "Audio-only playback" },
+    { "name": "playback_mode_sequential", "value": "Sequential" },
+    { "name": "playback_mode_repeat_one", "value": "Repeat one" },
+    { "name": "playback_mode_repeat_all", "value": "Repeat all" },
+    { "name": "playback_mode_shuffle", "value": "Shuffle" },
+    { "name": "playback_mode_hint", "value": "The mode applies at the end of a file. Stop and errors do not advance the queue." },
+    { "name": "playback_auto_recovery", "value": "Retry once after a playback error" },
+    { "name": "playback_recovering", "value": "Playback interrupted. Restoring the saved position…" },
+    { "name": "playback_recovered", "value": "Playback position restored" },
+    { "name": "playback_seek_busy", "value": "Seeking. Please wait before using this control." },
+    { "name": "subtitle_visible", "value": "Show subtitles" },
+    { "name": "subtitle_size", "value": "Font size" },
+    { "name": "subtitle_color", "value": "Text color" },
+    { "name": "subtitle_white", "value": "White" },
+    { "name": "subtitle_yellow", "value": "Yellow" },
+    { "name": "subtitle_cyan", "value": "Cyan" },
+    { "name": "subtitle_background", "value": "Subtitle background" },
+    { "name": "subtitle_transparent", "value": "Transparent" },
+    { "name": "subtitle_translucent", "value": "Translucent black" },
+    { "name": "subtitle_dark", "value": "Dark black" },
+    { "name": "subtitle_position", "value": "Subtitle position" },
+    { "name": "subtitle_bottom", "value": "Bottom" },
+    { "name": "subtitle_top", "value": "Top" },
+    { "name": "subtitle_preview", "value": "Subtitle style preview" },
+    { "name": "subtitle_reset", "value": "Reset style" },
+    { "name": "diagnostics_av_offset", "value": "Sync decision offset %s (+ means video ahead)" },
+    { "name": "diagnostics_av_range", "value": "Offset magnitude: mean %s / max %s" },
+    { "name": "diagnostics_audio_queue", "value": "Audio PCM queue %s / device pending %s" },
+    { "name": "diagnostics_starvation", "value": "Silence-fill callbacks %d / sync drops %d" },
+    { "name": "diagnostics_seek_time", "value": "Seek rebuild %s / target output %s" },
+    { "name": "diagnostics_seek_queue", "value": "Seek requested %d / merged %d / completed %d" },
+    { "name": "diagnostics_measurement_note", "value": "Presentation counts submissions. Offset is sampled before wait/drop, not measured screen/speaker latency." },
+    { "name": "diagnostics_audio_interrupt_active", "value": "Audio interruptions %d (paused; waiting to resume)" },
+    { "name": "diagnostics_audio_interrupt_idle", "value": "Audio interruptions %d (not interrupted)" },
+    { "name": "diagnostics_background_paused", "value": "Background: paused; resumes in foreground" }
   ]
 }

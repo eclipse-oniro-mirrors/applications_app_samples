@@ -32,6 +32,7 @@
 #include "BufferRenderer.h"
 #include "AvSyncController.h"
 #include "PlaybackClock.h"
+#include "PlaybackDiagnostics.h"
 #include "SeekController.h"
 #include "PlayerStateMachine.h"
 #include "VideoSink.h"
@@ -65,6 +66,7 @@ struct PlaybackInfo {
     uint64_t bufferPresentFrames = 0;
     uint64_t bufferPresentFailures = 0;
     double bufferPresentAverageUs = 0.0;
+    PlaybackDiagnosticsInfo diagnostics;
 };
 
 struct MediaInfo {
@@ -120,6 +122,8 @@ public:
     void SetSmartFluencySupported(bool supported);
     void OnThermalWarningReceived(double ratio);
     void OnThermalLevelRecovered();
+    void SetBackgroundPlaybackEnabled(bool enabled);
+    void SetAppBackground(bool background);
 
 private:
     void VideoDecInputAsyncThread();
@@ -141,6 +145,9 @@ private:
     void PrepareForInitialization(const SampleInfo &sampleInfo);
     void UpdateSmartFluencyAvailability();
     void UpdateMediaInfoSnapshot();
+    int32_t CreateTrackDecoders();
+    void ConfigureAudioRendererBuilder();
+    void ConfigureAudioRendererCallbacks();
     PlaybackCompletionReason GetCompletionReason(bool &playbackSucceeded) const;
     void ReleasePlaybackResources();
     int32_t CreateAudioDecoder();
@@ -196,6 +203,10 @@ private:
     int32_t RecreateCodecResourcesAfterSeek(bool hadVideo, bool hadAudio, float speedSnapshot,
         int64_t positionUs);
     int32_t HandleSeekFailure();
+    int32_t RebuildPlaybackForSeek(bool hadVideo, bool hadAudio, float speedSnapshot, int64_t targetUs);
+    void ResetReleasedPlaybackState();
+    void PauseForBackground();
+    void ResumeFromBackground();
     bool CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t framePosition,
         int64_t& waitTimeUs, bool& dropFrame);
     bool RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame);
@@ -206,11 +217,24 @@ private:
     std::unique_ptr<Demuxer> demuxer_ = nullptr;
     
     mutable std::mutex mutex_;
+    // Track switching briefly releases mutex_ while joining audio workers.
+    // Serialize it with Stop() and Release() before either can destroy the pipeline.
+    std::mutex audioTrackOperationMutex_;
     std::atomic<bool> isStarted_ { false };
     std::atomic<bool> isReleased_ { false };
     std::atomic<bool> isAudioDone { false };
     std::atomic<bool> isVideoDone { false };
     std::atomic<bool> playbackFailed_ { false };
+    std::atomic<bool> audioInterrupted_ { false };
+    std::atomic<bool> audioResumePending_ { false };
+    std::atomic<uint64_t> audioInterruptCount_ { 0 };
+    std::atomic<int32_t> audioInterruptHint_ { 0 };
+    std::atomic<float> audioVolume_ { 1.0f };
+    std::atomic<bool> audioDucked_ { false };
+    std::atomic<bool> appBackgrounded_ { false };
+    std::atomic<bool> backgroundPlaybackEnabled_ { false };
+    // True only when the player paused itself because background playback was disabled.
+    std::atomic<bool> backgroundPausedPlayback_ { false };
     std::atomic<bool> hasDecodedOutput_ { false };
     std::atomic<bool> stopRequested_ { false };
     std::atomic<bool> seekInProgress_ { false };
@@ -273,6 +297,7 @@ private:
     double thermalFrameRetentionRatio_ = 0.0;
     std::unique_ptr<VideoSink> videoSink_ = nullptr;
     PlaybackClock playbackClock_;
+    PlaybackDiagnostics diagnostics_;
     AvSyncController avSyncController_;
     SeekController seekController_;
 };
