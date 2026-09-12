@@ -326,7 +326,7 @@ void OnPermissionCallback(OH_UsbManager_ErrorCode errorCode, bool result, void *
         context->granted = result;
         context->completed = true;
     }
-    // [end CApiRequestPermissionCallBack]
+    // [End CApiRequestPermissionCallBack]
     context->condition.notify_all();
 }
 
