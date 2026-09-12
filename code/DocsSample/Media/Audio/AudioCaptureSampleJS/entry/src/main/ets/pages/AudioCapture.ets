@@ -145,7 +145,7 @@ async function initRender(context: common.UIAbilityContext) {
         audioRenderer.on('writeData', writeDataCallback);
       }
     } else {
-      console.info(`${TAG}: creating AudioRenderer failed, error: ${err.message}`);
+      console.error(`${TAG}: creating AudioRenderer failed, error: ${err.message}`);
     }
   });
 }
@@ -155,7 +155,7 @@ async function startRender(updateCallback?: (msg: string, isError: boolean) => v
   if (audioRenderer !== undefined) {
     let stateGroup = [audio.AudioState.STATE_PREPARED, audio.AudioState.STATE_PAUSED, audio.AudioState.STATE_STOPPED];
     if (stateGroup.indexOf(audioRenderer.state.valueOf()) === -1) { // 当且仅当状态为prepared、paused和stopped之一时才能启动渲染。
-      console.error(TAG + 'start failed');
+      console.info(TAG + 'start failed');
       return;
     }
     // 启动渲染。
@@ -258,7 +258,7 @@ async function start(updateCallback?: (msg: string, isError: boolean) => void): 
       , audio.AudioState.STATE_PAUSED, audio.AudioState.STATE_STOPPED];
     // 当且仅当状态为STATE_PREPARED、STATE_PAUSED和STATE_STOPPED之一时才能启动采集。
     if (stateGroup.indexOf(audioCapturer.state.valueOf()) === -1) {
-      console.error(`${TAG}: start failed`);
+      console.info(`${TAG}: start failed`);
       // [StartExclude all_audioCapturer]
       const errorMsg = `${TAG}: start failed`;
       if (updateCallback) {

@@ -63,7 +63,7 @@ struct Index {
                 console.info('data permission:' + data.permissions);
                 console.info('data authResults:' + data.authResults);
               }).catch((err: BusinessError) => {
-                console.info('data:' + JSON.stringify(err));
+                console.error('data:' + JSON.stringify(err));
               });
               await router.pushUrl({ url: 'pages/CallOut' })
             })
@@ -91,7 +91,7 @@ struct Index {
                 console.info('data permission:' + data.permissions);
                 console.info('data authResults:' + data.authResults);
               }).catch((err: BusinessError) => {
-                console.info('data:' + JSON.stringify(err));
+                console.error('data:' + JSON.stringify(err));
               });
               await router.pushUrl({ url: 'pages/CallIn' })
             })
