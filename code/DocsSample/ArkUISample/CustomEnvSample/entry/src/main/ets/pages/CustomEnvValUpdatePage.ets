@@ -14,7 +14,7 @@
  */
 
 // [Start CustomEnvUpdateValue]
-import { WithEnv, WithEnvAttribute } from '@kit.ArkUI';
+import { WithEnv } from '@kit.ArkUI';
 
 const customMsge = CustomEnvKey.create<string>();
 

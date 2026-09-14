@@ -14,7 +14,7 @@
  */
 
 // [Start CustomEnvSupportMonitor]
-import { WithEnv, WithEnvAttribute } from '@kit.ArkUI';
+import { WithEnv } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const customMon = CustomEnvKey.create<number>();
