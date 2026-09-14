@@ -28,6 +28,7 @@ let textConfig: intelligence.ModelConfig = {
   cachePath: "/data"
 }
 let textEmbedding: intelligence.TextEmbedding;
+let modelInfo: intelligence.CloudModelInfo;
 // [End aip_getTextEmbeddingModel_operating_parameter]
 
 // [Start aip_getImageEmbeddingModel_operating_parameter]
@@ -43,6 +44,41 @@ let imageEmbedding: intelligence.ImageEmbedding;
 @Component
 struct Index {
   @State message: string = 'aip';
+
+  private getSupportedCloudModel(): void {
+    // [Start aip_getSupportedCloudModel_operating]
+    intelligence.getSupportedCloudModel()
+      .then((info: Array<intelligence.CloudModelInfo>) => {
+        console.info('Succeeded in getting supported model');
+        if (info.length > 0) {
+          modelInfo = info[0];
+        }
+      })
+    // [End aip_getSupportedCloudModel_operating]
+  }
+
+  private getCloudTextEmbeddingModel(): void {
+    // [Start aip_getCloudTextEmbeddingModel_operating]
+    if (modelInfo !== undefined) {
+      textConfig.modelInfo = modelInfo;
+      textConfig.networkPolicy = intelligence.NetworkPolicy.WIFI_ONLY;
+    }
+    intelligence.getTextEmbeddingModel(textConfig)
+      .then((data: intelligence.TextEmbedding) => {
+        console.info('Succeeded in getting TextModel');
+        textEmbedding = data;
+        // [StartExclude aip_getCloudTextEmbeddingModel_operating]
+        this.message = 'aip getTextEmbeddingModel';
+        // [EndExclude aip_getCloudTextEmbeddingModel_operating]
+      })
+      .catch((err) => {
+        console.error('Failed to get TextModel and code is ' + err.code);
+        // [StartExclude aip_getCloudTextEmbeddingModel_operating]
+        this.message = 'aip getTextEmbeddingModel';
+        // [EndExclude aip_getCloudTextEmbeddingModel_operating]
+      })
+    // [End aip_getCloudTextEmbeddingModel_operating]
+  }
 
   private getTextEmbeddingModel(): void {
     // [Start aip_getTextEmbeddingModel_operating]
@@ -257,40 +293,48 @@ struct Index {
 
   build() {
     Column(undefined) {
-      Text(this.message).fontsize(20)
-      Button('获取文本模型')
+      Text(this.message).fontSize(20)
+      Button($r('app.string.button_get_cloud_model'))
+        .margin(10)
+        .width('30%')
+        .onClick(() => this.getSupportedCloudModel())
+      Button($r('app.string.button_get_cloud_text_model'))
+        .margin(10)
+        .width('30%')
+        .onClick(() => this.getCloudTextEmbeddingModel())
+      Button($r('app.string.button_get_text_model'))
         .margin(10)
         .width('30%')
         .onClick(() => this.getTextEmbeddingModel())
-      Button('加载文本模型')
+      Button($r('app.string.button_load_text_model'))
         .margin(10)
         .width('30%')
         .onClick(() => this.loadTextModel())
-      Button('获取文本向量')
+      Button($r('app.string.button_get_text_embedding'))
         .margin(10)
         .width('30%')
         .onClick(() => this.getTextEmbedding())
-      Button('释放文本模型')
+      Button($r('app.string.button_release_text_model'))
         .margin(10)
         .width('30%')
         .onClick(() => this.releaseTextModel())
-      Button('获取文本分块')
+      Button($r('app.string.button_split_text'))
         .margin(10)
         .width('30%')
         .onClick(() => this.splitText())
-      Button('获取图像模型')
+      Button($r('app.string.button_get_image_model'))
         .margin(10)
         .width('30%')
         .onClick(() => this.getImageEmbeddingModel())
-      Button('加载图像模型')
+      Button($r('app.string.button_load_image_model'))
         .margin(10)
         .width('30%')
         .onClick(() => this.loadImageModel())
-      Button('获取图像向量')
+      Button($r('app.string.button_get_image_embedding'))
         .margin(10)
         .width('30%')
         .onClick(() => this.getImageEmbedding())
-      Button('释放图像模型')
+      Button($r('app.string.button_release_image_model'))
         .margin(10)
         .width('30%')
         .onClick(() => this.releaseImageModel())
