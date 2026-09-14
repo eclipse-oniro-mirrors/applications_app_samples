@@ -114,7 +114,7 @@ async function init() {
         audioRenderer.on('writeData', writeDataCallback);
       }
     } else {
-      console.info(`${TAG}: creating AudioRenderer failed, error: ${err.message}`);
+      console.error(`${TAG}: creating AudioRenderer failed, error: ${err.message}`);
       // [StartExclude all_VoIPDemoForAudioRenderer]
       const errorMsg = `${TAG}: creating AudioRenderer failed, error: ${err.message}`;
       if (globalLogUpdate) {
@@ -130,7 +130,7 @@ async function start() {
   if (audioRenderer !== undefined) {
     let stateGroup = [audio.AudioState.STATE_PREPARED, audio.AudioState.STATE_PAUSED, audio.AudioState.STATE_STOPPED];
     if (stateGroup.indexOf(audioRenderer.state.valueOf()) === -1) { // 当且仅当状态为prepared、paused和stopped之一时才能启动渲染。
-      console.error(TAG + 'start failed');
+      console.info(TAG + 'start failed');
       // [StartExclude all_VoIPDemoForAudioRenderer]
       const errorMsg = `${TAG} start failed`;
       if (globalLogUpdate) {
