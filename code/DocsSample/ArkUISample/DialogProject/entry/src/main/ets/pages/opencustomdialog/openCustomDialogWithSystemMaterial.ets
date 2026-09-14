@@ -25,9 +25,9 @@ export struct OpenCustomDialogWithSystemMaterial {
   @Builder
   customDialogComponent() {
     Column() {
-      Text('打开了一个弹窗').fontSize(20)
+      Text($r('app.string.OpenACustomDialog_Title')).fontSize(20)
       Row({ space: 10 }) {
-        Button('取消').onClick(() => {
+        Button($r('app.string.cancel_text')).onClick(() => {
           try {
             this.getUIContext().getPromptAction().closeCustomDialog(this.customDialogComponentId)
           } catch (error) {
@@ -36,7 +36,7 @@ export struct OpenCustomDialogWithSystemMaterial {
             console.error(`closeCustomDialog error code is ${code}, message is ${message}`);
           }
         }).width(100).backgroundColor('#d5d5d5').fontColor('#707070')
-        Button('确定').onClick(() => {
+        Button($r('app.string.confirm_text')).onClick(() => {
           try {
             this.getUIContext().getPromptAction().closeCustomDialog(this.customDialogComponentId)
           } catch (error) {

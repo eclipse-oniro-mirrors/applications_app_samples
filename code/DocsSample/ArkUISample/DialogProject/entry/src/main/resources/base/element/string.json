@@ -824,6 +824,18 @@
     {
       "name": "BuilderCustomMenu_title",
       "value": "使用@Builder自定义菜单内容"
+    },
+    {
+      "name": "OpenACustomDialog_Title",
+      "value": "打开了一个弹窗"
+    },
+    {
+      "name": "cancel_text",
+      "value": "取消"
+    },
+    {
+      "name": "confirm_text",
+      "value": "确定"
     }
   ]
 }
