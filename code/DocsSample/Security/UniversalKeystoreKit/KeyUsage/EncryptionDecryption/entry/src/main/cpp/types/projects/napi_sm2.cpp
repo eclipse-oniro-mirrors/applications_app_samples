@@ -119,7 +119,7 @@ napi_value TestSm2(napi_env env, napi_callback_info info)
         if (ohResult.errorCode != OH_HUKS_SUCCESS) {
             break;
         }
-        char tmpInData[] = "AES_ECB_INDATA_1";
+        char tmpInData[] = "SM2_INDATA_1";
         struct OH_Huks_Blob inData = {(uint32_t)strlen(tmpInData), (uint8_t *)tmpInData};
         uint8_t cipher[SM2_SIZE] = {0};
         struct OH_Huks_Blob cipherText = {SM2_SIZE, cipher};

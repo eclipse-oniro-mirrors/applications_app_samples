@@ -167,7 +167,7 @@ async function deleteSm2Key(keyAlias: string) {
     properties: []
   };
   await huks.deleteKeyItem(keyAlias, emptyOptions)
-    .then((data) => {
+    .then(() => {
       console.info(`promise: delete data success`);
     }).catch((error: Error) => {
       console.error(`promise: delete data failed`);

@@ -18,7 +18,7 @@
 import { huks } from '@kit.UniversalKeystoreKit';
 
 let keyAlias = 'test_key';
-let isKeyExist: Boolean;
+let isKeyExist: boolean;
 
 let generateProperties: huks.HuksParam[] = [
   {
@@ -44,11 +44,11 @@ let generateHuksOptions: huks.HuksOptions = {
 function generateKeyItem(keyAlias: string, huksOptions: huks.HuksOptions) {
   return new Promise<void>((resolve, reject) => {
     try {
-      huks.generateKeyItem(keyAlias, huksOptions, (error, data) => {
+      huks.generateKeyItem(keyAlias, huksOptions, (error) => {
         if (error) {
           reject(error);
         } else {
-          resolve(data);
+          resolve();
         }
       });
     } catch (error) {
@@ -75,7 +75,7 @@ function hasKeyItem(keyAlias: string, huksOptions: huks.HuksOptions) {
         if (error) {
           reject(error);
         } else {
-          resolve(data.valueOf());
+          resolve(data);
         }
       });
     } catch (error) {
