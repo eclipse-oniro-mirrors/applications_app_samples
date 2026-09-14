@@ -352,7 +352,7 @@ export class VideoManager implements OutputManager {
   getVideoRotation(videoOutput: camera.VideoOutput, deviceDegree: number): camera.ImageRotation {
     let videoRotation: camera.ImageRotation = camera.ImageRotation.ROTATION_0;
     try {
-      videoRotation = videoOutput!.getVideoRotation(deviceDegree);
+      videoRotation = videoOutput.getVideoRotation(deviceDegree);
       console.info(`Video rotation is: ${videoRotation}`);
     } catch (error) {
       // 失败返回错误码error.code并处理
@@ -362,6 +362,21 @@ export class VideoManager implements OutputManager {
     return videoRotation;
   }
   // [End get_video_rotation]
+
+  // [Start get_video_rotation_without_device_degree]
+  getVideoRotationWithoutDeviceDegree(videoOutput: camera.VideoOutput): camera.ImageRotation {
+    let videoRotation: camera.ImageRotation = camera.ImageRotation.ROTATION_0;
+    try {
+      videoRotation = videoOutput.getVideoRotation();
+      console.info(`Video rotation is: ${videoRotation}`);
+    } catch (error) {
+      // 失败返回错误码error.code并处理
+      let err = error as BusinessError;
+      console.error(`The videoOutput.getVideoRotationWithoutDeviceDegree call failed. error code: ${err.code}`);
+    }
+    return videoRotation;
+  }
+  // [End get_video_rotation_without_device_degree]
 
   // [Start get_video_rotation_and_update]
   async getVideoRotationAndUpdate(videoOutput: camera.VideoOutput, deviceDegree: number, avRecorder: media.AVRecorder) {
@@ -379,6 +394,23 @@ export class VideoManager implements OutputManager {
     }
   }
   // [End get_video_rotation_and_update]
+
+  // [Start get_video_rotation_without_device_degree_and_update]
+  async getVideoRotationWithoutDeviceDegreeAndUpdate(videoOutput: camera.VideoOutput, avRecorder: media.AVRecorder) {
+    let videoRotation: camera.ImageRotation = camera.ImageRotation.ROTATION_0;
+    try {
+      videoRotation = videoOutput.getVideoRotation();
+      console.info(`Video rotation is: ${videoRotation}`);
+      if (avRecorder.state === 'prepared') {
+        await avRecorder.updateRotation(videoRotation);
+      }
+    } catch (error) {
+      // 失败返回错误码error.code并处理
+      let err = error as BusinessError;
+      console.error(`getVideoRotationWithoutDeviceDegreeAndUpdate call failed. error code: ${err.code}`);
+    }
+  }
+  // [End get_video_rotation_without_device_degree_and_update]
 
   async getVideoThumbnail() {
     let pixelMap: image.PixelMap | undefined = undefined;

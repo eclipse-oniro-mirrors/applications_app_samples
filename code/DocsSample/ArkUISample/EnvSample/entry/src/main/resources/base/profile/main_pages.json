@@ -1,0 +1,14 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/EnvInitFlow",
+    "pages/EnvInComponentV2",
+    "pages/EnvInComponent",
+    "pages/EnvBuilderNode",
+    "pages/EnvBuilderNodeSubWindow",
+    "pages/EnvBuilderNodeLambda",
+    "pages/EnvBuilderNodeLambdaSubWindow",
+    "pages/EnvWatch",
+    "pages/EnvMonitor"
+  ]
+}

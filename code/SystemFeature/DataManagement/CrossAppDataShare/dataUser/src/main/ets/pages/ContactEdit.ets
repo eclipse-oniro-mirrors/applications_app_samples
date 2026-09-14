@@ -17,6 +17,12 @@ import router from '@ohos.router'
 import prompt from '@ohos.promptAction'
 import ContactStore from '../feature/ContactStore'
 import { arrayToString, Contact, ContactInfo, logger, OPERATE_STATUS, TitleBar } from '@ohos/common'
+import { ValuesBucket } from '@ohos.data.ValuesBucket'
+
+interface ContactEditParams {
+  contact: Contact
+  operate: string
+}
 
 const TAG: string = 'ContactEdit'
 
@@ -24,7 +30,7 @@ const TAG: string = 'ContactEdit'
 @Component
 struct ContactEdit {
   @StorageLink('isRefresh') isRefresh: boolean = false
-  private contact: Contact = undefined
+  private contact: Contact | undefined = undefined
   private phone: string = ''
   @State name: string = ''
   @State email: string = ''
@@ -52,17 +58,19 @@ struct ContactEdit {
   }
 
   aboutToAppear() {
-    if (router.getParams()) {
-      if (router.getParams()['operate']) {
-        let operate = router.getParams()['operate']
-        if (operate === OPERATE_STATUS.UPDATE) {
-          this.title = $r('app.string.edit_contact')
-          this.contact = <Contact> router.getParams()['contact']
-          this.name = this.contact.name
-          this.phone = this.contact.phone
-          this.email = this.contact.email
-          this.address = this.contact.address
-          this.remark = this.contact.remark
+    let params = router.getParams() as ContactEditParams
+    if (params !== undefined) {
+      let operate = params.operate
+      if (operate !== undefined && operate === OPERATE_STATUS.UPDATE) {
+        this.title = $r('app.string.edit_contact')
+        let contactParam = params.contact as Contact
+        if (contactParam !== undefined) {
+          this.contact = contactParam
+          this.name = contactParam.name
+          this.phone = contactParam.phone
+          this.email = contactParam.email
+          this.address = contactParam.address
+          this.remark = contactParam.remark
           this.phones = this.phone.split(',')
         }
       }
@@ -80,7 +88,7 @@ struct ContactEdit {
       return
     }
     if (this.contact === undefined) {
-      const valueBucket = {
+      const valueBucket: ValuesBucket = {
         'name': this.name,
         'phone': this.phone,
         'email': this.email,

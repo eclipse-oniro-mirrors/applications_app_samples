@@ -47,3 +47,12 @@ struct Index {
   }
 }
 // [End monitor_object_variable]
+
+@Builder
+export function monitorObjectVariable() {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.monitor_object_variable'))
+}

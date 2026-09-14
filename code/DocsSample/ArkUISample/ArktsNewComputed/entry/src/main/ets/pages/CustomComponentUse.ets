@@ -29,22 +29,34 @@ struct CustomComponentUse {
   @Computed
   get fullName() {
     hilog.info(DOMAIN, TAG, BUNDLE + '---------Computed----------');
-    return this.firstName + ' ' + this.lastName + this.age;
+    return this.lastName + ' ' + this.firstName + this.age;
   }
 
   build() {
     Column() {
       Text(this.lastName + ' ' + this.firstName)
+        .fontSize(20)
+        .margin(10)
       Text(this.lastName + ' ' + this.firstName)
+        .fontSize(20)
+        .margin(10)
       Divider()
       Text(this.fullName)
+        .fontSize(20)
+        .margin(10)
       Text(this.fullName)
+        .fontSize(20)
+        .margin(10)
       Button('changed lastName')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.lastName += 'a';
         })
 
       Button('changed age')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.age++;  // 无法触发Computed
         })

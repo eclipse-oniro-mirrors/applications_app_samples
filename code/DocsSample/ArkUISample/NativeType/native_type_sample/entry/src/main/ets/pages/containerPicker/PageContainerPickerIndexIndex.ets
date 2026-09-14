@@ -18,12 +18,14 @@ import { NodeContent } from '@kit.ArkUI';
 
 @Entry
 @Component
-struct Index {
+export struct PageContainerPickerIndexIndex {
   private nodeContent = new NodeContent();
+
   aboutToAppear() {
     // 通过C-API创建节点，并添加到管理器nodeContent上
-    Napi.createContainerPickerIndexNode(this.nodeContent);
+    Napi?.createContainerPickerIndexNode(this.nodeContent);
   }
+
   build() {
     Column() {
       ContentSlot(this.nodeContent)

@@ -39,8 +39,8 @@ int32_t GetPixelFormatBytes(int32_t pixelFormat)
             return 8; // 每通道16位浮点数，共4通道，合计8字节。
         case PIXEL_FORMAT_NV21:
         case PIXEL_FORMAT_NV12:
-            // NV21和NV12格式是YUV 4:2:0半平面格式，返回2作为每像素字节。
-            return 2; // 每像素2字节（简化处理）。
+            // NV21和NV12是YUV 4:2:0半平面格式，不能用整数每像素字节数计算行跨度。
+            return 0;
         case PIXEL_FORMAT_RGBA_1010102:
             return 4; // 每像素4字节。
         case PIXEL_FORMAT_YCBCR_P010:
@@ -81,29 +81,14 @@ static void GetPixelmapAddrInfo(OH_PixelmapNative *pixelmap, PixelmapInfo *info)
     return;
 }
 
-void DataCopy(OH_PixelmapNative *pixelmap, OH_ImageSourceNative* imageSource, OH_DecodingOptions *options,
-              IMAGE_ALLOCATOR_TYPE allocatorType)
+static void CopyPixelRows(void *pixels, void *newPixels, const PixelmapInfo &srcInfo, uint32_t dstRowStride,
+    IMAGE_ALLOCATOR_TYPE allocatorType)
 {
-    PixelmapInfo srcInfo;
-    GetPixelmapInfo(pixelmap, &srcInfo);
-    GetPixelmapAddrInfo(pixelmap, &srcInfo);
-
-    void *pixels = nullptr;
-    OH_PixelmapNative_AccessPixels(pixelmap, &pixels);
-    OH_PixelmapNative *newPixelmap = nullptr;
-    OH_ImageSourceNative_CreatePixelmap(imageSource, options, &newPixelmap);
-    uint32_t dstRowStride = srcInfo.width * GetPixelFormatBytes(srcInfo.pixelFormat);
-    void *newPixels = nullptr;
-    OH_PixelmapNative_AccessPixels(newPixelmap, &newPixels);
     uint8_t *src = reinterpret_cast<uint8_t *>(pixels);
     uint8_t *dst = reinterpret_cast<uint8_t *>(newPixels);
     uint32_t dstSize = srcInfo.byteCount;
-    uint32_t rowSize;
-    if (allocatorType == IMAGE_ALLOCATOR_TYPE::IMAGE_ALLOCATOR_TYPE_DMA) {
-        rowSize = srcInfo.rowStride;
-    } else {
-        rowSize = dstRowStride;
-    }
+    uint32_t rowSize = allocatorType == IMAGE_ALLOCATOR_TYPE::IMAGE_ALLOCATOR_TYPE_DMA ? srcInfo.rowStride :
+        dstRowStride;
     for (uint32_t i = 0; i < srcInfo.height; ++i) {
         if (dstSize >= dstRowStride) {
             std::copy(src, src + dstRowStride, dst);
@@ -114,6 +99,41 @@ void DataCopy(OH_PixelmapNative *pixelmap, OH_ImageSourceNative* imageSource, OH
         dst += dstRowStride;
         dstSize -= dstRowStride;
     }
+}
+
+void DataCopy(OH_PixelmapNative *pixelmap, OH_ImageSourceNative* imageSource, OH_DecodingOptions *options,
+              IMAGE_ALLOCATOR_TYPE allocatorType)
+{
+    PixelmapInfo srcInfo;
+    GetPixelmapInfo(pixelmap, &srcInfo);
+    GetPixelmapAddrInfo(pixelmap, &srcInfo);
+    void *pixels = nullptr;
+    OH_PixelmapNative_AccessPixels(pixelmap, &pixels);
+    OH_PixelmapNative *newPixelmap = nullptr;
+    Image_ErrorCode image_ErrorCode = OH_ImageSourceNative_CreatePixelmap(imageSource, options, &newPixelmap);
+    if (image_ErrorCode != IMAGE_SUCCESS || newPixelmap == nullptr) {
+        OH_PixelmapNative_UnaccessPixels(pixelmap);
+        OH_DecodingOptions_Release(options);
+        OH_ImageSourceNative_Release(imageSource);
+        OH_PixelmapNative_Release(pixelmap);
+        if (newPixelmap != nullptr) {
+            OH_PixelmapNative_Release(newPixelmap);
+        }
+        return;
+    }
+    int32_t pixelBytes = GetPixelFormatBytes(srcInfo.pixelFormat);
+    if (pixelBytes == 0) {
+        OH_PixelmapNative_UnaccessPixels(pixelmap);
+        OH_DecodingOptions_Release(options);
+        OH_ImageSourceNative_Release(imageSource);
+        OH_PixelmapNative_Release(pixelmap);
+        OH_PixelmapNative_Release(newPixelmap);
+        return;
+    }
+    uint32_t dstRowStride = srcInfo.width * pixelBytes;
+    void *newPixels = nullptr;
+    OH_PixelmapNative_AccessPixels(newPixelmap, &newPixels);
+    CopyPixelRows(pixels, newPixels, srcInfo, dstRowStride, allocatorType);
     OH_PixelmapNative_UnaccessPixels(newPixelmap);
     OH_PixelmapNative_UnaccessPixels(pixelmap);
     OH_DecodingOptions_Release(options);
@@ -143,12 +163,81 @@ napi_value TestStrideWithAllocatorType(napi_env env, napi_callback_info info)
 
     OH_ImageSourceNative* imageSource = nullptr;
     Image_ErrorCode image_ErrorCode = OH_ImageSourceNative_CreateFromUri(filePath, pathSize, &imageSource);
+    if (image_ErrorCode != IMAGE_SUCCESS || imageSource == nullptr) {
+        return GetJsResult(env, image_ErrorCode == IMAGE_SUCCESS ? IMAGE_BAD_PARAMETER : image_ErrorCode);
+    }
     OH_DecodingOptions *options = nullptr;
-    OH_DecodingOptions_Create(&options);
+    image_ErrorCode = OH_DecodingOptions_Create(&options);
+    if (image_ErrorCode != IMAGE_SUCCESS || options == nullptr) {
+        OH_ImageSourceNative_Release(imageSource);
+        return GetJsResult(env, image_ErrorCode == IMAGE_SUCCESS ? IMAGE_BAD_PARAMETER : image_ErrorCode);
+    }
     IMAGE_ALLOCATOR_TYPE allocatorType = IMAGE_ALLOCATOR_TYPE::IMAGE_ALLOCATOR_TYPE_DMA;  // 使用DMA创建pixelMap。
     OH_PixelmapNative *pixelmap = nullptr;
     image_ErrorCode = OH_ImageSourceNative_CreatePixelmapUsingAllocator(imageSource, options, allocatorType, &pixelmap);
+    if (image_ErrorCode != IMAGE_SUCCESS || pixelmap == nullptr) {
+        OH_DecodingOptions_Release(options);
+        OH_ImageSourceNative_Release(imageSource);
+        return GetJsResult(env, image_ErrorCode == IMAGE_SUCCESS ? IMAGE_BAD_PARAMETER : image_ErrorCode);
+    }
     DataCopy(pixelmap, imageSource, options, allocatorType);
     return GetJsResult(env, image_ErrorCode);
 }
 // [End allocator_operations]
+
+// [Start allocator_yuv_operations]
+napi_value CreatePixelmapWithYUV(napi_env env, napi_callback_info info)
+{
+    napi_value argValue[1] = {nullptr};
+    size_t argCount = 1;
+    if (napi_get_cb_info(env, info, &argCount, argValue, nullptr, nullptr) != napi_ok || argCount < 1 ||
+        argValue[0] == nullptr) {
+        OH_LOG_ERROR(LOG_APP, "CreatePixelmapWithYUV napi_get_cb_info failed!");
+        return GetJsResult(env, IMAGE_BAD_PARAMETER);
+    }
+    const size_t maxPathLength = 1024;
+    char filePath[maxPathLength];
+    size_t pathSize = maxPathLength;
+    napi_get_value_string_utf8(env, argValue[0], filePath, maxPathLength, &pathSize);
+
+    OH_ImageSourceNative* imageSource = nullptr;
+    Image_ErrorCode errorCode = OH_ImageSourceNative_CreateFromUri(filePath, pathSize, &imageSource);
+    
+    OH_DecodingOptions *options = nullptr;
+    OH_DecodingOptions_Create(&options);
+    // 设置YUV像素格式（NV21或NV12），实现内存优化。
+    OH_DecodingOptions_SetPixelFormat(options, PIXEL_FORMAT_NV21);
+    
+    // 使用DMA内存分配，配合YUV格式实现最优解码性能。
+    IMAGE_ALLOCATOR_TYPE allocatorType = IMAGE_ALLOCATOR_TYPE::IMAGE_ALLOCATOR_TYPE_DMA;
+    OH_PixelmapNative *pixelmap = nullptr;
+    errorCode = OH_ImageSourceNative_CreatePixelmapUsingAllocator(imageSource, options, allocatorType, &pixelmap);
+    if (errorCode == IMAGE_SUCCESS && pixelmap != nullptr) {
+        // 获取PixelMap信息，验证像素格式。
+        OH_Pixelmap_ImageInfo *imageInfo = nullptr;
+        OH_PixelmapImageInfo_Create(&imageInfo);
+        OH_PixelmapNative_GetImageInfo(pixelmap, imageInfo);
+        
+        uint32_t width;
+        uint32_t height;
+        uint32_t rowStride;
+        int32_t pixelFormat;
+        OH_PixelmapImageInfo_GetWidth(imageInfo, &width);
+        OH_PixelmapImageInfo_GetHeight(imageInfo, &height);
+        OH_PixelmapImageInfo_GetRowStride(imageInfo, &rowStride);
+        OH_PixelmapImageInfo_GetPixelFormat(imageInfo, &pixelFormat);
+        OH_LOG_INFO(LOG_APP, "YUV PixelMap created: width=%{public}u, height=%{public}u, "
+                    "rowStride=%{public}u, pixelFormat=%{public}d",
+                    width, height, rowStride, pixelFormat);
+        OH_PixelmapImageInfo_Release(imageInfo);
+    } else {
+        OH_LOG_ERROR(LOG_APP, "CreatePixelmapWithYUV failed, errorCode=%{public}d", errorCode);
+    }
+    
+    OH_DecodingOptions_Release(options);
+    options = nullptr;
+    OH_ImageSourceNative_Release(imageSource);
+    imageSource = nullptr;
+    return GetJsResult(env, errorCode);
+}
+// [End allocator_yuv_operations]

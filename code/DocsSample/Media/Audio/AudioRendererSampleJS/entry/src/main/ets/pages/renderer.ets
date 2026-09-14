@@ -111,6 +111,8 @@ let globalCallbackUpdate: (msg: string) => void = () => {};
 
 let audioRenderer: audio.AudioRenderer | undefined = undefined;
 // [EndExclude create_audiorender]
+// 从API版本26.0.0开始，参数samplingRate支持number类型。
+// 音频渲染扩展支持8000Hz到384000Hz范围内以10Hz为步长的采样率值。具体设备支持的采样率规格会存在差异。
 let audioStreamInfo: audio.AudioStreamInfo = {
   samplingRate: audio.AudioSamplingRate.SAMPLE_RATE_48000, // 采样率。
   channels: audio.AudioChannel.CHANNEL_2, // 通道。
@@ -150,7 +152,7 @@ async function initArguments(context: common.UIAbilityContext) {
       if (bufferSize > file.length) {
         let view = new DataView(buffer);
         for (let i = bufferSize - file.length; i < buffer.byteLength; i++) {
-          // 空白区域填充静音数据。当使用音频采样格式为SAMPLE_FORMAT_U8时0x7F为静音数据，使用其他采样格式时0为静音数据。
+          // 空白区域填充静音数据。当使用音频采样格式为SAMPLE_FORMAT_U8时0x80为静音数据，使用其他采样格式时0为静音数据。
           view.setUint8(i, 0);
         }
       }
@@ -201,7 +203,7 @@ async function init() {
         // [EndExclude create_audiorender]
       }
     } else {
-      console.info(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`);
+      console.error(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`);
       // [StartExclude render_process]
       globalLogUpdate(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`, false);
       // [EndExclude render_process]
@@ -308,7 +310,7 @@ async function stop() {
 }
 
 // 销毁实例，释放资源。
-async function release() {
+async function release(context: common.UIAbilityContext) {
   if (audioRenderer !== undefined) {
     // 渲染器状态不是released状态，才能release。
     if (audioRenderer.state.valueOf() === audio.AudioState.STATE_RELEASED) {
@@ -338,7 +340,6 @@ async function release() {
         // [EndExclude render_process]
         // [EndExclude render_release]
       } else {
-        // 关闭沙箱文件。
         console.info('Succeeded in releasing audio renderer.');
         // [StartExclude render_release]
         // [StartExclude render_process]
@@ -347,6 +348,8 @@ async function release() {
         // [EndExclude render_release]
       }
     });
+    // 关闭沙箱文件。
+    await context.resourceManager.closeRawFd('S16LE_2_48000.pcm');
     // [End render_release]
   }
 }
@@ -460,22 +463,18 @@ async function getDevicesSync(){
 async function getStatus(){
   // [EndExclude check_isspacesoundon]
   let isSpatializationEnabledForCurrentDevice = audioSpatializationManager.isSpatializationEnabledForCurrentDevice();
-  console.info(`Succeeded in using isSpatializationEnabledForCurrentDevice function,
-    IsSpatializationEnabledForCurrentDevice: ${isSpatializationEnabledForCurrentDevice}.`);
+  console.info(`Succeeded in checking spatialization enabled for current device is: ${isSpatializationEnabledForCurrentDevice}.`);
   // [End check_isspacesoundon]
-  globalLogUpdate(`Succeeded in using isSpatializationEnabledForCurrentDevice function,
-    IsSpatializationEnabledForCurrentDevice: ${isSpatializationEnabledForCurrentDevice}.`, false);
+  globalLogUpdate(`Succeeded in checking spatialization enabled for current device is: ${isSpatializationEnabledForCurrentDevice}.`, false);
 }
 
 async function on(){
   // [EndExclude regist_spacesoundcallback]
   audioSpatializationManager.on('spatializationEnabledChangeForCurrentDevice',
     (isSpatializationEnabledForCurrentDevice: boolean) => {
-    console.info(`Succeeded in using on function, IsSpatializationEnabledForCurrentDevice:
-      ${isSpatializationEnabledForCurrentDevice}.`);
+    console.info(`Succeeded in using isSpatializationEnabledForCurrentDevice: ${isSpatializationEnabledForCurrentDevice}.`);
     // [StartExclude regist_spacesoundcallback]
-    globalCallbackUpdate(`Succeeded in using on function, IsSpatializationEnabledForCurrentDevice:
-      ${isSpatializationEnabledForCurrentDevice}.`);
+    globalCallbackUpdate(`Succeeded in using isSpatializationEnabledForCurrentDevice: ${isSpatializationEnabledForCurrentDevice}.`);
     // [EndExclude regist_spacesoundcallback]
   });
   // [End regist_spacesoundcallback]
@@ -619,7 +618,7 @@ struct Index {
           .margin({ right: 12, bottom: 12 })
           .onClick(async () => {
             let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-            initArguments(context);
+            await initArguments(context);
             init();
             this.currentState = '已初始化';
           });
@@ -678,7 +677,8 @@ struct Index {
           .height('5%')
           .margin({ right: 12, bottom: 12 })
           .onClick(async () => {
-            release();
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            release(context);
             this.currentState = '已释放';
           });
 

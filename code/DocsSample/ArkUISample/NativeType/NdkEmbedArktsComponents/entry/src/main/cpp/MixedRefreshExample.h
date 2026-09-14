@@ -35,20 +35,26 @@ std::shared_ptr<ArkUIBaseNode> CreateMixedRefreshList(napi_env env)
     NativeRefreshAttribute nativeRefreshAttribute{
         .backgroundColor = 0xFF89CFF0, .refreshOffset = 64, .pullToRefresh = true};
     auto refresh = ArkUIMixedRefresh::Create(nativeRefreshAttribute);
+    if (refresh == nullptr) {
+        return nullptr;
+    }
     refresh->AddChild(list);
 
     // 设置混合模式下的事件。
     refresh->SetOnOffsetChange(
         [](float offset) { OH_LOG_INFO(LOG_APP, "on refresh offset changed: %{public}f", offset); });
-    refresh->SetRefreshCallback([refreshPtr = refresh.get(), env]() {
+    std::weak_ptr<ArkUIMixedRefresh> weakRefresh = refresh;
+    refresh->SetRefreshCallback([weakRefresh, env]() {
         OH_LOG_INFO(LOG_APP, "on refreshing");
-        // 启动定时器，模拟数据获取。
-        CreateNativeTimer(env, refreshPtr, 1, [](void *userData, int32_t count) {
-            // 数据获取后关闭刷新。
-            auto refresh = reinterpret_cast<ArkUIMixedRefresh *>(userData);
-            refresh->SetRefreshState(false);
-            refresh->FlushMixedModeCmd();
-        });
+        if (auto refresh = weakRefresh.lock()) {
+            // 启动定时器，模拟数据获取；定时器只保存弱引用，避免访问已销毁的Refresh对象。
+            CreateNativeTimer(env, weakRefresh, 1,
+                [](const std::shared_ptr<ArkUIMixedRefresh> &refresh, int32_t count) {
+                    // 数据获取后关闭刷新。
+                    refresh->SetRefreshState(false);
+                    refresh->FlushMixedModeCmd();
+                });
+        }
     });
 
     // 更新事件到ArkTS侧。

@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import resource from '../common/Resource';
 // [Start builder_source_update_refresh]
 @Observed
 class TodoListData {
@@ -88,7 +89,7 @@ struct BuilderThingComponent {
   }
 
   build() {
-    // 待办事项1
+      // 待办事项
     Row({ space: 15 }) {
       if (this.isFinished) {
         // 请将$r('app.media.finished')替换为实际资源文件
@@ -101,8 +102,7 @@ struct BuilderThingComponent {
         .fontSize(24)
         .decoration({ type: this.isFinished ? TextDecorationType.LineThrough : TextDecorationType.None })
         .onClick(() => {
-          // 请将$r('app.string.la_la')替换为实际资源文件，在本示例中该资源文件的value值为"啦"
-          this.thing += this.getUIContext().getHostContext()!.resourceManager.getStringSync($r('app.string.la_la').id);
+          this.thing += 'lala';
         })
     }
     .height('8%')
@@ -125,7 +125,7 @@ struct BuilderIndex {
   aboutToAppear(): void {
     for (let i = 0; i < this.data.planList.length; i++) {
       this.data.planList[i] =
-        this.getUIContext().getHostContext()!.resourceManager.getStringSync((this.data.planList[i] as Resource).id);
+        resource.resourceToString(this.data.planList[i] as Resource);
     }
   }
 
@@ -139,7 +139,7 @@ struct BuilderIndex {
 
       List() {
         ForEach(this.data.planList, (item: string) => {
-          // 待办事项1
+          // 待办事项
           BuilderThingComponent({ isFinished: this.isFinished, thing: item })
             .margin(5)
         })

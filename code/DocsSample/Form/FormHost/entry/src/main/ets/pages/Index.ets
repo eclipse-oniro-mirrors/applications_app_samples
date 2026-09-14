@@ -66,9 +66,7 @@ struct formHostSample {
     descriptionId: 0,
     type: formInfo.FormType.eTS,
     jsComponentName: '',
-    // [StartExclude form_host_index]
-    colorMode: formInfo.ColorMode.MODE_AUTO,
-    // [EndExclude form_host_index]
+    colorMode: -1,
     isDefault: false,
     updateEnabled: false,
     formVisibleNotify: true,
@@ -192,7 +190,7 @@ struct formHostSample {
     let formHapRecordMap: HashMap<string, formInfo.FormInfo[]> = new HashMap();
     this.formInfoRecord = [];
     formHost.getAllFormsInfo().then((formList: Array<formInfo.FormInfo>) => {
-      hilog.info(DOMAIN_NUMBER, TAG, 'getALlFormsInfo size:' + formList.length);
+      hilog.info(DOMAIN_NUMBER, TAG, 'getAllFormsInfo size:' + formList.length);
       for (let formItemInfo of formList) {
         let formBundleName = formItemInfo.bundleName;
         if (formHapRecordMap.hasKey(formBundleName)) {
@@ -238,13 +236,13 @@ struct formHostSample {
             this.getAllBundleFormsInfo();
           })
 
-        // 点击按钮弹出选择界面，点击确定后，添加默认尺寸的所选卡片。
+        // 点击按钮弹出选择界面，选择卡片后通过FormComponent显示所选卡片。
         // 请将$r('app.string.selectAddForm')替换为实际资源文件，在本示例中该资源文件的value值为"选择添加卡片"
         Button($r('app.string.selectAddForm'))
           .enabled(this.showFormPicker)
           .onClick(() => {
             hilog.info(DOMAIN_NUMBER, TAG, 'TextPickerDialog: show()');
-            TextPickerDialog.show({
+            this.getUIContext().showTextPickerDialog({
               range: this.formInfoRecord,
               selected: this.pickDialogIndex,
               canLoop: false,

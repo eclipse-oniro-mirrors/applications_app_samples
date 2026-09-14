@@ -1,0 +1,13 @@
+{
+  "color": [
+    { "name": "start_window_background", "value": "#FFFFFF" },
+    { "name": "app_primary", "value": "#0A59F7" },
+    { "name": "app_bg", "value": "#F1F3F5" },
+    { "name": "card_bg", "value": "#FFFFFF" },
+    { "name": "text_primary", "value": "#181818" },
+    { "name": "text_secondary", "value": "#999999" },
+    { "name": "divider", "value": "#E5E5E5" },
+    { "name": "ok_green", "value": "#36D399" },
+    { "name": "err_red", "value": "#F87171" }
+  ]
+}

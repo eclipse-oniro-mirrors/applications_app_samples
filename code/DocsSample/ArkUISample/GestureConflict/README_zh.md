@@ -8,12 +8,13 @@
 
 ## 效果预览
 
-| 首页                                    | 自定义手势判定                             |
-|---------------------------------------|-------------------------------------|
-| ![](screenshots/Home.jpg)       | ![](screenshots/userDefined.jpg)    |
-| 手势并行动态控制                              | 阻止手势参与识别                            |
-| ![](screenshots/kineticControl.jpg)   | ![](screenshots/Stop.jpg)  |
-
+| 首页                                        | 自定义手势判定                          |
+|-------------------------------------------|----------------------------------|
+| ![](screenshots/Home.jpg)                 | ![](screenshots/userDefined.jpg) |
+| 手势并行动态控制                                  | 阻止手势参与识别                         |
+| ![](screenshots/kineticControl.jpg)       | ![](screenshots/Stop.jpg)        |
+| 自定义手势并行动态控制                               | 自定义干预事件和手势的收集结果                  |
+| ![](screenshots/CustomkineticControl.jpg) | ![](screenshots/Intercept.jpg)   | 
 
 ### 使用说明
 
@@ -41,9 +42,13 @@ entry/src/main/ets/
 └── Component/GestureAndMotionControl
     └── GestureAndMotionControl.ets      // 手势并行动态控制页面
     └── GestureControl.ets               // 手势并行动态控制页面片段
+└── Component/CustomGestureAndMotionControl
+    └── CustomGestureControl.ets         // 自定义手势并行动态控制页面
 └── Component/PreventGestureRecognition
     └── PreventGestureRecognition.ets    //  阻止手势参与识别页面
     └── PreventIdentification.ets        //  阻止手势参与识别页面片段
+└── Component/InterceptGestureCollection
+    └── InterceptGestureCollection.ets    //  自定义干预手势的收集结果
 ```
 
 ### 具体实现

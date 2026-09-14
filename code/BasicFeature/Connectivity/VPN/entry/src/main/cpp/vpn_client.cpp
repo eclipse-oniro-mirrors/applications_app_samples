@@ -62,13 +62,34 @@ static constexpr const int MAX_STRING_LENGTH = 1024;
 static std::string GetStringFromValueUtf8(napi_env env, napi_value value)
 {
     std::string result;
+    napi_valuetype valType = napi_undefined;
+    napi_status status = napi_typeof(env, value, &valType);
+    if (status != napi_ok || valType != napi_string) {
+        NETMANAGER_VPN_LOGE("value is not string type, status: %{public}d, type: %{public}d", status, valType);
+        return result;
+    }
+
+    size_t strLen = 0;
+    status = napi_get_value_string_utf8(env, value, nullptr, 0, &strLen);
+    if (status != napi_ok || strLen == 0) {
+        NETMANAGER_VPN_LOGE("napi_get_value_string_utf8 get length failed, status: %{public}d", status);
+        return result;
+    }
+
+    if (strLen >= MAX_STRING_LENGTH) {
+        NETMANAGER_VPN_LOGE("string length %{public}zu exceeds buffer size %{public}d, will be truncated", strLen,
+                            MAX_STRING_LENGTH);
+    }
+
     char str[MAX_STRING_LENGTH] = {0};
     size_t length = 0;
-    napi_get_value_string_utf8(env, value, str, MAX_STRING_LENGTH, &length);
-    if (length > 0) {
-        return result.append(str, length);
+    status = napi_get_value_string_utf8(env, value, str, MAX_STRING_LENGTH, &length);
+    if (status != napi_ok || length == 0) {
+        NETMANAGER_VPN_LOGE("napi_get_value_string_utf8 copy failed, status: %{public}d, length: %{public}zu", status,
+                            length);
+        return result;
     }
-    return result;
+    return result.append(str, length);
 }
 
 static void HandleReadTunfd(FdInfo fdInfo)
@@ -89,7 +110,7 @@ static void HandleReadTunfd(FdInfo fdInfo)
         }
 
         // Read the data from the virtual network interface and send it to the client through a TCP tunnel.
-        NETMANAGER_VPN_LOGD("buffer: %{public}s, len: %{public}d", buffer, ret);
+        NETMANAGER_VPN_LOGD("buffer: %{public}.*s, len: %{public}d", ret, buffer, ret);
         ret = sendto(fdInfo.tunnelFd, buffer, ret, 0,
                      reinterpret_cast<struct sockaddr *>(&fdInfo.serverAddr), sizeof(fdInfo.serverAddr));
         if (ret <= 0) {
@@ -121,8 +142,8 @@ static void HandleTcpReceived(FdInfo fdInfo)
             continue;
         }
 
-        NETMANAGER_VPN_LOGI("from [%{public}s:%{public}d] data: %{public}s, len: %{public}d",
-                            inet_ntoa(fdInfo.serverAddr.sin_addr), ntohs(fdInfo.serverAddr.sin_port), buffer, length);
+        NETMANAGER_VPN_LOGI("from [%{public}s:%{public}d] data: %{public}.*s, len: %{public}d",
+        inet_ntoa(fdInfo.serverAddr.sin_addr), ntohs(fdInfo.serverAddr.sin_port), length, buffer, length);
         int ret = write(fdInfo.tunFd, buffer, length);
         if (ret <= 0) {
             NETMANAGER_VPN_LOGE("error Write To Tunfd, errno: %{public}d", errno);

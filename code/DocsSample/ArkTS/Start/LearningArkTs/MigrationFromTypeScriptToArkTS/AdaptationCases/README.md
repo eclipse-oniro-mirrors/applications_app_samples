@@ -33,9 +33,7 @@ entry/src/
  │   │       ├── module1.ets                             // arkts-no-type-query
  │   │       ├── module2.ets                             // arkts-no-type-query
  │   │       ├── StrictModeCheck.ets                     // 严格模式检查
- │   │       ├── test.d.ets                              // arkts-no-spread
- │   │       ├── UsingStateVariablesOutsideOfStructs.ets // Struct组件外使用状态变量
- │   │       └── UsingUnionTypesInStructs.ets            // Struct支持联合类型的方案
+ │   │       └── test.d.ets                              // arkts-no-spread
  │   └── tsPages                                         // TypeScript建议代码
  │       ├── app.ts                                      // export default对象
  │       ├── BasicAdaptation.ts                          // ts主要适配示例代码
@@ -80,6 +78,6 @@ entry/src/
 git init
 git config core.sparsecheckout true
 echo code/DocsSample/ArkTS/Start/LearningArkTs/MigrationFromTypeScriptToArkTS/AdaptationCases > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

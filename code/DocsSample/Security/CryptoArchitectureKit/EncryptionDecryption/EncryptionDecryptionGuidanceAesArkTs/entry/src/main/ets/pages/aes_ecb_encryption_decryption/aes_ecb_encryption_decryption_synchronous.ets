@@ -41,7 +41,7 @@ function genSymKeyByData(symKeyData: Uint8Array) {
   return symKey;
 }
 
-function main() {
+function aesECBSync() {
   try {
     let keyData = new Uint8Array([83, 217, 231, 76, 28, 113, 23, 219, 250, 71, 209, 210, 205, 97, 32, 159]);
     let symKey = genSymKeyByData(keyData);
@@ -73,7 +73,7 @@ struct Index {
         .width('70%')
         .onClick(() => {
           try {
-            main();
+            aesECBSync();
             this.message = 'AES_ECBSynchronousSuccess';
           } catch {
             this.message = 'AES_ECBSynchronousFail';

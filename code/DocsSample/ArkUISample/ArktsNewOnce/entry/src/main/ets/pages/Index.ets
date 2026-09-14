@@ -23,22 +23,32 @@ class Info {
 }
 @ComponentV2
 struct Child {
+  // @Once与@Param结合使用时，可以在本地修改，并能够触发UI刷新
   @Param @Once onceParamNum: number = 0;
   @Param @Once @Require onceParamInfo: Info;
 
   build() {
     Column() {
       Text(`Child onceParamNum: ${this.onceParamNum}`)
+        .fontSize(20)
+        .margin(10)
       Text(`Child onceParamInfo: ${this.onceParamInfo.name}`)
+        .fontSize(20)
+        .margin(10)
       Button('changeOnceParamNum')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.onceParamNum++;
         })
       Button('changeParamInfo')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.onceParamInfo = new Info('Cindy');
         })
     }
+    .width('100%')
   }
 }
 @Entry
@@ -50,12 +60,20 @@ struct Index {
   build() {
     Column() {
       Text(`Parent localNum: ${this.localNum}`)
+        .fontSize(20)
+        .margin(10)
       Text(`Parent localInfo: ${this.localInfo.name}`)
+        .fontSize(20)
+        .margin(10)
       Button('changeLocalNum')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.localNum++;
         })
       Button('changeLocalInfo')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.localInfo = new Info('Cindy');
         })
@@ -64,6 +82,7 @@ struct Index {
         onceParamInfo: this.localInfo
       })
     }
+    .width('100%')
   }
 }
 // [End once_param_modify_init]

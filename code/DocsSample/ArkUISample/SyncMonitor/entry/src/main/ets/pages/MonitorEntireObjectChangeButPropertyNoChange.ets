@@ -71,3 +71,12 @@ struct Index {
   }
 }
 // [End monitor_entire_object_change_but_property_no_change]
+
+@Builder
+export function monitorEntireObjectChangeButPropertyNoChange() {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.monitor_entire_object_change_but_property_no_change'))
+}

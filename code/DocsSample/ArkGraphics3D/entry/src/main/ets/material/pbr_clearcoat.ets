@@ -96,7 +96,7 @@ struct pbr_clearcoat {
           // [End pbr_clearcoat_createIBL]
           // Create and set up the camera to view the scene and enable orbit control
           // [Start pbr_clearcoat_createCamera]
-          this.cam = await rf.createCamera({ 'name': 'ClearcoatCam' });
+          this.cam = await rf.createCamera({ name: 'ClearcoatCam' });
           this.cam.enabled = true;
           lookAt(this.cam,{x:0,y:0,z:-3},{x:0,y:0,z:0},{x:0,y:1,z:0});
           this.sceneOpt = { scene: this.scene, modelType: ModelType.SURFACE } as SceneOptions;

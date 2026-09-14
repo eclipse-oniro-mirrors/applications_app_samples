@@ -29,18 +29,23 @@ struct PersistedDate {
       ListItem() {
         Column() {
           Text(`Persisted Date is ${this.persistedDate.toString()}`)
+            .fontSize(20)
             .margin(20)
 
           Text(`Persisted Date year is ${this.persistedDate.getFullYear()}`)
+            .fontSize(20)
             .margin(20)
 
           Text(`Persisted Date hours is ${this.persistedDate.getHours()}`)
+            .fontSize(20)
             .margin(20)
 
           Text(`Persisted Date minutes is ${this.persistedDate.getMinutes()}`)
+            .fontSize(20)
             .margin(20)
 
           Text(`Persisted Date time is ${this.persistedDate.toLocaleTimeString()}`)
+            .fontSize(20)
             .margin(20)
 
           Button() {
@@ -57,10 +62,11 @@ struct PersistedDate {
           .width('60%')
           .height('5%')
           .onClick(() => {
+            // 改变persistedDate的值，视图会随之刷新
             this.updateDate();
           })
-
-        }.width('100%')
+        }
+        .width('100%')
       }
     }
   }

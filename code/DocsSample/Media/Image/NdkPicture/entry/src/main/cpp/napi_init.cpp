@@ -21,6 +21,7 @@
 #include <multimedia/image_framework/image/picture_native.h>
 #include <multimedia/image_framework/image/pixelmap_native.h>
 #include <string>
+#include <vector>
 
 #define IMG_IS_OK(x) ((x) == napi_ok)
 
@@ -46,6 +47,23 @@
 
 const char *APP_LOG_TAG = "MultiMediaImage";
 const char *PROJECT_TAG = "[NdkPicture]";
+constexpr size_t FILE_PATH_ARGUMENT_COUNT = 1;
+constexpr size_t FILE_PATH_ARGUMENT_INDEX = 0;
+constexpr size_t AUXILIARY_PICTURE_ARGUMENT_COUNT = 3;
+constexpr size_t AUXILIARY_PICTURE_BUFFER_ARGUMENT_INDEX = 0;
+constexpr size_t AUXILIARY_PICTURE_SIZE_ARGUMENT_INDEX = 1;
+constexpr size_t AUXILIARY_PICTURE_TYPE_ARGUMENT_INDEX = 2;
+constexpr size_t AUXILIARY_TYPE_ARGUMENT_COUNT = 1;
+constexpr size_t AUXILIARY_TYPE_ARGUMENT_INDEX = 0;
+constexpr size_t FILE_DESCRIPTOR_ARGUMENT_COUNT = 1;
+constexpr size_t FILE_DESCRIPTOR_ARGUMENT_INDEX = 0;
+
+struct AuxiliaryPictureCreateArgs {
+    uint8_t *data = nullptr;
+    size_t dataLength = 0;
+    Image_Size size = {};
+    Image_AuxiliaryPictureType type = Image_AuxiliaryPictureType::AUXILIARY_PICTURE_TYPE_GAINMAP;
+};
 
 class ImagePictureNative {
 public:
@@ -74,8 +92,20 @@ napi_value getJsResult(napi_env env, int result) {
     return resultNapi;
 }
 
+static napi_status GetUtf8String(napi_env env, napi_value value, std::vector<char> &buffer, size_t &filePathSize)
+{
+    napi_status status = napi_get_value_string_utf8(env, value, nullptr, 0, &filePathSize);
+    if (status != napi_ok) {
+        return status;
+    }
+
+    buffer.resize(filePathSize + 1);
+    return napi_get_value_string_utf8(env, value, buffer.data(), buffer.size(), &filePathSize);
+}
+
 // 传入图片文件路径，解码得到PixelMap
-Image_ErrorCode CreatePixelmap(char filePath[1024], size_t filePathSize) {
+Image_ErrorCode CreatePixelmap(char *filePath, size_t filePathSize)
+{
     if (ndkPicture_->source_ != nullptr) {
         OH_ImageSourceNative_Release(ndkPicture_->source_);
         ndkPicture_->source_ = nullptr;
@@ -106,20 +136,24 @@ Image_ErrorCode CreatePixelmap(char filePath[1024], size_t filePathSize) {
 
 // 使用PixelMap创建Picture，通过这种方式创建的Picture仅包含主图
 static napi_value CreatePicture(napi_env env, napi_callback_info info) {
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
+    size_t argc = FILE_PATH_ARGUMENT_COUNT;
+    napi_value args[FILE_PATH_ARGUMENT_COUNT] = {nullptr};
     napi_value result = nullptr;
 
-    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < 1 || args[0] == nullptr) {
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok ||
+        argc < FILE_PATH_ARGUMENT_COUNT || args[FILE_PATH_ARGUMENT_INDEX] == nullptr) {
         H_LOGE("%{public}s CreatePicture_ napi_get_cb_info failed !", PROJECT_TAG);
         return getJsResult(env, IMAGE_BAD_PARAMETER);
     }
 
-    char filePath[1024];
-    size_t filePathSize;
-    napi_get_value_string_utf8(env, args[0], filePath, 1024, &filePathSize);
+    std::vector<char> filePath;
+    size_t filePathSize = 0;
+    if (GetUtf8String(env, args[FILE_PATH_ARGUMENT_INDEX], filePath, filePathSize) != napi_ok) {
+        H_LOGE("%{public}s CreatePicture_ argument must be a UTF-8 string.", PROJECT_TAG);
+        return getJsResult(env, IMAGE_BAD_PARAMETER);
+    }
 
-    ndkPicture_->errCode_ = CreatePixelmap(filePath, filePathSize);
+    ndkPicture_->errCode_ = CreatePixelmap(filePath.data(), filePathSize);
     if (ndkPicture_->picture_ != nullptr) {
         ndkPicture_->errCode_ = OH_PictureNative_Release(ndkPicture_->picture_);
         ndkPicture_->picture_ = nullptr;
@@ -150,26 +184,31 @@ static napi_value CreatePicture(napi_env env, napi_callback_info info) {
     return getJsResult(env, ndkPicture_->errCode_);
 }
 
-// 使用ImageSource创建Picture，通过这种方式创建的Picture会包含主图、辅助图、元数据（如果原图有辅助图和元数据）
+// 使用ImageSource创建Picture。若原图包含辅助图和元数据，创建的Picture也会包含这些内容。
 static napi_value CreatePictureByImageSource(napi_env env, napi_callback_info info) {
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
+    size_t argc = FILE_PATH_ARGUMENT_COUNT;
+    napi_value args[FILE_PATH_ARGUMENT_COUNT] = {nullptr};
     napi_value result = nullptr;
 
-    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < 1 || args[0] == nullptr) {
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok ||
+        argc < FILE_PATH_ARGUMENT_COUNT || args[FILE_PATH_ARGUMENT_INDEX] == nullptr) {
         H_LOGE("%{public}s CreatePicture_ napi_get_cb_info failed !", PROJECT_TAG);
         return getJsResult(env, IMAGE_BAD_PARAMETER);
     }
-    char filePath[1024];
-    size_t filePathSize;
-    napi_get_value_string_utf8(env, args[0], filePath, 1024, &filePathSize);
+    std::vector<char> filePath;
+    size_t filePathSize = 0;
+    if (GetUtf8String(env, args[FILE_PATH_ARGUMENT_INDEX], filePath, filePathSize) != napi_ok) {
+        H_LOGE("%{public}s CreatePictureByImageSource argument must be a UTF-8 string.", PROJECT_TAG);
+        return getJsResult(env, IMAGE_BAD_PARAMETER);
+    }
 
     if (ndkPicture_->source_ != nullptr) {
         OH_ImageSourceNative_Release(ndkPicture_->source_);
         ndkPicture_->source_ = nullptr;
     }
 
-    ndkPicture_->errCode_ = OH_ImageSourceNative_CreateFromUri(filePath, filePathSize, &ndkPicture_->source_);
+    ndkPicture_->errCode_ =
+        OH_ImageSourceNative_CreateFromUri(filePath.data(), filePathSize, &ndkPicture_->source_);
     if (ndkPicture_->errCode_ != IMAGE_SUCCESS) {
         H_LOGE("%{public}s OH_ImageSourceNative_CreateFromUri failed, errCode: %{public}d.", PROJECT_TAG,
                ndkPicture_->errCode_);
@@ -267,49 +306,89 @@ static napi_value GetHdrComposedPixelMap(napi_env env, napi_callback_info info) 
     return getJsResult(env, ndkPicture_->errCode_);
 }
 
-static napi_value CreateAuxiliaryPicture(napi_env env, napi_callback_info info) {
-    napi_value result = nullptr;
-    napi_get_undefined(env, &result);
-    napi_status status;
+static bool GetAuxiliaryPictureSize(napi_env env, napi_value sizeValue, Image_Size &size)
+{
+    napi_value widthValue = nullptr;
+    napi_value heightValue = nullptr;
+    napi_status status = napi_get_named_property(env, sizeValue, "width", &widthValue);
+    if (status != napi_ok) {
+        H_LOGE("Fail to get auxiliary picture width");
+        return false;
+    }
+    status = napi_get_value_uint32(env, widthValue, &size.width);
+    if (status != napi_ok) {
+        H_LOGE("Auxiliary picture width must be uint32");
+        return false;
+    }
+    status = napi_get_named_property(env, sizeValue, "height", &heightValue);
+    if (status != napi_ok) {
+        H_LOGE("Fail to get auxiliary picture height");
+        return false;
+    }
+    status = napi_get_value_uint32(env, heightValue, &size.height);
+    if (status != napi_ok) {
+        H_LOGE("Auxiliary picture height must be uint32");
+        return false;
+    }
+    return true;
+}
 
-    size_t argc = 3;
-    napi_value args[3] = {nullptr};
+static bool GetAuxiliaryPictureType(napi_env env, napi_value typeValue, Image_AuxiliaryPictureType &type)
+{
+    int32_t auxiliaryType = 0;
+    napi_status status = napi_get_value_int32(env, typeValue, &auxiliaryType);
+    if (status != napi_ok) {
+        H_LOGE("Auxiliary picture type must be int32");
+        return false;
+    }
+    if (auxiliaryType >= static_cast<int32_t>(Image_AuxiliaryPictureType::AUXILIARY_PICTURE_TYPE_GAINMAP) &&
+        auxiliaryType <= static_cast<int32_t>(Image_AuxiliaryPictureType::AUXILIARY_PICTURE_TYPE_FRAGMENT_MAP)) {
+        H_LOGI("%{public}s OH_AuxiliaryPictureNative_Create type: %{public}d.", PROJECT_TAG, auxiliaryType);
+    } else {
+        H_LOGI("%{public}s OH_AuxiliaryPictureNative_Create type is set GAINMAP: %{public}d.", PROJECT_TAG,
+               auxiliaryType);
+        auxiliaryType = static_cast<int32_t>(Image_AuxiliaryPictureType::AUXILIARY_PICTURE_TYPE_GAINMAP);
+    }
+    type = static_cast<Image_AuxiliaryPictureType>(auxiliaryType);
+    return true;
+}
 
-    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < 3 || args[0] == nullptr ||
-        args[1] == nullptr || args[2] == nullptr) {
+static bool GetAuxiliaryPictureCreateArgs(napi_env env, napi_callback_info info, AuxiliaryPictureCreateArgs &createArgs)
+{
+    size_t argc = AUXILIARY_PICTURE_ARGUMENT_COUNT;
+    napi_value napiArgs[AUXILIARY_PICTURE_ARGUMENT_COUNT] = {nullptr};
+    if (napi_get_cb_info(env, info, &argc, napiArgs, nullptr, nullptr) != napi_ok ||
+        argc < AUXILIARY_PICTURE_ARGUMENT_COUNT ||
+        napiArgs[AUXILIARY_PICTURE_BUFFER_ARGUMENT_INDEX] == nullptr ||
+        napiArgs[AUXILIARY_PICTURE_SIZE_ARGUMENT_INDEX] == nullptr ||
+        napiArgs[AUXILIARY_PICTURE_TYPE_ARGUMENT_INDEX] == nullptr) {
         H_LOGE("%{public}s OH_AuxiliaryPictureNative_Create napi_get_cb_info failed !", PROJECT_TAG);
+        return false;
+    }
+    void *data0;
+    napi_status status =
+        napi_get_arraybuffer_info(env, napiArgs[AUXILIARY_PICTURE_BUFFER_ARGUMENT_INDEX], &data0,
+                                  &createArgs.dataLength);
+    if (status != napi_ok) {
+        H_LOGE("Fail to get auxiliary picture buffer");
+        return false;
+    }
+    createArgs.data = reinterpret_cast<uint8_t *>(data0);
+    return GetAuxiliaryPictureSize(env, napiArgs[AUXILIARY_PICTURE_SIZE_ARGUMENT_INDEX], createArgs.size) &&
+        GetAuxiliaryPictureType(env, napiArgs[AUXILIARY_PICTURE_TYPE_ARGUMENT_INDEX], createArgs.type);
+}
+
+static napi_value CreateAuxiliaryPicture(napi_env env, napi_callback_info info)
+{
+    AuxiliaryPictureCreateArgs createArgs;
+    if (!GetAuxiliaryPictureCreateArgs(env, info, createArgs)) {
         return getJsResult(env, IMAGE_BAD_PARAMETER);
     }
 
-    void *data0;
-    size_t dataLength = 10;
-    status = napi_get_arraybuffer_info(env, args[0], &data0, &dataLength);
-    IMG_NAPI_CHECK_RET_D(IMG_IS_OK(status), nullptr, H_LOGE("Fail to get auxiliary picture buffer"));
-    uint8_t *data = reinterpret_cast<uint8_t *>(data0);
-
-    Image_Size *size;
-    napi_value tempValue = nullptr;
-    napi_value tempValue2 = nullptr;
-    IMG_IS_OK(napi_get_named_property(env, args[1], "width", &tempValue));
-    IMG_IS_OK(napi_get_value_uint32(env, tempValue, &size->width));
-    IMG_IS_OK(napi_get_named_property(env, args[1], "height", &tempValue2));
-    IMG_IS_OK(napi_get_value_uint32(env, tempValue2, &size->height));
-
-    int32_t value = 0; // auxType是指向了这个变量的指针
-    int32_t *auxType = &value;
-    status = napi_get_value_int32(env, args[2], auxType);
-    if (*auxType >= static_cast<int32_t>(Image_AuxiliaryPictureType::AUXILIARY_PICTURE_TYPE_GAINMAP) &&
-        *auxType <= static_cast<int32_t>(Image_AuxiliaryPictureType::AUXILIARY_PICTURE_TYPE_FRAGMENT_MAP)) {
-        H_LOGI("%{public}s OH_AuxiliaryPictureNative_Create type: %{public}d.", PROJECT_TAG, *auxType);
-    } else {
-        H_LOGI("%{public}s OH_AuxiliaryPictureNative_Create type is set GAINMAP: %{public}d.", PROJECT_TAG, *auxType);
-        *auxType = static_cast<int32_t>(Image_AuxiliaryPictureType::AUXILIARY_PICTURE_TYPE_GAINMAP);
-    }
-    Image_AuxiliaryPictureType *type = reinterpret_cast<Image_AuxiliaryPictureType *>(auxType);
-
+    napi_value result = nullptr;
     ndkPicture_->errCode_ =
-        OH_AuxiliaryPictureNative_Create(data, dataLength, size, *type, &ndkPicture_->auxiliaryPicture_);
-
+        OH_AuxiliaryPictureNative_Create(createArgs.data, createArgs.dataLength, &createArgs.size, createArgs.type,
+                                         &ndkPicture_->auxiliaryPicture_);
     if (ndkPicture_->errCode_ != IMAGE_SUCCESS || !ndkPicture_->auxiliaryPicture_) {
         H_LOGE("%{public}s OH_AuxiliaryPictureNative_Create failed, errCode: %{public}d.", PROJECT_TAG,
                ndkPicture_->errCode_);
@@ -323,7 +402,6 @@ static napi_value CreateAuxiliaryPicture(napi_env env, napi_callback_info info) 
         }
         H_LOGI("%{public}s OH_AuxiliaryPictureNative_Create success !", PROJECT_TAG);
     }
-
     return getJsResult(env, ndkPicture_->errCode_);
 }
 
@@ -344,17 +422,18 @@ static napi_value GetAuxType(napi_env env, napi_callback_info info) {
 
 static napi_value SetAuxiliaryPicture(napi_env env, napi_callback_info info) {
     napi_status status;
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
+    size_t argc = AUXILIARY_TYPE_ARGUMENT_COUNT;
+    napi_value args[AUXILIARY_TYPE_ARGUMENT_COUNT] = {nullptr};
 
-    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < 1 || args[0] == nullptr) {
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok ||
+        argc < AUXILIARY_TYPE_ARGUMENT_COUNT || args[AUXILIARY_TYPE_ARGUMENT_INDEX] == nullptr) {
         H_LOGE("%{public}s CreatePicture_ napi_get_cb_info failed !", PROJECT_TAG);
         return getJsResult(env, IMAGE_BAD_PARAMETER);
     }
 
     int32_t value = 0; // 假设 auxType 指向了这个变量的地址
     int32_t *auxType = &value;
-    status = napi_get_value_int32(env, args[0], auxType);
+    status = napi_get_value_int32(env, args[AUXILIARY_TYPE_ARGUMENT_INDEX], auxType);
     if (*auxType >= static_cast<int32_t>(Image_AuxiliaryPictureType::AUXILIARY_PICTURE_TYPE_GAINMAP) &&
         *auxType <= static_cast<int32_t>(Image_AuxiliaryPictureType::AUXILIARY_PICTURE_TYPE_FRAGMENT_MAP)) {
         H_LOGI("%{public}s OH_AuxiliaryPictureNative_Create type: %{public}d.", PROJECT_TAG, *auxType);
@@ -386,17 +465,18 @@ static napi_value GetAuxiliaryPicture(napi_env env, napi_callback_info info) {
     napi_value result = nullptr;
     napi_get_undefined(env, &result);
     napi_status status;
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
+    size_t argc = AUXILIARY_TYPE_ARGUMENT_COUNT;
+    napi_value args[AUXILIARY_TYPE_ARGUMENT_COUNT] = {nullptr};
 
-    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < 1 || args[0] == nullptr) {
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok ||
+        argc < AUXILIARY_TYPE_ARGUMENT_COUNT || args[AUXILIARY_TYPE_ARGUMENT_INDEX] == nullptr) {
         H_LOGE("%{public}s CreatePicture_ napi_get_cb_info failed !", PROJECT_TAG);
         return getJsResult(env, IMAGE_BAD_PARAMETER);
     }
 
     int32_t value = 0; // 假设 auxType 指向了这个变量的地址
     int32_t *auxType = &value;
-    status = napi_get_value_int32(env, args[0], auxType);
+    status = napi_get_value_int32(env, args[AUXILIARY_TYPE_ARGUMENT_INDEX], auxType);
     if (*auxType >= static_cast<int32_t>(Image_AuxiliaryPictureType::AUXILIARY_PICTURE_TYPE_GAINMAP) &&
         *auxType <= static_cast<int32_t>(Image_AuxiliaryPictureType::AUXILIARY_PICTURE_TYPE_FRAGMENT_MAP)) {
         H_LOGI("%{public}s OH_AuxiliaryPictureNative_Create type: %{public}d.", PROJECT_TAG, *auxType);
@@ -464,15 +544,15 @@ static napi_value PackToData(napi_env env, napi_callback_info info) {
 // 将Picture编码到图片文件
 static napi_value PackToFile(napi_env env, napi_callback_info info) {
     napi_value result;
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
+    size_t argc = FILE_DESCRIPTOR_ARGUMENT_COUNT;
+    napi_value args[FILE_DESCRIPTOR_ARGUMENT_COUNT] = {nullptr};
     if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok) {
         napi_create_int32(env, -1, &result);
         H_LOGE("%{public}s napi_get_cb_info failed !", PROJECT_TAG);
         return getJsResult(env, ndkPicture_->errCode_);
     }
     uint32_t fd = 0;
-    napi_get_value_uint32(env, args[0], &fd);
+    napi_get_value_uint32(env, args[FILE_DESCRIPTOR_ARGUMENT_INDEX], &fd);
 
     if (ndkPicture_->packerOptions_ == nullptr) {
         ndkPicture_->errCode_ = OH_PackingOptions_Create(&ndkPicture_->packerOptions_);

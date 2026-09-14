@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 // [Start no_destructParams]
-function drawText(text: String, location: number[], bold: boolean) {
+function drawText(text: string, location: number[], bold: boolean) {
   let x = location[0];
   let y = location[1];
   text;

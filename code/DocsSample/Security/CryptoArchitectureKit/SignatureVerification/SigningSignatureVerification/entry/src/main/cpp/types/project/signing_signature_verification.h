@@ -20,10 +20,14 @@
 #include "CryptoArchitectureKit/crypto_asym_key.h"
 
 bool DoTestRsaSignature();
+bool DoTestRsaVerify();
 bool DoTestRsaSignatureSeg();
+bool DoTestRsaSignatureVerifySeg();
 OH_Crypto_ErrCode DoTestRsaSignatureRecover();
-bool DoTestRsaPssSignatureSeg();
-bool DoTestEcdsaSignature();
+bool DoTestRsaPssVerifySeg();
+bool DoTestRsaPssSignSeg();
+bool DoTestEcdsaSign();
+bool DoTestEcdsaVerify();
 bool DoTestSm2Signature();
 OH_Crypto_ErrCode DoTestSm2RStoDER();
 OH_Crypto_ErrCode DoTestSm2DerConvertRS();

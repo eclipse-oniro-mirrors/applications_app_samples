@@ -1,3 +1,4 @@
+# [Start cmake_lists]
 # the minimum version of CMake.
 cmake_minimum_required(VERSION 3.4.1)
 project(XComponent)
@@ -25,52 +26,47 @@ add_library(nativerender SHARED
 )
 
 find_library(
-    # Sets the name of the path variable.
+    # 设置路径变量的名称。
     EGL-lib
-    # Specifies the name of the NDK library that
-    # you want CMake to locate.
+    # 指定要让CMake查找的NDK库的名称。
     EGL
 )
 
 find_library(
-    # Sets the name of the path variable.
+    # 设置路径变量的名称。
     GLES-lib
-    # Specifies the name of the NDK library that
-    # you want CMake to locate.
+    # 指定要让CMake查找的NDK库的名称。
     GLESv3
 )
 
 find_library(
-    # Sets the name of the path variable.
+    # 设置路径变量的名称。
     hilog-lib
-    # Specifies the name of the NDK library that
-    # you want CMake to locate.
+    # 指定要让CMake查找的NDK库的名称。
     hilog_ndk.z
 )
 
 find_library(
-    # Sets the name of the path variable.
+    # 设置路径变量的名称。
     libace-lib
-    # Specifies the name of the NDK library that
-    # you want CMake to locate.
+    # 指定要让CMake查找的NDK库的名称。
     ace_ndk.z
 )
 
 find_library(
-    # Sets the name of the path variable.
+    # 设置路径变量的名称。
     libnapi-lib
-    # Specifies the name of the NDK library that
-    # you want CMake to locate.
+    # 指定要让CMake查找的NDK库的名称。
     ace_napi.z
 )
 
 find_library(
-    # Sets the name of the path variable.
+    # 设置路径变量的名称。
     libuv-lib
-    # Specifies the name of the NDK library that
-    # you want CMake to locate.
+    # 指定要让CMake查找的NDK库的名称。
     uv
 )
 
 target_link_libraries(nativerender PUBLIC
     ${EGL-lib} ${GLES-lib} ${hilog-lib} ${libace-lib} ${libnapi-lib} ${libuv-lib} libnative_window.so)
+# [End cmake_lists]

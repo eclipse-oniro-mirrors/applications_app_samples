@@ -18,15 +18,13 @@ import { notificationManager } from '@kit.NotificationKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { contextConstant, common } from '@kit.AbilityKit';
-import fs from '@ohos.file.fs';
-import fileUri from '@ohos.file.fileuri';
+import { fileIo as fs, fileUri } from '@kit.CoreFileKit';
 
 const TAG: string = '[SpecifiedCustomizedRingtone]';
 const DOMAIN_NUMBER: number = 0xFF00;
 const SOUND_FILE_NAME: string = 'ringtone_demo.mp3'; // 实际项目中请替换为自己的音频文件
 // [End specified_customized_ringtone_header]
 
-@Entry
 @Component
 export struct SpecifiedCustomizedRingtone {
   @Consume('pageInfos') pageInfos: NavPathStack;
@@ -48,7 +46,7 @@ export struct SpecifiedCustomizedRingtone {
     }
 
     notificationManager.publish(notificationRequest).then(() => {
-      hilog.info(DOMAIN_NUMBER, TAG, `Succeeded in publishing notification.`);
+      hilog.info(DOMAIN_NUMBER, TAG, 'Succeeded in publishing notification.');
     }).catch((err: BusinessError) => {
       hilog.error(DOMAIN_NUMBER, TAG, `Failed to publish notification. Code is ${err.code}, message is ${err.message}`);
     });
@@ -102,7 +100,7 @@ export struct SpecifiedCustomizedRingtone {
             // [Start specified_sandbox_file]
             // 获取沙箱文件uri
             let sandboxFileUri: string = fileUri.getUriFromPath(sandboxFilePath)
-            let soundFile: string = 'uri::' + sandboxFileUri; // 必须以uri::开头, 且路径中不能包含'../'和'/..'
+            let soundFile: string = 'uri::' + sandboxFileUri; // 必须以uri::开头，且路径中不能包含'../'和'/..'
             // [End specified_sandbox_file]
             this.publishNotification(soundFile);
           })

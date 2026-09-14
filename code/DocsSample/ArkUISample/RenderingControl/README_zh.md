@@ -7,7 +7,8 @@
 1. [if/else：条件渲染](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/rendering-control/arkts-rendering-control-ifelse.md)。
 2. [ForEach：循环渲染](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/rendering-control/arkts-rendering-control-foreach.md)。
 3. [Repeat：可复用的循环渲染](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/rendering-control/arkts-new-rendering-control-repeat.md)。
-3. [LazyForEach：数据懒加载](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/rendering-control/arkts-rendering-control-lazyforeach.md)。
+4. [LazyForEach：数据懒加载](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/rendering-control/arkts-rendering-control-lazyforeach.md)。
+5. [循环渲染迁移（ForEach/LazyForEach迁移Repeat）](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/state-management/arkts-v1-v2-migration-rendering-control-repeat.md)。
 
 ### 效果预览
 
@@ -38,6 +39,8 @@
 4. LazyForEach为开发者提供了基于数据源渲染出一系列子组件的能力。具体而言，LazyForEach从数据源中按需迭代数据，并在每次迭代时创建相应组件。当在滚动容器中使用了LazyForEach，框架会根据滚动容器可视区域按需创建组件，当组件滑出可视区域外时，框架会销毁并回收组件以降低内存占用。
 
 5. Repeat基于数组类型数据来进行循环渲染，一般与容器组件配合使用。Repeat根据容器组件的有效加载范围（屏幕可视区域+预加载区域）加载子组件。当容器滑动/数组改变时，Repeat会根据父容器组件的布局过程重新计算有效加载范围，并管理列表子组件节点的创建与销毁。
+
+6. RepeatMigration模块展示了从V1状态管理迁移到V2状态管理的完整示例，包括ForEach到Repeat的迁移、LazyForEach到Repeat的迁移，涵盖了数据更新、子属性观测、组件复用、模板渲染等多种场景。这些示例帮助开发者理解如何使用状态管理V2的新特性（@ObservedV2、@Trace、@Local、@Param等）来替代V1的特性（@Observed、@ObjectLink、@State等）。
 
 ### 使用说明
 
@@ -71,6 +74,7 @@ entry/src/main/ets/
     │   ├── ForEach1.ets
     │   ├── ForEach2.ets
     │   ├── ForEach3.ets
+    │   ├── ForEachKeyGeneration.ets
     │   ├── ForEachSort.ets
     │   └── NonNecessaryMem.ets
     ├── RenderingIf
@@ -110,6 +114,7 @@ entry/src/main/ets/
     │   ├── RepeatBuilderPage.ets
     │   ├── RepeatExample.ets
     │   ├── RepeatExample2.ets
+    │   ├── RepeatKeyGeneration.ets
     │   ├── RepeatLazyLoading1.ets
     │   ├── RepeatLazyLoading2.ets
     │   ├── RepeatLazyLoading3.ets
@@ -118,6 +123,18 @@ entry/src/main/ets/
     │   ├── RepeatVirtualScroll2T.ets
     │   ├── RepeatVirtualScrollOnMove.ets
     │   └── RepeatAnimation.ets
+    ├── RepeatMigration
+    │   ├── ForEachToRepeatChildProperties.ets
+    │   ├── LazyForEachToRepeatChildProperties.ets
+    │   ├── LazyForEachToRepeatDataUpdate.ets
+    │   ├── LazyForEachToRepeatDragSort.ets
+    │   ├── LazyForEachToRepeatExternalInput.ets
+    │   ├── LazyForEachToRepeatInitialRendering.ets
+    │   ├── LazyForEachToRepeatInternalState.ets
+    │   ├── LazyForEachToRepeatReuseSelf.ets
+    │   ├── LazyForEachToRepeatReuseV2.ets
+    │   ├── LazyForEachToRepeatTemplateCustom.ets
+    │   └── LazyForEachToRepeatTemplateSelf.ets
     └── common
         └── Index.ets
 entry/src/ohosTest/

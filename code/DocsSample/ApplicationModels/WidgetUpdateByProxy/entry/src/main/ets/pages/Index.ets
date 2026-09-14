@@ -108,7 +108,6 @@ struct Index {
         let da: dataSharePredicates.DataSharePredicates = new dataSharePredicates.DataSharePredicates();
         da.equalTo('cityId', conditionID);
         let va: ValuesBucket = {
-          'cityId': '111',
           'type': 'Snow'
         };
 
@@ -139,26 +138,23 @@ struct Index {
     });
   }
 
-  publishPersistentData(): void {
+   publishPersistentData(): void {
     const valueBucket: ValuesBucket = {
-      'cityId': '111',
       'type': 'Snow'
     }
-    let uri = ('datashare://com.samples.widgetupdatebyproxy');
+    let uri = ('datashare:///com.samples.widgetupdatebyproxy');
     try {
-      dataShare.createDataShareHelper(context, uri, { isProxy: true })
+      dataShare.createDataShareHelper(context, uri, { isProxy: false })
         .then((data: dataShare.DataShareHelper) => {
           dataShareHelper = data;
           if (dataShareHelper !== undefined) {
-            // 插入一条数据
-            hilog.info(DOMAIN_NUMBER, TAG, 'createDataShareHelper succeed');
-            (dataShareHelper as dataShare.DataShareHelper).insert(uri, valueBucket, (err: BusinessError, data: number) => {
+            dataShareHelper.insert(uri, valueBucket, (err: BusinessError, data: number) => {
               if (err !== undefined) {
-                hilog.error(DOMAIN_NUMBER, TAG, 'insert error: code:' + JSON.stringify(err) + data);
+                hilog.error(DOMAIN_NUMBER, TAG, 'mast publishPersistentData insert error: code:' + JSON.stringify(err) + data);
                 return;
               }
-              hilog.info(DOMAIN_NUMBER, TAG, 'insert succeed, data : ' + data);
-              // 更新数据
+              hilog.info(DOMAIN_NUMBER, TAG, 'publishPersistentData insert succeed, data : ' + data);
+              conditionID = String(data);
               this.updateRDB();
             });
           }

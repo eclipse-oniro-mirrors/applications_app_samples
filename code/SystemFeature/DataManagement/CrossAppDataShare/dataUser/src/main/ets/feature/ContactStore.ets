@@ -25,13 +25,13 @@ import {
 } from '@ohos/common'
 
 const TAG: string = 'ContactStore'
-let rdbStore: rdb.RdbStore = undefined
+let rdbStore: rdb.RdbStore | undefined = undefined
 
 class ContactStore {
   constructor() {
   }
 
-  async getRdbStore(context: Context) {
+  async getRdbStore(context: Context): Promise<void> {
     try {
       rdbStore = await rdb.getRdbStore(context, STORE_CONFIG)
       await rdbStore.executeSql(SQL_CREATE_TABLE, [])
@@ -41,7 +41,7 @@ class ContactStore {
     }
   }
 
-  async insert(valuesBucket: rdb.ValuesBucket) {
+  async insert(valuesBucket: rdb.ValuesBucket): Promise<void> {
     logger.info(TAG, `insert enter`)
     if (valuesBucket === null || valuesBucket === undefined) {
       logger.info(' insert invalid valueBuckets')
@@ -51,6 +51,9 @@ class ContactStore {
     if (rdbStore === undefined) {
       await this.getRdbStore(getContext(this))
     }
+    if (rdbStore === undefined) {
+      return
+    }
     try {
       let ret = await rdbStore.insert(TABLE_NAME, valuesBucket)
       logger.info(TAG, ` insert finish ${ret}`)
@@ -59,13 +62,13 @@ class ContactStore {
     }
   }
 
-  async update(id: number, contact: Contact) {
+  async update(id: number, contact: Contact): Promise<void> {
     logger.info(TAG, `update enter`)
     if (contact === null || contact === undefined) {
       logger.info('update invalid valueBuckets')
       return
     }
-    const valuesBucket = {
+    const valuesBucket: rdb.ValuesBucket = {
       'name': contact.name,
       'phone': contact.phone,
       'email': contact.email,
@@ -75,6 +78,9 @@ class ContactStore {
     logger.info(TAG, `update  value = ${JSON.stringify(valuesBucket)}`)
     if (rdbStore === undefined) {
       await this.getRdbStore(getContext(this))
+    }
+    if (rdbStore === undefined) {
+      return
     }
     try {
       let predicates = new rdb.RdbPredicates(TABLE_NAME)
@@ -86,14 +92,14 @@ class ContactStore {
     }
   }
 
-  async batchInsert(contacts: Contact[]) {
+  async batchInsert(contacts: Contact[]): Promise<void> {
     logger.info(TAG, `batchInsert enter`)
     if (contacts === null || contacts === undefined) {
       logger.info('batchInsert invalid valueBuckets')
       return
     }
-    let valuesBuckets = new Array()
-    contacts.forEach((item) => {
+    let valuesBuckets: rdb.ValuesBucket[] = []
+    contacts.forEach((item: Contact) => {
       let valuesBucket: rdb.ValuesBucket = {
         'name': item.name,
         'phone': item.phone,
@@ -107,6 +113,9 @@ class ContactStore {
     if (rdbStore === undefined) {
       await this.getRdbStore(getContext(this))
     }
+    if (rdbStore === undefined) {
+      return
+    }
     try {
       let ret = await rdbStore.batchInsert(TABLE_NAME, valuesBuckets)
       logger.info(TAG, `batchInsert finish ${ret}`)
@@ -115,9 +124,12 @@ class ContactStore {
     }
   }
 
-  async delete(id: number) {
+  async delete(id: number): Promise<void> {
     if (rdbStore === undefined) {
       await this.getRdbStore(getContext(this))
+    }
+    if (rdbStore === undefined) {
+      return
     }
     try {
       let predicates = new rdb.RdbPredicates(TABLE_NAME)
@@ -128,9 +140,12 @@ class ContactStore {
     }
   }
 
-  async clearData() {
+  async clearData(): Promise<void> {
     if (rdbStore === undefined) {
       await this.getRdbStore(getContext(this))
+    }
+    if (rdbStore === undefined) {
+      return
     }
     try {
       let predicates = new rdb.RdbPredicates(TABLE_NAME)
@@ -141,10 +156,13 @@ class ContactStore {
     }
   }
 
-  async queryAll() {
+  async queryAll(): Promise<Contact[]> {
     logger.info(TAG, `query enter`)
     if (rdbStore === undefined) {
       await this.getRdbStore(getContext(this))
+    }
+    if (rdbStore === undefined) {
+      return []
     }
     try {
       let predicates = new rdb.RdbPredicates(TABLE_NAME)
@@ -158,6 +176,7 @@ class ContactStore {
       }
     } catch (err) {
       logger.error(TAG, `query error: ${JSON.stringify(err)}`)
+      return []
     }
   }
 }

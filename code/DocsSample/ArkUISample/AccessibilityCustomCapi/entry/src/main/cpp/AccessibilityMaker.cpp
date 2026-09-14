@@ -430,14 +430,14 @@ int32_t AccessibilityMaker::GetAccessibilityProvider(ArkUI_NodeHandle* customNod
     // 获取 native 层提供的 accessibility provider，并为其注册回调
     OH_ArkUI_NativeModule_GetNativeAccessibilityProvider(customNode, &accessibilityProvider_);
     if (accessibilityProvider_ == nullptr) {
-        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "AccessibilityMaker", "accessibilityProvider_ is null");
-        return 0;
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "AccessibilityMaker", "accessibilityProvider_ is null");
+        return -1;
     }
 
     int32_t ret = OH_ArkUI_AccessibilityProviderRegisterCallbackWithInstance(id, accessibilityProvider_,
         &AccessibilityMaker::accessibilityProviderCallbacksWithInstance_);
     if (ret != 0) {
-        return 0;
+        return ret;
     }
     return 0;
 }

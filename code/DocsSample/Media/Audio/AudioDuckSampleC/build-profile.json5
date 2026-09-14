@@ -1,0 +1,50 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\lzy69\\.ohos\\config\\default_DuckApplication_-mJqFe8iP8kDkgG26CNPgZP-_zpBwB33SFaREAeWcVM=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B6480B2469978470C0C3AE06BD6BA825675968BE0F82650AF099070D7B45E2428ADE5D63A0CD016",
+          "profile": "C:\\Users\\lzy69\\.ohos\\config\\default_DuckApplication_-mJqFe8iP8kDkgG26CNPgZP-_zpBwB33SFaREAeWcVM=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\lzy69\\.ohos\\config\\default_DuckApplication_-mJqFe8iP8kDkgG26CNPgZP-_zpBwB33SFaREAeWcVM=.p12",
+          "storePassword": "0000001B566F29D10149AD71A9B24D10EF42A0CA8D5C5C86068D2CFF7C62C7D09CE1B29B30EB2D0CA3D43F"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "targetSdkVersion": "5.0.0(12)",
+        "compatibleSdkVersion": "5.0.0(12)",
+        "runtimeOS": "HarmonyOS"
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug"
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -42,7 +42,7 @@ import { testNapi2, testNapi3 as myNapi } from 'libentry.so' // testNapi2 和 te
 // [End etsOptionExample_enablePropertyObfuscation2]
 
 // [EndExclude etsOptionExample_keepPropertyName1]
-testNapi.add(2, 3); // add需要保留，示例如：-keep-property-name foo
+testNapi.add(2, 3); // add需要保留，示例如：-keep-property-name add
 // [End etsOptionExample_keepPropertyName1]
 
 // [EndExclude etsOptionExample_keepGlobalName]

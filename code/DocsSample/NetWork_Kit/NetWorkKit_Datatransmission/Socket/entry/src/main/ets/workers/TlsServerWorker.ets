@@ -136,8 +136,8 @@ function handleClientConnection() {
     // 可以指定传入on中的callback取消一个订阅，也可以不指定callback清空所有订阅。
     client.off('message', callback);
     client.off('message');
-    // [End tlsServer_connection_methods]
   });
+// [End tlsServer_connection_methods]
 }
 // [End application_transmits_encrypted_data_via_tls_socket_server]
 

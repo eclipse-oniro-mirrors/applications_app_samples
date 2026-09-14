@@ -258,7 +258,7 @@ c1.add = sub;
 
 {
   // [Start no_polymorphic]
-  let a = Number.parseInt('5'); // 使用Number.parseInt显示转换
+  let a = Number.parseInt('5'); // 使用Number.parseInt显式转换
   let b = -Number.parseInt('5');
   let c = ~Number.parseInt('5');
   let d = new Number('123');

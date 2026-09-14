@@ -16,14 +16,14 @@ import { logger } from '../utils/Logger'
 
 const TAG: string = 'BasicDataSource'
 
-class BasicDataSource implements IDataSource {
+class BasicDataSource<T> implements IDataSource {
   private listeners: DataChangeListener[] = []
 
   public totalCount(): number {
     return 0
   }
 
-  public getData(index: number): any {
+  public getData(index: number): T | undefined {
     return undefined
   }
 
@@ -73,23 +73,23 @@ class BasicDataSource implements IDataSource {
   }
 }
 
-export class ContactDataSource extends BasicDataSource {
-  private dataArray: any[] = []
+export class ContactDataSource<T> extends BasicDataSource<T> {
+  public dataArray: T[] = []
 
   public totalCount(): number {
     return this.dataArray.length
   }
 
-  public getData(index: number): any {
+  public getData(index: number): T | undefined {
     return this.dataArray[index]
   }
 
-  public addData(index: number, data: any): void {
+  public addData(index: number, data: T): void {
     this.dataArray.splice(index, 0, data)
     this.notifyDataAdd(index)
   }
 
-  public pushData(data: any): void {
+  public pushData(data: T): void {
     this.dataArray.push(data)
     this.notifyDataAdd(this.dataArray.length - 1)
   }

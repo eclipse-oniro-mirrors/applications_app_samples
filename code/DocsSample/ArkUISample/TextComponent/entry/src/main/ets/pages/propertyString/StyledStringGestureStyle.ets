@@ -103,7 +103,7 @@ class MyCustomSpan extends CustomSpan {
 
 @Entry
 @Component
-export struct StyledStringGestureStyle {
+struct StyledStringGestureStyle {
   customSpan3: MyCustomSpan = new MyCustomSpan('99VIP88%off', 200, 40, 30);
   customSpanStyledString: MutableStyledString = new MutableStyledString(this.customSpan3);
   textController: TextController = new TextController();
@@ -140,8 +140,8 @@ export struct StyledStringGestureStyle {
     NavDestination() {
       Column({ space: 12 }) {
         // [StartExclude styledStringGestureStyle_start]
-        // 请将$r('app.string.TStyledStringGestureStyle_title')替换为实际资源文件，在本示例中该资源文件的value值为"设置事件"
-        ComponentCard({ title: $r('app.string.TStyledStringGestureStyle_title') }) {
+        // 请将$r('app.string.StyledStringGestureStyle_title')替换为实际资源文件，在本示例中该资源文件的value值为"设置事件"
+        ComponentCard({ title: $r('app.string.StyledStringGestureStyle_title') }) {
           // [EndExclude styledStringGestureStyle_start]
           Row() {
             Column() {
@@ -167,8 +167,8 @@ export struct StyledStringGestureStyle {
       // [EndExclude styledStringGestureStyle_start]
     }
     .backgroundColor('#f1f2f3')
-    // 请将$r('app.string.TStyledStringGestureStyle_title')替换为实际资源文件，在本示例中该资源文件的value值为"设置事件"
-    .title($r('app.string.TStyledStringGestureStyle_title'))
+    // 请将$r('app.string.StyledStringGestureStyle_title')替换为实际资源文件，在本示例中该资源文件的value值为"设置事件"
+    .title($r('app.string.StyledStringGestureStyle_title'))
   }
 }
 // [End styledStringGestureStyle_start]

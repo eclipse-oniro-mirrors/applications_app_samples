@@ -112,3 +112,12 @@ struct Index {
   }
 }
 // [End monitor_variables_in_multidimensional_arrays]
+
+@Builder
+export function monitorVariablesInMultidimensionalArrays() {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.monitor_variables_in_multidimensional_arrays'))
+}

@@ -14,7 +14,7 @@
  */
 // [Start Common_WindowUtils]
 // common/WindowUtils.ets
-import { display, window } from '@kit.ArkUI';
+import { display, window, UIContext } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const DOMAIN = 0x0000;
@@ -35,7 +35,7 @@ export class WindowUIContextUtils {
         }
       });
     } catch (exception) {
-      console.error(`Failed to unregister callback. Cause: ${exception}`);
+      console.error(`Failed to register callback. Cause: ${exception}`);
     }
   }
 

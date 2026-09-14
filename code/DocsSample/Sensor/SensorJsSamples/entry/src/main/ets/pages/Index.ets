@@ -97,7 +97,7 @@ struct SensorList {
   }
 
   sensorStatusChangeCallback = (data: sensor.SensorStatusEvent) => {
-    logger.debug('Succeeded in getting data: ' + JSON.stringify(data));
+    logger.debug(TAG + 'Succeeded in getting data: ' + JSON.stringify(data));
   };
 
   private getUserOption(): sensor.Options {
@@ -129,7 +129,7 @@ struct SensorList {
           if (error) {
               console.error(TAG + 'getSensorList failed');
           } else {
-              console.info('getSensorList success');
+              console.info(TAG + 'getSensorList success');
               for (let i = 0; i < data.length; i++) {
                   console.info(TAG + JSON.stringify(data[i]));
                   // [StartExclude sensor_js_get_sensor_list_example]
@@ -238,7 +238,7 @@ struct SensorList {
           try {
             logger.info(TAG + this.realSensorName + 'subscribe in')
             if (!this.supportSensorIdList.includes(this.sensors.get(this.realSensorName))) {
-              logger.info('This is not support, please change other sensorId!');
+              logger.info(TAG + 'This is not support, please change other sensorId!');
               return
             }
             if (this.sensors.get(this.realSensorName) == 278) {
@@ -261,12 +261,12 @@ struct SensorList {
                   if (data) {
                     try {
                       sensor.on(sensor.SensorId.HEART_RATE, (data: sensor.HeartRateResponse) => {
-                        console.info('Succeeded in invoking on. Heart rate: ' + data.heartRate);
+                        console.info(TAG + 'Succeeded in invoking on. Heart rate: ' + data.heartRate);
                         this.callbackContent = JSON.stringify(data);
                       }, { interval: 100000000 });
                     } catch (error) {
                       let e: BusinessError = error as BusinessError;
-                      console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                      console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                     }
                   } else {
                     logger.info(TAG + 'Program run failed');
@@ -274,241 +274,241 @@ struct SensorList {
                 });
               });
             } else { //普通sensor
-              logger.info('before')
+              logger.info(TAG + 'before')
               if (this.sensors.get(this.realSensorName) == sensor.SensorId.ACCELEROMETER) {
                 // [Start sensor_js_on_accelerometer_example]
                 try { 
                   sensor.on(sensor.SensorId.ACCELEROMETER, (data: sensor.AccelerometerResponse) => {
-                        console.info("Succeeded in obtaining data. x: " + data.x + " y: " + data.y + " z: " + data.z);
+                        console.info(TAG + 'Succeeded in obtaining data. x: ' + data.x + ' y: ' + data.y + ' z: ' + data.z);
                         // [StartExclude sensor_js_on_accelerometer_example]
                         this.callbackContent = JSON.stringify(data);
                         // [EndExclude sensor_js_on_accelerometer_example]
                   }, { interval: 100000000 });
                 } catch (error) {
                     let e: BusinessError = error as BusinessError;
-                    console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                    console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
                 // [End sensor_js_on_accelerometer_example]
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.ACCELEROMETER_UNCALIBRATED) {
                 try {
                   sensor.on(sensor.SensorId.ACCELEROMETER_UNCALIBRATED, (data: sensor.AccelerometerUncalibratedResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
-                    console.info('Succeeded in invoking on. X-coordinate bias: ' + data.biasX);
-                    console.info('Succeeded in invoking on. Y-coordinate bias: ' + data.biasY);
-                    console.info('Succeeded in invoking on. Z-coordinate bias: ' + data.biasZ);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate bias: ' + data.biasX);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate bias: ' + data.biasY);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate bias: ' + data.biasZ);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.AMBIENT_LIGHT) {
                 try {
                   sensor.on(sensor.SensorId.AMBIENT_LIGHT, (data: sensor.LightResponse) => {
-                    console.info('Succeeded in getting the ambient light intensity: ' + data.intensity);
+                    console.info(TAG + 'Succeeded in getting the ambient light intensity: ' + data.intensity);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               }  else if (this.sensors.get(this.realSensorName) == sensor.SensorId.AMBIENT_TEMPERATURE) {
                 try {
                   sensor.on(sensor.SensorId.AMBIENT_TEMPERATURE, (data: sensor.AmbientTemperatureResponse) => {
-                    console.info('Succeeded in invoking on. Temperature: ' + data.temperature);
+                    console.info(TAG + 'Succeeded in invoking on. Temperature: ' + data.temperature);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.BAROMETER) {
                 try {
                   sensor.on(sensor.SensorId.BAROMETER, (data: sensor.BarometerResponse) => {
-                    console.info('Succeeded in invoking on. Atmospheric pressure: ' + data.pressure);
+                    console.info(TAG + 'Succeeded in invoking on. Atmospheric pressure: ' + data.pressure);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.GRAVITY) {
                 try {
                   sensor.on(sensor.SensorId.GRAVITY, (data: sensor.GravityResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.GYROSCOPE) {
                 try {
                   sensor.on(sensor.SensorId.GYROSCOPE, (data: sensor.GyroscopeResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.GYROSCOPE_UNCALIBRATED) {
                 try {
                   sensor.on(sensor.SensorId.GYROSCOPE_UNCALIBRATED, (data: sensor.GyroscopeUncalibratedResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
-                    console.info('Succeeded in invoking on. X-coordinate bias: ' + data.biasX);
-                    console.info('Succeeded in invoking on. Y-coordinate bias: ' + data.biasY);
-                    console.info('Succeeded in invoking on. Z-coordinate bias: ' + data.biasZ);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate bias: ' + data.biasX);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate bias: ' + data.biasY);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate bias: ' + data.biasZ);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.HALL) {
                 try {
                   sensor.on(sensor.SensorId.HALL, (data: sensor.HallResponse) => {
-                    console.info('Succeeded in invoking on. Hall status: ' + data.status);
+                    console.info(TAG + 'Succeeded in invoking on. Hall status: ' + data.status);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.HUMIDITY) {
                 try {
                   sensor.on(sensor.SensorId.HUMIDITY, (data: sensor.HumidityResponse) => {
-                    console.info('Succeeded in invoking on. Humidity: ' + data.humidity);
+                    console.info(TAG + 'Succeeded in invoking on. Humidity: ' + data.humidity);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.LINEAR_ACCELEROMETER) {
                 try {
                   sensor.on(sensor.SensorId.LINEAR_ACCELEROMETER, (data: sensor.LinearAccelerometerResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.MAGNETIC_FIELD) {
                 try {
                   sensor.on(sensor.SensorId.MAGNETIC_FIELD, (data: sensor.MagneticFieldResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.MAGNETIC_FIELD_UNCALIBRATED) {
                 try {
                   sensor.on(sensor.SensorId.MAGNETIC_FIELD_UNCALIBRATED, (data: sensor.MagneticFieldUncalibratedResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
-                    console.info('Succeeded in invoking on. X-coordinate bias: ' + data.biasX);
-                    console.info('Succeeded in invoking on. Y-coordinate bias: ' + data.biasY);
-                    console.info('Succeeded in invoking on. Z-coordinate bias: ' + data.biasZ);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate bias: ' + data.biasX);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate bias: ' + data.biasY);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate bias: ' + data.biasZ);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.ORIENTATION) {
                 try {
                   sensor.on(sensor.SensorId.ORIENTATION, (data: sensor.OrientationResponse) => {
-                    console.info('Succeeded in the device rotating at an angle around the Z axis: ' + data.alpha);
-                    console.info('Succeeded in the device rotating at an angle around the X axis: ' + data.beta);
-                    console.info('Succeeded in the device rotating at an angle around the Y axis: ' + data.gamma);
+                    console.info(TAG + 'Succeeded in the device rotating at an angle around the Z axis: ' + data.alpha);
+                    console.info(TAG + 'Succeeded in the device rotating at an angle around the X axis: ' + data.beta);
+                    console.info(TAG + 'Succeeded in the device rotating at an angle around the Y axis: ' + data.gamma);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.PEDOMETER) {
                 try {
                   sensor.on(sensor.SensorId.PEDOMETER, (data: sensor.PedometerResponse) => {
-                    console.info('Succeeded in invoking on. Step count: ' + data.steps);
+                    console.info(TAG + 'Succeeded in invoking on. Step count: ' + data.steps);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.PEDOMETER_DETECTION) {
                 try {
                   sensor.on(sensor.SensorId.PEDOMETER_DETECTION, (data: sensor.PedometerDetectionResponse) => {
-                    console.info('Succeeded in invoking on. Pedometer scalar: ' + data.scalar);
+                    console.info(TAG + 'Succeeded in invoking on. Pedometer scalar: ' + data.scalar);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.PROXIMITY) {
                 try {
                   sensor.on(sensor.SensorId.PROXIMITY, (data: sensor.ProximityResponse) => {
-                    console.info('Succeeded in invoking on. Distance: ' + data.distance);
+                    console.info(TAG + 'Succeeded in invoking on. Distance: ' + data.distance);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.ROTATION_VECTOR) {
                 try {
                   sensor.on(sensor.SensorId.ROTATION_VECTOR, (data: sensor.RotationVectorResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
-                    console.info('Succeeded in invoking on. Scalar quantity: ' + data.w);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. Scalar quantity: ' + data.w);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.SIGNIFICANT_MOTION) {
                 try {
                   sensor.on(sensor.SensorId.SIGNIFICANT_MOTION, (data: sensor.SignificantMotionResponse) => {
-                    console.info('Succeeded in invoking on. Scalar data: ' + data.scalar);
+                    console.info(TAG + 'Succeeded in invoking on. Scalar data: ' + data.scalar);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.WEAR_DETECTION) {
                 try {
                   sensor.on(sensor.SensorId.WEAR_DETECTION, (data: sensor.WearDetectionResponse) => {
-                    console.info('Succeeded in invoking on. Wear status: ' + data.value);
+                    console.info(TAG + 'Succeeded in invoking on. Wear status: ' + data.value);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               }
-              logger.info('left');
+              logger.info(TAG + 'left');
             }
           } catch (e) {
             logger.error(TAG + 'subscribe exception in,msg:' + JSON.stringify(e));
@@ -520,7 +520,7 @@ struct SensorList {
           try {
             logger.info(TAG + this.realSensorName + 'subscribeUseSensorInfoParam in')
             if (!this.supportSensorIdList.includes(this.sensors.get(this.realSensorName))) {
-              logger.info('This is not support, please change other sensorId!');
+              logger.info(TAG + 'This is not support, please change other sensorId!');
               return
             }
             if (this.sensors.get(this.realSensorName) == 278) {
@@ -543,12 +543,12 @@ struct SensorList {
                   if (data) {
                     try {
                       sensor.on(sensor.SensorId.HEART_RATE, (data: sensor.HeartRateResponse) => {
-                        console.info('Succeeded in invoking on. Heart rate: ' + data.heartRate);
+                        console.info(TAG + 'Succeeded in invoking on. Heart rate: ' + data.heartRate);
                         this.callbackContent = JSON.stringify(data);
                       }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                     } catch (error) {
                       let e: BusinessError = error as BusinessError;
-                      console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                      console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                     }
                   } else {
                     logger.info(TAG + 'Program run failed');
@@ -556,241 +556,241 @@ struct SensorList {
                 });
               });
             } else { //普通sensor
-              logger.info('before')
+              logger.info(TAG + 'before')
               if (this.sensors.get(this.realSensorName) == sensor.SensorId.ACCELEROMETER) {
                 // [Start sensor_js_on_accelerometer_use_sensor_info_param_example]
                 try { 
                   sensor.on(sensor.SensorId.ACCELEROMETER, (data: sensor.AccelerometerResponse) => {
-                        console.info("Succeeded in obtaining data. x: " + data.x + " y: " + data.y + " z: " + data.z);
+                        console.info(TAG + 'Succeeded in obtaining data. x: ' + data.x + ' y: ' + data.y + ' z: ' + data.z);
                         // [StartExclude sensor_js_on_accelerometer_use_sensor_info_param_example]
                         this.callbackContent = JSON.stringify(data);
                         // [EndExclude sensor_js_on_accelerometer_use_sensor_info_param_example]
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                     let e: BusinessError = error as BusinessError;
-                    console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                    console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
                 // [End sensor_js_on_accelerometer_use_sensor_info_param_example]
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.ACCELEROMETER_UNCALIBRATED) {
                 try {
                   sensor.on(sensor.SensorId.ACCELEROMETER_UNCALIBRATED, (data: sensor.AccelerometerUncalibratedResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
-                    console.info('Succeeded in invoking on. X-coordinate bias: ' + data.biasX);
-                    console.info('Succeeded in invoking on. Y-coordinate bias: ' + data.biasY);
-                    console.info('Succeeded in invoking on. Z-coordinate bias: ' + data.biasZ);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate bias: ' + data.biasX);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate bias: ' + data.biasY);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate bias: ' + data.biasZ);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.AMBIENT_LIGHT) {
                 try {
                   sensor.on(sensor.SensorId.AMBIENT_LIGHT, (data: sensor.LightResponse) => {
-                    console.info('Succeeded in getting the ambient light intensity: ' + data.intensity);
+                    console.info(TAG + 'Succeeded in getting the ambient light intensity: ' + data.intensity);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               }  else if (this.sensors.get(this.realSensorName) == sensor.SensorId.AMBIENT_TEMPERATURE) {
                 try {
                   sensor.on(sensor.SensorId.AMBIENT_TEMPERATURE, (data: sensor.AmbientTemperatureResponse) => {
-                    console.info('Succeeded in invoking on. Temperature: ' + data.temperature);
+                    console.info(TAG + 'Succeeded in invoking on. Temperature: ' + data.temperature);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.BAROMETER) {
                 try {
                   sensor.on(sensor.SensorId.BAROMETER, (data: sensor.BarometerResponse) => {
-                    console.info('Succeeded in invoking on. Atmospheric pressure: ' + data.pressure);
+                    console.info(TAG + 'Succeeded in invoking on. Atmospheric pressure: ' + data.pressure);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.GRAVITY) {
                 try {
                   sensor.on(sensor.SensorId.GRAVITY, (data: sensor.GravityResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.GYROSCOPE) {
                 try {
                   sensor.on(sensor.SensorId.GYROSCOPE, (data: sensor.GyroscopeResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.GYROSCOPE_UNCALIBRATED) {
                 try {
                   sensor.on(sensor.SensorId.GYROSCOPE_UNCALIBRATED, (data: sensor.GyroscopeUncalibratedResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
-                    console.info('Succeeded in invoking on. X-coordinate bias: ' + data.biasX);
-                    console.info('Succeeded in invoking on. Y-coordinate bias: ' + data.biasY);
-                    console.info('Succeeded in invoking on. Z-coordinate bias: ' + data.biasZ);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate bias: ' + data.biasX);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate bias: ' + data.biasY);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate bias: ' + data.biasZ);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.HALL) {
                 try {
                   sensor.on(sensor.SensorId.HALL, (data: sensor.HallResponse) => {
-                    console.info('Succeeded in invoking on. Hall status: ' + data.status);
+                    console.info(TAG + 'Succeeded in invoking on. Hall status: ' + data.status);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.HUMIDITY) {
                 try {
                   sensor.on(sensor.SensorId.HUMIDITY, (data: sensor.HumidityResponse) => {
-                    console.info('Succeeded in invoking on. Humidity: ' + data.humidity);
+                    console.info(TAG + 'Succeeded in invoking on. Humidity: ' + data.humidity);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.LINEAR_ACCELEROMETER) {
                 try {
                   sensor.on(sensor.SensorId.LINEAR_ACCELEROMETER, (data: sensor.LinearAccelerometerResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.MAGNETIC_FIELD) {
                 try {
                   sensor.on(sensor.SensorId.MAGNETIC_FIELD, (data: sensor.MagneticFieldResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.MAGNETIC_FIELD_UNCALIBRATED) {
                 try {
                   sensor.on(sensor.SensorId.MAGNETIC_FIELD_UNCALIBRATED, (data: sensor.MagneticFieldUncalibratedResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
-                    console.info('Succeeded in invoking on. X-coordinate bias: ' + data.biasX);
-                    console.info('Succeeded in invoking on. Y-coordinate bias: ' + data.biasY);
-                    console.info('Succeeded in invoking on. Z-coordinate bias: ' + data.biasZ);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate bias: ' + data.biasX);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate bias: ' + data.biasY);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate bias: ' + data.biasZ);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.ORIENTATION) {
                 try {
                   sensor.on(sensor.SensorId.ORIENTATION, (data: sensor.OrientationResponse) => {
-                    console.info('Succeeded in the device rotating at an angle around the Z axis: ' + data.alpha);
-                    console.info('Succeeded in the device rotating at an angle around the X axis: ' + data.beta);
-                    console.info('Succeeded in the device rotating at an angle around the Y axis: ' + data.gamma);
+                    console.info(TAG + 'Succeeded in the device rotating at an angle around the Z axis: ' + data.alpha);
+                    console.info(TAG + 'Succeeded in the device rotating at an angle around the X axis: ' + data.beta);
+                    console.info(TAG + 'Succeeded in the device rotating at an angle around the Y axis: ' + data.gamma);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.PEDOMETER) {
                 try {
                   sensor.on(sensor.SensorId.PEDOMETER, (data: sensor.PedometerResponse) => {
-                    console.info('Succeeded in invoking on. Step count: ' + data.steps);
+                    console.info(TAG + 'Succeeded in invoking on. Step count: ' + data.steps);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.PEDOMETER_DETECTION) {
                 try {
                   sensor.on(sensor.SensorId.PEDOMETER_DETECTION, (data: sensor.PedometerDetectionResponse) => {
-                    console.info('Succeeded in invoking on. Pedometer scalar: ' + data.scalar);
+                    console.info(TAG + 'Succeeded in invoking on. Pedometer scalar: ' + data.scalar);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.PROXIMITY) {
                 try {
                   sensor.on(sensor.SensorId.PROXIMITY, (data: sensor.ProximityResponse) => {
-                    console.info('Succeeded in invoking on. Distance: ' + data.distance);
+                    console.info(TAG + 'Succeeded in invoking on. Distance: ' + data.distance);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.ROTATION_VECTOR) {
                 try {
                   sensor.on(sensor.SensorId.ROTATION_VECTOR, (data: sensor.RotationVectorResponse) => {
-                    console.info('Succeeded in invoking on. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking on. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking on. Z-coordinate component: ' + data.z);
-                    console.info('Succeeded in invoking on. Scalar quantity: ' + data.w);
+                    console.info(TAG + 'Succeeded in invoking on. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking on. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking on. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking on. Scalar quantity: ' + data.w);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.SIGNIFICANT_MOTION) {
                 try {
                   sensor.on(sensor.SensorId.SIGNIFICANT_MOTION, (data: sensor.SignificantMotionResponse) => {
-                    console.info('Succeeded in invoking on. Scalar data: ' + data.scalar);
+                    console.info(TAG + 'Succeeded in invoking on. Scalar data: ' + data.scalar);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.WEAR_DETECTION) {
                 try {
                   sensor.on(sensor.SensorId.WEAR_DETECTION, (data: sensor.WearDetectionResponse) => {
-                    console.info('Succeeded in invoking on. Wear status: ' + data.value);
+                    console.info(TAG + 'Succeeded in invoking on. Wear status: ' + data.value);
                     this.callbackContent = JSON.stringify(data);
                   }, { interval: 100000000, sensorInfoParam: { deviceId: -1 } });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
                 }
               }
-              logger.info('left');
+              logger.info(TAG + 'left');
             }
           } catch (e) {
             logger.error(TAG + 'subscribeUseSensorInfoParam exception in,msg:' + JSON.stringify(e));
@@ -802,7 +802,7 @@ struct SensorList {
           try {
             logger.info(TAG + this.realSensorName + 'onceSubscribe in')
             if (!this.supportSensorIdList.includes(this.sensors.get(this.realSensorName))) {
-              logger.info('This is not support, please change other sensorId!');
+              logger.info(TAG + 'This is not support, please change other sensorId!');
               return
             }
             if (this.sensors.get(this.realSensorName) == 278) {
@@ -825,12 +825,12 @@ struct SensorList {
                   if (data) {
                     try {
                       sensor.once(sensor.SensorId.HEART_RATE, (data: sensor.HeartRateResponse) => {
-                        console.info('Succeeded in invoking once. Heart rate: ' + data.heartRate);
+                        console.info(TAG + 'Succeeded in invoking once. Heart rate: ' + data.heartRate);
                         this.callbackContent = JSON.stringify(data);
                       });
                     } catch (error) {
                       let e: BusinessError = error as BusinessError;
-                      console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                      console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                     }
                   } else {
                     logger.info(TAG + 'Program run failed');
@@ -838,241 +838,241 @@ struct SensorList {
                 });
               });
             } else { //普通sensor
-              logger.info('before')
+              logger.info(TAG + 'before')
               if (this.sensors.get(this.realSensorName) == sensor.SensorId.ACCELEROMETER) {
                 // [Start sensor_js_once_accelerometer_example]
                 try {
                   sensor.once(sensor.SensorId.ACCELEROMETER, (data: sensor.AccelerometerResponse) => {
-                      console.info("Succeeded in obtaining data. x: " + data.x + " y: " + data.y + " z: " + data.z);
+                      console.info(TAG + 'Succeeded in obtaining data. x: ' + data.x + ' y: ' + data.y + ' z: ' + data.z);
                       // [StartExclude sensor_js_once_accelerometer_example]
                       this.callbackContent = JSON.stringify(data);
                       // [EndExclude sensor_js_once_accelerometer_example]
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
                 // [End sensor_js_once_accelerometer_example]
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.ACCELEROMETER_UNCALIBRATED) {
                 try {
                   sensor.once(sensor.SensorId.ACCELEROMETER_UNCALIBRATED, (data: sensor.AccelerometerUncalibratedResponse) => {
-                    console.info('Succeeded in invoking once. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking once. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking once. Z-coordinate component: ' + data.z);
-                    console.info('Succeeded in invoking once. X-coordinate bias: ' + data.biasX);
-                    console.info('Succeeded in invoking once. Y-coordinate bias: ' + data.biasY);
-                    console.info('Succeeded in invoking once. Z-coordinate bias: ' + data.biasZ);
+                    console.info(TAG + 'Succeeded in invoking once. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking once. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking once. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking once. X-coordinate bias: ' + data.biasX);
+                    console.info(TAG + 'Succeeded in invoking once. Y-coordinate bias: ' + data.biasY);
+                    console.info(TAG + 'Succeeded in invoking once. Z-coordinate bias: ' + data.biasZ);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.AMBIENT_LIGHT) {
                 try {
                   sensor.once(sensor.SensorId.AMBIENT_LIGHT, (data: sensor.LightResponse) => {
-                    console.info('Succeeded in invoking once. the ambient light intensity: ' + data.intensity);
+                    console.info(TAG + 'Succeeded in invoking once. the ambient light intensity: ' + data.intensity);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.AMBIENT_TEMPERATURE) {
                 try {
                   sensor.once(sensor.SensorId.AMBIENT_TEMPERATURE, (data: sensor.AmbientTemperatureResponse) => {
-                    console.info('Succeeded in invoking once. Temperature: ' + data.temperature);
+                    console.info(TAG + 'Succeeded in invoking once. Temperature: ' + data.temperature);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.BAROMETER) {
                 try {
                   sensor.once(sensor.SensorId.BAROMETER, (data: sensor.BarometerResponse) => {
-                    console.info('Succeeded in invoking once. Atmospheric pressure: ' + data.pressure);
+                    console.info(TAG + 'Succeeded in invoking once. Atmospheric pressure: ' + data.pressure);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.GRAVITY) {
                 try {
                   sensor.once(sensor.SensorId.GRAVITY, (data: sensor.GravityResponse) => {
-                    console.info('Succeeded in invoking once. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking once. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking once. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking once. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking once. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking once. Z-coordinate component: ' + data.z);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.GYROSCOPE) {
                 try {
                   sensor.once(sensor.SensorId.GYROSCOPE, (data: sensor.GyroscopeResponse) => {
-                    console.info('Succeeded in invoking once. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking once. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking once. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking once. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking once. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking once. Z-coordinate component: ' + data.z);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.GYROSCOPE_UNCALIBRATED) {
                 try {
                   sensor.once(sensor.SensorId.GYROSCOPE_UNCALIBRATED, (data: sensor.GyroscopeUncalibratedResponse) => {
-                    console.info('Succeeded in invoking once. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking once. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking once. Z-coordinate component: ' + data.z);
-                    console.info('Succeeded in invoking once. X-coordinate bias: ' + data.biasX);
-                    console.info('Succeeded in invoking once. Y-coordinate bias: ' + data.biasY);
-                    console.info('Succeeded in invoking once. Z-coordinate bias: ' + data.biasZ);
+                    console.info(TAG + 'Succeeded in invoking once. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking once. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking once. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking once. X-coordinate bias: ' + data.biasX);
+                    console.info(TAG + 'Succeeded in invoking once. Y-coordinate bias: ' + data.biasY);
+                    console.info(TAG + 'Succeeded in invoking once. Z-coordinate bias: ' + data.biasZ);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.HALL) {
                 try {
                   sensor.once(sensor.SensorId.HALL, (data: sensor.HallResponse) => {
-                    console.info('Succeeded in invoking once. Status: ' + data.status);
+                    console.info(TAG + 'Succeeded in invoking once. Status: ' + data.status);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.HUMIDITY) {
                 try {
                   sensor.once(sensor.SensorId.HUMIDITY, (data: sensor.HumidityResponse) => {
-                    console.info('Succeeded in invoking once. Humidity: ' + data.humidity);
+                    console.info(TAG + 'Succeeded in invoking once. Humidity: ' + data.humidity);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.LINEAR_ACCELEROMETER) {
                 try {
                   sensor.once(sensor.SensorId.LINEAR_ACCELEROMETER, (data: sensor.LinearAccelerometerResponse) => {
-                    console.info('Succeeded in invoking once. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking once. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking once. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking once. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking once. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking once. Z-coordinate component: ' + data.z);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.MAGNETIC_FIELD) {
                 try {
                   sensor.once(sensor.SensorId.MAGNETIC_FIELD, (data: sensor.MagneticFieldResponse) => {
-                    console.info('Succeeded in invoking once. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking once. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking once. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking once. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking once. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking once. Z-coordinate component: ' + data.z);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.MAGNETIC_FIELD_UNCALIBRATED) {
                 try {
                   sensor.once(sensor.SensorId.MAGNETIC_FIELD_UNCALIBRATED, (data: sensor.MagneticFieldUncalibratedResponse) => {
-                    console.info('Succeeded in invoking once. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking once. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking once. Z-coordinate component: ' + data.z);
-                    console.info('Succeeded in invoking once. X-coordinate bias: ' + data.biasX);
-                    console.info('Succeeded in invoking once. Y-coordinate bias: ' + data.biasY);
-                    console.info('Succeeded in invoking once. Z-coordinate bias: ' + data.biasZ);
+                    console.info(TAG + 'Succeeded in invoking once. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking once. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking once. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking once. X-coordinate bias: ' + data.biasX);
+                    console.info(TAG + 'Succeeded in invoking once. Y-coordinate bias: ' + data.biasY);
+                    console.info(TAG + 'Succeeded in invoking once. Z-coordinate bias: ' + data.biasZ);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.ORIENTATION) {
                 try {
                   sensor.once(sensor.SensorId.ORIENTATION, (data: sensor.OrientationResponse) => {
-                    console.info('Succeeded in the device rotating at an angle around the X axis: ' + data.beta);
-                    console.info('Succeeded in the device rotating at an angle around the Y axis: ' + data.gamma);
-                    console.info('Succeeded in the device rotating at an angle around the Z axis: ' + data.alpha);
+                    console.info(TAG + 'Succeeded in the device rotating at an angle around the X axis: ' + data.beta);
+                    console.info(TAG + 'Succeeded in the device rotating at an angle around the Y axis: ' + data.gamma);
+                    console.info(TAG + 'Succeeded in the device rotating at an angle around the Z axis: ' + data.alpha);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.PEDOMETER) {
                 try {
                   sensor.once(sensor.SensorId.PEDOMETER, (data: sensor.PedometerResponse) => {
-                    console.info('Succeeded in invoking once. Step count: ' + data.steps);
+                    console.info(TAG + 'Succeeded in invoking once. Step count: ' + data.steps);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.PEDOMETER_DETECTION) {
                 try {
                   sensor.once(sensor.SensorId.PEDOMETER_DETECTION, (data: sensor.PedometerDetectionResponse) => {
-                    console.info('Succeeded in invoking once. Scalar data: ' + data.scalar);
+                    console.info(TAG + 'Succeeded in invoking once. Scalar data: ' + data.scalar);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.PROXIMITY) {
                 try {
                   sensor.once(sensor.SensorId.PROXIMITY, (data: sensor.ProximityResponse) => {
-                    console.info('Succeeded in invoking once. Distance: ' + data.distance);
+                    console.info(TAG + 'Succeeded in invoking once. Distance: ' + data.distance);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.ROTATION_VECTOR) {
                 try {
                   sensor.once(sensor.SensorId.ROTATION_VECTOR, (data: sensor.RotationVectorResponse) => {
-                    console.info('Succeeded in invoking once. X-coordinate component: ' + data.x);
-                    console.info('Succeeded in invoking once. Y-coordinate component: ' + data.y);
-                    console.info('Succeeded in invoking once. Z-coordinate component: ' + data.z);
-                    console.info('Succeeded in invoking once. Scalar quantity: ' + data.w);
+                    console.info(TAG + 'Succeeded in invoking once. X-coordinate component: ' + data.x);
+                    console.info(TAG + 'Succeeded in invoking once. Y-coordinate component: ' + data.y);
+                    console.info(TAG + 'Succeeded in invoking once. Z-coordinate component: ' + data.z);
+                    console.info(TAG + 'Succeeded in invoking once. Scalar quantity: ' + data.w);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.SIGNIFICANT_MOTION) {
                 try {
                   sensor.once(sensor.SensorId.SIGNIFICANT_MOTION, (data: sensor.SignificantMotionResponse) => {
-                    console.info('Succeeded in invoking once. Scalar data: ' + data.scalar);
+                    console.info(TAG + 'Succeeded in invoking once. Scalar data: ' + data.scalar);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               } else if (this.sensors.get(this.realSensorName) == sensor.SensorId.WEAR_DETECTION) {
                 try {
                   sensor.once(sensor.SensorId.WEAR_DETECTION, (data: sensor.WearDetectionResponse) => {
-                    console.info('Succeeded in invoking once. Wear status: ' + data.value);
+                    console.info(TAG + 'Succeeded in invoking once. Wear status: ' + data.value);
                     this.callbackContent = JSON.stringify(data);
                   });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke once. Code: ${e.code}, message: ${e.message}`);
                 }
               }
-              logger.info('left')
+              logger.info(TAG + 'left')
             }
           } catch (e) {
             logger.error(TAG + 'onceSubscribe exception in,msg:' + JSON.stringify(e))
@@ -1088,7 +1088,7 @@ struct SensorList {
                   sensor.off(sensor.SensorId.ACCELEROMETER);
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke off. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke off. Code: ${e.code}, message: ${e.message}`);
                 }
                 // [End sensor_js_off_accelerometer_example]
               } else {
@@ -1096,7 +1096,7 @@ struct SensorList {
                   sensor.off(this.sensors.get(this.realSensorName));
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke off. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke off. Code: ${e.code}, message: ${e.message}`);
                 }
               }
           this.callbackContent = '';
@@ -1111,7 +1111,7 @@ struct SensorList {
                   sensor.off(sensor.SensorId.ACCELEROMETER, { deviceId: -1 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke off. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke off. Code: ${e.code}, message: ${e.message}`);
                 }
                 // [End sensor_js_off_accelerometer_use_sensor_info_param_example]
               } else {
@@ -1119,7 +1119,7 @@ struct SensorList {
                   sensor.off(this.sensors.get(this.realSensorName), { deviceId: -1 });
                 } catch (error) {
                   let e: BusinessError = error as BusinessError;
-                  console.error(`Failed to invoke off. Code: ${e.code}, message: ${e.message}`);
+                  console.error(`${TAG}Failed to invoke off. Code: ${e.code}, message: ${e.message}`);
                 }
               }
           this.callbackContent = '';
@@ -1134,15 +1134,15 @@ struct SensorList {
               this.deviceId = -1;
               // 第一个参数deviceId 非必填，缺省默认查询的为本地设备。
               const sensorList: sensor.Sensor[] = sensor.getSensorListByDeviceSync(this.deviceId);
-              console.info(`sensorList length: ${sensorList.length}`);
-              console.info(`sensorList: ${JSON.stringify(sensorList)}`);
+              console.info(`${TAG}sensorList length: ${sensorList.length}`);
+              console.info(`${TAG}sensorList: ${JSON.stringify(sensorList)}`);
               // [StartExclude sensor_js_get_sensor_list_by_device_example]
               this.sensorListByDevice = 'sensorInfoList:' + JSON.stringify(sensorList);
               this.sensorListByDeviceList = sensorList;
               // [EndExclude sensor_js_get_sensor_list_by_device_example]
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get sensorList. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get sensorList. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_sensor_list_by_device_example]
           })
@@ -1155,14 +1155,14 @@ struct SensorList {
               this.deviceId = -1;
               // 第二个参数deviceId 非必填
               const sensorList: sensor.Sensor[] = sensor.getSingleSensorByDeviceSync(sensor.SensorId.ACCELEROMETER, this.deviceId);
-              console.info(`sensorList length: ${sensorList.length}`);
-              console.info(`sensorList Json: ${JSON.stringify(sensorList)}`);
+              console.info(`${TAG}sensorList length: ${sensorList.length}`);
+              console.info(`${TAG}sensorList Json: ${JSON.stringify(sensorList)}`);
               // [StartExclude sensor_js_get_single_sensor_by_device_sync_example]
               this.sensorListByDevice = 'sensor_test:' + JSON.stringify(sensorList);
               // [EndExclude sensor_js_get_single_sensor_by_device_sync_example]
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get sensorList. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get sensorList. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_single_sensor_by_device_sync_example]
           })
@@ -1173,11 +1173,11 @@ struct SensorList {
           .fontWeight(FontWeight.Bold)
           .width('80%')
           .onClick(() => {
-            logger.info("sensor.on('SensorStatusChange')");
+            logger.info(TAG + "sensor.on('SensorStatusChange')");
             // [Start sensor_js_on_sensor_status_change_example]
             try {
               sensor.on('sensorStatusChange', (data: sensor.SensorStatusEvent) => {
-                  console.info(`timestamp: ${data.timestamp},
+                  console.info(`${TAG}timestamp: ${data.timestamp},
                   deviceId: ${data.deviceId} deviceName: ${data.deviceName}
                   sensorId: ${data.sensorId} sensorIndex:${data.sensorIndex} isSensorOnline: ${data.isSensorOnline}`);
               });
@@ -1186,7 +1186,7 @@ struct SensorList {
               // [EndExclude sensor_js_on_sensor_status_change_example]
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_on_sensor_status_change_example]
           })
@@ -1205,7 +1205,7 @@ struct SensorList {
               // [EndExclude sensor_js_off_sensor_status_change_example]
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to invoke on. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_off_sensor_status_change_example]
           })
@@ -1221,39 +1221,39 @@ struct SensorList {
               sensor.getGeomagneticInfo({ latitude: 80, longitude: 0, altitude: 0 }, 1580486400000,
                   (err: BusinessError, data: sensor.GeomagneticResponse) => {
                 if (err) {
-                  console.error(`Failed to get geomagneticInfo. Code: ${err.code}, message: ${err.message}`);
+                  console.error(`${TAG}Failed to get geomagneticInfo. Code: ${err.code}, message: ${err.message}`);
                   return;
                 }
-                console.info("Succeeded in getting geomagneticInfo x" + data.x);
-                console.info("Succeeded in getting geomagneticInfo y" + data.y);
-                console.info("Succeeded in getting geomagneticInfo z" + data.z);
-                console.info("Succeeded in getting geomagneticInfo geomagneticDip" + data.geomagneticDip);
-                console.info("Succeeded in getting geomagneticInfo deflectionAngle" + data.deflectionAngle);
-                console.info("Succeeded in getting geomagneticInfo levelIntensity" + data.levelIntensity);
-                console.info("Succeeded in getting geomagneticInfo totalIntensity" + data.totalIntensity);
+                console.info(TAG + 'Succeeded in getting geomagneticInfo x' + data.x);
+                console.info(TAG + 'Succeeded in getting geomagneticInfo y' + data.y);
+                console.info(TAG + 'Succeeded in getting geomagneticInfo z' + data.z);
+                console.info(TAG + 'Succeeded in getting geomagneticInfo geomagneticDip' + data.geomagneticDip);
+                console.info(TAG + 'Succeeded in getting geomagneticInfo deflectionAngle' + data.deflectionAngle);
+                console.info(TAG + 'Succeeded in getting geomagneticInfo levelIntensity' + data.levelIntensity);
+                console.info(TAG + 'Succeeded in getting geomagneticInfo totalIntensity' + data.totalIntensity);
               });
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get geomagneticInfo. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get geomagneticInfo. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_geomagnetic_info_callback_example]
             // [Start sensor_js_get_geomagnetic_info_promise_example]
             try {
               const promise = sensor.getGeomagneticInfo({ latitude: 80, longitude: 0, altitude: 0 }, 1580486400000);
               promise.then((data: sensor.GeomagneticResponse) => {
-                console.info("Succeeded in getting geomagneticInfo x" + data.x);
-                console.info("Succeeded in getting geomagneticInfo y" + data.y);
-                console.info("Succeeded in getting geomagneticInfo z" + data.z);
-                console.info("Succeeded in getting geomagneticInfo geomagneticDip" + data.geomagneticDip);
-                console.info("Succeeded in getting geomagneticInfo deflectionAngle" + data.deflectionAngle);
-                console.info("Succeeded in getting geomagneticInfo levelIntensity" + data.levelIntensity);
-                console.info("Succeeded in getting geomagneticInfo totalIntensity" + data.totalIntensity);
+                console.info(TAG + 'Succeeded in getting geomagneticInfo x' + data.x);
+                console.info(TAG + 'Succeeded in getting geomagneticInfo y' + data.y);
+                console.info(TAG + 'Succeeded in getting geomagneticInfo z' + data.z);
+                console.info(TAG + 'Succeeded in getting geomagneticInfo geomagneticDip' + data.geomagneticDip);
+                console.info(TAG + 'Succeeded in getting geomagneticInfo deflectionAngle' + data.deflectionAngle);
+                console.info(TAG + 'Succeeded in getting geomagneticInfo levelIntensity' + data.levelIntensity);
+                console.info(TAG + 'Succeeded in getting geomagneticInfo totalIntensity' + data.totalIntensity);
               }, (err: BusinessError) => {
-                console.error(`Failed to get geomagneticInfo. Code: ${err.code}, message: ${err.message}`);
+                console.error(`${TAG}Failed to get geomagneticInfo. Code: ${err.code}, message: ${err.message}`);
               });
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get geomagneticInfo. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get geomagneticInfo. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_geomagnetic_info_promise_example]
             this.sensorApiContent = 'geomagneticInfo:success';
@@ -1271,14 +1271,14 @@ struct SensorList {
               let currentPressure = 1500.0;
               sensor.getDeviceAltitude(seaPressure, currentPressure, (err: BusinessError, data: number) => {
                 if (err) {
-                  console.error(`Failed to get altitude. Code: ${err.code}, message: ${err.message}`);
+                  console.error(`${TAG}Failed to get altitude. Code: ${err.code}, message: ${err.message}`);
                   return;
                 }
-                console.info('Succeeded in getting altitude: ' + data);
+                console.info(TAG + 'Succeeded in getting altitude: ' + data);
               });
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get altitude. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get altitude. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_device_altitude_callback_example]
 			      // [Start sensor_js_get_device_altitude_promise_example]
@@ -1287,13 +1287,13 @@ struct SensorList {
               let currentPressure = 1500.0;
               const promise = sensor.getDeviceAltitude(seaPressure, currentPressure);
               promise.then((data: number) => {
-                console.info('Succeeded in getting device altitude: ', data);
+                console.info(TAG + 'Succeeded in getting device altitude: ', data);
               }, (err: BusinessError) => {
-                console.error(`Failed to get altitude. Code: ${err.code}, message: ${err.message}`);
+                console.error(`${TAG}Failed to get altitude. Code: ${err.code}, message: ${err.message}`);
               });
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get altitude. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get altitude. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_device_altitude_promise_example]
 			      this.sensorApiContent = 'deviceAltitude:success';
@@ -1315,14 +1315,14 @@ struct SensorList {
               ]
               sensor.getInclination(inclinationMatrix, (err: BusinessError, data: number) => {
                 if (err) {
-                  console.error(`Failed to get inclination. Code: ${err.code}, message: ${err.message}`);
+                  console.error(`${TAG}Failed to get inclination. Code: ${err.code}, message: ${err.message}`);
                   return;
                 }
-                console.info('Succeeded in getting inclination: ' + data);
+                console.info(TAG + 'Succeeded in getting inclination: ' + data);
               })
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get inclination. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get inclination. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_inclination_callback_example]
 			      // [Start sensor_js_get_inclination_promise_example]
@@ -1335,13 +1335,13 @@ struct SensorList {
               ]
               const promise = sensor.getInclination(inclinationMatrix);
               promise.then((data: number) => {
-                console.info('Succeeded in getting inclination: ' + data);
+                console.info(TAG + 'Succeeded in getting inclination: ' + data);
               }, (err: BusinessError) => {
-                console.error(`Failed to get inclination. Code: ${err.code}, message: ${err.message}`);
+                console.error(`${TAG}Failed to get inclination. Code: ${err.code}, message: ${err.message}`);
               });
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get inclination. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get inclination. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_inclination_promise_example]
 			      this.sensorApiContent = 'inclination:success';
@@ -1368,20 +1368,20 @@ struct SensorList {
               ];
               sensor.getAngleVariation(currentRotationMatrix, preRotationMatrix, (err: BusinessError, data: Array<number>) => {
                 if (err) {
-                  console.error(`Failed to get angle variation. Code: ${err.code}, message: ${err.message}`);
+                  console.error(`${TAG}Failed to get angle variation. Code: ${err.code}, message: ${err.message}`);
                   return;
                 }
                 if (data.length < 3) {
-                  console.error("Failed to get angle variation, length" + data.length);
+                  console.error(TAG + 'Failed to get angle variation, length' + data.length);
                   return;
                 }
-                console.info("Z: " + data[0]);
-                console.info("X: " + data[1]);
-                console.info("Y: " + data[2]);
+                console.info(TAG + 'Z: ' + data[0]);
+                console.info(TAG + 'X: ' + data[1]);
+                console.info(TAG + 'Y: ' + data[2]);
               })
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get angle variation. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get angle variation. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_angle_variation_callback_example]
 			      // [Start sensor_js_get_angle_variation_promise_example]
@@ -1400,18 +1400,18 @@ struct SensorList {
               const promise = sensor.getAngleVariation(currentRotationMatrix, preRotationMatrix);
               promise.then((data: Array<number>) => {
                 if (data.length < 3) {
-                  console.error("Failed to get angle variation, length" + data.length);
+                  console.error(TAG + 'Failed to get angle variation, length' + data.length);
                   return;
                 }
-                console.info("Z: " + data[0]);
-                console.info("X: " + data[1]);
-                console.info("Y: " + data[2]);
+                console.info(TAG + 'Z: ' + data[0]);
+                console.info(TAG + 'X: ' + data[1]);
+                console.info(TAG + 'Y: ' + data[2]);
               }, (err: BusinessError) => {
-                console.error(`Failed to get angle variation. Code: ${err.code}, message: ${err.message}`);
+                console.error(`${TAG}Failed to get angle variation. Code: ${err.code}, message: ${err.message}`);
               });
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get angle variation. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get angle variation. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_angle_variation_promise_example]
 			      this.sensorApiContent = 'angleVariation:success';
@@ -1428,16 +1428,16 @@ struct SensorList {
               let rotationVector = [0.20046076, 0.21907, 0.73978853, 0.60376877];
               sensor.getRotationMatrix(rotationVector, (err: BusinessError, data: Array<number>) => {
                 if (err) {
-                  console.error(`Failed to get rotationMatrix. Code: ${err.code}, message: ${err.message}`);
+                  console.error(`${TAG}Failed to get rotationMatrix. Code: ${err.code}, message: ${err.message}`);
                   return;
                 }
                 for (let i = 0; i < data.length; i++) {
-                  console.info('Succeeded in getting data[' + i + ']: ' + data[i]);
+                  console.info(TAG + 'Succeeded in getting data[' + i + ']: ' + data[i]);
                 }
               })
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get rotationMatrix. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get rotationMatrix. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_rotation_matrix_callback_example]
 			      // [Start sensor_js_get_rotation_matrix_promise_example]
@@ -1446,14 +1446,14 @@ struct SensorList {
               const promise = sensor.getRotationMatrix(rotationVector);
               promise.then((data: Array<number>) => {
                 for (let i = 0; i < data.length; i++) {
-                  console.info('Succeeded in getting data[' + i + ']: ' + data[i]);
+                  console.info(TAG + 'Succeeded in getting data[' + i + ']: ' + data[i]);
                 }
               }, (err: BusinessError) => {
-                console.error(`Failed to get rotationMatrix. Code: ${err.code}, message: ${err.message}`);
+                console.error(`${TAG}Failed to get rotationMatrix. Code: ${err.code}, message: ${err.message}`);
               });
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get rotationMatrix. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get rotationMatrix. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_rotation_matrix_promise_example]
 			      this.sensorApiContent = 'rotationMatrix:success';
@@ -1474,16 +1474,16 @@ struct SensorList {
               ];
               sensor.transformRotationMatrix(rotationMatrix, { x: 1, y: 3 }, (err: BusinessError, data: Array<number>) => {
                 if (err) {
-                  console.error(`Failed to transform rotationMatrix. Code: ${err.code}, message: ${err.message}`);
+                  console.error(`${TAG}Failed to transform rotationMatrix. Code: ${err.code}, message: ${err.message}`);
                   return;
                 }
                 for (let i = 0; i < data.length; i++) {
-                  console.info('Succeeded in getting data[' + i + '] = ' + data[i]);
+                  console.info(TAG + 'Succeeded in getting data[' + i + '] = ' + data[i]);
                 }
               })
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to transform rotationMatrix. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to transform rotationMatrix. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_transform_rotation_matrix_callback_example]
 			      // [Start sensor_js_transform_rotation_matrix_promise_example]
@@ -1496,14 +1496,14 @@ struct SensorList {
               const promise = sensor.transformRotationMatrix(rotationMatrix, { x: 1, y: 3 });
               promise.then((data: Array<number>) => {
                 for (let i = 0; i < data.length; i++) {
-                  console.info('Succeeded in getting data[' + i + ']: ' + data[i]);
+                  console.info(TAG + 'Succeeded in getting data[' + i + ']: ' + data[i]);
                 }
               }, (err: BusinessError) => {
-                console.error(`Failed to transform rotationMatrix. Code: ${err.code}, message: ${err.message}`);
+                console.error(`${TAG}Failed to transform rotationMatrix. Code: ${err.code}, message: ${err.message}`);
               });
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to transform rotationMatrix. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to transform rotationMatrix. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_transform_rotation_matrix_promise_example]
 			      this.sensorApiContent = 'transformRotationMatrix:success';
@@ -1520,16 +1520,16 @@ struct SensorList {
               let rotationVector = [0.20046076, 0.21907, 0.73978853, 0.60376877];
               sensor.getQuaternion(rotationVector, (err: BusinessError, data: Array<number>) => {
                 if (err) {
-                  console.error(`Failed to get quaternion. Code: ${err.code}, message: ${err.message}`);
+                  console.error(`${TAG}Failed to get quaternion. Code: ${err.code}, message: ${err.message}`);
                   return;
                 }
                 for (let i = 0; i < data.length; i++) {
-                  console.info('Succeeded in getting data[' + i + ']: ' + data[i]);
+                  console.info(TAG + 'Succeeded in getting data[' + i + ']: ' + data[i]);
                 }
               })
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get quaternion. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get quaternion. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_quaternion_callback_example]
 			      // [Start sensor_js_get_quaternion_promise_example]
@@ -1538,14 +1538,14 @@ struct SensorList {
                 const promise = sensor.getQuaternion(rotationVector);
                 promise.then((data: Array<number>) => {
                     for (let i = 0; i < data.length; i++) {
-                        console.info('Succeeded in getting data[' + i + ']: ' + data[i]);
+                        console.info(TAG + 'Succeeded in getting data[' + i + ']: ' + data[i]);
                     }
                 }, (err: BusinessError) => {
-                    console.error(`Failed to get quaternion. Code: ${err.code}, message: ${err.message}`);
+                    console.error(`${TAG}Failed to get quaternion. Code: ${err.code}, message: ${err.message}`);
                 });
             } catch (error) {
                 let e: BusinessError = error as BusinessError;
-                console.error(`Failed to get quaternion. Code: ${e.code}, message: ${e.message}`);
+                console.error(`${TAG}Failed to get quaternion. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_quaternion_promise_example]
 			      this.sensorApiContent = 'quaternion:success';
@@ -1566,19 +1566,19 @@ struct SensorList {
               ];
               sensor.getOrientation(preRotationMatrix, (err: BusinessError, data: Array<number>) => {
                 if (err) {
-                  console.error(`Failed to get orientation. Code: ${err.code}, message: ${err.message}`);
+                  console.error(`${TAG}Failed to get orientation. Code: ${err.code}, message: ${err.message}`);
                   return;
                 }
                 if (data.length < 3) {
-                  console.error("Failed to get orientation, length" + data.length);
+                  console.error(TAG + 'Failed to get orientation, length' + data.length);
                 }
-                console.info("Succeeded in getting data. Z: " + data[0]);
-                console.info("Succeeded in getting data. X: " + data[1]);
-                console.info("Succeeded in getting data. Y: " + data[2]);
+                console.info(TAG + 'Succeeded in getting data. Z: ' + data[0]);
+                console.info(TAG + 'Succeeded in getting data. X: ' + data[1]);
+                console.info(TAG + 'Succeeded in getting data. Y: ' + data[2]);
               })
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get orientation. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get orientation. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_orientation_callback_example]
 			      // [Start sensor_js_get_orientation_promise_example]
@@ -1591,14 +1591,14 @@ struct SensorList {
               const promise = sensor.getOrientation(preRotationMatrix);
               promise.then((data: Array<number>) => {
                 for (let i = 0; i < data.length; i++) {
-                  console.info('Succeeded in getting data[' + i + ']: ' + data[i]);
+                  console.info(TAG + 'Succeeded in getting data[' + i + ']: ' + data[i]);
                 }
               }, (err: BusinessError) => {
-                console.error(`Failed to get orientation. Code: ${err.code}, message: ${err.message}`);
+                console.error(`${TAG}Failed to get orientation. Code: ${err.code}, message: ${err.message}`);
               });
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get orientation. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get orientation. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_orientation_promise_example]
 			      this.sensorApiContent = 'orientation:success';
@@ -1616,14 +1616,14 @@ struct SensorList {
               let geomagnetic = [210.87253, -78.6096, -111.44444];
               sensor.getRotationMatrix(gravity, geomagnetic, (err: BusinessError, data: sensor.RotationMatrixResponse) => {
                 if (err) {
-                  console.error(`Failed to get rotationMatrix. Code: ${err.code}, message: ${err.message}`);
+                  console.error(`${TAG}Failed to get rotationMatrix. Code: ${err.code}, message: ${err.message}`);
                   return;
                 }
-                console.info('Succeeded in getting rotationMatrix' + JSON.stringify(data));
+                console.info(TAG + 'Succeeded in getting rotationMatrix' + JSON.stringify(data));
               })
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get rotationMatrix. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get rotationMatrix. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_rotation_matrix_two_param_callback_example]
 			      // [Start sensor_js_get_rotation_matrix_two_param_promise_example]
@@ -1632,13 +1632,13 @@ struct SensorList {
               let geomagnetic = [210.87253, -78.6096, -111.44444];
               const promise = sensor.getRotationMatrix(gravity, geomagnetic);
               promise.then((data: sensor.RotationMatrixResponse) => {
-                console.info('Succeeded in getting rotationMatrix' + JSON.stringify(data));
+                console.info(TAG + 'Succeeded in getting rotationMatrix' + JSON.stringify(data));
               }, (err: BusinessError) => {
-                console.error(`Failed to get rotationMatrix. Code: ${err.code}, message: ${err.message}`);
+                console.error(`${TAG}Failed to get rotationMatrix. Code: ${err.code}, message: ${err.message}`);
               });
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get rotationMatrix. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get rotationMatrix. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_rotation_matrix_two_param_promise_example]
 			      this.sensorApiContent = 'rotationMatrixTwoParam:success';
@@ -1654,35 +1654,35 @@ struct SensorList {
             try {
               sensor.getSingleSensor(sensor.SensorId.ACCELEROMETER, (err: BusinessError, data: sensor.Sensor) => {
                 if (err) {
-                  console.error(`Failed to get singleSensor. Code: ${err.code}, message: ${err.message}`);
+                  console.error(`${TAG}Failed to get singleSensor. Code: ${err.code}, message: ${err.message}`);
                   return;
                 }
-                console.info('Succeeded in getting sensor: ' + JSON.stringify(data));
+                console.info(TAG + 'Succeeded in getting sensor: ' + JSON.stringify(data));
               });
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get singleSensor. Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get singleSensor. Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_single_sensor_callback_example]
 			      // [Start sensor_js_get_single_sensor_promise_example]
             try {
               sensor.getSingleSensor(sensor.SensorId.ACCELEROMETER).then((data: sensor.Sensor) => {
-                console.info('Succeeded in getting sensor: ' + JSON.stringify(data));
+                console.info(TAG + 'Succeeded in getting sensor: ' + JSON.stringify(data));
               }, (err: BusinessError) => {
-                console.error(`Failed to get singleSensor. Code: ${err.code}, message: ${err.message}`);
+                console.error(`${TAG}Failed to get singleSensor. Code: ${err.code}, message: ${err.message}`);
               });
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get singleSensor . Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get singleSensor . Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_single_sensor_promise_example]
 			      // [Start sensor_js_get_single_sensor_sync_example]
             try {
               let ret = sensor.getSingleSensorSync(sensor.SensorId.ACCELEROMETER);
-              console.info('Succeeded in getting sensor: ' + JSON.stringify(ret));
+              console.info(TAG + 'Succeeded in getting sensor: ' + JSON.stringify(ret));
             } catch (error) {
               let e: BusinessError = error as BusinessError;
-              console.error(`Failed to get singleSensor . Code: ${e.code}, message: ${e.message}`);
+              console.error(`${TAG}Failed to get singleSensor . Code: ${e.code}, message: ${e.message}`);
             }
             // [End sensor_js_get_single_sensor_sync_example]
 			      this.sensorApiContent = 'singleSensor:success';

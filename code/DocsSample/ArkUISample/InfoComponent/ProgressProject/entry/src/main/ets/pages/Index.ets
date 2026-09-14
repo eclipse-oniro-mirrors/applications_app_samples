@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { router } from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -29,11 +28,14 @@ struct Index {
             // 请将$r('app.string.Progress_Update_Example')替换为实际资源文件，在本示例中该资源文件的value值为"更新进度示例"
             Button($r('app.string.Progress_Update_Example'))
               .onClick((event: ClickEvent) => {
-                router.pushUrl({
+                this.getUIContext().getRouter().pushUrl({
                   url: 'pages/ProgressCase1'
                 })
               })
           }.width('90%')
+          // [Start progress_create]
+          Progress({ value: 24, total: 100, type: ProgressType.Linear }) // 创建一个进度总长为100，当前进度值为24的线性进度条
+          // [End progress_create]
           // 请将$r('app.string.Linear_Progress')替换为实际资源文件，在本示例中该资源文件的value值为"线性样式进度条"
           Text($r('app.string.Linear_Progress')).fontSize(9).fontColor(0xCCCCCC).width('90%')
           // [Start progress_style_1]
@@ -45,7 +47,7 @@ struct Index {
           Text($r('app.string.Ring_Progress')).fontSize(9).fontColor(0xCCCCCC).width('90%')
           Row({space:40}) {
             // [Start progress_style_2]
-            // 从左往右，1号环形进度条，默认前景色为蓝色渐变，默认strokeWidth进度条宽度为2.0vp
+            // 从左往右，1号环形进度条，默认前景色为蓝色渐变，默认strokeWidth进度条宽度为4.0vp
             Progress({ value: 40, total: 150, type: ProgressType.Ring }).width(100).height(100)
             // 从左往右，2号环形进度条
             Progress({ value: 40, total: 150, type: ProgressType.Ring }).width(100).height(100)

@@ -28,19 +28,22 @@ const char *DEFAULT_ID = "XComponentIdSingle";
 const char *LOG_PRINT_TEXT = "AccessibilityManager";
 namespace NativeXComponentSample {
 
-const int32_t NUMBER_ZERO = 0;
-const int32_t NUMBER_FIRST = 100;
-const int32_t NUMBER_SECOND = 500;
-const int32_t NUMBER_THIRD = 800;
+// 以下常量用于设置无障碍节点矩形区域（ArkUI_AccessibleRect）的坐标位置，单位均为 vp：
+const int32_t NUMBER_ZERO = 0;     // 矩形区域左上角坐标（起始原点 x/y）
+const int32_t NUMBER_FIRST = 100;  // 单个节点的水平偏移量与宽度（用于按列布局计算 leftTopX/rightBottomX）
+const int32_t NUMBER_SECOND = 500; // 矩形区域右下角纵坐标 rightBottomY（节点高度边界）
+const int32_t NUMBER_THIRD = 800;  // 矩形区域右下角坐标（rightBottomX/rightBottomY，整体宽高边界）
 
 // [Start abilitycap_six_start]
 void FillEvent(ArkUI_AccessibilityEventInfo *eventInfo, ArkUI_AccessibilityElementInfo *elementInfo,
                ArkUI_AccessibilityEventType eventType, std::string announcedText)
 {
     if (eventInfo == nullptr) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, LOG_PRINT_TEXT, "FillEvent eventInfo is nullptr");
         return;
     }
     if (elementInfo == nullptr) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, LOG_PRINT_TEXT, "FillEvent elementInfo is nullptr");
         return;
     }
     // 设置事件类型
@@ -49,7 +52,8 @@ void FillEvent(ArkUI_AccessibilityEventInfo *eventInfo, ArkUI_AccessibilityEleme
     OH_ArkUI_AccessibilityEventSetElementInfo(eventInfo, elementInfo);
     
     if (eventType == ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_ANNOUNCE_FOR_ACCESSIBILITY && announcedText.size() > 0) {
-        // 给无障碍节点设置优先播报的无障碍文本
+        // 给无障碍节点设置优先播报的无障碍文本。
+        // 该 Set 接口为同步调用且会拷贝文本，announcedText 为按值传入的局部对象，其生命周期覆盖本次调用，故直接传 data() 安全。
         OH_ArkUI_AccessibilityEventSetTextAnnouncedForAccessibility(eventInfo, announcedText.data());
     }
 }
@@ -71,6 +75,8 @@ void AccessibilityManager::SendAccessibilityAsyncEvent(ArkUI_AccessibilityElemen
     };
     // 3. 调用接口发送事件给OH侧
     OH_ArkUI_SendAccessibilityAsyncEvent(g_provider, eventInfo, callback);
+    // 发送完成后释放 eventInfo 内存
+    OH_ArkUI_DestoryAccessibilityEventInfo(eventInfo);
 }
 // [EndExclude abilitycap_one_start]
 // [StartExclude abilitycap_six_start]
@@ -106,7 +112,7 @@ void AccessibilityManager::Initialize(const std::string &id, OH_NativeXComponent
         &accessibilityProviderCallbacksWithInstance_);
     if (ret != 0) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, LOG_PRINT_TEXT,
-                     "InterfaceDesignTest OH_ArkUI_AccessibilityProviderRegisterCallback failed");
+                     "OH_ArkUI_AccessibilityProviderRegisterCallbackWithInstance failed");
         return;
     }
     g_provider = provider;
@@ -142,6 +148,8 @@ int32_t AccessibilityManager::FindAccessibilityNodeInfosById(const char* instanc
         // 设置根节点信息
         OH_ArkUI_AccessibilityElementInfoSetElementId(rootNode, 0);
         OH_ArkUI_AccessibilityElementInfoSetParentId(rootNode, parentOfRoot);
+        OH_ArkUI_AccessibilityElementInfoSetEnabled(rootNode, true);
+        OH_ArkUI_AccessibilityElementInfoSetVisible(rootNode, true);
         FakeWidget::Instance().fillAccessibilityElement(rootNode);
 
         ArkUI_AccessibleRect rect;
@@ -154,11 +162,6 @@ int32_t AccessibilityManager::FindAccessibilityNodeInfosById(const char* instanc
         OH_ArkUI_AccessibilityElementInfoSetAccessibilityLevel(rootNode, "no");
         auto objects = FakeWidget::Instance().GetAllObjects(instanceId);
         int64_t childNodes[1024];
-        for (int i = 0; i < objects.size(); i++) {
-            int elementId = i + 1;
-
-            childNodes[i] = elementId;
-        }
         for (int i = 0; i < objects.size(); i++) {
             int elementId = i + 1;
             childNodes[i] = elementId;
@@ -331,8 +334,11 @@ int32_t AccessibilityManager::FindNextFocusAccessibilityNode(const char* instanc
     rect.rightBottomY = NUMBER_SECOND;
     OH_ArkUI_AccessibilityElementInfoSetScreenRect(elementInfo, &rect);
     auto eventInfo = OH_ArkUI_CreateAccessibilityEventInfo();
-    OH_ArkUI_AccessibilityEventSetRequestFocusId(eventInfo, requestId);
+    OH_ArkUI_AccessibilityEventSetRequestFocusId(eventInfo, nextElementId);
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, LOG_PRINT_TEXT, "%{public}ld", nextElementId);
+    // 本函数仅演示创建事件信息，未发送事件。若无需发送事件，请调用 OH_ArkUI_DestoryAccessibilityEventInfo
+    // 释放内存；若需发送事件，请调用 OH_ArkUI_SendAccessibilityAsyncEvent，并在回调中释放内存。
+    OH_ArkUI_DestoryAccessibilityEventInfo(eventInfo);
     return OH_NATIVEXCOMPONENT_RESULT_SUCCESS;
 }
 // [End abilitycap_three_start]
@@ -358,33 +364,28 @@ int32_t AccessibilityManager::ExecuteAccessibilityAction(const char* instanceId,
     const char *actionKey = "some_key";
     char *actionValue = nullptr;
     OH_ArkUI_FindAccessibilityActionArgumentByKey(actionArguments, actionKey, &actionValue);
+    // 根据 actionValue 执行相应逻辑，或移除未使用的查询代码。
     // 根据action类型执行对应的行为。
     switch (action) {
         case ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_CLICK:
-            if (object) {
-                object->OnClick();
-                object->fillAccessibilityElement(element);
-            }
+            object->OnClick();
+            object->fillAccessibilityElement(element);
             // 向无障碍服务发送指定事件。
             AccessibilityManager::SendAccessibilityAsyncEvent(element,
                 ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_CLICKED, announcedText);
             break;
         case ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_GAIN_ACCESSIBILITY_FOCUS:
-            if (object) {
-                object->SetFocus(true);
+            object->SetFocus(true);
 
-                object->fillAccessibilityElement(element);
-            }
+            object->fillAccessibilityElement(element);
             // 向无障碍服务发送指定事件。
             AccessibilityManager::SendAccessibilityAsyncEvent(element,
                 ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_ACCESSIBILITY_FOCUSED,
                 announcedText);
             break;
         case ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_CLEAR_ACCESSIBILITY_FOCUS:
-            if (object) {
-                object->SetFocus(false);
-                object->fillAccessibilityElement(element);
-            }
+            object->SetFocus(false);
+            object->fillAccessibilityElement(element);
             AccessibilityManager::SendAccessibilityAsyncEvent(
                 element, ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_ACCESSIBILITY_FOCUS_CLEARED,
                 announcedText);
@@ -416,7 +417,7 @@ int32_t AccessibilityManager::GetAccessibilityNodeCursorPosition(const char* ins
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, LOG_PRINT_TEXT,
                  "GetAccessibilityNodeCursorPosition, instanceId %{public}s "
                  "elementId: %{public}ld, requestId: %{public}d, index: %{public}d",
-                 instanceId, elementId, requestId, index);
+                 instanceId, elementId, requestId, *index);
     return OH_NATIVEXCOMPONENT_RESULT_SUCCESS;
 }
 // [End abilitycap_eight_start]
@@ -432,7 +433,7 @@ void AccessibilityManager::Initialize(OH_NativeXComponent *nativeXComponent)
     ret = OH_ArkUI_AccessibilityProviderRegisterCallback(provider, &accessibilityProviderCallbacks_);
     if (ret != 0) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, LOG_PRINT_TEXT,
-                     "InterfaceDesignTest OH_ArkUI_AccessibilityProviderRegisterCallback failed");
+                     "OH_ArkUI_AccessibilityProviderRegisterCallback failed");
         return;
     }
     g_provider = provider;

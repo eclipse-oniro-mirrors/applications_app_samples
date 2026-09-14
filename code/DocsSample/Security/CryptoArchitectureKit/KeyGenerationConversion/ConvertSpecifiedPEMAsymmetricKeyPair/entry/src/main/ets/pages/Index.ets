@@ -15,6 +15,7 @@
 
 import { router } from '@kit.ArkUI';
 import testNapi from 'libentry.so';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 @Entry
 @Component
@@ -22,15 +23,13 @@ struct Index {
   @State message: string = 'ConvertSpecifiedPEMAsymmetricKeyPair';
 
   goToSample(url: string): void {
-    router.pushUrl({
+    this.getUIContext().getRouter().pushUrl({
       url: url,
-    }, router.RouterMode.Single, (err) => {
-      if (err) {
-        console.error(`pushUrl failed, code is ${err.code}, message is ${err.message}`);
-        return;
-      }
+    }).then(() => {
       console.info('pushUrl success');
-    })
+    }).catch((err: BusinessError) => {
+      console.error(`pushUrl failed, code is ${err.code}, message is ${err.message}`);
+    });
   }
 
   build() {
@@ -41,8 +40,8 @@ struct Index {
       Button($r('app.string.pem_to_rsa'))
         .width('70%')
         .onClick(() => {
-          let ret: number = testNapi.doTestPemDataCovertAsymKey();
-          this.message = 'doTestPemDataCovertAsymKey Success Result:' + ret.toString();
+          let ret: number = testNapi.doTestPemDataConvertAsymKey();
+          this.message = 'doTestPemDataConvertAsymKey Success Result:' + ret.toString();
         })
       Button($r('app.string.promise'))
         .width('70%')

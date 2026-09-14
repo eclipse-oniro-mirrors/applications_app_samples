@@ -2,7 +2,7 @@
 
 ## 介绍
 
-本示例基于AudioRender、AudioCapturer、AVPlayer以及CallServiceKit等能力，实现了音频录制、管理麦克风、音频录制流管理以及音频低时延耳返等功能，包含了功能调用接口的完整链路。
+本示例基于AudioRender、AudioCapturer、AVPlayer以及CallServiceKit等能力，实现了音频录制、音频内录、管理麦克风、音频录制流管理以及音频低时延耳返等功能，包含了功能调用接口的完整链路。
 
 ## 效果图预览
 
@@ -17,6 +17,7 @@
 - 依次点击'初始化'、'开始录制'按钮，即可开始录制音频。
 - 点击'停止录制'、'释放资源'按钮，即可结束录制。
 - 点击'查看状态'按钮，即可在日志信息下方打印当前录制流的状态。
+- 录制流处于运行状态时，点击'设置静音提示'、'解除静音提示'按钮，即可调用`audioCapturer.setMuteHint`上报或解除录音流静音提示。该接口不会实际触发静音，仅告知音频系统该录音流已由应用静音或期望按静音状态处理。
 - 依次点击'初始化录制内容'、'开始播放'按钮，即可播放录制到的内容。
 - 依次点击'停止播放'、'释放播放资源'按钮，即可结束播放。
 
@@ -32,6 +33,8 @@
 **图4**：音频录制流管理页
 
 点击'获取当前录制流信息'按钮，即可进行录制流更改事件监听、获取当前录制流信息以及注销监听操作，其中获取到的录制流信息会在日志信息中打印。
+点击'方法一：isRecordingAvailable判断录制是否可以启动'按钮，即可通过`isRecordingAvailable`接口判断当前录制是否可以启动。
+点击'方法二：电平判断麦克风占用'按钮，即可通过当前音频采集器信息和输入设备最大电平判断当前麦克风是否被占用。第一次最大电平读取仅用于建立采样窗口，示例会等待500毫秒后进行第二次读取，并使用第二次读取结果判断。
 
 <img src='screenshots/group.png' width=320> 
 
@@ -43,6 +46,12 @@
 
   <img src='screenshots/loopback.png' width=320> 
 
+**音频内录页**
+
+- 点击'启动音频内录'按钮，通过`AudioCapturerOptions.playbackCaptureMode`配置`MODE_MEDIA | MODE_EXCLUDING_SELF`内录模式，并调用`requestPlaybackCaptureStart`请求启动内录。
+- 点击'查询音频内录状态'按钮，可查看启动回调状态和已读取的PCM数据字节数。
+- 点击'停止音频内录'按钮，停止内录并释放AudioCapturer资源。
+
 ## 工程结构&模块类型
 
 ```
@@ -51,8 +60,9 @@
 │   │   └───Index.ets                       // 首页。
 │   │   └───AudioCapture.ets                // 使用AudioCapturer开发音频录制功能页。
 │   │   └───AudioLoopback.ets               // 实现音频低时延耳返页。
-│   │   └───MacManager.ets                  // 音频录制流管理页。
-│   │   └───AudioStreamManager.ets          // 管理麦克风页。
+│   │   └───MacManager.ets                  // 管理麦克风页。
+│   │   └───AudioStreamManager.ets          // 音频录制流管理及麦克风占用判断页。
+│   │   └───PlaybackCapture.ets              // 音频内录页。
 └───entry/src/main/resources                // 资源目录。
 ```
 
@@ -67,6 +77,7 @@
   - 点击'停止录制'按钮，调用`audioCapturer.stop`，停止录制。
   - 点击'释放资源'按钮，调用`audioCapturer.release`，释放音频流资源并注销回调。
   - 点击'获取状态'按钮，通过获取`audioCapturer.state`信息查看当前音频流状态。
+  - 录制流处于运行状态时，点击'设置静音提示'按钮，调用`audioCapturer.setMuteHint(true)`告知音频系统当前录音流已由应用业务侧静音或期望按静音状态处理，并记录最近一次设置成功的值；点击'解除静音提示'按钮，调用`audioCapturer.setMuteHint(false)`解除提示。该接口从API version 24开始支持，不会实际触发录音流静音。
   - 点击'初始化录制内容'按钮，开始配置`AudioRendererOptions`内容，注意播放参数要与录制参数保持一致才能正常播放，接着配置播放数据回调并订阅监听，最后调用`createAudioRenderer`创建播放实例。
   - 点击'开始播放'按钮，调用`audioRenderer.start`，开始渲染音频。
   - 点击'停止播放'按钮，调用`audioRenderer.stop`，停止渲染音频。
@@ -85,6 +96,8 @@
   - 通过`audioManager.getStreamManager`创建`audioStreamManager`实例，再通过`on('audioCapturerChange')`监听音频录制流变更时间相应流状态以及设备变化事件。
   - 通过调用`audioStreamManager.getCurrentAudioCapturerInfoArray`获取当前录制流信息，包括音频录制流的唯一ID、音频采集器信息以及音频录制设备信息。
   - 通过`off('audioCapturerChange')`注销监听音频录制流变化。
+  - 点击'方法一：isRecordingAvailable判断录制是否可以启动'按钮，调用`audioStreamManager.isRecordingAvailable`检查当前录制是否可以启动。返回`true`时，示例判定录制可以启动；返回`false`时，示例判定录制不可启动。
+  - 点击'方法二：电平判断麦克风占用'按钮，先调用`audioStreamManager.getCurrentAudioCapturerInfoArray`获取当前音频采集器信息，再遍历每个采集器的`deviceDescriptors`。第一次调用`audioVolumeGroupManager.getMaxAmplitudeForInputDevice`用于建立采样窗口，不参与占用判断；等待500毫秒后再次读取输入设备最大电平值。当第二次读取到的任一输入设备最大电平值大于0时，示例判定当前麦克风已被占用；否则判定当前麦克风未被占用。
 
 ### 实现音频低时延耳返
 - 源码参考：[AudioLoopback.ets](entry/src/main/ets/pages/AudioLoopback.ets)  
@@ -99,9 +112,21 @@
   - 点击'查询均衡器类型'按钮，调用`audioLoopback.getEqualizerPreset`来获取当前流音频返听的均衡器类型。
   - 点击'启用音频返听'按钮，调用`audioLoopback.enable`，配置参数为true，将当前流音频返听状态设置为启用。
   - 点击'禁用音频返听'按钮，调用`audioLoopback.enable`，配置参数为false，将当前流音频返听状态设置为禁用。
+
+### 使用AudioCapturer采集内录音频
+- 源码参考：[PlaybackCapture.ets](entry/src/main/ets/pages/PlaybackCapture.ets)
+- 使用流程：
+  - 点击'启动音频内录'按钮，配置采样率、声道数、采样格式和编码格式，并通过`AudioCapturerOptions.playbackCaptureMode`将内录模式设为`MODE_MEDIA | MODE_EXCLUDING_SELF`。该模式采集媒体类音频并排除应用自身播放的音频。
+  - 调用`audio.createAudioCapturer`创建实例并订阅`readData`回调，再调用`requestPlaybackCaptureStart`异步请求启动内录。启动结果为`STATE_SUCCESS`、`STATE_FAILED`或`STATE_NOT_AUTHORIZED`，示例以回调状态作为最终结果。
+  - 点击'查询音频内录状态'按钮查看当前状态和已接收的PCM数据字节数；点击'停止音频内录'按钮注销监听、停止采集并释放实例。
+  - 内录流必须通过`requestPlaybackCaptureStart`启动，不能调用普通`start`接口。目标播放流标记为隐私保护时不会被采集。
 ## 相关权限
 
 麦克风使用权限：ohos.permission.MICROPHONE
+
+音频内录启动时由系统进行用户授权检查，授权结果通过`requestPlaybackCaptureStart`回调返回。
+
+不同设备形态的授权弹窗表现可能存在差异，请以实际设备表现为准。
 
 ## 模块依赖
 
@@ -116,3 +141,5 @@
 3.  本示例已支持使Build Version: 6.0.1.112, built on November 20, 2025。
 
 4.  高等级APL特殊签名说明：无。
+
+5.  RK3568不支持低时延，故无法测试AudioLoopbackDebugInfo。

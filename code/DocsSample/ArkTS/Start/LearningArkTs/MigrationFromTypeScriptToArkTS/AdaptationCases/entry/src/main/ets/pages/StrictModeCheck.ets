@@ -16,7 +16,7 @@
 {
   // [Start strictProperty_initialization]
   interface I {
-    name:string
+    name: string;
   }
 
   class A {}

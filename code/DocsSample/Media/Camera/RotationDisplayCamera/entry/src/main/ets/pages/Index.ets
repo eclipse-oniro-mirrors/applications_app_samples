@@ -310,7 +310,7 @@ struct Index {
           // [EndExclude XComponent]
           this.previewVM.surfaceId = this.previewVM.xComponentController.getXComponentSurfaceId();
           this.previewVM.setPreviewSize();
-          this.previewVM.xComponentController.setXComponentSurfaceRotation({ lock: true });
+          this.previewVM.xComponentController.setXComponentSurfaceRotation({ lock: false });
           // [StartExclude XComponent]
           await this.startCamera();
           this.initZooms();

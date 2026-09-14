@@ -15,6 +15,7 @@
 // [Start Provide_Consume_Provide_AllowOverride1]
 @Component
 struct MyComponent {
+  // 使用allowOverride参数重写同名的@Provide
   @Provide({ allowOverride: 'reviewVotes' }) reviewVotes: number = 10;
 
   // [StartExclude Provide_Consume_Provide_AllowOverride]
@@ -28,14 +29,18 @@ struct MyComponent {
 // [Start Provide_Consume_Provide_AllowOverride2]
 @Component
 struct GrandSon {
-  // @Consume装饰的变量通过相同的属性名绑定其祖先内的@Provide装饰的变量
+  // @Consume装饰的变量通过相同的别名绑定其祖先内的@Provide装饰的变量
   @Consume('reviewVotes') reviewVotes: number;
 
   build() {
     Column() {
       Text(`reviewVotes(${this.reviewVotes})`) // Text显示10
+        .fontSize(20)
+        .margin(10)
       Button(`reviewVotes(${this.reviewVotes}), give +1`)
         .onClick(() => this.reviewVotes += 1)
+        .width(300)
+        .margin(10)
     }
     .width('50%')
   }
@@ -70,8 +75,11 @@ struct GrandParent {
     Column() {
       Button(`reviewVotes(${this.reviewVotes}), give +1`)
         .onClick(() => this.reviewVotes += 1)
+        .width(300)
+        .margin(10)
       Parent()
     }
+    .width('100%')
   }
 }
 // [End Provide_Consume_Provide_AllowOverride2]

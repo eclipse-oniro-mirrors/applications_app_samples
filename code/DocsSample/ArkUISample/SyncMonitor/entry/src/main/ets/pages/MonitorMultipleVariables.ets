@@ -42,3 +42,12 @@ struct Index {
   }
 }
 // [End monitor_multiple_variables]
+
+@Builder
+export function monitorMultipleVariables() {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.monitor_multiple_variables'))
+}

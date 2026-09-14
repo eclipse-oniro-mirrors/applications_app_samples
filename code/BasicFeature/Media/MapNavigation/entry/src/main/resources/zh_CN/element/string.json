@@ -1,0 +1,92 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "地图导航Demo"
+    },
+    {
+      "name": "microphone_reason",
+      "value": "For recording audio"
+    },
+    {
+      "name": "ui_displayed",
+      "value": "仅作为UI展示"
+    },
+    {
+      "name": "placeholder",
+      "value": "搜索地点、地址、公交"
+    },
+    {
+      "name": "near",
+      "value": "周边"
+    },
+    {
+      "name": "star_number",
+      "value": "1.6万"
+    },
+    {
+      "name": "share",
+      "value": "分享"
+    },
+    {
+      "name": "take_a_taxi",
+      "value": "打车"
+    },
+    {
+      "name": "navigation",
+      "value": "导航"
+    },
+    {
+      "name": "route",
+      "value": "路线"
+    },
+    {
+      "name": "my_position",
+      "value": "我的位置"
+    },
+    {
+      "name": "my_company",
+      "value": "我的公司"
+    },
+    {
+      "name": "driving",
+      "value": "驾车"
+    },
+    {
+      "name": "bus_and_subway",
+      "value": "公交地铁"
+    },
+    {
+      "name": "ride",
+      "value": "骑行"
+    },
+    {
+      "name": "walking",
+      "value": "步行"
+    },
+    {
+      "name": "train",
+      "value": "火车"
+    },
+    {
+      "name": "coach",
+      "value": "客车"
+    },
+    {
+      "name": "start_navigating",
+      "value": "开始导航"
+    },
+    {
+      "name": "speech_text",
+      "value": "前方道路直行，保持当前车道，继续向前行驶两千米后到达目的地"
+    }
+  ]
+}

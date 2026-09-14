@@ -33,9 +33,12 @@ struct PersistedSet {
       ListItem() {
         Column() {
           Text(`Persisted Set is `)
+            .fontSize(20)
             .margin(20)
           ForEach(Array.from(this.persistedSet.entries()), (item: [number, number]) => {
             Text(`${item[1]}`)
+              .fontSize(20)
+              .margin(10)
           })
 
           Button() {
@@ -69,9 +72,9 @@ struct PersistedSet {
           .width('60%')
           .height('5%')
           .onClick(() => {
+            // 点击Button改变persistedSet的值，视图会随之刷新
             this.clearSet();
           })
-
         }
         .width('100%')
       }

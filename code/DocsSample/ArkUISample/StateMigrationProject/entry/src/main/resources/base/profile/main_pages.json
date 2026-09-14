@@ -9,6 +9,8 @@
     "pages/componentstatemigration/StateExternalInitializationV2",
     "pages/componentstatemigration/LinkMiigrationV1",
     "pages/componentstatemigration/LinkMiigrationV2",
+    "pages/componentstatemigration/ObjectLinkMigrationV1",
+    "pages/componentstatemigration/ObjectLinkMigrationV2",
     "pages/componentstatemigration/PropEasyV1",
     "pages/componentstatemigration/PropEasyV2",
     "pages/componentstatemigration/PropComplexV1",
@@ -30,6 +32,16 @@
     "pages/componentstatemigration/WatchMoreVarV1",
     "pages/componentstatemigration/WatchMoreVarV2",
     "pages/componentstatemigration/ComputedV1",
-    "pages/componentstatemigration/ComputedV2"
+    "pages/componentstatemigration/ComputedV2",
+    "pages/reusablemigration/ReusableIfScene",
+    "pages/reusablemigration/ReusableRepeatScene",
+    "pages/reusablemigration/ReusableListIfScene",
+    "pages/reusablemigration/ReusableRepeatAllLoadScene",
+    "pages/reusablemigration/ReusableGridScene",
+    "pages/reusablemigration/ReusableWaterFlowScene",
+    "pages/reusablemigration/ReusableSwiperScene",
+    "pages/reusablemigration/ReusableListItemGroupScene",
+    "pages/reusablemigration/ReusableLimitTypeScene",
+    "pages/reusablemigration/ReusableGroupTypeScene"
   ]
 }

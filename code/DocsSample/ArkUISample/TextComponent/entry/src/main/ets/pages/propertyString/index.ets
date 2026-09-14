@@ -69,7 +69,7 @@ const routes: Route[] = [
   },
   {
     name: `${PROPERTY_STRING_ROUTE_PREFIX}/StyledStringGestureStyle`,
-    title: resource.resourceToString($r('app.string.TStyledStringGestureStyle_title')),
+    title: resource.resourceToString($r('app.string.StyledStringGestureStyle_title')),
     description: $r('app.string.StyledStringGestureStyle_description')
   },
   {
@@ -100,7 +100,7 @@ export function PropertyStringDestination(name: string) {
 @Component
 struct PropertyStringExample {
   goToSample(url: string): void {
-    router.pushUrl({
+    this.getUIContext().getRouter().pushUrl({
       url: url,
     }, router.RouterMode.Single, (err) => {
       if (err) {

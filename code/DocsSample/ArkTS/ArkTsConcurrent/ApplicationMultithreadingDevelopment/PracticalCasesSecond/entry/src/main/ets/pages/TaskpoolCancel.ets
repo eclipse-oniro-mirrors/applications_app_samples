@@ -22,7 +22,7 @@ import { PromptAction } from '@kit.ArkUI';
 
 @Concurrent
 function cancel(send: SendableTest) {
-  // 在多线程中通过任务ID取消任务
+  // 在子线程中通过任务ID取消任务
   taskpool.cancel(send.getTaskId());
   console.info('cancel task finished');
 }
@@ -52,9 +52,10 @@ struct TaskpoolCancel {
               // taskpool execute error, message is: taskpool:: task has been canceled.
             });
             let send = new SendableTest(task.taskId);
-            taskpool.execute(cancel, send);
-            this.returnMessage = 'Taskpool canceled!';
-            this.promptAction.showToast({ message: this.returnMessage });
+            taskpool.execute(cancel, send).then(() => {
+              this.returnMessage = 'Taskpool canceled!';
+              this.promptAction.showToast({ message: this.returnMessage });
+            });
           })
         // [StartExclude taskpool_cancel]
         GotoButton({ text: '跳转回Index页面', dstUri: 'pages/Index'});

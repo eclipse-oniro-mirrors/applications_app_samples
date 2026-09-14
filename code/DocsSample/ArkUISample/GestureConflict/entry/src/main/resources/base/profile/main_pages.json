@@ -6,6 +6,8 @@
     "Component/PreventGestureRecognition/PreventGestureRecognition",
     "Component/CustomGestures/CustomGestures",
     "Component/GestureAndMotionControl/GestureControl",
-    "Component/PreventGestureRecognition/PreventIdentification"
+    "Component/PreventGestureRecognition/PreventIdentification",
+    "Component/CustomGestureAndMotionControl/GestureControl",
+    "Component/InterceptGestureCollection/InterceptGestureCollection"
   ]
 }

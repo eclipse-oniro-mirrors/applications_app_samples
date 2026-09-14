@@ -26,33 +26,33 @@ struct Index {
   build() {
     Scroll() {
       Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {
-        Text(resource.resourceToString($r('app.string.Task_pool')))
+        Text(resource.resourceToString($r('app.string.Task_pool').id))
           .padding('15vp')
           .width('100%')
           .fontSize('25fp')
           .textAlign(TextAlign.Center)
         CommonButton({
-          buttonName: resource.resourceToString($r('app.string.Notes')),
+          buttonName: resource.resourceToString($r('app.string.Notes').id),
           buttonUrl: 'managers/notes'
         });
         CommonButton({
-          buttonName: resource.resourceToString($r('app.string.Instruction')),
+          buttonName: resource.resourceToString($r('app.string.Instruction').id),
           buttonUrl: 'managers/instruction'
         });
         CommonButton({
-          buttonName: resource.resourceToString($r('app.string.General_use')),
+          buttonName: resource.resourceToString($r('app.string.General_use').id),
           buttonUrl: 'managers/generaluse'
         });
         CommonButton({
-          buttonName: resource.resourceToString($r('app.string.Return_promise')),
+          buttonName: resource.resourceToString($r('app.string.Return_promise').id),
           buttonUrl: 'managers/returnpromise'
         });
         CommonButton({
-          buttonName: resource.resourceToString($r('app.string.Custom_classes')),
+          buttonName: resource.resourceToString($r('app.string.Custom_classes').id),
           buttonUrl: 'managers/customclasses'
         });
         CommonButton({
-          buttonName: resource.resourceToString($r('app.string.Asynchronous_functions')),
+          buttonName: resource.resourceToString($r('app.string.Asynchronous_functions').id),
           buttonUrl: 'managers/asynchronousfunctions'
         });
       }

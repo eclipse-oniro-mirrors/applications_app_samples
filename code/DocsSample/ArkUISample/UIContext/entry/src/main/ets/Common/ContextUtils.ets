@@ -14,6 +14,9 @@
  */
 // [Start Common_ContextUtils]
 // Common/ContextUtils.ets
+import { Context } from '@kit.AbilityKit';
+import { UIContext } from '@kit.ArkUI';
+
 export class ContextUtils {
   public static context: Context | undefined;
 

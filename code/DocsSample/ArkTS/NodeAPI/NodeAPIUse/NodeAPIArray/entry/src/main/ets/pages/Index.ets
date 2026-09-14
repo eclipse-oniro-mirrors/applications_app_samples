@@ -148,7 +148,7 @@ struct Index {
                     testNapi.napiGetElement<number | string | null | Object>(arr, 3));
                   hilog.info(0x0000, 'testTag', 'Test Node-API napi_get_element arr[4]: %{public}s',
                     JSON.stringify(testNapi.napiGetElement(arr, 4)));
-                  hilog.info(0x0000, 'testTag', 'Test Node-API napi_get_element arr[null]: %{public}s',
+                  hilog.info(0x0000, 'testTag', 'Test Node-API napi_get_element arr[5]: %{public}s',
                     testNapi.napiGetElement<number | string | null | Object>(arr, 5));
                   // [End ark_napi_get_element]
                   this.result = 'napiGetElementSuccess';

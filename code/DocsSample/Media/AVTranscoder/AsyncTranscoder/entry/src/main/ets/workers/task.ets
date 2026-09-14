@@ -18,11 +18,13 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import fs from '@ohos.file.fs';
 import { SendableObject } from '../util/SendableObject';
 import { common, sendableContextManager } from '@kit.AbilityKit';
+import resourceManager from '@ohos.resourceManager';
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 
 workerPort.onmessage = async (event: MessageEvents) => {
   console.info(`onmessage in`);
+  // [Start ExecuteTranscodingLogic]
   //worker线程接收参数
   const sendableObject: SendableObject = event.data;
   const sendableContext: sendableContextManager.SendableContext =
@@ -33,6 +35,7 @@ workerPort.onmessage = async (event: MessageEvents) => {
   await doSome(context);
   // 向主线程发送消息
   workerPort.postMessage('start end');
+  // [End ExecuteTranscodingLogic]
 };
 
 workerPort.onmessageerror = (event: MessageEvents) => {
@@ -43,28 +46,44 @@ workerPort.onerror = (event: ErrorEvent) => {
   console.info('workerPort onerror err is: ', event.message);
 };
 
+// [Start performingTranscoding]
 async function doSome(context: common.Context) {
   console.info(`doSome in`);
   try {
     let transcoder = await media.createAVTranscoder();
+    
+    // [Start transcoderCompleteCallback]
     // 转码完成回调函数
     transcoder.on('complete', async () => {
       console.info(`transcode complete`);
-      fs.closeSync(transcoder.fdDst);
       await transcoder?.release()
+      if (transcoder.fdDst != undefined) {
+        fs.closeSync(transcoder.fdDst);
+      }
+      if (transcoder.fdSrc != undefined) {
+        fs.closeSync(transcoder.fdSrc.fd);
+      }
       // 向主线程发送转码结束的消息
       workerPort.postMessage('complete');
     })
+    // [End transcoderCompleteCallback]
+
     // 转码错误回调函数
     transcoder.on('error', async (err: BusinessError) => {
-      fs.closeSync(transcoder.fdDst);
       await transcoder?.release();
+      if (transcoder.fdDst != undefined) {
+        fs.closeSync(transcoder.fdDst);
+      }
+      if (transcoder.fdSrc != undefined) {
+        fs.closeSync(transcoder.fdSrc.fd);
+      }
     })
     // 转码进度更新
     transcoder.on('progressUpdate', (progress: number) => {
       console.info(`AVTranscoder progressUpdate = ${progress}`);
       workerPort.postMessage(progress);
     })
+
     try {
       // 获取输入文件fd，3.mkv为rawfile目录下的预置资源，需要开发者根据实际情况进行替换。
       let fileDescriptor = await context.resourceManager.getRawFd('H264_AAC.mp4');
@@ -90,3 +109,4 @@ async function doSome(context: common.Context) {
     console.error(`transcode error: code = ` + e.code.toString() + `, message = ${JSON.stringify(e.message)}`);
   }
 }
+// [End performingTranscoding]

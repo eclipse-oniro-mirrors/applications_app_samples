@@ -216,7 +216,6 @@ static void TestReadWriteWindow(NativeWindow *nativeWindow)
 void NativeRender::DrawBaseColor()
 {
     NativeBufferApi();
-    uint32_t value = flag_ ? 0xfff0000f : 0xff00ffff;
     uint64_t surfaceId = 0;
     auto ret = OH_NativeWindow_GetSurfaceId(nativeWindow_, &surfaceId);
     if (ret != 0) {
@@ -230,21 +229,23 @@ void NativeRender::DrawBaseColor()
         return;
     }
     TestReadWriteWindow(nativeWindow);
-    int fenceFd = -1;
+    int releaseFenceFd = -1;
     OHNativeWindowBuffer *nativeWindowBuffer = nullptr;
-    ret = OH_NativeWindow_NativeWindowRequestBuffer(nativeWindow, &nativeWindowBuffer, &fenceFd);
+    ret = OH_NativeWindow_NativeWindowRequestBuffer(nativeWindow, &nativeWindowBuffer, &releaseFenceFd);
     BufferHandle *bufferHandle = OH_NativeWindow_GetBufferHandleFromNative(nativeWindowBuffer);
     void *mappedAddr =
         mmap(bufferHandle->virAddr, bufferHandle->size, PROT_READ | PROT_WRITE, MAP_SHARED, bufferHandle->fd, 0);
 
     uint32_t *pixel = static_cast<uint32_t *>(mappedAddr);
+    uint32_t value = flag_ ? 0xfff0000f : 0xff00ffff;
     for (uint64_t x = 0; x < bufferHandle->width; x++) {
         for (uint64_t y = 0; y < bufferHandle->height; y++) {
             *pixel++ = value;
         }
     }
-    struct Region *region = new Region();
-    ret = OH_NativeWindow_NativeWindowFlushBuffer(nativeWindow, nativeWindowBuffer, fenceFd, *region);
+    struct Region region = {0};
+    int acquireFenceFd = -1;
+    ret = OH_NativeWindow_NativeWindowFlushBuffer(nativeWindow, nativeWindowBuffer, acquireFenceFd, region);
     if (ret != NATIVE_ERROR_OK) {
         LOGE("flush failed");
         (void)OH_NativeWindow_NativeWindowAbortBuffer(nativeWindow, nativeWindowBuffer);

@@ -15,11 +15,19 @@
 
 export const signatureSeg: () => number;
 
+export const verifySeg: () => number;
+
 export const signature: () => number;
+
+export const verify: () => number;
 
 export const signatureRecover: () => number;
 
 export const pssSignatureSeg: () => number;
+
+export const pssVerifySeg: () => number;
+
+export const ecdsaVerify: () => number;
 
 export const ecdsaSignature: () => number;
 

@@ -16,6 +16,7 @@
 // [Start use_sample_sync_test]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 namespace ECIES {
   function generateGcmParamsSpec(ivData: Uint8Array): cryptoFramework.GcmParamsSpec {
@@ -46,7 +47,7 @@ namespace ECIES {
       algName: 'X963KDF',
       key: keyData.data,
       info: infoData,
-      keySize: 32, // 前16字节作为AES128的IV，后16字节作为的密钥
+      keySize: 32, // 前16字节作为AES128的IV，后16字节作为密钥
     };
 
     // 使用X963KDF进行密钥派生
@@ -109,7 +110,8 @@ namespace ECIES {
       console.info('doEciesTest success, message: ' + buffer.from(plainData.data).toString('utf-8'));
       return 'Success';
     } catch (error) {
-      console.error(`doEciesTest failed, error: + ${JSON.stringify(error)}`);
+      let e: BusinessError = error as BusinessError;
+      console.error(`doEciesTest failed: errCode: ${e.code}, message: ${e.message}`);
       return 'Failed';
     }
   }

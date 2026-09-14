@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2023-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,54 +13,19 @@
  * limitations under the License.
  */
 
+// [Start extension_include]
 import {workScheduler, WorkSchedulerExtensionAbility} from '@kit.BackgroundTasksKit';
-import { http } from '@kit.NetworkKit';
-import { notificationSubscribe } from '@kit.NotificationKit';
-import { WorkSchedulerSystem } from '../feature/WorkSchedulerSystem';
+// [End extension_include]
 import { Logger } from '../utils/Logger';
-
-const VERSION: string = '1.0';
-const HTTP_STATUS_CODE: number = 200;
-const URL: string = 'https://gitee.com/openharmony/applications_app_samples/raw/master/code/DataMock/' +
-  'WorkScheduler/UpdateWorkScheduler.hap';
-const BUNDLE_NAME = ['ohos.samples.workschedulerextensionability'];
 
 // [Start workSchedulerExtension]
 export default class WorkSchedulerAbility extends WorkSchedulerExtensionAbility {
   // 延迟任务开始回调
   onWorkStart(workInfo: workScheduler.WorkInfo) {
-    Logger.info('WorkScheduler', 'WorkSchedulerAbility start');
-    // 打印 parameters中的参数，如：参数key1
-    console.info(`work info parameters: ${JSON.parse(workInfo.parameters?.toString()).key1}`);
     // [StartExclude workSchedulerExtension]
-    let version:string = '';
-    let filePath: string = '';
-    if (workInfo.parameters) {
-      filePath = JSON.parse(workInfo.parameters?.toString()).filePath;
-      version = JSON.parse(workInfo.parameters?.toString()).version;
-    }
-    if (version === VERSION) {
-      let result: Promise<http.HttpResponse> = WorkSchedulerSystem.getNewHap(URL);
-      result.then(data => {
-        if (data.responseCode === HTTP_STATUS_CODE) {
-          WorkSchedulerSystem.saveFile(filePath, data.result as ArrayBuffer);
-          WorkSchedulerSystem.publishNotification('download', 'isReady', 'download hap to update the application');
-          notificationSubscribe.subscribe({
-            onConsume: (data) => {
-              if (data.request.content.normal?.text === 'allow') {
-                let path: string[] = [];
-                path.push(filePath);
-                workInfo.parameters = {};
-                WorkSchedulerSystem.installBundle(path, workInfo);
-              }
-            }
-          }, {
-            bundleNames: BUNDLE_NAME
-          })
-        }
-      })
-    }
+    Logger.info('WorkScheduler', 'WorkSchedulerAbility start');
     // [EndExclude workSchedulerExtension]
+    console.info(`onWorkStart, workInfo = ${JSON.stringify(workInfo)}`);
   }
 
   // 延迟任务结束回调。当延迟任务2分钟超时或应用调用stopWork接口取消任务时，触发该回调。

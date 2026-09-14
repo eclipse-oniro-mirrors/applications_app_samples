@@ -46,3 +46,12 @@ struct Index {
   }
 }
 // [End monitor_the_same_variable_two_times]
+
+@Builder
+export function monitorTheSameVariableTwoTimes() {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.monitor_the_same_variable_two_times'))
+}

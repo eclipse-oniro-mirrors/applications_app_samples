@@ -17,7 +17,7 @@ import { ComponentCard } from '../../common/Card';
 
 @Entry
 @Component
-export struct TextSpan {
+struct TextSpan {
   @State onClickText: ResourceStr = 'I am Upper-span2';
 
   build() {
@@ -51,7 +51,7 @@ export struct TextSpan {
               .fontSize(16)
               .fontStyle(FontStyle.Italic)
               .decoration({ type: TextDecorationType.Underline, color: Color.Black })
-            // 请将$r('app.string.TextSpan_textContent_span_three')替换为实际资源文件，在本示例中该资源文件的value值为"我是Span3"
+            // 请将$r('app.string.TextSpan_textContent_span_three')替换为实际资源文件，在本示例中该资源文件的value值为"，我是Span3"
             Span($r('app.string.TextSpan_textContent_span_three'))
               .fontSize(16)
               .fontColor(Color.Grey)
@@ -98,3 +98,5 @@ export struct TextSpan {
     .title($r('app.string.TextSpan_title'))
   }
 }
+
+export { TextSpan };

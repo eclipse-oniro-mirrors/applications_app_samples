@@ -79,7 +79,6 @@ class MyNodeController extends NodeController {
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World';
   controller = new NodeContentCtrl(this.getUIContext());
   myNodeController = new MyNodeController();
 

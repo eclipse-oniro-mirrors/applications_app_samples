@@ -17,7 +17,7 @@ import { ComponentCard } from '../../common/Card';
 
 @Entry
 @Component
-export struct CustomTextStyle {
+struct CustomTextStyle {
   scroller: Scroller = new Scroller();
 
   build() {
@@ -301,7 +301,6 @@ export struct CustomTextStyle {
               // [Start custom_the_text_by_text_case]
               Text('This is the text content with textCase set to Normal.')
                 .textCase(TextCase.Normal)
-                .padding(10)
                 .border({ width: 1 })
                 .padding(10)
                 .margin(5)
@@ -348,3 +347,5 @@ export struct CustomTextStyle {
     .title($r('app.string.CustomTextStyle_title'))
   }
 }
+
+export { CustomTextStyle };

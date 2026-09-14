@@ -16,15 +16,20 @@
 @Observed
 class DataDownloader {
   public state: number;
+  private intervalId: number = -1;
 
   constructor() {
     this.state = 0;
   }
 
   startIntervalUpdate() {
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.state += 1;
     }, 2000);
+  }
+
+  stopIntervalUpdate() {
+    clearInterval(this.intervalId);
   }
 }
 
@@ -35,6 +40,10 @@ struct Index {
 
   aboutToAppear() {
     this.dataDownloader.startIntervalUpdate(); // @Observed装饰的类构建后再修改属性可以触发更新UI
+  }
+
+  aboutToDisappear() {
+    this.dataDownloader.stopIntervalUpdate();
   }
 
   build() {

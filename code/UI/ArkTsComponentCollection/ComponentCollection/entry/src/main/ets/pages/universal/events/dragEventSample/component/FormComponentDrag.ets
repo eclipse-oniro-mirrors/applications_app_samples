@@ -13,12 +13,15 @@
  * limitations under the License.
  */
 
+import Logger from '../../../../../util/Logger';
+
+const TAG = '[FormComponentDrag]';
+
 @Component
 export struct FormComponentDrag {
-  @State formId: number = 0
+  @State formId: string = '0'
   @State visible: boolean = true
 
-  // 自定义拖拽过程中显示的内容
   @Builder pixelMapBuilder() {
     FormComponent({
       id: this.formId,
@@ -49,6 +52,16 @@ export struct FormComponentDrag {
       .size({ width: 160, height: 52 })
       .borderRadius(24)
       .visibility(this.visible ? Visibility.Visible : Visibility.Hidden)
+      .onAcquired((form: FormCallbackInfo) => {
+        if (form.id === -1) {
+          this.formId = form.idString
+        } else {
+          this.formId = form.id.toString()
+        }
+      })
+      .onError((err: ErrorInformation) => {
+        Logger.error(TAG, `fail to add form, errcode: ${err.errcode}, msg: ${err.msg}`)
+      })
       .onDragStart(() => {
         this.visible = false
         return this.pixelMapBuilder

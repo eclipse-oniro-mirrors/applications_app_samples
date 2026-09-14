@@ -69,7 +69,7 @@ static napi_value CreateNativeNode(napi_env env, napi_callback_info info, const 
 
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, ConstIde::K_LOG_DOMAIN, "%{public}s after GetNodeContent", who);
 
-    // 可选：保留对 nodeAPI_ 的健壮性检查（与你现有代码一致）
+    // 可选：保留对 nodeAPI_ 的健壮性检查（与现有代码一致）
     if (Manager::nodeAPI_ == nullptr) {
         OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, ConstIde::K_LOG_DOMAIN, "%{public}s nodeAPI_ is null", who);
         return nullptr;
@@ -87,6 +87,7 @@ static napi_value CreateNativeNode(napi_env env, napi_callback_info info, const 
     return nullptr;
 }
 
+constexpr int32_t NUM_10 = 10;
 constexpr int32_t MAX_LINES = 10;                // 最大行数
 constexpr int32_t FONT_SIZE = 28;                // 字体大小
 constexpr int32_t LAYOUT_MAX_WIDTH = 400;        // 排版最大宽度
@@ -159,15 +160,10 @@ static void SerializeAndDeserializeStyledString()
     const char* html = OH_ArkUI_ConvertToHtml(desc);
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "styledString", "html: [%{public}s]", html);
     size_t resultSize = dataSize + 2;
-    uint8_t *buf1 = (uint8_t *)malloc(10 * sizeof(uint8_t));
-    if (buf1 == nullptr) {
-        OH_ArkUI_StyledString_Descriptor_Destroy(desc);
-        return;
-    }
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "styledString", "resultSize: %{public}zu", resultSize);
     uint8_t *buf2 = (uint8_t *)malloc(resultSize * sizeof(uint8_t));
 
-    // 序列化字节数组
+    // 验证反序列化后的数据
     if (buf2 != nullptr) {
         if (resultSize >= dataSize) {
             for (size_t i = 0; i < dataSize; i++) {
@@ -177,7 +173,6 @@ static void SerializeAndDeserializeStyledString()
             OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "styledString",
                          "Buf too small: %{public}zu < %{public}zu", resultSize, dataSize);
             free(buf2);
-            free(buf1);
             OH_ArkUI_StyledString_Descriptor_Destroy(desc);
             return;
         }
@@ -187,7 +182,6 @@ static void SerializeAndDeserializeStyledString()
             "Before: %{public}zu, After: %{public}zu, Equal: %{public}d", dataSize, resultSize, equal);
         free(buf2);
     }
-    free(buf1);
 
     // 释放描述符
     OH_ArkUI_StyledString_Descriptor_Destroy(desc);
@@ -203,14 +197,18 @@ ArkUI_NodeHandle Manager::CreateNativeStyledStringNode()
     ArkUI_NodeHandle column = CreateColumnContainer(nodeApi);
     ArkUI_NodeHandle text = CreateStyledText(nodeApi);
 
-    // 创建字体集合与段落样式
+    // [Start styledstring_paragraph_style]
+    // 创建字体集合与段落样式，并设置对齐方式和最大行数
     OH_Drawing_FontCollection *fontCollection = OH_Drawing_CreateFontCollection();
     OH_Drawing_TypographyStyle *typographyStyle = OH_Drawing_CreateTypographyStyle();
     OH_Drawing_SetTypographyTextAlign(typographyStyle, OH_Drawing_TextAlign::TEXT_ALIGN_CENTER);
-    OH_Drawing_SetTypographyTextMaxLines(typographyStyle, MAX_LINES);
+    OH_Drawing_SetTypographyTextMaxLines(typographyStyle, NUM_10);
+    // [End styledstring_paragraph_style]
 
-    // 创建StyledString并设置文本内容
+    // [Start styledstring_create]
+    // 创建StyledString对象
     ArkUI_StyledString *styledString = OH_ArkUI_StyledString_Create(typographyStyle, fontCollection);
+    // [End styledstring_create]
 
     // [Start styledstring_text_style]
     // 第一段文本（灰色"Hello"）

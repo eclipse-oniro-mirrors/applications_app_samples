@@ -44,13 +44,15 @@ struct Child {
   @Param @Require infoWrapper: InfoWrapper;
 
   aboutToDisappear(): void {
-    hilog.info(0xFF00, 'testTag', '%{public}s', 'Child aboutToDisappear', this.infoWrapper.info?.age);
+    hilog.info(0xFF00, 'testTag', '%{public}s', `Child aboutToDisappear, age: ${this.infoWrapper.info?.age}`);
     this.infoWrapper.info = undefined; // 使InfoWrapper对info.age的监听失效
   }
 
   build() {
     Column() {
       Text(`${this.infoWrapper.info?.age}`)
+        .fontSize(20)
+        .margin(10)
     }
   }
 }
@@ -73,6 +75,7 @@ struct Index {
         .onClick(() => {
           this.showFlag = !this.showFlag;
         })
+        .margin(10)
       Button('change number')
         .onClick(() => {
           hilog.info(0xFF00, 'testTag', '%{public}s', 'click to change age');
@@ -80,9 +83,12 @@ struct Index {
             info.age += 100;
           })
         })
+        .margin(10)
       if (this.showFlag) {
         Column() {
           Text('Children')
+            .fontSize(20)
+            .margin(10)
           ForEach(this.dataArray, (info: Info) => {
             Child({ infoWrapper: new InfoWrapper(info) })
           })
@@ -91,6 +97,7 @@ struct Index {
         .borderWidth(2)
       }
     }
+    .width('100%')
   }
 }
 // [End monitor_problem_class_failure_time_empty_object]

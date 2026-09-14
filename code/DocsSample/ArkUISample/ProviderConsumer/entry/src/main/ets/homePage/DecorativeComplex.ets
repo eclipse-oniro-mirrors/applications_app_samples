@@ -16,6 +16,7 @@
 // [Start Decorative_Complex]
 @ObservedV2
 class User {
+  // 复杂数据类型的属性被@Trace装饰，可以被观察到属性变化
   @Trace public name: string;
   @Trace public age: number;
 
@@ -34,18 +35,25 @@ struct Parent {
     Column() {
       Child()
       Button('add new user')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.users.push(new User('Molly', 18));
         })
       Button('age++')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.users[0].age++;
         })
       Button('change name')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.users[0].name = 'Shelly';
         })
     }
+    .width('100%')
   }
 }
 
@@ -57,12 +65,18 @@ struct Child {
     Column() {
       ForEach(this.users, (item: User) => {
         Column() {
-          Text(`name: ${item.name}`).fontSize(30)
-          Text(`age: ${item.age}`).fontSize(30)
+          Text(`name: ${item.name}`)
+            .fontSize(30)
+            .margin(10)
+          Text(`age: ${item.age}`)
+            .fontSize(30)
+            .margin(10)
           Divider()
         }
+        .width('100%')
       })
     }
+    .width('100%')
   }
 }
 // [End Decorative_Complex]

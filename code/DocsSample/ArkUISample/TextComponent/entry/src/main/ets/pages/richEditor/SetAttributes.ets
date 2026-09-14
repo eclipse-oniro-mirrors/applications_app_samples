@@ -529,8 +529,7 @@ struct SetTextVerticalAlign {
 struct EnableAutoSpacing {
   controller: RichEditorController = new RichEditorController();
   options: RichEditorOptions = { controller: this.controller };
-  @State
-  enableAutoSpace:boolean = false;
+  @State enableAutoSpace: boolean = false;
 
   build() {
     Column() {
@@ -688,7 +687,7 @@ struct PrepareMenu {
 
 @Entry
 @Component
-export struct SetAttributes {
+struct SetAttributes {
   scroller: Scroller = new Scroller();
   controller: RichEditorController = new RichEditorController();
   options: RichEditorOptions = { controller: this.controller };
@@ -718,3 +717,5 @@ export struct SetAttributes {
     .title($r('app.string.Set_Attributes_title'))
   }
 }
+
+export { SetAttributes };

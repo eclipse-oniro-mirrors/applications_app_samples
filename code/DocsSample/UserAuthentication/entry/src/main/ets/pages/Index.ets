@@ -17,7 +17,6 @@
 import { BusinessError } from '@kit.BasicServicesKit';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { JSON } from '@kit.ArkTS';
-import { promptAction } from '@kit.ArkUI';
 import { userAuth } from '@kit.UserAuthenticationKit';
 import Logger from '../common/Logger';
 
@@ -28,7 +27,7 @@ function resourceToString(resource: Resource): string {
     result = (AppStorage.get<Context>('pageContext') as Context)?.resourceManager.getStringSync(resource.id);
   } catch (error) {
     const err: BusinessError = error as BusinessError;
-    Logger.error(`catch error, code is ${err?.code}, message is ${err?.message}`);
+    Logger.error(`getStringSync failed, code is ${err?.code}, message is ${err?.message}`);
   }
   if (result === '' || result === undefined) {
     return 'undefined';
@@ -74,6 +73,7 @@ enum PageIndex {
   CREDENTIAL_QUERIES = 6, // 查询凭据页面的索引值
   SIMULATION_VALIDATION = 7, // 模拟认证页面的索引值
   AUTH_LOCK_STATE_QUERIES = 8, // 查询认证冻结状态页面的索引值
+  USER_RECOGNITION = 9, // 用户识别页面的索引值
 };
 
 enum ResultIndex {
@@ -85,18 +85,20 @@ enum ResultIndex {
   CANCEL = 5, // 实例5结果的索引值
   CUSTOMIZE = 6, // 实例6结果的索引值
   QUERY_CREDENTIALS = 7, // 能力查询结果的索引值
-  PERCEIVE_ADJUST = 8 // 感知和调整认证过程的索引值
+  PERCEIVE_ADJUST = 8, // 感知和调整认证过程的索引值
+  USER_RECOGNITION = 9 // 用户识别的索引值
 };
 
 @Entry
 @Component
 struct Index {
   @State currentIndex: number = 0; // 最开始索引页面为第一页
-  @State result: string[] = new Array(8).fill('wait');
+  @State result: string[] = new Array(10).fill('wait');
   @State credentialDigest: string = '';
   @State whetherSupport: Resource = $r('app.string.waitQuery');
   @State credentialValue: string = '';
   @State authLockStateContent : string = '';
+  @State recognitionResult : string = '';
   SPACE_GAP: number = 5; // Row组件间隙
 
   /*
@@ -108,7 +110,7 @@ struct Index {
     try {
       // 查询认证能力是否支持
       userAuth.getAvailableStatus(userAuth.UserAuthType.FACE, userAuth.AuthTrustLevel.ATL3);
-      Logger.info('current auth trust level is supported');
+      Logger.info('current auth trust level is supported.');
       return true;
     } catch (error) {
       const err: BusinessError = error as BusinessError;
@@ -143,27 +145,27 @@ struct Index {
       };
       // 获取认证对象
       const userAuthInstance = userAuth.getUserAuthInstance(authParam, widgetParam);
-      Logger.info('get userAuth instance success');
+      Logger.info('get userAuth instance successfully.');
       // 订阅认证结果
       userAuthInstance.on('result', {
         onResult: (result: userAuth.UserAuthResult) => {
           try {
-            Logger.info(`userAuthInstance callback result: ${JSON.stringify(result)}`);
+            Logger.info('userAuthInstance callback.');
             this.result[ResultIndex.EXAMPLE_1] = (`${result.result}`);
             // 可在认证结束或其他业务需要场景，取消订阅认证结果。
             userAuthInstance.off('result');
           } catch (error) {
             const err: BusinessError = error as BusinessError;
-            Logger.error(`onResult catch error. Code: ${err?.code}, Message: ${err?.message}`);
+            Logger.error(`onResult failed, code: ${err?.code}, Message: ${err?.message}`);
           }
         }
       });
       // 启动认证
       userAuthInstance.start();
-      Logger.info('auth start success');
+      Logger.info('auth start successfully.');
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(`auth catch error, code is ${err?.code}, message is ${err?.message}`);
+      Logger.error(`auth failed, code is ${err?.code}, message is ${err?.message}`);
     }
   }
 
@@ -198,27 +200,27 @@ struct Index {
       };
       // 获取认证对象
       const userAuthInstance = userAuth.getUserAuthInstance(authParam, widgetParam);
-      Logger.info('get userAuth instance success');
+      Logger.info('get userAuth instance successfully.');
       // 订阅认证结果
       userAuthInstance.on('result', {
         onResult: (result: userAuth.UserAuthResult) => {
           try {
-            Logger.info(`userAuthInstance callback result: ${JSON.stringify(result)}`);
+            Logger.info('userAuthInstance callback.');
             this.result[ResultIndex.EXAMPLE_2] = (`${result.result}`);
             // 可在认证结束或其他业务需要场景，取消订阅认证结果。
             userAuthInstance.off('result');
           } catch (error) {
             const err: BusinessError = error as BusinessError;
-            Logger.error(`onResult catch error. Code: ${err?.code}, Message: ${err?.message}`);
+            Logger.error(`onResult failed, code: ${err?.code}, Message: ${err?.message}`);
           }
         }
       });
       // 启动认证
       userAuthInstance.start();
-      Logger.info('auth start success');
+      Logger.info('auth start successfully.');
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(`auth catch error, code is ${err?.code}, message is ${err?.message}`);
+      Logger.error(`auth failed, code is ${err?.code}, message is ${err?.message}`);
     }
   }
 
@@ -253,27 +255,27 @@ struct Index {
       };
       // 获取认证对象
       const userAuthInstance = userAuth.getUserAuthInstance(authParam, widgetParam);
-      Logger.info('get userAuth instance success');
+      Logger.info('get userAuth instance successfully.');
       // 订阅认证结果
       userAuthInstance.on('result', {
         onResult: (result: userAuth.UserAuthResult) => {
           try {
-            Logger.info(`userAuthInstance callback result: ${JSON.stringify(result)}`);
+            Logger.info('userAuthInstance callback.');
             this.result[ResultIndex.EXAMPLE_3] = (`${result.result}`);
             // 可在认证结束或其他业务需要场景，取消订阅认证结果。
             userAuthInstance.off('result');
           } catch (error) {
             const err: BusinessError = error as BusinessError;
-            Logger.error(`onResult catch error. Code: ${err?.code}, Message: ${err?.message}`);
+            Logger.error(`onResult failed, code: ${err?.code}, Message: ${err?.message}`);
           }
         }
       });
       // 启动认证
       userAuthInstance.start();
-      Logger.info('auth start success');
+      Logger.info('auth start successfully.');
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(`auth catch error, code is ${err?.code}, message is ${err?.message}`);
+      Logger.error(`auth failed, code is ${err?.code}, message is ${err?.message}`);
     }
   }
 
@@ -304,27 +306,27 @@ struct Index {
       };
       // 获取认证对象
       const userAuthInstance = userAuth.getUserAuthInstance(authParam, widgetParam);
-      Logger.info('get userAuth instance success');
+      Logger.info('get userAuth instance successfully.');
       // 订阅认证结果
       userAuthInstance.on('result', {
         onResult: (result: userAuth.UserAuthResult) => {
           try {
-            Logger.info(`userAuthInstance callback result: ${JSON.stringify(result)}`);
+            Logger.info('userAuthInstance callback.');
             this.result[ResultIndex.EXAMPLE_4] = (`${result.result}`);
             // 可在认证结束或其他业务需要场景，取消订阅认证结果。
             userAuthInstance.off('result');
           } catch (error) {
             const err: BusinessError = error as BusinessError;
-            Logger.error(`onResult catch error. Code: ${err?.code}, Message: ${err?.message}`);
+            Logger.error(`onResult failed, code: ${err?.code}, Message: ${err?.message}`);
           }
         }
       });
       // 启动认证
       userAuthInstance.start();
-      Logger.info('auth start success');
+      Logger.info('auth start successfully.');
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(`auth catch error, code is ${err?.code}, message is ${err?.message}`);
+      Logger.error(`auth failed, code is ${err?.code}, message is ${err?.message}`);
     }
   }
 
@@ -338,20 +340,20 @@ struct Index {
       userAuthInstance.on('result', {
         onResult: (result: userAuth.UserAuthResult) => {
           try {
-            Logger.info(`userAuthInstance callback result: ${JSON.stringify(result)}`);
+            Logger.info('userAuthInstance callback.');
             this.result[exampleNumber] = (`${result.result}`);
             // 认证完成后取消订阅
             userAuthInstance.off('result');
           } catch (error) {
             const err: BusinessError = error as BusinessError;
-            Logger.error(`onResult catch error. Code: ${err?.code}, Message: ${err?.message}`);
+            Logger.error(`onResult failed, code: ${err?.code}, Message: ${err?.message}`);
           }
         }
       });
       // [EndExclude cancel_authentication]
       // 启动认证
       userAuthInstance.start();
-      Logger.info('auth start success');
+      Logger.info('auth start successfully.');
       // [StartExclude cancel_authentication]
       // 使用等待函数模拟等待用户认证
       let DELAY_TIME: number = 3000; // 停止3秒
@@ -359,12 +361,12 @@ struct Index {
         // [EndExclude cancel_authentication]
         // 取消认证
         userAuthInstance.cancel();
-        Logger.info('auth cancel success');
+        Logger.info('auth cancel successfully.');
         // [StartExclude cancel_authentication]
       });
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(`userAuthInstance.on catch error. Code: ${err?.code}, Message: ${err?.message}`);
+      Logger.error(`userAuthInstance.on failed, code: ${err?.code}, Message: ${err?.message}`);
     }
     // [EndExclude cancel_authentication]
   }
@@ -391,11 +393,11 @@ struct Index {
       };
       // 获取认证对象
       const userAuthInstance = userAuth.getUserAuthInstance(authParam, widgetParam);
-      Logger.info('get userAuth instance success');
+      Logger.info('get userAuth instance successfully.');
       this.handleAuthResultAndCanceling(userAuthInstance, ResultIndex.CANCEL);
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(`auth catch error, code is ${err?.code as number}, message is ${err?.message}`);
+      Logger.error(`auth failed, code is ${err?.code as number}, message is ${err?.message}`);
     }
   }
 
@@ -425,17 +427,15 @@ struct Index {
       };
       // 获取认证对象
       const userAuthInstance = userAuth.getUserAuthInstance(authParam, widgetParam);
-      Logger.info('get userAuth instance success');
+      Logger.info('get userAuth instance successfully.');
       // 订阅认证过程中的提示信息。
       userAuthInstance.on('authTip', (authTipInfo: userAuth.AuthTipInfo) => {
         try {
-          Logger.info(`userAuthInstance callback authTipInfo = ${JSON.stringify(authTipInfo)}`);
+          Logger.info('userAuthInstance callback.');
           this.result[ResultIndex.PERCEIVE_ADJUST] = (`${authTipInfo.tipType}`);
-          // 认证完成后取消订阅
-          userAuthInstance.off('result');
         } catch (error) {
           const err: BusinessError = error as BusinessError;
-          Logger.error(`onResult catch error. Code: ${err?.code}, Message: ${err?.message}`);
+          Logger.error(`onAuthTip failed, code: ${err?.code}, Message: ${err?.message}`);
         }
       });
       // 开始认证
@@ -446,16 +446,16 @@ struct Index {
         // [EndExclude perceive-adjust-authentication-process]
         // 取消订阅认证过程中的提示信息。
         userAuthInstance.off('authTip');
-        Logger.info('off authTip success');
+        Logger.info('off authTip successfully.');
         // 取消认证
         userAuthInstance.cancel();
-        Logger.info('auth cancel success');
+        Logger.info('auth cancel successfully.');
         // [StartExclude perceive-adjust-authentication-process]
       });
       // [EndExclude perceive-adjust-authentication-process]
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(`auth catch error, code is ${err?.code as number}, message is ${err?.message}`);
+      Logger.error(`auth failed, code is ${err?.code as number}, message is ${err?.message}`);
     }
   }
 
@@ -471,16 +471,9 @@ struct Index {
           // [StartExclude custom_authentication]
           this.result[exampleNumber] = (`${result.result}`);
           try {
-            // onResult异常抛出层
-            try {
-              // JSON.stringify异常抛出层
-              // [EndExclude custom_authentication]
-              Logger.info(`userAuthInstance callback result: ${JSON.stringify(result)}`);
-              // [StartExclude custom_authentication]
-            } catch (error) {
-              const err: BusinessError = error as BusinessError;
-              Logger.error(`JSON stringify catch error, code is ${err?.code}, message is ${err?.message}`);
-            }
+            // [EndExclude custom_authentication]
+            Logger.info('userAuthInstance callback');
+            // [StartExclude custom_authentication]
             userAuthInstance.off('result'); // 认证完成后取消订阅
             // [EndExclude custom_authentication]
             if (result.result == userAuth.UserAuthResultCode.CANCELED_FROM_WIDGET ||
@@ -497,18 +490,18 @@ struct Index {
             // [StartExclude custom_authentication]
           } catch (error) {
             const err: BusinessError = error as BusinessError;
-            Logger.error(`onResult catch error. Code: ${err?.code}, Message: ${err?.message}`);
+            Logger.error(`onResult failed, code: ${err?.code}, Message: ${err?.message}`);
           }
           // [EndExclude custom_authentication]
         }
       });
       // 启动认证
       userAuthInstance.start();
-      Logger.info('auth start success');
+      Logger.info('auth start successfully.');
       // [StartExclude custom_authentication]
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(`userAuthInstance.on catch error. Code: ${err?.code}, Message: ${err?.message}`);
+      Logger.error(`userAuthInstance.on failed, code: ${err?.code}, Message: ${err?.message}`);
     }
     // [EndExclude custom_authentication]
   }
@@ -535,12 +528,12 @@ struct Index {
       };
       // 获取认证对象
       const userAuthInstance = userAuth.getUserAuthInstance(authParam, widgetParam);
-      Logger.info('get userAuth instance success');
+      Logger.info('get userAuth instance successfully.');
       // 订阅认证结果
       this.handleCustomAuthResult(userAuthInstance, ResultIndex.CUSTOMIZE);
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(`auth catch error, code is ${err?.code}, message is ${err?.message}`);
+      Logger.error(`auth failed, code is ${err?.code}, message is ${err?.message}`);
     }
   }
 
@@ -554,11 +547,11 @@ struct Index {
   obtainingEnrolledCredentialInformation() {
     try {
       let enrolledState = userAuth.getEnrolledState(userAuth.UserAuthType.FACE);
-      Logger.info(`get current enrolled state success, enrolledState: ${JSON.stringify(enrolledState)}`);
+      Logger.info('get current enrolled state successfully.');
       return enrolledState.credentialDigest;
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(`get current enrolled state failed, Code is ${err?.code}, message is ${err?.message}`);
+      Logger.error(`get current enrolled state failed, code is ${err?.code}, message is ${err?.message}`);
       return false;
     }
   }
@@ -574,11 +567,11 @@ struct Index {
     try {
       Logger.info(`get auth lock state start`);
       const authLockState : userAuth.AuthLockState = await userAuth.getAuthLockState(userAuth.UserAuthType.PIN);
-      if (authLockState.lockoutDuration === userAuth.PERMANENT_LOCKOUT_DURATION) {
-        Logger.info('the authentication of given authType is permanent locked');
+      if (authLockState.isLocked && authLockState.lockoutDuration === userAuth.PERMANENT_LOCKOUT_DURATION) {
+        Logger.info('the authentication of given authType is permanent locked.');
       }
       const authLockStateContent : string = JSON.stringify(authLockState);
-      Logger.info(`get auth lock state success, authLockState is: ${authLockStateContent}`);
+      Logger.info('get auth lock state successfully.');
       return authLockStateContent;
     } catch (error) {
       const errorMessage : string = `get auth lock state failed, err code is : ${error?.code}, err message is : ${error?.message}`;
@@ -588,6 +581,41 @@ struct Index {
   }
 
   // [End obtain_auth_lock_state_capabilities]
+
+  /*
+   * obtain-user-recognition-result.md
+   * 查询和订阅用户识别结果
+   * */
+  // [Start user_recognition_result]
+  async obtainingUserRecognitionResult(): Promise<string> {
+    try {
+      // 获取实例
+      let mgr = userAuth.getUserRecognitionMgr();
+      if (!mgr) {
+        Logger.error('the device does not support user recognition.');
+        return 'the device does not support user recognition.';
+      }
+      // 获取最新识别结果
+      let result = await mgr.getUserRecognitionResult();
+      Logger.info(`status: ${result.status}, userId: ${result.userId}`);
+      // 订阅识别结果变化
+      let callback: userAuth.UserRecognitionResultCallback = (recognitionResult: userAuth.UserRecognitionResult) => {
+        Logger.info(`status: ${recognitionResult.status}, userId: ${recognitionResult.userId}`);
+      };
+      mgr.onUserRecognitionChange(callback);
+      // 取消订阅
+      mgr.offUserRecognitionChange(callback);
+      return `status: ${result.status}, userId: ${result.userId}`;
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      const errMessage: string = `getUserRecognitionResult failed, Code: ${err?.code}, message: ${err?.message}`;
+      Logger.error(errMessage);
+      return errMessage;
+    }
+  }
+
+  // [End user_recognition_result]
+
   comprehensiveFeatures() {
     let reuseUnlockResult: userAuth.ReuseUnlockResult = {
       reuseMode: userAuth.ReuseMode.AUTH_TYPE_RELEVANT,
@@ -612,12 +640,12 @@ struct Index {
       };
       // 获取认证对象
       const userAuthInstance = userAuth.getUserAuthInstance(authParam, widgetParam);
-      Logger.info('get userAuth instance success');
+      Logger.info('get userAuth instance successfully.');
       // 订阅认证结果
       this.handleCustomAuthResult(userAuthInstance, ResultIndex.CUSTOMIZE);
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(`auth catch error, code is ${err?.code}, message is ${err?.message}`);
+      Logger.error(`auth failed, code is ${err?.code}, message is ${err?.message}`);
     }
   }
 
@@ -626,7 +654,7 @@ struct Index {
     Column() {
       Text(title)
         .fontColor(this.currentIndex === targetIndex ? $r('app.color.tab_selected_color') :
-        $r('app.color.tab_not_selected_color'))
+          $r('app.color.tab_not_selected_color'))
         .fontSize($r('app.float.size_13'))
     }
     .width('100%')
@@ -822,11 +850,11 @@ struct Index {
               .onClick(() => {
                 try {
                   let enrolledState = userAuth.getEnrolledState(userAuth.UserAuthType.PIN);
-                  Logger.info(`get current enrolled state success, enrolledState: ${JSON.stringify(enrolledState)}`);
+                  Logger.info('get current enrolled state successfully.');
                   this.credentialValue = enrolledState.credentialDigest + '';
                 } catch (error) {
                   const err: BusinessError = error as BusinessError;
-                  Logger.error(`get current enrolled state failed, Code is ${err?.code}, message is ${err?.message}`);
+                  Logger.error(`get current enrolled state failed, code is ${err?.code}, message is ${err?.message}`);
                 }
               })
               .margin($r('app.float.size_10'))
@@ -855,6 +883,24 @@ struct Index {
               .textAlign(TextAlign.Center)
           }
         }.tabBar(this.tabBuilder($r('app.string.queryAuthLockStateTitle'), PageIndex.AUTH_LOCK_STATE_QUERIES, 'queryAuthLockState'))
+
+        TabContent() {
+          Column() {
+            Text($r('app.string.userRecognition'))
+              .width('70%')
+              .textAlign(TextAlign.Center)
+              .fontSize($r('app.float.size_20'))
+            Button($r('app.string.query'))
+              .onClick(() => {
+                this.obtainingUserRecognitionResult().then((result : string) => {
+                  this.recognitionResult = result;
+                })
+              })
+            Text(this.recognitionResult)
+              .fontSize($r('app.float.size_40'))
+              .textAlign(TextAlign.Center)
+          }
+        }.tabBar(this.tabBuilder($r('app.string.userRecognitionTitle'), PageIndex.USER_RECOGNITION, 'userRecognition'))
       }
       .vertical(false)
       .barMode(BarMode.Fixed)

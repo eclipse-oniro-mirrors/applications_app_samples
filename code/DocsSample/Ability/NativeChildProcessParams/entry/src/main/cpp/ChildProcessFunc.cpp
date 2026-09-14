@@ -17,6 +17,9 @@
 // [Start create_native_child_param_header]
 #include <AbilityKit/native_child_process.h>
 // [End create_native_child_param_header]
+#include <hilog/log.h>
+#include "loghelper.h"
+
 extern "C" {
 /**
  * 子进程的入口函数，实现子进程的业务逻辑
@@ -25,7 +28,8 @@ extern "C" {
  */
 void Main(NativeChildProcess_Args args)
 {
-    // 获取传入的entryPrams
+    OH_LOG_INFO(LOG_APP, "Main started");
+    // 获取传入的entryParams
     char *entryParams = args.entryParams;
     // 获取传入的fd列表
     NativeChildProcess_Fd *current = args.fdList.head;

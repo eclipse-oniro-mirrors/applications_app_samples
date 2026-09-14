@@ -59,7 +59,7 @@ struct MyComponent {
             // 使用可复用自定义组件。
             ReusableChildComponent({ item: item });
           }
-        }, (item: string) => item)
+        }, (item: number) => item.toString())
       }
       .cachedCount(2) // 设置GridItem的缓存数量。
       .columnsTemplate('1fr 1fr 1fr')

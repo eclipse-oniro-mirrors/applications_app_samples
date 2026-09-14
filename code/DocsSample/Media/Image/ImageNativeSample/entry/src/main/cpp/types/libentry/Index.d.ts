@@ -30,6 +30,24 @@ export const getFrameCount: () => number;
 export const createPixelmapList: () => number;
 export const getDelayTimeList: () => number;
 export const releaseImageSource: () => number;
+// animatedTest
+export const createAnimatedImageSource: (filePath: string) => number;
+export const getAnimatedFrameCount: () => number;
+export const getAnimatedDelayTimeList: () => number;
+export const createAnimatedPixelmapList: () => number;
+export const createAnimatedPixelmapByIndex: (index: number) => number;
+export const releaseAnimatedImageSource: () => number;
+// HdrTest
+export const createHdrImageSource: (filePath: string) => number;
+export const decodeHdrPixelMap: () => number;
+export const checkHdrDynamicRange: () => number;
+export const decodeSdrPixelMap: () => number;
+export const decodeHdrPicture: () => number;
+export const getMainPixelmapFromPicture: () => number;
+export const getGainmapPixelmapFromPicture: () => number;
+export const getHdrComposedPixelmapFromPicture: () => number;
+export const packHdrPixelMap: (fd: number) => number;
+export const releaseHdrColorSpaceSource: () => number;
 // editExif
 export const getImageProperty: (key: string) => string | number;
 export const modifyImageProperty: (key: string, value: string) => number;
@@ -39,6 +57,10 @@ export const createPictureByImageSource: (filePath: string) => number;
 export const releasePictureSource: () => number;
 // allocator
 export const testStrideWithAllocatorType: (filePath: string) => number;
+export const createPixelmapWithYUV: (filePath: string) => number;
+export const decodeRegion: () => number;
+export const downsampleDecode: () => number;
+export const combinedDecode: () => number;
 // packer
 export const packToFileFromImageSourceTestJs: (fd: number) => number;
 export const packToFileFromPixelmapTestJs: (fd: number) => number;

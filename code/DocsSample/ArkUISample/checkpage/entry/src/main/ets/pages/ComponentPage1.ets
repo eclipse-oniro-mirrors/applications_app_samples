@@ -12,9 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { hilog } from '@kit.PerformanceAnalysisKit';
 
 //[Start componentIdentifier_start]
+import { hilog } from '@kit.PerformanceAnalysisKit';
 @Entry
 @Component
 struct ComponentPage {

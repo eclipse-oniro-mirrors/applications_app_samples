@@ -12,11 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start NavDestinationSystemTransition]
 @Entry
 @Component
 struct NavDestinationSystemTransition {
+  // [StartExclude NavDestinationSystemTransition]
   @Provide stack: NavPathStack = new NavPathStack();
   @Provide homePageTransitionType: NavigationSystemTransitionType = NavigationSystemTransitionType.DEFAULT;
+  // [EndExclude NavDestinationSystemTransition]
 
   @Builder
   pageMap(name: string) {
@@ -39,12 +42,15 @@ struct NavDestinationSystemTransition {
 
   build() {
     Navigation(this.stack) {
+      // [StartExclude NavDestinationSystemTransition]
       // empty
+      // [EndExclude NavDestinationSystemTransition]
     }
     .navDestination(this.pageMap)
     .hideNavBar(true)
   }
 }
+// [End NavDestinationSystemTransition]
 
 @Component
 struct Dest {

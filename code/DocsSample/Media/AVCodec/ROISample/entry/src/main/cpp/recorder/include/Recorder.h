@@ -1,0 +1,119 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef RECODER_H
+#define RECODER_H
+
+#include "AudioEncoder.h"
+#include "Muxer.h"
+#include "SampleInfo.h"
+#include "FrameQueue.h"
+#include "RoiQueue.h"
+
+#include <mutex>
+#include <memory>
+#include <atomic>
+#include <thread>
+
+#include <unistd.h>
+#include <bits/alltypes.h>
+
+#include "../../capbilities/codec/include/AudioBgmQueue.h"
+#include "../../capbilities/codec/include/VideoEncoder.h"
+#include "../../capbilities/codec/include/CodecInfo.h"
+#include "../../capbilities/codec/include/AudioCapturer.h"
+#include "../../capbilities/render/include/render_thread.h"
+
+// Y/UV平面逐行拷贝参数（避免CopyYPlane/CopyUvPlaneWithSwap参数过多）。
+struct PlaneCopyParams {
+    const uint8_t *src = nullptr;
+    uint8_t *dst = nullptr;
+    int32_t width = 0;
+    int32_t height = 0;
+    int32_t srcStride = 0;
+    int32_t encStride = 0;
+};
+
+class Recorder {
+public:
+    Recorder()
+    {
+    };
+    ~Recorder();
+
+    int32_t Init(SampleInfo &sampleInfo);
+    int32_t Start(std::string previewSurfaceId);
+    int32_t Stop();
+    AudioBgmQueue* GetBgmQueue();
+
+    void UpdateInfoForCamera(bool isFront);
+    void UpdateCameraRotation(int rotation);
+    void SetIsOpenROI(bool isOpenROI);
+private:
+    void VideoEncOutputThread();
+    void VideoEncBufferInputThread();
+    void FillBufferModeInput(uint32_t index, OH_AVBuffer *buffer);
+    // FillBufferModeInput辅助: 帧队列空时按EOS标志下发空buffer+EOS或直接归还buffer。
+    void PushEmptyOrEosBuffer(uint32_t index, OH_AVBuffer *buffer);
+    // FillBufferModeInput辅助: 获取编码器输入Buffer的stride和sliceHeight。
+    void GetEncoderStride(int32_t frameHeight, int32_t &encStride, int32_t &encSliceHeight);
+    // FillBufferModeInput辅助: 逐行拷贝Y平面。
+    void CopyYPlane(const PlaneCopyParams &p);
+    // FillBufferModeInput辅助: 逐行拷贝UV平面并逐对交换U/V(NV21->NV12)。
+    void CopyUvPlaneWithSwap(const PlaneCopyParams &p);
+    void AudioEncInputThread();
+    void AudioEncOutputThread();
+    void Release();
+    void JoinThreads();
+    void ReleaseResources();
+    void StartRelease();
+    int32_t WaitForDone();
+
+    int32_t CreateAudioEncoder();
+    int32_t CreateVideoEncoder();
+    int32_t InitRenderThread(RoiPathType roiPathType);
+    int32_t InitEncoderChain(SampleInfo &sampleInfo, RoiPathType roiPathType);
+    int32_t StartAudio();
+    void MixMicAndBgm(int16_t *mainPcm, AudioBgmQueue* bgmQueue, int32_t sampleCount);
+
+    std::unique_ptr<VideoEncoder> videoEncoder_ = nullptr;
+    std::unique_ptr<AudioEncoder> audioEncoder_ = nullptr;
+    std::unique_ptr<Muxer> muxer_ = nullptr;
+
+    std::mutex mutex_;
+    std::atomic<bool> isStarted_{false};
+    std::atomic<bool> needEosFrame_{false};
+    int64_t firstFramePts_ = 0;
+    bool firstFramePtsSet_ = false;
+    std::atomic<bool> isFirstCodecData_{true};
+    std::atomic<bool> isFirstSyncFrame_{true};
+    int32_t isFirstFrame_ = true;
+    std::unique_ptr<std::thread> videoEncOutputThread_ = nullptr;
+    std::unique_ptr<std::thread> videoEncBufferInputThread_ = nullptr;
+    std::unique_ptr<std::thread> audioEncInputThread_ = nullptr;
+    std::unique_ptr<std::thread> audioEncOutputThread_ = nullptr;
+    std::unique_ptr<std::thread> releaseThread_ = nullptr;
+    std::condition_variable doneCond_;
+    SampleInfo sampleInfo_;
+    CodecUserData *encContext_ = nullptr;
+    CodecUserData *audioEncContext_ = nullptr;
+
+    std::unique_ptr<AudioCapturer> audioCapturer_ = nullptr;
+    std::unique_ptr<NativeXComponentSample::RenderThread> renderThread_ = nullptr;
+    std::unique_ptr<FrameQueue> frameQueue_ = nullptr;
+    std::unique_ptr<RoiQueue> roiQueue_ = nullptr;
+};
+
+#endif // RECODER_H

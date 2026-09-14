@@ -29,11 +29,23 @@ struct Index {
           let ret: number = testNapi.signatureSeg();
           this.message = 'SignatureSegSuccess Result:' + ret.toString();
         })
+      Button($r('app.string.call_verify_seg'))
+        .width('70%')
+        .onClick(() => {
+          let ret: number = testNapi.verifySeg();
+          this.message = 'VerifySegSuccess Result:' + ret.toString();
+        })
       Button($r('app.string.call_signature'))
         .width('70%')
         .onClick(() => {
           let ret: number = testNapi.signature();
           this.message = 'SignatureSuccess Result:' + ret.toString();
+        })
+      Button($r('app.string.call_verify'))
+        .width('70%')
+        .onClick(() => {
+          let ret: number = testNapi.verify();
+          this.message = 'VerifySuccess Result:' + ret.toString();
         })
       Button($r('app.string.call_signature_recover'))
         .width('70%')
@@ -47,12 +59,25 @@ struct Index {
           let ret: number = testNapi.pssSignatureSeg();
           this.message = 'PSSSignatureSegSuccess Result:' + ret.toString();
         })
+      Button($r('app.string.call_pssverify_seg'))
+        .width('70%')
+        .onClick(() => {
+          let ret: number = testNapi.pssVerifySeg();
+          this.message = 'PSSVerifySegSuccess Result:' + ret.toString();
+        })
       Button($r('app.string.call_ecdsasignature'))
         .width('70%')
         .onClick(() => {
           let ret: number = testNapi.ecdsaSignature();
           this.message = 'ECDSASignatureSuccess Result:' + ret.toString();
         })
+
+      Button($r('app.string.call_ecdsaverify'))
+        .width('70%')
+        .onClick(() => {
+          let ret: number = testNapi.ecdsaVerify();
+          this.message = 'ECDSAVerifySuccess Result:' + ret.toString();
+      })
       Button($r('app.string.call_sm2signature'))
         .width('70%')
         .onClick(() => {

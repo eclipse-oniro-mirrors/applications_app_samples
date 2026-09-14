@@ -17,6 +17,7 @@ let nextId: number = 0;
 
 @ObservedV2
 class Person {
+  // @Trace装饰Person类中的age属性，使age可以被观测
   @Trace public age: number = 0;
 
   constructor(age: number) {
@@ -44,22 +45,26 @@ struct Index {
     Column() {
       Text(`length: ${this.info.personList.length}`)
         .fontSize(40)
+        .margin(10)
       Divider()
       if (this.info.personList.length >= 3) {
         Text(`${this.info.personList[0].age}`)
           .fontSize(40)
+          .margin(10)
           .onClick(() => {
             this.info.personList[0].age++;
           })
 
         Text(`${this.info.personList[1].age}`)
           .fontSize(40)
+          .margin(10)
           .onClick(() => {
             this.info.personList[1].age++;
           })
 
         Text(`${this.info.personList[2].age}`)
           .fontSize(40)
+          .margin(10)
           .onClick(() => {
             this.info.personList[2].age++;
           })
@@ -70,8 +75,10 @@ struct Index {
       ForEach(this.info.personList, (item: Person, index: number) => {
         Text(`${index} ${item.age}`)
           .fontSize(40)
+          .margin(10)
       })
     }
+    .width('100%')
   }
 }
 

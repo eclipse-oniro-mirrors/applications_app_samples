@@ -61,13 +61,6 @@
           }
         ]
       },
-      //[Start exampleEmbeddedAbility_start]
-      {
-        "name": "ExampleEmbeddedAbility",
-        "srcEntry": "./ets/extensionability/ExampleEmbeddedAbility.ets",
-        "type": "embeddedUI"
-      },
-      //[End exampleEmbeddedAbility_start]
       {
         "name": "UIExtensionProvider",
         "srcEntry": "./ets/uiextensionability/UIExtensionProvider.ets",
@@ -75,7 +68,14 @@
         "label": "$string:app_name",
         "type": "sys/commonUI",
         "exported": true,
+      },
+      //[Start exampleEmbeddedAbility_start]
+      {
+        "name": "ExampleEmbeddedAbility",
+        "srcEntry": "./ets/extensionability/ExampleEmbeddedAbility.ets",
+        "type": "embeddedUI"
       }
+      //[End exampleEmbeddedAbility_start]
     ],
     "requestPermissions": [
       {

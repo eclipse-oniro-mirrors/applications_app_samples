@@ -55,6 +55,9 @@ constexpr float SHADOW_OFFSET_X = 1.0f;
 constexpr float SHADOW_OFFSET_Y = 2.0f;
 constexpr int32_t SHADOW_NUM = 2;
 constexpr int32_t LINE_HEIGHT = 10;
+constexpr int32_t LINE_HEIGHT_MULTIPLE = 2;
+constexpr int32_t LINE_SPACING = 30;
+constexpr bool ONLY_BETWEEN_LINES = true;
 constexpr int32_t LETTER_SPACING = 9;
 constexpr uint32_t TEXT_STYLE_BG_COLOR = 0xFF00FF00;
 constexpr float TEXT_STYLE_BG_RADIUS_TL = 10.0f;
@@ -143,9 +146,14 @@ constexpr int32_t INDEX_1 = 1;
 constexpr int32_t INDEX_2 = 2;
 constexpr int32_t INDEX_3 = 3;
 
+constexpr float FLOAT_50 = 50.0f;
+constexpr float FLOAT_20 = 20.0f;
+
+constexpr int32_t NUMBER_3 = 3;
+
 constexpr float LEADING_MARGIN_CALL_BACK_RETURN_VALUE = 10.0f;
 
-using BindDescriptorFunc = std::function<void(ArkUI_StyledString_Descriptor *)>;
+using BindDescriptorFunc = std::function<void(ArkUI_StyledString_Descriptor*&)>;
 
 class StyledStringBase {
 public:
@@ -154,6 +162,8 @@ public:
     static void SetTextTitle(ArkUI_NodeHandle node, const char *title);
     static void CreateStyledStringWithTextStyle(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
     static void CreateStyledStringWithParagraphStyle(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
+    static void CreateStyledStringWithParagraphStyle2(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
+    static void CreateStyledStringWithParagraphStyle3(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
     static void CreateStyledStringWithDecorationStyle(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
     static void CreateStyledStringWithBaselineOffsetStyle(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
     static void CreateStyledStringWithLetterSpacingStyle(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
@@ -161,6 +171,7 @@ public:
     static void CreateStyledStringWithBackgroundColorStyle(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
     static void CreateStyledStringWithGestureStyle(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
     static void CreateStyledStringWithLineHeightStyle(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
+    static void CreateStyledStringWithLineSpacingStyle(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
     static void CreateStyledStringWithUrlStyle(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
 
     static void StyledStringBasicOperations(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
@@ -178,6 +189,8 @@ public:
     {
         CreateStyledStringWithTextStyle(node, std::move(func));
         CreateStyledStringWithParagraphStyle(node, std::move(func));
+        CreateStyledStringWithParagraphStyle2(node, std::move(func));
+        CreateStyledStringWithParagraphStyle3(node, std::move(func));
         CreateStyledStringWithDecorationStyle(node, std::move(func));
         CreateStyledStringWithBaselineOffsetStyle(node, std::move(func));
         CreateStyledStringWithLetterSpacingStyle(node, std::move(func));
@@ -185,6 +198,7 @@ public:
         CreateStyledStringWithBackgroundColorStyle(node, std::move(func));
         CreateStyledStringWithGestureStyle(node, std::move(func));
         CreateStyledStringWithLineHeightStyle(node, std::move(func));
+        CreateStyledStringWithLineSpacingStyle(node, std::move(func));
         CreateStyledStringWithUrlStyle(node, std::move(func));
         StyledStringBasicOperations(node, std::move(func));
         StyledStringStyleOperations(node, std::move(func));

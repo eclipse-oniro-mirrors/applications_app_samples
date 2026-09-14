@@ -14,11 +14,11 @@
 */
 
 // [Start encodingPixelMap_import]
-// 导入相关模块包。
+// 导入相关模块。
 import { image } from '@kit.ImageKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
-import { fileIo as fs } from '@kit.CoreFileKit';
+import { fileIo } from '@kit.CoreFileKit';
 import { resourceManager } from '@kit.LocalizationKit';
 // [End encodingPixelMap_import]
 import { ImageInterfaceCalled } from '../tools/CodecUtility';

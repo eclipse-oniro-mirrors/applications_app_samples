@@ -1,0 +1,8 @@
+{
+  "src": [
+    "pages/Index",
+    "duck/pages/DuckPage",
+    "duck/pages/DuckSessionPage",
+    "duck/pages/MixSessionPage"
+  ]
+}

@@ -19,7 +19,7 @@
 struct styled_string_demo4 {
   @State str: string =
     this.getUIContext()
-      .getHostContext()?.resourceManager.getStringByNameSync('CreateApply_Text_Third_Five') as string;
+      .getHostContext()?.resourceManager.getStringByNameSync('CreateApply_Text_Thirty_Five') as string;
   mutableStyledString: MutableStyledString = new MutableStyledString(this.str, [
     {
       start: 0,

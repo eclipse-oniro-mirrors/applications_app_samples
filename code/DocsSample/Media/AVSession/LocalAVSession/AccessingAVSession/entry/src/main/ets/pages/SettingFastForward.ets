@@ -66,7 +66,7 @@ struct Index {
 
           // 设置支持的快进快退的时长设置给AVSession。
           let metadata: AVSessionManager.AVMetadata = {
-            assetId: '0', // Specified by the application, used to identify the media asset in the application media library.
+            assetId: '0', // 由应用指定，用于标识应用媒体库里的媒体。
             title: 'TITLE',
             mediaImage: 'IMAGE',
             skipIntervals: AVSessionManager.SkipIntervals.SECONDS_10,
@@ -87,7 +87,7 @@ struct Index {
             // [EndExclude settingFastForward]
           });
 
-          session.on('fastForward', (time ?: number) => {
+          session.on('fastForward', (time?: number) => {
             console.info(`on fastForward , do fastForward task`);
             // [StartExclude settingFastForward]
             if (globalLogUpdate) {
@@ -96,7 +96,7 @@ struct Index {
             // [EndExclude settingFastForward]
             // do some tasks ···
           });
-          session.on('rewind', (time ?: number) => {
+          session.on('rewind', (time?: number) => {
             console.info(`on rewind , do rewind task`);
             // [StartExclude settingFastForward]
             if (globalLogUpdate) {

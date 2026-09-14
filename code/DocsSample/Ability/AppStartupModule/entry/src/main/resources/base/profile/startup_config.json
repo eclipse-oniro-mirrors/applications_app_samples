@@ -1,0 +1,26 @@
+﻿{
+  "startupTasks": [
+    {
+      "name": "HapTask01",
+      "srcEntry": "./ets/startup/HapTask01.ets",
+      "dependencies": [
+        "Hsp1Task01",
+        "Har1Task01"
+      ],
+      "runOnThread": "taskPool",
+      "waitOnMainThread": false
+    }
+  ],
+  "appPreloadHintStartupTasks": [
+    {
+      "name": "libentry_01",
+      "srcEntry": "libentry_01.so",
+      "dependencies": [
+        "libhsp1_01",
+        "libhar1_01"
+      ],
+      "runOnThread": "taskPool"
+    }
+  ],
+  "configEntry": "./ets/startup/StartupConfig.ets"
+}

@@ -20,7 +20,7 @@ import { ErrorEvent, worker, taskpool } from '@kit.ArkTS';
 @Concurrent
 function nativeCall(input : string): void {
   console.info('Taskpool thread received:%s', input);
-  nativeModule.startWithCallback('Hello', (result: string) => {
+  nativeModule.startWithCallback('Taskpool', (result: string) => {
     console.info('[Taskpool] Got from native:', result);
   });
 }

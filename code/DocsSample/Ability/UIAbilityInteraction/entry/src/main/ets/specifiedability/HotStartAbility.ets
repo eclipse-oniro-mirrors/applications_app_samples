@@ -58,7 +58,7 @@ export default class HotStartAbility extends UIAbility {
   // [EndExclude onNewWant]
 
   // [StartExclude HotAbility]
-  onNewWant(want: Want, launchParam: AbilityConstant.   LaunchParam): void {
+  onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', 'onNewWant');
     AppStorage.setOrCreate<string>('nameForNavi', 'pageOne');
   }

@@ -1,0 +1,8 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "网络数据包重定向接口测试" },
+    { "name": "EntryAbility_desc", "value": "重定向接口测试入口" },
+    { "name": "EntryAbility_label", "value": "NetPacket" },
+    { "name": "app_name", "value": "NetPacket" }
+  ]
+}

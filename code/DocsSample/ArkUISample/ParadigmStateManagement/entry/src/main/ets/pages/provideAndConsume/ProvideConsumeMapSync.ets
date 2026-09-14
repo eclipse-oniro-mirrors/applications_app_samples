@@ -22,31 +22,45 @@ struct Child {
       ForEach(Array.from(this.message.entries()), (item: [number, string]) => {
         Text(`${item[0]}`)
           .fontSize(30)
+          .margin(10)
         Text(`${item[1]}`)
           .fontSize(30)
+          .margin(10)
         Divider()
       })
+      // message被@Consume装饰，可以被观察到Map整体的赋值以及调用Map接口带来的变化
       Button('Consume init Map')
         .onClick(() => {
           this.message = new Map([[0, 'a'], [1, 'b'], [3, 'c']]);
         })
+        .width(300)
+        .margin(10)
       Button('Consume set new one')
         .onClick(() => {
           this.message.set(4, 'd');
         })
+        .width(300)
+        .margin(10)
       Button('Consume clear')
         .onClick(() => {
           this.message.clear();
         })
+        .width(300)
+        .margin(10)
       Button('Consume replace the first item')
         .onClick(() => {
           this.message.set(0, 'aa');
         })
+        .width(300)
+        .margin(10)
       Button('Consume delete the first item')
         .onClick(() => {
           this.message.delete(0);
         })
+        .width(300)
+        .margin(10)
     }
+    .width('100%')
   }
 }
 
@@ -59,15 +73,17 @@ struct MapSample {
   build() {
     Row() {
       Column() {
+        // message被@Provide装饰，可以被观察到Map整体的赋值以及调用Map接口带来的变化
         Button('Provide init Map')
           .onClick(() => {
             this.message = new Map([[0, 'a'], [1, 'b'], [3, 'c'], [4, 'd']]);
           })
+          .width(300)
+          .margin(10)
         Child()
       }
       .width('100%')
     }
-    .height('100%')
   }
 }
 // [End provide_consume_map_sync]

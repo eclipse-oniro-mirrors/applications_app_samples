@@ -2,15 +2,15 @@
   "string": [
     {
       "name": "module_test_desc",
-      "value": "test ability description"
+      "value": "AVCodec sample automated test module."
     },
     {
       "name": "TestAbility_desc",
-      "value": "the test ability"
+      "value": "Runs AVCodec sample automated test cases."
     },
     {
       "name": "TestAbility_label",
-      "value": "test label"
+      "value": "AVCodec Test"
     }
   ]
 }

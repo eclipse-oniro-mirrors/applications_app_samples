@@ -24,11 +24,15 @@
 
 1. 运行Index主界面。
 2. 页面呈现上述执行结果图效果，主界面包含以下功能按钮：
-   - **Call SignatureSeg**：RSA密钥对分段验签（PKCS1模式）
-   - **Call Signature**：RSA密钥对验签（PKCS1模式）
+   - **Call SignatureSeg**：RSA密钥对分段签名（PKCS1模式）
+   - **Call VerifySeg**：RSA密钥对分段验签（PKCS1模式）
+   - **Call Signature**：RSA密钥对签名（PKCS1模式）
+   - **Call Verify**：RSA密钥对验签（PKCS1模式）
    - **Call SignatureRecover**：RSA密钥对签名恢复（PKCS1模式）
-   - **Call PSSSignatureSeg**：RSA密钥对验签（PSS模式）
-   - **Call ECDSASignature**：ECDSA密钥对验签
+   - **Call PSSSignatureSeg**：RSA密钥对签名（PSS模式）
+   - **Call PSSVerifySeg**：RSA密钥对验签（PSS模式）
+   - **Call ECDSASignature**：ECDSA密钥对签名
+     **Call ECDSAVerify**：ECDSA密钥对验签
    - **Call SM2Signature**：SM2密钥对验签
    - **Call SM2 RS to DER**：SM2签名格式转换（R/S转DER）
    - **Call SM2 DER Convert RS**：SM2签名格式转换（DER转R/S）
@@ -46,10 +50,14 @@ entry/src/
  │   │   │   │   ├── Index.d.ts
  │   │   │   │   └── oh-package.json5
  │   │   │   └── project
+ │   │   │       ├── ecdsa_signature.cpp
  │   │   │       ├── ecdsa_signature_verification.cpp
  │   │   │       ├── rsa_pkcs1_segment_signature.cpp
+ │   │   │       ├── rsa_pkcs1_segment_signature_verify.cpp
  │   │   │       ├── rsa_pkcs1_signature_restoration.cpp
+ │   │   │       ├── rsa_pkcs1_signature.cpp
  │   │   │       ├── rsa_pkcs1_signature_validator.cpp
+ │   │   │       ├── rsa_pss_signature_tool.cpp
  │   │   │       ├── rsa_pss_verification_tool.cpp
  │   │   │       ├── signing_signature_verification.h
  │   │   │       ├── sm2_der_convert_r_s.cpp
@@ -84,9 +92,9 @@ entry/src/
 
 1.本示例仅支持标准系统上运行， 支持设备：RK3568。
 
-2.本示例为Stage模型，支持API22版本SDK，版本号：6.1.0.17，镜像版本号：OpenHarmony_6.1.0.17。
+2.本示例为Stage模型，支持API23版本SDK，版本号：6.1.0.105，镜像版本号：OpenHarmony_6.1.0.105。
 
-3.本示例需要使用DevEco Studio 6.0.1 Release(6.0.1.251)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio 6.1.0 Release (Build Version: 6.1.0.830)及以上版本才可编译运行。
 
 ### 下载
 

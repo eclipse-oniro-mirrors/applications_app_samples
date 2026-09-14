@@ -1,0 +1,489 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "NearLink sample code entry module.",
+      "description": "Description of the entry module."
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "NearLink sample code.",
+      "description": "Description of the ability."
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "NearLink Sample",
+      "description": "Application label shown in launcher."
+    },
+    {
+      "name": "permission_reason_nearlink",
+      "value": "Used for NearLink communication.",
+      "description": "Reason for requesting NearLink permission."
+    },
+    {
+      "name": "operation_log",
+      "value": "Operation Log",
+      "description": "Title of operation log section."
+    },
+    {
+      "name": "no_logs_yet",
+      "value": "No logs yet",
+      "description": "Placeholder when no log messages."
+    },
+    {
+      "name": "unknown_device",
+      "value": "Unknown",
+      "description": "Fallback name for unknown device."
+    },
+    {
+      "name": "btn_select",
+      "value": "Select",
+      "description": "Select button text."
+    },
+    {
+      "name": "status_connected",
+      "value": "Connected",
+      "description": "Connected status text."
+    },
+    {
+      "name": "status_disconnected",
+      "value": "Disconnected",
+      "description": "Disconnected status text."
+    },
+    {
+      "name": "app_title",
+      "value": "NearLink",
+      "description": "Application title on main page."
+    },
+    {
+      "name": "app_subtitle",
+      "value": "Feature Demo",
+      "description": "Application subtitle on main page."
+    },
+    {
+      "name": "section_basic_features",
+      "value": "Basic Features",
+      "description": "Section title for basic features."
+    },
+    {
+      "name": "section_ssap_protocol",
+      "value": "SSAP Protocol",
+      "description": "Section title for SSAP protocol."
+    },
+    {
+      "name": "section_other_features",
+      "value": "Other Features",
+      "description": "Section title for other features."
+    },
+    {
+      "name": "menu_manager",
+      "value": "Manager",
+      "description": "Manager menu item title."
+    },
+    {
+      "name": "menu_manager_desc",
+      "value": "NearLink Status",
+      "description": "Manager menu item subtitle."
+    },
+    {
+      "name": "menu_advertising",
+      "value": "Advertising",
+      "description": "Advertising menu item title."
+    },
+    {
+      "name": "menu_advertising_desc",
+      "value": "NearLink Broadcast",
+      "description": "Advertising menu item subtitle."
+    },
+    {
+      "name": "menu_scan",
+      "value": "Scan",
+      "description": "Scan menu item title."
+    },
+    {
+      "name": "menu_scan_desc",
+      "value": "Device Discovery",
+      "description": "Scan menu item subtitle."
+    },
+    {
+      "name": "menu_ssap_server",
+      "value": "SSAP Server",
+      "description": "SSAP Server menu item title."
+    },
+    {
+      "name": "menu_ssap_server_desc",
+      "value": "Service & Property",
+      "description": "SSAP Server menu item subtitle."
+    },
+    {
+      "name": "menu_ssap_client",
+      "value": "SSAP Client",
+      "description": "SSAP Client menu item title."
+    },
+    {
+      "name": "menu_ssap_client_desc",
+      "value": "Read/Write/Notify",
+      "description": "SSAP Client menu item subtitle."
+    },
+    {
+      "name": "menu_data_transfer",
+      "value": "DataTransfer",
+      "description": "DataTransfer menu item title."
+    },
+    {
+      "name": "menu_data_transfer_desc",
+      "value": "Port-based Transfer",
+      "description": "DataTransfer menu item subtitle."
+    },
+    {
+      "name": "menu_cdsm",
+      "value": "CDSM",
+      "description": "CDSM menu item title."
+    },
+    {
+      "name": "menu_cdsm_desc",
+      "value": "Coordinated Device Set",
+      "description": "CDSM menu item subtitle."
+    },
+    {
+      "name": "nav_manager",
+      "value": "Manager",
+      "description": "Manager page navigation title."
+    },
+    {
+      "name": "nav_advertising",
+      "value": "Advertising",
+      "description": "Advertising page navigation title."
+    },
+    {
+      "name": "nav_scan",
+      "value": "Scan",
+      "description": "Scan page navigation title."
+    },
+    {
+      "name": "nav_ssap_server",
+      "value": "SSAP Server",
+      "description": "SSAP Server page navigation title."
+    },
+    {
+      "name": "nav_ssap_client",
+      "value": "SSAP Client",
+      "description": "SSAP Client page navigation title."
+    },
+    {
+      "name": "nav_data_transfer",
+      "value": "DataTransfer",
+      "description": "DataTransfer page navigation title."
+    },
+    {
+      "name": "nav_cdsm",
+      "value": "CDSM",
+      "description": "CDSM page navigation title."
+    },
+    {
+      "name": "section_nearlink_status",
+      "value": "NearLink Status",
+      "description": "NearLink status section title."
+    },
+    {
+      "name": "section_device_support",
+      "value": "Device Support",
+      "description": "Device support section title."
+    },
+    {
+      "name": "section_local_info",
+      "value": "Local Info",
+      "description": "Local info section title."
+    },
+    {
+      "name": "section_paired_devices",
+      "value": "Paired Devices",
+      "description": "Paired devices section title."
+    },
+    {
+      "name": "label_current_status",
+      "value": "Current Status",
+      "description": "Current status label."
+    },
+    {
+      "name": "label_nearlink_supported",
+      "value": "NearLink Supported",
+      "description": "NearLink supported label."
+    },
+    {
+      "name": "label_device_name",
+      "value": "Device Name",
+      "description": "Device name label."
+    },
+    {
+      "name": "btn_refresh_status",
+      "value": "Refresh Status",
+      "description": "Refresh status button."
+    },
+    {
+      "name": "btn_recheck",
+      "value": "Re-check",
+      "description": "Re-check button."
+    },
+    {
+      "name": "btn_refresh_info",
+      "value": "Refresh Info",
+      "description": "Refresh info button."
+    },
+    {
+      "name": "btn_refresh_list",
+      "value": "Refresh List",
+      "description": "Refresh list button."
+    },
+    {
+      "name": "no_paired_devices",
+      "value": "No paired devices",
+      "description": "Placeholder when no paired devices."
+    },
+    {
+      "name": "label_selected",
+      "value": "Selected",
+      "description": "Marker text for the selected device."
+    },
+    {
+      "name": "label_pairing_state",
+      "value": "Pairing State",
+      "description": "Pairing state label."
+    },
+    {
+      "name": "scanning_nearby_devices",
+      "value": "Scanning for nearby devices...",
+      "description": "Scanning in progress message."
+    },
+    {
+      "name": "no_scan_results",
+      "value": "No scan results",
+      "description": "Placeholder when no scan results."
+    },
+    {
+      "name": "cdsm_description",
+      "value": "Coordinated Device Set Management (CDSM) manages a group of devices working together, such as left and right earbuds.",
+      "description": "CDSM feature description."
+    },
+    {
+      "name": "section_cdsm_operations",
+      "value": "CDSM Operations",
+      "description": "CDSM operations section title."
+    },
+    {
+      "name": "label_selected_device",
+      "value": "Selected Device",
+      "description": "Selected device label."
+    },
+    {
+      "name": "not_selected",
+      "value": "Not selected",
+      "description": "Placeholder when no device selected."
+    },
+    {
+      "name": "btn_create_cdsm_client",
+      "value": "Create CDSM Client",
+      "description": "Create CDSM client button."
+    },
+    {
+      "name": "btn_get_set_info",
+      "value": "Get Set Info",
+      "description": "Get set info button."
+    },
+    {
+      "name": "section_set_members",
+      "value": "Set Members",
+      "description": "Set members section title."
+    },
+    {
+      "name": "no_members",
+      "value": "No members",
+      "description": "Placeholder when no members."
+    },
+    {
+      "name": "label_advertising_state",
+      "value": "Advertising State",
+      "description": "Advertising state label."
+    },
+    {
+      "name": "label_target_address",
+      "value": "Target Address",
+      "description": "Target address label."
+    },
+    {
+      "name": "label_received_data",
+      "value": "Received Data",
+      "description": "Received data label."
+    },
+    {
+      "name": "received_data_count",
+      "value": "Received Data (%d)",
+      "description": "Received data count label."
+    },
+    {
+      "name": "label_advertising_id",
+      "value": "Advertising ID",
+      "description": "Advertising ID label."
+    },
+    {
+      "name": "label_server",
+      "value": "Server",
+      "description": "Server label in connection management."
+    },
+    {
+      "name": "section_scan_filters",
+      "value": "Scan Filters (Optional)",
+      "description": "Scan filters section title."
+    },
+    {
+      "name": "placeholder_device_name",
+      "value": "Device Name",
+      "description": "Device name input placeholder."
+    },
+    {
+      "name": "placeholder_address",
+      "value": "Address (e.g. 11:22:33:AA:BB:FF)",
+      "description": "Address input placeholder."
+    },
+    {
+      "name": "btn_stop_scan",
+      "value": "Stop Scan",
+      "description": "Stop scan button."
+    },
+    {
+      "name": "btn_filtered_scan",
+      "value": "Filtered Scan",
+      "description": "Filtered scan button."
+    },
+    {
+      "name": "btn_full_scan",
+      "value": "Full Scan",
+      "description": "Full scan button."
+    },
+    {
+      "name": "btn_start_scan",
+      "value": "Start Scan",
+      "description": "Start scan button."
+    },
+    {
+      "name": "btn_connect",
+      "value": "Connect",
+      "description": "Connect button."
+    },
+    {
+      "name": "btn_disconnect",
+      "value": "Disconnect",
+      "description": "Disconnect button."
+    },
+    {
+      "name": "btn_send_data",
+      "value": "Send Data",
+      "description": "Send data button."
+    },
+    {
+      "name": "btn_notify_property",
+      "value": "Notify Property Changed",
+      "description": "Notify property changed button."
+    },
+    {
+      "name": "btn_close_server",
+      "value": "Close Server",
+      "description": "Close server button."
+    },
+    {
+      "name": "btn_get_services",
+      "value": "Get Services",
+      "description": "Get services button."
+    },
+    {
+      "name": "btn_read_property",
+      "value": "Read Property",
+      "description": "Read property button."
+    },
+    {
+      "name": "btn_write_property",
+      "value": "Write Property",
+      "description": "Write property button."
+    },
+    {
+      "name": "btn_enable_notification",
+      "value": "Enable Notification",
+      "description": "Enable notification button."
+    },
+    {
+      "name": "section_scan_devices",
+      "value": "Scan Devices",
+      "description": "Scan devices section title."
+    },
+    {
+      "name": "section_connection_management",
+      "value": "Connection Management",
+      "description": "Connection management section title."
+    },
+    {
+      "name": "section_notification_status",
+      "value": "Notification Status",
+      "description": "Notification status section title."
+    },
+    {
+      "name": "section_service_operations",
+      "value": "Service Operations",
+      "description": "Service operations section title."
+    },
+    {
+      "name": "section_server_status",
+      "value": "Server Status",
+      "description": "Server status section title."
+    },
+    {
+      "name": "section_advertising_control",
+      "value": "Advertising Control",
+      "description": "Advertising control section title."
+    },
+    {
+      "name": "section_operations",
+      "value": "Operations",
+      "description": "Operations section title."
+    },
+    {
+      "name": "section_advertising_status",
+      "value": "Advertising Status",
+      "description": "Advertising status section title."
+    },
+    {
+      "name": "section_port_management",
+      "value": "Port Management",
+      "description": "Port management section title."
+    },
+    {
+      "name": "section_connection_transfer",
+      "value": "Connection & Transfer",
+      "description": "Connection and transfer section title."
+    },
+    {
+      "name": "status_advertising",
+      "value": "Advertising",
+      "description": "Advertising active status text."
+    },
+    {
+      "name": "status_stopped",
+      "value": "Stopped",
+      "description": "Advertising stopped status text."
+    },
+    {
+      "name": "btn_create_port",
+      "value": "Create Port",
+      "description": "Create port button."
+    },
+    {
+      "name": "btn_destroy_port",
+      "value": "Destroy Port",
+      "description": "Destroy port button."
+    },
+    {
+      "name": "section_scan_results",
+      "value": "Scan Results",
+      "description": "Title of scan results section."
+    }
+  ]
+}

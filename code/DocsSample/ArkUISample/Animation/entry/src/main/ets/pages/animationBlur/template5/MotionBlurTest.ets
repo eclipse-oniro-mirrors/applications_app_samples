@@ -17,7 +17,7 @@ import { curves } from '@kit.ArkUI';
 
 @Entry
 @Component
-struct motionBlurTest {
+struct MotionBlurTest {
   @State widthSize: number = 300;
   @State heightSize: number = 240;
   @State flag: boolean = true;
@@ -41,8 +41,8 @@ struct motionBlurTest {
           })
           .animation({
             duration: 2000,
-            iterations:1,
-            playMode:PlayMode.Alternate,
+            iterations: 1,
+            playMode: PlayMode.Alternate,
             onFinish: () => {
               this.radius = 0;
             }

@@ -13,8 +13,6 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router';
-
 interface listItem {
   router?: string;
   name: string;
@@ -78,6 +76,14 @@ let demandList: listItem[] = [
     name: "DrawDraggableCursor",
     router: "pages/canvas/DrawDraggableCursor",
   },
+  {
+    name: "CanvasContentSetOnVisibleAreaApproximateChange",
+    router: "pages/canvas/CanvasContentSetOnVisibleAreaApproximateChange",
+  },
+  {
+    name: "CanvasContentOnVisibleAreaApproximateChange",
+    router: "pages/canvas/CanvasContentOnVisibleAreaApproximateChange",
+  },
 ]
 
 @Entry
@@ -109,7 +115,7 @@ struct Index {
               }
               .onClick(() => {
                 if (!!listitem.router) {
-                  router.pushUrl({ url: listitem.router });
+                  this.getUIContext().getRouter().pushUrl({ url: listitem.router });
                 }
               })
             }

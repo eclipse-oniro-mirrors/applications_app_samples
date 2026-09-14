@@ -25,7 +25,7 @@ struct Index {
         .fontSize(16)
         .fontColor('#1890FF')
         .onClick(() => {
-          this.getUIContext().getRouter().pushUrl({ url: 'pages/linkWithPrivate/LlinkWithPrivateCorrectCase'})
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/linkWithPrivate/LinkWithPrivateCorrectCase'})
         })
 
       // 请将$r('app.string.linkWithPrivateerr_lable')替换为实际资源文件，在本示例中该资源文件的value值为"跳转到 linkWithPrivate 错误案例"
@@ -33,7 +33,7 @@ struct Index {
         .fontSize(16)
         .fontColor('#1890FF')
         .onClick(() => {
-          this.getUIContext().getRouter().pushUrl({ url: 'pages/linkWithPrivate/LlinkWithPrivateErrorCase'})
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/linkWithPrivate/LinkWithPrivateErrorCase'})
         })
 
       // --------------- 2. privateWithLink 目录页面跳转 ---------------
@@ -50,7 +50,7 @@ struct Index {
         .fontSize(16)
         .fontColor('#1890FF')
         .onClick(() => {
-          this.getUIContext().getRouter().pushUrl({ url: 'pages/privateWithLink/PrivateWithLinkEerrorCase'})
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/privateWithLink/PrivateWithLinkErrorCase'})
         })
 
       // --------------- 3. privateWithRequire 目录页面跳转 ---------------

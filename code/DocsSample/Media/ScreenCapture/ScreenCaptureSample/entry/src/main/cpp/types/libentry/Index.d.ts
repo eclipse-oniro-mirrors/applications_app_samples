@@ -17,3 +17,5 @@ export const startScreenCapture: () => number;
 export const stopScreenCapture: () => number;
 export const startCaptureAsFile: () => number;
 export const startScreenCaptureWithSurface: () => number;
+export const startScreenCaptureWithWindow: () => number;
+export const setWindowId: (windowId: number) => void;

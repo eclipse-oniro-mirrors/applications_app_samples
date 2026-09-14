@@ -15,8 +15,8 @@
  
 // [Start parent_worker]
 // ParentWorker.ets
-import { ErrorEvent, MessageEvents, ThreadWorkerGlobalScope, worker, collections, ArkTSUtils } from '@kit.ArkTS'
-import { CopyEntry } from '../Sendable/CopyEntry'
+import { ErrorEvent, MessageEvents, ThreadWorkerGlobalScope, worker, collections, ArkTSUtils } from '@kit.ArkTS';
+import { CopyEntry } from '../Sendable/CopyEntry';
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 
@@ -47,23 +47,23 @@ workerPort.onmessage = (e: MessageEvents) => {
       copyWorker2.postMessageWithSharedSendable(entry);
     }
   }
-}
+};
 
 copyWorker1.onmessage = async (e: MessageEvents) => {
   console.info('copyWorker1 onmessage:' + e.data);
   await asyncLock.lockAsync(() => {
     count1--;
-    if (count1 == 0) {
+    if (count1 === 0) {
       // 如果copyWorker1的任务全部完成，则关闭copyWorker1
       console.info('copyWorker1 close');
       copyWorker1.terminate();
     }
     sum--;
-    if (sum == 0) {
+    if (sum === 0) {
       // 如果所有任务全部完成，则关闭父Worker
       workerPort.close();
     }
-  })
+  });
 }
 
 copyWorker2.onmessage = async (e: MessageEvents) => {
@@ -71,16 +71,16 @@ copyWorker2.onmessage = async (e: MessageEvents) => {
   await asyncLock.lockAsync(() => {
     count2--;
     sum--;
-    if (count2 == 0) {
+    if (count2 === 0) {
       // 如果copyWorker2的任务全部完成，则关闭copyWorker2
-      console.info('copyWorker2 close')
+      console.info('copyWorker2 close');
       copyWorker2.terminate();
     }
-    if (sum == 0) {
+    if (sum === 0) {
       // 如果所有任务全部完成，则关闭父Worker
       workerPort.close();
     }
-  })
+  });
 }
 
 workerPort.onmessageerror = (e: MessageEvents) => {

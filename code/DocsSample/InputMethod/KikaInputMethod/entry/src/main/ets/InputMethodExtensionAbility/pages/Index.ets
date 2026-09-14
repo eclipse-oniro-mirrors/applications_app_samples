@@ -17,7 +17,7 @@
 import { deviceInfo } from '@kit.BasicServicesKit';
 import Log from '../../model/Log';
 import { EditView } from '../../components/EditView';
-import { InputHandler } from '../model/KeyboardController';
+import { InputHandler, CustomInputMethodSubtype } from '../model/KeyboardController';
 import {
   MenuType,
   SubMenuType,
@@ -44,7 +44,7 @@ struct Index {
   @StorageLink('isRkDevice') isRkDevice: boolean = true;
   @StorageLink('inputStyle') inputStyle: KeyStyle = StyleConfiguration.getInputStyle(this.isLandscape, this.isRkDevice, DEVICE_TYPE);
   private panel: inputMethodEngine.Panel | undefined;
-  @StorageLink('subtypeChange') subtypeChange: number = 0;
+  @StorageLink('subtypeChange') subtypeChange: number = CustomInputMethodSubtype.english;
 
 
   aboutToAppear(): void {
@@ -54,7 +54,7 @@ struct Index {
     inputMethodEngine.getKeyboardDelegate().on("editorAttributeChanged", (attr : inputMethodEngine.EditorAttribute) => {
       // [End input_case_input_immersiveModeeditorAttributeChanged]
       console.info('recv editorAttributeChanged, immersiveMode: ', attr.immersiveMode);
-      if (attr.immersiveMode == 1) {
+      if (attr.immersiveMode == inputMethodEngine.ImmersiveMode.DARK_IMMERSIVE) {
         this.panel?.setImmersiveMode(inputMethodEngine.ImmersiveMode.DARK_IMMERSIVE);
         console.info('recv editorAttributeChanged, panel:', this.panel?.getImmersiveMode());
       }
@@ -96,7 +96,7 @@ struct Index {
             }
           } else {
             if (this.menuType === MenuType.NORMAL) {
-              if (this.subtypeChange == 0) {
+              if (this.subtypeChange == CustomInputMethodSubtype.english) {
                 KeyMenu()
               } else {
                 NumberMenu()

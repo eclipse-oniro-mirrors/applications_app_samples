@@ -50,22 +50,60 @@ export default function IndexTest() {
     })
 
     /**
-     * @tc.number: LandscapeTest_001
-     * @tc.name: Landscape test
-     * @tc.desc: Test landscape test
+     * @tc.number: MediaQueryExampleTest_001
+     * @tc.name: MediaQueryExample test
+     * @tc.desc: Test MediaQueryExample landscape test
      * @tc.size: MediumTest
      * @tc.type: Function
      * @tc.level Level 1
      */
-    it('LandscapeTest_001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'LandscapeTest_001, begin');
+    it('MediaQueryExampleTest_001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'MediaQueryExampleTest_001, begin');
       let driver = Driver.create();
-      let button_list = await driver.findComponent(ON.text('Landscape', MatchPattern.CONTAINS));
+      let button_list = await driver.findComponent(ON.text('MediaQueryExample'));
       expect(button_list === null).assertFalse();
       await button_list.click();
+      await driver.delayMs(1000);
+      let button_landscape = await driver.findComponent(ON.text('Landscape', MatchPattern.CONTAINS));
+      expect(button_landscape === null).assertFalse();
+      await button_landscape.click();
+      await driver.delayMs(1000);
+      let button_portrait = await driver.findComponent(ON.text('Portrait', MatchPattern.CONTAINS));
+      expect(button_portrait === null).assertFalse();
+      await button_portrait.click();
+      await driver.delayMs(1000);
       await driver.pressBack();
       await driver.delayMs(1000);
-      hilog.info(DOMAIN, TAG, BUNDLE + 'LandscapeTest_001, end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'MediaQueryExampleTest_001, end');
+      done();
+    })
+
+    /**
+     * @tc.number: MediaQueryFlexTest_002
+     * @tc.name: MediaQueryFlex test
+     * @tc.desc: Test MediaQueryFlex landscape test
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('MediaQueryFlexTest_002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'MediaQueryFlexTest_002, begin');
+      let driver = Driver.create();
+      let button_list = await driver.findComponent(ON.text('MediaQueryFlex'));
+      expect(button_list === null).assertFalse();
+      await button_list.click();
+      await driver.delayMs(1000);
+      let button_landscape = await driver.findComponent(ON.text('Landscape', MatchPattern.CONTAINS));
+      expect(button_landscape === null).assertFalse();
+      await button_landscape.click();
+      await driver.delayMs(1000);
+      let button_portrait = await driver.findComponent(ON.text('Portrait', MatchPattern.CONTAINS));
+      expect(button_portrait === null).assertFalse();
+      await button_portrait.click();
+      await driver.delayMs(1000);
+      await driver.pressBack();
+      await driver.delayMs(1000);
+      hilog.info(DOMAIN, TAG, BUNDLE + 'MediaQueryFlexTest_002, end');
       done();
     })
 

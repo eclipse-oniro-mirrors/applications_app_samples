@@ -186,5 +186,24 @@ export default function IntroductionToArkTSTest() {
       console.info('uitest: testGenericTypesAndFunctions004 end');
       await driver.pressBack();
     })
+
+    it('testGenericArray005', 0, async () => {
+      console.info('uitest: testGenericArray005 begin');
+      const driver = Driver.create();
+      await driver.delayMs(1000);
+      const button1 = await driver.findComponent(ON.text('泛型数组'));
+      await driver.delayMs(1000);
+      await button1.click();
+      await driver.delayMs(1000);
+
+      const button2 = await driver.findComponent(ON.text('测试泛型数组'));
+      await driver.delayMs(1000);
+
+      await button2.click();
+      await driver.delayMs(1000);
+
+      console.info('uitest: testGenericArray005 end');
+      await driver.pressBack();
+    })
   })
 }

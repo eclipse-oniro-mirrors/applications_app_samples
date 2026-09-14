@@ -32,7 +32,9 @@ std::shared_ptr<ArkUIBaseNode> CreateMoveToExample()
         ArkUI_NodeHandle node;
         ArkUI_NodeHandle targetParent;
     };
-    A* a = new A;
+    // 本示例只创建一个节点树，使用静态存储保证事件回调数据在节点销毁前仍然有效。
+    static A eventData{};
+    A* a = &eventData;
 
     // 创建根节点Scroll
     ArkUI_NodeHandle scroll = nodeAPI->createNode(ARKUI_NODE_SCROLL);
@@ -79,7 +81,7 @@ std::shared_ptr<ArkUIBaseNode> CreateMoveToExample()
     // 创建Stack
     ArkUI_NodeHandle stack0 = nodeAPI->createNode(ARKUI_NODE_STACK);
     ArkUI_NumberValue stack_value[] = {{.f32=50}};
-    ArkUI_AttributeItem stack_item1 = {stack_value, sizeof(width_value) / sizeof(ArkUI_NumberValue)};
+    ArkUI_AttributeItem stack_item1 = {stack_value, sizeof(stack_value) / sizeof(ArkUI_NumberValue)};
     nodeAPI->setAttribute(stack0, NODE_WIDTH, &stack_item1);
     nodeAPI->setAttribute(stack0, NODE_HEIGHT, &stack_item1);
     ArkUI_NumberValue stack_bc[] = {{.u32 = 0xFFFFB6C1}};
@@ -129,12 +131,15 @@ std::shared_ptr<ArkUIBaseNode> CreateMoveToExample()
 
     // 注册事件
     auto onClick = [](ArkUI_NodeEvent *event) {
-        ArkUI_NodeHandle node = OH_ArkUI_NodeEvent_GetNodeHandle(event);
         auto nodeAPI = NativeModuleInstance::GetInstance()->GetNativeNodeAPI();
-        
+
         if (OH_ArkUI_NodeEvent_GetTargetId(event) == 0) {  // MoveTo
+            ArkUI_NodeHandle eventNode = OH_ArkUI_NodeEvent_GetNodeHandle(event);
             A* a = (A*)OH_ArkUI_NodeEvent_GetUserData(event);
-            auto res = OH_ArkUI_NodeUtils_MoveTo(a->node, a->targetParent, 2);
+            if (a != nullptr) {
+                OH_ArkUI_NodeUtils_MoveTo(a->node, a->targetParent, 2);
+                nodeAPI->unregisterNodeEvent(eventNode, NODE_ON_CLICK);
+            }
         }
     };
     nodeAPI->registerNodeEventReceiver(onClick);
@@ -156,5 +161,5 @@ std::shared_ptr<ArkUIBaseNode> CreateMoveToExample()
 }
 } // namespace NativeModule
 
-#endif //MYAPPLICATION_MOVETO_H
+#endif // MYAPPLICATION_MOVETO_H
 // [End ndknodequeryoperate5_start]

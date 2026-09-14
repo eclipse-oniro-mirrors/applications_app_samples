@@ -31,7 +31,7 @@ struct Index {
   }
 
   build() {
-    Column({ space: 5 }) {
+    Column({ space: 1 }) {
       Text('SigningSignatureVerificationArkTs').fontSize(27).fontWeight(FontWeight.Bolder)
       Button($r('app.string.rsa_pkcs1_signature_validator_asynchronous'))
         .width('70%')
@@ -82,6 +82,16 @@ struct Index {
         .width('70%')
         .onClick(() => {
           this.goToSample('pages/ecdsa_signature_verification/ecdsa_signature_verification_synchronous')
+        })
+      Button($r('app.string.ml_dsa_signature_verification_asynchronous'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/ml_dsa_signature_verification/ml_dsa_signature_verification_asynchronous')
+        })
+      Button($r('app.string.ml_dsa_signature_verification_synchronous'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/ml_dsa_signature_verification/ml_dsa_signature_verification_synchronous')
         })
       Button($r('app.string.sm2_signature_verification_asynchronous'))
         .width('70%')

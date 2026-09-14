@@ -14,7 +14,7 @@
 */
 
 // [Start Internal_localStorage_multi_instance_3]
-import { UIAbility, Want } from '@kit.AbilityKit';
+import { UIAbility } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import PDFData from './model/PDFData';
 
@@ -23,7 +23,7 @@ export default class PDFAbility extends UIAbility {
     // 用单例存储数据
     const data = this.launchWant.parameters as Record<string, string>;
     PDFData.getInstance().setData(data.key, data.value);
-    PDFData.getInstance().setFlage(this.launchWant.uri || '');
+    PDFData.getInstance().setFlag(this.launchWant.uri || '');
     windowStage.loadContent('pages/internalmigrate/LocalStorageMultiInstance/PDF').catch();
   }
 }

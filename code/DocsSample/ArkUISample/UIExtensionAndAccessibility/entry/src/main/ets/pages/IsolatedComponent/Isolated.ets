@@ -44,7 +44,7 @@ export struct Isolated {
   // abc文件所属应用的bundleName
   private bundleName: string = 'com.samples.uiextensionandaccessibility';
   // 受限worker
-  private worker ?: worker.RestrictedWorker = new worker.RestrictedWorker('entry/ets/workers/OhCardWorker.ets');
+  private worker?: worker.RestrictedWorker = new worker.RestrictedWorker('entry/ets/workers/OhCardWorker.ets');
 
   build() {
     NavDestination() {

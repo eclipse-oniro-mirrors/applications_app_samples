@@ -14,14 +14,14 @@
 */
 
 // [Start decodingPixelMap_import]
-// 导入相关模块包。
+// 导入相关模块。
 import { image } from '@kit.ImageKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
-import { fileIo as fs } from '@kit.CoreFileKit';
+import { fileIo } from '@kit.CoreFileKit';
 import { resourceManager } from '@kit.LocalizationKit';
 // [End decodingPixelMap_import]
-import { ImageInterfaceCalled } from '../tools/CodecUtility';
+import { ImageInterfaceCalled, getSupportedFormats } from '../tools/CodecUtility';
 import { UIComponentsBuilder } from '../tools/components';
 import { Router } from '@ohos.arkui.UIContext';
 
@@ -42,11 +42,22 @@ struct DecodingPixelmap {
   @State visible: Visibility = Visibility.Hidden;
 
   // [Start release_pixelMapDecoder]
-  async release(pixelMap: image.PixelMap | undefined, imageSource: image.ImageSource | undefined) {
-    pixelMap?.release();
-    pixelMap = undefined;
-    imageSource?.release();
-    imageSource = undefined;
+  async release() {
+    try {
+      await this.pixelMap?.release();
+    } catch (error) {
+      console.error(`Failed to release PixelMap: ${error}.`);
+    } finally {
+      this.pixelMap = undefined;
+    }
+
+    try {
+      await this.imageSource?.release();
+    } catch (error) {
+      console.error(`Failed to release ImageSource: ${error}.`);
+    } finally {
+      this.imageSource = undefined;
+    }
   }
   // [End release_pixelMapDecoder]
 
@@ -56,6 +67,13 @@ struct DecodingPixelmap {
         Text('选择解码图片资源')
             .fontSize(15)
             .margin(10)
+        Button('查询支持格式').onClick(() => {
+          let formats = getSupportedFormats();
+          this.infoLog = `Supported formats: ${formats.join(', ')}`;
+          this.infoVisible = Visibility.Visible;
+        })
+          .width('50%')
+          .margin(10)
         Row(){
           this.chooseFileSource('JPEG');
           this.chooseFileSource('PNG');
@@ -152,7 +170,7 @@ struct DecodingPixelmap {
           .width('50%')
           .margin(10)
         Button('资源释放').onClick(async () => {
-          this.release(this.pixelMap, this.imageSource);
+          await this.release();
           this.visible = Visibility.None;
           this.infoVisible = Visibility.None;
         })

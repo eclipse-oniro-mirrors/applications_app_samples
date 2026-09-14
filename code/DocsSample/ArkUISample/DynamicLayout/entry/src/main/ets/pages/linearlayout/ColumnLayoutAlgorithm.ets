@@ -15,7 +15,7 @@
 
 // [Start ColumnLayoutAlgorithm]
 import {
-  DynamicLayout, DynamicLayoutAttribute, ColumnLayoutAlgorithm, LengthMetrics
+  DynamicLayout, ColumnLayoutAlgorithm, LengthMetrics
 } from '@kit.ArkUI';
 
 @Entry

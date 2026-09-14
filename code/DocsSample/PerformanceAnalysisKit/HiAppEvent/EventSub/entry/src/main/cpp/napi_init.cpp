@@ -64,6 +64,7 @@ static void FreezeEventOutput(Json::Value params, Json::FastWriter writer)
 {
     auto time = params["time"].asInt64();
     auto foreground = params["foreground"].asBool();
+    auto appRunningUniqueIdId = params["app_running_unique_id"].asString();
     auto bundleVersion = params["bundle_version"].asString();
     auto bundleName = params["bundle_name"].asString();
     auto processName = params["process_name"].asString();
@@ -82,6 +83,8 @@ static void FreezeEventOutput(Json::Value params, Json::FastWriter writer)
     auto logOverLimit = params["log_over_limit"].asBool();
     OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.time=%{public}lld", time);
     OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.foreground=%{public}d", foreground);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.app_running_unique_id=%{public}s",
+                appRunningUniqueIdId.c_str());
     OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
                 bundleVersion.c_str());
     OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_name=%{public}s",
@@ -106,8 +109,7 @@ static void FreezeEventOutput(Json::Value params, Json::FastWriter writer)
     OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.memory=%{public}s", memory.c_str());
     OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_log=%{public}s",
                 externalLog.c_str());
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.log_over_limit=%{public}d",
-                logOverLimit);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.log_over_limit=%{public}d", logOverLimit);
 }
 // [End FreezeEvent_OnReceive_Output]
 // [Start FreezeEvent_OnReceive]
@@ -144,6 +146,7 @@ static void HandleLeakEventInfo(const struct HiAppEvent_AppEventInfo &appEventIn
             auto uid = params["uid"].asInt();
             auto resourceType = params["resourceType"].asString();
             auto bundleName = params["bundle_name"].asString();
+            auto appRunningUniqueIdId = params["app_running_unique_id"].asString();
             auto bundleVersion = params["bundle_version"].asString();
             auto memory = writer.write(params["memory"]);
             auto externalLog = writer.write(params["external_log"]);
@@ -155,6 +158,8 @@ static void HandleLeakEventInfo(const struct HiAppEvent_AppEventInfo &appEventIn
                 resourceType.c_str());
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_name=%{public}s",
                 bundleName.c_str());
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.app_running_unique_id=%{public}s",
+                appRunningUniqueIdId.c_str());
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
                 bundleVersion.c_str());
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.memory=%{public}s",
@@ -483,6 +488,8 @@ static void OnReceiveCrashEvent(const char *domain, const struct HiAppEvent_AppE
                     params["release_type"].asString().c_str());
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.cpu_abi=%{public}s",
                     params["cpu_abi"].asString().c_str());
+                OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.app_running_unique_id=%{public}s",
+                    params["app_running_unique_id"].asString().c_str());
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
                     params["bundle_version"].asString().c_str());
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_name=%{public}s",
@@ -519,7 +526,7 @@ static napi_value RegisterWatcherCrashEvent(napi_env env, napi_callback_info inf
     const char *names[] = {EVENT_APP_CRASH};
     // 开发者订阅感兴趣的事件，此处订阅了系统事件。
     OH_HiAppEvent_SetAppEventFilter(systemEventWatcherR, DOMAIN_OS, 0, names, 1);
-    // 开发者设置已实现的回调函数，观察者接收到事件后回立即触发OnReceiveCrashEvent回调。
+    // 开发者设置已实现的回调函数，观察者接收到事件后会立即触发OnReceiveCrashEvent回调。
     OH_HiAppEvent_SetWatcherOnReceive(systemEventWatcherR, OnReceiveCrashEvent);
     // 使观察者开始监听订阅的事件。
     OH_HiAppEvent_AddWatcher(systemEventWatcherR);
@@ -539,6 +546,9 @@ static napi_value RegisterWatcherCrashEvent(napi_env env, napi_callback_info inf
 
     // 开启拼接应用日志
     OH_HiAppEvent_SetConfigItem(config, OH_APP_CRASH_PARAM_MERGE_CPPCRASH_APP_LOG, "true");
+
+    // native崩溃场景，使能minidump
+    OH_HiAppEvent_SetConfigItem(config, OH_APP_CRASH_PARAM_COLLECT_MINIDUMP, "true");
 
     // 3. 应用配置到 EVENT_APP_CRASH 事件
     int ret = OH_HiAppEvent_SetEventConfig(EVENT_APP_CRASH, config);
@@ -580,6 +590,8 @@ static void OnTakeCrash(const char *const *events, uint32_t eventLen)
                     eventInfo["release_type"].asString().c_str());
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.cpu_abi=%{public}s",
                     eventInfo["cpu_abi"].asString().c_str());
+                OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.app_running_unique_id=%{public}s",
+                    eventInfo["app_running_unique_id"].asString().c_str());
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
                     eventInfo["bundle_version"].asString().c_str());
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_name=%{public}s",
@@ -661,6 +673,7 @@ static void OnTriggerFreezeEvent(std::string domain, std::string name, Json::Val
     if (domain == DOMAIN_OS && name == EVENT_APP_FREEZE) {
         auto time = eventInfo["time"].asInt64();
         auto foreground = eventInfo["foreground"].asBool();
+        auto appRunningUniqueIdId = eventInfo["app_running_unique_id"].asString();
         auto bundleVersion = eventInfo["bundle_version"].asString();
         auto bundleName = eventInfo["bundle_name"].asString();
         auto processName = eventInfo["process_name"].asString();
@@ -679,6 +692,8 @@ static void OnTriggerFreezeEvent(std::string domain, std::string name, Json::Val
         auto logOverLimit = eventInfo["log_over_limit"].asBool();
         OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.time=%{public}lld", time);
         OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.foreground=%{public}d", foreground);
+        OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.app_running_unique_id=%{public}s",
+                    appRunningUniqueIdId.c_str());
         OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
                     bundleVersion.c_str());
         OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_name=%{public}s", bundleName.c_str());
@@ -727,6 +742,7 @@ static void OnTakeLeakEvent(const char *const *events, uint32_t eventLen)
                 auto uid = eventInfo["uid"].asInt();
                 auto resourceType = eventInfo["resourceType"].asString();
                 auto bundleName = eventInfo["bundle_name"].asString();
+                auto appRunningUniqueIdId = eventInfo["app_running_unique_id"].asString();
                 auto bundleVersion = eventInfo["bundle_version"].asString();
                 auto memory = writer.write(eventInfo["memory"]);
                 auto externalLog = writer.write(eventInfo["external_log"]);
@@ -738,6 +754,8 @@ static void OnTakeLeakEvent(const char *const *events, uint32_t eventLen)
                     resourceType.c_str());
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_name=%{public}s",
                     bundleName.c_str());
+                OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.app_running_unique_id=%{public}s",
+                    appRunningUniqueIdId.c_str());
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
                     bundleVersion.c_str());
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.memory=%{public}s",
@@ -1071,11 +1089,8 @@ static napi_value Leak(napi_env env, napi_callback_info info)
 }
 // [End AppKillEvent_NativeLeak]
 // [Start EventSub_Init_All]
-// [Start AppEvent_C++_Init]
-
-// [StartExclude AppEvent_C++_Init]
 // [Start Hicollie_Set_Timer]
-//定义回调函数
+// 定义回调函数
 void CallBack(void*)
 {
     OH_LOG_INFO(LogType::LOG_APP, "HiCollieTimerNdk CallBack");  // 回调函数中打印日志
@@ -1089,7 +1104,7 @@ static napi_value TestHiCollieTimerNdk(napi_env env, napi_callback_info info)
     HiCollie_ErrorCode errorCode = OH_HiCollie_SetTimer(param, &id);  // 注册HiCollieTimer函数执行时长超时检测一次性任务
     if (errorCode == HICOLLIE_SUCCESS) {  // HiCollieTimer任务注册成功
         OH_LOG_INFO(LogType::LOG_APP, "HiCollieTimer taskId: %{public}d", id); // 打印任务id
-        sleep(2);  // 模拟执行耗时函数，在这里简单的将线程阻塞2s
+        sleep(2);  // 模拟执行耗时函数，在这里简单地将线程阻塞2s
         OH_HiCollie_CancelTimer(id);  // 根据id取消已注册任务
     }
     return nullptr;
@@ -1118,6 +1133,7 @@ static void OnReceiveAppHicollie(const struct HiAppEvent_AppEventGroup *appEvent
             auto memory =  writer.write(params["memory"]);
             auto externalLog = writer.write(params["external_log"]);
             auto logOverLimit = params["log_over_limit"].asBool();
+            auto externalCallbackLog = params["external_callback_log"].asString();
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.time=%{public}lld", time);
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.foreground=%{public}d", foreground);
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
@@ -1132,6 +1148,8 @@ static void OnReceiveAppHicollie(const struct HiAppEvent_AppEventGroup *appEvent
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.memory=%{public}s", memory.c_str());
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_log=%{public}s", externalLog.c_str());
             OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.log_over_limit=%{public}d", logOverLimit);
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_callback_log=%{public}s",
+                externalCallbackLog.c_str());
         }
     }
 }
@@ -1197,6 +1215,7 @@ static void AppHicollieOnTake(const char *const *events, uint32_t eventLen)
                 auto memory =  writer.write(eventInfo["memory"]);
                 auto externalLog = writer.write(eventInfo["external_log"]);
                 auto logOverLimit = eventInfo["log_over_limit"].asBool();
+                auto externalCallbackLog = eventInfo["external_callback_log"].asString();
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.time=%{public}lld", time);
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.foreground=%{public}d", foreground);
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
@@ -1213,6 +1232,8 @@ static void AppHicollieOnTake(const char *const *events, uint32_t eventLen)
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_log=%{public}s",
                     externalLog.c_str());
                 OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.log_over_limit=%{public}d", logOverLimit);
+                OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_callback_log=%{public}s",
+                    externalCallbackLog.c_str());
             }
         }
     }
@@ -1242,7 +1263,6 @@ static napi_value RegisterAppHicollieWatcherT(napi_env env, napi_callback_info i
     return {};
 }
 // [End App_Hicollie_Trigger]
-// [EndExclude AppEvent_C++_Init]
 
 // [Start Pss_Leak]
 // 读 /proc/self/smaps_rollup 中的 PSS 字段，统计当前进程的 PSS (单位 KB)
@@ -1375,6 +1395,7 @@ static napi_value LeakMB(napi_env env, napi_callback_info info)
 // [Start Sys_Crash_Event_C++_Init]
 // [Start Sys_Native_Nullptr_Event_C++_Init]
 // [Start Pss_Leak_Init]
+// [Start AppEvent_C++_Init]
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor desc[] = {

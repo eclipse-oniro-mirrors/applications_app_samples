@@ -26,6 +26,7 @@ struct FlexShrink {
         .backgroundColor('#F5DEB3')
 
       Text('no flexShrink')
+        .flexShrink(0)
         .width(200)
         .height(100)
         .backgroundColor('#D2B48C')

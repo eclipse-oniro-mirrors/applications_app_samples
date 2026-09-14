@@ -27,6 +27,7 @@ struct Index {
   @State deviceList_: usbManager.USBDevice[] = [];
   @State pipe_: usbManager.USBDevicePipe | undefined = undefined;
   @State interface_: usbManager.USBInterface | undefined = undefined;
+  @State isExclusiveClaim_: boolean = false;
 
   private getDevices() {
     // [Start getDevices]
@@ -121,6 +122,40 @@ struct Index {
     // [End requestRight]
   }
 
+  /*
+    注册通信接口的封装函数：开关关闭时调用claimInterface（共享式占用，返回0成功），
+    开关打开时调用claimInterfaceExclusive（独占式占用，无返回值，失败抛出BusinessError：
+    14400001无权限、14400004服务异常、14400007接口被其他应用独占、14400010其他错误）。
+    统一返回0表示成功，非0表示失败。
+   */
+  private claimUsbInterface(pipe: usbManager.USBDevicePipe, iface: usbManager.USBInterface): number {
+    if (!this.isExclusiveClaim_) {
+      try {
+        return usbManager.claimInterface(pipe, iface, true);
+      } catch (error) {
+        console.error(`USB claimInterface failed: ${error}`);
+        this.logInfo_ += '\n[ERROR] USB claimInterface failed: ' + JSON.stringify(error);
+        return -1;
+      }
+    }
+    try {
+      usbManager.claimInterfaceExclusive(pipe, iface, true, (conflict: usbManager.InterfaceConflictCallback) => {
+        // 其他应用claim同一接口时的异步冲突通知
+        console.info(`interface conflict: busNum = ${conflict.busNum}, devAddr = ${conflict.devAddr}, ` +
+          `interfaceId = ${conflict.interfaceId}`);
+        this.logInfo_ += '\n[INFO] interface conflict: busNum = ' + conflict.busNum +
+          ', devAddr = ' + conflict.devAddr + ', interfaceId = ' + conflict.interfaceId;
+      });
+      console.info('claimInterfaceExclusive success');
+      this.logInfo_ += '\n[INFO] claimInterfaceExclusive success';
+      return 0;
+    } catch (error) {
+      console.error(`claimInterfaceExclusive failed: ${error}`);
+      this.logInfo_ += '\n[ERROR] claimInterfaceExclusive failed: ' + JSON.stringify(error);
+      return -1;
+    }
+  }
+
   private connectDevice() {
     // [Start connectDevice]
     if (this.deviceList_ === undefined || this.deviceList_.length === 0) {
@@ -147,7 +182,12 @@ struct Index {
         打开对应接口，在设备信息（deviceList）中选取对应的interface。
         interface1为设备配置中的一个接口。
        */
-      usbManager.claimInterface(pipe, interface1, true);
+      let claimInterfaceResult: number = this.claimUsbInterface(pipe, interface1);
+      if (claimInterfaceResult !== 0) {
+        console.error(`claimInterface error = ${claimInterfaceResult}`);
+        this.logInfo_ += '\n[ERROR] claimInterface error = ' + JSON.stringify(claimInterfaceResult);
+        return;
+      }
       this.pipe_ = pipe;
       this.interface_ = interface1;
       console.info('open device success');
@@ -290,11 +330,16 @@ struct Index {
       this.logInfo_ += '\n[ERROR] get usbEndpoint error';
       return;
     }
+    if (usbInterface === undefined) {
+      console.error(`get usbInterface error`)
+      this.logInfo_ += '\n[ERROR] get usbInterface error';
+      return;
+    }
     // [End interruptTransfer_getEndpoint]
     // [Start interruptTransfer_claimInterface]
     // 注册通信接口，注册成功返回0，注册失败返回其他错误码。
     try {
-      let claimInterfaceResult: number = usbManager.claimInterface(devicePipe, usbInterface, true);
+      let claimInterfaceResult: number = this.claimUsbInterface(devicePipe, usbInterface);
       if (claimInterfaceResult !== 0) {
         console.error(`claimInterface error = ${claimInterfaceResult}`)
         this.logInfo_ += '\n[ERROR] claimInterface error = ' + JSON.stringify(claimInterfaceResult);
@@ -403,11 +448,16 @@ struct Index {
       this.logInfo_ += '\n[ERROR] get usbEndpoint error';
       return;
     }
+    if (usbInterface === undefined) {
+      console.error(`get usbInterface error`);
+      this.logInfo_ += '\n[ERROR] get usbInterface error';
+      return;
+    }
     // [End isochronousTransfer_getEndpoint]
     // [Start isochronousTransfer_claimInterface]
     // 注册通信接口，注册成功返回0，注册失败返回其他错误码。
     try {
-      let claimInterfaceResult: number = usbManager.claimInterface(devicePipe, usbInterface, true);
+      let claimInterfaceResult: number = this.claimUsbInterface(devicePipe, usbInterface);
       if (claimInterfaceResult !== 0) {
         console.error(`claimInterface error = ${claimInterfaceResult}`)
         this.logInfo_ += '\n[ERROR] claimInterface error = ' + JSON.stringify(claimInterfaceResult);
@@ -535,8 +585,21 @@ struct Index {
           .onClick(() => {
             this.requestRight();
           })
-          .width('100%')
-      }.padding({ top: 10 })
+          .layoutWeight(1)
+        Text('独占式claim接口')
+          .fontSize(14)
+          .fontColor(0x333333)
+          .margin({ left: 12 })
+        Toggle({ type: ToggleType.Switch, isOn: this.isExclusiveClaim_ })
+          .margin({ left: 6 })
+          .onChange((isOn: boolean) => {
+            this.isExclusiveClaim_ = isOn;
+            console.info(`exclusive claim mode: ${isOn}`);
+            this.logInfo_ += '\n[INFO] 独占式占用: ' + (isOn ? 'claimInterfaceExclusive' : 'claimInterface');
+          })
+      }
+      .width('100%')
+      .padding({ top: 10 })
 
       Row() {
         Button('打开设备', { type: ButtonType.Normal, stateEffect: true })

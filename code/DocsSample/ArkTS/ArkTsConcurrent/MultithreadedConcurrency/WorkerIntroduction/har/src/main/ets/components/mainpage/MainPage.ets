@@ -15,7 +15,7 @@
 // [Start import_worker]
 import { worker } from '@kit.ArkTS';
 // 相对路径加载形式：
-// worker线程文件所在路径: "har/src/main/ets/workers/worker.ets"
+// Worker线程文件所在路径: "har/src/main/ets/workers/worker.ets"
 // 创建Worker对象的文件所在路径："har/src/main/ets/components/mainpage/MainPage.ets"
 const workerInstance4: worker.ThreadWorker = new worker.ThreadWorker('../../workers/worker.ets');
 // [End import_worker]

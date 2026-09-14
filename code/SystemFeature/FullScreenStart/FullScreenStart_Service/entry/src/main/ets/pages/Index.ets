@@ -362,7 +362,9 @@ struct HomePage {
    * @return Thousand percentile data.
    */
   resultFormat(value: string) {
-    let reg = (value.indexOf('.') > -1) ? new RegExp('/(\d)(?=(\d{3})+\.)/g') : new RegExp('/(\d)(?=(?:\d{3})+$)/g');
+    let reg = (value.indexOf('.') > -1) ?
+      new RegExp('(\\d)(?=(\\d{3})+\\.)', 'g') :
+      new RegExp('(\\d)(?=(?:\\d{3})+$)', 'g');
     return value.replace(reg, '$1,');
   }
 

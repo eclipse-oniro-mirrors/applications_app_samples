@@ -1033,7 +1033,7 @@
       "value": "将图片和文本附加到同一个MutableStyledString对象上，并实现图文混排。"
     },
     {
-      "name": "TStyledStringGestureStyle_title",
+      "name": "StyledStringGestureStyle_title",
       "value": "设置事件"
     },
     {
@@ -1277,7 +1277,7 @@
       "value": "运动45分钟"
     },
     {
-      "name": "CreateApply_Text_Third_Five",
+      "name": "CreateApply_Text_Thirty_Five",
       "value": "运动35分钟"
     },
     {
@@ -1757,7 +1757,7 @@
       "value": "文本超长时如何展示1"
     },
     {
-      "name": "Text_Long_Tow",
+      "name": "Text_Long_Two",
       "value": "文本超长时如何展示2"
     },
     {
@@ -1769,7 +1769,7 @@
       "value": "Text组件中内容太多，超出父组件容器Column的高度，导致显示混乱。如何让文本显示在父组件容器的区域内"
     },
     {
-      "name": "Text_Long_Tow_description",
+      "name": "Text_Long_Two_description",
       "value": "可以把Text组件放在滚动容器Scroll里面，通过手势滑动来浏览全部文本。"
     },
     {
@@ -1851,6 +1851,74 @@
     {
       "name": "Special_Characters_Display_Incorrectly_description",
       "value": "多数字符显示异常问题，特殊字符的高度超出同一行文本其他字符的高度导致，可以通过设置halfLeading属性和lineHeight属性解决。"
+    },
+    {
+      "name": "READ_PASTEBOARD_Permission_Reason",
+      "value": "用于读取剪贴板中的信息以提供便捷服务"
+    },
+    {
+      "name": "How_To_Set_Custom_Selection_Menu",
+      "value": "selection如何触发弹出自定义菜单"
+    },
+    {
+      "name": "How_To_Set_Custom_Selection_Menu_Description",
+      "value": "该示例展示使用了selection接口同时如何设置自定义菜单，可以在菜单onDisappear回调中重置选区，以及如何设置自定义菜单字体大小。"
+    },
+    {
+      "name": "Set_Custom_Selection_Menu_Example_String",
+      "value": "TextTextTextText"
+    },
+    {
+      "name": "Menu_Item_String",
+      "value": "Item Content"
+    },
+    {
+      "name": "TextMenuShow_title",
+      "value": "子窗口显示文本"
+    },
+    {
+      "name": "TextMenuShow_description",
+      "value": "通过设置TextMenuShowMode实现文本菜单在子窗口显示"
+    },
+    {
+      "name": "RequestFocusShowKeyboard_title",
+      "value": "通过requestFocus请求焦点弹出软键盘"
+    },
+    {
+      "name": "TabKeyFocusShowKeyboard_title",
+      "value": "通过Tab键走焦显示物理键盘悬浮栏"
+    },
+    {
+      "name": "CloseButtonClickKeyboard_title",
+      "value": "点击软键盘关闭按钮收起软键盘"
+    },
+    {
+      "name": "DragTextCloseKeyboard_title",
+      "value": "拖拽文本收起软键盘"
+    },
+    {
+      "name": "PageChangeSource_title",
+      "value": "页面跳转收起软键盘"
+    },
+    {
+      "name": "ListScrollClearFocus_title",
+      "value": "List滚动时clearFocus收起软键盘"
+    },
+    {
+      "name": "EmptyCustomKeyboard_title",
+      "value": "通过空自定义键盘阻止弹出软键盘"
+    },
+    {
+      "name": "KeepEditableStateOnSubmit_title",
+      "value": "通过keepEditableState点击发送不收起软键盘"
+    },
+    {
+      "name": "How_To_Disable_Text_Long_Press",
+      "value": "如何屏蔽文本的长按手势"
+    },
+    {
+      "name": "How_To_Disable_Text_Long_Press_description",
+      "value": "设置触发时间小于系统菜单触发时间的自定义长按手势使长按不生效"
     }
   ]
 }

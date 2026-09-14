@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,22 +19,17 @@
 #include <ace/xcomponent/native_interface_xcomponent.h>
 #include <napi/native_api.h>
 #include <string>
-#include <unordered_map>
 
 namespace NativeXComponentSample {
 class PluginRender {
 public:
-    explicit PluginRender(std::string& id);
-    ~PluginRender() {}
-    static PluginRender* GetInstance(std::string& id);
-    static void Release(std::string& id);
+    explicit PluginRender(const std::string& id);
+    ~PluginRender() = default;
     void Export(napi_env env, napi_value exports);
     void OnSurfaceChanged(OH_NativeXComponent* component, void* window);
     void OnTouchEvent(OH_NativeXComponent* component, void* window);
     void RegisterCallback(OH_NativeXComponent* nativeXComponent);
 
-public:
-    static std::unordered_map<std::string, PluginRender*> instance_;
     std::string id_;
 
 private:

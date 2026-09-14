@@ -79,7 +79,7 @@ struct sceneAnimation {
           // [End anim_pick_anim]
           // [Start anim_camera_sceneopt]
           // create a new camera.
-          this.cam = await rf.createCamera({ 'name': 'Camera' });
+          this.cam = await rf.createCamera({ name: 'Camera' });
           // set the camera.
           this.cam.enabled = true;
           this.cam.position.z = 5;

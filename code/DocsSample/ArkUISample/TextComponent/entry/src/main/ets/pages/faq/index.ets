@@ -22,6 +22,9 @@ import { HowToDrawMultipleDecorationLinesExample } from './HowToDrawMultipleDeco
 import { HowToFixIncorrectCharacterDisplayDemoAdaptExample } from './HowToFixIncorrectCharacterDisplayDemoAdapt';
 import { HowToFixIncorrectCharacterDisplayDemoLeftExample } from './HowToFixIncorrectCharacterDisplayDemoLeft';
 import { HowToFixIncorrectCharacterDisplayShowEffectExample } from './HowToFixIncorrectCharacterDisplayShowEffect';
+import { HowToSetCustomSelectionMenuExample } from './HowToSetCustomSelectionMenu';
+import { HowToDisableTextLongPressExample } from './HowToDisableTextLongPress';
+import { SpecialCharactersDisplayIncorrectlyExample } from './SpecialCharactersDisplayIncorrectly';
 
 
 export const TEXT_FAQ: string = 'faq';
@@ -54,9 +57,19 @@ const routes: Route[] = [
     description: $r('app.string.How_To_How_To_Draw_Multiple_Decoration_Lines_description')
   },
   {
-    name: `${TEXT_FAQ}/CursorPersistsWhenTextInputIsCovered`,
-    title: resource.resourceToString($r('app.string.How_To_Draw_Multiple_Decoration_Lines')),
+    name: `${TEXT_FAQ}/SpecialCharactersDisplayIncorrectly`,
+    title: resource.resourceToString($r('app.string.Special_Characters_Display_Incorrectly')),
     description: $r('app.string.Special_Characters_Display_Incorrectly_description')
+  },
+  {
+    name: `${TEXT_FAQ}/HowToSetCustomSelectionMenu`,
+    title: resource.resourceToString($r('app.string.How_To_Set_Custom_Selection_Menu')),
+    description: $r('app.string.How_To_Set_Custom_Selection_Menu_Description')
+  },
+  {
+    name: `${TEXT_FAQ}/HowToDisableTextLongPress`,
+    title: resource.resourceToString($r('app.string.How_To_Disable_Text_Long_Press')),
+    description: $r('app.string.How_To_Disable_Text_Long_Press_description')
   },
 ];
 
@@ -76,7 +89,11 @@ export function TextFAQDestination(name: string) {
   } else if (name === routes[4].name) {
     HowToDrawMultipleDecorationLinesExample();
   } else if (name === routes[5].name) {
-    CursorPersistsWhenTextInputIsCoveredExample();
+    SpecialCharactersDisplayIncorrectlyExample();
+  } else if (name === routes[6].name) {
+    HowToSetCustomSelectionMenuExample();
+  } else if (name === routes[7].name) {
+    HowToDisableTextLongPressExample();
   }
 }
 

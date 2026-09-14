@@ -35,6 +35,7 @@ class Son {
 
 @Component
 struct Child {
+  // @Observed对象与@ObjectLink一起使用，实现对嵌套类对象属性的观测能力
   @ObjectLink son: Son;
 
   build() {
@@ -43,6 +44,7 @@ struct Child {
         Text(`name: ${this.son.name} age: ${this.son.age}`)
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
+          .margin(10)
           .onClick(() => {
             this.son.age++;
           })
@@ -62,6 +64,7 @@ struct Index {
     Column() {
       Child({ son: this.father.son })
     }
+    .width('100%')
   }
 }
 

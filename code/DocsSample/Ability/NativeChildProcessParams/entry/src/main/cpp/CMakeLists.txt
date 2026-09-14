@@ -14,4 +14,4 @@ include_directories(${NATIVERENDER_ROOT_PATH}
 add_library(mainprocesssample SHARED MainProcessFunc.cpp ChildGetStartParams.cpp)
 target_link_libraries(mainprocesssample libipc_capi.so libchild_process.so libace_napi.z.so libhilog_ndk.z.so)
 add_library(childprocesssample SHARED ChildProcessFunc.cpp)
-target_link_libraries(childprocesssample libipc_capi.so libchild_process.so)
+target_link_libraries(childprocesssample libipc_capi.so libchild_process.so libhilog_ndk.z.so)

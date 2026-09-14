@@ -2,12 +2,14 @@
   "src": [
     "pages/Index",
     "pages/AllocateMemory",
+    "pages/RegionDownsample",
     "pages/DecodingPicture",
     "pages/DecodingPixelMap",
     "pages/EncodingPicture",
     "pages/EncodingPixelMap",
     "pages/ImageReceiver",
     "pages/EditExif",
+    "pages/EditXMP",
     "pages/Transcoding"
   ]
 }

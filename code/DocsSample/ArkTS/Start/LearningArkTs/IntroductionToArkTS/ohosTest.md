@@ -5,3 +5,4 @@
 | 函数测试          | 执行用例 | 执行无需输入 | uitest: testFunction002 end  |是|Pass|
 | 类测试      | 执行用例 | 执行无需输入 | uitest: testClass003 end   |是|Pass|
 | 泛型类型和函数测试       | 执行用例 | 	执行无需输入     | uitest: testGenericTypesAndFunctions004 end |是|Pass|
+| 泛型数组测试       | 执行用例 | 	执行无需输入     | uitest: testGenericArray005 end |是|Pass|

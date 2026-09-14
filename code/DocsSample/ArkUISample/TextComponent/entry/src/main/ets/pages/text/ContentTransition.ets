@@ -16,9 +16,9 @@
 
 @Entry
 @Component
-export struct ContentTransition {
+struct ContentTransitionDemo {
   private static readonly INITIAL_SCORE: number = 98;
-  @State number: number = ContentTransition.INITIAL_SCORE;
+  @State number: number = ContentTransitionDemo.INITIAL_SCORE;
   @State numberTransition: NumericTextTransition =
     new NumericTextTransition({ flipDirection: FlipDirection.DOWN, enableBlur: false });
   build() {
@@ -28,7 +28,7 @@ export struct ContentTransition {
           .borderWidth(1)
           .fontSize(40)
           .contentTransition(this.numberTransition)
-        Button('chang number')
+        Button('change number')
           .onClick(() => {
             this.number++
           })
@@ -45,3 +45,5 @@ export struct ContentTransition {
 }
 
 // [End Content_Transition]
+
+export { ContentTransitionDemo };

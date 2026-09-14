@@ -17,6 +17,9 @@
 import { audio } from '@kit.AudioKit'; // 导入audio模块。
 // [Start get_Status]
 // [Start set_Volume]
+// [Start get_Volume]
+// [Start get_SupportedDevicePairs]
+// [Start get_PreferredDevicePair]
 // [Start set_ReverbPreset]
 // [Start get_ReverbPreset]
 // [Start set_EqualizerPreset]
@@ -26,6 +29,9 @@ import { BusinessError } from '@kit.BasicServicesKit'; // 导入BusinessError。
 // [StartExclude create_AudioLoopback]
 // [StartExclude get_Status]
 // [StartExclude set_Volume]
+// [StartExclude get_Volume]
+// [StartExclude get_SupportedDevicePairs]
+// [StartExclude get_PreferredDevicePair]
 // [StartExclude set_ReverbPreset]
 // [StartExclude get_ReverbPreset]
 // [StartExclude set_EqualizerPreset]
@@ -40,7 +46,6 @@ let audioLoopback: audio.AudioLoopback | undefined = undefined;
 // [StartExclude create_AudioLoopback]
 let currentReverbPreset: audio.AudioLoopbackReverbPreset = audio.AudioLoopbackReverbPreset.THEATER;
 let currentEqualizerPreset: audio.AudioLoopbackEqualizerPreset = audio.AudioLoopbackEqualizerPreset.FULL;
-// [StartExclude all_audioLoopback]
 let statusChangeCallback = (status: audio.AudioLoopbackStatus) => {
   if (status == audio.AudioLoopbackStatus.UNAVAILABLE_DEVICE) {
     console.info('Audio loopback status is: UNAVAILABLE_DEVICE');
@@ -52,16 +57,13 @@ let statusChangeCallback = (status: audio.AudioLoopbackStatus) => {
     console.info('Audio loopback status is: AVAILABLE_RUNNING');
   }
 };
-// [EndExclude all_audioLoopback]
 
-// [StartExclude all_audioLoopback]
 async function requestMicrophonePermission(context: common.UIAbilityContext): Promise<boolean> {
   let atManager = abilityAccessCtrl.createAtManager();
   let result: PermissionRequestResult = await atManager
     .requestPermissionsFromUser(context, ['ohos.permission.MICROPHONE']);
   return result.authResults[0] === 0;
 }
-// [EndExclude all_audioLoopback]
 
 // 查询能力，创建实例。
 function init(updateCallback?: (msg: string, isError: boolean) => void): void {
@@ -148,17 +150,29 @@ async function setReverbPreset(preset: audio.AudioLoopbackReverbPreset, updateCa
   if (audioLoopback !== undefined) {
     // [EndExclude set_ReverbPreset]
     try {
-      audioLoopback.setReverbPreset(preset);
-      console.info('Succeeded in setting reverb preset.');
-      // [StartExclude all_audioLoopback]
-      // [StartExclude set_ReverbPreset]
-      const successMsg = 'Succeeded in setting reverb preset.';
-      if (updateCallback) {
-        updateCallback(successMsg, false);
+      if (audioLoopback.setReverbPreset(preset)) {
+        console.info('Succeeded in setting reverb preset.');
+        // [StartExclude all_audioLoopback]
+        // [StartExclude set_ReverbPreset]
+        const successMsg = 'Succeeded in setting reverb preset.';
+        if (updateCallback) {
+          updateCallback(successMsg, false);
+        }
+        // [EndExclude set_ReverbPreset]
+        // [EndExclude all_audioLoopback]
+        // 获取当前的混响模式，防止设置失败。
+        currentReverbPreset = preset;
+      } else {
+        console.error('Failed to set reverb preset.');
+        // [StartExclude all_audioLoopback]
+        // [StartExclude set_ReverbPreset]
+        const errorMsg = 'Failed to set reverb preset.';
+        if (updateCallback) {
+          updateCallback(errorMsg, true);
+        }
+        // [EndExclude set_ReverbPreset]
+        // [EndExclude all_audioLoopback]
       }
-      // [EndExclude set_ReverbPreset]
-      // [EndExclude all_audioLoopback]
-      currentReverbPreset = audioLoopback.getReverbPreset(); // 查询当前的混响模式，防止设置失败。
     } catch (err) {
       console.error(`Failed to set reverb preset. Code: ${err.code}, message: ${err.message}`);
       // [StartExclude all_audioLoopback]
@@ -188,17 +202,29 @@ async function setEqualizerPreset(preset: audio.AudioLoopbackEqualizerPreset, up
   if (audioLoopback !== undefined) {
     // [EndExclude set_EqualizerPreset]
     try {
-      audioLoopback.setEqualizerPreset(preset);
-      console.info('Succeeded in setting equalizer preset.');
-      // [StartExclude all_audioLoopback]
-      // [StartExclude set_EqualizerPreset]
-      const successMsg = 'Succeeded in setting equalizer preset.';
-      if (updateCallback) {
-        updateCallback(successMsg, false);
+      if (audioLoopback.setEqualizerPreset(preset)) {
+        console.info('Succeeded in setting equalizer preset.');
+        // [StartExclude all_audioLoopback]
+        // [StartExclude set_EqualizerPreset]
+        const successMsg = 'Succeeded in setting equalizer preset.';
+        if (updateCallback) {
+          updateCallback(successMsg, false);
+        }
+        // [EndExclude set_EqualizerPreset]
+        // [EndExclude all_audioLoopback]
+        // 获取当前的均衡器类型，防止设置失败。
+        currentEqualizerPreset = preset;
+      } else {
+        console.error('Failed to set equalizer preset.');
+        // [StartExclude all_audioLoopback]
+        // [StartExclude set_EqualizerPreset]
+        const errorMsg = 'Failed to set equalizer preset.';
+        if (updateCallback) {
+          updateCallback(errorMsg, true);
+        }
+        // [EndExclude set_EqualizerPreset]
+        // [EndExclude all_audioLoopback]
       }
-      // [EndExclude set_EqualizerPreset]
-      // [EndExclude all_audioLoopback]
-      currentEqualizerPreset = audioLoopback.getEqualizerPreset(); // 查询当前的均衡器类型，防止设置失败。
     } catch (err) {
       console.error(`Failed to set equalizer preset. Code: ${err.code}, message: ${err.message}`);
       // [StartExclude all_audioLoopback]
@@ -353,21 +379,96 @@ async function getStatus(updateCallback?: (msg: string, isError: boolean) => voi
   }
 }
 
+// 查询当前的音频返听音量。
+async function getVolume(updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
+  if (audioLoopback !== undefined) {
+    // [EndExclude get_Volume]
+    let volume = audioLoopback.getVolume();
+    // [StartExclude get_Volume]
+    const successMsg = `Succeeded in getting volume, volume is ${volume}.`;
+    if (updateCallback) {
+      updateCallback(successMsg, false);
+    }
+    // [EndExclude get_Volume]
+    // [End get_Volume]
+  } else {
+    // [StartExclude get_Volume]
+    const errorMsg = 'Audio loopback not created.';
+    if (updateCallback) {
+      updateCallback(errorMsg, true);
+    }
+    // [EndExclude get_Volume]
+  }
+}
+
+// 查询当前支持返听的设备对。
+async function getSupportedDevicePairs(updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
+  if (audioLoopback !== undefined) {
+    // [EndExclude get_SupportedDevicePairs]
+    let devicePairs = audioLoopback.getSupportedDevicePairs();
+    // [StartExclude get_SupportedDevicePairs]
+    if (devicePairs.length === 0) {
+      const emptyMsg = 'No supported loopback device pair found.';
+      if (updateCallback) {
+        updateCallback(emptyMsg, true);
+      }
+      return;
+    }
+    const firstPair = devicePairs[0];
+    const successMsg = `Succeeded in getting supported device pairs, count: ${devicePairs.length}, ` +
+      `first pair inputType: ${firstPair.inputDevice.deviceType}, ` +
+      `outputType: ${firstPair.outputDevice.deviceType}.`;
+    if (updateCallback) {
+      updateCallback(successMsg, false);
+    }
+    // [EndExclude get_SupportedDevicePairs]
+    // [End get_SupportedDevicePairs]
+  } else {
+    // [StartExclude get_SupportedDevicePairs]
+    const errorMsg = 'Audio loopback not created.';
+    if (updateCallback) {
+      updateCallback(errorMsg, true);
+    }
+    // [EndExclude get_SupportedDevicePairs]
+  }
+}
+
+// 查询当前系统首选的返听设备对。
+async function getPreferredDevicePair(updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
+  if (audioLoopback !== undefined) {
+    // [EndExclude get_PreferredDevicePair]
+    let devicePair = audioLoopback.getPreferredDevicePair();
+    // [StartExclude get_PreferredDevicePair]
+    if (devicePair === null) {
+      const emptyMsg = 'No preferred loopback device pair found.';
+      if (updateCallback) {
+        updateCallback(emptyMsg, true);
+      }
+      return;
+    }
+    const successMsg = `Succeeded in getting preferred device pair, ` +
+      `inputType: ${devicePair.inputDevice.deviceType}, ` +
+      `outputType: ${devicePair.outputDevice.deviceType}.`;
+    if (updateCallback) {
+      updateCallback(successMsg, false);
+    }
+    // [EndExclude get_PreferredDevicePair]
+    // [End get_PreferredDevicePair]
+  } else {
+    // [StartExclude get_PreferredDevicePair]
+    const errorMsg = 'Audio loopback not created.';
+    if (updateCallback) {
+      updateCallback(errorMsg, true);
+    }
+    // [EndExclude get_PreferredDevicePair]
+  }
+}
+
 // 查询当前的音频返听的混响模式。
 async function getReverbPreset(updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
   if (audioLoopback !== undefined) {
     // [EndExclude get_ReverbPreset]
-    try {
-      let reverbPreset = audioLoopback.getReverbPreset();
-    } catch (err) {
-      console.error(`Failed to get reverb preset. Code: ${err.code}, message: ${err.message}`);
-      // [StartExclude get_ReverbPreset]
-      const errorMsg = `Failed to get reverb preset. Code: ${err.code}, message: ${err.message}`;
-      if (updateCallback) {
-        updateCallback(errorMsg, true);
-      }
-      // [EndExclude get_ReverbPreset]
-    }
+    let reverbPreset = audioLoopback.getReverbPreset();
     // [End get_ReverbPreset]
   }
 }
@@ -376,17 +477,7 @@ async function getReverbPreset(updateCallback?: (msg: string, isError: boolean) 
 async function getEqualizerPreset(updateCallback?: (msg: string, isError: boolean) => void): Promise<void> {
   if (audioLoopback !== undefined) {
     // [EndExclude get_EqualizerPreset]
-    try {
-      let equalizerPreset = audioLoopback.getEqualizerPreset();
-    } catch (err) {
-      console.error(`Failed to get equalizer preset. Code: ${err.code}, message: ${err.message}`);
-      // [StartExclude get_EqualizerPreset]
-      const errorMsg = `Failed to get equalizer preset. Code: ${err.code}, message: ${err.message}`;
-      if (updateCallback) {
-        updateCallback(errorMsg, true);
-      }
-      // [EndExclude get_EqualizerPreset]
-    }
+    let equalizerPreset = audioLoopback.getEqualizerPreset();
     // [End get_EqualizerPreset]
   }
 }
@@ -604,6 +695,40 @@ struct Index {
 
         Row() {
           Column() {
+            Text('查询返听音量')
+              .fontColor(Color.Black)
+              .fontSize(14)
+          }
+          .backgroundColor(Color.White)
+          .borderRadius(20)
+          .width('45%')
+          .height(60)
+          .margin({ right: 12, bottom: 12 })
+          .justifyContent(FlexAlign.Center)
+          .alignItems(HorizontalAlign.Center)
+          .onClick(async (): Promise<void> => {
+            await getVolume((msg, isError) => this.updateLogInfo(msg, isError));
+          });
+
+          Column() {
+            Text('查询支持设备对')
+              .fontColor(Color.Black)
+              .fontSize(14)
+          }
+          .backgroundColor(Color.White)
+          .borderRadius(20)
+          .width('45%')
+          .height(60)
+          .margin({ bottom: 12 })
+          .justifyContent(FlexAlign.Center)
+          .alignItems(HorizontalAlign.Center)
+          .onClick(async (): Promise<void> => {
+            await getSupportedDevicePairs((msg, isError) => this.updateLogInfo(msg, isError));
+          });
+        }
+
+        Row() {
+          Column() {
             Text('查询均衡器类型')
               .fontColor(Color.Black)
               .fontSize(14)
@@ -639,7 +764,7 @@ struct Index {
 
         Row() {
           Column() {
-            Text('禁用音频返听')
+            Text('查询首选设备对')
               .fontColor(Color.Black)
               .fontSize(14)
           }
@@ -648,6 +773,22 @@ struct Index {
           .width('45%')
           .height(60)
           .margin({ right: 12, bottom: 12 })
+          .justifyContent(FlexAlign.Center)
+          .alignItems(HorizontalAlign.Center)
+          .onClick(async (): Promise<void> => {
+            await getPreferredDevicePair((msg, isError) => this.updateLogInfo(msg, isError));
+          });
+
+          Column() {
+            Text('禁用音频返听')
+              .fontColor(Color.Black)
+              .fontSize(14)
+          }
+          .backgroundColor(Color.White)
+          .borderRadius(20)
+          .width('45%')
+          .height(60)
+          .margin({ bottom: 12 })
           .justifyContent(FlexAlign.Center)
           .alignItems(HorizontalAlign.Center)
           .onClick(async (): Promise<void> => {

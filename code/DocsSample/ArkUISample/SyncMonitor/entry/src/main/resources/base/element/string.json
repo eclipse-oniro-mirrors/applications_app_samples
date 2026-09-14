@@ -11,6 +11,114 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "compare_syncmonitor_with_monitor",
+      "value": "compare syncmonitor with monitor"
+    },
+    {
+      "name": "effective_and_ineffective_times_of_variable_monitoring",
+      "value": "effective and ineffective times of variable monitoring"
+    },
+    {
+      "name": "monitor_computed_variable",
+      "value": "monitor computed variable"
+    },
+    {
+      "name": "monitor_deep_property_change",
+      "value": "monitor deep property change"
+    },
+    {
+      "name": "monitor_duplicate_multiple_paths",
+      "value": "monitor duplicate multiple paths"
+    },
+    {
+      "name": "monitor_entire_object_change_but_property_no_change",
+      "value": "monitor entire object change but property no change"
+    },
+    {
+      "name": "monitor_multiple_variables",
+      "value": "monitor multiple variables"
+    },
+    {
+      "name": "monitor_non_computed_getter_negative",
+      "value": "monitor non computed getter negative"
+    },
+    {
+      "name": "monitor_non_state_variable_negative",
+      "value": "monitor non state variable negative"
+    },
+    {
+      "name": "monitor_non_state_variable_positive",
+      "value": "monitor non state variable positive"
+    },
+    {
+      "name": "monitor_object_variable",
+      "value": "monitor object variable"
+    },
+    {
+      "name": "monitor_state_variable_directly",
+      "value": "monitor state variable directly"
+    },
+    {
+      "name": "monitor_the_same_variable_two_times",
+      "value": "monitor the same variable two times"
+    },
+    {
+      "name": "monitor_two_layer_variables_in_observedv2_class",
+      "value": "monitor two layer variables in observedv2 class"
+    },
+    {
+      "name": "monitor_variable_from_accessible_to_inaccessible",
+      "value": "monitor variable from accessible to inaccessible"
+    },
+    {
+      "name": "monitor_variable_base_derived_class",
+      "value": "monitor variable base derived class"
+    },
+    {
+      "name": "monitor_variables_in_multidimensional_arrays",
+      "value": "monitor variables in multidimensional arrays"
+    },
+    {
+      "name": "monitor_variables_in_observedv2_class",
+      "value": "monitor variables in observedv2 class"
+    },
+    {
+      "name": "syncmonitor_array_multi_path",
+      "value": "syncmonitor array multi path"
+    },
+    {
+      "name": "syncmonitor_behaves_differently_from_monitor",
+      "value": "syncmonitor behaves differently from monitor"
+    },
+    {
+      "name": "syncmonitor_class_effective_time",
+      "value": "syncmonitor class effective time"
+    },
+    {
+      "name": "syncmonitor_class_gc_destruction",
+      "value": "syncmonitor class gc destruction"
+    },
+    {
+      "name": "syncmonitor_component_destruction",
+      "value": "syncmonitor component destruction"
+    },
+    {
+      "name": "wildcard_monitor_array_first_item_change",
+      "value": "wildcard monitor array first item change"
+    },
+    {
+      "name": "wildcard_monitor_array_item_change",
+      "value": "wildcard monitor array item change"
+    },
+    {
+      "name": "wildcard_monitor_nested_object_property_change",
+      "value": "wildcard monitor nested object property change"
+    },
+    {
+      "name": "wildcard_monitor_object_property_change",
+      "value": "wildcard monitor object property change"
     }
   ]
 }

@@ -67,7 +67,7 @@ class TextNodeController extends NodeController {
   }
 
   makeNode(context: UIContext): FrameNode | null {
-    return this.textNode?.getFrameNode() ? this.textNode?.getFrameNode() : null;
+    return this.textNode?.getFrameNode() ?? null;
   }
 
   createNode(context: UIContext) {

@@ -25,10 +25,12 @@ struct Index {
         this.textComponent('Index');
         this.buttonComponent('跳转到图片解码页面', 'pages/DecodingPixelMap');
         this.buttonComponent('跳转到多图解码页面', 'pages/DecodingPicture');
+        this.buttonComponent('跳转到区域解码和下采样解码页面', 'pages/RegionDownsample');
         this.buttonComponent('跳转到内存申请页面', 'pages/AllocateMemory');
         this.buttonComponent('跳转到图片编码页面', 'pages/EncodingPixelMap');
         this.buttonComponent('跳转到多图编码页面', 'pages/EncodingPicture');
         this.buttonComponent('跳转到图片Exif信息编辑页面', 'pages/EditExif');
+        this.buttonComponent('跳转到图片XMP信息编辑页面', 'pages/EditXMP');
         this.buttonComponent('跳转到图片接收页面', 'pages/ImageReceiver');
         this.buttonComponent('跳转到转码页面', 'pages/Transcoding');
       }.size({ width: '100%', height: '100%' })

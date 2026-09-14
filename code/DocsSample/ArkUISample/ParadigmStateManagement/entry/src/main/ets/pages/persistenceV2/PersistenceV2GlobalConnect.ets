@@ -65,30 +65,34 @@ struct Page1 {
   build() {
     Column() {
       // 显示数据
-      // 被@Trace修饰的数据可以自动持久化进磁盘
+      // 被@Trace装饰的属性可以自动持久化进磁盘
       Text('Key SampleGlobalConnect: ' + this.p.father.childId.toString())
         .onClick(() => {
           this.p.father.childId += 1;
         })
         .fontSize(25)
+        .margin(5)
         .fontColor(Color.Red)
       Text('Key global1: ' + this.p1.father.childId.toString())
         .onClick(() => {
           this.p1.father.childId += 1;
         })
         .fontSize(25)
+        .margin(5)
         .fontColor(Color.Red)
       Text('Key global2: ' + this.p2.father.childId.toString())
         .onClick(() => {
           this.p2.father.childId += 1;
         })
         .fontSize(25)
+        .margin(5)
         .fontColor(Color.Red)
       Text('Key global3: ' + this.p3.father.childId.toString())
         .onClick(() => {
           this.p3.father.childId += 1;
         })
         .fontSize(25)
+        .margin(5)
         .fontColor(Color.Red)
       // keys接口
       // keys本身不会刷新，需要借助状态变量刷新
@@ -97,6 +101,7 @@ struct Page1 {
           this.refresh += 1;
         })
         .fontSize(25)
+        .margin(5)
 
       // remove接口
       Text('Remove key SampleGlobalConnect: ' + 'refresh: ' + this.refresh)
@@ -106,6 +111,7 @@ struct Page1 {
           this.refresh += 1;
         })
         .fontSize(25)
+        .margin(5)
       Text('Remove key global1: ' + 'refresh: ' + this.refresh)
         .onClick(() => {
           // 删除这个key，会导致和p1失去联系，之后即使reconnect，p1也无法存储
@@ -113,6 +119,7 @@ struct Page1 {
           this.refresh += 1;
         })
         .fontSize(25)
+        .margin(5)
       Text('Remove key global2: ' + 'refresh: ' + this.refresh)
         .onClick(() => {
           // 删除这个key，会导致和p2失去联系，之后即使reconnect，p2也无法存储
@@ -120,6 +127,7 @@ struct Page1 {
           this.refresh += 1;
         })
         .fontSize(25)
+        .margin(5)
       Text('Remove key global3: ' + 'refresh: ' + this.refresh)
         .onClick(() => {
           // 删除这个key，会导致和p3失去联系，之后即使reconnect，p3也无法存储
@@ -127,6 +135,7 @@ struct Page1 {
           this.refresh += 1;
         })
         .fontSize(25)
+        .margin(5)
       // reConnect
       // 重新连接也无法和之前的状态变量建立联系，因此无法保存数据
       Text('ReConnect key global2: ' + 'refresh: ' + this.refresh)
@@ -136,23 +145,26 @@ struct Page1 {
           this.refresh += 1;
         })
         .fontSize(25)
+        .margin(5)
 
       // save接口
       Text('not save key SampleGlobalConnect: ' + this.p.father.groupId.toString() + ' refresh: ' + this.refresh)
         .onClick(() => {
-          // 未被@Trace保存的对象无法自动存储
+          // 未被@Trace装饰的属性无法自动存储
           this.p.father.groupId += 1;
           this.refresh += 1;
         })
         .fontSize(25)
+        .margin(5)
       Text('save key SampleGlobalConnect: ' + this.p.father.groupId.toString() + ' refresh: ' + this.refresh)
         .onClick(() => {
-          // 未被@Trace保存的对象无法自动存储，需要调用save存储
+          // 未被@Trace装饰的属性无法自动存储，需要调用save存储
           this.p.father.groupId += 1;
           PersistenceV2.save(SampleGlobalConnect);
           this.refresh += 1;
         })
         .fontSize(25)
+        .margin(5)
     }
     .width('100%')
   }

@@ -25,7 +25,7 @@ napi_ref g_createRefresh;
 napi_ref g_updateRefresh;
 } // namespace
 
-napi_value ArkUIMixedRefresh::RegisterCreateAndUpdateRefresh(napi_env env, napi_callback_info info)
+napi_value ArkUIMixedRefresh::RegisterCreateRefresh(napi_env env, napi_callback_info info)
 {
     size_t argc = 1;
     napi_value args[1] = {nullptr};
@@ -38,6 +38,22 @@ napi_value ArkUIMixedRefresh::RegisterCreateAndUpdateRefresh(napi_env env, napi_
     napi_create_reference(env, args[0], 1, &refer);
 
     g_createRefresh = refer;
+    return nullptr;
+}
+
+napi_value ArkUIMixedRefresh::RegisterUpdateRefresh(napi_env env, napi_callback_info info)
+{
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+
+    g_env = env;
+    napi_ref refer;
+    // 创建引用之后保存，防止释放。
+    napi_create_reference(env, args[0], 1, &refer);
+
+    g_updateRefresh = refer;
     return nullptr;
 }
 

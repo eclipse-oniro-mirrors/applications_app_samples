@@ -25,7 +25,7 @@ export struct Page {
 
   build() {
     Column() {
-      Text(`Page1 add 1 to prop.p1: ${this.prop.f123.p123}`)
+      Text(`Page1 add 1 to prop.f123.p123: ${this.prop.f123.p123}`)
     }
   }
 }

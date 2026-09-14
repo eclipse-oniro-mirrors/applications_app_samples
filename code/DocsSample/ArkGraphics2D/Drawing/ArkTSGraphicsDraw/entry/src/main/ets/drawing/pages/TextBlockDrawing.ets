@@ -65,7 +65,7 @@ function drawChineseStrokeText(canvas: drawing.Canvas) {
   let pen = new drawing.Pen();
   // 设置抗锯齿
   brush.setAntiAlias(true);
-  // 设置描边颜色
+  // 设置填充颜色
   brush.setColor(0xFF, 0xFF, 0xFF, 0xFF);
 
   pen.setAntiAlias(true);
@@ -121,7 +121,7 @@ function drawGradientText(canvas: drawing.Canvas) {
 
 function drawThemeText(canvas: drawing.Canvas) {
   // [Start arkts_graphics_draw_theme_text]
-  // 创建线性渐变着色器
+  // 创建字型对象
   const font = new drawing.Font();
   // 设置文字大小
   font.setSize(100);

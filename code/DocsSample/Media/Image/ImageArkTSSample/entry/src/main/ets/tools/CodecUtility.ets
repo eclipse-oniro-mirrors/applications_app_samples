@@ -14,16 +14,33 @@
 */
 
 import { image } from '@kit.ImageKit';
-import { fileIo as fs } from '@kit.CoreFileKit';
+import { fileIo } from '@kit.CoreFileKit';
 import { resourceManager } from '@kit.LocalizationKit';
 import { common } from '@kit.AbilityKit';
-
+// [Start create_copyData]
 let copyData: ArrayBuffer = new ArrayBuffer(0);
+// [End create_copyData]
+
+// [Start get_supportedFormats]
+// 获取当前设备支持的解码格式列表。
+export function getSupportedFormats(): string[] {
+  let formats = image.getImageSourceSupportedFormats();
+  console.info('Supported formats: ' + formats);
+  return formats;
+}
+
+// 检查指定格式是否支持解码。
+export function isFormatSupported(format: string): boolean {
+  let formats = image.getImageSourceSupportedFormats();
+  return formats.includes(format);
+}
+// [End get_supportedFormats]
+
 // [Start create_picturePackOpts]
 let packOpts: image.PackingOption = {
   format: 'image/jpeg',
-  quality: 95,
-  desiredDynamicRange: image.PackingDynamicRange.AUTO,
+  // quality默认值为0，建议不低于80；本示例统一设置为90，兼顾图片质量和文件体积。
+  quality: 90,
   needsPackProperties: true
 };
 // [End create_picturePackOpts]
@@ -39,7 +56,7 @@ function getFilePath(context: Context, fileName: string): string {
 function getFileFd(context: Context, fileName: string): number | undefined {
   try {
     const filePath: string = context.cacheDir + '/' + fileName;
-    const file: fs.File = fs.openSync(filePath, fs.OpenMode.READ_ONLY);
+    const file: fileIo.File = fileIo.openSync(filePath, fileIo.OpenMode.READ_ONLY);
     const fd: number = file?.fd;
     return fd;
   } catch (err) {
@@ -86,7 +103,8 @@ async function packToDataFromPixelMap(pixelMap : image.PixelMap) {
   const imagePackerApi = image.createImagePacker();
   // [End create_packer]
   // [Start create_packOpts]
-  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 95 };
+  // quality默认值为0，建议不低于80；本示例统一设置为90，兼顾图片质量和文件体积。
+  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 90 };
   // [End create_packOpts]
   // [Start packOpts_isHdr]
   // 资源本身为hdr且设备支持HDR编码则会编码为hdr内容(需要资源本身为hdr且设备支持HDR编码，支持jpeg格式)。
@@ -108,7 +126,8 @@ async function packToDataFromPixelMap(pixelMap : image.PixelMap) {
 // [Start packToData_imageSource]
 async function packToDataFromImageSource(imageSource : image.ImageSource) {
   const imagePackerApi = image.createImagePacker();
-  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 95 };
+  // quality默认值为0，建议不低于80；本示例统一设置为90，兼顾图片质量和文件体积。
+  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 90 };
   try {
     let data = await imagePackerApi.packToData(imageSource, packOpts);
     // data 为编码获取到的文件流，写入文件保存即可得到一张图片。
@@ -125,13 +144,19 @@ async function packToDataFromImageSource(imageSource : image.ImageSource) {
 // [Start packToFile_pixelMap]
 async function packToFileFromPixelMap(context : Context, pixelMap : image.PixelMap) {
   const imagePackerApi = image.createImagePacker();
-  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 95 };
+  // quality默认值为0，建议不低于80；本示例统一设置为90，兼顾图片质量和文件体积。
+  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 90 };
   const path : string = context.cacheDir + '/pixel_map.jpg';
+  let file: fileIo.File | undefined = undefined;
   try {
-    let file = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE);
+    file = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
     await imagePackerApi.packToFile(pixelMap, file.fd, packOpts);
   } catch (error) {
     console.error('Failed to pack the pixelMap to file. And the error is: ' + error);
+  } finally {
+    if (file) {
+      fileIo.closeSync(file.fd);
+    }
   }
 }
 // [End packToFile_pixelMap]
@@ -139,13 +164,19 @@ async function packToFileFromPixelMap(context : Context, pixelMap : image.PixelM
 // [Start packToFile_imageSource]
 async function packToFileFromImageSource(context : Context, imageSource : image.ImageSource) {
   const imagePackerApi = image.createImagePacker();
-  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 95 };
+  // quality默认值为0，建议不低于80；本示例统一设置为90，兼顾图片质量和文件体积。
+  let packOpts : image.PackingOption = { format: 'image/jpeg', quality: 90 };
   const filePath : string = context.cacheDir + '/image_source.jpg';
+  let file: fileIo.File | undefined = undefined;
   try {
-    let file = fs.openSync(filePath, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE);
+    file = fileIo.openSync(filePath, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
     await imagePackerApi.packToFile(imageSource, file.fd, packOpts);
   } catch (error) {
     console.error('Failed to pack the imageSource to file. And the error is: ' + error);
+  } finally {
+    if (file) {
+      fileIo.closeSync(file.fd);
+    }
   }
 }
 // [End packToFile_imageSource]
@@ -163,19 +194,30 @@ async function packing(picture: image.Picture, packOpts: image.PackingOption) {
     console.info('Succeeded in packing the image.');
   } catch (error) {
     console.error('Failed to pack the picture to data. And the error is: ' + error);
+  } finally {
+    await imagePackerApi.release();
   }
 }
 // [End packToData_picture]
 
 // [Start packToFile_picture]
 async function packToFile(picture: image.Picture, packOpts: image.PackingOption, context: Context) {
+  let imagePackerApi: image.ImagePacker | undefined = undefined;
+  let file: fileIo.File | undefined = undefined;
   try {
     const path : string = context.cacheDir + '/picture.jpg';
-    let file = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE);
-    const imagePackerApi = image.createImagePacker();
+    file = fileIo.openSync(path, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
+    imagePackerApi = image.createImagePacker();
     await imagePackerApi.packToFile(picture, file.fd, packOpts);
   } catch (error) {
     console.error('Failed to pack the picture to file. And the error is: ' + error);
+  } finally {
+    if (file) {
+      fileIo.closeSync(file.fd);
+    }
+    if (imagePackerApi) {
+      await imagePackerApi.release();
+    }
   }
 }
 // [End packToFile_picture]
@@ -244,7 +286,7 @@ export class ImageInterfaceCalled {
       editable: true,
       desiredPixelFormat: image.PixelMapFormat.RGBA_8888,
       // 设置为AUTO会根据图片资源格式和设备支持情况进行解码，如果图片资源为HDR资源且设备支持HDR解码则会解码为HDR的pixelMap。
-      desiredDynamicRange: image.DecodingDynamicRange.HDR,
+      desiredDynamicRange: image.DecodingDynamicRange.AUTO,
     };
 
     try {
@@ -342,6 +384,92 @@ export class ImageInterfaceCalled {
   }
   // [End allocator_called]
 
+  // [Start allocator_yuv_called]
+  async CreatePixelMapWithYUV(context: Context): Promise<image.PixelMap | undefined> {
+    const resourceMgr = context.resourceManager;
+    try {
+      const rawFileDescriptor = await resourceMgr.getRawFd('test.jpeg');
+      let imageSource: image.ImageSource = image.createImageSource(rawFileDescriptor);
+
+      // 设置YUV像素格式和DMA内存分配，实现最优解码性能。
+      let options: image.DecodingOptions = {
+        desiredPixelFormat: image.PixelMapFormat.NV21  // 设置为YUV格式，也可选择NV12。
+      };
+      let pixelmap = await imageSource.createPixelMapUsingAllocator(options, image.AllocatorType.DMA);
+
+      if (pixelmap != undefined) {
+        let info = await pixelmap.getImageInfo();
+        console.info('YUV PixelMap created, stride = ' + info.stride + ', pixelFormat = ' + info.pixelFormat);
+      }
+      return pixelmap;
+    } catch (err) {
+      console.error(`Create PixelMap with YUV format failed: ${err}.`);
+      return undefined;
+    }
+  }
+  // [End allocator_yuv_called]
+
+  // [Start decode_region]
+  async DecodeRegion(imageSource: image.ImageSource): Promise<image.PixelMap | undefined> {
+    let decodingOptions: image.DecodingOptions = {
+      desiredRegion: {
+        size: { width: 1000, height: 1000 },
+        x: 0,
+        y: 0
+      }
+    };
+
+    try {
+      let pixelMap = await imageSource.createPixelMap(decodingOptions);
+      console.info('Succeeded in decoding region.');
+      return pixelMap;
+    } catch (error) {
+      console.error(`Failed to decode region: ${error}.`);
+      return undefined;
+    }
+  }
+  // [End decode_region]
+
+  // [Start decode_downsample]
+  async DownsampleDecode(imageSource: image.ImageSource): Promise<image.PixelMap | undefined> {
+    let decodingOptions: image.DecodingOptions = {
+      desiredSize: { width: 512, height: 512 }
+    };
+
+    try {
+      let pixelMap = await imageSource.createPixelMap(decodingOptions);
+      console.info('Succeeded in downsample decoding.');
+      return pixelMap;
+    } catch (error) {
+      console.error(`Failed to downsample decode: ${error}.`);
+      return undefined;
+    }
+  }
+  // [End decode_downsample]
+
+  // [Start decode_combined]
+  async CombinedDecode(imageSource: image.ImageSource): Promise<image.PixelMap | undefined> {
+    let decodingOptions: image.DecodingOptions = {
+      desiredRegion: {
+        size: { width: 2000, height: 2000 },
+        x: 1000,
+        y: 500
+      },
+      desiredSize: { width: 512, height: 512 },
+      cropAndScaleStrategy: image.CropAndScaleStrategy.CROP_FIRST
+    };
+
+    try {
+      let pixelMap = await imageSource.createPixelMap(decodingOptions);
+      console.info('Succeeded in combined decoding.');
+      return pixelMap;
+    } catch (error) {
+      console.error(`Failed to combined decode: ${error}.`);
+      return undefined;
+    }
+  }
+  // [End decode_combined]
+
   // [Start release_pictureDecoder]
   async release(picture: image.Picture) {
     picture?.release();
@@ -396,28 +524,73 @@ export class ImageInterfaceCalled {
     return undefined;
   }
 
+  // [Start createImageRawData]
   async createImageRawData(imageSource: image.ImageSource | undefined) : Promise<image.ImageRawData | undefined> {
     if (!imageSource) {
       console.error('imageSource is undefined.');
       return undefined;
     }
-    await imageSource.createImageRawData().then((data: image.ImageRawData) => {
-      let array: Uint16Array = new Uint16Array();
+    try {
+      const data = await imageSource.createImageRawData();
       if (data.bitsPerPixel == 16 && data.buffer) {
-        array = new Uint16Array(data.buffer);
+        let array: Uint16Array = new Uint16Array(data.buffer);
+        let length = array.byteLength.valueOf();
+        console.info(`uint16Array length: ${length}`);
+        let value: string = '';
+        for (let i = 0; i < array.length && i < 10; i++) {
+          value += array[i] + ', ';
+        }
+        console.info(`get dng rawdata is:${value}.`);
       }
-      let length = array.byteLength.valueOf();
-      console.info(`uint16Array length: ${length}`);
-      let value: string = '';
-      for (let i = 0; i < array.length && i < 10; i++) {
-        value += array[i] + ', ';
-      }
-      console.info(`get dng rawdata is:${value}.`);
-      return data
-    }).catch((err: BusinessError) => {
+      return data;
+    } catch (err) {
       console.error(`get dng rawdata failed.err: ${JSON.stringify(err)}`);
       return undefined;
-    })
-    return undefined;
+    }
   }
+  // [End createImageRawData]
+
+  // [Start read_imageMetadata]
+  async readImageMetadata(imageSource: image.ImageSource | undefined) : Promise<image.ImageMetadata | undefined> {
+    if (imageSource == undefined) {
+      console.error('imageSource is undefined.');
+      return undefined;
+    }
+    try {
+      let properties: string[] = [image.GifPropertyKey.GIF_DELAY_TIME];
+      let index: number = 0;
+      let imageMetadata: image.ImageMetadata = await imageSource.readImageMetadata(properties, index);
+      if (imageMetadata.gifMetadata != undefined) {
+        console.info(`GIF_DELAY_TIME: ${JSON.stringify(imageMetadata.gifMetadata?.delayTime)}`);
+      }
+      return imageMetadata
+    } catch (error) {
+      console.error(`ReadImageMetadata failed, error.code: ${error.code},
+                 error.message: ${error.message}`)
+      return undefined;
+    }
+  }
+  // [End read_imageMetadata]
+
+  // [Start read_imageMetadataByType]
+  async readImageMetadataByType(imageSource: image.ImageSource | undefined) : Promise<image.ImageMetadata | undefined> {
+    if (imageSource == undefined) {
+      console.error('imageSource is undefined.');
+      return undefined;
+    }
+    try {
+      let types: image.MetadataType[] = [image.MetadataType.GIF_METADATA];
+      let index: number = 0;
+      let imageMetadata: image.ImageMetadata = await imageSource.readImageMetadataByType(types, index);
+      if (imageMetadata.gifMetadata != undefined) {
+        console.info(`GIF_DELAY_TIME: ${JSON.stringify(imageMetadata.gifMetadata?.delayTime)}`);
+      }
+      return imageMetadata;
+    } catch (error) {
+      console.error(`ReadImageMetadataByType failed, error.code: ${error.code},
+                 error.message: ${error.message}`)
+      return undefined;
+    }
+  }
+  // [End read_imageMetadataByType]
 }

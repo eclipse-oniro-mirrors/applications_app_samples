@@ -36,6 +36,12 @@
 #define LOG_TAG "manager"
 #define LOG_INFO(...) OH_LOG_Print(LOG_APP, LOG_INFO, 0xD001400, LOG_TAG, __VA_ARGS__)
 
+namespace {
+// ===== 常量定义 =====
+constexpr float TEXT_THICKNESS_SCALE = 2.0f;
+constexpr uint32_t TEXT_DECORATION_COLOR = 0xFF00FFFF;
+}  // namespace
+
 #define VALUE_0 0
 #define VALUE_1 1
 #define VALUE_2 2
@@ -109,10 +115,16 @@
 #define EVENT_TEXT_AREA_ON_CUT 53
 #define EVENT_TEXT_AREA_ON_PASTE_ALLOW 54
 #define EVENT_TEXT_AREA_ON_PASTE_FORBIDDEN 55
+#define EVENT_TEXT_PUNCTUATION_OVERFLOW_ON_CLICK 56
+#define EVENT_TEXT_INPUT_PUNCTUATION_OVERFLOW_ON_CLICK 57
+#define EVENT_TEXT_AREA_PUNCTUATION_OVERFLOW_ON_CLICK 58
 #define FLOAT_50 50.0f
 
 ArkUI_NodeHandle TextMaker::text17 = nullptr;
 ArkUI_NodeHandle TextMaker::text22 = nullptr;
+ArkUI_NodeHandle TextMaker::textPunctuationOverflow = nullptr;
+ArkUI_NodeHandle TextMaker::textInputPunctuationOverflow = nullptr;
+ArkUI_NodeHandle TextMaker::textAreaPunctuationOverflow = nullptr;
 
 // 处理Span事件
 static void HandleSpanEvent(int32_t eventId)
@@ -517,7 +529,7 @@ void setText1(ArkUI_NodeHandle &text)
             // 文本基线的偏移量属性
             ArkUI_NumberValue baselineOffsetVal = {.f32 = VALUE_10};
             ArkUI_AttributeItem baselineOffsetItem = {&baselineOffsetVal, VALUE_1};
-            Manager::nodeAPI_->setAttribute(text, NODE_SPAN_BASELINE_OFFSET, &baselineOffsetItem);
+            Manager::nodeAPI_->setAttribute(span, NODE_SPAN_BASELINE_OFFSET, &baselineOffsetItem);
             // 设置字体粗细
             ArkUI_NumberValue fontWeight = {.i32 = ARKUI_FONT_WEIGHT_W500};
             ArkUI_AttributeItem fontWeightItem = {&fontWeight, VALUE_1};
@@ -865,6 +877,60 @@ void setTextInput5(ArkUI_NodeHandle &textInput5, ArkUI_NodeHandle &textInput5_2)
     Manager::nodeAPI_->setAttribute(textInput5_2, NODE_TEXT_INPUT_COMPRESS_LEADING_PUNCTUATION, &item1);
 }
 
+void setComponentStyle(ArkUI_NodeHandle &component, float componentWidth, float borderWidth)
+{
+    ArkUI_NumberValue widthValue[] = {{.f32 = componentWidth}};
+    ArkUI_AttributeItem widthItem = {widthValue, sizeof(widthValue) / sizeof(ArkUI_NumberValue)};
+    Manager::nodeAPI_->setAttribute(component, NODE_WIDTH, &widthItem);
+
+    ArkUI_NumberValue value3[] = {{.f32 = borderWidth}};
+    ArkUI_AttributeItem item3 = {value3, sizeof(value3) / sizeof(ArkUI_NumberValue)};
+    Manager::nodeAPI_->setAttribute(component, NODE_BORDER_WIDTH, &item3);
+
+    ArkUI_NumberValue topMargin = {.f32 = TOP_MARGIN};
+    ArkUI_NumberValue bottomMargin = {.f32 = BOTTOM_MARGIN};
+    ArkUI_NumberValue noMargin = {.f32 = 0};
+    ArkUI_NumberValue marginValue[] = {topMargin, noMargin, bottomMargin, noMargin};
+    ArkUI_AttributeItem marginItem = {marginValue, SIZE_4};
+    Manager::nodeAPI_->setAttribute(component, NODE_MARGIN, &marginItem);
+}
+
+void setTextInputPunctuationOverflow(ArkUI_NodeHandle &textInputPunctuationOverButton)
+{
+    const int32_t eventId = EVENT_TEXT_INPUT_PUNCTUATION_OVERFLOW_ON_CLICK;
+    ArkUI_AttributeItem buttonLabel{.string = "切换行尾标点符号悬挂"};
+    Manager::nodeAPI_->setAttribute(textInputPunctuationOverButton, NODE_BUTTON_LABEL, &buttonLabel);
+    Manager::nodeAPI_->registerNodeEvent(textInputPunctuationOverButton, NODE_ON_CLICK_EVENT, eventId, nullptr);
+
+    ArkUI_AttributeItem textInputText = {.string = "0123456789！\n0123456789："};
+    Manager::nodeAPI_->setAttribute(TextMaker::textInputPunctuationOverflow, NODE_TEXT_INPUT_TEXT, &textInputText);
+
+    // 初始化组件样式
+    setComponentStyle(TextMaker::textInputPunctuationOverflow, 120.0f, 0.0f);
+
+    // 行尾标点符号悬挂在TextInput内联输入风格时生效。
+    ArkUI_NumberValue textInputStyle = {.i32 = ARKUI_TEXTINPUT_STYLE_INLINE};
+    ArkUI_AttributeItem textInputStyleItem = {&textInputStyle, VALUE_1};
+    Manager::nodeAPI_->setAttribute(TextMaker::textInputPunctuationOverflow, NODE_TEXT_INPUT_STYLE,
+                                    &textInputStyleItem);
+
+    Manager::nodeAPI_->addNodeEventReceiver(textInputPunctuationOverButton, [](ArkUI_NodeEvent *event) {
+        auto eventType{OH_ArkUI_NodeEvent_GetEventType(event)};
+        auto eventId{OH_ArkUI_NodeEvent_GetTargetId(event)};
+        if (eventType == NODE_ON_CLICK_EVENT && eventId == EVENT_TEXT_INPUT_PUNCTUATION_OVERFLOW_ON_CLICK) {
+            auto currentPunctuationOverflow =
+                Manager::nodeAPI_
+                    ->getAttribute(TextMaker::textInputPunctuationOverflow, NODE_TEXT_INPUT_PUNCTUATION_OVERFLOW)
+                    ->value[VALUE_0]
+                    .i32;
+            ArkUI_NumberValue punctuationOverflow = {.i32 = !currentPunctuationOverflow};
+            ArkUI_AttributeItem punctuationOverflowItem = {&punctuationOverflow, SIZE_1};
+            Manager::nodeAPI_->setAttribute(TextMaker::textInputPunctuationOverflow,
+                                            NODE_TEXT_INPUT_PUNCTUATION_OVERFLOW, &punctuationOverflowItem);
+        }
+    });
+}
+
 void setTextInput6(ArkUI_NodeHandle &textInput6, ArkUI_NodeHandle &textInput6_2)
 {
     ArkUI_AttributeItem textItem = {
@@ -1020,6 +1086,22 @@ void setTextInputDirection(ArkUI_NodeHandle &textInput11)
     ArkUI_NumberValue directionValue[] = {{.i32 = ARKUI_TEXT_DIRECTION_RTL}};
     ArkUI_AttributeItem direction_item = {directionValue, sizeof(directionValue) / sizeof(ArkUI_NumberValue)};
     Manager::nodeAPI_->setAttribute(textInput11, NODE_TEXT_INPUT_DIRECTION, &direction_item);
+}
+
+void setTextInputDecoration(ArkUI_NodeHandle &textInputDecoration)
+{
+    ArkUI_AttributeItem input_Item = {.string = "测试TextInput NODE_TEXT_INPUT_DECORATION "};
+    Manager::nodeAPI_->setAttribute(textInputDecoration, NODE_TEXT_INPUT_TEXT, &input_Item);
+
+    OH_ArkUI_DecorationStyleOptions *decoration = OH_ArkUI_DecorationStyleOptions_Create();
+    OH_ArkUI_DecorationStyleOptions_SetTextDecorationType(
+        decoration, ArkUI_TextDecorationType::ARKUI_TEXT_DECORATION_TYPE_LINE_THROUGH);
+    OH_ArkUI_DecorationStyleOptions_SetColor(decoration, TEXT_DECORATION_COLOR);
+    OH_ArkUI_DecorationStyleOptions_SetTextDecorationStyle(decoration,
+        ArkUI_TextDecorationStyle::ARKUI_TEXT_DECORATION_STYLE_WAVY);
+    OH_ArkUI_DecorationStyleOptions_SetThicknessScale(decoration, TEXT_THICKNESS_SCALE);
+    ArkUI_AttributeItem textDecorationItem = {.object = decoration};
+    Manager::nodeAPI_->setAttribute(textInputDecoration, NODE_TEXT_INPUT_DECORATION, &textDecorationItem);
 }
 
 static void setTextArea1Val(ArkUI_NodeHandle &textArea1)
@@ -1257,7 +1339,7 @@ void setText2(ArkUI_NodeHandle &text2)
     ArkUI_NumberValue fontStyleVal = {.i32 = ARKUI_FONT_STYLE_ITALIC};
     ArkUI_AttributeItem fontStyleItem = {&fontStyleVal, VALUE_1};
     Manager::nodeAPI_->setAttribute(text2, NODE_FONT_STYLE, &fontStyleItem);
-    
+
     // 字重：Bold（ARKUI_FONT_WEIGHT_W800）
     ArkUI_NumberValue fontWeightVal = {.i32 = ARKUI_FONT_WEIGHT_W800};
     ArkUI_AttributeItem textWeightItem = {.value = &fontWeightVal, .size = 1};
@@ -1454,7 +1536,6 @@ void setText5_1(ArkUI_NodeHandle &text5)
     ArkUI_AttributeItem linearGradientItem = {
         linearGradient, sizeof(linearGradient) / sizeof(ArkUI_NumberValue)};
     linearGradientItem.object = reinterpret_cast<void *>(colorStopPtr);
-    linearGradientItem.size = sizeof(linearGradientItem) / sizeof(ArkUI_NumberValue);
     Manager::nodeAPI_->setAttribute(text5, NODE_TEXT_LINEAR_GRADIENT, &linearGradientItem);
     // [End text_linear_gradient]
 }
@@ -1648,6 +1729,36 @@ void setText11(ArkUI_NodeHandle &text11, ArkUI_NodeHandle &text11_2)
     Manager::nodeAPI_->setAttribute(text11_2, NODE_BORDER_WIDTH, &item3);
 }
 
+void setTextPunctuationOverflow(ArkUI_NodeHandle &textPunctuationOverButton)
+{
+    const int32_t eventId = EVENT_TEXT_PUNCTUATION_OVERFLOW_ON_CLICK;
+    ArkUI_AttributeItem buttonLabel{.string = "切换行尾标点符号悬挂"};
+    Manager::nodeAPI_->setAttribute(textPunctuationOverButton, NODE_BUTTON_LABEL, &buttonLabel);
+    Manager::nodeAPI_->registerNodeEvent(textPunctuationOverButton, NODE_ON_CLICK_EVENT, eventId, nullptr);
+
+    ArkUI_AttributeItem textItem = {.string = "0123456789！\n0123456789："};
+    Manager::nodeAPI_->setAttribute(TextMaker::textPunctuationOverflow, NODE_TEXT_CONTENT, &textItem);
+    
+    // 初始化组件样式
+    setComponentStyle(TextMaker::textPunctuationOverflow, 100.0f, 1.0f);
+
+    Manager::nodeAPI_->addNodeEventReceiver(textPunctuationOverButton, [](ArkUI_NodeEvent *event) {
+        auto eventType{OH_ArkUI_NodeEvent_GetEventType(event)};
+        auto eventId{OH_ArkUI_NodeEvent_GetTargetId(event)};
+        if (eventType == NODE_ON_CLICK_EVENT && eventId == EVENT_TEXT_PUNCTUATION_OVERFLOW_ON_CLICK) {
+            auto currentPunctuationOverflow =
+                Manager::nodeAPI_
+                    ->getAttribute(TextMaker::textPunctuationOverflow, NODE_TEXT_PUNCTUATION_OVERFLOW)
+                    ->value[VALUE_0]
+                    .i32;
+            ArkUI_NumberValue punctuationOverflow = {.i32 = !currentPunctuationOverflow};
+            ArkUI_AttributeItem punctuationOverflowItem = {&punctuationOverflow, SIZE_1};
+            Manager::nodeAPI_->setAttribute(TextMaker::textPunctuationOverflow,
+                                            NODE_TEXT_PUNCTUATION_OVERFLOW, &punctuationOverflowItem);
+        }
+    });
+}
+
 void setText12(ArkUI_NodeHandle &text12, ArkUI_NodeHandle &text12_2)
 {
     ArkUI_AttributeItem textItem = {
@@ -1839,6 +1950,7 @@ void setText18(ArkUI_NodeHandle &text18)
         .object = marqueeOptions
     };
     Manager::nodeAPI_->setAttribute(text18, NODE_TEXT_MARQUEE_OPTIONS, &marqueeOptions_item);
+    OH_ArkUI_TextMarqueeOptions_Dispose(marqueeOptions);
     // [End text_marquee_options]
     ArkUI_NumberValue overflowValue[] = {{.i32 = ARKUI_TEXT_OVERFLOW_MARQUEE}};
     ArkUI_AttributeItem overflowItem = {overflowValue, sizeof(overflowValue) / sizeof(ArkUI_NumberValue)};
@@ -1985,19 +2097,26 @@ void setText23(ArkUI_NodeHandle &text)
             ArkUI_AttributeItem baselineOffsetItem = {&baselineOffsetVal, VALUE_1};
             Manager::nodeAPI_->setAttribute(text, NODE_SPAN_BASELINE_OFFSET, &baselineOffsetItem);
 
-            // 设置enableVariableFontWeight为true
+            //设置字体粗细及配置
             OH_ArkUI_FontWeightConfigs* configs = OH_ArkUI_FontWeightConfigs_Create();
             OH_ArkUI_FontWeightConfigs_SetEnableVariableFontWeight(configs, true);
             OH_ArkUI_FontWeightConfigs_SetEnableDeviceFontWeightCategory(configs, true);
-
-            //设置字体粗细
             ArkUI_NumberValue spanFontWeight = {.i32 = 350};
             ArkUI_AttributeItem fontWeightItem = {&spanFontWeight, VALUE_1};
             fontWeightItem.object = configs;
             Manager::nodeAPI_->setAttribute(span, NODE_SPAN_FONT_WEIGHT, &fontWeightItem);
-            // 长按span组件，触发回调
-            Manager::nodeAPI_->registerNodeEvent(span, NODE_TEXT_SPAN_ON_LONG_PRESS, EVENT_SPAN_LONG_PRESS, nullptr);
-            Manager::nodeAPI_->registerNodeEventReceiver(&OnEventReceive);
+            
+            // 获取fontWeightConfigs相关配置的值
+            OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "Manager", "NODE_SPAN_FONT_WEIGHT weight value :%{public}d",
+                Manager::nodeAPI_->getAttribute(span, NODE_SPAN_FONT_WEIGHT)->value[VALUE_0].i32);
+            OH_ArkUI_FontWeightConfigs *tmpObj =
+                (OH_ArkUI_FontWeightConfigs *)Manager::nodeAPI_->getAttribute(span, NODE_SPAN_FONT_WEIGHT)->object;
+            bool enableVariableFontWeight = OH_ArkUI_FontWeightConfigs_GetEnableVariableFontWeight(tmpObj);
+            bool enableDeviceFontWeightCategory = OH_ArkUI_FontWeightConfigs_GetEnableDeviceFontWeightCategory(tmpObj);
+            OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "Manager", "enableVariableFontWeight value1 :%{public}d",
+                enableVariableFontWeight);
+            OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "Manager", "enableDeviceFontWeightCategory value1 :%{public}d",
+                enableDeviceFontWeightCategory);
 
             OH_ArkUI_FontWeightConfigs_Destroy(configs);
         }
@@ -2039,22 +2158,30 @@ void setText24(ArkUI_NodeHandle &text)
             // 设置fontConfigs enableVariableFontWeight 为false，默认也为false
             OH_ArkUI_FontWeightConfigs* fontWeightConfigs = OH_ArkUI_FontWeightConfigs_Create();
             OH_ArkUI_FontWeightConfigs_SetEnableVariableFontWeight(fontWeightConfigs, false);
-            // 设置enableDeviceFontWeightCategory 为false，默认为true
+            // 设置enableDeviceFontWeightCategory 为false， 默认为true
             OH_ArkUI_FontWeightConfigs_SetEnableDeviceFontWeightCategory(fontWeightConfigs, false);
             OH_ArkUI_FontConfigs* fontConfigs = OH_ArkUI_FontConfigs_Create();
             OH_ArkUI_FontConfigs_SetFontWeightConfigs(fontConfigs, fontWeightConfigs);
 
-            // 设置span font 样式
-            ArkUI_NumberValue textFont[] = {
-                {.f32 = VALUE_20}, {.i32 = 700}, {.i32 = ARKUI_FONT_STYLE_NORMAL}};
+            // 设置span font 样式及配置
+            ArkUI_NumberValue textFont[] = { {.f32 = VALUE_20}, {.i32 = 700}, {.i32 = ARKUI_FONT_STYLE_NORMAL}};
             ArkUI_AttributeItem spanFontItem = {textFont, VALUE_3};
             spanFontItem.object = fontConfigs;
             Manager::nodeAPI_->setAttribute(span, NODE_SPAN_FONT, &spanFontItem);
 
-            // 长按span组件，触发回调
-            Manager::nodeAPI_->registerNodeEvent(span, NODE_TEXT_SPAN_ON_LONG_PRESS, EVENT_SPAN_LONG_PRESS, nullptr);
-            Manager::nodeAPI_->registerNodeEventReceiver(&OnEventReceive);
-
+            // 获取fontConfigs相关配置的值
+            OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "Manager", "NODE_SPAN_FONT weight value :%{public}d",
+                Manager::nodeAPI_->getAttribute(span, NODE_SPAN_FONT)->value[VALUE_1].i32);
+            OH_ArkUI_FontConfigs *tmpObjConfig =
+                (OH_ArkUI_FontConfigs *)Manager::nodeAPI_->getAttribute(span, NODE_SPAN_FONT)->object;
+            OH_ArkUI_FontWeightConfigs *tmpObj = OH_ArkUI_FontConfigs_GetFontWeightConfigs(tmpObjConfig);
+            bool enableVariableFontWeight = OH_ArkUI_FontWeightConfigs_GetEnableVariableFontWeight(tmpObj);
+            bool enableDeviceFontWeightCategory = OH_ArkUI_FontWeightConfigs_GetEnableDeviceFontWeightCategory(tmpObj);
+            OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "Manager", "enableVariableFontWeight value2 :%{public}d",
+                enableVariableFontWeight);
+            OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "Manager", "enableDeviceFontWeightCategory value2 :%{public}d",
+                enableDeviceFontWeightCategory);
+            
             OH_ArkUI_FontConfigs_Destroy(fontConfigs);
         }
         Manager::nodeAPI_->addChild(text, span);
@@ -2191,6 +2318,69 @@ void setTextInput15(ArkUI_NodeHandle &textInput, ArkUI_NodeHandle &textInput2)
     Manager::nodeAPI_->registerNodeEventReceiver(&OnEventReceive);
 }
 
+void setTextInput16(ArkUI_NodeHandle &textArea)
+{
+    ArkUI_NumberValue textWidth[] = {{.f32 = VALUE_300}};
+    ArkUI_AttributeItem textWidthItem = {.value = textWidth, .size = VALUE_1};
+    Manager::nodeAPI_->setAttribute(textArea, NODE_WIDTH, &textWidthItem);
+
+    const char *textContent = "线性渐变--线性渐变";
+    ArkUI_AttributeItem contentItem = {.string = textContent};
+    Manager::nodeAPI_->setAttribute(textArea, NODE_TEXT_INPUT_TEXT, &contentItem);
+
+    ArkUI_NumberValue fontSize[] = {{.f32 = VALUE_50}};
+    ArkUI_AttributeItem fontSizeItem = {.value = fontSize, .size = VALUE_1};
+    Manager::nodeAPI_->setAttribute(textArea, NODE_FONT_SIZE, &fontSizeItem);
+
+    // [Start text_linear_gradient]
+    // 设置渐变颜色和位置
+    float stops[] = { 0.0f, 0.5f };
+    uint32_t colors[] = { 0xFFFFFF00, 0xFF0000FF };
+    ArkUI_ColorStop colorStop = { colors, stops, VALUE_2 };
+    ArkUI_ColorStop *colorStopPtr = &colorStop;
+
+    // 设置线性渐变
+    ArkUI_NumberValue linearGradient[] = {
+        {.f32 = FLOAT_50}, {.f32 = FLOAT_50}, {.f32 = FLOAT_50}};
+    ArkUI_AttributeItem linearGradientItem = {
+        linearGradient, sizeof(linearGradient) / sizeof(ArkUI_NumberValue)};
+    linearGradientItem.object = reinterpret_cast<void *>(colorStopPtr);
+    linearGradientItem.size = sizeof(linearGradientItem) / sizeof(ArkUI_NumberValue);
+    Manager::nodeAPI_->setAttribute(textArea, NODE_TEXT_INPUT_LINEAR_GRADIENT, &linearGradientItem);
+    // [End text_linear_gradient]
+}
+
+void setTextInput17(ArkUI_NodeHandle &textArea)
+{
+    ArkUI_NumberValue textWidth[] = {{.f32 = VALUE_300}};
+    ArkUI_AttributeItem textWidthItem = {.value = textWidth, .size = VALUE_1};
+    Manager::nodeAPI_->setAttribute(textArea, NODE_WIDTH, &textWidthItem);
+    
+    const char *textContent = "径向渐变--径向渐变";
+    ArkUI_AttributeItem contentItem = {.string = textContent};
+    Manager::nodeAPI_->setAttribute(textArea, NODE_TEXT_INPUT_TEXT, &contentItem);
+    
+    ArkUI_NumberValue fontSize[] = {{.f32 = VALUE_50}};
+    ArkUI_AttributeItem fontSizeItem = {.value = fontSize, .size = VALUE_1};
+    Manager::nodeAPI_->setAttribute(textArea, NODE_FONT_SIZE, &fontSizeItem);
+    // 设置径向渐变
+    float stops[] = { 0.0f, 0.5f };
+
+    uint32_t colors[] = { 0xFFFFFF00, 0xFF0000FF };
+
+    ArkUI_ColorStop colorStop = { colors, stops, VALUE_2 };
+    ArkUI_ColorStop *colorStopPtr = &colorStop;
+
+    ArkUI_NumberValue radialGradient[] = {
+        {.f32 = FLOAT_50}, {.f32 = FLOAT_50}, {.f32 = FLOAT_50}, {.i32 = true}};
+    ArkUI_AttributeItem radialGradientItem = {
+        radialGradient, sizeof(radialGradient) / sizeof(ArkUI_NumberValue)};
+    radialGradientItem.object = reinterpret_cast<void *>(colorStopPtr);
+    radialGradientItem.size = sizeof(radialGradientItem) / sizeof(ArkUI_NumberValue);
+
+    Manager::nodeAPI_->setAttribute(textArea, NODE_TEXT_INPUT_RADIAL_GRADIENT, &radialGradientItem);
+}
+
 void setTextArea14(ArkUI_NodeHandle &textArea14, ArkUI_NodeHandle &textArea15)
 {
     ArkUI_AttributeItem content_item1 = {};
@@ -2276,6 +2466,70 @@ void setTextArea16(ArkUI_NodeHandle &textArea, ArkUI_NodeHandle &textArea2)
 
     Manager::nodeAPI_->registerNodeEventReceiver(&OnEventReceive);
 }
+
+void setTextArea17(ArkUI_NodeHandle &textArea)
+{
+    ArkUI_NumberValue textWidth[] = {{.f32 = VALUE_300}};
+    ArkUI_AttributeItem textWidthItem = {.value = textWidth, .size = VALUE_1};
+    Manager::nodeAPI_->setAttribute(textArea, NODE_WIDTH, &textWidthItem);
+
+    const char *textContent = "线性渐变--线性渐变";
+    ArkUI_AttributeItem contentItem = {.string = textContent};
+    Manager::nodeAPI_->setAttribute(textArea, NODE_TEXT_AREA_TEXT, &contentItem);
+
+    ArkUI_NumberValue fontSize[] = {{.f32 = VALUE_50}};
+    ArkUI_AttributeItem fontSizeItem = {.value = fontSize, .size = VALUE_1};
+    Manager::nodeAPI_->setAttribute(textArea, NODE_FONT_SIZE, &fontSizeItem);
+
+    // [Start text_linear_gradient]
+    // 设置渐变颜色和位置
+    float stops[] = { 0.0f, 0.5f };
+    uint32_t colors[] = { 0xFFFFFF00, 0xFF0000FF };
+    ArkUI_ColorStop colorStop = { colors, stops, VALUE_2 };
+    ArkUI_ColorStop *colorStopPtr = &colorStop;
+
+    // 设置线性渐变
+    ArkUI_NumberValue linearGradient[] = {
+        {.f32 = FLOAT_50}, {.f32 = FLOAT_50}, {.f32 = FLOAT_50}};
+    ArkUI_AttributeItem linearGradientItem = {
+        linearGradient, sizeof(linearGradient) / sizeof(ArkUI_NumberValue)};
+    linearGradientItem.object = reinterpret_cast<void *>(colorStopPtr);
+    linearGradientItem.size = sizeof(linearGradientItem) / sizeof(ArkUI_NumberValue);
+    Manager::nodeAPI_->setAttribute(textArea, NODE_TEXT_AREA_LINEAR_GRADIENT, &linearGradientItem);
+    // [End text_linear_gradient]
+}
+
+void setTextArea18(ArkUI_NodeHandle &textArea)
+{
+    ArkUI_NumberValue textWidth[] = {{.f32 = VALUE_300}};
+    ArkUI_AttributeItem textWidthItem = {.value = textWidth, .size = VALUE_1};
+    Manager::nodeAPI_->setAttribute(textArea, NODE_WIDTH, &textWidthItem);
+    
+    const char *textContent = "径向渐变--径向渐变";
+    ArkUI_AttributeItem contentItem = {.string = textContent};
+    Manager::nodeAPI_->setAttribute(textArea, NODE_TEXT_AREA_TEXT, &contentItem);
+    
+    ArkUI_NumberValue fontSize[] = {{.f32 = VALUE_50}};
+    ArkUI_AttributeItem fontSizeItem = {.value = fontSize, .size = VALUE_1};
+    Manager::nodeAPI_->setAttribute(textArea, NODE_FONT_SIZE, &fontSizeItem);
+    // 设置径向渐变
+    float stops[] = { 0.0f, 0.5f };
+
+    uint32_t colors[] = { 0xFFFFFF00, 0xFF0000FF };
+
+    ArkUI_ColorStop colorStop = { colors, stops, VALUE_2 };
+    ArkUI_ColorStop *colorStopPtr = &colorStop;
+
+    ArkUI_NumberValue radialGradient[] = {
+        {.f32 = FLOAT_50}, {.f32 = FLOAT_50}, {.f32 = FLOAT_50}, {.i32 = true}};
+    ArkUI_AttributeItem radialGradientItem = {
+        radialGradient, sizeof(radialGradient) / sizeof(ArkUI_NumberValue)};
+    radialGradientItem.object = reinterpret_cast<void *>(colorStopPtr);
+    radialGradientItem.size = sizeof(radialGradientItem) / sizeof(ArkUI_NumberValue);
+
+    Manager::nodeAPI_->setAttribute(textArea, NODE_TEXT_AREA_RADIAL_GRADIENT, &radialGradientItem);
+}
+
 
 void setTextAreaHorizontalScrolling(ArkUI_NodeHandle &textArea)
 {
@@ -2388,6 +2642,31 @@ void setCustomSpanText(ArkUI_NodeHandle &textContainer)
     }
 }
 
+void setTextTailIndents(ArkUI_NodeHandle &textContainer)
+{
+    auto text1 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    const char *textContent1 =
+        "设置tailIndents单值\n设置tailIndents单值\n设置tailIndents单值\n设置tailIndents单值\n设置tailIndents单值";
+    ArkUI_AttributeItem textItem1 = { .string = textContent1 };
+    Manager::nodeAPI_->setAttribute(text1, NODE_TEXT_CONTENT, &textItem1);
+    ArkUI_NumberValue singleValue[] = { { .f32 = 50.0f } };
+    ArkUI_AttributeItem tailIndentItem1 = { .value = singleValue, .size = 1 };
+    Manager::nodeAPI_->setAttribute(text1, NODE_TEXT_TAIL_INDENTS, &tailIndentItem1);
+    Manager::nodeAPI_->addChild(textContainer, text1);
+    
+    auto text2 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    const char *textContent2 =
+        "设置tailIndents数组\n设置tailIndents数组\n设置tailIndents数组\n设置tailIndents数组\n设置tailIndents数组";
+    ArkUI_AttributeItem textItem2 = { .string = textContent2 };
+    Manager::nodeAPI_->setAttribute(text2, NODE_TEXT_CONTENT, &textItem2);
+    // [Start text_tail_indents]
+    ArkUI_NumberValue multiValues[] = { { .f32 = 0.0f }, { .f32 = 50.0f }, { .f32 = 100.0f } };
+    ArkUI_AttributeItem tailIndentItem2 = { .value = multiValues, .size = 3 };
+    Manager::nodeAPI_->setAttribute(text2, NODE_TEXT_TAIL_INDENTS, &tailIndentItem2);
+    // [End text_tail_indents]
+    Manager::nodeAPI_->addChild(textContainer, text2);
+}
+
 void setTextArea3(ArkUI_NodeHandle &textArea3)
 {
     // 多行文本输入框的默认提示文本内容属性
@@ -2466,6 +2745,36 @@ void setTextArea6(ArkUI_NodeHandle &textArea6, ArkUI_NodeHandle &textArea6_2)
     ArkUI_AttributeItem item1 = {value1, sizeof(value1)/ sizeof(ArkUI_NumberValue)};
     Manager::nodeAPI_->setAttribute(textArea6, NODE_TEXT_AREA_COMPRESS_LEADING_PUNCTUATION, &item0);
     Manager::nodeAPI_->setAttribute(textArea6_2, NODE_TEXT_AREA_COMPRESS_LEADING_PUNCTUATION, &item1);
+}
+
+void setTextAreaPunctuationOverflow(ArkUI_NodeHandle &textAreaPunctuationOverButton)
+{
+    const int32_t eventId = EVENT_TEXT_AREA_PUNCTUATION_OVERFLOW_ON_CLICK;
+    ArkUI_AttributeItem buttonLabel{.string = "切换行尾标点符号悬挂"};
+    Manager::nodeAPI_->setAttribute(textAreaPunctuationOverButton, NODE_BUTTON_LABEL, &buttonLabel);
+    Manager::nodeAPI_->registerNodeEvent(textAreaPunctuationOverButton, NODE_ON_CLICK_EVENT, eventId, nullptr);
+
+    ArkUI_AttributeItem textAreaText = {.string = "012345678！\n012345678："};
+    Manager::nodeAPI_->setAttribute(TextMaker::textAreaPunctuationOverflow, NODE_TEXT_AREA_TEXT, &textAreaText);
+
+    // 初始化组件样式
+    setComponentStyle(TextMaker::textAreaPunctuationOverflow, 125.0f, 0.0f);
+
+    Manager::nodeAPI_->addNodeEventReceiver(textAreaPunctuationOverButton, [](ArkUI_NodeEvent *event) {
+        auto eventType{OH_ArkUI_NodeEvent_GetEventType(event)};
+        auto eventId{OH_ArkUI_NodeEvent_GetTargetId(event)};
+        if (eventType == NODE_ON_CLICK_EVENT && eventId == EVENT_TEXT_AREA_PUNCTUATION_OVERFLOW_ON_CLICK) {
+            auto currentPunctuationOverflow =
+                Manager::nodeAPI_
+                    ->getAttribute(TextMaker::textAreaPunctuationOverflow, NODE_TEXT_AREA_PUNCTUATION_OVERFLOW)
+                    ->value[VALUE_0]
+                    .i32;
+            ArkUI_NumberValue punctuationOverflow = {.i32 = !currentPunctuationOverflow};
+            ArkUI_AttributeItem punctuationOverflowItem = {&punctuationOverflow, SIZE_1};
+            Manager::nodeAPI_->setAttribute(TextMaker::textAreaPunctuationOverflow,
+                                            NODE_TEXT_AREA_PUNCTUATION_OVERFLOW, &punctuationOverflowItem);
+        }
+    });
 }
 
 void setTextArea7(ArkUI_NodeHandle &textArea7, ArkUI_NodeHandle &textArea7_2)
@@ -2603,6 +2912,23 @@ void setTextAreaDirecton(ArkUI_NodeHandle &textArea12)
     ArkUI_NumberValue directionValue[] = {{.i32 = ARKUI_TEXT_DIRECTION_RTL}};
     ArkUI_AttributeItem direction_item = {directionValue, sizeof(directionValue) / sizeof(ArkUI_NumberValue)};
     Manager::nodeAPI_->setAttribute(textArea12, NODE_TEXT_AREA_DIRECTION, &direction_item);
+}
+
+void setTextAreaDecoration(ArkUI_NodeHandle &textAreaDecoration)
+{
+    ArkUI_AttributeItem input_Item = {.string = "测试TextArea NODE_TEXT_AREA_DECORATION "};
+    Manager::nodeAPI_->setAttribute(textAreaDecoration, NODE_TEXT_AREA_TEXT, &input_Item);
+
+    OH_ArkUI_DecorationStyleOptions *decoration = OH_ArkUI_DecorationStyleOptions_Create();
+    OH_ArkUI_DecorationStyleOptions_SetTextDecorationType(
+        decoration, ArkUI_TextDecorationType::ARKUI_TEXT_DECORATION_TYPE_LINE_THROUGH);
+    OH_ArkUI_DecorationStyleOptions_SetColor(decoration, TEXT_DECORATION_COLOR);
+    OH_ArkUI_DecorationStyleOptions_SetTextDecorationStyle(decoration,
+        ArkUI_TextDecorationStyle::ARKUI_TEXT_DECORATION_STYLE_WAVY);
+    OH_ArkUI_DecorationStyleOptions_SetThicknessScale(decoration, TEXT_THICKNESS_SCALE);
+    ArkUI_AttributeItem textDecorationItem = {.object = decoration};
+    Manager::nodeAPI_->setAttribute(textAreaDecoration, NODE_TEXT_AREA_DECORATION, &textDecorationItem);
+    OH_ArkUI_DecorationStyleOptions_Destroy(decoration);
 }
 
 void setCustomKeyboard(ArkUI_NodeHandle &textArea5)
@@ -2957,9 +3283,12 @@ void setAllTextPart2(ArkUI_NodeHandle &textContainer)
     ArkUI_NodeHandle text21 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
     TextMaker::text22 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
     ArkUI_NodeHandle button = Manager::nodeAPI_->createNode(ARKUI_NODE_BUTTON);
+    TextMaker::textPunctuationOverflow = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    ArkUI_NodeHandle textPunctuationOverButton = Manager::nodeAPI_->createNode(ARKUI_NODE_BUTTON);
     setText9(text9);
     setText10(text10);
     setText11(text11, text11_2);
+    setTextPunctuationOverflow(textPunctuationOverButton);
     setTextDirection(text19);
     setText20(text20, text21);
     setText22(TextMaker::text22, button);
@@ -2967,6 +3296,8 @@ void setAllTextPart2(ArkUI_NodeHandle &textContainer)
     Manager::nodeAPI_->addChild(textContainer, text10);
     Manager::nodeAPI_->addChild(textContainer, text11);
     Manager::nodeAPI_->addChild(textContainer, text11_2);
+    Manager::nodeAPI_->addChild(textContainer, TextMaker::textPunctuationOverflow);
+    Manager::nodeAPI_->addChild(textContainer, textPunctuationOverButton);
     Manager::nodeAPI_->addChild(textContainer, text19);
     Manager::nodeAPI_->addChild(textContainer, text20);
     Manager::nodeAPI_->addChild(textContainer, text21);
@@ -2975,6 +3306,7 @@ void setAllTextPart2(ArkUI_NodeHandle &textContainer)
     setTextMore(textContainer);
     setBasicText2(textContainer);
     setCustomSpanText(textContainer);
+    setTextTailIndents(textContainer);
 }
 
 /**
@@ -2997,7 +3329,7 @@ ArkUI_NodeHandle InitText(ArkUI_NodeHandle& textContainer)
 
 BindDescriptorFunc GetBindDescriptorFunc(ArkUI_NodeHandle& textContainer)
 {
-    return [&textContainer](ArkUI_StyledString_Descriptor * descriptor) {
+    return [&textContainer](ArkUI_StyledString_Descriptor*& descriptor) {
             auto text = InitText(textContainer);
             OH_ArkUI_TextController *controller = OH_ArkUI_TextController_Create();
             ArkUI_AttributeItem controllerItem = {.object = controller};
@@ -3035,7 +3367,7 @@ void setAllTextInputPart1(ArkUI_NodeHandle &textContainer)
     ArkUI_NodeHandle textInput10 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_INPUT);
     ArkUI_NodeHandle textInput11 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_INPUT);
     ArkUI_NodeHandle textInput10Button = Manager::nodeAPI_->createNode(ARKUI_NODE_BUTTON);
-    ArkUI_NodeHandle textInputAISelect = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_INPUT);
+    ArkUI_NodeHandle textInputDecoration = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_INPUT);
     setTextInput1(textInput1);
     setTextInput2(textInput2);
     setTextInput3(textInput3);
@@ -3047,7 +3379,7 @@ void setAllTextInputPart1(ArkUI_NodeHandle &textContainer)
     setTextInput9(textInput9, textInput9Button1);
     setTextInput10(textInput10, textInput10Button);
     setTextInputDirection(textInput11);
-    setTextInputSelectAI(textInputAISelect);
+    setTextInputDecoration(textInputDecoration);
     Manager::nodeAPI_->addChild(textContainer, textInput1);
     Manager::nodeAPI_->addChild(textContainer, textInput2);
     Manager::nodeAPI_->addChild(textContainer, textInput3);
@@ -3064,11 +3396,12 @@ void setAllTextInputPart1(ArkUI_NodeHandle &textContainer)
     Manager::nodeAPI_->addChild(textContainer, textInput10);
     Manager::nodeAPI_->addChild(textContainer, textInput10Button);
     Manager::nodeAPI_->addChild(textContainer, textInput11);
-    Manager::nodeAPI_->addChild(textContainer, textInputAISelect);
+    Manager::nodeAPI_->addChild(textContainer, textInputDecoration);
 }
 
 void setAllTextInputPart2(ArkUI_NodeHandle &textContainer)
 {
+    ArkUI_NodeHandle textInputAISelect = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_INPUT);
     ArkUI_NodeHandle textInput13 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_INPUT);
     ArkUI_NodeHandle textInput13_2 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_INPUT);
     ArkUI_NodeHandle textInput14 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_INPUT);
@@ -3077,10 +3410,16 @@ void setAllTextInputPart2(ArkUI_NodeHandle &textContainer)
     ArkUI_NodeHandle textInputKeyBoard = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_INPUT);
     ArkUI_NodeHandle textInputKeyBoard2 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_INPUT);
     ArkUI_NodeHandle textInputKeyBoardButton = Manager::nodeAPI_->createNode(ARKUI_NODE_BUTTON);
+    TextMaker::textInputPunctuationOverflow = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_INPUT);
+    ArkUI_NodeHandle textInputPunctuationOverButton = Manager::nodeAPI_->createNode(ARKUI_NODE_BUTTON);
+    setTextInputSelectAI(textInputAISelect);
     setTextInput13(textInput13, textInput13_2);
     setTextInput14(textInput14, true);
     setTextInput15(textInput15, textInput15_2);
     setTextInputKeyboard(textInputKeyBoard, textInputKeyBoard2, textInputKeyBoardButton);
+    setTextInputPunctuationOverflow(textInputPunctuationOverButton);
+    Manager::nodeAPI_->addChild(textContainer, textInputAISelect);
+    Manager::nodeAPI_->addChild(textContainer, textInputAISelect);
     Manager::nodeAPI_->addChild(textContainer, textInput13);
     Manager::nodeAPI_->addChild(textContainer, textInput13_2);
     Manager::nodeAPI_->addChild(textContainer, textInput14);
@@ -3089,6 +3428,8 @@ void setAllTextInputPart2(ArkUI_NodeHandle &textContainer)
     Manager::nodeAPI_->addChild(textContainer, textInputKeyBoard);
     Manager::nodeAPI_->addChild(textContainer, textInputKeyBoard2);
     Manager::nodeAPI_->addChild(textContainer, textInputKeyBoardButton);
+    Manager::nodeAPI_->addChild(textContainer, TextMaker::textInputPunctuationOverflow);
+    Manager::nodeAPI_->addChild(textContainer, textInputPunctuationOverButton);
 }
 
 void setAllTextInput(ArkUI_NodeHandle &textContainer)
@@ -3129,9 +3470,12 @@ void SetAllTextAreaPart2(ArkUI_NodeHandle &textContainer)
     ArkUI_NodeHandle textArea8_2 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_AREA);
     ArkUI_NodeHandle textArea9 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_AREA);
     ArkUI_NodeHandle textAreaAISelect = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_AREA);
+    TextMaker::textAreaPunctuationOverflow = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_AREA);
+    ArkUI_NodeHandle textAreaPunctuationOverButton = Manager::nodeAPI_->createNode(ARKUI_NODE_BUTTON);
 
     setCustomKeyboard(textArea5);
     setTextArea6(textArea6, textArea6_2);
+    setTextAreaPunctuationOverflow(textAreaPunctuationOverButton);
     setTextAreaSelectAI(textAreaAISelect);
     setTextArea7(textArea7, textArea7_2);
     setTextArea8(textArea8, textArea8_2);
@@ -3140,6 +3484,8 @@ void SetAllTextAreaPart2(ArkUI_NodeHandle &textContainer)
     Manager::nodeAPI_->addChild(textContainer, textArea5);
     Manager::nodeAPI_->addChild(textContainer, textArea6);
     Manager::nodeAPI_->addChild(textContainer, textArea6_2);
+    Manager::nodeAPI_->addChild(textContainer, TextMaker::textAreaPunctuationOverflow);
+    Manager::nodeAPI_->addChild(textContainer, textAreaPunctuationOverButton);
     Manager::nodeAPI_->addChild(textContainer, textAreaAISelect);
     Manager::nodeAPI_->addChild(textContainer, textArea7);
     Manager::nodeAPI_->addChild(textContainer, textArea7_2);
@@ -3159,13 +3505,20 @@ void SetAllTextAreaPart3(ArkUI_NodeHandle &textContainer)
     ArkUI_NodeHandle textArea14_2 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_AREA);
     ArkUI_NodeHandle textArea15 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_AREA);
     ArkUI_NodeHandle textArea15_2 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_AREA);
+    ArkUI_NodeHandle textArea17 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_AREA);
+    ArkUI_NodeHandle textArea18 = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_AREA);
+
     ArkUI_NodeHandle horizontalTextArea = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_AREA);
+    ArkUI_NodeHandle textAreaDecoration = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT_AREA);
 
     setTextArea10(textArea10, textArea10Button1);
     setTextArea11(textArea11, textArea11Button);
     setTextAreaDirecton(textArea12);
+    setTextAreaDecoration(textAreaDecoration);
     setTextArea14(textArea14, textArea14_2);
     setTextArea16(textArea15, textArea15_2);
+    setTextArea17(textArea17);
+    setTextArea18(textArea18);
     setTextAreaHorizontalScrolling(horizontalTextArea);
 
     Manager::nodeAPI_->addChild(textContainer, textArea10);
@@ -3173,6 +3526,7 @@ void SetAllTextAreaPart3(ArkUI_NodeHandle &textContainer)
     Manager::nodeAPI_->addChild(textContainer, textArea11);
     Manager::nodeAPI_->addChild(textContainer, textArea11Button);
     Manager::nodeAPI_->addChild(textContainer, textArea12);
+    Manager::nodeAPI_->addChild(textContainer, textAreaDecoration);
     Manager::nodeAPI_->addChild(textContainer, textArea14);
     Manager::nodeAPI_->addChild(textContainer, textArea14_2);
     Manager::nodeAPI_->addChild(textContainer, textArea15);

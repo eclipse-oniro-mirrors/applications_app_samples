@@ -16,7 +16,7 @@ HiLog日志系统，提供给系统框架、服务、以及应用，用于打印
 
 |                             主页                             |
 | :----------------------------------------------------------: |
-| <img src="./screenshots/Screenshot_20250219094412587.jpeg" alt="z" width = "400" /> |
+| <img src="./screenshots/Screenshot_20260715093012587.jpeg" alt="z" width = "400" /> |
 
 #### 使用说明
 
@@ -27,12 +27,27 @@ HiLog日志系统，提供给系统框架、服务、以及应用，用于打印
 2.在DevEco界面切换到"Log"窗口，日志过滤选择"No filters",搜索内容设置为"testTag"。此时窗口仅显示符合条件的日志，打印日志结果为：
 
 ```
-01-16 14:46:54.316   2997-2997     A0ff00/testTag                  com.sampl...logarkts  I     hilog_info_test
-01-16 14:46:54.316   2997-2997     A0ff00/testTag                  com.sampl...logarkts  D     hilog_debug_test
-01-16 14:46:54.316   2997-2997     A0ff00/testTag                  com.sampl...logarkts  W     hilog_warn_test
-01-16 14:46:54.316   2997-2997     A0ff00/testTag                  com.sampl...logarkts  F     hilog_fatal_test
-01-16 14:46:54.316   2997-2997     A0ff00/testTag                  com.sampl...logarkts  E     hilog_error_test
-01-16 14:46:54.316   2997-2997     A0ff00/testTag                  com.sampl...logarkts  I     A log with a domainID of 0xFF00 and a label of testTag can print logs at the Info level or higher.
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.sampl...logarkts  I     A log with a domainID of 0xFF00 and a label of testTag can print logs at the Info level or higher.
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.sampl...logarkts  I     hello World 3
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.sampl...logarkts  I     peter is {"name":"peter","age":15}
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.sampl...logarkts  E     this is an error level log
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.sampl...logarkts  I     this is an another info level log
+08-05 06:32:35.928   10753-10753   A0ff00/testTag                  com.sampl...logarkts  E     this is an another error level log
+```
+
+3.在应用侧主界面，点击"SandboxLog"按钮；
+
+4.打开应用公共沙箱日志，打印结果为：
+
+```
+08-05 06:32:35.928 10753 10753 I A0ff00/testTag: current log type:4
+08-05 06:32:35.928 10753 10753 I A0ff00/testTag: current log dir:/data/storage/el2/log/hiapplog
+08-05 06:32:35.929 10753 10753 I A0ff00/testTag: hilog_info_test
+08-05 06:32:35.929 10753 10753 D A0ff00/testTag: hilog_debug_test
+08-05 06:32:35.929 10753 10753 W A0ff00/testTag: hilog_warn_test
+08-05 06:32:35.929 10753 10753 F A0ff00/testTag: hilog_fatal_test
+08-05 06:32:35.929 10753 10753 E A0ff00/testTag: hilog_error_test
+08-05 06:32:35.930 10753 10753 I A0ff00/testTag: current log files:hiapplog.10753.001.20170805-063235.log
 ```
 
 ##### 2.HiLog（C++）使用说明
@@ -72,8 +87,8 @@ entry/src/main
 ###  约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568；
-2. 本示例已适配API14版本SDK，版本号：5.0.2.58，镜像版本号：OpenHarmony5.0.2.58；
-3. 本示例需要使用DevEco Studio(5.0.3.910)及以上版本才可编译运行。
+2. 本示例已适配API26版本SDK，版本号：26.0.0，镜像版本号：OpenHarmony7.0.0.26；
+3. 本示例需要使用DevEco Studio(6.1.1.268)及以上版本才可编译运行。
 
 ### 下载
 

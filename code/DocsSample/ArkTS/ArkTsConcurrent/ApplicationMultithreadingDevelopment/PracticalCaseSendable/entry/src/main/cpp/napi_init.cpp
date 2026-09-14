@@ -158,7 +158,7 @@ napi_value MyObject::Init(napi_env env, napi_value exports)
     // 定义一个Sendable class MyObject
     napi_define_sendable_class(env, "MyObject", NAPI_AUTO_LENGTH, New, nullptr,
                                sizeof(properties) / sizeof(properties[0]), properties, nullptr, &cons);
-
+    // &g_ref与模块同生命周期
     napi_create_reference(env, cons, 1, &g_ref);
     // 在exports对象上挂载MyObject类
     napi_set_named_property(env, exports, "MyObject", cons);

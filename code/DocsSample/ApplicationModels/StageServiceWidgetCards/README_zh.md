@@ -8,9 +8,7 @@
 
 ### 效果预览
 
-| 开发卡片事件                               | 卡片数据交互                                   |
-| ------------------------------------------ | ---------------------------------------------- |
-| <img src="screenshots/widget event.gif" /> | <img src="screenshots/data interaction1.gif"/> |
+<img src="screenshots/data interaction1.gif"/> 
 
 #### 使用说明
 

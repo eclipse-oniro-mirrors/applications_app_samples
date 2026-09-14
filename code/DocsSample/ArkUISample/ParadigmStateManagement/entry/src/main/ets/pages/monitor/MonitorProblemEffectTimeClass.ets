@@ -20,6 +20,7 @@ class Info {
   @Trace public message: string = 'not initialized';
 
   constructor() {
+    // 此时@Monitor还未生效，因此不会监听到message的变化
     this.message = 'initialized';
   }
 
@@ -42,6 +43,8 @@ struct Index {
   build() {
     Column() {
       Button('change message')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.info.message = 'Index click to change message';
         })

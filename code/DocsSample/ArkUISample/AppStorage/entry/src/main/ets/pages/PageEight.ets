@@ -90,8 +90,8 @@ struct Gallery {
 @Component
 export struct TapImage {
   @State tapColor: Color = Color.Black;
-  private index: number = 0;
-  private uri: Resource = {
+  index: number = 0;
+  uri: Resource = {
     id: 0,
     type: 0,
     moduleName: '',
@@ -110,6 +110,11 @@ export struct TapImage {
     emitter.on(innerEvent, data => {
       this.onTapIndexChange(data);
     });
+  }
+  
+  aboutToDisappear(): void {
+    let innerEvent: emitter.InnerEvent = { eventId: this.index };
+    emitter.off(innerEvent.eventId);
   }
 
   build() {

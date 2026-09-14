@@ -23,7 +23,6 @@ const TAG: string = '[PublishOperation]';
 const DOMAIN_NUMBER: number = 0xFF00;
 // [End request_enable_notification_header]
 
-@Entry
 @Component
 export struct RequestEnableNotification {
   @Consume('pageInfos') pageInfos: NavPathStack;
@@ -61,23 +60,25 @@ export struct RequestEnableNotification {
         Button($r('app.string.reapply_notify_auth'))
           .margin({ top: 20, bottom: 20 })
           .onClick(() => {
-            // [Start reapply_notify_auth_halfmodal]
+            // [Start reapply_notify_auth_halfModal]
             let context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
             notificationManager.isNotificationEnabled().then((data: boolean) => {
               hilog.info(DOMAIN_NUMBER, TAG, `isNotificationEnabled success, data:  ${data}`);
               if (!data) {
-                notificationManager.openNotificationSettings(context).then(() => {
-                  hilog.info(DOMAIN_NUMBER, TAG, `[ANS] openNotificationSettings success`);
+                notificationManager.openNotificationSettingsWithResult(context)
+                .then((result: notificationManager.NotificationSetting) => {
+                  // result为当前设置的结果
+                  hilog.info(DOMAIN_NUMBER, TAG, `[ANS] openNotificationSettingsWithResult success, result: ${JSON.stringify(result)}`);
                 }).catch((err: BusinessError) => {
                   hilog.error(DOMAIN_NUMBER, TAG,
-                    `[ANS] openNotificationSettings failed, code is ${err.code}, message is ${err.message}`);
+                    `[ANS] openNotificationSettingsWithResult failed, code is ${err.code}, message is ${err.message}`);
                 });
               }
             }).catch((err: BusinessError) => {
               hilog.error(DOMAIN_NUMBER, TAG,
                 `isNotificationEnabled fail, code is ${err.code}, message is ${err.message}`);
             });
-            // [End reapply_notify_auth_halfmodal]
+            // [End reapply_notify_auth_halfModal]
           })
       }
       .width('100%')

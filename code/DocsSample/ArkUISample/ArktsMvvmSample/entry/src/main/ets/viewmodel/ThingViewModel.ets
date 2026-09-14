@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import resource from '../common/Resource';
 // [Start thing_view_model]
 import ThingModel from '../model/ThingModel';
 
@@ -32,9 +33,8 @@ export default class ThingViewModel {
   }
 
   addSuffixes(): void {
-    // 请在resources\base\element\string.json文件中配置name为'la_la'，value为非空字符串的资源
-    this.thingName += this.context.resourceManager.getStringSync($r('app.string.la_la').id);
+    // 请将$r('app.string.la_la')替换为实际资源文件，在本示例中该资源文件的value值为"啦"
+    this.thingName += resource.resourceToString($r('app.string.la_la'));
   }
 }
-
 // [End thing_view_model]

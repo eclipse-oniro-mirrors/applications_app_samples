@@ -15,10 +15,13 @@
 // [Start Parent10_start]
 @ComponentV2
 struct Child {
+  // V2的@Param装饰简单类型变量
   @Param value: number = 0;
 
   build() {
     Text(this.value.toString())
+      .fontSize(20)
+      .margin(10)
   }
 }
 
@@ -29,6 +32,7 @@ struct Parent {
     Column() {
       Child({ value: 30 })
     }
+    .width('100%')
   }
 }
 // [End Parent10_start]

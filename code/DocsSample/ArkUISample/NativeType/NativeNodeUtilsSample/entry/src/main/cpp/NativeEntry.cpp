@@ -61,7 +61,6 @@ namespace NativeModule {
 #define SIZE_150 150
 // [StartExclude arkUICustomNodeCpp_start]
 struct AsyncData {
-    napi_env env;
     std::shared_ptr<ArkUINode> parent = nullptr;
     std::shared_ptr<ArkUINode> child = nullptr;
     std::string label = "";
@@ -112,7 +111,7 @@ void CreateNodeTree(void *asyncUITaskData)
     ArkUI_NumberValue value2[] = {{.f32 = 5}, {.f32 = 5}, {.f32 = 5}, {.f32 = 5}};
     ArkUI_AttributeItem item2 = {value2, 4};
     // 设置button组件的margin属性。
-    result = buttonNode1->SetMargin(item2);
+    result = buttonNode2->SetMargin(item2);
     if (result != ARKUI_ERROR_CODE_NO_ERROR) {
         OH_LOG_ERROR(LOG_APP, "Button SetMargin Failed %{public}d", result);
     }
@@ -669,7 +668,7 @@ napi_value CreateNativeMessageRoot(napi_env env, napi_callback_info info)
 
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
-    // 避免重复创建导致的重复挂载。
+    // 避免重复创建导致的重复挂载
     NativeEntry::GetInstance()->DisposeRootNode();
 
     // 获取NodeContent

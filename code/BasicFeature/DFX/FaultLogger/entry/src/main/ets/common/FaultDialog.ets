@@ -18,7 +18,7 @@ import testNapi from 'libentry.so';
 import Logger from '../model/Logger';
 
 const INDEX: number = 0; // 初始索引值
-const DURATION: number = 100; // 定时器时间
+const DURATION: number = 500; // 定时器时间
 
 @Preview
 @CustomDialog
@@ -38,7 +38,9 @@ export struct FaultDialog {
         break;
       case 1:
         promptAction.showToast({ message: $r('app.string.cpp_crash_building') });
-        testNapi.add(2, 3);
+        setTimeout(() => {
+          testNapi.add(2, 3);
+        }, DURATION);
         break;
       case 2:
         promptAction.showToast({ message: $r('app.string.app_freeze_building') });

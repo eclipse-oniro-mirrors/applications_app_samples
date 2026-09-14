@@ -161,9 +161,9 @@ entry/src/main/ets/
 
 1. 本示例仅支持标准系统上运行。
 
-2. 本示例为Stage模型，支持API20版本及以上版本的Sdk。
+2. 本示例为Stage模型，支持API23版本及以上版本的Sdk。
 
-3. 本示例需要使用DevEco Studio 版本号(5.0 Release)及以上版本才可编译运行。
+3. 本示例需要使用DevEco Studio 版本号(6.1 Release)及以上版本才可编译运行。
 
 4. 本示例手机设备支持，RK暂不支持。
 

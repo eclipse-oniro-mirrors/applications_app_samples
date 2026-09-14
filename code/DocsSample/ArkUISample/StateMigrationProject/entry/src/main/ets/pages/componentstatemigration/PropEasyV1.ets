@@ -15,10 +15,13 @@
 // [Start Parent9_start]
 @Component
 struct Child {
+  // V1的@Prop装饰简单类型变量
   @Prop value: number;
 
   build() {
     Text(this.value.toString())
+      .fontSize(20)
+      .margin(10)
   }
 }
 
@@ -29,6 +32,7 @@ struct Parent {
     Column() {
       Child({ value: 30 })
     }
+    .width('100%')
   }
 }
 // [End Parent9_start]

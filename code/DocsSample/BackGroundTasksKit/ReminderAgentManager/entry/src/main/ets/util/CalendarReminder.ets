@@ -39,7 +39,7 @@ class CalendarReminder {
         return
       }
       let selectCalendar: string =
-        `${date.getFullYear()}-${date.getUTCMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+        `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
       let isExistName = this.calendarReminders.find(element => element.reminderName === selectCalendar) !== undefined;
       if (!isExistName) {
         let reminder: Reminder = {
@@ -62,7 +62,7 @@ class CalendarReminder {
           dateTime: {
             // 指明提醒的目标时间
             year: date.getFullYear(),
-            month: date.getUTCMonth() + 1,
+            month: date.getMonth() + 1,
             day: date.getDate(),
             hour: date.getHours(),
             minute: date.getMinutes(),
@@ -75,7 +75,7 @@ class CalendarReminder {
           }],
           // 点击提醒通知后跳转的目标UIAbility信息
           wantAgent: { pkgName: 'com.example.reminderagentmanager', abilityName: 'EntryAbility' },
-          ringDuration: Constant.REMINDER_DURATION, // 指明响铃时长（单位：秒）
+          ringDuration: Constant.REMINDER_DURATION, // 指明响铃时长和振动时长（单位：秒）
           title: context.resourceManager.getStringSync($r('app.string.calendar')
             .id), // 指明提醒标题, "app.string.calendar"资源文件中的value值为"日历"
           content: context.resourceManager.getStringSync($r('app.string.calendar_reach')

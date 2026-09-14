@@ -17,8 +17,10 @@
 function myBuilder(value: string, size: number) {
   Text(value)
     .fontSize(size)
+    .margin(10)
 }
 
+// 使用wrapBuilder封装myBuilder，并赋值给globalBuilder变量
 let globalBuilder: WrappedBuilder<[string, number]> = wrapBuilder(myBuilder);
 
 @Entry

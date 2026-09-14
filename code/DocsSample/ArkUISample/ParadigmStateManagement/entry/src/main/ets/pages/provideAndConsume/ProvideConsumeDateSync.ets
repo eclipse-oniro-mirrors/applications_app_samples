@@ -19,21 +19,26 @@ struct Child {
 
   build() {
     Column() {
+      // selectedDate被@Consume装饰，可以被观察到Date整体的赋值以及调用Date接口带来的变化
       Button(`child increase the day by 1`)
         .onClick(() => {
           this.selectedDate.setDate(this.selectedDate.getDate() + 1);
         })
+        .width(300)
+        .margin(10)
       Button('child update the new date')
         .margin(10)
         .onClick(() => {
           this.selectedDate = new Date('2023-09-09');
         })
+        .width(300)
       DatePicker({
         start: new Date('1970-1-1'),
         end: new Date('2100-1-1'),
         selected: this.selectedDate
       })
     }
+    .width('100%')
   }
 }
 
@@ -44,16 +49,19 @@ struct Parent {
 
   build() {
     Column() {
+      // selectedDate被@Provide装饰，可以被观察到Date整体的赋值以及调用Date接口带来的变化
       Button('parent increase the day by 1')
         .margin(10)
         .onClick(() => {
           this.selectedDate.setDate(this.selectedDate.getDate() + 1);
         })
+        .width(300)
       Button('parent update the new date')
         .margin(10)
         .onClick(() => {
           this.selectedDate = new Date('2023-07-07');
         })
+        .width(300)
       DatePicker({
         start: new Date('1970-1-1'),
         end: new Date('2100-1-1'),
@@ -61,6 +69,7 @@ struct Parent {
       })
       Child()
     }
+    .width('100%')
   }
 }
 // [End provide_consume_date_sync]

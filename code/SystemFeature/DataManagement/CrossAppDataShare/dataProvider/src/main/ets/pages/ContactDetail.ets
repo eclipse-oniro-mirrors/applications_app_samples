@@ -16,10 +16,14 @@
 import router from '@ohos.router'
 import { Contact, contactDataShareUtil, ContactDetailInfo, dialogUtil, OPERATE_STATUS } from '@ohos/common'
 
+interface ContactDetailParams {
+  contact: Contact
+}
+
 @Entry
 @Component
 struct ContactDetail {
-  @State contact: Contact = undefined
+  @State contact: Contact | undefined = undefined
 
   build() {
     Column() {
@@ -40,9 +44,7 @@ struct ContactDetail {
           .flexShrink(1)
       }
       Row() {
-        // 添加一个id 0
         this.ToolBar($r('app.media.edit'), $r('app.string.edit'), 0, () => {
-          // edit the contact info
           router.push({
             url: 'pages/ContactEdit',
             params: {
@@ -51,12 +53,12 @@ struct ContactDetail {
             }
           })
         })
-        // 添加一个id:1
         this.ToolBar($r('app.media.delete'), $r('app.string.delete'), 1, async () => {
-          // show delete dailog
           dialogUtil.showAlertDialog($r('app.string.delete_alert_message'),
           $r('app.string.delete'), async () => {
-              await contactDataShareUtil.delete(getContext(this), this.contact.id);
+              if (this.contact !== undefined) {
+                await contactDataShareUtil.delete(getContext(this), this.contact.id);
+              }
               router.back();
             }, $r('app.string.cancel'), () => {
             })
@@ -86,9 +88,11 @@ struct ContactDetail {
   }
 
   onPageShow() {
-    if (router.getParams()) {
-      if (router.getParams()['contact']) {
-        this.contact = <Contact> router.getParams()['contact']
+    let params = router.getParams() as ContactDetailParams
+    if (params !== undefined) {
+      let contactParam = params.contact as Contact
+      if (contactParam !== undefined) {
+        this.contact = contactParam
       }
     }
   }

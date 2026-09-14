@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -46,7 +46,7 @@ class TextNodeController extends NodeController {
     this.rootNode = new FrameNode(context);
     this.textNode = new BuilderNode(context, { selfIdealSize: { width: 150, height: 150 } });
     this.textNode.build(wrapBuilder<[Params]>(buildText), new Params(this.count));
-    this.textNode.inheritFreezeOptions(true); // 设置BuilderNode的冻结继承状态为True。
+    this.textNode.inheritFreezeOptions(true); // 设置BuilderNode的冻结继承状态为true。
     if (this.rootNode !== null) {
       this.rootNode.appendChild(this.textNode.getFrameNode()); // 将BuilderNode上树。
     }
@@ -73,7 +73,7 @@ struct MyNavigationTestStack {
   @Builder
   PageMap(name: string) {
     if (name === 'pageOne') {
-      pageOneStack({ message: this.message, logNumber: this.logNumber })
+      PageOneStack({ message: this.message, logNumber: this.logNumber })
     } else if (name === 'pageTwo') {
       PageTwoStack({ message: this.message, logNumber: this.logNumber })
     }
@@ -103,7 +103,7 @@ struct MyNavigationTestStack {
 }
 
 @ComponentV2
-struct pageOneStack {
+struct PageOneStack {
   @Consumer('pageInfo') pageInfo: NavPathStack=new NavPathStack();
   @Local index: number = PAGE_ONE_INDEX;
   @Param @Require  message: number;
@@ -148,7 +148,7 @@ struct PageTwoStack {
     NavDestination() {
       Column() {
         NavigationContentMsgStack({ message: this.message, index: this.index, logNumber: this.logNumber })
-        // 请将$r('app.string.text1')替换为实际资源文件，在本示例中该资源文件的value值为"BuilderNode处于冻结"
+        // 请将$r('app.string.text1')替换为实际资源文件，在本示例中该资源文件的value值为"BuilderNode处于冻结"。
         Text($r('app.string.text1'))
           .fontWeight(FontWeight.Bold)
           .margin({ top: 48, bottom: 48 })
@@ -195,7 +195,7 @@ struct TextBuilder {
   build() {
     Row() {
       Column() {
-        // 请在resources\base\element\string.json文件中配置name为'text2' ，value为非空字符串的资源
+        // 请在resources\base\element\string.json文件中配置name为'text2'的资源，在本示例中该资源的value值为"文本更新次数："。
         Text(this.context.resourceManager.getStringByNameSync('text2') + `${this.message}`)
           .fontWeight(FontWeight.Bold)
           .margin({ top: 48, bottom: 48 })

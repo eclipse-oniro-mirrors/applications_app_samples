@@ -17,8 +17,16 @@
       "value": "Call SignatureSeg"
     },
     {
+      "name": "call_verify_seg",
+      "value": "Call VerifySeg"
+    },
+    {
       "name": "call_signature",
       "value": "Call Signature"
+    },
+    {
+      "name": "call_verify",
+      "value": "Call Verify"
     },
     {
       "name": "call_signature_recover",
@@ -29,8 +37,16 @@
       "value": "Call PSSSignatureSeg"
     },
     {
+      "name": "call_pssverify_seg",
+      "value": "Call PSSVerifySeg"
+    },
+    {
       "name": "call_ecdsasignature",
       "value": "Call ECDSASignature"
+    },
+    {
+      "name": "call_ecdsaverify",
+      "value": "Call ECDSAVerify"
     },
     {
       "name": "call_sm2signature",

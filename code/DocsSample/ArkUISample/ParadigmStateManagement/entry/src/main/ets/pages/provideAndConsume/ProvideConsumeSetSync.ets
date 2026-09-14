@@ -22,24 +22,34 @@ struct Child {
       ForEach(Array.from(this.message.entries()), (item: [number, number]) => {
         Text(`${item[0]}`)
           .fontSize(30)
+          .margin(10)
         Divider()
       })
+      // message被@Consume装饰，可以被观察到Set整体的赋值以及调用Set接口带来的变化
       Button('Consume init set')
         .onClick(() => {
           this.message = new Set([0, 1, 2, 3, 4]);
         })
+        .width(300)
+        .margin(10)
       Button('Consume set new one')
         .onClick(() => {
           this.message.add(5);
         })
+        .width(300)
+        .margin(10)
       Button('Consume clear')
         .onClick(() => {
           this.message.clear();
         })
+        .width(300)
+        .margin(10)
       Button('Consume delete the first one')
         .onClick(() => {
           this.message.delete(0);
         })
+        .width(300)
+        .margin(10)
     }
     .width('100%')
   }
@@ -54,15 +64,17 @@ struct SetSample {
   build() {
     Row() {
       Column() {
+        // message被@Provide装饰，可以被观察到Set整体的赋值以及调用Set接口带来的变化
         Button('Provide init set')
           .onClick(() => {
             this.message = new Set([0, 1, 2, 3, 4, 5]);
           })
+          .width(300)
+          .margin(10)
         Child()
       }
       .width('100%')
     }
-    .height('100%')
   }
 }
 // [End provide_consume_set_sync]

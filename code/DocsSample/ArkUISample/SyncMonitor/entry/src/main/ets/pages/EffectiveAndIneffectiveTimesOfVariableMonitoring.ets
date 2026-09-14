@@ -75,7 +75,7 @@ struct Index {
     Column() {
       Button('show/hide Child')
         .onClick(() => {
-          this.flag = !this.flag
+          this.flag = !this.flag;
         })
       Button('change message in Index')
         .onClick(() => {
@@ -88,3 +88,12 @@ struct Index {
   }
 }
 // [End effective_and_ineffective_times_of_variable_monitoring]
+
+@Builder
+export function effectiveAndIneffectiveTimesOfVariableMonitoring() {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.effective_and_ineffective_times_of_variable_monitoring'))
+}

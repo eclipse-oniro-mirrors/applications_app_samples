@@ -134,11 +134,11 @@ struct Index {
             // 如暂不支持该指令，请勿注册；或在注册后但暂不使用时，通过session.off('rewind')取消监听。
             // 处理完毕后，请使用SetAVPlaybackState上报播放状态和播放position。
           });
-          session.on('seek', (time) => {
-            console.info(`on seek , the seek time is ${time}`);
+          session.on('seek', (time: number) => {
+            console.info(`on seek , the time is ${time}`);
             // [StartExclude fixedPlaybackControlCommands]
             if (globalLogUpdate) {
-              globalLogUpdate(`on seek , the seek time is ${time}`, false);
+              globalLogUpdate(`on seek , the time is ${time}`, false);
             }
             // [EndExclude fixedPlaybackControlCommands]
             // 如暂不支持该指令，请勿注册；或在注册后但暂不使用时，通过session.off('seek')取消监听。

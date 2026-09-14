@@ -341,5 +341,223 @@ export default function SyncMonitorTest() {
       await driver.delayMs(1000);
       done();
     });
+
+    /*
+     * @tc.number     : SyncMonitor_018
+     * @tc.name       : testMonitorVariablesInMultidimensionalArrays
+     * @tc.desc       : 测试SyncMonitor监听多维数组属性的场景
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testMonitorVariablesInMultidimensionalArrays', 0, async (done: Function) => {
+      let driver = Driver.create();
+      await driver.delayMs(1000);
+      await router.pushUrl({ url: 'pages/MonitorVariablesInMultidimensionalArrays' });
+      await driver.delayMs(1000);
+      let btn = await driver.findComponent(ON.type('Button'));
+      await btn.click();
+      await driver.delayMs(1000);
+      done();
+    });
+
+    /*
+     * @tc.number     : SyncMonitor_019
+     * @tc.name       : testSyncMonitorArrayMultiPath
+     * @tc.desc       : 测试SyncMonitor监听数组多路径场景
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testSyncMonitorArrayMultiPath', 0, async (done: Function) => {
+      let driver = Driver.create();
+      await driver.delayMs(1000);
+      await router.pushUrl({ url: 'pages/SyncMonitorArrayMultiPath' });
+      await driver.delayMs(1000);
+      let btn1 = await driver.findComponent(ON.text('Change array by making separate assignments'));
+      await btn1.click();
+      await driver.delayMs(500);
+      let btn2 = await driver.findComponent(ON.text('Change array with array functions'));
+      await btn2.click();
+      await driver.delayMs(1000);
+      done();
+    });
+
+    /*
+     * @tc.number     : SyncMonitor_020
+     * @tc.name       : testMonitorDuplicateMultiplePaths
+     * @tc.desc       : 测试SyncMonitor多路径参数重复监听场景
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testMonitorDuplicateMultiplePaths', 0, async (done: Function) => {
+      let driver = Driver.create();
+      await driver.delayMs(1000);
+      await router.pushUrl({ url: 'pages/MonitorDuplicateMultiplePaths' });
+      await driver.delayMs(1000);
+      let btn = await driver.findComponent(ON.text('change name'));
+      await btn.click();
+      await driver.delayMs(1000);
+      done();
+    });
+
+    /*
+     * @tc.number     : SyncMonitor_021
+     * @tc.name       : testMonitorDeepPropertyChange
+     * @tc.desc       : 测试SyncMonitor监听深层属性变化场景
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testMonitorDeepPropertyChange', 0, async (done: Function) => {
+      let driver = Driver.create();
+      await driver.delayMs(1000);
+      await router.pushUrl({ url: 'pages/MonitorDeepPropertyChange' });
+      await driver.delayMs(1000);
+      let btn = await driver.findComponent(ON.text('change!'));
+      await btn.click();
+      await driver.delayMs(1000);
+      done();
+    });
+
+    /*
+     * @tc.number     : SyncMonitor_022
+     * @tc.name       : testSyncMonitorClassEffectiveTime
+     * @tc.desc       : 测试类中SyncMonitor生效时机场景
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testSyncMonitorClassEffectiveTime', 0, async (done: Function) => {
+      let driver = Driver.create();
+      await driver.delayMs(1000);
+      await router.pushUrl({ url: 'pages/SyncMonitorClassEffectiveTime' });
+      await driver.delayMs(1000);
+      let btn = await driver.findComponent(ON.text('change message'));
+      await btn.click();
+      await driver.delayMs(1000);
+      done();
+    });
+
+    /*
+     * @tc.number     : SyncMonitor_023
+     * @tc.name       : testSyncMonitorClassGcDestruction
+     * @tc.desc       : 测试类中SyncMonitor依赖GC失效的场景
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testSyncMonitorClassGcDestruction', 0, async (done: Function) => {
+      let driver = Driver.create();
+      await driver.delayMs(1000);
+      await router.pushUrl({ url: 'pages/SyncMonitorClassGcDestruction' });
+      await driver.delayMs(1000);
+      let btn1 = await driver.findComponent(ON.text('change showFlag'));
+      await btn1.click();
+      await driver.delayMs(500);
+      let btn2 = await driver.findComponent(ON.text('change number'));
+      await btn2.click();
+      await driver.delayMs(1000);
+      done();
+    });
+
+    /*
+     * @tc.number     : SyncMonitor_024
+     * @tc.name       : testSyncMonitorComponentDestruction
+     * @tc.desc       : 测试自定义组件中SyncMonitor失效时机场景
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testSyncMonitorComponentDestruction', 0, async (done: Function) => {
+      let driver = Driver.create();
+      await driver.delayMs(1000);
+      await router.pushUrl({ url: 'pages/SyncMonitorComponentDestruction' });
+      await driver.delayMs(1000);
+      let btn1 = await driver.findComponent(ON.text('change showFlag'));
+      await btn1.click();
+      await driver.delayMs(500);
+      let btn2 = await driver.findComponent(ON.text('change number'));
+      await btn2.click();
+      await driver.delayMs(1000);
+      done();
+    });
+
+    /*
+     * @tc.number     : SyncMonitor_025
+     * @tc.name       : testMonitorNonStateVariableNegative
+     * @tc.desc       : 测试SyncMonitor监听非状态变量的反例
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testMonitorNonStateVariableNegative', 0, async (done: Function) => {
+      let driver = Driver.create();
+      await driver.delayMs(1000);
+      await router.pushUrl({ url: 'pages/MonitorNonStateVariableNegative' });
+      await driver.delayMs(1000);
+      let btn = await driver.findComponent(ON.text('change age&name'));
+      await btn.click();
+      await driver.delayMs(1000);
+      done();
+    });
+
+    /*
+     * @tc.number     : SyncMonitor_026
+     * @tc.name       : testMonitorNonStateVariablePositive
+     * @tc.desc       : 测试SyncMonitor正确监听状态变量的正例
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testMonitorNonStateVariablePositive', 0, async (done: Function) => {
+      let driver = Driver.create();
+      await driver.delayMs(1000);
+      await router.pushUrl({ url: 'pages/MonitorNonStateVariablePositive' });
+      await driver.delayMs(1000);
+      let btn = await driver.findComponent(ON.text('change age&name'));
+      await btn.click();
+      await driver.delayMs(1000);
+      done();
+    });
+
+    /*
+     * @tc.number     : SyncMonitor_027
+     * @tc.name       : testMonitorNonComputedGetterNegative
+     * @tc.desc       : 测试SyncMonitor监听非Computed getter的反例
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testMonitorNonComputedGetterNegative', 0, async (done: Function) => {
+      let driver = Driver.create();
+      await driver.delayMs(1000);
+      await router.pushUrl({ url: 'pages/MonitorNonComputedGetterNegative' });
+      await driver.delayMs(1000);
+      let btn = await driver.findComponent(ON.text('change age'));
+      await btn.click();
+      await driver.delayMs(1000);
+      done();
+    });
+
+    /*
+     * @tc.number     : SyncMonitor_028
+     * @tc.name       : testMonitorStateVariableDirectly
+     * @tc.desc       : 测试SyncMonitor直接监听状态变量的正例
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testMonitorStateVariableDirectly', 0, async (done: Function) => {
+      let driver = Driver.create();
+      await driver.delayMs(1000);
+      await router.pushUrl({ url: 'pages/MonitorStateVariableDirectly' });
+      await driver.delayMs(1000);
+      let btn = await driver.findComponent(ON.text('change age'));
+      await btn.click();
+      await driver.delayMs(1000);
+      done();
+    });
   })
 }

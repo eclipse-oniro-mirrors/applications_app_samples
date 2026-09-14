@@ -312,5 +312,51 @@ export default function IndexTest() {
       console.info('DrawDraggableCursorTest: testDrawDraggableCursor end');
       done();
     });
+
+    /**
+     * @tc.number CanvasContentSetOnVisibleAreaApproximateChange_015
+     * @tc.name testCanvasContentSetOnVisibleAreaApproximateChange
+     * @tc.desc 测试画布组件通过通用事件设置可见区域近似变化回调是否成功
+     */
+    it('testCanvasContentSetOnVisibleAreaApproximateChange', 0, async (done: Function) => {
+      console.info('CanvasContentSetOnVisibleAreaApproximateChangeTest: testCanvasContentSetOnVisibleAreaApproximateChange begin');
+      let driver = Driver.create();
+
+      const title = await driver.findComponent(ON.text('CanvasContentSetOnVisibleAreaApproximateChange'));
+      expect(title === null).assertFalse();
+      await title.click();
+      await driver.delayMs(1000);
+      const button = await driver.findComponent(ON.text('draw sth'));
+      expect(button === null).assertFalse();
+      await button.click();
+      await driver.delayMs(1000);
+      await driver.pressBack();
+      await driver.delayMs(1000);
+      console.info('CanvasContentSetOnVisibleAreaApproximateChangeTest: testCanvasContentSetOnVisibleAreaApproximateChange end');
+      done();
+    });
+
+    /**
+     * @tc.number CanvasContentOnVisibleAreaApproximateChange_016
+     * @tc.name testCanvasContentOnVisibleAreaApproximateChange
+     * @tc.desc 测试画布组件可见区域近似变化回调是否成功
+     */
+    it('testCanvasContentOnVisibleAreaApproximateChange', 0, async (done: Function) => {
+      console.info('CanvasContentOnVisibleAreaApproximateChangeTest: testCanvasContentOnVisibleAreaApproximateChange begin');
+      let driver = Driver.create();
+
+      const title = await driver.findComponent(ON.text('CanvasContentOnVisibleAreaApproximateChange'));
+      expect(title === null).assertFalse();
+      await title.click();
+      await driver.delayMs(1000);
+      const button = await driver.findComponent(ON.text('draw sth'));
+      expect(button === null).assertFalse();
+      await button.click();
+      await driver.delayMs(1000);
+      await driver.pressBack();
+      await driver.delayMs(1000);
+      console.info('CanvasContentOnVisibleAreaApproximateChangeTest: testCanvasContentOnVisibleAreaApproximateChange end');
+      done();
+    });
   });
 }

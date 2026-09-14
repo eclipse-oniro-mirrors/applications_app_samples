@@ -1,12 +1,20 @@
 {
   "string": [
     {
+      "name": "smart_fluency_x2",
+      "value": "X2 (Smart Fluency)"
+    },
+    {
+      "name": "smart_fluency_x3",
+      "value": "X3 (Smart Fluency)"
+    },
+    {
       "name": "module_desc",
-      "value": "This module template implements List functions."
+      "value": "AVCodec playback and recording sample module."
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "Provides AVCodec playback and recording capabilities."
     },
     {
       "name": "EntryAbility_label",
@@ -29,6 +37,14 @@
       "value": "play"
     },
     {
+      "name": "stop_playback",
+      "value": "stop"
+    },
+    {
+      "name": "stopping",
+      "value": "stopping"
+    },
+    {
       "name": "alert",
       "value": "None video selected"
     },
@@ -46,7 +62,7 @@
     },
     {
       "name": "record",
-      "value": "record"
+      "value": "Record"
     },
     {
       "name": "saveButtonNote",
@@ -129,6 +145,242 @@
       "value": "setting"
     },
     {
+      "name": "player_settings_title",
+      "value": "Playback settings"
+    },
+    {
+      "name": "player_settings_subtitle",
+      "value": "Configure decoding, rendering, synchronization and debug options"
+    },
+    {
+      "name": "recorder_settings_title",
+      "value": "Recording settings"
+    },
+    {
+      "name": "recorder_settings_subtitle",
+      "value": "Configure audio/video encoding, resolution, and container output"
+    },
+    {
+      "name": "setting_decoder_type",
+      "value": "Decoder type"
+    },
+    {
+      "name": "setting_run_mode",
+      "value": "Rendering mode"
+    },
+    {
+      "name": "setting_sync_mode",
+      "value": "Sync mode"
+    },
+    {
+      "name": "setting_dump",
+      "value": "Save decoded frames"
+    },
+    {
+      "name": "setting_retain_last_frame",
+      "value": "Retain last frame on stop"
+    },
+    {
+      "name": "setting_low_latency",
+      "value": "Low-latency decoding"
+    },
+    {
+      "name": "setting_decoding_order_output",
+      "value": "Output in decoding order"
+    },
+    {
+      "name": "setting_hdr_vivid_to_bt709",
+      "value": "Convert HDR Vivid to BT.709"
+    },
+    {
+      "name": "setting_audio_volume",
+      "value": "Audio volume"
+    },
+    {
+      "name": "setting_audio_latency",
+      "value": "Low-latency audio output"
+    },
+    {
+      "name": "setting_auto_hide_controls",
+      "value": "Auto-hide playback controls"
+    },
+    {
+      "name": "playback_controls_auto_hide_tip",
+      "value": "Playback controls are hidden. You can disable auto-hide in Playback Settings."
+    },
+    {
+      "name": "setting_codec",
+      "value": "Codec"
+    },
+    {
+      "name": "setting_output_format",
+      "value": "Container format"
+    },
+    {
+      "name": "setting_resolution",
+      "value": "Resolution"
+    },
+    {
+      "name": "setting_frame_rate",
+      "value": "Frame rate"
+    },
+    {
+      "name": "setting_video_bitrate",
+      "value": "Video bitrate"
+    },
+    {
+      "name": "setting_bitrate_mode",
+      "value": "Bitrate mode"
+    },
+    {
+      "name": "setting_i_frame_interval",
+      "value": "Key-frame interval"
+    },
+    {
+      "name": "setting_bitrate_10m",
+      "value": "10 Mbps"
+    },
+    {
+      "name": "setting_bitrate_20m",
+      "value": "20 Mbps"
+    },
+    {
+      "name": "setting_bitrate_30m",
+      "value": "30 Mbps"
+    },
+    {
+      "name": "setting_bitrate_mode_cbr",
+      "value": "Constant bitrate (CBR)"
+    },
+    {
+      "name": "setting_bitrate_mode_vbr",
+      "value": "Variable bitrate (VBR)"
+    },
+    {
+      "name": "setting_i_frame_interval_100ms",
+      "value": "100 ms"
+    },
+    {
+      "name": "setting_i_frame_interval_1s",
+      "value": "1 second"
+    },
+    {
+      "name": "setting_i_frame_interval_2s",
+      "value": "2 seconds"
+    },
+    {
+      "name": "setting_audio_sample_rate",
+      "value": "Audio sample rate"
+    },
+    {
+      "name": "setting_audio_channel_count",
+      "value": "Audio channels"
+    },
+    {
+      "name": "setting_audio_bitrate",
+      "value": "Audio bitrate"
+    },
+    {
+      "name": "setting_audio_sample_rate_44100",
+      "value": "44.1 kHz"
+    },
+    {
+      "name": "setting_audio_sample_rate_48000",
+      "value": "48 kHz"
+    },
+    {
+      "name": "setting_audio_channel_mono",
+      "value": "Mono"
+    },
+    {
+      "name": "setting_audio_channel_stereo",
+      "value": "Stereo"
+    },
+    {
+      "name": "setting_audio_bitrate_32k",
+      "value": "32 kbps"
+    },
+    {
+      "name": "setting_audio_bitrate_64k",
+      "value": "64 kbps"
+    },
+    {
+      "name": "setting_audio_bitrate_128k",
+      "value": "128 kbps"
+    },
+    {
+      "name": "setting_decoder_auto",
+      "value": "Auto select"
+    },
+    {
+      "name": "setting_decoder_hardware",
+      "value": "Hardware decoding"
+    },
+    {
+      "name": "setting_decoder_software",
+      "value": "Software decoding"
+    },
+    {
+      "name": "setting_render_direct",
+      "value": "Surface rendering"
+    },
+    {
+      "name": "setting_render_buffer",
+      "value": "Buffer copy rendering"
+    },
+    {
+      "name": "setting_mode_async",
+      "value": "Asynchronous"
+    },
+    {
+      "name": "setting_mode_sync",
+      "value": "Synchronous"
+    },
+    {
+      "name": "setting_codec_hdr_vivid",
+      "value": "HDR Vivid recording"
+    },
+    {
+      "name": "setting_codec_h264",
+      "value": "H.264 encoding"
+    },
+    {
+      "name": "setting_codec_h265",
+      "value": "H.265 encoding"
+    },
+    {
+      "name": "setting_resolution_4k",
+      "value": "4K (3840x2160)"
+    },
+    {
+      "name": "setting_resolution_1080p",
+      "value": "1080P (1920x1080)"
+    },
+    {
+      "name": "setting_resolution_720p",
+      "value": "720P (1280x720)"
+    },
+    {
+      "name": "setting_fps_30",
+      "value": "30 fps"
+    },
+    {
+      "name": "setting_fps_60",
+      "value": "60 fps"
+    },
+    {
+      "name": "setting_restore_defaults",
+      "value": "Reset"
+    },
+    {
+      "name": "setting_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "setting_apply",
+      "value": "Apply"
+    },
+    {
       "name": "adjust_playback_speed",
       "value": "adjust_playback_speed"
     },
@@ -139,6 +391,199 @@
     {
       "name": "end_recording",
       "value": "End recording"
-    }
+    },
+    {
+      "name": "record_mp4",
+      "value": "MP4 Record"
+    },
+    {
+      "name": "record_flv",
+      "value": "FLV Record"
+    },
+    {
+      "name": "record_permission_required",
+      "value": "Camera and microphone permissions are required for recording. Please grant them in Settings."
+    },
+    {
+      "name": "recorder_configuration_unsupported",
+      "value": "The recording configuration is not supported. Adjust the codec, resolution, or frame rate."
+    },
+    {
+      "name": "media_file_empty",
+      "value": "The media file is empty and cannot be played."
+    },
+    {
+      "name": "media_file_invalid",
+      "value": "The media file is corrupted or its format is not supported."
+    },
+    {
+      "name": "media_file_open_failed",
+      "value": "Failed to open the media file. Please select it again."
+    },
+    {
+      "name": "media_file_select_failed",
+      "value": "Failed to select the media file. Please try again."
+    },
+    {
+      "name": "media_file_not_selected",
+      "value": "No media file selected."
+    },
+    {
+      "name": "playback_pause",
+      "value": "Pause"
+    },
+    {
+      "name": "playback_resume",
+      "value": "Resume"
+    },
+    {
+      "name": "playback_rewind_15s",
+      "value": "Rewind 15s"
+    },
+    {
+      "name": "playback_forward_15s",
+      "value": "Forward 15s"
+    },
+    {
+      "name": "playback_replay",
+      "value": "Replay"
+    },
+    { "name": "playback_more", "value": "More" },
+    { "name": "playback_more_title", "value": "More playback options" },
+    { "name": "playback_queue", "value": "Playback queue" },
+    { "name": "playback_diagnostics", "value": "Performance diagnostics" },
+    { "name": "playback_diagnostics_close", "value": "Close diagnostics" },
+    { "name": "playback_fullscreen", "value": "Fullscreen" },
+    { "name": "playback_exit_fullscreen", "value": "Exit fullscreen" },
+    { "name": "playback_display_scale", "value": "Display ratio" },
+    { "name": "playback_resume_position", "value": "Resumed from the last position" },
+    { "name": "playback_mute", "value": "Mute" },
+    { "name": "playback_unmute", "value": "Unmute" },
+    { "name": "playback_audio_track", "value": "Audio track" },
+    { "name": "playback_subtitle", "value": "Subtitle" },
+    { "name": "playback_no_audio_track", "value": "The file has only one audio track" },
+    { "name": "playback_audio_track_failed", "value": "Failed to read audio tracks" },
+    { "name": "playback_audio_track_unsupported", "value": "The selected audio track is not supported" },
+    { "name": "playback_subtitle_loaded", "value": "SRT subtitle loaded" },
+    { "name": "playback_subtitle_empty", "value": "No valid SRT cues found" },
+    { "name": "playback_subtitle_failed", "value": "Failed to load SRT subtitle" },
+    { "name": "playback_ab_set_start", "value": "Set A" },
+    { "name": "playback_ab_set_start_done", "value": "A is set" },
+    { "name": "playback_ab_set_end", "value": "Set B" },
+    { "name": "playback_ab_set_end_done", "value": "B is active" },
+    { "name": "playback_ab_clear", "value": "Clear A-B" },
+    { "name": "playback_ab_start_set", "value": "A point set" },
+    { "name": "playback_ab_start_required", "value": "Set A before B" },
+    { "name": "playback_ab_end_invalid", "value": "B must be later than A" },
+    { "name": "playback_ab_enabled", "value": "A-B loop enabled" },
+    { "name": "playback_previous_frame", "value": "Previous frame" },
+    { "name": "playback_next_frame", "value": "Next frame" },
+    { "name": "playback_frame_step_failed", "value": "Frame step failed" },
+    { "name": "playback_pip_enter", "value": "Picture in picture" },
+    { "name": "playback_pip_exit", "value": "Exit picture in picture" },
+    { "name": "playback_pip_unsupported", "value": "Picture in picture is not supported" },
+    { "name": "playback_pip_failed", "value": "Failed to start picture in picture" },
+    { "name": "playback_background_on", "value": "Background playback: On" },
+    { "name": "playback_background_off", "value": "Background playback: Off" },
+    { "name": "playback_background_enabled", "value": "Background PiP is enabled" },
+    { "name": "playback_background_disabled", "value": "Background PiP is disabled" },
+    {
+      "name": "seek_failed",
+      "value": "Unable to seek to the selected position."
+    },
+    {
+      "name": "setting_group_output",
+      "value": "Container and output"
+    },
+    {
+      "name": "setting_group_video",
+      "value": "Video encoding"
+    },
+    {
+      "name": "setting_group_audio",
+      "value": "Audio encoding"
+    },
+    {
+      "name": "setting_group_control",
+      "value": "Encoding control"
+    },
+    {
+      "name": "setting_audio_capture_latency",
+      "value": "Audio capture latency"
+    },
+    {
+      "name": "setting_audio_latency_normal",
+      "value": "Normal latency"
+    },
+    {
+      "name": "setting_audio_latency_low",
+      "value": "Low latency"
+    },
+    {
+      "name": "setting_video_stabilization",
+      "value": "Video stabilization"
+    },
+    {
+      "name": "setting_stabilization_disabled",
+      "value": "Disabled"
+    },
+    {
+      "name": "setting_stabilization_auto",
+      "value": "Auto"
+    },
+    {
+      "name": "media_info",
+      "value": "Info"
+    },
+    {
+      "name": "media_info_title",
+      "value": "Media information"
+    },
+    {
+      "name": "media_info_subtitle",
+      "value": "Demuxed source, track, and decoder details"
+    },
+    { "name": "playback_display_scale_fit", "value": "Fit to window" },
+    { "name": "playback_display_scale_fill", "value": "Fill window" },
+    { "name": "playback_audio_track_switched", "value": " switched" },
+    { "name": "playback_queue_add", "value": "Add to queue" },
+    { "name": "playback_queue_clear", "value": "Clear queue" },
+    { "name": "playback_queue_current", "value": "Current queue (automatically plays the next item when playback ends)" },
+    { "name": "playback_queue_playing", "value": "Playing" },
+    { "name": "playback_recent", "value": "Recently played" },
+    { "name": "playback_recent_empty", "value": "No playback history" },
+    { "name": "playback_recent_position", "value": "Last played at " },
+    { "name": "playback_recent_completed", "value": "Playback completed" },
+    { "name": "playback_recent_play", "value": "Play" },
+    { "name": "playback_queue_sheet_title", "value": "Playback queue and recent history" },
+    { "name": "playback_diagnostics_state", "value": "State " },
+    { "name": "playback_diagnostics_position", "value": "Position " },
+    { "name": "playback_diagnostics_speed", "value": "  Speed X" },
+    { "name": "playback_diagnostics_output", "value": "Output " },
+    { "name": "playback_diagnostics_rendered", "value": "  Rendered " },
+    { "name": "playback_diagnostics_dropped", "value": "  Dropped " },
+    { "name": "playback_diagnostics_output_fps", "value": "Output fps " },
+    { "name": "playback_diagnostics_drop_rate", "value": "  Drop rate " },
+    { "name": "playback_diagnostics_audio_buffers", "value": "Audio output buffers " },
+    { "name": "playback_diagnostics_smart_fluency", "value": "Smart fluency " },
+    { "name": "playback_diagnostics_hdr_vivid", "value": "  HDR Vivid " },
+    { "name": "playback_diagnostics_available", "value": "Available" },
+    { "name": "playback_diagnostics_unavailable", "value": "Unavailable" },
+    { "name": "playback_diagnostics_confirmed", "value": "Confirmed" },
+    { "name": "playback_diagnostics_unconfirmed", "value": "Unconfirmed" },
+    { "name": "playback_audio_channel_unit", "value": " ch" },
+    { "name": "playback_subtitle_sync", "value": "Subtitle timing" },
+    { "name": "playback_subtitle_style", "value": "Subtitle style" },
+    { "name": "playback_subtitle_early", "value": "Subtitle early by 0.5 s" },
+    { "name": "playback_subtitle_late", "value": "Subtitle late by 0.5 s" },
+    { "name": "playback_subtitle_style_small", "value": "Small subtitle" },
+    { "name": "playback_subtitle_style_medium", "value": "Medium subtitle" },
+    { "name": "playback_subtitle_style_large", "value": "Large subtitle" },
+    { "name": "playback_diagnostics_buffer_present", "value": "Buffer present " },
+    { "name": "playback_diagnostics_buffer_average", "value": "  Average " },
+    { "name": "playback_diagnostics_buffer_failures", "value": "  Failures " },
+    { "name": "playback_diagnostics_software_fallback", "value": "Software fallback " },
+    { "name": "playback_diagnostics_used", "value": "Used" },
+    { "name": "playback_diagnostics_not_used", "value": "Not used" }
   ]
 }

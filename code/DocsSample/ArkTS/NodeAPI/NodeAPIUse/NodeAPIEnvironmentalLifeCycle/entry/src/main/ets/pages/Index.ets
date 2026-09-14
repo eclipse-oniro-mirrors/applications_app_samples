@@ -60,7 +60,7 @@ struct Index {
                   let data = 5;
                   testNapi.setInstanceData(data);
                   let value = testNapi.getInstanceData();
-                  hilog.info(0x0000, 'testTag', 'Test Node-API napi_set_instance_data:%{public}d', value);
+                  hilog.info(0x0000, 'testTag', 'Test Node-API napi_get_instance_data:%{public}d', value);
                   // [End ark_napi_get_instance_data]
                   this.result = 'napiGetInstanceDataSuccess';
                 }

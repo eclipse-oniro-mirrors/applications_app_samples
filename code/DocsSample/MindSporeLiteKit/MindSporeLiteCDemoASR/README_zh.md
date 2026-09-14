@@ -42,7 +42,7 @@ entry
 
 ### 具体实现
 
-* 本示例程序中使用的终端图像分类模型文件为[tiny-encoder.ms](entry\src\main\resources\rawfile\tiny-encoder.ms)、[tiny-decoder-main.ms](entry\src\main\resources\rawfile\tiny-decoder-main.ms)、[tiny-decoder-loop.ms](entry\src\main\resources\rawfile\tiny-decoder-loop.ms)。
+* 本示例程序中使用的终端图像分类模型文件为[tiny-encoder.ms](entry\src\main\resources\rawfile\tiny-encoder.ms)、[tiny-decoder-main.ms](entry\src\main\resources\rawfile\tiny-decoder-main.ms)、[tiny-decoder-loop.ms](entry\src\main\resources\rawfile\tiny-decoder-loop.ms)。需要先执行 git lfs install && git lfs pull 拉取模型文件。
 
 * 调用[MindSpore Lite Native API](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/reference/apis-mindspore-lite-kit/_mind_spore.md)实现推理。完整代码请参见mslite_napi.cpp。
 
@@ -60,7 +60,9 @@ entry
 
 ### 依赖
 
-无。
+* librosa，下载地址：[LibrosaCpp](https://github.com/ewan-xu/LibrosaCpp)，下载后置于[third_party](entry/src/main/cpp/third_party)目录下。
+* libsamplerate，下载地址：[libsamplerate](https://github.com/libsndfile/libsamplerate)，下载后置于[third_party](entry/src/main/cpp/third_party)目录下。
+* AudioFile.h、base64.h、base64.cc，下载地址：[whisper.axera](https://github.com/ml-inory/whisper.axera/tree/main/cpp/src)，下载后置于[src](entry/src/main/cpp/src)目录下。
 
 ### 约束与限制
 

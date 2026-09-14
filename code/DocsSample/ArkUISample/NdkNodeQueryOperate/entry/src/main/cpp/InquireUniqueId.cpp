@@ -29,25 +29,25 @@ const unsigned int VALUE_3 = 50;
     {
         ArkUI_NativeNodeAPI_1* nodeAPI = NativeModuleInstance::GetInstance()->GetNativeNodeAPI();
         ArkUI_NodeHandle testNode = nodeAPI->createNode(ARKUI_NODE_COLUMN);
-        ArkUI_NumberValue value[] = {VALUE_1};
+        ArkUI_NumberValue value[] = {{.f32 = VALUE_1}};
         ArkUI_AttributeItem item = {value, sizeof(value) / sizeof(ArkUI_NumberValue)};
-        value[0].f32 = VALUE_2;
         nodeAPI->setAttribute(testNode, NODE_WIDTH, &item);
+        value[0].f32 = VALUE_2;
         nodeAPI->setAttribute(testNode, NODE_HEIGHT, &item);
         struct IdList {
             int32_t id = -1;
         };
-        IdList *idl = new IdList;
+        static IdList idl;
         int32_t uid = -1;
         OH_ArkUI_NodeUtils_GetNodeUniqueId(testNode, &uid);
-        idl->id = uid;
+        idl.id = uid;
         auto button = nodeAPI->createNode(ARKUI_NODE_BUTTON);
         value[0].f32 = VALUE_3;
         nodeAPI->setAttribute(button, NODE_WIDTH, &item);
         nodeAPI->setAttribute(button, NODE_HEIGHT, &item);
         nodeAPI->addChild(testNode, button);
-        nodeAPI->registerNodeEvent(button, NODE_ON_CLICK, 1, idl);
-        OH_LOG_Print(LOG_APP, LOG_WARN, LOG_PRINT, "GetNodeUniqueId", "GetNodeHandleByUniqueId success1");
+        nodeAPI->registerNodeEvent(button, NODE_ON_CLICK, 1, &idl);
+        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT, "GetNodeUniqueId", "Node initialized, waiting for button click");
         nodeAPI->registerNodeEventReceiver([](ArkUI_NodeEvent *event) {
             auto targetId = OH_ArkUI_NodeEvent_GetTargetId(event);
             if (targetId == 1) {
@@ -59,7 +59,7 @@ const unsigned int VALUE_3 = 50;
                 }
             }
         });
-        // [End ndknodequeryoperate1_start]
         return std::make_shared<ArkUINode>(testNode);
     }
+        // [End ndknodequeryoperate1_start]
 }

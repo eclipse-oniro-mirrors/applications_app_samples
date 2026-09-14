@@ -40,7 +40,7 @@ export default function abilityTest() {
     })
 
     /**
-     * 查找类型为'Image'的控件，并进行对其进行双指放大操作
+     * 查找类型为'Image'的控件，并对其进行双指放大操作
      */
     it('componentPinch', TestType.FUNCTION, async () => {
       let driver: Driver = Driver.create();

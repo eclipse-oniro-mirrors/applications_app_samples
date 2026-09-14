@@ -15,8 +15,8 @@
 // [Start Cpp_ArkUIListItemNode]
 // ArkUIListItemNode.h
 // 提供列表项的封装类。
-#ifndef MYAPPLICATION_ARKUISTACKNODE_H
-#define MYAPPLICATION_ARKUISTACKNODE_H
+#ifndef MYAPPLICATION_ARKUILISTITEMNODE_H
+#define MYAPPLICATION_ARKUILISTITEMNODE_H
 
 #include "ArkUINode.h"
 
@@ -28,5 +28,5 @@ public:
 };
 } // namespace NativeModule
 
-#endif // MYAPPLICATION_ARKUISTACKNODE_H
+#endif // MYAPPLICATION_ARKUILISTITEMNODE_H
 // [End Cpp_ArkUIListItemNode]

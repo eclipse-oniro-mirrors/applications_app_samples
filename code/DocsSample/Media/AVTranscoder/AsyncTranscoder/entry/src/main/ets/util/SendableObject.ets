@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start CreateParameterObject]
 import { sendableContextManager } from '@kit.AbilityKit';
 
 
@@ -37,3 +38,4 @@ export class SendableObject {
     return this.data;
   }
 }
+// [End CreateParameterObject]

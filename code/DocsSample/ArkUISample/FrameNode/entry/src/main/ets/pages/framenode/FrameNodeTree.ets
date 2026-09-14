@@ -121,7 +121,7 @@ class MyNodeController extends NodeController {
           frameNode?.clearChildren();
           hilog.info(0x0000, `${TEST_TAG} clearChildren success `, 'success');
         } catch (err) {
-          hilog.error(0x0000, `${TEST_TAG} clearChildren fail: (err as BusinessError).code:
+          hilog.error(0x0000, `${TEST_TAG} clearChildren fail: ${(err as BusinessError).code}:
           ${(err as BusinessError).message}`, 'clearChildren error');
         }
       }, 4000)
@@ -249,10 +249,10 @@ struct Index {
               .fontSize(16)
               .width(400)
               .onClick(() => {
-                // 对FrameNode节点进行进行查询。当前节点为NodeContainer的子节点。
+                // 对FrameNode节点进行查询。当前节点为NodeContainer的子节点。
                 this.result = this.myNodeController.testInterfaceAboutSearch(this.myNodeController?.rootNode);
                 setTimeout(() => {
-                  // 对FrameNode节点进行进行查询。rootNode下的第一个子节点。
+                  // 对FrameNode节点进行查询。rootNode下的第一个子节点。
                   this.result = this.myNodeController.testInterfaceAboutSearch(this.myNodeController?.frameNode);
                 }, 2000)
               })

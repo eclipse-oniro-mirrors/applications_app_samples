@@ -309,9 +309,7 @@ struct ApiTestPage {
               .fontSize(20)
               .fontColor(Color.White)
           }.onClick(() => {
-            router.pushUrl({
-              url: 'pages/AttachStateChangeCallbackRegister',
-            })
+            this.getUIContext().getRouter().pushUrl({url:'pages/AttachStateChangeCallbackRegister'},()=>{});
           }).fancy()
           .margin({top:50})
 
@@ -320,9 +318,7 @@ struct ApiTestPage {
               .fontSize(20)
               .fontColor(Color.White)
           }.onClick(() => {
-            router.pushUrl({
-              url: 'pages/DeviceList',
-            })
+            this.getUIContext().getRouter().pushUrl({url:'pages/DeviceList'},()=>{});
           }).fancy();
 
 
@@ -337,7 +333,7 @@ struct ApiTestPage {
                     // 检查跟踪状态
                     const isEnabled = mechanicManager.getCameraTrackingEnabled();
 
-                    if (isEnabled === false) {
+                    if (isEnabled == false) {
                       // 开启摄像头跟踪
                       mechanicManager.setCameraTrackingEnabled(true);
                       console.info('Camera tracking enabled');

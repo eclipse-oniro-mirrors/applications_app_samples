@@ -30,7 +30,7 @@ struct ReducedRenderingPerformance {
       }
       .onClick(() => {
         this.simpleList.splice(1, 0, 'new item');
-        hilog.info(DOMAIN, 'testTag', '[onClick]: simpleList is [${this.simpleList.join(', ')}]');
+        hilog.info(DOMAIN, 'testTag', `[onClick]: simpleList is [${this.simpleList.join(', ')}]`);
       })
 
       ForEach(this.simpleList, (item: string) => {
@@ -49,7 +49,7 @@ struct ReducedChildItem {
   @Prop item: string;
 
   aboutToAppear() {
-    hilog.info(DOMAIN, TAG, '[aboutToAppear]: item is ${this.item}');
+    hilog.info(DOMAIN, TAG, `[aboutToAppear]: item is ${this.item}`);
   }
 
   build() {

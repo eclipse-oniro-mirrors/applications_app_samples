@@ -16,22 +16,27 @@
 // [Start link_union_type]
 @Component
 struct UnionChild {
+  // @Link支持联合类型
   @Link name: string | undefined;
 
   build() {
     Column() {
-
       Button('Child change name to Bob')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.name = 'Bob';
         })
 
       Button('Child change name to undefined')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.name = undefined;
         })
 
-    }.width('100%')
+    }
+    .width('100%')
   }
 }
 
@@ -42,20 +47,27 @@ struct UnionTypes {
 
   build() {
     Column() {
-      Text(`The name is  ${this.name}`).fontSize(30)
+      Text(`The name is  ${this.name}`)
+        .fontSize(20)
+        .margin(10)
 
       UnionChild({ name: this.name })
 
       Button('Parents change name to Peter')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.name = 'Peter';
         })
 
       Button('Parents change name to undefined')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.name = undefined;
         })
     }
+    .width('100%')
   }
 }
 // [End link_union_type]

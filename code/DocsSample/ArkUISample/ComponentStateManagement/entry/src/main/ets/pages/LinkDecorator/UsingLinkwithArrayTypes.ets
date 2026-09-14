@@ -28,6 +28,7 @@ struct ArrayTypesChild {
         .onClick(() => {
           this.items.push(this.items.length + 1);
         })
+      // 子组件的数组类型可以同步回父组件
       Button(`Button2: replace whole item`)
         .margin(12)
         .width(312)
@@ -58,7 +59,7 @@ struct ArrayTypes {
             .backgroundColor('#11a2a2a2')
             .fontColor('#e6000000')
         },
-        (item: ForEachInterface) => item.toString()
+        (item: number) => item.toString()
       )
     }
   }

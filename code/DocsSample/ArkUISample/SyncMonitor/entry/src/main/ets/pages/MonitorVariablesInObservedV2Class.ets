@@ -74,3 +74,12 @@ struct Index {
   }
 }
 // [End monitor_variables_in_observedv2_class]
+
+@Builder
+export function monitorVariablesInObservedV2Class() {
+  NavDestination() {
+    Index();
+  }
+  .backgroundColor('#f1f2f3')
+  .title($r('app.string.monitor_variables_in_observedv2_class'))
+}

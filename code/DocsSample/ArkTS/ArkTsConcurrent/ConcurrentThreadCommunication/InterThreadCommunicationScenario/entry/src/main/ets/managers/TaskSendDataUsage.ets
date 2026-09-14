@@ -14,12 +14,12 @@
  */
 
 // [Start implement_child_thread_task]
-// [Start receive_task_message]
 import { taskpool } from '@kit.ArkTS';
 import { IconItemSource } from './IconItemSource';
-
+// [Start receive_task_message]
+// 实现接收Task消息的方法
 function notice(data: number): void {
-  console.info('子线程任务已执行完，共加载图片: ', data);
+  console.info('子线程已加载数据，共加载图片: ', data);
 }
 // [End receive_task_message]
 
@@ -57,13 +57,16 @@ struct Index {
           .fontWeight(FontWeight.Bold)
           .onClick(() => {
             let iconItemSourceList: IconItemSource[];
-            let lodePictureTask: taskpool.Task = new taskpool.Task(loadPictureSendData, 30);
+            let loadPictureTask: taskpool.Task = new taskpool.Task(loadPictureSendData, 30);
             // 设置notice方法接收Task发送的消息
-            lodePictureTask.onReceiveData(notice);
-            taskpool.execute(lodePictureTask).then((res: object) => {
+            loadPictureTask.onReceiveData(notice);
+            taskpool.execute(loadPictureTask).then((res: object) => {
               iconItemSourceList = res as IconItemSource[];
+              this.message = 'success';
+            }).catch((e: BusinessError) => {
+              this.message = 'failed';
+              console.error(`taskpool: execute: Code: ${e.code}, message: ${e.message}`);
             })
-            this.message = 'success';
           })
       }
       .width('100%')

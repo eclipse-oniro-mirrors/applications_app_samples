@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [Start navigation_level_dialog]
+// [Start page_level_dialog]
 import { LevelMode, ImmersiveMode } from '@kit.ArkUI';
 
 let customDialogId: number = 0;
@@ -39,7 +39,6 @@ function customDialogBuilder(uiContext: UIContext, stack: NavPathStack | undefin
 
 @Component
 export struct PageLevelDialogInNavigation {
-  @State info: string = '';
   private stack: NavPathStack | undefined = undefined;
   private uiContext: UIContext = this.getUIContext();
   @State message: string = 'Hello World';
@@ -109,4 +108,4 @@ export struct PageLevelDialogInNavigationTestTwo {
     })
   }
 }
-// [End navigation_level_dialog]
+// [End page_level_dialog]

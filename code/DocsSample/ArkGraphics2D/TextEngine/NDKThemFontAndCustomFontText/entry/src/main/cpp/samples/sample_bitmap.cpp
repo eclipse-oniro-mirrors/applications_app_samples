@@ -175,7 +175,6 @@ void SampleBitMap::DrawCustomFontText()
     const char* fontPath = "/system/fonts/NotoSerifTamil[wdth,wght].ttf"; 
     // [End custom_font_c_custom_font_text_step2]
     // [Start custom_font_c_custom_font_text_step3]
-    // 返回0为成功，1为文件不存在，2为打开文件失败，3为读取文件失败，4为寻找文件失败，5为获取大小失败，9文件损坏
     int errorCode = OH_Drawing_RegisterFont(fontCollection, fontFamily, fontPath);
     // [End custom_font_c_custom_font_text_step3]
     // 用于在字体管理器中注册字体缓冲区
@@ -340,6 +339,7 @@ void SampleBitMap::DrawDisableSysFontText()
     // 情况一：如果此时设置使用了自定义字体，文本会正常显示
     // 该路径是待注册的自定义字体文件在应用设备下的路径，确保该自定义字体文件已正确放置在该路径下
     // 后续使用自定义字体时，需使用到该字体家族名
+    // 情况二：如果此时不调用OH_Drawing_SetTextStyleFontFamilies或传入空参，文本会默认使用系统默认字体，而此时系统字体已被禁用，因此文本将无法显示
     const char* fontFamily = "HarmonyOS_Sans"; 
     const char* fontPath = "/system/fonts/HarmonyOS_Sans.ttf"; 
     // 返回0为成功，1为文件不存在，2为打开文件失败，3为读取文件失败，4为寻找文件失败，5为获取大小失败，9文件损坏
@@ -347,14 +347,6 @@ void SampleBitMap::DrawDisableSysFontText()
     DRAWING_LOGI("errorCode = %{public}d", errorCode);
     const char *myFontFamilies[] = {"HarmonyOS_Sans"}; // 确保已成功注册自定义字体，填入自定义字体的字体家族名
     OH_Drawing_SetTextStyleFontFamilies(textStyle, 1, myFontFamilies);
-
-    // 情况二：如果此时使用了系统字体，文本将无法显示
-    // const char *myFontFamilies[] = {"HarmonyOS_Sans"};
-    // OH_Drawing_SetTextStyleFontFamilies(textStyle, 1, myFontFamilies);
-
-    // 情况三：如果此时不设置使用字体，文本会默认使用系统默认字体，而此时系统字体已被禁用，因此文本将无法显示
-    // const char *myFontFamilies[] = {"HarmonyOS_Sans"};
-    // OH_Drawing_SetTextStyleFontFamilies(textStyle, 1, myFontFamilies);
     // [End custom_font_c_disable_system_font_text_step1]
 
     // [Start custom_font_c_disable_system_font_text_step2]
@@ -397,9 +389,6 @@ void SampleBitMap::DrawText()
     // [End theme_font_c_draw_text_step1]
     // [Start theme_font_c_draw_text_step2]
     OH_Drawing_TextStyle *myTextStyle = OH_Drawing_CreateTextStyle();
-    // const char* myFontFamilies[] = {"otherFontFamilyName"};
-    // 注意不要使用此接口来指定字体
-    // OH_Drawing_SetTextStyleFontFamilies(textStyle, 1, myFontFamilies);
     // [End theme_font_c_draw_text_step2]
     
     // [Start theme_font_c_draw_text_step3]

@@ -14,7 +14,7 @@
  */
 @Entry
 @Component
-struct pageTransitionPage1 {
+struct PageTransitionPage1 {
   @State scale2: number = 1;
   @State opacity2: number = 1;
 

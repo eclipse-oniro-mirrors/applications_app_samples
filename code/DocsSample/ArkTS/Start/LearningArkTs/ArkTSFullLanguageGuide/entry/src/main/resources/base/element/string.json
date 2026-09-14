@@ -1,0 +1,180 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "ArkTS full language guide code-source sample"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "ArkTS full language guide"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "ArkTSFullLanguageGuide"
+    },
+    {
+      "name": "BasicKnowledge",
+      "value": "基本知识"
+    },
+    {
+      "name": "Function",
+      "value": "函数"
+    },
+    {
+      "name": "Class",
+      "value": "类"
+    },
+    {
+      "name": "GenericTypesAndFunctions",
+      "value": "泛型类型和函数"
+    },
+    {
+      "name": "Test_Basics_VariableDeclaration",
+      "value": "测试变量声明"
+    },
+    {
+      "name": "Test_Basics_TypeAnnotation",
+      "value": "测试类型标注"
+    },
+    {
+      "name": "Test_Basics_BigInt",
+      "value": "测试BigInt"
+    },
+    {
+      "name": "Test_Basics_NullSafety",
+      "value": "测试空安全"
+    },
+    {
+      "name": "Test_Functions_Declaration",
+      "value": "测试函数声明"
+    },
+    {
+      "name": "Test_Functions_OptionalParameters",
+      "value": "测试可选参数"
+    },
+    {
+      "name": "Test_Functions_DefaultParameters",
+      "value": "测试默认参数"
+    },
+    {
+      "name": "Test_Functions_Closure",
+      "value": "测试闭包"
+    },
+    {
+      "name": "Test_Classes_Definition",
+      "value": "测试类定义"
+    },
+    {
+      "name": "Test_Classes_StaticProperties",
+      "value": "测试静态属性"
+    },
+    {
+      "name": "Test_Classes_GetterSetter",
+      "value": "测试GetterSetter"
+    },
+    {
+      "name": "Test_Classes_Inheritance",
+      "value": "测试继承"
+    },
+    {
+      "name": "Test_Generics_Introduction",
+      "value": "测试泛型介绍"
+    },
+    {
+      "name": "Test_Generics_Class",
+      "value": "测试泛型类"
+    },
+    {
+      "name": "Test_Generics_Function",
+      "value": "测试泛型函数"
+    },
+    {
+      "name": "Test_Generics_Constraint",
+      "value": "测试泛型约束"
+    },
+    {
+      "name": "Uninitialized",
+      "value": "未初始化"
+    },
+    {
+      "name": "No_log_information_available",
+      "value": "暂无日志信息"
+    },
+    {
+      "name": "Realtime_status_information",
+      "value": "实时状态信息"
+    },
+    {
+      "name": "Current_status",
+      "value": "当前状态"
+    },
+    {
+      "name": "Log_information",
+      "value": "日志信息"
+    },
+    {
+      "name": "Test_Basics_VariableDeclaration_finish",
+      "value": "测试变量声明完成"
+    },
+    {
+      "name": "Test_Basics_TypeAnnotation_finish",
+      "value": "测试类型标注完成"
+    },
+    {
+      "name": "Test_Basics_BigInt_finish",
+      "value": "测试BigInt完成"
+    },
+    {
+      "name": "Test_Basics_NullSafety_finish",
+      "value": "测试空安全完成"
+    },
+    {
+      "name": "Test_Functions_Declaration_finish",
+      "value": "测试函数声明完成"
+    },
+    {
+      "name": "Test_Functions_OptionalParameters_finish",
+      "value": "测试可选参数完成"
+    },
+    {
+      "name": "Test_Functions_DefaultParameters_finish",
+      "value": "测试默认参数完成"
+    },
+    {
+      "name": "Test_Functions_Closure_finish",
+      "value": "测试闭包完成"
+    },
+    {
+      "name": "Test_Classes_Definition_finish",
+      "value": "测试类定义完成"
+    },
+    {
+      "name": "Test_Classes_StaticProperties_finish",
+      "value": "测试静态属性完成"
+    },
+    {
+      "name": "Test_Classes_GetterSetter_finish",
+      "value": "测试GetterSetter完成"
+    },
+    {
+      "name": "Test_Classes_Inheritance_finish",
+      "value": "测试继承完成"
+    },
+    {
+      "name": "Test_Generics_Introduction_finish",
+      "value": "测试泛型介绍完成"
+    },
+    {
+      "name": "Test_Generics_Class_finish",
+      "value": "测试泛型类完成"
+    },
+    {
+      "name": "Test_Generics_Function_finish",
+      "value": "测试泛型函数完成"
+    },
+    {
+      "name": "Test_Generics_Constraint_finish",
+      "value": "测试泛型约束完成"
+    }
+  ]
+}

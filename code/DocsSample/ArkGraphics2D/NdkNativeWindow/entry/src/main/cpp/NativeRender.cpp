@@ -280,7 +280,6 @@ static void TestReadWriteWindow(NativeWindow *nativeWindow)
 void NativeRender::DrawBaseColor()
 {
     NativeBufferApi();
-    uint32_t value = flag_ ? 0xfff0000f : 0xff00ffff;
     uint64_t surfaceId = 0;
     auto ret = OH_NativeWindow_GetSurfaceId(nativeWindow_, &surfaceId);
     if (ret != 0) {
@@ -295,9 +294,9 @@ void NativeRender::DrawBaseColor()
     }
     TestReadWriteWindow(nativeWindow);
     // [Start request_buffer]
-    int fenceFd = -1;
+    int releaseFenceFd = -1;
     OHNativeWindowBuffer *nativeWindowBuffer = nullptr;
-    ret = OH_NativeWindow_NativeWindowRequestBuffer(nativeWindow, &nativeWindowBuffer, &fenceFd);
+    ret = OH_NativeWindow_NativeWindowRequestBuffer(nativeWindow, &nativeWindowBuffer, &releaseFenceFd);
     if (ret != 0 || nativeWindowBuffer == nullptr) {
         return;
     }
@@ -311,16 +310,17 @@ void NativeRender::DrawBaseColor()
     // [Start write_addr]
     int retCode = -1;
     uint32_t timeout = 3000;
-    if (fenceFd != -1) {
+    if (releaseFenceFd != -1) {
         struct pollfd pollfds = {0};
-        pollfds.fd = fenceFd;
+        pollfds.fd = releaseFenceFd;
         pollfds.events = POLLIN;
         do {
             retCode = poll(&pollfds, 1, timeout);
         } while (retCode == -1 && (errno == EINTR || errno == EAGAIN));
-        close(fenceFd);
+        close(releaseFenceFd);
     }
     uint32_t *pixel = static_cast<uint32_t *>(mappedAddr);
+    uint32_t value = flag_ ? 0xfff0000f : 0xff00ffff;
     for (uint64_t x = 0; x < bufferHandle->width; x++) {
         for (uint64_t y = 0; y < bufferHandle->height; y++) {
             *pixel++ = value;
@@ -328,8 +328,9 @@ void NativeRender::DrawBaseColor()
     }
     // [End write_addr]
     // [Start flush_buffer]
-    struct Region *region = new Region();
-    ret = OH_NativeWindow_NativeWindowFlushBuffer(nativeWindow, nativeWindowBuffer, fenceFd, *region);
+    struct Region region = {0};
+    int acquireFenceFd = -1;
+    ret = OH_NativeWindow_NativeWindowFlushBuffer(nativeWindow, nativeWindowBuffer, acquireFenceFd, region);
     if (ret != NATIVE_ERROR_OK) {
         LOGE("flush failed");
         (void)OH_NativeWindow_NativeWindowAbortBuffer(nativeWindow, nativeWindowBuffer);

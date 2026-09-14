@@ -313,6 +313,21 @@ export class PhotoManager implements OutputManager {
   }
   // [End get_photo_rotation]
 
+  // [Start get_photo_rotation_without_device_degree]
+  getPhotoRotationWithoutDeviceDegree(photoOutput: camera.PhotoOutput): camera.ImageRotation {
+    let photoRotation: camera.ImageRotation = camera.ImageRotation.ROTATION_0;
+    try {
+      photoRotation = photoOutput.getPhotoRotation();
+      console.info(`Photo rotation is: ${photoRotation}`);
+    } catch (error) {
+      // 失败返回错误码error.code并处理
+      let err = error as BusinessError;
+      console.error(`The photoOutput.getPhotoRotationWithoutDeviceDegree call failed. error code: ${err.code}`);
+    }
+    return photoRotation;
+  }
+  // [End get_photo_rotation_without_device_degree]
+
   // [Start capture_photo]
   public async capture(isFront: boolean) {
     const degree = await this.getGravity();

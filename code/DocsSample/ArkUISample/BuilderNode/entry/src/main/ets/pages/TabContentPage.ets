@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -41,7 +41,7 @@ class TextNodeController extends NodeController {
     this.rootNode = new FrameNode(context);
     this.textNode = new BuilderNode(context, { selfIdealSize: { width: 150, height: 150 } });
     this.textNode.build(wrapBuilder<[Params]>(buildText), new Params(this.message));
-    this.textNode.inheritFreezeOptions(true); // 设置BuilderNode的冻结继承状态为True。
+    this.textNode.inheritFreezeOptions(true); // 设置BuilderNode的冻结继承状态为true。
     if (this.rootNode !== null) {
       this.rootNode.appendChild(this.textNode.getFrameNode()); // 将BuilderNode上树。
     }
@@ -62,7 +62,7 @@ const textNodeController: TextNodeController = new TextNodeController();
 @ComponentV2
 struct TabContentTest {
   @Local message: number = 0;
-  @Local index:number = 1;
+  @Local index:number = 0;
 
   build() {
     Row() {
@@ -100,7 +100,7 @@ struct TabContentTest {
 @ComponentV2({ freezeWhenInactive: true })
 struct FreezeBuildNode {
   @Param message: number = 0;
-  @Param index: number = 1;
+  @Param index: number = 0;
   @Monitor('message') onMessageUpdated(mon: IMonitor) {
     hilog.info(0xF811, 'testTag', '%{public}s',`FreezeBuildNode message callback func ${this.message}`);
   }
@@ -114,7 +114,7 @@ struct FreezeBuildNode {
 @ComponentV2({ freezeWhenInactive: true }) // BuilderNode下面的子组件开启冻结。
 struct buildNodeChild {
   @Param message: number = 0;
-  @Param index: number = 1;
+  @Param index: number = 0;
 
   @Monitor('message') onMessageUpdated(mon: IMonitor) {
     hilog.info(0xF811, 'testTag', '%{public}s',`FreezeBuildNode buildNodeChild message callback func ${this.message}`);

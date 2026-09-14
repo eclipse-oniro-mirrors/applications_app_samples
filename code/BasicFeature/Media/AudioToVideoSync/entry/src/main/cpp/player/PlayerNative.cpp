@@ -43,6 +43,7 @@ void Callback(void *asyncContext)
             napi_get_reference_value(context->env, context->callbackRef, &callback);
             // callBack to UI side.
             napi_call_function(context->env, nullptr, callback, 0, nullptr, nullptr);
+            napi_delete_reference(context->env, context->callbackRef);
             napi_close_handle_scope(context->env, scope);
             delete context;
             delete work;

@@ -67,8 +67,8 @@ static OH_AudioData_Callback_Result MyOnWriteData_New(
 {
     // 将待播放的数据，按audioDataSize长度写入audioData。
     // 如果开发者不希望播放某段audioData，返回AUDIO_DATA_CALLBACK_RESULT_INVALID即可。
-    int32_t readCount = fread(audioData, audioDataSize, 1, g_fp);
-    if (readCount < 0) {
+    size_t readCount = fread(audioData, audioDataSize, 1, g_fp);
+    if (readCount == 0) {
         return AUDIO_DATA_CALLBACK_RESULT_INVALID;
     }
     if (feof(g_fp)) {
@@ -162,6 +162,7 @@ napi_value CreateAudioRender(napi_env env, napi_callback_info info)
     // [End Render_Create]
     // [Start Render_ConfigStream]
     // 设置音频采样率。
+    // 从API版本26.0.0开始：音频渲染扩展支持8000Hz到384000Hz范围内以10Hz为步长的采样率值。具体设备支持的采样率规格会存在差异。
     const int SAMPLING_RATE_48K = 48000;
     OH_AudioStreamBuilder_SetSamplingRate(builder, SAMPLING_RATE_48K);
     // 设置音频声道。
@@ -321,6 +322,7 @@ napi_value workgroupprocess(napi_env env, napi_callback_info info)
         auto now = std::chrono::system_clock::now().time_since_epoch();
         auto startTimeMs = std::chrono::duration_cast<std::chrono::milliseconds>(now).count();
         OH_AudioWorkgroup_Start(grp, startTimeMs, startTimeMs + intervalMs);
+        // 此处为示例逻辑，实际开发中应根据业务需求控制线程运行周期。
         threadShouldRun = false;
         // 应用音频数据处理。
         OH_AudioWorkgroup_Stop(grp);
@@ -328,7 +330,7 @@ napi_value workgroupprocess(napi_env env, napi_callback_info info)
     // [End OH_AudioWorkgroup_Start]
     
     // [Start OH_AudioWorkgroup_RemoveThread]
-    // 当线程已经不需要接入分组时，将其从工作组中移除。
+    // 当线程不再需要参与工作组任务时，将其从工作组中移除。
     OH_AudioWorkgroup_RemoveThread(grp, g_tokenId);
 
     OH_AudioResourceManager_ReleaseWorkgroup(resMgr, grp);

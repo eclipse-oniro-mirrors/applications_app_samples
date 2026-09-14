@@ -17,7 +17,7 @@ import { display } from '@kit.ArkUI';
 
 @Entry
 @Component
-struct rotation {
+struct RotationTest {
 
   // 获取通过监听窗口的windowSizeChange事件得到的屏幕显示方向
   @StorageLink('orientation') myOrientation: display.Orientation = display.Orientation.PORTRAIT;
@@ -26,7 +26,7 @@ struct rotation {
     Stack() {
 
       // 当屏幕显示方向变化时，切换组件的视图效果
-      if (this.myOrientation == display.Orientation.PORTRAIT || this.myOrientation == display.Orientation.PORTRAIT_INVERTED) {
+      if (this.myOrientation === display.Orientation.PORTRAIT || this.myOrientation === display.Orientation.PORTRAIT_INVERTED) {
         // 请将$r('app.media.sky')替换为实际资源文件
         Image($r('app.media.sky'))
           .size({ width: 100, height: 100 })

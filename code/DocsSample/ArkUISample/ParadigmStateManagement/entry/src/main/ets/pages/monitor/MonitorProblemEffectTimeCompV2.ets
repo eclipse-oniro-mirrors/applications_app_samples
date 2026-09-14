@@ -21,6 +21,7 @@ class Info {
 
   constructor() {
     hilog.info(0xFF00, 'testTag', '%{public}s', 'in constructor message change to initialized');
+    // 此时@Monitor还未初始化成功，因此不会监听到message的变化
     this.message = 'initialized';
   }
 }
@@ -47,11 +48,16 @@ struct Child {
   build() {
     Column() {
       Text('Child')
+        .fontSize(20)
+        .margin(10)
       Button('change message in Child')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.info.message = 'Child click to change Message';
         })
     }
+    .width('95%')
     .borderColor(Color.Red)
     .borderWidth(2)
 
@@ -73,10 +79,14 @@ struct Index {
   build() {
     Column() {
       Button('show/hide Child')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.flag = !this.flag
         })
       Button('change message in Index')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.info.message = 'Index click to change Message';
         })

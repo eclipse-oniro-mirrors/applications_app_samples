@@ -35,7 +35,7 @@ class Info {
 
 @ObservedV2
 class UIStyle {
-  public info: Info = new Info();
+  @Trace public info: Info = new Info();
   @Trace public color: Color = Color.Black;
   @Trace public fontSize: number = 45;
 
@@ -45,6 +45,7 @@ class UIStyle {
     let curValue: number = monitor.value()?.now as number;
     if (lastValue != 0) {
       let diffPercent: number = (curValue - lastValue) / lastValue;
+      // 通过info.value变化的幅度，改变Text组件显示的样式
       if (diffPercent > 0.1) {
         this.color = Color.Red;
         this.fontSize = 50;
@@ -69,11 +70,15 @@ struct Index {
       Text(`Important Value: ${this.textStyle.info.value}`)
         .fontColor(this.textStyle.color)
         .fontSize(this.textStyle.fontSize)
+        .margin(10)
       Button('change!')
+        .width(300)
+        .margin(10)
         .onClick(() => {
           this.textStyle.info.value = Math.floor(Math.random() * 100) + 1;
         })
     }
+    .width('100%')
   }
 }
 // [End monitor_scene_deep_attribute_changes]

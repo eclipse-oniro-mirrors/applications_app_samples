@@ -12,11 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start function threadGetData]
+// [Start function_threadGetData]
 import { taskpool } from '@kit.ArkTS';
 import { SendableData } from '../Model/modelView';
 import { UIUtils } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN = 0x0000;
 
 @Concurrent
 function threadGetData(param: string): SendableData {
@@ -40,19 +42,32 @@ struct Page3 {
   build() {
     Column() {
       Text(this.send.name)
-      Button('change name').onClick(() => {
-        // ok 可以观察到属性的改变
-        this.send.name += '0';
-      })
-
-      Button('task').onClick(() => {
-        // 将待执行的函数放入taskpool内部任务队列等待，等待分发到工作线程执行。
-        taskpool.execute(threadGetData, this.send.name).then(val => {
-          // 和@Local一起使用，可以观察this.send的变化
-          this.send = UIUtils.makeObserved(val as SendableData);
+        .fontSize(20)
+        .margin(10)
+      Button('change name')
+        .width(300)
+        .margin(10)
+        .onClick(() => {
+          // ok 可以观察到属性的改变
+          this.send.name += '0';
         })
-      })
+
+      Button('task')
+        .width(300)
+        .margin(10)
+        .onClick(() => {
+          // 将待执行的函数放入taskpool内部任务队列等待，等待分发到工作线程执行。
+          taskpool.execute(threadGetData, this.send.name)
+            .catch((err: Error) => {
+              hilog.error(DOMAIN, 'testTag', `taskpool execute fail. code is ${err.name}, message is ${err.message}`);
+            })
+            .then(val => {
+              // 和@Local一起使用，可以观察this.send的变化
+              this.send = UIUtils.makeObserved(val as SendableData);
+            });
+        })
     }
+    .width('100%')
   }
 }
-// [End function threadGetData]
+// [End function_threadGetData]

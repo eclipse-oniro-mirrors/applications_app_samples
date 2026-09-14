@@ -27,6 +27,6 @@ export class MyTestA {
 }
 
 export class MyTestB {
-  static nameStr:string = 'MyTestB';
+  static nameStr: string = 'MyTestB';
 }
 // [End concurrent_taskpool_test_resources]

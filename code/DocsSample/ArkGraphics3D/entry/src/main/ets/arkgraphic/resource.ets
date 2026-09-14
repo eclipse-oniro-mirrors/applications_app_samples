@@ -119,7 +119,7 @@ function createEnvironmentPromise() : Promise<Environment> {
           envEntity.indirectDiffuseFactor.w = 1;
           resolve(envEntity);
         }).catch((err: string) => {
-          console.error('Environment mapping material create failed: ' + err + '.');
+          console.error('Environment create failed: ' + err + '.');
           reject(err);
         });
       }).catch((err: string) => {
@@ -187,7 +187,7 @@ struct materialPage {
           this.rf = this.scene.getResourceFactory();
           // [StartExclude scene_load_init]
           // [Start scene_camera_init]
-          this.cam = await this.rf.createCamera({ 'name': 'Camera1' });
+          this.cam = await this.rf.createCamera({ name: 'Camera1' });
           this.cam.enabled = true;
           this.cam.position.z = 5;
           // [End scene_camera_init]
@@ -331,7 +331,7 @@ struct materialPage {
           .height(40)
           // [EndExclude environment_button_action]
           .onClick(async (): Promise<void> => {
-            console.info('Start to replace with a material of image');
+            console.info('Start to add environment to scene');
 
             if (!this.scene || !this.cam) {
               return;

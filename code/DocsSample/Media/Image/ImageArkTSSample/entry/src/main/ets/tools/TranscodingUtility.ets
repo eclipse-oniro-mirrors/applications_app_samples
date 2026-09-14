@@ -14,7 +14,7 @@
  */
 // [Start transcoding_example]
 import { BusinessError } from '@kit.BasicServicesKit';
-import { fileIo as fs } from '@kit.CoreFileKit';
+import { fileIo } from '@kit.CoreFileKit';
 import { image } from '@kit.ImageKit';
 import { PromptAction } from '@kit.ArkUI';
 
@@ -27,21 +27,23 @@ export async function reEncoding(context : Context, fd : number | undefined) {
   const imagePackerApi = image.createImagePacker();
   // 配置图片编码选项：
   // format应使用标准的mimetype格式，如："image/jpeg"、"image/png"、"image/heic"；
-  // quality推荐设置为80，在保证较好的图片质量的同时，可以使编码后的图片文件体积更小；
+  // quality默认值为0，建议不低于80；本示例统一设置为90，兼顾图片质量和文件体积；
   // needsPackProperties参数，用于控制编码时是否保存图片属性信息。默认值为false，即不保存。
-  let packOpts : image.PackingOption = { format:'image/jpeg', quality:80, needsPackProperties:false };
+  let packOpts : image.PackingOption = { format:'image/jpeg', quality:90, needsPackProperties:false };
   // 指定图片编码文件的存放路径。
   const filePath : string = context.cacheDir + '/result.jpg';
   try {
-    let file = fs.openSync(filePath, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE);
+    let file = fileIo.openSync(filePath, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
     imagePackerApi.packToFile(imageSource, file.fd, packOpts).then(() => {
       promptAction.showToast({ message: `Succeed to pack the image.`});
       console.info('Succeed to pack the image.');
     }).catch((error : BusinessError) => {
       promptAction.showToast({ message: 'Failed to pack the image. And the error is: ' + error});
       console.error('Failed to pack the image. And the error is: ' + error);
-    }).finally(()=>{
-      fs.closeSync(file.fd);
+    }).finally(async () => {
+      fileIo.closeSync(file.fd);
+      await imageSource.release();
+      await imagePackerApi.release();
     })
   } catch (error) {
     console.error('Failed to pack the image. And the error is: ' + error);

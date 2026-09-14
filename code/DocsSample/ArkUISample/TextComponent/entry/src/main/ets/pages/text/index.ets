@@ -24,30 +24,31 @@ import resource from '../../common/resource';
 import { SelectMenu } from './SelectMenu';
 import { AIMenu } from './AIMenu';
 import { TextSpanOnHover } from './TextSpanOnHover';
-import { ContentTransition } from './ContentTransition';
+import { ContentTransitionDemo } from './ContentTransition';
 import { TextLayout } from './TextLayout';
 import { LineSpacing } from './LineSpacing';
 import { EnableAutoSpacing } from './EnableAutoSpacing';
-import { ShaderStyle } from './ShaderStyle';
+import { ShaderStyleDemo } from './ShaderStyle';
 import { GeneralEvents } from './GeneralEvents';
 import { BindSelectionMenu } from './BindSelectionMenu';
 import { SelectionChange } from './SelectionChange';
 import { ServiceMenuItems } from './ServiceMenuItems';
 import { DisableMenuItems } from './DisableMenuItems';
 import { PrepareMenu } from './PrepareMenu';
-import { WordBreakd } from './WordBreakd';
+import { WordBreakExample } from './WordBreakExample';
 import { HeightAdaptivePolicy } from './HeightAdaptivePolicy';
 import { LengthMetric } from './LengthMetric';
 import { DisplayedTogether } from './DisplayedTogether';
 import { TextLong } from './TextLong';
-import { TextLongTow } from './TextLongTow';
+import { TextLongTwo } from './TextLongTwo';
 import { CustomAndBlockMenus } from './CustomAndBlockMenus';
+import { TextMenuShowSubWindow } from './TextMenuShowSubWindow';
 
 export const TEXT_ROUTE_PREFIX: string = 'text';
 
 const routes: Route[] = [
   {
-    name: `${TEXT_ROUTE_PREFIX}/CreatText`,
+    name: `${TEXT_ROUTE_PREFIX}/CreateText`,
     title: resource.resourceToString($r('app.string.CreatText_title')),
     description: $r('app.string.CreatText_description')
   },
@@ -87,7 +88,7 @@ const routes: Route[] = [
     description: $r('app.string.OnClickOnHover_description')
   },
   {
-    name: `${TEXT_ROUTE_PREFIX}/ContentTransition`,
+    name: `${TEXT_ROUTE_PREFIX}/ContentTransitionDemo`,
     title: resource.resourceToString($r('app.string.Set_digital_flip_effect')),
     description: $r('app.string.Set_digital_flip_effect_description')
   },
@@ -107,7 +108,7 @@ const routes: Route[] = [
     description: $r('app.string.Automatic_spacing_description')
   },
   {
-    name: `${TEXT_ROUTE_PREFIX}/ShaderStyle`,
+    name: `${TEXT_ROUTE_PREFIX}/ShaderStyleDemo`,
     title: resource.resourceToString($r('app.string.Shader_Style')),
     description: $r('app.string.Shader_Style_description')
   },
@@ -142,7 +143,7 @@ const routes: Route[] = [
     description: $r('app.string.Prepare_Menu_description')
   },
   {
-    name: `${TEXT_ROUTE_PREFIX}/WordBreakd`,
+    name: `${TEXT_ROUTE_PREFIX}/WordBreakExample`,
     title: resource.resourceToString($r('app.string.Word_Break')),
     description: $r('app.string.Word_Break_description')
   },
@@ -167,14 +168,19 @@ const routes: Route[] = [
     description: $r('app.string.Text_Long_description')
   },
   {
-    name: `${TEXT_ROUTE_PREFIX}/TextLongTow`,
-    title: resource.resourceToString($r('app.string.Text_Long_Tow')),
-    description: $r('app.string.Text_Long_Tow_description')
+    name: `${TEXT_ROUTE_PREFIX}/TextLongTwo`,
+    title: resource.resourceToString($r('app.string.Text_Long_Two')),
+    description: $r('app.string.Text_Long_Two_description')
   },
   {
     name: `${TEXT_ROUTE_PREFIX}/CustomAndBlockMenus`,
     title: resource.resourceToString($r('app.string.CustomAndBlockMenus')),
     description: $r('app.string.CustomAndBlockMenus')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/TextMenuShowSubWindow`,
+    title: resource.resourceToString($r('app.string.TextMenuShow_title')),
+    description: $r('app.string.TextMenuShow_description')
   }
 ];
 
@@ -199,7 +205,7 @@ export function TextDestination(name: string) {
   } else if (name === routes[7].name) {
     TextSpanOnHover();
   } else if (name === routes[8].name) {
-    ContentTransition();
+    ContentTransitionDemo();
   } else if (name === routes[9].name) {
     TextLayout();
   } else if (name === routes[10].name) {
@@ -207,7 +213,7 @@ export function TextDestination(name: string) {
   } else if (name === routes[11].name) {
     EnableAutoSpacing();
   } else if (name === routes[12].name) {
-    ShaderStyle();
+    ShaderStyleDemo();
   } else if (name === routes[13].name) {
     GeneralEvents();
   } else if (name === routes[14].name) {
@@ -221,7 +227,7 @@ export function TextDestination(name: string) {
   } else if (name === routes[18].name) {
     PrepareMenu();
   } else if (name === routes[19].name) {
-    WordBreakd();
+    WordBreakExample();
   } else if (name === routes[20].name) {
     HeightAdaptivePolicy();
   } else if (name === routes[21].name) {
@@ -231,9 +237,11 @@ export function TextDestination(name: string) {
   } else if (name === routes[23].name) {
     TextLong();
   } else if (name === routes[24].name) {
-    TextLongTow();
+    TextLongTwo();
   } else if (name === routes[25].name) {
     CustomAndBlockMenus();
+  } else if (name === routes[26].name) {
+    TextMenuShowSubWindow();
   }
 }
 

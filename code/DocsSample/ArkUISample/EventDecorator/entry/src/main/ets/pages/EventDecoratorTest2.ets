@@ -24,11 +24,15 @@ struct Child2 {
   build() {
     Column() {
       Text(`Child index: ${this.index}`)
+        .fontSize(20)
+        .margin(10)
         .onClick(() => {
           this.changeIndex(20);
+          // 输出子组件this.index，验证调用@Event后值不会立即同步回子组件
           hilog.info(DOMAIN, TAG, `after changeIndex ${this.index}`);
         })
     }
+    .width('100%')
   }
 }
 @Entry
@@ -42,10 +46,12 @@ struct Index2 {
         index: this.index,
         changeIndex: (val: number) => {
           this.index = val;
+          // 输出父组件的index，用于对比子组件侧日志
           hilog.info(DOMAIN, TAG, `in changeIndex ${this.index}`);
         }
       })
     }
+    .width('100%')
   }
 }
 // [End EventDecoratorTest2]

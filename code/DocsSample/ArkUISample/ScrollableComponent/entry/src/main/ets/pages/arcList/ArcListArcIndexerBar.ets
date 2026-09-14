@@ -17,6 +17,7 @@ import { ComponentCard } from '../../common/Card';
 import { ArcAlphabetIndexer, ArcAlphabetIndexerAttribute } from '@ohos.arkui.ArcAlphabetIndexer';
 import { util } from '@kit.ArkTS';
 import { ColorMetrics, ComponentContent } from '@ohos.arkui.node';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 // [Start arcAlphabetIndexer_start]
 import { ArcList, ArcListAttribute, ArcListItemAttribute, ArcListItem, LengthMetrics } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
@@ -43,7 +44,7 @@ function buildText() {
 }
 // [EndExclude arcAlphabetIndexer_start]
 const alphabets: string[] = [
-  '#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N',
+  '#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
   'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
 ];
 
@@ -129,8 +130,10 @@ export struct ArcListArcIndexerBar {
             .backgroundColor(Color.Black)
             // [EndExclude arcAlphabetIndexer_start]
             .onScrollIndex((firstIndex: number, lastIndex: number, centerIndex: number) => {
-              // 根据列表滚动到的索引值，重新计算对应索引条的位置this.selectedIndex
-              this.indexerIndex = centerIndex + 1;
+              // 根据列表滚动到的索引值，重新计算对应索引条的位置this.indexerIndex
+              let contact = this.contacts[centerIndex] as Contact;
+              let firstChar = contact.firstChar;
+              this.indexerIndex = alphabets.indexOf(firstChar);
             })
             // [StartExclude arcAlphabetIndexer_start]
             .id('arcIndexTest')
@@ -140,8 +143,19 @@ export struct ArcListArcIndexerBar {
               .selected(this.indexerIndex!!)
               .onSelect((index: number) => {
                 // 选中索引项后，列表跳转到相应位置
-                this.indexerIndex = index
-                this.arcListScroller.scrollToIndex(this.indexerIndex - 1)
+                this.indexerIndex = index;
+                const selectedLetter = alphabets[index];
+                let targetIndex = -1;
+                for (let i = 0; i < this.contacts.length; i++) {
+                  const contact = this.contacts[i] as Contact;
+                  if (contact.firstChar === selectedLetter) {
+                    targetIndex = i;
+                    break;
+                  }
+                }
+                if (targetIndex >= 0) {
+                  this.arcListScroller.scrollToIndex(targetIndex);
+                }
               })
               // [StartExclude arcAlphabetIndexer_start]
               .autoCollapse(true)
@@ -149,11 +163,11 @@ export struct ArcListArcIndexerBar {
               .height(this.watchSize)
               .usePopup(false)
               .hitTestBehavior(HitTestMode.Transparent)
-              .selectedColor(ColorMetrics.resourceColor(0xFFFFFF))
-              .selectedBackgroundColor(ColorMetrics.resourceColor(0x1F71FF))
-              .color(ColorMetrics.resourceColor(0xFFFFFF))
-              .popupColor(ColorMetrics.resourceColor(0xFFFFFF))
-              .popupBackground(ColorMetrics.resourceColor(0xD8404040))
+              .selectedColor(ColorMetrics.numeric(0xFFFFFF))
+              .selectedBackgroundColor(ColorMetrics.numeric(0x1F71FF))
+              .color(ColorMetrics.numeric(0xFFFFFF))
+              .popupColor(ColorMetrics.numeric(0xFFFFFF))
+              .popupBackground(ColorMetrics.numeric(0xD8404040))
               .itemSize(LengthMetrics.px(12))
               .selectedFont({
                 size: '11.0fp',
