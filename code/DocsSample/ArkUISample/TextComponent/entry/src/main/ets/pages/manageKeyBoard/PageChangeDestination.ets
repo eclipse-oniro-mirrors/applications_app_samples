@@ -16,11 +16,11 @@
 // [Start page_ChangeDestination]
 @Builder
 export function pageChangeDestinationBuilder() {
-  pageChangeDestination()
+  PageChangeDestination()
 }
 
 @Component
-struct pageChangeDestination {
+struct PageChangeDestination {
   pathStack: NavPathStack = new NavPathStack()
   // 跳转后的页面
   build() {
@@ -39,4 +39,4 @@ struct pageChangeDestination {
 }
 // [End page_ChangeDestination]
 
-export { pageChangeDestination };
+export { PageChangeDestination };

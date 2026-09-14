@@ -16,7 +16,7 @@
 @Entry
 @Component
 // [Start requestFocus_CloseKeyBoard]
-struct requestFocusCloseKeyBoard {
+struct RequestFocusCloseKeyBoard {
   controller: TextInputController = new TextInputController();
   @State inputValue: string = '';
 
@@ -42,4 +42,4 @@ struct requestFocusCloseKeyBoard {
 }
 // [End requestFocus_CloseKeyBoard]
 
-export { requestFocusCloseKeyBoard };
+export { RequestFocusCloseKeyBoard };
