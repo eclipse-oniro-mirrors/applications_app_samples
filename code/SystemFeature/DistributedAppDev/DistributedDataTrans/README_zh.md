@@ -151,7 +151,7 @@ START --Socket/Listen 成功--> LISTENING --OnBind--> CONNECTED --Shutdown/OnShu
 
 本示例依赖 OpenHarmony 软总线源码树（`//foundation/communication/dsoftbus`），需要放入软总线源码中编译，无额外 sample 依赖。接入步骤如下。
 
-1. 将本目录整体拷贝到 `foundation/communication/dsoftbus/tests/video_stream_sample`。
+1. 在 `foundation/communication/dsoftbus/tests/` 下新建 `video_stream_sample` 目录，将本目录（`DistributedDataTrans`）内的全部文件（`BUILD.gn`，`main.c`，`include/`，`src/`，不含目录本身）拷入，使构建文件位于 `tests/video_stream_sample/BUILD.gn`。
 2. 在 `foundation/communication/dsoftbus/tests/BUILD.gn` 中注册构建目标：
 
 ```gn
@@ -169,6 +169,8 @@ group("video_stream_sample") {
 ```sh
 ./build.sh --product-name <产品名> --build-target video_stream_sample --ccache
 ```
+
+编译产物路径示例（小型系统）：`out/hispark_taurus/ipcamera_hispark_taurus_linux/bin/video_stream_sample`，实际目录取决于编译产品名。
 
 5. 将编译出的可执行文件部署到目标设备，并在两台已组网设备上分别运行。
 

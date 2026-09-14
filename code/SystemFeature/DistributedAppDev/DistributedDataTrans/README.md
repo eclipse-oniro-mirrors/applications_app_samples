@@ -151,7 +151,7 @@ After the modification, rebuild SoftBus, or replace the configuration file on a 
 
 This sample depends on the OpenHarmony SoftBus source tree (`//foundation/communication/dsoftbus`). It must be built inside the SoftBus source tree and does not depend on other samples. Integration steps:
 
-1. Copy this directory to `foundation/communication/dsoftbus/tests/video_stream_sample`.
+1. Create a `video_stream_sample` directory under `foundation/communication/dsoftbus/tests/`, and copy all the contents of this directory (`DistributedDataTrans`), including `BUILD.gn`, `main.c`, `include/`, and `src/`, but not the directory itself, into it so that the build file is located at `tests/video_stream_sample/BUILD.gn`.
 2. Register the build target in `foundation/communication/dsoftbus/tests/BUILD.gn`:
 
 ```gn
@@ -169,6 +169,8 @@ group("video_stream_sample") {
 ```sh
 ./build.sh --product-name <product_name> --build-target video_stream_sample --ccache
 ```
+
+For a small system, the executable is generated at `out/hispark_taurus/ipcamera_hispark_taurus_linux/bin/video_stream_sample` (example path; the actual directory depends on the product name).
 
 5. Deploy the built executable to the target devices and run it on two networked devices.
 
