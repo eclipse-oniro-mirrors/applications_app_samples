@@ -51,7 +51,7 @@ struct CustomizeCanvasComponentDrawing {
   }
 
   drawText(): void {
-    console.error('drawText')
+    console.info('drawText')
     this.context.reset()
     this.context.direction = 'inherit'
     this.context.font = '30px sans-serif'
