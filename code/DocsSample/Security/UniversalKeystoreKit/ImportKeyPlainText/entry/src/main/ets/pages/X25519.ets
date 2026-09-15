@@ -53,15 +53,11 @@ async function importKeyItem(keyAlias: string, huksOptions: huks.HuksOptions): P
   console.info('promise: enter importKeyItem');
   let ret: boolean = false;
   try {
-    await huks.importKeyItem(keyAlias, huksOptions)
-      .then(() => {
-        console.info(`promise: importKeyItem success`);
-        ret = true;
-      }).catch((error: BusinessError) => {
-        console.error(`promise: importKeyItem failed errCode : ${error.code}, errMsg : ${error.message}`);
-      })
+    await huks.importKeyItem(keyAlias, huksOptions);
+    console.info(`promise: importKeyItem success`);
+    ret = true;
   } catch (error) {
-    console.error(`promise: importKeyItem input arg invalid`);
+    console.error(`promise: importKeyItem failed errCode : ${(error as BusinessError).code}, errMsg : ${(error as BusinessError).message}`);
   }
   return ret;
 }
