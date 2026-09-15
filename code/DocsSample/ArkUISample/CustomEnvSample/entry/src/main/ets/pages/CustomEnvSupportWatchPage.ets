@@ -14,7 +14,7 @@
  */
 
 // [Start CustomEnvSupportWatch]
-import { WithEnv, WithEnvAttribute } from '@kit.ArkUI';
+import { WithEnv } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const customWatch: CustomEnvKey<number> = CustomEnvKey.create<number>();
