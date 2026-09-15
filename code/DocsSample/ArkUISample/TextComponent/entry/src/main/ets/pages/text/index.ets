@@ -43,6 +43,7 @@ import { TextLong } from './TextLong';
 import { TextLongTwo } from './TextLongTwo';
 import { CustomAndBlockMenus } from './CustomAndBlockMenus';
 import { TextMenuShowSubWindow } from './TextMenuShowSubWindow';
+import { GradientTextFlowEffect } from './GradientTextFlowEffect';
 
 export const TEXT_ROUTE_PREFIX: string = 'text';
 
@@ -181,6 +182,11 @@ const routes: Route[] = [
     name: `${TEXT_ROUTE_PREFIX}/TextMenuShowSubWindow`,
     title: resource.resourceToString($r('app.string.TextMenuShow_title')),
     description: $r('app.string.TextMenuShow_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/GradientTextFlowEffect`,
+    title: resource.resourceToString($r('app.string.GradientTextFlowEffect_title')),
+    description: $r('app.string.GradientTextFlowEffect_description')
   }
 ];
 
@@ -242,6 +248,8 @@ export function TextDestination(name: string) {
     CustomAndBlockMenus();
   } else if (name === routes[26].name) {
     TextMenuShowSubWindow();
+  } else if (name === routes[27].name) {
+    GradientTextFlowEffect();
   }
 }
 
