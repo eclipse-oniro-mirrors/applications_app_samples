@@ -153,9 +153,9 @@ struct formHostSample {
     this.formIds.forEach((id) => {
       hilog.info(DOMAIN_NUMBER, TAG, 'delete all form');
       formHost.deleteForm(id).then(() => {
-        console.info(`formHost deleteForm success, formid: ${id}`);
+        hilog.info(DOMAIN_NUMBER, TAG, `formHost deleteForm success, formid: ${id}`);
       }).catch((error: BusinessError) => {
-        console.error(`formHost deleteForm, code: ${error.code}, message: ${error.message}`);
+        hilog.error(DOMAIN_NUMBER, TAG, `formHost deleteForm, code: formid: ${id}, ${error.code}, message: ${error.message}`);
       });
     });
     // 注销监听应用的安装。
