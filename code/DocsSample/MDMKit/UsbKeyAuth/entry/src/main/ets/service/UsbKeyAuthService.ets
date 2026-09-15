@@ -18,7 +18,7 @@ import { securityManager } from '@kit.MDMKit';
 import { userAuth } from '@kit.UserAuthenticationKit';
 // [End import_usb_key]
 import { BusinessError } from '@kit.BasicServicesKit';
-import { wantTemp, accountId, pluginInfo } from '../common/Constants';
+import { accountId, pluginInfo } from '../common/Constants';
 import Logger from '../common/Logger';
 
 // [Start request_auth_token]
@@ -56,7 +56,7 @@ export async function bindUsbKey(): Promise<string> {
   while (retryCount < MAX_RETRIES) {
     try {
       // 第1步：打开会话，获取挑战值
-      const challenge: Uint8Array = await securityManager.openSession(wantTemp, accountId);
+      const challenge: Uint8Array = await securityManager.openSession(accountId);
       Logger.info('Succeeded in opening session.');
 
       // 第2步：发起用户身份认证，获取认证令牌
@@ -65,16 +65,15 @@ export async function bindUsbKey(): Promise<string> {
 
       // 第3步：绑定USB Key凭据
       const addInfo: securityManager.AddCredentialInfo = { pluginInfo, authToken };
-      securityManager.addUserExtCredential(wantTemp, addInfo, accountId);
+      securityManager.addUserExtendCredential(addInfo, accountId);
       Logger.info('Succeeded in adding USB Key credential.');
 
       // 第4步：关闭会话
-      securityManager.closeSession(wantTemp, accountId);
+      securityManager.closeSession(accountId);
       Logger.info('USB Key binding completed.');
 
       // 可选：配置USB Key解锁模式（EXTENDED_AUTH_REQUIRED 表示USB Key+锁屏密码组合认证）
       securityManager.setUnlockPolicy(
-        wantTemp,
         securityManager.UnlockPolicy.EXTENDED_AUTH_REQUIRED,
         accountId
       );
@@ -91,7 +90,7 @@ export async function bindUsbKey(): Promise<string> {
       }
       Logger.error(`bindUsbKey failed. Code: ${error.code}, message: ${error.message}`);
       try {
-        securityManager.closeSession(wantTemp, accountId);
+        securityManager.closeSession(accountId);
       } catch (closeErr) {
         // 忽略关闭会话的错误
       }
@@ -109,7 +108,7 @@ export async function unbindUsbKey(): Promise<string> {
 
   // 第1步：查询已绑定的USB Key凭据
   const credentials: securityManager.UserExtCredentialInfo[] =
-    await securityManager.getUserExtCredential(wantTemp, accountId);
+    await securityManager.getUserExtendCredential(accountId);
   if (credentials.length === 0) {
     Logger.info('No USB Key credential found.');
     return 'No USB Key credential found.';
@@ -119,7 +118,7 @@ export async function unbindUsbKey(): Promise<string> {
   while (retryCount < MAX_RETRIES) {
     try {
       // 第2步：打开会话，获取挑战值
-      const challenge: Uint8Array = await securityManager.openSession(wantTemp, accountId);
+      const challenge: Uint8Array = await securityManager.openSession(accountId);
       Logger.info('Succeeded in opening session.');
 
       // 第3步：发起用户身份认证，获取认证令牌
@@ -131,15 +130,14 @@ export async function unbindUsbKey(): Promise<string> {
         credentialId: targetCredentialId,
         authToken: authToken,
       };
-      securityManager.removeUserExtCredential(wantTemp, removeInfo, accountId);
+      securityManager.removeUserExtendCredential(removeInfo, accountId);
       Logger.info('Succeeded in removing USB Key credential.');
 
-      securityManager.closeSession(wantTemp, accountId);
+      securityManager.closeSession(accountId);
       Logger.info('USB Key unbinding completed.');
 
       // 可选：重置解锁模式为系统默认
       securityManager.setUnlockPolicy(
-        wantTemp,
         securityManager.UnlockPolicy.DEFAULT,
         accountId
       );
@@ -156,7 +154,7 @@ export async function unbindUsbKey(): Promise<string> {
       }
       Logger.error(`unbindUsbKey failed. Code: ${error.code}, message: ${error.message}`);
       try {
-        securityManager.closeSession(wantTemp, accountId);
+        securityManager.closeSession(accountId);
       } catch (closeErr) {
         // 忽略关闭会话的错误
       }
@@ -171,7 +169,7 @@ export async function unbindUsbKey(): Promise<string> {
 export async function queryCredentials(): Promise<string> {
   try {
     const credentials: securityManager.UserExtCredentialInfo[] =
-      await securityManager.getUserExtCredential(wantTemp, accountId);
+      await securityManager.getUserExtendCredential(accountId);
     Logger.info(`Found ${credentials.length} USB Key credential(s).`);
     credentials.forEach((cred, index) => {
       Logger.info(`Credential ${index}: pluginInfo=${cred.pluginInfo}`);
@@ -185,10 +183,11 @@ export async function queryCredentials(): Promise<string> {
 }
 // [End query_credentials]
 
+// [Start unlock_policy]
 // [Start set_unlock_policy]
 export function setUnlockPolicy(): string {
   try {
-    securityManager.setUnlockPolicy(wantTemp, securityManager.UnlockPolicy.EXTENDED_AUTH_ONLY, accountId);
+    securityManager.setUnlockPolicy(securityManager.UnlockPolicy.EXTENDED_AUTH_ONLY, accountId);
     Logger.info('Succeeded in setting unlock policy to EXTENDED_AUTH_ONLY.');
     return 'Set unlock policy succeeded.';
   } catch (err) {
@@ -202,7 +201,7 @@ export function setUnlockPolicy(): string {
 // [Start get_unlock_policy]
 export function getUnlockPolicy(): string {
   try {
-    const policy = securityManager.getUnlockPolicy(wantTemp, accountId);
+    const policy = securityManager.getUnlockPolicy(accountId);
     switch (policy) {
       case securityManager.UnlockPolicy.DEFAULT:
         Logger.info('Current unlock policy: DEFAULT (system default).');
@@ -224,3 +223,4 @@ export function getUnlockPolicy(): string {
   }
 }
 // [End get_unlock_policy]
+// [End unlock_policy]

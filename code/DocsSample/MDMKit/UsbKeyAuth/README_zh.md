@@ -5,7 +5,7 @@
 本示例展示如何通过MDM Kit的securityManager接口实现USB Key可信持有物的绑定、解绑、查询以及解锁策略的配置。USB Key是一种基于硬件的身份认证设备，通过MDM应用可以实现USB Key与企业设备的绑定/解绑管理。本示例依照开发指南[基于USB Key的身份认证](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/mdm/mdm-kit-ukey-auth.md)进行编写。
 
 本示例涉及使用接口：
-- @ohos.enterprise.securityManager中的[openSession](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-mdm-kit/js-apis-enterprise-securityManager.md#securitymanageropensession)、[closeSession](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-mdm-kit/js-apis-enterprise-securityManager.md#securitymanagerclosesession)、[addUserExtCredential](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-mdm-kit/js-apis-enterprise-securityManager.md#securitymanageradduserextcredential)、[removeUserExtCredential](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-mdm-kit/js-apis-enterprise-securityManager.md#securitymanagerremoveuserextcredential)、[getUserExtCredential](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-mdm-kit/js-apis-enterprise-securityManager.md#securitymanagergetuserextcredential)、[setUnlockPolicy](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-mdm-kit/js-apis-enterprise-securityManager.md#securitymanagersetunlockpolicy)、[getUnlockPolicy](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-mdm-kit/js-apis-enterprise-securityManager.md#securitymanagergetunlockpolicy)接口
+- @ohos.enterprise.securityManager中的[openSession](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-mdm-kit/js-apis-enterprise-securityManager.md#securitymanageropensession)、[closeSession](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-mdm-kit/js-apis-enterprise-securityManager.md#securitymanagerclosesession)、[addUserExtendCredential](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-mdm-kit/js-apis-enterprise-securityManager.md#securitymanageradduserextendcredential)、[removeUserExtendCredential](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-mdm-kit/js-apis-enterprise-securityManager.md#securitymanagerremoveuserextendcredential)、[getUserExtendCredential](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-mdm-kit/js-apis-enterprise-securityManager.md#securitymanagergetuserextendcredential)、[setUnlockPolicy](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-mdm-kit/js-apis-enterprise-securityManager.md#securitymanagersetunlockpolicy)、[getUnlockPolicy](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-mdm-kit/js-apis-enterprise-securityManager.md#securitymanagergetunlockpolicy)接口
 - @ohos.userIAM.userAuth中的[getUserAuthInstance](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-user-authentication-kit/js-apis-useriam-userauth.md#userauthgetuserauthinstance10)接口
 
 ### 使用说明
@@ -36,9 +36,9 @@ entry/src/main/ets/
 
 ### 具体实现
 
-* USB Key绑定：调用openSession获取挑战值，通过userAuth发起PIN认证获取authToken，再调用addUserExtCredential完成绑定。
-* USB Key解绑：先查询已绑定凭据获取credentialId，调用openSession获取挑战值，通过userAuth认证后调用removeUserExtCredential完成解绑。
-* 查询凭据：调用getUserExtCredential查询已绑定的USB Key凭据列表。
+* USB Key绑定：调用openSession获取挑战值，通过userAuth发起PIN认证获取authToken，再调用addUserExtendCredential完成绑定。
+* USB Key解绑：先查询已绑定凭据获取credentialId，调用openSession获取挑战值，通过userAuth认证后调用removeUserExtendCredential完成解绑。
+* 查询凭据：调用getUserExtendCredential查询已绑定的USB Key凭据列表。
 * 解锁策略：调用setUnlockPolicy配置解锁模式，调用getUnlockPolicy查询当前解锁策略。
 
 ### 相关权限

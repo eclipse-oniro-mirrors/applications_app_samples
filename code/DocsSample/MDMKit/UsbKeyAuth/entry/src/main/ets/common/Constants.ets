@@ -13,19 +13,13 @@
  * limitations under the License.
  */
 
-import { Want } from '@kit.AbilityKit';
-
-// [Start want_and_account]
-const wantTemp: Want = {
-  bundleName: 'com.example.usbkeyauth',
-  abilityName: 'EnterpriseAdminAbility'
-};
+// [Start account_id]
 // 开发者需替换为实际的账户ID
 const accountId: number = 100;
-// [End want_and_account]
+// [End account_id]
 // [Start plugin_info]
 // pluginInfo 为企业自定义认证器的标识名称，由认证器提供方提供
 const pluginInfo: string = 'com.example.usbkeyplugin';
 // [End plugin_info]
 
-export { wantTemp, accountId, pluginInfo };
+export { accountId, pluginInfo };
