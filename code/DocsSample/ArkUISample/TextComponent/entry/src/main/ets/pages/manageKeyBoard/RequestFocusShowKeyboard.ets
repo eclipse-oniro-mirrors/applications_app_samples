@@ -16,7 +16,7 @@
 @Entry
 @Component
 // [Start requestFocus_ShowKeyboard]
-struct requestFocusShowKeyboard {
+struct RequestFocusShowKeyboard {
   controller: TextInputController = new TextInputController();
   @State inputValue: string = '';
 
@@ -38,4 +38,4 @@ struct requestFocusShowKeyboard {
 }
 // [End requestFocus_ShowKeyboard]
 
-export { requestFocusShowKeyboard };
+export { RequestFocusShowKeyboard };

@@ -16,7 +16,7 @@
 @Entry
 @Component
 // [Start closeButton_ClickKeyboard]
-struct closeButtonClickKeyboard {
+struct CloseButtonClickKeyboard {
   build() {
     NavDestination() {
       Column({ space: 20 }) {
@@ -35,4 +35,4 @@ struct closeButtonClickKeyboard {
 }
 // [End closeButton_ClickKeyboard]
 
-export { closeButtonClickKeyboard };
+export { CloseButtonClickKeyboard };
