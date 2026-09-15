@@ -13,12 +13,14 @@
  * limitations under the License.
  */
 // [Start certificate_management_user_cred_guidance]
+// [Start certificate_management_user_cred_guidance_import]
 import { certificateManager } from '@kit.DeviceCertificateKit';
 import { certificateManagerDialog } from '@kit.DeviceCertificateKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
 import { UIContext } from '@kit.ArkUI';
 import { JSON, util } from '@kit.ArkTS';
+// [End certificate_management_user_cred_guidance_import]
 
 function userCredSample(): void {
   /* context为应用的上下文信息，调用方自行获取，此处仅为示例 */
