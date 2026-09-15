@@ -1919,6 +1919,18 @@
     {
       "name": "How_To_Disable_Text_Long_Press_description",
       "value": "设置触发时间小于系统菜单触发时间的自定义长按手势使长按不生效"
+    },
+    {
+      "name": "GradientTextFlowEffect_title",
+      "value": "渐变文本流式显示效果"
+    },
+    {
+      "name": "GradientTextFlowEffect_description",
+      "value": "实现渐变文本的流式显示效果"
+    },
+    {
+      "name": "GradientTextFlowEffect_replay",
+      "value": "重新播放"
     }
   ]
 }
