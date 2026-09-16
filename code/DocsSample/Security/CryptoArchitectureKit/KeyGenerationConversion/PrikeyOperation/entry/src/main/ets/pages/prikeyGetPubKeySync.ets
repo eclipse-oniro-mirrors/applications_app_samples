@@ -69,8 +69,8 @@ function generateAsyKey() {
   try {
     let keyPair = rsaGenerator.convertKeySync(null, skDataBlob);
     let priKey = keyPair.priKey;
-    let pubkey = priKey.getPubKeySync();
-    let pkBlob = pubkey.getEncoded();
+    let pubKey = priKey.getPubKeySync();
+    let pkBlob = pubKey.getEncoded();
     console.info('pk1 bin data: ' + pkBlob.data);
     let ret: boolean = compareUint8Array(pkBlob.data, expectPkdata);
     console.info('result: ' + ret);
