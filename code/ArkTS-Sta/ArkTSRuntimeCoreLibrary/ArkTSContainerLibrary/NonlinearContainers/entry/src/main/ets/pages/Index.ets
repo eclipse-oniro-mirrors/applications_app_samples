@@ -34,7 +34,7 @@ import { Row, ButtonType, Margin, Scroller, Scroll, ForEach, FontWeight } from '
 // [Start nonlinear_container]
 // 导入HashMap，TreeMap，LightWeightMap，PlainArray模块
 import { HashMap, TreeMap, LightWeightMap, PlainArray } from '@kit.ArkTS';
-
+// [StartExclude linear_container]
 let logMsg = ''
 
 function testHashMap() {
