@@ -26,7 +26,7 @@ export function nextPlaybackIndex(mode: PlaybackMode, current: number, count: nu
     if (count === 1) {
       return 0;
     }
-    const candidate = Math.min(count - 2, Math.floor(Math.max(0, random) * (count - 1)));
+    const candidate: number = Math.min(count - 2, Math.floor(Math.max(0, random) * (count - 1)));
     return candidate >= current ? candidate + 1 : candidate;
   }
   return current + 1 < count ? current + 1 : -1;

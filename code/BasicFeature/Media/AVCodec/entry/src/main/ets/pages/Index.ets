@@ -414,7 +414,7 @@ export struct Player {
   }
 
   private getAdjacentQueueIndex(direction: number): number {
-    const count = this.queuePaths.length;
+    const count: number = this.queuePaths.length;
     if (this.queueIndex < 0 || this.queueIndex >= count || direction === 0) {
       return -1;
     }
