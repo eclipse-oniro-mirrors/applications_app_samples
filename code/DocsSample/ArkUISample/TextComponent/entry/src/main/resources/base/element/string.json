@@ -1931,6 +1931,18 @@
     {
       "name": "GradientTextFlowEffect_replay",
       "value": "重新播放"
+    },
+    {
+      "name": "MarqueeRerun_title",
+      "value": "跑马灯重跑"
+    },
+    {
+      "name": "MarqueeRerun_description",
+      "value": "实现跑马灯重跑效果"
+    },
+    {
+      "name": "MarqueeRerun_button",
+      "value": "重跑"
     }
   ]
 }
