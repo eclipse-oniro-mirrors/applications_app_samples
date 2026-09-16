@@ -13,32 +13,20 @@
  * limitations under the License.
  */
 
-{
-  "app": {
-    "signingConfigs": [],
-    "products": [
-      {
-        "name": "default",
-        "signingConfig": "default",
-        "compileSdkVersion": "26.1.0",
-        "targetSdkVersion": "26.1.0",
-        "compatibleSdkVersion": "26.1.0",
-        "runtimeOS": "OpenHarmony"
-      }
-    ],
-  },
-  "modules": [
-    {
-      "name": "entry",
-      "srcPath": "./entry",
-      "targets": [
-        {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
-    }
-  ]
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { BackupExtensionAbility, BundleVersion } from '@kit.CoreFileKit';
+
+const DOMAIN: number = 0x0000;
+const TAG: string = 'EntryBackupAbility';
+
+export default class EntryBackupAbility extends BackupExtensionAbility {
+  async onBackup(): Promise<void> {
+    hilog.info(DOMAIN, TAG, 'onBackup ok');
+    await Promise.resolve();
+  }
+
+  async onRestore(bundleVersion: BundleVersion): Promise<void> {
+    hilog.info(DOMAIN, TAG, 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
+    await Promise.resolve();
+  }
 }

@@ -28,50 +28,53 @@ struct MainPage {
 
   build() {
     Column() {
-      Text('USB Key 可信持有物认证')
+      Text($r('app.string.main_page_title'))
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
         .margin({ top: 20, bottom: 20 })
 
-      Button('绑定 USB Key')
+      Button($r('app.string.bind_usb_key'))
         .width('80%')
         .margin({ bottom: 10 })
         .onClick(async () => {
-          this.resultText = await bindUsbKey();
+          this.resultText = await bindUsbKey(this.getUIContext());
         })
 
-      Button('解绑 USB Key')
+      Button($r('app.string.unbind_usb_key'))
         .width('80%')
         .margin({ bottom: 10 })
         .onClick(async () => {
-          this.resultText = await unbindUsbKey();
+          this.resultText = await unbindUsbKey(this.getUIContext());
         })
 
-      Button('查询已绑定凭据')
+      Button($r('app.string.query_credentials'))
         .width('80%')
         .margin({ bottom: 10 })
         .onClick(async () => {
           this.resultText = await queryCredentials();
         })
 
-      Button('设置解锁策略')
+      Button($r('app.string.set_unlock_policy'))
         .width('80%')
         .margin({ bottom: 10 })
         .onClick(() => {
           this.resultText = setUnlockPolicy();
         })
 
-      Button('查询解锁策略')
+      Button($r('app.string.get_unlock_policy'))
         .width('80%')
         .margin({ bottom: 10 })
         .onClick(() => {
           this.resultText = getUnlockPolicy();
         })
 
-      Text(`结果：${this.resultText}`)
-        .fontSize(14)
-        .margin({ top: 20 })
-        .padding(10)
+      Text() {
+        Span($r('app.string.result_prefix'))
+        Span(this.resultText)
+      }
+      .fontSize(14)
+      .margin({ top: 20 })
+      .padding(10)
     }
     .width('100%')
     .height('100%')

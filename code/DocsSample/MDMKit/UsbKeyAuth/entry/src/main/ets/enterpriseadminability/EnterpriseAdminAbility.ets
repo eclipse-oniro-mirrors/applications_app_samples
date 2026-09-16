@@ -17,11 +17,11 @@ import { EnterpriseAdminExtensionAbility } from '@kit.MDMKit';
 import Logger from '../common/Logger';
 
 export default class EnterpriseAdminAbility extends EnterpriseAdminExtensionAbility {
-  onAdminEnabled() {
+  onAdminEnabled(): void {
     Logger.info('onAdminEnabled');
   }
 
-  onAdminDisabled() {
+  onAdminDisabled(): void {
     Logger.info('onAdminDisabled');
   }
 

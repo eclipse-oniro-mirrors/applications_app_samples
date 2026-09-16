@@ -53,6 +53,18 @@
         "type": "enterpriseAdmin",
         "exported": true,
         "srcEntry": "./ets/enterpriseadminability/EnterpriseAdminAbility.ets"
+      },
+      {
+        "name": "EntryBackupAbility",
+        "srcEntry": "./ets/entrybackupability/EntryBackupAbility.ets",
+        "type": "backup",
+        "exported": false,
+        "metadata": [
+          {
+            "name": "ohos.extension.backup",
+            "resource": "$profile:backup_config"
+          }
+        ]
       }
     ],
     "requestPermissions": [

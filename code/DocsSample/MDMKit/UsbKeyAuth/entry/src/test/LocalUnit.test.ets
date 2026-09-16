@@ -13,32 +13,23 @@
  * limitations under the License.
  */
 
-{
-  "app": {
-    "signingConfigs": [],
-    "products": [
-      {
-        "name": "default",
-        "signingConfig": "default",
-        "compileSdkVersion": "26.1.0",
-        "targetSdkVersion": "26.1.0",
-        "compatibleSdkVersion": "26.1.0",
-        "runtimeOS": "OpenHarmony"
-      }
-    ],
-  },
-  "modules": [
-    {
-      "name": "entry",
-      "srcPath": "./entry",
-      "targets": [
-        {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
-    }
-  ]
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+
+export default function localUnitTest() {
+  describe('localUnitTest', () => {
+    beforeAll(() => {
+    });
+    beforeEach(() => {
+    });
+    afterEach(() => {
+    });
+    afterAll(() => {
+    });
+    it('assertContain', 0, () => {
+      const a: string = 'abc';
+      const b: string = 'b';
+      expect(a).assertContain(b);
+      expect(a).assertEqual(a);
+    });
+  });
 }

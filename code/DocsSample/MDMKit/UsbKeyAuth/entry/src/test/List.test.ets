@@ -13,17 +13,8 @@
  * limitations under the License.
  */
 
-@Entry
-@Component
-struct Index {
-  build() {
-    Column() {
-      Text('UsbKeyAuth Test')
-        .fontSize(20)
-    }
-    .width('100%')
-    .height('100%')
-    .justifyContent(FlexAlign.Center)
-    .alignItems(HorizontalAlign.Center)
-  }
+import localUnitTest from './LocalUnit.test';
+
+export default function testsuite() {
+  localUnitTest();
 }

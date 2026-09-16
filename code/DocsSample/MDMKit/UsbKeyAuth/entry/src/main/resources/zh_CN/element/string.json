@@ -11,6 +11,42 @@
     {
       "name": "EntryAbility_label",
       "value": "USB Key认证"
+    },
+    {
+      "name": "main_page_title",
+      "value": "USB Key 可信持有物认证"
+    },
+    {
+      "name": "bind_usb_key",
+      "value": "绑定 USB Key"
+    },
+    {
+      "name": "unbind_usb_key",
+      "value": "解绑 USB Key"
+    },
+    {
+      "name": "query_credentials",
+      "value": "查询已绑定凭据"
+    },
+    {
+      "name": "set_unlock_policy",
+      "value": "设置解锁策略"
+    },
+    {
+      "name": "get_unlock_policy",
+      "value": "查询解锁策略"
+    },
+    {
+      "name": "result_prefix",
+      "value": "结果："
+    },
+    {
+      "name": "bind_auth_dialog_title",
+      "value": "USB Key绑定身份验证"
+    },
+    {
+      "name": "unbind_auth_dialog_title",
+      "value": "USB Key解绑身份验证"
     }
   ]
 }

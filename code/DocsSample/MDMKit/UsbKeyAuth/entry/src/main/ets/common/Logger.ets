@@ -15,8 +15,8 @@
 
 import hilog from '@ohos.hilog';
 
-const DOMAIN = 0x0001;
-const TAG = 'UsbKeyAuth';
+const DOMAIN: number = 0x0001;
+const TAG: string = 'UsbKeyAuth';
 
 export default class Logger {
   static info(msg: string): void {

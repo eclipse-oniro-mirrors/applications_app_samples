@@ -18,8 +18,8 @@ import { describe, it, expect } from '@ohos/hypium';
 export default function abilityTest() {
   describe('UsbKeyAuthAbilityTest', () => {
     it('assertContain', 0, () => {
-      const a = 'abc';
-      const b = 'b';
+      const a: string = 'abc';
+      const b: string = 'b';
       expect(a).assertContain(b);
     });
   });

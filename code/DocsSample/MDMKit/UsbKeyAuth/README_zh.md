@@ -31,7 +31,7 @@ entry/src/main/ets/
 |---entryability
 |   |---EntryAbility.ets                   // 程序入口
 |---pages
-|   |---mainPage.ets                       // 主页
+|   |---MainPage.ets                       // 主页
 ```
 
 ### 具体实现
@@ -55,11 +55,9 @@ entry/src/main/ets/
 
 ### 约束与限制
 
-1. 本示例已适配API version 26版本SDK。
+1. USB Key可信持有物认证功能仅支持PC和2in1设备。
 
-2. USB Key可信持有物认证功能仅支持PC和2in1设备。
-
-3. 本示例需要使用DevEco Studio 6.1.0 Release及以上版本才可编译运行。
+2. 在不支持该能力的设备（如开发板）上调用相关接口会返回错误码801，本示例已对该场景做兼容处理，结果区会提示该设备不支持。
 
 ### 下载
 

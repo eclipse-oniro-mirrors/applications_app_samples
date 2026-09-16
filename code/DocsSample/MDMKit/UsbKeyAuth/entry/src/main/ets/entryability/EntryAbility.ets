@@ -15,6 +15,7 @@
 
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 import Logger from '../common/Logger';
 
 export default class EntryAbility extends UIAbility {
@@ -28,7 +29,7 @@ export default class EntryAbility extends UIAbility {
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     Logger.info('EntryAbility onWindowStageCreate');
-    windowStage.loadContent('pages/mainPage', (err) => {
+    windowStage.loadContent('pages/MainPage', (err: BusinessError) => {
       if (err) {
         Logger.error(`loadContent failed: ${JSON.stringify(err)}`);
         return;
