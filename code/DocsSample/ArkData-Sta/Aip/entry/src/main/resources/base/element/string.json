@@ -11,6 +11,50 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "button_get_cloud_model",
+      "value": "Get Cloud Model"
+    },
+    {
+      "name": "button_get_cloud_text_model",
+      "value": "Get Cloud Text Model"
+    },
+    {
+      "name": "button_get_text_model",
+      "value": "Get Text Model"
+    },
+    {
+      "name": "button_load_text_model",
+      "value": "Load Text Model"
+    },
+    {
+      "name": "button_get_text_embedding",
+      "value": "Get Text Embedding"
+    },
+    {
+      "name": "button_release_text_model",
+      "value": "Release Text Model"
+    },
+    {
+      "name": "button_split_text",
+      "value": "Split Text"
+    },
+    {
+      "name": "button_get_image_model",
+      "value": "Get Image Model"
+    },
+    {
+      "name": "button_load_image_model",
+      "value": "Load Image Model"
+    },
+    {
+      "name": "button_get_image_embedding",
+      "value": "Get Image Embedding"
+    },
+    {
+      "name": "button_release_image_model",
+      "value": "Release Image Model"
     }
   ]
 }
