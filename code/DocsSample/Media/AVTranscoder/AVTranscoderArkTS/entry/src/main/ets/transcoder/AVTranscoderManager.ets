@@ -16,7 +16,7 @@
 import { media } from '@kit.MediaKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
-import fs from '@ohos.file.fs';
+import { fileIo } from '@kit.CoreFileKit';
 // [End headerFile]
 
 // [Start AVTranscoderDemo]
@@ -89,7 +89,7 @@ export class AVTranscoderDemo {
         // [End createFdsrc]
         // [Start createFddst]
         let outputFilePath = this.context.filesDir + '/output.mp4';
-        let file = fs.openSync(outputFilePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
+        let file = fileIo.openSync(outputFilePath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
         this.avTranscoder.fdDst = file.fd;
         // [End createFddst]
         this.currentProgress = 0;
@@ -139,10 +139,10 @@ export class AVTranscoderDemo {
         this.avTranscoder = undefined;
         // 2.关闭转码目标文件fd。
         if (lastFdDst != undefined) {
-          fs.closeSync(lastFdDst);
+          fileIo.closeSync(lastFdDst);
         }
         if (lastFdSrc != undefined) {
-          fs.closeSync(lastFdSrc.fd);
+          fileIo.closeSync(lastFdSrc.fd);
         }
       }
     }
