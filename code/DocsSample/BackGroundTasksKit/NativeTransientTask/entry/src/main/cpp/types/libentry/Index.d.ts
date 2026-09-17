@@ -14,7 +14,7 @@
  */
 
 // [Start declaration_function]
-import backgroundTaskManager from '@kit.BackgroundTasksKit';
+import { backgroundTaskManager } from '@kit.BackgroundTasksKit';
 
 export const RequestSuspendDelay: () => number;
 export const GetRemainingDelayTime: () => number;
