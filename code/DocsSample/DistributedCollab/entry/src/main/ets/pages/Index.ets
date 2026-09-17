@@ -215,7 +215,15 @@ struct Index {
   }
 // [Start disconnect]
   disconnectRemoteAbility(): void {
+    hilog.info(0x0000, 'testTag', 'disconnectRemoteAbility begin');
+    if (this.sessionId == -1) {
+      hilog.info(0x0000, 'testTag', 'Invalid session ID.');
+      return;
+    }
+    abilityConnectionManager.disconnect(this.sessionId);
+
     hilog.info(0x0000, 'testTag', 'destroyAbilityConnectionSession called');
+    abilityConnectionManager.destroyAbilityConnectionSession(this.sessionId);
   }
 
 // [End disconnect]
