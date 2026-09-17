@@ -16,6 +16,7 @@
 // [Start implement_child_thread_task]
 import { taskpool } from '@kit.ArkTS';
 import { IconItemSource } from './IconItemSource';
+import { BusinessError } from '@kit.BasicServicesKit';
 // [Start receive_task_message]
 // 实现接收Task消息的方法
 function notice(data: number): void {
