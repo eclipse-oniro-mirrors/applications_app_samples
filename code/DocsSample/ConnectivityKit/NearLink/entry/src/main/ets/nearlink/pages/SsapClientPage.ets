@@ -15,9 +15,9 @@
 
 import { SCAN_TIMEOUT_MS, MAX_SCAN_RESULTS, MAX_LOG_MESSAGES, NEARLINK_SERVICE_UUID, SSAP_MANUFACTURER_ID,
   CONNECTION_STATE_CONNECTED, NearLinkFeature } from 'nearlink_library';
-import { BusinessError } from '@kit.BasicServicesKit';
 // [Start ssap_client_module_import]
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { ssap } from '@kit.ConnectivityKit';
 // [End ssap_client_module_import]
 import { scan } from '@kit.ConnectivityKit';
