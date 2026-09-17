@@ -24,5 +24,5 @@ AvSyncDecision AvSyncController::Decide(const AvSyncInput &input) const
     } else if (waitTimeUs > waitTimeUsThreshold) {
         waitTimeUs = waitTimeUsThreshold;
     }
-    return {waitTimeUs, dropFrame, true};
+    return {waitTimeUs, dropFrame, true, mediaWaitTimeUs, latency};
 }

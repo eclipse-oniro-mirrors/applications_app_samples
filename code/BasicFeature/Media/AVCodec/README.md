@@ -4,7 +4,7 @@ English | [简体中文](./README_zh.md)
 
 ### Introduction
 
-AVCodecSample is an API 26 sample application that demonstrates end-to-end video playback, audio playback, camera recording, encoding, demuxing, muxing, graphics output, and media lifecycle management.
+AVCodecSample is an API 26 sample for video and audio playback, camera recording, encoding, demuxing, muxing, graphics output, and media lifecycle handling.
 
 - Playback pipeline: media file -> demuxer -> audio/video decoder -> graphics/audio output.
 - Recording pipeline: camera and microphone capture -> audio/video encoder -> MP4 or FLV muxer.
@@ -46,7 +46,7 @@ Choose non-default playback settings only for a specific reason:
 
 ### Feature Overview and Navigation
 
-The sample covers more than the basic codec APIs. It also demonstrates file selection, validation, two video rendering paths, A/V synchronization, variable-speed playback, smart fluency, precise seeking, playback state management, detailed media information, camera recording, and audio/video muxing.
+Alongside the basic codec APIs, the sample connects file selection, validation, two video output paths, A/V synchronization, speed control, seeking, media information, camera recording, and muxing into a working flow.
 
 #### Playback Features
 
@@ -62,21 +62,23 @@ The sample covers more than the basic codec APIs. It also demonstrates file sele
 | BufferMode HDR Vivid | Propagates color space and HDR static/dynamic metadata and displays an HDR Vivid watermark after bitstream confirmation | [HDR Vivid detection and output](#hdr-vivid-output) |
 | Decoded-frame dump | BufferMode can optionally save decoded frames in the application sandbox; disabled by default | [Buffer dump](#buffer-dump) |
 | Audio decoding and playback | Decodes compressed audio to PCM and continuously feeds AudioRenderer | [Audio decoding and playback](#audio-playback) |
+| System audio interruptions and background recovery | Handles calls, audio focus loss, and app background/foreground transitions without mistaking them for codec failures | [Audio interruptions and background recovery](#audio-interruption) |
 | Multi-track audio | Lists codec, sample rate, channels, and bitrate; validates a candidate before switching without restarting video | [Audio decoding and playback](#audio-playback) |
 | Mute | Mutes or restores the configured volume during playback | [Audio decoding and playback](#audio-playback) |
-| External SRT subtitles | Selects an `.srt` file, displays the cue matching playback position, and supports 0.5-second timing adjustment and font-size choices | [External subtitles](#subtitle-playback) |
+| External SRT subtitles | Selects an `.srt` file, displays the cue matching playback position, and supports timing, visibility, size, color, background, and position settings | [External subtitles](#subtitle-playback) |
 | Press-and-hold speed | Press and hold the playback window for X2; release to return to X1 | [Variable-speed playback](#playback-speed) |
 | Speed menu | Select X1, X2, or X3 during playback | [Variable-speed playback](#playback-speed) |
 | Smart fluency | Uses ADAPTIVE frame retention at X2/X3 and FULL at X1; thermal events may switch to UNIFORM | [Smart fluency](#smart-fluency) |
 | A/V synchronization | Uses the AudioRenderer playback position as the master clock and waits, schedules, or drops video frames | [A/V synchronization](#av-sync) |
 | Video transforms | Supports rotation, horizontal/vertical flip, and combined transforms | [Video transforms](#video-transform) |
-| Progress and precise seek | Shows current position and duration; resumes decoding from a sync frame and discards output before the requested target | [Playback progress and seek](#playback-seek) |
-| Playback controls | Supports pause/resume, previous/next frame, 15-second rewind, 15-second forward, and replay; paused operations update the picture immediately | [Playback progress and seek](#playback-seek) |
-| Playback queue and resume | Add multiple media files, continue with the next item automatically, and restore the last position | [Playback queue and resume](#playback-queue) |
+| Progress and precise seek | Shows current position and duration; merges rapid seek requests, resumes from a sync frame, and discards output before the requested target | [Playback progress and seek](#playback-seek) |
+| Playback controls | Supports single-tap pause/resume, double-tap left/right for a 15-second precise seek, control-button pause/resume, previous/next frame, and replay; paused operations update the picture immediately | [Playback progress and seek](#playback-seek) |
+| Queue, resume, and recovery | Supports sequential, repeat-one, repeat-all, and shuffle modes; restores position and can retry a runtime failure once | [Playback queue and resume](#playback-queue) |
 | Fullscreen and display ratio | Toggle fullscreen/orientation and choose fit-window or fill-window display | [Fullscreen and display ratio](#display-mode) |
-| Playback diagnostics | Inspect position, speed, output/presented/dropped frames, FPS, drop rate, audio buffers, and capability status | [Playback diagnostics](#playback-diagnostics) |
+| Playback diagnostics | Inspect output/presented/dropped frames, sync decision offset, PCM/device queues, underruns, interruption count, seek timing, and BufferMode timing | [Playback diagnostics](#playback-diagnostics) |
 | A-B loop and frame stepping | Set A/B positions for looping and move one video frame at a time | [A-B loop and frame stepping](#ab-frame-control) |
 | Picture-in-picture and background playback | Continue viewing in the system PiP window and optionally enter PiP on home | [Picture-in-picture and background playback](#pip-background) |
+| System media controls | Publishes the current item and playback state to AVSession; lock screen, notification center, and headset keys control play/pause, seek, speed, and queue navigation | [System media controls](#av-session) |
 | Playback status | Shows state, requested speed, active tracks, and smart-fluency availability | [Playback and media information](#playback-info) |
 | Media details | Shows source, track, decoder, output, and raw Source/Track Format information | [Playback and media information](#playback-info) |
 | Stop and cleanup | Handles explicit stop, natural completion, and errors through one state machine and release path | [Playback threads and lifecycle](#player-lifecycle) |
@@ -143,7 +145,7 @@ hdc shell mediatool send /storage/media/100/local/files/xx.mp4
 
 1. Copy an audio-only, video-only, or audio/video file to the device, or record a new file in the sample.
 2. Tap **Play**, select File Manager or Gallery, and choose the media file.
-3. During playback, press and hold the video window for X2 playback and release for X1, or use the speed menu to select X1/X2/X3.
+3. During playback, tap the video window to pause or resume. Double-tap its left or right half to seek backward or forward 15 seconds. Press and hold it for temporary X2 playback and release for X1, or use the speed menu to select X1/X2/X3.
 4. Use the progress slider to preview and seek, the transform control to rotate/flip the output, and the information panel to inspect demuxed metadata.
 
 #### Recording
@@ -179,7 +181,8 @@ Automated tests are located in `entry/src/ohosTest/ets/test` and use Hypium to c
 - complete parsing and invalid-value rejection for playback and recording settings;
 - playback state, speed, track, time, and seek-boundary formatting;
 - source, audio/video track, decoder, and raw Format panel formatting;
-- playback, recording, container, dump, and NativeWindow transform configuration.
+- playback, recording, container, dump, and NativeWindow transform configuration;
+- playback modes, bounded recovery, seek-request merging, subtitle styles, and system audio/background recovery policies.
 
 In DevEco Studio, select the `entry > ohosTest` target and run the test suite. Demuxing, hardware/software codecs, SurfaceMode/BufferMode output, audio sync/async output, permission dialogs, and camera recording depend on real-device capabilities and are covered by the manual test document: [AVCodecSample Manual Test Cases](./ohosTest.md).
 
@@ -242,10 +245,12 @@ AVCodec/
     │   │   │   │   │   └── BufferRenderer.cpp/.h, HdrMetadataHelper.cpp/.h
     │   │   │   │   ├── sync/                # Playback clock and synchronization policies
     │   │   │   │   │   ├── PlaybackClock.cpp/.h, AvSyncController.cpp/.h
+    │   │   │   │   │   ├── PlaybackDiagnostics.cpp/.h
     │   │   │   │   │   ├── SeekController.cpp/.h
     │   │   │   │   │   └── PlayerStateMachine.cpp/.h
     │   │   │   │   └── napi/                # ArkTS-to-Native boundary
     │   │   │   │       ├── PlayerNative.cpp/.h
+    │   │   │   │       ├── NativePlayerContext.h, PlayerAsyncSeek.cpp
     │   │   │   │       ├── PlayerNapiParser.cpp/.h
     │   │   │   │       └── PlayerNapiSerializer.cpp/.h
     │   │   │   └── recorder/
@@ -261,13 +266,20 @@ AVCodec/
     │   │   │   ├── MediaInfoModel.ets       # Media information formatting
     │   │   │   ├── PlaybackInfoModel.ets    # Playback status formatting
     │   │   │   ├── PlaybackHistoryModel.ets # Playback queue and resume history
+    │   │   │   ├── PlaybackModeModel.ets, PlaybackRecoveryModel.ets
     │   │   │   ├── PlayerSettingsModel.ets  # Playback settings and NAPI options
+    │   │   │   ├── SubtitleStyleModel.ets
     │   │   │   └── RecorderSettingsModel.ets # Recording settings parsing
+    │   │   ├── controller
+    │   │   │   ├── PlaybackSessionController.ets # AVSession metadata and system controls
+    │   │   │   └── SeekRequestController.ets
     │   │   ├── viewmodel                    # Playback state ViewModel
     │   │   │   └── PlaybackViewModel.ets    # Polling, progress, HDR, and reset state
     │   │   ├── components                   # Reusable UI components
+    │   │   │   ├── AvDiagnosticsPanel.ets
     │   │   │   ├── MediaInfoPanel.ets       # Scrollable media information panel
-    │   │   │   └── PlaybackProgressPanel.ets # Status, slider, and seek preview
+    │   │   │   ├── PlaybackProgressPanel.ets # Status, slider, and seek preview
+    │   │   │   └── SubtitleSettingsPanel.ets
     │   │   ├── pages/Index.ets              # Home, playback, and recording entry
     │   │   └── recorder/pages/Recorder.ets  # Camera preview and recording page
     │   ├── resources                        # Localized resources
@@ -282,9 +294,11 @@ AVCodec/
         │   ├── MediaUtils.test.ets          # File selection and empty file tests
         │   ├── PlaybackInfoModel.test.ets   # Playback status and seek formatting tests
         │   ├── PlaybackHistoryModel.test.ets # Playback queue/history helper tests
+        │   ├── PlaybackPolicy.test.ets       # Mode, recovery, and subtitle-style tests
         │   ├── PlaybackViewModel.test.ets   # Playback ViewModel state tests
         │   ├── PlayerSettingsModel.test.ets # Playback setting model tests
         │   ├── SubtitleModel.test.ets       # SRT parsing and cue lookup tests
+        │   ├── SeekRequestController.test.ets # Seek coalescing and cancellation tests
         │   ├── RecorderSettingsModel.test.ets # Recording setting model tests
         │   └── TestCaseLogger.ets           # Case naming and Hilog helper
         ├── ets/testability                  # Test Ability and page
@@ -297,7 +311,7 @@ AVCodec/
 
 #### End-to-End Architecture
 
-The sample can be understood as: **UI selects a scenario -> ArkTS prepares options and Surfaces -> Native creates media objects -> worker threads move input/output buffers -> graphics, audio, or file consumers receive the result**.
+An operation follows this path: **the UI selects a scenario -> ArkTS prepares options and Surfaces -> Native creates media objects -> worker threads move input/output buffers -> graphics, audio, or file consumers receive the result**.
 
 | Scenario | UI entry | Native entry | Main modules | Destination |
 |---|---|---|---|---|
@@ -307,7 +321,7 @@ The sample can be understood as: **UI selects a scenario -> ArkTS prepares optio
 | Demuxing | Selected source file | `Demuxer.cpp` | `OH_AVSource`, `OH_AVDemuxer` | Track metadata and compressed samples to decoders |
 | Muxing | Media-library output file | `Muxer.cpp` | `OH_AVMuxer` | Encoded audio/video to the destination file |
 
-Core data structures:
+The Native layer revolves around these data structures:
 
 - `SampleInfo`, defined in `sample_config.h`, groups source, video, audio, codec, output, and playback-callback options.
 - `CodecUserData`, defined in `codec_user_data.h`, is the runtime context shared by codec callbacks and worker threads. `Player` owns playback contexts with `unique_ptr`; C callbacks receive temporary non-owning pointers from `.get()`.
@@ -331,21 +345,20 @@ The later sections describe individual modules and APIs. This section follows on
 | Speed, smart fluency, and sync | A press-and-hold gesture or X1/X2/X3 selection | The page sends a target speed; supported X2/X3 playback uses ADAPTIVE retention; `PlaybackClock` builds an audio-master timeline from AudioRenderer timestamps | Retention does not rewrite PTS or represent audio speed; with audio, video wait/drop follows actual audio progress, while video-only playback advances from presented video PTS |
 | Pause, frame step, and seek | Pause, +/-15 seconds, slider, or frame-step control | Pause keeps decoders alive while stopping the renderer; seek stops workers, seeks from a previous sync frame, rebuilds paths, discards early video, and trims early PCM | A seek failure enters the common release path; paused frame steps temporarily permit the target video frame to present while audio remains paused, updating picture, position, and diagnostics immediately |
 | Queue, resume, and A-B loop | Multi-file selection, reopening history, or setting A/B | Natural EOS advances the in-session queue; preferences store positions; reaching B invokes the same precise seek back to A | Explicit Stop and errors do not advance the queue; near-end history restarts at zero; changing media, Stop, or clearing markers turns off A-B looping |
-| Display, PiP, and control hiding | Fullscreen/ratio/PiP selection or inactivity | The UI changes window layout, orientation, and control visibility; PiP reuses the XComponent controller and forwards system actions to the player | Display selection does not alter decoded pixels or timestamps; PiP failures are visible but leave page playback intact; every touch or control action resets the auto-hide timer |
+| Display, PiP, and control hiding | Fullscreen/ratio/PiP selection or inactivity | The UI changes window layout, orientation, and control visibility; PiP reuses the XComponent controller and forwards system actions to the player | Display selection does not alter decoded pixels or timestamps; PiP failures are visible but leave page playback intact; every playback-window tap or control action resets the auto-hide timer |
+| System media controls | Lock screen, notification center, or headset media keys | `PlaybackSessionController` mirrors the existing Native state into `AVSession` and forwards system commands to page controls | Session errors are logged without interrupting local playback; Stop and page destruction deactivate and destroy the session |
 | Diagnostics, state, and release | Polling, EOS, Stop, or error | Native atomics build a read-only snapshot, the state machine validates transitions, and `ReleaseWorker` stops workers and releases renderer/codecs in a fixed order | Diagnostics never affect scheduling; repeated Stop is safe; the completion callback is invoked outside the Player mutex to avoid re-entrant UI deadlocks |
-| Camera recording and muxing | The user confirms recording settings and permissions | The UI creates a media-library fd; preview and encoder Surfaces split camera output; audio/video encoder output is serialized through the Muxer | Camera and codec capability checks happen before recording; Stop waits for both EOS paths and muxer finalization before closing the fd so Gallery sees a complete asset |
+| Camera recording and muxing | The user confirms recording settings and permissions | The UI creates a media-library fd; preview and encoder Surfaces split camera output; audio/video encoder output is serialized through the Muxer | Camera and codec capability checks happen before recording; Stop waits for both EOS paths and muxer finalization before closing the fd |
 
-**Detailed playback initialization.** After a file has been selected, the UI does not send only a URI to the codec. It opens an fd and sends the valid byte range as offset and size, which gives Gallery and File Manager sources the same Native input path. `PlayerNapiParser` validates the type and range of every field before it fills the responsibility-oriented `SampleInfo` members. `Player::Init()` accepts only `IDLE`: it creates the source and demuxer, freezes the media snapshot, chooses tracks, creates decoders/AudioRenderer/output policy, and enters `READY` only after all required steps succeed. Any earlier failure follows the same cleanup path and returns a reason to ArkTS instead of allowing the next playback to reuse partial objects.
+**Playback initialization.** After a file is selected, the UI opens an fd and sends the valid byte range as offset and size. Gallery and File Manager sources therefore share the same Native input path. `PlayerNapiParser` validates each field before filling the responsibility-oriented `SampleInfo` members. `Player::Init()` accepts only `IDLE`: it creates the source and demuxer, freezes the media snapshot, chooses tracks, creates decoders/AudioRenderer/output policy, and enters `READY` after the required steps succeed. Any earlier failure follows the same cleanup path and returns a reason to ArkTS, so the next task cannot reuse partial objects.
 
-**Detailed decoder and queue flow.** In Async mode, framework callbacks only enqueue buffer indexes and pointers. They never perform file I/O, sleep, or graphics work on a codec callback thread. In Sync mode, workers query buffers themselves. Both paths converge on the same input, output, and release routines. An input worker reads a compressed Demuxer sample, preserves its PTS, flags, and EOS marker, then pushes it to the codec. An output worker recognizes EOS, seek preroll, and normal frames before it schedules or presents them. Queue closure, errors, Stop, and Surface destruction wake waiting workers so no thread waits indefinitely for a buffer that can no longer arrive.
+**Decoder and queue flow.** In Async mode, framework callbacks only enqueue buffer indexes and pointers. They never perform file I/O, sleep, or graphics work on a codec callback thread. In Sync mode, workers query buffers themselves. Both paths converge on the same input, output, and release routines. An input worker reads a compressed Demuxer sample, preserves its PTS, flags, and EOS marker, then pushes it to the codec. An output worker recognizes EOS, seek preroll, and normal frames before it schedules or presents them. Queue closure, errors, Stop, and Surface destruction wake waiting workers so no thread waits indefinitely for a buffer that can no longer arrive.
 
-**Graphics and buffer-ownership boundary.** In SurfaceMode, decoded image ownership remains between the decoder and the Surface; the application only chooses render or free. In BufferMode, the application borrows a decoder buffer only while processing that output callback and must not retain its address for a later frame. `BufferRenderer` requests a separate NativeWindow destination buffer, waits for its fence, maps it, copies rows, unmaps it, sets a desired presentation time, and flushes it. The destination has then returned to the graphics system and the source immediately returns to the decoder. There is no attach/detach or cross-frame shared ownership, so completion of display cannot block codec buffer reuse.
+**Graphics and buffer ownership.** In SurfaceMode, decoded image ownership remains between the decoder and the Surface; the application only chooses render or free. In BufferMode, the application borrows a decoder buffer only while processing that output callback and must not retain its address for a later frame. `BufferRenderer` requests a separate NativeWindow destination buffer, waits for its fence, maps it, copies rows, unmaps it, sets a desired presentation time, and flushes it. The destination has then returned to the graphics system and the source immediately returns to the decoder. There is no attach/detach or cross-frame shared ownership, so completion of display cannot block codec buffer reuse.
 
-**Audio-master-clock boundary.** Writing PCM into `renderQueue` does not mean it has played. Only complete sample frames actually removed by the AudioRenderer write callback increment `audioFramesWritten`. The player combines the renderer timestamp, hardware-consumed frames, and a monotonic-clock anchor to estimate played media time. During renderer startup, route changes, or after Flush, timestamp data may be unstable; the player temporarily uses the nominal video interval rather than using invalid values to drop frames. Video that is far behind audio is dropped and early video waits near its presentation time. All wall-clock waits divide media-time differences by requested speed, preventing X2/X3 from treating media time as real time.
+**Audio master clock.** Writing PCM into `renderQueue` does not mean it has played. Only complete sample frames actually removed by the AudioRenderer write callback increment `audioFramesWritten`. The player combines the renderer timestamp, hardware-consumed frames, and a monotonic-clock anchor to estimate played media time. During renderer startup, route changes, or after Flush, timestamp data may be unstable; the player temporarily uses the nominal video interval rather than using invalid values to drop frames. Video that is far behind audio is dropped and early video waits near its presentation time. All wall-clock waits divide media-time differences by requested speed, preventing X2/X3 from treating media time as real time.
 
-**Playback control boundary.** While the slider is dragged, the UI owns an independent preview position and thumbnail, so periodic real-position polls cannot overwrite the gesture. Releasing the slider submits exactly one Native seek. Thumbnails use a separate fd and `AVImageGenerator`, completely isolated from the active Demuxer/Decoder path. Rewind, forward, replay, previous frame, and next frame reuse precise seek instead of merely changing a UI label or skipping output buffers. Consequently subtitles, A-B looping, diagnostics, queue logic, and resume persistence all observe one real playback position.
-
-**Recording completion boundary.** Stopping camera video output only prevents new video input; it does not mean the media file is final. Native processing continues for frames already inside the encoder, pushes audio EOS, waits for audio and video output EOS separately, and stops the Muxer so it can write indexes and trailers. Only then does the UI close the media-library fd and navigate back. This ordering avoids a long Gallery visibility delay and avoids letting another app open an unfinalized container.
+**Playback controls.** A playback-window tap reuses the pause/resume operation only when Native state is `PLAYING` or `PAUSED`; it is ignored during seek, stop, and before a task starts. It shares an exclusive gesture group with press-and-hold speed, so holding the window changes speed without also pausing playback. While the slider is dragged, the UI owns an independent preview position and thumbnail, so periodic real-position polls cannot overwrite the gesture. Releasing the slider submits exactly one Native seek. Thumbnails use a separate fd and `AVImageGenerator`, completely isolated from the active Demuxer/Decoder path. Rewind, forward, replay, previous frame, and next frame reuse precise seek instead of merely changing a UI label or skipping output buffers. Subtitles, A-B looping, diagnostics, queue logic, and resume persistence all observe the same playback position.
 
 ##### Entry Points from UI to Native
 
@@ -365,15 +378,15 @@ These are the main entry points to follow in code. Besides logs, Media informati
 
 7. **HDR, color, and diagnostics counter scope.** `HdrMetadataHelper` confirms HDR Vivid only when a frame both declares the HDR Vivid type and carries non-empty dynamic metadata. A container Format declaration is exposed in media information but cannot independently enable the watermark. After confirmation, BufferMode transfers readable color-space and static/dynamic metadata to the destination NativeBuffer. A failed metadata write degrades only that enhancement and does not prevent pixel flush. BufferMode's copy/present count, average time, and failure count cover actual `VideoSink::Present()` work only; dropped and seek-preroll frames are excluded, and a Stop or new task resets the atomics.
 
-8. **Audio queue, mute, and track switching.** Decoded PCM is checked against offset, size, and capacity before entering the byte queue protected by `renderQueueMutex`. When AudioRenderer asks for bytes, `OnRenderWriteData()` copies only present data and fills the remainder with silence; that generated silence is not counted as media samples. Mute adjusts renderer volume without stopping input or the clock. After a track switch, PCM before the current position is discarded; the first playable segment establishes the new clock, so video cannot mistake an old-track timestamp for progress on the new track.
+8. **Audio queue, mute, and track switching.** Decoded PCM is checked against offset, size, and capacity before entering the byte queue protected by `renderQueueMutex`. When AudioRenderer asks for bytes, `OnRenderWriteData()` copies only present data and fills the remainder with silence; that generated silence is not counted as media samples. Mute adjusts renderer volume without stopping input or the clock. A failed audio initialization falls back to video-only playback when a valid video track exists; an audio-only file still reports initialization failure. After a track switch, PCM before the current position is discarded; the first playable segment establishes the new clock, so video cannot mistake an old-track timestamp for progress on the new track.
 
 9. **Speed, smart fluency, and thermal policy.** `setPlaybackSpeed()` updates the target speed used by both audio output and video scheduling. When the active decoder supports smart fluency, X2/X3 send ADAPTIVE plus the speed key and X1 returns to FULL. A thermal callback uses UNIFORM and a retention ratio only when load reduction is needed, then restores the user-requested speed policy. The application never treats the number of frames retained as audio speed and never rewrites PTS for 240 fps input; RenderService's own refresh-rate limit remains handled by `renderAtTime`.
 
 10. **Seek, thumbnails, frame step, and A-B.** Native seek starts from the sync frame before the target so dependent reference frames can be decoded. Video before the target is released, and audio before it is discarded or trimmed; neither is displayed or dumped. UI thumbnails use a separate `AVImageGenerator`, apply media rotation to preview orientation and container ratio, and simply hide the preview on failure. Previous/next frame derive a target from frame rate and preserve pause state. Reaching B calls the same seek API back to A, so diagnostics, subtitles, and progress share one actual position.
 
-11. **Queue, history, fullscreen, PiP, and auto-hide.** `PlaybackHistoryModel` stores recent position, duration, and update time per URI with throttled writes; a position is restored only after a new playback initializes successfully. Fullscreen changes window layout and orientation while retaining the same control-event handlers. PiP playback, pause, forward, and rewind callbacks map to those handlers too. Auto-hide changes only ArkUI visibility and never stops Native workers; touching XComponent, long-pressing for speed, dragging progress, or pressing any control shows the UI again and resets the five-second timer.
+11. **Queue, history, fullscreen, PiP, and auto-hide.** `PlaybackHistoryModel` stores recent position, duration, and update time per URI with throttled writes; a position is restored only after a new playback initializes successfully. Fullscreen changes window layout and orientation while retaining the same control-event handlers. PiP playback, pause, forward, and rewind callbacks map to those handlers too. A single XComponent tap only toggles `PLAYING`/`PAUSED`, while a press-and-hold remains the speed gesture. Auto-hide changes only ArkUI visibility and never stops Native workers; tapping or long-pressing XComponent, dragging progress, or pressing any control shows the UI again and resets the five-second timer.
 
-12. **State and release order.** `PlayerStateMachine` rejects illegal calls such as a repeated Start or Seek in an error state, while `Player` exposes the resulting state for UI controls. `ReleaseWorker` sets stop flags and notifies every condition variable, joins video/audio workers, marks `CodecUserData` as destroying, and then releases AudioRenderer, its builder, decoders, BufferRenderer, and dump files. The completion callback is posted to ArkTS outside the player lock, so immediately selecting the next item, refreshing UI, or destroying the page cannot deadlock with Native cleanup.
+12. **State, recovery, and release order.** `PlayerStateMachine` rejects illegal calls such as a repeated Start or Seek in an error state, while `Player` exposes the resulting state for UI controls. After output has started, the page may restore the same file once after a runtime error. Diagnostics retain the recovery reason, attempt count, and result; startup failures, manual Stop, and page exit never count as recovery. `ReleaseWorker` sets stop flags and notifies every condition variable, joins video/audio workers, marks `CodecUserData` as destroying, and then releases AudioRenderer, its builder, decoders, BufferRenderer, and dump files. The completion callback is posted to ArkTS outside the player lock, so immediately selecting the next item, refreshing UI, or destroying the page cannot deadlock with Native cleanup.
 
 #### Codec Capability Checks and Configuration Feedback
 
@@ -381,9 +394,9 @@ Before writing supported codec parameters to an `OH_AVFormat`, the sample querie
 
 Capability objects are owned by the framework and are not destroyed by the sample. A failed query or unsupported value stops configuration before the format is submitted and logs the MIME type, direction, category, and offending value. Recording initialization propagates this failure to ArkTS, which tells the user to adjust the codec, resolution, or frame rate. Rotation, sync mode, HDR Vivid metadata, codec configuration bytes, and similar fields have no generic capability query in the Native API; their codec configure return value remains the final check and its error code is logged.
 
-The playback settings expose `OH_MD_KEY_VIDEO_DECODER_BLANK_FRAME_ON_SHUTDOWN`, allowing SurfaceMode to retain the last frame or output a blank frame when stopped or destroyed. `OH_MD_KEY_ENABLE_SYNC_MODE` is controlled by the Sync/Async selection. Smart-fluency retention mode, target speed, and thermal retention ratio remain runtime policies. Low-latency decoding and decoding-order output are possible advanced settings, but require capability checks and separate validation because they affect buffering, frame order, and A/V synchronization.
+The playback settings expose `OH_MD_KEY_VIDEO_DECODER_BLANK_FRAME_ON_SHUTDOWN`, which selects whether SurfaceMode keeps the last frame or outputs a blank frame when stopped or destroyed. `OH_MD_KEY_ENABLE_SYNC_MODE` follows the Sync/Async selection. Smart-fluency retention mode, target speed, and thermal retention ratio remain runtime policies.
 
-The current settings sheet now includes three advanced switches: low-latency decoding, output in decoding order, and HDR Vivid to BT.709 conversion. The first two are checked with `OH_AVCapability_IsFeatureSupported()` before configuration and reject unsupported codec/device combinations. The color-space key `OH_MD_KEY_VIDEO_DECODER_OUTPUT_COLOR_SPACE=OH_COLORSPACE_BT709_LIMIT` is only sent when the selected media is signaled as HDR Vivid; ordinary media is left unchanged.
+Advanced settings include low-latency decoding, decoding-order output, and HDR Vivid to BT.709 conversion. The first two are checked with `OH_AVCapability_IsFeatureSupported()` before configuration; unsupported codec/device combinations are rejected with a recorded reason. The color-space key `OH_MD_KEY_VIDEO_DECODER_OUTPUT_COLOR_SPACE=OH_COLORSPACE_BT709_LIMIT` is sent only for media signaled as HDR Vivid.
 
 Two API 26 capabilities are enabled by default in the Native build:
 
@@ -411,7 +424,8 @@ The home page provides both playback and recording entry points:
 
 - Playback uses `XComponent({ id: 'player', type: XComponentType.SURFACE, libraryname: 'player' })`. Loading `libplayer.so` lets the Native module unwrap the XComponent and register Surface callbacks through `PluginManager::Export()`.
 - Playback settings are displayed in a scrollable ArkUI `bindSheet`. Decoder type, output mode, and codec mode each occupy one row and open a single-column picker. Decoded-frame dump uses a switch. User-facing labels such as **Automatic**, **Hardware decoder**, **Software decoder**, **SurfaceMode direct output**, and **BufferMode copy output** are mapped to the original Native enum values.
-- Opening the settings sheet creates a temporary copy of `PlayerSettingsModel`. **Apply** validates and commits the complete configuration, **Cancel** discards the temporary copy, and **Restore Defaults** only resets the temporary values until Apply is selected. Audio volume is available from 0% to 100% and is applied immediately to the active output through `OH_AudioRenderer_SetVolume()`. Audio output latency can be Normal or Low and is applied through `OH_AudioStreamBuilder_SetLatencyMode()` when the next AudioRenderer is created. Low latency reduces output buffering but increases underrun risk. The **Auto-hide playback controls** switch applies to both normal and fullscreen modes: controls and the progress bar hide after four seconds of inactivity and reappear when the playback surface is tapped or long-pressed; disabling it keeps them visible.
+- Opening the settings sheet creates a temporary copy of `PlayerSettingsModel`. **Apply** validates and commits the settings, **Cancel** discards the temporary copy, and **Restore Defaults** resets only the temporary values until Apply is selected. Audio volume is available from 0% to 100% and is applied immediately to the active output through `OH_AudioRenderer_SetVolume()`. Audio output latency can be Normal or Low and is applied through `OH_AudioStreamBuilder_SetLatencyMode()` when the next AudioRenderer is created. Low latency reduces output buffering but increases underrun risk.
+- The **Auto-hide playback controls** switch applies to both normal and fullscreen modes: controls and the progress bar hide after five seconds of inactivity and reappear when the playback surface is tapped or long-pressed; disabling it keeps them visible.
 - After a source is selected, ArkTS opens the URI with `fileIo.openSync()`, records the fd and file size, and calls the structured `player.play(options, callback)` API.
 - The completion callback returns `{ success, reason }`, where `reason` is `completed`, `stopped`, or `error`. Only an actual error produces the invalid-media prompt.
 - During playback the main button becomes **Stop**. `player.stop()` moves the UI into a stopping state until the shared Native release path invokes the completion callback.
@@ -468,7 +482,7 @@ The recording page connects the camera to two Surfaces:
 - The preview stream targets the XComponent Surface.
 - The recording stream targets the Native encoder Surface.
 - Starting recording first enables camera video output and then starts the Native muxer, video encoder, AudioCapturer, and audio encoder.
-- Stopping waits for camera output and `frameEnd`, then runs `stopBeginNative()` and `stopEndNative()`. The output fd is closed and the camera is released only after encoder EOS and muxer finalization, preventing delayed Gallery visibility.
+- Stopping waits for camera output and `frameEnd`, then runs `stopBeginNative()` and `stopEndNative()`. The output fd is closed and the camera is released after encoder EOS and muxer finalization.
 
 <a id="graphics-output"></a>
 
@@ -497,7 +511,7 @@ Important callbacks:
 
 SurfaceMode passes the current XComponent NativeWindow to `OH_VideoDecoder_SetSurface()`. Decoder output buffers circulate between the codec and Surface; the application receives buffer metadata but not the decoded image address. After A/V scheduling, the sample calls `OH_VideoDecoder_RenderOutputBufferAtTime()` to release the frame for display at the requested monotonic timestamp, or frees it without rendering when the frame must be dropped.
 
-This path minimizes copies and is the preferred normal playback path. It cannot directly dump decoded pixels or inspect per-frame image metadata because the actual image buffer remains in the codec/Surface pipeline.
+This path avoids an application-side pixel copy. It cannot directly dump decoded pixels or inspect per-frame image metadata because the actual image buffer remains in the codec/Surface pipeline.
 
 <a id="buffer-output"></a>
 
@@ -523,7 +537,7 @@ OH_NativeWindow_NativeWindowFlushBuffer
 OH_VideoDecoder_FreeOutputBuffer
 ```
 
-The copy is intentionally retained because decoder output ownership and NativeWindow consumer ownership are independent. Reusing the decoder buffer directly would require an attach/detach protocol plus a reliable “display completed” fence before returning it to the decoder. This sample uses a clear copy-and-release model that works for both rendering and optional dump.
+The copy keeps decoder output ownership separate from NativeWindow consumer ownership. Reusing the decoder buffer directly would require an attach/detach protocol and a reliable “display completed” fence before returning it to the decoder. The sample instead copies and releases, which also supports optional dump.
 
 `BufferRenderer` requests one destination buffer per frame, copies only valid image rows, flushes it to the window with the scheduled timestamp, and returns the decoder output buffer immediately after submission. Supported layouts include the pixel formats handled by the current decoder configuration, with stride-aware paths for planar/semi-planar YUV and RGBA.
 
@@ -617,11 +631,23 @@ The output path validates `offset`, `size`, and buffer capacity before reading P
 
 When a file contains multiple audio tracks, `Demuxer` selects the first audio track by default and accepts an explicit container track index through `PlayOptions.audioTrackIndex`. The media-information snapshot includes each track's MIME, sample rate, channel count, and bitrate, so the **Audio track** picker provides an identifiable label. Before replacing an active audio pipeline, the player reads candidate metadata without changing the demuxer selection and creates a temporary `AudioDecoder` for a real `Create + Configure` check. An unsupported candidate is rejected without pausing the current renderer or disturbing video, audio clock, or position. Only a validated candidate rebuilds the audio decoder, `AudioRenderer`, and audio workers; video decoding, presentation, and the current playback position continue without restarting the video. The new track first discards audio frames older than the current playback position and resumes A/V synchronization after its clock catches up, preventing the video scheduler from dropping a long run of frames while the replacement audio starts. Single-track files produce an explanatory toast. **Mute/Unmute** calls `OH_AudioRenderer_SetVolume()` immediately; unmute restores the volume saved in playback settings.
 
+<a id="audio-interruption"></a>
+
+#### Audio Interruptions and Background Recovery
+
+The player registers `OH_AudioStreamBuilder_SetRendererInterruptCallback()` to receive system audio-focus changes. On `PAUSE`, the callback records the interruption, pauses `AudioRenderer`, and wakes the condition variable used by both audio output and video synchronization workers. They wait at a resumable boundary instead of continuing to consume or present data. A system interruption is not reported as a codec failure and does not enter the bounded playback-recovery path. On `RESUME`, the renderer is started again, the interruption flag is cleared, and both pipelines continue from the same media position. `DUCK/UNDUCK` temporarily lowers and restores the renderer volume; `MUTE/UNMUTE` changes volume only. A `STOP` hint keeps the task stopped so a late system callback cannot restart a finished player.
+
+The ability lifecycle forwards foreground/background changes to Native. With **Background playback** disabled, entering the background pauses the renderer, audio output, and video scheduling and marks the diagnostic snapshot as background-paused. Returning to the foreground resumes only this policy pause. With the option enabled, Native does not stop workers merely because the page is backgrounded; whether the system takes over the picture through PiP still depends on device support and PiP settings. User pause, Stop, media changes, and release always take precedence over automatic background recovery.
+
+The diagnostic snapshot exposes the interruption count, the latest interruption hint, whether an interruption is active, and whether playback is paused by the background policy. Atomic flags and a condition variable carry these events between callbacks and workers. During release, callback contexts are marked destroyed before renderer and decoder resources are reclaimed, so a late callback cannot dereference freed state.
+
 <a id="subtitle-playback"></a>
 
 #### External SRT Subtitles
 
-Subtitles are an optional UI-side feature and do not alter the Native decode pipeline. The **Subtitle** control opens `DocumentViewPicker` with an `.srt` filter. `SubtitleModel.parseSrt()` parses cue time ranges and multiline text, while `PlaybackViewModel` reports the current position every 250 ms and `findSubtitleText()` selects the active cue for the bottom overlay. More playback options provide Subtitle timing choices of early by 0.5 seconds, synchronized, or late by 0.5 seconds; the selected offset is applied before cue lookup. Subtitle style provides small, medium, and large font sizes. Empty, invalid, or unreadable files produce separate prompts. Subtitle state is cleared when playback stops or the media changes, and follows the seek-preview position while dragging.
+Subtitles are an optional UI-side feature and do not alter the Native decode pipeline. The **Subtitle** control opens `DocumentViewPicker` with an `.srt` filter. `SubtitleModel.parseSrt()` parses cue time ranges and multiline text, while `PlaybackViewModel` reports the current position every 250 ms and `findSubtitleText()` selects the active cue for the overlay. More playback options provide Subtitle timing choices of early by 0.5 seconds, synchronized, or late by 0.5 seconds; the selected offset is applied before cue lookup.
+
+**Subtitle style** opens a separate scrollable panel. `SubtitleStyleModel` stores visibility, small/medium/large size, white/yellow/cyan text, transparent/translucent-black/dark-black background, and top/bottom placement. A fixed dark text shadow preserves readability even with a transparent background. These settings affect only the ArkUI overlay: they do not recreate a decoder or alter Cue timing. Reset returns to visible, 18fp, white text, translucent black, and bottom placement. Empty, invalid, or unreadable files produce separate prompts; subtitle text is cleared when playback stops or media changes, and follows seek preview while dragging.
 
 <a id="playback-speed"></a>
 
@@ -662,9 +688,11 @@ Transforms affect only the display layer. They do not modify decoded pixels, med
 
 The page displays current position, total duration, and a draggable Slider. It polls `getPlaybackInfo()` every 250 ms. While the user is dragging, periodic updates do not overwrite the preview position.
 
-ArkTS uses a separate file descriptor and `AVImageGenerator.fetchFrameByTime()` to generate a preview thumbnail. The first request is immediate; later requests are throttled to at least 100 ms. If a request is already running, only the newest position is retained and processed next. Native seek is invoked once when the user releases the slider or taps the track.
+ArkTS uses a separate file descriptor and `AVImageGenerator.fetchFrameByTime()` to generate a preview thumbnail. The first request is immediate; later requests are throttled to at least 100 ms. If a request is already running, only the newest position is retained and processed next.
 
-The playback controls provide pause/resume, 15-second rewind, 15-second forward, and replay. Pause moves Native playback to `PAUSED`; worker loops wait without destroying decoders while `AudioRenderer` is paused. Resume restarts the renderer and wakes the workers. Rewind/forward adjust the current position by 15 seconds and reuse precise `seekTo()`, clamped to `[0, durationUs]`. Replay keeps the selected file and starts a new playback task from 0.
+Codec seek itself is not run synchronously on the ArkTS thread. `seekToAsync()` uses NAPI async work to invoke the existing precise-seek routine on a Native worker. `SeekRequestController` holds one running request and one pending target. Further slider releases, track taps, rewind/forward actions, or A-B-loop requests replace the pending target with the newest position; the replaced Promise resolves as `superseded`, so a burst does not rebuild the Decoder for every intermediate target. Stop, media change, and page disappearance invalidate pending work, then wait for the active rebuild to finish before releasing the player. This keeps callback contexts valid during teardown.
+
+The playback controls provide pause/resume, 15-second rewind, 15-second forward, and replay. A single playback-window tap uses the same pause/resume operation, but only when the player is `PLAYING` or `PAUSED` and no seek or stop is active. A double tap on the left or right half of the video window reuses the same precise seek as the rewind/forward buttons; it gives a short direction prompt and clamps the target to `[0, durationUs]`. Single tap, double tap, and press-and-hold speed are in one exclusive gesture group, so a double tap does not pause playback and a hold changes speed without also pausing it. Pause moves Native playback to `PAUSED`; worker loops wait without destroying decoders while `AudioRenderer` is paused. Resume restarts the renderer and wakes the workers. Replay keeps the selected file and starts a new playback task from 0.
 
 `seekTo()` is accepted in `PLAYING` or `PAUSED`, clamps the target to `[0, durationUs]`, and performs the following sequence:
 
@@ -687,9 +715,11 @@ If rebuilding fails, playback enters `STOPPING` and reuses the common `ReleaseWo
 
 #### Playback Queue and Resume
 
-The queue panel lets the user select multiple media files from File Manager. URIs remain in the current-session queue; when a file completes naturally, the completion callback advances the index and starts the next item automatically. Explicit stop and playback errors do not advance the queue. The same panel lists recent playback entries.
+The queue panel lets the user select multiple media files from File Manager and choose sequential, repeat-one, repeat-all, or shuffle playback. URIs remain in the current-session queue; when a file completes naturally, the completion callback calculates the next index from the selected mode. Shuffle avoids immediately repeating the just-finished item. Explicit stop and playback errors do not advance the queue. The same panel lists recent playback entries.
 
-Recent entries are persisted with `@ohos.data.preferences` and contain the URI, display name, last position, duration, and update time. Position writes are throttled. When a URI is opened again and initialization succeeds, the UI performs one precise `seekTo()` after the player enters the playback state. Positions close to the end restart from zero, while the Replay button always starts from zero.
+Recent entries are persisted with `@ohos.data.preferences` and contain the URI, display name, last position, duration, and update time. Position writes are throttled. When a URI is opened again and initialization succeeds, the UI performs one precise seek after the player enters the playback state. Positions close to the end restart from zero, while the Replay button always starts from zero.
+
+**Retry once after a playback error** is enabled by default. A recovery snapshot is recorded only after the task has produced audio or video output; it contains the position, requested speed, and paused state. On a Native `error` completion, the page reopens the same URI at most once. User stop, media change, page disappearance, and errors before any output cancel this path. This handles a transient codec or renderer failure without reopening corrupt input or unsupported configurations repeatedly.
 
 <a id="display-mode"></a>
 
@@ -701,7 +731,9 @@ The playback controls provide fullscreen and display-ratio choices. Fullscreen u
 
 #### Playback Diagnostics
 
-The optional diagnostics overlay reports the player state, position/duration, playback speed, decoded output buffers, presented frames, dropped frames, approximate output FPS, cumulative drop rate, audio buffers submitted to AudioRenderer, active track types, smart-fluency/HDR Vivid status, and software-decoder fallback state. In BufferMode it additionally reports rendered copy-and-present count, average duration, and failures. Timing applies only to frames that are actually rendered; it surrounds `VideoSink::Present()` and therefore covers destination-buffer request, mapping, row copy, unmapping, and flush without affecting scheduling or output order. Dropped frames only return their decoder buffer and do not enter the copy-duration metric. Native atomic counters are exposed through structured `getPlaybackInfo()` and refreshed by the UI every 250 ms. Counters reset on stop, failure, or the next playback task; the overlay is read-only and does not participate in rendering or synchronization decisions.
+The optional diagnostics overlay reports player state, position/duration, playback speed, decoded output buffers, presentation submissions, dropped frames, approximate output FPS, cumulative drop rate, audio output buffers, smart-fluency/HDR Vivid status, and software-decoder fallback state. In BufferMode it also reports copy-and-present count, average duration, and failures. Timing covers `VideoSink::Present()`: destination-buffer request, mapping, row copy, unmapping, and flush. Dropped frames only return their decoder buffer and do not enter the copy-duration metric.
+
+The extended snapshot includes A/V sync-decision offset, mean and maximum offset magnitude, queued PCM duration, AudioRenderer device-pending duration, silence-fill callbacks, sync-policy drops, interruption count/latest hint/current state, and seek rebuild/target-output timing. Offset is sampled before the video worker waits or drops a frame; a positive value means the video PTS is ahead of the audio master clock. It is a scheduling estimate, not a physical screen-to-speaker latency measurement. A presentation submission only confirms that the application submitted a frame to Surface or NativeWindow. `PlaybackDiagnostics` aggregates short-lived values under a Native lock; PCM water level and underruns use atomics. Structured `getPlaybackInfo()` copies the read-only snapshot every 250 ms and does not change scheduling or output order. A new task, stop, failure, or seek resets statistics that no longer describe the active timeline.
 
 <a id="ab-frame-control"></a>
 
@@ -717,7 +749,17 @@ Previous frame and Next frame derive a frame interval from the media frame rate.
 
 The Picture in picture action uses `@ohos.PiPWindow` to create a `VIDEO_PLAY` system PiP controller and reuses the player XComponent's `XComponentController` as the content source. PiP playback, pause, fast-forward, and fast-backward actions are forwarded to the Native player. Unsupported devices and creation failures produce a visible prompt without breaking normal playback.
 
-The Background playback switch controls the PiP controller's `setAutoStartEnabled()` setting. When enabled, returning home may automatically move the current video into PiP; the Native playback workers are not stopped merely because the UI enters the background. When disabled, PiP is not entered automatically, while manual PiP remains available.
+The Background playback switch controls the PiP controller's `setAutoStartEnabled()` setting and the Native background policy. When enabled, returning home may automatically move the current video into PiP and the Native workers continue running. When disabled, PiP is not entered automatically and entering the background pauses audio, video scheduling, and synchronization until the app returns to the foreground. Manual PiP remains available in either mode.
+
+<a id="av-session"></a>
+
+#### System media controls
+
+When a file starts, `PlaybackSessionController` creates an API 26 `AVSession` with type `video` or `audio`, publishes the file name, duration, queue neighbors, and the 15-second skip interval, then activates the session. If consecutive queue items change between audio-only and video, the old session is safely destroyed and recreated with the matching type. Every 250 ms, the controller mirrors the existing Native playback state, position, duration, and speed; it does not maintain a second clock or decoder state.
+
+The session registers `play`, `pause`, `stop`, `seek`, `fastForward`, `rewind`, `setSpeed`, `playNext`, and `playPrevious`. Each callback calls the same page entry points used by the on-screen controls, so precise Seek request merging, A-B boundaries, pause state, and queue release behavior remain consistent. A system-requested queue change first stops the current Native task, waits for its completion callback, destroys the old session, and then starts the selected item. Explicit stop, playback failure, natural completion without a next item, and page destruction deactivate and destroy the session.
+
+The feature is local to the device: no network metadata or artwork is downloaded. If the system media service rejects a metadata or state update, the error is logged and local playback continues; the AVSession is an optional control surface rather than a prerequisite for decoding.
 
 <a id="playback-info"></a>
 
@@ -736,13 +778,13 @@ Audio/video media uses the AudioRenderer-consumed PCM position. Video-only media
 
 The larger `MediaInfo` snapshot is frozen during initialization and contains source size, duration, track count, common audio/video fields, decoder and output configuration, Source Format dump, and every Track Format dump. Separating these snapshots keeps large strings out of the 250 ms polling path.
 
-After the refactoring, `Index.ets` remains responsible for page orchestration, file selection, settings, and player callbacks. `PlaybackViewModel` owns the 250 ms playback snapshot polling, position normalization, seek-preview state, HDR Vivid marker, and smart-fluency status. `MediaInfoPanel` renders the sectioned media details, while `PlaybackProgressPanel` renders the status row, slider, drag callbacks, and thumbnail container. New playback fields or layout changes can therefore be added without growing the page's responsibilities.
+`Index.ets` handles page orchestration, file selection, settings, and player callbacks. `PlaybackViewModel` handles the 250 ms playback snapshot polling, position normalization, seek-preview state, HDR Vivid marker, and smart-fluency status. `MediaInfoPanel` renders sectioned media details, while `PlaybackProgressPanel` renders the status row, slider, drag callbacks, and thumbnail container. New fields or layout changes can be added in the matching component.
 
-Native playback policies are separated by purpose. `PlaybackClock` stores the AudioRenderer timestamp, monotonic clock anchor, written sample count, and audio-buffer PTS. `AvSyncController` converts video/audio timing, pending audio frames, and playback speed into a wait/drop decision. `SeekController` drops video frames before the requested target and trims PCM sample frames when the target falls inside an audio buffer. `Player` coordinates these policies with Decoder and Renderer lifecycles, preserving the existing Surface/Buffer, SYNC/ASYNC, and speed behavior.
+Native playback policies are separated by purpose. `PlaybackClock` stores the AudioRenderer timestamp, monotonic clock anchor, written sample count, and audio-buffer PTS. `AvSyncController` turns video/audio timing, pending audio frames, and playback speed into a wait/drop decision. `SeekController` drops video frames before the requested target and trims PCM sample frames when the target falls inside an audio buffer. `Player` coordinates those policies with Decoder and Renderer lifecycles; Surface/Buffer, SYNC/ASYNC, and speed behavior stay the same.
 
 Video presentation is isolated behind `VideoSink`. `SurfaceVideoSink` uses the decoder's Surface output path and returns the output buffer. `BufferVideoSink` uses `BufferRenderer` to copy decoded pixels into a NativeWindow buffer, propagate HDR/color metadata, and then return the decoder buffer. Both sinks share the existing PTS scheduling, A/V sync, dump, and HDR Vivid bitstream detection logic, so the abstraction does not change SurfaceMode or BufferMode behavior.
 
-`VideoPipeline` and `AudioPipeline` encapsulate input/output thread creation, startup rollback, running-state queries, and joining for their respective decoder paths. They do not own a decoder or select the SYNC/ASYNC algorithm; `Player` still supplies the concrete worker functions. This reduces direct thread bookkeeping in `Player` without changing callback contexts or the `ReleaseWorker` cleanup order.
+`VideoPipeline` and `AudioPipeline` encapsulate input/output thread creation, startup rollback, running-state queries, and joining for their decoder paths. They do not own a decoder or select the SYNC/ASYNC algorithm; `Player` still supplies the worker functions. Callback contexts and the `ReleaseWorker` cleanup order stay the same.
 
 <a id="player-lifecycle"></a>
 
@@ -806,7 +848,7 @@ The camera and XComponent own their Surface objects. Native code stores non-owni
 
 ##### Recording Stop Flow
 
-Stopping recording is deliberately staged so the media asset is complete before the UI returns:
+Stopping recording follows this order:
 
 1. Stop camera video output so no new frame is submitted.
 2. Wait for the camera frame-end signal.
@@ -818,7 +860,6 @@ Stopping recording is deliberately staged so the media asset is complete before 
 8. Close the media-library output fd.
 9. Release camera objects and navigate back to the home page.
 
-Closing the fd before muxer finalization can make Gallery visibility lag for minutes or leave an incomplete file. The current flow closes it only after Native finalization completes.
 
 <a id="video-encoding"></a>
 

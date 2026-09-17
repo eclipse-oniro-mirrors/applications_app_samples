@@ -70,6 +70,7 @@ bool AudioOutputPump::EnqueueOutput(CodecBufferInfo &bufferInfo)
     for (int32_t i = 0; i < bufferInfo.attr.size; i++) {
         context_.renderQueue.push(source[i]);
     }
+    context_.UpdateAudioQueueDuration();
     return true;
 }
 

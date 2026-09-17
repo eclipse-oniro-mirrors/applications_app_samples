@@ -28,6 +28,7 @@ set(BASE_LIBRARY
     libohaudio.so
 )
 add_library(player SHARED sample/player/napi/PlayerNative.cpp
+                          sample/player/napi/PlayerAsyncSeek.cpp
                           sample/player/napi/PlayerNapiParser.cpp
                           sample/player/napi/PlayerNapiSerializer.cpp
                           sample/player/core/Player.cpp
@@ -36,6 +37,7 @@ add_library(player SHARED sample/player/napi/PlayerNative.cpp
                           sample/player/core/PlayerSeek.cpp
                           sample/player/sync/PlayerStateMachine.cpp
                           sample/player/sync/PlaybackClock.cpp
+                          sample/player/sync/PlaybackDiagnostics.cpp
                           sample/player/sync/AvSyncController.cpp
                           sample/player/sync/SeekController.cpp
                           sample/player/output/VideoPipeline.cpp

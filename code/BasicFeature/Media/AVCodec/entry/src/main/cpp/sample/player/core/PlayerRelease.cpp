@@ -20,6 +20,10 @@
 #undef LOG_TAG
 #define LOG_TAG "samplePlayer"
 
+namespace {
+constexpr auto FAILURE_CHECK_INTERVAL = std::chrono::milliseconds(100);
+}
+
 void Player::StartRelease()
 {
     if (releaseThread_ && releaseThread_->joinable()) {
@@ -32,7 +36,11 @@ void Player::ReleaseWorker()
 {
     AVCODEC_SAMPLE_LOGI("Release worker started");
     std::unique_lock<std::mutex> lock(doneMutex);
-    doneCond_.wait(lock, [this]() { return isAudioDone.load() && isVideoDone.load(); });
+    // Callback errors can stop only one pipeline. A bounded wait also observes
+    // worker failures that do not send a completion notification.
+    while (!playbackFailed_.load() && !(isAudioDone.load() && isVideoDone.load())) {
+        doneCond_.wait_for(lock, FAILURE_CHECK_INTERVAL);
+    }
     lock.unlock();
     if (isReleased_.exchange(true)) {
         return;
@@ -149,22 +157,36 @@ void Player::ReleasePlaybackResources()
 
 void Player::Release()
 {
+    std::lock_guard<std::mutex> operationLock(audioTrackOperationMutex_);
     std::unique_lock<std::mutex> lock(mutex_);
     stateMachine_.BeginStop();
-    bool playbackSucceeded = false;
-    const PlaybackCompletionReason completionReason = GetCompletionReason(playbackSucceeded);
     isStarted_ = false;
+    audioWorkerRunning_ = false;
     paused_ = false;
     renderSingleFrameAfterSeek_ = false;
     pauseCond_.notify_all();
     audioStartPendingAfterVideoSeek_ = false;
     audioStartCond_.notify_all();
+    CancelWorkerWaits();
     JoinWorkerThreads();
+    bool playbackSucceeded = false;
+    const PlaybackCompletionReason completionReason = GetCompletionReason(playbackSucceeded);
     ReleasePlaybackResources();
     auto playDoneCallback = sampleInfo_.playback.playDoneCallback;
     void *playDoneCallbackData = sampleInfo_.playback.playDoneCallbackData;
     sampleInfo_.playback.playDoneCallback = nullptr;
     sampleInfo_.playback.playDoneCallbackData = nullptr;
+    ResetReleasedPlaybackState();
+    stateMachine_.CompleteStop();
+    lock.unlock();
+    if (playDoneCallback != nullptr) {
+        playDoneCallback(playDoneCallbackData, playbackSucceeded, completionReason);
+    }
+    AVCODEC_SAMPLE_LOGI("Succeed");
+}
+
+void Player::ResetReleasedPlaybackState()
+{
     smartFluencyAvailable_ = false;
     isBufferMode_ = false;
     speed.store(1.0f);
@@ -181,14 +203,14 @@ void Player::Release()
     hasVideoTrack_.store(false);
     hasAudioTrack_.store(false);
     hasDecodedOutput_ = false;
+    audioInterrupted_ = false;
+    audioResumePending_ = false;
+    audioInterruptHint_ = AUDIOSTREAM_INTERRUPT_HINT_NONE;
+    audioDucked_ = false;
+    backgroundPausedPlayback_ = false;
+    diagnostics_.SetBackgroundPaused(false);
     seekInProgress_ = false;
     seekTargetUs_ = 0;
     discardVideoUntilSeekTarget_ = false;
     discardAudioUntilSeekTarget_ = false;
-    stateMachine_.CompleteStop();
-    lock.unlock();
-    if (playDoneCallback != nullptr) {
-        playDoneCallback(playDoneCallbackData, playbackSucceeded, completionReason);
-    }
-    AVCODEC_SAMPLE_LOGI("Succeed");
 }

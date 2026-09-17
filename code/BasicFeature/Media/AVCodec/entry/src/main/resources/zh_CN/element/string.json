@@ -437,6 +437,18 @@
       "value": "继续播放"
     },
     {
+      "name": "playback_gesture_play",
+      "value": "播放"
+    },
+    {
+      "name": "playback_speed_x1",
+      "value": "X1"
+    },
+    {
+      "name": "playback_speed_x2",
+      "value": "X2"
+    },
+    {
       "name": "playback_rewind_15s",
       "value": "快退15秒"
     },
@@ -584,6 +596,49 @@
     { "name": "playback_diagnostics_buffer_failures", "value": "  失败 " },
     { "name": "playback_diagnostics_software_fallback", "value": "软件解码回退 " },
     { "name": "playback_diagnostics_used", "value": "已启用" },
-    { "name": "playback_diagnostics_not_used", "value": "未启用" }
+    { "name": "playback_diagnostics_not_used", "value": "未启用" },
+    { "name": "playback_diagnostics_recovery", "value": "异常恢复 " },
+    { "name": "playback_diagnostics_recovery_idle", "value": "未触发" },
+    { "name": "playback_diagnostics_recovery_pending", "value": "恢复中" },
+    { "name": "playback_diagnostics_recovery_succeeded", "value": "已成功" },
+    { "name": "playback_diagnostics_recovery_failed", "value": "失败" },
+    { "name": "playback_diagnostics_recovery_attempt", "value": "，第 " },
+    { "name": "playback_diagnostics_recovery_attempt_suffix", "value": " 次" },
+    { "name": "playback_diagnostics_recovery_reason", "value": "，原因：运行期播放异常" },
+    { "name": "playback_audio_only", "value": "纯音频播放" },
+    { "name": "playback_mode_sequential", "value": "顺序播放" },
+    { "name": "playback_mode_repeat_one", "value": "单曲循环" },
+    { "name": "playback_mode_repeat_all", "value": "列表循环" },
+    { "name": "playback_mode_shuffle", "value": "随机播放" },
+    { "name": "playback_mode_hint", "value": "播放结束后按所选模式接播；停止或失败时不接播。" },
+    { "name": "playback_auto_recovery", "value": "播放异常后尝试恢复一次" },
+    { "name": "playback_recovering", "value": "播放发生异常，正在尝试恢复原位置" },
+    { "name": "playback_recovered", "value": "已恢复播放位置" },
+    { "name": "playback_seek_busy", "value": "正在定位，请稍后再执行此操作" },
+    { "name": "subtitle_visible", "value": "显示字幕" },
+    { "name": "subtitle_size", "value": "字号" },
+    { "name": "subtitle_color", "value": "文字颜色" },
+    { "name": "subtitle_white", "value": "白色" },
+    { "name": "subtitle_yellow", "value": "黄色" },
+    { "name": "subtitle_cyan", "value": "青色" },
+    { "name": "subtitle_background", "value": "字幕背景" },
+    { "name": "subtitle_transparent", "value": "透明" },
+    { "name": "subtitle_translucent", "value": "半透明黑色" },
+    { "name": "subtitle_dark", "value": "深黑色" },
+    { "name": "subtitle_position", "value": "字幕位置" },
+    { "name": "subtitle_bottom", "value": "画面下方" },
+    { "name": "subtitle_top", "value": "画面上方" },
+    { "name": "subtitle_preview", "value": "字幕样式预览" },
+    { "name": "subtitle_reset", "value": "恢复默认样式" },
+    { "name": "diagnostics_av_offset", "value": "同步决策偏差 %s（正值：视频超前）" },
+    { "name": "diagnostics_av_range", "value": "偏差幅度 均值 %s / 最大 %s" },
+    { "name": "diagnostics_audio_queue", "value": "音频 PCM 排队 %s / 设备待播 %s" },
+    { "name": "diagnostics_starvation", "value": "补静音回调 %d / 同步丢帧 %d" },
+    { "name": "diagnostics_seek_time", "value": "Seek 重建 %s / 目标输出 %s" },
+    { "name": "diagnostics_seek_queue", "value": "Seek 请求 %d / 合并 %d / 完成 %d" },
+    { "name": "diagnostics_measurement_note", "value": "送显计数是提交次数；偏差采于等待/丢帧前，不代表屏幕与扬声器的实测延迟。" },
+    { "name": "diagnostics_audio_interrupt_active", "value": "音频中断 %d 次（已暂停，等待恢复）" },
+    { "name": "diagnostics_audio_interrupt_idle", "value": "音频中断 %d 次（未中断）" },
+    { "name": "diagnostics_background_paused", "value": "后台状态：已暂停，返回前台后自动恢复" }
   ]
 }

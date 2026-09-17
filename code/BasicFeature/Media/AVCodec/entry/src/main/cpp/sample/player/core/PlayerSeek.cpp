@@ -43,8 +43,13 @@ void Player::WaitIfPaused(bool audioWorker)
 {
     std::unique_lock<std::mutex> lock(pauseMutex_);
     pauseCond_.wait(lock, [this, audioWorker]() {
-        return !paused_.load() || !isStarted_.load() || (audioWorker && !audioWorkerRunning_.load()) ||
-            (!audioWorker && renderSingleFrameAfterSeek_.load());
+        if (!isStarted_.load()) {
+            return true;
+        }
+        if (audioWorker) {
+            return !audioWorkerRunning_.load() || (!paused_.load() && !audioInterrupted_.load());
+        }
+        return (!paused_.load() && !audioInterrupted_.load()) || renderSingleFrameAfterSeek_.load();
     });
 }
 
@@ -327,6 +332,7 @@ int32_t Player::RecreateCodecResourcesAfterSeek(bool hadVideo, bool hadAudio, fl
 
 int32_t Player::HandleSeekFailure()
 {
+    diagnostics_.EndSeek(false);
     playbackFailed_ = true;
     isStarted_ = false;
     paused_ = false;
@@ -353,6 +359,7 @@ int32_t Player::HandleSeekFailure()
 int32_t Player::SeekTo(int64_t positionUs)
 {
     std::unique_lock<std::mutex> lock(mutex_);
+    CHECK_AND_RETURN_RET_LOG(!playbackFailed_.load(), AVCODEC_SAMPLE_ERR_ERROR, "Playback is already failing");
     const PlayerState currentState = stateMachine_.GetState();
     CHECK_AND_RETURN_RET_LOG(currentState == PLAYER_STATE_PLAYING || currentState == PLAYER_STATE_PAUSED,
         AVCODEC_SAMPLE_ERR_ERROR, "Seek is only allowed while playing or paused, state: %{public}d",
@@ -378,8 +385,14 @@ int32_t Player::SeekTo(int64_t positionUs)
     CHECK_AND_RETURN_RET_LOG(stateMachine_.BeginSeek(), AVCODEC_SAMPLE_ERR_ERROR, "Failed to enter seeking state");
     playbackPositionUs_.store(targetUs);
     AVCODEC_SAMPLE_LOGI("Seek started, target: %{public}" PRId64 " us", targetUs);
+    return RebuildPlaybackForSeek(hadVideo, hadAudio, speedSnapshot, targetUs);
+}
 
+int32_t Player::RebuildPlaybackForSeek(bool hadVideo, bool hadAudio, float speedSnapshot, int64_t targetUs)
+{
+    const auto seekStartedAt = PlaybackDiagnostics::Clock::now();
     StopWorkersForSeek();
+    diagnostics_.BeginSeek(seekStartedAt);
     ReleaseCodecResourcesForSeek();
     int32_t ret = demuxer_->Seek(targetUs / US_PER_MILLISECOND, SEEK_MODE_PREVIOUS_SYNC);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
@@ -391,11 +404,13 @@ int32_t Player::SeekTo(int64_t positionUs)
         AVCODEC_SAMPLE_LOGE("Restart playback after seek failed");
         return HandleSeekFailure();
     }
-    CHECK_AND_RETURN_RET_LOG(stateMachine_.CompleteSeek(), AVCODEC_SAMPLE_ERR_ERROR,
-        "Failed to restore playing state after seek");
+    if (!stateMachine_.CompleteSeek()) {
+        return HandleSeekFailure();
+    }
     if (!resumeAfterSeek_) {
         stateMachine_.BeginPause();
     }
     AVCODEC_SAMPLE_LOGI("Seek completed, target: %{public}" PRId64 " us", targetUs);
+    diagnostics_.EndSeek(true);
     return AVCODEC_SAMPLE_ERR_OK;
 }

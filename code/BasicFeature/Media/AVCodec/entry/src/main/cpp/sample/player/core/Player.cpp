@@ -75,6 +75,11 @@ PlaybackInfo Player::GetPlaybackInfo() const
             static_cast<double>(info.bufferPresentFrames) / NANOSECONDS_PER_MICROSECOND;
     }
     info.positionUs = playbackPositionUs_.load();
+    info.diagnostics = diagnostics_.Snapshot();
+    info.diagnostics.audioInterrupted = audioInterrupted_.load();
+    info.diagnostics.audioInterruptions = audioInterruptCount_.load();
+    info.diagnostics.lastAudioInterruptHint = audioInterruptHint_.load();
+    info.diagnostics.backgroundPaused = backgroundPausedPlayback_.load();
     if (info.durationUs > 0) {
         info.positionUs = std::clamp(info.positionUs, int64_t { 0 }, info.durationUs);
     }
@@ -96,6 +101,7 @@ bool Player::IsSmartFluencyAvailable() const
 
 int32_t Player::Stop()
 {
+    std::lock_guard<std::mutex> operationLock(audioTrackOperationMutex_);
     std::lock_guard<std::mutex> lock(mutex_);
     PlayerState currentState = stateMachine_.GetState();
     if (currentState == PLAYER_STATE_STOPPING) {
@@ -112,6 +118,8 @@ int32_t Player::Stop()
     isStarted_ = false;
     audioWorkerRunning_ = false;
     paused_ = false;
+    backgroundPausedPlayback_ = false;
+    diagnostics_.SetBackgroundPaused(false);
     renderSingleFrameAfterSeek_ = false;
     pauseCond_.notify_all();
     audioStartPendingAfterVideoSeek_ = false;
@@ -172,9 +180,92 @@ int32_t Player::Resume()
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
+void Player::SetBackgroundPlaybackEnabled(bool enabled)
+{
+    backgroundPlaybackEnabled_ = enabled;
+    if (!enabled || !appBackgrounded_.load() || !backgroundPausedPlayback_.load()) {
+        return;
+    }
+    std::lock_guard<std::mutex> lock(mutex_);
+    if (stateMachine_.GetState() != PLAYER_STATE_PAUSED) {
+        return;
+    }
+    {
+        std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
+        if (audioRenderer_ != nullptr && OH_AudioRenderer_Start(audioRenderer_) != AUDIOSTREAM_SUCCESS) {
+            AVCODEC_SAMPLE_LOGW("Resume audio renderer after enabling background playback failed");
+            return;
+        }
+    }
+    if (stateMachine_.BeginResume()) {
+        paused_ = false;
+        backgroundPausedPlayback_ = false;
+        diagnostics_.SetBackgroundPaused(false);
+        pauseCond_.notify_all();
+    }
+}
+
+void Player::PauseForBackground()
+{
+    if (backgroundPlaybackEnabled_.load()) {
+        return;
+    }
+    std::lock_guard<std::mutex> lock(mutex_);
+    if (stateMachine_.GetState() != PLAYER_STATE_PLAYING) {
+        return;
+    }
+    {
+        std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
+        if (audioRenderer_ != nullptr) {
+            const int32_t ret = OH_AudioRenderer_Pause(audioRenderer_);
+            if (ret != AUDIOSTREAM_SUCCESS) {
+                AVCODEC_SAMPLE_LOGW("Pause audio renderer for background failed: %{public}d", ret);
+            }
+        }
+    }
+    if (stateMachine_.BeginPause()) {
+        paused_ = true;
+        backgroundPausedPlayback_ = true;
+        diagnostics_.SetBackgroundPaused(true);
+    }
+}
+
+void Player::ResumeFromBackground()
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    if (stateMachine_.GetState() != PLAYER_STATE_PAUSED) {
+        backgroundPausedPlayback_ = false;
+        diagnostics_.SetBackgroundPaused(false);
+        return;
+    }
+    std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
+    if (audioRenderer_ != nullptr && OH_AudioRenderer_Start(audioRenderer_) != AUDIOSTREAM_SUCCESS) {
+        AVCODEC_SAMPLE_LOGW("Resume audio renderer after foreground failed");
+        return;
+    }
+    if (stateMachine_.BeginResume()) {
+        paused_ = false;
+        backgroundPausedPlayback_ = false;
+        diagnostics_.SetBackgroundPaused(false);
+    }
+}
+
+void Player::SetAppBackground(bool background)
+{
+    appBackgrounded_ = background;
+    if (background) {
+        PauseForBackground();
+    } else if (backgroundPausedPlayback_.load()) {
+        ResumeFromBackground();
+    }
+    pauseCond_.notify_all();
+}
+
 int32_t Player::SelectAudioTrack(int32_t trackIndex)
 {
+    std::lock_guard<std::mutex> operationLock(audioTrackOperationMutex_);
     std::unique_lock<std::mutex> lock(mutex_);
+    CHECK_AND_RETURN_RET_LOG(!playbackFailed_.load(), AVCODEC_SAMPLE_ERR_ERROR, "Playback is already failing");
     const PlayerState currentState = stateMachine_.GetState();
     CHECK_AND_RETURN_RET_LOG(currentState == PLAYER_STATE_PLAYING || currentState == PLAYER_STATE_PAUSED,
         AVCODEC_SAMPLE_ERR_ERROR, "Audio track selection is only allowed while playing or paused");

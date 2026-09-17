@@ -11,6 +11,26 @@ const PLAYBACK_INFO_UPDATE_INTERVAL_MS: number = 250;
 @Observed
 export class PlaybackViewModel {
   public infoText: string;
+  public syncAvailable: boolean = false;
+  public avOffsetUs: number = 0;
+  public averageAbsoluteOffsetUs: number = 0;
+  public maxAbsoluteOffsetUs: number = 0;
+  public audioQueueDurationUs: number = 0;
+  public audioDevicePendingUs: number = 0;
+  public audioUnderruns: number = 0;
+  public syncDrops: number = 0;
+  public seekRebuildUs: number = -1;
+  public seekFirstOutputUs: number = -1;
+  public audioInterrupted: boolean = false;
+  public audioInterruptions: number = 0;
+  public lastAudioInterruptHint: number = 0;
+  public backgroundPaused: boolean = false;
+  public seekSubmitted: number = 0;
+  public seekMerged: number = 0;
+  public seekCompleted: number = 0;
+  public recoveryAttemptCount: number = 0;
+  public recoveryStatus: number = 0;
+  public recoveryReason: number = 0;
   public positionUs: number;
   public durationUs: number;
   public seekPreviewUs: number;
@@ -85,6 +105,20 @@ export class PlaybackViewModel {
 
   update(): void {
     const info = player.getPlaybackInfo();
+    this.syncAvailable = info.diagnostics.syncAvailable;
+    this.avOffsetUs = info.diagnostics.avOffsetUs;
+    this.averageAbsoluteOffsetUs = info.diagnostics.averageAbsoluteOffsetUs;
+    this.maxAbsoluteOffsetUs = info.diagnostics.maxAbsoluteOffsetUs;
+    this.audioQueueDurationUs = info.diagnostics.audioQueueDurationUs;
+    this.audioDevicePendingUs = info.diagnostics.audioDevicePendingUs;
+    this.audioUnderruns = info.diagnostics.audioUnderruns;
+    this.syncDrops = info.diagnostics.syncDrops;
+    this.seekRebuildUs = info.diagnostics.seekRebuildUs;
+    this.seekFirstOutputUs = info.diagnostics.seekFirstOutputUs;
+    this.audioInterrupted = info.diagnostics.audioInterrupted;
+    this.audioInterruptions = info.diagnostics.audioInterruptions;
+    this.lastAudioInterruptHint = info.diagnostics.lastAudioInterruptHint;
+    this.backgroundPaused = info.diagnostics.backgroundPaused;
     this.isHdrVividConfirmed = info.isHdrVividConfirmed;
     this.isSmartFluencyAvailable = info.isSmartFluencyAvailable;
     this.isSoftwareDecoderFallbackUsed = info.isSoftwareDecoderFallbackUsed;
@@ -129,7 +163,44 @@ export class PlaybackViewModel {
     return targetUs;
   }
 
+  clearRecoveryDiagnostics(): void {
+    this.recoveryAttemptCount = 0;
+    this.recoveryStatus = 0;
+    this.recoveryReason = 0;
+  }
+
+  markRecoveryPending(reason: number): void {
+    this.recoveryAttemptCount += 1;
+    this.recoveryStatus = 1;
+    this.recoveryReason = reason;
+  }
+
+  markRecoverySucceeded(): void {
+    this.recoveryStatus = 2;
+  }
+
+  markRecoveryFailed(): void {
+    this.recoveryStatus = 3;
+  }
+
   reset(): void {
+    this.syncAvailable = false;
+    this.avOffsetUs = 0;
+    this.averageAbsoluteOffsetUs = 0;
+    this.maxAbsoluteOffsetUs = 0;
+    this.audioQueueDurationUs = 0;
+    this.audioDevicePendingUs = 0;
+    this.audioUnderruns = 0;
+    this.syncDrops = 0;
+    this.seekRebuildUs = -1;
+    this.seekFirstOutputUs = -1;
+    this.audioInterrupted = false;
+    this.audioInterruptions = 0;
+    this.lastAudioInterruptHint = 0;
+    this.backgroundPaused = false;
+    this.seekSubmitted = 0;
+    this.seekMerged = 0;
+    this.seekCompleted = 0;
     this.infoText = '';
     this.positionUs = 0;
     this.durationUs = 0;

@@ -45,6 +45,102 @@ bool IsCallbackUnavailable(const CodecUserData *codecUserData)
     return codecUserData == nullptr || codecUserData->isDestroyed.load();
 }
 
+void SetRendererVolume(OH_AudioRenderer *renderer, float volume, const char *reason)
+{
+    if (renderer == nullptr) {
+        return;
+    }
+    const int32_t ret = OH_AudioRenderer_SetVolume(renderer, volume);
+    if (ret != AUDIOSTREAM_SUCCESS) {
+        AVCODEC_SAMPLE_LOGW("Set renderer volume failed during %{public}s, ret: %{public}d", reason, ret);
+    }
+}
+
+size_t DrainRenderQueue(CodecUserData *codecUserData, uint8_t *destination, int32_t length)
+{
+    size_t index = 0;
+    while (!codecUserData->renderQueue.empty() && index < static_cast<size_t>(length)) {
+        destination[index] = codecUserData->renderQueue.front();
+        ++index;
+        codecUserData->renderQueue.pop();
+    }
+    return index;
+}
+
+void UpdateAudioPlaybackPosition(CodecUserData *codecUserData, size_t writtenBytes)
+{
+    if (codecUserData->sampleInfo == nullptr) {
+        return;
+    }
+    const int32_t channelCount = codecUserData->sampleInfo->audio.audioChannelCount;
+    const int32_t sampleRate = codecUserData->sampleInfo->audio.audioSampleRate;
+    if (channelCount <= 0 || sampleRate <= 0) {
+        return;
+    }
+    const size_t bytesPerFrame = static_cast<size_t>(channelCount) * BYTES_PER_SAMPLE_2;
+    codecUserData->audioFramesWritten += static_cast<int64_t>(writtenBytes / bytesPerFrame);
+    codecUserData->currentPosAudioBufferPts = codecUserData->endPosAudioBufferPts -
+        GetQueuedAudioDurationUs(codecUserData->renderQueue.size(), *codecUserData->sampleInfo);
+    codecUserData->UpdateAudioQueueDuration();
+    if (codecUserData->playbackPositionUs != nullptr) {
+        codecUserData->playbackPositionUs->store(codecUserData->currentPosAudioBufferPts);
+    }
+}
+
+void HandlePauseInterrupt(OH_AudioRenderer *renderer, CodecUserData *codecUserData)
+{
+    if (codecUserData->audioInterrupted != nullptr) {
+        codecUserData->audioInterrupted->store(true);
+    }
+    if (codecUserData->audioResumePending != nullptr) {
+        codecUserData->audioResumePending->store(true);
+    }
+    if (renderer != nullptr && OH_AudioRenderer_Pause(renderer) != AUDIOSTREAM_SUCCESS) {
+        AVCODEC_SAMPLE_LOGW("Audio renderer was already paused by interruption");
+    }
+}
+
+void HandleResumeInterrupt(OH_AudioRenderer *renderer, CodecUserData *codecUserData)
+{
+    if (codecUserData->audioResumePending == nullptr || codecUserData->audioResumePending->exchange(false)) {
+        const bool playbackPaused = codecUserData->pausedFlag != nullptr && codecUserData->pausedFlag->load();
+        const bool playbackRunning = codecUserData->runningFlag == nullptr || codecUserData->runningFlag->load();
+        if (!playbackPaused && playbackRunning && renderer != nullptr &&
+            OH_AudioRenderer_Start(renderer) != AUDIOSTREAM_SUCCESS) {
+            AVCODEC_SAMPLE_LOGW("Audio renderer resume after interruption failed");
+        }
+    }
+    if (codecUserData->audioInterrupted != nullptr) {
+        codecUserData->audioInterrupted->store(false);
+    }
+}
+
+void HandleDuckInterrupt(OH_AudioRenderer *renderer, CodecUserData *codecUserData)
+{
+    if (codecUserData->audioDucked != nullptr && !codecUserData->audioDucked->exchange(true) &&
+        renderer != nullptr && codecUserData->audioVolume != nullptr) {
+        SetRendererVolume(renderer, codecUserData->audioVolume->load() * 0.2F, "duck");
+    }
+}
+
+void HandleUnduckInterrupt(OH_AudioRenderer *renderer, CodecUserData *codecUserData)
+{
+    if (codecUserData->audioDucked != nullptr && codecUserData->audioDucked->exchange(false) &&
+        renderer != nullptr && codecUserData->audioVolume != nullptr) {
+        SetRendererVolume(renderer, codecUserData->audioVolume->load(), "unduck");
+    }
+}
+
+void HandleStopInterrupt(CodecUserData *codecUserData)
+{
+    if (codecUserData->audioInterrupted != nullptr) {
+        codecUserData->audioInterrupted->store(true);
+    }
+    if (codecUserData->audioResumePending != nullptr) {
+        codecUserData->audioResumePending->store(false);
+    }
+}
+
 void UpdateVideoOutputInfo(OH_AVFormat *format, CodecUserData *codecUserData)
 {
     if (format == nullptr || codecUserData == nullptr) {
@@ -85,34 +181,20 @@ int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *user
     }
 
     auto *dest = static_cast<uint8_t *>(buffer);
-    size_t index = 0;
     std::unique_lock<std::mutex> lock(codecUserData->outputMutex);
-    while (!codecUserData->renderQueue.empty() && index < length) {
-        dest[index] = codecUserData->renderQueue.front();
-        ++index;
-        codecUserData->renderQueue.pop();
-    }
+    const size_t index = DrainRenderQueue(codecUserData, dest, length);
     if (index < static_cast<size_t>(length)) {
         std::fill(dest + index, dest + length, 0);
+        if (codecUserData->audioUnderruns != nullptr) {
+            codecUserData->audioUnderruns->fetch_add(1);
+        }
     }
     AVCODEC_SAMPLE_LOGD("render BufferLength:%{public}d Out buffer count: %{public}u, renderQueue.size: %{public}u "
                         "renderReadSize: %{public}u",
                         length, codecUserData->outputFrameCount,
                         static_cast<uint32_t>(codecUserData->renderQueue.size()), static_cast<uint32_t>(index));
 
-    if (codecUserData->sampleInfo != nullptr) {
-        const int32_t channelCount = codecUserData->sampleInfo->audio.audioChannelCount;
-        const int32_t sampleRate = codecUserData->sampleInfo->audio.audioSampleRate;
-        if (channelCount > 0 && sampleRate > 0) {
-            const size_t bytesPerFrame = static_cast<size_t>(channelCount) * BYTES_PER_SAMPLE_2;
-            codecUserData->audioFramesWritten += static_cast<int64_t>(index / bytesPerFrame);
-            codecUserData->currentPosAudioBufferPts = codecUserData->endPosAudioBufferPts -
-                GetQueuedAudioDurationUs(codecUserData->renderQueue.size(), *codecUserData->sampleInfo);
-            if (codecUserData->playbackPositionUs != nullptr) {
-                codecUserData->playbackPositionUs->store(codecUserData->currentPosAudioBufferPts);
-            }
-        }
-    }
+    UpdateAudioPlaybackPosition(codecUserData, index);
 
     if (codecUserData->renderQueue.size() < length) {
         codecUserData->renderCond.notify_all();
@@ -131,11 +213,58 @@ int32_t SampleCallback::OnRenderStreamEvent(OH_AudioRenderer *renderer, void *us
 int32_t SampleCallback::OnRenderInterruptEvent(OH_AudioRenderer *renderer, void *userData,
                                                OH_AudioInterrupt_ForceType type, OH_AudioInterrupt_Hint hint)
 {
-    (void)renderer;
-    (void)userData;
-    (void)type;
-    (void)hint;
+    OnRenderInterrupt(renderer, userData, type, hint);
     return 0;
+}
+
+void SampleCallback::OnRenderInterrupt(OH_AudioRenderer *renderer, void *userData,
+                                       OH_AudioInterrupt_ForceType type, OH_AudioInterrupt_Hint hint)
+{
+    auto *codecUserData = static_cast<CodecUserData *>(userData);
+    if (IsCallbackUnavailable(codecUserData)) {
+        return;
+    }
+    const bool startsInterruption = hint == AUDIOSTREAM_INTERRUPT_HINT_PAUSE ||
+        hint == AUDIOSTREAM_INTERRUPT_HINT_STOP;
+    if (startsInterruption && codecUserData->audioInterruptCount != nullptr) {
+        codecUserData->audioInterruptCount->fetch_add(1);
+    }
+    if (codecUserData->audioInterruptHint != nullptr) {
+        codecUserData->audioInterruptHint->store(static_cast<int32_t>(hint));
+    }
+
+    switch (hint) {
+        case AUDIOSTREAM_INTERRUPT_HINT_PAUSE:
+            HandlePauseInterrupt(renderer, codecUserData);
+            break;
+        case AUDIOSTREAM_INTERRUPT_HINT_RESUME:
+            HandleResumeInterrupt(renderer, codecUserData);
+            break;
+        case AUDIOSTREAM_INTERRUPT_HINT_DUCK:
+            HandleDuckInterrupt(renderer, codecUserData);
+            break;
+        case AUDIOSTREAM_INTERRUPT_HINT_UNDUCK:
+            HandleUnduckInterrupt(renderer, codecUserData);
+            break;
+        case AUDIOSTREAM_INTERRUPT_HINT_MUTE:
+            SetRendererVolume(renderer, 0.0F, "mute");
+            break;
+        case AUDIOSTREAM_INTERRUPT_HINT_UNMUTE:
+            if (renderer != nullptr && codecUserData->audioVolume != nullptr) {
+                SetRendererVolume(renderer, codecUserData->audioVolume->load(), "unmute");
+            }
+            break;
+        case AUDIOSTREAM_INTERRUPT_HINT_STOP:
+            HandleStopInterrupt(codecUserData);
+            break;
+        default:
+            break;
+    }
+    if (codecUserData->pauseCond != nullptr) {
+        codecUserData->pauseCond->notify_all();
+    }
+    AVCODEC_SAMPLE_LOGI("Audio interruption handled, type: %{public}d, hint: %{public}d",
+        static_cast<int32_t>(type), static_cast<int32_t>(hint));
 }
 
 int32_t SampleCallback::OnRenderError(OH_AudioRenderer *renderer, void *userData, OH_AudioStream_Result error)
@@ -144,10 +273,7 @@ int32_t SampleCallback::OnRenderError(OH_AudioRenderer *renderer, void *userData
     (void)error;
     auto *codecUserData = static_cast<CodecUserData *>(userData);
     if (!IsCallbackUnavailable(codecUserData)) {
-        codecUserData->hasError.store(true);
-        if (codecUserData->runningFlag != nullptr) {
-            codecUserData->runningFlag->store(false);
-        }
+        codecUserData->SignalError();
     }
     AVCODEC_SAMPLE_LOGE("OnRenderError");
     return 0;
@@ -158,10 +284,7 @@ void SampleCallback::OnCodecError(OH_AVCodec *codec, int32_t errorCode, void *us
     (void)codec;
     auto *codecUserData = static_cast<CodecUserData *>(userData);
     if (!IsCallbackUnavailable(codecUserData)) {
-        codecUserData->hasError.store(true);
-        if (codecUserData->runningFlag != nullptr) {
-            codecUserData->runningFlag->store(false);
-        }
+        codecUserData->SignalError();
     }
     AVCODEC_SAMPLE_LOGE("On codec error, error code: %{public}d", errorCode);
 }

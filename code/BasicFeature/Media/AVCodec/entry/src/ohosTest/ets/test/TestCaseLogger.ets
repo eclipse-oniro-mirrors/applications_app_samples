@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_AVCodec]';
@@ -23,6 +23,15 @@ export function runTestCase(caseName: string, action: () => void): void {
   hilog.info(DOMAIN, TAG, '%{public}s', `${caseName} assertions begin`);
   try {
     action();
+  } finally {
+    hilog.info(DOMAIN, TAG, '%{public}s', `${caseName} end`);
+  }
+}
+
+export async function runAsyncTestCase(caseName: string, action: () => Promise<void>): Promise<void> {
+  hilog.info(DOMAIN, TAG, '%{public}s', `${caseName} begin`);
+  try {
+    await action();
   } finally {
     hilog.info(DOMAIN, TAG, '%{public}s', `${caseName} end`);
   }

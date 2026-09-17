@@ -76,9 +76,32 @@ export const resume: () => boolean
 
 export const seekTo: (positionUs: number) => boolean
 
+/** Rebuilds codecs on a worker. Only one async seek is accepted at a time.
+ * State and progress polling remain available; wait for completion before mutations.
+ */
+export const seekToAsync: (positionUs: number) => Promise<boolean>
+
 export const selectAudioTrack: (trackIndex: number) => boolean
 
 export const getState: () => PlayerState
+
+export interface PlaybackDiagnostics {
+  syncAvailable: boolean;
+  avOffsetUs: number;
+  averageAbsoluteOffsetUs: number;
+  maxAbsoluteOffsetUs: number;
+  audioDevicePendingUs: number;
+  audioQueueDurationUs: number;
+  audioUnderruns: number;
+  syncDrops: number;
+  /** -1 until a successful seek rebuild / target output is available. */
+  seekRebuildUs: number;
+  seekFirstOutputUs: number;
+  audioInterrupted: boolean;
+  audioInterruptions: number;
+  lastAudioInterruptHint: number;
+  backgroundPaused: boolean;
+}
 
 export interface PlaybackInfo {
   state: PlayerState;
@@ -98,6 +121,7 @@ export interface PlaybackInfo {
   bufferPresentFrames: number;
   bufferPresentFailures: number;
   bufferPresentAverageUs: number;
+  diagnostics: PlaybackDiagnostics;
 }
 
 export const getPlaybackInfo: () => PlaybackInfo
@@ -180,3 +204,9 @@ export const onThermalWarningReceived: (
 ) => void
 
 export const onThermalLevelRecovered: () => void
+
+/** Controls whether entering the application background should keep playback running. */
+export const setBackgroundPlaybackEnabled: (enabled: boolean) => void
+
+/** Notifies Native playback about an Ability foreground/background transition. */
+export const setAppBackground: (background: boolean) => void

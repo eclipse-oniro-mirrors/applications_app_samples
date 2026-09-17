@@ -19,6 +19,7 @@
 #include "Player.h"
 #include "PlayerNapiParser.h"
 #include "PlayerNapiSerializer.h"
+#include "NativePlayerContext.h"
 #include "av_codec_sample_log.h"
 #include "dfx/error/av_codec_sample_error.h"
 #include "plugin_manager.h"
@@ -29,10 +30,6 @@
 #define LOG_TAG "player"
 
 namespace {
-struct NativePlayerContext {
-    std::unique_ptr<Player> player = std::make_unique<Player>();
-};
-
 void DestroyNativePlayerContext(napi_env env, void *data, void *hint)
 {
     (void)env;
@@ -40,14 +37,13 @@ void DestroyNativePlayerContext(napi_env env, void *data, void *hint)
     delete static_cast<NativePlayerContext *>(data);
 }
 
-Player *GetPlayer(napi_env env)
+Player *GetPlayer(napi_env env, bool allowSeeking = false)
 {
-    void *data = nullptr;
-    if (napi_get_instance_data(env, &data) != napi_ok || data == nullptr) {
+    const auto session = GetNativePlayerSession(env);
+    if (session == nullptr || (session->seeking && !allowSeeking)) {
         return nullptr;
     }
-    auto *context = static_cast<NativePlayerContext *>(data);
-    return context->player.get();
+    return &session->player;
 }
 
 struct CallbackContext {
@@ -241,6 +237,38 @@ napi_value PlayerNative::OnThermalLevelRecovered(napi_env env, napi_callback_inf
     return nullptr;
 }
 
+napi_value PlayerNative::SetBackgroundPlaybackEnabled(napi_env env, napi_callback_info info)
+{
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    bool enabled = false;
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc != 1 ||
+        napi_get_value_bool(env, args[0], &enabled) != napi_ok) {
+        napi_throw_type_error(env, nullptr, "enabled must be a boolean");
+        return nullptr;
+    }
+    if (Player *player = GetPlayer(env, true); player != nullptr) {
+        player->SetBackgroundPlaybackEnabled(enabled);
+    }
+    return nullptr;
+}
+
+napi_value PlayerNative::SetAppBackground(napi_env env, napi_callback_info info)
+{
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    bool background = false;
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc != 1 ||
+        napi_get_value_bool(env, args[0], &background) != napi_ok) {
+        napi_throw_type_error(env, nullptr, "background must be a boolean");
+        return nullptr;
+    }
+    if (Player *player = GetPlayer(env, true); player != nullptr) {
+        player->SetAppBackground(background);
+    }
+    return nullptr;
+}
+
 napi_value PlayerNative::Play(napi_env env, napi_callback_info info)
 {
     SampleInfo sampleInfo;
@@ -341,7 +369,7 @@ napi_value PlayerNative::GetState(napi_env env, napi_callback_info info)
 {
     (void)info;
     napi_value result = nullptr;
-    Player *player = GetPlayer(env);
+    Player *player = GetPlayer(env, true);
     napi_create_int32(env, static_cast<int32_t>(player == nullptr ? PLAYER_STATE_IDLE : player->GetState()), &result);
     return result;
 }
@@ -349,7 +377,7 @@ napi_value PlayerNative::GetState(napi_env env, napi_callback_info info)
 napi_value PlayerNative::GetPlaybackInfo(napi_env env, napi_callback_info info)
 {
     (void)info;
-    Player *player = GetPlayer(env);
+    Player *player = GetPlayer(env, true);
     const PlaybackInfo playbackInfo = player == nullptr ? PlaybackInfo {} : player->GetPlaybackInfo();
     napi_value result = nullptr;
     if (!PlayerNapiSerializer::CreatePlaybackInfo(env, playbackInfo, result)) {
@@ -397,6 +425,7 @@ static napi_value Init(napi_env env, napi_value exports)
         {"pause", nullptr, PlayerNative::Pause, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"resume", nullptr, PlayerNative::Resume, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"seekTo", nullptr, PlayerNative::SeekTo, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"seekToAsync", nullptr, SeekToAsync, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"selectAudioTrack", nullptr, PlayerNative::SelectAudioTrack,
             nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getState", nullptr, PlayerNative::GetState, nullptr, nullptr, nullptr, napi_default, nullptr},
@@ -416,6 +445,10 @@ static napi_value Init(napi_env env, napi_value exports)
         {"onThermalWarningReceived", nullptr, PlayerNative::OnThermalWarningReceived,
             nullptr, nullptr, nullptr, napi_default, nullptr},
         {"onThermalLevelRecovered", nullptr, PlayerNative::OnThermalLevelRecovered,
+            nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"setBackgroundPlaybackEnabled", nullptr, PlayerNative::SetBackgroundPlaybackEnabled,
+            nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"setAppBackground", nullptr, PlayerNative::SetAppBackground,
             nullptr, nullptr, nullptr, napi_default, nullptr},
     };
     

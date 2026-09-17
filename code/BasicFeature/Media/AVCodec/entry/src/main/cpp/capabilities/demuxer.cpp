@@ -205,7 +205,7 @@ void Demuxer::ProcessVideoTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_
 {
     OH_AVDemuxer_SelectTrackByID(demuxer_, index);
     
-    char *videoCodecMime;
+    char *videoCodecMime = nullptr;
     OH_AVFormat_GetStringValue(trackFormat.get(), OH_MD_KEY_CODEC_MIME, const_cast<char const **>(&videoCodecMime));
     if (videoCodecMime == nullptr || strncmp(videoCodecMime, "video/", strlen("video/")) != 0) {
         AVCODEC_SAMPLE_LOGW("Not a video track, mime: %{public}s", videoCodecMime);
