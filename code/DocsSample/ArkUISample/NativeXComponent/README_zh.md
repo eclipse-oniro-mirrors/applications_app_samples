@@ -56,7 +56,7 @@
 
 ### 介绍
 
-本示例展示了如何在ArkTS侧使用声明式方法创建XComponent组件并利用OH_ArkUI_SurfaceHolder接口进行自定义绘制。具体步骤包括：创建组件，将节点传递至Native侧获取SurfaceHolder实例，注册Surface生命周期和XComponent组件事件回调，在回调内通过SurfaceHolder实例获取NativeWindow后使用OpenGL ES/EGL接口在XComponent组件上进行图形绘制。功能主要包括点击按钮绘制一个五角星，并可以通过点击XComponent区域改变五角星的颜色。
+本示例展示了如何在ArkTS侧使用声明式方法创建XComponent组件并利用OH_ArkUI_SurfaceHolder接口进行自定义绘制。具体步骤包括：创建组件，将节点传递至Native侧获取SurfaceHolder实例，注册Surface生命周期和XComponent组件事件回调，在回调内通过SurfaceHolder实例获取NativeWindow后使用OpenGL ES/EGL接口在XComponent组件上进行图形绘制。功能主要包括点击按钮绘制一个五角星，并可以通过点击XComponent区域改变五角星的颜色。此外，本示例还演示了通过enableTransparentLayer接口为带半透明背景的XComponent开启独立图层，以避免半透明区域与下方内容混合时出现渲染异常。
 
 ### 效果预览
 
@@ -71,6 +71,8 @@
 2. 点击页面底部“Draw Star”按钮，将在当前页面绘制一个五角星。
 
 3. 点击XComponent组件区域（页面中灰色区域）改变五角星颜色。
+
+4. 页面下方“Transparent Layer XComponent”区域为带半透明背景并通过enableTransparentLayer接口开启独立图层的XComponent组件。
 
 
 ### 具体实现
@@ -336,7 +338,9 @@ EGL环境。在Native侧的OnsurfaceChanged回调中，传入OH_ArkUI_SurfaceHol
 
 2. 本示例为Stage模型，支持API20版本SDK，SDK版本号(API Version 20 Release)，镜像版本号(6.0 Release)
 
-3. 本示例需要使用DevEco Studio 版本号(6.0.0 Release)及以上版本才可编译运行
+3. 本示例涉及使用系统接口：XComponent组件的enableTransparentLayer接口，需要手动替换Full SDK才能编译通过，具体操作可参考[替换指南](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/faqs/full-sdk-switch-guide.md)。
+
+4. 本示例需要使用DevEco Studio 版本号(6.0.0 Release)及以上版本才可编译运行
 
 # 下载
 
