@@ -16,8 +16,7 @@
 
 // /pages/Index.ets
 import { Entry, Text, Column, Component, Button, Row, $r, NodeContainer, Color, FlexAlign, VerticalAlign, ShadowStyle } from '@ohos.arkui.component'
-import { NodeController, FrameNode, RenderNode, DrawContext } from '@kit.ArkUI'
-import { UIContext } from '@kit.ArkUI';
+import { NodeController, FrameNode, RenderNode, DrawContext, UIContext } from '@kit.ArkUI';
 // [Start arkts_theme_font_import]
 import { text } from '@kit.ArkGraphics2D';
 // [End arkts_theme_font_import]
