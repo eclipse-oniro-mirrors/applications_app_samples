@@ -35,6 +35,8 @@ struct CodecUserData {
     int32_t height = 0;
     int32_t widthStride = 0;
     int32_t heightStride = 0;
+    // Decoder output may differ from the pixel format requested during Configure().
+    OH_AVPixelFormat outputPixelFormat = AV_PIXEL_FORMAT_NV12;
 
     std::shared_mutex codecMutex;
     uint32_t inputFrameCount = 0;

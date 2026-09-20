@@ -39,6 +39,7 @@ public:
     int32_t FreeOutputBuffer(uint32_t bufferIndex, bool render);
     int32_t FreeOutputBuffer(uint32_t bufferIndex, bool render, int64_t timeStamp);
     int32_t Start();
+    int32_t Flush();
     int32_t Release();
     OH_AVFormat *GetOutputDescription();
     int32_t OnUserSpeedChanged(double targetSpeed);

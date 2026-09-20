@@ -54,7 +54,7 @@ void OnSurfaceCreatedCB(OH_NativeXComponent* component, void* window)
     if ((xSize == OH_NATIVEXCOMPONENT_RESULT_SUCCESS) && (render != nullptr)) {
         auto context = PluginManager::GetInstance();
         auto *nativeWindow = static_cast<OHNativeWindow *>(window);
-        context->SetPluginWindow(nativeWindow);
+        context->SetPluginWindow(nativeWindow, static_cast<int32_t>(width), static_cast<int32_t>(height));
         OH_NativeWindow_NativeWindowSetScalingModeV2(nativeWindow, OH_SCALING_MODE_SCALE_FIT_V2);
     }
 }
@@ -79,7 +79,15 @@ void OnSurfaceChangedCB(OH_NativeXComponent* component, void* window)
     std::string id(idStr);
     auto render = PluginManager::GetInstance()->GetRender(id);
     if (render != nullptr) {
-        PluginManager::GetInstance()->SetPluginWindow(static_cast<OHNativeWindow *>(window));
+        uint64_t width = 0;
+        uint64_t height = 0;
+        if (OH_NativeXComponent_GetXComponentSize(component, window, &width, &height) !=
+            OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
+            OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "Callback", "Unable to get XComponent size");
+            return;
+        }
+        PluginManager::GetInstance()->SetPluginWindow(static_cast<OHNativeWindow *>(window),
+            static_cast<int32_t>(width), static_cast<int32_t>(height));
         render->OnSurfaceChanged(component, window);
         OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "Callback", "surface changed");
     }

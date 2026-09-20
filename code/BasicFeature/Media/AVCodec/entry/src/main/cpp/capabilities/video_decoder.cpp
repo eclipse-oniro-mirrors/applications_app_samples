@@ -25,7 +25,8 @@ constexpr int ROTATION_ANGLE = 90;
 
 bool SetOptionalFormatFeatures(OH_AVFormat *format, const SampleInfo &sampleInfo)
 {
-    if (sampleInfo.codec.codecRunMode == SURFACE) {
+    const bool usesSurfaceOutput = sampleInfo.video.window != nullptr;
+    if (usesSurfaceOutput) {
         const int32_t blankFrameOnShutdown = sampleInfo.codec.retainLastFrame ? 0 : 1;
         if (!OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_DECODER_BLANK_FRAME_ON_SHUTDOWN,
             blankFrameOnShutdown)) {
@@ -44,7 +45,8 @@ bool SetOptionalFormatFeatures(OH_AVFormat *format, const SampleInfo &sampleInfo
         AVCODEC_SAMPLE_LOGE("Set decoding-order output failed");
         return false;
     }
-    if (sampleInfo.codec.convertHdrVividToBt709 && sampleInfo.video.hdrVividContainerSignaled &&
+    if (usesSurfaceOutput && sampleInfo.codec.convertHdrVividToBt709 &&
+        sampleInfo.video.hdrVividContainerSignaled &&
         !OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_DECODER_OUTPUT_COLOR_SPACE, OH_COLORSPACE_BT709_LIMIT)) {
         AVCODEC_SAMPLE_LOGE("Set HDR Vivid to BT.709 output color space failed");
         return false;
@@ -146,6 +148,15 @@ int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
 
+    AVCODEC_SAMPLE_LOGI("Configure decoder: run mode=%{public}d, type=%{public}d, size=%{public}dx%{public}d, "
+        "frame rate=%{public}.2f, pixel format=%{public}d, rotation=%{public}d, retain last frame=%{public}d, "
+        "low latency=%{public}d, decoding order=%{public}d, smart fluency=%{public}d, HDR Vivid=%{public}d, "
+        "BT.709 conversion=%{public}d", sampleInfo.codec.codecRunMode, sampleInfo.codec.codecType,
+        sampleInfo.video.videoWidth, sampleInfo.video.videoHeight, sampleInfo.video.frameRate,
+        sampleInfo.video.pixelFormat, sampleInfo.video.rotation, sampleInfo.codec.retainLastFrame,
+        sampleInfo.codec.enableLowLatency, sampleInfo.codec.outputInDecodingOrder,
+        sampleInfo.codec.isSmartFluencySupported, sampleInfo.video.hdrVividContainerSignaled,
+        sampleInfo.codec.convertHdrVividToBt709);
     int ret = OH_VideoDecoder_Configure(decoder_, format);
     OH_AVFormat_Destroy(format);
     format = nullptr;
@@ -319,6 +330,15 @@ int32_t VideoDecoder::Start()
 
     int ret = OH_VideoDecoder_Start(decoder_);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Start failed, ret: %{public}d", ret);
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
+int32_t VideoDecoder::Flush()
+{
+    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
+    std::unique_lock<std::shared_mutex> lock(codecMutex);
+    const int32_t ret = OH_VideoDecoder_Flush(decoder_);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Flush failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
 

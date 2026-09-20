@@ -141,9 +141,12 @@ void Player::ReleasePlaybackResources()
         demuxer_->Release();
         demuxer_.reset();
     }
+    // Each sink owns presentation resources associated with the current decoder and XComponent.
+    // Releasing every sink prevents a later Surface decoder from inheriting a GPU swapchain state.
     if (videoSink_ != nullptr) {
         videoSink_->Reset();
         videoSink_.reset();
+        videoSinkRunMode_ = -1;
     }
     ReleaseVideoDecoder();
     ReleaseAudioDecoder();

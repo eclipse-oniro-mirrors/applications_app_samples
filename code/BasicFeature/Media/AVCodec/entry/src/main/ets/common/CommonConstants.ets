@@ -57,7 +57,7 @@ export class CommonConstants {
    */
   public static readonly OUTPUT_FORMAT: string[] = ['MP4', 'FLV'];
   /**
-   * Output format enum values matching NDK OH_AVOutputFormat.
+   * Output format enum values matching the OH_AVOutputFormat C API.
    */
   public static readonly FORMAT_MP4: number = 2;
   public static readonly FORMAT_FLV: number = 14;
@@ -94,7 +94,11 @@ export class CommonConstants {
   /**
    * Video decoder run modes.
    */
-  public static readonly VIDEO_DECODER_RUN_MODE: string[] = ['SurfaceMode', 'BufferMode'];
+  /** Internal values passed to the native player. */
+  public static readonly VIDEO_DECODER_RUN_MODE: string[] = ['SurfaceMode', 'BufferMode', 'OpenGLMode', 'VulkanMode'];
+  public static readonly VIDEO_DECODER_RUN_MODE_DIRECT_OUTPUT: number = 0;
+  public static readonly VIDEO_DECODER_RUN_MODE_OPENGL: number = 2;
+  public static readonly VIDEO_DECODER_RUN_MODE_VULKAN: number = 3;
   /**
    * Video decoder synchronization mode.
    */

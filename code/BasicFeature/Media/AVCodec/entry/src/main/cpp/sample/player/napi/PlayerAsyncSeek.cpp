@@ -54,7 +54,7 @@ napi_value SeekToAsync(napi_env env, napi_callback_info info)
         return nullptr;
     }
     work->session = GetNativePlayerSession(env);
-    if (work->session == nullptr || work->session->seeking) {
+    if (work->session == nullptr || work->session->seeking.load()) {
         RejectSeek(env, work->deferred);
         return promise;
     }

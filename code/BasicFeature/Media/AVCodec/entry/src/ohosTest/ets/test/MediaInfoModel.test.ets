@@ -79,6 +79,16 @@ export default function mediaInfoModelTest(): void {
       });
     });
 
+    it('AVCodec_MediaInfo_GraphicsRunModes_004', 0, () => {
+      runTestCase('AVCodec_MediaInfo_GraphicsRunModes_004', () => {
+        const info = createMediaInfo();
+        info.decoder.runMode = 2;
+        expect(buildMediaInfoSections(info)[3].rows[1].value).assertEqual('OpenGLMode');
+        info.decoder.runMode = 3;
+        expect(buildMediaInfoSections(info)[3].rows[1].value).assertEqual('VulkanMode');
+      });
+    });
+
     it('AVCodec_MediaInfo_UnavailableMedia_003', 0, () => {
       runTestCase('AVCodec_MediaInfo_UnavailableMedia_003', () => {
         const info = createMediaInfo();

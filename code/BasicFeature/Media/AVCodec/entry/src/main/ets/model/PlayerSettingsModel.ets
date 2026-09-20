@@ -79,7 +79,8 @@ export class PlayerSettingsModel {
     this.retainLastFrame = lastFrameMode === 0;
     this.enableLowLatency = lowLatencyMode === 1;
     this.outputInDecodingOrder = decodingOrderMode === 1;
-    this.convertHdrVividToBt709 = colorConversionMode === 1;
+    this.convertHdrVividToBt709 = colorConversionMode === 1 &&
+      runMode === Const.VIDEO_DECODER_RUN_MODE_DIRECT_OUTPUT;
     this.audioVolume = audioVolume;
     this.enableAudioLowLatency = audioLatencyMode === 1;
     return true;

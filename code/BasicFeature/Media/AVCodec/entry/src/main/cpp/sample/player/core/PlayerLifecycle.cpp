@@ -15,8 +15,12 @@
 
 #include "Player.h"
 
+#include "output/video/gpu/OpenGLVideoSink.h"
+#include "output/video/gpu/VulkanVideoSink.h"
+
 #include <queue>
 
+#include "codec_capability.h"
 #include "av_codec_sample_log.h"
 #include "dfx/error/av_codec_sample_error.h"
 
@@ -170,8 +174,19 @@ int32_t Player::CreateVideoDecoder()
         return ret;
     }
 
-    AVCODEC_SAMPLE_LOGW("Automatic video decoder failed, fallback to software decoder, mime: %{public}s",
+    AVCODEC_SAMPLE_LOGW("Automatic video decoder configuration failed, ret: %{public}d, run mode: %{public}d, "
+        "HDR Vivid conversion: %{public}d; fallback to software decoder, mime: %{public}s", ret,
+        sampleInfo_.codec.codecRunMode, sampleInfo_.codec.convertHdrVividToBt709,
         sampleInfo_.video.videoCodecMime.c_str());
+    SampleInfo softwareFallbackInfo = sampleInfo_;
+    softwareFallbackInfo.codec.codecType = VIDEO_SW_DECODER;
+    if (!CodecCapability::ValidateVideoConfiguration(softwareFallbackInfo, false) ||
+        !CodecCapability::ValidateVideoFeatureConfiguration(softwareFallbackInfo)) {
+        isVideoDone.store(true);
+        AVCODEC_SAMPLE_LOGW("Software decoder fallback is unsupported for this media, skip fallback, mime: %{public}s",
+            sampleInfo_.video.videoCodecMime.c_str());
+        return ret;
+    }
     ret = CreateVideoDecoderForType(VIDEO_SW_DECODER);
     if (ret == AVCODEC_SAMPLE_ERR_OK) {
         activeVideoDecoderType_ = VIDEO_SW_DECODER;
@@ -189,7 +204,13 @@ int32_t Player::CreateVideoDecoder()
 int32_t Player::CreateVideoDecoderForType(int32_t decoderType)
 {
     ReleaseVideoDecoder();
-    sampleInfo_.codec.codecType = decoderType;
+    // Keep the requested decoder type in sampleInfo_. A failed automatic attempt must not make the
+    // following replay start directly with the temporary software fallback.
+    if (sampleInfo_.codec.codecRunMode == SURFACE) {
+        sampleInfo_.video.window = NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
+    }
+    SampleInfo configureInfo = sampleInfo_;
+    configureInfo.codec.codecType = decoderType;
     videoDecoder_ = std::make_unique<VideoDecoder>();
     AVCODEC_SAMPLE_LOGI("Create video decoder, mime: %{public}s, type: %{public}d",
         sampleInfo_.video.videoCodecMime.c_str(), decoderType);
@@ -203,9 +224,8 @@ int32_t Player::CreateVideoDecoderForType(int32_t decoderType)
     videoDecContext_->playbackFailure = &playbackFailed_;
     videoDecContext_->sampleInfo = &sampleInfo_;
     videoDecContext_->isDecFirstFrame = true;
-    sampleInfo_.video.window = sampleInfo_.codec.codecRunMode == SURFACE ?
-        NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow() : nullptr;
-    ret = videoDecoder_->Config(sampleInfo_, videoDecContext_.get());
+    videoDecContext_->outputPixelFormat = configureInfo.video.pixelFormat;
+    ret = videoDecoder_->Config(configureInfo, videoDecContext_.get());
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         AVCODEC_SAMPLE_LOGW("Video decoder configuration failed, type: %{public}d", decoderType);
         ReleaseVideoDecoder();
@@ -233,9 +253,8 @@ int32_t Player::HandleInitError(std::unique_lock<std::mutex>& outerLock)
     return AVCODEC_SAMPLE_ERR_ERROR;
 }
 
-void Player::PrepareForInitialization(const SampleInfo &sampleInfo)
+void Player::ResetPlaybackState()
 {
-    sampleInfo_ = sampleInfo;
     mediaInfo_ = {};
     diagnostics_.Reset();
     playbackFailed_ = false;
@@ -269,16 +288,68 @@ void Player::PrepareForInitialization(const SampleInfo &sampleInfo)
     hasVideoTrack_.store(false);
     hasAudioTrack_.store(false);
     hdrVividConfirmed_.store(false);
-    requestedVideoDecoderType_ = sampleInfo.codec.codecType;
+    requestedVideoDecoderType_ = sampleInfo_.codec.codecType;
     activeVideoDecoderType_ = requestedVideoDecoderType_;
     softwareDecoderFallbackUsed_.store(false);
-    isSmartFluencySupported_ = sampleInfo.codec.isSmartFluencySupported;
-    isBufferMode_.store(sampleInfo.codec.codecRunMode == BUFFER);
+    isSmartFluencySupported_ = sampleInfo_.codec.isSmartFluencySupported;
+    isBufferMode_.store(IsBufferBasedRunMode(sampleInfo_.codec.codecRunMode));
     thermalWarningActive_ = false;
     thermalFrameRetentionRatio_ = 0.0;
     videoDecoder_.reset();
     audioDecoder_ = std::make_unique<AudioDecoder>();
     demuxer_ = std::make_unique<Demuxer>();
+}
+
+void Player::PrepareForInitialization(const SampleInfo &sampleInfo)
+{
+    sampleInfo_ = sampleInfo;
+    // Do not modify the XComponent NativeWindow before the Surface decoder has been configured.
+    // In particular, the HDR Vivid to BT.709 path creates its post-processing pipeline during
+    // Configure(), and a concurrent producer-state update here can leave that transaction pending.
+    // Buffer and GPU sinks configure their own presentation state when they present a frame.
+    transformHint = NATIVEBUFFER_ROTATE_NONE;
+    if (videoSink_ != nullptr && videoSinkRunMode_ != sampleInfo_.codec.codecRunMode) {
+        // The GPU sinks own native presentation resources. Release a sink for a previous run mode before a
+        // new decoder binds the shared XComponent window, otherwise Surface output can inherit stale geometry.
+        videoSink_->Reset();
+        videoSink_.reset();
+        videoSinkRunMode_ = -1;
+    } else if (videoSink_ != nullptr) {
+        videoSink_->BeginPlayback();
+    }
+    // Demuxer::Create fills the actual video dimensions. A GPU sink needs those dimensions to
+    // allocate its NativeImage producer surface, so it must be prepared after parsing rather than
+    // here. Preparing it with the initial 0x0 values silently falls back to decoder Buffer output.
+    ResetPlaybackState();
+}
+
+void Player::PrepareVideoSinkForPlayback()
+{
+    if (sampleInfo_.codec.codecRunMode == SURFACE) {
+        return;
+    }
+    if (videoSink_ == nullptr) {
+        switch (sampleInfo_.codec.codecRunMode) {
+            case OPENGL:
+                videoSink_ = std::make_unique<OpenGLVideoSink>();
+                break;
+            case VULKAN:
+                videoSink_ = std::make_unique<VulkanVideoSink>();
+                break;
+            case BUFFER:
+                videoSink_ = std::make_unique<BufferVideoSink>();
+                break;
+            default:
+                return;
+        }
+        videoSinkRunMode_ = sampleInfo_.codec.codecRunMode;
+    }
+    sampleInfo_.video.window = videoSink_->PrepareForPlayback(sampleInfo_);
+    if (videoSink_->UsesSurfaceDecoder()) {
+        AVCODEC_SAMPLE_LOGI("GPU sink prepared NativeImage producer surface for decoder output");
+    } else if (sampleInfo_.video.window == nullptr && sampleInfo_.codec.codecRunMode == OPENGL) {
+        AVCODEC_SAMPLE_LOGW("OpenGL NativeImage surface unavailable, using decoder Buffer output");
+    }
 }
 
 void Player::UpdateSmartFluencyAvailability()
@@ -366,6 +437,16 @@ int32_t Player::Init(SampleInfo &sampleInfo)
         AVCODEC_SAMPLE_LOGE("Create demuxer failed");
         return HandleInitError(lock);
     }
+    PrepareVideoSinkForPlayback();
+    const bool usesSurfaceDecoder = videoSink_ != nullptr && videoSink_->UsesSurfaceDecoder();
+    if (sampleInfo_.codec.codecRunMode != SURFACE && !usesSurfaceDecoder && sampleInfo_.codec.convertHdrVividToBt709) {
+        // The conversion key is a Surface-decoder feature. Buffer and GPU paths that could not
+        // create a producer surface consume decoded Buffers instead, so this configuration would
+        // be invalid for that fallback.
+        sampleInfo_.codec.convertHdrVividToBt709 = false;
+        AVCODEC_SAMPLE_LOGW("HDR Vivid to BT.709 conversion is unavailable for decoder Buffer output");
+    }
+    isBufferMode_.store(IsBufferBasedRunMode(sampleInfo_.codec.codecRunMode) && !usesSurfaceDecoder);
     ret = CreateTrackDecoders();
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         return HandleInitError(lock);

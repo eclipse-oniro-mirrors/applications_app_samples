@@ -24,14 +24,14 @@ export default function playerSettingsModelTest(): void {
       runTestCase('AVCodec_PlayerSettings_AllOptions_001', () => {
         const model = new PlayerSettingsModel();
         const applied = model.applyPickerValues([
-          Const.VIDEO_DECODE_TYPE[2], Const.VIDEO_DECODER_RUN_MODE[1],
+          Const.VIDEO_DECODE_TYPE[2], Const.VIDEO_DECODER_RUN_MODE[Const.VIDEO_DECODER_RUN_MODE_DIRECT_OUTPUT],
           Const.VIDEO_DECODER_SYNC_MODE[1], Const.VIDEO_DUMP_MODE[1], Const.VIDEO_LAST_FRAME_MODE[1],
           Const.VIDEO_FEATURE_MODE[1], Const.VIDEO_FEATURE_MODE[1], Const.VIDEO_FEATURE_MODE[1],
           Const.AUDIO_RENDERER_LATENCY_MODE[1]
         ]);
         expect(applied).assertTrue();
         expect(model.videoDecoderType).assertEqual(2);
-        expect(model.videoDecoderRunMode).assertEqual(1);
+        expect(model.videoDecoderRunMode).assertEqual(Const.VIDEO_DECODER_RUN_MODE_DIRECT_OUTPUT);
         expect(model.videoDecoderSyncMode).assertEqual(1);
         expect(model.enableVideoDump).assertTrue();
         expect(model.retainLastFrame).assertFalse();
@@ -107,6 +107,28 @@ export default function playerSettingsModelTest(): void {
           inputFileFd: 1, inputFileOffset: 0, inputFileSize: 1, isSmartFluencySupported: false
         });
         expect(options.audioTrackIndex).assertEqual(2);
+      });
+    });
+
+    it('AVCodec_PlayerSettings_BufferModeDisablesHdrConversion_006', 0, () => {
+      runTestCase('AVCodec_PlayerSettings_BufferModeDisablesHdrConversion_006', () => {
+        const model = new PlayerSettingsModel();
+        const directOutputApplied = model.applyPickerValues([
+          Const.VIDEO_DECODE_TYPE[0], Const.VIDEO_DECODER_RUN_MODE[Const.VIDEO_DECODER_RUN_MODE_DIRECT_OUTPUT],
+          Const.VIDEO_DECODER_SYNC_MODE[0], Const.VIDEO_DUMP_MODE[0], Const.VIDEO_LAST_FRAME_MODE[0],
+          Const.VIDEO_FEATURE_MODE[0], Const.VIDEO_FEATURE_MODE[0], Const.VIDEO_FEATURE_MODE[1],
+          Const.AUDIO_RENDERER_LATENCY_MODE[0]
+        ]);
+        expect(directOutputApplied).assertTrue();
+        expect(model.convertHdrVividToBt709).assertTrue();
+        const bufferApplied = model.applyPickerValues([
+          Const.VIDEO_DECODE_TYPE[0], Const.VIDEO_DECODER_RUN_MODE[1],
+          Const.VIDEO_DECODER_SYNC_MODE[0], Const.VIDEO_DUMP_MODE[0], Const.VIDEO_LAST_FRAME_MODE[0],
+          Const.VIDEO_FEATURE_MODE[0], Const.VIDEO_FEATURE_MODE[0], Const.VIDEO_FEATURE_MODE[1],
+          Const.AUDIO_RENDERER_LATENCY_MODE[0]
+        ]);
+        expect(bufferApplied).assertTrue();
+        expect(model.convertHdrVividToBt709).assertFalse();
       });
     });
   });

@@ -58,6 +58,7 @@ const SEEK_PREVIEW_INTERVAL_MS: number = 100;
 const SEEK_PREVIEW_WIDTH: number = 320;
 const SEEK_PREVIEW_HEIGHT: number = 180;
 const PLAYBACK_CONTROLS_HIDE_DELAY_MS: number = 5000;
+const PICKER_LAYOUT_SETTLE_DELAY_MS: number = 100;
 const VISIBLE_SYSTEM_BARS: ('status' | 'navigation')[] = ['navigation', 'status'];
 const BLACK_SYSTEM_BAR_PROPERTIES: window.SystemBarProperties = {
   statusBarColor: '#000000',
@@ -475,10 +476,10 @@ export struct Player {
     }
   }
 
-  private showPlaybackControls(): void {
+  private showPlaybackControls(startAutoHideTimer: boolean = true): void {
     this.isPlaybackControlsVisible = true;
     this.clearPlaybackControlsTimer();
-    if (!this.playerSettings.autoHideControls) {
+    if (!startAutoHideTimer || !this.playerSettings.autoHideControls) {
       return;
     }
     this.playbackControlsTimer = setTimeout(() => {
@@ -504,8 +505,16 @@ export struct Player {
     }
   }
 
-  private handlePlaybackWindowTap(): void {
+  private revealPlaybackControlsIfHidden(): boolean {
+    const controlsWereHidden: boolean = !this.isPlaybackControlsVisible;
     this.handlePlaybackControlInteraction();
+    return controlsWereHidden;
+  }
+
+  private handlePlaybackWindowTap(): void {
+    if (this.revealPlaybackControlsIfHidden()) {
+      return;
+    }
     const playbackState = this.playbackViewModel.state;
     const canTogglePlayback = !this.buttonEnabled && !this.isStopping && !this.sliderDragging &&
       (playbackState === player.PlayerState.PLAYING || playbackState === player.PlayerState.PAUSED);
@@ -521,7 +530,9 @@ export struct Player {
   }
 
   private handlePlaybackWindowDoubleTap(event: GestureEvent): void {
-    this.handlePlaybackControlInteraction();
+    if (this.revealPlaybackControlsIfHidden()) {
+      return;
+    }
     const playbackState = this.playbackViewModel.state;
     const canSeek = !this.buttonEnabled && !this.isStopping && !this.sliderDragging &&
       this.playbackViewModel.hasVideo && this.playbackWindowWidth > 0 &&
@@ -1228,6 +1239,16 @@ export struct Player {
     }
   }
 
+  private startSelectedFilePlayback(selectedPath: string): void {
+    // Returning from the system picker can resize the XComponent in the same frame.  Let its
+    // Wait for the XComponent layout callback before native code creates its EGL or Vulkan output target.
+    setTimeout((): void => {
+      if (this.selectFilePath === selectedPath) {
+        this.play();
+      }
+    }, PICKER_LAYOUT_SETTLE_DELAY_MS);
+  }
+
   async selectDocFile(): Promise<void> {
     try {
       const documentSelectOptions = new picker.DocumentSelectOptions();
@@ -1244,7 +1265,7 @@ export struct Player {
       this.queueIndex = 0;
       this.queueEntries = this.queuePaths.slice();
       Logger.info(TAG, 'Document selected, start playback, URI: ' + this.selectFilePath);
-      this.play();
+      this.startSelectedFilePlayback(selectedPath);
     } catch (error) {
       Logger.error(TAG, 'Document selection failed: ' + JSON.stringify(error));
       this.getUIContext().getPromptAction().showToast({
@@ -1273,7 +1294,7 @@ export struct Player {
       this.queueIndex = 0;
       this.queueEntries = this.queuePaths.slice();
       Logger.info(TAG, 'Album file selected, start playback, URI: ' + this.selectFilePath);
-      this.play();
+      this.startSelectedFilePlayback(selectedPath);
     } catch (error) {
       Logger.error(TAG, 'Album selection failed: ' + JSON.stringify(error));
       this.getUIContext().getPromptAction().showToast({
@@ -1380,7 +1401,7 @@ export struct Player {
 
         this.buttonEnabled = false;
         this.resetAbLoop();
-        this.showPlaybackControls();
+        this.showPlaybackControls(false);
         if (recoverySnapshot === undefined) {
           this.audioMuted = false;
         }
@@ -1389,7 +1410,7 @@ export struct Player {
         this.playbackViewModel.isHdrVividConfirmed = false;
         this.resetPlaybackProgress();
         let failurePromptShown = false;
-        const started = player.play(this.playerSettings.createPlayOptions({
+        const started: boolean = player.play(this.playerSettings.createPlayOptions({
           inputFileFd: inputFile.fd,
           inputFileOffset: Const.DEFAULT_VALUE,
           inputFileSize: inputFileState.size,
@@ -1491,6 +1512,9 @@ export struct Player {
           this.playbackViewModel.isSmartFluencyAvailable = player.isSmartFluencyAvailable();
           this.updateMediaInfo();
           this.startPlaybackInfoUpdates();
+          // Startup may spend several seconds configuring a decoder. Start the inactivity countdown only
+          // after playback is ready, so the controls stay visible for the full configured interval.
+          this.showPlaybackControls();
           this.startPlaybackSession();
           const mediaDurationUs = this.currentMediaInfo?.durationUs ?? 0;
           const resumePositionUs = startPositionUs >= 0 ? startPositionUs :
@@ -1618,7 +1642,8 @@ export struct Player {
     this.draftPlayerRetainLastFrame = this.playerSettings.retainLastFrame;
     this.draftPlayerLowLatency = this.playerSettings.enableLowLatency;
     this.draftPlayerOutputInDecodingOrder = this.playerSettings.outputInDecodingOrder;
-    this.draftPlayerConvertHdrVividToBt709 = this.playerSettings.convertHdrVividToBt709;
+    this.draftPlayerConvertHdrVividToBt709 = this.playerSettings.convertHdrVividToBt709 &&
+      this.isHdrVividToBt709Supported(this.draftPlayerRunMode);
     this.draftPlayerAudioVolume = Math.round(this.playerSettings.audioVolume);
     this.draftPlayerAudioLowLatency = this.playerSettings.enableAudioLowLatency;
     this.draftPlayerAudioTrackIndex = this.playerSettings.audioTrackIndex;
@@ -1674,8 +1699,21 @@ export struct Player {
   private getRenderModeLabels(): string[] {
     return [
       this.getSettingText($r('app.string.setting_render_direct')),
-      this.getSettingText($r('app.string.setting_render_buffer'))
+      this.getSettingText($r('app.string.setting_render_buffer')),
+      this.getSettingText($r('app.string.setting_render_opengl')),
+      this.getSettingText($r('app.string.setting_render_vulkan'))
     ];
+  }
+
+  private isHdrVividToBt709Supported(runMode: number): boolean {
+    return runMode === Const.VIDEO_DECODER_RUN_MODE_DIRECT_OUTPUT;
+  }
+
+  private selectPlayerRenderMode(index: number): void {
+    this.draftPlayerRunMode = index;
+    if (!this.isHdrVividToBt709Supported(index)) {
+      this.draftPlayerConvertHdrVividToBt709 = false;
+    }
   }
 
   private getSyncModeLabels(): string[] {
@@ -1935,7 +1973,7 @@ export struct Player {
           this.SettingOptionRow($r('app.string.setting_run_mode'),
             this.getRenderModeLabels()[this.draftPlayerRunMode], () => {
               this.showSettingPicker(this.getRenderModeLabels(), this.draftPlayerRunMode,
-                (index: number) => this.draftPlayerRunMode = index);
+                (index: number) => this.selectPlayerRenderMode(index));
             })
           Divider().color('#E5E7EB')
           this.SettingOptionRow($r('app.string.setting_sync_mode'),
@@ -2023,15 +2061,26 @@ export struct Player {
             .padding({ left: '4vp', right: '4vp' })
           Divider().color('#E5E7EB')
           Row() {
-            Text($r('app.string.setting_hdr_vivid_to_bt709'))
-              .fontSize('16fp')
-              .fontColor('#202124')
+            Column() {
+              Text($r('app.string.setting_hdr_vivid_to_bt709'))
+                .fontSize('16fp')
+                .fontColor(this.isHdrVividToBt709Supported(this.draftPlayerRunMode) ? '#202124' : '#8A8A8A')
+              if (!this.isHdrVividToBt709Supported(this.draftPlayerRunMode)) {
+                Text($r('app.string.setting_hdr_vivid_to_bt709_gpu_unavailable'))
+                  .fontSize('12fp')
+                  .fontColor('#8A8A8A')
+                  .maxLines(1)
+                  .textOverflow({ overflow: TextOverflow.Ellipsis })
+              }
+            }
+              .alignItems(HorizontalAlign.Start)
               .layoutWeight(1)
             Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerConvertHdrVividToBt709 })
+              .enabled(this.isHdrVividToBt709Supported(this.draftPlayerRunMode))
               .onChange((isOn: boolean) => this.draftPlayerConvertHdrVividToBt709 = isOn)
           }
             .width('100%')
-            .height('56vp')
+            .height(this.isHdrVividToBt709Supported(this.draftPlayerRunMode) ? '56vp' : '68vp')
             .padding({ left: '4vp', right: '4vp' })
         }
           .width('100%')
@@ -2261,8 +2310,8 @@ export struct Player {
                 this.cameraData.outputFormat, this.cameraData.bitrateMode, this.cameraData.iFrameInterval,
                 this.cameraData.audioSampleRate, this.cameraData.audioChannelCount,
                 this.cameraData.audioBitRate, this.cameraData.audioCaptureLatencyMode).then((data) => {
-                if (data.code === 0 && data.surfaceId !== null) {
-                  this.cameraData.surfaceId = data.surfaceId;
+                if (data.code === 0 && data.outputId !== null) {
+                  this.cameraData.outputId = data.outputId;
                   this.getUIContext().getRouter().pushUrl({
                     url: 'recorder/pages/Recorder',
                     params: this.cameraData

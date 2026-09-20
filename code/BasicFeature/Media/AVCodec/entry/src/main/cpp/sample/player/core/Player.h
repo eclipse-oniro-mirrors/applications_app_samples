@@ -29,17 +29,17 @@
 #include <ohaudio/native_audiostreambuilder.h>
 #include <native_window/external_window.h>
 #include <fstream>
-#include "BufferRenderer.h"
+#include "output/video/renderer/BufferRenderer.h"
 #include "AvSyncController.h"
 #include "PlaybackClock.h"
 #include "PlaybackDiagnostics.h"
 #include "SeekController.h"
 #include "PlayerStateMachine.h"
-#include "VideoSink.h"
-#include "SurfaceVideoSink.h"
-#include "BufferVideoSink.h"
-#include "VideoPipeline.h"
-#include "AudioPipeline.h"
+#include "output/pipeline/AudioPipeline.h"
+#include "output/pipeline/VideoPipeline.h"
+#include "output/video/sink/BufferVideoSink.h"
+#include "output/video/sink/SurfaceVideoSink.h"
+#include "output/video/sink/VideoSink.h"
 #include "video_decoder.h"
 #include "audio_decoder.h"
 #include "demuxer.h"
@@ -143,6 +143,8 @@ private:
     void ReleaseVideoDecoder();
     void ReleaseAudioDecoder();
     void PrepareForInitialization(const SampleInfo &sampleInfo);
+    void ResetPlaybackState();
+    void PrepareVideoSinkForPlayback();
     void UpdateSmartFluencyAvailability();
     void UpdateMediaInfoSnapshot();
     int32_t CreateTrackDecoders();
@@ -168,6 +170,11 @@ private:
     void WriteOutputFileWithStrideYUV420SP(uint8_t *bufferAddr);
     void WriteOutputFileWithStrideRGBA(uint8_t *bufferAddr);
     bool PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool render, int64_t renderTimestamp);
+    void ConfirmHdrVividFromBuffer(const CodecBufferInfo &bufferInfo);
+    bool EnsureVideoSink();
+    int32_t PresentVideoBuffer(const VideoPresentRequest &request, bool measureBufferPresent);
+    void RecordBufferPresentResult(int32_t result, std::chrono::steady_clock::time_point presentStart);
+    void ProbeHdrVividFromSurface(bool render, uint64_t outputFrameCount);
     int32_t HandleInitError(std::unique_lock<std::mutex>& outerLock);
     int32_t StartVideoDecoder();
     int32_t StartAudioDecoder();
@@ -192,23 +199,24 @@ private:
     void CancelWorkerWaits();
     void WaitIfPaused(bool audioWorker = false);
     void StopWorkersForSeek();
-    void ReleaseCodecResourcesForSeek();
+    int32_t ReleaseCodecResourcesForSeek(bool retainVideoDecoder);
+    bool ShouldRetainVideoDecoderForSeek() const;
     void ResetPlaybackClockForSeek(int64_t positionUs);
     bool DiscardVideoOutputBeforeSeekTarget(CodecBufferInfo &bufferInfo, bool &discarded);
     bool PrepareAudioOutputAfterSeek(CodecBufferInfo &bufferInfo);
-    int32_t RecreateDecodersAfterSeek(bool hadVideo, bool hadAudio);
+    int32_t RecreateDecodersAfterSeek(bool hadVideo, bool hadAudio, bool videoDecoderRetained);
     void PreparePlaybackStateAfterSeek(bool hadVideo, bool hadAudio, int64_t positionUs);
     int32_t RestartAudioAfterSeek(float speedSnapshot);
     int32_t RestoreVideoPolicyAfterSeek(float speedSnapshot);
-    int32_t RecreateCodecResourcesAfterSeek(bool hadVideo, bool hadAudio, float speedSnapshot,
-        int64_t positionUs);
+    int32_t RecreateCodecResourcesAfterSeek(bool hadVideo, bool hadAudio, bool videoDecoderRetained,
+        float speedSnapshot, int64_t positionUs);
     int32_t HandleSeekFailure();
-    int32_t RebuildPlaybackForSeek(bool hadVideo, bool hadAudio, float speedSnapshot, int64_t targetUs);
+    int32_t RebuildPlaybackForSeek(bool hadVideo, bool hadAudio, float speedSnapshot, int64_t targetUs,
+        bool forwardSeek);
     void ResetReleasedPlaybackState();
     void PauseForBackground();
     void ResumeFromBackground();
-    bool CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t framePosition,
-        int64_t& waitTimeUs, bool& dropFrame);
+    bool CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t framePosition, AvSyncDecision& decision);
     bool RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame);
 
     std::unique_ptr<std::ofstream> outputFile_ = nullptr;
@@ -296,6 +304,7 @@ private:
     bool thermalWarningActive_ = false;
     double thermalFrameRetentionRatio_ = 0.0;
     std::unique_ptr<VideoSink> videoSink_ = nullptr;
+    int32_t videoSinkRunMode_ = -1;
     PlaybackClock playbackClock_;
     PlaybackDiagnostics diagnostics_;
     AvSyncController avSyncController_;

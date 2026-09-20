@@ -153,7 +153,26 @@ enum CodecType {
 
 enum CodecRunMode {
     SURFACE = 0,
-    BUFFER = 1
+    BUFFER = 1,
+    OPENGL = 2,
+    VULKAN = 3
 };
+
+inline bool IsBufferBasedRunMode(int32_t runMode)
+{
+    return runMode == BUFFER || runMode == OPENGL || runMode == VULKAN;
+}
+
+inline bool IsTenBitHevcProfile(int32_t profile)
+{
+    return profile == HEVC_PROFILE_MAIN_10 || profile == HEVC_PROFILE_MAIN_10_HDR10 ||
+        profile == HEVC_PROFILE_MAIN_10_HDR10_PLUS;
+}
+
+inline bool IsTenBitHevcOutput(const VideoSampleInfo &video)
+{
+    return video.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_HEVC &&
+        (IsTenBitHevcProfile(video.hevcProfile) || video.hdrVividContainerSignaled || video.isHDRVivid != 0);
+}
 
 #endif // AVCODEC_SAMPLE_CONFIG_H

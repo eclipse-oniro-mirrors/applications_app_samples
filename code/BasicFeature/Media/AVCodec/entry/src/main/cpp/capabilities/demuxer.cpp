@@ -217,6 +217,19 @@ void Demuxer::ProcessVideoTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_
     OH_AVFormat_GetDoubleValue(trackFormat.get(), OH_MD_KEY_FRAME_RATE, &info.video.frameRate);
     OH_AVFormat_GetLongValue(trackFormat.get(), OH_MD_KEY_BITRATE, &info.video.bitrate);
     OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_ROTATION, &info.video.rotation);
+    int32_t colorPrimary = static_cast<int32_t>(info.video.primary);
+    if (OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_COLOR_PRIMARIES, &colorPrimary)) {
+        info.video.primary = static_cast<OH_ColorPrimary>(colorPrimary);
+    }
+    int32_t transfer = static_cast<int32_t>(info.video.transfer);
+    if (OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_TRANSFER_CHARACTERISTICS, &transfer)) {
+        info.video.transfer = static_cast<OH_TransferCharacteristic>(transfer);
+    }
+    int32_t matrix = static_cast<int32_t>(info.video.matrix);
+    if (OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_MATRIX_COEFFICIENTS, &matrix)) {
+        info.video.matrix = static_cast<OH_MatrixCoefficient>(matrix);
+    }
+    OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_RANGE_FLAG, &info.video.rangFlag);
     int32_t hdrVividContainerSignaled = 0;
     if (OH_AVFormat_GetIntValue(trackFormat.get(), OH_MD_KEY_VIDEO_IS_HDR_VIVID,
         &hdrVividContainerSignaled)) {
@@ -324,7 +337,36 @@ int32_t Demuxer::GetAudioTrackId() { return audioTrackId_; }
 int32_t Demuxer::Seek(int64_t positionMs, OH_AVSeekMode mode)
 {
     std::lock_guard<std::mutex> lock(demuxerMutex_);
+    CHECK_AND_RETURN_RET_LOG(demuxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Demuxer is null");
     int32_t ret = OH_AVDemuxer_SeekToTime(demuxer_, positionMs, mode);
-    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Seek failed");
-    return AVCODEC_SAMPLE_ERR_OK;
+    if (ret == AV_ERR_OK) {
+        AVCODEC_SAMPLE_LOGI("Demuxer seek succeeded: position=%{public}lld ms, mode=%{public}d, "
+            "video track=%{public}d, audio track=%{public}d", static_cast<long long>(positionMs),
+            static_cast<int32_t>(mode), videoTrackId_, audioTrackId_);
+        return AVCODEC_SAMPLE_ERR_OK;
+    }
+    AVCODEC_SAMPLE_LOGW("Demuxer seek failed: position=%{public}lld ms, mode=%{public}d, ret=%{public}d, "
+        "video track=%{public}d, audio track=%{public}d", static_cast<long long>(positionMs),
+        static_cast<int32_t>(mode), ret, videoTrackId_, audioTrackId_);
+    // Accurate seeking starts from the preceding sync sample. A few MP4 indexes cannot expose
+    // that sample even though a usable nearest/following sync sample exists. Retry only after the
+    // preferred previous-sync request fails, keeping normal Seek behavior unchanged.
+    if (mode != SEEK_MODE_PREVIOUS_SYNC) {
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
+    ret = OH_AVDemuxer_SeekToTime(demuxer_, positionMs, SEEK_MODE_CLOSEST_SYNC);
+    if (ret == AV_ERR_OK) {
+        AVCODEC_SAMPLE_LOGW("Demuxer seek recovered with closest sync sample: position=%{public}lld ms",
+            static_cast<long long>(positionMs));
+        return AVCODEC_SAMPLE_ERR_OK;
+    }
+    ret = OH_AVDemuxer_SeekToTime(demuxer_, positionMs, SEEK_MODE_NEXT_SYNC);
+    if (ret == AV_ERR_OK) {
+        AVCODEC_SAMPLE_LOGW("Demuxer seek recovered with following sync sample: position=%{public}lld ms",
+            static_cast<long long>(positionMs));
+        return AVCODEC_SAMPLE_ERR_OK;
+    }
+    AVCODEC_SAMPLE_LOGE("Demuxer seek fallback failed: position=%{public}lld ms, ret=%{public}d",
+        static_cast<long long>(positionMs), ret);
+    return AVCODEC_SAMPLE_ERR_ERROR;
 }

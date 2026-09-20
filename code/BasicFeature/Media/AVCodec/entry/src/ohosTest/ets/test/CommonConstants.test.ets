@@ -31,7 +31,7 @@ export default function commonConstantsTest(): void {
       runTestCase('AVCodec_CommonConstants_PlayerSettings_002', () => {
         expect(Const.PLAYER_INFO.length).assertEqual(4);
         expect(Const.VIDEO_DECODE_TYPE).assertDeepEquals(['Auto', 'Hardware', 'Software']);
-        expect(Const.VIDEO_DECODER_RUN_MODE).assertDeepEquals(['SurfaceMode', 'BufferMode']);
+        expect(Const.VIDEO_DECODER_RUN_MODE).assertDeepEquals(['SurfaceMode', 'BufferMode', 'OpenGLMode', 'VulkanMode']);
         expect(Const.VIDEO_DECODER_SYNC_MODE).assertDeepEquals(['ASYNC', 'SYNC']);
         expect(Const.VIDEO_DUMP_MODE).assertDeepEquals(['NoDump', 'Dump']);
         expect(Const.VIDEO_LAST_FRAME_MODE).assertDeepEquals(['RetainLastFrame', 'ClearLastFrame']);

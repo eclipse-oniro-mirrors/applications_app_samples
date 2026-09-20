@@ -6,8 +6,8 @@
 
 - 文件管理器、图库选取媒体文件；
 - 音视频解封装、视频解码、音频解码与播放；
-- SurfaceMode 和 BufferMode 视频送显；
-- BufferMode 解码帧可选 dump；
+- SurfaceMode、BufferMode、Surface模式 OpenGL 和 Surface模式 Vulkan 视频送显；
+- Buffer、Surface模式 OpenGL 和 Surface模式 Vulkan 模式下的解码帧可选 dump；
 - 同步/异步解码、软硬件解码、倍速和画面变换；
 - 结构化播放状态、媒体时长、播放位置，以及解封装媒体详情显示；
 - 相机采集、音频采集、音视频编码和 MP4/FLV 封装；
@@ -127,8 +127,12 @@
 | DECODE-011 | H.265 硬解 | BufferMode | ASYNC | NoDump | M02 在 BufferMode 下正常拷贝送显，像素格式处理正确。 | Pass |
 | DECODE-012 | 解码能力不支持反馈 | 设备不支持所选硬件/软件类别或媒体规格 | 选择不支持的解码器类别、分辨率或帧率后播放。 | Native 在配置前完成能力查询；应用提示媒体或解码配置不受支持；不闪退，按钮最终恢复可操作。 | Pass |
 | DECODE-013 | Surface 停止时最后一帧处理 | 已准备 M01，SurfaceMode 播放 | 1. 开启“停止时保留最后一帧”，播放后点击停止。<br>2. 关闭该选项后重复播放和停止。<br>3. 切换 BufferMode 观察开关状态。 | 开启时停止后保留最后画面；关闭时停止/销毁时输出黑帧；BufferMode 下开关置灰且不影响 BufferMode 送显。 | Pass |
-| DECODE-014 | 高级解码设置 | 已准备 M01、M13 | 依次开启低时延解码、按解码顺序输出、HDR Vivid 转 BT.709 后播放。 | 前两项在能力不支持时安全失败并提示；支持时播放不闪退；HDR Vivid 文件可按 BT.709 输出，普通媒体不因该选项误配置而失败。 | Pass |
+| DECODE-014 | 高级解码设置 | 已准备 M01、M13 | 依次开启低时延解码、按解码顺序输出、HDR Vivid 转 BT.709 后播放，并在 SurfaceMode、OpenGL、Vulkan、BufferMode 各执行一次 Seek。 | 前两项在能力不支持时安全失败并提示；支持时播放不闪退；HDR Vivid 文件可按 BT.709 输出，普通媒体不因该选项误配置而失败。每次 Seek 后均可恢复起播，不会将解码输出格式带入下一次 Configure；BT.709 输出不透传 HDR 元数据。 | Pass |
 | DECODE-015 | 自动解码软件回退 | 准备一份系统自动解码器无法创建、能力校验或配置，但设备软件解码器支持的媒体；选择“自动选择” | 1. 点击播放并打开媒体信息或性能诊断。<br>2. 再分别选择“硬件解码”和“软件解码”重复验证。 | 自动选择失败后仅重试一次软件解码；视频可正常播放，诊断显示“软件解码回退 已启用”，媒体信息显示实际软件解码器。显式硬件解码失败时不静默回退；显式软件解码按自身能力正常处理。 | Pass |
+| DECODE-016 | Surface模式 OpenGL 异步送显 | 准备 M01、M07，选择 Surface模式 OpenGL、ASYNC、NoDump | 完整播放并执行暂停、Seek、变换和停止；使用 M07 核对 rotation=90 的竖屏方向。 | 解码器不配置 Surface；EGL/GLES 纹理持续送显，rotation、等比留边和颜色正常，M07 不出现反向旋转；Seek 后可继续播放，停止后资源释放。 | Pass |
+| DECODE-017 | Surface模式 OpenGL 同步送显 | 准备 M01，选择 Surface模式 OpenGL、SYNC、NoDump | 完整播放并观察性能诊断。 | 同步查询、RGBA 转换和纹理绘制正常；无花屏、死锁、Buffer 耗尽或崩溃。 | Pass |
+| DECODE-018 | Surface模式 Vulkan 异步送显 | 准备 M01、M07，选择 Surface模式 Vulkan、ASYNC、NoDump | 完整播放、连续 Seek 20 次，并重复进入/退出播放页面；使用 M07 核对 rotation=90 的竖屏方向。 | Vulkan Surface、Swapchain 和 present 正常；rotation、等比留边和窗口重建后仍可显示，M07 不出现反向旋转；连续 Seek 不重复销毁和创建 Vulkan 设备，恢复时间稳定；停止、重复播放和页面退出均释放资源。 | Pass |
+| DECODE-019 | Surface模式 Vulkan 同步送显与回退 | 准备 M01、M13，选择 Surface模式 Vulkan、SYNC、NoDump；设备可通过日志模拟 GPU 初始化失败 | 1. 播放 M01 并观察日志。<br>2. 若 Vulkan 初始化或提交失败，继续播放并执行 Seek。<br>3. 播放 M13，观察 HDR Vivid 回退后的颜色和水印。<br>4. 开启 HDR Vivid 转 BT.709 后重复播放和 Seek。 | Vulkan 可用时正常送显；不可用时仅告警一次并切换到 BufferRenderer，后续帧不重复创建 Vulkan，画面、Seek 和停止仍可用。未转换的 HDR Vivid 应在首帧按 P010 回退并透传元数据；BT.709 转换后按实际 8bit 输出送显且不透传 HDR 元数据；每个 decoder Buffer 只归还一次。 | Pass |
 | AUDIO-001 | Auto | SurfaceMode | ASYNC | NoDump | 播放 M04；异步回调产生的音频输出 Buffer 被持续消费，声音连续，播放结束后按钮恢复。 | Pass |
 | AUDIO-002 | Auto | SurfaceMode | SYNC | NoDump | 播放 M04；同步查询产生的音频输出 Buffer 被持续消费，声音连续，无超时卡死，播放结束后按钮恢复。 | Pass |
 | AUDIO-003 | 多音轨实时切换 | 准备包含两条及以上音频轨的媒体文件 | 播放文件后点击“音轨”，选择另一条轨道，观察切换期间的视频和声音。 | 音轨列表与媒体信息一致；切换过程中应用不崩溃、不误报媒体损坏；视频画面不回到开头且保持连续，声音切换到所选轨道，播放位置和控制状态保持正常。 | Pass |
@@ -144,7 +148,7 @@
 | SUBTITLE-004 | 字幕同步与字号 | 已加载有效 SRT，准备字幕与语音存在约 0.5 秒偏差的媒体 | 1. 在“更多”中选择“字幕同步”，分别选择提前、同步和延后。<br>2. 选择“字幕样式”，依次选择小、中、大字号。<br>3. 拖动进度条并继续播放。 | 字幕提前/延后选项按 0.5 秒调整 Cue 查找时间；同步选项恢复原时间轴；三档字号立即生效且不超出画面；Seek 预览和继续播放后偏移与字号均保持有效。 | Pass |
 
 
-## 6. BufferMode dump 与送显
+## 6. Buffer、OpenGL 和 Vulkan dump 与送显
 
 dump 文件目录：
 
@@ -168,7 +172,7 @@ VideoDecoderOut_<像素格式>_<宽>_<高>_<时间戳>.yuv
 | DUMP-006 | dump 文件大小合理 | 已完成一段完整播放并取得帧数 | 检查文件大小。 | YUV420 单帧有效数据约为 `宽×高×3/2`；RGBA 单帧约为 `宽×高×4`；总大小与实际写入帧数基本一致。 | Pass |
 | DUMP-007 | dump 与送显同时开启 | BufferMode、Dump | 连续播放 M09 至少 5 分钟，观察画面和文件增长。 | dump 过程中仍持续拷贝送显；无长期黑屏、死锁、Buffer 耗尽或应用退出。 | Pass |
 | DUMP-008 | 从 Dump 切换到 NoDump | 先完成一次 Dump 播放 | 1. 记录现有文件。<br>2. 设置 NoDump。<br>3. 再次播放 M01。 | 第二次播放正常；不会新建 dump 文件，也不会继续写入上一轮文件。 | Pass |
-| DUMP-009 | BufferMode 送显性能诊断 | 准备 M01、M11；分别选择 BufferMode、ASYNC/SYNC、NoDump/Dump | 1. 播放并打开“性能诊断”。<br>2. 观察 Buffer 送显次数、平均耗时和失败次数。<br>3. 暂停后单帧前进、拖动 Seek、停止并重新播放。 | 仅 BufferMode 显示拷贝送显指标；每个实际送显帧完成 Buffer `VideoSink::Present()` 后次数递增，纯丢帧归还不计入该指标，平均耗时为非负值，正常播放失败数为 0。单帧、Seek 后继续累计；停止、失败或下一轮播放时统计清零。Dump 开关不改变诊断可用性。 | Pass |
+| DUMP-009 | Buffer/GPU 送显性能诊断 | 准备 M01、M11；分别选择 Buffer、OpenGL、Vulkan、ASYNC/SYNC、NoDump/Dump | 1. 播放并打开“性能诊断”。<br>2. 观察送显次数、平均耗时和失败次数。<br>3. 暂停后单帧前进、拖动 Seek、停止并重新播放。 | Buffer、OpenGL、Vulkan 模式显示各自 `VideoSink::Present()` 指标；每个实际送显帧完成提交后次数递增，纯丢帧归还不计入该指标，平均耗时为非负值，正常播放失败数为 0。GPU 初始化失败后指标继续记录 BufferRenderer 回退；单帧、Seek 后继续累计，停止、失败或下一轮播放时统计清零。 | Pass |
 
 ## 7. 画面变换、倍速和音画同步
 
@@ -213,7 +217,7 @@ VideoDecoderOut_<像素格式>_<宽>_<高>_<时间戳>.yuv
 
 | 用例编号 | 测试项 | 前置条件 | 操作步骤 | 预期结果 | 结果 |
 |---|---|---|---|---|---|
-| HDR-001 | SurfaceMode HDR Vivid 播放 | 准备 M13；设置 SurfaceMode、ASYNC | 播放 M13，观察画面、右上角水印和媒体信息面板。 | HDR Vivid 视频正常送显；应用侧无法取得 Surface 中的逐帧动态元数据，播放窗口不显示 `HDR Vivid` 水印。 | Pass |
+| HDR-001 | SurfaceMode HDR Vivid 播放 | 准备 M13；设置 SurfaceMode、ASYNC | 播放 M13，观察画面、右上角水印和媒体信息面板。 | HDR Vivid 视频正常送显；若 XComponent 最近一次 flush 的实际 Buffer 同时包含 HDR Vivid 类型和动态元数据，播放窗口显示 `HDR Vivid` 水印。读取不到时不影响播放且不显示水印。 | Pass |
 | HDR-002 | BufferMode HDR Vivid 异步送显 | 准备 M13；设置 BufferMode、ASYNC、NoDump | 播放 M13，观察亮度、颜色、水印和日志。 | 像素继续采用应用拷贝方式送显；源 Buffer 的色彩空间、HDR 类型、静态和动态元数据透传到 NativeWindowBuffer；画面无明显灰暗、过曝或色偏；码流确认后在播放窗口右上角显示水印。 | Pass |
 | HDR-003 | BufferMode HDR Vivid 同步送显 | 准备 M13；设置 BufferMode、SYNC、NoDump | 完整播放 M13。 | 同步输出同样完成 HDR 元数据透传；水印显示；播放可正常结束，无 NativeBuffer 引用泄漏、Buffer 耗尽或持续黑屏。 | Pass |
 | HDR-004 | 只有封装声明时不显示水印 | 准备 M14；分别使用 SurfaceMode 和 BufferMode | 播放后打开媒体信息面板并观察水印。 | “HDR Vivid 封装声明”可显示为“是”，但没有解码输出动态元数据时“码流确认”为“尚未确认”，画面不显示 `HDR Vivid` 水印。 | Pass |
@@ -339,9 +343,9 @@ VideoDecoderOut_<像素格式>_<宽>_<高>_<时间戳>.yuv
 | 基础启动、权限和页面交互 | 9 | 9 | 0 | 0 | 0 | 0 |
 | 文件选择和基础播放 | 13 | 13 | 0 | 0 | 0 | 0 |
 | 播放队列、断点续播和完整观看模式 | 6 | 6 | 0 | 0 | 0 | 0 |
-| 解码模式组合 | 20 | 20 | 0 | 0 | 0 | 0 |
+| 解码模式组合 | 24 | 24 | 0 | 0 | 0 | 0 |
 | 外挂字幕 | 4 | 4 | 0 | 0 | 0 | 0 |
-| BufferMode dump 与送显 | 9 | 9 | 0 | 0 | 0 | 0 |
+| BufferMode、OpenGL/Vulkan dump 与送显 | 9 | 9 | 0 | 0 | 0 | 0 |
 | 画面变换 | 4 | 4 | 0 | 0 | 0 | 0 |
 | 倍速和音画同步 | 9 | 9 | 0 | 0 | 0 | 0 |
 | 播放进度与拖动 Seek | 9 | 9 | 0 | 0 | 0 | 0 |
@@ -355,4 +359,4 @@ VideoDecoderOut_<像素格式>_<宽>_<高>_<时间戳>.yuv
 | 本轮系统音频中断与前后台恢复 | 5 | 5 | 0 | 0 | 0 | 0 |
 | 本轮播放窗口手势 | 2 | 2 | 0 | 0 | 0 | 0 |
 | 本轮系统媒体控制 | 1 | 1 | 0 | 0 | 0 | 0 |
-| 合计 | 154 | 154 | 0 | 0 | 0 | 0 |
+| 合计 | 158 | 158 | 0 | 0 | 0 | 0 |
