@@ -219,14 +219,18 @@ struct Index {
   }
 // [Start disconnect]
   disconnectRemoteAbility(): void {
+    hilog.info(0x0000, 'testTag', 'disconnectRemoteAbility begin');
     if (this.sessionId == -1) {
       hilog.info(0x0000, 'testTag', 'Invalid session ID.');
       return;
     }
     abilityConnectionManager.disconnect(this.sessionId);
-    this.receiveMessage = 'disConnect';
+
+    hilog.info(0x0000, 'testTag', 'destroyAbilityConnectionSession called');
+    abilityConnectionManager.destroyAbilityConnectionSession(this.sessionId);
   }
 
+// [End disconnect]
   destroySession(): void {
     try {
       abilityConnectionManager.destroyAbilityConnectionSession(this.sessionId);
@@ -235,7 +239,6 @@ struct Index {
       console.log(TAG, 'createDeviceManager err: ' + JSON.stringify(err));
       hilog.error(0x0000, 'testTag', 'connect failed');
     }
-// [End disconnect]
   }
 
   build() {
