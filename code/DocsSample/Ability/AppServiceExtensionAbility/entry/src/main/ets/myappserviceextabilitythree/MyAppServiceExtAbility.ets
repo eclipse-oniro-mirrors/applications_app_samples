@@ -31,7 +31,15 @@ class Stub extends rpc.RemoteObject {
     data: rpc.MessageSequence,
     reply: rpc.MessageSequence,
     options: rpc.MessageOption): Promise<boolean> {
-    const isValid: boolean = await this.verifyClientIdentity();
+    let isValid: boolean = false;
+    try {
+      isValid = await this.verifyClientIdentity();
+    } catch (err) {
+      const error: BusinessError = err as BusinessError;
+      hilog.error(DOMAIN_NUMBER, TAG, `Authentication error: ${error.code}, ${error.message}`);
+      // 校验异常时视为校验失败
+      return false;
+    }
     if (!isValid) {
       hilog.error(DOMAIN_NUMBER, TAG, 'Client authentication FAILED');
       // 返回false后，客户端sendMessageRequest会调用失败
