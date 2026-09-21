@@ -15,8 +15,7 @@
  */
 
 // [Start ability_app_service_four]
-import { AppServiceExtensionAbility, Want } from '@kit.AbilityKit';
-import { abilityAccessCtrl } from '@kit.AbilityKit';
+import { AppServiceExtensionAbility, Want, abilityAccessCtrl } from '@kit.AbilityKit';
 import { Permissions } from 'permissions';
 import rpc from '@ohos.rpc';
 import { hilog } from '@kit.PerformanceAnalysisKit';
