@@ -32,7 +32,7 @@ struct CustomNode {
     Row() {
       Button('Method 4: queryNavigationInfo')
         .onClick(() => {
-          this.pathStack.pushPath({ name: 'pageTwo' });
+          this.pathStack.pushPath({ name: 'PageTwo' });
         })
     }
   }

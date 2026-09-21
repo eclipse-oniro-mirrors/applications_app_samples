@@ -104,7 +104,7 @@ struct Index {
               let options: ChildProcessOptions = {
                 isolationMode: false
               };
-              childProcessManager.startArkChildProcess("module1/ets/process/DemoProcess.ets", args, options)
+              childProcessManager.startArkChildProcess("module1/ets/process/DemoProcessArg.ets", args, options)
                 .then((pid) => {
                   console.info(`startArkChildProcess success, pid: ${pid}`);
                 })

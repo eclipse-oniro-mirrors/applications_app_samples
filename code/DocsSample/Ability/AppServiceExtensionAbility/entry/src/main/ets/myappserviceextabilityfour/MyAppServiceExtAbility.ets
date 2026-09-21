@@ -14,8 +14,7 @@
  */
 
 // [Start ability_app_service_four]
-import { AppServiceExtensionAbility, Want } from '@kit.AbilityKit';
-import { abilityAccessCtrl } from '@kit.AbilityKit';
+import { AppServiceExtensionAbility, Want, abilityAccessCtrl } from '@kit.AbilityKit';
 import { rpc } from '@kit.IPCKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
