@@ -32,7 +32,7 @@ class Stub extends rpc.RemoteObject {
   private validAppIdentifier: string = 'your_valid_app_identifier_here';
 
   async onRemoteMessageRequest(
-    code: number,
+    code: int,
     data: rpc.MessageSequence,
     reply: rpc.MessageSequence,
     options: rpc.MessageOption): Promise<boolean> {
