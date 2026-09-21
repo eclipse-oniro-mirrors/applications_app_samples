@@ -1388,6 +1388,37 @@ static napi_value LeakMB(napi_env env, napi_callback_info info)
 }
 // [End Pss_Leak]
 
+// [Start RegisterExternalLogMgr]
+// 定义回调函数
+void OnExternalLogCapacityReached(OH_HiAppEvent_ExternalLog* externalLogArr, uint32_t arrLen)
+{
+    OH_LOG_INFO(LogType::LOG_APP, "[ExternalLogMgr_c] onCapacityReached triggered, log count: %{public}u", arrLen);
+    for (uint32_t i = 0; i < arrLen; i++) {
+        OH_HiAppEvent_ExternalLog* log = &externalLogArr[i];
+        OH_LOG_INFO(LogType::LOG_APP, "[ExternalLogMgr_c] filePath: %{public}s, %{public}lld, %{public}ld,
+            kb event: %{public}d", log->filePath, log->generationTs, log->fileSize, log->event);
+        // 应用自行决定删除故障文件 删除返回的前5个文件
+        if (i < 5) {
+            remove(log->filePath);
+            OH_LOG_INFO(LogType::LOG_APP, "[ExternalLogMgr_c] remove file %{public}s", log->filePath);
+        }
+    }
+}
+
+// 注册external log日志管理者
+static napi_value RegisterExternalLogMgr(napi_env env, napi_callback_info info)
+{
+    int ret = OH_HiAppEvent_RegExternalLogCapacityReachedCallback(OnExternalLogCapacityReached);
+    if (ret == HIAPPEVENT_SUCCESS) {
+        OH_LOG_INFO(LogType::LOG_APP, "[ExternalLogMgr_c] RegExternalLogMgr succeeded");
+    } else {
+        OH_LOG_INFO(LogType::LOG_APP, "[ExternalLogMgr_c] RegExternalLogMgr failed, ret %{public}d", ret);
+    }
+
+    return {};
+}
+// [End RegisterExternalLogMgr]
+
 // [Start AsanEvent_Init]
 // [Start AsanEventTS_Init]
 // [Start PssLeakEvent_Init]
