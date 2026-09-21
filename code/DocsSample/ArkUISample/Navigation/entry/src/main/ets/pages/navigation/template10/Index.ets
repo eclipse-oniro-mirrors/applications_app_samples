@@ -68,7 +68,7 @@ struct NavigationExample10 {
 
   @Builder
   pageMap(name: string) {
-    PageOne();
+    PageOneNav();
   }
 
   build() {
@@ -85,7 +85,7 @@ struct NavigationExample10 {
 }
 
 @Component
-struct PageOne {
+struct PageOneNav {
   derivedStack: DerivedNavPathStack = new DerivedNavPathStack();
   curStringifyParam: string = "NA";
 

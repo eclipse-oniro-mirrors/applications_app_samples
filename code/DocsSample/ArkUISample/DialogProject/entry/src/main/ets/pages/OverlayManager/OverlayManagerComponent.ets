@@ -86,7 +86,7 @@ export struct OverlayManagerComponent {
               let componentContent = this.contentArray.splice(this.arrayIndex, 1);
               this.overlayNode.removeComponentContent(componentContent.pop());
             } else {
-              hilog.info(DOMAIN, TAG, '%{public}s', 'arrayIndex error');
+              hilog.error(DOMAIN, TAG, '%{public}s', 'arrayIndex error');
             }
           })
         Button('Show ComponentContent:' + this.arrayIndex)
@@ -95,7 +95,7 @@ export struct OverlayManagerComponent {
               let componentContent = this.contentArray[this.arrayIndex];
               this.overlayNode.showComponentContent(componentContent);
             } else {
-              hilog.info(DOMAIN, TAG, '%{public}s', 'arrayIndex error');
+              hilog.error(DOMAIN, TAG, '%{public}s', 'arrayIndex error');
             }
           })
         Button('Hide ComponentContent:' + this.arrayIndex)
@@ -104,7 +104,7 @@ export struct OverlayManagerComponent {
               let componentContent = this.contentArray[this.arrayIndex];
               this.overlayNode.hideComponentContent(componentContent);
             } else {
-              hilog.info(DOMAIN, TAG, '%{public}s', 'arrayIndex error');
+              hilog.error(DOMAIN, TAG, '%{public}s', 'arrayIndex error');
             }
           })
         Button('Show All ComponentContent')
