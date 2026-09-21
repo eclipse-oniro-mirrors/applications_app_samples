@@ -14,8 +14,7 @@
  */
 
 // [Start ability_app_service_four]
-import { AppServiceExtensionAbility, Want } from '@kit.AbilityKit';
-import { abilityAccessCtrl, bundleManager } from '@kit.AbilityKit';
+import { AppServiceExtensionAbility, Want, abilityAccessCtrl, bundleManager } from '@kit.AbilityKit';
 import { rpc } from '@kit.IPCKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -38,7 +37,7 @@ class Stub extends rpc.RemoteObject {
       hilog.info(DOMAIN_NUMBER, TAG, 'getBundleNameByUid: ' + callerBundleName);
       // 对客户端包名进行识别
       if (callerBundleName !== 'com.samples.stagemodelabilitydevelop') { // 识别不通过
-        hilog.info(DOMAIN_NUMBER, TAG, 'The caller bundle is not in trustlist, reject');
+        hilog.error(DOMAIN_NUMBER, TAG, 'The caller bundle is not in trustlist, reject');
         return;
       }
       // 识别通过，执行正常业务逻辑
