@@ -280,8 +280,9 @@ void SampleGraphics::CreateByCPU()
     
     // 创建一个bitmap对象
     cScreenBitmap_ = OH_Drawing_BitmapCreate();
-    // 构造对应格式的bitmap
-    OH_Drawing_BitmapBuild(cScreenBitmap_, width_, height_, &cFormat);
+    // 构造对应格式的bitmap，宽度使用 stride/RGBA_SIZE，与窗口缓冲区行像素数对齐，避免拷贝时行错位导致花屏
+    uint32_t screenWidth = static_cast<uint32_t>(bufferHandle_->stride / RGBA_SIZE);
+    OH_Drawing_BitmapBuild(cScreenBitmap_, screenWidth, height_, &cFormat);
     // 创建一个canvas对象
     cScreenCanvas_ = OH_Drawing_CanvasCreate();
     // 将Canvas与bitmap绑定，Canvas绘制的内容会输出到绑定的bitmap内存中
@@ -294,8 +295,9 @@ void SampleGraphics::CreateByGPU()
     cScreenBitmap_ = OH_Drawing_BitmapCreate();
     // 定义bitmap的像素格式
     OH_Drawing_BitmapFormat cFormat{COLOR_FORMAT_RGBA_8888, ALPHA_FORMAT_OPAQUE};
-    // 构造对应格式的bitmap
-    OH_Drawing_BitmapBuild(cScreenBitmap_, width_, height_, &cFormat);
+    // 构造对应格式的bitmap，宽度使用 stride/RGBA_SIZE，与窗口缓冲区行像素数对齐，避免拷贝时行错位导致花屏
+    uint32_t screenWidth = static_cast<uint32_t>(bufferHandle_->stride / RGBA_SIZE);
+    OH_Drawing_BitmapBuild(cScreenBitmap_, screenWidth, height_, &cFormat);
     // 创建一个canvas对象
     cScreenCanvas_ = OH_Drawing_CanvasCreate();
     // 将画布与bitmap绑定，画布画的内容会输出到绑定的bitmap内存中
@@ -338,8 +340,10 @@ void SampleGraphics::DisPlay()
         SAMPLE_LOGE("value is null");
         return;
     }
-    for (uint32_t x = 0; x < width_; x++) {
-        for (uint32_t y = 0; y < height_; y++) {
+    // 按窗口缓冲区的行像素数(stride/4)逐行拷贝，避免行步长不一致导致花屏
+    uint32_t rowPixels = static_cast<uint32_t>(bufferHandle_->stride / RGBA_SIZE);
+    for (uint32_t y = 0; y < height_; y++) {
+        for (uint32_t x = 0; x < rowPixels; x++) {
             *pixel++ = *value++;
         }
     }
