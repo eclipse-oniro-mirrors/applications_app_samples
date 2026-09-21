@@ -31,20 +31,28 @@ class Stub extends rpc.RemoteObject {
 
   private validAppIdentifier: string = 'your_valid_app_identifier_here';
 
-  onRemoteMessageRequest(
-    code: int,
+  async onRemoteMessageRequest(
+    code: number,
     data: rpc.MessageSequence,
     reply: rpc.MessageSequence,
-    options: rpc.MessageOption): boolean | Promise<boolean> {
-    this.verifyClientIdentity().then((isValid: boolean) => {
-      if (isValid) {
-        hilog.info(DOMAIN_NUMBER, TAG, 'Client authentication PASSED');
-      } else {
-        hilog.error(DOMAIN_NUMBER, TAG, 'Client authentication FAILED');
-      }
-    }).catch((err) => {
-      hilog.error(DOMAIN_NUMBER, TAG, `Authentication error: ${err.code}, ${err.message}`);
-    });
+    options: rpc.MessageOption): Promise<boolean> {
+    let isValid: boolean = false;
+    try {
+      isValid = await this.verifyClientIdentity();
+    } catch (err) {
+      const error: BusinessError = err as BusinessError;
+      hilog.error(DOMAIN_NUMBER, TAG, `Authentication error: ${error.code}, ${error.message}`);
+      // 校验异常时视为校验失败
+      return false;
+    }
+    if (!isValid) {
+      hilog.error(DOMAIN_NUMBER, TAG, 'Client authentication FAILED');
+      // 返回false后，客户端sendMessageRequest会调用失败
+      return false;
+    }
+    hilog.info(DOMAIN_NUMBER, TAG, 'Client authentication PASSED');
+    // 校验通过后处理业务逻辑
+    // ...
     return true;
   }
 
