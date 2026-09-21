@@ -14,8 +14,7 @@
  */
 
 // [Start ability_app_service_five]
-import { AppServiceExtensionAbility, Want } from '@kit.AbilityKit';
-import { bundleManager } from '@kit.AbilityKit';
+import { AppServiceExtensionAbility, Want, bundleManager } from '@kit.AbilityKit';
 import { rpc } from '@kit.IPCKit';
 import { osAccount, BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
