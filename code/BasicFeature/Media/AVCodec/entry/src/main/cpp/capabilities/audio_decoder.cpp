@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,8 +27,22 @@ AudioDecoder::~AudioDecoder()
 
 int32_t AudioDecoder::Create(const std::string &codecMime)
 {
-    decoder_ = OH_AudioCodec_CreateByMime(codecMime.c_str(), false);
+    // 设置判定是否为编码。false表示当前是解码。
+    constexpr bool isEncoder = false;
+    // 通过 mime type 创建解码器。此处传入的 mime type 以实际解码格式为准。
+    decoder_ = OH_AudioCodec_CreateByMime(codecMime.c_str(), isEncoder);
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create failed");
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
+int32_t AudioDecoder::CreateByName(const std::string &codecMime)
+{
+    // 通过 codec name 创建解码器。
+    OH_AVCapability *capability = OH_AVCodec_GetCapability(codecMime.c_str(), false);
+    CHECK_AND_RETURN_RET_LOG(capability != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "GetCapability failed");
+    const char *name = OH_AVCapability_GetName(capability);
+    decoder_ = OH_AudioCodec_CreateByName(name);
+    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "CreateByName failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
@@ -45,10 +60,8 @@ int32_t AudioDecoder::SetCallback(CodecUserData *codecUserData)
 
 int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
 {
-    // Decoder capability tables can omit valid container codecs or report an
-    // incomplete sample-rate/channel list. The codec create/configure calls
-    // below are authoritative for decoding support; keep capability results
-    // as diagnostics instead of rejecting a valid Vorbis track prematurely.
+    // 解码能力表可能未完整列出部分容器编码格式的采样率/声道信息，
+    // 解码器Configure调用的返回值才是最终判定依据，此处仅将能力查询结果作为参考日志。
     if (!CodecCapability::ValidateAudioConfiguration(sampleInfo, false)) {
         AVCODEC_SAMPLE_LOGW("Audio capability query did not fully describe mime: %{public}s; "
             "continue with decoder configure", sampleInfo.audio.audioCodecMime.c_str());
@@ -56,43 +69,28 @@ int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
     OH_AVFormat *format = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
+    // 必选：采样格式、声道数、声道布局、采样率。
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, SAMPLE_S16LE);
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUD_CHANNEL_COUNT, sampleInfo.audio.audioChannelCount);
-    OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUD_SAMPLE_RATE, sampleInfo.audio.audioSampleRate);
     OH_AVFormat_SetLongValue(format, OH_MD_KEY_CHANNEL_LAYOUT, sampleInfo.audio.audioChannelLayout);
+    OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUD_SAMPLE_RATE, sampleInfo.audio.audioSampleRate);
+    // 可选：同步模式，按需设置。
     if (sampleInfo.codec.codecSyncMode) {
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
     }
 
+    // 可选：编解码器特定数据（codec config），由解封装获取，无则不设置。
     if (sampleInfo.audio.codecConfigLen > 0 &&
         sampleInfo.audio.codecConfig.size() >= sampleInfo.audio.codecConfigLen) {
-        AVCODEC_SAMPLE_LOGI("====== AudioDecoder config ====== codecConfig:%{public}p, len:%{public}i, "
-                            "adts:%{public}i, 0:0x%{public}02x, 1:0x%{public}02x",
-                            sampleInfo.audio.codecConfig.data(), static_cast<int>(sampleInfo.audio.codecConfigLen),
-                            sampleInfo.audio.aacAdts, sampleInfo.audio.codecConfig[0],
-                            sampleInfo.audio.codecConfig.size() > 1 ? sampleInfo.audio.codecConfig[1] : 0);
-        uint8_t tmpCodecConfig[2];
-        tmpCodecConfig[0] = 0x13;
-        tmpCodecConfig[1] = 0x10;
-        tmpCodecConfig[0] = sampleInfo.audio.codecConfig[0];
-        tmpCodecConfig[1] = sampleInfo.audio.codecConfig.size() > 1 ? sampleInfo.audio.codecConfig[1] : 0;
-        AVCODEC_SAMPLE_LOGI("====== AudioDecoder config ====== 0:0x%{public}02x, 1:0x%{public}02x", tmpCodecConfig[0],
-                            tmpCodecConfig[1]);
         OH_AVFormat_SetBuffer(format, OH_MD_KEY_CODEC_CONFIG, sampleInfo.audio.codecConfig.data(),
             sampleInfo.audio.codecConfigLen);
     }
 
-    AVCODEC_SAMPLE_LOGI("====== AudioDecoder config ======");
+    // 配置解码器。
     int ret = OH_AudioCodec_Configure(decoder_, format);
-    AVCODEC_SAMPLE_LOGI("====== AudioDecoder config ======");
-    if (ret != AV_ERR_OK) {
-        AVCODEC_SAMPLE_LOGE("Config failed, ret: %{public}d", ret);
-        OH_AVFormat_Destroy(format);
-        format = nullptr;
-        return AVCODEC_SAMPLE_ERR_ERROR;
-    }
     OH_AVFormat_Destroy(format);
     format = nullptr;
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Config failed, ret: %{public}d", ret);
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
@@ -112,6 +110,7 @@ int32_t AudioDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
     }
 
     {
+        // 解码器就绪。
         int ret = OH_AudioCodec_Prepare(decoder_);
         CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Prepare failed, ret: %{public}d", ret);
     }
@@ -209,11 +208,41 @@ int32_t AudioDecoder::FreeOutputBuffer(uint32_t bufferIndex, bool render)
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
+int32_t AudioDecoder::Flush()
+{
+    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
+
+    // 刷新解码器，清空当前队列，之后需要调用Start()重新开始解码。
+    int32_t ret = OH_AudioCodec_Flush(decoder_);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Flush failed, ret: %{public}d", ret);
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
+int32_t AudioDecoder::Reset()
+{
+    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
+
+    // 重置解码器，之后需要重新调用Configure()配置、Start()启动。
+    int32_t ret = OH_AudioCodec_Reset(decoder_);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Reset failed, ret: %{public}d", ret);
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
+int32_t AudioDecoder::Stop()
+{
+    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
+
+    int32_t ret = OH_AudioCodec_Stop(decoder_);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Stop failed, ret: %{public}d", ret);
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
 int32_t AudioDecoder::Release()
 {
     if (decoder_ != nullptr) {
-        OH_AudioCodec_Flush(decoder_);
-        OH_AudioCodec_Stop(decoder_);
+        // 销毁前刷新并停止解码器，不可重复destroy。
+        Flush();
+        Stop();
         OH_AudioCodec_Destroy(decoder_);
         decoder_ = nullptr;
     }
