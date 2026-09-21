@@ -30,7 +30,7 @@ export default class EntryAbility extends UIAbility {
     try {
       startupManager.run(startParams).then(() => {
         console.info(`StartupTest startupManager run then, startParams = ${JSON.stringify(startParams)}.`);
-      }).catch((error) => {
+      }).catch((error: BusinessError) => {
         console.error(`StartupTest promise catch error, code = ${error.code}, message = ${error.message}.`);
       })
     } catch (error) {
