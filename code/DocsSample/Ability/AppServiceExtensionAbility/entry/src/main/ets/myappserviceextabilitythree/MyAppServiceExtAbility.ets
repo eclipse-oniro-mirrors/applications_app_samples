@@ -26,20 +26,20 @@ const DOMAIN_NUMBER: number = 0xFF00;
 class Stub extends rpc.RemoteObject {
   private validAppIdentifier: string = 'your_valid_app_identifier_here';
 
-  onRemoteMessageRequest(
+  async onRemoteMessageRequest(
     code: number,
     data: rpc.MessageSequence,
     reply: rpc.MessageSequence,
-    options: rpc.MessageOption): boolean | Promise<boolean> {
-    this.verifyClientIdentity().then((isValid: boolean) => {
-      if (isValid) {
-        hilog.info(DOMAIN_NUMBER, TAG, 'Client authentication PASSED');
-      } else {
-        hilog.error(DOMAIN_NUMBER, TAG, 'Client authentication FAILED');
-      }
-    }).catch((err: BusinessError) => {
-      hilog.error(DOMAIN_NUMBER, TAG, `Authentication error: ${err.code}, ${err.message}`);
-    });
+    options: rpc.MessageOption): Promise<boolean> {
+    const isValid: boolean = await this.verifyClientIdentity();
+    if (!isValid) {
+      hilog.error(DOMAIN_NUMBER, TAG, 'Client authentication FAILED');
+      // 返回false后，客户端sendMessageRequest会调用失败
+      return false;
+    }
+    hilog.info(DOMAIN_NUMBER, TAG, 'Client authentication PASSED');
+    // 校验通过后处理业务逻辑
+    // ...
     return true;
   }
 
