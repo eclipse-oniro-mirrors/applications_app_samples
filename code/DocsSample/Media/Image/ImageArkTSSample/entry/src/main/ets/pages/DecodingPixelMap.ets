@@ -61,6 +61,18 @@ struct DecodingPixelmap {
   }
   // [End release_pixelMapDecoder]
 
+  // [Start release_imagesource]
+  async release() {
+    try {
+      await this.imageSource?.release();
+    } catch (error) {
+      console.error(`Failed to release ImageSource: ${error}.`);
+    } finally {
+      this.imageSource = undefined;
+    }
+  }
+  // [End release_imagesource]
+
   build() {
     Column() {
       Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Center}) {
