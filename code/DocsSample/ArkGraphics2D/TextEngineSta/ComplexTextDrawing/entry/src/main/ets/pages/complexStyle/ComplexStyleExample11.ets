@@ -16,8 +16,7 @@
 
 import { Entry, Text, Column, Component, Button, Row, Resource, $r, NodeContainer, Image } from '@ohos.arkui.component'
 import { State } from '@ohos.arkui.stateManagement'
-import { NodeController, FrameNode, RenderNode, DrawContext } from '@kit.ArkUI'
-import { UIContext } from '@kit.ArkUI'
+import { NodeController, FrameNode, RenderNode, DrawContext, UIContext } from '@kit.ArkUI'
 import { text, drawing } from '@kit.ArkGraphics2D'
 
 class MyRenderNode extends RenderNode {

@@ -16,12 +16,9 @@
 
 import { Entry, Text, Column, Component, Button, Row, NavDestination, NodeContainer } from '@ohos.arkui.component'
 import { State } from '@ohos.arkui.stateManagement'
-import { NodeController, FrameNode, RenderNode, DrawContext } from '@kit.ArkUI'
-import { UIContext } from '@kit.ArkUI'
+import { NodeController, FrameNode, RenderNode, DrawContext, UIContext } from '@kit.ArkUI'
 // [Start arkts_independent_shaping_text_import_modules]
-import { text } from '@kit.ArkGraphics2D'
-import { drawing } from '@kit.ArkGraphics2D'
-import { common2D } from '@kit.ArkGraphics2D'
+import { text, drawing, common2D } from '@kit.ArkGraphics2D'
 // [End arkts_independent_shaping_text_import_modules]
 
 @Entry

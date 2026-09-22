@@ -14,10 +14,8 @@
  */
 
 // Index.ets
-import { NodeController, FrameNode, RenderNode, DrawContext } from '@kit.ArkUI';
-import { UIContext } from '@kit.ArkUI';
+import { NodeController, FrameNode, RenderNode, DrawContext, UIContext, font } from '@kit.ArkUI';
 import { text } from '@kit.ArkGraphics2D';
-import { font } from '@kit.ArkUI';
 
 // 创建一个自定义的渲染节点类，用于绘制文本
 class MyRenderNode extends RenderNode {
