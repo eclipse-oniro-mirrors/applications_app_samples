@@ -1,7 +1,7 @@
 {
   "app": {
-    "bundleName": "com.samples.softbusBase",
-    "vendor": "example",
+    "bundleName": "com.samples.softbusbase",
+    "vendor": "OpenHarmony",
     "versionCode": 1000000,
     "versionName": "1.0.0",
     "buildVersion": "1",
