@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 // [Start switch between portrait and landscape]
-import { window, router } from '@kit.ArkUI';
+import { window } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { common } from '@kit.AbilityKit';
 
@@ -49,7 +49,7 @@ struct WebVideo {
       this.changeOrientation(false);
       return true;
     } else {
-      router.back();
+      this.getUIContext().getRouter().back();
       return true;
     }
   }
