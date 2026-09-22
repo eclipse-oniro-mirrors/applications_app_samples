@@ -61,7 +61,7 @@ struct DecodingPixelmap {
   }
   // [End release_pixelMapDecoder]
 
-  // [Start release_imagesource]
+  // [Start release_imageSource]
   async release() {
     try {
       await this.imageSource?.release();
@@ -71,7 +71,7 @@ struct DecodingPixelmap {
       this.imageSource = undefined;
     }
   }
-  // [End release_imagesource]
+  // [End release_imageSource]
 
   build() {
     Column() {
