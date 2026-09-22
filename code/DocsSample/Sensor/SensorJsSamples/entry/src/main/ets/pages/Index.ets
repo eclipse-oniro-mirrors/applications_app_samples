@@ -196,7 +196,7 @@ struct SensorList {
         .borderRadius(10)
         .focusable(false)
         .onClick(() => {
-          TextPickerDialog.show({
+          this.getUIContext().showTextPickerDialog({
             range: this.sensorItems,
             selected: 0,
             onAccept: (result: TextPickerResult) => {
@@ -244,7 +244,7 @@ struct SensorList {
             if (this.sensors.get(this.realSensorName) == 278) {
               logger.info(TAG + this.sensors.get(this.realSensorName) + 'on in');
               let atManager = AbilityAccessCtrl.createAtManager();
-              let context = getContext(this) as common.UIAbilityContext;
+              let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
               atManager.requestPermissionsFromUser(context, ['ohos.permission.READ_HEALTH_DATA'], (err, data) => {
                 if (err) {
                   logger.error(TAG + 'grant READ_HEALTH_DATA failed:' + JSON.stringify(data));
@@ -526,7 +526,7 @@ struct SensorList {
             if (this.sensors.get(this.realSensorName) == 278) {
               logger.info(TAG + this.sensors.get(this.realSensorName) + 'on in');
               let atManager = AbilityAccessCtrl.createAtManager();
-              let context = getContext(this) as common.UIAbilityContext;
+              let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
               atManager.requestPermissionsFromUser(context, ['ohos.permission.READ_HEALTH_DATA'], (err, data) => {
                 if (err) {
                   logger.error(TAG + 'grant READ_HEALTH_DATA failed:' + JSON.stringify(data));
@@ -808,7 +808,7 @@ struct SensorList {
             if (this.sensors.get(this.realSensorName) == 278) {
               logger.info(TAG + this.sensors.get(this.realSensorName) + 'once in');
               let atManager = AbilityAccessCtrl.createAtManager();
-              let context = getContext(this) as common.UIAbilityContext;
+              let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
               atManager.requestPermissionsFromUser(context, ['ohos.permission.READ_HEALTH_DATA'], (err, data) => {
                 if (err) {
                   logger.error(TAG + 'grant READ_HEALTH_DATA failed:' + JSON.stringify(data));
