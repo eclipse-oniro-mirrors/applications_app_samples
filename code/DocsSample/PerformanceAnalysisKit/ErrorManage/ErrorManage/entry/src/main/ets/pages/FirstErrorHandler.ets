@@ -1,12 +1,15 @@
 // [Start first_error_handler]
 import { errorManager } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { process } from '@kit.ArkTS';
 import { BusinessError } from '@kit.BasicServicesKit';
+
+const DOMAIN = 0x0000;
 
 let firstHandler: errorManager.ErrorHandler;
 const firstErrorHandler: errorManager.ErrorHandler = (reason: Error) => {
     // 自定义的第一个errorHandler实现逻辑
-    console.info('[FirstHandler] First uncaught exception handler invoked.');
+    hilog.info(DOMAIN, 'testErrorManage', '%{public}s', '[FirstHandler] First uncaught exception handler invoked.');
     if (firstHandler) {
         firstHandler(reason);
     } else {
@@ -22,8 +25,8 @@ export function setFirstErrorHandler() {
     } catch (paramError) {
         let code = (paramError as BusinessError).code;
         let message = (paramError as BusinessError).message;
-        console.error('setFirstErrorHandler',`error: ${code}, ${message}`);
+        hilog.error(DOMAIN, 'testErrorManage', 'error: %{public}s, %{public}s', `${code}`, `${message}`);
     }
-    console.info('Registered First Error Handler');
+    hilog.info(DOMAIN, 'testErrorManage', '%{public}s', 'Registered First Error Handler');
 }
 // [End first_error_handler]

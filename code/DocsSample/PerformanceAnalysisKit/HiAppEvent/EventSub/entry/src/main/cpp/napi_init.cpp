@@ -50,11 +50,11 @@ static HiAppEvent_Watcher *eventWatcherT;
 // [End EventSub_onTrigger_ptr]
 
 // [Start App_Hicollie_Watcher_R_ptr]
-// 定义一变量，用来缓存创建的观察者的指针。
+// 定义一个变量，用来缓存创建的观察者的指针。
 static HiAppEvent_Watcher *appHicollieWatcherR;
 // [End App_Hicollie_Watcher_R_ptr]
 // [Start App_Hicollie_Watcher_T_ptr]
-// 定义一变量，用来缓存创建的观察者的指针。
+// 定义一个变量，用来缓存创建的观察者的指针。
 static HiAppEvent_Watcher *appHicollieWatcherT;
 // [End App_Hicollie_Watcher_T_ptr]
 
@@ -244,7 +244,10 @@ static napi_value RegisterAppKillReceiveWatcher(napi_env env, napi_callback_info
     // 开发者设置已实现的回调函数，观察者接收到事件后回立即触发OnReceive回调。
     OH_HiAppEvent_SetWatcherOnReceive(appKillWatcherR, OnReceiveAppKillEvent);
     // 使观察者开始监听订阅的事件。
-    OH_HiAppEvent_AddWatcher(appKillWatcherR);
+    int ret = OH_HiAppEvent_AddWatcher(appKillWatcherR);
+    if (ret != 0) {
+        OH_LOG_ERROR(LogType::LOG_APP, "HiAppEvent AddWatcher failed, ret=%{public}d", ret);
+    }
     return {};
 }
 // [End AppKillEvent_OnReceive]
@@ -1106,6 +1109,8 @@ static napi_value TestHiCollieTimerNdk(napi_env env, napi_callback_info info)
         OH_LOG_INFO(LogType::LOG_APP, "HiCollieTimer taskId: %{public}d", id); // 打印任务id
         sleep(2);  // 模拟执行耗时函数，在这里简单地将线程阻塞2s
         OH_HiCollie_CancelTimer(id);  // 根据id取消已注册任务
+    } else {
+        OH_LOG_INFO(LogType::LOG_APP, "OH_HiCollie_SetTimer failed, errorCode is %{public}d", errorCode);
     }
     return nullptr;
 }
@@ -1178,10 +1183,13 @@ static napi_value RegisterAppHicollieWatcherR(napi_env env, napi_callback_info i
     const char *names[] = {EVENT_APP_HICOLLIE};
     // 开发者订阅感兴趣的事件，此处订阅了系统事件。
     OH_HiAppEvent_SetAppEventFilter(appHicollieWatcherR, DOMAIN_OS, 0, names, 1);
-    // 开发者设置已实现的回调函数，观察者接收到事件后回立即触发OnReceive回调。
+    // 开发者设置已实现的回调函数，观察者接收到事件后会立即触发OnReceive回调。
     OH_HiAppEvent_SetWatcherOnReceive(appHicollieWatcherR, AppHicollieOnReceive);
     // 使观察者开始监听订阅的事件。
-    OH_HiAppEvent_AddWatcher(appHicollieWatcherR);
+    int ret = OH_HiAppEvent_AddWatcher(appHicollieWatcherR);
+    if (ret != 0) {
+        OH_LOG_ERROR(LogType::LOG_APP, "HiAppEvent AddWatcher failed, ret=%{public}d", ret);
+    }
     return {};
 }
 // [End App_Hicollie_OnReceive]
@@ -1259,7 +1267,10 @@ static napi_value RegisterAppHicollieWatcherT(napi_env env, napi_callback_info i
     // 开发者可以设置订阅触发回调的条件，此处是设置新增事件打点数量为1个时，触发onTrigger回调。
     OH_HiAppEvent_SetTriggerCondition(appHicollieWatcherT, 1, 0, 0);
     // 使观察者开始监听订阅的事件。
-    OH_HiAppEvent_AddWatcher(appHicollieWatcherT);
+    int ret = OH_HiAppEvent_AddWatcher(appHicollieWatcherT);
+    if (ret != 0) {
+        OH_LOG_ERROR(LogType::LOG_APP, "HiAppEvent AddWatcher failed, ret=%{public}d", ret);
+    }
     return {};
 }
 // [End App_Hicollie_Trigger]
