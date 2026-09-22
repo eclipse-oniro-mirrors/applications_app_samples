@@ -15,6 +15,7 @@
 
 // [Start index_h]
 import { errorManager } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 // [End index_h]
 // [Start error_handler_h]
@@ -22,16 +23,18 @@ import { setFirstErrorHandler } from './FirstErrorHandler';
 import { setSecondErrorHandler } from './SecondErrorHandler';
 // [End error_handler_h]
 
+const DOMAIN = 0x0000;
+
 // [Start error_observer]
 let observer: errorManager.ErrorObserver = {
   onUnhandledException(errorMsg) {
-    console.error('testErrorManage','onUnhandledException, errorMsg: ', errorMsg);
+    hilog.error(DOMAIN, 'testErrorManage', 'onUnhandledException, errorMsg: %{public}s', errorMsg);
   },
   onException(errorObj) {
-    console.error('testErrorManage','onException, name: ', errorObj.name);
-    console.error('testErrorManage','onException, message: ', errorObj.message);
+    hilog.error(DOMAIN, 'testErrorManage', 'onException, name: %{public}s', errorObj.name);
+    hilog.error(DOMAIN, 'testErrorManage', 'onException, message: %{public}s', errorObj.message);
     if (typeof(errorObj.stack) === 'string') {
-      console.error('testErrorManage','onException, stack: ', errorObj.stack);
+      hilog.error(DOMAIN, 'testErrorManage', 'onException, stack: %{public}s', errorObj.stack);
     }
   }
 };
@@ -39,29 +42,29 @@ let observer: errorManager.ErrorObserver = {
 
 // [Start error_func]
 function errorFunc(observer: errorManager.GlobalError) {
-  console.error('testErrorManage','result name :' + observer.name);
-  console.error('testErrorManage','result message :' + observer.message);
-  console.error('testErrorManage','result stack :' + observer.stack);
-  console.error('testErrorManage','result instanceName :' + observer.instanceName);
-  console.error('testErrorManage','result instanceType :' + observer.instanceType);
+  hilog.error(DOMAIN, 'testErrorManage', 'result name :%{public}s', observer.name);
+  hilog.error(DOMAIN, 'testErrorManage', 'result message :%{public}s', observer.message);
+  hilog.error(DOMAIN, 'testErrorManage', 'result stack :%{public}s', observer.stack);
+  hilog.error(DOMAIN, 'testErrorManage', 'result instanceName :%{public}s', observer.instanceName);
+  hilog.error(DOMAIN, 'testErrorManage', 'result instanceType :%{public}s', observer.instanceType);
 };
 // [End error_func]
 
 // [Start loop_observer]
 let loopObserver: errorManager.LoopObserver = {
   onLoopTimeOut(timeout: number) {
-    console.error('testErrorManage','Duration timeout: ' + timeout);
+    hilog.error(DOMAIN, 'testErrorManage', 'Duration timeout: %{public}s', `${timeout}`);
   }
 };
 // [End loop_observer]
 
 // [Start promise_func]
 function promiseFunc(observer: errorManager.GlobalError) {
-  console.error('testErrorManage','result name :' + observer.name);
-  console.error('testErrorManage','result message :' + observer.message);
-  console.error('testErrorManage','result stack :' + observer.stack);
-  console.error('testErrorManage','result instanceName :' + observer.instanceName);
-  console.error('testErrorManage','result instanceType :' + observer.instanceType);
+  hilog.error(DOMAIN, 'testErrorManage', 'result name :%{public}s', observer.name);
+  hilog.error(DOMAIN, 'testErrorManage', 'result message :%{public}s', observer.message);
+  hilog.error(DOMAIN, 'testErrorManage', 'result stack :%{public}s', observer.stack);
+  hilog.error(DOMAIN, 'testErrorManage', 'result instanceName :%{public}s', observer.instanceName);
+  hilog.error(DOMAIN, 'testErrorManage', 'result instanceType :%{public}s', observer.instanceType);
 };
 
 async function promiseFuncOne() {
@@ -76,12 +79,12 @@ let promise1 = new Promise<void>(() => {}).then(() => {
 
 let unhandledrejectionObserver: errorManager.UnhandledRejectionObserver = (reason: Error, promise: Promise<void>) => {
   if (promise === promise1) {
-    console.error('testErrorManage','promise1 is rejected');
+    hilog.error(DOMAIN, 'testErrorManage', '%{public}s', 'promise1 is rejected');
   }
-  console.error('testErrorManage','reason.name: ', reason.name);
-  console.error('testErrorManage','reason.message: ', reason.message);
+    hilog.error(DOMAIN, 'testErrorManage', 'reason.name: %{public}s', reason.name);
+    hilog.error(DOMAIN, 'testErrorManage', 'reason.message: %{public}s', reason.message);
   if (reason.stack) {
-    console.error('testErrorManage','reason.stack: ', reason.stack);
+    hilog.error(DOMAIN, 'testErrorManage', 'reason.stack: %{public}s', reason.stack);
   }
 };
 
@@ -92,7 +95,7 @@ async function promiseFuncTwo() {
 
 // [Start freeze_call_back]
 function freezeCallback() {
-  console.error('testErrorManage','freezecallback');
+  hilog.error(DOMAIN, 'testErrorManage', '%{public}s', 'freezecallback');
 };
 // [End freeze_call_back]
 
@@ -119,7 +122,7 @@ struct Index {
         } catch (paramError) {
           let code = (paramError as BusinessError).code;
           let message = (paramError as BusinessError).message;
-          console.error('testErrorManage',`error: ${code}, ${message}`);
+          hilog.error(DOMAIN, 'testErrorManage', 'error: %{public}s, %{public}s', `${code}`, `${message}`);
         }
         // 构造场景故障
         throw new Error('test errorObserver msg');
@@ -133,7 +136,7 @@ struct Index {
         } catch (paramError) {
           let code = (paramError as BusinessError).code;
           let message = (paramError as BusinessError).message;
-          console.error('testErrorManage',`error: ${code}, ${message}`);
+          hilog.error(DOMAIN, 'testErrorManage', 'error: %{public}s, %{public}s', `${code}`, `${message}`);
         }
         // 构造场景故障
         throw new Error('test errorFunc msg');
@@ -147,7 +150,7 @@ struct Index {
         } catch (paramError) {
           let code = (paramError as BusinessError).code;
           let message = (paramError as BusinessError).message;
-          console.error('testErrorManage',`error: ${code}, ${message}`);
+          hilog.error(DOMAIN, 'testErrorManage', 'error: %{public}s, %{public}s', `${code}`, `${message}`);
         }
         // 构造场景故障
         let date = Date.now();
@@ -163,7 +166,7 @@ struct Index {
         } catch (paramError) {
           let code = (paramError as BusinessError).code;
           let message = (paramError as BusinessError).message;
-          console.error('testErrorManage',`error: ${code}, ${message}`);
+          hilog.error(DOMAIN, 'testErrorManage', 'error: %{public}s, %{public}s', `${code}`, `${message}`);
         }
         // 构造场景故障
         new Promise<string>(() => {
@@ -181,7 +184,7 @@ struct Index {
         } catch (paramError) {
           let code = (paramError as BusinessError).code;
           let message = (paramError as BusinessError).message;
-          console.error('testErrorManage',`error: ${code}, ${message}`);
+          hilog.error(DOMAIN, 'testErrorManage', 'error: %{public}s, %{public}s', `${code}`, `${message}`);
         }
         // 构造场景故障
         new Promise<string>(() => {
@@ -199,7 +202,7 @@ struct Index {
         } catch (paramError) {
           let code = (paramError as BusinessError).code;
           let message = (paramError as BusinessError).message;
-          console.error('testErrorManage',`error: ${code}, ${message}`);
+          hilog.error(DOMAIN, 'testErrorManage', 'error: %{public}s, %{public}s', `${code}`, `${message}`);
         }
         // 构造场景故障
         let date = Date.now();
