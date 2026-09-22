@@ -62,7 +62,7 @@ struct DecodingPixelmap {
   // [End release_pixelMapDecoder]
 
   // [Start release_imageSource]
-  async release() {
+  async release_imageSource() {
     try {
       await this.imageSource?.release();
     } catch (error) {
