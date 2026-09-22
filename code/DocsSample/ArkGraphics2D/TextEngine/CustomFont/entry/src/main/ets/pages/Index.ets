@@ -15,8 +15,7 @@
 // [Start arkts_custom_font]
 // Index.ets
 // [Start arkts_custom_font_include]
-import { NodeController, FrameNode, RenderNode, DrawContext } from '@kit.ArkUI'
-import { UIContext } from '@kit.ArkUI'
+import { NodeController, FrameNode, RenderNode, DrawContext, UIContext } from '@kit.ArkUI'
 import { text } from '@kit.ArkGraphics2D'
 // [End arkts_custom_font_include]
 
