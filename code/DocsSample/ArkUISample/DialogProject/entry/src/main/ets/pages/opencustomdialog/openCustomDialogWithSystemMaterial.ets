@@ -64,7 +64,7 @@ export struct OpenCustomDialogWithSystemMaterial {
                     this.customDialogComponent()
                     },
                     systemMaterial: new uiMaterial.ImmersiveMaterial({ style: uiMaterial.ImmersiveStyle.ULTRA_THICK }),
-                    // [StartExclude open_custom_dialog_with_system_material_set_material1]
+                    // [StartExclude open_custom_dialog_with_system_material_set_material]
                     onWillDismiss: (dismissDialogAction: DismissDialogAction) => {
                     console.info('reason' + JSON.stringify(dismissDialogAction.reason));
                     console.info('dialog onWillDismiss');
@@ -75,7 +75,7 @@ export struct OpenCustomDialogWithSystemMaterial {
                         dismissDialogAction.dismiss();
                     }
                     }
-                    // [EndExclude open_custom_dialog_with_system_material_set_material1]
+                    // [EndExclude open_custom_dialog_with_system_material_set_material]
                 })
                 // [StartExclude open_custom_dialog_with_system_material_set_material2]
                 .then((dialogId: number) => {
