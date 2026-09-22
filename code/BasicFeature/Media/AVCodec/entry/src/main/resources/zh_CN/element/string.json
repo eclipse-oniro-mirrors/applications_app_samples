@@ -193,6 +193,10 @@
       "value": "HDR Vivid 转 BT.709"
     },
     {
+      "name": "setting_hdr_vivid_to_bt709_gpu_unavailable",
+      "value": "仅 Surface模式直接送显支持实时转换"
+    },
+    {
       "name": "setting_audio_volume",
       "value": "音频音量"
     },
@@ -327,6 +331,14 @@
     {
       "name": "setting_render_buffer",
       "value": "Buffer模式拷贝送显"
+    },
+    {
+      "name": "setting_render_opengl",
+      "value": "Surface模式 OpenGL送显"
+    },
+    {
+      "name": "setting_render_vulkan",
+      "value": "Surface模式 Vulkan送显"
     },
     {
       "name": "setting_mode_async",
@@ -591,7 +603,7 @@
     { "name": "playback_subtitle_style_small", "value": "小号字幕" },
     { "name": "playback_subtitle_style_medium", "value": "中号字幕" },
     { "name": "playback_subtitle_style_large", "value": "大号字幕" },
-    { "name": "playback_diagnostics_buffer_present", "value": "Buffer 送显 " },
+    { "name": "playback_diagnostics_buffer_present", "value": "Buffer/GPU 送显 " },
     { "name": "playback_diagnostics_buffer_average", "value": "  平均 " },
     { "name": "playback_diagnostics_buffer_failures", "value": "  失败 " },
     { "name": "playback_diagnostics_software_fallback", "value": "软件解码回退 " },

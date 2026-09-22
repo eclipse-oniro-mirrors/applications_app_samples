@@ -26,5 +26,5 @@ export const stopEndNative: () => Promise<Response>
 
 export class Response {
   code: number
-  surfaceId: string
+  outputId: string
 }

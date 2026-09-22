@@ -31,6 +31,8 @@ constexpr int32_t DOUBLE_SPEED_MULTIPLIER = 2;
 constexpr int64_t US_PER_SECOND = 1000000;
 constexpr int64_t NS_PER_US = 1000;
 constexpr int64_t CODEC_BUFFER_TIMEOUT_US = 100000;
+constexpr uint32_t PLAYBACK_LOG_FREQUENCY = 120;
+constexpr uint32_t SYNC_DIAGNOSTICS_SAMPLE_INTERVAL = 8;
 } // namespace
 
 void Player::VideoDecInputSyncThread()
@@ -146,8 +148,7 @@ bool Player::ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo,
     return true;
 }
 
-bool Player::CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t framePosition,
-    int64_t& waitTimeUs, bool& dropFrame)
+bool Player::CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t framePosition, AvSyncDecision& decision)
 {
     int64_t audioFramesWritten = 0;
     int64_t currentAudioPts = 0;
@@ -156,7 +157,7 @@ bool Player::CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t frameP
         audioFramesWritten = audioDecContext_->audioFramesWritten;
         currentAudioPts = audioDecContext_->currentPosAudioBufferPts;
     }
-    const AvSyncDecision decision = avSyncController_.Decide({
+    decision = avSyncController_.Decide({
         bufferInfo.attr.pts,
         audioFramesWritten,
         framePosition,
@@ -167,11 +168,13 @@ bool Player::CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t frameP
         static_cast<double>(speed.load()),
     });
     CHECK_AND_RETURN_RET_LOG(decision.valid, false, "Invalid audio clock parameters");
-    diagnostics_.RecordSync(decision);
-    waitTimeUs = decision.waitTimeUs;
-    dropFrame = decision.dropFrame;
-    AVCODEC_SAMPLE_LOGI("VD sync decision, index: %{public}u, waitTimeUs: %{public}" PRId64
-        ", drop: %{public}d", bufferInfo.bufferIndex, waitTimeUs, dropFrame);
+    // Keep diagnostics responsive without taking its mutex once for every frame on high-frame-rate clips.
+    if (videoOutputFrames_.load() % SYNC_DIAGNOSTICS_SAMPLE_INTERVAL == 0) {
+        diagnostics_.RecordSync(decision);
+    }
+    AVCODEC_SAMPLE_LOGD_LIMIT(PLAYBACK_LOG_FREQUENCY,
+        "VD sync decision, index: %{public}u, waitTimeUs: %{public}" PRId64 ", drop: %{public}d",
+        bufferInfo.bufferIndex, decision.waitTimeUs, decision.dropFrame);
     return true;
 }
 
@@ -192,9 +195,14 @@ void Player::SetVolume(float volume)
 
 bool Player::RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame)
 {
-    const int64_t renderLeadUs = std::clamp(waitTimeUs, int64_t { 0 }, AvSyncController::renderAheadUs);
-    if (waitTimeUs > AvSyncController::renderAheadUs) {
-        std::this_thread::sleep_for(std::chrono::microseconds(waitTimeUs - AvSyncController::renderAheadUs));
+    // Rendering two 60fps frames ahead is reasonable at 60fps, but it holds about eight decoder
+    // output buffers at 240fps. Limit the lead to two source frames so hardware decoders keep
+    // returning output buffers at high frame rates.
+    const int64_t sourceFrameIntervalUs = std::max<int64_t>(1, sampleInfo_.video.frameInterval);
+    const int64_t maxRenderLeadUs = std::min(AvSyncController::renderAheadUs, sourceFrameIntervalUs * 2);
+    const int64_t renderLeadUs = std::clamp(waitTimeUs, int64_t { 0 }, maxRenderLeadUs);
+    if (waitTimeUs > maxRenderLeadUs) {
+        std::this_thread::sleep_for(std::chrono::microseconds(waitTimeUs - maxRenderLeadUs));
     }
     return PresentAndReleaseVideoBuffer(bufferInfo, !dropFrame, renderLeadUs * NS_PER_US + GetCurrentTime());
 }
@@ -225,7 +233,8 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
         }
         ret = OH_AudioRenderer_GetAudioTimestampInfo(audioRenderer_, &framePosition, &timestamp);
     }
-    AVCODEC_SAMPLE_LOGI("VD framePosition: %{public}li, audioTimestamp: %{public}li", framePosition, timestamp);
+    AVCODEC_SAMPLE_LOGD_LIMIT(PLAYBACK_LOG_FREQUENCY,
+        "VD framePosition: %{public}li, audioTimestamp: %{public}li", framePosition, timestamp);
     playbackClock_.SetAudioTimestampNs(timestamp);
     if (ret != AUDIOSTREAM_SUCCESS || timestamp == 0 || framePosition == 0) {
         if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
@@ -236,13 +245,12 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
         lastPushTime = std::chrono::system_clock::now();
         return true;
     }
-    int64_t waitTimeUs = 0;
-    bool dropFrame = false;
-    if (!CalculateSyncParameters(bufferInfo, framePosition, waitTimeUs, dropFrame)) {
+    AvSyncDecision decision;
+    if (!CalculateSyncParameters(bufferInfo, framePosition, decision)) {
         return false;
     }
-    const bool rendered = RenderAndRelease(bufferInfo, waitTimeUs, dropFrame);
-    if (rendered && !dropFrame) {
+    const bool rendered = RenderAndRelease(bufferInfo, decision.waitTimeUs, decision.dropFrame);
+    if (rendered && !decision.dropFrame) {
         StartAudioAfterVideoSeek();
     }
     return rendered;
@@ -283,16 +291,16 @@ void Player::InitSyncVideoOutputContext()
         OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_HEIGHT, &videoDecContext_->height);
         OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_STRIDE, &videoDecContext_->widthStride);
         OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_SLICE_HEIGHT, &videoDecContext_->heightStride);
-        int32_t pixelFormat = sampleInfo_.video.pixelFormat;
+        int32_t pixelFormat = static_cast<int32_t>(videoDecContext_->outputPixelFormat);
         if (OH_AVFormat_GetIntValue(format, OH_MD_KEY_PIXEL_FORMAT, &pixelFormat)) {
-            sampleInfo_.video.pixelFormat = static_cast<OH_AVPixelFormat>(pixelFormat);
+            videoDecContext_->outputPixelFormat = static_cast<OH_AVPixelFormat>(pixelFormat);
         }
         OH_AVFormat_Destroy(format);
     }
     videoDecContext_->isDecFirstFrame = false;
     AVCODEC_SAMPLE_LOGI("Sync mode init: %{public}d*%{public}d, stride: %{public}d*%{public}d, "
         "pixel format: %{public}d", videoDecContext_->width, videoDecContext_->height,
-        videoDecContext_->widthStride, videoDecContext_->heightStride, sampleInfo_.video.pixelFormat);
+        videoDecContext_->widthStride, videoDecContext_->heightStride, videoDecContext_->outputPixelFormat);
 }
 
 bool Player::GetSyncVideoOutputBuffer(CodecBufferInfo& bufferInfo)
@@ -307,7 +315,8 @@ bool Player::GetSyncVideoOutputBuffer(CodecBufferInfo& bufferInfo)
     CHECK_AND_RETURN_RET_LOG(!(bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS), false, "Catch EOS, thread out");
     InitSyncVideoOutputContext();
     videoDecContext_->outputFrameCount++;
-    AVCODEC_SAMPLE_LOGW("Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
+    AVCODEC_SAMPLE_LOGD_LIMIT(PLAYBACK_LOG_FREQUENCY,
+        "Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
         videoDecContext_->outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
     return true;
 }
@@ -361,7 +370,8 @@ void Player::VideoDecOutputAsyncThread()
             "Buffer queue is empty or invalid, continue");
         CHECK_AND_BREAK_LOG(!(bufferInfo->attr.flags & AVCODEC_BUFFER_FLAGS_EOS), "Catch EOS, thread out");
         videoDecContext_->outputFrameCount++;
-        AVCODEC_SAMPLE_LOGW("Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
+        AVCODEC_SAMPLE_LOGD_LIMIT(PLAYBACK_LOG_FREQUENCY,
+            "Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
             videoDecContext_->outputFrameCount, bufferInfo->attr.size, bufferInfo->attr.flags, bufferInfo->attr.pts);
         const bool success = audioDecContext_ == nullptr ?
             ProcessVideoWithoutAudio(*bufferInfo, lastPushTime) : ProcessVideoWithAudio(*bufferInfo, lastPushTime);

@@ -18,11 +18,19 @@
 
 #include <multimedia/player_framework/native_avbuffer.h>
 #include <native_buffer/native_buffer.h>
+#include <native_window/external_window.h>
 
 class HdrMetadataHelper {
 public:
     static bool IsHdrVivid(OH_AVBuffer *buffer);
+    // Surface decoder callbacks can expose only a release handle. After a frame is rendered, use
+    // the XComponent's latest flushed Buffer as a best-effort, positive-only confirmation.
+    static bool IsLastFlushedBufferHdrVivid(OHNativeWindow *window);
     static bool CopyToNativeBuffer(OH_AVBuffer *sourceBuffer, OH_NativeBuffer *targetBuffer);
+    static bool SetBt709OutputMetadata(OH_NativeBuffer *targetBuffer);
+    // NativeImage external-texture rendering does not expose per-frame HDR Vivid dynamic
+    // metadata. Clear static HDR state before creating a standard 8-bit graphics output.
+    static bool ResetNativeWindowSdrMetadata(OHNativeWindow *window);
 };
 
 #endif // VIDEO_CODEC_HDR_METADATA_HELPER_H

@@ -17,7 +17,7 @@ import { camera } from '@kit.CameraKit';
 import { CommonConstants as Const } from '../common/CommonConstants';
 
 export class CameraDataModel {
-  public surfaceId: string = '';
+  public outputId: string = '';
   public cameraWidth: number = Const.DEFAULT_WIDTH;
   public cameraHeight: number = Const.DEFAULT_HEIGHT;
   public isHDRVivid: number = Const.DEFAULT_VALUE;

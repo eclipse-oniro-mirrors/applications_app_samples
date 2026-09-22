@@ -24,6 +24,26 @@
 
 namespace {
 constexpr int64_t US_PER_MILLISECOND = 1000;
+constexpr int32_t FULL_ROTATION_DEGREES = 360;
+constexpr int32_t CLOCKWISE_QUARTER_TURN_DEGREES = 90;
+constexpr int32_t COUNTERCLOCKWISE_QUARTER_TURN_DEGREES = 270;
+
+bool IsQuarterTurnRotation(int32_t rotation)
+{
+    const int32_t normalizedRotation = (rotation % FULL_ROTATION_DEGREES + FULL_ROTATION_DEGREES) %
+        FULL_ROTATION_DEGREES;
+    return normalizedRotation == CLOCKWISE_QUARTER_TURN_DEGREES ||
+        normalizedRotation == COUNTERCLOCKWISE_QUARTER_TURN_DEGREES;
+}
+
+bool RequiresFollowingSyncForForwardSeek(const VideoSampleInfo &video)
+{
+    // Some rotated 10-bit HEVC files expose a previous-sync index whose first access unit is
+    // not independently decodable. HDR Vivid container signalling is optional, so do not rely
+    // on it alone when deciding whether to bypass that unsafe index entry.
+    return IsQuarterTurnRotation(video.rotation) &&
+        video.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_HEVC && IsTenBitHevcOutput(video);
+}
 } // namespace
 
 void Player::CancelWorkerWaits()
@@ -105,9 +125,27 @@ void Player::StopWorkersForSeek()
     JoinWorkerThreads();
 }
 
-void Player::ReleaseCodecResourcesForSeek()
+bool Player::ShouldRetainVideoDecoderForSeek() const
 {
-    if (videoDecContext_ != nullptr) {
+    // A decoder Flush clears queued access units without redoing codec creation, capability
+    // negotiation and output-format setup. Rebuilding a 4K HDR decoder on every seek makes the
+    // first frame unnecessarily late, especially for Buffer/OpenGL/Vulkan output. Workers have
+    // already been joined before this decision, so the same safe Flush -> Start sequence can be
+    // used for every configured video output mode.
+    return videoDecoder_ != nullptr && videoDecContext_ != nullptr;
+}
+
+int32_t Player::ReleaseCodecResourcesForSeek(bool retainVideoDecoder)
+{
+    if (retainVideoDecoder) {
+        std::unique_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
+        videoDecContext_->ClearQueue();
+        videoDecContext_->inputBufferQueue.Reset();
+        videoDecContext_->outputBufferQueue.Reset();
+        const int32_t ret = videoDecoder_->Flush();
+        CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret,
+            "Flush retained video decoder for seek failed");
+    } else if (videoDecContext_ != nullptr) {
         videoDecContext_->isDestroyed = true;
     }
     if (audioDecContext_ != nullptr) {
@@ -124,11 +162,11 @@ void Player::ReleaseCodecResourcesForSeek()
         OH_AudioStreamBuilder_Destroy(builder_);
         builder_ = nullptr;
     }
-    ReleaseVideoDecoder();
-    ReleaseAudioDecoder();
-    if (videoSink_ != nullptr) {
-        videoSink_->Reset();
+    if (!retainVideoDecoder) {
+        ReleaseVideoDecoder();
     }
+    ReleaseAudioDecoder();
+    return AVCODEC_SAMPLE_ERR_OK;
 }
 
 void Player::ResetPlaybackClockForSeek(int64_t positionUs)
@@ -227,7 +265,7 @@ bool Player::PrepareAudioOutputAfterSeek(CodecBufferInfo &bufferInfo)
     return true;
 }
 
-int32_t Player::RecreateDecodersAfterSeek(bool hadVideo, bool hadAudio)
+int32_t Player::RecreateDecodersAfterSeek(bool hadVideo, bool hadAudio, bool videoDecoderRetained)
 {
     int32_t ret = AVCODEC_SAMPLE_ERR_OK;
     if (hadAudio) {
@@ -236,7 +274,7 @@ int32_t Player::RecreateDecodersAfterSeek(bool hadVideo, bool hadAudio)
         CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK && audioDecContext_ != nullptr,
             AVCODEC_SAMPLE_ERR_ERROR, "Recreate audio decoder after seek failed");
     }
-    if (hadVideo) {
+    if (hadVideo && !videoDecoderRetained) {
         videoDecoder_ = std::make_unique<VideoDecoder>();
         ret = CreateVideoDecoder();
         CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK && videoDecContext_ != nullptr,
@@ -305,10 +343,10 @@ int32_t Player::RestoreVideoPolicyAfterSeek(float speedSnapshot)
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-int32_t Player::RecreateCodecResourcesAfterSeek(bool hadVideo, bool hadAudio, float speedSnapshot,
-    int64_t positionUs)
+int32_t Player::RecreateCodecResourcesAfterSeek(bool hadVideo, bool hadAudio, bool videoDecoderRetained,
+    float speedSnapshot, int64_t positionUs)
 {
-    int32_t ret = RecreateDecodersAfterSeek(hadVideo, hadAudio);
+    int32_t ret = RecreateDecodersAfterSeek(hadVideo, hadAudio, videoDecoderRetained);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret,
         "Recreate decoders after seek failed");
     PreparePlaybackStateAfterSeek(hadVideo, hadAudio, positionUs);
@@ -379,27 +417,44 @@ int32_t Player::SeekTo(int64_t positionUs)
         seekInProgress_ = true;
     }
 
+    const int64_t currentPositionUs = playbackPositionUs_.load();
     const int64_t targetUs = std::clamp(positionUs, int64_t { 0 }, durationUs);
+    const bool forwardSeek = targetUs > currentPositionUs;
     const float speedSnapshot = speed.load();
     resumeAfterSeek_ = currentState == PLAYER_STATE_PLAYING;
     CHECK_AND_RETURN_RET_LOG(stateMachine_.BeginSeek(), AVCODEC_SAMPLE_ERR_ERROR, "Failed to enter seeking state");
     playbackPositionUs_.store(targetUs);
     AVCODEC_SAMPLE_LOGI("Seek started, target: %{public}" PRId64 " us", targetUs);
-    return RebuildPlaybackForSeek(hadVideo, hadAudio, speedSnapshot, targetUs);
+    return RebuildPlaybackForSeek(hadVideo, hadAudio, speedSnapshot, targetUs, forwardSeek);
 }
 
-int32_t Player::RebuildPlaybackForSeek(bool hadVideo, bool hadAudio, float speedSnapshot, int64_t targetUs)
+int32_t Player::RebuildPlaybackForSeek(bool hadVideo, bool hadAudio, float speedSnapshot, int64_t targetUs,
+    bool forwardSeek)
 {
     const auto seekStartedAt = PlaybackDiagnostics::Clock::now();
     StopWorkersForSeek();
     diagnostics_.BeginSeek(seekStartedAt);
-    ReleaseCodecResourcesForSeek();
-    int32_t ret = demuxer_->Seek(targetUs / US_PER_MILLISECOND, SEEK_MODE_PREVIOUS_SYNC);
+    const bool retainVideoDecoder = ShouldRetainVideoDecoderForSeek();
+    int32_t ret = ReleaseCodecResourcesForSeek(retainVideoDecoder);
+    if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        AVCODEC_SAMPLE_LOGE("Release codec resources for seek failed");
+        return HandleSeekFailure();
+    }
+    const bool useFollowingSync = hadVideo && forwardSeek &&
+        RequiresFollowingSyncForForwardSeek(sampleInfo_.video);
+    const OH_AVSeekMode seekMode = useFollowingSync ? SEEK_MODE_NEXT_SYNC : SEEK_MODE_PREVIOUS_SYNC;
+    if (useFollowingSync) {
+        // Starting at the following random-access sample is less exact than decoding from the
+        // preceding sample, but it prevents a malformed preceding index from starving the decoder.
+        AVCODEC_SAMPLE_LOGW("Use following sync sample for forward rotated 10-bit HEVC seek, target=%{public}" PRId64,
+            targetUs);
+    }
+    ret = demuxer_->Seek(targetUs / US_PER_MILLISECOND, seekMode);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         AVCODEC_SAMPLE_LOGE("Seek demuxer failed");
         return HandleSeekFailure();
     }
-    ret = RecreateCodecResourcesAfterSeek(hadVideo, hadAudio, speedSnapshot, targetUs);
+    ret = RecreateCodecResourcesAfterSeek(hadVideo, hadAudio, retainVideoDecoder, speedSnapshot, targetUs);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         AVCODEC_SAMPLE_LOGE("Restart playback after seek failed");
         return HandleSeekFailure();

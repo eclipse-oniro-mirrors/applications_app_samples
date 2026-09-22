@@ -52,7 +52,7 @@ struct AsyncCallbackInfo {
     napi_async_work asyncWork;
     napi_deferred deferred;
     int32_t resultCode = 0;
-    std::string surfaceId = "";
+    std::string outputId = "";
     SampleInfo sampleInfo;
 };
 
@@ -61,13 +61,13 @@ void DealCallBack(napi_env env, void *data)
     auto *asyncCallbackInfo = static_cast<AsyncCallbackInfo *>(data);
     napi_value code;
     napi_create_int32(env, asyncCallbackInfo->resultCode, &code);
-    napi_value surfaceId;
-    napi_create_string_utf8(env, asyncCallbackInfo->surfaceId.data(), NAPI_AUTO_LENGTH, &surfaceId);
+    napi_value outputId;
+    napi_create_string_utf8(env, asyncCallbackInfo->outputId.data(), NAPI_AUTO_LENGTH, &outputId);
     napi_value obj;
     napi_create_object(env, &obj);
 
     napi_set_named_property(env, obj, "code", code);
-    napi_set_named_property(env, obj, "surfaceId", surfaceId);
+    napi_set_named_property(env, obj, "outputId", outputId);
     napi_resolve_deferred(asyncCallbackInfo->env, asyncCallbackInfo->deferred, obj);
     napi_delete_async_work(env, asyncCallbackInfo->asyncWork);
     delete asyncCallbackInfo;
@@ -78,9 +78,9 @@ void SetCallBackResult(AsyncCallbackInfo *asyncCallbackInfo, int32_t code)
     asyncCallbackInfo->resultCode = code;
 }
 
-void SurfaceIdCallBack(AsyncCallbackInfo *asyncCallbackInfo, std::string surfaceId)
+void OutputIdCallBack(AsyncCallbackInfo *asyncCallbackInfo, std::string outputId)
 {
-    asyncCallbackInfo->surfaceId = surfaceId;
+    asyncCallbackInfo->outputId = outputId;
 }
 
 void NativeInit(void *data)
@@ -96,13 +96,13 @@ void NativeInit(void *data)
     uint64_t id = 0;
     ret = OH_NativeWindow_GetSurfaceId(asyncCallbackInfo->sampleInfo.video.window, &id);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        AVCODEC_SAMPLE_LOGE("Get encoder surface id failed, ret: %{public}d, window: %{public}p", ret,
+        AVCODEC_SAMPLE_LOGE("Get encoder output id failed, ret: %{public}d, window: %{public}p", ret,
             asyncCallbackInfo->sampleInfo.video.window);
         SetCallBackResult(asyncCallbackInfo, ret);
         return;
     }
-    asyncCallbackInfo->surfaceId = std::to_string(id);
-    SurfaceIdCallBack(asyncCallbackInfo, asyncCallbackInfo->surfaceId);
+    asyncCallbackInfo->outputId = std::to_string(id);
+    OutputIdCallBack(asyncCallbackInfo, asyncCallbackInfo->outputId);
     SetCallBackResult(asyncCallbackInfo, AVCODEC_SAMPLE_ERR_OK);
 }
 

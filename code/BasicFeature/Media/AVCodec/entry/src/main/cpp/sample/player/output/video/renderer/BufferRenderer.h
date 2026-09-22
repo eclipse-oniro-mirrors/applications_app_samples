@@ -19,6 +19,7 @@
 #include <cstdint>
 #include <native_buffer/native_buffer.h>
 #include <native_window/external_window.h>
+#include "plugin_manager.h"
 #include "sample_info.h"
 
 class BufferRenderer {
@@ -28,19 +29,45 @@ public:
     void Reset();
 
 private:
+    enum class NativeBufferCopyResult {
+        COPIED,
+        RETRY,
+        FAILED
+    };
+
     struct BufferRenderContext {
         CodecBufferInfo& bufferInfo;
         const uint8_t *srcAddr;
         const SampleInfo& sampleInfo;
         const CodecUserData& videoDecContext;
+        bool tenBitOutput;
     };
 
-    bool ConfigureWindow(const SampleInfo& sampleInfo, const CodecUserData& videoDecContext,
-        int32_t graphicPixelFormat);
-    bool CopyToWindowBuffer(uint8_t *dstAddr, const OH_NativeBuffer_Config& dstConfig,
-        const uint8_t *srcAddr, const SampleInfo& sampleInfo, const CodecUserData& videoDecContext);
+    struct WindowBufferCopyContext {
+        uint8_t *dstAddr;
+        const OH_NativeBuffer_Config& dstConfig;
+        const OH_NativeBuffer_Planes& dstPlanes;
+        const uint8_t *srcAddr;
+        const SampleInfo& sampleInfo;
+        const CodecUserData& videoDecContext;
+        bool tenBitOutput;
+    };
+
+    struct NativeBufferPreparation {
+        OH_NativeBuffer *nativeBuffer = nullptr;
+        OH_NativeBuffer_Config dstConfig = {};
+    };
+
+    bool ConfigureWindow(const NativeXComponentSample::PluginManager::PluginWindowLease& windowLease,
+        const SampleInfo& sampleInfo, const CodecUserData& videoDecContext, int32_t graphicPixelFormat);
+    bool CopyToWindowBuffer(const WindowBufferCopyContext& context);
+    NativeBufferCopyResult PrepareNativeBuffer(OHNativeWindowBuffer *windowBuffer, int &fenceFd,
+        const BufferRenderContext& renderContext, NativeBufferPreparation& preparation);
+    NativeBufferCopyResult CopyMappedNativeBuffer(const NativeBufferPreparation& preparation,
+        const BufferRenderContext& renderContext);
+    void LogMappedNativeBufferPlanes(const OH_NativeBuffer_Planes& dstPlanes);
     bool RequestWindowBuffer(OHNativeWindow *window, OHNativeWindowBuffer *&windowBuffer, int &fenceFd);
-    bool CopyToNativeBuffer(OHNativeWindowBuffer *windowBuffer, int &fenceFd,
+    NativeBufferCopyResult CopyToNativeBuffer(OHNativeWindowBuffer *windowBuffer, int &fenceFd,
         const BufferRenderContext& renderContext);
     bool FlushWindowBuffer(OHNativeWindow *window, OHNativeWindowBuffer *windowBuffer, int64_t renderTimestamp);
 
@@ -48,9 +75,14 @@ private:
     int32_t windowWidth_ = 0;
     int32_t windowHeight_ = 0;
     int32_t windowFormat_ = 0;
+    int32_t windowTransform_ = NATIVEBUFFER_ROTATE_NONE;
     OHNativeWindow *window_ = nullptr;
     uint64_t windowGeneration_ = 0;
+    bool nativeBufferConfigLogged_ = false;
+    bool nativeBufferPlanesLogged_ = false;
+    bool scaledBufferConfigLogged_ = false;
     bool metadataCopyFailureLogged_ = false;
+    bool windowUnavailableLogged_ = false;
 };
 
 #endif // VIDEO_CODEC_BUFFER_RENDERER_H

@@ -89,10 +89,15 @@ function buildDecoderSection(info: DecoderInfo): MediaInfoSection {
   const decoderTypes: string[] = ['自动选择', '硬件解码器', '软件解码器'];
   return createRowsSection('解码与输出', [
     createRow('视频解码器', getOptionName(decoderTypes, info.type)),
-    createRow('运行模式', info.runMode === 1 ? 'BufferMode' : 'SurfaceMode'),
+    createRow('运行模式', getRunModeName(info.runMode)),
     createRow('Codec 模式', info.syncMode === 1 ? 'SYNC' : 'ASYNC'),
     createRow('视频 Dump', formatEnabled(info.videoDumpEnabled))
   ]);
+}
+
+function getRunModeName(runMode: number): string {
+  const runModes: string[] = ['SurfaceMode', 'BufferMode', 'OpenGLMode', 'VulkanMode'];
+  return getOptionName(runModes, runMode);
 }
 
 function createRowsSection(title: string, rows: MediaInfoRow[]): MediaInfoSection {

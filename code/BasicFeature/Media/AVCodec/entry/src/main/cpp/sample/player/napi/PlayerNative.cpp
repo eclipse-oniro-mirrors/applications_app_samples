@@ -40,7 +40,7 @@ void DestroyNativePlayerContext(napi_env env, void *data, void *hint)
 Player *GetPlayer(napi_env env, bool allowSeeking = false)
 {
     const auto session = GetNativePlayerSession(env);
-    if (session == nullptr || (session->seeking && !allowSeeking)) {
+    if (session == nullptr || (session->seeking.load() && !allowSeeking)) {
         return nullptr;
     }
     return &session->player;
@@ -129,7 +129,7 @@ void Callback(void *asyncContext, bool success, PlaybackCompletionReason reason)
     }
 }
 
-napi_value StartPlayback(napi_env env, SampleInfo &sampleInfo, napi_value callback, bool structuredResult)
+napi_value StartPlaybackSync(napi_env env, SampleInfo &sampleInfo, napi_value callback, bool structuredResult)
 {
     napi_value result = nullptr;
     auto asyncContext = std::make_unique<CallbackContext>();
@@ -140,14 +140,9 @@ napi_value StartPlayback(napi_env env, SampleInfo &sampleInfo, napi_value callba
         return nullptr;
     }
 
-    Player *player = GetPlayer(env);
-    if (player == nullptr) {
-        napi_throw_error(env, nullptr, "Player context is unavailable");
-        DestroyCallbackContext(asyncContext.release());
-        return nullptr;
-    }
-    if (player->GetState() != PLAYER_STATE_IDLE) {
-        AVCODEC_SAMPLE_LOGE("Player is not idle");
+    const auto session = GetNativePlayerSession(env);
+    if (session == nullptr || session->seeking.load() || session->player.GetState() != PLAYER_STATE_IDLE) {
+        AVCODEC_SAMPLE_LOGE("Player is not idle or is busy");
         Callback(asyncContext.release(), false, PlaybackCompletionReason::ERROR);
         napi_get_boolean(env, false, &result);
         return result;
@@ -155,17 +150,18 @@ napi_value StartPlayback(napi_env env, SampleInfo &sampleInfo, napi_value callba
 
     sampleInfo.playback.playDoneCallback = &Callback;
     sampleInfo.playback.playDoneCallbackData = asyncContext.get();
-    int32_t ret = player->Init(sampleInfo);
-    if (ret == AVCODEC_SAMPLE_ERR_OK) {
+    const int32_t initRet = session->player.Init(sampleInfo);
+    int32_t startRet = initRet;
+    if (initRet == AVCODEC_SAMPLE_ERR_OK) {
         asyncContext.release();
-        ret = player->Start();
-    } else if (player->GetState() == PLAYER_STATE_STOPPING) {
+        startRet = session->player.Start();
+    } else if (session->player.GetState() == PLAYER_STATE_STOPPING) {
         asyncContext.release();
     } else {
         Callback(asyncContext.release(), false, PlaybackCompletionReason::ERROR);
     }
 
-    napi_get_boolean(env, ret == AVCODEC_SAMPLE_ERR_OK, &result);
+    napi_get_boolean(env, startRet == AVCODEC_SAMPLE_ERR_OK, &result);
     return result;
 }
 
@@ -276,7 +272,7 @@ napi_value PlayerNative::Play(napi_env env, napi_callback_info info)
     if (!PlayerNapiParser::ParseLegacyPlayArguments(env, info, sampleInfo, callback)) {
         return nullptr;
     }
-    return StartPlayback(env, sampleInfo, callback, false);
+    return StartPlaybackSync(env, sampleInfo, callback, false);
 }
 
 napi_value PlayerNative::SetVolume(napi_env env, napi_callback_info info)
@@ -302,7 +298,7 @@ napi_value PlayerNative::PlayWithOptions(napi_env env, napi_callback_info info)
     if (!PlayerNapiParser::ParseStructuredPlayArguments(env, info, sampleInfo, callback)) {
         return nullptr;
     }
-    return StartPlayback(env, sampleInfo, callback, true);
+    return StartPlaybackSync(env, sampleInfo, callback, true);
 }
 
 napi_value PlayerNative::Stop(napi_env env, napi_callback_info info)

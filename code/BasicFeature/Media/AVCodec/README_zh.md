@@ -26,6 +26,8 @@
 | 排查硬解兼容性 | 软件解码 + Surface 模式直接送显 | 用于确认问题是否只出现在设备硬解；软件解通常更占 CPU。 |
 | 检查像素、色彩或 HDR 元数据 | 自动选择 + Buffer 模式拷贝送显 | 应用可以读取解码输出并透传 HDR 元数据，但会增加一次像素拷贝。 |
 | 导出原始解码帧 | Buffer 模式拷贝送显 + 保存解码帧 | Dump 只用于调试，文件会写入应用沙箱，不建议在常规播放中长期开启。 |
+| 验证 GLES 图形链路 | Surface模式 OpenGL送显 | 输出先按显示窗口缩小，再转换为 RGBA，由 EGL/GLES 绘制；按 rotation 等比缩放并留黑边。该模式不支持 HDR Vivid 转 BT.709。 |
+| 验证 Vulkan 图形链路 | Surface模式 Vulkan送显 | 输出先按显示窗口缩小，再转换为 RGBA，由 Vulkan Swapchain 呈现；按 rotation 等比缩放并留黑边。该模式不支持 HDR Vivid 转 BT.709。 |
 | 高帧率倍速 | 自动选择 + 智能流畅可用 | 倍速始终可用；智能流畅是否生效取决于当前设备、SDK 和解码器能力。 |
 
 ### 基本概念
@@ -39,6 +41,8 @@
 | PTS | 内容应播放或显示的媒体时间。进度条、字幕、音画同步和 Seek 都以它为基础。 |
 | Surface 模式 | 解码器直接把画面交给 XComponent 对应的 Surface，应用不能读取每帧像素。 |
 | Buffer 模式 | 解码器把输出 Buffer 交给应用，应用拷贝到 NativeWindow 后送显，因此可 Dump 图像和处理 HDR 元数据。 |
+| OpenGL 模式 | 解码器输出 Buffer 由应用转换为 RGBA，使用 EGL/GLES 纹理绘制到 XComponent 窗口；初始化失败时回退到 Buffer 模式。 |
+| Vulkan 模式 | 解码器输出 Buffer 由应用转换为 RGBA，使用 Vulkan Surface、Swapchain 和 staging Buffer 绘制到 XComponent 窗口；初始化失败时回退到 Buffer 模式。 |
 | 同步/异步模式 | codec Buffer 的获取方式：同步模式由工作线程查询，异步模式由回调入队。它不表示“是否进行音画同步”。 |
 | EOS | End Of Stream。输入结束后仍要等待 codec 输出缓存帧，再释放播放器或封装器。 |
 
@@ -46,7 +50,7 @@
 
 ### 功能概览与实现导航
 
-除基础音视频编解码接口外，本示例还把文件选择、解封装、两种送显路径、音画同步、倍速播放、媒体信息和相机录制串成了一条可运行的链路。下表可直接跳到对应说明。
+除基础音视频编解码接口外，本示例还把文件选择、解封装、四种送显路径、音画同步、倍速播放、媒体信息和相机录制串成了一条可运行的链路。下表可直接跳到对应说明。
 
 #### 播放能力
 
@@ -59,8 +63,10 @@
 | SurfaceMode 送显 | 解码器直接输出到 XComponent Surface，并按目标时间释放送显 | [SurfaceMode 送显](#surface-output) |
 | 停止时最后一帧处理 | 可选择停止/销毁 SurfaceMode 解码器时保留最后一帧或输出黑帧 | [SurfaceMode 送显](#surface-output) |
 | BufferMode 送显 | 应用取得解码 Buffer，按 stride 拷贝到 NativeWindowBuffer 后调用图形接口送显 | [BufferMode 送显](#buffer-output) |
-| BufferMode HDR Vivid | 透传色彩空间及 HDR 静态/动态元数据，确认后在播放窗口右上角显示水印 | [HDR Vivid 检测与送显](#hdr-vivid-output) |
-| 解码帧 Dump | BufferMode 下可选择将原始解码帧写入应用沙箱，默认关闭且不影响正常送显 | [Buffer Dump](#buffer-dump) |
+| OpenGL 送显 | 应用把 YUV/RGBA Buffer 转换为 RGBA 纹理，通过 EGL/GLES 绘制到 XComponent 窗口 | [OpenGL/Vulkan 送显](#gpu-output) |
+| Vulkan 送显 | 应用把解码 Buffer 转换为 RGBA，上传 staging Buffer，再通过 Vulkan Swapchain 呈现 | [OpenGL/Vulkan 送显](#gpu-output) |
+| HDR Vivid 确认 | 从实际输出 Buffer 确认 HDR 类型和动态元数据，确认后在播放窗口右上角显示水印 | [HDR Vivid 检测与送显](#hdr-vivid-output) |
+| 解码帧 Dump | Buffer、OpenGL 和 Vulkan 模式下可选择将原始解码帧写入应用沙箱，默认关闭且不影响正常送显 | [Buffer Dump](#buffer-dump) |
 | 音频解码与播放 | 解码压缩音频为 PCM，通过 AudioRenderer 回调持续播放 | [音频解码与播放](#audio-playback) |
 | 系统音频中断与前后台恢复 | 响应来电、系统音频抢占以及应用进出后台，按设置暂停或恢复播放 | [系统中断与前后台恢复](#audio-interruption) |
 | 多音轨选择 | 展示编码、采样率、声道和码率；切换前预检候选轨，成功后实时切换且不重启视频 | [音频解码与播放](#audio-playback) |
@@ -75,7 +81,7 @@
 | 播放控制 | 支持单击窗口暂停/继续、双击窗口左/右侧精准快退/快进 15 秒、控制按钮暂停/继续、上一帧/下一帧和重播；暂停时操作会立即更新画面 | [播放进度与 Seek](#playback-seek) |
 | 播放队列、断点续播与恢复 | 支持顺序、单曲循环、列表循环、随机播放；记录最近位置，并可在运行期异常后恢复一次 | [播放队列与断点续播](#playback-queue) |
 | 全屏与显示比例 | 播放时切换全屏/退出全屏、横竖屏和适应窗口/铺满窗口 | [全屏与显示比例](#display-mode) |
-| 播放性能诊断 | 查看输出/送显/丢帧、同步决策偏差、PCM 与设备待播量、音频欠载、中断次数、Seek 耗时和 BufferMode 耗时 | [播放性能诊断](#playback-diagnostics) |
+| 播放性能诊断 | 查看输出/送显/丢帧、同步决策偏差、PCM 与设备待播量、音频欠载、中断次数、Seek 耗时和 Buffer/GPU 送显耗时 | [播放性能诊断](#playback-diagnostics) |
 | A-B 循环与单帧控制 | 设置 A/B 时间点循环播放，按视频帧率逐帧前进或后退 | [A-B 循环与单帧控制](#ab-frame-control) |
 | 画中画与后台播放 | 使用系统 PiP 窗口继续观看，可选择返回桌面时自动进入 PiP | [画中画与后台播放](#pip-background) |
 | 系统媒体控制 | 将当前媒体和播放状态发布到 AVSession，支持锁屏、通知栏和耳机按键控制播放、Seek、倍速及队列切换 | [系统媒体控制](#av-session) |
@@ -182,7 +188,7 @@
 - 播放、录制、封装格式、Dump 和 NativeWindow 变换配置；
 - 播放模式、异常恢复、Seek 请求合并、字幕样式，以及系统音频中断和前后台恢复策略。
 
-可在 DevEco Studio 中选择 `entry > ohosTest` 目标并执行测试。音视频解封装、软硬件编解码、Surface/BufferMode
+可在 DevEco Studio 中选择 `entry > ohosTest` 目标并执行测试。音视频解封装、软硬件编解码、Surface/Buffer/OpenGL/Vulkan
 送显、音频 async/sync 输出、权限弹窗和相机录制依赖真实设备能力，继续通过真机手工测试验证。详细的测试环境、测试素材和操作步骤请参考：
 [AVCodecSample 手工测试用例](./ohosTest.md)。
 
@@ -237,17 +243,26 @@ AVCodec/
     │   │   │   │   │   ├── PlayerRelease.cpp # 释放线程及原生资源回收
     │   │   │   │   │   └── PlayerSeek.cpp    # 精确 Seek、暂停和资源重建
     │   │   │   │   ├── output                # 音视频输出和送显实现
-    │   │   │   │   │   ├── PlayerVideoPresentation.cpp # 视频送显和 BufferMode Dump
-    │   │   │   │   │   ├── PlayerVideoOutput.cpp # 视频解码线程和音画同步
-    │   │   │   │   │   ├── PlayerAudioOutput.cpp # 音频解码线程和 AudioRenderer 输出
-    │   │   │   │   │   ├── AudioOutputPump.cpp/.h # 音频 async/sync 公共输出数据泵
-    │   │   │   │   │   ├── AudioPipeline.h   # 音频解码线程生命周期
-    │   │   │   │   │   ├── VideoPipeline.cpp/.h # 视频解码线程生命周期
-    │   │   │   │   │   ├── VideoSink.h       # Surface/Buffer 视频输出抽象
-    │   │   │   │   │   ├── SurfaceVideoSink.h # Surface 直接送显策略
-    │   │   │   │   │   ├── BufferVideoSink.h # Buffer 拷贝送显策略
-    │   │   │   │   │   ├── BufferRenderer.cpp/.h # BufferMode 手动拷贝送显
-    │   │   │   │   │   └── HdrMetadataHelper.cpp/.h # HDR 元数据检测和透传
+    │   │   │   │   │   ├── audio             # 音频输出线程和 PCM 数据泵
+    │   │   │   │   │   │   ├── AudioOutputPump.cpp/.h
+    │   │   │   │   │   │   └── PlayerAudioOutput.cpp
+    │   │   │   │   │   ├── pipeline          # 解码工作线程生命周期辅助
+    │   │   │   │   │   │   ├── AudioPipeline.h
+    │   │   │   │   │   │   └── VideoPipeline.cpp/.h
+    │   │   │   │   │   └── video             # 视频调度和送显
+    │   │   │   │   │       ├── PlayerVideoPresentation.cpp
+    │   │   │   │   │       ├── PlayerVideoOutput.cpp
+    │   │   │   │   │       ├── sink          # Surface/Buffer 送显策略
+    │   │   │   │   │       │   ├── VideoSink.h
+    │   │   │   │   │       │   ├── SurfaceVideoSink.h
+    │   │   │   │   │       │   └── BufferVideoSink.h
+    │   │   │   │   │       ├── renderer      # NativeWindow 拷贝和 HDR 元数据
+    │   │   │   │   │       │   ├── BufferRenderer.cpp/.h
+    │   │   │   │   │       │   └── HdrMetadataHelper.cpp/.h
+    │   │   │   │   │       └── gpu           # YUV/RGBA 转换及 GPU 后端
+    │   │   │   │   │           ├── VideoFrameConverter.cpp/.h
+    │   │   │   │   │           ├── OpenGLVideoSink.cpp/.h
+    │   │   │   │   │           └── VulkanVideoSink.cpp/.h
     │   │   │   │   ├── sync                  # 播放时钟和同步策略
     │   │   │   │   │   ├── PlaybackClock.cpp/.h # 统一音频播放时钟状态
     │   │   │   │   │   ├── AvSyncController.cpp/.h # 音画同步等待和丢帧决策
@@ -402,7 +417,7 @@ AVCodec/
 
 6. **SurfaceMode、BufferMode 和画面变换。** SurfaceMode 在准备 decoder 前取得 `PluginManager` 中当前 XComponent window 并调用 `OH_VideoDecoder_SetSurface()`；输出帧使用 render/free 接口完成交接。BufferMode 故意不设置这个 Surface，`BufferVideoSink` 才能读取 `OH_AVBuffer` 的图像内容并委托 `BufferRenderer` 拷贝到 XComponent window。旋转与镜像不会重新编码或修改 Dump 文件，而是通过当前 window 的 `SET_TRANSFORM` hint 改变合成方式。模式切换只能在下一次播放前应用，避免在运行中改变 decoder 输出所有权。
 
-7. **HDR、色彩和诊断的计数范围。** `HdrMetadataHelper` 只有在一帧同时表明 HDR Vivid 类型且携带非空动态元数据时，才确认本轮 HDR Vivid；容器 Format 的声明仅显示为媒体信息，不单独触发水印。确认后，BufferMode 将可读到的 ColorSpace、静态/动态元数据设置给目标 NativeBuffer；不能设置的元数据只降级，不影响像素 flush。BufferMode 的“送显次数、平均耗时和失败数”只覆盖 `VideoSink::Present()` 的实际拷贝送显，丢帧和 Seek 前滚帧不计入；Stop 或新任务会把原子计数清零。
+7. **HDR、色彩和诊断的计数范围。** `HdrMetadataHelper` 只有在实际输出 Buffer 同时表明 HDR Vivid 类型且携带非空动态元数据时，才确认本轮 HDR Vivid；容器 Format 的声明仅显示为媒体信息，不单独触发水印。BufferMode 直接检查解码输出，SurfaceMode 在送显后尽力检查 XComponent 最近一次 flush 的 Buffer；读取失败不会误触发水印。确认后，BufferMode 将可读到的 ColorSpace、静态/动态元数据设置给目标 NativeBuffer；不能设置的元数据只降级，不影响像素 flush。BufferMode 的“送显次数、平均耗时和失败数”只覆盖 `VideoSink::Present()` 的实际拷贝送显，丢帧和 Seek 前滚帧不计入；Stop 或新任务会把原子计数清零。
 
 8. **音频队列、静音和切轨。** 解码后的 PCM 必须先通过 offset/size/capacity 校验，再写入受 `renderQueueMutex` 保护的字节队列。AudioRenderer 请求数据时，`OnRenderWriteData()` 仅复制已存在字节，末尾以静音补齐；被补齐的静音不计入媒体播放采样数。静音改变 renderer 音量而不停止输入或时钟。切轨完成后，新音频在当前播放位置前的 PCM 会被丢弃，可播放片段建立新时钟，视频在这之前不会错误地把旧音频时间戳当作新轨进度。
 
@@ -429,7 +444,7 @@ AVCodec/
 
 播放设置提供 `OH_MD_KEY_VIDEO_DECODER_BLANK_FRAME_ON_SHUTDOWN`，可决定 SurfaceMode 停止或销毁时保留最后一帧还是输出黑帧；`OH_MD_KEY_ENABLE_SYNC_MODE` 由同步/异步选项控制。智能流畅的保帧模式、目标倍速和温控保留比例属于运行时策略，不放进静态设置。
 
-高级选项包括低时延解码、按解码顺序输出和 HDR Vivid 转 BT.709。前两项会先通过 `OH_AVCapability_IsFeatureSupported()` 查询；设备或 codec 不支持时，页面会拒绝该配置并记录原因。第三项只在媒体声明 HDR Vivid 时下发 `OH_MD_KEY_VIDEO_DECODER_OUTPUT_COLOR_SPACE=OH_COLORSPACE_BT709_LIMIT`，普通媒体不配置该 Key。
+高级选项包括低时延解码、按解码顺序输出和 HDR Vivid 转 BT.709。前两项会先通过 `OH_AVCapability_IsFeatureSupported()` 查询；设备或 codec 不支持时，页面会拒绝该配置并记录原因。第三项只在 HDR Vivid 媒体使用 Surface模式直接送显时下发 `OH_MD_KEY_VIDEO_DECODER_OUTPUT_COLOR_SPACE=OH_COLORSPACE_BT709_LIMIT`。OpenGL 和 Vulkan 目前是 CPU 转换并上传的示例路径，4K HDR 软件色调映射不具备实时性，因此页面会禁用该选项。解码请求格式与实际输出格式分别保存：跳转重建时仍使用原请求格式；送显和 Dump 使用解码器返回的输出格式。
 
 Native 构建默认开启以下两个 API 26 能力开关：
 
@@ -464,9 +479,9 @@ ArkUI 组件、状态和页面构建方式可参考当前 SDK 随附的 ArkUI �
 - 播放完成回调返回 `{ success, reason }`，其中 `reason` 为 `completed`、`stopped` 或 `error`。只有 `error` 会触发文件无效提示，用户主动 Stop 按正常结束处理。
 - 播放过程中主按钮切换为“停止”。点击后调用 `player.stop()`，按钮进入“停止中”状态，等待 Native 统一释放资源并触发完成回调后恢复。
 - 播放启动成功后，UI 调用 `player.isSmartFluencyAvailable()` 查询本次播放是否可使用智能流畅。设备和 Native SDK 支持该能力，并且当前媒体包含可用视频轨时返回 true，是否包含音频轨不影响该结果。
-- 播放期间 UI 每秒调用 `player.getPlaybackInfo()`，在操作区上方显示状态、倍速、当前位置/总时长、音视频轨和智能流畅状态，同时读取 BufferMode 解码输出确认的 HDR Vivid 状态。页面离开或播放完成时会清理定时器和水印状态。
+- 播放期间 UI 每秒调用 `player.getPlaybackInfo()`，在操作区上方显示状态、倍速、当前位置/总时长、音视频轨和智能流畅状态，同时读取实际输出 Buffer 确认的 HDR Vivid 状态。页面离开或播放完成时会清理定时器和水印状态。
 - 状态行右侧提供“信息”入口。点击后调用 `player.getMediaInfo()` 打开可滚动面板，按媒体源、视频轨、音频轨、解码与输出、Source Format 原始信息和各 Track Format 原始信息分区展示，效果类似播放器的详细媒体信息页。视频轨区域会显示 HDR Vivid 相关信息。大段原始字段不会参与每秒轮询，播放完成或开始下一次播放时会清理面板缓存。
-- BufferMode 解码输出帧同时携带 `OH_VIDEO_HDR_VIVID` 类型和非空 `OH_HDR_DYNAMIC_METADATA` 后，播放窗口右上角显示浅色半透明 `HDR Vivid` 水印。本轮播放期间确认状态保持有效；普通 SDR、HDR10 或只有封装声明的文件不会触发水印。SurfaceMode 的实际图像 Buffer 由解码器和 Surface 直接轮转，应用侧无法读取其中的逐帧动态元数据，因此当前不显示该水印。
+- 当实际输出帧同时携带 `OH_VIDEO_HDR_VIVID` 类型和非空 `OH_HDR_DYNAMIC_METADATA` 后，播放窗口右上角显示浅色半透明 `HDR Vivid` 水印。BufferMode 直接读取解码输出；SurfaceMode 在送显后尽力从 XComponent 最近一次 flush 的 Buffer 中确认。确认状态在本轮播放期间保持有效；普通 SDR、HDR10、只有封装声明的文件，或无法读取有效元数据的输出均不会触发水印。
 - 播放过程中，长按播放窗口会临时调用 `player.setPlaybackSpeed(2)`，松手恢复 `player.setPlaybackSpeed(1)`；点击“倍速”按钮可选择 1/2/3 倍速。本次播放可使用智能流畅时，X2/X3 提示会额外显示“智能流畅”。
 - 播放过程中点击 Flip 按钮会调用 `player.setTransform(transformHint)`，Native 侧再通过 `OH_NativeWindow_NativeWindowHandleOpt(..., SET_TRANSFORM, ...)` 作用到当前显示 window。
 
@@ -539,7 +554,7 @@ ArkUI 组件、状态和页面构建方式可参考当前 SDK 随附的 ArkUI �
 - `OnSurfaceDestroyedCB()`：Surface 销毁时触发，通过 `ClearPluginWindow()` 清除当前窗口引用，并通过 `ReleaseRender()` 释放对应的 `PluginRender`。即使回调没有提供 window，也会清理当前引用，避免后续使用悬空 window。
 - `DispatchTouchEventCB()`：触摸事件回调，本示例读取触摸工具类型和倾角信息，作为 XComponent 交互能力示例。
 
-播放送显分为 SurfaceMode 和 BufferMode 两条路径。两种模式共用同一套解封装、解码线程、PTS 调度和音画同步逻辑，区别仅在于解码后的图像 Buffer 由谁持有和如何进入 XComponent 对应的 NativeWindow。
+播放送显分为 SurfaceMode、BufferMode、Surface模式 OpenGL 和 Surface模式 Vulkan 四条路径。四种模式共用同一套解封装、解码线程、PTS 调度和音画同步逻辑，区别仅在于解码后的图像 Buffer 由谁持有和如何进入 XComponent 对应的 NativeWindow。
 
 <a id="surface-output"></a>
 
@@ -547,7 +562,7 @@ ArkUI 组件、状态和页面构建方式可参考当前 SDK 随附的 ArkUI �
 
 `Player::CreateVideoDecoder()` 通过 `PluginManager::GetPluginWindow()` 获取 XComponent 窗口并设置 `sampleInfo_.video.window`。`VideoDecoder::Config()` 发现 window 非空后调用 `OH_VideoDecoder_SetSurface()`，实际图像 Buffer 在解码器和 Surface 之间轮转。应用侧输出回调负责依据音画同步结果决定送显或丢帧，再调用 `OH_VideoDecoder_RenderOutputBufferAtTime()`、`OH_VideoDecoder_RenderOutputBuffer()` 或不送显释放 Buffer。
 
-SurfaceMode 避免了应用层像素拷贝，适合常规播放。由于输出回调不携带实际图像 NativeBuffer，应用不能在这条链路中读取逐帧 HDR 动态元数据或直接 Dump 图像内容；这些能力由 BufferMode 提供。
+SurfaceMode 避免了应用层像素拷贝，适合常规播放。输出回调不携带实际图像 NativeBuffer，因此应用不能直接 Dump 图像；但在成功送显后，可以尽力读取 XComponent 最近一次 flush 的 Buffer，仅用于正向确认 HDR Vivid 元数据。读取不到时不影响播放，也不会显示水印。
 
 <a id="buffer-output"></a>
 
@@ -575,6 +590,20 @@ BufferMode 不会同时给解码器配置 Surface。输出帧处理完后始终�
 
 ![Buffer 所有权流转](screenshots/buffer-ownership-flow.png)
 
+<a id="gpu-output"></a>
+
+##### OpenGL 和 Vulkan 送显
+
+OpenGL 和 Vulkan 模式同样不向解码器配置 Surface，因此保留了 BufferMode 可以读取像素的特点。输出 Buffer 在 `VideoFrameConverter` 中按解码器返回的宽高、stride、slice height 和像素格式转换为连续 RGBA 数据，再交给对应的图形后端：
+
+- OpenGL 模式创建 EGL window surface、GLES 2.0 context 和纹理。每帧上传 RGBA 纹理，依据封装的 rotation 设置纹理坐标和等比 viewport，绘制后调用 `eglSwapBuffers()`；窗口两侧或上下不足的区域保持黑色。
+- Vulkan 模式创建 OpenHarmony Vulkan Surface，选择支持图形队列和 Swapchain 的物理设备，创建 Swapchain、command buffer、可复用的 staging Buffer、device-local upload image 和同步对象。CPU 先按当前 XComponent 尺寸缩小输出帧，再上传；Vulkan 在 Swapchain image 上清黑并完成最后的等比缩放和 blit。
+- GPU 路径只适合能安全转换为 8bit RGBA 的输出。原始 HDR Vivid、10bit 或动态 HDR 元数据会自动切换到 BufferRenderer，由 NativeBuffer 透传色彩空间和 HDR 元数据，避免颜色被错误压缩到 RGBA8。HDR Vivid 转 BT.709 仅支持 Surface模式直接送显，由解码器完成转换；OpenGL 和 Vulkan 设置页会禁用此选项。BufferRenderer 回退时始终保留源色彩空间和 HDR 元数据；回退链路会同时根据 HEVC Main 10 profile 和解码输出的 HDR Vivid 元数据按 P010 配置窗口。
+- 两种模式都只借用 decoder 输出 Buffer 到当前帧处理完成，绘制提交后立即调用 `OH_VideoDecoder_FreeOutputBuffer(..., false)`。XComponent 和 NativeWindow 是框架持有的非拥有资源，sink 只保存引用，不负责销毁。
+- YUV/RGBA 转换或 GPU 初始化、窗口重建、提交失败时，当前 sink 会记录一次告警并切换到已有 `BufferRenderer`。后续帧直接走 Buffer 拷贝路径，避免每帧反复创建 GPU 上下文，也保证 decoder Buffer 仍只归还一次。正常 Seek 只重建解码器和音频输出，保留已初始化的 GPU 上下文、Swapchain 与缓存，减少 Vulkan 等待设备空闲和重复初始化的时间。
+
+GPU 模式的转换和 staging 拷贝会增加 CPU/内存带宽开销，适合验证图形后端、纹理路径和窗口生命周期，不作为默认播放模式。GPU 模式与 SurfaceMode 一样支持音画同步、Seek、暂停和停止；Dump 和 HDR 元数据读取仍沿用 Buffer 输出链路。
+
 <a id="hdr-vivid-output"></a>
 
 ##### HDR Vivid 检测与送显
@@ -586,13 +615,13 @@ BufferMode 能访问解码输出 `OH_AVBuffer` 对应的 `OH_NativeBuffer`，因
 3. `HdrMetadataHelper::CopyToNativeBuffer()` 将源 Buffer 的 ColorSpace、HDR 类型、静态元数据和动态元数据复制到目标 NativeWindowBuffer。
 4. UI 每秒通过 `getPlaybackInfo()` 获取确认状态，在播放窗口右上角显示浅色半透明 `HDR Vivid` 水印；停止、失败、播放完成或页面退出时清理该状态。
 
-水印状态一旦确认会保持到本轮播放结束，避免个别帧暂时不携带动态元数据时频繁闪烁。SurfaceMode 的实际图像 Buffer 由解码器直接交给 Surface，应用无法读取相同的逐帧元数据，所以当前不会显示应用侧确认水印，但不影响系统图形链路正常播放 HDR Vivid 内容。
+水印状态一旦确认会保持到本轮播放结束，避免个别帧暂时不携带动态元数据时频繁闪烁。SurfaceMode 的回调仍不提供实际图像 Buffer；播放器只在送显后尽力读取 XComponent 最近一次 flush 的 Buffer。该检查只会正向确认，读不到就保持未确认，不影响系统图形链路正常播放 HDR Vivid 内容。
 
 <a id="buffer-dump"></a>
 
 ##### Buffer Dump
 
-Dump 是 BufferMode 的独立可选能力，默认关闭。UI 将 `enableVideoDump` 放入 `PlayOptions`，`Player::DumpOutput()` 仅在 `codecRunMode == BUFFER` 且该开关开启时创建文件，并按解码输出格式写入有效图像区域：
+Dump 是 Buffer、OpenGL 和 Vulkan 模式的独立可选能力，默认关闭。UI 将 `enableVideoDump` 放入 `PlayOptions`，`Player::DumpOutput()` 仅在 Buffer-based 模式且该开关开启时创建文件，并按解码输出格式写入有效图像区域：
 
 - YUV420P 分别写入 Y、U、V 平面；
 - NV12/NV21 写入 Y 平面和交错 UV/VU 平面；
@@ -833,7 +862,7 @@ Codec Seek 不在 ArkTS 主线程同步执行。`seekToAsync()` 使用 NAPI asyn
 
 #### *播放性能诊断*
 
-开启“性能诊断”后，播放窗口显示当前状态、位置/总时长、倍速、解码输出 Buffer 数、送显提交数、丢帧数、近似输出帧率、累计丢帧率、音频输出 Buffer 数、智能流畅/HDR Vivid 状态和软件解码回退状态。BufferMode 还会显示拷贝送显次数、平均耗时和失败次数。计时范围包围 `VideoSink::Present()`，包括申请 NativeWindowBuffer、映射、行拷贝、解除映射和 Flush；被丢弃帧只归还 Decoder Buffer，不计入拷贝耗时。
+开启“性能诊断”后，播放窗口显示当前状态、位置/总时长、倍速、解码输出 Buffer 数、送显提交数、丢帧数、近似输出帧率、累计丢帧率、音频输出 Buffer 数、智能流畅/HDR Vivid 状态和软件解码回退状态。Buffer、OpenGL 和 Vulkan 模式还会显示送显次数、平均耗时和失败次数。计时范围包围 `VideoSink::Present()`，包括 Buffer 拷贝或 GPU 提交；被丢弃帧只归还 Decoder Buffer，不计入送显耗时。
 
 诊断快照还包含音画同步决策偏差及其均值/最大值、PCM 队列时长、AudioRenderer 设备待播时长、补静音回调次数、同步策略丢帧次数、系统音频中断次数/最近 Hint/当前状态，以及 Seek 的重建和目标帧提交耗时。偏差在视频线程决定等待或丢帧前采样，正值表示视频 PTS 领先音频主时钟。它反映调度估计，不代表屏幕到扬声器的物理延迟。送显提交数同样只表示应用已向 Surface 或 NativeWindow 提交。`PlaybackDiagnostics` 在 Native 侧加锁聚合短期统计，PCM 水位和欠载次数使用原子变量；`getPlaybackInfo()` 每 250 ms 复制只读快照，不改变调度或送显顺序。开始新任务、停止、失败或新的 Seek 会重置不再适用的统计。
 
@@ -1426,9 +1455,9 @@ audioPlayedTimeUs = currentAudioPts - latencyUs + anchorDiffUs * targetSpeed
 
 **为什么格式表中列出的媒体仍可能不能播放？** 格式表只列出常见能力。实际结果取决于文件的封装、码流、分辨率、帧率、Profile 和设备 codec 能力。选择“自动选择”时，系统 decoder 初始化失败会尝试一次软件解码；手动选择硬件解码时不会静默切换，便于定位设备能力问题。
 
-**为什么 BufferMode 比 SurfaceMode 更耗性能？** SurfaceMode 把输出 Buffer 直接交给图形系统。BufferMode 需要申请 NativeWindowBuffer、等待 fence、映射、按 stride 拷贝像素、解除映射并 Flush，因而更适合调试、Dump 和 HDR 元数据透传。性能诊断中的 BufferMode 拷贝耗时只统计这段实际送显工作。
+**为什么 BufferMode、OpenGL 和 Vulkan 比 SurfaceMode 更耗性能？** SurfaceMode 把输出 Buffer 直接交给图形系统。Buffer-based 模式需要申请或上传图像、等待同步、拷贝或 staging 像素并提交送显，因而更适合调试、Dump、HDR 元数据透传或验证特定图形后端。性能诊断中的 Buffer/GPU 送显耗时只统计实际送显工作。
 
-**为什么 HDR Vivid 文件没有水印？** 水印只在 BufferMode 下确认到解码输出同时包含 HDR Vivid 类型和有效动态元数据后显示。封装信息声明 HDR Vivid、普通 HDR10、SurfaceMode 直接送显，或设备没有输出可读的动态元数据，都不会显示该应用侧水印。
+**为什么 HDR Vivid 文件没有水印？** 水印只在实际输出 Buffer 同时包含 HDR Vivid 类型和有效动态元数据后显示。BufferMode 直接检查解码输出，SurfaceMode 会尽力检查 XComponent 最近一次 flush 的 Buffer。封装信息声明 HDR Vivid、普通 HDR10，或设备没有输出可读的动态元数据，都不会显示该应用侧水印。
 
 **切换音轨时提示不支持。** 播放器会先用临时 AudioDecoder 对候选轨执行 Create + Configure 预检。预检失败时不会拆除当前音轨、AudioRenderer 或视频解码链路，当前媒体可以继续播放。候选轨的 MIME、采样率、声道数和码率可在“媒体信息”中查看。
 

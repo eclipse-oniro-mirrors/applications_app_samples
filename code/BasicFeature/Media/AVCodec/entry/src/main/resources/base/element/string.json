@@ -189,6 +189,10 @@
       "value": "Convert HDR Vivid to BT.709"
     },
     {
+      "name": "setting_hdr_vivid_to_bt709_gpu_unavailable",
+      "value": "Available only with direct Surface presentation"
+    },
+    {
       "name": "setting_audio_volume",
       "value": "Audio volume"
     },
@@ -323,6 +327,14 @@
     {
       "name": "setting_render_buffer",
       "value": "Buffer copy rendering"
+    },
+    {
+      "name": "setting_render_opengl",
+      "value": "Surface-window OpenGL output"
+    },
+    {
+      "name": "setting_render_vulkan",
+      "value": "Surface-window Vulkan output"
     },
     {
       "name": "setting_mode_async",
@@ -603,7 +615,7 @@
     { "name": "playback_subtitle_style_small", "value": "Small subtitle" },
     { "name": "playback_subtitle_style_medium", "value": "Medium subtitle" },
     { "name": "playback_subtitle_style_large", "value": "Large subtitle" },
-    { "name": "playback_diagnostics_buffer_present", "value": "Buffer present " },
+    { "name": "playback_diagnostics_buffer_present", "value": "Buffer/GPU present " },
     { "name": "playback_diagnostics_buffer_average", "value": "  Average " },
     { "name": "playback_diagnostics_buffer_failures", "value": "  Failures " },
     { "name": "playback_diagnostics_software_fallback", "value": "Software fallback " },

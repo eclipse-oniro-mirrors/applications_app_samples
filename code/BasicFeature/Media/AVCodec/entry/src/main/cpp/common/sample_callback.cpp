@@ -32,6 +32,9 @@ int64_t GetQueuedAudioDurationUs(size_t queuedBytes, const SampleInfo &sampleInf
         return 0;
     }
     const uint64_t bytesPerFrame = static_cast<uint64_t>(sampleInfo.audio.audioChannelCount) * BYTES_PER_SAMPLE_2;
+    if (bytesPerFrame == 0) {
+        return 0;
+    }
     const uint64_t queuedFrames = queuedBytes / bytesPerFrame;
     const uint64_t remainingBytes = queuedBytes % bytesPerFrame;
     const auto sampleRate = static_cast<uint64_t>(sampleInfo.audio.audioSampleRate);
@@ -78,6 +81,9 @@ void UpdateAudioPlaybackPosition(CodecUserData *codecUserData, size_t writtenByt
         return;
     }
     const size_t bytesPerFrame = static_cast<size_t>(channelCount) * BYTES_PER_SAMPLE_2;
+    if (bytesPerFrame == 0) {
+        return;
+    }
     codecUserData->audioFramesWritten += static_cast<int64_t>(writtenBytes / bytesPerFrame);
     codecUserData->currentPosAudioBufferPts = codecUserData->endPosAudioBufferPts -
         GetQueuedAudioDurationUs(codecUserData->renderQueue.size(), *codecUserData->sampleInfo);
@@ -152,11 +158,9 @@ void UpdateVideoOutputInfo(OH_AVFormat *format, CodecUserData *codecUserData)
     OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_STRIDE, &codecUserData->widthStride);
     OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_SLICE_HEIGHT, &codecUserData->heightStride);
 
-    if (codecUserData->sampleInfo != nullptr) {
-        int32_t pixelFormat = codecUserData->sampleInfo->video.pixelFormat;
-        if (OH_AVFormat_GetIntValue(format, OH_MD_KEY_PIXEL_FORMAT, &pixelFormat)) {
-            codecUserData->sampleInfo->video.pixelFormat = static_cast<OH_AVPixelFormat>(pixelFormat);
-        }
+    int32_t pixelFormat = static_cast<int32_t>(codecUserData->outputPixelFormat);
+    if (OH_AVFormat_GetIntValue(format, OH_MD_KEY_PIXEL_FORMAT, &pixelFormat)) {
+        codecUserData->outputPixelFormat = static_cast<OH_AVPixelFormat>(pixelFormat);
     }
 }
 } // namespace
@@ -189,10 +193,11 @@ int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *user
             codecUserData->audioUnderruns->fetch_add(1);
         }
     }
-    AVCODEC_SAMPLE_LOGD("render BufferLength:%{public}d Out buffer count: %{public}u, renderQueue.size: %{public}u "
-                        "renderReadSize: %{public}u",
-                        length, codecUserData->outputFrameCount,
-                        static_cast<uint32_t>(codecUserData->renderQueue.size()), static_cast<uint32_t>(index));
+    AVCODEC_SAMPLE_LOGD_LIMIT(LIMIT_LOGD_FREQUENCY,
+        "render BufferLength:%{public}d Out buffer count: %{public}u, renderQueue.size: %{public}u "
+        "renderReadSize: %{public}u",
+        length, codecUserData->outputFrameCount,
+        static_cast<uint32_t>(codecUserData->renderQueue.size()), static_cast<uint32_t>(index));
 
     UpdateAudioPlaybackPosition(codecUserData, index);
 
@@ -299,12 +304,11 @@ void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format,
     }
     std::unique_lock<std::shared_mutex> codecLock(codecUserData->codecMutex);
     UpdateVideoOutputInfo(format, codecUserData);
-    int32_t pixelFormat = codecUserData->sampleInfo != nullptr ?
-        codecUserData->sampleInfo->video.pixelFormat : -1;
+    const int32_t pixelFormat = static_cast<int32_t>(codecUserData->outputPixelFormat);
     AVCODEC_SAMPLE_LOGI("Format changed: %{public}d*%{public}d, stride: %{public}d*%{public}d, "
         "pixel format: %{public}d",
-                        codecUserData->width, codecUserData->height,
-                        codecUserData->widthStride, codecUserData->heightStride, pixelFormat);
+        codecUserData->width, codecUserData->height,
+        codecUserData->widthStride, codecUserData->heightStride, pixelFormat);
 }
 
 void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData)

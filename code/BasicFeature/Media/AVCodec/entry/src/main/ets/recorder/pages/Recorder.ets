@@ -342,7 +342,7 @@ export struct Recorder {
     }
 
     //Create the encoder output object
-    encoderVideoOutput = cameraManager.createVideoOutput(encoderProfile, params.surfaceId);
+    encoderVideoOutput = cameraManager.createVideoOutput(encoderProfile, params.outputId);
     if (encoderVideoOutput === undefined) {
       Logger.error(TAG, 'encoderVideoOutput is undefined');
       return;

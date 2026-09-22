@@ -18,6 +18,8 @@
 #include <algorithm>
 #include <memory>
 
+#include <native_fence/native_fence.h>
+
 namespace {
 struct NativeBufferUnreferencer {
     void operator()(OH_NativeBuffer *buffer) const
@@ -49,6 +51,43 @@ bool SetMetadataType(OH_NativeBuffer *buffer, OH_NativeBuffer_MetadataType type)
         reinterpret_cast<uint8_t *>(&type)) == 0;
 }
 
+bool IsHdrVividNativeBuffer(OH_NativeBuffer *nativeBuffer)
+{
+    if (nativeBuffer == nullptr) {
+        return false;
+    }
+
+    int32_t typeSize = 0;
+    uint8_t *typeData = nullptr;
+    if (!GetMetadata(nativeBuffer, OH_HDR_METADATA_TYPE, typeSize, typeData) ||
+        typeSize < static_cast<int32_t>(sizeof(OH_NativeBuffer_MetadataType))) {
+        return false;
+    }
+    OH_NativeBuffer_MetadataType type = OH_VIDEO_NONE;
+    std::copy_n(typeData, sizeof(type), reinterpret_cast<uint8_t *>(&type));
+    if (type != OH_VIDEO_HDR_VIVID) {
+        return false;
+    }
+
+    int32_t dynamicMetadataSize = 0;
+    uint8_t *dynamicMetadata = nullptr;
+    return GetMetadata(nativeBuffer, OH_HDR_DYNAMIC_METADATA, dynamicMetadataSize, dynamicMetadata);
+}
+
+bool SetNativeWindowMetadata(OHNativeWindow *window, OH_NativeBuffer_ColorSpace colorSpace,
+    OH_NativeBuffer_MetadataType metadataType)
+{
+    if (window == nullptr) {
+        return false;
+    }
+    // The native-window API takes a byte vector, while the payload for OH_HDR_METADATA_TYPE is
+    // the complete OH_NativeBuffer_MetadataType enum rather than a single enumerator byte.
+    const int32_t colorSpaceRet = OH_NativeWindow_SetColorSpace(window, colorSpace);
+    const int32_t metadataRet = OH_NativeWindow_SetMetadataValue(window, OH_HDR_METADATA_TYPE,
+        static_cast<int32_t>(sizeof(metadataType)), reinterpret_cast<uint8_t *>(&metadataType));
+    return colorSpaceRet == 0 && metadataRet == 0;
+}
+
 bool CopyMetadata(OH_NativeBuffer *source, OH_NativeBuffer *target, OH_NativeBuffer_MetadataKey key)
 {
     int32_t size = 0;
@@ -63,25 +102,30 @@ bool CopyMetadata(OH_NativeBuffer *source, OH_NativeBuffer *target, OH_NativeBuf
 bool HdrMetadataHelper::IsHdrVivid(OH_AVBuffer *buffer)
 {
     NativeBufferReference nativeBuffer = GetNativeBuffer(buffer);
-    if (nativeBuffer == nullptr) {
+    return IsHdrVividNativeBuffer(nativeBuffer.get());
+}
+
+bool HdrMetadataHelper::IsLastFlushedBufferHdrVivid(OHNativeWindow *window)
+{
+    if (window == nullptr) {
+        return false;
+    }
+    OHNativeWindowBuffer *windowBuffer = nullptr;
+    int fenceFd = -1;
+    float transformMatrix[16] = {};
+    const int32_t ret = OH_NativeWindow_GetLastFlushedBufferV2(window, &windowBuffer, &fenceFd, transformMatrix);
+    if (fenceFd >= 0) {
+        OH_NativeFence_Close(fenceFd);
+    }
+    if (ret != 0 || windowBuffer == nullptr) {
         return false;
     }
 
-    int32_t typeSize = 0;
-    uint8_t *typeData = nullptr;
-    if (!GetMetadata(nativeBuffer.get(), OH_HDR_METADATA_TYPE, typeSize, typeData) ||
-        typeSize < static_cast<int32_t>(sizeof(OH_NativeBuffer_MetadataType))) {
-        return false;
-    }
-    OH_NativeBuffer_MetadataType type = OH_VIDEO_NONE;
-    std::copy_n(typeData, sizeof(type), reinterpret_cast<uint8_t *>(&type));
-    if (type != OH_VIDEO_HDR_VIVID) {
-        return false;
-    }
-
-    int32_t dynamicMetadataSize = 0;
-    uint8_t *dynamicMetadata = nullptr;
-    return GetMetadata(nativeBuffer.get(), OH_HDR_DYNAMIC_METADATA, dynamicMetadataSize, dynamicMetadata);
+    OH_NativeBuffer *nativeBuffer = nullptr;
+    const int32_t nativeBufferRet = OH_NativeBuffer_FromNativeWindowBuffer(windowBuffer, &nativeBuffer);
+    const bool isHdrVivid = nativeBufferRet == 0 && IsHdrVividNativeBuffer(nativeBuffer);
+    (void)OH_NativeWindow_NativeObjectUnreference(windowBuffer);
+    return isHdrVivid;
 }
 
 bool HdrMetadataHelper::CopyToNativeBuffer(OH_AVBuffer *sourceBuffer, OH_NativeBuffer *targetBuffer)
@@ -111,4 +155,18 @@ bool HdrMetadataHelper::CopyToNativeBuffer(OH_AVBuffer *sourceBuffer, OH_NativeB
     succeeded = CopyMetadata(sourceNativeBuffer.get(), targetBuffer, OH_HDR_DYNAMIC_METADATA) && succeeded;
     return OH_NativeBuffer_SetMetadataValue(targetBuffer, OH_HDR_METADATA_TYPE,
         typeSize, typeData) == 0 && succeeded;
+}
+
+bool HdrMetadataHelper::SetBt709OutputMetadata(OH_NativeBuffer *targetBuffer)
+{
+    if (targetBuffer == nullptr) {
+        return false;
+    }
+    return OH_NativeBuffer_SetColorSpace(targetBuffer, OH_COLORSPACE_BT709_LIMIT) == 0 &&
+        SetMetadataType(targetBuffer, OH_VIDEO_NONE);
+}
+
+bool HdrMetadataHelper::ResetNativeWindowSdrMetadata(OHNativeWindow *window)
+{
+    return SetNativeWindowMetadata(window, OH_COLORSPACE_BT709_LIMIT, OH_VIDEO_NONE);
 }

@@ -6,14 +6,16 @@
 #ifndef AVCODEC_SAMPLE_NATIVE_PLAYER_CONTEXT_H
 #define AVCODEC_SAMPLE_NATIVE_PLAYER_CONTEXT_H
 
+#include <atomic>
 #include <memory>
 #include "Player.h"
 #include "napi/native_api.h"
 
 struct NativePlayerSession {
     Player player;
-    // Accessed only on the JS thread; the async worker owns the session too.
-    bool seeking = false;
+    // This flag is shared by NAPI's JS and seek worker threads. It prevents a
+    // control operation from touching Player while it is rebuilding codecs.
+    std::atomic<bool> seeking { false };
 };
 
 struct NativePlayerContext {
