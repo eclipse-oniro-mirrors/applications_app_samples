@@ -563,10 +563,10 @@ export class ImageInterfaceCalled {
       if (imageMetadata.gifMetadata != undefined) {
         console.info(`GIF_DELAY_TIME: ${JSON.stringify(imageMetadata.gifMetadata?.delayTime)}`);
       }
-      return imageMetadata
+      return imageMetadata;
     } catch (error) {
       console.error(`ReadImageMetadata failed, error.code: ${error.code},
-                 error.message: ${error.message}`)
+                 error.message: ${error.message}`);
       return undefined;
     }
   }
@@ -588,7 +588,7 @@ export class ImageInterfaceCalled {
       return imageMetadata;
     } catch (error) {
       console.error(`ReadImageMetadataByType failed, error.code: ${error.code},
-                 error.message: ${error.message}`)
+                 error.message: ${error.message}`);
       return undefined;
     }
   }
