@@ -176,14 +176,9 @@ struct ApiTestPage {
   controller: TextInputController = new TextInputController();
 
   private isControlSupported(): boolean {
-    let isSupported: boolean = false;
     // [Start is_control_supported]
-    try {
-      isSupported = mechanicManager.isControlSupported();
-      console.info(`'isSupported:' ${isSupported}`);
-    } catch (err) {
-      console.error('errCode:' + JSON.stringify(err));
-    }
+    let isSupported: boolean = mechanicManager.isControlSupported();
+    console.info(`'isSupported:' ${isSupported}`);
     // [End is_control_supported]
     return isSupported;
   }
