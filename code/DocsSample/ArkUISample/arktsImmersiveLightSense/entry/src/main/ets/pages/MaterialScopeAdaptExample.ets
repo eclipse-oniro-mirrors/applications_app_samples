@@ -19,6 +19,7 @@ import { CircleShape, TitleBarType, uiMaterial } from '@kit.ArkUI';
 @Component
 struct MaterialScopeAdaptExample {
   private arr: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  @State titleHeight: number = 140;
 
   @Builder
   NavigationTitle() {
@@ -49,6 +50,7 @@ struct MaterialScopeAdaptExample {
     .alignItems(VerticalAlign.Center)
     .width('100%')
     .padding(16)
+    .height(this.titleHeight)
   }
 
   build() {
@@ -96,7 +98,7 @@ struct MaterialScopeAdaptExample {
         .justifyContent(FlexAlign.Center)
         .alignItems(HorizontalAlign.Center)
       }
-      .title(this.NavigationTitle, { barStyle: BarStyle.STACK })
+      .title({ builder: this.NavigationTitle, height: this.titleHeight }, { barStyle: BarStyle.STACK })
     }.width('100%').height('100%').backgroundColor('#F1F3F5')
   }
 }
