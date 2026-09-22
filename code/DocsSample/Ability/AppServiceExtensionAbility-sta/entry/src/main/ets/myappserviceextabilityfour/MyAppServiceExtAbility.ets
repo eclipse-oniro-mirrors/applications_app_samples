@@ -15,12 +15,10 @@
  */
 
 // [Start ability_app_service_four]
-import { AppServiceExtensionAbility, Want } from '@kit.AbilityKit';
-import { abilityAccessCtrl, bundleManager } from '@kit.AbilityKit';
+import { AppServiceExtensionAbility, Want, abilityAccessCtrl } from '@kit.AbilityKit';
 import { Permissions } from 'permissions';
 import rpc from '@ohos.rpc';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { BusinessError } from '@kit.BasicServicesKit';
 
 const TAG: string = '[AppServiceExtImpl]';
 const DOMAIN_NUMBER: int = 0xFF00;
@@ -40,19 +38,6 @@ class Stub extends rpc.RemoteObject {
     options: rpc.MessageOption): boolean | Promise<boolean> {
     // 开发者自行实现业务逻辑
     hilog.info(DOMAIN_NUMBER, TAG, `onRemoteMessageRequest: ${data}`);
-    let callerUid = rpc.IPCSkeleton.getCallingUid();
-    bundleManager.getBundleNameByUid(callerUid).then((callerBundleName) => {
-      hilog.info(DOMAIN_NUMBER, TAG, 'getBundleNameByUid: ' + callerBundleName);
-      // 对客户端包名进行识别
-      if (callerBundleName !== 'com.samples.stagemodelabilitydevelop') { // 识别不通过
-        hilog.info(DOMAIN_NUMBER, TAG, 'The caller bundle is not in trustlist, reject');
-        return;
-      }
-      // 识别通过，执行正常业务逻辑
-    }).catch((err) => {
-      hilog.error(DOMAIN_NUMBER, TAG, 'getBundleNameByUid failed: ' + err.message);
-    });
-
     let callerTokenId: int = rpc.IPCSkeleton.getCallingTokenId().toInt();
     let accessManager = abilityAccessCtrl.createAtManager();
     // 所校验的具体权限由开发者自行选择，此处ohos.permission.GET_BUNDLE_INFO_PRIVILEGED只作为示例
