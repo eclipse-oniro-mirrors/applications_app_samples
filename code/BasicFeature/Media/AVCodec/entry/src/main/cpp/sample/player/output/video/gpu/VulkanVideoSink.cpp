@@ -6,6 +6,7 @@
 #include "VulkanVideoSink.h"
 
 #include <algorithm>
+#include <utility>
 
 #include "../renderer/HdrMetadataHelper.h"
 #include "VideoFrameConverter.h"
@@ -296,7 +297,7 @@ bool VulkanVideoSink::SelectSwapchainFormat(VkSurfaceFormatKHR &surfaceFormat)
     if (vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice_, surface_, &formatCount, formats.data()) != VK_SUCCESS) {
         return false;
     }
-    // RGBA avoids a full CPU red/blue channel swap before every upload when both formats are present.
+    // 同时支持两种格式时使用 RGBA，可避免每次上传前在 CPU 上完整交换红蓝通道。
     auto formatIt = std::find_if(formats.begin(), formats.end(), [](const VkSurfaceFormatKHR &format) {
         return format.format == VK_FORMAT_R8G8B8A8_UNORM;
     });
@@ -413,7 +414,6 @@ bool VulkanVideoSink::Initialize(OHNativeWindow *window, int32_t width, int32_t 
     window_ = window;
     width_ = width;
     height_ = height;
-    windowGeneration_ = NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindowGeneration();
     initialized_ = true;
     AVCODEC_SAMPLE_LOGI("Vulkan video sink initialized");
     return true;
@@ -640,6 +640,7 @@ bool VulkanVideoSink::UploadStagingData(const std::vector<uint8_t> &uploadData)
     if (vkMapMemory(device_, stagingMemory_, 0, uploadData.size(), 0, &mapped) != VK_SUCCESS || mapped == nullptr) {
         return false;
     }
+    // mapped 指针只在 vkMapMemory 与 vkUnmapMemory 之间有效，拷贝后立即解除映射。
     std::copy_n(uploadData.data(), uploadData.size(), static_cast<uint8_t *>(mapped));
     vkUnmapMemory(device_, stagingMemory_);
     return true;
@@ -759,9 +760,8 @@ void VulkanVideoSink::PresentBlackFrame()
     if (!initialized_ || device_ == VK_NULL_HANDLE || swapchain_ == VK_NULL_HANDLE) {
         return;
     }
-    // Destroying a swapchain does not replace its last image in the compositor. Present a black
-    // image first so the preceding video's last frame is not kept visible while the next decoder
-    // is being prepared.
+    // 销毁 swapchain 不会替换合成器中的最后一张图像。先送显黑帧，
+    // 避免准备下一解码器期间仍显示前一个视频的最后一帧。
     if (vkDeviceWaitIdle(device_) != VK_SUCCESS) {
         AVCODEC_SAMPLE_LOGW("Wait Vulkan device before clearing the previous frame failed");
         return;
@@ -772,9 +772,15 @@ void VulkanVideoSink::PresentBlackFrame()
     }
 }
 
-bool VulkanVideoSink::EnsureContext(OHNativeWindow *window, int32_t width, int32_t height)
+bool VulkanVideoSink::EnsureContext(NativeXComponentSample::PluginManager::PluginWindowLease &&windowLease)
 {
-    const uint64_t generation = NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindowGeneration();
+    if (!windowLease) {
+        return false;
+    }
+    OHNativeWindow *window = windowLease.GetWindow();
+    const int32_t width = windowLease.GetWidth();
+    const int32_t height = windowLease.GetHeight();
+    const uint64_t generation = windowLease.GetGeneration();
     const bool generationChanged = initialized_ && windowGeneration_ != generation;
     if (initialized_ && window_ == window && !generationChanged) {
         const bool sizeChanged = width_ != width || height_ != height;
@@ -792,15 +798,20 @@ bool VulkanVideoSink::EnsureContext(OHNativeWindow *window, int32_t width, int32
         return true;
     }
     if (initialized_) {
-        // A same-size XComponent refresh can retain the NativeWindow address while replacing its
-        // underlying surface. A new Vulkan surface is required; recreating only the swapchain keeps
-        // the old extent and can offset the video inside the current XComponent.
+        // 尺寸未变的 XComponent 刷新也可能保留 NativeWindow 地址却替换底层 Surface。此时必须新建 Vulkan
+        // Surface；只重建 swapchain 会保留旧 extent，使视频在当前 XComponent 内发生偏移。
         ReleaseVulkanResources();
     }
     if (!ConfigureWindowForGpu(window, width, height)) {
         return false;
     }
-    return Initialize(window, width, height);
+    if (!Initialize(window, width, height)) {
+        return false;
+    }
+    // VkSurfaceKHR 会在整个播放期间访问该 NativeWindow；成功创建后由 sink 接管窗口租约。
+    windowLease_ = std::move(windowLease);
+    windowGeneration_ = generation;
+    return true;
 }
 
 bool VulkanVideoSink::RecreateSwapchain(int32_t width, int32_t height)
@@ -809,8 +820,8 @@ bool VulkanVideoSink::RecreateSwapchain(int32_t width, int32_t height)
         return false;
     }
     (void)vkDeviceWaitIdle(device_);
-    // The selected surface format may change with the XComponent configuration.
-    // Recreate the upload image together with the swapchain to keep their formats consistent.
+    // XComponent 配置变化时，选中的 Surface 格式也可能改变。
+    // 需连同 swapchain 一起重建上传图像，确保两者格式一致。
     ReleaseUploadImage();
     DestroySwapchain();
     return CreateSwapchain(width, height);
@@ -825,27 +836,26 @@ int32_t VulkanVideoSink::Present(const VideoPresentRequest &request)
         return fallback_.Present(request);
     }
     if (IsHdrOrTenBit(request)) {
-        // Do not leave a Vulkan producer attached while BufferRenderer reconfigures this window.
+        // BufferRenderer 重新配置该窗口时，不能仍连接 Vulkan 生产者。
         fallbackOnly_ = true;
         ReleaseVulkanResources();
         return fallback_.Present(request);
     }
-    OHNativeWindow *window = NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
+    auto windowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
     const int32_t frameWidth = request.context.width > 0 ? request.context.width : request.sampleInfo.video.videoWidth;
     const int32_t frameHeight = request.context.height > 0 ? request.context.height :
         request.sampleInfo.video.videoHeight;
-    int32_t surfaceWidth = 0;
-    int32_t surfaceHeight = 0;
-    NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindowSize(surfaceWidth, surfaceHeight);
+    int32_t surfaceWidth = windowLease.GetWidth();
+    int32_t surfaceHeight = windowLease.GetHeight();
     if (surfaceWidth <= 0 || surfaceHeight <= 0) {
         surfaceWidth = frameWidth;
         surfaceHeight = frameHeight;
     }
     VideoFrameConverter::FrameSize uploadSize = {frameWidth, frameHeight};
-    const bool contextReady = window != nullptr && EnsureContext(window, surfaceWidth, surfaceHeight);
+    const bool contextReady = windowLease && EnsureContext(std::move(windowLease));
     if (contextReady && frameFence_ != VK_NULL_HANDLE &&
         vkWaitForFences(device_, 1, &frameFence_, VK_TRUE, FRAME_READY_WAIT_NS) != VK_SUCCESS) {
-        // Do not hold a codec output buffer indefinitely when composition is temporarily behind.
+        // 合成暂时落后时，不能无限期占有 codec 输出 Buffer，必须尽快归还。
         return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
     }
     if (contextReady) {
@@ -862,22 +872,21 @@ int32_t VulkanVideoSink::Present(const VideoPresentRequest &request)
         ReleaseVulkanResources();
         return fallback_.Present(request);
     }
+    // RGBA 数据已复制到 Vulkan staging buffer，立即归还 codec 输出 Buffer，
+    // 不让 GPU 提交延迟耗尽解码器的输出队列。
     return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
 }
 
 OHNativeWindow *VulkanVideoSink::PrepareForPlayback(const SampleInfo &sampleInfo)
 {
     (void)sampleInfo;
-    OHNativeWindow *window = NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
-    int32_t width = 0;
-    int32_t height = 0;
-    NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindowSize(width, height);
-    if (window == nullptr || width <= 0 || height <= 0 || !EnsureContext(window, width, height)) {
+    auto windowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
+    if (!windowLease || !EnsureContext(std::move(windowLease))) {
         AVCODEC_SAMPLE_LOGW("Vulkan prewarm skipped: XComponent window is unavailable");
         return nullptr;
     }
-    // Clear the previous producer's image before decoder initialization. This also moves Vulkan
-    // instance/device/swapchain creation out of the first decoded-frame path.
+    // 初始化解码器前清除前一生产者的图像，同时将 Vulkan 实例、设备和 swapchain 的创建
+    // 移出首个解码帧的处理路径，降低首帧延迟。
     PresentBlackFrame();
     return nullptr;
 }
@@ -912,6 +921,8 @@ void VulkanVideoSink::ReleaseVulkanResources()
         vkDestroyInstance(instance_, nullptr);
         instance_ = VK_NULL_HANDLE;
     }
+    // 所有依赖 NativeWindow 的 Vulkan 对象均已销毁，随后才解除窗口引用。
+    windowLease_ = {};
     ResetContextState();
 }
 
@@ -976,8 +987,8 @@ void VulkanVideoSink::Reset()
 
 void VulkanVideoSink::BeginPlayback()
 {
-    // The Vulkan device is deliberately retained between tasks, but a BufferRenderer fallback is
-    // specific to the previous decoded stream and must not affect the next file.
+    // Vulkan 设备有意跨任务保留，但 BufferRenderer 回退状态只属于前一条已解码流，
+    // 不能影响下一个文件。
     fallbackOnly_ = false;
     fallback_.Reset();
     rgbaCache_.clear();

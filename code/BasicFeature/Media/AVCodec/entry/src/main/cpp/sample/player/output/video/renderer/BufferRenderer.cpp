@@ -75,8 +75,8 @@ int32_t NormalizeRotation(int32_t rotation)
 
 int32_t GetWindowTransform(int32_t rotation)
 {
-    // OH_MD_KEY_ROTATION uses clockwise degrees, while NativeBuffer transforms use counter-clockwise
-    // degrees. Keep the two metadata conventions explicit so a portrait stream is not displayed sideways.
+    // OH_MD_KEY_ROTATION 使用顺时针角度，而 NativeBuffer 变换使用逆时针角度。
+    // 显式区分这两种元数据约定，避免竖屏码流横置显示。
     switch (NormalizeRotation(rotation)) {
         case ROTATION_90_DEGREES:
             return NATIVEBUFFER_ROTATE_270;
@@ -125,11 +125,9 @@ int32_t ToGraphicPixelFormat(OH_AVPixelFormat pixelFormat, bool tenBitOutput)
 bool IsTenBitOutput(const SampleInfo &sampleInfo, const CodecUserData &context, OH_AVBuffer *buffer)
 {
     (void)context;
-    // Stride describes row alignment, not pixel bit depth. In particular, an aligned narrow
-    // 8-bit frame can have a stride greater than twice its visible width. Treating that as P010
-    // makes the window use a 10-bit format and copies twice as many bytes from each row, which
-    // leaves green areas or fails the buffer presentation. HEVC profile and decoded HDR metadata
-    // are the reliable signals available to this Buffer-mode path.
+    // 行跨度描述行对齐而不是像素位深。特别是已对齐的窄幅 8-bit 帧，行跨度也可能大于可见宽度的两倍。
+    // 若误判为 P010，窗口会使用 10-bit 格式且每行复制两倍字节，导致绿屏或 Buffer 送显失败。
+    // HEVC profile 和解码后 HDR 元数据才是该 Buffer 模式路径可用的可靠判断依据。
     return IsTenBitHevcOutput(sampleInfo.video) || HdrMetadataHelper::IsHdrVivid(buffer);
 }
 
@@ -339,8 +337,8 @@ bool GetFittedFrame(int32_t sourceWidth, int32_t sourceHeight, int32_t targetWid
         static_cast<int32_t>(sourceHeight * scale) & EVEN_ALIGNMENT_MASK);
     frame.width = std::min(frame.width, targetWidth & EVEN_ALIGNMENT_MASK);
     frame.height = std::min(frame.height, targetHeight & EVEN_ALIGNMENT_MASK);
-    // YUV420 needs even coordinates, while the picture still needs to be centred.
-    // Round half of the remaining space down to an even offset.
+    // YUV420 要求坐标为偶数，同时画面仍须居中。
+    // 将剩余空间的一半向下取整为偶数偏移量。
     frame.left = ((targetWidth - frame.width) / YUV420_SAMPLE_RATIO) & ~1;
     frame.top = ((targetHeight - frame.height) / YUV420_SAMPLE_RATIO) & ~1;
     return frame.width > 0 && frame.height > 0;
@@ -679,6 +677,7 @@ public:
         : window_(window), buffer_(buffer) {}
     ~NativeWindowBufferGuard()
     {
+        // Flush 成功会清空 buffer_；其他返回路径由析构函数 Abort，将窗口 Buffer 归还队列。
         Abort();
     }
 
@@ -702,12 +701,18 @@ private:
 
 uint8_t *GetBufferDataAddr(CodecBufferInfo &bufferInfo)
 {
-    uint8_t *bufferAddr = OH_AVBuffer_GetAddr(bufferInfo.buffer);
-    if (bufferAddr == nullptr) {
+    if (bufferInfo.buffer == nullptr || bufferInfo.attr.offset < 0) {
+        AVCODEC_SAMPLE_LOGE("Invalid buffer offset: %{public}d", bufferInfo.attr.offset);
         return nullptr;
     }
-    if (bufferInfo.attr.offset < 0) {
-        AVCODEC_SAMPLE_LOGE("Invalid buffer offset: %{public}d", bufferInfo.attr.offset);
+    const int32_t capacity = OH_AVBuffer_GetCapacity(bufferInfo.buffer);
+    if (capacity < 0 || bufferInfo.attr.offset > capacity) {
+        AVCODEC_SAMPLE_LOGE("Decoded buffer offset exceeds capacity, offset: %{public}d, capacity: %{public}d",
+            bufferInfo.attr.offset, capacity);
+        return nullptr;
+    }
+    uint8_t *bufferAddr = OH_AVBuffer_GetAddr(bufferInfo.buffer);
+    if (bufferAddr == nullptr) {
         return nullptr;
     }
     return bufferAddr + bufferInfo.attr.offset;
@@ -745,13 +750,12 @@ bool HasValidSourceLayout(const CodecBufferInfo &bufferInfo, const SampleInfo &s
     }
     return requiredSize <= static_cast<size_t>(capacity - bufferInfo.attr.offset);
 }
-} // namespace
+} // 匿名命名空间
 
 void BufferRenderer::Reset()
 {
-    // Buffer mode owns the transform it applies for container rotation. Geometry, format and usage
-    // are deliberately left to the next producer: changing them before a Surface decoder Configure
-    // call can interfere with the codec service's producer negotiation.
+    // Buffer 模式自行处理容器旋转变换。几何信息、格式和 usage 刻意留给下一个生产者：
+    // 在 Surface 解码器 Configure() 前修改它们，可能干扰 codec 服务与生产者的协商。
     auto windowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
     if (windowConfigured_ && windowLease && window_ == windowLease.GetWindow() &&
         windowGeneration_ == windowLease.GetGeneration() && windowTransform_ != NATIVEBUFFER_ROTATE_NONE) {
@@ -784,7 +788,7 @@ bool BufferRenderer::ConfigureWindow(const NativeXComponentSample::PluginManager
     const uint64_t windowGeneration = geometry.generation;
     const int32_t width = geometry.width;
     const int32_t height = geometry.height;
-    // A CPU buffer copy owns the rotation, so do not apply it a second time in NativeWindow.
+    // CPU Buffer 拷贝已处理旋转，因此 NativeWindow 不能再次应用该变换。
     const int32_t windowTransform = geometry.transform;
 
     if (windowConfigured_ && window_ == window && windowWidth_ == width &&
@@ -793,8 +797,8 @@ bool BufferRenderer::ConfigureWindow(const NativeXComponentSample::PluginManager
         return true;
     }
 
-    // Container rotation is expressed clockwise by OH_MD_KEY_ROTATION. NativeWindow transform
-    // values are counter-clockwise, so GetWindowTransform performs the documented conversion.
+    // OH_MD_KEY_ROTATION 中的容器旋转为顺时针方向，NativeWindow 变换值为逆时针方向，
+    // 因此由 GetWindowTransform 执行文档规定的转换。
     CHECK_AND_RETURN_RET_LOG(ApplyWindowConfiguration(window, width, height, graphicPixelFormat, windowTransform),
         false, "Apply buffer window configuration failed");
 
@@ -836,10 +840,8 @@ bool BufferRenderer::CopyToWindowBuffer(const WindowBufferCopyContext& context)
                 "%{public}dx%{public}d, rotation=%{public}d", copyConfig.width, copyConfig.height,
                 context.dstConfig.width, context.dstConfig.height, rotation);
         }
-        // XComponent owns the presentation surface size. A decoded frame can be a different
-        // size from that surface, and is therefore normally letterboxed here. Do not reconfigure
-        // the window for every frame: it forces the buffer queue to churn and blocks the codec
-        // output callback on 4K HDR content.
+        // XComponent 决定送显 Surface 的尺寸，解码帧可能与之不同，通常在这里以信箱模式显示。
+        // 不能逐帧重配窗口：这会反复切换 Buffer 队列，并在 4K HDR 内容上阻塞 codec 输出回调。
         return CopyYuv420SpScaled(copyConfig, context.dstConfig, context.tenBitOutput, rotation);
     }
 
@@ -906,10 +908,9 @@ BufferRenderer::NativeBufferCopyResult BufferRenderer::PrepareNativeBuffer(OHNat
             preparation.dstConfig.format, expectedFormat);
         return NativeBufferCopyResult::RETRY;
     }
-    // A window used by the OpenGL or Vulkan path can return one of its old GPU-only queue slots
-    // immediately after Buffer mode takes ownership. Mapping such a slot may succeed but writing
-    // to it faults on some devices. Wait for a Buffer-mode slot with CPU write access instead of
-    // copying into the stale allocation.
+    // OpenGL 或 Vulkan 路径使用过的窗口，在 Buffer 模式接管后可能立即返回旧的仅 GPU 队列槽位。
+    // 映射这种槽位也许成功，但部分设备写入会触发故障。应等待带 CPU 写权限的 Buffer 模式槽位，
+    // 而不是拷贝到已经失效的分配中。
     if ((preparation.dstConfig.usage & CPU_WRITE_USAGE) == 0) {
         CloseFence(fenceFd);
         windowConfigured_ = false;
@@ -945,6 +946,7 @@ BufferRenderer::NativeBufferCopyResult BufferRenderer::CopyMappedNativeBuffer(
         AVCODEC_SAMPLE_LOGE("Map native window buffer failed, ret: %{public}d", ret);
         return NativeBufferCopyResult::FAILED;
     }
+    // 映射地址只在 MapPlanes 与 Unmap 之间有效，像素复制必须在此作用域内完成。
     LogMappedNativeBufferPlanes(dstPlanes);
     auto *dstAddr = static_cast<uint8_t *>(mappedAddr);
     const WindowBufferCopyContext windowCopyContext = {dstAddr, preparation.dstConfig, dstPlanes, renderContext.srcAddr,
@@ -955,8 +957,8 @@ BufferRenderer::NativeBufferCopyResult BufferRenderer::CopyMappedNativeBuffer(
         AVCODEC_SAMPLE_LOGE("Copy or unmap native window buffer failed, unmapRet: %{public}d", unmapRet);
         return NativeBufferCopyResult::FAILED;
     }
-    // BufferRenderer copies decoder pixels without applying a color conversion. Preserve the source
-    // metadata so that a fallback never marks HDR pixels as BT.709.
+    // BufferRenderer 复制解码器像素时不做色彩转换。必须保留源元数据，
+    // 以免回退路径把 HDR 像素错误标记为 BT.709。
     const bool metadataCopied = HdrMetadataHelper::CopyToNativeBuffer(renderContext.bufferInfo.buffer,
         preparation.nativeBuffer);
     if (!metadataCopied &&
@@ -1007,12 +1009,13 @@ bool BufferRenderer::Render(CodecBufferInfo& bufferInfo, const SampleInfo& sampl
     if (!IsBufferBasedRunMode(sampleInfo.codec.codecRunMode)) {
         return true;
     }
-    uint8_t *srcAddr = GetBufferDataAddr(bufferInfo);
-    CHECK_AND_RETURN_RET_LOG(srcAddr != nullptr, false, "Decoded buffer address is null");
     const OH_AVPixelFormat pixelFormat = videoDecContext.outputPixelFormat;
     const bool tenBitOutput = IsTenBitOutput(sampleInfo, videoDecContext, bufferInfo.buffer);
     CHECK_AND_RETURN_RET_LOG(HasValidSourceLayout(bufferInfo, sampleInfo, videoDecContext, pixelFormat,
         tenBitOutput), false, "Decoded buffer layout exceeds its capacity");
+    // 先完成 offset 和容量校验，再计算首地址；异常 Buffer 不能参与指针运算。
+    uint8_t *srcAddr = GetBufferDataAddr(bufferInfo);
+    CHECK_AND_RETURN_RET_LOG(srcAddr != nullptr, false, "Decoded buffer address is null");
     int32_t graphicPixelFormat = ToGraphicPixelFormat(pixelFormat, tenBitOutput);
     CHECK_AND_RETURN_RET_LOG(graphicPixelFormat != NATIVEBUFFER_PIXEL_FMT_BUTT, false,
         "Unsupported buffer render pixel format: %{public}d", pixelFormat);

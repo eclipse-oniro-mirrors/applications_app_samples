@@ -53,6 +53,7 @@ void OnSurfaceCreatedCB(OH_NativeXComponent* component, void* window)
     int32_t xSize = OH_NativeXComponent_GetXComponentSize(component, window, &width, &height);
     if ((xSize == OH_NATIVEXCOMPONENT_RESULT_SUCCESS) && (render != nullptr)) {
         auto context = PluginManager::GetInstance();
+        // window 仅由本次 XComponent 回调借出，管理器记录为非拥有指针；异步渲染通过窗口租约持有引用。
         auto *nativeWindow = static_cast<OHNativeWindow *>(window);
         context->SetPluginWindow(nativeWindow, static_cast<int32_t>(width), static_cast<int32_t>(height));
         OH_NativeWindow_NativeWindowSetScalingModeV2(nativeWindow, OH_SCALING_MODE_SCALE_FIT_V2);
@@ -86,6 +87,7 @@ void OnSurfaceChangedCB(OH_NativeXComponent* component, void* window)
             OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "Callback", "Unable to get XComponent size");
             return;
         }
+        // 不缓存回调参数；窗口有效期由 XComponent 管理，后续跨线程访问由 PluginManager 的租约保障。
         PluginManager::GetInstance()->SetPluginWindow(static_cast<OHNativeWindow *>(window),
             static_cast<int32_t>(width), static_cast<int32_t>(height));
         render->OnSurfaceChanged(component, window);
@@ -111,6 +113,7 @@ void OnSurfaceDestroyedCB(OH_NativeXComponent* component, void* window)
     }
 
     std::string id(idStr);
+    // 先让管理器失效借用窗口，再释放回调表所属的 render，避免后续送显取得已经销毁的 Surface。
     auto context = PluginManager::GetInstance();
     context->ClearPluginWindow(static_cast<OHNativeWindow *>(window));
     context->ReleaseRender(id);
@@ -139,7 +142,7 @@ void DispatchTouchEventCB(OH_NativeXComponent* component, void* window)
         render->OnTouchEvent(component, window);
     }
 }
-} // namespace
+} // 匿名命名空间
 
 PluginRender::PluginRender(const std::string& id)
 {
@@ -202,10 +205,12 @@ void PluginRender::OnTouchEvent(OH_NativeXComponent* component, void* window)
 
 void PluginRender::RegisterCallback(OH_NativeXComponent *nativeXComponent)
 {
+    // nativeXComponent 由 ArkUI 持有；renderCallback_ 必须在 XComponent 存活期间保持有效，
+    // 因此回调表存放在由 PluginManager 以 shared_ptr 管理的 PluginRender 中。
     renderCallback_.OnSurfaceCreated = OnSurfaceCreatedCB;
     renderCallback_.OnSurfaceChanged = OnSurfaceChangedCB;
     renderCallback_.OnSurfaceDestroyed = OnSurfaceDestroyedCB;
     renderCallback_.DispatchTouchEvent = DispatchTouchEventCB;
     OH_NativeXComponent_RegisterCallback(nativeXComponent, &renderCallback_);
 }
-} // namespace NativeXComponentSample
+} // NativeXComponentSample 命名空间

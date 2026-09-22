@@ -26,7 +26,7 @@
 
 namespace {
 constexpr double NANOSECONDS_PER_MICROSECOND = 1000.0;
-} // namespace
+} // 匿名命名空间
 
 Player::~Player()
 {
@@ -501,8 +501,8 @@ void Player::SetTransform(int32_t hint)
         return;
     }
     transformHint = hint;
-    OHNativeWindow *window = sampleInfo_.video.window != nullptr ? sampleInfo_.video.window :
-        NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
+    auto windowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
+    OHNativeWindow *window = windowLease.GetWindow();
     CHECK_AND_RETURN_LOG(window != nullptr, "Native window is null");
     OH_NativeWindow_NativeWindowHandleOpt(window, SET_TRANSFORM, transformHint);
 }

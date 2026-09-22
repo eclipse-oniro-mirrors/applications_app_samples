@@ -40,7 +40,7 @@ int32_t Demuxer::Create(SampleInfo &info)
     audioTrackId_ = -1;
     info.audio.trackIndex = -1;
     /**
-     * // Need request Internet Permission first in module.json.
+     * // 使用网络 URI 前需先在 module.json 中申请 Internet 权限。
      * const char *url = "https://hd.ijycnd.com/play/Ddw1W2Ra/index.m3u8";
      * source_ = OH_AVSource_CreateWithURI(const_cast<char *>(url));
      */
@@ -54,8 +54,7 @@ int32_t Demuxer::Create(SampleInfo &info)
     auto sourceFormat = std::shared_ptr<OH_AVFormat>(OH_AVSource_GetSourceFormat(source_), OH_AVFormat_Destroy);
     CHECK_AND_RETURN_RET_LOG(sourceFormat != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Get source format failed");
 
-    // Validate an explicitly requested audio track before scanning tracks. If
-    // it is not an audio track, retain the historical first-audio fallback.
+    // 先校验显式指定的音轨。指定轨道不是音频时，仍回退到历史行为：选择第一条音频轨。
     if (info.codec.audioTrackIndex >= 0) {
         auto requestedFormat = GetTrackFormat(info.codec.audioTrackIndex);
         if (requestedFormat == nullptr || GetTrackType(requestedFormat) != MEDIA_TYPE_AUD) {
@@ -91,15 +90,12 @@ int32_t Demuxer::SelectAudioTrack(int32_t trackIndex, SampleInfo &info)
         "Get audio track format failed, index: %{public}d", trackIndex);
     CHECK_AND_RETURN_RET_LOG(GetTrackType(trackFormat) == MEDIA_TYPE_AUD, AVCODEC_SAMPLE_ERR_ERROR,
         "Selected track is not an audio track, index: %{public}d", trackIndex);
-    // Parse into a temporary object first. A failed switch must leave both the
-    // current metadata and the demuxer's selected-track set untouched.
+    // 先解析到临时对象。切换失败时，当前元数据和 Demuxer 已选轨集合必须保持不变。
     SampleInfo candidateInfo = info;
     CHECK_AND_RETURN_RET_LOG(PopulateAudioTrackInfo(trackFormat, trackIndex, candidateInfo) == AVCODEC_SAMPLE_ERR_OK,
         AVCODEC_SAMPLE_ERR_ERROR, "Parse audio track failed, index: %{public}d", trackIndex);
 
-    // Keep the selected-track set in sync for APIs that require a track to be
-    // selected before seeking or reading. Remove the old audio track first so
-    // the demuxer does not keep advancing an abandoned audio stream.
+    // Seek 和 ReadSample 要求轨道处于选中状态。先取消旧音轨，否则 Demuxer 会继续推进旧流。
     const int32_t previousTrackId = audioTrackId_;
     if (previousTrackId >= 0 && previousTrackId != trackIndex) {
         OH_AVDemuxer_UnselectTrackByID(demuxer_, static_cast<uint32_t>(previousTrackId));
@@ -113,8 +109,7 @@ int32_t Demuxer::SelectAudioTrack(int32_t trackIndex, SampleInfo &info)
     }
 
     info.audio = candidateInfo.audio;
-    // ReadSample() uses this explicit container track id for every audio
-    // request. Keep it in sync with the metadata selected above.
+    // 读取音频样本时使用此容器轨道 ID，因此必须和上方选中的元数据同步。
     audioTrackId_ = trackIndex;
     LogAudioConfig(info, info.audio.audioCodecMime.c_str());
     return AVCODEC_SAMPLE_ERR_OK;
@@ -245,8 +240,7 @@ void Demuxer::ProcessVideoTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_
 
 void Demuxer::ProcessAudioTrack(std::shared_ptr<OH_AVFormat> trackFormat, int32_t index, SampleInfo &info)
 {
-    // Keep the first audio track by default. A caller may explicitly select a
-    // container track index through CodecOptions::audioTrackIndex.
+    // 默认保留第一条音轨；调用方可通过 CodecOptions::audioTrackIndex 显式指定容器轨道索引。
     if (info.audio.trackIndex >= 0 ||
         (info.codec.audioTrackIndex >= 0 && info.codec.audioTrackIndex != index)) {
         return;
@@ -348,9 +342,8 @@ int32_t Demuxer::Seek(int64_t positionMs, OH_AVSeekMode mode)
     AVCODEC_SAMPLE_LOGW("Demuxer seek failed: position=%{public}lld ms, mode=%{public}d, ret=%{public}d, "
         "video track=%{public}d, audio track=%{public}d", static_cast<long long>(positionMs),
         static_cast<int32_t>(mode), ret, videoTrackId_, audioTrackId_);
-    // Accurate seeking starts from the preceding sync sample. A few MP4 indexes cannot expose
-    // that sample even though a usable nearest/following sync sample exists. Retry only after the
-    // preferred previous-sync request fails, keeping normal Seek behavior unchanged.
+    // 精确定位通常从前一个同步帧开始。部分 MP4 索引无法提供该帧，但仍能提供邻近或后续同步帧。
+    // 仅当前序同步帧请求失败后才重试，常规 Seek 仍优先使用前序同步帧。
     if (mode != SEEK_MODE_PREVIOUS_SYNC) {
         return AVCODEC_SAMPLE_ERR_ERROR;
     }

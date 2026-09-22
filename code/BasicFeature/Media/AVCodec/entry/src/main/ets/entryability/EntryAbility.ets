@@ -20,17 +20,17 @@ import Logger from '../common/utils/Logger'
 import player from 'libplayer.so'
 
 export default class EntryAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     Logger.info('Ability onCreate');
     globalThis.context = this.context;
   }
 
-  onDestroy() {
+  onDestroy(): void {
     Logger.info('Ability onDestroy');
   }
 
-  onWindowStageCreate(windowStage: window.WindowStage) {
-    // Main window is created, set main page for this ability
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    // 主窗口创建后初始化页面和窗口状态。
     Logger.info('Ability onWindowStageCreate');
 
     const windowClass: window.Window = windowStage.getMainWindowSync(); // 获取应用主窗口
@@ -53,42 +53,39 @@ export default class EntryAbility extends UIAbility {
       isStatusBarLightIcon: false,
       isNavigationBarLightIcon: false
     };
-    // Keep the initial window layout consistent with the page's non-fullscreen
-    // state. Fullscreen is entered explicitly from the playback controls.
+    // 初始窗口保持非全屏，全屏由播放页控制。
     windowClass.setWindowLayoutFullScreen(false)
       .then(() => {
         Logger.info('Succeeded in setting the initial window layout.');
-        // Explicitly enable both system bars before applying their colors.
-        // This avoids a transient/default white navigation area on startup.
+        // 先启用系统栏再设置颜色，避免启动时出现白色导航区域。
         return windowClass.setWindowSystemBarEnable(['status', 'navigation']);
       })
       .then(() => {
         return windowClass.setWindowSystemBarProperties(systemBarProperties);
       })
       .then(() => {
-        // Load the page only after the initial window colors are in place.
+        // 窗口颜色就绪后再加载页面。
         loadMainPage();
       })
       .catch((err: BusinessError) => {
         Logger.error('Failed to set the initial window layout.', JSON.stringify(err) ?? '');
-        // A layout API failure must not prevent the page from opening.
+        // 布局设置失败时仍打开页面。
         loadMainPage();
       });
   }
 
-  onWindowStageDestroy() {
-    // Main window is destroyed, release UI related resources
+  onWindowStageDestroy(): void {
     Logger.info('Ability onWindowStageDestroy');
   }
 
-  onForeground() {
-    // Ability has brought to foreground
+  onForeground(): void {
+    // 通知 Native 播放器进入前台。
     Logger.info('Ability onForeground');
     player.setAppBackground(false);
   }
 
-  onBackground() {
-    // Ability has back to background
+  onBackground(): void {
+    // 通知 Native 播放器进入后台。
     Logger.info('Ability onBackground');
     player.setAppBackground(true);
   }

@@ -147,7 +147,7 @@ bool ParsePlayOptions(napi_env env, napi_value options, SampleInfo &sampleInfo)
     sampleInfo.audioPlayback.volume = static_cast<float>(audioVolume);
     return true;
 }
-} // namespace
+} // 匿名命名空间
 
 bool PlayerNapiParser::ParseLegacyPlayArguments(napi_env env, napi_callback_info info,
     SampleInfo &sampleInfo, napi_value &callback)

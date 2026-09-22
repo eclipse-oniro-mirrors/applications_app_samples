@@ -13,14 +13,12 @@
  * limitations under the License.
  */
 
-import { fileIo } from '@kit.CoreFileKit'
-import { window } from '@kit.ArkUI'
-import PiPWindow from '@ohos.PiPWindow'
+import { fileIo, picker } from '@kit.CoreFileKit'
+import { PiPWindow, window } from '@kit.ArkUI'
 import { camera } from '@kit.CameraKit'
 import { photoAccessHelper } from '@kit.MediaLibraryKit'
 import { media } from '@kit.MediaKit'
-import { deviceInfo } from '@kit.BasicServicesKit'
-import thermal from '@ohos.thermal'
+import { deviceInfo, thermal } from '@kit.BasicServicesKit'
 import player, { MediaInfo, MediaTrackInfo } from 'libplayer.so'
 import recorder from 'librecorder.so'
 import Logger from '../common/utils/Logger'
@@ -49,8 +47,7 @@ import { requestRecordPermissions } from '../common/utils/PermissionUtil'
 import {
   getPickerSelectedIndex, isMediaFileEmpty, isPickerIndexValid
 } from '../common/utils/MediaUtils'
-import picker from '@ohos.file.picker'
-import common from '@ohos.app.ability.common'
+import { common } from '@kit.AbilityKit'
 
 const TAG: string = 'Sample_Player';
 const DATETIME: DateTimeUtil = new DateTimeUtil();
@@ -164,7 +161,7 @@ export struct Player {
     [globalThis.context.resourceManager.getStringSync($r('app.string.select_from_filemanager').id),
       globalThis.context.resourceManager.getStringSync($r('app.string.select_from_album').id)];
 
-  aboutToAppear() {
+  aboutToAppear(): void {
     this.pageActive = true;
     player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
     player.setAppBackground(false);
@@ -262,6 +259,8 @@ export struct Player {
 
   private async loadPlaybackHistory(): Promise<void> {
     try {
+      // 进入页面后异步恢复最近播放列表和断点；读取失败仅影响历史展示，
+      // 不能阻断当前文件选择和播放。
       await this.playbackHistory.load(this.getUIContext().getHostContext() as common.UIAbilityContext);
       this.recentEntries = this.playbackHistory.getEntries();
     } catch (error) {
@@ -276,6 +275,8 @@ export struct Player {
     if (!force && this.lastHistoryPositionUs >= 0 && Math.abs(positionUs - this.lastHistoryPositionUs) < 2000000) {
       return;
     }
+    // 常规进度按 2 秒粒度落盘；停止和后台等收尾场景通过 force 写入最后位置，
+    // 避免高频持久化影响播放期间的界面响应。
     this.lastHistoryPositionUs = positionUs;
     await this.playbackHistory.update(this.selectFilePath, getPlaybackTitle(this.selectFilePath),
       positionUs, durationUs);
@@ -485,8 +486,7 @@ export struct Player {
     this.playbackControlsTimer = setTimeout(() => {
       this.playbackControlsTimer = 0;
       if (this.isPlaybackToolsVisible || this.isQueueVisible || this.isMediaInfoVisible) {
-        // Keep the host controls mounted while a sheet is open; otherwise
-        // the sheet anchor would be destroyed and the sheet could close.
+        // 面板打开时保留承载控件，避免锚点销毁导致面板关闭。
         this.showPlaybackControls();
       } else if (this.playerSettings.autoHideControls && (this.isFullscreen || !this.buttonEnabled)) {
         this.isPlaybackControlsVisible = false;
@@ -812,14 +812,14 @@ export struct Player {
         if (isRotatedPortrait) {
           previewRotation = normalizedRotation;
         } else if (isNativePortrait) {
-          // Use the portrait layout even when the container omits rotation.
+          // 原生竖屏视频没有旋转信息时，仍按竖屏预览。
           previewRotation = 90;
         } else if (normalizedRotation === 180) {
           previewRotation = 180;
         }
         this.playbackViewModel.seekPreviewRotation = previewRotation;
       } catch (error) {
-        // Rotation is optional for preview rendering; keep the default 0°.
+        // 预览旋转信息缺失时按 0° 生成。
         Logger.info(TAG, 'Seek preview rotation unavailable: ' + JSON.stringify(error));
         this.playbackViewModel.seekPreviewRotation = 0;
       }
@@ -835,16 +835,12 @@ export struct Player {
         this.playbackViewModel.seekPreviewRotation === 270;
       const frame: PixelMap = await imageGenerator.fetchFrameByTime(targetUs,
         media.AVImageQueryOptions.AV_IMAGE_QUERY_CLOSEST_SYNC, {
-          // Request the thumbnail in its display orientation. The generator
-          // applies container rotation, but the requested dimensions still
-          // need to be exchanged for portrait video.
+          // 竖屏预览交换请求宽高，以匹配最终显示方向。
           width: isPortraitPreview ? SEEK_PREVIEW_HEIGHT : SEEK_PREVIEW_WIDTH,
           height: isPortraitPreview ? SEEK_PREVIEW_WIDTH : SEEK_PREVIEW_HEIGHT
         });
       fetchedFrame = frame;
-      // AVImageGenerator returns a frame with the container orientation
-      // applied. Do not rotate the PixelMap again: a second rotation would
-      // turn a rotation=90 portrait frame sideways.
+      // 生成器已应用旋转，不能再次旋转 PixelMap。
       if (!this.playbackViewModel.isSeeking || generation !== this.seekPreviewGeneration) {
         frame.release((error) => {
           if (error !== undefined) {
@@ -1005,10 +1001,7 @@ export struct Player {
 
   private startAbLoopMonitor(): void {
     this.stopAbLoopMonitor();
-    // Keep A-B checking independent from the UI refresh cadence.  Audio
-    // playback can advance between view-model updates, and a 250 ms poll can
-    // otherwise miss the B boundary when the stream has a large timestamp
-    // step or is being seeked.
+    // 每 50 ms 检查 A-B 点，避免界面刷新间隔越过 B 点。
     this.abLoopTimer = setInterval(() => {
       if (this.isAbLoopEnabled) {
         this.checkAbLoop(this.currentPlaybackPositionUs());
@@ -1030,22 +1023,16 @@ export struct Player {
     if (!this.isAbLoopEnabled || this.abLoopStartUs < 0 || this.abLoopEndUs <= this.abLoopStartUs) {
       return;
     }
-    // Use the native state as the source of truth.  The view model is
-    // refreshed periodically and can briefly lag behind the decoder after a
-    // seek, which used to suppress the loop exactly at the B point.
+    // A-B 循环以 Native 状态和时钟为准，避免 ViewModel 刷新延迟漏掉 B 点。
     const info = player.getPlaybackInfo();
     if (info.state !== player.PlayerState.PLAYING) {
       return;
     }
-    // Prefer the native clock over a possibly stale callback argument.
+    // 回调位置可能过期，使用 Native 时钟。
     positionUs = Math.max(0, Math.min(info.durationUs, info.positionUs));
     const toleranceUs = 150000;
     if (this.abLoopSeekPending) {
-      // Seek completion can report a frame slightly after A (especially when
-      // the demuxer seeks to a sync frame).  Treat any position back inside
-      // the configured interval as completion; requiring an exact A-point
-      // timestamp could leave the pending flag latched forever and disable
-      // subsequent loops.
+      // 跳转可能落在同步帧后，回到 A-B 区间即清除待跳转标记。
       if (positionUs + toleranceUs < this.abLoopEndUs) {
         this.abLoopSeekPending = false;
       }
@@ -1240,8 +1227,7 @@ export struct Player {
   }
 
   private startSelectedFilePlayback(selectedPath: string): void {
-    // Returning from the system picker can resize the XComponent in the same frame.  Let its
-    // Wait for the XComponent layout callback before native code creates its EGL or Vulkan output target.
+    // 等待 XComponent 布局稳定后再创建 Native 输出目标。
     setTimeout((): void => {
       if (this.selectFilePath === selectedPath) {
         this.play();
@@ -1313,7 +1299,7 @@ export struct Player {
     this.updatePlaybackInfo();
   }
 
-  setTransform(transformHint: number) {
+  setTransform(transformHint: number): void {
     if (this.rejectWhileSeeking()) {
       return;
     }
@@ -1365,8 +1351,7 @@ export struct Player {
       this.requestedSpeed = 1;
     }
     this.seekRequests.resetStatistics();
-    // A new playback task invalidates any delayed resume seek from the
-    // previous task, including when the new file has no saved position.
+    // 启动新任务前清除上个任务的断点跳转计时器。
     if (this.resumeSeekTimer !== 0) {
       clearTimeout(this.resumeSeekTimer);
       this.resumeSeekTimer = 0;
@@ -1467,8 +1452,7 @@ export struct Player {
             void this.continuePendingQueuePlayback();
             return;
           }
-          // stop() is an expected completion when changing the selected audio track.
-          // Do not report an expected user stop as a corrupt file.
+          // 切换音轨触发的 stop() 不视为播放失败。
           if (!result.success && result.reason !== 'stopped' && !failurePromptShown) {
             failurePromptShown = true;
             this.getUIContext().getPromptAction().showToast({
@@ -1487,8 +1471,7 @@ export struct Player {
             void this.playbackSessionController.stop();
           }
         });
-        // The callback owns the descriptor only after a successful start. If
-        // startup is rejected, the finally block closes it immediately.
+        // 启动成功后回调接管文件描述符；失败时由 finally 关闭。
         closeInCallback = started;
         if (!started) {
           this.buttonEnabled = true;
@@ -1512,8 +1495,7 @@ export struct Player {
           this.playbackViewModel.isSmartFluencyAvailable = player.isSmartFluencyAvailable();
           this.updateMediaInfo();
           this.startPlaybackInfoUpdates();
-          // Startup may spend several seconds configuring a decoder. Start the inactivity countdown only
-          // after playback is ready, so the controls stay visible for the full configured interval.
+          // 起播成功后才开始自动隐藏计时。
           this.showPlaybackControls();
           this.startPlaybackSession();
           const mediaDurationUs = this.currentMediaInfo?.durationUs ?? 0;
@@ -2707,15 +2689,15 @@ export struct Player {
         .height(Const.FULL_SIZE)
         .width(Const.FULL_SIZE)
         .onAreaChange((_: Area, newArea: Area): void => this.updatePlaybackWindowWidth(newArea))
-        // XComponent does not expose objectFit. Keep scaling in the native
-        // renderer and retain the selected display mode in the UI state.
+        // XComponent 不支持 objectFit，缩放由 Native 渲染器处理。
         .gesture(
           GestureGroup(GestureMode.Exclusive,
             TapGesture({ count: 2, fingers: 1 })
               .onAction((event: GestureEvent) => this.handlePlaybackWindowDoubleTap(event)),
             TapGesture({ count: 1, fingers: 1 })
               .onAction(() => this.handlePlaybackWindowTap()),
-            LongPressGesture({ repeat: true })// 长按动作存在会连续触发
+            // 长按使用 2 倍速，松开恢复 1 倍速。
+            LongPressGesture({ repeat: true })
               .onAction(() => {
                 this.showPlaybackControls();
                 if (!this.buttonEnabled && !this.isStopping && this.playbackViewModel.hasVideo) {
@@ -2724,7 +2706,7 @@ export struct Player {
                     $r('app.string.smart_fluency_x2') : $r('app.string.playback_speed_x2');
                   this.getUIContext().getPromptAction().showToast({ message: message });
                 }
-              })// 长按动作一结束触发
+              })
               .onActionEnd(() => {
                 if (!this.buttonEnabled && !this.isStopping && this.playbackViewModel.hasVideo) {
                   this.setPlaybackSpeed(1);
@@ -2805,9 +2787,7 @@ export struct Player {
     Column() {
       this.Window()
 
-      // Keep entry controls available before playback starts. During playback,
-      // the visibility state is shared by normal and fullscreen modes so the
-      // auto-hide preference applies consistently in both layouts.
+      // 普通和全屏共用控制条可见状态。
       if (this.buttonEnabled || this.isPlaybackControlsVisible ||
         !this.playerSettings.autoHideControls) {
       Column() {
@@ -2815,8 +2795,6 @@ export struct Player {
           this.PlaybackProgressPanel()
         }
         if (!this.buttonEnabled && !this.isStopping) {
-          // Keep the video area large: secondary actions are available
-          // from the More sheet, and fullscreen controls auto-hide after idle.
           Column({ space: '6vp' }) {
             Row({ space: '4vp' }) {
               Button($r('app.string.playback_rewind_15s'))
@@ -3163,8 +3141,7 @@ export struct Player {
     }
     .width($r('app.string.full_width'))
     .height($r('app.string.full_height'))
-    // Keep the black page background under the system navigation area so the
-    // startup layout cannot expose a white strip below the controls.
+    // 黑色背景延伸到导航区域，防止退出全屏时出现白边。
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
     .backgroundColor(Color.Black)
     .bindSheet($$this.isSubtitleSettingsVisible, this.SubtitleSettings(), {

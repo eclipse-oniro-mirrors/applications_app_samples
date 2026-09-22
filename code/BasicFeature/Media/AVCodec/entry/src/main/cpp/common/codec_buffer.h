@@ -25,27 +25,33 @@
 #include <multimedia/player_framework/native_avbuffer.h>
 
 struct CodecBufferInfo {
-    uint32_t bufferIndex = 0;
+    // 由 codec 分配和管理；应用只可在归还前使用，不能 delete 或跨回调长期保存。
     OH_AVBuffer *buffer = nullptr;
-    uint8_t *bufferAddr = nullptr;
+    // 与 buffer 成对出现，归还给 codec 时必须使用同一个索引。
+    uint32_t bufferIndex = 0;
+    // 入队时取得的属性快照。Buffer 归还后不得再通过 buffer 读取属性，应使用该快照记录 PTS、大小和标志位。
     OH_AVCodecBufferAttr attr = {0, 0, 0, AVCODEC_BUFFER_FLAGS_NONE};
-    bool isValid = true;
 
-    explicit CodecBufferInfo(uint8_t *addr) : bufferAddr(addr) {}
-    CodecBufferInfo(uint8_t *addr, int32_t bufferSize)
-        : bufferAddr(addr), attr({0, bufferSize, 0, AVCODEC_BUFFER_FLAGS_NONE}) {}
-    CodecBufferInfo(uint32_t argBufferIndex, OH_AVBuffer *argBuffer)
-        : bufferIndex(argBufferIndex), buffer(argBuffer)
+    CodecBufferInfo() = default;
+
+    CodecBufferInfo(uint32_t index, OH_AVBuffer *avBuffer)
+        : buffer(avBuffer), bufferIndex(index)
     {
-        OH_AVBuffer_GetBufferAttr(argBuffer, &attr);
+        // 回调交付 Buffer 后，属性可能会在归还给 codec 后被下一帧复用；因此在入队前立即复制属性。
+        if (buffer != nullptr) {
+            (void)OH_AVBuffer_GetBufferAttr(buffer, &attr);
+        }
     }
 };
 
+// 编解码回调与工作线程之间的 Buffer 描述队列。队列不延长 OH_AVBuffer 的使用期限，
+// 仅负责在停止、Seek 等状态切换时取消等待并丢弃尚未消费的描述对象。
 class CodecBufferQueue {
 public:
     void Enqueue(const std::shared_ptr<CodecBufferInfo> bufferInfo)
     {
         std::unique_lock<std::mutex> lock(mutex_);
+        // 队列只共享描述对象，不取得 OH_AVBuffer 的所有权。消费者必须按所属编解码器归还 bufferIndex。
         bufferQueue_.push(bufferInfo);
         cond_.notify_all();
     }
@@ -55,6 +61,7 @@ public:
         std::unique_lock<std::mutex> lock(mutex_);
         (void)cond_.wait_for(lock, std::chrono::milliseconds(timeoutMs),
             [this]() { return cancelled_ || !bufferQueue_.empty(); });
+        // 返回空既可能是超时，也可能是 CancelWait 发出的退出通知；调用方应结合所属流水线的运行状态决定后续动作。
         if (cancelled_ || bufferQueue_.empty()) {
             return nullptr;
         }
@@ -66,9 +73,9 @@ public:
     void Flush()
     {
         std::unique_lock<std::mutex> lock(mutex_);
+        // 这里只丢弃尚未被工作线程取走的描述对象，不直接归还 Buffer。
+        // 调用方需先与 codec 的 Flush/Stop 及工作线程完成同步，避免在其他线程仍访问 Buffer 时清空队列。
         while (!bufferQueue_.empty()) {
-            std::shared_ptr<CodecBufferInfo> bufferInfo = bufferQueue_.front();
-            bufferInfo->isValid = false;
             bufferQueue_.pop();
         }
     }
@@ -76,18 +83,17 @@ public:
     void CancelWait()
     {
         std::unique_lock<std::mutex> lock(mutex_);
+        // 取消状态会一直保持到 Reset，确保 Stop/Seek 后新旧工作线程都不会继续消费旧队列。
         cancelled_ = true;
         cond_.notify_all();
     }
 
-    // CancelWait is used to wake workers during stop/seek. A codec context
-    // can be reused for an in-place audio-track switch, so the queue must be
-    // explicitly reopened before the replacement workers are started.
+    // Stop 或 Seek 时通过 CancelWait 唤醒等待中的工作线程。原位切换音轨会复用 codec 上下文，
+    // 因而在替换工作线程启动前必须显式重新打开队列，避免新线程立即因已取消而退出。
     void Reset()
     {
         std::unique_lock<std::mutex> lock(mutex_);
         while (!bufferQueue_.empty()) {
-            bufferQueue_.front()->isValid = false;
             bufferQueue_.pop();
         }
         cancelled_ = false;

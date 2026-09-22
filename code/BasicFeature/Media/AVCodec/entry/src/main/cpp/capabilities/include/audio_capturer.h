@@ -27,11 +27,15 @@ public:
     AudioCapturer() = default;
     ~AudioCapturer();
 
+    // 根据录制参数创建采集器，并把采集回调写入 audioEncContext 的缓存队列。
+    // 回调上下文 audioEncContext 必须在 AudioCapturerRelease 前保持有效。
     void AudioCapturerInit(SampleInfo& sampleInfo, CodecUserData *audioEncContext);
     void AudioCapturerStart();
+    // 先停止并释放采集器，再销毁构建器；销毁后不会再触发采集回调。
     void AudioCapturerRelease();
 
 private:
+    // 两个句柄遵循“先释放采集器、后销毁构建器”的生命周期顺序。
     OH_AudioCapturer *audioCapturer_ = nullptr;
     OH_AudioStreamBuilder *builder_ = nullptr;
 };

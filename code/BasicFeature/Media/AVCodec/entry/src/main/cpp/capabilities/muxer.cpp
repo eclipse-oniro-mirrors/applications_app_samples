@@ -40,6 +40,7 @@ int32_t Muxer::Config(SampleInfo &sampleInfo)
 {
     CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
 
+    // 添加轨道不会接管格式对象；当前函数负责销毁对应的 OH_AVFormat。
     OH_AVFormat *formatAudio = OH_AVFormat_CreateAudioFormat(sampleInfo.audio.audioCodecMime.data(),
         sampleInfo.audio.audioSampleRate, sampleInfo.audio.audioChannelCount);
     CHECK_AND_RETURN_RET_LOG(formatAudio != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create audio format failed");
@@ -68,9 +69,9 @@ int32_t Muxer::Config(SampleInfo &sampleInfo)
     ret = OH_AVMuxer_AddTrack(muxer_, &videoTrackId_, formatVideo);
     OH_AVFormat_Destroy(formatVideo);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "AddTrack failed");
-    // FLV不支持旋转元数据
-    if (outputFormat_ != 14) { // 14 is FLV
-        // 由于相机只有1920×1080的profile，没有1080×1920的profile，所以得往文件里封装一个90度的角度信息，后续播放才会是竖屏显示。
+    // FLV 格式不支持旋转元数据。
+    if (outputFormat_ != 14) { // 14 表示 FLV
+        // 相机仅提供 1920×1080 Profile，没有 1080×1920 Profile，因此在容器中写入 90 度旋转信息以实现竖屏显示。
         OH_AVMuxer_SetRotation(muxer_, VERTICAL_ANGLE);
     }
     return AVCODEC_SAMPLE_ERR_OK;
@@ -87,6 +88,7 @@ int32_t Muxer::Start()
 
 int32_t Muxer::WriteSample(int32_t trackId, OH_AVBuffer *buffer, OH_AVCodecBufferAttr &attr)
 {
+    // 音视频编码输出可能由不同线程到达；整个“更新属性并写入容器”过程需要保持原子性。
     std::lock_guard<std::mutex> lock(writeMutex_);
 
     CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
@@ -97,6 +99,7 @@ int32_t Muxer::WriteSample(int32_t trackId, OH_AVBuffer *buffer, OH_AVCodecBuffe
 
     ret = OH_AVMuxer_WriteSampleBuffer(muxer_, trackId, buffer);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Write sample failed");
+    // Muxer 不接管编码器输出 Buffer；调用方仍需使用原 bufferIndex 将它归还给编码器。
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
@@ -112,6 +115,7 @@ int32_t Muxer::Stop()
 int32_t Muxer::Release()
 {
     if (muxer_ != nullptr) {
+        // Destroy 只释放封装器资源，不关闭 Create() 时由业务侧传入的文件描述符。
         OH_AVMuxer_Destroy(muxer_);
         muxer_ = nullptr;
     }

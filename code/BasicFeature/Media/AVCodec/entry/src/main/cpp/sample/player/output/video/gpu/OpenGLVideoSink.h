@@ -17,6 +17,7 @@
 
 #include "../sink/BufferVideoSink.h"
 #include "native_image/native_image.h"
+#include "plugin_manager.h"
 
 class OpenGLVideoSink final : public VideoSink {
 public:
@@ -85,6 +86,10 @@ private:
     GLint externalTexCoordLocation_ = -1;
     int32_t textureWidth_ = 0;
     int32_t textureHeight_ = 0;
+    // EGL 窗口 Surface 在销毁前会持续访问 XComponent NativeWindow，不能仅保存借用地址。
+    NativeXComponentSample::PluginManager::PluginWindowLease outputWindowLease_;
+    // HDR 直连模式由 decoder 使用 XComponent Surface；引用需保留到 codec 销毁后 sink 才能释放。
+    NativeXComponentSample::PluginManager::PluginWindowLease directSurfaceWindowLease_;
     OHNativeWindow *window_ = nullptr;
     uint64_t windowGeneration_ = 0;
     int32_t width_ = 0;
@@ -92,9 +97,8 @@ private:
     int32_t frameWidth_ = 0;
     int32_t frameHeight_ = 0;
     bool fallbackOnly_ = false;
-    // HDR Vivid and other 10-bit streams use the decoder's XComponent Surface directly.  An
-    // external OpenGL texture does not expose the per-frame HDR metadata required to compose
-    // HDR Vivid faithfully.
+    // HDR Vivid 等 10-bit 码流直接使用解码器的 XComponent Surface。外部 OpenGL 纹理无法提供
+    // 保真合成 HDR Vivid 所需的逐帧 HDR 元数据。
     bool directSurfaceFallback_ = false;
     bool surfaceDecoderReady_ = false;
     OH_NativeImage *nativeImage_ = nullptr;

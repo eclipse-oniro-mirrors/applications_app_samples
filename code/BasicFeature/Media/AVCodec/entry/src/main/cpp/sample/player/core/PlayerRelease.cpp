@@ -36,8 +36,7 @@ void Player::ReleaseWorker()
 {
     AVCODEC_SAMPLE_LOGI("Release worker started");
     std::unique_lock<std::mutex> lock(doneMutex);
-    // Callback errors can stop only one pipeline. A bounded wait also observes
-    // worker failures that do not send a completion notification.
+    // 回调错误可能只停止一条流水线；有界等待可检查未发完成通知的线程失败。
     while (!playbackFailed_.load() && !(isAudioDone.load() && isVideoDone.load())) {
         doneCond_.wait_for(lock, FAILURE_CHECK_INTERVAL);
     }
@@ -74,10 +73,16 @@ void Player::JoinWorkerThreads()
 
 void Player::ReleaseVideoDecoder()
 {
+    OHNativeWindow *decoderWindow = decoderWindowLease_.GetWindow();
     if (videoDecoder_ != nullptr) {
         videoDecoder_->Release();
         videoDecoder_.reset();
     }
+    if (sampleInfo_.video.window == decoderWindow) {
+        sampleInfo_.video.window = nullptr;
+    }
+    // OH_VideoDecoder_Destroy() 完成后，codec 不再访问输出 Surface，才能解除窗口引用。
+    decoderWindowLease_ = {};
     if (videoDecContext_ != nullptr) {
         std::unique_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
         videoDecContext_->ClearQueue();
@@ -141,14 +146,15 @@ void Player::ReleasePlaybackResources()
         demuxer_->Release();
         demuxer_.reset();
     }
-    // Each sink owns presentation resources associated with the current decoder and XComponent.
-    // Releasing every sink prevents a later Surface decoder from inheriting a GPU swapchain state.
+    // 先销毁 codec。OpenGL 的 NativeImage 和直连 XComponent Surface 仍是其输出端，
+    // 必须等 codec 完全释放后才能拆除 sink。
+    ReleaseVideoDecoder();
+    // 每个 sink 持有当前解码器和 XComponent 的送显资源。全部释放后再创建新的 Surface 解码器。
     if (videoSink_ != nullptr) {
         videoSink_->Reset();
         videoSink_.reset();
         videoSinkRunMode_ = -1;
     }
-    ReleaseVideoDecoder();
     ReleaseAudioDecoder();
     outputFile_ = nullptr;
     if (builder_ != nullptr) {

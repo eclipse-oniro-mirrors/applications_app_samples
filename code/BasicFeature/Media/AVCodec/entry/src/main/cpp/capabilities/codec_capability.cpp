@@ -106,7 +106,7 @@ bool ValidateVideoEncoderParameters(OH_AVCapability *capability, const VideoSamp
     }
     return true;
 }
-} // namespace
+} // 匿名命名空间
 
 namespace CodecCapability {
 OH_AVCapability *GetCapability(const std::string &mime, bool isEncoder, int32_t codecType)
@@ -126,6 +126,7 @@ OH_AVCapability *GetCapability(const std::string &mime, bool isEncoder, int32_t 
 
 bool ValidateVideoConfiguration(const SampleInfo &sampleInfo, bool isEncoder)
 {
+    // 能力对象由 codec 服务管理，仅在本次校验中读取，不能由应用释放。
     OH_AVCapability *capability = GetCapability(sampleInfo.video.videoCodecMime, isEncoder, sampleInfo.codec.codecType);
     if (capability == nullptr) {
         AVCODEC_SAMPLE_LOGE("No %{public}s capability for mime: %{public}s, codec type: %{public}d",
@@ -178,9 +179,8 @@ bool ValidateAudioConfiguration(const SampleInfo &sampleInfo, bool isEncoder)
     OH_AVErrCode ret = OH_AVCapability_GetAudioSupportedSampleRates(capability, &sampleRates, &sampleRateCount);
     if (ret != AV_ERR_OK) {
         AVCODEC_SAMPLE_LOGW("Query supported audio sample rates failed, ret: %{public}d", ret);
-        // Some decoder capabilities do not expose a complete sample-rate
-        // list (notably container codecs such as Vorbis). Let the decoder's
-        // Configure call perform the authoritative validation.
+        // 部分解码器能力（尤其是 Vorbis 等容器型编解码器）不会提供完整采样率列表。
+        // 解码流程以 Configure 的结果为准，能力表不完整时不在此处拒绝。
         return !isEncoder;
     }
     if (!ContainsValue(sampleRates, sampleRateCount, sampleInfo.audio.audioSampleRate)) {
@@ -211,4 +211,4 @@ bool ValidateAudioConfiguration(const SampleInfo &sampleInfo, bool isEncoder)
     return true;
 }
 
-} // namespace CodecCapability
+} // 命名空间 CodecCapability
