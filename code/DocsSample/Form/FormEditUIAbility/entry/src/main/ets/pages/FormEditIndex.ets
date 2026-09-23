@@ -36,7 +36,7 @@ struct FormEditIndex {
     if (!formId) {
       return;
     }
-    console.info(TAG, `doy: formId: ${formId}, message: ${message}`)
+    console.info(TAG, `formId: ${formId}, message: ${message}`)
     let param: Record<string, string> = {
       'message': message
     }
