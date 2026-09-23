@@ -163,7 +163,7 @@ struct Index {
           }
         }
       } else {
-        console.error(`getTrackDescription fail, error:${error}`);
+        console.error(`getTrackDescription failed, error:${error}`);
       }
     });
     * */
@@ -290,7 +290,7 @@ struct Index {
         case 'prepared': // prepare调用成功后上报该状态机
           console.info(`${this.tag}: setAVPlayerCallback AVPlayer state prepared called.`);
           this.avPlayer.on('bufferingUpdate', (infoType: media.BufferingInfoType, value: number) => {
-            console.info(`${this.tag}: bufferingUpdate called, infoType value: ${infoType}, value:${value}}`);
+            console.info(`${this.tag}: bufferingUpdate called, infoType value: ${infoType}, value:${value}`);
           })
           this.durationTime = this.avPlayer.duration;
           this.currentTime = this.avPlayer.currentTime;
