@@ -31,7 +31,7 @@ extern "C" {
 #endif
 
 #define CD_PKG_NAME         "com.sample.tool"
-#define CD_CAPABILITY       "ddmpCapability"
+#define CD_CAPABILITY       "osdCapability"
 #define CD_PUBLISH_ID       1001
 #define CD_SUBSCRIBE_ID     2001
 #define CD_DEFAULT_PAYLOAD  "dsoftbus_custdata_sample_0123456789abcdef"
