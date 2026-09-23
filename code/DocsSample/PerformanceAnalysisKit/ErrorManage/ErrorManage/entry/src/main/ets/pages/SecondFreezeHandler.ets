@@ -15,16 +15,19 @@
 
 // [Start second_freeze_handler]
 import { errorManager } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+
+const DOMAIN = 0x0000;
 
 let secondHandler: errorManager.FreezeObserver = () => {};
 const secondFreezeHandler: errorManager.FreezeObserver = () => {
     // 自定义的第二个SecondHandler实现逻辑
-    console.info('[SecondHandler] Second freeze handler invoked.');
+    hilog.info(DOMAIN, 'testErrorManage', '%{public}s', '[SecondHandler] Second freeze handler invoked.');
     if (secondHandler) {
         secondHandler();
     } else {
-        console.info('[SecondHandler] Second freeze handler end.');
+        hilog.info(DOMAIN, 'testErrorManage', '%{public}s', '[SecondHandler] Second freeze handler end.');
     }
 };
 
@@ -34,8 +37,8 @@ export function setSecondFreezeHandler() {
     } catch (paramError) {
         let code = (paramError as BusinessError).code;
         let message = (paramError as BusinessError).message;
-        console.error('setSecondFreezeHandler',`error: ${code}, ${message}`);
+        hilog.error(DOMAIN, 'testErrorManage', 'error: %{public}s, %{public}s', `${code}`, `${message}`);
     }
-    console.info('Registered Second freeze Handler.');
+    hilog.info(DOMAIN, 'testErrorManage', '%{public}s', 'Registered Second freeze Handler.');
 }
 // [End second_freeze_handler]
