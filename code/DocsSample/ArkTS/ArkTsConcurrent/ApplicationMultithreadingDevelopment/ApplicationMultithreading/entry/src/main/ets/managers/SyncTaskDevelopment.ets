@@ -40,6 +40,9 @@ async function mainFunc(): Promise<void> {
   console.info(`taskpool: task res2 is: ${res2}`);
 }
 
+const MSG_SET = 0;
+const MSG_GET = 1;
+
 // [EndExclude worker_handle_associated_sync_task]
 @Entry
 @Component
@@ -67,9 +70,9 @@ struct Index {
               }
             }
             // 向Worker子线程发送Set消息
-            w.postMessage({'type': 0, 'data': 10});
+            w.postMessage({'type': MSG_SET, 'data': 10});
             // 向Worker子线程发送Get消息
-            w.postMessage({'type': 1});
+            w.postMessage({'type': MSG_GET});
             // [EndExclude taskpool_handle_sync_task]
           })
       }
