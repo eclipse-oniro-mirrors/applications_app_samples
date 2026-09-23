@@ -1405,7 +1405,7 @@ void OnExternalLogCapacityReached(OH_HiAppEvent_ExternalLog* externalLogArr, uin
     }
 }
 
-// 注册external log日志管理者
+// 注册external_log日志管理者
 static napi_value RegisterExternalLogMgr(napi_env env, napi_callback_info info)
 {
     int ret = OH_HiAppEvent_RegExternalLogCapacityReachedCallback(OnExternalLogCapacityReached);
