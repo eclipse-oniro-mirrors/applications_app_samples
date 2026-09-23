@@ -141,7 +141,7 @@ napi_value GetImageProperty(napi_env env, napi_callback_info info)
         OH_LOG_ERROR(LOG_APP, "GetImageProperty napi_get_cb_info failed!");
         return GetJsResult(env, IMAGE_BAD_PARAMETER);
     }
-    // 修改指定属性键的值。
+    // 获取指定属性键的值。
     char key[MAX_STRING_LENGTH] = {0};
     size_t keySize = 0;
     if (napi_get_value_string_utf8(env, argValue[0], key, sizeof(key), &keySize) != napi_ok) {
