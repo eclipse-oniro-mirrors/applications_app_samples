@@ -31,32 +31,38 @@ const BUFFER: number = 1024; // 读写文件的缓冲区
 // [EndExclude session_backup]
 // [EndExclude session_restore]
 
-// 此处仅为示例，在组件中可以通过getHostContext获取路径
-let filesDir = '/data/storage/el2/base/haps/entry/files';
+// filesDir 由调用方通过 UIAbilityContext.filesDir 获取并传入。
 
 // [StartExclude session_backup]
 // [StartExclude session_restore]
 // 获取能力文件
-export async function getLocalCapabilities(): Promise<void> {
+export async function getLocalCapabilities(filesDir: string): Promise<void> {
   try {
     let fileData = await backup.getLocalCapabilities();
     console.info('getLocalCapabilities success');
     let fpath = filesDir + '/localCapabilities.json';
-    fileIo.copyFileSync(fileData.fd, fpath);
+    try {
+      fileIo.copyFileSync(fileData.fd, fpath);
+    } finally {
+      fileIo.closeSync(fileData.fd);
+    }
     // [StartExclude get_local_cap_ability]
     let file = fileIo.openSync(fpath, fileIo.OpenMode.READ_WRITE);
-    // 从文件中读取一段内容
-    let arrayBuffer = new ArrayBuffer(BUFFER);
-    let readOptions: ReadOptions = {
-      offset: 0, // 从文件的开头开始读取
-      length: arrayBuffer.byteLength
-    };
-    let readLen = fileIo.readSync(file.fd, arrayBuffer, readOptions);
-    // 这个 buf 对象是 arrayBuffer 中从位置 0 开始的前 readLen 字节
-    let buf = buffer.from(arrayBuffer, 0, readLen);
-    console.info('the content of file: ' + buf.toString());
+    try {
+      // 从文件中读取一段内容
+      let arrayBuffer = new ArrayBuffer(BUFFER);
+      let readOptions: ReadOptions = {
+        offset: 0, // 从文件的开头开始读取
+        length: arrayBuffer.byteLength
+      };
+      let readLen = fileIo.readSync(file.fd, arrayBuffer, readOptions);
+      // 这个 buf 对象是 arrayBuffer 中从位置 0 开始的前 readLen 字节
+      let buf = buffer.from(arrayBuffer, 0, readLen);
+      console.info('the content of file: ' + buf.toString());
+    } finally {
+      fileIo.closeSync(file.fd);
+    }
     // [EndExclude get_local_cap_ability]
-    fileIo.closeSync(fileData.fd);
   } catch (error) {
     console.error(`getLocalCapabilities failed with err, code is ${error.code}, message is ${error.message}`);
   }
@@ -68,7 +74,7 @@ export async function getLocalCapabilities(): Promise<void> {
 // 创建SessionBackup类的实例用于备份数据
 let gSession: backup.SessionBackup;
 
-function createSessionBackup(): backup.SessionBackup {
+function createSessionBackup(filesDir: string): backup.SessionBackup {
   let generalCallbacks: backup.GeneralCallbacks = {
     // onFileReady为服务回调给应用侧数据完成的通知，建议开发者在该接口内不要进行过多的耗时实现，可以通过异步线程实现file.fd数据的处理
     onFileReady: (err: BusinessError, file: backup.File) => {
@@ -137,8 +143,8 @@ export async function release() {
   }
 }
 // [EndExclude session_backup]
-export async function sessionBackup(): Promise<void> {
-  gSession = createSessionBackup();
+export async function sessionBackup(filesDir: string): Promise<void> {
+  gSession = createSessionBackup(filesDir);
   // 此处可根据backup.getLocalCapabilities()提供的能力文件，选择需要备份的应用
   // 也可直接根据应用包名称进行备份
   const backupApps: string[] = [
@@ -168,7 +174,7 @@ async function publishFile(file: backup.File): Promise<void> {
   await gSessionRestore.publishFile(fileMeta);
 }
 
-function createSessionRestore(): backup.SessionRestore {
+function createSessionRestore(filesDir: string): backup.SessionRestore {
   let generalCallbacks: backup.GeneralCallbacks = {
     onFileReady: (err: BusinessError, file: backup.File) => {
       if (err) {
@@ -225,8 +231,8 @@ function createSessionRestore(): backup.SessionRestore {
   return sessionRestore;
 }
 
-export async function sessionRestore(): Promise<void> {
-  gSessionRestore = createSessionRestore();
+export async function sessionRestore(filesDir: string): Promise<void> {
+  gSessionRestore = createSessionRestore(filesDir);
   const restoreApps: string[] = [
     'com.samples.filebackupextension'
   ];
