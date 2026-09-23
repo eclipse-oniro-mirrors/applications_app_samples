@@ -36,6 +36,7 @@ import {
   TOLERANCE_COMPONENT_COUNT,
   getCurrentFocusIndex
 } from '../Shared/SharedDriver';
+import hilog from '@ohos.hilog';
 
 // 触摸事件接口：模拟TV设备触摸操作的坐标数
 interface TouchEvent {
@@ -621,7 +622,7 @@ export default function eventHandlingTest() {
 
       // 使用组件计数验证对话框功能正常，替代焦点验证
       const componentCount = await powerDialogComponentCount(driver);
-      console.log('EventHandling test: Component count after response time test:', componentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `EventHandling test: Component count after response time test: ${componentCount}`);
       expect(componentCount).assertLargerOrEqual(1);
     });
 
@@ -640,7 +641,7 @@ export default function eventHandlingTest() {
 
       // 使用组件计数验证对话框功能正常，替代焦点验证
       const componentCount = await powerDialogComponentCount(driver);
-      console.log('EventHandling test: Component count after concurrent events:', componentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `EventHandling test: Component count after concurrent events: ${componentCount}`);
       expect(componentCount).assertLargerOrEqual(1);
     });
 

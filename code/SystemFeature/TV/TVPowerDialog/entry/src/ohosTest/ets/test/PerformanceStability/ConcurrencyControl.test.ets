@@ -28,6 +28,7 @@ import {
   TIMEOUT_DIALOG_RENDER,
   DELAY_KEY_NAVIGATION
 } from '../Shared/SharedDriver';
+import hilog from '@ohos.hilog';
 
 export default function concurrencyControlTest() {
   describe('ConcurrencyControl_Test', () => {
@@ -127,7 +128,7 @@ export default function concurrencyControlTest() {
         try {
           await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
         } catch (e) {
-          console.error('concurrent_operations_should_handle_error_recovery error:', e);
+          hilog.error(0x0000, 'testTag', '%{public}s', `concurrent_operations_should_handle_error_recovery error: ${e}`);
         }
         await serializedDelay(driver, 50);
       }

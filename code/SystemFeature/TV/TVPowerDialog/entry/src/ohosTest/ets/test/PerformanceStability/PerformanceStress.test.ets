@@ -30,6 +30,7 @@ import {
   TOLERANCE_COMPONENT_COUNT,
   serializedDelay
 } from '../Shared/SharedDriver';
+import hilog from '@ohos.hilog';
 
 // 性能指标统计结构体：用于量化分析对话框的响应性能
 interface MetricStats {
@@ -402,10 +403,10 @@ export default function performanceStressTest() {
       const focusStats = perfMonitor.getMetricStats('focus_switch');
       const operationStats = perfMonitor.getMetricStats('power_operation');
 
-      console.log('性能压力测试统计信息：');
-      console.log(`对话框渲染 - 平均耗时: ${renderStats.avg.toFixed(2)}ms, 最大耗时: ${renderStats.max.toFixed(2)}ms`);
-      console.log(`焦点切换 - 平均耗时: ${focusStats.avg.toFixed(2)}ms, 最大耗时: ${focusStats.max.toFixed(2)}ms`);
-      console.log(`电源操作 - 平均耗时: ${operationStats.avg.toFixed(2)}ms, 最大耗时: ${operationStats.max.toFixed(2)}ms`);
+      hilog.info(0x0000, 'testTag', '%{public}s', `Performance stress test statistics:`);
+      hilog.info(0x0000, 'testTag', '%{public}s', `Dialog rendering - avg: ${renderStats.avg.toFixed(2)}ms, max: ${renderStats.max.toFixed(2)}ms`);
+      hilog.info(0x0000, 'testTag', '%{public}s', `Focus switch - avg: ${focusStats.avg.toFixed(2)}ms, max: ${focusStats.max.toFixed(2)}ms`);
+      hilog.info(0x0000, 'testTag', '%{public}s', `Power operation - avg: ${operationStats.avg.toFixed(2)}ms, max: ${operationStats.max.toFixed(2)}ms`);
     });
 
     it('dialog_rendering_performance_should_meet_requirements', 0, async () => { // 验证对话框渲染性能满足TV设备流畅度要求，确保用户感知不到明显延迟
@@ -489,7 +490,7 @@ export default function performanceStressTest() {
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
 
       const finalComponentCount = await powerDialogComponentCount(driver);
-      console.log('PerformanceStress test: Final component count after memory operations:', finalComponentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `PerformanceStress test: Final component count after memory operations: ${finalComponentCount}`);
       expect(finalComponentCount).assertLargerOrEqual(1);
 
       // 使用组件计数验证对话框功能正常，替代焦点验证
@@ -501,7 +502,7 @@ export default function performanceStressTest() {
 
       // 验证串行化操作不会导致状态混乱，确保异步操作的正确性
       const initialCount = await powerDialogComponentCount(driver);
-      console.log('PerformanceStress test: Initial component count for concurrent operations:', initialCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `PerformanceStress test: Initial component count for concurrent operations: ${initialCount}`);
 
       // 使用串行化执行避免UITest API并发调用错误
       for (let i = 0; i < 5; i++) { // 减少迭代次数避免并发问题
@@ -512,7 +513,7 @@ export default function performanceStressTest() {
         }
       }
       const finalCount = await powerDialogComponentCount(driver);
-      console.log('PerformanceStress test: Final component count after concurrent operations:', finalCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `PerformanceStress test: Final component count after concurrent operations: ${finalCount}`);
       expect(Math.abs(finalCount - initialCount)).assertLessOrEqual(TOLERANCE_COMPONENT_COUNT);
 
       // 使用组件计数验证对话框功能正常，替代焦点验证
@@ -528,7 +529,7 @@ export default function performanceStressTest() {
         await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION); // 使用pressAndWait替代triggerKey避免并发
       }
       const componentCount = await powerDialogComponentCount(driver);
-      console.log('PerformanceStress test: Component count after extreme operations:', componentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `PerformanceStress test: Component count after extreme operations: ${componentCount}`);
       expect(componentCount).assertLargerOrEqual(1);
 
       // 使用组件计数验证对话框功能正常，替代焦点验证
@@ -584,11 +585,11 @@ export default function performanceStressTest() {
 
       const benchmarkEnd: number = Date.now();
       const totalTime: number = benchmarkEnd - benchmarkStart;
-      console.log('PerformanceStress test: Benchmark completed in', totalTime, 'ms');
+      hilog.info(0x0000, 'testTag', '%{public}s', `PerformanceStress test: Benchmark completed in ${totalTime} ms`);
       expect(totalTime).assertLessOrEqual(20000); // 放宽阈值以覆盖低性能TV设备上的稳定等待耗时
 
       const componentCount = await powerDialogComponentCount(driver);
-      console.log('PerformanceStress test: Component count after benchmark:', componentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `PerformanceStress test: Component count after benchmark: ${componentCount}`);
       expect(componentCount).assertLargerOrEqual(1);
     });
   });

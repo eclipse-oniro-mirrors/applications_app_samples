@@ -31,6 +31,7 @@ import {
   powerDialogComponentCount,
   TOLERANCE_COMPONENT_COUNT
 } from '../Shared/SharedDriver';
+import hilog from '@ohos.hilog';
 
 // 关闭对话框的辅助函数：确保测试环境干净
 async function closeDialogIfExists(drv: Driver): Promise<void> {
@@ -194,7 +195,7 @@ export default function comprehensiveRegressionTest() {
         await driver.delayMs(500);
       });
 
-      console.log('beforeAll: Test environment initialized successfully');
+      hilog.info(0x0000, 'testTag', '%{public}s', `beforeAll: Test environment initialized successfully`);
     });
 
     afterAll(async () => { // 关闭对话框
@@ -202,7 +203,7 @@ export default function comprehensiveRegressionTest() {
       await runSerializedUiOperation(async () => {
         await driver.delayMs(300);
       });
-      console.log(regressionRecorder.generateRegressionReport());
+      hilog.info(0x0000, 'testTag', '%{public}s', `${regressionRecorder.generateRegressionReport()}`);
     });
 
     // 测试1：基础功能回归 - 验证对话框渲染、文本内容正常（焦点索引查询在部分TV设备不可靠，改用真实渲染/文本状态）

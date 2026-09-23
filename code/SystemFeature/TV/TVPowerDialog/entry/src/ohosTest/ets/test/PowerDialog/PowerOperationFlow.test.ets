@@ -31,6 +31,7 @@ import {
   DELAY_AFTER_POWER_OP,
   serializedDelay
 } from '../Shared/SharedDriver';
+import hilog from '@ohos.hilog';
 
 enum PowerOperationType {
   SUSPEND = 'suspend', SHUTDOWN = 'shutdown', REBOOT = 'reboot'
@@ -611,14 +612,14 @@ export default function powerOperationFlowTest() {
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION); // 使用组件计数验证对话框功能正常，替代焦点验证
       let componentCount = await powerDialogComponentCount(driver);
-      console.log('PowerOperationFlow test: Component count after LEFT key:', componentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `PowerOperationFlow test: Component count after LEFT key: ${componentCount}`);
       expect(componentCount).assertLargerOrEqual(1);
       operationTracker.recordOperation(PowerOperationType.SUSPEND, 0, true, 100);
 
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_RIGHT, 2, DELAY_KEY_NAVIGATION); // 使用组件计数验证对话框功能正常，替代焦点验证
       componentCount = await powerDialogComponentCount(driver);
-      console.log('PowerOperationFlow test: Component count after RIGHT key:', componentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `PowerOperationFlow test: Component count after RIGHT key: ${componentCount}`);
       expect(componentCount).assertLargerOrEqual(1);
       operationTracker.recordOperation(PowerOperationType.REBOOT, 2, true, 100);
     });

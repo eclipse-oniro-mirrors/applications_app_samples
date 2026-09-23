@@ -16,6 +16,7 @@
 import { Driver, ON, Component, DisplayRotation } from '@ohos.UiTest';
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import Want from '@ohos.app.ability.Want';
+import hilog from '@ohos.hilog';
 
 let _driver: Driver | null = null;
 let _uiOperationQueue: Promise<void> = Promise.resolve();
@@ -145,20 +146,20 @@ export async function powerDialogComponentCount(driver: Driver): Promise<number>
       const count = allComponents ? allComponents.length : 0;
 
       // 详细调试信息
-      console.log('powerDialogComponentCount:');
-      console.log('  - Found', count, 'components using ON.type(\"*\")');
+      hilog.info(0x0000, 'testTag', '%{public}s', `powerDialogComponentCount:`);
+      hilog.info(0x0000, 'testTag', '%{public}s', `  - Found ${count} components using ON.type(\"*\")`);
 
       if (count === 0) { // 如果找不到组件，尝试其他查找策略
-        console.log('  - Trying alternative component search strategies...');
+        hilog.info(0x0000, 'testTag', '%{public}s', `  - Trying alternative component search strategies...`);
 
         // 尝试查找特定类型的组件
         const textComponents = await driver.findComponents(ON.type('Text'));
         const imageComponents = await driver.findComponents(ON.type('Image'));
         const buttonComponents = await driver.findComponents(ON.type('Button'));
 
-        console.log('  - Text components:', textComponents ? textComponents.length : 0);
-        console.log('  - Image components:', imageComponents ? imageComponents.length : 0);
-        console.log('  - Button components:', buttonComponents ? buttonComponents.length : 0);
+        hilog.info(0x0000, 'testTag', '%{public}s', `  - Text components: ${textComponents ? textComponents.length : 0}`);
+        hilog.info(0x0000, 'testTag', '%{public}s', `  - Image components: ${imageComponents ? imageComponents.length : 0}`);
+        hilog.info(0x0000, 'testTag', '%{public}s', `  - Button components: ${buttonComponents ? buttonComponents.length : 0}`);
 
         // 返回最大的组件数量
         const maxCount =
@@ -166,7 +167,7 @@ export async function powerDialogComponentCount(driver: Driver): Promise<number>
             buttonComponents ? buttonComponents.length : 0);
 
         if (maxCount > 0) {
-          console.log('  - Using alternative count:', maxCount);
+          hilog.info(0x0000, 'testTag', '%{public}s', `  - Using alternative count: ${maxCount}`);
           return maxCount;
         }
       }
@@ -174,7 +175,7 @@ export async function powerDialogComponentCount(driver: Driver): Promise<number>
       return count;
     });
   } catch (error) {
-    console.error('powerDialogComponentCount error:', error);
+    hilog.error(0x0000, 'testTag', '%{public}s', `powerDialogComponentCount error: ${error}`);
     return 0;
   }
 }
@@ -208,13 +209,13 @@ export async function checkFocusState(driver: Driver, expectedFocusedIndex: numb
               }
             }
           }
-          console.log('checkFocusState: Focus existence check - hasFocus:', hasFocus, 'attempt:', attempt);
+          hilog.info(0x0000, 'testTag', '%{public}s', `checkFocusState: Focus existence check - hasFocus: ${hasFocus} attempt: ${attempt}`);
           return hasFocus;
         }
 
         // 如果没有组件或组件数量不足，返回false
         if (allComponents.length === 0 || expectedFocusedIndex >= allComponents.length) {
-          console.log('checkFocusState: Invalid component count or index, attempt:', attempt);
+          hilog.info(0x0000, 'testTag', '%{public}s', `checkFocusState: Invalid component count or index, attempt: ${attempt}`);
           return false;
         }
 
@@ -222,11 +223,10 @@ export async function checkFocusState(driver: Driver, expectedFocusedIndex: numb
         try {
           const targetComponent = allComponents[expectedFocusedIndex];
           const isFocused = await targetComponent.isFocused();
-          console.log('checkFocusState: Component at index', expectedFocusedIndex, 'isFocused:', isFocused, 'attempt:',
-            attempt);
+          hilog.info(0x0000, 'testTag', '%{public}s', `checkFocusState: Component at index ${expectedFocusedIndex} isFocused: ${isFocused} attempt: ${attempt}`);
           return isFocused;
         } catch (e) {
-          console.log('checkFocusState: Error checking focus for component', expectedFocusedIndex, 'attempt:', attempt);
+          hilog.info(0x0000, 'testTag', '%{public}s', `checkFocusState: Error checking focus for component ${expectedFocusedIndex} attempt: ${attempt}`);
           return false;
         }
       });
@@ -235,7 +235,7 @@ export async function checkFocusState(driver: Driver, expectedFocusedIndex: numb
         return true;
       }
     } catch (error) {
-      console.error('checkFocusState error:', error, 'attempt:', attempt);
+      hilog.error(0x0000, 'testTag', '%{public}s', `checkFocusState error: ${error} attempt: ${attempt}`);
     }
 
     attempt++;
@@ -267,7 +267,7 @@ export async function isPowerDialogVisible(driver: Driver): Promise<boolean> {
       return false;
     });
   } catch (error) {
-    console.error('isPowerDialogVisible error:', error);
+    hilog.error(0x0000, 'testTag', '%{public}s', `isPowerDialogVisible error: ${error}`);
     return false;
   }
 }
@@ -279,21 +279,21 @@ export async function isPowerDialogVisible(driver: Driver): Promise<boolean> {
  */
 export async function waitForDialogStable(driver: Driver, maxWaitMs: number = TIMEOUT_DIALOG_RENDER): Promise<boolean> {
   try {
-    console.log('waitForDialogStable: waiting for dialog render event, maxWaitMs:', maxWaitMs);
+    hilog.info(0x0000, 'testTag', '%{public}s', `waitForDialogStable: waiting for dialog render event, maxWaitMs: ${maxWaitMs}`);
 
     // 事件驱动等待：完成条件为「对话框选项文本出现」这一真实渲染事件
     const deadline = Date.now() + maxWaitMs;
     while (Date.now() < deadline) {
       const visible = await isPowerDialogVisible(driver);
       if (visible) {
-        console.log('waitForDialogStable: dialog render event observed');
+        hilog.info(0x0000, 'testTag', '%{public}s', `waitForDialogStable: dialog render event observed`);
         return true;
       }
       await serializedDelay(driver, 100);
     }
 
     // 超时未渲染，重新拉起对话框（跨套件顺序执行时对话框可能已被前一套件关闭）
-    console.log('waitForDialogStable: render timeout, relaunching power dialog');
+    hilog.info(0x0000, 'testTag', '%{public}s', `waitForDialogStable: render timeout, relaunching power dialog`);
     await triggerPowerDialog(driver);
 
     // 重新等待同一渲染事件
@@ -301,16 +301,16 @@ export async function waitForDialogStable(driver: Driver, maxWaitMs: number = TI
     while (Date.now() < secondDeadline) {
       const visible = await isPowerDialogVisible(driver);
       if (visible) {
-        console.log('waitForDialogStable: dialog render event observed after relaunch');
+        hilog.info(0x0000, 'testTag', '%{public}s', `waitForDialogStable: dialog render event observed after relaunch`);
         return true;
       }
       await serializedDelay(driver, 100);
     }
 
-    console.log('waitForDialogStable: dialog still not rendered after relaunch, timeout:', maxWaitMs);
+    hilog.info(0x0000, 'testTag', '%{public}s', `waitForDialogStable: dialog still not rendered after relaunch, timeout: ${maxWaitMs}`);
     return false;
   } catch (error) {
-    console.error('waitForDialogStable error:', error);
+    hilog.error(0x0000, 'testTag', '%{public}s', `waitForDialogStable error: ${error}`);
     return false;
   }
 }
@@ -333,31 +333,31 @@ export async function checkTextContent(driver: Driver, expectedText: string): Pr
       const texts = await driver.findComponents(ON.type('Text')) ?? [];
 
       if (texts.length === 0) {
-        console.log('checkTextContent: No text components found');
+        hilog.info(0x0000, 'testTag', '%{public}s', `checkTextContent: No text components found`);
         return false;
       }
 
-      console.log('checkTextContent: Found', texts.length, 'text components');
+      hilog.info(0x0000, 'testTag', '%{public}s', `checkTextContent: Found ${texts.length} text components`);
 
       // 遍历所有文本组件逐一匹配，避免遗漏嵌套在深层容器中的文本
       for (const text of texts) {
         try {
           const content = await text.getText();
-          console.log('checkTextContent: Checking text:', content, 'expected:', expectedText);
+          hilog.info(0x0000, 'testTag', '%{public}s', `checkTextContent: Checking text: ${content} expected: ${expectedText}`);
           if (content === expectedText) {
-            console.log('checkTextContent: Match found!');
+            hilog.info(0x0000, 'testTag', '%{public}s', `checkTextContent: Match found!`);
             return true;
           }
         } catch (error) {
-          console.log('checkTextContent: Error getting text from component:', error); // 单个组件获取文本失败不影响其他组件的匹配，继续遍历剩余组件
+          hilog.info(0x0000, 'testTag', '%{public}s', `checkTextContent: Error getting text from component: ${error}`); // 单个组件获取文本失败不影响其他组件的匹配，继续遍历剩余组件
         }
       }
 
-      console.log('checkTextContent: No matching text found');
+      hilog.info(0x0000, 'testTag', '%{public}s', `checkTextContent: No matching text found`);
       return false;
     });
   } catch (error) {
-    console.error('checkTextContent error:', error);
+    hilog.error(0x0000, 'testTag', '%{public}s', `checkTextContent error: ${error}`);
     return false;
   }
 }
@@ -395,7 +395,7 @@ export async function triggerPowerDialog(driver: Driver): Promise<void> {
   }
   await serializedDelay(driver, 1000);
 
-  console.log('Power dialog triggered');
+  hilog.info(0x0000, 'testTag', '%{public}s', `Power dialog triggered`);
 }
 
 /** 按键操作封装：连续触发指定按键多次，每次操作后等待固定延迟
@@ -422,15 +422,14 @@ async function delay(ms: number): Promise<void> {
 export async function checkComponentExists(driver: Driver, type: string): Promise<boolean> {
   try {
     return await runSerializedUiOperation(async () => {
-      console.log('checkComponentExists: Searching for component type:', type);
+      hilog.info(0x0000, 'testTag', '%{public}s', `checkComponentExists: Searching for component type: ${type}`);
       const components = await driver.findComponents(ON.type(type));
       const exists = components !== null && components !== undefined && components.length > 0;
-      console.log('checkComponentExists: Type', type, 'exists:', exists, 'components found:',
-        components ? components.length : 0);
+      hilog.info(0x0000, 'testTag', '%{public}s', `checkComponentExists: Type ${type} exists: ${exists} components found: ${components ? components.length : 0}`);
       return exists;
     });
   } catch (error) {
-    console.error('checkComponentExists error:', error);
+    hilog.error(0x0000, 'testTag', '%{public}s', `checkComponentExists error: ${error}`);
     return false;
   }
 }
@@ -441,36 +440,36 @@ export async function checkComponentExists(driver: Driver, type: string): Promis
 export async function getCurrentFocusIndex(driver: Driver): Promise<number> {
   try {
     return await runSerializedUiOperation(async () => {
-      console.log('getCurrentFocusIndex: Starting focus search...');
+      hilog.info(0x0000, 'testTag', '%{public}s', `getCurrentFocusIndex: Starting focus search...`);
 
       // ON.focused(true)在部分TV设备上无法返回焦点组件，因此获取全部组件后使用isFocused()逐个校验
       const allComponents: Component[] = await driver.findComponents(ON.type('*'));
       if (!allComponents || allComponents.length === 0) {
-        console.log('getCurrentFocusIndex: No components found');
+        hilog.info(0x0000, 'testTag', '%{public}s', `getCurrentFocusIndex: No components found`);
         return -1;
       }
 
-      console.log('getCurrentFocusIndex: Found', allComponents.length, 'total components');
+      hilog.info(0x0000, 'testTag', '%{public}s', `getCurrentFocusIndex: Found ${allComponents.length} total components`);
 
       for (let i = 0; i < allComponents.length; i++) {
         const component = allComponents[i];
         try {
           const isFocused = await component.isFocused();
-          console.log('getCurrentFocusIndex: Component', i, 'isFocused:', isFocused);
+          hilog.info(0x0000, 'testTag', '%{public}s', `getCurrentFocusIndex: Component ${i} isFocused: ${isFocused}`);
           if (isFocused) {
-            console.log('getCurrentFocusIndex: Focus found at index', i);
+            hilog.info(0x0000, 'testTag', '%{public}s', `getCurrentFocusIndex: Focus found at index ${i}`);
             return i;
           }
         } catch (e) {
-          console.log('getCurrentFocusIndex: Error checking focus for component', i, ':', e.message); // 继续检查下一个组件
+          hilog.info(0x0000, 'testTag', '%{public}s', `getCurrentFocusIndex: Error checking focus for component ${i} : ${e.message}`); // 继续检查下一个组件
         }
       }
 
-      console.log('getCurrentFocusIndex: No focused component found in component list');
+      hilog.info(0x0000, 'testTag', '%{public}s', `getCurrentFocusIndex: No focused component found in component list`);
       return -1;
     });
   } catch (error) {
-    console.error('getCurrentFocusIndex error:', error);
+    hilog.error(0x0000, 'testTag', '%{public}s', `getCurrentFocusIndex error: ${error}`);
     return -1;
   }
 }

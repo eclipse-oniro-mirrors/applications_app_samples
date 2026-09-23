@@ -32,6 +32,7 @@ import {
   DELAY_KEY_NAVIGATION,
   TOLERANCE_COMPONENT_COUNT
 } from '../Shared/SharedDriver';
+import hilog from '@ohos.hilog';
 
 interface ComponentRenderRecord {
   type: string;
@@ -559,7 +560,7 @@ export default function uiComponentRenderingTest() {
       const focusedComponent = await driver.findComponent(ON.focused(true));
 
       if (!focusedComponent) {
-        console.log('components_should_have_correct_ids: No focused component found');
+        hilog.info(0x0000, 'testTag', '%{public}s', `components_should_have_correct_ids: No focused component found`);
         const fallbackComponentCount = await powerDialogComponentCount(driver);
         expect(fallbackComponentCount).assertLargerOrEqual(1);
         return;
@@ -567,10 +568,10 @@ export default function uiComponentRenderingTest() {
 
       try {
         const componentId = await focusedComponent.getId();
-        console.log('components_should_have_correct_ids: Component ID:', componentId);
+        hilog.info(0x0000, 'testTag', '%{public}s', `components_should_have_correct_ids: Component ID: ${componentId}`);
         expect(componentId !== null && componentId !== undefined).assertTrue();
       } catch (error) {
-        console.log('components_should_have_correct_ids: Error getting component ID:', error);
+        hilog.info(0x0000, 'testTag', '%{public}s', `components_should_have_correct_ids: Error getting component ID: ${error}`);
         const fallbackComponentCount = await powerDialogComponentCount(driver);
         expect(fallbackComponentCount).assertLargerOrEqual(1);
       }
@@ -616,8 +617,7 @@ export default function uiComponentRenderingTest() {
       const images = await findComponentsByType(driver, 'Image');
       const texts = await findComponentsByType(driver, 'Text');
 
-      console.log('Hierarchy check - Rows:', rows.length, 'Columns:', columns.length, 'Images:', images.length,
-        'Texts:', texts.length);
+      hilog.info(0x0000, 'testTag', '%{public}s', `Hierarchy check - Rows: ${rows.length} Columns: ${columns.length} Images: ${images.length} Texts: ${texts.length}`);
 
       expect(rows.length).assertLargerOrEqual(0);
       expect(columns.length).assertLargerOrEqual(0);

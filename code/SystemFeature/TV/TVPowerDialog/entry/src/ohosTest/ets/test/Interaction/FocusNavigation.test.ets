@@ -33,6 +33,7 @@ import {
   getCurrentFocusIndex,
   KEY_POWER
 } from '../Shared/SharedDriver';
+import hilog from '@ohos.hilog';
 
 interface FocusTransitionRecord {
   fromIndex: number;
@@ -731,7 +732,7 @@ export default function focusNavigationTest() {
 
       // Use alternative validation: check if dialog is responsive to navigation
       const initialComponentCount = await powerDialogComponentCount(driver);
-      console.log('FocusNavigation test: Initial component count:', initialComponentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `FocusNavigation test: Initial component count: ${initialComponentCount}`);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
@@ -739,7 +740,7 @@ export default function focusNavigationTest() {
 
       // Verify navigation occurred by checking component state
       const afterNavigationCount = await powerDialogComponentCount(driver);
-      console.log('FocusNavigation test: After navigation component count:', afterNavigationCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `FocusNavigation test: After navigation component count: ${afterNavigationCount}`);
 
       // The main validation: navigation should not crash or close the dialog
       expect(afterNavigationCount).assertLargerOrEqual(1);
@@ -754,7 +755,7 @@ export default function focusNavigationTest() {
 
       // Final validation: dialog should still be functional after back/reopen
       const finalComponentCount = await powerDialogComponentCount(driver);
-      console.log('FocusNavigation test: Final component count:', finalComponentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `FocusNavigation test: Final component count: ${finalComponentCount}`);
       expect(finalComponentCount).assertLargerOrEqual(1);
     });
 
@@ -784,7 +785,7 @@ export default function focusNavigationTest() {
 
       // Validate dialog is initially functional
       const initialComponentCount = await powerDialogComponentCount(driver);
-      console.log('FocusNavigation test: Initial component count for idle test:', initialComponentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `FocusNavigation test: Initial component count for idle test: ${initialComponentCount}`);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
@@ -792,7 +793,7 @@ export default function focusNavigationTest() {
 
       // Verify navigation occurred
       const afterNavigationCount = await powerDialogComponentCount(driver);
-      console.log('FocusNavigation test: After navigation component count:', afterNavigationCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `FocusNavigation test: After navigation component count: ${afterNavigationCount}`);
       expect(afterNavigationCount).assertLargerOrEqual(1);
       focusTracker.recordNavigation(0, 1, 'right');
 
@@ -800,7 +801,7 @@ export default function focusNavigationTest() {
 
       // Validate dialog remains functional after idle period
       const afterIdleCount = await powerDialogComponentCount(driver);
-      console.log('FocusNavigation test: After idle component count:', afterIdleCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `FocusNavigation test: After idle component count: ${afterIdleCount}`);
       expect(afterIdleCount).assertLargerOrEqual(1);
     });
 
@@ -856,7 +857,7 @@ export default function focusNavigationTest() {
 
       // Validate dialog is initially functional
       const initialComponentCount = await powerDialogComponentCount(driver);
-      console.log('FocusNavigation test: Initial component count for ENTER test:', initialComponentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `FocusNavigation test: Initial component count for ENTER test: ${initialComponentCount}`);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
       await pressAndWait(driver, KEY_UP, 1, DELAY_KEY_NAVIGATION);
@@ -864,7 +865,7 @@ export default function focusNavigationTest() {
 
       // Validate dialog remains functional after ENTER key
       const finalComponentCount = await powerDialogComponentCount(driver);
-      console.log('FocusNavigation test: Final component count after ENTER:', finalComponentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `FocusNavigation test: Final component count after ENTER: ${finalComponentCount}`);
       expect(finalComponentCount).assertLargerOrEqual(1);
     });
 
@@ -876,7 +877,7 @@ export default function focusNavigationTest() {
 
       // Validate dialog is initially functional
       const initialComponentCount = await powerDialogComponentCount(driver);
-      console.log('FocusNavigation test: Initial component count for long press:', initialComponentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `FocusNavigation test: Initial component count for long press: ${initialComponentCount}`);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
       await driver.triggerKey(KEY_RIGHT);
@@ -884,7 +885,7 @@ export default function focusNavigationTest() {
 
       // Validate dialog remains functional after long press
       const afterLongPressCount = await powerDialogComponentCount(driver);
-      console.log('FocusNavigation test: After long press component count:', afterLongPressCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `FocusNavigation test: After long press component count: ${afterLongPressCount}`);
       expect(afterLongPressCount).assertLargerOrEqual(1);
       focusTracker.recordNavigation(0, 1, 'right_long');
     });
@@ -915,11 +916,11 @@ export default function focusNavigationTest() {
 
       // Validate dialog is initially functional
       const initialComponentCount = await powerDialogComponentCount(driver);
-      console.log('FocusNavigation test: Initial component count for cycles test:', initialComponentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `FocusNavigation test: Initial component count for cycles test: ${initialComponentCount}`);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
       for (let cycle = 0; cycle < 3; cycle++) {
-        console.log('FocusNavigation test: Starting cycle', cycle);
+        hilog.info(0x0000, 'testTag', '%{public}s', `FocusNavigation test: Starting cycle ${cycle}`);
 
         await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
         await driver.delayMs(200); // Allow UI to respond
@@ -932,7 +933,7 @@ export default function focusNavigationTest() {
 
         // Validate dialog remains functional after each cycle
         const cycleComponentCount = await powerDialogComponentCount(driver);
-        console.log('FocusNavigation test: Cycle', cycle, 'component count:', cycleComponentCount);
+        hilog.info(0x0000, 'testTag', '%{public}s', `FocusNavigation test: Cycle ${cycle} component count: ${cycleComponentCount}`);
         expect(cycleComponentCount).assertLargerOrEqual(1);
 
         // Record navigation for tracking purposes

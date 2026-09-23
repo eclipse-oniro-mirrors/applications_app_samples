@@ -29,6 +29,7 @@ import {
   DELAY_KEY_NAVIGATION,
   runSerializedUiOperation
 } from '../Shared/SharedDriver';
+import hilog from '@ohos.hilog';
 
 interface ResourceRecord {
   resourceType: string;
@@ -136,13 +137,13 @@ export default function resourceManagementTest() {
 
       // 使用findComponents查找所有图像组件，适应实际的UI结构
       const images = await driver.findComponents(ON.type('Image'));
-      console.log('ResourceManagement test: Found', images ? images.length : 0, 'image components');
+      hilog.info(0x0000, 'testTag', '%{public}s', `ResourceManagement test: Found ${images ? images.length : 0} image components`);
 
       // 如果找到图像组件，验证数量；否则记录资源跟踪信息
       if (images !== null && images.length > 0) {
-        console.log('ResourceManagement test: Image components found, proceeding with resource tracking');
+        hilog.info(0x0000, 'testTag', '%{public}s', `ResourceManagement test: Image components found, proceeding with resource tracking`);
       } else {
-        console.log('ResourceManagement test: No image components found, testing resource tracking functionality');
+        hilog.info(0x0000, 'testTag', '%{public}s', `ResourceManagement test: No image components found, testing resource tracking functionality`);
       }
 
       // 测试资源跟踪功能，不依赖具体的UI组件存在

@@ -34,6 +34,7 @@ import {
   getCurrentFocusIndex,
   triggerPowerDialog
 } from '../Shared/SharedDriver';
+import hilog from '@ohos.hilog';
 
 // Mock电源服务：模拟真实电源操作，避免测试中实际执行关机/重启等危险操作
 class MockPowerService {
@@ -486,7 +487,7 @@ export default function powerOperationsTest() {
 
       // 首先验证初始焦点状态
       const initialFocusIndex = await getCurrentFocusIndex(driver);
-      console.log('PowerOperations test: Initial focus index:', initialFocusIndex);
+      hilog.info(0x0000, 'testTag', '%{public}s', `PowerOperations test: Initial focus index: ${initialFocusIndex}`);
 
       // 导航到重启选项
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
@@ -496,22 +497,22 @@ export default function powerOperationsTest() {
 
       // 验证导航后焦点状态 - 使用更宽松的验证策略
       const focusIndex = await getCurrentFocusIndex(driver);
-      console.log('PowerOperations test: After KEY_RIGHT focus index:', focusIndex);
+      hilog.info(0x0000, 'testTag', '%{public}s', `PowerOperations test: After KEY_RIGHT focus index: ${focusIndex}`);
 
       // 检查是否有任何组件获得焦点，而不强制要求特定索引
       const hasAnyFocus = await checkFocusState(driver, -1);
-      console.log('PowerOperations test: Has any focus:', hasAnyFocus);
+      hilog.info(0x0000, 'testTag', '%{public}s', `PowerOperations test: Has any focus: ${hasAnyFocus}`);
 
       // 如果没有任何焦点，可能是对话框状态已改变，检查组件数量
       if (!hasAnyFocus) {
         const componentCount = await powerDialogComponentCount(driver);
-        console.log('PowerOperations test: Component count when no focus:', componentCount);
+        hilog.info(0x0000, 'testTag', '%{public}s', `PowerOperations test: Component count when no focus: ${componentCount}`);
 
         // 如果还有组件存在，说明对话框仍在但可能处于特殊状态
         if (componentCount > 0) { // 对话框仍在，但可能处于过渡状态，继续测试
-          console.log('PowerOperations test: Dialog exists but no focus, continuing test');
+          hilog.info(0x0000, 'testTag', '%{public}s', `PowerOperations test: Dialog exists but no focus, continuing test`);
         } else { // 对话框可能已被关闭，重新打开
-          console.log('PowerOperations test: Dialog appears closed, attempting to reopen');
+          hilog.info(0x0000, 'testTag', '%{public}s', `PowerOperations test: Dialog appears closed, attempting to reopen`);
           await triggerPowerDialog(driver);
           await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
         }
@@ -523,11 +524,11 @@ export default function powerOperationsTest() {
 
       // 验证操作后状态 - 对话框可能被关闭或处于新状态
       const finalComponentCount = await powerDialogComponentCount(driver);
-      console.log('PowerOperations test: Final component count:', finalComponentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `PowerOperations test: Final component count: ${finalComponentCount}`);
 
       // 主要验证电源操作是否被正确记录，而不是强制要求对话框状态
       const operationLog = mockPowerService.getOperationLog();
-      console.log('PowerOperations test: Operation log length:', operationLog.length);
+      hilog.info(0x0000, 'testTag', '%{public}s', `PowerOperations test: Operation log length: ${operationLog.length}`);
 
       // 如果对话框仍在，验证组件数量；否则验证操作是否被记录
       if (finalComponentCount > 0) {

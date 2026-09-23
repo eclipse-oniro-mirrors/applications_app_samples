@@ -31,6 +31,7 @@ import {
   runSerializedUiOperation,
   getCurrentFocusIndex
 } from '../Shared/SharedDriver';
+import hilog from '@ohos.hilog';
 
 // 关闭对话框的辅助函数：确保测试环境干净
 async function closeDialogIfExists(drv: Driver): Promise<void> {
@@ -246,7 +247,7 @@ export default function configurationChangesTest() {
 
       // Use component-based validation instead of focus validation
       const initialComponentCount = await powerDialogComponentCount(driver);
-      console.log('ConfigurationChanges test: Initial component count:', initialComponentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `ConfigurationChanges test: Initial component count: ${initialComponentCount}`);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
       configTracker.recordChange('config', 'default', 'modified', true);
@@ -254,7 +255,7 @@ export default function configurationChangesTest() {
 
       // Validate dialog remains functional after configuration changes
       const finalComponentCount = await powerDialogComponentCount(driver);
-      console.log('ConfigurationChanges test: Final component count:', finalComponentCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `ConfigurationChanges test: Final component count: ${finalComponentCount}`);
       expect(finalComponentCount).assertLargerOrEqual(1);
     });
 

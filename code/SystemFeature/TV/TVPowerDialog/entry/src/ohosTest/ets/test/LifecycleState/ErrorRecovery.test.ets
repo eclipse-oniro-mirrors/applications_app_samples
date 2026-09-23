@@ -27,6 +27,7 @@ import {
   TIMEOUT_DIALOG_RENDER,
   DELAY_KEY_NAVIGATION
 } from '../Shared/SharedDriver';
+import hilog from '@ohos.hilog';
 
 enum ErrorType {
   COMPONENT_NOT_FOUND = 'component_not_found', FOCUS_LOST = 'focus_lost', TIMEOUT = 'timeout', STATE_INCONSISTENCY = 'state_inconsistency', RENDER_FAILURE = 'render_failure'
@@ -564,7 +565,7 @@ export default function errorRecoveryTest() {
     it('dialog_should_recover_from_component_render_failure', 0, async () => {
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       const initialCount = await powerDialogComponentCount(driver);
-      console.log('ErrorRecovery test: Initial component count:', initialCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `ErrorRecovery test: Initial component count: ${initialCount}`);
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
@@ -573,7 +574,7 @@ export default function errorRecoveryTest() {
 
       await waitForDialogStable(driver, TIMEOUT_DIALOG_RENDER);
       const finalCount = await powerDialogComponentCount(driver);
-      console.log('ErrorRecovery test: Final component count:', finalCount);
+      hilog.info(0x0000, 'testTag', '%{public}s', `ErrorRecovery test: Final component count: ${finalCount}`);
 
       // Use realistic expectation based on actual component count
       // The dialog should have at least 1 component to be functional
