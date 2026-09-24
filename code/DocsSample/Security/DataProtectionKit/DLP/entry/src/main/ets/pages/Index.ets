@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -136,7 +136,7 @@ function readFileContent(dlpFuseUri: string): string {
 }
 
 function bufferToString(buffer: ArrayBuffer): string {
-  let textDecoder = new util.TextDecoder('utf-8', {
+  let textDecoder = util.TextDecoder.create('utf-8', {
     ignoreBOM: true
   });
   return textDecoder.decodeToString(new Uint8Array(buffer), {
