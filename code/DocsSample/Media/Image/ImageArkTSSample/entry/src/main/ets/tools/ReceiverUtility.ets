@@ -14,9 +14,9 @@
 */
 
 // [Start receiver_import]
-import { image } from '@kit.ImageKit'
+import { image } from '@kit.ImageKit';
 import { camera } from '@kit.CameraKit';
-import { BusinessError } from '@kit.BasicServicesKit'
+import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 // [End receiver_import]
 
@@ -102,11 +102,11 @@ async function firstAdjustBufferSize(imgComponent: image.Component, height: numb
   : Promise<image.PixelMap> {
   // [Start adjust_bufferSize]
   // stride与width不一致。
-  const dstBufferSize = width * height * 1.5
-  const dstArr = new Uint8Array(dstBufferSize)
+  const dstBufferSize = width * height * 1.5;
+  const dstArr = new Uint8Array(dstBufferSize);
   for (let j = 0; j < height * 1.5; j++) {
-    const srcBuf = new Uint8Array(imgComponent.byteBuffer, j * stride, width)
-    dstArr.set(srcBuf, j * width)
+    const srcBuf = new Uint8Array(imgComponent.byteBuffer, j * stride, width);
+    dstArr.set(srcBuf, j * width);
   }
   let pixelMap = await image.createPixelMap(dstArr.buffer, {
     size: { height: height, width: width },
