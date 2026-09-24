@@ -233,7 +233,7 @@ struct Index {
           }
         }
       } else {
-        console.error(`getTrackDescription fail, error:${error}`);
+        console.error(`getTrackDescription failed, error:${error}`);
       }
     });
      */
@@ -364,7 +364,7 @@ struct Index {
           console.info(`${this.tag}: setAVPlayerCallback AVPlayer state prepared called.`);
           // [Start onBufferingUpdate]
           this.avPlayer?.onBufferingUpdate((infoType: media.BufferingInfoType, value: int) => {
-            console.info(`${this.tag}: bufferingUpdate called, infoType value: ${infoType}, value:${value}}`);
+            console.info(`${this.tag}: bufferingUpdate called, infoType value: ${infoType}, value:${value}`);
           })
           // [End onBufferingUpdate]
           this.durationTime = this.avPlayer!.duration;
