@@ -53,7 +53,7 @@ On the refresh end, discover the device, establish a connection, and send a mess
   6 - 退出
 =======================================
 ==>请选择:0
->>>RefreshLNN start, capability=[ddmpCapability]
+>>>RefreshLNN start, capability=[osdCapability]
 >>>OnDeviceFound devName=OpenHarmony devType=0 devId=a1b2**c3d4 custData=[dsoftbus_custdata_sample_0123456789abcdef]
 >>>custData match expected payload, add to discovered list
 >>>resolved networkId for discovered[0]
@@ -187,7 +187,7 @@ On a real device, you can also replace `/etc/softbus_trans_permission.json` with
 3. Two devices connected to the same distributed network and online with each other are required, and the discovered list maintains at most eight devices.
 4. The custom identifier must not exceed 284 bytes (the COAP `bData` channel limit); a longer identifier makes publishing fail.
 5. `DeviceInfo.devId` is the hash of the remote UDID. The peer must be an online networked node for the `networkId` to be resolved by IP matching, otherwise the connection cannot be established.
-6. The publish end and the refresh end must use the same `capability` (`ddmpCapability` in this sample), and the `DSOFTBUS_FEATURE_DISC_COAP_CUSTDATA` feature must be enabled in DSoftBus on both sides.
+6. The publish end and the refresh end must use the same `capability` (`osdCapability` in this sample), and the `DSOFTBUS_FEATURE_DISC_COAP_CUSTDATA` feature must be enabled in DSoftBus on both sides.
 
 ### Download
 
