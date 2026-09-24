@@ -136,7 +136,7 @@ function readFileContent(dlpFuseUri: string): string {
 }
 
 function bufferToString(buffer: ArrayBuffer): string {
-  let textDecoder = new util.TextDecoder.create('utf-8', {
+  let textDecoder = util.TextDecoder.create('utf-8', {
     ignoreBOM: true
   });
   return textDecoder.decodeToString(new Uint8Array(buffer), {
