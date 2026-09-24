@@ -208,8 +208,14 @@ void VectorStoreTest()
 {
     // [Start vector_OH_Rdb_GetSupportedDbType]
     int numType = 0;
-    // 如果numType为RDB_CAYLEY则支持向量数据库，为RDB_SQLITE则不支持向量数据库
-    OH_Rdb_GetSupportedDbType(&numType);
+    const int *dbTypes = OH_Rdb_GetSupportedDbType(&numType);
+    bool isVectorStoreSupported = false;
+    for (int i = 0; i < numType; i++) {
+        if (dbTypes[i] == RDB_CAYLEY) {
+            isVectorStoreSupported = true;
+            break;
+        }
+    }
     // [End vector_OH_Rdb_GetSupportedDbType]
     
     Log("[vectorLog] isSupported ", numType);
