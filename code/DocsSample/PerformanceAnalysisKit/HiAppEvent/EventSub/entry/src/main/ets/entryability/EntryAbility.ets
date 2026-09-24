@@ -85,7 +85,7 @@ export default class EntryAbility extends UIAbility {
         files = container.getLogFilesLargerThan(100);
         hilog.info(0x0000, 'testTag', `[MyLogManager] 大于100KB的日志: ${JSON.stringify(Array.from(files))}`);
 
-        // // 按大小过滤，获取小于100KB的日志
+        // 按大小过滤，获取小于100KB的日志
         files = container.getLogFilesSmallerThan(100);
         hilog.info(0x0000, 'testTag', `[MyLogManager] 小于100KB的日志: ${JSON.stringify(Array.from(files))}`);
 
@@ -96,7 +96,7 @@ export default class EntryAbility extends UIAbility {
       }
     };
 
-    // 注册external log日志文件管理者
+    // 注册external_log日志文件管理者
     try {
       hiAppEvent.registerExternalLogManager(myLogManager);
       hilog.info(0x0000, 'testTag', '[MyLogManager] ExternalLogManager 注册成功');
