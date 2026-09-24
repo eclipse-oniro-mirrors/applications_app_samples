@@ -17,7 +17,7 @@
 import { NavDestination, $r } from '@kit.ArkUI';
 // [Start LifecycleSwiper]
 import { SwiperExample } from './SwiperPage';
-import { Entry, Component, State, RelativeContainer, Text, Button } from '@kit.ArkUI';
+import { Entry, Component, State, Column, Text, Button } from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -27,7 +27,7 @@ struct LifecycleSwiperIndex {
   @State currentTabIndex: number = 0;
 
   build() {
-    RelativeContainer() {
+    Column() {
       Text('start')
         .fontSize(50)
         .fontColor('#000')
