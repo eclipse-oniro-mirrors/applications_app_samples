@@ -18,6 +18,9 @@ import { worker, ThreadWorkerGlobalScope, MessageEvents } from '@kit.ArkTS';
 // 导入句柄类型
 import Handle from './handle'; 
 
+const MSG_SET = 0;
+const MSG_GET = 1;
+
 let workerPort : ThreadWorkerGlobalScope = worker.workerPort;
 
 // 无法传输的句柄，所有操作依赖此句柄
@@ -26,12 +29,12 @@ let handler: Handle = new Handle();
 // Worker线程的onmessage逻辑
 workerPort.onmessage = (e : MessageEvents): void => {
   switch (e.data.type as number) {
-    case 0:
+    case MSG_SET:
       let result: boolean = handler.syncSet(e.data.data);
       console.info('worker: result is ' + result);
       workerPort.postMessage({'message': 'the result of syncSet() is ' + result, 'isTerminate': false});
       break;
-    case 1:
+    case MSG_GET:
       let num: number = handler.syncGet();
       console.info('worker: num is ' + num);
       workerPort.postMessage({'message': 'the result of syncGet() is ' + num, 'isTerminate': true});
