@@ -45,6 +45,7 @@ import { CustomAndBlockMenus } from './CustomAndBlockMenus';
 import { TextMenuShowSubWindow } from './TextMenuShowSubWindow';
 import { GradientTextFlowEffect } from './GradientTextFlowEffect';
 import { MarqueeRerun } from './MarqueeRerun'
+import { SelectionContainerIndex, SelectionContainerDestination, SELECTION_CONTAINER_PREFIX } from './SelectionContainerIndex';
 
 export const TEXT_ROUTE_PREFIX: string = 'text';
 
@@ -195,6 +196,11 @@ const routes: Route[] = [
     resource.resourceToString($r('app.string.MarqueeRerun_title')),
     description:
     $r('app.string.MarqueeRerun_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/SelectionContainer`,
+    title: resource.resourceToString($r('app.string.SelectionContainer_title')),
+    description: $r('app.string.SelectionContainer_description')
   }
 ];
 
@@ -260,6 +266,10 @@ export function TextDestination(name: string) {
     GradientTextFlowEffect();
   } else if (name === routes[28].name) {
     MarqueeRerun();
+  } else if (name === routes[29].name) {
+    SelectionContainerIndex();
+  } else if (name.startsWith(SELECTION_CONTAINER_PREFIX + '/')) {
+    SelectionContainerDestination(name);
   }
 }
 
