@@ -80,7 +80,7 @@ struct WebComponent {
             this.previewWidth = this.uiContext!.px2vp(event.param.getPreviewWidth());
             this.previewHeight = this.uiContext!.px2vp(event.param.getPreviewHeight());
             if (event.param.getSourceUrl().indexOf('resource://rawfile/') == 0) {
-              this.previewImage = $rawfile(event.param.getSourceUrl().substr(19));
+              this.previewImage = $rawfile(event.param.getSourceUrl().substring(19));
             } else {
               this.previewImage = event.param.getSourceUrl();
             }
