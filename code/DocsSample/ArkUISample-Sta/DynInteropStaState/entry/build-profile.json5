@@ -16,6 +16,9 @@
 {
   "apiType": "stageMode",
   "buildOption": {
+    "arkOptions": {
+      "sdkAliasConfigPath": "./config.json"
+    },
     "resOptions": {
       "copyCodeResource": {
         "enable": false

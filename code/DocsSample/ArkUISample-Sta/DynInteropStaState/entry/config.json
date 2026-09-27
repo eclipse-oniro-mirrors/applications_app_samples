@@ -1,0 +1,10 @@
+{
+  "static.@ohos.lang.interop": {
+    "originalAPIName": "@ohos.lang.interop",
+    "isStatic": true
+  },
+  "dynamic.@ohos.lang.interop": {
+    "originalAPIName": "@ohos.lang.interop",
+    "isStatic": false
+  }
+}
