@@ -2449,6 +2449,12 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/ArkTs/JSVMAPI/JsvmUsageGuide/JsvmAboutClass/screenshots/JsvmAboutClass_2.png" desc="Provided by code/DocsSample/ArkTs/JSVMAPI/JsvmUsageGuide/JsvmAboutClass"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkTs/JSVMAPI/JsvmUsageGuide/JsvmAboutPromise/screenshots/JsvmAboutPromise_1.png" desc="Provided by code/DocsSample/ArkTs/JSVMAPI/JsvmUsageGuide/JsvmAboutPromise"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkTs/JSVMAPI/JsvmUsageGuide/JsvmAboutPromise/screenshots/JsvmAboutPromise_2.png" desc="Provided by code/DocsSample/ArkTs/JSVMAPI/JsvmUsageGuide/JsvmAboutPromise"/>
+				<filteritem type="filepath" name="code/DocsSample/AutomaticSceneConfigurationKit/Assessment/AppScope/resources/base/media/background.png" desc="Provided by code/DocsSample/AutomaticSceneConfigurationKit/Assessment"/>
+				<filteritem type="filepath" name="code/DocsSample/AutomaticSceneConfigurationKit/Assessment/AppScope/resources/base/media/foreground.png" desc="Provided by code/DocsSample/AutomaticSceneConfigurationKit/Assessment"/>
+				<filteritem type="filepath" name="code/DocsSample/AutomaticSceneConfigurationKit/Assessment/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/AutomaticSceneConfigurationKit/Assessment"/>
+				<filteritem type="filepath" name="code/DocsSample/AutomaticSceneConfigurationKit/Assessment/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/AutomaticSceneConfigurationKit/Assessment"/>
+				<filteritem type="filepath" name="code/DocsSample/AutomaticSceneConfigurationKit/Assessment/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/AutomaticSceneConfigurationKit/Assessment"/>
+				<filteritem type="filepath" name="code/DocsSample/AutomaticSceneConfigurationKit/Assessment/screenshots/assessment_sample.png" desc="Provided by code/DocsSample/AutomaticSceneConfigurationKit/Assessment"/>
 			</filefilter>
             <filefilter name="defaultPolicyFilter" desc="License文件头校验策略的过滤条件" >
                 <filteritem type="filename" name="oh-package.json5" desc="OpenHarmony工程编译入口脚本，无需添加License头"/>
