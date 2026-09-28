@@ -37,8 +37,6 @@ export default class TestAbility extends UIAbility {
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
   }
 
-  // [End dataDriverAbility_sample]
-
   onDestroy() {
     Logger.info('testTag', '%{public}s', 'TestAbility onDestroy');
   }
@@ -67,3 +65,4 @@ export default class TestAbility extends UIAbility {
     Logger.info('testTag', '%{public}s', 'TestAbility onBackground');
   }
 }
+// [End dataDriverAbility_sample]
