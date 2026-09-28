@@ -68,17 +68,12 @@ struct DocSampleArray {
             this.arrayOfPerson.shift();
           }
         })
-      Button('#5 arrayOfPerson length change')
-        .onClick(() => {
-          // arrayOfPersonMonitor回调触发
-          this.arrayOfPerson.length = this.arrayOfPerson.length + 1;
-        })
-      Button('#6 arrayOfPerson = new Array')
+      Button('#5 arrayOfPerson = new Array')
         .onClick(() => {
           // arrayOfPersonMonitor回调触发
           this.arrayOfPerson = [new Person('Adrian'), new Person('Andrew')]
         })
-      Button('#7 arrayOfPerson [1] last name')
+      Button('#6 arrayOfPerson [1] last name')
         .onClick(() => {
           if (this.arrayOfPerson.length > 1 && this.arrayOfPerson[1] instanceof Person) {
             // arrayOfPersonMonitor回调不触发

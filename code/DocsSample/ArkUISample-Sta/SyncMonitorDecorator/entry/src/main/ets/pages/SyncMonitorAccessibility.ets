@@ -35,7 +35,8 @@ struct Page {
   onChange(mon: IMonitor) {
     mon.dirty.forEach((path: string) => {
       hilog.info(0xFF00, 'testTag', '%{public}s',
-        `onChange: User property ${path} change from ${mon.value<number>(path)?.before} to ${mon.value<number>(path)?.now}`);
+        `onChange: User property ${path} change from ${mon.value<number | undefined>(path)?.before} to ` +
+          `${mon.value<number | undefined>(path)?.now}`);
     });
   }
 
