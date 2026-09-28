@@ -14,9 +14,10 @@
  */
 
 // [StartExclude p2p_manager_resource]
+import { UIContext } from '@kit.ArkUI';
 export class P2PManager {
-  public resourceToString(resource: Resource):string {
-    return getContext(this).resourceManager.getStringSync(resource);
+  public async resourceToString(uiContext:UIContext,resource: Resource):Promise<string> {
+    return uiContext.getHostContext()?.resourceManager.getStringSync(resource.id)??'';
   }
 }
 
