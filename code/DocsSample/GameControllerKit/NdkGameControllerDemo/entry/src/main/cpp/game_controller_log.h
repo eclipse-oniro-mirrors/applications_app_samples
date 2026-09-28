@@ -26,7 +26,7 @@
  */
 class Log {
 public:
-    static Log* GetInstance()
+    static Log *GetInstance()
     {
         static Log instance;
         return &instance;
@@ -36,7 +36,7 @@ public:
      * @brief Registers the log sink. The sink is invoked on the thread which calls PrintLog,
      * so it must be thread safe itself.
      */
-    void SetSink(std::function<void(const std::string&)> sink)
+    void SetSink(std::function<void(const std::string &)> sink)
     {
         std::lock_guard<std::mutex> lock(mutex_);
         sink_ = std::move(sink);
@@ -45,7 +45,7 @@ public:
     /**
      * @brief Outputs a log message to the UI log page. It can be called on any thread.
      */
-    void PrintLog(const std::string& log)
+    void PrintLog(const std::string &log)
     {
         std::lock_guard<std::mutex> lock(mutex_);
         if (sink_ != nullptr) {
@@ -56,10 +56,10 @@ public:
 private:
     Log() = default;
     ~Log() = default;
-    Log(const Log&) = delete;
-    Log& operator=(const Log&) = delete;
+    Log(const Log &) = delete;
+    Log &operator=(const Log &) = delete;
 
-    std::function<void(const std::string&)> sink_ = nullptr;
+    std::function<void(const std::string &)> sink_ = nullptr;
     std::mutex mutex_;
 };
 

@@ -101,8 +101,7 @@ public:
 
     // Shared event handlers.
     static void OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent, const std::string &buttonName);
-    static void OnAxisEvent(const struct GamePad_AxisEvent *axisEvent, const std::string &name,
-        const std::string &val);
+    static void OnAxisEvent(const struct GamePad_AxisEvent *axisEvent, const std::string &name, const std::string &val);
 };
 
 #endif // GAME_PAD_API_H

@@ -20,7 +20,8 @@
 #include "hilog/log.h"
 
 // [Start register_device_monitor]
-napi_value DeviceApi::RegisterDeviceMonitor(napi_env env, napi_callback_info info) {
+napi_value DeviceApi::RegisterDeviceMonitor(napi_env env, napi_callback_info info)
+{
     napi_value result;
     GameController_ErrorCode errorCode = OH_GameDevice_RegisterDeviceMonitor(DeviceApi::OnDeviceChanged);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
@@ -33,7 +34,8 @@ napi_value DeviceApi::RegisterDeviceMonitor(napi_env env, napi_callback_info inf
     return result;
 }
 
-void DeviceApi::OnDeviceChanged(const struct GameDevice_DeviceEvent *deviceEvent) {
+void DeviceApi::OnDeviceChanged(const struct GameDevice_DeviceEvent *deviceEvent)
+{
     GameDevice_StatusChangedType type;
     OH_GameDevice_DeviceEvent_GetChangedType(deviceEvent, &type);
     GameDevice_DeviceInfo *deviceInfo;
@@ -46,7 +48,8 @@ void DeviceApi::OnDeviceChanged(const struct GameDevice_DeviceEvent *deviceEvent
 // [End register_device_monitor]
 
 // [Start unregister_device_monitor]
-napi_value DeviceApi::UnregisterDeviceMonitor(napi_env env, napi_callback_info info) {
+napi_value DeviceApi::UnregisterDeviceMonitor(napi_env env, napi_callback_info info)
+{
     napi_value result;
     GameController_ErrorCode errorCode = OH_GameDevice_UnregisterDeviceMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
@@ -61,7 +64,8 @@ napi_value DeviceApi::UnregisterDeviceMonitor(napi_env env, napi_callback_info i
 // [End unregister_device_monitor]
 
 // [Start query_all_device_infos]
-GameController_ErrorCode DeviceApi::DoQueryAllDeviceInfos() {
+GameController_ErrorCode DeviceApi::DoQueryAllDeviceInfos()
+{
     GameDevice_AllDeviceInfos *gameDevice_AllDeviceInfos;
     // Query all online devices.
     GameController_ErrorCode errorCode = OH_GameDevice_GetAllDeviceInfos(&gameDevice_AllDeviceInfos);
@@ -80,7 +84,7 @@ GameController_ErrorCode DeviceApi::DoQueryAllDeviceInfos() {
         if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
             OH_LOG_ERROR(LOG_APP, "OH_GameDevice_AllDeviceInfos_GetDeviceInfo Failed, %{public}d", errorCode);
             Log::GetInstance()->PrintLog("OH_GameDevice_AllDeviceInfos_GetDeviceInfo Failed, errorCode: " +
-                std::to_string(errorCode));
+                                         std::to_string(errorCode));
             OH_GameDevice_DestroyAllDeviceInfos(&gameDevice_AllDeviceInfos);
             return errorCode;
         }
@@ -95,13 +99,14 @@ GameController_ErrorCode DeviceApi::DoQueryAllDeviceInfos() {
     return errorCode;
 }
 
-std::string DeviceApi::GetDeviceInfoStringForPrint(GameDevice_DeviceInfo *deviceInfo) {
+std::string DeviceApi::GetDeviceInfoStringForPrint(GameDevice_DeviceInfo *deviceInfo)
+{
     std::string log;
-    char *deviceId = NULL;
+    char *deviceId = nullptr;
     OH_GameDevice_DeviceInfo_GetDeviceId(deviceInfo, &deviceId);
     log.append("deviceId:").append(deviceId);
     free(deviceId);
-    char *name = NULL;
+    char *name = nullptr;
     OH_GameDevice_DeviceInfo_GetName(deviceInfo, &name);
     log.append(", name:").append(name);
     free(name);
@@ -114,7 +119,7 @@ std::string DeviceApi::GetDeviceInfoStringForPrint(GameDevice_DeviceInfo *device
     int version;
     OH_GameDevice_DeviceInfo_GetVersion(deviceInfo, &version);
     log.append(", version:").append(std::to_string(version));
-    char *physicalAddress = NULL;
+    char *physicalAddress = nullptr;
     OH_GameDevice_DeviceInfo_GetPhysicalAddress(deviceInfo, &physicalAddress);
     log.append(", physicalAddress:").append(physicalAddress);
     free(physicalAddress);
