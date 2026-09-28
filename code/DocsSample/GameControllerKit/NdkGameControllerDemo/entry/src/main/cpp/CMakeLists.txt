@@ -26,6 +26,8 @@ include_directories(${NATIVERENDER_ROOT_PATH}
 
 add_library(entry SHARED napi_init.cpp device_api.cpp game_pad_api.cpp)
 
+target_link_libraries(entry PUBLIC libace_napi.z.so libhilog_ndk.z.so)
+
 # [Start link_game_controller_libs]
-target_link_libraries(entry PUBLIC libace_napi.z.so libhilog_ndk.z.so libohgame_controller.z.so)
+target_link_libraries(entry PUBLIC libohgame_controller.z.so)
 # [End link_game_controller_libs]
