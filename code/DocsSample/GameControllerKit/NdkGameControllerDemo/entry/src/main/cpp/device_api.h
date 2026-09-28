@@ -16,9 +16,9 @@
 #ifndef DEVICE_API_H
 #define DEVICE_API_H
 
+#include <cstdint>
 #include <string>
 #include "GameControllerKit/game_device_event.h"
-#include "napi/native_api.h"
 
 /**
  * @brief Encapsulates the game device APIs of GameControllerKit:
@@ -26,8 +26,8 @@
  */
 class DeviceApi {
 public:
-    static napi_value RegisterDeviceMonitor(napi_env env, napi_callback_info info);
-    static napi_value UnregisterDeviceMonitor(napi_env env, napi_callback_info info);
+    static int32_t RegisterDeviceMonitor();
+    static int32_t UnregisterDeviceMonitor();
     static GameController_ErrorCode DoQueryAllDeviceInfos();
     static void OnDeviceChanged(const struct GameDevice_DeviceEvent *deviceEvent);
     static std::string GetDeviceInfoStringForPrint(GameDevice_DeviceInfo *deviceInfo);

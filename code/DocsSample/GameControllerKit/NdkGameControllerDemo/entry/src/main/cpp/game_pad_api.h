@@ -16,9 +16,9 @@
 #ifndef GAME_PAD_API_H
 #define GAME_PAD_API_H
 
+#include <cstdint>
 #include <string>
 #include "GameControllerKit/game_pad_event.h"
-#include "napi/native_api.h"
 
 /**
  * @brief Encapsulates the game pad APIs of GameControllerKit:
@@ -27,77 +27,77 @@
 class GamePad {
 public:
     // Button input monitors.
-    static napi_value LeftShoulder_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value LeftShoulder_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void LeftShoulder_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value RightShoulder_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value RightShoulder_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void RightShoulder_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value LeftTrigger_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value LeftTrigger_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void LeftTrigger_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value RightTrigger_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value RightTrigger_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void RightTrigger_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value ButtonMenu_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value ButtonMenu_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void ButtonMenu_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value ButtonHome_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value ButtonHome_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void ButtonHome_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value ButtonA_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value ButtonA_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void ButtonA_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value ButtonB_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value ButtonB_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void ButtonB_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value ButtonC_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value ButtonC_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void ButtonC_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value ButtonX_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value ButtonX_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void ButtonX_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value ButtonY_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value ButtonY_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void ButtonY_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value Dpad_LeftButton_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value Dpad_LeftButton_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void Dpad_LeftButton_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value Dpad_RightButton_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value Dpad_RightButton_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void Dpad_RightButton_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value Dpad_UpButton_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value Dpad_UpButton_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void Dpad_UpButton_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value Dpad_DownButton_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value Dpad_DownButton_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void Dpad_DownButton_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value LeftThumbstick_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value LeftThumbstick_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void LeftThumbstick_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value RightThumbstick_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value RightThumbstick_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void RightThumbstick_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
-    static napi_value ButtonNonstandard_RegisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value ButtonNonstandard_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info);
-    static void ButtonNonstandard_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t LeftShoulderRegisterButtonInputMonitor();
+    static int32_t LeftShoulderUnregisterButtonInputMonitor();
+    static void LeftShoulderOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t RightShoulderRegisterButtonInputMonitor();
+    static int32_t RightShoulderUnregisterButtonInputMonitor();
+    static void RightShoulderOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t LeftTriggerRegisterButtonInputMonitor();
+    static int32_t LeftTriggerUnregisterButtonInputMonitor();
+    static void LeftTriggerOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t RightTriggerRegisterButtonInputMonitor();
+    static int32_t RightTriggerUnregisterButtonInputMonitor();
+    static void RightTriggerOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t ButtonMenuRegisterButtonInputMonitor();
+    static int32_t ButtonMenuUnregisterButtonInputMonitor();
+    static void ButtonMenuOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t ButtonHomeRegisterButtonInputMonitor();
+    static int32_t ButtonHomeUnregisterButtonInputMonitor();
+    static void ButtonHomeOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t ButtonARegisterButtonInputMonitor();
+    static int32_t ButtonAUnregisterButtonInputMonitor();
+    static void ButtonAOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t ButtonBRegisterButtonInputMonitor();
+    static int32_t ButtonBUnregisterButtonInputMonitor();
+    static void ButtonBOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t ButtonCRegisterButtonInputMonitor();
+    static int32_t ButtonCUnregisterButtonInputMonitor();
+    static void ButtonCOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t ButtonXRegisterButtonInputMonitor();
+    static int32_t ButtonXUnregisterButtonInputMonitor();
+    static void ButtonXOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t ButtonYRegisterButtonInputMonitor();
+    static int32_t ButtonYUnregisterButtonInputMonitor();
+    static void ButtonYOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t DpadLeftButtonRegisterButtonInputMonitor();
+    static int32_t DpadLeftButtonUnregisterButtonInputMonitor();
+    static void DpadLeftButtonOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t DpadRightButtonRegisterButtonInputMonitor();
+    static int32_t DpadRightButtonUnregisterButtonInputMonitor();
+    static void DpadRightButtonOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t DpadUpButtonRegisterButtonInputMonitor();
+    static int32_t DpadUpButtonUnregisterButtonInputMonitor();
+    static void DpadUpButtonOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t DpadDownButtonRegisterButtonInputMonitor();
+    static int32_t DpadDownButtonUnregisterButtonInputMonitor();
+    static void DpadDownButtonOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t LeftThumbstickRegisterButtonInputMonitor();
+    static int32_t LeftThumbstickUnregisterButtonInputMonitor();
+    static void LeftThumbstickOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t RightThumbstickRegisterButtonInputMonitor();
+    static int32_t RightThumbstickUnregisterButtonInputMonitor();
+    static void RightThumbstickOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
+    static int32_t ButtonNonstandardRegisterButtonInputMonitor();
+    static int32_t ButtonNonstandardUnregisterButtonInputMonitor();
+    static void ButtonNonstandardOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent);
 
     // Axis input monitors.
-    static napi_value LeftTrigger_RegisterAxisInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value LeftTrigger_UnregisterAxisInputMonitor(napi_env env, napi_callback_info info);
-    static void LeftTrigger_OnAxisEvent(const struct GamePad_AxisEvent *axisEvent);
-    static napi_value RightTrigger_RegisterAxisInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value RightTrigger_UnregisterAxisInputMonitor(napi_env env, napi_callback_info info);
-    static void RightTrigger_OnAxisEvent(const struct GamePad_AxisEvent *axisEvent);
-    static napi_value Dpad_RegisterAxisInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value Dpad_UnregisterAxisInputMonitor(napi_env env, napi_callback_info info);
-    static void Dpad_OnAxisEvent(const struct GamePad_AxisEvent *axisEvent);
-    static napi_value LeftThumbstick_RegisterAxisInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value LeftThumbstick_UnregisterAxisInputMonitor(napi_env env, napi_callback_info info);
-    static void LeftThumbstick_OnAxisEvent(const struct GamePad_AxisEvent *axisEvent);
-    static napi_value RightThumbstick_RegisterAxisInputMonitor(napi_env env, napi_callback_info info);
-    static napi_value RightThumbstick_UnregisterAxisInputMonitor(napi_env env, napi_callback_info info);
-    static void RightThumbstick_OnAxisEvent(const struct GamePad_AxisEvent *axisEvent);
+    static int32_t LeftTriggerRegisterAxisInputMonitor();
+    static int32_t LeftTriggerUnregisterAxisInputMonitor();
+    static void LeftTriggerOnAxisEvent(const struct GamePad_AxisEvent *axisEvent);
+    static int32_t RightTriggerRegisterAxisInputMonitor();
+    static int32_t RightTriggerUnregisterAxisInputMonitor();
+    static void RightTriggerOnAxisEvent(const struct GamePad_AxisEvent *axisEvent);
+    static int32_t DpadRegisterAxisInputMonitor();
+    static int32_t DpadUnregisterAxisInputMonitor();
+    static void DpadOnAxisEvent(const struct GamePad_AxisEvent *axisEvent);
+    static int32_t LeftThumbstickRegisterAxisInputMonitor();
+    static int32_t LeftThumbstickUnregisterAxisInputMonitor();
+    static void LeftThumbstickOnAxisEvent(const struct GamePad_AxisEvent *axisEvent);
+    static int32_t RightThumbstickRegisterAxisInputMonitor();
+    static int32_t RightThumbstickUnregisterAxisInputMonitor();
+    static void RightThumbstickOnAxisEvent(const struct GamePad_AxisEvent *axisEvent);
 
     // Shared event handlers.
     static void OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent, const std::string &buttonName);

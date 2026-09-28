@@ -20,36 +20,30 @@
 #include "hilog/log.h"
 
 // [Start button_input_monitor]
-napi_value GamePad::LeftShoulder_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::LeftShoulderRegisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_LeftShoulder_RegisterButtonInputMonitor(GamePad::LeftShoulder_OnButtonEvent);
+        OH_GamePad_LeftShoulder_RegisterButtonInputMonitor(GamePad::LeftShoulderOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "LeftShoulder_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "LeftShoulder_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::LeftShoulder_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::LeftShoulderUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_LeftShoulder_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "LeftShoulder_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "LeftShoulder_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::LeftShoulder_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::LeftShoulderOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "LeftShoulder_OnButtonEvent");
 }
@@ -100,610 +94,502 @@ void GamePad::OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent, const
 // [End button_input_monitor]
 
 // The other button monitors follow the same pattern as LeftShoulder.
-napi_value GamePad::RightShoulder_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::RightShoulderRegisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_RightShoulder_RegisterButtonInputMonitor(GamePad::RightShoulder_OnButtonEvent);
+        OH_GamePad_RightShoulder_RegisterButtonInputMonitor(GamePad::RightShoulderOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "RightShoulder_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "RightShoulder_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::RightShoulder_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::RightShoulderUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_RightShoulder_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "RightShoulder_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "RightShoulder_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::RightShoulder_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::RightShoulderOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "RightShoulder_OnButtonEvent");
 }
 
-napi_value GamePad::LeftTrigger_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::LeftTriggerRegisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_LeftTrigger_RegisterButtonInputMonitor(GamePad::LeftTrigger_OnButtonEvent);
+        OH_GamePad_LeftTrigger_RegisterButtonInputMonitor(GamePad::LeftTriggerOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "LeftTrigger_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "LeftTrigger_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::LeftTrigger_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::LeftTriggerUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_LeftTrigger_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "LeftTrigger_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "LeftTrigger_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::LeftTrigger_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::LeftTriggerOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "LeftTrigger_OnButtonEvent");
 }
 
-napi_value GamePad::RightTrigger_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::RightTriggerRegisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_RightTrigger_RegisterButtonInputMonitor(GamePad::RightTrigger_OnButtonEvent);
+        OH_GamePad_RightTrigger_RegisterButtonInputMonitor(GamePad::RightTriggerOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "RightTrigger_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "RightTrigger_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::RightTrigger_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::RightTriggerUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_RightTrigger_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "RightTrigger_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "RightTrigger_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::RightTrigger_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::RightTriggerOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "RightTrigger_OnButtonEvent");
 }
 
-napi_value GamePad::ButtonMenu_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonMenuRegisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_ButtonMenu_RegisterButtonInputMonitor(GamePad::ButtonMenu_OnButtonEvent);
+        OH_GamePad_ButtonMenu_RegisterButtonInputMonitor(GamePad::ButtonMenuOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonMenu_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonMenu_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::ButtonMenu_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonMenuUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_ButtonMenu_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonMenu_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonMenu_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::ButtonMenu_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::ButtonMenuOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "ButtonMenu_OnButtonEvent");
 }
 
-napi_value GamePad::ButtonHome_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonHomeRegisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_ButtonHome_RegisterButtonInputMonitor(GamePad::ButtonHome_OnButtonEvent);
+        OH_GamePad_ButtonHome_RegisterButtonInputMonitor(GamePad::ButtonHomeOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonHome_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonHome_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::ButtonHome_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonHomeUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_ButtonHome_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonHome_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonHome_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::ButtonHome_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::ButtonHomeOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "ButtonHome_OnButtonEvent");
 }
 
-napi_value GamePad::ButtonA_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonARegisterButtonInputMonitor()
 {
-    napi_value result;
-    GameController_ErrorCode errorCode = OH_GamePad_ButtonA_RegisterButtonInputMonitor(GamePad::ButtonA_OnButtonEvent);
+    GameController_ErrorCode errorCode = OH_GamePad_ButtonA_RegisterButtonInputMonitor(GamePad::ButtonAOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonA_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonA_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::ButtonA_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonAUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_ButtonA_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonA_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonA_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::ButtonA_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::ButtonAOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "ButtonA_OnButtonEvent");
 }
 
-napi_value GamePad::ButtonB_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonBRegisterButtonInputMonitor()
 {
-    napi_value result;
-    GameController_ErrorCode errorCode = OH_GamePad_ButtonB_RegisterButtonInputMonitor(GamePad::ButtonB_OnButtonEvent);
+    GameController_ErrorCode errorCode = OH_GamePad_ButtonB_RegisterButtonInputMonitor(GamePad::ButtonBOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonB_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonB_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::ButtonB_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonBUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_ButtonB_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonB_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonB_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::ButtonB_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::ButtonBOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "ButtonB_OnButtonEvent");
 }
 
-napi_value GamePad::ButtonC_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonCRegisterButtonInputMonitor()
 {
-    napi_value result;
-    GameController_ErrorCode errorCode = OH_GamePad_ButtonC_RegisterButtonInputMonitor(GamePad::ButtonC_OnButtonEvent);
+    GameController_ErrorCode errorCode = OH_GamePad_ButtonC_RegisterButtonInputMonitor(GamePad::ButtonCOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonC_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonC_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::ButtonC_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonCUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_ButtonC_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonC_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonC_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::ButtonC_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::ButtonCOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "ButtonC_OnButtonEvent");
 }
 
-napi_value GamePad::ButtonX_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonXRegisterButtonInputMonitor()
 {
-    napi_value result;
-    GameController_ErrorCode errorCode = OH_GamePad_ButtonX_RegisterButtonInputMonitor(GamePad::ButtonX_OnButtonEvent);
+    GameController_ErrorCode errorCode = OH_GamePad_ButtonX_RegisterButtonInputMonitor(GamePad::ButtonXOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonX_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonX_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::ButtonX_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonXUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_ButtonX_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonX_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonX_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::ButtonX_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::ButtonXOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "ButtonX_OnButtonEvent");
 }
 
-napi_value GamePad::ButtonY_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonYRegisterButtonInputMonitor()
 {
-    napi_value result;
-    GameController_ErrorCode errorCode = OH_GamePad_ButtonY_RegisterButtonInputMonitor(GamePad::ButtonY_OnButtonEvent);
+    GameController_ErrorCode errorCode = OH_GamePad_ButtonY_RegisterButtonInputMonitor(GamePad::ButtonYOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonY_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonY_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::ButtonY_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonYUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_ButtonY_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonY_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonY_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::ButtonY_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::ButtonYOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "ButtonY_OnButtonEvent");
 }
 
-napi_value GamePad::Dpad_LeftButton_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::DpadLeftButtonRegisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_Dpad_LeftButton_RegisterButtonInputMonitor(GamePad::Dpad_LeftButton_OnButtonEvent);
+        OH_GamePad_Dpad_LeftButton_RegisterButtonInputMonitor(GamePad::DpadLeftButtonOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Dpad_LeftButton_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "Dpad_LeftButton_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::Dpad_LeftButton_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::DpadLeftButtonUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_Dpad_LeftButton_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Dpad_LeftButton_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "Dpad_LeftButton_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::Dpad_LeftButton_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::DpadLeftButtonOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "Dpad_LeftButton_OnButtonEvent");
 }
 
-napi_value GamePad::Dpad_RightButton_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::DpadRightButtonRegisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_Dpad_RightButton_RegisterButtonInputMonitor(GamePad::Dpad_RightButton_OnButtonEvent);
+        OH_GamePad_Dpad_RightButton_RegisterButtonInputMonitor(GamePad::DpadRightButtonOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Dpad_RightButton_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "Dpad_RightButton_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::Dpad_RightButton_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::DpadRightButtonUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_Dpad_RightButton_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Dpad_RightButton_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "Dpad_RightButton_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::Dpad_RightButton_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::DpadRightButtonOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "Dpad_RightButton_OnButtonEvent");
 }
 
-napi_value GamePad::Dpad_UpButton_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::DpadUpButtonRegisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_Dpad_UpButton_RegisterButtonInputMonitor(GamePad::Dpad_UpButton_OnButtonEvent);
+        OH_GamePad_Dpad_UpButton_RegisterButtonInputMonitor(GamePad::DpadUpButtonOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Dpad_UpButton_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "Dpad_UpButton_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::Dpad_UpButton_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::DpadUpButtonUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_Dpad_UpButton_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Dpad_UpButton_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "Dpad_UpButton_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::Dpad_UpButton_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::DpadUpButtonOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "Dpad_UpButton_OnButtonEvent");
 }
 
-napi_value GamePad::Dpad_DownButton_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::DpadDownButtonRegisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_Dpad_DownButton_RegisterButtonInputMonitor(GamePad::Dpad_DownButton_OnButtonEvent);
+        OH_GamePad_Dpad_DownButton_RegisterButtonInputMonitor(GamePad::DpadDownButtonOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Dpad_DownButton_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "Dpad_DownButton_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::Dpad_DownButton_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::DpadDownButtonUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_Dpad_DownButton_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Dpad_DownButton_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "Dpad_DownButton_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::Dpad_DownButton_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::DpadDownButtonOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "Dpad_DownButton_OnButtonEvent");
 }
 
-napi_value GamePad::LeftThumbstick_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::LeftThumbstickRegisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_LeftThumbstick_RegisterButtonInputMonitor(GamePad::LeftThumbstick_OnButtonEvent);
+        OH_GamePad_LeftThumbstick_RegisterButtonInputMonitor(GamePad::LeftThumbstickOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "LeftThumbstick_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "LeftThumbstick_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::LeftThumbstick_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::LeftThumbstickUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_LeftThumbstick_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "LeftThumbstick_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "LeftThumbstick_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::LeftThumbstick_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::LeftThumbstickOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "LeftThumbstick_OnButtonEvent");
 }
 
-napi_value GamePad::RightThumbstick_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::RightThumbstickRegisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_RightThumbstick_RegisterButtonInputMonitor(GamePad::RightThumbstick_OnButtonEvent);
+        OH_GamePad_RightThumbstick_RegisterButtonInputMonitor(GamePad::RightThumbstickOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "RightThumbstick_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "RightThumbstick_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::RightThumbstick_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::RightThumbstickUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_RightThumbstick_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "RightThumbstick_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "RightThumbstick_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::RightThumbstick_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::RightThumbstickOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "RightThumbstick_OnButtonEvent");
 }
 
-napi_value GamePad::ButtonNonstandard_RegisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonNonstandardRegisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_ButtonNonstandard_RegisterButtonInputMonitor(GamePad::ButtonNonstandard_OnButtonEvent);
+        OH_GamePad_ButtonNonstandard_RegisterButtonInputMonitor(GamePad::ButtonNonstandardOnButtonEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonNonstandard_RegisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonNonstandard_RegisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::ButtonNonstandard_UnregisterButtonInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::ButtonNonstandardUnregisterButtonInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_ButtonNonstandard_UnregisterButtonInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "ButtonNonstandard_UnregisterButtonInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "ButtonNonstandard_UnregisterButtonInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::ButtonNonstandard_OnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
+void GamePad::ButtonNonstandardOnButtonEvent(const struct GamePad_ButtonEvent *buttonEvent)
 {
     OnButtonEvent(buttonEvent, "ButtonNonstandard_OnButtonEvent");
 }
 
 // [Start axis_input_monitor]
-napi_value GamePad::LeftThumbstick_RegisterAxisInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::LeftThumbstickRegisterAxisInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_LeftThumbstick_RegisterAxisInputMonitor(GamePad::LeftThumbstick_OnAxisEvent);
+        OH_GamePad_LeftThumbstick_RegisterAxisInputMonitor(GamePad::LeftThumbstickOnAxisEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "LeftThumbstick_RegisterAxisInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "LeftThumbstick_RegisterAxisInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::LeftThumbstick_UnregisterAxisInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::LeftThumbstickUnregisterAxisInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_LeftThumbstick_UnregisterAxisInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "LeftThumbstick_UnregisterAxisInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "LeftThumbstick_UnregisterAxisInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::LeftThumbstick_OnAxisEvent(const struct GamePad_AxisEvent *axisEvent)
+void GamePad::LeftThumbstickOnAxisEvent(const struct GamePad_AxisEvent *axisEvent)
 {
     std::string val = "X";
     double xAxisValue;
@@ -733,36 +619,30 @@ void GamePad::OnAxisEvent(const struct GamePad_AxisEvent *axisEvent, const std::
 }
 
 // The other axis monitors follow the same pattern as LeftThumbstick.
-napi_value GamePad::RightThumbstick_RegisterAxisInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::RightThumbstickRegisterAxisInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_RightThumbstick_RegisterAxisInputMonitor(GamePad::RightThumbstick_OnAxisEvent);
+        OH_GamePad_RightThumbstick_RegisterAxisInputMonitor(GamePad::RightThumbstickOnAxisEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "RightThumbstick_RegisterAxisInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "RightThumbstick_RegisterAxisInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::RightThumbstick_UnregisterAxisInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::RightThumbstickUnregisterAxisInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_RightThumbstick_UnregisterAxisInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "RightThumbstick_UnregisterAxisInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "RightThumbstick_UnregisterAxisInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::RightThumbstick_OnAxisEvent(const struct GamePad_AxisEvent *axisEvent)
+void GamePad::RightThumbstickOnAxisEvent(const struct GamePad_AxisEvent *axisEvent)
 {
     std::string val = "Z";
     double zAxisValue;
@@ -774,35 +654,29 @@ void GamePad::RightThumbstick_OnAxisEvent(const struct GamePad_AxisEvent *axisEv
     OnAxisEvent(axisEvent, "RightThumbstick_OnAxisEvent", val);
 }
 
-napi_value GamePad::Dpad_RegisterAxisInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::DpadRegisterAxisInputMonitor()
 {
-    napi_value result;
-    GameController_ErrorCode errorCode = OH_GamePad_Dpad_RegisterAxisInputMonitor(GamePad::Dpad_OnAxisEvent);
+    GameController_ErrorCode errorCode = OH_GamePad_Dpad_RegisterAxisInputMonitor(GamePad::DpadOnAxisEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Dpad_RegisterAxisInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "Dpad_RegisterAxisInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::Dpad_UnregisterAxisInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::DpadUnregisterAxisInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_Dpad_UnregisterAxisInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Dpad_UnregisterAxisInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "Dpad_UnregisterAxisInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::Dpad_OnAxisEvent(const struct GamePad_AxisEvent *axisEvent)
+void GamePad::DpadOnAxisEvent(const struct GamePad_AxisEvent *axisEvent)
 {
     std::string val = "HatX";
     double hatXAxisValue;
@@ -814,36 +688,30 @@ void GamePad::Dpad_OnAxisEvent(const struct GamePad_AxisEvent *axisEvent)
     OnAxisEvent(axisEvent, "Dpad_OnAxisEvent", val);
 }
 
-napi_value GamePad::LeftTrigger_RegisterAxisInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::LeftTriggerRegisterAxisInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_LeftTrigger_RegisterAxisInputMonitor(GamePad::LeftTrigger_OnAxisEvent);
+        OH_GamePad_LeftTrigger_RegisterAxisInputMonitor(GamePad::LeftTriggerOnAxisEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "LeftTrigger_RegisterAxisInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "LeftTrigger_RegisterAxisInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::LeftTrigger_UnregisterAxisInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::LeftTriggerUnregisterAxisInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_LeftTrigger_UnregisterAxisInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "LeftTrigger_UnregisterAxisInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "LeftTrigger_UnregisterAxisInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::LeftTrigger_OnAxisEvent(const struct GamePad_AxisEvent *axisEvent)
+void GamePad::LeftTriggerOnAxisEvent(const struct GamePad_AxisEvent *axisEvent)
 {
     std::string val = "Brake";
     double brakeAxisValue;
@@ -852,36 +720,30 @@ void GamePad::LeftTrigger_OnAxisEvent(const struct GamePad_AxisEvent *axisEvent)
     OnAxisEvent(axisEvent, "LeftTrigger_OnAxisEvent", val);
 }
 
-napi_value GamePad::RightTrigger_RegisterAxisInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::RightTriggerRegisterAxisInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode =
-        OH_GamePad_RightTrigger_RegisterAxisInputMonitor(GamePad::RightTrigger_OnAxisEvent);
+        OH_GamePad_RightTrigger_RegisterAxisInputMonitor(GamePad::RightTriggerOnAxisEvent);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "RightTrigger_RegisterAxisInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "RightTrigger_RegisterAxisInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-napi_value GamePad::RightTrigger_UnregisterAxisInputMonitor(napi_env env, napi_callback_info info)
+int32_t GamePad::RightTriggerUnregisterAxisInputMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GamePad_RightTrigger_UnregisterAxisInputMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "RightTrigger_UnregisterAxisInputMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "RightTrigger_UnregisterAxisInputMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
-void GamePad::RightTrigger_OnAxisEvent(const struct GamePad_AxisEvent *axisEvent)
+void GamePad::RightTriggerOnAxisEvent(const struct GamePad_AxisEvent *axisEvent)
 {
     std::string val = "Gas";
     double gasAxisValue;

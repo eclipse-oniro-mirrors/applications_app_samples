@@ -20,18 +20,15 @@
 #include "hilog/log.h"
 
 // [Start register_device_monitor]
-napi_value DeviceApi::RegisterDeviceMonitor(napi_env env, napi_callback_info info)
+int32_t DeviceApi::RegisterDeviceMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GameDevice_RegisterDeviceMonitor(DeviceApi::OnDeviceChanged);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "RegisterDeviceMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "RegisterDeviceMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 
 void DeviceApi::OnDeviceChanged(const struct GameDevice_DeviceEvent *deviceEvent)
@@ -48,44 +45,43 @@ void DeviceApi::OnDeviceChanged(const struct GameDevice_DeviceEvent *deviceEvent
 // [End register_device_monitor]
 
 // [Start unregister_device_monitor]
-napi_value DeviceApi::UnregisterDeviceMonitor(napi_env env, napi_callback_info info)
+int32_t DeviceApi::UnregisterDeviceMonitor()
 {
-    napi_value result;
     GameController_ErrorCode errorCode = OH_GameDevice_UnregisterDeviceMonitor();
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "UnregisterDeviceMonitor Failed, %{public}d", errorCode);
-        napi_create_double(env, errorCode, &result);
-        return result;
+        return static_cast<int32_t>(errorCode);
     }
     OH_LOG_INFO(LOG_APP, "UnregisterDeviceMonitor Success");
-    napi_create_double(env, 0, &result);
-    return result;
+    return 0;
 }
 // [End unregister_device_monitor]
 
 // [Start query_all_device_infos]
 GameController_ErrorCode DeviceApi::DoQueryAllDeviceInfos()
 {
-    GameDevice_AllDeviceInfos *gameDevice_AllDeviceInfos;
+    GameDevice_AllDeviceInfos *gameDeviceAllDeviceInfos;
+    
     // Query all online devices.
-    GameController_ErrorCode errorCode = OH_GameDevice_GetAllDeviceInfos(&gameDevice_AllDeviceInfos);
+    GameController_ErrorCode errorCode = OH_GameDevice_GetAllDeviceInfos(&gameDeviceAllDeviceInfos);
     if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "GetAllDeviceInfos Failed, %{public}d", errorCode);
         Log::GetInstance()->PrintLog("GetAllDeviceInfos Failed, errorCode: " + std::to_string(errorCode));
         return errorCode;
     }
+    
     // Obtain device info one by one.
     int count;
-    OH_GameDevice_AllDeviceInfos_GetCount(gameDevice_AllDeviceInfos, &count);
+    OH_GameDevice_AllDeviceInfos_GetCount(gameDeviceAllDeviceInfos, &count);
     Log::GetInstance()->PrintLog("GetAllDeviceInfos Success, the count is " + std::to_string(count));
     for (int idx = 0; idx < count; idx++) {
         GameDevice_DeviceInfo *deviceInfo;
-        errorCode = OH_GameDevice_AllDeviceInfos_GetDeviceInfo(gameDevice_AllDeviceInfos, idx, &deviceInfo);
+        errorCode = OH_GameDevice_AllDeviceInfos_GetDeviceInfo(gameDeviceAllDeviceInfos, idx, &deviceInfo);
         if (errorCode != GameController_ErrorCode::GAME_CONTROLLER_SUCCESS) {
             OH_LOG_ERROR(LOG_APP, "OH_GameDevice_AllDeviceInfos_GetDeviceInfo Failed, %{public}d", errorCode);
             Log::GetInstance()->PrintLog("OH_GameDevice_AllDeviceInfos_GetDeviceInfo Failed, errorCode: " +
                                          std::to_string(errorCode));
-            OH_GameDevice_DestroyAllDeviceInfos(&gameDevice_AllDeviceInfos);
+            OH_GameDevice_DestroyAllDeviceInfos(&gameDeviceAllDeviceInfos);
             return errorCode;
         }
         std::string temp = GetDeviceInfoStringForPrint(deviceInfo);
@@ -93,8 +89,9 @@ GameController_ErrorCode DeviceApi::DoQueryAllDeviceInfos()
         OH_LOG_INFO(LOG_APP, "AllDeviceInfos[%{public}d] DeviceInfo: %{public}s", idx, temp.c_str());
         OH_GameDevice_DestroyDeviceInfo(&deviceInfo);
     }
+    
     // Destroy the pointer to the device query result.
-    OH_GameDevice_DestroyAllDeviceInfos(&gameDevice_AllDeviceInfos);
+    OH_GameDevice_DestroyAllDeviceInfos(&gameDeviceAllDeviceInfos);
     OH_LOG_INFO(LOG_APP, "GetAllDeviceInfos Success");
     return errorCode;
 }

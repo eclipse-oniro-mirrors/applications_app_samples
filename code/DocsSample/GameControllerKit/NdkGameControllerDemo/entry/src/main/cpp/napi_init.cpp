@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+#include <cstdint>
 #include <string>
 #include "device_api.h"
 #include "game_controller_log.h"
@@ -69,17 +70,14 @@ napi_value OnChange(napi_env env, napi_callback_info info)
 /**
  * @brief Invokes one monitor API, logs the result to the UI log page and returns the error code.
  */
-double InvokeMonitorApi(napi_env env, napi_value (*api)(napi_env, napi_callback_info), napi_callback_info info,
-                        const std::string &name)
+int32_t InvokeMonitorApi(int32_t (*api)(), const std::string &name)
 {
-    napi_value result = api(env, info);
-    double code = -1;
-    napi_get_value_double(env, result, &code);
+    int32_t code = api();
     std::string log = name;
     if (code == 0) {
         log.append(" Success");
     } else {
-        log.append(" Failed, errorCode: ").append(std::to_string(static_cast<int>(code)));
+        log.append(" Failed, errorCode: ").append(std::to_string(code));
     }
     OH_LOG_INFO(LOG_APP, "%{public}s", log.c_str());
     Log::GetInstance()->PrintLog(log);
@@ -89,7 +87,7 @@ double InvokeMonitorApi(napi_env env, napi_value (*api)(napi_env, napi_callback_
 /**
  * @brief Keeps the first error code. Returns the current error code if no error has occurred.
  */
-double TrackError(double current, double code)
+int32_t TrackError(int32_t current, int32_t code)
 {
     if (current == 0 && code != 0) {
         return code;
@@ -98,64 +96,63 @@ double TrackError(double current, double code)
 }
 
 /**
+ * @brief A monitor API together with its display name, used by the table-driven helpers.
+ */
+struct MonitorApiEntry {
+    int32_t (*api)();
+    const char *name;
+};
+
+/**
+ * @brief Invokes the monitor APIs of the given table in sequence and keeps the first error
+ * code. Every result is logged and a single failure does not stop the remaining calls.
+ */
+int32_t InvokeMonitorApis(const MonitorApiEntry *entries, size_t count)
+{
+    int32_t firstError = 0;
+    for (size_t i = 0; i < count; ++i) {
+        firstError = TrackError(firstError, InvokeMonitorApi(entries[i].api, entries[i].name));
+    }
+    return firstError;
+}
+
+/**
  * @brief Registers all event monitors in sequence: device monitor first, then button
  * monitors and axis monitors. Every result is logged and a single failure does not
  * stop the remaining registrations.
  */
-napi_value RegisterAllEventMonitors(napi_env env, napi_callback_info info)
+napi_value RegisterAllEventMonitors(napi_env env, napi_callback_info /*info*/)
 {
-    double firstError = 0;
-    // The device monitor must be registered before the pad monitors.
-    firstError =
-        TrackError(firstError, InvokeMonitorApi(env, DeviceApi::RegisterDeviceMonitor, info, "RegisterDeviceMonitor"));
-    // Button input monitors.
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::LeftShoulder_RegisterButtonInputMonitor, info,
-                                                         "LeftShoulder_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::RightShoulder_RegisterButtonInputMonitor, info,
-                                                         "RightShoulder_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::LeftTrigger_RegisterButtonInputMonitor, info,
-                                                         "LeftTrigger_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::RightTrigger_RegisterButtonInputMonitor, info,
-                                                         "RightTrigger_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonMenu_RegisterButtonInputMonitor, info,
-                                                         "ButtonMenu_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonHome_RegisterButtonInputMonitor, info,
-                                                         "ButtonHome_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonA_RegisterButtonInputMonitor, info,
-                                                         "ButtonA_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonB_RegisterButtonInputMonitor, info,
-                                                         "ButtonB_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonC_RegisterButtonInputMonitor, info,
-                                                         "ButtonC_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonX_RegisterButtonInputMonitor, info,
-                                                         "ButtonX_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonY_RegisterButtonInputMonitor, info,
-                                                         "ButtonY_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::Dpad_LeftButton_RegisterButtonInputMonitor, info,
-                                                         "Dpad_LeftButton_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::Dpad_RightButton_RegisterButtonInputMonitor,
-                                                         info, "Dpad_RightButton_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::Dpad_UpButton_RegisterButtonInputMonitor, info,
-                                                         "Dpad_UpButton_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::Dpad_DownButton_RegisterButtonInputMonitor, info,
-                                                         "Dpad_DownButton_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::LeftThumbstick_RegisterButtonInputMonitor, info,
-                                                         "LeftThumbstick_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::RightThumbstick_RegisterButtonInputMonitor, info,
-                                                         "RightThumbstick_RegisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonNonstandard_RegisterButtonInputMonitor,
-                                                         info, "ButtonNonstandard_RegisterButtonInputMonitor"));
-    // Axis input monitors.
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::LeftTrigger_RegisterAxisInputMonitor, info,
-                                                         "LeftTrigger_RegisterAxisInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::RightTrigger_RegisterAxisInputMonitor, info,
-                                                         "RightTrigger_RegisterAxisInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::Dpad_RegisterAxisInputMonitor, info,
-                                                         "Dpad_RegisterAxisInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::LeftThumbstick_RegisterAxisInputMonitor, info,
-                                                         "LeftThumbstick_RegisterAxisInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::RightThumbstick_RegisterAxisInputMonitor, info,
-                                                         "RightThumbstick_RegisterAxisInputMonitor"));
+    static const MonitorApiEntry monitors[] = {
+        // The device monitor must be registered before the pad monitors.
+        {DeviceApi::RegisterDeviceMonitor, "RegisterDeviceMonitor"},
+        // Button input monitors.
+        {GamePad::LeftShoulderRegisterButtonInputMonitor, "LeftShoulder_RegisterButtonInputMonitor"},
+        {GamePad::RightShoulderRegisterButtonInputMonitor, "RightShoulder_RegisterButtonInputMonitor"},
+        {GamePad::LeftTriggerRegisterButtonInputMonitor, "LeftTrigger_RegisterButtonInputMonitor"},
+        {GamePad::RightTriggerRegisterButtonInputMonitor, "RightTrigger_RegisterButtonInputMonitor"},
+        {GamePad::ButtonMenuRegisterButtonInputMonitor, "ButtonMenu_RegisterButtonInputMonitor"},
+        {GamePad::ButtonHomeRegisterButtonInputMonitor, "ButtonHome_RegisterButtonInputMonitor"},
+        {GamePad::ButtonARegisterButtonInputMonitor, "ButtonA_RegisterButtonInputMonitor"},
+        {GamePad::ButtonBRegisterButtonInputMonitor, "ButtonB_RegisterButtonInputMonitor"},
+        {GamePad::ButtonCRegisterButtonInputMonitor, "ButtonC_RegisterButtonInputMonitor"},
+        {GamePad::ButtonXRegisterButtonInputMonitor, "ButtonX_RegisterButtonInputMonitor"},
+        {GamePad::ButtonYRegisterButtonInputMonitor, "ButtonY_RegisterButtonInputMonitor"},
+        {GamePad::DpadLeftButtonRegisterButtonInputMonitor, "Dpad_LeftButton_RegisterButtonInputMonitor"},
+        {GamePad::DpadRightButtonRegisterButtonInputMonitor, "Dpad_RightButton_RegisterButtonInputMonitor"},
+        {GamePad::DpadUpButtonRegisterButtonInputMonitor, "Dpad_UpButton_RegisterButtonInputMonitor"},
+        {GamePad::DpadDownButtonRegisterButtonInputMonitor, "Dpad_DownButton_RegisterButtonInputMonitor"},
+        {GamePad::LeftThumbstickRegisterButtonInputMonitor, "LeftThumbstick_RegisterButtonInputMonitor"},
+        {GamePad::RightThumbstickRegisterButtonInputMonitor, "RightThumbstick_RegisterButtonInputMonitor"},
+        {GamePad::ButtonNonstandardRegisterButtonInputMonitor, "ButtonNonstandard_RegisterButtonInputMonitor"},
+        // Axis input monitors.
+        {GamePad::LeftTriggerRegisterAxisInputMonitor, "LeftTrigger_RegisterAxisInputMonitor"},
+        {GamePad::RightTriggerRegisterAxisInputMonitor, "RightTrigger_RegisterAxisInputMonitor"},
+        {GamePad::DpadRegisterAxisInputMonitor, "Dpad_RegisterAxisInputMonitor"},
+        {GamePad::LeftThumbstickRegisterAxisInputMonitor, "LeftThumbstick_RegisterAxisInputMonitor"},
+        {GamePad::RightThumbstickRegisterAxisInputMonitor, "RightThumbstick_RegisterAxisInputMonitor"},
+    };
+    int32_t firstError = InvokeMonitorApis(monitors, sizeof(monitors) / sizeof(monitors[0]));
     napi_value result;
     napi_create_double(env, firstError, &result);
     return result;
@@ -165,60 +162,38 @@ napi_value RegisterAllEventMonitors(napi_env env, napi_callback_info info)
  * @brief Unregisters all event monitors in the reverse order of registration: axis
  * monitors, then button monitors, and the device monitor at last.
  */
-napi_value UnregisterAllEventMonitors(napi_env env, napi_callback_info info)
+napi_value UnregisterAllEventMonitors(napi_env env, napi_callback_info /*info*/)
 {
-    double firstError = 0;
-    // Axis input monitors.
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::LeftTrigger_UnregisterAxisInputMonitor, info,
-                                                         "LeftTrigger_UnregisterAxisInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::RightTrigger_UnregisterAxisInputMonitor, info,
-                                                         "RightTrigger_UnregisterAxisInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::Dpad_UnregisterAxisInputMonitor, info,
-                                                         "Dpad_UnregisterAxisInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::LeftThumbstick_UnregisterAxisInputMonitor, info,
-                                                         "LeftThumbstick_UnregisterAxisInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::RightThumbstick_UnregisterAxisInputMonitor, info,
-                                                         "RightThumbstick_UnregisterAxisInputMonitor"));
-    // Button input monitors.
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::LeftShoulder_UnregisterButtonInputMonitor, info,
-                                                         "LeftShoulder_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::RightShoulder_UnregisterButtonInputMonitor, info,
-                                                         "RightShoulder_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::LeftTrigger_UnregisterButtonInputMonitor, info,
-                                                         "LeftTrigger_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::RightTrigger_UnregisterButtonInputMonitor, info,
-                                                         "RightTrigger_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonMenu_UnregisterButtonInputMonitor, info,
-                                                         "ButtonMenu_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonHome_UnregisterButtonInputMonitor, info,
-                                                         "ButtonHome_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonA_UnregisterButtonInputMonitor, info,
-                                                         "ButtonA_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonB_UnregisterButtonInputMonitor, info,
-                                                         "ButtonB_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonC_UnregisterButtonInputMonitor, info,
-                                                         "ButtonC_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonX_UnregisterButtonInputMonitor, info,
-                                                         "ButtonX_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonY_UnregisterButtonInputMonitor, info,
-                                                         "ButtonY_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::Dpad_LeftButton_UnregisterButtonInputMonitor,
-                                                         info, "Dpad_LeftButton_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::Dpad_RightButton_UnregisterButtonInputMonitor,
-                                                         info, "Dpad_RightButton_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::Dpad_UpButton_UnregisterButtonInputMonitor, info,
-                                                         "Dpad_UpButton_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::Dpad_DownButton_UnregisterButtonInputMonitor,
-                                                         info, "Dpad_DownButton_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::LeftThumbstick_UnregisterButtonInputMonitor,
-                                                         info, "LeftThumbstick_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::RightThumbstick_UnregisterButtonInputMonitor,
-                                                         info, "RightThumbstick_UnregisterButtonInputMonitor"));
-    firstError = TrackError(firstError, InvokeMonitorApi(env, GamePad::ButtonNonstandard_UnregisterButtonInputMonitor,
-                                                         info, "ButtonNonstandard_UnregisterButtonInputMonitor"));
-    // The device monitor.
-    firstError = TrackError(firstError,
-                            InvokeMonitorApi(env, DeviceApi::UnregisterDeviceMonitor, info, "UnregisterDeviceMonitor"));
+    static const MonitorApiEntry monitors[] = {
+        // Axis input monitors.
+        {GamePad::LeftTriggerUnregisterAxisInputMonitor, "LeftTrigger_UnregisterAxisInputMonitor"},
+        {GamePad::RightTriggerUnregisterAxisInputMonitor, "RightTrigger_UnregisterAxisInputMonitor"},
+        {GamePad::DpadUnregisterAxisInputMonitor, "Dpad_UnregisterAxisInputMonitor"},
+        {GamePad::LeftThumbstickUnregisterAxisInputMonitor, "LeftThumbstick_UnregisterAxisInputMonitor"},
+        {GamePad::RightThumbstickUnregisterAxisInputMonitor, "RightThumbstick_UnregisterAxisInputMonitor"},
+        // Button input monitors.
+        {GamePad::LeftShoulderUnregisterButtonInputMonitor, "LeftShoulder_UnregisterButtonInputMonitor"},
+        {GamePad::RightShoulderUnregisterButtonInputMonitor, "RightShoulder_UnregisterButtonInputMonitor"},
+        {GamePad::LeftTriggerUnregisterButtonInputMonitor, "LeftTrigger_UnregisterButtonInputMonitor"},
+        {GamePad::RightTriggerUnregisterButtonInputMonitor, "RightTrigger_UnregisterButtonInputMonitor"},
+        {GamePad::ButtonMenuUnregisterButtonInputMonitor, "ButtonMenu_UnregisterButtonInputMonitor"},
+        {GamePad::ButtonHomeUnregisterButtonInputMonitor, "ButtonHome_UnregisterButtonInputMonitor"},
+        {GamePad::ButtonAUnregisterButtonInputMonitor, "ButtonA_UnregisterButtonInputMonitor"},
+        {GamePad::ButtonBUnregisterButtonInputMonitor, "ButtonB_UnregisterButtonInputMonitor"},
+        {GamePad::ButtonCUnregisterButtonInputMonitor, "ButtonC_UnregisterButtonInputMonitor"},
+        {GamePad::ButtonXUnregisterButtonInputMonitor, "ButtonX_UnregisterButtonInputMonitor"},
+        {GamePad::ButtonYUnregisterButtonInputMonitor, "ButtonY_UnregisterButtonInputMonitor"},
+        {GamePad::DpadLeftButtonUnregisterButtonInputMonitor, "Dpad_LeftButton_UnregisterButtonInputMonitor"},
+        {GamePad::DpadRightButtonUnregisterButtonInputMonitor, "Dpad_RightButton_UnregisterButtonInputMonitor"},
+        {GamePad::DpadUpButtonUnregisterButtonInputMonitor, "Dpad_UpButton_UnregisterButtonInputMonitor"},
+        {GamePad::DpadDownButtonUnregisterButtonInputMonitor, "Dpad_DownButton_UnregisterButtonInputMonitor"},
+        {GamePad::LeftThumbstickUnregisterButtonInputMonitor, "LeftThumbstick_UnregisterButtonInputMonitor"},
+        {GamePad::RightThumbstickUnregisterButtonInputMonitor, "RightThumbstick_UnregisterButtonInputMonitor"},
+        {GamePad::ButtonNonstandardUnregisterButtonInputMonitor, "ButtonNonstandard_UnregisterButtonInputMonitor"},
+        // The device monitor.
+        {DeviceApi::UnregisterDeviceMonitor, "UnregisterDeviceMonitor"},
+    };
+    int32_t firstError = InvokeMonitorApis(monitors, sizeof(monitors) / sizeof(monitors[0]));
     napi_value result;
     napi_create_double(env, firstError, &result);
     return result;
@@ -227,7 +202,7 @@ napi_value UnregisterAllEventMonitors(napi_env env, napi_callback_info info)
 /**
  * @brief Queries all online game devices and prints the results to the UI log page.
  */
-napi_value QueryAllDeviceInfos(napi_env env, napi_callback_info info)
+napi_value QueryAllDeviceInfos(napi_env env, napi_callback_info /*info*/)
 {
     napi_value result;
     GameController_ErrorCode errorCode = DeviceApi::DoQueryAllDeviceInfos();

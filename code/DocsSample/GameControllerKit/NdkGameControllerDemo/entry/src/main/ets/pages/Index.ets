@@ -38,8 +38,7 @@ struct Index {
   @State logs: LogItem[] = [];
   private scroller: Scroller = new Scroller();
 
-  private getTime(): string
-  {
+  private getTime(): string {
     let date = new Date();
     let hours = `${date.getHours()}`.padStart(2, '0');
     let minutes = `${date.getMinutes()}`.padStart(2, '0');
@@ -48,8 +47,7 @@ struct Index {
     return `${hours}:${minutes}:${seconds}.${milliseconds}`;
   }
 
-  private addLog(message: string): void
-  {
+  private addLog(message: string): void {
     if (this.logs.length >= MAX_LOG_COUNT) {
       this.logs.shift();
     }
@@ -57,9 +55,7 @@ struct Index {
     this.scroller.scrollEdge(Edge.Bottom);
   }
 
-
-  private toggleRegister(): void
-  {
+  private toggleRegister(): void {
     try {
       if (this.isRegistered) {
         testNapi.unregisterAllEventMonitors();
@@ -73,8 +69,7 @@ struct Index {
     }
   }
 
-  private queryDevices(): void
-  {
+  private queryDevices(): void {
     try {
       testNapi.queryAllDeviceInfos();
     } catch (e) {
@@ -82,13 +77,11 @@ struct Index {
     }
   }
 
-  private clearLog(): void
-  {
+  private clearLog(): void {
     this.logs = [];
   }
 
-  aboutToAppear(): void
-  {
+  aboutToAppear(): void {
     if (testNapi) {
       testNapi.onChange((value: string) => {
         this.addLog(value);
@@ -99,8 +92,7 @@ struct Index {
   }
 
   @Builder
-  FunctionButton(label: Resource, buttonId: string, onClick: () => void)
-  {
+  FunctionButton(label: Resource, buttonId: string, onClick: () => void) {
     Button(label)
       .id(buttonId)
       .width('100%')
