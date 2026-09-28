@@ -90,7 +90,7 @@ static JSVM_PropertyDescriptor descriptor[] = {
     {"createDouble", nullptr, method++, nullptr, nullptr, nullptr, JSVM_DEFAULT},
 };
 
-// 样例测试js
+// 样例测试JS
 const char* SRC_CALL_NATIVE = R"JS(createDouble())JS";
 // [End oh_jsvm_create_double]
 
