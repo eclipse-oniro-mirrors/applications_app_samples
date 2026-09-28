@@ -1,0 +1,11 @@
+{
+  "interopEntries": {
+    "static": [],
+    "dynamic": [],
+    "dependency": {
+      "package": [
+        "static_module",
+      ]
+    },
+  }
+}
