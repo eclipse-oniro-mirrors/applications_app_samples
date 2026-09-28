@@ -207,10 +207,10 @@ void VectorCRUD(OH_Rdb_Store *store_)
 void VectorStoreTest()
 {
     // [Start vector_OH_Rdb_GetSupportedDbType]
-    int numType = 0;
-    const int *dbTypes = OH_Rdb_GetSupportedDbType(&numType);
+    int typeCount = 0;
+    const int *dbTypes = OH_Rdb_GetSupportedDbType(&typeCount);
     bool isVectorStoreSupported = false;
-    for (int i = 0; i < numType; i++) {
+    for (int i = 0; i < typeCount; i++) {
         if (dbTypes[i] == RDB_CAYLEY) {
             isVectorStoreSupported = true;
             break;
@@ -218,7 +218,7 @@ void VectorStoreTest()
     }
     // [End vector_OH_Rdb_GetSupportedDbType]
     
-    Log("[vectorLog] isSupported ", numType);
+    Log("[vectorLog] isSupported ", typeCount);
     
     // [Start vector_OH_Rdb_Store]
     // 创建OH_Rdb_Config对象
