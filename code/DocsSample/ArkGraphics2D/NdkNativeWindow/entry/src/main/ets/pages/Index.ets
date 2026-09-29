@@ -69,7 +69,7 @@ struct Index {
       Column() {
         Row() {
           // [Start create_native_window]
-          XComponent({ id: 'xcomponentId', type: XComponentType.SURFACE, libraryname: 'nativerender' })
+          XComponent({ id: 'xcomponentId', type: XComponentType.TEXTURE, libraryname: 'nativerender' })
             .margin({ bottom: 26 })
             .onLoad((nativeWindowContext) => {
               this.nativeWindowContext = nativeWindowContext as NativeWindowContext;
