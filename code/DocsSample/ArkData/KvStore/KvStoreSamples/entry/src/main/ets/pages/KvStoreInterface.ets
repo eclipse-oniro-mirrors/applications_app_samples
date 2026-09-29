@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+// [Start get_context]
 import { distributedKVStore } from '@kit.ArkData';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { distributedDeviceManager } from '@kit.DistributedServiceKit';
@@ -24,6 +25,7 @@ let kvStore: distributedKVStore.SingleKVStore | undefined = undefined;
 let appId: string = 'com.example.kvstoresamples';
 let storeId: string = 'storeId';
 const context = EntryAbility.getContext();
+// [End get_context]
 
 export class KvInterface {
   // [Start kv_store1]
