@@ -24,14 +24,14 @@
 #undef LOG_TAG
 #define LOG_TAG "testTag"
 
-// IsDebuggableHap() 与 DfxInvokeHiDebugCallback（hiprofiler注入buffer时调用）均检查
+// IsDebuggableHap()与DfxInvokeHiDebugCallback均检查。
 // 环境变量 HAP_DEBUGGABLE；setenv 须早于注入，故用 constructor 在 libentry.so 加载时设置。
 __attribute__((constructor)) static void SetHapDebuggableEnv()
 {
     setenv("HAP_DEBUGGABLE", "true", 1);
 }
 
-// 模拟异步任务耗时(ms)
+// 模拟异步任务耗时(ms)。
 static constexpr int ASYNC_TASK_DURATION_MS = 500;
 
 // 三方异步任务上下文，用于在线程间透传异步上下文句柄
@@ -45,13 +45,13 @@ static void ThirdPartyAsyncTask(AsyncTaskCtx *ctx)
     if (ctx == nullptr) {
         return;
     }
-    // 步骤2：异步任务执行时，将异步上下文压入当前线程运行上下文，建立异步调用链。
+    // 异步任务执行时，将异步上下文压入当前线程运行上下文，建立异步调用链。
     OH_HiDebug_PushAsyncContext(ctx->asyncCtx);
     OH_LOG_INFO(LogType::LOG_APP, "[Async-B] Third-party async task start, push context %{public}llu",
         (unsigned long long)ctx->asyncCtx);
-    std::this_thread::sleep_for(std::chrono::milliseconds(ASYNC_TASK_DURATION_MS)); // 模拟三方异步耗时
+    std::this_thread::sleep_for(std::chrono::milliseconds(ASYNC_TASK_DURATION_MS)); // 模拟三方异步耗时。
     OH_LOG_INFO(LogType::LOG_APP, "[Async-B] Third-party async task done");
-    // 步骤3：异步任务完成时，将异步上下文弹出，解除异步调用链。
+    // 异步任务完成时，将异步上下文弹出，解除异步调用链。
     OH_HiDebug_PopAsyncContext(ctx->asyncCtx);
     delete ctx;
 }
@@ -59,7 +59,7 @@ static void ThirdPartyAsyncTask(AsyncTaskCtx *ctx)
 // A：提交方，在独立线程执行以避免阻塞napi调用线程。
 static void OuterTaskFunc()
 {
-    // 步骤1：异步任务提交前，获取一个异步上下文。
+    // 异步任务提交前，获取一个异步上下文。
     uint64_t asyncCtx = OH_HiDebug_AcquireAsyncContext();
     OH_LOG_INFO(LogType::LOG_APP, "[Async-A] Acquired context: %{public}llu", (unsigned long long)asyncCtx);
 
@@ -73,7 +73,7 @@ static void OuterTaskFunc()
     std::thread worker(ThirdPartyAsyncTask, ctx);
     worker.join(); // 等待B完成，保证Release在Push/Pop之后
 
-    // 步骤4：异步任务结束后，释放异步上下文资源，防止资源泄漏。
+    // 异步任务结束后，释放异步上下文资源，防止资源泄漏。
     OH_HiDebug_ReleaseAsyncContext(asyncCtx);
     OH_LOG_INFO(LogType::LOG_APP, "[Async-A] Released context");
 }

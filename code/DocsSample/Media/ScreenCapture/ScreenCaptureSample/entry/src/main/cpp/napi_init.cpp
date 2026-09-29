@@ -110,7 +110,7 @@ void CloseFile(void)
 void OnError(OH_AVScreenCapture *capture, int32_t errorCode, void *userData)
 {
     (void)capture;
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnError errorCode is %{public}d", errorCode);
+    OH_LOG_ERROR(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnError errorCode is %{public}d", errorCode);
     (void)userData;
 }
 
@@ -163,7 +163,7 @@ void HandleVideoBuffer(OH_AVBuffer *buffer)
     }
     OH_NativeBuffer_Unreference(nativebuffer);
     buffer = nullptr;
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable inner audio");
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable Video");
 }
 
 void HandleAudioBuffer(OH_AVBuffer *buffer, FILE *file, const char *logMsg)
@@ -205,7 +205,7 @@ void OnBufferAvailable(OH_AVScreenCapture *capture, OH_AVBuffer *buffer, OH_AVSc
 void OnDisplaySelected(struct OH_AVScreenCapture *capture, uint64_t displayId, void *userData)
 {
     (void)capture;
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnError errorCode is %{public}uld", displayId);
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== OnDisplaySelected displayId is %{public}uld", displayId);
     (void)userData;
 }
 
@@ -498,6 +498,22 @@ void SetSpecifiedWindowScreenConfigBuffer2(OH_AVScreenCaptureConfig &config)
 
     // 在配置参数结束后执行"g_missionIds2.clear()"。
     // [End SetPCSpecifiedWindowScreenConfigBuffer2]
+}
+
+void virtualExtendedScreenConfig(OH_AVScreenCaptureConfig &config)
+{
+    // [Start screenCapture_virtualExtendedScreen]
+    // 在config中配置录虚拟扩展屏幕的宽度、高度。
+    int32_t width = 1920;
+    int32_t height = 1080;
+    config.videoInfo.videoCapInfo.videoFrameWidth = width;
+    config.videoInfo.videoCapInfo.videoFrameHeight = height;
+
+    // 设置录屏模式为虚拟扩展屏幕录制。
+    config.captureMode = OH_CAPTURE_VIRTUAL_EXTENDED_SCREEN;
+    // 创建的虚拟扩展屏幕绑定到displayId为0的屏幕上。
+    config.videoInfo.videoCapInfo.displayId = 0;
+    // [End screenCapture_virtualExtendedScreen]
 }
 
 void SetStrategyForKeepCaptureDuringCall(OH_AVScreenCapture *capture)

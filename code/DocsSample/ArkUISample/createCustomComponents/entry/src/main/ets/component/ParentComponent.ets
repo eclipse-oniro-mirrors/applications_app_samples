@@ -28,7 +28,6 @@ struct HelloComponent {
           this.message = 'Hello, ArkUI!';
         })
     }
-    .height('100%')
   }
 }
 

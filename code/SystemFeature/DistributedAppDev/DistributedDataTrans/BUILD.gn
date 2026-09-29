@@ -1,0 +1,77 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+video_stream_sample_src = [
+  "main.c",
+  "src/video_sample.c",
+  "src/video_sample_common.c",
+  "src/video_sample_bind.c",
+  "src/video_sample_listen.c",
+  "src/video_frame_producer.c",
+]
+
+video_stream_sample_inc = [
+  "include",
+  "//foundation/communication/dsoftbus/interfaces/kits/bus_center",
+  "//foundation/communication/dsoftbus/interfaces/kits/common",
+  "//foundation/communication/dsoftbus/interfaces/kits/transport",
+  "//third_party/bounds_checking_function/include",
+]
+
+video_stream_sample_deps = [
+  "//foundation/communication/dsoftbus/sdk:softbus_client",
+  "//third_party/bounds_checking_function:libsec_static",
+]
+
+if (defined(ohos_lite) && ohos_kernel_type == "liteos_m") {
+  not_needed([
+    "video_stream_sample_src",
+    "video_stream_sample_inc",
+    "video_stream_sample_deps",
+  ])
+}
+
+if (defined(ohos_lite)) {
+  if (ohos_kernel_type == "liteos_m") {
+    group("video_stream_sample") {
+    }
+  } else {
+    import("//build/lite/config/component/lite_component.gni")
+    import("../../dsoftbus.gni")
+    executable("video_stream_sample") {
+      sources = video_stream_sample_src
+      include_dirs = video_stream_sample_inc
+      deps = video_stream_sample_deps
+      libs = [ "pthread" ]
+    }
+  }
+} else {
+  import("//build/ohos.gni")
+  ohos_executable("video_stream_sample") {
+    sanitize = {
+      cfi = true
+      cfi_cross_dso = true
+      debug = false
+    }
+    branch_protector_ret = "pac_ret"
+    sources = video_stream_sample_src
+    include_dirs = video_stream_sample_inc
+    deps = video_stream_sample_deps
+    external_deps = [
+      "access_token:libnativetoken",
+      "access_token:libtoken_setproc",
+    ]
+    part_name = "dsoftbus"
+    subsystem_name = "communication"
+  }
+}

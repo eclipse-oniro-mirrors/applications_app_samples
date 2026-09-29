@@ -207,15 +207,23 @@ struct Index {
     hilog.info(0x0000, 'testTag', 'sendMessage success');
     // [Start senddata]
     abilityConnectionManager.sendData(this.sessionId, arrayBuffer.buffer).then(() => {
-      hilog.info(0x0000, 'testTag', 'sendMessage success');
+      hilog.info(0x0000, 'testTag', 'sendData success');
     }).catch(() => {
-      hilog.error(0x0000, 'testTag', 'sendMessage failed');
+      hilog.error(0x0000, 'testTag', 'sendData failed');
     });
     // [End senddata]
   }
 // [Start disconnect]
   disconnectRemoteAbility(): void {
+    hilog.info(0x0000, 'testTag', 'disconnectRemoteAbility begin');
+    if (this.sessionId == -1) {
+      hilog.info(0x0000, 'testTag', 'Invalid session ID.');
+      return;
+    }
+    abilityConnectionManager.disconnect(this.sessionId);
+
     hilog.info(0x0000, 'testTag', 'destroyAbilityConnectionSession called');
+    abilityConnectionManager.destroyAbilityConnectionSession(this.sessionId);
   }
 
 // [End disconnect]

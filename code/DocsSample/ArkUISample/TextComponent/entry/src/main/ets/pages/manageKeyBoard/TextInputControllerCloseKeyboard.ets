@@ -16,7 +16,7 @@
 @Entry
 @Component
 // [Start textInputController_CloseKeyboard]
-struct textInputControllerCloseKeyboard {
+struct TextInputControllerCloseKeyboard {
   controller: TextInputController = new TextInputController();
   @State inputValue: string = '';
 
@@ -42,4 +42,4 @@ struct textInputControllerCloseKeyboard {
 }
 // [End textInputController_CloseKeyboard]
 
-export { textInputControllerCloseKeyboard };
+export { TextInputControllerCloseKeyboard };

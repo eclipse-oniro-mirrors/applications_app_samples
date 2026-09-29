@@ -25,7 +25,7 @@ struct Page1 {
     // 定义持久化的数据类型
     type: collections.Array<number>,
     // 定义默认构造器，返回时需要调用makeObserved，才能实现自动持久化
-    defaultCreator: () => UIUtils.makeObserved(new collections.Array<number>(1,2))
+    defaultCreator: () => UIUtils.makeObserved(new collections.Array<number>(2, 1))
   })!;
   // 基于collections.Array构建Repeat的数据源
   toArray<T>(array: collections.Array<T>): Array<T> {
@@ -51,53 +51,53 @@ struct Page1 {
           .key((item: number, index: number) => `${index} - ${item}`)
       }
       Divider().width('100%')
-      // 点击'array.push(0)'，重启应用，Repeat数组项是：1, 2, 0
-      Button('array.push(0)')
+      // 以下按钮依次演示对collections.Array的操作；数据已自动持久化，重启应用后保持当前数组状态
+      // 点击后追加元素4，数组项变为：2, 1, 4
+      Button('array.push(4)')
         .onClick(() => {
-          this.array.push(Math.round(0));
+          this.array.push(4);
         })
         .width(300)
         .margin(10)
-      // 点击'array.pop()'，重启应用，Repeat数组项是：1, 2
+      // 点击后对数组升序排序，数组项变为：1, 2, 4
+      Button('array.sort')
+        .onClick(() => {
+          this.array.sort((a, b) => a - b);
+        })
+        .width(300)
+        .margin(10)
+      // 点击后反转数组，数组项变为：4, 2, 1
+      Button('array.reverse')
+        .onClick(() => {
+          this.array.reverse();
+        })
+        .width(300)
+        .margin(10)
+      // 点击后在索引1处插入元素9，数组项变为：4, 9, 2, 1
+      Button('array.splice(1, 0, 9)')
+        .onClick(() => {
+          this.array.splice(1, 0, 9);
+        })
+        .width(300)
+        .margin(10)
+      // 点击后替换前两个元素为7和8，数组项变为：7, 8, 2, 1
+      Button('array.splice(0, 2, 7, 8)')
+        .onClick(() => {
+          this.array.splice(0, 2, 7, 8);
+        })
+        .width(300)
+        .margin(10)
+      // 点击后移除末尾元素，数组项变为：7, 8, 2
       Button('array.pop()')
         .onClick(() => {
           this.array.pop();
         })
         .width(300)
         .margin(10)
-      // 点击'array.splice(0)'，重启应用，Repeat数组项为空
+      // 点击后清空数组，数组项为空
       Button('array.splice(0)')
         .onClick(() => {
           this.array.splice(0);
-        })
-        .width(300)
-        .margin(10)
-      // 点击'splice(1, 0, random)'，重启应用：Repeat组件再次显示相同的数组项
-      Button('array.splice(1, 0, random)')
-        .onClick(() => {
-          this.array.splice(1, 0, Math.round(100*Math.random()));
-        })
-        .width(300)
-        .margin(10)
-      // 点击'array.splice(0, 2, random, random)'，前两个数组项目被替换，记录下来
-      // 重启应用：Repeat组件再次显示数组项
-      Button('array.splice(0, 2, random, random)')
-        .onClick(() => {
-          this.array.splice(0, 2, Math.round(100*Math.random()), Math.round(100*Math.random()));
-        })
-        .width(300)
-        .margin(10)
-      // 点击'array.sort', 对数组项升序排列，重启应用，Repeat组件展示升序数组
-      Button('array.sort')
-        .onClick(() => {
-          this.array.sort((a, b) => a -b);
-        })
-        .width(300)
-        .margin(10)
-      // 点击'array.reverse', 对数组项降序排列，重启应用，Repeat组件展示降序数组
-      Button('array.reverse')
-        .onClick(() => {
-          this.array.reverse();
         })
         .width(300)
         .margin(10)

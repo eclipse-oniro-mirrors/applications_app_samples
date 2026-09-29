@@ -81,11 +81,11 @@ export default class MainAbility extends UIAbility {
     Logger.info(TAG, '[Demo] MainAbility onBackground')
   }
 
-  onBackPressed() {
+  onBackPress() {
     Logger.info(TAG, '[Demo] MainAbility onBackPressed');
     let exitMusicApp = AppStorage.get('exitMusicApp');
     if (exitMusicApp !== undefined) {
-      AppStorage.setOrCreate('exitMusicApp',!exitMusicApp);
+      AppStorage.setOrCreate('exitMusicApp', !exitMusicApp);
     }
     return false;
   }

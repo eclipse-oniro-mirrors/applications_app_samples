@@ -14,7 +14,7 @@
  */
 @Entry
 @Component
-struct pageBExample {
+struct PageBExample {
   build() {
     Stack() {
       // 请将$r('app.media.ic_health_heart')替换为实际资源文件

@@ -41,6 +41,7 @@ ArkUI在Native侧提供的能力作为ArkTS的子集，部分能力不会在Nati
 │   ├── NativeEntry.h
 │   ├── NativeModule.h
 │   ├── NormalTextListExample.h
+│   ├── UITimer.cpp
 │   ├── UITimer.h
 │   ├── napi_init.cpp
 │   └── types

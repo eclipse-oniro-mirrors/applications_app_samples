@@ -36,12 +36,18 @@ napi_value CreateNativeRoot(napi_env env, napi_callback_info info)
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     // 获取NodeContent
-    ArkUI_NodeContentHandle contentHandle;
-    OH_ArkUI_GetNodeContentFromNapiValue(env, args[0], &contentHandle);
+    ArkUI_NodeContentHandle contentHandle = nullptr;
+    auto code = OH_ArkUI_GetNodeContentFromNapiValue(env, args[0], &contentHandle);
+    if (code != ARKUI_ERROR_CODE_NO_ERROR) {
+        return nullptr;
+    }
     NativeEntry::GetInstance()->SetContentHandle(contentHandle);
 
     // 创建Refresh文本列表
     auto refresh = CreateMixedRefreshList(env);
+    if (refresh == nullptr) {
+        return nullptr;
+    }
 
     // 保持Native侧对象到管理类中，维护生命周期。
     NativeEntry::GetInstance()->SetRootNode(refresh);

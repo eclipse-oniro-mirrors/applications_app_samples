@@ -33,7 +33,6 @@ struct LocalStoragePage {
           let storage = uiContext.getSharedLocalStorage();
           if (storage) {
             storage.setOrCreate('message', 'onClick is called.');
-            this.message = 'LocalStoragePageHelloWorld';
           }
         })
     }

@@ -16,7 +16,7 @@
 @Entry
 @Component
 // [Start empty_CustomKeyboard]
-struct emptyCustomKeyboard {
+struct EmptyCustomKeyboard {
   controller: TextInputController = new TextInputController();
   @State inputValue: string = '';
 
@@ -42,4 +42,4 @@ struct emptyCustomKeyboard {
 }
 // [End empty_CustomKeyboard]
 
-export { emptyCustomKeyboard };
+export { EmptyCustomKeyboard };

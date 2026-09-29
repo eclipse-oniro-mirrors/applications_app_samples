@@ -127,7 +127,7 @@ class RemoteDeviceModel {
       AppStorage.setOrCreate('trustedDeviceList', this.trustedDeviceList);
       // [EndExclude get_available_device_list]
     } catch (error) {
-      logger.error('[DeviceManager.RemoteDeviceModel] getTrustedDeviceList error: ${error}' + error.toString());
+      logger.error(`[DeviceManager.RemoteDeviceModel] getTrustedDeviceList error: ${error}`);
       this.showErrMsg('getTrustedDeviceList failed');
     }
   }

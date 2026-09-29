@@ -16,7 +16,7 @@
 @Entry
 @Component
 // [Start tabKey_FocusShowKeyboard]
-struct tabKeyFocusShowKeyboard {
+struct TabKeyFocusShowKeyboard {
   build() {
     NavDestination() {
       Column({ space: 20 }) {
@@ -36,4 +36,4 @@ struct tabKeyFocusShowKeyboard {
 }
 // [End tabKey_FocusShowKeyboard]
 
-export { tabKeyFocusShowKeyboard };
+export { TabKeyFocusShowKeyboard };

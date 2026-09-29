@@ -19,7 +19,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 
 function doRandBySync() {
   let rand = cryptoFramework.createRandom();
-  let len = 24; // Generate a 24-byte random number.
+  let len = 24; // 生成一个24字节的随机数。
   try {
     let randData = rand.generateRandomSync(len);
     if (randData.data.length !== 0) {

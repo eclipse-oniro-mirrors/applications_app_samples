@@ -65,7 +65,7 @@ struct Page1 {
   build() {
     Column() {
       // 显示数据
-      // 被@Trace修饰的数据可以自动持久化进磁盘
+      // 被@Trace装饰的属性可以自动持久化进磁盘
       Text('Key SampleGlobalConnect: ' + this.p.father.childId.toString())
         .onClick(() => {
           this.p.father.childId += 1;
@@ -150,7 +150,7 @@ struct Page1 {
       // save接口
       Text('not save key SampleGlobalConnect: ' + this.p.father.groupId.toString() + ' refresh: ' + this.refresh)
         .onClick(() => {
-          // 未被@Trace保存的对象无法自动存储
+          // 未被@Trace装饰的属性无法自动存储
           this.p.father.groupId += 1;
           this.refresh += 1;
         })
@@ -158,7 +158,7 @@ struct Page1 {
         .margin(5)
       Text('save key SampleGlobalConnect: ' + this.p.father.groupId.toString() + ' refresh: ' + this.refresh)
         .onClick(() => {
-          // 未被@Trace保存的对象无法自动存储，需要调用save存储
+          // 未被@Trace装饰的属性无法自动存储，需要调用save存储
           this.p.father.groupId += 1;
           PersistenceV2.save(SampleGlobalConnect);
           this.refresh += 1;

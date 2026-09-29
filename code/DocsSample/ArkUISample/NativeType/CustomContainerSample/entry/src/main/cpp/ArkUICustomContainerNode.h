@@ -48,7 +48,7 @@ namespace NativeModule {
         void SetPadding(int32_t padding)
         {
             padding_ = padding;
-            // 自定义属性事件更新需要主动调用标记脏区接口。
+            // 自定义布局属性更新后，需要主动标记测算脏区。
             nativeModule_->markDirty(handle_, NODE_NEED_MEASURE);
         }
 
@@ -98,7 +98,7 @@ namespace NativeModule {
                     maxHeight = size.height;
                 }
             }
-            // 自定义测算为所有子节点大小加固定边距。该自定义节点最终的尺寸以此处设置的值为准。
+            // 自定义测算结果为所有子节点中的最大宽度和最大高度分别加上两侧固定边距。该自定义节点最终的尺寸以此处设置的值为准。
             const int paddingMultiplier = 2;
             nativeModule_->setMeasuredSize(handle_, maxWidth + paddingMultiplier * padding_,
                                            maxHeight + paddingMultiplier * padding_);

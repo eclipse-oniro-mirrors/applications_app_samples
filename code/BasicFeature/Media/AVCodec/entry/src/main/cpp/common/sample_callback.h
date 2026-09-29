@@ -26,6 +26,8 @@ public:
     static int32_t OnRenderStreamEvent(OH_AudioRenderer *renderer, void *userData, OH_AudioStream_Event event);
     static int32_t OnRenderInterruptEvent(OH_AudioRenderer *renderer, void *userData, OH_AudioInterrupt_ForceType type,
                                OH_AudioInterrupt_Hint hint);
+    static void OnRenderInterrupt(OH_AudioRenderer *renderer, void *userData, OH_AudioInterrupt_ForceType type,
+        OH_AudioInterrupt_Hint hint);
     static int32_t OnRenderError(OH_AudioRenderer *renderer, void *userData, OH_AudioStream_Result error);
 
     static void OnCodecError(OH_AVCodec *codec, int32_t errorCode, void *userData);

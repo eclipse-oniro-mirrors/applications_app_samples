@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_test_desc",
+      "value": "AVCodec 示例自动化测试模块"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "运行 AVCodec 示例自动化测试用例"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "AVCodec 测试"
+    }
+  ]
+}

@@ -461,7 +461,7 @@ Camera_ErrorCode NDKCamera::CreatePreviewOutput(void)
         return CAMERA_INVALID_ARGUMENT;
     }
     ret_ = OH_CameraManager_CreatePreviewOutput(cameraManager_, previewProfile_, previewSurfaceId_, &previewOutput_);
-    OH_LOG_ERROR(LOG_APP, "create preview width: %{public}d, height: %{public}d, format: %{public}d",
+    OH_LOG_INFO(LOG_APP, "create preview width: %{public}d, height: %{public}d, format: %{public}d",
         previewProfile_->size.width, previewProfile_->size.height, previewProfile_->format);
     if (previewSurfaceId_ == nullptr || previewOutput_ == nullptr || ret_ != CAMERA_OK) {
         OH_LOG_ERROR(LOG_APP, "CreatePreviewOutput failed.");
@@ -475,7 +475,7 @@ Camera_ErrorCode NDKCamera::CreatePreviewOutput(void)
 // [Start create_photo_output]
 Camera_ErrorCode NDKCamera::CreatePhotoOutputWithoutSurfaceId()
 {
-    OH_LOG_ERROR(LOG_APP, "CreatePhotoOutputWithoutSurfaceId enter.");
+    OH_LOG_INFO(LOG_APP, "CreatePhotoOutputWithoutSurfaceId enter.");
     profile_ = cameraOutputCapability_->photoProfiles[0];
     Camera_Profile* profile = cameraOutputCapability_->photoProfiles[0];
     profile->size.width = NUM_1920;
@@ -506,7 +506,7 @@ Camera_ErrorCode NDKCamera::CreateVideoOutput(char *videoId)
         return CAMERA_INVALID_ARGUMENT;
     }
     ret_ = OH_CameraManager_CreateVideoOutput(cameraManager_, videoProfile_, videoId, &videoOutput_);
-    OH_LOG_ERROR(LOG_APP, " create video width: %{public}d, height: %{public}d, format: %{public}d",
+    OH_LOG_INFO(LOG_APP, " create video width: %{public}d, height: %{public}d, format: %{public}d",
         videoProfile_->size.width, videoProfile_->size.height, videoProfile_->format);
     if (videoId == nullptr || videoOutput_ == nullptr || ret_ != CAMERA_OK) {
         OH_LOG_ERROR(LOG_APP, "CreateVideoOutput failed.");
@@ -1034,7 +1034,7 @@ Camera_ImageRotation NDKCamera::GetVideoRotation(int32_t deviceDegree)
 // [Start video_output_stop]
 Camera_ErrorCode NDKCamera::VideoOutputStop(void)
 {
-    OH_LOG_ERROR(LOG_APP, "enter VideoOutputStop.");
+    OH_LOG_INFO(LOG_APP, "enter VideoOutputStop.");
     ret_ = OH_VideoOutput_Stop(videoOutput_);
     if (ret_ != CAMERA_OK) {
         OH_LOG_ERROR(LOG_APP, "VideoOutputStop failed.");
@@ -1235,7 +1235,7 @@ void VideoOutputOnFrameEnd(Camera_VideoOutput *videoOutput, int32_t frameCount)
 // [Start video_callback_error]
 void VideoOutputOnError(Camera_VideoOutput *videoOutput, Camera_ErrorCode errorCode)
 {
-    OH_LOG_INFO(LOG_APP, "VideoOutput errorCode = %{public}d", errorCode);
+    OH_LOG_ERROR(LOG_APP, "VideoOutput errorCode = %{public}d", errorCode);
 }
 // [End video_callback_error]
 
@@ -1272,7 +1272,7 @@ void OnMetadataObjectAvailable(Camera_MetadataOutput *metadataOutput, Camera_Met
 // [Start metadata_callback_error]
 void OnMetadataOutputError(Camera_MetadataOutput *metadataOutput, Camera_ErrorCode errorCode)
 {
-    OH_LOG_INFO(LOG_APP, "OnMetadataOutput errorCode = %{public}d", errorCode);
+    OH_LOG_ERROR(LOG_APP, "OnMetadataOutput errorCode = %{public}d", errorCode);
 }
 // [End metadata_callback_error]
 

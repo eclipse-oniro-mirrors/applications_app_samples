@@ -88,6 +88,29 @@ export struct SurfaceHolderDeclarative {
         .height('40%')
         .width('90%')
 
+        // [Start enable_transparent_layer_ets]
+        // [StartExclude enable_transparent_layer_ets]
+        Column({ space: 10 }) {
+          Text('Transparent Layer XComponent')
+            .fontSize('24fp')
+            .fontWeight(500)
+        // [EndExclude enable_transparent_layer_ets]
+          XComponent({ type: XComponentType.SURFACE })
+            .id('XComponentTransparentLayer')
+            .backgroundColor('#80000000') // 半透明背景
+            .enableTransparentLayer(true) // 开启独立图层，避免半透明区域与下方内容混合时出现渲染异常
+        // [StartExclude enable_transparent_layer_ets]
+        }
+        .margin({
+          top: 12,
+          left: 12,
+          right: 12
+        })
+        .height('25%')
+        .width('90%')
+        // [EndExclude enable_transparent_layer_ets]
+        // [End enable_transparent_layer_ets]
+
         Row() {
           Button('Draw Star')
             .fontSize('16fp')

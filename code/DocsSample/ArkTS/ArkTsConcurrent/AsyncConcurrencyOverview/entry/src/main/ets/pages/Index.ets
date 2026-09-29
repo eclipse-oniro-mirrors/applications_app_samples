@@ -41,7 +41,7 @@ const promise: Promise<number> = new Promise((resolve: Function, reject: Functio
   promise.then((result: number) => {
     console.info(`Succeeded in getting number, number is ${result}`); // 成功时执行
   }, (error: BusinessError) => {
-    console.error(error.message); // 失败时执行
+    console.error(`Failed to get number. Code: ${error.code}, message: ${error.message}`); // 失败时执行
   }
   );
 
@@ -49,7 +49,7 @@ const promise: Promise<number> = new Promise((resolve: Function, reject: Functio
   promise.then((result: number) => {
     console.info(`Succeeded in getting number, number is ${result}`); // 成功时执行
   }).catch((error: BusinessError) => {
-    console.error(error.message); // 失败时执行
+    console.error(`Failed to get number. Code: ${error.code}, message: ${error.message}`); // 失败时执行
   });
 // [End promise_then_catch_handling]
 
@@ -90,7 +90,7 @@ struct PromiseAsyncAwait {
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
           .onClick(async () => {
-            let res = await myAsyncFunction();
+            let res: string = await myAsyncFunction();
             console.info(`Result is:  ${res}`);
             // [StartExclude update_message_on_success]
             this.message = 'success';

@@ -13,19 +13,19 @@
  * limitations under the License.
  */
 
-import { pageChangeDestination } from './PageChangeDestination';
+import { PageChangeDestination } from './PageChangeDestination';
 
 @Builder
 function pageChangeNavDestination(name: string) {
   if (name === 'pageChangeDestination') {
-    pageChangeDestination()
+    PageChangeDestination()
   }
 }
 
 @Entry
 @Component
 // [Start page_ChangeSource]
-struct pageChangeSource {
+struct PageChangeSource {
   // 创建一个导航控制器对象并传入Navigation
   pathStack: NavPathStack = new NavPathStack()
 
@@ -51,4 +51,4 @@ struct pageChangeSource {
 }
 // [End page_ChangeSource]
 
-export { pageChangeSource };
+export { PageChangeSource };

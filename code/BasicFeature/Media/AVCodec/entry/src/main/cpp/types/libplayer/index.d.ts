@@ -20,6 +20,7 @@ export enum PlayerState {
   PLAYING = 3,
   STOPPING = 4,
   SEEKING = 5,
+  PAUSED = 6,
 }
 
 export type PlaybackCompletionReason = 'completed' | 'stopped' | 'error'
@@ -33,6 +34,16 @@ export interface PlayOptions {
   videoDecoderSyncMode: number;
   isSmartFluencySupported: boolean;
   enableVideoDump: boolean;
+  retainLastFrame?: boolean;
+  enableLowLatency?: boolean;
+  outputInDecodingOrder?: boolean;
+  convertHdrVividToBt709?: boolean;
+  /** Renderer volume in the range [0, 1]. */
+  audioVolume?: number;
+  /** Applied when creating the audio renderer for a playback task. */
+  enableAudioLowLatency?: boolean;
+  /** Container track index for the audio track; -1 selects the first audio track. */
+  audioTrackIndex?: number;
 }
 
 export interface PlaybackResult {
@@ -59,9 +70,38 @@ export const playNative: (
 
 export const stop: () => boolean
 
+export const pause: () => boolean
+
+export const resume: () => boolean
+
 export const seekTo: (positionUs: number) => boolean
 
+/** Rebuilds codecs on a worker. Only one async seek is accepted at a time.
+ * State and progress polling remain available; wait for completion before mutations.
+ */
+export const seekToAsync: (positionUs: number) => Promise<boolean>
+
+export const selectAudioTrack: (trackIndex: number) => boolean
+
 export const getState: () => PlayerState
+
+export interface PlaybackDiagnostics {
+  syncAvailable: boolean;
+  avOffsetUs: number;
+  averageAbsoluteOffsetUs: number;
+  maxAbsoluteOffsetUs: number;
+  audioDevicePendingUs: number;
+  audioQueueDurationUs: number;
+  audioUnderruns: number;
+  syncDrops: number;
+  /** -1 until a successful seek rebuild / target output is available. */
+  seekRebuildUs: number;
+  seekFirstOutputUs: number;
+  audioInterrupted: boolean;
+  audioInterruptions: number;
+  lastAudioInterruptHint: number;
+  backgroundPaused: boolean;
+}
 
 export interface PlaybackInfo {
   state: PlayerState;
@@ -72,6 +112,16 @@ export interface PlaybackInfo {
   hasAudio: boolean;
   isSmartFluencyAvailable: boolean;
   isHdrVividConfirmed: boolean;
+  isSoftwareDecoderFallbackUsed: boolean;
+  isBufferMode: boolean;
+  videoOutputFrames: number;
+  videoRenderedFrames: number;
+  videoDroppedFrames: number;
+  audioOutputBuffers: number;
+  bufferPresentFrames: number;
+  bufferPresentFailures: number;
+  bufferPresentAverageUs: number;
+  diagnostics: PlaybackDiagnostics;
 }
 
 export const getPlaybackInfo: () => PlaybackInfo
@@ -104,11 +154,16 @@ export interface DecoderInfo {
   runMode: number;
   syncMode: number;
   videoDumpEnabled: boolean;
+  softwareDecoderFallbackUsed: boolean;
 }
 
 export interface MediaTrackInfo {
   index: number;
   type: number;
+  codecMime: string;
+  audioSampleRate: number;
+  audioChannelCount: number;
+  bitrate: number;
   formatDump: string;
 }
 
@@ -132,6 +187,10 @@ export const setPlaybackSpeed: (
   speed: number,
 ) => void
 
+export const setVolume: (
+  volume: number,
+) => void
+
 export const setTransform: (
   transformHint: number,
 ) => void
@@ -145,3 +204,9 @@ export const onThermalWarningReceived: (
 ) => void
 
 export const onThermalLevelRecovered: () => void
+
+/** Controls whether entering the application background should keep playback running. */
+export const setBackgroundPlaybackEnabled: (enabled: boolean) => void
+
+/** Notifies Native playback about an Ability foreground/background transition. */
+export const setAppBackground: (background: boolean) => void

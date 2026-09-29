@@ -163,285 +163,6 @@ function unsubscribeRefueling(): void {
 }
 // [End refueling_unsubscribe]
 
-@Component
-struct QuerySection {
-  @Link capabilityList: string[];
-
-  aboutToAppear(): void {
-  }
-
-  async queryCapability(): Promise<void> {
-    try {
-      this.capabilityList = await carAwareness.getAllCapabilityList();
-      hilog.info(DOMAIN, TAG, 'Capability list: %{public}s', JSON.stringify(this.capabilityList));
-    } catch (error) {
-      const err: BusinessError = error as BusinessError;
-      hilog.error(DOMAIN, TAG, 'Failed to query capability, error code: %{public}d', err.code);
-    }
-  }
-
-  build() {
-    Column() {
-      Text('设备能力查询')
-        .fontSize(16)
-        .fontWeight(FontWeight.Medium)
-        .margin({ bottom: 12 });
-
-      Button('查询能力列表')
-        .height(40)
-        .fontSize(13)
-        .borderRadius(20)
-        .backgroundColor('#2196F3')
-        .width('100%')
-        .onClick(() => this.queryCapability());
-
-      if (this.capabilityList.length > 0) {
-        Text('支持的能力: ' + this.capabilityList.length)
-          .fontSize(12)
-          .fontColor('#666666')
-          .margin({ top: 8 });
-      }
-    }
-    .width('100%')
-    .padding(16)
-    .backgroundColor('#FAFAFA')
-    .borderRadius(12);
-  }
-}
-
-@Component
-struct SubscribeSection {
-  @Link spatialMotionSubscribed: boolean;
-  @Link weatherSubscribed: boolean;
-  @Link refuelingSubscribed: boolean;
-
-  build() {
-    Column() {
-      Text('感知功能订阅')
-        .fontSize(16)
-        .fontWeight(FontWeight.Medium)
-        .margin({ bottom: 12 });
-
-      List() {
-        ListItem() {
-          Row() {
-            Text('隔空手势')
-              .fontSize(14);
-            Blank();
-            Text(this.spatialMotionSubscribed ? '已订阅' : '未订阅')
-              .id('spatialMotionStatus')
-              .fontSize(12)
-              .fontColor(this.spatialMotionSubscribed ? '#4CAF50' : '#9E9E9E');
-          }
-          .padding(12);
-        }
-
-        ListItem() {
-          Row() {
-            Text('实时天气')
-              .fontSize(14);
-            Blank();
-            Text(this.weatherSubscribed ? '已订阅' : '未订阅')
-              .id('weatherStatus')
-              .fontSize(12)
-              .fontColor(this.weatherSubscribed ? '#4CAF50' : '#9E9E9E');
-          }
-          .padding(12);
-        }
-
-        ListItem() {
-          Row() {
-            Text('补能状态')
-              .fontSize(14);
-            Blank();
-            Text(this.refuelingSubscribed ? '已订阅' : '未订阅')
-              .id('refuelingStatus')
-              .fontSize(12)
-              .fontColor(this.refuelingSubscribed ? '#4CAF50' : '#9E9E9E');
-          }
-          .padding(12);
-        }
-      }
-      .borderRadius(12)
-      .backgroundColor('#F5F5F5');
-    }
-    .width('100%')
-    .padding(16)
-    .backgroundColor('#FFFFFF')
-    .borderRadius(12);
-  }
-}
-
-@Component
-struct ControlSection {
-  onSubscribeSpatialMotion?: () => void;
-  onUnsubscribeSpatialMotion?: () => void;
-  onSubscribeWeather?: () => void;
-  onUnsubscribeWeather?: () => void;
-  onSubscribeRefueling?: () => void;
-  onUnsubscribeRefueling?: () => void;
-
-  build() {
-    Column() {
-      Text('控制')
-        .fontSize(16)
-        .fontWeight(FontWeight.Medium)
-        .margin({ bottom: 12 });
-
-      Column() {
-        Row() {
-          Text('隔空手势')
-            .fontSize(14)
-            .fontColor('#666666');
-          Blank();
-        }
-        .margin({ bottom: 8 });
-
-        Row() {
-          Button('订阅')
-            .id('button1')
-            .height(36)
-            .fontSize(12)
-            .borderRadius(18)
-            .backgroundColor('#FF9800')
-            .onClick(() => this.onSubscribeSpatialMotion?.());
-
-          Blank().width(12);
-
-          Button('取消订阅')
-            .id('button2')
-            .height(36)
-            .fontSize(12)
-            .borderRadius(18)
-            .backgroundColor('#9C27B0')
-            .onClick(() => this.onUnsubscribeSpatialMotion?.());
-        }
-      }
-      .padding(12)
-      .backgroundColor('#F5F5F5')
-      .borderRadius(12)
-      .margin({ bottom: 12 });
-
-      Column() {
-        Row() {
-          Text('实时天气')
-            .fontSize(14)
-            .fontColor('#666666');
-          Blank();
-        }
-        .margin({ bottom: 8 });
-
-        Row() {
-          Button('订阅')
-            .id('button3')
-            .height(36)
-            .fontSize(12)
-            .borderRadius(18)
-            .backgroundColor('#FF9800')
-            .onClick(() => this.onSubscribeWeather?.());
-
-          Blank().width(12);
-
-          Button('取消订阅')
-            .id('button4')
-            .height(36)
-            .fontSize(12)
-            .borderRadius(18)
-            .backgroundColor('#9C27B0')
-            .onClick(() => this.onUnsubscribeWeather?.());
-        }
-      }
-      .padding(12)
-      .backgroundColor('#F5F5F5')
-      .borderRadius(12)
-      .margin({ bottom: 12 });
-
-      Column() {
-        Row() {
-          Text('补能状态')
-            .fontSize(14)
-            .fontColor('#666666');
-          Blank();
-        }
-        .margin({ bottom: 8 });
-
-        Row() {
-          Button('订阅')
-            .id('button5')
-            .height(36)
-            .fontSize(12)
-            .borderRadius(18)
-            .backgroundColor('#FF9800')
-            .onClick(() => this.onSubscribeRefueling?.());
-
-          Blank().width(12);
-
-          Button('取消订阅')
-            .id('button6')
-            .height(36)
-            .fontSize(12)
-            .borderRadius(18)
-            .backgroundColor('#9C27B0')
-            .onClick(() => this.onUnsubscribeRefueling?.());
-        }
-      }
-      .padding(12)
-      .backgroundColor('#F5F5F5')
-      .borderRadius(12);
-    }
-    .width('100%')
-    .padding(16)
-    .backgroundColor('#FFFFFF')
-    .borderRadius(12);
-  }
-}
-
-@Component
-struct SimulateSection {
-  @Link spatialMotionData: string;
-  @Link weatherData: string;
-  @Link refuelingData: string;
-
-  @Builder
-  DataRow(label: string, value: string, rowId: string) {
-    Row() {
-      Text(label)
-        .fontSize(14)
-        .fontColor('#666666');
-      Blank();
-      Text(value)
-        .id(rowId)
-        .fontSize(14)
-        .fontWeight(FontWeight.Medium);
-    }
-    .padding({ top: 8, bottom: 8 });
-  }
-
-  build() {
-    Column() {
-      Text('感知数据')
-        .fontSize(16)
-        .fontWeight(FontWeight.Medium)
-        .margin({ bottom: 12 });
-
-      Column() {
-        this.DataRow('隔空手势', this.spatialMotionData, 'spatialMotionText');
-        Divider().color('#E0E0E0');
-        this.DataRow('实时天气', this.weatherData, 'weatherText');
-        Divider().color('#E0E0E0');
-        this.DataRow('补能状态', this.refuelingData, 'refuelingText');
-      }
-      .padding(12)
-      .borderRadius(12)
-      .backgroundColor('#FAFAFA');
-    }
-    .width('100%')
-    .padding(16)
-    .backgroundColor('#FFFFFF')
-    .borderRadius(12);
-  }
-}
-
 @Entry
 @Component
 export struct CarAwareness {
@@ -452,13 +173,43 @@ export struct CarAwareness {
   @State spatialMotionData: string = 'N/A';
   @State weatherData: string = 'N/A';
   @State refuelingData: string = 'N/A';
+  @State logs: string[] = [];
+  @State subscribedTypes: string[] = [];
+  private logScroller: Scroller = new Scroller();
+
+  log(msg: string): void {
+    let logMsg: string = `${new Date().toLocaleTimeString()}: ${msg}`;
+    this.logs.push(logMsg);
+    if (this.logs.length > 100) {
+      this.logs.shift();
+    }
+    hilog.info(DOMAIN, TAG, '%{public}s', msg);
+    setTimeout((): void => {
+      this.logScroller.scrollEdge(Edge.Bottom);
+    }, 10);
+  }
+
+  addSubscription(type: string): void {
+    if (!this.subscribedTypes.includes(type)) {
+      this.subscribedTypes.push(type);
+    }
+  }
+
+  removeSubscription(type: string): void {
+    let index: number = this.subscribedTypes.indexOf(type);
+    if (index > -1) {
+      this.subscribedTypes.splice(index, 1);
+    }
+  }
 
   handleSubscribeSpatialMotion(): void {
     if (!this.spatialMotionSubscribed) {
       subscribeSpatialMotion((data: string) => {
         this.spatialMotionData = data;
+        this.log(`[隔空手势] ${data}`);
       });
       this.spatialMotionSubscribed = true;
+      this.addSubscription('SpatialMotion');
     }
   }
 
@@ -467,6 +218,7 @@ export struct CarAwareness {
       unsubscribeSpatialMotion();
       this.spatialMotionSubscribed = false;
       this.spatialMotionData = 'N/A';
+      this.removeSubscription('SpatialMotion');
     }
   }
 
@@ -474,8 +226,10 @@ export struct CarAwareness {
     if (!this.weatherSubscribed) {
       subscribeWeather((data: string) => {
         this.weatherData = data;
+        this.log(`[实时天气] ${data}`);
       });
       this.weatherSubscribed = true;
+      this.addSubscription('RealTimeWeather');
     }
   }
 
@@ -484,6 +238,7 @@ export struct CarAwareness {
       unsubscribeWeather();
       this.weatherSubscribed = false;
       this.weatherData = 'N/A';
+      this.removeSubscription('RealTimeWeather');
     }
   }
 
@@ -491,8 +246,10 @@ export struct CarAwareness {
     if (!this.refuelingSubscribed) {
       subscribeRefueling((data: string) => {
         this.refuelingData = data;
+        this.log(`[补能状态] ${data}`);
       });
       this.refuelingSubscribed = true;
+      this.addSubscription('Refueling');
     }
   }
 
@@ -501,44 +258,189 @@ export struct CarAwareness {
       unsubscribeRefueling();
       this.refuelingSubscribed = false;
       this.refuelingData = 'N/A';
+      this.removeSubscription('Refueling');
     }
   }
 
   build() {
     Column() {
-      Text('CarAwareness 示例')
-        .fontSize(24)
-        .fontWeight(FontWeight.Bold)
-        .margin({ bottom: 20 });
+      this.HeaderSection()
+      Column() {
+        this.LogSection()
+      }
+      .width('100%')
+      .layoutWeight(40)
 
-      QuerySection({ capabilityList: $capabilityList })
-        .margin({ bottom: 16 });
-
-      SubscribeSection({
-        spatialMotionSubscribed: $spatialMotionSubscribed,
-        weatherSubscribed: $weatherSubscribed,
-        refuelingSubscribed: $refuelingSubscribed
-      })
-        .margin({ bottom: 16 });
-
-      ControlSection({
-        onSubscribeSpatialMotion: () => this.handleSubscribeSpatialMotion(),
-        onUnsubscribeSpatialMotion: () => this.handleUnsubscribeSpatialMotion(),
-        onSubscribeWeather: () => this.handleSubscribeWeather(),
-        onUnsubscribeWeather: () => this.handleUnsubscribeWeather(),
-        onSubscribeRefueling: () => this.handleSubscribeRefueling(),
-        onUnsubscribeRefueling: () => this.handleUnsubscribeRefueling()
-      })
-        .margin({ bottom: 16 });
-
-      SimulateSection({
-        spatialMotionData: $spatialMotionData,
-        weatherData: $weatherData,
-        refuelingData: $refuelingData
-      });
+      Scroll() {
+        Column({ space: 12 }) {
+          this.ControlSection()
+          this.QuerySection()
+        }
+        .width('100%')
+        .padding(12)
+      }
+      .width('100%')
+      .layoutWeight(60)
+      .backgroundColor($r('sys.color.background_secondary'))
     }
     .width('100%')
     .height('100%')
-    .padding(16);
+    .backgroundColor($r('sys.color.background_primary'))
+  }
+
+  @Builder
+  HeaderSection(): void {
+    Column() {
+      Row() {
+        Text('Car Awareness 测试')
+          .fontSize(20)
+          .fontWeight(FontWeight.Bold)
+      }
+      .width('100%')
+      .padding({ left: 16, right: 16, top: 12, bottom: 8 })
+    }
+    .width('100%')
+    .backgroundColor($r('sys.color.background_primary'))
+  }
+
+  @Builder
+  LogSection(): void {
+    Column() {
+      Scroll(this.logScroller) {
+        Column() {
+          ForEach(this.logs, (log: string, index: number) => {
+            Text(log)
+              .fontSize(10)
+              .fontColor('#E0E0E0')
+              .fontFamily('monospace')
+              .width('100%')
+              .wordBreak(WordBreak.BREAK_ALL)
+              .maxLines(10)
+
+          })
+        }
+        .width('95%')
+        .alignItems(HorizontalAlign.Start)
+      }
+      .width('100%')
+      .layoutWeight(1)
+      .backgroundColor('#1E1E1E')
+      .margin(12)
+      .borderRadius(8)
+    }
+    .width('100%')
+    .backgroundColor('#2D2D2D')
+  }
+
+  @Builder
+  QuerySection(): void {
+    Column() {
+      Text('设备能力查询')
+        .fontSize(14)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+        .padding({ bottom: 8 })
+      Button('查询能力列表')
+        .width('100%')
+        .onClick((): void => {
+          carAwareness.getAllCapabilityList()
+            .then((list) => {
+              this.capabilityList = list;
+              this.log(`查询能力列表`);
+              hilog.info(DOMAIN, TAG, '能力列表:%{public}s', JSON.stringify(list));
+            })
+            .catch((err: BusinessError) => {
+              this.log(`查询异常: ${err.code} - ${err.message}`);
+            });
+        })
+    }
+    .width('100%')
+    .padding(12)
+    .backgroundColor($r('sys.color.background_primary'))
+    .borderRadius(12)
+  }
+
+  @Builder
+  ControlSection(): void {
+    Column() {
+      Text('控制')
+        .fontSize(14)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+        .padding({ bottom: 8 })
+
+      Row() {
+        Text('隔空手势')
+          .fontSize(12)
+          .layoutWeight(1)
+        Button('订阅')
+          .onClick((): void => {
+            this.log('订阅隔空手势');
+            this.handleSubscribeSpatialMotion();
+          })
+          .fontSize(10)
+          .width(90)
+        Blank().width(8)
+        Button('取消订阅')
+          .onClick((): void => {
+            this.log('取消订阅隔空手势');
+            this.handleUnsubscribeSpatialMotion();
+          })
+          .fontSize(10)
+          .width(90)
+      }
+      .width('100%')
+      .padding({ top: 6, bottom: 6 })
+
+      Row() {
+        Text('实时天气')
+          .fontSize(12)
+          .layoutWeight(1)
+        Button('订阅')
+          .onClick((): void => {
+            this.log('订阅实时天气');
+            this.handleSubscribeWeather();
+          })
+          .fontSize(10)
+          .width(90)
+        Blank().width(8)
+        Button('取消订阅')
+          .onClick((): void => {
+            this.log('取消订阅实时天气');
+            this.handleUnsubscribeWeather();
+          })
+          .fontSize(10)
+          .width(90)
+      }
+      .width('100%')
+      .padding({ top: 6, bottom: 6 })
+
+      Row() {
+        Text('补能状态')
+          .fontSize(12)
+          .layoutWeight(1)
+        Button('订阅')
+          .onClick((): void => {
+            this.log('订阅补能状态');
+            this.handleSubscribeRefueling();
+          })
+          .fontSize(10)
+          .width(90)
+        Blank().width(8)
+        Button('取消订阅')
+          .onClick((): void => {
+            this.log('取消订阅补能状态');
+            this.handleUnsubscribeRefueling();
+          })
+          .fontSize(10)
+          .width(90)
+      }
+      .width('100%')
+      .padding({ top: 6, bottom: 6 })
+    }
+    .width('100%')
+    .padding(12)
+    .backgroundColor($r('sys.color.background_primary'))
+    .borderRadius(12)
   }
 }

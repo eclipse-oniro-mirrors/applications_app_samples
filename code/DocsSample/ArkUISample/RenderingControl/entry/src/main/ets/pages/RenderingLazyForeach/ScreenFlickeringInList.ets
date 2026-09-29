@@ -20,7 +20,7 @@ import { BasicDataSource } from './BasicDataSource';
 const TAG = '[Sample_RenderingControl]';
 const DOMAIN = 0xF811;
 
-class ScreenFliceringDataSource extends BasicDataSource {
+class ScreenFlickeringDataSource extends BasicDataSource {
   private dataArray: string[] = [];
 
   public totalCount(): number {
@@ -51,7 +51,7 @@ class ScreenFliceringDataSource extends BasicDataSource {
 @Component
 struct ScreenFlickeringInList {
   private moved: number[] = [];
-  private data: ScreenFliceringDataSource = new ScreenFliceringDataSource();
+  private data: ScreenFlickeringDataSource = new ScreenFlickeringDataSource();
 
   aboutToAppear() {
     for (let i = 0; i <= 10; i++) {

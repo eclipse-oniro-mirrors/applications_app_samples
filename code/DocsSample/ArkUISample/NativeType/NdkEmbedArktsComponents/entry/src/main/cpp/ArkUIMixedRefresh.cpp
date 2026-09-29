@@ -52,12 +52,12 @@ void ArkUIMixedRefresh::Attribute2Descriptor(const NativeRefreshAttribute &attri
     }
     if (attribute.pullToRefresh) {
         napi_value pullToRefresh;
-        napi_create_int32(g_env, attribute.pullToRefresh.value(), &pullToRefresh);
+        napi_get_boolean(g_env, attribute.pullToRefresh.value(), &pullToRefresh);
         desc[REFRESH_OFFSET_INDEX3].value = pullToRefresh;
     }
     if (attribute.isRefreshing) {
         napi_value isRefreshing;
-        napi_create_int32(g_env, attribute.isRefreshing.value(), &isRefreshing);
+        napi_get_boolean(g_env, attribute.isRefreshing.value(), &isRefreshing);
         desc[REFRESH_OFFSET_INDEX4].value = isRefreshing;
     }
     if (attribute.refreshOffset) {
@@ -142,13 +142,21 @@ const std::shared_ptr<ArkUIMixedRefresh> ArkUIMixedRefresh::Create(const NativeR
     // 获取ArkTS的Refresh组件。
     napi_value componentContent = nullptr;
     napi_get_named_property(g_env, result, "content", &componentContent);
-    ArkUI_NodeHandle handle;
-    OH_ArkUI_GetNodeHandleFromNapiValue(g_env, componentContent, &handle);
+    ArkUI_NodeHandle handle = nullptr;
+    auto code = OH_ArkUI_GetNodeHandleFromNapiValue(g_env, componentContent, &handle);
+    if (code != ARKUI_ERROR_CODE_NO_ERROR) {
+        napi_close_handle_scope(g_env, scope);
+        return nullptr;
+    }
     // 获取ArkTS的Refresh组件的子组件插槽。
     napi_value nodeContent = nullptr;
     napi_get_named_property(g_env, result, "childSlot", &nodeContent);
-    ArkUI_NodeContentHandle contentHandle;
-    OH_ArkUI_GetNodeContentFromNapiValue(g_env, nodeContent, &contentHandle);
+    ArkUI_NodeContentHandle contentHandle = nullptr;
+    code = OH_ArkUI_GetNodeContentFromNapiValue(g_env, nodeContent, &contentHandle);
+    if (code != ARKUI_ERROR_CODE_NO_ERROR) {
+        napi_close_handle_scope(g_env, scope);
+        return nullptr;
+    }
     // 保存ArkTS的ComponentContent用于防止ArkTS侧对象释放以及后续的更新。
     napi_ref componentContentRef;
     napi_create_reference(g_env, componentContent, 1, &componentContentRef);

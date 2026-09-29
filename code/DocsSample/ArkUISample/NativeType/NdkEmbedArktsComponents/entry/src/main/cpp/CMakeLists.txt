@@ -12,7 +12,7 @@ endif()
 include_directories(${NATIVERENDER_ROOT_PATH}
                     ${NATIVERENDER_ROOT_PATH}/include)
 
-add_library(entry SHARED NapiInit.cpp NativeEntry.cpp ArkUIMixedRefresh.cpp)
+add_library(entry SHARED NapiInit.cpp NativeEntry.cpp ArkUIMixedRefresh.cpp UITimer.cpp)
   find_library(
        # Sets the name of the path variable.
        hilog-lib

@@ -70,7 +70,7 @@ struct Page8 {
         .fontSize(30)
         .margin(5)
         .onClick(() => {
-          // 返回类实例本身，并赋值给message，触发@Computed和@Monitor
+          // 返回可观察对象，并赋值给message，触发@Computed和@Monitor
           this.message = UIUtils.makeObserved(new Info(200));
         })
       Child({ message: this.message })

@@ -21,7 +21,7 @@
   },
   "author": "",
   "name": "avcodecsample",
-  "description": "Please describe the basic information.",
+  "description": "AVCodec playback and recording sample.",
   "main": "",
   "version": "1.0.0",
   "dependencies": {}

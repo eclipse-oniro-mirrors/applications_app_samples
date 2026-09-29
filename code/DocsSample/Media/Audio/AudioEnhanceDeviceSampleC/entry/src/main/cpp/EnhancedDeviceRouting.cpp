@@ -268,7 +268,7 @@ napi_value SelectOutputDeviceForAudioRenderer(napi_env env, napi_callback_info i
 // [End select_OutputDeviceForAudioRenderer]
 
 // [EndExclude select_InputDeviceForAudioCapturer]
-// 为指定音频播放流设置首选输入设备。
+// 为指定音频录制流设置首选输入设备。
 napi_value SelectInputDeviceForAudioCapturer(napi_env env, napi_callback_info info)
 {
     int32_t deviceId = 0;

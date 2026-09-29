@@ -15,20 +15,30 @@
 
 import cameraDataModelTest from './CameraDataModel.test';
 import commonConstantsTest from './CommonConstants.test';
-import dateTimeUtilsTest from './DateTimeUtils.test';
+import dateTimeUtilTest from './DateTimeUtil.test';
 import mediaUtilsTest from './MediaUtils.test';
 import playerSettingsModelTest from './PlayerSettingsModel.test';
 import recorderSettingsModelTest from './RecorderSettingsModel.test';
 import playbackInfoModelTest from './PlaybackInfoModel.test';
 import mediaInfoModelTest from './MediaInfoModel.test';
+import playbackViewModelTest from './PlaybackViewModel.test';
+import subtitleModelTest from './SubtitleModel.test';
+import playbackHistoryModelTest from './PlaybackHistoryModel.test';
+import playbackPolicyTest from './PlaybackPolicy.test';
+import seekRequestControllerTest from './SeekRequestController.test';
 
 export default function testsuite() {
   cameraDataModelTest();
   commonConstantsTest();
-  dateTimeUtilsTest();
+  dateTimeUtilTest();
   mediaUtilsTest();
   playerSettingsModelTest();
   recorderSettingsModelTest();
   playbackInfoModelTest();
   mediaInfoModelTest();
+  playbackViewModelTest();
+  subtitleModelTest();
+  playbackHistoryModelTest();
+  playbackPolicyTest();
+  seekRequestControllerTest();
 }

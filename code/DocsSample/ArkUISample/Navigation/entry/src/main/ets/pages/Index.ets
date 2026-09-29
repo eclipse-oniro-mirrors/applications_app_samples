@@ -72,6 +72,7 @@ struct Index {
         { name: 'template2/Index', label: $r('app.string.stepperIndex_text15') },
         { name: 'template3/Index', label: $r('app.string.stepperIndex_text16') },
         { name: 'template4/Index', label: $r('app.string.stepperIndex_text17') },
+        { name: 'template5/Index', label: $r('app.string.navDestination_text4') },
       ]
     }, {
     name: 'observer',

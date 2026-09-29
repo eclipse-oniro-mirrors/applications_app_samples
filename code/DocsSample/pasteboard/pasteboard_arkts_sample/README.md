@@ -32,6 +32,7 @@ entry/src/main
  │   ├── entryability
  │   ├── entrybackupability
  │   ├── pages
+ │       ├── DistributePasteboard.ets  // 分布式剪贴板开发示例代码
  │       ├── Index.ets            // UI页面
  │       ├── PasteboardModel.ets  // 开发步骤示例代码
  ├── resources

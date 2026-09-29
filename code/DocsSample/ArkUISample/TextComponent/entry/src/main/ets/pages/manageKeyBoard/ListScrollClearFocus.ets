@@ -16,7 +16,7 @@
 @Entry
 @Component
 // [Start listScroll_ClearFocus]
-struct listScrollClearFocus {
+struct ListScrollClearFocus {
   private arr: number[] = Array.from<number, number>(
     { length: 100 } as ArrayLike<number>,
     (_, i: number) => i + 1
@@ -48,4 +48,4 @@ struct listScrollClearFocus {
 }
 // [End listScroll_ClearFocus]
 
-export { listScrollClearFocus };
+export { ListScrollClearFocus };

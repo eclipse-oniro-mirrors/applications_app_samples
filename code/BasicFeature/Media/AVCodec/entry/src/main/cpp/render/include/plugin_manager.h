@@ -16,12 +16,14 @@
 #ifndef NATIVE_XCOMPONENT_PLUGIN_MANAGER_H
 #define NATIVE_XCOMPONENT_PLUGIN_MANAGER_H
 
+#include <cstdint>
 #include <ace/xcomponent/native_interface_xcomponent.h>
 #include <js_native_api.h>
 #include <js_native_api_types.h>
 #include <napi/native_api.h>
 #include <memory>
 #include <mutex>
+#include <shared_mutex>
 #include <string>
 #include <unordered_map>
 #include "native_window/external_window.h"
@@ -31,6 +33,53 @@
 namespace NativeXComponentSample {
 class PluginManager {
 public:
+    class PluginWindowLease {
+    public:
+        PluginWindowLease() = default;
+        ~PluginWindowLease();
+
+        PluginWindowLease(const PluginWindowLease &) = delete;
+        PluginWindowLease &operator=(const PluginWindowLease &) = delete;
+        PluginWindowLease(PluginWindowLease &&other) noexcept;
+        PluginWindowLease &operator=(PluginWindowLease &&other) noexcept;
+
+        explicit operator bool() const
+        {
+            return window_ != nullptr;
+        }
+
+        OHNativeWindow *GetWindow() const
+        {
+            return window_;
+        }
+
+        int32_t GetWidth() const
+        {
+            return width_;
+        }
+
+        int32_t GetHeight() const
+        {
+            return height_;
+        }
+
+        uint64_t GetGeneration() const
+        {
+            return generation_;
+        }
+
+    private:
+        friend class PluginManager;
+
+        PluginWindowLease(OHNativeWindow *window, int32_t width, int32_t height, uint64_t generation);
+        void Reset();
+
+        OHNativeWindow *window_ = nullptr;
+        int32_t width_ = 0;
+        int32_t height_ = 0;
+        uint64_t generation_ = 0;
+    };
+
     ~PluginManager();
 
     static PluginManager* GetInstance()
@@ -43,8 +92,11 @@ public:
     void SetNativeXComponent(const std::string& id, OH_NativeXComponent* nativeXComponent);
     std::shared_ptr<PluginRender> GetRender(const std::string& id);
     void ReleaseRender(const std::string& id);
-    void SetPluginWindow(OHNativeWindow *window);
+    void SetPluginWindow(OHNativeWindow *window, int32_t width, int32_t height);
+    PluginWindowLease AcquirePluginWindow();
     OHNativeWindow *GetPluginWindow() const;
+    void GetPluginWindowSize(int32_t &width, int32_t &height) const;
+    uint64_t GetPluginWindowGeneration() const;
     void ClearPluginWindow(OHNativeWindow *window);
     void Export(napi_env env, napi_value exports);
 
@@ -55,7 +107,10 @@ private:
     std::unordered_map<std::string, OH_NativeXComponent*> nativeXComponentMap_;
     std::unordered_map<std::string, std::shared_ptr<PluginRender>> pluginRenderMap_;
     OHNativeWindow *pluginWindow_ = nullptr;
-    mutable std::mutex mutex_;
+    int32_t pluginWindowWidth_ = 0;
+    int32_t pluginWindowHeight_ = 0;
+    uint64_t pluginWindowGeneration_ = 0;
+    mutable std::shared_mutex mutex_;
 };
 }
 #endif

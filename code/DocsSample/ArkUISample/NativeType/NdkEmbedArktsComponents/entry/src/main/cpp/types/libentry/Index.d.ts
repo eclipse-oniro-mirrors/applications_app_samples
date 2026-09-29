@@ -13,9 +13,38 @@
  * limitations under the License.
  */
 // [Start bridge_index]
-export const createNativeRoot: (content: Object) => void;
+import { ComponentContent, NodeContent, RefreshModifier } from '@kit.ArkUI';
+
+interface NativeRefreshAttribute {
+  isRefreshing: boolean;
+  width?: number;
+  height?: number;
+  backgroundColor?: number;
+  refreshOffset?: number;
+  pullToRefresh?: boolean;
+  onRefreshing?: () => void;
+  onOffsetChange?: (offset: number) => void;
+}
+
+interface RefreshAttribute {
+  isRefreshing: boolean;
+  modifier?: RefreshModifier;
+  slot?: NodeContent;
+  onRefreshing?: () => void;
+  onOffsetChange?: (offset: number) => void;
+}
+
+interface MixedModuleResult {
+  content: ComponentContent<RefreshAttribute>;
+  childSlot: NodeContent;
+}
+
+export const createNativeRoot: (content: NodeContent) => void;
 export const destroyNativeRoot: () => void;
 
-export const registerCreateMixedRefreshNode: (content: Object) => void;
-export const registerUpdateMixedRefreshNode: (content: Object) => void;
+export const registerCreateMixedRefreshNode: (
+  callback: (value: NativeRefreshAttribute) => MixedModuleResult) => void;
+export const registerUpdateMixedRefreshNode: (
+  callback: (refresh: ComponentContent<RefreshAttribute>, childSlot: NodeContent,
+    value: NativeRefreshAttribute) => void) => void;
 // [End bridge_index]

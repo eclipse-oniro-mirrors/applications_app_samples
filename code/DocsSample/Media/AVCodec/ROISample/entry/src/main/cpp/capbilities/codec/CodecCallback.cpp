@@ -35,6 +35,16 @@ void CodecCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBu
         return;
     }
     CodecUserData *codecUserData = static_cast<CodecUserData *>(userData);
+    // Buffer模式：从RoiQueue取ROI字符串，设置到输入Buffer参数。
+    if (codecUserData->roiPathType == ROI_PATH_BUFFER_MODE && codecUserData->roiQueue != nullptr) {
+        std::string roiStr = codecUserData->roiQueue->Pop();
+        OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
+        if (format != nullptr) {
+            OH_AVFormat_SetStringValue(format, OH_MD_KEY_VIDEO_ENCODER_ROI_PARAMS, roiStr.c_str());
+            OH_AVBuffer_SetParameter(buffer, format);
+            OH_AVFormat_Destroy(format);
+        }
+    }
     std::unique_lock<std::mutex> lock(codecUserData->inputMutex);
     codecUserData->inputBufferInfoQueue.emplace(index, buffer);
     codecUserData->inputCond.notify_all();

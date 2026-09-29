@@ -1,0 +1,2 @@
+-enable-property-sanitize
+-enable-class-sanitize

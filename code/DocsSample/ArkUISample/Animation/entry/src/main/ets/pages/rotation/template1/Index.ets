@@ -17,7 +17,7 @@ import { display } from '@kit.ArkUI';
 // [Start rotation]
 @Entry
 @Component
-struct rotation {
+struct RotationTest {
   build() {
     Stack() {
       // 请将$r('app.media.tree')替换为实际资源文件

@@ -1,0 +1,60 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "depth_index_title",
+      "value": "DepthComponent 景深组件示例"
+    },
+    {
+      "name": "depth_2d_name",
+      "value": "2D 图片景深"
+    },
+    {
+      "name": "depth_2d_desc",
+      "value": "使用静态图片作为背景，通过四角坐标设置子组件在三维空间中的位置"
+    },
+    {
+      "name": "depth_3d_name",
+      "value": "3D 模型景深"
+    },
+    {
+      "name": "depth_3d_desc",
+      "value": "使用 glTF/glb 3D 模型作为背景，模型自带深度信息，无需设置深度图"
+    },
+    {
+      "name": "depth_ndc_name",
+      "value": "NDC 坐标模式"
+    },
+    {
+      "name": "depth_ndc_desc",
+      "value": "使用 NDC 归一化设备坐标系设置子组件空间位置"
+    },
+    {
+      "name": "depth_only_name",
+      "value": "仅设置深度"
+    },
+    {
+      "name": "depth_only_desc",
+      "value": "通过空间效果 position 的数值写法设置子组件深度，实现文字遮挡效果"
+    },
+    {
+      "name": "depth_crop_name",
+      "value": "相机裁剪景深"
+    },
+    {
+      "name": "depth_crop_desc",
+      "value": "通过相机裁剪参数（cameraBufferCrop）实现景深效果"
+    }
+  ]
+}

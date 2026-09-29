@@ -69,8 +69,8 @@ async function prikeyGetPubKeyAsync() {
   try {
     let keyPair = rsaGenerator.convertKeySync(null, skDataBlob);
     let priKey = keyPair.priKey;
-    let pubkey = await priKey.getPubKey();
-    let pkBlob = pubkey.getEncoded();
+    let pubKey = await priKey.getPubKey();
+    let pkBlob = pubKey.getEncoded();
     console.info('pk1 bin data: ' + pkBlob.data);
     let ret: boolean = compareUint8Array(pkBlob.data, expectPkdata);
     console.info('result: ' + ret);

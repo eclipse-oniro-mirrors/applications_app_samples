@@ -1579,6 +1579,14 @@
     {
       "name": "customLazyWaterFlowLayout_description",
       "value": "示例展示自定义懒加载瀑布流布局的实现。"
+    },
+    {
+      "name": "lazyLayout_nested_layout_title",
+      "value": "嵌套懒加载对比"
+    },
+    {
+      "name": "lazyLayout_nested_layout_description",
+      "value": "示例展示两种嵌套懒加载的实现方式。"
     }
   ]
 }

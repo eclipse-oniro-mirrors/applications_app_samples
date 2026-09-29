@@ -103,7 +103,7 @@ async function init() {
       // [EndExclude onOutputDeviceChangeWithInfo]
       // [EndExclude onCurrentOutputDeviceChanged]
     } else {
-      console.info(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`);
+      console.error(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`);
       // [StartExclude onOutputDeviceChangeWithInfo]
       // [StartExclude onCurrentOutputDeviceChanged]
       if (globalLogUpdate) {
@@ -122,7 +122,7 @@ async function start() {
     // 当且仅当状态为prepared、paused和stopped之一时才能启动渲染。
     let stateGroup = [audio.AudioState.STATE_PREPARED, audio.AudioState.STATE_PAUSED, audio.AudioState.STATE_STOPPED];
     if (stateGroup.indexOf(audioRenderer.state.valueOf()) === -1) {
-      console.error('Audio renderer state is invalid.');
+      console.info('Audio renderer state is invalid.');
       if (globalLogUpdate) {
         globalLogUpdate('Audio renderer state is invalid.', true);
       }

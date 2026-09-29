@@ -98,8 +98,8 @@ async function generateSm2Key(keyAlias: string) {
     properties: genProperties
   }
   await huks.generateKeyItem(keyAlias, options)
-    .then((data) => {
-      console.info(`promise: generate Sm2 Key success, data = ${JSON.stringify(data)}`);
+    .then(() => {
+      console.info(`promise: generate Sm2 Key success`);
     }).catch((err: Error) => {
       console.error(`promise: generate Sm2 Key failed, error: ` + JSON.stringify(err));
       throw (err as Error);
@@ -164,7 +164,7 @@ async function deleteSm2Key(keyAlias: string) {
     properties: []
   }
   await huks.deleteKeyItem(keyAlias, emptyOptions)
-    .then((data) => {
+    .then(() => {
       console.info(`promise: delete data success`);
     }).catch((err: Error) => {
       console.error(`promise: delete data failed`);

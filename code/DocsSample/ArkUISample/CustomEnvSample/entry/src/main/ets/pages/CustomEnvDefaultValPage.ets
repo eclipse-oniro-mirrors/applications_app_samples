@@ -33,7 +33,7 @@ struct DefaultChild {
   build() {
     Column() {
       // 此时Text中的内容显示为: Child: default content
-      Text(`Child: ${this.customMessage}`);
+      Text(`Child: ${this.customMessage}`)
     }
   }
 }

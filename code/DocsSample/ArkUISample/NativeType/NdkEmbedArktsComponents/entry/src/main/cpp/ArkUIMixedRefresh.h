@@ -31,7 +31,7 @@ namespace NativeModule {
 
 // 定义Native侧和ArkTS侧的交互数据结构。
 struct NativeRefreshAttribute {
-    std::optional<bool> isRefreshing;
+    std::optional<bool> isRefreshing = false;
     std::optional<float> width;
     std::optional<float> height;
     std::optional<uint32_t> backgroundColor;
@@ -50,9 +50,15 @@ public:
                       napi_ref componentContent, napi_ref nodeContent)
         : ArkUIMixedNode(handle, env, componentContent), contentHandle_(contentHandle), nodeContent_(nodeContent) {}
 
-    ArkUIMixedRefresh() : ArkUIMixedNode(nullptr, nullptr, nullptr) {}
+    ArkUIMixedRefresh()
+        : ArkUIMixedNode(nullptr, nullptr, nullptr), contentHandle_(nullptr), nodeContent_(nullptr) {}
 
-    ~ArkUIMixedRefresh() override { napi_delete_reference(env_, nodeContent_); } // 释放子节点占位组件插槽对象。
+    ~ArkUIMixedRefresh() override
+    {
+        if (env_ != nullptr && nodeContent_ != nullptr) {
+            napi_delete_reference(env_, nodeContent_);
+        }
+    } // 释放子节点占位组件插槽对象。
 
     void SetWidth(float width) { attribute_.width = width; }
 
@@ -98,7 +104,7 @@ protected:
 private:
     // 使用napi接口创建ArkTS侧的数据结构。
     static napi_value CreateRefreshAttribute(const NativeRefreshAttribute &attribute, void *userData);
-    
+
     static void Attribute2Descriptor(const NativeRefreshAttribute &attribute, napi_property_descriptor *desc);
 
     ArkUI_NodeContentHandle contentHandle_;

@@ -18,7 +18,7 @@
   "devDependencies": {},
   "author": "",
   "name": "entry",
-  "description": "Please describe the basic information.",
+  "description": "AVCodec sample application entry module.",
   "main": "",
   "version": "1.0.0",
   "dependencies": {

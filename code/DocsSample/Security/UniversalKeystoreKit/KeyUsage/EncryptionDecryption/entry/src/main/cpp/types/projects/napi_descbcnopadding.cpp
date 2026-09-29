@@ -156,7 +156,7 @@ napi_value TestDesCbc(napi_env env, napi_callback_info info)
         if (ohResult.errorCode != OH_HUKS_SUCCESS) {
             break;
         }
-        char tmpInData[] = "AES_DES_INDATA_1";
+        char tmpInData[] = "DES_CBC_INDATA_1";
         struct OH_Huks_Blob inData = {(uint32_t)strlen(tmpInData), (uint8_t *)tmpInData};
         uint8_t cipher[DES_CBC_SIZE] = {0};
         struct OH_Huks_Blob cipherText = {DES_CBC_SIZE, cipher};

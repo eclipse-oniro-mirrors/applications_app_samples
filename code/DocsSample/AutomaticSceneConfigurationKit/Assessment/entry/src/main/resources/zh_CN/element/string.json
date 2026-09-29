@@ -1,0 +1,224 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "评估管理示例入口模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "评估管理示例"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "评估模式"
+    },
+    {
+      "name": "index_title",
+      "value": "评估管理"
+    },
+    {
+      "name": "index_intro",
+      "value": "调用begin接口开始评估，系统会弹出确认弹窗，用户确认后进入评估模式并限制部分系统能力。"
+    },
+    {
+      "name": "config_title",
+      "value": "评估配置"
+    },
+    {
+      "name": "duration_label",
+      "value": "评估时长"
+    },
+    {
+      "name": "duration_default",
+      "value": "默认时长"
+    },
+    {
+      "name": "duration_minutes",
+      "value": "%d分钟"
+    },
+    {
+      "name": "allowed_apps_label",
+      "value": "应用白名单"
+    },
+    {
+      "name": "allowed_apps_placeholder",
+      "value": "请输入应用包名"
+    },
+    {
+      "name": "allowed_apps_add",
+      "value": "添加"
+    },
+    {
+      "name": "allowed_apps_remove",
+      "value": "移除"
+    },
+    {
+      "name": "allowed_apps_empty",
+      "value": "白名单为空"
+    },
+    {
+      "name": "operation_title",
+      "value": "接口调用"
+    },
+    {
+      "name": "begin_button",
+      "value": "开始评估"
+    },
+    {
+      "name": "end_button",
+      "value": "结束评估"
+    },
+    {
+      "name": "query_state_button",
+      "value": "查询评估状态"
+    },
+    {
+      "name": "query_config_button",
+      "value": "查询评估配置"
+    },
+    {
+      "name": "status_title",
+      "value": "状态信息"
+    },
+    {
+      "name": "state_active",
+      "value": "评估状态：进行中"
+    },
+    {
+      "name": "state_inactive",
+      "value": "评估状态：未开始"
+    },
+    {
+      "name": "current_config_label",
+      "value": "当前评估配置"
+    },
+    {
+      "name": "current_config_none",
+      "value": "当前无进行中的评估"
+    },
+    {
+      "name": "current_config_value",
+      "value": "评估时长：%1$d毫秒，白名单：%2$s"
+    },
+    {
+      "name": "event_log_label",
+      "value": "回调事件记录"
+    },
+    {
+      "name": "event_log_empty",
+      "value": "暂无回调事件"
+    },
+    {
+      "name": "exam_title",
+      "value": "考试中"
+    },
+    {
+      "name": "exam_remaining_label",
+      "value": "剩余时间"
+    },
+    {
+      "name": "exam_progress",
+      "value": "第%1$d题/共%2$d题"
+    },
+    {
+      "name": "exam_previous",
+      "value": "上一题"
+    },
+    {
+      "name": "exam_next",
+      "value": "下一题"
+    },
+    {
+      "name": "exam_submit",
+      "value": "交卷"
+    },
+    {
+      "name": "exam_finish_title",
+      "value": "考试结束"
+    },
+    {
+      "name": "exam_finish_message",
+      "value": "本次共作答%1$d题，总题数%2$d题，评估已结束。"
+    },
+    {
+      "name": "exam_interrupt_title",
+      "value": "评估被中断"
+    },
+    {
+      "name": "exam_end_title",
+      "value": "评估已结束"
+    },
+    {
+      "name": "dialog_confirm",
+      "value": "确定"
+    },
+    {
+      "name": "reason_user_cancel",
+      "value": "用户取消了本次评估。"
+    },
+    {
+      "name": "reason_timeout",
+      "value": "评估时长已用尽，系统自动退出评估模式。"
+    },
+    {
+      "name": "reason_system_error",
+      "value": "系统发生错误，评估被中断。"
+    },
+    {
+      "name": "reason_env_anomaly",
+      "value": "检测到环境异常，评估被中断。"
+    },
+    {
+      "name": "reason_unknown",
+      "value": "评估已退出。"
+    },
+    {
+      "name": "question_stem_1",
+      "value": "下列哪个接口用于开始评估？"
+    },
+    {
+      "name": "question_option_1_1",
+      "value": "assessment.begin"
+    },
+    {
+      "name": "question_option_1_2",
+      "value": "assessment.end"
+    },
+    {
+      "name": "question_option_1_3",
+      "value": "assessment.isActive"
+    },
+    {
+      "name": "question_stem_2",
+      "value": "下列哪个接口用于查询当前是否处于评估状态？"
+    },
+    {
+      "name": "question_option_2_1",
+      "value": "assessment.getConfiguration"
+    },
+    {
+      "name": "question_option_2_2",
+      "value": "assessment.isActive"
+    },
+    {
+      "name": "question_option_2_3",
+      "value": "assessment.begin"
+    },
+    {
+      "name": "question_stem_3",
+      "value": "AssessmentConfig中duration取值为0表示什么含义？"
+    },
+    {
+      "name": "question_option_3_1",
+      "value": "评估立即结束"
+    },
+    {
+      "name": "question_option_3_2",
+      "value": "不限时"
+    },
+    {
+      "name": "question_option_3_3",
+      "value": "使用系统默认时长"
+    }
+  ]
+}

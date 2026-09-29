@@ -16,7 +16,7 @@
 @Entry
 @Component
 // [Start dragText_CloseKeyboard]
-struct dragTextCloseKeyboard {
+struct DragTextCloseKeyboard {
   build() {
     NavDestination() {
       Column({ space: 20 }) {
@@ -37,4 +37,4 @@ struct dragTextCloseKeyboard {
 }
 // [End dragText_CloseKeyboard]
 
-export { dragTextCloseKeyboard };
+export { DragTextCloseKeyboard };

@@ -57,7 +57,7 @@ struct PopUpSample {
   @State customPopupLeftTop: boolean = false;
   @State customPopupRightBottom: boolean = false;
   @State customPopupLeftBottom: boolean = false;
-  @State popUpText: string = 'AAAAAAAAAAAAAAAA';
+  @State popUpText: string = 'AAAA';
   @State vpText: string = 'vp';
   @State topText: string = 'Top';
   @State bottomText: string = 'Bottom';

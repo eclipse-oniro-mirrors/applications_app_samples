@@ -26,7 +26,7 @@ async function create(context: Context) {
 
   // 默认数据库文件路径为 context.databaseDir + "/rdb/" + StoreConfig.name
   let store: relationalStore.RdbStore = await relationalStore.getRdbStore(context, CONFIG);
-  console.info(`Insert data successfully!`);
+  console.info(`Get Store.db successfully!`);
 
   // 创建表
   const CREATE_TABLE_SQL = 'CREATE TABLE IF NOT EXISTS test (' +
@@ -48,7 +48,7 @@ async function insert(context: Context, valueBucketArray: Array<relationalStore.
 
   // 默认数据库文件路径为 context.databaseDir + "/rdb/" + StoreConfig.name
   let store: relationalStore.RdbStore = await relationalStore.getRdbStore(context, CONFIG);
-  console.info(`Insert data successfully!`);
+  console.info(`Get Store.db successfully!`);
 
   // 数据插入
   await store.batchInsert('test', valueBucketArray as Object as Array<relationalStore.ValuesBucket>);
@@ -63,15 +63,15 @@ async function query(context: Context): Promise<Array<relationalStore.ValuesBuck
 
   // 默认数据库文件路径为 context.databaseDir + "/rdb/" + StoreConfig.name
   let store: relationalStore.RdbStore = await relationalStore.getRdbStore(context, CONFIG);
-  console.info(`Insert data successfully!`);
+  console.info(`Get Store.db successfully!`);
 
   // 获取结果集
   let predicates: relationalStore.RdbPredicates = new relationalStore.RdbPredicates('test');
   let resultSet = await store.query(predicates); // 查询所有数据
   console.info(`Query data successfully! row count:${resultSet.rowCount}`);
   let index = 0;
-  let result = new Array<relationalStore.ValuesBucket>(resultSet.rowCount)
-  resultSet.goToFirstRow()
+  let result = new Array<relationalStore.ValuesBucket>(resultSet.rowCount);
+  resultSet.goToFirstRow();
   do {
     result[index++] = resultSet.getRow();
   } while (resultSet.goToNextRow());
@@ -110,7 +110,7 @@ struct Index {
           let context: Context = this.getUIContext().getHostContext() as Context;
 
           // 数据准备
-          const count = 5
+          const count = 5;
           let valueBucketArray = new Array<relationalStore.ValuesBucket>(count);
           for (let i = 0; i < count; i++) {
             let v: relationalStore.ValuesBucket = {

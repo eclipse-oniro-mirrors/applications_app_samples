@@ -28,10 +28,63 @@ namespace NativeXComponentSample {
 constexpr uint32_t LOG_PRINT_DOMAIN = 0xFF00;
 PluginManager PluginManager::pluginManager_;
 
+PluginManager::PluginWindowLease::PluginWindowLease(OHNativeWindow *window, int32_t width, int32_t height,
+    uint64_t generation)
+    : window_(window), width_(width), height_(height), generation_(generation)
+{
+}
+
+PluginManager::PluginWindowLease::~PluginWindowLease()
+{
+    Reset();
+}
+
+PluginManager::PluginWindowLease::PluginWindowLease(PluginWindowLease &&other) noexcept
+    : window_(other.window_), width_(other.width_), height_(other.height_), generation_(other.generation_)
+{
+    other.window_ = nullptr;
+    other.width_ = 0;
+    other.height_ = 0;
+    other.generation_ = 0;
+}
+
+PluginManager::PluginWindowLease &PluginManager::PluginWindowLease::operator=(PluginWindowLease &&other) noexcept
+{
+    if (this == &other) {
+        return *this;
+    }
+    Reset();
+    window_ = other.window_;
+    width_ = other.width_;
+    height_ = other.height_;
+    generation_ = other.generation_;
+    other.window_ = nullptr;
+    other.width_ = 0;
+    other.height_ = 0;
+    other.generation_ = 0;
+    return *this;
+}
+
+void PluginManager::PluginWindowLease::Reset()
+{
+    if (window_ != nullptr) {
+        // NativeWindow reference operations are non-thread-safe. Serialize only the reference
+        // operation with window replacement/destruction; the lease itself remains valid during
+        // rendering and never blocks the UI thread on a fence or a CPU copy.
+        auto *manager = PluginManager::GetInstance();
+        std::unique_lock<std::shared_mutex> lock(manager->mutex_);
+        (void)OH_NativeWindow_NativeObjectUnreference(window_);
+        window_ = nullptr;
+    }
+    width_ = 0;
+    height_ = 0;
+    generation_ = 0;
+}
+
 PluginManager::~PluginManager()
 {
     OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "Callback", "~PluginManager");
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::unique_lock<std::shared_mutex> lock(mutex_);
     nativeXComponentMap_.clear();
     pluginRenderMap_.clear();
     pluginWindow_ = nullptr;
@@ -126,14 +179,14 @@ void PluginManager::SetNativeXComponent(const std::string& id, OH_NativeXCompone
         return;
     }
 
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::unique_lock<std::shared_mutex> lock(mutex_);
     // The XComponent is unwrapped from ArkUI and remains framework-owned.
     nativeXComponentMap_[id] = nativeXComponent;
 }
 
 std::shared_ptr<PluginRender> PluginManager::GetRender(const std::string& id)
 {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::unique_lock<std::shared_mutex> lock(mutex_);
     auto iter = pluginRenderMap_.find(id);
     if (iter == pluginRenderMap_.end()) {
         auto render = std::make_shared<PluginRender>(id);
@@ -145,30 +198,61 @@ std::shared_ptr<PluginRender> PluginManager::GetRender(const std::string& id)
 
 void PluginManager::ReleaseRender(const std::string& id)
 {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::unique_lock<std::shared_mutex> lock(mutex_);
     pluginRenderMap_.erase(id);
     nativeXComponentMap_.erase(id);
 }
 
-void PluginManager::SetPluginWindow(OHNativeWindow *window)
+void PluginManager::SetPluginWindow(OHNativeWindow *window, int32_t width, int32_t height)
 {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::unique_lock<std::shared_mutex> lock(mutex_);
+    if (pluginWindow_ == window && pluginWindowWidth_ == width && pluginWindowHeight_ == height) {
+        return;
+    }
     pluginWindow_ = window;
+    pluginWindowWidth_ = width;
+    pluginWindowHeight_ = height;
+    pluginWindowGeneration_++;
+}
+
+PluginManager::PluginWindowLease PluginManager::AcquirePluginWindow()
+{
+    std::unique_lock<std::shared_mutex> lock(mutex_);
+    if (pluginWindow_ == nullptr || OH_NativeWindow_NativeObjectReference(pluginWindow_) != 0) {
+        return {};
+    }
+    return PluginWindowLease(pluginWindow_, pluginWindowWidth_, pluginWindowHeight_, pluginWindowGeneration_);
 }
 
 OHNativeWindow *PluginManager::GetPluginWindow() const
 {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::shared_lock<std::shared_mutex> lock(mutex_);
     return pluginWindow_;
+}
+
+void PluginManager::GetPluginWindowSize(int32_t &width, int32_t &height) const
+{
+    std::shared_lock<std::shared_mutex> lock(mutex_);
+    width = pluginWindowWidth_;
+    height = pluginWindowHeight_;
+}
+
+uint64_t PluginManager::GetPluginWindowGeneration() const
+{
+    std::shared_lock<std::shared_mutex> lock(mutex_);
+    return pluginWindowGeneration_;
 }
 
 void PluginManager::ClearPluginWindow(OHNativeWindow *window)
 {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::unique_lock<std::shared_mutex> lock(mutex_);
     // A destroy callback may omit the window handle; the current handle is
     // still invalid once the surface has been destroyed.
     if (window == nullptr || pluginWindow_ == window) {
         pluginWindow_ = nullptr;
+        pluginWindowWidth_ = 0;
+        pluginWindowHeight_ = 0;
+        pluginWindowGeneration_++;
     }
 }
 } // namespace NativeXComponentSample

@@ -15,18 +15,18 @@
 
 // [Start V2ToV1Mix]
 @ObservedV2
-class CustomDefaultvalue {
+class CustomDefaultValue {
   @Trace public defaultVal: string = 'hello';
 }
 
 const customOne = CustomEnvKey.create<string>();
-const customTwo = CustomEnvKey.create<CustomDefaultvalue>();
+const customTwo = CustomEnvKey.create<CustomDefaultValue>();
 
 @Entry
 @ComponentV2
 struct PageTwo {
   @CustomEnv(customOne) defaultMessage: string = 'parent Value';
-  @CustomEnv(customTwo) defaultMessage1: CustomDefaultvalue = new CustomDefaultvalue();
+  @CustomEnv(customTwo) defaultMessage1: CustomDefaultValue = new CustomDefaultValue();
 
   build() {
     Column() {
@@ -42,7 +42,7 @@ struct PageTwo {
 @Component
 struct PageTwoChild {
   @Require @Prop message: string;
-  // @Prop customMessage: CustomValue; //  错误用法，V1状态变量装饰器装饰的类型不能是ObservedV2装饰的class。
+  // @Prop customMessage: CustomDefaultValue; //  错误用法，V1状态变量装饰器装饰的类型不能是ObservedV2装饰的class。
 
   build() {
     Column() {
