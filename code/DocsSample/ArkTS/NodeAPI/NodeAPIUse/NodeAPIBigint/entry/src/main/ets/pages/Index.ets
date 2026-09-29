@@ -75,7 +75,7 @@ struct Index {
                     this.result = 'napiCreateBigintWordsSuccess';
                     // [EndExclude ark_napi_create_bigint_words]
                   } catch (error) {
-                    hilog.error(0x0000, 'testTag', 'Test Node-API NapiGetValueBigint: %{public}s', error.message);
+                    hilog.error(0x0000, 'testTag', 'Test Node-API NapiCreateValueBigint: %{public}s', error.message);
                     // [StartExclude ark_napi_create_bigint_words]
                     this.result = 'napiCreateBigintWordsFail';
                     // [EndExclude ark_napi_create_bigint_words]
