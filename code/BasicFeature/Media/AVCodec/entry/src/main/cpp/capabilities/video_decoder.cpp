@@ -69,7 +69,8 @@ bool SetOptionalFormatFeatures(OH_AVFormat *format, const SampleInfo &sampleInfo
 } // namespace
 
 VideoDecoder::~VideoDecoder() { Release(); }
-
+// [Start decoder_create_byname]
+// 通过codec name创建解码器，应用有特殊需求，比如选择支持某种分辨率规格的解码器，可先查询capability，再根据codec name创建解码器。
 OH_AVCodec *VideoDecoder::GetCodecByCategory(const char *mime, bool isEncoder, OH_AVCodecCategory category)
 {
     OH_AVCapability *capability = OH_AVCodec_GetCapabilityByCategory(mime, isEncoder, category);
@@ -77,6 +78,7 @@ OH_AVCodec *VideoDecoder::GetCodecByCategory(const char *mime, bool isEncoder, O
     const char *codecName = OH_AVCapability_GetName(capability);
     return OH_VideoDecoder_CreateByName(codecName);
 }
+// [End decoder_create_byname]
 
 int32_t VideoDecoder::Create(const std::string &videoCodecMime, int32_t videoDecoderType)
 {
@@ -85,8 +87,12 @@ int32_t VideoDecoder::Create(const std::string &videoCodecMime, int32_t videoDec
         "Decoder already exists, release it before creating another one");
     switch (videoDecoderType) {
         case AUTO:
+            // [Start decoder_create_bymime]
+            // 通过MIME TYPE创建解码器，只能创建系统推荐的特定编解码器。
+            // 涉及创建多路编解码器时，优先创建硬件解码器实例，硬件资源不够时再创建软件解码器实例
             decoder_ = OH_VideoDecoder_CreateByMime(videoCodecMime.c_str());
             CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create failed");
+            // [End decoder_create_bymime]
             break;
         case VIDEO_HW_DECODER:
             if (!strcmp(videoCodecMime.data(), "video/avc")) {
@@ -119,7 +125,6 @@ int32_t VideoDecoder::Create(const std::string &videoCodecMime, int32_t videoDec
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-// [Start createByName]
 int32_t VideoDecoder::CreateByName(const std::string &codecName)
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
@@ -133,8 +138,8 @@ int32_t VideoDecoder::CreateByName(const std::string &codecName)
         "Create decoder by name failed, name: %{public}s", codecName.c_str());
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End createByName]
 
+// [Start decoder_set_callback]
 int32_t VideoDecoder::SetCallback(CodecUserData *codecUserData)
 {
     int32_t ret = AV_ERR_OK;
@@ -146,8 +151,8 @@ int32_t VideoDecoder::SetCallback(CodecUserData *codecUserData)
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End decoder_set_callback]
 
-// [Start configureByFormat]
 int32_t VideoDecoder::Configure(OH_AVFormat *format)
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
@@ -159,9 +164,7 @@ int32_t VideoDecoder::Configure(OH_AVFormat *format)
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Configure failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End configureByFormat]
 
-// [Start setSurface]
 int32_t VideoDecoder::SetSurface(OHNativeWindow *window)
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
@@ -173,9 +176,8 @@ int32_t VideoDecoder::SetSurface(OHNativeWindow *window)
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Set surface failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End setSurface]
 
-// [Start prepare]
+
 int32_t VideoDecoder::Prepare()
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
@@ -186,7 +188,7 @@ int32_t VideoDecoder::Prepare()
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Prepare failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End prepare]
+
 
 // [Start configure_full_baseline]
 int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
@@ -203,11 +205,12 @@ int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
     OH_AVFormat_SetDoubleValue(format, OH_MD_KEY_FRAME_RATE, sampleInfo.video.frameRate);
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_PIXEL_FORMAT, sampleInfo.video.pixelFormat);
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_ROTATION, sampleInfo.video.rotation);
+    // 可选配置。
     if (!SetOptionalFormatFeatures(format, sampleInfo)) {
         OH_AVFormat_Destroy(format);
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
-
+    // [StartExclude configure_full_baseline]
     AVCODEC_SAMPLE_LOGI("Configure decoder: run mode=%{public}d, type=%{public}d, size=%{public}dx%{public}d, "
         "frame rate=%{public}.2f, pixel format=%{public}d, rotation=%{public}d, retain last frame=%{public}d, "
         "low latency=%{public}d, decoding order=%{public}d, smart fluency=%{public}d, HDR Vivid=%{public}d, "
@@ -217,6 +220,7 @@ int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
         sampleInfo.codec.enableLowLatency, sampleInfo.codec.outputInDecodingOrder,
         sampleInfo.codec.isSmartFluencySupported, sampleInfo.video.hdrVividContainerSignaled,
         sampleInfo.codec.convertHdrVividToBt709);
+     // [EndExclude configure_full_baseline]
     int ret = OH_VideoDecoder_Configure(decoder_, format);
     OH_AVFormat_Destroy(format);
     format = nullptr;
@@ -235,9 +239,15 @@ int32_t VideoDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Configure failed");
 
     if (sampleInfo.video.window != nullptr) {
+        // [Start decoder_set_surface]
+        // 设置surface。
+        // 配置送显窗口参数。
         int ret = OH_VideoDecoder_SetSurface(decoder_, sampleInfo.video.window);
         CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && sampleInfo.video.window, AVCODEC_SAMPLE_ERR_ERROR,
                                  "Set surface failed, ret: %{public}d", ret);
+        // 配置视频与显示屏匹配模式（缓冲区按原比例缩放，使得缓冲区的较小边与窗口匹配，较长边超出窗口的部分被视为透明）。
+        // OH_NativeWindow_NativeWindowSetScalingModeV2(nativeWindow, OH_SCALING_MODE_SCALE_CROP_V2);
+        // [End decoder_set_surface]
     }
 
     if (!sampleInfo.codec.codecSyncMode) {
@@ -247,14 +257,15 @@ int32_t VideoDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
     }
 
     {
+        // [Start decoder_prepare]
         int ret = OH_VideoDecoder_Prepare(decoder_);
         CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Prepare failed, ret: %{public}d", ret);
+        // [End decoder_prepare]
     }
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-// [Start queryInputBuffer]
 int32_t VideoDecoder::QueryInputBuffer(uint32_t &bufferIndex, int64_t timeoutUs)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
@@ -269,9 +280,9 @@ int32_t VideoDecoder::QueryInputBuffer(uint32_t &bufferIndex, int64_t timeoutUs)
         "Query input buffer failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End queryInputBuffer]
 
-// [Start getInputBuffer]
+
+
 OH_AVBuffer *VideoDecoder::GetInputBuffer(uint32_t bufferIndex)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
@@ -282,7 +293,7 @@ OH_AVBuffer *VideoDecoder::GetInputBuffer(uint32_t bufferIndex)
     CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Input buffer is null, index: %{public}u", bufferIndex);
     return buffer;
 }
-// [End getInputBuffer]
+
 
 OH_AVBuffer *VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
@@ -344,7 +355,7 @@ OH_AVBuffer *VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
     return nullptr;
 }
 
-// [Start queryOutputBuffer]
+
 int32_t VideoDecoder::QueryOutputBuffer(uint32_t &bufferIndex, int64_t timeoutUs)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
@@ -359,9 +370,9 @@ int32_t VideoDecoder::QueryOutputBuffer(uint32_t &bufferIndex, int64_t timeoutUs
         "Query output buffer failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End queryOutputBuffer]
 
-// [Start getOutputBuffer]
+
+
 OH_AVBuffer *VideoDecoder::GetOutputBuffer(uint32_t bufferIndex)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
@@ -372,7 +383,7 @@ OH_AVBuffer *VideoDecoder::GetOutputBuffer(uint32_t bufferIndex)
     CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Output buffer is null, index: %{public}u", bufferIndex);
     return buffer;
 }
-// [End getOutputBuffer]
+
 
 int32_t VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
@@ -454,7 +465,7 @@ int32_t VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
     }
     return AVCODEC_SAMPLE_ERR_ERROR;
 }
-
+// [Start decoder_start]
 int32_t VideoDecoder::Start()
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
@@ -464,20 +475,21 @@ int32_t VideoDecoder::Start()
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Start failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End decoder_start]
 
-// [Start stop]
+// [Start decoder_stop]
 int32_t VideoDecoder::Stop()
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
 
-    // Stop 释放运行期资源；如需再次播放，应按 Native SDK 状态机重新 Start。
     const int32_t ret = OH_VideoDecoder_Stop(decoder_);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Stop failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End stop]
+// [End decoder_stop]
 
+// [Start decoder_flush]
 int32_t VideoDecoder::Flush()
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
@@ -486,74 +498,72 @@ int32_t VideoDecoder::Flush()
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Flush failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End decoder_flush]
 
-// [Start reset]
+// [Start decoder_reset]
 int32_t VideoDecoder::Reset()
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
 
-    // Reset 将 codec 恢复到初始状态。之后必须重新 Configure、SetSurface（如需要）和 Prepare。
+    // Reset 将codec恢复到初始状态。之后必须重新 Configure、SetSurface（Surface模式）和 Prepare。
     const int32_t ret = OH_VideoDecoder_Reset(decoder_);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Reset failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End reset]
+// [End decoder_reset]
 
+// [Start decoder_push_input_buffer]
+// 送入解码输入队列进行解码，将填充好码流数据的buffer推送给解码器。
 int32_t VideoDecoder::PushInputBuffer(CodecBufferInfo &info)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
-    // Buffer 与索引是一组租约。只有成功取得的 Buffer 才能按相同索引归还给 codec。
     CHECK_AND_RETURN_RET_LOG(info.buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer is null");
     int32_t ret = OH_VideoDecoder_PushInputBuffer(decoder_, info.bufferIndex);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Push input data failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End decoder_push_input_buffer]
 
-// [Start renderOutputBuffer]
 int32_t VideoDecoder::RenderOutputBuffer(uint32_t bufferIndex)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
 
-    // 送显同时将输出 Buffer 归还给 codec；同一索引不能再次 Free 或 Render。
+    // 显示并释放解码帧。
     const int32_t ret = OH_VideoDecoder_RenderOutputBuffer(decoder_, bufferIndex);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
         "Render output buffer failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End renderOutputBuffer]
 
-// [Start renderOutputBufferAtTime]
 int32_t VideoDecoder::RenderOutputBufferAtTime(uint32_t bufferIndex, int64_t timeStamp)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
     CHECK_AND_RETURN_RET_LOG(timeStamp > 0, AVCODEC_SAMPLE_ERR_ERROR, "Render timestamp must be positive");
 
-    // 时间戳应来自 steady_clock 的纳秒时钟，codec 会据此安排该帧的送显时机。
     const int32_t ret = OH_VideoDecoder_RenderOutputBufferAtTime(decoder_, bufferIndex, timeStamp);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
         "Render output buffer at time failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End renderOutputBufferAtTime]
 
-// [Start freeOutputBuffer]
+// [Start decoder_free_output]
 int32_t VideoDecoder::FreeOutputBuffer(uint32_t bufferIndex)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
 
-    // 不需要显示的帧也必须归还，否则输出队列耗尽后解码会停滞。
     const int32_t ret = OH_VideoDecoder_FreeOutputBuffer(decoder_, bufferIndex);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
         "Free output buffer failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End freeOutputBuffer]
+// [End decoder_free_output]
 
+// [Start decoder_render_output]
 int32_t VideoDecoder::FreeOutputBuffer(uint32_t bufferIndex, bool render)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
@@ -561,14 +571,18 @@ int32_t VideoDecoder::FreeOutputBuffer(uint32_t bufferIndex, bool render)
 
     int32_t ret = AVCODEC_SAMPLE_ERR_OK;
     if (render) {
+        // 显示并释放解码帧。
         ret = OH_VideoDecoder_RenderOutputBuffer(decoder_, bufferIndex);
     } else {
+        // 释放解码帧。
         ret = OH_VideoDecoder_FreeOutputBuffer(decoder_, bufferIndex);
     }
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Free output data failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End decoder_render_output]
 
+// [Start decoder_render_output_attime]
 int32_t VideoDecoder::FreeOutputBuffer(uint32_t bufferIndex, bool render, int64_t timeStamp)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
@@ -576,15 +590,19 @@ int32_t VideoDecoder::FreeOutputBuffer(uint32_t bufferIndex, bool render, int64_
 
     int32_t ret = AVCODEC_SAMPLE_ERR_OK;
     if (render) {
+        // 在指定时间点显示并释放解码帧，用于实现音画同步或控制显示速度。
+        // timeStamp由开发者结合业务指定显示时间。
         ret = OH_VideoDecoder_RenderOutputBufferAtTime(decoder_, bufferIndex, timeStamp);
     } else {
+        // 释放解码帧。
         ret = OH_VideoDecoder_FreeOutputBuffer(decoder_, bufferIndex);
     }
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Free output data failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End decoder_render_output_attime]
 
-// [Start setParameter]
+
 int32_t VideoDecoder::SetParameter(OH_AVFormat *format)
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
@@ -597,9 +615,9 @@ int32_t VideoDecoder::SetParameter(OH_AVFormat *format)
         "Set parameter failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End setParameter]
 
-// [Start isValid]
+
+
 int32_t VideoDecoder::IsValid(bool &isValid)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
@@ -611,9 +629,7 @@ int32_t VideoDecoder::IsValid(bool &isValid)
         "Check decoder validity failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End isValid]
 
-// [Start setDecryptionConfig]
 int32_t VideoDecoder::SetDecryptionConfig(MediaKeySession *mediaKeySession, bool secureVideoPath)
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
@@ -626,7 +642,6 @@ int32_t VideoDecoder::SetDecryptionConfig(MediaKeySession *mediaKeySession, bool
         "Set decryption config failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End setDecryptionConfig]
 
 // [Start onUserSpeedChanged]
 int32_t VideoDecoder::OnUserSpeedChanged(double targetSpeed)
@@ -707,6 +722,8 @@ int32_t VideoDecoder::OnThermalWarningReceived(double ratio)
 }
 // [End onThermalWarningReceived]
 
+// [Start decoder_destroy]
+// 调用OH_VideoDecoder_Destroy，注销解码器，释放资源。
 int32_t VideoDecoder::Release()
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
@@ -716,6 +733,7 @@ int32_t VideoDecoder::Release()
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End decoder_destroy]
 
 OH_AVFormat *VideoDecoder::GetOutputDescription()
 {

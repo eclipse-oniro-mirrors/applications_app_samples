@@ -303,7 +303,7 @@ int32_t SampleCallback::OnRenderError(OH_AudioRenderer *renderer, void *userData
     AVCODEC_SAMPLE_LOGE("OnRenderError");
     return 0;
 }
-
+// 异常回调OH_AVCodecOnError实现。
 void SampleCallback::OnCodecError(OH_AVCodec *codec, int32_t errorCode, void *userData)
 {
     (void)codec;
@@ -313,7 +313,7 @@ void SampleCallback::OnCodecError(OH_AVCodec *codec, int32_t errorCode, void *us
     }
     AVCODEC_SAMPLE_LOGE("On codec error, error code: %{public}d", errorCode);
 }
-
+// 输入码流分辨率发生变化时触发OH_AVCodecOnStreamChanged回调函数。
 void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format, void *userData)
 {
     (void)codec;
@@ -336,6 +336,7 @@ void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format,
         AVCODEC_SAMPLE_LOGI("Audio sample format changed: %{public}d", sampleFormat);
     }
     std::unique_lock<std::shared_mutex> codecLock(codecUserData->codecMutex);
+    // 可通过format获取到变化后的视频宽、高、跨距等。
     UpdateVideoOutputInfo(format, codecUserData);
     const int32_t pixelFormat = static_cast<int32_t>(codecUserData->outputPixelFormat);
     AVCODEC_SAMPLE_LOGI("Format changed: %{public}d*%{public}d, stride: %{public}d*%{public}d, "
@@ -356,7 +357,7 @@ void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
         return;
     }
     UpdateEncoderFirstInputDescription(codec, codecUserData);
-    // 编解码器已准备好，将可用输入buffer入队，供驱动线程消费。
+    // 输入帧的数据buffer和对应的index送入inputBufferQueue队列。
     codecUserData->inputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>(index, buffer));
 }
 
@@ -400,8 +401,7 @@ void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
         }
         codecUserData->isDecFirstFrame = false;
     }
-    // codec 将输出 Buffer 的使用权交给应用。送显或读取结束后必须以同一 index 调用 Render/Free 归还；
-    // 归还后 buffer 指向的内容可能立刻被下一帧复用。
+    // 输出帧的数据buffer和对应的index送入outputBufferQueue队列。
     codecUserData->outputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>(index, buffer));
     // [EndExclude quick_start]
 

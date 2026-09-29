@@ -70,7 +70,7 @@ void Player::JoinWorkerThreads()
     videoPipeline_.Join();
     audioPipeline_.Join();
 }
-
+// [Start player_release]
 void Player::ReleaseVideoDecoder()
 {
     OHNativeWindow *decoderWindow = decoderWindowLease_.GetWindow();
@@ -90,6 +90,7 @@ void Player::ReleaseVideoDecoder()
         videoDecContext_.reset();
     }
 }
+// [End player_release]
 
 void Player::ReleaseAudioDecoder()
 {

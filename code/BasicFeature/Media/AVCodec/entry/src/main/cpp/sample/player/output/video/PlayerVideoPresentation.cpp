@@ -144,6 +144,7 @@ void Player::DumpOutput(CodecBufferInfo &bufferInfo)
     if (!IsBufferBasedRunMode(info.codec.codecRunMode) || usesSurfaceDecoder || !info.output.enableVideoDump) {
         return;
     }
+    // [Start decoder_outputFile]
     const OH_AVPixelFormat pixelFormat = GetOutputPixelFormat(info, videoDecContext_.get());
     if (outputFile_ == nullptr) {
         auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
@@ -159,6 +160,7 @@ void Player::DumpOutput(CodecBufferInfo &bufferInfo)
             return;
         }
     }
+    // [End decoder_outputFile]
 
     uint64_t dumpByteCount = 0;
     CHECK_AND_RETURN_LOG(GetDumpByteCount(info, videoDecContext_.get(), pixelFormat, dumpByteCount),
@@ -327,7 +329,7 @@ void Player::WriteOutputFileWithStrideYUV420P(uint8_t *bufferAddr)
         bufferAddr += uvStride;
     }
 }
-
+// [Start decoder_save_file_YUV420]
 void Player::WriteOutputFileWithStrideYUV420SP(uint8_t *bufferAddr)
 {
     CHECK_AND_RETURN_LOG(bufferAddr != nullptr, "Buffer is nullptr");
@@ -345,6 +347,7 @@ void Player::WriteOutputFileWithStrideYUV420SP(uint8_t *bufferAddr)
         bufferAddr += videoWidth;
     }
 }
+// [End decoder_save_file_YUV420]
 
 void Player::WriteOutputFileWithStrideRGBA(uint8_t *bufferAddr)
 {

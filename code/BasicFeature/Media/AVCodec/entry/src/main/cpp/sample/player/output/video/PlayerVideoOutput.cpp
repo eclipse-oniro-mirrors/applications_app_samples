@@ -102,8 +102,38 @@ void Player::VideoDecInputAsyncThread()
     while (isStarted_) {
         WaitIfPaused();
         CHECK_AND_BREAK_LOG(isStarted_, "Decoder input thread out");
+        // [Start decoder_input_buffer]
         std::shared_ptr<CodecBufferInfo> bufferInfo = videoDecContext_->inputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
+        /*
+        // 写入码流数据。
+        uint8_t *addr = OH_AVBuffer_GetAddr(bufferInfo->buffer);
+        if (addr == nullptr) {
+           // 异常处理。
+        }
+        int32_t capacity = OH_AVBuffer_GetCapacity(bufferInfo->buffer);
+        if (size > capacity) {
+            // 异常处理。
+        }
+        memcpy(addr, frameData, size);
+        // 配置帧数据的输入尺寸、偏移量、时间戳等字段信息。
+        OH_AVCodecBufferAttr info;
+        info.size = size;
+        info.offset = offset;
+        info.pts = pts;
+        info.flags = flags;
+        // info信息写入buffer。
+        OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(bufferInfo->buffer, &info);
+        if (setBufferRet != AV_ERR_OK) {
+            // 异常处理。
+        }
+        // 送入解码输入队列进行解码。
+        OH_AVErrCode pushInputRet = OH_VideoDecoder_PushInputBuffer(videoDec, bufferInfo->bufferIndex);
+        if (pushInputRet != AV_ERR_OK) {
+            // 异常处理。
+        }
+        */
+        // [StartExclude decoder_input_buffer]
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
         videoDecContext_->inputFrameCount++;
@@ -128,7 +158,9 @@ void Player::VideoDecInputAsyncThread()
                 break;
             }
         }
+        // [EndExclude decoder_input_buffer]
         ret = videoDecoder_->PushInputBuffer(*bufferInfo);
+        // [End decoder_input_buffer]
         if (ret != AVCODEC_SAMPLE_ERR_OK) {
             playbackFailed_ = true;
             isStarted_ = false;
@@ -425,8 +457,12 @@ void Player::VideoDecOutputAsyncThread()
         thread_local auto lastPushTime = std::chrono::system_clock::now();
         WaitIfPaused();
         CHECK_AND_BREAK_LOG(isStarted_, "VD Decoder output thread out");
+        // [Start decoder_output_buffer]
+        // 获取输出buffer。
         std::shared_ptr<CodecBufferInfo> bufferInfo = videoDecContext_->outputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
+        //开发者可根据业务需要，对输出数据进行送显/保存/释放处理。
+        // [End decoder_output_buffer]
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
         if (!isStarted_) {
             if (!ReleaseVideoOutputBuffer(videoDecoder_.get(), *bufferInfo, "video output worker stopped")) {
