@@ -163,6 +163,23 @@ void UpdateVideoOutputInfo(OH_AVFormat *format, CodecUserData *codecUserData)
         codecUserData->outputPixelFormat = static_cast<OH_AVPixelFormat>(pixelFormat);
     }
 }
+
+// 视频编码首帧：从输入描述中读取宽高/stride信息，音频编解码不会进入此分支。
+void UpdateEncoderFirstInputDescription(OH_AVCodec *codec, CodecUserData *codecUserData)
+{
+    if (codec == nullptr || !codecUserData->isEncFirstFrame) {
+        return;
+    }
+    OH_AVFormat *format = OH_VideoEncoder_GetInputDescription(codec);
+    if (format != nullptr) {
+        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_WIDTH, &codecUserData->width);
+        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_HEIGHT, &codecUserData->height);
+        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_STRIDE, &codecUserData->widthStride);
+        OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_SLICE_HEIGHT, &codecUserData->heightStride);
+        OH_AVFormat_Destroy(format);
+    }
+    codecUserData->isEncFirstFrame = false;
+}
 } // namespace
 
 int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *userData, void *buffer, int32_t length)
@@ -302,6 +319,19 @@ void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format,
     if (IsCallbackUnavailable(codecUserData) || format == nullptr) {
         return;
     }
+    // 音频码流信息变化：采样率/声道数/采样格式。应用可据此判断变化并做对应处理。
+    int32_t sampleRate = 0;
+    int32_t channelCount = 0;
+    int32_t sampleFormat = 0;
+    if (OH_AVFormat_GetIntValue(format, OH_MD_KEY_AUD_SAMPLE_RATE, &sampleRate)) {
+        AVCODEC_SAMPLE_LOGI("Audio sample rate changed: %{public}d", sampleRate);
+    }
+    if (OH_AVFormat_GetIntValue(format, OH_MD_KEY_AUD_CHANNEL_COUNT, &channelCount)) {
+        AVCODEC_SAMPLE_LOGI("Audio channel count changed: %{public}d", channelCount);
+    }
+    if (OH_AVFormat_GetIntValue(format, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, &sampleFormat)) {
+        AVCODEC_SAMPLE_LOGI("Audio sample format changed: %{public}d", sampleFormat);
+    }
     std::unique_lock<std::shared_mutex> codecLock(codecUserData->codecMutex);
     UpdateVideoOutputInfo(format, codecUserData);
     const int32_t pixelFormat = static_cast<int32_t>(codecUserData->outputPixelFormat);
@@ -317,17 +347,8 @@ void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
     if (IsCallbackUnavailable(codecUserData) || buffer == nullptr) {
         return;
     }
-    if (codecUserData->isEncFirstFrame) {
-        OH_AVFormat *format = OH_VideoEncoder_GetInputDescription(codec);
-        if (format != nullptr) {
-            OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_WIDTH, &codecUserData->width);
-            OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_PIC_HEIGHT, &codecUserData->height);
-            OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_STRIDE, &codecUserData->widthStride);
-            OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_SLICE_HEIGHT, &codecUserData->heightStride);
-            OH_AVFormat_Destroy(format);
-        }
-        codecUserData->isEncFirstFrame = false;
-    }
+    UpdateEncoderFirstInputDescription(codec, codecUserData);
+    // 编解码器已准备好，将可用输入buffer入队，供驱动线程消费。
     codecUserData->inputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>(index, buffer));
 }
 

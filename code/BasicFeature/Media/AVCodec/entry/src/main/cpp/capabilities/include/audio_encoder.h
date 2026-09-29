@@ -17,6 +17,7 @@
 #define AUDIOENCODER_H
 
 #include "multimedia/player_framework/native_avcodec_audiocodec.h"
+#include "multimedia/player_framework/native_avcapability.h"
 #include "multimedia/player_framework/native_avbuffer_info.h"
 #include "multimedia/native_audio_channel_layout.h"
 #include "sample_info.h"
@@ -30,6 +31,7 @@ public:
     ~AudioEncoder();
 
     int32_t Create(const std::string &codecMime);
+    int32_t CreateByName(const std::string &codecMime);
     int32_t Config(const SampleInfo &sampleInfo, CodecUserData *codecUserData);
     int32_t Start();
     int32_t PushInputData(CodecBufferInfo &info);
@@ -37,6 +39,8 @@ public:
     int32_t GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     int32_t FreeOutputData(uint32_t bufferIndex);
     int32_t NotifyEndOfStream();
+    int32_t Flush();
+    int32_t Reset();
     int32_t Stop();
     int32_t Release();
 

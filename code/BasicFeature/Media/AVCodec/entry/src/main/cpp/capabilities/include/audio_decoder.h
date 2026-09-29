@@ -17,6 +17,7 @@
 #define AUDIODECODER_H
 
 #include "multimedia/player_framework/native_avcodec_audiocodec.h"
+#include "multimedia/player_framework/native_avcapability.h"
 #include "multimedia/player_framework/native_avbuffer_info.h"
 #include "sample_callback.h"
 #include "dfx/error/av_codec_sample_error.h"
@@ -28,11 +29,15 @@ public:
     ~AudioDecoder();
 
     int32_t Create(const std::string &codecMime);
+    int32_t CreateByName(const std::string &codecMime);
     int32_t ValidateConfiguration(const SampleInfo &sampleInfo);
     int32_t Config(const SampleInfo &sampleInfo, CodecUserData *codecUserData);
     int32_t Start();
     int32_t PushInputBuffer(CodecBufferInfo &info);
     int32_t FreeOutputBuffer(uint32_t bufferIndex, bool render);
+    int32_t Flush();
+    int32_t Reset();
+    int32_t Stop();
     OH_AVBuffer *GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     int32_t GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     int32_t Release();

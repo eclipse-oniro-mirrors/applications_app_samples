@@ -29,6 +29,9 @@ public:
 
     int32_t Create(int32_t fd, int32_t outputFormat);
     int32_t Config(SampleInfo &sampleInfo);
+    int32_t SetRotation();
+    int32_t AddAudioTrack(SampleInfo &sampleInfo);
+    int32_t AddVideoTrack(SampleInfo &sampleInfo);
     int32_t Start();
     int32_t WriteSample(int32_t trackId, OH_AVBuffer *buffer, OH_AVCodecBufferAttr &attr);
     int32_t Stop();
