@@ -43,7 +43,7 @@ struct material_alpha {
 
   Init(): void {
     if (this.scene == null) {
-      // Switched from .gltf to .glb; same content, different format
+      // 从 .gltf 切换为 .glb；内容相同，格式不同
       Scene.load($rawfile('gltf/AlphaBlendModeTest/AlphaBlendModeTest.glb'))
         .then(async (scene: Scene) => {
           this.scene = scene;
@@ -51,7 +51,7 @@ struct material_alpha {
             return;
           }
           let rf: SceneResourceFactory = scene.getResourceFactory();
-          // Retrieve materials for blend and alpha-cutoff nodes
+          // 获取 blend 和 alpha-cutoff 节点的材质
           let blendNode: Node | null | undefined = this.scene.root?.getNodeByPath('Scene/TestBlend');
           let alphaNode: Node | null | undefined = this.scene.root?.getNodeByPath('Scene/TestCutoffDefault');
           if (blendNode) {
@@ -61,7 +61,7 @@ struct material_alpha {
             this.alphaMaterial = (alphaNode as Geometry).mesh.subMeshes[0].material;
           }
 
-          // Create image-based lighting environment
+          // 创建基于图像的光照环境
           scene.environment = await rf.createEnvironment({ name: 'env' });
           scene.environment.backgroundType = EnvironmentBackgroundType.BACKGROUND_CUBEMAP;
           scene.environment.environmentImage = await rf.createImage({ name: 'cube', uri: $rawfile('Environment/quarry_02_2k_skybox.ktx') });
@@ -76,13 +76,13 @@ struct material_alpha {
               { x: -0.018954016268253, y: -0.014871496707201, z: -0.008891185745597 },
               { x: -0.566255271434784, y: -0.476870059967041, z: -0.314557582139969 },
               { x: -0.239390164613724, y: -0.200478553771973, z: -0.132790848612785 }];
-          // Create and set up the camera to view the scene and enable orbit control
+          // 创建并设置相机以查看场景，并启用轨道控制
           this.cam = await rf.createCamera({ name: 'AlphaCam' });
           this.cam.enabled = true;
           lookAt(this.cam,{x:0,y:0,z:-3},{x:0,y:0,z:0},{x:0,y:1,z:0});
           this.sceneOpt = { scene: this.scene, modelType: ModelType.SURFACE } as SceneOptions;
           this.orbitCamera.SetOrbitFromEye(this.cam.position, this.scene.root.position, this.cam.rotation);
-          // Enable tone mapping for better HDR visualization
+          // 启用色调映射以获得更好的 HDR 显示效果
           (this.cam.postProcess as PostProcessSettings) = {
             toneMapping: {
               type: ToneMappingType.ACES,
@@ -93,29 +93,29 @@ struct material_alpha {
     }
   }
 
-  // Toggle between transparent and opaque blending mode
+  // 在透明和不透明混合模式之间切换
   toggleBlend(): void {
     if (this.blendMaterial) {
       if (this.blendMaterial.blend?.enabled) {
-        // Currently transparent switch to opaque
+        // 当前为透明，切换为不透明
         this.blendMaterial.blend = { enabled: false };
       } else {
-        // Currently opaque switch to transparent
+        // 当前为不透明，切换为透明
         this.blendMaterial.blend = { enabled: true };
       }
     }
   }
 
-  // Toggle alpha-cutoff threshold for the non-blended material
+  // 切换非混合材质的 alpha 裁剪阈值
   toggleAlphaCutoff(): void {
     if (!this.alphaMaterial) {
       return;
     }
     if (this.alphaMaterial.alphaCutoff && this.alphaMaterial.alphaCutoff < 1.0) {
-      // If the current cutoff value is less than 1.0, switch to fully opaque
+      // 如果当前裁剪值小于 1.0，则切换为完全不透明
       this.alphaMaterial.alphaCutoff = 1.0;
     } else {
-      // Currently set to 1 or not set, switch to semi-transparent clipping state
+      // 当前设置为 1 或未设置，切换为半透明裁剪状态
       this.alphaMaterial.alphaCutoff = 0.5;
     }
   }
@@ -123,10 +123,10 @@ struct material_alpha {
   build() {
     Column() {
       if (this.sceneOpt) {
-        // Present 3D scenes through Component3D
+        // 通过 Component3D 呈现 3D 场景
         Component3D(this.sceneOpt)
           .onTouch((event: TouchEvent) => {
-            // Handle touch input for orbit camera rotation
+            // 处理触摸输入以实现轨道相机旋转
             this.orbitCamera.HandleTouchEvent(event);
             if (this.cam) {
               this.cam.position = this.orbitCamera.GetCameraPosition();
@@ -136,7 +136,7 @@ struct material_alpha {
           .gesture(
             PinchGesture({ fingers: 2 })
               .onActionUpdate((event: GestureEvent) => {
-                // Handle pinch gesture for camera zoom
+                // 处理捏合手势以实现相机缩放
                 this.orbitCamera.HandlePinchGestureActionUpdate(event);
                 if (this.cam) {
                   this.cam.position = this.orbitCamera.GetCameraPosition();

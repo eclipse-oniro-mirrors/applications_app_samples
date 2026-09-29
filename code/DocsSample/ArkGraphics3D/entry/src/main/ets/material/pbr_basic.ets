@@ -47,7 +47,7 @@ struct pbr_basic {
 
   Init(): void {
     if (this.scene == null) {
-      // Switched from .gltf to .glb; same content, different format
+      // 从 .gltf 切换为 .glb；内容相同，格式不同
       Scene.load($rawfile('gltf/CompareMetallic/CompareMetallic.glb'))
         .then(async (scene: Scene) => {
           this.scene = scene;
@@ -55,13 +55,13 @@ struct pbr_basic {
             return;
           }
           let rf: SceneResourceFactory = scene.getResourceFactory();
-          // Get the PBR sphere node and cache its material and original baseColor image
+          // 获取 PBR 球体节点，并缓存其材质和原始 baseColor 图像
           let pbrNode: Node | null | undefined = this.scene.root?.getNodeByPath('Unnamed Node 1/GeoSphere002');
           if (pbrNode) {
             this.material = (pbrNode as Geometry).mesh.subMeshes[0].material;
             let mrMaterial = (this.material as MetallicRoughnessMaterial);
             let original: Image | null = mrMaterial.baseColor.image;
-            // Prepare a second texture to switch baseColor texture at runtime
+            // 准备第二个纹理，以便在运行时切换 baseColor 纹理
             const helmAlbedo: Resource = $rawfile('gltf/DamagedHelmet/glTF/Default_albedo.jpg');
             let helmet: Image | null = await rf.createImage({name: 'helmetTexture', uri: helmAlbedo });
 
@@ -71,7 +71,7 @@ struct pbr_basic {
             }
           }
 
-          // Create image-based lighting environment
+          // 创建基于图像的光照环境
           scene.environment = await rf.createEnvironment({ name: 'env' });
           scene.environment.backgroundType = EnvironmentBackgroundType.BACKGROUND_CUBEMAP;
           scene.environment.environmentImage = await rf.createImage({ name: 'cube', uri: $rawfile('Environment/quarry_02_2k_skybox.ktx') });
@@ -86,29 +86,29 @@ struct pbr_basic {
               { x: -0.018954016268253, y: -0.014871496707201, z: -0.008891185745597 },
               { x: -0.566255271434784, y: -0.476870059967041, z: -0.314557582139969 },
               { x: -0.239390164613724, y: -0.200478553771973, z: -0.132790848612785 }];
-          // Create and set up the camera to view the scene and enable orbit control
+          // 创建并设置相机以查看场景，并启用轨道控制
           this.cam = await rf.createCamera({ name: 'BaseColorCam' });
           this.cam.enabled = true;
           lookAt(this.cam,{x:0,y:0,z:-3},{x:0,y:0,z:0},{x:0,y:1,z:0});
           this.sceneOpt = { scene: this.scene, modelType: ModelType.SURFACE } as SceneOptions;
           this.orbitCamera.SetOrbitFromEye(this.cam.position, this.scene.root.position, this.cam.rotation);
-          // Enable tone mapping for better HDR visualization
+          // 启用色调映射以获得更好的 HDR 显示效果
           (this.cam.postProcess as PostProcessSettings) = {
             toneMapping: {
               type: ToneMappingType.ACES,
               exposure: 0.7,
             }
           };
-          // Set default baseColor values (Red)
-          this.setBaseColorChannel(0, 1);  // Red
-          this.setBaseColorChannel(1, 0);  // Green
-          this.setBaseColorChannel(2, 0);  // Blue
-          this.setBaseColorChannel(3, 1);  // Alpha
+          // 将 baseColor 初始化为红色且不透明
+          this.setBaseColorChannel(0, 1);  // 红
+          this.setBaseColorChannel(1, 0);  // 绿
+          this.setBaseColorChannel(2, 0);  // 蓝
+          this.setBaseColorChannel(3, 1);  // 不透明度
         });
     }
   }
 
-  // Switch baseColor texture between original and custom one
+  // 在原始纹理和自定义纹理之间切换 baseColor 纹理
   changeTexture() {
     if (this.textures.length > 0) {
       let i = ++this.textureInUse % this.textures.length;
@@ -116,7 +116,7 @@ struct pbr_basic {
     }
   }
 
-  // Update a single baseColor channel
+  // 更新单个 baseColor 通道
   setBaseColorChannel(idx: number, value: number) {
     if (this.material) {
       const color: Vec4 = (this.material as MetallicRoughnessMaterial).baseColor.factor;
@@ -128,7 +128,7 @@ struct pbr_basic {
     }
   }
 
-  // Toggle blend on/off to check alpha effect
+  // 切换混合开关，观察 alpha 通道参与混合时的效果
   toggleBlend(): void {
     if (this.material) {
       if (this.label) {
@@ -143,10 +143,10 @@ struct pbr_basic {
   build() {
     Column() {
       if (this.sceneOpt) {
-        // Present 3D scenes through Component3D
+        // 通过 Component3D 呈现 3D 场景
         Component3D(this.sceneOpt)
           .onTouch((event: TouchEvent) => {
-            // Handle touch input for orbit camera rotation
+            // 处理触摸输入以实现轨道相机旋转
             this.orbitCamera.HandleTouchEvent(event);
             if (this.cam) {
               this.cam.position = this.orbitCamera.GetCameraPosition();
@@ -159,7 +159,7 @@ struct pbr_basic {
                 console.info('Pinch start');
               })
               .onActionUpdate((event: GestureEvent) => {
-                // Handle pinch gesture for camera zoom
+                // 处理捏合手势以实现相机缩放
                 this.orbitCamera.HandlePinchGestureActionUpdate(event);
                 if (this.cam) {
                   this.cam.position = this.orbitCamera.GetCameraPosition();

@@ -48,7 +48,7 @@ struct pbr_clearcoat {
   Init(): void {
     // [Start pbr_clearcoat_loadScene]
     if (this.scene == null) {
-      // Switched from .gltf to .glb; same content, different format
+      // 从 .gltf 切换为 .glb；内容相同，格式不同
       Scene.load($rawfile('gltf/CompareClearcoat/CompareClearcoat.glb'))
         .then(async (scene: Scene) => {
           this.scene = scene;
@@ -58,7 +58,7 @@ struct pbr_clearcoat {
           let rf: SceneResourceFactory = scene.getResourceFactory();
 
           // [StartExclude pbr_clearcoat_loadScene]
-          // Obtain the target node and its material, then preload several clearcoat textures
+          // 获取目标节点及其材质，然后预加载若干清漆纹理
           // [Start pbr_clearcoat_getMaterialAndTextures]
           let pbrNode: Node | null | undefined = this.scene.root?.getNodeByPath('Unnamed Node 1/GeoSphere003');
           if (pbrNode) {
@@ -77,7 +77,7 @@ struct pbr_clearcoat {
           }
           // [End pbr_clearcoat_getMaterialAndTextures]
 
-          // Create image-based lighting environment
+          // 创建基于图像的光照环境
           // [Start pbr_clearcoat_createIBL]
           scene.environment = await rf.createEnvironment({ name: 'env' });
           scene.environment.backgroundType = EnvironmentBackgroundType.BACKGROUND_CUBEMAP;
@@ -94,7 +94,7 @@ struct pbr_clearcoat {
               { x: -0.566255271434784, y: -0.476870059967041, z: -0.314557582139969 },
               { x: -0.239390164613724, y: -0.200478553771973, z: -0.132790848612785 }];
           // [End pbr_clearcoat_createIBL]
-          // Create and set up the camera to view the scene and enable orbit control
+          // 创建并设置相机以查看场景，并启用轨道控制
           // [Start pbr_clearcoat_createCamera]
           this.cam = await rf.createCamera({ name: 'ClearcoatCam' });
           this.cam.enabled = true;
@@ -102,7 +102,7 @@ struct pbr_clearcoat {
           this.sceneOpt = { scene: this.scene, modelType: ModelType.SURFACE } as SceneOptions;
           this.orbitCamera.SetOrbitFromEye(this.cam.position, this.scene.root.position, this.cam.rotation);
           // [End pbr_clearcoat_createCamera]
-          // Enable tone mapping for better HDR visualization
+          // 启用色调映射以获得更好的 HDR 显示效果
           (this.cam.postProcess as PostProcessSettings) = {
             toneMapping: {
               type: ToneMappingType.ACES,
@@ -117,7 +117,7 @@ struct pbr_clearcoat {
     // [End pbr_clearcoat_loadScene]
   }
 
-  // Switch between available textures for the clearcoat layer
+  // 在清漆层可用的纹理之间切换
   // [Start pbr_clearcoat_changeClearcoatTexture]
   changeClearcoatTex() {
     if (this.textures.length > 0) {
@@ -127,7 +127,7 @@ struct pbr_clearcoat {
   }
   // [End pbr_clearcoat_changeClearcoatTexture]
 
-  // Adjust clearcoat intensity
+  // 调整清漆强度
   // [Start pbr_clearcoat_setClearcoat]
   setClearcoat(v: number) {
     if (this.material) {
@@ -138,7 +138,7 @@ struct pbr_clearcoat {
   }
   // [End pbr_clearcoat_setClearcoat]
 
-  // Switch between available textures for clearcoat roughness
+  // 在清漆粗糙度可用的纹理之间切换
   // [Start pbr_clearcoat_changeRoughnessTexture]
   changeClearcoatRoughTex() {
     if (this.textures.length > 0) {
@@ -148,7 +148,7 @@ struct pbr_clearcoat {
   }
   // [End pbr_clearcoat_changeRoughnessTexture]
 
-  // Adjust clearcoat roughness intensity
+  // 调整清漆粗糙度强度
   // [Start pbr_clearcoat_setClearcoatRoughness]
   setClearcoatRoughness(v: number) {
     if (this.material) {
@@ -162,10 +162,10 @@ struct pbr_clearcoat {
   build() {
     Column() {
       if (this.sceneOpt) {
-        // Present 3D scenes through Component3D
+        // 通过 Component3D 呈现 3D 场景
         Component3D(this.sceneOpt)
           .onTouch((event: TouchEvent) => {
-            // Handle touch input for orbit camera rotation
+            // 处理触摸输入以实现轨道相机旋转
             this.orbitCamera.HandleTouchEvent(event);
             if (this.cam) {
               this.cam.position = this.orbitCamera.GetCameraPosition();
@@ -178,7 +178,7 @@ struct pbr_clearcoat {
                 console.info('Pinch start');
               })
               .onActionUpdate((event: GestureEvent) => {
-                // Handle pinch gesture for camera zoom
+                // 处理捏合手势以实现相机缩放
                 this.orbitCamera.HandlePinchGestureActionUpdate(event);
                 if (this.cam) {
                   this.cam.position = this.orbitCamera.GetCameraPosition();
