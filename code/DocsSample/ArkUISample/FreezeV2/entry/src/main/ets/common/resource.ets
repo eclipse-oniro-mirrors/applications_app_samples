@@ -12,14 +12,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+export class ResourceManager {
+  public context: Context | null = null;
 
-export class P2PManager {
+  // 初始化上下文
+  initContext(context: Context) {
+    this.context = context;
+  }
+
   public resourceToString(resource: Resource): string {
-    return getContext(this).resourceManager.getStringSync(resource);
+    try {
+      return this.context?.resourceManager.getStringSync(resource.id) || '';
+    } catch (error) {
+      // TODO: Implement error handling.
+      return ''
+    }
   }
 }
 
 // 默认导出let
-let p2pManager = new P2PManager();
+let resourceToStringManager = new ResourceManager();
 
-export default p2pManager as P2PManager;
+export default resourceToStringManager as ResourceManager;
