@@ -39,6 +39,7 @@ import mockProperty from './mock/MockProperty.test';
 import returnPromise from './mock/ReturnPromise.test';
 import vertify from './mock/Vertify.test';
 import vertifyTimes from './mock/VertifyTimes.test';
+import isMockedTest from './mock/IsMocked.test';
 
 export default function testsuite() {
   basicTest();
@@ -67,4 +68,5 @@ export default function testsuite() {
   returnPromise();
   vertify();
   vertifyTimes();
+  isMockedTest();
 }
