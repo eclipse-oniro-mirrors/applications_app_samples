@@ -53,7 +53,7 @@
   6 - 退出
 =======================================
 ==>请选择:0
->>>RefreshLNN start, capability=[ddmpCapability]
+>>>RefreshLNN start, capability=[osdCapability]
 >>>OnDeviceFound devName=OpenHarmony devType=0 devId=a1b2**c3d4 custData=[dsoftbus_custdata_sample_0123456789abcdef]
 >>>custData match expected payload, add to discovered list
 >>>resolved networkId for discovered[0]
@@ -187,7 +187,7 @@ group("custdata_sample") {
 3. 运行本示例需要两台已完成分布式组网并相互在线的设备，发现列表最多维护 8 台设备。
 4. 自定义标识长度不能超过 284 字节（COAP `bData` 通道限制），超出后发布失败。
 5. `DeviceInfo.devId` 是对端 UDID 的哈希，对端必须是组网在线节点才能按 IP 匹配解析出 `networkId`，否则无法建立连接。
-6. 发布端与发现端必须使用相同的 `capability`（本示例为 `ddmpCapability`），且两端软总线均开启 `DSOFTBUS_FEATURE_DISC_COAP_CUSTDATA` 特性。
+6. 发布端与发现端必须使用相同的 `capability`（本示例为 `osdCapability`），且两端软总线均开启 `DSOFTBUS_FEATURE_DISC_COAP_CUSTDATA` 特性。
 
 ### 下载
 

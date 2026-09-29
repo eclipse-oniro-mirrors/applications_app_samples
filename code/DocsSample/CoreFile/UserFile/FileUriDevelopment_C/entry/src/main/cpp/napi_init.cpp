@@ -15,6 +15,7 @@
 
 #include "napi/native_api.h"
 #include <cstring>
+#include <cstdlib>
 #include <filemanagement/file_uri/oh_file_uri.h>
 #include <hilog/log.h>
 
@@ -47,25 +48,19 @@ static napi_value NAPI_Global_OH_FileUri_GetUriFromPathExample(napi_env env, nap
     // [EndExclude get_uri_from_path_example]
     char *uriResult = nullptr;
     FileManagement_ErrCode ret = OH_FileUri_GetUriFromPath(path, length, &uriResult);
+    delete[] path;
     // 输出结果uri字符串
     // [StartExclude get_uri_from_path_example]
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.WatcherType=OnTrigger: %{public}s", uriResult);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.WatcherType=OnTrigger: %{public}s",
+        uriResult != nullptr ? uriResult : "");
     napi_value result;
     // [EndExclude get_uri_from_path_example]
-    if (ret == 0 && uriResult != nullptr) {
-        // 将C字符串转换为napi_value
-        napi_status status = napi_create_string_utf8(env, uriResult, NAPI_AUTO_LENGTH, &result);
-        if (status != napi_ok) {
-            free(uriResult);
-            return nullptr;
-        }
-        free(uriResult); // 释放临时字符串
-    } else {
-        // 将C字符串转换为napi_value
-        napi_status status = napi_create_string_utf8(env, "Hello World", NAPI_AUTO_LENGTH, &result);
-        if (status != napi_ok) {
-            return nullptr;
-        }
+    // 创建返回值后统一释放接口分配的内存，包括错误路径。
+    const char *value = (ret == 0 && uriResult != nullptr) ? uriResult : "Hello World";
+    napi_status status = napi_create_string_utf8(env, value, NAPI_AUTO_LENGTH, &result);
+    free(uriResult);
+    if (status != napi_ok) {
+        return nullptr;
     }
     return result;
 }
@@ -95,25 +90,19 @@ static napi_value NAPI_Global_OH_FileUri_GetPathFromUriExample(napi_env env, nap
     OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.WatcherType=OnTrigger: %{public}s", uri);
     char *pathResult = nullptr;
     FileManagement_ErrCode ret = OH_FileUri_GetPathFromUri(uri, length, &pathResult);
+    delete[] uri;
     // 输出获取路径结果字符串
     // [StartExclude get_path_from_uri_example]
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.WatcherType=OnTrigger: %{public}s", pathResult);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.WatcherType=OnTrigger: %{public}s",
+        pathResult != nullptr ? pathResult : "");
     napi_value result;
     // [EndExclude get_path_from_uri_example]
-    if (ret == 0 && pathResult != nullptr) {
-        // 将C字符串转换为napi_value
-        napi_status status = napi_create_string_utf8(env, pathResult, NAPI_AUTO_LENGTH, &result);
-        if (status != napi_ok) {
-            free(pathResult);
-            return nullptr;
-        }
-        free(pathResult); // 释放临时字符串
-    } else {
-        // 将空字符串转换为napi_value
-        napi_status status = napi_create_string_utf8(env, "", NAPI_AUTO_LENGTH, &result);
-        if (status != napi_ok) {
-            return nullptr;
-        }
+    // 创建返回值后统一释放接口分配的内存，包括错误路径。
+    const char *value = (ret == 0 && pathResult != nullptr) ? pathResult : "";
+    napi_status status = napi_create_string_utf8(env, value, NAPI_AUTO_LENGTH, &result);
+    free(pathResult);
+    if (status != napi_ok) {
+        return nullptr;
     }
     return result;
 }
@@ -143,9 +132,11 @@ static napi_value NAPI_Global_OH_FileUri_GetFullDirectoryUriExample(napi_env env
     OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.WatcherType=OnTrigger: %{public}s", uri);
     char *uriResult = nullptr;
     FileManagement_ErrCode ret = OH_FileUri_GetFullDirectoryUri(uri, length, &uriResult);
+    delete[] uri;
     // 输出所在路径uri字符串
     // [StartExclude get_full_directory_uri]
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.WatcherType=OnTrigger: %{public}s", uriResult);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.WatcherType=OnTrigger: %{public}s",
+        uriResult != nullptr ? uriResult : "");
     napi_value result = nullptr;
     // [EndExclude get_full_directory_uri]
     if (ret == 0 && uriResult != nullptr) {
@@ -184,6 +175,7 @@ static napi_value NAPI_Global_OH_FileUri_IsValidUriExample(napi_env env, napi_ca
     // 输出传入uri字符串
     OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.WatcherType=OnTrigger: %{public}s", uri);
     bool flags = OH_FileUri_IsValidUri(uri, length);
+    delete[] uri;
     // [StartExclude is_valid_uri_example]
     napi_value result;
     // 将bool值转换为napi_value
@@ -222,25 +214,19 @@ static napi_value NAPI_Global_OH_FileUri_GetFileNameExample(napi_env env, napi_c
     OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.WatcherType=OnTrigger: %{public}s", uri);
     char *uriResult = nullptr;
     FileManagement_ErrCode ret = OH_FileUri_GetFileName(uri, length, &uriResult);
+    delete[] uri;
     // 输出获取到的文件名称
     // [StartExclude get_file_name_example]
-    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.WatcherType=OnTrigger: %{public}s", uriResult);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.WatcherType=OnTrigger: %{public}s",
+        uriResult != nullptr ? uriResult : "");
     napi_value result;
     // [EndExclude get_file_name_example]
-    if (ret == 0 && uriResult != nullptr) {
-        // 将C字符串转换为napi_value
-        napi_status status = napi_create_string_utf8(env, uriResult, NAPI_AUTO_LENGTH, &result);
-        if (status != napi_ok) {
-            free(uriResult);
-            return NULL;
-        }
-        free(uriResult); // 释放临时字符串
-    } else {
-        // 将空字符串转换为napi_value
-        napi_status status = napi_create_string_utf8(env, "", NAPI_AUTO_LENGTH, &result);
-        if (status != napi_ok) {
-            return nullptr;
-        }
+    // 创建返回值后统一释放接口分配的内存，包括错误路径。
+    const char *value = (ret == 0 && uriResult != nullptr) ? uriResult : "";
+    napi_status status = napi_create_string_utf8(env, value, NAPI_AUTO_LENGTH, &result);
+    free(uriResult);
+    if (status != napi_ok) {
+        return nullptr;
     }
     return result;
 }

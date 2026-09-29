@@ -37,6 +37,77 @@ import { webIdToUrlMap } from '../pages/ArkWebPage';
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+    // [Start RegisterExternalLogManager]
+    // 定义删除文件函数
+    let deleteFiles: (files: string[]) => void = (files: string[]): void => {
+      for (const file of files) {
+        try {
+          fs.unlinkSync(file);
+          hilog.info(0x0000, 'testTag', `[MyLogManager] 已删除: ${file}`);
+        } catch (e) {
+          hilog.info(0x0000, 'testTag', `[MyLogManager] 删除失败: ${file}, error: ${e}`);
+        }
+      }
+    };
+
+    // 定义ExternalLogManager实现
+    let myLogManager: hiAppEvent.ExternalLogManager = {
+      onCapacityReached(container: hiAppEvent.ExternalLogContainer): void {
+        hilog.info(0x0000, 'testTag', `[MyLogManager] 容量达到阈值，日志数量: ${container.getLogNumber()}`);
+
+        // 获取所有日志文件路径
+        let allFiles: Set<string> = container.getAllLogFiles();
+        hilog.info(0x0000, 'testTag', `[MyLogManager] 所有日志文件: ${JSON.stringify(Array.from(allFiles))}`);
+
+        // 获取所有日志详情
+        let allLogs: Set<hiAppEvent.ExternalLogWrapper> = container.getAllLogs();
+        for (const log of Array.from(allLogs)) {
+          hilog.info(0x0000, 'testTag', `[MyLogManager] 文件: ${log.getFilePath()}, ` +
+            `时间: ${log.getGenerationTime()}, ` +
+            `大小: ${log.getSizeInKb()}KB, ` +
+            `事件: ${log.getSysEvent()}`);
+        }
+
+        // 按事件类型过滤的日志
+        let crashFiles: Set<string> = container.getLogFilesOfSysEvent('APP_CRASH');
+        hilog.info(0x0000, 'testTag', `[MyLogManager] APP_CRASH 日志: ${JSON.stringify(Array.from(crashFiles))}`);
+
+        // 按时间过滤日志，获取5分钟前生成的日志
+        let timePoint = Date.now() - 5 * 60 * 1000;
+        let files: Set<string> = container.getLogFilesGeneratedBefore(timePoint);
+        hilog.info(0x0000, 'testTag', `[MyLogManager] 5分钟前的日志: ${JSON.stringify(Array.from(files))}`);
+
+        // 按时间过滤，获取5分钟内生成的日志
+        files = container.getLogFilesGeneratedAfter(timePoint);
+        hilog.info(0x0000, 'testTag', `[MyLogManager] 5分钟内的日志: ${JSON.stringify(Array.from(files))}`);
+
+        // 按大小过滤，获取大于100KB的日志
+        files = container.getLogFilesLargerThan(100);
+        hilog.info(0x0000, 'testTag', `[MyLogManager] 大于100KB的日志: ${JSON.stringify(Array.from(files))}`);
+
+        // 按大小过滤，获取小于100KB的日志
+        files = container.getLogFilesSmallerThan(100);
+        hilog.info(0x0000, 'testTag', `[MyLogManager] 小于100KB的日志: ${JSON.stringify(Array.from(files))}`);
+
+        // 获取最早生成的3个日志文件，并删除
+        files = container.getFirstGeneratedLogFiles(3);
+        hilog.info(0x0000, 'testTag', `[MyLogManager] 最早的3个日志: ${JSON.stringify(Array.from(files))}`);
+        deleteFiles(Array.from(files));
+      }
+    };
+
+    // 注册external_log日志文件管理者
+    try {
+      hiAppEvent.registerExternalLogManager(myLogManager);
+      hilog.info(0x0000, 'testTag', '[MyLogManager] ExternalLogManager 注册成功');
+    } catch (e) {
+      hilog.info(0x0000, 'testTag', `[MyLogManager] 注册失败: ${e.code}, ${e.message}`);
+    }
+
+    // 检查是否已注册
+    let registered: boolean = hiAppEvent.isExternalLogManagerRegistered();
+    hilog.info(0x0000, 'testTag', `[MyLogManager] 已注册: ${registered}`);
+    // [End RegisterExternalLogManager]
     // [Start AppEvent_Crash_ArkTS_Add_Watcher]
     hiAppEvent.addWatcher({
       // 开发者可以自定义观察者名称，系统会使用名称来标识不同的观察者

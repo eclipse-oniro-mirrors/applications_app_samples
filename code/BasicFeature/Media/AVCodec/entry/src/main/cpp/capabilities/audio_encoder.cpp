@@ -31,8 +31,22 @@ AudioEncoder::~AudioEncoder()
 
 int32_t AudioEncoder::Create(const std::string &codecMime)
 {
-    encoder_ = OH_AudioCodec_CreateByMime(codecMime.c_str(), true);
+    // 设置判定是否为编码。true表示当前是编码。
+    constexpr bool isEncoder = true;
+    // 通过 mime type 创建编码器。此处传入的 mime type 以实际编码格式为准。
+    encoder_ = OH_AudioCodec_CreateByMime(codecMime.c_str(), isEncoder);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create failed");
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
+int32_t AudioEncoder::CreateByName(const std::string &codecMime)
+{
+    // 通过 codec name 创建编码器。
+    OH_AVCapability *capability = OH_AVCodec_GetCapability(codecMime.c_str(), true);
+    CHECK_AND_RETURN_RET_LOG(capability != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "GetCapability failed");
+    const char *name = OH_AVCapability_GetName(capability);
+    encoder_ = OH_AudioCodec_CreateByName(name);
+    CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "CreateByName failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
@@ -45,7 +59,6 @@ int32_t AudioEncoder::SetCallback(CodecUserData *codecUserData)
                                            SampleCallback::OnNeedInputBuffer, SampleCallback::OnNewOutputBuffer },
                                          codecUserData);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Set callback failed, ret: %{public}d", ret);
-    AVCODEC_SAMPLE_LOGI("====== AudioEncoder SetCallback ======");
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
@@ -58,21 +71,21 @@ int32_t AudioEncoder::Configure(const SampleInfo &sampleInfo)
     OH_AVFormat *format = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
+    // 必选：采样格式、声道数、采样率、码率、声道布局。
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, sampleInfo.audio.audioSampleFormat);
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUD_CHANNEL_COUNT, sampleInfo.audio.audioChannelCount);
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_AUD_SAMPLE_RATE, sampleInfo.audio.audioSampleRate);
     OH_AVFormat_SetLongValue(format, OH_MD_KEY_BITRATE, sampleInfo.audio.audioBitRate);
     OH_AVFormat_SetLongValue(format, OH_MD_KEY_CHANNEL_LAYOUT, sampleInfo.audio.audioChannelLayout);
+    // 可选：最大输入长度。FLAC、MP3等帧对齐编码器设置后允许输入数据不按帧大小对齐。
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_MAX_INPUT_SIZE, sampleInfo.audio.audioMaxInputSize);
-    AVCODEC_SAMPLE_LOGI("audioChannelCount:%{public}d audioSampleRate:%{public}d audioBitRate:%{public}" PRId64 " "
-                        "audioChannelLayout:%{public}ld",
-                        sampleInfo.audio.audioChannelCount, sampleInfo.audio.audioSampleRate,
-                        sampleInfo.audio.audioBitRate, sampleInfo.audio.audioChannelLayout);
     if (sampleInfo.codec.codecSyncMode) {
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
     }
 
-    const int32_t ret = OH_AudioCodec_Configure(encoder_, format);
+    // 配置编码器。
+    int ret = OH_AudioCodec_Configure(encoder_, format);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Config failed, ret: %{public}d", ret);
     OH_AVFormat_Destroy(format);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Config failed, ret: %{public}d", ret);
 
@@ -94,6 +107,7 @@ int32_t AudioEncoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
     }
 
     {
+        // 编码器就绪。
         int ret = OH_AudioCodec_Prepare(encoder_);
         CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Prepare failed, ret: %{public}d", ret);
     }
@@ -220,12 +234,33 @@ int32_t AudioEncoder::NotifyEndOfStream()
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
+int32_t AudioEncoder::Flush()
+{
+    CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
+
+    // 刷新编码器，清空当前队列，之后需要调用Start()重新开始编码。
+    int32_t ret = OH_AudioCodec_Flush(encoder_);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Flush failed, ret: %{public}d", ret);
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
+int32_t AudioEncoder::Reset()
+{
+    CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
+
+    // 重置编码器，之后需要重新调用Configure()配置、Start()启动。
+    int32_t ret = OH_AudioCodec_Reset(encoder_);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Reset failed, ret: %{public}d", ret);
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
 int32_t AudioEncoder::Stop()
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
 
-    int ret = OH_AudioCodec_Flush(encoder_);
-    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Flush failed, ret: %{public}d", ret);
+    int ret = Flush();
+    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+                             "Flush failed, ret: %{public}d", ret);
 
     ret = OH_AudioCodec_Stop(encoder_);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Stop failed, ret: %{public}d", ret);
@@ -235,9 +270,9 @@ int32_t AudioEncoder::Stop()
 int32_t AudioEncoder::Release()
 {
     if (encoder_ != nullptr) {
-        // Flush 和 Stop 用于结束内部工作，Destroy 后不能继续使用先前取得的 Buffer 或索引。
-        OH_AudioCodec_Flush(encoder_);
-        OH_AudioCodec_Stop(encoder_);
+        // 销毁前刷新并停止编码器，不可重复destroy。
+        Flush();
+        Stop();
         OH_AudioCodec_Destroy(encoder_);
         encoder_ = nullptr;
     }

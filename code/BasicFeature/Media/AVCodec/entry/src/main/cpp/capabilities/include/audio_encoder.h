@@ -17,6 +17,7 @@
 #define AUDIOENCODER_H
 
 #include "multimedia/player_framework/native_avcodec_audiocodec.h"
+#include "multimedia/player_framework/native_avcapability.h"
 #include "multimedia/player_framework/native_avbuffer_info.h"
 #include "multimedia/native_audio_channel_layout.h"
 #include "sample_info.h"
@@ -31,7 +32,7 @@ public:
 
     // 按 MIME 创建音频编码器实例，成功后由 Release() 负责销毁。
     int32_t Create(const std::string &codecMime);
-    // 完成配置、回调注册和 Prepare。异步回调使用的 codecUserData 在停止回调前不得释放。
+    int32_t CreateByName(const std::string &codecMime);
     int32_t Config(const SampleInfo &sampleInfo, CodecUserData *codecUserData);
     int32_t Start();
     // 把填好音频数据和属性的输入 Buffer 交回编码器；成功后不能继续写该 Buffer。
@@ -43,6 +44,8 @@ public:
     int32_t FreeOutputData(uint32_t bufferIndex);
     // 提交 EOS 空输入 Buffer，通知编码器完成尾部数据输出；调用后仍需继续取输出直到收到 EOS。
     int32_t NotifyEndOfStream();
+    int32_t Flush();
+    int32_t Reset();
     int32_t Stop();
     // 销毁 codec 句柄。该操作后缓存的所有输入、输出 Buffer 索引都不能再使用。
     int32_t Release();

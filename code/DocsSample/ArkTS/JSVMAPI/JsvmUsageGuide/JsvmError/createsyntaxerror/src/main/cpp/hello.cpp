@@ -76,7 +76,7 @@ static JSVM_Value JsVmCreateSyntaxError(JSVM_Env env, JSVM_CallbackInfo info)
     if (status == JSVM_OK) {
         OH_LOG_INFO(LOG_APP, "JSVM API CreateSyntaxError SUCCESS");
     } else {
-        OH_LOG_INFO(LOG_APP, "JSVM API CreateSyntaxError FAILED");
+        OH_LOG_ERROR(LOG_APP, "JSVM API CreateSyntaxError FAILED");
     }
     return result;
 }

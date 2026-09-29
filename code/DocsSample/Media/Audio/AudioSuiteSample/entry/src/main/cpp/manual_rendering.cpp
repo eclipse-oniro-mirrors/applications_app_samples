@@ -82,7 +82,7 @@ static int32_t InputNodeWriteDataCallBack(OH_AudioNode *audioNode, void *userDat
 }
 // [End audioSuite_InputNodeWriteDataCallBack]
 
-static BaseEditorNodes CreateBaseEditorNodes(OH_AudioSuitePipeline *audioSuiteEngine, AudioDataInfo *audioInfo,
+static BaseEditorNodes CreateBaseEditorNodes(OH_AudioSuitePipeline *audioSuitePipeline, AudioDataInfo *audioInfo,
                                              int effectType, const EffectParams &params)
 {
     BaseEditorNodes nodes;
@@ -104,7 +104,7 @@ static BaseEditorNodes CreateBaseEditorNodes(OH_AudioSuitePipeline *audioSuiteEn
     void *userData = static_cast<void *>(audioInfo);
     OH_AudioSuiteNodeBuilder_SetRequestDataCallback(nodeBuilder, InputNodeWriteDataCallBack, userData);
     // 创建输入节点。
-    OH_AudioSuiteEngine_CreateNode(audioSuiteEngine, nodeBuilder, &nodes.inputNode);
+    OH_AudioSuiteEngine_CreateNode(audioSuitePipeline, nodeBuilder, &nodes.inputNode);
 
     // 重置构造器配置，创建效果节点。
     OH_AudioSuiteNodeBuilder_Reset(nodeBuilder);
@@ -113,7 +113,7 @@ static BaseEditorNodes CreateBaseEditorNodes(OH_AudioSuitePipeline *audioSuiteEn
     // [StartExclude audioSuite_CreateBaseNode]
     auto strategy = CreateEffectStrategy(effectType);
     if (strategy != nullptr) {
-        strategy->CreateAndApply(audioSuiteEngine, nodeBuilder, &nodes.eqNode, params);
+        strategy->CreateAndApply(audioSuitePipeline, nodeBuilder, &nodes.eqNode, params);
     }
     // [EndExclude audioSuite_CreateBaseNode]
     // [Start audioSuite_CreateBaseNodeTwo]
@@ -129,7 +129,7 @@ static BaseEditorNodes CreateBaseEditorNodes(OH_AudioSuitePipeline *audioSuiteEn
     audioFormatOutput.encodingType = OH_Audio_EncodingType::AUDIO_ENCODING_TYPE_RAW;
     OH_AudioSuiteNodeBuilder_SetFormat(nodeBuilder, audioFormatOutput);
     // 创建输出节点。
-    OH_AudioSuiteEngine_CreateNode(audioSuiteEngine, nodeBuilder, &nodes.outputNode);
+    OH_AudioSuiteEngine_CreateNode(audioSuitePipeline, nodeBuilder, &nodes.outputNode);
 
     // 销毁节点构造器。
     OH_AudioSuiteNodeBuilder_Destroy(nodeBuilder);
@@ -403,7 +403,7 @@ static MixingNodes CreateMixingNodes(OH_AudioSuitePipeline *audioSuitePipeline, 
     // 重置构造器配置并设置为声场节点类型。
     OH_AudioSuiteNodeBuilder_Reset(nodeBuilder);
     OH_AudioSuiteNodeBuilder_SetNodeType(nodeBuilder, OH_AudioNode_Type::EFFECT_NODE_TYPE_SOUND_FIELD);
-    // 创建声场节点并设置声场模式为聆听。
+    // 创建声场节点并设置声场模式为前置。
     OH_AudioSuiteEngine_CreateNode(audioSuitePipeline, nodeBuilder, &nodes.fieldNode);
     OH_AudioSuiteEngine_SetSoundFieldType(nodes.fieldNode, SOUND_FIELD_FRONT_FACING);
 

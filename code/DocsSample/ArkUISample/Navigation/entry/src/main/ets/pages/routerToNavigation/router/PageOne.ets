@@ -16,8 +16,8 @@
 // [Start router_page_one]
 @Entry
 @Component
-struct pageOne {
-  @State message: string = 'This is pageOne';
+struct PageOne {
+  @State message: string = 'This is PageOne';
 
   build() {
     Row() {

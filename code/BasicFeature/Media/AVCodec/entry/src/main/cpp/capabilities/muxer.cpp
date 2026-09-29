@@ -40,24 +40,61 @@ int32_t Muxer::Config(SampleInfo &sampleInfo)
 {
     CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
 
-    // 添加轨道不会接管格式对象；当前函数负责销毁对应的 OH_AVFormat。
+    int32_t ret = AddAudioTrack(sampleInfo);
+    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Add audio track failed");
+
+    ret = AddVideoTrack(sampleInfo);
+    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Add video track failed");
+
+    return SetRotation();
+}
+
+int32_t Muxer::SetRotation()
+{
+    CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
+
+    // FLV不支持旋转元数据。
+    if (outputFormat_ == AV_OUTPUT_FORMAT_FLV) {
+        return AVCODEC_SAMPLE_ERR_OK;
+    }
+    // 由于相机只有1920×1080的profile，没有1080×1920的profile，所以得往文件里封装一个90度的角度信息，后续播放才会是竖屏显示。
+    int32_t ret = OH_AVMuxer_SetRotation(muxer_, VERTICAL_ANGLE);
+    if (ret != AV_ERR_OK) {
+        AVCODEC_SAMPLE_LOGW("Set rotation failed, ret: %{public}d", ret);
+    }
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
+int32_t Muxer::AddAudioTrack(SampleInfo &sampleInfo)
+{
+    CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
+
+    // 添加音频轨：用OH_AVFormat_CreateAudioFormat创建format，这里以封装AAC音频为例。
     OH_AVFormat *formatAudio = OH_AVFormat_CreateAudioFormat(sampleInfo.audio.audioCodecMime.data(),
         sampleInfo.audio.audioSampleRate, sampleInfo.audio.audioChannelCount);
     CHECK_AND_RETURN_RET_LOG(formatAudio != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create audio format failed");
+    // 设置音频profile，选填。
     OH_AVFormat_SetIntValue(formatAudio, OH_MD_KEY_PROFILE, AAC_PROFILE_LC);
     int32_t ret = OH_AVMuxer_AddTrack(muxer_, &audioTrackId_, formatAudio);
     OH_AVFormat_Destroy(formatAudio);
-    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && audioTrackId_ >= 0, AVCODEC_SAMPLE_ERR_ERROR,
         "Add audio track failed, ret: %{public}d", ret);
+    return AVCODEC_SAMPLE_ERR_OK;
+}
 
+int32_t Muxer::AddVideoTrack(SampleInfo &sampleInfo)
+{
+    CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
+
+    // 添加视频轨：用OH_AVFormat_CreateVideoFormat创建format。
     OH_AVFormat *formatVideo = OH_AVFormat_CreateVideoFormat(sampleInfo.video.videoCodecMime.data(),
         sampleInfo.video.videoWidth, sampleInfo.video.videoHeight);
-    CHECK_AND_RETURN_RET_LOG(formatVideo != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create video format failed");
 
     OH_AVFormat_SetDoubleValue(formatVideo, OH_MD_KEY_FRAME_RATE, sampleInfo.video.frameRate);
     OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_WIDTH, sampleInfo.video.videoWidth);
     OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_HEIGHT, sampleInfo.video.videoHeight);
     OH_AVFormat_SetStringValue(formatVideo, OH_MD_KEY_CODEC_MIME, sampleInfo.video.videoCodecMime.data());
+    // HDR Vivid视频需要设置色彩信息相关key，选填。
     if (sampleInfo.video.isHDRVivid) {
         OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_VIDEO_IS_HDR_VIVID, 1);
         OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_RANGE_FLAG, sampleInfo.video.rangFlag);
@@ -65,15 +102,10 @@ int32_t Muxer::Config(SampleInfo &sampleInfo)
         OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_TRANSFER_CHARACTERISTICS, sampleInfo.video.transfer);
         OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_MATRIX_COEFFICIENTS, sampleInfo.video.matrix);
     }
-    
-    ret = OH_AVMuxer_AddTrack(muxer_, &videoTrackId_, formatVideo);
+
+    int32_t ret = OH_AVMuxer_AddTrack(muxer_, &videoTrackId_, formatVideo);
     OH_AVFormat_Destroy(formatVideo);
-    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "AddTrack failed");
-    // FLV 格式不支持旋转元数据。
-    if (outputFormat_ != 14) { // 14 表示 FLV
-        // 相机仅提供 1920×1080 Profile，没有 1080×1920 Profile，因此在容器中写入 90 度旋转信息以实现竖屏显示。
-        OH_AVMuxer_SetRotation(muxer_, VERTICAL_ANGLE);
-    }
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && videoTrackId_ >= 0, AVCODEC_SAMPLE_ERR_ERROR, "AddTrack failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
 

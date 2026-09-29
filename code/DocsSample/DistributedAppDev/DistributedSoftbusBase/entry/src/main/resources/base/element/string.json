@@ -1,0 +1,132 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "SoftBus感知接口调试模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "SoftBus感知接口调试入口"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "SoftBus感知调试"
+    },
+    {
+      "name": "reason_softbus_access",
+      "value": "用于设备感知广播与扫描，发现周围协同设备"
+    },
+    {
+      "name": "reason_distributed_datasync",
+      "value": "用于分布式设备间数据同步"
+    },
+    {
+      "name": "title_main",
+      "value": "SoftBus 感知接口调试工具"
+    },
+    {
+      "name": "title_subtitle",
+      "value": "softbusBase  @ohos.distributed.softbusBase"
+    },
+    {
+      "name": "btn_start_adv",
+      "value": "开始广播"
+    },
+    {
+      "name": "btn_start_adv_sub",
+      "value": "startPerceptionAdv"
+    },
+    {
+      "name": "btn_set_high_freq",
+      "value": "切高频"
+    },
+    {
+      "name": "btn_set_high_freq_sub",
+      "value": "setPerceptionAdvHighFreq"
+    },
+    {
+      "name": "btn_stop_adv",
+      "value": "停止广播"
+    },
+    {
+      "name": "btn_stop_adv_sub",
+      "value": "stopPerceptionAdv"
+    },
+    {
+      "name": "btn_start_scan",
+      "value": "开始扫描"
+    },
+    {
+      "name": "btn_start_scan_sub",
+      "value": "startPerceptionScan"
+    },
+    {
+      "name": "btn_stop_scan",
+      "value": "停止扫描"
+    },
+    {
+      "name": "btn_stop_scan_sub",
+      "value": "stopPerceptionScan"
+    },
+    {
+      "name": "btn_get_devices",
+      "value": "获取设备"
+    },
+    {
+      "name": "btn_get_devices_sub",
+      "value": "getPerceptionDeviceList"
+    },
+    {
+      "name": "tip_system_api",
+      "value": "提示：本组接口为系统应用接口（@systemapi），需系统应用及 ohos.permission.ACCESS_SOFTBUS_SYS_HAP / DISTRIBUTED_DATASYNC 权限；调用失败可在下方日志查看错误码（如 201/202/801）。"
+    },
+    {
+      "name": "log_title",
+      "value": "调试日志"
+    },
+    {
+      "name": "log_count",
+      "value": "共 %d 条"
+    },
+    {
+      "name": "btn_clear",
+      "value": "清空"
+    },
+    {
+      "name": "log_empty",
+      "value": "暂无日志，点击上方按钮调用接口…"
+    },
+    {
+      "name": "log_start_adv_success",
+      "value": "调用成功，返回 void。customData=01 02 03 04"
+    },
+    {
+      "name": "log_high_freq_success",
+      "value": "调用成功，返回 void。切高频持续 10 秒"
+    },
+    {
+      "name": "log_stop_adv_success",
+      "value": "调用成功，返回 void"
+    },
+    {
+      "name": "log_start_scan_success",
+      "value": "调用成功，返回 void。cycle=PERCEPTION_CYCLE_MEDIUM(1)"
+    },
+    {
+      "name": "log_stop_scan_success",
+      "value": "调用成功，返回 void。已清空设备列表"
+    },
+    {
+      "name": "log_get_list_empty",
+      "value": "返回空数组（未发现设备或尚未开始扫描）"
+    },
+    {
+      "name": "log_get_list_count",
+      "value": "返回 %d 个设备"
+    },
+    {
+      "name": "log_cleared",
+      "value": "日志已清空"
+    }
+  ]
+}

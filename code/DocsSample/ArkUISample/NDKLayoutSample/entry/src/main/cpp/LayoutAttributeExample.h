@@ -55,6 +55,7 @@ constexpr float PADDING_RIGHT = 20.0F;
 constexpr float POSITION_X = 20.0F;
 constexpr float POSITION_Y = 18.0F;
 constexpr float OFFSET_X = 110.0F;
+constexpr float OFFSET_Y = 18.0F;
 constexpr float OFFSET_MARGIN_TOP = 62.0F;
 constexpr float DEFAULT_BORDER_RADIUS = 18.0F;
 constexpr float ALT_BORDER_RADIUS_SMALL = 12.0F;
@@ -312,10 +313,10 @@ inline std::shared_ptr<ArkUITextNode> CreatePositionedItem()
 
 inline std::shared_ptr<ArkUITextNode> CreateOffsetItem()
 {
-    auto offset = CreateDemoItem("offset(110, 80)", POSITION_ITEM_BLUE);
+    auto offset = CreateDemoItem("offset(110, 18)", POSITION_ITEM_BLUE);
     offset->SetWidth(LARGE_ITEM_WIDTH);
     offset->SetMargin(OFFSET_MARGIN_TOP, 0.0F, 0.0F, 0.0F);
-    offset->SetOffset(OFFSET_X, POSITION_Y);
+    offset->SetOffset(OFFSET_X, OFFSET_Y);
     return offset;
 }
 // [End layout_position_section]

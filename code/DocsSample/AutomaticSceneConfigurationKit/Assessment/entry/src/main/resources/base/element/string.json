@@ -1,0 +1,224 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Assessment sample entry module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Assessment sample ability"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "Assessment"
+    },
+    {
+      "name": "index_title",
+      "value": "Assessment"
+    },
+    {
+      "name": "index_intro",
+      "value": "Call begin to enter assessment mode. The system shows a confirmation dialog and restricts some system capabilities after the user confirms."
+    },
+    {
+      "name": "config_title",
+      "value": "Assessment Config"
+    },
+    {
+      "name": "duration_label",
+      "value": "Duration"
+    },
+    {
+      "name": "duration_default",
+      "value": "Default duration"
+    },
+    {
+      "name": "duration_minutes",
+      "value": "%d min"
+    },
+    {
+      "name": "allowed_apps_label",
+      "value": "Allowed Apps"
+    },
+    {
+      "name": "allowed_apps_placeholder",
+      "value": "Bundle name"
+    },
+    {
+      "name": "allowed_apps_add",
+      "value": "Add"
+    },
+    {
+      "name": "allowed_apps_remove",
+      "value": "Remove"
+    },
+    {
+      "name": "allowed_apps_empty",
+      "value": "The whitelist is empty"
+    },
+    {
+      "name": "operation_title",
+      "value": "Operations"
+    },
+    {
+      "name": "begin_button",
+      "value": "begin"
+    },
+    {
+      "name": "end_button",
+      "value": "end"
+    },
+    {
+      "name": "query_state_button",
+      "value": "isActive"
+    },
+    {
+      "name": "query_config_button",
+      "value": "getConfiguration"
+    },
+    {
+      "name": "status_title",
+      "value": "Status"
+    },
+    {
+      "name": "state_active",
+      "value": "Assessment state: active"
+    },
+    {
+      "name": "state_inactive",
+      "value": "Assessment state: inactive"
+    },
+    {
+      "name": "current_config_label",
+      "value": "Current config"
+    },
+    {
+      "name": "current_config_none",
+      "value": "No active assessment"
+    },
+    {
+      "name": "current_config_value",
+      "value": "duration: %1$d ms, allowedApps: %2$s"
+    },
+    {
+      "name": "event_log_label",
+      "value": "Event log"
+    },
+    {
+      "name": "event_log_empty",
+      "value": "No event yet"
+    },
+    {
+      "name": "exam_title",
+      "value": "Exam"
+    },
+    {
+      "name": "exam_remaining_label",
+      "value": "Remaining"
+    },
+    {
+      "name": "exam_progress",
+      "value": "Question %1$d/%2$d"
+    },
+    {
+      "name": "exam_previous",
+      "value": "Previous"
+    },
+    {
+      "name": "exam_next",
+      "value": "Next"
+    },
+    {
+      "name": "exam_submit",
+      "value": "Submit"
+    },
+    {
+      "name": "exam_finish_title",
+      "value": "Exam Finished"
+    },
+    {
+      "name": "exam_finish_message",
+      "value": "You answered %1$d of %2$d questions. The assessment is ended."
+    },
+    {
+      "name": "exam_interrupt_title",
+      "value": "Assessment Interrupted"
+    },
+    {
+      "name": "exam_end_title",
+      "value": "Assessment Ended"
+    },
+    {
+      "name": "dialog_confirm",
+      "value": "OK"
+    },
+    {
+      "name": "reason_user_cancel",
+      "value": "The user canceled the assessment."
+    },
+    {
+      "name": "reason_timeout",
+      "value": "The assessment timed out."
+    },
+    {
+      "name": "reason_system_error",
+      "value": "A system error occurred."
+    },
+    {
+      "name": "reason_env_anomaly",
+      "value": "An environment anomaly was detected."
+    },
+    {
+      "name": "reason_unknown",
+      "value": "The assessment exited."
+    },
+    {
+      "name": "question_stem_1",
+      "value": "Which API starts an assessment session?"
+    },
+    {
+      "name": "question_option_1_1",
+      "value": "assessment.begin"
+    },
+    {
+      "name": "question_option_1_2",
+      "value": "assessment.end"
+    },
+    {
+      "name": "question_option_1_3",
+      "value": "assessment.isActive"
+    },
+    {
+      "name": "question_stem_2",
+      "value": "Which API queries whether an assessment session is active?"
+    },
+    {
+      "name": "question_option_2_1",
+      "value": "assessment.getConfiguration"
+    },
+    {
+      "name": "question_option_2_2",
+      "value": "assessment.isActive"
+    },
+    {
+      "name": "question_option_2_3",
+      "value": "assessment.begin"
+    },
+    {
+      "name": "question_stem_3",
+      "value": "What does the duration value 0 mean in AssessmentConfig?"
+    },
+    {
+      "name": "question_option_3_1",
+      "value": "The assessment ends immediately"
+    },
+    {
+      "name": "question_option_3_2",
+      "value": "No time limit"
+    },
+    {
+      "name": "question_option_3_3",
+      "value": "The default duration is used"
+    }
+  ]
+}

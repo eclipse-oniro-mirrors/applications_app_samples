@@ -33,13 +33,13 @@ struct Index {
   getRouter(){
     // [Start get_router]
     // push page
-    this.getUIContext().getRouter().pushUrl({ url:'pages/pageOne', params: null });
+    this.getUIContext().getRouter().pushUrl({ url:'pages/PageOne', params: null });
 
     // pop page
-    this.getUIContext().getRouter().back({ url: 'pages/pageOne' });
+    this.getUIContext().getRouter().back({ url: 'pages/PageOne' });
 
     // replace page
-    this.getUIContext().getRouter().replaceUrl({ url: 'pages/pageOne' });
+    this.getUIContext().getRouter().replaceUrl({ url: 'pages/PageOne' });
 
     // clear all page
     this.getUIContext().getRouter().clear();

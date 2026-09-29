@@ -1,0 +1,36 @@
+{
+  "float": [
+    {
+      "name": "font_size_title",
+      "value": "24fp"
+    },
+    {
+      "name": "font_size_section",
+      "value": "18fp"
+    },
+    {
+      "name": "font_size_body",
+      "value": "16fp"
+    },
+    {
+      "name": "font_size_caption",
+      "value": "14fp"
+    },
+    {
+      "name": "page_padding",
+      "value": "16vp"
+    },
+    {
+      "name": "card_padding",
+      "value": "16vp"
+    },
+    {
+      "name": "card_radius",
+      "value": "16vp"
+    },
+    {
+      "name": "component_space",
+      "value": "12vp"
+    }
+  ]
+}
