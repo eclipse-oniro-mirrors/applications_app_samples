@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -43,20 +43,20 @@ struct sceneAnimation {
 
   init(): void {
     if (this.scene == null) {
-      // Loading scene.
-      // Switched from .gltf to .glb; same content, different format
+      // 加载场景。
+      // 从 .gltf 切换为 .glb；内容相同，格式不同
       // [Start anim_load]
       Scene.load($rawfile('gltf/BrainStem/glTF/BrainStem.glb'))
         .then(async (result: Scene) => {
           this.scene = result;
           let rf: SceneResourceFactory = this.scene.getResourceFactory();
           // [StartExclude anim_load]
-          // Get animation resources
+          // 获取动画资源
           // [Start anim_pick_anim]
           this.anim = this.scene.animations[0];
           if (this.anim) {
             this.anim.enabled = true;
-            // Register callback function
+            // 注册回调函数
             this.anim.onStarted(() => {
               // [StartExclude anim_pick_anim]
               console.info('onStarted');
@@ -78,9 +78,9 @@ struct sceneAnimation {
           }
           // [End anim_pick_anim]
           // [Start anim_camera_sceneopt]
-          // create a new camera.
+          // 创建一个新相机。
           this.cam = await rf.createCamera({ name: 'Camera' });
-          // set the camera.
+          // 设置相机。
           this.cam.enabled = true;
           this.cam.position.z = 5;
           this.sceneOpt = { scene: this.scene, modelType: ModelType.SURFACE } as SceneOptions;
@@ -198,7 +198,7 @@ struct sceneAnimation {
               return;
             }
             this.anim = this.scene.animations[0];
-            // seek to 30%
+            // 定位到 30% 处
             this.anim.seek(0.3);
           });
         // [End anim_controls]

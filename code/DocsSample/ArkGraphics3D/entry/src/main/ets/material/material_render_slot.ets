@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -46,7 +46,7 @@ struct material_render_slot {
 
   Init(): void {
     if (this.scene == null) {
-      // Load an empty scene (used to host the generated plane)
+      // 加载一个空场景（用于承载生成的平面）
       Scene.load()
         .then(async (scene: Scene) => {
           this.scene = scene;
@@ -54,11 +54,11 @@ struct material_render_slot {
             return;
           }
           let rf: SceneResourceFactory = scene.getResourceFactory();
-          // Create a plane geometry
+          // 创建一个平面几何体
           let planeGeom: PlaneGeometry = new PlaneGeometry();
           planeGeom.size = {x: 1.3, y: 1};
           let meshRes: MeshResource = await rf.createMesh({name: 'planeMesh'}, planeGeom);
-          // Create the first plane (semi-transparent red)
+          // 创建第一个平面（半透明红色）
           {
             let plane1: Geometry = await rf.createGeometry({ name: 'plane1' }, meshRes);
             this.material = await rf.createMaterial({ name: 'material' }, MaterialType.SHADER);
@@ -70,7 +70,7 @@ struct material_render_slot {
             this.material.blend = { enabled: true };
             this.material.cullMode = CullMode.NONE;
           }
-          // Create the second plane (semi-transparent white)
+          // 创建第二个平面（半透明白色）
           {
             let plane2: Geometry = await rf.createGeometry({ name: 'plane2' }, meshRes);
             let material2: Material | null =
@@ -80,11 +80,11 @@ struct material_render_slot {
             (material2 as MetallicRoughnessMaterial).baseColor.factor = {x:1, y: 1, z:1, w:0.9};
             plane2.mesh.subMeshes[0].material = material2;
             let pos: Vec3 = plane2.position;
-            pos.x += 0.5; // offset position for visual separation
+            pos.x += 0.5; // 偏移位置以便在视觉上分开
             plane2.position = pos;
           }
 
-          // Create image-based lighting environment
+          // 创建基于图像的光照环境
           scene.environment = await rf.createEnvironment({ name: 'env' });
           scene.environment.backgroundType = EnvironmentBackgroundType.BACKGROUND_CUBEMAP;
           scene.environment.environmentImage = await rf.createImage({ name: 'cube', uri: $rawfile('Environment/quarry_02_2k_skybox.ktx') });
@@ -99,13 +99,13 @@ struct material_render_slot {
               { x: -0.018954016268253, y: -0.014871496707201, z: -0.008891185745597 },
               { x: -0.566255271434784, y: -0.476870059967041, z: -0.314557582139969 },
               { x: -0.239390164613724, y: -0.200478553771973, z: -0.132790848612785 }];
-          // Create and set up the camera to view the scene and enable orbit control
+          // 创建并设置相机以查看场景，并启用轨道控制
           this.cam = await rf.createCamera({ name: 'HelmetCamera' });
           this.cam.enabled = true;
           lookAt(this.cam,{x:0,y:0,z:-3},{x:0,y:0,z:0},{x:0,y:1,z:0});
           this.sceneOpt = { scene: this.scene, modelType: ModelType.SURFACE } as SceneOptions;
           this.orbitCamera.SetOrbitFromEye(this.cam.position, this.scene.root.position, this.cam.rotation);
-          // Enable tone mapping for better HDR visualization
+          // 启用色调映射以获得更好的 HDR 显示效果
           (this.cam.postProcess as PostProcessSettings) = {
             toneMapping: {
               type: ToneMappingType.ACES,
@@ -116,13 +116,13 @@ struct material_render_slot {
     }
   }
 
-  // Update the render sort layer to adjust the drawing priority between transparent objects
+  // 更新渲染排序层，以调整透明对象之间的绘制优先级
   updateRenderSort(layer: number) {
     if (this.material) {
       this.material.renderSort = { renderSortLayer: layer };
     }
   }
-  // Switch the render sort order (layer and order index) to change which object is rendered first
+  // 切换渲染排序顺序（层和顺序索引），以改变哪个对象先被渲染
   switchOrder() {
     if (this.material) {
       this.material.renderSort = { renderSortLayer: 32, renderSortLayerOrder: 1 };
@@ -132,10 +132,10 @@ struct material_render_slot {
   build() {
     Column() {
       if (this.sceneOpt) {
-        // Present 3D scenes through Component3D
+        // 通过 Component3D 呈现 3D 场景
         Component3D(this.sceneOpt)
           .onTouch((event: TouchEvent) => {
-            // Handle touch input for orbit camera rotation
+            // 处理触摸输入以实现轨道相机旋转
             this.orbitCamera.HandleTouchEvent(event);
             if (this.cam) {
               this.cam.position = this.orbitCamera.GetCameraPosition();
@@ -148,7 +148,7 @@ struct material_render_slot {
                 console.info('Pinch start');
               })
               .onActionUpdate((event: GestureEvent) => {
-                // Handle pinch gesture for camera zoom
+                // 处理捏合手势以实现相机缩放
                 this.orbitCamera.HandlePinchGestureActionUpdate(event);
                 if (this.cam) {
                   this.cam.position = this.orbitCamera.GetCameraPosition();

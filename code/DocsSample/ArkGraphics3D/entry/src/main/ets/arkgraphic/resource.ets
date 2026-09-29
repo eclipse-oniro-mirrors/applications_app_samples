@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -24,11 +24,11 @@ let globalScene: Scene | null = null;
 // [Start create_material_promise]
 function createMaterialPromise(): Promise<Material> {
   return new Promise((resolve, reject) => {
-    // Ensure the scene is loaded before accessing sceneFactory
+    // 确保在访问sceneFactory之前场景已加载
     if (globalScene) {
       let sceneFactory: SceneResourceFactory = globalScene.getResourceFactory();
       let sceneMaterialParameter: SceneResourceParameters = { name: 'material' };
-      // Create Material
+      // 创建材质
       let material: Promise<Material> = sceneFactory.createMaterial(sceneMaterialParameter, MaterialType.SHADER);
       material.then(resolve)
       .catch((err: string) => {
@@ -45,11 +45,11 @@ function createMaterialPromise(): Promise<Material> {
 // [Start create_shader_promise]
 function createShaderPromise(): Promise<Shader> {
   return new Promise((resolve, reject) => {
-    // Ensure the scene is loaded before accessing sceneFactory
+    // 确保在访问sceneFactory之前场景已加载
     if (globalScene) {
       let sceneFactory: SceneResourceFactory = globalScene.getResourceFactory();
 
-      // Create a SceneResourceParameters object and use it to create a shader
+      // 创建一个SceneResourceParameters对象，并用它来创建着色器
       let sceneResourceParameter: SceneResourceParameters = {
         name: 'shaderResource',
         uri: $rawfile('shaders/custom_shader/custom_material_sample.shader')
@@ -72,7 +72,7 @@ function createShaderPromise(): Promise<Shader> {
 // [Start create_image_promise]
 function createImagePromise(): Promise<Image> {
   return new Promise((resolve, reject) => {
-    // Ensure the scene is loaded before accessing sceneFactory
+    // 确保在访问sceneFactory之前场景已加载
     if (globalScene) {
       let sceneFactory: SceneResourceFactory = globalScene.getResourceFactory();
 
@@ -98,21 +98,21 @@ function createImagePromise(): Promise<Image> {
 // [Start create_environment_promise]
 function createEnvironmentPromise() : Promise<Environment> {
   return new Promise((resolve, reject) => {
-    // Ensure the scene is loaded before accessing sceneFactory
+    // 确保在访问sceneFactory之前场景已加载
     if (globalScene) {
       let sceneFactory: SceneResourceFactory = globalScene.getResourceFactory();
 
-      // Manually load environment maps (.ktx/.jpg/.png etc.)
+      // 手动加载环境贴图（.ktx/.jpg/.png等）
       let sceneImageParameter: SceneResourceParameters = { name: 'image', uri: $rawfile('image/Cube_BaseColor.png') };
       let image: Promise<Image> = sceneFactory.createImage(sceneImageParameter);
       image.then(async (imageEntity: Image) => {
-        // Create Environment
+        // 创建环境
         let sceneEnvironmentParameter: SceneResourceParameters = { name: 'env' };
         let env: Promise<Environment> = sceneFactory.createEnvironment(sceneEnvironmentParameter);
         env.then(async (envEntity: Environment) => {
           envEntity.backgroundType = EnvironmentBackgroundType.BACKGROUND_EQUIRECTANGULAR;
           envEntity.environmentImage  = imageEntity;
-          // Set environment related properties
+          // 设置环境相关属性
           envEntity.indirectDiffuseFactor.x = 1;
           envEntity.indirectDiffuseFactor.y = 1;
           envEntity.indirectDiffuseFactor.z = 1;
@@ -177,10 +177,10 @@ struct materialPage {
   init(): void {
     // [Start scene_load_init]
     if (this.scene === null) {
-      // Switched from .gltf to .glb; same content, different format
+      // 从 .gltf 切换为 .glb；内容相同，格式不同
       Scene.load($rawfile('gltf/CubeWithFloor/glTF/AnimatedCube.glb'))
         .then(async (result: Scene) => {
-          // Assign loaded scene to globalScene for unified resource creation
+          // 将加载的场景赋值给globalScene，以便统一创建资源
           globalScene = result;
           this.scene = result;
           this.sceneOpt = { scene: this.scene, modelType: ModelType.SURFACE } as SceneOptions;
@@ -191,11 +191,11 @@ struct materialPage {
           this.cam.enabled = true;
           this.cam.position.z = 5;
           // [End scene_camera_init]
-          // create a geometry
+          // 创建几何体
           // [Start geometry_node_get]
           this.geom = this.scene.getNodeByPath('rootNode_/Unnamed Node 1/AnimatedCube') as Geometry;
 
-          // record original material
+          // 记录原始材质
           this.originalMat = this.geom.mesh.subMeshes[0].material;
           // [End geometry_node_get]
           // [EndExclude scene_load_init]
@@ -299,16 +299,16 @@ struct materialPage {
               return;
             }
 
-            // create shader
+            // 创建着色器
             this.shader = await this.rf.createShader({
               name: 'shaderResource',
               uri: $rawfile('shaders/custom_shader/custom_material_sample.shader')
             });
 
-            // create imageMat
+            // 创建图像材质
             this.imageMat = await this.rf.createMaterial({ name: 'imageMat' }, MaterialType.SHADER) as ShaderMaterial;
 
-            // bind between shader and imageMat
+            // 在着色器和图像材质之间进行绑定
             this.imageMat.colorShader = this.shader;
             let createdImage =  await createImagePromise();
             if (createdImage) {

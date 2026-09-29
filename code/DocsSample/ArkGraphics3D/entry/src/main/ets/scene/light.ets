@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,25 +22,25 @@ let globalScene: Scene | null = null;
 
 function createLightPromise(): Promise<Light> {
   return new Promise((resolve, reject) => {
-    // Switched from .gltf to .glb; same content, different format
+    // 从 .gltf 切换为 .glb；内容相同，格式不同
     // [Start light_load_and_factory]
     let scene: Promise<Scene> = Scene.load($rawfile('gltf/CubeWithFloor/glTF/AnimatedCube.glb'));
     scene.then(async (result: Scene) => {
       // [StartExclude light_load_and_factory]
-      // Save loaded scene globally for reuse (e.g., in LightPage)
+      // 将加载的场景全局保存以便复用（例如在 LightPage 中）
       globalScene = result;
       // [EndExclude light_load_and_factory]
       let sceneFactory: SceneResourceFactory = result.getResourceFactory();
       let lightParameter: SceneNodeParameters = { name: 'light' };
       // [StartExclude light_load_and_factory]
-      // Create directional light.
+      // 创建平行光。
       // [Start light_create_and_config]
       let light: Promise<Light> = sceneFactory.createLight(lightParameter, LightType.DIRECTIONAL);
       light.then(async (lightEntity: Light) => {
-        // Set the color of the directional light.
+        // 设置平行光的颜色。
         lightEntity.color = { r: 0.8, g: 0.1, b: 0.2, a: 1.0 };
 
-        // Set other light parameters.
+        // 设置其他光照参数。
         // ...
         // [StartExclude light_create_and_config]
         resolve(lightEntity);
@@ -101,7 +101,7 @@ struct LightPage {
       this.cam = await this.rf.createCamera({ name: 'Camera1' });
       this.cam.enabled = true;
       this.cam.position.z = 5;
-      // Initialize color value
+      // 初始化颜色值
       this.red = this.light.color.r;
       this.green = this.light.color.g;
       this.blue = this.light.color.b;
