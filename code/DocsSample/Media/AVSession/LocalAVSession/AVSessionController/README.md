@@ -44,11 +44,11 @@ entry/src/main/ets/
 
     * 通过引入逻辑代码对应的类，创建出对象，实现对onClick事件的响应，关键代码段：
       ```js
-      import control from '../feature/MediaController';
+      import MediaController from '../feature/MediaController';
 
-      controller = new control(); // 创建对象
+      mediaController = new MediaController(); // 创建对象
 
-      await this.controller.startControl(); // 通过类的对象来调用逻辑代码
+      await this.mediaController.startControl(); // 通过类的对象来调用逻辑代码
       ```
 
 * 逻辑相关的实现都封装在feature/MediaController.ets下，源码参考：[feature/MediaController.ets](./entry/src/main/ets/feature/MediaController.ets)
