@@ -13,17 +13,13 @@
  * limitations under the License.
  */
 
+import { UIContext } from '@kit.ArkUI';
+
 export class P2PManager {
   public resourceToString(resource: Resource): string {
-    let uiContext = UIContext.getCallingScopeUIContext();
-    try {
-      return uiContext?.getHostContext()?.resourceManager.getStringSync(resource.id)!;
-    } catch (error) {
-      let code = (error as BusinessError).code;
-      let message = (error as BusinessError).message;
-      console.error(`getStringSync failed, error code:${code}, message: ${message}.`);
-      return '';
-    }
+    const resolvedUIContext = UIContext.resolveUIContext();
+    const context = resolvedUIContext.getHostContext();
+    return context?.resourceManager.getStringSync(resource.id) ?? '';
   }
 }
 
