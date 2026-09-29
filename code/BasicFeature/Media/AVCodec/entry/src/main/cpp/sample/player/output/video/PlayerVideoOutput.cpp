@@ -105,34 +105,35 @@ void Player::VideoDecInputAsyncThread()
         // [Start decoder_input_buffer]
         std::shared_ptr<CodecBufferInfo> bufferInfo = videoDecContext_->inputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
-        /*
-        // 写入码流数据。
-        uint8_t *addr = OH_AVBuffer_GetAddr(bufferInfo->buffer);
-        if (addr == nullptr) {
-           // 异常处理。
-        }
-        int32_t capacity = OH_AVBuffer_GetCapacity(bufferInfo->buffer);
-        if (size > capacity) {
-            // 异常处理。
-        }
-        memcpy(addr, frameData, size);
-        // 配置帧数据的输入尺寸、偏移量、时间戳等字段信息。
-        OH_AVCodecBufferAttr info;
-        info.size = size;
-        info.offset = offset;
-        info.pts = pts;
-        info.flags = flags;
-        // info信息写入buffer。
-        OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(bufferInfo->buffer, &info);
-        if (setBufferRet != AV_ERR_OK) {
-            // 异常处理。
-        }
-        // 送入解码输入队列进行解码。
-        OH_AVErrCode pushInputRet = OH_VideoDecoder_PushInputBuffer(videoDec, bufferInfo->bufferIndex);
-        if (pushInputRet != AV_ERR_OK) {
-            // 异常处理。
-        }
-        */
+        // [Start decoder_input_buffer_example]
+        /**
+           *
+           * // 示例：将数据写入 Buffer，设置属性后送入解码器。
+           * uint8_t *addr = OH_AVBuffer_GetAddr(buffer);
+           * CHECK_AND_RETURN_RET_LOG(addr != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer addr is null");
+           * int32_t capacity = OH_AVBuffer_GetCapacity(buffer);
+           * if (size > capacity) {
+           * // 异常处理。
+           * }
+           * memcpy(addr, frameData, size);
+           * OH_AVCodecBufferAttr info;
+           * info.size = size;
+           * info.offset = offset;
+           * info.pts = pts;
+           * info.flags = flags;
+           * OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(buffer, &info);
+           * if (setBufferRet != AV_ERR_OK) {
+           * // 异常处理。
+           * return false;
+           * }
+           * OH_AVErrCode pushInputRet = OH_VideoDecoder_PushInputBuffer(videoDec, index);
+           * if (pushInputRet != AV_ERR_OK) {
+           * // 异常处理。
+           * return false;
+           * }
+           *
+           */
+        // [End decoder_input_buffer_example]
         // [StartExclude decoder_input_buffer]
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");

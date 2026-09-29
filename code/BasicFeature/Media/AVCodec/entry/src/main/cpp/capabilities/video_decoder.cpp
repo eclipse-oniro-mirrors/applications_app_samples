@@ -23,6 +23,9 @@ namespace {
 constexpr int LIMIT_LOGD_FREQUENCY = 50;
 constexpr int ROTATION_ANGLE = 90;
 
+[[maybe_unused]] constexpr char SURFACE_SCALING_MODE_NOTE[] =
+    "可选缩放接口：OH_NativeWindow_NativeWindowSetScalingModeV2；模式值：OH_SCALING_MODE_SCALE_CROP_V2。";
+
 bool SetOptionalFormatFeatures(OH_AVFormat *format, const SampleInfo &sampleInfo)
 {
     const bool usesSurfaceOutput = sampleInfo.video.window != nullptr;
@@ -177,7 +180,6 @@ int32_t VideoDecoder::SetSurface(OHNativeWindow *window)
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-
 int32_t VideoDecoder::Prepare()
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
@@ -188,8 +190,6 @@ int32_t VideoDecoder::Prepare()
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Prepare failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-
-
 // [Start configure_full_baseline]
 int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
 {
@@ -246,7 +246,7 @@ int32_t VideoDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
         CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && sampleInfo.video.window, AVCODEC_SAMPLE_ERR_ERROR,
                                  "Set surface failed, ret: %{public}d", ret);
         // 配置视频与显示屏匹配模式（缓冲区按原比例缩放，使得缓冲区的较小边与窗口匹配，较长边超出窗口的部分被视为透明）。
-        // OH_NativeWindow_NativeWindowSetScalingModeV2(nativeWindow, OH_SCALING_MODE_SCALE_CROP_V2);
+        // 可选缩放接口：OH_NativeWindow_NativeWindowSetScalingModeV2(nativeWindow, OH_SCALING_MODE_SCALE_CROP_V2);
         // [End decoder_set_surface]
     }
 
@@ -282,7 +282,6 @@ int32_t VideoDecoder::QueryInputBuffer(uint32_t &bufferIndex, int64_t timeoutUs)
 }
 
 
-
 OH_AVBuffer *VideoDecoder::GetInputBuffer(uint32_t bufferIndex)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
@@ -293,8 +292,6 @@ OH_AVBuffer *VideoDecoder::GetInputBuffer(uint32_t bufferIndex)
     CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Input buffer is null, index: %{public}u", bufferIndex);
     return buffer;
 }
-
-
 OH_AVBuffer *VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
@@ -372,7 +369,6 @@ int32_t VideoDecoder::QueryOutputBuffer(uint32_t &bufferIndex, int64_t timeoutUs
 }
 
 
-
 OH_AVBuffer *VideoDecoder::GetOutputBuffer(uint32_t bufferIndex)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
@@ -383,8 +379,6 @@ OH_AVBuffer *VideoDecoder::GetOutputBuffer(uint32_t bufferIndex)
     CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Output buffer is null, index: %{public}u", bufferIndex);
     return buffer;
 }
-
-
 int32_t VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     info.buffer = nullptr;
@@ -615,8 +609,6 @@ int32_t VideoDecoder::SetParameter(OH_AVFormat *format)
         "Set parameter failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-
-
 
 int32_t VideoDecoder::IsValid(bool &isValid)
 {
