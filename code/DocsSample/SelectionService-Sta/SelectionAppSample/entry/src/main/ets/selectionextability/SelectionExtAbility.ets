@@ -51,7 +51,7 @@ class SelectionExtAbility extends SelectionExtensionAbility {
         this.onSelected(info);
       });
     } catch(error) {
-      hilog.info(0x0000, 'SelectionExtensionAbility',
+      hilog.error(0x0000, 'SelectionExtensionAbility',
         `Failed to onConnect, error code: ${error.code}, error message: ${error.message}`);
     }
     return new SelectionAbilityStub('remote');
@@ -91,7 +91,7 @@ class SelectionExtAbility extends SelectionExtensionAbility {
       }
       await panel.setUiContent('pages/MenuPanel')   // 设置菜单面板样式
     } catch(error) {
-      hilog.info(0x0000, 'SelectionExtensionAbility',
+      hilog.error(0x0000, 'SelectionExtensionAbility',
         `Failed to createPanel, error code: ${error.code}, error message: ${error.message}`);
     }
   }
