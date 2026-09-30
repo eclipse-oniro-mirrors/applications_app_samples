@@ -17,7 +17,6 @@ import { DevParamsComponent } from '../component/DevParamsComponent';
 import { SendCommandComponent } from '../component/SendCommandComponent';
 import { ComCommandComponent } from '../component/ComCommandComponent';
 import { common } from '@kit.AbilityKit'
-import { prompt } from '@kit.ArkUI'
 import RpcTool from '../tool/RpcTool';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import DevParams from '../utils/DevParams';
