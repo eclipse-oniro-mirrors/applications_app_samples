@@ -128,7 +128,7 @@ async function start() {
     // 当且仅当状态为prepared、paused和stopped之一时才能启动渲染。
     let stateGroup = [audio.AudioState.STATE_PREPARED, audio.AudioState.STATE_PAUSED, audio.AudioState.STATE_STOPPED];
     if (stateGroup.indexOf(audioRenderer.state.valueOf()) === -1) {
-      console.info('Audio renderer state is invalid.');
+      console.error('Audio renderer state is invalid.');
       if (globalLogUpdate) {
         globalLogUpdate('Audio renderer state is invalid.', true);
       }
@@ -154,7 +154,7 @@ async function stop() {
   if (audioRenderer !== undefined) {
     if (audioRenderer.state.valueOf() !== audio.AudioState.STATE_RUNNING &&
       audioRenderer.state.valueOf() !== audio.AudioState.STATE_PAUSED) {
-      console.info('Audio renderer state is not running or paused.');
+      console.error('Audio renderer state is not running or paused.');
       if (globalLogUpdate) {
         globalLogUpdate('Audio renderer state is not running or paused.', true);
       }
