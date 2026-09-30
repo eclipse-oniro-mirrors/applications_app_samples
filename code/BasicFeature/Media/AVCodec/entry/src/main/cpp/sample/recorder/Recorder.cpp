@@ -432,6 +432,7 @@ int32_t Recorder::CreateAudioEncoder()
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
+// [Start Recorder::AudioEncInputThread]
 void Recorder::AudioEncInputThread()
 {
     while (true) {
@@ -478,7 +479,9 @@ void Recorder::AudioEncInputThread()
         CHECK_AND_BREAK_LOG(ret == AVCODEC_SAMPLE_ERR_OK, "Push data failed, thread out");
     }
 }
+// [End Recorder::AudioEncInputThread]
 
+// [Start Recorder::AudioEncOutputThread]
 void Recorder::AudioEncOutputThread()
 {
     while (true) {
@@ -502,7 +505,9 @@ void Recorder::AudioEncOutputThread()
     }
     AVCODEC_SAMPLE_LOGI("Exit, frame count: %{public}u", audioEncContext_->inputFrameCount);
 }
+// [End Recorder::AudioEncOutputThread]
 
+// [Start Recorder::AudioEncInputSyncThread]
 void Recorder::AudioEncInputSyncThread()
 {
     while (true) {
@@ -551,7 +556,9 @@ void Recorder::AudioEncInputSyncThread()
         CHECK_AND_BREAK_LOG(ret == AVCODEC_SAMPLE_ERR_OK, "Push data failed, thread out");
     }
 }
+// [End Recorder::AudioEncInputSyncThread]
 
+// [Start Recorder::AudioEncOutputSyncThread]
 void Recorder::AudioEncOutputSyncThread()
 {
     while (true) {
@@ -581,3 +588,4 @@ void Recorder::AudioEncOutputSyncThread()
     // 同步模式下不在这里调用 StartRelease()，由视频线程触发释放
     AVCODEC_SAMPLE_LOGI("Audio output thread exited, waiting for video thread to trigger release");
 }
+// [End Recorder::AudioEncOutputSyncThread]

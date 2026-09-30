@@ -25,6 +25,7 @@ AudioDecoder::~AudioDecoder()
     Release();
 }
 
+// [Start AudioDecoder::Create]
 int32_t AudioDecoder::Create(const std::string &codecMime)
 {
     // 设置判定是否为编码。false表示当前是解码。
@@ -34,7 +35,9 @@ int32_t AudioDecoder::Create(const std::string &codecMime)
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioDecoder::Create]
 
+// [Start AudioDecoder::CreateByName]
 int32_t AudioDecoder::CreateByName(const std::string &codecMime)
 {
     // 通过 codec name 创建解码器。
@@ -45,7 +48,9 @@ int32_t AudioDecoder::CreateByName(const std::string &codecMime)
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "CreateByName failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioDecoder::CreateByName]
 
+// [Start AudioDecoder::SetCallback]
 int32_t AudioDecoder::SetCallback(CodecUserData *codecUserData)
 {
     int32_t ret = AV_ERR_OK;
@@ -57,7 +62,9 @@ int32_t AudioDecoder::SetCallback(CodecUserData *codecUserData)
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioDecoder::SetCallback]
 
+// [Start AudioDecoder::Configure]
 int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
 {
     // 解码能力表可能未完整列出部分容器编码格式的采样率/声道信息，
@@ -94,6 +101,7 @@ int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioDecoder::Configure]
 
 int32_t AudioDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecUserData)
 {
@@ -109,11 +117,13 @@ int32_t AudioDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
                                  "Set callback failed, ret: %{public}d", ret);
     }
 
+    // [Start AudioDecoder::Config]
     {
         // 解码器就绪。
         int ret = OH_AudioCodec_Prepare(decoder_);
         CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Prepare failed, ret: %{public}d", ret);
     }
+    // [End AudioDecoder::Config]
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
@@ -124,6 +134,7 @@ int32_t AudioDecoder::ValidateConfiguration(const SampleInfo &sampleInfo)
     return Configure(sampleInfo);
 }
 
+// [Start AudioDecoder::GetInputBuffer]
 OH_AVBuffer *AudioDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, nullptr, "Decoder is null");
@@ -144,6 +155,7 @@ OH_AVBuffer *AudioDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
     }
     return nullptr;
 }
+// [End AudioDecoder::GetInputBuffer]
 
 int32_t AudioDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
@@ -179,6 +191,7 @@ int32_t AudioDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
+// [Start AudioDecoder::Start]
 int32_t AudioDecoder::Start()
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
@@ -187,7 +200,9 @@ int32_t AudioDecoder::Start()
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Start failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioDecoder::Start]
 
+// [Start AudioDecoder::PushInputBuffer]
 int32_t AudioDecoder::PushInputBuffer(CodecBufferInfo &info)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
@@ -197,7 +212,9 @@ int32_t AudioDecoder::PushInputBuffer(CodecBufferInfo &info)
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Push input data failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioDecoder::PushInputBuffer]
 
+// [Start AudioDecoder::FreeOutputBuffer]
 int32_t AudioDecoder::FreeOutputBuffer(uint32_t bufferIndex, bool render)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
@@ -207,7 +224,9 @@ int32_t AudioDecoder::FreeOutputBuffer(uint32_t bufferIndex, bool render)
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Free output data failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioDecoder::FreeOutputBuffer]
 
+// [Start AudioDecoder::Flush]
 int32_t AudioDecoder::Flush()
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
@@ -217,7 +236,9 @@ int32_t AudioDecoder::Flush()
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Flush failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioDecoder::Flush]
 
+// [Start AudioDecoder::Reset]
 int32_t AudioDecoder::Reset()
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
@@ -227,7 +248,9 @@ int32_t AudioDecoder::Reset()
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Reset failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioDecoder::Reset]
 
+// [Start AudioDecoder::Stop]
 int32_t AudioDecoder::Stop()
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
@@ -236,7 +259,9 @@ int32_t AudioDecoder::Stop()
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Stop failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioDecoder::Stop]
 
+// [Start AudioDecoder::Release]
 int32_t AudioDecoder::Release()
 {
     if (decoder_ != nullptr) {
@@ -248,3 +273,4 @@ int32_t AudioDecoder::Release()
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioDecoder::Release]

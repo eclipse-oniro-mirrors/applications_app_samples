@@ -29,6 +29,7 @@ AudioEncoder::~AudioEncoder()
     Release();
 }
 
+// [Start AudioEncoder::Create]
 int32_t AudioEncoder::Create(const std::string &codecMime)
 {
     // 设置判定是否为编码。true表示当前是编码。
@@ -38,7 +39,9 @@ int32_t AudioEncoder::Create(const std::string &codecMime)
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioEncoder::Create]
 
+// [Start AudioEncoder::CreateByName]
 int32_t AudioEncoder::CreateByName(const std::string &codecMime)
 {
     // 通过 codec name 创建编码器。
@@ -49,7 +52,9 @@ int32_t AudioEncoder::CreateByName(const std::string &codecMime)
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "CreateByName failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioEncoder::CreateByName]
 
+// [Start AudioEncoder::SetCallback]
 int32_t AudioEncoder::SetCallback(CodecUserData *codecUserData)
 {
     int32_t ret = AV_ERR_OK;
@@ -61,7 +66,9 @@ int32_t AudioEncoder::SetCallback(CodecUserData *codecUserData)
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioEncoder::SetCallback]
 
+// [Start AudioEncoder::Configure]
 int32_t AudioEncoder::Configure(const SampleInfo &sampleInfo)
 {
     CHECK_AND_RETURN_RET_LOG(CodecCapability::ValidateAudioConfiguration(sampleInfo, true),
@@ -89,6 +96,7 @@ int32_t AudioEncoder::Configure(const SampleInfo &sampleInfo)
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioEncoder::Configure]
 
 int32_t AudioEncoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecUserData)
 {
@@ -104,15 +112,18 @@ int32_t AudioEncoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
                                  "Set callback failed, ret: %{public}d", ret);
     }
 
+    // [Start AudioEncoder::Config]
     {
         // 编码器就绪。
         int ret = OH_AudioCodec_Prepare(encoder_);
         CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Prepare failed, ret: %{public}d", ret);
     }
+    // [End AudioEncoder::Config]
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
+// [Start AudioEncoder::GetInputBuffer]
 OH_AVBuffer *AudioEncoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, nullptr, "Encoder is null");
@@ -133,7 +144,9 @@ OH_AVBuffer *AudioEncoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
     }
     return nullptr;
 }
+// [End AudioEncoder::GetInputBuffer]
 
+// [Start AudioEncoder::GetOutputBuffer]
 int32_t AudioEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     // 当输入的数据量可以编码出多帧数据时，需要多次调用获取输出缓冲区，才能取完编码后的数据。
@@ -166,7 +179,9 @@ int32_t AudioEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioEncoder::GetOutputBuffer]
 
+// [Start AudioEncoder::Start]
 int32_t AudioEncoder::Start()
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
@@ -175,7 +190,9 @@ int32_t AudioEncoder::Start()
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Start failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioEncoder::Start]
 
+// [Start AudioEncoder::PushInputData]
 int32_t AudioEncoder::PushInputData(CodecBufferInfo &info)
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
@@ -185,7 +202,9 @@ int32_t AudioEncoder::PushInputData(CodecBufferInfo &info)
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Push input data failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioEncoder::PushInputData]
 
+// [Start AudioEncoder::FreeOutputData]
 int32_t AudioEncoder::FreeOutputData(uint32_t bufferIndex)
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
@@ -195,7 +214,9 @@ int32_t AudioEncoder::FreeOutputData(uint32_t bufferIndex)
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Free output data failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioEncoder::FreeOutputData]
 
+// [Start AudioEncoder::NotifyEndOfStream]
 int32_t AudioEncoder::NotifyEndOfStream()
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
@@ -223,7 +244,9 @@ int32_t AudioEncoder::NotifyEndOfStream()
                              "PushInputBuffer for EOS failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioEncoder::NotifyEndOfStream]
 
+// [Start AudioEncoder::Flush]
 int32_t AudioEncoder::Flush()
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
@@ -233,7 +256,9 @@ int32_t AudioEncoder::Flush()
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Flush failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioEncoder::Flush]
 
+// [Start AudioEncoder::Reset]
 int32_t AudioEncoder::Reset()
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
@@ -243,7 +268,9 @@ int32_t AudioEncoder::Reset()
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Reset failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioEncoder::Reset]
 
+// [Start AudioEncoder::Stop]
 int32_t AudioEncoder::Stop()
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
@@ -256,7 +283,9 @@ int32_t AudioEncoder::Stop()
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Stop failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioEncoder::Stop]
 
+// [Start AudioEncoder::Release]
 int32_t AudioEncoder::Release()
 {
     if (encoder_ != nullptr) {
@@ -268,3 +297,4 @@ int32_t AudioEncoder::Release()
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioEncoder::Release]

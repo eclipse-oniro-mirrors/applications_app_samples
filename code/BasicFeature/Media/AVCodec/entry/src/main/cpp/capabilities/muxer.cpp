@@ -28,6 +28,7 @@ Muxer::~Muxer()
     Release();
 }
 
+// [Start Muxer::Create]
 int32_t Muxer::Create(int32_t fd, int32_t outputFormat)
 {
     outputFormat_ = outputFormat;
@@ -35,6 +36,7 @@ int32_t Muxer::Create(int32_t fd, int32_t outputFormat)
     CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer create failed, fd: %{public}d", fd);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End Muxer::Create]
 
 int32_t Muxer::Config(SampleInfo &sampleInfo)
 {
@@ -49,6 +51,7 @@ int32_t Muxer::Config(SampleInfo &sampleInfo)
     return SetRotation();
 }
 
+// [Start Muxer::SetRotation]
 int32_t Muxer::SetRotation()
 {
     CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
@@ -64,7 +67,9 @@ int32_t Muxer::SetRotation()
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End Muxer::SetRotation]
 
+// [Start Muxer::AddAudioTrack]
 int32_t Muxer::AddAudioTrack(SampleInfo &sampleInfo)
 {
     CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
@@ -81,7 +86,9 @@ int32_t Muxer::AddAudioTrack(SampleInfo &sampleInfo)
         "Add audio track failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End Muxer::AddAudioTrack]
 
+// [Start Muxer::AddVideoTrack]
 int32_t Muxer::AddVideoTrack(SampleInfo &sampleInfo)
 {
     CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
@@ -108,7 +115,9 @@ int32_t Muxer::AddVideoTrack(SampleInfo &sampleInfo)
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && videoTrackId_ >= 0, AVCODEC_SAMPLE_ERR_ERROR, "AddTrack failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End Muxer::AddVideoTrack]
 
+// [Start Muxer::Start]
 int32_t Muxer::Start()
 {
     CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
@@ -117,7 +126,9 @@ int32_t Muxer::Start()
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Start failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End Muxer::Start]
 
+// [Start Muxer::WriteSample]
 int32_t Muxer::WriteSample(int32_t trackId, OH_AVBuffer *buffer, OH_AVCodecBufferAttr &attr)
 {
     std::lock_guard<std::mutex> lock(writeMutex_);
@@ -132,7 +143,9 @@ int32_t Muxer::WriteSample(int32_t trackId, OH_AVBuffer *buffer, OH_AVCodecBuffe
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Write sample failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End Muxer::WriteSample]
 
+// [Start Muxer::Stop]
 int32_t Muxer::Stop()
 {
     CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
@@ -141,7 +154,9 @@ int32_t Muxer::Stop()
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Muxer stop failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End Muxer::Stop]
 
+// [Start Muxer::Release]
 int32_t Muxer::Release()
 {
     if (muxer_ != nullptr) {
@@ -150,6 +165,7 @@ int32_t Muxer::Release()
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End Muxer::Release]
 
 int32_t Muxer::GetVideoTrackId()
 {

@@ -296,6 +296,7 @@ int32_t SampleCallback::OnRenderError(OH_AudioRenderer *renderer, void *userData
     return 0;
 }
 
+// [Start SampleCallback::OnCodecError]
 void SampleCallback::OnCodecError(OH_AVCodec *codec, int32_t errorCode, void *userData)
 {
     (void)codec;
@@ -305,7 +306,9 @@ void SampleCallback::OnCodecError(OH_AVCodec *codec, int32_t errorCode, void *us
     }
     AVCODEC_SAMPLE_LOGE("On codec error, error code: %{public}d", errorCode);
 }
+// [End SampleCallback::OnCodecError]
 
+// [Start SampleCallback::OnCodecFormatChange]
 void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format, void *userData)
 {
     (void)codec;
@@ -336,7 +339,9 @@ void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format,
                         codecUserData->width, codecUserData->height,
                         codecUserData->widthStride, codecUserData->heightStride, pixelFormat);
 }
+// [End SampleCallback::OnCodecFormatChange]
 
+// [Start SampleCallback::OnNeedInputBuffer]
 void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData)
 {
     auto *codecUserData = static_cast<CodecUserData *>(userData);
@@ -347,6 +352,7 @@ void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
     // 编解码器已准备好，将可用输入buffer入队，供驱动线程消费。
     codecUserData->inputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>(index, buffer));
 }
+// [End SampleCallback::OnNeedInputBuffer]
 
 // [Start quick_start]
 static int32_t GetTemporalLayerID(OH_AVBuffer *buffer)
@@ -367,6 +373,7 @@ static int32_t GetTemporalLayerID(OH_AVBuffer *buffer)
     return layerID;
 }
 
+// [Start SampleCallback::OnNewOutputBuffer]
 void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData)
 {
     // [StartExclude quick_start]
@@ -391,4 +398,5 @@ void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
         AVCODEC_SAMPLE_LOGD("Temporal layer ID: %{public}d", layerID);
     }
 }
+// [End SampleCallback::OnNewOutputBuffer]
 // [End quick_start]
