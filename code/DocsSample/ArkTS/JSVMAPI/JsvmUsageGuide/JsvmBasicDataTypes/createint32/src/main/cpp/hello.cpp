@@ -91,7 +91,7 @@ static JSVM_PropertyDescriptor descriptor[] = {
     {"createInt32", nullptr, method++, nullptr, nullptr, nullptr, JSVM_DEFAULT},
 };
 
-// 样例测试js
+// 样例测试JS
 const char* SRC_CALL_NATIVE = R"JS(createInt32())JS";
 // [End oh_jsvm_create_int32]
 
