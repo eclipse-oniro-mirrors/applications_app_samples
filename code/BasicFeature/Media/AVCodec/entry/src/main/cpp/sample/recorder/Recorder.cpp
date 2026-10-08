@@ -605,6 +605,7 @@ bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo, OH_AVBuffer *b
     return true;
 }
 
+// [Start Recorder::AudioEncOutputThread]
 void Recorder::AudioEncOutputThread()
 {
     while (true) {
