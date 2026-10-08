@@ -201,7 +201,7 @@ struct FilePicker {
     }
   }
   // [End dlp_callFilePicker]
-
+  
   async aboutToAppear() {
     Logger.info(`aboutToAppear start`);
     hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'aboutToAppear start');
@@ -368,9 +368,9 @@ struct FilePicker {
       if (canIUse('SystemCapability.Security.DataLossPrevention')) {
         dlpPermission.startDLPManagerForResult(context, want).then((res: dlpPermission.DLPManagerResult) => {
           this.result = 'startDLPManagerForResult result.resultCode:' + res.resultCode;
-          console.info('startDLPManagerForResult res.resultCode:' + res.resultCode);
+          console.error('startDLPManagerForResult res.resultCode:' + res.resultCode);
           console.info('startDLPManagerForResult res.want:' + JSON.stringify(res.want));
-          hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'startDLPManagerForResult res.resultCode:' + res.resultCode);
+          hilog.error(HILOG_DLP_DOMAIN, HILOG_TAG, 'startDLPManagerForResult res.resultCode:' + res.resultCode);
           hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'startDLPManagerForResult res.want:' + JSON.stringify(res.want));
         });
       }
@@ -962,7 +962,7 @@ struct FilePicker {
         let ciphertextFd = fileIo.openSync(fileDir + '/' + fileName, fileIo.OpenMode.READ_ONLY).fd;
         this.result = await dlpPermission.queryDlpPolicy(ciphertextFd);
         console.info('res', this.result);
-        hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'getDLPSuffix result: ' + this.result);
+        hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'queryDlpPolicy result: ' + this.result);
       } catch (err) {
         console.error('error message', err.message);
         this.result = 'error message' + err.message;
