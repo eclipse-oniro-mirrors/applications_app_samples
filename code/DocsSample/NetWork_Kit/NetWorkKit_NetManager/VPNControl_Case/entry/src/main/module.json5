@@ -67,7 +67,7 @@
       // [EndExclude create_vpn_extension_ability]
       {
         "name": "MyVpnExtAbility",
-        "srcEntry": "./ets/vpnability/VPNExtentionAbility.ets",
+        "srcEntry": "./ets/vpnability/VPNExtensionAbility.ets",
         "type": "vpn"
       }
     ],
