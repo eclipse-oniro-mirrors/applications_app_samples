@@ -35,9 +35,9 @@ static napi_value NAPI_Global_OH_FileUri_GetUriFromPathExample(napi_env env, nap
     size_t strLength = 0;
     napi_get_value_string_utf8(env, args[0], nullptr, 0, &strLength);
     // [EndExclude get_uri_from_path_example]
-    // 为 char* uri 分配内存
+    // 为char* uri分配内存
     char *path = new char[strLength + 1]; // +1 for null terminator
-    // 将 JavaScript 字符串复制到 uri
+    // 将JavaScript字符串复制到uri
     // [StartExclude get_uri_from_path_example]
     napi_get_value_string_utf8(env, args[0], path, strLength + 1, &strLength);
     // [EndExclude get_uri_from_path_example]
@@ -79,10 +79,10 @@ static napi_value NAPI_Global_OH_FileUri_GetPathFromUriExample(napi_env env, nap
     // 获取字符串的长度，初始化字符串长度为0
     size_t strLength = 0;
     napi_get_value_string_utf8(env, args[0], nullptr, 0, &strLength);
-    // 为 char* uri 分配内存
+    // 为char* uri分配内存
     // [EndExclude get_path_from_uri_example]
     char *uri = new char[strLength + 1]; // +1 for null terminator
-    // 将 JavaScript 字符串复制到 uri
+    // 将JavaScript字符串复制到uri
     napi_get_value_string_utf8(env, args[0], uri, strLength + 1, &strLength);
 
     unsigned int length = strlen(uri);
@@ -121,10 +121,10 @@ static napi_value NAPI_Global_OH_FileUri_GetFullDirectoryUriExample(napi_env env
     // 获取字符串的长度，初始化字符串长度为0
     size_t strLength = 0;
     napi_get_value_string_utf8(env, args[0], nullptr, 0, &strLength);
-    // 为 char* uri 分配内存
+    // 为char* uri分配内存
     // [EndExclude get_full_directory_uri]
     char *uri = new char[strLength + 1]; // +1 for null terminator
-    // 将 JavaScript 字符串复制到 uri
+    // 将JavaScript字符串复制到uri
     napi_get_value_string_utf8(env, args[0], uri, strLength + 1, &strLength);
 
     unsigned int length = strlen(uri);
@@ -166,10 +166,10 @@ static napi_value NAPI_Global_OH_FileUri_IsValidUriExample(napi_env env, napi_ca
     // 获取字符串的长度，初始化字符串长度为0
     size_t strLength = 0;
     napi_get_value_string_utf8(env, args[0], nullptr, 0, &strLength);
-    // 为 char* uri 分配内存
+    // 为char* uri分配内存
     // [EndExclude is_valid_uri_example]
     char *uri = new char[strLength + 1]; // +1 for null terminator
-    // 将 JavaScript 字符串复制到 uri
+    // 将JavaScript字符串复制到uri
     napi_get_value_string_utf8(env, args[0], uri, strLength + 1, &strLength);
     unsigned int length = strlen(uri);
     // 输出传入uri字符串
@@ -203,10 +203,10 @@ static napi_value NAPI_Global_OH_FileUri_GetFileNameExample(napi_env env, napi_c
     // 获取字符串的长度，初始化字符串长度为0
     size_t strLength = 0;
     napi_get_value_string_utf8(env, args[0], nullptr, 0, &strLength);
-    // 为 char* uri 分配内存
+    // 为char* uri分配内存
     // [EndExclude get_file_name_example]
     char *uri = new char[strLength + 1]; // +1 for null terminator
-    // 将 JavaScript 字符串复制到 uri
+    // 将JavaScript字符串复制到uri
     napi_get_value_string_utf8(env, args[0], uri, strLength + 1, &strLength);
 
     unsigned int length = strlen(uri);
@@ -252,7 +252,7 @@ static napi_value Init(napi_env env, napi_value exports)
 EXTERN_C_END
 
 static napi_module demoModule = {
-    .nm_version = 1, // 模块版本号，设置为1遵循当前的 N-API 版本规范
+    .nm_version = 1, // 模块版本号，设置为1遵循当前的N-API版本规范
     .nm_flags = 0, // 模块标志，设置为0，表示没有特殊标志
     .nm_filename = nullptr,
     .nm_register_func = Init,
