@@ -31,6 +31,7 @@ constexpr int64_t CODEC_BUFFER_TIMEOUT_US = 100000;
 using namespace std::chrono_literals;
 } // namespace
 
+// [Start Player::AudioDecInputThread]
 void Player::AudioDecInputThread()
 {
     while (isStarted_ && audioWorkerRunning_) {
@@ -58,7 +59,9 @@ void Player::AudioDecInputThread()
         CHECK_AND_BREAK_LOG(!(bufferInfo->attr.flags & AVCODEC_BUFFER_FLAGS_EOS), "Catch EOS, thread out");
     }
 }
+// [End Player::AudioDecInputThread]
 
+// [Start Player::AudioDecInputSyncThread]
 void Player::AudioDecInputSyncThread()
 {
     while (isStarted_ && audioWorkerRunning_) {
@@ -70,7 +73,9 @@ void Player::AudioDecInputSyncThread()
         CHECK_AND_CONTINUE_LOG(buffer != nullptr, "Get input buffer timeout, retry");
         CHECK_AND_BREAK_LOG(isStarted_ && audioWorkerRunning_, "Work done, thread out");
         bufferInfo.buffer = buffer;
+        // [StartExclude Player::AudioDecInputSyncThread]
         AVCODEC_SAMPLE_LOGW("bufferInfo.attr.size:%{public}d", bufferInfo.attr.size);
+        // [EndExclude Player::AudioDecInputSyncThread]
         audioDecContext_->inputFrameCount++;
         lock.unlock();
         int32_t ret = demuxer_->ReadSample(demuxer_->GetAudioTrackId(), buffer, bufferInfo.attr);
@@ -103,6 +108,7 @@ void Player::AudioDecInputSyncThread()
         CHECK_AND_BREAK_LOG(!(bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS), "Catch EOS, thread out");
     }
 }
+// [End Player::AudioDecInputSyncThread]
 
 bool Player::ProcessAudioOutput(CodecBufferInfo &bufferInfo)
 {

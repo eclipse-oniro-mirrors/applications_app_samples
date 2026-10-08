@@ -38,6 +38,7 @@
       "name": "ohosTest",
     }
   ],
+  // [Start manual_create_worker]
   "buildOption": {
     "sourceOption": {
       "workers": [
@@ -53,4 +54,5 @@
       ]
     }
   }
+  // [End manual_create_worker]
 }
