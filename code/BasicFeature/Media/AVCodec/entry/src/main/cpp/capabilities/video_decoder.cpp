@@ -23,6 +23,27 @@ namespace {
 constexpr int LIMIT_LOGD_FREQUENCY = 50;
 constexpr int ROTATION_ANGLE = 90;
 
+// 该能力依赖API 26 Native SDK中的智能流畅Key和枚举。
+// 兼容旧SDK时，可将AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY设为OFF。
+#ifdef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
+// [Start configure_full_baseline]
+bool ConfigureSmartFluency(OH_AVFormat *format)
+{
+    bool ret = OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_DECODER_FRAME_RETENTION_MODE,
+        OH_FRAME_RETENTION_MODE_FULL);
+    CHECK_AND_RETURN_RET_LOG(ret, false, "Set smart fluency initial mode failed");
+    return true;
+}
+// [End configure_full_baseline]
+#else
+bool ConfigureSmartFluency(OH_AVFormat *format)
+{
+    (void)format;
+    AVCODEC_SAMPLE_LOGW("Smart fluency is not enabled in current native SDK build");
+    return true;
+}
+#endif
+
 bool SetOptionalFormatFeatures(OH_AVFormat *format, const SampleInfo &sampleInfo)
 {
     const bool usesSurfaceOutput = sampleInfo.video.window != nullptr;
@@ -54,15 +75,8 @@ bool SetOptionalFormatFeatures(OH_AVFormat *format, const SampleInfo &sampleInfo
     if (sampleInfo.codec.codecSyncMode) {
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
     }
-    if (sampleInfo.codec.isSmartFluencySupported) {
-        // This API 26 key requires a matching Native SDK. If compilation fails because the key or enum is missing,
-        // disable AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY in CMake and rebuild with the installed SDK.
-#ifdef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_DECODER_FRAME_RETENTION_MODE,
-            OH_FRAME_RETENTION_MODE_FULL);
-#else
-        AVCODEC_SAMPLE_LOGW("Smart fluency is not enabled in current native SDK build");
-#endif
+    if (sampleInfo.codec.isSmartFluencySupported && !ConfigureSmartFluency(format)) {
+        return false;
     }
     return true;
 }
@@ -128,7 +142,6 @@ int32_t VideoDecoder::SetCallback(CodecUserData *codecUserData)
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-// [Start configure_full_baseline]
 int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
 {
     CHECK_AND_RETURN_RET_LOG(CodecCapability::ValidateVideoConfiguration(sampleInfo, false),
@@ -163,7 +176,6 @@ int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Config failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End configure_full_baseline]
 
 int32_t VideoDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecUserData)
 {
@@ -378,16 +390,10 @@ int32_t VideoDecoder::FreeOutputBuffer(uint32_t bufferIndex, bool render, int64_
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
+#ifdef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
 // [Start onUserSpeedChanged]
 int32_t VideoDecoder::OnUserSpeedChanged(double targetSpeed)
 {
-    // 该能力依赖 API 26 Native SDK 中的智能流畅 Key 和枚举。若编译提示符号未定义，
-    // 请确认 SDK 路径并清理 CMake 缓存；兼容旧 SDK 时可将 AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY 设为 OFF。
-#ifndef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
-    (void)targetSpeed;
-    AVCODEC_SAMPLE_LOGW("Smart fluency is not enabled in current native SDK build");
-    return AVCODEC_SAMPLE_ERR_OK;
-#else
     OH_AVFormat *param = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(param != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
@@ -419,20 +425,12 @@ int32_t VideoDecoder::OnUserSpeedChanged(double targetSpeed)
         AVCODEC_SAMPLE_LOGI("Smart fluency mode changed to FULL");
     }
     return AVCODEC_SAMPLE_ERR_OK;
-#endif
 }
 // [End onUserSpeedChanged]
 
 // [Start onThermalWarningReceived]
 int32_t VideoDecoder::OnThermalWarningReceived(double ratio)
 {
-    // 该能力依赖 API 26 Native SDK 中的智能流畅 Key 和枚举。若编译提示符号未定义，
-    // 请确认 SDK 路径并清理 CMake 缓存；兼容旧 SDK 时可将 AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY 设为 OFF。
-#ifndef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
-    (void)ratio;
-    AVCODEC_SAMPLE_LOGW("Smart fluency is not enabled in current native SDK build");
-    return AVCODEC_SAMPLE_ERR_OK;
-#else
     OH_AVFormat *param = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(param != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
@@ -449,9 +447,23 @@ int32_t VideoDecoder::OnThermalWarningReceived(double ratio)
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
                              "SetParameter failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
-#endif
 }
 // [End onThermalWarningReceived]
+#else
+int32_t VideoDecoder::OnUserSpeedChanged(double targetSpeed)
+{
+    (void)targetSpeed;
+    AVCODEC_SAMPLE_LOGW("Smart fluency is not enabled in current native SDK build");
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
+int32_t VideoDecoder::OnThermalWarningReceived(double ratio)
+{
+    (void)ratio;
+    AVCODEC_SAMPLE_LOGW("Smart fluency is not enabled in current native SDK build");
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+#endif
 
 int32_t VideoDecoder::Release()
 {
