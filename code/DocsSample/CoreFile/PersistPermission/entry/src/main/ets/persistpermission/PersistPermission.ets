@@ -41,7 +41,7 @@ export async function persistPermissionExample(context: common.UIAbilityContext)
       console.info('No URI selected');
       return;
     }
-    // 可以组合授予多个权限，例如读写权限可使用 fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE。 
+    // 可以组合授予多个权限，例如读写权限可使用fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE。
     // 注意：只能对已获取到的临时权限进行持久化授权操作，否则会报错。
     let policyInfo: fileShare.PolicyInfo = {
       uri: uris[0],
@@ -49,7 +49,7 @@ export async function persistPermissionExample(context: common.UIAbilityContext)
     };
     let policies: fileShare.PolicyInfo[] = [policyInfo];
     await fileShare.persistPermission(policies);
-    // 此示例保存最近一次成功持久化授权的 URI，供激活和撤销操作使用。
+    // 此示例保存最近一次成功持久化授权的URI，供激活和撤销操作使用。
     await store.put('uri', uris[0]);
     await store.flush();
     console.info('persistPermission successfully');
@@ -70,13 +70,13 @@ export async function persistPermissionExample(context: common.UIAbilityContext)
 export async function revokePermissionExample(context: common.UIAbilityContext): Promise<void> {
   try {
     let store = await preferences.getPreferences(context, { name: 'persist_permission' });
-    // 使用 Picker 获取且成功持久化授权的 URI，不手动构造 URI。
+    // 使用Picker获取且成功持久化授权的URI，不手动构造URI。
     let uri = await store.get('uri', '') as string;
     if (uri.length === 0) {
       console.info('Persist a URI before using this operation');
       return;
     }
-    // 可以组合取消多个权限，例如读写权限可使用 fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE。 
+    // 可以组合取消多个权限，例如读写权限可使用fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE。
     // 注意：只能对已获取到的持久化权限进行取消持久化授权操作，否则会报错。
     let policyInfo: fileShare.PolicyInfo = {
       uri: uri,
@@ -104,13 +104,13 @@ export async function revokePermissionExample(context: common.UIAbilityContext):
 export async function activatePermissionExample(context: common.UIAbilityContext): Promise<void> {
   try {
     let store = await preferences.getPreferences(context, { name: 'persist_permission' });
-    // 使用 Picker 获取且成功持久化授权的 URI，不手动构造 URI。
+    // 使用Picker获取且成功持久化授权的URI，不手动构造URI。
     let uri = await store.get('uri', '') as string;
     if (uri.length === 0) {
       console.info('Persist a URI before using this operation');
       return;
     }
-    // 可以组合激活多个权限，例如读写权限可使用 fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE。 
+    // 可以组合激活多个权限，例如读写权限可使用fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE。
     // 注意：只能对已获取到的持久化权限进行激活持久化授权操作，否则会报错。
     let policyInfo: fileShare.PolicyInfo = {
       uri: uri,
