@@ -201,7 +201,7 @@ struct FilePicker {
     }
   }
   // [End dlp_callFilePicker]
-  
+
   async aboutToAppear() {
     Logger.info(`aboutToAppear start`);
     hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'aboutToAppear start');
