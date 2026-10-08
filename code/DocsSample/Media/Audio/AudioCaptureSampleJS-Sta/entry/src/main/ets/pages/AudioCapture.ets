@@ -152,7 +152,7 @@ async function initRender(context: common.UIAbilityContext) {
   try {
     let renderer = await audio.createAudioRenderer(audioRendererOptions);
     if (renderer === null) {
-      console.info(`${TAG}: creating AudioRenderer failed, renderer is null`);
+      console.error(`${TAG}: creating AudioRenderer failed, renderer is null`);
       return;
     }
     console.info(`${TAG}: creating AudioRenderer success`);
@@ -160,7 +160,7 @@ async function initRender(context: common.UIAbilityContext) {
     renderer.onWriteData(writeDataCallback);
   } catch (err) {
     let error = err as BusinessError;
-    console.info(`${TAG}: creating AudioRenderer failed, error: ${error.message}`);
+    console.error(`${TAG}: creating AudioRenderer failed, error: ${error.message}`);
   }
 }
 
@@ -266,7 +266,7 @@ async function stopRender(updateCallback?: (msg: string, isError: boolean) => vo
   if (renderer !== undefined) {
     let state = renderer.state;
     if (state !== audio.AudioState.STATE_RUNNING && state !== audio.AudioState.STATE_PAUSED) {
-      console.info('Renderer is not running or paused.');
+      console.error('Renderer is not running or paused.');
       return;
     }
     try {
@@ -285,7 +285,7 @@ async function releaseRender(updateCallback?: (msg: string, isError: boolean) =>
   let renderer = audioRenderer;
   if (renderer !== undefined) {
     if (renderer.state === audio.AudioState.STATE_RELEASED) {
-      console.info('Renderer already released');
+      console.error('Renderer already released');
       return;
     }
     try {
@@ -380,7 +380,7 @@ async function stop(updateCallback?: (msg: string, isError: boolean) => void): P
   if (capturer !== undefined) {
     let state = capturer.state;
     if (state !== audio.AudioState.STATE_RUNNING && state !== audio.AudioState.STATE_PAUSED) {
-      console.info('Capturer is not running or paused');
+      console.error('Capturer is not running or paused');
       const infoMsg = 'Capturer is not running or paused';
       if (updateCallback) {
         updateCallback(infoMsg, false);
@@ -413,7 +413,7 @@ async function release(updateCallback?: (msg: string, isError: boolean) => void)
   if (capturer !== undefined) {
     let state = capturer.state;
     if (state === audio.AudioState.STATE_RELEASED || state === audio.AudioState.STATE_NEW) {
-      console.info('Capturer already released');
+      console.error('Capturer already released');
       const infoMsg = 'Capturer already released';
       if (updateCallback) {
         updateCallback(infoMsg, false);

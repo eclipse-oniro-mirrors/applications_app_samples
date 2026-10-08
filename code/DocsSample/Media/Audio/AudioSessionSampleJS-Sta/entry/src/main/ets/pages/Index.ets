@@ -183,7 +183,7 @@ async function init() {
     console.info('Succeeded in creating audio renderer.');
     globalLogUpdate('Succeeded in creating audio renderer.', false);
   }).catch((err) => {
-    console.info(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`);
+    console.error(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`);
     globalLogUpdate(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`, true);
   });
 }
@@ -213,7 +213,7 @@ async function stop() {
     let renderer = audioRenderer!;
     if (renderer.state !== audio.AudioState.STATE_RUNNING &&
       renderer.state !== audio.AudioState.STATE_PAUSED) {
-      console.info('Audio renderer state is not running or paused.');
+      console.error('Audio renderer state is not running or paused.');
       globalLogUpdate('Audio renderer state is not running or paused.', true);
       return;
     }

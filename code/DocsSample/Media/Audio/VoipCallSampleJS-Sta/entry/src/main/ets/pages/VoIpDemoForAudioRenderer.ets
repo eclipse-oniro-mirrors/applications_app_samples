@@ -119,7 +119,7 @@ async function init() {
     let renderer = await audio.createAudioRenderer(createAudioRendererOptions()); // 创建AudioRenderer实例。
     if (renderer === null) {
       const errorMsg = `${TAG}: creating AudioRenderer failed, renderer is null`;
-      console.info(errorMsg);
+      console.error(errorMsg);
       if (globalLogUpdate) {
         globalLogUpdate(errorMsg, true);
       }
@@ -135,7 +135,7 @@ async function init() {
     audioRenderer = renderer;
     renderer.onWriteData(writeDataCallback);
   } catch (error) {
-    console.info(`${TAG}: creating AudioRenderer failed, error: ${error}`);
+    console.error(`${TAG}: creating AudioRenderer failed, error: ${error}`);
     // [StartExclude all_VoIPDemoForAudioRenderer]
     const errorMsg = `${TAG}: creating AudioRenderer failed, error: ${error}`;
     if (globalLogUpdate) {
@@ -192,7 +192,7 @@ async function pause() {
   }
   // 只有渲染器状态为running的时候才能暂停。
   if (renderer.state !== audio.AudioState.STATE_RUNNING) {
-    console.info('Renderer is not running');
+    console.error('Renderer is not running');
     // [StartExclude all_VoIPDemoForAudioRenderer]
     const infoMsg = `Renderer is not running`;
     if (globalLogUpdate) {
@@ -231,7 +231,7 @@ async function stop() {
   // 只有渲染器状态为running或paused时才可以停止。
   if (state !== audio.AudioState.STATE_RUNNING &&
     state !== audio.AudioState.STATE_PAUSED) {
-    console.info('Renderer is not running or paused.');
+    console.error('Renderer is not running or paused.');
     // [StartExclude all_VoIPDemoForAudioRenderer]
     const infoMsg = `Renderer is not running or paused.`;
     if (globalLogUpdate) {
@@ -274,7 +274,7 @@ async function release() {
   }
   // 渲染器状态不是released状态，才能release。
   if (renderer.state === audio.AudioState.STATE_RELEASED) {
-    console.info('Renderer already released');
+    console.error('Renderer already released');
     // [StartExclude all_VoIPDemoForAudioRenderer]
     if (globalLogUpdate) {
       globalLogUpdate('Renderer already released', false);

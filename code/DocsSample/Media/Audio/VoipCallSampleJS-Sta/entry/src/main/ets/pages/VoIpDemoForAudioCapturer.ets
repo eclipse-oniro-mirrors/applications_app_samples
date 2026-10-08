@@ -193,7 +193,7 @@ async function stop() {
   // 只有采集器状态为STATE_RUNNING或STATE_PAUSED时才可以停止。
   if (state !== audio.AudioState.STATE_RUNNING &&
     state !== audio.AudioState.STATE_PAUSED) {
-    console.info('Capturer is not running or paused');
+    console.error('Capturer is not running or paused');
     // [StartExclude all_VoIPDemoForAudioCapturer]
     const infoMsg = `Capturer is not running or paused - Current state: ${state}`;
     if (globalLogUpdate) {
@@ -239,7 +239,7 @@ async function release() {
   // 采集器状态不是STATE_RELEASED或STATE_NEW状态，才能release。
   if (state === audio.AudioState.STATE_RELEASED ||
     state === audio.AudioState.STATE_NEW) {
-    console.info('Capturer already released');
+    console.error('Capturer already released');
     // [StartExclude all_VoIPDemoForAudioCapturer]
     if (globalLogUpdate) {
       globalLogUpdate('Capturer already released', false);
