@@ -15,11 +15,17 @@
  */
 
 // [Start myAbility_start]
-import { AbilityStage, Configuration, AbilityConstant } from '@kit.AbilityKit';
+import { AbilityStage, Configuration, AbilityConstant, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 export default class MyAbilityStage extends AbilityStage {
+  onAcceptWant(want: Want): string {
+    // 仅specified模式下触发
+    return 'MyAbilityStage';
+  }
+
   onCreate(): void {
+    // 应用HAP首次加载时触发，可以在此执行该Module的初始化操作（例如资源预加载、线程创建等）。
     console.info('AbilityStage onCreate');
   }
 
