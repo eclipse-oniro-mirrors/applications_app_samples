@@ -25,7 +25,7 @@ export class Mover {
         await eStore.putBatch(entries);
         Logger.info(`ECDB_Encry move success`);
       } catch (e) {
-        Logger.info(`ECDB_Encry move failed,code is ${e.code},message is ${e.message}`);
+        Logger.error(`ECDB_Encry move failed,code is ${e.code},message is ${e.message}`);
       }
     }
   }
