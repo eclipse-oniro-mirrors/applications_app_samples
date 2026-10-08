@@ -29,9 +29,8 @@ constexpr int ROTATION_ANGLE = 90;
 // [Start configure_full_baseline]
 bool ConfigureSmartFluency(OH_AVFormat *format)
 {
-    // 以正常倍速起播时使用FULL模式，运行态切入ADAPTIVE后仍可获取MV信息。
     bool ret = OH_AVFormat_SetIntValue(format, OH_MD_KEY_VIDEO_DECODER_FRAME_RETENTION_MODE,
-                                      OH_FRAME_RETENTION_MODE_FULL);
+        OH_FRAME_RETENTION_MODE_FULL);
     CHECK_AND_RETURN_RET_LOG(ret, false, "Set smart fluency initial mode failed");
     return true;
 }
