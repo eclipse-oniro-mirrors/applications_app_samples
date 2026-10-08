@@ -14,9 +14,9 @@
  */
 
 // [Start quick_start]
-import { window } from '@kit.ArkUI'
-import common from '@ohos.app.ability.common';
-import { Callback } from '@kit.BasicServicesKit';
+import { window } from '@kit.ArkUI';
+import { common } from '@kit.AbilityKit';
+import { Callback, BusinessError } from '@kit.BasicServicesKit';
 import { display } from '@kit.ArkUI';
 
 @Entry
@@ -24,49 +24,71 @@ import { display } from '@kit.ArkUI';
 struct Index {
   @State currentOrientation: string = 'UNSPECIFIED';
   private stage: window.WindowStage = (this.getUIContext().getHostContext() as common.UIAbilityContext).windowStage;
+  private foldDisplayModeCallback: Callback<display.FoldDisplayMode> = (data: display.FoldDisplayMode) => {
+    console.info(`Succeeded in listening fold display mode change, data is ${data}`);
+    this.getBreakPointAndSetOrientation();
+  };
 
   aboutToAppear() {
-    let ret: boolean = false;
-    ret = display.isFoldable();
-    if (ret) {
-      let callback: Callback<display.FoldDisplayMode> = (data: display.FoldDisplayMode) => {
-        console.info(`Listening enabled. Data: ${data}`);
+    try {
+      const ret = display.isFoldable();
+      if (ret) {
+        display.on('foldDisplayModeChange', this.foldDisplayModeCallback);
+      } else {
         this.getBreakPointAndSetOrientation();
-      };
-      display.on('foldDisplayModeChange', callback);
-    } else {
-      this.getBreakPointAndSetOrientation();
+      }
+    } catch (err) {
+      console.error(`aboutToAppear error: ${(err as BusinessError).message}`);
+    }
+  }
+
+  aboutToDisappear() {
+    try {
+      display.off('foldDisplayModeChange', this.foldDisplayModeCallback);
+    } catch (err) {
+      console.error(`aboutToDisappear error: ${(err as BusinessError).message}`);
     }
   }
 
   private getBreakPointAndSetOrientation(): void {
-    let displayInfo = display.getDefaultDisplaySync();
-    let displayWidth = displayInfo.width;
-    let displayHeight = displayInfo.height;
-    let heightBp = displayHeight / displayWidth;
-    if(displayWidth > displayHeight) {
-      let temp = displayWidth;
-      displayWidth = displayHeight;
-      displayHeight = temp;
-    }
-    // 建议使用单一策略如"FOLLOW_DESKTOP"来应对设备的差异化，如单一策略无法满足需求，可参考断点机制，屏蔽设备差异
-    // 此处是举的特殊示例，原则上支持横屏的应用，旋转策略应该是支持4个方向可旋转，此处是为了说明断点的使用方式，才举此例
-    // 600为宽度断点枚举值其中的边界值， 0.8为高宽比断点枚举值其中的边界值
-    if (displayWidth >= 600 && heightBp < 0.8) {
-      this.stage.getMainWindowSync().setPreferredOrientation(window.Orientation.LANDSCAPE);
-      this.currentOrientation = 'LANDSCAPE';
-    } else {
-      this.stage.getMainWindowSync().setPreferredOrientation(window.Orientation.PORTRAIT);
-      this.currentOrientation = 'PORTRAIT';
+    try {
+      let displayInfo = display.getDefaultDisplaySync();
+      let displayWidth = displayInfo.width;
+      let displayHeight = displayInfo.height;
+      let heightBp = displayHeight / displayWidth;
+      if (displayWidth > displayHeight) {
+        let temp = displayWidth;
+        displayWidth = displayHeight;
+        displayHeight = temp;
+      }
+      // 建议优先使用单一策略（如"FOLLOW_DESKTOP"）来应对设备差异化，若单一策略无法满足需求，则可采用断点机制屏蔽设备差异
+      // 此处是举的特殊示例，原则上支持横屏的应用，旋转策略应该是支持4个方向可旋转，此处是为了说明断点的使用方式，才举此例
+      // 600为宽度断点枚举值其中的边界值， 0.8为高宽比断点枚举值其中的边界值
+      if (displayWidth >= 600 && heightBp < 0.8) {
+        this.stage.getMainWindowSync().setPreferredOrientation(window.Orientation.LANDSCAPE)
+          .catch((err: BusinessError) => {
+            console.error(`setPreferredOrientation error: ${err.message}`);
+          });
+        this.currentOrientation = 'LANDSCAPE';
+      } else {
+        this.stage.getMainWindowSync().setPreferredOrientation(window.Orientation.PORTRAIT)
+          .catch((err: BusinessError) => {
+            console.error(`setPreferredOrientation error: ${err.message}`);
+          });
+        this.currentOrientation = 'PORTRAIT';
+      }
+    } catch (err) {
+      console.error(`getBreakPointAndSetOrientation error: ${(err as BusinessError).message}`);
     }
   }
+
   build() {
     RelativeContainer() {
       Text(this.currentOrientation)
         .fontWeight(600)
         .fontSize(30)
         .textAlign(TextAlign.Center)
-        .position({y: 300})
+        .position({ y: 300 })
         .width('100%')
     }
     .height('100%')
