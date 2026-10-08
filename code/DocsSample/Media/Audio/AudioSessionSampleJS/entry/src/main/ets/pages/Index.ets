@@ -466,7 +466,9 @@ async function useAudioSessionV1(){
   // [StartExclude set_default_output_device]
   // [Start is_audio_session_activated]
   // 查询音频会话是否已激活。
+  // [Start audiosession_checkisactivated]
   let isActivated = audioSessionManager.isAudioSessionActivated();
+  // [End audiosession_checkisactivated]
   // [End is_audio_session_activated]
   // [EndExclude on_audio_session_deactivated]
 
@@ -569,6 +571,7 @@ async function useAudioSessionV2(){
         break;
       case audio.AudioSessionStateChangeHint.AUDIO_SESSION_STATE_CHANGE_HINT_UNDUCK:
         // 此分支表示系统已将应用所有播放音频流音量恢复正常。
+        break;
       case audio.AudioSessionStateChangeHint.AUDIO_SESSION_STATE_CHANGE_HINT_MUTE_SUGGESTION:
         // 此分支表示其他应用开始播放非混音音频，系统可自行决定是否静音。
         break;
@@ -629,7 +632,9 @@ async function deactivateAudioSession(){
   // [EndExclude audio_session_v1]
 
   // 取消监听音频会话停用事件。
+  // [Start cancellisten_audiosessiondeactiveevent]
   audioSessionManager.off('audioSessionDeactivated');
+  // [End cancellisten_audiosessiondeactiveevent]
 
   // [StartExclude audio_session_v1]
   // [EndExclude audio_session_v2]

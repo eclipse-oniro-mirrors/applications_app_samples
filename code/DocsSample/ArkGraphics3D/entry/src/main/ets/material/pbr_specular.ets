@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -51,7 +51,7 @@ struct pbr_specular {
 
   Init(): void {
     if (this.scene == null) {
-      // Switched from .gltf to .glb; same content, different format
+      // 从 .gltf 切换为 .glb；内容相同，格式不同
       Scene.load($rawfile('gltf/CompareMetallic/CompareMetallic.glb'))
         .then(async (scene: Scene) => {
           this.scene = scene;
@@ -59,12 +59,12 @@ struct pbr_specular {
             return;
           }
           let rf: SceneResourceFactory = scene.getResourceFactory();
-          // Retrieve the geometry node and its material
+          // 获取几何体节点及其材质
           let pbrNode: Node | null | undefined = this.scene.root?.getNodeByPath('Unnamed Node 1/GeoSphere001');
           if (pbrNode) {
             this.material = (pbrNode as Geometry).mesh.subMeshes[0].material;
             let mrMaterial = (this.material as MetallicRoughnessMaterial);
-            // Load base and alternate textures for specular testing
+            // 加载基础纹理和替代纹理用于镜面反射测试
             let original: Image | null = mrMaterial.specular.image;
             const helmAlbedo: Resource = $rawfile('gltf/DamagedHelmet/glTF/Default_albedo.jpg');
             const roundUri: Resource = $rawfile('image/round_pattern.png');
@@ -77,7 +77,7 @@ struct pbr_specular {
             }
           }
 
-          // Create image-based lighting environment
+          // 创建基于图像的光照环境
           scene.environment = await rf.createEnvironment({ name: 'env' });
           scene.environment.backgroundType = EnvironmentBackgroundType.BACKGROUND_CUBEMAP;
           scene.environment.environmentImage = await rf.createImage({ name: 'cube', uri: $rawfile('Environment/quarry_02_2k_skybox.ktx') });
@@ -92,13 +92,13 @@ struct pbr_specular {
               { x: -0.018954016268253, y: -0.014871496707201, z: -0.008891185745597 },
               { x: -0.566255271434784, y: -0.476870059967041, z: -0.314557582139969 },
               { x: -0.239390164613724, y: -0.200478553771973, z: -0.132790848612785 }];
-          // Create and set up the camera to view the scene and enable orbit control
+          // 创建并设置相机以查看场景，并启用轨道控制
           this.cam = await rf.createCamera({ name: 'HelmetCamera' });
           this.cam.enabled = true;
           lookAt(this.cam,{x:0,y:0,z:-3},{x:0,y:0,z:0},{x:0,y:1,z:0});
           this.sceneOpt = { scene: this.scene, modelType: ModelType.SURFACE } as SceneOptions;
           this.orbitCamera.SetOrbitFromEye(this.cam.position, this.scene.root.position, this.cam.rotation);
-          // Enable tone mapping for better HDR visualization
+          // 启用色调映射以获得更好的 HDR 显示效果
           (this.cam.postProcess as PostProcessSettings) = {
             toneMapping: {
               type: ToneMappingType.ACES,
@@ -113,7 +113,7 @@ struct pbr_specular {
     }
   }
 
-  // Switch between the available specular textures
+  // 在可用的镜面反射纹理之间切换
   changeSpecularTex() {
     if (this.textures.length > 0) {
       let i = ++this.textureInUse % this.textures.length;
@@ -121,7 +121,7 @@ struct pbr_specular {
     }
   }
 
-  // Adjust the individual RGB channels of the specular color
+  // 调整镜面反射颜色的单个 RGB 通道
   setSpecularChannel(idx: number, v: number) {
     if (this.material) {
       const f: Vec4 = (this.material as MetallicRoughnessMaterial).specular.factor;
@@ -141,7 +141,7 @@ struct pbr_specular {
     }
   }
 
-  // Adjust the overall specular intensity
+  // 调整整体镜面反射强度
   setSpecularIntensity(v: number) {
     if (this.material) {
       const f = (this.material as MetallicRoughnessMaterial).specular.factor;
@@ -153,10 +153,10 @@ struct pbr_specular {
   build() {
     Column() {
       if (this.sceneOpt) {
-        // Present 3D scenes through Component3D
+        // 通过 Component3D 呈现 3D 场景
         Component3D(this.sceneOpt)
           .onTouch((event: TouchEvent) => {
-            // Handle touch input for orbit camera rotation
+            // 处理触摸输入以实现轨道相机旋转
             this.orbitCamera.HandleTouchEvent(event);
             if (this.cam) {
               this.cam.position = this.orbitCamera.GetCameraPosition();
@@ -169,7 +169,7 @@ struct pbr_specular {
                 console.info('Pinch start');
               })
               .onActionUpdate((event: GestureEvent) => {
-                // Handle pinch gesture for camera zoom
+                // 处理捏合手势以实现相机缩放
                 this.orbitCamera.HandlePinchGestureActionUpdate(event);
                 if (this.cam) {
                   this.cam.position = this.orbitCamera.GetCameraPosition();

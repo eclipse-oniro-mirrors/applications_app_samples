@@ -532,6 +532,7 @@ int32_t Recorder::CreateAudioEncoder()
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
+// [Start Recorder::AudioEncInputThread]
 void Recorder::AudioEncInputThread()
 {
     while (true) {
@@ -552,6 +553,7 @@ void Recorder::AudioEncInputThread()
         }
     }
 }
+// [End Recorder::AudioEncInputThread]
 
 bool Recorder::WaitForAudioInputFrame(std::chrono::milliseconds timeout)
 {
@@ -626,7 +628,9 @@ void Recorder::AudioEncOutputThread()
     }
     AVCODEC_SAMPLE_LOGI("Exit, frame count: %{public}u", audioEncContext_->inputFrameCount);
 }
+// [End Recorder::AudioEncOutputThread]
 
+// [Start Recorder::AudioEncInputSyncThread]
 void Recorder::AudioEncInputSyncThread()
 {
     while (true) {
@@ -661,7 +665,9 @@ void Recorder::AudioEncInputSyncThread()
         }
     }
 }
+// [End Recorder::AudioEncInputSyncThread]
 
+// [Start Recorder::AudioEncOutputSyncThread]
 void Recorder::AudioEncOutputSyncThread()
 {
     while (true) {
@@ -692,3 +698,4 @@ void Recorder::AudioEncOutputSyncThread()
     // 同步模式仍由视频线程触发释放；音频先结束时，视频仍在使用 Muxer。
     AVCODEC_SAMPLE_LOGI("Audio output thread exited, waiting for video thread to trigger release");
 }
+// [End Recorder::AudioEncOutputSyncThread]

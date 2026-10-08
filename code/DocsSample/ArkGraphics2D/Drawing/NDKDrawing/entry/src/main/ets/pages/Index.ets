@@ -25,7 +25,7 @@ struct Index {
   build() {
     Column() {
       Row() {
-        XComponent({ id: 'xcomponentId', type: 'surface', libraryname: 'entry' })
+        XComponent({ id: 'xcomponentId', type: XComponentType.SURFACE, libraryname: 'entry' })
           .onLoad((xComponentContext) => {
             this.xComponentContext = xComponentContext as XComponentContext;
           }).width('100%') // Multiples of 64

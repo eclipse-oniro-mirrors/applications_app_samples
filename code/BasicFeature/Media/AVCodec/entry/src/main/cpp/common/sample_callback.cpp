@@ -303,7 +303,8 @@ int32_t SampleCallback::OnRenderError(OH_AudioRenderer *renderer, void *userData
     AVCODEC_SAMPLE_LOGE("OnRenderError");
     return 0;
 }
-// 异常回调OH_AVCodecOnError实现。
+
+// [Start SampleCallback::OnCodecError]
 void SampleCallback::OnCodecError(OH_AVCodec *codec, int32_t errorCode, void *userData)
 {
     (void)codec;
@@ -313,7 +314,9 @@ void SampleCallback::OnCodecError(OH_AVCodec *codec, int32_t errorCode, void *us
     }
     AVCODEC_SAMPLE_LOGE("On codec error, error code: %{public}d", errorCode);
 }
-// 输入码流分辨率发生变化时触发OH_AVCodecOnStreamChanged回调函数。
+// [End SampleCallback::OnCodecError]
+
+// [Start SampleCallback::OnCodecFormatChange]
 void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format, void *userData)
 {
     (void)codec;
@@ -344,7 +347,9 @@ void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format,
         codecUserData->width, codecUserData->height,
         codecUserData->widthStride, codecUserData->heightStride, pixelFormat);
 }
+// [End SampleCallback::OnCodecFormatChange]
 
+// [Start SampleCallback::OnNeedInputBuffer]
 void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData)
 {
     auto *codecUserData = static_cast<CodecUserData *>(userData);
@@ -360,6 +365,7 @@ void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
     // 输入帧的数据buffer和对应的index送入inputBufferQueue队列。
     codecUserData->inputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>(index, buffer));
 }
+// [End SampleCallback::OnNeedInputBuffer]
 
 // [Start quick_start]
 static int32_t GetTemporalLayerID(OH_AVBuffer *buffer)
@@ -381,6 +387,7 @@ static int32_t GetTemporalLayerID(OH_AVBuffer *buffer)
     return layerID;
 }
 
+// [Start SampleCallback::OnNewOutputBuffer]
 void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData)
 {
     // [StartExclude quick_start]
@@ -411,4 +418,5 @@ void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
         AVCODEC_SAMPLE_LOGD("Temporal layer ID: %{public}d", layerID);
     }
 }
+// [End SampleCallback::OnNewOutputBuffer]
 // [End quick_start]

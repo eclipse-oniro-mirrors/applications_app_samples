@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -97,7 +97,7 @@ function lookAt(node: Node, eye: Vec3, center: Vec3, up: Vec3) {
   node.rotation = mul(q, 0.5 / Math.sqrt(t));
 }
 
-/** Get length */
+/** 获取长度 */
 function length(quat: Quaternion): number {
   return Math.sqrt(quat.x * quat.x + quat.y * quat.y + quat.z * quat.z + quat.w * quat.w);
 }
@@ -106,13 +106,13 @@ function magnitudeVec3(vec: Vec3): number {
   return Math.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 }
 
-/** Return distance between vector2's */
+/** 返回两个 vector3 之间的距离 */
 function distanceVec3(v0: Vec3, v1: Vec3): number {
   let v: Vec3 = { x: v0.x - v1.x, y: v0.y - v1.y, z: v0.z - v1.z };
   return magnitudeVec3(v);
 }
 
-/** Creates a rotation which rotates angle degrees around axis, takes in angle as radians */
+/** 创建一个绕轴 axis 旋转 angle 弧度的旋转，angle 以弧度为单位 */
 function angleAxis(angle: number, axis: Vec3): Quaternion {
   let sinHalfAngle: number = Math.sin(angle * 0.5);
   let axisMultiplied: Vec3 = { x: axis.x * sinHalfAngle, y: axis.y * sinHalfAngle, z: axis.z * sinHalfAngle };
@@ -125,7 +125,7 @@ function angleAxis(angle: number, axis: Vec3): Quaternion {
   return ret;
 }
 
-/** Multiply vector3 by quaternion(rotation) */
+/** 将 vector3 乘以四元数（旋转） */
 function quatMultVec3(q: Quaternion, v: Vec3): Vec3 {
   let quatvector: Vec3 = { x: q.x, y: q.y, z: q.z };
 
@@ -148,7 +148,7 @@ function quatMultQuat(q0: Quaternion, q1: Quaternion): Quaternion {
   return ret;
 }
 
-/** Normalizes quaternion */
+/** 归一化四元数 */
 function normalizeQuat(q: Quaternion): Quaternion {
   let len: number = length(q);
   if (len <= 0.0) {
@@ -182,7 +182,7 @@ class OrbitCameraHelper {
   private deltaX_: number = 0;
   private deltaY_: number = 0;
   private pinchDistance_: number | undefined = undefined;
-  private state: number = -1; // 0 press, 1 pinch
+  private state: number = -1; // 0 按下，1 捏合
 
   SetOrbitFromTarget(targetPosition: Vec3, rotation: Quaternion, orbitDistance: number): void {
     this.orbitDistance_ = orbitDistance;
@@ -276,7 +276,7 @@ class OrbitCameraHelper {
     }
   }
 
-  // pinch such a dizzy, better use touch event
+  // 捏合手势处理比较麻烦，建议优先使用触摸事件
   HandlePinchGestureActionUpdate(event: GestureEvent): void {
     if (!this.pinchDistance_) {
       this.pinchDistance_ = this.orbitDistance_;
@@ -299,10 +299,10 @@ class OrbitCameraHelper {
     this.deltaX_ = event.offsetX - this.x_;
     this.deltaY_ = event.offsetY - this.y_;
     if (flag == 0) {
-      // rotation
+      // 旋转
       this.UpdateCameraRotation(sensitivity * this.deltaX_, sensitivity * this.deltaY_);
     } else if (flag == 1) {
-      // translation
+      // 平移
       this.UpdateCameraTargetPosition(-sensitivity * this.deltaX_, -sensitivity * this.deltaY_);
     }
     this.x_ = event.offsetX;

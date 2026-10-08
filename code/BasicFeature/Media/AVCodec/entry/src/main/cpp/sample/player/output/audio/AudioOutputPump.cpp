@@ -117,6 +117,7 @@ bool AudioOutputPump::HandleOutputBuffer(CodecBufferInfo &bufferInfo, bool dumpO
     return outputCallback_(bufferInfo);
 }
 
+// [Start AudioOutputPump::ProcessAsyncOutput]
 bool AudioOutputPump::ProcessAsyncOutput()
 {
     CHECK_AND_RETURN_RET_LOG(running_, false, "Audio decoder output thread out");
@@ -137,7 +138,9 @@ bool AudioOutputPump::ProcessAsyncOutput()
     }
     return HandleOutputBuffer(*bufferInfo, true);
 }
+// [End AudioOutputPump::ProcessAsyncOutput]
 
+// [Start AudioOutputPump::ProcessSyncOutput]
 bool AudioOutputPump::ProcessSyncOutput()
 {
     CHECK_AND_RETURN_RET_LOG(running_, false, "Audio decoder output sync thread out");
@@ -160,3 +163,4 @@ bool AudioOutputPump::ProcessSyncOutput()
     }
     return HandleOutputBuffer(bufferInfo, false);
 }
+// [End AudioOutputPump::ProcessSyncOutput]

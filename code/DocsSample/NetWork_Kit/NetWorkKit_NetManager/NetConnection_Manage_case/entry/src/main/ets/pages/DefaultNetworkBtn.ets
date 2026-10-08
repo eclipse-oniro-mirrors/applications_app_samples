@@ -51,7 +51,7 @@ export default struct DefaultNetworkBtn {
     // 调用getDefaultNet方法，获取默认的数据网络(NetHandle)
     connection.getDefaultNet().then((data: connection.NetHandle) => {
       if (data.netId == 0) {
-        hilog.info(0x0000, 'testTag', `don't have defaultNet`);
+        hilog.error(0x0000, 'testTag', `don't have defaultNet`);
         // 当前无默认网络时，获取的netHandler的netid为0,属于异常情况，需要额外处理
         return;
       }

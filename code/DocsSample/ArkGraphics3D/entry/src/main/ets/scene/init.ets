@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -41,17 +41,17 @@ struct Model {
   init(): void {
     // [Start model_load]
     if (this.scene == null) {
-      // Load the model and place the gltf file in the related path. Use the actual path during loading.
-      // Switched from .gltf to .glb; same content, different format
+      // 加载模型，并将 gltf 文件放在相关路径下。加载时使用实际路径。
+      // 从 .gltf 切换为 .glb；内容相同，格式不同
       Scene.load($rawfile('gltf/DamagedHelmet/glTF/DamagedHelmet.glb'))
         .then(async (result: Scene) => {
           this.scene = result;
           let rf: SceneResourceFactory = this.scene.getResourceFactory();
           // [StartExclude model_load]
           // [Start camera_scene_params]
-          // Create a Camera.
+          // 创建一个相机。
           this.cam = await rf.createCamera({ name: 'Camera' });
-          // Set proper camera parameters.
+          // 设置合适的相机参数。
           this.cam.enabled = true;
           this.cam.position.z = 5;
 
@@ -72,7 +72,7 @@ struct Model {
       Column() {
         // [Start render_model]
         if (this.sceneOpt) {
-          // Use Component3D to display the 3D scenario.
+          // 使用 Component3D 显示 3D 场景。
           Component3D(this.sceneOpt);
         } else {
           Text('Loading···');
