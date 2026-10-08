@@ -28,7 +28,9 @@ import { setFirstFreezeHandler } from './FirstFreezeHandler';
 import { setSecondFreezeHandler } from './SecondFreezeHandler';
 // [End freeze_handler_h]
 
+// [Start domain_h]
 const DOMAIN = 0x0000;
+// [End domain_h]
 
 // [Start error_observer]
 let observer: errorManager.ErrorObserver = {
