@@ -56,7 +56,7 @@ export async function getLocalCapabilities(filesDir: string): Promise<void> {
         length: arrayBuffer.byteLength
       };
       let readLen = fileIo.readSync(file.fd, arrayBuffer, readOptions);
-      // 这个buf对象是arrayBuffer中从位置 0 开始的前readLen字节
+      // 这个buf对象是arrayBuffer中从位置0开始的前readLen字节
       let buf = buffer.from(arrayBuffer, 0, readLen);
       console.info('the content of file: ' + buf.toString());
     } finally {
