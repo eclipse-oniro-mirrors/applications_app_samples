@@ -64,7 +64,7 @@ export default class EntryFormAbility extends FormExtensionAbility {
     };
     let formData: formBindingData.FormBindingData = formBindingData.createFormBindingData(obj);
     formProvider.updateForm(formId, formData).catch((error: BusinessError) => {
-      hilog.info(DOMAIN_NUMBER, TAG, '[EntryFormAbility] updateForm, error:' + JSON.stringify(error));
+      hilog.error(DOMAIN_NUMBER, TAG, '[EntryFormAbility] updateForm, error:' + JSON.stringify(error));
     });
     // [EndExclude update_by_message_form_ability]
   }
@@ -81,7 +81,7 @@ export default class EntryFormAbility extends FormExtensionAbility {
     // [StartExclude update_by_message_form_ability]
     // 若卡片支持触发事件，则需要重写该方法并实现对事件的触发
     // [EndExclude update_by_message_form_ability]
-    hilog.info(DOMAIN_NUMBER, TAG, `FormAbility onFormEvent, formId = ${formId}, message: ${message}`);
+    hilog.info(DOMAIN_NUMBER, TAG, `[EntryFormAbility] onFormEvent, formId = ${formId}, message: ${message}`);
 
     // [StartExclude form_extension_lifecycle_interface]
     // [StartExclude entry_form_ability]
@@ -96,7 +96,7 @@ export default class EntryFormAbility extends FormExtensionAbility {
     let formData = new FormDataClass();
     let formInfo: formBindingData.FormBindingData = formBindingData.createFormBindingData(formData);
     formProvider.updateForm(formId, formInfo).then(() => {
-      hilog.info(DOMAIN_NUMBER, TAG, 'FormAbility updateForm success.');
+      hilog.info(DOMAIN_NUMBER, TAG, '[EntryFormAbility] updateForm success.');
     }).catch((error: BusinessError) => {
       hilog.error(DOMAIN_NUMBER, TAG, `Operation updateForm failed. Cause: ${JSON.stringify(error)}`);
     });
