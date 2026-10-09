@@ -23,7 +23,9 @@ import { setFirstErrorHandler } from './FirstErrorHandler';
 import { setSecondErrorHandler } from './SecondErrorHandler';
 // [End error_handler_h]
 
+// [Start domain_h]
 const DOMAIN = 0x0000;
+// [End domain_h]
 
 // [Start error_observer]
 let observer: errorManager.ErrorObserver = {
