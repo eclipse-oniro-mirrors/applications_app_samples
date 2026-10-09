@@ -180,6 +180,7 @@ public:
     static void StyledStringComparisonAndSerialization(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
     static void StyledStringCustomSpan(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
     static void StyledStringImageAttachment(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
+    static void StyledStringImageAttachmentResizable(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
     static void StyledStringClearStyles(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
     static void StyledStringUserDataSpan(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
     static void StyledStringReplaceStyle(ArkUI_NodeHandle node, BindDescriptorFunc &&func);
@@ -206,6 +207,7 @@ public:
         StyledStringComparisonAndSerialization(node, std::move(func));
         StyledStringCustomSpan(node, std::move(func));
         StyledStringImageAttachment(node, std::move(func));
+        StyledStringImageAttachmentResizable(node, std::move(func));
         StyledStringClearStyles(node, std::move(func));
         StyledStringUserDataSpan(node, std::move(func));
         StyledStringReplaceStyle(node, std::move(func));
