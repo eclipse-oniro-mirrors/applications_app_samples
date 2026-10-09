@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+// [Start click_button_to_turn_on_camera_microphone]
 // xxx.ets
 import { $rawfile, Web, Column, Component, Entry, Button, OnPermissionRequestEvent, Context } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
@@ -74,3 +75,4 @@ struct WebComponent {
     }
   }
 }
+// [End click_button_to_turn_on_camera_microphone]
