@@ -29,6 +29,7 @@ struct WebComponent {
       Web({ src: 'https://www.example.com', controller: this.controller })
         .onControllerAttached(() => {
           try {
+            // [Start Intercept_requested_information]
             this.schemeHandler.onRequestStart
             ((request: webview.WebSchemeHandlerRequest, resourceHandler: webview.WebResourceHandler) => {
               console.info('[schemeHandler] onRequestStart');
@@ -55,6 +56,7 @@ struct WebComponent {
                 console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
               }
 
+              // [StartExclude Intercept_requested_information]
               if (request.getRequestUrl().endsWith('example.com')) {
                 return false;
               }
@@ -88,8 +90,10 @@ struct WebComponent {
               } catch (error) {
                 console.error(`[schemeHandler] ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
               }
+              // [EndExclude Intercept_requested_information]
               return true;
             })
+            // [End Intercept_requested_information]
 
             this.schemeHandler.onRequestStop((request: webview.WebSchemeHandlerRequest) => {
               console.info('[schemeHandler] onRequestStop');
