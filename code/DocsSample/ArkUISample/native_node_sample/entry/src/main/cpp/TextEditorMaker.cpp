@@ -52,8 +52,12 @@
 #define BTN_CARET_RECT 22
 #define BTN_CLOSE_SELECTION_MENU 23
 #define BTN_LAYOUT_MANAGER_DISPOSE 24
+#define BTN_SET_CANCEL_BUTTON 25
+#define BTN_GET_CANCEL_BUTTON 26
+#define BTN_RESET_CANCEL_BUTTON 27
 
 static ArkUI_NodeHandle textContainer;
+static ArkUI_NodeHandle cancelButtonEditor;
 
 /**
  * @brief 添加文本编辑器编辑器的占位符
@@ -826,6 +830,41 @@ void SetEditMenuOptions()
     Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_EDIT_MENU_OPTIONS, &menuOptionItem);
 }
 
+/**
+ * @brief 设置文本编辑器cancelButton属性，包含set、get、reset场景
+ */
+void SetTextEditorCancelButton()
+{
+    StyledStringBase::SetTextTitle(textContainer, "CancelButton(CONSTANT, 24vp, 红色)");
+    ArkUI_NodeHandle textEditor = InitTextEditor();
+    // 设置单行模式（cancelButton仅在单行模式下显示）
+    ArkUI_NumberValue singleLine = {.i32 = true};
+    ArkUI_AttributeItem singleLineItem = {&singleLine, SIZE_1};
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_SINGLE_LINE, &singleLineItem);
+    // Set cancelButton: style=CONSTANT, iconSize=24vp, iconColor=红色
+    ArkUI_NumberValue cancelButtonValue[] = {
+        {.i32 = ARKUI_CANCELBUTTON_STYLE_CONSTANT},
+        {.f32 = 24.0f},
+        {.u32 = COLOR_RED}
+    };
+    ArkUI_AttributeItem cancelButtonItem = {cancelButtonValue, 3};
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_CANCEL_BUTTON, &cancelButtonItem);
+    // Get cancelButton attributes
+    auto result = Manager::nodeAPI_->getAttribute(textEditor, NODE_TEXT_EDITOR_CANCEL_BUTTON);
+    if (result != nullptr) {
+        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "TextEditorMaker",
+                     "GetCancelButton style=%{public}d iconSize=%{public}f iconColor=%{public}u iconSrc=%{public}s",
+                     result->value[INDEX_0].i32, result->value[INDEX_1].f32,
+                     result->value[INDEX_2].u32,
+                     result->string ? result->string : "null");
+    }
+    cancelButtonEditor = textEditor;
+    // 添加交互按钮
+    AddButton("SetCancelButton", BTN_SET_CANCEL_BUTTON, nullptr);
+    AddButton("GetCancelButton", BTN_GET_CANCEL_BUTTON, nullptr);
+    AddButton("ResetCancelButton", BTN_RESET_CANCEL_BUTTON, nullptr);
+}
+
 void DoLayoutManager(ArkUI_NodeEvent* event)
 {
     auto userData = OH_ArkUI_NodeEvent_GetUserData(event);
@@ -889,6 +928,47 @@ void DoEditing(OH_ArkUI_TextEditorStyledStringController* controllerGet, int eve
     }
 }
 
+void DoCancelButtonOperation(int eventIndex)
+{
+    switch (eventIndex) {
+        case BTN_SET_CANCEL_BUTTON:
+            OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "TextEditorMaker",
+                         "SetCancelButton(INPUT, 20vp, 绿色)");
+            {
+                ArkUI_NumberValue cancelButtonValue[] = {
+                    {.i32 = ARKUI_CANCELBUTTON_STYLE_INPUT},
+                    {.f32 = 20.0f},
+                    {.u32 = COLOR_GREEN}
+                };
+                ArkUI_AttributeItem cancelButtonItem = {cancelButtonValue, 3};
+                Manager::nodeAPI_->setAttribute(cancelButtonEditor, NODE_TEXT_EDITOR_CANCEL_BUTTON,
+                    &cancelButtonItem);
+            }
+            break;
+        case BTN_GET_CANCEL_BUTTON:
+            OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "TextEditorMaker", "GetCancelButton");
+            {
+                auto result = Manager::nodeAPI_->getAttribute(cancelButtonEditor,
+                    NODE_TEXT_EDITOR_CANCEL_BUTTON);
+                if (result != nullptr) {
+                    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "TextEditorMaker",
+                                 "GetCancelButton style=%{public}d iconSize=%{public}f "
+                                 "iconColor=%{public}u iconSrc=%{public}s",
+                                 result->value[INDEX_0].i32, result->value[INDEX_1].f32,
+                                 result->value[INDEX_2].u32,
+                                 result->string ? result->string : "null");
+                }
+            }
+            break;
+        case BTN_RESET_CANCEL_BUTTON:
+            OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "TextEditorMaker", "ResetCancelButton");
+            Manager::nodeAPI_->resetAttribute(cancelButtonEditor, NODE_TEXT_EDITOR_CANCEL_BUTTON);
+            break;
+        default:
+            break;
+    }
+}
+
 static void OnBtnClickReceive(ArkUI_NodeEvent* event)
 {
     auto eventType = OH_ArkUI_NodeEvent_GetEventType(event);
@@ -926,6 +1006,11 @@ static void OnBtnClickReceive(ArkUI_NodeEvent* event)
         case BTN_CLOSE_SELECTION_MENU:
             OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "TextEditorMaker", "closeSelectionMenu");
             OH_ArkUI_TextEditorStyledStringController_CloseSelectionMenu(controllerGet);
+            break;
+        case BTN_SET_CANCEL_BUTTON:
+        case BTN_GET_CANCEL_BUTTON:
+        case BTN_RESET_CANCEL_BUTTON:
+            DoCancelButtonOperation(eventIndex);
             break;
         default:
             break;
@@ -1183,6 +1268,7 @@ ArkUI_NodeHandle TextEditorMaker::CreateNativeNode()
     SetTextEditorEvent();
     SetTextEditorStyledStringController();
     SetEditMenuOptions();
+    SetTextEditorCancelButton();
     
     // styledString
     StyledStringBase::SetStyledString(textContainer, GetBindDescriptorFunc());
