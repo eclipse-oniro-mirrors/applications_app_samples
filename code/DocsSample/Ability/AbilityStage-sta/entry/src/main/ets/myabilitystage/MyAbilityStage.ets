@@ -14,21 +14,24 @@
  * limitations under the License.
  */
 
-// [Start myAbility_start]
+// [Start myAbility_start_one]
+// [Start myAbility_start_two]
 import { AbilityStage, Configuration, AbilityConstant, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 export default class MyAbilityStage extends AbilityStage {
-  onAcceptWant(want: Want): string {
-    // 仅specified模式下触发
-    return 'MyAbilityStage';
-  }
 
   onCreate(): void {
     // 应用HAP首次加载时触发，可以在此执行该Module的初始化操作（例如资源预加载、线程创建等）。
     console.info('AbilityStage onCreate');
   }
-
+  // [StartExclude myAbility_start_two]
+  onAcceptWant(want: Want): string {
+    // 仅specified模式下触发
+    return 'MyAbilityStage';
+  }
+  // [EndExclude myAbility_start_two]
+  // [StartExclude myAbility_start_one]
   onConfigurationUpdated(config: Configuration): void {
     console.info(`envCallback onConfigurationUpdated success: ${JSON.stringify(config)}`);
     let language = config.language; //应用程序的当前语言
@@ -56,5 +59,7 @@ export default class MyAbilityStage extends AbilityStage {
     // 通过onDestroy()方法，可以监听到Ability的销毁事件。
     console.info('AbilityStage onDestroy');
   }
+  // [EndExclude myAbility_start_one]
 }
-// [End myAbility_start]
+// [End myAbility_start_two]
+// [End myAbility_start_one]
