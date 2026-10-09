@@ -34,7 +34,7 @@ int32_t AudioEncoder::Create(const std::string &codecMime)
 {
     // 设置判定是否为编码。true表示当前是编码。
     constexpr bool isEncoder = true;
-    // 通过 mime type 创建编码器。此处传入的 mime type 以实际编码格式为准。
+    // 通过mime type创建编码器。此处传入的mime type以实际编码格式为准。
     encoder_ = OH_AudioCodec_CreateByMime(codecMime.c_str(), isEncoder);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create failed");
     return AVCODEC_SAMPLE_ERR_OK;
@@ -44,7 +44,7 @@ int32_t AudioEncoder::Create(const std::string &codecMime)
 // [Start AudioEncoder::CreateByName]
 int32_t AudioEncoder::CreateByName(const std::string &codecMime)
 {
-    // 通过 codec name 创建编码器。
+    // 通过codec name创建编码器。
     OH_AVCapability *capability = OH_AVCodec_GetCapability(codecMime.c_str(), true);
     CHECK_AND_RETURN_RET_LOG(capability != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "GetCapability failed");
     const char *name = OH_AVCapability_GetName(capability);

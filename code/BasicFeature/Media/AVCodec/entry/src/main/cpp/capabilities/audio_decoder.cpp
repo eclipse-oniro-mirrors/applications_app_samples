@@ -30,7 +30,7 @@ int32_t AudioDecoder::Create(const std::string &codecMime)
 {
     // 设置判定是否为编码。false表示当前是解码。
     constexpr bool isEncoder = false;
-    // 通过 mime type 创建解码器。此处传入的 mime type 以实际解码格式为准。
+    // 通过mime type创建解码器。此处传入的mime type以实际解码格式为准。
     decoder_ = OH_AudioCodec_CreateByMime(codecMime.c_str(), isEncoder);
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create failed");
     return AVCODEC_SAMPLE_ERR_OK;
@@ -40,7 +40,7 @@ int32_t AudioDecoder::Create(const std::string &codecMime)
 // [Start AudioDecoder::CreateByName]
 int32_t AudioDecoder::CreateByName(const std::string &codecMime)
 {
-    // 通过 codec name 创建解码器。
+    // 通过codec name创建解码器。
     OH_AVCapability *capability = OH_AVCodec_GetCapability(codecMime.c_str(), false);
     CHECK_AND_RETURN_RET_LOG(capability != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "GetCapability failed");
     const char *name = OH_AVCapability_GetName(capability);
@@ -161,6 +161,7 @@ OH_AVBuffer *AudioDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
 }
 // [End AudioDecoder::GetInputBuffer]
 
+// [Start AudioDecoder::GetOutputBuffer]
 int32_t AudioDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     info.buffer = nullptr;
@@ -197,10 +198,11 @@ int32_t AudioDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
         info.buffer = nullptr;
         AVCODEC_SAMPLE_LOGI("Out buffer end");
         // 解码输出结束。
-        return AVCODEC_SAMPLE_ERR_END; // break;
+        return AVCODEC_SAMPLE_ERR_END;
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End AudioDecoder::GetOutputBuffer]
 
 // [Start AudioDecoder::Start]
 int32_t AudioDecoder::Start()
