@@ -1,5 +1,4 @@
 // [Start common_event_utility_class]
-// CommonEventHelper.ets
 import { commonEventManager } from '@kit.BasicServicesKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 

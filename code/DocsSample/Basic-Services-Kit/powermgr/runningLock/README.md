@@ -2,7 +2,7 @@
 
 ### 介绍
 
-本工程主要实现了对指南文档[阻止系统闲时进入睡眠](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/prevent-system-sleep)中示例代码片段的工程化，
+本工程主要实现了对指南文档[阻止系统闲时进入睡眠]中示例代码片段的工程化，
 主要目标是帮助开发者快速了解如何使用RunningLockType.BACKGROUND_USER_IDLE运行锁，保证在持锁过程中系统不会进入自动睡眠，保证业务正常运行。
 
 ### 阻止系统闲时进入睡眠

@@ -1,5 +1,4 @@
 // [Start running_lock_utility_class]
-// RunningLockUtil.ets
 import { runningLock } from '@kit.BasicServicesKit';
 
 // 运行锁工具类，用来创建运行锁、持锁以及释放锁

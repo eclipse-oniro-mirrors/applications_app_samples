@@ -1,5 +1,4 @@
 // [Start Implement_Background_Idle_Tasks]
-// UserIdleTask.ets
 import { CommonEventHelper } from './CommonEventHelper';
 import { RunningLockUtil } from './RunningLockUtil';
 import { commonEventManager } from '@kit.BasicServicesKit';
