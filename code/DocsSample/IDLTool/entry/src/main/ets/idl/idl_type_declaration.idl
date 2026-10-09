@@ -1,0 +1,3 @@
+// [Start idl_ts_sequenceable_declaration]
+sequenceable idl.MySequenceable
+// [End idl_ts_sequenceable_declaration]

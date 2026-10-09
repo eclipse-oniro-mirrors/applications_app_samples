@@ -1,0 +1,4 @@
+// [Start idl_cpp_sequenceable_example]
+sequenceable a.b..C.D
+// [End idl_cpp_sequenceable_example]
+
