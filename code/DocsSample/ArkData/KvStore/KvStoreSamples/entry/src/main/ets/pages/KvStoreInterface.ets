@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+// [Start CreateKvManager]
 // [Start get_context]
 import { distributedKVStore } from '@kit.ArkData';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -24,10 +25,13 @@ let kvManager: distributedKVStore.KVManager | undefined = undefined;
 let kvStore: distributedKVStore.SingleKVStore | undefined = undefined;
 let appId: string = 'com.example.kvstoresamples';
 let storeId: string = 'storeId';
+// 获取context
 const context = EntryAbility.getContext();
 // [End get_context]
 
+// [StartExclude CreateKvManager]
 export class KvInterface {
+  // [EndExclude CreateKvManager]
   // [Start kv_store1]
   public CreateKvManager = (() => {
     Logger.info('CreateKvManager start');
@@ -48,6 +52,7 @@ export class KvInterface {
     }
   })
   // [End kv_store1]
+  // [End CreateKvManager]
 
   // [Start kv_store3]
   public GetKvStore = (() => {
