@@ -55,7 +55,7 @@ export default struct DefaultNetworkIPBtn {
       }
       // [EndExclude resolve_the_domain_name_and_get_all_ips]
       // 使用默认网络解析主机名以获取所有IP地址
-      connection.getAddressesByName('xxxx').then((data: connection.NetAddress[]) => {
+      connection.getAddressesByName('www.example.com').then((data: connection.NetAddress[]) => {
         hilog.info(0x0000, 'testTag', 'Successfully retrieved default network IP address: ' + JSON.stringify(data));
         // [StartExclude resolve_the_domain_name_and_get_all_ips]
         this.defaultNetworkIPStatus = 'Retrieved successfully';
