@@ -18,9 +18,9 @@ import { avSession } from '@kit.AVSessionKit';
 // [StartExclude getAVSessionDescriptorsInfo]
 import Log from '../common/Logger';
 
-const TAG = "ControllerComponent";
+const TAG = 'MediaController';
 
-export default class control {
+export default class MediaController {
   private currentController: avSession.AVSessionController | undefined = undefined;
   private currentControllerLink: SubscribedAbstractProperty<avSession.AVSessionController> | undefined = undefined;
   private metaDataLink: SubscribedAbstractProperty<avSession.AVMetadata> | undefined = undefined;
@@ -92,7 +92,7 @@ export default class control {
       });
     } catch (error) {
       if (error) {
-        console.error(`avSession Error: Code: ${error.code}, message: ${error.message}`);
+        Log.error(TAG, `avSession Error: Code: ${error.code}, message: ${error.message}`);
       }
     }
   }
@@ -103,7 +103,7 @@ export default class control {
     // 获取会话元数据。
     this.currentController?.getAVMetadata((error: BusinessError, metadata: avSession.AVMetadata) => {
       if (error) {
-        Log.info(TAG, 'Failed to get AV metadata, code: ' + error.code + ', message: ' + error.message);
+        Log.error(TAG, 'Failed to get AV metadata, code: ' + error.code + ', message: ' + error.message);
         return;
       }
       Log.info(TAG, 'Succeeded in getting AV metadata, assetId: ' + metadata.assetId);
@@ -115,7 +115,7 @@ export default class control {
     // 获取播放状态。
     this.currentController?.getAVPlaybackState((error: BusinessError, state: avSession.AVPlaybackState) => {
       if (error) {
-        Log.info(TAG, 'Failed to get AV playback state, code: ' + error.code + ', message: ' + error.message);
+        Log.error(TAG, 'Failed to get AV playback state, code: ' + error.code + ', message: ' + error.message);
         return;
       }
       Log.info(TAG, 'Succeeded in getting AV playback state.');
@@ -126,7 +126,7 @@ export default class control {
     // 获取当前会话播放列表相关信息。
     this.currentController?.getAVQueueItems((error: BusinessError, items: avSession.AVQueueItem[]) => {
       if (error) {
-        Log.info(TAG, 'Failed to get AV queue items, code: ' + error.code + ', message: ' + error.message);
+        Log.error(TAG, 'Failed to get AV queue items, code: ' + error.code + ', message: ' + error.message);
         return;
       }
       Log.info(TAG, 'Succeeded in getting AV queue items, length: ' + items.length);
@@ -145,7 +145,7 @@ export default class control {
       }
     } catch (error) {
       if (error) {
-        console.error(`DesktopLyric Error: Code: ${error.code}, message: ${error.message}`);
+        Log.error(TAG, `DesktopLyric Error: Code: ${error.code}, message: ${error.message}`);
       }
     }
     // [EndExclude getControllerInfo]
@@ -192,7 +192,7 @@ export default class control {
       // [EndExclude listenControllerInfo]
     } catch (error) {
       if (error) {
-        console.error(`listenControllerInfo Error: Code: ${error.code}, message: ${error.message}`);
+        Log.error(TAG, `listenControllerInfo Error: Code: ${error.code}, message: ${error.message}`);
       }
     }
   }
@@ -205,7 +205,7 @@ export default class control {
       this.currentController?.getValidCommands((error: BusinessError,
         validCommands: avSession.AVControlCommandType[]) => {
         if (error) {
-          Log.info(TAG, 'Failed to get valid commands, code: ' + error.code + ', message: ' + error.message);
+          Log.error(TAG, 'Failed to get valid commands, code: ' + error.code + ', message: ' + error.message);
           return;
         }
         Log.info(TAG, 'Succeeded in getting valid commands, size: ' + validCommands.length);
@@ -219,7 +219,7 @@ export default class control {
       });
     } catch (error) {
       if (error) {
-        console.error(`validCommand Error: Code: ${error.code}, message: ${error.message}`);
+        Log.error(TAG, `validCommand Error: Code: ${error.code}, message: ${error.message}`);
       }
     }
   }
@@ -237,7 +237,7 @@ export default class control {
       });
     } catch (error) {
       if (error) {
-        console.error(`destroy Error: Code: ${error.code}, message: ${error.message}`);
+        Log.error(TAG, `destroy Error: Code: ${error.code}, message: ${error.message}`);
       }
     }
   }
