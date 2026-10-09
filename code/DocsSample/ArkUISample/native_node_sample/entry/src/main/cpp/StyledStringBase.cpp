@@ -19,6 +19,8 @@
 #include <cstdint>
 #include <hilog/log.h>
 #include <native_drawing/drawing_font_collection.h>
+#include <native_drawing/drawing_lattice.h>
+#include <native_drawing/drawing_rect.h>
 #include <native_drawing/drawing_text_declaration.h>
 #include <resourcemanager/ohresmgr.h>
 #include <multimedia/image_framework/image/image_source_native.h>
@@ -682,6 +684,55 @@ void StyledStringBase::StyledStringImageAttachment(ArkUI_NodeHandle node, BindDe
         OH_ArkUI_StyledString_Descriptor_CreateWithImageAttachment(arkUI_ImageAttachment);
 
     func(styledString);
+}
+
+void StyledStringBase::StyledStringImageAttachmentResizable(ArkUI_NodeHandle node, BindDescriptorFunc &&func)
+{
+    uint8_t data[PIXELMAP_DATA_SIZE];
+    size_t dataSize = PIXELMAP_DATA_SIZE;
+    for (int i = 0; i < dataSize; i++) {
+        data[i] = i + 1;
+    }
+    OH_Pixelmap_InitializationOptions *createOpts;
+    OH_PixelmapInitializationOptions_Create(&createOpts);
+    OH_PixelmapInitializationOptions_SetWidth(createOpts, static_cast<uint32_t>(PIXELMAP_WIDTH));
+    OH_PixelmapInitializationOptions_SetHeight(createOpts, static_cast<uint32_t>(PIXELMAP_HEIGHT));
+    OH_PixelmapInitializationOptions_SetPixelFormat(createOpts, PIXEL_FORMAT_BGRA_8888);
+    OH_PixelmapInitializationOptions_SetAlphaType(createOpts, PIXELMAP_ALPHA_TYPE_UNKNOWN);
+    OH_PixelmapNative *pixelmap = nullptr;
+    OH_PixelmapNative_CreatePixelmap(data, dataSize, createOpts, &pixelmap);
+    OH_PixelmapNative_Opacity(pixelmap, IMAGE_ATTACHMENT_OPACITY);
+
+    StyledStringBase::SetTextTitle(node, "ImageAttachment slice示例");
+    OH_ArkUI_ImageAttachment *sliceImageAttachment = OH_ArkUI_ImageAttachment_Create();
+    OH_ArkUI_ImageAttachment_SetPixelMap(sliceImageAttachment, pixelmap);
+    OH_ArkUI_ImageAttachment_SetResizableSlice(sliceImageAttachment, 10.0f, 10.0f, 10.0f, 10.0f);
+    ArkUI_StyledString_Descriptor *sliceStyledString =
+        OH_ArkUI_StyledString_Descriptor_CreateWithImageAttachment(sliceImageAttachment);
+    func(sliceStyledString);
+
+    StyledStringBase::SetTextTitle(node, "ImageAttachment lattice示例");
+    OH_ArkUI_ImageAttachment *latticeImageAttachment = OH_ArkUI_ImageAttachment_Create();
+    OH_ArkUI_ImageAttachment_SetPixelMap(latticeImageAttachment, pixelmap);
+    OH_ArkUI_ImageAttachment_SetSizeWidth(
+        latticeImageAttachment, static_cast<int32_t>(IMAGE_ATTACHMENT_SIZE));
+    OH_ArkUI_ImageAttachment_SetSizeHeight(
+        latticeImageAttachment, static_cast<int32_t>(IMAGE_ATTACHMENT_SIZE));
+    const int32_t xDivs[] = {20, 30};
+    const int32_t yDivs[] = {30, 60};
+    constexpr uint32_t xCount = sizeof(xDivs) / sizeof(xDivs[0]);
+    constexpr uint32_t yCount = sizeof(yDivs) / sizeof(yDivs[0]);
+    OH_Drawing_Rect* bounds = OH_Drawing_RectCreate(0, 0, 100, 100);
+    OH_Drawing_Lattice* resizableLattice = nullptr;
+    OH_Drawing_ErrorCode errorCode = OH_Drawing_LatticeCreate(
+        xDivs, yDivs, xCount, yCount, bounds, nullptr, 0, nullptr, 0, &resizableLattice);
+    OH_Drawing_RectDestroy(bounds);
+    if (errorCode == OH_DRAWING_SUCCESS) {
+        OH_ArkUI_ImageAttachment_SetResizableLattice(latticeImageAttachment, resizableLattice);
+    }
+    ArkUI_StyledString_Descriptor *latticeStyledString =
+        OH_ArkUI_StyledString_Descriptor_CreateWithImageAttachment(latticeImageAttachment);
+    func(latticeStyledString);
 }
 
 void StyledStringBase::StyledStringClearStyles(ArkUI_NodeHandle node, BindDescriptorFunc &&func)
