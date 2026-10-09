@@ -30,8 +30,7 @@
 int32_t Player::CreateAudioDecoder()
 {
     if (sampleInfo_.audio.audioCodecMime.empty()) {
-        // A media source without an audio track is valid. Keep the audio
-        // context absent so Start() only launches the video pipeline.
+        // 无音轨是合法输入；音频上下文为空时 Start() 只启动视频流水线。
         audioDecoder_.reset();
         audioDecContext_.reset();
         isAudioDone.store(true);
@@ -204,10 +203,12 @@ int32_t Player::CreateVideoDecoder()
 int32_t Player::CreateVideoDecoderForType(int32_t decoderType)
 {
     ReleaseVideoDecoder();
-    // Keep the requested decoder type in sampleInfo_. A failed automatic attempt must not make the
-    // following replay start directly with the temporary software fallback.
+    // 保留用户请求的解码器类型，不把本次的软件回退带到下一次重播。
     if (sampleInfo_.codec.codecRunMode == SURFACE) {
-        sampleInfo_.video.window = NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
+        decoderWindowLease_ = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
+        CHECK_AND_RETURN_RET_LOG(decoderWindowLease_, AVCODEC_SAMPLE_ERR_ERROR,
+            "Acquire XComponent window for Surface decoder failed");
+        sampleInfo_.video.window = decoderWindowLease_.GetWindow();
     }
     SampleInfo configureInfo = sampleInfo_;
     configureInfo.codec.codecType = decoderType;
@@ -303,23 +304,18 @@ void Player::ResetPlaybackState()
 void Player::PrepareForInitialization(const SampleInfo &sampleInfo)
 {
     sampleInfo_ = sampleInfo;
-    // Do not modify the XComponent NativeWindow before the Surface decoder has been configured.
-    // In particular, the HDR Vivid to BT.709 path creates its post-processing pipeline during
-    // Configure(), and a concurrent producer-state update here can leave that transaction pending.
-    // Buffer and GPU sinks configure their own presentation state when they present a frame.
+    // Surface 解码器 Configure() 前不修改 XComponent NativeWindow。
+    // HDR Vivid 转 BT.709 在 Configure() 中创建后处理链路；并发更新生产者状态会打断该过程。
     transformHint = NATIVEBUFFER_ROTATE_NONE;
     if (videoSink_ != nullptr && videoSinkRunMode_ != sampleInfo_.codec.codecRunMode) {
-        // The GPU sinks own native presentation resources. Release a sink for a previous run mode before a
-        // new decoder binds the shared XComponent window, otherwise Surface output can inherit stale geometry.
+        // 新解码器绑定共享窗口前释放上一运行模式的 GPU sink，清除旧的显示资源和几何状态。
         videoSink_->Reset();
         videoSink_.reset();
         videoSinkRunMode_ = -1;
     } else if (videoSink_ != nullptr) {
         videoSink_->BeginPlayback();
     }
-    // Demuxer::Create fills the actual video dimensions. A GPU sink needs those dimensions to
-    // allocate its NativeImage producer surface, so it must be prepared after parsing rather than
-    // here. Preparing it with the initial 0x0 values silently falls back to decoder Buffer output.
+    // Demuxer::Create 填充实际视频尺寸。GPU sink 解析后再创建 NativeImage；0x0 尺寸会回退为 Buffer 输出。
     ResetPlaybackState();
 }
 
@@ -440,9 +436,7 @@ int32_t Player::Init(SampleInfo &sampleInfo)
     PrepareVideoSinkForPlayback();
     const bool usesSurfaceDecoder = videoSink_ != nullptr && videoSink_->UsesSurfaceDecoder();
     if (sampleInfo_.codec.codecRunMode != SURFACE && !usesSurfaceDecoder && sampleInfo_.codec.convertHdrVividToBt709) {
-        // The conversion key is a Surface-decoder feature. Buffer and GPU paths that could not
-        // create a producer surface consume decoded Buffers instead, so this configuration would
-        // be invalid for that fallback.
+        // 色彩转换 Key 只用于 Surface 解码器。Buffer 路径消费已解码 Buffer，不能下发该配置。
         sampleInfo_.codec.convertHdrVividToBt709 = false;
         AVCODEC_SAMPLE_LOGW("HDR Vivid to BT.709 conversion is unavailable for decoder Buffer output");
     }

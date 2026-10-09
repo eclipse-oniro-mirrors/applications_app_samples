@@ -80,8 +80,8 @@ bool SetNativeWindowMetadata(OHNativeWindow *window, OH_NativeBuffer_ColorSpace 
     if (window == nullptr) {
         return false;
     }
-    // The native-window API takes a byte vector, while the payload for OH_HDR_METADATA_TYPE is
-    // the complete OH_NativeBuffer_MetadataType enum rather than a single enumerator byte.
+    // native-window 接口接收字节数组，而 OH_HDR_METADATA_TYPE 的载荷是完整的
+    // OH_NativeBuffer_MetadataType 枚举值，不能只写入一个枚举字节。
     const int32_t colorSpaceRet = OH_NativeWindow_SetColorSpace(window, colorSpace);
     const int32_t metadataRet = OH_NativeWindow_SetMetadataValue(window, OH_HDR_METADATA_TYPE,
         static_cast<int32_t>(sizeof(metadataType)), reinterpret_cast<uint8_t *>(&metadataType));
@@ -97,7 +97,7 @@ bool CopyMetadata(OH_NativeBuffer *source, OH_NativeBuffer *target, OH_NativeBuf
     }
     return OH_NativeBuffer_SetMetadataValue(target, key, size, data) == 0;
 }
-} // namespace
+} // 匿名命名空间
 
 bool HdrMetadataHelper::IsHdrVivid(OH_AVBuffer *buffer)
 {

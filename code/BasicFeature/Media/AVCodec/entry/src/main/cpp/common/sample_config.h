@@ -97,7 +97,7 @@ struct AudioSampleInfo {
     size_t codecConfigLen = 0;
     int32_t aacAdts = -1;
     int32_t audioLatencyMode = 0;
-    // Demuxer track index selected for playback. -1 means the first audio track.
+    // 播放时由解封装器选择的音频轨索引；-1 表示使用第一条音频轨。
     int32_t trackIndex = -1;
 };
 
@@ -110,7 +110,7 @@ struct CodecOptions {
     bool enableLowLatency = false;
     bool outputInDecodingOrder = false;
     bool convertHdrVividToBt709 = false;
-    // Audio track selected by the caller. The value is a container track index.
+    // 调用方选择的音频轨，取值为容器内的轨道索引。
     int32_t audioTrackIndex = -1;
 };
 
@@ -118,17 +118,18 @@ struct OutputOptions {
     int32_t outputFd = -1;
     bool enableVideoDump = false;
     std::string outputFilePath;
-    int32_t outputFormat = 2; // AV_OUTPUT_FORMAT_MPEG_4 = 2, AV_OUTPUT_FORMAT_FLV = 14
+    int32_t outputFormat = 2; // AV_OUTPUT_FORMAT_MPEG_4 = 2，AV_OUTPUT_FORMAT_FLV = 14
 };
 
 struct AudioPlaybackOptions {
-    // Renderer volume, normalized to [0.0, 1.0].
+    // 渲染器音量，取值归一化到 [0.0, 1.0]。
     float volume = 1.0f;
-    // Applied while the AudioRenderer is being built; changing it requires a new renderer.
+    // 仅在创建 AudioRenderer 时生效；修改该值后需要重新创建渲染器。
     bool enableLowLatency = false;
 };
 
 struct PlaybackCallbackInfo {
+    // 播放器完成后调用。回调函数和 context 均由调用方持有，异步播放结束前不得释放其关联对象。
     void (*playDoneCallback)(void *context, bool success, PlaybackCompletionReason reason) = nullptr;
     void *playDoneCallbackData = nullptr;
 };

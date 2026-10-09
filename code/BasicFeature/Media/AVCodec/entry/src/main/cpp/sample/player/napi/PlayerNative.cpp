@@ -165,7 +165,7 @@ napi_value StartPlaybackSync(napi_env env, SampleInfo &sampleInfo, napi_value ca
     return result;
 }
 
-} // namespace
+} // 匿名命名空间
 
 napi_value PlayerNative::SetPlaybackSpeed(napi_env env, napi_callback_info info)
 {

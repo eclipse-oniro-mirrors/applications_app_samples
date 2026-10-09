@@ -26,7 +26,7 @@
 | 排查硬解兼容性 | 软件解码 + Surface 模式直接送显 | 用于确认问题是否只出现在设备硬解；软件解通常更占 CPU。 |
 | 检查像素、色彩或 HDR 元数据 | 自动选择 + Buffer 模式拷贝送显 | 应用可以读取解码输出并透传 HDR 元数据，但会增加一次像素拷贝。 |
 | 导出原始解码帧 | Buffer 模式拷贝送显 + 保存解码帧 | Dump 只用于调试，文件会写入应用沙箱，不建议在常规播放中长期开启。 |
-| 验证 GLES 图形链路 | Surface模式 OpenGL送显 | 输出先按显示窗口缩小，再转换为 RGBA，由 EGL/GLES 绘制；按 rotation 等比缩放并留黑边。该模式不支持 HDR Vivid 转 BT.709。 |
+| 验证 GLES 图形链路 | Surface模式 OpenGL送显 | 普通 8 bit 视频优先输出到 NativeImage Surface，由 EGL/GLES 外部纹理绘制；NativeImage 建链失败时回退为 Buffer 拷贝路径。该模式不支持 HDR Vivid 转 BT.709。 |
 | 验证 Vulkan 图形链路 | Surface模式 Vulkan送显 | 输出先按显示窗口缩小，再转换为 RGBA，由 Vulkan Swapchain 呈现；按 rotation 等比缩放并留黑边。该模式不支持 HDR Vivid 转 BT.709。 |
 | 高帧率倍速 | 自动选择 + 智能流畅可用 | 倍速始终可用；智能流畅是否生效取决于当前设备、SDK 和解码器能力。 |
 
@@ -41,7 +41,7 @@
 | PTS | 内容应播放或显示的媒体时间。进度条、字幕、音画同步和 Seek 都以它为基础。 |
 | Surface 模式 | 解码器直接把画面交给 XComponent 对应的 Surface，应用不能读取每帧像素。 |
 | Buffer 模式 | 解码器把输出 Buffer 交给应用，应用拷贝到 NativeWindow 后送显，因此可 Dump 图像和处理 HDR 元数据。 |
-| OpenGL 模式 | 解码器输出 Buffer 由应用转换为 RGBA，使用 EGL/GLES 纹理绘制到 XComponent 窗口；初始化失败时回退到 Buffer 模式。 |
+| OpenGL 模式 | 普通 8 bit 视频先输出到 NativeImage 的 producer Surface；应用在帧到达后把外部纹理绘制到 XComponent 窗口。NativeImage 或 EGL 初始化失败时，才回退为 Buffer 输出。 |
 | Vulkan 模式 | 解码器输出 Buffer 由应用转换为 RGBA，使用 Vulkan Surface、Swapchain 和 staging Buffer 绘制到 XComponent 窗口；初始化失败时回退到 Buffer 模式。 |
 | 同步/异步模式 | codec Buffer 的获取方式：同步模式由工作线程查询，异步模式由回调入队。它不表示“是否进行音画同步”。 |
 | EOS | End Of Stream。输入结束后仍要等待 codec 输出缓存帧，再释放播放器或封装器。 |
@@ -63,10 +63,10 @@
 | SurfaceMode 送显 | 解码器直接输出到 XComponent Surface，并按目标时间释放送显 | [SurfaceMode 送显](#surface-output) |
 | 停止时最后一帧处理 | 可选择停止/销毁 SurfaceMode 解码器时保留最后一帧或输出黑帧 | [SurfaceMode 送显](#surface-output) |
 | BufferMode 送显 | 应用取得解码 Buffer，按 stride 拷贝到 NativeWindowBuffer 后调用图形接口送显 | [BufferMode 送显](#buffer-output) |
-| OpenGL 送显 | 应用把 YUV/RGBA Buffer 转换为 RGBA 纹理，通过 EGL/GLES 绘制到 XComponent 窗口 | [OpenGL/Vulkan 送显](#gpu-output) |
+| OpenGL 送显 | 普通 8 bit 视频通过 NativeImage Surface 进入 EGL/GLES 外部纹理；建链失败时才把解码 Buffer 转为 RGBA 绘制 | [OpenGL/Vulkan 送显](#gpu-output) |
 | Vulkan 送显 | 应用把解码 Buffer 转换为 RGBA，上传 staging Buffer，再通过 Vulkan Swapchain 呈现 | [OpenGL/Vulkan 送显](#gpu-output) |
 | HDR Vivid 确认 | 从实际输出 Buffer 确认 HDR 类型和动态元数据，确认后在播放窗口右上角显示水印 | [HDR Vivid 检测与送显](#hdr-vivid-output) |
-| 解码帧 Dump | Buffer、OpenGL 和 Vulkan 模式下可选择将原始解码帧写入应用沙箱，默认关闭且不影响正常送显 | [Buffer Dump](#buffer-dump) |
+| 解码帧 Dump | BufferMode 和 Vulkan 可将原始解码帧写入应用沙箱；OpenGL 仅在 NativeImage Surface 回退为 decoder Buffer 输出后具备该能力，默认关闭且不影响正常送显 | [Buffer Dump](#buffer-dump) |
 | 音频解码与播放 | 解码压缩音频为 PCM，通过 AudioRenderer 回调持续播放 | [音频解码与播放](#audio-playback) |
 | 系统音频中断与前后台恢复 | 响应来电、系统音频抢占以及应用进出后台，按设置暂停或恢复播放 | [系统中断与前后台恢复](#audio-interruption) |
 | 多音轨选择 | 展示编码、采样率、声道和码率；切换前预检候选轨，成功后实时切换且不重启视频 | [音频解码与播放](#audio-playback) |
@@ -80,7 +80,7 @@
 | 播放进度与拖动跳转 | 显示当前位置和总时长；异步合并连续请求，从同步帧恢复解码，并丢弃目标时间之前的音视频输出 | [播放进度与 Seek](#playback-seek) |
 | 播放控制 | 支持单击窗口暂停/继续、双击窗口左/右侧精准快退/快进 15 秒、控制按钮暂停/继续、上一帧/下一帧和重播；暂停时操作会立即更新画面 | [播放进度与 Seek](#playback-seek) |
 | 播放队列、断点续播与恢复 | 支持顺序、单曲循环、列表循环、随机播放；记录最近位置，并可在运行期异常后恢复一次 | [播放队列与断点续播](#playback-queue) |
-| 全屏与显示比例 | 播放时切换全屏/退出全屏、横竖屏和适应窗口/铺满窗口 | [全屏与显示比例](#display-mode) |
+| 全屏与显示比例 | 播放时切换全屏/退出全屏和横竖屏；“适应窗口/铺满窗口”记录用户偏好，当前 NativeWindow 路径保持等比适应 | [全屏与显示比例](#display-mode) |
 | 播放性能诊断 | 查看输出/送显/丢帧、同步决策偏差、PCM 与设备待播量、音频欠载、中断次数、Seek 耗时和 Buffer/GPU 送显耗时 | [播放性能诊断](#playback-diagnostics) |
 | A-B 循环与单帧控制 | 设置 A/B 时间点循环播放，按视频帧率逐帧前进或后退 | [A-B 循环与单帧控制](#ab-frame-control) |
 | 画中画与后台播放 | 使用系统 PiP 窗口继续观看，可选择返回桌面时自动进入 PiP | [画中画与后台播放](#pip-background) |
@@ -370,6 +370,8 @@ AVCodec/
 - `SampleCallback`：异步模式下 codec 的统一回调入口，负责接收 `OnNeedInputBuffer` / `OnNewOutputBuffer` 并放入 `CodecUserData` 的队列。
 - `AudioOutputPump`：统一处理音频 async 输出队列和 sync 主动查询，将 PCM 写入 `renderQueue`，并把释放 Buffer、音频时钟统计等动作回调给 `Player`。
 
+这些对象只传递“本轮可以使用什么”，不会接管 SDK Buffer 的所有权。`CodecBufferInfo` 保存 codec 借出的 `OH_AVBuffer*`、归还时必须使用的 index，以及回调时读取到的属性快照；它不缓存像素地址，也不负责释放 `OH_AVBuffer`。输入样本提交给 codec 后，应用不再访问该输入 Buffer；输出样本只有在送显、写文件或交给音频队列处理的短暂窗口内可读。Seek、Stop 和 Surface 销毁会先使队列等待退出，再等待工作线程结束，最后才释放 codec 和清空队列。这样晚到的回调最多发现上下文已失效，不会继续访问已销毁的播放器或窗口。
+
 #### *播放和录制的处理顺序*
 
 后续章节按模块展开接口细节。先从一次操作的过程看起：页面负责准备参数和显示结果，Native 负责创建媒体对象、调度线程并回收资源。出现失败时，页面恢复可操作状态，Native 不保留半初始化的 codec 或线程。
@@ -444,7 +446,7 @@ AVCodec/
 
 播放设置提供 `OH_MD_KEY_VIDEO_DECODER_BLANK_FRAME_ON_SHUTDOWN`，可决定 SurfaceMode 停止或销毁时保留最后一帧还是输出黑帧；`OH_MD_KEY_ENABLE_SYNC_MODE` 由同步/异步选项控制。智能流畅的保帧模式、目标倍速和温控保留比例属于运行时策略，不放进静态设置。
 
-高级选项包括低时延解码、按解码顺序输出和 HDR Vivid 转 BT.709。前两项会先通过 `OH_AVCapability_IsFeatureSupported()` 查询；设备或 codec 不支持时，页面会拒绝该配置并记录原因。第三项只在 HDR Vivid 媒体使用 Surface模式直接送显时下发 `OH_MD_KEY_VIDEO_DECODER_OUTPUT_COLOR_SPACE=OH_COLORSPACE_BT709_LIMIT`。OpenGL 和 Vulkan 目前是 CPU 转换并上传的示例路径，4K HDR 软件色调映射不具备实时性，因此页面会禁用该选项。解码请求格式与实际输出格式分别保存：跳转重建时仍使用原请求格式；送显和 Dump 使用解码器返回的输出格式。
+高级选项包括低时延解码、按解码顺序输出和 HDR Vivid 转 BT.709。前两项会先通过 `OH_AVCapability_IsFeatureSupported()` 查询；设备或 codec 不支持时，页面会拒绝该配置并记录原因。第三项只在 HDR Vivid 媒体使用 decoder Surface 时下发 `OH_MD_KEY_VIDEO_DECODER_OUTPUT_COLOR_SPACE=OH_COLORSPACE_BT709_LIMIT`。OpenGL 的 NativeImage 直连路径和 Vulkan 的 Buffer/Swapchain 路径没有通用的 HDR Vivid 转 BT.709 能力约定，页面会禁用该选项，而不是依赖应用层处理 4K HDR 色调映射。解码请求格式与实际输出格式分别保存：跳转重建时仍使用原请求格式；送显和 Dump 使用解码器返回的输出格式。
 
 Native 构建默认开启以下两个 API 26 能力开关：
 
@@ -594,15 +596,15 @@ BufferMode 不会同时给解码器配置 Surface。输出帧处理完后始终�
 
 ##### OpenGL 和 Vulkan 送显
 
-OpenGL 和 Vulkan 模式同样不向解码器配置 Surface，因此保留了 BufferMode 可以读取像素的特点。输出 Buffer 在 `VideoFrameConverter` 中按解码器返回的宽高、stride、slice height 和像素格式转换为连续 RGBA 数据，再交给对应的图形后端：
+两个 GPU 选项共用视频调度、暂停、Seek 和释放入口，但输出边界并不对称。把它们放在同一设置分组，是为了便于比较图形后端，而不是表示两者都从 decoder Buffer 读取像素。
 
-- OpenGL 模式创建 EGL window surface、GLES 2.0 context 和纹理。每帧上传 RGBA 纹理，依据封装的 rotation 设置纹理坐标和等比 viewport，绘制后调用 `eglSwapBuffers()`；窗口两侧或上下不足的区域保持黑色。
-- Vulkan 模式创建 OpenHarmony Vulkan Surface，选择支持图形队列和 Swapchain 的物理设备，创建 Swapchain、command buffer、可复用的 staging Buffer、device-local upload image 和同步对象。CPU 先按当前 XComponent 尺寸缩小输出帧，再上传；Vulkan 在 Swapchain image 上清黑并完成最后的等比缩放和 blit。
-- GPU 路径只适合能安全转换为 8bit RGBA 的输出。原始 HDR Vivid、10bit 或动态 HDR 元数据会自动切换到 BufferRenderer，由 NativeBuffer 透传色彩空间和 HDR 元数据，避免颜色被错误压缩到 RGBA8。HDR Vivid 转 BT.709 仅支持 Surface模式直接送显，由解码器完成转换；OpenGL 和 Vulkan 设置页会禁用此选项。BufferRenderer 回退时始终保留源色彩空间和 HDR 元数据；回退链路会同时根据 HEVC Main 10 profile 和解码输出的 HDR Vivid 元数据按 P010 配置窗口。
-- 两种模式都只借用 decoder 输出 Buffer 到当前帧处理完成，绘制提交后立即调用 `OH_VideoDecoder_FreeOutputBuffer(..., false)`。XComponent 和 NativeWindow 是框架持有的非拥有资源，sink 只保存引用，不负责销毁。
-- YUV/RGBA 转换或 GPU 初始化、窗口重建、提交失败时，当前 sink 会记录一次告警并切换到已有 `BufferRenderer`。后续帧直接走 Buffer 拷贝路径，避免每帧反复创建 GPU 上下文，也保证 decoder Buffer 仍只归还一次。正常 Seek 只重建解码器和音频输出，保留已初始化的 GPU 上下文、Swapchain 与缓存，减少 Vulkan 等待设备空闲和重复初始化的时间。
+**OpenGL。** 普通 8 bit 内容初始化时，`OpenGLVideoSink` 先创建 `OH_NativeImage`，取得它的 producer `OHNativeWindow` 并配置给视频解码器。解码器把帧提交到这个 Surface 后，`OnFrameAvailable()` 只递增待处理帧数并唤醒送显线程，不在 codec 回调线程操作 EGL。送显线程调用 `OH_NativeImage_UpdateSurfaceImage()` 把最新帧关联到 `GL_TEXTURE_EXTERNAL_OES`，读取 NativeImage 给出的纹理变换矩阵，再按媒体 rotation 计算等比 viewport，最后绘制到 XComponent 的 EGL window surface。NativeImage 返回的矩阵已经包含 codec 输出的裁剪、方向和纹理原点转换，绘制时不会重复旋转纹理，以免横屏内容翻转、竖屏内容再次横置。
 
-GPU 模式的转换和 staging 拷贝会增加 CPU/内存带宽开销，适合验证图形后端、纹理路径和窗口生命周期，不作为默认播放模式。GPU 模式与 SurfaceMode 一样支持音画同步、Seek、暂停和停止；Dump 和 HDR 元数据读取仍沿用 Buffer 输出链路。
+OpenGL 这条直连 Surface 路径不能读取解码输出像素，因此普通情况下不能 Dump 解码帧。NativeImage、EGL 上下文或窗口重建失败时，播放器才改用 decoder Buffer 输出：此时 `VideoFrameConverter` 按实际宽高、stride、slice height 和像素格式转换为连续 RGBA，再由 GLES 纹理上传绘制；该回退也失败时会交给 `BufferRenderer`。每一层只在本次任务内建立一次，失败后不会每帧重复创建上下文。HDR Vivid、10 bit 或动态 HDR 元数据内容不进入 RGBA8 纹理转换：OpenGL 保留直连 XComponent Surface，避免色彩信息在应用层被压缩；设置页也会禁用这条链路不支持的 HDR Vivid 转 BT.709 选项。
+
+**Vulkan。** 当前 Vulkan 实现仍采用 decoder Buffer 输出。`VideoFrameConverter` 会在校验源 Buffer 的 offset、stride、slice height 和容量后转换 RGBA；为控制 CPU 和内存带宽，转换尺寸会按当前 XComponent 尺寸和旋转后的画面比例确定。Vulkan 侧创建 OpenHarmony Surface、图形队列、Swapchain、命令 Buffer、可复用 staging Buffer、device-local upload image 和同步对象。每帧的 RGBA 先复制到 staging Buffer，再上传到 image，命令提交前清黑 Swapchain image，并在最终 blit 时保持等比显示。复制已完成或提交失败后，decoder 输出 Buffer 都会立即通过 `FreeOutputBuffer(..., false)` 归还，GPU 不会长期占用 codec 的输出队列。
+
+Vulkan 碰到 HDR/10 bit 输出时改用 `BufferRenderer`，由 NativeWindow 目标 Buffer 保留色彩空间和静态/动态 HDR 元数据。窗口、图形设备、转换或提交失败也使用同一回退，避免在一个已失效的图形上下文中持续重试。`BufferRenderer` 的源 Buffer 和 NativeWindow 目标 Buffer 从不跨帧共用：前者归还 decoder，后者在 Flush 后归还图形系统。OpenGL 和 Vulkan 都因此适合验证窗口、纹理或 Swapchain 处理；Vulkan 的 RGBA 转换与上传额外占用 CPU/内存带宽，不作为默认播放路径。
 
 <a id="hdr-vivid-output"></a>
 
@@ -617,11 +619,13 @@ BufferMode 能访问解码输出 `OH_AVBuffer` 对应的 `OH_NativeBuffer`，因
 
 水印状态一旦确认会保持到本轮播放结束，避免个别帧暂时不携带动态元数据时频繁闪烁。SurfaceMode 的回调仍不提供实际图像 Buffer；播放器只在送显后尽力读取 XComponent 最近一次 flush 的 Buffer。该检查只会正向确认，读不到就保持未确认，不影响系统图形链路正常播放 HDR Vivid 内容。
 
+容器中的 `OH_MD_KEY_VIDEO_IS_HDR_VIVID` 只能说明封装层声明了 HDR Vivid，不能证明解码后的每一帧仍携带可用的动态元数据。水印需要 `OH_HDR_METADATA_TYPE` 为 `OH_VIDEO_HDR_VIVID`，并且 `OH_HDR_DYNAMIC_METADATA` 非空后才会出现。BufferMode 能在每帧的源 NativeBuffer 上做这个判断；直连 Surface 无法取得 decoder 的图像 Buffer，只会在首帧稳定后及后续低频时机读取最近 flush 的目标 Buffer 尝试确认。确认失败时不把“未确认”写成“非 HDR”，也不会改变解码或送显路径。
+
 <a id="buffer-dump"></a>
 
 ##### Buffer Dump
 
-Dump 是 Buffer、OpenGL 和 Vulkan 模式的独立可选能力，默认关闭。UI 将 `enableVideoDump` 放入 `PlayOptions`，`Player::DumpOutput()` 仅在 Buffer-based 模式且该开关开启时创建文件，并按解码输出格式写入有效图像区域：
+Dump 是可读 decoder 输出路径的独立可选能力，默认关闭。BufferMode 和 Vulkan 能直接使用 decoder Buffer；OpenGL 只有在 NativeImage 直连路径不可用并回退为 Buffer 输出时才具备这个条件。UI 将 `enableVideoDump` 放入 `PlayOptions`，`Player::DumpOutput()` 仅在当前路径确实持有可读输出 Buffer 时创建文件，并按解码输出格式写入有效图像区域：
 
 - YUV420P 分别写入 Y、U、V 平面；
 - NV12/NV21 写入 Y 平面和交错 UV/VU 平面；
@@ -754,6 +758,8 @@ std::fill(dest + index, dest + length, 0);
 
 当解封装结果包含多个音频轨时，`Demuxer` 默认选择第一条音频轨，也支持通过 `PlayOptions.audioTrackIndex` 指定容器轨道索引。媒体信息快照会保存每条音频轨的 MIME、采样率、声道数和码率，播放控制区据此生成可识别的轨道标签。用户确认切换前，播放器通过 `GetAudioTrackInfo()` 读取候选轨道而不改动当前 demuxer 选择集，并创建临时 `AudioDecoder` 执行 `Create + Configure` 预检；不支持的轨道会直接提示失败，当前音轨、AudioRenderer、视频和音频时钟均保持不动。预检成功后才重建音频解码器、`AudioRenderer` 和音频工作线程，视频解码、送显与当前播放位置保持连续，不重新开始视频。新音轨启动后会先丢弃早于当前播放位置的音频帧，待音频时钟追上后再恢复音画同步，避免视频因音频时钟落后而连续丢帧。单音轨文件会给出提示。播放控制区的“静音/取消静音”按钮通过 `OH_AudioRenderer_SetVolume()` 即时设置音量，取消静音时恢复设置页中保存的音量。
 
+切换音轨的难点不在更新一个索引，而在避免失败路径破坏正在播放的声音。候选轨预检期间，旧 decoder、旧 renderer 和当前 Demuxer 选择集都保持有效；只有临时 decoder 已经完成创建和配置，才停止旧音频 worker、切换 audio track、清空旧 PCM 并建立新的 AudioRenderer。新轨从当前播放位置附近重新取样，目标前的数据不会送进 renderer，首段可播放 PCM 建立新音频时钟后视频才继续按音频主时钟调度。这样切到不支持的 MIME、缺少 codec config 或配置失败的轨道时，用户仍可继续使用原音轨和 Seek。
+
 <a id="audio-interruption"></a>
 
 #### *系统音频中断与前后台恢复*
@@ -769,6 +775,8 @@ std::fill(dest + index, dest + length, 0);
 #### *外挂 SRT 字幕*
 
 字幕为 UI 侧的可选能力，不修改 Native 解码链路。用户点击“字幕”后通过 `DocumentViewPicker` 选择 `.srt` 文件，`SubtitleModel.parseSrt()` 解析序号、`HH:MM:SS,mmm --> HH:MM:SS,mmm` 时间范围和多行文本；`PlaybackViewModel` 每 250 ms 提供当前播放位置，`findSubtitleText()` 查找命中的 Cue 并更新播放窗口中的文本。更多播放选项中的“字幕同步”可选择提前 0.5 秒、同步或延后 0.5 秒，实际查找位置会叠加该偏移。
+
+解析阶段把每个 Cue 转成起止微秒和原始多行文本，排序后再用于查找；空块、无法解析的时间行和结束时间早于开始时间的项会被忽略。播放页只保存当前命中的文本，不把 SRT 内容交给解码器或封装器，因此切换字幕、调整字号或修改偏移不会打断音视频工作线程。拖动进度条时使用预览位置查找字幕，松手后自然回到 Native 的实际播放位置，避免缩略图、进度条和字幕各自显示不同的时间点。
 
 “字幕样式”打开独立的滚动设置面板。`SubtitleStyleModel` 保存显示开关、小/中/大字号、白/黄/青文字、透明/半透明黑/深黑背景，以及顶部或底部位置。文字带有固定深色阴影，背景透明时也能保持可读性。样式只影响 ArkUI 覆盖层，不重建解码器，也不改变字幕 Cue 的时间。恢复默认会回到显示、18fp、白字、半透明黑背景和底部位置。字幕文件为空、格式无效或读取失败时分别提示；播放停止或媒体切换时清空字幕文本，拖动时则按预览时间更新。
 
@@ -823,6 +831,8 @@ OH_NativeWindow_NativeWindowHandleOpt(window, SET_TRANSFORM, transformHint);
 
 Codec Seek 不在 ArkTS 主线程同步执行。`seekToAsync()` 使用 NAPI async work 在 Native 工作线程中调用原有精确 Seek；`SeekRequestController` 有一个执行中的请求和一个待执行位置。用户继续拖动、点击进度条、快进/快退或触发 A-B 循环时，待执行位置替换为最新目标，已替换的 Promise 返回 `superseded`，不会依次重建多次 Decoder。停止、切换媒体或页面离开时会使待执行位置失效，但不会中途销毁正在重建的 codec；界面等待该工作项结束后再停止，避免线程访问已释放的回调上下文。
 
+连续请求会先经过一个很短的收敛窗口，执行期间也始终只保留最后一个 pending 位置。Slider 拖动、双击快进/快退、上一帧/下一帧和 A-B 回跳因此走同一条入口：UI 不会为了其中一个手势维护额外的“假进度”，Native 也不会同时执行多个 decoder 重建。取消只影响尚未开始的请求；已经开始的重建会完成清理和状态恢复，再交给 Stop 或下一条请求处理。这一点比单纯节流更重要，因为 codec 回调、工作线程和旧的输出 Buffer 必须在同一条时间线结束。
+
 播放控制区提供暂停/继续播放、快退 15 秒、快进 15 秒和重播。播放窗口的单击复用暂停/继续入口：只有播放器处于 `PLAYING` 或 `PAUSED` 且不在 Seek、停止过程中时才切换状态，避免拖动进度条或任务收尾时误操作。双击窗口左半区或右半区会复用快退/快进按钮的精准 `seekTo()`，显示简短方向提示，并将目标限制在 `[0, durationUs]`。单击、双击和长按倍速放在同一个互斥手势组中，因此双击不会额外暂停，长按也只改变倍速。暂停时 Native 状态切换为 `PAUSED`，工作线程在不销毁解码器的情况下等待，`AudioRenderer` 同步暂停；继续播放时恢复渲染器并唤醒工作线程。重播保留当前文件选择，重新打开文件并从 0 开始创建播放任务。
 
 `seekTo()` 在 `PLAYING` 或 `PAUSED` 状态接受请求，并将目标位置限制在 `[0, durationUs]` 范围内。播放器进入 `SEEKING` 后按以下顺序切换时间线：
@@ -852,11 +862,15 @@ Codec Seek 不在 ArkTS 主线程同步执行。`seekToAsync()` 使用 NAPI asyn
 
 “播放异常后尝试恢复一次”默认开启。页面只有在本轮已经产生音频或视频输出时才保存恢复快照，快照包含位置、目标倍速和暂停状态；Native 以 `error` 完成后，页面只尝试重新打开同一 URI 一次。用户停止、换媒体、离开页面，或媒体在产生输出前就初始化失败时，不会触发恢复。这样可以处理运行中偶发的 codec/renderer 失败，又避免损坏文件或不支持的配置反复打开。
 
+历史记录以 URI 为键，最多保留最近 20 项，位置会限制在本次读取到的有效时长内；距结尾约 3 秒以内的记录被视为已经播放完成，下次从 0 开始。恢复快照与历史记录分开：前者只服务于当前一次运行期失败，并由 `takeRetry()` 消费一次；后者服务于用户下次主动打开文件。把两类状态分开后，用户主动停止、选择了损坏文件或初始化前就失败的任务都不会意外触发自动重播。
+
 <a id="display-mode"></a>
 
 #### *全屏与显示比例*
 
-播放控制区提供全屏切换和显示比例选择。全屏时通过主窗口的 `setWindowLayoutFullScreen(true)` 扩展内容区域，并请求横屏方向；退出全屏恢复普通窗口布局和竖屏方向。XComponent 不支持 `objectFit` 属性，视频 Surface 的比例由 NativeWindow 送显链路控制；UI 保留“适应窗口/铺满窗口”模式状态，避免调用仅适用于 Image 的 ArkUI API，不改变解码帧本身。
+播放控制区提供全屏切换和显示比例选项。全屏时通过主窗口的 `setWindowLayoutFullScreen(true)` 扩展内容区域，并请求横屏方向；退出全屏恢复普通窗口布局和竖屏方向。全屏、普通页面、画中画和 AVSession 都调用同一组播放控制入口，因此切换显示状态不会新建第二个播放器，也不会改变当前 Seek、A-B 循环或倍速请求。
+
+`XComponent` 没有 `objectFit` 属性，画面的实际缩放由 NativeWindow 送显路径决定。当前窗口使用 `OH_SCALING_MODE_SCALE_FIT_V2` 保持等比并留黑边；“适应窗口/铺满窗口”选项会保存用户意图，供后续接入 NativeWindow 缩放策略或布局计算使用，暂不把它伪装成已经生效的像素裁剪。旋转、翻转和容器 rotation 也在 Native 送显端处理，不会重新编码媒体或修改媒体时间戳。
 
 <a id="playback-diagnostics"></a>
 
@@ -866,6 +880,8 @@ Codec Seek 不在 ArkTS 主线程同步执行。`seekToAsync()` 使用 NAPI asyn
 
 诊断快照还包含音画同步决策偏差及其均值/最大值、PCM 队列时长、AudioRenderer 设备待播时长、补静音回调次数、同步策略丢帧次数、系统音频中断次数/最近 Hint/当前状态，以及 Seek 的重建和目标帧提交耗时。偏差在视频线程决定等待或丢帧前采样，正值表示视频 PTS 领先音频主时钟。它反映调度估计，不代表屏幕到扬声器的物理延迟。送显提交数同样只表示应用已向 Surface 或 NativeWindow 提交。`PlaybackDiagnostics` 在 Native 侧加锁聚合短期统计，PCM 水位和欠载次数使用原子变量；`getPlaybackInfo()` 每 250 ms 复制只读快照，不改变调度或送显顺序。开始新任务、停止、失败或新的 Seek 会重置不再适用的统计。
 
+诊断的取数也刻意避开实时关键路径。帧数量、音频水位和欠载次数用原子变量更新；音画同步偏差按固定采样间隔汇总，避免每帧为了面板显示竞争同一把锁；Seek 分别记录“重建完成”和“目标帧第一次提交”，便于区分解码器重建慢与首帧等待慢。面板里的输出帧率是应用侧可观察的输出节奏，送显次数表示提交到 Surface 或 NativeWindow 的次数，二者都不能替代屏幕刷新率，也不能直接推导端到端视听延迟。
+
 <a id="ab-frame-control"></a>
 
 #### *A-B 循环与单帧控制*
@@ -873,6 +889,8 @@ Codec Seek 不在 ArkTS 主线程同步执行。`seekToAsync()` 使用 NAPI asyn
 在“更多播放选项”中点击“设置 A 点”记录当前播放位置，再点击“设置 B 点”启用循环。播放位置到达 B 点后，UI 调用结构化 `seekTo(A)` 回到 A 点；新的媒体、停止播放或清除操作会重置 A/B 点。B 点必须晚于 A 点，避免产生零长度循环。
 
 “上一帧”和“下一帧”按媒体视频帧率计算单帧时间间隔，播放中会先暂停，再调用 `seekTo()` 定位到相邻帧，并保持暂停状态。暂停时 Seek/单帧操作会临时放行视频解码线程，丢弃目标时间之前的帧并立即送显目标帧，音频渲染器仍保持暂停，因此画面和进度会同步更新，诊断中的输出/送显计数也会变化。若媒体没有有效帧率，则使用 30 fps 作为安全回退值。
+
+精确 Seek 依赖“从目标之前的同步帧重新解码”这一前提。长 GOP 文件里，用户选择的时间点通常不是可独立解码的 I 帧；解封装器先定位到前一个同步帧，播放器只把它作为恢复起点，目标前的视频帧以不送显方式归还，目标前的 PCM 则丢弃或按完整采样帧裁剪。这样画面不会先短暂显示 Seek 起点，音频也不会从目标之前的一小段开始播放。若文件本身缺少可用同步帧，Seek 只能按 codec 返回的失败结果结束，示例不会伪造一个错误的位置。
 
 <a id="pip-background"></a>
 
@@ -951,6 +969,8 @@ IDLE -> INITIALIZING -> READY -> PLAYING <-> PAUSED -> STOPPING -> IDLE
 
 `PlayerStateMachine` 将 `IDLE -> INITIALIZING -> READY -> PLAYING <-> PAUSED -> STOPPING -> IDLE` 以及 `PLAYING/PAUSED <-> SEEKING` 定义为唯一合法迁移。`Player` 不再暴露全局单例，NAPI 模块通过环境实例数据持有一个独立的 `Player`，环境销毁时自动释放；所有 NAPI 操作先取得当前环境对应的播放器，避免跨环境共享媒体资源。
 
+窗口资源的处理也遵守同一条释放边界。XComponent 和 `OHNativeWindow` 属于 ArkUI 框架，播放器只通过带 generation 的借用 lease 使用当前窗口；Surface 销毁时会先撤销这个可借用引用，异步送显线程在本帧结束后自然释放自己的 lease。这样 Surface 重建、停止播放和迟到的图形回调不会继续访问旧窗口，也不会由播放器错误地销毁框架所有的对象。
+
 <a id="camera-recording"></a>
 
 #### *相机采集与录制*
@@ -984,6 +1004,8 @@ Index.ets
 9. `createCameraInput()` 创建相机输入，并调用 `cameraInput.open()` 打开相机。
 10. `createSession(camera.SceneMode.NORMAL_VIDEO)` 创建 `VideoSession`。
 11. `beginConfig()` 后依次 `addInput(cameraInput)`、`addOutput(xComponentPreviewOutput)`、`addOutput(encoderVideoOutput)`。
+
+预览流和录像流虽然来自同一相机输入，却是两个独立的消费者。预览 XComponent 负责让用户看到相机画面，编码 Surface 只服务于视频编码；Native 不读取或释放这两个框架拥有的 Surface。进入录制页前会先用相机的 video profile 校验用户选择的规格，当前组合不可用时回落到默认规格或设备可用的第一个 profile，再把最终选择传给相机和编码器。这个回落只发生在创建前，开始录制后不会在两路输出之间临时改分辨率。
 12. `commitConfig()` 提交配置，再调用 `videoSession.start()` 启动预览。
 
 开始录制时：
@@ -1127,6 +1149,8 @@ muxer_->WriteSample(muxer_->GetAudioTrackId(), buffer, attr);
 `WriteSample()` 内部会先调用 `OH_AVBuffer_SetBufferAttr(buffer, &attr)`，再调用 `OH_AVMuxer_WriteSampleBuffer()`。由于音频和视频输出线程可能并发写入，本示例使用 `writeMutex_` 保护 muxer 写入，避免多线程同时操作封装器。
 
 停止录制后，编码器输出 EOS，`Recorder::Release()` 再释放 muxer。最终文件由系统媒体库资源对应的 fd 承载，UI 侧已通过 `photoAccessHelper.createAsset()` 创建该资源。Native 完成封装收尾后，UI 才关闭 fd 并释放相机资源。
+
+停止流程不能直接销毁编码器。相机可能刚向编码 Surface 提交最后一帧，音频采集回调也可能还持有未填满一个 encoder 输入 Buffer 的 PCM。页面先停止相机录像输出并等待 frame-end，再让视频编码器和音频链路分别收到 EOS；两个输出线程都消费到 EOS 后，Muxer 才停止并写入容器收尾信息。等待条件使用完成状态谓词，而不是只等待一次通知，因此即使 EOS 在页面开始等待前已经到达，也不会让录制页长期卡住。最后关闭 fd，避免媒体库看到一个尚未完成收尾的容器文件。
 
 #### *附录：直送码流和 Buffer 轮转*
 
@@ -1455,7 +1479,7 @@ audioPlayedTimeUs = currentAudioPts - latencyUs + anchorDiffUs * targetSpeed
 
 **为什么格式表中列出的媒体仍可能不能播放？** 格式表只列出常见能力。实际结果取决于文件的封装、码流、分辨率、帧率、Profile 和设备 codec 能力。选择“自动选择”时，系统 decoder 初始化失败会尝试一次软件解码；手动选择硬件解码时不会静默切换，便于定位设备能力问题。
 
-**为什么 BufferMode、OpenGL 和 Vulkan 比 SurfaceMode 更耗性能？** SurfaceMode 把输出 Buffer 直接交给图形系统。Buffer-based 模式需要申请或上传图像、等待同步、拷贝或 staging 像素并提交送显，因而更适合调试、Dump、HDR 元数据透传或验证特定图形后端。性能诊断中的 Buffer/GPU 送显耗时只统计实际送显工作。
+**为什么 BufferMode、OpenGL 和 Vulkan 比 SurfaceMode 更耗性能？** SurfaceMode 把输出直接交给 XComponent Surface。BufferMode 和 Vulkan 需要申请目标 Buffer 或 staging Buffer、等待同步、拷贝或上传像素后再提交；OpenGL 的普通 NativeImage 路径避免了 CPU 像素转换，但仍要通过 EGL 更新并绘制外部纹理。它们适合检查 Buffer 行为或验证图形后端，不作为默认性能路径。性能诊断中的 Buffer/GPU 送显耗时只统计实际送显工作。
 
 **为什么 HDR Vivid 文件没有水印？** 水印只在实际输出 Buffer 同时包含 HDR Vivid 类型和有效动态元数据后显示。BufferMode 直接检查解码输出，SurfaceMode 会尽力检查 XComponent 最近一次 flush 的 Buffer。封装信息声明 HDR Vivid、普通 HDR10，或设备没有输出可读的动态元数据，都不会显示该应用侧水印。
 

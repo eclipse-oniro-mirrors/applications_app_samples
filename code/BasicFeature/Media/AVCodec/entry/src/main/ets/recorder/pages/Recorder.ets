@@ -132,13 +132,14 @@ export struct Recorder {
 
   onPageHide(): void {
     if (!this.isNavigatingBack) {
+      // 页面隐藏时停止录制并释放相机、编码器资源。
       this.stopAndNavigateBack().catch((error: Object) => {
         Logger.error(TAG, `Failed to stop recording when page hides. error: ${JSON.stringify(error)}`);
       });
     }
   }
 
-  setTimer() {
+  setTimer(): void {
     this.buttonEnabled = false;
     setTimeout(async () => {
       this.buttonEnabled = true;
@@ -148,6 +149,7 @@ export struct Recorder {
   private waitForVideoFrameEnd(): Promise<void> {
     return new Promise<void>((resolve: () => void) => {
       this.frameEndResolver = resolve;
+      // frameEnd 未到时超时继续释放，避免停止流程挂起。
       this.frameEndTimer = setTimeout(() => {
         Logger.warn(TAG, 'Timed out waiting for the video frameEnd event; continue stopping the recorder.');
         this.resolveVideoFrameEnd();
@@ -305,15 +307,13 @@ export struct Recorder {
     }, 1000);
   }
 
-  async createRecorder() {
-    // Create the CameraManager object.
+  async createRecorder(): Promise<void> {
     let cameraManager = camera.getCameraManager(this.getUIContext().getHostContext());
     if (!cameraManager) {
       Logger.error(TAG, 'camera.getCameraManager error');
       return;
     }
 
-    // Get supported camera devices.
     let cameraDevices: camera.CameraDevice[] = cameraManager.getSupportedCameras();
     if (cameraDevices !== undefined && cameraDevices.length <= 0) {
       Logger.error(TAG, 'cameraManager.getSupportedCameras error!');
@@ -334,14 +334,12 @@ export struct Recorder {
       return;
     }
 
-    // The preview stream of XComponent.
     let xComponentPreviewProfile: camera.Profile | undefined = previewProfileCameraCheck(cameraManager, params);
     if (xComponentPreviewProfile === undefined) {
       Logger.error(TAG, 'XComponentPreviewProfile is not found');
       return;
     }
 
-    //Create the encoder output object
     encoderVideoOutput = cameraManager.createVideoOutput(encoderProfile, params.outputId);
     if (encoderVideoOutput === undefined) {
       Logger.error(TAG, 'encoderVideoOutput is undefined');
@@ -349,14 +347,12 @@ export struct Recorder {
     }
     Logger.info(TAG, 'encoderVideoOutput  success');
 
-    // Create a preview stream output object
     xComponentPreviewOutput = cameraManager.createPreviewOutput(xComponentPreviewProfile, this.xComponentSurfaceId);
     if (xComponentPreviewOutput === undefined) {
       Logger.error(TAG, 'XComponentPreviewOutput is undefined');
       return;
     }
 
-    // Create the cameraInput object.
     try {
       cameraInput = cameraManager.createCameraInput(cameraDevices[0]);
     } catch (error) {
@@ -368,7 +364,7 @@ export struct Recorder {
       return;
     }
 
-    // Turn on the camera.
+    // 相机打开完成后才能配置会话。
     try {
       await cameraInput.open();
     } catch (error) {
@@ -376,7 +372,7 @@ export struct Recorder {
       Logger.error(TAG, `Failed to open cameraInput. error: ${JSON.stringify(err)}`);
     }
 
-    // Session flow.
+    // 一个录像会话同时连接预览和编码输出。
     try {
       videoSession = cameraManager.createSession(camera.SceneMode.NORMAL_VIDEO) as camera.VideoSession;
     } catch (error) {
@@ -388,7 +384,7 @@ export struct Recorder {
       return;
     }
 
-    // Start Configuring the session.
+    // 输入和输出必须在 beginConfig 与 commitConfig 之间添加。
     try {
       videoSession.beginConfig();
     } catch (error) {
@@ -396,7 +392,6 @@ export struct Recorder {
       Logger.error(TAG, `Failed to beginConfig. error: ${JSON.stringify(err)}`);
     }
 
-    // Add CameraInput to the session.
     try {
       videoSession.addInput(cameraInput);
     } catch (error) {
@@ -404,7 +399,6 @@ export struct Recorder {
       Logger.error(TAG, `Failed to add cameraInput. error: ${JSON.stringify(err)}`);
     }
 
-    // Add the XComponent preview stream to the session.
     try {
       videoSession.addOutput(xComponentPreviewOutput);
     } catch (error) {
@@ -412,7 +406,6 @@ export struct Recorder {
       Logger.error(TAG, `Failed to add XcomponentPreviewOutput. error: ${JSON.stringify(err)}`);
     }
 
-    // Add the encoder video stream to the session.
     try {
       videoSession.addOutput(encoderVideoOutput);
     } catch (error) {
@@ -420,11 +413,10 @@ export struct Recorder {
       Logger.error(TAG, `Failed to add encoderVideoOutput. error: ${JSON.stringify(err)}`);
     }
 
-    // Configure optional session features before committing the camera session.
+    // 防抖和色彩空间必须在 commitConfig 前设置。
     setVideoStabilizationMode(videoSession, params.videoStabilizationMode !== Const.VIDEO_STABILIZATION_DISABLED);
     setColorSpaceBeforeCommitConfig(videoSession, params.isHDRVivid);
 
-    // Submit configuration information.
     try {
       await videoSession.commitConfig();
     } catch (error) {
@@ -432,7 +424,7 @@ export struct Recorder {
       Logger.error(TAG, `videoSession commitConfig error: ${JSON.stringify(err)}`);
     }
 
-    // Session start.
+    // start 完成后才会向预览和编码输出缓冲区送帧。
     try {
       await videoSession.start();
     } catch (error) {

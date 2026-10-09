@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "../sink/BufferVideoSink.h"
+#include "plugin_manager.h"
 
 class VulkanVideoSink final : public VideoSink {
 public:
@@ -38,7 +39,7 @@ private:
         int32_t height = 0;
     };
 
-    bool EnsureContext(OHNativeWindow *window, int32_t width, int32_t height);
+    bool EnsureContext(NativeXComponentSample::PluginManager::PluginWindowLease &&windowLease);
     bool Initialize(OHNativeWindow *window, int32_t width, int32_t height);
     bool CreateInstance();
     bool CreateSurface(OHNativeWindow *window);
@@ -75,6 +76,8 @@ private:
     void ResetContextState();
     void DestroySwapchain();
 
+    // VkSurfaceKHR 的生命周期依赖 NativeWindow；销毁 Vulkan Surface 前持续持有窗口引用。
+    NativeXComponentSample::PluginManager::PluginWindowLease windowLease_;
     OHNativeWindow *window_ = nullptr;
     int32_t width_ = 0;
     int32_t height_ = 0;

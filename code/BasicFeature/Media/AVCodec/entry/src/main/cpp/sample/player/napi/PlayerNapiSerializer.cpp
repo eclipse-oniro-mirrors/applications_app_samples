@@ -196,7 +196,7 @@ bool SetStateValue(napi_env env, napi_value stateObject, const char *name, Playe
     return napi_create_int32(env, static_cast<int32_t>(state), &value) == napi_ok &&
         napi_set_named_property(env, stateObject, name, value) == napi_ok;
 }
-} // namespace
+} // 匿名命名空间
 
 bool PlayerNapiSerializer::CreatePlaybackResult(napi_env env, bool success,
     PlaybackCompletionReason reason, bool structuredResult, napi_value &result)

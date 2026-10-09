@@ -13,8 +13,8 @@
 
 struct NativePlayerSession {
     Player player;
-    // This flag is shared by NAPI's JS and seek worker threads. It prevents a
-    // control operation from touching Player while it is rebuilding codecs.
+    // NAPI 的 JS 线程与跳转工作线程共享该标记。重建 codec 期间，
+    // 它阻止其他控制操作继续访问 Player。
     std::atomic<bool> seeking { false };
 };
 

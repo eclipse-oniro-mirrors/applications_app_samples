@@ -26,7 +26,7 @@ Choose non-default playback settings only for a specific reason:
 | Investigate hardware decode compatibility | Software decoder + SurfaceMode direct output | Helps determine whether a problem is specific to the device hardware decoder; software decode uses more CPU. |
 | Inspect pixels, color, or HDR metadata | Automatic + BufferMode copy output | Gives the application access to decoder output, but adds a pixel copy for every presented frame. |
 | Export decoded frames | BufferMode copy output + decoded-frame dump | Intended for debugging. Files are written to the app sandbox and should not remain enabled during ordinary playback. |
-| Validate the GLES path | Surface-window OpenGL output | Scales decoder output to the display size, converts it to RGBA, and draws it through EGL/GLES with rotation-aware aspect-fit. HDR Vivid to BT.709 is unavailable in this mode. |
+| Validate the GLES path | Surface-window OpenGL output | Ordinary 8-bit content is decoded to a NativeImage Surface and drawn through an EGL/GLES external texture. If that path cannot be built, the player falls back to decoder-buffer output. HDR Vivid to BT.709 is unavailable in this mode. |
 | Validate the Vulkan path | Surface-window Vulkan output | Scales decoder output to the display size, converts it to RGBA, and presents it through a Vulkan Swapchain with rotation-aware aspect-fit. HDR Vivid to BT.709 is unavailable in this mode. |
 | High-frame-rate speed playback | Automatic + smart fluency when available | Speed control is always available. Smart fluency depends on the active decoder, device, and SDK. |
 
@@ -41,7 +41,7 @@ Choose non-default playback settings only for a specific reason:
 | PTS | The media time at which content should play or appear. Progress, subtitles, A/V sync, and seek all use it. |
 | SurfaceMode | The decoder sends pictures directly to the XComponent Surface. The application cannot inspect pixels for each frame. |
 | BufferMode | The decoder returns output buffers to the application, which copies them to a NativeWindow before presentation. This enables dump and HDR metadata handling. |
-| OpenGL mode | The application converts decoder output to RGBA, uploads it as an EGL/GLES texture, and draws it to the XComponent window. Initialization failures fall back to BufferMode. |
+| OpenGL mode | Ordinary 8-bit content is decoded to a NativeImage producer Surface. When a frame arrives, the application draws the external texture to the XComponent window. NativeImage or EGL initialization failure falls back to decoder-buffer output. |
 | Vulkan mode | The application converts decoder output to RGBA, copies it through a staging buffer, and presents it with an OpenHarmony Vulkan Surface and Swapchain. Initialization failures fall back to BufferMode. |
 | Sync / Async codec mode | How codec buffers are obtained: worker-thread queries or callback queues. It does not mean A/V synchronization is disabled in one mode. |
 | EOS | End of stream. After input ends, a codec or muxer still needs time to drain buffered output before it is released. |
@@ -63,10 +63,10 @@ Alongside the basic codec APIs, the sample connects file selection, validation, 
 | SurfaceMode output | The decoder outputs directly to the XComponent Surface and releases frames at the scheduled render time | [SurfaceMode output](#surface-output) |
 | Last-frame behavior on stop | Choose whether SurfaceMode retains the last frame or outputs a blank frame when stopped/destroyed | [SurfaceMode output](#surface-output) |
 | BufferMode output | The application obtains decoded buffers, copies them to a NativeWindowBuffer with stride awareness, and submits them through graphics APIs | [BufferMode output](#buffer-output) |
-| OpenGL output | Converts decoded YUV/RGBA buffers to RGBA and draws them with EGL/GLES textures | [OpenGL/Vulkan output](#gpu-output) |
+| OpenGL output | Ordinary 8-bit content reaches an EGL/GLES external texture through a NativeImage Surface; decoder buffers are converted to RGBA only after a fallback | [OpenGL/Vulkan output](#gpu-output) |
 | Vulkan output | Uploads converted RGBA data through a staging buffer and presents it with a Vulkan Swapchain | [OpenGL/Vulkan output](#gpu-output) |
 | BufferMode HDR Vivid | Propagates color space and HDR static/dynamic metadata and displays an HDR Vivid watermark after bitstream confirmation | [HDR Vivid detection and output](#hdr-vivid-output) |
-| Decoded-frame dump | BufferMode, OpenGL, and Vulkan can optionally save decoded frames in the application sandbox; disabled by default | [Buffer dump](#buffer-dump) |
+| Decoded-frame dump | BufferMode and Vulkan can save decoded frames in the application sandbox; OpenGL can do so only after it has fallen back from NativeImage Surface output to decoder-buffer output | [Buffer dump](#buffer-dump) |
 | Audio decoding and playback | Decodes compressed audio to PCM and continuously feeds AudioRenderer | [Audio decoding and playback](#audio-playback) |
 | System audio interruptions and background recovery | Handles calls, audio focus loss, and app background/foreground transitions without mistaking them for codec failures | [Audio interruptions and background recovery](#audio-interruption) |
 | Multi-track audio | Lists codec, sample rate, channels, and bitrate; validates a candidate before switching without restarting video | [Audio decoding and playback](#audio-playback) |
@@ -80,7 +80,7 @@ Alongside the basic codec APIs, the sample connects file selection, validation, 
 | Progress and precise seek | Shows current position and duration; merges rapid seek requests, resumes from a sync frame, and discards output before the requested target | [Playback progress and seek](#playback-seek) |
 | Playback controls | Supports single-tap pause/resume, double-tap left/right for a 15-second precise seek, control-button pause/resume, previous/next frame, and replay; paused operations update the picture immediately | [Playback progress and seek](#playback-seek) |
 | Queue, resume, and recovery | Supports sequential, repeat-one, repeat-all, and shuffle modes; restores position and can retry a runtime failure once | [Playback queue and resume](#playback-queue) |
-| Fullscreen and display ratio | Toggle fullscreen/orientation and choose fit-window or fill-window display | [Fullscreen and display ratio](#display-mode) |
+| Fullscreen and display ratio | Toggle fullscreen/orientation; record a fit-window or fill-window preference while the current NativeWindow path remains aspect-fit | [Fullscreen and display ratio](#display-mode) |
 | Playback diagnostics | Inspect output/presented/dropped frames, sync decision offset, PCM/device queues, underruns, interruption count, seek timing, and BufferMode timing | [Playback diagnostics](#playback-diagnostics) |
 | A-B loop and frame stepping | Set A/B positions for looping and move one video frame at a time | [A-B loop and frame stepping](#ab-frame-control) |
 | Picture-in-picture and background playback | Continue viewing in the system PiP window and optionally enter PiP on home | [Picture-in-picture and background playback](#pip-background) |
@@ -347,6 +347,8 @@ The Native layer revolves around these data structures:
 - `SampleCallback` receives async `OnNeedInputBuffer` and `OnNewOutputBuffer` callbacks and enqueues work in `CodecUserData`.
 - `AudioOutputPump` unifies asynchronous queue consumption and synchronous output queries, appends PCM to `renderQueue`, and delegates buffer release and clock accounting to `Player`.
 
+These objects describe what may be used for the current handoff; they do not take ownership of SDK buffers. `CodecBufferInfo` keeps the borrowed `OH_AVBuffer*`, the index required to return it, and an attribute snapshot. It never caches a pixel address or destroys an `OH_AVBuffer`. Once an input sample has been submitted, the application no longer accesses that input buffer. An output buffer is readable only while it is being presented, dumped, or converted to PCM. Seek, Stop, and Surface destruction first unblock queue waits and wait for workers to exit, then release codecs and clear queues. A late callback can therefore observe an invalidated context, but cannot continue into a destroyed player or window.
+
 #### Playback and Recording Flow
 
 The later sections describe individual modules and APIs. This section follows one user operation from the page to Native processing and back again. The page prepares input and renders results; Native creates media objects, schedules workers, and releases resources. On failure, the page becomes usable again and Native does not keep a partially initialized codec or worker.
@@ -414,7 +416,7 @@ Capability objects are owned by the framework and are not destroyed by the sampl
 
 The playback settings expose `OH_MD_KEY_VIDEO_DECODER_BLANK_FRAME_ON_SHUTDOWN`, which selects whether SurfaceMode keeps the last frame or outputs a blank frame when stopped or destroyed. `OH_MD_KEY_ENABLE_SYNC_MODE` follows the Sync/Async selection. Smart-fluency retention mode, target speed, and thermal retention ratio remain runtime policies.
 
-Advanced settings include low-latency decoding, decoding-order output, and HDR Vivid to BT.709 conversion. The first two are checked with `OH_AVCapability_IsFeatureSupported()` before configuration; unsupported codec/device combinations are rejected with a recorded reason. The color-space key `OH_MD_KEY_VIDEO_DECODER_OUTPUT_COLOR_SPACE=OH_COLORSPACE_BT709_LIMIT` is sent only for HDR Vivid media using direct Surface output. OpenGL and Vulkan use a CPU conversion and upload sample path, so the setting is disabled there to prevent impractical 4K HDR software tone mapping. Requested decoder format and actual output format are retained separately: a Seek rebuild uses the original request, while presentation and dump use the decoder-reported output.
+Advanced settings include low-latency decoding, decoding-order output, and HDR Vivid to BT.709 conversion. The first two are checked with `OH_AVCapability_IsFeatureSupported()` before configuration; unsupported codec/device combinations are rejected with a recorded reason. The color-space key `OH_MD_KEY_VIDEO_DECODER_OUTPUT_COLOR_SPACE=OH_COLORSPACE_BT709_LIMIT` is sent only for HDR Vivid media using a decoder Surface. OpenGL's direct NativeImage path and Vulkan's Buffer/Swapchain path do not offer a general HDR Vivid-to-BT.709 conversion contract, so the setting is disabled for those modes rather than relying on an application-side 4K HDR conversion. Requested decoder format and actual output format are retained separately: a Seek rebuild uses the original request, while presentation and dump use the decoder-reported output.
 
 Two API 26 capabilities are enabled by default in the Native build:
 
@@ -559,6 +561,8 @@ The copy keeps decoder output ownership separate from NativeWindow consumer owne
 
 `BufferRenderer` requests one destination buffer per frame, copies only valid image rows, flushes it to the window with the scheduled timestamp, and returns the decoder output buffer immediately after submission. Supported layouts include the pixel formats handled by the current decoder configuration, with stride-aware paths for planar/semi-planar YUV and RGBA.
 
+The source and destination buffers have separate lifetimes. Before calculating a source address, the renderer validates offset, stride, slice height, and capacity. After `RequestBuffer`, it waits for the release fence before mapping; a small guard aborts that destination buffer unless a successful Flush transfers it to the graphics system. Fence, map, copy, or Flush failure drops only the current frame and still returns the decoder source buffer. The renderer never attaches a decoder buffer to the window or retains it until a later display fence.
+
 Decoder input and output use separate buffer pools. For input, Async mode delivers an empty buffer and index through `OnNeedInputBuffer()`; Sync mode queries one with `OH_VideoDecoder_QueryInputBuffer()`. The application fills that buffer from Demuxer output, sets its attributes, and calls `OH_VideoDecoder_PushInputBuffer()`. After submission, it must not access the input buffer until the codec provides it again.
 
 For output, Async mode signals `OnNewOutputBuffer()` and Sync mode queries `OH_VideoDecoder_QueryOutputBuffer()`. SurfaceMode output does not expose readable image pixels: the application uses the PTS and flags for EOS, seek, and A/V scheduling, then calls render or free to return the output to the decoder. BufferMode exposes the decoded image during that output step; after metadata handling, optional dump, and NativeWindow copy, the application also calls `OH_VideoDecoder_FreeOutputBuffer()`. The graphics system consumes the copied destination buffer, not the decoder source buffer.
@@ -571,21 +575,21 @@ The diagram below shows the ownership rotation around Surface output. Once a buf
 
 ##### OpenGL and Vulkan Output
 
-OpenGL and Vulkan also configure the decoder without a Surface, so the application can read the decoded pixels. `VideoFrameConverter` uses the decoder-reported width, height, stride, slice height, and pixel format to produce a contiguous RGBA frame before handing it to the selected graphics backend:
+The GPU choices share video scheduling, pause, Seek, and release entry points, but their output ownership differs by design. They are grouped in settings to make graphics backends easy to compare, not because they both read decoder buffers.
 
-- OpenGL creates an EGL window surface, a GLES 2.0 context, and a reusable texture. Each frame is uploaded and drawn with rotation-aware texture coordinates and an aspect-fit viewport; unused space stays black.
-- Vulkan creates an OpenHarmony Vulkan Surface, selects a physical device with a graphics/present queue, and creates a Swapchain, command buffer, reusable staging buffer, device-local upload image, and synchronization objects. The frame is scaled to the current XComponent extent before upload; Vulkan clears the Swapchain image and performs the final aspect-fit blit.
-- Source HDR Vivid, 10-bit, and frames carrying dynamic HDR metadata bypass the 8-bit RGBA GPU path and use BufferMode so that color space and HDR metadata can be passed to the NativeWindow without a color shift. HDR Vivid to BT.709 is enabled only for direct Surface output, where the decoder performs the conversion. The BufferRenderer fallback preserves source color space and HDR metadata, and treats both an HEVC Main 10 profile and decoded HDR Vivid metadata as P010 output.
-- Both sinks borrow a decoder output buffer only for the current frame and call `OH_VideoDecoder_FreeOutputBuffer(..., false)` after the GPU submission. XComponent and NativeWindow are framework-owned, non-owning references; the sinks never destroy them.
-- If conversion, GPU initialization, window recreation, or submission fails, the sink logs a warning and switches to the existing `BufferRenderer`. Later frames use that path directly, avoiding repeated context creation and ensuring that each decoder buffer is returned exactly once. A normal Seek rebuilds decoders and audio output but retains an initialized GPU context, Swapchain, and caches, avoiding repeated Vulkan device-idle waits and initialization.
+**OpenGL.** For ordinary 8-bit content, `OpenGLVideoSink` creates an `OH_NativeImage`, takes its producer `OHNativeWindow`, and configures that window on the video decoder. When the decoder submits a frame, `OnFrameAvailable()` only increments pending-frame state and wakes the presentation worker; it does not issue EGL calls from the codec callback thread. The worker calls `OH_NativeImage_UpdateSurfaceImage()` to bind the latest image to `GL_TEXTURE_EXTERNAL_OES`, uses the transform matrix returned by NativeImage, calculates a rotation-aware aspect-fit viewport, and then draws to the XComponent EGL window surface. NativeImage's matrix already includes codec crop, orientation, and the texture-origin conversion, so the draw path does not apply the container rotation a second time.
 
-The conversion and staging copy add CPU and memory-bandwidth cost, so GPU modes are intended for graphics-path validation rather than the default playback path. They use the same A/V sync, seek, pause, and stop logic as the other modes; dump and HDR metadata handling remain part of the Buffer-based output path.
+This direct Surface path cannot read decoded pixels, so it normally cannot dump decoded frames. If NativeImage, EGL, or window recreation cannot be prepared, the player switches to decoder-buffer output. Only in that fallback does `VideoFrameConverter` validate the output layout, convert it to contiguous RGBA, and upload it as a GLES texture; a later GLES failure falls through to `BufferRenderer`. Each layer is initialized once for a playback task rather than recreated for every frame. HDR Vivid, 10-bit, and dynamic-HDR content stays on a direct XComponent Surface so that an RGBA8 conversion cannot discard color information; the settings page also disables HDR Vivid to BT.709 where that decoder conversion is unavailable.
+
+**Vulkan.** The current Vulkan implementation uses decoder-buffer output. `VideoFrameConverter` validates offset, stride, slice height, and capacity, then converts RGBA at a size derived from the XComponent extent and the rotated picture ratio. Vulkan creates an OpenHarmony Surface, graphics queue, Swapchain, command buffers, a reusable staging buffer, a device-local upload image, and synchronization objects. Each RGBA frame moves through the staging buffer into the upload image; the command path clears the Swapchain image to black and performs the final aspect-preserving blit. Once the copy has been submitted, or when submission fails, the decoder output is immediately returned with `FreeOutputBuffer(..., false)` so GPU work cannot drain the codec output pool.
+
+Vulkan routes HDR or 10-bit frames to `BufferRenderer`, which preserves color space plus static and dynamic HDR metadata in the NativeWindow destination buffer. The same fallback is used for unavailable windows, device/context failures, conversion failures, and failed submissions. A decoder source buffer and a NativeWindow destination buffer never span frames together: the source returns to the decoder, and the destination returns to the graphics system after Flush. OpenGL and Vulkan are therefore useful for validating NativeImage, texture, or Swapchain behavior. Vulkan's conversion and upload cost additional CPU and memory bandwidth, so it is not the default playback path.
 
 <a id="hdr-vivid-output"></a>
 
 ##### HDR Vivid Detection and Output
 
-Container metadata is displayed as reference information, but it does not confirm playback state. `HdrMetadataHelper` checks the decoded Buffer or, for direct Surface output, the XComponent's latest flushed Buffer for both the HDR Vivid type and dynamic metadata. BufferMode then propagates relevant color-space, HDR static metadata, and HDR dynamic metadata to the destination NativeBuffer before it is flushed.
+Container metadata is displayed as reference information, but it does not confirm playback state. The watermark requires both `OH_HDR_METADATA_TYPE == OH_VIDEO_HDR_VIVID` and non-empty `OH_HDR_DYNAMIC_METADATA`. BufferMode can make that decision from the source NativeBuffer for each decoded frame and propagates color space plus HDR static/dynamic metadata to the destination NativeBuffer before Flush. A direct Surface cannot expose the decoder image buffer; after the first frame stabilizes and at low-frequency follow-up points, the player only attempts a positive confirmation from the XComponent's latest flushed buffer. A read failure remains unconfirmed and never changes the decode path.
 
 The UI watermark is enabled only after the decoded output confirms HDR Vivid. This prevents ordinary SDR, HDR10, or a container-only declaration from being mislabeled. The confirmed state remains valid for the current playback session and is cleared when playback ends.
 
@@ -593,7 +597,7 @@ The UI watermark is enabled only after the decoded output confirms HDR Vivid. Th
 
 ##### Buffer Dump
 
-Decoded-frame dump is optional for BufferMode, OpenGL, and Vulkan. When enabled, `Player::DumpOutput()` writes decoded frames into the application sandbox using a file name that includes pixel format, dimensions, and timestamp. Dump and display use the same decoded output, but dump can be disabled independently to avoid storage and I/O overhead.
+Decoded-frame dump is optional only when the current output path can read a decoder buffer. BufferMode and Vulkan meet that condition. OpenGL does so only after its NativeImage Surface path has fallen back to decoder-buffer output. When enabled, `Player::DumpOutput()` writes frames into the application sandbox using a file name that includes pixel format, dimensions, and timestamp. Dump and display use the same decoded output, but dump can be disabled independently to avoid storage and I/O overhead.
 
 Frames decoded only as precise-seek preroll are never rendered or dumped.
 
@@ -663,6 +667,8 @@ The output path validates `offset`, `size`, and buffer capacity before reading P
 
 When a file contains multiple audio tracks, `Demuxer` selects the first audio track by default and accepts an explicit container track index through `PlayOptions.audioTrackIndex`. The media-information snapshot includes each track's MIME, sample rate, channel count, and bitrate, so the **Audio track** picker provides an identifiable label. Before replacing an active audio pipeline, the player reads candidate metadata without changing the demuxer selection and creates a temporary `AudioDecoder` for a real `Create + Configure` check. An unsupported candidate is rejected without pausing the current renderer or disturbing video, audio clock, or position. Only a validated candidate rebuilds the audio decoder, `AudioRenderer`, and audio workers; video decoding, presentation, and the current playback position continue without restarting the video. The new track first discards audio frames older than the current playback position and resumes A/V synchronization after its clock catches up, preventing the video scheduler from dropping a long run of frames while the replacement audio starts. Single-track files produce an explanatory toast. **Mute/Unmute** calls `OH_AudioRenderer_SetVolume()` immediately; unmute restores the volume saved in playback settings.
 
+The important part of a track switch is preserving the failure path. The old decoder, renderer, and demuxer selection remain live while the candidate is probed. Only after the temporary decoder has completed creation and configuration does the player stop the old audio workers, select the new track, clear stale PCM, and build the replacement renderer. The new track is read near the current media position; audio before that point never reaches the renderer. Once usable PCM establishes a new audio clock, video resumes audio-master scheduling. A MIME, codec-config, or configuration failure therefore leaves the original sound and Seek path usable.
+
 <a id="audio-interruption"></a>
 
 #### Audio Interruptions and Background Recovery
@@ -678,6 +684,8 @@ The diagnostic snapshot exposes the interruption count, the latest interruption 
 #### External SRT Subtitles
 
 Subtitles are an optional UI-side feature and do not alter the Native decode pipeline. The **Subtitle** control opens `DocumentViewPicker` with an `.srt` filter. `SubtitleModel.parseSrt()` parses cue time ranges and multiline text, while `PlaybackViewModel` reports the current position every 250 ms and `findSubtitleText()` selects the active cue for the overlay. More playback options provide Subtitle timing choices of early by 0.5 seconds, synchronized, or late by 0.5 seconds; the selected offset is applied before cue lookup.
+
+Each usable cue is converted to start/end microseconds plus its original multiline text, then ordered before lookup. Empty blocks, malformed time lines, and ranges whose end precedes their start are ignored. The page stores only the active overlay text; no SRT data reaches the decoder or muxer, so selecting a subtitle, changing its style, or applying an offset does not interrupt workers. During a slider drag the lookup uses the preview position, then naturally returns to the Native position after release. The thumbnail, progress control, and subtitle therefore refer to the same visible time.
 
 **Subtitle style** opens a separate scrollable panel. `SubtitleStyleModel` stores visibility, small/medium/large size, white/yellow/cyan text, transparent/translucent-black/dark-black background, and top/bottom placement. A fixed dark text shadow preserves readability even with a transparent background. These settings affect only the ArkUI overlay: they do not recreate a decoder or alter Cue timing. Reset returns to visible, 18fp, white text, translucent black, and bottom placement. Empty, invalid, or unreadable files produce separate prompts; subtitle text is cleared when playback stops or media changes, and follows seek preview while dragging.
 
@@ -724,6 +732,8 @@ ArkTS uses a separate file descriptor and `AVImageGenerator.fetchFrameByTime()` 
 
 Codec seek itself is not run synchronously on the ArkTS thread. `seekToAsync()` uses NAPI async work to invoke the existing precise-seek routine on a Native worker. `SeekRequestController` holds one running request and one pending target. Further slider releases, track taps, rewind/forward actions, or A-B-loop requests replace the pending target with the newest position; the replaced Promise resolves as `superseded`, so a burst does not rebuild the Decoder for every intermediate target. Stop, media change, and page disappearance invalidate pending work, then wait for the active rebuild to finish before releasing the player. This keeps callback contexts valid during teardown.
 
+Rapid requests first pass through a short convergence window, and execution still retains only the newest pending position. Slider releases, double-tap seeks, frame steps, and A-B return therefore share one safe path rather than maintaining separate UI-only positions or starting overlapping decoder rebuilds. Cancellation removes only work that has not begun; an active rebuild completes its cleanup and state restoration before Stop or the next request takes over. This matters because codec callbacks, workers, and old output buffers must all leave the same timeline.
+
 The playback controls provide pause/resume, 15-second rewind, 15-second forward, and replay. A single playback-window tap uses the same pause/resume operation, but only when the player is `PLAYING` or `PAUSED` and no seek or stop is active. A double tap on the left or right half of the video window reuses the same precise seek as the rewind/forward buttons; it gives a short direction prompt and clamps the target to `[0, durationUs]`. Single tap, double tap, and press-and-hold speed are in one exclusive gesture group, so a double tap does not pause playback and a hold changes speed without also pausing it. Pause moves Native playback to `PAUSED`; worker loops wait without destroying decoders while `AudioRenderer` is paused. Resume restarts the renderer and wakes the workers. Replay keeps the selected file and starts a new playback task from 0.
 
 `seekTo()` is accepted in `PLAYING` or `PAUSED`, clamps the target to `[0, durationUs]`, and performs the following sequence:
@@ -753,11 +763,15 @@ Recent entries are persisted with `@ohos.data.preferences` and contain the URI, 
 
 **Retry once after a playback error** is enabled by default. A recovery snapshot is recorded only after the task has produced audio or video output; it contains the position, requested speed, and paused state. On a Native `error` completion, the page reopens the same URI at most once. User stop, media change, page disappearance, and errors before any output cancel this path. This handles a transient codec or renderer failure without reopening corrupt input or unsupported configurations repeatedly.
 
+History and recovery deliberately have different scopes. History is keyed by URI, keeps at most 20 recent items, clamps a saved position to the current duration, and treats a position within roughly three seconds of the end as completed playback, so reopening starts at zero. The recovery snapshot exists only for the current runtime task and `takeRetry()` consumes it once. User Stop, invalid media, and failures before initialization produces output cannot turn into repeated automatic reopening.
+
 <a id="display-mode"></a>
 
 #### Fullscreen and Display Ratio
 
-The playback controls provide fullscreen and display-ratio choices. Fullscreen uses the main window's `setWindowLayoutFullScreen(true)` and requests landscape orientation; exiting restores the normal layout and portrait orientation. XComponent does not expose an `objectFit` attribute. Surface aspect handling belongs to the NativeWindow presentation path; the UI keeps the selected fit/fill mode without applying Image-only ArkUI APIs, and decoded frames are unchanged.
+The playback controls provide fullscreen and display-ratio choices. Fullscreen uses the main window's `setWindowLayoutFullScreen(true)` and requests landscape orientation; exiting restores the normal layout and portrait orientation. Fullscreen, normal-page controls, PiP, and AVSession all invoke the same player actions, so changing presentation state neither creates another player nor bypasses Seek, A-B, or speed handling.
+
+XComponent does not expose an `objectFit` attribute. The current NativeWindow path uses `OH_SCALING_MODE_SCALE_FIT_V2` for aspect-preserving output with black bars. The fit/fill selector persists the user's preference for a later NativeWindow scaling or layout policy; it does not claim to crop pixels today. Rotation, flip, and container rotation remain presentation-side operations and do not re-encode media or change timestamps.
 
 <a id="playback-diagnostics"></a>
 
@@ -766,6 +780,8 @@ The playback controls provide fullscreen and display-ratio choices. Fullscreen u
 The optional diagnostics overlay reports player state, position/duration, playback speed, decoded output buffers, presentation submissions, dropped frames, approximate output FPS, cumulative drop rate, audio output buffers, smart-fluency/HDR Vivid status, and software-decoder fallback state. In BufferMode, OpenGL, and Vulkan it also reports presentation count, average duration, and failures. Timing covers `VideoSink::Present()`: Buffer destination request and copy, or GPU upload and present. Dropped frames only return their decoder buffer and do not enter the presentation-duration metric.
 
 The extended snapshot includes A/V sync-decision offset, mean and maximum offset magnitude, queued PCM duration, AudioRenderer device-pending duration, silence-fill callbacks, sync-policy drops, interruption count/latest hint/current state, and seek rebuild/target-output timing. Offset is sampled before the video worker waits or drops a frame; a positive value means the video PTS is ahead of the audio master clock. It is a scheduling estimate, not a physical screen-to-speaker latency measurement. A presentation submission only confirms that the application submitted a frame to Surface or NativeWindow. `PlaybackDiagnostics` aggregates short-lived values under a Native lock; PCM water level and underruns use atomics. Structured `getPlaybackInfo()` copies the read-only snapshot every 250 ms and does not change scheduling or output order. A new task, stop, failure, or seek resets statistics that no longer describe the active timeline.
+
+Diagnostics avoid the real-time critical path. Frame counts, PCM water level, and underruns use atomics; A/V offsets are summarized at a fixed sampling interval instead of acquiring a shared lock for every output frame. Seek stores rebuild completion and first target-frame submission separately, making decoder recreation time distinguishable from first-frame waiting time. Output FPS describes observable application-side output cadence, while presentation count describes submissions to Surface or NativeWindow. Neither measurement is a display-refresh rate or an end-to-end physical latency value.
 
 <a id="ab-frame-control"></a>
 
@@ -854,6 +870,8 @@ Worker threads are joined rather than detached. `CodecUserData` is owned by `uni
 
 `PlayerStateMachine` defines the only legal transitions: `IDLE -> INITIALIZING -> READY -> PLAYING <-> PAUSED -> STOPPING -> IDLE` and `PLAYING/PAUSED <-> SEEKING`. `Player` is no longer a global singleton. The NAPI module owns one `Player` through environment instance data, and environment cleanup destroys it; every NAPI call resolves the player associated with its current environment.
 
+Window resources follow the same release boundary. XComponent and `OHNativeWindow` belong to ArkUI; the player borrows the active window through a generation-aware lease. Surface destruction first withdraws that borrowable reference, and an asynchronous presentation worker releases its lease after the current frame. A rebuilt Surface, Stop, or late graphics callback therefore cannot keep using an old window, while the player never destroys an object owned by the framework.
+
 <a id="camera-recording"></a>
 
 #### Camera Capture and Recording
@@ -871,6 +889,8 @@ Camera     -> VideoEncoder                  ├-> Muxer -> MP4/FLV
 ```
 
 The selected camera profile is validated before navigation. The preview page creates a `VideoSession`, attaches preview and recording outputs, and starts the session. The **Encoding control** group exposes disabled/auto video stabilization; auto mode queries `VideoSession` support before it is enabled, and an unsupported device does not block recording. Native recording starts only after the user taps **Start Recording**.
+
+Preview and recording are independent consumers of the same camera input. The recording-page XComponent receives the preview stream, while the encoder Surface receives the recording stream; Native code does not read or release either framework-owned Surface. Before navigation, the selected profile is checked against the active camera. An unsupported combination falls back to the default profile or the first available profile, and that resolved profile is used consistently by CameraKit and the encoder. The sample does not switch resolution between the two outputs after recording starts.
 
 For supported HDR recording configurations, the sample selects P010 output and the required color-space/encoder options. Actual availability is device dependent and must be checked against camera and codec capabilities.
 
@@ -947,6 +967,8 @@ Audio and video encoder outputs may arrive concurrently. The muxer wrapper seria
 6. Stop and destroy the muxer only after encoder EOS has been consumed.
 
 Encoded `OH_AVBuffer` objects remain owned by their encoders. The muxer reads them during `WriteSample()`, after which the application promptly returns each buffer to the encoder.
+
+Recording finalization cannot release the encoder immediately after the user taps Stop. The camera may have just submitted its last video frame, and audio capture may still hold PCM that has not filled an encoder input buffer. The page stops camera video output and waits for frame end, then sends video and audio EOS and waits for both output workers to consume EOS. Only then does the muxer write its container finalization data and release codec resources before the media-library fd is closed. Completion waits use a state predicate rather than a single notification, so an EOS that arrives before the page begins to wait cannot leave the recording page stuck.
 
 ### Buffer Ownership Summary
 
@@ -1070,7 +1092,7 @@ The UI always sends an explicit target speed. Smart-fluency ADAPTIVE mode decide
 
 **Why can a file in the capability table still fail?** A table entry is not sufficient by itself. A specific file must also satisfy container, stream, resolution, frame rate, profile, pixel-format, and device-codec constraints. Automatic mode performs one software fallback attempt; an explicit hardware selection does not silently change strategy.
 
-**Why are BufferMode, OpenGL, and Vulkan slower than SurfaceMode?** SurfaceMode gives output to the graphics system directly. Buffer-based modes request or upload a frame, wait for synchronization, copy or stage pixels, and present them. Use them when pixel dump, HDR metadata access, or a specific graphics backend is required, not as the default performance path.
+**Why are BufferMode, OpenGL, and Vulkan slower than SurfaceMode?** SurfaceMode gives output directly to the XComponent Surface. BufferMode and Vulkan request a destination or staging buffer, wait for synchronization, copy or upload pixels, and present them. OpenGL's normal NativeImage path avoids CPU pixel conversion but still updates and draws an external texture through EGL. Use these modes to inspect Buffer behavior or validate a graphics backend, not as the default performance path.
 
 **Why is there no HDR Vivid watermark?** The watermark requires an actual output Buffer that confirms both HDR Vivid type and non-empty dynamic metadata. A container declaration alone, HDR10 content, or output whose metadata cannot be read does not enable the application-side marker. Direct Surface output uses its latest flushed Buffer as a best-effort confirmation source.
 

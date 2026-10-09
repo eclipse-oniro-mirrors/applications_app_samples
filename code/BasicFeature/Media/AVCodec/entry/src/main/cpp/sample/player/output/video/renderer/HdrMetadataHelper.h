@@ -23,13 +23,13 @@
 class HdrMetadataHelper {
 public:
     static bool IsHdrVivid(OH_AVBuffer *buffer);
-    // Surface decoder callbacks can expose only a release handle. After a frame is rendered, use
-    // the XComponent's latest flushed Buffer as a best-effort, positive-only confirmation.
+    // Surface 解码器回调只提供归还句柄。帧送显后读取 XComponent 最近刷新的 Buffer；
+    // 读取失败不清除已有的 HDR Vivid 确认状态。
     static bool IsLastFlushedBufferHdrVivid(OHNativeWindow *window);
     static bool CopyToNativeBuffer(OH_AVBuffer *sourceBuffer, OH_NativeBuffer *targetBuffer);
     static bool SetBt709OutputMetadata(OH_NativeBuffer *targetBuffer);
-    // NativeImage external-texture rendering does not expose per-frame HDR Vivid dynamic
-    // metadata. Clear static HDR state before creating a standard 8-bit graphics output.
+    // NativeImage 外部纹理渲染无法暴露逐帧 HDR Vivid 动态元数据。
+    // 创建普通 8-bit 图形输出前清除静态 HDR 状态，防止沿用前一条流的结果。
     static bool ResetNativeWindowSdrMetadata(OHNativeWindow *window);
 };
 

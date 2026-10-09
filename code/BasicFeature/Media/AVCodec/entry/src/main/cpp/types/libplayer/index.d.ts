@@ -38,11 +38,11 @@ export interface PlayOptions {
   enableLowLatency?: boolean;
   outputInDecodingOrder?: boolean;
   convertHdrVividToBt709?: boolean;
-  /** Renderer volume in the range [0, 1]. */
+  /** 播放音量，取值范围为 [0, 1]。 */
   audioVolume?: number;
-  /** Applied when creating the audio renderer for a playback task. */
+  /** 创建播放任务的音频渲染器时生效。 */
   enableAudioLowLatency?: boolean;
-  /** Container track index for the audio track; -1 selects the first audio track. */
+  /** 容器中的音轨索引；-1 表示选择第一条音轨。 */
   audioTrackIndex?: number;
 }
 
@@ -76,8 +76,8 @@ export const resume: () => boolean
 
 export const seekTo: (positionUs: number) => boolean
 
-/** Rebuilds codecs on a worker. Only one async seek is accepted at a time.
- * State and progress polling remain available; wait for completion before mutations.
+/** 在工作线程重建编解码器；同一时刻只接受一个异步跳转请求。
+ * 可继续查询状态和进度，其他控制操作应在跳转完成后执行。
  */
 export const seekToAsync: (positionUs: number) => Promise<boolean>
 
@@ -94,7 +94,7 @@ export interface PlaybackDiagnostics {
   audioQueueDurationUs: number;
   audioUnderruns: number;
   syncDrops: number;
-  /** -1 until a successful seek rebuild / target output is available. */
+  /** 跳转重建成功且目标帧可输出前为 -1。 */
   seekRebuildUs: number;
   seekFirstOutputUs: number;
   audioInterrupted: boolean;
@@ -205,8 +205,8 @@ export const onThermalWarningReceived: (
 
 export const onThermalLevelRecovered: () => void
 
-/** Controls whether entering the application background should keep playback running. */
+/** 设置应用进入后台后是否继续播放。 */
 export const setBackgroundPlaybackEnabled: (enabled: boolean) => void
 
-/** Notifies Native playback about an Ability foreground/background transition. */
+/** 通知 Native 播放器 Ability 前后台状态变化。 */
 export const setAppBackground: (background: boolean) => void

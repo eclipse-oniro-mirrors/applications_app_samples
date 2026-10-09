@@ -63,7 +63,7 @@ async function requestPermissionsOnSetting(atManager: abilityAccessCtrl.AtManage
   try {
     let allGranted: boolean = true;
     for (const permission of permissions) {
-      // Camera and microphone belong to different permission groups and must be requested separately.
+      // 相机和麦克风属于不同权限组，需逐项拉起设置页授权。
       const settingResults = await atManager.requestPermissionOnSetting(context, [permission]);
       if (settingResults.length === 0 || !isPermissionGranted(settingResults[0])) {
         allGranted = false;

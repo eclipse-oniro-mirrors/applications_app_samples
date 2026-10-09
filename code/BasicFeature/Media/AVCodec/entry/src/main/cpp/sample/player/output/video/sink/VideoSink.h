@@ -24,8 +24,8 @@ public:
     virtual ~VideoSink() = default;
     virtual int32_t Present(const VideoPresentRequest &request) = 0;
     virtual void BeginPlayback() {}
-    // Gives a sink a chance to prepare GPU resources before the decoder is configured.
-    // A non-null result means the decoder should use this producer surface.
+    // 在配置解码器前给 sink 预创建 GPU 资源的机会。
+    // 返回非空表示解码器应使用该生产者 Surface。
     virtual OHNativeWindow *PrepareForPlayback(const SampleInfo &sampleInfo)
     {
         (void)sampleInfo;

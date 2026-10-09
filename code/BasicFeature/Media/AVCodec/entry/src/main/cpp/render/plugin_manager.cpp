@@ -68,9 +68,8 @@ PluginManager::PluginWindowLease &PluginManager::PluginWindowLease::operator=(Pl
 void PluginManager::PluginWindowLease::Reset()
 {
     if (window_ != nullptr) {
-        // NativeWindow reference operations are non-thread-safe. Serialize only the reference
-        // operation with window replacement/destruction; the lease itself remains valid during
-        // rendering and never blocks the UI thread on a fence or a CPU copy.
+        // NativeWindow 的引用计数操作不是线程安全的。这里只与窗口替换、销毁串行化解除引用；
+        // 租约在送显期间保持有效，不会因等待栅栏或 CPU 拷贝而阻塞 UI 线程。
         auto *manager = PluginManager::GetInstance();
         std::unique_lock<std::shared_mutex> lock(manager->mutex_);
         (void)OH_NativeWindow_NativeObjectUnreference(window_);
@@ -180,7 +179,7 @@ void PluginManager::SetNativeXComponent(const std::string& id, OH_NativeXCompone
     }
 
     std::unique_lock<std::shared_mutex> lock(mutex_);
-    // The XComponent is unwrapped from ArkUI and remains framework-owned.
+    // XComponent 从 ArkUI 解包得到，所有权仍归框架；这里只记录其地址，不能销毁或长期跨线程使用。
     nativeXComponentMap_[id] = nativeXComponent;
 }
 
@@ -209,6 +208,7 @@ void PluginManager::SetPluginWindow(OHNativeWindow *window, int32_t width, int32
     if (pluginWindow_ == window && pluginWindowWidth_ == width && pluginWindowHeight_ == height) {
         return;
     }
+    // 该地址来自 XComponent 生命周期回调，所有权仍归框架。异步送显必须通过 AcquirePluginWindow() 增加引用。
     pluginWindow_ = window;
     pluginWindowWidth_ = width;
     pluginWindowHeight_ = height;
@@ -218,36 +218,17 @@ void PluginManager::SetPluginWindow(OHNativeWindow *window, int32_t width, int32
 PluginManager::PluginWindowLease PluginManager::AcquirePluginWindow()
 {
     std::unique_lock<std::shared_mutex> lock(mutex_);
+    // 在锁内增加 NativeWindow 引用，确保窗口不会在租约使用期间被 Surface 销毁回调释放。
     if (pluginWindow_ == nullptr || OH_NativeWindow_NativeObjectReference(pluginWindow_) != 0) {
         return {};
     }
     return PluginWindowLease(pluginWindow_, pluginWindowWidth_, pluginWindowHeight_, pluginWindowGeneration_);
 }
 
-OHNativeWindow *PluginManager::GetPluginWindow() const
-{
-    std::shared_lock<std::shared_mutex> lock(mutex_);
-    return pluginWindow_;
-}
-
-void PluginManager::GetPluginWindowSize(int32_t &width, int32_t &height) const
-{
-    std::shared_lock<std::shared_mutex> lock(mutex_);
-    width = pluginWindowWidth_;
-    height = pluginWindowHeight_;
-}
-
-uint64_t PluginManager::GetPluginWindowGeneration() const
-{
-    std::shared_lock<std::shared_mutex> lock(mutex_);
-    return pluginWindowGeneration_;
-}
-
 void PluginManager::ClearPluginWindow(OHNativeWindow *window)
 {
     std::unique_lock<std::shared_mutex> lock(mutex_);
-    // A destroy callback may omit the window handle; the current handle is
-    // still invalid once the surface has been destroyed.
+    // 销毁回调可能不携带窗口句柄；Surface 一旦销毁，当前句柄仍然失效，必须一并清除。
     if (window == nullptr || pluginWindow_ == window) {
         pluginWindow_ = nullptr;
         pluginWindowWidth_ = 0;
@@ -255,4 +236,4 @@ void PluginManager::ClearPluginWindow(OHNativeWindow *window)
         pluginWindowGeneration_++;
     }
 }
-} // namespace NativeXComponentSample
+} // NativeXComponentSample 命名空间

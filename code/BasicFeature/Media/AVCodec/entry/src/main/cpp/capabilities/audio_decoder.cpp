@@ -53,6 +53,7 @@ int32_t AudioDecoder::CreateByName(const std::string &codecMime)
 // [Start AudioDecoder::SetCallback]
 int32_t AudioDecoder::SetCallback(CodecUserData *codecUserData)
 {
+    // 异步模式下 codec 在内部线程回调 userData；Release 前先停止 codec，回调才不会访问该上下文。
     int32_t ret = AV_ERR_OK;
     ret = OH_AudioCodec_RegisterCallback(decoder_,
                                          {SampleCallback::OnCodecError, SampleCallback::OnCodecFormatChange,
@@ -73,6 +74,7 @@ int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
         AVCODEC_SAMPLE_LOGW("Audio capability query did not fully describe mime: %{public}s; "
             "continue with decoder configure", sampleInfo.audio.audioCodecMime.c_str());
     }
+    // format 仅用于本次 Configure；所有失败路径和成功路径都要在返回前销毁。
     OH_AVFormat *format = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
@@ -143,6 +145,8 @@ OH_AVBuffer *AudioDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
         case AV_ERR_OK: {
             OH_AVBuffer *buffer = OH_AudioCodec_GetInputBuffer(decoder_, info.bufferIndex);
             CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Input buffer is null");
+            // Buffer 由 codec 管理，业务侧只在 PushInputBuffer 前写入，不能缓存地址或跨线程长期持有。
+            info.buffer = buffer;
             return buffer;
         }
         case AV_ERR_TRY_AGAIN_LATER: {
@@ -159,9 +163,11 @@ OH_AVBuffer *AudioDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
 
 int32_t AudioDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
+    info.buffer = nullptr;
+    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
     OH_AVErrCode ret = OH_AudioCodec_QueryOutputBuffer(decoder_, &info.bufferIndex, timeoutUs);
     if (ret == AV_ERR_TRY_AGAIN_LATER) {
-        // 超时，异常处理，设置的超时时间过短或输入输出buffer没有消耗/释放导致解码阻塞。
+        // 超时通常说明等待时间过短，或已有输出 Buffer 未及时归还导致 codec 暂无可用 Buffer。
         AVCODEC_SAMPLE_LOGW("Get output buffer timeout.");
         return AVCODEC_SAMPLE_ERR_AGAIN; // continue;
     }
@@ -172,18 +178,23 @@ int32_t AudioDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 
     OH_AVBuffer *outputBuf = OH_AudioCodec_GetOutputBuffer(decoder_, info.bufferIndex);
     if (outputBuf == nullptr) {
-        AVCODEC_SAMPLE_LOGE("get output buffer failed, ret: %{public}d", ret);
+        // 已取得输出索引，后续取 Buffer 失败也必须归还，避免占满 codec 的输出队列。
+        const int32_t freeRet = OH_AudioCodec_FreeOutputBuffer(decoder_, info.bufferIndex);
+        AVCODEC_SAMPLE_LOGE("Get output buffer failed, free ret: %{public}d", freeRet);
         return AVCODEC_SAMPLE_ERR_ERROR; // break;
     }
 
     ret = OH_AVBuffer_GetBufferAttr(outputBuf, &info.attr);
     if (ret != AV_ERR_OK) {
-        AVCODEC_SAMPLE_LOGE("get output buffer attr failed, ret: %{public}d", ret);
+        const int32_t freeRet = OH_AudioCodec_FreeOutputBuffer(decoder_, info.bufferIndex);
+        AVCODEC_SAMPLE_LOGE("Get output buffer attr failed, ret: %{public}d, free ret: %{public}d", ret, freeRet);
         return AVCODEC_SAMPLE_ERR_ERROR; // break;
     }
     info.buffer = outputBuf;
     if (info.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
+        // EOS 输出也必须归还，之后不再访问 outputBuf 或该索引。
         OH_AudioCodec_FreeOutputBuffer(decoder_, info.bufferIndex);
+        info.buffer = nullptr;
         AVCODEC_SAMPLE_LOGI("Out buffer end");
         // 解码输出结束。
         return AVCODEC_SAMPLE_ERR_END; // break;
@@ -206,6 +217,7 @@ int32_t AudioDecoder::Start()
 int32_t AudioDecoder::PushInputBuffer(CodecBufferInfo &info)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
+    CHECK_AND_RETURN_RET_LOG(info.buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer is null");
     int32_t ret = OH_AVBuffer_SetBufferAttr(info.buffer, &info.attr);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Set avbuffer attr failed");
     ret = OH_AudioCodec_PushInputBuffer(decoder_, info.bufferIndex);

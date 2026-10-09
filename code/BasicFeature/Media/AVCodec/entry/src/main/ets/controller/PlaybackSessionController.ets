@@ -40,8 +40,7 @@ export class PlaybackSessionController {
   private generation: number = 0;
   private listenerRegistered: boolean = false;
   private stopTask: Promise<void> | undefined = undefined;
-  // Playback polling may run before AVSession activation; keep the newest state
-  // so the system controls start in sync with the native player.
+  // AVSession 未激活时暂存最新播放状态，激活后再同步给系统媒体控件。
   private pendingPlaybackState: avSession.AVPlaybackState | undefined = undefined;
 
   async start(context: common.UIAbilityContext, media: PlaybackSessionMedia,

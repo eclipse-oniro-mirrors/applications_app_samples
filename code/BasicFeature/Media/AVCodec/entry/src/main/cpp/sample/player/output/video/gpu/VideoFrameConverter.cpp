@@ -308,8 +308,8 @@ bool IsTenBitOutput(const SampleInfo &sampleInfo, const CodecUserData &context)
         outputFormat != AV_PIXEL_FORMAT_YUVI420) {
         return false;
     }
-    // Stride includes implementation-dependent row alignment. It cannot identify P010: a narrow 8-bit frame
-    // may have a stride greater than twice its visible width. Use decoded format and bitstream metadata instead.
+    // 行跨度包含实现相关的对齐信息，不能据此识别 P010：窄幅 8-bit 帧的行跨度也可能大于可见宽度的两倍。
+    // 应改用解码格式和码流元数据判断。
     return IsTenBitHevcOutput(sampleInfo.video);
 }
 
@@ -562,7 +562,7 @@ void ConvertYuv420Rows(const Yuv420ConversionContext &context)
         }
     }
 }
-} // namespace
+} // 匿名命名空间
 
 uint8_t VideoFrameConverter::ClampColor(int32_t value)
 {
@@ -624,9 +624,8 @@ VideoFrameConverter::FrameSize VideoFrameConverter::GetScaledFrameSize(const Fra
     target.width = std::max(1, static_cast<int32_t>(request.source.width * scale));
     target.height = std::max(1, static_cast<int32_t>(request.source.height * scale));
     const int64_t targetPixels = static_cast<int64_t>(target.width) * target.height;
-    // The GPU sample paths convert Buffer output on the CPU before uploading it. A quarter-turn frame
-    // adds an extra memory pass in the Vulkan path, so use a smaller portrait upload budget to keep
-    // the decoder output thread responsive for 4K high-frame-rate clips.
+    // GPU 示例路径会先在 CPU 上转换 Buffer 输出，再上传。四分之一旋转帧在 Vulkan 路径中会增加一次内存遍历，
+    // 因而为竖屏上传设置更小的像素预算，以保持 4K 高帧率视频的解码输出线程响应及时。
     const int64_t normalLimit = request.maxUploadPixels > 0 ? request.maxUploadPixels : GPU_UPLOAD_MAX_PIXELS;
     const int64_t portraitLimit = request.maxPortraitUploadPixels > 0 ? request.maxPortraitUploadPixels :
         GPU_PORTRAIT_UPLOAD_MAX_PIXELS;
@@ -964,8 +963,8 @@ bool VideoFrameConverter::RotateRgba(const std::vector<uint8_t> &source, const F
     const int32_t targetHeight = quarterTurn ? sourceWidth : sourceHeight;
     rgba.resize(sourceSize);
     const RotationCopyContext context = {source, rgba, sourceWidth, sourceHeight, targetWidth, normalizedRotation};
-    // Iterate source tiles instead of destination rows. A 90-degree rotation otherwise walks the source
-    // with a full-frame stride for every output pixel, which is especially expensive on portrait 4K video.
+    // 按源图块而非目标行遍历。否则 90 度旋转时，每个输出像素都要跨整帧行跨度访问源数据，
+    // 对 4K 竖屏视频尤其昂贵。
     for (int32_t top = 0; top < sourceHeight; top += ROTATION_TILE_EDGE) {
         const int32_t bottom = std::min(top + ROTATION_TILE_EDGE, sourceHeight);
         for (int32_t left = 0; left < sourceWidth; left += ROTATION_TILE_EDGE) {

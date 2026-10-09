@@ -38,13 +38,12 @@ bool IsQuarterTurnRotation(int32_t rotation)
 
 bool RequiresFollowingSyncForForwardSeek(const VideoSampleInfo &video)
 {
-    // Some rotated 10-bit HEVC files expose a previous-sync index whose first access unit is
-    // not independently decodable. HDR Vivid container signalling is optional, so do not rely
-    // on it alone when deciding whether to bypass that unsafe index entry.
+    // 部分带旋转信息的 10-bit HEVC 文件会提供“前一个同步帧”索引，但该索引的首个访问单元
+    // 不能独立解码。HDR Vivid 容器声明是可选信息，判断是否跳过这个不安全索引时不能只依赖它。
     return IsQuarterTurnRotation(video.rotation) &&
         video.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_HEVC && IsTenBitHevcOutput(video);
 }
-} // namespace
+} // 匿名命名空间
 
 void Player::CancelWorkerWaits()
 {
@@ -110,7 +109,7 @@ void Player::StopWorkersForSeek()
 {
     isStarted_ = false;
     pauseCond_.notify_all();
-    // Wake an audio output thread that may be waiting for the first video frame.
+    // 唤醒可能正在等待首个视频帧的音频输出线程。
     audioStartPendingAfterVideoSeek_ = false;
     audioWorkerRunning_ = false;
     audioTrackSwitching_ = false;
@@ -127,11 +126,8 @@ void Player::StopWorkersForSeek()
 
 bool Player::ShouldRetainVideoDecoderForSeek() const
 {
-    // A decoder Flush clears queued access units without redoing codec creation, capability
-    // negotiation and output-format setup. Rebuilding a 4K HDR decoder on every seek makes the
-    // first frame unnecessarily late, especially for Buffer/OpenGL/Vulkan output. Workers have
-    // already been joined before this decision, so the same safe Flush -> Start sequence can be
-    // used for every configured video output mode.
+    // Flush 清除队列但保留 codec 和输出配置。工作线程已退出，可直接 Flush 后 Start，
+    // 不在每次跳转时重建 4K HDR 解码器。
     return videoDecoder_ != nullptr && videoDecContext_ != nullptr;
 }
 
@@ -298,9 +294,8 @@ void Player::PreparePlaybackStateAfterSeek(bool hadVideo, bool hadAudio, int64_t
     }
     isStarted_ = true;
     paused_ = !resumeAfterSeek_;
-    // Keep audio paused for a paused seek, but let the video pipeline present
-    // the first frame at the requested position. This is also used by frame
-    // stepping, which is implemented as a precise paused seek.
+    // 暂停状态跳转时保持音频暂停，但允许视频流水线送显目标位置的首帧。
+    // 逐帧功能也复用此逻辑：它本质上是一次精确的暂停跳转。
     renderSingleFrameAfterSeek_ = hadVideo && !resumeAfterSeek_;
     audioStartPendingAfterVideoSeek_ = hadVideo && hadAudio;
 }
@@ -444,8 +439,7 @@ int32_t Player::RebuildPlaybackForSeek(bool hadVideo, bool hadAudio, float speed
         RequiresFollowingSyncForForwardSeek(sampleInfo_.video);
     const OH_AVSeekMode seekMode = useFollowingSync ? SEEK_MODE_NEXT_SYNC : SEEK_MODE_PREVIOUS_SYNC;
     if (useFollowingSync) {
-        // Starting at the following random-access sample is less exact than decoding from the
-        // preceding sample, but it prevents a malformed preceding index from starving the decoder.
+        // 后一个随机访问样本精度较低，但前序索引异常时可提供可解码数据。
         AVCODEC_SAMPLE_LOGW("Use following sync sample for forward rotated 10-bit HEVC seek, target=%{public}" PRId64,
             targetUs);
     }
