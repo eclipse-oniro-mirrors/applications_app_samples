@@ -1021,7 +1021,8 @@ static void DoCounter(ArkUI_NodeEvent* event)
             }
             break;
         case BTN_GET_SHOW_COUNTER:{
-                const ArkUI_AttributeItem *result = Manager::nodeAPI_->getAttribute(textEditor, NODE_TEXT_EDITOR_SHOW_COUNTER);
+                const ArkUI_AttributeItem *result = Manager::nodeAPI_->getAttribute(textEditor,
+                    NODE_TEXT_EDITOR_SHOW_COUNTER);
                 if (result != nullptr) {
                     auto object = static_cast<ArkUI_ShowCounterConfig*>(result->object);
                     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "TextEditorMaker",
@@ -1426,7 +1427,7 @@ void UnderLine()
     AddButton("reset underline", BTN_RESET_UNDERLINE, textEditor);
     AddButton("reset underline color", BTN_RESET_UNDERLINE_COLOR, textEditor);
     AddButton("get underline attr", BTN_GET_UNDERLINE, textEditor);
-    Manager::nodeAPI_->registerNodeEventReceiver(&OnEventReceive);   
+    Manager::nodeAPI_->registerNodeEventReceiver(&OnEventReceive);
 }
 
 ArkUI_NodeHandle TextEditorMaker::CreateNativeNode()
