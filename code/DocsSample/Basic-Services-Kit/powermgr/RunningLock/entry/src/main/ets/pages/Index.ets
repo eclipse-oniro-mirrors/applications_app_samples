@@ -27,7 +27,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 struct Index {
   build() {
     Column({ space: 10 }) {
-      Button('createPdfCallback')
+      Button('UserIdleTask')
         .onClick(() => {
           let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
           AppStorage.setOrCreate<string>("filesDirPath",context.filesDir)
