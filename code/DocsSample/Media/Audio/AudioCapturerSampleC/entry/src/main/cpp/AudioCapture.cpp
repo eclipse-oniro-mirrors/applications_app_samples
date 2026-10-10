@@ -426,9 +426,7 @@ napi_value CreateAudioCapturerLoopbackEffect(napi_env env, napi_callback_info in
     OH_AudioStreamBuilder_SetCapturerInfo(builder, AUDIOSTREAM_SOURCE_TYPE_MIC);
 
     // [Start SetCapturerLoopbackEffectEnabled]
-    OH_AudioStream_Result result = OH_AudioStreamBuilder_SetCapturerLoopbackEffectEnabled != nullptr ?
-        OH_AudioStreamBuilder_SetCapturerLoopbackEffectEnabled(builder, true) :
-        AUDIOSTREAM_ERROR_ILLEGAL_STATE;
+    OH_AudioStream_Result result = OH_AudioStreamBuilder_SetCapturerLoopbackEffectEnabled(builder, true);
     // [End SetCapturerLoopbackEffectEnabled]
 
     OH_AudioStreamBuilder_Destroy(builder);
