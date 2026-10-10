@@ -41,7 +41,7 @@ struct Index {
   webTag: string = 'ArkWeb1';
   controller: webview.WebviewController = new webview.WebviewController(this.webTag);
   // [StartExclude customize_a_webtag_and_send_it_to_the_native_side_of_the_application]
-  @State testObjtest: testObj = new testObj();
+  @State testObjTest: testObj = new testObj();
   // [EndExclude customize_a_webtag_and_send_it_to_the_native_side_of_the_application]
   // aboutToAppear中将webTag通过Node-API接口传入C++侧，作为C++侧ArkWeb组件的唯一标识
   aboutToAppear() {
@@ -67,7 +67,7 @@ struct Index {
           .javaScriptAccess(true)
           .fileAccess(true)
           .onControllerAttached(() => {
-            console.error('Native Development Kit onControllerAttached webId: ' + this.controller.getWebId());
+            console.info('Native Development Kit onControllerAttached webId: ' + this.controller.getWebId());
           })
       }.height('80%')
     }
