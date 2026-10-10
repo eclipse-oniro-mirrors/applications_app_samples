@@ -111,7 +111,7 @@ async function start() {
     // 当且仅当状态为STATE_PREPARED、STATE_PAUSED和STATE_STOPPED之一时才能启动采集。
     let stateGroup = [audio.AudioState.STATE_PREPARED, audio.AudioState.STATE_PAUSED, audio.AudioState.STATE_STOPPED];
     if (stateGroup.indexOf(audioCapturer.state.valueOf()) === -1) {
-      console.info('Audio capturer state is invalid.');
+      console.error('Audio capturer state is invalid.');
       if (globalLogUpdate) {
         globalLogUpdate('Audio capturer state is invalid.', true);
       }
@@ -141,7 +141,7 @@ async function stop() {
     // 只有采集器状态为STATE_RUNNING或STATE_PAUSED的时候才可以停止。
     if (audioCapturer.state.valueOf() !== audio.AudioState.STATE_RUNNING && audioCapturer.state.valueOf() !==
       audio.AudioState.STATE_PAUSED) {
-      console.info('Audio capturer state is not running or paused.');
+      console.error('Audio capturer state is not running or paused.');
       if (globalLogUpdate) {
         globalLogUpdate('Audio capturer state is not running or paused.', true);
       }
