@@ -14,7 +14,11 @@
  */
 
 #include <string>
+
+// [Start header_include_game_device]
 #include "GameControllerKit/game_device.h"
+// [End header_include_game_device]
+
 #include "device_api.h"
 #include "game_controller_log.h"
 #include "hilog/log.h"
