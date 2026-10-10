@@ -56,12 +56,16 @@ bool ReleaseVideoOutputBuffer(VideoDecoder *decoder, const CodecBufferInfo &buff
 
 void Player::VideoDecInputSyncThread()
 {
+    // [Start decoder_sync_input_buffer]
     while (isStarted_) {
+        // [StartExclude decoder_sync_input_buffer1]
         WaitIfPaused();
+        // [EndExclude decoder_sync_input_buffer1]
         CHECK_AND_BREAK_LOG(isStarted_, "Decoder input thread out");
         std::unique_lock<std::mutex> lock(videoDecContext_->inputMutex);
         CodecBufferInfo bufferInfo;
         auto buffer = videoDecoder_->GetInputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
+        // [StartExclude decoder_sync_input_buffer2]
         CHECK_AND_CONTINUE_LOG(buffer != nullptr, "Get input buffer timeout, retry");
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         videoDecContext_->inputFrameCount++;
@@ -87,6 +91,7 @@ void Player::VideoDecInputSyncThread()
                 break;
             }
         }
+        // [EndExclude decoder_sync_input_buffer2]
         ret = videoDecoder_->PushInputBuffer(bufferInfo);
         if (ret != AVCODEC_SAMPLE_ERR_OK) {
             playbackFailed_ = true;
@@ -95,6 +100,7 @@ void Player::VideoDecInputSyncThread()
         }
         CHECK_AND_BREAK_LOG(!(bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS), "Catch EOS, thread out");
     }
+   // [End decoder_sync_input_buffer]
 }
 
 void Player::VideoDecInputAsyncThread()
@@ -380,10 +386,12 @@ void Player::InitSyncVideoOutputContext()
 bool Player::GetSyncVideoOutputBuffer(CodecBufferInfo& bufferInfo)
 {
     int32_t ret = AVCODEC_SAMPLE_ERR_AGAIN;
+    // [Start decoder_sync_output_buffer]
     while (isStarted_ && ret == AVCODEC_SAMPLE_ERR_AGAIN) {
         std::unique_lock<std::mutex> lock(videoDecContext_->outputMutex);
         ret = videoDecoder_->GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
     }
+    // [End decoder_sync_output_buffer]
     if (!isStarted_) {
         if (!ReleaseVideoOutputBuffer(videoDecoder_.get(), bufferInfo, "video output worker stopped")) {
             playbackFailed_ = true;

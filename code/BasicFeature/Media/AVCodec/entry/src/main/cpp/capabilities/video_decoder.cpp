@@ -82,9 +82,12 @@ bool SetOptionalFormatFeatures(OH_AVFormat *format, const SampleInfo &sampleInfo
         AVCODEC_SAMPLE_LOGE("Set HDR Vivid to BT.709 output color space failed");
         return false;
     }
+    // [Start decoder_sync_mode]
+    // 同步模式配置。
     if (sampleInfo.codec.codecSyncMode) {
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
     }
+    // [End decoder_sync_mode]
     if (sampleInfo.codec.isSmartFluencySupported && !ConfigureSmartFluency(format)) {
         return false;
     }
@@ -211,12 +214,16 @@ int32_t VideoDecoder::SetCallback(CodecUserData *codecUserData)
 }
 // [End decoder_set_callback]
 
+// [Start configure_full_baseline]
 int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
 {
+    // 建议在配置解码器前进行能力校验，确认当前设备是否支持配置的参数。
+    // [StartExclude configure_full_baseline1]
     CHECK_AND_RETURN_RET_LOG(CodecCapability::ValidateVideoConfiguration(sampleInfo, false),
         AVCODEC_SAMPLE_ERR_ERROR, "Video decoder configuration is not supported");
     CHECK_AND_RETURN_RET_LOG(CodecCapability::ValidateVideoFeatureConfiguration(sampleInfo),
         AVCODEC_SAMPLE_ERR_ERROR, "Video decoder feature configuration is not supported");
+    // [EndExclude configure_full_baseline1]
     OH_AVFormat *format = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
@@ -225,12 +232,13 @@ int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
     OH_AVFormat_SetDoubleValue(format, OH_MD_KEY_FRAME_RATE, sampleInfo.video.frameRate);
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_PIXEL_FORMAT, sampleInfo.video.pixelFormat);
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_ROTATION, sampleInfo.video.rotation);
-    // 可选配置。
+    // [StartExclude configure_full_baseline2]
+    // 可选配置，开发者可根据业务需要进行配置，如：低时延解码配置。
     if (!SetOptionalFormatFeatures(format, sampleInfo)) {
         OH_AVFormat_Destroy(format);
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
-    // [StartExclude configure_full_baseline]
+
     AVCODEC_SAMPLE_LOGI("Configure decoder: run mode=%{public}d, type=%{public}d, size=%{public}dx%{public}d, "
         "frame rate=%{public}.2f, pixel format=%{public}d, rotation=%{public}d, retain last frame=%{public}d, "
         "low latency=%{public}d, decoding order=%{public}d, smart fluency=%{public}d, HDR Vivid=%{public}d, "
@@ -240,13 +248,14 @@ int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
         sampleInfo.codec.enableLowLatency, sampleInfo.codec.outputInDecodingOrder,
         sampleInfo.codec.isSmartFluencySupported, sampleInfo.video.hdrVividContainerSignaled,
         sampleInfo.codec.convertHdrVividToBt709);
-     // [EndExclude configure_full_baseline]
+    // [EndExclude configure_full_baseline2]
     int ret = OH_VideoDecoder_Configure(decoder_, format);
     OH_AVFormat_Destroy(format);
     format = nullptr;
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Config failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End configure_full_baseline]
 
 int32_t VideoDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecUserData)
 {
@@ -293,7 +302,6 @@ int32_t VideoDecoder::QueryInputBuffer(uint32_t &bufferIndex, int64_t timeoutUs)
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-
 OH_AVBuffer *VideoDecoder::GetInputBuffer(uint32_t bufferIndex)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
@@ -305,6 +313,7 @@ OH_AVBuffer *VideoDecoder::GetInputBuffer(uint32_t bufferIndex)
     return buffer;
 }
 
+// [Start decoder_sync_get_inputbuffer]
 OH_AVBuffer *VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
@@ -364,7 +373,7 @@ OH_AVBuffer *VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
     }
     return nullptr;
 }
-
+// [End decoder_sync_get_inputbuffer]
 
 int32_t VideoDecoder::QueryOutputBuffer(uint32_t &bufferIndex, int64_t timeoutUs)
 {
@@ -381,7 +390,6 @@ int32_t VideoDecoder::QueryOutputBuffer(uint32_t &bufferIndex, int64_t timeoutUs
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-
 OH_AVBuffer *VideoDecoder::GetOutputBuffer(uint32_t bufferIndex)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);
@@ -392,6 +400,8 @@ OH_AVBuffer *VideoDecoder::GetOutputBuffer(uint32_t bufferIndex)
     CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Output buffer is null, index: %{public}u", bufferIndex);
     return buffer;
 }
+
+// [Start decoder_sync_get_outputbuffer]
 int32_t VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     info.buffer = nullptr;
@@ -472,6 +482,8 @@ int32_t VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
     }
     return AVCODEC_SAMPLE_ERR_ERROR;
 }
+// [End decoder_sync_get_outputbuffer]
+
 // [Start decoder_start]
 int32_t VideoDecoder::Start()
 {
@@ -609,19 +621,20 @@ int32_t VideoDecoder::FreeOutputBuffer(uint32_t bufferIndex, bool render, int64_
 }
 // [End decoder_render_output_attime]
 
-
+// [Start decoder_setparameter]
 int32_t VideoDecoder::SetParameter(OH_AVFormat *format)
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Parameter format is null");
 
-    // 动态参数仅允许在 codec 已启动时设置，格式对象由调用方在调用结束后自行销毁。
+    // 配置显示旋转角度。
     const int32_t ret = OH_VideoDecoder_SetParameter(decoder_, format);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
         "Set parameter failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End decoder_setparameter]
 
 int32_t VideoDecoder::IsValid(bool &isValid)
 {

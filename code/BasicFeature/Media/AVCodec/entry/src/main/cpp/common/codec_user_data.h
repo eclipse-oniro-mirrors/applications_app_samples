@@ -91,13 +91,13 @@ struct CodecUserData {
         outputBufferQueue.CancelWait();
         renderCond.notify_all();
     }
-    // [Start buffer_clearn]
+    // [Start buffer_clean]
     void ClearQueue()
     {
         inputBufferQueue.Flush();
         outputBufferQueue.Flush();
     }
-    // [End buffer_clearn]
+    // [End buffer_clean]
 
     // 必须在持有 outputMutex 时调用。播放 PCM 已统一为 S16LE，因此可按双字节采样值计算队列时长。
     void UpdateAudioQueueDuration()
