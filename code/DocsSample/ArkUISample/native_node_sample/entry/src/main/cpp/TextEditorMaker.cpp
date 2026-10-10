@@ -1025,12 +1025,12 @@ static void DoCounter(ArkUI_NodeEvent* event)
                 if (result != nullptr) {
                     auto object = static_cast<ArkUI_ShowCounterConfig*>(result->object);
                     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "TextEditorMaker",
-                            "GetAttribute showCounter=%{public}d thresholdPercentage=%{public}f highlightBorder=%{public}d",
-                            result->value[INDEX_0].i32, result->value[INDEX_1].f32, result->value[INDEX_2].i32);
+                        "GetAttribute showCounter=%{public}d thresholdPercentage=%{public}f highlightBorder=%{public}d",
+                        result->value[INDEX_0].i32, result->value[INDEX_1].f32, result->value[INDEX_2].i32);
                     OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "TextEditorMaker",
-                                "GetCounterTextColor: 0x%{public}X GetCounterTextOverflowColor: 0x%{public}X",
-                                OH_ArkUI_ShowCounterConfig_GetCounterTextColor(object),
-                                OH_ArkUI_ShowCounterConfig_GetCounterTextOverflowColor(object));
+                        "GetCounterTextColor: 0x%{public}X GetCounterTextOverflowColor: 0x%{public}X",
+                        OH_ArkUI_ShowCounterConfig_GetCounterTextColor(object),
+                        OH_ArkUI_ShowCounterConfig_GetCounterTextOverflowColor(object));
                 }
             }
             break;
@@ -1073,17 +1073,18 @@ static void DoUnderline(ArkUI_NodeEvent* event)
             }
             break;
         case BTN_GET_UNDERLINE:{
-                const ArkUI_AttributeItem *result = Manager::nodeAPI_->getAttribute(textEditor, NODE_TEXT_EDITOR_SHOW_UNDERLINE);
+                const ArkUI_AttributeItem *result = Manager::nodeAPI_->getAttribute(textEditor,
+                    NODE_TEXT_EDITOR_SHOW_UNDERLINE);
                 if (result != nullptr) {
                     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "TextEditorMaker",
-                                "GetAttribute  show undeline=%{public}d ", result->value[0].i32);
+                        "GetAttribute  show undeline=%{public}d ", result->value[0].i32);
                 }
                 result = Manager::nodeAPI_->getAttribute(textEditor, NODE_TEXT_EDITOR_UNDERLINE_COLOR);
                 if (result != nullptr) {
                     OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "TextEditorMaker",
-                                "get underline color :0x%{public}X 0x%{public}X 0x%{public}X 0x%{public}X ",
-                                result->value[INDEX_0].u32, result->value[INDEX_1].u32, result->value[INDEX_2].u32,
-                                result->value[INDEX_3].u32);
+                        "get underline color :0x%{public}X 0x%{public}X 0x%{public}X 0x%{public}X ",
+                        result->value[INDEX_0].u32, result->value[INDEX_1].u32, result->value[INDEX_2].u32,
+                        result->value[INDEX_3].u32);
                 }
             }
             break;
