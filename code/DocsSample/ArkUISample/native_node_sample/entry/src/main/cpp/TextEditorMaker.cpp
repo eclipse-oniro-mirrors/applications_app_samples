@@ -1025,12 +1025,10 @@ static void DoCounter(ArkUI_NodeEvent* event)
                 if (result != nullptr) {
                     auto object = static_cast<ArkUI_ShowCounterConfig*>(result->object);
                     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "TextEditorMaker",
-                                    "GetAttribute showCounter=%{public}d thresholdPercentage=%{public}f "
-                                    "highlightBorder=%{public}d",
-                                    result->value[0].i32, result->value[1].f32, result->value[2].i32);
+                            "GetAttribute showCounter=%{public}d thresholdPercentage=%{public}f highlightBorder=%{public}d",
+                            result->value[INDEX_0].i32, result->value[INDEX_1].f32, result->value[INDEX_2].i32);
                     OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "TextEditorMaker",
-                            "GetCounterTextColor: 0x%{public}X GetCounterTextOverflowColor: "
-                            "0x%{public}X",
+                                "GetCounterTextColor: 0x%{public}X GetCounterTextOverflowColor: 0x%{public}X",
                                 OH_ArkUI_ShowCounterConfig_GetCounterTextColor(object),
                                 OH_ArkUI_ShowCounterConfig_GetCounterTextOverflowColor(object));
                 }
@@ -1063,7 +1061,7 @@ static void DoUnderline(ArkUI_NodeEvent* event)
                 auto enable2 = eventIndex == BTN_SHOW_UNDERLINE ? 1 : 0;
                 ArkUI_NumberValue underlineValue[] = {{.i32 = enable2}};
                 ArkUI_AttributeItem underLineItem = {.value = underlineValue, .size = 1};
-                Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_SHOW_UNDERLINE, &underLineItem); 
+                Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_SHOW_UNDERLINE, &underLineItem);
             }
             break;
         case BTN_RESET_UNDERLINE:{
@@ -1078,14 +1076,14 @@ static void DoUnderline(ArkUI_NodeEvent* event)
                 const ArkUI_AttributeItem *result = Manager::nodeAPI_->getAttribute(textEditor, NODE_TEXT_EDITOR_SHOW_UNDERLINE);
                 if (result != nullptr) {
                     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "TextEditorMaker",
-                                    "GetAttribute  show undeline=%{public}d ", result->value[0].i32);
+                                "GetAttribute  show undeline=%{public}d ", result->value[0].i32);
                 }
                 result = Manager::nodeAPI_->getAttribute(textEditor, NODE_TEXT_EDITOR_UNDERLINE_COLOR);
                 if (result != nullptr) {
                     OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "TextEditorMaker",
-                                    "get underline color :0x%{public}X 0x%{public}X 0x%{public}X 0x%{public}X ",
-                                    result->value[0].u32, result->value[1].u32, result->value[2].u32,
-                                    result->value[3].u32);
+                                "get underline color :0x%{public}X 0x%{public}X 0x%{public}X 0x%{public}X ",
+                                result->value[INDEX_0].u32, result->value[INDEX_1].u32, result->value[INDEX_2].u32,
+                                result->value[INDEX_3].u32);
                 }
             }
             break;
@@ -1406,7 +1404,7 @@ void ShowCounter()
 
 void UnderLine()
 {
-     StyledStringBase::SetTextTitle(textContainer, "下划线示例");
+    StyledStringBase::SetTextTitle(textContainer, "下划线示例");
     ArkUI_NodeHandle textEditor = InitTextEditor();
     ArkUI_NumberValue underlineValue[] = {{.i32 = 1}};
     ArkUI_AttributeItem underLineItem = {.value = underlineValue, .size = 1};
