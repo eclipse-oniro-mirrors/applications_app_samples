@@ -96,7 +96,7 @@ async function init(context: common.UIAbilityContext) {
     // [EndExclude onOutputDeviceChangeWithInfo]
     // [EndExclude onCurrentOutputDeviceChanged]
   }).catch((err) => {
-    console.info(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`);
+    console.error(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`);
     // [StartExclude onOutputDeviceChangeWithInfo]
     // [StartExclude onCurrentOutputDeviceChanged]
     globalLogUpdate(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`, true);
@@ -130,7 +130,7 @@ async function stop() {
   if (audioRenderer !== null) {
     if ((audioRenderer as audio.AudioRenderer).state.valueOf() !== audio.AudioState.STATE_RUNNING &&
       (audioRenderer as audio.AudioRenderer).state.valueOf() !== audio.AudioState.STATE_PAUSED) {
-      console.info('Audio renderer state is not running or paused.');
+      console.error('Audio renderer state is not running or paused.');
       globalLogUpdate('Audio renderer state is not running or paused.', true);
       return;
     }
