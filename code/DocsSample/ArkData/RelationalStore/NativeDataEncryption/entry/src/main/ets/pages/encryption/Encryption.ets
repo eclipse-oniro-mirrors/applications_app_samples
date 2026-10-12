@@ -25,13 +25,16 @@ import { common } from '@kit.AbilityKit';
 const DOMAIN = 0x0000
 
 // 场景1：不配置cryptoParam属性，此时会使用默认的加密配置进行数据库的加密/解密。
-export async function defaultConfigRdbStoreTs() {
+export async function defaultConfigRdbStoreTs(uiContext: UIContext) {
 
   // [Start defaultConfigRdbStoreTs]
   let store: relationalStore.RdbStore | undefined = undefined;
 
   /* context为应用的上下文信息，由调用方自行获取，此处仅为示例。 */
-  const context = new UIContext().getHostContext() as common.UIAbilityContext;
+  const context = uiContext.getHostContext();
+  if (context === undefined) {
+    return;
+  }
   try {
     const STORE_CONFIG: relationalStore.StoreConfig = {
       name: 'RdbTest.db',
@@ -49,7 +52,7 @@ export async function defaultConfigRdbStoreTs() {
 
 
 // 场景2：配置cryptoParam属性，此时会使用开发者自定义的密钥和算法参数进行数据库的加密/解密。
-export async function customizedConfigRdbStoreTs() {
+export async function customizedConfigRdbStoreTs(uiContext: UIContext) {
 
   // [Start customizedConfigRdbStoreTs]
   let store: relationalStore.RdbStore | undefined = undefined;
@@ -77,7 +80,10 @@ export async function customizedConfigRdbStoreTs() {
   }
 
   /* context为应用的上下文信息，由调用方自行获取，此处仅为示例。 */
-  const context = new UIContext().getHostContext() as common.UIAbilityContext;
+  const context = uiContext.getHostContext();
+  if (context === undefined) {
+    return;
+  }
   try {
     store = await relationalStore.getRdbStore(context, STORE_CONFIG);
     if (store == null) {
