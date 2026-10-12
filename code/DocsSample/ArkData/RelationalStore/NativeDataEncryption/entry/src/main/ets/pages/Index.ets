@@ -1,4 +1,5 @@
 import testNapi from 'libentry.so';
+import { UIContext } from '@kit.ArkUI';
 
 import { defaultConfigRdbStoreTs } from './encryption/Encryption';
 import { customizedConfigRdbStoreTs } from './encryption/Encryption';
@@ -66,11 +67,13 @@ struct Index {
       .height('10%')
       .backgroundColor('#0D9FFB')
       .onClick(() => {
-        defaultConfigRdbStoreTs()
-        customizedConfigRdbStoreTs()
-        backupManually()
-        rebuildingRelationalDatabaseAbnormally()
-        restoringManualBackupData()
+        (async () => {
+          await defaultConfigRdbStoreTs(this.getUIContext());
+          await customizedConfigRdbStoreTs(this.getUIContext());
+          await backupManually(this.getUIContext());
+          await rebuildingRelationalDatabaseAbnormally(this.getUIContext());
+          await restoringManualBackupData(this.getUIContext());
+        })();
       })
     }
     .height('100%')
