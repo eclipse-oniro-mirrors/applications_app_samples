@@ -32,10 +32,10 @@ export default class EntryAbility extends UIAbility {
   // [StartExclude onDestroy]
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     // 获取eventHub
-    let eventhub = this.context.eventHub;
+    let eventHub = this.context.eventHub;
     // 执行订阅操作
-    eventhub.on('event1', this.eventFunc);
-    eventhub.on('event1', (data: string) => {
+    eventHub.on('event1', this.eventFunc);
+    eventHub.on('event1', (data: string) => {
       // 触发事件，完成相应的业务操作
     });
     hilog.info(DOMAIN, TAG, '%{public}s', 'Ability onCreate');
