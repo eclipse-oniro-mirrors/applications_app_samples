@@ -87,6 +87,12 @@ public:
     void DrawThemeText(OH_Drawing_Canvas *canvas);
     void DrawSingleText(OH_Drawing_Canvas *canvas);
     void DrawFeatureText(OH_Drawing_Canvas *canvas);
+    void DrawTextBlobStringFallback(OH_Drawing_Canvas *canvas);
+    void DrawTextBlobTextFallback(OH_Drawing_Canvas *canvas);
+    void DrawTextBlobPosTextFallback(OH_Drawing_Canvas *canvas);
+    void DrawFontTextToGlyphsFallback(OH_Drawing_Canvas *canvas);
+    void DrawFontMeasureTextFallback(OH_Drawing_Canvas *canvas);
+    void DrawFontMeasureTextWithBrushOrPenFallback(OH_Drawing_Canvas *canvas);
     // 创建画布及绘图结果显示
     void Prepare();
     void Create();
