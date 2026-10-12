@@ -174,6 +174,112 @@ function drawFeatureText(canvas: drawing.Canvas) {
   // [End arkts_graphics_draw_feature_text]
 }
 
+function drawTextBlobFallback(canvas: drawing.Canvas) {
+  // [Start arkts_graphics_draw_textblob_string_fallback]
+  // 创建字型对象
+  const font = new drawing.Font();
+  // 创建字体对象
+  const myTypeface = drawing.Typeface.makeFromFile('/system/fonts/NotoSansArmenian[wdth,wght].ttf');
+  // 为字型设置字体
+  font.setTypeface(myTypeface);
+  // 设置字体大小
+  font.setSize(VALUE_100);
+  // 创建支持字体回退的字块数组
+  const textBlobs = drawing.TextBlob.makeFromStringWithFallback('Hello世界', font);
+  // 遍历字块数组并绘制，每个TextBlob绘制在相同原点
+  for (let textBlob of textBlobs) {
+    canvas.drawTextBlob(textBlob, VALUE_200, VALUE_300);
+  }
+  // [End arkts_graphics_draw_textblob_string_fallback]
+}
+
+function drawTextBlobPosTextFallback(canvas: drawing.Canvas) {
+  // [Start arkts_graphics_draw_textblob_postext_fallback]
+  // 创建字型对象
+  const font = new drawing.Font();
+  // 创建字体对象
+  const myTypeface = drawing.Typeface.makeFromFile('/system/fonts/NotoSansArmenian[wdth,wght].ttf');
+  // 为字型设置字体
+  font.setTypeface(myTypeface);
+  // 设置字体大小
+  font.setSize(VALUE_100);
+  // 需要绘制的文本
+  const text = 'Hello世界';
+  // 获取glyph数量
+  const glyphCount = font.countText(text);
+  // 为每个字符指定坐标位置
+  let points: common2D.Point[] = [];
+  let xOffset = 0;
+  for (let i = 0; i < glyphCount; i++) {
+    points.push({ x: VALUE_200 + xOffset, y: VALUE_300 });
+    xOffset += 60;
+  }
+  // 创建支持字体回退的字块数组
+  const textBlobs = drawing.TextBlob.makeFromPosTextWithFallback(text, glyphCount, points, font);
+  // 遍历字块数组并绘制
+  for (let textBlob of textBlobs) {
+    canvas.drawTextBlob(textBlob, 0, 0);
+  }
+  // [End arkts_graphics_draw_textblob_postext_fallback]
+}
+
+function drawFontTextToGlyphsFallback(canvas: drawing.Canvas) {
+  // [Start arkts_graphics_draw_font_texttoglyphs_fallback]
+  // 创建字型对象
+  const font = new drawing.Font();
+  // 创建字体对象
+  const myTypeface = drawing.Typeface.makeFromFile('/system/fonts/NotoSansArmenian[wdth,wght].ttf');
+  // 为字型设置字体
+  font.setTypeface(myTypeface);
+  // 设置字体大小
+  font.setSize(VALUE_100);
+  // 需要转换的文本
+  const text = 'Hello世界';
+  // 获取glyph数量
+  const glyphCount = font.countText(text);
+  // 将文本转换为glyph索引，支持字体回退
+  const fallbackInfos = font.textToGlyphsWithFallback(text, glyphCount);
+  // 使用drawGlyphs按回退字体分组绘制字形
+  let xOffset = 0;
+  // 遍历回退信息，每个元素包含相同typeface的glyph ID数组
+  for (let info of fallbackInfos) {
+    // info.typeface为匹配的字体
+    // info.glyphIds为该字体对应的glyph ID数组
+    font.setTypeface(info.typeface);
+    let positions: common2D.Point[] = [];
+    let glyphWidths = font.getWidths(info.glyphIds);
+    for (let j = 0; j < info.glyphIds.length; j++) {
+      positions.push({ x: VALUE_200 + xOffset, y: VALUE_300 });
+      xOffset += glyphWidths[j];
+    }
+    canvas.drawGlyphs(info.glyphIds, 0, positions, 0, info.glyphIds.length, font);
+  }
+  // [End arkts_graphics_draw_font_texttoglyphs_fallback]
+}
+
+function drawFontMeasureFallback(canvas: drawing.Canvas) {
+  // [Start arkts_graphics_draw_font_measure_fallback]
+  // 创建字型对象
+  const font = new drawing.Font();
+  // 创建字体对象
+  const myTypeface = drawing.Typeface.makeFromFile('/system/fonts/NotoSansArmenian[wdth,wght].ttf');
+  // 为字型设置字体
+  font.setTypeface(myTypeface);
+  // 设置字体大小
+  font.setSize(VALUE_100);
+  // 需要测量的文本
+  const text = 'Hello世界';
+  // 测量文本宽度，支持字体回退
+  const textWidth = font.measureTextWithFallback(text, drawing.TextEncoding.TEXT_ENCODING_UTF8);
+  console.info('textWidth: ' + textWidth);
+  // [End arkts_graphics_draw_font_measure_fallback]
+  // 绘制文本以展示字体回退效果
+  const textBlobs = drawing.TextBlob.makeFromStringWithFallback(text, font);
+  for (let textBlob of textBlobs) {
+    canvas.drawTextBlob(textBlob, VALUE_200, VALUE_300);
+  }
+}
+
 // 自定义RenderNode
 class MyRenderNode extends RenderNode {
   private drawFunctions: ((canvas: drawing.Canvas) => void)[] = []; // 存储绘制函数的数组
@@ -216,6 +322,10 @@ class MyNodeController extends NodeController {
     this.myRenderNode.addDrawFunction(drawThemeText);
     this.myRenderNode.addDrawFunction(drawSingleText);
     this.myRenderNode.addDrawFunction(drawFeatureText);
+    this.myRenderNode.addDrawFunction(drawTextBlobFallback);
+    this.myRenderNode.addDrawFunction(drawTextBlobPosTextFallback);
+    this.myRenderNode.addDrawFunction(drawFontTextToGlyphsFallback);
+    this.myRenderNode.addDrawFunction(drawFontMeasureFallback);
   }
 
   makeNode(uiContext: UIContext): FrameNode {
@@ -288,6 +398,34 @@ struct TextBlobDrawing {
           Button($r('app.string.FeatureText'))
             .onClick(() => {
               this.nodeController.setDrawIndex(6); // 点击绘制字体特征
+            });
+        }
+        .justifyContent(FlexAlign.SpaceEvenly)
+        .width('100%')
+        .height('8%')
+
+        Row() {
+          Button($r('app.string.TextBlobStringFallback'))
+            .onClick(() => {
+              this.nodeController.setDrawIndex(7); // 点击绘制字块字体回退
+            });
+          Button($r('app.string.TextBlobPosTextFallback'))
+            .onClick(() => {
+              this.nodeController.setDrawIndex(8); // 点击绘制定点字块回退
+            });
+        }
+        .justifyContent(FlexAlign.SpaceEvenly)
+        .width('100%')
+        .height('8%')
+
+        Row() {
+          Button($r('app.string.GlyphsFallback'))
+            .onClick(() => {
+              this.nodeController.setDrawIndex(9); // 点击绘制字形转换回退
+            });
+          Button($r('app.string.MeasureFallback'))
+            .onClick(() => {
+              this.nodeController.setDrawIndex(10); // 点击绘制文本测量回退
             });
         }
         .justifyContent(FlexAlign.SpaceEvenly)

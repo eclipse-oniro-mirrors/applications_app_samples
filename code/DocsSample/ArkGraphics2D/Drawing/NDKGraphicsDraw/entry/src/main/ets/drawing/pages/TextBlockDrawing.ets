@@ -28,7 +28,7 @@ struct TextBlockDrawing {
         })
         .backgroundColor(Color.White)
         .width('100%')
-        .height('80%')
+        .height('62%')
       Row() {
         Button($r('app.string.BaseText'))
           .onClick((): void => {
@@ -51,7 +51,7 @@ struct TextBlockDrawing {
       }
       .justifyContent(FlexAlign.SpaceEvenly)
       .width('100%')
-      .height('7%')
+      .height('8%')
       Row() {
         Button($r('app.string.GradientText'))
           .onClick((): void => {
@@ -80,7 +80,53 @@ struct TextBlockDrawing {
       }
       .justifyContent(FlexAlign.SpaceEvenly)
       .width('100%')
-      .height('7%')
+      .height('8%')
+      Row() {
+        Button($r('app.string.TextBlobStringFallback'))
+          .onClick((): void => {
+            if (this.xComponentContext) {
+              this.xComponentContext.draw('CanvasGet', 'TextBlobStringFallback');
+            }
+          })
+        Button($r('app.string.TextBlobTextFallback'))
+          .onClick((): void => {
+            if (this.xComponentContext) {
+              this.xComponentContext.draw('CanvasGet', 'TextBlobTextFallback');
+            }
+          })
+        Button($r('app.string.TextBlobPosTextFallback'))
+          .onClick((): void => {
+            if (this.xComponentContext) {
+              this.xComponentContext.draw('CanvasGet', 'TextBlobPosTextFallback');
+            }
+          })
+      }
+      .justifyContent(FlexAlign.SpaceEvenly)
+      .width('100%')
+      .height('8%')
+      Row() {
+        Button($r('app.string.FontTextToGlyphsFallback'))
+          .onClick((): void => {
+            if (this.xComponentContext) {
+              this.xComponentContext.draw('CanvasGet', 'FontTextToGlyphsFallback');
+            }
+          })
+        Button($r('app.string.FontMeasureTextFallback'))
+          .onClick((): void => {
+            if (this.xComponentContext) {
+              this.xComponentContext.draw('CanvasGet', 'FontMeasureTextFallback');
+            }
+          })
+        Button($r('app.string.FontMeasureTextWithBrushOrPenFallback'))
+          .onClick((): void => {
+            if (this.xComponentContext) {
+              this.xComponentContext.draw('CanvasGet', 'FontMeasureTextWithBrushOrPenFallback');
+            }
+          })
+      }
+      .justifyContent(FlexAlign.SpaceEvenly)
+      .width('100%')
+      .height('8%')
     }
   }
 }
