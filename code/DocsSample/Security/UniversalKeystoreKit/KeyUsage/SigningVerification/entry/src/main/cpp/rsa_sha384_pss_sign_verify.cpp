@@ -100,7 +100,7 @@ static OH_Huks_Result SignDataRSA(const struct OH_Huks_Blob *keyAlias,
     return ohResult;
 }
 
-/* 3. 验签  */
+/* 3. 验签 */
 static OH_Huks_Result VerifySignatureRSA(const struct OH_Huks_Blob *keyAlias,
                                          const struct OH_Huks_ParamSet *verifyParamSet,
                                          const struct OH_Huks_Blob *inData,
