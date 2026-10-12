@@ -20,6 +20,7 @@ import { BusinessError } from '@kit.BasicServicesKit'; // 导入BusinessError。
 // [StartExclude get_DebugManager]
 // [StartExclude print_LoopbackInfo]
 import { common, abilityAccessCtrl, PermissionRequestResult } from '@kit.AbilityKit'; // 导入UIAbilityContext。
+import { fileIo as fs } from '@kit.CoreFileKit'; // 导入文件管理模块。
 
 const TAG = 'AudioLoopbackDebugInfoDemo';
 // [EndExclude print_LoopbackInfo]
@@ -124,9 +125,22 @@ function printLoopbackInfo(updateCallback?: (msg: string, isError: boolean) => v
     // [EndExclude print_LoopbackInfo]
     return;
   }
-  const successMsg = '当前 SDK 的 AudioManager 未提供 getDebuggingManager ArkTS 接口。';
+
+// [StartExclude print_LoopbackInfo]
+  let debugManager = audio.getAudioManager().getDebuggingManager();
+  // [EndExclude print_LoopbackInfo]
+  // 输出到hilog日志。
+  debugManager.printLoopbackInfo(audioLoopback, -1);
+
+  // 输出到文件。
+  let filePath = getContext().filesDir + '/audio_loopback_debug.txt';
+  let file = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
+  debugManager.printLoopbackInfo(audioLoopback, file.fd);
+  fs.closeSync(file);
+  // [StartExclude print_LoopbackInfo]
+  const successMsg = `Loopback debug info written to: ${filePath}`;
   if (updateCallback) {
-    updateCallback(successMsg, true);
+    updateCallback(successMsg, false);
   }
   // [EndExclude print_LoopbackInfo]
 }
