@@ -55,6 +55,17 @@
 #define BTN_SET_CANCEL_BUTTON 25
 #define BTN_GET_CANCEL_BUTTON 26
 #define BTN_RESET_CANCEL_BUTTON 27
+#define BTN_SHOW_COUNTER_ENABLE 28
+#define BTN_SHOW_COUNTER_DISABLE 29
+#define BTN_GET_SHOW_COUNTER 30
+#define BTN_RESET_SHOW_COUNTER 31
+#define BTN_TEXT_EDITOR_ENABLE 32
+#define BTN_TEXT_EDITOR_DISABLE 33
+#define BTN_SHOW_UNDERLINE 34
+#define BTN_HIDE_UNDERLINE 35
+#define BTN_RESET_UNDERLINE 36
+#define BTN_RESET_UNDERLINE_COLOR 37
+#define BTN_GET_UNDERLINE 38
 
 static ArkUI_NodeHandle textContainer;
 static ArkUI_NodeHandle cancelButtonEditor;
@@ -391,6 +402,29 @@ void AddButton(char* btnContent, int32_t eventId, OH_ArkUI_TextEditorStyledStrin
     Manager::nodeAPI_->setAttribute(btn, NODE_BUTTON_LABEL, &btnTextItem);
     // 关联按钮对应回调事件
     Manager::nodeAPI_->registerNodeEvent(btn, NODE_ON_CLICK_EVENT, eventId, controller);
+    Manager::nodeAPI_->addChild(textContainer, btn);
+}
+
+/**
+ * 向界面中添加一个按钮，并关联按钮的回调事件
+ * @param btnContent 按钮显示的文本内容
+ * @param eventId 按钮点击事件ID
+ * @param node 事件处理时所需节点
+ */
+void AddButton(char* btnContent, int32_t eventId, ArkUI_NodeHandle node)
+{
+    ArkUI_NumberValue widthValue[] = {{.f32 = BUTTON_WIDTH}};
+    ArkUI_AttributeItem widthItem = {.value = widthValue, .size = SIZE_1};
+    ArkUI_NumberValue heightValue[] = {{.f32 = BUTTON_HEIGHT}};
+    ArkUI_AttributeItem heightItem = {.value = heightValue, .size = SIZE_1};
+    // 新建按钮
+    ArkUI_NodeHandle btn = Manager::nodeAPI_->createNode(ARKUI_NODE_BUTTON);
+    Manager::nodeAPI_->setAttribute(btn, NODE_WIDTH, &widthItem);
+    Manager::nodeAPI_->setAttribute(btn, NODE_HEIGHT, &heightItem);
+    ArkUI_AttributeItem btnTextItem = {.string = btnContent};
+    Manager::nodeAPI_->setAttribute(btn, NODE_BUTTON_LABEL, &btnTextItem);
+    // 关联按钮对应回调事件
+    Manager::nodeAPI_->registerNodeEvent(btn, NODE_ON_CLICK_EVENT, eventId, node);
     Manager::nodeAPI_->addChild(textContainer, btn);
 }
 
@@ -969,6 +1003,97 @@ void DoCancelButtonOperation(int eventIndex)
     }
 }
 
+static void DoCounter(ArkUI_NodeEvent* event)
+{
+    auto userData = OH_ArkUI_NodeEvent_GetUserData(event);
+    int eventIndex = OH_ArkUI_NodeEvent_GetTargetId(event);
+    auto textEditor = reinterpret_cast<ArkUI_NodeHandle>(userData);
+    switch (eventIndex) {
+        case BTN_SHOW_COUNTER_ENABLE:
+        case BTN_SHOW_COUNTER_DISABLE:{
+                ArkUI_ShowCounterConfig *options = OH_ArkUI_ShowCounterConfig_Create();
+                OH_ArkUI_ShowCounterConfig_SetCounterTextColor(options, 0xFFFF00FF);
+                OH_ArkUI_ShowCounterConfig_SetCounterTextOverflowColor(options, 0xFF0000FF);
+                auto enable = eventIndex == BTN_SHOW_COUNTER_ENABLE ? 1 : 0;
+                ArkUI_NumberValue showCounterArray[] = {{.i32 = enable}, {.f32 = 50.0f}, {.i32 = 1}};
+                ArkUI_AttributeItem ShowCounterColorItem = {.value = showCounterArray, .size = 3, .object = options};
+                Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_SHOW_COUNTER, &ShowCounterColorItem);
+            }
+            break;
+        case BTN_GET_SHOW_COUNTER:{
+                const ArkUI_AttributeItem *result = Manager::nodeAPI_->getAttribute(textEditor,
+                    NODE_TEXT_EDITOR_SHOW_COUNTER);
+                if (result != nullptr) {
+                    auto object = static_cast<ArkUI_ShowCounterConfig*>(result->object);
+                    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "TextEditorMaker",
+                        "GetAttribute showCounter=%{public}d thresholdPercentage=%{public}f highlightBorder=%{public}d",
+                        result->value[INDEX_0].i32, result->value[INDEX_1].f32, result->value[INDEX_2].i32);
+                    OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "TextEditorMaker",
+                        "GetCounterTextColor: 0x%{public}X GetCounterTextOverflowColor: 0x%{public}X",
+                        OH_ArkUI_ShowCounterConfig_GetCounterTextColor(object),
+                        OH_ArkUI_ShowCounterConfig_GetCounterTextOverflowColor(object));
+                }
+            }
+            break;
+        case BTN_RESET_SHOW_COUNTER:
+            Manager::nodeAPI_->resetAttribute(textEditor, NODE_TEXT_EDITOR_SHOW_COUNTER);
+            break;
+        default:
+            break;
+    }
+}
+
+static void DoUnderline(ArkUI_NodeEvent* event)
+{
+    auto userData = OH_ArkUI_NodeEvent_GetUserData(event);
+    int eventIndex = OH_ArkUI_NodeEvent_GetTargetId(event);
+    auto textEditor = reinterpret_cast<ArkUI_NodeHandle>(userData);
+    switch (eventIndex) {
+        case BTN_TEXT_EDITOR_DISABLE:
+        case BTN_TEXT_EDITOR_ENABLE:{
+                auto enable = eventIndex == BTN_TEXT_EDITOR_ENABLE ? 1 : 0;
+                ArkUI_NumberValue enableValue[] = {{.i32 = enable}};
+                ArkUI_AttributeItem enableItem = {enableValue, 1};
+                Manager::nodeAPI_->setAttribute(textEditor, NODE_ENABLED, &enableItem);
+            }
+            break;
+        case BTN_SHOW_UNDERLINE:
+        case BTN_HIDE_UNDERLINE:{
+                auto enable2 = eventIndex == BTN_SHOW_UNDERLINE ? 1 : 0;
+                ArkUI_NumberValue underlineValue[] = {{.i32 = enable2}};
+                ArkUI_AttributeItem underLineItem = {.value = underlineValue, .size = 1};
+                Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_SHOW_UNDERLINE, &underLineItem);
+            }
+            break;
+        case BTN_RESET_UNDERLINE:{
+                Manager::nodeAPI_->resetAttribute(textEditor, NODE_TEXT_EDITOR_SHOW_UNDERLINE);
+            }
+            break;
+        case BTN_RESET_UNDERLINE_COLOR:{
+                Manager::nodeAPI_->resetAttribute(textEditor, NODE_TEXT_EDITOR_UNDERLINE_COLOR);
+            }
+            break;
+        case BTN_GET_UNDERLINE:{
+                const ArkUI_AttributeItem *result = Manager::nodeAPI_->getAttribute(textEditor,
+                    NODE_TEXT_EDITOR_SHOW_UNDERLINE);
+                if (result != nullptr) {
+                    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "TextEditorMaker",
+                        "GetAttribute  show undeline=%{public}d ", result->value[0].i32);
+                }
+                result = Manager::nodeAPI_->getAttribute(textEditor, NODE_TEXT_EDITOR_UNDERLINE_COLOR);
+                if (result != nullptr) {
+                    OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "TextEditorMaker",
+                        "get underline color :0x%{public}X 0x%{public}X 0x%{public}X 0x%{public}X ",
+                        result->value[INDEX_0].u32, result->value[INDEX_1].u32, result->value[INDEX_2].u32,
+                        result->value[INDEX_3].u32);
+                }
+            }
+            break;
+        default:
+            break;
+    }
+}
+
 static void OnBtnClickReceive(ArkUI_NodeEvent* event)
 {
     auto eventType = OH_ArkUI_NodeEvent_GetEventType(event);
@@ -981,6 +1106,8 @@ static void OnBtnClickReceive(ArkUI_NodeEvent* event)
     int32_t caretPos = 0;
     DoLayoutManager(event);
     DoEditing(controllerGet, eventIndex);
+    DoCounter(event);
+    DoUnderline(event);
     switch (eventIndex) {
         case BTN_GET_CARET_OFFSET:
             OH_ArkUI_TextEditorStyledStringController_GetCaretOffset(controllerGet, &caretPos);
@@ -1251,6 +1378,58 @@ void TextEditorMaker::StyledStringWithChangeCallbacks()
     OH_ArkUI_StyledString_Descriptor_Destroy(styledString);
 }
 
+void ShowCounter()
+{
+    StyledStringBase::SetTextTitle(textContainer, "计数器示例");
+    ArkUI_NodeHandle textEditor = InitTextEditor();
+    // 设置最大字数
+    ArkUI_NumberValue maxLength = {.i32 = MAX_LENGTH};
+    ArkUI_AttributeItem maxLengthItem = {&maxLength, SIZE_1};
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_MAX_LENGTH, &maxLengthItem);
+
+    ArkUI_ShowCounterConfig *options = OH_ArkUI_ShowCounterConfig_Create();
+    OH_ArkUI_ShowCounterConfig_SetCounterTextColor(options, 0xFF000000);
+    OH_ArkUI_ShowCounterConfig_SetCounterTextOverflowColor(options, 0xFF0000FF);
+    ArkUI_NumberValue showCounterArray[] = {{.i32 = 1}, {.f32 = 1.0f}, {.i32 = true}};
+    ArkUI_AttributeItem ShowCounterColorItem = {.value = showCounterArray, .size = 3, .object = options};
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_SHOW_COUNTER, &ShowCounterColorItem);
+
+    OH_ArkUI_TextEditorStyledStringController* controller = OH_ArkUI_TextEditorStyledStringController_Create();
+    ArkUI_AttributeItem controllerItem = {.object = controller};
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_STYLED_STRING_CONTROLLER, &controllerItem);
+    AddButton("show counter", BTN_SHOW_COUNTER_ENABLE, textEditor);
+    AddButton("disable counter", BTN_SHOW_COUNTER_DISABLE, textEditor);
+    AddButton("get counter attr", BTN_SHOW_COUNTER_ENABLE, textEditor);
+    AddButton("reset counter attr", BTN_RESET_SHOW_COUNTER, textEditor);
+    Manager::nodeAPI_->registerNodeEventReceiver(&OnEventReceive);
+}
+
+void UnderLine()
+{
+    StyledStringBase::SetTextTitle(textContainer, "下划线示例");
+    ArkUI_NodeHandle textEditor = InitTextEditor();
+    ArkUI_NumberValue underlineValue[] = {{.i32 = 1}};
+    ArkUI_AttributeItem underLineItem = {.value = underlineValue, .size = 1};
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_SHOW_UNDERLINE, &underLineItem);
+
+    ArkUI_NumberValue underlineColor[] = {
+        {.u32 = 0xFF000000}, {.u32 = 0xFFFF0000}, {.u32 = 0xFF0000FF}, {.u32 = 0xFF00FF00}};
+    ArkUI_AttributeItem underlineColorItem = {underlineColor, 4};
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_UNDERLINE_COLOR, &underlineColorItem);
+
+    OH_ArkUI_TextEditorStyledStringController* controller = OH_ArkUI_TextEditorStyledStringController_Create();
+    ArkUI_AttributeItem controllerItem = {.object = controller};
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_STYLED_STRING_CONTROLLER, &controllerItem);
+    AddButton("disable text editor", BTN_TEXT_EDITOR_DISABLE, textEditor);
+    AddButton("enable text editor", BTN_TEXT_EDITOR_ENABLE, textEditor);
+    AddButton("show underline 1", BTN_SHOW_UNDERLINE, textEditor);
+    AddButton("show underline 0", BTN_HIDE_UNDERLINE, textEditor);
+    AddButton("reset underline", BTN_RESET_UNDERLINE, textEditor);
+    AddButton("reset underline color", BTN_RESET_UNDERLINE_COLOR, textEditor);
+    AddButton("get underline attr", BTN_GET_UNDERLINE, textEditor);
+    Manager::nodeAPI_->registerNodeEventReceiver(&OnEventReceive);
+}
+
 ArkUI_NodeHandle TextEditorMaker::CreateNativeNode()
 {
     ArkUI_NodeHandle scroll = Manager::nodeAPI_->createNode(ARKUI_NODE_SCROLL);
@@ -1274,6 +1453,8 @@ ArkUI_NodeHandle TextEditorMaker::CreateNativeNode()
     StyledStringBase::SetStyledString(textContainer, GetBindDescriptorFunc());
     StyledStringStyledPlaceholder();
     StyledStringWithChangeCallbacks();
+    ShowCounter();
+    UnderLine();
     Manager::nodeAPI_->addChild(scroll, textContainer);
     return scroll;
 }
