@@ -32,7 +32,7 @@ struct Index {
   }
 
   aboutToDisappear() {
-    console.error('aboutToDisappear');
+    console.info('aboutToDisappear');
   }
 
   build() {
