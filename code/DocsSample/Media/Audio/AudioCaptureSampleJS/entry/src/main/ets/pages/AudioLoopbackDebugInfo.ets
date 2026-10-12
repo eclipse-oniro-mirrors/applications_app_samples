@@ -125,8 +125,7 @@ function printLoopbackInfo(updateCallback?: (msg: string, isError: boolean) => v
     // [EndExclude print_LoopbackInfo]
     return;
   }
-
-// [StartExclude print_LoopbackInfo]
+  // [StartExclude print_LoopbackInfo]
   let debugManager = audio.getAudioManager().getDebuggingManager();
   // [EndExclude print_LoopbackInfo]
   // 输出到hilog日志。
