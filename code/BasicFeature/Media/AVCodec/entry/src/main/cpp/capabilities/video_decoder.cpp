@@ -426,37 +426,7 @@ int32_t VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
             }
             info.buffer = buffer;
             return AVCODEC_SAMPLE_ERR_OK;
-        /**
-            if (info.flags & AVCODEC_BUFFER_FLAGS_EOS) {
-                outputDone = 1;
-            }
-
-            // 解码输出数据处理。
-            // 值由开发者决定。
-            bool isRender;
-            bool isNeedRenderAtTime;
-            OH_AVErrCode result = AV_ERR_OK;
-            if (isRender) {
-                // 显示并释放已完成处理的信息，index为对应buffer队列的下标。
-                if (isNeedRenderAtTime){
-                    // 获取系统绝对时间，renderTimestamp由开发者结合业务指定显示时间。
-                    int64_t renderTimestamp =
-                        std::chrono::duration_cast<std::chrono::nanoseconds>
-                            (std::chrono::high_resolution_clock::now().time_since_epoch()).count();
-                    result = OH_VideoDecoder_RenderOutputBufferAtTime(videoDec, index, renderTimestamp);
-                } else {
-                    result = OH_VideoDecoder_RenderOutputBuffer(videoDec, index);
-                }
-            } else {
-                // 释放已完成处理的信息。
-                result = OH_VideoDecoder_FreeOutputBuffer(videoDec, index);
-            }
-            if (result != AV_ERR_OK) {
-                // 异常处理。
-                return false;
-            }
-            break;
-            **/
+            // 开发者可根据业务需要，对输出数据进行送显/保存/释放处理。
         }
         case AV_ERR_TRY_AGAIN_LATER: {
             AVCODEC_SAMPLE_LOGD("Get output buffer timeout.");
@@ -468,8 +438,16 @@ int32_t VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
             auto format =
                 std::shared_ptr<OH_AVFormat>(OH_VideoDecoder_GetOutputDescription(decoder_), OH_AVFormat_Destroy);
             CHECK_AND_BREAK_LOG(format != nullptr, "Format is nullptr.");
+            // 获取到变化后的视频宽、高、跨距。
             bool getIntRet = OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_PIC_WIDTH, &width) &&
                              OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_PIC_HEIGHT, &height);
+                             // OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_STRIDE, &widthStride);
+                             // OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_SLICE_HEIGHT, &heightStride);
+                             // 获取裁剪矩形信息可选。
+                             // OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_CROP_TOP, &cropTop);
+                             // OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_CROP_BOTTOM, &cropBottom);
+                             // OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_CROP_LEFT, &cropLeft);
+                             // OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_CROP_RIGHT, &cropRight);
             CHECK_AND_BREAK_LOG(getIntRet, "Decoder get int value failed.");
             AVCODEC_SAMPLE_LOGI("Stream Changed. Width: %{public}i, height: %{public}i", width, height);
             lock.unlock();

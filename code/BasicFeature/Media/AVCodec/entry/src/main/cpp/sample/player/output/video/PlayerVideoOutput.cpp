@@ -470,7 +470,7 @@ void Player::VideoDecOutputAsyncThread()
         // 获取输出buffer。
         std::shared_ptr<CodecBufferInfo> bufferInfo = videoDecContext_->outputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
-        //开发者可根据业务需要，对输出数据进行送显/保存/释放处理。
+        // 开发者可根据业务需要，对输出数据进行送显/保存/释放处理。
         // [End decoder_output_buffer]
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
         if (!isStarted_) {
