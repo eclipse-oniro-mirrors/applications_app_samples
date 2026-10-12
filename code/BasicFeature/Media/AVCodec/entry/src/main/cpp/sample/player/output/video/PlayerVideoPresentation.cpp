@@ -135,6 +135,35 @@ bool ShouldProbeHdrVividSurface(uint64_t outputFrameCount)
         (outputFrameCount > HDR_VIVID_SURFACE_PROBE_INITIAL_FRAME &&
             outputFrameCount % HDR_VIVID_SURFACE_PROBE_INTERVAL == 0);
 }
+
+bool ReleaseVideoBufferAfterFailure(VideoDecoder *decoder, const CodecBufferInfo &bufferInfo,
+    const char *reason)
+{
+    if (decoder == nullptr || bufferInfo.buffer == nullptr) {
+        AVCODEC_SAMPLE_LOGE("%{public}s: decoder buffer is unavailable", reason);
+        return false;
+    }
+    if (decoder->FreeOutputBuffer(bufferInfo.bufferIndex, false) != AVCODEC_SAMPLE_ERR_OK) {
+        AVCODEC_SAMPLE_LOGW("%{public}s: free video output buffer failed", reason);
+        return false;
+    }
+    return true;
+}
+
+bool UsesBufferMetadataPresentation(const SampleInfo &sampleInfo, const VideoSink *sink)
+{
+    if (sampleInfo.codec.codecRunMode == BUFFER) {
+        return true;
+    }
+    return (sampleInfo.codec.codecRunMode == OPENGL || sampleInfo.codec.codecRunMode == VULKAN) &&
+        sink != nullptr && !sink->UsesSurfaceDecoder();
+}
+
+bool IsVulkanSurfaceChainReady(const SampleInfo &sampleInfo, const VideoSink *sink)
+{
+    return sampleInfo.codec.codecRunMode != VULKAN ||
+        (sink != nullptr && sink->UsesSurfaceDecoder() && sampleInfo.video.window != nullptr);
+}
 } // 匿名命名空间
 
 void Player::DumpOutput(CodecBufferInfo &bufferInfo)
@@ -191,22 +220,24 @@ bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool rend
     if (!render) {
         videoDroppedFrames_.fetch_add(1);
     }
-    ConfirmHdrVividFromBuffer(bufferInfo);
+    // Surface 解码器的 OH_AVBuffer 没有应用侧内存，调用 GetNativeBuffer 只会产生
+    // “buffer's memory is nullptr” 日志；Surface/OpenGL/Vulkan 的 HDR 状态由各自
+    // 的 NativeWindow/NativeImage 路径确认，Buffer 模式才读取 OH_AVBuffer 元数据。
+    if (UsesBufferMetadataPresentation(sampleInfo_, videoSink_.get())) {
+        ConfirmHdrVividFromBuffer(bufferInfo);
+    }
     DumpOutput(bufferInfo);
     if (videoDecContext_ == nullptr) {
-        if (videoDecoder_ != nullptr && bufferInfo.buffer != nullptr &&
-            videoDecoder_->FreeOutputBuffer(bufferInfo.bufferIndex, false) != AVCODEC_SAMPLE_ERR_OK) {
-            AVCODEC_SAMPLE_LOGW("Free video output buffer failed before presentation");
-        }
-        AVCODEC_SAMPLE_LOGE("Video decode context is null");
+        ReleaseVideoBufferAfterFailure(videoDecoder_.get(), bufferInfo, "Video decode context is null");
         return false;
     }
     if (!EnsureVideoSink()) {
-        if (videoDecoder_ != nullptr && bufferInfo.buffer != nullptr &&
-            videoDecoder_->FreeOutputBuffer(bufferInfo.bufferIndex, false) != AVCODEC_SAMPLE_ERR_OK) {
-            AVCODEC_SAMPLE_LOGW("Free video output buffer failed before presentation");
-        }
-        AVCODEC_SAMPLE_LOGE("Video sink initialization failed");
+        ReleaseVideoBufferAfterFailure(videoDecoder_.get(), bufferInfo, "Video sink initialization failed");
+        return false;
+    }
+    if (!IsVulkanSurfaceChainReady(sampleInfo_, videoSink_.get())) {
+        // Vulkan 不允许退回 decoder Buffer 送显，避免切换模式后旧 BufferRenderer 继续接管画面。
+        ReleaseVideoBufferAfterFailure(videoDecoder_.get(), bufferInfo, "Invalid Vulkan Surface chain");
         return false;
     }
     const VideoPresentRequest request { *videoDecoder_, bufferInfo, sampleInfo_, *videoDecContext_, render,
@@ -265,6 +296,10 @@ bool Player::EnsureVideoSink()
         }
         videoSinkRunMode_ = sampleInfo_.codec.codecRunMode;
     }
+    if (sampleInfo_.codec.codecRunMode == VULKAN && !videoSink_->UsesSurfaceDecoder()) {
+        AVCODEC_SAMPLE_LOGE("Vulkan sink is not bound to a Surface decoder");
+        return false;
+    }
     return videoSink_ != nullptr;
 }
 
@@ -295,12 +330,18 @@ void Player::ProbeHdrVividFromSurface(bool render, uint64_t outputFrameCount)
 {
     if (render && !hdrVividConfirmed_.load() && ShouldProbeHdrVividSurface(outputFrameCount)) {
         auto windowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
-        // 仅当解码器直接渲染到 XComponent 时才查询该窗口。NativeImage 生产者属于 OpenGL 路径，
-        // 不能通过消费者窗口读取其元数据。
-        if (windowLease && sampleInfo_.video.window == windowLease.GetWindow() &&
-            HdrMetadataHelper::IsLastFlushedBufferHdrVivid(windowLease.GetWindow())) {
-            hdrVividConfirmed_.store(true);
-            AVCODEC_SAMPLE_LOGI("HDR Vivid confirmed from XComponent Surface metadata");
+        const bool usesVulkanSurface = sampleInfo_.codec.codecRunMode == VULKAN &&
+            videoSink_ != nullptr && videoSink_->UsesSurfaceDecoder();
+        // Vulkan 的 NativeImage 生产者不是 XComponent 窗口，但 Vulkan 会把确认后的
+        // NativeBuffer 元数据同步到最终窗口，因此应从该窗口读取最后送显的 Buffer。
+        if (windowLease) {
+            const bool usesDirectSurface = sampleInfo_.video.window == windowLease.GetWindow();
+            const bool hdrConfirmed = usesVulkanSurface ? videoSink_->IsHdrVividConfirmed() :
+                HdrMetadataHelper::IsLastFlushedBufferHdrVivid(windowLease.GetWindow());
+            if ((usesDirectSurface || usesVulkanSurface) && hdrConfirmed) {
+                hdrVividConfirmed_.store(true);
+                AVCODEC_SAMPLE_LOGI("HDR Vivid confirmed from XComponent Surface metadata");
+            }
         }
     }
 }

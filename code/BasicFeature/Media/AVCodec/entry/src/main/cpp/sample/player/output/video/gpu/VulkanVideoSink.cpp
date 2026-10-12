@@ -6,10 +6,17 @@
 #include "VulkanVideoSink.h"
 
 #include <algorithm>
+#include <array>
+#include <chrono>
+#include <memory>
 #include <utility>
+
+#include <native_fence/native_fence.h>
 
 #include "../renderer/HdrMetadataHelper.h"
 #include "VideoFrameConverter.h"
+#include "VideoPresentationGeometry.h"
+#include "VulkanVideoShaders.h"
 #include "av_codec_sample_log.h"
 #include "dfx/error/av_codec_sample_error.h"
 #include "plugin_manager.h"
@@ -26,7 +33,6 @@ constexpr uint64_t IMAGE_ACQUIRE_WAIT_NS = 2ULL * 1000ULL * 1000ULL;
 constexpr int64_t VULKAN_UPLOAD_MAX_PIXELS = 960LL * 540LL;
 constexpr int64_t VULKAN_PORTRAIT_UPLOAD_MAX_PIXELS = 640LL * 360LL;
 constexpr uint32_t PREFERRED_SWAPCHAIN_IMAGE_COUNT = 2;
-constexpr uint32_t INSTANCE_EXTENSION_COUNT = 2;
 constexpr uint32_t SURFACE_EXTENT_UNDEFINED = UINT32_MAX;
 constexpr uint32_t IMAGE_EXTENT_DEPTH = 1;
 constexpr int32_t CENTER_DIVISOR = 2;
@@ -39,15 +45,24 @@ constexpr int32_t ROTATION_270_DEGREES = 270;
 constexpr size_t RGBA_BLUE_COMPONENT_OFFSET = 2;
 constexpr size_t RGBA_ALPHA_COMPONENT_OFFSET = 3;
 constexpr size_t RGBA_BYTES_PER_PIXEL = 4;
-
-double DivideByPositive(double numerator, int32_t denominator)
-{
-    double quotient = 0.0;
-    if (denominator > 0) {
-        quotient = numerator / denominator;
-    }
-    return quotient;
-}
+constexpr uint32_t EXTERNAL_VERTEX_COUNT = 4;
+// 资源 shader 使用 vec2 位置 + vec2 纹理坐标。两组坐标各自占用两个 float，
+// 避免把顶点位置和纹理坐标复用同一内存，防止部分 GPU 读取到错误的裁剪范围。
+constexpr uint32_t EXTERNAL_VERTEX_COMPONENTS = 4;
+constexpr uint32_t EXTERNAL_DESCRIPTOR_COUNT = 2;
+constexpr uint32_t EXTERNAL_TEXCOORD_COMPONENT_OFFSET = 2;
+constexpr size_t COLOR_ALPHA_COMPONENT_INDEX = 3;
+constexpr float OPAQUE_ALPHA_VALUE = 1.0F;
+constexpr uint64_t NATIVE_IMAGE_WAIT_NS = 16ULL * 1000ULL * 1000ULL;
+constexpr uint32_t NATIVE_BUFFER_FENCE_WAIT_MS = 16;
+constexpr char EXTERNAL_MEMORY_EXTENSION[] = VK_OHOS_EXTERNAL_MEMORY_EXTENSION_NAME;
+constexpr char YCBCR_EXTENSION[] = VK_KHR_SAMPLER_YCBCR_CONVERSION_EXTENSION_NAME;
+constexpr std::array<float, VideoPresentationGeometry::MATRIX_ELEMENT_COUNT> IDENTITY_MATRIX = {
+    1.0F, 0.0F, 0.0F, 0.0F,
+    0.0F, 1.0F, 0.0F, 0.0F,
+    0.0F, 0.0F, 1.0F, 0.0F,
+    0.0F, 0.0F, 0.0F, 1.0F
+};
 
 struct ImageTransition {
     VkImage image = VK_NULL_HANDLE;
@@ -59,40 +74,16 @@ struct ImageTransition {
     VkPipelineStageFlags destinationStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
 };
 
-bool ConfigureWindowForGpu(OHNativeWindow *window, int32_t width, int32_t height)
-{
-    if (window == nullptr || width <= 0 || height <= 0) {
-        return false;
-    }
-    int32_t ret = OH_NativeWindow_NativeWindowHandleOpt(window, SET_BUFFER_GEOMETRY, width, height);
-    if (ret != 0) {
-        AVCODEC_SAMPLE_LOGW("Set Vulkan window geometry failed: %{public}d", ret);
-        return false;
-    }
-    ret = OH_NativeWindow_NativeWindowHandleOpt(window, SET_FORMAT, NATIVEBUFFER_PIXEL_FMT_RGBA_8888);
-    if (ret != 0) {
-        AVCODEC_SAMPLE_LOGW("Set Vulkan window format failed: %{public}d", ret);
-        return false;
-    }
-    const uint64_t usage = NATIVEBUFFER_USAGE_HW_RENDER | NATIVEBUFFER_USAGE_HW_TEXTURE;
-    ret = OH_NativeWindow_NativeWindowHandleOpt(window, SET_USAGE, usage);
-    if (ret != 0) {
-        AVCODEC_SAMPLE_LOGW("Set Vulkan window usage failed: %{public}d", ret);
-        return false;
-    }
-    ret = OH_NativeWindow_NativeWindowHandleOpt(window, SET_TRANSFORM, NATIVEBUFFER_ROTATE_NONE);
-    if (ret != 0) {
-        AVCODEC_SAMPLE_LOGW("Reset Vulkan window transform failed: %{public}d", ret);
-        return false;
-    }
-    return OH_NativeWindow_NativeWindowSetScalingModeV2(window, OH_SCALING_MODE_SCALE_FIT_V2) == 0;
-}
-
 bool ContainsExtension(const std::vector<VkExtensionProperties> &extensions, const char *name)
 {
     return std::any_of(extensions.begin(), extensions.end(), [name](const VkExtensionProperties &extension) {
         return std::strcmp(extension.extensionName, name) == 0;
     });
+}
+
+double DivideByPositive(double numerator, double denominator)
+{
+    return denominator > 0.0 ? numerator / denominator : 0.0;
 }
 
 bool IsHdrOrTenBit(const VideoPresentRequest &request)
@@ -136,6 +127,36 @@ void TransitionImage(VkCommandBuffer commandBuffer, const ImageTransition &trans
 }
 }
 
+bool VulkanVideoSink::ConfigureWindowForGpu(OHNativeWindow *window, int32_t width, int32_t height, bool hdrOutput)
+{
+    if (window == nullptr || width <= 0 || height <= 0) {
+        return false;
+    }
+    int32_t ret = OH_NativeWindow_NativeWindowHandleOpt(window, SET_BUFFER_GEOMETRY, width, height);
+    if (ret != 0) {
+        AVCODEC_SAMPLE_LOGW("Set Vulkan window geometry failed: %{public}d", ret);
+        return false;
+    }
+    const int32_t format = hdrOutput ? NATIVEBUFFER_PIXEL_FMT_RGBA_1010102 : NATIVEBUFFER_PIXEL_FMT_RGBA_8888;
+    ret = OH_NativeWindow_NativeWindowHandleOpt(window, SET_FORMAT, format);
+    if (ret != 0) {
+        AVCODEC_SAMPLE_LOGW("Set Vulkan window format failed: %{public}d", ret);
+        return false;
+    }
+    const uint64_t usage = NATIVEBUFFER_USAGE_HW_RENDER | NATIVEBUFFER_USAGE_HW_TEXTURE;
+    ret = OH_NativeWindow_NativeWindowHandleOpt(window, SET_USAGE, usage);
+    if (ret != 0) {
+        AVCODEC_SAMPLE_LOGW("Set Vulkan window usage failed: %{public}d", ret);
+        return false;
+    }
+    ret = OH_NativeWindow_NativeWindowHandleOpt(window, SET_TRANSFORM, NATIVEBUFFER_ROTATE_NONE);
+    if (ret != 0) {
+        AVCODEC_SAMPLE_LOGW("Reset Vulkan window transform failed: %{public}d", ret);
+        return false;
+    }
+    return OH_NativeWindow_NativeWindowSetScalingModeV2(window, OH_SCALING_MODE_SCALE_FIT_V2) == 0;
+}
+
 VulkanVideoSink::~VulkanVideoSink()
 {
     Reset();
@@ -161,12 +182,21 @@ bool VulkanVideoSink::CreateInstance()
     applicationInfo.pEngineName = APP_NAME;
     applicationInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
     applicationInfo.apiVersion = VK_API_VERSION_1_0;
-    const char *instanceExtensions[] = { VK_KHR_SURFACE_EXTENSION_NAME, VK_OHOS_SURFACE_EXTENSION_NAME };
+    std::vector<const char *> instanceExtensions = { VK_KHR_SURFACE_EXTENSION_NAME, VK_OHOS_SURFACE_EXTENSION_NAME };
+    // HDR 色彩空间枚举属于实例扩展。未启用该扩展时，即使设备支持 HDR，
+    // vkGetPhysicalDeviceSurfaceFormatsKHR 也不会返回 HDR10/PQ 色彩空间。
+    if (ContainsExtension(extensions, VK_EXT_SWAPCHAIN_COLOR_SPACE_EXTENSION_NAME)) {
+        instanceExtensions.push_back(VK_EXT_SWAPCHAIN_COLOR_SPACE_EXTENSION_NAME);
+    }
+    if (ContainsExtension(extensions, VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME)) {
+        // Vulkan 1.0 实例通过该扩展查询 YCbCr 特性；Vulkan 1.1 设备则使用同名核心入口。
+        instanceExtensions.push_back(VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME);
+    }
     VkInstanceCreateInfo createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     createInfo.pApplicationInfo = &applicationInfo;
-    createInfo.enabledExtensionCount = INSTANCE_EXTENSION_COUNT;
-    createInfo.ppEnabledExtensionNames = instanceExtensions;
+    createInfo.enabledExtensionCount = static_cast<uint32_t>(instanceExtensions.size());
+    createInfo.ppEnabledExtensionNames = instanceExtensions.data();
     return vkCreateInstance(&createInfo, nullptr, &instance_) == VK_SUCCESS;
 }
 
@@ -189,25 +219,63 @@ bool VulkanVideoSink::SelectDevice()
         return false;
     }
     for (VkPhysicalDevice device : devices) {
-        uint32_t extensionCount = 0;
-        vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);
-        std::vector<VkExtensionProperties> extensions(extensionCount);
-        vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, extensions.data());
-        if (!ContainsExtension(extensions, DEVICE_SWAPCHAIN_EXTENSION)) {
-            continue;
+        uint32_t queueFamilyIndex = 0;
+        if (IsDeviceSuitable(device, queueFamilyIndex)) {
+            physicalDevice_ = device;
+            queueFamilyIndex_ = queueFamilyIndex;
+            return true;
         }
-        uint32_t familyCount = 0;
-        vkGetPhysicalDeviceQueueFamilyProperties(device, &familyCount, nullptr);
-        std::vector<VkQueueFamilyProperties> families(familyCount);
-        vkGetPhysicalDeviceQueueFamilyProperties(device, &familyCount, families.data());
-        for (uint32_t index = 0; index < familyCount; ++index) {
-            VkBool32 supportsPresent = VK_FALSE;
-            vkGetPhysicalDeviceSurfaceSupportKHR(device, index, surface_, &supportsPresent);
-            if ((families[index].queueFlags & VK_QUEUE_GRAPHICS_BIT) != 0 && supportsPresent == VK_TRUE) {
-                physicalDevice_ = device;
-                queueFamilyIndex_ = index;
-                return true;
-            }
+    }
+    return false;
+}
+
+bool VulkanVideoSink::IsDeviceSuitable(VkPhysicalDevice device, uint32_t &queueFamilyIndex) const
+{
+    uint32_t extensionCount = 0;
+    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);
+    std::vector<VkExtensionProperties> extensions(extensionCount);
+    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, extensions.data());
+    VkPhysicalDeviceProperties deviceProperties{};
+    vkGetPhysicalDeviceProperties(device, &deviceProperties);
+    const bool supportsCoreYcbcr = VK_VERSION_MAJOR(deviceProperties.apiVersion) > 1 ||
+        (VK_VERSION_MAJOR(deviceProperties.apiVersion) == 1 && VK_VERSION_MINOR(deviceProperties.apiVersion) >= 1);
+    // NativeBuffer 导入依赖 VK_OHOS_external_memory；只有交换链扩展而没有该扩展时，
+    // 只能创建普通 Vulkan 窗口，不能完成 Surface 到外部纹理的送显。
+    if (!ContainsExtension(extensions, DEVICE_SWAPCHAIN_EXTENSION) ||
+        !ContainsExtension(extensions, EXTERNAL_MEMORY_EXTENSION) ||
+        (!ContainsExtension(extensions, YCBCR_EXTENSION) && !supportsCoreYcbcr)) {
+        AVCODEC_SAMPLE_LOGW("Vulkan device lacks swapchain, external-memory, or YCbCr support");
+        return false;
+    }
+    VkPhysicalDeviceSamplerYcbcrConversionFeatures ycbcrFeatures{};
+    ycbcrFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES;
+    VkPhysicalDeviceFeatures2 deviceFeatures{};
+    deviceFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2;
+    deviceFeatures.pNext = &ycbcrFeatures;
+    auto getFeatures2 = reinterpret_cast<PFN_vkGetPhysicalDeviceFeatures2>(
+        vkGetInstanceProcAddr(instance_, "vkGetPhysicalDeviceFeatures2"));
+    if (getFeatures2 == nullptr) {
+        getFeatures2 = reinterpret_cast<PFN_vkGetPhysicalDeviceFeatures2>(
+            vkGetInstanceProcAddr(instance_, "vkGetPhysicalDeviceFeatures2KHR"));
+    }
+    if (getFeatures2 == nullptr) {
+        AVCODEC_SAMPLE_LOGW("Vulkan feature query is unavailable");
+        return false;
+    }
+    getFeatures2(device, &deviceFeatures);
+    if (ycbcrFeatures.samplerYcbcrConversion != VK_TRUE) {
+        return false;
+    }
+    uint32_t familyCount = 0;
+    vkGetPhysicalDeviceQueueFamilyProperties(device, &familyCount, nullptr);
+    std::vector<VkQueueFamilyProperties> families(familyCount);
+    vkGetPhysicalDeviceQueueFamilyProperties(device, &familyCount, families.data());
+    for (uint32_t index = 0; index < familyCount; ++index) {
+        VkBool32 supportsPresent = VK_FALSE;
+        vkGetPhysicalDeviceSurfaceSupportKHR(device, index, surface_, &supportsPresent);
+        if ((families[index].queueFlags & VK_QUEUE_GRAPHICS_BIT) != 0 && supportsPresent == VK_TRUE) {
+            queueFamilyIndex = index;
+            return true;
         }
     }
     return false;
@@ -222,14 +290,30 @@ bool VulkanVideoSink::CreateDevice()
     queueInfo.queueCount = 1;
     queueInfo.pQueuePriorities = &queuePriority;
     VkPhysicalDeviceFeatures features{};
+    VkPhysicalDeviceSamplerYcbcrConversionFeatures ycbcrFeatures{};
+    ycbcrFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES;
+    ycbcrFeatures.samplerYcbcrConversion = VK_TRUE;
     VkDeviceCreateInfo createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     createInfo.pQueueCreateInfos = &queueInfo;
     createInfo.queueCreateInfoCount = 1;
     createInfo.pEnabledFeatures = &features;
-    createInfo.enabledExtensionCount = 1;
-    const char *deviceExtension = DEVICE_SWAPCHAIN_EXTENSION;
-    createInfo.ppEnabledExtensionNames = &deviceExtension;
+    createInfo.pNext = &ycbcrFeatures;
+    uint32_t extensionCount = 0;
+    std::vector<VkExtensionProperties> extensions;
+    if (vkEnumerateDeviceExtensionProperties(physicalDevice_, nullptr, &extensionCount, nullptr) == VK_SUCCESS) {
+        extensions.resize(extensionCount);
+        (void)vkEnumerateDeviceExtensionProperties(physicalDevice_, nullptr, &extensionCount, extensions.data());
+    }
+    std::vector<const char *> deviceExtensions = { DEVICE_SWAPCHAIN_EXTENSION };
+    if (ContainsExtension(extensions, EXTERNAL_MEMORY_EXTENSION)) {
+        deviceExtensions.push_back(EXTERNAL_MEMORY_EXTENSION);
+    }
+    if (ContainsExtension(extensions, YCBCR_EXTENSION)) {
+        deviceExtensions.push_back(YCBCR_EXTENSION);
+    }
+    createInfo.enabledExtensionCount = static_cast<uint32_t>(deviceExtensions.size());
+    createInfo.ppEnabledExtensionNames = deviceExtensions.data();
     if (vkCreateDevice(physicalDevice_, &createInfo, nullptr, &device_) != VK_SUCCESS) {
         return false;
     }
@@ -239,26 +323,101 @@ bool VulkanVideoSink::CreateDevice()
 
 bool VulkanVideoSink::CreateSwapchain(int32_t width, int32_t height)
 {
+    if (!ConfigureWindowForSwapchain(width, height)) {
+        return false;
+    }
     VkSurfaceCapabilitiesKHR capabilities{};
-    if (vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice_, surface_, &capabilities) != VK_SUCCESS ||
-        (capabilities.supportedUsageFlags & VK_IMAGE_USAGE_TRANSFER_DST_BIT) == 0) {
-        AVCODEC_SAMPLE_LOGW("Vulkan surface does not support transfer-to-present images");
+    if (!QuerySwapchainCapabilities(capabilities)) {
         return false;
     }
     VkSurfaceFormatKHR surfaceFormat{};
     if (!SelectSwapchainFormat(surfaceFormat)) {
         return false;
     }
-    swapchainFormat_ = surfaceFormat.format;
-    VkFormatProperties formatProperties {};
-    vkGetPhysicalDeviceFormatProperties(physicalDevice_, swapchainFormat_, &formatProperties);
-    constexpr VkFormatFeatureFlags requiredFeatures = VK_FORMAT_FEATURE_BLIT_DST_BIT;
-    if ((formatProperties.optimalTilingFeatures & requiredFeatures) != requiredFeatures) {
-        AVCODEC_SAMPLE_LOGW("Vulkan swapchain format does not support linear blit");
+    return ConfigureSelectedSwapchainFormat(capabilities, surfaceFormat, width, height) &&
+        CreateConfiguredSwapchain(capabilities, surfaceFormat);
+}
+
+bool VulkanVideoSink::ConfigureWindowForSwapchain(int32_t width, int32_t height)
+{
+    if (window_ == nullptr) {
+        return true;
+    }
+    bool configured = ConfigureWindowForGpu(window_, width, height, preferHdrSwapchain_);
+    const OH_NativeBuffer_ColorSpace requestedColorSpace = preferHdrSwapchain_ ? OH_COLORSPACE_BT2020_PQ_LIMIT :
+        OH_COLORSPACE_BT709_LIMIT;
+    (void)OH_NativeWindow_SetColorSpace(window_, requestedColorSpace);
+    if (!configured && preferHdrSwapchain_) {
+        AVCODEC_SAMPLE_LOGW("Configure Vulkan HDR window failed, retry with SDR format");
+        configured = ConfigureWindowForGpu(window_, width, height, false);
+        (void)OH_NativeWindow_SetColorSpace(window_, OH_COLORSPACE_BT709_LIMIT);
+    }
+    if (!configured) {
+        AVCODEC_SAMPLE_LOGW("Configure Vulkan window before format query failed");
+    }
+    return configured;
+}
+
+bool VulkanVideoSink::QuerySwapchainCapabilities(VkSurfaceCapabilitiesKHR &capabilities) const
+{
+    constexpr VkImageUsageFlags colorAttachmentUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+    const VkImageUsageFlags requiredUsage = surfaceOutputRequested_ ? colorAttachmentUsage :
+        colorAttachmentUsage | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
+    if (vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice_, surface_, &capabilities) != VK_SUCCESS) {
+        AVCODEC_SAMPLE_LOGW("Query Vulkan surface capabilities failed");
         return false;
     }
+    return ValidateSwapchainUsage(capabilities, requiredUsage);
+}
+
+bool VulkanVideoSink::ValidateSwapchainUsage(const VkSurfaceCapabilitiesKHR &capabilities,
+    VkImageUsageFlags requiredUsage) const
+{
+    if ((capabilities.supportedUsageFlags & requiredUsage) != requiredUsage) {
+        AVCODEC_SAMPLE_LOGW("Vulkan surface does not support required swapchain image usage");
+        return false;
+    }
+    return true;
+}
+
+bool VulkanVideoSink::ConfigureSelectedSwapchainFormat(const VkSurfaceCapabilitiesKHR &capabilities,
+    const VkSurfaceFormatKHR &surfaceFormat, int32_t width, int32_t height)
+{
+    if (!ConfigureSwapchainWindowColor(width, height)) {
+        AVCODEC_SAMPLE_LOGW("Configure Vulkan window for selected swapchain format failed");
+        return false;
+    }
+    swapchainFormat_ = surfaceFormat.format;
+    VkFormatProperties formatProperties{};
+    vkGetPhysicalDeviceFormatProperties(physicalDevice_, swapchainFormat_, &formatProperties);
+    constexpr VkFormatFeatureFlags transferFeatures = VK_FORMAT_FEATURE_BLIT_DST_BIT;
+    swapchainTransferSupported_ = (capabilities.supportedUsageFlags & VK_IMAGE_USAGE_TRANSFER_DST_BIT) != 0 &&
+        (formatProperties.optimalTilingFeatures & transferFeatures) == transferFeatures;
     swapRedBlue_ = swapchainFormat_ == VK_FORMAT_B8G8R8A8_UNORM;
     swapchainExtent_ = ResolveSwapchainExtent(capabilities, width, height);
+    return true;
+}
+
+bool VulkanVideoSink::ConfigureSwapchainWindowColor(int32_t width, int32_t height)
+{
+    if (window_ == nullptr) {
+        return true;
+    }
+    if (!ConfigureWindowForGpu(window_, width, height, hdrSwapchainActive_)) {
+        return false;
+    }
+    const OH_NativeBuffer_ColorSpace colorSpace = hdrSwapchainActive_ ? OH_COLORSPACE_BT2020_PQ_LIMIT :
+        OH_COLORSPACE_BT709_LIMIT;
+    if (OH_NativeWindow_SetColorSpace(window_, colorSpace) != 0) {
+        AVCODEC_SAMPLE_LOGW("Set Vulkan window color space for selected format failed");
+    }
+    return true;
+}
+
+bool VulkanVideoSink::CreateConfiguredSwapchain(const VkSurfaceCapabilitiesKHR &capabilities,
+    const VkSurfaceFormatKHR &surfaceFormat)
+{
+    constexpr VkImageUsageFlags colorAttachmentUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
     VkSwapchainCreateInfoKHR createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
     createInfo.surface = surface_;
@@ -270,7 +429,10 @@ bool VulkanVideoSink::CreateSwapchain(int32_t width, int32_t height)
     createInfo.imageColorSpace = surfaceFormat.colorSpace;
     createInfo.imageExtent = swapchainExtent_;
     createInfo.imageArrayLayers = 1;
-    createInfo.imageUsage = VK_IMAGE_USAGE_TRANSFER_DST_BIT;
+    createInfo.imageUsage = colorAttachmentUsage;
+    if (swapchainTransferSupported_ && !surfaceOutputRequested_) {
+        createInfo.imageUsage |= VK_IMAGE_USAGE_TRANSFER_DST_BIT;
+    }
     createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
     createInfo.preTransform = capabilities.currentTransform;
     createInfo.compositeAlpha = SelectCompositeAlpha(capabilities);
@@ -280,10 +442,7 @@ bool VulkanVideoSink::CreateSwapchain(int32_t width, int32_t height)
     }
     createInfo.presentMode = SelectPresentMode();
     createInfo.clipped = VK_TRUE;
-    if (vkCreateSwapchainKHR(device_, &createInfo, nullptr, &swapchain_) != VK_SUCCESS) {
-        return false;
-    }
-    return LoadSwapchainImages();
+    return vkCreateSwapchainKHR(device_, &createInfo, nullptr, &swapchain_) == VK_SUCCESS && LoadSwapchainImages();
 }
 
 bool VulkanVideoSink::SelectSwapchainFormat(VkSurfaceFormatKHR &surfaceFormat)
@@ -297,6 +456,25 @@ bool VulkanVideoSink::SelectSwapchainFormat(VkSurfaceFormatKHR &surfaceFormat)
     if (vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice_, surface_, &formatCount, formats.data()) != VK_SUCCESS) {
         return false;
     }
+    if (preferHdrSwapchain_) {
+        // HDR Surface 使用 10-bit UNORM 承载解码器输出的 PQ 数值。窗口元数据在首帧
+        // 读取后再同步为 HDR Vivid，避免把容器声明误当成真实 HDR 内容。
+        auto hdrFormatIt = std::find_if(formats.begin(), formats.end(), [](const VkSurfaceFormatKHR &format) {
+            return (format.format == VK_FORMAT_A2B10G10R10_UNORM_PACK32 ||
+                format.format == VK_FORMAT_A2R10G10B10_UNORM_PACK32) &&
+                format.colorSpace == VK_COLOR_SPACE_HDR10_ST2084_EXT;
+        });
+        if (hdrFormatIt != formats.end()) {
+            surfaceFormat = *hdrFormatIt;
+            hdrSwapchainActive_ = true;
+            AVCODEC_SAMPLE_LOGI("Use Vulkan HDR swapchain format: %{public}d, color space: %{public}d",
+                static_cast<int32_t>(surfaceFormat.format), static_cast<int32_t>(surfaceFormat.colorSpace));
+            return true;
+        }
+        AVCODEC_SAMPLE_LOGW("HDR swapchain format count: %{public}u", formatCount);
+        AVCODEC_SAMPLE_LOGW("HDR Vulkan surface format is unavailable, use 8-bit output");
+    }
+    hdrSwapchainActive_ = false;
     // 同时支持两种格式时使用 RGBA，可避免每次上传前在 CPU 上完整交换红蓝通道。
     auto formatIt = std::find_if(formats.begin(), formats.end(), [](const VkSurfaceFormatKHR &format) {
         return format.format == VK_FORMAT_R8G8B8A8_UNORM;
@@ -371,6 +549,14 @@ bool VulkanVideoSink::LoadSwapchainImages()
         !swapchainImages_.empty();
     if (loaded) {
         swapchainImageLayouts_.assign(imageCount, VK_IMAGE_LAYOUT_UNDEFINED);
+        renderFinishedSemaphores_.assign(imageCount, VK_NULL_HANDLE);
+        VkSemaphoreCreateInfo semaphoreInfo{};
+        semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+        for (VkSemaphore &semaphore : renderFinishedSemaphores_) {
+            if (vkCreateSemaphore(device_, &semaphoreInfo, nullptr, &semaphore) != VK_SUCCESS) {
+                return false;
+            }
+        }
     }
     return loaded;
 }
@@ -394,8 +580,7 @@ bool VulkanVideoSink::CreateCommandResources()
     }
     VkSemaphoreCreateInfo semaphoreInfo{};
     semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
-    if (vkCreateSemaphore(device_, &semaphoreInfo, nullptr, &imageAvailable_) != VK_SUCCESS ||
-        vkCreateSemaphore(device_, &semaphoreInfo, nullptr, &renderFinished_) != VK_SUCCESS) {
+    if (vkCreateSemaphore(device_, &semaphoreInfo, nullptr, &imageAvailable_) != VK_SUCCESS) {
         return false;
     }
     VkFenceCreateInfo fenceInfo{};
@@ -404,16 +589,29 @@ bool VulkanVideoSink::CreateCommandResources()
     return vkCreateFence(device_, &fenceInfo, nullptr, &frameFence_) == VK_SUCCESS;
 }
 
+bool VulkanVideoSink::LoadShaderModule(const uint32_t *code, size_t wordCount, VkShaderModule &module)
+{
+    module = VK_NULL_HANDLE;
+    if (code == nullptr || wordCount == 0) {
+        return false;
+    }
+    VkShaderModuleCreateInfo createInfo{};
+    createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+    createInfo.codeSize = wordCount * sizeof(uint32_t);
+    createInfo.pCode = code;
+    return vkCreateShaderModule(device_, &createInfo, nullptr, &module) == VK_SUCCESS;
+}
+
 bool VulkanVideoSink::Initialize(OHNativeWindow *window, int32_t width, int32_t height)
 {
+    window_ = window;
+    width_ = width;
+    height_ = height;
     if (window == nullptr || width <= 0 || height <= 0 || !CreateInstance() || !CreateSurface(window) ||
         !SelectDevice() || !CreateDevice() || !CreateSwapchain(width, height) || !CreateCommandResources()) {
         ReleaseVulkanResources();
         return false;
     }
-    window_ = window;
-    width_ = width;
-    height_ = height;
     initialized_ = true;
     AVCODEC_SAMPLE_LOGI("Vulkan video sink initialized");
     return true;
@@ -719,8 +917,50 @@ bool VulkanVideoSink::CalculatePresentRegion(int32_t uploadWidth, int32_t upload
     return true;
 }
 
+bool VulkanVideoSink::CalculateExternalPresentRegion(PresentRegion &region) const
+{
+    VideoPresentationGeometry::Region fit{};
+    const VideoPresentationGeometry::FitRegionRequest request {
+        externalVideoWidth_, externalVideoHeight_, externalVideoRotation_,
+        static_cast<int32_t>(swapchainExtent_.width), static_cast<int32_t>(swapchainExtent_.height) };
+    if (!VideoPresentationGeometry::CalculateFitRegion(request, fit)) {
+        return false;
+    }
+    region = { fit.left, fit.top, fit.width, fit.height };
+    return true;
+}
+
+bool VulkanVideoSink::UpdateExternalTransform()
+{
+    if (currentNativeBuffer_ == nullptr || externalUniformMapped_ == nullptr) {
+        AVCODEC_SAMPLE_LOGW("Vulkan NativeBuffer is unavailable for transform");
+        return false;
+    }
+    // Vulkan 使用 AcquireLatestNativeWindowBuffer 消费 NativeImage。该接口不能与
+    // UpdateSurfaceImage/GetBufferMatrix 混用，因此裁剪信息从当前 acquired Buffer 的
+    // 配置计算，而不是读取可能属于另一帧的 last-flushed 矩阵。
+    OH_NativeBuffer_Config config{};
+    OH_NativeBuffer_GetConfig(currentNativeBuffer_, &config);
+    const int32_t bufferWidth = config.width > 0 ? config.width : externalVideoWidth_;
+    const int32_t bufferHeight = config.height > 0 ? config.height : externalVideoHeight_;
+    std::array<float, VideoPresentationGeometry::MATRIX_ELEMENT_COUNT> contentMatrix{};
+    if (!VideoPresentationGeometry::BuildContentCropMatrix(bufferWidth, bufferHeight, externalVideoWidth_,
+        externalVideoHeight_, contentMatrix)) {
+        AVCODEC_SAMPLE_LOGW("Invalid Vulkan NativeBuffer content size: buffer %{public}d x %{public}d, content "
+            "%{public}d x %{public}d", bufferWidth, bufferHeight, externalVideoWidth_, externalVideoHeight_);
+        return false;
+    }
+    // decoder rotation 固定为 0，容器方向在裁剪之前应用一次，避免生产端再次旋转。
+    externalTransform_ = VideoPresentationGeometry::RotateTextureMatrix(contentMatrix, externalVideoRotation_);
+    std::copy(externalTransform_.begin(), externalTransform_.end(), static_cast<float *>(externalUniformMapped_));
+    return true;
+}
+
 bool VulkanVideoSink::SubmitFrame(uint32_t imageIndex)
 {
+    if (imageIndex >= renderFinishedSemaphores_.size()) {
+        return false;
+    }
     if (vkResetFences(device_, 1, &frameFence_) != VK_SUCCESS) {
         return false;
     }
@@ -733,12 +973,13 @@ bool VulkanVideoSink::SubmitFrame(uint32_t imageIndex)
     submit.commandBufferCount = 1;
     submit.pCommandBuffers = &commandBuffer_;
     submit.signalSemaphoreCount = 1;
-    submit.pSignalSemaphores = &renderFinished_;
+    submit.pSignalSemaphores = &renderFinishedSemaphores_[imageIndex];
     const bool submitted = vkQueueSubmit(queue_, 1, &submit, frameFence_) == VK_SUCCESS;
+    frameInFlight_ = submitted;
     VkPresentInfoKHR present{};
     present.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
     present.waitSemaphoreCount = 1;
-    present.pWaitSemaphores = &renderFinished_;
+    present.pWaitSemaphores = &renderFinishedSemaphores_[imageIndex];
     present.swapchainCount = 1;
     present.pSwapchains = &swapchain_;
     present.pImageIndices = &imageIndex;
@@ -757,18 +998,156 @@ bool VulkanVideoSink::SubmitFrame(uint32_t imageIndex)
 
 void VulkanVideoSink::PresentBlackFrame()
 {
+    if (!CanClearCurrentSwapchain() || !WaitForVulkanDeviceForClear()) {
+        return;
+    }
+    frameInFlight_ = false;
+    if (!EnsureBlackFramebuffers()) {
+        return;
+    }
+    uint32_t imageIndex = 0;
+    if (!AcquireBlackFrameImage(imageIndex) || !RecordAndSubmitBlackFrame(imageIndex)) {
+        return;
+    }
+    frameInFlight_ = false;
+    if (swapchainRecreatePending_) {
+        AVCODEC_SAMPLE_LOGW("Vulkan black frame submitted but present is out of date");
+        return;
+    }
+    if (!HdrMetadataHelper::ResetNativeWindowSdrMetadata(window_)) {
+        AVCODEC_SAMPLE_LOGW("Reset Vulkan window metadata after clearing failed");
+    }
+}
+
+bool VulkanVideoSink::CanClearCurrentSwapchain() const
+{
     if (!initialized_ || device_ == VK_NULL_HANDLE || swapchain_ == VK_NULL_HANDLE) {
-        return;
+        return false;
     }
-    // 销毁 swapchain 不会替换合成器中的最后一张图像。先送显黑帧，
-    // 避免准备下一解码器期间仍显示前一个视频的最后一帧。
-    if (vkDeviceWaitIdle(device_) != VK_SUCCESS) {
-        AVCODEC_SAMPLE_LOGW("Wait Vulkan device before clearing the previous frame failed");
-        return;
+    if (swapchainRecreatePending_) {
+        AVCODEC_SAMPLE_LOGW("Skip Vulkan black frame because swapchain recreation is pending");
+        return false;
     }
-    const std::vector<uint8_t> blackFrame = { 0U, 0U, 0U, 255U };
-    if (!RenderFrame(blackFrame, 1, 1, 0)) {
+    return true;
+}
+
+bool VulkanVideoSink::WaitForVulkanDeviceForClear()
+{
+    if (vkDeviceWaitIdle(device_) == VK_SUCCESS) {
+        return true;
+    }
+    AVCODEC_SAMPLE_LOGW("Wait Vulkan device before clearing the previous frame failed");
+    return false;
+}
+
+bool VulkanVideoSink::EnsureBlackFramebuffers()
+{
+    const bool framebuffersMatch = externalFramebuffers_.size() == swapchainImages_.size() &&
+        externalFrameBufferViews_.size() == swapchainImages_.size();
+    if (externalRenderPass_ != VK_NULL_HANDLE && framebuffersMatch) {
+        return true;
+    }
+    // Framebuffer 绑定具体的 swapchain image，重建交换链后必须一并更新。
+    if (externalRenderPass_ != VK_NULL_HANDLE || !externalFramebuffers_.empty()) {
+        DestroyExternalFramebuffers();
+        if (externalRenderPass_ != VK_NULL_HANDLE) {
+            vkDestroyRenderPass(device_, externalRenderPass_, nullptr);
+            externalRenderPass_ = VK_NULL_HANDLE;
+        }
+    }
+    return CreateExternalRenderPass();
+}
+
+bool VulkanVideoSink::AcquireBlackFrameImage(uint32_t &imageIndex)
+{
+    const VkResult result = vkAcquireNextImageKHR(device_, swapchain_, NATIVE_IMAGE_WAIT_NS, imageAvailable_,
+        VK_NULL_HANDLE, &imageIndex);
+    if ((result == VK_SUCCESS || result == VK_SUBOPTIMAL_KHR) && imageIndex < externalFramebuffers_.size()) {
+        return true;
+    }
+    AVCODEC_SAMPLE_LOGW("Acquire Vulkan image for clearing failed: %{public}d", static_cast<int32_t>(result));
+    if (result == VK_SUCCESS || result == VK_SUBOPTIMAL_KHR || result == VK_ERROR_OUT_OF_DATE_KHR ||
+        result == VK_ERROR_SURFACE_LOST_KHR || result == VK_ERROR_DEVICE_LOST) {
+        swapchainRecreatePending_ = true;
+    }
+    return false;
+}
+
+bool VulkanVideoSink::RecordAndSubmitBlackFrame(uint32_t imageIndex)
+{
+    if (vkResetCommandBuffer(commandBuffer_, 0) != VK_SUCCESS) {
+        swapchainRecreatePending_ = true;
+        return false;
+    }
+    VkCommandBufferBeginInfo beginInfo{};
+    beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+    if (vkBeginCommandBuffer(commandBuffer_, &beginInfo) != VK_SUCCESS) {
+        swapchainRecreatePending_ = true;
+        return false;
+    }
+    RecordBlackClearPass(imageIndex);
+    const bool recorded = vkEndCommandBuffer(commandBuffer_) == VK_SUCCESS;
+    if (!recorded) {
+        swapchainRecreatePending_ = true;
+    }
+    const bool submitted = recorded && SubmitExternalFrame(imageIndex);
+    const bool idle = vkDeviceWaitIdle(device_) == VK_SUCCESS;
+    if (!submitted || !idle) {
         AVCODEC_SAMPLE_LOGW("Present Vulkan black frame failed");
+        return false;
+    }
+    return true;
+}
+
+void VulkanVideoSink::RecordBlackClearPass(uint32_t imageIndex)
+{
+    // 使用颜色附件清屏；HDR packed 格式不能用 RGBA8888 整数值代替黑色。
+    VkClearValue clearValue{};
+    clearValue.color = BLACK;
+    VkRenderPassBeginInfo passInfo{};
+    passInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+    passInfo.renderPass = externalRenderPass_;
+    passInfo.framebuffer = externalFramebuffers_[imageIndex];
+    passInfo.renderArea.extent = swapchainExtent_;
+    passInfo.clearValueCount = 1;
+    passInfo.pClearValues = &clearValue;
+    vkCmdBeginRenderPass(commandBuffer_, &passInfo, VK_SUBPASS_CONTENTS_INLINE);
+    vkCmdEndRenderPass(commandBuffer_);
+}
+
+bool VulkanVideoSink::Quiesce()
+{
+    if (device_ == VK_NULL_HANDLE) {
+        return true;
+    }
+    const VkResult ret = vkDeviceWaitIdle(device_);
+    if (ret != VK_SUCCESS) {
+        AVCODEC_SAMPLE_LOGW("Wait Vulkan output before codec reset failed: %{public}d", static_cast<int32_t>(ret));
+        return false;
+    }
+    frameInFlight_ = false;
+    ReleaseCurrentNativeBuffer();
+    // Quiesce 只负责让 GPU 和当前 NativeImage buffer 达到静止状态。
+    // 交换链尺寸变化和 Seek 都可能紧接着销毁 framebuffer，清屏必须由
+    // Reset/新播放阶段执行，避免在过期交换链上重复 Acquire/Present。
+    return true;
+}
+
+void VulkanVideoSink::DiscardPendingFrames()
+{
+    if (nativeImage_ == nullptr) {
+        return;
+    }
+    // 此时 codec 已 Flush，应用输出线程也已退出，不会继续提交旧时间轴的帧。
+    // 不等待生产者 fence、不采样，直接把 fence 随 Buffer 交回队列即可。
+    availableFrameCount_.exchange(0);
+    OHNativeWindowBuffer *buffer = nullptr;
+    int fenceFd = -1;
+    const int32_t ret = OH_NativeImage_AcquireLatestNativeWindowBuffer(nativeImage_, &buffer, &fenceFd);
+    if (ret == 0 && buffer != nullptr) {
+        (void)OH_NativeImage_ReleaseNativeWindowBuffer(nativeImage_, buffer, fenceFd);
+    } else if (fenceFd >= 0) {
+        OH_NativeFence_Close(fenceFd);
     }
 }
 
@@ -781,10 +1160,10 @@ bool VulkanVideoSink::EnsureContext(NativeXComponentSample::PluginManager::Plugi
     const int32_t width = windowLease.GetWidth();
     const int32_t height = windowLease.GetHeight();
     const uint64_t generation = windowLease.GetGeneration();
-    const bool generationChanged = initialized_ && windowGeneration_ != generation;
-    if (initialized_ && window_ == window && !generationChanged) {
+    const bool windowChanged = initialized_ && window_ != window;
+    if (initialized_ && !windowChanged) {
         const bool sizeChanged = width_ != width || height_ != height;
-        if (sizeChanged && !ConfigureWindowForGpu(window, width, height)) {
+        if (sizeChanged && !ConfigureWindowForGpu(window, width, height, preferHdrSwapchain_)) {
             return false;
         }
         if ((sizeChanged || swapchainRecreatePending_) && !RecreateSwapchain(width, height)) {
@@ -802,7 +1181,7 @@ bool VulkanVideoSink::EnsureContext(NativeXComponentSample::PluginManager::Plugi
         // Surface；只重建 swapchain 会保留旧 extent，使视频在当前 XComponent 内发生偏移。
         ReleaseVulkanResources();
     }
-    if (!ConfigureWindowForGpu(window, width, height)) {
+    if (!ConfigureWindowForGpu(window, width, height, preferHdrSwapchain_)) {
         return false;
     }
     if (!Initialize(window, width, height)) {
@@ -819,80 +1198,98 @@ bool VulkanVideoSink::RecreateSwapchain(int32_t width, int32_t height)
     if (device_ == VK_NULL_HANDLE) {
         return false;
     }
-    (void)vkDeviceWaitIdle(device_);
+    if (!Quiesce()) {
+        return false;
+    }
+    if (surfaceDecoderReady_ || externalRenderPass_ != VK_NULL_HANDLE ||
+        !externalFramebuffers_.empty()) {
+        DestroyExternalRenderResources();
+    }
     // XComponent 配置变化时，选中的 Surface 格式也可能改变。
     // 需连同 swapchain 一起重建上传图像，确保两者格式一致。
     ReleaseUploadImage();
     DestroySwapchain();
-    return CreateSwapchain(width, height);
+    DestroyFrameResources();
+    if (!CreateSwapchain(width, height) || !CreateCommandResources()) {
+        return false;
+    }
+    return !surfaceDecoderReady_ || CreateExternalRenderResources();
 }
 
 int32_t VulkanVideoSink::Present(const VideoPresentRequest &request)
 {
-    if (!request.render) {
-        return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
+    if (!surfaceDecoderReady_) {
+        // Vulkan 链路固定使用 Surface 输出。异常情况下只归还 codec Buffer，
+        // 不能让旧的 BufferRenderer 接管当前播放。
+        const int32_t freeRet = request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
+        AVCODEC_SAMPLE_LOGE("Vulkan Surface decoder is unavailable, skip frame");
+        return freeRet == AVCODEC_SAMPLE_ERR_OK ? AVCODEC_SAMPLE_ERR_ERROR : freeRet;
     }
-    if (fallbackOnly_) {
-        return fallback_.Present(request);
+    externalVideoWidth_ = request.context.width > 0 ? request.context.width : request.sampleInfo.video.videoWidth;
+    externalVideoHeight_ = request.context.height > 0 ? request.context.height : request.sampleInfo.video.videoHeight;
+    // 解码器只负责把帧提交到 NativeImage 生产者；Vulkan 消费者在归还 codec Buffer 后
+    // 获取同一帧的 NativeWindowBuffer，并通过 OHOS 外部内存导入到 Vulkan 图像。
+    const int32_t freeRet = request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, request.render,
+        request.renderTimestamp);
+    if (freeRet != AVCODEC_SAMPLE_ERR_OK || !request.render) {
+        return freeRet;
     }
-    if (IsHdrOrTenBit(request)) {
-        // BufferRenderer 重新配置该窗口时，不能仍连接 Vulkan 生产者。
-        fallbackOnly_ = true;
-        ReleaseVulkanResources();
-        return fallback_.Present(request);
+    if (!RenderNativeImageFrame()) {
+        AVCODEC_SAMPLE_LOGW("Vulkan NativeImage frame presentation failed; drop frame");
     }
-    auto windowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
-    const int32_t frameWidth = request.context.width > 0 ? request.context.width : request.sampleInfo.video.videoWidth;
-    const int32_t frameHeight = request.context.height > 0 ? request.context.height :
-        request.sampleInfo.video.videoHeight;
-    int32_t surfaceWidth = windowLease.GetWidth();
-    int32_t surfaceHeight = windowLease.GetHeight();
-    if (surfaceWidth <= 0 || surfaceHeight <= 0) {
-        surfaceWidth = frameWidth;
-        surfaceHeight = frameHeight;
-    }
-    VideoFrameConverter::FrameSize uploadSize = {frameWidth, frameHeight};
-    const bool contextReady = windowLease && EnsureContext(std::move(windowLease));
-    if (contextReady && frameFence_ != VK_NULL_HANDLE &&
-        vkWaitForFences(device_, 1, &frameFence_, VK_TRUE, FRAME_READY_WAIT_NS) != VK_SUCCESS) {
-        // 合成暂时落后时，不能无限期占有 codec 输出 Buffer，必须尽快归还。
-        return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
-    }
-    if (contextReady) {
-        uploadSize = VideoFrameConverter::GetScaledFrameSize({{frameWidth, frameHeight},
-            {static_cast<int32_t>(swapchainExtent_.width), static_cast<int32_t>(swapchainExtent_.height)},
-            request.sampleInfo.video.rotation, VULKAN_UPLOAD_MAX_PIXELS, VULKAN_PORTRAIT_UPLOAD_MAX_PIXELS});
-    }
-    const bool ready = contextReady && VideoFrameConverter::ToRgbaScaled(request.bufferInfo, request.sampleInfo,
-        request.context, uploadSize, rgbaCache_) &&
-        RenderFrame(rgbaCache_, uploadSize.width, uploadSize.height, request.sampleInfo.video.rotation);
-    if (!ready) {
-        AVCODEC_SAMPLE_LOGW("Vulkan presentation unavailable, use BufferRenderer fallback");
-        fallbackOnly_ = true;
-        ReleaseVulkanResources();
-        return fallback_.Present(request);
-    }
-    // RGBA 数据已复制到 Vulkan staging buffer，立即归还 codec 输出 Buffer，
-    // 不让 GPU 提交延迟耗尽解码器的输出队列。
-    return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
+    return AVCODEC_SAMPLE_ERR_OK;
 }
 
 OHNativeWindow *VulkanVideoSink::PrepareForPlayback(const SampleInfo &sampleInfo)
 {
-    (void)sampleInfo;
-    auto windowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
-    if (!windowLease || !EnsureContext(std::move(windowLease))) {
-        AVCODEC_SAMPLE_LOGW("Vulkan prewarm skipped: XComponent window is unavailable");
+    // Surface 解码和 Vulkan Buffer 渲染不能同时占用同一个 XComponent 窗口。
+    // 切换到 Surface 前先清理上一轮 Vulkan 生产者，避免旧 swapchain 持有窗口或残留最后一帧。
+    if (initialized_ || windowLease_) {
+        PresentBlackFrame();
+        ReleaseVulkanResources();
+    }
+    // 解码器输出先进入 NativeImage consumer，再由 Vulkan 以 OHOS 外部内存方式采样。
+    surfaceOutputRequested_ = true;
+    surfaceDecoderReady_ = false;
+    preferHdrSwapchain_ = (sampleInfo.video.hdrVividContainerSignaled || sampleInfo.video.isHDRVivid != 0) &&
+        !sampleInfo.codec.convertHdrVividToBt709;
+    outputMetadataInitialized_ = false;
+    metadataWarningLogged_ = false;
+    hdrVividConfirmed_ = false;
+    auto outputWindowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
+    if (!outputWindowLease || !EnsureContext(std::move(outputWindowLease))) {
+        AVCODEC_SAMPLE_LOGW("Vulkan output Surface is unavailable");
+        surfaceOutputRequested_ = false;
         return nullptr;
     }
-    // 初始化解码器前清除前一生产者的图像，同时将 Vulkan 实例、设备和 swapchain 的创建
-    // 移出首个解码帧的处理路径，降低首帧延迟。
-    PresentBlackFrame();
-    return nullptr;
+    if (!preferHdrSwapchain_) {
+        outputMetadataInitialized_ = HdrMetadataHelper::ResetNativeWindowSdrMetadata(window_);
+    }
+    const int32_t videoWidth = sampleInfo.video.videoWidth > 0 ? sampleInfo.video.videoWidth : width_;
+    const int32_t videoHeight = sampleInfo.video.videoHeight > 0 ? sampleInfo.video.videoHeight : height_;
+    externalVideoWidth_ = videoWidth;
+    externalVideoHeight_ = videoHeight;
+    externalVideoRotation_ = sampleInfo.video.rotation;
+    if (!CreateExternalRenderResources() || !CreateNativeImage(videoWidth, videoHeight)) {
+        AVCODEC_SAMPLE_LOGW("Vulkan external NativeImage resources are unavailable");
+        DestroyNativeImage();
+        ReleaseVulkanResources();
+        surfaceOutputRequested_ = false;
+        return nullptr;
+    }
+    surfaceDecoderReady_ = true;
+    AVCODEC_SAMPLE_LOGI("Vulkan mode uses Surface to NativeImage external-memory output");
+    return decoderWindow_;
 }
 
 void VulkanVideoSink::DestroySwapchain()
 {
+    for (VkSemaphore semaphore : renderFinishedSemaphores_) {
+        if (semaphore != VK_NULL_HANDLE) {
+            vkDestroySemaphore(device_, semaphore, nullptr);
+        }
+    }
+    renderFinishedSemaphores_.clear();
     if (swapchain_ != VK_NULL_HANDLE) {
         vkDestroySwapchainKHR(device_, swapchain_, nullptr);
         swapchain_ = VK_NULL_HANDLE;
@@ -904,8 +1301,15 @@ void VulkanVideoSink::DestroySwapchain()
 void VulkanVideoSink::ReleaseVulkanResources()
 {
     initialized_ = false;
+    surfaceOutputRequested_ = false;
+    outputMetadataInitialized_ = false;
+    metadataWarningLogged_ = false;
+    hdrVividConfirmed_ = false;
     if (device_ != VK_NULL_HANDLE) {
         (void)vkDeviceWaitIdle(device_);
+        frameInFlight_ = false;
+        DestroyNativeImage();
+        DestroyExternalRenderResources();
         DestroyFrameResources();
         DestroyStagingBuffer();
         ReleaseUploadImage();
@@ -931,10 +1335,6 @@ void VulkanVideoSink::DestroyFrameResources()
     if (frameFence_ != VK_NULL_HANDLE) {
         vkDestroyFence(device_, frameFence_, nullptr);
         frameFence_ = VK_NULL_HANDLE;
-    }
-    if (renderFinished_ != VK_NULL_HANDLE) {
-        vkDestroySemaphore(device_, renderFinished_, nullptr);
-        renderFinished_ = VK_NULL_HANDLE;
     }
     if (imageAvailable_ != VK_NULL_HANDLE) {
         vkDestroySemaphore(device_, imageAvailable_, nullptr);
@@ -968,15 +1368,19 @@ void VulkanVideoSink::ResetContextState()
     swapchainFormat_ = VK_FORMAT_UNDEFINED;
     swapchainExtent_ = {};
     swapRedBlue_ = false;
+    swapchainTransferSupported_ = false;
     window_ = nullptr;
     width_ = 0;
     height_ = 0;
     windowGeneration_ = 0;
     swapchainRecreatePending_ = false;
+    frameInFlight_ = false;
 }
 
 void VulkanVideoSink::Reset()
 {
+    // Surface 解码器由 Player 在此之前销毁；此时才能解除 decoder 使用的窗口租约。
+    surfaceDecoderReady_ = false;
     PresentBlackFrame();
     ReleaseVulkanResources();
     fallbackOnly_ = false;
@@ -989,7 +1393,12 @@ void VulkanVideoSink::BeginPlayback()
 {
     // Vulkan 设备有意跨任务保留，但 BufferRenderer 回退状态只属于前一条已解码流，
     // 不能影响下一个文件。
+    if (initialized_ || windowLease_) {
+        PresentBlackFrame();
+        ReleaseVulkanResources();
+    }
     fallbackOnly_ = false;
+    surfaceDecoderReady_ = false;
     fallback_.Reset();
     rgbaCache_.clear();
     uploadCache_.clear();

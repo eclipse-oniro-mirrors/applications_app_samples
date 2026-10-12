@@ -77,6 +77,7 @@ private:
     int32_t SetCallback(CodecUserData *codecUserData);
     int32_t Configure(const SampleInfo &sampleInfo);
     int32_t GetSurface(SampleInfo &sampleInfo);
+    OH_AVCodec *GetCodecByMime(const char *mime);
     bool isAVBufferMode_ = false;
     std::shared_mutex codecMutex;
     OH_AVCodec *encoder_ = nullptr;

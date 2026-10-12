@@ -45,12 +45,21 @@ VideoEncoder::~VideoEncoder()
     Release();
 }
 
+// [Start encoder_create_bymime]
+// 通过 MIME TYPE 创建编码器，由系统选择对应的编码器实现。
+OH_AVCodec *VideoEncoder::GetCodecByMime(const char *mime)
+{
+    CHECK_AND_RETURN_RET_LOG(mime != nullptr, nullptr, "Codec mime is nullptr");
+    return OH_VideoEncoder_CreateByMime(mime);
+}
+// [End encoder_create_bymime]
+
 int32_t VideoEncoder::Create(const std::string &videoCodecMime)
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ == nullptr, AVCODEC_SAMPLE_ERR_ERROR,
         "Encoder already exists, release it before creating another one");
-    encoder_ = OH_VideoEncoder_CreateByMime(videoCodecMime.c_str());
+    encoder_ = GetCodecByMime(videoCodecMime.c_str());
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }

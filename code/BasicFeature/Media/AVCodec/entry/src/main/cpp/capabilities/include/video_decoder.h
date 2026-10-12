@@ -81,6 +81,7 @@ private:
     int32_t SetCallback(CodecUserData *codecUserData);
     // SampleInfo 配置入口保留为私有实现，统一执行能力校验和播放设置映射，避免绕过示例的配置约束。
     int32_t Configure(const SampleInfo &sampleInfo);
+    OH_AVCodec *GetCodecByMime(const char *mime);
     OH_AVCodec *GetCodecByCategory(const char *mime, bool isEncoder, OH_AVCodecCategory category);
 
     bool isAVBufferMode_ = false;

@@ -23,6 +23,16 @@ namespace {
 constexpr int LIMIT_LOGD_FREQUENCY = 50;
 constexpr int ROTATION_ANGLE = 90;
 
+OH_AVErrCode SetDecoderSurface(OH_AVCodec *decoder, OHNativeWindow *window)
+{
+    return OH_VideoDecoder_SetSurface(decoder, window);
+}
+
+OH_AVErrCode PrepareDecoder(OH_AVCodec *decoder)
+{
+    return OH_VideoDecoder_Prepare(decoder);
+}
+
 // 该能力依赖API 26 Native SDK中的智能流畅Key和枚举。
 // 兼容旧SDK时，可将AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY设为OFF。
 #ifdef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
@@ -90,9 +100,47 @@ OH_AVCodec *VideoDecoder::GetCodecByCategory(const char *mime, bool isEncoder, O
     OH_AVCapability *capability = OH_AVCodec_GetCapabilityByCategory(mime, isEncoder, category);
     CHECK_AND_RETURN_RET_LOG(capability != nullptr, nullptr, "Capability is nullptr");
     const char *codecName = OH_AVCapability_GetName(capability);
+    CHECK_AND_RETURN_RET_LOG(codecName != nullptr, nullptr, "Codec name is nullptr");
     return OH_VideoDecoder_CreateByName(codecName);
 }
 // [End decoder_create_byname]
+
+// [Start decoder_create_bymime]
+// 通过 MIME TYPE 创建解码器，只能创建系统推荐的特定编解码器。
+// 涉及创建多路编解码器时，优先创建硬件解码器实例，硬件资源不够时再创建软件解码器实例。
+OH_AVCodec *VideoDecoder::GetCodecByMime(const char *mime)
+{
+    CHECK_AND_RETURN_RET_LOG(mime != nullptr, nullptr, "Codec mime is nullptr");
+    return OH_VideoDecoder_CreateByMime(mime);
+}
+// [End decoder_create_bymime]
+
+// [Start decoder_set_surface]
+// 设置解码器的送显窗口。调用时必须已经完成 Configure，window 的生命周期由调用方保证。
+int32_t VideoDecoder::SetSurface(OHNativeWindow *window)
+{
+    std::unique_lock<std::shared_mutex> lock(codecMutex);
+    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
+    CHECK_AND_RETURN_RET_LOG(window != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Surface window is null");
+    const int32_t ret = SetDecoderSurface(decoder_, window);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+        "Set surface failed, ret: %{public}d", ret);
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+// [End decoder_set_surface]
+
+// [Start decoder_prepare]
+// 申请解码器运行所需资源。Prepare 成功后才能调用 Start。
+int32_t VideoDecoder::Prepare()
+{
+    std::unique_lock<std::shared_mutex> lock(codecMutex);
+    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
+    const int32_t ret = PrepareDecoder(decoder_);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+        "Prepare failed, ret: %{public}d", ret);
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+// [End decoder_prepare]
 
 int32_t VideoDecoder::Create(const std::string &videoCodecMime, int32_t videoDecoderType)
 {
@@ -101,12 +149,8 @@ int32_t VideoDecoder::Create(const std::string &videoCodecMime, int32_t videoDec
         "Decoder already exists, release it before creating another one");
     switch (videoDecoderType) {
         case AUTO:
-            // [Start decoder_create_bymime]
-            // 通过MIME TYPE创建解码器，只能创建系统推荐的特定编解码器。
-            // 涉及创建多路编解码器时，优先创建硬件解码器实例，硬件资源不够时再创建软件解码器实例
-            decoder_ = OH_VideoDecoder_CreateByMime(videoCodecMime.c_str());
+            decoder_ = GetCodecByMime(videoCodecMime.c_str());
             CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create failed");
-            // [End decoder_create_bymime]
             break;
         case VIDEO_HW_DECODER:
             if (!strcmp(videoCodecMime.data(), "video/avc")) {
@@ -214,15 +258,11 @@ int32_t VideoDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Configure failed");
 
     if (sampleInfo.video.window != nullptr) {
-        // [Start decoder_set_surface]
-        // 设置surface。
-        // 配置送显窗口参数。
-        int ret = OH_VideoDecoder_SetSurface(decoder_, sampleInfo.video.window);
+        const int ret = SetDecoderSurface(decoder_, sampleInfo.video.window);
         CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && sampleInfo.video.window, AVCODEC_SAMPLE_ERR_ERROR,
                                  "Set surface failed, ret: %{public}d", ret);
         // 配置视频与显示屏匹配模式（缓冲区按原比例缩放，使得缓冲区的较小边与窗口匹配，较长边超出窗口的部分被视为透明）。
         // 可选缩放接口：OH_NativeWindow_NativeWindowSetScalingModeV2(nativeWindow, OH_SCALING_MODE_SCALE_CROP_V2);
-        // [End decoder_set_surface]
     }
 
     if (!sampleInfo.codec.codecSyncMode) {
@@ -231,12 +271,9 @@ int32_t VideoDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
                                  "Set callback failed, ret: %{public}d", ret);
     }
 
-    {
-        // [Start decoder_prepare]
-        int ret = OH_VideoDecoder_Prepare(decoder_);
-        CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Prepare failed, ret: %{public}d", ret);
-        // [End decoder_prepare]
-    }
+    const int prepareRet = PrepareDecoder(decoder_);
+    CHECK_AND_RETURN_RET_LOG(prepareRet == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+        "Prepare failed, ret: %{public}d", prepareRet);
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
@@ -267,6 +304,7 @@ OH_AVBuffer *VideoDecoder::GetInputBuffer(uint32_t bufferIndex)
     CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Input buffer is null, index: %{public}u", bufferIndex);
     return buffer;
 }
+
 OH_AVBuffer *VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     std::shared_lock<std::shared_mutex> lock(codecMutex);

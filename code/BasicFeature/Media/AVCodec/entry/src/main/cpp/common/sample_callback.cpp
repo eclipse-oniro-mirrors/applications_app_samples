@@ -43,12 +43,6 @@ int64_t GetQueuedAudioDurationUs(size_t queuedBytes, const SampleInfo &sampleInf
     return static_cast<int64_t>(durationUs);
 }
 
-bool IsCallbackUnavailable(const CodecUserData *codecUserData)
-{
-    // userData 由注册回调的一方持有。开始释放时先置位 isDestroyed，后续迟到回调只能退出，不能解引用业务状态。
-    return codecUserData == nullptr || codecUserData->isDestroyed.load();
-}
-
 void SetRendererVolume(OH_AudioRenderer *renderer, float volume, const char *reason)
 {
     if (renderer == nullptr) {
@@ -194,7 +188,7 @@ int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *user
         return -1;
     }
 
-    if (IsCallbackUnavailable(codecUserData)) {
+    if (codecUserData->isDestroyed.load()) {
         AVCODEC_SAMPLE_LOGD("codecUserData is being destroyed, skip callback");
         return 0;
     }
@@ -246,7 +240,7 @@ void SampleCallback::OnRenderInterrupt(OH_AudioRenderer *renderer, void *userDat
                                        OH_AudioInterrupt_ForceType type, OH_AudioInterrupt_Hint hint)
 {
     auto *codecUserData = static_cast<CodecUserData *>(userData);
-    if (IsCallbackUnavailable(codecUserData)) {
+    if (codecUserData == nullptr || codecUserData->isDestroyed.load()) {
         return;
     }
     const bool startsInterruption = hint == AUDIOSTREAM_INTERRUPT_HINT_PAUSE ||
@@ -297,7 +291,7 @@ int32_t SampleCallback::OnRenderError(OH_AudioRenderer *renderer, void *userData
     (void)renderer;
     (void)error;
     auto *codecUserData = static_cast<CodecUserData *>(userData);
-    if (!IsCallbackUnavailable(codecUserData)) {
+    if (codecUserData != nullptr && !codecUserData->isDestroyed.load()) {
         codecUserData->SignalError();
     }
     AVCODEC_SAMPLE_LOGE("OnRenderError");
@@ -309,7 +303,7 @@ void SampleCallback::OnCodecError(OH_AVCodec *codec, int32_t errorCode, void *us
 {
     (void)codec;
     auto *codecUserData = static_cast<CodecUserData *>(userData);
-    if (!IsCallbackUnavailable(codecUserData)) {
+    if (codecUserData != nullptr && !codecUserData->isDestroyed.load()) {
         codecUserData->SignalError();
     }
     AVCODEC_SAMPLE_LOGE("On codec error, error code: %{public}d", errorCode);
@@ -322,7 +316,7 @@ void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format,
     (void)codec;
     AVCODEC_SAMPLE_LOGI("On codec format change");
     auto *codecUserData = static_cast<CodecUserData *>(userData);
-    if (IsCallbackUnavailable(codecUserData) || format == nullptr) {
+    if (codecUserData == nullptr || codecUserData->isDestroyed.load() || format == nullptr) {
         return;
     }
     // 音频码流信息变化：采样率/声道数/采样格式。应用可据此判断变化并做对应处理。
@@ -353,7 +347,7 @@ void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format,
 void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData)
 {
     auto *codecUserData = static_cast<CodecUserData *>(userData);
-    if (IsCallbackUnavailable(codecUserData)) {
+    if (codecUserData == nullptr || codecUserData->isDestroyed.load()) {
         return;
     }
     if (codec == nullptr || buffer == nullptr) {
@@ -392,7 +386,7 @@ void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
 {
     // [StartExclude quick_start]
     auto *codecUserData = static_cast<CodecUserData *>(userData);
-    if (IsCallbackUnavailable(codecUserData)) {
+    if (codecUserData == nullptr || codecUserData->isDestroyed.load()) {
         return;
     }
     if (codec == nullptr || buffer == nullptr) {

@@ -242,6 +242,14 @@ bool RequiresDirectSurfaceHdrPreservation(const SampleInfo &sampleInfo)
         IsTenBitHevcOutput(sampleInfo.video);
 }
 
+void SetDirectSurfaceScaling(OHNativeWindow *window)
+{
+    const int32_t ret = OH_NativeWindow_NativeWindowSetScalingModeV2(window, OH_SCALING_MODE_SCALE_FIT_V2);
+    if (ret != 0) {
+        AVCODEC_SAMPLE_LOGW("Set OpenGL direct Surface scaling failed: %{public}d", ret);
+    }
+}
+
 bool CreateShaderProgram(const char *fragmentSource, ShaderProgramResource &resource)
 {
     const GLuint vertex = CompileShader(GL_VERTEX_SHADER, VERTEX_SHADER);
@@ -352,7 +360,9 @@ OHNativeWindow *OpenGLVideoSink::PrepareForPlayback(const SampleInfo &sampleInfo
         directSurfaceWindowLease_ = std::move(windowLease);
         OHNativeWindow *directWindow = directSurfaceWindowLease_.GetWindow();
         surfaceDecoderReady_ = directWindow != nullptr;
+        directSurfaceGeneration_ = 0;
         if (surfaceDecoderReady_) {
+            SetDirectSurfaceScaling(directWindow);
             AVCODEC_SAMPLE_LOGW("OpenGL HDR/10-bit stream uses direct Surface output to preserve decoder metadata");
         } else {
             AVCODEC_SAMPLE_LOGW("OpenGL HDR/10-bit direct Surface is unavailable");
@@ -436,20 +446,28 @@ void OpenGLVideoSink::OnFrameAvailable(void *context)
 
 void OpenGLVideoSink::DestroyNativeImage()
 {
+    // Present 会在返回前解绑 EGL；停止线程销毁纹理前必须重新绑定其所属上下文。
+    const bool hasContext = display_ != EGL_NO_DISPLAY && surface_ != EGL_NO_SURFACE && context_ != EGL_NO_CONTEXT;
+    const bool contextBound = hasContext &&
+        (eglGetCurrentContext() == context_ ||
+            eglMakeCurrent(display_, surface_, surface_, context_) == EGL_TRUE);
     if (nativeImage_ != nullptr) {
         // 先注销回调并解除纹理上下文，再销毁 NativeImage，防止释放后回调访问 sink。
         (void)OH_NativeImage_UnsetOnFrameAvailableListener(nativeImage_);
-        (void)OH_NativeImage_DetachContext(nativeImage_);
+        if (contextBound) {
+            glFinish();
+            (void)OH_NativeImage_DetachContext(nativeImage_);
+        }
         OH_NativeImage_Destroy(&nativeImage_);
     }
     decoderWindow_ = nullptr;
     surfaceDecoderReady_ = false;
     availableFrameCount_.store(0);
-    if (externalTexture_ != 0) {
+    if (contextBound && externalTexture_ != 0) {
         glDeleteTextures(1, &externalTexture_);
         externalTexture_ = 0;
     }
-    if (externalProgram_ != 0) {
+    if (contextBound && externalProgram_ != 0) {
         glDeleteProgram(externalProgram_);
         externalProgram_ = 0;
     }
@@ -541,11 +559,7 @@ bool OpenGLVideoSink::PresentSurface(const VideoPresentRequest &request)
         (void)ReleaseCurrentContext();
         return freeRet == AVCODEC_SAMPLE_ERR_OK;
     }
-    if (eglMakeCurrent(display_, surface_, surface_, context_) != EGL_TRUE) {
-        AVCODEC_SAMPLE_LOGW("Bind OpenGL presentation context failed: %{public}x",
-            static_cast<uint32_t>(eglGetError()));
-        return false;
-    }
+    // RefreshOutputSurface 已绑定当前上下文，并同步目标窗口与实际 EGL 帧缓冲尺寸。
     const int32_t width = request.context.width > 0 ? request.context.width : request.sampleInfo.video.videoWidth;
     const int32_t height = request.context.height > 0 ? request.context.height : request.sampleInfo.video.videoHeight;
     const bool presented = DrawExternalImage(width, height, request.sampleInfo.video.rotation);
@@ -591,17 +605,25 @@ bool OpenGLVideoSink::EnsureContext(const OutputTarget &target)
 
 bool OpenGLVideoSink::BindExistingContext(int32_t width, int32_t height)
 {
+    if (width <= 0 || height <= 0) {
+        return false;
+    }
+    if (frameWidth_ != width || frameHeight_ != height) {
+        // 创建 EGL Surface 时显式设置过生产者 Buffer 尺寸，XComponent 的布局变化不会撤销它。
+        // 更新申请尺寸后，再查询 EGL 当前实际使用的尺寸；切换过程中两者可能相差一帧。
+        const int32_t ret = OH_NativeWindow_NativeWindowHandleOpt(window_, SET_BUFFER_GEOMETRY, width, height);
+        if (ret != 0) {
+            AVCODEC_SAMPLE_LOGW("Resize OpenGL window geometry failed: %{public}d", ret);
+            return false;
+        }
+        frameWidth_ = width;
+        frameHeight_ = height;
+    }
     if (eglMakeCurrent(display_, surface_, surface_, context_) != EGL_TRUE) {
         return false;
     }
-    EGLint surfaceWidth = 0;
-    EGLint surfaceHeight = 0;
-    (void)eglQuerySurface(display_, surface_, EGL_WIDTH, &surfaceWidth);
-    (void)eglQuerySurface(display_, surface_, EGL_HEIGHT, &surfaceHeight);
-    width_ = surfaceWidth > 0 ? surfaceWidth : width_;
-    height_ = surfaceHeight > 0 ? surfaceHeight : height_;
-    frameWidth_ = width;
-    frameHeight_ = height;
+    // eglSwapBuffers 才可能取得新尺寸的 Buffer。每帧刷新，不能只在 SurfaceChanged 时查询一次。
+    UpdateSurfaceExtent(width, height);
     return true;
 }
 
@@ -707,6 +729,8 @@ bool OpenGLVideoSink::RebindOutputSurface(const OutputTarget &target)
     surface_ = replacement;
     window_ = target.window;
     windowGeneration_ = target.generation;
+    frameWidth_ = target.width;
+    frameHeight_ = target.height;
     UpdateSurfaceExtent(target.width, target.height);
     if (previous != EGL_NO_SURFACE) {
         eglDestroySurface(display_, previous);
@@ -726,15 +750,13 @@ bool OpenGLVideoSink::RefreshOutputSurface(const OutputTarget &target)
     if (window_ != target.window) {
         return RebindOutputSurface(target);
     }
+    // 同一个 NativeWindow 调整大小时，保留 EGL 上下文与 NativeImage，只更新输出 Buffer 尺寸。
+    if (!BindExistingContext(target.width, target.height)) {
+        return false;
+    }
     if (windowGeneration_ == target.generation) {
         return true;
     }
-    // 控制栏显示或隐藏导致 XComponent 改变大小时，ArkUI 可能触发 OnSurfaceChanged。此时 NativeWindow
-    // 仍是同一对象，已有 EGL 窗口 Surface 会跟随新尺寸；只刷新缓存尺寸，不能持续丢弃所有解码输出帧。
-    if (eglMakeCurrent(display_, surface_, surface_, context_) != EGL_TRUE) {
-        return false;
-    }
-    UpdateSurfaceExtent(target.width, target.height);
     windowGeneration_ = target.generation;
     AVCODEC_SAMPLE_LOGI("OpenGL output Surface refreshed, generation: %{public}llu, size: %{public}d x %{public}d",
         static_cast<unsigned long long>(windowGeneration_), width_, height_);
@@ -792,7 +814,10 @@ int32_t OpenGLVideoSink::PresentBufferFrame(const VideoPresentRequest &request, 
     const int32_t frameWidth = request.context.width > 0 ? request.context.width : request.sampleInfo.video.videoWidth;
     const int32_t frameHeight = request.context.height > 0 ? request.context.height :
         request.sampleInfo.video.videoHeight;
-    const OutputTarget contextTarget { target.window, frameWidth, frameHeight, target.generation };
+    // RGBA 回退也按 XComponent 尺寸创建输出，视频尺寸仅用于纹理和等比例显示区域计算。
+    const int32_t targetWidth = target.width > 0 ? target.width : frameWidth;
+    const int32_t targetHeight = target.height > 0 ? target.height : frameHeight;
+    const OutputTarget contextTarget { target.window, targetWidth, targetHeight, target.generation };
     if (!EnsureContext(contextTarget)) {
         AVCODEC_SAMPLE_LOGW("OpenGL presentation context is unavailable, use BufferRenderer fallback");
         fallbackOnly_ = true;
@@ -819,9 +844,29 @@ int32_t OpenGLVideoSink::PresentBufferFrame(const VideoPresentRequest &request, 
     return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
 }
 
+void OpenGLVideoSink::RefreshDirectSurfaceScaling()
+{
+    auto windowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
+    if (!windowLease || windowLease.GetWindow() != directSurfaceWindowLease_.GetWindow() ||
+        windowLease.GetGeneration() == directSurfaceGeneration_) {
+        return;
+    }
+    // 首帧时 codec 已完成 Surface 配置；布局变更后则重新确认 FIT。
+    // 直连模式的 Buffer 尺寸和旋转由 codec 管理，此处只恢复等比例缩放，避免覆盖竖屏变换。
+    SetDirectSurfaceScaling(windowLease.GetWindow());
+    directSurfaceGeneration_ = windowLease.GetGeneration();
+}
+
 int32_t OpenGLVideoSink::Present(const VideoPresentRequest &request)
 {
     if (directSurfaceFallback_) {
+        auto currentWindowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
+        if (!currentWindowLease || currentWindowLease.GetWindow() != directSurfaceWindowLease_.GetWindow()) {
+            // XComponent 被替换后，旧的直连 Surface 不能继续接收新帧；先归还 codec
+            // Buffer，等待 Player 在下一次初始化时绑定新的窗口。
+            return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
+        }
+        RefreshDirectSurfaceScaling();
         return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, request.render,
             request.renderTimestamp);
     }
@@ -843,11 +888,54 @@ int32_t OpenGLVideoSink::Present(const VideoPresentRequest &request)
     return PresentSurface(request) ? AVCODEC_SAMPLE_ERR_OK : AVCODEC_SAMPLE_ERR_ERROR;
 }
 
+bool OpenGLVideoSink::Quiesce()
+{
+    if (nativeImage_ == nullptr) {
+        return true;
+    }
+    // Stop/seek 会先等待送显线程退出。此处再完成 EGL 命令，确保销毁 NativeImage 前没有
+    // 仍在使用其外部纹理；不能只清空帧计数，因为 GPU 队列可能还持有上一帧。
+    if (display_ != EGL_NO_DISPLAY && surface_ != EGL_NO_SURFACE && context_ != EGL_NO_CONTEXT) {
+        if (eglMakeCurrent(display_, surface_, surface_, context_) != EGL_TRUE) {
+            AVCODEC_SAMPLE_LOGW("Bind OpenGL context before quiesce failed: %{public}x",
+                static_cast<uint32_t>(eglGetError()));
+            return false;
+        }
+        glFinish();
+        if (!ReleaseCurrentContext()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void OpenGLVideoSink::DiscardPendingFrames()
+{
+    // codec 已 Flush 且送显线程已退出。OpenGL 的 NativeImage 必须继续使用 UpdateSurfaceImage，
+    // 不能与 AcquireNativeWindowBuffer 混用；这里只消费旧帧，不向 XComponent 提交。
+    if (nativeImage_ == nullptr || display_ == EGL_NO_DISPLAY || context_ == EGL_NO_CONTEXT ||
+        surface_ == EGL_NO_SURFACE) {
+        return;
+    }
+    if (eglMakeCurrent(display_, surface_, surface_, context_) != EGL_TRUE) {
+        AVCODEC_SAMPLE_LOGW("Bind OpenGL context to discard pending frames failed");
+        return;
+    }
+    const uint32_t pendingFrameCount = availableFrameCount_.exchange(0);
+    for (uint32_t index = 0; index < pendingFrameCount; ++index) {
+        if (OH_NativeImage_UpdateSurfaceImage(nativeImage_) != 0) {
+            break;
+        }
+    }
+    (void)ReleaseCurrentContext();
+}
+
 void OpenGLVideoSink::BeginPlayback()
 {
     DestroyNativeImage();
     ReleaseGlResources();
     directSurfaceWindowLease_ = {};
+    directSurfaceGeneration_ = 0;
     fallbackOnly_ = false;
     directSurfaceFallback_ = false;
     fallback_.Reset();
@@ -932,6 +1020,7 @@ void OpenGLVideoSink::Reset()
     DestroyNativeImage();
     ReleaseGlResources();
     directSurfaceWindowLease_ = {};
+    directSurfaceGeneration_ = 0;
     fallbackOnly_ = false;
     directSurfaceFallback_ = false;
     fallback_.Reset();
