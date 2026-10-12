@@ -192,10 +192,12 @@ static napi_value CreateSession(napi_env env, napi_callback_info info)
 
     std::string modelPath = GetModelPath(env, args[0]);
     if (modelPath.empty()) {
-        modelPath = "/data/storage/el2/base/files/qwen2-awq";
+        modelPath = "/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4";
     }
     json attrJson = {
         {"model", modelPath},
+        {"backend", "cpu"},
+        {"max_ctx", 8192},
     };
     std::string attrStr = attrJson.dump();
     OH_QoS_GewuCreateSessionResult createResult = OH_QoS_GewuCreateSession(attrStr.c_str());

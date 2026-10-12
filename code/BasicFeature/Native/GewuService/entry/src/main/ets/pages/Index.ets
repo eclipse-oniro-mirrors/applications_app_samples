@@ -18,7 +18,7 @@ import testNapi from 'libentry.so';
 
 const DOMAIN = 0xFF00;
 const TAG = 'Sample_GewuService';
-const DEFAULT_MODEL_PATH = '/data/storage/el2/base/files/qwen2-awq';
+const DEFAULT_MODEL_PATH = '/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4';
 
 @Entry
 @Component
