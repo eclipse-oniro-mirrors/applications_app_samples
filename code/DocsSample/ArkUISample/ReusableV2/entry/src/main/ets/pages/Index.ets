@@ -65,6 +65,10 @@ struct Index {
         .onClick((event: ClickEvent) => {
           this.getUIContext().getRouter().pushUrl({ url: 'view/LazyForEachPage' });
         })
+      Button('DefaultReusePoolClearCache')
+        .onClick((event: ClickEvent) => {
+          this.getUIContext().getRouter().pushUrl({ url: 'view/DefaultReusePoolClearCache' });
+        })
     }
   }
 }

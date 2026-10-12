@@ -7,6 +7,8 @@
 | RenderingControl示例代码验证    | 设备正常运行   | 进入首页，查看对应页面渲染情况                   | 渲染显示正常 | 是       | Pass     |
 | 测试ForEach键值生成功能 | 设备正常运行 | 进入首页，展开'RenderingForeach'分组，点击'ForeachKeyGeneration'页面 | 列表正常渲染，显示one、two、three三个文本项 | 是       | Pass     |
 | 测试Repeat键值生成功能 | 设备正常运行 | 进入首页，展开'RenderingRepeat'分组，点击'RepeatKeyGeneration'页面 | 列表正常渲染，显示20条data数据项 | 是       | Pass     |
+| 测试主动清理Repeat缓存池功能 | 设备正常运行 | 进入首页，展开'RenderingRepeat'分组，点击'RepeatClearCache'页面，依次点击'Scroll'、'Clear'按钮 | 列表跳转后旧组件进入缓存池，点击'Clear'主动清理缓存池中的组件，页面渲染正常 | 是       | Pass     |
+| 测试主动清理LazyForEach预加载的子组件功能 | 设备正常运行 | 进入首页，展开'RenderingLazyForeach'分组，点击'LazyForEachClearCache'页面，点击'Clear'按钮 | 主动清理LazyForEach预加载的子组件，页面渲染正常 | 是       | Pass     |
 | 测试ForEach迁移Repeat后子属性变化观测 | 设备正常运行 | 进入首页，展开'RepeatMigration'分组，点击'ForEachToRepeatChildProperties'页面，点击文章项的点赞图标 | 点赞图标切换，点赞数相应增加或减少 | 是       | Pass     |
 | 测试LazyForEach迁移Repeat后的数据更新操作 | 设备正常运行 | 进入首页，展开'RepeatMigration'分组，点击'LazyForEachToRepeatDataUpdate'页面，依次点击'Add new item'、'Delete item 0'、'Swap item 0 and item 1'、'Change item 0'、'Change all items'按钮 | 列表数据相应地新增、删除、交换、修改，渲染正常 | 是       | Pass     |
 | 测试LazyForEach迁移Repeat后修改数据子属性 | 设备正常运行 | 进入首页，展开'RepeatMigration'分组，点击'LazyForEachToRepeatChildProperties'页面，点击列表项 | 列表项文本追加'0'，UI正常刷新 | 是       | Pass     |

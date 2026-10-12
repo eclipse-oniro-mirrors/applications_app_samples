@@ -81,6 +81,7 @@ entry/src/main/
 |   |---pages
 |   |   |---Index.ets                                   // 应用主页面
 |   |   |---ComponentContentNotSupportReusable.ets      // ComponentContent不支持传入\@Reusable装饰器装饰的自定义组件
+|   |   |---DefaultReusePoolClearCache.ets              // 主动清理默认复用池中的组件
 |   |   |---DynamicLayoutUpdate.ets                     // 动态布局更新
 |   |   |---ListScrollingWithIfStatements.ets           // 列表滚动-if使用场景
 |   |   |---ListScrollingWithLazyForEach.ets            // 列表滚动配合LazyForEach使用

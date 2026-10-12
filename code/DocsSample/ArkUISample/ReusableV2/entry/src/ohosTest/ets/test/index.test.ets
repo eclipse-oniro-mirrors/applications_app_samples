@@ -350,9 +350,46 @@ export default function IndexTest(){
     it('testS_ReusableV21_0113', 0, async (done: Function) => {
       let driver = Driver.create();
       let button_list = await driver.findComponent(ON.text('LazyForEachPage', MatchPattern.CONTAINS));
-      
+
       await button_list.click();
       await driver.delayMs(1000);
+      await driver.pressBack();
+      done();
+    });
+    /**
+     * @tc.number :testS_ReusableV21_0114
+     * @tc.name  :testS_ReusableV21_0114
+     * @tc.desc  :测试打开主动清理默认复用池页面
+     * @tc.level :level1
+     * @tc.size  : MediumTest
+     *  @tc.type : Function
+     */
+    it('testS_ReusableV21_0114', 0, async (done: Function) => {
+      let driver = Driver.create();
+      let button_list = await driver.findComponent(ON.text('DefaultReusePoolClearCache', MatchPattern.CONTAINS));
+
+      await button_list.click();
+      await driver.delayMs(1000);
+      // 分别查找并断言每个子项的存在性
+      let subItem = await driver.findComponent(ON.text('Recycle A', MatchPattern.CONTAINS));
+      expect(subItem === null).assertFalse();
+      let subItem2 = await driver.findComponent(ON.text('Recycle B', MatchPattern.CONTAINS));
+      expect(subItem2 === null).assertFalse();
+      let subItem3 = await driver.findComponent(ON.text('Clear All', MatchPattern.CONTAINS));
+      expect(subItem3 === null).assertFalse();
+      let subItem4 = await driver.findComponent(ON.text('Clear A', MatchPattern.CONTAINS));
+      expect(subItem4 === null).assertFalse();
+
+      // 回收子组件后分别清理复用池中的全部组件和指定reuseId的组件
+      await subItem.click();
+      await driver.delayMs(1000);
+      await subItem2.click();
+      await driver.delayMs(1000);
+      await subItem3.click();
+      await driver.delayMs(1000);
+      await subItem4.click();
+      await driver.delayMs(1000);
+
       await driver.pressBack();
       done();
     });
