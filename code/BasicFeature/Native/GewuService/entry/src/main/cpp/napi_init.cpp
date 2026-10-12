@@ -14,16 +14,14 @@
  */
 
 #include "napi/native_api.h"
-#include <cassert>
-#include <string>
 
 // [Start gewu_demo]
+#include <string>
 #include <future>
 #define LOG_TAG "DEMO"
 #include <hilog/log.h>
 #include <nlohmann/json.hpp>
 #include <qos/qos.h>
-#include <string>
 
 #define DEMO_LOGD(fmt, ...) OH_LOG_DEBUG(LOG_APP, fmt, ##__VA_ARGS__)
 #define DEMO_LOGI(fmt, ...) OH_LOG_INFO(LOG_APP, fmt, ##__VA_ARGS__)
@@ -92,7 +90,11 @@ int Demo(void)
     DEMO_LOGI("Demo starts");
     json attrJson = {
         /* 模型文件位置，根据实际情况修改 */
-        {"model", "/data/storage/el2/base/files/qwen2-awq"},
+        {"model", "/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4"},
+        {"eval_settings", {
+            {"backend", "cpu"},
+            {"max_ctx", 8192}
+        }}
     };
     std::string attrStr = attrJson.dump(4);
 
@@ -107,6 +109,7 @@ int Demo(void)
     /* 创建并提交请求 */
     ChatContext context;
     json requestJson = {
+        {"type", "chat"},
         {"messages", json::array({
             {{"role", "developer"}, {"content", "You are a helpful assistant"}},
             {{"role", "user"}, {"content", "What is LLM?"}},
@@ -196,8 +199,10 @@ static napi_value CreateSession(napi_env env, napi_callback_info info)
     }
     json attrJson = {
         {"model", modelPath},
-        {"backend", "cpu"},
-        {"max_ctx", 8192},
+        {"eval_settings", {
+            {"backend", "cpu"},
+            {"max_ctx", 8192}
+        }}
     };
     std::string attrStr = attrJson.dump();
     OH_QoS_GewuCreateSessionResult createResult = OH_QoS_GewuCreateSession(attrStr.c_str());
@@ -230,6 +235,7 @@ static napi_value SubmitRequest(napi_env env, napi_callback_info info)
         userMessage = "What is LLM?";
     }
     json requestJson = {
+        {"type", "chat"},
         {"messages", json::array({
             {{"role", "developer"}, {"content", "You are a helpful assistant"}},
             {{"role", "user"}, {"content", userMessage}},
