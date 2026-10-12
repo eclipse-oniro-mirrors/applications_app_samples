@@ -15,8 +15,7 @@
 
 // [Start set_web_peer_render]
 import { webview } from '@kit.ArkWeb';
-import { UIContext } from '@kit.ArkUI';
-import { NodeController, BuilderNode, NodeRenderType, FrameNode } from '@kit.ArkUI';
+import { UIContext, NodeController, BuilderNode, NodeRenderType, FrameNode } from '@kit.ArkUI';
 
 @Observed
 declare class Params{
