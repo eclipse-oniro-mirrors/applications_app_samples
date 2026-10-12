@@ -111,7 +111,6 @@ void Player::VideoDecInputAsyncThread()
         // [Start decoder_input_buffer]
         std::shared_ptr<CodecBufferInfo> bufferInfo = videoDecContext_->inputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
-        // [Start decoder_input_buffer_example]
         /**
            *
            * // 示例：将数据写入 Buffer，设置属性后送入解码器。
@@ -139,7 +138,6 @@ void Player::VideoDecInputAsyncThread()
            * }
            *
            */
-        // [End decoder_input_buffer_example]
         // [StartExclude decoder_input_buffer]
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");

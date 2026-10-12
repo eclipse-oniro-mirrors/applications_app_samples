@@ -214,16 +214,16 @@ int32_t VideoDecoder::SetCallback(CodecUserData *codecUserData)
 }
 // [End decoder_set_callback]
 
-// [Start configure_full_baseline]
+// [Start decoder_configure]
 int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
 {
     // 建议在配置解码器前进行能力校验，确认当前设备是否支持配置的参数。
-    // [StartExclude configure_full_baseline1]
+    // [StartExclude decoder_configure1]
     CHECK_AND_RETURN_RET_LOG(CodecCapability::ValidateVideoConfiguration(sampleInfo, false),
         AVCODEC_SAMPLE_ERR_ERROR, "Video decoder configuration is not supported");
     CHECK_AND_RETURN_RET_LOG(CodecCapability::ValidateVideoFeatureConfiguration(sampleInfo),
         AVCODEC_SAMPLE_ERR_ERROR, "Video decoder feature configuration is not supported");
-    // [EndExclude configure_full_baseline1]
+    // [EndExclude decoder_configure1]
     OH_AVFormat *format = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
@@ -232,7 +232,7 @@ int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
     OH_AVFormat_SetDoubleValue(format, OH_MD_KEY_FRAME_RATE, sampleInfo.video.frameRate);
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_PIXEL_FORMAT, sampleInfo.video.pixelFormat);
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_ROTATION, sampleInfo.video.rotation);
-    // [StartExclude configure_full_baseline2]
+    // [StartExclude decoder_configure2]
     // 可选配置，开发者可根据业务需要进行配置，如：低时延解码配置。
     if (!SetOptionalFormatFeatures(format, sampleInfo)) {
         OH_AVFormat_Destroy(format);
@@ -248,14 +248,14 @@ int32_t VideoDecoder::Configure(const SampleInfo &sampleInfo)
         sampleInfo.codec.enableLowLatency, sampleInfo.codec.outputInDecodingOrder,
         sampleInfo.codec.isSmartFluencySupported, sampleInfo.video.hdrVividContainerSignaled,
         sampleInfo.codec.convertHdrVividToBt709);
-    // [EndExclude configure_full_baseline2]
+    // [EndExclude decoder_configure2]
     int ret = OH_VideoDecoder_Configure(decoder_, format);
     OH_AVFormat_Destroy(format);
     format = nullptr;
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Config failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End configure_full_baseline]
+// [End decoder_configure]
 
 int32_t VideoDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecUserData)
 {
@@ -441,13 +441,14 @@ int32_t VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
             // 获取到变化后的视频宽、高、跨距。
             bool getIntRet = OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_PIC_WIDTH, &width) &&
                              OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_PIC_HEIGHT, &height);
-                             // OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_STRIDE, &widthStride);
+                         /** // OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_STRIDE, &widthStride);
                              // OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_SLICE_HEIGHT, &heightStride);
                              // 获取裁剪矩形信息可选。
                              // OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_CROP_TOP, &cropTop);
                              // OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_CROP_BOTTOM, &cropBottom);
                              // OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_CROP_LEFT, &cropLeft);
                              // OH_AVFormat_GetIntValue(format.get(), OH_MD_KEY_VIDEO_CROP_RIGHT, &cropRight);
+                          **/
             CHECK_AND_BREAK_LOG(getIntRet, "Decoder get int value failed.");
             AVCODEC_SAMPLE_LOGI("Stream Changed. Width: %{public}i, height: %{public}i", width, height);
             lock.unlock();
