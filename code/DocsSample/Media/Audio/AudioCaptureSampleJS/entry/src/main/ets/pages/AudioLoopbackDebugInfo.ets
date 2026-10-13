@@ -134,8 +134,11 @@ function printLoopbackInfo(updateCallback?: (msg: string, isError: boolean) => v
   // 输出到文件。
   let filePath = getContext().filesDir + '/audio_loopback_debug.txt';
   let file = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
-  debugManager.printLoopbackInfo(audioLoopback, file.fd);
-  fs.closeSync(file);
+  try {
+    debugManager.printLoopbackInfo(audioLoopback, file.fd);
+  } finally {
+    fs.closeSync(file);
+  }
   // [StartExclude print_LoopbackInfo]
   const successMsg = `Loopback debug info written to: ${filePath}`;
   if (updateCallback) {
