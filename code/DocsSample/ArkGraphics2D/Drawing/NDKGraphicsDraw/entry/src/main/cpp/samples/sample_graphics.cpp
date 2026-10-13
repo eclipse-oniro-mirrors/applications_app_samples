@@ -130,7 +130,7 @@ int32_t SampleGraphics::InitializeEglContext()
         return -1;
     }
 
-    SAMPLE_LOGE("Init success.");
+    SAMPLE_LOGI("Init success.");
     return 0;
 }
 // [End ndk_graphics_draw_initialize_egl_context]
