@@ -16,4 +16,5 @@
 | 打开在在Repeat组件非懒加载场景的each属性中使用|  设备正常运行	 | |  成功拉起应用 | 是 | Pass |
 | 打开在ForEach组件中使用页面 	 |      设备正常运行    |  成功拉起应用 | 是 | Pass |
 | 在LazyForEach组件中使用	 |   设备正常运行       |  成功拉起应用 | 是 | Pass |
+| 打开主动清理默认复用池页面	 |   设备正常运行       | 点击'Recycle A'、'Recycle B'回收子组件，依次点击'Clear All'、'Clear A' |  成功清理默认复用池中的全部组件及指定reuseId的组件 | 是 | Pass |
 

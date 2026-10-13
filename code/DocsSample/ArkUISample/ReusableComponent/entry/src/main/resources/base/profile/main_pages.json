@@ -16,7 +16,8 @@
     "pages/ReusableForComposite",
     "pages/ReusableForSwiperUsageScenario",
     "pages/ReusableForReuseId",
-    "pages/ReusableForIncorrectReuseId"
+    "pages/ReusableForIncorrectReuseId",
+    "pages/DefaultReusePoolClearCache"
   ]
 }
 

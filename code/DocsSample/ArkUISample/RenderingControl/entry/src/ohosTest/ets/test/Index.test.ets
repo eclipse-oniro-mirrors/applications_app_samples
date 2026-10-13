@@ -336,9 +336,31 @@ export default function IndexTest() {
       let text2 = await driver.findComponent(ON.text('4', MatchPattern.CONTAINS));
       await text1.dragTo(text2);
       await driver.pressBack();
-      let button2 = await driver.findComponent(ON.text('RenderingRepeat', MatchPattern.CONTAINS));
-      await button2.click();
       hilog.info(DOMAIN, TAG, 'RenderingRepeatTest_017 end');
+      done();
+    })
+
+    /**
+     * @tc.number RenderingRepeatTest_018
+     * @tc.name testRenderingRepeat
+     * @tc.desc 测试主动清理Repeat缓存池是否正常
+     */
+    it('RenderingRepeatTest_018', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, 'RenderingRepeatTest_018 begin');
+      let driver = Driver.create();
+      let indexList = await driver.findComponent(ON.type('List'));
+      await indexList.scrollToBottom(30000);
+      let button1 = await driver.findComponent(ON.text('RenderingRepeat20', MatchPattern.CONTAINS));
+      await button1.click();
+      let button2 = await driver.findComponent(ON.text('Scroll', MatchPattern.CONTAINS));
+      await button2.click();
+      let button3 = await driver.findComponent(ON.text('Clear', MatchPattern.CONTAINS));
+      await button3.click();
+      await driver.pressBack();
+      await indexList.scrollToTop(30000);
+      let button4 = await driver.findComponent(ON.text('RenderingRepeat', MatchPattern.CONTAINS));
+      await button4.click();
+      hilog.info(DOMAIN, TAG, 'RenderingRepeatTest_018 end');
       done();
     })
 
@@ -869,6 +891,23 @@ export default function IndexTest() {
       await button6.click();
       await driver.pressBack();
       hilog.info(DOMAIN, TAG, 'RenderingLazyForeachTest_014 end');
+      done();
+    })
+
+    /**
+     * @tc.number RenderingLazyForeachTest_015
+     * @tc.name testRenderingLazyForeach
+     * @tc.desc 测试主动清理LazyForEach预加载的子组件是否正常
+     */
+    it('RenderingLazyForeachTest_015', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, 'RenderingLazyForeachTest_015 begin');
+      let driver = Driver.create();
+      let button = await driver.findComponent(ON.text('LazyForEachClearCache', MatchPattern.CONTAINS));
+      await button.click();
+      let button1 = await driver.findComponent(ON.text('Clear', MatchPattern.CONTAINS));
+      await button1.click();
+      await driver.pressBack();
+      hilog.info(DOMAIN, TAG, 'RenderingLazyForeachTest_015 end');
       done();
     })
   })

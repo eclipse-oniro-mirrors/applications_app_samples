@@ -96,6 +96,7 @@
 │     │  │     ├─ ComponentIfPage.ets
 │     │  │     ├─ ComputedPage.ets
 │     │  │     ├─ ConditionPage.ets
+│     │  │     ├─ DefaultReusePoolClearCache.ets
 │     │  │     ├─ ExamplePage.ets
 │     │  │     ├─ IMonitorValuePage.ets
 │     │  │     ├─ LazyForEachPage.ets
