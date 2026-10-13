@@ -68,7 +68,7 @@ int32_t AudioDecoder::SetCallback(CodecUserData *codecUserData)
 // [Start AudioDecoder::Configure]
 int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
 {
-    // 解码能力表可能未完整列出部分容器编码格式的采样率/声道信息，
+    // 解码能力表可能未完整列出部分容器编码格式的采样率/声道信息。
     // 解码器Configure调用的返回值才是最终判定依据，此处仅将能力查询结果作为参考日志。
     if (!CodecCapability::ValidateAudioConfiguration(sampleInfo, false)) {
         AVCODEC_SAMPLE_LOGW("Audio capability query did not fully describe mime: %{public}s; "
@@ -88,7 +88,7 @@ int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
     }
 
-    // 可选：编解码器特定数据（codec config），由解封装获取，无则不设置。
+    // 可选：编解码器特定数据（codec config），由解封装获取，没有则不设置。
     if (sampleInfo.audio.codecConfigLen > 0 &&
         sampleInfo.audio.codecConfig.size() >= sampleInfo.audio.codecConfigLen) {
         OH_AVFormat_SetBuffer(format, OH_MD_KEY_CODEC_CONFIG, sampleInfo.audio.codecConfig.data(),
