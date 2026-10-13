@@ -17,6 +17,7 @@
 #define VIDEOENCODER_H
 
 #include <multimedia/player_framework/native_avcodec_videoencoder.h>
+#include <multimedia/player_framework/native_avcapability.h>
 #include <multimedia/player_framework/native_avbuffer_info.h>
 #include <native_window/external_window.h>
 #include <native_window/buffer_handle.h>
@@ -78,6 +79,7 @@ private:
     int32_t Configure(const SampleInfo &sampleInfo);
     int32_t GetSurface(SampleInfo &sampleInfo);
     OH_AVCodec *GetCodecByMime(const char *mime);
+    OH_AVCodec *GetCodecByCategory(const char *mime, bool isEncoder, OH_AVCodecCategory category);
     bool isAVBufferMode_ = false;
     std::shared_mutex codecMutex;
     OH_AVCodec *encoder_ = nullptr;

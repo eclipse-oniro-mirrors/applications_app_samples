@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ */
+
 // Generated from the external-texture Vulkan shaders.
 #ifndef AVCODEC_SAMPLE_VULKAN_VIDEO_SHADERS_H
 #define AVCODEC_SAMPLE_VULKAN_VIDEO_SHADERS_H

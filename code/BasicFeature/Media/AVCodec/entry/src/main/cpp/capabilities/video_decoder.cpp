@@ -23,16 +23,6 @@ namespace {
 constexpr int LIMIT_LOGD_FREQUENCY = 50;
 constexpr int ROTATION_ANGLE = 90;
 
-OH_AVErrCode SetDecoderSurface(OH_AVCodec *decoder, OHNativeWindow *window)
-{
-    return OH_VideoDecoder_SetSurface(decoder, window);
-}
-
-OH_AVErrCode PrepareDecoder(OH_AVCodec *decoder)
-{
-    return OH_VideoDecoder_Prepare(decoder);
-}
-
 // 该能力依赖API 26 Native SDK中的智能流畅Key和枚举。
 // 兼容旧SDK时，可将AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY设为OFF。
 #ifdef AVCODEC_SAMPLE_ENABLE_SMART_FLUENCY
@@ -122,10 +112,9 @@ OH_AVCodec *VideoDecoder::GetCodecByMime(const char *mime)
 // 设置解码器的送显窗口。调用时必须已经完成 Configure，window 的生命周期由调用方保证。
 int32_t VideoDecoder::SetSurface(OHNativeWindow *window)
 {
-    std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
     CHECK_AND_RETURN_RET_LOG(window != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Surface window is null");
-    const int32_t ret = SetDecoderSurface(decoder_, window);
+    const int32_t ret = OH_VideoDecoder_SetSurface(decoder_, window);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
         "Set surface failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
@@ -136,9 +125,8 @@ int32_t VideoDecoder::SetSurface(OHNativeWindow *window)
 // 申请解码器运行所需资源。Prepare 成功后才能调用 Start。
 int32_t VideoDecoder::Prepare()
 {
-    std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
-    const int32_t ret = PrepareDecoder(decoder_);
+    const int32_t ret = OH_VideoDecoder_Prepare(decoder_);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
         "Prepare failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
@@ -267,7 +255,7 @@ int32_t VideoDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Configure failed");
 
     if (sampleInfo.video.window != nullptr) {
-        const int ret = SetDecoderSurface(decoder_, sampleInfo.video.window);
+        ret = SetSurface(sampleInfo.video.window);
         CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && sampleInfo.video.window, AVCODEC_SAMPLE_ERR_ERROR,
                                  "Set surface failed, ret: %{public}d", ret);
         // 配置视频与显示屏匹配模式（缓冲区按原比例缩放，使得缓冲区的较小边与窗口匹配，较长边超出窗口的部分被视为透明）。
@@ -280,9 +268,9 @@ int32_t VideoDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
                                  "Set callback failed, ret: %{public}d", ret);
     }
 
-    const int prepareRet = PrepareDecoder(decoder_);
-    CHECK_AND_RETURN_RET_LOG(prepareRet == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
-        "Prepare failed, ret: %{public}d", prepareRet);
+    ret = Prepare();
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+        "Prepare failed, ret: %{public}d", ret);
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
