@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+// [Start web_full_screen]
 import { $rawfile, State, Web, FullScreenEnterEvent, FullScreenExitHandler, Visibility, Text, Column, Component, Entry } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 
@@ -58,3 +59,4 @@ struct ShortWebPage {
     }.width('100%').height('100%')
   }
 }
+// [End web_full_screen]
