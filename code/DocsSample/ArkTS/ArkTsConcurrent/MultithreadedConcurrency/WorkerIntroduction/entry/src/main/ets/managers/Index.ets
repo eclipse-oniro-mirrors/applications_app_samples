@@ -66,6 +66,11 @@ struct Index {
           // [StartExclude create_manager_index]
           this.message = 'success';
           // [EndExclude create_manager_index]
+
+          // 延迟1秒等待其他步骤完成后手动销毁Worker线程
+          setTimeout(() => {
+            workerInstance.terminate();
+          }, 1000);
         })
     }
     .height('100%')
