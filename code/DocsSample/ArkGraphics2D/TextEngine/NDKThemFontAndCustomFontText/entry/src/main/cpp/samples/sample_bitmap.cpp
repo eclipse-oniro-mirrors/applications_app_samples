@@ -176,6 +176,12 @@ void SampleBitMap::DrawCustomFontText()
     // [End custom_font_c_custom_font_text_step2]
     // [Start custom_font_c_custom_font_text_step3]
     int errorCode = OH_Drawing_RegisterFont(fontCollection, fontFamily, fontPath);
+    // 0表示注册成功，非0表示注册失败，失败时打印错误码并释放字体集对象后返回
+    if (errorCode != 0) {
+        DRAWING_LOGE("OH_Drawing_RegisterFont failed, errorCode: %{public}d", errorCode);
+        OH_Drawing_DestroyFontCollection(fontCollection);
+        return;
+    }
     // [End custom_font_c_custom_font_text_step3]
     // 用于在字体管理器中注册字体缓冲区
     OH_Drawing_TextStyle* textStyle = OH_Drawing_CreateTextStyle();
@@ -208,6 +214,9 @@ void SampleBitMap::DrawCustomFontText()
     OH_Drawing_TypographyLayout(typography, maxWidth);
     // 将文本绘制到画布(0,100)上
     OH_Drawing_TypographyPaint(typography, cCanvas_, 0, 100);
+    // 释放段落对象和段落生成器
+    OH_Drawing_DestroyTypography(typography);
+    OH_Drawing_DestroyTypographyHandler(handler);
     // [End custom_font_c_custom_font_text_step5]
 
     // [Start custom_font_c_custom_font_text_step6]
@@ -224,16 +233,13 @@ void SampleBitMap::DrawCustomFontText()
     OH_Drawing_TypographyLayout(typography1, maxWidth);
     // 将文本绘制到画布(0,300)上
     OH_Drawing_TypographyPaint(typography1, cCanvas_, 0, 300);
-    // [End custom_font_c_custom_font_text_step6]
-
     // 释放内存
+    OH_Drawing_DestroyTypography(typography1);
+    OH_Drawing_DestroyTypographyHandler(handler1);
     OH_Drawing_DestroyTypographyStyle(typographyStyle);
     OH_Drawing_DestroyTextStyle(textStyle);
     OH_Drawing_DestroyFontCollection(fontCollection);
-    OH_Drawing_DestroyTypographyHandler(handler);
-    OH_Drawing_DestroyTypographyHandler(handler1);
-    OH_Drawing_DestroyTypography(typography);
-    OH_Drawing_DestroyTypography(typography1);
+    // [End custom_font_c_custom_font_text_step6]
 }
 
 void SampleBitMap::PrintSysFontMetrics()
