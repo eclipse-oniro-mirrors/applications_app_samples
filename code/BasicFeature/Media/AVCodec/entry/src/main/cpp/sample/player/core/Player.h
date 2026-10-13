@@ -144,7 +144,7 @@ private:
     void ReleaseAudioDecoder();
     void PrepareForInitialization(const SampleInfo &sampleInfo);
     void ResetPlaybackState();
-    void PrepareVideoSinkForPlayback();
+    bool PrepareVideoSinkForPlayback();
     void UpdateSmartFluencyAvailability();
     void UpdateMediaInfoSnapshot();
     int32_t CreateTrackDecoders();
@@ -176,6 +176,7 @@ private:
     void RecordBufferPresentResult(int32_t result, std::chrono::steady_clock::time_point presentStart);
     void ProbeHdrVividFromSurface(bool render, uint64_t outputFrameCount);
     int32_t HandleInitError(std::unique_lock<std::mutex>& outerLock);
+    int32_t InitializePlaybackResources(std::unique_lock<std::mutex>& lock);
     int32_t StartVideoDecoder();
     int32_t StartAudioDecoder();
     int32_t StartPlaybackDecoders(bool &videoStarted);

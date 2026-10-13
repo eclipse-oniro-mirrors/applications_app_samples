@@ -38,6 +38,46 @@ int32_t ToGraphicPixelFormat(int32_t avPixelFormat, bool isHDRVivid)
             return NATIVEBUFFER_PIXEL_FMT_YCRCB_420_SP;
     }
 }
+
+bool ValidateVideoFeatureConfiguration(const SampleInfo &sampleInfo)
+{
+    if (sampleInfo.video.isHDRVivid != 0 && sampleInfo.video.isHDRVivid != 1) {
+        AVCODEC_SAMPLE_LOGE("Unsupported HDR Vivid encoder option: %{public}d", sampleInfo.video.isHDRVivid);
+        return false;
+    }
+    if (sampleInfo.codec.codecSyncMode != 0 && sampleInfo.codec.codecSyncMode != 1) {
+        AVCODEC_SAMPLE_LOGE("Unsupported video encoder sync mode: %{public}d", sampleInfo.codec.codecSyncMode);
+        return false;
+    }
+    if (sampleInfo.video.isHDRVivid == 0) {
+        return true;
+    }
+    if (sampleInfo.video.videoCodecMime != OH_AVCODEC_MIMETYPE_VIDEO_HEVC ||
+        !IsTenBitHevcProfile(sampleInfo.video.hevcProfile)) {
+        AVCODEC_SAMPLE_LOGE("HDR Vivid encoding requires HEVC Main 10 profile");
+        return false;
+    }
+    return true;
+}
+
+bool SetOptionalFormatFeatures(OH_AVFormat *format, const SampleInfo &sampleInfo)
+{
+    if (sampleInfo.codec.codecSyncMode != 0 &&
+        !OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode)) {
+        AVCODEC_SAMPLE_LOGE("Set video encoder sync mode failed");
+        return false;
+    }
+    if (sampleInfo.video.isHDRVivid != 0) {
+        if (!OH_AVFormat_SetIntValue(format, OH_MD_KEY_RANGE_FLAG, sampleInfo.video.rangFlag) ||
+            !OH_AVFormat_SetIntValue(format, OH_MD_KEY_COLOR_PRIMARIES, sampleInfo.video.primary) ||
+            !OH_AVFormat_SetIntValue(format, OH_MD_KEY_TRANSFER_CHARACTERISTICS, sampleInfo.video.transfer) ||
+            !OH_AVFormat_SetIntValue(format, OH_MD_KEY_MATRIX_COEFFICIENTS, sampleInfo.video.matrix)) {
+            AVCODEC_SAMPLE_LOGE("Set HDR Vivid encoder color metadata failed");
+            return false;
+        }
+    }
+    return true;
+}
 } // namespace
 
 VideoEncoder::~VideoEncoder()
@@ -45,12 +85,33 @@ VideoEncoder::~VideoEncoder()
     Release();
 }
 
+// [Start encoder_create_bymime]
+// 通过 MIME TYPE 创建编码器，由系统选择对应的编码器实现。
+OH_AVCodec *VideoEncoder::GetCodecByMime(const char *mime)
+{
+    CHECK_AND_RETURN_RET_LOG(mime != nullptr, nullptr, "Codec mime is nullptr");
+    return OH_VideoEncoder_CreateByMime(mime);
+}
+// [End encoder_create_bymime]
+
+// 按能力查询返回的编码器名称创建实例，便于明确选择软编或硬编实现。
+OH_AVCodec *VideoEncoder::GetCodecByCategory(const char *mime, bool isEncoder, OH_AVCodecCategory category)
+{
+    CHECK_AND_RETURN_RET_LOG(mime != nullptr, nullptr, "Codec mime is nullptr");
+    CHECK_AND_RETURN_RET_LOG(isEncoder, nullptr, "Encoder capability requires isEncoder=true");
+    OH_AVCapability *capability = OH_AVCodec_GetCapabilityByCategory(mime, isEncoder, category);
+    CHECK_AND_RETURN_RET_LOG(capability != nullptr, nullptr, "Encoder capability is nullptr");
+    const char *codecName = OH_AVCapability_GetName(capability);
+    CHECK_AND_RETURN_RET_LOG(codecName != nullptr, nullptr, "Encoder codec name is nullptr");
+    return OH_VideoEncoder_CreateByName(codecName);
+}
+
 int32_t VideoEncoder::Create(const std::string &videoCodecMime)
 {
     std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ == nullptr, AVCODEC_SAMPLE_ERR_ERROR,
         "Encoder already exists, release it before creating another one");
-    encoder_ = OH_VideoEncoder_CreateByMime(videoCodecMime.c_str());
+    encoder_ = GetCodecByMime(videoCodecMime.c_str());
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
@@ -115,7 +176,7 @@ int32_t VideoEncoder::Config(SampleInfo &sampleInfo, CodecUserData *codecUserDat
                                  "Set callback failed, ret: %{public}d", ret);
     }
 
-    ret = OH_VideoEncoder_Prepare(encoder_);
+    ret = Prepare();
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Prepare failed, ret: %{public}d", ret);
 
     return AVCODEC_SAMPLE_ERR_OK;
@@ -123,7 +184,6 @@ int32_t VideoEncoder::Config(SampleInfo &sampleInfo, CodecUserData *codecUserDat
 
 int32_t VideoEncoder::Prepare()
 {
-    std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_Prepare(encoder_);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
@@ -397,6 +457,8 @@ int32_t VideoEncoder::Configure(const SampleInfo &sampleInfo)
 {
     CHECK_AND_RETURN_RET_LOG(CodecCapability::ValidateVideoConfiguration(sampleInfo, true),
         AVCODEC_SAMPLE_ERR_ERROR, "Video encoder configuration is not supported");
+    CHECK_AND_RETURN_RET_LOG(ValidateVideoFeatureConfiguration(sampleInfo),
+        AVCODEC_SAMPLE_ERR_ERROR, "Video encoder feature configuration is not supported");
     OH_AVFormat *format = OH_AVFormat_Create();
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "AVFormat create failed");
 
@@ -410,14 +472,9 @@ int32_t VideoEncoder::Configure(const SampleInfo &sampleInfo)
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_I_FRAME_INTERVAL, sampleInfo.video.iFrameInterval);
     // B 帧间隔保持编码器默认值。部分设备没有暴露 VIDEO_ENCODER_B_FRAME 能力，
     // 对该可选 Key 做查询或赋值可能产生能力告警，甚至让原本可用的录制配置被拒绝。
-    if (sampleInfo.codec.codecSyncMode) {
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
-    }
-    if (sampleInfo.video.isHDRVivid) {
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_RANGE_FLAG, sampleInfo.video.rangFlag);
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_COLOR_PRIMARIES, sampleInfo.video.primary);
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_TRANSFER_CHARACTERISTICS, sampleInfo.video.transfer);
-        OH_AVFormat_SetIntValue(format, OH_MD_KEY_MATRIX_COEFFICIENTS, sampleInfo.video.matrix);
+    if (!SetOptionalFormatFeatures(format, sampleInfo)) {
+        OH_AVFormat_Destroy(format);
+        return AVCODEC_SAMPLE_ERR_ERROR;
     }
     AVCODEC_SAMPLE_LOGI("====== VideoEncoder config ======");
     AVCODEC_SAMPLE_LOGI("%{public}d*%{public}d, %{public}.1ffps",

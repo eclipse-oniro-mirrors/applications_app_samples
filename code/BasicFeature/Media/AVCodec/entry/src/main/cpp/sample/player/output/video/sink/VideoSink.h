@@ -24,6 +24,11 @@ public:
     virtual ~VideoSink() = default;
     virtual int32_t Present(const VideoPresentRequest &request) = 0;
     virtual void BeginPlayback() {}
+    // 输出线程退出后、codec Flush/Destroy 前调用。GPU sink 先完成在途采样，
+    // 归还已获取的解码 Buffer，但此时仍保留 codec 使用的 NativeImage 窗口。
+    virtual bool Quiesce() { return true; }
+    // codec Flush 完成后清走旧时间轴的待消费帧，不销毁解码器的输出 Surface。
+    virtual void DiscardPendingFrames() {}
     // 在配置解码器前给 sink 预创建 GPU 资源的机会。
     // 返回非空表示解码器应使用该生产者 Surface。
     virtual OHNativeWindow *PrepareForPlayback(const SampleInfo &sampleInfo)
@@ -32,6 +37,10 @@ public:
         return nullptr;
     }
     virtual bool UsesSurfaceDecoder() const
+    {
+        return false;
+    }
+    virtual bool IsHdrVividConfirmed() const
     {
         return false;
     }

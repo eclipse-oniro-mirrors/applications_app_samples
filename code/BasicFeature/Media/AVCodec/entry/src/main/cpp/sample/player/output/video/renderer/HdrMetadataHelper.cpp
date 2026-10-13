@@ -69,9 +69,10 @@ bool IsHdrVividNativeBuffer(OH_NativeBuffer *nativeBuffer)
         return false;
     }
 
-    int32_t dynamicMetadataSize = 0;
-    uint8_t *dynamicMetadata = nullptr;
-    return GetMetadata(nativeBuffer, OH_HDR_DYNAMIC_METADATA, dynamicMetadataSize, dynamicMetadata);
+    // HDR Vivid 的类型字段来自解码后的 NativeBuffer，已经足以确认当前帧的
+    // 色彩类型。动态元数据在部分硬解路径中由显示服务维护，不一定会复制到
+    // 应用可读的 NativeBuffer；不能因为该字段为空而把真实 HDR 帧判成 SDR。
+    return true;
 }
 
 bool SetNativeWindowMetadata(OHNativeWindow *window, OH_NativeBuffer_ColorSpace colorSpace,
@@ -103,6 +104,11 @@ bool HdrMetadataHelper::IsHdrVivid(OH_AVBuffer *buffer)
 {
     NativeBufferReference nativeBuffer = GetNativeBuffer(buffer);
     return IsHdrVividNativeBuffer(nativeBuffer.get());
+}
+
+bool HdrMetadataHelper::IsHdrVividNativeBuffer(OH_NativeBuffer *buffer)
+{
+    return ::IsHdrVividNativeBuffer(buffer);
 }
 
 bool HdrMetadataHelper::IsLastFlushedBufferHdrVivid(OHNativeWindow *window)
@@ -164,6 +170,37 @@ bool HdrMetadataHelper::SetBt709OutputMetadata(OH_NativeBuffer *targetBuffer)
     }
     return OH_NativeBuffer_SetColorSpace(targetBuffer, OH_COLORSPACE_BT709_LIMIT) == 0 &&
         SetMetadataType(targetBuffer, OH_VIDEO_NONE);
+}
+
+bool HdrMetadataHelper::SetNativeWindowMetadataFromBuffer(OHNativeWindow *window, OH_NativeBuffer *sourceBuffer)
+{
+    if (window == nullptr || sourceBuffer == nullptr) {
+        return false;
+    }
+    OH_NativeBuffer_ColorSpace colorSpace = OH_COLORSPACE_NONE;
+    if (OH_NativeBuffer_GetColorSpace(sourceBuffer, &colorSpace) != 0) {
+        return false;
+    }
+    int32_t typeSize = 0;
+    uint8_t *typeData = nullptr;
+    if (!GetMetadata(sourceBuffer, OH_HDR_METADATA_TYPE, typeSize, typeData) ||
+        typeSize < static_cast<int32_t>(sizeof(OH_NativeBuffer_MetadataType))) {
+        return SetNativeWindowMetadata(window, colorSpace, OH_VIDEO_NONE);
+    }
+    const int32_t colorSpaceRet = OH_NativeWindow_SetColorSpace(window, colorSpace);
+    const int32_t metadataRet = OH_NativeWindow_SetMetadataValue(window, OH_HDR_METADATA_TYPE,
+        typeSize, typeData);
+    int32_t staticSize = 0;
+    uint8_t *staticData = nullptr;
+    const bool hasStaticMetadata = GetMetadata(sourceBuffer, OH_HDR_STATIC_METADATA, staticSize, staticData);
+    const int32_t staticRet = hasStaticMetadata ? OH_NativeWindow_SetMetadataValue(window,
+        OH_HDR_STATIC_METADATA, staticSize, staticData) : 0;
+    int32_t dynamicSize = 0;
+    uint8_t *dynamicData = nullptr;
+    const bool hasDynamicMetadata = GetMetadata(sourceBuffer, OH_HDR_DYNAMIC_METADATA, dynamicSize, dynamicData);
+    const int32_t dynamicRet = hasDynamicMetadata ? OH_NativeWindow_SetMetadataValue(window,
+        OH_HDR_DYNAMIC_METADATA, dynamicSize, dynamicData) : 0;
+    return colorSpaceRet == 0 && metadataRet == 0 && staticRet == 0 && dynamicRet == 0;
 }
 
 bool HdrMetadataHelper::ResetNativeWindowSdrMetadata(OHNativeWindow *window)

@@ -56,12 +56,16 @@ bool ReleaseVideoOutputBuffer(VideoDecoder *decoder, const CodecBufferInfo &buff
 
 void Player::VideoDecInputSyncThread()
 {
+    // [Start decoder_sync_input_buffer]
     while (isStarted_) {
+        // [StartExclude decoder_sync_input_buffer1]
         WaitIfPaused();
+        // [EndExclude decoder_sync_input_buffer1]
         CHECK_AND_BREAK_LOG(isStarted_, "Decoder input thread out");
         std::unique_lock<std::mutex> lock(videoDecContext_->inputMutex);
         CodecBufferInfo bufferInfo;
         auto buffer = videoDecoder_->GetInputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
+        // [StartExclude decoder_sync_input_buffer2]
         CHECK_AND_CONTINUE_LOG(buffer != nullptr, "Get input buffer timeout, retry");
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         videoDecContext_->inputFrameCount++;
@@ -87,6 +91,7 @@ void Player::VideoDecInputSyncThread()
                 break;
             }
         }
+        // [EndExclude decoder_sync_input_buffer2]
         ret = videoDecoder_->PushInputBuffer(bufferInfo);
         if (ret != AVCODEC_SAMPLE_ERR_OK) {
             playbackFailed_ = true;
@@ -95,6 +100,7 @@ void Player::VideoDecInputSyncThread()
         }
         CHECK_AND_BREAK_LOG(!(bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS), "Catch EOS, thread out");
     }
+   // [End decoder_sync_input_buffer]
 }
 
 void Player::VideoDecInputAsyncThread()
@@ -105,7 +111,6 @@ void Player::VideoDecInputAsyncThread()
         // [Start decoder_input_buffer]
         std::shared_ptr<CodecBufferInfo> bufferInfo = videoDecContext_->inputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
-        // [Start decoder_input_buffer_example]
         /**
            *
            * // 示例：将数据写入 Buffer，设置属性后送入解码器。
@@ -133,7 +138,6 @@ void Player::VideoDecInputAsyncThread()
            * }
            *
            */
-        // [End decoder_input_buffer_example]
         // [StartExclude decoder_input_buffer]
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
@@ -380,10 +384,12 @@ void Player::InitSyncVideoOutputContext()
 bool Player::GetSyncVideoOutputBuffer(CodecBufferInfo& bufferInfo)
 {
     int32_t ret = AVCODEC_SAMPLE_ERR_AGAIN;
+    // [Start decoder_sync_output_buffer]
     while (isStarted_ && ret == AVCODEC_SAMPLE_ERR_AGAIN) {
         std::unique_lock<std::mutex> lock(videoDecContext_->outputMutex);
         ret = videoDecoder_->GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
     }
+    // [End decoder_sync_output_buffer]
     if (!isStarted_) {
         if (!ReleaseVideoOutputBuffer(videoDecoder_.get(), bufferInfo, "video output worker stopped")) {
             playbackFailed_ = true;
@@ -462,7 +468,7 @@ void Player::VideoDecOutputAsyncThread()
         // 获取输出buffer。
         std::shared_ptr<CodecBufferInfo> bufferInfo = videoDecContext_->outputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
-        //开发者可根据业务需要，对输出数据进行送显/保存/释放处理。
+        // 开发者可根据业务需要，对输出数据进行送显/保存/释放处理。
         // [End decoder_output_buffer]
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
         if (!isStarted_) {

@@ -9,16 +9,7 @@ AVCodecSample is an API 26 sample for video and audio playback, camera recording
 - Playback pipeline: media file -> demuxer -> audio/video decoder -> graphics/audio output.
 - Recording pipeline: camera and microphone capture -> audio/video encoder -> MP4 or FLV muxer.
 
-### First Run
-
-You do not need to understand every setting before verifying the sample. Start with an H.264 + AAC MP4 file and use this path:
-
-1. Build and install the application with DevEco Studio on a physical device running API 26 or later.
-2. Keep the default playback settings: **Automatic**, **SurfaceMode direct output**, **Async**, and decoded-frame dump disabled.
-3. Tap **Play**, choose the file from File Manager or Gallery, and confirm that both picture and sound work. This verifies source access, demuxing, decoding, graphics output, and audio output together.
-4. Test recording separately by tapping **Record** and granting camera/microphone permission. The default is a compatibility-oriented MP4, H.264, 1080p, 30 fps, and AAC configuration.
-
-Choose non-default playback settings only for a specific reason:
+Choose playback settings for the problem being investigated:
 
 | Goal | Suggested settings | Why |
 |---|---|---|
@@ -27,7 +18,7 @@ Choose non-default playback settings only for a specific reason:
 | Inspect pixels, color, or HDR metadata | Automatic + BufferMode copy output | Gives the application access to decoder output, but adds a pixel copy for every presented frame. |
 | Export decoded frames | BufferMode copy output + decoded-frame dump | Intended for debugging. Files are written to the app sandbox and should not remain enabled during ordinary playback. |
 | Validate the GLES path | Surface-window OpenGL output | Ordinary 8-bit content is decoded to a NativeImage Surface and drawn through an EGL/GLES external texture. If that path cannot be built, the player falls back to decoder-buffer output. HDR Vivid to BT.709 is unavailable in this mode. |
-| Validate the Vulkan path | Surface-window Vulkan output | Scales decoder output to the display size, converts it to RGBA, and presents it through a Vulkan Swapchain with rotation-aware aspect-fit. HDR Vivid to BT.709 is unavailable in this mode. |
+| Validate the Vulkan path | Surface-window Vulkan output | Sends decoder output to a NativeImage producer Surface, imports each NativeBuffer as OHOS Vulkan external memory, and presents it through a Vulkan Swapchain with rotation-aware aspect-fit. If that chain cannot be built, the Vulkan start fails instead of switching to BufferMode. HDR Vivid to BT.709 is unavailable in this mode. |
 | High-frame-rate speed playback | Automatic + smart fluency when available | Speed control is always available. Smart fluency depends on the active decoder, device, and SDK. |
 
 ### Basic Terms
@@ -42,7 +33,7 @@ Choose non-default playback settings only for a specific reason:
 | SurfaceMode | The decoder sends pictures directly to the XComponent Surface. The application cannot inspect pixels for each frame. |
 | BufferMode | The decoder returns output buffers to the application, which copies them to a NativeWindow before presentation. This enables dump and HDR metadata handling. |
 | OpenGL mode | Ordinary 8-bit content is decoded to a NativeImage producer Surface. When a frame arrives, the application draws the external texture to the XComponent window. NativeImage or EGL initialization failure falls back to decoder-buffer output. |
-| Vulkan mode | The application converts decoder output to RGBA, copies it through a staging buffer, and presents it with an OpenHarmony Vulkan Surface and Swapchain. Initialization failures fall back to BufferMode. |
+| Vulkan mode | The decoder writes to a NativeImage producer Surface. The app acquires NativeWindowBuffer/NativeBuffer objects, imports them as OHOS Vulkan external memory, and presents them through the Vulkan Surface and Swapchain. If the Surface or external-memory chain cannot be built, this Vulkan playback fails rather than switching to BufferMode. |
 | Sync / Async codec mode | How codec buffers are obtained: worker-thread queries or callback queues. It does not mean A/V synchronization is disabled in one mode. |
 | EOS | End of stream. After input ends, a codec or muxer still needs time to drain buffered output before it is released. |
 
@@ -64,9 +55,9 @@ Alongside the basic codec APIs, the sample connects file selection, validation, 
 | Last-frame behavior on stop | Choose whether SurfaceMode retains the last frame or outputs a blank frame when stopped/destroyed | [SurfaceMode output](#surface-output) |
 | BufferMode output | The application obtains decoded buffers, copies them to a NativeWindowBuffer with stride awareness, and submits them through graphics APIs | [BufferMode output](#buffer-output) |
 | OpenGL output | Ordinary 8-bit content reaches an EGL/GLES external texture through a NativeImage Surface; decoder buffers are converted to RGBA only after a fallback | [OpenGL/Vulkan output](#gpu-output) |
-| Vulkan output | Uploads converted RGBA data through a staging buffer and presents it with a Vulkan Swapchain | [OpenGL/Vulkan output](#gpu-output) |
+| Vulkan output | Decodes to a NativeImage Surface, imports NativeBuffer as OHOS Vulkan external memory, and presents it with a Swapchain | [OpenGL/Vulkan output](#gpu-output) |
 | BufferMode HDR Vivid | Propagates color space and HDR static/dynamic metadata and displays an HDR Vivid watermark after bitstream confirmation | [HDR Vivid detection and output](#hdr-vivid-output) |
-| Decoded-frame dump | BufferMode and Vulkan can save decoded frames in the application sandbox; OpenGL can do so only after it has fallen back from NativeImage Surface output to decoder-buffer output | [Buffer dump](#buffer-dump) |
+| Decoded-frame dump | BufferMode can save decoded frames in the application sandbox; OpenGL/Vulkan can do so only after falling back from NativeImage Surface output to decoder-buffer output | [Buffer dump](#buffer-dump) |
 | Audio decoding and playback | Decodes compressed audio to PCM and continuously feeds AudioRenderer | [Audio decoding and playback](#audio-playback) |
 | System audio interruptions and background recovery | Handles calls, audio focus loss, and app background/foreground transitions without mistaking them for codec failures | [Audio interruptions and background recovery](#audio-interruption) |
 | Multi-track audio | Lists codec, sample rate, channels, and bitrate; validates a candidate before switching without restarting video | [Audio decoding and playback](#audio-playback) |
@@ -78,7 +69,7 @@ Alongside the basic codec APIs, the sample connects file selection, validation, 
 | A/V synchronization | Uses the AudioRenderer playback position as the master clock and waits, schedules, or drops video frames | [A/V synchronization](#av-sync) |
 | Video transforms | Supports rotation, horizontal/vertical flip, and combined transforms | [Video transforms](#video-transform) |
 | Progress and precise seek | Shows current position and duration; merges rapid seek requests, resumes from a sync frame, and discards output before the requested target | [Playback progress and seek](#playback-seek) |
-| Playback controls | Supports single-tap pause/resume, double-tap left/right for a 15-second precise seek, control-button pause/resume, previous/next frame, and replay; paused operations update the picture immediately | [Playback progress and seek](#playback-seek) |
+| Playback controls | Supports pause/resume, precise 15-second double-tap seeks, frame stepping, and replay; when auto-hidden, the first surface tap only reveals the controls, and button actions reset the hide timer | [Playback progress and seek](#playback-seek) |
 | Queue, resume, and recovery | Supports sequential, repeat-one, repeat-all, and shuffle modes; restores position and can retry a runtime failure once | [Playback queue and resume](#playback-queue) |
 | Fullscreen and display ratio | Toggle fullscreen/orientation; record a fit-window or fill-window preference while the current NativeWindow path remains aspect-fit | [Fullscreen and display ratio](#display-mode) |
 | Playback diagnostics | Inspect output/presented/dropped frames, sync decision offset, PCM/device queues, underruns, interruption count, seek timing, and BufferMode timing | [Playback diagnostics](#playback-diagnostics) |
@@ -149,9 +140,9 @@ hdc shell mediatool send /storage/media/100/local/files/xx.mp4
 
 #### Playback
 
-1. Copy an audio-only, video-only, or audio/video file to the device, or record a new file in the sample.
+1. Copy an audio-only, video-only, or audio/video file to the device, or record a new file in the sample application.
 2. Tap **Play**, select File Manager or Gallery, and choose the media file.
-3. During playback, tap the video window to pause or resume. Double-tap its left or right half to seek backward or forward 15 seconds. Press and hold it for temporary X2 playback and release for X1, or use the speed menu to select X1/X2/X3.
+3. Choose whether playback controls stay visible in Settings. With auto-hide enabled, the progress bar and buttons disappear after five seconds without touch or key input, and a notice appears each time. The first surface tap only reveals the controls; the next single tap pauses or resumes. Touching the surface, dragging the progress slider, or pressing a control resets the five-second timer. Double-tap the left or right half to seek backward or forward 15 seconds. Press and hold for temporary X2 playback and release for X1, or use the speed menu to select X1/X2/X3.
 4. Use the progress slider to preview and seek, the transform control to rotate/flip the output, and the information panel to inspect demuxed metadata.
 
 #### Recording
@@ -164,7 +155,7 @@ hdc shell mediatool send /storage/media/100/local/files/xx.mp4
 
 #### Suggested Media
 
-For a first run, use **M01**: an MP4 containing H.264 + AAC at 1920x1080 and 30 fps. It exercises the common audio/video path. The following media make it easier to verify specific features; the complete material list and test steps are in the [manual test cases](./ohosTest.md).
+For a basic playback check, use **M01**: an MP4 containing H.264 + AAC at 1920x1080 and 30 fps. It exercises the common audio/video path. The following media make it easier to verify specific features; the complete material list and test steps are in the [manual test cases](./ohosTest.md).
 
 | Goal | Suggested media |
 |---|---|
@@ -239,7 +230,7 @@ AVCodec/
     │   │   │   │   │   ├── Player.cpp/.h    # Public controls, queries, and audio-track switching
     │   │   │   │   │   ├── PlayerLifecycle.cpp # Initialization and decoder/worker startup
     │   │   │   │   │   ├── PlayerRelease.cpp # Release worker and native resource teardown
-    │   │   │   │   │   └── PlayerSeek.cpp   # Precise seek, pause handling, and resource rebuild
+    │   │   │   │   │   └── PlayerSeek.cpp   # Seek timeline switch, video Flush, and audio-path rebuild
     │   │   │   │   ├── output/              # Audio/video output and presentation
     │   │   │   │   │   ├── audio/           # Audio output workers and PCM pump
     │   │   │   │   │   │   ├── AudioOutputPump.cpp/.h
@@ -355,7 +346,7 @@ The later sections describe individual modules and APIs. This section follows on
 
 | Feature | Trigger and input | Main processing | Completion, failure, and state boundary |
 |---|---|---|---|
-| Open media | The user confirms a File Manager or Gallery item | The UI validates its size, opens an fd, builds `PlayOptions` from `PlayerSettingsModel`, and `PlayerNative` parses it before `Player::Init()` | Cancelling only dismisses the picker; an empty file is reported by the UI; source creation, demuxing, capability, or decoder failures return `error` without leaving playback workers half initialized |
+| Open media | The user selects a File Manager or Gallery item | The UI validates its size, opens an fd, builds `PlayOptions` from `PlayerSettingsModel`, and `PlayerNative` parses it before `Player::Init()` | Cancelling only dismisses the picker; an empty file is reported by the UI; source creation, demuxing, capability, or decoder failures return `error` without leaving playback workers half initialized |
 | Demuxing and media information | Native receives the fd, offset, and size | `OH_AVSource` reads the source format, `OH_AVDemuxer` enumerates tracks, and the sample stores structured fields plus copied raw Format text | The panel reads an immutable snapshot instead of rereading the file during playback; initialization fails cleanly if no playable audio or video track exists |
 | Video decoding | A video track and playback settings are selected | The player creates an automatic, hardware, or software decoder, writes capability-validated fields, and continuously moves compressed input and decoded output through Sync or Async workers | Automatic mode tries software once only after its initial create/capability/configure failure; an explicit hardware failure remains visible and is not silently changed to software |
 | Video presentation | A decoder produces an output buffer | `AvSyncController` decides whether to wait, present now, or drop; `VideoSink` then uses a Surface or Buffer copy path | Every codec output buffer is returned whether it is presented, dropped, or fails to present; a destroyed Surface clears its non-owning window reference before later frames are released |
@@ -363,18 +354,36 @@ The later sections describe individual modules and APIs. This section follows on
 | Audio and audio tracks | Demuxing finds audio, or the user selects another track | AudioDecoder produces PCM, `AudioOutputPump` queues it under lock, and the AudioRenderer callback consumes it; track switching performs a temporary Create + Configure probe first | A failed probe does not remove the current decoder, renderer, or clock, so sound and seek continue; a successful switch rebuilds only the audio path and does not restart video |
 | Subtitles | The user selects an external `.srt` file | The UI parses cue start/end times and text, then maps the polled playback position plus subtitle offset to the active cue | Read, syntax, or timeline errors only produce a prompt and do not change Native playback; media changes, Stop, and no active cue clear the overlay |
 | Speed, smart fluency, and sync | A press-and-hold gesture or X1/X2/X3 selection | The page sends a target speed; supported X2/X3 playback uses ADAPTIVE retention; `PlaybackClock` builds an audio-master timeline from AudioRenderer timestamps | Retention does not rewrite PTS or represent audio speed; with audio, video wait/drop follows actual audio progress, while video-only playback advances from presented video PTS |
-| Pause, frame step, and seek | Pause, +/-15 seconds, slider, or frame-step control | Pause keeps decoders alive while stopping the renderer; seek stops workers, seeks from a previous sync frame, rebuilds paths, discards early video, and trims early PCM | A seek failure enters the common release path; paused frame steps temporarily permit the target video frame to present while audio remains paused, updating picture, position, and diagnostics immediately |
+| Pause, frame step, and seek | Pause, +/-15 seconds, slider, or frame-step control | Pause keeps decoders alive and pauses the renderer; seek stops workers and in-flight presentation, usually Flushes and reuses the video decoder, rebuilds the audio path, then decodes from a sync frame to the target | Pre-target video is returned without presentation; audio is dropped or trimmed to the target sample; a seek failure enters common release, while paused frame steps present only the target frame |
 | Queue, resume, and A-B loop | Multi-file selection, reopening history, or setting A/B | Natural EOS advances the in-session queue; preferences store positions; reaching B invokes the same precise seek back to A | Explicit Stop and errors do not advance the queue; near-end history restarts at zero; changing media, Stop, or clearing markers turns off A-B looping |
-| Display, PiP, and control hiding | Fullscreen/ratio/PiP selection or inactivity | The UI changes window layout, orientation, and control visibility; PiP reuses the XComponent controller and forwards system actions to the player | Display selection does not alter decoded pixels or timestamps; PiP failures are visible but leave page playback intact; every playback-window tap or control action resets the auto-hide timer |
+| Display, PiP, and control hiding | Fullscreen/ratio/PiP selection or no user input | The UI changes window layout, orientation, and control visibility; PiP reuses the XComponent controller and forwards system actions to the player | Display selection does not alter decoded pixels or timestamps; PiP failures are visible but leave page playback intact; every playback-window tap or control action resets the auto-hide timer |
 | System media controls | Lock screen, notification center, or headset media keys | `PlaybackSessionController` mirrors the existing Native state into `AVSession` and forwards system commands to page controls | Session errors are logged without interrupting local playback; Stop and page destruction deactivate and destroy the session |
 | Diagnostics, state, and release | Polling, EOS, Stop, or error | Native atomics build a read-only snapshot, the state machine validates transitions, and `ReleaseWorker` stops workers and releases renderer/codecs in a fixed order | Diagnostics never affect scheduling; repeated Stop is safe; the completion callback is invoked outside the Player mutex to avoid re-entrant UI deadlocks |
 | Camera recording and muxing | The user confirms recording settings and permissions | The UI creates a media-library fd; preview and encoder Surfaces split camera output; audio/video encoder output is serialized through the Muxer | Camera and codec capability checks happen before recording; Stop waits for both EOS paths and muxer finalization before closing the fd |
 
 **Playback initialization.** After a file is selected, the UI opens an fd and sends the valid byte range as offset and size. Gallery and File Manager sources therefore share the same Native input path. `PlayerNapiParser` validates each field before filling the responsibility-oriented `SampleInfo` members. `Player::Init()` accepts only `IDLE`: it creates the source and demuxer, freezes the media snapshot, chooses tracks, creates decoders/AudioRenderer/output policy, and enters `READY` after the required steps succeed. Any earlier failure follows the same cleanup path and returns a reason to ArkTS, so the next task cannot reuse partial objects.
 
-**Decoder and queue flow.** In Async mode, framework callbacks only enqueue buffer indexes and pointers. They never perform file I/O, sleep, or graphics work on a codec callback thread. In Sync mode, workers query buffers themselves. Both paths converge on the same input, output, and release routines. An input worker reads a compressed Demuxer sample, preserves its PTS, flags, and EOS marker, then pushes it to the codec. An output worker recognizes EOS, seek preroll, and normal frames before it schedules or presents them. Queue closure, errors, Stop, and Surface destruction wake waiting workers so no thread waits indefinitely for a buffer that can no longer arrive.
+Initialization prepares the pipeline but does not read frames. `Start()` first seeks the Demuxer to zero, starts each decoder that exists, creates its input/output workers, starts the AudioRenderer when audio is present, and enters `PLAYING` only after startup succeeds. A video-only file has no audio renderer or audio workers; an audio-only file has no video decoder or video workers. If starting one side fails after the other side has started, startup rollback stops the active workers and delegates cleanup to the same release path used by Stop.
 
-**Graphics and buffer ownership.** In SurfaceMode, decoded image ownership remains between the decoder and the Surface; the application only chooses render or free. In BufferMode, the application borrows a decoder buffer only while processing that output callback and must not retain its address for a later frame. `BufferRenderer` requests a separate NativeWindow destination buffer, waits for its fence, maps it, copies rows, unmaps it, sets a desired presentation time, and flushes it. The destination has then returned to the graphics system and the source immediately returns to the decoder. There is no attach/detach or cross-frame shared ownership, so completion of display cannot block codec buffer reuse.
+At playback start, the audio output clock may not yet have a valid hardware timestamp. Video then follows its nominal frame interval until the AudioRenderer timestamp and consumed-frame position stabilize; it does not interpret a zero timestamp as permission to drop a run of frames. Once valid, the audio clock drives video wait/drop decisions. For video-only media, successful video presentation PTS advances the visible position. This is why decoder output count and progress are separate observations: decoded PCM is not yet played until the AudioRenderer consumes it.
+
+```text
+File selection -> fd + PlayOptions -> Init / demux / validation -> READY
+                                                        |
+                                                        v
+                           Seek to 0 -> decoder workers -> PLAYING
+                                                        |
+                    ┌───────────────────────────────────┴──────────────────┐
+                    v                                                      v
+             Both active outputs drain                              Stop or error
+                    └─────────────────────────┬───────────────────────────┘
+                                              v
+                             ReleaseWorker -> completion callback -> IDLE
+```
+
+**Decoder and queue flow.** In Async mode, framework callbacks only enqueue buffer indexes and pointers. They never perform file I/O, sleep, or graphics work on a codec callback thread. In Sync mode, workers query buffers themselves. Both paths converge on the same input, output, and release routines. An input worker reads a compressed Demuxer sample, preserves its PTS, flags, and EOS marker, then pushes it to the codec. An output worker recognizes EOS, seek preroll, and normal frames before it schedules or presents them. EOS on the input side only tells the codec that no more compressed samples follow; delayed decoded frames can still arrive. The track is complete only when its output worker handles EOS. Queue closure, errors, Stop, and Surface destruction wake waiting workers so no thread waits indefinitely for a buffer that can no longer arrive.
+
+**Graphics and buffer ownership.** In SurfaceMode, decoded image ownership remains between the decoder and the Surface; the application only chooses render or free. In BufferMode, the application borrows a decoder buffer only while processing that output callback and must not retain its address for a later frame. `BufferRenderer` requests a separate NativeWindow destination buffer, waits for its fence, maps it, copies rows, unmaps it, sets a desired presentation time, and flushes it. The destination has then returned to the graphics system and the source immediately returns to the decoder. There is no attach/detach or cross-frame shared ownership, so completion of display cannot block codec buffer reuse. Every output index reaches exactly one return point, including frames dropped by sync, discarded as seek preroll, or rejected because a layout or presentation operation failed. A failure changes playback status; it does not transfer buffer ownership to the application.
 
 **Audio master clock.** Writing PCM into `renderQueue` does not mean it has played. Only complete sample frames actually removed by the AudioRenderer write callback increment `audioFramesWritten`. The player combines the renderer timestamp, hardware-consumed frames, and a monotonic-clock anchor to estimate played media time. During renderer startup, route changes, or after Flush, timestamp data may be unstable; the player temporarily uses the nominal video interval rather than using invalid values to drop frames. Video that is far behind audio is dropped and early video waits near its presentation time. All wall-clock waits divide media-time differences by requested speed, preventing X2/X3 from treating media time as real time.
 
@@ -402,7 +411,7 @@ These are the main entry points to follow in code. Besides logs, Media informati
 
 9. **Speed, smart fluency, and thermal policy.** `setPlaybackSpeed()` updates the target speed used by both audio output and video scheduling. When the active decoder supports smart fluency, X2/X3 send ADAPTIVE plus the speed key and X1 returns to FULL. A thermal callback uses UNIFORM and a retention ratio only when load reduction is needed, then restores the user-requested speed policy. The application never treats the number of frames retained as audio speed and never rewrites PTS for 240 fps input; RenderService's own refresh-rate limit remains handled by `renderAtTime`.
 
-10. **Seek, thumbnails, frame step, and A-B.** Native seek starts from the sync frame before the target so dependent reference frames can be decoded. Video before the target is released, and audio before it is discarded or trimmed; neither is displayed or dumped. UI thumbnails use a separate `AVImageGenerator`, apply media rotation to preview orientation and container ratio, and simply hide the preview on failure. Previous/next frame derive a target from frame rate and preserve pause state. Reaching B calls the same seek API back to A, so diagnostics, subtitles, and progress share one actual position.
+10. **Seek, thumbnails, frame step, and A-B.** Native seek starts from the sync frame before the target so dependent reference frames can be decoded. It stops and joins codec workers, waits for in-flight sink work, clears codec queues, and Flushes the existing video decoder when it can be retained. The audio decoder and AudioRenderer are recreated; the video decoder is recreated only when it cannot be reused. Video before the target is returned without presentation, and audio before it is discarded or trimmed; neither is displayed or dumped. Some rotated 10-bit HEVC files have an unusable previous-sync index, so a forward seek uses the following sync frame to avoid decoding from a missing reference. UI thumbnails use a separate `AVImageGenerator`, apply media rotation to preview orientation and container ratio, and simply hide the preview on failure. Previous/next frame derive a target from frame rate and preserve pause state. Reaching B calls the same seek API back to A, so diagnostics, subtitles, and progress share one actual position.
 
 11. **Queue, history, fullscreen, PiP, and auto-hide.** `PlaybackHistoryModel` stores recent position, duration, and update time per URI with throttled writes; a position is restored only after a new playback initializes successfully. Fullscreen changes window layout and orientation while retaining the same control-event handlers. PiP playback, pause, forward, and rewind callbacks map to those handlers too. A single XComponent tap only toggles `PLAYING`/`PAUSED`, while a press-and-hold remains the speed gesture. Auto-hide changes only ArkUI visibility and never stops Native workers; tapping or long-pressing XComponent, dragging progress, or pressing any control shows the UI again and resets the five-second timer.
 
@@ -416,7 +425,7 @@ Capability objects are owned by the framework and are not destroyed by the sampl
 
 The playback settings expose `OH_MD_KEY_VIDEO_DECODER_BLANK_FRAME_ON_SHUTDOWN`, which selects whether SurfaceMode keeps the last frame or outputs a blank frame when stopped or destroyed. `OH_MD_KEY_ENABLE_SYNC_MODE` follows the Sync/Async selection. Smart-fluency retention mode, target speed, and thermal retention ratio remain runtime policies.
 
-Advanced settings include low-latency decoding, decoding-order output, and HDR Vivid to BT.709 conversion. The first two are checked with `OH_AVCapability_IsFeatureSupported()` before configuration; unsupported codec/device combinations are rejected with a recorded reason. The color-space key `OH_MD_KEY_VIDEO_DECODER_OUTPUT_COLOR_SPACE=OH_COLORSPACE_BT709_LIMIT` is sent only for HDR Vivid media using a decoder Surface. OpenGL's direct NativeImage path and Vulkan's Buffer/Swapchain path do not offer a general HDR Vivid-to-BT.709 conversion contract, so the setting is disabled for those modes rather than relying on an application-side 4K HDR conversion. Requested decoder format and actual output format are retained separately: a Seek rebuild uses the original request, while presentation and dump use the decoder-reported output.
+Advanced settings include low-latency decoding, decoding-order output, and HDR Vivid to BT.709 conversion. The first two are checked with `OH_AVCapability_IsFeatureSupported()` before configuration; unsupported codec/device combinations are rejected with a recorded reason. The color-space key `OH_MD_KEY_VIDEO_DECODER_OUTPUT_COLOR_SPACE=OH_COLORSPACE_BT709_LIMIT` is sent only for HDR Vivid media using a decoder Surface. OpenGL's direct NativeImage path and Vulkan's NativeImage/external-memory path do not offer a general HDR Vivid-to-BT.709 conversion contract, so the setting is disabled for those modes rather than relying on an application-side 4K HDR conversion. Requested decoder format and actual output format are retained separately: if a seek must recreate the video decoder, configuration uses the original request, while presentation and dump use the decoder-reported output.
 
 Two API 26 capabilities are enabled by default in the Native build:
 
@@ -445,7 +454,7 @@ The home page provides both playback and recording entry points:
 - Playback uses `XComponent({ id: 'player', type: XComponentType.SURFACE, libraryname: 'player' })`. Loading `libplayer.so` lets the Native module unwrap the XComponent and register Surface callbacks through `PluginManager::Export()`.
 - Playback settings are displayed in a scrollable ArkUI `bindSheet`. Decoder type, output mode, and codec mode each occupy one row and open a single-column picker. Decoded-frame dump uses a switch. User-facing labels such as **Automatic**, **Hardware decoder**, **Software decoder**, **SurfaceMode direct output**, and **BufferMode copy output** are mapped to the original Native enum values.
 - Opening the settings sheet creates a temporary copy of `PlayerSettingsModel`. **Apply** validates and commits the settings, **Cancel** discards the temporary copy, and **Restore Defaults** resets only the temporary values until Apply is selected. Audio volume is available from 0% to 100% and is applied immediately to the active output through `OH_AudioRenderer_SetVolume()`. Audio output latency can be Normal or Low and is applied through `OH_AudioStreamBuilder_SetLatencyMode()` when the next AudioRenderer is created. Low latency reduces output buffering but increases underrun risk.
-- The **Auto-hide playback controls** switch applies to both normal and fullscreen modes: controls and the progress bar hide after five seconds of inactivity and reappear when the playback surface is tapped or long-pressed; disabling it keeps them visible.
+- The **Auto-hide playback controls** switch applies to both normal and fullscreen modes. After five seconds without input, controls and the progress bar hide and a notice appears on each hide. A tap, slider drag, or control-button action resets the timer. When controls are hidden, the first playback-surface tap only reveals them; the next tap can pause or resume. Disabling auto-hide keeps controls visible.
 - After a source is selected, ArkTS opens the URI with `fileIo.openSync()`, records the fd and file size, and calls the structured `player.play(options, callback)` API.
 - The completion callback returns `{ success, reason }`, where `reason` is `completed`, `stopped`, or `error`. Only an actual error produces the invalid-media prompt.
 - During playback the main button becomes **Stop**. `player.stop()` moves the UI into a stopping state until the shared Native release path invokes the completion callback.
@@ -581,9 +590,11 @@ The GPU choices share video scheduling, pause, Seek, and release entry points, b
 
 This direct Surface path cannot read decoded pixels, so it normally cannot dump decoded frames. If NativeImage, EGL, or window recreation cannot be prepared, the player switches to decoder-buffer output. Only in that fallback does `VideoFrameConverter` validate the output layout, convert it to contiguous RGBA, and upload it as a GLES texture; a later GLES failure falls through to `BufferRenderer`. Each layer is initialized once for a playback task rather than recreated for every frame. HDR Vivid, 10-bit, and dynamic-HDR content stays on a direct XComponent Surface so that an RGBA8 conversion cannot discard color information; the settings page also disables HDR Vivid to BT.709 where that decoder conversion is unavailable.
 
-**Vulkan.** The current Vulkan implementation uses decoder-buffer output. `VideoFrameConverter` validates offset, stride, slice height, and capacity, then converts RGBA at a size derived from the XComponent extent and the rotated picture ratio. Vulkan creates an OpenHarmony Surface, graphics queue, Swapchain, command buffers, a reusable staging buffer, a device-local upload image, and synchronization objects. Each RGBA frame moves through the staging buffer into the upload image; the command path clears the Swapchain image to black and performs the final aspect-preserving blit. Once the copy has been submitted, or when submission fails, the decoder output is immediately returned with `FreeOutputBuffer(..., false)` so GPU work cannot drain the codec output pool.
+**Vulkan.** Vulkan first creates `OH_ConsumerSurface_Create()` and passes the NativeImage producer `OHNativeWindow` to `OH_VideoDecoder_SetSurface()`. The decoder therefore writes frames to the Surface instead of returning readable pixel buffers. The NativeImage callback only records pending frames; the presentation worker calls `OH_NativeImage_AcquireLatestNativeWindowBuffer()`, waits for the acquire fence, and converts the window buffer to an `OH_NativeBuffer`.
 
-Vulkan routes HDR or 10-bit frames to `BufferRenderer`, which preserves color space plus static and dynamic HDR metadata in the NativeWindow destination buffer. The same fallback is used for unavailable windows, device/context failures, conversion failures, and failed submissions. A decoder source buffer and a NativeWindow destination buffer never span frames together: the source returns to the decoder, and the destination returns to the graphics system after Flush. OpenGL and Vulkan are therefore useful for validating NativeImage, texture, or Swapchain behavior. Vulkan's conversion and upload cost additional CPU and memory bandwidth, so it is not the default playback path.
+For every frame, `vkGetNativeBufferPropertiesOHOS()` supplies the external format, allocation size, and compatible memory types. `VkImportNativeBufferInfoOHOS`, `VK_EXTERNAL_MEMORY_HANDLE_TYPE_OHOS_NATIVE_BUFFER_BIT_OHOS`, and a dedicated allocation bind that NativeBuffer to a Vulkan image. YUV external formats use the device's suggested `VkSamplerYcbcrConversion`; the sampler and descriptor layout are reused for one playback session, while the external image, image view, and NativeBuffer reference live only until the corresponding GPU submission completes. The image is sampled in the swapchain render pass. The NativeImage Buffer matrix, which includes crop and stride transforms, is copied to the uniform buffer so portrait video does not become cropped or stretched.
+
+Resource teardown is ordered: wait for the previous submission, destroy the external image, return the NativeBuffer, unregister the NativeImage callback after decoder release, then destroy the swapchain, device, and window lease. The old BufferRenderer path is used only when Surface setup or external-memory import is unavailable; it is not selected on every frame after a Surface path has succeeded. This path avoids CPU RGBA conversion and is useful for validating Vulkan external textures, although actual throughput still depends on device Vulkan external-memory, YCbCr, and display-refresh support.
 
 <a id="hdr-vivid-output"></a>
 
@@ -597,7 +608,7 @@ The UI watermark is enabled only after the decoded output confirms HDR Vivid. Th
 
 ##### Buffer Dump
 
-Decoded-frame dump is optional only when the current output path can read a decoder buffer. BufferMode and Vulkan meet that condition. OpenGL does so only after its NativeImage Surface path has fallen back to decoder-buffer output. When enabled, `Player::DumpOutput()` writes frames into the application sandbox using a file name that includes pixel format, dimensions, and timestamp. Dump and display use the same decoded output, but dump can be disabled independently to avoid storage and I/O overhead.
+Decoded-frame dump is optional only when the current output path can read a decoder buffer. BufferMode meets that condition. OpenGL and Vulkan do so only after their NativeImage Surface path has fallen back to decoder-buffer output. When enabled, `Player::DumpOutput()` writes frames into the application sandbox using a file name that includes pixel format, dimensions, and timestamp. Dump and display use the same decoded output, but dump can be disabled independently to avoid storage and I/O overhead.
 
 Frames decoded only as precise-seek preroll are never rendered or dumped.
 
@@ -730,9 +741,9 @@ The page displays current position, total duration, and a draggable Slider. It p
 
 ArkTS uses a separate file descriptor and `AVImageGenerator.fetchFrameByTime()` to generate a preview thumbnail. The first request is immediate; later requests are throttled to at least 100 ms. If a request is already running, only the newest position is retained and processed next.
 
-Codec seek itself is not run synchronously on the ArkTS thread. `seekToAsync()` uses NAPI async work to invoke the existing precise-seek routine on a Native worker. `SeekRequestController` holds one running request and one pending target. Further slider releases, track taps, rewind/forward actions, or A-B-loop requests replace the pending target with the newest position; the replaced Promise resolves as `superseded`, so a burst does not rebuild the Decoder for every intermediate target. Stop, media change, and page disappearance invalidate pending work, then wait for the active rebuild to finish before releasing the player. This keeps callback contexts valid during teardown.
+Codec seek itself is not run synchronously on the ArkTS thread. `seekToAsync()` uses NAPI async work to invoke the existing precise-seek routine on a Native worker. `SeekRequestController` holds one running request and one pending target. Further slider releases, track taps, rewind/forward actions, or A-B-loop requests replace the pending target with the newest position; the replaced Promise resolves as `superseded`, so a burst does not execute every obsolete target. Stop, media change, and page disappearance invalidate pending work, then wait for the active seek operation to finish before releasing the player. This keeps callback contexts valid during teardown.
 
-Rapid requests first pass through a short convergence window, and execution still retains only the newest pending position. Slider releases, double-tap seeks, frame steps, and A-B return therefore share one safe path rather than maintaining separate UI-only positions or starting overlapping decoder rebuilds. Cancellation removes only work that has not begun; an active rebuild completes its cleanup and state restoration before Stop or the next request takes over. This matters because codec callbacks, workers, and old output buffers must all leave the same timeline.
+Rapid requests first pass through a short convergence window, and execution still retains only the newest pending position. Slider releases, double-tap seeks, frame steps, and A-B return therefore share one path rather than maintaining separate UI-only positions or starting overlapping timeline changes. Cancellation removes only work that has not begun; an active seek completes its Flush/audio-path recovery and state restoration before Stop or the next request takes over. Codec callbacks, workers, and old output buffers must all leave the current timeline before the player can switch to another target.
 
 The playback controls provide pause/resume, 15-second rewind, 15-second forward, and replay. A single playback-window tap uses the same pause/resume operation, but only when the player is `PLAYING` or `PAUSED` and no seek or stop is active. A double tap on the left or right half of the video window reuses the same precise seek as the rewind/forward buttons; it gives a short direction prompt and clamps the target to `[0, durationUs]`. Single tap, double tap, and press-and-hold speed are in one exclusive gesture group, so a double tap does not pause playback and a hold changes speed without also pausing it. Pause moves Native playback to `PAUSED`; worker loops wait without destroying decoders while `AudioRenderer` is paused. Resume restarts the renderer and wakes the workers. Replay keeps the selected file and starts a new playback task from 0.
 
@@ -740,18 +751,18 @@ The playback controls provide pause/resume, 15-second rewind, 15-second forward,
 
 1. Enter `SEEKING`, pause AudioRenderer, stop codec loops, and wake all queue waits.
 2. Join the old input/output threads so no thread can access an old decoder buffer.
-3. Mark old callback contexts as destroyed and release AudioRenderer, AudioStreamBuilder, and both decoders.
-4. Convert the microsecond target to milliseconds and call `OH_AVDemuxer_SeekToTime(..., SEEK_MODE_PREVIOUS_SYNC)`. Using the previous sync frame guarantees that the decode interval covers the target instead of accidentally selecting a later sync frame.
-5. Recreate the required decoders and AudioRenderer, clear PCM queues, reset synchronization clocks, and store the exact requested target.
-6. Decode video preroll normally, but immediately return every output frame whose PTS is below the target without rendering or dumping it. Only the first frame at or after the target enters A/V scheduling and display.
-7. Drop audio PCM buffers that end before the target. If the target lies inside a PCM buffer, calculate complete sample frames from sample rate, channel count, and two bytes per S16LE sample; then adjust `offset`, `size`, and `pts` so playback starts from the first sample frame at or after the target.
-8. Restore requested speed, smart-fluency mode, and thermal policy, then restore the state active before seek.
+3. Quiesce the video sink. If the video decoder and context are still usable, clear its queues under the codec lock and call `VideoDecoder::Flush()`. The sink then discards NativeImage/Vulkan work that belongs to the old timeline.
+4. Release AudioRenderer, AudioStreamBuilder, and the audio decoder. The video decoder is released only when it cannot be retained for this seek.
+5. Convert the microsecond target to milliseconds and call `OH_AVDemuxer_SeekToTime()`. The normal mode is `SEEK_MODE_PREVIOUS_SYNC`, so decoding starts before the requested time. For a forward seek in a rotated 10-bit HEVC file whose previous-sync index may be incomplete, the player uses `SEEK_MODE_NEXT_SYNC` to avoid a missing reference frame.
+6. Recreate the audio decoder and AudioRenderer, clear PCM queues, reset synchronization clocks, and store the exact requested target. A retained video decoder is started with its existing configuration; only a non-retained decoder is created and configured again.
+7. Decode video preroll normally, but immediately return every output frame whose PTS is below the target without rendering or dumping it. Only the first frame at or after the target enters A/V scheduling and display. Drop audio PCM buffers that end before the target. If the target lies inside a PCM buffer, calculate complete sample frames from sample rate, channel count, and two bytes per S16LE sample; then adjust `offset`, `size`, and `pts` so playback starts from the first sample frame at or after the target.
+8. Restore requested speed, smart-fluency mode, and thermal policy, then restore the state active before seek. A successful return means the timeline and workers are ready again; it does not mean that the first target frame has already reached the sink.
 
-Audio/video seeks use a first-video-frame gate. After recreation, the AudioRenderer remains stopped and decoded PCM is held until the first video frame at or after the requested target has been presented. The renderer is then started and the requested speed is restored, preventing audio from resuming noticeably before the video.
+Audio/video seeks use a first-video-frame gate. After the audio path is recreated, the AudioRenderer remains stopped and audio output waits until the first video frame at or after the requested target has been presented. The renderer is then started and the requested speed is restored, preventing audio from resuming noticeably before the video.
 
-Recreating decoders instead of simply flushing them avoids stale callback indexes and reapplies codec configuration that may include SPS/PPS or other initialization data. SurfaceMode, BufferMode, sync mode, and async mode all share this precise-seek policy.
+Flushing the retained video decoder discards output from the old timeline while keeping its configured Surface and codec settings. `VideoSink::Quiesce()` waits for in-flight GPU work, and `DiscardPendingFrames()` removes frames already queued by the old timeline. Audio is recreated because Seek resets the PCM queue and audio clock; a new AudioRenderer starts from the requested position with fresh timestamp state. SurfaceMode, BufferMode, OpenGL/Vulkan, sync mode, and async mode share this timeline policy, while each sink cleans up its own pending images.
 
-If rebuilding fails, playback enters `STOPPING` and reuses the common `ReleaseWorker` path. A successful seek does not play the preroll interval between the previous sync frame and the requested target.
+If demuxer positioning, Flush, or playback-path recovery fails, playback enters `STOPPING` and reuses the common `ReleaseWorker` path. A successful seek does not play the preroll interval between the previous sync frame and the requested target.
 
 <a id="playback-queue"></a>
 
@@ -777,11 +788,11 @@ XComponent does not expose an `objectFit` attribute. The current NativeWindow pa
 
 #### Playback Diagnostics
 
-The optional diagnostics overlay reports player state, position/duration, playback speed, decoded output buffers, presentation submissions, dropped frames, approximate output FPS, cumulative drop rate, audio output buffers, smart-fluency/HDR Vivid status, and software-decoder fallback state. In BufferMode, OpenGL, and Vulkan it also reports presentation count, average duration, and failures. Timing covers `VideoSink::Present()`: Buffer destination request and copy, or GPU upload and present. Dropped frames only return their decoder buffer and do not enter the presentation-duration metric.
+The optional diagnostics overlay reports player state, position/duration, playback speed, decoded output buffers, presentation submissions, dropped frames, approximate output FPS, cumulative drop rate, audio output buffers, smart-fluency/HDR Vivid status, and software-decoder fallback state. In BufferMode, OpenGL, and Vulkan it also reports presentation count, average duration, and failures. Timing covers `VideoSink::Present()`: Buffer destination request and copy, GPU external-image import and present, or the decoder-buffer fallback. Dropped frames only return their decoder buffer and do not enter the presentation-duration metric.
 
-The extended snapshot includes A/V sync-decision offset, mean and maximum offset magnitude, queued PCM duration, AudioRenderer device-pending duration, silence-fill callbacks, sync-policy drops, interruption count/latest hint/current state, and seek rebuild/target-output timing. Offset is sampled before the video worker waits or drops a frame; a positive value means the video PTS is ahead of the audio master clock. It is a scheduling estimate, not a physical screen-to-speaker latency measurement. A presentation submission only confirms that the application submitted a frame to Surface or NativeWindow. `PlaybackDiagnostics` aggregates short-lived values under a Native lock; PCM water level and underruns use atomics. Structured `getPlaybackInfo()` copies the read-only snapshot every 250 ms and does not change scheduling or output order. A new task, stop, failure, or seek resets statistics that no longer describe the active timeline.
+The extended snapshot includes A/V sync-decision offset, mean and maximum offset magnitude, queued PCM duration, AudioRenderer device-pending duration, silence-fill callbacks, sync-policy drops, interruption count/latest hint/current state, and seek processing/target-output timing. Offset is sampled before the video worker waits or drops a frame; a positive value means the video PTS is ahead of the audio master clock. It is a scheduling estimate, not a physical screen-to-speaker latency measurement. A presentation submission only confirms that the application submitted a frame to Surface or NativeWindow. `PlaybackDiagnostics` aggregates short-lived values under a Native lock; PCM water level and underruns use atomics. Structured `getPlaybackInfo()` copies the read-only snapshot every 250 ms and does not change scheduling or output order. A new task, stop, failure, or seek resets statistics that no longer describe the active timeline.
 
-Diagnostics avoid the real-time critical path. Frame counts, PCM water level, and underruns use atomics; A/V offsets are summarized at a fixed sampling interval instead of acquiring a shared lock for every output frame. Seek stores rebuild completion and first target-frame submission separately, making decoder recreation time distinguishable from first-frame waiting time. Output FPS describes observable application-side output cadence, while presentation count describes submissions to Surface or NativeWindow. Neither measurement is a display-refresh rate or an end-to-end physical latency value.
+Diagnostics avoid the real-time critical path. Frame counts, PCM water level, and underruns use atomics; A/V offsets are summarized at a fixed sampling interval instead of acquiring a shared lock for every output frame. Seek stores timeline-recovery completion and first post-seek output separately. The first value includes worker joining, sink quiescing, video Flush, demuxer positioning, and audio-path recreation; it does not imply that the video decoder was recreated. For video, the second value ends when the first frame at or after the target is submitted; for audio-only media, it ends when the first eligible audio output is processed. Output FPS describes observable application-side output cadence, while presentation count describes submissions to Surface or NativeWindow. Neither measurement is a display-refresh rate or an end-to-end physical latency value.
 
 <a id="ab-frame-control"></a>
 
@@ -1084,15 +1095,222 @@ audioPlayedTimeUs = currentAudioPts - latencyUs + anchorDiffUs * targetSpeed
 
 The UI always sends an explicit target speed. Smart-fluency ADAPTIVE mode decides which video frames to retain based on speed, motion, and system state, but does not rewrite the media timeline. Normal speed changes do not use a fixed `OH_MD_KEY_VIDEO_DECODER_FRAME_RETENTION_RATIO`; that ratio is reserved for UNIFORM thermal-load reduction.
 
+### Implementation Details That Matter in Practice
+
+The previous sections describe the modules separately. The notes below collect the boundaries that are most useful when reading the code or comparing behavior across devices. They describe the sample's current behavior; they are not extra runtime requirements.
+
+#### How playback initialization avoids half-created objects
+
+After a file is selected, the page does not pass the URI directly to a decoder. `Index.ets` opens the file and obtains its fd, offset, and size. The structured NAPI call passes those values to `PlayerNative::Play()`, which builds the task in this order:
+
+```text
+fd / offset / size
+        ↓
+OH_AVSource + OH_AVDemuxer
+        ↓
+Source/Track snapshots and valid tracks
+        ↓
+Video/audio decoders and output strategy
+        ↓
+Workers, AudioRenderer, and diagnostics
+        ↓
+READY → PLAYING
+```
+
+Every stage has a rollback boundary. A Source or Demuxer failure happens before any codec is created. A file without a video track does not start a placeholder video worker; a file without an audio track marks audio complete before the workers start, so video-only playback can enter `PLAYING`. For an audio-only file the video decoder, video worker, and XComponent presentation are skipped, while AudioRenderer and the audio PTS drive progress. The same Stop, Seek, history, and AVSession state transitions are used for both cases.
+
+Initialization failure and a failure during active playback have different meanings. The first has produced no valid output, so the page only restores the file-selection controls. The second creates one recovery snapshot only after audio or video has actually been submitted. This permits one retry for a transient renderer or codec error without repeatedly reopening corrupt or unsupported media.
+
+#### What the four output modes actually change
+
+| Mode | Decoder target | Application work | Readable pixels | Failure handling |
+|---|---|---|---|---|
+| Surface | XComponent NativeWindow | Render or free each output at its scheduled PTS | No | Release the frame and finish the task |
+| Buffer | No decoder Surface; output `OH_AVBuffer` | Validate layout, copy to NativeWindow, flush | Yes | Abort the destination; still return the source Buffer |
+| OpenGL | NativeImage producer Surface | Update the external texture and draw on a dedicated EGL thread | No decoder Buffer | Fall back to `BufferRenderer` when setup fails |
+| Vulkan | NativeImage producer Surface | Acquire NativeBuffer, import OHOS external memory, submit a Swapchain frame | No decoder Buffer | Fail this Vulkan initialization if the chain cannot be built; no Buffer fallback |
+
+Surface and Buffer are different decoder output contracts and cannot be mixed in one `Configure()` call. Although OpenGL and Vulkan eventually draw into the XComponent, ordinary 8-bit media first follows decoder -> NativeImage Surface. They are not aliases for converting every decoder Buffer to RGBA. OpenGL enters its readable Buffer fallback only when NativeImage or EGL setup fails. Vulkan currently requires the complete Surface -> NativeImage -> external-memory path; if the Surface, NativeBuffer, or external-image import cannot be initialized, that Vulkan start fails instead of silently switching to Buffer output. This keeps the actual route consistent with the selected mode and avoids treating a Surface-configured decoder as a Buffer decoder.
+
+OpenGL uses the transform matrix returned by NativeImage. That matrix already contains crop, texture origin, and codec orientation, so applying container rotation a second time would rotate portrait media incorrectly. Vulkan writes the NativeImage Buffer matrix to a uniform and combines it with the imported image's crop and stride. Both paths compute an aspect-fit viewport from the rotated display dimensions; a larger window changes the viewport, not the video pixels. `OH_SCALING_MODE_SCALE_FIT_V2` is the NativeWindow fallback and cannot be replaced with an ArkUI `XComponent.objectFit` property.
+
+HDR Vivid, 10-bit, and dynamic-HDR frames do not enter an RGBA8 fallback conversion. OpenGL keeps a direct Surface when metadata preservation is required, and Vulkan samples the external NativeBuffer in its original format. The settings page therefore disables HDR Vivid to BT.709 for these two paths instead of moving a 4K tone-mapping operation into a CPU copy loop.
+
+#### Why VideoSink Is a Separate Boundary
+
+`VideoSink` does not take over player state or decide A/V synchronization. `Player` still owns demuxing, clocks, frame dropping, and lifetime. A sink handles a frame after the sync decision and owns only the resources needed by its output backend. Adding another backend therefore does not require another decoder worker, and Seek/Stop do not need EGL- or Vulkan-specific branches.
+
+Each frame enters a sink as a `VideoPresentRequest`, carrying the decoder, Buffer index, media context, render/drop decision, and optional absolute render time. The sink does not own these objects and must not retain an `OH_AVBuffer*` for a later frame. Before `Present()` returns, it must present or drop the frame and return its index exactly once:
+
+```text
+Player::PresentAndReleaseVideoBuffer()
+    -> Player::PresentVideoBuffer(request)
+    -> VideoSink::Present(request)
+    -> VideoDecoder::FreeOutputBuffer(index, render, timestamp)
+       |- render && timestamp > 0: OH_VideoDecoder_RenderOutputBufferAtTime()
+       |- render:                  OH_VideoDecoder_RenderOutputBuffer()
+       `- !render:                 OH_VideoDecoder_FreeOutputBuffer()
+```
+
+`FreeOutputBuffer()` is the sample's dispatch wrapper; it does not mean every call invokes the codec Free API. SurfaceSink selects timed render, normal render, or drop. BufferSink first copies to NativeWindow and then returns the decoder Buffer with `render=false`. OpenGL/Vulkan hand the frame to the producer Surface, then consume the corresponding graphics Buffer from NativeImage. Scheduling stays in one place while backend-specific work stays inside each sink.
+
+The lifecycle is split as well. `PrepareForPlayback()` creates the output target before decoder `Configure()`. `BeginPlayback()` allows new frames, `Quiesce()` waits for in-flight EGL/Vulkan work, `DiscardPendingFrames()` removes NativeImage frames from the old timeline, and only then does `Reset()` destroy callbacks, graphics resources, and the window lease. A Seek usually reuses the configured sink: stop new work, Flush the decoder, discard old-generation frames, then resume. A mode change or invalid window requires a full rebuild. If all of these steps lived in a destructor, an in-flight GPU submission could outlive the NativeBuffer it samples.
+
+#### Timeline Generations, Window Leases, and Late Callbacks
+
+Async work from a previous item or Seek must not change the current timeline. Callback contexts and pending frames carry the generation captured when they were created. A stale generation only returns its resource; it does not update position, diagnostic counters, or UI. Clearing a queue alone is insufficient because a fence, Surface slot, or GPU command may already be outside the queue and still running.
+
+The XComponent `NativeWindow` is also a borrowed, generation-aware lease. After component recreation, page transition, or a window change, the old window must not be passed to a decoder or sink. The new lease is published only when ready; callbacks arriving before then release their resources and return. Replacing a decoder Surface or NativeImage producer follows the same order: stop production, wait for consumption, unregister callbacks, then destroy the old resources.
+
+#### Failure Recovery and Diagnostic Boundaries
+
+Initialization failure, a first-frame timeout, and a presentation failure during playback are different stages. Logs retain the failed stage, actual decoder, sink type, and last successful output. Automatic decoder selection gets one software fallback attempt after Create, capability, or Configure failure. An explicit hardware choice keeps the failure visible. OpenGL records when it falls back to Buffer output; Vulkan ends initialization if its external-memory chain cannot be built.
+
+In diagnostics, an “output frame” is handed off by the codec or Surface, while a “presented frame” is successfully submitted by the sample. The sample does not count actual display-compositor refreshes. GPU sink time includes acquire/fence work, external-image updates, and submission; Buffer sink time includes destination acquisition, stride-aware copying, and Flush. Counts and timings from the old timeline are reset together when new media, a Seek, or recovery starts.
+
+#### Ownership of one frame and the release order
+
+Decoder input and output use separate Buffer pools. An input callback supplies an empty Buffer and index. The application fills the compressed sample, sets `size`, `offset`, `pts`, and `flags`, then calls `PushInputBuffer()`. Once submitted, it must not read or write that input Buffer until a later callback or query supplies it again. An output callback supplies a completed Buffer; its attributes and pixels are valid only during the current processing window.
+
+The output handoff is deliberately simple:
+
+1. SurfaceMode calls `RenderOutputBufferAtTime()` according to the sync decision, or `FreeOutputBuffer()` when the frame is dropped.
+2. BufferMode completes optional dump, metadata handling, and NativeWindow copy before calling `FreeOutputBuffer()`.
+3. OpenGL/Vulkan submit the output to the NativeImage producer Surface. The presentation worker consumes the Surface's NativeBuffer; the codec output wrapper remains valid only until Render/Free returns it.
+4. Stop, Seek, and Surface destruction first stop new work and wake queue waits, then join presentation and audio workers, and only then release decoders and graphics objects.
+
+`OHNativeWindow*`, `OHNativeWindowBuffer*`, and `OH_NativeBuffer*` belong to different owners. An XComponent window belongs to ArkUI; the player borrows it through a generation-aware lease. A requested destination Buffer belongs to the application until Flush or Abort. A decoder `OH_AVBuffer*` must never be saved for a later frame. Callback contexts are marked as destroying before release, so a late callback returns without touching a destroyed `Player` or old window.
+
+#### Why Seek, frame stepping, and dragging share one path
+
+A requested time usually falls on a P or B frame rather than an independently decodable I frame. The player seeks to the previous sync frame, Flushes the retained video decoder when possible, recreates the audio path, and silently returns video and audio output whose PTS is earlier than the requested target. The preroll picture is never shown and the audio queue does not begin with samples from before the target. Rotated 10-bit HEVC forward seeks can use the following sync frame when the previous index does not contain a decodable reference.
+
+`SeekRequestController` allows one active request and keeps only the newest pending target:
+
+```text
+User drags: 10s → 20s → 35s → 52s
+                              └─ one rebuild at 52s
+```
+
+The 100 ms convergence window only lets a gesture settle; it is not a substitute for Native lifetime protection. An active rebuild is allowed to finish. Stop or a media change cancels pending work, waits for the active request, and then enters the common release path. Double-tap skip, previous/next frame, and A-B return use the same entry point, so progress, subtitles, resume history, and diagnostics observe one actual timeline.
+
+Frame stepping while paused does not start audio. The video worker is temporarily allowed to decode once, returns all output before the target, presents the target frame, and waits again. The diagnostic output count therefore changes for a real submitted frame. If the container has no usable frame rate, the UI uses 30 fps only to calculate the step interval; it never rewrites the media timestamps.
+
+#### HDR Vivid confirmation and BT.709 conversion
+
+`OH_MD_KEY_VIDEO_IS_HDR_VIVID` in the media information is a container declaration. It does not prove that decoded frames carry HDR Vivid dynamic metadata. The application watermark requires both:
+
+- `OH_HDR_METADATA_TYPE == OH_VIDEO_HDR_VIVID` on an actual output Buffer; and
+- non-empty `OH_HDR_DYNAMIC_METADATA`.
+
+BufferMode can inspect the decoder NativeBuffer for every frame and copy color space, static metadata, and dynamic metadata to the destination NativeWindow Buffer. SurfaceMode, direct OpenGL, and Vulkan external-memory output do not expose a readable decoder Buffer. They only make a low-frequency positive check against the latest flushed destination Buffer after a frame has arrived. A failed read leaves the state unconfirmed and never turns a container declaration into a watermark.
+
+`OH_MD_KEY_VIDEO_DECODER_OUTPUT_COLOR_SPACE=OH_COLORSPACE_BT709_LIMIT` is sent only when the decoder uses a Surface and the device/codec accepts the option. NativeImage OpenGL and Vulkan external-memory paths have no common HDR Vivid conversion contract, so the page disables the setting there. Rebuilding repeatedly or forcing a CPU RGBA conversion is not a safe substitute; it can cause long first-frame stalls, green frames, or incorrect colors.
+
+#### Audio tracks and media with no audio
+
+Demuxing enumerates all tracks and records the container index of each video and audio track. With no video track, the player skips video decoder creation, the video worker, and XComponent presentation. With no audio track, AudioRenderer and the audio worker are marked complete instead of blocking video EOS. For files with multiple audio tracks, a candidate track is first probed with a temporary AudioDecoder using `Create + Configure`; the current track is stopped only after that probe succeeds.
+
+After a successful switch, the new audio decoder reads near the current position, drops PCM before that position, and establishes a fresh audio clock before video scheduling uses it. If the MIME, codec configuration, or decoder setup is unsupported, the old decoder, renderer, Seek behavior, and video position remain untouched. This ordering prevents the common “track switched to silence and progress stopped until the next Seek” failure.
+
+#### How to read the diagnostics panel
+
+The panel groups decoder counts, presentation counts, and clock/queue data. `decodedOutputCount` is the number of outputs delivered by the codec or Surface; `presentedCount` is the number actually submitted to Surface or NativeWindow; `droppedCount` includes frames discarded by the sync policy. OpenGL/Vulkan presentation time includes external-image update, fence waiting, and GPU submission. It is not a display refresh period.
+
+A/V offset is sampled before the video worker waits or drops a frame. A positive value means video PTS is ahead of the audio master clock; a negative value means video is late. PCM queue duration and AudioRenderer device-pending duration help distinguish audio backlog from slow presentation. Seek diagnostics keep timeline-recovery completion and first post-seek output separate. Recovery time includes worker joining, sink quiescing, video Flush, demuxer positioning, and audio-path setup; it does not mean the video decoder was necessarily recreated. For video, the output timer includes waiting for the decoder to produce and present the requested frame; audio-only playback records its first eligible PCM output instead.
+
+The page reads a read-only snapshot every 250 ms. Frame counts, PCM water level, and underruns use atomics or fixed-rate sampling, so the panel does not take a codec lock on the real-time path. Starting a new item, Stop, failure, or a new Seek resets values that belong to the previous timeline. When investigating a stall, collect output FPS, drop rate, presentation failures, PCM water level, and the latest Seek timings together instead of relying on one FPS value.
+
+#### Why recording waits for EOS before closing the file
+
+Stopping a recording is more than closing its fd. The page first stops CameraKit video output and waits for `frameEnd`, so the camera cannot submit another frame to the encoder Surface. Native then sends EOS to the video and audio encoders. After both output workers consume EOS, `Muxer` can write the MP4 index or FLV trailer and stop. Only then are encoders released, the media-library fd closed, camera objects released, and the page returned to the home screen.
+
+Audio and video encoder threads may produce samples concurrently, so `Muxer::WriteSample()` serializes writes. The muxer starts only after all required track formats have been added. Encoded output Buffers remain owned by their encoders and are returned immediately after `WriteSample()` reads them. Completion uses a state predicate; an EOS that arrives before the wait begins cannot be lost as a notification.
+
+### Where to Make Changes
+
+Playback settings, Native configuration, and page feedback form one data path. Adding a control to the settings panel is only the first step. Confirm when it takes effect, whether it belongs in media information or diagnostics, and whether applying it requires rebuilding an active codec.
+
+| Change | Layers to update | Boundary to preserve |
+|---|---|---|
+| Add a playback setting | `PlayerSettingsModel` validates and creates `PlayOptions` → `PlayerNapiParser` parses it → `SampleInfo` stores it → `Player` or decoder applies it | Distinguish immediate changes from next-playback settings. Volume can update the current renderer; Surface, decoder type, and low-latency configuration must be decided when the relevant object is created. The settings sheet edits draft values, so Cancel must not modify saved settings. |
+| Add a media-information field | `Demuxer` reads Source/Track Format → copies values into `MediaSourceInfo` or an audio/video track structure → `PlayerNapiSerializer` creates the JS object → `MediaInfoPanel` displays it | Format objects and strings returned by `OH_AVFormat_DumpInfo()` are temporary. Copy the values that the UI needs; do not retain an `OH_AVFormat*` or a pointer into its storage after the format is destroyed. |
+| Add live playback status | Native `PlaybackInfo` or diagnostics snapshot → `PlayerNapiSerializer` → `PlaybackViewModel` → the relevant UI panel | Keep frequent polls small. Do not put raw Format dumps, PCM blocks, or codec buffers into the 250 ms snapshot. Use atomics or short-lived locks for cross-thread counters; rendering callbacks must not wait for UI work. |
+| Add a presentation backend | Implement `VideoSink` → prepare the decoder output target in `PrepareForPlayback()` → report the output contract through `UsesSurfaceDecoder()` → consume the frame in `Present()` → register the mode in `Player` | The sink must state whether the decoder produces Surface output or readable Buffers. After the output worker exits, call `Quiesce()`; after codec Flush, discard frames from the old timeline; call full `Reset()` only when the decoder no longer uses the producer Surface. Return each decoder output index exactly once. |
+| Add recording parameters | Settings draft → `RecorderSettingsModel` validation → CameraKit profile / encoder capability query → Native `SampleInfo` → encoder `Configure()` | Early capability queries only rule out known unsupported combinations. The codec's `Configure()` result remains final. The camera profile and encoder input dimensions must match; changing only the UI label does not update either runtime configuration. |
+| Add repeatable tests | Hypium/model tests for data rules; `tests/native` for pure geometry; manual cases for real codecs, Surfaces, camera, and system permissions | Pure calculations do not replace device testing. Codec support, HDR color output, audio interruptions, and CameraKit behavior must be checked on the target device. |
+
+#### Carrying a playback option through the stack
+
+The settings page edits a value, but Native code determines runtime behavior. For a new decoder parameter, follow the value through each layer:
+
+```text
+Settings draft
+    ↓ validate when Apply is tapped
+PlayerSettingsModel.createPlayOptions()
+    ↓ structured NAPI object
+PlayerNapiParser
+    ↓ Native type and range checks
+SampleInfo::codec / output
+    ↓ apply before decoder Configure or Start
+Codec behavior
+    ↓ update MediaInfo or PlaybackInfo when needed
+ArkTS state model and panel
+```
+
+Some values describe the source file, some are user requests, and others describe what the device actually did. Keep them separate. For example, “automatic decoder” is a request. If automatic creation fails and the player falls back to software, media information should expose the active decoder and whether fallback occurred. Likewise, an HDR Vivid container declaration is source metadata, not proof that decoded output has valid dynamic metadata.
+
+Check when each option takes effect. Window, Surface, pixel format, and codec type participate in decoder creation or configuration; changing them during playback means rebuilding the relevant objects. Volume, mute, and speed use runtime renderer or decoder APIs. The UI should disable an unsupported combination or explain it before submission instead of sending a configuration that must fail and then presenting the result as a damaged media file.
+
+#### Defining Buffer handoff for a new VideoSink
+
+`VideoSink` keeps A/V scheduling separate from output backends. Its `Present()` receives a `VideoPresentRequest` with the decoder, current output Buffer, media configuration, runtime context, and a flag that says whether the frame should be rendered. The sink renders or drops the frame and returns its output index before the call ends. It must not keep an `OH_AVBuffer*` for the next frame.
+
+When a backend uses a producer Surface, prepare it before decoder `Configure()`, because the decoder's output Surface is fixed during configuration. If `PrepareForPlayback()` returns a window, `Player` passes it to the decoder. `UsesSurfaceDecoder()` tells the caller that this path does not expose an ordinary readable decoder Buffer. If setup fails and the player chooses Buffer output, clear `sampleInfo.video.window` before creating the decoder; otherwise a window borrowed by the previous run could be passed to a new codec.
+
+GPU frame callbacks should only notify the presentation worker that a frame is available. Do not bind EGL, wait on a fence, or submit Vulkan commands from a codec callback. Stop and Seek have separate boundaries: once the presentation worker stops, `Quiesce()` finishes in-flight GPU work and returns acquired graphics buffers; after codec Flush, pending frames from the old timeline are discarded; only after the decoder stops using the producer Surface should the sink unregister callbacks and destroy NativeImage, external images, the Swapchain, and its window lease. Combining these phases in one destructor can free a Buffer while the GPU is still sampling it.
+
+Test a new renderer independently for window extent, video aspect ratio, container rotation, texture origin, and crop. Rotation changes display coordinates; stride and slice height describe storage layout. They must not share one compensating transform. Start with a fixed window and 0/90/180/270-degree inputs, then check centered aspect fit. Use real padded NativeBuffers to validate texture bounds, and repeat after controls hide, fullscreen changes, and the output window is resized.
+
+#### Carrying diagnostics to the UI
+
+A diagnostic field should name the event it measures. “Decoder output” means a Buffer delivered by the decoder; “presentation submission” means the app submitted a frame to Surface or NativeWindow; “displayed frame” requires actual display feedback from the system. This sample cannot use the first two as a count of physical screen refreshes.
+
+Decide where each counter changes: increment output after successfully retrieving an output Buffer; increment dropped frames when the sync policy decides to discard one; increment presentation submissions only after the backend accepts the frame. Define presentation duration from entry to `VideoSink::Present()` through submission or failure. Handle seek-preroll frames, EOS Buffers, and failures before the sink according to the field definition rather than counting them twice.
+
+The field must pass through `PlaybackDiagnosticsInfo`, `Player::GetPlaybackInfo()`, the NAPI serializer, `PlaybackInfoModel` / `PlaybackViewModel`, and the diagnostics panel. Reset values when they stop describing the active timeline. A cumulative interruption count and per-timeline frame counters may need different reset rules. New text in the panel also needs both Chinese and English resource entries; do not hardcode labels in ArkTS.
+
+#### Test by risk level
+
+Model tests are useful for deterministic behavior such as index bounds, setting parsing, playback-state formatting, and Seek merging. `VideoPresentationGeometryTest.cpp` checks fit regions and texture matrices for fixed window sizes, media dimensions, and rotation values. It can catch a centering, crop, or orientation regression quickly, but it cannot verify that a Vulkan driver imports the device's NativeBuffer successfully.
+
+Device cases should cover boundaries between components: default Surface playback for ordinary SDR; Buffer mode for stride copying and HDR metadata; OpenGL/Vulkan for the actual decoder target, orientation, aspect fit, and resource recreation after Stop/Seek; audio-only, video-only, A/V, and multitrack files; and recordings that can be reopened by the system player. Change one major condition at a time. Keep the source and mode fixed while changing decoder or sync mode so logs can narrow the cause.
+
+### Tracing a Symptom to Its Stage
+
+When playback fails, first confirm the active mode and tracks, then inspect the path from UI → NAPI → Source/Demuxer → codec → sink. A final image or one error line rarely distinguishes initialization failure from an output Buffer that was not returned or a graphics Surface that never received a frame.
+
+| Symptom | Check first | Then inspect |
+|---|---|---|
+| No first frame after file selection | Completion `reason`, Native state, tracks in media information, and active decoder type | Determine whether Source/Demuxer creation failed or decoder `Create/Configure/Start` failed. Then check whether compressed input advances after `Start()` and whether the output queue receives a frame. Software fallback applies only to automatic selection; explicit hardware selection does not silently switch. |
+| Audio only or video only | `hasAudioTrack` / `hasVideoTrack`, output-buffer counts, audio underruns, and presentation submissions | Audio-only media has no video worker or XComponent frames. Video-only progress follows PTS from submitted video frames when there is no AudioRenderer clock. If media information lists a track but its counter stays at zero, check that decoder's input and EOS progress. |
+| Silence or frozen progress after switching audio tracks | New track MIME, codec config, audio output count, PCM queue duration, and AudioRenderer timestamp | Check candidate preflight, old audio-worker exit, Demuxer selection, and whether PCM before the current position was discarded. If video output continues but no new audio clock is established, inspect the audio path before assuming the UI progress means Native Seek completed. |
+| Seek fails or the picture takes a long time to move | Whether the request was `superseded`, timeline-recovery time, first target-frame time, and nearby sync frames | Separate a request merged by a newer drag position, an unusable sync-frame index, slow Flush/audio-path recovery, and a late target frame after recovery. Long-GOP media must decode preroll from a sync frame; do not display preroll or treat the UI slider as Native completion. |
+| OpenGL/Vulkan output is black, green, or incorrectly scaled | Sink type in logs, `UsesSurfaceDecoder()`, whether the decoder received the NativeImage producer Surface, and presentation failures/duration | Confirm the run did not fall back to Buffer output. Check NativeBuffer acquire and fences, external-image import, window extent, crop/stride matrix, and rotation. If the problem remains after Stop or switching media, verify the previous sink was quiesced, old Buffers returned, and the window lease refreshed. |
+| HDR Vivid watermark is absent | Separately inspect the container declaration, output Buffer HDR type, dynamic-metadata read, and confirmed UI state | The container declaration is only shown as media information; the app watermark indicates output-metadata confirmation. Surface/GPU paths may not expose the decoder output Buffer, so “unconfirmed” does not prove the system is not displaying HDR. The BT.709 conversion result must be checked separately. |
+| Recording file exists but cannot be opened | Camera frame-end, audio/video EOS, Muxer Stop/Destroy, and fd-close order | Ensure both encoder output workers consume EOS before stopping the muxer, and close the fd only after container finalization. Destroying the muxer while audio is still being captured or encoded can leave an incomplete container. |
+
+When collecting logs, include device and system versions, container and track information, decoder/output/sync modes, speed or HDR options, and whether the issue occurred on first play, track switch, Seek, or Stop. Start the reproduction from a fresh app launch and change one setting at a time. If several files and modes were switched in sequence, record their order and timestamps so a retained frame or diagnostic count from the previous task is not mistaken for current output.
+
 ### Troubleshooting
 
-**Which settings should I use first?** Leave the defaults: Automatic, SurfaceMode direct output, Async, and no dump. Verify ordinary media before selecting Software decode or BufferMode for a focused investigation.
+**Which settings suit a basic playback check?** Leave the defaults: Automatic, SurfaceMode direct output, Async, and no dump. Verify ordinary media before selecting Software decode or BufferMode for a focused investigation.
 
 **I returned from the picker and playback did not start.** Returning without a file shows a "No media file selected" prompt. If a selected file still fails, verify that it is not zero bytes and can be opened by the system player. Then use Media information and logs to distinguish source creation, demuxing, capability, and decoder-configuration failures.
 
 **Why can a file in the capability table still fail?** A table entry is not sufficient by itself. A specific file must also satisfy container, stream, resolution, frame rate, profile, pixel-format, and device-codec constraints. Automatic mode performs one software fallback attempt; an explicit hardware selection does not silently change strategy.
 
-**Why are BufferMode, OpenGL, and Vulkan slower than SurfaceMode?** SurfaceMode gives output directly to the XComponent Surface. BufferMode and Vulkan request a destination or staging buffer, wait for synchronization, copy or upload pixels, and present them. OpenGL's normal NativeImage path avoids CPU pixel conversion but still updates and draws an external texture through EGL. Use these modes to inspect Buffer behavior or validate a graphics backend, not as the default performance path.
+**Why are BufferMode, OpenGL, and Vulkan slower than SurfaceMode?** SurfaceMode gives output directly to the XComponent Surface. BufferMode copies into a destination buffer. OpenGL updates and draws a NativeImage external texture through EGL. Vulkan acquires a NativeImage buffer, waits for its fence, imports it as external memory, and samples it in a Swapchain render pass. These modes add synchronization and composition work, so use them to inspect Buffer behavior or validate a graphics backend rather than as the default playback path.
 
 **Why is there no HDR Vivid watermark?** The watermark requires an actual output Buffer that confirms both HDR Vivid type and non-empty dynamic metadata. A container declaration alone, HDR10 content, or output whose metadata cannot be read does not enable the application-side marker. Direct Surface output uses its latest flushed Buffer as a best-effort confirmation source.
 

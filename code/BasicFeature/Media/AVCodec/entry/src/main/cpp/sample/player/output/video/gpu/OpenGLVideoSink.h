@@ -26,6 +26,8 @@ public:
 
     int32_t Present(const VideoPresentRequest &request) override;
     void BeginPlayback() override;
+    bool Quiesce() override;
+    void DiscardPendingFrames() override;
     OHNativeWindow *PrepareForPlayback(const SampleInfo &sampleInfo) override;
     bool UsesSurfaceDecoder() const override
     {
@@ -45,6 +47,7 @@ private:
     bool BindExistingContext(int32_t width, int32_t height);
     bool CreateContextResources(const OutputTarget &target);
     bool RefreshOutputSurface(const OutputTarget &target);
+    void RefreshDirectSurfaceScaling();
     bool RebindOutputSurface(const OutputTarget &target);
     bool CreateProgram();
     bool CreateExternalProgram();
@@ -90,10 +93,12 @@ private:
     NativeXComponentSample::PluginManager::PluginWindowLease outputWindowLease_;
     // HDR 直连模式由 decoder 使用 XComponent Surface；引用需保留到 codec 销毁后 sink 才能释放。
     NativeXComponentSample::PluginManager::PluginWindowLease directSurfaceWindowLease_;
+    uint64_t directSurfaceGeneration_ = 0;
     OHNativeWindow *window_ = nullptr;
     uint64_t windowGeneration_ = 0;
     int32_t width_ = 0;
     int32_t height_ = 0;
+    // 申请的输出 Buffer 尺寸。width_/height_ 则是 EGL 当前实际使用的帧缓冲尺寸。
     int32_t frameWidth_ = 0;
     int32_t frameHeight_ = 0;
     bool fallbackOnly_ = false;

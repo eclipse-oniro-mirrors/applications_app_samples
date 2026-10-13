@@ -163,6 +163,7 @@ export struct Player {
 
   aboutToAppear(): void {
     this.pageActive = true;
+    this.prepareVulkanShaders();
     player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
     player.setAppBackground(false);
     this.loadPlaybackHistory();
@@ -196,6 +197,45 @@ export struct Player {
       });
     }
     Logger.info(TAG, 'Smart fluency supported: ' + this.isSmartFluencySupported + ', apiVersion: ' + apiVersion);
+  }
+
+  /**
+   * 将 Vulkan 管线需要的 SPIR-V 文件写入应用沙箱。
+   * Native 层没有 ResourceManager，不能直接读取 rawfile；这里在页面初始化时把资源复制到
+   * files/rawfile，VulkanVideoSink 再从同一目录加载。每次启动都覆盖文件，避免升级后沿用旧 shader。
+   */
+  private prepareVulkanShaders(): void {
+    const hostContext: common.Context | undefined = this.getUIContext().getHostContext();
+    if (hostContext === undefined) {
+      Logger.error(TAG, 'Prepare Vulkan shaders failed: host context is unavailable');
+      return;
+    }
+    const shaderDirectory: string = `${hostContext.filesDir}/rawfile`;
+    try {
+      if (!fileIo.accessSync(shaderDirectory)) {
+        fileIo.mkdirSync(shaderDirectory, true);
+      }
+      this.copyVulkanShader(hostContext, 'shaders/vert.spv', `${shaderDirectory}/vert.spv`);
+      this.copyVulkanShader(hostContext, 'shaders/frag.spv', `${shaderDirectory}/frag.spv`);
+    } catch (error) {
+      Logger.error(TAG, 'Prepare Vulkan shader directory failed: ' + JSON.stringify(error));
+    }
+  }
+
+  private copyVulkanShader(context: common.Context, resourcePath: string, targetPath: string): void {
+    let shaderFile: fileIo.File | undefined = undefined;
+    try {
+      const shaderData: Uint8Array = context.resourceManager.getRawFileContentSync(resourcePath);
+      shaderFile = fileIo.openSync(targetPath,
+        fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE | fileIo.OpenMode.TRUNC);
+      fileIo.writeSync(shaderFile.fd, shaderData.buffer);
+    } catch (error) {
+      Logger.error(TAG, 'Copy Vulkan shader failed: ' + resourcePath + ', ' + JSON.stringify(error));
+    } finally {
+      if (shaderFile !== undefined) {
+        fileIo.closeSync(shaderFile);
+      }
+    }
   }
 
   selectFile(): void {
@@ -2788,8 +2828,6 @@ export struct Player {
       this.Window()
 
       // 普通和全屏共用控制条可见状态。
-      if (this.buttonEnabled || this.isPlaybackControlsVisible ||
-        !this.playerSettings.autoHideControls) {
       Column() {
         if (this.isPlaybackProgressVisible) {
           this.PlaybackProgressPanel()
@@ -3133,11 +3171,15 @@ export struct Player {
       .height('auto')
       .backgroundColor(Color.Black)
       .justifyContent(FlexAlign.End)
+      // 隐藏时保留控制条占用的布局空间，避免 XComponent 尺寸变化触发 GPU 画面重排。
+      // 使用透明度而不是 Visibility.Hidden，确保 ArkUI 不重新计算控制条和视频区域的尺寸。
+      .opacity(this.buttonEnabled || this.isPlaybackControlsVisible || !this.playerSettings.autoHideControls ? 1 : 0)
+      .hitTestBehavior(this.buttonEnabled || this.isPlaybackControlsVisible ||
+        !this.playerSettings.autoHideControls ? HitTestMode.Default : HitTestMode.None)
       .bindSheet($$this.isQueueVisible, this.QueuePanel(), {
         height: '75%',
         title: { title: $r('app.string.playback_queue_sheet_title') }
       })
-      }
     }
     .width($r('app.string.full_width'))
     .height($r('app.string.full_height'))

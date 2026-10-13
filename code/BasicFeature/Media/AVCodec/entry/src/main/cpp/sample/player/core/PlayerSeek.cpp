@@ -133,6 +133,8 @@ bool Player::ShouldRetainVideoDecoderForSeek() const
 
 int32_t Player::ReleaseCodecResourcesForSeek(bool retainVideoDecoder)
 {
+    CHECK_AND_RETURN_RET_LOG(videoSink_ == nullptr || videoSink_->Quiesce(), AVCODEC_SAMPLE_ERR_ERROR,
+        "Wait video presentation before seek failed");
     if (retainVideoDecoder) {
         std::unique_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
         videoDecContext_->ClearQueue();
@@ -141,6 +143,9 @@ int32_t Player::ReleaseCodecResourcesForSeek(bool retainVideoDecoder)
         const int32_t ret = videoDecoder_->Flush();
         CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret,
             "Flush retained video decoder for seek failed");
+        if (videoSink_ != nullptr) {
+            videoSink_->DiscardPendingFrames();
+        }
     } else if (videoDecContext_ != nullptr) {
         videoDecContext_->isDestroyed = true;
     }
