@@ -16,11 +16,13 @@
 // [Start Native_CrashEvent_Log_Header]
 import { fileIo } from '@kit.CoreFileKit';
 // [End Native_CrashEvent_Log_Header]
+// [Start CrashConfig_Policy_Header]
 // [Start EventSub_Header]
 import { BusinessError } from '@kit.BasicServicesKit';
 // [Start PssLeakEvent_Header]
 import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
 // [End EventSub_Header]
+// [End CrashConfig_Policy_Header]
 // [Start EventSub_Index_Capi_Header]
 import testNapi from 'libentry.so';
 // [End EventSub_Index_Capi_Header]
@@ -45,6 +47,25 @@ struct Index {
     }
   }
   // [End ArkWeb_Fling_Jank_Nav]
+
+  configCrashPolicy() {
+    // [Start CrashConfig_Policy]
+    let policy: hiAppEvent.EventPolicy = {
+      appCrashPolicy: {
+        pageSwitchLogEnable: true, // 启用页面切换日志。从API version 24开始支持该参数
+        extendPcLrPrinting: true, // 使能扩展打印pc和lr寄存器附近的内存值。从API版本26.0.0开始支持该参数
+        logFileCutoffSzBytes: 102400, // 截断崩溃日志到100KB。从API版本26.0.0开始支持该参数
+        simplifyVmaPrinting: true, // 使能精简打印maps。从API版本26.0.0开始支持该参数
+        collectMinidump: true // native崩溃场景，使能minidump。从API版本26.0.0开始支持该参数
+      }
+    };
+    hiAppEvent.configEventPolicy(policy).then(() => {
+      hilog.info(0x0000, 'hiAppEvent', `Set crash config policy successfully.`);
+    }).catch((err: BusinessError) => {
+      hilog.error(0x0000, 'hiAppEvent', `Failed to set crash config policy. code: ${err.code}, message: ${err.message}`);
+    });
+    // [End CrashConfig_Policy]
+  }
 
   build() {
     Navigation(this.navPathStack) {
@@ -145,6 +166,17 @@ struct Index {
               testNapi.testNullptr();
             })
           // [End Native_CrashEvent_Log]
+          Button('ConfigCrashPolicy')
+            .type(ButtonType.Capsule)
+            .margin({
+              top: 20
+            })
+            .backgroundColor('#0D9FFB')
+            .width('80%')
+            .height('5%')
+            .onClick(() => {
+              this.configCrashPolicy();
+            })
           // [Start PssLeakEventTS_Button]
           // [Start PssLeakEvent_Button]
           Button('pss leak')
