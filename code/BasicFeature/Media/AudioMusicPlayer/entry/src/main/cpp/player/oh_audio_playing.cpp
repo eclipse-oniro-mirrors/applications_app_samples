@@ -1062,7 +1062,7 @@ void OHAudioPlayer::FileReaderThreadFunc(AudioFileOprInfo* audioFileOpr)
         OH_AudioWorkgroup_AddCurrentThread(workgroup, &audioFileOpr->producerThreadTokenId);
         OH_LOG_INFO(LOG_APP, "Producer thread added to workgroup");
     }
-    
+
     uint8_t readBuffer[FILE_READ_BUFFER_SIZE];
     bool isReadError = false;
     auto lastTimestampTime = std::chrono::steady_clock::now();
