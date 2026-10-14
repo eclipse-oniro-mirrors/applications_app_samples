@@ -87,7 +87,7 @@ struct FetchFrameParams {
     int64_t timeUs = 0;
     int64_t offset = 0;
     int32_t fileDescribe = -1;
-    int32_t fileSize = 0;
+    int64_t fileSize = 0;
     int32_t options = OH_AVIMAGE_GENERATOR_QUERY_CLOSEST;
 };
 
@@ -103,7 +103,7 @@ bool GetFetchFrameByTimeParams(napi_env env, napi_callback_info info, FetchFrame
     if (!GetInt32Value(env, argv[FIRST_PARAM], &fetchFrameParams.fileDescribe)) {
         return false;
     }
-    if (!GetInt32Value(env, argv[SECOND_PARAM], &fetchFrameParams.fileSize)) {
+    if (!GetInt64Value(env, argv[SECOND_PARAM], &fetchFrameParams.fileSize)) {
         return false;
     }
     if (!GetInt64Value(env, argv[THIRD_PARAM], &fetchFrameParams.timeUs)) {
@@ -140,7 +140,7 @@ static napi_value OhAvImageGeneratorFetchFrameByTime(napi_env env, napi_callback
     int64_t timeUs = fetchFrameParams.timeUs;
     int64_t offset = fetchFrameParams.offset;
     int32_t fileDescribe = fetchFrameParams.fileDescribe;
-    int32_t fileSize = fetchFrameParams.fileSize;
+    int64_t fileSize = fetchFrameParams.fileSize;
     int32_t options = fetchFrameParams.options;
     // 创建OH_AVImageGenerator实例。
     OH_AVImageGenerator* generator = OH_AVImageGenerator_Create();
