@@ -25,11 +25,6 @@
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:main_pages",
-    "requestPermissions": [
-      {
-        "name": "ohos.permission.START_WINDOW_BELOW_LOCK_SCREEN"
-      }
-    ],
     "abilities": [
       {
         "name": "EntryAbility",

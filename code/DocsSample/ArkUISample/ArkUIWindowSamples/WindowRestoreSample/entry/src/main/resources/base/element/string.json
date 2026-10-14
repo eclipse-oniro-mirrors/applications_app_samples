@@ -10,7 +10,15 @@
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "WindowRestore"
+    },
+    {
+      "name": "minimize_text",
+      "value": "Minimize Window"
+    },
+    {
+      "name": "minimize_button",
+      "value": "Minimize"
     }
   ]
 }
