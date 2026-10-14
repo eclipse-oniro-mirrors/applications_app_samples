@@ -95,6 +95,7 @@ public:
     OH_AudioResourceManager *audioResourceManager = nullptr;
     OH_AudioWorkgroup *audioWorkgroup = nullptr;
     int32_t workgroupTokenId = 0;
+    int32_t audioLatencyNs = 0;
     bool isSilentMode = false;
     bool isEffectOn = false;
     bool isPlaying = false;
