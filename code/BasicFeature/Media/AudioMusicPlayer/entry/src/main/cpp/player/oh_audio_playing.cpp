@@ -1052,6 +1052,33 @@ static bool HandleReadEOF(AudioFileOprInfo* audioFileOpr)
     return true;
 }
 
+static void QueryAudioTimestampIfNeeded(std::chrono::steady_clock::time_point& lastTimestampTime,
+    OH_AudioRenderer *renderer)
+{
+    auto nowTime = std::chrono::steady_clock::now();
+    if (nowTime - lastTimestampTime < std::chrono::seconds(1)) {
+        return;
+    }
+    lastTimestampTime = nowTime;
+    if (renderer == nullptr) {
+        return;
+    }
+    // [Start GetAudioTimestampInfo]
+    int64_t framePosition = 0;
+    int64_t timestampNs = 0;
+    auto tsRet = OH_AudioRenderer_GetAudioTimestampInfo(renderer, &framePosition, &timestampNs);
+    if (tsRet == AUDIOSTREAM_SUCCESS) {
+        // 启动播放器后，根据framePosition、timestampNs信息，可以进行音乐播放器进度条进度校准等操作
+        OH_LOG_INFO(LOG_APP,
+            "AudioTimestamp: framePos=%{public}lld, ts=%{public}lld ns, latency=%{public}lld ns",
+            (long long)framePosition, (long long)timestampNs,
+            (long long)OHAudioPlayer::GetInstance().audioLatencyNs);
+    } else {
+        OH_LOG_ERROR(LOG_APP, "GetAudioTimestampInfo failed, ret: %{public}d", tsRet);
+    }
+    // [End GetAudioTimestampInfo]
+}
+
 void OHAudioPlayer::FileReaderThreadFunc(AudioFileOprInfo* audioFileOpr)
 {
     if (!audioFileOpr || !audioFileOpr->audioBufferQueue) {
@@ -1066,8 +1093,9 @@ void OHAudioPlayer::FileReaderThreadFunc(AudioFileOprInfo* audioFileOpr)
 
     uint8_t readBuffer[FILE_READ_BUFFER_SIZE];
     bool isReadError = false;
+    auto lastTimestampTime = std::chrono::steady_clock::now();
     while (audioFileOpr->audioBufferQueue->IsRunning()) {
-        HandleAudioTimeStampInfo();
+        QueryAudioTimestampIfNeeded(lastTimestampTime, OHAudioPlayer::GetInstance().audioRenderer);
         HandleSeekRequest(audioFileOpr);
         auto readSize = read(audioFileOpr->songFd, readBuffer, sizeof(readBuffer));
         if (readSize > 0) {
@@ -1114,30 +1142,4 @@ void OHAudioPlayer::TriggerPlayCompletionCallback(AudioFileOprInfo* audioFileOpr
                 PlayStatus::COMPLETE);
         }
     }
-}
-
-void OHAudioPlayer::HandleAudioTimeStampInfo()
-{
-    timeStampInfoCount++;
-    if (timeStampInfoCount % 100 != 0) { // 不建议高频调用GetAudioTimestampInfo，故此处进行了调用频次限制
-        return;
-    }
-    OH_AudioRenderer *renderer = OHAudioPlayer::GetInstance().audioRenderer;
-    if (renderer == nullptr) {
-        return;
-    }
-    // [Start GetAudioTimestampInfo]
-    int64_t framePosition = 0;
-    int64_t timestampNs = 0;
-    auto tsRet = OH_AudioRenderer_GetAudioTimestampInfo(renderer, &framePosition, &timestampNs);
-    if (tsRet == AUDIOSTREAM_SUCCESS) {
-        // 启动播放器后，根据framePosition、timestampNs信息，可以进行音乐播放器进度条进度校准等操作
-        OH_LOG_INFO(LOG_APP,
-            "AudioTimestamp: framePos=%{public}lld, ts=%{public}lld ns, latency=%{public}lld ns",
-            (long long)framePosition, (long long)timestampNs,
-            (long long)OHAudioPlayer::GetInstance().audioLatencyNs);
-    } else {
-        OH_LOG_ERROR(LOG_APP, "GetAudioTimestampInfo failed, ret: %{public}d", tsRet);
-    }
-    // [End GetAudioTimestampInfo]
 }
