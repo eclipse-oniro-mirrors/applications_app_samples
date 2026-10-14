@@ -201,7 +201,7 @@ struct Index {
       let readLen = fileIo.readSync(file.fd, buffer);
       console.info('readSync data to file succeed and buffer size is:' + readLen);
       this.documentResult = 'Successfully read the file';
-      fileIo.closeSync(file);
+      fileIo.closeSync(file.fd);
     } catch (error) {
       let err: BusinessError = error as BusinessError;
       console.error(`DocumentViewPicker failed with err, code is: ${err.code}, message is: ${err.message}`);
