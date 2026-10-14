@@ -1,3 +1,4 @@
+// [Start create_a_web_component_use_GeolocationPermissions]
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -49,3 +50,4 @@ struct WebComponent {
     }
   }
 }
+// [End create_a_web_component_use_GeolocationPermissions]

@@ -1,3 +1,4 @@
+// [Start create_a_web_component_use_onGeolocation]
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { abilityAccessCtrl, common } from '@kit.AbilityKit';
@@ -69,3 +70,4 @@ struct WebComponent {
     }
   }
 }
+// [End create_a_web_component_use_onGeolocation]
