@@ -44,7 +44,7 @@ bool ReleaseVideoOutputBuffer(VideoDecoder *decoder, const CodecBufferInfo &buff
         return false;
     }
     // 该分支尚未进入 VideoSink，Buffer 的归还责任仍在输出线程。
-    const int32_t ret = decoder->FreeOutputBuffer(bufferInfo.bufferIndex, false);
+    const int32_t ret = decoder->FreeOutputBuffer(bufferInfo, false);
     if (ret == AVCODEC_SAMPLE_ERR_OK) {
         return true;
     }

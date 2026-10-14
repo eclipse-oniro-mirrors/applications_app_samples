@@ -229,7 +229,7 @@ void Recorder::VideoEncOutputSyncThread()
         // 写入完成后立即按原索引归还输出 Buffer；长期持有会耗尽编码器输出队列。
         muxer_->WriteSample(muxer_->GetVideoTrackId(), bufferInfo.buffer,
                             bufferInfo.attr);
-        int32_t ret = videoEncoder_->FreeOutputBuffer(bufferInfo.bufferIndex);
+        int32_t ret = videoEncoder_->FreeOutputBuffer(bufferInfo);
         CHECK_AND_BREAK_LOG(ret == AVCODEC_SAMPLE_ERR_OK, "Encoder output thread out");
 
         if (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
@@ -272,7 +272,7 @@ void Recorder::VideoEncOutputAsyncThread()
         // 回调队列只保存 Buffer 和索引快照；写入 Muxer 后必须尽快归还给编码器。
         muxer_->WriteSample(muxer_->GetVideoTrackId(), bufferInfo->buffer,
                             bufferInfo->attr);
-        int32_t ret = videoEncoder_->FreeOutputBuffer(bufferInfo->bufferIndex);
+        int32_t ret = videoEncoder_->FreeOutputBuffer(*bufferInfo);
         CHECK_AND_BREAK_LOG(ret == AVCODEC_SAMPLE_ERR_OK, "Encoder output thread out");
 
         if (bufferInfo->attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {

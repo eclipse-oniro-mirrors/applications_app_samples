@@ -24,7 +24,7 @@ public:
     {
         const bool rendered = !request.render || renderer_.Render(request.bufferInfo, request.sampleInfo,
             request.context, request.renderTimestamp);
-        const int32_t freeRet = request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
+        const int32_t freeRet = request.decoder.FreeOutputBuffer(request.bufferInfo, false);
         if (!rendered) {
             AVCODEC_SAMPLE_LOGE("Buffer video presentation failed, index: %{public}u", request.bufferInfo.bufferIndex);
             return AVCODEC_SAMPLE_ERR_ERROR;

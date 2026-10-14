@@ -203,7 +203,7 @@ bool Player::DiscardVideoOutputBeforeSeekTarget(CodecBufferInfo &bufferInfo, boo
     if (!discarded) {
         return true;
     }
-    int32_t ret = videoDecoder_->FreeOutputBuffer(bufferInfo.bufferIndex, false);
+    int32_t ret = videoDecoder_->FreeOutputBuffer(bufferInfo, false);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         AVCODEC_SAMPLE_LOGE("Free pre-target video buffer failed: %{public}d", ret);
         playbackFailed_ = true;

@@ -22,7 +22,6 @@
 #include <native_window/external_window.h>
 #include <native_window/buffer_handle.h>
 #include <mutex>
-#include <shared_mutex>
 #include <string>
 #include "sample_info.h"
 #include "sample_callback.h"
@@ -63,7 +62,7 @@ public:
     int32_t QueryOutputBuffer(uint32_t &bufferIndex, int64_t timeoutUs);
     bool GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     int32_t PushInputBuffer(CodecBufferInfo &info);
-    int32_t FreeOutputBuffer(uint32_t bufferIndex);
+    int32_t FreeOutputBuffer(const CodecBufferInfo &info);
     int32_t NotifyEndOfStream();
     int32_t Stop();
     int32_t Release();
@@ -81,7 +80,6 @@ private:
     OH_AVCodec *GetCodecByMime(const char *mime);
     OH_AVCodec *GetCodecByCategory(const char *mime, bool isEncoder, OH_AVCodecCategory category);
     bool isAVBufferMode_ = false;
-    std::shared_mutex codecMutex;
     OH_AVCodec *encoder_ = nullptr;
 };
 #endif

@@ -553,7 +553,7 @@ bool OpenGLVideoSink::PresentSurface(const VideoPresentRequest &request)
 {
     // Surface 解码模式下，FreeOutputBuffer(..., true, ...) 将帧交给 NativeImage 生产者队列。
     // 调用后不能再访问该 codec Buffer，图像到达由 OnFrameAvailable 通知。
-    const int32_t freeRet = request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, request.render,
+    const int32_t freeRet = request.decoder.FreeOutputBuffer(request.bufferInfo, request.render,
         request.renderTimestamp);
     if (freeRet != AVCODEC_SAMPLE_ERR_OK || !request.render) {
         (void)ReleaseCurrentContext();
@@ -800,7 +800,7 @@ bool OpenGLVideoSink::UploadAndDraw(const std::vector<uint8_t> &rgba, int32_t wi
 int32_t OpenGLVideoSink::PresentBufferFrame(const VideoPresentRequest &request, const OutputTarget &target)
 {
     if (!request.render) {
-        return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
+        return request.decoder.FreeOutputBuffer(request.bufferInfo, false);
     }
     if (fallbackOnly_) {
         return fallback_.Present(request);
@@ -841,7 +841,7 @@ int32_t OpenGLVideoSink::PresentBufferFrame(const VideoPresentRequest &request, 
         }
         return AVCODEC_SAMPLE_ERR_OK;
     }
-    return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
+    return request.decoder.FreeOutputBuffer(request.bufferInfo, false);
 }
 
 void OpenGLVideoSink::RefreshDirectSurfaceScaling()
@@ -864,17 +864,17 @@ int32_t OpenGLVideoSink::Present(const VideoPresentRequest &request)
         if (!currentWindowLease || currentWindowLease.GetWindow() != directSurfaceWindowLease_.GetWindow()) {
             // XComponent 被替换后，旧的直连 Surface 不能继续接收新帧；先归还 codec
             // Buffer，等待 Player 在下一次初始化时绑定新的窗口。
-            return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
+            return request.decoder.FreeOutputBuffer(request.bufferInfo, false);
         }
         RefreshDirectSurfaceScaling();
-        return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, request.render,
+        return request.decoder.FreeOutputBuffer(request.bufferInfo, request.render,
             request.renderTimestamp);
     }
     auto windowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
     if (!windowLease) {
         // codec 输出回调尚在清空时，XComponent 可能已销毁。
         // 目标 Surface 消失后不能再访问 EGL，也不能继续持有 codec Buffer。
-        return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
+        return request.decoder.FreeOutputBuffer(request.bufferInfo, false);
     }
     const OutputTarget target { windowLease.GetWindow(), windowLease.GetWidth(), windowLease.GetHeight(),
         windowLease.GetGeneration() };
@@ -883,7 +883,7 @@ int32_t OpenGLVideoSink::Present(const VideoPresentRequest &request)
     }
     if (!RefreshOutputSurface(target)) {
         AVCODEC_SAMPLE_LOGW("OpenGL target Surface is unavailable before presentation, discard decoded frame");
-        return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
+        return request.decoder.FreeOutputBuffer(request.bufferInfo, false);
     }
     return PresentSurface(request) ? AVCODEC_SAMPLE_ERR_OK : AVCODEC_SAMPLE_ERR_ERROR;
 }

@@ -1221,7 +1221,7 @@ int32_t VulkanVideoSink::Present(const VideoPresentRequest &request)
     if (!surfaceDecoderReady_) {
         // Vulkan 链路固定使用 Surface 输出。异常情况下只归还 codec Buffer，
         // 不能让旧的 BufferRenderer 接管当前播放。
-        const int32_t freeRet = request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
+        const int32_t freeRet = request.decoder.FreeOutputBuffer(request.bufferInfo, false);
         AVCODEC_SAMPLE_LOGE("Vulkan Surface decoder is unavailable, skip frame");
         return freeRet == AVCODEC_SAMPLE_ERR_OK ? AVCODEC_SAMPLE_ERR_ERROR : freeRet;
     }
@@ -1229,7 +1229,7 @@ int32_t VulkanVideoSink::Present(const VideoPresentRequest &request)
     externalVideoHeight_ = request.context.height > 0 ? request.context.height : request.sampleInfo.video.videoHeight;
     // 解码器只负责把帧提交到 NativeImage 生产者；Vulkan 消费者在归还 codec Buffer 后
     // 获取同一帧的 NativeWindowBuffer，并通过 OHOS 外部内存导入到 Vulkan 图像。
-    const int32_t freeRet = request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, request.render,
+    const int32_t freeRet = request.decoder.FreeOutputBuffer(request.bufferInfo, request.render,
         request.renderTimestamp);
     if (freeRet != AVCODEC_SAMPLE_ERR_OK || !request.render) {
         return freeRet;
