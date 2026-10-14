@@ -53,7 +53,7 @@ int32_t AudioDecoder::CreateByName(const std::string &codecMime)
 // [Start AudioDecoder::SetCallback]
 int32_t AudioDecoder::SetCallback(CodecUserData *codecUserData)
 {
-    // 异步模式下 codec 在内部线程回调 userData；Release 前先停止 codec，回调才不会访问该上下文。
+    // 异步模式下回调由 codec 内部线程触发并访问传入的 userData；须先停止解码器再销毁该上下文，避免回调访问已释放的对象。
     int32_t ret = AV_ERR_OK;
     ret = OH_AudioCodec_RegisterCallback(decoder_,
                                          {SampleCallback::OnCodecError, SampleCallback::OnCodecFormatChange,
@@ -68,8 +68,8 @@ int32_t AudioDecoder::SetCallback(CodecUserData *codecUserData)
 // [Start AudioDecoder::Configure]
 int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
 {
-    // 解码能力表可能未完整列出部分容器编码格式的采样率/声道信息，
-    // 解码器Configure调用的返回值才是最终判定依据，此处仅将能力查询结果作为参考日志。
+    // 解码能力表可能未完整列出部分容器编码格式的采样率/声道信息。
+    // 解码器 Configure 调用的返回值才是最终判定依据，此处仅将能力查询结果作为参考日志。
     if (!CodecCapability::ValidateAudioConfiguration(sampleInfo, false)) {
         AVCODEC_SAMPLE_LOGW("Audio capability query did not fully describe mime: %{public}s; "
             "continue with decoder configure", sampleInfo.audio.audioCodecMime.c_str());
@@ -88,7 +88,7 @@ int32_t AudioDecoder::Configure(const SampleInfo &sampleInfo)
         OH_AVFormat_SetIntValue(format, OH_MD_KEY_ENABLE_SYNC_MODE, sampleInfo.codec.codecSyncMode);
     }
 
-    // 可选：编解码器特定数据（codec config），由解封装获取，无则不设置。
+    // 可选：编解码器特定数据（codec config），由解封装获取，没有则不设置。
     if (sampleInfo.audio.codecConfigLen > 0 &&
         sampleInfo.audio.codecConfig.size() >= sampleInfo.audio.codecConfigLen) {
         OH_AVFormat_SetBuffer(format, OH_MD_KEY_CODEC_CONFIG, sampleInfo.audio.codecConfig.data(),

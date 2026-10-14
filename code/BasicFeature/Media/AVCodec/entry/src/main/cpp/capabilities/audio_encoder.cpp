@@ -94,7 +94,7 @@ int32_t AudioEncoder::Configure(const SampleInfo &sampleInfo)
     int ret = OH_AudioCodec_Configure(encoder_, format);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Config failed, ret: %{public}d", ret);
     OH_AVFormat_Destroy(format);
-    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Config failed, ret: %{public}d", ret);
+    format = nullptr;
 
     return AVCODEC_SAMPLE_ERR_OK;
 }

@@ -56,11 +56,11 @@ int32_t Muxer::SetRotation()
 {
     CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
 
-    // FLV不支持旋转元数据。
+    // flv不支持旋转元数据。
     if (outputFormat_ == AV_OUTPUT_FORMAT_FLV) {
         return AVCODEC_SAMPLE_ERR_OK;
     }
-    // 由于相机只有1920×1080的profile，没有1080×1920的profile，所以得往文件里封装一个90度的角度信息，后续播放才会是竖屏显示。
+    // 由于相机的profile只有1920×1080，没有1080×1920，所以得往文件中封装一个90度的角度信息，后续播放才会是竖屏显示。
     int32_t ret = OH_AVMuxer_SetRotation(muxer_, VERTICAL_ANGLE);
     if (ret != AV_ERR_OK) {
         AVCODEC_SAMPLE_LOGW("Set rotation failed, ret: %{public}d", ret);
