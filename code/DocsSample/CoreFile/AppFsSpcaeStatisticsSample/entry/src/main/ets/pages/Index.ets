@@ -171,7 +171,7 @@ struct Index {
       // [Start storageStatistics_statfs_getFreeSize]
       let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
       let path = context.filesDir;
-      statfs.getFreeSize(path, (err: BusinessError, number: freeSize) => {
+      statfs.getFreeSize(path, (err: BusinessError, freeSize: number) => {
         if (err) {
           console.error(`Invoke getFreeSize failed, code is ${err.code}, message is ${err.message}`);
         } else {
@@ -189,7 +189,7 @@ struct Index {
   getTotalSize() {
     try {
       // [Start storageStatistics_getTotalSize]
-      storageStatistics.getTotalSize().then((number: totalSize) => {
+      storageStatistics.getTotalSize().then((totalSize: number) => {
         console.info(`getTotalSize successfully, number is ${totalSize}`);
       }).catch((err: BusinessError) => {
         console.error(`getTotalSize failed with error, code is ${err.code}, message is ${err.message}`);
@@ -218,7 +218,7 @@ struct Index {
   getFreeSize() {
     try {
       // [Start storageStatistics_getFreeSize]
-      storageStatistics.getFreeSize().then((number: freeSize) => {
+      storageStatistics.getFreeSize().then((freeSize: number) => {
         console.info(`getFreeSize successfully, number is ${freeSize}`);
       }).catch((err: BusinessError) => {
         console.error(`getFreeSize failed with error, code is ${err.code}, message is ${err.message}`);
