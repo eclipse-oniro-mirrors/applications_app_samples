@@ -1056,7 +1056,7 @@ static napi_value StartScreenCapture_05(napi_env env, napi_callback_info info)
     }
     OpenFile("Demo");
     SetCallback(g_avCapture);
-    // 初始化录屏，传入配置信息OH_AVScreenRecorderConfig。
+    // 初始化录屏，传入配置信息OH_AVScreenCaptureConfig。
     OH_AVScreenCaptureConfig config;
     SetConfig05(config);
     OH_AVSCREEN_CAPTURE_ErrCode result = OH_AVScreenCapture_Init(g_avCapture, config);
