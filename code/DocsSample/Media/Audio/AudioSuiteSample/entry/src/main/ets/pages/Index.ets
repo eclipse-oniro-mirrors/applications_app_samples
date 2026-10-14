@@ -16,6 +16,7 @@
 import audioSuiteNapi from 'libentry.so';
 import { common } from '@kit.AbilityKit'
 import { fileIo as fs } from '@kit.CoreFileKit';
+import { deviceInfo } from '@kit.BasicServicesKit';
 import { DirInitHelper } from '../utils/DirInit';
 
 const EQ_PRESET_NAMES = ['自定义', '默认', '民谣', '中国风', '古典', '舞曲', '爵士', '流行', 'R&B', '摇滚'];
@@ -78,6 +79,44 @@ const EFFECT_TYPE_OPTIONS: SelectOption[] = [
   { value: '传统变声效果' }, { value: '通用变声效果' }, { value: '变速变调效果' }
 ];
 
+const NODE_TYPE_EQUALIZER = 201;
+const NODE_TYPE_NOISE_REDUCTION = 202;
+const NODE_TYPE_SOUND_FIELD = 203;
+const NODE_TYPE_AUDIO_SEPARATION = 204;
+const NODE_TYPE_VOICE_BEAUTIFIER = 205;
+const NODE_TYPE_ENVIRONMENT_EFFECT = 206;
+const NODE_TYPE_AUDIO_MIXER = 207;
+const NODE_TYPE_SPACE_RENDER = 208;
+const NODE_TYPE_PURE_VOICE_CHANGE = 209;
+const NODE_TYPE_GENERAL_VOICE_CHANGE = 210;
+const NODE_TYPE_TEMPO_PITCH = 211;
+
+const NODE_TYPE_NAMES: Record<number, string> = {
+  201: '均衡器节点',
+  202: '降噪节点',
+  203: '声场节点',
+  204: '音源分离节点',
+  205: '声音美化节点',
+  206: '环境效果节点',
+  207: '混音节点',
+  208: '空间渲染节点',
+  209: '传统变声节点',
+  210: '通用变声节点',
+  211: '变速变调节点',
+};
+
+const EFFECT_TYPE_TO_NODE_TYPE: number[] = [
+  NODE_TYPE_EQUALIZER,
+  NODE_TYPE_VOICE_BEAUTIFIER,
+  NODE_TYPE_NOISE_REDUCTION,
+  NODE_TYPE_SOUND_FIELD,
+  NODE_TYPE_ENVIRONMENT_EFFECT,
+  NODE_TYPE_SPACE_RENDER,
+  NODE_TYPE_PURE_VOICE_CHANGE,
+  NODE_TYPE_GENERAL_VOICE_CHANGE,
+  NODE_TYPE_TEMPO_PITCH
+];
+
 @Entry
 @Component
 struct Index {
@@ -95,6 +134,13 @@ struct Index {
   @State isAudioSourceSeparationCompleted: boolean = false;
   @State isMixingAndCascadingCompleted: boolean = false;
   @State isAudioFormatConverterCompleted: boolean = false;
+  // 设备类型
+  @State deviceType: string = '';
+  // 节点支持状态
+  @State isAudioSeparationNodeSupported: boolean = true;
+  @State isMixingNodeSupported: boolean = true;
+  @State isEqualizerNodeSupported: boolean = true;
+  @State isSpaceRenderNodeSupported: boolean = true;
 
   @State effectType: number = 0;
   @State eqPresetIndex: number = 0;
@@ -151,6 +197,7 @@ struct Index {
   }
 
   aboutToAppear() {
+    this.deviceType = deviceInfo.productModel === 'emulator' ? '模拟器' : '真机';
     let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
     let value = context.resourceManager.getRawFileContentSync("S16LE_2_48000.pcm");
     let myBuffer: ArrayBufferLike = value?.buffer;
@@ -158,6 +205,25 @@ struct Index {
     let file = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
     fs.writeSync(file.fd, myBuffer);
     fs.closeSync(file);
+  }
+
+  checkNodesAndShowDialog(nodeTypes: number[]): boolean {
+    for (let nodeType of nodeTypes) {
+      let supported = audioSuiteNapi.CheckNodeSupport(nodeType);
+      if (!supported) {
+        let nodeName = NODE_TYPE_NAMES[nodeType] ?? `节点类型${nodeType}`;
+        AlertDialog.show({
+          title: '节点不支持',
+          message: `当前设备（${this.deviceType}）不支持${nodeName}`,
+          confirm: {
+            value: '确定',
+            action: () => {}
+          }
+        });
+        return false;
+      }
+    }
+    return true;
   }
 
   build() {
@@ -181,6 +247,24 @@ struct Index {
                 Text(this.message)
                   .fontSize(14)
                   .fontColor('#007DFF')
+                  .width('100%')
+                  .padding(10)
+                  .backgroundColor('#F0F0F0')
+                  .borderRadius(8)
+              }
+              .width('100%')
+              .alignItems(HorizontalAlign.Start)
+              .margin({ bottom: 12 })
+
+              // 设备类型
+              Column() {
+                Text('设备类型')
+                  .fontSize(14)
+                  .fontWeight(600)
+                  .margin({ bottom: 8 })
+                Text(this.deviceType)
+                  .fontSize(14)
+                  .fontColor('#FF9800')
                   .width('100%')
                   .padding(10)
                   .backgroundColor('#F0F0F0')
@@ -287,7 +371,13 @@ struct Index {
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
+                  .enabled(this.isAudioSeparationNodeSupported)
                   .onClick(() => {
+                    if (!this.checkNodesAndShowDialog([NODE_TYPE_AUDIO_SEPARATION])) {
+                      this.isAudioSeparationNodeSupported = false;
+                      this.message = '音源分离节点不支持';
+                      return;
+                    }
                     try {
                       this.message = '正在进行音源分离...';
                       this.isLoadingAudioSourceSeparation = true;
@@ -344,8 +434,13 @@ struct Index {
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
-                  .enabled(this.isAudioSourceSeparationCompleted)
+                  .enabled(this.isAudioSourceSeparationCompleted && this.isMixingNodeSupported)
                   .onClick(() => {
+                    if (!this.checkNodesAndShowDialog([NODE_TYPE_SOUND_FIELD, NODE_TYPE_AUDIO_MIXER])) {
+                      this.isMixingNodeSupported = false;
+                      this.message = '混音与级联节点不支持';
+                      return;
+                    }
                     try {
                       this.message = '正在进行混音与级联...';
                       this.isLoadingMixingAndCascading = true;
@@ -384,8 +479,13 @@ struct Index {
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
-                  .enabled(!this.isPlay)
+                  .enabled(!this.isPlay && this.isEqualizerNodeSupported)
                   .onClick(async () => {
+                    if (!this.checkNodesAndShowDialog([NODE_TYPE_EQUALIZER])) {
+                      this.isEqualizerNodeSupported = false;
+                      this.message = '均衡器节点不支持';
+                      return;
+                    }
                     try {
                       this.isPlay = true;
                       this.type = 2;
@@ -402,8 +502,13 @@ struct Index {
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
-                  .enabled(!this.isPlay && this.isAudioSourceSeparationCompleted)
+                  .enabled(!this.isPlay && this.isAudioSourceSeparationCompleted && this.isSpaceRenderNodeSupported)
                   .onClick(async () => {
+                    if (!this.checkNodesAndShowDialog([NODE_TYPE_SPACE_RENDER, NODE_TYPE_AUDIO_MIXER])) {
+                      this.isSpaceRenderNodeSupported = false;
+                      this.message = '空间渲染节点不支持';
+                      return;
+                    }
                     try {
                       this.isPlay = true;
                       this.type = 3;
@@ -941,6 +1046,11 @@ struct Index {
   }
 
   applyEffect() {
+    let nodeType = EFFECT_TYPE_TO_NODE_TYPE[this.effectType];
+    if (!this.checkNodesAndShowDialog([nodeType])) {
+      this.message = '当前效果节点不支持';
+      return;
+    }
     try {
       this.message = '正在添加音频效果...';
       this.isLoadingBaseEditor = true;
