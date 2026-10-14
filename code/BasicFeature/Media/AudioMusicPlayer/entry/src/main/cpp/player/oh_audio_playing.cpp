@@ -404,6 +404,16 @@ void OHAudioPlayer::InitPlayer()
         ReleasePlayer();
         return;
     }
+    // [Start GetLatency]
+    int32_t latencyNs = 0;
+    auto latencyRet = OH_AudioRenderer_GetLatency(audioRenderer, AUDIOSTREAM_LATENCY_TYPE_ALL, &latencyNs);
+    if (latencyRet == AUDIOSTREAM_SUCCESS) {
+        audioLatencyNs = latencyNs;
+        OH_LOG_INFO(LOG_APP, "Audio latency after create: %{public}lld ns", (long long)latencyNs);
+    } else {
+        OH_LOG_ERROR(LOG_APP, "Get audio latency after create failed, ret: %{public}d", latencyRet);
+    }
+    // [End GetLatency]
 
     if (isSilentMode) {
         auto silentRet = OH_AudioRenderer_SetSilentModeAndMixWithOthers(audioRenderer, isSilentMode);
@@ -457,6 +467,15 @@ void OHAudioPlayer::ReconfigurePlayer()
     if (ret != AUDIOSTREAM_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Recreate audio renderer failed, ret: %{public}d", ret);
         return;
+    }
+
+    int32_t latencyNs = 0;
+    auto latencyRet = OH_AudioRenderer_GetLatency(audioRenderer, AUDIOSTREAM_LATENCY_TYPE_ALL, &latencyNs);
+    if (latencyRet == AUDIOSTREAM_SUCCESS) {
+        audioLatencyNs = latencyNs;
+        OH_LOG_INFO(LOG_APP, "Audio latency after reconfigure: %{public}lld ns", (long long)latencyNs);
+    } else {
+        OH_LOG_ERROR(LOG_APP, "Get audio latency after reconfigure failed, ret: %{public}d", latencyRet);
     }
 
     if (isSilentMode) {
@@ -1043,10 +1062,32 @@ void OHAudioPlayer::FileReaderThreadFunc(AudioFileOprInfo* audioFileOpr)
         OH_AudioWorkgroup_AddCurrentThread(workgroup, &audioFileOpr->producerThreadTokenId);
         OH_LOG_INFO(LOG_APP, "Producer thread added to workgroup");
     }
-
+    
     uint8_t readBuffer[FILE_READ_BUFFER_SIZE];
     bool isReadError = false;
+    auto lastTimestampTime = std::chrono::steady_clock::now();
     while (audioFileOpr->audioBufferQueue->IsRunning()) {
+        auto nowTime = std::chrono::steady_clock::now();
+        if (nowTime - lastTimestampTime >= std::chrono::seconds(1)) { // 每1秒调用一次
+            lastTimestampTime = nowTime;
+            OH_AudioRenderer *renderer = OHAudioPlayer::GetInstance().audioRenderer;
+            if (renderer != nullptr) {
+                // [Start GetAudioTimestampInfo]
+                int64_t framePosition = 0;
+                int64_t timestampNs = 0;
+                auto tsRet = OH_AudioRenderer_GetAudioTimestampInfo(renderer, &framePosition, &timestampNs);
+                if (tsRet == AUDIOSTREAM_SUCCESS) {
+                    OH_LOG_INFO(LOG_APP,
+                        "AudioTimestamp: framePos=%{public}lld, ts=%{public}lld ns, latency=%{public}lld ns",
+                        (long long)framePosition, (long long)timestampNs,
+                        (long long)OHAudioPlayer::GetInstance().audioLatencyNs);
+                } else {
+                    OH_LOG_ERROR(LOG_APP, "GetAudioTimestampInfo failed, ret: %{public}d", tsRet);
+                }
+                // [End GetAudioTimestampInfo]
+            }
+        }
+
         HandleSeekRequest(audioFileOpr);
         auto readSize = read(audioFileOpr->songFd, readBuffer, sizeof(readBuffer));
         if (readSize > 0) {
