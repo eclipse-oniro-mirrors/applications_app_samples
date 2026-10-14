@@ -20,8 +20,8 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { resourceManager } from '@kit.LocalizationKit';
 
 class Params {
-  text: string = "";
-  colorMode: resourceManager.ColorMode = resourceManager.ColorMode.LIGHT
+  public text: string = '';
+  public colorMode: resourceManager.ColorMode = resourceManager.ColorMode.LIGHT
 
   constructor(text: string, colorMode: resourceManager.ColorMode) {
     this.text = text
@@ -30,19 +30,19 @@ class Params {
 }
 
 @Builder
-function BuilderDialog(params: Params) {
+function builderDialog(params: Params) {
   Column() {
     Text(params.text)
       .fontSize(50)
       .fontWeight(FontWeight.Bold)
       .margin({ bottom: 36 })
-  }.backgroundColor(params.colorMode == resourceManager.ColorMode.LIGHT ? "#D5D5D5" : "#004AAF")
+  }.backgroundColor(params.colorMode == resourceManager.ColorMode.LIGHT ? '#D5D5D5' : '#004AAF')
 }
 
 @Entry
 @Component
 export struct CustomDialogOldInterface {
-  @State message: string = "hello";
+  @State message: string = 'hello';
   contentNode: ComponentContent<Params> | null = null;
   callbackId: number | undefined = 0;
 
@@ -81,12 +81,12 @@ export struct CustomDialogOldInterface {
     NavDestination() {
       Row() {
         Column() {
-          Button("click me")
+          Button('click me')
             .onClick(() => {
               let uiContext = this.getUIContext();
               let promptAction = uiContext.getPromptAction();
               if (this.contentNode == null && uiContext.getHostContext() != undefined) {
-                this.contentNode = new ComponentContent(uiContext, wrapBuilder(BuilderDialog), new Params(this.message,
+                this.contentNode = new ComponentContent(uiContext, wrapBuilder(builderDialog), new Params(this.message,
                   uiContext.getHostContext()!!.getApplicationContext()
                     .resourceManager
                     .getConfigurationSync()
@@ -98,7 +98,7 @@ export struct CustomDialogOldInterface {
               promptAction.closeCustomDialog(this.contentNode)
               // 先关闭已存在的弹窗，再重新打开
               promptAction.openCustomDialog(this.contentNode).then(() => {
-                console.info("succeeded")
+                console.info('succeeded')
               }).catch((error: BusinessError) => {
                 console.error(`OpenCustomDialog args error code is ${error.code}, message is ${error.message}`);
               })

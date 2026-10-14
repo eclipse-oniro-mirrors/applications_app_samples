@@ -19,7 +19,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 
 // 定义参数类，用于向自定义弹出框内容传递数据
 class Params {
-  text: string = '';
+  public text: string = '';
 
   constructor(text: string) {
     this.text = text;
@@ -61,7 +61,7 @@ export struct CustomDialogAfterMigrate {
     // 获取DialogPresenter实例
     dialogPresenter = this.getUIContext().getDialogPresenter();
     // 创建ComponentContent，绑定自定义构建器函数和参数
-    contentNode = new ComponentContent(this.getUIContext(), wrapBuilder(buildText), new Params("自定义弹窗内容"));
+    contentNode = new ComponentContent(this.getUIContext(), wrapBuilder(buildText), new Params('自定义弹窗内容'));
   }
 
   build() {

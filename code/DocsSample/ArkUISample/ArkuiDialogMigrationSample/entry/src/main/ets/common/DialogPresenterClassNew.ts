@@ -49,7 +49,7 @@ export class DialogPresenterClassNew {
         let message = (error as BusinessError).message;
         let code = (error as BusinessError).code;
         hilog.error(DOMAIN, 'testTag', 'testTag', `OpenCustomDialog args error code is ${code}, message is ${message}`);
-      })
+      });
       // [End dialog_presenter_class_open_custom_dialog]
     }
   }
@@ -65,7 +65,7 @@ export class DialogPresenterClassNew {
           let message = (error as BusinessError).message;
           let code = (error as BusinessError).code;
           hilog.error(DOMAIN, 'testTag', 'testTag', `CloseCustomDialog args error code is ${code}, message is ${message}`);
-        })
+        });
     }
   }
 
@@ -81,7 +81,7 @@ export class DialogPresenterClassNew {
           let message = (error as BusinessError).message;
           let code = (error as BusinessError).code;
           hilog.error(DOMAIN, 'testTag', 'testTag', `UpdateCustomDialog args error code is ${code}, message is ${message}`);
-        })
+        });
       // [End dialog_presenter_class_update_options]
     }
   }

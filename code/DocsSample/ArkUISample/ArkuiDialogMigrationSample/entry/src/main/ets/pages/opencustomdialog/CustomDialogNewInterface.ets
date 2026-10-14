@@ -25,7 +25,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 
 // 定义参数类，用于向自定义弹出框内容传递数据
 class Params {
-  text: string = '';
+  public text: string = '';
 
   constructor(text: string) {
     this.text = text;
@@ -89,7 +89,7 @@ export struct CustomDialogNewInterface {
       Row() {
         Column({ space: 10 }) {
           Button('Present custom dialog')
-            .id("PresentDialog")
+            .id('PresentDialog')
             .onClick(() => {
               // 弹出自定义样式弹出框，传入ComponentContent和配置选项
               dialogPresenter?.present(contentNode, {
