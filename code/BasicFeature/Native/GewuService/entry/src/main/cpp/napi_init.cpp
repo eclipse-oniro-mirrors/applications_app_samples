@@ -15,7 +15,7 @@
 
 #include "napi/native_api.h"
 
-// [Start gewu_demo]
+// [Start GewuServiceCodeExample]
 #include <string>
 #include <future>
 #define LOG_TAG "DEMO"
@@ -148,7 +148,7 @@ int Demo(void)
     }
     return 0;
 }
-// [End gewu_demo]
+// [End GewuServiceCodeExample]
 
 static const char *GewuErrorString(OH_QoS_GewuErrorCode error)
 {
