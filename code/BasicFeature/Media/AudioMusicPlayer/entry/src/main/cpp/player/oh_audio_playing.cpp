@@ -408,7 +408,7 @@ void OHAudioPlayer::InitPlayer()
     int32_t latencyNs = 0;
     auto latencyRet = OH_AudioRenderer_GetLatency(audioRenderer, AUDIOSTREAM_LATENCY_TYPE_ALL, &latencyNs);
     if (latencyRet == AUDIOSTREAM_SUCCESS) {
-        // 创建播放器后，启动播放器前，根据获取的时延信息，进行音乐播放器进度条进度校准等
+        // 创建播放器后，启动播放器前，根据获取的时延信息，进行音乐播放器进度条进度校准等操作
         audioLatencyNs = latencyNs;
         OH_LOG_INFO(LOG_APP, "Audio latency after create: %{public}lld ns", (long long)latencyNs);
     } else {
@@ -1078,7 +1078,7 @@ void OHAudioPlayer::FileReaderThreadFunc(AudioFileOprInfo* audioFileOpr)
                 int64_t timestampNs = 0;
                 auto tsRet = OH_AudioRenderer_GetAudioTimestampInfo(renderer, &framePosition, &timestampNs);
                 if (tsRet == AUDIOSTREAM_SUCCESS) {
-                    // 启动播放器后，根据framePosition、timestampNs信息，可以进行音乐播放器进度条进度校准等
+                    // 启动播放器后，根据framePosition、timestampNs信息，可以进行音乐播放器进度条进度校准等操作
                     OH_LOG_INFO(LOG_APP,
                         "AudioTimestamp: framePos=%{public}lld, ts=%{public}lld ns, latency=%{public}lld ns",
                         (long long)framePosition, (long long)timestampNs,
