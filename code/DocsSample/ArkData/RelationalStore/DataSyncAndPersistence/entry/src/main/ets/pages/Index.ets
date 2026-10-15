@@ -21,6 +21,7 @@ import { syncPush } from './datasync/RdbDataSync';
 import { syncPull } from './datasync/RdbDataSync';
 import { remoteQuery } from './datasync/RdbDataSync';
 import { rdbDataPersistence } from './datapersistence/RdbDataPersistence';
+import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component
@@ -44,7 +45,8 @@ struct Index {
       .height("5%")
       .backgroundColor('#0D9FFB')
       .onClick(() => {
-        setDefaultDistributedTables();
+        const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+        setDefaultDistributedTables(context);
       })
 
       Button() {
@@ -62,7 +64,8 @@ struct Index {
       .height("5%")
       .backgroundColor('#0D9FFB')
       .onClick(() => {
-        setCollaborationDistributedTables();
+        const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+        setCollaborationDistributedTables(context);
       })
 
       Button() {
@@ -79,9 +82,10 @@ struct Index {
         .width("70%")
         .height("5%")
         .backgroundColor('#0D9FFB')
-        .onClick(() => {
-          setSingleDistributedTables();
-        })
+      .onClick(() => {
+        const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+        setSingleDistributedTables(context);
+      })
 
       Button() {
         Text('dataChange')
@@ -169,7 +173,8 @@ struct Index {
       .height("5%")
       .backgroundColor('#0D9FFB')
       .onClick(() => {
-        rdbDataPersistence();
+        const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+        rdbDataPersistence(context);
       })
     }
     .height('100%')

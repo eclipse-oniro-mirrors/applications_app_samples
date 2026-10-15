@@ -19,7 +19,6 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { distributedDeviceManager } from '@kit.DistributedServiceKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { common } from '@kit.AbilityKit';
-import { UIContext } from '@kit.ArkUI';
 const DOMAIN = 0x0000;
 // [End sync_import]
 
@@ -30,15 +29,14 @@ let store: relationalStore.RdbStore | undefined = undefined;
 // [StartExclude setDefaultDistributedTables]
 // [StartExclude setCollaborationDistributedTables]
 // [StartExclude setSingleDistributedTables]
-export async function setDefaultDistributedTables() {
+export async function setDefaultDistributedTables(context: common.UIAbilityContext | undefined) {
   // [EndExclude setDefaultDistributedTables]
   const STORE_CONFIG: relationalStore.StoreConfig = {
     name: 'RdbTest.db', // 数据库文件名
     securityLevel: relationalStore.SecurityLevel.S3 // 数据库安全级别
   };
   // 打开数据库并设置分布式表
-  const context = new UIContext().getHostContext() as common.UIAbilityContext;
-  relationalStore.getRdbStore(context, STORE_CONFIG).then(async (rdbStore: relationalStore.RdbStore) => {
+  relationalStore.getRdbStore(context!, STORE_CONFIG).then(async (rdbStore: relationalStore.RdbStore) => {
     store = rdbStore;
     await store.executeSql('CREATE TABLE IF NOT EXISTS EMPLOYEE (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL, AGE INTEGER, SALARY REAL, CODES BLOB)');
     // 将已创建的表设置分布式表。
@@ -49,7 +47,7 @@ export async function setDefaultDistributedTables() {
   // [End setDefaultDistributedTables]
 }
 
-export async function setCollaborationDistributedTables() {
+export async function setCollaborationDistributedTables(context: common.UIAbilityContext | undefined) {
   // [EndExclude setCollaborationDistributedTables]
   const STORE_CONFIG: relationalStore.StoreConfig = {
     name: 'RdbTest.db', // 数据库文件名
@@ -61,8 +59,7 @@ export async function setCollaborationDistributedTables() {
     asyncDownloadAsset: false,
     enableCloud: false
   }
-  const context = new UIContext().getHostContext() as common.UIAbilityContext;
-  relationalStore.getRdbStore(context, STORE_CONFIG).then(async (rdbStore: relationalStore.RdbStore) => {
+  relationalStore.getRdbStore(context!, STORE_CONFIG).then(async (rdbStore: relationalStore.RdbStore) => {
     store = rdbStore;
     await store.executeSql('CREATE TABLE IF NOT EXISTS EMPLOYEE (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL, AGE INTEGER, SALARY REAL, CODES BLOB)');
     // 将已创建的表设置分布式表。
@@ -73,7 +70,7 @@ export async function setCollaborationDistributedTables() {
   // [End setCollaborationDistributedTables]
 }
 
-export async function setSingleDistributedTables() {
+export async function setSingleDistributedTables(context: common.UIAbilityContext | undefined) {
   // [EndExclude setSingleDistributedTables]
   const STORE_CONFIG: relationalStore.StoreConfig = {
     name: 'RdbTest.db', // 数据库文件名
@@ -86,8 +83,7 @@ export async function setSingleDistributedTables() {
     enableCloud: false,
     tableType: relationalStore.DistributedTableType.SINGLE_VERSION
   }
-  const context = new UIContext().getHostContext() as common.UIAbilityContext;
-  relationalStore.getRdbStore(context, STORE_CONFIG).then(async (rdbStore: relationalStore.RdbStore) => {
+  relationalStore.getRdbStore(context!, STORE_CONFIG).then(async (rdbStore: relationalStore.RdbStore) => {
     store = rdbStore;
     await store.executeSql('CREATE TABLE IF NOT EXISTS EMPLOYEE (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL UNIQUE, AGE INTEGER, SALARY REAL, CODES BLOB)');
     await store.executeSql('CREATE TABLE IF NOT EXISTS EMPLOYEE2 (NAME TEXT NOT NULL UNIQUE, AGE INTEGER, SALARY REAL, CODES BLOB, PRIMARY KEY (NAME))');
