@@ -6,7 +6,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 @Component
 struct WebComponent {
   controller: webview.WebviewController = new webview.WebviewController();
-  origin: string = "www.example.com";
+  origin: string = 'www.example.com';
 
   build() {
     Column() {
