@@ -3,8 +3,8 @@
 ## 介绍
 
 本工程主要实现了对以下指南文档[窗口生命周期实践案例](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/windowmanager/window-lifecycle-practical-case.md)
-中示例代码片段的工程化，通过该工程可体验在PC/2in1设备上通过DeskTopExtensionKit将应用图标注册到状态栏托盘区，点击按钮调用minimize()
-接口最小化主窗，再通过监听托盘图标点击事件调用restore()接口恢复主窗。
+中示例代码片段的工程化，通过该工程可体验在PC/2in1设备上点击按钮调用minimize()接口使主窗进入后台状态，延时后调用restore()
+接口将主窗口恢复到前台显示。
 
 ## 效果预览
 
@@ -14,8 +14,8 @@
 使用说明：
 
 1. 安装编译生成的hap包,打开应用。
-2. 点击"Minimize"按钮，主窗口最小化。
-3. 点击状态栏托盘区中的应用图标，主窗口恢复到前台显示。
+2. 点击"Minimize"按钮，主窗口进入后台状态。
+3. 等待5秒钟后，主窗口自动恢复到前台显示。
 
 ## 工程目录
 
