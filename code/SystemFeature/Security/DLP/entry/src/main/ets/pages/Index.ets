@@ -368,9 +368,9 @@ struct FilePicker {
       if (canIUse('SystemCapability.Security.DataLossPrevention')) {
         dlpPermission.startDLPManagerForResult(context, want).then((res: dlpPermission.DLPManagerResult) => {
           this.result = 'startDLPManagerForResult result.resultCode:' + res.resultCode;
-          console.error('startDLPManagerForResult res.resultCode:' + res.resultCode);
+          console.info('startDLPManagerForResult res.resultCode:' + res.resultCode);
           console.info('startDLPManagerForResult res.want:' + JSON.stringify(res.want));
-          hilog.error(HILOG_DLP_DOMAIN, HILOG_TAG, 'startDLPManagerForResult res.resultCode:' + res.resultCode);
+          hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'startDLPManagerForResult res.resultCode:' + res.resultCode);
           hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'startDLPManagerForResult res.want:' + JSON.stringify(res.want));
         });
       }
