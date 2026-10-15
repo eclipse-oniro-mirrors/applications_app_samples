@@ -422,9 +422,9 @@ struct FilePicker {
   getDLPSupportedFileTypes() {
     if (canIUse('SystemCapability.Security.DataLossPrevention')) {
       dlpPermission.getDLPSupportedFileTypes((err, result) => {
-        console.info('getDLPSupportedFileTypes: ' + JSON.stringify(err));
+        console.error('getDLPSupportedFileTypes: ' + JSON.stringify(err));
         console.info('getDLPSupportedFileTypes: ' + JSON.stringify(result));
-        hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'getDLPSupportedFileTypes: ' + JSON.stringify(err));
+        hilog.error(HILOG_DLP_DOMAIN, HILOG_TAG, 'getDLPSupportedFileTypes: ' + JSON.stringify(err));
         hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'getDLPSupportedFileTypes: ' + JSON.stringify(result));
         this.result = 'getDLPSupportedFileTypes result: ' + JSON.stringify(result);
       });
