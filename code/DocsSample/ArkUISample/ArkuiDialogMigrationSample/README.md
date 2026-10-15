@@ -6,6 +6,22 @@
 
 本示例覆盖自定义弹窗（openCustomDialog）、带控制器的自定义弹窗（openCustomDialogWithController）、PresentCustomDialog、ActionMenu、ShowDialog、ActionSheet、AlertDialog、基础CustomDialog等场景，每种场景均提供迁移前（BeforeMigrate）与迁移后（AfterMigrate）的对比实现，便于开发者学习与理解弹窗接口的迁移方式。
 
+### 效果预览
+
+| 首页 | openCustomDialog列表 | 迁移前示例 | 迁移后示例 |
+|---|---|---|---|
+| ![](screenshots/device/image1.jpg) | ![](screenshots/device/image2.jpg) | ![](screenshots/device/image3.jpg) | ![](screenshots/device/image4.jpg) |
+
+### 使用说明
+
+1. 在主界面，可以点击对应卡片，选择需要参考的弹窗迁移示例。
+
+2. 在弹窗迁移列表页选择详细的迁移前/迁移后示例参考。
+
+3. 进入示例界面，查看迁移前与迁移后接口的对比实现。
+
+4. 通过自动测试框架可进行测试及维护。
+
 ### 工程目录
 
 ```
