@@ -27,7 +27,7 @@
 // [Start codec_buffer_info]
 // 回调buffer的信息。
 struct CodecBufferInfo {
-     // 回调buffer。
+    // 回调buffer。
     OH_AVBuffer *buffer = nullptr;
     // 回调buffer对应的bufferIndex。
     uint32_t bufferIndex = 0;

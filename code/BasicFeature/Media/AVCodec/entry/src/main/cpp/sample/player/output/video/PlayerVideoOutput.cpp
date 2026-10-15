@@ -131,11 +131,6 @@ void Player::VideoDecInputAsyncThread()
            * // 异常处理。
            * return false;
            * }
-           * OH_AVErrCode pushInputRet = OH_VideoDecoder_PushInputBuffer(videoDec, index);
-           * if (pushInputRet != AV_ERR_OK) {
-           * // 异常处理。
-           * return false;
-           * }
            *
            */
         // [StartExclude decoder_input_buffer]
@@ -164,6 +159,7 @@ void Player::VideoDecInputAsyncThread()
             }
         }
         // [EndExclude decoder_input_buffer]
+        // 送入解码输入队列进行解码。
         ret = videoDecoder_->PushInputBuffer(*bufferInfo);
         // [End decoder_input_buffer]
         if (ret != AVCODEC_SAMPLE_ERR_OK) {

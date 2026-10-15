@@ -117,6 +117,8 @@ int32_t VideoDecoder::SetSurface(OHNativeWindow *window)
     const int32_t ret = OH_VideoDecoder_SetSurface(decoder_, window);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
         "Set surface failed, ret: %{public}d", ret);
+    // 配置视频与显示屏匹配模式（缓冲区按原比例缩放，使得缓冲区的较小边与窗口匹配，较长边超出窗口的部分被视为透明）。
+    // 可选缩放接口：OH_NativeWindow_NativeWindowSetScalingModeV2(nativeWindow, OH_SCALING_MODE_SCALE_CROP_V2);
     return AVCODEC_SAMPLE_ERR_OK;
 }
 // [End decoder_set_surface]
@@ -187,6 +189,9 @@ int32_t VideoDecoder::CreateByName(const std::string &codecName)
 }
 
 // [Start decoder_set_callback]
+// 配置异步回调，调用OH_VideoDecoder_RegisterCallback()接口。
+// 注册回调包括：解码器运行错误OH_AVCodecOnError、码流信息变化OH_AVCodecOnStreamChanged、
+// 输入回调OH_AVCodecOnNeedInputBuffer、输出回调OH_AVCodecOnNewOutputBuffer。
 int32_t VideoDecoder::SetCallback(CodecUserData *codecUserData)
 {
     int32_t ret = AV_ERR_OK;
@@ -255,8 +260,6 @@ int32_t VideoDecoder::Config(const SampleInfo &sampleInfo, CodecUserData *codecU
         ret = SetSurface(sampleInfo.video.window);
         CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && sampleInfo.video.window, AVCODEC_SAMPLE_ERR_ERROR,
                                  "Set surface failed, ret: %{public}d", ret);
-        // 配置视频与显示屏匹配模式（缓冲区按原比例缩放，使得缓冲区的较小边与窗口匹配，较长边超出窗口的部分被视为透明）。
-        // 可选缩放接口：OH_NativeWindow_NativeWindowSetScalingModeV2(nativeWindow, OH_SCALING_MODE_SCALE_CROP_V2);
     }
 
     if (!sampleInfo.codec.codecSyncMode) {

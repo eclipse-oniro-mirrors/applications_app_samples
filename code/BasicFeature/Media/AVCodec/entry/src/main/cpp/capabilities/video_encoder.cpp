@@ -115,6 +115,8 @@ int32_t VideoEncoder::Create(const std::string &videoCodecMime)
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
+// [Start encoder_create_byname]
+// 通过codec name创建编码器，应用有特殊需求，比如选择支持某种分辨率规格的编码器，可先查询capability，再根据codec name创建编码器。
 int32_t VideoEncoder::CreateByName(const std::string &videoCodecName)
 {
     // 仅在能力查询已经明确选定实现时使用名称创建。与 MIME 创建不同，名称不匹配时不会自动选择其他实现。
@@ -125,6 +127,7 @@ int32_t VideoEncoder::CreateByName(const std::string &videoCodecName)
         "Create encoder by name failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End encoder_create_byname]
 
 int32_t VideoEncoder::CreatePrimaryWithPreproc(const std::string &videoCodecMime)
 {
@@ -417,6 +420,7 @@ int32_t VideoEncoder::IsValid(bool &isValid)
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
+// [Start encoder_set_callback]
 int32_t VideoEncoder::SetCallback(CodecUserData *codecUserData)
 {
     int32_t ret = OH_VideoEncoder_RegisterCallback(encoder_,
@@ -427,6 +431,7 @@ int32_t VideoEncoder::SetCallback(CodecUserData *codecUserData)
 
     return AVCODEC_SAMPLE_ERR_OK;
 }
+// [End encoder_set_callback]
 
 int32_t VideoEncoder::Configure(const SampleInfo &sampleInfo)
 {
