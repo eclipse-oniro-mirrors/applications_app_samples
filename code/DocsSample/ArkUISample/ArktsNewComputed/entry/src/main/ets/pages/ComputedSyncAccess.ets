@@ -35,7 +35,7 @@ struct ComputedSyncAccess {
       Text(`count: ${this.count}`)
         .fontSize(20)
         .margin(10)
-      Text(`double: ${this.double}`)
+      Text(`double: ${this.computedDouble}`)
         .fontSize(20)
         .margin(10)
       Button('change count')
