@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 import { uiMaterial } from '@kit.ArkUI'
-import {listItems, ListItemData, ClassifyComponent} from './Utils'
+import { listItems, ListItemData, ClassifyComponent } from './Utils'
 
 @Builder
 export function explorePageBuilder() {
@@ -27,14 +27,18 @@ struct ExploreHomePage {
   @Local searchOpacity: number = 1
   @Local classifyType: Array<string> = []
   totalTitleHeight = 110
-  @Local titleHeight:number = this.totalTitleHeight
+  @Local titleHeight: number = this.totalTitleHeight
   @Local scrollOffset: number = 0
   @Local titleOffset: number = 0
+
   @Builder
   exploreTitleBar() {
     Column() {
       Row() {
-        Text('探索').fontSize(28).fontWeight(FontWeight.Bold).fontColor('#1A1A1A')
+        Text('探索')
+          .fontSize(28)
+          .fontWeight(FontWeight.Bold)
+          .fontColor('#1A1A1A')
         Blank()
         Search({ placeholder: '探索探索' })
           .searchButton('搜索')
@@ -50,8 +54,8 @@ struct ExploreHomePage {
     }.expandSafeArea([SafeAreaType.SYSTEM])
     .width('100%')
     .height(this.titleHeight)
-    .padding({ left: 20, right: 20})
-    .position({x: 0, y: -this.titleOffset})
+    .padding({ left: 20, right: 20 })
+    .position({ x: 0, y: -this.titleOffset })
   }
 
   build() {
@@ -70,7 +74,7 @@ struct ExploreHomePage {
                 Row() {
                   SymbolGlyph(item.image).fontSize(36)
                     .fontColor(['#007dff'])
-                    .margin({ right: 16})
+                    .margin({ right: 16 })
                   Text(item.name).fontSize(16)
                     .fontColor('#333333')
                 }.width('100%')
@@ -91,7 +95,7 @@ struct ExploreHomePage {
         this.scrollOffset += yOffset
         // 搜索框大小范围内
         if (this.scrollOffset <= 50) {
-          this.titleOffset = this.scrollOffset;
+          this.titleOffset = this.scrollOffset
           this.titleHeight = this.totalTitleHeight - this.titleOffset
           this.searchOpacity = 1 - this.titleOffset / 50
         }
@@ -108,4 +112,4 @@ struct ExploreHomePage {
     .expandSafeArea([SafeAreaType.SYSTEM])
   }
 }
-// [End expore_home_page]
+// [End explore_home_page]

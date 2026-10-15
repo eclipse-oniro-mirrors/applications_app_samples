@@ -31,7 +31,7 @@ export const listItems: ListItemData[] = [
   { id: '9', name: $r('app.string.popularity'), image: $r('sys.symbol.flag') },
   { id: '10', name: $r('app.string.new_product'), image: $r('sys.symbol.arrow_clockwise') },
   { id: '11', name: $r('app.string.rave_reviews'), image: $r('sys.symbol.hand_thumbsdown_fill') },
-  { id: '12', name: $r('app.string.recommendation'), image: $r('sys.symbol.star_fill')}
+  { id: '12', name: $r('app.string.recommendation'), image: $r('sys.symbol.star_fill') }
 ]
 
 // [Start classify_component]
@@ -44,10 +44,13 @@ export struct ClassifyComponent {
     let classifyType: string[] = ['策略', '动作', '竞技', '射击', '卡牌', '体育', '休闲', '音乐']
 
     for (let index: number = 0; index < classifyType.length; index++) {
-      this.info.push({label: {text: classifyType[index]}, prefixSymbol: {
-        activated: new SymbolGlyphModifier($r('sys.symbol.star_fill')).fontSize(20).fontColor(['#d3d3d3']),
-        normal: new SymbolGlyphModifier($r('sys.symbol.star_fill')).fontSize(20).fontColor([Color.Black])
-      }})
+      this.info.push({
+        label: { text: classifyType[index] },
+        prefixSymbol: {
+          activated: new SymbolGlyphModifier($r('sys.symbol.star_fill')).fontSize(20).fontColor(['#d3d3d3']),
+          normal: new SymbolGlyphModifier($r('sys.symbol.star_fill')).fontSize(20).fontColor([Color.Black])
+        }
+      })
     }
   }
 
