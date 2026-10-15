@@ -29,14 +29,17 @@ const DOMAIN = 0x0000
 // Backing up a relational database
 // Back up manually
 
-export async function backupManually() {
+export async function backupManually(uiContext: UIContext) {
 
   // 手动备份
   // 手动备份：通过调用[backup](../reference/apis-arkdata/arkts-apis-data-relationalStore-RdbStore.md#backup)接口实现数据库手动备份。示例如下：
 
   // [Start backupManually]
   /* context为应用的上下文信息，由调用方自行获取，此处仅为示例。 */
-  const context = new UIContext().getHostContext() as common.UIAbilityContext;
+  const context = uiContext.getHostContext();
+  if (context === undefined) {
+    return;
+  }
   let store: relationalStore.RdbStore | undefined = undefined;
   const STORE_CONFIG: relationalStore.StoreConfig = {
     name: 'RdbTest.db',
@@ -132,7 +135,7 @@ export async function backupManually() {
 
 // Rebuilding a relational database abnormally
 // 关系型数据库异常重建
-export async function rebuildingRelationalDatabaseAbnormally() {
+export async function rebuildingRelationalDatabaseAbnormally(uiContext: UIContext) {
 
   // 关系型数据库异常重建
 
@@ -149,7 +152,10 @@ export async function rebuildingRelationalDatabaseAbnormally() {
   // [Start rebuildingRelationalDatabaseAbnormally]
   let store: relationalStore.RdbStore | undefined = undefined;
   /* context为应用的上下文信息，由调用方自行获取，此处仅为示例。 */
-  const context = new UIContext().getHostContext() as common.UIAbilityContext;
+  const context = uiContext.getHostContext();
+  if (context === undefined) {
+    return;
+  }
   try {
     const STORE_CONFIG: relationalStore.StoreConfig = {
       name: 'RdbTest.db',
@@ -168,12 +174,15 @@ export async function rebuildingRelationalDatabaseAbnormally() {
 
 // Restoring manual backup data
 // 调用restore接口恢复数据
-export async function restoringManualBackupData() {
+export async function restoringManualBackupData(uiContext: UIContext) {
 
   // [Start invokeTheRestoreInterfaceToRestoreData]
   let store: relationalStore.RdbStore | undefined = undefined;
   /* context为应用的上下文信息，由调用方自行获取，此处仅为示例。 */
-  const context = new UIContext().getHostContext() as common.UIAbilityContext;
+  const context = uiContext.getHostContext();
+  if (context === undefined) {
+    return;
+  }
   let STORE_CONFIG: relationalStore.StoreConfig = {
     name: 'RdbTest.db',
     securityLevel: relationalStore.SecurityLevel.S3,
