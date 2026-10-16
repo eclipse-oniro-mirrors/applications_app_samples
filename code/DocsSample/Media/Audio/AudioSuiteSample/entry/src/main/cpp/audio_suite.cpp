@@ -668,8 +668,8 @@ static napi_value CheckNodeSupport(napi_env env, napi_callback_info info)
     bool isSupported = false;
     OH_AudioSuiteEngine_IsNodeTypeSupported(static_cast<OH_AudioNode_Type>(nodeType), &isSupported);
 
-    OH_LOG_Print(LOG_APP, LOG_INFO, GLOBAL_RESMGR, TAG, "CheckNodeSupport nodeType: %{public}d, isSupported: %{public}d",
-                 nodeType, isSupported);
+    OH_LOG_Print(LOG_APP, LOG_INFO, GLOBAL_RESMGR, TAG,
+                 "CheckNodeSupport nodeType: %{public}d, isSupported: %{public}d", nodeType, isSupported);
 
     napi_value result;
     napi_get_boolean(env, isSupported, &result);
