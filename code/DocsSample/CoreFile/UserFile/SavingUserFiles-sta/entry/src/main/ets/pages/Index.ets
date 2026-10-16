@@ -183,7 +183,7 @@ struct Index {
         console.error(`DocumentViewPicker failed with err, code is: ${err.code}, message is: ${err.message}`);
       } finally {
         // [EndExclude document_writesync]
-        fileIo.closeSync(file);
+        fileIo.closeSync(file.fd);
         // [End document_writesync]
       }
     }
@@ -218,7 +218,7 @@ struct Index {
     } catch (err) {
       console.error(`DocumentViewPicker failed with err, code is: ${err.code}, message is: ${err.message}`);
     } finally {
-      fileIo.closeSync(file);
+      fileIo.closeSync(file.fd);
     }
   }
   saveAudioFile() {
@@ -265,7 +265,7 @@ struct Index {
         console.error(`DocumentViewPicker failed with err, code is: ${err.code}, message is: ${err.message}`);
       } finally {
         // [EndExclude audio_write_sync]
-        fileIo.closeSync(file);
+        fileIo.closeSync(file.fd);
         // [End audio_write_sync]
       }
     }
