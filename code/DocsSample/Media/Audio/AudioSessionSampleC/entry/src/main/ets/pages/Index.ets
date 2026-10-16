@@ -59,13 +59,11 @@ async function setAudioSessionCapturerMuteHint(): Promise<string> {
 async function printAudioSessionInfo() {
   let filePath = getContext().filesDir + '/audio_session_info.txt';
   let file = fs.openSync(filePath, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
-  try {
-    let result = testNapi.printAudioSessionInfo(file.fd);
-    console.info('print audio session info filePath: ' + filePath);
-    return 'Print audioSession info success.';
-  } finally {
-    fs.closeSync(file);
-  }
+  let fd = file.fd;
+  let result = testNapi.printAudioSessionInfo(fd);
+  fs.closeSync(file);
+  console.info('print audio session info filePath: ' + filePath);
+  return 'Print audioSession info success.';
 }
 
 @Entry
