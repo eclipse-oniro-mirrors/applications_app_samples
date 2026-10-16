@@ -24,7 +24,6 @@ import DemoProcessNoArg from '../process/DemoProcessNoArg';
 // [EndExclude arkts_child_process_arg]
 import DemoProcessArg from  '../process/DemoProcessArg';
 import { fileIo } from '@kit.CoreFileKit';
-import { common, ChildProcessArgs, ChildProcessOptions } from '@kit.AbilityKit';
 // [EndExclude arkts_child_process_noarg_one]
 // [EndExclude arkts_child_process_noarg_two]
 @Entry
