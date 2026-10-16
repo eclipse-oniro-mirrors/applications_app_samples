@@ -108,7 +108,6 @@ class EntryAbility extends UIAbility {
     // 检查是否已注册
     let registered: boolean = hiAppEvent.isExternalLogManagerRegistered();
     hilog.info(0x0000, 'testTag', `[MyLogManager] 已注册: ${registered}`);
-    ```
     // [End RegisterExternalLogManager]
 
     // [Start AppEvent_Crash_ArkTS_Add_Watcher]
