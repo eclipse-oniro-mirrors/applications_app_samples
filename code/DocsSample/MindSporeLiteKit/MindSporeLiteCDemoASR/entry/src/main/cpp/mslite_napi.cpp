@@ -87,16 +87,20 @@ BinBuffer ReadBinFile(NativeResourceManager *nativeResourceManager, const std::s
     long fileSize = OH_ResourceManager_GetRawFileSize(rawFile);
     if (fileSize <= 0) {
         LOGE("MS_LITE_ERR: FileSize not correct");
+        OH_ResourceManager_CloseRawFile(rawFile);
         return BinBuffer(nullptr, 0);
     }
     void *buffer = malloc(fileSize);
     if (buffer == nullptr) {
-        LOGE("MS_LITE_ERR: OH_ResourceManager_ReadRawFile failed");
+        LOGE("MS_LITE_ERR: malloc failed");
+        OH_ResourceManager_CloseRawFile(rawFile);
         return BinBuffer(nullptr, 0);
     }
     int ret = OH_ResourceManager_ReadRawFile(rawFile, buffer, fileSize);
     if (ret == 0) {
         LOGE("MS_LITE_ERR: OH_ResourceManager_ReadRawFile failed");
+        free(buffer);
+        buffer = nullptr;
         OH_ResourceManager_CloseRawFile(rawFile);
         return BinBuffer(nullptr, 0);
     }
@@ -114,16 +118,20 @@ BinBuffer ReadTokens(NativeResourceManager *nativeResourceManager, const std::st
     long fileSize = OH_ResourceManager_GetRawFileSize(rawFile);
     if (fileSize <= 0) {
         LOGE("MS_LITE_ERR: FileSize not correct");
+        OH_ResourceManager_CloseRawFile(rawFile);
         return BinBuffer(nullptr, 0);
     }
     void *buffer = malloc(fileSize);
     if (buffer == nullptr) {
-        LOGE("MS_LITE_ERR: OH_ResourceManager_ReadRawFile failed");
+        LOGE("MS_LITE_ERR: malloc failed");
+        OH_ResourceManager_CloseRawFile(rawFile);
         return BinBuffer(nullptr, 0);
     }
     int ret = OH_ResourceManager_ReadRawFile(rawFile, buffer, fileSize);
     if (ret == 0) {
         LOGE("MS_LITE_ERR: OH_ResourceManager_ReadRawFile failed");
+        free(buffer);
+        buffer = nullptr;
         OH_ResourceManager_CloseRawFile(rawFile);
         return BinBuffer(nullptr, 0);
     }
@@ -400,6 +408,10 @@ std::vector<int> LoopPredict(const OH_AI_ModelHandle model, const BinBuffer &n_l
         }
     }
 
+    free(logits.first);
+    logits.first = nullptr;
+    logits_data = nullptr;
+
     int offset = offset_init;
     BinBuffer slice{nullptr, 0};
     slice.second = WHISPER_N_TEXT_STATE * sizeof(float);
@@ -453,6 +465,8 @@ std::vector<int> LoopPredict(const OH_AI_ModelHandle model, const BinBuffer &n_l
         }
         LOGI("MS_LITE_LOG: run decoder loop %{public}d ok!\n token = %{public}d", i, max_token_id);
     }
+    free(slice.first);
+    slice.first = nullptr;
     return output_token;
 }
 
@@ -493,6 +507,8 @@ static napi_value RunDemo(napi_env env, napi_callback_info info)
     size_t dataSize = audioBin.second;
     uint8_t *dataBuffer = (uint8_t *)audioBin.first;
     bool ok = audioFile.loadFromMemory(std::vector<uint8_t>(dataBuffer, dataBuffer + dataSize));
+    DestroyModelBuffer(&audioBin.first);
+    dataBuffer = nullptr;
     if (!ok) {
         LOGE("MS_LITE_ERR: Fail to read  %{public}s!", filePath.c_str());
         return error_ret;
@@ -528,8 +544,6 @@ static napi_value RunDemo(napi_env env, napi_callback_info info)
     // tiny-encoder.ms模型推理
     auto encoderBin = ReadBinFile(resourcesManager, "tiny-encoder.ms");
     if (encoderBin.first == nullptr) {
-        free(dataBuffer);
-        dataBuffer = nullptr;
         return error_ret;
     }
 
