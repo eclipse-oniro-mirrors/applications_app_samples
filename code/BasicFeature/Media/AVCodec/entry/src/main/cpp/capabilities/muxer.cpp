@@ -142,7 +142,7 @@ int32_t Muxer::WriteSample(int32_t trackId, OH_AVBuffer *buffer, OH_AVCodecBuffe
 
     ret = OH_AVMuxer_WriteSampleBuffer(muxer_, trackId, buffer);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Write sample failed");
-    // Muxer 不接管编码器输出 Buffer；调用方仍需使用原 bufferIndex 将它归还给编码器。
+    // Muxer不接管编码器输出Buffer；调用方仍需使用原bufferIndex将该Buffer归还给编码器。
     return AVCODEC_SAMPLE_ERR_OK;
 }
 // [End Muxer::WriteSample]
@@ -162,7 +162,7 @@ int32_t Muxer::Stop()
 int32_t Muxer::Release()
 {
     if (muxer_ != nullptr) {
-        // Destroy 只释放封装器资源，不关闭 Create() 时由业务侧传入的文件描述符。
+        // Destroy只释放封装器资源，不关闭Create()时由业务侧传入的文件描述符。
         OH_AVMuxer_Destroy(muxer_);
         muxer_ = nullptr;
     }

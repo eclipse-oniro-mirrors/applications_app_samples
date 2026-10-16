@@ -648,7 +648,7 @@ void Recorder::AudioEncInputSyncThread()
             }
             continue;
         }
-        // 数据充足后才申请 codec 输入 Buffer；减少申请成功后因缓存不足无法及时归还的风险。
+        // 数据充足后才可以申请codec输入Buffer；减少申请成功后因缓存不足无法及时归还的风险。
         CodecBufferInfo bufferInfo;
         bufferInfo.bufferIndex = std::numeric_limits<uint32_t>::max();
         auto buffer = audioEncoder_->GetInputBuffer(bufferInfo, TIMEOUT_US);

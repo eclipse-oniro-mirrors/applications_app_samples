@@ -57,7 +57,7 @@ int32_t AudioEncoder::CreateByName(const std::string &codecMime)
 // [Start AudioEncoder::SetCallback]
 int32_t AudioEncoder::SetCallback(CodecUserData *codecUserData)
 {
-    // 编码器在内部线程回调 userData；释放前应停止编码器并等待消费线程退出。
+    // 编码器在内部线程回调userData；释放前应停止编码器并等待消费线程退出。
     int32_t ret = AV_ERR_OK;
     ret = OH_AudioCodec_RegisterCallback(encoder_,
                                          { SampleCallback::OnCodecError, SampleCallback::OnCodecFormatChange,
@@ -134,7 +134,7 @@ OH_AVBuffer *AudioEncoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
         case AV_ERR_OK: {
             OH_AVBuffer *buffer = OH_AudioCodec_GetInputBuffer(encoder_, info.bufferIndex);
             CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Input buffer is null");
-            // 该 Buffer 只能在 PushInputData 前填充；提交后所有权回到 codec。
+            // 该Buffer只能在PushInputData前填充；提交后所有权回到codec。
             info.buffer = buffer;
             return buffer;
         }
@@ -155,7 +155,7 @@ int32_t AudioEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     info.buffer = nullptr;
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
-    // 一批输入可能产生多帧输出，需要持续取出并归还，直到 codec 暂无输出或返回 EOS。
+    // 一批输入可能产生多帧输出，需要持续取出并归还，直到codec暂无输出或返回EOS。
     OH_AVErrCode ret = OH_AudioCodec_QueryOutputBuffer(encoder_, &info.bufferIndex, timeoutUs);
     if (ret == AV_ERR_TRY_AGAIN_LATER) {
         // 超时，可能输入的数据不足以编码出一帧，或者超时时间设置过短。
@@ -169,7 +169,7 @@ int32_t AudioEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 
     OH_AVBuffer *outputBuf = OH_AudioCodec_GetOutputBuffer(encoder_, info.bufferIndex);
     if (outputBuf == nullptr) {
-        // 查询成功后索引已被 codec 交给应用，异常路径同样需要归还。
+        // 查询成功后索引已被codec交给应用，异常路径同样需要归还。
         const int32_t freeRet = OH_AudioCodec_FreeOutputBuffer(encoder_, info.bufferIndex);
         AVCODEC_SAMPLE_LOGE("Get output buffer failed, free ret: %{public}d", freeRet);
         return AVCODEC_SAMPLE_ERR_ERROR; // break;
@@ -231,7 +231,7 @@ int32_t AudioEncoder::NotifyEndOfStream()
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
 
-    // 使用空输入 Buffer 携带 EOS。即使没有媒体数据也必须提交它，编码器才会输出尾部数据。
+    // 使用空输入Buffer携带EOS。即使没有媒体数据也必须提交该Buffer，编码器才会输出尾部数据。
     CodecBufferInfo bufferInfo;
     auto buffer = GetInputBuffer(bufferInfo, TIMEOUT_US);
     if (buffer == nullptr) {
@@ -239,7 +239,7 @@ int32_t AudioEncoder::NotifyEndOfStream()
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
 
-    // EOS 不包含有效音频字节；调用 PushInputBuffer 后该 Buffer 立即归 codec 管理。
+    // EOS不包含有效音频字节；调用PushInputBuffer后该Buffer立即归codec管理。
     bufferInfo.attr.size = 0;
     bufferInfo.attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
     int32_t ret = OH_AVBuffer_SetBufferAttr(buffer, &bufferInfo.attr);
