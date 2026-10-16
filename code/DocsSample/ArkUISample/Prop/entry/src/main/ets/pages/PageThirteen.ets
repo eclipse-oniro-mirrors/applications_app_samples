@@ -68,7 +68,7 @@ struct Zoo {
           if (this.animal instanceof Animals) {
             this.animal.name = 'Dog';
           } else {
-            hilog.info(DOMAIN, TAG, 'num is undefined, cannot change property');
+            hilog.info(DOMAIN, TAG, 'animal is undefined, cannot change property');
           }
         })
 
