@@ -1487,8 +1487,13 @@ void SampleGraphics::DrawTextBlobPosTextFallback(OH_Drawing_Canvas *canvas)
 void SampleGraphics::DrawFontTextToGlyphsFallback(OH_Drawing_Canvas *canvas)
 {
     // [Start ndk_graphics_draw_font_text_to_glyphs_fallback]
+    // 通过文件创建字体对象
+    OH_Drawing_Typeface *typeface = OH_Drawing_TypefaceCreateFromFile(
+        "/system/fonts/NotoSansArmenian[wdth,wght].ttf", 0);
     // 创建字型对象
     OH_Drawing_Font *font = OH_Drawing_FontCreate();
+    // 为字型设置字体
+    OH_Drawing_FontSetTypeface(font, typeface);
     // 设置字体大小
     OH_Drawing_FontSetTextSize(font, value100_);
     // 需要转换的文本
@@ -1506,36 +1511,47 @@ void SampleGraphics::DrawFontTextToGlyphsFallback(OH_Drawing_Canvas *canvas)
         uint32_t glyphCount = fallbackInfos[i].glyphCount;
         // 为该回退组设置typeface
         OH_Drawing_FontSetTypeface(font, fallbackInfos[i].typeface);
+        // 获取每个字形的宽度，用于根据字形宽度计算位置
+        float *glyphWidths = new float[glyphCount];
+        OH_Drawing_FontGetWidths(font, fallbackInfos[i].glyphIds, glyphCount, glyphWidths);
         // 将uint16_t的glyphIds转换为int数组
         int *intGlyphIds = new int[glyphCount];
         for (uint32_t j = 0; j < glyphCount; j++) {
             intGlyphIds[j] = fallbackInfos[i].glyphIds[j];
         }
-        // 为每个字形指定坐标位置
+        // 为每个字形指定坐标位置，根据字形宽度累加横坐标
         OH_Drawing_Point2D *positions = new OH_Drawing_Point2D[glyphCount];
         for (uint32_t j = 0; j < glyphCount; j++) {
             positions[j].x = value200_ + xOffset;
             positions[j].y = value800_;
-            xOffset += value100_;
+            xOffset += glyphWidths[j];
         }
         // 绘制字形数组
         OH_Drawing_CanvasDrawGlyphs(canvas, intGlyphIds, glyphCount, 0,
             positions, glyphCount, 0, glyphCount, font);
         delete[] intGlyphIds;
         delete[] positions;
+        delete[] glyphWidths;
     }
     // 释放回退信息数组
     OH_Drawing_FontTypefaceFallbackInfoDestroy(fallbackInfos, infosCount);
-    // 释放字体对象
+    // 释放字型对象
     OH_Drawing_FontDestroy(font);
+    // 释放字体对象
+    OH_Drawing_TypefaceDestroy(typeface);
     // [End ndk_graphics_draw_font_text_to_glyphs_fallback]
 }
 
 void SampleGraphics::DrawFontMeasureTextFallback(OH_Drawing_Canvas *canvas)
 {
     // [Start ndk_graphics_draw_font_measure_text_fallback]
+    // 通过文件创建字体对象
+    OH_Drawing_Typeface *typeface = OH_Drawing_TypefaceCreateFromFile(
+        "/system/fonts/NotoSansArmenian[wdth,wght].ttf", 0);
     // 创建字型对象
     OH_Drawing_Font *font = OH_Drawing_FontCreate();
+    // 为字型设置字体
+    OH_Drawing_FontSetTypeface(font, typeface);
     // 设置字体大小
     OH_Drawing_FontSetTextSize(font, value100_);
     // 需要测量的文本
@@ -1583,16 +1599,23 @@ void SampleGraphics::DrawFontMeasureTextFallback(OH_Drawing_Canvas *canvas)
     OH_Drawing_PenDestroy(pen);
     // 释放矩形对象
     OH_Drawing_RectDestroy(bounds);
-    // 释放字体对象
+    // 释放字型对象
     OH_Drawing_FontDestroy(font);
+    // 释放字体对象
+    OH_Drawing_TypefaceDestroy(typeface);
     // [End ndk_graphics_draw_font_measure_text_fallback]
 }
 
 void SampleGraphics::DrawFontMeasureTextWithBrushOrPenFallback(OH_Drawing_Canvas *canvas)
 {
     // [Start ndk_graphics_draw_font_measure_text_with_brush_or_pen_fallback]
+    // 通过文件创建字体对象
+    OH_Drawing_Typeface *typeface = OH_Drawing_TypefaceCreateFromFile(
+        "/system/fonts/NotoSansArmenian[wdth,wght].ttf", 0);
     // 创建字型对象
     OH_Drawing_Font *font = OH_Drawing_FontCreate();
+    // 为字型设置字体
+    OH_Drawing_FontSetTypeface(font, typeface);
     // 设置字体大小
     OH_Drawing_FontSetTextSize(font, value100_);
     // 需要测量的文本
@@ -1615,8 +1638,7 @@ void SampleGraphics::DrawFontMeasureTextWithBrushOrPenFallback(OH_Drawing_Canvas
     uint32_t textBlobsCount = 0;
     OH_Drawing_TextBlobCreateFromStringWithFallback(text, font, TEXT_ENCODING_UTF8,
         &textBlobs, &textBlobsCount);
-    SAMPLE_LOGI("DrawFontMeasureTextWithBrushOrPenFallback: textBlobsCount = %{public}u",
-        textBlobsCount);
+    SAMPLE_LOGI("DrawFontMeasureTextWithBrushOrPenFallback: textBlobsCount = %{public}u", textBlobsCount);
     for (uint32_t i = 0; i < textBlobsCount; i++) {
         OH_Drawing_CanvasDrawTextBlob(canvas, textBlobs[i], startX, startY);
     }
@@ -1649,8 +1671,10 @@ void SampleGraphics::DrawFontMeasureTextWithBrushOrPenFallback(OH_Drawing_Canvas
     OH_Drawing_RectDestroy(bounds);
     // 释放画刷对象
     OH_Drawing_BrushDestroy(brush);
-    // 释放字体对象
+    // 释放字型对象
     OH_Drawing_FontDestroy(font);
+    // 释放字体对象
+    OH_Drawing_TypefaceDestroy(typeface);
     // [End ndk_graphics_draw_font_measure_text_with_brush_or_pen_fallback]
 }
 
