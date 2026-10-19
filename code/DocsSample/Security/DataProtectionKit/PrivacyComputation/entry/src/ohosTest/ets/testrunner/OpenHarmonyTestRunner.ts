@@ -76,10 +76,10 @@ async function checkMock(abilityDelegator: abilityDelegatorRegistry.AbilityDeleg
   try {
     rawFile = resourceManager.getRawFileContentSync(jsonPath);
     hilog.info(0x0000, tag, 'MockList file exists');
-    let mockStr: string = util.TextDecoder.create("utf-8", { ignoreBOM: true }).decodeWithStream(rawFile);
+    let mockStr: string = util.TextDecoder.create('utf-8', { ignoreBOM: true }).decodeWithStream(rawFile);
     let mockMap: Record<string, string> = getMockList(mockStr);
     try {
-      abilityDelegator.setMockList(mockMap)
+      abilityDelegator.setMockList(mockMap);
     } catch (error) {
       let code = (error as BusinessError).code;
       let message = (error as BusinessError).message;
@@ -97,7 +97,7 @@ function getMockList(jsonStr: string) {
   let map: Map<string, object> = new Map<string, object>(Object.entries(jsonObj));
   let mockList: Record<string, string> = {};
   map.forEach((value: object, key: string) => {
-    let realValue: string = value['source'].toString();
+    let realValue: string = (value as Record<string, string>).source.toString();
     mockList[key] = realValue;
   });
   hilog.info(0x0000, tag, '%{public}s', 'mock-json value:' + JSON.stringify(mockList) ?? '');

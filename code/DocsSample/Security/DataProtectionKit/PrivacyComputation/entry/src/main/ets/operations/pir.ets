@@ -35,7 +35,7 @@ export async function pirFlow(): Promise<string> {
     // [End genPrivacyTarget]
 
     // [Start privacySearch]
-    const elements: Array<privacyComputation.Element> = [
+    const elements: privacyComputation.Element[] = [
       {
         elemKey: new Uint8Array([0x01, 0x02, 0x03]),
         hashAlg: privacyComputation.HashAlg.SHA256,
