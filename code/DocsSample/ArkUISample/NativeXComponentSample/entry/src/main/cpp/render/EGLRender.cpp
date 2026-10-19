@@ -47,7 +47,7 @@ GLuint LoadShader(GLenum type, const char *shaderSrc)
         return PROGRAM_ERROR;
     }
 
-    // The gl function has no return value.
+    // 该gl函数没有返回值。
     glShaderSource(shader, 1, &shaderSrc, nullptr);
     glCompileShader(shader);
 
@@ -276,7 +276,7 @@ void EGLRender::Clear()
         return;
     }
 
-    // The gl function has no return value.
+    // 该gl函数没有返回值。
     glViewport(DEFAULT_X_POSITION, DEFAULT_Y_POSITION, width_, height_);
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT);
