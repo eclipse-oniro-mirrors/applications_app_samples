@@ -400,7 +400,7 @@ GLint EGLCore::PrepareDraw()
         return POSITION_ERROR;
     }
 
-    // The gl function has no return value.
+    // 该gl函数没有返回值。
     glViewport(DEFAULT_X_POSITION, DEFAULT_Y_POSITION, width_, height_);
     glClearColor(GL_RED_DEFAULT, GL_GREEN_DEFAULT, GL_BLUE_DEFAULT, GL_ALPHA_DEFAULT);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -416,7 +416,7 @@ bool EGLCore::ExecuteDraw(GLint position, const GLfloat* color, const GLfloat sh
         return false;
     }
 
-    // The gl function has no return value.
+    // 该gl函数没有返回值。
     glVertexAttribPointer(position, POINTER_SIZE, GL_FLOAT, GL_FALSE, 0, shapeVertices);
     glEnableVertexAttribArray(position);
     glVertexAttrib4fv(1, color);
@@ -434,7 +434,7 @@ bool EGLCore::ExecuteDrawStar(
         return false;
     }
 
-    // The gl function has no return value.
+    // 该gl函数没有返回值。
     glVertexAttribPointer(position, POINTER_SIZE, GL_FLOAT, GL_FALSE, 0, shapeVertices);
     glVertexAttribPointer(1, POINTER_SIZE, GL_FLOAT, GL_FALSE, 0, color);
     glEnableVertexAttribArray(position);
@@ -455,7 +455,7 @@ bool EGLCore::ExecuteDrawNewStar(
         return false;
     }
 
-    // The gl function has no return value.
+    // 该gl函数没有返回值。
     glVertexAttribPointer(position, POINTER_SIZE, GL_FLOAT, GL_FALSE, 0, shapeVertices);
     glEnableVertexAttribArray(position);
     glVertexAttrib4fv(1, color);
@@ -475,7 +475,7 @@ void EGLCore::Rotate2d(GLfloat centerX, GLfloat centerY, GLfloat* rotateX, GLflo
 
 bool EGLCore::FinishDraw()
 {
-    // The gl function has no return value.
+    // 该gl函数没有返回值。
     glFlush();
     glFinish();
     return eglSwapBuffers(eglDisplay_, eglSurface_);
@@ -494,7 +494,7 @@ GLuint EGLCore::LoadShader(GLenum type, const char* shaderSrc)
         return PROGRAM_ERROR;
     }
 
-    // The gl function has no return value.
+    // 该gl函数没有返回值。
     glShaderSource(shader, 1, &shaderSrc, nullptr);
     glCompileShader(shader);
 
@@ -551,7 +551,7 @@ GLuint EGLCore::CreateProgram(const char* vertexShader, const char* fragShader)
         return PROGRAM_ERROR;
     }
 
-    // The gl function has no return value.
+    // 该gl函数没有返回值。
     glAttachShader(program, vertex);
     glAttachShader(program, fragment);
     glLinkProgram(program);

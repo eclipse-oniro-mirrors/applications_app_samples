@@ -81,19 +81,19 @@ void OnSurfaceChangedNative(OH_ArkUI_SurfaceHolder *holder, uint64_t width, uint
 
 void OnSurfaceDestroyedNative(OH_ArkUI_SurfaceHolder *holder)
 {
-    OH_LOG_Print(LOG_APP, LOG_ERROR, 0xff00, "onBind", "on destroyed");
+    OH_LOG_Print(LOG_APP, LOG_INFO, 0xff00, "onBind", "on destroyed");
     EGLRender *render = reinterpret_cast<EGLRender *>(OH_ArkUI_SurfaceHolder_GetUserData(holder));
     render->DestroySurface(); // 销毁eglSurface相关资源
 }
 
 void OnSurfaceShowNative(OH_ArkUI_SurfaceHolder *holder)
 {
-    OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "onBind", "on surface show");
+    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "onBind", "on surface show");
 }
 
 void OnSurfaceHideNative(OH_ArkUI_SurfaceHolder *holder)
 {
-    OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "onBind", "on surface hide");
+    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "onBind", "on surface hide");
 }
 
 void OnFrameCallbackNative(ArkUI_NodeHandle node, uint64_t timestamp, uint64_t targetTimestamp)
@@ -104,20 +104,20 @@ void OnFrameCallbackNative(ArkUI_NodeHandle node, uint64_t timestamp, uint64_t t
     static uint64_t count = 0;
     count++;
     if (count % FRAME_COUNT == 0) {
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "onBind", "OnFrameCallback count = %{public}ld", count);
+        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "onBind", "OnFrameCallback count = %{public}ld", count);
     }
 }
 
 void onEvent(ArkUI_NodeEvent *event)
 {
     auto eventType = OH_ArkUI_NodeEvent_GetEventType(event); // 获取组件事件类型
-    OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "onBind", "on event");
+    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "onBind", "on event");
     if (eventType == NODE_TOUCH_EVENT) {
         ArkUI_NodeHandle handle = OH_ArkUI_NodeEvent_GetNodeHandle(event); // 获取触发该事件的组件对象
         auto holder = PluginManager::surfaceHolderMap_[handle];
         EGLRender *render = reinterpret_cast<EGLRender *>(OH_ArkUI_SurfaceHolder_GetUserData(holder));
         render->DrawStar(false); // 绘制五角星
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "onBind", "on touch");
+        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "onBind", "on touch");
     }
 }
 
@@ -423,7 +423,7 @@ napi_value PluginManager::createNativeNode(napi_env env, napi_callback_info info
     }
     // [EndExclude surface_holder_ndk_createNode]
     if (nodeAPI != nullptr && nodeAPI->createNode != nullptr && nodeAPI->addChild != nullptr) {
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "PluginManager", "CreateNativeNode tag=%{public}s",
+        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "PluginManager", "CreateNativeNode tag=%{public}s",
                      tag.c_str());
         auto nodeContentEvent = [](ArkUI_NodeContentEvent *event) {
             ArkUI_NodeContentHandle handle = OH_ArkUI_NodeContentEvent_GetNodeContentHandle(event);
