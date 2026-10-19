@@ -16,13 +16,21 @@
 import audioSuiteNapi from 'libentry.so';
 import { common } from '@kit.AbilityKit'
 import { fileIo as fs } from '@kit.CoreFileKit';
+import { deviceInfo } from '@kit.BasicServicesKit';
 import { DirInitHelper } from '../utils/DirInit';
 
-const EQ_PRESET_NAMES = ['自定义', '默认', '民谣', '中国风', '古典', '舞曲', '爵士', '流行', 'R&B', '摇滚'];
+const EQ_PRESET_NAMES: Resource[] = [
+  $r('app.string.eq_preset_custom'), $r('app.string.eq_preset_default'), $r('app.string.eq_preset_folk'),
+  $r('app.string.eq_preset_chinese_style'), $r('app.string.eq_preset_classical'), $r('app.string.eq_preset_dance'),
+  $r('app.string.eq_preset_jazz'), $r('app.string.eq_preset_pop'), $r('app.string.eq_preset_rb'),
+  $r('app.string.eq_preset_rock')
+];
 const EQ_PRESET_OPTIONS: SelectOption[] = [
-  { value: '自定义' }, { value: '默认' }, { value: '民谣' }, { value: '中国风' },
-  { value: '古典' }, { value: '舞曲' }, { value: '爵士' }, { value: '流行' },
-  { value: 'R&B' }, { value: '摇滚' }
+  { value: $r('app.string.eq_preset_custom') }, { value: $r('app.string.eq_preset_default') },
+  { value: $r('app.string.eq_preset_folk') }, { value: $r('app.string.eq_preset_chinese_style') },
+  { value: $r('app.string.eq_preset_classical') }, { value: $r('app.string.eq_preset_dance') },
+  { value: $r('app.string.eq_preset_jazz') }, { value: $r('app.string.eq_preset_pop') },
+  { value: $r('app.string.eq_preset_rb') }, { value: $r('app.string.eq_preset_rock') }
 ];
 const EQ_PRESET_VALUES: number[][] = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -37,52 +45,128 @@ const EQ_PRESET_VALUES: number[][] = [
   [6, 4, 4, 2, 0, 1, 3, 3, 5, 4]
 ];
 const EQ_BAND_LABELS = ['31Hz', '62Hz', '125Hz', '250Hz', '500Hz', '1kHz', '2kHz', '4kHz', '8kHz', '16kHz'];
-const VOICE_BEAUTIFIER_NAMES = ['清澈', '剧场', 'CD', '录音棚'];
+const VOICE_BEAUTIFIER_NAMES: Resource[] = [
+  $r('app.string.voice_beautifier_clear'), $r('app.string.voice_beautifier_theater'),
+  $r('app.string.voice_beautifier_cd'), $r('app.string.voice_beautifier_studio')
+];
 const VOICE_BEAUTIFIER_OPTIONS: SelectOption[] = [
-  { value: '清澈' }, { value: '剧场' }, { value: 'CD' }, { value: '录音棚' }
+  { value: $r('app.string.voice_beautifier_clear') }, { value: $r('app.string.voice_beautifier_theater') },
+  { value: $r('app.string.voice_beautifier_cd') }, { value: $r('app.string.voice_beautifier_studio') }
 ];
-const SOUND_FIELD_NAMES = ['前向', '宏大', '近场', '宽广'];
+const SOUND_FIELD_NAMES: Resource[] = [
+  $r('app.string.sound_field_forward'), $r('app.string.sound_field_grand'),
+  $r('app.string.sound_field_near'), $r('app.string.sound_field_wide')
+];
 const SOUND_FIELD_OPTIONS: SelectOption[] = [
-  { value: '前向' }, { value: '宏大' }, { value: '近场' }, { value: '宽广' }
+  { value: $r('app.string.sound_field_forward') }, { value: $r('app.string.sound_field_grand') },
+  { value: $r('app.string.sound_field_near') }, { value: $r('app.string.sound_field_wide') }
 ];
-const ENVIRONMENT_NAMES = ['广播', '听筒', '水下', '留声机'];
+const ENVIRONMENT_NAMES: Resource[] = [
+  $r('app.string.environment_broadcast'), $r('app.string.environment_receiver'),
+  $r('app.string.environment_underwater'), $r('app.string.environment_phonograph')
+];
 const ENVIRONMENT_OPTIONS: SelectOption[] = [
-  { value: '广播' }, { value: '听筒' }, { value: '水下' }, { value: '留声机' }
+  { value: $r('app.string.environment_broadcast') }, { value: $r('app.string.environment_receiver') },
+  { value: $r('app.string.environment_underwater') }, { value: $r('app.string.environment_phonograph') }
 ];
-const PURE_VOICE_GENDER_NAMES = ['女声', '男声'];
-const PURE_VOICE_GENDER_OPTIONS: SelectOption[] = [{ value: '女声' }, { value: '男声' }];
-const PURE_VOICE_TYPE_NAMES = ['卡通', '可爱', '女声', '男声', '怪兽', '机器人', '沧桑'];
+const PURE_VOICE_GENDER_NAMES: Resource[] = [$r('app.string.voice_female'), $r('app.string.voice_male')];
+const PURE_VOICE_GENDER_OPTIONS: SelectOption[] = [
+  { value: $r('app.string.voice_female') }, { value: $r('app.string.voice_male') }
+];
+const PURE_VOICE_TYPE_NAMES: Resource[] = [
+  $r('app.string.pure_voice_type_cartoon'), $r('app.string.voice_cute'), $r('app.string.voice_female'),
+  $r('app.string.voice_male'), $r('app.string.voice_monster'), $r('app.string.pure_voice_type_robot'),
+  $r('app.string.voice_husky')
+];
 const PURE_VOICE_TYPE_OPTIONS: SelectOption[] = [
-  { value: '卡通' }, { value: '可爱' }, { value: '女声' }, { value: '男声' },
-  { value: '怪兽' }, { value: '机器人' }, { value: '沧桑' }
+  { value: $r('app.string.pure_voice_type_cartoon') }, { value: $r('app.string.voice_cute') },
+  { value: $r('app.string.voice_female') }, { value: $r('app.string.voice_male') },
+  { value: $r('app.string.voice_monster') }, { value: $r('app.string.pure_voice_type_robot') },
+  { value: $r('app.string.voice_husky') }
 ];
-const GENERAL_VOICE_CHANGE_NAMES = ['可爱', '赛博朋克', '女声', '男声', '混声', '怪兽', '沧桑', '合成', '颤音', '战争'];
+const GENERAL_VOICE_CHANGE_NAMES: Resource[] = [
+  $r('app.string.voice_cute'), $r('app.string.voice_change_cyberpunk'), $r('app.string.voice_female'),
+  $r('app.string.voice_male'), $r('app.string.voice_change_mixed'), $r('app.string.voice_monster'),
+  $r('app.string.voice_husky'), $r('app.string.voice_change_synthetic'), $r('app.string.voice_change_tremolo'),
+  $r('app.string.voice_change_war')
+];
 const GENERAL_VOICE_CHANGE_OPTIONS: SelectOption[] = [
-  { value: '可爱' }, { value: '赛博朋克' }, { value: '女声' }, { value: '男声' },
-  { value: '混声' }, { value: '怪兽' }, { value: '沧桑' }, { value: '合成' },
-  { value: '颤音' }, { value: '战争' }
+  { value: $r('app.string.voice_cute') }, { value: $r('app.string.voice_change_cyberpunk') },
+  { value: $r('app.string.voice_female') }, { value: $r('app.string.voice_male') },
+  { value: $r('app.string.voice_change_mixed') }, { value: $r('app.string.voice_monster') },
+  { value: $r('app.string.voice_husky') }, { value: $r('app.string.voice_change_synthetic') },
+  { value: $r('app.string.voice_change_tremolo') }, { value: $r('app.string.voice_change_war') }
 ];
-const SURROUND_DIRECTION_NAMES = ['逆时针', '顺时针'];
-const SURROUND_DIRECTION_OPTIONS: SelectOption[] = [{ value: '逆时针' }, { value: '顺时针' }];
-const SPACE_RENDER_MODE_NAMES = ['位置', '旋转', '扩展'];
+const SURROUND_DIRECTION_NAMES: Resource[] = [$r('app.string.surround_counterclockwise'), $r('app.string.surround_clockwise')];
+const SURROUND_DIRECTION_OPTIONS: SelectOption[] = [
+  { value: $r('app.string.surround_counterclockwise') }, { value: $r('app.string.surround_clockwise') }
+];
+const SPACE_RENDER_MODE_NAMES: Resource[] = [
+  $r('app.string.space_render_mode_position'), $r('app.string.space_render_mode_rotation'),
+  $r('app.string.space_render_mode_expansion')
+];
 const SPACE_RENDER_MODE_OPTIONS: SelectOption[] = [
-  { value: '位置' }, { value: '旋转' }, { value: '扩展' }
+  { value: $r('app.string.space_render_mode_position') }, { value: $r('app.string.space_render_mode_rotation') },
+  { value: $r('app.string.space_render_mode_expansion') }
 ];
-const EFFECT_TYPE_NAMES = [
-  '均衡器效果', '声音美化效果', '降噪效果', '声场效果', '环境效果',
-  '空间渲染效果', '传统变声效果', '通用变声效果', '变速变调效果'
+const EFFECT_TYPE_NAMES: Resource[] = [
+  $r('app.string.effect_type_equalizer'), $r('app.string.effect_type_voice_beautifier'),
+  $r('app.string.effect_type_noise_reduction'), $r('app.string.effect_type_sound_field'),
+  $r('app.string.effect_type_environment'), $r('app.string.effect_type_space_render'),
+  $r('app.string.effect_type_pure_voice_change'), $r('app.string.effect_type_general_voice_change'),
+  $r('app.string.effect_type_tempo_pitch')
 ];
 const EFFECT_TYPE_OPTIONS: SelectOption[] = [
-  { value: '均衡器效果' }, { value: '声音美化效果' }, { value: '降噪效果' },
-  { value: '声场效果' }, { value: '环境效果' }, { value: '空间渲染效果' },
-  { value: '传统变声效果' }, { value: '通用变声效果' }, { value: '变速变调效果' }
+  { value: $r('app.string.effect_type_equalizer') }, { value: $r('app.string.effect_type_voice_beautifier') },
+  { value: $r('app.string.effect_type_noise_reduction') }, { value: $r('app.string.effect_type_sound_field') },
+  { value: $r('app.string.effect_type_environment') }, { value: $r('app.string.effect_type_space_render') },
+  { value: $r('app.string.effect_type_pure_voice_change') }, { value: $r('app.string.effect_type_general_voice_change') },
+  { value: $r('app.string.effect_type_tempo_pitch') }
+];
+
+const NODE_TYPE_EQUALIZER = 201;
+const NODE_TYPE_NOISE_REDUCTION = 202;
+const NODE_TYPE_SOUND_FIELD = 203;
+const NODE_TYPE_AUDIO_SEPARATION = 204;
+const NODE_TYPE_VOICE_BEAUTIFIER = 205;
+const NODE_TYPE_ENVIRONMENT_EFFECT = 206;
+const NODE_TYPE_AUDIO_MIXER = 207;
+const NODE_TYPE_SPACE_RENDER = 208;
+const NODE_TYPE_PURE_VOICE_CHANGE = 209;
+const NODE_TYPE_GENERAL_VOICE_CHANGE = 210;
+const NODE_TYPE_TEMPO_PITCH = 211;
+
+const NODE_TYPE_NAMES: Record<number, Resource> = {
+  201: $r('app.string.node_equalizer'),
+  202: $r('app.string.node_noise_reduction'),
+  203: $r('app.string.node_sound_field'),
+  204: $r('app.string.node_audio_separation'),
+  205: $r('app.string.node_voice_beautifier'),
+  206: $r('app.string.node_environment_effect'),
+  207: $r('app.string.node_audio_mixer'),
+  208: $r('app.string.node_space_render'),
+  209: $r('app.string.node_pure_voice_change'),
+  210: $r('app.string.node_general_voice_change'),
+  211: $r('app.string.node_tempo_pitch'),
+};
+
+const EFFECT_TYPE_TO_NODE_TYPE: number[] = [
+  NODE_TYPE_EQUALIZER,
+  NODE_TYPE_VOICE_BEAUTIFIER,
+  NODE_TYPE_NOISE_REDUCTION,
+  NODE_TYPE_SOUND_FIELD,
+  NODE_TYPE_ENVIRONMENT_EFFECT,
+  NODE_TYPE_SPACE_RENDER,
+  NODE_TYPE_PURE_VOICE_CHANGE,
+  NODE_TYPE_GENERAL_VOICE_CHANGE,
+  NODE_TYPE_TEMPO_PITCH
 ];
 
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Ready';
-  @State napiReturnLog: string = '暂无返回信息';
+  @State message: ResourceStr = $r('app.string.msg_ready');
+  @State napiReturnLog: ResourceStr = $r('app.string.msg_no_return_info');
   @State isPlay: boolean = false;
   @State type: number = 1;
   // Loading 状态
@@ -95,6 +179,13 @@ struct Index {
   @State isAudioSourceSeparationCompleted: boolean = false;
   @State isMixingAndCascadingCompleted: boolean = false;
   @State isAudioFormatConverterCompleted: boolean = false;
+  // 设备类型
+  @State deviceType: string = '';
+  // 节点支持状态
+  @State isAudioSeparationNodeSupported: boolean = true;
+  @State isMixingNodeSupported: boolean = true;
+  @State isEqualizerNodeSupported: boolean = true;
+  @State isSpaceRenderNodeSupported: boolean = true;
 
   @State effectType: number = 0;
   @State eqPresetIndex: number = 0;
@@ -145,12 +236,24 @@ struct Index {
   @State dialogSpaceRenderMode: number = 0;
 
   // 更新NAPI返回信息
-  updateNapiLog(msg: string) {
+  updateNapiLog(msg: ResourceStr) {
     const timestamp = new Date().toLocaleTimeString();
     this.napiReturnLog = `[${timestamp}]\n${msg}`;
   }
 
+  private getResStr(res: Resource, ...args: Array<string | number>): string {
+    const ctx = this.getUIContext().getHostContext() as common.Context;
+    return ctx.resourceManager.getStringSync(res.id, ...args);
+  }
+
+  private logError(err: Object): void {
+    this.updateNapiLog(this.getResStr($r('app.string.error_prefix')) + JSON.stringify(err));
+  }
+
   aboutToAppear() {
+    this.deviceType = deviceInfo.productModel === 'emulator'
+      ? this.getResStr($r('app.string.device_emulator'))
+      : this.getResStr($r('app.string.device_real'));
     let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
     let value = context.resourceManager.getRawFileContentSync("S16LE_2_48000.pcm");
     let myBuffer: ArrayBufferLike = value?.buffer;
@@ -160,6 +263,27 @@ struct Index {
     fs.closeSync(file);
   }
 
+  checkNodesAndShowDialog(nodeTypes: number[]): boolean {
+    for (let nodeType of nodeTypes) {
+      let supported = audioSuiteNapi.CheckNodeSupport(nodeType);
+      if (!supported) {
+        const nodeName: string = NODE_TYPE_NAMES[nodeType]
+          ? this.getResStr(NODE_TYPE_NAMES[nodeType])
+          : this.getResStr($r('app.string.alert_node_type_fallback'), nodeType);
+        AlertDialog.show({
+          title: $r('app.string.alert_node_not_supported_title'),
+          message: this.getResStr($r('app.string.alert_node_not_supported_msg'), this.deviceType, nodeName),
+          confirm: {
+            value: $r('app.string.btn_confirm'),
+            action: () => {}
+          }
+        });
+        return false;
+      }
+    }
+    return true;
+  }
+
   build() {
     Stack() {
       Column() {
@@ -167,14 +291,14 @@ struct Index {
           Column() {
             // 信息显示区域 - 固定在顶部
             Column() {
-              Text('实时状态信息')
+              Text($r('app.string.title_realtime_status'))
                 .fontSize(18)
                 .fontWeight(600)
                 .margin({ bottom: 12 })
 
               // 当前状态
               Column() {
-                Text('当前状态')
+                Text($r('app.string.label_current_status'))
                   .fontSize(14)
                   .fontWeight(600)
                   .margin({ bottom: 8 })
@@ -190,9 +314,27 @@ struct Index {
               .alignItems(HorizontalAlign.Start)
               .margin({ bottom: 12 })
 
+              // 设备类型
+              Column() {
+                Text($r('app.string.label_device_type'))
+                  .fontSize(14)
+                  .fontWeight(600)
+                  .margin({ bottom: 8 })
+                Text(this.deviceType)
+                  .fontSize(14)
+                  .fontColor('#FF9800')
+                  .width('100%')
+                  .padding(10)
+                  .backgroundColor('#F0F0F0')
+                  .borderRadius(8)
+              }
+              .width('100%')
+              .alignItems(HorizontalAlign.Start)
+              .margin({ bottom: 12 })
+
               // NAPI返回信息
               Column() {
-                Text('NAPI返回信息')
+                Text($r('app.string.label_napi_return_info'))
                   .fontSize(14)
                   .fontWeight(600)
                   .margin({ bottom: 8 })
@@ -220,7 +362,7 @@ struct Index {
             Scroll() {
               Column() {
                 // 创建播放流按钮
-                Button('播放音频')
+                Button($r('app.string.btn_play_audio'))
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
@@ -230,15 +372,15 @@ struct Index {
                       this.isPlay = true;
                       this.type = 1;
                       let result: string = await audioSuiteNapi.CreateAudioRender(1);
-                      this.message = '播放原始音频成功';
+                      this.message = $r('app.string.msg_play_original_success');
                       this.updateNapiLog(result);
                     } catch (err) {
-                      this.message = '播放原始音频失败';
-                      this.updateNapiLog('错误: ' + JSON.stringify(err));
+                      this.message = $r('app.string.msg_play_original_fail');
+                      this.logError(err);
                     }
                   })
                 // 销毁播放流按钮
-                Button('停止播放')
+                Button($r('app.string.btn_stop_play'))
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
@@ -248,15 +390,15 @@ struct Index {
                       this.isPlay = false;
                       let result: string = await audioSuiteNapi.DestroyAudioRender(this.type);
                       this.type = 1;
-                      this.message = '停止播放成功';
+                      this.message = $r('app.string.msg_stop_play_success');
                       this.updateNapiLog(result);
                     } catch (err) {
-                      this.message = '停止播放失败';
-                      this.updateNapiLog('错误: ' + JSON.stringify(err));
+                      this.message = $r('app.string.msg_stop_play_fail');
+                      this.logError(err);
                     }
 })
 
-                Button('添加音频效果')
+                Button($r('app.string.btn_add_audio_effect'))
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
@@ -265,7 +407,7 @@ struct Index {
                     this.showEffectDialog = true;
                   })
 
-                Button('播放添加音频效果后音频')
+                Button($r('app.string.btn_play_with_effect'))
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
@@ -275,36 +417,42 @@ struct Index {
                       this.isPlay = true;
                       this.type = 1;
                       let result: string = await audioSuiteNapi.CreateAudioRender(2);
-                      this.message = '播放添加音频效果后音频成功';
+                      this.message = $r('app.string.msg_play_with_effect_success');
                       this.updateNapiLog(result);
                     } catch (err) {
-                      this.message = '播放添加音频效果后音频失败';
-                      this.updateNapiLog('错误: ' + JSON.stringify(err));
+                      this.message = $r('app.string.msg_play_with_effect_fail');
+                      this.logError(err);
                     }
                   })
 
-                Button('音源分离')
+                Button($r('app.string.btn_audio_separation'))
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
+                  .enabled(this.isAudioSeparationNodeSupported)
                   .onClick(() => {
+                    if (!this.checkNodesAndShowDialog([NODE_TYPE_AUDIO_SEPARATION])) {
+                      this.isAudioSeparationNodeSupported = false;
+                      this.message = $r('app.string.msg_audio_separation_node_unsupported');
+                      return;
+                    }
                     try {
-                      this.message = '正在进行音源分离...';
+                      this.message = $r('app.string.msg_audio_separation_in_progress');
                       this.isLoadingAudioSourceSeparation = true;
                       audioSuiteNapi.AudioSourceSeparationNapi((result: string) => {
                         this.isLoadingAudioSourceSeparation = false;
                         this.isAudioSourceSeparationCompleted = true;
-                        this.message = '音源分离成功';
+                        this.message = $r('app.string.msg_audio_separation_success');
                         this.updateNapiLog(result);
                       });
                     } catch (err) {
                       this.isLoadingAudioSourceSeparation = false;
-                      this.message = '音源分离失败';
-                      this.updateNapiLog('错误: ' + JSON.stringify(err));
+                      this.message = $r('app.string.msg_audio_separation_fail');
+                      this.logError(err);
                     }
                   })
 
-                Button('播放伴奏')
+                Button($r('app.string.btn_play_accompaniment'))
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
@@ -314,15 +462,15 @@ struct Index {
                       this.isPlay = true;
                       this.type = 1;
                       let result: string = await audioSuiteNapi.CreateAudioRender(3);
-                      this.message = '播放伴奏成功';
+                      this.message = $r('app.string.msg_play_accompaniment_success');
                       this.updateNapiLog(result);
                     } catch (err) {
-                      this.message = '播放伴奏失败';
-                      this.updateNapiLog('错误: ' + JSON.stringify(err));
+                      this.message = $r('app.string.msg_play_accompaniment_fail');
+                      this.logError(err);
                     }
                   })
 
-                Button('播放人声')
+                Button($r('app.string.btn_play_vocal'))
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
@@ -332,37 +480,42 @@ struct Index {
                       this.isPlay = true;
                       this.type = 1;
                       let result: string = await audioSuiteNapi.CreateAudioRender(4);
-                      this.message = '播放人声成功';
+                      this.message = $r('app.string.msg_play_vocal_success');
                       this.updateNapiLog(result);
                     } catch (err) {
-                      this.message = '播放人声失败';
-                      this.updateNapiLog('错误: ' + JSON.stringify(err));
+                      this.message = $r('app.string.msg_play_vocal_fail');
+                      this.logError(err);
                     }
                   })
 
-                Button('混音与级联')
+                Button($r('app.string.btn_mixing_cascade'))
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
-                  .enabled(this.isAudioSourceSeparationCompleted)
+                  .enabled(this.isAudioSourceSeparationCompleted && this.isMixingNodeSupported)
                   .onClick(() => {
+                    if (!this.checkNodesAndShowDialog([NODE_TYPE_SOUND_FIELD, NODE_TYPE_AUDIO_MIXER])) {
+                      this.isMixingNodeSupported = false;
+                      this.message = $r('app.string.msg_mixing_node_unsupported');
+                      return;
+                    }
                     try {
-                      this.message = '正在进行混音与级联...';
+                      this.message = $r('app.string.msg_mixing_in_progress');
                       this.isLoadingMixingAndCascading = true;
                       audioSuiteNapi.MixingAndCascadingNapi((result: string) => {
                         this.isLoadingMixingAndCascading = false;
                         this.isMixingAndCascadingCompleted = true;
-                        this.message = '混音与级联成功';
+                        this.message = $r('app.string.msg_mixing_success');
                         this.updateNapiLog(result);
                       });
                     } catch (err) {
                       this.isLoadingMixingAndCascading = false;
-                      this.message = '混音与级联失败';
-                      this.updateNapiLog('错误: ' + JSON.stringify(err));
+                      this.message = $r('app.string.msg_mixing_fail');
+                      this.logError(err);
                     }
                   })
 
-                Button('播放混音')
+                Button($r('app.string.btn_play_mixed'))
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
@@ -372,51 +525,61 @@ struct Index {
                       this.isPlay = true;
                       this.type = 1;
                       let result: string = await audioSuiteNapi.CreateAudioRender(5);
-                      this.message = '播放混音成功';
+                      this.message = $r('app.string.msg_play_mixed_success');
                       this.updateNapiLog(result);
                     } catch (err) {
-                      this.message = '播放混音失败';
-                      this.updateNapiLog('错误: ' + JSON.stringify(err));
+                      this.message = $r('app.string.msg_play_mixed_fail');
+                      this.logError(err);
                     }
                   })
 
-                Button('播放实时预览')
+                Button($r('app.string.btn_play_realtime_preview'))
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
-                  .enabled(!this.isPlay)
+                  .enabled(!this.isPlay && this.isEqualizerNodeSupported)
                   .onClick(async () => {
+                    if (!this.checkNodesAndShowDialog([NODE_TYPE_EQUALIZER])) {
+                      this.isEqualizerNodeSupported = false;
+                      this.message = $r('app.string.msg_equalizer_node_unsupported');
+                      return;
+                    }
                     try {
                       this.isPlay = true;
                       this.type = 2;
                       let result: string = await audioSuiteNapi.EqualizerEffectNapi();
-                      this.message = '播放实时预览成功';
+                      this.message = $r('app.string.msg_realtime_preview_success');
                       this.updateNapiLog(result);
                     } catch (err) {
-                      this.message = '播放实时预览失败';
-                      this.updateNapiLog('错误: ' + JSON.stringify(err));
+                      this.message = $r('app.string.msg_realtime_preview_fail');
+                      this.logError(err);
                     }
                   })
 
-                Button('播放空间渲染')
+                Button($r('app.string.btn_play_space_render'))
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
-                  .enabled(!this.isPlay && this.isAudioSourceSeparationCompleted)
+                  .enabled(!this.isPlay && this.isAudioSourceSeparationCompleted && this.isSpaceRenderNodeSupported)
                   .onClick(async () => {
+                    if (!this.checkNodesAndShowDialog([NODE_TYPE_SPACE_RENDER, NODE_TYPE_AUDIO_MIXER])) {
+                      this.isSpaceRenderNodeSupported = false;
+                      this.message = $r('app.string.msg_space_render_node_unsupported');
+                      return;
+                    }
                     try {
                       this.isPlay = true;
                       this.type = 3;
                       let result: string = await audioSuiteNapi.SpaceRenderRotationNapi();
-                      this.message = '播放空间渲染成功';
+                      this.message = $r('app.string.msg_space_render_success');
                       this.updateNapiLog(result);
                     } catch (err) {
-                      this.message = '播放空间渲染失败';
-                      this.updateNapiLog('错误: ' + JSON.stringify(err));
+                      this.message = $r('app.string.msg_space_render_fail');
+                      this.logError(err);
                     }
                   })
 
-                Button('调试')
+                Button($r('app.string.btn_debug'))
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
@@ -426,33 +589,33 @@ struct Index {
                     try {
                       await DirInitHelper.ensureDirExists();
                       let ret = audioSuiteNapi.TestPrintInfoToFile();
-                      this.message = ret ? 'PrintInfo测试成功' : 'PrintInfo测试失败';
-                      this.updateNapiLog(ret ? 'PrintInfo已输出到文件' : 'PrintInfo输出失败');
+                      this.message = ret ? $r('app.string.msg_printinfo_test_success') : $r('app.string.msg_printinfo_test_fail');
+                      this.updateNapiLog(ret ? this.getResStr($r('app.string.msg_printinfo_output_success')) : this.getResStr($r('app.string.msg_printinfo_output_fail')));
                     } catch (err) {
-                      this.message = 'PrintInfo测试失败';
-                      this.updateNapiLog('错误: ' + JSON.stringify(err));
+                      this.message = $r('app.string.msg_printinfo_test_fail');
+                      this.logError(err);
                     }
                   })
 
-                Button('格式转换')
+                Button($r('app.string.btn_format_conversion'))
                   .width('90%')
                   .height(30)
                   .margin({ bottom: 12 })
                   .enabled(!this.isPlay)
                   .onClick(() => {
                     try {
-                      this.message = '正在进行格式转换...';
+                      this.message = $r('app.string.msg_format_conversion_in_progress');
                       this.isLoadingAudioFormatConverter = true;
                       audioSuiteNapi.AudioFormatConverterNapi((result: string) => {
                         this.isLoadingAudioFormatConverter = false;
                         this.isAudioFormatConverterCompleted = true;
-                        this.message = '格式转换成功';
+                        this.message = $r('app.string.msg_format_conversion_success');
                         this.updateNapiLog(result);
                       });
                     } catch (err) {
                       this.isLoadingAudioFormatConverter = false;
-                      this.message = '格式转换失败';
-                      this.updateNapiLog('错误: ' + JSON.stringify(err));
+                      this.message = $r('app.string.msg_format_conversion_fail');
+                      this.logError(err);
                     }
                   })
               }
@@ -481,9 +644,9 @@ struct Index {
               .color('#007DFF')
               .margin({ bottom: 12 })
 
-            Text(this.isLoadingBaseEditor ? '正在添加音频效果...' :
-              this.isLoadingAudioSourceSeparation ? '正在进行音源分离...' :
-                this.isLoadingMixingAndCascading ? '正在进行混音与级联...' : '处理中...')
+            Text(this.isLoadingBaseEditor ? $r('app.string.loading_adding_effect') :
+              this.isLoadingAudioSourceSeparation ? $r('app.string.loading_audio_separation') :
+                this.isLoadingMixingAndCascading ? $r('app.string.loading_mixing_cascade') : $r('app.string.loading_processing'))
               .fontSize(16)
               .fontColor('#FFFFFF')
           }
@@ -503,9 +666,9 @@ struct Index {
               .color('#007DFF')
               .margin({ bottom: 12 })
 
-            Text(this.isLoadingBaseEditor ? '正在添加音频效果...' :
-              this.isLoadingAudioSourceSeparation ? '正在进行音源分离...' :
-                this.isLoadingMixingAndCascading ? '正在进行混音与级联...' : '处理中...')
+            Text(this.isLoadingBaseEditor ? $r('app.string.loading_adding_effect') :
+              this.isLoadingAudioSourceSeparation ? $r('app.string.loading_audio_separation') :
+                this.isLoadingMixingAndCascading ? $r('app.string.loading_mixing_cascade') : $r('app.string.loading_processing'))
               .fontSize(16)
               .fontColor('#FFFFFF')
           }
@@ -518,12 +681,12 @@ struct Index {
         // 效果设置弹窗
         if (this.showEffectDialog) {
           Column() {
-            Text('音频效果设置')
+            Text($r('app.string.dialog_audio_effect_settings'))
               .fontSize(18)
               .fontWeight(600)
               .margin({ bottom: 16 })
 
-            Text('效果类型')
+            Text($r('app.string.dialog_effect_type'))
               .fontSize(14)
               .fontWeight(500)
               .margin({ bottom: 8 })
@@ -540,7 +703,7 @@ struct Index {
               })
 
             if (this.dialogEffectType === 0) {
-              Text('预置效果')
+              Text($r('app.string.dialog_preset_effect'))
                 .fontSize(14)
                 .fontWeight(500)
                 .margin({ top: 12, bottom: 8 })
@@ -553,7 +716,7 @@ struct Index {
                   this.dialogEqGains = EQ_PRESET_VALUES[index].slice();
                 })
 
-              Text('频带增益设置')
+              Text($r('app.string.dialog_band_gain_setting'))
                 .fontSize(14)
                 .fontWeight(500)
                 .margin({ top: 12, bottom: 8 })
@@ -598,7 +761,7 @@ struct Index {
             }
 
             if (this.dialogEffectType === 1) {
-              Text('美化效果类型')
+              Text($r('app.string.dialog_beautifier_type'))
                 .fontSize(14)
                 .fontWeight(500)
                 .margin({ top: 12, bottom: 8 })
@@ -612,14 +775,14 @@ struct Index {
             }
 
             if (this.dialogEffectType === 2) {
-              Text('降噪效果无需配置参数，点击确定即应用。')
+              Text($r('app.string.dialog_noise_reduction_hint'))
                 .fontSize(13)
                 .fontColor('#666666')
                 .margin({ top: 16 })
             }
 
             if (this.dialogEffectType === 3) {
-              Text('声场类型')
+              Text($r('app.string.dialog_sound_field_type'))
                 .fontSize(14)
                 .fontWeight(500)
                 .margin({ top: 12, bottom: 8 })
@@ -633,7 +796,7 @@ struct Index {
             }
 
             if (this.dialogEffectType === 4) {
-              Text('环境场景类型')
+              Text($r('app.string.dialog_environment_type'))
                 .fontSize(14)
                 .fontWeight(500)
                 .margin({ top: 12, bottom: 8 })
@@ -647,7 +810,7 @@ struct Index {
             }
 
             if (this.dialogEffectType === 5) {
-              Text('空间渲染场景')
+              Text($r('app.string.dialog_space_render_scene'))
                 .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
               Select(SPACE_RENDER_MODE_OPTIONS)
                 .selected(this.dialogSpaceRenderMode)
@@ -656,8 +819,8 @@ struct Index {
                 .onSelect((index: number) => { this.dialogSpaceRenderMode = index; })
 
               if (this.dialogSpaceRenderMode === 0) {
-                Text('位置参数（x/y/z 范围 -5.0~5.0）')
-                  .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
+              Text($r('app.string.dialog_position_params'))
+                .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
               Row() {
                 Text('X').fontSize(12).width('10%')
                 Slider({ value: this.dialogSpacePositionX, min: -5, max: 5, step: 0.1, style: SliderStyle.OutSet })
@@ -682,7 +845,7 @@ struct Index {
               }
 
               if (this.dialogSpaceRenderMode === 1) {
-              Text('旋转参数（x/y/z 范围 -5.0~5.0）')
+              Text($r('app.string.dialog_rotation_params'))
                 .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
               Row() {
                 Text('X').fontSize(12).width('10%')
@@ -706,14 +869,14 @@ struct Index {
                 Text(`${this.dialogSpaceRotationZ}`).fontSize(12).width('20%').textAlign(TextAlign.Center)
               }.width('100%').justifyContent(FlexAlign.SpaceBetween).margin({ bottom: 4 })
               Row() {
-                Text('环绕时间').fontSize(12).width('30%')
+                Text($r('app.string.dialog_surround_time')).fontSize(12).width('30%')
                 Slider({ value: this.dialogSpaceRotationSurroundTime, min: 2, max: 40, step: 1, style: SliderStyle.OutSet })
                   .width('50%').blockColor('#007DFF').selectedColor('#007DFF')
                   .onChange((v: number) => { this.dialogSpaceRotationSurroundTime = Math.round(v); })
                 Text(`${this.dialogSpaceRotationSurroundTime}s`).fontSize(12).width('20%').textAlign(TextAlign.Center)
               }.width('100%').justifyContent(FlexAlign.SpaceBetween).margin({ bottom: 4 })
               Row() {
-                Text('环绕方向').fontSize(12).width('30%')
+                Text($r('app.string.dialog_surround_direction')).fontSize(12).width('30%')
                 Select(SURROUND_DIRECTION_OPTIONS)
                   .selected(this.dialogSpaceRotationSurroundDirection)
                   .value(SURROUND_DIRECTION_NAMES[this.dialogSpaceRotationSurroundDirection])
@@ -723,17 +886,17 @@ struct Index {
               }
 
               if (this.dialogSpaceRenderMode === 2) {
-              Text('扩展参数（半径 1.0~5.0；角度 0~360）')
+              Text($r('app.string.dialog_extension_params'))
                 .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
               Row() {
-                Text('半径').fontSize(12).width('30%')
+                Text($r('app.string.dialog_radius')).fontSize(12).width('30%')
                 Slider({ value: this.dialogSpaceExtensionRadius, min: 1, max: 5, step: 0.1, style: SliderStyle.OutSet })
                   .width('50%').blockColor('#007DFF').selectedColor('#007DFF')
                   .onChange((v: number) => { this.dialogSpaceExtensionRadius = Math.round(v * 10) / 10; })
                 Text(`${this.dialogSpaceExtensionRadius}`).fontSize(12).width('20%').textAlign(TextAlign.Center)
               }.width('100%').justifyContent(FlexAlign.SpaceBetween).margin({ bottom: 4 })
               Row() {
-                Text('角度').fontSize(12).width('30%')
+                Text($r('app.string.dialog_angle')).fontSize(12).width('30%')
                 Slider({ value: this.dialogSpaceExtensionAngle, min: 0, max: 360, step: 1, style: SliderStyle.OutSet })
                   .width('50%').blockColor('#007DFF').selectedColor('#007DFF')
                   .onChange((v: number) => { this.dialogSpaceExtensionAngle = Math.round(v); })
@@ -743,21 +906,21 @@ struct Index {
             }
 
             if (this.dialogEffectType === 6) {
-              Text('说话人性别')
+              Text($r('app.string.dialog_speaker_gender'))
                 .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
               Select(PURE_VOICE_GENDER_OPTIONS)
                 .selected(this.dialogPureVoiceChangeGender - 1)
                 .value(PURE_VOICE_GENDER_NAMES[this.dialogPureVoiceChangeGender - 1])
                 .width('100%')
                 .onSelect((index: number) => { this.dialogPureVoiceChangeGender = index + 1; })
-              Text('变声类型')
+              Text($r('app.string.dialog_voice_change_type'))
                 .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
               Select(PURE_VOICE_TYPE_OPTIONS)
                 .selected(this.dialogPureVoiceChangeType - 1)
                 .value(PURE_VOICE_TYPE_NAMES[this.dialogPureVoiceChangeType - 1])
                 .width('100%')
                 .onSelect((index: number) => { this.dialogPureVoiceChangeType = index + 1; })
-              Text('音高（0=系统推荐，范围 0.3~3.0）')
+              Text($r('app.string.dialog_pitch_label'))
                 .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
               Row() {
                 Text('pitch').fontSize(12).width('30%')
@@ -769,7 +932,7 @@ struct Index {
             }
 
             if (this.dialogEffectType === 7) {
-              Text('通用变声类型')
+              Text($r('app.string.dialog_general_voice_change_type'))
                 .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
               Select(GENERAL_VOICE_CHANGE_OPTIONS)
                 .selected(this.dialogGeneralVoiceChangeType - 1)
@@ -779,7 +942,7 @@ struct Index {
             }
 
             if (this.dialogEffectType === 8) {
-              Text('速度 speed（范围 0.5~10.0）')
+              Text($r('app.string.dialog_speed_label'))
                 .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
               Row() {
                 Text('speed').fontSize(12).width('30%')
@@ -788,7 +951,7 @@ struct Index {
                   .onChange((v: number) => { this.dialogTempoSpeed = Math.round(v * 10) / 10; })
                 Text(`${this.dialogTempoSpeed}`).fontSize(12).width('20%').textAlign(TextAlign.Center)
               }.width('100%').justifyContent(FlexAlign.SpaceBetween).margin({ bottom: 4 })
-              Text('音高 pitch（范围 0.1~5.0）')
+              Text($r('app.string.dialog_tempo_pitch_label'))
                 .fontSize(14).fontWeight(500).margin({ top: 12, bottom: 8 })
               Row() {
                 Text('pitch').fontSize(12).width('30%')
@@ -800,7 +963,7 @@ struct Index {
             }
 
             Row() {
-              Button('取消')
+              Button($r('app.string.btn_cancel'))
                 .width('45%')
                 .height(36)
                 .backgroundColor('#CCCCCC')
@@ -808,7 +971,7 @@ struct Index {
                   this.showEffectDialog = false;
                 })
 
-              Button('确定')
+              Button($r('app.string.btn_confirm'))
                 .width('45%')
                 .height(36)
                 .onClick(() => {
@@ -941,20 +1104,25 @@ struct Index {
   }
 
   applyEffect() {
+    let nodeType = EFFECT_TYPE_TO_NODE_TYPE[this.effectType];
+    if (!this.checkNodesAndShowDialog([nodeType])) {
+      this.message = $r('app.string.msg_effect_node_unsupported');
+      return;
+    }
     try {
-      this.message = '正在添加音频效果...';
+      this.message = $r('app.string.msg_add_effect_in_progress');
       this.isLoadingBaseEditor = true;
       let params = this.buildEffectParams();
       audioSuiteNapi.BaseEditor(this.effectType, params, (result: string) => {
         this.isLoadingBaseEditor = false;
         this.isBaseEditorCompleted = true;
-        this.message = '添加音频效果成功';
+        this.message = $r('app.string.msg_add_effect_success');
         this.updateNapiLog(result);
       });
     } catch (err) {
       this.isLoadingBaseEditor = false;
-      this.message = '添加音频效果失败';
-      this.updateNapiLog('错误: ' + JSON.stringify(err));
+      this.message = $r('app.string.msg_add_effect_fail');
+      this.logError(err);
     }
   }
 }
