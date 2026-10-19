@@ -19,6 +19,7 @@
 #include <arkui/native_interface.h>
 #include <arkui/styled_string.h>
 #include <arkui/drag_and_drop.h>
+#include <arkui/text.h>
 #include <hilog/log.h>
 #include <native_drawing/drawing_brush.h>
 #include <native_drawing/drawing_color.h>
@@ -2694,6 +2695,89 @@ void setTextTailIndents(ArkUI_NodeHandle &textContainer)
     Manager::nodeAPI_->addChild(textContainer, text2);
 }
 
+static void createTextLineSpacingWithOptions(ArkUI_NodeHandle &textContainer)
+{
+    auto lineSpacingText = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    ArkUI_NumberValue textWidthVal = {.f32 = VALUE_380};
+    ArkUI_AttributeItem textWidthItem = {&textWidthVal, VALUE_1};
+    Manager::nodeAPI_->setAttribute(lineSpacingText, NODE_WIDTH, &textWidthItem);
+    ArkUI_NumberValue borderWidthVal = {.f32 = VALUE_1};
+    ArkUI_AttributeItem borderWidthItem = {&borderWidthVal, VALUE_1};
+    Manager::nodeAPI_->setAttribute(lineSpacingText, NODE_BORDER_WIDTH, &borderWidthItem);
+
+    if (lineSpacingText != nullptr) {
+        const char *textContent = "这是第一行文本\n这是第二行文本\n这是第三行文本\n这是第四行文本";
+        ArkUI_AttributeItem contentItem = {.string = textContent};
+        Manager::nodeAPI_->setAttribute(lineSpacingText, NODE_TEXT_CONTENT, &contentItem);
+
+        OH_ArkUI_NativeModule_LineSpacingOptions *lineSpacingOptions =
+            OH_ArkUI_NativeModule_LineSpacingOptions_Create();
+        if (lineSpacingOptions != nullptr) {
+            bool onlyBetweenLines = false;
+            ArkUI_ErrorCode setRet =
+                OH_ArkUI_NativeModule_LineSpacingOptions_SetOnlyBetweenLines(lineSpacingOptions, true);
+            ArkUI_ErrorCode getRet =
+                OH_ArkUI_NativeModule_LineSpacingOptions_GetOnlyBetweenLines(lineSpacingOptions, &onlyBetweenLines);
+            if (setRet == ARKUI_ERROR_CODE_NO_ERROR && getRet == ARKUI_ERROR_CODE_NO_ERROR) {
+                OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "TextMaker",
+                             "LineSpacing onlyBetweenLines: %{public}d", onlyBetweenLines);
+            }
+
+            ArkUI_NumberValue lineSpacingVal = {.f32 = 10.0f};
+            ArkUI_AttributeItem lineSpacingItem = {
+                .value = &lineSpacingVal, .size = VALUE_1, .object = lineSpacingOptions};
+            Manager::nodeAPI_->setAttribute(lineSpacingText, NODE_TEXT_LINE_SPACING, &lineSpacingItem);
+
+            OH_ArkUI_NativeModule_LineSpacingOptions_Destroy(lineSpacingOptions);
+        }
+
+        Manager::nodeAPI_->addChild(textContainer, lineSpacingText);
+    }
+}
+
+static void createTextNormalLineSpacing(ArkUI_NodeHandle &textContainer)
+{
+    ArkUI_NumberValue textWidthVal = {.f32 = VALUE_380};
+    ArkUI_AttributeItem textWidthItem = {&textWidthVal, VALUE_1};
+    ArkUI_NumberValue borderWidthVal = {.f32 = VALUE_1};
+    ArkUI_AttributeItem borderWidthItem = {&borderWidthVal, VALUE_1};
+
+    auto normalLineSpacingText = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    Manager::nodeAPI_->setAttribute(normalLineSpacingText, NODE_WIDTH, &textWidthItem);
+    Manager::nodeAPI_->setAttribute(normalLineSpacingText, NODE_BORDER_WIDTH, &borderWidthItem);
+
+    if (normalLineSpacingText != nullptr) {
+        const char *normalContent = "这是第一行文本\n这是第二行文本\n这是第三行文本\n这是第四行文本";
+        ArkUI_AttributeItem normalContentItem = {.string = normalContent};
+        Manager::nodeAPI_->setAttribute(normalLineSpacingText, NODE_TEXT_CONTENT, &normalContentItem);
+
+        ArkUI_NumberValue normalLineSpacingVal = {.f32 = 10.0f};
+        ArkUI_AttributeItem normalLineSpacingItem = {.value = &normalLineSpacingVal, .size = VALUE_1};
+        Manager::nodeAPI_->setAttribute(normalLineSpacingText, NODE_TEXT_LINE_SPACING, &normalLineSpacingItem);
+
+        Manager::nodeAPI_->addChild(textContainer, normalLineSpacingText);
+    }
+}
+
+void setTextLineSpacingWithOptions(ArkUI_NodeHandle &textContainer)
+{
+    auto lineSpacingLabel = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    const char *labelText = "行间距选项示例（首尾行不加行间距）：";
+    ArkUI_AttributeItem labelItem = {.string = labelText};
+    Manager::nodeAPI_->setAttribute(lineSpacingLabel, NODE_TEXT_CONTENT, &labelItem);
+    Manager::nodeAPI_->addChild(textContainer, lineSpacingLabel);
+
+    createTextLineSpacingWithOptions(textContainer);
+
+    auto normalLineSpacingLabel = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    const char *normalLabelText = "普通行间距示例（首尾行也有行间距）：";
+    ArkUI_AttributeItem normalLabelItem = {.string = normalLabelText};
+    Manager::nodeAPI_->setAttribute(normalLineSpacingLabel, NODE_TEXT_CONTENT, &normalLabelItem);
+    Manager::nodeAPI_->addChild(textContainer, normalLineSpacingLabel);
+
+    createTextNormalLineSpacing(textContainer);
+}
+
 void setTextArea3(ArkUI_NodeHandle &textArea3)
 {
     // 多行文本输入框的默认提示文本内容属性
@@ -3334,6 +3418,7 @@ void setAllTextPart2(ArkUI_NodeHandle &textContainer)
     setBasicText2(textContainer);
     setCustomSpanText(textContainer);
     setTextTailIndents(textContainer);
+    setTextLineSpacingWithOptions(textContainer);
 }
 
 /**
