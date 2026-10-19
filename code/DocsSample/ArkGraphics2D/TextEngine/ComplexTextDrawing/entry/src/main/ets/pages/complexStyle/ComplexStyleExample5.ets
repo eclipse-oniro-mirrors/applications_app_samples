@@ -58,7 +58,7 @@ class MyRenderNode extends RenderNode {
 
 // 创建一个MyRenderNode对象
 const textNode = new MyRenderNode();
-// 定义newNode的像素格式
+// 定义textNode的像素格式
 textNode.frame = {
   x: 0,
   y: 0,
