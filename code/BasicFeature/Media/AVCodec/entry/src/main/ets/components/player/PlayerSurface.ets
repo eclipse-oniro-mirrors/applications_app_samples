@@ -13,7 +13,7 @@ export struct PlayerSurface {
   build() {
     XComponent({
       id: 'player',
-      type: XComponentType.SURFACE,
+      type: 0,
       libraryname: 'player',
       controller: this.controller
     })
