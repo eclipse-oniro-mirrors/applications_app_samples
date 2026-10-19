@@ -16,6 +16,7 @@
 import { camera } from '@kit.CameraKit';
 import { CommonConstants as Const } from '../common/CommonConstants';
 
+@Observed
 export class CameraDataModel {
   public outputId: string = '';
   public cameraWidth: number = Const.DEFAULT_WIDTH;

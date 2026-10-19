@@ -24,7 +24,6 @@
 #include "sample_callback.h"
 #include "dfx/error/av_codec_sample_error.h"
 #include "av_codec_sample_log.h"
-#include <shared_mutex>
 
 class VideoDecoder {
 public:
@@ -56,9 +55,9 @@ public:
     // 直接送显、定时送显和仅归还输出 Buffer 的接口。三者均以同一个输出索引作为归还凭据。
     int32_t RenderOutputBuffer(uint32_t bufferIndex);
     int32_t RenderOutputBufferAtTime(uint32_t bufferIndex, int64_t timeStamp);
-    int32_t FreeOutputBuffer(uint32_t bufferIndex);
-    int32_t FreeOutputBuffer(uint32_t bufferIndex, bool render);
-    int32_t FreeOutputBuffer(uint32_t bufferIndex, bool render, int64_t timeStamp);
+    int32_t FreeOutputBuffer(const CodecBufferInfo &info);
+    int32_t FreeOutputBuffer(const CodecBufferInfo &info, bool render);
+    int32_t FreeOutputBuffer(const CodecBufferInfo &info, bool render, int64_t timeStamp);
     int32_t Start();
     int32_t Stop();
     int32_t Flush();
@@ -85,7 +84,6 @@ private:
     OH_AVCodec *GetCodecByCategory(const char *mime, bool isEncoder, OH_AVCodecCategory category);
 
     bool isAVBufferMode_ = false;
-    std::shared_mutex codecMutex;
     OH_AVCodec *decoder_ = nullptr;
 };
 #endif

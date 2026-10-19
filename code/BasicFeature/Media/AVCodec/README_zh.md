@@ -116,9 +116,9 @@
 
 ### 效果预览
 
-| 播放设置 | 文件选择 | 倍速播放 | 录制页面 |
+| 播放 | 媒体库 | 录制 | 开始录制 |
 |---|---|---|---|
-| ![播放设置](screenshots/playback-settings.jpeg) | ![文件选择](screenshots/playback-source-picker.jpeg) | ![倍速播放](screenshots/playback-speed.jpeg) | ![录制页面](screenshots/recording-page.jpeg) |
+| ![播放](screenshots/playback-main.png) | ![媒体库](screenshots/media-library.png) | ![录制](screenshots/recording-preview.png) | ![开始录制](screenshots/recording-started.png) |
 ### 使用说明
 
 播放功能不需要相机和麦克风权限。用户点击“录制”按钮时，应用会检查并申请相机、麦克风权限；授权成功后才会进入录制流程。MP4 或 FLV 由录制设置中的“封装格式”决定，默认 MP4。

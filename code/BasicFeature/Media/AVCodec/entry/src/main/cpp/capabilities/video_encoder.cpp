@@ -108,7 +108,6 @@ OH_AVCodec *VideoEncoder::GetCodecByCategory(const char *mime, bool isEncoder, O
 
 int32_t VideoEncoder::Create(const std::string &videoCodecMime)
 {
-    std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ == nullptr, AVCODEC_SAMPLE_ERR_ERROR,
         "Encoder already exists, release it before creating another one");
     encoder_ = GetCodecByMime(videoCodecMime.c_str());
@@ -119,7 +118,6 @@ int32_t VideoEncoder::Create(const std::string &videoCodecMime)
 int32_t VideoEncoder::CreateByName(const std::string &videoCodecName)
 {
     // 仅在能力查询已经明确选定实现时使用名称创建。与 MIME 创建不同，名称不匹配时不会自动选择其他实现。
-    std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ == nullptr, AVCODEC_SAMPLE_ERR_ERROR,
         "Encoder already exists, release it before creating another one");
     encoder_ = OH_VideoEncoder_CreateByName(videoCodecName.c_str());
@@ -131,7 +129,6 @@ int32_t VideoEncoder::CreateByName(const std::string &videoCodecName)
 int32_t VideoEncoder::CreatePrimaryWithPreproc(const std::string &videoCodecMime)
 {
     // 该接口仅创建主编码器实例。缩放、裁剪、丢帧等预处理能力仍需通过配置参数按设备能力单独启用。
-    std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ == nullptr, AVCODEC_SAMPLE_ERR_ERROR,
         "Encoder already exists, release it before creating another one");
     const int32_t ret = OH_VideoEncoder_CreatePrimaryWithPreproc(videoCodecMime.c_str(), &encoder_);
@@ -145,9 +142,6 @@ int32_t VideoEncoder::CreateSecondaryFromPrimary(VideoEncoder &primaryEncoder)
     // 副编码器复用主编码器的输入源；为避免主编码器先释放导致副编码器失效，调用方需先 Release 副编码器。
     CHECK_AND_RETURN_RET_LOG(this != &primaryEncoder, AVCODEC_SAMPLE_ERR_ERROR,
         "Primary encoder and secondary encoder cannot be the same instance");
-    std::unique_lock<std::shared_mutex> currentLock(codecMutex, std::defer_lock);
-    std::shared_lock<std::shared_mutex> primaryLock(primaryEncoder.codecMutex, std::defer_lock);
-    std::lock(currentLock, primaryLock);
     CHECK_AND_RETURN_RET_LOG(encoder_ == nullptr, AVCODEC_SAMPLE_ERR_ERROR,
         "Encoder already exists, release it before creating another one");
     CHECK_AND_RETURN_RET_LOG(primaryEncoder.encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
@@ -160,7 +154,6 @@ int32_t VideoEncoder::CreateSecondaryFromPrimary(VideoEncoder &primaryEncoder)
 
 int32_t VideoEncoder::Config(SampleInfo &sampleInfo, CodecUserData *codecUserData)
 {
-    std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     CHECK_AND_RETURN_RET_LOG(codecUserData != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Invalid param: codecUserData");
 
@@ -194,7 +187,6 @@ int32_t VideoEncoder::Prepare()
 bool VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     info.buffer = nullptr;
-    std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, false, "Encoder is null");
 
     // 格式变化后只重试一次，避免递归重入同一个 shared_mutex；持续变化由下次轮询继续处理。
@@ -245,7 +237,6 @@ bool VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 
 int32_t VideoEncoder::QueryInputBuffer(uint32_t &bufferIndex, int64_t timeoutUs)
 {
-    std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_QueryInputBuffer(encoder_, &bufferIndex, timeoutUs);
     if (ret == AV_ERR_TRY_AGAIN_LATER) {
@@ -258,7 +249,6 @@ int32_t VideoEncoder::QueryInputBuffer(uint32_t &bufferIndex, int64_t timeoutUs)
 
 OH_AVBuffer *VideoEncoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
-    std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, nullptr, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_QueryInputBuffer(encoder_, &info.bufferIndex, timeoutUs);
     if (ret == AV_ERR_TRY_AGAIN_LATER) {
@@ -275,7 +265,6 @@ OH_AVBuffer *VideoEncoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
 
 int32_t VideoEncoder::QueryOutputBuffer(uint32_t &bufferIndex, int64_t timeoutUs)
 {
-    std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_QueryOutputBuffer(encoder_, &bufferIndex, timeoutUs);
     if (ret == AV_ERR_TRY_AGAIN_LATER) {
@@ -288,7 +277,6 @@ int32_t VideoEncoder::QueryOutputBuffer(uint32_t &bufferIndex, int64_t timeoutUs
 
 int32_t VideoEncoder::Start()
 {
-    std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
 
     const int32_t ret = OH_VideoEncoder_Start(encoder_);
@@ -299,7 +287,6 @@ int32_t VideoEncoder::Start()
 int32_t VideoEncoder::Flush()
 {
     // Flush 会使此前通过回调或同步查询取得的 Buffer 索引失效，调用方需先结束对这些 Buffer 的访问。
-    std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_Flush(encoder_);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
@@ -310,7 +297,6 @@ int32_t VideoEncoder::Flush()
 int32_t VideoEncoder::Reset()
 {
     // Reset 会丢弃当前配置与缓存，编码器回到初始状态；不能将其当作可直接继续编码的 Flush 使用。
-    std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_Reset(encoder_);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
@@ -322,7 +308,6 @@ int32_t VideoEncoder::SetParameter(OH_AVFormat *format)
 {
     // 参数对象由调用方创建和销毁。本方法仅在编码器已启动期间转交参数，不保存 format 指针。
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Parameter format is null");
-    std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_SetParameter(encoder_, format);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
@@ -334,7 +319,6 @@ int32_t VideoEncoder::RegisterParameterCallback(OH_VideoEncoder_OnNeedInputParam
 {
     // 该回调仅适用于 surface 编码。userData 属于业务侧，必须在编码器停止回调前保持有效，避免异步回调访问悬空地址。
     CHECK_AND_RETURN_RET_LOG(callback != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input parameter callback is null");
-    std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_RegisterParameterCallback(encoder_, callback, userData);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
@@ -346,7 +330,6 @@ int32_t VideoEncoder::PushInputBuffer(CodecBufferInfo &info)
 {
     // GetInputBuffer 返回的 buffer 只在归还给 codec 前有效；空指针不可传给 OH_AVBuffer_SetBufferAttr。
     CHECK_AND_RETURN_RET_LOG(info.buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer is null");
-    std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
 
     int32_t ret = OH_AVBuffer_SetBufferAttr(info.buffer, &info.attr);
@@ -359,7 +342,6 @@ int32_t VideoEncoder::PushInputBuffer(CodecBufferInfo &info)
 int32_t VideoEncoder::PushInputParameter(uint32_t bufferIndex)
 {
     // 参数索引来自 RegisterParameterCallback；不能使用普通输入 Buffer 的索引替代。
-    std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_PushInputParameter(encoder_, bufferIndex);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
@@ -367,12 +349,11 @@ int32_t VideoEncoder::PushInputParameter(uint32_t bufferIndex)
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-int32_t VideoEncoder::FreeOutputBuffer(uint32_t bufferIndex)
+int32_t VideoEncoder::FreeOutputBuffer(const CodecBufferInfo &info)
 {
-    std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
 
-    int32_t ret = OH_VideoEncoder_FreeOutputBuffer(encoder_, bufferIndex);
+    int32_t ret = OH_VideoEncoder_FreeOutputBuffer(encoder_, info.bufferIndex);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
         "Free output data failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
@@ -380,7 +361,6 @@ int32_t VideoEncoder::FreeOutputBuffer(uint32_t bufferIndex)
 
 int32_t VideoEncoder::NotifyEndOfStream()
 {
-    std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
 
     int32_t ret = OH_VideoEncoder_NotifyEndOfStream(encoder_);
@@ -392,7 +372,6 @@ int32_t VideoEncoder::NotifyEndOfStream()
 int32_t VideoEncoder::Stop()
 {
     // Stop 前先清除缓存，确保已排队但尚未输出的编码数据不会落入下一次 Start。
-    std::unique_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
 
     int32_t ret = OH_VideoEncoder_Flush(encoder_);
@@ -405,7 +384,6 @@ int32_t VideoEncoder::Stop()
 
 int32_t VideoEncoder::Release()
 {
-    std::unique_lock<std::shared_mutex> lock(codecMutex);
     if (encoder_ != nullptr) {
         // Destroy 是编码器句柄的最终释放点。销毁后立即置空，避免后续调用继续使用失效句柄。
         const int32_t ret = OH_VideoEncoder_Destroy(encoder_);
@@ -418,21 +396,18 @@ int32_t VideoEncoder::Release()
 
 OH_AVFormat *VideoEncoder::GetOutputDescription()
 {
-    std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, nullptr, "Encoder is null");
     return OH_VideoEncoder_GetOutputDescription(encoder_);
 }
 
 OH_AVFormat *VideoEncoder::GetInputDescription()
 {
-    std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, nullptr, "Encoder is null");
     return OH_VideoEncoder_GetInputDescription(encoder_);
 }
 
 int32_t VideoEncoder::IsValid(bool &isValid)
 {
-    std::shared_lock<std::shared_mutex> lock(codecMutex);
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     // 先置为 false，确保底层查询失败时调用方不会误用上一次查询留下的结果。
     isValid = false;

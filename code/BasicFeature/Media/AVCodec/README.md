@@ -115,9 +115,9 @@ Recording also depends on device capability. The camera profile, encoder's suppo
 
 ### Preview
 
-| Playback settings | Source selection | Playback speed | Recording page |
+| Playback | Media library | Recording | Start recording |
 |---|---|---|---|
-| ![Playback settings](screenshots/playback-settings.jpeg) | ![Source selection](screenshots/playback-source-picker.jpeg) | ![Playback speed](screenshots/playback-speed.jpeg) | ![Recording page](screenshots/recording-page.jpeg) |
+| ![Playback](screenshots/playback-main.png) | ![Media library](screenshots/media-library.png) | ![Recording](screenshots/recording-preview.png) | ![Start recording](screenshots/recording-started.png) |
 
 ### Usage
 

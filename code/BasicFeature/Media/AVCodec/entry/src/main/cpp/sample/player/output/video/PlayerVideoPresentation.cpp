@@ -143,7 +143,7 @@ bool ReleaseVideoBufferAfterFailure(VideoDecoder *decoder, const CodecBufferInfo
         AVCODEC_SAMPLE_LOGE("%{public}s: decoder buffer is unavailable", reason);
         return false;
     }
-    if (decoder->FreeOutputBuffer(bufferInfo.bufferIndex, false) != AVCODEC_SAMPLE_ERR_OK) {
+    if (decoder->FreeOutputBuffer(bufferInfo, false) != AVCODEC_SAMPLE_ERR_OK) {
         AVCODEC_SAMPLE_LOGW("%{public}s: free video output buffer failed", reason);
         return false;
     }
