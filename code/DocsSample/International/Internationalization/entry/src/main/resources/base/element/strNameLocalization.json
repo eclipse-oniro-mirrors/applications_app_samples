@@ -19,6 +19,14 @@
     {
       "name": "ResultOfTimezoneName",
       "value": "显示时区名称（以美洲/圣保罗为例）: "
+    },
+    {
+      "name": "ResultOfSystemLocale",
+      "value": "系统区域与DateTimeFormat测试结果: "
+    },
+    {
+      "name": "ResultOfBestMatchLocale",
+      "value": "最佳匹配语言测试结果: "
     }
   ]
 }
