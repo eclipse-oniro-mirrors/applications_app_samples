@@ -201,12 +201,14 @@ int32_t Recorder::StartAudioPipeline(std::unique_lock<std::mutex> &lock)
 
 void Recorder::VideoEncOutputSyncThread()
 {
+    // [Start encoder_sync_output_buffer]
     while (true) {
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         std::unique_lock<std::mutex> lock(encContext_->outputMutex);
         CodecBufferInfo bufferInfo;
-        CHECK_AND_BREAK_LOG(videoEncoder_
-                            ->GetOutputBuffer(bufferInfo, TIMEOUT_US), "VD Get out buffer failed, thread out");
+        CHECK_AND_BREAK_LOG(videoEncoder_->GetOutputBuffer(bufferInfo, TIMEOUT_US),
+            "Get output buffer failed, thread out");
+        // [StartExclude encoder_sync_output_buffer]
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         lock.unlock();
 
@@ -225,13 +227,12 @@ void Recorder::VideoEncOutputSyncThread()
         AVCODEC_SAMPLE_LOGW("Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
                             encContext_->outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags,
                             bufferInfo.attr.pts);
-
         // 写入完成后立即按原索引归还输出 Buffer；长期持有会耗尽编码器输出队列。
         muxer_->WriteSample(muxer_->GetVideoTrackId(), bufferInfo.buffer,
                             bufferInfo.attr);
+        // [EndExclude encoder_sync_output_buffer]
         int32_t ret = videoEncoder_->FreeOutputBuffer(bufferInfo);
         CHECK_AND_BREAK_LOG(ret == AVCODEC_SAMPLE_ERR_OK, "Encoder output thread out");
-
         if (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
             AVCODEC_SAMPLE_LOGI("Video EOS processed (sync), notifying StopEnd");
             isVideoEos_.store(true);
@@ -240,18 +241,23 @@ void Recorder::VideoEncOutputSyncThread()
             break;
         }
     }
+    // [End encoder_sync_output_buffer]
     AVCODEC_SAMPLE_LOGI("Exit, frame count: %{public}u", encContext_->outputFrameCount);
     StartRelease();
 }
 
 void Recorder::VideoEncOutputAsyncThread()
 {
+    // [Start encoder_output_buffer]
     while (true) {
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
+        // 获取输出buffer。
         std::shared_ptr<CodecBufferInfo> bufferInfo = encContext_->outputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(encContext_->codecMutex);
-        CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
+        // 开发者可根据业务需要，对输出数据进行保存/释放处理。
+        // [StartExclude encoder_output_buffer]
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
+        CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
 
         if ((bufferInfo->attr.flags & AVCODEC_BUFFER_FLAGS_SYNC_FRAME) ||
                 (bufferInfo->attr.flags == AVCODEC_BUFFER_FLAGS_NONE)) {
@@ -268,13 +274,13 @@ void Recorder::VideoEncOutputAsyncThread()
         AVCODEC_SAMPLE_LOGW("Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
                             encContext_->outputFrameCount, bufferInfo->attr.size, bufferInfo->attr.flags,
                             bufferInfo->attr.pts);
-
         // 回调队列只保存 Buffer 和索引快照；写入 Muxer 后必须尽快归还给编码器。
         muxer_->WriteSample(muxer_->GetVideoTrackId(), bufferInfo->buffer,
                             bufferInfo->attr);
+        // [EndExclude encoder_output_buffer]
         int32_t ret = videoEncoder_->FreeOutputBuffer(*bufferInfo);
         CHECK_AND_BREAK_LOG(ret == AVCODEC_SAMPLE_ERR_OK, "Encoder output thread out");
-
+        // [End encoder_output_buffer]
         if (bufferInfo->attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
             AVCODEC_SAMPLE_LOGI("Video EOS processed, notifying StopEnd");
             isVideoEos_.store(true);
@@ -338,6 +344,7 @@ void Recorder::ReleaseThread()
     }
 }
 
+// [Start recorder_release]
 void Recorder::ReleaseVideoEncoder()
 {
     if (videoEncoder_ != nullptr) {
@@ -357,6 +364,7 @@ void Recorder::ReleaseVideoEncoder()
         }
     }
 }
+// [End recorder_release]
 
 void Recorder::ReleaseAudioEncoder()
 {
