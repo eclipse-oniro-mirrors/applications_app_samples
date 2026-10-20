@@ -229,7 +229,6 @@ export default function eventHandlingTest() {
 
       // 使用组件计数验证弹窗功能正常，替代焦点验证
       const componentCount = await appComponentCount(driver);
-      console.log('EventHandling test: Component count after response time test:', componentCount);
       expect(componentCount).assertLargerOrEqual(1);
     });
 
@@ -248,7 +247,6 @@ export default function eventHandlingTest() {
 
       // 使用组件计数验证弹窗功能正常，替代焦点验证
       const componentCount = await appComponentCount(driver);
-      console.log('EventHandling test: Component count after concurrent events:', componentCount);
       expect(componentCount).assertLargerOrEqual(1);
     });
 

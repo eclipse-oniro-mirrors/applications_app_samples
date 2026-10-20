@@ -196,17 +196,14 @@ export default function appGridRenderingTest() {
       const focusedComponent = await driver.findComponent(ON.focused(true));
 
       if (!focusedComponent) {
-        console.log('components_should_have_correct_ids: No focused component found');
         expect(true).assertTrue();
         return;
       }
 
       try {
         const componentId = await focusedComponent.getId();
-        console.log('components_should_have_correct_ids: Component ID:', componentId);
         expect(componentId !== null && componentId !== undefined).assertTrue();
       } catch (error) {
-        console.log('components_should_have_correct_ids: Error getting component ID:', error);
         expect(true).assertTrue();
       }
     });
@@ -251,8 +248,6 @@ export default function appGridRenderingTest() {
       const images = await findComponentsByType(driver, 'Image');
       const texts = await findComponentsByType(driver, 'Text');
 
-      console.log('Hierarchy check - Rows:', rows.length, 'Columns:', columns.length, 'Images:', images.length,
-        'Texts:', texts.length);
 
       expect(rows.length).assertLargerOrEqual(0);
       expect(columns.length).assertLargerOrEqual(0);

@@ -202,7 +202,6 @@ export default function comprehensiveRegressionTest() {
         await driver.delayMs(500);
       });
 
-      console.log('beforeAll: Test environment initialized successfully');
     });
 
     afterAll(async () => { // 关闭弹窗
@@ -210,7 +209,6 @@ export default function comprehensiveRegressionTest() {
       await runSerializedUiOperation(async () => {
         await driver.delayMs(300);
       });
-      console.log(regressionRecorder.generateRegressionReport());
     });
 
     // 测试1：基础功能回归 - 验证弹窗渲染、文本内容和焦点状态正常

@@ -150,7 +150,6 @@ export default function errorRecoveryTest() {
     it('grid_should_recover_from_component_render_failure', 0, async () => {
       await waitForUiStable(driver, TIMEOUT_DIALOG_RENDER);
       const initialCount = await appComponentCount(driver);
-      console.log('ErrorRecovery test: Initial component count:', initialCount);
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
@@ -159,7 +158,6 @@ export default function errorRecoveryTest() {
 
       await waitForUiStable(driver, TIMEOUT_DIALOG_RENDER);
       const finalCount = await appComponentCount(driver);
-      console.log('ErrorRecovery test: Final component count:', finalCount);
 
       // Use realistic expectation based on actual component count
       // The dialog should have at least 1 component to be functional

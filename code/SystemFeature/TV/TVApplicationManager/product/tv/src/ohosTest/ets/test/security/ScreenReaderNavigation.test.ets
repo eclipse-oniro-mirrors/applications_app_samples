@@ -95,7 +95,6 @@ export default function screenReaderNavigationTest() {
 
     // 测试前置：初始化驱动和追踪器，确保测试环境干净
     beforeAll(async () => {
-      console.log('beforeAll: Starting test setup...');
       driver = createFreshDriver(); // 单例模式获取实例：确保跨测试用例数据一致性，避免状态污染
       screenReaderTracker = ScreenReaderTracker.getInstance();
       screenReaderTracker.resetTracker();
@@ -106,7 +105,6 @@ export default function screenReaderNavigationTest() {
       // 尝试触发应用操作菜单，最多重试3次
       let dialogStable = false;
       for (let attempt = 1; attempt <= 3; attempt++) {
-        console.log('beforeAll: Attempt', attempt, 'to trigger app menu');
 
         // 触发应用操作菜单
         await triggerMenuDialog(driver);
@@ -115,10 +113,8 @@ export default function screenReaderNavigationTest() {
         dialogStable = await waitForUiStable(driver, TIMEOUT_DIALOG_RENDER * 2);
 
         if (dialogStable) {
-          console.log('beforeAll: App menu displayed successfully on attempt', attempt);
           break;
         } else {
-          console.log('beforeAll: App menu not displayed on attempt', attempt);
 
           // 如果失败，等待一段时间后重试
           if (attempt < 3) {
@@ -148,7 +144,6 @@ export default function screenReaderNavigationTest() {
         await Promise.race([cleanupPromise, timeoutPromise]);
         await serializedDelay(driver, 500);
       } catch (error) {
-        console.log('Cleanup completed with error:', error.message); // 即使清理失败也不影响测试结果
       }
     });
 
@@ -161,11 +156,9 @@ export default function screenReaderNavigationTest() {
 
       // 获取当前焦点索引，而不是假设初始焦点位置
       const initialFocusIndex = await getCurrentFocusIndex(driver);
-      console.log('all_options_should_be_focusable: Initial focus index:', initialFocusIndex);
 
       // 如果找不到焦点，跳过后续焦点检查
       if (initialFocusIndex < 0) {
-        console.log('all_options_should_be_focusable: No focus found, skipping focus state checks');
         return;
       }
 
@@ -177,7 +170,6 @@ export default function screenReaderNavigationTest() {
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
       const nextFocusIndex = await getCurrentFocusIndex(driver);
-      console.log('all_options_should_be_focusable: Next focus index:', nextFocusIndex);
 
       if (nextFocusIndex >= 0) {
         expect(nextFocusIndex).assertLargerOrEqual(0);
@@ -187,7 +179,6 @@ export default function screenReaderNavigationTest() {
 
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
       const finalFocusIndex = await getCurrentFocusIndex(driver);
-      console.log('all_options_should_be_focusable: Final focus index:', finalFocusIndex);
 
       if (finalFocusIndex >= 0) {
         expect(finalFocusIndex).assertLargerOrEqual(0);
@@ -313,18 +304,14 @@ export default function screenReaderNavigationTest() {
 
       // 首先验证弹窗组件存在
       const initialComponentCount = await appComponentCount(driver);
-      console.log('navigation_should_preserve_component_visibility: Initial component count:', initialComponentCount);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
       // 使用更通用的组件检查方法，检查Text组件而不是Image
       const initialTexts = await checkComponentExists(driver, 'Text');
-      console.log('navigation_should_preserve_component_visibility: Initial Text components exist:', initialTexts);
 
       // 如果Text组件不存在，尝试检查Button组件
       if (!initialTexts) {
         const initialButtons = await checkComponentExists(driver, 'Button');
-        console.log('navigation_should_preserve_component_visibility: Initial Button components exist:',
-          initialButtons);
         expect(initialButtons).assertTrue();
       } else {
         expect(initialTexts).assertTrue();
@@ -335,17 +322,14 @@ export default function screenReaderNavigationTest() {
 
       // 验证组件数量仍然正常
       const finalComponentCount = await appComponentCount(driver);
-      console.log('navigation_should_preserve_component_visibility: Final component count:', finalComponentCount);
       expect(finalComponentCount).assertLargerOrEqual(1);
 
       // 使用更通用的组件检查方法
       const finalTexts = await checkComponentExists(driver, 'Text');
-      console.log('navigation_should_preserve_component_visibility: Final Text components exist:', finalTexts);
 
       // 如果Text组件不存在，尝试检查Button组件
       if (!finalTexts) {
         const finalButtons = await checkComponentExists(driver, 'Button');
-        console.log('navigation_should_preserve_component_visibility: Final Button components exist:', finalButtons);
         expect(finalButtons).assertTrue();
       } else {
         expect(finalTexts).assertTrue();
@@ -425,7 +409,6 @@ export default function screenReaderNavigationTest() {
 
       // 首先验证弹窗组件存在
       const initialComponentCount = await appComponentCount(driver);
-      console.log('navigation_should_handle_back_key_correctly: Initial component count:', initialComponentCount);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
       screenReaderTracker.resetTracker();
@@ -446,25 +429,20 @@ export default function screenReaderNavigationTest() {
 
         // 使用更宽松的弹窗稳定检查
         const dialogStable = await waitForUiStable(driver, 3000);
-        console.log('navigation_should_handle_back_key_correctly: Dialog stable after back key:', dialogStable);
 
         // 即使弹窗不稳定，也检查组件数量
         const componentCount = await appComponentCount(driver);
-        console.log('navigation_should_handle_back_key_correctly: Final component count:', componentCount);
         expect(componentCount).assertLargerOrEqual(1);
 
         // 如果弹窗稳定检查失败，但组件数量正常，测试仍然通过
         if (!dialogStable) {
-          console.log('navigation_should_handle_back_key_correctly: Dialog not stable but component count is OK');
         } else {
           expect(dialogStable).assertTrue();
         }
       } catch (error) {
-        console.log('navigation_should_handle_back_key_correctly: Back key operation failed:', error.message);
 
         // 即使返回键操作失败，也检查当前状态
         const componentCount = await appComponentCount(driver);
-        console.log('navigation_should_handle_back_key_correctly: Component count after error:', componentCount);
         expect(componentCount).assertLargerOrEqual(1);
       }
     });
@@ -480,11 +458,9 @@ export default function screenReaderNavigationTest() {
 
       // 获取初始焦点位置
       const initialFocusIndex = await getCurrentFocusIndex(driver);
-      console.log('navigation_should_validate_focus_state: Initial focus index:', initialFocusIndex);
 
       // 如果找不到焦点，跳过后续焦点检查
       if (initialFocusIndex < 0) {
-        console.log('navigation_should_validate_focus_state: No focus found, skipping focus state checks');
         return;
       }
 
@@ -497,7 +473,6 @@ export default function screenReaderNavigationTest() {
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
       const nextFocusIndex = await getCurrentFocusIndex(driver);
-      console.log('navigation_should_validate_focus_state: Next focus index:', nextFocusIndex);
 
       if (nextFocusIndex >= 0) {
         expect(nextFocusIndex).assertLargerOrEqual(0);
@@ -508,7 +483,6 @@ export default function screenReaderNavigationTest() {
 
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
       const finalFocusIndex = await getCurrentFocusIndex(driver);
-      console.log('navigation_should_validate_focus_state: Final focus index:', finalFocusIndex);
 
       if (finalFocusIndex >= 0) {
         expect(finalFocusIndex).assertLargerOrEqual(0);
@@ -539,7 +513,6 @@ export default function screenReaderNavigationTest() {
 
       // 验证焦点状态正常
       const focusIndex = await getCurrentFocusIndex(driver);
-      console.log('navigation_should_handle_edge_cases: Final focus index:', focusIndex);
 
       if (focusIndex >= 0) {
         expect(focusIndex).assertLargerOrEqual(0);

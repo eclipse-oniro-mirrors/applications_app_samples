@@ -247,7 +247,6 @@ export default function configurationChangesTest() {
 
       // Use component-based validation instead of focus validation
       const initialComponentCount = await appComponentCount(driver);
-      console.log('ConfigurationChanges test: Initial component count:', initialComponentCount);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
       configTracker.recordChange('config', 'default', 'modified', true);
@@ -255,7 +254,6 @@ export default function configurationChangesTest() {
 
       // Validate dialog remains functional after configuration changes
       const finalComponentCount = await appComponentCount(driver);
-      console.log('ConfigurationChanges test: Final component count:', finalComponentCount);
       expect(finalComponentCount).assertLargerOrEqual(1);
     });
 

@@ -312,7 +312,6 @@ export default function gridFocusNavigationTest() {
 
       // Use alternative validation: check if dialog is responsive to navigation
       const initialComponentCount = await appComponentCount(driver);
-      console.log('FocusNavigation test: Initial component count:', initialComponentCount);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
@@ -320,7 +319,6 @@ export default function gridFocusNavigationTest() {
 
       // Verify navigation occurred by checking component state
       const afterNavigationCount = await appComponentCount(driver);
-      console.log('FocusNavigation test: After navigation component count:', afterNavigationCount);
 
       // The main validation: navigation should not crash or close the dialog
       expect(afterNavigationCount).assertLargerOrEqual(1);
@@ -335,7 +333,6 @@ export default function gridFocusNavigationTest() {
 
       // Final validation: dialog should still be functional after back/reopen
       const finalComponentCount = await appComponentCount(driver);
-      console.log('FocusNavigation test: Final component count:', finalComponentCount);
       expect(finalComponentCount).assertLargerOrEqual(1);
     });
 
@@ -365,7 +362,6 @@ export default function gridFocusNavigationTest() {
 
       // Validate dialog is initially functional
       const initialComponentCount = await appComponentCount(driver);
-      console.log('FocusNavigation test: Initial component count for idle test:', initialComponentCount);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
@@ -373,7 +369,6 @@ export default function gridFocusNavigationTest() {
 
       // Verify navigation occurred
       const afterNavigationCount = await appComponentCount(driver);
-      console.log('FocusNavigation test: After navigation component count:', afterNavigationCount);
       expect(afterNavigationCount).assertLargerOrEqual(1);
       focusTracker.recordNavigation(0, 1, 'right');
 
@@ -381,7 +376,6 @@ export default function gridFocusNavigationTest() {
 
       // Validate dialog remains functional after idle period
       const afterIdleCount = await appComponentCount(driver);
-      console.log('FocusNavigation test: After idle component count:', afterIdleCount);
       expect(afterIdleCount).assertLargerOrEqual(1);
     });
 
@@ -437,7 +431,6 @@ export default function gridFocusNavigationTest() {
 
       // Validate dialog is initially functional
       const initialComponentCount = await appComponentCount(driver);
-      console.log('FocusNavigation test: Initial component count for ENTER test:', initialComponentCount);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
       await pressAndWait(driver, KEY_ENTER, 1, DELAY_KEY_NAVIGATION);
@@ -445,7 +438,6 @@ export default function gridFocusNavigationTest() {
 
       // Validate dialog remains functional after ENTER key
       const finalComponentCount = await appComponentCount(driver);
-      console.log('FocusNavigation test: Final component count after ENTER:', finalComponentCount);
       expect(finalComponentCount).assertLargerOrEqual(1);
     });
 
@@ -457,7 +449,6 @@ export default function gridFocusNavigationTest() {
 
       // Validate dialog is initially functional
       const initialComponentCount = await appComponentCount(driver);
-      console.log('FocusNavigation test: Initial component count for long press:', initialComponentCount);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
       await driver.triggerKey(KEY_RIGHT);
@@ -465,7 +456,6 @@ export default function gridFocusNavigationTest() {
 
       // Validate dialog remains functional after long press
       const afterLongPressCount = await appComponentCount(driver);
-      console.log('FocusNavigation test: After long press component count:', afterLongPressCount);
       expect(afterLongPressCount).assertLargerOrEqual(1);
       focusTracker.recordNavigation(0, 1, 'right_long');
     });
@@ -496,11 +486,9 @@ export default function gridFocusNavigationTest() {
 
       // Validate dialog is initially functional
       const initialComponentCount = await appComponentCount(driver);
-      console.log('FocusNavigation test: Initial component count for cycles test:', initialComponentCount);
       expect(initialComponentCount).assertLargerOrEqual(1);
 
       for (let cycle = 0; cycle < 3; cycle++) {
-        console.log('FocusNavigation test: Starting cycle', cycle);
 
         await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
         await driver.delayMs(200); // Allow UI to respond
@@ -513,7 +501,6 @@ export default function gridFocusNavigationTest() {
 
         // Validate dialog remains functional after each cycle
         const cycleComponentCount = await appComponentCount(driver);
-        console.log('FocusNavigation test: Cycle', cycle, 'component count:', cycleComponentCount);
         expect(cycleComponentCount).assertLargerOrEqual(1);
 
         // Record navigation for tracking purposes

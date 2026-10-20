@@ -327,14 +327,12 @@ export default function appOperationFlowTest() {
 
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION); // 使用组件计数验证弹窗功能正常，替代焦点验证
       let componentCount = await appComponentCount(driver);
-      console.log('AppOperationFlow test: Component count after LEFT key:', componentCount);
       expect(componentCount).assertLargerOrEqual(1);
       operationTracker.recordOperation(AppOperationType.UNINSTALL, 0, true, 100);
 
       await waitForUiStable(driver, TIMEOUT_DIALOG_RENDER);
       await pressAndWait(driver, KEY_RIGHT, 2, DELAY_KEY_NAVIGATION); // 使用组件计数验证弹窗功能正常，替代焦点验证
       componentCount = await appComponentCount(driver);
-      console.log('AppOperationFlow test: Component count after RIGHT key:', componentCount);
       expect(componentCount).assertLargerOrEqual(1);
       operationTracker.recordOperation(AppOperationType.SHORTCUT, 2, true, 100);
     });

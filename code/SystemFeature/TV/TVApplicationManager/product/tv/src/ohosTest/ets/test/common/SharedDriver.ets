@@ -151,20 +151,14 @@ export async function appComponentCount(driver: Driver): Promise<number> {
       const count = allComponents ? allComponents.length : 0;
 
       // 详细调试信息
-      console.log('appComponentCount:');
-      console.log('  - Found', count, 'components using ON.type(\"*\")');
 
       if (count === 0) { // 如果找不到组件，尝试其他查找策略
-        console.log('  - Trying alternative component search strategies...');
 
         // 尝试查找特定类型的组件
         const textComponents = await driver.findComponents(ON.type('Text'));
         const imageComponents = await driver.findComponents(ON.type('Image'));
         const buttonComponents = await driver.findComponents(ON.type('Button'));
 
-        console.log('  - Text components:', textComponents ? textComponents.length : 0);
-        console.log('  - Image components:', imageComponents ? imageComponents.length : 0);
-        console.log('  - Button components:', buttonComponents ? buttonComponents.length : 0);
 
         // 返回最大的组件数量
         const maxCount =
@@ -172,7 +166,6 @@ export async function appComponentCount(driver: Driver): Promise<number> {
             buttonComponents ? buttonComponents.length : 0);
 
         if (maxCount > 0) {
-          console.log('  - Using alternative count:', maxCount);
           return maxCount;
         }
       }
@@ -201,19 +194,16 @@ export async function checkFocusState(driver: Driver, expectedFocusedIndex: numb
         // 如果期望索引为-1，表示只检查焦点是否存在
         if (expectedFocusedIndex === -1) {
           const hasFocus = !!focusedComponent;
-          console.log('checkFocusState: Focus existence check - hasFocus:', hasFocus, 'attempt:', attempt);
           return hasFocus;
         }
 
         // 如果没有找到焦点组件，直接返回false
         if (!focusedComponent) {
-          console.log('checkFocusState: No focused component found, attempt:', attempt);
           return false;
         }
 
         // 如果没有组件或组件数量不足，返回false
         if (allComponents.length === 0 || expectedFocusedIndex >= allComponents.length) {
-          console.log('checkFocusState: Invalid component count or index, attempt:', attempt);
           return false;
         }
 
@@ -221,11 +211,8 @@ export async function checkFocusState(driver: Driver, expectedFocusedIndex: numb
         try {
           const targetComponent = allComponents[expectedFocusedIndex];
           const isFocused = await targetComponent.isFocused();
-          console.log('checkFocusState: Component at index', expectedFocusedIndex, 'isFocused:', isFocused, 'attempt:',
-            attempt);
           return isFocused;
         } catch (e) {
-          console.log('checkFocusState: Error checking focus for component', expectedFocusedIndex, 'attempt:', attempt);
           return false;
         }
       });
@@ -250,25 +237,21 @@ export async function checkFocusState(driver: Driver, expectedFocusedIndex: numb
  */
 export async function waitForUiStable(driver: Driver, maxWaitMs: number = TIMEOUT_DIALOG_RENDER): Promise<boolean> {
   try {
-    console.log('waitForUiStable: Starting quick dialog check, maxWaitMs:', maxWaitMs);
     const startTime = Date.now();
 
     while (Date.now() - startTime < maxWaitMs) {
       const currentCount = await appComponentCount(driver);
       const elapsedTime = Date.now() - startTime;
 
-      console.log('waitForUiStable: Count:', currentCount, '- Elapsed:', elapsedTime, 'ms');
 
       // 如果组件数量大于0，立即返回成功
       if (currentCount > 0) {
-        console.log('waitForUiStable: Dialog visible after', elapsedTime, 'ms');
         return true;
       }
 
       await serializedDelay(driver, 100);
     }
 
-    console.log('waitForUiStable: Timeout after', maxWaitMs, 'ms');
     return false;
   } catch (error) {
     console.error('waitForUiStable error:', error);
@@ -294,27 +277,21 @@ export async function checkTextContent(driver: Driver, expectedText: string): Pr
       const texts = await driver.findComponents(ON.type('Text')) ?? [];
 
       if (texts.length === 0) {
-        console.log('checkTextContent: No text components found');
         return false;
       }
 
-      console.log('checkTextContent: Found', texts.length, 'text components');
 
       // 遍历所有文本组件逐一匹配，避免遗漏嵌套在深层容器中的文本
       for (const text of texts) {
         try {
           const content = await text.getText();
-          console.log('checkTextContent: Checking text:', content, 'expected:', expectedText);
           if (content === expectedText) {
-            console.log('checkTextContent: Match found!');
             return true;
           }
         } catch (error) {
-          console.log('checkTextContent: Error getting text from component:', error); // 单个组件获取文本失败不影响其他组件的匹配，继续遍历剩余组件
         }
       }
 
-      console.log('checkTextContent: No matching text found');
       return false;
     });
   } catch (error) {
@@ -346,7 +323,6 @@ export async function triggerMenuDialog(driver: Driver): Promise<void> {
     await driver.triggerKey(KEY_MENU);
     await driver.delayMs(1000);
 
-    console.log('App menu triggered');
   });
 }
 
@@ -374,11 +350,8 @@ async function delay(ms: number): Promise<void> {
 export async function checkComponentExists(driver: Driver, type: string): Promise<boolean> {
   try {
     return await runSerializedUiOperation(async () => {
-      console.log('checkComponentExists: Searching for component type:', type);
       const components = await driver.findComponents(ON.type(type));
       const exists = components !== null && components !== undefined && components.length > 0;
-      console.log('checkComponentExists: Type', type, 'exists:', exists, 'components found:',
-        components ? components.length : 0);
       return exists;
     });
   } catch (error) {
@@ -393,41 +366,32 @@ export async function checkComponentExists(driver: Driver, type: string): Promis
 export async function getCurrentFocusIndex(driver: Driver): Promise<number> {
   try {
     return await runSerializedUiOperation(async () => {
-      console.log('getCurrentFocusIndex: Starting focus search...');
 
       // 直接使用ON.focused(true)查找当前焦点组件
       const focusedComponent = await driver.findComponent(ON.focused(true));
       if (!focusedComponent) {
-        console.log('getCurrentFocusIndex: No focused component found using ON.focused(true)');
         return -1;
       }
 
-      console.log('getCurrentFocusIndex: Found focused component using ON.focused(true)');
 
       // 获取所有组件并查找焦点索引
       const allComponents: Component[] = await driver.findComponents(ON.type('*'));
       if (!allComponents || allComponents.length === 0) {
-        console.log('getCurrentFocusIndex: No components found');
         return -1;
       }
 
-      console.log('getCurrentFocusIndex: Found', allComponents.length, 'total components');
 
       for (let i = 0; i < allComponents.length; i++) {
         const component = allComponents[i];
         try {
           const isFocused = await component.isFocused();
-          console.log('getCurrentFocusIndex: Component', i, 'isFocused:', isFocused);
           if (isFocused) {
-            console.log('getCurrentFocusIndex: Focus found at index', i);
             return i;
           }
         } catch (e) {
-          console.log('getCurrentFocusIndex: Error checking focus for component', i, ':', e.message); // 继续检查下一个组件
         }
       }
 
-      console.log('getCurrentFocusIndex: No focused component found in component list');
       return -1;
     });
   } catch (error) {

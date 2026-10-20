@@ -221,7 +221,6 @@ export default function appUninstallOperationTest() {
 
       // 首先验证初始焦点状态
       const initialFocusIndex = await getCurrentFocusIndex(driver);
-      console.log('AppUninstallOperation test: Initial focus index:', initialFocusIndex);
 
       // 导航到快捷方式选项
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
@@ -231,22 +230,17 @@ export default function appUninstallOperationTest() {
 
       // 验证导航后焦点状态 - 使用更宽松的验证策略
       const focusIndex = await getCurrentFocusIndex(driver);
-      console.log('AppUninstallOperation test: After KEY_RIGHT focus index:', focusIndex);
 
       // 检查是否有任何组件获得焦点，而不强制要求特定索引
       const hasAnyFocus = await checkFocusState(driver, -1);
-      console.log('AppUninstallOperation test: Has any focus:', hasAnyFocus);
 
       // 如果没有任何焦点，可能是弹窗状态已改变，检查组件数量
       if (!hasAnyFocus) {
         const componentCount = await appComponentCount(driver);
-        console.log('AppUninstallOperation test: Component count when no focus:', componentCount);
 
         // 如果还有组件存在，说明弹窗仍在但可能处于特殊状态
         if (componentCount > 0) { // 弹窗仍在，但可能处于过渡状态，继续测试
-          console.log('AppUninstallOperation test: Dialog exists but no focus, continuing test');
         } else { // 弹窗可能已被关闭，重新打开
-          console.log('AppUninstallOperation test: Dialog appears closed, attempting to reopen');
           await triggerMenuDialog(driver);
           await waitForUiStable(driver, TIMEOUT_DIALOG_RENDER);
         }
@@ -258,11 +252,9 @@ export default function appUninstallOperationTest() {
 
       // 验证操作后状态 - 弹窗可能被关闭或处于新状态
       const finalComponentCount = await appComponentCount(driver);
-      console.log('AppUninstallOperation test: Final component count:', finalComponentCount);
 
       // 主要验证应用操作是否被正确记录，而不是强制要求弹窗状态
       const operationLog = mockAppService.getOperationLog();
-      console.log('AppUninstallOperation test: Operation log length:', operationLog.length);
 
       // 如果弹窗仍在，验证组件数量；否则验证操作是否被记录
       if (finalComponentCount > 0) {
