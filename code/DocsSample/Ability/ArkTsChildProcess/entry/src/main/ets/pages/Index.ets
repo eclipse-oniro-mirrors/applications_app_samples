@@ -12,10 +12,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start arkts_child_process_arg]
 // [Start arkts_child_process_noarg_one]
 // [Start arkts_child_process_noarg_two]
+import { childProcessManager } from '@kit.AbilityKit';
+// [Start arkts_child_process_arg]
+// [StartExclude arkts_child_process_noarg_one]
+// [StartExclude arkts_child_process_noarg_two]
 import { common, ChildProcessArgs, ChildProcessOptions, childProcessManager } from '@kit.AbilityKit';
+// [EndExclude arkts_child_process_noarg_one]
+// [EndExclude arkts_child_process_noarg_two]
 import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude arkts_child_process_arg]
 import DemoProcessNoArg from '../process/DemoProcessNoArg';
