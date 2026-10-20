@@ -1512,7 +1512,7 @@ To download only this sample with sparse checkout:
 ```text
 git init
 git config core.sparsecheckout true
-echo code/BasicFeature/Media/AVCodec/ > .git/info/sparse-checkout
+echo code/DocsSample/Media/AVCodec/AVCodec/ > .git/info/sparse-checkout
 git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
