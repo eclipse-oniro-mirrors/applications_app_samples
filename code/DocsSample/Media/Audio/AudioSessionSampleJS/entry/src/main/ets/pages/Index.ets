@@ -733,11 +733,8 @@ async function printAudioSessionInfo(context: common.UIAbilityContext){
   let filePath = context.filesDir + '/audio_session_info.txt';
   let fd = fs.openSync(filePath, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC).fd;
   // 输出到文件。
-  try {
-    audioDebuggingManager.printSessionInfo(audioSessionManager, fd);
-  } finally {
-    fs.closeSync(fd);
-  }
+  audioDebuggingManager.printSessionInfo(audioSessionManager, fd);
+  fs.closeSync(fd);
   // [End print_session_info]
   console.info('print audio session info filePath: ' + filePath);
 }
