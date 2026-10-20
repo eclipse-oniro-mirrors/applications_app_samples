@@ -59,19 +59,19 @@ int ReadHttpBodyOnWorkerThread(void* userData)
     if (initResult == 0) {
         OH_LOG_INFO(LOG_APP, "cnd_init success.");
     } else {
-        OH_LOG_INFO(LOG_APP, "cnd_init fail.");
+        OH_LOG_ERROR(LOG_APP, "cnd_init fail.");
     }
     int mtxResult = mtx_init(&g_httpBodyMtx, mtx_plain);
     if (mtxResult == 0) {
         OH_LOG_INFO(LOG_APP, "mtx_init success.");
     } else {
-        OH_LOG_INFO(LOG_APP, "mtx_init fail.");
+        OH_LOG_ERROR(LOG_APP, "mtx_init fail.");
     }
     int waitResult = cnd_wait(&g_httpBodyCnd, &g_httpBodyMtx);
     if (waitResult == 0) {
         OH_LOG_INFO(LOG_APP, "cnd_wait success.");
     } else {
-        OH_LOG_INFO(LOG_APP, "cnd_wait fail.");
+        OH_LOG_ERROR(LOG_APP, "cnd_wait fail.");
     }
     return 0;
 }
@@ -141,7 +141,7 @@ void RawfileRequest::Start()
     // [EndExclude set_intercepted_request_response]
     OH_ArkWebResourceRequest_GetHttpBodyStream(resourceRequest(), &stream_);
     if (stream_) {
-        OH_LOG_ERROR(LOG_APP, "have http body stream");
+        OH_LOG_INFO(LOG_APP, "have http body stream");
         // [Start get_put_post_request_data]
         OH_ArkWebHttpBodyStream_SetUserData(stream_, this);
         OH_ArkWebHttpBodyStream_SetReadCallback(stream_, ReadCallback);
