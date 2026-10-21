@@ -197,6 +197,56 @@ bool SetEncoderCapabilities(napi_env env, napi_value object, OH_AVCapability *ca
     return OH_AVCapability_GetEncoderBitrateRange(capability, &bitrateRange) != AV_ERR_OK ||
         SetRange(env, object, "encoderBitrateRange", bitrateRange);
 }
+
+bool SetCodecProperties(napi_env env, napi_value item, OH_AVCodecType codecType, const char *codecName,
+    const char *mimeType, OH_AVCapability *capability)
+{
+    if (!SetInteger(env, item, "codecType", static_cast<int32_t>(codecType)) ||
+        !SetString(env, item, "codecName", codecName) ||
+        !SetString(env, item, "mimeType", mimeType) ||
+        !SetBoolean(env, item, "hardware", OH_AVCapability_IsHardware(capability)) ||
+        !SetInteger(env, item, "maxInstances", OH_AVCapability_GetMaxSupportedInstances(capability))) {
+        return false;
+    }
+
+    const bool isVideo = codecType == OH_AVCODEC_TYPE_VIDEO_DECODER || codecType == OH_AVCODEC_TYPE_VIDEO_ENCODER;
+    if (!(isVideo ? SetVideoCapabilities(env, item, capability) : SetAudioCapabilities(env, item, capability))) {
+        return false;
+    }
+
+    const bool isEncoder = codecType == OH_AVCODEC_TYPE_VIDEO_ENCODER || codecType == OH_AVCODEC_TYPE_AUDIO_ENCODER;
+    return !isEncoder || SetEncoderCapabilities(env, item, capability);
+}
+
+bool AppendCodecCapabilitiesForType(napi_env env, napi_value result, OH_AVCodecType codecType, uint32_t &resultIndex)
+{
+    uint32_t capabilityCount = 0;
+    OH_AVCapability **capabilities = OH_AVCodec_GetCapabilityList(codecType, &capabilityCount);
+    if (capabilities == nullptr) {
+        return true;
+    }
+
+    for (uint32_t index = 0; index < capabilityCount; ++index) {
+        OH_AVCapability *capability = capabilities[index];
+        if (capability == nullptr) {
+            continue;
+        }
+        const char *codecName = OH_AVCapability_GetName(capability);
+        const char *mimeType = OH_AVCapability_GetMimeType(capability);
+        if (codecName == nullptr || mimeType == nullptr) {
+            continue;
+        }
+
+        napi_value item = nullptr;
+        if (napi_create_object(env, &item) != napi_ok ||
+            !SetCodecProperties(env, item, codecType, codecName, mimeType, capability) ||
+            napi_set_element(env, result, resultIndex, item) != napi_ok) {
+            return false;
+        }
+        ++resultIndex;
+    }
+    return true;
+}
 } // namespace
 
 napi_value DeviceCodecCapabilityNative::GetAll(napi_env env, napi_callback_info info)
@@ -210,36 +260,9 @@ napi_value DeviceCodecCapabilityNative::GetAll(napi_env env, napi_callback_info 
 
     uint32_t resultIndex = 0;
     for (const OH_AVCodecType codecType : CODEC_TYPES) {
-        uint32_t capabilityCount = 0;
-        OH_AVCapability **capabilities = OH_AVCodec_GetCapabilityList(codecType, &capabilityCount);
-        if (capabilities == nullptr) {
-            continue;
-        }
-        for (uint32_t index = 0; index < capabilityCount; ++index) {
-            OH_AVCapability *capability = capabilities[index];
-            if (capability == nullptr) {
-                continue;
-            }
-            const char *codecName = OH_AVCapability_GetName(capability);
-            const char *mimeType = OH_AVCapability_GetMimeType(capability);
-            if (codecName == nullptr || mimeType == nullptr) {
-                continue;
-            }
-            napi_value item = nullptr;
-            if (napi_create_object(env, &item) != napi_ok ||
-                !SetInteger(env, item, "codecType", static_cast<int32_t>(codecType)) ||
-                !SetString(env, item, "codecName", codecName) ||
-                !SetString(env, item, "mimeType", mimeType) ||
-                !SetBoolean(env, item, "hardware", OH_AVCapability_IsHardware(capability)) ||
-                !SetInteger(env, item, "maxInstances", OH_AVCapability_GetMaxSupportedInstances(capability)) ||
-                !(codecType == OH_AVCODEC_TYPE_VIDEO_DECODER || codecType == OH_AVCODEC_TYPE_VIDEO_ENCODER ?
-                    SetVideoCapabilities(env, item, capability) : SetAudioCapabilities(env, item, capability)) ||
-                !((codecType == OH_AVCODEC_TYPE_VIDEO_ENCODER || codecType == OH_AVCODEC_TYPE_AUDIO_ENCODER) ?
-                    SetEncoderCapabilities(env, item, capability) : true) ||
-                napi_set_element(env, result, resultIndex++, item) != napi_ok) {
-                napi_throw_error(env, nullptr, "Serialize codec capability failed");
-                return nullptr;
-            }
+        if (!AppendCodecCapabilitiesForType(env, result, codecType, resultIndex)) {
+            napi_throw_error(env, nullptr, "Serialize codec capability failed");
+            return nullptr;
         }
     }
     return result;

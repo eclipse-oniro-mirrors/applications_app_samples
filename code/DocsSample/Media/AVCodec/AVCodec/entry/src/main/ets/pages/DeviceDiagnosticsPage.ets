@@ -331,7 +331,7 @@ export struct DeviceDiagnosticsPage {
       if (hostContext === undefined) {
         return;
       }
-      const result: Array<string> = await new picker.DocumentViewPicker(hostContext).save(options);
+      const result: string[] = await new picker.DocumentViewPicker(hostContext).save(options);
       if (result.length === 0) {
         return;
       }
