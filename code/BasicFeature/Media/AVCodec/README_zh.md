@@ -1097,8 +1097,6 @@ recorder.startNative()
 
 编码前处理对应 API 26 的视频编码预处理器。当前设置页提供降采样到 720P、中心裁剪到约 75% 画幅和目标帧率丢帧。它们作用在编码器收到的相机 Surface 帧上，应用不需要先把每帧拉回 CPU 再处理。预处理器按配置在编码前完成丢帧、降采样或裁剪；降采样与裁剪互斥，丢帧可以和其中一种组合。
 
-接口参数和使用说明见[视频编码前处理 API 文档](https://developer.huawei.com/consumer/cn/doc/doccenter-capabilities/video-encoding-preproc)。
-
 ```text
 CameraKit VideoOutput
         |
@@ -1116,7 +1114,7 @@ OH_VideoEncoder_CreatePrimaryWithPreproc
 
 - 原始画面不设置预处理 Key，编码器按相机输入尺寸和帧率工作。
 - 降采样同时设置目标宽度和高度，目标尺寸不能大于相机输入尺寸，并且设备能力查询必须通过。
-- 裁剪设置 `left/top/right/bottom` 四个坐标。YUV 4:2:0 输入要求左上坐标和裁剪宽高为偶数，设置模型会在生成中心裁剪矩形时自动对齐；Native 侧仍会再次校验，避免其他调用入口传入非法区域。
+- 裁剪设置 `left/top/right/bottom` 四个坐标。YUV 4:2:0 输入要求左上坐标和裁剪宽高为偶数。设置模型生成中心裁剪矩形时会自动对齐，Native 侧也会校验，拒绝不符合对齐要求的裁剪区域。
 - 丢帧目标帧率必须低于相机输入帧率。输入为 30fps 时，设置页会禁用丢帧选项；设置模型也会把无效组合归一为“不丢帧”。
 
 预处理后的尺寸会继续传到 Muxer 的视频轨道描述。比如主路输入是 1920x1080，裁剪区域是 1440x810，那么轨道登记的也是 1440x810；不能只改编码器 Key 而继续把原始尺寸写进容器，否则播放器会按错误的画面尺寸解释码流。
@@ -1128,8 +1126,6 @@ OH_VideoEncoder_CreatePrimaryWithPreproc
 ##### *一入二出*
 
 “一入二出”由同一相机输入生成两个独立文件。它适合同时保存高质量归档文件和低分辨率预览文件，用户只需要配置一次相机输入，不需要创建两路 CameraKit 录像输出。主编码器通过 `OH_VideoEncoder_CreatePrimaryWithPreproc()` 创建并取得唯一的 CameraKit 编码 Surface；副编码器通过 `OH_VideoEncoder_CreateSecondaryFromPrimary()` 创建，复用主路帧，不申请第二个相机输入 Surface。每路编码器都有自己的回调上下文、输出线程、视频轨和 `Muxer`。当前设置页让两路共享大部分录制参数，副路主要改变输出尺寸：相机 profile 至少为 1080P 时，副路默认使用 720P：
-
-接口参数和 Primary/Secondary 关系见[视频编码一入二出 API 文档](https://developer.huawei.com/consumer/cn/doc/doccenter-capabilities/video-encoding-preproc-one-in-dual-out)。
 
 ```text
 CameraKit VideoOutput -> Primary encoder (input Surface)

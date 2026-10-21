@@ -937,8 +937,6 @@ The camera and XComponent own their Surface objects. Native code stores non-owni
 
 The **Encoder preprocessing** settings use the API 26 video encoder preprocessor. The settings page exposes downsampling to 720P, a center crop of about 75% of the frame, and optional target-rate frame dropping. These operations run on the encoder's camera Surface; the application does not pull every camera frame into CPU memory first. The preprocessor applies the configured frame dropping, downsampling, or crop before encoding. Downsampling and crop are mutually exclusive, while frame dropping can be combined with either one:
 
-For API details and parameter definitions, see the [video encoding preprocessing reference](https://developer.huawei.com/consumer/cn/doc/doccenter-capabilities/video-encoding-preproc).
-
 ```text
 CameraKit VideoOutput
         |
@@ -968,8 +966,6 @@ The recording settings page gates these API 26 features with `deviceInfo.sdkApiV
 ##### One Input, Dual Output
 
 The **One input, dual output** option creates two independent files from one camera input. It is intended for a high-quality archive plus a smaller preview or sharing file, without creating a second CameraKit recording output. The primary encoder is created by `OH_VideoEncoder_CreatePrimaryWithPreproc()` and owns the only CameraKit encoder Surface. The secondary encoder is created by `OH_VideoEncoder_CreateSecondaryFromPrimary()`, shares frames from the primary, and does not request another camera input Surface. Each encoder has its own callback context, output worker, video track, and `Muxer`. The current UI shares most recording settings between the two paths; the secondary output size is the main difference, set to 720P when the camera profile is at least 1080P:
-
-For API details and the Primary/Secondary relationship, see the [one-input, dual-output reference](https://developer.huawei.com/consumer/cn/doc/doccenter-capabilities/video-encoding-preproc-one-in-dual-out).
 
 ```text
 CameraKit VideoOutput -> Primary encoder (input Surface)

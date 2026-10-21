@@ -198,12 +198,9 @@ bool SetEncoderCapabilities(napi_env env, napi_value object, OH_AVCapability *ca
         SetRange(env, object, "encoderBitrateRange", bitrateRange);
 }
 
-bool SetCodecProperties(napi_env env, napi_value item, OH_AVCodecType codecType, const char *codecName,
-    const char *mimeType, OH_AVCapability *capability)
+bool SetCodecProperties(napi_env env, napi_value item, OH_AVCodecType codecType, OH_AVCapability *capability)
 {
     if (!SetInteger(env, item, "codecType", static_cast<int32_t>(codecType)) ||
-        !SetString(env, item, "codecName", codecName) ||
-        !SetString(env, item, "mimeType", mimeType) ||
         !SetBoolean(env, item, "hardware", OH_AVCapability_IsHardware(capability)) ||
         !SetInteger(env, item, "maxInstances", OH_AVCapability_GetMaxSupportedInstances(capability))) {
         return false;
@@ -239,7 +236,9 @@ bool AppendCodecCapabilitiesForType(napi_env env, napi_value result, OH_AVCodecT
 
         napi_value item = nullptr;
         if (napi_create_object(env, &item) != napi_ok ||
-            !SetCodecProperties(env, item, codecType, codecName, mimeType, capability) ||
+            !SetString(env, item, "codecName", codecName) ||
+            !SetString(env, item, "mimeType", mimeType) ||
+            !SetCodecProperties(env, item, codecType, capability) ||
             napi_set_element(env, result, resultIndex, item) != napi_ok) {
             return false;
         }
