@@ -1046,20 +1046,22 @@ static napi_value RegisterCallback(napi_env env, napi_callback_info info)
 // ============================================================================
 
 // ============================================================================
-// 14. createPlaceholderFile(syncPath, relativePath, atimeMs, mtimeMs, logicalSize): number
+// 14. createPlaceholderFile(syncPath, relativePath, atimeMs, mtimeMs, logicalSize,
+//                           customInfo?): number
 //     创建占位符文件。占位符文件是"只有元数据、没有真实内容"的文件，
 //     当用户访问时触发水合（FetchData）从云端拉取真实内容。
 //     OH_CloudDisk_CreatePlaceholder(const CloudDisk_SyncFolderPath syncFolderPath,
 //         const CloudDisk_PathInfo relativePathInfo,
 //         const OH_CloudDisk_PlaceholderInfo placeholderInfo,
 //         const OH_CloudDisk_PlaceholderCustomInfo *customInfo)
-//     customInfo = NULL（不写自定义信息）
+//     customInfo：可选的opaque自定义信息（如云端文件标识），
+//     不传或传空串时置NULL（不写入），可通过getPlaceholderCustomInfo读回。
 // ============================================================================
 // [Start create_placeholder]
 static napi_value CreatePlaceholderFile(napi_env env, napi_callback_info info)
 {
-    size_t argc = 5;
-    napi_value args[5] = {nullptr};
+    size_t argc = 6;
+    napi_value args[6] = {nullptr};
     GetArgs(env, info, argc, args);
 
     // 解析入参：同步根路径 + 相对路径（占位符文件在同步根内的相对位置）
@@ -1079,6 +1081,24 @@ static napi_value CreatePlaceholderFile(napi_env env, napi_callback_info info)
     uint64_t mtimeMs = static_cast<uint64_t>(GetNumberParam(env, args[3]));  // 修改时间（毫秒时间戳，映射云端文件修改时间）
     uint64_t logicalSize = static_cast<uint64_t>(GetNumberParam(env, args[4])); // 云端文件逻辑大小（字节）
 
+    // 解析可选入参：自定义信息（不传或传空串时置NULL，表示不写入自定义信息）
+    char* customInfo = nullptr;
+    if (args[5] != nullptr) {
+        napi_valuetype customInfoType = napi_undefined;
+        napi_typeof(env, args[5], &customInfoType);
+        if (customInfoType == napi_valuetype::napi_string) {
+            customInfo = GetStringParam(env, args[5]);
+        }
+    }
+    // 构造自定义信息结构体（data指向customInfo内存，生命周期覆盖本次调用即可）
+    OH_CloudDisk_PlaceholderCustomInfo customInfoValue = {};
+    OH_CloudDisk_PlaceholderCustomInfo* customInfoPtr = NULL;
+    if (customInfo != nullptr && customInfo[0] != '\0') {
+        customInfoValue.dataLength = strlen(customInfo);                      // 自定义信息长度（字节，不含结束符）
+        customInfoValue.data = reinterpret_cast<const uint8_t*>(customInfo);  // 自定义信息内容
+        customInfoPtr = &customInfoValue;
+    }
+
     // 构造同步根路径与相对路径
     CloudDisk_SyncFolderPath syncFolderPath = MakePathInfo(syncPath);
     CloudDisk_PathInfo relativePathInfo = MakePathInfo(relativePath);
@@ -1091,12 +1111,12 @@ static napi_value CreatePlaceholderFile(napi_env env, napi_callback_info info)
 
     // [StartExclude create_placeholder]
     LOGW("OH_CloudDisk_CreatePlaceholder syncPath: %{public}s, relativePath: %{public}s, "
-         "atimeMs: %{public}llu, mtimeMs: %{public}llu, logicalSize: %{public}llu.",
+         "atimeMs: %{public}llu, mtimeMs: %{public}llu, logicalSize: %{public}llu, customInfoLen: %{public}zu.",
          syncPath, relativePath, (unsigned long long)atimeMs, (unsigned long long)mtimeMs,
-         (unsigned long long)logicalSize);
+         (unsigned long long)logicalSize, customInfoPtr ? customInfoPtr->dataLength : 0);
     // [EndExclude create_placeholder]
-    // 创建占位符文件（customInfo传NULL，表示不写入占位符自定义信息）
-    auto ret = OH_CloudDisk_CreatePlaceholder(syncFolderPath, relativePathInfo, placeholderInfo, NULL);
+    // 创建占位符文件（customInfo为NULL表示不写入自定义信息，非NULL时写入opaque自定义数据）
+    auto ret = OH_CloudDisk_CreatePlaceholder(syncFolderPath, relativePathInfo, placeholderInfo, customInfoPtr);
     if (ret != CLOUD_DISK_OK) {
         LOGE("OH_CloudDisk_CreatePlaceholder failed, errorCode: %{public}d.", ret);
     } else {
@@ -1105,6 +1125,7 @@ static napi_value CreatePlaceholderFile(napi_env env, napi_callback_info info)
 
     delete[] syncPath;
     delete[] relativePath;
+    delete[] customInfo;
 
     napi_value result;
     napi_create_int32(env, ret, &result);
@@ -1176,19 +1197,86 @@ static napi_value IsPlaceholderFile(napi_env env, napi_callback_info info)
 // [End is_placeholder_file]
 
 // ============================================================================
-// 16. updatePlaceholder(syncPath, relativePath, atimeMs, mtimeMs, logicalSize): number
+// 15b. getPlaceholderState(syncPath, relativePath): {code: number, state: number}
+//     查询占位符文件的水合状态（是否占位符以及水合进度）。
+//     返回对象包含code（错误码）与state（占位符状态枚举值）。
+//     state: 0=非占位符(NONE) 1=未水合(UNHYDRATED) 2=部分水合(PARTIALLY_HYDRATED)
+//            3=完全水合(FULLY_HYDRATED)
+//     OH_CloudDisk_GetPlaceholderState(const CloudDisk_SyncFolderPath syncFolderPath,
+//         const CloudDisk_PathInfo relativePathInfo, OH_CloudDisk_PlaceholderState *state)
+//     出参state仅在返回值为CLOUD_DISK_OK时有效，出错时置NONE(0)。
+// ============================================================================
+// [Start get_placeholder_state]
+static napi_value GetPlaceholderState(napi_env env, napi_callback_info info)
+{
+    size_t argc = 2;
+    napi_value args[2] = {nullptr};
+    GetArgs(env, info, argc, args);
+
+    char* syncPath = GetStringParam(env, args[0]);
+    char* relativePath = GetStringParam(env, args[1]);
+    if (!syncPath || !relativePath) {
+        // 参数非法：返回code=CLOUD_DISK_INVALID_ARG, state=NONE的对象
+        LOGE("GetPlaceholderState invalid params.");
+        delete[] syncPath;
+        delete[] relativePath;
+        napi_value result;
+        napi_create_object(env, &result);
+        napi_value codeVal;
+        napi_create_int32(env, CLOUD_DISK_INVALID_ARG, &codeVal);
+        napi_set_named_property(env, result, "code", codeVal);
+        napi_value stateVal;
+        napi_create_int32(env, OH_CLOUD_DISK_PLACEHOLDER_STATE_NONE, &stateVal);
+        napi_set_named_property(env, result, "state", stateVal);
+        return result;
+    }
+
+    CloudDisk_SyncFolderPath syncFolderPath = MakePathInfo(syncPath);
+    CloudDisk_PathInfo relativePathInfo = MakePathInfo(relativePath);
+
+    // 调用SDK查询占位符水合状态（结果写入state，出错时SDK置NONE）
+    OH_CloudDisk_PlaceholderState state = OH_CLOUD_DISK_PLACEHOLDER_STATE_NONE;
+    // [StartExclude get_placeholder_state]
+    LOGW("OH_CloudDisk_GetPlaceholderState syncPath: %{public}s, relativePath: %{public}s.", syncPath, relativePath);
+    // [EndExclude get_placeholder_state]
+    auto ret = OH_CloudDisk_GetPlaceholderState(syncFolderPath, relativePathInfo, &state);
+    if (ret != CLOUD_DISK_OK) {
+        LOGE("OH_CloudDisk_GetPlaceholderState failed, errorCode: %{public}d.", ret);
+    } else {
+        LOGI("OH_CloudDisk_GetPlaceholderState success, state: %{public}d.", static_cast<int32_t>(state));
+    }
+
+    delete[] syncPath;
+    delete[] relativePath;
+
+    // 构造JS返回对象 { code, state }
+    napi_value result;
+    napi_create_object(env, &result);
+    napi_value codeVal;
+    napi_create_int32(env, ret, &codeVal);
+    napi_set_named_property(env, result, "code", codeVal);
+    napi_value stateVal;
+    napi_create_int32(env, static_cast<int32_t>(state), &stateVal);
+    napi_set_named_property(env, result, "state", stateVal);
+    return result;
+}
+// [End get_placeholder_state]
+
+// ============================================================================
+// 16. updatePlaceholder(syncPath, relativePath, atimeMs, mtimeMs, logicalSize,
+//                       customInfo?): number
 //     更新占位符文件的元数据（时间戳、逻辑大小）。
 //     OH_CloudDisk_UpdatePlaceholder(const CloudDisk_SyncFolderPath syncFolderPath,
 //         const CloudDisk_PathInfo relativePathInfo,
 //         const OH_CloudDisk_PlaceholderInfo placeholderInfo,
 //         const OH_CloudDisk_PlaceholderCustomInfo *customInfo)
-//     customInfo = NULL
+//     customInfo：可选的opaque自定义信息，不传或传空串时置NULL（SDK语义为保留原值）。
 // ============================================================================
 // [Start update_placeholder]
 static napi_value UpdatePlaceholder(napi_env env, napi_callback_info info)
 {
-    size_t argc = 5;
-    napi_value args[5] = {nullptr};
+    size_t argc = 6;
+    napi_value args[6] = {nullptr};
     GetArgs(env, info, argc, args);
 
     char* syncPath = GetStringParam(env, args[0]);
@@ -1207,6 +1295,24 @@ static napi_value UpdatePlaceholder(napi_env env, napi_callback_info info)
     uint64_t mtimeMs = static_cast<uint64_t>(GetNumberParam(env, args[3]));
     uint64_t logicalSize = static_cast<uint64_t>(GetNumberParam(env, args[4]));
 
+    // 解析可选入参：自定义信息（不传或传空串时置NULL，SDK语义为保留原有自定义信息）
+    char* customInfo = nullptr;
+    if (args[5] != nullptr) {
+        napi_valuetype customInfoType = napi_undefined;
+        napi_typeof(env, args[5], &customInfoType);
+        if (customInfoType == napi_valuetype::napi_string) {
+            customInfo = GetStringParam(env, args[5]);
+        }
+    }
+    // 构造自定义信息结构体（data指向customInfo内存，生命周期覆盖本次调用即可）
+    OH_CloudDisk_PlaceholderCustomInfo customInfoValue = {};
+    OH_CloudDisk_PlaceholderCustomInfo* customInfoPtr = NULL;
+    if (customInfo != nullptr && customInfo[0] != '\0') {
+        customInfoValue.dataLength = strlen(customInfo);                      // 自定义信息长度（字节，不含结束符）
+        customInfoValue.data = reinterpret_cast<const uint8_t*>(customInfo);  // 自定义信息内容
+        customInfoPtr = &customInfoValue;
+    }
+
     CloudDisk_SyncFolderPath syncFolderPath = MakePathInfo(syncPath);
     CloudDisk_PathInfo relativePathInfo = MakePathInfo(relativePath);
 
@@ -1217,11 +1323,12 @@ static napi_value UpdatePlaceholder(napi_env env, napi_callback_info info)
     placeholderInfo.logicalSize = logicalSize; // 逻辑大小（字节）
 
     // [StartExclude update_placeholder]
-    LOGW("OH_CloudDisk_UpdatePlaceholder syncPath: %{public}s, relativePath: %{public}s.",
-         syncPath, relativePath);
+    LOGW("OH_CloudDisk_UpdatePlaceholder syncPath: %{public}s, relativePath: %{public}s, "
+         "customInfoLen: %{public}zu.",
+         syncPath, relativePath, customInfoPtr ? customInfoPtr->dataLength : 0);
     // [EndExclude update_placeholder]
-    // 更新占位符元数据
-    auto ret = OH_CloudDisk_UpdatePlaceholder(syncFolderPath, relativePathInfo, placeholderInfo, NULL);
+    // 更新占位符元数据（customInfo为NULL时保留原有自定义信息，非NULL时更新）
+    auto ret = OH_CloudDisk_UpdatePlaceholder(syncFolderPath, relativePathInfo, placeholderInfo, customInfoPtr);
     if (ret != CLOUD_DISK_OK) {
         LOGE("OH_CloudDisk_UpdatePlaceholder failed, errorCode: %{public}d.", ret);
     } else {
@@ -1230,6 +1337,7 @@ static napi_value UpdatePlaceholder(napi_env env, napi_callback_info info)
 
     delete[] syncPath;
     delete[] relativePath;
+    delete[] customInfo;
 
     napi_value result;
     napi_create_int32(env, ret, &result);
@@ -2227,6 +2335,7 @@ static napi_value Init(napi_env env, napi_value exports)
         // ---- 占位符 / 水合 / 回调表 ----
         {"createPlaceholderFile", nullptr, CreatePlaceholderFile, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"isPlaceholderFile", nullptr, IsPlaceholderFile, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getPlaceholderState", nullptr, GetPlaceholderState, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"updatePlaceholder", nullptr, UpdatePlaceholder, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"convertPlaceholderToFile", nullptr, ConvertPlaceholderToFile,
          nullptr, nullptr, nullptr, napi_default, nullptr},

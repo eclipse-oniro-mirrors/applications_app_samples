@@ -16,7 +16,7 @@
 import { fileShare, fileUri, picker } from '@kit.CoreFileKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
-import cloudDisk, { SyncFolder, IsPlaceholderResult, CustomInfoResult } from 'libentry.so';
+import cloudDisk, { SyncFolder, IsPlaceholderResult, PlaceholderStateResult, CustomInfoResult } from 'libentry.so';
 import { promptAction, PromptAction } from '@kit.ArkUI';
 import { common, Want } from '@kit.AbilityKit';
 import { BundleInfo, getBundleInfo } from '../common/Utils';
@@ -46,6 +46,7 @@ struct Index {
   @State placeholderAtimeMs: string = '0';
   @State placeholderMtimeMs: string = '0';
   @State placeholderLogicalSize: string = '0';
+  @State placeholderCustomInfo: string = '';
   @State isPlaceholderSyncPath: string = '';
   @State isPlaceholderFilePath: string = '';
   @State updatePlaceholderSyncPath: string = '';
@@ -53,6 +54,7 @@ struct Index {
   @State updatePlaceholderAtimeMs: string = '0';
   @State updatePlaceholderMtimeMs: string = '0';
   @State updatePlaceholderLogicalSize: string = '0';
+  @State updatePlaceholderCustomInfo: string = '';
   @State convertPlaceholderSyncPath: string = '';
   @State convertPlaceholderFilePath: string = '';
   @State markFileSyncPath: string = '';
@@ -172,7 +174,7 @@ struct Index {
     34400018: $r('app.string.err_34400018'), 34400019: $r('app.string.err_34400019'),
     34400020: $r('app.string.err_34400020'), 34400021: $r('app.string.err_34400021'),
     34400022: $r('app.string.err_34400022'), 34400023: $r('app.string.err_34400023'),
-    34400024: $r('app.string.err_34400024'),
+    34400024: $r('app.string.err_34400024'), 34400033: $r('app.string.err_34400033'),
   };
 
   getErrorCodeMsg(code: number): string {
@@ -181,6 +183,22 @@ struct Index {
       return this.resStr(res);
     }
     return this.resStr($r('app.string.err_unknown')) + code.toString();
+  }
+
+  // 占位符水合状态枚举值与展示文案的映射（OH_CloudDisk_PlaceholderState）
+  private placeholderStateMap: Record<number, Resource> = {
+    0: $r('app.string.state_none'),
+    1: $r('app.string.state_unhydrated'),
+    2: $r('app.string.state_partially_hydrated'),
+    3: $r('app.string.state_fully_hydrated'),
+  };
+
+  getPlaceholderStateMsg(state: number): string {
+    const res = this.placeholderStateMap[state];
+    if (res) {
+      return this.resStr(res);
+    }
+    return state.toString();
   }
 
   @Builder
@@ -479,6 +497,12 @@ struct Index {
                       .onChange((value: string) => { this.placeholderLogicalSize = value; })
                       .width('25%').margin(10)
                   }
+                  Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
+                    Text($r('app.string.custom_info_label'))
+                    TextInput({ text: this.placeholderCustomInfo, placeholder: $r('app.string.custom_info_placeholder') })
+                      .onChange((value: string) => { this.placeholderCustomInfo = value; })
+                      .width('75%').margin(10)
+                  }
                   Row() {
                     Button($r('app.string.create_placeholder_btn'))
                       .onClick(() => {
@@ -486,7 +510,8 @@ struct Index {
                           this.placeholderSyncPath, this.placeholderFilePath,
                           parseInt(this.placeholderAtimeMs) || 0,
                           parseInt(this.placeholderMtimeMs) || 0,
-                          parseInt(this.placeholderLogicalSize) || 0
+                          parseInt(this.placeholderLogicalSize) || 0,
+                          this.placeholderCustomInfo
                         );
                         if (ret === 0) {
                           this.promptAction.showDialog({ title: $r('app.string.create_success'), buttons: [{ text: $r('app.string.ok'), color: '#000000' }] });
@@ -593,6 +618,17 @@ struct Index {
                         buttons: [{ text: $r('app.string.ok'), color: '#000000' }]
                       });
                     })
+                  // 查询占位符文件的水合状态（非占位符/未水合/部分水合/完全水合）
+                  Button($r('app.string.get_state_btn'))
+                    .margin(10)
+                    .onClick(() => {
+                      let ret: PlaceholderStateResult = cloudDisk.getPlaceholderState(this.isPlaceholderSyncPath, this.isPlaceholderFilePath);
+                      if (ret.code === 0) {
+                        this.promptAction.showDialog({ title: $r('app.string.get_state_result'), message: this.getPlaceholderStateMsg(ret.state), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
+                      } else {
+                        this.promptAction.showDialog({ title: $r('app.string.get_state_failed'), message: this.resStr($r('app.string.error_code_label')) + ret.code.toString() + '\n' + this.resStr($r('app.string.reason_label')) + this.getErrorCodeMsg(ret.code), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
+                      }
+                    })
                 } else if (this.phase2ModuleIndex === 2) {
                   Text($r('app.string.update_placeholder_metadata')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 })
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
@@ -624,6 +660,12 @@ struct Index {
                       .onChange((value: string) => { this.updatePlaceholderLogicalSize = value; })
                       .width('25%').margin(10)
                   }
+                  Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
+                    Text($r('app.string.custom_info_label'))
+                    TextInput({ text: this.updatePlaceholderCustomInfo, placeholder: $r('app.string.custom_info_keep_placeholder') })
+                      .onChange((value: string) => { this.updatePlaceholderCustomInfo = value; })
+                      .width('75%').margin(10)
+                  }
                   Row() {
                     Button($r('app.string.update_placeholder_btn'))
                       .onClick(() => {
@@ -631,7 +673,8 @@ struct Index {
                           this.updatePlaceholderSyncPath, this.updatePlaceholderFilePath,
                           parseInt(this.updatePlaceholderAtimeMs) || 0,
                           parseInt(this.updatePlaceholderMtimeMs) || 0,
-                          parseInt(this.updatePlaceholderLogicalSize) || 0
+                          parseInt(this.updatePlaceholderLogicalSize) || 0,
+                          this.updatePlaceholderCustomInfo
                         );
                         if (ret === 0) {
                           this.promptAction.showDialog({ title: $r('app.string.update_success'), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
