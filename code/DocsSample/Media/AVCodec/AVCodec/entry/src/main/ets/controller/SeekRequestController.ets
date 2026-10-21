@@ -11,13 +11,10 @@ interface SeekRequest {
   resolve: (result: SeekRequestResult) => void;
 }
 
-const SEEK_SETTLE_MS: number = 100;
-
 export class SeekRequestController {
   private pending: SeekRequest | undefined = undefined;
   private active: boolean = false;
   private generation: number = 0;
-  private timer: number = 0;
   private idleCallbacks: (() => void)[] = [];
   public submitted: number = 0;
   public merged: number = 0;
@@ -44,13 +41,7 @@ export class SeekRequestController {
       this.pending = { targetUs: targetUs, generation: this.generation, resolve: resolve };
     });
     if (!this.active) {
-      if (this.timer !== 0) {
-        clearTimeout(this.timer);
-      }
-      this.timer = setTimeout(() => {
-        this.timer = 0;
-        this.drain();
-      }, SEEK_SETTLE_MS);
+      this.drain();
     }
     return result;
   }
@@ -58,10 +49,6 @@ export class SeekRequestController {
   // 取消仅影响等待中的请求；已开始的编解码器重建会执行到结束。
   cancel(): void {
     this.generation++;
-    if (this.timer !== 0) {
-      clearTimeout(this.timer);
-      this.timer = 0;
-    }
     this.pending?.resolve('cancelled');
     this.pending = undefined;
     this.notifyIdle();

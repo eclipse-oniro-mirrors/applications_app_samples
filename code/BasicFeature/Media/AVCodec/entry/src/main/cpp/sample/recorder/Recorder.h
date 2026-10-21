@@ -21,6 +21,7 @@
 #include <memory>
 #include <atomic>
 #include <chrono>
+#include <fstream>
 #include <thread>
 #include <unistd.h>
 #include "video_encoder.h"
@@ -50,8 +51,11 @@ public:
     int32_t StopEnd();
 
 private:
-    void VideoEncOutputAsyncThread();
-    void VideoEncOutputSyncThread();
+    void VideoEncOutputAsyncThread(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer, bool isPrimary);
+    void VideoEncOutputSyncThread(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer, bool isPrimary);
+    bool ProcessVideoOutputBuffer(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer,
+        CodecBufferInfo &bufferInfo, bool isPrimary);
+    void FinishVideoOutputThread(CodecUserData *context, bool isPrimary);
     void AudioEncInputThread();
     void AudioEncOutputThread();
     void AudioEncInputSyncThread();
@@ -62,10 +66,21 @@ private:
     void ReleaseAudioEncoder();
     void StartRelease();
     void AbortRecording(const char *reason);
+    // 将编码器输出的原始视频码流写入诊断文件；失败只记录日志，不影响正常封装。
+    void DumpVideoOutput(const CodecBufferInfo &bufferInfo, bool isPrimary);
+    void CloseVideoDumpFiles();
+    void OpenVideoDumpFiles();
     void JoinPreviousSessionThreads(std::unique_lock<std::mutex> &lock);
     int32_t InitializeSession(SampleInfo &sampleInfo);
-    int32_t StartVideoPipeline(std::unique_lock<std::mutex> &lock);
+    int32_t StartVideoPipeline();
+    int32_t StartVideoMuxers();
+    int32_t StartVideoEncoders();
+    int32_t StartVideoOutputThreads();
     int32_t StartAudioPipeline(std::unique_lock<std::mutex> &lock);
+    int32_t SendVideoEndOfStream();
+    int32_t SendAudioEndOfStream();
+    void WaitForEncoderEndOfStream();
+    int32_t AbortAndWait(int32_t errorCode, const char *reason);
     bool WaitForAudioInputFrame(std::chrono::milliseconds timeout);
     bool SubmitAudioInputFrame(CodecBufferInfo &bufferInfo, OH_AVBuffer *buffer, bool synchronous);
     int32_t WaitForDone();
@@ -75,21 +90,24 @@ private:
 
     // 编码器和封装器由 Recorder 独占，ReleaseThread 完成收尾后释放。
     std::unique_ptr<VideoEncoder> videoEncoder_ = nullptr;
+    std::unique_ptr<VideoEncoder> secondaryVideoEncoder_ = nullptr;
     std::unique_ptr<AudioEncoder> audioEncoder_ = nullptr;
     std::unique_ptr<Muxer> muxer_ = nullptr;
+    std::unique_ptr<Muxer> secondaryMuxer_ = nullptr;
 
     std::mutex mutex_;
     // EOS 表示不再送入新数据；视频和音频输出线程仍需继续取 Buffer，直到各自完成收尾。
     std::atomic<bool> isEos_{false};
     std::atomic<bool> isVideoEos_{false};
+    std::atomic<bool> isSecondaryVideoEos_{false};
+    std::atomic<bool> isAudioEos_{false};
     std::atomic<bool> isStopping_{false};
     std::condition_variable videoEosCond_;
     std::mutex videoEosMutex_;
     std::atomic<bool> isStarted_{false};
     int32_t isAudioEncFirstFrame_ = true;
-    std::atomic<bool> isVideoEncFirstSyncFrame_ = true;
-    int64_t videoFirstSyncFramePts_ = 0;
     std::unique_ptr<std::thread> encOutputThread_ = nullptr;
+    std::unique_ptr<std::thread> secondaryEncOutputThread_ = nullptr;
     std::unique_ptr<std::thread> audioEncInputThread_ = nullptr;
     std::unique_ptr<std::thread> audioEncOutputThread_ = nullptr;
     std::unique_ptr<std::thread> releaseThread_ = nullptr;
@@ -97,9 +115,14 @@ private:
     // 仅由 mutex_ 保护。Release 完成后才允许 WaitForDone 返回或开始下一次录制。
     bool releaseCompleted_ = true;
     SampleInfo sampleInfo_;
+    SampleInfo secondarySampleInfo_;
     // 回调上下文必须在注销 codec 回调、退出所有编码线程后释放，否则回调可能访问悬空对象。
     CodecUserData *encContext_ = nullptr;
+    CodecUserData *secondaryEncContext_ = nullptr;
     CodecUserData *audioEncContext_ = nullptr;
+
+    std::ofstream primaryVideoDumpFile_;
+    std::ofstream secondaryVideoDumpFile_;
 
     std::unique_ptr<AudioCapturer> audioCapturer_ = nullptr;
 };

@@ -19,6 +19,9 @@ import { CommonConstants as Const } from '../common/CommonConstants';
 @Observed
 export class CameraDataModel {
   public outputId: string = '';
+  public outputUri: string = '';
+  public outputTitle: string = '';
+  public secondaryOutputUri: string = '';
   public cameraWidth: number = Const.DEFAULT_WIDTH;
   public cameraHeight: number = Const.DEFAULT_HEIGHT;
   public isHDRVivid: number = Const.DEFAULT_VALUE;

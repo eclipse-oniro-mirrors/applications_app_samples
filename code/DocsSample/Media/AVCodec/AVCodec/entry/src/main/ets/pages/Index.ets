@@ -29,17 +29,17 @@ import { PlayerSettingsModel } from '../model/PlayerSettingsModel'
 import { RecorderSettingsModel } from '../model/RecorderSettingsModel'
 import { buildMediaInfoSections, MediaInfoSection } from '../model/MediaInfoModel'
 import { PlaybackViewModel } from '../viewmodel/PlaybackViewModel'
-import { formatMediaTime } from '../model/PlaybackInfoModel'
 import { PlaybackHistoryEntry, PlaybackHistoryModel, getPlaybackTitle } from '../model/PlaybackHistoryModel'
-import { findSubtitleText, parseSrt, SubtitleCue } from '../model/SubtitleModel'
+import { findSubtitleText, parseSubtitle, SubtitleCue } from '../model/SubtitleModel'
+import { RecordingHistoryEntry, RecordingHistoryModel } from '../model/RecordingHistoryModel'
 import { PlaybackMode, nextPlaybackIndex } from '../model/PlaybackModeModel'
 import { PlaybackRecoveryModel, PlaybackRecoverySnapshot, PlaybackRecoveryReason } from '../model/PlaybackRecoveryModel'
 import { SubtitleStyleModel } from '../model/SubtitleStyleModel'
 import { SeekRequestController, SeekRequestResult } from '../controller/SeekRequestController'
+import { PlayerPictureInPictureController } from '../controller/PlayerPictureInPictureController'
 import { PlaybackSessionCallbacks, PlaybackSessionController, PlaybackSessionMedia } from
   '../controller/PlaybackSessionController'
 import { SubtitleSettingsPanel } from '../components/SubtitleSettingsPanel'
-import { AvDiagnosticsPanel } from '../components/AvDiagnosticsPanel'
 import { MediaInfoPanel as MediaInfoPanelComponent } from '../components/MediaInfoPanel'
 import { PlaybackProgressPanel as PlaybackProgressPanelComponent } from '../components/PlaybackProgressPanel'
 import { RecorderPage } from './RecorderPage'
@@ -50,8 +50,14 @@ import { PlayerStatusOverlay } from '../components/player/PlayerStatusOverlay'
 import { PlayerControlBar as PlayerControlBarComponent } from '../components/player/PlayerControlBar'
 import { PlayerQueueSheet } from '../components/player/PlayerQueueSheet'
 import { MainTabsPage } from './MainTabsPage'
+import { PlaybackDiagnosticsOverlay } from '../components/player/PlaybackDiagnosticsOverlay'
+import { PlaybackMoreActionsPanel, PlaybackMoreAction } from '../components/player/PlaybackMoreActionsPanel'
+import { PlayerSettingsPanel, PlayerSettingsOption } from '../components/player/PlayerSettingsPanel'
+import { RecorderSettingsPanel, RecorderSettingsOption } from '../components/recorder/RecorderSettingsPanel'
+import { RecorderSaveAuthorizationPanel } from '../components/recorder/RecorderSaveAuthorizationPanel'
 import { PlayerPage as PlayerPageShell } from './PlayerPage'
 import { LibraryPage } from './LibraryPage'
+import { DeviceDiagnosticsPage } from './DeviceDiagnosticsPage'
 import { encoderProfileCameraCheck, setFirstCameraProfile } from '../common/utils/CameraCheck'
 import { requestRecordPermissions } from '../common/utils/PermissionUtil'
 import {
@@ -116,6 +122,7 @@ export struct Player {
   @State isPipActive: boolean = false;
   @State isBackgroundPlaybackEnabled: boolean = false;
   @State subtitleText: string = '';
+  @State subtitleFileName: string = '';
   @State subtitleDelayIndex: number = 1;
   @State subtitleStyle: SubtitleStyleModel = new SubtitleStyleModel();
   @State isSubtitleSettingsVisible: boolean = false;
@@ -150,6 +157,7 @@ export struct Player {
   @State draftRecorderDualOutput: number = 0;
   @State draftRecorderVideoDump: boolean = false;
   @State mediaInfoSections: MediaInfoSection[] = [];
+  @State recordingEntries: RecordingHistoryEntry[] = [];
   private transformType: number = 0;
   private playerSettings: PlayerSettingsModel = new PlayerSettingsModel();
   private recorderSettings: RecorderSettingsModel = new RecorderSettingsModel();
@@ -162,6 +170,7 @@ export struct Player {
   private subtitleCues: SubtitleCue[] = [];
   private volumeBeforeMute: number = 100;
   private playbackHistory: PlaybackHistoryModel = new PlaybackHistoryModel();
+  private recordingHistory: RecordingHistoryModel = new RecordingHistoryModel();
   private queuePaths: string[] = [];
   private queueIndex: number = -1;
   private pendingQueueIndex: number = -1;
@@ -172,9 +181,7 @@ export struct Player {
   private playbackWindowWidth: number = 0;
   private abLoopTimer: number = 0;
   private abLoopSeekPending: boolean = false;
-  private pipController: PiPWindow.PiPController | undefined;
-  private lastPiPSyncedPlaybackState: number = -1;
-  private resumePlaybackAfterPipStart: boolean = false;
+  private pictureInPictureController: PlayerPictureInPictureController | undefined = undefined;
   private readonly xComponentController: XComponentController = new XComponentController();
   private sourcePath: string[] =
     [globalThis.context.resourceManager.getStringSync($r('app.string.select_from_filemanager').id),
@@ -182,10 +189,12 @@ export struct Player {
 
   aboutToAppear(): void {
     this.pageActive = true;
+    this.ensurePictureInPictureController();
     this.prepareVulkanShaders();
     player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
     player.setAppBackground(false);
     this.loadPlaybackHistory();
+    this.loadRecordingHistory();
     this.playbackViewModel.onPlaybackPositionChanged = (positionUs: number): void => {
       this.updatePictureInPicturePlaybackState();
       this.updateSubtitle(positionUs);
@@ -292,7 +301,7 @@ export struct Player {
 
   aboutToDisappear(): void {
     // 进入系统 PiP 时页面也会触发消失回调；播放器仍由小窗承载，不能按离页流程停止。
-    if (this.isPipActive || this.resumePlaybackAfterPipStart) {
+    if (this.isPictureInPictureHoldingPlayback()) {
       this.persistPlaybackProgress(this.playbackViewModel.positionUs, this.playbackViewModel.durationUs, true);
       return;
     }
@@ -315,7 +324,12 @@ export struct Player {
     this.playbackViewModel.isHdrVividConfirmed = false;
     this.subtitleCues = [];
     this.subtitleText = '';
+    this.subtitleFileName = '';
     this.resetAbLoop();
+  }
+
+  onPageShow(): void {
+    this.loadRecordingHistory();
   }
 
   startPlaybackInfoUpdates(): void {
@@ -332,6 +346,28 @@ export struct Player {
     } catch (error) {
       Logger.error(TAG, 'Load playback history failed: ' + JSON.stringify(error));
     }
+  }
+
+  private async loadRecordingHistory(): Promise<void> {
+    try {
+      const hostContext = this.getUIContext().getHostContext();
+      if (hostContext === undefined) {
+        return;
+      }
+      await this.recordingHistory.load(hostContext as common.UIAbilityContext);
+      this.recordingEntries = this.recordingHistory.getEntries();
+    } catch (error) {
+      Logger.error(TAG, 'Load recording history failed: ' + JSON.stringify(error));
+    }
+  }
+
+  private playRecording(uri: string): void {
+    this.activeMainTab = 0;
+    this.selectFilePath = uri;
+    this.queuePaths = [uri];
+    this.queueIndex = 0;
+    this.queueEntries = this.queuePaths.slice();
+    this.startSelectedFilePlayback(uri);
   }
 
   private async persistPlaybackProgress(positionUs: number, durationUs: number, force: boolean = false): Promise<void> {
@@ -695,17 +731,26 @@ export struct Player {
   async selectSubtitleFile(): Promise<void> {
     try {
       const options = new picker.DocumentSelectOptions();
-      options.fileSuffixFilters = ['SRT|.srt'];
+      options.fileSuffixFilters = ['SRT|.srt', 'WebVTT|.vtt'];
       const result = await new picker.DocumentViewPicker().select(options);
       if (result.length === 0) {
         return;
       }
       const content = await fileIo.readText(result[0], { encoding: 'UTF-8' });
-      this.subtitleCues = parseSrt(content);
+      const subtitleNameParts: string[] = result[0].split('/');
+      const subtitleName: string = subtitleNameParts[subtitleNameParts.length - 1];
+      const cues: SubtitleCue[] = parseSubtitle(content, subtitleName);
+      if (cues.length === 0) {
+        this.getUIContext().getPromptAction().showToast({
+          message: $r('app.string.playback_subtitle_empty'), duration: Const.DURATION, bottom: Const.BOTTOM
+        });
+        return;
+      }
+      this.subtitleCues = cues;
+      this.subtitleFileName = subtitleName;
       this.updateSubtitle(this.playbackViewModel.positionUs);
       this.getUIContext().getPromptAction().showToast({
-        message: this.subtitleCues.length > 0 ? $r('app.string.playback_subtitle_loaded') :
-          $r('app.string.playback_subtitle_empty'),
+        message: $r('app.string.playback_subtitle_loaded'),
         duration: Const.DURATION,
         bottom: Const.BOTTOM
       });
@@ -715,6 +760,12 @@ export struct Player {
         message: $r('app.string.playback_subtitle_failed'), duration: Const.DURATION, bottom: Const.BOTTOM
       });
     }
+  }
+
+  private clearSubtitle(): void {
+    this.subtitleCues = [];
+    this.subtitleText = '';
+    this.subtitleFileName = '';
   }
 
   private selectSubtitleDelay(): void {
@@ -1179,6 +1230,29 @@ export struct Player {
     }
   }
 
+  private ensurePictureInPictureController(): PlayerPictureInPictureController {
+    if (this.pictureInPictureController === undefined) {
+      this.pictureInPictureController = new PlayerPictureInPictureController({
+        onActiveChanged: (active: boolean): void => {
+          this.isPipActive = active;
+        },
+        onPlaybackChanged: (): void => {
+          this.playbackViewModel.update();
+        },
+        onSeekBySeconds: (seconds: number): void => {
+          this.seekBySeconds(seconds);
+        },
+        isBackgroundPlaybackEnabled: (): boolean => this.isBackgroundPlaybackEnabled
+      });
+    }
+    return this.pictureInPictureController;
+  }
+
+  private isPictureInPictureHoldingPlayback(): boolean {
+    return this.pictureInPictureController !== undefined &&
+      this.pictureInPictureController.shouldKeepPlaybackOnPageDisappear;
+  }
+
   private async togglePictureInPicture(): Promise<void> {
     if (this.rejectWhileSeeking()) {
       return;
@@ -1190,144 +1264,34 @@ export struct Player {
       this.showControlToast($r('app.string.playback_pip_unsupported'));
       return;
     }
-    try {
-      if (this.pipController === undefined) {
-        const hostContext = this.getUIContext().getHostContext();
-        if (hostContext === undefined) {
-          return;
-        }
-        const mediaInfo = player.getMediaInfo();
-        const width = mediaInfo.video.width > 0 ? mediaInfo.video.width : 16;
-        const height = mediaInfo.video.height > 0 ? mediaInfo.video.height : 9;
-        this.pipController = await PiPWindow.create({
-          context: hostContext,
-          componentController: this.xComponentController,
-          templateType: PiPWindow.PiPTemplateType.VIDEO_PLAY,
-          contentWidth: width,
-          contentHeight: height
-        });
-        this.pipController.on('stateChange', (state: PiPWindow.PiPState) => {
-          this.isPipActive = state === PiPWindow.PiPState.STARTED;
-          if (this.isPipActive) {
-            // PiP 启动回调可能晚于 Ability 的后台回调；若这段间隙已触发后台暂停，
-            // 这里重新启用后台续播，让 Native 播放状态与小窗控件状态保持一致。
-            player.setBackgroundPlaybackEnabled(true);
-            this.resumePiPPlaybackIfNeeded();
-            this.lastPiPSyncedPlaybackState = -1;
-            this.playbackViewModel.update();
-            this.updatePictureInPicturePlaybackState();
-          }
-          if (state === PiPWindow.PiPState.STOPPED) {
-            this.isPipActive = false;
-            this.lastPiPSyncedPlaybackState = -1;
-            this.resumePlaybackAfterPipStart = false;
-            player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
-          }
-        });
-        this.pipController.on('controlEvent', (event: PiPWindow.ControlEventParam) => {
-          if (event.controlType === PiPWindow.PiPControlType.VIDEO_PLAY_PAUSE) {
-            const playbackState: number = player.getState();
-            // status 表示 PiP 控件请求切换到的播放状态；按目标状态执行可避免重复事件反复切换。
-            if (event.status === PiPWindow.PiPControlStatus.PLAY &&
-              playbackState === player.PlayerState.PAUSED) {
-              if (!player.resume()) {
-                Logger.warn(TAG, 'PiP resume was rejected, state: ' + playbackState);
-              }
-            } else if (event.status === PiPWindow.PiPControlStatus.PAUSE &&
-              playbackState === player.PlayerState.PLAYING) {
-              if (!player.pause()) {
-                Logger.warn(TAG, 'PiP pause was rejected, state: ' + playbackState);
-              }
-            }
-            this.playbackViewModel.update();
-            this.updatePictureInPicturePlaybackState();
-          } else if (event.controlType === PiPWindow.PiPControlType.FAST_FORWARD) {
-            this.seekBySeconds(15);
-          } else if (event.controlType === PiPWindow.PiPControlType.FAST_BACKWARD) {
-            this.seekBySeconds(-15);
-          }
-        });
-      }
-      const playbackStateBeforePip: number = player.getState();
-      this.resumePlaybackAfterPipStart = playbackStateBeforePip === player.PlayerState.PLAYING;
-      this.isPipActive = true;
-      // 小窗显示期间继续保持解码；否则后台回调会暂停播放器，但 PiP 控件仍显示旧状态。
-      player.setBackgroundPlaybackEnabled(true);
-      this.lastPiPSyncedPlaybackState = -1;
-      await this.pipController.startPiP();
-      this.pipController.setAutoStartEnabled(this.isBackgroundPlaybackEnabled);
-      this.resumePiPPlaybackIfNeeded();
-      this.playbackViewModel.update();
-      this.updatePictureInPicturePlaybackState();
-    } catch (error) {
-      this.isPipActive = false;
-      this.lastPiPSyncedPlaybackState = -1;
-      this.resumePlaybackAfterPipStart = false;
-      player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
-      Logger.error(TAG, 'Start picture-in-picture failed: ' + JSON.stringify(error));
+    const hostContext = this.getUIContext().getHostContext();
+    if (hostContext === undefined) {
+      return;
+    }
+    const started: boolean = await this.ensurePictureInPictureController().start(hostContext,
+      this.xComponentController);
+    if (!started) {
       this.showControlToast($r('app.string.playback_pip_failed'));
     }
   }
 
-  private resumePiPPlaybackIfNeeded(): void {
-    if (!this.resumePlaybackAfterPipStart) {
-      return;
-    }
-    const playbackState: number = player.getState();
-    if (playbackState === player.PlayerState.PAUSED) {
-      if (!player.resume()) {
-        Logger.warn(TAG, 'PiP startup resume was rejected, state: ' + playbackState);
-        return;
-      }
-    } else if (playbackState !== player.PlayerState.PLAYING) {
-      return;
-    }
-    this.resumePlaybackAfterPipStart = false;
-  }
-
   private updatePictureInPicturePlaybackState(): void {
-    if (!this.isPipActive || this.pipController === undefined) {
-      return;
-    }
-    const playbackState: number = player.getState();
-    if (playbackState !== player.PlayerState.PLAYING && playbackState !== player.PlayerState.PAUSED) {
-      return;
-    }
-    if (playbackState === this.lastPiPSyncedPlaybackState) {
-      return;
-    }
-    // status 要与播放器的实际状态一致；PiP 根据它显示播放或暂停控件。
-    const pipStatus: PiPWindow.PiPControlStatus = playbackState === player.PlayerState.PLAYING
-      ? PiPWindow.PiPControlStatus.PLAY
-      : PiPWindow.PiPControlStatus.PAUSE;
-    try {
-      this.pipController.updatePiPControlStatus(PiPWindow.PiPControlType.VIDEO_PLAY_PAUSE, pipStatus);
-      this.lastPiPSyncedPlaybackState = playbackState;
-    } catch (error) {
-      Logger.warn(TAG, 'Update PiP playback status failed: ' + JSON.stringify(error));
+    if (this.pictureInPictureController !== undefined) {
+      this.pictureInPictureController.syncPlaybackState();
     }
   }
 
   private async stopPictureInPicture(): Promise<void> {
-    if (this.pipController === undefined) {
-      return;
+    if (this.pictureInPictureController !== undefined) {
+      await this.pictureInPictureController.stop();
     }
-    try {
-      if (await this.pipController.isPiPActive()) {
-        await this.pipController.stopPiP();
-      }
-    } catch (error) {
-      Logger.error(TAG, 'Stop picture-in-picture failed: ' + JSON.stringify(error));
-    }
-    this.isPipActive = false;
-    this.lastPiPSyncedPlaybackState = -1;
-    player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
   }
 
   private async toggleBackgroundPlayback(): Promise<void> {
     this.isBackgroundPlaybackEnabled = !this.isBackgroundPlaybackEnabled;
     player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
-    if (this.isBackgroundPlaybackEnabled && this.pipController === undefined) {
+    if (this.isBackgroundPlaybackEnabled &&
+      (this.pictureInPictureController === undefined || !this.pictureInPictureController.isCreated)) {
       await this.togglePictureInPicture();
       if (!this.isPipActive) {
         this.isBackgroundPlaybackEnabled = false;
@@ -1335,8 +1299,8 @@ export struct Player {
         return;
       }
     }
-    if (this.pipController !== undefined) {
-      this.pipController.setAutoStartEnabled(this.isBackgroundPlaybackEnabled);
+    if (this.pictureInPictureController !== undefined) {
+      this.pictureInPictureController.setAutoStartEnabled(this.isBackgroundPlaybackEnabled);
     }
     this.showControlToast(this.isBackgroundPlaybackEnabled ?
       $r('app.string.playback_background_enabled') : $r('app.string.playback_background_disabled'));
@@ -1375,7 +1339,8 @@ export struct Player {
       this.currentMediaInfo = player.getMediaInfo();
     }
     if (this.currentMediaInfo !== undefined) {
-      this.mediaInfoSections = buildMediaInfoSections(this.currentMediaInfo);
+      this.mediaInfoSections = buildMediaInfoSections(this.currentMediaInfo,
+        this.selectFilePath === null ? '' : getPlaybackTitle(this.selectFilePath));
     }
   }
 
@@ -2060,434 +2025,177 @@ export struct Player {
     this.checkIsProfileSupport();
   }
 
-  @Builder
-  SettingOptionRow(title: Resource, value: string, onClick: () => void, enabled: boolean = true) {
-    Row() {
-      Text(title)
-        .fontSize('16fp')
-        .fontColor('#202124')
-        .maxLines(1)
-        .textOverflow({ overflow: TextOverflow.Ellipsis })
-        .layoutWeight(1)
-      Text(value)
-        .fontSize('14fp')
-        .fontColor('#5F6368')
-        .maxLines(1)
-        .textOverflow({ overflow: TextOverflow.Ellipsis })
-      Text('›')
-        .fontSize('24fp')
-        .fontColor('#8A8A8A')
-        .margin({ left: '8vp' })
+  private choosePlayerOption(option: PlayerSettingsOption): void {
+    if (option === PlayerSettingsOption.DECODER_TYPE) {
+      this.showSettingPicker(this.getDecoderTypeLabels(), this.draftPlayerDecoderType,
+        (index: number): void => { this.draftPlayerDecoderType = index; });
+    } else if (option === PlayerSettingsOption.RUN_MODE) {
+      this.showSettingPicker(this.getRenderModeLabels(), this.draftPlayerRunMode,
+        (index: number): void => this.selectPlayerRenderMode(index));
+    } else if (option === PlayerSettingsOption.SYNC_MODE) {
+      this.showSettingPicker(this.getSyncModeLabels(), this.draftPlayerSyncMode,
+        (index: number): void => { this.draftPlayerSyncMode = index; });
     }
-      .width('100%')
-      .height('56vp')
-      .padding({ left: '4vp', right: '4vp' })
-      .enabled(enabled)
-      .opacity(enabled ? 1 : 0.45)
-      .onClick(onClick)
   }
 
-  @Builder
-  SettingGroupHeader(title: Resource) {
-    Row() {
-      Text(title)
-        .fontSize('13fp')
-        .fontColor('#5F6368')
-        .fontWeight(FontWeight.Medium)
-    }
-      .width('100%')
-      .height('36vp')
-      .padding({ left: '4vp', right: '4vp', top: '10vp', bottom: '4vp' })
+  private resetPlayerSettingsDraft(): void {
+    this.isAdvancedPlayerSettingsExpanded = false;
+    this.draftPlayerDecoderType = 0;
+    this.draftPlayerRunMode = 0;
+    this.draftPlayerSyncMode = 0;
+    this.draftPlayerDump = false;
+    this.draftPlayerRetainLastFrame = true;
+    this.draftPlayerLowLatency = false;
+    this.draftPlayerOutputInDecodingOrder = false;
+    this.draftPlayerConvertHdrVividToBt709 = false;
+    this.draftPlayerAudioVolume = 100;
+    this.draftPlayerAudioLowLatency = false;
+    this.draftPlayerAutoHideControls = true;
   }
 
-  @Builder
-  SettingSheetFooter(onCancel: () => void, onReset: () => void, onApply: () => void) {
-    Row({ space: '8vp' }) {
-      Button($r('app.string.setting_restore_defaults'))
-        .layoutWeight(1)
-        .height('44vp')
-        .backgroundColor('#E9EEF6')
-        .fontColor('#1A5FB4')
-        .onClick(onReset)
-      Button($r('app.string.setting_cancel'))
-        .layoutWeight(1)
-        .height('44vp')
-        .backgroundColor('#E9EEF6')
-        .fontColor('#1A5FB4')
-        .onClick(onCancel)
-      Button($r('app.string.setting_apply'))
-        .layoutWeight(1)
-        .height('44vp')
-        .backgroundColor('#0A59F7')
-        .fontColor(Color.White)
-        .onClick(onApply)
-    }
-      .width('100%')
-      .padding({ top: '12vp', bottom: '8vp' })
+  private resetRecorderSettingsDraft(): void {
+    this.draftRecorderOutputFormat = 0;
+    this.draftRecorderCodec = 1;
+    this.draftRecorderResolution = 1;
+    this.draftRecorderFrameRate = 0;
+    this.draftRecorderSyncMode = 0;
+    this.draftRecorderBitrate = 1;
+    this.draftRecorderBitrateMode = 0;
+    this.draftRecorderIFrameInterval = 0;
+    this.draftRecorderAudioSampleRate = 1;
+    this.draftRecorderAudioChannelCount = 1;
+    this.draftRecorderAudioBitrate = 0;
+    this.draftRecorderAudioLatency = 0;
+    this.draftRecorderStabilization = 1;
+    this.draftRecorderPreprocMode = 0;
+    this.draftRecorderDropFrameRate = 0;
+    this.draftRecorderDualOutput = 0;
+    this.draftRecorderVideoDump = false;
   }
 
-  @Builder
-  PlayerSettingSheetFooter(onCancel: () => void, onReset: () => void, onApply: () => void) {
-    Row({ space: '6vp' }) {
-      Button($r('app.string.setting_restore_defaults'))
-        .layoutWeight(1)
-        .height('30vp')
-        .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-        .fontSize('10fp')
-        .backgroundColor('#E9EEF6')
-        .fontColor('#1A5FB4')
-        .onClick(onReset)
-      Button($r('app.string.setting_cancel'))
-        .layoutWeight(1)
-        .height('30vp')
-        .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-        .fontSize('10fp')
-        .backgroundColor('#E9EEF6')
-        .fontColor('#1A5FB4')
-        .onClick(onCancel)
-      Button($r('app.string.setting_apply'))
-        .layoutWeight(1)
-        .height('30vp')
-        .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-        .fontSize('10fp')
-        .backgroundColor('#0A59F7')
-        .fontColor(Color.White)
-        .onClick(onApply)
+  private chooseRecorderOption(option: RecorderSettingsOption): void {
+    if (option === RecorderSettingsOption.OUTPUT_FORMAT) {
+      this.showSettingPicker(Const.OUTPUT_FORMAT, this.draftRecorderOutputFormat,
+        (index: number): void => { this.draftRecorderOutputFormat = index; });
+    } else if (option === RecorderSettingsOption.VIDEO_CODEC) {
+      this.showSettingPicker(this.getRecorderCodecLabels(), this.draftRecorderCodec,
+        (index: number): void => { this.draftRecorderCodec = index; });
+    } else if (option === RecorderSettingsOption.VIDEO_RESOLUTION) {
+      this.showSettingPicker(this.getResolutionLabels(), this.draftRecorderResolution,
+        (index: number): void => { this.draftRecorderResolution = index; });
+    } else if (option === RecorderSettingsOption.VIDEO_FRAME_RATE) {
+      this.showSettingPicker(this.getFrameRateLabels(), this.draftRecorderFrameRate, (index: number): void => {
+        this.draftRecorderFrameRate = index;
+        if (index === 0) {
+          this.draftRecorderDropFrameRate = 0;
+        }
+      });
+    } else if (option === RecorderSettingsOption.SYNC_MODE) {
+      this.showSettingPicker(this.getSyncModeLabels(), this.draftRecorderSyncMode,
+        (index: number): void => { this.draftRecorderSyncMode = index; });
+    } else if (option === RecorderSettingsOption.VIDEO_BITRATE) {
+      this.showSettingPicker(this.getRecorderBitrateLabels(), this.draftRecorderBitrate,
+        (index: number): void => { this.draftRecorderBitrate = index; });
+    } else if (option === RecorderSettingsOption.BITRATE_MODE) {
+      this.showSettingPicker(this.getRecorderBitrateModeLabels(), this.draftRecorderBitrateMode,
+        (index: number): void => { this.draftRecorderBitrateMode = index; });
+    } else if (option === RecorderSettingsOption.I_FRAME_INTERVAL) {
+      this.showSettingPicker(this.getRecorderIFrameIntervalLabels(), this.draftRecorderIFrameInterval,
+        (index: number): void => { this.draftRecorderIFrameInterval = index; });
+    } else if (option === RecorderSettingsOption.AUDIO_SAMPLE_RATE) {
+      this.showSettingPicker(this.getRecorderAudioSampleRateLabels(), this.draftRecorderAudioSampleRate,
+        (index: number): void => { this.draftRecorderAudioSampleRate = index; });
+    } else if (option === RecorderSettingsOption.AUDIO_CHANNEL_COUNT) {
+      this.showSettingPicker(this.getRecorderAudioChannelCountLabels(), this.draftRecorderAudioChannelCount,
+        (index: number): void => { this.draftRecorderAudioChannelCount = index; });
+    } else if (option === RecorderSettingsOption.AUDIO_BITRATE) {
+      this.showSettingPicker(this.getRecorderAudioBitrateLabels(), this.draftRecorderAudioBitrate,
+        (index: number): void => { this.draftRecorderAudioBitrate = index; });
+    } else if (option === RecorderSettingsOption.AUDIO_CAPTURE_LATENCY) {
+      this.showSettingPicker(this.getRecorderAudioLatencyLabels(), this.draftRecorderAudioLatency,
+        (index: number): void => { this.draftRecorderAudioLatency = index; });
+    } else if (option === RecorderSettingsOption.VIDEO_STABILIZATION) {
+      this.showSettingPicker(this.getRecorderStabilizationLabels(), this.draftRecorderStabilization,
+        (index: number): void => { this.draftRecorderStabilization = index; });
+    } else if (option === RecorderSettingsOption.VIDEO_PREPROCESSING) {
+      this.showSettingPicker(Const.VIDEO_PREPROC_MODE, this.draftRecorderPreprocMode,
+        (index: number): void => { this.draftRecorderPreprocMode = index; });
+    } else if (option === RecorderSettingsOption.DROP_FRAME_RATE) {
+      this.showSettingPicker(Const.VIDEO_DROP_FRAME_RATE, this.draftRecorderDropFrameRate,
+        (index: number): void => { this.draftRecorderDropFrameRate = index; });
+    } else if (option === RecorderSettingsOption.DUAL_OUTPUT) {
+      this.showSettingPicker(Const.DUAL_OUTPUT_MODE, this.draftRecorderDualOutput,
+        (index: number): void => { this.draftRecorderDualOutput = index; });
     }
-      .width('100%')
-      .height('44vp')
-      .padding({ top: '8vp', bottom: '6vp' })
   }
 
   @Builder
   PlayerSettingsSheet() {
-    this.PlayerSettingsSheetContent()
-  }
-
-  @Builder
-  PlayerSettingsSheetContent() {
-    Column() {
-      Scroll() {
-        Column() {
-          this.SettingOptionRow($r('app.string.setting_decoder_type'),
-            this.getDecoderTypeLabels()[this.draftPlayerDecoderType], () => {
-              this.showSettingPicker(this.getDecoderTypeLabels(), this.draftPlayerDecoderType,
-                (index: number) => this.draftPlayerDecoderType = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_run_mode'),
-            this.getRenderModeLabels()[this.draftPlayerRunMode], () => {
-              this.showSettingPicker(this.getRenderModeLabels(), this.draftPlayerRunMode,
-                (index: number) => this.selectPlayerRenderMode(index));
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_sync_mode'),
-            this.getSyncModeLabels()[this.draftPlayerSyncMode], () => {
-              this.showSettingPicker(this.getSyncModeLabels(), this.draftPlayerSyncMode,
-                (index: number) => this.draftPlayerSyncMode = index);
-            })
-          Divider().color('#E5E7EB')
-          Row() {
-            Text($r('app.string.setting_dump'))
-              .fontSize('16fp')
-              .fontColor('#202124')
-              .layoutWeight(1)
-            Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerDump })
-              .onChange((isOn: boolean) => this.draftPlayerDump = isOn)
-          }
-            .width('100%')
-            .height('56vp')
-            .padding({ left: '4vp', right: '4vp' })
-          Divider().color('#E5E7EB')
-          Column() {
-            Row() {
-              Text($r('app.string.setting_audio_volume'))
-                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-              Text(this.draftPlayerAudioVolume.toFixed(0) + '%')
-                .fontSize('14fp').fontColor('#5F6368')
-            }.width('100%')
-            Slider({ value: this.draftPlayerAudioVolume, min: 0, max: 100, step: 1 })
-              .width('100%').blockColor('#0A59F7').selectedColor('#5DA9FF')
-              .onChange((value: number) => this.draftPlayerAudioVolume = value)
-          }
-            .width('100%').padding({ top: '8vp', bottom: '8vp' })
-          Divider().color('#E5E7EB')
-          Row() {
-            Text($r('app.string.setting_advanced'))
-              .fontSize('14fp')
-              .fontWeight(FontWeight.Medium)
-              .fontColor('#5F6368')
-              .layoutWeight(1)
-            Text(this.isAdvancedPlayerSettingsExpanded ? '−' : '+')
-              .fontSize('20fp')
-              .fontColor('#5F6368')
-          }
-            .width('100%')
-            .height('48vp')
-            .padding({ left: '4vp', right: '4vp' })
-            .onClick(() => this.isAdvancedPlayerSettingsExpanded = !this.isAdvancedPlayerSettingsExpanded)
-          if (this.isAdvancedPlayerSettingsExpanded) {
-            Row() {
-              Text($r('app.string.setting_dump'))
-                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerDump })
-                .onChange((isOn: boolean) => this.draftPlayerDump = isOn)
-            }
-              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
-            Divider().color('#E5E7EB')
-            Row() {
-              Text($r('app.string.setting_audio_latency'))
-                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerAudioLowLatency })
-                .onChange((isOn: boolean) => this.draftPlayerAudioLowLatency = isOn)
-            }
-              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
-            Divider().color('#E5E7EB')
-            Row() {
-              Text($r('app.string.setting_auto_hide_controls'))
-                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerAutoHideControls })
-                .onChange((isOn: boolean) => this.draftPlayerAutoHideControls = isOn)
-            }
-              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
-            Divider().color('#E5E7EB')
-            Row() {
-              Text($r('app.string.setting_retain_last_frame'))
-                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerRetainLastFrame })
-                .enabled(this.draftPlayerRunMode === 0)
-                .onChange((isOn: boolean) => this.draftPlayerRetainLastFrame = isOn)
-            }
-              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
-            Divider().color('#E5E7EB')
-            Row() {
-              Text($r('app.string.setting_low_latency'))
-                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerLowLatency })
-                .onChange((isOn: boolean) => this.draftPlayerLowLatency = isOn)
-            }
-              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
-            Divider().color('#E5E7EB')
-            Row() {
-              Text($r('app.string.setting_decoding_order_output'))
-                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerOutputInDecodingOrder })
-                .onChange((isOn: boolean) => this.draftPlayerOutputInDecodingOrder = isOn)
-            }
-              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
-            Divider().color('#E5E7EB')
-            Row() {
-              Column() {
-                Text($r('app.string.setting_hdr_vivid_to_bt709'))
-                  .fontSize('16fp')
-                  .fontColor(this.isHdrVividToBt709Supported(this.draftPlayerRunMode) ? '#202124' : '#8A8A8A')
-                if (!this.isHdrVividToBt709Supported(this.draftPlayerRunMode)) {
-                  Text($r('app.string.setting_hdr_vivid_to_bt709_gpu_unavailable'))
-                    .fontSize('12fp')
-                    .fontColor('#8A8A8A')
-                    .maxLines(1)
-                    .textOverflow({ overflow: TextOverflow.Ellipsis })
-                }
-              }
-                .alignItems(HorizontalAlign.Start)
-                .layoutWeight(1)
-              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerConvertHdrVividToBt709 })
-                .enabled(this.isHdrVividToBt709Supported(this.draftPlayerRunMode))
-                .onChange((isOn: boolean) => this.draftPlayerConvertHdrVividToBt709 = isOn)
-            }
-              .width('100%')
-              .height(this.isHdrVividToBt709Supported(this.draftPlayerRunMode) ? '56vp' : '68vp')
-              .padding({ left: '4vp', right: '4vp' })
-          }
-        }
-          .width('100%')
-      }
-        .layoutWeight(1)
-        .scrollBar(BarState.Auto)
-      this.PlayerSettingSheetFooter(
-        () => this.isPlayerSettingsVisible = false,
-        () => {
-          this.isAdvancedPlayerSettingsExpanded = false;
-          this.draftPlayerDecoderType = 0;
-          this.draftPlayerRunMode = 0;
-          this.draftPlayerSyncMode = 0;
-          this.draftPlayerDump = false;
-          this.draftPlayerRetainLastFrame = true;
-          this.draftPlayerLowLatency = false;
-          this.draftPlayerOutputInDecodingOrder = false;
-          this.draftPlayerConvertHdrVividToBt709 = false;
-          this.draftPlayerAudioVolume = 100;
-          this.draftPlayerAudioLowLatency = false;
-          this.draftPlayerAutoHideControls = true;
-        },
-        () => this.applyPlayerSettings()
-      )
-    }
-      .width('100%')
-      .height('100%')
-      .padding({ left: '20vp', right: '20vp' })
-      .backgroundColor('#F8F9FA')
+    PlayerSettingsPanel({
+      decoderTypeText: this.getDecoderTypeLabels()[this.draftPlayerDecoderType],
+      runModeText: this.getRenderModeLabels()[this.draftPlayerRunMode],
+      syncModeText: this.getSyncModeLabels()[this.draftPlayerSyncMode],
+      dumpEnabled: this.draftPlayerDump,
+      volumePercent: this.draftPlayerAudioVolume,
+      advancedExpanded: this.isAdvancedPlayerSettingsExpanded,
+      audioLowLatencyEnabled: this.draftPlayerAudioLowLatency,
+      autoHideControlsEnabled: this.draftPlayerAutoHideControls,
+      retainLastFrameEnabled: this.draftPlayerRetainLastFrame,
+      retainLastFrameAvailable: this.draftPlayerRunMode === 0,
+      lowLatencyEnabled: this.draftPlayerLowLatency,
+      decodingOrderOutputEnabled: this.draftPlayerOutputInDecodingOrder,
+      hdrVividConversionEnabled: this.draftPlayerConvertHdrVividToBt709,
+      hdrVividConversionAvailable: this.isHdrVividToBt709Supported(this.draftPlayerRunMode),
+      onChooseOption: (option: PlayerSettingsOption): void => this.choosePlayerOption(option),
+      onDumpChanged: (enabled: boolean): void => { this.draftPlayerDump = enabled; },
+      onVolumeChanged: (volume: number): void => { this.draftPlayerAudioVolume = volume; },
+      onAdvancedExpandedChanged: (expanded: boolean): void => {
+        this.isAdvancedPlayerSettingsExpanded = expanded;
+      },
+      onAudioLowLatencyChanged: (enabled: boolean): void => { this.draftPlayerAudioLowLatency = enabled; },
+      onAutoHideControlsChanged: (enabled: boolean): void => { this.draftPlayerAutoHideControls = enabled; },
+      onRetainLastFrameChanged: (enabled: boolean): void => { this.draftPlayerRetainLastFrame = enabled; },
+      onLowLatencyChanged: (enabled: boolean): void => { this.draftPlayerLowLatency = enabled; },
+      onDecodingOrderOutputChanged: (enabled: boolean): void => {
+        this.draftPlayerOutputInDecodingOrder = enabled;
+      },
+      onHdrVividConversionChanged: (enabled: boolean): void => {
+        this.draftPlayerConvertHdrVividToBt709 = enabled;
+      },
+      onCancel: (): void => { this.isPlayerSettingsVisible = false; },
+      onRestoreDefaults: (): void => this.resetPlayerSettingsDraft(),
+      onApply: (): void => this.applyPlayerSettings()
+    })
   }
 
   @Builder
   RecorderSettingsSheet() {
-    this.RecorderSettingsSheetContent()
-  }
-
-  @Builder
-  RecorderSettingsSheetContent() {
-    Column() {
-      Scroll() {
-        Column() {
-          this.SettingGroupHeader($r('app.string.setting_group_output'))
-          Row() {
-            Text($r('app.string.setting_recorder_dump'))
-              .fontSize('16fp')
-              .fontColor('#202124')
-              .layoutWeight(1)
-            Toggle({ type: ToggleType.Switch, isOn: this.draftRecorderVideoDump })
-              .onChange((isOn: boolean) => this.draftRecorderVideoDump = isOn)
-          }
-            .width('100%')
-            .height('52vp')
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_output_format'),
-            Const.OUTPUT_FORMAT[this.draftRecorderOutputFormat], () => {
-              this.showSettingPicker(Const.OUTPUT_FORMAT, this.draftRecorderOutputFormat,
-                (index: number) => this.draftRecorderOutputFormat = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingGroupHeader($r('app.string.setting_group_video'))
-          this.SettingOptionRow($r('app.string.setting_codec'),
-            this.getRecorderCodecLabels()[this.draftRecorderCodec], () => {
-              this.showSettingPicker(this.getRecorderCodecLabels(), this.draftRecorderCodec,
-                (index: number) => this.draftRecorderCodec = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_resolution'),
-            this.getResolutionLabels()[this.draftRecorderResolution], () => {
-              this.showSettingPicker(this.getResolutionLabels(), this.draftRecorderResolution,
-                (index: number) => this.draftRecorderResolution = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_frame_rate'),
-            this.getFrameRateLabels()[this.draftRecorderFrameRate], () => {
-              this.showSettingPicker(this.getFrameRateLabels(), this.draftRecorderFrameRate,
-                (index: number) => {
-                  this.draftRecorderFrameRate = index;
-                  if (index === 0) {
-                    this.draftRecorderDropFrameRate = 0;
-                  }
-                });
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_video_bitrate'),
-            this.getRecorderBitrateLabels()[this.draftRecorderBitrate], () => {
-              this.showSettingPicker(this.getRecorderBitrateLabels(), this.draftRecorderBitrate,
-                (index: number) => this.draftRecorderBitrate = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_bitrate_mode'),
-            this.getRecorderBitrateModeLabels()[this.draftRecorderBitrateMode], () => {
-              this.showSettingPicker(this.getRecorderBitrateModeLabels(), this.draftRecorderBitrateMode,
-                (index: number) => this.draftRecorderBitrateMode = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_i_frame_interval'),
-            this.getRecorderIFrameIntervalLabels()[this.draftRecorderIFrameInterval], () => {
-              this.showSettingPicker(this.getRecorderIFrameIntervalLabels(), this.draftRecorderIFrameInterval,
-                (index: number) => this.draftRecorderIFrameInterval = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingGroupHeader($r('app.string.setting_group_audio'))
-          this.SettingOptionRow($r('app.string.setting_audio_sample_rate'),
-            this.getRecorderAudioSampleRateLabels()[this.draftRecorderAudioSampleRate], () => {
-              this.showSettingPicker(this.getRecorderAudioSampleRateLabels(), this.draftRecorderAudioSampleRate,
-                (index: number) => this.draftRecorderAudioSampleRate = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_audio_channel_count'),
-            this.getRecorderAudioChannelCountLabels()[this.draftRecorderAudioChannelCount], () => {
-              this.showSettingPicker(this.getRecorderAudioChannelCountLabels(), this.draftRecorderAudioChannelCount,
-                (index: number) => this.draftRecorderAudioChannelCount = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_audio_bitrate'),
-            this.getRecorderAudioBitrateLabels()[this.draftRecorderAudioBitrate], () => {
-              this.showSettingPicker(this.getRecorderAudioBitrateLabels(), this.draftRecorderAudioBitrate,
-                (index: number) => this.draftRecorderAudioBitrate = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_audio_capture_latency'),
-            this.getRecorderAudioLatencyLabels()[this.draftRecorderAudioLatency], () => {
-              this.showSettingPicker(this.getRecorderAudioLatencyLabels(), this.draftRecorderAudioLatency,
-                (index: number) => this.draftRecorderAudioLatency = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingGroupHeader($r('app.string.setting_group_control'))
-          this.SettingOptionRow($r('app.string.setting_sync_mode'),
-            this.getSyncModeLabels()[this.draftRecorderSyncMode], () => {
-              this.showSettingPicker(this.getSyncModeLabels(), this.draftRecorderSyncMode,
-                (index: number) => this.draftRecorderSyncMode = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_video_stabilization'),
-            this.getRecorderStabilizationLabels()[this.draftRecorderStabilization], () => {
-              this.showSettingPicker(this.getRecorderStabilizationLabels(), this.draftRecorderStabilization,
-                (index: number) => this.draftRecorderStabilization = index);
-            })
-          Divider().color('#E5E7EB')
-          this.SettingGroupHeader($r('app.string.setting_group_preproc'))
-          this.SettingOptionRow($r('app.string.setting_video_preproc'),
-            Const.VIDEO_PREPROC_MODE[this.draftRecorderPreprocMode], () => {
-              this.showSettingPicker(Const.VIDEO_PREPROC_MODE, this.draftRecorderPreprocMode,
-                (index: number) => this.draftRecorderPreprocMode = index);
-            }, this.isAdvancedRecorderSupported)
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_drop_frame_rate'),
-            Const.VIDEO_DROP_FRAME_RATE[this.draftRecorderDropFrameRate], () => {
-              this.showSettingPicker(Const.VIDEO_DROP_FRAME_RATE, this.draftRecorderDropFrameRate,
-                (index: number) => this.draftRecorderDropFrameRate = index);
-            }, this.isAdvancedRecorderSupported && this.draftRecorderFrameRate > 0)
-          Divider().color('#E5E7EB')
-          this.SettingOptionRow($r('app.string.setting_dual_output'),
-            Const.DUAL_OUTPUT_MODE[this.draftRecorderDualOutput], () => {
-              this.showSettingPicker(Const.DUAL_OUTPUT_MODE, this.draftRecorderDualOutput,
-                (index: number) => this.draftRecorderDualOutput = index);
-            }, this.isAdvancedRecorderSupported)
-        }
-          .width('100%')
-      }
-        .layoutWeight(1)
-        .scrollBar(BarState.Auto)
-      this.SettingSheetFooter(
-        () => this.isRecorderSettingsVisible = false,
-        () => {
-          this.draftRecorderOutputFormat = 0;
-          this.draftRecorderCodec = 1;
-          this.draftRecorderResolution = 1;
-          this.draftRecorderFrameRate = 0;
-          this.draftRecorderSyncMode = 0;
-          this.draftRecorderBitrate = 1;
-          this.draftRecorderBitrateMode = 0;
-          this.draftRecorderIFrameInterval = 0;
-          this.draftRecorderAudioSampleRate = 1;
-          this.draftRecorderAudioChannelCount = 1;
-          this.draftRecorderAudioBitrate = 0;
-          this.draftRecorderAudioLatency = 0;
-          this.draftRecorderStabilization = 1;
-          this.draftRecorderPreprocMode = 0;
-          this.draftRecorderDropFrameRate = 0;
-          this.draftRecorderDualOutput = 0;
-          this.draftRecorderVideoDump = false;
-        },
-        () => this.applyRecorderSettings()
-      )
-    }
-      .width('100%')
-      .height('100%')
-      .padding({ left: '20vp', right: '20vp' })
-      .backgroundColor('#F8F9FA')
+    RecorderSettingsPanel({
+      videoDumpEnabled: this.draftRecorderVideoDump,
+      advancedOptionsSupported: this.isAdvancedRecorderSupported,
+      dropFrameRateEnabled: this.isAdvancedRecorderSupported && this.draftRecorderFrameRate > 0,
+      outputFormatText: Const.OUTPUT_FORMAT[this.draftRecorderOutputFormat],
+      videoCodecText: this.getRecorderCodecLabels()[this.draftRecorderCodec],
+      videoResolutionText: this.getResolutionLabels()[this.draftRecorderResolution],
+      videoFrameRateText: this.getFrameRateLabels()[this.draftRecorderFrameRate],
+      syncModeText: this.getSyncModeLabels()[this.draftRecorderSyncMode],
+      videoBitrateText: this.getRecorderBitrateLabels()[this.draftRecorderBitrate],
+      bitrateModeText: this.getRecorderBitrateModeLabels()[this.draftRecorderBitrateMode],
+      iFrameIntervalText: this.getRecorderIFrameIntervalLabels()[this.draftRecorderIFrameInterval],
+      audioSampleRateText: this.getRecorderAudioSampleRateLabels()[this.draftRecorderAudioSampleRate],
+      audioChannelCountText: this.getRecorderAudioChannelCountLabels()[this.draftRecorderAudioChannelCount],
+      audioBitrateText: this.getRecorderAudioBitrateLabels()[this.draftRecorderAudioBitrate],
+      audioCaptureLatencyText: this.getRecorderAudioLatencyLabels()[this.draftRecorderAudioLatency],
+      videoStabilizationText: this.getRecorderStabilizationLabels()[this.draftRecorderStabilization],
+      videoPreprocessingText: Const.VIDEO_PREPROC_MODE[this.draftRecorderPreprocMode],
+      dropFrameRateText: Const.VIDEO_DROP_FRAME_RATE[this.draftRecorderDropFrameRate],
+      dualOutputText: Const.DUAL_OUTPUT_MODE[this.draftRecorderDualOutput],
+      onVideoDumpChanged: (enabled: boolean): void => { this.draftRecorderVideoDump = enabled; },
+      onChooseOption: (option: RecorderSettingsOption): void => this.chooseRecorderOption(option),
+      onCancel: (): void => { this.isRecorderSettingsVisible = false; },
+      onRestoreDefaults: (): void => this.resetRecorderSettingsDraft(),
+      onApply: (): void => this.applyRecorderSettings()
+    })
   }
 
   @Builder
@@ -2539,105 +2247,87 @@ export struct Player {
 
   @Builder
   Authorized() {
-    Column() {
-      Text($r('app.string.saveButtonNote'))
-        .width('100%')
-        .fontSize('16vp')
-        .margin({ bottom: '12vp' })
+    RecorderSaveAuthorizationPanel({
+      onCancel: (): void => { this.isShow = false; },
+      onSave: async (): Promise<void> => { await this.saveRecorderOutput(); }
+    })
+  }
 
-      Row() {
-        Button($r('app.string.saveButtonCancel'))
-          .onClick(() => {
-            this.isShow = false
-          })
-          .width('48%')
-
-        Blank()
-
-        SaveButton({ text: SaveDescription.SAVE })
-          .onClick(async () => {
-            const context = this.getUIContext().getHostContext();
-            let helper = photoAccessHelper.getPhotoAccessHelper(context);
-            let fileExt = this.cameraData.outputFormat === Const.FORMAT_FLV ? 'flv' : 'mp4';
-            let uri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, fileExt, {
-              title: `AVCodecVideo_${DATETIME.getDate()}_${DATETIME.getTime()}`
-            });
-            let secondaryFile: fileIo.File | undefined = undefined;
-            if (this.cameraData.enableDualOutput) {
-              const secondaryUri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, fileExt, {
-                title: `AVCodecVideoSecondary_${DATETIME.getDate()}_${DATETIME.getTime()}`
-              });
-              secondaryFile = await fileIo.open(secondaryUri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
-            }
-            await this.checkIsProfileSupport();
-            let file = await fileIo.open(uri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
-            this.cameraData.outputfd = file.fd;
-            this.cameraData.secondaryOutputfd = secondaryFile === undefined ? -1 : secondaryFile.fd;
-            const dumpTimestamp: number = Date.now();
-            const dumpExtension: string = this.cameraData.videoCodecMime === Const.MIME_VIDEO_AVC ? 'h264' : 'h265';
-            const dumpDirectory: string = context === undefined ? '' : context.filesDir;
-            const primaryDumpPath: string = this.cameraData.enableVideoDump && dumpDirectory.length > 0 ?
-              `${dumpDirectory}/recording_${dumpTimestamp}_primary.${dumpExtension}` : '';
-            const secondaryDumpPath: string = this.cameraData.enableVideoDump && this.cameraData.enableDualOutput &&
-              dumpDirectory.length > 0 ?
-              `${dumpDirectory}/recording_${dumpTimestamp}_secondary.${dumpExtension}` : '';
-            if (this.cameraData.outputfd !== null) {
-              recorder.initNative(this.cameraData.outputfd, this.cameraData.videoCodecMime, this.cameraData.cameraWidth,
-                this.cameraData.cameraHeight, this.cameraData.frameRate, this.cameraData.isHDRVivid,
-                this.cameraData.bitRate, this.cameraData.format, this.cameraData.isSync,
-                this.cameraData.outputFormat, this.cameraData.bitrateMode, this.cameraData.iFrameInterval,
-                this.cameraData.audioSampleRate, this.cameraData.audioChannelCount,
-                this.cameraData.audioBitRate, this.cameraData.audioCaptureLatencyMode,
-                this.cameraData.secondaryOutputfd, this.cameraData.enableDualOutput ? 1 : 0,
-                this.cameraData.preprocMode, this.cameraData.downsamplingWidth,
-                this.cameraData.downsamplingHeight, this.cameraData.dropToFrameRate,
-                this.cameraData.cropLeft, this.cameraData.cropTop, this.cameraData.cropRight,
-                this.cameraData.cropBottom,
-                this.cameraData.enableDualOutput && this.cameraData.cameraWidth >= Const.VIDEO_WIDTH_1080P ?
-                  Const.VIDEO_WIDTH_720P : this.cameraData.cameraWidth,
-                this.cameraData.enableDualOutput && this.cameraData.cameraHeight >= Const.VIDEO_HEIGHT_1080P ?
-                  Const.VIDEO_HEIGHT_720P : this.cameraData.cameraHeight,
-                this.cameraData.enableVideoDump ? 1 : 0, primaryDumpPath, secondaryDumpPath).then((data) => {
-                if (data.code === 0 && data.outputId !== null) {
-                  this.cameraData.outputId = data.outputId;
-                  this.getUIContext().getRouter().pushUrl({
-                    url: 'recorder/pages/Recorder',
-                    params: this.cameraData
-                  });
-                } else {
-                  Logger.error(TAG, 'Recorder initialization failed, code: ' + data.code);
-                  try {
-                    fileIo.close(file);
-                    if (secondaryFile !== undefined) {
-                      fileIo.close(secondaryFile);
-                    }
-                  } catch (error) {
-                    Logger.error(TAG, 'Close unsupported recorder output failed: ' + JSON.stringify(error));
-                  }
-                  this.getUIContext().getPromptAction().showToast({
-                    message: $r('app.string.recorder_configuration_unsupported'),
-                    duration: Const.DURATION,
-                    bottom: Const.BOTTOM
-                  });
-                }
-              })
-            } else {
-              Logger.error(TAG, 'get outputfd failed!');
-            }
-          })
-          .width('48%')
-          .height('40vp')
-      }
-      .justifyContent(FlexAlign.SpaceAround)
-      .alignItems(VerticalAlign.Bottom)
-      .margin({ bottom: '44vp' })
-      .width('100%')
-      .height('52vp')
+  private async saveRecorderOutput(): Promise<void> {
+    const context = this.getUIContext().getHostContext();
+    let helper = photoAccessHelper.getPhotoAccessHelper(context);
+    let fileExt = this.cameraData.outputFormat === Const.FORMAT_FLV ? 'flv' : 'mp4';
+    let uri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, fileExt, {
+      title: `AVCodecVideo_${DATETIME.getDate()}_${DATETIME.getTime()}`
+    });
+    const outputTitle: string = `AVCodecVideo_${DATETIME.getDate()}_${DATETIME.getTime()}.${fileExt}`;
+    this.cameraData.outputUri = uri;
+    this.cameraData.outputTitle = outputTitle;
+    let secondaryFile: fileIo.File | undefined = undefined;
+    if (this.cameraData.enableDualOutput) {
+      const secondaryUri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, fileExt, {
+        title: `AVCodecVideoSecondary_${DATETIME.getDate()}_${DATETIME.getTime()}`
+      });
+      this.cameraData.secondaryOutputUri = secondaryUri;
+      secondaryFile = await fileIo.open(secondaryUri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
+    } else {
+      this.cameraData.secondaryOutputUri = '';
     }
-    .justifyContent(FlexAlign.End)
-    .padding({ left: '16vp', right: '16vp' })
-    .width('100%')
-    .height('100%')
+    await this.checkIsProfileSupport();
+    let file = await fileIo.open(uri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
+    this.cameraData.outputfd = file.fd;
+    this.cameraData.secondaryOutputfd = secondaryFile === undefined ? -1 : secondaryFile.fd;
+    const dumpTimestamp: number = Date.now();
+    const dumpExtension: string = this.cameraData.videoCodecMime === Const.MIME_VIDEO_AVC ? 'h264' : 'h265';
+    const dumpDirectory: string = context === undefined ? '' : context.filesDir;
+    const primaryDumpPath: string = this.cameraData.enableVideoDump && dumpDirectory.length > 0 ?
+      `${dumpDirectory}/recording_${dumpTimestamp}_primary.${dumpExtension}` : '';
+    const secondaryDumpPath: string = this.cameraData.enableVideoDump && this.cameraData.enableDualOutput &&
+      dumpDirectory.length > 0 ?
+      `${dumpDirectory}/recording_${dumpTimestamp}_secondary.${dumpExtension}` : '';
+    if (this.cameraData.outputfd !== null) {
+      recorder.initNative(this.cameraData.outputfd, this.cameraData.videoCodecMime, this.cameraData.cameraWidth,
+        this.cameraData.cameraHeight, this.cameraData.frameRate, this.cameraData.isHDRVivid,
+        this.cameraData.bitRate, this.cameraData.format, this.cameraData.isSync,
+        this.cameraData.outputFormat, this.cameraData.bitrateMode, this.cameraData.iFrameInterval,
+        this.cameraData.audioSampleRate, this.cameraData.audioChannelCount,
+        this.cameraData.audioBitRate, this.cameraData.audioCaptureLatencyMode,
+        this.cameraData.secondaryOutputfd, this.cameraData.enableDualOutput ? 1 : 0,
+        this.cameraData.preprocMode, this.cameraData.downsamplingWidth,
+        this.cameraData.downsamplingHeight, this.cameraData.dropToFrameRate,
+        this.cameraData.cropLeft, this.cameraData.cropTop, this.cameraData.cropRight,
+        this.cameraData.cropBottom,
+        this.cameraData.enableDualOutput && this.cameraData.cameraWidth >= Const.VIDEO_WIDTH_1080P ?
+          Const.VIDEO_WIDTH_720P : this.cameraData.cameraWidth,
+        this.cameraData.enableDualOutput && this.cameraData.cameraHeight >= Const.VIDEO_HEIGHT_1080P ?
+          Const.VIDEO_HEIGHT_720P : this.cameraData.cameraHeight,
+        this.cameraData.enableVideoDump ? 1 : 0, primaryDumpPath, secondaryDumpPath).then((data) => {
+        if (data.code === 0 && data.outputId !== null) {
+          this.cameraData.outputId = data.outputId;
+          this.getUIContext().getRouter().pushUrl({
+            url: 'recorder/pages/Recorder',
+            params: this.cameraData
+          });
+        } else {
+          Logger.error(TAG, 'Recorder initialization failed, code: ' + data.code);
+          try {
+            fileIo.close(file);
+            if (secondaryFile !== undefined) {
+              fileIo.close(secondaryFile);
+            }
+          } catch (error) {
+            Logger.error(TAG, 'Close unsupported recorder output failed: ' + JSON.stringify(error));
+          }
+          this.getUIContext().getPromptAction().showToast({
+            message: $r('app.string.recorder_configuration_unsupported'),
+            duration: Const.DURATION,
+            bottom: Const.BOTTOM
+          });
+        }
+      })
+    } else {
+      Logger.error(TAG, 'get outputfd failed!');
+    }
   }
 
   @Builder
@@ -2679,13 +2369,15 @@ export struct Player {
         cameraHeight: this.cameraData.cameraHeight,
         frameRate: this.cameraData.frameRate,
         buttonEnabled: this.buttonEnabled,
+      recordingEntries: this.recordingEntries,
         onOpenSettings: (): void => {
           this.prepareRecorderSettings();
           this.isRecorderSettingsVisible = true;
         },
         onStartRecording: (): void => {
           void this.prepareRecording();
-        }
+      },
+      onPlayRecording: (uri: string): void => this.playRecording(uri)
       })
       Column()
         .width(1)
@@ -2707,6 +2399,11 @@ export struct Player {
     }
     .width('100%')
     .height('100%')
+  }
+
+  @Builder
+  DeviceDiagnosticsHomePage() {
+    DeviceDiagnosticsPage({ model: this.playbackViewModel })
   }
 
   @Builder
@@ -2745,289 +2442,95 @@ export struct Player {
 
   @Builder
   PlaybackToolsPanel() {
-    Scroll() {
-    Column({ space: '8vp' }) {
-      Text($r('app.string.playback_section_controls'))
-        .fontSize('13fp')
-        .fontWeight(FontWeight.Medium)
-        .fontColor('#667085')
-      Row({ space: '8vp' }) {
-        Button($r('app.string.playback_queue'))
-          .layoutWeight(1)
-          .height('30vp')
-          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-          .fontSize('10fp')
-          .onClick(() => {
-            this.closePlaybackTools();
-            setTimeout(() => {
-              this.isQueueVisible = true;
-            }, 300);
-          })
-      }
-      .height('44vp')
-      if (!this.buttonEnabled && !this.isStopping && this.playbackViewModel.hasVideo) {
-        Row({ space: '8vp' }) {
-          Button($r('app.string.adjust_playback_speed'))
-            .layoutWeight(1)
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.closePlaybackTools();
-              this.showPlaybackSpeedPicker();
-            })
-        }
-        .height('44vp')
-      }
-      if (this.playbackViewModel.hasVideo) {
-        Row({ space: '8vp' }) {
-          Button($r('app.string.playback_display_scale'))
-            .layoutWeight(1)
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.closePlaybackTools();
-              this.selectDisplayScaleMode();
-            })
-          if (this.playbackViewModel.hasAudio) {
-            Button(this.audioMuted ? $r('app.string.playback_unmute') : $r('app.string.playback_mute'))
-              .layoutWeight(1)
-              .height('30vp')
-              .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-              .fontSize('10fp')
-              .onClick(() => {
-                this.toggleMute();
-                this.closePlaybackTools();
-              })
-          } else {
-            Blank().layoutWeight(1)
+    PlaybackMoreActionsPanel({
+      buttonEnabled: this.buttonEnabled,
+      isStopping: this.isStopping,
+      hasVideo: this.playbackViewModel.hasVideo,
+      hasAudio: this.playbackViewModel.hasAudio,
+      audioMuted: this.audioMuted,
+      isPlayerSettingsVisible: this.isPlayerSettingsVisible,
+      abLoopStartUs: this.abLoopStartUs,
+      abLoopEndUs: this.abLoopEndUs,
+      isAbLoopEnabled: this.isAbLoopEnabled,
+      isBackgroundPlaybackEnabled: this.isBackgroundPlaybackEnabled,
+      isPipActive: this.isPipActive,
+      subtitleFileName: this.subtitleFileName,
+      onClearSubtitle: (): void => this.clearSubtitle(),
+      onAction: (action: PlaybackMoreAction): Promise<void> => this.handlePlaybackMoreAction(action)
+    })
+  }
+
+  private async handlePlaybackMoreAction(action: PlaybackMoreAction): Promise<void> {
+    if (action === PlaybackMoreAction.OPEN_QUEUE) {
+      this.closePlaybackTools()
+      setTimeout(() => this.isQueueVisible = true, 300)
+    } else if (action === PlaybackMoreAction.CHANGE_SPEED) {
+      this.closePlaybackTools()
+      this.showPlaybackSpeedPicker()
+    } else if (action === PlaybackMoreAction.DISPLAY_SCALE) {
+      this.closePlaybackTools()
+      this.selectDisplayScaleMode()
+    } else if (action === PlaybackMoreAction.TOGGLE_MUTE) {
+      this.toggleMute()
+      this.closePlaybackTools()
+    } else if (action === PlaybackMoreAction.CHOOSE_TRANSFORM) {
+      this.getUIContext().showTextPickerDialog({
+        range: Const.getTransformTypes(),
+        canLoop: false,
+        onAccept: (value: TextPickerResult): void => {
+          const transformIndex: number = getPickerSelectedIndex(value.index)
+          if (isPickerIndexValid(transformIndex, Const.TRANSFORM_TYPE_COUNT)) {
+            this.transformType = transformIndex
+            this.setTransform(transformIndex)
           }
         }
-        .height('44vp')
-      } else if (this.playbackViewModel.hasAudio) {
-        Row({ space: '8vp' }) {
-          Button(this.audioMuted ? $r('app.string.playback_unmute') : $r('app.string.playback_mute'))
-            .layoutWeight(1)
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.toggleMute();
-              this.closePlaybackTools();
-            })
-          Blank().layoutWeight(1)
-        }
-        .height('44vp')
-      }
-      if (this.playbackViewModel.hasVideo) {
-        Row() {
-          Button($r('app.string.playback_transform'))
-            .width('100%')
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.getUIContext().showTextPickerDialog({
-                range: Const.getTransformTypes(),
-                canLoop: false,
-                onAccept: (value: TextPickerResult) => {
-                  const transformIndex = getPickerSelectedIndex(value.index);
-                  if (isPickerIndexValid(transformIndex, Const.TRANSFORM_TYPE_COUNT)) {
-                    this.transformType = transformIndex;
-                    this.setTransform(this.transformType);
-                  }
-                }
-              });
-            })
-        }
-        .height('44vp')
-      }
-      Divider().color('#E5E7EB')
-      Text($r('app.string.playback_section_media'))
-        .fontSize('13fp')
-        .fontWeight(FontWeight.Medium)
-        .fontColor('#667085')
-      if (this.playbackViewModel.hasAudio) {
-        Row({ space: '8vp' }) {
-          Button($r('app.string.playback_audio_track'))
-            .layoutWeight(1)
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.closePlaybackTools();
-              this.selectAudioTrack();
-            })
-          if (this.playbackViewModel.hasVideo) {
-            Button($r('app.string.playback_subtitle'))
-              .layoutWeight(1)
-              .height('30vp')
-              .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-              .fontSize('10fp')
-              .onClick(() => {
-                this.closePlaybackTools();
-                this.selectSubtitleFile();
-              })
-          } else {
-            Blank().layoutWeight(1)
-          }
-        }
-        .height('44vp')
-      }
-      if (this.playbackViewModel.hasVideo && !this.playbackViewModel.hasAudio) {
-        Row({ space: '8vp' }) {
-          Button($r('app.string.playback_subtitle'))
-            .layoutWeight(1)
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.closePlaybackTools();
-              this.selectSubtitleFile();
-            })
-          Blank().layoutWeight(1)
-        }
-        .height('44vp')
-      }
-      if (this.playbackViewModel.hasVideo) {
-        Row({ space: '8vp' }) {
-          Button($r('app.string.playback_subtitle_sync'))
-            .layoutWeight(1)
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.closePlaybackTools();
-              this.selectSubtitleDelay();
-            })
-          Button($r('app.string.playback_subtitle_style'))
-            .layoutWeight(1)
-            .height('30vp')
-            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-            .fontSize('10fp')
-            .onClick(() => {
-              this.closePlaybackTools();
-              this.selectSubtitleStyle();
-            })
-        }
-        .height('44vp')
-      }
-      Divider().color('#E5E7EB')
-      Text($r('app.string.playback_section_pipeline'))
-        .fontSize('13fp')
-        .fontWeight(FontWeight.Medium)
-        .fontColor('#667085')
-      Row({ space: '8vp' }) {
-        Button($r('app.string.setting'))
-          .layoutWeight(1)
-          .height('30vp')
-          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-          .fontSize('10fp')
-          .onClick(() => {
-            this.closePlaybackTools();
-            setTimeout(() => {
-              this.preparePlayerSettings();
-              this.isPlayerSettingsVisible = true;
-            }, 300);
-          })
-          .enabled(!this.isPlayerSettingsVisible)
-      }
-      .height('44vp')
-      Row({ space: '8vp' }) {
-        Button(this.abLoopStartUs >= 0 ? $r('app.string.playback_ab_set_start_done') :
-          $r('app.string.playback_ab_set_start'))
-          .layoutWeight(1)
-          .height('30vp')
-          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-          .fontSize('10fp')
-          .enabled(!this.buttonEnabled && !this.isStopping)
-          .onClick(() => {
-            this.setAbLoopStart();
-            this.closePlaybackTools();
-          })
-        Button(this.isAbLoopEnabled ? $r('app.string.playback_ab_set_end_done') :
-          $r('app.string.playback_ab_set_end'))
-          .layoutWeight(1)
-          .height('30vp')
-          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-          .fontSize('10fp')
-          .enabled(!this.buttonEnabled && !this.isStopping && this.abLoopStartUs >= 0)
-          .onClick(() => {
-            this.setAbLoopEnd();
-            this.closePlaybackTools();
-          })
-        Button($r('app.string.playback_ab_clear'))
-          .layoutWeight(1)
-          .height('30vp')
-          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-          .fontSize('10fp')
-          .enabled(this.abLoopStartUs >= 0 || this.abLoopEndUs >= 0)
-          .onClick(() => {
-            this.resetAbLoop();
-            this.closePlaybackTools();
-          })
-      }
-      .height('44vp')
-      Row({ space: '8vp' }) {
-        Button(this.isBackgroundPlaybackEnabled ? $r('app.string.playback_background_on') :
-          $r('app.string.playback_background_off'))
-          .layoutWeight(1)
-          .height('30vp')
-          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-          .fontSize('10fp')
-          .enabled(!this.buttonEnabled && !this.isStopping)
-          .onClick(async () => {
-            await this.toggleBackgroundPlayback();
-            this.closePlaybackTools();
-          })
-        Blank().layoutWeight(1)
-        Blank().layoutWeight(1)
-      }
-      .height('44vp')
-      if (this.playbackViewModel.hasVideo) {
-        Row({ space: '8vp' }) {
-        Button(this.isPipActive ? $r('app.string.playback_pip_exit') : $r('app.string.playback_pip_enter'))
-          .layoutWeight(1)
-          .height('30vp')
-          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
-          .fontSize('10fp')
-          .enabled(!this.buttonEnabled && !this.isStopping)
-          .onClick(async () => {
-            if (this.isPipActive) {
-              await this.stopPictureInPicture();
-            } else {
-              await this.togglePictureInPicture();
-            }
-            this.closePlaybackTools();
-          })
-        if (this.isAbLoopEnabled) {
-          Text(this.formatHistoryPosition(this.abLoopStartUs) + ' - ' +
-            this.formatHistoryPosition(this.abLoopEndUs))
-            .layoutWeight(1)
-            .fontSize('12fp')
-            .fontColor('#5F6368')
-            .textAlign(TextAlign.Center)
-        } else {
-          Blank().layoutWeight(1)
-        }
-        Blank().layoutWeight(1)
-        }
-        .height('44vp')
-      }
+      })
+    } else if (action === PlaybackMoreAction.SELECT_AUDIO_TRACK) {
+      this.closePlaybackTools()
+      this.selectAudioTrack()
+    } else if (action === PlaybackMoreAction.SELECT_SUBTITLE_FILE) {
+      this.closePlaybackTools()
+      this.selectSubtitleFile()
+    } else if (action === PlaybackMoreAction.SELECT_SUBTITLE_DELAY) {
+      this.closePlaybackTools()
+      this.selectSubtitleDelay()
+    } else if (action === PlaybackMoreAction.SELECT_SUBTITLE_STYLE) {
+      this.closePlaybackTools()
+      this.selectSubtitleStyle()
+    } else if (action === PlaybackMoreAction.OPEN_PLAYER_SETTINGS) {
+      this.closePlaybackTools()
+      setTimeout(() => {
+        this.preparePlayerSettings()
+        this.isPlayerSettingsVisible = true
+      }, 300)
+    } else if (action === PlaybackMoreAction.SET_AB_LOOP_START) {
+      this.setAbLoopStart()
+      this.closePlaybackTools()
+    } else if (action === PlaybackMoreAction.SET_AB_LOOP_END) {
+      this.setAbLoopEnd()
+      this.closePlaybackTools()
+    } else if (action === PlaybackMoreAction.CLEAR_AB_LOOP) {
+      this.resetAbLoop()
+      this.closePlaybackTools()
+    } else if (action === PlaybackMoreAction.TOGGLE_BACKGROUND_PLAYBACK) {
+      await this.toggleBackgroundPlayback()
+      this.closePlaybackTools()
+    } else if (action === PlaybackMoreAction.EXIT_PIP) {
+      await this.stopPictureInPicture()
+      this.closePlaybackTools()
+    } else if (action === PlaybackMoreAction.ENTER_PIP) {
+      await this.togglePictureInPicture()
+      this.closePlaybackTools()
     }
-    .width('100%')
-    .padding({ left: '12vp', right: '12vp', top: '6vp', bottom: '6vp' })
-    }
-    .scrollBar(BarState.Auto)
   }
 
   private formatHistoryPosition(positionUs: number): string {
-    const totalSeconds = Math.floor(Math.max(0, positionUs) / 1000000);
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-    return (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+    const totalSeconds: number = Math.floor(Math.max(0, positionUs) / 1000000)
+    const minutes: number = Math.floor(totalSeconds / 60)
+    const seconds: number = totalSeconds % 60
+    return (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds
   }
+
 
   private showPlaybackSpeedPicker(): void {
     TextPickerDialog.show({
@@ -3066,119 +2569,6 @@ export struct Player {
   }
 
   @Builder
-  DiagnosticsPanel() {
-    if (this.isDiagnosticsVisible) {
-      Column({ space: '6vp' }) {
-        Text($r('app.string.playback_diagnostics')).fontSize('13fp').fontColor('#E8FFFFFF')
-        Text(this.getSettingText($r('app.string.playback_diagnostics_state')) + this.playbackViewModel.infoText)
-          .fontSize('12fp').fontColor('#E8FFFFFF')
-        Text(this.getSettingText($r('app.string.playback_diagnostics_position')) +
-          formatMediaTime(this.playbackViewModel.positionUs) + ' / ' +
-          formatMediaTime(this.playbackViewModel.durationUs) +
-          this.getSettingText($r('app.string.playback_diagnostics_speed')) +
-          this.playbackViewModel.speed.toFixed(1))
-          .fontSize('12fp').fontColor('#E8FFFFFF')
-        if (this.playbackViewModel.hasVideo) {
-          Text(this.getSettingText($r('app.string.playback_diagnostics_output')) +
-            this.playbackViewModel.videoOutputFrames +
-            this.getSettingText($r('app.string.playback_diagnostics_rendered')) +
-            this.playbackViewModel.videoRenderedFrames +
-            this.getSettingText($r('app.string.playback_diagnostics_dropped')) +
-            this.playbackViewModel.videoDroppedFrames)
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-          Text(this.getSettingText($r('app.string.playback_diagnostics_output_fps')) +
-            this.playbackViewModel.videoOutputFps.toFixed(1) + ' fps' +
-            this.getSettingText($r('app.string.playback_diagnostics_drop_rate')) +
-            this.playbackViewModel.videoDropRatePercent.toFixed(1) + '%')
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-        }
-        if (this.playbackViewModel.hasAudio) {
-          Text(this.getSettingText($r('app.string.playback_diagnostics_audio_buffers')) +
-            this.playbackViewModel.audioOutputBuffers)
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-        }
-        if (this.playbackViewModel.hasVideo && this.playbackViewModel.isBufferMode) {
-          Text(this.getSettingText($r('app.string.playback_diagnostics_buffer_present')) +
-            this.playbackViewModel.bufferPresentFrames +
-            this.getSettingText($r('app.string.playback_diagnostics_buffer_average')) +
-            this.playbackViewModel.bufferPresentAverageUs.toFixed(1) + ' us' +
-            this.getSettingText($r('app.string.playback_diagnostics_buffer_failures')) +
-            this.playbackViewModel.bufferPresentFailures)
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-        }
-        if (this.playbackViewModel.hasVideo && this.playbackViewModel.sinkDiagnosticsAvailable) {
-          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_present')) +
-            this.playbackViewModel.sinkFrames +
-            this.getSettingText($r('app.string.playback_diagnostics_vulkan_frame')) +
-            this.playbackViewModel.sinkFailures +
-            this.getSettingText($r('app.string.playback_diagnostics_vulkan_failures')) +
-            this.getSettingText($r('app.string.playback_diagnostics_average')) +
-            this.playbackViewModel.sinkAverageFrameUs.toFixed(1) + ' us')
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_wait')) +
-            this.playbackViewModel.sinkAverageNativeImageWaitUs.toFixed(1) + ' us' +
-            this.getSettingText($r('app.string.playback_diagnostics_vulkan_acquire')) +
-            this.playbackViewModel.sinkAverageNativeImageAcquireUs.toFixed(1) + ' us' +
-            this.getSettingText($r('app.string.playback_diagnostics_vulkan_fence')) +
-            this.playbackViewModel.sinkAverageAcquireFenceWaitUs.toFixed(1) + ' us')
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_import')) +
-            this.playbackViewModel.sinkAverageImportUs.toFixed(1) + ' us' +
-            this.getSettingText($r('app.string.playback_diagnostics_vulkan_gpu')) +
-            this.playbackViewModel.sinkAverageGpuWaitUs.toFixed(1) + ' us')
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_record')) +
-            this.playbackViewModel.sinkAverageCommandRecordUs.toFixed(1) + ' us' +
-            this.getSettingText($r('app.string.playback_diagnostics_vulkan_submit')) +
-            this.playbackViewModel.sinkAverageSubmitUs.toFixed(1) + ' us' +
-            this.getSettingText($r('app.string.playback_diagnostics_vulkan_cache')) +
-            this.playbackViewModel.sinkCacheHits + '/' + this.playbackViewModel.sinkCacheMisses)
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-        }
-        if (this.playbackViewModel.hasVideo) {
-          Text(this.getSettingText($r('app.string.playback_diagnostics_smart_fluency')) +
-            (this.playbackViewModel.isSmartFluencyAvailable ?
-              this.getSettingText($r('app.string.playback_diagnostics_available')) :
-              this.getSettingText($r('app.string.playback_diagnostics_unavailable'))) +
-            this.getSettingText($r('app.string.playback_diagnostics_hdr_vivid')) +
-            (this.playbackViewModel.isHdrVividConfirmed ?
-              this.getSettingText($r('app.string.playback_diagnostics_confirmed')) :
-              this.getSettingText($r('app.string.playback_diagnostics_unconfirmed'))))
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-          Text(this.getSettingText($r('app.string.playback_diagnostics_software_fallback')) +
-            (this.playbackViewModel.isSoftwareDecoderFallbackUsed ?
-              this.getSettingText($r('app.string.playback_diagnostics_used')) :
-              this.getSettingText($r('app.string.playback_diagnostics_not_used'))))
-            .fontSize('12fp').fontColor('#E8FFFFFF')
-        }
-        Text(this.getSettingText($r('app.string.playback_diagnostics_recovery')) +
-          (this.playbackViewModel.recoveryStatus === 0 ?
-            this.getSettingText($r('app.string.playback_diagnostics_recovery_idle')) :
-            this.playbackViewModel.recoveryStatus === 1 ?
-              this.getSettingText($r('app.string.playback_diagnostics_recovery_pending')) :
-              this.playbackViewModel.recoveryStatus === 2 ?
-                this.getSettingText($r('app.string.playback_diagnostics_recovery_succeeded')) :
-                this.getSettingText($r('app.string.playback_diagnostics_recovery_failed'))) +
-          (this.playbackViewModel.recoveryAttemptCount > 0 ?
-            this.getSettingText($r('app.string.playback_diagnostics_recovery_attempt')) +
-            this.playbackViewModel.recoveryAttemptCount +
-            this.getSettingText($r('app.string.playback_diagnostics_recovery_attempt_suffix')) : '') +
-          (this.playbackViewModel.recoveryReason === PlaybackRecoveryReason.RUNTIME_ERROR ?
-            this.getSettingText($r('app.string.playback_diagnostics_recovery_reason')) : ''))
-          .fontSize('12fp').fontColor('#E8FFFFFF')
-        AvDiagnosticsPanel({ model: this.playbackViewModel })
-      }
-      .width('100%')
-      .padding({ left: '12vp', right: '12vp', top: '10vp', bottom: '10vp' })
-      .backgroundColor('#99101820')
-      .borderRadius('12vp')
-      .margin({ top: '48vp', left: '16vp' })
-      .align(Alignment.TopStart)
-      .hitTestBehavior(HitTestMode.None)
-    }
-  }
-
-  @Builder
   Window() {
     Stack({ alignContent: Alignment.TopEnd }) {
       PlayerSurface({
@@ -3197,7 +2587,11 @@ export struct Player {
         subtitleBackgroundColor: this.subtitleStyle.backgroundColor(),
         subtitleAtBottom: this.subtitleStyle.positionIndex === 0
       })
-      this.DiagnosticsPanel()
+      PlaybackDiagnosticsOverlay({
+        model: this.playbackViewModel,
+        diagnosticsVisible: this.isDiagnosticsVisible,
+        textForResource: (resource: Resource): string => this.getSettingText(resource)
+      })
     }
     .width(Const.FULL_SIZE)
     .height('auto')
@@ -3329,6 +2723,7 @@ export struct Player {
         playerContent: (): void => this.PlayerPageContent(),
         libraryContent: (): void => this.MediaLibraryPage(),
         recorderContent: (): void => this.RecorderHomePage(),
+        deviceContent: (): void => this.DeviceDiagnosticsHomePage(),
         navigationContent: (): void => this.MainNavigationContent()
       })
     }

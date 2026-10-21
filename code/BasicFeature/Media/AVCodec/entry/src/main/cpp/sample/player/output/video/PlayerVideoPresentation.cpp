@@ -308,6 +308,12 @@ int32_t Player::PresentVideoBuffer(const VideoPresentRequest &request, bool meas
     const auto presentStart = measureBufferPresent ? std::chrono::steady_clock::now() :
         std::chrono::steady_clock::time_point {};
     const int32_t result = videoSink_->Present(request);
+    // UI 每 250 ms 拉取一次快照，送显线程不需要为每一帧争用诊断锁。
+    if ((videoOutputFrames_.load() & 0x7U) == 0U) {
+        const VideoSinkDiagnostics snapshot = videoSink_->GetDiagnostics();
+        std::lock_guard<std::mutex> lock(videoSinkDiagnosticsMutex_);
+        videoSinkDiagnostics_ = snapshot;
+    }
     if (measureBufferPresent) {
         RecordBufferPresentResult(result, presentStart);
     }

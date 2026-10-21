@@ -19,6 +19,23 @@ struct VideoPresentRequest {
     int64_t renderTimestamp = 0;
 };
 
+// 视频送显链路的阶段耗时快照。耗时单位为微秒，数值为从播放开始到当前时刻的平均值。
+struct VideoSinkDiagnostics {
+    bool available = false;
+    uint64_t frames = 0;
+    uint64_t failures = 0;
+    uint64_t cacheHits = 0;
+    uint64_t cacheMisses = 0;
+    double averageFrameUs = 0.0;
+    double averageNativeImageWaitUs = 0.0;
+    double averageNativeImageAcquireUs = 0.0;
+    double averageAcquireFenceWaitUs = 0.0;
+    double averageImportUs = 0.0;
+    double averageGpuWaitUs = 0.0;
+    double averageCommandRecordUs = 0.0;
+    double averageSubmitUs = 0.0;
+};
+
 class VideoSink {
 public:
     virtual ~VideoSink() = default;
@@ -43,6 +60,10 @@ public:
     virtual bool IsHdrVividConfirmed() const
     {
         return false;
+    }
+    virtual VideoSinkDiagnostics GetDiagnostics() const
+    {
+        return {};
     }
     virtual void Reset() = 0;
 };

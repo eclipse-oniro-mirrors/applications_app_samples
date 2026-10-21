@@ -70,6 +70,26 @@ export struct MainBottomNavigation {
       .borderRadius('14vp')
       .accessibilityText($r('app.string.tab_recorder'))
       .onClick(() => this.onTabSelected(2))
+      Button() {
+        Column({ space: '2vp' }) {
+          SymbolGlyph($r('sys.symbol.info_circle_fill'))
+            .fontSize('18fp')
+            .fontColor([this.activeIndex === 3 ? '#0A59F7' : '#667085'])
+          Text($r('app.string.tab_device'))
+            .fontSize('12fp')
+            .fontWeight(this.activeIndex === 3 ? FontWeight.Medium : FontWeight.Regular)
+            .fontColor(this.activeIndex === 3 ? '#0A59F7' : '#667085')
+        }
+        .width('100%')
+        .alignItems(HorizontalAlign.Center)
+      }
+      .layoutWeight(1)
+      .height('52vp')
+      .type(ButtonType.Normal)
+      .backgroundColor(this.activeIndex === 3 ? '#EAF1FF' : Color.Transparent)
+      .borderRadius('14vp')
+      .accessibilityText($r('app.string.tab_device'))
+      .onClick(() => this.onTabSelected(3))
     }
     .width('100%')
     .padding({ left: '12vp', right: '12vp', top: '6vp', bottom: '6vp' })

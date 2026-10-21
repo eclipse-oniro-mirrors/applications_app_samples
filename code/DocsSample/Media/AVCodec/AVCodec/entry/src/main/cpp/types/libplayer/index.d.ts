@@ -198,6 +198,39 @@ export interface MediaInfo {
 
 export const getMediaInfo: () => MediaInfo
 
+/** 返回系统公布的编解码能力；该查询不会创建编解码器实例。 */
+export interface DeviceCodecCapabilityRange {
+  min: number;
+  max: number;
+}
+
+export interface DeviceCodecProfileLevels {
+  profile: number;
+  levels: number[];
+}
+
+export interface DeviceCodecCapability {
+  codecType: number;
+  codecName: string;
+  mimeType: string;
+  hardware: boolean;
+  maxInstances: number;
+  videoWidthRange?: DeviceCodecCapabilityRange;
+  videoHeightRange?: DeviceCodecCapabilityRange;
+  videoFrameRateRange?: DeviceCodecCapabilityRange;
+  videoWidthAlignment?: number;
+  videoHeightAlignment?: number;
+  videoPixelFormats: number[];
+  profiles: number[];
+  profileLevels: DeviceCodecProfileLevels[];
+  audioSampleRates: number[];
+  audioSampleRateRanges: DeviceCodecCapabilityRange[];
+  audioChannelCountRange?: DeviceCodecCapabilityRange;
+  encoderBitrateRange?: DeviceCodecCapabilityRange;
+}
+
+export const getDeviceCodecCapabilities: () => DeviceCodecCapability[]
+
 export const isSmartFluencyAvailable: () => boolean
 
 export const setPlaybackSpeed: (

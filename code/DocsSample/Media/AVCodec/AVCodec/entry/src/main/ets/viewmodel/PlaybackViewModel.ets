@@ -64,6 +64,7 @@ export class PlaybackViewModel {
   public speed: number;
   public hasAudio: boolean;
   public videoOutputFps: number;
+  public hasVideoOutputFpsSample: boolean;
   public videoDropRatePercent: number;
   public seekPreviewFrame: PixelMap | undefined;
   public seekPreviewRotation: number;
@@ -107,6 +108,7 @@ export class PlaybackViewModel {
     this.speed = 1.0;
     this.hasAudio = false;
     this.videoOutputFps = 0;
+    this.hasVideoOutputFpsSample = false;
     this.videoDropRatePercent = 0;
     this.seekPreviewFrame = undefined;
     this.seekPreviewRotation = 0;
@@ -174,7 +176,11 @@ export class PlaybackViewModel {
     const nowMs: number = Date.now();
     if (this.lastStatsTimeMs > 0 && nowMs > this.lastStatsTimeMs) {
       const elapsedSeconds: number = (nowMs - this.lastStatsTimeMs) / 1000;
-      this.videoOutputFps = Math.max(0, (info.videoOutputFrames - this.lastOutputFrames) / elapsedSeconds);
+      const frameDelta: number = info.videoOutputFrames - this.lastOutputFrames;
+      if (frameDelta > 0) {
+        this.videoOutputFps = frameDelta / elapsedSeconds;
+        this.hasVideoOutputFpsSample = true;
+      }
     }
     const totalVideoFrames: number = info.videoOutputFrames;
     this.videoDropRatePercent = totalVideoFrames > 0 ?
@@ -274,6 +280,7 @@ export class PlaybackViewModel {
     this.speed = 1.0;
     this.hasAudio = false;
     this.videoOutputFps = 0;
+    this.hasVideoOutputFpsSample = false;
     this.videoDropRatePercent = 0;
     this.seekPreviewFrame = undefined;
     this.seekPreviewRotation = 0;

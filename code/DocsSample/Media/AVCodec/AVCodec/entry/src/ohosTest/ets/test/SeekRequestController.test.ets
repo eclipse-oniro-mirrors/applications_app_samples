@@ -26,22 +26,25 @@ class ControlledSeek {
 
 export default function seekRequestControllerTest(): void {
   describe('SeekRequestControllerTest', () => {
-    it('AVCodec_SeekQueue_LatestTarget_001', 0, async () => {
-      await runAsyncTestCase('AVCodec_SeekQueue_LatestTarget_001', async () => {
+    it('AVCodec_SeekQueue_ImmediateAndLatestPending_001', 0, async () => {
+      await runAsyncTestCase('AVCodec_SeekQueue_ImmediateAndLatestPending_001', async () => {
         const worker = new ControlledSeek();
         const queue = new SeekRequestController((targetUs: number) => worker.execute(targetUs));
         const started = worker.waitForStart();
         const first = queue.request(1000000);
         const second = queue.request(2000000);
         const last = queue.request(3000000);
-        expect(await first).assertEqual('superseded');
-        expect(await second).assertEqual('superseded');
         await started;
         expect(worker.targets.length).assertEqual(1);
-        expect(worker.targets[0]).assertEqual(3000000);
+        expect(worker.targets[0]).assertEqual(1000000);
+        expect(await second).assertEqual('superseded');
+        worker.complete?.(true);
+        expect(await first).assertEqual('completed');
+        expect(worker.targets.length).assertEqual(2);
+        expect(worker.targets[1]).assertEqual(3000000);
         worker.complete?.(true);
         expect(await last).assertEqual('completed');
-        expect(queue.merged).assertEqual(2);
+        expect(queue.merged).assertEqual(1);
         expect(queue.isBusy()).assertFalse();
       });
     });

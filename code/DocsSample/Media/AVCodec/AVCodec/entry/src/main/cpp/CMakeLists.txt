@@ -47,6 +47,7 @@ set(BASE_LIBRARY
     libdl.so
 )
 add_library(player SHARED sample/player/napi/PlayerNative.cpp
+                          sample/player/napi/DeviceCodecCapabilityNative.cpp
                           sample/player/napi/PlayerAsyncSeek.cpp
                           sample/player/napi/PlayerNapiParser.cpp
                           sample/player/napi/PlayerNapiSerializer.cpp

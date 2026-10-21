@@ -31,11 +31,11 @@ export interface MediaInfoSection {
   rawText: string;
 }
 
-export function buildMediaInfoSections(info: MediaInfo): MediaInfoSection[] {
+export function buildMediaInfoSections(info: MediaInfo, sourceTitle: string = ''): MediaInfoSection[] {
   if (!info.available) {
     return [];
   }
-  const sections: MediaInfoSection[] = [buildSourceSection(info)];
+  const sections: MediaInfoSection[] = [buildSourceSection(info, sourceTitle)];
   if (info.video.codecMime.length > 0) {
     sections.push(buildVideoSection(info.video));
   }
@@ -51,8 +51,9 @@ export function buildMediaInfoSections(info: MediaInfo): MediaInfoSection[] {
   return sections;
 }
 
-function buildSourceSection(info: MediaInfo): MediaInfoSection {
+function buildSourceSection(info: MediaInfo, sourceTitle: string): MediaInfoSection {
   return createRowsSection('媒体源', [
+    createRow('文件名', sourceTitle.length > 0 ? sourceTitle : '未提供'),
     createRow('文件大小', formatFileSize(info.fileSize)),
     createRow('总时长', formatMediaTime(info.durationUs) + '（' + info.durationUs + ' us）'),
     createRow('轨道数量', info.trackCount.toString())
