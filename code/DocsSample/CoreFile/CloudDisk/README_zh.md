@@ -2,7 +2,7 @@
 
 ## 介绍
 
-本实例主要实现了使用C/C++的方式对接网盘服务底座的能力，通过NAPI封装`OH_CloudDisk_RegisterSyncFolder`、`OH_CloudDisk_UnregisterSyncFolder`、`OH_CloudDisk_ActiveSyncFolder`、`OH_CloudDisk_RegisterSyncFolderChanges`、`OH_CloudDisk_CreatePlaceholder`、`OH_CloudDisk_HydratePlaceholder`、`OH_CloudDisk_DehydrateFile`、`OH_CloudDisk_RegisterCallbackTable`、`OH_CloudDisk_Execute`等API，接口的详细说明请参考[CloudDisk C API参考](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/capi-oh-cloud-disk-manager-h.md)。主要实现的功能包括：同步根的注册/解注册/激活/去激活、同步根文件变更监听与历史操作记录查询、文件同步状态设置与查询、占位符文件创建/查询/更新/转换、按需水合与脱水、回调表注册与回调响应。该工程中展示的代码详细描述可查如下链接。
+本实例主要实现了使用C/C++的方式对接网盘服务底座的能力，通过NAPI封装`OH_CloudDisk_RegisterSyncFolder`、`OH_CloudDisk_UnregisterSyncFolder`、`OH_CloudDisk_ActiveSyncFolder`、`OH_CloudDisk_RegisterSyncFolderChanges`、`OH_CloudDisk_CreatePlaceholder`、`OH_CloudDisk_GetPlaceholderState`、`OH_CloudDisk_HydratePlaceholder`、`OH_CloudDisk_DehydrateFile`、`OH_CloudDisk_RegisterCallbackTable`、`OH_CloudDisk_Execute`等API，接口的详细说明请参考[CloudDisk C API参考](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/capi-oh-cloud-disk-manager-h.md)。主要实现的功能包括：同步根的注册/解注册/激活/去激活、同步根文件变更监听与历史操作记录查询、文件同步状态设置与查询、占位符文件创建（支持写入自定义信息）/查询/更新/转换、占位符水合状态查询、按需水合与脱水、回调表注册与回调响应。该工程中展示的代码详细描述可查如下链接。
 
 - [网盘服务底座概述](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/file-management/clouddisk-overview.md)
 - [网盘服务底座适配指导](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/file-management/clouddisk-guidelines.md)
@@ -14,8 +14,8 @@
 3. 点击"激活同步根"按钮激活同步根，激活后可对该同步根进行文件变更监听与同步状态管理。
 4. 点击"注册监听"按钮注册同步根文件变更监听，同步根下文件增删改会通过回调实时通知。
 5. 点击"读取操作记录""设置同步状态""获取同步状态"按钮进入对应子页面操作。
-6. 切换到"占位符与水合"页面，左侧菜单选择功能模块，包括创建占位符文件、判断占位符文件、更新占位符元数据、占位符转普通文件、脱水、水合、注册/解注册回调表、响应回调请求等操作。
-7. 在水合前需先注册回调表，水合触发后通过回调获取reqKey，再调用Execute回传数据完成落盘。
+6. 切换到"占位符与水合"页面，左侧菜单选择功能模块，包括创建占位符文件（可填自定义信息，供"获取自定义信息"读取）、判断占位符文件、查询占位符水合状态（非占位符/未水合/部分水合/完全水合）、更新占位符元数据、占位符转普通文件、脱水、水合、注册/解注册回调表、响应回调请求等操作。
+7. 在水合前需先注册回调表，水合触发后通过回调获取reqKey，再调用Execute回传数据完成落盘；可通过"查询水合状态"观察水合前后的状态流转。
 
 ## 工程目录
 
