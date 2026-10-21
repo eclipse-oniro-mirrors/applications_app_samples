@@ -1054,8 +1054,9 @@ static napi_value RegisterCallback(napi_env env, napi_callback_info info)
 //         const CloudDisk_PathInfo relativePathInfo,
 //         const OH_CloudDisk_PlaceholderInfo placeholderInfo,
 //         const OH_CloudDisk_PlaceholderCustomInfo *customInfo)
-//     customInfo：可选的opaque自定义信息（如云端文件标识），
-//     不传或传空串时置NULL（不写入），可通过getPlaceholderCustomInfo读回。
+//     customInfo：可选的自定义信息（内容由应用自行定义，系统不解析其内容，
+//     仅原样保存与读回，如云端文件标识），不传或传空串时置NULL（不写入），
+//     可通过getPlaceholderCustomInfo读回。
 // ============================================================================
 // [Start create_placeholder]
 static napi_value CreatePlaceholderFile(napi_env env, napi_callback_info info)
@@ -1115,7 +1116,7 @@ static napi_value CreatePlaceholderFile(napi_env env, napi_callback_info info)
          syncPath, relativePath, (unsigned long long)atimeMs, (unsigned long long)mtimeMs,
          (unsigned long long)logicalSize, customInfoPtr ? customInfoPtr->dataLength : 0);
     // [EndExclude create_placeholder]
-    // 创建占位符文件（customInfo为NULL表示不写入自定义信息，非NULL时写入opaque自定义数据）
+    // 创建占位符文件（customInfo为NULL表示不写入自定义信息，非NULL时写入自定义信息）
     auto ret = OH_CloudDisk_CreatePlaceholder(syncFolderPath, relativePathInfo, placeholderInfo, customInfoPtr);
     if (ret != CLOUD_DISK_OK) {
         LOGE("OH_CloudDisk_CreatePlaceholder failed, errorCode: %{public}d.", ret);
@@ -1204,7 +1205,8 @@ static napi_value IsPlaceholderFile(napi_env env, napi_callback_info info)
 //         const CloudDisk_PathInfo relativePathInfo,
 //         const OH_CloudDisk_PlaceholderInfo placeholderInfo,
 //         const OH_CloudDisk_PlaceholderCustomInfo *customInfo)
-//     customInfo：可选的opaque自定义信息，不传或传空串时置NULL（SDK语义为保留原值）。
+//     customInfo：可选的自定义信息（内容由应用自行定义，系统不解析其内容，
+//     仅原样保存与读回），不传或传空串时置NULL（SDK语义为保留原值）。
 // ============================================================================
 // [Start update_placeholder]
 static napi_value UpdatePlaceholder(napi_env env, napi_callback_info info)
