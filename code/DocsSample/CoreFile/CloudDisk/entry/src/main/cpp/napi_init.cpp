@@ -1197,72 +1197,6 @@ static napi_value IsPlaceholderFile(napi_env env, napi_callback_info info)
 // [End is_placeholder_file]
 
 // ============================================================================
-// 15b. getPlaceholderState(syncPath, relativePath): {code: number, state: number}
-//     查询占位符文件的水合状态（是否占位符以及水合进度）。
-//     返回对象包含code（错误码）与state（占位符状态枚举值）。
-//     state: 0=非占位符(NONE) 1=未水合(UNHYDRATED) 2=部分水合(PARTIALLY_HYDRATED)
-//            3=完全水合(FULLY_HYDRATED)
-//     OH_CloudDisk_GetPlaceholderState(const CloudDisk_SyncFolderPath syncFolderPath,
-//         const CloudDisk_PathInfo relativePathInfo, OH_CloudDisk_PlaceholderState *state)
-//     出参state仅在返回值为CLOUD_DISK_OK时有效，出错时置NONE(0)。
-// ============================================================================
-// [Start get_placeholder_state]
-static napi_value GetPlaceholderState(napi_env env, napi_callback_info info)
-{
-    size_t argc = 2;
-    napi_value args[2] = {nullptr};
-    GetArgs(env, info, argc, args);
-
-    char* syncPath = GetStringParam(env, args[0]);
-    char* relativePath = GetStringParam(env, args[1]);
-    if (!syncPath || !relativePath) {
-        // 参数非法：返回code=CLOUD_DISK_INVALID_ARG, state=NONE的对象
-        LOGE("GetPlaceholderState invalid params.");
-        delete[] syncPath;
-        delete[] relativePath;
-        napi_value result;
-        napi_create_object(env, &result);
-        napi_value codeVal;
-        napi_create_int32(env, CLOUD_DISK_INVALID_ARG, &codeVal);
-        napi_set_named_property(env, result, "code", codeVal);
-        napi_value stateVal;
-        napi_create_int32(env, OH_CLOUD_DISK_PLACEHOLDER_STATE_NONE, &stateVal);
-        napi_set_named_property(env, result, "state", stateVal);
-        return result;
-    }
-
-    CloudDisk_SyncFolderPath syncFolderPath = MakePathInfo(syncPath);
-    CloudDisk_PathInfo relativePathInfo = MakePathInfo(relativePath);
-
-    // 调用SDK查询占位符水合状态（结果写入state，出错时SDK置NONE）
-    OH_CloudDisk_PlaceholderState state = OH_CLOUD_DISK_PLACEHOLDER_STATE_NONE;
-    // [StartExclude get_placeholder_state]
-    LOGW("OH_CloudDisk_GetPlaceholderState syncPath: %{public}s, relativePath: %{public}s.", syncPath, relativePath);
-    // [EndExclude get_placeholder_state]
-    auto ret = OH_CloudDisk_GetPlaceholderState(syncFolderPath, relativePathInfo, &state);
-    if (ret != CLOUD_DISK_OK) {
-        LOGE("OH_CloudDisk_GetPlaceholderState failed, errorCode: %{public}d.", ret);
-    } else {
-        LOGI("OH_CloudDisk_GetPlaceholderState success, state: %{public}d.", static_cast<int32_t>(state));
-    }
-
-    delete[] syncPath;
-    delete[] relativePath;
-
-    // 构造JS返回对象 { code, state }
-    napi_value result;
-    napi_create_object(env, &result);
-    napi_value codeVal;
-    napi_create_int32(env, ret, &codeVal);
-    napi_set_named_property(env, result, "code", codeVal);
-    napi_value stateVal;
-    napi_create_int32(env, static_cast<int32_t>(state), &stateVal);
-    napi_set_named_property(env, result, "state", stateVal);
-    return result;
-}
-// [End get_placeholder_state]
-
-// ============================================================================
 // 16. updatePlaceholder(syncPath, relativePath, atimeMs, mtimeMs, logicalSize,
 //                       customInfo?): number
 //     更新占位符文件的元数据（时间戳、逻辑大小）。
@@ -2305,6 +2239,72 @@ static napi_value GetCallbackReqKeyVersion(napi_env env, napi_callback_info info
     napi_create_double(env, (double)g_reqKeyVersion.load(std::memory_order_acquire), &result);
     return result;
 }
+
+// ============================================================================
+// 25. getPlaceholderState(syncPath, relativePath): {code: number, state: number}
+//     查询占位符文件的水合状态（是否占位符以及水合进度）。
+//     返回对象包含code（错误码）与state（占位符状态枚举值）。
+//     state: 0=非占位符(NONE) 1=未水合(UNHYDRATED) 2=部分水合(PARTIALLY_HYDRATED)
+//            3=完全水合(FULLY_HYDRATED)
+//     OH_CloudDisk_GetPlaceholderState(const CloudDisk_SyncFolderPath syncFolderPath,
+//         const CloudDisk_PathInfo relativePathInfo, OH_CloudDisk_PlaceholderState *state)
+//     出参state仅在返回值为CLOUD_DISK_OK时有效，出错时置NONE(0)。
+// ============================================================================
+// [Start get_placeholder_state]
+static napi_value GetPlaceholderState(napi_env env, napi_callback_info info)
+{
+    size_t argc = 2;
+    napi_value args[2] = {nullptr};
+    GetArgs(env, info, argc, args);
+
+    char* syncPath = GetStringParam(env, args[0]);
+    char* relativePath = GetStringParam(env, args[1]);
+    if (!syncPath || !relativePath) {
+        // 参数非法：返回code=CLOUD_DISK_INVALID_ARG, state=NONE的对象
+        LOGE("GetPlaceholderState invalid params.");
+        delete[] syncPath;
+        delete[] relativePath;
+        napi_value result;
+        napi_create_object(env, &result);
+        napi_value codeVal;
+        napi_create_int32(env, CLOUD_DISK_INVALID_ARG, &codeVal);
+        napi_set_named_property(env, result, "code", codeVal);
+        napi_value stateVal;
+        napi_create_int32(env, OH_CLOUD_DISK_PLACEHOLDER_STATE_NONE, &stateVal);
+        napi_set_named_property(env, result, "state", stateVal);
+        return result;
+    }
+
+    CloudDisk_SyncFolderPath syncFolderPath = MakePathInfo(syncPath);
+    CloudDisk_PathInfo relativePathInfo = MakePathInfo(relativePath);
+
+    // 调用SDK查询占位符水合状态（结果写入state，出错时SDK置NONE）
+    OH_CloudDisk_PlaceholderState state = OH_CLOUD_DISK_PLACEHOLDER_STATE_NONE;
+    // [StartExclude get_placeholder_state]
+    LOGW("OH_CloudDisk_GetPlaceholderState syncPath: %{public}s, relativePath: %{public}s.", syncPath, relativePath);
+    // [EndExclude get_placeholder_state]
+    auto ret = OH_CloudDisk_GetPlaceholderState(syncFolderPath, relativePathInfo, &state);
+    if (ret != CLOUD_DISK_OK) {
+        LOGE("OH_CloudDisk_GetPlaceholderState failed, errorCode: %{public}d.", ret);
+    } else {
+        LOGI("OH_CloudDisk_GetPlaceholderState success, state: %{public}d.", static_cast<int32_t>(state));
+    }
+
+    delete[] syncPath;
+    delete[] relativePath;
+
+    // 构造JS返回对象 { code, state }
+    napi_value result;
+    napi_create_object(env, &result);
+    napi_value codeVal;
+    napi_create_int32(env, ret, &codeVal);
+    napi_set_named_property(env, result, "code", codeVal);
+    napi_value stateVal;
+    napi_create_int32(env, static_cast<int32_t>(state), &stateVal);
+    napi_set_named_property(env, result, "state", stateVal);
+    return result;
+}
+// [End get_placeholder_state]
 
 // ============================================================================
 // 模块初始化 — 注册全部NAPI方法
