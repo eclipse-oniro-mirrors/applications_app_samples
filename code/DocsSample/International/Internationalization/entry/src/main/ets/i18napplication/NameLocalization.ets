@@ -78,7 +78,7 @@ switch (matchedLanguage) {
     // 系统语言为繁体中文（台湾）
     break;
   default:
-    // 系统语言不属于languageList中的任何一种
+    // 系统语言不属于languagesList中的任何一种
 }
 // [End best_match_locale]
 
