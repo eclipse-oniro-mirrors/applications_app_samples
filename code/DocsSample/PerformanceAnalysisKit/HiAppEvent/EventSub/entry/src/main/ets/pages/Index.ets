@@ -20,6 +20,7 @@ import { fileIo } from '@kit.CoreFileKit';
 // [Start EventSub_Header]
 import { BusinessError } from '@kit.BasicServicesKit';
 // [Start PssLeakEvent_Header]
+// [Start MainThreadJankEvent_Header]
 import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
 // [End EventSub_Header]
 // [End CrashConfig_Policy_Header]
@@ -27,6 +28,7 @@ import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
 import testNapi from 'libentry.so';
 // [End EventSub_Index_Capi_Header]
 // [End PssLeakEvent_Header]
+// [End MainThreadJankEvent_Header]
 // [Start ArkWeb_Fling_Jank_Header]
 import { ArkWebPage } from './ArkWebPage';
 // [End ArkWeb_Fling_Jank_Header]
@@ -313,6 +315,93 @@ struct Index {
               this.navPathStack.pushPath({ name: 'ArkWebPage' });
             })
           // [End ArkWeb_Fling_Jank_ArkTs_Button]
+          // [Start hicollie_set_timer_Button]
+          // 添加点击事件，触发HiCollieTestTimerNdk方法。
+          Button('HiCollieTestTimerNdk')
+            .type(ButtonType.Capsule)
+            .margin({
+              top: 20
+            })
+            .backgroundColor('#0D9FFB')
+            .width('80%')
+            .height('5%')
+            .onClick(() => {
+              testNapi.HiCollieTestTimerNdk();
+            })
+          // [End hicollie_set_timer_Button]
+          // [Start MainThreadJank_Button]
+          // 添加点击事件，触发MAIN_THREAD_JANK。
+          Button('timeOut350')
+            .type(ButtonType.Capsule)
+            .margin({
+              top: 20
+            })
+            .backgroundColor('#0D9FFB')
+            .width('80%')
+            .height('5%')
+            .onClick(() => {
+              let t = Date.now();
+              while (Date.now() - t <= 350) {}
+            })
+          // [End MainThreadJank_Button]
+          // [Start MainThreadJank_Set_Event_Config]
+          Button("customSample", { stateEffect:true, type: ButtonType.Capsule})
+            .width('75%')
+            .height(50)
+            .margin(15)
+            .fontSize(20)
+            .fontWeight(FontWeight.Bold)
+            .onClick(() => {
+              // 在按钮点击函数中进行事件打点，以记录按钮点击事件
+              let params: Record<string, hiAppEvent.ParamType> = {
+                // 事件类型定义， 0-默认值，1-只采样栈 2-只收集trace
+                "log_type": "1",
+                // 超时时间 & 采样间隔
+                "sample_interval": "100",
+                // 忽略启动开始时间
+                "ignore_startup_time": "11",
+                // 采样次数
+                "sample_count": "21",
+                // 事件上报次数定义
+                "report_times_per_app": "3"
+              };
+              hiAppEvent.setEventConfig(hiAppEvent.event.MAIN_THREAD_JANK, params).then(() => {
+                hilog.info(0x0000, 'testTag', `HiAppEvent success to set event params.`)
+              }).catch((err: BusinessError) => {
+                hilog.error(0x0000, 'testTag', `HiAppEvent err.code: ${err.code}, err.message: ${err.message}`)
+              });
+            })
+          // [End MainThreadJank_Set_Event_Config]
+          // [Start MainThreadJank_Timeout_150_Button]
+          // 添加点击事件，触发MAIN_THREAD_JANK。
+          Button('timeOut150')
+            .type(ButtonType.Capsule)
+            .margin({
+              top: 20
+            })
+            .backgroundColor('#0D9FFB')
+            .width('80%')
+            .height('5%')
+            .onClick(() => {
+              let t = Date.now();
+              while (Date.now() - t <= 150) {}
+            })
+          // [End MainThreadJank_Timeout_150_Button]
+          // [Start MainThreadJank_Timeout_500_Button]
+          // 添加点击事件，触发MAIN_THREAD_JANK。
+          Button('timeOut500')
+            .type(ButtonType.Capsule)
+            .margin({
+              top: 20
+            })
+            .backgroundColor('#0D9FFB')
+            .width('80%')
+            .height('5%')
+            .onClick(() => {
+              let t = Date.now();
+              while (Date.now() - t <= 500) {}
+            })
+          // [End MainThreadJank_Timeout_500_Button]
         }
         .width('50%')
       }
