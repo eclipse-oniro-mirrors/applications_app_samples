@@ -14,12 +14,13 @@
  */
 
 // [Start web_module_open_bf_cache]
+// EntryAbility.ets
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 
-export default class Entry2Ability extends UIAbility {
+export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
     let features = new webview.BackForwardCacheSupportedFeatures();
     features.nativeEmbed = true;

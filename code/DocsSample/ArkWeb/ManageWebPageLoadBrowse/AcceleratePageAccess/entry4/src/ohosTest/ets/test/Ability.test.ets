@@ -50,14 +50,15 @@ export default function abilityTest() {
       console.info('uitest: TestUiExample begin');
       const want: Want = {
         bundleName: bundleName,
-        abilityName: 'Entry4Ability'
+        moduleName: 'entry4',
+        abilityName: 'EntryAbility'
       };
       await delegator.startAbility(want);
       const driver = Driver.create();
       await driver.delayMs(1000);
       const ability: UIAbility = await delegator.getCurrentTopAbility();
       console.info('get top ability');
-      expect(ability.context.abilityInfo.name).assertEqual('Entry4Ability');
+      expect(ability.context.abilityInfo.name).assertEqual('EntryAbility');
       await driver.delayMs(1000);
 
       const button = await driver.findComponent(ON.type('Button'));

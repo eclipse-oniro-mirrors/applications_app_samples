@@ -13,17 +13,19 @@
  * limitations under the License.
  */
 // [Start initialize_kernel_in_onCreate_and_pre_connect_to_homepage]
+// EntryAbility.ets
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+// [StartExclude initialize_kernel_in_onCreate_and_pre_connect_to_homepage]
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
+// [EndExclude initialize_kernel_in_onCreate_and_pre_connect_to_homepage]
 import { webview } from '@kit.ArkWeb';
 
-export default class Entry1Ability extends UIAbility {
+export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
     console.info('EntryAbility onCreate');
     webview.WebviewController.initializeWebEngine();
-    // 预连接时，需要將'https://www.example.com'替换成真实要访问的网站地址。
-
+    // 预连接时，需要将'https://www.example.com'替换成真实要访问的网站地址。
     webview.WebviewController.prepareForPageLoad('https://www.example.com/', true, 2);
     AppStorage.setOrCreate('abilityWant', want);
     console.info('EntryAbility onCreate done');

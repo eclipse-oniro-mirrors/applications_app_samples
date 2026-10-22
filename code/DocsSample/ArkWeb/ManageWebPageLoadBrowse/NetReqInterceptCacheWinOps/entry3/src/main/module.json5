@@ -35,7 +35,17 @@
         "label": "$string:Entry3Ability_label",
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
-        "exported": true
+        "exported": true,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "ohos.want.action.home"
+            ]
+          }
+        ]
       }
     ],
     "requestPermissions": [

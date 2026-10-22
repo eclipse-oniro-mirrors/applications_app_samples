@@ -1,3 +1,4 @@
+# [Start cmake_lists]
 # the minimum version of CMake.
 cmake_minimum_required(VERSION 3.5.0)
 project(NDKJSBridge)
@@ -22,3 +23,4 @@ find_library(
 )
 
 target_link_libraries(entry PUBLIC libace_napi.z.so ${hilog-lib} libohweb.so)
+# [End cmake_lists]

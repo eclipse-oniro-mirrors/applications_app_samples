@@ -13,15 +13,36 @@
  * limitations under the License.
  */
  
+// [Start initialize_kernel_in_onCreate_and_pre_fetch_post_request]
+// EntryAbility.ets
+import { webview } from '@kit.ArkWeb';
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+// [StartExclude initialize_kernel_in_onCreate_and_pre_fetch_post_request]
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
+// [EndExclude initialize_kernel_in_onCreate_and_pre_fetch_post_request]
 
-export default class Entry2Ability extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+export default class EntryAbility extends UIAbility {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
+    console.info('EntryAbility onCreate');
+    webview.WebviewController.initializeWebEngine();
+    // 预获取时，需要将'https://www.example1.com/post?e=f&g=h'替换成真实要访问的网站地址。
+    webview.WebviewController.prefetchResource(
+      {
+        url: 'https://www.example1.com/post?e=f&g=h',
+        method: 'POST',
+        formData: 'a=x&b=y',
+      },
+      [{
+        headerKey: 'c',
+        headerValue: 'z',
+      },],
+      'KeyX', 500);
+    AppStorage.setOrCreate('abilityWant', want);
+    console.info('EntryAbility onCreate done');
   }
 
+  // [StartExclude initialize_kernel_in_onCreate_and_pre_fetch_post_request]
   onDestroy(): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
   }
@@ -53,4 +74,6 @@ export default class Entry2Ability extends UIAbility {
     // Ability has back to background
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
   }
+  // [EndExclude initialize_kernel_in_onCreate_and_pre_fetch_post_request]
 }
+// [End initialize_kernel_in_onCreate_and_pre_fetch_post_request]
