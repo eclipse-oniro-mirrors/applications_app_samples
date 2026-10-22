@@ -1,0 +1,25 @@
+<!--scene3_index.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="padding:20px;">
+    <h1>场景3：无法使用 JSBridge - setTimeout 延迟获取</h1>
+    <p>无法使用 JSBridge 时，在 onPageEnd 中通过 setTimeout 延迟 2 秒后获取高度，等待异步资源加载完成。</p>
+    <p>下方为大图片，onPageEnd 时刻图片可能尚未加载完成，2 秒后获取的高度更准确。</p>
+</div>
+<img src="scene3_example.jpg" id="largeImage" alt="Large Image" style="width:100%;">
+<script>
+    window.addEventListener("load", function() {
+        if (typeof jsbObj !== 'undefined') {
+            jsbObj.notifyToGet();
+        } else {
+            console.info("jsbObj is undefined");
+        }
+    })
+</script>
+</body>
+</html>
