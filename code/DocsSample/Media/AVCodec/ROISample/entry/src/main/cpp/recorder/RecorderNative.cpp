@@ -34,6 +34,8 @@ struct AsyncCallbackInfo {
     int32_t resultCode = 0;
     std::string surfaceId = "";
     SampleInfo sampleInfo;
+    NativeCameraConfig cameraConfig;
+    int32_t cameraPosition = CAMERA_POSITION_FRONT;
     Recorder *recorder = nullptr;
 };
 
@@ -49,8 +51,13 @@ void DealCallBack(napi_env env, void *data)
 
     napi_set_named_property(env, obj, "code", code);
     napi_set_named_property(env, obj, "surfaceId", surfaceId);
+    napi_value cameraPosition;
+    napi_create_int32(env, asyncCallbackInfo->cameraPosition, &cameraPosition);
+    napi_set_named_property(env, obj, "cameraPosition", cameraPosition);
     napi_resolve_deferred(asyncCallbackInfo->env, asyncCallbackInfo->deferred, obj);
-    napi_delete_async_work(env, asyncCallbackInfo->asyncWork);
+    if (asyncCallbackInfo->asyncWork != nullptr) {
+        napi_delete_async_work(env, asyncCallbackInfo->asyncWork);
+    }
     delete asyncCallbackInfo;
 }
 
@@ -283,10 +290,7 @@ void NativeStop(napi_env env, void *data)
     if (asyncCallbackInfo && asyncCallbackInfo->recorder) {
         ret = asyncCallbackInfo->recorder->Stop();
     }
-    if (ret != SAMPLE_ERR_OK) {
-        SetCallBackResult(asyncCallbackInfo, -1);
-    }
-    SetCallBackResult(asyncCallbackInfo, 0);
+    SetCallBackResult(asyncCallbackInfo, ret);
 }
 
 napi_value RecorderNative::Stop(napi_env env, napi_callback_info info)
@@ -337,10 +341,141 @@ napi_value RecorderNative::SetIsOpenROI(napi_env env, napi_callback_info info)
     return nullptr;
 }
 
+// Camera open/close can block; execute them on a worker. CameraController serializes these tasks.
+static napi_value QueueCameraWork(napi_env env, AsyncCallbackInfo *context, bool start)
+{
+    napi_value promise;
+    if (napi_create_promise(env, &context->deferred, &promise) != napi_ok) {
+        delete context;
+        napi_throw_error(env, nullptr, "Create camera promise failed");
+        return nullptr;
+    }
+    context->env = env;
+    napi_value name;
+    napi_create_string_utf8(env, start ? "StartNativeCamera" : "StopNativeCamera", NAPI_AUTO_LENGTH, &name);
+    napi_async_execute_callback execute = start ? +[](napi_env, void *data) {
+        auto *context = static_cast<AsyncCallbackInfo *>(data);
+        context->resultCode = context->recorder->GetNativeCamera().Start(context->cameraConfig);
+        context->cameraPosition = context->recorder->GetNativeCamera().GetPosition();
+    } : +[](napi_env, void *data) {
+        auto *context = static_cast<AsyncCallbackInfo *>(data);
+        context->resultCode = context->recorder->GetNativeCamera().Stop();
+    };
+    napi_status status = napi_create_async_work(env, nullptr, name, execute,
+        [](napi_env env, napi_status status, void *data) {
+            auto *context = static_cast<AsyncCallbackInfo *>(data);
+            if (status != napi_ok) {
+                context->resultCode = CAMERA_SERVICE_FATAL_ERROR;
+            }
+            DealCallBack(env, data);
+        }, context, &context->asyncWork);
+    if (status == napi_ok) {
+        status = napi_queue_async_work(env, context->asyncWork);
+    }
+    if (status != napi_ok) {
+        context->resultCode = CAMERA_SERVICE_FATAL_ERROR;
+        DealCallBack(env, context);
+    }
+    return promise;
+}
+
+napi_value RecorderNative::StartNativeCamera(napi_env env, napi_callback_info info)
+{
+    constexpr size_t ARG_COUNT = 7;
+    size_t argc = ARG_COUNT;
+    napi_value args[ARG_COUNT] = {nullptr};
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    if (argc != ARG_COUNT) {
+        napi_throw_type_error(env, nullptr, "Expected recorder, surfaceId, width, height, fps, position and isHdr");
+        return nullptr;
+    }
+    auto *context = new AsyncCallbackInfo();
+    context->recorder = ParseRecorderPtr(env, args[0]);
+    char surfaceId[NAPI_STRING_BUFFER_SIZE] = {0};
+    size_t length = 0;
+    int32_t position = CAMERA_POSITION_FRONT;
+    bool valid = context->recorder != nullptr &&
+        napi_get_value_string_utf8(env, args[1], surfaceId, sizeof(surfaceId), &length) == napi_ok &&
+        length > 0 && length < sizeof(surfaceId) - 1 &&
+        napi_get_value_int32(env, args[2], &context->cameraConfig.width) == napi_ok &&
+        napi_get_value_int32(env, args[3], &context->cameraConfig.height) == napi_ok &&
+        napi_get_value_int32(env, args[4], &context->cameraConfig.frameRate) == napi_ok &&
+        napi_get_value_int32(env, args[5], &position) == napi_ok &&
+        napi_get_value_bool(env, args[6], &context->cameraConfig.isHdr) == napi_ok;
+    if (!valid) {
+        delete context;
+        napi_throw_type_error(env, nullptr, "Invalid Native camera arguments");
+        return nullptr;
+    }
+    context->cameraConfig.surfaceId = surfaceId;
+    context->cameraConfig.position = static_cast<Camera_Position>(position);
+    return QueueCameraWork(env, context, true);
+}
+
+napi_value RecorderNative::StopNativeCamera(napi_env env, napi_callback_info info)
+{
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    auto *context = new AsyncCallbackInfo();
+    context->recorder = argc == 1 ? ParseRecorderPtr(env, args[0]) : nullptr;
+    if (context->recorder == nullptr) {
+        delete context;
+        napi_throw_type_error(env, nullptr, "Invalid recorder");
+        return nullptr;
+    }
+    return QueueCameraWork(env, context, false);
+}
+
+napi_value RecorderNative::RotateNativeCamera(napi_env env, napi_callback_info info)
+{
+    size_t argc = 3;
+    napi_value args[3] = {nullptr};
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    Recorder *recorder = ParseRecorderPtr(env, args[0]);
+    int32_t displayRotation = 0;
+    bool locked = false;
+    napi_get_value_int32(env, args[1], &displayRotation);
+    napi_get_value_bool(env, args[2], &locked);
+    int32_t rotation = recorder ? recorder->GetNativeCamera().UpdateRotation(displayRotation, locked) : -1;
+    napi_value result;
+    napi_create_int32(env, rotation, &result);
+    return result;
+}
+
+napi_value RecorderNative::SetNativeCameraZoom(napi_env env, napi_callback_info info)
+{
+    size_t argc = 2;
+    napi_value args[2] = {nullptr};
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    Recorder *recorder = ParseRecorderPtr(env, args[0]);
+    double zoom = 1.0;
+    if (recorder && napi_get_value_double(env, args[1], &zoom) == napi_ok) {
+        recorder->GetNativeCamera().SetZoomRatio(static_cast<float>(zoom));
+    }
+    return nullptr;
+}
+
+napi_value RecorderNative::GetNativeCameraZoom(napi_env env, napi_callback_info info)
+{
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    Recorder *recorder = ParseRecorderPtr(env, args[0]);
+    napi_value result;
+    napi_create_double(env, recorder ? recorder->GetNativeCamera().GetZoomRatio() : 1.0, &result);
+    return result;
+}
+
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor classProp[] = {
+        {"startNativeCamera", nullptr, RecorderNative::StartNativeCamera, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"stopNativeCamera", nullptr, RecorderNative::StopNativeCamera, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"rotateNativeCamera", nullptr, RecorderNative::RotateNativeCamera, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"setNativeCameraZoom", nullptr, RecorderNative::SetNativeCameraZoom, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getNativeCameraZoom", nullptr, RecorderNative::GetNativeCameraZoom, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"createRecorder", nullptr, RecorderNative::CreateRecorder, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"releaseRecorder", nullptr, RecorderNative::ReleaseRecorder, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"initNative", nullptr, RecorderNative::Init, nullptr, nullptr, nullptr, napi_default, nullptr},

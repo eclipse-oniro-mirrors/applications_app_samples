@@ -23,16 +23,16 @@ import Logger from '../common/utils/Logger';
 
 const TAG: string = '[Sample_HMOSLiveStream]';
 
-let cameraInput: camera.CameraInput;
-let xComponentPreviewOutput: camera.PreviewOutput;
-let xComponentPreviewOutputAlive: boolean = false;
-let encoderVideoOutput: camera.VideoOutput;
-let videoSession: camera.VideoSession;
-
 export class CameraController {
   private cameraIsRunning: boolean = false;
   private cameraData: CameraDataModel;
-  private isReleased: boolean = true;
+  private isClosing: boolean = false;
+  private cameraTask: Promise<void> = Promise.resolve();
+  private releaseTask: Promise<void> | undefined;
+  private input: camera.CameraInput | undefined;
+  private preview: camera.PreviewOutput | undefined;
+  private metadata: camera.MetadataOutput | undefined;
+  private session: camera.VideoSession | undefined;
   private nativeRecorderObj: bigint | undefined;
   private context: common.UIAbilityContext | undefined;
 
@@ -55,25 +55,26 @@ export class CameraController {
   }
 
   public updateImageRotation() {
+    if (!this.cameraIsRunning || !this.nativeRecorderObj) {
+      return;
+    }
     try {
       this.cameraData.deviceRotation = display.getDefaultDisplaySync().rotation;
-    } catch (error) {
-      Logger.error(TAG, `getDefaultDisplaySync fail ${error}`);
-    }
-
-    if (xComponentPreviewOutputAlive) {
-      try {
-        this.cameraData.imageRotation =
-          xComponentPreviewOutput.getPreviewRotation(this.cameraData.deviceRotation * camera.ImageRotation.ROTATION_90);
-      } catch (error) {
-        Logger.error(TAG, `getPreviewRotation fail ${error}`);
-      }
-      try {
-        xComponentPreviewOutput.setPreviewRotation(this.cameraData.imageRotation, this.cameraData.isDisplayLocked);
-      } catch (error) {
-        Logger.error(TAG, `setPreviewRotation fail ${error}`);
+      const displayRotation = this.cameraData.deviceRotation * camera.ImageRotation.ROTATION_90;
+      if (this.cameraData.useNativeCamera) {
+        const rotation = recorder.rotateNativeCamera(this.nativeRecorderObj, displayRotation,
+          this.cameraData.isDisplayLocked ?? false);
+        if (rotation < 0) {
+          return;
+        }
+        this.cameraData.imageRotation = rotation;
+      } else if (this.preview) {
+        this.cameraData.imageRotation = this.preview.getPreviewRotation(displayRotation);
+        this.preview.setPreviewRotation(this.cameraData.imageRotation, this.cameraData.isDisplayLocked);
       }
       recorder.UpdateCameraRotation(this.nativeRecorderObj, this.cameraData.imageRotation);
+    } catch (error) {
+      Logger.error(TAG, `Update camera rotation failed: ${error}`);
     }
   }
 
@@ -87,152 +88,79 @@ export class CameraController {
   }
 
 
-  public async createRecorder(): Promise<void> {
-    this.isReleased = false;
-    if (this.cameraIsRunning) {
-      this.releaseCamera();
-    }
+  public createRecorder(): Promise<void> {
+    // Serialize camera switches and foreground/background changes, including asynchronous open/close.
+    this.cameraTask = this.cameraTask.then(async () => {
+      if (this.isClosing) {
+        return;
+      }
+      await this.releaseCameraInternal();
+      try {
+        if (this.cameraData.useNativeCamera) {
+          await this.createNativeCamera();
+        } else {
+          await this.createArkTSCamera();
+        }
+      } catch (error) {
+        Logger.error(TAG, `Create camera failed: ${error}`);
+        await this.releaseCameraInternal();
+      }
+    });
+    return this.cameraTask;
+  }
 
-    let cameraManager: camera.CameraManager;
-    try {
-      cameraManager = camera.getCameraManager(this.context);
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `get CamaraManager failed, errCode = ${err.code}, errMessage = ${err.message}.`);
-      return;
+  private async createNativeCamera(): Promise<void> {
+    if (!this.nativeRecorderObj) {
+      throw new Error('Recorder has not been initialized');
     }
-
-    if (!cameraManager) {
-      Logger.error(TAG, 'camera.getCameraManager error');
-      return;
+    const result = await recorder.startNativeCamera(this.nativeRecorderObj, this.cameraData.surfaceId,
+      this.cameraData.cameraWidth, this.cameraData.cameraHeight, this.cameraData.frameRate,
+      this.cameraData.cameraPosition, this.cameraData.isHDRVivid !== 0);
+    if (result.code !== 0) {
+      throw new Error(`Native camera start failed, code: ${result.code}`);
     }
+    this.cameraData.cameraPosition = result.cameraPosition;
+    recorder.updateInfoForCamera(this.nativeRecorderObj,
+      this.cameraData.cameraPosition === camera.CameraPosition.CAMERA_POSITION_FRONT);
+    this.cameraIsRunning = true;
+    this.updateImageRotation();
+  }
 
-    // Get supported camera devices.
-    let cameraDevices: camera.CameraDevice[] = cameraManager.getSupportedCameras();
-    if (cameraDevices !== undefined && cameraDevices.length <= 0) {
-      Logger.error(TAG, 'cameraManager.getSupportedCameras error!');
-      return;
-    }
-
-    // front or back
-    const deviceCur =
-      cameraDevices?.find(device => device.cameraPosition === this.cameraData.cameraPosition) || cameraDevices[0];
+  private async createArkTSCamera(): Promise<void> {
+    const cameraManager = camera.getCameraManager(this.context);
+    const cameraDevices = cameraManager.getSupportedCameras();
+    const deviceCur = cameraDevices.find(device => device.cameraPosition === this.cameraData.cameraPosition) ||
+      cameraDevices[0];
     if (!deviceCur) {
-      Logger.error(TAG, `Failed to get camera device. cameraPosition: ${this.cameraData.cameraPosition}}`);
-      return;
+      throw new Error('No available camera device');
     }
     this.cameraData.cameraPosition = deviceCur.cameraPosition;
     recorder.updateInfoForCamera(this.nativeRecorderObj,
       this.cameraData.cameraPosition === camera.CameraPosition.CAMERA_POSITION_FRONT);
-
-
-    let profiles: camera.CameraOutputCapability =
-      cameraManager.getSupportedOutputCapability(deviceCur, camera.SceneMode.NORMAL_VIDEO);
-    if (!profiles) {
-      Logger.error(TAG, 'cameraManager.getSupportedOutputCapability error!');
-      return;
+    const profiles = cameraManager.getSupportedOutputCapability(deviceCur, camera.SceneMode.NORMAL_VIDEO);
+    const previewProfile = profiles.previewProfiles.find((profile: camera.Profile) => {
+      const format = this.cameraData.isHDRVivid ? camera.CameraFormat.CAMERA_FORMAT_YCBCR_P010 :
+        camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP;
+      return profile.size.width === this.cameraData.cameraWidth && profile.size.height === this.cameraData.cameraHeight &&
+        profile.format === format;
+    });
+    if (!previewProfile) {
+      throw new Error('Requested preview profile is unsupported');
     }
-
-    let xComponentPreviewProfile: undefined | camera.Profile =
-      profiles.previewProfiles.find((profile: camera.Profile) => {
-        let resolutionSupport: boolean = profile.size.width === this.cameraData.cameraWidth &&
-          profile.size.height === this.cameraData.cameraHeight;
-        if (this.cameraData.isHDRVivid) {
-          return resolutionSupport &&
-            profile.format === camera.CameraFormat.CAMERA_FORMAT_YCBCR_P010;
-        } else {
-          return resolutionSupport &&
-            profile.format === camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP;
-        }
-      });
-
-    if (xComponentPreviewProfile === undefined) {
-      Logger.error(TAG, 'videoProfile is not found!');
-      return;
-    }
-    // Create a preview stream output object
-    try {
-      xComponentPreviewOutput = cameraManager.createPreviewOutput(xComponentPreviewProfile, this.cameraData.surfaceId);
-    } catch (error) {
-      Logger.error(TAG, `createPreviewOutput fail ${error}}`);
-    }
-    if (xComponentPreviewOutput === undefined) {
-      Logger.error(TAG, 'XComponentPreviewOutput is undefined');
-      return;
-    }
-
-    // Create the cameraInput object.
-    try {
-      cameraInput = cameraManager.createCameraInput(deviceCur);
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `Failed to createCameraInput. error: ${JSON.stringify(err)}`);
-    }
-    if (cameraInput === undefined) {
-      Logger.error(TAG, 'cameraInput is undefined');
-      return;
-    }
-
-    // Turn on the camera.
-    try {
-      await cameraInput.open();
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `Failed to open cameraInput. error: ${JSON.stringify(err)}`);
-    }
-    // Create a session flow
-    try {
-      videoSession = cameraManager.createSession(camera.SceneMode.NORMAL_VIDEO) as camera.VideoSession;
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `Failed to create the session instance. error: ${JSON.stringify(err)}`);
-    }
-    if (videoSession === undefined) {
-      Logger.error(TAG, 'videoSession is undefined');
-      return;
-    }
-
-    // Start Configuring the session.
-    try {
-      videoSession.beginConfig();
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `Failed to beginConfig. error: ${JSON.stringify(err)}`);
-    }
-
-    // Add CameraInput to the session.
-    try {
-      videoSession.addInput(cameraInput);
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `Failed to add cameraInput. error: ${JSON.stringify(err)}`);
-    }
-    // Add the XComponent preview stream to the session.
-    try {
-      videoSession.addOutput(xComponentPreviewOutput);
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `Failed to add XcomponentPreviewOutput. error: ${JSON.stringify(err)}`);
-    }
-    // Add MetadataOutput to enable face detection
-    let metadataOutput: camera.MetadataOutput | undefined =
-      this.getMetadataOutput(cameraManager, profiles);
+    this.preview = cameraManager.createPreviewOutput(previewProfile, this.cameraData.surfaceId);
+    this.input = cameraManager.createCameraInput(deviceCur);
+    await this.input.open();
+    this.session = cameraManager.createSession(camera.SceneMode.NORMAL_VIDEO) as camera.VideoSession;
+    this.session.beginConfig();
+    this.session.addInput(this.input);
+    this.session.addOutput(this.preview);
+    let metadataOutput = this.getMetadataOutput(cameraManager, profiles);
+    this.metadata = metadataOutput;
     if (metadataOutput !== undefined) {
-      try {
-        videoSession.addOutput(metadataOutput);
-      } catch (error) {
-        let err = error as BusinessError;
-        Logger.error(TAG, `Failed to add metadataOutput. error: ${JSON.stringify(err)}`);
-      }
-      // All ROI encoding paths obtain ROI data from camera frame metadata.
+      this.session.addOutput(metadataOutput);
     }
-    // Submit configuration information.
-    try {
-      await videoSession.commitConfig();
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `videoSession commitConfig error: ${JSON.stringify(err)}`);
-    }
+    this.setColorSpaceBeforeCommitConfig(this.session, this.cameraData.isHDRVivid);
+    await this.session.commitConfig();
 
     // Enable camera ROI metadata after committing the session configuration.
     if (metadataOutput !== undefined) {
@@ -249,106 +177,54 @@ export class CameraController {
         Logger.error(TAG, `Failed to enable in-frame metadata for encoder. code: ${err.code}, message: ${err.message}`);
       }
     }
-
-    // Enable autofocus
-    this.setFocusMode(videoSession);
-
-    if (this.cameraData.isDynamicFpsEnabled) {
-      this.setDynamicFrameRate(xComponentPreviewOutput, encoderVideoOutput);
-    } else {
-      const isFrameRateSetSuccess = this.handleFrameRateSetting(this.cameraData.frameRate, xComponentPreviewOutput);
-      if (!isFrameRateSetSuccess) {
-        Logger.error(TAG, 'Frame rate setting failed');
-        return;
-      }
+    this.setFocusMode(this.session);
+    if (!this.handleFrameRateSetting(this.cameraData.frameRate, this.preview)) {
+      throw new Error('Frame rate setting failed');
     }
-
-    // Set color space
-    this.setColorSpaceBeforeCommitConfig(videoSession, this.cameraData.isHDRVivid);
-
-    xComponentPreviewOutputAlive = true;
-    try {
-      this.cameraData.deviceRotation = display.getDefaultDisplaySync().rotation;
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `getDefaultDisplaySync fail ${JSON.stringify(err)}`);
-    }
-    if (xComponentPreviewOutputAlive) {
-      try {
-        this.cameraData.imageRotation =
-          xComponentPreviewOutput.getPreviewRotation(this.cameraData.deviceRotation * camera.ImageRotation.ROTATION_90);
-      } catch (error) {
-        let err = error as BusinessError;
-        Logger.error(TAG, `getPreviewRotation fail ${JSON.stringify(err)}`);
-      }
-      try {
-        xComponentPreviewOutput.setPreviewRotation(this.cameraData.imageRotation, this.cameraData.isDisplayLocked);
-      } catch (error) {
-        let err = error as BusinessError;
-        Logger.error(TAG, `getPreviewRotation fail ${JSON.stringify(err)}`);
-      }
-      recorder.UpdateCameraRotation(this.nativeRecorderObj, this.cameraData.imageRotation);
-
-    }
-
-    // Update camera zoom ratio range
-    try {
-      let zoomRatios = videoSession.getZoomRatioRange();
-      this.cameraData.range[0] = zoomRatios[0];
-      this.cameraData.range[1] = zoomRatios[1];
-      Logger.debug(TAG, `update zoomRatio Range min=${zoomRatios[0]} max=${zoomRatios[1]}`);
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `getPreviewRotation fail ${JSON.stringify(err)}`);
-    }
-
-    // Session start.
-    try {
-      await videoSession.start();
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `videoSession start error: ${JSON.stringify(err)}`);
-    }
+    this.cameraData.range = this.session.getZoomRatioRange();
+    await this.session.start();
     this.cameraIsRunning = true;
-
-    try {
-      this.registerSystemPressureLevelChangeCallback(videoSession);
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `register system pressure level changeCallback error: ${JSON.stringify(err)}`);
-    }
+    this.updateImageRotation();
+    this.registerSystemPressureLevelChangeCallback(this.session);
   }
 
-  public async releaseCamera(): Promise<void> {
-    if (this.cameraIsRunning === false) {
+  public releaseCamera(): Promise<void> {
+    this.cameraTask = this.cameraTask.then(() => this.releaseCameraInternal());
+    return this.cameraTask;
+  }
+
+  private async releaseCameraInternal(): Promise<void> {
+    const wasRunning = this.cameraIsRunning;
+    this.cameraIsRunning = false;
+    if (this.cameraData.useNativeCamera) {
+      if (this.nativeRecorderObj) {
+        const result = await recorder.stopNativeCamera(this.nativeRecorderObj);
+        if (result.code !== 0) {
+          Logger.error(TAG, `Stop Native camera failed, code: ${result.code}`);
+        }
+      }
       return;
     }
-    this.cameraIsRunning = false;
-    try {
-      this.unregisterSystemPressureLevelChangeCallback(videoSession);
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `unregister system pressure level changeCallback error: ${JSON.stringify(err)}`);
+    const session = this.session;
+    const input = this.input;
+    const preview = this.preview;
+    const metadata = this.metadata;
+    this.session = undefined;
+    this.input = undefined;
+    this.preview = undefined;
+    this.metadata = undefined;
+    if (session && wasRunning) {
+      try {
+        this.unregisterSystemPressureLevelChangeCallback(session);
+      } catch (error) {
+        Logger.error(TAG, `Unregister camera callback failed: ${error}`);
+      }
+      await session.stop().catch((error: BusinessError) => Logger.error(TAG, `Stop camera failed: ${error}`));
     }
-    // Stop the Session.
-    xComponentPreviewOutputAlive = false;
-    videoSession.stop().catch((error: BusinessError) => {
-      Logger.error(TAG, `videoSession stop  fail ${error}`);
-    });
-
-    // Close camera input stream.
-    cameraInput.close().catch((error: BusinessError) => {
-      Logger.error(TAG, `videoSession stop  fail ${error}`);
-    });
-    // Release preview output stream.
-    xComponentPreviewOutput.release().catch((error: BusinessError) => {
-      Logger.error(TAG, `release  fail ${error}`);
-    });
-    // Release the video output stream.
-    // Release session.
-    videoSession.release().catch((error: BusinessError) => {
-      Logger.error(TAG, `videoSession release  fail ${error}`);
-    });
+    await session?.release().catch((error: BusinessError) => Logger.error(TAG, `Release session failed: ${error}`));
+    await metadata?.release().catch((error: BusinessError) => Logger.error(TAG, `Release metadata failed: ${error}`));
+    await preview?.release().catch((error: BusinessError) => Logger.error(TAG, `Release preview failed: ${error}`));
+    await input?.close().catch((error: BusinessError) => Logger.error(TAG, `Close camera failed: ${error}`));
   }
 
   unregisterSystemPressureLevelChangeCallback(videoSession: camera.VideoSession): void {
@@ -581,41 +457,52 @@ export class CameraController {
   }
 
   public doGestureUpdate(fov: number, event: GestureEvent) {
-    if (videoSession) {
-      let currentFov = fov * event.scale;
-      if (currentFov > this.cameraData.range[1]) {
-        currentFov = this.cameraData.range[1];
-      }
-      if (currentFov < this.cameraData.range[0]) {
-        currentFov = this.cameraData.range[0];
-      }
+    if (!this.cameraIsRunning) {
+      return;
+    }
+    if (this.cameraData.useNativeCamera && this.nativeRecorderObj) {
+      recorder.setNativeCameraZoom(this.nativeRecorderObj, fov * event.scale);
+    } else if (this.session) {
+      const zoom = Math.min(this.cameraData.range[1], Math.max(this.cameraData.range[0], fov * event.scale));
       try {
-        videoSession.setZoomRatio(currentFov);
+        this.session.setZoomRatio(zoom);
       } catch (error) {
-        Logger.error(TAG, `setZoomRatio fail ${error}`);
+        Logger.error(TAG, `Set zoom ratio failed: ${error}`);
       }
     }
   }
 
-  public getCurrentZoomRatio() {
-    if (videoSession) {
-      try {
-        return videoSession.getZoomRatio();
-      } catch (error) {
-        Logger.error(TAG, `getZoomRatio fail ${error}`);
-      }
+  public getCurrentZoomRatio(): number | undefined {
+    if (!this.cameraIsRunning) {
+      return undefined;
     }
-    return;
+    if (this.cameraData.useNativeCamera && this.nativeRecorderObj) {
+      return recorder.getNativeCameraZoom(this.nativeRecorderObj);
+    }
+    try {
+      return this.session?.getZoomRatio();
+    } catch (error) {
+      Logger.error(TAG, `Get zoom ratio failed: ${error}`);
+      return undefined;
+    }
   }
 
-  async release(): Promise<void> {
-    if (!this.isReleased) {
-      this.isReleased = true;
-      recorder.stopNative(this.nativeRecorderObj).then(async (data: Response) => {
-        if (data.code === 0) {
-          await this.releaseCamera();
-        }
-      });
+  release(): Promise<void> {
+    if (!this.releaseTask) {
+      this.isClosing = true;
+      this.releaseTask = this.stopRecording();
+    }
+    return this.releaseTask;
+  }
+
+  private async stopRecording(): Promise<void> {
+    // Stop the producer before releasing the NativeImage/encoder, then wait for the MP4 to finish.
+    await this.releaseCamera();
+    if (this.nativeRecorderObj) {
+      const data: Response = await recorder.stopNative(this.nativeRecorderObj);
+      if (data.code !== 0) {
+        Logger.error(TAG, `Stop recording failed, code: ${data.code}`);
+      }
     }
   }
 
@@ -627,7 +514,8 @@ export class CameraController {
     recorder.UpdateCameraRotation(this.nativeRecorderObj, imageRotation);
   }
 
-  public releaseNative() {
+  public async releaseNative(): Promise<void> {
+    await this.release();
     if (this.nativeRecorderObj) {
       recorder.releaseRecorder(this.nativeRecorderObj);
       this.nativeRecorderObj = 0n;
@@ -635,29 +523,7 @@ export class CameraController {
   }
 
   private displayChangeCallback: Callback<number> = (_: number): void => {
-    try {
-      this.cameraData.deviceRotation = display.getDefaultDisplaySync().rotation;
-    } catch (error) {
-      let err = error as BusinessError;
-      Logger.error(TAG, `get rotation failed, errCode = ${err.code}, errMessage = ${err.message}.`);
-    }
-    if (xComponentPreviewOutputAlive) {
-      try {
-        this.cameraData.imageRotation =
-          xComponentPreviewOutput.getPreviewRotation(this.cameraData.deviceRotation * camera.ImageRotation.ROTATION_90);
-      } catch (error) {
-        let err = error as BusinessError;
-        Logger.error(TAG, `get getPreviewRotation failed, errCode = ${err.code}, errMessage = ${err.message}.`);
-      }
-      try {
-        xComponentPreviewOutput.setPreviewRotation(this.cameraData.imageRotation, this.cameraData.isDisplayLocked);
-      } catch (error) {
-        let err = error as BusinessError;
-        Logger.error(TAG, `get getPreviewRotation failed, errCode = ${err.code}, errMessage = ${err.message}.`);
-      }
-      recorder.UpdateCameraRotation(this.nativeRecorderObj, this.cameraData.imageRotation);
-    }
-    Logger.info(TAG, `ArkTSrotation, change rotation: ${this.cameraData.deviceRotation}.`);
+    this.updateImageRotation();
   }
   private callbackFoldStatus: Callback<display.FoldStatus> = (data: display.FoldStatus) => {
     Logger.info(TAG, `arkTsrotation: change fold ${data}`);
