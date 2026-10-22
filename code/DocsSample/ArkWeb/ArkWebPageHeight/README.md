@@ -2,7 +2,7 @@
 
 ### 介绍
 
-1. 本工程主要实现了对以下指南文档中 https://developer.huawei.com/consumer/cn/doc/doccenter-capabilities/web-getpage-height 示例代码片段的工程化，主要目标是实现指南中示例代码需要与sample工程文件同源。
+1. 本工程主要实现了对以下指南文档中 [获取网页内容高度](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/web/web-getpage-height.md) 示例代码片段的工程化，主要目标是实现指南中示例代码需要与sample工程文件同源。
 
 ### Entry:
 
@@ -10,8 +10,8 @@
 
 ##### 介绍
 
-1. 本示例主要介绍通过调用 [getPageHeight](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkts-apis-webview-webviewcontroller#getpageheight) 获取当前网页内容的实际高度。开发者可以根据具体需求选择合适的方法。
-2. 在网页加载过程中，获取的高度可能不够精确，特别是在网页还未渲染完成时。因为动态内容加载后会更新这个值。网页内容可能需要长时间加载。目前网站为优化首次加载速度，会使用动态网页加载技术，用户在看到网页首帧时，页面资源还在动态加载页面，特别是包含图片、动态内容的页面。
+1. 本示例主要介绍通过调用 [getPageHeight](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/web/web-getpage-height.md) 获取当前网页内容的实际高度。开发者可以根据具体需求选择合适的方法。
+2. 在网页加载过程中，获取的高度可能不够精确，特别是在网页还未渲染完成时。因为动态内容加载后会更新这个值。网页内容可能需要长时间加载。目前网站为优化首屏加载速度，会使用动态网页加载技术，用户在看到网页首帧时，页面资源还在动态加载页面，特别是包含图片、动态内容的页面。
 3. 非静态网页不建议在 onPageEnd、onPageVisible、onFirstContentfulPaint、onFirstMeaningfulPaint 事件等Web组件生命周期回调和Web性能指标回调中获取网页内容高度。需要根据当前网页的特点，通过JSBridge或延迟等方案，在前端特定的回调通知里获取当前网页内容的实际高度。
 4. 本示例通过 Tabs 承载三个场景，每个场景在页面顶部横幅实时展示 getPageHeight() 的返回值。
 

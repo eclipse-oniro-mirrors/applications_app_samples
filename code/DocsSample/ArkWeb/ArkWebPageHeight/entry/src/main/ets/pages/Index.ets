@@ -3,8 +3,8 @@ import { webview } from '@kit.ArkWeb';
 
 // 场景2：复杂动态网页使用 JSBridge 传递特定回调
 class TestClass {
-  testController: webview.WebviewController;
-  onGetHeight: (height: string) => void = () => {};
+  private testController: webview.WebviewController;
+  public onGetHeight: (height: string) => void = () => {};
 
   constructor(controller: webview.WebviewController) {
     this.testController = controller;
@@ -14,10 +14,10 @@ class TestClass {
     setTimeout(() => {
       try {
         const h = this.testController.getPageHeight();
-        console.info("page height: " + h);
+        console.info('page height: ' + h);
         this.onGetHeight(String(h));
       } catch (err) {
-        console.error("page height: notifyToGet error: " + JSON.stringify(err));
+        console.error('page height: notifyToGet error: ' + JSON.stringify(err));
       }
     }, 300)
   }
