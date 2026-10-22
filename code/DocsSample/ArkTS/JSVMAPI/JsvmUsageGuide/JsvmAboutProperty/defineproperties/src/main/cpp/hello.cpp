@@ -101,7 +101,7 @@ static JSVM_Value RunScriptAndLogResult(JSVM_Env env, const std::string &srcCode
 // OH_JSVM_DefineProperties的样例方法
 static JSVM_Value DefineProperties(JSVM_Env env, JSVM_CallbackInfo info)
 {
-    // 接受一个JavaScript侧传入的空object
+    // 接收一个JavaScript侧传入的空object
     size_t argc = 1;
     JSVM_Value argv[1] = {nullptr};
     OH_JSVM_GetCbInfo(env, info, &argc, argv, nullptr, nullptr);
