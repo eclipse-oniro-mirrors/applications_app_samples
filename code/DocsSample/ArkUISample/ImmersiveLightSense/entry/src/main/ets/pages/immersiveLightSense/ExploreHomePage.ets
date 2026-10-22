@@ -27,7 +27,6 @@ struct ExploreHomePage {
   @Local searchOpacity: number = 1
   @Local classifyType: Array<string> = []
   totalTitleHeight = 110
-  @Local titleHeight: number = this.totalTitleHeight
   @Local scrollOffset: number = 0
   @Local titleOffset: number = 0
 
@@ -45,15 +44,14 @@ struct ExploreHomePage {
           .height(40)
           .width(220)
           .systemMaterial(new uiMaterial.ImmersiveMaterial({}))
-      }.expandSafeArea([SafeAreaType.SYSTEM])
+      }
       .width('100%')
       .opacity(this.searchOpacity)
       .height(50)
 
       ClassifyComponent()
-    }.expandSafeArea([SafeAreaType.SYSTEM])
+    }
     .width('100%')
-    .height(this.titleHeight)
     .padding({ left: 20, right: 20 })
     .position({ x: 0, y: -this.titleOffset })
   }
@@ -93,15 +91,13 @@ struct ExploreHomePage {
       .height('100%')
       .onDidScroll((xOffset: number, yOffset: number, state: ScrollState) => {
         this.scrollOffset += yOffset
-        // 搜索框大小范围内
         if (this.scrollOffset <= 50) {
           this.titleOffset = this.scrollOffset
-          this.titleHeight = this.totalTitleHeight - this.titleOffset
           this.searchOpacity = 1 - this.titleOffset / 50
         }
       })
     }.title(
-      { builder: this.exploreTitleBar, height: this.titleHeight },
+      { builder: this.exploreTitleBar, height: this.totalTitleHeight },
       { barStyle: BarStyle.STACK,
         // 设置标题栏模糊
         scrollEffectOptions: {
@@ -109,7 +105,6 @@ struct ExploreHomePage {
         }
       }
     ).hideBackButton(true)
-    .expandSafeArea([SafeAreaType.SYSTEM])
   }
 }
 // [End explore_home_page]

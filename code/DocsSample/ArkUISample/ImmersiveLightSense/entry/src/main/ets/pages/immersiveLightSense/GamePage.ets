@@ -58,7 +58,7 @@ struct GamePage {
         lightEffect: { color: Color.White },
         materialColor: '#80d3d3d3'
       }))
-    }.expandSafeArea([SafeAreaType.SYSTEM])
+    }
     .width('100%')
     .height('100%')
     .padding({ left: 20, right: 20 })
@@ -129,7 +129,6 @@ struct GamePage {
         this.getUIContext().getComponentUtils().getRectangleById('content').windowOffset.y
       )
     })
-    .expandSafeArea([SafeAreaType.SYSTEM])
     .hideBackButton(true)
     .title({ builder: this.gameTitleBar, height: this.titleHeight }, {
       barStyle: BarStyle.STACK,
