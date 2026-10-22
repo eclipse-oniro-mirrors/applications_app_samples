@@ -1509,7 +1509,7 @@ static napi_value DehydrateFile(napi_env env, napi_callback_info info)
 //         OH_CloudDisk_CallbackType type,
 //         OH_CloudDisk_HydratePriority priority)
 //     注意：syncFolderPath和filePath是指针！
-//     priority = CLOUD_DISK_HYDRATE_PRIORITY_NORMAL（普通优先级）
+//     priority = OH_CLOUD_DISK_HYDRATE_PRIORITY_NORMAL（普通优先级）
 //     reqKey会在回调中保存，供后续Execute使用
 // ============================================================================
 // [Start hydrate_placeholder]
@@ -1546,7 +1546,7 @@ static napi_value HydratePlaceholder(napi_env env, napi_callback_info info)
     // 发起水合请求（异步，结果通过回调表回调返回）
     auto ret = OH_CloudDisk_HydratePlaceholder(&syncFolderPath, &filePath,
         static_cast<OH_CloudDisk_CallbackType>(callbackType),
-        CLOUD_DISK_HYDRATE_PRIORITY_NORMAL);
+        OH_CLOUD_DISK_HYDRATE_PRIORITY_NORMAL);
     if (ret != CLOUD_DISK_OK) {
         LOGE("OH_CloudDisk_HydratePlaceholder failed, errorCode: %{public}d.", ret);
     } else {
@@ -1649,14 +1649,14 @@ static void FreeHeapFetchContext(OH_CloudDisk_CallbackContext *p)
 // 辅助函数：根据回调类型深拷贝请求上下文到全局静态缓存
 // ----------------------------------------------------------------------------
 // 回调结束后原reqContext内存可能失效，这里把FETCH_DATA / CANCEL_FETCH_DATA /
-// DEHYDRATE（含FETCH_RANGE_DATA）三类上下文拷贝到全局静态字符串/结构体中，
+// DEHYDRATE三类上下文拷贝到全局静态字符串/结构体中，
 // 供后续Execute手动执行时安全读取。
 // ============================================================================
 static OH_CloudDisk_CallbackContext CopyCallbackContext(const OH_CloudDisk_CallbackReqHead &reqHead,
                                                         OH_CloudDisk_CallbackContext &reqContext)
 {
     OH_CloudDisk_CallbackContext copiedContext = {};
-    if (reqHead.callbackType == CLOUD_DISK_CALLBACK_TYPE_FETCH_DATA && reqContext.fetchData) {
+    if (reqHead.callbackType == OH_CLOUD_DISK_CALLBACK_TYPE_FETCH_DATA && reqContext.fetchData) {
         // FETCH_DATA：云端需要占位符文件的真实内容，应用需通过Execute回传
         g_lastFetchDataPathStr =
             std::string(reqContext.fetchData->filePath.value, reqContext.fetchData->filePath.length);
@@ -1666,7 +1666,7 @@ static OH_CloudDisk_CallbackContext CopyCallbackContext(const OH_CloudDisk_Callb
         copiedContext.fetchData = &g_lastFetchDataReq;
         LOGI("  FETCH_DATA: filePath=%{public}s, priority=%{public}d.",
              g_lastFetchDataPathStr.c_str(), reqContext.fetchData->priority);
-    } else if (reqHead.callbackType == CLOUD_DISK_CALLBACK_TYPE_CANCEL_FETCH_DATA && reqContext.cancelFetchData) {
+    } else if (reqHead.callbackType == OH_CLOUD_DISK_CALLBACK_TYPE_CANCEL_FETCH_DATA && reqContext.cancelFetchData) {
         // CANCEL_FETCH_DATA：取消某个文件的水合（云端通知，应用无需回传数据）
         g_lastCancelFetchDataPathStr =
             std::string(reqContext.cancelFetchData->value, reqContext.cancelFetchData->length);
@@ -1674,9 +1674,8 @@ static OH_CloudDisk_CallbackContext CopyCallbackContext(const OH_CloudDisk_Callb
         g_lastCancelFetchDataPathInfo.length = g_lastCancelFetchDataPathStr.length();
         copiedContext.cancelFetchData = &g_lastCancelFetchDataPathInfo;
         LOGI("  CANCEL_FETCH_DATA: filePath=%{public}s.", g_lastCancelFetchDataPathStr.c_str());
-    } else if ((reqHead.callbackType == CLOUD_DISK_CALLBACK_TYPE_DEHYDRATE ||
-                reqHead.callbackType == CLOUD_DISK_CALLBACK_TYPE_FETCH_RANGE_DATA) && reqContext.dehydrateData) {
-        // DEHYDRATE / FETCH_RANGE_DATA：去水合授权 / 分段取数
+    } else if (reqHead.callbackType == OH_CLOUD_DISK_CALLBACK_TYPE_DEHYDRATE && reqContext.dehydrateData) {
+        // DEHYDRATE：去水合授权
         g_lastDehydratePathStr =
             std::string(reqContext.dehydrateData->filePath.value, reqContext.dehydrateData->filePath.length);
         g_lastDehydrateInfo.filePath.value = const_cast<char *>(g_lastDehydratePathStr.c_str());
@@ -1840,7 +1839,7 @@ static void OnCallbackTableCallback(const OH_CloudDisk_CallbackReqHead reqHead,
     g_lastReqContextMap[syncPathKey] = copiedContext;
 
     // 手动模式：仅保存reqKey与上下文，由UI手动触发Execute。
-    if (reqHead.callbackType == CLOUD_DISK_CALLBACK_TYPE_FETCH_DATA && reqContext.fetchData) {
+    if (reqHead.callbackType == OH_CLOUD_DISK_CALLBACK_TYPE_FETCH_DATA && reqContext.fetchData) {
         LOGI("OnCallbackTableCallback: FETCH_DATA stored for manual execute, "
              "syncFolder: %{public}s, file: %{public}s.",
              reqHead.syncFolderPath.value, reqContext.fetchData->filePath.value);
@@ -1848,7 +1847,7 @@ static void OnCallbackTableCallback(const OH_CloudDisk_CallbackReqHead reqHead,
 
     // 自动水合：注册回调表时若填写了"水合数据文件"，回调到达后自动读取该文件
     // 内容并分块Execute回传。g_fetchFilePath为空时不自动执行，走上方手动模式。
-    if (reqHead.callbackType == CLOUD_DISK_CALLBACK_TYPE_FETCH_DATA && reqContext.fetchData) {
+    if (reqHead.callbackType == OH_CLOUD_DISK_CALLBACK_TYPE_FETCH_DATA && reqContext.fetchData) {
         OH_CloudDisk_CallbackReqHead *heapReqHead = DeepCopyReqHead(reqHead);
         OH_CloudDisk_CallbackContext *heapContext = DeepCopyFetchContext(copiedContext);
         std::thread([heapReqHead, heapContext]() {
@@ -1980,7 +1979,6 @@ struct ExecuteContext {
     size_t contentLen;          // 文件内容字节长度
     OH_CloudDisk_FetchDataRequest fetchDataReq;  // 取数据请求
     CloudDisk_PathInfo cancelFetchPath;           // 取消取数据路径
-    OH_CloudDisk_RangeInfo rangeInfo;             // 分段取数信息
     OH_CloudDisk_DehydrateInfo dehydrateInfo;     // 去水合信息
 };
 
@@ -1994,27 +1992,18 @@ static void BuildReqContext(OH_CloudDisk_CallbackContext &reqContext,
                             const OH_CloudDisk_CallbackReqHead &reqHead, ExecuteContext &ctx)
 {
     switch (reqHead.callbackType) {
-        case CLOUD_DISK_CALLBACK_TYPE_FETCH_DATA:
+        case OH_CLOUD_DISK_CALLBACK_TYPE_FETCH_DATA:
             // 取数据：指定需要回传内容的文件
             ctx.fetchDataReq.filePath = MakePathInfo(ctx.filePath);
-            ctx.fetchDataReq.priority = CLOUD_DISK_HYDRATE_PRIORITY_NORMAL; // 水合优先级：普通
+            ctx.fetchDataReq.priority = OH_CLOUD_DISK_HYDRATE_PRIORITY_NORMAL; // 水合优先级：普通
             reqContext.fetchData = &ctx.fetchDataReq;
             break;
-        case CLOUD_DISK_CALLBACK_TYPE_CANCEL_FETCH_DATA:
+        case OH_CLOUD_DISK_CALLBACK_TYPE_CANCEL_FETCH_DATA:
             // 取消取数据：指定取消水合的文件
             ctx.cancelFetchPath = MakePathInfo(ctx.filePath);
             reqContext.cancelFetchData = &ctx.cancelFetchPath;
             break;
-        case CLOUD_DISK_CALLBACK_TYPE_FETCH_RANGE_DATA:
-            // 分段取数：指定文件、偏移、长度与本次数据
-            ctx.rangeInfo.filePath = MakePathInfo(ctx.filePath);
-            ctx.rangeInfo.offset = ctx.offset;          // 本次数据在文件中的起始偏移
-            ctx.rangeInfo.size = ctx.size;              // 本次数据长度
-            ctx.rangeInfo.data.data = ctx.contentBytes; // 本次回传的数据
-            ctx.rangeInfo.data.dataSize = ctx.contentLen;
-            reqContext.fetchRangeData = &ctx.rangeInfo;
-            break;
-        case CLOUD_DISK_CALLBACK_TYPE_DEHYDRATE:
+        case OH_CLOUD_DISK_CALLBACK_TYPE_DEHYDRATE:
             // 去水合：allow表示是否允许云端删除本地真实内容（这里复用isComplete参数）
             ctx.dehydrateInfo.filePath = MakePathInfo(ctx.filePath);
             ctx.dehydrateInfo.allow = ctx.isComplete;
@@ -2083,14 +2072,13 @@ static void BuildReqHead(OH_CloudDisk_CallbackReqHead &reqHead, int64_t callback
     reqHead.reqKey.dataSize = sizeof(uint64_t);
 }
 
-// 辅助函数：构造回调响应（FETCH_DATA / FETCH_RANGE_DATA类型需要回传文件数据）
+// 辅助函数：构造回调响应（FETCH_DATA类型需要回传文件数据）
 static void BuildCallbackResponse(OH_CloudDisk_CallbackResponse &rsp,
                                   OH_CloudDisk_FetchData &fetchDataRsp,
                                   const OH_CloudDisk_CallbackReqHead &reqHead,
                                   const ExecuteContext &ctx)
 {
-    if (reqHead.callbackType == CLOUD_DISK_CALLBACK_TYPE_FETCH_DATA ||
-        reqHead.callbackType == CLOUD_DISK_CALLBACK_TYPE_FETCH_RANGE_DATA) {
+    if (reqHead.callbackType == OH_CLOUD_DISK_CALLBACK_TYPE_FETCH_DATA) {
         fetchDataRsp.offset = ctx.offset;             // 数据起始偏移
         fetchDataRsp.size = ctx.size;                 // 本次数据长度
         fetchDataRsp.totalSize = ctx.totalSize;       // 文件总大小
@@ -2139,7 +2127,7 @@ static napi_value Execute(napi_env env, napi_callback_info info)
     OH_CloudDisk_CallbackContext reqContext = {};
     BuildReqContext(reqContext, reqHead, ctx);
 
-    // 构造回调响应：FETCH_DATA / FETCH_RANGE_DATA类型需要回传文件数据
+    // 构造回调响应：FETCH_DATA类型需要回传文件数据
     OH_CloudDisk_CallbackResponse rsp = {};
     OH_CloudDisk_FetchData fetchDataRsp = {};
     BuildCallbackResponse(rsp, fetchDataRsp, reqHead, ctx);
