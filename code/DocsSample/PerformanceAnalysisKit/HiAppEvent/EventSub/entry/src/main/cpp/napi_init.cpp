@@ -1433,6 +1433,95 @@ static napi_value RegisterExternalLogMgr(napi_env env, napi_callback_info info)
 }
 // [End RegisterExternalLogMgr]
 
+// [Start Hicollie_Test_Set_Timer]
+static napi_value HiCollieTestTimerNdk(napi_env env, napi_callback_info exports)
+{
+    // 定义执行任务超时id值
+    int id;
+    // 定义任务超时检测参数：超时时间阈值1s，动作级别为生成日志
+    HiCollie_SetTimerParam param = {"testTimer", 1, nullptr, nullptr, HiCollie_Flag::HICOLLIE_FLAG_LOG};
+    // 设置检测
+    HiCollie_ErrorCode errorCode = OH_HiCollie_SetTimer(param, &id);
+    if (errorCode == HICOLLIE_SUCCESS) {
+        OH_LOG_INFO(LogType::LOG_APP, "Timer Id is %{public}d", id);
+        // 构造超时2s
+        sleep(2);
+        OH_HiCollie_CancelTimer(id);
+    } else {
+        OH_LOG_INFO(LogType::LOG_APP, "OH_HiCollie_SetTimer failed, errorCode is %{public}d", errorCode);
+    }
+    return nullptr;
+}
+// [End Hicollie_Test_Set_Timer]
+
+// [Start MainThreadJank_OnReceive]
+// 定义一个变量，用来缓存创建的观察者的指针。
+static HiAppEvent_Watcher *systeMainThreadJankEventWatcher;
+
+static void HandleMainThreadJankEventInfo(const struct HiAppEvent_AppEventInfo &appEventInfos)
+{
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.domain=%{public}s", appEventInfos.domain);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.name=%{public}s", appEventInfos.name);
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.eventType=%{public}d", appEventInfos.type);
+    if (strcmp(appEventInfos.domain, DOMAIN_OS) == 0 &&
+        strcmp(appEventInfos.name, EVENT_MAIN_THREAD_JANK) == 0) {
+        Json::Value params;
+        Json::Reader reader(Json::Features::strictMode());
+        Json::FastWriter writer;
+        if (reader.parse(appEventInfos.params, params)) {
+            auto time = params["time"].asInt64();
+            auto pid = params["pid"].asInt();
+            auto uid = params["uid"].asInt();
+            auto bundleName = params["bundle_name"].asString();
+            auto bundleVersion = params["bundle_version"].asString();
+            auto beginTime = params["begin_time"].asInt64();
+            auto endTime = params["end_time"].asInt64();
+            auto externalLog = writer.write(params["external_log"]);
+            auto logOverLimit = params["logOverLimit"].asBool();
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.time=%{public}lld", time);
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.pid=%{public}d", pid);
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.uid=%{public}d", uid);
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_name=%{public}s",
+                        bundleName.c_str());
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.bundle_version=%{public}s",
+                        bundleVersion.c_str());
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.begin_time=%{public}lld", beginTime);
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.end_time=%{public}lld", endTime);
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.external_log=%{public}s",
+                        externalLog.c_str());
+            OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent eventInfo.params.log_over_limit=%{public}d",
+                        logOverLimit);
+        }
+    }
+}
+
+static void OnMainThreadJankReceive(const char *domain, const struct HiAppEvent_AppEventGroup *appEventGroups,
+    uint32_t groupLen)
+{
+    for (int i = 0; i < groupLen; ++i) {
+        for (int j = 0; j < appEventGroups[i].infoLen; ++j) {
+            HandleMainThreadJankEventInfo(appEventGroups[i].appEventInfos[j]);
+        }
+    }
+}
+
+static napi_value RegisterMainThreadJankWatcher(napi_env env, napi_callback_info info)
+{
+    OH_LOG_INFO(LogType::LOG_APP, "HiAppEvent MainThreadJank RegisterMainThreadJankWatcher");
+    // 开发者自定义观察者名称，系统根据不同的名称来识别不同的观察者。
+    systeMainThreadJankEventWatcher = OH_HiAppEvent_CreateWatcher("MainThreadJankReceiverWatcher");
+    // 设置订阅的事件为EVENT_MAIN_THREAD_JANK。
+    const char *names[] = {EVENT_MAIN_THREAD_JANK};
+    // 开发者订阅感兴趣的事件，此处订阅了系统事件。
+    OH_HiAppEvent_SetAppEventFilter(systeMainThreadJankEventWatcher, DOMAIN_OS, 0, names, 1);
+    // 开发者设置已实现的回调函数，观察者接收到事件后会立即触发OnMainThreadJankReceive回调。
+    OH_HiAppEvent_SetWatcherOnReceive(systeMainThreadJankEventWatcher, OnMainThreadJankReceive);
+    // 使观察者开始监听订阅的事件。
+    OH_HiAppEvent_AddWatcher(systeMainThreadJankEventWatcher);
+    return {};
+}
+// [End MainThreadJank_OnReceive]
+
 // [Start AsanEvent_Init]
 // [Start AsanEventTS_Init]
 // [Start PssLeakEvent_Init]
@@ -1452,6 +1541,7 @@ static napi_value Init(napi_env env, napi_value exports)
         // [StartExclude Sys_Crash_Event_C++_Init]
         // [StartExclude Sys_Native_Nullptr_Event_C++_Init]
         // [StartExclude Pss_Leak_Init]
+        // [StartExclude MainThreadJank_Init]
         {"registerWatcher", nullptr, RegisterWatcher, nullptr, nullptr, nullptr, napi_default, nullptr},
         // [EndExclude AppEvent_C++_Init]
         { "registerWatcherCrash", nullptr, RegisterWatcherCrash, nullptr, nullptr, nullptr, napi_default, nullptr },
@@ -1496,7 +1586,16 @@ static napi_value Init(napi_env env, napi_value exports)
         // [StartExclude AppKillEvent_Init]
         { "leak", nullptr, Leak, nullptr, nullptr, nullptr, napi_default, nullptr},
         // [EndExclude Pss_Leak_Init]
-        { "leakMB", nullptr, LeakMB, nullptr, nullptr, nullptr, napi_default, nullptr}
+        { "leakMB", nullptr, LeakMB, nullptr, nullptr, nullptr, napi_default, nullptr},
+        // [Start test_hicollie_set_timer]
+        // 将HiCollieTestTimerNdk注册为ArkTS接口
+        { "HiCollieTestTimerNdk", nullptr, HiCollieTestTimerNdk, nullptr, nullptr, nullptr, napi_default, nullptr },
+        // [End test_hicollie_set_timer]
+        // [EndExclude MainThreadJank_Init]
+        // [Start MainThreadJank_Init]
+        { "RegisterMainThreadJankWatcher", nullptr, RegisterMainThreadJankWatcher, nullptr, nullptr, nullptr,
+            napi_default, nullptr },
+        // [End MainThreadJank_Init]
         // [EndExclude AsanEvent_Init]
         // [EndExclude AsanEventTS_Init]
         // [EndExclude PssLeakEvent_Init]

@@ -27,8 +27,10 @@
     "installationFree": false,
     "pages": "$profile:main_pages",
     "abilities": [
+      // [Start recoverable_config]
       {
         "name": "EntryAbility",
+        // [StartExclude recoverable_config]
         "srcEntry": "./ets/entryability/EntryAbility.ets",
         "description": "$string:EntryAbility_desc",
         "icon": "$media:layered_image",
@@ -36,7 +38,9 @@
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
+        // [EndExclude recoverable_config]
         "recoverable": true,
+        // [StartExclude recoverable_config]
         "skills": [
           {
             "entities": [
@@ -47,7 +51,9 @@
             ]
           }
         ]
+        // [EndExclude recoverable_config]
       }
+      // [End recoverable_config]
     ],
     "extensionAbilities": [
       {
