@@ -1351,6 +1351,7 @@ static napi_value ConvertPlaceholderToFile(napi_env env, napi_callback_info info
 //      OH_CloudDisk_MarkFileAsPlaceholder(const CloudDisk_SyncFolderPath,
 //          const CloudDisk_PathInfo)
 // ============================================================================
+// [Start mark_file_as_placeholder]
 static napi_value MarkFileAsPlaceholder(napi_env env, napi_callback_info info)
 {
     size_t argc = 2;
@@ -1371,7 +1372,9 @@ static napi_value MarkFileAsPlaceholder(napi_env env, napi_callback_info info)
     CloudDisk_SyncFolderPath syncFolderPath = MakePathInfo(syncPath);
     CloudDisk_PathInfo relativePathInfo = MakePathInfo(relativePath);
 
+    // [StartExclude mark_file_as_placeholder]
     LOGW("OH_CloudDisk_MarkFileAsPlaceholder syncPath: %{public}s, relativePath: %{public}s.", syncPath, relativePath);
+    // [EndExclude mark_file_as_placeholder]
     // 普通文件标记为占位符
     auto ret = OH_CloudDisk_MarkFileAsPlaceholder(syncFolderPath, relativePathInfo);
     if (ret != CLOUD_DISK_OK) {
@@ -1387,6 +1390,7 @@ static napi_value MarkFileAsPlaceholder(napi_env env, napi_callback_info info)
     napi_create_int32(env, ret, &result);
     return result;
 }
+// [End mark_file_as_placeholder]
 
 // ============================================================================
 // 18b. unmarkPlaceholderFile(syncPath, relativePath): number
@@ -1394,6 +1398,7 @@ static napi_value MarkFileAsPlaceholder(napi_env env, napi_callback_info info)
 //      OH_CloudDisk_UnmarkPlaceholderFile(const CloudDisk_SyncFolderPath,
 //          const CloudDisk_PathInfo)
 // ============================================================================
+// [Start unmark_placeholder_file]
 static napi_value UnmarkPlaceholderFile(napi_env env, napi_callback_info info)
 {
     size_t argc = 2;
@@ -1414,7 +1419,9 @@ static napi_value UnmarkPlaceholderFile(napi_env env, napi_callback_info info)
     CloudDisk_SyncFolderPath syncFolderPath = MakePathInfo(syncPath);
     CloudDisk_PathInfo relativePathInfo = MakePathInfo(relativePath);
 
+    // [StartExclude unmark_placeholder_file]
     LOGW("OH_CloudDisk_UnmarkPlaceholderFile syncPath: %{public}s, relativePath: %{public}s.", syncPath, relativePath);
+    // [EndExclude unmark_placeholder_file]
     // 取消占位符标记
     auto ret = OH_CloudDisk_UnmarkPlaceholderFile(syncFolderPath, relativePathInfo);
     if (ret != CLOUD_DISK_OK) {
@@ -1430,6 +1437,7 @@ static napi_value UnmarkPlaceholderFile(napi_env env, napi_callback_info info)
     napi_create_int32(env, ret, &result);
     return result;
 }
+// [End unmark_placeholder_file]
 
 // ============================================================================
 // 18c. getPlaceholderCustomInfo(syncPath, relativePath): {code, dataLength, data}
@@ -1461,6 +1469,7 @@ static napi_value BuildCustomInfoResult(napi_env env, CloudDisk_ErrorCode ret,
     return resultObj;
 }
 
+// [Start get_placeholder_custom_info]
 static napi_value GetPlaceholderCustomInfo(napi_env env, napi_callback_info info)
 {
     size_t argc = 2;
@@ -1492,8 +1501,10 @@ static napi_value GetPlaceholderCustomInfo(napi_env env, napi_callback_info info
         return result;
     }
 
+    // [StartExclude get_placeholder_custom_info]
     LOGW("OH_CloudDisk_GetPlaceholderCustomInfo syncPath: %{public}s, relativePath: %{public}s.",
          syncPath, relativePath);
+    // [EndExclude get_placeholder_custom_info]
     // 读取自定义信息（dataLength为in/out参数，返回时携带实际读取长度）
     CloudDisk_ErrorCode ret =
         OH_CloudDisk_GetPlaceholderCustomInfo(syncFolderPath, relativePathInfo, dataBuf, &dataLength);
@@ -1509,6 +1520,7 @@ static napi_value GetPlaceholderCustomInfo(napi_env env, napi_callback_info info
     delete[] relativePath;
     return resultObj;
 }
+// [End get_placeholder_custom_info]
 
 // ============================================================================
 // 19. dehydrateFile(syncPath, relativePath): number
