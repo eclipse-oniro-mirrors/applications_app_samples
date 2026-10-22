@@ -445,7 +445,7 @@ struct FilePicker {
         if (res.valueOf()) {
           this.result = 'isDLPFile result: ' + JSON.stringify(res);
         } else {
-          this.result = '请打开一个dlp文件! ';
+          this.result = '请打开一个DLP文件! ';
         }
         console.info('res', res);
         hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'res' + res);
