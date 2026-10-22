@@ -28,11 +28,11 @@ class TestClass {
   notifyToGet(): void {
     setTimeout(() => {
       try {
-        const h = this.testController.getPageHeight();
-        console.info('page height: ' + h);
+        const h: number = this.testController.getPageHeight();
+        console.info(`page height: ${h}`);
         this.onGetHeight(String(h));
       } catch (err) {
-        console.error('page height: notifyToGet error: ' + JSON.stringify(err));
+        console.error(`page height: notifyToGet error: ${JSON.stringify(err)}`);
       }
     }, 300)
   }
@@ -60,11 +60,19 @@ struct Scene1Static {
           this.heightText = $r('app.string.scene1_on_page_end');
           setTimeout(() => {
             try {
+<<<<<<< HEAD
               const h = this.controller.getPageHeight();
               console.info('page height: onPageEnd: ' + h);
               this.heightText = String(h) + ' px';
             } catch (err) {
               console.error('page height: onPageEnd error: ' + JSON.stringify(err));
+=======
+              const h: number = this.controller.getPageHeight();
+              console.info(`page height: onPageEnd: ${h}`);
+              this.heightText = String(h) + ' px';
+            } catch (err) {
+              console.error(`page height: onPageEnd error: ${JSON.stringify(err)}`);
+>>>>>>> ff01f308b3... replenish s  empty code
               this.heightText = $r('app.string.get_height_failed');
             }
           }, 300)
@@ -137,11 +145,19 @@ struct Scene3SetTimeout {
           this.heightText = $r('app.string.scene3_on_page_end');
           setTimeout(() => {
             try {
+<<<<<<< HEAD
               const h = this.controller.getPageHeight();
               console.info('page height: onPageEnd: setTimeout: ' + h);
               this.heightText = String(h) + ' px';
             } catch (err) {
               console.error('page height: onPageEnd setTimeout error: ' + JSON.stringify(err));
+=======
+              const h: number = this.controller.getPageHeight();
+              console.info(`page height: onPageEnd: setTimeout: ${h}`);
+              this.heightText = String(h) + ' px';
+            } catch (err) {
+              console.error(`page height: onPageEnd setTimeout error: ${JSON.stringify(err)}`);
+>>>>>>> ff01f308b3... replenish s  empty code
               this.heightText = $r('app.string.get_height_failed');
             }
           }, 2000)

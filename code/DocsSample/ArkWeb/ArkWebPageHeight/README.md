@@ -75,10 +75,6 @@ entry/src/main/
   * scene2_index.html：动态网页，包含标题、说明文字和两个蓝色区块，在window load事件中调用jsbObj.notifyToGet()。
   * scene3_index.html：包含大图片的页面，配合setTimeout延迟获取，使onPageEnd时刻与2秒后高度产生差异。
 
-### 相关权限
-
-[ohos.permission.INTERNET](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissioninternet)
-
 ### 依赖
 
 不涉及。
