@@ -53,7 +53,7 @@ export class ExifUtility {
     : Promise<string> {
     let info: string = '';
     if (imageSourceApi) {
-      // 编辑EXIF信息
+      // 编辑Exif信息
       try {
         await imageSourceApi.modifyImageProperty(key, value);
         try {
