@@ -49,6 +49,7 @@ export default function abilityTest() {
       console.info('uitest: TestUiExample begin');
       const want: Want = {
         bundleName: bundleName,
+        moduleName: 'entry',
         abilityName: 'EntryAbility'
       };
       await delegator.startAbility(want);

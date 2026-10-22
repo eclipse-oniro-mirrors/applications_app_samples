@@ -38,6 +38,15 @@ struct Index {
             console.error(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
           })
         })
+      Button('CustomizeSchemes')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({
+            url: 'pages/CustomizeSchemes',
+          })
+          .catch((error: BusinessError) => {
+            console.error(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
+          })
+        })
     }.height('100%')
     .width('100%')
   }
