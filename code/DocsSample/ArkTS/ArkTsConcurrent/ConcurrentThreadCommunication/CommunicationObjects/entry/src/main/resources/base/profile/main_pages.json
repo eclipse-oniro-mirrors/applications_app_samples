@@ -5,6 +5,7 @@
     "managers/ArrayBufferObject",
     "managers/SharedArrayBufferObject",
     "managers/TransferabledObject",
-    "managers/ContainerObject"
+    "managers/ContainerObject",
+    "managers/WorkerSendArrayBuffer"
   ]
 }

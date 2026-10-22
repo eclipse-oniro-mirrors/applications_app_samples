@@ -134,5 +134,24 @@ export default function abilityTest() {
       await driver.pressBack();
       done();
     })
+    /**
+     * 点击按钮，进入Worker场景传递ArrayBuffer，点击Hello World执行
+     */
+    it('testWorkerSendArraybuffer', 0, async (done: Function) => {
+      console.info('uitest: TesSendArraybuffer begin');
+      const driver = Driver.create();
+      await driver.delayMs(1000);
+      const text =
+        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Worker_Send_ArrayBuffer'))));
+      await text.click();
+      await driver.delayMs(1000);
+      const text1 = await driver.findComponent(ON.text('Hello World'));
+      await text1.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('success'));
+      console.info('uitest: TestSendArraybuffer end');
+      await driver.pressBack();
+      done();
+    })
   })
 }

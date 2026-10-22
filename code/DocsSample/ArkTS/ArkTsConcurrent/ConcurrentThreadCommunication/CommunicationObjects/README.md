@@ -58,6 +58,7 @@ entry/src/
  │   │       ├── SharedArrayBufferObject.ets // SharedArrayBuffer对象示例代码
  │   │       ├── Test.ets					 // 普通对象示例代码
  │   │       ├── TransferabledObject.ets     // Transferable对象示例代码
+ │   │       ├── WorkerSendArrayBuffer.ets   // Worker发送ArrayBuffer示例代码
  │   │   ├── pages
  │   │       ├── Index.ets                   // 首页
  │   │   ├── util
