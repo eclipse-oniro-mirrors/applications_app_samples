@@ -43,7 +43,7 @@ class TestClass {
 @Component
 struct Scene1Static {
   controller: webview.WebviewController = new webview.WebviewController();
-  @State heightText: string = '等待获取...';
+  @State heightText: ResourceStr = $r('app.string.waiting_for_height');
 
   build() {
     Column() {
@@ -57,15 +57,15 @@ struct Scene1Static {
       Web({ src: $rawfile('scene1_index.html'), controller: this.controller })
         .layoutWeight(1)
         .onPageEnd(() => {
-          this.heightText = 'onPageEnd 已触发，等待布局完成...';
+          this.heightText = $r('app.string.scene1_on_page_end');
           setTimeout(() => {
             try {
               const h = this.controller.getPageHeight();
-              console.info("page height: onPageEnd: " + h);
+              console.info('page height: onPageEnd: ' + h);
               this.heightText = String(h) + ' px';
             } catch (err) {
-              console.error("page height: onPageEnd error: " + JSON.stringify(err));
-              this.heightText = '获取失败';
+              console.error('page height: onPageEnd error: ' + JSON.stringify(err));
+              this.heightText = $r('app.string.get_height_failed');
             }
           }, 300)
         })
@@ -81,7 +81,7 @@ struct Scene1Static {
 @Component
 struct Scene2JsBridge {
   controller: webview.WebviewController = new webview.WebviewController();
-  @State heightText: string = '等待获取...';
+  @State heightText: ResourceStr = $r('app.string.waiting_for_height');
   @State jsbObj: TestClass = new TestClass(this.controller);
 
   aboutToAppear(): void {
@@ -120,7 +120,7 @@ struct Scene2JsBridge {
 @Component
 struct Scene3SetTimeout {
   controller: webview.WebviewController = new webview.WebviewController();
-  @State heightText: string = '等待获取...';
+  @State heightText: ResourceStr = $r('app.string.waiting_for_height');
 
   build() {
     Column() {
@@ -134,15 +134,15 @@ struct Scene3SetTimeout {
       Web({ src: $rawfile('scene3_index.html'), controller: this.controller })
         .layoutWeight(1)
         .onPageEnd(() => {
-          this.heightText = 'onPageEnd 已触发，2s 后获取...';
+          this.heightText = $r('app.string.scene3_on_page_end');
           setTimeout(() => {
             try {
               const h = this.controller.getPageHeight();
-              console.info("page height: onPageEnd: setTimeout: " + h);
+              console.info('page height: onPageEnd: setTimeout: ' + h);
               this.heightText = String(h) + ' px';
             } catch (err) {
-              console.error("page height: onPageEnd setTimeout error: " + JSON.stringify(err));
-              this.heightText = '获取失败';
+              console.error('page height: onPageEnd setTimeout error: ' + JSON.stringify(err));
+              this.heightText = $r('app.string.get_height_failed');
             }
           }, 2000)
         })
@@ -162,17 +162,17 @@ struct Index {
         TabContent() {
           Scene1Static()
         }
-        .tabBar('场景1')
+        .tabBar($r('app.string.tab_scene1'))
 
         TabContent() {
           Scene2JsBridge()
         }
-        .tabBar('场景2')
+        .tabBar($r('app.string.tab_scene2'))
 
         TabContent() {
           Scene3SetTimeout()
         }
-        .tabBar('场景3')
+        .tabBar($r('app.string.tab_scene3'))
       }
     }
     .height('100%')
