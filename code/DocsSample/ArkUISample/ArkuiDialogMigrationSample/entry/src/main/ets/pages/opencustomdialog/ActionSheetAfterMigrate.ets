@@ -36,7 +36,7 @@ export struct ActionSheetAfterMigrate {
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
-              this.result = '老接口示例请参考 ts-methods-action-sheet.md';
+              this.result = '老接口示例请参考ActionSheet文档';
             })
 
           Button('新接口：DialogPresenter.present（列表选择弹窗）')

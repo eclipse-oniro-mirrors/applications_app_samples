@@ -36,7 +36,7 @@ export struct AlertDialogAfterMigrate {
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
-              this.result = '老接口示例请参考 ts-methods-alert-dialog-box.md';
+              this.result = '老接口示例请参考AlertDialog文档';
             })
 
           Button('新接口：DialogPresenter.present（固定样式弹窗）')

@@ -37,7 +37,7 @@ export struct OpenCustomDialogWithControllerAfterMigrate {
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
-              this.result = '老接口示例请参考 arkts-apis-uicontext-promptaction.md';
+              this.result = '老接口示例请参考promptAction文档';
             })
 
           Button('新接口：DialogPresenter.present（自定义弹窗）')

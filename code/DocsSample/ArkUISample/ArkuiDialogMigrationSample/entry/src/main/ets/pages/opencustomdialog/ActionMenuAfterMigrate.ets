@@ -36,7 +36,7 @@ export struct ActionMenuAfterMigrate {
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
-              this.result = '老接口示例请参考 js-apis-promptAction.md';
+              this.result = '老接口示例请参考promptAction文档';
             })
 
           Button('新接口：DialogPresenter.present（操作菜单）')
