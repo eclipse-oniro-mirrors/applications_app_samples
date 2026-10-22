@@ -54,6 +54,11 @@ export interface IsPlaceholderResult {
   isPlaceholder: boolean;
 }
 
+export interface PlaceholderStateResult {
+  code: number;
+  state: number; // 0:非占位符 1:未水合 2:部分水合 3:完全水合
+}
+
 export interface CustomInfoResult {
   code: number;
   dataLength: number;
@@ -86,9 +91,12 @@ export const getFileSyncStates: (path: string, length: number, paths: string[]) 
 export const registerCallback: (cb: (msg: string) => void) => void;
 
 // 占位符与水合 (CAPI)
-export const createPlaceholderFile: (syncPath: string, relativePath: string, atimeMs: number, mtimeMs: number, logicalSize: number) => number;
+export const createPlaceholderFile: (syncPath: string, relativePath: string, atimeMs: number, mtimeMs: number,
+  logicalSize: number, customInfo?: string) => number;
 export const isPlaceholderFile: (syncPath: string, relativePath: string) => IsPlaceholderResult;
-export const updatePlaceholder: (syncPath: string, relativePath: string, atimeMs: number, mtimeMs: number, logicalSize: number) => number;
+export const getPlaceholderState: (syncPath: string, relativePath: string) => PlaceholderStateResult;
+export const updatePlaceholder: (syncPath: string, relativePath: string, atimeMs: number, mtimeMs: number,
+  logicalSize: number, customInfo?: string) => number;
 export const convertPlaceholderToFile: (syncPath: string, relativePath: string) => number;
 export const markFileAsPlaceholder: (syncPath: string, relativePath: string) => number;
 export const unmarkPlaceholderFile: (syncPath: string, relativePath: string) => number;
