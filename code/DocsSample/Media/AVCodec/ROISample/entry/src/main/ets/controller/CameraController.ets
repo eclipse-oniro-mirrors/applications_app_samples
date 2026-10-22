@@ -141,7 +141,8 @@ export class CameraController {
     const previewProfile = profiles.previewProfiles.find((profile: camera.Profile) => {
       const format = this.cameraData.isHDRVivid ? camera.CameraFormat.CAMERA_FORMAT_YCBCR_P010 :
         camera.CameraFormat.CAMERA_FORMAT_YUV_420_SP;
-      return profile.size.width === this.cameraData.cameraWidth && profile.size.height === this.cameraData.cameraHeight &&
+      return profile.size.width === this.cameraData.cameraWidth &&
+        profile.size.height === this.cameraData.cameraHeight &&
         profile.format === format;
     });
     if (!previewProfile) {
@@ -285,7 +286,8 @@ export class CameraController {
     let activeFrameRateArray: camera.FrameRateRange = this.getActiveFrameRange(xComponentPreviewOutput);
     let activeVideoFrameRateArray: camera.FrameRateRange = this.getVideoActiveFrameRange(encoderVideoOutput);
     Logger.info(TAG,
-      `[czztest]current effective frame rate for this previewOutput: ${JSON.stringify(activeFrameRateArray)}, current effective frame rate for this encoderVideoOutputc: ${JSON.stringify(activeVideoFrameRateArray)}`);
+      `[czztest]current effective frame rate for this previewOutput: ${JSON.stringify(activeFrameRateArray)}, ` +
+        `current effective frame rate for this encoderVideoOutputc: ${JSON.stringify(activeVideoFrameRateArray)}`);
 
     Logger.error(TAG, '[czztest]end');
   }
