@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -445,7 +445,7 @@ struct FilePicker {
         if (res.valueOf()) {
           this.result = 'isDLPFile result: ' + JSON.stringify(res);
         } else {
-          this.result = '请打开一个DLP文件! ';
+          this.result = getResourceString(this.context, $r('app.string.open_dlp_file_prompt'));
         }
         console.info('res', res);
         hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'res' + res);
