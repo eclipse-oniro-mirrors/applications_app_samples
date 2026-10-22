@@ -47,8 +47,9 @@ Camera_ErrorCode NativeCamera::Start(const NativeCameraConfig &config)
     }
     if (ret == CAMERA_OK) {
         bool focusSupported = false;
-        if (OH_CaptureSession_IsFocusModeSupported(session_, FOCUS_MODE_CONTINUOUS_AUTO, &focusSupported) == CAMERA_OK &&
-            focusSupported) {
+        Camera_ErrorCode focusRet = OH_CaptureSession_IsFocusModeSupported(
+            session_, FOCUS_MODE_CONTINUOUS_AUTO, &focusSupported);
+        if (focusRet == CAMERA_OK && focusSupported) {
             OH_CaptureSession_SetFocusMode(session_, FOCUS_MODE_CONTINUOUS_AUTO);
         }
         ret = OH_CaptureSession_Start(session_);
@@ -78,7 +79,8 @@ Camera_ErrorCode NativeCamera::CreateOutputs(const NativeCameraConfig &config)
         }
     }
     position_ = device->cameraPosition;
-    ret = OH_CameraManager_GetSupportedCameraOutputCapabilityWithSceneMode(manager_, device, NORMAL_VIDEO, &capability_);
+    ret = OH_CameraManager_GetSupportedCameraOutputCapabilityWithSceneMode(
+        manager_, device, NORMAL_VIDEO, &capability_);
     CHECK_AND_RETURN_RET_LOG(ret == CAMERA_OK, ret, "Get camera capability failed");
     CHECK_AND_RETURN_RET_LOG(capability_ != nullptr, CAMERA_SERVICE_FATAL_ERROR, "Camera capability is null");
     Camera_Format format = config.isHdr ? CAMERA_FORMAT_YCBCR_P010 : CAMERA_FORMAT_YUV_420_SP;
@@ -101,7 +103,8 @@ Camera_ErrorCode NativeCamera::CreateOutputs(const NativeCameraConfig &config)
     CHECK_AND_RETURN_RET_LOG(ret == CAMERA_OK, ret, "Open camera input failed");
 
     std::vector<Camera_MetadataObjectType> types;
-    for (uint32_t i = 0; capability_->supportedMetadataObjectTypes != nullptr && i < capability_->metadataProfilesSize; ++i) {
+    for (uint32_t i = 0; capability_->supportedMetadataObjectTypes != nullptr &&
+        i < capability_->metadataProfilesSize; ++i) {
         if (capability_->supportedMetadataObjectTypes[i] != nullptr) {
             types.push_back(*capability_->supportedMetadataObjectTypes[i]);
         }
@@ -169,7 +172,7 @@ Camera_ErrorCode NativeCamera::ConfigureFrameRate(int32_t frameRate)
     ret = OH_PreviewOutput_GetActiveFrameRate(preview_, &active);
     CHECK_AND_RETURN_RET_LOG(ret == CAMERA_OK, ret, "Get active frame rate failed");
     CHECK_AND_RETURN_RET_LOG(active.min == frameRate && active.max == frameRate, CAMERA_SERVICE_FATAL_ERROR,
-                            "Active preview frame rate differs from requested frame rate");
+        "Active preview frame rate differs from requested frame rate");
     return CAMERA_OK;
 }
 

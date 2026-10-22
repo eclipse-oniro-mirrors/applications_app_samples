@@ -22,9 +22,7 @@
 #include <ohcamera/camera_input.h>
 #include <ohcamera/capture_session.h>
 #include <ohcamera/preview_output.h>
-// [Start roi_native_camera_header]
 #include <ohcamera/metadata_output.h>
-// [End roi_native_camera_header]
 
 struct NativeCameraConfig {
     std::string surfaceId;
