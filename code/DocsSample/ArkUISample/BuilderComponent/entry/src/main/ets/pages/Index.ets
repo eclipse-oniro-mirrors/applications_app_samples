@@ -48,7 +48,8 @@ const pageArray: string[] = [
   'pages/ChangingIncorrectUsage',
   'pages/ChangingCorrectUsage',
   'pages/WatchIncorrectUsage',
-  'pages/WatchCorrectUsage'
+  'pages/WatchCorrectUsage',
+  'pages/BuilderPlaceholderList'
 ];
 
 export const buttonArray: string[] = [
@@ -81,6 +82,7 @@ export const buttonArray: string[] = [
   'ButtonTwentyFive',
   'ButtonTwentySix',
   'ButtonTwentySeven',
+  'ButtonThirty'
 ];
 
 @Extend(Button)

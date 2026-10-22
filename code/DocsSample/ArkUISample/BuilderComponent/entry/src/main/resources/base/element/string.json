@@ -127,6 +127,10 @@
     {
       "name": "ButtonTwentyNine",
       "value": "Parameter passing by makebinding"
+    },
+    {
+      "name": "ButtonThirty",
+      "value": "@Builder supports placeholder in the List component"
     }
   ]
 }
