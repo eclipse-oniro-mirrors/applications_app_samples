@@ -24,6 +24,7 @@ class TestClass {
 }
 
 // 场景1：普通静态展示页面
+// [Start ordinary_static_display_page]
 @Component
 struct Scene1Static {
   controller: webview.WebviewController = new webview.WebviewController();
@@ -58,8 +59,10 @@ struct Scene1Static {
     .height('100%')
   }
 }
+// [End ordinary_static_display_page]
 
 // 场景2：复杂动态网页使用 JSBridge 传递特定回调
+// [Start complex_dynamic_web_pages]
 @Component
 struct Scene2JsBridge {
   controller: webview.WebviewController = new webview.WebviewController();
@@ -95,8 +98,10 @@ struct Scene2JsBridge {
     .height('100%')
   }
 }
+// [End complex_dynamic_web_pages]
 
 // 场景3：无法使用 JSBridge 场景
+// [Start jsb_cannot_be_used]
 @Component
 struct Scene3SetTimeout {
   controller: webview.WebviewController = new webview.WebviewController();
@@ -131,6 +136,7 @@ struct Scene3SetTimeout {
     .height('100%')
   }
 }
+// [End jsb_cannot_be_used]
 
 @Entry
 @Component
