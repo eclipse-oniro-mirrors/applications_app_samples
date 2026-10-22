@@ -405,6 +405,42 @@ static void GetArgs(napi_env env, napi_callback_info info, size_t argc, napi_val
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 }
 
+// customInfo参数在NAPI入参数组中的下标
+// （前面依次为syncPath/relativePath/atimeMs/mtimeMs/logicalSize）
+enum CustomInfoArgIndex {
+    ARG_INDEX_CUSTOM_INFO = 5,
+};
+
+// ============================================================================
+// 辅助函数：解析可选的自定义信息入参并构造OH_CloudDisk_PlaceholderCustomInfo
+// ----------------------------------------------------------------------------
+// 入参arg为JS侧第6个参数。不传、非字符串或空串时返回false（表示不写入
+// 自定义信息，*customInfoOut为nullptr）；返回true时customInfoValue已构造
+// 完成（data指向*customInfoOut指向的内存，生命周期需覆盖本次SDK调用），
+// 调用方用完需delete[]释放*customInfoOut。
+// ============================================================================
+static bool MakeCustomInfoArg(napi_env env, napi_value arg,
+                              OH_CloudDisk_PlaceholderCustomInfo* customInfoValue, char** customInfoOut)
+{
+    *customInfoOut = nullptr;
+    napi_valuetype argType = napi_undefined;
+    if (arg != nullptr) {
+        napi_typeof(env, arg, &argType);
+    }
+    if (arg == nullptr || argType != napi_valuetype::napi_string) {
+        return false;  // 未传该参数或非字符串（如undefined）
+    }
+    char* customInfo = GetStringParam(env, arg);
+    if (customInfo == nullptr || customInfo[0] == '\0') {
+        delete[] customInfo;  // 空串视为不写入
+        return false;
+    }
+    customInfoValue->dataLength = strlen(customInfo);                      // 自定义信息长度（字节，不含结束符）
+    customInfoValue->data = reinterpret_cast<const uint8_t*>(customInfo);  // 自定义信息内容
+    *customInfoOut = customInfo;
+    return true;
+}
+
 // ============================================================================
 // 1. registerSyncFolder(path: string, displayName: string): number
 //    注册同步根目录。同步根是云端与本地文件系统同步的根目录，
@@ -1082,22 +1118,12 @@ static napi_value CreatePlaceholderFile(napi_env env, napi_callback_info info)
     uint64_t mtimeMs = static_cast<uint64_t>(GetNumberParam(env, args[3]));  // 修改时间（毫秒时间戳，映射云端文件修改时间）
     uint64_t logicalSize = static_cast<uint64_t>(GetNumberParam(env, args[4])); // 云端文件逻辑大小（字节）
 
-    // 解析可选入参：自定义信息（不传或传空串时置NULL，表示不写入自定义信息）
+    // 解析可选入参：自定义信息（不传或空串时置NULL，表示不写入自定义信息）
     char* customInfo = nullptr;
-    if (args[5] != nullptr) {
-        napi_valuetype customInfoType = napi_undefined;
-        napi_typeof(env, args[5], &customInfoType);
-        if (customInfoType == napi_valuetype::napi_string) {
-            customInfo = GetStringParam(env, args[5]);
-        }
-    }
-    // 构造自定义信息结构体（data指向customInfo内存，生命周期覆盖本次调用即可）
     OH_CloudDisk_PlaceholderCustomInfo customInfoValue = {};
     OH_CloudDisk_PlaceholderCustomInfo* customInfoPtr = NULL;
-    if (customInfo != nullptr && customInfo[0] != '\0') {
-        customInfoValue.dataLength = strlen(customInfo);                      // 自定义信息长度（字节，不含结束符）
-        customInfoValue.data = reinterpret_cast<const uint8_t*>(customInfo);  // 自定义信息内容
-        customInfoPtr = &customInfoValue;
+    if (MakeCustomInfoArg(env, args[ARG_INDEX_CUSTOM_INFO], &customInfoValue, &customInfo)) {
+        customInfoPtr = &customInfoValue;  // data指向customInfo内存，生命周期覆盖本次调用
     }
 
     // 构造同步根路径与相对路径
@@ -1231,22 +1257,12 @@ static napi_value UpdatePlaceholder(napi_env env, napi_callback_info info)
     uint64_t mtimeMs = static_cast<uint64_t>(GetNumberParam(env, args[3]));
     uint64_t logicalSize = static_cast<uint64_t>(GetNumberParam(env, args[4]));
 
-    // 解析可选入参：自定义信息（不传或传空串时置NULL，SDK语义为保留原有自定义信息）
+    // 解析可选入参：自定义信息（不传或空串时置NULL，SDK语义为保留原有自定义信息）
     char* customInfo = nullptr;
-    if (args[5] != nullptr) {
-        napi_valuetype customInfoType = napi_undefined;
-        napi_typeof(env, args[5], &customInfoType);
-        if (customInfoType == napi_valuetype::napi_string) {
-            customInfo = GetStringParam(env, args[5]);
-        }
-    }
-    // 构造自定义信息结构体（data指向customInfo内存，生命周期覆盖本次调用即可）
     OH_CloudDisk_PlaceholderCustomInfo customInfoValue = {};
     OH_CloudDisk_PlaceholderCustomInfo* customInfoPtr = NULL;
-    if (customInfo != nullptr && customInfo[0] != '\0') {
-        customInfoValue.dataLength = strlen(customInfo);                      // 自定义信息长度（字节，不含结束符）
-        customInfoValue.data = reinterpret_cast<const uint8_t*>(customInfo);  // 自定义信息内容
-        customInfoPtr = &customInfoValue;
+    if (MakeCustomInfoArg(env, args[ARG_INDEX_CUSTOM_INFO], &customInfoValue, &customInfo)) {
+        customInfoPtr = &customInfoValue;  // data指向customInfo内存，生命周期覆盖本次调用
     }
 
     CloudDisk_SyncFolderPath syncFolderPath = MakePathInfo(syncPath);
