@@ -25,11 +25,11 @@
 #include <multimedia/player_framework/native_avbuffer.h>
 
 // [Start codec_buffer_info]
-// 回调buffer的信息。
+// buffer信息。
 struct CodecBufferInfo {
-     // 回调buffer。
+    // buffer。
     OH_AVBuffer *buffer = nullptr;
-    // 回调buffer对应的bufferIndex。
+    // buffer对应的bufferIndex。
     uint32_t bufferIndex = 0;
     // buffer的输入尺寸（size）、偏移量（offset）、时间戳（pts）、缓冲区标记（flags）信息。
     OH_AVCodecBufferAttr attr = {0, 0, 0, AVCODEC_BUFFER_FLAGS_NONE};
@@ -39,7 +39,7 @@ struct CodecBufferInfo {
     CodecBufferInfo(uint32_t index, OH_AVBuffer *avBuffer)
         : buffer(avBuffer), bufferIndex(index)
     {
-        // 获取回调buffer的attr信息。
+        // 获取buffer的attr信息。
         if (buffer != nullptr) {
             (void)OH_AVBuffer_GetBufferAttr(buffer, &attr);
         }
