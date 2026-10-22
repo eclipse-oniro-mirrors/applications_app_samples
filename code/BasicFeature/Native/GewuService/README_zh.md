@@ -23,6 +23,33 @@
 5. 点击"Abort Request"按钮可提前中止已提交的请求，点击"Destroy Session"按钮销毁会话。
 6. 在日志中过滤 `Sample_GewuService` 或 `DEMO` 关键字，可查看各接口调用结果与推理过程的日志。
 
+#### 模型权重获取
+
+1. 从[兼容性测试资源库](https://gitcode.com/openharmony-sig/compatibility/tree/master/test_suite/resource/master/standard%20system/acts/resource/qos/model)获取 `Qwen2.5-0.5B-CPU-Q4` 模型目录，其中包含三个文件：`params`（模型权重）、`tokenizer.json`（分词器）与 `api_config.json`（模型配置）。
+2. 先将应用安装到设备并启动一次，以创建应用沙箱目录；再使用 hdc 将上述三个文件推送到沙箱目录 `/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4`。hdc 推送时需使用沙箱在设备上的物理路径：
+
+```text
+hdc file send params /data/app/el2/100/base/com.samples.gewuservice/files/Qwen2_5_0_5B_CPU_Q4/
+hdc file send tokenizer.json /data/app/el2/100/base/com.samples.gewuservice/files/Qwen2_5_0_5B_CPU_Q4/
+hdc file send api_config.json /data/app/el2/100/base/com.samples.gewuservice/files/Qwen2_5_0_5B_CPU_Q4/
+```
+
+3. 修改沙箱内 `api_config.json` 中的模型路径与分词器路径，使其指向沙箱内的实际位置（`esets.backend` 需为 `cpu` 以匹配 CPU 量化模型）：
+
+```json
+{
+    "tokenizer": {
+        "model_path": "/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4/tokenizer.json"
+    },
+    "params_path": "/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4/params",
+    "esets": {
+        "backend": "cpu"
+    }
+}
+```
+
+4. 确认主界面 "Model path" 输入框中的路径与沙箱路径一致后，再点击 "Create Session" 创建会话。
+
 ## 工程目录
 
 ```
