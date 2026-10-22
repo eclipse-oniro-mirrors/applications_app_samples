@@ -1,0 +1,164 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import nativePrint from 'libentry.so';
+
+export const INVALID_PRINTER_ERROR: number = 24300005;
+
+export enum DiscoveryEvent {
+  DISCOVERED = 0,
+  LOST = 1,
+  CONNECTING = 2,
+  CONNECTED = 3
+}
+
+export enum NativePrintEventType {
+  WRITE_RESULT = 0,
+  JOB_STATE = 1
+}
+
+export class PageSizeModel implements nativePrint.PageSize {
+  id: string;
+  name: string;
+  width: number;
+  height: number;
+
+  constructor(id: string, name: string, width: number, height: number) {
+    this.id = id;
+    this.name = name;
+    this.width = width;
+    this.height = height;
+  }
+
+  static fromNative(pageSize: nativePrint.PageSize): PageSizeModel {
+    return new PageSizeModel(pageSize.id, pageSize.name, pageSize.width, pageSize.height);
+  }
+
+  static readonly A4: PageSizeModel = new PageSizeModel('iso_a4_210x297mm', 'A4', 8268, 11693);
+}
+
+export class PrinterInfoModel implements nativePrint.PrinterInfo {
+  printerId: string;
+  printerName: string;
+  printerUri: string;
+  printerState: number;
+  colorMode: number;
+  copySupported: number;
+  isOnline: boolean;
+  pageSizes: PageSizeModel[];
+
+  constructor(printerId: string, printerName: string, printerUri: string, printerState: number, colorMode: number,
+    copySupported: number, isOnline: boolean, pageSizes: PageSizeModel[]) {
+    this.printerId = printerId;
+    this.printerName = printerName;
+    this.printerUri = printerUri;
+    this.printerState = printerState;
+    this.colorMode = colorMode;
+    this.copySupported = copySupported;
+    this.isOnline = isOnline;
+    this.pageSizes = pageSizes;
+  }
+
+  static fromNative(printerInfo: nativePrint.PrinterInfo): PrinterInfoModel {
+    const pageSizes: PageSizeModel[] = [];
+    for (let index: number = 0; index < printerInfo.pageSizes.length; index++) {
+      const pageSize: nativePrint.PageSize = printerInfo.pageSizes[index];
+      pageSizes.push(PageSizeModel.fromNative(pageSize));
+    }
+    return new PrinterInfoModel(printerInfo.printerId, printerInfo.printerName, printerInfo.printerUri,
+      printerInfo.printerState, printerInfo.colorMode, printerInfo.copySupported, printerInfo.isOnline, pageSizes);
+  }
+
+  static readonly EMPTY: PrinterInfoModel = new PrinterInfoModel('', '', '', 0, 0, 0, false, []);
+}
+
+export class PrintJobModel implements nativePrint.PrintJob {
+  fdList: number[];
+  dpi: number;
+  printerId: string;
+  copyNumber: number;
+  colorMode: number;
+  duplexMode: number;
+  orientationMode: number;
+
+  constructor(fd: number, printerId: string, copyNumber: number, colorMode: number, duplexMode: number,
+    orientationMode: number) {
+    this.fdList = [fd];
+    this.dpi = 300;
+    this.printerId = printerId;
+    this.copyNumber = copyNumber;
+    this.colorMode = colorMode;
+    this.duplexMode = duplexMode;
+    this.orientationMode = orientationMode;
+  }
+}
+
+export class MarginModel implements nativePrint.Margin {
+  leftMargin: number;
+  topMargin: number;
+  rightMargin: number;
+  bottomMargin: number;
+
+  constructor(leftMargin: number, topMargin: number, rightMargin: number, bottomMargin: number) {
+    this.leftMargin = leftMargin;
+    this.topMargin = topMargin;
+    this.rightMargin = rightMargin;
+    this.bottomMargin = bottomMargin;
+  }
+}
+
+export class PrintOptionModel implements nativePrint.PrintOption {
+  jobName: string;
+  paperSource: string;
+  mediaType: string;
+  printQuality: number;
+  documentFormat: string;
+  borderless: boolean;
+  advancedOptions: string;
+
+  constructor(documentFormat: string, printQuality: number, borderless: boolean, mediaType: string) {
+    this.jobName = 'NativePrintFile';
+    this.paperSource = '';
+    this.mediaType = mediaType;
+    this.printQuality = printQuality;
+    this.documentFormat = documentFormat;
+    this.borderless = borderless;
+    this.advancedOptions = '';
+  }
+}
+
+export class PrintPropertyModel implements nativePrint.PrintProperty {
+  key: string;
+  value: string;
+
+  constructor(key: string, value: string) {
+    this.key = key;
+    this.value = value;
+  }
+}
+
+export class PrintRequest {
+  printJob: PrintJobModel;
+  pageSize: PageSizeModel;
+  margin: MarginModel;
+  option: PrintOptionModel;
+
+  constructor(printJob: PrintJobModel, pageSize: PageSizeModel, margin: MarginModel, option: PrintOptionModel) {
+    this.printJob = printJob;
+    this.pageSize = pageSize;
+    this.margin = margin;
+    this.option = option;
+  }
+}
