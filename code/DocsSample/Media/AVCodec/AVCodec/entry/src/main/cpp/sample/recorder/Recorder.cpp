@@ -353,37 +353,43 @@ int32_t Recorder::StartAudioPipeline(std::unique_lock<std::mutex> &lock)
 
 void Recorder::VideoEncOutputSyncThread(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer, bool isPrimary)
 {
+    // [Start encoder_sync_output_buffer]
     while (true) {
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         std::unique_lock<std::mutex> lock(context->outputMutex);
         CodecBufferInfo bufferInfo;
-        if (!encoder->GetOutputBuffer(bufferInfo, TIMEOUT_US)) {
-            if (isStarted_ && !isStopping_) {
-                AbortRecording("Video output buffer retrieval failed");
-            }
-            break;
-        }
+        CHECK_AND_BREAK_LOG(encoder->GetOutputBuffer(bufferInfo, TIMEOUT_US),
+            "Get output buffer failed, thread out");
+        // [StartExclude encoder_sync_output_buffer]
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         lock.unlock();
         if (!ProcessVideoOutputBuffer(encoder, context, muxer, bufferInfo, isPrimary)) {
             break;
         }
+        // [EndExclude encoder_sync_output_buffer]
     }
+    // [End encoder_sync_output_buffer]
     FinishVideoOutputThread(context, isPrimary);
 }
 
 void Recorder::VideoEncOutputAsyncThread(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer, bool isPrimary)
 {
+    // [Start encoder_output_buffer]
     while (true) {
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
+        // 获取输出buffer。
         std::shared_ptr<CodecBufferInfo> bufferInfo = context->outputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(context->codecMutex);
+        // 开发者可根据业务需要，对输出数据进行保存/释放处理。
+        // [StartExclude encoder_output_buffer]
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
         if (!ProcessVideoOutputBuffer(encoder, context, muxer, *bufferInfo, isPrimary)) {
             break;
         }
+        // [EndExclude encoder_output_buffer]
     }
+    // [End encoder_output_buffer]
     FinishVideoOutputThread(context, isPrimary);
 }
 
@@ -499,6 +505,7 @@ void Recorder::ReleaseThread()
     }
 }
 
+// [Start recorder_release]
 void Recorder::ReleaseVideoEncoder()
 {
     // API 26 要求先销毁副编码器，再销毁主编码器；主路拥有共享输入的生命周期。
@@ -532,6 +539,7 @@ void Recorder::ReleaseVideoEncoder()
         }
     }
 }
+// [End recorder_release]
 
 void Recorder::ReleaseAudioEncoder()
 {

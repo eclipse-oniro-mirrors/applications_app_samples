@@ -75,9 +75,11 @@ void Player::ReleaseVideoDecoder()
 {
     OHNativeWindow *decoderWindow = decoderWindowLease_.GetWindow();
     if (videoDecoder_ != nullptr) {
+        // [StartExclude player_release]
         if (videoSink_ != nullptr && !videoSink_->Quiesce()) {
             AVCODEC_SAMPLE_LOGW("Wait video presentation before decoder release failed");
         }
+        // [EndExclude player_release]
         videoDecoder_->Release();
         videoDecoder_.reset();
     }

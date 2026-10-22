@@ -58,14 +58,14 @@ void Player::VideoDecInputSyncThread()
 {
     // [Start decoder_sync_input_buffer]
     while (isStarted_) {
-        // [StartExclude decoder_sync_input_buffer1]
+        // [StartExclude decoder_sync_input_buffer]
         WaitIfPaused();
-        // [EndExclude decoder_sync_input_buffer1]
+        // [EndExclude decoder_sync_input_buffer]
         CHECK_AND_BREAK_LOG(isStarted_, "Decoder input thread out");
         std::unique_lock<std::mutex> lock(videoDecContext_->inputMutex);
         CodecBufferInfo bufferInfo;
         auto buffer = videoDecoder_->GetInputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
-        // [StartExclude decoder_sync_input_buffer2]
+        // [StartExclude decoder_sync_input_buffer]
         CHECK_AND_CONTINUE_LOG(buffer != nullptr, "Get input buffer timeout, retry");
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         videoDecContext_->inputFrameCount++;
@@ -91,7 +91,7 @@ void Player::VideoDecInputSyncThread()
                 break;
             }
         }
-        // [EndExclude decoder_sync_input_buffer2]
+        // [EndExclude decoder_sync_input_buffer]
         ret = videoDecoder_->PushInputBuffer(bufferInfo);
         if (ret != AVCODEC_SAMPLE_ERR_OK) {
             playbackFailed_ = true;
@@ -118,7 +118,7 @@ void Player::VideoDecInputAsyncThread()
            * CHECK_AND_RETURN_RET_LOG(addr != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer addr is null");
            * int32_t capacity = OH_AVBuffer_GetCapacity(buffer);
            * if (size > capacity) {
-           * // 异常处理。
+           *     // 异常处理。
            * }
            * memcpy(addr, frameData, size);
            * OH_AVCodecBufferAttr info;
@@ -128,13 +128,8 @@ void Player::VideoDecInputAsyncThread()
            * info.flags = flags;
            * OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(buffer, &info);
            * if (setBufferRet != AV_ERR_OK) {
-           * // 异常处理。
-           * return false;
-           * }
-           * OH_AVErrCode pushInputRet = OH_VideoDecoder_PushInputBuffer(videoDec, index);
-           * if (pushInputRet != AV_ERR_OK) {
-           * // 异常处理。
-           * return false;
+           *     // 异常处理。
+           *     return false;
            * }
            *
            */
@@ -164,6 +159,7 @@ void Player::VideoDecInputAsyncThread()
             }
         }
         // [EndExclude decoder_input_buffer]
+        // 送入解码输入队列进行解码。
         ret = videoDecoder_->PushInputBuffer(*bufferInfo);
         // [End decoder_input_buffer]
         if (ret != AVCODEC_SAMPLE_ERR_OK) {
