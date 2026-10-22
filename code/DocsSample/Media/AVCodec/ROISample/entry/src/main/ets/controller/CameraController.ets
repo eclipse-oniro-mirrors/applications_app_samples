@@ -224,8 +224,7 @@ export class CameraController {
         let err = error as BusinessError;
         Logger.error(TAG, `Failed to add metadataOutput. error: ${JSON.stringify(err)}`);
       }
-      // Add MetadataOutput to enable face detection (needed for NativeBuffer ROI metadata)
-      // Metadata is embedded in frame buffers for all paths
+      // All ROI encoding paths obtain ROI data from camera frame metadata.
     }
     // Submit configuration information.
     try {
@@ -233,6 +232,22 @@ export class CameraController {
     } catch (error) {
       let err = error as BusinessError;
       Logger.error(TAG, `videoSession commitConfig error: ${JSON.stringify(err)}`);
+    }
+
+    // Enable camera ROI metadata after committing the session configuration.
+    if (metadataOutput !== undefined) {
+      try {
+        // [Start roi_enable_in_frame_metadata]
+        if (metadataOutput.isInFrameMetadataForEncoderSupported()) {
+          metadataOutput.setInFrameMetadataForEncoderEnabled(true);
+        } else {
+          Logger.warn(TAG, 'In-frame metadata for encoder is not supported; camera ROI is unavailable.');
+        }
+        // [End roi_enable_in_frame_metadata]
+      } catch (error) {
+        const err = error as BusinessError;
+        Logger.error(TAG, `Failed to enable in-frame metadata for encoder. code: ${err.code}, message: ${err.message}`);
+      }
     }
 
     // Enable autofocus
@@ -596,7 +611,7 @@ export class CameraController {
   async release(): Promise<void> {
     if (!this.isReleased) {
       this.isReleased = true;
-      recorder.stopNative(this.nativeRecorderObj).then(async (data) => {
+      recorder.stopNative(this.nativeRecorderObj).then(async (data: Response) => {
         if (data.code === 0) {
           await this.releaseCamera();
         }
