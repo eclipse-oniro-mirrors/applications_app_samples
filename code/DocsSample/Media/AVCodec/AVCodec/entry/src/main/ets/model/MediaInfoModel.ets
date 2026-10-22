@@ -14,7 +14,9 @@
  */
 
 import { AudioMediaInfo, DecoderInfo, MediaInfo, MediaTrackInfo, VideoMediaInfo } from 'libplayer.so';
+import { resourceManager } from '@kit.LocalizationKit';
 import { formatMediaTime } from './PlaybackInfoModel';
+import Logger from '../common/utils/Logger';
 
 const BITS_PER_KILOBIT: number = 1000;
 const BYTES_PER_KILOBYTE: number = 1024;
@@ -31,124 +33,169 @@ export interface MediaInfoSection {
   rawText: string;
 }
 
-export function buildMediaInfoSections(info: MediaInfo, sourceTitle: string = ''): MediaInfoSection[] {
+export function buildMediaInfoSections(info: MediaInfo, resources: resourceManager.ResourceManager,
+  sourceTitle: string = ''): MediaInfoSection[] {
   if (!info.available) {
     return [];
   }
-  const sections: MediaInfoSection[] = [buildSourceSection(info, sourceTitle)];
-  if (info.video.codecMime.length > 0) {
-    sections.push(buildVideoSection(info.video));
+  return new MediaInfoFormatter(resources).buildSections(info, sourceTitle);
+}
+
+// 使用页面传入的资源管理器，避免模型依赖全局 Context，也让导出的文字与界面语言一致。
+class MediaInfoFormatter {
+  private resources: resourceManager.ResourceManager;
+
+  constructor(resources: resourceManager.ResourceManager) {
+    this.resources = resources;
   }
-  if (info.audio.codecMime.length > 0) {
-    sections.push(buildAudioSection(info.audio));
+
+  buildSections(info: MediaInfo, sourceTitle: string): MediaInfoSection[] {
+    const sections: MediaInfoSection[] = [this.buildSourceSection(info, sourceTitle)];
+    if (info.video.codecMime.length > 0) {
+      sections.push(this.buildVideoSection(info.video));
+    }
+    if (info.audio.codecMime.length > 0) {
+      sections.push(this.buildAudioSection(info.audio));
+    }
+    sections.push(this.buildDecoderSection(info.decoder));
+    sections.push(this.createRawSection(this.text($r('app.string.media_info_source_raw')), info.sourceFormatDump));
+    info.tracks.forEach((track: MediaTrackInfo) => {
+      const title: string = this.formattedText($r('app.string.media_info_track_raw'),
+        track.index.toString(), this.formatTrackType(track.type));
+      sections.push(this.createRawSection(title, track.formatDump));
+    });
+    return sections;
   }
-  sections.push(buildDecoderSection(info.decoder));
-  sections.push(createRawSection('Source Format 原始信息', info.sourceFormatDump));
-  info.tracks.forEach((track: MediaTrackInfo) => {
-    const title = 'Track ' + track.index + '（' + formatTrackType(track.type) + '）原始信息';
-    sections.push(createRawSection(title, track.formatDump));
-  });
-  return sections;
-}
 
-function buildSourceSection(info: MediaInfo, sourceTitle: string): MediaInfoSection {
-  return createRowsSection('媒体源', [
-    createRow('文件名', sourceTitle.length > 0 ? sourceTitle : '未提供'),
-    createRow('文件大小', formatFileSize(info.fileSize)),
-    createRow('总时长', formatMediaTime(info.durationUs) + '（' + info.durationUs + ' us）'),
-    createRow('轨道数量', info.trackCount.toString())
-  ]);
-}
-
-function buildVideoSection(info: VideoMediaInfo): MediaInfoSection {
-  return createRowsSection('视频轨', [
-    createRow('编码格式', info.codecMime),
-    createRow('分辨率', info.width + ' × ' + info.height),
-    createRow('帧率', formatFrameRate(info.frameRate)),
-    createRow('码率', formatBitrate(info.bitrate)),
-    createRow('Profile', info.profile.toString()),
-    createRow('旋转角度', info.rotation + '°'),
-    createRow('HDR Vivid 封装声明', formatDetected(info.isHdrVividContainerSignaled)),
-    createRow('HDR Vivid 码流确认', info.isHdrVividConfirmed ? '已确认' : '尚未确认')
-  ]);
-}
-
-function buildAudioSection(info: AudioMediaInfo): MediaInfoSection {
-  return createRowsSection('音频轨', [
-    createRow('编码格式', info.codecMime),
-    createRow('采样率', info.sampleRate + ' Hz'),
-    createRow('声道数', info.channelCount.toString()),
-    createRow('声道布局', info.channelLayout.toString()),
-    createRow('采样格式', info.sampleFormat.toString()),
-    createRow('码率', formatBitrate(info.bitrate)),
-    createRow('AAC ADTS', info.aacAdts < 0 ? '未提供' : formatEnabled(info.aacAdts === 1)),
-    createRow('Codec Config', info.codecConfigLength + ' bytes')
-  ]);
-}
-
-function buildDecoderSection(info: DecoderInfo): MediaInfoSection {
-  const decoderTypes: string[] = ['自动选择', '硬件解码器', '软件解码器'];
-  return createRowsSection('解码与输出', [
-    createRow('视频解码器', getOptionName(decoderTypes, info.type)),
-    createRow('运行模式', getRunModeName(info.runMode)),
-    createRow('Codec 模式', info.syncMode === 1 ? 'SYNC' : 'ASYNC'),
-    createRow('视频 Dump', formatEnabled(info.videoDumpEnabled))
-  ]);
-}
-
-function getRunModeName(runMode: number): string {
-  const runModes: string[] = ['SurfaceMode', 'BufferMode', 'OpenGLMode', 'VulkanMode'];
-  return getOptionName(runModes, runMode);
-}
-
-function createRowsSection(title: string, rows: MediaInfoRow[]): MediaInfoSection {
-  return { title: title, rows: rows, rawText: '' };
-}
-
-function createRawSection(title: string, rawText: string): MediaInfoSection {
-  return { title: title, rows: [], rawText: rawText.length > 0 ? rawText : '无可用信息' };
-}
-
-function createRow(label: string, value: string): MediaInfoRow {
-  return { label: label, value: value };
-}
-
-function getOptionName(options: string[], index: number): string {
-  return index >= 0 && index < options.length ? options[index] : '未知（' + index + '）';
-}
-
-function formatTrackType(trackType: number): string {
-  if (trackType === 0) {
-    return '音频';
+  private buildSourceSection(info: MediaInfo, sourceTitle: string): MediaInfoSection {
+    return this.createRowsSection($r('app.string.media_info_source'), [
+      this.createRow($r('app.string.media_info_file_name'), sourceTitle.length > 0 ? sourceTitle : this.notProvided()),
+      this.createRow($r('app.string.media_info_file_size'), this.formatFileSize(info.fileSize)),
+      this.createRow($r('app.string.media_info_duration'), this.formattedText(
+        $r('app.string.media_info_duration_value'), formatMediaTime(info.durationUs), info.durationUs.toString())),
+      this.createRow($r('app.string.media_info_track_count'), info.trackCount.toString())
+    ]);
   }
-  if (trackType === 1) {
-    return '视频';
+
+  private buildVideoSection(info: VideoMediaInfo): MediaInfoSection {
+    return this.createRowsSection($r('app.string.media_info_video_track'), [
+      this.createRow($r('app.string.media_info_codec'), info.codecMime),
+      this.createRow($r('app.string.media_info_resolution'), info.width + ' × ' + info.height),
+      this.createRow($r('app.string.media_info_frame_rate'), this.formatFrameRate(info.frameRate)),
+      this.createRow($r('app.string.media_info_bitrate'), this.formatBitrate(info.bitrate)),
+      this.createRow($r('app.string.media_info_profile'), info.profile.toString()),
+      this.createRow($r('app.string.media_info_rotation'), info.rotation + '°'),
+      this.createRow($r('app.string.media_info_hdr_container'), this.formatDetected(info.isHdrVividContainerSignaled)),
+      this.createRow($r('app.string.media_info_hdr_confirmed'), this.text(info.isHdrVividConfirmed ?
+        $r('app.string.playback_diagnostics_confirmed') : $r('app.string.playback_diagnostics_unconfirmed')))
+    ]);
   }
-  return '其他类型 ' + trackType;
-}
 
-function formatFileSize(size: number): string {
-  if (size >= BYTES_PER_MEGABYTE) {
-    return (size / BYTES_PER_MEGABYTE).toFixed(2) + ' MiB（' + size + ' bytes）';
+  private buildAudioSection(info: AudioMediaInfo): MediaInfoSection {
+    return this.createRowsSection($r('app.string.media_info_audio_track'), [
+      this.createRow($r('app.string.media_info_codec'), info.codecMime),
+      this.createRow($r('app.string.media_info_sample_rate'), info.sampleRate + ' Hz'),
+      this.createRow($r('app.string.media_info_channel_count'), info.channelCount.toString()),
+      this.createRow($r('app.string.media_info_channel_layout'), info.channelLayout.toString()),
+      this.createRow($r('app.string.media_info_sample_format'), info.sampleFormat.toString()),
+      this.createRow($r('app.string.media_info_bitrate'), this.formatBitrate(info.bitrate)),
+      this.createRow($r('app.string.media_info_aac_adts'),
+        info.aacAdts < 0 ? this.notProvided() : this.formatEnabled(info.aacAdts === 1)),
+      this.createRow($r('app.string.media_info_codec_config'), info.codecConfigLength + ' bytes')
+    ]);
   }
-  if (size >= BYTES_PER_KILOBYTE) {
-    return (size / BYTES_PER_KILOBYTE).toFixed(2) + ' KiB（' + size + ' bytes）';
+
+  private buildDecoderSection(info: DecoderInfo): MediaInfoSection {
+    const decoderTypes: string[] = [this.text($r('app.string.setting_decoder_auto')),
+      this.text($r('app.string.setting_decoder_hardware')), this.text($r('app.string.setting_decoder_software'))];
+    return this.createRowsSection($r('app.string.media_info_decoder_output'), [
+      this.createRow($r('app.string.media_info_video_decoder'), this.getOptionName(decoderTypes, info.type)),
+      this.createRow($r('app.string.media_info_run_mode'), this.getRunModeName(info.runMode)),
+      this.createRow($r('app.string.media_info_codec_mode'), info.syncMode === 1 ? 'SYNC' : 'ASYNC'),
+      this.createRow($r('app.string.media_info_video_dump'), this.formatEnabled(info.videoDumpEnabled))
+    ]);
   }
-  return size + ' bytes';
-}
 
-function formatBitrate(bitrate: number): string {
-  return bitrate > 0 ? (bitrate / BITS_PER_KILOBIT).toFixed(2) + ' kbps' : '未提供';
-}
+  private getRunModeName(runMode: number): string {
+    const runModes: string[] = ['SurfaceMode', 'BufferMode', 'OpenGLMode', 'VulkanMode'];
+    return this.getOptionName(runModes, runMode);
+  }
 
-function formatFrameRate(frameRate: number): string {
-  return frameRate > 0 ? frameRate.toFixed(3) + ' fps' : '未提供';
-}
+  private createRowsSection(title: Resource, rows: MediaInfoRow[]): MediaInfoSection {
+    return { title: this.text(title), rows: rows, rawText: '' };
+  }
 
-function formatEnabled(enabled: boolean): string {
-  return enabled ? '开启' : '关闭';
-}
+  private createRawSection(title: string, rawText: string): MediaInfoSection {
+    return { title: title, rows: [], rawText: rawText.length > 0 ? rawText :
+      this.text($r('app.string.media_info_no_data')) };
+  }
 
-function formatDetected(detected: boolean): string {
-  return detected ? '是' : '否';
+  private createRow(label: Resource, value: string): MediaInfoRow {
+    return { label: this.text(label), value: value };
+  }
+
+  private getOptionName(options: string[], index: number): string {
+    return index >= 0 && index < options.length ? options[index] :
+      this.formattedText($r('app.string.media_info_unknown_value'), index.toString());
+  }
+
+  private formatTrackType(trackType: number): string {
+    if (trackType === 0) {
+      return this.text($r('app.string.media_info_track_audio'));
+    }
+    if (trackType === 1) {
+      return this.text($r('app.string.media_info_track_video'));
+    }
+    return this.formattedText($r('app.string.media_info_track_other'), trackType.toString());
+  }
+
+  private formatFileSize(size: number): string {
+    if (size >= BYTES_PER_MEGABYTE) {
+      return this.formattedText($r('app.string.media_info_file_size_value'),
+        (size / BYTES_PER_MEGABYTE).toFixed(2), 'MiB', size.toString());
+    }
+    if (size >= BYTES_PER_KILOBYTE) {
+      return this.formattedText($r('app.string.media_info_file_size_value'),
+        (size / BYTES_PER_KILOBYTE).toFixed(2), 'KiB', size.toString());
+    }
+    return size + ' bytes';
+  }
+
+  private formatBitrate(bitrate: number): string {
+    return bitrate > 0 ? (bitrate / BITS_PER_KILOBIT).toFixed(2) + ' kbps' : this.notProvided();
+  }
+
+  private formatFrameRate(frameRate: number): string {
+    return frameRate > 0 ? frameRate.toFixed(3) + ' fps' : this.notProvided();
+  }
+
+  private formatEnabled(enabled: boolean): string {
+    return this.text(enabled ? $r('app.string.media_info_enabled') : $r('app.string.media_info_disabled'));
+  }
+
+  private formatDetected(detected: boolean): string {
+    return this.text(detected ? $r('app.string.media_info_yes') : $r('app.string.media_info_no'));
+  }
+
+  private notProvided(): string {
+    return this.text($r('app.string.media_info_not_provided'));
+  }
+
+  private text(resource: Resource): string {
+    try {
+      return this.resources.getStringSync(resource.id);
+    } catch (error) {
+      Logger.error('MediaInfoFormatter', 'Read string resource failed: ' + JSON.stringify(error));
+      return '';
+    }
+  }
+
+  private formattedText(resource: Resource, first: string, second: string = '', third: string = ''): string {
+    try {
+      return this.resources.getStringSync(resource.id, first, second, third);
+    } catch (error) {
+      Logger.error('MediaInfoFormatter', 'Format string resource failed: ' + JSON.stringify(error));
+      return '';
+    }
+  }
 }

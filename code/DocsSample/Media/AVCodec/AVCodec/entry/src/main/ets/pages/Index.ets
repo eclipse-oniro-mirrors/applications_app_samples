@@ -1338,9 +1338,14 @@ export struct Player {
     if (!this.seekRequests.isBusy()) {
       this.currentMediaInfo = player.getMediaInfo();
     }
-    if (this.currentMediaInfo !== undefined) {
-      this.mediaInfoSections = buildMediaInfoSections(this.currentMediaInfo,
-        this.selectFilePath === null ? '' : getPlaybackTitle(this.selectFilePath));
+    const context = this.getUIContext().getHostContext();
+    if (this.currentMediaInfo !== undefined && context !== undefined) {
+      try {
+        this.mediaInfoSections = buildMediaInfoSections(this.currentMediaInfo, context.resourceManager,
+          this.selectFilePath === null ? '' : getPlaybackTitle(this.selectFilePath));
+      } catch (error) {
+        Logger.error(TAG, 'Build media info sections failed: ' + JSON.stringify(error));
+      }
     }
   }
 
