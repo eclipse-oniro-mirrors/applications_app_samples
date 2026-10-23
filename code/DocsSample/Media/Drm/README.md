@@ -6,6 +6,7 @@ DrmSample is a sample project for DRM Kit, demonstrating the usage of two sets o
 
 - **ArkTS APIs (`@kit.DrmKit`)**: querying whether the device supports a specified DRM solution, creating MediaKeySystem/MediaKeySession instances, generating media key requests, checking media key status, clearing media keys, and destroying instances.
 - **C APIs (`multimedia/drm_framework/` headers, bridged via NAPI)**: demonstrates the call flows of `OH_MediaKeySystem_IsSupported`, `OH_MediaKeySystem_GetMediaKeySystems`, `OH_MediaKeySystem_Create`, `OH_MediaKeySystem_GetMaxContentProtectionLevel`, `OH_MediaKeySystem_GetCertificateStatus`, `OH_MediaKeySystem_GetStatistics`, `OH_MediaKeySystem_CreateMediaKeySession`, `OH_MediaKeySession_GenerateMediaKeyRequest`, `OH_MediaKeySession_CheckMediaKeyStatus`, `OH_MediaKeySession_RequireSecureDecoderModule`, `OH_MediaKeySession_ClearMediaKeys`, and the two Destroy interfaces.
+- **Playing DRM content with AVPlayer (`@kit.DrmKit` + `@kit.MediaKit`)**: creating an AVPlayer instance, listening for DRM information updates, matching and creating MediaKeySystem/MediaKeySession instances by the UUID in the DRM information, generating media key requests and processing media key responses, setting the decryption configuration, and releasing resources.
 
 The DRM solution name used in this sample is `com.clearplay.drm`, and the media type is `video/mp4`. Both can be changed according to the DRM plug-ins installed on the device.
 
@@ -28,7 +29,9 @@ Drm
 │       │   └── types/libdrmsample    # Type declarations referenced by the ArkTS side
 │       ├── ets
 │       │   ├── entryability          # Entry ability
-│       │   └── pages/Index.ets       # ArkTS API sample and UI
+│       │   └── pages
+│       │       ├── Index.ets         # ArkTS API sample and UI
+│       │       └── AVPlayerDrm.ets   # AVPlayer DRM playback sample
 │       └── resources                 # Strings, colors, icons, and other resources
 ├── README.md
 └── README_zh.md
@@ -48,6 +51,9 @@ Drm
    - **MediaKeySystem flow** performs creation, content protection level query, certificate status query, statistics query, and destruction in sequence.
    - **MediaKeySession flow** performs session creation, secure decoder module query, media key request generation, key status check, key clearing, and destruction in sequence.
 4. The result of each step (success/failure and error code) is displayed in the text area at the bottom of the UI.
+5. **AVPlayer DRM playback demo** (accessed from the button at the bottom of the main page):
+   - Enter the URL of the DRM content on the playback page and tap **Play**. The sample creates an AVPlayer instance, listens for DRM information updates, creates MediaKeySystem/MediaKeySession instances based on the DRM information, generates media key requests and processes media key responses, and sets the decryption configuration in sequence.
+   - Tap **Release** to release the AVPlayer instance and destroy the MediaKeySession and MediaKeySystem instances in the released event.
 
 ## Required Permissions
 
@@ -59,6 +65,7 @@ No permissions are required for this sample.
 2. This sample is developed based on OpenHarmony API 20 and must be compiled with a matching SDK version.
 3. DevEco Studio 6.0.1 or later is required to build and run this sample. Configure signing before running.
 4. The complete flows depend on a DRM plug-in (such as `com.clearplay.drm`) installed on the device. If it is not installed, the related steps return error codes.
+5. AVPlayer DRM playback requires a real DRM content source and a matching license service. Without a real source, only the call flow can be demonstrated (each step's status and error codes are recorded on the UI).
 
 ## Related Documentation
 

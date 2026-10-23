@@ -14,8 +14,10 @@
  */
 
 // [Start drm_import_header]
+// [StartExclude drm_import_header]
 #include "drm_sample.h"
 
+// [EndExclude drm_import_header]
 #include <cstring>
 #include <multimedia/drm_framework/native_drm_common.h>
 #include <multimedia/drm_framework/native_drm_err.h>
@@ -89,7 +91,9 @@ void ProcessMediaKeyFlow(MediaKeySession *mediaKeySession, std::string &log)
     memcpy(info.optionData[0], (char *)"optionalDataValue", sizeof("optionalDataValue"));
     info.optionsCount = 1;
     ret = OH_MediaKeySession_GenerateMediaKeyRequest(mediaKeySession, &info, &mediaKeyRequest);
+    // [StartExclude drm_generateMediaKeyRequest]
     AppendResult(log, "OH_MediaKeySession_GenerateMediaKeyRequest", ret);
+    // [EndExclude drm_generateMediaKeyRequest]
     // [End drm_generateMediaKeyRequest]
     // 处理媒体密钥响应。
     // [Start drm_processMediaKeyResponse]
@@ -100,19 +104,25 @@ void ProcessMediaKeyFlow(MediaKeySession *mediaKeySession, std::string &log)
     int32_t mediaKeyResponseLen = MAX_DRM_MEDIA_KEY_RESPONSE_BUF_SIZE;
     ret = OH_MediaKeySession_ProcessMediaKeyResponse(mediaKeySession, mediaKeyResponse,
         mediaKeyResponseLen, mediaKeyId, &mediaKeyIdLen);
+    // [StartExclude drm_processMediaKeyResponse]
     AppendResult(log, "OH_MediaKeySession_ProcessMediaKeyResponse", ret);
+    // [EndExclude drm_processMediaKeyResponse]
     // [End drm_processMediaKeyResponse]
     // 恢复离线媒体密钥到当前会话。
     // [Start drm_restoreOfflineMediaKeys]
     ret = OH_MediaKeySession_RestoreOfflineMediaKeys(mediaKeySession, mediaKeyId, mediaKeyIdLen);
+    // [StartExclude drm_restoreOfflineMediaKeys]
     AppendResult(log, "OH_MediaKeySession_RestoreOfflineMediaKeys", ret);
+    // [EndExclude drm_restoreOfflineMediaKeys]
     // [End drm_restoreOfflineMediaKeys]
     // 检查当前会话的媒体密钥状态。
     // [Start drm_checkMediaKeyStatus]
     DRM_MediaKeyStatus mediaKeyStatus = {0};
     ret = OH_MediaKeySession_CheckMediaKeyStatus(mediaKeySession, &mediaKeyStatus);
+    // [StartExclude drm_checkMediaKeyStatus]
     AppendResult(log, "OH_MediaKeySession_CheckMediaKeyStatus", ret);
     AppendInfo(log, "密钥状态条数：" + std::to_string(static_cast<int>(mediaKeyStatus.statusCount)));
+    // [EndExclude drm_checkMediaKeyStatus]
     // [End drm_checkMediaKeyStatus]
 }
 } // namespace
@@ -134,24 +144,32 @@ std::string MediaKeySystemFlow(const char *name)
     // [Start drm_createMediaKeySystem]
     Drm_ErrCode ret = OH_MediaKeySystem_Create(name, &mediaKeySystem);
     if (ret != DRM_ERR_OK || mediaKeySystem == nullptr) {
+        // [StartExclude drm_createMediaKeySystem]
         AppendResult(log, "OH_MediaKeySystem_Create", ret);
+        // [EndExclude drm_createMediaKeySystem]
         return log;
     }
+    // [StartExclude drm_createMediaKeySystem]
     AppendResult(log, "OH_MediaKeySystem_Create", ret);
+    // [EndExclude drm_createMediaKeySystem]
     // [End drm_createMediaKeySystem]
 
     // 2. （可选）设置MediaKeySystem事件监听回调。
     // [Start drm_bindMediaKeySystemCallback]
     ret = OH_MediaKeySystem_SetCallback(mediaKeySystem, SystemCallBackWithObj);
+    // [StartExclude drm_bindMediaKeySystemCallback]
     AppendResult(log, "OH_MediaKeySystem_SetCallback", ret);
+    // [EndExclude drm_bindMediaKeySystemCallback]
     // [End drm_bindMediaKeySystemCallback]
 
     // 3. 获取设备DRM证书状态。
     // [Start drm_getCertificateStatus]
     DRM_CertificateStatus certStatus = CERT_STATUS_NOT_PROVISIONED;
     ret = OH_MediaKeySystem_GetCertificateStatus(mediaKeySystem, &certStatus);
+    // [StartExclude drm_getCertificateStatus]
     AppendResult(log, "OH_MediaKeySystem_GetCertificateStatus", ret);
     AppendInfo(log, "设备DRM证书状态：" + std::to_string(static_cast<int>(certStatus)));
+    // [EndExclude drm_getCertificateStatus]
     // [End drm_getCertificateStatus]
 
     // 4. （可选）生成设备DRM证书请求与处理设备DRM证书响应。
@@ -161,21 +179,27 @@ std::string MediaKeySystemFlow(const char *name)
     char defaultUrl[2048] = {0x00};
     int32_t defaultUrlLen = 2048;
     ret = OH_MediaKeySystem_GenerateKeySystemRequest(mediaKeySystem, request, &requestLen, defaultUrl, defaultUrlLen);
+    // [StartExclude drm_generateKeySystemRequest]
     AppendResult(log, "OH_MediaKeySystem_GenerateKeySystemRequest", ret);
+    // [EndExclude drm_generateKeySystemRequest]
     // [End drm_generateKeySystemRequest]
     // [Start drm_processKeySystemResponse]
     // 应用通过网络请求将设备DRM证书请求传到DRM服务获取响应keySystemResponse，请按实际数据传入。
     unsigned char keySystemResponse[MAX_DRM_PROVISION_BUF_SIZE] = {0x00};
     ret = OH_MediaKeySystem_ProcessKeySystemResponse(mediaKeySystem, keySystemResponse, sizeof(keySystemResponse));
+    // [StartExclude drm_processKeySystemResponse]
     AppendResult(log, "OH_MediaKeySystem_ProcessKeySystemResponse", ret);
+    // [EndExclude drm_processKeySystemResponse]
     // [End drm_processKeySystemResponse]
 
     // 5. 获取设备支持的最大内容保护级别。
     // [Start drm_getMaxContentProtectionLevel]
     DRM_ContentProtectionLevel level = CONTENT_PROTECTION_LEVEL_UNKNOWN;
     ret = OH_MediaKeySystem_GetMaxContentProtectionLevel(mediaKeySystem, &level);
+    // [StartExclude drm_getMaxContentProtectionLevel]
     AppendResult(log, "OH_MediaKeySystem_GetMaxContentProtectionLevel", ret);
     AppendInfo(log, "最大内容保护级别：" + std::to_string(static_cast<int>(level)));
+    // [EndExclude drm_getMaxContentProtectionLevel]
     // [End drm_getMaxContentProtectionLevel]
 
     // 6. 获取统计信息。
@@ -188,22 +212,30 @@ std::string MediaKeySystemFlow(const char *name)
     // [Start drm_offlineMediaKeyManagement]
     DRM_OfflineMediakeyIdArray offlineMediaKeyIds;
     ret = OH_MediaKeySystem_GetOfflineMediaKeyIds(mediaKeySystem, &offlineMediaKeyIds);
+    // [StartExclude drm_offlineMediaKeyManagement]
     AppendResult(log, "OH_MediaKeySystem_GetOfflineMediaKeyIds", ret);
+    // [EndExclude drm_offlineMediaKeyManagement]
     if (ret == DRM_ERR_OK && offlineMediaKeyIds.idsCount > 0) {
         DRM_OfflineMediaKeyStatus offlineStatus = OFFLINE_MEDIA_KEY_STATUS_UNKNOWN;
         ret = OH_MediaKeySystem_GetOfflineMediaKeyStatus(mediaKeySystem, offlineMediaKeyIds.ids[0],
             offlineMediaKeyIds.idsLen[0], &offlineStatus);
+        // [StartExclude drm_offlineMediaKeyManagement]
         AppendResult(log, "OH_MediaKeySystem_GetOfflineMediaKeyStatus", ret);
+        // [EndExclude drm_offlineMediaKeyManagement]
         ret = OH_MediaKeySystem_ClearOfflineMediaKeys(mediaKeySystem, offlineMediaKeyIds.ids[0],
             offlineMediaKeyIds.idsLen[0]);
+        // [StartExclude drm_offlineMediaKeyManagement]
         AppendResult(log, "OH_MediaKeySystem_ClearOfflineMediaKeys", ret);
+        // [EndExclude drm_offlineMediaKeyManagement]
     }
     // [End drm_offlineMediaKeyManagement]
 
     // 8. 销毁MediaKeySystem实例。
     // [Start drm_destroyMediaKeySystem]
     ret = OH_MediaKeySystem_Destroy(mediaKeySystem);
+    // [StartExclude drm_destroyMediaKeySystem]
     AppendResult(log, "OH_MediaKeySystem_Destroy", ret);
+    // [EndExclude drm_destroyMediaKeySystem]
     // [End drm_destroyMediaKeySystem]
     return log;
 }
@@ -227,7 +259,9 @@ std::string MediaKeySessionFlow(const char *name, const char *mimeType)
     // [Start drm_createMediaKeySession]
     DRM_ContentProtectionLevel securityLevel = CONTENT_PROTECTION_LEVEL_SW_CRYPTO;
     ret = OH_MediaKeySystem_CreateMediaKeySession(mediaKeySystem, &securityLevel, &mediaKeySession);
+    // [StartExclude drm_createMediaKeySession]
     AppendResult(log, "OH_MediaKeySystem_CreateMediaKeySession", ret);
+    // [EndExclude drm_createMediaKeySession]
     // [End drm_createMediaKeySession]
     if (ret != DRM_ERR_OK || mediaKeySession == nullptr) {
         OH_MediaKeySystem_Destroy(mediaKeySystem);
@@ -238,15 +272,19 @@ std::string MediaKeySessionFlow(const char *name, const char *mimeType)
     // [Start drm_bindMediaKeySessionCallback]
     OH_MediaKeySession_Callback sessionCallback = { SessionEventCallBackWithObj, SessionKeyChangeCallBackWithObj };
     ret = OH_MediaKeySession_SetCallback(mediaKeySession, &sessionCallback);
+    // [StartExclude drm_bindMediaKeySessionCallback]
     AppendResult(log, "OH_MediaKeySession_SetCallback", ret);
+    // [EndExclude drm_bindMediaKeySessionCallback]
     // [End drm_bindMediaKeySessionCallback]
 
     // 4. 查询指定媒体类型是否需要安全解码。
     // [Start drm_requireSecureDecoderModule]
     bool requireSecureDecoder = false;
     ret = OH_MediaKeySession_RequireSecureDecoderModule(mediaKeySession, mimeType, &requireSecureDecoder);
+    // [StartExclude drm_requireSecureDecoderModule]
     AppendResult(log, "OH_MediaKeySession_RequireSecureDecoderModule", ret);
     AppendInfo(log, std::string("是否需要安全解码：") + (requireSecureDecoder ? "是" : "否"));
+    // [EndExclude drm_requireSecureDecoderModule]
     // [End drm_requireSecureDecoderModule]
 
     // 5-8. 生成媒体密钥请求、处理媒体密钥响应、恢复离线媒体密钥、检查媒体密钥状态。
@@ -259,12 +297,16 @@ std::string MediaKeySessionFlow(const char *name, const char *mimeType)
     // 10. 销毁MediaKeySession与MediaKeySystem实例。
     // [Start drm_destroyMediaKeySession]
     ret = OH_MediaKeySession_Destroy(mediaKeySession);
+    // [StartExclude drm_destroyMediaKeySession]
     AppendResult(log, "OH_MediaKeySession_Destroy", ret);
+    // [EndExclude drm_destroyMediaKeySession]
     // [End drm_destroyMediaKeySession]
-    // [Start drm_destroyMediaKeySystem]
+    // [Start drm_destroyMediaKeySystem2]
     ret = OH_MediaKeySystem_Destroy(mediaKeySystem);
+    // [StartExclude drm_destroyMediaKeySystem2]
     AppendResult(log, "OH_MediaKeySystem_Destroy", ret);
-    // [End drm_destroyMediaKeySystem]
+    // [EndExclude drm_destroyMediaKeySystem2]
+    // [End drm_destroyMediaKeySystem2]
     return log;
 }
 
@@ -277,7 +319,9 @@ std::string GetMediaKeySystemsFlow()
     DRM_MediaKeySystemDescription descriptions[3];
     memset(descriptions, 0, sizeof(descriptions));
     Drm_ErrCode ret = OH_MediaKeySystem_GetMediaKeySystems(descriptions, &count);
+    // [StartExclude drm_getMediaKeySystems]
     AppendResult(log, "OH_MediaKeySystem_GetMediaKeySystems", ret);
+    // [EndExclude drm_getMediaKeySystems]
     // [End drm_getMediaKeySystems]
     AppendInfo(log, "支持DRM解决方案数量：" + std::to_string(count));
     return log;
@@ -289,7 +333,9 @@ std::string IsSupported3Flow(const char *name, const char *mimeType)
     std::string log;
     // [Start drm_isSupported3]
     bool isSupported = OH_MediaKeySystem_IsSupported3(name, mimeType, CONTENT_PROTECTION_LEVEL_SW_CRYPTO);
+    // [StartExclude drm_isSupported3]
     AppendInfo(log, std::string("是否支持：") + (isSupported ? "是" : "否"));
+    // [EndExclude drm_isSupported3]
     // [End drm_isSupported3]
     return log;
 }

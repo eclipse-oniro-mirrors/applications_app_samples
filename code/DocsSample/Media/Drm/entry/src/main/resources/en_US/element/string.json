@@ -123,6 +123,26 @@
     {
       "name": "log_success_offline_count",
       "value": "success, offline media key count: %d"
+    },
+    {
+      "name": "goto_avplayer_drm",
+      "value": "AVPlayer DRM Playback Demo"
+    },
+    {
+      "name": "avplayer_page_title",
+      "value": "Playing DRM Content with AVPlayer"
+    },
+    {
+      "name": "avplayer_url_hint",
+      "value": "Enter the URL of the DRM content"
+    },
+    {
+      "name": "avplayer_play",
+      "value": "Play"
+    },
+    {
+      "name": "avplayer_release",
+      "value": "Release"
     }
   ]
 }

@@ -19,6 +19,7 @@ import { drm } from '@kit.DrmKit';
 // [Start arkts_import_business_error]
 import { BusinessError } from '@kit.BasicServicesKit';
 // [End arkts_import_business_error]
+import { router } from '@kit.ArkUI';
 import { resourceManager } from '@kit.LocalizationKit';
 import drmSample from 'libdrmsample.so';
 
@@ -66,12 +67,18 @@ function tsIsSupported(rm: resourceManager.ResourceManager): string {
   try {
     // [Start arkts_isMediaKeySystemSupported]
     const byName = drm.isMediaKeySystemSupported(DRM_SOLUTION_NAME);
+    // [StartExclude arkts_isMediaKeySystemSupported]
     log = appendLog(rm, log, 'isMediaKeySystemSupported(name)', `${byName}`);
+    // [EndExclude arkts_isMediaKeySystemSupported]
     const byMimeType = drm.isMediaKeySystemSupported(DRM_SOLUTION_NAME, MIME_TYPE);
+    // [StartExclude arkts_isMediaKeySystemSupported]
     log = appendLog(rm, log, 'isMediaKeySystemSupported(name, mimeType)', `${byMimeType}`);
+    // [EndExclude arkts_isMediaKeySystemSupported]
     const byLevel = drm.isMediaKeySystemSupported(
       DRM_SOLUTION_NAME, MIME_TYPE, drm.ContentProtectionLevel.CONTENT_PROTECTION_LEVEL_SW_CRYPTO);
+    // [StartExclude arkts_isMediaKeySystemSupported]
     log = appendLog(rm, log, 'isMediaKeySystemSupported(name, mimeType, level)', `${byLevel}`);
+    // [EndExclude arkts_isMediaKeySystemSupported]
     // [End arkts_isMediaKeySystemSupported]
   } catch (err) {
     const e = err as BusinessError;
@@ -115,8 +122,8 @@ async function tsMediaKeySessionFlow(rm: resourceManager.ResourceManager): Promi
         const provisionRequest = await mediaKeySystem.generateKeySystemRequest();
         // [End arkts_generateKeySystemRequest]
         log = appendLog(rm, log, 'generateKeySystemRequest', getString(rm, $r('app.string.log_success').id));
-        // 将设备DRM证书请求返回的provisionRequest.data通过网络请求发送给DRM证书服务获取设备DRM证书响应，并处理。
         // [Start arkts_processKeySystemResponse]
+        // 将设备DRM证书请求返回的provisionRequest.data通过网络请求发送给DRM证书服务获取设备DRM证书响应，并处理。
         const provisionResponse = new Uint8Array([0x00, 0x00, 0x00, 0x00]); // 设备DRM证书响应。
         await mediaKeySystem.processKeySystemResponse(provisionResponse);
         // [End arkts_processKeySystemResponse]
@@ -183,8 +190,8 @@ async function tsMediaKeySessionFlow(rm: resourceManager.ResourceManager): Promi
       log = appendLog(rm, log, 'generateMediaKeyRequest',
         getString(rm, $r('app.string.log_success_request_type').id, mediaKeyRequest.mediaKeyRequestType));
 
-      // 将媒体密钥请求返回的mediaKeyRequest.data通过网络请求发送给DRM服务获取媒体密钥响应，并处理。
       // [Start arkts_processMediaKeyResponse]
+      // 将媒体密钥请求返回的mediaKeyRequest.data通过网络请求发送给DRM服务获取媒体密钥响应，并处理。
       const mediaKeyResponse = new Uint8Array([0x00, 0x00, 0x00, 0x00]); // 媒体密钥响应。
       const offlineMediaKeyId = await mediaKeySession.processMediaKeyResponse(mediaKeyResponse);
       // [End arkts_processMediaKeyResponse]
@@ -268,6 +275,7 @@ struct Index {
             .margin({ top: 8, bottom: 4 })
 
           Button($r('app.string.ts_query_supported_list'))
+            .id('TsGetMediaKeySystemsBtn')
             .width('80%')
             .margin(4)
             .onClick(() => {
@@ -275,6 +283,7 @@ struct Index {
             })
 
           Button($r('app.string.ts_query_if_supported'))
+            .id('TsIsSupportedBtn')
             .width('80%')
             .margin(4)
             .onClick(() => {
@@ -282,6 +291,7 @@ struct Index {
             })
 
           Button($r('app.string.ts_session_full_flow'))
+            .id('TsSessionFlowBtn')
             .width('80%')
             .margin(4)
             .onClick(async () => {
@@ -295,6 +305,7 @@ struct Index {
             .margin({ top: 16, bottom: 4 })
 
           Button($r('app.string.c_query_if_supported'))
+            .id('CIsSupportedBtn')
             .width('80%')
             .margin(4)
             .onClick(() => {
@@ -304,6 +315,7 @@ struct Index {
             })
 
           Button($r('app.string.c_query_supported_list'))
+            .id('CGetMediaKeySystemsBtn')
             .width('80%')
             .margin(4)
             .onClick(() => {
@@ -311,6 +323,7 @@ struct Index {
             })
 
           Button($r('app.string.c_query_support_level'))
+            .id('CIsSupported3Btn')
             .width('80%')
             .margin(4)
             .onClick(() => {
@@ -318,6 +331,7 @@ struct Index {
             })
 
           Button($r('app.string.c_media_key_system_flow'))
+            .id('CMediaKeySystemFlowBtn')
             .width('80%')
             .margin(4)
             .onClick(() => {
@@ -325,10 +339,19 @@ struct Index {
             })
 
           Button($r('app.string.c_media_key_session_flow'))
+            .id('CMediaKeySessionFlowBtn')
             .width('80%')
             .margin(4)
             .onClick(() => {
               this.result = drmSample.mediaKeySessionFlow(DRM_SOLUTION_NAME, MIME_TYPE);
+            })
+
+          Button($r('app.string.goto_avplayer_drm'))
+            .id('GotoAVPlayerDrmBtn')
+            .width('80%')
+            .margin({ top: 16, bottom: 4 })
+            .onClick(() => {
+              router.pushUrl({ url: 'pages/AVPlayerDrm' });
             })
 
           Text($r('app.string.result_section_title'))
@@ -338,10 +361,11 @@ struct Index {
             .margin({ top: 12, bottom: 4 })
 
           Text(this.result)
+            .id('ResultText')
             .fontSize(13)
             .width('90%')
             .padding(12)
-            .backgroundColor('#F1F3F5')
+            .backgroundColor($r('app.color.result_background'))
             .borderRadius(8)
             .margin({ bottom: 16 })
         }
@@ -352,6 +376,6 @@ struct Index {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#FFFFFF')
+    .backgroundColor($r('app.color.page_background'))
   }
 }
