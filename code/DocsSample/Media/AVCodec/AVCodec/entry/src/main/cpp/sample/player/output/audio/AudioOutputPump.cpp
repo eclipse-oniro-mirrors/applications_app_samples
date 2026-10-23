@@ -152,8 +152,6 @@ bool AudioOutputPump::ProcessSyncOutput()
         return false;
     }
     if (errCode == AVCODEC_SAMPLE_ERR_ERROR) {
-        // 查询成功但读取属性失败时，封装层可能仍留下已取得的 Buffer；仅在指针有效时归还。
-        (void)ReleaseOutputBuffer(bufferInfo, "get audio output buffer failed");
         MarkPlaybackFailed("Audio decoder output failed");
         return false;
     }

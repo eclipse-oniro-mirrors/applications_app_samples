@@ -19,6 +19,7 @@ export struct MainTabsPage {
   @BuilderParam playerContent: () => void;
   @BuilderParam libraryContent: () => void;
   @BuilderParam recorderContent: () => void;
+  @BuilderParam transcodeContent: () => void;
   @BuilderParam deviceContent: () => void;
   @BuilderParam navigationContent: () => void;
 
@@ -41,6 +42,13 @@ export struct MainTabsPage {
         .height('100%')
         .backgroundColor('#F8F9FA')
       } else if (this.activeIndex === 3) {
+        Column() {
+          this.transcodeContent()
+        }
+        .width('100%')
+        .height('100%')
+        .backgroundColor('#F8F9FA')
+      } else if (this.activeIndex === 4) {
         Column() {
           this.deviceContent()
         }

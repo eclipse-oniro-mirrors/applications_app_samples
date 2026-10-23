@@ -15,6 +15,8 @@
 
 #include "DeviceCodecCapabilityNative.h"
 #include <multimedia/player_framework/native_avcapability.h>
+#include <cmath>
+#include <string>
 
 namespace {
 constexpr OH_AVCodecType CODEC_TYPES[] = {
@@ -246,7 +248,99 @@ bool AppendCodecCapabilitiesForType(napi_env env, napi_value result, OH_AVCodecT
     }
     return true;
 }
-} // namespace
+struct VideoCapabilityRequest {
+    std::string name;
+    std::string mime;
+    int32_t type = OH_AVCODEC_TYPE_VIDEO_DECODER;
+    int32_t width = 0;
+    int32_t height = 0;
+    double frameRate = 0;
+};
+
+bool ReadText(napi_env env, napi_value object, const char *key, std::string &text)
+{
+    napi_value property = nullptr;
+    char buffer[256] = {};
+    size_t length = 0;
+    if (napi_get_named_property(env, object, key, &property) != napi_ok ||
+        napi_get_value_string_utf8(env, property, buffer, sizeof(buffer), &length) != napi_ok ||
+        length == 0 || length >= sizeof(buffer) - 1) {
+        return false;
+    }
+    text.assign(buffer, length);
+    return true;
+}
+
+bool ReadNumber(napi_env env, napi_value object, const char *key, int32_t &number)
+{
+    napi_value property = nullptr;
+    return napi_get_named_property(env, object, key, &property) == napi_ok &&
+        napi_get_value_int32(env, property, &number) == napi_ok;
+}
+
+bool ReadVideoRequest(napi_env env, napi_value object, VideoCapabilityRequest &request)
+{
+    napi_value rate = nullptr;
+    return ReadText(env, object, "codecName", request.name) &&
+        ReadText(env, object, "mimeType", request.mime) &&
+        ReadNumber(env, object, "codecType", request.type) &&
+        ReadNumber(env, object, "width", request.width) &&
+        ReadNumber(env, object, "height", request.height) &&
+        napi_get_named_property(env, object, "frameRate", &rate) == napi_ok &&
+        napi_get_value_double(env, rate, &request.frameRate) == napi_ok &&
+        request.width > 0 && request.height > 0 && std::isfinite(request.frameRate) &&
+        request.frameRate > 0 && (request.type == OH_AVCODEC_TYPE_VIDEO_DECODER ||
+            request.type == OH_AVCODEC_TYPE_VIDEO_ENCODER);
+}
+
+OH_AVCapability *FindVideoCapability(const VideoCapabilityRequest &request)
+{
+    uint32_t count = 0;
+    OH_AVCapability **list = OH_AVCodec_GetCapabilityList(static_cast<OH_AVCodecType>(request.type), &count);
+    for (uint32_t index = 0; list != nullptr && index < count; ++index) {
+        const char *name = OH_AVCapability_GetName(list[index]);
+        const char *mime = OH_AVCapability_GetMimeType(list[index]);
+        if (name != nullptr && mime != nullptr && request.name == name && request.mime == mime) {
+            return list[index];
+        }
+    }
+    return nullptr;
+}
+} // 匿名命名空间
+
+napi_value DeviceCodecCapabilityNative::CheckVideo(napi_env env, napi_callback_info info)
+{
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    VideoCapabilityRequest request;
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok ||
+        argc != 1 || !ReadVideoRequest(env, args[0], request)) {
+        napi_throw_type_error(env, nullptr, "Invalid video capability request");
+        return nullptr;
+    }
+    OH_AVCapability *capability = FindVideoCapability(request);
+    const bool sizeSupported = capability != nullptr &&
+        OH_AVCapability_IsVideoSizeSupported(capability, request.width, request.height);
+    const bool supported = sizeSupported &&
+        OH_AVCapability_AreVideoSizeAndFrameRateSupported(capability, request.width, request.height, request.frameRate);
+    OH_AVRange range{};
+    const bool rangeAvailable = sizeSupported &&
+        OH_AVCapability_GetVideoFrameRateRangeForSize(capability, request.width, request.height, &range) == AV_ERR_OK;
+    const char *reason = capability == nullptr ? "codec 不存在或 MIME 不匹配" :
+        (!sizeSupported ? "不支持该宽高组合" : (!supported ? "该尺寸不支持所选帧率" :
+            "尺寸与帧率组合符合能力声明；Profile、HDR、前处理及多实例资源仍以 Configure 为准"));
+    napi_value result = nullptr;
+    if (napi_create_object(env, &result) != napi_ok ||
+        !SetBoolean(env, result, "supported", supported) ||
+        !SetBoolean(env, result, "sizeSupported", sizeSupported) ||
+        !SetBoolean(env, result, "frameRateRangeAvailable", rangeAvailable) ||
+        !SetRange(env, result, "frameRateRange", range) ||
+        !SetString(env, result, "reason", reason)) {
+        napi_throw_error(env, nullptr, "Serialize video check failed");
+        return nullptr;
+    }
+    return result;
+}
 
 napi_value DeviceCodecCapabilityNative::GetAll(napi_env env, napi_callback_info info)
 {

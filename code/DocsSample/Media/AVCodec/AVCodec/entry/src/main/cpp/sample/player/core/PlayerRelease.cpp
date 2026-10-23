@@ -16,6 +16,7 @@
 #include "Player.h"
 
 #include "av_codec_sample_log.h"
+#include "dfx/error/av_codec_sample_error.h"
 
 #undef LOG_TAG
 #define LOG_TAG "samplePlayer"
@@ -162,6 +163,10 @@ void Player::ReleasePlaybackResources()
         videoSinkRunMode_ = -1;
     }
     ReleaseAudioDecoder();
+    if (outputFile_ != nullptr && outputFile_->is_open()) {
+        outputFile_->close();
+        dumpSession_.Stop(outputFile_->fail() ? "write_failed" : "completed");
+    }
     outputFile_ = nullptr;
     if (builder_ != nullptr) {
         OH_AudioStreamBuilder_Destroy(builder_);
@@ -186,6 +191,13 @@ void Player::Release()
     JoinWorkerThreads();
     bool playbackSucceeded = false;
     const PlaybackCompletionReason completionReason = GetCompletionReason(playbackSucceeded);
+    diagnostics_.RecordEvent(completionReason == PlaybackCompletionReason::ERROR ? "playback.failed" :
+        (completionReason == PlaybackCompletionReason::STOPPED ? "playback.stopped" : "playback.completed"),
+        playbackPositionUs_.load());
+    if (completionReason == PlaybackCompletionReason::ERROR) {
+        failure_.Record("playback.output", AVCODEC_SAMPLE_ERR_ERROR,
+            "播放未产生有效输出或工作线程异常结束；详细原因请结合日志检查");
+    }
     ReleasePlaybackResources();
     auto playDoneCallback = sampleInfo_.playback.playDoneCallback;
     void *playDoneCallbackData = sampleInfo_.playback.playDoneCallbackData;

@@ -21,6 +21,7 @@
 class DeviceCodecCapabilityNative {
 public:
     static napi_value GetAll(napi_env env, napi_callback_info info);
+    static napi_value CheckVideo(napi_env env, napi_callback_info info);
 };
 
 #endif // VIDEO_CODEC_DEVICE_CAPABILITY_NATIVE_H

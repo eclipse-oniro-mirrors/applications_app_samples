@@ -432,8 +432,9 @@ int32_t Player::RebuildPlaybackForSeek(bool hadVideo, bool hadAudio, float speed
     bool forwardSeek)
 {
     const auto seekStartedAt = PlaybackDiagnostics::Clock::now();
+    diagnostics_.BeginSeek(seekStartedAt, targetUs);
     StopWorkersForSeek();
-    diagnostics_.BeginSeek(seekStartedAt);
+    diagnostics_.RecordEvent("seek.workers.stopped", targetUs);
     const bool retainVideoDecoder = ShouldRetainVideoDecoderForSeek();
     int32_t ret = ReleaseCodecResourcesForSeek(retainVideoDecoder);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
@@ -442,6 +443,7 @@ int32_t Player::RebuildPlaybackForSeek(bool hadVideo, bool hadAudio, float speed
     }
     const bool useFollowingSync = hadVideo && forwardSeek &&
         RequiresFollowingSyncForForwardSeek(sampleInfo_.video);
+    diagnostics_.RecordEvent("seek.codec.flush.ready", targetUs);
     const OH_AVSeekMode seekMode = useFollowingSync ? SEEK_MODE_NEXT_SYNC : SEEK_MODE_PREVIOUS_SYNC;
     if (useFollowingSync) {
         // 后一个随机访问样本精度较低，但前序索引异常时可提供可解码数据。
@@ -453,7 +455,10 @@ int32_t Player::RebuildPlaybackForSeek(bool hadVideo, bool hadAudio, float speed
         AVCODEC_SAMPLE_LOGE("Seek demuxer failed");
         return HandleSeekFailure();
     }
+    diagnostics_.RecordEvent("seek.demuxer.positioned", targetUs);
+    diagnostics_.ArmSeekOutput();
     ret = RecreateCodecResourcesAfterSeek(hadVideo, hadAudio, retainVideoDecoder, speedSnapshot, targetUs);
+    diagnostics_.RecordEvent("seek.restart.return", targetUs);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         AVCODEC_SAMPLE_LOGE("Restart playback after seek failed");
         return HandleSeekFailure();

@@ -25,6 +25,9 @@
 #include <vector>
 #include "codec_buffer.h"
 #include "sample_config.h"
+#include "OperationFailure.h"
+
+class RecorderAudioStats;
 
 struct CodecUserData {
     // 由播放器或录制器持有的配置，CodecUserData 仅借用。销毁上下文前必须先停止回调和工作线程。
@@ -77,6 +80,11 @@ struct CodecUserData {
     std::atomic<uint64_t> *audioUnderruns = nullptr;
     std::atomic<int64_t> *audioQueueDurationUs = nullptr;
     std::atomic<int64_t> *playbackPositionUs = nullptr;
+
+    // 由会话持有，codec 注销回调后才销毁。
+    OperationFailure *failureDetails = nullptr;
+    // Recorder 持有；采集回调停止、音频线程退出后才结束统计生命周期。
+    RecorderAudioStats *recordingAudioStats = nullptr;
 
     void SignalError()
     {

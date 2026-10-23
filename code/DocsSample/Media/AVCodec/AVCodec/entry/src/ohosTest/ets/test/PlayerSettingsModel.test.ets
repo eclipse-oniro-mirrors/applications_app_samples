@@ -33,7 +33,7 @@ export default function playerSettingsModelTest(): void {
         expect(model.videoDecoderType).assertEqual(2);
         expect(model.videoDecoderRunMode).assertEqual(Const.VIDEO_DECODER_RUN_MODE_DIRECT_OUTPUT);
         expect(model.videoDecoderSyncMode).assertEqual(1);
-        expect(model.enableVideoDump).assertTrue();
+        expect(model.enableVideoDump).assertFalse();
         expect(model.retainLastFrame).assertFalse();
         expect(model.enableLowLatency).assertTrue();
         expect(model.outputInDecodingOrder).assertTrue();
@@ -129,6 +129,25 @@ export default function playerSettingsModelTest(): void {
         ]);
         expect(bufferApplied).assertTrue();
         expect(model.convertHdrVividToBt709).assertFalse();
+      });
+    });
+
+    it('AVCodec_PlayerSettings_DumpOnlyInBufferMode_007', 0, () => {
+      runTestCase('AVCodec_PlayerSettings_DumpOnlyInBufferMode_007', () => {
+        Const.VIDEO_DECODER_RUN_MODE.forEach((mode: string, index: number): void => {
+          const model = new PlayerSettingsModel();
+          expect(model.applyPickerValues([
+            Const.VIDEO_DECODE_TYPE[0], mode, Const.VIDEO_DECODER_SYNC_MODE[0], Const.VIDEO_DUMP_MODE[1]
+          ])).assertTrue();
+          const available = index === Const.VIDEO_DECODER_RUN_MODE_BUFFER;
+          expect(model.enableVideoDump).assertEqual(available);
+          // 即使调用方绕过设置面板直接赋值，非 Buffer 模式也不能启用解码帧 Dump。
+          model.enableVideoDump = true;
+          const options = model.createPlayOptions({
+            inputFileFd: 1, inputFileOffset: 0, inputFileSize: 1, isSmartFluencySupported: false
+          });
+          expect(options.enableVideoDump).assertEqual(available);
+        });
       });
     });
   });

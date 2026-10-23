@@ -13,28 +13,31 @@
  * limitations under the License.
  */
 
+import { LocalizedText } from '../common/LocalizedText';
 import { fileIo, picker } from '@kit.CoreFileKit'
 import { PiPWindow, window } from '@kit.ArkUI'
 import { camera } from '@kit.CameraKit'
 import { photoAccessHelper } from '@kit.MediaLibraryKit'
-import { media } from '@kit.MediaKit'
 import { deviceInfo, thermal } from '@kit.BasicServicesKit'
-import player, { MediaInfo, MediaTrackInfo } from 'libplayer.so'
+import player, { DeviceCodecCapability, MediaInfo, MediaTrackInfo } from 'libplayer.so'
 import recorder from 'librecorder.so'
 import Logger from '../common/utils/Logger'
 import DateTimeUtil from '../common/utils/DateTimeUtil'
 import { CommonConstants as Const } from '../common/CommonConstants'
 import { CameraDataModel } from '../model/CameraDataModel'
 import { PlayerSettingsModel } from '../model/PlayerSettingsModel'
-import { RecorderSettingsModel } from '../model/RecorderSettingsModel'
+import { PlayerSettingsDraft, RecorderSettingsDraft } from '../model/SettingsDraftModels'
+import { RecorderPreprocessModel } from '../model/RecorderPreprocessModel'
 import { buildMediaInfoSections, MediaInfoSection } from '../model/MediaInfoModel'
 import { PlaybackViewModel } from '../viewmodel/PlaybackViewModel'
 import { PlaybackHistoryEntry, PlaybackHistoryModel, getPlaybackTitle } from '../model/PlaybackHistoryModel'
 import { findSubtitleText, parseSubtitle, SubtitleCue } from '../model/SubtitleModel'
-import { RecordingHistoryEntry, RecordingHistoryModel } from '../model/RecordingHistoryModel'
-import { PlaybackMode, nextPlaybackIndex } from '../model/PlaybackModeModel'
+import { PlaybackMode } from '../model/PlaybackModeModel'
 import { PlaybackRecoveryModel, PlaybackRecoverySnapshot, PlaybackRecoveryReason } from '../model/PlaybackRecoveryModel'
 import { SubtitleStyleModel } from '../model/SubtitleStyleModel'
+import { PlaybackQueueController } from '../controller/PlaybackQueueController'
+import { RecorderLaunchController } from '../controller/RecorderLaunchController'
+import { SeekPreviewController } from '../controller/SeekPreviewController'
 import { SeekRequestController, SeekRequestResult } from '../controller/SeekRequestController'
 import { PlayerPictureInPictureController } from '../controller/PlayerPictureInPictureController'
 import { PlaybackSessionCallbacks, PlaybackSessionController, PlaybackSessionMedia } from
@@ -58,18 +61,21 @@ import { RecorderSaveAuthorizationPanel } from '../components/recorder/RecorderS
 import { PlayerPage as PlayerPageShell } from './PlayerPage'
 import { LibraryPage } from './LibraryPage'
 import { DeviceDiagnosticsPage } from './DeviceDiagnosticsPage'
+import { TranscodePage } from './TranscodePage'
+import { TranscodeModel } from '../model/TranscodeModel'
 import { encoderProfileCameraCheck, setFirstCameraProfile } from '../common/utils/CameraCheck'
 import { requestRecordPermissions } from '../common/utils/PermissionUtil'
 import {
   getPickerSelectedIndex, isMediaFileEmpty, isPickerIndexValid
 } from '../common/utils/MediaUtils'
 import { common } from '@kit.AbilityKit'
+import { ConfigurationStore, ConfigurationSnapshot } from '../model/ConfigurationStore'
+import { UserConfiguration } from '../model/UserConfiguration'
+import { ConfigurationFeedback } from '../model/ConfigurationFeedback'
+import { MediaFileActivity } from '../model/MediaFileActivity'
 
 const TAG: string = 'Sample_Player';
 const DATETIME: DateTimeUtil = new DateTimeUtil();
-const SEEK_PREVIEW_INTERVAL_MS: number = 100;
-const SEEK_PREVIEW_WIDTH: number = 320;
-const SEEK_PREVIEW_HEIGHT: number = 180;
 const PLAYBACK_CONTROLS_HIDE_DELAY_MS: number = 5000;
 const PICKER_LAYOUT_SETTLE_DELAY_MS: number = 100;
 const VISIBLE_SYSTEM_BARS: ('status' | 'navigation')[] = ['navigation', 'status'];
@@ -83,7 +89,13 @@ const BLACK_SYSTEM_BAR_PROPERTIES: window.SystemBarProperties = {
 @Entry
 @Component
 export struct Player {
+  @State configurationReady: boolean = false;
+  @State configurationNotice: string = '';
+  @State configurationRevision: number = 0;
+  @State recorderCapabilityHint: string = LocalizedText.get($r('app.string.configuration_recorder_requirements'));
+  private configurationTouched: boolean = false;
   @State activeMainTab: number = 0;
+  @State transcodeModel: TranscodeModel = new TranscodeModel();
   @State buttonEnabled: boolean = true;
   @State isShow: boolean = false;
   @State isSmartFluencySupported: boolean = false;
@@ -102,20 +114,14 @@ export struct Player {
   @State isFullscreen: boolean = false;
   @State isPlaybackControlsVisible: boolean = true;
   @State displayScaleMode: number = 0;
+  @State playbackFailureText: string = '';
+  @State selectedDecoderName: string = '';
+  @State selectedEncoderName: string = '';
+  @State videoSourceWidth: number = 0;
+  @State videoSourceHeight: number = 0;
+  @State videoSourceRotation: number = 0;
   @State recentEntries: PlaybackHistoryEntry[] = [];
   @State queueEntries: string[] = [];
-  @State draftPlayerDecoderType: number = 0;
-  @State draftPlayerRunMode: number = 0;
-  @State draftPlayerSyncMode: number = 0;
-  @State draftPlayerDump: boolean = false;
-  @State draftPlayerRetainLastFrame: boolean = true;
-  @State draftPlayerLowLatency: boolean = false;
-  @State draftPlayerOutputInDecodingOrder: boolean = false;
-  @State draftPlayerConvertHdrVividToBt709: boolean = false;
-  @State draftPlayerAudioVolume: number = 100;
-  @State draftPlayerAudioLowLatency: boolean = false;
-  @State draftPlayerAudioTrackIndex: number = -1;
-  @State draftPlayerAutoHideControls: boolean = true;
   @State abLoopStartUs: number = -1;
   @State abLoopEndUs: number = -1;
   @State isAbLoopEnabled: boolean = false;
@@ -137,46 +143,25 @@ export struct Player {
   private sliderDragging: boolean = false;
   private pageActive: boolean = true;
   private requestedSpeed: number = 1;
+  private seekPreview: SeekPreviewController = new SeekPreviewController(this.playbackViewModel,
+    (): string | null => this.selectFilePath, (): MediaInfo | undefined => this.currentMediaInfo);
   private currentMediaInfo: MediaInfo | undefined = undefined;
   @State audioMuted: boolean = false;
-  @State draftRecorderCodec: number = 1;
-  @State draftRecorderOutputFormat: number = 0;
-  @State draftRecorderResolution: number = 1;
-  @State draftRecorderFrameRate: number = 0;
-  @State draftRecorderSyncMode: number = 0;
-  @State draftRecorderBitrate: number = 1;
-  @State draftRecorderBitrateMode: number = 0;
-  @State draftRecorderIFrameInterval: number = 0;
-  @State draftRecorderAudioSampleRate: number = 1;
-  @State draftRecorderAudioChannelCount: number = 1;
-  @State draftRecorderAudioBitrate: number = 0;
-  @State draftRecorderAudioLatency: number = 0;
-  @State draftRecorderStabilization: number = 1;
-  @State draftRecorderPreprocMode: number = 0;
-  @State draftRecorderDropFrameRate: number = 0;
-  @State draftRecorderDualOutput: number = 0;
-  @State draftRecorderVideoDump: boolean = false;
   @State mediaInfoSections: MediaInfoSection[] = [];
-  @State recordingEntries: RecordingHistoryEntry[] = [];
-  private transformType: number = 0;
+  @State recordingHistoryRevision: number = 0;
+  @State private transformType: number = 0;
   private playerSettings: PlayerSettingsModel = new PlayerSettingsModel();
-  private recorderSettings: RecorderSettingsModel = new RecorderSettingsModel();
+  @State playerDraft: PlayerSettingsDraft = new PlayerSettingsDraft();
+  @State @Watch('onRecorderDraftChanged') recorderDraft: RecorderSettingsDraft = new RecorderSettingsDraft();
   @State cameraData: CameraDataModel = new CameraDataModel();
   private selectFilePath: string | null = null;
-  private seekPreviewTimer: number = 0;
-  private seekPreviewRequestId: number = 0;
-  private seekPreviewGeneration: number = 0;
-  private seekPreviewFetchRunning: boolean = false;
   private subtitleCues: SubtitleCue[] = [];
   private volumeBeforeMute: number = 100;
   private playbackHistory: PlaybackHistoryModel = new PlaybackHistoryModel();
-  private recordingHistory: RecordingHistoryModel = new RecordingHistoryModel();
-  private queuePaths: string[] = [];
-  private queueIndex: number = -1;
-  private pendingQueueIndex: number = -1;
+  @State playbackQueue: PlaybackQueueController = new PlaybackQueueController();
+  private recorderLaunch: RecorderLaunchController = new RecorderLaunchController();
   private lastHistoryPositionUs: number = -1;
   private resumeSeekTimer: number = 0;
-  private seekPreviewLastFetchTimeMs: number = 0;
   private playbackControlsTimer: number = 0;
   private playbackWindowWidth: number = 0;
   private abLoopTimer: number = 0;
@@ -189,12 +174,14 @@ export struct Player {
 
   aboutToAppear(): void {
     this.pageActive = true;
+    this.transcodeModel.activate();
+    void this.loadConfiguration();
     this.ensurePictureInPictureController();
     this.prepareVulkanShaders();
     player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
     player.setAppBackground(false);
     this.loadPlaybackHistory();
-    this.loadRecordingHistory();
+    this.recordingHistoryRevision++;
     this.playbackViewModel.onPlaybackPositionChanged = (positionUs: number): void => {
       this.updatePictureInPicturePlaybackState();
       this.updateSubtitle(positionUs);
@@ -227,6 +214,76 @@ export struct Player {
       });
     }
     Logger.info(TAG, 'Smart fluency supported: ' + this.isSmartFluencySupported + ', apiVersion: ' + apiVersion);
+  }
+
+  private async loadConfiguration(): Promise<void> {
+    if (this.configurationReady) {
+      return;
+    }
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      return;
+    }
+    try {
+      await ConfigurationStore.open(context);
+      const saved = await ConfigurationStore.load();
+      if (this.pageActive && !this.configurationTouched && this.buttonEnabled &&
+        player.getState() === player.PlayerState.IDLE && !recorder.getDiagnostics().active &&
+        !this.isPlayerSettingsVisible && !this.isRecorderSettingsVisible) {
+        UserConfiguration.restore(saved, this.playerSettings, this.cameraData);
+        this.configurationRevision++;
+      }
+      this.configurationReady = true;
+    } catch (_error) {
+      this.configurationReady = true;
+      this.configurationNotice = LocalizedText.get($r('app.string.configuration_load_default'));
+    }
+  }
+
+  private async persistConfiguration(custom: boolean = false): Promise<void> {
+    this.configurationTouched = true;
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      return;
+    }
+    const snapshot = UserConfiguration.capture(this.playerSettings, this.cameraData);
+    try {
+      await ConfigurationStore.open(context);
+      await ConfigurationStore.save(snapshot, custom);
+      this.configurationNotice = custom ? LocalizedText.get($r('app.string.configuration_custom_saved')) : LocalizedText.get($r('app.string.configuration_saved'));
+    } catch (_error) {
+      this.configurationNotice = LocalizedText.get($r('app.string.configuration_save_failed'));
+    }
+  }
+
+  private async selectConfiguration(index: number): Promise<void> {
+    if (!this.buttonEnabled || recorder.getDiagnostics().active) {
+      this.configurationNotice = LocalizedText.get($r('app.string.configuration_wait_idle'));
+      return;
+    }
+    this.configurationTouched = true;
+    try {
+      const snapshot: ConfigurationSnapshot = index < 0 ? await ConfigurationStore.load(true) :
+        UserConfiguration.preset(index);
+      if (!this.buttonEnabled || recorder.getDiagnostics().active) {
+        return;
+      }
+      if (snapshot.player.length === 0) {
+        this.configurationNotice = LocalizedText.get($r('app.string.configuration_custom_missing'));
+        return;
+      }
+      UserConfiguration.restore(snapshot, this.playerSettings, this.cameraData);
+      this.configurationRevision++;
+      this.playerSettings.videoCodecName = '';
+      this.cameraData.videoCodecName = '';
+      this.selectedDecoderName = '';
+      this.selectedEncoderName = '';
+      this.preparePlayerSettings();
+      this.prepareRecorderSettings();
+      await this.persistConfiguration();
+    } catch (_error) {
+      this.configurationNotice = LocalizedText.get($r('app.string.configuration_load_failed'));
+    }
   }
 
   /**
@@ -306,6 +363,7 @@ export struct Player {
       return;
     }
     this.pageActive = false;
+    this.transcodeModel.dispose();
     this.recovery.cancel();
     this.seekRequests.cancel();
     void this.playbackSessionController.stop();
@@ -329,7 +387,12 @@ export struct Player {
   }
 
   onPageShow(): void {
-    this.loadRecordingHistory();
+    this.recordingHistoryRevision++;
+    const recordingUri: string = AppStorage.get<string>('recordingResultPlayback') ?? '';
+    if (recordingUri.length > 0) {
+      AppStorage.delete('recordingResultPlayback');
+      this.playRecording(recordingUri);
+    }
   }
 
   startPlaybackInfoUpdates(): void {
@@ -348,25 +411,12 @@ export struct Player {
     }
   }
 
-  private async loadRecordingHistory(): Promise<void> {
-    try {
-      const hostContext = this.getUIContext().getHostContext();
-      if (hostContext === undefined) {
-        return;
-      }
-      await this.recordingHistory.load(hostContext as common.UIAbilityContext);
-      this.recordingEntries = this.recordingHistory.getEntries();
-    } catch (error) {
-      Logger.error(TAG, 'Load recording history failed: ' + JSON.stringify(error));
-    }
-  }
-
   private playRecording(uri: string): void {
     this.activeMainTab = 0;
     this.selectFilePath = uri;
-    this.queuePaths = [uri];
-    this.queueIndex = 0;
-    this.queueEntries = this.queuePaths.slice();
+    this.playbackQueue.paths = [uri];
+    this.playbackQueue.index = 0;
+    this.queueEntries = this.playbackQueue.paths.slice();
     this.startSelectedFilePlayback(uri);
   }
 
@@ -389,36 +439,34 @@ export struct Player {
     if (path.length === 0) {
       return;
     }
-    if (this.queuePaths.indexOf(path) < 0) {
-      this.queuePaths.push(path);
-    }
-    this.queueEntries = this.queuePaths.slice();
+    this.playbackQueue.append(path);
+    this.queueEntries = this.playbackQueue.paths.slice();
   }
 
   private playQueueEntry(index: number): void {
-    if (index < 0 || index >= this.queuePaths.length) {
+    if (index < 0 || index >= this.playbackQueue.paths.length) {
       return;
     }
-    const path: string = this.queuePaths[index];
+    const path: string = this.playbackQueue.paths[index];
     if (path.length === 0) {
       return;
     }
     this.activeMainTab = 0;
     this.isQueueVisible = false;
-    if (index === this.queueIndex && !this.buttonEnabled) {
+    if (index === this.playbackQueue.index && !this.buttonEnabled) {
       return;
     }
     if (this.buttonEnabled) {
-      this.queueIndex = index;
+      this.playbackQueue.index = index;
       this.selectFilePath = path;
-      this.queueEntries = this.queuePaths.slice();
+      this.queueEntries = this.playbackQueue.paths.slice();
       this.play(0);
       return;
     }
     if (this.isStopping) {
       return;
     }
-    this.pendingQueueIndex = index;
+    this.playbackQueue.pendingIndex = index;
     void this.stopPlayback();
   }
 
@@ -435,8 +483,8 @@ export struct Player {
         this.enqueueSelectedPath(uri);
       }
       if (this.buttonEnabled) {
-        this.queueIndex = this.queueIndex < 0 ? 0 : this.queueIndex;
-        this.selectFilePath = this.queuePaths[this.queueIndex];
+        this.playbackQueue.index = this.playbackQueue.index < 0 ? 0 : this.playbackQueue.index;
+        this.selectFilePath = this.playbackQueue.paths[this.playbackQueue.index];
         this.play(0);
       }
     } catch (error) {
@@ -452,9 +500,9 @@ export struct Player {
   private playRecentEntry(entry: PlaybackHistoryEntry): void {
     this.activeMainTab = 0;
     this.selectFilePath = entry.uri;
-    this.queuePaths = [entry.uri];
-    this.queueIndex = 0;
-    this.queueEntries = this.queuePaths.slice();
+    this.playbackQueue.paths = [entry.uri];
+    this.playbackQueue.index = 0;
+    this.queueEntries = this.playbackQueue.paths.slice();
     this.play();
     this.isQueueVisible = false;
   }
@@ -483,15 +531,15 @@ export struct Player {
       return;
     }
     const mediaInfo = this.currentMediaInfo ?? player.getMediaInfo();
-    const queueTitles: string[] = this.queuePaths.map((path: string): string => getPlaybackTitle(path));
+    const queueTitles: string[] = this.playbackQueue.paths.map((path: string): string => getPlaybackTitle(path));
     const media: PlaybackSessionMedia = {
-      assetId: 'queue-' + Math.max(0, this.queueIndex).toString(),
+      assetId: 'queue-' + Math.max(0, this.playbackQueue.index).toString(),
       title: getPlaybackTitle(this.selectFilePath),
       queueTitle: this.getSettingText($r('app.string.playback_queue_sheet_title')),
       durationMs: Math.max(0, Math.round(mediaInfo.durationUs / 1000)),
       hasVideo: mediaInfo.video.width > 0 && mediaInfo.video.height > 0,
       queueTitles,
-      queueIndex: Math.max(0, this.queueIndex)
+      queueIndex: Math.max(0, this.playbackQueue.index)
     };
     void this.playbackSessionController.start(hostContext as common.UIAbilityContext, media,
       this.createPlaybackSessionCallbacks());
@@ -534,39 +582,31 @@ export struct Player {
   }
 
   private requestQueueSwitch(direction: number): void {
-    if (this.buttonEnabled || this.isStopping || this.queuePaths.length < 2) {
+    if (this.buttonEnabled || this.isStopping || this.playbackQueue.paths.length < 2) {
       return;
     }
     const targetIndex = this.getAdjacentQueueIndex(direction);
-    if (targetIndex < 0 || targetIndex === this.queueIndex) {
+    if (targetIndex < 0 || targetIndex === this.playbackQueue.index) {
       return;
     }
-    this.pendingQueueIndex = targetIndex;
+    this.playbackQueue.pendingIndex = targetIndex;
     void this.stopPlayback();
   }
 
   private getAdjacentQueueIndex(direction: number): number {
-    const count: number = this.queuePaths.length;
-    if (this.queueIndex < 0 || this.queueIndex >= count || direction === 0) {
-      return -1;
-    }
-    let targetIndex = this.queueIndex + (direction > 0 ? 1 : -1);
-    if (this.playbackMode === PlaybackMode.REPEAT_ALL) {
-      targetIndex = (targetIndex + count) % count;
-    }
-    return targetIndex >= 0 && targetIndex < count ? targetIndex : -1;
+    return this.playbackQueue.adjacent(direction, this.playbackMode);
   }
 
   private async continuePendingQueuePlayback(): Promise<void> {
-    const targetIndex = this.pendingQueueIndex;
-    this.pendingQueueIndex = -1;
-    if (targetIndex < 0 || targetIndex >= this.queuePaths.length || !this.pageActive) {
+    const targetIndex = this.playbackQueue.pendingIndex;
+    this.playbackQueue.pendingIndex = -1;
+    if (targetIndex < 0 || targetIndex >= this.playbackQueue.paths.length || !this.pageActive) {
       return;
     }
     await this.playbackSessionController.stop();
-    this.queueIndex = targetIndex;
-    this.queueEntries = this.queuePaths.slice();
-    await this.continuePlayback(this.playbackSession, this.queuePaths[targetIndex], 0);
+    this.playbackQueue.index = targetIndex;
+    this.queueEntries = this.playbackQueue.paths.slice();
+    await this.continuePlayback(this.playbackSession, this.playbackQueue.paths[targetIndex], 0);
   }
 
   private toggleFullscreen(): void {
@@ -887,151 +927,11 @@ export struct Player {
   }
 
   resetPlaybackProgress(): void {
-    this.seekPreviewGeneration++;
-    this.cancelSeekPreviewRequest();
-    this.releaseSeekPreviewFrame();
+    this.seekPreview.reset();
     this.currentMediaInfo = undefined;
     this.mediaInfoSections = [];
     this.playbackViewModel.reset();
     this.isPlaybackProgressVisible = false;
-    this.seekPreviewLastFetchTimeMs = 0;
-  }
-
-  releaseSeekPreviewFrame(): void {
-    if (this.playbackViewModel.seekPreviewFrame === undefined) {
-      return;
-    }
-    const frame = this.playbackViewModel.seekPreviewFrame;
-    this.playbackViewModel.seekPreviewFrame = undefined;
-    frame.release((error) => {
-      if (error !== undefined) {
-        Logger.error(TAG, 'Release seek preview frame failed: ' + JSON.stringify(error));
-      }
-    });
-  }
-
-  cancelSeekPreviewRequest(): void {
-    this.seekPreviewRequestId++;
-    if (this.seekPreviewTimer !== 0) {
-      clearTimeout(this.seekPreviewTimer);
-      this.seekPreviewTimer = 0;
-    }
-  }
-
-  scheduleSeekPreview(): void {
-    if (!this.playbackViewModel.hasVideo || this.selectFilePath === null) {
-      return;
-    }
-    this.seekPreviewRequestId++;
-    if (this.seekPreviewTimer !== 0 || this.seekPreviewFetchRunning) {
-      return;
-    }
-    const elapsedMs = Date.now() - this.seekPreviewLastFetchTimeMs;
-    const delayMs = Math.max(0, SEEK_PREVIEW_INTERVAL_MS - elapsedMs);
-    this.seekPreviewTimer = setTimeout(() => {
-      this.seekPreviewTimer = 0;
-      this.seekPreviewLastFetchTimeMs = Date.now();
-      this.fetchSeekPreview(this.playbackViewModel.seekPreviewUs, this.seekPreviewRequestId,
-        this.seekPreviewGeneration);
-    }, delayMs);
-  }
-
-  async fetchSeekPreview(targetUs: number, requestId: number, generation: number): Promise<void> {
-    if (this.seekPreviewFetchRunning || this.selectFilePath === null) {
-      return;
-    }
-    this.seekPreviewFetchRunning = true;
-    let previewFile: fileIo.File | undefined = undefined;
-    let imageGenerator: media.AVImageGenerator | undefined = undefined;
-    let fetchedFrame: PixelMap | undefined = undefined;
-    try {
-      try {
-        const mediaInfo = this.currentMediaInfo ?? player.getMediaInfo();
-        const rotation = mediaInfo.video.rotation % 360;
-        const normalizedRotation = rotation < 0 ? rotation + 360 : rotation;
-        const hasVideoGeometry: boolean = mediaInfo.video.width > 0 && mediaInfo.video.height > 0;
-        const isRotatedPortrait: boolean = (normalizedRotation === 90 || normalizedRotation === 270) &&
-          (!hasVideoGeometry || mediaInfo.video.width >= mediaInfo.video.height);
-        const isNativePortrait: boolean = normalizedRotation === 0 &&
-          mediaInfo.video.height > mediaInfo.video.width;
-        let previewRotation: number = 0;
-        if (isRotatedPortrait) {
-          previewRotation = normalizedRotation;
-        } else if (isNativePortrait) {
-          // 原生竖屏视频没有旋转信息时，仍按竖屏预览。
-          previewRotation = 90;
-        } else if (normalizedRotation === 180) {
-          previewRotation = 180;
-        }
-        this.playbackViewModel.seekPreviewRotation = previewRotation;
-      } catch (error) {
-        // 预览旋转信息缺失时按 0° 生成。
-        Logger.info(TAG, 'Seek preview rotation unavailable: ' + JSON.stringify(error));
-        this.playbackViewModel.seekPreviewRotation = 0;
-      }
-      previewFile = fileIo.openSync(this.selectFilePath, fileIo.OpenMode.READ_ONLY);
-      const previewFileState = fileIo.statSync(previewFile.fd);
-      imageGenerator = await media.createAVImageGenerator();
-      imageGenerator.fdSrc = {
-        fd: previewFile.fd,
-        offset: Const.DEFAULT_VALUE,
-        length: previewFileState.size
-      };
-      const isPortraitPreview = this.playbackViewModel.seekPreviewRotation === 90 ||
-        this.playbackViewModel.seekPreviewRotation === 270;
-      const frame: PixelMap = await imageGenerator.fetchFrameByTime(targetUs,
-        media.AVImageQueryOptions.AV_IMAGE_QUERY_CLOSEST_SYNC, {
-          // 竖屏预览交换请求宽高，以匹配最终显示方向。
-          width: isPortraitPreview ? SEEK_PREVIEW_HEIGHT : SEEK_PREVIEW_WIDTH,
-          height: isPortraitPreview ? SEEK_PREVIEW_WIDTH : SEEK_PREVIEW_HEIGHT
-        });
-      fetchedFrame = frame;
-      // 生成器已应用旋转，不能再次旋转 PixelMap。
-      if (!this.playbackViewModel.isSeeking || generation !== this.seekPreviewGeneration) {
-        frame.release((error) => {
-          if (error !== undefined) {
-            Logger.error(TAG, 'Release stale seek preview frame failed: ' + JSON.stringify(error));
-          }
-        });
-        fetchedFrame = undefined;
-        return;
-      }
-      this.releaseSeekPreviewFrame();
-      this.playbackViewModel.seekPreviewFrame = frame;
-      fetchedFrame = undefined;
-    } catch (error) {
-      if (this.playbackViewModel.isSeeking && generation === this.seekPreviewGeneration) {
-        Logger.error(TAG, 'Fetch seek preview failed: ' + JSON.stringify(error));
-      }
-      if (fetchedFrame !== undefined) {
-        fetchedFrame.release((releaseError) => {
-          if (releaseError !== undefined) {
-            Logger.error(TAG, 'Release failed seek preview frame failed: ' + JSON.stringify(releaseError));
-          }
-        });
-        fetchedFrame = undefined;
-      }
-    } finally {
-      if (imageGenerator !== undefined) {
-        try {
-          await imageGenerator.release();
-        } catch (error) {
-          Logger.error(TAG, 'Release image generator failed: ' + JSON.stringify(error));
-        }
-      }
-      if (previewFile !== undefined) {
-        try {
-          fileIo.closeSync(previewFile);
-        } catch (error) {
-          Logger.error(TAG, 'Close seek preview file failed: ' + JSON.stringify(error));
-        }
-      }
-      this.seekPreviewFetchRunning = false;
-      if (this.playbackViewModel.isSeeking && (generation !== this.seekPreviewGeneration ||
-        requestId !== this.seekPreviewRequestId)) {
-        this.scheduleSeekPreview();
-      }
-    }
   }
 
   handlePlaybackProgressChange(value: number, mode: SliderChangeMode): void {
@@ -1039,7 +939,7 @@ export struct Player {
     if (mode === SliderChangeMode.Begin || mode === SliderChangeMode.Moving) {
       this.sliderDragging = true;
       this.playbackViewModel.isSeeking = true;
-      this.scheduleSeekPreview();
+      this.seekPreview.scheduleSeekPreview();
       return;
     }
     if (mode !== SliderChangeMode.End && mode !== SliderChangeMode.Click) {
@@ -1047,8 +947,8 @@ export struct Player {
     }
 
     this.sliderDragging = false;
-    this.cancelSeekPreviewRequest();
-    this.releaseSeekPreviewFrame();
+    this.seekPreview.cancelSeekPreviewRequest();
+    this.seekPreview.releaseSeekPreviewFrame();
     this.requestSeek(targetUs);
   }
 
@@ -1337,6 +1237,9 @@ export struct Player {
   updateMediaInfo(): void {
     if (!this.seekRequests.isBusy()) {
       this.currentMediaInfo = player.getMediaInfo();
+      this.videoSourceWidth = this.currentMediaInfo.video.width;
+      this.videoSourceHeight = this.currentMediaInfo.video.height;
+      this.videoSourceRotation = this.currentMediaInfo.video.rotation;
     }
     const context = this.getUIContext().getHostContext();
     if (this.currentMediaInfo !== undefined && context !== undefined) {
@@ -1387,9 +1290,9 @@ export struct Player {
       }
       const selectedPath = documentSelectResult[0];
       this.selectFilePath = selectedPath;
-      this.queuePaths = [selectedPath];
-      this.queueIndex = 0;
-      this.queueEntries = this.queuePaths.slice();
+      this.playbackQueue.paths = [selectedPath];
+      this.playbackQueue.index = 0;
+      this.queueEntries = this.playbackQueue.paths.slice();
       Logger.info(TAG, 'Document selected, start playback, URI: ' + this.selectFilePath);
       this.startSelectedFilePlayback(selectedPath);
     } catch (error) {
@@ -1416,9 +1319,9 @@ export struct Player {
       }
       const selectedPath = photoSelectResult.photoUris[0];
       this.selectFilePath = selectedPath;
-      this.queuePaths = [selectedPath];
-      this.queueIndex = 0;
-      this.queueEntries = this.queuePaths.slice();
+      this.playbackQueue.paths = [selectedPath];
+      this.playbackQueue.index = 0;
+      this.queueEntries = this.playbackQueue.paths.slice();
       Logger.info(TAG, 'Album file selected, start playback, URI: ' + this.selectFilePath);
       this.startSelectedFilePlayback(selectedPath);
     } catch (error) {
@@ -1444,6 +1347,7 @@ export struct Player {
       return;
     }
     player.setTransform(transformHint);
+    this.transformType = transformHint;
   }
 
   async stopPlayback(): Promise<void> {
@@ -1470,6 +1374,13 @@ export struct Player {
     }
   }
 
+  private capturePlaybackFailure(): void {
+    const failure = player.getPlaybackInfo().failure;
+    this.playbackFailureText = failure.stage.length > 0 ?
+      failure.stage + ' · ' + failure.code + '\n' + failure.message +
+      '\n' + failure.mime + ' · ' + (failure.codecName || LocalizedText.get($r('app.string.configuration_auto_select'))) : LocalizedText.get($r('app.string.playback_failed_hint'));
+  }
+
   play(startPositionUs: number = -1, recoverySnapshot?: PlaybackRecoverySnapshot): void {
     if (!this.buttonEnabled || this.seekRequests.isBusy() || !this.pageActive || this.isStopping) {
       return;
@@ -1483,6 +1394,7 @@ export struct Player {
       return;
     }
 
+    this.playbackFailureText = '';
     const session = ++this.playbackSession;
     const playbackPath = this.selectFilePath;
     if (recoverySnapshot === undefined) {
@@ -1497,6 +1409,11 @@ export struct Player {
       this.resumeSeekTimer = 0;
     }
 
+    if (!MediaFileActivity.beginLaunch()) {
+      this.getUIContext().getPromptAction().showToast({ message: LocalizedText.get($r('app.string.playback_cleanup_busy')) });
+      return;
+    }
+    this.configurationTouched = true;
     try {
       const inputFile = fileIo.openSync(playbackPath, fileIo.OpenMode.READ_ONLY);
       let inputFileClosed = false;
@@ -1534,6 +1451,7 @@ export struct Player {
         this.lastHistoryPositionUs = -1;
         this.playbackViewModel.isHdrVividConfirmed = false;
         this.resetPlaybackProgress();
+        this.transformType = 0;
         let failurePromptShown = false;
         const started: boolean = player.play(this.playerSettings.createPlayOptions({
           inputFileFd: inputFile.fd,
@@ -1541,6 +1459,9 @@ export struct Player {
           inputFileSize: inputFileState.size,
           isSmartFluencySupported: this.isSmartFluencySupported
         }), (result) => {
+          if (result.reason === 'error') {
+            this.capturePlaybackFailure();
+          }
           Logger.info(TAG, 'Player JS callback, success: ' + result.success + ', reason: ' + result.reason);
           closeInputFile();
           if (session !== this.playbackSession) {
@@ -1563,7 +1484,7 @@ export struct Player {
           }
           this.playbackSessionController.updateState(player.PlayerState.STOPPING,
             this.requestedSpeed, completedPositionUs, completedDurationUs);
-          const requestedQueueIndex = this.pendingQueueIndex;
+          const requestedQueueIndex = this.playbackQueue.pendingIndex;
           this.buttonEnabled = true;
           this.isStopping = false;
           this.playbackViewModel.isSmartFluencyAvailable = false;
@@ -1602,11 +1523,11 @@ export struct Player {
             });
           }
           const nextIndex = result.reason === 'completed' ?
-            nextPlaybackIndex(this.playbackMode, this.queueIndex, this.queuePaths.length) : -1;
+            this.playbackQueue.next(this.playbackMode) : -1;
           if (nextIndex >= 0) {
-            this.queueIndex = nextIndex;
-            this.queueEntries = this.queuePaths.slice();
-            this.continuePlayback(session, this.queuePaths[nextIndex], 0);
+            this.playbackQueue.index = nextIndex;
+            this.queueEntries = this.playbackQueue.paths.slice();
+            this.continuePlayback(session, this.playbackQueue.paths[nextIndex], 0);
           } else {
             void this.playbackSessionController.stop();
           }
@@ -1622,6 +1543,7 @@ export struct Player {
           }
           this.resetPlaybackProgress();
           failurePromptShown = true;
+          this.capturePlaybackFailure();
           Logger.error(TAG, 'Player initialization or startup failed');
           this.getUIContext().getPromptAction().showToast({
             message: $r('app.string.media_file_invalid'),
@@ -1686,6 +1608,8 @@ export struct Player {
         duration: Const.DURATION,
         bottom: Const.BOTTOM
       });
+    } finally {
+      MediaFileActivity.endLaunch();
     }
   }
 
@@ -1700,6 +1624,7 @@ export struct Player {
   }
 
   async prepareRecording(): Promise<void> {
+    this.configurationTouched = true;
     const context = this.getUIContext().getHostContext();
     if (context === undefined || !await requestRecordPermissions(context)) {
       this.getUIContext().getPromptAction().showToast({
@@ -1757,48 +1682,18 @@ export struct Player {
   }
 
   private preparePlayerSettings(): void {
-    this.draftPlayerDecoderType = this.playerSettings.videoDecoderType;
-    this.draftPlayerRunMode = this.playerSettings.videoDecoderRunMode;
-    this.draftPlayerSyncMode = this.playerSettings.videoDecoderSyncMode;
-    this.draftPlayerDump = this.playerSettings.enableVideoDump;
-    this.draftPlayerRetainLastFrame = this.playerSettings.retainLastFrame;
-    this.draftPlayerLowLatency = this.playerSettings.enableLowLatency;
-    this.draftPlayerOutputInDecodingOrder = this.playerSettings.outputInDecodingOrder;
-    this.draftPlayerConvertHdrVividToBt709 = this.playerSettings.convertHdrVividToBt709 &&
-      this.isHdrVividToBt709Supported(this.draftPlayerRunMode);
-    this.draftPlayerAudioVolume = Math.round(this.playerSettings.audioVolume);
-    this.draftPlayerAudioLowLatency = this.playerSettings.enableAudioLowLatency;
-    this.draftPlayerAudioTrackIndex = this.playerSettings.audioTrackIndex;
-    this.draftPlayerAutoHideControls = this.playerSettings.autoHideControls;
+    this.playerDraft.load(this.playerSettings);
   }
 
   private prepareRecorderSettings(): void {
-    this.draftRecorderOutputFormat = this.cameraData.outputFormat === Const.FORMAT_FLV ? 1 : 0;
-    this.draftRecorderCodec = this.cameraData.isHDRVivid === Const.TRUE ? 0 :
-      this.cameraData.videoCodecMime === Const.MIME_VIDEO_AVC ? 1 : 2;
-    this.draftRecorderResolution = this.cameraData.cameraWidth >= Const.VIDEO_WIDTH_4K ? 0 :
-      this.cameraData.cameraWidth >= Const.VIDEO_WIDTH_1080P ? 1 : 2;
-    this.draftRecorderFrameRate = this.cameraData.frameRate >= Const.FRAMERATE_VIDEO_60FPS ? 1 : 0;
-    this.draftRecorderSyncMode = this.cameraData.isSync;
-    this.draftRecorderBitrate = this.cameraData.bitRate <= Const.BITRATE_VIDEO_10M ? 0 :
-      this.cameraData.bitRate >= Const.BITRATE_VIDEO_30M ? 2 : 1;
-    this.draftRecorderBitrateMode = this.cameraData.bitrateMode === Const.VIDEO_BITRATE_MODE_VBR ? 1 : 0;
-    this.draftRecorderIFrameInterval = this.cameraData.iFrameInterval <= Const.I_FRAME_INTERVAL_100_MS ? 0 :
-      this.cameraData.iFrameInterval <= Const.I_FRAME_INTERVAL_1_S ? 1 : 2;
-    this.draftRecorderAudioSampleRate = this.cameraData.audioSampleRate <= Const.AUDIO_SAMPLE_RATE_44100 ? 0 : 1;
-    this.draftRecorderAudioChannelCount = this.cameraData.audioChannelCount === Const.AUDIO_CHANNEL_COUNT_MONO ? 0 : 1;
-    this.draftRecorderAudioBitrate = this.cameraData.audioBitRate <= Const.AUDIO_BITRATE_32K ? 0 :
-      this.cameraData.audioBitRate >= Const.AUDIO_BITRATE_128K ? 2 : 1;
-    this.draftRecorderAudioLatency =
-      this.cameraData.audioCaptureLatencyMode === Const.AUDIO_CAPTURE_LATENCY_LOW ?
-      1 : 0;
-    this.draftRecorderStabilization =
-      this.cameraData.videoStabilizationMode === Const.VIDEO_STABILIZATION_DISABLED ?
-      0 : 1;
-    this.draftRecorderPreprocMode = this.isAdvancedRecorderSupported ? this.cameraData.preprocMode : 0;
-    this.draftRecorderDropFrameRate = this.isAdvancedRecorderSupported && this.cameraData.dropToFrameRate > 0 ? 1 : 0;
-    this.draftRecorderDualOutput = this.isAdvancedRecorderSupported && this.cameraData.enableDualOutput ? 1 : 0;
-    this.draftRecorderVideoDump = this.cameraData.enableVideoDump;
+    this.recorderDraft.load(this.cameraData, this.isAdvancedRecorderSupported);
+    this.onRecorderDraftChanged();
+  }
+
+  private onRecorderDraftChanged(): void {
+    const data = this.recorderDraft.toCamera(this.cameraData.videoCodecName);
+    const reason: string = ConfigurationFeedback.recordingConstraint(data, deviceInfo.sdkApiVersion);
+    this.recorderCapabilityHint = reason || LocalizedText.get($r('app.string.configuration_updated_hint'));
   }
 
   private getSettingText(resource: Resource): string {
@@ -1836,9 +1731,12 @@ export struct Player {
   }
 
   private selectPlayerRenderMode(index: number): void {
-    this.draftPlayerRunMode = index;
+    this.playerDraft.runMode = index;
+    if (index !== Const.VIDEO_DECODER_RUN_MODE_BUFFER) {
+      this.playerDraft.dump = false;
+    }
     if (!this.isHdrVividToBt709Supported(index)) {
-      this.draftPlayerConvertHdrVividToBt709 = false;
+      this.playerDraft.convertHdrVividToBt709 = false;
     }
   }
 
@@ -1960,26 +1858,16 @@ export struct Player {
   }
 
   private applyPlayerSettings(): void {
-    const values: string[] = [
-      Const.VIDEO_DECODE_TYPE[this.draftPlayerDecoderType],
-      Const.VIDEO_DECODER_RUN_MODE[this.draftPlayerRunMode],
-      Const.VIDEO_DECODER_SYNC_MODE[this.draftPlayerSyncMode],
-      this.draftPlayerDump ? Const.VIDEO_DUMP_MODE[1] : Const.VIDEO_DUMP_MODE[0],
-      this.draftPlayerRetainLastFrame ? Const.VIDEO_LAST_FRAME_MODE[0] : Const.VIDEO_LAST_FRAME_MODE[1],
-      this.draftPlayerLowLatency ? Const.VIDEO_FEATURE_MODE[1] : Const.VIDEO_FEATURE_MODE[0],
-      this.draftPlayerOutputInDecodingOrder ? Const.VIDEO_FEATURE_MODE[1] : Const.VIDEO_FEATURE_MODE[0],
-      this.draftPlayerConvertHdrVividToBt709 ? Const.VIDEO_FEATURE_MODE[1] : Const.VIDEO_FEATURE_MODE[0],
-      this.draftPlayerAudioLowLatency ? Const.AUDIO_RENDERER_LATENCY_MODE[1] : Const.AUDIO_RENDERER_LATENCY_MODE[0]
-    ];
-    if (!this.playerSettings.applyPickerValues(values, this.draftPlayerAudioVolume)) {
-      Logger.error(TAG, 'Invalid player settings: ' + JSON.stringify(values));
+    if (!this.playerDraft.apply(this.playerSettings)) {
+      Logger.error(TAG, 'Invalid player settings');
       return;
     }
     this.isPlayerSettingsVisible = false;
     player.setVolume(this.playerSettings.audioVolume / 100);
     this.audioMuted = false;
     this.volumeBeforeMute = this.playerSettings.audioVolume;
-    this.playerSettings.autoHideControls = this.draftPlayerAutoHideControls;
+    this.playerSettings.autoHideControls = this.playerDraft.autoHideControls;
+    void this.persistConfiguration();
     if (this.playerSettings.autoHideControls) {
       this.showPlaybackControls();
     } else {
@@ -1997,175 +1885,164 @@ export struct Player {
     }
   }
 
+  private checkRecorderDraftCapabilities(): void {
+    const draft = this.recorderDraft.toCamera(this.cameraData.videoCodecName);
+    this.recorderCapabilityHint = ConfigurationFeedback.recording(draft, deviceInfo.sdkApiVersion);
+  }
+
   private applyRecorderSettings(): void {
     if (!this.isAdvancedRecorderSupported) {
-      this.draftRecorderPreprocMode = 0;
-      this.draftRecorderDropFrameRate = 0;
-      this.draftRecorderDualOutput = 0;
+      this.recorderDraft.preprocMode = 0;
+      this.recorderDraft.dropFrameRate = 0;
+      this.recorderDraft.dualOutput = 0;
     }
-    const values: string[] = [
-      Const.OUTPUT_FORMAT[this.draftRecorderOutputFormat],
-      Const.VIDEO_MIMETYPE[this.draftRecorderCodec],
-      Const.VIDEO_RESOLUTION[this.draftRecorderResolution],
-      Const.VIDEO_FRAMERATE[this.draftRecorderFrameRate],
-      Const.VIDEO_DECODER_SYNC_MODE[this.draftRecorderSyncMode],
-      Const.VIDEO_BITRATE[this.draftRecorderBitrate],
-      Const.VIDEO_BITRATE_MODE[this.draftRecorderBitrateMode],
-      Const.VIDEO_I_FRAME_INTERVAL[this.draftRecorderIFrameInterval],
-      Const.AUDIO_SAMPLE_RATE[this.draftRecorderAudioSampleRate],
-      Const.AUDIO_CHANNEL_COUNT[this.draftRecorderAudioChannelCount],
-      Const.AUDIO_BITRATE[this.draftRecorderAudioBitrate],
-      Const.AUDIO_CAPTURE_LATENCY_MODE[this.draftRecorderAudioLatency],
-      Const.VIDEO_STABILIZATION_MODE[this.draftRecorderStabilization],
-      Const.VIDEO_PREPROC_MODE[this.draftRecorderPreprocMode],
-      Const.VIDEO_DROP_FRAME_RATE[this.draftRecorderDropFrameRate],
-      Const.DUAL_OUTPUT_MODE[this.draftRecorderDualOutput]
-    ];
-    if (!this.recorderSettings.applyPickerValues(values, this.cameraData)) {
-      Logger.error(TAG, 'Invalid recorder settings: ' + JSON.stringify(values));
+    if (!this.recorderDraft.apply(this.cameraData)) {
+      Logger.error(TAG, 'Invalid recorder settings');
       return;
     }
-    this.cameraData.enableVideoDump = this.draftRecorderVideoDump;
+    // 相机查询会让出执行权；先标记用户已应用，防止启动时的异步读取覆盖刚改的设置。
+    this.configurationTouched = true;
     this.isRecorderSettingsVisible = false;
-    this.checkIsProfileSupport();
+    void this.checkIsProfileSupport().then((): void => { void this.persistConfiguration(); })
+      .catch((_error: Error): void => {
+        this.configurationNotice = LocalizedText.get($r('app.string.configuration_camera_query_failed'));
+      });
   }
 
   private choosePlayerOption(option: PlayerSettingsOption): void {
     if (option === PlayerSettingsOption.DECODER_TYPE) {
-      this.showSettingPicker(this.getDecoderTypeLabels(), this.draftPlayerDecoderType,
-        (index: number): void => { this.draftPlayerDecoderType = index; });
+      this.showSettingPicker(this.getDecoderTypeLabels(), this.playerDraft.decoderType,
+        (index: number): void => { this.playerDraft.decoderType = index; });
     } else if (option === PlayerSettingsOption.RUN_MODE) {
-      this.showSettingPicker(this.getRenderModeLabels(), this.draftPlayerRunMode,
+      this.showSettingPicker(this.getRenderModeLabels(), this.playerDraft.runMode,
         (index: number): void => this.selectPlayerRenderMode(index));
     } else if (option === PlayerSettingsOption.SYNC_MODE) {
-      this.showSettingPicker(this.getSyncModeLabels(), this.draftPlayerSyncMode,
-        (index: number): void => { this.draftPlayerSyncMode = index; });
+      this.showSettingPicker(this.getSyncModeLabels(), this.playerDraft.syncMode,
+        (index: number): void => { this.playerDraft.syncMode = index; });
     }
   }
 
   private resetPlayerSettingsDraft(): void {
     this.isAdvancedPlayerSettingsExpanded = false;
-    this.draftPlayerDecoderType = 0;
-    this.draftPlayerRunMode = 0;
-    this.draftPlayerSyncMode = 0;
-    this.draftPlayerDump = false;
-    this.draftPlayerRetainLastFrame = true;
-    this.draftPlayerLowLatency = false;
-    this.draftPlayerOutputInDecodingOrder = false;
-    this.draftPlayerConvertHdrVividToBt709 = false;
-    this.draftPlayerAudioVolume = 100;
-    this.draftPlayerAudioLowLatency = false;
-    this.draftPlayerAutoHideControls = true;
+    this.playerDraft = new PlayerSettingsDraft();
   }
 
   private resetRecorderSettingsDraft(): void {
-    this.draftRecorderOutputFormat = 0;
-    this.draftRecorderCodec = 1;
-    this.draftRecorderResolution = 1;
-    this.draftRecorderFrameRate = 0;
-    this.draftRecorderSyncMode = 0;
-    this.draftRecorderBitrate = 1;
-    this.draftRecorderBitrateMode = 0;
-    this.draftRecorderIFrameInterval = 0;
-    this.draftRecorderAudioSampleRate = 1;
-    this.draftRecorderAudioChannelCount = 1;
-    this.draftRecorderAudioBitrate = 0;
-    this.draftRecorderAudioLatency = 0;
-    this.draftRecorderStabilization = 1;
-    this.draftRecorderPreprocMode = 0;
-    this.draftRecorderDropFrameRate = 0;
-    this.draftRecorderDualOutput = 0;
-    this.draftRecorderVideoDump = false;
+    this.recorderDraft = new RecorderSettingsDraft();
   }
 
   private chooseRecorderOption(option: RecorderSettingsOption): void {
+    if (option === RecorderSettingsOption.CROP_PERCENT) {
+      const percentages: number[] = [50, 75, 90, 100];
+      this.showSettingPicker(['50%', '75%', '90%', '100%'], percentages.indexOf(this.recorderDraft.cropPercent),
+        (index: number): void => { this.recorderDraft.cropPercent = percentages[index]; });
+      return;
+    }
+    if (option === RecorderSettingsOption.DOWNSAMPLING_TARGET || option === RecorderSettingsOption.SECONDARY_TARGET) {
+      const heights: number[] = [360, 480, 720, 1080];
+      const selected: number = option === RecorderSettingsOption.DOWNSAMPLING_TARGET ?
+        this.recorderDraft.downsamplingHeight : this.recorderDraft.secondaryHeight;
+      this.showSettingPicker(['360P', '480P', '720P', '1080P'], heights.indexOf(selected),
+        (index: number): void => {
+          if (option === RecorderSettingsOption.DOWNSAMPLING_TARGET) {
+            this.recorderDraft.downsamplingHeight = heights[index];
+          } else {
+            this.recorderDraft.secondaryHeight = heights[index];
+          }
+        });
+      return;
+    }
     if (option === RecorderSettingsOption.OUTPUT_FORMAT) {
-      this.showSettingPicker(Const.OUTPUT_FORMAT, this.draftRecorderOutputFormat,
-        (index: number): void => { this.draftRecorderOutputFormat = index; });
+      this.showSettingPicker(Const.OUTPUT_FORMAT, this.recorderDraft.outputFormat,
+        (index: number): void => { this.recorderDraft.outputFormat = index; });
     } else if (option === RecorderSettingsOption.VIDEO_CODEC) {
-      this.showSettingPicker(this.getRecorderCodecLabels(), this.draftRecorderCodec,
-        (index: number): void => { this.draftRecorderCodec = index; });
+      this.showSettingPicker(this.getRecorderCodecLabels(), this.recorderDraft.codec,
+        (index: number): void => { this.recorderDraft.codec = index; });
     } else if (option === RecorderSettingsOption.VIDEO_RESOLUTION) {
-      this.showSettingPicker(this.getResolutionLabels(), this.draftRecorderResolution,
-        (index: number): void => { this.draftRecorderResolution = index; });
+      this.showSettingPicker(this.getResolutionLabels(), this.recorderDraft.resolution,
+        (index: number): void => { this.recorderDraft.resolution = index; });
     } else if (option === RecorderSettingsOption.VIDEO_FRAME_RATE) {
-      this.showSettingPicker(this.getFrameRateLabels(), this.draftRecorderFrameRate, (index: number): void => {
-        this.draftRecorderFrameRate = index;
+      this.showSettingPicker(this.getFrameRateLabels(), this.recorderDraft.frameRate, (index: number): void => {
+        this.recorderDraft.frameRate = index;
         if (index === 0) {
-          this.draftRecorderDropFrameRate = 0;
+          this.recorderDraft.dropFrameRate = 0;
         }
       });
     } else if (option === RecorderSettingsOption.SYNC_MODE) {
-      this.showSettingPicker(this.getSyncModeLabels(), this.draftRecorderSyncMode,
-        (index: number): void => { this.draftRecorderSyncMode = index; });
+      this.showSettingPicker(this.getSyncModeLabels(), this.recorderDraft.syncMode,
+        (index: number): void => { this.recorderDraft.syncMode = index; });
     } else if (option === RecorderSettingsOption.VIDEO_BITRATE) {
-      this.showSettingPicker(this.getRecorderBitrateLabels(), this.draftRecorderBitrate,
-        (index: number): void => { this.draftRecorderBitrate = index; });
+      this.showSettingPicker(this.getRecorderBitrateLabels(), this.recorderDraft.bitrate,
+        (index: number): void => { this.recorderDraft.bitrate = index; });
     } else if (option === RecorderSettingsOption.BITRATE_MODE) {
-      this.showSettingPicker(this.getRecorderBitrateModeLabels(), this.draftRecorderBitrateMode,
-        (index: number): void => { this.draftRecorderBitrateMode = index; });
+      this.showSettingPicker(this.getRecorderBitrateModeLabels(), this.recorderDraft.bitrateMode,
+        (index: number): void => { this.recorderDraft.bitrateMode = index; });
     } else if (option === RecorderSettingsOption.I_FRAME_INTERVAL) {
-      this.showSettingPicker(this.getRecorderIFrameIntervalLabels(), this.draftRecorderIFrameInterval,
-        (index: number): void => { this.draftRecorderIFrameInterval = index; });
+      this.showSettingPicker(this.getRecorderIFrameIntervalLabels(), this.recorderDraft.iFrameInterval,
+        (index: number): void => { this.recorderDraft.iFrameInterval = index; });
     } else if (option === RecorderSettingsOption.AUDIO_SAMPLE_RATE) {
-      this.showSettingPicker(this.getRecorderAudioSampleRateLabels(), this.draftRecorderAudioSampleRate,
-        (index: number): void => { this.draftRecorderAudioSampleRate = index; });
+      this.showSettingPicker(this.getRecorderAudioSampleRateLabels(), this.recorderDraft.audioSampleRate,
+        (index: number): void => { this.recorderDraft.audioSampleRate = index; });
     } else if (option === RecorderSettingsOption.AUDIO_CHANNEL_COUNT) {
-      this.showSettingPicker(this.getRecorderAudioChannelCountLabels(), this.draftRecorderAudioChannelCount,
-        (index: number): void => { this.draftRecorderAudioChannelCount = index; });
+      this.showSettingPicker(this.getRecorderAudioChannelCountLabels(), this.recorderDraft.audioChannelCount,
+        (index: number): void => { this.recorderDraft.audioChannelCount = index; });
     } else if (option === RecorderSettingsOption.AUDIO_BITRATE) {
-      this.showSettingPicker(this.getRecorderAudioBitrateLabels(), this.draftRecorderAudioBitrate,
-        (index: number): void => { this.draftRecorderAudioBitrate = index; });
+      this.showSettingPicker(this.getRecorderAudioBitrateLabels(), this.recorderDraft.audioBitrate,
+        (index: number): void => { this.recorderDraft.audioBitrate = index; });
     } else if (option === RecorderSettingsOption.AUDIO_CAPTURE_LATENCY) {
-      this.showSettingPicker(this.getRecorderAudioLatencyLabels(), this.draftRecorderAudioLatency,
-        (index: number): void => { this.draftRecorderAudioLatency = index; });
+      this.showSettingPicker(this.getRecorderAudioLatencyLabels(), this.recorderDraft.audioLatency,
+        (index: number): void => { this.recorderDraft.audioLatency = index; });
     } else if (option === RecorderSettingsOption.VIDEO_STABILIZATION) {
-      this.showSettingPicker(this.getRecorderStabilizationLabels(), this.draftRecorderStabilization,
-        (index: number): void => { this.draftRecorderStabilization = index; });
+      this.showSettingPicker(this.getRecorderStabilizationLabels(), this.recorderDraft.stabilization,
+        (index: number): void => { this.recorderDraft.stabilization = index; });
     } else if (option === RecorderSettingsOption.VIDEO_PREPROCESSING) {
-      this.showSettingPicker(Const.VIDEO_PREPROC_MODE, this.draftRecorderPreprocMode,
-        (index: number): void => { this.draftRecorderPreprocMode = index; });
+      this.showSettingPicker(Const.VIDEO_PREPROC_MODE, this.recorderDraft.preprocMode,
+        (index: number): void => { this.recorderDraft.preprocMode = index; });
     } else if (option === RecorderSettingsOption.DROP_FRAME_RATE) {
-      this.showSettingPicker(Const.VIDEO_DROP_FRAME_RATE, this.draftRecorderDropFrameRate,
-        (index: number): void => { this.draftRecorderDropFrameRate = index; });
+      this.showSettingPicker(Const.VIDEO_DROP_FRAME_RATE, this.recorderDraft.dropFrameRate,
+        (index: number): void => { this.recorderDraft.dropFrameRate = index; });
     } else if (option === RecorderSettingsOption.DUAL_OUTPUT) {
-      this.showSettingPicker(Const.DUAL_OUTPUT_MODE, this.draftRecorderDualOutput,
-        (index: number): void => { this.draftRecorderDualOutput = index; });
+      this.showSettingPicker(Const.DUAL_OUTPUT_MODE, this.recorderDraft.dualOutput,
+        (index: number): void => { this.recorderDraft.dualOutput = index; });
     }
   }
 
   @Builder
   PlayerSettingsSheet() {
     PlayerSettingsPanel({
-      decoderTypeText: this.getDecoderTypeLabels()[this.draftPlayerDecoderType],
-      runModeText: this.getRenderModeLabels()[this.draftPlayerRunMode],
-      syncModeText: this.getSyncModeLabels()[this.draftPlayerSyncMode],
-      dumpEnabled: this.draftPlayerDump,
-      volumePercent: this.draftPlayerAudioVolume,
+      capabilityHint: ConfigurationFeedback.playback(this.playerDraft.runMode, deviceInfo.sdkApiVersion),
+      decoderTypeText: this.getDecoderTypeLabels()[this.playerDraft.decoderType],
+      runModeText: this.getRenderModeLabels()[this.playerDraft.runMode],
+      syncModeText: this.getSyncModeLabels()[this.playerDraft.syncMode],
+      dumpEnabled: this.playerDraft.dump,
+      dumpAvailable: this.playerDraft.runMode === Const.VIDEO_DECODER_RUN_MODE_BUFFER,
+      volumePercent: this.playerDraft.audioVolume,
       advancedExpanded: this.isAdvancedPlayerSettingsExpanded,
-      audioLowLatencyEnabled: this.draftPlayerAudioLowLatency,
-      autoHideControlsEnabled: this.draftPlayerAutoHideControls,
-      retainLastFrameEnabled: this.draftPlayerRetainLastFrame,
-      retainLastFrameAvailable: this.draftPlayerRunMode === 0,
-      lowLatencyEnabled: this.draftPlayerLowLatency,
-      decodingOrderOutputEnabled: this.draftPlayerOutputInDecodingOrder,
-      hdrVividConversionEnabled: this.draftPlayerConvertHdrVividToBt709,
-      hdrVividConversionAvailable: this.isHdrVividToBt709Supported(this.draftPlayerRunMode),
+      audioLowLatencyEnabled: this.playerDraft.audioLowLatency,
+      autoHideControlsEnabled: this.playerDraft.autoHideControls,
+      retainLastFrameEnabled: this.playerDraft.retainLastFrame,
+      retainLastFrameAvailable: this.playerDraft.runMode === 0,
+      lowLatencyEnabled: this.playerDraft.lowLatency,
+      decodingOrderOutputEnabled: this.playerDraft.outputInDecodingOrder,
+      hdrVividConversionEnabled: this.playerDraft.convertHdrVividToBt709,
+      hdrVividConversionAvailable: this.isHdrVividToBt709Supported(this.playerDraft.runMode),
       onChooseOption: (option: PlayerSettingsOption): void => this.choosePlayerOption(option),
-      onDumpChanged: (enabled: boolean): void => { this.draftPlayerDump = enabled; },
-      onVolumeChanged: (volume: number): void => { this.draftPlayerAudioVolume = volume; },
+      onDumpChanged: (enabled: boolean): void => {
+        this.playerDraft.dump = enabled && this.playerDraft.runMode === Const.VIDEO_DECODER_RUN_MODE_BUFFER;
+      },
+      onVolumeChanged: (volume: number): void => { this.playerDraft.audioVolume = volume; },
       onAdvancedExpandedChanged: (expanded: boolean): void => {
         this.isAdvancedPlayerSettingsExpanded = expanded;
       },
-      onAudioLowLatencyChanged: (enabled: boolean): void => { this.draftPlayerAudioLowLatency = enabled; },
-      onAutoHideControlsChanged: (enabled: boolean): void => { this.draftPlayerAutoHideControls = enabled; },
-      onRetainLastFrameChanged: (enabled: boolean): void => { this.draftPlayerRetainLastFrame = enabled; },
-      onLowLatencyChanged: (enabled: boolean): void => { this.draftPlayerLowLatency = enabled; },
+      onAudioLowLatencyChanged: (enabled: boolean): void => { this.playerDraft.audioLowLatency = enabled; },
+      onAutoHideControlsChanged: (enabled: boolean): void => { this.playerDraft.autoHideControls = enabled; },
+      onRetainLastFrameChanged: (enabled: boolean): void => { this.playerDraft.retainLastFrame = enabled; },
+      onLowLatencyChanged: (enabled: boolean): void => { this.playerDraft.lowLatency = enabled; },
       onDecodingOrderOutputChanged: (enabled: boolean): void => {
-        this.draftPlayerOutputInDecodingOrder = enabled;
+        this.playerDraft.outputInDecodingOrder = enabled;
       },
       onHdrVividConversionChanged: (enabled: boolean): void => {
-        this.draftPlayerConvertHdrVividToBt709 = enabled;
+        this.playerDraft.convertHdrVividToBt709 = enabled;
       },
       onCancel: (): void => { this.isPlayerSettingsVisible = false; },
       onRestoreDefaults: (): void => this.resetPlayerSettingsDraft(),
@@ -2176,26 +2053,44 @@ export struct Player {
   @Builder
   RecorderSettingsSheet() {
     RecorderSettingsPanel({
-      videoDumpEnabled: this.draftRecorderVideoDump,
+      capabilityHint: this.recorderCapabilityHint,
+      onCheckCapabilities: (): void => this.checkRecorderDraftCapabilities(),
+      videoDumpEnabled: this.recorderDraft.videoDump,
+      stopOnLowSpace: this.recorderDraft.stopOnLowSpace,
+      onStorageProtectionChanged: (enabled: boolean): void => { this.recorderDraft.stopOnLowSpace = enabled; },
       advancedOptionsSupported: this.isAdvancedRecorderSupported,
-      dropFrameRateEnabled: this.isAdvancedRecorderSupported && this.draftRecorderFrameRate > 0,
-      outputFormatText: Const.OUTPUT_FORMAT[this.draftRecorderOutputFormat],
-      videoCodecText: this.getRecorderCodecLabels()[this.draftRecorderCodec],
-      videoResolutionText: this.getResolutionLabels()[this.draftRecorderResolution],
-      videoFrameRateText: this.getFrameRateLabels()[this.draftRecorderFrameRate],
-      syncModeText: this.getSyncModeLabels()[this.draftRecorderSyncMode],
-      videoBitrateText: this.getRecorderBitrateLabels()[this.draftRecorderBitrate],
-      bitrateModeText: this.getRecorderBitrateModeLabels()[this.draftRecorderBitrateMode],
-      iFrameIntervalText: this.getRecorderIFrameIntervalLabels()[this.draftRecorderIFrameInterval],
-      audioSampleRateText: this.getRecorderAudioSampleRateLabels()[this.draftRecorderAudioSampleRate],
-      audioChannelCountText: this.getRecorderAudioChannelCountLabels()[this.draftRecorderAudioChannelCount],
-      audioBitrateText: this.getRecorderAudioBitrateLabels()[this.draftRecorderAudioBitrate],
-      audioCaptureLatencyText: this.getRecorderAudioLatencyLabels()[this.draftRecorderAudioLatency],
-      videoStabilizationText: this.getRecorderStabilizationLabels()[this.draftRecorderStabilization],
-      videoPreprocessingText: Const.VIDEO_PREPROC_MODE[this.draftRecorderPreprocMode],
-      dropFrameRateText: Const.VIDEO_DROP_FRAME_RATE[this.draftRecorderDropFrameRate],
-      dualOutputText: Const.DUAL_OUTPUT_MODE[this.draftRecorderDualOutput],
-      onVideoDumpChanged: (enabled: boolean): void => { this.draftRecorderVideoDump = enabled; },
+      dropFrameRateEnabled: this.isAdvancedRecorderSupported && this.recorderDraft.frameRate > 0,
+      outputFormatText: Const.OUTPUT_FORMAT[this.recorderDraft.outputFormat],
+      videoCodecText: this.getRecorderCodecLabels()[this.recorderDraft.codec],
+      videoResolutionText: this.getResolutionLabels()[this.recorderDraft.resolution],
+      videoFrameRateText: this.getFrameRateLabels()[this.recorderDraft.frameRate],
+      syncModeText: this.getSyncModeLabels()[this.recorderDraft.syncMode],
+      videoBitrateText: this.getRecorderBitrateLabels()[this.recorderDraft.bitrate],
+      bitrateModeText: this.getRecorderBitrateModeLabels()[this.recorderDraft.bitrateMode],
+      iFrameIntervalText: this.getRecorderIFrameIntervalLabels()[this.recorderDraft.iFrameInterval],
+      audioSampleRateText: this.getRecorderAudioSampleRateLabels()[this.recorderDraft.audioSampleRate],
+      audioChannelCountText: this.getRecorderAudioChannelCountLabels()[this.recorderDraft.audioChannelCount],
+      audioBitrateText: this.getRecorderAudioBitrateLabels()[this.recorderDraft.audioBitrate],
+      audioCaptureLatencyText: this.getRecorderAudioLatencyLabels()[this.recorderDraft.audioLatency],
+      videoStabilizationText: this.getRecorderStabilizationLabels()[this.recorderDraft.stabilization],
+      videoPreprocessingText: this.recorderDraft.preprocMode === Const.VIDEO_PREPROC_CROP ?
+        LocalizedText.get($r('app.string.preprocess_center_crop_prefix')) + this.recorderDraft.cropPercent + '%）' :
+        (this.recorderDraft.preprocMode === Const.VIDEO_PREPROC_DOWNSAMPLING ?
+          LocalizedText.get($r('app.string.preprocess_downsample_to_prefix')) + this.recorderDraft.downsamplingHeight + 'P' : Const.VIDEO_PREPROC_MODE[0]),
+      preprocessMode: this.recorderDraft.preprocMode,
+      sourceWidth: this.recorderDraft.resolution === 0 ? Const.VIDEO_WIDTH_4K :
+        (this.recorderDraft.resolution === 1 ? Const.VIDEO_WIDTH_1080P : Const.VIDEO_WIDTH_720P),
+      sourceHeight: this.recorderDraft.resolution === 0 ? Const.VIDEO_HEIGHT_4K :
+        (this.recorderDraft.resolution === 1 ? Const.VIDEO_HEIGHT_1080P : Const.VIDEO_HEIGHT_720P),
+      sourceFrameRate: this.recorderDraft.frameRate === 0 ? 30 : 60,
+      cropPercent: this.recorderDraft.cropPercent,
+      targetHeight: this.recorderDraft.downsamplingHeight,
+      secondaryHeight: this.recorderDraft.secondaryHeight,
+      secondaryEnabled: this.recorderDraft.dualOutput === 1,
+      dropToFrameRate: this.recorderDraft.dropFrameRate === 1 ? 30 : 0,
+      dropFrameRateText: Const.VIDEO_DROP_FRAME_RATE[this.recorderDraft.dropFrameRate],
+      dualOutputText: Const.DUAL_OUTPUT_MODE[this.recorderDraft.dualOutput],
+      onVideoDumpChanged: (enabled: boolean): void => { this.recorderDraft.videoDump = enabled; },
       onChooseOption: (option: RecorderSettingsOption): void => this.chooseRecorderOption(option),
       onCancel: (): void => { this.isRecorderSettingsVisible = false; },
       onRestoreDefaults: (): void => this.resetRecorderSettingsDraft(),
@@ -2259,80 +2154,8 @@ export struct Player {
   }
 
   private async saveRecorderOutput(): Promise<void> {
-    const context = this.getUIContext().getHostContext();
-    let helper = photoAccessHelper.getPhotoAccessHelper(context);
-    let fileExt = this.cameraData.outputFormat === Const.FORMAT_FLV ? 'flv' : 'mp4';
-    let uri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, fileExt, {
-      title: `AVCodecVideo_${DATETIME.getDate()}_${DATETIME.getTime()}`
-    });
-    const outputTitle: string = `AVCodecVideo_${DATETIME.getDate()}_${DATETIME.getTime()}.${fileExt}`;
-    this.cameraData.outputUri = uri;
-    this.cameraData.outputTitle = outputTitle;
-    let secondaryFile: fileIo.File | undefined = undefined;
-    if (this.cameraData.enableDualOutput) {
-      const secondaryUri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, fileExt, {
-        title: `AVCodecVideoSecondary_${DATETIME.getDate()}_${DATETIME.getTime()}`
-      });
-      this.cameraData.secondaryOutputUri = secondaryUri;
-      secondaryFile = await fileIo.open(secondaryUri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
-    } else {
-      this.cameraData.secondaryOutputUri = '';
-    }
     await this.checkIsProfileSupport();
-    let file = await fileIo.open(uri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
-    this.cameraData.outputfd = file.fd;
-    this.cameraData.secondaryOutputfd = secondaryFile === undefined ? -1 : secondaryFile.fd;
-    const dumpTimestamp: number = Date.now();
-    const dumpExtension: string = this.cameraData.videoCodecMime === Const.MIME_VIDEO_AVC ? 'h264' : 'h265';
-    const dumpDirectory: string = context === undefined ? '' : context.filesDir;
-    const primaryDumpPath: string = this.cameraData.enableVideoDump && dumpDirectory.length > 0 ?
-      `${dumpDirectory}/recording_${dumpTimestamp}_primary.${dumpExtension}` : '';
-    const secondaryDumpPath: string = this.cameraData.enableVideoDump && this.cameraData.enableDualOutput &&
-      dumpDirectory.length > 0 ?
-      `${dumpDirectory}/recording_${dumpTimestamp}_secondary.${dumpExtension}` : '';
-    if (this.cameraData.outputfd !== null) {
-      recorder.initNative(this.cameraData.outputfd, this.cameraData.videoCodecMime, this.cameraData.cameraWidth,
-        this.cameraData.cameraHeight, this.cameraData.frameRate, this.cameraData.isHDRVivid,
-        this.cameraData.bitRate, this.cameraData.format, this.cameraData.isSync,
-        this.cameraData.outputFormat, this.cameraData.bitrateMode, this.cameraData.iFrameInterval,
-        this.cameraData.audioSampleRate, this.cameraData.audioChannelCount,
-        this.cameraData.audioBitRate, this.cameraData.audioCaptureLatencyMode,
-        this.cameraData.secondaryOutputfd, this.cameraData.enableDualOutput ? 1 : 0,
-        this.cameraData.preprocMode, this.cameraData.downsamplingWidth,
-        this.cameraData.downsamplingHeight, this.cameraData.dropToFrameRate,
-        this.cameraData.cropLeft, this.cameraData.cropTop, this.cameraData.cropRight,
-        this.cameraData.cropBottom,
-        this.cameraData.enableDualOutput && this.cameraData.cameraWidth >= Const.VIDEO_WIDTH_1080P ?
-          Const.VIDEO_WIDTH_720P : this.cameraData.cameraWidth,
-        this.cameraData.enableDualOutput && this.cameraData.cameraHeight >= Const.VIDEO_HEIGHT_1080P ?
-          Const.VIDEO_HEIGHT_720P : this.cameraData.cameraHeight,
-        this.cameraData.enableVideoDump ? 1 : 0, primaryDumpPath, secondaryDumpPath).then((data) => {
-        if (data.code === 0 && data.outputId !== null) {
-          this.cameraData.outputId = data.outputId;
-          this.getUIContext().getRouter().pushUrl({
-            url: 'recorder/pages/Recorder',
-            params: this.cameraData
-          });
-        } else {
-          Logger.error(TAG, 'Recorder initialization failed, code: ' + data.code);
-          try {
-            fileIo.close(file);
-            if (secondaryFile !== undefined) {
-              fileIo.close(secondaryFile);
-            }
-          } catch (error) {
-            Logger.error(TAG, 'Close unsupported recorder output failed: ' + JSON.stringify(error));
-          }
-          this.getUIContext().getPromptAction().showToast({
-            message: $r('app.string.recorder_configuration_unsupported'),
-            duration: Const.DURATION,
-            bottom: Const.BOTTOM
-          });
-        }
-      })
-    } else {
-      Logger.error(TAG, 'get outputfd failed!');
-    }
+    await this.recorderLaunch.launch(this.getUIContext(), this.cameraData);
   }
 
   @Builder
@@ -2345,7 +2168,7 @@ export struct Player {
     LibraryPage({
       recentEntries: this.recentEntries,
       queueEntries: this.queueEntries,
-      queueIndex: this.queueIndex,
+      queueIndex: this.playbackQueue.index,
       buttonEnabled: this.buttonEnabled,
       recentPositionPrefix: this.getSettingText($r('app.string.playback_recent_position')),
       recentCompletedText: this.getSettingText($r('app.string.playback_recent_completed')),
@@ -2357,8 +2180,8 @@ export struct Player {
         void this.selectQueueFiles();
       },
       onClearQueue: (): void => {
-        this.queuePaths = [];
-        this.queueIndex = -1;
+        this.playbackQueue.paths = [];
+        this.playbackQueue.index = -1;
         this.queueEntries = [];
       },
       onPlayQueueEntry: (index: number): void => this.playQueueEntry(index),
@@ -2374,7 +2197,7 @@ export struct Player {
         cameraHeight: this.cameraData.cameraHeight,
         frameRate: this.cameraData.frameRate,
         buttonEnabled: this.buttonEnabled,
-      recordingEntries: this.recordingEntries,
+        refreshToken: this.recordingHistoryRevision,
         onOpenSettings: (): void => {
           this.prepareRecorderSettings();
           this.isRecorderSettingsVisible = true;
@@ -2407,8 +2230,45 @@ export struct Player {
   }
 
   @Builder
+  TranscodeHomePage() {
+    TranscodePage({ model: this.transcodeModel })
+  }
+
+  @Builder
   DeviceDiagnosticsHomePage() {
-    DeviceDiagnosticsPage({ model: this.playbackViewModel })
+    DeviceDiagnosticsPage({
+      configurationReady: this.configurationReady,
+      configurationNotice: this.configurationNotice,
+      configurationRevision: this.configurationRevision,
+      onPreset: (index: number): void => { void this.selectConfiguration(index); },
+      onSaveConfiguration: (): void => { void this.persistConfiguration(true); },
+      onLoadConfiguration: (): void => { void this.selectConfiguration(-1); },
+      onDumpPolicyChanged: (): void => { void this.persistConfiguration(); },
+      model: this.playbackViewModel,
+      cameraData: this.cameraData,
+      selectedDecoder: this.selectedDecoderName,
+      selectedEncoder: this.selectedEncoderName,
+      onChooseCodec: (item: DeviceCodecCapability): void => {
+        if (item.codecType === 1) {
+          this.selectedDecoderName = item.codecName;
+          this.playerSettings.videoCodecName = item.codecName;
+        } else if (item.codecType === 0) {
+          if (this.cameraData.preprocMode !== 0 || this.cameraData.enableDualOutput ||
+            this.cameraData.dropToFrameRate > 0) {
+            this.getUIContext().getPromptAction().showToast({ message: LocalizedText.get($r('app.string.configuration_special_codec_name')) });
+            return;
+          }
+          this.selectedEncoderName = item.codecName;
+          this.cameraData.videoCodecName = item.codecName;
+        }
+      },
+      onClearCodecs: (): void => {
+        this.selectedDecoderName = '';
+        this.selectedEncoderName = '';
+        this.playerSettings.videoCodecName = '';
+        this.cameraData.videoCodecName = '';
+      }
+    })
   }
 
   @Builder
@@ -2425,7 +2285,7 @@ export struct Player {
   QueuePanel() {
     PlayerQueueSheet({
       queueEntries: this.queueEntries,
-      queueIndex: this.queueIndex,
+      queueIndex: this.playbackQueue.index,
       recentEntries: this.recentEntries,
       playbackMode: this.playbackMode,
       autoRecoveryEnabled: this.autoRecoveryEnabled,
@@ -2436,8 +2296,8 @@ export struct Player {
       onRecoveryChanged: (enabled: boolean): void => { this.autoRecoveryEnabled = enabled; },
       onAddQueue: (): void => { void this.selectQueueFiles(); },
       onClearQueue: (): void => {
-        this.queuePaths = [];
-        this.queueIndex = -1;
+        this.playbackQueue.paths = [];
+        this.playbackQueue.index = -1;
         this.queueEntries = [];
       },
       onPlayQueueEntry: (index: number): void => this.playQueueEntry(index),
@@ -2485,7 +2345,6 @@ export struct Player {
         onAccept: (value: TextPickerResult): void => {
           const transformIndex: number = getPickerSelectedIndex(value.index)
           if (isPickerIndexValid(transformIndex, Const.TRANSFORM_TYPE_COUNT)) {
-            this.transformType = transformIndex
             this.setTransform(transformIndex)
           }
         }
@@ -2578,6 +2437,11 @@ export struct Player {
     Stack({ alignContent: Alignment.TopEnd }) {
       PlayerSurface({
         controller: this.xComponentController,
+        sourceWidth: this.videoSourceWidth,
+        sourceHeight: this.videoSourceHeight,
+        sourceRotation: this.videoSourceRotation,
+        transformType: this.transformType,
+        displayMode: this.displayScaleMode,
         onAreaChanged: (_oldArea: Area, newArea: Area): void => this.updatePlaybackWindowWidth(newArea)
       })
       PlayerStatusOverlay({
@@ -2592,6 +2456,10 @@ export struct Player {
         subtitleBackgroundColor: this.subtitleStyle.backgroundColor(),
         subtitleAtBottom: this.subtitleStyle.positionIndex === 0
       })
+      if (this.playbackFailureText.length > 0) {
+        Text(this.playbackFailureText).fontSize(12).fontColor('#FDA29B')
+          .width('100%').padding(12).backgroundColor('#CC101828')
+      }
       PlaybackDiagnosticsOverlay({
         model: this.playbackViewModel,
         diagnosticsVisible: this.isDiagnosticsVisible,
@@ -2728,6 +2596,7 @@ export struct Player {
         playerContent: (): void => this.PlayerPageContent(),
         libraryContent: (): void => this.MediaLibraryPage(),
         recorderContent: (): void => this.RecorderHomePage(),
+        transcodeContent: (): void => this.TranscodeHomePage(),
         deviceContent: (): void => this.DeviceDiagnosticsHomePage(),
         navigationContent: (): void => this.MainNavigationContent()
       })

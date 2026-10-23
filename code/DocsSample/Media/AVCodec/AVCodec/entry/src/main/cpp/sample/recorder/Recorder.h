@@ -29,6 +29,10 @@
 #include "muxer.h"
 #include "sample_info.h"
 #include "audio_capturer.h"
+#include "RecorderDumpWriter.h"
+#include "RecorderOutputStats.h"
+#include "SessionReport.h"
+#include "RecorderAudioStats.h"
 
 class Recorder {
 public:
@@ -49,17 +53,30 @@ public:
     int32_t StopStart();
     // 等待后台收尾完成并释放录制资源；完成前不能启动下一次录制。
     int32_t StopEnd();
+    OperationFailureInfo GetFailure() const { return failure_.Snapshot(); }
+    bool IsSessionActive() const { return sessionActive_.load(); }
+    SessionReportInfo GetSessionReport() const { return sessionReport_.Snapshot(); }
+    RecorderAudioInfo GetAudioStats() const { return audioStats_.Snapshot(); }
+    void MarkStage(const std::string &id, const std::string &stage, const std::string &result);
+    int32_t UpdateVideoParameters(const std::string &sessionId, bool primary, int64_t bitrate, bool requestKeyFrame);
+    RecorderStreamInfo GetOutputStats(bool primary) const
+    {
+        return primary ? primaryStats_.Snapshot() : secondaryStats_.Snapshot();
+    }
 
 private:
     void VideoEncOutputAsyncThread(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer, bool isPrimary);
     void VideoEncOutputSyncThread(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer, bool isPrimary);
     bool ProcessVideoOutputBuffer(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer,
-        CodecBufferInfo &bufferInfo, bool isPrimary);
+        CodecBufferInfo &bufferInfo, bool isPrimary, int64_t receivedAtUs);
+    void RefreshStreamStorage(bool primary, bool force = false);
+    void CaptureEncoderDescription(bool primary);
     void FinishVideoOutputThread(CodecUserData *context, bool isPrimary);
     void AudioEncInputThread();
     void AudioEncOutputThread();
     void AudioEncInputSyncThread();
     void AudioEncOutputSyncThread();
+    bool ProcessAudioOutputBuffer(CodecBufferInfo &bufferInfo);
     void ReleaseThread();
     void Release();
     void ReleaseVideoEncoder();
@@ -101,11 +118,16 @@ private:
     std::atomic<bool> isVideoEos_{false};
     std::atomic<bool> isSecondaryVideoEos_{false};
     std::atomic<bool> isAudioEos_{false};
+    std::atomic<bool> primaryEosReceived_{false};
+    std::atomic<bool> secondaryEosReceived_{false};
+    std::atomic<bool> audioEosReceived_{false};
     std::atomic<bool> isStopping_{false};
     std::condition_variable videoEosCond_;
     std::mutex videoEosMutex_;
     std::atomic<bool> isStarted_{false};
+    std::atomic<bool> sessionActive_{false};
     int32_t isAudioEncFirstFrame_ = true;
+    int64_t audioSubmittedFrames_ = 0;
     std::unique_ptr<std::thread> encOutputThread_ = nullptr;
     std::unique_ptr<std::thread> secondaryEncOutputThread_ = nullptr;
     std::unique_ptr<std::thread> audioEncInputThread_ = nullptr;
@@ -121,8 +143,17 @@ private:
     CodecUserData *secondaryEncContext_ = nullptr;
     CodecUserData *audioEncContext_ = nullptr;
 
-    std::ofstream primaryVideoDumpFile_;
-    std::ofstream secondaryVideoDumpFile_;
+    RecorderDumpWriter primaryDump_;
+    RecorderDumpWriter secondaryDump_;
+    OperationFailure failure_;
+    RecorderOutputStats primaryStats_;
+    RecorderOutputStats secondaryStats_;
+    SessionReport sessionReport_;
+    RecorderAudioStats audioStats_;
+    int64_t primaryStorageAtUs_ = 0;
+    int64_t secondaryStorageAtUs_ = 0;
+    int64_t primaryFileBytes_ = -1;
+    int64_t secondaryFileBytes_ = -1;
 
     std::unique_ptr<AudioCapturer> audioCapturer_ = nullptr;
 };

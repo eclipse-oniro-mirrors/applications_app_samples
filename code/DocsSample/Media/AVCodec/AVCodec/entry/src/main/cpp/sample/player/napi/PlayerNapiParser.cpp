@@ -115,6 +115,34 @@ bool ReadOptionalDoubleProperty(napi_env env, napi_value object, const char *nam
     return true;
 }
 
+bool ParseDiagnosticOptions(napi_env env, napi_value options, SampleInfo &sampleInfo)
+{
+    napi_value name = nullptr;
+    bool hasName = false;
+    napi_has_named_property(env, options, "videoCodecName", &hasName);
+    if (hasName) {
+        char codecName[256] = {};
+        size_t length = 0;
+        if (napi_get_named_property(env, options, "videoCodecName", &name) != napi_ok ||
+            napi_get_value_string_utf8(env, name, codecName, sizeof(codecName), &length) != napi_ok ||
+            length >= sizeof(codecName) - 1) {
+            napi_throw_type_error(env, nullptr, "Invalid codec name");
+            return false;
+        }
+        sampleInfo.codec.codecName.assign(codecName, length);
+    }
+    if (!ReadOptionalInt32Property(env, options, "dumpMaxMiB", sampleInfo.output.dumpMaxMiB) ||
+        !ReadOptionalInt32Property(env, options, "dumpMaxSeconds", sampleInfo.output.dumpMaxSeconds)) {
+        return false;
+    }
+    if (sampleInfo.output.dumpMaxMiB < 0 || sampleInfo.output.dumpMaxMiB > 1024 ||
+        sampleInfo.output.dumpMaxSeconds < 0 || sampleInfo.output.dumpMaxSeconds > 300) {
+        napi_throw_range_error(env, nullptr, "Dump limits out of range");
+        return false;
+    }
+    return true;
+}
+
 bool ParsePlayOptions(napi_env env, napi_value options, SampleInfo &sampleInfo)
 {
     napi_valuetype type = napi_undefined;
@@ -142,6 +170,9 @@ bool ParsePlayOptions(napi_env env, napi_value options, SampleInfo &sampleInfo)
         if (parsed) {
             napi_throw_range_error(env, nullptr, "audioVolume must be in the range [0, 1]");
         }
+        return false;
+    }
+    if (!ParseDiagnosticOptions(env, options, sampleInfo)) {
         return false;
     }
     sampleInfo.audioPlayback.volume = static_cast<float>(audioVolume);

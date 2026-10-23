@@ -429,6 +429,8 @@ static napi_value Init(napi_env env, napi_value exports)
             nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getMediaInfo", nullptr, PlayerNative::GetMediaInfo,
             nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"checkVideoCapability", nullptr, DeviceCodecCapabilityNative::CheckVideo,
+            nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getDeviceCodecCapabilities", nullptr, DeviceCodecCapabilityNative::GetAll,
             nullptr, nullptr, nullptr, napi_default, nullptr},
         {"isSmartFluencyAvailable", nullptr, PlayerNative::IsSmartFluencyAvailable,

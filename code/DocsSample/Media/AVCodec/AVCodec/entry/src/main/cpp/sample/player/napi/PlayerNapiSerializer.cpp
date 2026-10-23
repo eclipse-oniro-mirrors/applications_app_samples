@@ -67,7 +67,31 @@ bool SetStringProperty(napi_env env, napi_value object, const char *name, const 
 bool PopulateDiagnostics(napi_env env, napi_value object, const PlaybackDiagnosticsInfo &info)
 {
     napi_value diagnostics = nullptr;
+    napi_value events = nullptr;
+    if (napi_create_array_with_length(env, info.events.size(), &events) != napi_ok) {
+        return false;
+    }
+    for (size_t index = 0; index < info.events.size(); ++index) {
+        const auto &event = info.events[index];
+        napi_value entry = nullptr;
+        if (napi_create_object(env, &entry) != napi_ok ||
+            !SetInt64Property(env, entry, "sequence", static_cast<int64_t>(event.sequence)) ||
+            !SetInt64Property(env, entry, "seekId", static_cast<int64_t>(event.seekId)) ||
+            !SetInt64Property(env, entry, "elapsedUs", event.elapsedUs) ||
+            !SetInt64Property(env, entry, "mediaUs", event.mediaUs) ||
+            !SetStringProperty(env, entry, "stage", event.stage) ||
+            napi_set_element(env, events, static_cast<uint32_t>(index), entry) != napi_ok) {
+            return false;
+        }
+    }
     return napi_create_object(env, &diagnostics) == napi_ok &&
+        SetStringProperty(env, diagnostics, "sessionId", info.sessionId) &&
+        SetStringProperty(env, diagnostics, "requestedConfiguration", info.requestedConfiguration) &&
+        SetStringProperty(env, diagnostics, "observedConfiguration", info.observedConfiguration) &&
+        napi_set_named_property(env, diagnostics, "events", events) == napi_ok &&
+        SetDoubleProperty(env, diagnostics, "presentCallP95Us", info.presentCallP95Us) &&
+        SetDoubleProperty(env, diagnostics, "presentCallMaxUs", info.presentCallMaxUs) &&
+        SetInt64Property(env, diagnostics, "presentCallSamples", static_cast<int64_t>(info.presentCallSamples)) &&
         SetBoolProperty(env, diagnostics, "syncAvailable", info.syncAvailable) &&
         SetInt64Property(env, diagnostics, "avOffsetUs", info.avOffsetUs) &&
         SetDoubleProperty(env, diagnostics, "averageAbsoluteOffsetUs", info.averageAbsoluteOffsetUs) &&
@@ -87,6 +111,17 @@ bool PopulateDiagnostics(napi_env env, napi_value object, const PlaybackDiagnost
 
 bool PopulatePlaybackInfo(napi_env env, napi_value object, const PlaybackInfo &info)
 {
+    napi_value failure = nullptr;
+    if (napi_create_object(env, &failure) != napi_ok ||
+        !SetStringProperty(env, failure, "stage", info.failure.stage) ||
+        !SetInt32Property(env, failure, "code", info.failure.code) ||
+        !SetStringProperty(env, failure, "message", info.failure.message) ||
+        !SetStringProperty(env, failure, "mime", info.failure.mime) ||
+        !SetStringProperty(env, failure, "codecName", info.failure.codecName) ||
+        !SetInt32Property(env, failure, "runMode", info.failure.runMode) ||
+        napi_set_named_property(env, object, "failure", failure) != napi_ok) {
+        return false;
+    }
     napi_value sinkDiagnostics = nullptr;
     if (napi_create_object(env, &sinkDiagnostics) != napi_ok ||
         !SetBoolProperty(env, sinkDiagnostics, "available", info.videoSinkDiagnostics.available) ||

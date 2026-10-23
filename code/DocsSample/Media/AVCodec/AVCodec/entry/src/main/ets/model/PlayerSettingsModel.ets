@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { DumpPolicyModel } from './DumpPolicyModel';
 import { CommonConstants as Const } from '../common/CommonConstants';
 
 export interface PlayerSourceOptions {
@@ -23,6 +24,9 @@ export interface PlayerSourceOptions {
 }
 
 export interface PlayerOptions extends PlayerSourceOptions {
+  videoCodecName: string;
+  dumpMaxMiB: number;
+  dumpMaxSeconds: number;
   videoDecoderType: number;
   videoDecoderRunMode: number;
   videoDecoderSyncMode: number;
@@ -37,6 +41,7 @@ export interface PlayerOptions extends PlayerSourceOptions {
 }
 
 export class PlayerSettingsModel {
+  public videoCodecName: string = '';
   public videoDecoderType: number = 0;
   public videoDecoderRunMode: number = 0;
   public videoDecoderSyncMode: number = 0;
@@ -75,7 +80,7 @@ export class PlayerSettingsModel {
     this.videoDecoderType = decoderType;
     this.videoDecoderRunMode = runMode;
     this.videoDecoderSyncMode = syncMode;
-    this.enableVideoDump = dumpMode === 1;
+    this.enableVideoDump = dumpMode === 1 && runMode === Const.VIDEO_DECODER_RUN_MODE_BUFFER;
     this.retainLastFrame = lastFrameMode === 0;
     this.enableLowLatency = lowLatencyMode === 1;
     this.outputInDecodingOrder = decodingOrderMode === 1;
@@ -88,6 +93,9 @@ export class PlayerSettingsModel {
 
   createPlayOptions(source: PlayerSourceOptions): PlayerOptions {
     const options: PlayerOptions = {
+      videoCodecName: this.videoCodecName,
+      dumpMaxMiB: DumpPolicyModel.maxMiB,
+      dumpMaxSeconds: DumpPolicyModel.maxSeconds,
       inputFileFd: source.inputFileFd,
       inputFileOffset: source.inputFileOffset,
       inputFileSize: source.inputFileSize,
@@ -95,7 +103,7 @@ export class PlayerSettingsModel {
       videoDecoderType: this.videoDecoderType,
       videoDecoderRunMode: this.videoDecoderRunMode,
       videoDecoderSyncMode: this.videoDecoderSyncMode,
-      enableVideoDump: this.enableVideoDump,
+      enableVideoDump: this.enableVideoDump && this.videoDecoderRunMode === Const.VIDEO_DECODER_RUN_MODE_BUFFER,
       retainLastFrame: this.retainLastFrame,
       enableLowLatency: this.enableLowLatency,
       outputInDecodingOrder: this.outputInDecodingOrder,

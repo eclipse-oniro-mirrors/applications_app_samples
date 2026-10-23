@@ -391,18 +391,10 @@ bool VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
         switch (ret) {
             case AV_ERR_OK: {
                 OH_AVBuffer *buffer = OH_VideoEncoder_GetOutputBuffer(encoder_, info.bufferIndex);
-                if (buffer == nullptr) {
-                    const int32_t freeRet = OH_VideoEncoder_FreeOutputBuffer(encoder_, info.bufferIndex);
-                    AVCODEC_SAMPLE_LOGE("Output buffer is null, free ret: %{public}d", freeRet);
-                    return false;
-                }
+                CHECK_AND_RETURN_RET_LOG(buffer != nullptr, false, "Output buffer is null");
                 const OH_AVErrCode getBufferRet = OH_AVBuffer_GetBufferAttr(buffer, &info.attr);
-                if (getBufferRet != AV_ERR_OK) {
-                    const int32_t freeRet = OH_VideoEncoder_FreeOutputBuffer(encoder_, info.bufferIndex);
-                    AVCODEC_SAMPLE_LOGE("Get buffer attr error, ret: %{public}d, free ret: %{public}d", getBufferRet,
-                        freeRet);
-                    return false;
-                }
+                CHECK_AND_RETURN_RET_LOG(getBufferRet == AV_ERR_OK, false,
+                    "Get buffer attr error, ret: %{public}d", getBufferRet);
                 info.buffer = buffer;
                 return true;
                 // 开发者可根据业务需要，对输出数据进行保存/释放处理。

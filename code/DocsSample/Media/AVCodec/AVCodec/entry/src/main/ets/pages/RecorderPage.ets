@@ -14,7 +14,9 @@
  */
 
 import { RecorderOverview } from '../components/recorder/RecorderOverview';
-import { RecordingHistoryEntry } from '../model/RecordingHistoryModel';
+import { RecordingHistoryEntry, RecordingHistoryModel } from '../model/RecordingHistoryModel';
+import { common } from '@kit.AbilityKit';
+import Logger from '../common/utils/Logger';
 
 @Component
 export struct RecorderPage {
@@ -22,7 +24,24 @@ export struct RecorderPage {
   @Prop cameraHeight: number = 0;
   @Prop frameRate: number = 0;
   @Prop buttonEnabled: boolean = true;
-  @Prop recordingEntries: RecordingHistoryEntry[] = [];
+  @State private recordingEntries: RecordingHistoryEntry[] = [];
+  @Prop @Watch('refreshHistory') refreshToken: number = 0;
+  private history: RecordingHistoryModel = new RecordingHistoryModel();
+  private loading: number = 0;
+
+  aboutToAppear(): void { this.refreshHistory(); }
+  aboutToDisappear(): void { this.loading++; }
+
+  private refreshHistory(): void { void this.loadHistory(); }
+
+  private async loadHistory(): Promise<void> {
+    const request: number = ++this.loading;
+    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    try {
+      await this.history.load(context);
+      if (request === this.loading) { this.recordingEntries = this.history.getEntries(); }
+    } catch (error) { Logger.warn('RecorderPage', JSON.stringify(error)); }
+  }
   onOpenSettings: () => void = (): void => {};
   onStartRecording: () => void = (): void => {};
   onPlayRecording: (uri: string) => void = (_uri: string): void => {};

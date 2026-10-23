@@ -26,6 +26,11 @@ export enum PlayerState {
 export type PlaybackCompletionReason = 'completed' | 'stopped' | 'error'
 
 export interface PlayOptions {
+  videoCodecName?: string;
+  /** Dump 文件大小上限（MiB）；0 表示不限。 */
+  dumpMaxMiB?: number;
+  /** Dump 写入时长上限（秒）；0 表示不限。 */
+  dumpMaxSeconds?: number;
   inputFileFd: number;
   inputFileOffset: number;
   inputFileSize: number;
@@ -85,7 +90,22 @@ export const selectAudioTrack: (trackIndex: number) => boolean
 
 export const getState: () => PlayerState
 
+export interface PlaybackTimelineEvent {
+  sequence: number;
+  seekId: number;
+  elapsedUs: number;
+  mediaUs: number;
+  stage: string;
+}
+
 export interface PlaybackDiagnostics {
+  sessionId: string;
+  requestedConfiguration: string;
+  observedConfiguration: string;
+  events: PlaybackTimelineEvent[];
+  presentCallP95Us: number;
+  presentCallMaxUs: number;
+  presentCallSamples: number;
   syncAvailable: boolean;
   avOffsetUs: number;
   averageAbsoluteOffsetUs: number;
@@ -103,7 +123,36 @@ export interface PlaybackDiagnostics {
   backgroundPaused: boolean;
 }
 
+export interface PlaybackFailure {
+  stage: string;
+  code: number;
+  message: string;
+  mime: string;
+  codecName: string;
+  runMode: number;
+}
+
+export interface VideoCapabilityRequest {
+  codecName: string;
+  mimeType: string;
+  codecType: number;
+  width: number;
+  height: number;
+  frameRate: number;
+}
+
+export interface VideoCapabilityCheck {
+  supported: boolean;
+  sizeSupported: boolean;
+  frameRateRangeAvailable: boolean;
+  frameRateRange: DeviceCodecCapabilityRange;
+  reason: string;
+}
+
+export const checkVideoCapability: (request: VideoCapabilityRequest) => VideoCapabilityCheck
+
 export interface PlaybackInfo {
+  failure: PlaybackFailure;
   state: PlayerState;
   speed: number;
   durationUs: number;

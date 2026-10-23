@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { LocalizedText } from '../../common/LocalizedText';
 import { RecorderPreview } from './RecorderPreview';
 import { RecorderControlBar } from './RecorderControlBar';
 import { RecordingHistoryEntry } from '../../model/RecordingHistoryModel';
@@ -40,7 +41,7 @@ export struct RecorderOverview {
 
   private formatRecordingDuration(durationSeconds: number): string {
     const minutes: number = Math.floor(durationSeconds / 60);
-    const seconds: string = (durationSeconds % 60).toString().padStart(2, '0');
+    const seconds: string = Math.floor(durationSeconds % 60).toString().padStart(2, '0');
     return `${minutes}:${seconds}`;
   }
 
@@ -52,12 +53,32 @@ export struct RecorderOverview {
           .fontColor('#182431').maxLines(1).textOverflow({ overflow: TextOverflow.Ellipsis })
         Text(`${this.formatRecordingDate(entry.recordedAt)} · ${this.formatRecordingDuration(entry.durationSeconds)}`)
           .width('100%').fontSize('12fp').fontColor('#66727D')
+        if ((entry.primarySummary ?? '').length > 0) {
+          Text(LocalizedText.get($r('app.string.recorder_primary_prefix')) + entry.primarySummary).width('100%').fontSize(11).fontColor('#66727D')
+        }
+        if ((entry.secondarySummary ?? '').length > 0) {
+          Text(LocalizedText.get($r('app.string.recorder_secondary_prefix')) + entry.secondarySummary).width('100%').fontSize(11).fontColor('#66727D')
+        }
       }
       .layoutWeight(1)
-      Button($r('app.string.recording_play'))
+      Column({ space: 6 }) {
+      if ((entry.sessionId ?? '').length > 0) {
+        Button($r('app.string.rec_result_open')).height(34).fontSize(11)
+          .onClick((): void => {
+            void this.getUIContext().getRouter().pushUrl({ url: 'recorder/pages/RecordingResult',
+              params: { sessionId: entry.sessionId } });
+          })
+      }
+      Button(entry.secondaryUri.length > 0 ? LocalizedText.get($r('app.string.recorder_primary')) : $r('app.string.recording_play'))
         .height('34vp')
         .fontSize('11fp')
+        .enabled(entry.uri.length > 0)
         .onClick((): void => this.onPlayRecording(entry.uri))
+      if (entry.secondaryUri.length > 0) {
+        Button(LocalizedText.get($r('app.string.recorder_secondary'))).height('34vp').fontSize('11fp')
+          .onClick((): void => this.onPlayRecording(entry.secondaryUri))
+      }
+      }
     }
     .width('100%')
     .padding('10vp')
@@ -106,7 +127,7 @@ export struct RecorderOverview {
               .padding({ top: '14vp', bottom: '14vp' })
           } else {
             ForEach(this.recordingEntries, (entry: RecordingHistoryEntry) => this.recordingEntryView(entry),
-              (entry: RecordingHistoryEntry) => entry.uri)
+              (entry: RecordingHistoryEntry) => entry.sessionId || entry.uri)
           }
         }
         .width('100%')

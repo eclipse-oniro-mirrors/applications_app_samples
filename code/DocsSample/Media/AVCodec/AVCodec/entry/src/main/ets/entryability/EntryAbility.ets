@@ -18,9 +18,11 @@ import { BusinessError } from '@kit.BasicServicesKit'
 import { window } from '@kit.ArkUI'
 import Logger from '../common/utils/Logger'
 import player from 'libplayer.so'
+import { LocalizedText } from '../common/LocalizedText'
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    LocalizedText.bind(this.context.resourceManager);
     Logger.info('Ability onCreate');
     globalThis.context = this.context;
   }

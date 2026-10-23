@@ -80,7 +80,8 @@ bool GetDumpByteCount(const SampleInfo &sampleInfo, const CodecUserData *videoDe
     }
     switch (pixelFormat) {
         case AV_PIXEL_FORMAT_YUVI420:
-            if (height % YUV420_SAMPLE_RATIO != 0 || heightStride % YUV420_SAMPLE_RATIO != 0 ||
+            if (videoDecContext->width % YUV420_SAMPLE_RATIO != 0 ||
+                height % YUV420_SAMPLE_RATIO != 0 || heightStride % YUV420_SAMPLE_RATIO != 0 ||
                 stride % YUV420_SAMPLE_RATIO != 0) {
                 return false;
             }
@@ -88,17 +89,17 @@ bool GetDumpByteCount(const SampleInfo &sampleInfo, const CodecUserData *videoDe
             return true;
         case AV_PIXEL_FORMAT_NV12:
         case AV_PIXEL_FORMAT_NV21:
-            if (height % YUV420_SAMPLE_RATIO != 0) {
+            if (videoDecContext->width % YUV420_SAMPLE_RATIO != 0 || height % YUV420_SAMPLE_RATIO != 0) {
                 return false;
             }
-            byteCount = heightStride * stride + height * width / YUV420_SAMPLE_RATIO;
+            byteCount = heightStride * stride + (height / YUV420_SAMPLE_RATIO - 1) * stride + width;
             return true;
         case AV_PIXEL_FORMAT_RGBA1010102:
         case AV_PIXEL_FORMAT_RGBA:
-            if (width * RGBA_BYTES_PER_PIXEL > stride) {
+            if (static_cast<uint64_t>(videoDecContext->width) * RGBA_BYTES_PER_PIXEL > stride) {
                 return false;
             }
-            byteCount = heightStride * stride;
+            byteCount = (height - 1) * stride + static_cast<uint64_t>(videoDecContext->width) * RGBA_BYTES_PER_PIXEL;
             return true;
         default:
             return false;
@@ -136,20 +137,6 @@ bool ShouldProbeHdrVividSurface(uint64_t outputFrameCount)
             outputFrameCount % HDR_VIVID_SURFACE_PROBE_INTERVAL == 0);
 }
 
-bool ReleaseVideoBufferAfterFailure(VideoDecoder *decoder, const CodecBufferInfo &bufferInfo,
-    const char *reason)
-{
-    if (decoder == nullptr || bufferInfo.buffer == nullptr) {
-        AVCODEC_SAMPLE_LOGE("%{public}s: decoder buffer is unavailable", reason);
-        return false;
-    }
-    if (decoder->FreeOutputBuffer(bufferInfo, false) != AVCODEC_SAMPLE_ERR_OK) {
-        AVCODEC_SAMPLE_LOGW("%{public}s: free video output buffer failed", reason);
-        return false;
-    }
-    return true;
-}
-
 bool UsesBufferMetadataPresentation(const SampleInfo &sampleInfo, const VideoSink *sink)
 {
     if (sampleInfo.codec.codecRunMode == BUFFER) {
@@ -166,36 +153,106 @@ bool IsVulkanSurfaceChainReady(const SampleInfo &sampleInfo, const VideoSink *si
 }
 } // 匿名命名空间
 
+bool Player::CheckDumpLimit(uint64_t frameBytes)
+{
+    constexpr uint64_t bytesPerMiB = 1024 * 1024;
+    const auto elapsed = std::chrono::steady_clock::now() - dumpStarted_;
+    const auto position = outputFile_->tellp();
+    const uint64_t maxBytes = static_cast<uint64_t>(sampleInfo_.output.dumpMaxMiB) * bytesPerMiB;
+    const bool sizeExceeded = maxBytes > 0 && (static_cast<uint64_t>(position) > maxBytes ||
+        frameBytes > maxBytes - static_cast<uint64_t>(position));
+    const bool durationExceeded = sampleInfo_.output.dumpMaxSeconds > 0 &&
+        std::chrono::duration_cast<std::chrono::seconds>(elapsed).count() >= sampleInfo_.output.dumpMaxSeconds;
+    if (position < 0 || sizeExceeded || durationExceeded) {
+        dumpSession_.Stop(position < 0 ? "write_failed" : (sizeExceeded ? "size_limit" : "duration_limit"));
+        sampleInfo_.output.enableVideoDump = false;
+        outputFile_->close();
+        return false;
+    }
+    if (!dumpSession_.CanWrite(frameBytes)) {
+        sampleInfo_.output.enableVideoDump = false;
+        outputFile_->close();
+        return false;
+    }
+    return true;
+}
+
+void Player::WriteDumpLayout(OH_AVPixelFormat format)
+{
+    std::ofstream description(sampleInfo_.output.outputFilePath + ".layout.txt", std::ios::trunc);
+    const bool rgba = format == AV_PIXEL_FORMAT_RGBA || format == AV_PIXEL_FORMAT_RGBA1010102;
+    const int32_t componentBytes = !rgba && IsTenBitOutput(sampleInfo_, videoDecContext_.get()) ? 2 : 1;
+    description << "format=" << ToString(format) << "\nwidth=" << videoDecContext_->width
+        << "\nheight=" << videoDecContext_->height << "\ncomponentBytes=" << componentBytes
+        << "\nsourceStrideBytes=" << videoDecContext_->widthStride
+        << "\nsourceSliceHeight=" << videoDecContext_->heightStride
+        << "\nfileRowBytes=" << videoDecContext_->width * (rgba ? RGBA_BYTES_PER_PIXEL : componentBytes)
+        << "\nrotation=" << sampleInfo_.video.rotation
+        << "\nlayout=packed rows, no padding; I420: Y/U/V, NV12: Y/UV, NV21: Y/VU; "
+        << "10-bit NV output uses 16-bit little-endian components; RGBA1010102: packed 32-bit\n";
+}
+
 void Player::DumpOutput(CodecBufferInfo &bufferInfo)
 {
     auto &info = sampleInfo_;
+    if (bufferInfo.attr.size <= 0) {
+        return;
+    }
     const bool usesSurfaceDecoder = videoSink_ != nullptr && videoSink_->UsesSurfaceDecoder();
     if (!IsBufferBasedRunMode(info.codec.codecRunMode) || usesSurfaceDecoder || !info.output.enableVideoDump) {
         return;
     }
     // [Start decoder_outputFile]
     const OH_AVPixelFormat pixelFormat = GetOutputPixelFormat(info, videoDecContext_.get());
-    if (outputFile_ == nullptr) {
-        auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-        if (info.output.outputFilePath.empty()) {
-            info.output.outputFilePath = "/data/storage/el2/base/haps/entry/files/VideoDecoderOut_"s +
-                ToString(pixelFormat) + "_" + std::to_string(info.video.videoWidth) + "_" +
-                std::to_string(info.video.videoHeight) + "_" + std::to_string(time) + ".yuv";
-        }
-        outputFile_ = std::make_unique<std::ofstream>(info.output.outputFilePath, std::ios::out | std::ios::trunc);
-        if (!outputFile_->is_open()) {
-            outputFile_ = nullptr;
-            AVCODEC_SAMPLE_LOGE("Output file open failed");
-            return;
-        }
-    }
-    // [End decoder_outputFile]
-
     uint64_t dumpByteCount = 0;
     CHECK_AND_RETURN_LOG(GetDumpByteCount(info, videoDecContext_.get(), pixelFormat, dumpByteCount),
         "Invalid video output layout");
     uint8_t *bufferAddr = GetBufferDataAddr(bufferInfo, dumpByteCount);
     CHECK_AND_RETURN_LOG(bufferAddr != nullptr, "Buffer is nullptr");
+    if (outputFile_ == nullptr) {
+        const auto time = std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::system_clock::now().time_since_epoch()).count();
+        if (info.output.outputFilePath.empty()) {
+            info.output.outputFilePath = "/data/storage/el2/base/haps/entry/files/VideoDecoderOut_"s +
+                ToString(pixelFormat) + "_" + std::to_string(info.video.videoWidth) + "_" +
+                std::to_string(info.video.videoHeight) + "_" + std::to_string(time) + ".yuv";
+        }
+        dumpStarted_ = std::chrono::steady_clock::now();
+        outputFile_ = std::make_unique<std::ofstream>(info.output.outputFilePath,
+            std::ios::out | std::ios::binary | std::ios::trunc);
+        dumpSession_.Open(info.output.outputFilePath, "sessionId=" + info.output.sessionId +
+            "\nmime=" + info.video.videoCodecMime +
+            "\nmaxMiB=" + std::to_string(info.output.dumpMaxMiB) +
+            "\nmaxSeconds=" + std::to_string(info.output.dumpMaxSeconds));
+        if (!outputFile_->is_open()) {
+            dumpSession_.Stop("open_failed");
+            info.output.enableVideoDump = false;
+            outputFile_ = nullptr;
+            AVCODEC_SAMPLE_LOGE("Output file open failed");
+            return;
+        }
+        WriteDumpLayout(pixelFormat);
+    }
+    // [End decoder_outputFile]
+
+    const bool rgba = pixelFormat == AV_PIXEL_FORMAT_RGBA || pixelFormat == AV_PIXEL_FORMAT_RGBA1010102;
+    const uint64_t rowBytes = static_cast<uint64_t>(videoDecContext_->width) *
+        (rgba ? RGBA_BYTES_PER_PIXEL : (IsTenBitOutput(info, videoDecContext_.get()) ? 2 : 1));
+    const uint64_t packedBytes = rowBytes * static_cast<uint64_t>(videoDecContext_->height) *
+        (rgba ? 2 : 3) / 2;
+    if (!CheckDumpLimit(packedBytes)) {
+        return;
+    }
+    // 输出格式变化后停止本文件，不能把不同帧布局拼进同一份裸数据。
+    const uint64_t layoutKey = (static_cast<uint64_t>(videoDecContext_->width) << 32U) |
+        (static_cast<uint64_t>(videoDecContext_->height) << 8U) | static_cast<uint64_t>(pixelFormat);
+    if (dumpLayoutKey_ != 0 && dumpLayoutKey_ != layoutKey) {
+        dumpSession_.Stop("layout_changed");
+        info.output.enableVideoDump = false;
+        outputFile_->close();
+        return;
+    }
+    dumpLayoutKey_ = layoutKey;
     switch (pixelFormat) {
         case AV_PIXEL_FORMAT_YUVI420:
             WriteOutputFileWithStrideYUV420P(bufferAddr);
@@ -211,6 +268,14 @@ void Player::DumpOutput(CodecBufferInfo &bufferInfo)
         default:
             AVCODEC_SAMPLE_LOGE("Unsupported pixel format, skip");
             break;
+    }
+    if (!outputFile_->good()) {
+        dumpSession_.Stop("write_failed");
+        info.output.enableVideoDump = false;
+        outputFile_->close();
+        AVCODEC_SAMPLE_LOGW("Stop decoder dump after a write failure; keep normal presentation");
+    } else {
+        dumpSession_.Written(packedBytes, bufferInfo.attr.pts);
     }
 }
 
@@ -228,23 +293,30 @@ bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool rend
     }
     DumpOutput(bufferInfo);
     if (videoDecContext_ == nullptr) {
-        ReleaseVideoBufferAfterFailure(videoDecoder_.get(), bufferInfo, "Video decode context is null");
+        AVCODEC_SAMPLE_LOGE("Video decode context is null");
+        (void)videoDecoder_->FreeOutputBuffer(bufferInfo, false);
         return false;
     }
     if (!EnsureVideoSink()) {
-        ReleaseVideoBufferAfterFailure(videoDecoder_.get(), bufferInfo, "Video sink initialization failed");
+        AVCODEC_SAMPLE_LOGE("Video sink initialization failed");
+        (void)videoDecoder_->FreeOutputBuffer(bufferInfo, false);
         return false;
     }
     if (!IsVulkanSurfaceChainReady(sampleInfo_, videoSink_.get())) {
         // Vulkan 不允许退回 decoder Buffer 送显，避免切换模式后旧 BufferRenderer 继续接管画面。
-        ReleaseVideoBufferAfterFailure(videoDecoder_.get(), bufferInfo, "Invalid Vulkan Surface chain");
+        AVCODEC_SAMPLE_LOGE("Invalid Vulkan Surface chain");
+        (void)videoDecoder_->FreeOutputBuffer(bufferInfo, false);
         return false;
     }
     const VideoPresentRequest request { *videoDecoder_, bufferInfo, sampleInfo_, *videoDecContext_, render,
         renderTimestamp };
     const bool measureBufferPresent = IsBufferBasedRunMode(sampleInfo_.codec.codecRunMode) && render;
+    const auto presentStartedAt = PlaybackDiagnostics::Clock::now();
     const int32_t result = PresentVideoBuffer(request, measureBufferPresent);
+    const auto presentElapsed = PlaybackDiagnostics::Clock::now() - presentStartedAt;
     if (result != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record("sink.present", result, "视频送显或归还输出 Buffer 失败");
+        diagnostics_.RecordEvent("sink.present.failed", bufferInfo.attr.pts);
         AVCODEC_SAMPLE_LOGE("Present video output failed: %{public}d", result);
         playbackFailed_ = true;
         isStarted_ = false;
@@ -254,7 +326,8 @@ bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool rend
     hasDecodedOutput_ = true;
     if (render) {
         videoRenderedFrames_.fetch_add(1);
-        diagnostics_.RecordSeekOutput();
+        diagnostics_.RecordVideoSubmission(bufferInfo.attr.pts,
+            std::chrono::duration_cast<std::chrono::microseconds>(presentElapsed).count());
     }
     if (render && !hasAudioTrack_.load()) {
         playbackPositionUs_.store(bufferInfo.attr.pts);
@@ -391,7 +464,7 @@ void Player::WriteOutputFileWithStrideYUV420SP(uint8_t *bufferAddr)
     bufferAddr += (videoDecContext_->heightStride - videoDecContext_->height) * stride;
     for (int32_t row = 0; row < videoDecContext_->height / YUV420_SAMPLE_RATIO; row++) {
         outputFile_->write(reinterpret_cast<char *>(bufferAddr), videoWidth);
-        bufferAddr += videoWidth;
+        bufferAddr += stride;
     }
 }
 // [End decoder_save_file_YUV420]
@@ -401,7 +474,7 @@ void Player::WriteOutputFileWithStrideRGBA(uint8_t *bufferAddr)
     CHECK_AND_RETURN_LOG(bufferAddr != nullptr, "Buffer is nullptr");
     const int32_t width = videoDecContext_->width;
     const int32_t stride = videoDecContext_->widthStride;
-    for (int32_t row = 0; row < videoDecContext_->heightStride; row++) {
+    for (int32_t row = 0; row < videoDecContext_->height; row++) {
         outputFile_->write(reinterpret_cast<char *>(bufferAddr), width * RGBA_BYTES_PER_PIXEL);
         bufferAddr += stride;
     }

@@ -82,7 +82,9 @@ add_library(player SHARED sample/player/napi/PlayerNative.cpp
 )
 
 add_library(recorder SHARED sample/recorder/RecorderNative.cpp
+                            sample/recorder/RecorderOptionsParser.cpp
                             sample/recorder/Recorder.cpp
+                            sample/recorder/RecorderVideoSession.cpp
                             capabilities/muxer.cpp
                             capabilities/codec_capability.cpp
                             capabilities/video_encoder.cpp
@@ -101,3 +103,7 @@ endif()
 
 target_link_libraries(player PUBLIC ${BASE_LIBRARY})
 target_link_libraries(recorder PUBLIC ${BASE_LIBRARY})
+
+add_library(transcoder SHARED sample/transcoder/TranscoderNative.cpp
+                              sample/transcoder/TranscodeJob.cpp)
+target_link_libraries(transcoder PUBLIC ${BASE_LIBRARY})

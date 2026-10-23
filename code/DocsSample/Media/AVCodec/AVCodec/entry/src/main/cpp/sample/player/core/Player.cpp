@@ -52,6 +52,8 @@ PlaybackInfo Player::GetPlaybackInfo() const
 {
     PlaybackInfo info;
     info.state = stateMachine_.GetState();
+    info.failure = failure_.Snapshot();
+    info.diagnostics = diagnostics_.Snapshot();
     if (info.state == PLAYER_STATE_IDLE) {
         return info;
     }
@@ -75,7 +77,6 @@ PlaybackInfo Player::GetPlaybackInfo() const
             static_cast<double>(info.bufferPresentFrames) / NANOSECONDS_PER_MICROSECOND;
     }
     info.positionUs = playbackPositionUs_.load();
-    info.diagnostics = diagnostics_.Snapshot();
     {
         std::lock_guard<std::mutex> lock(videoSinkDiagnosticsMutex_);
         info.videoSinkDiagnostics = videoSinkDiagnostics_;
@@ -140,6 +141,7 @@ int32_t Player::Stop()
     }
     doneCond_.notify_all();
     AVCODEC_SAMPLE_LOGI("Stop requested");
+    diagnostics_.RecordEvent("playback.stop.request", playbackPositionUs_.load());
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
@@ -159,6 +161,7 @@ int32_t Player::Pause()
         "Failed to enter paused state");
     paused_ = true;
     AVCODEC_SAMPLE_LOGI("Playback paused");
+    diagnostics_.RecordEvent("playback.pause", playbackPositionUs_.load());
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
@@ -181,6 +184,7 @@ int32_t Player::Resume()
     renderSingleFrameAfterSeek_ = false;
     pauseCond_.notify_all();
     AVCODEC_SAMPLE_LOGI("Playback resumed");
+    diagnostics_.RecordEvent("playback.resume", playbackPositionUs_.load());
     return AVCODEC_SAMPLE_ERR_OK;
 }
 

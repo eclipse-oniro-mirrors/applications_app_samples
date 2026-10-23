@@ -17,6 +17,8 @@
 #include <bits/alltypes.h>
 #include <limits>
 #include <string>
+#include <sys/stat.h>
+#include <sys/statvfs.h>
 #include "av_codec_sample_log.h"
 #include "dfx/error/av_codec_sample_error.h"
 
@@ -51,8 +53,25 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
                              "Previous recorder release is still running");
 
     JoinPreviousSessionThreads(lock);
+    sessionActive_.store(true);
     sampleInfo_ = sampleInfo;
+    sampleInfo_.output.sessionId = CreateCodecSessionId("recording");
+    sessionReport_.Begin(sampleInfo_.output.sessionId, DescribeCodecRequest(sampleInfo_, true));
+    sessionReport_.Event("initialize.begin");
+    AVCODEC_SAMPLE_LOGI("Recording session: %{public}s", sampleInfo_.output.sessionId.c_str());
+    secondarySampleInfo_ = {};
+    primaryStats_.Reset(sampleInfo_.video);
+    secondaryStats_.Reset(secondarySampleInfo_.video);
+    primaryStorageAtUs_ = secondaryStorageAtUs_ = 0;
+    primaryFileBytes_ = secondaryFileBytes_ = -1;
+    failure_.Reset(sampleInfo_.video.videoCodecMime, sampleInfo_.codec.codecName, SURFACE);
     isAudioEos_.store(false);
+    audioStats_.Reset(sampleInfo_.audio.audioSampleRate, sampleInfo_.audio.audioChannelCount);
+    primaryEosReceived_ = false;
+    secondaryEosReceived_ = false;
+    audioEosReceived_ = false;
+    isAudioEncFirstFrame_ = true;
+    audioSubmittedFrames_ = 0;
     AVCODEC_SAMPLE_LOGI("Init config: mime=%{public}s, size=%{public}dx%{public}d, fps=%{public}.2f, "
         "bitrate=%{public}" PRId64 ", pixelFormat=%{public}d, sync=%{public}d, outputFormat=%{public}d, "
         "audio=%{public}dHz/%{public}dch/%{public}" PRId64 "bps",
@@ -63,6 +82,9 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
 
     const int32_t ret = InitializeSession(sampleInfo);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record("recorder.initialize", ret, "创建或配置编码器、封装器失败");
+        sessionReport_.Event("initialize.end", std::to_string(ret));
+        sessionReport_.End("initialize_failed");
         AVCODEC_SAMPLE_LOGE("Recorder session initialization failed, ret: %{public}d", ret);
         // 初始化可能已经创建了部分 codec、Muxer 或采集器；统一走收尾线程，避免下一次录制复用残留资源。
         lock.unlock();
@@ -71,6 +93,7 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
         return ret;
     }
     releaseThread_ = nullptr;
+    sessionReport_.Event("initialize.end");
     AVCODEC_SAMPLE_LOGI("Succeed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
@@ -99,133 +122,6 @@ void Recorder::JoinPreviousSessionThreads(std::unique_lock<std::mutex> &lock)
     audioEncOutputThread_.reset();
 }
 
-int32_t Recorder::InitializeSession(SampleInfo &sampleInfo)
-{
-    // 本次录制会话独占封装器、编码器和采集器，失败时由 ReleaseThread 回收已创建的资源。
-    audioEncoder_ = std::make_unique<AudioEncoder>();
-    audioCapturer_ = std::make_unique<AudioCapturer>();
-    videoEncoder_ = std::make_unique<VideoEncoder>();
-    muxer_ = std::make_unique<Muxer>();
-    if (sampleInfo_.output.enableDualOutput) {
-        secondaryVideoEncoder_ = std::make_unique<VideoEncoder>();
-        secondaryMuxer_ = std::make_unique<Muxer>();
-    }
-
-    int32_t ret = muxer_->Create(sampleInfo_.output.outputFd, sampleInfo_.output.outputFormat);
-    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create muxer with fd(%{public}d) failed",
-                             sampleInfo_.output.outputFd);
-
-    ret = muxer_->Config(sampleInfo_);
-    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Recorder muxer config failed");
-
-    if (sampleInfo_.output.enableDualOutput) {
-        CHECK_AND_RETURN_RET_LOG(sampleInfo_.output.secondaryOutputFd >= 0 && secondaryMuxer_ != nullptr,
-            AVCODEC_SAMPLE_ERR_ERROR, "Secondary output is not available");
-        SampleInfo secondaryInfo = sampleInfo_;
-        secondaryInfo.output.outputFd = sampleInfo_.output.secondaryOutputFd;
-        secondaryInfo.output.enableDualOutput = false;
-        const int32_t secondaryWidth = sampleInfo_.output.secondaryVideoWidth > 0 ?
-            sampleInfo_.output.secondaryVideoWidth : sampleInfo_.video.videoWidth;
-        const int32_t secondaryHeight = sampleInfo_.output.secondaryVideoHeight > 0 ?
-            sampleInfo_.output.secondaryVideoHeight : sampleInfo_.video.videoHeight;
-        // Configure 的宽高仍描述共享的 CameraKit 源帧；副路输出尺寸由自己的降采样 Key 指定。
-        if (secondaryWidth != sampleInfo_.video.videoWidth || secondaryHeight != sampleInfo_.video.videoHeight) {
-            secondaryInfo.video.preprocMode = VIDEO_PREPROC_DOWNSAMPLING;
-            secondaryInfo.video.downsamplingWidth = secondaryWidth;
-            secondaryInfo.video.downsamplingHeight = secondaryHeight;
-        }
-        secondarySampleInfo_ = secondaryInfo;
-        ret = secondaryMuxer_->Create(secondaryInfo.output.outputFd, secondaryInfo.output.outputFormat);
-        CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create secondary muxer failed");
-        ret = secondaryMuxer_->Config(secondaryInfo);
-        CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Configure secondary muxer failed");
-    }
-
-    ret = CreateAudioEncoder();
-    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create audio encoder failed");
-
-    audioCapturer_->AudioCapturerInit(sampleInfo_, audioEncContext_);
-
-    ret = CreateVideoEncoder();
-    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create video encoder failed");
-    (void)OpenVideoDumpFiles();
-    sampleInfo.video.window = sampleInfo_.video.window;
-    return ret;
-}
-
-void Recorder::OpenVideoDumpFiles()
-{
-    if (!sampleInfo_.output.enableVideoDump) {
-        return;
-    }
-    if (sampleInfo_.output.videoDumpPath.empty()) {
-        AVCODEC_SAMPLE_LOGE("Video dump enabled but primary dump path is empty");
-        return;
-    }
-    primaryVideoDumpFile_.clear();
-    primaryVideoDumpFile_.open(sampleInfo_.output.videoDumpPath, std::ios::out | std::ios::binary | std::ios::trunc);
-    if (!primaryVideoDumpFile_.is_open()) {
-        AVCODEC_SAMPLE_LOGE("Open primary video dump failed: %{public}s", sampleInfo_.output.videoDumpPath.c_str());
-    } else {
-        AVCODEC_SAMPLE_LOGI("Primary encoded video stream dump: %{public}s",
-            sampleInfo_.output.videoDumpPath.c_str());
-    }
-    if (sampleInfo_.output.enableDualOutput) {
-        if (sampleInfo_.output.secondaryVideoDumpPath.empty()) {
-            AVCODEC_SAMPLE_LOGE("Video dump enabled but secondary dump path is empty");
-        } else {
-            secondaryVideoDumpFile_.clear();
-            secondaryVideoDumpFile_.open(sampleInfo_.output.secondaryVideoDumpPath,
-                std::ios::out | std::ios::binary | std::ios::trunc);
-            if (!secondaryVideoDumpFile_.is_open()) {
-                AVCODEC_SAMPLE_LOGE("Open secondary video dump failed: %{public}s",
-                    sampleInfo_.output.secondaryVideoDumpPath.c_str());
-            } else {
-                AVCODEC_SAMPLE_LOGI("Secondary encoded video stream dump: %{public}s",
-                    sampleInfo_.output.secondaryVideoDumpPath.c_str());
-            }
-        }
-    }
-}
-
-void Recorder::DumpVideoOutput(const CodecBufferInfo &bufferInfo, bool isPrimary)
-{
-    if (!sampleInfo_.output.enableVideoDump || bufferInfo.buffer == nullptr || bufferInfo.attr.size <= 0) {
-        return;
-    }
-    std::ofstream &dumpFile = isPrimary ? primaryVideoDumpFile_ : secondaryVideoDumpFile_;
-    if (!dumpFile.is_open() || !dumpFile.good()) {
-        return;
-    }
-    const int32_t capacity = OH_AVBuffer_GetCapacity(bufferInfo.buffer);
-    uint8_t *bufferAddr = OH_AVBuffer_GetAddr(bufferInfo.buffer);
-    if (capacity <= 0 || bufferAddr == nullptr || bufferInfo.attr.offset < 0 || bufferInfo.attr.size < 0 ||
-        bufferInfo.attr.offset > capacity || bufferInfo.attr.size > capacity - bufferInfo.attr.offset) {
-        AVCODEC_SAMPLE_LOGE("Skip encoded video dump with invalid buffer range, capacity: %{public}d, "
-            "offset: %{public}d, size: %{public}d", capacity, bufferInfo.attr.offset, bufferInfo.attr.size);
-        dumpFile.close();
-        return;
-    }
-    dumpFile.write(reinterpret_cast<const char *>(bufferAddr + bufferInfo.attr.offset), bufferInfo.attr.size);
-    if (!dumpFile.good()) {
-        AVCODEC_SAMPLE_LOGE("Write encoded video dump failed, stream: %{public}s",
-            isPrimary ? "primary" : "secondary");
-        dumpFile.close();
-    }
-}
-
-void Recorder::CloseVideoDumpFiles()
-{
-    if (primaryVideoDumpFile_.is_open()) {
-        primaryVideoDumpFile_.flush();
-        primaryVideoDumpFile_.close();
-    }
-    if (secondaryVideoDumpFile_.is_open()) {
-        secondaryVideoDumpFile_.flush();
-        secondaryVideoDumpFile_.close();
-    }
-}
-
 int32_t Recorder::Start()
 {
     std::unique_lock<std::mutex> lock(mutex_);
@@ -237,6 +133,8 @@ int32_t Recorder::Start()
 
     int32_t ret = StartVideoPipeline();
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record("recorder.video.start", ret, "启动视频编码或封装链路失败");
+        sessionReport_.End("video_start_failed");
         lock.unlock();
         StartRelease();
         return ret;
@@ -245,87 +143,26 @@ int32_t Recorder::Start()
         ret = StartAudioPipeline(lock);
         CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Start audio pipeline failed");
     }
+    sessionReport_.Event("encoder.started");
     AVCODEC_SAMPLE_LOGI("Succeed");
-    return AVCODEC_SAMPLE_ERR_OK;
-}
-
-int32_t Recorder::StartVideoPipeline()
-{
-    isEos_ = false;
-    int32_t ret = StartVideoMuxers();
-    if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        return ret;
-    }
-    ret = StartVideoEncoders();
-    if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        return ret;
-    }
-    isStarted_ = true;
-    const int32_t outputThreadRet = StartVideoOutputThreads();
-    if (outputThreadRet != AVCODEC_SAMPLE_ERR_OK) {
-        isStarted_.store(false);
-    }
-    return outputThreadRet;
-}
-
-int32_t Recorder::StartVideoMuxers()
-{
-    // 先启动 Muxer，确保首个编码输出到达时容器轨道已可写。
-    int32_t ret = muxer_->Start();
-    if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        AVCODEC_SAMPLE_LOGE("Muxer start failed");
-        return ret;
-    }
-    if (secondaryMuxer_ != nullptr && secondaryMuxer_->Start() != AVCODEC_SAMPLE_ERR_OK) {
-        AVCODEC_SAMPLE_LOGE("Secondary muxer start failed");
-        return AVCODEC_SAMPLE_ERR_ERROR;
-    }
-    return AVCODEC_SAMPLE_ERR_OK;
-}
-
-int32_t Recorder::StartVideoEncoders()
-{
-    int32_t ret = videoEncoder_->Start();
-    if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        AVCODEC_SAMPLE_LOGE("Video encoder start failed");
-        return ret;
-    }
-    if (secondaryVideoEncoder_ != nullptr && secondaryVideoEncoder_->Start() != AVCODEC_SAMPLE_ERR_OK) {
-        AVCODEC_SAMPLE_LOGE("Secondary video encoder start failed");
-        return AVCODEC_SAMPLE_ERR_ERROR;
-    }
-    return AVCODEC_SAMPLE_ERR_OK;
-}
-
-int32_t Recorder::StartVideoOutputThreads()
-{
-    if (sampleInfo_.codec.codecSyncMode) {
-        encOutputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncOutputSyncThread, this,
-            videoEncoder_.get(), encContext_, muxer_.get(), true);
-        if (secondaryVideoEncoder_ != nullptr) {
-            secondaryEncOutputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncOutputSyncThread, this,
-                secondaryVideoEncoder_.get(), secondaryEncContext_, secondaryMuxer_.get(), false);
-        }
-    } else {
-        encOutputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncOutputAsyncThread, this,
-            videoEncoder_.get(), encContext_, muxer_.get(), true);
-        if (secondaryVideoEncoder_ != nullptr) {
-            secondaryEncOutputThread_ = std::make_unique<std::thread>(&Recorder::VideoEncOutputAsyncThread, this,
-                secondaryVideoEncoder_.get(), secondaryEncContext_, secondaryMuxer_.get(), false);
-        }
-    }
-    if (encOutputThread_ == nullptr) {
-        AVCODEC_SAMPLE_LOGE("Create thread failed");
-        return AVCODEC_SAMPLE_ERR_ERROR;
-    }
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
 int32_t Recorder::StartAudioPipeline(std::unique_lock<std::mutex> &lock)
 {
-    audioCapturer_->AudioCapturerStart();
+    // 先清缓存再启动采集，避免在采集回调运行时无锁修改 cache。
+    audioEncContext_->ClearCache();
+    if (!audioCapturer_->AudioCapturerStart()) {
+        failure_.Record("recorder.audio.capture", AVCODEC_SAMPLE_ERR_ERROR, "Start audio capturer failed");
+        sessionReport_.End("audio_start_failed");
+        lock.unlock();
+        StartRelease();
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
     const int32_t ret = audioEncoder_->Start();
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record("recorder.audio.start", ret, "启动音频编码器失败");
+        sessionReport_.End("audio_start_failed");
         AVCODEC_SAMPLE_LOGE("Audio encoder start failed");
         isStarted_.store(false);
         lock.unlock();
@@ -347,7 +184,6 @@ int32_t Recorder::StartAudioPipeline(std::unique_lock<std::mutex> &lock)
         StartRelease();
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
-    audioEncContext_->ClearCache();
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
@@ -357,13 +193,22 @@ void Recorder::VideoEncOutputSyncThread(VideoEncoder *encoder, CodecUserData *co
     while (true) {
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         std::unique_lock<std::mutex> lock(context->outputMutex);
+        const int64_t waitStart = RecorderClockUs();
         CodecBufferInfo bufferInfo;
-        CHECK_AND_BREAK_LOG(encoder->GetOutputBuffer(bufferInfo, TIMEOUT_US),
-            "Get output buffer failed, thread out");
+        if (!encoder->GetOutputBuffer(bufferInfo, TIMEOUT_US)) {
+            // [StartExclude encoder_sync_output_buffer]
+            if (isStarted_ && !isStopping_) {
+                AbortRecording("Video output buffer retrieval failed");
+            }
+            // [EndExclude encoder_sync_output_buffer]
+            break;
+        }
         // [StartExclude encoder_sync_output_buffer]
+        const int64_t receivedAtUs = RecorderClockUs();
+        (isPrimary ? primaryStats_ : secondaryStats_).RecordRetrieval(receivedAtUs - waitStart);
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         lock.unlock();
-        if (!ProcessVideoOutputBuffer(encoder, context, muxer, bufferInfo, isPrimary)) {
+        if (!ProcessVideoOutputBuffer(encoder, context, muxer, bufferInfo, isPrimary, receivedAtUs)) {
             break;
         }
         // [EndExclude encoder_sync_output_buffer]
@@ -382,9 +227,14 @@ void Recorder::VideoEncOutputAsyncThread(VideoEncoder *encoder, CodecUserData *c
         std::shared_lock<std::shared_mutex> codecLock(context->codecMutex);
         // 开发者可根据业务需要，对输出数据进行保存/释放处理。
         // [StartExclude encoder_output_buffer]
+        const int64_t receivedAtUs = RecorderClockUs();
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
+        if (context->hasError.load()) {
+            AbortRecording("Video codec callback failed");
+            break;
+        }
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
-        if (!ProcessVideoOutputBuffer(encoder, context, muxer, *bufferInfo, isPrimary)) {
+        if (!ProcessVideoOutputBuffer(encoder, context, muxer, *bufferInfo, isPrimary, receivedAtUs)) {
             break;
         }
         // [EndExclude encoder_output_buffer]
@@ -394,7 +244,7 @@ void Recorder::VideoEncOutputAsyncThread(VideoEncoder *encoder, CodecUserData *c
 }
 
 bool Recorder::ProcessVideoOutputBuffer(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer,
-    CodecBufferInfo &bufferInfo, bool isPrimary)
+    CodecBufferInfo &bufferInfo, bool isPrimary, int64_t receivedAtUs)
 {
     if ((bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_SYNC_FRAME) ||
         bufferInfo.attr.flags == AVCODEC_BUFFER_FLAGS_NONE) {
@@ -410,14 +260,38 @@ bool Recorder::ProcessVideoOutputBuffer(VideoEncoder *encoder, CodecUserData *co
     AVCODEC_SAMPLE_LOGW("Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
         context->outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
     const bool isEosBuffer = (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+    if (context->outputFrameCount == 1 && !isEosBuffer && bufferInfo.attr.size > 0 &&
+        (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_CODEC_DATA) == 0) {
+        sessionReport_.Event(isPrimary ? "primary.first_output" : "secondary.first_output");
+    }
+    auto &stats = isPrimary ? primaryStats_ : secondaryStats_;
+    stats.RecordOutput(bufferInfo.attr);
+    if (!isEosBuffer && bufferInfo.attr.size > 0 &&
+        (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_CODEC_DATA) == 0) {
+        audioStats_.Video(isPrimary, bufferInfo.attr.pts);
+    }
+    int64_t dumpUs = -1;
+    int64_t muxerUs = -1;
     int32_t writeRet = AVCODEC_SAMPLE_ERR_OK;
     if (!isEosBuffer && bufferInfo.attr.size > 0) {
-        DumpVideoOutput(bufferInfo, isPrimary);
+        if ((isPrimary ? primaryDump_ : secondaryDump_).IsWriting()) {
+            const int64_t start = RecorderClockUs();
+            DumpVideoOutput(bufferInfo, isPrimary);
+            dumpUs = RecorderClockUs() - start;
+        }
+        const int64_t muxerStart = RecorderClockUs();
         writeRet = muxer->WriteSample(muxer->GetVideoTrackId(), bufferInfo.buffer, bufferInfo.attr);
+        muxerUs = RecorderClockUs() - muxerStart;
+        if (writeRet == AVCODEC_SAMPLE_ERR_OK) {
+            (isPrimary ? primaryStats_ : secondaryStats_).Record(bufferInfo.attr);
+        }
     }
     // 每个输出 Buffer 都必须按原索引归还，包括 EOS 和 Muxer 写入失败的情况。
     const int32_t freeRet = encoder->FreeOutputBuffer(bufferInfo);
+    stats.RecordStages(muxerUs, dumpUs, RecorderClockUs() - receivedAtUs);
+    RefreshStreamStorage(isPrimary);
     if (freeRet != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record("recorder.video.release", freeRet, "归还视频编码输出 Buffer 失败");
         AVCODEC_SAMPLE_LOGE("Encoder output buffer release failed, ret: %{public}d", freeRet);
         return false;
     }
@@ -426,6 +300,8 @@ bool Recorder::ProcessVideoOutputBuffer(VideoEncoder *encoder, CodecUserData *co
         return false;
     }
     if (isEosBuffer) {
+        sessionReport_.Event(isPrimary ? "primary.eos" : "secondary.eos");
+        (isPrimary ? primaryEosReceived_ : secondaryEosReceived_).store(true);
         if (isPrimary) {
             isVideoEos_.store(true);
         } else {
@@ -439,6 +315,9 @@ bool Recorder::ProcessVideoOutputBuffer(VideoEncoder *encoder, CodecUserData *co
 
 void Recorder::FinishVideoOutputThread(CodecUserData *context, bool isPrimary)
 {
+    sessionReport_.Event(isPrimary ? "primary.thread_end" : "secondary.thread_end");
+    (isPrimary ? primaryStats_ : secondaryStats_).Stop();
+    RefreshStreamStorage(isPrimary, true);
     AVCODEC_SAMPLE_LOGI("Exit, frame count: %{public}u", context->outputFrameCount);
     if (isPrimary) {
         isVideoEos_.store(true);
@@ -589,6 +468,7 @@ void Recorder::Release()
         // 所有输出线程已 join；先结束容器写入并刷新文件尾，再销毁 codec。
         if (muxer_ != nullptr) {
             const int32_t ret = muxer_->Release();
+            sessionReport_.Event("primary.muxer_released", std::to_string(ret));
             if (ret != AVCODEC_SAMPLE_ERR_OK) {
                 AVCODEC_SAMPLE_LOGE("Release primary muxer failed, ret: %{public}d", ret);
             }
@@ -596,6 +476,7 @@ void Recorder::Release()
         }
         if (secondaryMuxer_ != nullptr) {
             const int32_t ret = secondaryMuxer_->Release();
+            sessionReport_.Event("secondary.muxer_released", std::to_string(ret));
             if (ret != AVCODEC_SAMPLE_ERR_OK) {
                 AVCODEC_SAMPLE_LOGE("Release secondary muxer failed, ret: %{public}d", ret);
             }
@@ -603,7 +484,15 @@ void Recorder::Release()
         }
         ReleaseVideoEncoder();
         ReleaseAudioEncoder();
+        audioStats_.Stop();
         CloseVideoDumpFiles();
+        primaryStats_.Stop();
+        secondaryStats_.Stop();
+        RefreshStreamStorage(true, true);
+        if (sampleInfo_.output.enableDualOutput) {
+            RefreshStreamStorage(false, true);
+        }
+        sessionActive_.store(false);
         if (encContext_ != nullptr) {
             // 视频 codec 已释放且输出线程已 join，回调上下文不再会被访问。
             delete encContext_;
@@ -611,13 +500,49 @@ void Recorder::Release()
         }
         isSecondaryVideoEos_.store(false);
         releaseCompleted_ = true;
+        sessionReport_.Event("native.released");
     }
     doneCond_.notify_all();
     AVCODEC_SAMPLE_LOGI("Release: Cleanup complete, notifying doneCond");
 }
 
+void Recorder::RefreshStreamStorage(bool primary, bool force)
+{
+    auto &lastAt = primary ? primaryStorageAtUs_ : secondaryStorageAtUs_;
+    const int64_t now = RecorderClockUs();
+    if (!force && now - lastAt < MICROSECOND) {
+        return;
+    }
+    auto &stats = primary ? primaryStats_ : secondaryStats_;
+    auto *context = primary ? encContext_ : secondaryEncContext_;
+    if (context != nullptr && !sampleInfo_.codec.codecSyncMode) {
+        StageTimingInfo wait;
+        StageTimingInfo residence;
+        size_t depth = 0;
+        size_t peak = 0;
+        context->outputBufferQueue.GetDiagnostics(wait, residence, depth, peak);
+        stats.SetQueue(wait, residence, depth, peak);
+    }
+    const int fd = primary ? sampleInfo_.output.outputFd : sampleInfo_.output.secondaryOutputFd;
+    struct stat file {};
+    struct statvfs space {};
+    const int64_t bytes = fd >= 0 && fstat(fd, &file) == 0 ? file.st_size : -1;
+    const int64_t available = fd >= 0 && fstatvfs(fd, &space) == 0 ?
+        static_cast<int64_t>(space.f_bavail) * space.f_frsize : -1;
+    auto &previousBytes = primary ? primaryFileBytes_ : secondaryFileBytes_;
+    const double growth = lastAt > 0 && now > lastAt && bytes >= previousBytes && previousBytes >= 0 ?
+        static_cast<double>(bytes - previousBytes) * MICROSECOND / (now - lastAt) : -1;
+    const auto &dump = primary ? primaryDump_ : secondaryDump_;
+    stats.SetStorage(bytes, available, growth, dump.State(), dump.Bytes());
+    previousBytes = bytes;
+    lastAt = now;
+}
+
 void Recorder::AbortRecording(const char *reason)
 {
+    sessionReport_.Event("recording.aborted", reason);
+    sessionReport_.End("output_failed");
+    failure_.Record("recorder.output", AVCODEC_SAMPLE_ERR_ERROR, reason);
     // 输入 Buffer 已交给应用但无法安全提交时，直接结束本次会话，避免 Buffer 永久滞留在应用侧。
     AVCODEC_SAMPLE_LOGE("Abort recording: %{public}s", reason);
     const bool wasStopping = isStopping_.exchange(true);
@@ -659,6 +584,9 @@ int32_t Recorder::WaitForDone()
 
 int32_t Recorder::StopStart()
 {
+    sessionReport_.Event("stop.requested");
+    sessionReport_.End("user_stop");
+    std::lock_guard<std::mutex> lock(mutex_);
     if (isStarted_) {
         isStopping_.store(true);
         AVCODEC_SAMPLE_LOGI("StopStart: isStopping set to true, audio continues");
@@ -670,6 +598,11 @@ int32_t Recorder::StopStart()
 
 int32_t Recorder::StopEnd()
 {
+    {
+        // 先关闭动态参数入口，再给相机排空和编码器 EOS 留出收尾时间。
+        std::lock_guard<std::mutex> lock(mutex_);
+        isStopping_.store(true);
+    }
     if (!isStarted_) {
         StartRelease();
         return WaitForDone();
@@ -721,12 +654,17 @@ void Recorder::WaitForEncoderEndOfStream()
     const bool videoEosReceived = videoEosCond_.wait_for(lock, std::chrono::seconds(WAIT_TIME), [this]() {
         return isVideoEos_.load() && (secondaryVideoEncoder_ == nullptr || isSecondaryVideoEos_.load());
     });
-    if (!videoEosReceived) {
+    if (!videoEosReceived || !primaryEosReceived_ ||
+        (sampleInfo_.output.enableDualOutput && !secondaryEosReceived_)) {
+        sessionReport_.Event("video.drain", videoEosReceived ? "ended_without_eos" : "timeout");
+        sessionReport_.End(videoEosReceived ? "video_eos_missing" : "video_eos_timeout");
         AVCODEC_SAMPLE_LOGW("Timeout waiting for video EOS, proceeding with stop");
     }
-    const bool audioEosReceived = videoEosCond_.wait_for(lock, std::chrono::seconds(WAIT_TIME),
-        [this]() { return isAudioEos_.load(); });
-    if (!audioEosReceived) {
+    const bool audioEosReceived = audioEncoder_ == nullptr ||
+        videoEosCond_.wait_for(lock, std::chrono::seconds(WAIT_TIME), [this]() { return isAudioEos_.load(); });
+    if (audioEncoder_ != nullptr && (!audioEosReceived || !audioEosReceived_)) {
+        sessionReport_.Event("audio.drain", audioEosReceived ? "ended_without_eos" : "timeout");
+        sessionReport_.End(audioEosReceived ? "audio_eos_missing" : "audio_eos_timeout");
         AVCODEC_SAMPLE_LOGW("Timeout waiting for audio EOS, proceeding with stop");
     }
 }
@@ -739,49 +677,6 @@ int32_t Recorder::AbortAndWait(int32_t errorCode, const char *reason)
     return errorCode;
 }
 
-int32_t Recorder::CreateVideoEncoder()
-{
-    const bool enablePreproc = sampleInfo_.video.preprocMode != 0 || sampleInfo_.video.dropToFrameRate > 0.0 ||
-        sampleInfo_.output.enableDualOutput;
-    int32_t ret = enablePreproc ? videoEncoder_->CreatePrimaryWithPreproc(sampleInfo_.video.videoCodecMime) :
-        videoEncoder_->Create(sampleInfo_.video.videoCodecMime);
-    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create video encoder failed");
-
-    // Config 失败时先销毁 codec，再回收临时上下文，避免已注册回调借用悬空指针。
-    std::unique_ptr<CodecUserData> context = std::make_unique<CodecUserData>();
-    context->sampleInfo = &sampleInfo_;
-    ret = videoEncoder_->Config(sampleInfo_, context.get());
-    if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        // 配置可能已经创建输出 Surface，销毁 codec 后才能归还窗口引用。
-        (void)videoEncoder_->Release();
-        if (sampleInfo_.video.window != nullptr) {
-            OH_NativeWindow_DestroyNativeWindow(sampleInfo_.video.window);
-            sampleInfo_.video.window = nullptr;
-        }
-        return ret;
-    }
-    encContext_ = context.release();
-
-    if (sampleInfo_.output.enableDualOutput) {
-        secondaryEncContext_ = new CodecUserData();
-        secondaryEncContext_->sampleInfo = &secondarySampleInfo_;
-        ret = secondaryVideoEncoder_->CreateSecondaryFromPrimary(*videoEncoder_);
-        if (ret != AVCODEC_SAMPLE_ERR_OK) {
-            return ret;
-        }
-        ret = secondaryVideoEncoder_->Config(secondarySampleInfo_, secondaryEncContext_, false);
-        if (ret != AVCODEC_SAMPLE_ERR_OK) {
-            (void)secondaryVideoEncoder_->Release();
-            delete secondaryEncContext_;
-            secondaryEncContext_ = nullptr;
-            return ret;
-        }
-        // 副编码器共享主路输入 Surface，不再向 ArkTS 暴露第二个 CameraKit VideoOutput。
-    }
-
-    return AVCODEC_SAMPLE_ERR_OK;
-}
-
 int32_t Recorder::CreateAudioEncoder()
 {
     int32_t ret = audioEncoder_->Create(sampleInfo_.audio.audioCodecMime);
@@ -791,6 +686,8 @@ int32_t Recorder::CreateAudioEncoder()
 
     // Config 失败时先销毁 codec，再回收临时上下文，避免已注册回调借用悬空指针。
     std::unique_ptr<CodecUserData> context = std::make_unique<CodecUserData>();
+    context->recordingAudioStats = &audioStats_;
+    context->failureDetails = &failure_;
     ret = audioEncoder_->Config(sampleInfo_, context.get());
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         (void)audioEncoder_->Release();
@@ -816,6 +713,7 @@ void Recorder::AudioEncInputThread()
         }
         std::shared_ptr<CodecBufferInfo> bufferInfo = audioEncContext_->inputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(audioEncContext_->codecMutex);
+        if (audioEncContext_->hasError.load()) { AbortRecording("Audio codec callback failed"); break; }
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Audio buffer queue is empty, continue");
         if (!SubmitAudioInputFrame(*bufferInfo, bufferInfo->buffer, false)) {
             break;
@@ -851,6 +749,7 @@ bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo, OH_AVBuffer *b
     {
         std::unique_lock<std::mutex> lock(audioEncContext_->inputMutex);
         readSuccess = audioEncContext_->ReadCache(inputBufferAddr, inputSize);
+        audioStats_.Capture(0, audioEncContext_->remainlen);
     }
     if (!readSuccess) {
         AbortRecording(synchronous ? "Synchronous audio cache read failed" :
@@ -860,6 +759,9 @@ bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo, OH_AVBuffer *b
 
     bufferInfo.buffer = buffer;
     bufferInfo.attr.size = inputSize;
+    bufferInfo.attr.offset = 0;
+    // PCM 没有容器时间戳，按已提交的 S16LE 样本帧生成微秒 PTS，避免重复使用零时间戳。
+    bufferInfo.attr.pts = audioSubmittedFrames_ * MICROSECOND / sampleInfo_.audio.audioSampleRate;
     bufferInfo.attr.flags = isAudioEncFirstFrame_ ? AVCODEC_BUFFER_FLAGS_CODEC_DATA : AVCODEC_BUFFER_FLAGS_NONE;
     isAudioEncFirstFrame_ = false;
     const int32_t ret = audioEncoder_->PushInputData(bufferInfo);
@@ -871,6 +773,7 @@ bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo, OH_AVBuffer *b
     if (!synchronous) {
         audioEncContext_->inputFrameCount++;
     }
+    audioSubmittedFrames_ += inputSize / sampleInfo_.audio.audioChannelCount / sizeof(int16_t);
     return true;
 }
 
@@ -883,32 +786,10 @@ void Recorder::AudioEncOutputThread()
         std::shared_ptr<CodecBufferInfo> bufferInfo = audioEncContext_->outputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(audioEncContext_->codecMutex);
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
+        if (audioEncContext_->hasError.load()) { AbortRecording("Audio codec callback failed"); break; }
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
 
-        audioEncContext_->outputFrameCount++;
-        AVCODEC_SAMPLE_LOGW(
-            "Audio Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
-            audioEncContext_->outputFrameCount, bufferInfo->attr.size, bufferInfo->attr.flags, bufferInfo->attr.pts);
-        const bool isEosBuffer = (bufferInfo->attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
-        int32_t writeRet = AVCODEC_SAMPLE_ERR_OK;
-        if (!isEosBuffer && bufferInfo->attr.size > 0) {
-            // AAC 只编码一次；同一输出 Buffer 依次写入两个 Muxer，之后仍按原索引归还。
-            writeRet = muxer_->WriteSample(muxer_->GetAudioTrackId(), bufferInfo->buffer, bufferInfo->attr);
-            if (writeRet == AVCODEC_SAMPLE_ERR_OK && secondaryMuxer_ != nullptr) {
-                writeRet = secondaryMuxer_->WriteSample(secondaryMuxer_->GetAudioTrackId(), bufferInfo->buffer,
-                    bufferInfo->attr);
-            }
-        }
-        int32_t ret = audioEncoder_->FreeOutputData(bufferInfo->bufferIndex);
-        CHECK_AND_BREAK_LOG(ret == AVCODEC_SAMPLE_ERR_OK, "Encoder output thread out");
-        if (writeRet != AVCODEC_SAMPLE_ERR_OK) {
-            AbortRecording("Write encoded audio sample failed");
-            break;
-        }
-        if (isEosBuffer) {
-            AVCODEC_SAMPLE_LOGI("Audio EOS processed, exiting output thread");
-            isAudioEos_.store(true);
-            videoEosCond_.notify_all();
+        if (!ProcessAudioOutputBuffer(*bufferInfo)) {
             break;
         }
     }
@@ -962,38 +843,20 @@ void Recorder::AudioEncOutputSyncThread()
         int32_t errCode = audioEncoder_->GetOutputBuffer(bufferInfo, TIMEOUT_US);
         if (errCode == AVCODEC_SAMPLE_ERR_OK) {
             AVCODEC_SAMPLE_LOGI("AVCODEC_SAMPLE_ERR_OK");
-        } else if (errCode == AVCODEC_SAMPLE_ERR_END || errCode == AVCODEC_SAMPLE_ERR_ERROR) {
-            AVCODEC_SAMPLE_LOGW("Audio output thread received END or ERROR");
+        } else if (errCode == AVCODEC_SAMPLE_ERR_ERROR) {
+            if (isStarted_ && !isStopping_) {
+                AbortRecording("Audio output buffer retrieval failed");
+            }
+            break;
+        } else if (errCode == AVCODEC_SAMPLE_ERR_END) {
+            AVCODEC_SAMPLE_LOGI("Audio output thread reached EOS");
             break;
         } else {
             AVCODEC_SAMPLE_LOGW("Get output buffer timeout, retry");
             continue;
         }
 
-        audioEncContext_->outputFrameCount++;
-        AVCODEC_SAMPLE_LOGW(
-            "Audio Out buffer sync count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
-            audioEncContext_->outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
-        const bool isEosBuffer = (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
-        int32_t writeRet = AVCODEC_SAMPLE_ERR_OK;
-        if (!isEosBuffer && bufferInfo.attr.size > 0) {
-            // Muxer 写入不接管 Buffer；两个目标写完后仍需显式归还原索引。
-            writeRet = muxer_->WriteSample(muxer_->GetAudioTrackId(), bufferInfo.buffer, bufferInfo.attr);
-            if (writeRet == AVCODEC_SAMPLE_ERR_OK && secondaryMuxer_ != nullptr) {
-                writeRet = secondaryMuxer_->WriteSample(secondaryMuxer_->GetAudioTrackId(), bufferInfo.buffer,
-                    bufferInfo.attr);
-            }
-        }
-        int32_t ret = audioEncoder_->FreeOutputData(bufferInfo.bufferIndex);
-        CHECK_AND_BREAK_LOG(ret == AVCODEC_SAMPLE_ERR_OK, "Encoder output thread out");
-        if (writeRet != AVCODEC_SAMPLE_ERR_OK) {
-            AbortRecording("Write encoded audio sample failed");
-            break;
-        }
-        if (isEosBuffer) {
-            isAudioEos_.store(true);
-            videoEosCond_.notify_all();
-            AVCODEC_SAMPLE_LOGI("Audio EOS processed, exiting output thread");
+        if (!ProcessAudioOutputBuffer(bufferInfo)) {
             break;
         }
     }
@@ -1001,3 +864,61 @@ void Recorder::AudioEncOutputSyncThread()
     AVCODEC_SAMPLE_LOGI("Audio output thread exited, waiting for video thread to trigger release");
 }
 // [End Recorder::AudioEncOutputSyncThread]
+
+// 同步和异步模式共用写入路径，保证两种模式对 Buffer 归还和错误处理的规则一致。
+bool Recorder::ProcessAudioOutputBuffer(CodecBufferInfo &bufferInfo)
+{
+    ++audioEncContext_->outputFrameCount;
+    const bool eos = (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+    const bool media = !eos && bufferInfo.attr.size > 0 &&
+        (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_CODEC_DATA) == 0;
+    if (media) {
+        if (audioStats_.Output(bufferInfo.attr.pts, bufferInfo.attr.size)) {
+            sessionReport_.Event("audio.first_output");
+        }
+    }
+    int32_t writeRet = AVCODEC_SAMPLE_ERR_OK;
+    if (!eos && bufferInfo.attr.size > 0) {
+        const int64_t begin = RecorderClockUs();
+        writeRet = muxer_->WriteSample(muxer_->GetAudioTrackId(), bufferInfo.buffer, bufferInfo.attr);
+        audioStats_.Write(true, RecorderClockUs() - begin, writeRet == AVCODEC_SAMPLE_ERR_OK);
+        if (writeRet == AVCODEC_SAMPLE_ERR_OK && secondaryMuxer_ != nullptr) {
+            const int64_t secondaryBegin = RecorderClockUs();
+            writeRet = secondaryMuxer_->WriteSample(secondaryMuxer_->GetAudioTrackId(), bufferInfo.buffer, bufferInfo.attr);
+            audioStats_.Write(false, RecorderClockUs() - secondaryBegin, writeRet == AVCODEC_SAMPLE_ERR_OK);
+        }
+    }
+    // 即使写入失败也先归还同一索引，随后由正常的错误收尾路径释放会话。
+    const int32_t freeRet = audioEncoder_->FreeOutputData(bufferInfo.bufferIndex);
+    if (writeRet != AVCODEC_SAMPLE_ERR_OK || freeRet != AVCODEC_SAMPLE_ERR_OK) {
+        AbortRecording(writeRet != AVCODEC_SAMPLE_ERR_OK ? "Write encoded audio sample failed" :
+            "Release encoded audio buffer failed");
+        return false;
+    }
+    if (eos) {
+        audioEosReceived_ = true;
+        sessionReport_.Event("audio.eos");
+        isAudioEos_.store(true);
+        audioStats_.Stop();
+        videoEosCond_.notify_all();
+        return false;
+    }
+    return true;
+}
+
+void Recorder::MarkStage(const std::string &id, const std::string &stage, const std::string &result)
+{
+    if (id.empty() || id != sessionReport_.Snapshot().id || result.size() > 128) {
+        return;
+    }
+    if (stage == "camera.started" || stage == "camera.failed" || stage == "camera.released" ||
+        stage == "files.closed" || stage == "files.close_failed" || stage == "camera.frame_end" ||
+        stage == "camera.frame_end_timeout" || stage == "storage.stop_requested" || stage == "stop.requested") {
+        sessionReport_.Event(stage, result);
+        if (stage == "stop.requested") { sessionReport_.End("user_stop"); }
+        if (stage == "storage.stop_requested") { sessionReport_.End("low_space"); }
+        if (stage == "camera.failed") { sessionReport_.End("camera_failed"); }
+        if (stage == "files.close_failed") { sessionReport_.End("file_close_failed"); }
+        if (stage == "camera.frame_end_timeout") { sessionReport_.End("camera_frame_end_timeout"); }
+    }
+}
