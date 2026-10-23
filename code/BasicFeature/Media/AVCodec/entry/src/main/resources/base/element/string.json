@@ -618,6 +618,18 @@
     { "name": "playback_diagnostics_buffer_present", "value": "Buffer/GPU present " },
     { "name": "playback_diagnostics_buffer_average", "value": "  Average " },
     { "name": "playback_diagnostics_buffer_failures", "value": "  Failures " },
+    { "name": "playback_diagnostics_vulkan_present", "value": "Vulkan Surface stages " },
+    { "name": "playback_diagnostics_average", "value": "Average " },
+    { "name": "playback_diagnostics_vulkan_frame", "value": " frame " },
+    { "name": "playback_diagnostics_vulkan_failures", "value": " failures " },
+    { "name": "playback_diagnostics_vulkan_wait", "value": "  NativeImage wait " },
+    { "name": "playback_diagnostics_vulkan_acquire", "value": "  Acquire " },
+    { "name": "playback_diagnostics_vulkan_fence", "value": "  fence " },
+    { "name": "playback_diagnostics_vulkan_import", "value": "  import " },
+    { "name": "playback_diagnostics_vulkan_gpu", "value": "  GPU wait " },
+    { "name": "playback_diagnostics_vulkan_record", "value": "  record " },
+    { "name": "playback_diagnostics_vulkan_submit", "value": "  submit " },
+    { "name": "playback_diagnostics_vulkan_cache", "value": "  cache hit/miss " },
     { "name": "playback_diagnostics_software_fallback", "value": "Software fallback " },
     { "name": "playback_diagnostics_used", "value": "Used" },
     { "name": "playback_diagnostics_not_used", "value": "Not used" },
@@ -690,6 +702,11 @@
     { "name": "playback_rewind_short", "value": "Back 15s" },
     { "name": "playback_resume_short", "value": "Resume" },
     { "name": "playback_pause_short", "value": "Pause" },
-    { "name": "playback_forward_short", "value": "Forward 15s" }
+    { "name": "playback_forward_short", "value": "Forward 15s" },
+    { "name": "setting_group_preproc", "value": "Encoder preprocessing" },
+    { "name": "setting_video_preproc", "value": "Preprocessing mode" },
+    { "name": "setting_drop_frame_rate", "value": "Drop to frame rate" },
+    { "name": "setting_dual_output", "value": "One input, dual output" },
+    { "name": "setting_recorder_dump", "value": "Save encoded video stream" }
   ]
 }

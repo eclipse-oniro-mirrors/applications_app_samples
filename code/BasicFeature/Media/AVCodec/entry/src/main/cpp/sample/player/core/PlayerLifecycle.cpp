@@ -291,6 +291,10 @@ void Player::ResetPlaybackState()
     bufferPresentFrames_.store(0);
     bufferPresentFailures_.store(0);
     bufferPresentDurationNs_.store(0);
+    {
+        std::lock_guard<std::mutex> diagnosticsLock(videoSinkDiagnosticsMutex_);
+        videoSinkDiagnostics_ = {};
+    }
     hasVideoTrack_.store(false);
     hasAudioTrack_.store(false);
     hdrVividConfirmed_.store(false);

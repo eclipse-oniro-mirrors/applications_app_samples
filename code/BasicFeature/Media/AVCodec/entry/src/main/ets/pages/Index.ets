@@ -46,8 +46,6 @@ import { RecorderPage } from './RecorderPage'
 import { MainBottomNavigation } from '../components/MainBottomNavigation'
 import { PlayerSurface } from '../components/player/PlayerSurface'
 import { PlayerGestureLayer } from '../components/player/PlayerGestureLayer'
-import { PlayerSettingsSheet as PlayerSettingsSheetFrame } from '../components/player/PlayerSettingsSheet'
-import { RecorderSettingsSheet as RecorderSettingsSheetFrame } from '../components/recorder/RecorderSettingsSheet'
 import { PlayerStatusOverlay } from '../components/player/PlayerStatusOverlay'
 import { PlayerControlBar as PlayerControlBarComponent } from '../components/player/PlayerControlBar'
 import { PlayerQueueSheet } from '../components/player/PlayerQueueSheet'
@@ -83,6 +81,7 @@ export struct Player {
   @State buttonEnabled: boolean = true;
   @State isShow: boolean = false;
   @State isSmartFluencySupported: boolean = false;
+  @State isAdvancedRecorderSupported: boolean = false;
   @State thermalWarningActive: boolean = false;
   @State isStopping: boolean = false;
   @State playbackViewModel: PlaybackViewModel = new PlaybackViewModel();
@@ -146,6 +145,10 @@ export struct Player {
   @State draftRecorderAudioBitrate: number = 0;
   @State draftRecorderAudioLatency: number = 0;
   @State draftRecorderStabilization: number = 1;
+  @State draftRecorderPreprocMode: number = 0;
+  @State draftRecorderDropFrameRate: number = 0;
+  @State draftRecorderDualOutput: number = 0;
+  @State draftRecorderVideoDump: boolean = false;
   @State mediaInfoSections: MediaInfoSection[] = [];
   private transformType: number = 0;
   private playerSettings: PlayerSettingsModel = new PlayerSettingsModel();
@@ -198,6 +201,7 @@ export struct Player {
     // API 26+ 设备支持智能流畅倍速解码
     const apiVersion = deviceInfo.sdkApiVersion;
     this.isSmartFluencySupported = apiVersion >= 26;
+    this.isAdvancedRecorderSupported = apiVersion >= 26;
     if (this.isSmartFluencySupported) {
       player.setSmartFluencyEnabled(true);
       // 注册温控回调，当设备过热时自动切入 UNIFORM 低比例模式降低负载
@@ -1821,6 +1825,10 @@ export struct Player {
     this.draftRecorderStabilization =
       this.cameraData.videoStabilizationMode === Const.VIDEO_STABILIZATION_DISABLED ?
       0 : 1;
+    this.draftRecorderPreprocMode = this.isAdvancedRecorderSupported ? this.cameraData.preprocMode : 0;
+    this.draftRecorderDropFrameRate = this.isAdvancedRecorderSupported && this.cameraData.dropToFrameRate > 0 ? 1 : 0;
+    this.draftRecorderDualOutput = this.isAdvancedRecorderSupported && this.cameraData.enableDualOutput ? 1 : 0;
+    this.draftRecorderVideoDump = this.cameraData.enableVideoDump;
   }
 
   private getSettingText(resource: Resource): string {
@@ -2020,6 +2028,11 @@ export struct Player {
   }
 
   private applyRecorderSettings(): void {
+    if (!this.isAdvancedRecorderSupported) {
+      this.draftRecorderPreprocMode = 0;
+      this.draftRecorderDropFrameRate = 0;
+      this.draftRecorderDualOutput = 0;
+    }
     const values: string[] = [
       Const.OUTPUT_FORMAT[this.draftRecorderOutputFormat],
       Const.VIDEO_MIMETYPE[this.draftRecorderCodec],
@@ -2033,18 +2046,22 @@ export struct Player {
       Const.AUDIO_CHANNEL_COUNT[this.draftRecorderAudioChannelCount],
       Const.AUDIO_BITRATE[this.draftRecorderAudioBitrate],
       Const.AUDIO_CAPTURE_LATENCY_MODE[this.draftRecorderAudioLatency],
-      Const.VIDEO_STABILIZATION_MODE[this.draftRecorderStabilization]
+      Const.VIDEO_STABILIZATION_MODE[this.draftRecorderStabilization],
+      Const.VIDEO_PREPROC_MODE[this.draftRecorderPreprocMode],
+      Const.VIDEO_DROP_FRAME_RATE[this.draftRecorderDropFrameRate],
+      Const.DUAL_OUTPUT_MODE[this.draftRecorderDualOutput]
     ];
     if (!this.recorderSettings.applyPickerValues(values, this.cameraData)) {
       Logger.error(TAG, 'Invalid recorder settings: ' + JSON.stringify(values));
       return;
     }
+    this.cameraData.enableVideoDump = this.draftRecorderVideoDump;
     this.isRecorderSettingsVisible = false;
     this.checkIsProfileSupport();
   }
 
   @Builder
-  SettingOptionRow(title: Resource, value: string, onClick: () => void) {
+  SettingOptionRow(title: Resource, value: string, onClick: () => void, enabled: boolean = true) {
     Row() {
       Text(title)
         .fontSize('16fp')
@@ -2065,6 +2082,8 @@ export struct Player {
       .width('100%')
       .height('56vp')
       .padding({ left: '4vp', right: '4vp' })
+      .enabled(enabled)
+      .opacity(enabled ? 1 : 0.45)
       .onClick(onClick)
   }
 
@@ -2142,9 +2161,7 @@ export struct Player {
 
   @Builder
   PlayerSettingsSheet() {
-    PlayerSettingsSheetFrame({
-      content: (): void => this.PlayerSettingsSheetContent()
-    })
+    this.PlayerSettingsSheetContent()
   }
 
   @Builder
@@ -2314,9 +2331,7 @@ export struct Player {
 
   @Builder
   RecorderSettingsSheet() {
-    RecorderSettingsSheetFrame({
-      content: (): void => this.RecorderSettingsSheetContent()
-    })
+    this.RecorderSettingsSheetContent()
   }
 
   @Builder
@@ -2325,6 +2340,17 @@ export struct Player {
       Scroll() {
         Column() {
           this.SettingGroupHeader($r('app.string.setting_group_output'))
+          Row() {
+            Text($r('app.string.setting_recorder_dump'))
+              .fontSize('16fp')
+              .fontColor('#202124')
+              .layoutWeight(1)
+            Toggle({ type: ToggleType.Switch, isOn: this.draftRecorderVideoDump })
+              .onChange((isOn: boolean) => this.draftRecorderVideoDump = isOn)
+          }
+            .width('100%')
+            .height('52vp')
+          Divider().color('#E5E7EB')
           this.SettingOptionRow($r('app.string.setting_output_format'),
             Const.OUTPUT_FORMAT[this.draftRecorderOutputFormat], () => {
               this.showSettingPicker(Const.OUTPUT_FORMAT, this.draftRecorderOutputFormat,
@@ -2347,7 +2373,12 @@ export struct Player {
           this.SettingOptionRow($r('app.string.setting_frame_rate'),
             this.getFrameRateLabels()[this.draftRecorderFrameRate], () => {
               this.showSettingPicker(this.getFrameRateLabels(), this.draftRecorderFrameRate,
-                (index: number) => this.draftRecorderFrameRate = index);
+                (index: number) => {
+                  this.draftRecorderFrameRate = index;
+                  if (index === 0) {
+                    this.draftRecorderDropFrameRate = 0;
+                  }
+                });
             })
           Divider().color('#E5E7EB')
           this.SettingOptionRow($r('app.string.setting_video_bitrate'),
@@ -2405,6 +2436,25 @@ export struct Player {
               this.showSettingPicker(this.getRecorderStabilizationLabels(), this.draftRecorderStabilization,
                 (index: number) => this.draftRecorderStabilization = index);
             })
+          Divider().color('#E5E7EB')
+          this.SettingGroupHeader($r('app.string.setting_group_preproc'))
+          this.SettingOptionRow($r('app.string.setting_video_preproc'),
+            Const.VIDEO_PREPROC_MODE[this.draftRecorderPreprocMode], () => {
+              this.showSettingPicker(Const.VIDEO_PREPROC_MODE, this.draftRecorderPreprocMode,
+                (index: number) => this.draftRecorderPreprocMode = index);
+            }, this.isAdvancedRecorderSupported)
+          Divider().color('#E5E7EB')
+          this.SettingOptionRow($r('app.string.setting_drop_frame_rate'),
+            Const.VIDEO_DROP_FRAME_RATE[this.draftRecorderDropFrameRate], () => {
+              this.showSettingPicker(Const.VIDEO_DROP_FRAME_RATE, this.draftRecorderDropFrameRate,
+                (index: number) => this.draftRecorderDropFrameRate = index);
+            }, this.isAdvancedRecorderSupported && this.draftRecorderFrameRate > 0)
+          Divider().color('#E5E7EB')
+          this.SettingOptionRow($r('app.string.setting_dual_output'),
+            Const.DUAL_OUTPUT_MODE[this.draftRecorderDualOutput], () => {
+              this.showSettingPicker(Const.DUAL_OUTPUT_MODE, this.draftRecorderDualOutput,
+                (index: number) => this.draftRecorderDualOutput = index);
+            }, this.isAdvancedRecorderSupported)
         }
           .width('100%')
       }
@@ -2426,6 +2476,10 @@ export struct Player {
           this.draftRecorderAudioBitrate = 0;
           this.draftRecorderAudioLatency = 0;
           this.draftRecorderStabilization = 1;
+          this.draftRecorderPreprocMode = 0;
+          this.draftRecorderDropFrameRate = 0;
+          this.draftRecorderDualOutput = 0;
+          this.draftRecorderVideoDump = false;
         },
         () => this.applyRecorderSettings()
       )
@@ -2508,16 +2562,42 @@ export struct Player {
             let uri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, fileExt, {
               title: `AVCodecVideo_${DATETIME.getDate()}_${DATETIME.getTime()}`
             });
+            let secondaryFile: fileIo.File | undefined = undefined;
+            if (this.cameraData.enableDualOutput) {
+              const secondaryUri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, fileExt, {
+                title: `AVCodecVideoSecondary_${DATETIME.getDate()}_${DATETIME.getTime()}`
+              });
+              secondaryFile = await fileIo.open(secondaryUri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
+            }
             await this.checkIsProfileSupport();
             let file = await fileIo.open(uri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
             this.cameraData.outputfd = file.fd;
+            this.cameraData.secondaryOutputfd = secondaryFile === undefined ? -1 : secondaryFile.fd;
+            const dumpTimestamp: number = Date.now();
+            const dumpExtension: string = this.cameraData.videoCodecMime === Const.MIME_VIDEO_AVC ? 'h264' : 'h265';
+            const dumpDirectory: string = context === undefined ? '' : context.filesDir;
+            const primaryDumpPath: string = this.cameraData.enableVideoDump && dumpDirectory.length > 0 ?
+              `${dumpDirectory}/recording_${dumpTimestamp}_primary.${dumpExtension}` : '';
+            const secondaryDumpPath: string = this.cameraData.enableVideoDump && this.cameraData.enableDualOutput &&
+              dumpDirectory.length > 0 ?
+              `${dumpDirectory}/recording_${dumpTimestamp}_secondary.${dumpExtension}` : '';
             if (this.cameraData.outputfd !== null) {
               recorder.initNative(this.cameraData.outputfd, this.cameraData.videoCodecMime, this.cameraData.cameraWidth,
                 this.cameraData.cameraHeight, this.cameraData.frameRate, this.cameraData.isHDRVivid,
                 this.cameraData.bitRate, this.cameraData.format, this.cameraData.isSync,
                 this.cameraData.outputFormat, this.cameraData.bitrateMode, this.cameraData.iFrameInterval,
                 this.cameraData.audioSampleRate, this.cameraData.audioChannelCount,
-                this.cameraData.audioBitRate, this.cameraData.audioCaptureLatencyMode).then((data) => {
+                this.cameraData.audioBitRate, this.cameraData.audioCaptureLatencyMode,
+                this.cameraData.secondaryOutputfd, this.cameraData.enableDualOutput ? 1 : 0,
+                this.cameraData.preprocMode, this.cameraData.downsamplingWidth,
+                this.cameraData.downsamplingHeight, this.cameraData.dropToFrameRate,
+                this.cameraData.cropLeft, this.cameraData.cropTop, this.cameraData.cropRight,
+                this.cameraData.cropBottom,
+                this.cameraData.enableDualOutput && this.cameraData.cameraWidth >= Const.VIDEO_WIDTH_1080P ?
+                  Const.VIDEO_WIDTH_720P : this.cameraData.cameraWidth,
+                this.cameraData.enableDualOutput && this.cameraData.cameraHeight >= Const.VIDEO_HEIGHT_1080P ?
+                  Const.VIDEO_HEIGHT_720P : this.cameraData.cameraHeight,
+                this.cameraData.enableVideoDump ? 1 : 0, primaryDumpPath, secondaryDumpPath).then((data) => {
                 if (data.code === 0 && data.outputId !== null) {
                   this.cameraData.outputId = data.outputId;
                   this.getUIContext().getRouter().pushUrl({
@@ -2528,6 +2608,9 @@ export struct Player {
                   Logger.error(TAG, 'Recorder initialization failed, code: ' + data.code);
                   try {
                     fileIo.close(file);
+                    if (secondaryFile !== undefined) {
+                      fileIo.close(secondaryFile);
+                    }
                   } catch (error) {
                     Logger.error(TAG, 'Close unsupported recorder output failed: ' + JSON.stringify(error));
                   }
@@ -3021,6 +3104,35 @@ export struct Player {
             this.playbackViewModel.bufferPresentAverageUs.toFixed(1) + ' us' +
             this.getSettingText($r('app.string.playback_diagnostics_buffer_failures')) +
             this.playbackViewModel.bufferPresentFailures)
+            .fontSize('12fp').fontColor('#E8FFFFFF')
+        }
+        if (this.playbackViewModel.hasVideo && this.playbackViewModel.sinkDiagnosticsAvailable) {
+          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_present')) +
+            this.playbackViewModel.sinkFrames +
+            this.getSettingText($r('app.string.playback_diagnostics_vulkan_frame')) +
+            this.playbackViewModel.sinkFailures +
+            this.getSettingText($r('app.string.playback_diagnostics_vulkan_failures')) +
+            this.getSettingText($r('app.string.playback_diagnostics_average')) +
+            this.playbackViewModel.sinkAverageFrameUs.toFixed(1) + ' us')
+            .fontSize('12fp').fontColor('#E8FFFFFF')
+          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_wait')) +
+            this.playbackViewModel.sinkAverageNativeImageWaitUs.toFixed(1) + ' us' +
+            this.getSettingText($r('app.string.playback_diagnostics_vulkan_acquire')) +
+            this.playbackViewModel.sinkAverageNativeImageAcquireUs.toFixed(1) + ' us' +
+            this.getSettingText($r('app.string.playback_diagnostics_vulkan_fence')) +
+            this.playbackViewModel.sinkAverageAcquireFenceWaitUs.toFixed(1) + ' us')
+            .fontSize('12fp').fontColor('#E8FFFFFF')
+          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_import')) +
+            this.playbackViewModel.sinkAverageImportUs.toFixed(1) + ' us' +
+            this.getSettingText($r('app.string.playback_diagnostics_vulkan_gpu')) +
+            this.playbackViewModel.sinkAverageGpuWaitUs.toFixed(1) + ' us')
+            .fontSize('12fp').fontColor('#E8FFFFFF')
+          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_record')) +
+            this.playbackViewModel.sinkAverageCommandRecordUs.toFixed(1) + ' us' +
+            this.getSettingText($r('app.string.playback_diagnostics_vulkan_submit')) +
+            this.playbackViewModel.sinkAverageSubmitUs.toFixed(1) + ' us' +
+            this.getSettingText($r('app.string.playback_diagnostics_vulkan_cache')) +
+            this.playbackViewModel.sinkCacheHits + '/' + this.playbackViewModel.sinkCacheMisses)
             .fontSize('12fp').fontColor('#E8FFFFFF')
         }
         if (this.playbackViewModel.hasVideo) {

@@ -47,6 +47,8 @@ struct CodecUserData {
     CodecBufferQueue inputBufferQueue;
 
     uint32_t outputFrameCount = 0;
+    std::atomic<bool> isFirstVideoSyncFrame{true};
+    int64_t firstVideoSyncFramePts = 0;
     std::mutex outputMutex;
     std::condition_variable renderCond;
     CodecBufferQueue outputBufferQueue;

@@ -101,3 +101,4 @@ export async function requestRecordPermissions(context: Context): Promise<boolea
     return false;
   }
 }
+

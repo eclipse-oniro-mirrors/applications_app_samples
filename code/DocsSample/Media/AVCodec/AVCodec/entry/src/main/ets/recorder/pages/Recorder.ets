@@ -22,6 +22,8 @@ import Logger from '../../common/utils/Logger';
 import { dateTime } from '../../common/utils/DateTimeUtil';
 import { CommonConstants as Const } from '../../common/CommonConstants';
 import { CameraDataModel } from '../../model/CameraDataModel';
+import { RecordingHistoryModel } from '../../model/RecordingHistoryModel';
+import { common } from '@kit.AbilityKit';
 import { encoderProfileCameraCheck, previewProfileCameraCheck } from '../../common/utils/CameraCheck';
 import { colorSpaceManager } from '@kit.ArkGraphics2D';
 
@@ -196,6 +198,19 @@ export struct Recorder {
     }
   }
 
+  private hasRecordedOutput(): boolean {
+    if (params.outputfd < 0) {
+      return false;
+    }
+    try {
+      const outputInfo = fileIo.statSync(params.outputfd);
+      return outputInfo.size > 0;
+    } catch (error) {
+      Logger.warn(TAG, `Unable to verify the recorded output descriptor. error: ${JSON.stringify(error)}`);
+      return false;
+    }
+  }
+
   private async releaseCamera(): Promise<void> {
     if (this.isCameraReleased) {
       return;
@@ -261,6 +276,9 @@ export struct Recorder {
   }
 
   private async stopRecorder(): Promise<void> {
+    const recordedDurationSeconds: number = this.seconds;
+    let hasRecordedOutput: boolean = false;
+    let isNativeRecorderReleased: boolean = false;
     clearInterval(this.timer);
     this.seconds = 0;
     this.videoRecorderTimeText = '00:00';
@@ -269,6 +287,7 @@ export struct Recorder {
     try {
       await this.stopVideoOutput();
       const stopEndResult = await recorder.stopEndNative();
+      isNativeRecorderReleased = true;
       if (stopEndResult.code !== 0) {
         Logger.error(TAG, `stopEndNative failed. code: ${stopEndResult.code}`);
       }
@@ -284,9 +303,31 @@ export struct Recorder {
         }
       }
       // Native 完成 EOS 和 Muxer 释放后再关闭 fd，媒体库才能及时确认文件写入完成。
+      if (isNativeRecorderReleased) {
+        // EOS 通知失败也会等待 Native 释放完成；保留可读取的非空输出文件记录。
+        hasRecordedOutput = this.hasRecordedOutput();
+      }
       await this.closeOutputFile();
+      if (hasRecordedOutput && recordedDurationSeconds > 0 && params.outputUri.length > 0) {
+        await this.saveRecordingHistory(recordedDurationSeconds);
+      }
       await this.releaseCamera();
       this.isRecording = false;
+    }
+  }
+
+  private async saveRecordingHistory(recordedDurationSeconds: number): Promise<void> {
+    try {
+      const hostContext = context.getHostContext();
+      if (hostContext === undefined) {
+        return;
+      }
+      const history: RecordingHistoryModel = new RecordingHistoryModel();
+      await history.load(hostContext as common.UIAbilityContext);
+      await history.add(params.outputUri, params.outputTitle, params.secondaryOutputUri, Date.now(),
+        recordedDurationSeconds);
+    } catch (error) {
+      Logger.error(TAG, `Failed to save recording history. error: ${JSON.stringify(error)}`);
     }
   }
 

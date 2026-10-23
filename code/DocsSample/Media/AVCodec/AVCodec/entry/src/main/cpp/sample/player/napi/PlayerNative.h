@@ -17,6 +17,7 @@
 #define VIDEO_CODEC_SAMPLE_PLAYER_NATIVE_H
 
 #include "napi/native_api.h"
+#include "DeviceCodecCapabilityNative.h"
 
 class PlayerNative {
 public:

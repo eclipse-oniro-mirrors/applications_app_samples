@@ -14,6 +14,7 @@
  */
 
 #include <algorithm>
+#include <cstddef>
 #include <unistd.h>
 #include <native_fence/native_fence.h>
 #include "BufferRenderer.h"
@@ -269,10 +270,16 @@ bool CopyPlaneByStride(const PlaneCopyConfig &config)
         AVCODEC_SAMPLE_LOGE("Invalid plane copy config");
         return false;
     }
+    // 连续平面一次复制可省去逐行循环；步幅不同仍按行复制。
+    if (config.srcStride == config.dstStride && config.srcStride == config.bytesPerRow) {
+        const size_t copySize = static_cast<size_t>(config.bytesPerRow) * static_cast<size_t>(config.rows);
+        std::copy_n(config.src, static_cast<std::ptrdiff_t>(copySize), config.dst);
+        return true;
+    }
     uint8_t *dst = config.dst;
     const uint8_t *src = config.src;
     for (int32_t row = 0; row < config.rows; row++) {
-        std::copy_n(src, static_cast<size_t>(config.bytesPerRow), dst);
+        std::copy_n(src, static_cast<std::ptrdiff_t>(config.bytesPerRow), dst);
         dst += config.dstStride;
         src += config.srcStride;
     }
@@ -362,12 +369,19 @@ bool ResolveWindowGeometry(const NativeXComponentSample::PluginManager::PluginWi
     const OH_AVPixelFormat pixelFormat = videoDecContext.outputPixelFormat;
     const bool isYuv420Sp = pixelFormat == AV_PIXEL_FORMAT_NV12 || pixelFormat == AV_PIXEL_FORMAT_NV21;
     geometry.transform = isYuv420Sp ? NATIVEBUFFER_ROTATE_NONE : GetWindowTransform(sampleInfo.video.rotation);
-    if (!hasComponentSize) {
-        return true;
-    }
     const int32_t sourceWidth = videoDecContext.width > 0 ? videoDecContext.width : sampleInfo.video.videoWidth;
     const int32_t sourceHeight = videoDecContext.height > 0 ? videoDecContext.height : sampleInfo.video.videoHeight;
     const int32_t normalizedRotation = NormalizeRotation(sampleInfo.video.rotation);
+    if (isYuv420Sp && normalizedRotation == 0) {
+        // 无旋转的 NV12/P010 帧保留解码尺寸，避免逐像素 CPU 缩放；NativeWindow 按 FIT 将帧交给合成器缩放。
+        // 这样 4K HDR 只需按行复制 Y、UV 平面，旋转视频仍走现有 CPU 变换路径。
+        geometry.width = sourceWidth;
+        geometry.height = sourceHeight;
+        return geometry.width > 0 && geometry.height > 0;
+    }
+    if (!hasComponentSize) {
+        return true;
+    }
     const bool quarterTurn = isYuv420Sp && (normalizedRotation == ROTATION_90_DEGREES ||
         normalizedRotation == ROTATION_270_DEGREES);
     FittedFrame contentFrame;
@@ -650,8 +664,7 @@ bool ApplyWindowConfiguration(OHNativeWindow *window, int32_t width, int32_t hei
 {
     int32_t ret = OH_NativeWindow_NativeWindowHandleOpt(window, SET_BUFFER_GEOMETRY, width, height);
     CHECK_AND_RETURN_RET_LOG(ret == 0, false, "Set buffer geometry failed, ret: %{public}d", ret);
-    const uint64_t usage = NATIVEBUFFER_USAGE_CPU_READ | NATIVEBUFFER_USAGE_CPU_WRITE |
-        NATIVEBUFFER_USAGE_MEM_DMA;
+    const uint64_t usage = NATIVEBUFFER_USAGE_CPU_WRITE | NATIVEBUFFER_USAGE_MEM_DMA;
     ret = OH_NativeWindow_NativeWindowHandleOpt(window, SET_USAGE, usage);
     CHECK_AND_RETURN_RET_LOG(ret == 0, false, "Set buffer usage failed, ret: %{public}d", ret);
     ret = OH_NativeWindow_NativeWindowHandleOpt(window, SET_FORMAT, graphicPixelFormat);

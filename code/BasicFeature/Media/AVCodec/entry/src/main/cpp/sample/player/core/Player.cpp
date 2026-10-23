@@ -76,6 +76,10 @@ PlaybackInfo Player::GetPlaybackInfo() const
     }
     info.positionUs = playbackPositionUs_.load();
     info.diagnostics = diagnostics_.Snapshot();
+    {
+        std::lock_guard<std::mutex> lock(videoSinkDiagnosticsMutex_);
+        info.videoSinkDiagnostics = videoSinkDiagnostics_;
+    }
     info.diagnostics.audioInterrupted = audioInterrupted_.load();
     info.diagnostics.audioInterruptions = audioInterruptCount_.load();
     info.diagnostics.lastAudioInterruptHint = audioInterruptHint_.load();

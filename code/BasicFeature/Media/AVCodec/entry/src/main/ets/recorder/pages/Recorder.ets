@@ -177,13 +177,19 @@ export struct Recorder {
   }
 
   private async closeOutputFile(): Promise<void> {
-    if (this.isOutputFdClosed || params.outputfd < 0) {
+    if (this.isOutputFdClosed || (params.outputfd < 0 && params.secondaryOutputfd < 0)) {
       return;
     }
     this.isOutputFdClosed = true;
     try {
-      await fileIo.close(params.outputfd);
+      if (params.outputfd >= 0) {
+        await fileIo.close(params.outputfd);
+      }
       params.outputfd = -1;
+      if (params.secondaryOutputfd >= 0) {
+        await fileIo.close(params.secondaryOutputfd);
+      }
+      params.secondaryOutputfd = -1;
       Logger.info(TAG, 'Recorder output file closed');
     } catch (error) {
       Logger.error(TAG, `Failed to close the recorder output file. error: ${JSON.stringify(error)}`);

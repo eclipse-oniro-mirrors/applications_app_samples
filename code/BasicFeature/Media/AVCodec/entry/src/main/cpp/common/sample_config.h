@@ -83,6 +83,21 @@ struct VideoSampleInfo {
     OH_MatrixCoefficient matrix = MATRIX_COEFFICIENT_BT2020_CL;
     int32_t rotation = 0;
     OHNativeWindow *window = nullptr;
+    // API 26 编码前处理设置。降采样与裁剪互斥，目标帧率可与二者之一组合。
+    int32_t preprocMode = 0;
+    int32_t downsamplingWidth = 0;
+    int32_t downsamplingHeight = 0;
+    int32_t cropLeft = 0;
+    int32_t cropTop = 0;
+    int32_t cropRight = 0;
+    int32_t cropBottom = 0;
+    double dropToFrameRate = 0.0;
+};
+
+enum VideoPreprocMode : int32_t {
+    VIDEO_PREPROC_NONE = 0,
+    VIDEO_PREPROC_DOWNSAMPLING = 1,
+    VIDEO_PREPROC_CROP = 2,
 };
 
 struct AudioSampleInfo {
@@ -116,9 +131,16 @@ struct CodecOptions {
 
 struct OutputOptions {
     int32_t outputFd = -1;
+    int32_t secondaryOutputFd = -1;
     bool enableVideoDump = false;
     std::string outputFilePath;
+    // 编码器输出的原始视频码流保存路径；为空时由 Recorder 按当前会话生成默认路径。
+    std::string videoDumpPath;
+    std::string secondaryVideoDumpPath;
     int32_t outputFormat = 2; // AV_OUTPUT_FORMAT_MPEG_4 = 2，AV_OUTPUT_FORMAT_FLV = 14
+    bool enableDualOutput = false;
+    int32_t secondaryVideoWidth = 0;
+    int32_t secondaryVideoHeight = 0;
 };
 
 struct AudioPlaybackOptions {

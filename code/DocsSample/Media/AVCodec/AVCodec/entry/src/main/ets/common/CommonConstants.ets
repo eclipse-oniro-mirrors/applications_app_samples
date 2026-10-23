@@ -168,7 +168,10 @@ export class CommonConstants {
   /**
    * 智能流畅解码的帧保留模式，仅 API 26 及以上版本可用。
    */
-  public static readonly FRAME_RETENTION_MODE: string[] = ['FULL(全量直通)', 'ADAPTIVE(感知自适应)', 'UNIFORM(平滑定比)'];
+  public static readonly FRAME_RETENTION_MODE: Resource[] = [
+    $r('app.string.frame_retention_full'), $r('app.string.frame_retention_adaptive'),
+    $r('app.string.frame_retention_uniform')
+  ];
   /**
    * 通用默认数值。
    */

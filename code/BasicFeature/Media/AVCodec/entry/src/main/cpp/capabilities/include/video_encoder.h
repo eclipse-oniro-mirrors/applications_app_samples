@@ -40,7 +40,7 @@ public:
     int32_t CreatePrimaryWithPreproc(const std::string &videoCodecMime);
     // 从主编码器创建副编码器。调用方必须先销毁副编码器，再销毁主编码器。
     int32_t CreateSecondaryFromPrimary(VideoEncoder &primaryEncoder);
-    int32_t Config(SampleInfo &sampleInfo, CodecUserData *codecUserData);
+    int32_t Config(SampleInfo &sampleInfo, CodecUserData *codecUserData, bool getInputSurface = true);
     // 在 Configure 成功后申请内部资源；通常由 Config 统一完成，无需业务侧重复调用。
     int32_t Prepare();
     int32_t Start();

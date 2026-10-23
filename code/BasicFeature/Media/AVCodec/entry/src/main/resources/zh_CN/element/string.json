@@ -606,6 +606,18 @@
     { "name": "playback_diagnostics_buffer_present", "value": "Buffer/GPU 送显 " },
     { "name": "playback_diagnostics_buffer_average", "value": "  平均 " },
     { "name": "playback_diagnostics_buffer_failures", "value": "  失败 " },
+    { "name": "playback_diagnostics_vulkan_present", "value": "Vulkan Surface 分阶段 " },
+    { "name": "playback_diagnostics_average", "value": "平均 " },
+    { "name": "playback_diagnostics_vulkan_frame", "value": " 帧 " },
+    { "name": "playback_diagnostics_vulkan_failures", "value": " 失败 " },
+    { "name": "playback_diagnostics_vulkan_wait", "value": "  NativeImage 等待 " },
+    { "name": "playback_diagnostics_vulkan_acquire", "value": "  获取 " },
+    { "name": "playback_diagnostics_vulkan_fence", "value": "  fence " },
+    { "name": "playback_diagnostics_vulkan_import", "value": "  导入 " },
+    { "name": "playback_diagnostics_vulkan_gpu", "value": "  GPU 等待 " },
+    { "name": "playback_diagnostics_vulkan_record", "value": "  录制命令 " },
+    { "name": "playback_diagnostics_vulkan_submit", "value": "  提交 " },
+    { "name": "playback_diagnostics_vulkan_cache", "value": "  缓存命中/未命中 " },
     { "name": "playback_diagnostics_software_fallback", "value": "软件解码回退 " },
     { "name": "playback_diagnostics_used", "value": "已启用" },
     { "name": "playback_diagnostics_not_used", "value": "未启用" },
@@ -678,6 +690,11 @@
     { "name": "playback_rewind_short", "value": "后退15s" },
     { "name": "playback_resume_short", "value": "继续" },
     { "name": "playback_pause_short", "value": "暂停" },
-    { "name": "playback_forward_short", "value": "前进15s" }
+    { "name": "playback_forward_short", "value": "前进15s" },
+    { "name": "setting_group_preproc", "value": "编码前处理" },
+    { "name": "setting_video_preproc", "value": "前处理方式" },
+    { "name": "setting_drop_frame_rate", "value": "丢帧目标帧率" },
+    { "name": "setting_dual_output", "value": "一入二出" },
+    { "name": "setting_recorder_dump", "value": "保存编码视频码流" }
   ]
 }

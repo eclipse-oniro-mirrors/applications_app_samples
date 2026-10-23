@@ -26,6 +26,7 @@
 
 namespace {
 constexpr char APP_NAME[] = "AVCodecVideoSample";
+constexpr uint64_t NANOSECONDS_PER_MICROSECOND = 1000;
 constexpr char DEVICE_SWAPCHAIN_EXTENSION[] = VK_KHR_SWAPCHAIN_EXTENSION_NAME;
 constexpr VkClearColorValue BLACK = { { 0.0F, 0.0F, 0.0F, 1.0F } };
 constexpr uint64_t FRAME_READY_WAIT_NS = 2ULL * 1000ULL * 1000ULL;
@@ -1218,6 +1219,7 @@ bool VulkanVideoSink::RecreateSwapchain(int32_t width, int32_t height)
 
 int32_t VulkanVideoSink::Present(const VideoPresentRequest &request)
 {
+    const auto frameStartedAt = std::chrono::steady_clock::now();
     if (!surfaceDecoderReady_) {
         // Vulkan 链路固定使用 Surface 输出。异常情况下只归还 codec Buffer，
         // 不能让旧的 BufferRenderer 接管当前播放。
@@ -1236,7 +1238,11 @@ int32_t VulkanVideoSink::Present(const VideoPresentRequest &request)
     }
     if (!RenderNativeImageFrame()) {
         AVCODEC_SAMPLE_LOGW("Vulkan NativeImage frame presentation failed; drop frame");
+        vulkanDiagnosticFailures_.fetch_add(1);
     }
+    vulkanDiagnosticFrames_.fetch_add(1);
+    vulkanDiagnosticFrameNs_.fetch_add(static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
+        std::chrono::steady_clock::now() - frameStartedAt).count()));
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
@@ -1377,6 +1383,68 @@ void VulkanVideoSink::ResetContextState()
     frameInFlight_ = false;
 }
 
+void VulkanVideoSink::RecordVulkanStage(VulkanDiagnosticStage stage, uint64_t durationNs)
+{
+    switch (stage) {
+        case VulkanDiagnosticStage::NATIVE_IMAGE_WAIT:
+            vulkanDiagnosticNativeImageWaitNs_.fetch_add(durationNs);
+            break;
+        case VulkanDiagnosticStage::NATIVE_IMAGE_ACQUIRE:
+            vulkanDiagnosticNativeImageAcquireNs_.fetch_add(durationNs);
+            break;
+        case VulkanDiagnosticStage::ACQUIRE_FENCE_WAIT:
+            vulkanDiagnosticFenceWaitNs_.fetch_add(durationNs);
+            break;
+        case VulkanDiagnosticStage::IMPORT:
+            vulkanDiagnosticImportNs_.fetch_add(durationNs);
+            break;
+        case VulkanDiagnosticStage::GPU_WAIT:
+            vulkanDiagnosticGpuWaitNs_.fetch_add(durationNs);
+            break;
+        case VulkanDiagnosticStage::COMMAND_RECORD:
+            vulkanDiagnosticCommandRecordNs_.fetch_add(durationNs);
+            break;
+        case VulkanDiagnosticStage::SUBMIT:
+            vulkanDiagnosticSubmitNs_.fetch_add(durationNs);
+            break;
+    }
+}
+
+VideoSinkDiagnostics VulkanVideoSink::GetDiagnostics() const
+{
+    VideoSinkDiagnostics diagnostics;
+    diagnostics.available = true;
+    diagnostics.frames = vulkanDiagnosticFrames_.load();
+    diagnostics.failures = vulkanDiagnosticFailures_.load();
+    diagnostics.cacheHits = vulkanDiagnosticCacheHits_.load();
+    diagnostics.cacheMisses = vulkanDiagnosticCacheMisses_.load();
+    diagnostics.averageFrameUs = diagnostics.frames > 0 ?
+        static_cast<double>(vulkanDiagnosticFrameNs_.load()) / static_cast<double>(diagnostics.frames) /
+            NANOSECONDS_PER_MICROSECOND : 0.0;
+    diagnostics.averageNativeImageWaitUs = diagnostics.frames > 0 ?
+        static_cast<double>(vulkanDiagnosticNativeImageWaitNs_.load()) /
+            static_cast<double>(diagnostics.frames) / NANOSECONDS_PER_MICROSECOND : 0.0;
+    diagnostics.averageNativeImageAcquireUs = diagnostics.frames > 0 ?
+        static_cast<double>(vulkanDiagnosticNativeImageAcquireNs_.load()) /
+            static_cast<double>(diagnostics.frames) / NANOSECONDS_PER_MICROSECOND : 0.0;
+    diagnostics.averageAcquireFenceWaitUs = diagnostics.frames > 0 ?
+        static_cast<double>(vulkanDiagnosticFenceWaitNs_.load()) /
+            static_cast<double>(diagnostics.frames) / NANOSECONDS_PER_MICROSECOND : 0.0;
+    diagnostics.averageImportUs = diagnostics.frames > 0 ?
+        static_cast<double>(vulkanDiagnosticImportNs_.load()) / static_cast<double>(diagnostics.frames) /
+            NANOSECONDS_PER_MICROSECOND : 0.0;
+    diagnostics.averageGpuWaitUs = diagnostics.frames > 0 ?
+        static_cast<double>(vulkanDiagnosticGpuWaitNs_.load()) / static_cast<double>(diagnostics.frames) /
+            NANOSECONDS_PER_MICROSECOND : 0.0;
+    diagnostics.averageCommandRecordUs = diagnostics.frames > 0 ?
+        static_cast<double>(vulkanDiagnosticCommandRecordNs_.load()) /
+            static_cast<double>(diagnostics.frames) / NANOSECONDS_PER_MICROSECOND : 0.0;
+    diagnostics.averageSubmitUs = diagnostics.frames > 0 ?
+        static_cast<double>(vulkanDiagnosticSubmitNs_.load()) / static_cast<double>(diagnostics.frames) /
+            NANOSECONDS_PER_MICROSECOND : 0.0;
+    return diagnostics;
+}
+
 void VulkanVideoSink::Reset()
 {
     // Surface 解码器由 Player 在此之前销毁；此时才能解除 decoder 使用的窗口租约。
@@ -1387,6 +1455,18 @@ void VulkanVideoSink::Reset()
     fallback_.Reset();
     rgbaCache_.clear();
     uploadCache_.clear();
+    vulkanDiagnosticFrames_.store(0);
+    vulkanDiagnosticFailures_.store(0);
+    vulkanDiagnosticCacheHits_.store(0);
+    vulkanDiagnosticCacheMisses_.store(0);
+    vulkanDiagnosticFrameNs_.store(0);
+    vulkanDiagnosticNativeImageWaitNs_.store(0);
+    vulkanDiagnosticNativeImageAcquireNs_.store(0);
+    vulkanDiagnosticFenceWaitNs_.store(0);
+    vulkanDiagnosticImportNs_.store(0);
+    vulkanDiagnosticGpuWaitNs_.store(0);
+    vulkanDiagnosticCommandRecordNs_.store(0);
+    vulkanDiagnosticSubmitNs_.store(0);
 }
 
 void VulkanVideoSink::BeginPlayback()
@@ -1402,4 +1482,16 @@ void VulkanVideoSink::BeginPlayback()
     fallback_.Reset();
     rgbaCache_.clear();
     uploadCache_.clear();
+    vulkanDiagnosticFrames_.store(0);
+    vulkanDiagnosticFailures_.store(0);
+    vulkanDiagnosticCacheHits_.store(0);
+    vulkanDiagnosticCacheMisses_.store(0);
+    vulkanDiagnosticFrameNs_.store(0);
+    vulkanDiagnosticNativeImageWaitNs_.store(0);
+    vulkanDiagnosticNativeImageAcquireNs_.store(0);
+    vulkanDiagnosticFenceWaitNs_.store(0);
+    vulkanDiagnosticImportNs_.store(0);
+    vulkanDiagnosticGpuWaitNs_.store(0);
+    vulkanDiagnosticCommandRecordNs_.store(0);
+    vulkanDiagnosticSubmitNs_.store(0);
 }

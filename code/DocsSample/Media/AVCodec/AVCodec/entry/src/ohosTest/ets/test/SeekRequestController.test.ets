@@ -1,6 +1,16 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 import { describe, expect, it } from '@ohos/hypium';
@@ -26,22 +36,25 @@ class ControlledSeek {
 
 export default function seekRequestControllerTest(): void {
   describe('SeekRequestControllerTest', () => {
-    it('AVCodec_SeekQueue_LatestTarget_001', 0, async () => {
-      await runAsyncTestCase('AVCodec_SeekQueue_LatestTarget_001', async () => {
+    it('AVCodec_SeekQueue_ImmediateAndLatestPending_001', 0, async () => {
+      await runAsyncTestCase('AVCodec_SeekQueue_ImmediateAndLatestPending_001', async () => {
         const worker = new ControlledSeek();
         const queue = new SeekRequestController((targetUs: number) => worker.execute(targetUs));
         const started = worker.waitForStart();
         const first = queue.request(1000000);
         const second = queue.request(2000000);
         const last = queue.request(3000000);
-        expect(await first).assertEqual('superseded');
-        expect(await second).assertEqual('superseded');
         await started;
         expect(worker.targets.length).assertEqual(1);
-        expect(worker.targets[0]).assertEqual(3000000);
+        expect(worker.targets[0]).assertEqual(1000000);
+        expect(await second).assertEqual('superseded');
+        worker.complete?.(true);
+        expect(await first).assertEqual('completed');
+        expect(worker.targets.length).assertEqual(2);
+        expect(worker.targets[1]).assertEqual(3000000);
         worker.complete?.(true);
         expect(await last).assertEqual('completed');
-        expect(queue.merged).assertEqual(2);
+        expect(queue.merged).assertEqual(1);
         expect(queue.isBusy()).assertFalse();
       });
     });

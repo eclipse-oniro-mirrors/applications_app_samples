@@ -15,8 +15,23 @@
 
 import { describe, expect, it } from '@ohos/hypium';
 import { MediaInfo } from 'libplayer.so';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { buildMediaInfoSections, MediaInfoSection } from '../../../main/ets/model/MediaInfoModel';
 import { runTestCase } from './TestCaseLogger';
+
+function buildTestSections(info: MediaInfo, sourceTitle: string = ''): MediaInfoSection[] {
+  const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+  return buildMediaInfoSections(info, context.resourceManager, sourceTitle);
+}
+
+function getTestText(resource: Resource): string {
+  try {
+    return abilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager.getStringSync(resource.id);
+  } catch (error) {
+    expect(false).assertTrue();
+    return '';
+  }
+}
 
 function createMediaInfo(): MediaInfo {
   return {
@@ -52,12 +67,14 @@ export default function mediaInfoModelTest(): void {
   describe('MediaInfoModelTest', () => {
     it('AVCodec_MediaInfo_StructuredAndRawSections_001', 0, () => {
       runTestCase('AVCodec_MediaInfo_StructuredAndRawSections_001', () => {
-        const sections = buildMediaInfoSections(createMediaInfo());
+        const sections = buildTestSections(createMediaInfo(), 'sample.mp4');
         expect(sections.length).assertEqual(7);
-        expect(sections[0].rows[0].value).assertEqual('2.00 MiB（2097152 bytes）');
+        expect(sections[0].rows[0].value).assertEqual('sample.mp4');
+        expect(sections[0].rows[1].value).assertContain('2.00 MiB');
+        expect(sections[0].rows[1].value).assertContain('2097152 bytes');
         expect(sections[1].rows[1].value).assertEqual('1920 × 1080');
-        expect(sections[1].rows[6].value).assertEqual('是');
-        expect(sections[1].rows[7].value).assertEqual('尚未确认');
+        expect(sections[1].rows[6].value).assertEqual(getTestText($r('app.string.media_info_yes')));
+        expect(sections[1].rows[7].value).assertEqual(getTestText($r('app.string.playback_diagnostics_unconfirmed')));
         expect(sections[2].rows[1].value).assertEqual('48000 Hz');
         expect(sections[5].rawText).assertContain('video/avc');
         expect(sections[6].rawText).assertContain('audio/mp4a-latm');
@@ -72,10 +89,11 @@ export default function mediaInfoModelTest(): void {
           index: 0, type: 1, codecMime: 'video/avc', audioSampleRate: 0, audioChannelCount: 0,
           bitrate: 0, formatDump: ''
         }];
-        const sections: MediaInfoSection[] = buildMediaInfoSections(info);
+        const sections: MediaInfoSection[] = buildTestSections(info);
         expect(sections.length).assertEqual(5);
-        expect(sections[2].title).assertEqual('解码与输出');
-        expect(sections[4].rawText).assertEqual('无可用信息');
+        expect(sections[2].title).assertEqual(getTestText($r('app.string.media_info_decoder_output')));
+        expect(sections[4].rawText).assertEqual(getTestText($r('app.string.media_info_no_data')));
+        expect(sections[0].rows[0].value).assertEqual(getTestText($r('app.string.media_info_not_provided')));
       });
     });
 
@@ -83,9 +101,9 @@ export default function mediaInfoModelTest(): void {
       runTestCase('AVCodec_MediaInfo_GraphicsRunModes_004', () => {
         const info = createMediaInfo();
         info.decoder.runMode = 2;
-        expect(buildMediaInfoSections(info)[3].rows[1].value).assertEqual('OpenGLMode');
+        expect(buildTestSections(info)[3].rows[1].value).assertEqual('OpenGLMode');
         info.decoder.runMode = 3;
-        expect(buildMediaInfoSections(info)[3].rows[1].value).assertEqual('VulkanMode');
+        expect(buildTestSections(info)[3].rows[1].value).assertEqual('VulkanMode');
       });
     });
 
@@ -93,7 +111,7 @@ export default function mediaInfoModelTest(): void {
       runTestCase('AVCodec_MediaInfo_UnavailableMedia_003', () => {
         const info = createMediaInfo();
         info.available = false;
-        expect(buildMediaInfoSections(info).length).assertEqual(0);
+        expect(buildTestSections(info).length).assertEqual(0);
       });
     });
   });
