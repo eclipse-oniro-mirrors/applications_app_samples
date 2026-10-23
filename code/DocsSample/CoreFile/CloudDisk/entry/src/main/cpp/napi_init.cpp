@@ -1085,13 +1085,13 @@ static napi_value RegisterCallback(napi_env env, napi_callback_info info)
 // 14. createPlaceholderFile(syncPath, relativePath, atimeMs, mtimeMs, logicalSize,
 //                           customInfo?): number
 //     创建占位符文件。占位符文件是"只有元数据、没有真实内容"的文件，
-//     当用户访问时触发水合（FetchData）从云端拉取真实内容。
+//     当用户访问时触发水合（FetchData）从云侧拉取真实内容。
 //     OH_CloudDisk_CreatePlaceholder(const CloudDisk_SyncFolderPath syncFolderPath,
 //         const CloudDisk_PathInfo relativePathInfo,
 //         const OH_CloudDisk_PlaceholderInfo placeholderInfo,
 //         const OH_CloudDisk_PlaceholderCustomInfo *customInfo)
 //     customInfo：可选的自定义信息（内容由应用自行定义，系统不解析其内容，
-//     仅原样保存与读回，如云端文件标识），不传或传空串时置NULL（不写入），
+//     仅原样保存与读回，如云侧文件标识），不传或传空串时置NULL（不写入），
 //     可通过getPlaceholderCustomInfo读回。
 // ============================================================================
 // [Start create_placeholder]
@@ -1114,9 +1114,9 @@ static napi_value CreatePlaceholderFile(napi_env env, napi_callback_info info)
     }
 
     // 解析时间与大小参数
-    uint64_t atimeMs = static_cast<uint64_t>(GetNumberParam(env, args[2]));  // 访问时间（毫秒时间戳，映射云端文件访问时间）
-    uint64_t mtimeMs = static_cast<uint64_t>(GetNumberParam(env, args[3]));  // 修改时间（毫秒时间戳，映射云端文件修改时间）
-    uint64_t logicalSize = static_cast<uint64_t>(GetNumberParam(env, args[4])); // 云端文件逻辑大小（字节）
+    uint64_t atimeMs = static_cast<uint64_t>(GetNumberParam(env, args[2]));  // 访问时间（毫秒时间戳，映射云侧文件访问时间）
+    uint64_t mtimeMs = static_cast<uint64_t>(GetNumberParam(env, args[3]));  // 修改时间（毫秒时间戳，映射云侧文件修改时间）
+    uint64_t logicalSize = static_cast<uint64_t>(GetNumberParam(env, args[4])); // 云侧文件逻辑大小（字节）
 
     // 解析可选入参：自定义信息（不传或空串时置NULL，表示不写入自定义信息）
     char* customInfo = nullptr;
@@ -1441,7 +1441,7 @@ static napi_value UnmarkPlaceholderFile(napi_env env, napi_callback_info info)
 
 // ============================================================================
 // 18c. getPlaceholderCustomInfo(syncPath, relativePath): {code, dataLength, data}
-//      读取占位符自定义信息（创建占位符时写入的云端文件标识等业务数据，上限4 KiB）。
+//      读取占位符自定义信息（创建占位符时写入的云侧文件标识等业务数据，上限1024字节）。
 //      OH_CloudDisk_GetPlaceholderCustomInfo(const CloudDisk_SyncFolderPath,
 //          const CloudDisk_PathInfo, uint8_t *dataBuf, size_t *inOutDataLength)
 // ============================================================================
@@ -1490,8 +1490,8 @@ static napi_value GetPlaceholderCustomInfo(napi_env env, napi_callback_info info
     CloudDisk_SyncFolderPath syncFolderPath = MakePathInfo(syncPath);
     CloudDisk_PathInfo relativePathInfo = MakePathInfo(relativePath);
 
-    // 分配自定义信息读取缓冲区（上限4096字节 = 4 KiB）
-    size_t dataLength = 4096;
+    // 分配自定义信息读取缓冲区（自定义信息上限1024字节）
+    size_t dataLength = 1024;
     uint8_t *dataBuf = (uint8_t *)malloc(dataLength);
     if (!dataBuf) {
         delete[] syncPath;
