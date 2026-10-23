@@ -51,6 +51,10 @@ struct Index {
           buttonName: resource.resourceToString($r('app.string.Container_Object').id),
           buttonUrl: 'managers/ContainerObject'
         });
+        CommonButton({
+          buttonName: resource.resourceToString($r('app.string.Worker_Send_ArrayBuffer').id),
+          buttonUrl: 'managers/WorkerSendArrayBuffer'
+        });
       }
       .padding('20vp')
       .width('100%')

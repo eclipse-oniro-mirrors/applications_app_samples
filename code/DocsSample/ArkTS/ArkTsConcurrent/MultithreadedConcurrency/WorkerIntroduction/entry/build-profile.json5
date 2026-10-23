@@ -50,7 +50,9 @@
         "./src/main/ets/notrecommendedtwoworker/childworker.ets",
         './src/main/ets/workers/ChildWorker.ets',
         './src/main/ets/workers/ParentWorker.ets',
-        './src/main/ets/workers/worker.ets'
+        './src/main/ets/workers/worker.ets',
+        './src/main/ets/workers/DataWorker.ets',
+        './src/main/ets/workers/DataWorker2.ets'
       ]
     }
   }
