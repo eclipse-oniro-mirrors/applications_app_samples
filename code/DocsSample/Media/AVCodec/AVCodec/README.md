@@ -214,7 +214,7 @@ This path keeps the original dimensions. Selecting Surface resets the size limit
 
 #### Task lifecycle, export, and limits
 
-The encoder's actual output description supplies the new video track. Source codec configuration cannot describe newly encoded H.264/H.265 data. The optional audio track keeps its original description and samples; audio is interleaved near video PTS. If MP4 cannot accept the original audio, the task reports an error and can be retried with audio preservation disabled. Additional video/audio tracks, subtitles, and attachments are not copied.
+The encoder's actual output description supplies the new video track. Source codec configuration cannot describe newly encoded H.264/H.265 data. Some devices omit MIME and other required muxing fields from the output description, so the track format is completed with the destination MIME, visible dimensions, and frame rate before adding it. Other encoder-provided configuration is preserved. The optional audio track keeps its original description and samples; audio is interleaved near video PTS. If MP4 cannot accept the original audio, the task reports an error and can be retried with audio preservation disabled. Additional video/audio tracks, subtitles, and attachments are not copied.
 
 Native duplicates the input/output descriptors before queueing its asynchronous work. The job owns those duplicates and closes them after releasing the codecs and muxer. Status polling every 250 ms updates media progress, encoded frame count, video payload bytes, and output dimensions. The byte count excludes audio and MP4 overhead. A 30-second interval with no pipeline progress fails the task; cancellation is checked between codec operations.
 

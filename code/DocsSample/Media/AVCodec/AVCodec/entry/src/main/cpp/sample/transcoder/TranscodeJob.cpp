@@ -24,6 +24,7 @@
 #include <multimedia/player_framework/native_avcodec_base.h>
 #include <multimedia/player_framework/native_averrors.h>
 #include <native_window/external_window.h>
+#include "av_codec_sample_log.h"
 
 namespace {
 constexpr int64_t POLL_TIMEOUT_US = 0;
@@ -51,6 +52,7 @@ bool TranscodeJob::Fail(const char *operation, int32_t result)
     if (snapshot_.detail.empty()) {
         snapshot_.detail = operation;
         snapshot_.errorCode = result;
+        AVCODEC_SAMPLE_LOGE("Transcode failed: %{public}s, ret: %{public}d", operation, result);
     }
     return false;
 }
@@ -189,9 +191,15 @@ bool TranscodeJob::StartMuxer()
     if (muxStarted_) { return true; }
     // 等编码器报告实际输出描述后再加轨；不能拿源文件的 AVC/HEVC 配置来描述新编码的码流。
     Format format(OH_VideoEncoder_GetOutputDescription(encoder_), OH_AVFormat_Destroy);
-    if (format == nullptr || !Check(OH_AVMuxer_AddTrack(muxer_, &muxVideoTrack_, format.get()), "Add encoded video track")) {
-        return Fail("Read encoder output description or add video track");
+    if (format == nullptr) { return Fail("Read encoder output description"); }
+    // 部分编码器的输出描述不带 MIME 等封装必填项；补入本次编码参数，保留输出描述中的 codec 配置。
+    if (!OH_AVFormat_SetStringValue(format.get(), OH_MD_KEY_CODEC_MIME, options_.mime.c_str()) ||
+        !OH_AVFormat_SetIntValue(format.get(), OH_MD_KEY_WIDTH, targetWidth_) ||
+        !OH_AVFormat_SetIntValue(format.get(), OH_MD_KEY_HEIGHT, targetHeight_) ||
+        !OH_AVFormat_SetDoubleValue(format.get(), OH_MD_KEY_FRAME_RATE, frameRate_)) {
+        return Fail("Complete encoded video track format");
     }
+    if (!Check(OH_AVMuxer_AddTrack(muxer_, &muxVideoTrack_, format.get()), "Add encoded video track")) { return false; }
     if (audioFormat_ != nullptr &&
         !Check(OH_AVMuxer_AddTrack(muxer_, &muxAudioTrack_, audioFormat_.get()),
             "Original audio is not supported in MP4; retry with audio preservation disabled")) { return false; }
