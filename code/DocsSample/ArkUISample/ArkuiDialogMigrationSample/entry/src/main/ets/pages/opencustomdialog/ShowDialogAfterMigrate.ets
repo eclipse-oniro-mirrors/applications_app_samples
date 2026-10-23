@@ -21,7 +21,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 @Component
 export struct ShowDialogAfterMigrate {
   private presenter: DialogPresenter = this.getUIContext().getDialogPresenter();
-  @State result: string = '';
+  @State result: ResourceStr = '';
 
   build() {
     NavDestination() {
@@ -36,7 +36,7 @@ export struct ShowDialogAfterMigrate {
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
-              this.result = '老接口示例请参考promptAction文档';
+              this.result = $r('app.string.OldInterfaceShowDialogOnClick');
             })
 
           Button('新接口：DialogPresenter.present（对话框）')

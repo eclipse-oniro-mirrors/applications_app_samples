@@ -21,7 +21,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 @Component
 export struct ActionSheetAfterMigrate {
   private presenter: DialogPresenter = this.getUIContext().getDialogPresenter();
-  @State result: string = '';
+  @State result: ResourceStr = '';
 
   build() {
     NavDestination() {
@@ -36,7 +36,7 @@ export struct ActionSheetAfterMigrate {
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
-              this.result = '老接口示例请参考ActionSheet文档';
+              this.result = $r('app.string.OldInterfaceActionSheetOnClick');
             })
 
           Button('新接口：DialogPresenter.present（列表选择弹窗）')

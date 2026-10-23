@@ -22,7 +22,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 export struct PresentCustomDialogAfterMigrate {
   private presenter: DialogPresenter = this.getUIContext().getDialogPresenter();
   private controller: DialogBaseController = new DialogBaseController();
-  @State result: string = '';
+  @State result: ResourceStr = '';
 
   build() {
     NavDestination() {
@@ -37,7 +37,7 @@ export struct PresentCustomDialogAfterMigrate {
             .width('90%')
             .margin({ bottom: 10 })
             .onClick(() => {
-              this.result = '老接口示例请参考promptAction文档';
+              this.result = $r('app.string.OldInterfacePresentCustomDialogOnClick');
             })
 
           Button('新接口：DialogPresenter.present（自定义弹窗）')
