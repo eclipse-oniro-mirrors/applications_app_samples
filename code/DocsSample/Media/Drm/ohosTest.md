@@ -13,3 +13,6 @@
 | C API：查询设备支持的内容保护级别 | 进入示例应用                              | 点击"C API：查询支持级别"按钮 | 成功返回OH_MediaKeySystem_IsSupported3查询结果 | 是       | Pass     |
 | C API：MediaKeySystem完整流程   | 进入示例应用，设备已安装对应DRM插件（如com.clearplay.drm） | 点击"C API：MediaKeySystem流程"按钮 | 依次执行创建、内容保护级别、证书状态、统计信息、销毁，结果展示在文本区 | 是       | Pass     |
 | C API：MediaKeySession完整流程  | 进入示例应用，设备已安装对应DRM插件（如com.clearplay.drm） | 点击"C API：MediaKeySession流程"按钮 | 依次执行创建会话、安全解码查询、生成密钥请求、密钥状态检查、清除密钥、销毁，结果展示在文本区 | 是       | Pass     |
+| 进入AVPlayer播放DRM节目页面     | 进入示例应用                              | 点击"AVPlayer播放DRM节目演示"按钮 | 成功进入播放页，显示视频渲染区、节目地址输入框、播放与释放按钮 | 是       | Pass     |
+| 播放DRM节目                     | 进入播放页，输入DRM节目地址，设备已安装对应DRM插件 | 点击"播放"按钮 | 成功创建AVPlayer实例，按流程完成DRM信息处理与解密配置并播放，各步骤状态展示在文本区 | 是       | Pass     |
+| 释放播放资源                    | 进入播放页并已点击"播放"                   | 点击"释放"按钮                 | AVPlayer实例释放，MediaKeySession和MediaKeySystem实例销毁，状态展示在文本区 | 是       | Pass     |

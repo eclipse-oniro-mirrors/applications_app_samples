@@ -123,6 +123,26 @@
     {
       "name": "log_success_offline_count",
       "value": "成功，离线媒体密钥数量：%d"
+    },
+    {
+      "name": "goto_avplayer_drm",
+      "value": "AVPlayer播放DRM节目演示"
+    },
+    {
+      "name": "avplayer_page_title",
+      "value": "AVPlayer播放DRM节目"
+    },
+    {
+      "name": "avplayer_url_hint",
+      "value": "请输入DRM节目播放地址"
+    },
+    {
+      "name": "avplayer_play",
+      "value": "播放"
+    },
+    {
+      "name": "avplayer_release",
+      "value": "释放"
     }
   ]
 }
