@@ -964,6 +964,30 @@
     {
       "name": "CustomDialogBeforeMigrate_desc",
       "value": "CustomDialog迁移DialogPresenter前示例"
+    },
+    {
+      "name": "OldInterfacePromptActionShowActionMenuOnClick",
+      "value": "老接口示例请参考promptAction文档"
+    },
+    {
+      "name": "OldInterfaceActionSheetOnClick",
+      "value": "老接口示例请参考ActionSheet文档"
+    },
+    {
+      "name": "OldInterfaceAlertDialogOnClick",
+      "value": "老接口示例请参考AlertDialog文档"
+    },
+    {
+      "name": "OldInterfaceOpenCustomDialogWithControllerOnClick",
+      "value": "老接口示例请参考promptAction文档"
+    },
+    {
+      "name": "OldInterfacePresentCustomDialogOnClick",
+      "value": "老接口示例请参考promptAction文档"
+    },
+    {
+      "name": "OldInterfaceShowDialogOnClick",
+      "value": "老接口示例请参考promptAction文档"
     }
   ]
 }
