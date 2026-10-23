@@ -29,10 +29,6 @@
       "value": "This file is already encrypted. Please select an unencrypted file for encryption."
     },
     {
-      "name": "authorization_reminder",
-      "value": "Please select authorization."
-    },
-    {
       "name": "encryption_protection",
       "value": "Encryption protection."
     },
@@ -63,6 +59,14 @@
     {
       "name": "init_file_name",
       "value": "xxx_contract.txt"
+    },
+    {
+      "name": "authorization_reminder",
+      "value": "Please select authorization."
+    },
+    {
+      "name": "open_dlp_file_prompt",
+      "value": "Please open a DLP file! "
     }
   ]
 }
