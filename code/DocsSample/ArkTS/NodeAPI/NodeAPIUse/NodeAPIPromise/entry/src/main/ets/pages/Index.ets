@@ -70,7 +70,7 @@ struct Index {
                     this.result = 'napiDeferredSuccess';
                     // [EndExclude ark_napi_resolve_reject_deferred]
                   }).catch((err: Error) => {
-                    hilog.info(0x0000, 'Node-API', 'get_resolve_deferred reject %{public}s', err);
+                    hilog.error(0x0000, 'Node-API', 'get_resolve_deferred reject %{public}s', err);
                     // [StartExclude ark_napi_resolve_reject_deferred]
                     this.result = 'napiDeferredFail';
                     // [EndExclude ark_napi_resolve_reject_deferred]
@@ -84,7 +84,7 @@ struct Index {
                     this.result = 'napiDeferredSuccess';
                     // [EndExclude ark_napi_resolve_reject_deferred]
                   }).catch((err: Error) => {
-                    hilog.info(0x0000, 'Node-API', 'get_resolve_deferred reject %{public}s', err);
+                    hilog.error(0x0000, 'Node-API', 'get_resolve_deferred reject %{public}s', err);
                     // [StartExclude ark_napi_resolve_reject_deferred]
                     this.result = 'napiDeferredFail';
                     // [EndExclude ark_napi_resolve_reject_deferred]
