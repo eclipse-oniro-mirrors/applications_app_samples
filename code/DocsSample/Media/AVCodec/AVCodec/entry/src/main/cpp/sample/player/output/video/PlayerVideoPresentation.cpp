@@ -235,6 +235,13 @@ void Player::DumpOutput(CodecBufferInfo &bufferInfo)
     }
     // [End decoder_outputFile]
 
+    WriteDecodedDumpFrame(pixelFormat, bufferAddr, bufferInfo);
+}
+
+void Player::WriteDecodedDumpFrame(OH_AVPixelFormat pixelFormat, uint8_t *bufferAddr,
+    const CodecBufferInfo &bufferInfo)
+{
+    auto &info = sampleInfo_;
     const bool rgba = pixelFormat == AV_PIXEL_FORMAT_RGBA || pixelFormat == AV_PIXEL_FORMAT_RGBA1010102;
     const uint64_t rowBytes = static_cast<uint64_t>(videoDecContext_->width) *
         (rgba ? RGBA_BYTES_PER_PIXEL : (IsTenBitOutput(info, videoDecContext_.get()) ? 2 : 1));

@@ -34,7 +34,7 @@ public:
         bytes_ = 0;
         started_ = false;
         enabled_ = !path.empty();
-        maxBytes_ = static_cast<uint64_t>(options.dumpMaxMiB) * BYTES_PER_MIB;
+        maxBytes_ = static_cast<uint64_t>(options.dumpMaxMiB) * bytesPerMib;
         maxSeconds_ = options.dumpMaxSeconds;
         if (!path.empty()) {
             file_.clear();
@@ -113,7 +113,8 @@ private:
         }
         const double outputRate = video.dropToFrameRate > 0 ? video.dropToFrameRate : video.frameRate;
         std::ostringstream text;
-        text << "sessionId=" << options.sessionId << "\nmime=" << video.videoCodecMime << "\ninputWidth=" << video.videoWidth
+        text << "sessionId=" << options.sessionId << "\nmime=" << video.videoCodecMime
+            << "\ninputWidth=" << video.videoWidth
             << "\ninputHeight=" << video.videoHeight << "\nframeRate=" << video.frameRate
             << "\noutputWidth=" << width << "\noutputHeight=" << height << "\noutputFrameRate=" << outputRate
             << "\nbitrate=" << video.bitrate << "\npreprocMode=" << video.preprocMode
@@ -123,7 +124,7 @@ private:
         return text.str();
     }
 
-    static constexpr uint64_t BYTES_PER_MIB = 1024 * 1024;
+    static constexpr uint64_t bytesPerMib = 1024 * 1024;
     std::ofstream file_;
     DumpSession session_;
     uint64_t bytes_ = 0;

@@ -133,8 +133,6 @@ void NativeInit(void *data)
     SetCallBackResult(asyncCallbackInfo, AVCODEC_SAMPLE_ERR_OK);
 }
 
-
-
 static AsyncCallbackInfo* CreateAsyncInfo(napi_env env, napi_deferred deferred, SampleInfo sampleInfo)
 {
     // 保存异步任务的输入和结果；正常完成时由完成回调释放该对象。
@@ -211,21 +209,24 @@ napi_value RecorderNative::Init(napi_env env, napi_callback_info info)
 
 napi_value RecorderNative::UpdateParameters(napi_env env, napi_callback_info info)
 {
-    constexpr size_t PARAMETER_COUNT = 4;
-    size_t count = PARAMETER_COUNT;
-    napi_value args[PARAMETER_COUNT] = {};
+    constexpr size_t parameterCount = 4;
+    constexpr size_t bitrateIndex = 2;
+    constexpr size_t keyFrameIndex = 3;
+    constexpr double maxBitrate = 100000000;
+    size_t count = parameterCount;
+    napi_value args[parameterCount] = {};
     char session[128] = {};
     size_t length = 0;
     bool primary = true;
     bool keyFrame = false;
     double bitrate = 0;
-    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != PARAMETER_COUNT ||
+    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != parameterCount ||
         napi_get_value_string_utf8(env, args[0], session, sizeof(session), &length) != napi_ok ||
         length == 0 || length >= sizeof(session) - 1 ||
         napi_get_value_bool(env, args[1], &primary) != napi_ok ||
-        napi_get_value_double(env, args[2], &bitrate) != napi_ok || !std::isfinite(bitrate) ||
-        std::trunc(bitrate) != bitrate || bitrate < 0 || bitrate > 100000000 ||
-        napi_get_value_bool(env, args[3], &keyFrame) != napi_ok || (bitrate == 0 && !keyFrame)) {
+        napi_get_value_double(env, args[bitrateIndex], &bitrate) != napi_ok || !std::isfinite(bitrate) ||
+        std::trunc(bitrate) != bitrate || bitrate < 0 || bitrate > maxBitrate ||
+        napi_get_value_bool(env, args[keyFrameIndex], &keyFrame) != napi_ok || (bitrate == 0 && !keyFrame)) {
         napi_throw_type_error(env, nullptr, "Expected sessionId, primary, bitrate and requestKeyFrame");
         return nullptr;
     }
@@ -249,15 +250,16 @@ napi_value RecorderNative::UpdateParameters(napi_env env, napi_callback_info inf
 
 napi_value RecorderNative::MarkStage(napi_env env, napi_callback_info info)
 {
-    constexpr size_t ARG_COUNT = 3;
-    size_t count = ARG_COUNT;
-    napi_value args[ARG_COUNT] = {};
-    char values[ARG_COUNT][129] = {};
-    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != ARG_COUNT) {
+    constexpr size_t argCount = 3;
+    constexpr size_t resultIndex = 2;
+    size_t count = argCount;
+    napi_value args[argCount] = {};
+    char values[argCount][129] = {};
+    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != argCount) {
         napi_throw_type_error(env, nullptr, "Expected sessionId, stage, result");
         return nullptr;
     }
-    for (size_t i = 0; i < ARG_COUNT; ++i) {
+    for (size_t i = 0; i < argCount; ++i) {
         size_t length = 0;
         if (napi_get_value_string_utf8(env, args[i], values[i], sizeof(values[i]), &length) != napi_ok ||
             length >= sizeof(values[i]) - 1) {
@@ -265,7 +267,7 @@ napi_value RecorderNative::MarkStage(napi_env env, napi_callback_info info)
             return nullptr;
         }
     }
-    Recorder::GetInstance().MarkStage(values[0], values[1], values[2]);
+    Recorder::GetInstance().MarkStage(values[0], values[1], values[resultIndex]);
     napi_value result = nullptr;
     napi_get_undefined(env, &result);
     return result;
@@ -469,7 +471,8 @@ static napi_value Init(napi_env env, napi_value exports)
         {"initNative", nullptr, RecorderNative::Init, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getDiagnostics", nullptr, RecorderNative::GetDiagnostics, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"markStage", nullptr, RecorderNative::MarkStage, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"updateParameters", nullptr, RecorderNative::UpdateParameters, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"updateParameters", nullptr, RecorderNative::UpdateParameters,
+            nullptr, nullptr, nullptr, napi_default, nullptr},
         {"startNative", nullptr, RecorderNative::Start, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"stopBeginNative", nullptr, RecorderNative::StopStart, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"stopEndNative", nullptr, RecorderNative::StopEnd, nullptr, nullptr, nullptr, napi_default, nullptr},

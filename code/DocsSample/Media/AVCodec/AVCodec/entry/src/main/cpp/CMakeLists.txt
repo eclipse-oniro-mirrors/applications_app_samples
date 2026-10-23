@@ -78,6 +78,7 @@ add_library(player SHARED sample/player/napi/PlayerNative.cpp
                           capabilities/audio_decoder.cpp
                           render/plugin_render.cpp
                           render/plugin_manager.cpp
+                          common/SessionReport.cpp
                           common/sample_callback.cpp
 )
 
@@ -90,6 +91,7 @@ add_library(recorder SHARED sample/recorder/RecorderNative.cpp
                             capabilities/video_encoder.cpp
                             capabilities/audio_capturer.cpp
                             capabilities/audio_encoder.cpp
+                            common/SessionReport.cpp
                             common/sample_callback.cpp
 )
 
@@ -105,5 +107,6 @@ target_link_libraries(player PUBLIC ${BASE_LIBRARY})
 target_link_libraries(recorder PUBLIC ${BASE_LIBRARY})
 
 add_library(transcoder SHARED sample/transcoder/TranscoderNative.cpp
-                              sample/transcoder/TranscodeJob.cpp)
+                              sample/transcoder/TranscodeJob.cpp
+                              sample/transcoder/TranscodeFrameProcessor.cpp)
 target_link_libraries(transcoder PUBLIC ${BASE_LIBRARY})

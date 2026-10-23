@@ -406,14 +406,8 @@ napi_value PlayerNative::IsSmartFluencyAvailable(napi_env env, napi_callback_inf
 }
 
 EXTERN_C_START
-static napi_value Init(napi_env env, napi_value exports)
+static bool ExportPlayerMethods(napi_env env, napi_value exports)
 {
-    auto *context = new NativePlayerContext;
-    if (napi_set_instance_data(env, context, DestroyNativePlayerContext, nullptr) != napi_ok) {
-        delete context;
-        napi_throw_error(env, nullptr, "Set player instance data failed");
-        return nullptr;
-    }
     napi_property_descriptor classProp[] = {
         {"play", nullptr, PlayerNative::PlayWithOptions, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"playNative", nullptr, PlayerNative::Play, nullptr, nullptr, nullptr, napi_default, nullptr},
@@ -451,9 +445,20 @@ static napi_value Init(napi_env env, napi_value exports)
         {"setAppBackground", nullptr, PlayerNative::SetAppBackground,
             nullptr, nullptr, nullptr, napi_default, nullptr},
     };
+    return napi_define_properties(env, exports, sizeof(classProp) / sizeof(classProp[0]), classProp) == napi_ok;
+}
+
+static napi_value Init(napi_env env, napi_value exports)
+{
+    auto *context = new NativePlayerContext;
+    if (napi_set_instance_data(env, context, DestroyNativePlayerContext, nullptr) != napi_ok) {
+        delete context;
+        napi_throw_error(env, nullptr, "Set player instance data failed");
+        return nullptr;
+    }
 
     NativeXComponentSample::PluginManager::GetInstance()->Export(env, exports);
-    if (napi_define_properties(env, exports, sizeof(classProp) / sizeof(classProp[0]), classProp) != napi_ok ||
+    if (!ExportPlayerMethods(env, exports) ||
         !PlayerNapiSerializer::ExportPlayerState(env, exports)) {
         napi_throw_error(env, nullptr, "Export player NAPI failed");
     }

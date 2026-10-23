@@ -32,7 +32,8 @@ export interface RecorderPreprocessPlan {
 
 export class RecorderPreprocessModel {
   static plan(inputWidth: number, inputHeight: number, frameRate: number, mode: number,
-    cropPercent: number, downsamplingHeight: number, secondaryHeight: number, dropFrameRate: number): RecorderPreprocessPlan {
+    cropPercent: number, downsamplingHeight: number, secondaryHeight: number,
+    dropFrameRate: number): RecorderPreprocessPlan {
     const percent: number = Math.max(50, Math.min(100, cropPercent));
     const cropWidth: number = Math.max(2, Math.floor(inputWidth * percent / 100 / 2) * 2);
     const cropHeight: number = Math.max(2, Math.floor(inputHeight * percent / 100 / 2) * 2);

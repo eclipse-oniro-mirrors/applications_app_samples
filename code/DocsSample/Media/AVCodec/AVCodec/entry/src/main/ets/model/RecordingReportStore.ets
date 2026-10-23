@@ -99,8 +99,7 @@ export class RecordingReportStore {
       throw new Error('Invalid recording report');
     }
     // JSON 可能损坏或来自旧版本；先验证诊断字段可格式化，再交给声明式页面读取。
-    try { RecordingReportStore.text(report); }
-    catch (_error) { throw new Error('Invalid recording diagnostics'); }
+    try { RecordingReportStore.text(report); } catch (_error) { throw new Error('Invalid recording diagnostics'); }
     return report;
   }
 

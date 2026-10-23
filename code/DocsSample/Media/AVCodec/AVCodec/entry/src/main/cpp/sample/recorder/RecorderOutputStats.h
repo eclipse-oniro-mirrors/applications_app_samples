@@ -176,17 +176,17 @@ public:
             snapshot.queueWait = retrieval;
         }
         // Recorder 已将 Camera 纳秒 PTS 归一化为微秒；首帧前不凭配置帧率推算实测值。
-        const double seconds = static_cast<double>(lastPtsUs_ - firstPtsUs_) / MICROSECONDS_PER_SECOND;
+        const double seconds = static_cast<double>(lastPtsUs_ - firstPtsUs_) / microsecondsPerSecond;
         if (seconds > 0 && info_.frames > 1) {
             snapshot.framesPerSecond = static_cast<double>(info_.frames - 1) / seconds;
-            snapshot.bitrate = static_cast<double>(info_.bytes) * BITS_PER_BYTE / seconds;
+            snapshot.bitrate = static_cast<double>(info_.bytes) * bitsPerByte / seconds;
         }
         return snapshot;
     }
 
 private:
-    static constexpr double MICROSECONDS_PER_SECOND = 1000000.0;
-    static constexpr double BITS_PER_BYTE = 8.0;
+    static constexpr double microsecondsPerSecond = 1000000.0;
+    static constexpr double bitsPerByte = 8.0;
     mutable std::mutex mutex_;
     RecorderStreamInfo info_;
     RecorderStreamMetrics metrics_;

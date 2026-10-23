@@ -21,7 +21,13 @@
 #include "TranscodeJob.h"
 
 namespace {
-struct TranscodeModuleState { std::shared_ptr<TranscodeJob> current; };
+constexpr int64_t MIN_BITRATE = 100000;
+constexpr int64_t HD_LONG_EDGE = 720;
+constexpr int64_t FULL_HD_LONG_EDGE = 1080;
+constexpr int64_t UHD_LONG_EDGE = 1920;
+struct TranscodeModuleState {
+    std::shared_ptr<TranscodeJob> current;
+};
 struct TranscodeAsyncWork {
     napi_async_work work = nullptr;
     napi_deferred deferred = nullptr;
@@ -32,29 +38,30 @@ bool SetNumber(napi_env env, napi_value object, const char *key, double number)
 {
     napi_value result = nullptr;
     return napi_create_double(env, number, &result) == napi_ok &&
-        napi_set_named_property(env, object, key, result) == napi_ok;
+           napi_set_named_property(env, object, key, result) == napi_ok;
 }
 
 bool SetString(napi_env env, napi_value object, const char *key, const std::string &text)
 {
     napi_value result = nullptr;
     return napi_create_string_utf8(env, text.c_str(), text.size(), &result) == napi_ok &&
-        napi_set_named_property(env, object, key, result) == napi_ok;
+           napi_set_named_property(env, object, key, result) == napi_ok;
 }
 
 napi_value ToValue(napi_env env, const TranscodeSnapshot &snapshot)
 {
     napi_value result = nullptr;
     napi_value audio = nullptr;
-    if (napi_create_object(env, &result) != napi_ok ||
-        !SetNumber(env, result, "state", snapshot.state) || !SetNumber(env, result, "progress", snapshot.progress) ||
-        !SetNumber(env, result, "frames", snapshot.frames) || !SetNumber(env, result, "bytes", snapshot.bytes) ||
-        !SetNumber(env, result, "errorCode", snapshot.errorCode) ||
+    if (napi_create_object(env, &result) != napi_ok || !SetNumber(env, result, "state", snapshot.state) ||
+        !SetNumber(env, result, "progress", snapshot.progress) || !SetNumber(env, result, "frames", snapshot.frames) ||
+        !SetNumber(env, result, "bytes", snapshot.bytes) || !SetNumber(env, result, "errorCode", snapshot.errorCode) ||
         !SetNumber(env, result, "outputWidth", snapshot.outputWidth) ||
         !SetNumber(env, result, "outputHeight", snapshot.outputHeight) ||
         !SetString(env, result, "stage", snapshot.stage) || !SetString(env, result, "detail", snapshot.detail) ||
         napi_get_boolean(env, snapshot.audioCopied, &audio) != napi_ok ||
-        napi_set_named_property(env, result, "audioCopied", audio) != napi_ok) { return nullptr; }
+        napi_set_named_property(env, result, "audioCopied", audio) != napi_ok) {
+        return nullptr;
+    }
     return result;
 }
 
@@ -63,10 +70,11 @@ bool ReadNumber(napi_env env, napi_value object, const char *key, int64_t &numbe
     napi_value value = nullptr;
     napi_valuetype type = napi_undefined;
     double numeric = 0;
-    if (napi_get_named_property(env, object, key, &value) != napi_ok ||
-        napi_typeof(env, value, &type) != napi_ok || type != napi_number ||
-        napi_get_value_double(env, value, &numeric) != napi_ok || !std::isfinite(numeric) ||
-        std::trunc(numeric) != numeric || numeric < 0 || numeric > INT32_MAX) { return false; }
+    if (napi_get_named_property(env, object, key, &value) != napi_ok || napi_typeof(env, value, &type) != napi_ok ||
+        type != napi_number || napi_get_value_double(env, value, &numeric) != napi_ok || !std::isfinite(numeric) ||
+        std::trunc(numeric) != numeric || numeric < 0 || numeric > INT32_MAX) {
+        return false;
+    }
     number = static_cast<int64_t>(numeric);
     return true;
 }
@@ -75,36 +83,57 @@ bool ReadBool(napi_env env, napi_value object, const char *key, bool &flag)
 {
     napi_value value = nullptr;
     return napi_get_named_property(env, object, key, &value) == napi_ok &&
-        napi_get_value_bool(env, value, &flag) == napi_ok;
+           napi_get_value_bool(env, value, &flag) == napi_ok;
+}
+
+bool ReadNumericOptions(napi_env env, napi_value object, TranscodeOptions &options, int64_t &inputFd, int64_t &outputFd)
+{
+    int64_t longEdge = 0;
+    if (!ReadNumber(env, object, "inputFd", inputFd) || !ReadNumber(env, object, "outputFd", outputFd) ||
+        !ReadNumber(env, object, "bitrate", options.bitrate) || !ReadNumber(env, object, "longEdge", longEdge) ||
+        !ReadBool(env, object, "useSurfaceInput", options.surface) ||
+        !ReadBool(env, object, "grayscale", options.grayscale) ||
+        !ReadBool(env, object, "keepAudio", options.keepAudio)) {
+        return false;
+    }
+    if (options.bitrate < MIN_BITRATE ||
+        (longEdge != 0 && longEdge != HD_LONG_EDGE && longEdge != FULL_HD_LONG_EDGE && longEdge != UHD_LONG_EDGE) ||
+        (options.surface && (options.grayscale || longEdge != 0))) {
+        return false;
+    }
+    options.longEdge = static_cast<int32_t>(longEdge);
+    return true;
 }
 
 bool ReadOptions(napi_env env, napi_value object, TranscodeOptions &options)
 {
     int64_t inputFd = -1;
     int64_t outputFd = -1;
-    int64_t longEdge = 0;
-    if (!ReadNumber(env, object, "inputFd", inputFd) || !ReadNumber(env, object, "outputFd", outputFd) ||
-        !ReadNumber(env, object, "bitrate", options.bitrate) || !ReadNumber(env, object, "longEdge", longEdge) ||
-        !ReadBool(env, object, "surface", options.surface) || !ReadBool(env, object, "grayscale", options.grayscale) ||
-        !ReadBool(env, object, "keepAudio", options.keepAudio) || options.bitrate < 100000 ||
-        (longEdge != 0 && longEdge != 720 && longEdge != 1080 && longEdge != 1920) ||
-        (options.surface && (options.grayscale || longEdge != 0))) { return false; }
+    if (!ReadNumericOptions(env, object, options, inputFd, outputFd)) {
+        return false;
+    }
     napi_value mime = nullptr;
-    char mimeText[32] {};
+    char mimeText[32]{};
     size_t length = 0;
     if (napi_get_named_property(env, object, "mime", &mime) != napi_ok ||
-        napi_get_value_string_utf8(env, mime, mimeText, sizeof(mimeText), &length) != napi_ok || length >= sizeof(mimeText)) {
+        napi_get_value_string_utf8(env, mime, mimeText, sizeof(mimeText), &length) != napi_ok ||
+        length >= sizeof(mimeText)) {
         return false;
     }
     options.mime = mimeText;
-    if (options.mime != "video/avc" && options.mime != "video/hevc") { return false; }
-    options.longEdge = static_cast<int32_t>(longEdge);
+    if (options.mime != "video/avc" && options.mime != "video/hevc") {
+        return false;
+    }
     // 工作入队前复制 fd，后台任务只使用自己的描述符。
     options.inputFd = fcntl(static_cast<int32_t>(inputFd), F_DUPFD_CLOEXEC, 0);
     options.outputFd = fcntl(static_cast<int32_t>(outputFd), F_DUPFD_CLOEXEC, 0);
     if (options.inputFd < 0 || options.outputFd < 0) {
-        if (options.inputFd >= 0) { close(options.inputFd); }
-        if (options.outputFd >= 0) { close(options.outputFd); }
+        if (options.inputFd >= 0) {
+            close(options.inputFd);
+        }
+        if (options.outputFd >= 0) {
+            close(options.outputFd);
+        }
         return false;
     }
     return true;
@@ -161,7 +190,9 @@ napi_value Start(napi_env env, napi_callback_info info)
         napi_create_string_utf8(env, "videoTranscode", NAPI_AUTO_LENGTH, &resource) != napi_ok ||
         napi_create_async_work(env, nullptr, resource, Execute, Complete, work.get(), &work->work) != napi_ok ||
         napi_queue_async_work(env, work->work) != napi_ok) {
-        if (work->work != nullptr) { napi_delete_async_work(env, work->work); }
+        if (work->work != nullptr) {
+            napi_delete_async_work(env, work->work);
+        }
         napi_throw_error(env, nullptr, "Could not queue transcode task");
         return nullptr;
     }
@@ -174,7 +205,9 @@ napi_value Status(napi_env env, napi_callback_info info)
 {
     size_t argc = 0;
     void *data = nullptr;
-    if (napi_get_cb_info(env, info, &argc, nullptr, nullptr, &data) != napi_ok || data == nullptr) { return nullptr; }
+    if (napi_get_cb_info(env, info, &argc, nullptr, nullptr, &data) != napi_ok || data == nullptr) {
+        return nullptr;
+    }
     auto *state = static_cast<TranscodeModuleState *>(data);
     TranscodeSnapshot snapshot;
     snapshot.state = 0;
@@ -186,9 +219,13 @@ napi_value Cancel(napi_env env, napi_callback_info info)
 {
     size_t argc = 0;
     void *data = nullptr;
-    if (napi_get_cb_info(env, info, &argc, nullptr, nullptr, &data) != napi_ok || data == nullptr) { return nullptr; }
+    if (napi_get_cb_info(env, info, &argc, nullptr, nullptr, &data) != napi_ok || data == nullptr) {
+        return nullptr;
+    }
     auto *state = static_cast<TranscodeModuleState *>(data);
-    if (state->current != nullptr) { state->current->Cancel(); }
+    if (state->current != nullptr) {
+        state->current->Cancel();
+    }
     napi_value result = nullptr;
     napi_get_undefined(env, &result);
     return result;
@@ -197,7 +234,9 @@ napi_value Cancel(napi_env env, napi_callback_info info)
 void CleanupModule(void *data)
 {
     std::unique_ptr<TranscodeModuleState> state(static_cast<TranscodeModuleState *>(data));
-    if (state->current != nullptr) { state->current->Cancel(); }
+    if (state->current != nullptr) {
+        state->current->Cancel();
+    }
 }
 
 napi_value Init(napi_env env, napi_value exports)
@@ -206,16 +245,17 @@ napi_value Init(napi_env env, napi_value exports)
     napi_property_descriptor methods[] = {
         {"start", nullptr, Start, nullptr, nullptr, nullptr, napi_default, state.get()},
         {"getStatus", nullptr, Status, nullptr, nullptr, nullptr, napi_default, state.get()},
-        {"cancel", nullptr, Cancel, nullptr, nullptr, nullptr, napi_default, state.get()}
-    };
+        {"cancel", nullptr, Cancel, nullptr, nullptr, nullptr, napi_default, state.get()}};
     if (napi_define_properties(env, exports, sizeof(methods) / sizeof(methods[0]), methods) != napi_ok ||
-        napi_add_env_cleanup_hook(env, CleanupModule, state.get()) != napi_ok) { return nullptr; }
+        napi_add_env_cleanup_hook(env, CleanupModule, state.get()) != napi_ok) {
+        return nullptr;
+    }
     (void)state.release();
     return exports;
 }
 
-static napi_module transcodeModule = { 1, 0, nullptr, Init, "transcoder", nullptr, { 0 } };
-}
+static napi_module transcodeModule = {1, 0, nullptr, Init, "transcoder", nullptr, {0}};
+} // namespace
 
 extern "C" __attribute__((constructor)) void RegisterTranscoderModule()
 {

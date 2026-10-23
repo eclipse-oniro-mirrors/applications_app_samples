@@ -79,7 +79,8 @@ export class RecorderDiagnosticsController {
         lines.push(LocalizedText.get($r('app.string.rec_storage_remaining')) + ': ' +
           (estimate.remainingSeconds < 0 ? '--' : Math.floor(estimate.remainingSeconds) + ' s'));
         onUpdate(lines.join(String.fromCharCode(10)), RecorderLiveDiagnosticsModel.report(diagnostics, dual));
-        if (!this.stopRequested && (!diagnostics.active || diagnostics.failure.stage.length > 0 || estimate.shouldStop)) {
+        if (!this.stopRequested &&
+          (!diagnostics.active || diagnostics.failure.stage.length > 0 || estimate.shouldStop)) {
           this.stopRequested = true;
           this.stop();
           onLowSpace();

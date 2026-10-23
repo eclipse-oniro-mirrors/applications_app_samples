@@ -22,18 +22,18 @@ import { CameraDataModel } from './CameraDataModel';
 // 草稿独立于已应用参数；选择立即刷新，取消时不写回，点击应用才转换。
 @Observed
 export class PlayerSettingsDraft {
-  decoderType: number = 0;
-  runMode: number = 0;
-  syncMode: number = 0;
-  dump: boolean = false;
-  retainLastFrame: boolean = true;
-  lowLatency: boolean = false;
-  outputInDecodingOrder: boolean = false;
-  convertHdrVividToBt709: boolean = false;
-  audioVolume: number = 100;
-  audioLowLatency: boolean = false;
-  audioTrackIndex: number = -1;
-  autoHideControls: boolean = true;
+  public decoderType: number = 0;
+  public runMode: number = 0;
+  public syncMode: number = 0;
+  public dump: boolean = false;
+  public retainLastFrame: boolean = true;
+  public lowLatency: boolean = false;
+  public outputInDecodingOrder: boolean = false;
+  public convertHdrVividToBt709: boolean = false;
+  public audioVolume: number = 100;
+  public audioLowLatency: boolean = false;
+  public audioTrackIndex: number = -1;
+  public autoHideControls: boolean = true;
 
   load(settings: PlayerSettingsModel): void {
     this.decoderType = settings.videoDecoderType;
@@ -74,27 +74,27 @@ export class PlayerSettingsDraft {
 
 @Observed
 export class RecorderSettingsDraft {
-  codec: number = 1;
-  outputFormat: number = 0;
-  resolution: number = 1;
-  frameRate: number = 0;
-  syncMode: number = 0;
-  bitrate: number = 1;
-  bitrateMode: number = 0;
-  iFrameInterval: number = 0;
-  audioSampleRate: number = 1;
-  audioChannelCount: number = 1;
-  audioBitrate: number = 0;
-  audioLatency: number = 0;
-  stabilization: number = 1;
-  preprocMode: number = 0;
-  cropPercent: number = 75;
-  downsamplingHeight: number = 720;
-  secondaryHeight: number = 720;
-  dropFrameRate: number = 0;
-  dualOutput: number = 0;
-  videoDump: boolean = false;
-  stopOnLowSpace: boolean = false;
+  public codec: number = 1;
+  public outputFormat: number = 0;
+  public resolution: number = 1;
+  public frameRate: number = 0;
+  public syncMode: number = 0;
+  public bitrate: number = 1;
+  public bitrateMode: number = 0;
+  public iFrameInterval: number = 0;
+  public audioSampleRate: number = 1;
+  public audioChannelCount: number = 1;
+  public audioBitrate: number = 0;
+  public audioLatency: number = 0;
+  public stabilization: number = 1;
+  public preprocMode: number = 0;
+  public cropPercent: number = 75;
+  public downsamplingHeight: number = 720;
+  public secondaryHeight: number = 720;
+  public dropFrameRate: number = 0;
+  public dualOutput: number = 0;
+  public videoDump: boolean = false;
+  public stopOnLowSpace: boolean = false;
 
   load(data: CameraDataModel, advanced: boolean): void {
     this.outputFormat = data.outputFormat === Const.FORMAT_FLV ? 1 : 0;

@@ -154,24 +154,37 @@ bool Dump(napi_env env, napi_value object, SampleInfo &info)
         Number(env, object, "maxSeconds", info.output.dumpMaxSeconds);
 }
 
-bool Validate(napi_env env, const SampleInfo &info)
+constexpr int32_t MAX_AUDIO_CHANNELS = 2;
+constexpr int32_t MAX_DUMP_MIB = 1024;
+constexpr int32_t MAX_DUMP_SECONDS = 300;
+
+bool ValidateMediaOptions(const SampleInfo &info)
 {
     const auto &video = info.video;
+    return video.videoWidth > 0 && video.videoHeight > 0 && video.frameRate > 0 && video.bitrate > 0 &&
+        info.audio.audioSampleRate > 0 && info.audio.audioChannelCount >= 1 &&
+        info.audio.audioChannelCount <= MAX_AUDIO_CHANNELS && info.audio.audioBitRate > 0 &&
+        (video.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_AVC ||
+         video.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_HEVC);
+}
+
+bool ValidateOutputOptions(const SampleInfo &info)
+{
     const auto &output = info.output;
+    return output.outputFd >= 0 && output.dumpMaxMiB >= 0 && output.dumpMaxMiB <= MAX_DUMP_MIB &&
+        output.dumpMaxSeconds >= 0 && output.dumpMaxSeconds <= MAX_DUMP_SECONDS &&
+        (output.outputFormat == AV_OUTPUT_FORMAT_MPEG_4 || output.outputFormat == AV_OUTPUT_FORMAT_FLV) &&
+        (!output.enableDualOutput || (output.secondaryOutputFd >= 0 &&
+         output.secondaryOutputFd != output.outputFd && output.secondaryVideoWidth > 0 &&
+         output.secondaryVideoHeight > 0)) &&
+        (!output.enableVideoDump || (!output.videoDumpPath.empty() &&
+         (!output.enableDualOutput || !output.secondaryVideoDumpPath.empty())));
+}
+
+bool Validate(napi_env env, const SampleInfo &info)
+{
     // 不在解析层猜测设备能力；这里只拦截无效值，具体组合仍由编码器能力查询和 Configure 校验。
-    if (output.outputFd < 0 || video.videoWidth <= 0 || video.videoHeight <= 0 ||
-        video.frameRate <= 0 || video.bitrate <= 0 || info.audio.audioSampleRate <= 0 ||
-        info.audio.audioChannelCount < 1 || info.audio.audioChannelCount > 2 || info.audio.audioBitRate <= 0 ||
-        output.dumpMaxMiB < 0 || output.dumpMaxMiB > 1024 ||
-        output.dumpMaxSeconds < 0 || output.dumpMaxSeconds > 300 ||
-        (output.outputFormat != AV_OUTPUT_FORMAT_MPEG_4 && output.outputFormat != AV_OUTPUT_FORMAT_FLV) ||
-        (video.videoCodecMime != OH_AVCODEC_MIMETYPE_VIDEO_AVC &&
-         video.videoCodecMime != OH_AVCODEC_MIMETYPE_VIDEO_HEVC) ||
-        (output.enableDualOutput && (output.secondaryOutputFd < 0 ||
-         output.secondaryOutputFd == output.outputFd || output.secondaryVideoWidth <= 0 ||
-         output.secondaryVideoHeight <= 0)) ||
-        (output.enableVideoDump && (output.videoDumpPath.empty() ||
-         (output.enableDualOutput && output.secondaryVideoDumpPath.empty())))) {
+    if (!ValidateMediaOptions(info) || !ValidateOutputOptions(info)) {
         napi_throw_range_error(env, nullptr, "Invalid recorder options");
         return false;
     }

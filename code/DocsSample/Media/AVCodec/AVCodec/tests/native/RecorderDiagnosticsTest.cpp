@@ -20,6 +20,50 @@
 #include "../../entry/src/main/cpp/sample/recorder/RecorderAudioStats.h"
 
 namespace {
+constexpr int64_t STEREO_CHANNELS = 2;
+constexpr int64_t INVALID_PCM_BYTES = 10;
+constexpr int64_t PREPROCESSED_FPS = 15;
+constexpr int64_t REDUCED_FPS = 25;
+constexpr int64_t INPUT_FPS = 30;
+constexpr int64_t KEY_WAIT_MS = 50;
+constexpr int64_t PACKET_BYTES = 100;
+constexpr int64_t TIMING_CAPACITY = 256;
+constexpr int64_t EXPECTED_P95_MS = 288;
+constexpr int64_t TIMING_COUNT = 300;
+constexpr int64_t WRAPPED_COUNT = 556;
+constexpr int64_t MILLISECONDS_PER_SECOND = 1000;
+constexpr int64_t DENSE_CAPACITY = 1024;
+constexpr int64_t PRIMARY_MUX_US = 2000;
+constexpr int64_t DENSE_INPUT_COUNT = 2048;
+constexpr int64_t FIRST_OUTPUT_US = 10000;
+constexpr int64_t PENDING_PCM_BYTES = 19200;
+constexpr int64_t KEY_REQUEST_US = 20000;
+constexpr int64_t PENDING_SNAPSHOT_US = 30000;
+constexpr int64_t FRAME_INTERVAL_US = 40000;
+constexpr int64_t SAMPLE_RATE = 48000;
+constexpr int64_t LOW_FRAME_BYTES = 50000;
+constexpr int64_t KEY_OUTPUT_US = 70000;
+constexpr int64_t REGRESSED_OUTPUT_US = 80000;
+constexpr int64_t REJECTED_REQUEST_US = 90000;
+constexpr int64_t FINAL_REQUEST_US = 100000;
+constexpr int64_t HIGH_FRAME_BYTES = 125000;
+constexpr int64_t CAPTURED_PCM_BYTES = 192000;
+constexpr int64_t STOP_US = 200000;
+constexpr int64_t AFTER_STOP_US = 300000;
+constexpr int64_t REGRESSED_PTS_US = 500000;
+constexpr int64_t SECOND_US = 1000000;
+constexpr int64_t AFTER_SECOND_US = 1000001;
+constexpr int64_t TWO_SECONDS_US = 2000000;
+constexpr int64_t THREE_SECONDS_US = 3000000;
+constexpr int64_t LATE_STOP_US = 9000000;
+constexpr int64_t LOW_BITRATE = 10000000;
+constexpr int64_t HIGH_BITRATE = 30000000;
+constexpr double COMPARISON_TOLERANCE = 0.0001;
+constexpr double EXPECTED_AVERAGE_MS = 150.5;
+constexpr int64_t LATE_SNAPSHOT_US = 10000000;
+constexpr int64_t EXPECTED_KEY_FRAMES = 2;
+constexpr int64_t STOPPED_KEY_WAIT_MS = 100;
+constexpr int64_t EXPECTED_PENDING_MS = 100;
 void Require(bool condition, const char *message)
 {
     if (!condition) {
@@ -30,122 +74,136 @@ void Require(bool condition, const char *message)
 
 bool Near(double value, double expected)
 {
-    return std::abs(value - expected) < 0.0001;
+    return std::abs(value - expected) < COMPARISON_TOLERANCE;
 }
 
 void TestWindowAndTargets()
 {
     RecorderStreamMetrics metrics;
-    metrics.Configure(30, 30000000);
-    constexpr int64_t start = 1000000;
+    metrics.Configure(INPUT_FPS, HIGH_BITRATE);
+    constexpr int64_t start = SECOND_US;
     metrics.Start(start);
-    for (int i = 1; i <= 30; ++i) {
-        metrics.Record(125000, (i - 1) * 1000000 / 30, i == 1, start + i * 1000000 / 30);
+    for (int i = 1; i <= INPUT_FPS; ++i) {
+        metrics.Record(HIGH_FRAME_BYTES, (i - 1) * SECOND_US / INPUT_FPS, i == 1, start + i * SECOND_US / INPUT_FPS);
     }
-    const auto high = metrics.Snapshot(start + 1000000);
-    Require(Near(high.recentFps, 30) && Near(high.recentBitrate, 30000000), "One-second output window is wrong");
-    metrics.ParameterResult(10000000, false, false, start + 1000001);
-    Require(metrics.Snapshot(start + 1000001).targetBitrate == 30000000, "Rejected target changed accepted bitrate");
-    metrics.ParameterResult(10000000, false, true, start + 1000001);
-    for (int i = 1; i <= 25; ++i) {
-        metrics.Record(50000, 1000000 + i * 40000, false, start + 1000000 + i * 40000);
+    const auto high = metrics.Snapshot(start + SECOND_US);
+    Require(Near(high.recentFps, INPUT_FPS) && Near(high.recentBitrate, HIGH_BITRATE),
+            "One-second output window is wrong");
+    metrics.ParameterResult(LOW_BITRATE, false, false, start + AFTER_SECOND_US);
+    Require(metrics.Snapshot(start + AFTER_SECOND_US).targetBitrate == HIGH_BITRATE,
+            "Rejected target changed accepted bitrate");
+    metrics.ParameterResult(LOW_BITRATE, false, true, start + AFTER_SECOND_US);
+    for (int i = 1; i <= REDUCED_FPS; ++i) {
+        metrics.Record(LOW_FRAME_BYTES, SECOND_US + i * FRAME_INTERVAL_US, false,
+                       start + SECOND_US + i * FRAME_INTERVAL_US);
     }
-    const auto low = metrics.Snapshot(start + 2000000);
-    Require(Near(low.recentFps, 25) && Near(low.recentBitrate, 10000000), "Old bitrate samples leaked into new window");
-    Require(low.targetBitrate == 10000000 && low.parameterAccepted == 1 && low.parameterRejected == 1,
-        "Parameter result counters are wrong");
-    const auto idle = metrics.Snapshot(start + 3000000);
-    Require(idle.recentFps == 0 && idle.recentBitrate == 0 && Near(idle.outputIdleMs, 1000),
-        "Idle output must age out of the window");
+    const auto low = metrics.Snapshot(start + TWO_SECONDS_US);
+    Require(Near(low.recentFps, REDUCED_FPS) && Near(low.recentBitrate, LOW_BITRATE),
+            "Old bitrate samples leaked into new window");
+    Require(low.targetBitrate == LOW_BITRATE && low.parameterAccepted == 1 && low.parameterRejected == 1,
+            "Parameter result counters are wrong");
+    const auto idle = metrics.Snapshot(start + THREE_SECONDS_US);
+    Require(idle.recentFps == 0 && idle.recentBitrate == 0 && Near(idle.outputIdleMs, MILLISECONDS_PER_SECOND),
+            "Idle output must age out of the window");
 }
 
 void TestKeyFramesAndFreeze()
 {
     RecorderStreamMetrics metrics;
-    metrics.Configure(15, 10000000);
+    metrics.Configure(PREPROCESSED_FPS, LOW_BITRATE);
     metrics.Start(0);
-    metrics.Record(100, 0, true, 10000);
-    metrics.ParameterResult(0, true, true, 20000);
-    Require(metrics.Snapshot(30000).keyFrameRequest == "pending", "Accepted request must wait for output");
-    metrics.Record(100, 1000000, true, 70000);
-    const auto observed = metrics.Snapshot(70000);
-    Require(observed.keyFrameRequest == "observed" && observed.keyFrames == 2 &&
-        Near(observed.keyFrameWaitMs, 50) && Near(observed.keyFrameIntervalMs, 1000), "Key-frame observation is wrong");
-    Require(Near(observed.expectedFps, 15), "Preprocessed expected output rate was lost");
-    metrics.Record(100, 500000, false, 80000);
-    metrics.ParameterResult(0, true, false, 90000);
-    Require(metrics.Snapshot(90000).keyFrameRequests == 1, "Rejected key-frame request counted as accepted");
-    metrics.ParameterResult(0, true, true, 100000);
-    metrics.Stop(200000);
-    const auto stopped = metrics.Snapshot(300000);
-    Require(stopped.keyFrameRequest == "ended" && Near(stopped.keyFrameWaitMs, 100) &&
-        stopped.ptsRegressions == 1, "Pending request or PTS regression state was lost");
-    metrics.Stop(9000000);
-    const auto later = metrics.Snapshot(10000000);
+    metrics.Record(PACKET_BYTES, 0, true, FIRST_OUTPUT_US);
+    metrics.ParameterResult(0, true, true, KEY_REQUEST_US);
+    Require(metrics.Snapshot(PENDING_SNAPSHOT_US).keyFrameRequest == "pending",
+            "Accepted request must wait for output");
+    metrics.Record(PACKET_BYTES, SECOND_US, true, KEY_OUTPUT_US);
+    const auto observed = metrics.Snapshot(KEY_OUTPUT_US);
+    Require(observed.keyFrameRequest == "observed" && observed.keyFrames == EXPECTED_KEY_FRAMES &&
+                Near(observed.keyFrameWaitMs, KEY_WAIT_MS) &&
+                Near(observed.keyFrameIntervalMs, MILLISECONDS_PER_SECOND),
+            "Key-frame observation is wrong");
+    Require(Near(observed.expectedFps, PREPROCESSED_FPS), "Preprocessed expected output rate was lost");
+    metrics.Record(PACKET_BYTES, REGRESSED_PTS_US, false, REGRESSED_OUTPUT_US);
+    metrics.ParameterResult(0, true, false, REJECTED_REQUEST_US);
+    Require(metrics.Snapshot(REJECTED_REQUEST_US).keyFrameRequests == 1,
+            "Rejected key-frame request counted as accepted");
+    metrics.ParameterResult(0, true, true, FINAL_REQUEST_US);
+    metrics.Stop(STOP_US);
+    const auto stopped = metrics.Snapshot(AFTER_STOP_US);
+    Require(stopped.keyFrameRequest == "ended" && Near(stopped.keyFrameWaitMs, STOPPED_KEY_WAIT_MS) &&
+                stopped.ptsRegressions == 1,
+            "Pending request or PTS regression state was lost");
+    metrics.Stop(LATE_STOP_US);
+    const auto later = metrics.Snapshot(LATE_SNAPSHOT_US);
     Require(Near(later.outputIdleMs, stopped.outputIdleMs) && Near(later.recentBitrate, stopped.recentBitrate) &&
-        Near(later.longestGapMs, stopped.longestGapMs), "Release must not advance frozen diagnostics");
+                Near(later.longestGapMs, stopped.longestGapMs),
+            "Release must not advance frozen diagnostics");
 }
 
 void TestEmptyAndBoundedSamples()
 {
     RecorderStreamMetrics empty;
     Require(empty.Snapshot(0).outputIdleMs == -1, "Unstarted output should be unavailable");
-    empty.Start(1000000);
-    Require(empty.Snapshot(1000000).recentFps == 0, "Zero-duration snapshot should not divide by zero");
-    Require(Near(empty.Snapshot(2000000).outputIdleMs, 1000), "First-output waiting is not measured");
+    empty.Start(SECOND_US);
+    Require(empty.Snapshot(SECOND_US).recentFps == 0, "Zero-duration snapshot should not divide by zero");
+    Require(Near(empty.Snapshot(TWO_SECONDS_US).outputIdleMs, MILLISECONDS_PER_SECOND),
+            "First-output waiting is not measured");
     RecorderStreamMetrics dense;
     dense.Start(0);
-    for (int i = 0; i < 2048; ++i) {
+    for (int i = 0; i < DENSE_INPUT_COUNT; ++i) {
         dense.Record(1, i, false, 1);
     }
-    Require(Near(dense.Snapshot(1000000).recentFps, 1024), "Output sample storage exceeded its bound");
+    Require(Near(dense.Snapshot(SECOND_US).recentFps, DENSE_CAPACITY), "Output sample storage exceeded its bound");
 }
 
 void TestTimingRing()
 {
     StageTiming timing;
     Require(timing.Snapshot().count == 0, "Empty timing should have no samples");
-    for (int i = 1; i <= 300; ++i) {
-        timing.Record(i * 1000);
+    for (int i = 1; i <= TIMING_COUNT; ++i) {
+        timing.Record(i * MILLISECONDS_PER_SECOND);
     }
     const auto initial = timing.Snapshot();
-    Require(initial.count == 300 && Near(initial.averageMs, 150.5) && Near(initial.p95Ms, 288) &&
-        Near(initial.maximumMs, 300), "Timing average or recent P95 is wrong");
-    for (int i = 0; i < 256; ++i) {
-        timing.Record(1000);
+    Require(initial.count == TIMING_COUNT && Near(initial.averageMs, EXPECTED_AVERAGE_MS) &&
+                Near(initial.p95Ms, EXPECTED_P95_MS) && Near(initial.maximumMs, TIMING_COUNT),
+            "Timing average or recent P95 is wrong");
+    for (int i = 0; i < TIMING_CAPACITY; ++i) {
+        timing.Record(MILLISECONDS_PER_SECOND);
     }
     const auto wrapped = timing.Snapshot();
-    Require(wrapped.count == 556 && Near(wrapped.p95Ms, 1) && Near(wrapped.maximumMs, 300),
-        "Recent timing ring must wrap without losing all-session maximum");
+    Require(wrapped.count == WRAPPED_COUNT && Near(wrapped.p95Ms, 1) && Near(wrapped.maximumMs, TIMING_COUNT),
+            "Recent timing ring must wrap without losing all-session maximum");
     StageTiming clamped;
-    clamped.Record(-1000);
+    clamped.Record(-MILLISECONDS_PER_SECOND);
     Require(clamped.Snapshot().maximumMs == 0, "Negative elapsed times must be clamped");
 }
-}
+} // namespace
 
 int main()
 {
     RecorderAudioStats audio;
-    audio.Reset(48000, 2);
-    audio.Capture(192000, 19200);
+    audio.Reset(SAMPLE_RATE, STEREO_CHANNELS);
+    audio.Capture(CAPTURED_PCM_BYTES, PENDING_PCM_BYTES);
     auto pcm = audio.Snapshot();
-    Require(pcm.capturedFrames == 48000 && Near(pcm.pendingPcmMs, 100), "PCM sample frames or queue duration wrong");
-    Require(audio.Output(0, 100), "First AAC output was not recognized");
-    Require(!audio.Output(20000, 100), "Repeated AAC output counted as first output");
+    Require(pcm.capturedFrames == SAMPLE_RATE && Near(pcm.pendingPcmMs, EXPECTED_PENDING_MS),
+            "PCM sample frames or queue duration wrong");
+    Require(audio.Output(0, PACKET_BYTES), "First AAC output was not recognized");
+    Require(!audio.Output(KEY_REQUEST_US, PACKET_BYTES), "Repeated AAC output counted as first output");
     audio.Video(true, 0);
-    audio.Video(true, 40000);
-    audio.Video(false, 10000);
-    audio.Write(true, 2000, false);
-    audio.Write(false, 1000, true);
+    audio.Video(true, FRAME_INTERVAL_US);
+    audio.Video(false, FIRST_OUTPUT_US);
+    audio.Write(true, PRIMARY_MUX_US, false);
+    audio.Write(false, MILLISECONDS_PER_SECOND, true);
     audio.Stop();
     const auto ended = audio.Snapshot();
-    audio.Capture(192000, 0);
-    Require(ended.firstPtsUs == 0 && ended.lastPtsUs == 20000 && ended.primaryLastPtsUs == 40000 &&
-        ended.secondaryFirstPtsUs == 10000 && ended.primaryWriteFailures == 1 &&
-        ended.secondaryWriteFailures == 0, "Audio PTS or muxer accounting wrong");
+    audio.Capture(CAPTURED_PCM_BYTES, 0);
+    Require(ended.firstPtsUs == 0 && ended.lastPtsUs == KEY_REQUEST_US && ended.primaryLastPtsUs == FRAME_INTERVAL_US &&
+                ended.secondaryFirstPtsUs == FIRST_OUTPUT_US && ended.primaryWriteFailures == 1 &&
+                ended.secondaryWriteFailures == 0,
+            "Audio PTS or muxer accounting wrong");
     Require(audio.Snapshot().capturedFrames == ended.capturedFrames, "Capture changed frozen diagnostics");
     audio.Reset(0, 0);
-    audio.Capture(10, 10);
+    audio.Capture(INVALID_PCM_BYTES, INVALID_PCM_BYTES);
     Require(audio.Snapshot().capturedFrames == 0, "Invalid sample configuration must not divide by zero");
     TestWindowAndTargets();
     TestKeyFramesAndFreeze();

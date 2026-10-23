@@ -64,7 +64,8 @@ export class RecordingHistoryModel {
     if (existingIndex >= 0) {
       this.entries.splice(existingIndex, 1);
     }
-    this.entries.unshift({ uri, title, secondaryUri, recordedAt, durationSeconds, primarySummary, secondarySummary, sessionId });
+    this.entries.unshift({ uri, title, secondaryUri, recordedAt, durationSeconds,
+      primarySummary, secondarySummary, sessionId });
     if (this.entries.length > MAX_RECORDING_ENTRIES) {
       this.entries.splice(MAX_RECORDING_ENTRIES);
     }

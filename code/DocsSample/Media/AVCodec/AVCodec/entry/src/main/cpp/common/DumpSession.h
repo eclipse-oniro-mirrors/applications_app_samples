@@ -48,8 +48,8 @@ public:
             return false;
         }
         const auto now = Clock::now();
-        if (!checked_ || now - checkedAt_ >= std::chrono::milliseconds(250) ||
-            nextBytes > available_ || available_ - nextBytes < RESERVED_BYTES) {
+        if (!checked_ || now - checkedAt_ >= spaceCheckInterval ||
+            nextBytes > available_ || available_ - nextBytes < reservedBytes) {
             struct statvfs space {};
             if (statvfs(path_.c_str(), &space) != 0) {
                 Stop("space_query_failed");
@@ -59,7 +59,7 @@ public:
             checkedAt_ = now;
             checked_ = true;
         }
-        if (available_ < RESERVED_BYTES || nextBytes > available_ - RESERVED_BYTES) {
+        if (available_ < reservedBytes || nextBytes > available_ - reservedBytes) {
             Stop("low_space");
             return false;
         }
@@ -86,7 +86,8 @@ public:
 
 private:
     using Clock = std::chrono::steady_clock;
-    static constexpr uint64_t RESERVED_BYTES = 128ULL * 1024 * 1024;
+    static constexpr auto spaceCheckInterval = std::chrono::milliseconds(250);
+    static constexpr uint64_t reservedBytes = 128ULL * 1024 * 1024;
 
     void Save()
     {
@@ -94,8 +95,10 @@ private:
         const std::string metadata = path_ + ".session.txt";
         const std::string temporary = metadata + ".pending";
         std::ofstream text(temporary, std::ios::trunc);
+        const auto elapsedMs = std::chrono::duration_cast<std::chrono::milliseconds>(
+            Clock::now() - startedAt_).count();
         text << "state=" << state_ << "\nbytes=" << bytes_ << "\nlastPtsUs=" << ptsUs_
-            << "\nelapsedMs=" << std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - startedAt_).count()
+            << "\nelapsedMs=" << elapsedMs
             << "\nreservedMiB=128\n" << configuration_ << "\n";
         text.close();
         if (!text.fail()) {

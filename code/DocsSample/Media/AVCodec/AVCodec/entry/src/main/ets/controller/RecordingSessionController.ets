@@ -27,7 +27,7 @@ import Logger from '../common/utils/Logger';
 export enum RecordingPhase { PREPARING, READY, RECORDING, FINALIZING, FINISHED, FAILED }
 
 export class RecordingSessionController {
-  phase: RecordingPhase = RecordingPhase.PREPARING;
+  public phase: RecordingPhase = RecordingPhase.PREPARING;
   private sessionId: string = '';
   private startedAt: number = 0;
   private finishTask: Promise<RecordingReport | undefined> | undefined = undefined;
@@ -54,8 +54,13 @@ export class RecordingSessionController {
 
   private async closeFile(fd: number): Promise<boolean> {
     if (fd < 0) { return true; }
-    try { await fileIo.close(fd); return true; }
-    catch (_error) { this.mark('files.close_failed', 'close_failed'); return false; }
+    try {
+      await fileIo.close(fd);
+      return true;
+    } catch (_error) {
+      this.mark('files.close_failed', 'close_failed');
+      return false;
+    }
   }
 
   private async finalize(context: common.UIAbilityContext, data: CameraDataModel,
@@ -70,8 +75,11 @@ export class RecordingSessionController {
       await releaseCamera();
     }
     // StopStart 失败或异步任务提交失败时，仍需尝试执行会等待资源释放的 StopEnd。
-    try { await recorder.stopBeginNative(); }
-    catch (error) { Logger.warn('RecordingSession', 'Stop begin failed: ' + JSON.stringify(error)); }
+    try {
+      await recorder.stopBeginNative();
+    } catch (error) {
+      Logger.warn('RecordingSession', 'Stop begin failed: ' + JSON.stringify(error));
+    }
     try {
       await recorder.stopEndNative();
     } catch (error) {
@@ -106,8 +114,7 @@ export class RecordingSessionController {
       RecordingPhase.FAILED : RecordingPhase.FINISHED;
     report.text = RecordingReportStore.text(report);
     // 先落最终快照，再查询成品元数据；查询失败仍能打开本次报告。
-    try { await RecordingReportStore.save(context, report); }
-    catch (error) {
+    try { await RecordingReportStore.save(context, report); } catch (error) {
       report.persistenceFailed = true;
       Logger.warn('RecordingSession', 'Report persistence failed: ' + JSON.stringify(error));
     }

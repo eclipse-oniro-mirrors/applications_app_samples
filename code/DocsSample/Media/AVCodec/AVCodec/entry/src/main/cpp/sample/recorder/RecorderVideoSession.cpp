@@ -22,6 +22,7 @@
 #define LOG_TAG "recorder"
 
 namespace {
+constexpr int64_t MAX_DYNAMIC_VIDEO_BITRATE = 100000000;
 std::string EncoderOutputSnapshot(VideoEncoder *encoder, const char *name)
 {
     if (encoder == nullptr) {
@@ -74,7 +75,8 @@ void Recorder::CaptureEncoderDescription(bool primary)
     // 输出描述不等同于码流解析。未读取码流的尺寸和 HDR 元数据时，不把请求配置当作实测结论。
     description += "; bitstream size/HDR=not verified";
     (primary ? primaryStats_ : secondaryStats_).ConfigureDescription(
-        DescribeCodecRequest(primary ? sampleInfo_ : secondarySampleInfo_, true), description, width, height, fps, bitrate);
+        DescribeCodecRequest(primary ? sampleInfo_ : secondarySampleInfo_, true), description,
+        width, height, fps, bitrate);
 }
 
 int32_t Recorder::UpdateVideoParameters(const std::string &sessionId, bool primary, int64_t bitrate,
@@ -87,7 +89,8 @@ int32_t Recorder::UpdateVideoParameters(const std::string &sessionId, bool prima
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
     VideoEncoder *encoder = primary ? videoEncoder_.get() : secondaryVideoEncoder_.get();
-    if (encoder == nullptr || bitrate < 0 || bitrate > 100000000 || (bitrate == 0 && !requestKeyFrame)) {
+    if (encoder == nullptr || bitrate < 0 || bitrate > MAX_DYNAMIC_VIDEO_BITRATE ||
+        (bitrate == 0 && !requestKeyFrame)) {
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
     std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)> format(OH_AVFormat_Create(), OH_AVFormat_Destroy);
@@ -125,30 +128,8 @@ int32_t Recorder::InitializeSession(SampleInfo &sampleInfo)
     ret = muxer_->Config(sampleInfo_);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Recorder muxer config failed");
 
-    if (sampleInfo_.output.enableDualOutput) {
-        CHECK_AND_RETURN_RET_LOG(sampleInfo_.output.secondaryOutputFd >= 0 && secondaryMuxer_ != nullptr,
-            AVCODEC_SAMPLE_ERR_ERROR, "Secondary output is not available");
-        SampleInfo secondaryInfo = sampleInfo_;
-        secondaryInfo.output.outputFd = sampleInfo_.output.secondaryOutputFd;
-        secondaryInfo.output.enableDualOutput = false;
-        const int32_t secondaryWidth = sampleInfo_.output.secondaryVideoWidth > 0 ?
-            sampleInfo_.output.secondaryVideoWidth : sampleInfo_.video.videoWidth;
-        const int32_t secondaryHeight = sampleInfo_.output.secondaryVideoHeight > 0 ?
-            sampleInfo_.output.secondaryVideoHeight : sampleInfo_.video.videoHeight;
-        // Configure 的宽高仍描述共享的 CameraKit 源帧；副路输出尺寸由自己的降采样 Key 指定。
-        // 主路裁剪不能隐式传到副路；副路单独按源尺寸或降采样尺寸输出。
-        secondaryInfo.video.preprocMode = VIDEO_PREPROC_NONE;
-        if (secondaryWidth != sampleInfo_.video.videoWidth || secondaryHeight != sampleInfo_.video.videoHeight) {
-            secondaryInfo.video.preprocMode = VIDEO_PREPROC_DOWNSAMPLING;
-            secondaryInfo.video.downsamplingWidth = secondaryWidth;
-            secondaryInfo.video.downsamplingHeight = secondaryHeight;
-        }
-        secondarySampleInfo_ = secondaryInfo;
-        ret = secondaryMuxer_->Create(secondaryInfo.output.outputFd, secondaryInfo.output.outputFormat);
-        CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create secondary muxer failed");
-        ret = secondaryMuxer_->Config(secondaryInfo);
-        CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Configure secondary muxer failed");
-    }
+    ret = InitializeSecondaryMuxer();
+    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Configure secondary muxer failed");
 
     ret = CreateAudioEncoder();
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create audio encoder failed");
@@ -314,5 +295,34 @@ int32_t Recorder::CreateVideoEncoder()
         // 副编码器共享主路输入 Surface，不再向 ArkTS 暴露第二个 CameraKit VideoOutput。
     }
 
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
+int32_t Recorder::InitializeSecondaryMuxer()
+{
+    if (sampleInfo_.output.enableDualOutput) {
+        CHECK_AND_RETURN_RET_LOG(sampleInfo_.output.secondaryOutputFd >= 0 && secondaryMuxer_ != nullptr,
+            AVCODEC_SAMPLE_ERR_ERROR, "Secondary output is not available");
+        SampleInfo secondaryInfo = sampleInfo_;
+        secondaryInfo.output.outputFd = sampleInfo_.output.secondaryOutputFd;
+        secondaryInfo.output.enableDualOutput = false;
+        const int32_t secondaryWidth = sampleInfo_.output.secondaryVideoWidth > 0 ?
+            sampleInfo_.output.secondaryVideoWidth : sampleInfo_.video.videoWidth;
+        const int32_t secondaryHeight = sampleInfo_.output.secondaryVideoHeight > 0 ?
+            sampleInfo_.output.secondaryVideoHeight : sampleInfo_.video.videoHeight;
+        // Configure 的宽高仍描述共享的 CameraKit 源帧；副路输出尺寸由自己的降采样 Key 指定。
+        // 主路裁剪不能隐式传到副路；副路单独按源尺寸或降采样尺寸输出。
+        secondaryInfo.video.preprocMode = VIDEO_PREPROC_NONE;
+        if (secondaryWidth != sampleInfo_.video.videoWidth || secondaryHeight != sampleInfo_.video.videoHeight) {
+            secondaryInfo.video.preprocMode = VIDEO_PREPROC_DOWNSAMPLING;
+            secondaryInfo.video.downsamplingWidth = secondaryWidth;
+            secondaryInfo.video.downsamplingHeight = secondaryHeight;
+        }
+        secondarySampleInfo_ = secondaryInfo;
+        int32_t ret = secondaryMuxer_->Create(secondaryInfo.output.outputFd, secondaryInfo.output.outputFormat);
+        CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create secondary muxer failed");
+        ret = secondaryMuxer_->Config(secondaryInfo);
+        CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Configure secondary muxer failed");
+    }
     return AVCODEC_SAMPLE_ERR_OK;
 }

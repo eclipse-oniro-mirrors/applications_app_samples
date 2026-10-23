@@ -39,7 +39,7 @@ class StageTiming {
 public:
     void Record(int64_t microseconds)
     {
-        const double milliseconds = std::max<int64_t>(0, microseconds) / 1000.0;
+        const double milliseconds = std::max<int64_t>(0, microseconds) / microsecondsPerMillisecond;
         samples_[count_ % samples_.size()] = milliseconds;
         ++count_;
         sumMs_ += milliseconds;
@@ -58,12 +58,16 @@ public:
         auto ordered = samples_;
         const size_t size = std::min<uint64_t>(count_, ordered.size());
         std::sort(ordered.begin(), ordered.begin() + size);
-        info.p95Ms = ordered[(size * 95 + 99) / 100 - 1];
+        info.p95Ms = ordered[(size * percentile + percentageBase - 1) / percentageBase - 1];
         return info;
     }
 
 private:
-    std::array<double, 256> samples_ {};
+    static constexpr double microsecondsPerMillisecond = 1000.0;
+    static constexpr size_t percentile = 95;
+    static constexpr size_t percentageBase = 100;
+    static constexpr size_t maxSamples = 256;
+    std::array<double, maxSamples> samples_ {};
     uint64_t count_ = 0;
     double sumMs_ = 0;
     double maximumMs_ = 0;

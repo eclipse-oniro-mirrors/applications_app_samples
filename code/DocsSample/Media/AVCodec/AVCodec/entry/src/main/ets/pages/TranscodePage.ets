@@ -25,7 +25,7 @@ export struct TranscodePage {
   }
 
   private modeOptions(): SelectOption[] {
-    return [{ value: 'Buffer' }, { value: 'Surface' }];
+    return [{ value: 'Buffer' }, { value: $r('app.string.transcode_window_mode') }];
   }
 
   private sizeOptions(): SelectOption[] {
@@ -99,7 +99,8 @@ export struct TranscodePage {
         Toggle({ type: ToggleType.Switch, isOn: this.model.keepAudio })
           .onChange((checked: boolean): void => { this.model.keepAudio = checked; })
       }
-      Text(this.model.modeIndex === 0 ? $r('app.string.transcode_buffer_hint') : $r('app.string.transcode_surface_hint'))
+      Text(this.model.modeIndex === 0 ? $r('app.string.transcode_buffer_hint') :
+        $r('app.string.transcode_window_hint'))
         .fontSize(12).fontColor('#667085')
     }
     .enabled(!this.model.busy && !this.model.exporting && !this.model.picking)

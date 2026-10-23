@@ -31,12 +31,12 @@ export class CameraSessionController {
   private closing: boolean = false;
   private outputStarted: boolean = false;
 
-  prepare(ui: UIContext, data: CameraDataModel, surface: string): Promise<void> {
-    if (this.preparing === undefined) { this.preparing = this.configure(ui, data, surface); }
+  prepare(ui: UIContext, data: CameraDataModel, previewOutputId: string): Promise<void> {
+    if (this.preparing === undefined) { this.preparing = this.configure(ui, data, previewOutputId); }
     return this.preparing;
   }
 
-  private async configure(ui: UIContext, data: CameraDataModel, surface: string): Promise<void> {
+  private async configure(ui: UIContext, data: CameraDataModel, previewOutputId: string): Promise<void> {
     const manager = camera.getCameraManager(ui.getHostContext());
     const devices: camera.CameraDevice[] = manager.getSupportedCameras();
     if (devices.length === 0 || manager.getSupportedSceneModes(devices[0]).indexOf(camera.SceneMode.NORMAL_VIDEO) < 0) {
@@ -46,7 +46,7 @@ export class CameraSessionController {
     const preview = previewProfileCameraCheck(manager, data);
     if (encoding === undefined || preview === undefined) { throw new Error('Camera profile unavailable'); }
     this.output = manager.createVideoOutput(encoding, data.outputId);
-    this.preview = manager.createPreviewOutput(preview, surface);
+    this.preview = manager.createPreviewOutput(preview, previewOutputId);
     this.input = manager.createCameraInput(devices[0]);
     await this.input.open();
     if (this.closing) { return; }
@@ -87,9 +87,10 @@ export class CameraSessionController {
         this.output.on('frameEnd', (): void => onFrameEnd());
         listening = true;
       } catch (_error) { Logger.warn('RecorderCamera', 'Camera frameEnd listener is unavailable'); }
-      try { await this.output.stop(); }
-      catch (error) {
-        // 输出停止失败时先停整个相机会话，不能让它继续向即将收尾的编码 Surface 写入。
+      try {
+        await this.output.stop();
+      } catch (error) {
+        // 输出停止失败时先停整个相机会话，不能让它继续向即将收尾的编码输入窗口写入。
         await this.session?.stop();
         this.outputStarted = false;
         throw new Error('Camera output stop failed: ' + JSON.stringify(error));

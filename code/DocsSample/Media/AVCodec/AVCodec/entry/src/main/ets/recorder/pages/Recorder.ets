@@ -38,7 +38,7 @@ struct Recorder {
   private session: RecordingSessionController = new RecordingSessionController();
   private camera: CameraSessionController = new CameraSessionController();
   private diagnostics: RecorderDiagnosticsController = new RecorderDiagnosticsController();
-  private surface: XComponentController = new XComponentController();
+  private previewController: XComponentController = new XComponentController();
   private finishTask: Promise<void> | undefined = undefined;
   private result: RecordingReport | undefined = undefined;
   private startedAt: number = 0;
@@ -62,7 +62,7 @@ struct Recorder {
 
   private async prepare(): Promise<void> {
     try {
-      await this.camera.prepare(this.getUIContext(), this.data, this.surface.getXComponentSurfaceId());
+      await this.camera.prepare(this.getUIContext(), this.data, this.previewController.getXComponentSurfaceId());
       this.session.ready();
       if (this.session.phase === RecordingPhase.READY) { this.phase = RecordingPhase.READY; }
     } catch (error) {
@@ -118,8 +118,7 @@ struct Recorder {
     } catch (_error) {
       this.session.mark('camera.failed', 'stop_failed');
       await this.camera.release();
-    }
-    finally { clearTimeout(timer); }
+    } finally { clearTimeout(timer); }
   }
 
   private async finish(showResult: boolean): Promise<void> {
@@ -159,7 +158,7 @@ struct Recorder {
 
   build() {
     Stack({ alignContent: Alignment.Center }) {
-      XComponent({ id: 'recorderXComponent', type: XComponentType.SURFACE, controller: this.surface })
+      XComponent({ id: 'recorderXComponent', type: XComponentType.SURFACE, controller: this.previewController })
         .onLoad((): void => { void this.prepare(); })
         .width('100%')
         .height((display.getDefaultDisplaySync().width * this.data.cameraWidth / this.data.cameraHeight) + 'px')
@@ -185,8 +184,7 @@ struct Recorder {
             .backgroundColor('#E67E22').fontColor(Color.White)
             .enabled(this.phase === RecordingPhase.READY || this.phase === RecordingPhase.RECORDING)
             .onClick((): void => {
-              if (this.phase === RecordingPhase.READY) { void this.start(); }
-              else { void this.finish(true); }
+              if (this.phase === RecordingPhase.READY) { void this.start(); } else { void this.finish(true); }
             })
         }.width('100%')
       }.width('100%').height('100%').padding({ left: 12, right: 12, top: 16, bottom: 24 })

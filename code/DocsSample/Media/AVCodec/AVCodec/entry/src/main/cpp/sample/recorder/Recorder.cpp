@@ -26,6 +26,7 @@
 #define LOG_TAG "recorder"
 
 namespace {
+constexpr size_t MAX_STAGE_RESULT_LENGTH = 128;
 using namespace std::chrono_literals;
 constexpr int64_t MICROSECOND = 1000000;
 constexpr int32_t INPUT_FRAME_BYTES = 2 * 1024;
@@ -246,30 +247,9 @@ void Recorder::VideoEncOutputAsyncThread(VideoEncoder *encoder, CodecUserData *c
 bool Recorder::ProcessVideoOutputBuffer(VideoEncoder *encoder, CodecUserData *context, Muxer *muxer,
     CodecBufferInfo &bufferInfo, bool isPrimary, int64_t receivedAtUs)
 {
-    if ((bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_SYNC_FRAME) ||
-        bufferInfo.attr.flags == AVCODEC_BUFFER_FLAGS_NONE) {
-        context->outputFrameCount++;
-        if (context->isFirstVideoSyncFrame.exchange(false)) {
-            context->firstVideoSyncFramePts = bufferInfo.attr.pts;
-        }
-        bufferInfo.attr.pts = (bufferInfo.attr.pts - context->firstVideoSyncFramePts) / UNIT_CONVERSION;
-    } else {
-        bufferInfo.attr.pts = 0;
-    }
-
-    AVCODEC_SAMPLE_LOGW("Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
-        context->outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
+    RecordVideoOutput(context, bufferInfo, isPrimary);
     const bool isEosBuffer = (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
-    if (context->outputFrameCount == 1 && !isEosBuffer && bufferInfo.attr.size > 0 &&
-        (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_CODEC_DATA) == 0) {
-        sessionReport_.Event(isPrimary ? "primary.first_output" : "secondary.first_output");
-    }
     auto &stats = isPrimary ? primaryStats_ : secondaryStats_;
-    stats.RecordOutput(bufferInfo.attr);
-    if (!isEosBuffer && bufferInfo.attr.size > 0 &&
-        (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_CODEC_DATA) == 0) {
-        audioStats_.Video(isPrimary, bufferInfo.attr.pts);
-    }
     int64_t dumpUs = -1;
     int64_t muxerUs = -1;
     int32_t writeRet = AVCODEC_SAMPLE_ERR_OK;
@@ -465,23 +445,7 @@ void Recorder::Release()
         isAudioEos_.store(false);
         isStopping_.store(false);
 
-        // 所有输出线程已 join；先结束容器写入并刷新文件尾，再销毁 codec。
-        if (muxer_ != nullptr) {
-            const int32_t ret = muxer_->Release();
-            sessionReport_.Event("primary.muxer_released", std::to_string(ret));
-            if (ret != AVCODEC_SAMPLE_ERR_OK) {
-                AVCODEC_SAMPLE_LOGE("Release primary muxer failed, ret: %{public}d", ret);
-            }
-            muxer_.reset();
-        }
-        if (secondaryMuxer_ != nullptr) {
-            const int32_t ret = secondaryMuxer_->Release();
-            sessionReport_.Event("secondary.muxer_released", std::to_string(ret));
-            if (ret != AVCODEC_SAMPLE_ERR_OK) {
-                AVCODEC_SAMPLE_LOGE("Release secondary muxer failed, ret: %{public}d", ret);
-            }
-            secondaryMuxer_.reset();
-        }
+        ReleaseMuxers();
         ReleaseVideoEncoder();
         ReleaseAudioEncoder();
         audioStats_.Stop();
@@ -713,7 +677,10 @@ void Recorder::AudioEncInputThread()
         }
         std::shared_ptr<CodecBufferInfo> bufferInfo = audioEncContext_->inputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(audioEncContext_->codecMutex);
-        if (audioEncContext_->hasError.load()) { AbortRecording("Audio codec callback failed"); break; }
+        if (audioEncContext_->hasError.load()) {
+            AbortRecording("Audio codec callback failed");
+            break;
+        }
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Audio buffer queue is empty, continue");
         if (!SubmitAudioInputFrame(*bufferInfo, bufferInfo->buffer, false)) {
             break;
@@ -786,7 +753,10 @@ void Recorder::AudioEncOutputThread()
         std::shared_ptr<CodecBufferInfo> bufferInfo = audioEncContext_->outputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(audioEncContext_->codecMutex);
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
-        if (audioEncContext_->hasError.load()) { AbortRecording("Audio codec callback failed"); break; }
+        if (audioEncContext_->hasError.load()) {
+            AbortRecording("Audio codec callback failed");
+            break;
+        }
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
 
         if (!ProcessAudioOutputBuffer(*bufferInfo)) {
@@ -884,7 +854,8 @@ bool Recorder::ProcessAudioOutputBuffer(CodecBufferInfo &bufferInfo)
         audioStats_.Write(true, RecorderClockUs() - begin, writeRet == AVCODEC_SAMPLE_ERR_OK);
         if (writeRet == AVCODEC_SAMPLE_ERR_OK && secondaryMuxer_ != nullptr) {
             const int64_t secondaryBegin = RecorderClockUs();
-            writeRet = secondaryMuxer_->WriteSample(secondaryMuxer_->GetAudioTrackId(), bufferInfo.buffer, bufferInfo.attr);
+            writeRet = secondaryMuxer_->WriteSample(
+                secondaryMuxer_->GetAudioTrackId(), bufferInfo.buffer, bufferInfo.attr);
             audioStats_.Write(false, RecorderClockUs() - secondaryBegin, writeRet == AVCODEC_SAMPLE_ERR_OK);
         }
     }
@@ -908,7 +879,7 @@ bool Recorder::ProcessAudioOutputBuffer(CodecBufferInfo &bufferInfo)
 
 void Recorder::MarkStage(const std::string &id, const std::string &stage, const std::string &result)
 {
-    if (id.empty() || id != sessionReport_.Snapshot().id || result.size() > 128) {
+    if (id.empty() || id != sessionReport_.Snapshot().id || result.size() > MAX_STAGE_RESULT_LENGTH) {
         return;
     }
     if (stage == "camera.started" || stage == "camera.failed" || stage == "camera.released" ||
@@ -920,5 +891,54 @@ void Recorder::MarkStage(const std::string &id, const std::string &stage, const 
         if (stage == "camera.failed") { sessionReport_.End("camera_failed"); }
         if (stage == "files.close_failed") { sessionReport_.End("file_close_failed"); }
         if (stage == "camera.frame_end_timeout") { sessionReport_.End("camera_frame_end_timeout"); }
+    }
+}
+
+void Recorder::RecordVideoOutput(CodecUserData *context, CodecBufferInfo &bufferInfo, bool isPrimary)
+{
+    if ((bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_SYNC_FRAME) ||
+        bufferInfo.attr.flags == AVCODEC_BUFFER_FLAGS_NONE) {
+        context->outputFrameCount++;
+        if (context->isFirstVideoSyncFrame.exchange(false)) {
+            context->firstVideoSyncFramePts = bufferInfo.attr.pts;
+        }
+        bufferInfo.attr.pts = (bufferInfo.attr.pts - context->firstVideoSyncFramePts) / UNIT_CONVERSION;
+    } else {
+        bufferInfo.attr.pts = 0;
+    }
+
+    AVCODEC_SAMPLE_LOGW("Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
+        context->outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
+    const bool isEosBuffer = (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+    if (context->outputFrameCount == 1 && !isEosBuffer && bufferInfo.attr.size > 0 &&
+        (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_CODEC_DATA) == 0) {
+        sessionReport_.Event(isPrimary ? "primary.first_output" : "secondary.first_output");
+    }
+    auto &stats = isPrimary ? primaryStats_ : secondaryStats_;
+    stats.RecordOutput(bufferInfo.attr);
+    if (!isEosBuffer && bufferInfo.attr.size > 0 &&
+        (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_CODEC_DATA) == 0) {
+        audioStats_.Video(isPrimary, bufferInfo.attr.pts);
+    }
+}
+
+void Recorder::ReleaseMuxers()
+{
+    // 所有输出线程已 join；先结束容器写入并刷新文件尾，再销毁 codec。
+    if (muxer_ != nullptr) {
+        const int32_t ret = muxer_->Release();
+        sessionReport_.Event("primary.muxer_released", std::to_string(ret));
+        if (ret != AVCODEC_SAMPLE_ERR_OK) {
+            AVCODEC_SAMPLE_LOGE("Release primary muxer failed, ret: %{public}d", ret);
+        }
+        muxer_.reset();
+    }
+    if (secondaryMuxer_ != nullptr) {
+        const int32_t ret = secondaryMuxer_->Release();
+        sessionReport_.Event("secondary.muxer_released", std::to_string(ret));
+        if (ret != AVCODEC_SAMPLE_ERR_OK) {
+            AVCODEC_SAMPLE_LOGE("Release secondary muxer failed, ret: %{public}d", ret);
+        }
+        secondaryMuxer_.reset();
     }
 }

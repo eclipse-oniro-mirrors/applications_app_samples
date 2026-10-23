@@ -156,6 +156,12 @@ private:
     PlaybackCompletionReason GetCompletionReason(bool &playbackSucceeded) const;
     void ReleasePlaybackResources();
     int32_t CreateAudioDecoder();
+    void InitializeAudioDecoderContext();
+    int32_t ConfigureVideoDecoder(const SampleInfo &configureInfo, int32_t decoderType);
+    void ResetPlaybackCounters();
+    void CapturePlaybackConfiguration();
+    void WriteDecodedDumpFrame(OH_AVPixelFormat pixelFormat, uint8_t *bufferAddr,
+        const CodecBufferInfo &bufferInfo);
     bool CanConfigureAudioTrack(const AudioSampleInfo &audioInfo) const;
     int32_t CreateAudioRenderer();
     void PrepareAudioTrackSwitch();

@@ -89,6 +89,9 @@ private:
     void OpenVideoDumpFiles();
     void JoinPreviousSessionThreads(std::unique_lock<std::mutex> &lock);
     int32_t InitializeSession(SampleInfo &sampleInfo);
+    int32_t InitializeSecondaryMuxer();
+    void ReleaseMuxers();
+    void RecordVideoOutput(CodecUserData *context, CodecBufferInfo &bufferInfo, bool isPrimary);
     int32_t StartVideoPipeline();
     int32_t StartVideoMuxers();
     int32_t StartVideoEncoders();

@@ -27,21 +27,21 @@ function idleTranscodeStatus(): TranscodeStatus {
 
 @Observed
 export class TranscodeModel {
-  sourceUri: string = '';
-  sourceTitle: string = '';
-  codecIndex: number = 0;
-  modeIndex: number = 0;
-  sizeIndex: number = 0;
-  bitrateIndex: number = 2;
-  grayscale: boolean = false;
-  keepAudio: boolean = true;
-  busy: boolean = false;
-  picking: boolean = false;
-  exporting: boolean = false;
-  cancelRequested: boolean = false;
-  resultPath: string = '';
-  notice: string = '';
-  status: TranscodeStatus = idleTranscodeStatus();
+  public sourceUri: string = '';
+  public sourceTitle: string = '';
+  public codecIndex: number = 0;
+  public modeIndex: number = 0;
+  public sizeIndex: number = 0;
+  public bitrateIndex: number = 2;
+  public grayscale: boolean = false;
+  public keepAudio: boolean = true;
+  public busy: boolean = false;
+  public picking: boolean = false;
+  public exporting: boolean = false;
+  public cancelRequested: boolean = false;
+  public resultPath: string = '';
+  public notice: string = '';
+  public status: TranscodeStatus = idleTranscodeStatus();
   private pollTimer: number = 0;
   private disposed: boolean = false;
 
@@ -117,7 +117,7 @@ export class TranscodeModel {
         mime: this.codecIndex === 0 ? 'video/avc' : 'video/hevc',
         bitrate: [2000000, 4000000, 8000000, 16000000][this.bitrateIndex] ?? 8000000,
         longEdge: [0, 1920, 1080, 720][this.sizeIndex] ?? 0,
-        surface: this.modeIndex === 1, grayscale: this.grayscale, keepAudio: this.keepAudio
+        useSurfaceInput: this.modeIndex === 1, grayscale: this.grayscale, keepAudio: this.keepAudio
       };
       const completion: Promise<TranscodeStatus> = transcoder.start(request);
       this.pollTimer = setInterval((): void => {

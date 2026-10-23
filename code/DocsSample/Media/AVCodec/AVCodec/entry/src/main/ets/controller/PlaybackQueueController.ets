@@ -17,9 +17,9 @@ import { PlaybackMode, nextPlaybackIndex } from '../model/PlaybackModeModel';
 
 @Observed
 export class PlaybackQueueController {
-  paths: string[] = [];
-  index: number = -1;
-  pendingIndex: number = -1;
+  public paths: string[] = [];
+  public index: number = -1;
+  public pendingIndex: number = -1;
 
   append(path: string): void {
     if (path.length > 0 && this.paths.indexOf(path) < 0) {

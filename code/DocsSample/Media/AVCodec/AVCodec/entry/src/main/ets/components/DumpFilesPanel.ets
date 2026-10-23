@@ -49,7 +49,8 @@ export struct DumpFilesPanel {
     }
     try {
       this.sessions = await DumpFilesModel.sessions(context.filesDir);
-      this.totalBytes = this.sessions.reduce((sum: number, session: DumpSessionEntry): number => sum + session.bytes, 0);
+      this.totalBytes = this.sessions.reduce(
+        (sum: number, session: DumpSessionEntry): number => sum + session.bytes, 0);
       this.availableBytes = await DumpFilesModel.freeBytes(context.filesDir);
     } catch (_error) {
       this.notice = LocalizedText.get($r('app.string.dump_list_failed'));

@@ -61,7 +61,7 @@ public:
         capturedBytes_ += std::max(0, bytes);
         // 采集器固定为 S16LE。除以声道后是样本帧，不是单声道采样值总数。
         info_.capturedFrames = capturedBytes_ / channels_ / sizeof(int16_t);
-        info_.pendingPcmMs = static_cast<double>(std::max(0, pendingBytes)) * 1000.0 /
+        info_.pendingPcmMs = static_cast<double>(std::max(0, pendingBytes)) * millisecondsPerSecond /
             sampleRate_ / channels_ / sizeof(int16_t);
     }
 
@@ -113,6 +113,7 @@ public:
     }
 
 private:
+    static constexpr double millisecondsPerSecond = 1000.0;
     mutable std::mutex mutex_;
     RecorderAudioInfo info_;
     RecorderStreamMetrics metrics_;

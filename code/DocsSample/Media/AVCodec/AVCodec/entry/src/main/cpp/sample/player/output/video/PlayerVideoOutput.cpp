@@ -17,6 +17,7 @@
 
 #include <algorithm>
 #include <chrono>
+#include <cinttypes>
 #include <thread>
 
 #include "av_codec_sample_log.h"
@@ -300,7 +301,7 @@ bool Player::GetAudioTimestampForVideo(CodecBufferInfo& bufferInfo, int64_t& fra
         result = OH_AudioRenderer_GetAudioTimestampInfo(audioRenderer_, &framePosition, &timestamp);
     }
     AVCODEC_SAMPLE_LOGD_LIMIT(PLAYBACK_LOG_FREQUENCY,
-        "VD framePosition: %{public}li, audioTimestamp: %{public}li", framePosition, timestamp);
+        "VD framePosition: %{public}" PRId64 ", audioTimestamp: %{public}" PRId64, framePosition, timestamp);
     playbackClock_.SetAudioTimestampNs(timestamp);
     return true;
 }

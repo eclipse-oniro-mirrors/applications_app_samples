@@ -49,25 +49,7 @@ int32_t Player::CreateAudioDecoder()
             sampleInfo_.audio.audioCodecMime.c_str());
         return ret;
     }
-    if (audioDecContext_ == nullptr) {
-        audioDecContext_ = std::make_unique<CodecUserData>();
-    }
-    audioDecContext_->isDestroyed = false;
-    audioDecContext_->runningFlag = &audioWorkerRunning_;
-    audioDecContext_->playbackFailure = &playbackFailed_;
-    audioDecContext_->failureDetails = &failure_;
-    audioDecContext_->pausedFlag = &paused_;
-    audioDecContext_->audioInterrupted = &audioInterrupted_;
-    audioDecContext_->audioResumePending = &audioResumePending_;
-    audioDecContext_->audioInterruptCount = &audioInterruptCount_;
-    audioDecContext_->audioInterruptHint = &audioInterruptHint_;
-    audioDecContext_->audioVolume = &audioVolume_;
-    audioDecContext_->audioDucked = &audioDucked_;
-    audioDecContext_->pauseCond = &pauseCond_;
-    audioDecContext_->audioUnderruns = &diagnostics_.audioUnderruns;
-    audioDecContext_->audioQueueDurationUs = &diagnostics_.audioQueueDurationUs;
-    audioDecContext_->playbackPositionUs = &playbackPositionUs_;
-    audioDecContext_->sampleInfo = &sampleInfo_;
+    InitializeAudioDecoderContext();
     ret = audioDecoder_->Config(sampleInfo_, audioDecContext_.get());
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         failure_.Record("audio.decoder.configure", ret, "音频解码器配置失败");
@@ -248,18 +230,8 @@ int32_t Player::CreateVideoDecoderForType(int32_t decoderType)
         ReleaseVideoDecoder();
         return ret;
     }
-    videoDecContext_ = std::make_unique<CodecUserData>();
-    videoDecContext_->runningFlag = &isStarted_;
-    videoDecContext_->playbackFailure = &playbackFailed_;
-    videoDecContext_->sampleInfo = &sampleInfo_;
-    videoDecContext_->failureDetails = &failure_;
-    videoDecContext_->isDecFirstFrame = true;
-    videoDecContext_->outputPixelFormat = configureInfo.video.pixelFormat;
-    ret = videoDecoder_->Config(configureInfo, videoDecContext_.get());
+    ret = ConfigureVideoDecoder(configureInfo, decoderType);
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        failure_.Record("decoder.configure/prepare", ret, "视频解码器配置或准备失败；请核对规格、输出链路和可选特性");
-        AVCODEC_SAMPLE_LOGW("Video decoder configuration failed, type: %{public}d", decoderType);
-        ReleaseVideoDecoder();
         return ret;
     }
     activeVideoDecoderType_ = decoderType;
@@ -315,15 +287,7 @@ void Player::ResetPlaybackState()
     discardVideoUntilSeekTarget_ = false;
     discardAudioUntilSeekTarget_ = false;
     speed.store(1.0f);
-    playbackPositionUs_.store(0);
-    playbackDurationUs_.store(0);
-    videoOutputFrames_.store(0);
-    videoRenderedFrames_.store(0);
-    videoDroppedFrames_.store(0);
-    audioOutputBuffers_.store(0);
-    bufferPresentFrames_.store(0);
-    bufferPresentFailures_.store(0);
-    bufferPresentDurationNs_.store(0);
+    ResetPlaybackCounters();
     {
         std::lock_guard<std::mutex> diagnosticsLock(videoSinkDiagnosticsMutex_);
         videoSinkDiagnostics_ = {};
@@ -519,13 +483,7 @@ int32_t Player::InitializePlaybackResources(std::unique_lock<std::mutex> &lock)
     hasAudioTrack_.store(audioDecContext_ != nullptr);
     UpdateMediaInfoSnapshot();
     isReleased_ = false;
-    diagnostics_.SetObservedConfiguration("mime=" + sampleInfo_.video.videoCodecMime +
-        "; decoderType=" + std::to_string(activeVideoDecoderType_) +
-        "; runMode=" + std::to_string(sampleInfo_.codec.codecRunMode) +
-        "; decoderBufferOutput=" + std::to_string(isBufferMode_.load()) +
-        "; softwareFallback=" + std::to_string(softwareDecoderFallbackUsed_.load()) +
-        "; size=" + std::to_string(sampleInfo_.video.videoWidth) + "x" +
-        std::to_string(sampleInfo_.video.videoHeight));
+    CapturePlaybackConfiguration();
     AVCODEC_SAMPLE_LOGI("Playback session: %{public}s", sampleInfo_.output.sessionId.c_str());
     if (!stateMachine_.MarkReady()) {
         AVCODEC_SAMPLE_LOGE("Failed to enter ready state");
@@ -692,4 +650,70 @@ int32_t Player::StartPlaybackDecoders(bool &videoStarted)
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
     return AVCODEC_SAMPLE_ERR_OK;
+}
+
+void Player::InitializeAudioDecoderContext()
+{
+    if (audioDecContext_ == nullptr) {
+        audioDecContext_ = std::make_unique<CodecUserData>();
+    }
+    audioDecContext_->isDestroyed = false;
+    audioDecContext_->runningFlag = &audioWorkerRunning_;
+    audioDecContext_->playbackFailure = &playbackFailed_;
+    audioDecContext_->failureDetails = &failure_;
+    audioDecContext_->pausedFlag = &paused_;
+    audioDecContext_->audioInterrupted = &audioInterrupted_;
+    audioDecContext_->audioResumePending = &audioResumePending_;
+    audioDecContext_->audioInterruptCount = &audioInterruptCount_;
+    audioDecContext_->audioInterruptHint = &audioInterruptHint_;
+    audioDecContext_->audioVolume = &audioVolume_;
+    audioDecContext_->audioDucked = &audioDucked_;
+    audioDecContext_->pauseCond = &pauseCond_;
+    audioDecContext_->audioUnderruns = &diagnostics_.audioUnderruns;
+    audioDecContext_->audioQueueDurationUs = &diagnostics_.audioQueueDurationUs;
+    audioDecContext_->playbackPositionUs = &playbackPositionUs_;
+    audioDecContext_->sampleInfo = &sampleInfo_;
+}
+
+int32_t Player::ConfigureVideoDecoder(const SampleInfo &configureInfo, int32_t decoderType)
+{
+    videoDecContext_ = std::make_unique<CodecUserData>();
+    videoDecContext_->runningFlag = &isStarted_;
+    videoDecContext_->playbackFailure = &playbackFailed_;
+    videoDecContext_->sampleInfo = &sampleInfo_;
+    videoDecContext_->failureDetails = &failure_;
+    videoDecContext_->isDecFirstFrame = true;
+    videoDecContext_->outputPixelFormat = configureInfo.video.pixelFormat;
+    int32_t ret = videoDecoder_->Config(configureInfo, videoDecContext_.get());
+    if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record("decoder.configure/prepare", ret, "视频解码器配置或准备失败；请核对规格、输出链路和可选特性");
+        AVCODEC_SAMPLE_LOGW("Video decoder configuration failed, type: %{public}d", decoderType);
+        ReleaseVideoDecoder();
+        return ret;
+    }
+    return ret;
+}
+
+void Player::ResetPlaybackCounters()
+{
+    playbackPositionUs_.store(0);
+    playbackDurationUs_.store(0);
+    videoOutputFrames_.store(0);
+    videoRenderedFrames_.store(0);
+    videoDroppedFrames_.store(0);
+    audioOutputBuffers_.store(0);
+    bufferPresentFrames_.store(0);
+    bufferPresentFailures_.store(0);
+    bufferPresentDurationNs_.store(0);
+}
+
+void Player::CapturePlaybackConfiguration()
+{
+    diagnostics_.SetObservedConfiguration("mime=" + sampleInfo_.video.videoCodecMime +
+        "; decoderType=" + std::to_string(activeVideoDecoderType_) +
+        "; runMode=" + std::to_string(sampleInfo_.codec.codecRunMode) +
+        "; decoderBufferOutput=" + std::to_string(isBufferMode_.load()) +
+        "; softwareFallback=" + std::to_string(softwareDecoderFallbackUsed_.load()) +
+        "; size=" + std::to_string(sampleInfo_.video.videoWidth) + "x" +
+        std::to_string(sampleInfo_.video.videoHeight));
 }

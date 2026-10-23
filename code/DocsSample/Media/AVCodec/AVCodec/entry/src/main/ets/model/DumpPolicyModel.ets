@@ -18,6 +18,6 @@ export class DumpPolicyModel {
   static readonly UNLIMITED: number = 0;
   static readonly SIZE_OPTIONS: number[] = [64, 256, DumpPolicyModel.UNLIMITED];
   static readonly DURATION_OPTIONS: number[] = [10, 30, DumpPolicyModel.UNLIMITED];
-  static maxMiB: number = 256;
-  static maxSeconds: number = 30;
+  public static maxMiB: number = 256;
+  public static maxSeconds: number = 30;
 }

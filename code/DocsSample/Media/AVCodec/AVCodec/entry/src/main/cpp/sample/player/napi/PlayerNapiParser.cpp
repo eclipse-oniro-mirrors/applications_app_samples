@@ -18,6 +18,8 @@
 namespace {
 constexpr size_t LEGACY_PLAY_ARG_COUNT = 9;
 constexpr size_t STRUCTURED_PLAY_ARG_COUNT = 2;
+constexpr int32_t MAX_DUMP_MIB = 1024;
+constexpr int32_t MAX_DUMP_SECONDS = 300;
 
 bool IsFunction(napi_env env, napi_value value)
 {
@@ -135,8 +137,8 @@ bool ParseDiagnosticOptions(napi_env env, napi_value options, SampleInfo &sample
         !ReadOptionalInt32Property(env, options, "dumpMaxSeconds", sampleInfo.output.dumpMaxSeconds)) {
         return false;
     }
-    if (sampleInfo.output.dumpMaxMiB < 0 || sampleInfo.output.dumpMaxMiB > 1024 ||
-        sampleInfo.output.dumpMaxSeconds < 0 || sampleInfo.output.dumpMaxSeconds > 300) {
+    if (sampleInfo.output.dumpMaxMiB < 0 || sampleInfo.output.dumpMaxMiB > MAX_DUMP_MIB ||
+        sampleInfo.output.dumpMaxSeconds < 0 || sampleInfo.output.dumpMaxSeconds > MAX_DUMP_SECONDS) {
         napi_throw_range_error(env, nullptr, "Dump limits out of range");
         return false;
     }

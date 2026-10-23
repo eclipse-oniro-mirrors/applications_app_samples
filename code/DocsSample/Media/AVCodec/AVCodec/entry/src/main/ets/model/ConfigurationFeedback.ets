@@ -25,7 +25,7 @@ export class ConfigurationFeedback {
       lines.push(LocalizedText.get($r('app.string.configuration_buffer_hint')));
     }
     if (runMode !== 0) {
-      lines.push(LocalizedText.get($r('app.string.configuration_surface_hint')));
+      lines.push(LocalizedText.get($r('app.string.configuration_direct_output_hint')));
     }
     lines.push(LocalizedText.get($r('app.string.configuration_decoder_hint')));
     return lines.join('\n');

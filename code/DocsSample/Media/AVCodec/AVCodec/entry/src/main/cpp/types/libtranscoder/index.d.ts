@@ -19,7 +19,7 @@ export interface TranscodeRequest {
   mime: string;
   bitrate: number;
   longEdge: number;
-  surface: boolean;
+  useSurfaceInput: boolean;
   grayscale: boolean;
   keepAudio: boolean;
 }

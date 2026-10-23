@@ -77,7 +77,7 @@ public:
     void Record(uint64_t bytes, int64_t ptsUs, bool keyFrame, int64_t now)
     {
         if (lastAt_ >= 0) {
-            info_.longestGapMs = std::max(info_.longestGapMs, (now - lastAt_) / 1000.0);
+            info_.longestGapMs = std::max(info_.longestGapMs, (now - lastAt_) / microsecondsPerMillisecond);
         }
         if (lastPts_ >= 0 && ptsUs < lastPts_) {
             ++info_.ptsRegressions;
@@ -85,18 +85,18 @@ public:
         lastAt_ = now;
         lastPts_ = ptsUs;
         samples_.push_back({now, bytes});
-        while (!samples_.empty() && (now - samples_.front().atUs > WINDOW_US || samples_.size() > MAX_SAMPLES)) {
+        while (!samples_.empty() && (now - samples_.front().atUs > windowUs || samples_.size() > maxSamples)) {
             samples_.pop_front();
         }
         if (keyFrame) {
             ++info_.keyFrames;
             if (info_.lastKeyFramePtsUs >= 0 && ptsUs >= info_.lastKeyFramePtsUs) {
-                info_.keyFrameIntervalMs = (ptsUs - info_.lastKeyFramePtsUs) / 1000.0;
+                info_.keyFrameIntervalMs = (ptsUs - info_.lastKeyFramePtsUs) / microsecondsPerMillisecond;
             }
             info_.lastKeyFramePtsUs = ptsUs;
             if (requestAt_ >= 0 && now >= requestAt_) {
                 info_.keyFrameRequest = "observed";
-                info_.keyFrameWaitMs = (now - requestAt_) / 1000.0;
+                info_.keyFrameWaitMs = (now - requestAt_) / microsecondsPerMillisecond;
                 requestAt_ = -1;
             }
         }
@@ -106,34 +106,37 @@ public:
     {
         auto info = info_;
         const int64_t end = stoppedAt_ >= 0 ? stoppedAt_ : now;
-        info.outputIdleMs = lastAt_ >= 0 ? (end - lastAt_) / 1000.0 :
-            (startedAt_ >= 0 ? (end - startedAt_) / 1000.0 : -1);
+        info.outputIdleMs = lastAt_ >= 0 ? (end - lastAt_) / microsecondsPerMillisecond :
+            (startedAt_ >= 0 ? (end - startedAt_) / microsecondsPerMillisecond : -1);
         info.longestGapMs = std::max(info.longestGapMs, info.outputIdleMs);
         if (requestAt_ >= 0) {
-            info.keyFrameWaitMs = (end - requestAt_) / 1000.0;
+            info.keyFrameWaitMs = (end - requestAt_) / microsecondsPerMillisecond;
             info.keyFrameRequest = stoppedAt_ >= 0 ? "ended" : "pending";
         }
         uint64_t bytes = 0;
         uint64_t frames = 0;
         for (const auto &sample : samples_) {
-            if (sample.atUs > end - WINDOW_US && sample.atUs <= end) {
+            if (sample.atUs > end - windowUs && sample.atUs <= end) {
                 bytes += sample.bytes;
                 ++frames;
             }
         }
-        const int64_t duration = startedAt_ >= 0 ? std::min(WINDOW_US, end - startedAt_) : 0;
+        const int64_t duration = startedAt_ >= 0 ? std::min(windowUs, end - startedAt_) : 0;
         if (duration > 0) {
-            const double seconds = duration / 1000000.0;
+            const double seconds = duration / microsecondsPerSecond;
             info.recentFps = frames / seconds;
-            info.recentBitrate = bytes * 8.0 / seconds;
+            info.recentBitrate = bytes * bitsPerByte / seconds;
         }
         return info;
     }
 
 private:
+    static constexpr double microsecondsPerMillisecond = 1000.0;
+    static constexpr double microsecondsPerSecond = 1000000.0;
+    static constexpr double bitsPerByte = 8.0;
     struct Sample { int64_t atUs; uint64_t bytes; };
-    static constexpr int64_t WINDOW_US = 1000000;
-    static constexpr size_t MAX_SAMPLES = 1024;
+    static constexpr int64_t windowUs = 1000000;
+    static constexpr size_t maxSamples = 1024;
     RecorderStreamMetricsInfo info_;
     std::deque<Sample> samples_;
     int64_t startedAt_ = -1;

@@ -303,7 +303,8 @@ export struct DeviceDiagnosticsPage {
       if (secondary.length > 0) {
         reportLines.push(secondary);
       }
-      reportLines.push(RecorderLiveDiagnosticsModel.report(diagnostics, diagnostics.secondary.requestedConfiguration.length > 0));
+      reportLines.push(RecorderLiveDiagnosticsModel.report(
+        diagnostics, diagnostics.secondary.requestedConfiguration.length > 0));
       if (diagnostics.failure.stage.length > 0) {
         reportLines.push('Recording failure: ' + diagnostics.failure.stage + ' · ' + diagnostics.failure.code,
           diagnostics.failure.message);

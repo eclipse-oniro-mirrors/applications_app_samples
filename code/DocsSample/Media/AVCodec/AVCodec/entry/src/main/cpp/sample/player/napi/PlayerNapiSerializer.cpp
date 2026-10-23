@@ -109,7 +109,7 @@ bool PopulateDiagnostics(napi_env env, napi_value object, const PlaybackDiagnost
         napi_set_named_property(env, object, "diagnostics", diagnostics) == napi_ok;
 }
 
-bool PopulatePlaybackInfo(napi_env env, napi_value object, const PlaybackInfo &info)
+bool PopulatePlaybackFailure(napi_env env, napi_value object, const PlaybackInfo &info)
 {
     napi_value failure = nullptr;
     if (napi_create_object(env, &failure) != napi_ok ||
@@ -122,6 +122,11 @@ bool PopulatePlaybackInfo(napi_env env, napi_value object, const PlaybackInfo &i
         napi_set_named_property(env, object, "failure", failure) != napi_ok) {
         return false;
     }
+    return true;
+}
+
+bool PopulateSinkDiagnostics(napi_env env, napi_value object, const PlaybackInfo &info)
+{
     napi_value sinkDiagnostics = nullptr;
     if (napi_create_object(env, &sinkDiagnostics) != napi_ok ||
         !SetBoolProperty(env, sinkDiagnostics, "available", info.videoSinkDiagnostics.available) ||
@@ -144,6 +149,14 @@ bool PopulatePlaybackInfo(napi_env env, napi_value object, const PlaybackInfo &i
             info.videoSinkDiagnostics.averageCommandRecordUs) ||
         !SetDoubleProperty(env, sinkDiagnostics, "averageSubmitUs", info.videoSinkDiagnostics.averageSubmitUs) ||
         napi_set_named_property(env, object, "videoSinkDiagnostics", sinkDiagnostics) != napi_ok) {
+        return false;
+    }
+    return true;
+}
+
+bool PopulatePlaybackInfo(napi_env env, napi_value object, const PlaybackInfo &info)
+{
+    if (!PopulatePlaybackFailure(env, object, info) || !PopulateSinkDiagnostics(env, object, info)) {
         return false;
     }
     return SetInt32Property(env, object, "state", static_cast<int32_t>(info.state)) &&

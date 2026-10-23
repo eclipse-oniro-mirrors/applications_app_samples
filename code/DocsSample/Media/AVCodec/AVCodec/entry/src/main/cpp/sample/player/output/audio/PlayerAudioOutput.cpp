@@ -16,6 +16,7 @@
 #include "Player.h"
 
 #include <chrono>
+#include <cinttypes>
 
 #include "AudioOutputPump.h"
 #include "av_codec_sample_log.h"
@@ -123,7 +124,7 @@ bool Player::ProcessAudioOutput(CodecBufferInfo &bufferInfo)
         return false;
     }
     playbackClock_.AddWrittenSamples(bufferInfo.attr.size / sampleInfo_.audio.audioChannelCount / BYTES_PER_SAMPLE_2);
-    AVCODEC_SAMPLE_LOGI("writtenSampleCnt_: %{public}ld, bufferInfo.attr.size: %{public}d, "
+    AVCODEC_SAMPLE_LOGI("writtenSampleCnt_: %{public}" PRId64 ", bufferInfo.attr.size: %{public}d, "
         "sampleInfo_.audioChannelCount: %{public}d", playbackClock_.GetWrittenSamples(), bufferInfo.attr.size,
         sampleInfo_.audio.audioChannelCount);
     playbackClock_.SetAudioBufferPts(bufferInfo.attr.pts);

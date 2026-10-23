@@ -62,17 +62,28 @@ public:
 
 private:
     using Format = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>;
+    bool ReadTracks(int32_t trackCount);
+    bool ValidateSourceColor();
+    bool ConnectSurface();
+    bool SubmitSurfaceFrame(bool eos, bool &advanced);
+    bool ProcessBufferFrame(OH_AVBuffer *input, OH_AVCodecBufferAttr &attr);
     bool OpenSource();
+    bool InitializeDemuxer();
     bool ConfigureCodecs();
+    bool ConfigureEncoderFormat();
+    bool StartCodecs();
     bool StartMuxer();
     bool FeedDecoder(bool &advanced);
     bool DrainDecoder(bool &advanced);
     bool SubmitDecodedFrame(bool &advanced);
+    bool SubmitBufferFrame(bool eos, bool sendEmptyEos, bool &advanced);
     bool DrainEncoder(bool &advanced);
     bool CopyAudio(bool &advanced);
     bool ReadLayout(OH_AVFormat *format, TranscodeFrames::Layout &layout);
     bool Check(int32_t result, const char *operation);
     bool Fail(const char *operation, int32_t result = -1);
+    bool FinalizeOutput();
+    void Complete(bool success);
     void Cleanup();
 
     TranscodeOptions options_;
