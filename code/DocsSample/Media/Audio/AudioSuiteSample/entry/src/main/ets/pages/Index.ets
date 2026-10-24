@@ -254,6 +254,7 @@ struct Index {
     this.deviceType = deviceInfo.productModel === 'emulator'
       ? this.getResStr($r('app.string.device_emulator'))
       : this.getResStr($r('app.string.device_real'));
+    DirInitHelper.setUIContext(this.getUIContext());
     let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
     let value = context.resourceManager.getRawFileContentSync("S16LE_2_48000.pcm");
     let myBuffer: ArrayBufferLike = value?.buffer;
