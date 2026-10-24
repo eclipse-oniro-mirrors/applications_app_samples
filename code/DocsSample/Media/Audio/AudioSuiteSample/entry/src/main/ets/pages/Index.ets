@@ -270,7 +270,7 @@ struct Index {
         const nodeName: string = NODE_TYPE_NAMES[nodeType]
           ? this.getResStr(NODE_TYPE_NAMES[nodeType])
           : this.getResStr($r('app.string.alert_node_type_fallback'), nodeType);
-        AlertDialog.show({
+        this.getUIContext().showAlertDialog({
           title: $r('app.string.alert_node_not_supported_title'),
           message: this.getResStr($r('app.string.alert_node_not_supported_msg'), this.deviceType, nodeName),
           confirm: {
