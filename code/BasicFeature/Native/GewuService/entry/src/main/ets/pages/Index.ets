@@ -18,19 +18,31 @@ import testNapi from 'libentry.so';
 
 const DOMAIN = 0xFF00;
 const TAG = 'Sample_GewuService';
-const DEFAULT_MODEL_PATH = '/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4';
+const DEFAULT_MODEL_DIR = 'Qwen2_5_0_5B_CPU_Q4';
 
 @Entry
 @Component
 struct Index {
-  @State modelPath: string = DEFAULT_MODEL_PATH;
+  @State modelDir: string = DEFAULT_MODEL_DIR;
   @State message: string = 'What is LLM?';
   @State result: string = 'Click a button to start.';
 
+  private getModelPath(): string {
+    let modelDir: string = this.modelDir.trim();
+    if (modelDir.length === 0) {
+      modelDir = DEFAULT_MODEL_DIR;
+    }
+    if (modelDir.startsWith('/')) {
+      return modelDir;
+    }
+    let hostFilesDir: string = this.getUIContext().getHostContext()?.getApplicationContext().filesDir ?? '';
+    return hostFilesDir + '/' + modelDir;
+  }
+
   private createSession(): void {
-    let code: number = testNapi.createSession(this.modelPath);
+    let code: number = testNapi.createSession(this.getModelPath());
     this.result = 'createSession error=' + code.toString();
-    hilog.info(DOMAIN, TAG, 'createSession error=%{public}d', code);
+    hilog.info(DOMAIN, TAG, 'createSession error=%{public}d model=%{public}s', code, this.getModelPath());
   }
 
   private destroySession(): void {
@@ -68,10 +80,10 @@ struct Index {
           Text('Model path')
             .fontSize(15)
             .fontWeight(FontWeight.Medium)
-          TextInput({ text: this.modelPath })
+          TextInput({ text: this.modelDir })
             .height(40)
             .onChange((value: string) => {
-              this.modelPath = value;
+              this.modelDir = value;
             })
 
           Text('Request message')

@@ -18,6 +18,7 @@
 // [Start GewuServiceCodeExample]
 #include <string>
 #include <future>
+#include <memory>
 #define LOG_TAG "DEMO"
 #include <hilog/log.h>
 #include <nlohmann/json.hpp>
@@ -45,10 +46,21 @@ public:
         DEMO_LOGI("stopReasonStr=%s", stopReasonStr.c_str());
     }
 
+    /* 仅在未完成时置值，避免重复 set_value 导致崩溃 */
+    void Complete(const std::string &finishReason)
+    {
+        if (done) {
+            return;
+        }
+        done = true;
+        promise.set_value(finishReason);
+    }
+
     std::promise<std::string> promise;
     std::future<std::string> future;
     std::string responseContent;
     bool earlyAbort = false;
+    bool done = false;
 };
 
 /* 接收到推理结果时的回调函数 */
@@ -71,10 +83,10 @@ void OnChatResponse(void *context, const char *response)
         if (!finishReasonJson.is_null()) {
             /* finish */
             std::string finishReasonStr = finishReasonJson.get<std::string>();
-            chatContext->promise.set_value(finishReasonStr);
+            chatContext->Complete(finishReasonStr);
         } else if (chatContext->responseContent.find("\n") != std::string::npos) {
             /* customized stop */
-            chatContext->promise.set_value("customized");
+            chatContext->Complete("customized");
             chatContext->earlyAbort = true;
         } else {
             /* continue */
@@ -174,7 +186,7 @@ static const char *GewuErrorString(OH_QoS_GewuErrorCode error)
 
 static OH_QoS_GewuSession g_session = OH_QOS_GEWU_INVALID_SESSION_ID;
 static OH_QoS_GewuRequest g_request = OH_QOS_GEWU_INVALID_REQUEST_ID;
-static ChatContext g_chatContext;
+static std::unique_ptr<ChatContext> g_chatContext;
 
 static std::string GetModelPath(napi_env env, napi_value arg)
 {
@@ -243,8 +255,10 @@ static napi_value SubmitRequest(napi_env env, napi_callback_info info)
         {"stream", false},
     };
     std::string requestStr = requestJson.dump();
+    /* 每次提交请求都创建全新的 ChatContext，避免复用已消费的 promise/future 导致崩溃 */
+    g_chatContext = std::make_unique<ChatContext>();
     OH_QoS_GewuSubmitRequestResult submitResult = OH_QoS_GewuSubmitRequest(g_session, requestStr.c_str(),
-                                                                           OnChatResponse, &g_chatContext);
+                                                                           OnChatResponse, g_chatContext.get());
     if (submitResult.error != OH_QOS_GEWU_OK) {
         DEMO_LOGE("failed to submit request, error=%s(%d)", GewuErrorString(submitResult.error),
                   (int)submitResult.error);
@@ -254,7 +268,8 @@ static napi_value SubmitRequest(napi_env env, napi_callback_info info)
     }
     g_request = submitResult.request;
     DEMO_LOGI("submit request success, request=%u", g_request);
-    g_chatContext.Join();
+    g_chatContext->Join();
+    g_request = OH_QOS_GEWU_INVALID_REQUEST_ID;
     napi_value ret;
     napi_create_int32(env, (int32_t)OH_QOS_GEWU_OK, &ret);
     return ret;
@@ -303,8 +318,9 @@ static napi_value DestroySession(napi_env env, napi_callback_info info)
 
 static napi_value GetResponse(napi_env env, napi_callback_info info)
 {
+    std::string response = g_chatContext ? g_chatContext->responseContent : std::string();
     napi_value ret;
-    napi_create_string_utf8(env, g_chatContext.responseContent.c_str(), g_chatContext.responseContent.length(), &ret);
+    napi_create_string_utf8(env, response.c_str(), response.size(), &ret);
     return ret;
 }
 

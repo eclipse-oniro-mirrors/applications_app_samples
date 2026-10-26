@@ -17,7 +17,7 @@
 ### 使用说明
 
 1. 安装编译生成的 hap 包，并打开应用。
-2. 在主界面"Model path"输入框中确认或修改端侧模型路径，默认值为 `/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4`。
+2. 在主界面"Model path"输入框中确认或修改端侧模型路径，默认值为模型目录名 `Qwen2_5_0_5B_CPU_Q4`。应用启动后，输入框不会显示绝对路径：创建会话时，若输入相对目录名，则自动拼接运行时沙箱 `files` 目录（如 `/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4`）生成完整路径；若输入以 `/` 开头的绝对路径，则原样使用。
 3. 点击"Create Session"按钮创建格物会话，按钮下方"Result"区域显示接口返回的错误码。
 4. 在"Request message"输入框中输入要发送的推理消息，点击"Submit Request"按钮提交请求，请求执行完成后"Result"区域展示推理响应内容。
 5. 点击"Abort Request"按钮可提前中止已提交的请求，点击"Destroy Session"按钮销毁会话。
@@ -48,7 +48,7 @@ hdc file send api_config.json /data/app/el2/100/base/com.samples.gewuservice/fil
 }
 ```
 
-4. 确认主界面 "Model path" 输入框中的路径与沙箱路径一致后，再点击 "Create Session" 创建会话。
+4. 确认主界面"Model path"输入框中的模型目录名与沙箱内实际目录一致（默认值 `Qwen2_5_0_5B_CPU_Q4` 与推送的沙箱目录同名）后，再点击"Create Session"创建会话。
 
 ## 工程目录
 
@@ -106,7 +106,7 @@ Gewu NDK 接口的调用与 NAPI 注册集中在 `napi_init.cpp`，源码参考�
 
 1. 本示例仅支持标准系统上运行，支持设备：默认设备（如 RK3568）与平板，工程 `deviceTypes` 配置为 `["default", "tablet"]`。
 2. 格物服务能力从 API version 20 开始支持，本示例基于 API version 26 编译运行，工程 `compileSdkVersion` 配置为 `26.0.0`。
-3. 运行本示例前，需要将端侧推理模型（如 Qwen2.5-0.5B CPU 量化模型）放置到设备上应用沙箱 `/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4` 目录，并在主界面"Model path"输入框中确认模型路径与实际一致。
+3. 运行本示例前，需要将端侧推理模型（如 Qwen2.5-0.5B CPU 量化模型）放置到设备上应用沙箱 `/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4` 目录，并在主界面"Model path"输入框中确认模型目录名与实际一致（默认值 `Qwen2_5_0_5B_CPU_Q4`）。
 4. 本示例依赖内核增强 Kit 的 NDK 头文件 `qos/qos.h` 与链接库 `libqos.so`，若使用的 SDK 未包含该能力，需替换为 Full SDK 后编译，参考[Full SDK替换方法](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/faqs/full-sdk-switch-guide.md)。
 5. 本示例需要使用 DevEco Studio 5.0 及以上版本才可编译运行。
 
