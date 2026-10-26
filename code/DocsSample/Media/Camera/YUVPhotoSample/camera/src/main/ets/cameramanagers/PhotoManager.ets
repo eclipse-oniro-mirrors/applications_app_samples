@@ -247,9 +247,9 @@ export class PhotoManager implements OutputManager {
     await this.getMainPixelmap(context, picture);
     Logger.info(TAG_LOG, 'picture getMainPixelmap X');
 
-    Logger.info(TAG_LOG, 'picture Release E');
-    await this.Release(picture);
-    Logger.info(TAG_LOG, 'picture Release X');
+    Logger.info(TAG_LOG, 'picture releasePicture E');
+    await this.releasePicture(picture);
+    Logger.info(TAG_LOG, 'picture releasePicture X');
   }
 
   async packToFileFromPixelMap(context : Context, pixelMap : image.PixelMap) {
@@ -324,7 +324,7 @@ export class PhotoManager implements OutputManager {
   }
 
   // 释放资源。
-  async release(pictureObj : image.Picture) {
+  async releasePicture(pictureObj : image.Picture) {
     let funcName = 'Release';
     if (pictureObj != null) {
       pictureObj.release();
