@@ -149,6 +149,33 @@ void TestBounds()
     Require(RequiredBytes({ CHROMA_STEP + 1, CHROMA_STEP, TEST_WIDTH, CHROMA_STEP, Chroma::NV12 }) == 0,
         "Odd visible dimensions");
 }
+
+void TestSameSizeNv12()
+{
+    const Layout input { TEST_WIDTH, CHROMA_STEP, INPUT_STRIDE, TEST_WIDTH, Chroma::NV12 };
+    const Layout output { TEST_WIDTH, CHROMA_STEP, OUTPUT_STRIDE, TEST_WIDTH, Chroma::NV12 };
+    std::array<uint8_t, INPUT_FRAME_BYTES> source {};
+    source.fill(SOURCE_PADDING);
+    const std::array<uint8_t, TEST_WIDTH> uv { 41, 91, 42, 92 };
+    for (size_t x = 0; x < TEST_WIDTH; ++x) {
+        source[x] = static_cast<uint8_t>(x + 1);
+        source[INPUT_STRIDE + x] = static_cast<uint8_t>(x + 5);
+        source[INPUT_CHROMA_OFFSET + x] = uv[x];
+    }
+    std::array<uint8_t, OUTPUT_FRAME_BYTES + 1> destination {};
+    destination.fill(OUTPUT_CANARY);
+    Require(Process(source.data(), source.size(), input, destination.data(), OUTPUT_FRAME_BYTES, output, false),
+        "Same-size NV12 fast path");
+    for (size_t x = 0; x < TEST_WIDTH; ++x) {
+        Require(destination[x] == x + 1 && destination[OUTPUT_STRIDE + x] == x + 5, "Fast luma copy");
+        Require(destination[OUTPUT_CHROMA_OFFSET + x] == uv[x], "Fast chroma copy");
+    }
+    Require(destination[TEST_WIDTH] == LUMA_PADDING && destination[OUTPUT_CHROMA_OFFSET - 1] == LUMA_PADDING,
+        "Only initialize luma padding");
+    Require(destination[OUTPUT_CHROMA_OFFSET + TEST_WIDTH] == CHROMA_PADDING &&
+        destination[OUTPUT_FRAME_BYTES - 1] == CHROMA_PADDING && destination.back() == OUTPUT_CANARY,
+        "Fast chroma padding and canary");
+}
 }
 
 int main()
@@ -157,5 +184,6 @@ int main()
     TestChromaAndPadding();
     TestPlanarAndScaling();
     TestBounds();
+    TestSameSizeNv12();
     std::cout << "TranscodeFrameProcessor tests passed\n";
 }

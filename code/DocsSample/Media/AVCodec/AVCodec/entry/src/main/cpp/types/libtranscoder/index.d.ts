@@ -21,7 +21,18 @@ export interface TranscodeRequest {
   longEdge: number;
   useSurfaceInput: boolean;
   grayscale: boolean;
-  keepAudio: boolean;
+  encoderCategory: number;
+  audioMode: number;
+  audioTrack: number;
+}
+
+export interface TranscodeMeasurement {
+  name: string;
+  calls: number;
+  totalMs: number;
+  averageMs: number;
+  p95Ms: number;
+  maxMs: number;
 }
 
 export interface TranscodeStatus {
@@ -35,8 +46,35 @@ export interface TranscodeStatus {
   outputWidth: number;
   outputHeight: number;
   audioCopied: boolean;
+  elapsedMs: number;
+  firstFrameMs: number;
+  fps: number;
+  speed: number;
+  remainingSeconds: number;
+  decoderWaitMs: number;
+  encoderInputWaitMs: number;
+  encoderOutputWaitMs: number;
+  copiedBytes: number;
+  fileBytes: number;
+  availableBytes: number;
+  estimatedBytes: number;
+  diagnostics: TranscodeMeasurement[];
+  decoderName: string;
+  encoderName: string;
+  sourceWidth: number;
+  sourceHeight: number;
+  durationUs: number;
+  sourceFrameRate: number;
+  sourceMime: string;
+  audioTracks: string[];
+  audioTrackIds: number[];
+  minBitrate: number;
+  maxBitrate: number;
+  audioBytes: number;
+  audioMode: number;
 }
 
 export const start: (options: TranscodeRequest) => Promise<TranscodeStatus>;
+export const inspect: (options: TranscodeRequest) => Promise<TranscodeStatus>;
 export const getStatus: () => TranscodeStatus;
 export const cancel: () => void;

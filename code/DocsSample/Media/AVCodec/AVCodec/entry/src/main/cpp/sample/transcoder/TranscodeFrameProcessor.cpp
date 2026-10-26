@@ -46,6 +46,10 @@ void ProcessChroma(const uint8_t *source, const Layout &input, uint8_t *destinat
     for (int32_t y = 0; y < output.height / CHROMA_SUBSAMPLING; ++y) {
         const int32_t sourceY = static_cast<int64_t>(y) * input.height / output.height;
         uint8_t *target = destination + static_cast<size_t>(y) * output.stride;
+        if (input.chroma == Chroma::NV12 && input.width == output.width && input.height == output.height) {
+            std::copy_n(source + static_cast<size_t>(y) * input.stride, output.width, target);
+            continue;
+        }
         for (int32_t x = 0; x < output.width / CHROMA_SUBSAMPLING; ++x) {
             const int32_t sourceX = static_cast<int64_t>(x) * input.width / output.width;
             const int32_t targetX = x * CHROMA_SUBSAMPLING;
@@ -107,8 +111,21 @@ bool Process(const uint8_t *source, size_t sourceCapacity, const Layout &input,
         return false;
     }
     const size_t outputYBytes = static_cast<size_t>(output.stride) * output.sliceHeight;
-    std::fill_n(destination, outputYBytes, BLACK_LUMA);
-    std::fill_n(destination + outputYBytes, outputBytes - outputYBytes, NEUTRAL_CHROMA);
+    // Write visible pixels once; initialize only padding (and all UV for grayscale).
+    for (int32_t y = 0; y < output.height; ++y) {
+        std::fill_n(destination + static_cast<size_t>(y) * output.stride + output.width,
+            output.stride - output.width, BLACK_LUMA);
+    }
+    std::fill(destination + static_cast<size_t>(output.height) * output.stride,
+        destination + outputYBytes, BLACK_LUMA);
+    uint8_t *uv = destination + outputYBytes;
+    const int32_t visibleRows = grayscale ? 0 : output.height / CHROMA_SUBSAMPLING;
+    for (int32_t y = 0; y < visibleRows; ++y) {
+        std::fill_n(uv + static_cast<size_t>(y) * output.stride + output.width,
+            output.stride - output.width, NEUTRAL_CHROMA);
+    }
+    std::fill(uv + static_cast<size_t>(visibleRows) * output.stride,
+        destination + outputBytes, NEUTRAL_CHROMA);
     ProcessLuma(source, input, destination, output);
     if (!grayscale) {
         ProcessChroma(source + static_cast<size_t>(input.stride) * input.sliceHeight, input,
