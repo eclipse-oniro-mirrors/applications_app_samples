@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 // [Start DragArkTSPage]
-import { webview } from '@kit.ArkWeb'
+import { webview } from '@kit.ArkWeb';
 import { unifiedDataChannel, uniformTypeDescriptor } from '@kit.ArkData';
 
 @Entry
 @Component
 struct DragDrop {
-  private controller: webview.WebviewController = new webview.WebviewController()
+  private controller: webview.WebviewController = new webview.WebviewController();
   @State ports: Array<webview.WebMessagePort> = []
   @State dragData: Array<unifiedDataChannel.UnifiedRecord> = []
 
@@ -41,7 +41,7 @@ struct DragDrop {
         this.controller.postMessage('__init_port__', [this.ports[0]], '*');
       })// onDrop 可做简单逻辑，例如暂存一些关键数据
         .onDrop((dragEvent: DragEvent) => {
-          console.info('ETS onDrop!')
+          console.info('ETS onDrop!');
           let data: UnifiedData = dragEvent.getData();
           if(!data) {
             return false;
@@ -59,7 +59,7 @@ struct DragDrop {
               }
             }
           }
-          return true
+          return true;
         })
     }
 
