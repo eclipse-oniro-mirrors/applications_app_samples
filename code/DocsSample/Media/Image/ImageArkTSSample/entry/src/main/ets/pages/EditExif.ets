@@ -21,9 +21,9 @@ import { UIComponentsBuilder } from '../tools/components';
 import { Router } from '@ohos.arkui.UIContext';
 
 const router = new Router();
-// 创建 UIComponentsBuilder 实例
+// 创建 UIComponentsBuilder 实例。
 const uiComponents = new UIComponentsBuilder();
-let fileName: string = 'allAux.jpg'; // 根据解码需求选择不同的解码资源进行解码
+let fileName: string = 'allAux.jpg'; // 根据解码需求选择不同的解码资源进行解码。
 
 @Entry
 @Component
@@ -51,7 +51,7 @@ struct EditExif {
     image.PropertyKey.EXPOSURE_TIME,
     image.PropertyKey.F_NUMBER
   ];
-  // 实际调用释放资源接口
+  // 实际调用释放资源接口。
   releaseActual() {
     this.imageSource?.release();
     this.imageSource = undefined;
@@ -80,7 +80,7 @@ struct EditExif {
                   .border({width: 1, color: Color.Blue})
                   .width('100%')
                   .padding(10)
-                  .zIndex(999) // 设置 z-index 确保按钮显示在上层
+                  .zIndex(999) // 设置 z-index 确保按钮显示在上层。
               })
             }
             .margin({top: 5})
