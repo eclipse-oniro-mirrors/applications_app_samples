@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-export const createSession: (modelPath: string) => number;
+export const createSession: (modelPath: string) => Promise<number>;
 export const destroySession: () => number;
-export const submitRequest: (message: string) => number;
+export const submitRequest: (messagesJson: string) => Promise<number>;
 export const abortRequest: () => number;
 export const getResponse: () => string;

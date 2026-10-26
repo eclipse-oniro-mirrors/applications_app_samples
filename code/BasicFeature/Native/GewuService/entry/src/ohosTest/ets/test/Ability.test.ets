@@ -21,6 +21,7 @@ const DOMAIN = 0xF811;
 const TAG = '[Sample_GewuService]';
 const DEFAULT_MODEL_PATH = '/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4';
 const INVALID_MODEL_PATH = '/data/storage/el2/base/files/NotExistModel';
+const DEFAULT_MESSAGES_JSON = '[{"role":"user","content":"What is LLM?"}]';
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
@@ -47,9 +48,9 @@ export default function abilityTest() {
     /**
      * 使用设备上默认模型路径创建格物会话，验证 OH_QoS_GewuCreateSession 调用成功返回 OH_QOS_GEWU_OK(0)。
      */
-    it('GewuService_CreateSession_001', 0, () => {
+    it('GewuService_CreateSession_001', 0, async () => {
       hilog.info(DOMAIN, TAG, 'GewuService_CreateSession_001, begin');
-      let code: number = testNapi.createSession(DEFAULT_MODEL_PATH);
+      let code: number = await testNapi.createSession(DEFAULT_MODEL_PATH);
       hilog.info(DOMAIN, TAG, 'GewuService_CreateSession_001, modelPath=%{public}s code=%{public}d',
         DEFAULT_MODEL_PATH, code);
       expect(code).assertEqual(0);
@@ -62,9 +63,9 @@ export default function abilityTest() {
     /**
      * 使用不存在的模型路径创建格物会话，验证创建失败时返回非 OH_QOS_GEWU_OK 的错误码且应用不崩溃。
      */
-    it('GewuService_CreateSession_002', 0, () => {
+    it('GewuService_CreateSession_002', 0, async () => {
       hilog.info(DOMAIN, TAG, 'GewuService_CreateSession_002, begin');
-      let code: number = testNapi.createSession(INVALID_MODEL_PATH);
+      let code: number = await testNapi.createSession(INVALID_MODEL_PATH);
       hilog.info(DOMAIN, TAG, 'GewuService_CreateSession_002, modelPath=%{public}s code=%{public}d',
         INVALID_MODEL_PATH, code);
       expect(code === 0).assertFalse();
@@ -74,15 +75,16 @@ export default function abilityTest() {
     /**
      * 创建格物会话后提交推理请求，验证 OH_QoS_GewuSubmitRequest 调用成功（返回 OH_QOS_GEWU_OK）且能取回非空的推理结果。
      */
-    it('GewuService_SubmitRequest_001', 0, () => {
+    it('GewuService_SubmitRequest_001', 0, async () => {
       hilog.info(DOMAIN, TAG, 'GewuService_SubmitRequest_001, begin');
-      let code: number = testNapi.createSession(DEFAULT_MODEL_PATH);
+      let code: number = await testNapi.createSession(DEFAULT_MODEL_PATH);
       hilog.info(DOMAIN, TAG, 'GewuService_SubmitRequest_001, createSession code=%{public}d', code);
       expect(code).assertEqual(0);
-      code = testNapi.submitRequest('What is LLM?');
+      code = await testNapi.submitRequest(DEFAULT_MESSAGES_JSON);
       let response: string = testNapi.getResponse();
-      hilog.info(DOMAIN, TAG, 'GewuService_SubmitRequest_001, submitRequest code=%{public}d response=%{public}s',
-        code, response);
+      hilog.info(DOMAIN, TAG,
+        'GewuService_SubmitRequest_001, messagesJson=%{public}s submitRequest code=%{public}d response=%{public}s',
+        DEFAULT_MESSAGES_JSON, code, response);
       expect(code).assertEqual(0);
       expect(response.length).assertLarger(0);
       code = testNapi.destroySession();
@@ -94,12 +96,12 @@ export default function abilityTest() {
     /**
      * 创建格物会话并提交请求后调用中止接口，验证 OH_QoS_GewuAbortRequest 返回定义域内的错误码（枚举值均非负）且应用不崩溃。
      */
-    it('GewuService_AbortRequest_001', 0, () => {
+    it('GewuService_AbortRequest_001', 0, async () => {
       hilog.info(DOMAIN, TAG, 'GewuService_AbortRequest_001, begin');
-      let code: number = testNapi.createSession(DEFAULT_MODEL_PATH);
+      let code: number = await testNapi.createSession(DEFAULT_MODEL_PATH);
       hilog.info(DOMAIN, TAG, 'GewuService_AbortRequest_001, createSession code=%{public}d', code);
       expect(code).assertEqual(0);
-      code = testNapi.submitRequest('What is LLM?');
+      code = await testNapi.submitRequest(DEFAULT_MESSAGES_JSON);
       hilog.info(DOMAIN, TAG, 'GewuService_AbortRequest_001, submitRequest code=%{public}d', code);
       expect(code).assertEqual(0);
       code = testNapi.abortRequest();

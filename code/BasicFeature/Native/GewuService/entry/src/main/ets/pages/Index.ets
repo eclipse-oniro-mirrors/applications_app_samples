@@ -19,13 +19,40 @@ import testNapi from 'libentry.so';
 const DOMAIN = 0xFF00;
 const TAG = 'Sample_GewuService';
 const DEFAULT_MODEL_DIR = 'Qwen2_5_0_5B_CPU_Q4';
+const IDLE_DESTROY_MS = 30000;
+
+class ChatMessage {
+  id: number;
+  role: string;
+  content: string;
+  aborted: boolean;
+
+  constructor(id: number, role: string, content: string, aborted: boolean = false) {
+    this.id = id;
+    this.role = role;
+    this.content = content;
+    this.aborted = aborted;
+  }
+}
+
+interface GewuRequestMessage {
+  role: string;
+  content: string;
+}
 
 @Entry
 @Component
 struct Index {
   @State modelDir: string = DEFAULT_MODEL_DIR;
-  @State message: string = 'What is LLM?';
-  @State result: string = 'Click a button to start.';
+  @State messages: ChatMessage[] = [];
+  @State inputText: string = '';
+  @State isLoading: boolean = false;
+  @State sessionAlive: boolean = false;
+  @State statusText: string = 'Enter a prompt and send. Session auto-creates on first send, auto-destroys after 30s idle.';
+  private scroller: Scroller = new Scroller();
+  private nextId: number = 0;
+  private idleTimer: number = -1;
+  private abortPending: boolean = false;
 
   private getModelPath(): string {
     let modelDir: string = this.modelDir.trim();
@@ -39,29 +66,214 @@ struct Index {
     return hostFilesDir + '/' + modelDir;
   }
 
-  private createSession(): void {
-    let code: number = testNapi.createSession(this.getModelPath());
-    this.result = 'createSession error=' + code.toString();
-    hilog.info(DOMAIN, TAG, 'createSession error=%{public}d model=%{public}s', code, this.getModelPath());
+  private appendMessage(role: string, content: string, aborted: boolean = false): void {
+    let newMessages: ChatMessage[] = this.messages.slice(0);
+    this.nextId++;
+    newMessages.push(new ChatMessage(this.nextId, role, content, aborted));
+    this.messages = newMessages;
   }
 
-  private destroySession(): void {
+  private appendSystemNote(content: string): void {
+    this.appendMessage('system', content);
+  }
+
+  private buildMessagesJson(): string {
+    let requestMessages: GewuRequestMessage[] = [];
+    let systemMessage: GewuRequestMessage = { role: 'developer', content: 'You are a helpful assistant' };
+    requestMessages.push(systemMessage);
+    for (let i = 0; i < this.messages.length; i++) {
+      let item: ChatMessage = this.messages[i];
+      if (item.role === 'user' || item.role === 'assistant') {
+        let message: GewuRequestMessage = { role: item.role, content: item.content };
+        requestMessages.push(message);
+      }
+    }
+    return JSON.stringify(requestMessages);
+  }
+
+  private clearIdleTimer(): void {
+    if (this.idleTimer !== -1) {
+      clearTimeout(this.idleTimer);
+      this.idleTimer = -1;
+    }
+  }
+
+  private restartIdleTimer(): void {
+    this.clearIdleTimer();
+    if (!this.sessionAlive) {
+      return;
+    }
+    this.idleTimer = setTimeout(() => {
+      this.destroySessionAfterIdle();
+    }, IDLE_DESTROY_MS);
+  }
+
+  private destroySessionAfterIdle(): void {
+    this.idleTimer = -1;
+    if (!this.sessionAlive) {
+      return;
+    }
     let code: number = testNapi.destroySession();
-    this.result = 'destroySession error=' + code.toString();
-    hilog.info(DOMAIN, TAG, 'destroySession error=%{public}d', code);
+    hilog.info(DOMAIN, TAG, 'destroySession after 30s idle, code=%{public}d', code);
+    this.sessionAlive = false;
+    if (code === 0) {
+      this.statusText = 'Session destroyed after 30s idle. Next send creates a new one.';
+      this.appendSystemNote('Session idle for 30s, destroyed automatically.');
+    } else {
+      this.statusText = 'destroySession after idle failed, code=' + code.toString();
+    }
   }
 
-  private submitRequest(): void {
-    let code: number = testNapi.submitRequest(this.message);
+  private scrollToBottom(): void {
+    setTimeout(() => {
+      this.scroller.scrollEdge(Edge.Bottom);
+    }, 50);
+  }
+
+  private async sendMessage(): Promise<void> {
+    let text: string = this.inputText.trim();
+    if (text.length === 0 || this.isLoading) {
+      return;
+    }
+    this.inputText = '';
+    this.appendMessage('user', text);
+    this.isLoading = true;
+    this.abortPending = false;
+    this.clearIdleTimer();
+
+    if (!this.sessionAlive) {
+      this.statusText = 'Creating session...';
+      let createCode: number = await testNapi.createSession(this.getModelPath());
+      hilog.info(DOMAIN, TAG, 'createSession code=%{public}d model=%{public}s', createCode, this.getModelPath());
+      if (createCode !== 0) {
+        this.isLoading = false;
+        this.statusText = 'createSession failed, code=' + createCode.toString();
+        this.appendSystemNote('Create session failed (code ' + createCode.toString() + '). Check the model path.');
+        this.restartIdleTimer();
+        return;
+      }
+      this.sessionAlive = true;
+      this.statusText = 'Session created. Generating answer...';
+    }
+
+    let requestJson: string = this.buildMessagesJson();
+    let submitCode: number = await testNapi.submitRequest(requestJson);
     let response: string = testNapi.getResponse();
-    this.result = 'submitRequest error=' + code.toString() + '\nresponse=' + response;
-    hilog.info(DOMAIN, TAG, 'submitRequest error=%{public}d response=%{public}s', code, response);
+    hilog.info(DOMAIN, TAG, 'submitRequest code=%{public}d response=%{public}s', submitCode, response);
+    this.isLoading = false;
+
+    if (submitCode === 0) {
+      if (this.abortPending) {
+        this.statusText = 'Request aborted. Session active, idle 30s will destroy it.';
+        if (response.length > 0) {
+          this.appendMessage('assistant', response, true);
+        } else {
+          this.appendSystemNote('Request aborted, no response received.');
+        }
+      } else if (response.length > 0) {
+        this.appendMessage('assistant', response);
+        this.statusText = 'Session active. Idle 30s will destroy it.';
+      } else {
+        this.appendSystemNote('No response received.');
+        this.statusText = 'Session active. Idle 30s will destroy it.';
+      }
+    } else {
+      this.statusText = 'submitRequest failed, code=' + submitCode.toString();
+      this.appendSystemNote('Submit request failed (code ' + submitCode.toString() + ').');
+    }
+    this.restartIdleTimer();
+    this.scrollToBottom();
   }
 
-  private abortRequest(): void {
+  private stopRequest(): void {
+    if (!this.isLoading) {
+      return;
+    }
     let code: number = testNapi.abortRequest();
-    this.result = 'abortRequest error=' + code.toString();
-    hilog.info(DOMAIN, TAG, 'abortRequest error=%{public}d', code);
+    hilog.info(DOMAIN, TAG, 'abortRequest code=%{public}d', code);
+    if (code === 0) {
+      this.abortPending = true;
+      this.statusText = 'Aborting request...';
+    } else {
+      this.appendSystemNote('Abort request failed (code ' + code.toString() + ').');
+    }
+  }
+
+  aboutToDisappear(): void {
+    this.clearIdleTimer();
+  }
+
+  @Builder
+  ChatBubble(item: ChatMessage) {
+    if (item.role === 'system') {
+      Row() {
+        Text(item.content)
+          .fontSize(12)
+          .fontColor('#999999')
+          .textAlign(TextAlign.Center)
+      }
+      .width('100%')
+      .justifyContent(FlexAlign.Center)
+    } else if (item.role === 'user') {
+      Row() {
+        Column() {
+          Text(item.content)
+            .fontSize(15)
+            .fontColor(Color.White)
+        }
+        .alignItems(HorizontalAlign.Start)
+        .backgroundColor('#1677FF')
+        .borderRadius(12)
+        .padding({ left: 12, right: 12, top: 8, bottom: 8 })
+        .constraintSize({ maxWidth: '80%' })
+      }
+      .width('100%')
+      .justifyContent(FlexAlign.End)
+    } else {
+      Row() {
+        Column() {
+          if (item.content.length > 0) {
+            Text(item.content)
+              .fontSize(15)
+              .fontColor('#333333')
+          }
+          if (item.aborted) {
+            Text('— stopped by user')
+              .fontSize(12)
+              .fontColor('#999999')
+              .margin({ top: 4 })
+          }
+        }
+        .alignItems(HorizontalAlign.Start)
+        .backgroundColor(Color.White)
+        .borderRadius(12)
+        .border({ width: 1, color: '#E5E6EB' })
+        .padding({ left: 12, right: 12, top: 8, bottom: 8 })
+        .constraintSize({ maxWidth: '80%' })
+      }
+      .width('100%')
+      .justifyContent(FlexAlign.Start)
+    }
+  }
+
+  @Builder
+  ThinkingBubble() {
+    Row() {
+      Row({ space: 8 }) {
+        LoadingProgress()
+          .width(18)
+          .height(18)
+        Text('Thinking...')
+          .fontSize(14)
+          .fontColor('#333333')
+      }
+      .padding({ left: 12, right: 12, top: 8, bottom: 8 })
+      .backgroundColor(Color.White)
+      .borderRadius(12)
+      .border({ width: 1, color: '#E5E6EB' })
+    }
+    .width('100%')
+    .justifyContent(FlexAlign.Start)
   }
 
   build() {
@@ -73,82 +285,78 @@ struct Index {
       Text('QoS-aware on-device inference acceleration')
         .fontSize(13)
         .fontColor('#666666')
-        .margin({ bottom: 16 })
+        .margin({ bottom: 8 })
 
-      Scroll() {
+      Row({ space: 8 }) {
+        Text('Model path')
+          .fontSize(14)
+          .fontWeight(FontWeight.Medium)
+        TextInput({ text: this.modelDir, placeholder: 'Model dir name or absolute path' })
+          .layoutWeight(1)
+          .height(36)
+          .onChange((value: string) => {
+            this.modelDir = value;
+          })
+      }
+      .width('100%')
+      .padding({ left: 16, right: 16, bottom: 4 })
+
+      Text(this.statusText)
+        .fontSize(12)
+        .fontColor('#999999')
+        .width('100%')
+        .padding({ left: 16, right: 16, bottom: 4 })
+
+      Scroll(this.scroller) {
         Column({ space: 12 }) {
-          Text('Model path')
-            .fontSize(15)
-            .fontWeight(FontWeight.Medium)
-          TextInput({ text: this.modelDir })
-            .height(40)
-            .onChange((value: string) => {
-              this.modelDir = value;
-            })
+          ForEach(this.messages, (item: ChatMessage) => {
+            this.ChatBubble(item)
+          }, (item: ChatMessage) => item.id.toString())
 
-          Text('Request message')
-            .fontSize(15)
-            .fontWeight(FontWeight.Medium)
-          TextInput({ text: this.message })
-            .height(40)
-            .onChange((value: string) => {
-              this.message = value;
-            })
-
-          Row({ space: 12 }) {
-            Button('Create Session', { type: ButtonType.Capsule })
-              .layoutWeight(1)
-              .height(40)
-              .onClick(() => {
-                this.createSession();
-              })
-            Button('Destroy Session', { type: ButtonType.Capsule })
-              .layoutWeight(1)
-              .height(40)
-              .onClick(() => {
-                this.destroySession();
-              })
+          if (this.isLoading) {
+            this.ThinkingBubble()
           }
-          .width('100%')
-
-          Row({ space: 12 }) {
-            Button('Submit Request', { type: ButtonType.Capsule })
-              .layoutWeight(1)
-              .height(40)
-              .onClick(() => {
-                this.submitRequest();
-              })
-            Button('Abort Request', { type: ButtonType.Capsule })
-              .layoutWeight(1)
-              .height(40)
-              .onClick(() => {
-                this.abortRequest();
-              })
-          }
-          .width('100%')
-
-          Text('Result')
-            .fontSize(15)
-            .fontWeight(FontWeight.Medium)
-          Text(this.result)
-            .fontSize(13)
-            .width('100%')
-            .padding(10)
-            .backgroundColor('#F1F3F5')
-            .borderRadius(8)
-
-          Text('Tip: filter hilog with tag "Sample_GewuService" or "DEMO" to view native logs.')
-            .fontSize(12)
-            .fontColor('#999999')
         }
-        .alignItems(HorizontalAlign.Start)
-        .padding(16)
+        .width('100%')
+        .padding({ left: 16, right: 16, top: 8, bottom: 16 })
       }
       .layoutWeight(1)
       .width('100%')
+      .scrollable(ScrollDirection.Vertical)
+      .backgroundColor('#F7F8FA')
+
+      Row({ space: 8 }) {
+        TextInput({ text: this.inputText, placeholder: 'Enter your prompt...' })
+          .layoutWeight(1)
+          .height(40)
+          .enterKeyType(EnterKeyType.Send)
+          .onChange((value: string) => {
+            this.inputText = value;
+          })
+          .onSubmit((enter: EnterKeyType) => {
+            if (enter === EnterKeyType.Send) {
+              this.sendMessage();
+            }
+          })
+        Button(this.isLoading ? 'Stop' : 'Send', { type: ButtonType.Capsule })
+          .height(40)
+          .onClick(() => {
+            if (this.isLoading) {
+              this.stopRequest();
+            } else {
+              this.sendMessage();
+            }
+          })
+      }
+      .width('100%')
+      .padding(8)
+
+      Text('Tip: filter hilog with tag "Sample_GewuService" or "DEMO" to view native logs.')
+        .fontSize(12)
+        .fontColor('#999999')
+        .margin({ bottom: 8 })
     }
     .width('100%')
     .height('100%')
-    .alignItems(HorizontalAlign.Start)
   }
 }

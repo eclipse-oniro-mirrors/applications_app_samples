@@ -2,7 +2,7 @@
 
 ## 介绍
 
-本示例演示如何使用内核增强 Kit 的格物服务（Gewu Service）能力，进行 QoS 感知的端侧推理加速与资源管理优化。示例以 Native C++ 工程形态承载 NDK 接口调用，ArkTS 侧通过 NAPI 调用 native 能力，覆盖创建会话（`OH_QoS_GewuCreateSession`）、提交推理请求（`OH_QoS_GewuSubmitRequest`）、中止请求（`OH_QoS_GewuAbortRequest`）、销毁会话（`OH_QoS_GewuDestroySession`）的完整流程，并在主界面展示各接口的调用结果与推理响应内容。
+本示例演示如何使用内核增强 Kit 的格物服务（Gewu Service）能力，进行 QoS 感知的端侧推理加速与资源管理优化。示例以 Native C++ 工程形态承载 NDK 接口调用，ArkTS 侧通过 NAPI 调用 native 能力，以类聊天（Chat）界面覆盖创建会话（`OH_QoS_GewuCreateSession`）、提交推理请求（`OH_QoS_GewuSubmitRequest`）、中止请求（`OH_QoS_GewuAbortRequest`）、销毁会话（`OH_QoS_GewuDestroySession`）的完整流程：用户输入 prompt 点击发送后，若会话不存在则先自动创建会话再提交请求，请求执行期间可点击"Stop"中止推理，会话空闲 30 秒后自动销毁，并支持多轮对话（完整会话历史随每次请求一并提交）。
 
 使用到的接口：
 
@@ -10,18 +10,17 @@
 
 ## 效果预览
 
-| 主界面 | 推理结果 |
-| -------- | -------- |
-| ![主界面](screenshots/device/main.png) | ![推理结果](screenshots/device/result.png) |
+![主界面](screenshots/device/main.png)
 
 ### 使用说明
 
 1. 安装编译生成的 hap 包，并打开应用。
 2. 在主界面"Model path"输入框中确认或修改端侧模型路径，默认值为模型目录名 `Qwen2_5_0_5B_CPU_Q4`。应用启动后，输入框不会显示绝对路径：创建会话时，若输入相对目录名，则自动拼接运行时沙箱 `files` 目录（如 `/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4`）生成完整路径；若输入以 `/` 开头的绝对路径，则原样使用。
-3. 点击"Create Session"按钮创建格物会话，按钮下方"Result"区域显示接口返回的错误码。
-4. 在"Request message"输入框中输入要发送的推理消息，点击"Submit Request"按钮提交请求，请求执行完成后"Result"区域展示推理响应内容。
-5. 点击"Abort Request"按钮可提前中止已提交的请求，点击"Destroy Session"按钮销毁会话。
-6. 在日志中过滤 `Sample_GewuService` 或 `DEMO` 关键字，可查看各接口调用结果与推理过程的日志。
+3. 在底部输入框中输入 prompt，点击"Send"（或回车）发送。发送时若会话不存在，会自动调用 `createSession` 创建会话（首轮发送包含加载模型的耗时，界面显示"Creating session..."），随后调用 `submitRequest` 提交推理请求，界面显示"Thinking..."气泡等待推理完成。
+4. 请求执行期间，发送按钮变为"Stop"，点击可调用 `abortRequest` 中止当前推理；已中止的消息气泡会标记"stopped by user"。
+5. 会话创建后若 30 秒内没有新的请求，会自动调用 `destroySession` 销毁会话，并在对话区提示；再次发送时会重新自动创建会话。
+6. 支持多轮对话：每次发送时会把完整的会话历史（`developer`/`user`/`assistant` 消息数组）作为请求的 `messages` 一并提交，模型可基于上文持续回答。
+7. 在日志中过滤 `Sample_GewuService` 或 `DEMO` 关键字，可查看各接口调用结果与推理过程的日志。
 
 #### 模型权重获取
 
@@ -48,7 +47,7 @@ hdc file send api_config.json /data/app/el2/100/base/com.samples.gewuservice/fil
 }
 ```
 
-4. 确认主界面"Model path"输入框中的模型目录名与沙箱内实际目录一致（默认值 `Qwen2_5_0_5B_CPU_Q4` 与推送的沙箱目录同名）后，再点击"Create Session"创建会话。
+4. 确认主界面"Model path"输入框中的模型目录名与沙箱内实际目录一致（默认值 `Qwen2_5_0_5B_CPU_Q4` 与推送的沙箱目录同名）后，直接输入 prompt 并发送即可，应用会在首次发送时自动创建会话。
 
 ## 工程目录
 
@@ -77,11 +76,11 @@ entry/src/main
 
 Gewu NDK 接口的调用与 NAPI 注册集中在 `napi_init.cpp`，源码参考：[napi_init.cpp](entry/src/main/cpp/napi_init.cpp)
 
-* 向 ArkTS 侧暴露 `createSession`、`destroySession`、`submitRequest`、`abortRequest`、`getResponse` 五个接口，接口声明参考：[index.d.ts](entry/src/main/cpp/types/libentry/index.d.ts)。
-* 创建会话：在 `CreateSession` 中构造包含 `"model"`（模型路径）与 `"eval_settings"`（推理后端与上下文长度）的 JSON 属性串，调用 `OH_QoS_GewuCreateSession` 获取会话句柄，将错误码返回给 ArkTS 侧。
-* 提交请求：在 `SubmitRequest` 中构造包含 `"type"`、`"messages"`、`"stream"` 的 JSON 请求串，调用 `OH_QoS_GewuSubmitRequest` 提交异步推理请求，通过回调 `OnChatResponse` 累积推理响应内容，`Join` 等待请求执行完成。
-* 中止请求：调用 `OH_QoS_GewuAbortRequest` 中止已提交的请求。
-* 销毁会话：调用 `OH_QoS_GewuDestroySession` 销毁会话，并复位全局会话句柄与请求句柄。
+* 向 ArkTS 侧暴露 `createSession`、`destroySession`、`submitRequest`、`abortRequest`、`getResponse` 五个接口，其中 `createSession` 与 `submitRequest` 为异步接口（返回 Promise），接口声明参考：[index.d.ts](entry/src/main/cpp/types/libentry/index.d.ts)。
+* 创建会话：在 `CreateSession` 中构造包含 `"model"`（模型路径）与 `"eval_settings"`（推理后端与上下文长度）的 JSON 属性串，调用 `OH_QoS_GewuCreateSession` 获取会话句柄；模型加载耗时较长，通过 `napi_create_async_work` 放到工作线程执行，完成后以 Promise 将错误码返回给 ArkTS 侧。
+* 提交请求：在 `SubmitRequest` 中把 ArkTS 侧传入的 `messages` JSON 数组包装为包含 `"type"`、`"messages"`、`"stream"` 的 JSON 请求串，调用 `OH_QoS_GewuSubmitRequest` 提交异步推理请求，通过回调 `OnChatResponse` 累积推理响应内容；等待推理完成的工作线程以 100ms 间隔轮询 future，用户调用 `abortRequest` 成功后可提前结束等待，避免阻塞 ArkTS 主线程。
+* 中止请求：调用 `OH_QoS_GewuAbortRequest` 中止已提交的请求，中止成功后置位中止标记，通知等待线程结束等待。
+* 销毁会话：调用 `OH_QoS_GewuDestroySession` 销毁会话，并复位全局会话句柄与请求句柄；ArkTS 侧在会话空闲 30 秒后自动调用。
 
 涉及到的相关接口：
 

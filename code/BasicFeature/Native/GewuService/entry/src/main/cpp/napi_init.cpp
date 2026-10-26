@@ -18,6 +18,8 @@
 // [Start GewuServiceCodeExample]
 #include <string>
 #include <future>
+#include <chrono>
+#include <atomic>
 #include <memory>
 #define LOG_TAG "DEMO"
 #include <hilog/log.h>
@@ -59,8 +61,8 @@ public:
     std::promise<std::string> promise;
     std::future<std::string> future;
     std::string responseContent;
-    bool earlyAbort = false;
-    bool done = false;
+    std::atomic<bool> earlyAbort { false };
+    std::atomic<bool> done { false };
 };
 
 /* 接收到推理结果时的回调函数 */
@@ -187,7 +189,29 @@ static const char *GewuErrorString(OH_QoS_GewuErrorCode error)
 static OH_QoS_GewuSession g_session = OH_QOS_GEWU_INVALID_SESSION_ID;
 static OH_QoS_GewuRequest g_request = OH_QOS_GEWU_INVALID_REQUEST_ID;
 static std::unique_ptr<ChatContext> g_chatContext;
+/* 用户点击"停止"触发 abortRequest 成功后置位，工作线程据此提前结束等待 */
+static std::atomic<bool> g_abortRequested { false };
 
+/* 创建会话的异步任务上下文 */
+struct CreateWork {
+    napi_async_work work = nullptr;
+    napi_deferred deferred = nullptr;
+    std::string modelPath;
+    int32_t error = OH_QOS_GEWU_OK;
+    OH_QoS_GewuSession session = OH_QOS_GEWU_INVALID_SESSION_ID;
+};
+
+/* 提交请求的异步任务上下文 */
+struct SubmitWork {
+    napi_async_work work = nullptr;
+    napi_deferred deferred = nullptr;
+    std::string messagesJson;
+    int32_t error = OH_QOS_GEWU_OK;
+    OH_QoS_GewuSession session = OH_QOS_GEWU_INVALID_SESSION_ID;
+    OH_QoS_GewuRequest request = OH_QOS_GEWU_INVALID_REQUEST_ID;
+};
+
+/* 读取 napi 字符串参数 */
 static std::string GetModelPath(napi_env env, napi_value arg)
 {
     size_t length = 0;
@@ -199,18 +223,23 @@ static std::string GetModelPath(napi_env env, napi_value arg)
     return modelPath;
 }
 
-static napi_value CreateSession(napi_env env, napi_callback_info info)
+/* 将整数错误码封装为已 resolve 的 Promise，用于异步接口的快速失败返回 */
+static napi_value ResolveInt(napi_env env, int32_t value)
 {
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
-    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    napi_value promise = nullptr;
+    napi_deferred deferred = nullptr;
+    napi_create_promise(env, &deferred, &promise);
+    napi_value result = nullptr;
+    napi_create_int32(env, value, &result);
+    napi_resolve_deferred(env, deferred, result);
+    return promise;
+}
 
-    std::string modelPath = GetModelPath(env, args[0]);
-    if (modelPath.empty()) {
-        modelPath = "/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4";
-    }
+static void CreateExecute(napi_env env, void *data)
+{
+    CreateWork *work = static_cast<CreateWork *>(data);
     json attrJson = {
-        {"model", modelPath},
+        {"model", work->modelPath},
         {"eval_settings", {
             {"backend", "cpu"},
             {"max_ctx", 8192}
@@ -218,16 +247,88 @@ static napi_value CreateSession(napi_env env, napi_callback_info info)
     };
     std::string attrStr = attrJson.dump();
     OH_QoS_GewuCreateSessionResult createResult = OH_QoS_GewuCreateSession(attrStr.c_str());
-    if (createResult.error == OH_QOS_GEWU_OK) {
-        g_session = createResult.session;
-        DEMO_LOGI("create session success, session=%u", g_session);
-    } else {
+    work->error = createResult.error;
+    work->session = createResult.session;
+    if (createResult.error != OH_QOS_GEWU_OK) {
         DEMO_LOGE("failed to create session, error=%s(%d)", GewuErrorString(createResult.error),
                   (int)createResult.error);
     }
-    napi_value ret;
-    napi_create_int32(env, (int32_t)createResult.error, &ret);
-    return ret;
+}
+
+static void CreateComplete(napi_env env, napi_status status, void *data)
+{
+    CreateWork *work = static_cast<CreateWork *>(data);
+    if (work->error == OH_QOS_GEWU_OK) {
+        g_session = work->session;
+        DEMO_LOGI("create session success, session=%u", g_session);
+    }
+    napi_value result = nullptr;
+    napi_create_int32(env, work->error, &result);
+    napi_resolve_deferred(env, work->deferred, result);
+    napi_delete_async_work(env, work->work);
+    delete work;
+}
+
+static napi_value CreateSession(napi_env env, napi_callback_info info)
+{
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+
+    std::string modelPath;
+    if (argc >= 1 && args[0] != nullptr) {
+        modelPath = GetModelPath(env, args[0]);
+    }
+    if (modelPath.empty()) {
+        modelPath = "/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4";
+    }
+
+    CreateWork *work = new CreateWork();
+    work->modelPath = modelPath;
+    napi_value promise = nullptr;
+    napi_create_promise(env, &work->deferred, &promise);
+
+    napi_value resourceName = nullptr;
+    napi_create_string_utf8(env, "GewuCreateSession", NAPI_AUTO_LENGTH, &resourceName);
+    napi_create_async_work(env, nullptr, resourceName, CreateExecute, CreateComplete, work, &work->work);
+    napi_queue_async_work(env, work->work);
+    return promise;
+}
+
+static void SubmitExecute(napi_env env, void *data)
+{
+    SubmitWork *work = static_cast<SubmitWork *>(data);
+    while (true) {
+        if (g_chatContext->future.wait_for(std::chrono::milliseconds(100)) == std::future_status::ready) {
+            g_chatContext->Join();
+            break;
+        }
+        if (g_abortRequested.load()) {
+            /* 用户已调用 abortRequest 中止请求，不再等待推理完成 */
+            break;
+        }
+    }
+    if (g_chatContext->earlyAbort.load()) {
+        /* 自定义停止（首个换行）后主动中止请求，与参考示例 Demo() 保持一致 */
+        OH_QoS_GewuErrorCode error = OH_QoS_GewuAbortRequest(work->session, work->request);
+        if (error != OH_QOS_GEWU_OK) {
+            DEMO_LOGE("failed to abort request after early stop, error=%s(%d)", GewuErrorString(error),
+                      (int)error);
+        }
+    }
+}
+
+static void SubmitComplete(napi_env env, napi_status status, void *data)
+{
+    SubmitWork *work = static_cast<SubmitWork *>(data);
+    if (work->error == OH_QOS_GEWU_OK) {
+        g_request = OH_QOS_GEWU_INVALID_REQUEST_ID;
+    }
+    napi_value result = nullptr;
+    napi_create_int32(env, work->error, &result);
+    napi_resolve_deferred(env, work->deferred, result);
+    napi_delete_async_work(env, work->work);
+    delete work;
 }
 
 static napi_value SubmitRequest(napi_env env, napi_callback_info info)
@@ -238,41 +339,56 @@ static napi_value SubmitRequest(napi_env env, napi_callback_info info)
 
     if (g_session == OH_QOS_GEWU_INVALID_SESSION_ID) {
         DEMO_LOGE("no valid session, please create session first");
-        napi_value ret;
-        napi_create_int32(env, (int32_t)OH_QOS_GEWU_NOENT, &ret);
-        return ret;
+        return ResolveInt(env, OH_QOS_GEWU_NOENT);
     }
-    std::string userMessage = GetModelPath(env, args[0]);
-    if (userMessage.empty()) {
-        userMessage = "What is LLM?";
+
+    std::string messagesJson;
+    if (argc >= 1 && args[0] != nullptr) {
+        messagesJson = GetModelPath(env, args[0]);
     }
+    if (messagesJson.empty()) {
+        messagesJson = "[{\"role\":\"user\",\"content\":\"What is LLM?\"}]";
+    }
+
+    json messagesArr;
+    try {
+        messagesArr = json::parse(messagesJson);
+    } catch (json::exception &e) {
+        DEMO_LOGE("failed to parse messages json: %s", e.what());
+        return ResolveInt(env, OH_QOS_GEWU_INVAL);
+    }
+
     json requestJson = {
         {"type", "chat"},
-        {"messages", json::array({
-            {{"role", "developer"}, {"content", "You are a helpful assistant"}},
-            {{"role", "user"}, {"content", userMessage}},
-        })},
+        {"messages", messagesArr},
         {"stream", false},
     };
     std::string requestStr = requestJson.dump();
-    /* 每次提交请求都创建全新的 ChatContext，避免复用已消费的 promise/future 导致崩溃 */
+
+    g_abortRequested.store(false);
     g_chatContext = std::make_unique<ChatContext>();
     OH_QoS_GewuSubmitRequestResult submitResult = OH_QoS_GewuSubmitRequest(g_session, requestStr.c_str(),
                                                                            OnChatResponse, g_chatContext.get());
     if (submitResult.error != OH_QOS_GEWU_OK) {
         DEMO_LOGE("failed to submit request, error=%s(%d)", GewuErrorString(submitResult.error),
                   (int)submitResult.error);
-        napi_value ret;
-        napi_create_int32(env, (int32_t)submitResult.error, &ret);
-        return ret;
+        return ResolveInt(env, submitResult.error);
     }
     g_request = submitResult.request;
     DEMO_LOGI("submit request success, request=%u", g_request);
-    g_chatContext->Join();
-    g_request = OH_QOS_GEWU_INVALID_REQUEST_ID;
-    napi_value ret;
-    napi_create_int32(env, (int32_t)OH_QOS_GEWU_OK, &ret);
-    return ret;
+    DEMO_LOGI("request: %s", requestStr.c_str());
+
+    SubmitWork *work = new SubmitWork();
+    work->session = g_session;
+    work->request = submitResult.request;
+    napi_value promise = nullptr;
+    napi_create_promise(env, &work->deferred, &promise);
+
+    napi_value resourceName = nullptr;
+    napi_create_string_utf8(env, "GewuSubmitRequest", NAPI_AUTO_LENGTH, &resourceName);
+    napi_create_async_work(env, nullptr, resourceName, SubmitExecute, SubmitComplete, work, &work->work);
+    napi_queue_async_work(env, work->work);
+    return promise;
 }
 
 static napi_value AbortRequest(napi_env env, napi_callback_info info)
@@ -289,6 +405,7 @@ static napi_value AbortRequest(napi_env env, napi_callback_info info)
     } else {
         DEMO_LOGI("abort request success, request=%u", g_request);
         g_request = OH_QOS_GEWU_INVALID_REQUEST_ID;
+        g_abortRequested.store(true);
     }
     napi_value ret;
     napi_create_int32(env, (int32_t)error, &ret);
@@ -310,6 +427,7 @@ static napi_value DestroySession(napi_env env, napi_callback_info info)
         DEMO_LOGI("destroy session success, session=%u", g_session);
         g_session = OH_QOS_GEWU_INVALID_SESSION_ID;
         g_request = OH_QOS_GEWU_INVALID_REQUEST_ID;
+        g_abortRequested.store(false);
     }
     napi_value ret;
     napi_create_int32(env, (int32_t)error, &ret);
