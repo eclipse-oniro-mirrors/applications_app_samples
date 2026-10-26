@@ -25,7 +25,7 @@ import { DataProcessor } from './business-worker';
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 workerPort.onmessage = (e: MessageEvents) => {
-  const result = new DataProcessor().process(e.data);
+  const result = new DataProcessor().process(e.data as string);
   workerPort.postMessage(result);
 };
 // [End data_worker_next]

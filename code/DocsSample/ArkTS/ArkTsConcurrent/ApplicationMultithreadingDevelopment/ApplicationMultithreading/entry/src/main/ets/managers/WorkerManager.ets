@@ -26,22 +26,45 @@ interface WorkerMessage {
 // Worker返回给宿主线程的处理结果
 interface WorkerResult {
   id: number;
-  result: string;
+  success: boolean;
+  result?: string;
+  error?: string;
 }
 
 class WorkerManager {
-  private workerInstance: worker.ThreadWorker = new worker.ThreadWorker('entry/ets/workers/Dispatcher.ets');
+  private workerInstance: worker.ThreadWorker | null = null;
   private taskCounter: number = 0;
   private pending: Map<number, (result: string) => void> = new Map();
+  private rejectFuncs: Map<number, (reason: string) => void> = new Map();
 
   constructor() {
+    this.workerInstance = new worker.ThreadWorker('entry/ets/workers/Dispatcher.ets');
     this.workerInstance.onmessage = (e: MessageEvents) => {
       const data = e.data as WorkerResult;
-      const resolver = this.pending.get(data.id);
-      if (resolver) {
-        resolver(data.result);
-        this.pending.delete(data.id);
+      if (data.success) {
+        const resolver = this.pending.get(data.id);
+        if (resolver) {
+          resolver(data.result ?? '');
+          this.pending.delete(data.id);
+          this.rejectFuncs.delete(data.id);
+        }
+      } else {
+        const reject = this.rejectFuncs.get(data.id);
+        if (reject) {
+          reject(data.error ?? '');
+          this.pending.delete(data.id);
+          this.rejectFuncs.delete(data.id);
+        }
       }
+    };
+    // API version 18及之后可以使用该方法捕获Worker线程生命周期内的各种异常
+    this.workerInstance.onAllErrors = (err: ErrorEvent) => {
+      // 处理捕获的异常逻辑
+    };
+
+    this.workerInstance.onexit = (code) => {
+      this.pending.clear();
+      this.rejectFuncs.clear();
     };
   }
 
@@ -49,21 +72,26 @@ class WorkerManager {
   execute(type: string, payload: string): Promise<string> {
     const id = ++this.taskCounter;
     return new Promise<string>((resolve, reject) => {
-      this.pending.set(id, resolve);
-      const message: WorkerMessage = { id, type, payload };
-      this.workerInstance.postMessage(message);
-      this.workerInstance.onAllErrors = (err: ErrorEvent) => {
-        reject(err.message);
-      };
+      if (this.workerInstance) {
+        this.pending.set(id, resolve);
+        this.rejectFuncs.set(id, reject);
+        const message: WorkerMessage = { id, type, payload };
+        this.workerInstance.postMessage(message);
+      } else {
+        reject('Worker is null');
+      }
     });
   }
 
   destroy(): void {
-    this.workerInstance.terminate();
+    if (this.workerInstance) {
+      this.workerInstance.terminate();
+      this.workerInstance = null;
+    }
   }
 }
 
-// 全局单例，整个应用复用一个Worker
+// 全局单例，通过该管理类复用单个Worker处理可串行的多类任务(需独立并行的任务应由单独的Worker处理)
 const dispatcher: WorkerManager = new WorkerManager();
 // [End worker_manager]
 @Entry
