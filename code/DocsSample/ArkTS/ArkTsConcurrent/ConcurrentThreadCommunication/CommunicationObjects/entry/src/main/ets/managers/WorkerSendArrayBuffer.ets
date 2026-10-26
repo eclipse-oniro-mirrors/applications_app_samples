@@ -18,12 +18,12 @@ import { worker } from '@kit.ArkTS';
 
 const workerInstance = new worker.ThreadWorker('entry/ets/workers/Worker.ets');
 
-// 正确：将buffer传入transfer list，采用转移方式传递，零拷贝
+// 正确：将buffer传入transfer，采用转移方式传递，零拷贝
 const buffer: ArrayBuffer = new ArrayBuffer(1024 * 1024); // 1MB
 workerInstance.postMessage(buffer, [buffer]);
 // 转移后，buffer的所有权转移到Worker线程，宿主线程无法再访问buffer
 
-// 不推荐：不传transfer list，采用拷贝方式传递
+// 不推荐：不传transfer，采用拷贝方式传递
 const buffer2: ArrayBuffer = new ArrayBuffer(1024 * 1024); // 1MB
 workerInstance.postMessage(buffer2);
 // 深拷贝，宿主线程与Worker线程各持有1MB数据，总内存占用翻倍

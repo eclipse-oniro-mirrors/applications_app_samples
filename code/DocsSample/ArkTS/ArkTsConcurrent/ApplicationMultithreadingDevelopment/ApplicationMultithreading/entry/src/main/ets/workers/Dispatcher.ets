@@ -25,22 +25,29 @@ interface WorkerMessage {
 
 interface WorkerResult {
   id: number;
-  result: string;
+  success: boolean;
+  result?: string;
+  error?: string;
 }
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 
 workerPort.onmessage = (e: MessageEvents) => {
   const data = e.data as WorkerMessage;
-  let result: string = '';
-  // 根据type字段将消息分发到对应的处理逻辑，多类任务串行复用同一个Worker
-  if (data.type === 'logReport') {
-    result = logReport(data.payload);
-  } else if (data.type === 'filePreprocess') {
-    result = filePreprocess(data.payload);
+  try {
+    let result: string = '';
+    // 根据type字段将消息分发到对应的处理逻辑，多类任务串行复用同一个Worker
+    if (data.type === 'logReport') {
+      result = logReport(data.payload);
+    } else if (data.type === 'filePreprocess') {
+      result = filePreprocess(data.payload);
+    }
+    const message: WorkerResult = { id: data.id, success: true, result: result };
+    workerPort.postMessage(message);
+  } catch (error) {
+    const message: WorkerResult = { id: data.id, success: false, error: error.message };
+    workerPort.postMessage(message);
   }
-  const message: WorkerResult = { id: data.id, result: result };
-  workerPort.postMessage(message);
 };
 
 function logReport(payload: string): string {
