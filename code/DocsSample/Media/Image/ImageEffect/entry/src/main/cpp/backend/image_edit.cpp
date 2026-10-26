@@ -151,7 +151,7 @@ napi_value ImageEdit::PixelMapFilterStart(napi_env env, napi_callback_info info)
     // [End image_effect_start]
 
     // [Start image_effect_save]
-    // (可选 序列化效果器)
+    // 序列化效果器(可选)。
     char *imageinfo = nullptr;
     errorCode = OH_ImageEffect_Save(imageEffect, &imageinfo);
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result, "OH_ImageEffect_Save fail!");
@@ -219,7 +219,7 @@ napi_value ImageEdit::NativeBufferFilterStart(napi_env env, napi_callback_info i
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result,
                              "OH_ImageEffect_Start fail! errorCode = %{public}d", errorCode);
 
-    // (可选 序列化效果器)
+    // 序列化效果器(可选)。
     char *imageinfo = nullptr;
     errorCode = OH_ImageEffect_Save(imageEffect, &imageinfo);
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result, "OH_ImageEffect_Save fail!");
@@ -273,7 +273,7 @@ napi_value ImageEdit::URIFilterStart(napi_env env, napi_callback_info info)
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result,
                              "OH_ImageEffect_Start fail! errorCode = %{public}d", errorCode);
 
-    // (可选 序列化效果器)
+    // 序列化效果器(可选)。
     char *imageinfo = nullptr;
     errorCode = OH_ImageEffect_Save(imageEffect, &imageinfo);
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result, "OH_ImageEffect_Save fail!");
@@ -516,7 +516,7 @@ napi_value ImageEdit::LookupFilterInfo(napi_env env, napi_callback_info info)
 
     // [Start image_effect_lookup_filter_info_by_name]
     OH_EffectFilterInfo *filterInfo = OH_EffectFilterInfo_Create();
-    // 示例代码: 传入nullptr的format, 获取OH_Formats的size
+    // 示例代码：传入nullptr的format，获取OH_Formats的size。
     ImageEffect_ErrorCode errorCode = OH_EffectFilter_LookupFilterInfo(filterName.c_str(), filterInfo);
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result,
                              "OH_EffectFilter_LookupFilterInfo fail! errorCode = %{public}d", errorCode);
@@ -734,7 +734,7 @@ napi_value ImageEdit::RegisterCustomBrightness()
     // 创建 OH_EffectFilterInfo 实例。
     OH_EffectFilterInfo *customFilterInfo = OH_EffectFilterInfo_Create();
     CHECK_AND_RETURN_RET_LOG(customFilterInfo != nullptr, result, "OH_EffectFilterInfo_Create fail!");
-    // 设置自定义滤镜滤镜名。
+    // 设置自定义滤镜名。
     OH_EffectFilterInfo_SetFilterName(customFilterInfo, "CustomBrightness");
     // 设置自定义滤镜所支持的内存类型。
     ImageEffect_BufferType bufferTypeArray[] = {ImageEffect_BufferType::EFFECT_BUFFER_TYPE_PIXEL};
@@ -761,7 +761,7 @@ napi_value ImageEdit::RegisterCustomBrightness()
                      OH_EffectFilterDelegate_PushData pushData) { return RenderBrightness(filter, info, pushData); },
         .save = SaveFilterBrightness,
         .restore = [](const char *info) -> OH_EffectFilter * {
-            // 创建 OH_EffectFilter 实例，其中"CustomBrightness"为自定义滤镜的滤镜名。
+            // 创建OH_EffectFilter实例，其中"CustomBrightness"为自定义滤镜的滤镜名。
             OH_EffectFilter *filter = OH_EffectFilter_Create("CustomBrightness");
             CHECK_AND_RETURN_RET_LOG(filter != nullptr, nullptr, "OH_EffectFilter_Create fail!");
             // 解析json字符串info获取key和value。
@@ -800,7 +800,7 @@ napi_value ImageEdit::RegisterCustomCrop()
     // 创建 OH_EffectFilterInfo 实例。
     OH_EffectFilterInfo *customFilterInfo = OH_EffectFilterInfo_Create();
     CHECK_AND_RETURN_RET_LOG(customFilterInfo != nullptr, result, "OH_EffectFilterInfo_Create fail!");
-    // 设置自定义滤镜滤镜名。
+    // 设置自定义滤镜名。
     OH_EffectFilterInfo_SetFilterName(customFilterInfo, "CustomCrop");
     // 设置自定义滤镜所支持的内存类型。
     ImageEffect_BufferType bufferTypeArray[] = {ImageEffect_BufferType::EFFECT_BUFFER_TYPE_PIXEL};
@@ -825,7 +825,7 @@ napi_value ImageEdit::RegisterCustomCrop()
                      OH_EffectFilterDelegate_PushData pushData) { return RenderCrop(filter, info, pushData); },
         .save = SaveFilterCrop,
         .restore = [](const char *info) -> OH_EffectFilter * {
-            // 创建 OH_EffectFilter 实例，其中"CustomBrightness"为自定义滤镜的滤镜名。
+            // 创建OH_EffectFilter实例，其中"CustomBrightness"为自定义滤镜的滤镜名。
             OH_EffectFilter *filter = OH_EffectFilter_Create("CustomCrop");
             CHECK_AND_RETURN_RET_LOG(filter != nullptr, nullptr, "OH_EffectFilter_Create fail!");
             // 解析json字符串info获取key和value。
