@@ -61,6 +61,9 @@
     { "name": "access_time_ms", "value": "访问时间(ms)" },
     { "name": "modify_time_ms", "value": "修改时间(ms)" },
     { "name": "logical_size_bytes", "value": "逻辑大小(bytes)" },
+    { "name": "custom_info_label", "value": "自定义信息：" },
+    { "name": "custom_info_placeholder", "value": "可选，不填则不写入自定义信息" },
+    { "name": "custom_info_keep_placeholder", "value": "可选，不填则保留原自定义信息" },
 
     { "name": "create_placeholder_file_title", "value": "创建占位符文件" },
     { "name": "create_placeholder_btn", "value": "创建占位文件" },
@@ -77,6 +80,13 @@
     { "name": "judge_failed", "value": "判断失败" },
     { "name": "batch_judge_50w", "value": "50w次批量判断" },
     { "name": "batch_judge_50w_done", "value": "50w次批量判断完成" },
+    { "name": "get_state_btn", "value": "查询水合状态" },
+    { "name": "get_state_result", "value": "水合状态查询结果" },
+    { "name": "get_state_failed", "value": "查询水合状态失败" },
+    { "name": "state_none", "value": "非占位符文件" },
+    { "name": "state_unhydrated", "value": "未水合" },
+    { "name": "state_partially_hydrated", "value": "部分水合" },
+    { "name": "state_fully_hydrated", "value": "完全水合" },
 
     { "name": "update_placeholder_metadata", "value": "更新占位符元数据" },
     { "name": "update_placeholder_btn", "value": "更新占位符" },
@@ -194,6 +204,7 @@
     { "name": "err_34400022", "value": "回调表已注册" },
     { "name": "err_34400023", "value": "目标路径的父目录不是目录" },
     { "name": "err_34400024", "value": "目标路径不存在" },
+    { "name": "err_34400033", "value": "占位符状态非法" },
     { "name": "err_unknown", "value": "未知错误：" }
   ]
 }
