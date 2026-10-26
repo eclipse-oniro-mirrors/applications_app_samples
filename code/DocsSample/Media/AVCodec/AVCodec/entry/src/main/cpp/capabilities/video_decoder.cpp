@@ -300,16 +300,17 @@ OH_AVBuffer *VideoDecoder::GetInputBuffer(uint32_t bufferIndex)
 }
 
 // [Start decoder_sync_get_inputbuffer]
-OH_AVBuffer *VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
+int32_t VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
-    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, nullptr, "Decoder is null");
+    info.buffer = nullptr;
+    CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
     int32_t ret = OH_VideoDecoder_QueryInputBuffer(decoder_, &info.bufferIndex, timeoutUs);
     switch (ret) {
         case AV_ERR_OK: {
             OH_AVBuffer *buffer = OH_VideoDecoder_GetInputBuffer(decoder_, info.bufferIndex);
-            CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Input buffer is null");
+            CHECK_AND_RETURN_RET_LOG(buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer is null");
             info.buffer = buffer;
-            return buffer;
+            return AVCODEC_SAMPLE_ERR_OK;
         /**
             uint8_t *addr = OH_AVBuffer_GetAddr(buffer);
             CHECK_AND_RETURN_RET_LOG(addr != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer addr is null");
@@ -340,13 +341,14 @@ OH_AVBuffer *VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
         }
         case AV_ERR_TRY_AGAIN_LATER: {
             AVCODEC_SAMPLE_LOGE("Get input buffer timeout.");
-            return nullptr;
+            return AVCODEC_SAMPLE_ERR_AGAIN;
         }
         default: {
-            return nullptr;
+            AVCODEC_SAMPLE_LOGE("Query input buffer failed, ret: %{public}d", ret);
+            return AVCODEC_SAMPLE_ERR_ERROR;
         }
     }
-    return nullptr;
+    return AVCODEC_SAMPLE_ERR_ERROR;
 }
 // [End decoder_sync_get_inputbuffer]
 
@@ -384,21 +386,13 @@ int32_t VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
     switch (ret) {
         case AV_ERR_OK: {
             OH_AVBuffer *buffer = OH_VideoDecoder_GetOutputBuffer(decoder_, info.bufferIndex);
-            if (buffer == nullptr) {
-                const int32_t freeRet = OH_VideoDecoder_FreeOutputBuffer(decoder_, info.bufferIndex);
-                AVCODEC_SAMPLE_LOGE("Output buffer is null, free ret: %{public}d", freeRet);
-                return AVCODEC_SAMPLE_ERR_ERROR;
-            }
+            CHECK_AND_RETURN_RET_LOG(buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Output buffer is null");
             OH_AVErrCode getBufferRet = OH_AVBuffer_GetBufferAttr(buffer, &info.attr);
-            if (getBufferRet != AV_ERR_OK) {
-                const int32_t freeRet = OH_VideoDecoder_FreeOutputBuffer(decoder_, info.bufferIndex);
-                AVCODEC_SAMPLE_LOGE("Get buffer attr error, ret: %{public}d, free ret: %{public}d",
-                    getBufferRet, freeRet);
-                return AVCODEC_SAMPLE_ERR_ERROR;
-            }
+            CHECK_AND_RETURN_RET_LOG(getBufferRet == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+                "Get buffer attr error, ret: %{public}d", getBufferRet);
             info.buffer = buffer;
-            return AVCODEC_SAMPLE_ERR_OK;
             // 开发者可根据业务需要，对输出数据进行送显/保存/释放处理。
+            return AVCODEC_SAMPLE_ERR_OK;
         }
         case AV_ERR_TRY_AGAIN_LATER: {
             AVCODEC_SAMPLE_LOGD("Get output buffer timeout.");

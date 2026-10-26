@@ -23,6 +23,7 @@
   "version": "1.0.0",
   "dependencies": {
     "libplayer.so": "file:./src/main/cpp/types/libplayer",
-    "librecorder.so": "file:./src/main/cpp/types/librecorder"
+    "librecorder.so": "file:./src/main/cpp/types/librecorder",
+    "libtranscoder.so": "file:./src/main/cpp/types/libtranscoder"
   }
 }

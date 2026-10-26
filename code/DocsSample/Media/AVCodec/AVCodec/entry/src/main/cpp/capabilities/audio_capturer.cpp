@@ -16,6 +16,7 @@
 #include "audio_capturer.h"
 #include "sample_callback.h"
 #include "av_codec_sample_log.h"
+#include "sample/recorder/RecorderAudioStats.h"
 
 
 AudioCapturer::~AudioCapturer()
@@ -37,6 +38,9 @@ static int32_t AudioCapturerOnReadData(OH_AudioCapturer *capturer, void *userDat
     }
     std::unique_lock<std::mutex> lock(codecUserData->inputMutex);
     codecUserData->WriteCache(buffer, bufferLen);
+    if (codecUserData->recordingAudioStats != nullptr) {
+        codecUserData->recordingAudioStats->Capture(bufferLen, codecUserData->remainlen);
+    }
     codecUserData->inputCond.notify_all();
     return 0;
 }
@@ -55,18 +59,16 @@ void AudioCapturer::AudioCapturerInit(SampleInfo &sampleInfo, CodecUserData *aud
         AUDIOSTREAM_LATENCY_MODE_FAST : AUDIOSTREAM_LATENCY_MODE_NORMAL;
     OH_AudioStreamBuilder_SetLatencyMode(builder_, latencyMode);
     OH_AudioStreamBuilder_SetEncodingType(builder_, AUDIOSTREAM_ENCODING_TYPE_RAW);
-    OH_AudioCapturer_Callbacks callbacks;
+    OH_AudioCapturer_Callbacks callbacks {};
     callbacks.OH_AudioCapturer_OnReadData = AudioCapturerOnReadData;
     // 回调上下文 audioEncContext 在停止采集和释放 Capturer 前必须一直有效。
     OH_AudioStreamBuilder_SetCapturerCallback(builder_, callbacks, audioEncContext);
     OH_AudioStreamBuilder_GenerateCapturer(builder_, &audioCapturer_);
 }
 
-void AudioCapturer::AudioCapturerStart()
+bool AudioCapturer::AudioCapturerStart()
 {
-    if (audioCapturer_ != nullptr) {
-        OH_AudioCapturer_Start(audioCapturer_);
-    }
+    return audioCapturer_ != nullptr && OH_AudioCapturer_Start(audioCapturer_) == AUDIOSTREAM_SUCCESS;
 }
 
 void AudioCapturer::AudioCapturerRelease()

@@ -19,6 +19,10 @@ import { CommonConstants as Const } from '../common/CommonConstants';
 @Observed
 export class CameraDataModel {
   public outputId: string = '';
+  public primaryDumpPath: string = '';
+  public secondaryDumpPath: string = '';
+  public stopOnLowSpace: boolean = false;
+  public videoCodecName: string = '';
   public outputUri: string = '';
   public outputTitle: string = '';
   public secondaryOutputUri: string = '';
@@ -44,6 +48,9 @@ export class CameraDataModel {
   public enableVideoDump: boolean = false;
   public secondaryOutputfd: number = -1;
   public preprocMode: number = Const.VIDEO_PREPROC_NONE;
+  public cropPercent: number = 75;
+  public downsamplingTargetHeight: number = 720;
+  public secondaryTargetHeight: number = 720;
   public dropToFrameRate: number = 0;
   public downsamplingWidth: number = 1280;
   public downsamplingHeight: number = 720;

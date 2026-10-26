@@ -168,18 +168,10 @@ int32_t AudioEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
     }
 
     OH_AVBuffer *outputBuf = OH_AudioCodec_GetOutputBuffer(encoder_, info.bufferIndex);
-    if (outputBuf == nullptr) {
-        // 查询成功后索引已被codec交给应用，异常路径同样需要归还。
-        const int32_t freeRet = OH_AudioCodec_FreeOutputBuffer(encoder_, info.bufferIndex);
-        AVCODEC_SAMPLE_LOGE("Get output buffer failed, free ret: %{public}d", freeRet);
-        return AVCODEC_SAMPLE_ERR_ERROR; // break;
-    }
+    CHECK_AND_RETURN_RET_LOG(outputBuf != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Get output buffer failed");
     ret = OH_AVBuffer_GetBufferAttr(outputBuf, &info.attr);
-    if (ret != AV_ERR_OK) {
-        const int32_t freeRet = OH_AudioCodec_FreeOutputBuffer(encoder_, info.bufferIndex);
-        AVCODEC_SAMPLE_LOGE("Get output buffer attr failed, ret: %{public}d, free ret: %{public}d", ret, freeRet);
-        return AVCODEC_SAMPLE_ERR_ERROR; // break;
-    }
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+        "Get output buffer attr failed, ret: %{public}d", ret);
 
     info.buffer = outputBuf;
     if (info.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {

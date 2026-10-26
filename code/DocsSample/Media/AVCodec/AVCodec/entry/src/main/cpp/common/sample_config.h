@@ -117,6 +117,7 @@ struct AudioSampleInfo {
 };
 
 struct CodecOptions {
+    std::string codecName;
     int32_t codecType = 0;
     int32_t codecRunMode = 0;
     int32_t codecSyncMode = 0;
@@ -130,9 +131,12 @@ struct CodecOptions {
 };
 
 struct OutputOptions {
+    std::string sessionId;
     int32_t outputFd = -1;
     int32_t secondaryOutputFd = -1;
     bool enableVideoDump = false;
+    int32_t dumpMaxMiB = 256; // 0 表示不限制文件大小。
+    int32_t dumpMaxSeconds = 30; // 0 表示不限制写入时长。
     std::string outputFilePath;
     // 编码器输出的原始视频码流保存路径；为空时由 Recorder 按当前会话生成默认路径。
     std::string videoDumpPath;

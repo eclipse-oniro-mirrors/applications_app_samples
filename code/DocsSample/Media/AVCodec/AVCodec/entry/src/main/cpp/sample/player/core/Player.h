@@ -33,6 +33,7 @@
 #include "AvSyncController.h"
 #include "PlaybackClock.h"
 #include "PlaybackDiagnostics.h"
+#include "DumpSession.h"
 #include "SeekController.h"
 #include "PlayerStateMachine.h"
 #include "output/pipeline/AudioPipeline.h"
@@ -49,6 +50,7 @@
 class AudioOutputPump;
 
 struct PlaybackInfo {
+    OperationFailureInfo failure;
     PlayerState state = PLAYER_STATE_IDLE;
     float speed = 1.0f;
     int64_t durationUs = 0;
@@ -154,6 +156,12 @@ private:
     PlaybackCompletionReason GetCompletionReason(bool &playbackSucceeded) const;
     void ReleasePlaybackResources();
     int32_t CreateAudioDecoder();
+    void InitializeAudioDecoderContext();
+    int32_t ConfigureVideoDecoder(const SampleInfo &configureInfo, int32_t decoderType);
+    void ResetPlaybackCounters();
+    void CapturePlaybackConfiguration();
+    void WriteDecodedDumpFrame(OH_AVPixelFormat pixelFormat, uint8_t *bufferAddr,
+        const CodecBufferInfo &bufferInfo);
     bool CanConfigureAudioTrack(const AudioSampleInfo &audioInfo) const;
     int32_t CreateAudioRenderer();
     void PrepareAudioTrackSwitch();
@@ -167,6 +175,8 @@ private:
     int32_t CreateVideoDecoderForType(int32_t decoderType);
     int64_t GetCurrentTime();
     void DumpOutput(CodecBufferInfo &bufferInfo);
+    bool CheckDumpLimit(uint64_t frameBytes);
+    void WriteDumpLayout(OH_AVPixelFormat format);
     void WriteOutputFileWithStrideYUV420P(uint8_t *bufferAddr);
     void WriteOutputFileWithStrideYUV420SP(uint8_t *bufferAddr);
     void WriteOutputFileWithStrideRGBA(uint8_t *bufferAddr);
@@ -198,9 +208,7 @@ private:
         std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
     bool ProcessVideoDuringTrackSwitch(CodecBufferInfo& bufferInfo,
         std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
-    bool GetSyncVideoOutputBuffer(CodecBufferInfo& bufferInfo);
     void InitSyncVideoOutputContext();
-    bool ProcessSyncVideoOutput(std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
     void FinishVideoOutput();
     void CancelWorkerWaits();
     void WaitIfPaused(bool audioWorker = false);
@@ -226,10 +234,14 @@ private:
     bool RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame);
 
     std::unique_ptr<std::ofstream> outputFile_ = nullptr;
+    std::chrono::steady_clock::time_point dumpStarted_;
+    DumpSession dumpSession_;
+    uint64_t dumpLayoutKey_ = 0;
     std::unique_ptr<VideoDecoder> videoDecoder_ = nullptr;
     std::shared_ptr<AudioDecoder> audioDecoder_ = nullptr;
     std::unique_ptr<Demuxer> demuxer_ = nullptr;
 
+    OperationFailure failure_;
     mutable std::mutex mutex_;
     // 切换音轨会暂时释放 mutex_ 并等待音频线程退出。
     // 此锁将该操作与 Stop()、Release() 串行，禁止并发销毁流水线。

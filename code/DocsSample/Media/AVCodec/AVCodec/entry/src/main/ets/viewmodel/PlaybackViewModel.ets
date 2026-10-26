@@ -77,6 +77,8 @@ export class PlaybackViewModel {
   public hasVideoOutputFpsSample: boolean;
   public videoDropRatePercent: number;
   public seekPreviewFrame: PixelMap | undefined;
+  public seekPreviewVisible: boolean = false;
+  public seekPreviewFailed: boolean = false;
   public seekPreviewRotation: number;
   public onPlaybackPositionChanged: ((positionUs: number) => void) | undefined;
   private updateTimer: number;
@@ -121,6 +123,8 @@ export class PlaybackViewModel {
     this.hasVideoOutputFpsSample = false;
     this.videoDropRatePercent = 0;
     this.seekPreviewFrame = undefined;
+    this.seekPreviewVisible = false;
+    this.seekPreviewFailed = false;
     this.seekPreviewRotation = 0;
     this.onPlaybackPositionChanged = undefined;
     this.updateTimer = 0;
@@ -293,6 +297,8 @@ export class PlaybackViewModel {
     this.hasVideoOutputFpsSample = false;
     this.videoDropRatePercent = 0;
     this.seekPreviewFrame = undefined;
+    this.seekPreviewVisible = false;
+    this.seekPreviewFailed = false;
     this.seekPreviewRotation = 0;
     this.lastStatsTimeMs = 0;
     this.lastOutputFrames = 0;

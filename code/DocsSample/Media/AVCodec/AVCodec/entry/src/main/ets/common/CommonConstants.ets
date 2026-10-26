@@ -87,7 +87,7 @@ export class CommonConstants {
   public static readonly AUDIO_BITRATE: string[] = ['32kbps', '64kbps', '128kbps'];
   public static readonly AUDIO_CAPTURE_LATENCY_MODE: string[] = ['NormalLatency', 'LowLatency'];
   public static readonly VIDEO_STABILIZATION_MODE: string[] = ['Disabled', 'Auto'];
-  public static readonly VIDEO_PREPROC_MODE: string[] = ['None', 'Downsample to 720P', 'Center crop (75%)'];
+  public static readonly VIDEO_PREPROC_MODE: string[] = ['None', 'Downsampling', 'Center crop'];
   public static readonly VIDEO_DROP_FRAME_RATE: string[] = ['No frame drop', '30 fps'];
   public static readonly DUAL_OUTPUT_MODE: string[] = ['Single output', 'Primary + secondary'];
   public static readonly VIDEO_PREPROC_NONE: number = 0;
@@ -103,6 +103,7 @@ export class CommonConstants {
   /** 传递给 Native 播放器的内部模式值。 */
   public static readonly VIDEO_DECODER_RUN_MODE: string[] = ['SurfaceMode', 'BufferMode', 'OpenGLMode', 'VulkanMode'];
   public static readonly VIDEO_DECODER_RUN_MODE_DIRECT_OUTPUT: number = 0;
+  public static readonly VIDEO_DECODER_RUN_MODE_BUFFER: number = 1;
   public static readonly VIDEO_DECODER_RUN_MODE_OPENGL: number = 2;
   public static readonly VIDEO_DECODER_RUN_MODE_VULKAN: number = 3;
   /**

@@ -19,12 +19,28 @@ export enum PlayerSettingsOption {
   SYNC_MODE
 }
 
+interface PlayerSettingRowOptions {
+  title: Resource;
+  selectedText: string;
+  onClick: () => void;
+}
+
+interface PlayerSettingSwitchOptions {
+  title: Resource;
+  checked: boolean;
+  onChanged: (checked: boolean) => void;
+  available: boolean;
+  showUnavailableHint?: boolean;
+}
+
 @Component
 export struct PlayerSettingsPanel {
+  @Prop capabilityHint: string = '';
   @Prop decoderTypeText: string = '';
   @Prop runModeText: string = '';
   @Prop syncModeText: string = '';
   @Prop dumpEnabled: boolean = false;
+  @Prop dumpAvailable: boolean = false;
   @Prop volumePercent: number = 100;
   @Prop advancedExpanded: boolean = false;
   @Prop audioLowLatencyEnabled: boolean = false;
@@ -50,15 +66,15 @@ export struct PlayerSettingsPanel {
   onApply: () => void = (): void => {};
 
   @Builder
-  OptionRow(title: Resource, selectedText: string, onClick: () => void) {
+  OptionRow($$: PlayerSettingRowOptions) {
     Row() {
-      Text(title)
+      Text($$.title)
         .fontSize('16fp')
         .fontColor('#202124')
         .maxLines(1)
         .textOverflow({ overflow: TextOverflow.Ellipsis })
         .layoutWeight(1)
-      Text(selectedText)
+      Text($$.selectedText)
         .fontSize('14fp')
         .fontColor('#5F6368')
         .maxLines(1)
@@ -71,7 +87,7 @@ export struct PlayerSettingsPanel {
     .width('100%')
     .height('56vp')
     .padding({ left: '4vp', right: '4vp' })
-    .onClick(onClick)
+    .onClick($$.onClick)
   }
 
   @Builder
@@ -110,27 +126,33 @@ export struct PlayerSettingsPanel {
   @Builder
   DumpOption() {
     Row() {
-      Text($r('app.string.setting_dump'))
-        .fontSize('16fp')
-        .fontColor('#202124')
-        .layoutWeight(1)
-      Toggle({ type: ToggleType.Switch, isOn: this.dumpEnabled })
+      Column() {
+        Text($r('app.string.setting_dump'))
+          .fontSize('16fp')
+          .fontColor(this.dumpAvailable ? '#202124' : '#8A8A8A')
+        if (!this.dumpAvailable) {
+          Text($r('app.string.setting_dump_buffer_only')).fontSize('12fp').fontColor('#8A8A8A')
+        }
+      }
+      .alignItems(HorizontalAlign.Start)
+      .layoutWeight(1)
+      Toggle({ type: ToggleType.Switch, isOn: this.dumpEnabled && this.dumpAvailable })
+        .enabled(this.dumpAvailable)
         .onChange((isOn: boolean): void => this.onDumpChanged(isOn))
     }
     .width('100%')
-    .height('56vp')
+    .height(this.dumpAvailable ? '56vp' : '68vp')
     .padding({ left: '4vp', right: '4vp' })
   }
 
   @Builder
-  SwitchOption(title: Resource, enabled: boolean, onChanged: (checked: boolean) => void,
-    isAvailable: boolean = true, showUnavailableHint: boolean = false) {
+  SwitchOption($$: PlayerSettingSwitchOptions) {
     Row() {
       Column() {
-        Text(title)
+        Text($$.title)
           .fontSize('16fp')
-          .fontColor(isAvailable ? '#202124' : '#8A8A8A')
-        if (!isAvailable && showUnavailableHint) {
+          .fontColor($$.available ? '#202124' : '#8A8A8A')
+        if (!$$.available && $$.showUnavailableHint) {
           Text($r('app.string.setting_hdr_vivid_to_bt709_gpu_unavailable'))
             .fontSize('12fp')
             .fontColor('#8A8A8A')
@@ -140,27 +162,28 @@ export struct PlayerSettingsPanel {
       }
       .alignItems(HorizontalAlign.Start)
       .layoutWeight(1)
-      Toggle({ type: ToggleType.Switch, isOn: enabled })
-        .enabled(isAvailable)
-        .onChange((isOn: boolean): void => onChanged(isOn))
+      Toggle({ type: ToggleType.Switch, isOn: $$.checked })
+        .enabled($$.available)
+        .onChange($$.onChanged)
     }
     .width('100%')
-    .height(isAvailable || !showUnavailableHint ? '56vp' : '68vp')
+    .height($$.available || !$$.showUnavailableHint ? '56vp' : '68vp')
     .padding({ left: '4vp', right: '4vp' })
   }
 
   build() {
     Column() {
+      Text(this.capabilityHint).fontSize(12).fontColor('#667085').width('100%').padding(8)
       Scroll() {
         Column() {
-          this.OptionRow($r('app.string.setting_decoder_type'), this.decoderTypeText,
-            (): void => this.onChooseOption(PlayerSettingsOption.DECODER_TYPE))
+          this.OptionRow({ title: $r('app.string.setting_decoder_type'), selectedText: this.decoderTypeText,
+            onClick: (): void => this.onChooseOption(PlayerSettingsOption.DECODER_TYPE) })
           Divider().color('#E5E7EB')
-          this.OptionRow($r('app.string.setting_run_mode'), this.runModeText,
-            (): void => this.onChooseOption(PlayerSettingsOption.RUN_MODE))
+          this.OptionRow({ title: $r('app.string.setting_run_mode'), selectedText: this.runModeText,
+            onClick: (): void => this.onChooseOption(PlayerSettingsOption.RUN_MODE) })
           Divider().color('#E5E7EB')
-          this.OptionRow($r('app.string.setting_sync_mode'), this.syncModeText,
-            (): void => this.onChooseOption(PlayerSettingsOption.SYNC_MODE))
+          this.OptionRow({ title: $r('app.string.setting_sync_mode'), selectedText: this.syncModeText,
+            onClick: (): void => this.onChooseOption(PlayerSettingsOption.SYNC_MODE) })
           Divider().color('#E5E7EB')
           this.DumpOption()
           Divider().color('#E5E7EB')
@@ -199,25 +222,24 @@ export struct PlayerSettingsPanel {
           .padding({ left: '4vp', right: '4vp' })
           .onClick((): void => this.onAdvancedExpandedChanged(!this.advancedExpanded))
           if (this.advancedExpanded) {
-            this.DumpOption()
+            this.SwitchOption({ title: $r('app.string.setting_audio_latency'), checked: this.audioLowLatencyEnabled,
+              onChanged: this.onAudioLowLatencyChanged, available: true })
             Divider().color('#E5E7EB')
-            this.SwitchOption($r('app.string.setting_audio_latency'), this.audioLowLatencyEnabled,
-              this.onAudioLowLatencyChanged)
+            this.SwitchOption({ title: $r('app.string.setting_auto_hide_controls'), checked: this.autoHideControlsEnabled,
+              onChanged: this.onAutoHideControlsChanged, available: true })
             Divider().color('#E5E7EB')
-            this.SwitchOption($r('app.string.setting_auto_hide_controls'), this.autoHideControlsEnabled,
-              this.onAutoHideControlsChanged)
+            this.SwitchOption({ title: $r('app.string.setting_retain_last_frame'), checked: this.retainLastFrameEnabled,
+              onChanged: this.onRetainLastFrameChanged, available: this.retainLastFrameAvailable })
             Divider().color('#E5E7EB')
-            this.SwitchOption($r('app.string.setting_retain_last_frame'), this.retainLastFrameEnabled,
-              this.onRetainLastFrameChanged, this.retainLastFrameAvailable)
+            this.SwitchOption({ title: $r('app.string.setting_low_latency'), checked: this.lowLatencyEnabled,
+              onChanged: this.onLowLatencyChanged, available: true })
             Divider().color('#E5E7EB')
-            this.SwitchOption($r('app.string.setting_low_latency'), this.lowLatencyEnabled,
-              this.onLowLatencyChanged)
+            this.SwitchOption({ title: $r('app.string.setting_decoding_order_output'),
+              checked: this.decodingOrderOutputEnabled, onChanged: this.onDecodingOrderOutputChanged, available: true })
             Divider().color('#E5E7EB')
-            this.SwitchOption($r('app.string.setting_decoding_order_output'), this.decodingOrderOutputEnabled,
-              this.onDecodingOrderOutputChanged)
-            Divider().color('#E5E7EB')
-            this.SwitchOption($r('app.string.setting_hdr_vivid_to_bt709'), this.hdrVividConversionEnabled,
-              this.onHdrVividConversionChanged, this.hdrVividConversionAvailable, true)
+            this.SwitchOption({ title: $r('app.string.setting_hdr_vivid_to_bt709'),
+              checked: this.hdrVividConversionEnabled, onChanged: this.onHdrVividConversionChanged,
+              available: this.hdrVividConversionAvailable, showUnavailableHint: true })
           }
         }
         .width('100%')

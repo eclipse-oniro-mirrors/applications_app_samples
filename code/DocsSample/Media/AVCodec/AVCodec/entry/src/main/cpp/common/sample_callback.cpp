@@ -304,6 +304,9 @@ void SampleCallback::OnCodecError(OH_AVCodec *codec, int32_t errorCode, void *us
     (void)codec;
     auto *codecUserData = static_cast<CodecUserData *>(userData);
     if (codecUserData != nullptr && !codecUserData->isDestroyed.load()) {
+        if (codecUserData->failureDetails != nullptr) {
+            codecUserData->failureDetails->Record("codec.callback", errorCode, "编解码服务返回异步错误");
+        }
         codecUserData->SignalError();
     }
     AVCODEC_SAMPLE_LOGE("On codec error, error code: %{public}d", errorCode);
@@ -332,6 +335,7 @@ void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format,
     if (OH_AVFormat_GetIntValue(format, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, &sampleFormat)) {
         AVCODEC_SAMPLE_LOGI("Audio sample format changed: %{public}d", sampleFormat);
     }
+    // 送显线程持有同一把锁的读锁；更新宽高、跨距和像素格式时需要写锁，避免读取到不一致的帧布局。
     std::unique_lock<std::shared_mutex> codecLock(codecUserData->codecMutex);
     // 可通过format获取到变化后的视频宽、高、跨距等。
     UpdateVideoOutputInfo(format, codecUserData);

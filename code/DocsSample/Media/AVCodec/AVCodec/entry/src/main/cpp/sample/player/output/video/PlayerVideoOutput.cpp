@@ -17,6 +17,7 @@
 
 #include <algorithm>
 #include <chrono>
+#include <cinttypes>
 #include <thread>
 
 #include "av_codec_sample_log.h"
@@ -33,25 +34,6 @@ constexpr int64_t NS_PER_US = 1000;
 constexpr int64_t CODEC_BUFFER_TIMEOUT_US = 100000;
 constexpr uint32_t PLAYBACK_LOG_FREQUENCY = 120;
 constexpr uint32_t SYNC_DIAGNOSTICS_SAMPLE_INTERVAL = 8;
-
-bool ReleaseVideoOutputBuffer(VideoDecoder *decoder, const CodecBufferInfo &bufferInfo, const char *reason)
-{
-    if (bufferInfo.buffer == nullptr) {
-        return true;
-    }
-    if (decoder == nullptr) {
-        AVCODEC_SAMPLE_LOGE("Video decoder is null while releasing output buffer, reason: %{public}s", reason);
-        return false;
-    }
-    // 该分支尚未进入 VideoSink，Buffer 的归还责任仍在输出线程。
-    const int32_t ret = decoder->FreeOutputBuffer(bufferInfo, false);
-    if (ret == AVCODEC_SAMPLE_ERR_OK) {
-        return true;
-    }
-    AVCODEC_SAMPLE_LOGE("Free video output buffer failed, reason: %{public}s, index: %{public}u, ret: %{public}d",
-        reason, bufferInfo.bufferIndex, ret);
-    return false;
-}
 } // 匿名命名空间
 
 void Player::VideoDecInputSyncThread()
@@ -64,13 +46,19 @@ void Player::VideoDecInputSyncThread()
         CHECK_AND_BREAK_LOG(isStarted_, "Decoder input thread out");
         std::unique_lock<std::mutex> lock(videoDecContext_->inputMutex);
         CodecBufferInfo bufferInfo;
-        auto buffer = videoDecoder_->GetInputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
+        int32_t ret = videoDecoder_->GetInputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
         // [StartExclude decoder_sync_input_buffer]
-        CHECK_AND_CONTINUE_LOG(buffer != nullptr, "Get input buffer timeout, retry");
+        CHECK_AND_CONTINUE_LOG(ret != AVCODEC_SAMPLE_ERR_AGAIN, "Get input buffer timeout, retry");
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
+        if (ret != AVCODEC_SAMPLE_ERR_OK) {
+            AVCODEC_SAMPLE_LOGE("Get video input buffer failed, ret: %{public}d", ret);
+            playbackFailed_ = true;
+            isStarted_ = false;
+            break;
+        }
         videoDecContext_->inputFrameCount++;
         lock.unlock();
-        int32_t ret = demuxer_->ReadSample(demuxer_->GetVideoTrackId(), buffer, bufferInfo.attr);
+        ret = demuxer_->ReadSample(demuxer_->GetVideoTrackId(), bufferInfo.buffer, bufferInfo.attr);
         if (ret != AVCODEC_SAMPLE_ERR_OK) {
             AVCODEC_SAMPLE_LOGE("Read video sample failed");
             playbackFailed_ = true;
@@ -286,7 +274,7 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
     AvSyncDecision decision;
     if (!CalculateSyncParameters(bufferInfo, framePosition, decision)) {
         // 同步参数无效时没有送显路径会接管该 Buffer，直接丢弃并归还。
-        (void)ReleaseVideoOutputBuffer(videoDecoder_.get(), bufferInfo, "invalid audio video sync parameters");
+        (void)videoDecoder_->FreeOutputBuffer(bufferInfo, false);
         playbackFailed_ = true;
         isStarted_ = false;
         return false;
@@ -305,7 +293,7 @@ bool Player::GetAudioTimestampForVideo(CodecBufferInfo& bufferInfo, int64_t& fra
         std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
         if (audioRenderer_ == nullptr) {
             // 尚未进入 VideoSink，必须由当前输出线程归还该索引。
-            (void)ReleaseVideoOutputBuffer(videoDecoder_.get(), bufferInfo, "audio renderer is null");
+            (void)videoDecoder_->FreeOutputBuffer(bufferInfo, false);
             playbackFailed_ = true;
             isStarted_ = false;
             return false;
@@ -313,7 +301,7 @@ bool Player::GetAudioTimestampForVideo(CodecBufferInfo& bufferInfo, int64_t& fra
         result = OH_AudioRenderer_GetAudioTimestampInfo(audioRenderer_, &framePosition, &timestamp);
     }
     AVCODEC_SAMPLE_LOGD_LIMIT(PLAYBACK_LOG_FREQUENCY,
-        "VD framePosition: %{public}li, audioTimestamp: %{public}li", framePosition, timestamp);
+        "VD framePosition: %{public}" PRId64 ", audioTimestamp: %{public}" PRId64, framePosition, timestamp);
     playbackClock_.SetAudioTimestampNs(timestamp);
     return true;
 }
@@ -377,57 +365,6 @@ void Player::InitSyncVideoOutputContext()
         videoDecContext_->widthStride, videoDecContext_->heightStride, videoDecContext_->outputPixelFormat);
 }
 
-bool Player::GetSyncVideoOutputBuffer(CodecBufferInfo& bufferInfo)
-{
-    int32_t ret = AVCODEC_SAMPLE_ERR_AGAIN;
-    // [Start decoder_sync_output_buffer]
-    while (isStarted_ && ret == AVCODEC_SAMPLE_ERR_AGAIN) {
-        std::unique_lock<std::mutex> lock(videoDecContext_->outputMutex);
-        ret = videoDecoder_->GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
-    }
-    // [End decoder_sync_output_buffer]
-    if (!isStarted_) {
-        if (!ReleaseVideoOutputBuffer(videoDecoder_.get(), bufferInfo, "video output worker stopped")) {
-            playbackFailed_ = true;
-        }
-        AVCODEC_SAMPLE_LOGI("VD Decoder output thread out");
-        return false;
-    }
-    if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        // GetOutputBuffer 在取得 Buffer 后读取属性失败时仍可能留下已获取的索引。
-        if (!ReleaseVideoOutputBuffer(videoDecoder_.get(), bufferInfo, "get video output buffer failed")) {
-            playbackFailed_ = true;
-            isStarted_ = false;
-        }
-        AVCODEC_SAMPLE_LOGE("VD Get out buffer failed, ret: %{public}d", ret);
-        return false;
-    }
-    if (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
-        if (!ReleaseVideoOutputBuffer(videoDecoder_.get(), bufferInfo, "video output EOS")) {
-            playbackFailed_ = true;
-            isStarted_ = false;
-        }
-        AVCODEC_SAMPLE_LOGI("Catch EOS, video output thread out");
-        return false;
-    }
-    InitSyncVideoOutputContext();
-    videoDecContext_->outputFrameCount++;
-    AVCODEC_SAMPLE_LOGD_LIMIT(PLAYBACK_LOG_FREQUENCY,
-        "Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
-        videoDecContext_->outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
-    return true;
-}
-
-bool Player::ProcessSyncVideoOutput(std::chrono::time_point<std::chrono::system_clock>& lastPushTime)
-{
-    CodecBufferInfo bufferInfo;
-    if (!GetSyncVideoOutputBuffer(bufferInfo)) {
-        return false;
-    }
-    return audioDecContext_ == nullptr ? ProcessVideoWithoutAudio(bufferInfo, lastPushTime) :
-        ProcessVideoWithAudio(bufferInfo, lastPushTime);
-}
-
 void Player::FinishVideoOutput()
 {
     std::lock_guard<std::mutex> lock(doneMutex);
@@ -444,12 +381,48 @@ void Player::VideoDecOutputSyncThread()
 {
     sampleInfo_.video.frameInterval = US_PER_SECOND / sampleInfo_.video.frameRate;
     thread_local auto lastPushTime = std::chrono::system_clock::now();
+    // [Start decoder_sync_output_buffer]
     while (isStarted_) {
         WaitIfPaused();
-        if (!ProcessSyncVideoOutput(lastPushTime)) {
+        CHECK_AND_BREAK_LOG(isStarted_, "VD Decoder output thread out");
+        std::unique_lock<std::mutex> lock(videoDecContext_->outputMutex);
+        CodecBufferInfo bufferInfo;
+        const int32_t ret = videoDecoder_->GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
+        lock.unlock();
+        if (!isStarted_) {
+            if (ret == AVCODEC_SAMPLE_ERR_OK &&
+                videoDecoder_->FreeOutputBuffer(bufferInfo, false) != AVCODEC_SAMPLE_ERR_OK) {
+                playbackFailed_ = true;
+            }
+            break;
+        }
+        CHECK_AND_CONTINUE_LOG(ret != AVCODEC_SAMPLE_ERR_AGAIN, "Get output buffer timeout, retry");
+        if (ret != AVCODEC_SAMPLE_ERR_OK) {
+            AVCODEC_SAMPLE_LOGE("Get video output buffer failed, ret: %{public}d", ret);
+            playbackFailed_ = true;
+            isStarted_ = false;
+            break;
+        }
+        if (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
+            if (videoDecoder_->FreeOutputBuffer(bufferInfo, false) != AVCODEC_SAMPLE_ERR_OK) {
+                playbackFailed_ = true;
+                isStarted_ = false;
+            }
+            AVCODEC_SAMPLE_LOGI("Catch EOS, video output thread out");
+            break;
+        }
+        InitSyncVideoOutputContext();
+        videoDecContext_->outputFrameCount++;
+        AVCODEC_SAMPLE_LOGD_LIMIT(PLAYBACK_LOG_FREQUENCY,
+            "Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
+            videoDecContext_->outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
+        const bool success = audioDecContext_ == nullptr ? ProcessVideoWithoutAudio(bufferInfo, lastPushTime) :
+            ProcessVideoWithAudio(bufferInfo, lastPushTime);
+        if (!success) {
             break;
         }
     }
+    // [End decoder_sync_output_buffer]
     FinishVideoOutput();
 }
 
@@ -468,13 +441,13 @@ void Player::VideoDecOutputAsyncThread()
         // [End decoder_output_buffer]
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
         if (!isStarted_) {
-            if (!ReleaseVideoOutputBuffer(videoDecoder_.get(), *bufferInfo, "video output worker stopped")) {
+            if (videoDecoder_->FreeOutputBuffer(*bufferInfo, false) != AVCODEC_SAMPLE_ERR_OK) {
                 playbackFailed_ = true;
             }
             break;
         }
         if (bufferInfo->attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
-            if (!ReleaseVideoOutputBuffer(videoDecoder_.get(), *bufferInfo, "video output EOS")) {
+            if (videoDecoder_->FreeOutputBuffer(*bufferInfo, false) != AVCODEC_SAMPLE_ERR_OK) {
                 playbackFailed_ = true;
                 isStarted_ = false;
             }

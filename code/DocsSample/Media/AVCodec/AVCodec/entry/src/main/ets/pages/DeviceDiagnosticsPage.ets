@@ -13,10 +13,16 @@
  * limitations under the License.
  */
 
+import { LocalizedText } from '../common/LocalizedText';
 import { deviceInfo, pasteboard } from '@kit.BasicServicesKit';
 import { fileIo, picker } from '@kit.CoreFileKit';
-import player, { DeviceCodecCapability, DeviceCodecCapabilityRange, DeviceCodecProfileLevels, MediaInfo, PlaybackInfo } from 'libplayer.so';
+import player, { DeviceCodecCapability, DeviceCodecCapabilityRange, DeviceCodecProfileLevels, MediaInfo, PlaybackInfo, PlaybackTimelineEvent } from 'libplayer.so';
+import recorder, { RecorderDiagnostics, RecorderStreamStats } from 'librecorder.so';
+import { CameraDataModel } from '../model/CameraDataModel';
+import { DumpFilesPanel } from '../components/DumpFilesPanel';
+import { ConfigurationPanel } from '../components/ConfigurationPanel';
 import { PlaybackViewModel } from '../viewmodel/PlaybackViewModel';
+import { RecorderLiveDiagnosticsModel } from '../model/RecorderLiveDiagnosticsModel';
 
 const CAPABILITY_API_VERSION: number = 24;
 const VIDEO_DECODER_TYPE: number = 1;
@@ -26,16 +32,83 @@ const AUDIO_ENCODER_TYPE: number = 2;
 
 @Component
 export struct DeviceDiagnosticsPage {
+  @Prop configurationReady: boolean = false;
+  @Prop configurationRevision: number = 0;
+  @Prop configurationNotice: string = '';
+  onPreset: (index: number) => void = (_index: number): void => {};
+  onSaveConfiguration: () => void = (): void => {};
+  onLoadConfiguration: () => void = (): void => {};
+  onDumpPolicyChanged: () => void = (): void => {};
   @ObjectLink model: PlaybackViewModel;
+  @ObjectLink cameraData: CameraDataModel;
+  @Prop selectedDecoder: string = '';
+  @Prop selectedEncoder: string = '';
+  onChooseCodec: (item: DeviceCodecCapability) => void = (_item: DeviceCodecCapability): void => {};
+  onClearCodecs: () => void = (): void => {};
+  @State private checkResult: string = '';
+  @State private failureText: string = '';
   @State private capabilities: DeviceCodecCapability[] = [];
   @State private expandedCodecType: number = -1;
   @State private expandedCodecKey: string = '';
   @State private reportText: string = '';
   @State private loading: boolean = false;
   @State private reportGenerated: boolean = false;
+  @State private timelineText: string = '';
+  @State private timelineTiming: string = '';
+  @State private timelineExpanded: boolean = false;
 
   aboutToAppear(): void {
     this.refreshCapabilities();
+    this.failureText = this.failureSummary(player.getPlaybackInfo());
+    this.refreshTimeline();
+  }
+
+  private refreshTimeline(): void {
+    const diagnostics = player.getPlaybackInfo().diagnostics;
+    this.timelineTiming = diagnostics.presentCallSamples > 0 ?
+      LocalizedText.get($r('app.string.diagnostics_present_prefix')) + (diagnostics.presentCallP95Us / 1000).toFixed(2) + LocalizedText.get($r('app.string.diagnostics_max_prefix')) +
+      (diagnostics.presentCallMaxUs / 1000).toFixed(2) + ' ms · ' + diagnostics.presentCallSamples + LocalizedText.get($r('app.string.diagnostics_samples_suffix')) :
+      LocalizedText.get($r('app.string.diagnostics_present_empty'));
+    this.timelineText = diagnostics.events.map((event: PlaybackTimelineEvent): string =>
+      '#' + event.sequence + ' +' + (event.elapsedUs / 1000).toFixed(1) + ' ms · ' + event.stage +
+      (event.seekId > 0 ? ' [seek ' + event.seekId + ']' : '') +
+      (event.mediaUs >= 0 ? ' · ' + (event.mediaUs / 1000000).toFixed(3) + ' s' : '')).join('\n');
+    if (this.timelineText.length === 0) {
+      this.timelineText = LocalizedText.get($r('app.string.diagnostics_timeline_empty'));
+    }
+  }
+
+  private failureSummary(info: PlaybackInfo): string {
+    const failure = info.failure;
+    if (failure.stage.length === 0) {
+      return '';
+    }
+    return failure.stage + ' · ' + failure.code + '\n' + failure.message + '\n' +
+      failure.mime + ' · ' + (failure.codecName || LocalizedText.get($r('app.string.configuration_auto_select'))) + ' · ' + this.runModeText(failure.runMode);
+  }
+
+  private checkCurrentConfiguration(item: DeviceCodecCapability): void {
+    const recording: boolean = item.codecType === VIDEO_ENCODER_TYPE;
+    const mediaInfo: MediaInfo = player.getMediaInfo();
+    const mime: string = recording ? (this.cameraData.videoCodecMime ?? '') : mediaInfo.video.codecMime;
+    const width: number = recording ? this.cameraData.cameraWidth : mediaInfo.video.width;
+    const height: number = recording ? this.cameraData.cameraHeight : mediaInfo.video.height;
+    const rate: number = recording ? this.cameraData.frameRate : mediaInfo.video.frameRate;
+    if (mime !== item.mimeType || width <= 0 || height <= 0 || rate <= 0) {
+      this.checkResult = item.codecName + LocalizedText.get($r('app.string.diagnostics_prepare_matching_media'));
+      return;
+    }
+    try {
+      const result = player.checkVideoCapability({
+        codecName: item.codecName, mimeType: item.mimeType, codecType: item.codecType,
+        width: width, height: height, frameRate: rate
+      });
+      this.checkResult = item.codecName + ' · ' + width + '×' + height + ' @ ' + rate + ' fps\n' +
+        (result.supported ? LocalizedText.get($r('app.string.diagnostics_supported_prefix')) : LocalizedText.get($r('app.string.diagnostics_unsupported_prefix'))) + result.reason +
+        (result.frameRateRangeAvailable ? LocalizedText.get($r('app.string.diagnostics_rate_range_prefix')) + this.rangeText(result.frameRateRange) : '');
+    } catch (_error) {
+      this.checkResult = LocalizedText.get($r('app.string.diagnostics_combination_unknown'));
+    }
   }
 
   private refreshCapabilities(): void {
@@ -199,6 +272,48 @@ export struct DeviceDiagnosticsPage {
       playback.state !== player.PlayerState.READY;
   }
 
+  private recorderStreamSummary(stats: RecorderStreamStats, name: string): string {
+    if (stats.frames <= 0 && stats.bytes <= 0) {
+      return '';
+    }
+    return name + ': ' + stats.width + 'x' + stats.height + ', ' + stats.frames + ' frames, ' +
+      stats.framesPerSecond.toFixed(1) + ' fps, ' + (stats.bitrate / 1000000).toFixed(2) +
+      ' Mbit/s, ' + (stats.bytes / 1048576).toFixed(2) + ' MiB';
+  }
+
+  private appendRecorderReport(reportLines: string[]): void {
+    try {
+      const diagnostics: RecorderDiagnostics = recorder.getDiagnostics();
+      if (diagnostics.sessionId.length > 0) {
+        reportLines.push('', 'Recording session: ' + diagnostics.sessionId,
+          'Requested configuration: ' + diagnostics.requestedConfiguration,
+          'Codec output description: ' + diagnostics.observedConfiguration,
+          'Dynamic parameter requests (accepted does not mean measured output):', diagnostics.parameterChanges);
+      }
+      const primary: string = this.recorderStreamSummary(diagnostics.primary, 'Primary');
+      const secondary: string = this.recorderStreamSummary(diagnostics.secondary, 'Secondary');
+      if (primary.length === 0 && secondary.length === 0 && diagnostics.failure.stage.length === 0 &&
+        diagnostics.sessionId.length === 0) {
+        return;
+      }
+      reportLines.push('', 'Recording output');
+      if (primary.length > 0) {
+        reportLines.push(primary);
+      }
+      if (secondary.length > 0) {
+        reportLines.push(secondary);
+      }
+      reportLines.push(RecorderLiveDiagnosticsModel.report(
+        diagnostics, diagnostics.secondary.requestedConfiguration.length > 0));
+      if (diagnostics.failure.stage.length > 0) {
+        reportLines.push('Recording failure: ' + diagnostics.failure.stage + ' · ' + diagnostics.failure.code,
+          diagnostics.failure.message);
+      }
+    } catch (_error) {
+      reportLines.push('', 'Recording output: unavailable');
+    }
+  }
+
   private buildReport(playback: PlaybackInfo, mediaInfo: MediaInfo): string {
     const reportLines: string[] = [
       this.text($r('app.string.device_report_title')),
@@ -206,6 +321,9 @@ export struct DeviceDiagnosticsPage {
       this.text($r('app.string.device_report_device')) + ': ' + deviceInfo.productModel,
       this.text($r('app.string.device_report_system')) + ': ' + deviceInfo.osFullName,
       this.text($r('app.string.device_report_api')) + ': ' + deviceInfo.sdkApiVersion,
+      'Playback session: ' + (playback.diagnostics.sessionId || '--'),
+      'Requested configuration: ' + (playback.diagnostics.requestedConfiguration || '--'),
+      'Configured / observed: ' + (playback.diagnostics.observedConfiguration || '--'),
       '',
       this.text($r('app.string.device_report_playback')) + ': ' + this.playbackStateText(playback.state),
       this.text($r('app.string.device_report_speed')) + ': ' + playback.speed.toFixed(2) + 'x',
@@ -233,6 +351,28 @@ export struct DeviceDiagnosticsPage {
       this.text($r('app.string.device_report_av_offset')) + ': ' +
         (playback.diagnostics.syncAvailable ? (playback.diagnostics.avOffsetUs / 1000).toFixed(1) + ' ms' : '--')
     ];
+    const failureText: string = this.failureSummary(playback);
+    if (failureText.length > 0) {
+      reportLines.push('', LocalizedText.get($r('app.string.diagnostics_last_failure')), failureText, LocalizedText.get($r('app.string.diagnostics_error_code_hint')));
+    }
+    this.appendRecorderReport(reportLines);
+    reportLines.push('', LocalizedText.get($r('app.string.diagnostics_timeline_report_title')));
+    for (const event of playback.diagnostics.events) {
+      reportLines.push('#' + event.sequence + ' +' + (event.elapsedUs / 1000).toFixed(1) + ' ms ' +
+        event.stage + (event.seekId > 0 ? ' [seek ' + event.seekId + ']' : '') +
+        (event.mediaUs >= 0 ? LocalizedText.get($r('app.string.diagnostics_pts_prefix')) + (event.mediaUs / 1000000).toFixed(3) + ' s' : ''));
+    }
+    if (playback.diagnostics.presentCallSamples > 0) {
+      reportLines.push(LocalizedText.get($r('app.string.diagnostics_present_report_prefix')) + (playback.diagnostics.presentCallP95Us / 1000).toFixed(2) +
+        LocalizedText.get($r('app.string.diagnostics_report_max_prefix')) + (playback.diagnostics.presentCallMaxUs / 1000).toFixed(2) + LocalizedText.get($r('app.string.diagnostics_recent_prefix')) +
+        playback.diagnostics.presentCallSamples + LocalizedText.get($r('app.string.diagnostics_samples_suffix')));
+    }
+    reportLines.push(LocalizedText.get($r('app.string.diagnostics_present_hint')));
+    if (this.checkResult.length > 0) {
+      reportLines.push('', LocalizedText.get($r('app.string.diagnostics_combination_title')), this.checkResult);
+    }
+    reportLines.push('', LocalizedText.get($r('app.string.diagnostics_decoder_prefix')) + (this.selectedDecoder || LocalizedText.get($r('app.string.configuration_auto'))),
+      LocalizedText.get($r('app.string.diagnostics_encoder_prefix')) + (this.selectedEncoder || LocalizedText.get($r('app.string.configuration_auto'))));
     if (playback.diagnostics.syncAvailable) {
       reportLines.push('', this.text($r('app.string.device_report_audio_sync')));
       reportLines.push(this.text($r('app.string.device_report_av_offset')) + ': ' +
@@ -432,6 +572,12 @@ export struct DeviceDiagnosticsPage {
                       this.rangeText(item.audioChannelCountRange)).fontSize('11fp').fontColor('#475467').width('100%')
                   }
                 }
+                if (item.codecType === VIDEO_DECODER_TYPE || item.codecType === VIDEO_ENCODER_TYPE) {
+                  Button(item.codecType === VIDEO_DECODER_TYPE ? LocalizedText.get($r('app.string.diagnostics_check_video')) : LocalizedText.get($r('app.string.diagnostics_check_recording')))
+                    .fontSize(12).onClick((): void => this.checkCurrentConfiguration(item))
+                  Button(item.codecType === VIDEO_DECODER_TYPE ? LocalizedText.get($r('app.string.diagnostics_use_decoder')) : LocalizedText.get($r('app.string.diagnostics_use_encoder')))
+                    .fontSize(12).onClick((): void => this.onChooseCodec(item))
+                }
                 if (item.encoderBitrateRange !== undefined) {
                   Text(this.text($r('app.string.device_codec_encoder_bitrate_range')) + ': ' +
                     this.rangeText(item.encoderBitrateRange)).fontSize('11fp').fontColor('#475467').width('100%')
@@ -478,10 +624,41 @@ export struct DeviceDiagnosticsPage {
         Text($r('app.string.device_codec_expand_hint')).fontSize('11fp').fontColor('#667085').width('100%')
         Scroll() {
           Column({ space: '12vp' }) {
+            Text(LocalizedText.get($r('app.string.diagnostics_decoder_prefix')) + (this.selectedDecoder || LocalizedText.get($r('app.string.configuration_auto'))) + LocalizedText.get($r('app.string.diagnostics_encoder_line_prefix')) +
+              (this.selectedEncoder || LocalizedText.get($r('app.string.configuration_auto')))).fontSize(12).width('100%').fontColor('#475467')
+            Button(LocalizedText.get($r('app.string.diagnostics_restore_auto'))).fontSize(12).onClick((): void => this.onClearCodecs())
+            if (this.checkResult.length > 0) {
+              Text(this.checkResult).fontSize(12).fontColor('#175CD3').width('100%')
+            }
+            if (this.failureText.length > 0) {
+              Text(this.failureText).fontSize(12).fontColor('#B42318').width('100%')
+            }
             this.capabilityGroup($r('app.string.device_codec_video_decoder'), VIDEO_DECODER_TYPE)
             this.capabilityGroup($r('app.string.device_codec_video_encoder'), VIDEO_ENCODER_TYPE)
             this.capabilityGroup($r('app.string.device_codec_audio_decoder'), AUDIO_DECODER_TYPE)
             this.capabilityGroup($r('app.string.device_codec_audio_encoder'), AUDIO_ENCODER_TYPE)
+            ConfigurationPanel({ ready: this.configurationReady, notice: this.configurationNotice,
+              onPreset: this.onPreset, onSave: this.onSaveConfiguration, onLoad: this.onLoadConfiguration })
+            DumpFilesPanel({ onPolicyChanged: this.onDumpPolicyChanged, policyRevision: this.configurationRevision })
+            Column({ space: 8 }) {
+              Row({ space: 8 }) {
+                Text(LocalizedText.get($r('app.string.diagnostics_timeline_title'))).fontSize(16).fontWeight(FontWeight.Medium).layoutWeight(1)
+                Button(LocalizedText.get($r('app.string.action_refresh'))).fontSize(12).onClick((): void => this.refreshTimeline())
+                Button(this.timelineExpanded ? LocalizedText.get($r('app.string.action_collapse')) : LocalizedText.get($r('app.string.action_expand'))).fontSize(12)
+                  .onClick((): void => {
+                    this.timelineExpanded = !this.timelineExpanded;
+                    if (this.timelineExpanded) {
+                      this.refreshTimeline();
+                    }
+                  })
+              }.width('100%')
+              Text(LocalizedText.get($r('app.string.diagnostics_timeline_hint')))
+                .fontSize(11).fontColor('#667085').width('100%')
+              Text(this.timelineTiming).fontSize(11).fontColor('#475467').width('100%')
+              if (this.timelineExpanded) {
+                Text(this.timelineText).fontSize(11).fontColor('#344054').width('100%').copyOption(CopyOptions.InApp)
+              }
+            }.width('100%').padding(14).backgroundColor('#F8FAFC').borderRadius(16)
             Column({ space: '8vp' }) {
               Text($r('app.string.device_report_section_title')).fontSize('16fp').fontWeight(FontWeight.Medium)
                 .fontColor('#1D2939').width('100%')

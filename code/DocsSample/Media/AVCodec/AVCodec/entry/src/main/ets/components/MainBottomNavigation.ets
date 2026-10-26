@@ -19,7 +19,7 @@ export struct MainBottomNavigation {
   onTabSelected: (index: number) => void = (_index: number): void => {};
 
   build() {
-    Row({ space: '8vp' }) {
+    Row({ space: '4vp' }) {
       Button() {
         Column({ space: '2vp' }) {
           SymbolGlyph($r('sys.symbol.play_fill'))
@@ -35,6 +35,7 @@ export struct MainBottomNavigation {
       }
       .layoutWeight(1)
       .height('52vp')
+      .padding(0)
       .type(ButtonType.Normal)
       .backgroundColor(this.activeIndex === 0 ? '#EAF1FF' : Color.Transparent)
       .borderRadius('14vp')
@@ -55,6 +56,7 @@ export struct MainBottomNavigation {
       }
       .layoutWeight(1)
       .height('52vp')
+      .padding(0)
       .type(ButtonType.Normal)
       .backgroundColor(this.activeIndex === 1 ? '#EAF1FF' : Color.Transparent)
       .borderRadius('14vp')
@@ -75,6 +77,7 @@ export struct MainBottomNavigation {
       }
       .layoutWeight(1)
       .height('52vp')
+      .padding(0)
       .type(ButtonType.Normal)
       .backgroundColor(this.activeIndex === 2 ? '#EAF1FF' : Color.Transparent)
       .borderRadius('14vp')
@@ -82,11 +85,14 @@ export struct MainBottomNavigation {
       .onClick(() => this.onTabSelected(2))
       Button() {
         Column({ space: '2vp' }) {
-          SymbolGlyph($r('sys.symbol.info_circle_fill'))
+          SymbolGlyph($r('sys.symbol.arrow_clockwise'))
             .fontSize('18fp')
             .fontColor([this.activeIndex === 3 ? '#0A59F7' : '#667085'])
-          Text($r('app.string.tab_device'))
+          Text($r('app.string.tab_transcode'))
             .fontSize('12fp')
+            .maxLines(1)
+            .minFontSize('10fp')
+            .maxFontSize('12fp')
             .fontWeight(this.activeIndex === 3 ? FontWeight.Medium : FontWeight.Regular)
             .fontColor(this.activeIndex === 3 ? '#0A59F7' : '#667085')
         }
@@ -95,11 +101,33 @@ export struct MainBottomNavigation {
       }
       .layoutWeight(1)
       .height('52vp')
+      .padding(0)
       .type(ButtonType.Normal)
       .backgroundColor(this.activeIndex === 3 ? '#EAF1FF' : Color.Transparent)
       .borderRadius('14vp')
-      .accessibilityText($r('app.string.tab_device'))
+      .accessibilityText($r('app.string.tab_transcode'))
       .onClick(() => this.onTabSelected(3))
+      Button() {
+        Column({ space: '2vp' }) {
+          SymbolGlyph($r('sys.symbol.info_circle_fill'))
+            .fontSize('18fp')
+            .fontColor([this.activeIndex === 4 ? '#0A59F7' : '#667085'])
+          Text($r('app.string.tab_device'))
+            .fontSize('12fp')
+            .fontWeight(this.activeIndex === 4 ? FontWeight.Medium : FontWeight.Regular)
+            .fontColor(this.activeIndex === 4 ? '#0A59F7' : '#667085')
+        }
+        .width('100%')
+        .alignItems(HorizontalAlign.Center)
+      }
+      .layoutWeight(1)
+      .height('52vp')
+      .padding(0)
+      .type(ButtonType.Normal)
+      .backgroundColor(this.activeIndex === 4 ? '#EAF1FF' : Color.Transparent)
+      .borderRadius('14vp')
+      .accessibilityText($r('app.string.tab_device'))
+      .onClick(() => this.onTabSelected(4))
     }
     .width('100%')
     .padding({ left: '12vp', right: '12vp', top: '6vp', bottom: '6vp' })

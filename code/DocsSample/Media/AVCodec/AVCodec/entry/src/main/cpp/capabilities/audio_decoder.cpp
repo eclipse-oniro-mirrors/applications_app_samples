@@ -178,19 +178,11 @@ int32_t AudioDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
     }
 
     OH_AVBuffer *outputBuf = OH_AudioCodec_GetOutputBuffer(decoder_, info.bufferIndex);
-    if (outputBuf == nullptr) {
-        // 已取得输出索引，后续取Buffer失败也必须归还，避免占满codec的输出队列。
-        const int32_t freeRet = OH_AudioCodec_FreeOutputBuffer(decoder_, info.bufferIndex);
-        AVCODEC_SAMPLE_LOGE("Get output buffer failed, free ret: %{public}d", freeRet);
-        return AVCODEC_SAMPLE_ERR_ERROR; // break;
-    }
+    CHECK_AND_RETURN_RET_LOG(outputBuf != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Get output buffer failed");
 
     ret = OH_AVBuffer_GetBufferAttr(outputBuf, &info.attr);
-    if (ret != AV_ERR_OK) {
-        const int32_t freeRet = OH_AudioCodec_FreeOutputBuffer(decoder_, info.bufferIndex);
-        AVCODEC_SAMPLE_LOGE("Get output buffer attr failed, ret: %{public}d, free ret: %{public}d", ret, freeRet);
-        return AVCODEC_SAMPLE_ERR_ERROR; // break;
-    }
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+        "Get output buffer attr failed, ret: %{public}d", ret);
     info.buffer = outputBuf;
     if (info.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
         // EOS输出也必须归还，之后不再访问outputBuf或该索引。

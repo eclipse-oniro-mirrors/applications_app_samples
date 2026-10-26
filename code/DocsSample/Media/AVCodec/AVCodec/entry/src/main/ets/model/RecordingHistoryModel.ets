@@ -17,11 +17,14 @@ import { preferences } from '@kit.ArkData';
 import { common } from '@kit.AbilityKit';
 
 export interface RecordingHistoryEntry {
+  sessionId?: string;
   uri: string;
   title: string;
   secondaryUri: string;
   recordedAt: number;
   durationSeconds: number;
+  primarySummary?: string;
+  secondarySummary?: string;
 }
 
 const RECORDING_PREFERENCES: string = 'recording_history';
@@ -38,7 +41,8 @@ export class RecordingHistoryModel {
       const storedValue = await this.prefs.get(RECORDING_ENTRIES_KEY, '[]');
       const parsed = JSON.parse(String(storedValue)) as Array<RecordingHistoryEntry>;
       if (Array.isArray(parsed)) {
-        this.entries = parsed.filter((entry: RecordingHistoryEntry): boolean => this.isValidEntry(entry));
+        this.entries = parsed.filter((entry: RecordingHistoryEntry): boolean => this.isValidEntry(entry))
+          .slice(0, MAX_RECORDING_ENTRIES);
       }
     } catch {
       this.entries = [];
@@ -50,15 +54,18 @@ export class RecordingHistoryModel {
   }
 
   async add(uri: string, title: string, secondaryUri: string, recordedAt: number,
-    durationSeconds: number): Promise<void> {
-    if (uri.length === 0 || title.length === 0 || recordedAt <= 0 || durationSeconds <= 0) {
+    durationSeconds: number, primarySummary: string = '', secondarySummary: string = '',
+    sessionId: string = ''): Promise<void> {
+    if ((uri.length === 0 && sessionId.length === 0) || title.length === 0 || recordedAt <= 0 || durationSeconds < 0) {
       return;
     }
-    const existingIndex: number = this.entries.findIndex((entry: RecordingHistoryEntry): boolean => entry.uri === uri);
+    const existingIndex: number = this.entries.findIndex((entry: RecordingHistoryEntry): boolean =>
+      uri.length > 0 ? entry.uri === uri : entry.sessionId === sessionId);
     if (existingIndex >= 0) {
       this.entries.splice(existingIndex, 1);
     }
-    this.entries.unshift({ uri, title, secondaryUri, recordedAt, durationSeconds });
+    this.entries.unshift({ uri, title, secondaryUri, recordedAt, durationSeconds,
+      primarySummary, secondarySummary, sessionId });
     if (this.entries.length > MAX_RECORDING_ENTRIES) {
       this.entries.splice(MAX_RECORDING_ENTRIES);
     }
@@ -66,11 +73,13 @@ export class RecordingHistoryModel {
   }
 
   private isValidEntry(entry: RecordingHistoryEntry): boolean {
-    return typeof entry.uri === 'string' && entry.uri.length > 0 && typeof entry.title === 'string' &&
+    if (entry === null || typeof entry !== 'object') { return false; }
+    return typeof entry.uri === 'string' && (entry.uri.length > 0 || (entry.sessionId ?? '').length > 0) &&
+      typeof entry.title === 'string' &&
       typeof entry.secondaryUri === 'string' && typeof entry.recordedAt === 'number' &&
       Number.isFinite(entry.recordedAt) && entry.recordedAt > 0 &&
       typeof entry.durationSeconds === 'number' && Number.isFinite(entry.durationSeconds) &&
-      entry.durationSeconds > 0;
+      entry.durationSeconds >= 0;
   }
 
   private async save(): Promise<void> {

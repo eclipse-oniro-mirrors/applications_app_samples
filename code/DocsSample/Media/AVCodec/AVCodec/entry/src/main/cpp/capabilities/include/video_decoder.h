@@ -45,7 +45,7 @@ public:
     // 同步模式下先查询可用索引，再获取对应 Buffer；Buffer 归还给 codec 后不能继续访问。
     int32_t QueryInputBuffer(uint32_t &bufferIndex, int64_t timeoutUs);
     OH_AVBuffer *GetInputBuffer(uint32_t bufferIndex);
-    OH_AVBuffer* GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
+    int32_t GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
 
     // 同步模式下先查询输出索引，再获取对应 Buffer；输出 Buffer 必须及时送显或释放。
     int32_t QueryOutputBuffer(uint32_t &bufferIndex, int64_t timeoutUs);
