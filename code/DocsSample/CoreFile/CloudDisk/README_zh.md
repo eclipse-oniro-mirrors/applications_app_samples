@@ -64,7 +64,7 @@ CloudDisk
 
 ## 约束与限制
 
-1. 本示例仅支持API版本26.0.0 Release及以上版本运行，支持设备：PC/2in1。
+1. 本示例仅支持API版本26.0.1 Release及以上版本运行，支持设备：PC/2in1。
 
 2. 本示例为Stage模型，支持API版本26.0.1 Release及以上版本SDK。
 
