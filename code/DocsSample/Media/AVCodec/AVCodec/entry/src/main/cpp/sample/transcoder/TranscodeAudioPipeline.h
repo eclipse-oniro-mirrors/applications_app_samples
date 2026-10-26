@@ -35,8 +35,13 @@ public:
     OH_AVFormat *OutputFormat() const;
     int64_t Bytes() const { return bytes_; }
     int64_t PositionUs() const { return positionUs_; }
+    static int64_t TargetBitrate();
 
 private:
+    bool ReadSourceFormat(OH_AVFormat *source, const char *&mime);
+    bool ConfigureFormats(OH_AVFormat *source, OH_AVFormat *encoded);
+    bool PrepareCodecs();
+    bool StartCodecs();
     bool Check(int32_t result, const char *operation);
     bool Feed(bool &advanced);
     bool Decode(bool &advanced);

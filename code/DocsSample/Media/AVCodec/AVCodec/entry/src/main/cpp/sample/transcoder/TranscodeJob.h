@@ -100,6 +100,10 @@ private:
     bool SubmitSurfaceFrame(bool eos, bool &advanced);
     bool ProcessBufferFrame(OH_AVBuffer *input, OH_AVCodecBufferAttr &attr);
     bool OpenSource();
+    bool ReadSourceMetadata();
+    bool ReadVideoProperties();
+    bool ValidateSelectedAudioTrack();
+    void UpdateVideoProgress(const OH_AVCodecBufferAttr &attr);
     bool InitializeDemuxer();
     bool ConfigureCodecs();
     bool ConfigureEncoderFormat();

@@ -13,28 +13,48 @@
  * limitations under the License.
  */
 
-#include <cassert>
+#include <cstdlib>
 #include <iostream>
 #include <thread>
 #include "../../entry/src/main/cpp/sample/transcoder/TranscodeDiagnostics.h"
+
+namespace {
+constexpr size_t kStageCount = 6;
+constexpr int kMeasurementCount = 300;
+constexpr int kMeasurementValue = 7;
+constexpr int kWaitMilliseconds = 2;
+
+void Require(bool condition, const char *message)
+{
+    if (!condition) {
+        std::cerr << message << '\n';
+        std::exit(EXIT_FAILURE);
+    }
+}
+} // namespace
 
 int main()
 {
     using namespace TranscodeMetrics;
     Diagnostics metrics;
     auto empty = metrics.Snapshot();
-    assert(empty.size() == 6 && empty[0].calls == 0 && empty[0].p95Ms == 0);
-    for (int index = 0; index < 300; ++index) {
-        assert(metrics.Measure(Stage::PROCESS, [] { return 7; }) == 7);
+    Require(empty.size() == kStageCount && empty[0].calls == 0 && empty[0].p95Ms == 0,
+        "Empty diagnostics");
+    for (int index = 0; index < kMeasurementCount; ++index) {
+        const int measured = metrics.Measure(Stage::PROCESS, [] { return kMeasurementValue; });
+        Require(measured == kMeasurementValue, "Measurement return value");
     }
-    const auto process = metrics.Snapshot()[2];
-    assert(process.calls == 300 && process.averageMs >= 0 && process.p95Ms <= process.maxMs);
-    metrics.Availability(1, false);
-    std::this_thread::sleep_for(std::chrono::milliseconds(2));
-    assert(metrics.WaitMs(1) > 0);
-    metrics.Availability(1, true);
-    const double completed = metrics.WaitMs(1);
-    std::this_thread::sleep_for(std::chrono::milliseconds(2));
-    assert(metrics.WaitMs(1) == completed && metrics.WaitMs(0) == 0);
+    const auto process = metrics.Snapshot()[static_cast<size_t>(Stage::PROCESS)];
+    Require(process.calls == kMeasurementCount && process.averageMs >= 0 && process.p95Ms <= process.maxMs,
+        "Process statistics");
+    metrics.Availability(WaitChannel::ENCODER_INPUT, false);
+    std::this_thread::sleep_for(std::chrono::milliseconds(kWaitMilliseconds));
+    const double pending = metrics.WaitMs(WaitChannel::ENCODER_INPUT);
+    Require(pending > 0, "Pending wait");
+    metrics.Availability(WaitChannel::ENCODER_INPUT, true);
+    const double completed = metrics.WaitMs(WaitChannel::ENCODER_INPUT);
+    std::this_thread::sleep_for(std::chrono::milliseconds(kWaitMilliseconds));
+    Require(metrics.WaitMs(WaitChannel::ENCODER_INPUT) == completed &&
+        metrics.WaitMs(WaitChannel::DECODER_OUTPUT) == 0, "Completed wait");
     std::cout << "Transcode diagnostics: bounded sampling, return values and wait spans passed\n";
 }

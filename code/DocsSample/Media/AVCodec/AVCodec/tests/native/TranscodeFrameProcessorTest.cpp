@@ -35,6 +35,7 @@ constexpr uint8_t CHROMA_PADDING = 128;
 constexpr uint8_t SOURCE_PADDING = 255;
 constexpr uint8_t OUTPUT_CANARY = 99;
 constexpr uint8_t BOUNDS_CANARY = 77;
+constexpr uint8_t SOURCE_SECOND_ROW_BASE = 5;
 constexpr size_t SMALL_FRAME_BYTES = CHROMA_STEP * CHROMA_STEP + CHROMA_STEP;
 constexpr size_t PLANAR_FRAME_BYTES = TEST_WIDTH * TEST_WIDTH + TEST_WIDTH * CHROMA_STEP;
 constexpr size_t INPUT_FRAME_BYTES = INPUT_STRIDE * TEST_WIDTH + INPUT_STRIDE * CHROMA_STEP;
@@ -159,7 +160,7 @@ void TestSameSizeNv12()
     const std::array<uint8_t, TEST_WIDTH> uv { 41, 91, 42, 92 };
     for (size_t x = 0; x < TEST_WIDTH; ++x) {
         source[x] = static_cast<uint8_t>(x + 1);
-        source[INPUT_STRIDE + x] = static_cast<uint8_t>(x + 5);
+        source[INPUT_STRIDE + x] = static_cast<uint8_t>(x + SOURCE_SECOND_ROW_BASE);
         source[INPUT_CHROMA_OFFSET + x] = uv[x];
     }
     std::array<uint8_t, OUTPUT_FRAME_BYTES + 1> destination {};
@@ -167,7 +168,8 @@ void TestSameSizeNv12()
     Require(Process(source.data(), source.size(), input, destination.data(), OUTPUT_FRAME_BYTES, output, false),
         "Same-size NV12 fast path");
     for (size_t x = 0; x < TEST_WIDTH; ++x) {
-        Require(destination[x] == x + 1 && destination[OUTPUT_STRIDE + x] == x + 5, "Fast luma copy");
+        Require(destination[x] == x + 1 && destination[OUTPUT_STRIDE + x] == x + SOURCE_SECOND_ROW_BASE,
+            "Fast luma copy");
         Require(destination[OUTPUT_CHROMA_OFFSET + x] == uv[x], "Fast chroma copy");
     }
     Require(destination[TEST_WIDTH] == LUMA_PADDING && destination[OUTPUT_CHROMA_OFFSET - 1] == LUMA_PADDING,

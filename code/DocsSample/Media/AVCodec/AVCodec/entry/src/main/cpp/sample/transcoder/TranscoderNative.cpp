@@ -25,6 +25,8 @@ constexpr int64_t MIN_BITRATE = 100000;
 constexpr int64_t HD_LONG_EDGE = 720;
 constexpr int64_t FULL_HD_LONG_EDGE = 1080;
 constexpr int64_t UHD_LONG_EDGE = 1920;
+constexpr int64_t MAX_ENCODER_CATEGORY = 2;
+constexpr int64_t MAX_AUDIO_MODE = 2;
 struct TranscodeModuleState {
     std::shared_ptr<TranscodeJob> current;
 };
@@ -48,21 +50,12 @@ bool SetString(napi_env env, napi_value object, const char *key, const std::stri
            napi_set_named_property(env, object, key, result) == napi_ok;
 }
 
-napi_value ToValue(napi_env env, const TranscodeSnapshot &snapshot)
+bool SetSnapshotFields(napi_env env, napi_value result, const TranscodeSnapshot &snapshot)
 {
-    napi_value result = nullptr;
-    napi_value audio = nullptr;
-    if (napi_create_object(env, &result) != napi_ok || !SetNumber(env, result, "state", snapshot.state) ||
-        !SetNumber(env, result, "progress", snapshot.progress) || !SetNumber(env, result, "frames", snapshot.frames) ||
-        !SetNumber(env, result, "bytes", snapshot.bytes) || !SetNumber(env, result, "errorCode", snapshot.errorCode) ||
-        !SetNumber(env, result, "outputWidth", snapshot.outputWidth) ||
-        !SetNumber(env, result, "outputHeight", snapshot.outputHeight) ||
-        !SetString(env, result, "stage", snapshot.stage) || !SetString(env, result, "detail", snapshot.detail) ||
-        napi_get_boolean(env, snapshot.audioCopied, &audio) != napi_ok ||
-        napi_set_named_property(env, result, "audioCopied", audio) != napi_ok) {
-        return nullptr;
-    }
     const std::pair<const char *, double> numbers[] = {
+        {"state", snapshot.state}, {"progress", snapshot.progress}, {"frames", snapshot.frames},
+        {"bytes", snapshot.bytes}, {"errorCode", snapshot.errorCode},
+        {"outputWidth", snapshot.outputWidth}, {"outputHeight", snapshot.outputHeight},
         {"elapsedMs", snapshot.elapsedMs}, {"firstFrameMs", snapshot.firstFrameMs}, {"fps", snapshot.fps},
         {"speed", snapshot.speed}, {"remainingSeconds", snapshot.remainingSeconds},
         {"decoderWaitMs", snapshot.decoderWaitMs}, {"encoderInputWaitMs", snapshot.encoderInputWaitMs},
@@ -73,16 +66,21 @@ napi_value ToValue(napi_env env, const TranscodeSnapshot &snapshot)
         {"sourceFrameRate", snapshot.sourceFrameRate}, {"minBitrate", snapshot.minBitrate},
         {"maxBitrate", snapshot.maxBitrate}, {"audioBytes", snapshot.audioBytes}, {"audioMode", snapshot.audioMode}};
     for (const auto &number : numbers) {
-        if (!SetNumber(env, result, number.first, number.second)) { return nullptr; }
+        if (!SetNumber(env, result, number.first, number.second)) { return false; }
     }
-    if (!SetString(env, result, "decoderName", snapshot.decoderName) ||
-        !SetString(env, result, "encoderName", snapshot.encoderName) ||
-        !SetString(env, result, "sourceMime", snapshot.sourceMime)) { return nullptr; }
+    const std::pair<const char *, const std::string &> strings[] = {
+        {"stage", snapshot.stage}, {"detail", snapshot.detail}, {"decoderName", snapshot.decoderName},
+        {"encoderName", snapshot.encoderName}, {"sourceMime", snapshot.sourceMime}};
+    for (const auto &entry : strings) {
+        if (!SetString(env, result, entry.first, entry.second)) { return false; }
+    }
+    return true;
+}
+
+bool SetDiagnostics(napi_env env, napi_value result, const TranscodeSnapshot &snapshot)
+{
     napi_value rows = nullptr;
-    napi_value tracks = nullptr;
-    napi_value ids = nullptr;
-    if (napi_create_array(env, &rows) != napi_ok || napi_create_array(env, &tracks) != napi_ok ||
-        napi_create_array(env, &ids) != napi_ok) { return nullptr; }
+    if (napi_create_array(env, &rows) != napi_ok) { return false; }
     for (uint32_t index = 0; index < snapshot.diagnostics.size(); ++index) {
         napi_value row = nullptr;
         const auto &metric = snapshot.diagnostics[index];
@@ -90,21 +88,41 @@ napi_value ToValue(napi_env env, const TranscodeSnapshot &snapshot)
             !SetNumber(env, row, "calls", metric.calls) || !SetNumber(env, row, "totalMs", metric.totalMs) ||
             !SetNumber(env, row, "averageMs", metric.averageMs) || !SetNumber(env, row, "p95Ms", metric.p95Ms) ||
             !SetNumber(env, row, "maxMs", metric.maxMs) || napi_set_element(env, rows, index, row) != napi_ok) {
-            return nullptr;
+            return false;
         }
     }
+    return napi_set_named_property(env, result, "diagnostics", rows) == napi_ok;
+}
+
+bool SetAudioTracks(napi_env env, napi_value result, const TranscodeSnapshot &snapshot)
+{
+    napi_value tracks = nullptr;
+    napi_value ids = nullptr;
+    if (napi_create_array(env, &tracks) != napi_ok || napi_create_array(env, &ids) != napi_ok) { return false; }
     for (uint32_t index = 0; index < snapshot.audioTracks.size(); ++index) {
         napi_value title = nullptr;
         napi_value id = nullptr;
         if (napi_create_string_utf8(env, snapshot.audioTracks[index].c_str(), NAPI_AUTO_LENGTH, &title) != napi_ok ||
             napi_create_int32(env, snapshot.audioTrackIds[index], &id) != napi_ok ||
-            napi_set_element(env, tracks, index, title) != napi_ok || napi_set_element(env, ids, index, id) != napi_ok) {
-            return nullptr;
+            napi_set_element(env, tracks, index, title) != napi_ok ||
+            napi_set_element(env, ids, index, id) != napi_ok) {
+            return false;
         }
     }
-    if (napi_set_named_property(env, result, "diagnostics", rows) != napi_ok ||
-        napi_set_named_property(env, result, "audioTracks", tracks) != napi_ok ||
-        napi_set_named_property(env, result, "audioTrackIds", ids) != napi_ok) { return nullptr; }
+    return napi_set_named_property(env, result, "audioTracks", tracks) == napi_ok &&
+        napi_set_named_property(env, result, "audioTrackIds", ids) == napi_ok;
+}
+
+napi_value ToValue(napi_env env, const TranscodeSnapshot &snapshot)
+{
+    napi_value result = nullptr;
+    napi_value audio = nullptr;
+    if (napi_create_object(env, &result) != napi_ok || !SetSnapshotFields(env, result, snapshot) ||
+        !SetDiagnostics(env, result, snapshot) || !SetAudioTracks(env, result, snapshot) ||
+        napi_get_boolean(env, snapshot.audioCopied, &audio) != napi_ok ||
+        napi_set_named_property(env, result, "audioCopied", audio) != napi_ok) {
+        return nullptr;
+    }
     return result;
 }
 
@@ -139,8 +157,8 @@ bool ReadNumericOptions(napi_env env, napi_value object, TranscodeOptions &optio
         !ReadNumber(env, object, "bitrate", options.bitrate) || !ReadNumber(env, object, "longEdge", longEdge) ||
         !ReadBool(env, object, "useSurfaceInput", options.surface) ||
         !ReadBool(env, object, "grayscale", options.grayscale) ||
-        !ReadNumber(env, object, "encoderCategory", category) || category > 2 ||
-        !ReadNumber(env, object, "audioMode", audioMode) || audioMode > 2 ||
+        !ReadNumber(env, object, "encoderCategory", category) || category > MAX_ENCODER_CATEGORY ||
+        !ReadNumber(env, object, "audioMode", audioMode) || audioMode > MAX_AUDIO_MODE ||
         !ReadNumber(env, object, "audioTrack", audioTrack)) {
         return false;
     }

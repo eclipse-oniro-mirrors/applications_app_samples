@@ -18,6 +18,8 @@ import { fileIo, picker } from '@kit.CoreFileKit';
 import { TranscodeStatus, TranscodeMeasurement } from 'libtranscoder.so';
 import { RecordingReportStore } from './RecordingReportStore';
 
+const reportTimestamp: Date = new Date(0);
+
 export interface TranscodeHistoryEntry {
   id: string;
   createdAt: number;
@@ -32,7 +34,8 @@ export class TranscodeFilesModel {
 
   static report(entry: TranscodeHistoryEntry): string {
     const status: TranscodeStatus = entry.status;
-    const lines: string[] = ['AVCodec Transcode · ' + entry.id, new Date(entry.createdAt).toISOString(),
+    reportTimestamp.setTime(entry.createdAt);
+    const lines: string[] = ['AVCodec Transcode · ' + entry.id, reportTimestamp.toISOString(),
       entry.configuration, 'state=' + status.state + ' stage=' + status.stage + ' error=' + status.errorCode,
       status.stage === 'files' ? 'Local file operation failed (private path omitted).' : status.detail,
       'decoder=' + status.decoderName, 'encoder=' + status.encoderName,
@@ -113,8 +116,11 @@ export class TranscodeFilesModel {
     const paths: string[] = await new picker.DocumentViewPicker(context).save({ newFileNames: [entry.id + '.txt'] });
     if (paths.length === 0) { return false; }
     const target: fileIo.File = await fileIo.open(paths[0], fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC);
-    try { await RecordingReportStore.writeAll(target.fd, TranscodeFilesModel.report(entry)); }
-    finally { await fileIo.close(target); }
+    try {
+      await RecordingReportStore.writeAll(target.fd, TranscodeFilesModel.report(entry));
+    } finally {
+      await fileIo.close(target);
+    }
     return true;
   }
 }

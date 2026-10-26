@@ -261,7 +261,7 @@ export class TranscodeModel {
   }
 
   private configuration(): string {
-    return (this.codecIndex === 0 ? 'H.264' : 'H.265') + ' · ' + (this.modeIndex === 0 ? 'Buffer' : 'Surface') +
+    return (this.codecIndex === 0 ? 'H.264' : 'H.265') + ' · ' + (this.modeIndex === 0 ? 'Buffer' : '直连') +
       ' · ' + ([2, 4, 8, 16][this.bitrateIndex] ?? 8) + ' Mbps · gray=' + this.grayscale +
       ' · audio=' + ['copy', 'AAC-LC 128 kbps', 'none'][this.audioMode] + ' · track=' + this.audioTrack;
   }
@@ -278,7 +278,8 @@ export class TranscodeModel {
     try {
       file = await fileIo.open(uri, fileIo.OpenMode.READ_ONLY);
       request.inputFd = file.fd;
-      const result: TranscodeStatus = await transcoder.inspect(request);
+      const inspection: Promise<TranscodeStatus> = transcoder.inspect(request);
+      const result: TranscodeStatus = await inspection;
       const context = ui.getHostContext();
       const available: number = context === undefined ? -1 : await statfs.getFreeSize(context.filesDir);
       if (sequence === this.inspectionSequence && !this.disposed) {
@@ -295,7 +296,11 @@ export class TranscodeModel {
         this.notice = JSON.stringify(error);
       }
     } finally {
-      if (file !== undefined) { await fileIo.close(file).catch((): void => {}); }
+      if (file !== undefined) {
+        try {
+          await fileIo.close(file);
+        } catch (_error) {}
+      }
       if (sequence === this.inspectionSequence) { this.inspecting = false; }
     }
   }
@@ -307,8 +312,7 @@ export class TranscodeModel {
     try {
       const entries: TranscodeHistoryEntry[] = await TranscodeFilesModel.list(context.filesDir + '/transcodes');
       if (sequence === this.historySequence && !this.disposed) { this.history = entries; }
-    }
-    catch (_error) {}
+    } catch (_error) {}
   }
 
   async openHistory(ui: UIContext, entry: TranscodeHistoryEntry): Promise<void> {
@@ -326,9 +330,13 @@ export class TranscodeModel {
     const entry: TranscodeHistoryEntry | undefined = this.activeEntry;
     if (context === undefined || entry === undefined || this.busy || this.exporting) { return; }
     this.exporting = true;
-    try { await TranscodeFilesModel.export(context, entry); }
-    catch (error) { this.notice = JSON.stringify(error); }
-    finally { this.exporting = false; }
+    try {
+      await TranscodeFilesModel.export(context, entry);
+    } catch (error) {
+      this.notice = JSON.stringify(error);
+    } finally {
+      this.exporting = false;
+    }
   }
 
   async clearHistory(ui: UIContext): Promise<void> {
@@ -356,7 +364,11 @@ export class TranscodeModel {
       this.activeEntry = undefined;
       this.status = idleTranscodeStatus();
       this.notice = '';
-    } catch (error) { this.notice = JSON.stringify(error); }
-    finally { this.exporting = false; MediaFileActivity.endCleanup(); }
+    } catch (error) {
+      this.notice = JSON.stringify(error);
+    } finally {
+      this.exporting = false;
+      MediaFileActivity.endCleanup();
+    }
   }
 }

@@ -23,7 +23,27 @@ namespace {
 constexpr int32_t AAC_SAMPLES = 1024;
 constexpr int32_t PCM_BYTES = 2;
 constexpr int64_t AAC_BITRATE = 128000;
+constexpr int32_t MAX_CHANNELS = 2;
+constexpr int32_t MAX_SAMPLE_RATE = 96000;
+constexpr int64_t US_PER_SECOND = 1000000;
+constexpr int32_t SYNC_MODE_ENABLED = 1;
+constexpr int32_t ADTS_DISABLED = 0;
 using Format = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>;
+
+bool ConfigureDecoderFormat(OH_AVFormat *source)
+{
+    return OH_AVFormat_SetIntValue(source, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, SAMPLE_S16LE) &&
+        OH_AVFormat_SetIntValue(source, OH_MD_KEY_ENABLE_SYNC_MODE, SYNC_MODE_ENABLED);
+}
+
+bool ConfigureEncoderFormat(OH_AVFormat *encoded)
+{
+    return OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, SAMPLE_S16LE) &&
+        OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_ENABLE_SYNC_MODE, SYNC_MODE_ENABLED) &&
+        OH_AVFormat_SetLongValue(encoded, OH_MD_KEY_BITRATE, AAC_BITRATE) &&
+        OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_PROFILE, AAC_PROFILE_LC) &&
+        OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_AAC_IS_ADTS, ADTS_DISABLED);
+}
 }
 
 bool TranscodeAudioPipeline::Check(int32_t result, const char *operation)
@@ -31,17 +51,56 @@ bool TranscodeAudioPipeline::Check(int32_t result, const char *operation)
     return result == AV_ERR_OK || error_(operation, result);
 }
 
+int64_t TranscodeAudioPipeline::TargetBitrate()
+{
+    return AAC_BITRATE;
+}
+
+bool TranscodeAudioPipeline::ReadSourceFormat(OH_AVFormat *source, const char *&mime)
+{
+    if (!OH_AVFormat_GetStringValue(source, OH_MD_KEY_CODEC_MIME, &mime) || mime == nullptr ||
+        !OH_AVFormat_GetIntValue(source, OH_MD_KEY_AUD_CHANNEL_COUNT, &channels_) ||
+        !OH_AVFormat_GetIntValue(source, OH_MD_KEY_AUD_SAMPLE_RATE, &sampleRate_) ||
+        channels_ < 1 || channels_ > MAX_CHANNELS || sampleRate_ <= 0 || sampleRate_ > MAX_SAMPLE_RATE) {
+        return error_("AAC transcode requires a valid mono/stereo audio track", -1);
+    }
+    return true;
+}
+
+bool TranscodeAudioPipeline::ConfigureFormats(OH_AVFormat *source, OH_AVFormat *encoded)
+{
+    if (!ConfigureDecoderFormat(source) || !ConfigureEncoderFormat(encoded)) {
+        return error_("Build audio decoder/AAC encoder format", -1);
+    }
+    return Check(OH_AudioCodec_Configure(decoder_, source), "Configure audio decoder") &&
+        Check(OH_AudioCodec_Configure(encoder_, encoded), "Configure AAC encoder");
+}
+
+bool TranscodeAudioPipeline::PrepareCodecs()
+{
+    return Check(OH_AudioCodec_Prepare(decoder_), "Prepare audio decoder") &&
+        Check(OH_AudioCodec_Prepare(encoder_), "Prepare AAC encoder");
+}
+
+bool TranscodeAudioPipeline::StartCodecs()
+{
+    if (!Check(OH_AudioCodec_Start(encoder_), "Start AAC encoder")) {
+        return false;
+    }
+    encoderStarted_ = true;
+    if (!Check(OH_AudioCodec_Start(decoder_), "Start audio decoder")) {
+        return false;
+    }
+    decoderStarted_ = true;
+    return true;
+}
+
 bool TranscodeAudioPipeline::Configure(OH_AVFormat *source, OH_AVDemuxer *demuxer, int32_t track)
 {
     demuxer_ = demuxer;
     track_ = track;
     const char *mime = nullptr;
-    if (!OH_AVFormat_GetStringValue(source, OH_MD_KEY_CODEC_MIME, &mime) || mime == nullptr ||
-        !OH_AVFormat_GetIntValue(source, OH_MD_KEY_AUD_CHANNEL_COUNT, &channels_) ||
-        !OH_AVFormat_GetIntValue(source, OH_MD_KEY_AUD_SAMPLE_RATE, &sampleRate_) ||
-        channels_ < 1 || channels_ > 2 || sampleRate_ <= 0 || sampleRate_ > 96000) {
-        return error_("AAC transcode requires a valid mono/stereo audio track", -1);
-    }
+    if (!ReadSourceFormat(source, mime)) { return false; }
     decoder_ = OH_AudioCodec_CreateByMime(mime, false);
     encoder_ = OH_AudioCodec_CreateByMime(OH_AVCODEC_MIMETYPE_AUDIO_AAC, true);
     Format encoded(OH_AVFormat_CreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, sampleRate_, channels_),
@@ -49,23 +108,9 @@ bool TranscodeAudioPipeline::Configure(OH_AVFormat *source, OH_AVDemuxer *demuxe
     if (decoder_ == nullptr || encoder_ == nullptr || encoded == nullptr) {
         return error_("Create audio decoder/AAC encoder", -1);
     }
-    if (!OH_AVFormat_SetIntValue(source, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, SAMPLE_S16LE) ||
-        !OH_AVFormat_SetIntValue(source, OH_MD_KEY_ENABLE_SYNC_MODE, 1) ||
-        !OH_AVFormat_SetIntValue(encoded.get(), OH_MD_KEY_AUDIO_SAMPLE_FORMAT, SAMPLE_S16LE) ||
-        !OH_AVFormat_SetIntValue(encoded.get(), OH_MD_KEY_ENABLE_SYNC_MODE, 1) ||
-        !OH_AVFormat_SetLongValue(encoded.get(), OH_MD_KEY_BITRATE, AAC_BITRATE) ||
-        !OH_AVFormat_SetIntValue(encoded.get(), OH_MD_KEY_PROFILE, AAC_PROFILE_LC) ||
-        !OH_AVFormat_SetIntValue(encoded.get(), OH_MD_KEY_AAC_IS_ADTS, 0)) {
-        return error_("Build audio decoder/AAC encoder format", -1);
+    if (!ConfigureFormats(source, encoded.get()) || !PrepareCodecs() || !StartCodecs()) {
+        return false;
     }
-    if (!Check(OH_AudioCodec_Configure(decoder_, source), "Configure audio decoder") ||
-        !Check(OH_AudioCodec_Configure(encoder_, encoded.get()), "Configure AAC encoder") ||
-        !Check(OH_AudioCodec_Prepare(decoder_), "Prepare audio decoder") ||
-        !Check(OH_AudioCodec_Prepare(encoder_), "Prepare AAC encoder") ||
-        !Check(OH_AudioCodec_Start(encoder_), "Start AAC encoder")) { return false; }
-    encoderStarted_ = true;
-    if (!Check(OH_AudioCodec_Start(decoder_), "Start audio decoder")) { return false; }
-    decoderStarted_ = true;
     frame_.reserve(static_cast<size_t>(AAC_SAMPLES) * channels_ * PCM_BYTES);
     return true;
 }
@@ -109,7 +154,10 @@ bool TranscodeAudioPipeline::Decode(bool &advanced)
     if (decodedDone_ || pcm_ != nullptr) { return true; }
     const int32_t result = OH_AudioCodec_QueryOutputBuffer(decoder_, &pcmIndex_, 0);
     if (result == AV_ERR_TRY_AGAIN_LATER) { return true; }
-    if (result == AV_ERR_STREAM_CHANGED) { advanced = true; return ValidatePcm(); }
+    if (result == AV_ERR_STREAM_CHANGED) {
+        advanced = true;
+        return ValidatePcm();
+    }
     if (!Check(result, "Query decoded PCM")) { return false; }
     pcm_ = OH_AudioCodec_GetOutputBuffer(decoder_, pcmIndex_);
     if (pcm_ == nullptr || !Check(OH_AVBuffer_GetBufferAttr(pcm_, &pcmAttr_), "Read PCM attributes")) {
@@ -137,7 +185,7 @@ bool TranscodeAudioPipeline::Encode(bool &advanced)
             if (address == nullptr) { return error_("Read PCM address", -1); }
             if (frame_.empty()) {
                 framePts_ = pcmAttr_.pts + static_cast<int64_t>(pcmConsumed_ / (channels_ * PCM_BYTES)) *
-                    1000000 / sampleRate_;
+                    US_PER_SECOND / sampleRate_;
             }
             frame_.insert(frame_.end(), address + pcmAttr_.offset + pcmConsumed_,
                 address + pcmAttr_.offset + pcmConsumed_ + count);
@@ -186,7 +234,11 @@ bool TranscodeAudioPipeline::Drain(OH_AVMuxer *muxer, int32_t muxTrack, bool &ad
     uint32_t index = 0;
     const int32_t result = OH_AudioCodec_QueryOutputBuffer(encoder_, &index, 0);
     if (result == AV_ERR_TRY_AGAIN_LATER) { return true; }
-    if (result == AV_ERR_STREAM_CHANGED) { ready_ = true; advanced = true; return true; }
+    if (result == AV_ERR_STREAM_CHANGED) {
+        ready_ = true;
+        advanced = true;
+        return true;
+    }
     if (!Check(result, "Query AAC output")) { return false; }
     OH_AVBuffer *buffer = OH_AudioCodec_GetOutputBuffer(encoder_, index);
     OH_AVCodecBufferAttr attr {};

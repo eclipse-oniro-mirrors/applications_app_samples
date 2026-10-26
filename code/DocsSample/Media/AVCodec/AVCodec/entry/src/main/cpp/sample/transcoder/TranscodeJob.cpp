@@ -41,6 +41,22 @@ constexpr double DEFAULT_FRAME_RATE = 30;
 constexpr int32_t I_FRAME_INTERVAL_MS = 2000;
 constexpr double RUNNING_PROGRESS_LIMIT = 99;
 constexpr double COMPLETE_PROGRESS = 100;
+constexpr int32_t AUDIO_MODE_AAC = 1;
+constexpr int32_t AUDIO_MODE_NONE = 2;
+constexpr int32_t AUDIO_MODE_COPY = 0;
+constexpr int32_t MAX_AUDIO_CHANNELS = 2;
+constexpr int32_t MAX_AUDIO_SAMPLE_RATE = 96000;
+constexpr int64_t FALLBACK_AUDIO_BITRATE = 192000;
+constexpr int64_t STORAGE_RESERVE_BYTES = 64LL * 1024 * 1024;
+constexpr int64_t MS_PER_SECOND = 1000;
+constexpr int64_t US_PER_SECOND = 1000000;
+constexpr int64_t US_PER_MS = US_PER_SECOND / MS_PER_SECOND;
+constexpr int64_t DIAGNOSTIC_INTERVAL_MS = 250;
+constexpr int32_t YUV420_COMPONENTS = 3;
+constexpr int32_t YUV420_SUBSAMPLING = 2;
+constexpr double BITS_PER_BYTE = 8;
+constexpr double STORAGE_ESTIMATE_MARGIN = 1.15;
+using TranscodeMetrics::WaitChannel;
 } // namespace
 
 TranscodeJob::TranscodeJob(TranscodeOptions options) : options_(std::move(options)) {}
@@ -95,7 +111,7 @@ bool TranscodeJob::ReadTracks(int32_t trackCount)
         if (type == MEDIA_TYPE_VID && videoTrack_ < 0) {
             videoTrack_ = index;
             videoFormat_ = std::move(track);
-        } else if (type == MEDIA_TYPE_AUD && audioTrack_ < 0 && options_.audioMode != 2 &&
+        } else if (type == MEDIA_TYPE_AUD && audioTrack_ < 0 && options_.audioMode != AUDIO_MODE_NONE &&
             (options_.audioTrack == 0 || options_.audioTrack == index + 1)) {
             audioTrack_ = index;
             audioFormat_ = std::move(track);
@@ -150,6 +166,11 @@ bool TranscodeJob::OpenSource()
     if (source_ == nullptr) {
         return Fail("Create media source");
     }
+    return ReadSourceMetadata() && ReadVideoProperties() && ValidateSelectedAudioTrack();
+}
+
+bool TranscodeJob::ReadSourceMetadata()
+{
     Format sourceFormat(OH_AVSource_GetSourceFormat(source_), OH_AVFormat_Destroy);
     if (sourceFormat == nullptr) {
         return Fail("Read media source description");
@@ -157,9 +178,11 @@ bool TranscodeJob::OpenSource()
     int32_t trackCount = 0;
     OH_AVFormat_GetIntValue(sourceFormat.get(), OH_MD_KEY_TRACK_COUNT, &trackCount);
     OH_AVFormat_GetLongValue(sourceFormat.get(), OH_MD_KEY_DURATION, &durationUs_);
-    if (!ReadTracks(trackCount)) {
-        return false;
-    }
+    return ReadTracks(trackCount);
+}
+
+bool TranscodeJob::ReadVideoProperties()
+{
     if (videoFormat_ == nullptr || !OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_WIDTH, &sourceWidth_) ||
         !OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_HEIGHT, &sourceHeight_) ||
         !TranscodeFrames::FitSize(sourceWidth_, sourceHeight_, options_.surface ? 0 : options_.longEdge, targetWidth_,
@@ -168,9 +191,6 @@ bool TranscodeJob::OpenSource()
     }
     if (!ValidateSourceColor()) {
         return false;
-    }
-    if (options_.audioMode != 2 && options_.audioTrack > 0 && audioTrack_ < 0) {
-        return Fail("Selected audio track is unavailable");
     }
     OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_ROTATION, &rotation_);
     OH_AVFormat_GetDoubleValue(videoFormat_.get(), OH_MD_KEY_FRAME_RATE, &frameRate_);
@@ -192,6 +212,14 @@ bool TranscodeJob::OpenSource()
     return true;
 }
 
+bool TranscodeJob::ValidateSelectedAudioTrack()
+{
+    if (options_.audioMode != AUDIO_MODE_NONE && options_.audioTrack > 0 && audioTrack_ < 0) {
+        return Fail("Selected audio track is unavailable");
+    }
+    return true;
+}
+
 bool TranscodeJob::InitializeDemuxer()
 {
     demuxer_ = OH_AVDemuxer_CreateWithSource(source_);
@@ -203,7 +231,7 @@ bool TranscodeJob::InitializeDemuxer()
             return false;
         }
         audioDone_ = false;
-        if (options_.audioMode == 1) {
+        if (options_.audioMode == AUDIO_MODE_AAC) {
             audioPipeline_ = std::make_unique<TranscodeAudioPipeline>(
                 [this](const char *operation, int32_t result) { return Fail(operation, result); });
             if (!audioPipeline_->Configure(audioFormat_.get(), demuxer_, audioTrack_)) { return false; }
@@ -296,7 +324,7 @@ bool TranscodeJob::InspectCodecs()
         static_cast<int32_t>(std::ceil(frameRate_)))) {
         return Fail("Decoder does not support the source size/frame-rate combination");
     }
-    if (options_.audioMode == 1 && audioFormat_ != nullptr && !InspectAudio()) { return false; }
+    if (options_.audioMode == AUDIO_MODE_AAC && audioFormat_ != nullptr && !InspectAudio()) { return false; }
     {
         std::lock_guard<std::mutex> lock(snapshotMutex_);
         snapshot_.decoderName = decoderName;
@@ -338,13 +366,12 @@ bool TranscodeJob::CheckStorage(bool initial)
     if (!initial && now - storageCheckedAt_ < std::chrono::seconds(1)) { return true; }
     struct statvfs space {};
     if (fstatvfs(options_.outputFd, &space) != 0) { return Fail("Query output storage", errno); }
-    constexpr int64_t RESERVE_BYTES = 64LL * 1024 * 1024;
     const uint64_t freeBytes = static_cast<uint64_t>(space.f_bavail) * space.f_frsize;
-    const double seconds = durationUs_ > 0 ? durationUs_ / 1000000.0 : -1;
+    const double seconds = durationUs_ > 0 ? static_cast<double>(durationUs_) / US_PER_SECOND : -1;
     int64_t audioBitrate = 0;
     if (audioFormat_ != nullptr) { OH_AVFormat_GetLongValue(audioFormat_.get(), OH_MD_KEY_BITRATE, &audioBitrate); }
     const double estimate = seconds > 0 ? seconds * (options_.bitrate + std::max<int64_t>(audioBitrate,
-        audioTrack_ >= 0 ? 192000 : 0)) / 8 * 1.15 : -1;
+        audioTrack_ >= 0 ? FALLBACK_AUDIO_BITRATE : 0)) / BITS_PER_BYTE * STORAGE_ESTIMATE_MARGIN : -1;
     {
         std::lock_guard<std::mutex> lock(snapshotMutex_);
         snapshot_.availableBytes = static_cast<int64_t>(freeBytes);
@@ -352,7 +379,8 @@ bool TranscodeJob::CheckStorage(bool initial)
             static_cast<int64_t>(estimate) : -1;
     }
     storageCheckedAt_ = now;
-    if (freeBytes < RESERVE_BYTES || (initial && estimate > 0 && estimate + RESERVE_BYTES > freeBytes)) {
+    if (freeBytes < STORAGE_RESERVE_BYTES ||
+        (initial && estimate > 0 && estimate + STORAGE_RESERVE_BYTES > freeBytes)) {
         return Fail("Insufficient output storage (64 MiB reserve; VBR size is estimated)");
     }
     return true;
@@ -366,7 +394,7 @@ bool TranscodeJob::InspectAudio()
     if (!OH_AVFormat_GetStringValue(audioFormat_.get(), OH_MD_KEY_CODEC_MIME, &mime) || mime == nullptr ||
         !OH_AVFormat_GetIntValue(audioFormat_.get(), OH_MD_KEY_AUD_SAMPLE_RATE, &rate) ||
         !OH_AVFormat_GetIntValue(audioFormat_.get(), OH_MD_KEY_AUD_CHANNEL_COUNT, &channels) ||
-        channels < 1 || channels > 2 || rate <= 0 || rate > 96000 ||
+        channels < 1 || channels > MAX_AUDIO_CHANNELS || rate <= 0 || rate > MAX_AUDIO_SAMPLE_RATE ||
         OH_AVCodec_GetCapability(mime, false) == nullptr) {
         return Fail("AAC transcode requires an available decoder and a valid mono/stereo source");
     }
@@ -379,7 +407,8 @@ bool TranscodeJob::InspectAudio()
         OH_AVCapability_GetAudioSupportedSampleRates(encoder, &rates, &count) != AV_ERR_OK || rates == nullptr ||
         std::find(rates, rates + count, rate) == rates + count ||
         OH_AVCapability_GetEncoderBitrateRange(encoder, &range) != AV_ERR_OK ||
-        128000 < range.minVal || 128000 > range.maxVal) {
+        TranscodeAudioPipeline::TargetBitrate() < range.minVal ||
+        TranscodeAudioPipeline::TargetBitrate() > range.maxVal) {
         return Fail("AAC encoder does not support the source sample rate/channels or 128 kbps");
     }
     return true;
@@ -437,12 +466,20 @@ bool TranscodeJob::FeedDecoder(bool &advanced)
     }
     OH_AVBuffer *buffer = OH_VideoDecoder_GetInputBuffer(decoder_, index);
     OH_AVCodecBufferAttr attr{};
-    if (buffer == nullptr ||
-        !Check(diagnostics_.Measure(TranscodeMetrics::Stage::DEMUX, [&] {
-            return OH_AVDemuxer_ReadSampleBuffer(demuxer_, videoTrack_, buffer); }), "Read compressed video") ||
-        !Check(OH_AVBuffer_GetBufferAttr(buffer, &attr), "Read compressed video attributes") ||
-        !Check(diagnostics_.Measure(TranscodeMetrics::Stage::DECODE, [&] {
-            return OH_VideoDecoder_PushInputBuffer(decoder_, index); }), "Submit decoder input")) {
+    if (buffer == nullptr) {
+        return Fail("Get decoder input Buffer");
+    }
+    const int32_t readResult = diagnostics_.Measure(TranscodeMetrics::Stage::DEMUX, [&] {
+            return OH_AVDemuxer_ReadSampleBuffer(demuxer_, videoTrack_, buffer);
+    });
+    if (!Check(readResult, "Read compressed video") ||
+        !Check(OH_AVBuffer_GetBufferAttr(buffer, &attr), "Read compressed video attributes")) {
+        return Fail("Read or submit decoder input");
+    }
+    const int32_t submitResult = diagnostics_.Measure(TranscodeMetrics::Stage::DECODE, [&] {
+            return OH_VideoDecoder_PushInputBuffer(decoder_, index);
+    });
+    if (!Check(submitResult, "Submit decoder input")) {
         return Fail("Read or submit decoder input");
     }
     decoderInputDone_ = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
@@ -483,7 +520,7 @@ bool TranscodeJob::DrainDecoder(bool &advanced)
         return true;
     }
     const int32_t result = OH_VideoDecoder_QueryOutputBuffer(decoder_, &pendingDecodedIndex_, POLL_TIMEOUT_US);
-    diagnostics_.Availability(0, result != AV_ERR_TRY_AGAIN_LATER);
+    diagnostics_.Availability(WaitChannel::DECODER_OUTPUT, result != AV_ERR_TRY_AGAIN_LATER);
     if (result == AV_ERR_TRY_AGAIN_LATER) {
         return true;
     }
@@ -550,7 +587,8 @@ bool TranscodeJob::ProcessBufferFrame(OH_AVBuffer *input, OH_AVCodecBufferAttr &
     attr.size = static_cast<int32_t>(TranscodeFrames::RequiredBytes(encodedLayout_));
     {
         std::lock_guard<std::mutex> lock(snapshotMutex_);
-        snapshot_.copiedBytes += static_cast<int64_t>(encodedLayout_.width) * encodedLayout_.height * 3 / 2;
+        snapshot_.copiedBytes += static_cast<int64_t>(encodedLayout_.width) * encodedLayout_.height *
+            YUV420_COMPONENTS / YUV420_SUBSAMPLING;
     }
     return true;
 }
@@ -572,7 +610,7 @@ bool TranscodeJob::SubmitBufferFrame(bool eos, bool sendEmptyEos, bool &advanced
 {
     uint32_t index = 0;
     const int32_t result = OH_VideoEncoder_QueryInputBuffer(encoder_, &index, POLL_TIMEOUT_US);
-    diagnostics_.Availability(1, result != AV_ERR_TRY_AGAIN_LATER);
+    diagnostics_.Availability(WaitChannel::ENCODER_INPUT, result != AV_ERR_TRY_AGAIN_LATER);
     if (result == AV_ERR_TRY_AGAIN_LATER) {
         return true;
     }
@@ -596,9 +634,13 @@ bool TranscodeJob::SubmitBufferFrame(bool eos, bool sendEmptyEos, bool &advanced
     if (eos && !hasFrame) {
         attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
     }
-    if (!Check(OH_AVBuffer_SetBufferAttr(input, &attr), "Set encoder input attributes") ||
-        !Check(diagnostics_.Measure(TranscodeMetrics::Stage::ENCODE, [&] {
-            return OH_VideoEncoder_PushInputBuffer(encoder_, index); }), "Submit processed Buffer to encoder")) {
+    if (!Check(OH_AVBuffer_SetBufferAttr(input, &attr), "Set encoder input attributes")) {
+        return false;
+    }
+    const int32_t submitResult = diagnostics_.Measure(TranscodeMetrics::Stage::ENCODE, [&] {
+            return OH_VideoEncoder_PushInputBuffer(encoder_, index);
+    });
+    if (!Check(submitResult, "Submit processed Buffer to encoder")) {
         return false;
     }
     if (pendingDecoded_ != nullptr &&
@@ -620,7 +662,7 @@ bool TranscodeJob::DrainEncoder(bool &advanced)
     }
     uint32_t index = 0;
     const int32_t result = OH_VideoEncoder_QueryOutputBuffer(encoder_, &index, POLL_TIMEOUT_US);
-    diagnostics_.Availability(2, result != AV_ERR_TRY_AGAIN_LATER);
+    diagnostics_.Availability(WaitChannel::ENCODER_OUTPUT, result != AV_ERR_TRY_AGAIN_LATER);
     if (result == AV_ERR_TRY_AGAIN_LATER) {
         return true;
     }
@@ -638,14 +680,23 @@ bool TranscodeJob::DrainEncoder(bool &advanced)
     }
     bool success = StartMuxer();
     if (success && attr.size > 0) {
-        success = Check(diagnostics_.Measure(TranscodeMetrics::Stage::MUX, [&] {
-            return OH_AVMuxer_WriteSampleBuffer(muxer_, muxVideoTrack_, buffer); }), "Write encoded video to MP4");
+        const int32_t writeResult = diagnostics_.Measure(TranscodeMetrics::Stage::MUX, [&] {
+            return OH_AVMuxer_WriteSampleBuffer(muxer_, muxVideoTrack_, buffer);
+        });
+        success = Check(writeResult, "Write encoded video to MP4");
     }
     const bool returned = Check(OH_VideoEncoder_FreeOutputBuffer(encoder_, index), "Return encoded output");
     if (!success || !returned) {
         return false;
     }
     encoderOutputDone_ = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+    UpdateVideoProgress(attr);
+    advanced = true;
+    return true;
+}
+
+void TranscodeJob::UpdateVideoProgress(const OH_AVCodecBufferAttr &attr)
+{
     if (attr.size > 0 && (attr.flags & AVCODEC_BUFFER_FLAGS_CODEC_DATA) == 0) {
         videoPositionUs_ = std::max(videoPositionUs_, attr.pts);
         std::lock_guard<std::mutex> lock(snapshotMutex_);
@@ -662,15 +713,14 @@ bool TranscodeJob::DrainEncoder(bool &advanced)
                            RUNNING_PROGRESS_LIMIT);
         }
     }
-    advanced = true;
-    return true;
 }
 
 bool TranscodeJob::CopyAudio(bool &advanced)
 {
     if (audioPipeline_ != nullptr) {
-        const bool result = diagnostics_.Measure(TranscodeMetrics::Stage::AUDIO, [&] {
-            return audioPipeline_->Pump(muxStarted_ ? muxer_ : nullptr, muxAudioTrack_, advanced); });
+        const bool result = diagnostics_.Measure(TranscodeMetrics::Stage::AUDIO, [&]() {
+            return audioPipeline_->Pump(muxStarted_ ? muxer_ : nullptr, muxAudioTrack_, advanced);
+        });
         audioDone_ = audioPipeline_->Done();
         return result;
     }
@@ -678,16 +728,20 @@ bool TranscodeJob::CopyAudio(bool &advanced)
         return true;
     }
     OH_AVCodecBufferAttr attr{};
-    if (!Check(diagnostics_.Measure(TranscodeMetrics::Stage::AUDIO, [&] {
-            return OH_AVDemuxer_ReadSampleBuffer(demuxer_, audioTrack_, audioBuffer_); }),
-            "Read original audio sample") ||
+    const int32_t readResult = diagnostics_.Measure(TranscodeMetrics::Stage::AUDIO, [&] {
+            return OH_AVDemuxer_ReadSampleBuffer(demuxer_, audioTrack_, audioBuffer_);
+    });
+    if (!Check(readResult, "Read original audio sample") ||
         !Check(OH_AVBuffer_GetBufferAttr(audioBuffer_, &attr), "Read audio sample attributes")) {
         return false;
     }
-    if (attr.size > 0 &&
-        !Check(diagnostics_.Measure(TranscodeMetrics::Stage::MUX, [&] {
-            return OH_AVMuxer_WriteSampleBuffer(muxer_, muxAudioTrack_, audioBuffer_); }), "Remux original audio")) {
-        return false;
+    if (attr.size > 0) {
+        const int32_t writeResult = diagnostics_.Measure(TranscodeMetrics::Stage::MUX, [&] {
+            return OH_AVMuxer_WriteSampleBuffer(muxer_, muxAudioTrack_, audioBuffer_);
+        });
+        if (!Check(writeResult, "Remux original audio")) {
+            return false;
+        }
     }
     audioPositionUs_ = attr.pts;
     {
@@ -717,7 +771,7 @@ void TranscodeJob::Complete(bool success)
     snapshot_.stage = cancelled_.load() ? "cancelled" : (success ? "complete" : "failed");
     if (snapshot_.state == STATE_FINISHED) {
         snapshot_.progress = COMPLETE_PROGRESS;
-        snapshot_.audioCopied = audioTrack_ >= 0 && options_.audioMode == 0;
+        snapshot_.audioCopied = audioTrack_ >= 0 && options_.audioMode == AUDIO_MODE_COPY;
     }
 }
 
@@ -737,9 +791,9 @@ void TranscodeJob::Run()
     // 输入 EOS 只结束输入；编码输出 EOS 和音轨都处理完，才能停止封装并报告完成。
     while (success && !cancelled_.load() && !(encoderOutputDone_ && audioDone_)) {
         bool advanced = false;
-        success = CheckStorage(false) && DrainEncoder(advanced) && SubmitDecodedFrame(advanced) && DrainDecoder(advanced) &&
-                  FeedDecoder(advanced) && CopyAudio(advanced);
-        if (TranscodeMetrics::Clock::now() - publishedAt_ >= std::chrono::milliseconds(250)) {
+        success = CheckStorage(false) && DrainEncoder(advanced) && SubmitDecodedFrame(advanced) &&
+            DrainDecoder(advanced) && FeedDecoder(advanced) && CopyAudio(advanced);
+        if (TranscodeMetrics::Clock::now() - publishedAt_ >= std::chrono::milliseconds(DIAGNOSTIC_INTERVAL_MS)) {
             PublishDiagnostics();
         }
         if (advanced) {
@@ -757,7 +811,7 @@ void TranscodeJob::Run()
         }
         success = FinalizeOutput();
     }
-    for (size_t channel = 0; channel < 3; ++channel) { diagnostics_.Availability(channel, true); }
+    diagnostics_.FinishWaits();
     PublishDiagnostics();
     Cleanup();
     Complete(success);
@@ -770,13 +824,13 @@ void TranscodeJob::PublishDiagnostics()
     const int64_t fileBytes = fstat(options_.outputFd, &file) == 0 ? file.st_size : 0;
     std::lock_guard<std::mutex> lock(snapshotMutex_);
     snapshot_.elapsedMs = std::chrono::duration<double, std::milli>(now - startedAt_).count();
-    snapshot_.fps = snapshot_.elapsedMs > 0 ? snapshot_.frames * 1000.0 / snapshot_.elapsedMs : 0;
-    snapshot_.speed = snapshot_.elapsedMs > 0 ? videoPositionUs_ / (snapshot_.elapsedMs * 1000) : 0;
-    snapshot_.remainingSeconds = snapshot_.elapsedMs >= 1000 && snapshot_.speed > 0 && durationUs_ > 0 ?
-        std::max(0.0, (durationUs_ - videoPositionUs_) / (1000000.0 * snapshot_.speed)) : -1;
-    snapshot_.decoderWaitMs = diagnostics_.WaitMs(0);
-    snapshot_.encoderInputWaitMs = diagnostics_.WaitMs(1);
-    snapshot_.encoderOutputWaitMs = diagnostics_.WaitMs(2);
+    snapshot_.fps = snapshot_.elapsedMs > 0 ? snapshot_.frames * MS_PER_SECOND / snapshot_.elapsedMs : 0;
+    snapshot_.speed = snapshot_.elapsedMs > 0 ? videoPositionUs_ / (snapshot_.elapsedMs * US_PER_MS) : 0;
+    snapshot_.remainingSeconds = snapshot_.elapsedMs >= MS_PER_SECOND && snapshot_.speed > 0 && durationUs_ > 0 ?
+        std::max(0.0, (durationUs_ - videoPositionUs_) / (US_PER_SECOND * snapshot_.speed)) : -1;
+    snapshot_.decoderWaitMs = diagnostics_.WaitMs(WaitChannel::DECODER_OUTPUT);
+    snapshot_.encoderInputWaitMs = diagnostics_.WaitMs(WaitChannel::ENCODER_INPUT);
+    snapshot_.encoderOutputWaitMs = diagnostics_.WaitMs(WaitChannel::ENCODER_OUTPUT);
     snapshot_.fileBytes = fileBytes;
     snapshot_.audioMode = options_.audioMode;
     if (audioPipeline_ != nullptr) { snapshot_.audioBytes = audioPipeline_->Bytes(); }
