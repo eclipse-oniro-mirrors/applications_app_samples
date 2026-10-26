@@ -1347,7 +1347,8 @@ static napi_value ConvertPlaceholderToFile(napi_env env, napi_callback_info info
 
 // ============================================================================
 // 18a. markFileAsPlaceholder(syncPath, relativePath): number
-//      将普通文件标记为占位符文件（本地文件变为"无内容"状态，按需水合）。
+//      将普通文件标记为完全水合占位符文件（不改变文件的数据与元数据，
+//      若目标已是占位符文件返回OH_CLOUD_DISK_IS_A_PLACEHOLDER）。
 //      OH_CloudDisk_MarkFileAsPlaceholder(const CloudDisk_SyncFolderPath,
 //          const CloudDisk_PathInfo)
 // ============================================================================
@@ -1524,8 +1525,8 @@ static napi_value GetPlaceholderCustomInfo(napi_env env, napi_callback_info info
 
 // ============================================================================
 // 19. dehydrateFile(syncPath, relativePath): number
-//     去水合：将本地有真实内容的文件"瘦身"为只有元数据的占位符文件，
-//     释放本地存储空间（内容仍保留在云侧）。
+//     去水合：将已水合的占位符文件回退为未水合状态，释放本地数据块
+//     （逻辑大小等元数据保留，内容仍保留在云侧）。
 //     OH_CloudDisk_DehydrateFile(const CloudDisk_SyncFolderPath *syncFolderPath,
 //         const CloudDisk_PathInfo *filePath)
 //     注意：本接口的参数是指针！
