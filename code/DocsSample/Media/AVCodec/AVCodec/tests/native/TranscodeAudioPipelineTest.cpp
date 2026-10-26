@@ -51,28 +51,28 @@ const char *OH_MD_KEY_AAC_IS_ADTS = "adts";
 const char *OH_AVCODEC_MIMETYPE_AUDIO_AAC = "audio/mp4a-latm";
 
 namespace {
-constexpr int32_t kChannels = 2;
-constexpr int32_t kSampleRate = 48000;
-constexpr int32_t kInvalidSampleRate = 44100;
-constexpr int32_t kInputChunkSamples = 300;
-constexpr int32_t kSecondChunkSamples = 1300;
-constexpr int32_t kTailChunkSamples = 37;
-constexpr int32_t kPcmBytes = 4;
-constexpr int32_t kEncodedBytes = 8;
-constexpr int32_t kExpectedPacketCount = 2;
-constexpr int32_t kExpectedDestroyed = 10;
-constexpr int32_t kExpectedPaddedSamples = 411;
-constexpr int32_t kMaxTicks = 1000;
-constexpr int32_t kReadyTicks = 100;
-constexpr int32_t kMuxStartTick = 20;
-constexpr int32_t kExpectedBytes = 16;
-constexpr int64_t kFirstPts = 100000;
-constexpr int64_t kSecondPtsMin = 121332;
-constexpr int64_t kSecondPtsMax = 121334;
-constexpr int32_t kOutputQueueLimit = 2;
-constexpr int32_t kQueryFrequency = 3;
-constexpr int32_t kPcmFrameBytes = 4096;
-constexpr int64_t kMicrosecondsPerSecond = 1000000;
+constexpr int32_t K_CHANNELS = 2;
+constexpr int32_t K_SAMPLE_RATE = 48000;
+constexpr int32_t K_INVALID_SAMPLE_RATE = 44100;
+constexpr int32_t K_INPUT_CHUNK_SAMPLES = 300;
+constexpr int32_t K_SECOND_CHUNK_SAMPLES = 1300;
+constexpr int32_t K_TAIL_CHUNK_SAMPLES = 37;
+constexpr int32_t K_PCM_BYTES = 4;
+constexpr int32_t K_ENCODED_BYTES = 8;
+constexpr int32_t K_EXPECTED_PACKET_COUNT = 2;
+constexpr int32_t K_EXPECTED_DESTROYED = 10;
+constexpr int32_t K_EXPECTED_PADDED_SAMPLES = 411;
+constexpr int32_t K_MAX_TICKS = 1000;
+constexpr int32_t K_READY_TICKS = 100;
+constexpr int32_t K_MUX_START_TICK = 20;
+constexpr int32_t K_EXPECTED_BYTES = 16;
+constexpr int64_t K_FIRST_PTS = 100000;
+constexpr int64_t K_SECOND_PTS_MIN = 121332;
+constexpr int64_t K_SECOND_PTS_MAX = 121334;
+constexpr int32_t K_OUTPUT_QUEUE_LIMIT = 2;
+constexpr int32_t K_QUERY_FREQUENCY = 3;
+constexpr int32_t K_PCM_FRAME_BYTES = 4096;
+constexpr int64_t K_MICROSECONDS_PER_SECOND = 1000000;
 bool g_sendFormatChange = true;
 bool g_invalidLayout = false;
 bool g_failWrite = false;
@@ -96,9 +96,9 @@ void RecordEncoderInput(OH_AVCodec *codec)
         ++g_inputEos;
         return;
     }
-    Require(codec->input.attr.size == kPcmFrameBytes, "PCM frame size");
+    Require(codec->input.attr.size == K_PCM_FRAME_BYTES, "PCM frame size");
     encodedPts.push_back(codec->input.attr.pts);
-    for (int index = 0; index < codec->input.attr.size; index += kPcmBytes) {
+    for (int index = 0; index < codec->input.attr.size; index += K_PCM_BYTES) {
         if (codec->input.data[index] == 0) {
             ++g_paddedSamples;
         }
@@ -109,7 +109,7 @@ void AddOutput(OH_AVCodec *codec)
 {
     OH_AVBuffer output = codec->input;
     if (codec->encoder && output.attr.size > 0) {
-        output.attr.size = kEncodedBytes;
+        output.attr.size = K_ENCODED_BYTES;
     }
     const auto id = codec->sequence++;
     codec->outputs.emplace(id, std::move(output));
@@ -203,13 +203,13 @@ extern "C" OH_AVFormat *FakeAudioCodecGetOutputDescription(OH_AVCodec *)
 extern "C" OH_AVFormat *FakeAudioCodecGetOutputDescription(OH_AVCodec *)
 {
     return FakeAvFormatCreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC,
-        g_invalidLayout ? kInvalidSampleRate : kSampleRate, kChannels);
+        g_invalidLayout ? K_INVALID_SAMPLE_RATE : K_SAMPLE_RATE, K_CHANNELS);
 }
 extern "C" OH_AVErrCode FakeAudioCodecQueryInputBuffer(OH_AVCodec *codec, uint32_t *index, int64_t)
     __asm__("OH_AudioCodec_QueryInputBuffer");
 extern "C" OH_AVErrCode FakeAudioCodecQueryInputBuffer(OH_AVCodec *codec, uint32_t *index, int64_t)
 {
-    if (++codec->calls % kQueryFrequency == 0 || codec->outputs.size() >= kOutputQueueLimit) {
+    if (++codec->calls % K_QUERY_FREQUENCY == 0 || codec->outputs.size() >= K_OUTPUT_QUEUE_LIMIT) {
         return AV_ERR_TRY_AGAIN_LATER;
     }
     *index = 0;
@@ -286,14 +286,14 @@ extern "C" OH_AVErrCode FakeAvDemuxerReadSampleBuffer(OH_AVDemuxer *demuxer, uin
     __asm__("OH_AVDemuxer_ReadSampleBuffer");
 extern "C" OH_AVErrCode FakeAvDemuxerReadSampleBuffer(OH_AVDemuxer *demuxer, uint32_t, OH_AVBuffer *buffer)
 {
-    constexpr int chunks[] = {kInputChunkSamples, kSecondChunkSamples, kTailChunkSamples};
+    constexpr int chunks[] = {K_INPUT_CHUNK_SAMPLES, K_SECOND_CHUNK_SAMPLES, K_TAIL_CHUNK_SAMPLES};
     buffer->attr = {};
-    buffer->attr.pts = kFirstPts + static_cast<int64_t>(demuxer->samples) * kMicrosecondsPerSecond / kSampleRate;
+    buffer->attr.pts = K_FIRST_PTS + static_cast<int64_t>(demuxer->samples) * K_MICROSECONDS_PER_SECOND / K_SAMPLE_RATE;
     if (demuxer->chunk == std::size(chunks)) {
         buffer->attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
         return AV_ERR_OK;
     }
-    buffer->attr.size = chunks[demuxer->chunk] * kPcmBytes;
+    buffer->attr.size = chunks[demuxer->chunk] * K_PCM_BYTES;
     std::fill(buffer->data.begin(), buffer->data.end(), 1);
     demuxer->samples += chunks[demuxer->chunk++];
     return AV_ERR_OK;
@@ -318,7 +318,7 @@ void RunSuccess(bool formatEvent)
     OH_AVMuxer muxer;
     bool failed = false;
     auto source = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>(
-        FakeAvFormatCreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, kSampleRate, kChannels),
+        FakeAvFormatCreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, K_SAMPLE_RATE, K_CHANNELS),
         FakeAvFormatDestroy);
     {
         TranscodeAudioPipeline pipeline([&failed](const char *, int32_t) {
@@ -326,17 +326,17 @@ void RunSuccess(bool formatEvent)
             return false;
         });
         Require(pipeline.Configure(source.get(), &demuxer, 1), "Configure success pipeline");
-        for (int tick = 0; tick < kMaxTicks && !pipeline.Done(); ++tick) {
+        for (int tick = 0; tick < K_MAX_TICKS && !pipeline.Done(); ++tick) {
             bool advanced = false;
-            Require(pipeline.Pump(pipeline.Ready() && tick > kMuxStartTick ? &muxer : nullptr, 1, advanced),
+            Require(pipeline.Pump(pipeline.Ready() && tick > K_MUX_START_TICK ? &muxer : nullptr, 1, advanced),
                 "Pump success pipeline");
         }
-        Require(pipeline.Done() && !failed && muxer.packets == kExpectedPacketCount && g_inputEos == 1,
+        Require(pipeline.Done() && !failed && muxer.packets == K_EXPECTED_PACKET_COUNT && g_inputEos == 1,
             "Complete success pipeline");
-        Require(g_paddedSamples == kExpectedPaddedSamples && encodedPts.size() == kExpectedPacketCount &&
-            encodedPts[0] == kFirstPts, "PCM padding and first PTS");
-        Require(encodedPts[1] >= kSecondPtsMin && encodedPts[1] <= kSecondPtsMax, "Second PTS");
-        Require(pipeline.Bytes() == kExpectedBytes, "Encoded byte count");
+        Require(g_paddedSamples == K_EXPECTED_PADDED_SAMPLES && encodedPts.size() == K_EXPECTED_PACKET_COUNT &&
+            encodedPts[0] == K_FIRST_PTS, "PCM padding and first PTS");
+        Require(encodedPts[1] >= K_SECOND_PTS_MIN && encodedPts[1] <= K_SECOND_PTS_MAX, "Second PTS");
+        Require(pipeline.Bytes() == K_EXPECTED_BYTES, "Encoded byte count");
     }
 }
 
@@ -349,7 +349,7 @@ void RunInterrupted(bool writeFailure)
     OH_AVMuxer muxer;
     bool failed = false;
     auto source = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>(
-        FakeAvFormatCreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, kSampleRate, kChannels),
+        FakeAvFormatCreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, K_SAMPLE_RATE, K_CHANNELS),
         FakeAvFormatDestroy);
     {
         TranscodeAudioPipeline pipeline([&failed](const char *, int32_t) {
@@ -357,7 +357,7 @@ void RunInterrupted(bool writeFailure)
             return false;
         });
         Require(pipeline.Configure(source.get(), &demuxer, 1), "Configure interrupted pipeline");
-        for (int tick = 0; tick < kReadyTicks && !pipeline.Ready(); ++tick) {
+        for (int tick = 0; tick < K_READY_TICKS && !pipeline.Ready(); ++tick) {
             bool advanced = false;
             Require(pipeline.Pump(nullptr, 1, advanced), "Pump interrupted pipeline");
         }
@@ -389,15 +389,15 @@ int main()
             return false;
         });
         auto source = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>(
-            FakeAvFormatCreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, kSampleRate, kChannels),
+            FakeAvFormatCreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, K_SAMPLE_RATE, K_CHANNELS),
             FakeAvFormatDestroy);
         Require(pipeline.Configure(source.get(), &demuxer, 1), "Configure invalid layout pipeline");
-        for (int tick = 0; tick < kReadyTicks && !failed; ++tick) {
+        for (int tick = 0; tick < K_READY_TICKS && !failed; ++tick) {
             bool advanced = false;
             pipeline.Pump(nullptr, 1, advanced);
         }
         Require(failed, "Invalid layout is rejected");
     }
-    Require(g_destroyed == kExpectedDestroyed && g_returned > 0, "Codec cleanup");
+    Require(g_destroyed == K_EXPECTED_DESTROYED && g_returned > 0, "Codec cleanup");
     std::cout << "AAC pipeline checks passed\n";
 }
