@@ -325,7 +325,7 @@ export class PhotoManager implements OutputManager {
 
   // 释放资源。
   async releasePicture(pictureObj : image.Picture) {
-    let funcName = 'Release';
+    let funcName = 'releasePicture';
     if (pictureObj != null) {
       pictureObj.release();
       if (pictureObj.getMainPixelmap() == null) {
