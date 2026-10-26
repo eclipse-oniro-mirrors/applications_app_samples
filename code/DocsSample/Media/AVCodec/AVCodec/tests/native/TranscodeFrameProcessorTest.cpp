@@ -63,6 +63,9 @@ void TestFit()
     Require(FitSize(FULL_HD_WIDTH, FULL_HD_HEIGHT, 0, width, height) &&
         width == FULL_HD_WIDTH && height == FULL_HD_HEIGHT, "Original size");
     Require(!FitSize(0, FULL_HD_HEIGHT, TARGET_EDGE, width, height), "Reject invalid dimensions");
+    Require(!FitSize(FULL_HD_WIDTH, 0, TARGET_EDGE, width, height), "Reject zero height");
+    Require(!FitSize(0, 0, TARGET_EDGE, width, height), "Reject zero source edge");
+    Require(width == FULL_HD_WIDTH && height == FULL_HD_HEIGHT, "Invalid dimensions preserve output size");
 }
 
 void TestChromaAndPadding()

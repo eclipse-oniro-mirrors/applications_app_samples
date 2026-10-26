@@ -158,7 +158,7 @@ struct Recorder {
 
   build() {
     Stack({ alignContent: Alignment.Center }) {
-      XComponent({ id: 'recorderXComponent', type: XComponentType.SURFACE, controller: this.previewController })
+      XComponent({ id: 'recorderXComponent', type: 0, controller: this.previewController })
         .onLoad((): void => { void this.prepare(); })
         .width('100%')
         .height((display.getDefaultDisplaySync().width * this.data.cameraWidth / this.data.cameraHeight) + 'px')

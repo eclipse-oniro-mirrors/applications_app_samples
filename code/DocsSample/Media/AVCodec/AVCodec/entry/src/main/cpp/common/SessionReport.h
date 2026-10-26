@@ -72,7 +72,7 @@ public:
                 return;
             }
         }
-        if (info_.timeline.size() >= MAX_CHANGES) {
+        if (info_.timeline.size() >= maxChanges) {
             return;
         }
         const auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -101,7 +101,7 @@ public:
         const auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
             std::chrono::steady_clock::now() - started_).count();
         changes_.push_back("+" + std::to_string(ms) + " ms " + change);
-        if (changes_.size() > MAX_CHANGES) {
+        if (changes_.size() > maxChanges) {
             changes_.pop_front();
         }
     }
@@ -117,7 +117,7 @@ public:
     }
 
 private:
-    static constexpr size_t MAX_CHANGES = 128;
+    static constexpr size_t maxChanges = 128;
     mutable std::mutex mutex_;
     SessionReportInfo info_;
     std::deque<std::string> changes_;

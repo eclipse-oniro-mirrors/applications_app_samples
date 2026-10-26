@@ -18,36 +18,36 @@
 namespace {
 void AppendCommonRequest(std::ostringstream &text, const SampleInfo &info)
 {
-    text << "codecName=" << (info.codec.codecName.empty() ? "auto" : info.codec.codecName)
-        << "; codecType=" << info.codec.codecType << "; runMode=" << info.codec.codecRunMode
-        << "; sync=" << info.codec.codecSyncMode << "; dump=" << info.output.enableVideoDump
-        << "; dumpMaxMiB=" << info.output.dumpMaxMiB << "; dumpMaxSeconds=" << info.output.dumpMaxSeconds;
+    text << "codecName=" << (info.codec.codecName.empty() ? "auto" : info.codec.codecName) <<
+        "; codecType=" << info.codec.codecType << "; runMode=" << info.codec.codecRunMode <<
+        "; sync=" << info.codec.codecSyncMode << "; dump=" << info.output.enableVideoDump <<
+        "; dumpMaxMiB=" << info.output.dumpMaxMiB << "; dumpMaxSeconds=" << info.output.dumpMaxSeconds;
 }
 
 void AppendRecordingRequest(std::ostringstream &text, const SampleInfo &info)
 {
-    text << "; mime=" << info.video.videoCodecMime << "; input=" << info.video.videoWidth
-        << "x" << info.video.videoHeight << "; fps=" << info.video.frameRate
-        << "; bitrate=" << info.video.bitrate << "; bitrateMode=" << info.video.bitrateMode
-        << "; iFrameInterval=" << info.video.iFrameInterval << "; hdr=" << info.video.isHDRVivid
-        << "; pixelFormat=" << info.video.pixelFormat << "; preprocess=" << info.video.preprocMode
-        << "; crop=" << info.video.cropLeft << "," << info.video.cropTop << ","
-        << info.video.cropRight << "," << info.video.cropBottom
-        << "; downsampling=" << info.video.downsamplingWidth << "x" << info.video.downsamplingHeight
-        << "; dropToFps=" << info.video.dropToFrameRate << "; dualOutput=" << info.output.enableDualOutput
-        << "; secondary=" << info.output.secondaryVideoWidth << "x" << info.output.secondaryVideoHeight
-        << "; container=" << info.output.outputFormat << "; audio=" << info.audio.audioSampleRate
-        << "Hz/" << info.audio.audioChannelCount << "ch/" << info.audio.audioBitRate << "bps";
+    text << "; mime=" << info.video.videoCodecMime << "; input=" << info.video.videoWidth <<
+        "x" << info.video.videoHeight << "; fps=" << info.video.frameRate <<
+        "; bitrate=" << info.video.bitrate << "; bitrateMode=" << info.video.bitrateMode <<
+        "; iFrameInterval=" << info.video.iFrameInterval << "; hdr=" << info.video.isHDRVivid <<
+        "; pixelFormat=" << info.video.pixelFormat << "; preprocess=" << info.video.preprocMode <<
+        "; crop=" << info.video.cropLeft << "," << info.video.cropTop << "," <<
+        info.video.cropRight << "," << info.video.cropBottom <<
+        "; downsampling=" << info.video.downsamplingWidth << "x" << info.video.downsamplingHeight <<
+        "; dropToFps=" << info.video.dropToFrameRate << "; dualOutput=" << info.output.enableDualOutput <<
+        "; secondary=" << info.output.secondaryVideoWidth << "x" << info.output.secondaryVideoHeight <<
+        "; container=" << info.output.outputFormat << "; audio=" << info.audio.audioSampleRate <<
+        "Hz/" << info.audio.audioChannelCount << "ch/" << info.audio.audioBitRate << "bps";
 }
 
 void AppendPlaybackRequest(std::ostringstream &text, const SampleInfo &info)
 {
-    text << "; retainLastFrame=" << info.codec.retainLastFrame
-        << "; lowLatency=" << info.codec.enableLowLatency
-        << "; decodingOrder=" << info.codec.outputInDecodingOrder
-        << "; hdrToBt709=" << info.codec.convertHdrVividToBt709
-        << "; audioLowLatency=" << info.audioPlayback.enableLowLatency
-        << "; volume=" << info.audioPlayback.volume << "; audioTrack=" << info.codec.audioTrackIndex;
+    text << "; retainLastFrame=" << info.codec.retainLastFrame <<
+        "; lowLatency=" << info.codec.enableLowLatency <<
+        "; decodingOrder=" << info.codec.outputInDecodingOrder <<
+        "; hdrToBt709=" << info.codec.convertHdrVividToBt709 <<
+        "; audioLowLatency=" << info.audioPlayback.enableLowLatency <<
+        "; volume=" << info.audioPlayback.volume << "; audioTrack=" << info.codec.audioTrackIndex;
 }
 }
 

@@ -83,13 +83,15 @@ bool FitSize(int32_t sourceWidth, int32_t sourceHeight, int32_t longEdge,
         sourceHeight > MAX_DIMENSION || longEdge < 0) {
         return false;
     }
-    const int32_t sourceEdge = std::max(sourceWidth, sourceHeight);
+    const int32_t sourceEdge = sourceWidth >= sourceHeight ? sourceWidth : sourceHeight;
     if (sourceEdge <= 0) {
         return false;
     }
     const int32_t targetEdge = longEdge == 0 ? sourceEdge : std::min(longEdge, sourceEdge);
-    const int32_t fittedWidth = static_cast<int32_t>(static_cast<int64_t>(sourceWidth) * targetEdge / sourceEdge);
-    const int32_t fittedHeight = static_cast<int32_t>(static_cast<int64_t>(sourceHeight) * targetEdge / sourceEdge);
+    const int64_t widthNumerator = static_cast<int64_t>(sourceWidth) * targetEdge;
+    const int64_t heightNumerator = static_cast<int64_t>(sourceHeight) * targetEdge;
+    const int32_t fittedWidth = static_cast<int32_t>(widthNumerator / sourceEdge);
+    const int32_t fittedHeight = static_cast<int32_t>(heightNumerator / sourceEdge);
     targetWidth = std::max(CHROMA_SUBSAMPLING, fittedWidth & ~1);
     targetHeight = std::max(CHROMA_SUBSAMPLING, fittedHeight & ~1);
     return true;

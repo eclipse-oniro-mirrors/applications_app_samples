@@ -41,6 +41,9 @@ constexpr int64_t TARGET_PTS_US = 5000000;
 constexpr int64_t SUPERSEDED_PTS_US = 6000000;
 constexpr int64_t FAILED_PTS_US = 7000000;
 constexpr int64_t DUMP_BYTES = 4;
+constexpr int64_t OLD_SUBMISSION_DURATION_US = 10;
+constexpr int64_t TARGET_SUBMISSION_DURATION_US = 20;
+constexpr int64_t FAILED_SUBMISSION_DURATION_US = 30;
 void Require(bool condition, const char *message)
 {
     if (!condition) {
@@ -60,10 +63,10 @@ void TestSeekOutputBoundary()
     PlaybackDiagnostics diagnostics;
     diagnostics.Reset();
     diagnostics.BeginSeek(PlaybackDiagnostics::Clock::now(), TARGET_PTS_US);
-    diagnostics.RecordVideoSubmission(OLD_PTS_US, 10);
+    diagnostics.RecordVideoSubmission(OLD_PTS_US, OLD_SUBMISSION_DURATION_US);
     Require(diagnostics.Snapshot().seekFirstOutputUs == -1, "Old worker output must not complete a seek");
     diagnostics.ArmSeekOutput();
-    diagnostics.RecordVideoSubmission(TARGET_PTS_US, 20);
+    diagnostics.RecordVideoSubmission(TARGET_PTS_US, TARGET_SUBMISSION_DURATION_US);
     diagnostics.EndSeek(true);
     const auto snapshot = diagnostics.Snapshot();
     Require(snapshot.seekFirstOutputUs >= 0 && snapshot.seekRebuildUs >= 0, "Seek timing is missing");
@@ -76,7 +79,7 @@ void TestSeekOutputBoundary()
     Require(HasStage(diagnostics.Snapshot(), "seek.superseded"), "Superseded seek is missing");
     diagnostics.ArmSeekOutput();
     diagnostics.EndSeek(false);
-    diagnostics.RecordVideoSubmission(FAILED_PTS_US, 30);
+    diagnostics.RecordVideoSubmission(FAILED_PTS_US, FAILED_SUBMISSION_DURATION_US);
     Require(diagnostics.Snapshot().seekFirstOutputUs == -1, "Failed seek must not accept output");
     Require(HasStage(diagnostics.Snapshot(), "seek.failed"), "Seek failure is missing");
 
@@ -146,7 +149,7 @@ void TestSessionReportLifecycle()
     diagnostics.BeginSeek(PlaybackDiagnostics::Clock::now(), OLD_PTS_US);
     diagnostics.ArmSeekOutput();
     diagnostics.EndSeek(true);
-    diagnostics.RecordVideoSubmission(OLD_PTS_US, 10);
+    diagnostics.RecordVideoSubmission(OLD_PTS_US, OLD_SUBMISSION_DURATION_US);
     diagnostics.RecordEvent("playback.completed");
     const auto snapshot = diagnostics.Snapshot();
     Require(snapshot.sessionId == "playback_test_1" && snapshot.requestedConfiguration == "runMode=3; dump=0" &&
