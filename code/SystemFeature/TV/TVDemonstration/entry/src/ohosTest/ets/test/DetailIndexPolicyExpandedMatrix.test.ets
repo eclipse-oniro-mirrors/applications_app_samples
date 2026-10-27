@@ -1988,3 +1988,568 @@ export default function detailIndexPolicyExpandedMatrixTest(): void {
      * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_10300
      * @tc.name policyExpandedCase093
      * @tc.desc Verify detail policy for index 0, count 1, route 2, stored 1
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase093', 0, (): void => {
+      // Independent literals: index=0, count=1, route=2, stored=1.
+      const index: number = 0;
+      const count: number = 1;
+      const route: number | undefined = 2;
+      const stored: number = 1;
+      expect(isDetailIndexValid(index, count)).assertEqual(true);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(0);
+      expect(hasPreviousDetail(index)).assertEqual(false);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_10400
+     * @tc.name policyExpandedCase094
+     * @tc.desc Verify detail policy for index 1, count 1, route 3, stored 1
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase094', 0, (): void => {
+      // Independent literals: index=1, count=1, route=3, stored=1.
+      const index: number = 1;
+      const count: number = 1;
+      const route: number | undefined = 3;
+      const stored: number = 1;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(0);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_10500
+     * @tc.name policyExpandedCase095
+     * @tc.desc Verify detail policy for index 2, count 2, route 6, stored 1
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase095', 0, (): void => {
+      // Independent literals: index=2, count=2, route=6, stored=1.
+      const index: number = 2;
+      const count: number = 2;
+      const route: number | undefined = 6;
+      const stored: number = 1;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(1);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_10600
+     * @tc.name policyExpandedCase096
+     * @tc.desc Verify detail policy for index 3, count 2, route 7, stored 1
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase096', 0, (): void => {
+      // Independent literals: index=3, count=2, route=7, stored=1.
+      const index: number = 3;
+      const count: number = 2;
+      const route: number | undefined = 7;
+      const stored: number = 1;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(1);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_10700
+     * @tc.name policyExpandedCase097
+     * @tc.desc Verify detail policy for index 4, count 2, route 10, stored 1
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase097', 0, (): void => {
+      // Independent literals: index=4, count=2, route=10, stored=1.
+      const index: number = 4;
+      const count: number = 2;
+      const route: number | undefined = 10;
+      const stored: number = 1;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(1);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_10800
+     * @tc.name policyExpandedCase098
+     * @tc.desc Verify detail policy for index 5, count 2, route 99, stored 2
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase098', 0, (): void => {
+      // Independent literals: index=5, count=2, route=99, stored=2.
+      const index: number = 5;
+      const count: number = 2;
+      const route: number | undefined = 99;
+      const stored: number = 2;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(0);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_10900
+     * @tc.name policyExpandedCase099
+     * @tc.desc Verify detail policy for index 6, count 2, route undefined, stored 2
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase099', 0, (): void => {
+      // Independent literals: index=6, count=2, route=undefined, stored=2.
+      const index: number = 6;
+      const count: number = 2;
+      const route: number | undefined = undefined;
+      const stored: number = 2;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(0);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_11000
+     * @tc.name policyExpandedCase100
+     * @tc.desc Verify detail policy for index 7, count 3, route -2, stored 2
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase100', 0, (): void => {
+      // Independent literals: index=7, count=3, route=-2, stored=2.
+      const index: number = 7;
+      const count: number = 3;
+      const route: number | undefined = -2;
+      const stored: number = 2;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(2);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_11100
+     * @tc.name policyExpandedCase101
+     * @tc.desc Verify detail policy for index 8, count 3, route -1, stored 2
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase101', 0, (): void => {
+      // Independent literals: index=8, count=3, route=-1, stored=2.
+      const index: number = 8;
+      const count: number = 3;
+      const route: number | undefined = -1;
+      const stored: number = 2;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(2);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_11200
+     * @tc.name policyExpandedCase102
+     * @tc.desc Verify detail policy for index 9, count 3, route 0, stored 2
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase102', 0, (): void => {
+      // Independent literals: index=9, count=3, route=0, stored=2.
+      const index: number = 9;
+      const count: number = 3;
+      const route: number | undefined = 0;
+      const stored: number = 2;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(0);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_11300
+     * @tc.name policyExpandedCase103
+     * @tc.desc Verify detail policy for index 99, count 3, route 1, stored 2
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase103', 0, (): void => {
+      // Independent literals: index=99, count=3, route=1, stored=2.
+      const index: number = 99;
+      const count: number = 3;
+      const route: number | undefined = 1;
+      const stored: number = 2;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(1);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(1);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_11400
+     * @tc.name policyExpandedCase104
+     * @tc.desc Verify detail policy for index -2, count 3, route 2, stored 2
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase104', 0, (): void => {
+      // Independent literals: index=-2, count=3, route=2, stored=2.
+      const index: number = -2;
+      const count: number = 3;
+      const route: number | undefined = 2;
+      const stored: number = 2;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(2);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(2);
+      expect(hasPreviousDetail(index)).assertEqual(false);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_11500
+     * @tc.name policyExpandedCase105
+     * @tc.desc Verify detail policy for index -1, count 5, route 3, stored 3
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase105', 0, (): void => {
+      // Independent literals: index=-1, count=5, route=3, stored=3.
+      const index: number = -1;
+      const count: number = 5;
+      const route: number | undefined = 3;
+      const stored: number = 3;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(3);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(3);
+      expect(hasPreviousDetail(index)).assertEqual(false);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_11600
+     * @tc.name policyExpandedCase106
+     * @tc.desc Verify detail policy for index 0, count 5, route 6, stored 3
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase106', 0, (): void => {
+      // Independent literals: index=0, count=5, route=6, stored=3.
+      const index: number = 0;
+      const count: number = 5;
+      const route: number | undefined = 6;
+      const stored: number = 3;
+      expect(isDetailIndexValid(index, count)).assertEqual(true);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(3);
+      expect(hasPreviousDetail(index)).assertEqual(false);
+      expect(hasNextDetail(index, count)).assertEqual(true);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_11700
+     * @tc.name policyExpandedCase107
+     * @tc.desc Verify detail policy for index 1, count 5, route 7, stored 3
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase107', 0, (): void => {
+      // Independent literals: index=1, count=5, route=7, stored=3.
+      const index: number = 1;
+      const count: number = 5;
+      const route: number | undefined = 7;
+      const stored: number = 3;
+      expect(isDetailIndexValid(index, count)).assertEqual(true);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(3);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(true);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_11800
+     * @tc.name policyExpandedCase108
+     * @tc.desc Verify detail policy for index 2, count 5, route 10, stored 3
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase108', 0, (): void => {
+      // Independent literals: index=2, count=5, route=10, stored=3.
+      const index: number = 2;
+      const count: number = 5;
+      const route: number | undefined = 10;
+      const stored: number = 3;
+      expect(isDetailIndexValid(index, count)).assertEqual(true);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(3);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(true);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_11900
+     * @tc.name policyExpandedCase109
+     * @tc.desc Verify detail policy for index 3, count 5, route 99, stored 3
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase109', 0, (): void => {
+      // Independent literals: index=3, count=5, route=99, stored=3.
+      const index: number = 3;
+      const count: number = 5;
+      const route: number | undefined = 99;
+      const stored: number = 3;
+      expect(isDetailIndexValid(index, count)).assertEqual(true);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(3);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(true);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_12000
+     * @tc.name policyExpandedCase110
+     * @tc.desc Verify detail policy for index 4, count 7, route undefined, stored 3
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase110', 0, (): void => {
+      // Independent literals: index=4, count=7, route=undefined, stored=3.
+      const index: number = 4;
+      const count: number = 7;
+      const route: number | undefined = undefined;
+      const stored: number = 3;
+      expect(isDetailIndexValid(index, count)).assertEqual(true);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(3);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(true);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_12100
+     * @tc.name policyExpandedCase111
+     * @tc.desc Verify detail policy for index 5, count 7, route -2, stored 3
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase111', 0, (): void => {
+      // Independent literals: index=5, count=7, route=-2, stored=3.
+      const index: number = 5;
+      const count: number = 7;
+      const route: number | undefined = -2;
+      const stored: number = 3;
+      expect(isDetailIndexValid(index, count)).assertEqual(true);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(3);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(true);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_12200
+     * @tc.name policyExpandedCase112
+     * @tc.desc Verify detail policy for index 6, count 7, route -1, stored 5
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase112', 0, (): void => {
+      // Independent literals: index=6, count=7, route=-1, stored=5.
+      const index: number = 6;
+      const count: number = 7;
+      const route: number | undefined = -1;
+      const stored: number = 5;
+      expect(isDetailIndexValid(index, count)).assertEqual(true);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(5);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_12300
+     * @tc.name policyExpandedCase113
+     * @tc.desc Verify detail policy for index 7, count 7, route 0, stored 5
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase113', 0, (): void => {
+      // Independent literals: index=7, count=7, route=0, stored=5.
+      const index: number = 7;
+      const count: number = 7;
+      const route: number | undefined = 0;
+      const stored: number = 5;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(0);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_12400
+     * @tc.name policyExpandedCase114
+     * @tc.desc Verify detail policy for index 8, count 7, route 1, stored 5
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase114', 0, (): void => {
+      // Independent literals: index=8, count=7, route=1, stored=5.
+      const index: number = 8;
+      const count: number = 7;
+      const route: number | undefined = 1;
+      const stored: number = 5;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(1);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(1);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_12500
+     * @tc.name policyExpandedCase115
+     * @tc.desc Verify detail policy for index 9, count 10, route 2, stored 5
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase115', 0, (): void => {
+      // Independent literals: index=9, count=10, route=2, stored=5.
+      const index: number = 9;
+      const count: number = 10;
+      const route: number | undefined = 2;
+      const stored: number = 5;
+      expect(isDetailIndexValid(index, count)).assertEqual(true);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(2);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(2);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_12600
+     * @tc.name policyExpandedCase116
+     * @tc.desc Verify detail policy for index 99, count 10, route 3, stored 5
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase116', 0, (): void => {
+      // Independent literals: index=99, count=10, route=3, stored=5.
+      const index: number = 99;
+      const count: number = 10;
+      const route: number | undefined = 3;
+      const stored: number = 5;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(3);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(3);
+      expect(hasPreviousDetail(index)).assertEqual(true);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_12700
+     * @tc.name policyExpandedCase117
+     * @tc.desc Verify detail policy for index -2, count 10, route 6, stored 5
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase117', 0, (): void => {
+      // Independent literals: index=-2, count=10, route=6, stored=5.
+      const index: number = -2;
+      const count: number = 10;
+      const route: number | undefined = 6;
+      const stored: number = 5;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(6);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(6);
+      expect(hasPreviousDetail(index)).assertEqual(false);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_12800
+     * @tc.name policyExpandedCase118
+     * @tc.desc Verify detail policy for index -1, count 10, route 7, stored 5
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase118', 0, (): void => {
+      // Independent literals: index=-1, count=10, route=7, stored=5.
+      const index: number = -1;
+      const count: number = 10;
+      const route: number | undefined = 7;
+      const stored: number = 5;
+      expect(isDetailIndexValid(index, count)).assertEqual(false);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(7);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(7);
+      expect(hasPreviousDetail(index)).assertEqual(false);
+      expect(hasNextDetail(index, count)).assertEqual(false);
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_POLICY_EXPANDED_12900
+     * @tc.name policyExpandedCase119
+     * @tc.desc Verify detail policy for index 0, count 10, route 10, stored 7
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('policyExpandedCase119', 0, (): void => {
+      // Independent literals: index=0, count=10, route=10, stored=7.
+      const index: number = 0;
+      const count: number = 10;
+      const route: number | undefined = 10;
+      const stored: number = 7;
+      expect(isDetailIndexValid(index, count)).assertEqual(true);
+      expect(resolveFeatureDetailIndex(route, count)).assertEqual(0);
+      expect(resolveSmartLifeDetailIndex(route, stored, count)).assertEqual(7);
+      expect(hasPreviousDetail(index)).assertEqual(false);
+      expect(hasNextDetail(index, count)).assertEqual(true);
+    });
+
+  });
+}
