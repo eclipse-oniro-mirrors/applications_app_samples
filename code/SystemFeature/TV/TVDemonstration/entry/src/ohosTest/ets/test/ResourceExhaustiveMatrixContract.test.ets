@@ -891,7 +891,7 @@ export default function resourceExhaustiveMatrixContractTest(): void {
         "Precision Pointing Control, Double the Efficiency",
         "Say goodbye to the tedious row-by-row cursor movement of traditional remotes. The pointing remote simply aims at the target area on the TV screen for precise 'point-and-select' control. Whether switching channels, opening apps, or selecting menu options, it responds instantly, greatly reducing steps and making TV interaction more efficient and convenient.",
         "Minimalist Interaction, Zero Learning Curve",
-        "No need to memorize complex button combinations — point and confirm, two steps to complete most operations. The elderly and children can quickly master usage without usage difficulties caused by complex operations. Simple button layout paired with intuitive pointing functionality lets the whole family easily enjoy TV entertainment without extra learning costs.",
+        "No need to memorize complex button combinations — point and confirm, two steps to complete most operations. The elderly and children can quickly grasp usage without usage difficulties caused by complex operations. Simple button layout paired with intuitive pointing functionality lets the whole family easily enjoy TV entertainment without extra learning costs.",
         "Long-Range Stable Response, Full Coverage",
         "Features powerful signal reception with effective control distance up to 8 meters and wide-angle signal coverage. Even from the corner of the living room or the other side of the sofa, you can stably control the TV without signal interruption or control lag. Whether multiple people use it during family gatherings or for daily long-distance control, it maintains a smooth experience.",
       ]);
@@ -899,7 +899,7 @@ export default function resourceExhaustiveMatrixContractTest(): void {
         "Precision Pointing Control, Double the Efficiency",
         "Say goodbye to the tedious row-by-row cursor movement of traditional remotes. The pointing remote simply aims at the target area on the TV screen for precise 'point-and-select' control. Whether switching channels, opening apps, or selecting menu options, it responds instantly, greatly reducing steps and making TV interaction more efficient and convenient.",
         "Minimalist Interaction, Zero Learning Curve",
-        "No need to memorize complex button combinations — point and confirm, two steps to complete most operations. The elderly and children can quickly master usage without usage difficulties caused by complex operations. Simple button layout paired with intuitive pointing functionality lets the whole family easily enjoy TV entertainment without extra learning costs.",
+        "No need to memorize complex button combinations — point and confirm, two steps to complete most operations. The elderly and children can quickly grasp usage without usage difficulties caused by complex operations. Simple button layout paired with intuitive pointing functionality lets the whole family easily enjoy TV entertainment without extra learning costs.",
         "Long-Range Stable Response, Full Coverage",
         "Features powerful signal reception with effective control distance up to 8 meters and wide-angle signal coverage. Even from the corner of the living room or the other side of the sofa, you can stably control the TV without signal interruption or control lag. Whether multiple people use it during family gatherings or for daily long-distance control, it maintains a smooth experience.",
       ]);
