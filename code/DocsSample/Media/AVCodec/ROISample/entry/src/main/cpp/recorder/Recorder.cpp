@@ -59,6 +59,7 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
     sampleInfo_.videoInfo.videoWidth = sampleInfo.videoInfo.videoHeight;
     sampleInfo_.videoInfo.videoHeight = sampleInfo.videoInfo.videoWidth;
     needEosFrame_ = false;
+    releaseFinished_ = false;
     firstFramePtsSet_ = false;
     firstFramePts_ = 0;
     RoiPathType roiPathType = sampleInfo_.videoInfo.roiPathType;
@@ -283,6 +284,9 @@ void Recorder::VideoEncOutputThread()
 
 void Recorder::StartRelease()
 {
+    // Audio and video output threads can request release at the same time.
+    // Do not use mutex_ here: Release holds it while joining those threads.
+    std::lock_guard<std::mutex> lock(releaseMutex_);
     if (releaseThread_ == nullptr) {
         SAMPLE_LOGI("Start release CodecTest");
         releaseThread_ = std::make_unique<std::thread>(&Recorder::Release, this);
@@ -439,6 +443,7 @@ void Recorder::Release()
         frameQueue_.reset();
     }
     ReleaseResources();
+    releaseFinished_ = true;
     doneCond_.notify_all();
     SAMPLE_LOGI("Succeed");
 }
@@ -513,7 +518,9 @@ int32_t Recorder::WaitForDone()
 {
     SAMPLE_LOGI("Wait called");
     std::unique_lock<std::mutex> lock(mutex_);
-    doneCond_.wait(lock);
+    doneCond_.wait(lock, [this]() { return releaseFinished_; });
+    lock.unlock();
+    std::lock_guard<std::mutex> releaseLock(releaseMutex_);
     if (releaseThread_ && releaseThread_->joinable()) {
         releaseThread_->join();
         releaseThread_.reset();
@@ -524,18 +531,21 @@ int32_t Recorder::WaitForDone()
 
 int32_t Recorder::Stop()
 {
-    if (sampleInfo_.videoInfo.roiPathType == ROI_PATH_BUFFER_MODE) {
-        // Buffer模式：停止RenderThread(相机帧生产者)并置EOS标志，由FillBufferModeInput消费完剩余帧后下发空buffer+EOS。
-        needEosFrame_ = true;
-        if (renderThread_) {
+    {
+        // Release may be triggered by an output callback while Stop is still submitting EOS.
+        std::lock_guard<std::mutex> lock(mutex_);
+        if (!releaseFinished_) {
+            // Stop rendering before EOS: no frames may be submitted to the encoder afterwards.
             renderThread_.reset();
-            renderThread_ = nullptr;
+            if (sampleInfo_.videoInfo.roiPathType == ROI_PATH_BUFFER_MODE) {
+                // Drain queued frames, then submit an empty buffer with EOS.
+                needEosFrame_ = true;
+                encContext_->inputCond.notify_all();
+            } else {
+                int32_t ret = videoEncoder_->NotifyEndOfStream();
+                CHECK_AND_RETURN_RET_LOG(ret == SAMPLE_ERR_OK, ret, "Encoder notifyEndOfStream failed");
+            }
         }
-        encContext_->inputCond.notify_all();
-    } else {
-        // Surface模式：通知编码器输入流结束。
-        int32_t ret = videoEncoder_->NotifyEndOfStream();
-        CHECK_AND_RETURN_RET_LOG(ret == SAMPLE_ERR_OK, ret, "Encoder notifyEndOfStream failed");
     }
     return WaitForDone();
 }
