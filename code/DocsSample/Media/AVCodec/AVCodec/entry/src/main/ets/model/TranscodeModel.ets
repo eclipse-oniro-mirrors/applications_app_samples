@@ -30,12 +30,44 @@ import { MediaStateFiles } from './MediaStateFiles';
 import { TranscodeQueueModel, TranscodeQueueItem } from './TranscodeQueueModel';
 
 function idleTranscodeStatus(): TranscodeStatus {
-  return { state: 0, stage: 'idle', detail: '', errorCode: 0, progress: 0,
-    frames: 0, bytes: 0, outputWidth: 0, outputHeight: 0, audioCopied: false, elapsedMs: 0, firstFrameMs: -1,
-    fps: 0, speed: 0, remainingSeconds: -1, decoderWaitMs: 0, encoderInputWaitMs: 0, encoderOutputWaitMs: 0,
-    copiedBytes: 0, fileBytes: 0, availableBytes: -1, estimatedBytes: -1, diagnostics: [],
-    decoderName: '', encoderName: '', sourceWidth: 0, sourceHeight: 0, durationUs: 0, sourceFrameRate: 0,
-    sourceMime: '', audioTracks: [], audioTrackIds: [], minBitrate: 0, maxBitrate: 0, audioBytes: 0, audioMode: 0 };
+  return {
+    state: 0,
+    stage: 'idle',
+    detail: '',
+    errorCode: 0,
+    progress: 0,
+    frames: 0,
+    bytes: 0,
+    outputWidth: 0,
+    outputHeight: 0,
+    audioCopied: false,
+    elapsedMs: 0,
+    firstFrameMs: -1,
+    fps: 0,
+    speed: 0,
+    remainingSeconds: -1,
+    decoderWaitMs: 0,
+    encoderInputWaitMs: 0,
+    encoderOutputWaitMs: 0,
+    copiedBytes: 0,
+    fileBytes: 0,
+    availableBytes: -1,
+    estimatedBytes: -1,
+    diagnostics: [],
+    decoderName: '',
+    encoderName: '',
+    sourceWidth: 0,
+    sourceHeight: 0,
+    durationUs: 0,
+    sourceFrameRate: 0,
+    sourceMime: '',
+    audioTracks: [],
+    audioTrackIds: [],
+    minBitrate: 0,
+    maxBitrate: 0,
+    audioBytes: 0,
+    audioMode: 0
+  };
 }
 
 @Observed
@@ -153,7 +185,9 @@ export class TranscodeModel {
     try {
       if (!await fileIo.access(directory)) { await fileIo.mkdir(directory); }
       const directoryStat: fileIo.Stat = await fileIo.lstat(directory);
-      if (!directoryStat.isDirectory() || directoryStat.isSymbolicLink()) { throw new Error('Unsafe output directory'); }
+      if (!directoryStat.isDirectory() || directoryStat.isSymbolicLink()) {
+        throw new Error('Unsafe output directory');
+      }
       await MediaSessionStore.begin(context, { id: sessionId, operation: 'transcode', startedAt: Date.now() });
       input = await fileIo.open(this.sourceUri, fileIo.OpenMode.READ_ONLY);
       output = await fileIo.open(partialPath,
@@ -199,17 +233,29 @@ export class TranscodeModel {
       if (output !== undefined) { await fileIo.close(output).catch((): void => {}); }
       if (this.resultPath.length === 0) { await fileIo.unlink(partialPath).catch((): void => {}); }
       if (this.status.state >= 2) {
-        const entry: TranscodeHistoryEntry = { id: id, createdAt: Date.now(), title: title,
-          configuration: configuration, status: this.status, hasFile: this.resultPath.length > 0 };
+        const entry: TranscodeHistoryEntry = {
+          id: id,
+          createdAt: Date.now(),
+          title: title,
+          configuration: configuration,
+          status: this.status,
+          hasFile: this.resultPath.length > 0
+        };
         this.activeEntry = entry;
         try {
           await TranscodeFilesModel.persist(directory, entry);
           this.history = await TranscodeFilesModel.list(directory);
         } catch (_error) { this.notice += ' ' + LocalizedText.get($r('app.string.transcode_history_failed')); }
       }
-      try { await MediaSessionStore.finish(context, sessionId, MediaReports.transcode(sessionId, this.status, configuration)); }
-      catch (error) { this.notice += ' ' + JSON.stringify(error); }
-      finally { MediaFileActivity.endTranscode(); this.busy = false; }
+      try {
+        await MediaSessionStore.finish(context, sessionId,
+          MediaReports.transcode(sessionId, this.status, configuration));
+      } catch (error) {
+        this.notice += ' ' + JSON.stringify(error);
+      } finally {
+        MediaFileActivity.endTranscode();
+        this.busy = false;
+      }
     }
     return true;
   }
@@ -281,12 +327,19 @@ export class TranscodeModel {
   }
 
   private request(inputFd: number, outputFd: number): TranscodeRequest {
-    return { inputFd: inputFd, outputFd: outputFd, mime: this.codecIndex === 0 ? 'video/avc' : 'video/hevc',
+    return {
+      inputFd: inputFd,
+      outputFd: outputFd,
+      mime: this.codecIndex === 0 ? 'video/avc' : 'video/hevc',
       bitrate: [2000000, 4000000, 8000000, 16000000][this.bitrateIndex] ?? 8000000,
-      longEdge: [0, 1920, 1080, 720][this.sizeIndex] ?? 0, useSurfaceInput: this.modeIndex === 1,
-      grayscale: this.grayscale, encoderCategory: this.encoderCategory,
+      longEdge: [0, 1920, 1080, 720][this.sizeIndex] ?? 0,
+      useSurfaceInput: this.modeIndex === 1,
+      grayscale: this.grayscale,
+      encoderCategory: this.encoderCategory,
       resizeMode: this.resizeMode,
-      audioMode: this.audioMode, audioTrack: this.audioTrack };
+      audioMode: this.audioMode,
+      audioTrack: this.audioTrack
+    };
   }
 
   private configuration(): string {
@@ -380,7 +433,9 @@ export class TranscodeModel {
   }
 
   async runQueue(ui: UIContext): Promise<void> {
-    if (this.queueRunning || this.busy || this.picking || this.exporting || this.inspecting || this.disposed) { return; }
+    if (this.queueRunning || this.busy || this.picking || this.exporting || this.inspecting || this.disposed) {
+      return;
+    }
     this.queueRunning = true; this.queue.paused = false;
     try {
       let item: TranscodeQueueItem | undefined = this.queue.next();
@@ -422,7 +477,9 @@ export class TranscodeModel {
 
   async openHistory(ui: UIContext, entry: TranscodeHistoryEntry): Promise<void> {
     const context = ui.getHostContext();
-    if (context === undefined || this.busy || this.queueRunning || this.exporting || this.picking || this.inspecting) { return; }
+    if (context === undefined || this.busy || this.queueRunning || this.exporting || this.picking || this.inspecting) {
+      return;
+    }
     if (!TranscodeFilesModel.validId(entry.id)) { return; }
     this.activeEntry = entry;
     this.status = entry.status;

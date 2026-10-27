@@ -20,6 +20,8 @@ namespace TranscodeFrames {
 namespace {
 constexpr int32_t CHROMA_SUBSAMPLING = 2;
 constexpr int32_t MAX_DIMENSION = 16384;
+constexpr int32_t ASPECT_WIDTH = 16;
+constexpr int32_t ASPECT_HEIGHT = 9;
 constexpr uint8_t BLACK_LUMA = 16;
 constexpr uint8_t NEUTRAL_CHROMA = 128;
 
@@ -27,14 +29,18 @@ void ProcessLuma(const uint8_t *source, const Layout &input, uint8_t *destinatio
     const Geometry &geometry)
 {
     for (int32_t y = 0; y < geometry.contentHeight; ++y) {
-        const int32_t sourceY = geometry.cropTop + static_cast<int64_t>(y) * geometry.cropHeight / geometry.contentHeight;
+        const int32_t sourceY = geometry.cropTop +
+            static_cast<int64_t>(y) * geometry.cropHeight / geometry.contentHeight;
         const uint8_t *row = source + static_cast<size_t>(sourceY) * input.stride;
-        uint8_t *target = destination + static_cast<size_t>(y + geometry.contentTop) * output.stride + geometry.contentLeft;
+        uint8_t *target = destination +
+            static_cast<size_t>(y + geometry.contentTop) * output.stride + geometry.contentLeft;
         if (geometry.cropWidth == geometry.contentWidth) {
             std::copy_n(row + geometry.cropLeft, geometry.contentWidth, target);
         } else {
             for (int32_t x = 0; x < geometry.contentWidth; ++x) {
-                target[x] = row[geometry.cropLeft + static_cast<int64_t>(x) * geometry.cropWidth / geometry.contentWidth];
+                const int32_t sourceX = geometry.cropLeft +
+                    static_cast<int64_t>(x) * geometry.cropWidth / geometry.contentWidth;
+                target[x] = row[sourceX];
             }
         }
     }
@@ -52,7 +58,8 @@ void ProcessChroma(const uint8_t *source, const Layout &input, uint8_t *destinat
             static_cast<size_t>(y + geometry.contentTop / CHROMA_SUBSAMPLING) * output.stride + geometry.contentLeft;
         if (input.chroma == Chroma::NV12 && geometry.cropWidth == geometry.contentWidth &&
             geometry.cropHeight == geometry.contentHeight) {
-            std::copy_n(source + static_cast<size_t>(sourceY) * input.stride + geometry.cropLeft, geometry.contentWidth, target);
+            std::copy_n(source + static_cast<size_t>(sourceY) * input.stride + geometry.cropLeft,
+                geometry.contentWidth, target);
             continue;
         }
         for (int32_t x = 0; x < geometry.contentWidth / CHROMA_SUBSAMPLING; ++x) {
@@ -110,11 +117,15 @@ bool FitSize(int32_t sourceWidth, int32_t sourceHeight, int32_t longEdge,
 bool OutputSize(int32_t sourceWidth, int32_t sourceHeight, int32_t longEdge, ResizeMode mode,
     int32_t &targetWidth, int32_t &targetHeight)
 {
-    if (!FitSize(sourceWidth, sourceHeight, longEdge, targetWidth, targetHeight)) { return false; }
-    if (mode == ResizeMode::FIT) { return true; }
-    if (mode != ResizeMode::CENTER_CROP && mode != ResizeMode::LETTERBOX) { return false; }
-    constexpr int32_t ASPECT_WIDTH = 16;
-    constexpr int32_t ASPECT_HEIGHT = 9;
+    if (!FitSize(sourceWidth, sourceHeight, longEdge, targetWidth, targetHeight)) {
+        return false;
+    }
+    if (mode == ResizeMode::FIT) {
+        return true;
+    }
+    if (mode != ResizeMode::CENTER_CROP && mode != ResizeMode::LETTERBOX) {
+        return false;
+    }
     targetWidth = std::max(targetWidth, targetHeight);
     targetHeight = std::max(CHROMA_SUBSAMPLING, (targetWidth * ASPECT_HEIGHT / ASPECT_WIDTH) & ~1);
     return true;
@@ -123,25 +134,35 @@ bool OutputSize(int32_t sourceWidth, int32_t sourceHeight, int32_t longEdge, Res
 bool PlanGeometry(const Layout &input, const Layout &output, ResizeMode mode, Geometry &geometry)
 {
     if (RequiredBytes(input) == 0 || RequiredBytes(output) == 0 || input.width > MAX_DIMENSION ||
-        input.height > MAX_DIMENSION || output.width > MAX_DIMENSION || output.height > MAX_DIMENSION) { return false; }
+        input.height > MAX_DIMENSION || output.width > MAX_DIMENSION || output.height > MAX_DIMENSION) {
+        return false;
+    }
     geometry = {0, 0, input.width, input.height, 0, 0, output.width, output.height};
     const bool wider = static_cast<int64_t>(input.width) * output.height >
         static_cast<int64_t>(input.height) * output.width;
     if (mode == ResizeMode::CENTER_CROP) {
-        if (wider) { geometry.cropWidth = std::max(CHROMA_SUBSAMPLING,
-            static_cast<int32_t>(static_cast<int64_t>(input.height) * output.width / output.height) & ~1); }
-        else { geometry.cropHeight = std::max(CHROMA_SUBSAMPLING,
-            static_cast<int32_t>(static_cast<int64_t>(input.width) * output.height / output.width) & ~1); }
+        if (wider) {
+            geometry.cropWidth = std::max(CHROMA_SUBSAMPLING,
+                static_cast<int32_t>(static_cast<int64_t>(input.height) * output.width / output.height) & ~1);
+        } else {
+            geometry.cropHeight = std::max(CHROMA_SUBSAMPLING,
+                static_cast<int32_t>(static_cast<int64_t>(input.width) * output.height / output.width) & ~1);
+        }
         geometry.cropLeft = ((input.width - geometry.cropWidth) / CHROMA_SUBSAMPLING) & ~1;
         geometry.cropTop = ((input.height - geometry.cropHeight) / CHROMA_SUBSAMPLING) & ~1;
     } else if (mode == ResizeMode::LETTERBOX) {
-        if (wider) { geometry.contentHeight = std::max(CHROMA_SUBSAMPLING,
-            static_cast<int32_t>(static_cast<int64_t>(input.height) * output.width / input.width) & ~1); }
-        else { geometry.contentWidth = std::max(CHROMA_SUBSAMPLING,
-            static_cast<int32_t>(static_cast<int64_t>(input.width) * output.height / input.height) & ~1); }
+        if (wider) {
+            geometry.contentHeight = std::max(CHROMA_SUBSAMPLING,
+                static_cast<int32_t>(static_cast<int64_t>(input.height) * output.width / input.width) & ~1);
+        } else {
+            geometry.contentWidth = std::max(CHROMA_SUBSAMPLING,
+                static_cast<int32_t>(static_cast<int64_t>(input.width) * output.height / input.height) & ~1);
+        }
         geometry.contentLeft = ((output.width - geometry.contentWidth) / CHROMA_SUBSAMPLING) & ~1;
         geometry.contentTop = ((output.height - geometry.contentHeight) / CHROMA_SUBSAMPLING) & ~1;
-    } else if (mode != ResizeMode::FIT) { return false; }
+    } else if (mode != ResizeMode::FIT) {
+        return false;
+    }
     return true;
 }
 
@@ -156,7 +177,9 @@ bool Process(const uint8_t *source, size_t sourceCapacity, const Layout &input,
     }
     const size_t outputYBytes = static_cast<size_t>(output.stride) * output.sliceHeight;
     Geometry geometry;
-    if (!PlanGeometry(input, output, mode, geometry)) { return false; }
+    if (!PlanGeometry(input, output, mode, geometry)) {
+        return false;
+    }
     // Write visible pixels once; initialize only padding (and all UV for grayscale).
     for (int32_t y = 0; y < output.height; ++y) {
         std::fill_n(destination + static_cast<size_t>(y) * output.stride + output.width,

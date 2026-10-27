@@ -45,8 +45,11 @@ export struct MediaSessionsPanel {
       this.partials = MediaTaskCoordinator.busy() ? [] : await MediaRecoveryFiles.list(context);
       this.baselines = MediaReports.parseList(await MediaStateFiles.read(context, 'baselines.json', '[]'))
         .filter((item: MediaSessionReport): boolean => item.outcome === 'completed').slice(0, 20);
-    } catch (error) { this.notice = JSON.stringify(error); }
-    finally { this.working = false; }
+    } catch (error) {
+      this.notice = JSON.stringify(error);
+    } finally {
+      this.working = false;
+    }
   }
 
   private comparison(report: MediaSessionReport): string {
@@ -64,8 +67,11 @@ export struct MediaSessionsPanel {
         !MediaPerformanceBaseline.matches(item, report))).slice(0, 20);
       await MediaStateFiles.write(context, 'baselines.json', JSON.stringify(next));
       this.baselines = next;
-    } catch (error) { this.notice = JSON.stringify(error); }
-    finally { this.working = false; }
+    } catch (error) {
+      this.notice = JSON.stringify(error);
+    } finally {
+      this.working = false;
+    }
   }
 
   private async acknowledge(item: MediaPendingSession): Promise<void> {
@@ -80,8 +86,11 @@ export struct MediaSessionsPanel {
         report.error = MediaReports.error('process.interrupted', -1, 'Previous process ended before task completion');
         await MediaSessionStore.finish(context, item.id, report);
       }
-    } catch (error) { this.notice = JSON.stringify(error); }
-    finally { this.working = false; }
+    } catch (error) {
+      this.notice = JSON.stringify(error);
+    } finally {
+      this.working = false;
+    }
     await this.refresh();
   }
 
@@ -95,8 +104,11 @@ export struct MediaSessionsPanel {
           { text: $r('app.string.task_keep'), color: '#475467' },
           { text: $r('app.string.task_clear_partials'), color: '#B42318' } ] });
       if (result.index === 1) { await MediaRecoveryFiles.clear(context); }
-    } catch (error) { this.notice = JSON.stringify(error); }
-    finally { this.working = false; }
+    } catch (error) {
+      this.notice = JSON.stringify(error);
+    } finally {
+      this.working = false;
+    }
     await this.refresh();
   }
 
@@ -110,10 +122,16 @@ export struct MediaSessionsPanel {
       if (paths.length === 0) { return; }
       const shared: MediaSessionReport = MediaReports.shareable(report);
       const target: fileIo.File = await fileIo.open(paths[0], fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC);
-      try { await MediaFileWriter.writeAll(target.fd, json ? JSON.stringify(shared, null, 2) : MediaReports.text(shared)); }
-      finally { await fileIo.close(target); }
-    } catch (error) { this.notice = JSON.stringify(error); }
-    finally { this.working = false; }
+      try {
+        await MediaFileWriter.writeAll(target.fd, json ? JSON.stringify(shared, null, 2) : MediaReports.text(shared));
+      } finally {
+        await fileIo.close(target);
+      }
+    } catch (error) {
+      this.notice = JSON.stringify(error);
+    } finally {
+      this.working = false;
+    }
   }
 
   build() {

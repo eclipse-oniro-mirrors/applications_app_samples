@@ -19,14 +19,28 @@ import { DeviceCodecCapability, DeviceCodecCapabilityRange, DeviceCodecProfileLe
 export interface CodecMatrixRow {
   key: string; name: string; mime: string; codecType: number; hardware: boolean; capabilities: string;
 }
-export interface CodecMatrixSnapshot { version: number; capturedAt: number; device: string; api: number; rows: CodecMatrixRow[]; }
+export interface CodecMatrixSnapshot {
+  version: number;
+  capturedAt: number;
+  device: string;
+  api: number;
+  rows: CodecMatrixRow[];
+}
 export class CodecCapabilityMatrix {
   static capture(codecs: DeviceCodecCapability[]): CodecMatrixSnapshot {
-    return { version: 1, capturedAt: Date.now(), device: deviceInfo.productModel, api: deviceInfo.sdkApiVersion,
+    return {
+      version: 1,
+      capturedAt: Date.now(),
+      device: deviceInfo.productModel,
+      api: deviceInfo.sdkApiVersion,
       rows: codecs.map((codec: DeviceCodecCapability): CodecMatrixRow => ({
-        key: codec.codecType + ':' + codec.mimeType + ':' + codec.codecName, name: codec.codecName,
-        mime: codec.mimeType, codecType: codec.codecType, hardware: codec.hardware,
-        capabilities: 'instances=' + codec.maxInstances + '; width=' + CodecCapabilityMatrix.range(codec.videoWidthRange) +
+        key: codec.codecType + ':' + codec.mimeType + ':' + codec.codecName,
+        name: codec.codecName,
+        mime: codec.mimeType,
+        codecType: codec.codecType,
+        hardware: codec.hardware,
+        capabilities: 'instances=' + codec.maxInstances +
+          '; width=' + CodecCapabilityMatrix.range(codec.videoWidthRange) +
           '; height=' + CodecCapabilityMatrix.range(codec.videoHeightRange) +
           '; rate=' + CodecCapabilityMatrix.range(codec.videoFrameRateRange) +
           '; alignment=' + codec.videoWidthAlignment + ',' + codec.videoHeightAlignment +
@@ -39,7 +53,8 @@ export class CodecCapabilityMatrix {
             CodecCapabilityMatrix.range(item)).sort().join(',') +
           '; channels=' + CodecCapabilityMatrix.range(codec.audioChannelCountRange) +
           '; bitrate=' + CodecCapabilityMatrix.range(codec.encoderBitrateRange)
-      })).sort((a: CodecMatrixRow, b: CodecMatrixRow): number => a.key.localeCompare(b.key)) };
+      })).sort((a: CodecMatrixRow, b: CodecMatrixRow): number => a.key.localeCompare(b.key))
+    };
   }
   private static range(range: DeviceCodecCapabilityRange | undefined): string {
     return range === undefined ? '?' : range.min + ':' + range.max;
@@ -62,11 +77,14 @@ export class CodecCapabilityMatrix {
     return snapshot;
   }
   static compare(current: CodecMatrixSnapshot, previous: CodecMatrixSnapshot): string[] {
-    const lines: string[] = [previous.device + ' / API ' + previous.api + ' -> ' + current.device + ' / API ' + current.api];
+    const lines: string[] = [previous.device + ' / API ' + previous.api +
+      ' -> ' + current.device + ' / API ' + current.api];
     current.rows.forEach((row: CodecMatrixRow): void => {
-      const before: CodecMatrixRow | undefined = previous.rows.find((item: CodecMatrixRow): boolean => item.key === row.key);
-      if (before === undefined) { lines.push('+ ' + row.key); }
-      else if (row.hardware !== before.hardware || row.capabilities !== before.capabilities) {
+      const before: CodecMatrixRow | undefined = previous.rows.find((item: CodecMatrixRow): boolean =>
+        item.key === row.key);
+      if (before === undefined) {
+        lines.push('+ ' + row.key);
+      } else if (row.hardware !== before.hardware || row.capabilities !== before.capabilities) {
         lines.push('~ ' + row.key + '\n  before: ' + (before.hardware ? 'HW ' : 'SW ') + before.capabilities +
           '\n  current: ' + (row.hardware ? 'HW ' : 'SW ') + row.capabilities);
       }

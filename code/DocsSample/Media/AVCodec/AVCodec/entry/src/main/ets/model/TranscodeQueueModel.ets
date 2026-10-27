@@ -49,19 +49,36 @@ export class TranscodeQueueModel {
 
   add(uri: string, title: string, options: number[], grayscale: boolean): void {
     if (this.items.length >= 30) { return; }
-    this.items = this.items.concat([{ id: 'queue_' + Date.now() + '_' + (++this.sequence), uri: uri,
-      title: title, options: options.slice(), grayscale: grayscale, state: 'waiting', progress: 0, resultPath: '' }]);
+    this.items = this.items.concat([{
+      id: 'queue_' + Date.now() + '_' + (++this.sequence),
+      uri: uri,
+      title: title,
+      options: options.slice(),
+      grayscale: grayscale,
+      state: 'waiting',
+      progress: 0,
+      resultPath: ''
+    }]);
   }
   update(id: string, state: string, progress: number, resultPath: string = ''): void {
     this.items = this.items.map((item: TranscodeQueueItem): TranscodeQueueItem => item.id !== id ? item :
-      ({ id: item.id, uri: item.uri, title: item.title, options: item.options, grayscale: item.grayscale,
-        state: state, progress: progress, resultPath: resultPath }));
+      ({
+        id: item.id,
+        uri: item.uri,
+        title: item.title,
+        options: item.options,
+        grayscale: item.grayscale,
+        state: state,
+        progress: progress,
+        resultPath: resultPath
+      }));
   }
   next(): TranscodeQueueItem | undefined {
     return this.paused ? undefined : this.items.find((item: TranscodeQueueItem): boolean => item.state === 'waiting');
   }
   retry(id: string): void {
-    const item: TranscodeQueueItem | undefined = this.items.find((entry: TranscodeQueueItem): boolean => entry.id === id);
+    const item: TranscodeQueueItem | undefined = this.items.find((entry: TranscodeQueueItem): boolean =>
+      entry.id === id);
     if (item?.state === 'failed' || item?.state === 'cancelled' || item?.state === 'interrupted') {
       this.update(id, 'waiting', 0);
     }

@@ -35,7 +35,8 @@ export struct CodecCapabilityMatrixPanel {
       const current: CodecMatrixSnapshot = CodecCapabilityMatrix.capture(this.codecs);
       if (save) {
         const previous: string = await MediaStateFiles.read(context, 'capability_snapshot.json', '');
-        this.comparison = previous.length > 0 ? CodecCapabilityMatrix.compare(current, CodecCapabilityMatrix.parse(previous)).join('\n') :
+        this.comparison = previous.length > 0 ?
+          CodecCapabilityMatrix.compare(current, CodecCapabilityMatrix.parse(previous)).join('\n') :
           LocalizedText.get($r('app.string.task_capability_save'));
         await MediaStateFiles.write(context, 'capability_snapshot.json', JSON.stringify(current));
       } else if (importing) {
@@ -56,11 +57,17 @@ export struct CodecCapabilityMatrixPanel {
           newFileNames: ['avcodec-capabilities-' + Date.now() + '.json'] });
         if (paths.length === 0) { return; }
         const file: fileIo.File = await fileIo.open(paths[0], fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC);
-        try { await MediaFileWriter.writeAll(file.fd, JSON.stringify(current, null, 2)); }
-        finally { await fileIo.close(file); }
+        try {
+          await MediaFileWriter.writeAll(file.fd, JSON.stringify(current, null, 2));
+        } finally {
+          await fileIo.close(file);
+        }
       }
-    } catch (error) { this.comparison = JSON.stringify(error); }
-    finally { this.working = false; }
+    } catch (error) {
+      this.comparison = JSON.stringify(error);
+    } finally {
+      this.working = false;
+    }
   }
 
   private recommend(): void {
@@ -72,9 +79,16 @@ export struct CodecCapabilityMatrixPanel {
       const lines: string[] = [LocalizedText.get($r('app.string.task_recommend_hint'))];
       this.codecs.filter((codec: DeviceCodecCapability): boolean => codec.codecType === 1 &&
         codec.mimeType === media.video.codecMime).forEach((codec: DeviceCodecCapability): void => {
-        const result = player.checkVideoCapability({ codecName: codec.codecName, mimeType: codec.mimeType,
-          codecType: codec.codecType, width: media.video.width, height: media.video.height, frameRate: media.video.frameRate });
-        lines.push((result.supported ? '✓ ' : '× ') + codec.codecName + ' [' + (codec.hardware ? 'HW' : 'SW') + '] ' + result.reason);
+        const result = player.checkVideoCapability({
+          codecName: codec.codecName,
+          mimeType: codec.mimeType,
+          codecType: codec.codecType,
+          width: media.video.width,
+          height: media.video.height,
+          frameRate: media.video.frameRate
+        });
+        lines.push((result.supported ? '✓ ' : '× ') + codec.codecName +
+          ' [' + (codec.hardware ? 'HW' : 'SW') + '] ' + result.reason);
       });
       this.recommendation = lines.join('\n');
     } catch (error) { this.recommendation = JSON.stringify(error); }
@@ -84,12 +98,14 @@ export struct CodecCapabilityMatrixPanel {
     Column({ space: 10 }) {
       Text($r('app.string.task_capability_matrix')).fontSize(17).fontWeight(FontWeight.Medium)
       Text($r('app.string.task_capability_hint')).fontSize(12).fontColor('#667085')
-      Button($r('app.string.task_capability_save')).width('100%').fontSize(13).enabled(!this.working && this.codecs.length > 0)
+      Button($r('app.string.task_capability_save')).width('100%').fontSize(13)
+        .enabled(!this.working && this.codecs.length > 0)
         .onClick((): void => { void this.snapshot(true, false); })
       Row({ space: 6 }) {
         Button($r('app.string.task_capability_import')).layoutWeight(1).fontSize(12).enabled(!this.working)
           .onClick((): void => { void this.snapshot(false, true); })
-        Button($r('app.string.task_capability_export')).layoutWeight(1).fontSize(12).enabled(!this.working && this.codecs.length > 0)
+        Button($r('app.string.task_capability_export')).layoutWeight(1).fontSize(12)
+          .enabled(!this.working && this.codecs.length > 0)
           .onClick((): void => { void this.snapshot(false, false); })
       }.width('100%')
       if (this.comparison.length > 0) { Text(this.comparison).fontSize(11).copyOption(CopyOptions.InApp) }

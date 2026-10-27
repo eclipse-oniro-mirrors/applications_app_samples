@@ -55,7 +55,8 @@ export class MediaReports {
 
   private static valid(report: MediaSessionReport): boolean {
     if (report === null || typeof report !== 'object' || report.version !== 1 ||
-      !MediaReports.shortText(report.id, 160) || !['playback', 'recording', 'transcode', 'cleanup'].includes(report.operation) ||
+      !MediaReports.shortText(report.id, 160) ||
+      !['playback', 'recording', 'transcode', 'cleanup'].includes(report.operation) ||
       (report.nativeSessionId !== undefined && !MediaReports.shortText(report.nativeSessionId, 160)) ||
       !Number.isFinite(report.createdAt) || report.createdAt <= 0 || !Number.isInteger(report.api) ||
       !MediaReports.shortText(report.device, 1024) || !MediaReports.shortText(report.outcome, 64) ||
@@ -78,22 +79,43 @@ export class MediaReports {
   static error(stage: string, code: number, detail: string, cancelled: boolean = false): MediaSessionError {
     const hint: string = (stage + ' ' + detail).toLowerCase();
     let category: MediaErrorCategory = stage.length === 0 && code === 0 ? 'none' : 'unknown';
-    if (cancelled) { category = 'cancelled'; }
-    else if (/permission|denied|13900012/.test(hint)) { category = 'permission'; }
-    else if (/storage|space|flush|files|disk/.test(hint)) { category = 'storage'; }
-    else if (/capability|unsupported|not support/.test(hint)) { category = 'capability'; }
-    else if (/configure|parameter|invalid/.test(hint)) { category = 'configuration'; }
-    else if (/surface|vulkan|opengl|nativeimage|render|present/.test(hint)) { category = 'graphics'; }
-    else if (/mux|write sample/.test(hint)) { category = 'mux'; }
-    else if (/source|demux|read sample/.test(hint)) { category = 'input'; }
-    else if (/codec|decoder|encoder/.test(hint)) { category = 'codec'; }
+    if (cancelled) {
+      category = 'cancelled';
+    } else if (/permission|denied|13900012/.test(hint)) {
+      category = 'permission';
+    } else if (/storage|space|flush|files|disk/.test(hint)) {
+      category = 'storage';
+    } else if (/capability|unsupported|not support/.test(hint)) {
+      category = 'capability';
+    } else if (/configure|parameter|invalid/.test(hint)) {
+      category = 'configuration';
+    } else if (/Surface|Vulkan|OpenGL|NativeImage|render|present/i.test(hint)) {
+      category = 'graphics';
+    } else if (/mux|write sample/.test(hint)) {
+      category = 'mux';
+    } else if (/source|demux|read sample/.test(hint)) {
+      category = 'input';
+    } else if (/codec|decoder|encoder/.test(hint)) {
+      category = 'codec';
+    }
     return { category: category, stage: stage, code: code, detail: detail };
   }
 
   static base(id: string, operation: MediaTaskKind, outcome: string): MediaSessionReport {
-    return { version: 1, id: id, operation: operation, createdAt: Date.now(),
-      device: deviceInfo.productModel + ' / ' + deviceInfo.osFullName, api: deviceInfo.sdkApiVersion,
-      outcome: outcome, requested: '', observed: '', error: MediaReports.error('', 0, ''), metrics: [], events: [] };
+    return {
+      version: 1,
+      id: id,
+      operation: operation,
+      createdAt: Date.now(),
+      device: deviceInfo.productModel + ' / ' + deviceInfo.osFullName,
+      api: deviceInfo.sdkApiVersion,
+      outcome: outcome,
+      requested: '',
+      observed: '',
+      error: MediaReports.error('', 0, ''),
+      metrics: [],
+      events: []
+    };
   }
 
   static playback(id: string, info: PlaybackInfo, outcome: string): MediaSessionReport {

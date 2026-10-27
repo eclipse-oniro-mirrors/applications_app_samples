@@ -21,8 +21,18 @@ export interface TranscodeGeometryPlan {
 export class TranscodeGeometryModel {
   static even(amount: number): number { return Math.max(2, Math.floor(amount / 2) * 2); }
   static plan(sourceWidth: number, sourceHeight: number, longEdge: number, mode: number): TranscodeGeometryPlan {
-    const empty: TranscodeGeometryPlan = { width: 0, height: 0, left: 0, top: 0, cropWidth: 0, cropHeight: 0,
-      contentLeft: 0, contentTop: 0, contentWidth: 0, contentHeight: 0 };
+    const empty: TranscodeGeometryPlan = {
+      width: 0,
+      height: 0,
+      left: 0,
+      top: 0,
+      cropWidth: 0,
+      cropHeight: 0,
+      contentLeft: 0,
+      contentTop: 0,
+      contentWidth: 0,
+      contentHeight: 0
+    };
     if (sourceWidth < 2 || sourceHeight < 2 || sourceWidth > 16384 || sourceHeight > 16384 ||
       !Number.isInteger(sourceWidth) || !Number.isInteger(sourceHeight) ||
       sourceWidth % 2 !== 0 || sourceHeight % 2 !== 0 || !Number.isInteger(longEdge) ||
@@ -35,18 +45,33 @@ export class TranscodeGeometryModel {
       outputWidth = Math.max(outputWidth, outputHeight);
       outputHeight = TranscodeGeometryModel.even(outputWidth * 9 / 16);
     }
-    const plan: TranscodeGeometryPlan = { width: outputWidth, height: outputHeight, left: 0, top: 0,
-      cropWidth: sourceWidth, cropHeight: sourceHeight, contentLeft: 0, contentTop: 0,
-      contentWidth: outputWidth, contentHeight: outputHeight };
+    const plan: TranscodeGeometryPlan = {
+      width: outputWidth,
+      height: outputHeight,
+      left: 0,
+      top: 0,
+      cropWidth: sourceWidth,
+      cropHeight: sourceHeight,
+      contentLeft: 0,
+      contentTop: 0,
+      contentWidth: outputWidth,
+      contentHeight: outputHeight
+    };
     const wider: boolean = sourceWidth * outputHeight > sourceHeight * outputWidth;
     if (mode === 1) {
-      if (wider) { plan.cropWidth = TranscodeGeometryModel.even(sourceHeight * outputWidth / outputHeight); }
-      else { plan.cropHeight = TranscodeGeometryModel.even(sourceWidth * outputHeight / outputWidth); }
+      if (wider) {
+        plan.cropWidth = TranscodeGeometryModel.even(sourceHeight * outputWidth / outputHeight);
+      } else {
+        plan.cropHeight = TranscodeGeometryModel.even(sourceWidth * outputHeight / outputWidth);
+      }
       plan.left = Math.floor((sourceWidth - plan.cropWidth) / 4) * 2;
       plan.top = Math.floor((sourceHeight - plan.cropHeight) / 4) * 2;
     } else if (mode === 2) {
-      if (wider) { plan.contentHeight = TranscodeGeometryModel.even(sourceHeight * outputWidth / sourceWidth); }
-      else { plan.contentWidth = TranscodeGeometryModel.even(sourceWidth * outputHeight / sourceHeight); }
+      if (wider) {
+        plan.contentHeight = TranscodeGeometryModel.even(sourceHeight * outputWidth / sourceWidth);
+      } else {
+        plan.contentWidth = TranscodeGeometryModel.even(sourceWidth * outputHeight / sourceHeight);
+      }
       plan.contentLeft = Math.floor((outputWidth - plan.contentWidth) / 4) * 2;
       plan.contentTop = Math.floor((outputHeight - plan.contentHeight) / 4) * 2;
     }

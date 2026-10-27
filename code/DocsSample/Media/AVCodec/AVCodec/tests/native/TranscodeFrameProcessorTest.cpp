@@ -43,6 +43,15 @@ constexpr size_t INPUT_FRAME_BYTES = INPUT_STRIDE * TEST_WIDTH + INPUT_STRIDE * 
 constexpr size_t OUTPUT_FRAME_BYTES = OUTPUT_STRIDE * TEST_WIDTH + OUTPUT_STRIDE * CHROMA_STEP;
 constexpr size_t INPUT_CHROMA_OFFSET = INPUT_STRIDE * TEST_WIDTH;
 constexpr size_t OUTPUT_CHROMA_OFFSET = OUTPUT_STRIDE * TEST_WIDTH;
+constexpr int32_t GEOMETRY_SOURCE_EDGE = 8;
+constexpr int32_t GEOMETRY_TARGET_WIDTH = 16;
+constexpr int32_t GEOMETRY_CROP_TOP = 2;
+constexpr int32_t GEOMETRY_CROP_HEIGHT = 4;
+constexpr int32_t GEOMETRY_BAR_WIDTH = 4;
+constexpr uint8_t CROP_FIRST_LUMA = 16;
+constexpr uint8_t CROP_LAST_COLUMN_LUMA = 23;
+constexpr uint8_t CROP_LAST_ROW_LUMA = 40;
+constexpr int32_t INVALID_RESIZE_MODE = 99;
 
 void Require(bool condition, const char *message)
 {
@@ -182,43 +191,56 @@ void TestSameSizeNv12()
 
 void TestCropAndLetterbox()
 {
-    const Layout sourceLayout {8, 8, 8, 8, Chroma::NV12};
-    const Layout targetLayout {16, 8, 16, 8, Chroma::NV12};
-    std::vector<uint8_t> source(RequiredBytes(sourceLayout), 128);
-    std::vector<uint8_t> target(RequiredBytes(targetLayout) + 1, 99);
+    const Layout sourceLayout { GEOMETRY_SOURCE_EDGE, GEOMETRY_SOURCE_EDGE,
+        GEOMETRY_SOURCE_EDGE, GEOMETRY_SOURCE_EDGE, Chroma::NV12 };
+    const Layout targetLayout { GEOMETRY_TARGET_WIDTH, GEOMETRY_SOURCE_EDGE,
+        GEOMETRY_TARGET_WIDTH, GEOMETRY_SOURCE_EDGE, Chroma::NV12 };
+    std::vector<uint8_t> source(RequiredBytes(sourceLayout), CHROMA_PADDING);
+    std::vector<uint8_t> target(RequiredBytes(targetLayout) + 1, OUTPUT_CANARY);
     for (int32_t y = 0; y < sourceLayout.height; ++y) {
-        for (int32_t x = 0; x < sourceLayout.width; ++x) { source[y * sourceLayout.stride + x] = y * 8 + x; }
+        for (int32_t x = 0; x < sourceLayout.width; ++x) {
+            source[y * sourceLayout.stride + x] = y * sourceLayout.width + x;
+        }
     }
     Geometry crop {};
     Require(PlanGeometry(sourceLayout, targetLayout, ResizeMode::CENTER_CROP, crop), "Crop geometry");
-    Require(crop.cropTop == 2 && crop.cropHeight == 4 && crop.cropWidth == 8, "Even crop coordinates");
+    Require(crop.cropTop == GEOMETRY_CROP_TOP && crop.cropHeight == GEOMETRY_CROP_HEIGHT &&
+        crop.cropWidth == sourceLayout.width, "Even crop coordinates");
     Require(Process(source.data(), source.size(), sourceLayout, target.data(), target.size() - 1,
         targetLayout, false, ResizeMode::CENTER_CROP), "Crop processing");
-    Require(target[0] == 16 && target[15] == 23 && target[7 * 16] == 40, "Crop samples retained rectangle");
-    Require(target.back() == 99, "Crop bounds canary");
+    Require(target[0] == CROP_FIRST_LUMA && target[targetLayout.width - 1] == CROP_LAST_COLUMN_LUMA &&
+        target[(targetLayout.height - 1) * targetLayout.stride] == CROP_LAST_ROW_LUMA,
+        "Crop samples retained rectangle");
+    Require(target.back() == OUTPUT_CANARY, "Crop bounds canary");
     Geometry bars {};
     Require(PlanGeometry(sourceLayout, targetLayout, ResizeMode::LETTERBOX, bars), "Letterbox geometry");
-    Require(bars.contentLeft == 4 && bars.contentWidth == 8 && bars.contentHeight == 8, "Letterbox placement");
+    Require(bars.contentLeft == GEOMETRY_BAR_WIDTH && bars.contentWidth == sourceLayout.width &&
+        bars.contentHeight == sourceLayout.height, "Letterbox placement");
     Require(Process(source.data(), source.size(), sourceLayout, target.data(), target.size() - 1,
         targetLayout, false, ResizeMode::LETTERBOX), "Letterbox processing");
-    Require(target[0] == 16 && target[3] == 16 && target[4] == 0 && target[11] == 7 && target[12] == 16,
+    Require(target[0] == LUMA_PADDING && target[GEOMETRY_BAR_WIDTH - 1] == LUMA_PADDING &&
+        target[GEOMETRY_BAR_WIDTH] == 0 &&
+        target[GEOMETRY_BAR_WIDTH + sourceLayout.width - 1] == sourceLayout.width - 1 &&
+        target[GEOMETRY_BAR_WIDTH + sourceLayout.width] == LUMA_PADDING,
         "Black luma bars and untouched visible data");
-    Require(target[16 * 8] == 128 && target.back() == 99, "Neutral chroma bars and bounds canary");
+    Require(target[targetLayout.stride * targetLayout.sliceHeight] == CHROMA_PADDING &&
+        target.back() == OUTPUT_CANARY, "Neutral chroma bars and bounds canary");
     const auto unchanged = target;
     Require(!Process(source.data(), source.size(), sourceLayout, target.data(), target.size() - 1,
-        targetLayout, false, static_cast<ResizeMode>(99)), "Reject invalid resize mode");
+        targetLayout, false, static_cast<ResizeMode>(INVALID_RESIZE_MODE)), "Reject invalid resize mode");
     Require(target == unchanged, "Invalid plan must not write destination");
-    for (const int32_t width : {640, 1080, 1920}) {
-        for (const int32_t height : {360, 1080, 1920}) {
+    for (const int32_t width : { SMALL_WIDTH, FULL_HD_HEIGHT, FULL_HD_WIDTH }) {
+        for (const int32_t height : { SMALL_HEIGHT, FULL_HD_HEIGHT, FULL_HD_WIDTH }) {
             for (const auto mode : {ResizeMode::FIT, ResizeMode::CENTER_CROP, ResizeMode::LETTERBOX}) {
                 int32_t outWidth = 0;
                 int32_t outHeight = 0;
-                Require(OutputSize(width, height, 720, mode, outWidth, outHeight), "Plan output dimensions");
+                Require(OutputSize(width, height, TARGET_EDGE, mode, outWidth, outHeight), "Plan output dimensions");
                 Geometry plan {};
                 Require(PlanGeometry({width, height, width, height, Chroma::NV12},
                     {outWidth, outHeight, outWidth, outHeight, Chroma::NV12}, mode, plan), "Plan combinations");
-                Require(plan.cropLeft % 2 == 0 && plan.cropTop % 2 == 0 && plan.contentLeft % 2 == 0 &&
-                    plan.contentTop % 2 == 0 && plan.cropLeft + plan.cropWidth <= width &&
+                Require(plan.cropLeft % CHROMA_STEP == 0 && plan.cropTop % CHROMA_STEP == 0 &&
+                    plan.contentLeft % CHROMA_STEP == 0 && plan.contentTop % CHROMA_STEP == 0 &&
+                    plan.cropLeft + plan.cropWidth <= width &&
                     plan.cropTop + plan.cropHeight <= height && plan.contentLeft + plan.contentWidth <= outWidth &&
                     plan.contentTop + plan.contentHeight <= outHeight, "Aligned and bounded geometry");
             }

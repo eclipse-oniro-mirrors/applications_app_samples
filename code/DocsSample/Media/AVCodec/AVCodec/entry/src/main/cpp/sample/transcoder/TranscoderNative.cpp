@@ -27,6 +27,7 @@ constexpr int64_t FULL_HD_LONG_EDGE = 1080;
 constexpr int64_t UHD_LONG_EDGE = 1920;
 constexpr int64_t MAX_ENCODER_CATEGORY = 2;
 constexpr int64_t MAX_AUDIO_MODE = 2;
+constexpr int64_t MAX_RESIZE_MODE = static_cast<int64_t>(TranscodeFrames::ResizeMode::LETTERBOX);
 struct TranscodeModuleState {
     std::shared_ptr<TranscodeJob> current;
 };
@@ -147,32 +148,39 @@ bool ReadBool(napi_env env, napi_value object, const char *key, bool &flag)
            napi_get_value_bool(env, value, &flag) == napi_ok;
 }
 
-bool ReadNumericOptions(napi_env env, napi_value object, TranscodeOptions &options, int64_t &inputFd, int64_t &outputFd)
+bool ReadProcessingOptions(napi_env env, napi_value object, TranscodeOptions &options)
 {
     int64_t longEdge = 0;
-    int64_t category = 0;
-    int64_t audioMode = 0;
-    int64_t audioTrack = 0;
     int64_t resizeMode = 0;
-    if (!ReadNumber(env, object, "inputFd", inputFd) || !ReadNumber(env, object, "outputFd", outputFd) ||
-        !ReadNumber(env, object, "bitrate", options.bitrate) || !ReadNumber(env, object, "longEdge", longEdge) ||
-        !ReadBool(env, object, "useSurfaceInput", options.surface) ||
-        !ReadBool(env, object, "grayscale", options.grayscale) ||
-        !ReadNumber(env, object, "encoderCategory", category) || category > MAX_ENCODER_CATEGORY ||
-        !ReadNumber(env, object, "audioMode", audioMode) || audioMode > MAX_AUDIO_MODE ||
-        !ReadNumber(env, object, "audioTrack", audioTrack)) {
+    bool hasResizeMode = false;
+    if (!ReadNumber(env, object, "longEdge", longEdge) ||
+        napi_has_named_property(env, object, "resizeMode", &hasResizeMode) != napi_ok ||
+        (hasResizeMode && (!ReadNumber(env, object, "resizeMode", resizeMode) || resizeMode > MAX_RESIZE_MODE))) {
         return false;
     }
-    bool hasResizeMode = false;
-    if (napi_has_named_property(env, object, "resizeMode", &hasResizeMode) != napi_ok ||
-        (hasResizeMode && (!ReadNumber(env, object, "resizeMode", resizeMode) || resizeMode > 2))) { return false; }
-    if (options.bitrate < MIN_BITRATE ||
-        (longEdge != 0 && longEdge != HD_LONG_EDGE && longEdge != FULL_HD_LONG_EDGE && longEdge != UHD_LONG_EDGE) ||
+    if ((longEdge != 0 && longEdge != HD_LONG_EDGE && longEdge != FULL_HD_LONG_EDGE && longEdge != UHD_LONG_EDGE) ||
         (options.surface && (options.grayscale || longEdge != 0 || resizeMode != 0))) {
         return false;
     }
     options.longEdge = static_cast<int32_t>(longEdge);
     options.resizeMode = static_cast<int32_t>(resizeMode);
+    return true;
+}
+
+bool ReadNumericOptions(napi_env env, napi_value object, TranscodeOptions &options, int64_t &inputFd, int64_t &outputFd)
+{
+    int64_t category = 0;
+    int64_t audioMode = 0;
+    int64_t audioTrack = 0;
+    if (!ReadNumber(env, object, "inputFd", inputFd) || !ReadNumber(env, object, "outputFd", outputFd) ||
+        !ReadNumber(env, object, "bitrate", options.bitrate) || options.bitrate < MIN_BITRATE ||
+        !ReadBool(env, object, "useSurfaceInput", options.surface) ||
+        !ReadBool(env, object, "grayscale", options.grayscale) ||
+        !ReadNumber(env, object, "encoderCategory", category) || category > MAX_ENCODER_CATEGORY ||
+        !ReadNumber(env, object, "audioMode", audioMode) || audioMode > MAX_AUDIO_MODE ||
+        !ReadNumber(env, object, "audioTrack", audioTrack) || !ReadProcessingOptions(env, object, options)) {
+        return false;
+    }
     options.encoderCategory = static_cast<int32_t>(category);
     options.audioMode = static_cast<int32_t>(audioMode);
     options.audioTrack = static_cast<int32_t>(audioTrack);

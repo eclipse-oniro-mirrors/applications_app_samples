@@ -34,7 +34,8 @@ export class MediaSessionStore {
     const task: Promise<void> = MediaSessionStore.writes.then(async (): Promise<void> => {
       const entries: MediaPendingSession[] = MediaSessionStore.parsePending(
         await MediaStateFiles.read(context, 'pending_sessions.json', '[]'));
-      const remaining: MediaPendingSession[] = entries.filter((item: MediaPendingSession): boolean => item.id !== pending.id);
+      const remaining: MediaPendingSession[] = entries.filter((item: MediaPendingSession): boolean =>
+        item.id !== pending.id);
       if (pending.startedAt > 0) { remaining.push(pending); }
       if (serialized.length > 0) {
         const reports: MediaSessionReport[] = MediaReports.parseList(

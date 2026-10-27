@@ -51,8 +51,12 @@ export class MediaStateFiles {
       const path: string = MediaStateFiles.path(context, name);
       const file: fileIo.File = await fileIo.open(path + '.pending', fileIo.OpenMode.CREATE |
         fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC | fileIo.OpenMode.NOFOLLOW);
-      try { await MediaFileWriter.writeAll(file.fd, snapshot); await fileIo.fsync(file.fd); }
-      finally { await fileIo.close(file); }
+      try {
+        await MediaFileWriter.writeAll(file.fd, snapshot);
+        await fileIo.fsync(file.fd);
+      } finally {
+        await fileIo.close(file);
+      }
       await fileIo.rename(path + '.pending', path);
     });
     MediaStateFiles.writes = task.catch((): void => {});

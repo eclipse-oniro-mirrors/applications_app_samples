@@ -255,7 +255,8 @@ export struct Player {
     try {
       await ConfigurationStore.open(context);
       await ConfigurationStore.save(snapshot, custom);
-      this.configurationNotice = custom ? LocalizedText.get($r('app.string.configuration_custom_saved')) : LocalizedText.get($r('app.string.configuration_saved'));
+      this.configurationNotice = custom ? LocalizedText.get($r('app.string.configuration_custom_saved')) :
+        LocalizedText.get($r('app.string.configuration_saved'));
     } catch (_error) {
       this.configurationNotice = LocalizedText.get($r('app.string.configuration_save_failed'));
     }
@@ -900,7 +901,8 @@ export struct Player {
           const switched = player.selectAudioTrack(tracks[selected].index);
           if (!switched) {
             this.getUIContext().getPromptAction().showToast({
-              message: $r('app.string.playback_audio_track_unsupported'), duration: Const.DURATION,
+              message: $r('app.string.playback_audio_track_unsupported'),
+              duration: Const.DURATION,
               bottom: Const.BOTTOM
             });
             return;
@@ -1384,7 +1386,9 @@ export struct Player {
     const failure = player.getPlaybackInfo().failure;
     this.playbackFailureText = failure.stage.length > 0 ?
       failure.stage + ' · ' + failure.code + '\n' + failure.message +
-      '\n' + failure.mime + ' · ' + (failure.codecName || LocalizedText.get($r('app.string.configuration_auto_select'))) : LocalizedText.get($r('app.string.playback_failed_hint'));
+      '\n' + failure.mime + ' · ' + (failure.codecName ||
+        LocalizedText.get($r('app.string.configuration_auto_select'))) :
+      LocalizedText.get($r('app.string.playback_failed_hint'));
   }
 
   play(startPositionUs: number = -1, recoverySnapshot?: PlaybackRecoverySnapshot): void {
@@ -1419,7 +1423,9 @@ export struct Player {
     }
 
     if (!MediaFileActivity.beginLaunch()) {
-      this.getUIContext().getPromptAction().showToast({ message: LocalizedText.get($r('app.string.playback_cleanup_busy')) });
+      this.getUIContext().getPromptAction().showToast({
+        message: LocalizedText.get($r('app.string.playback_cleanup_busy'))
+      });
       return;
     }
     const lease: MediaTaskLease | undefined = MediaTaskCoordinator.acquire('playback');
@@ -1486,8 +1492,11 @@ export struct Player {
                 MediaReports.playback(lease.id, player.getCompletedPlaybackInfo(), result.reason))
                 .catch((error: Error): void => Logger.warn(TAG, 'Session report: ' + error.message));
             }
-          } catch (error) { Logger.warn(TAG, 'Session snapshot: ' + JSON.stringify(error)); }
-          finally { MediaTaskCoordinator.release(lease); }
+          } catch (error) {
+            Logger.warn(TAG, 'Session snapshot: ' + JSON.stringify(error));
+          } finally {
+            MediaTaskCoordinator.release(lease);
+          }
           if (session !== this.playbackSession) {
             return;
           }
@@ -1561,8 +1570,11 @@ export struct Player {
         // A failed initialization may still be draining Native resources asynchronously.
         nativeOwnsLease = started || player.getState() !== player.PlayerState.IDLE;
         closeInCallback = nativeOwnsLease;
-        if (started) { MediaTaskCoordinator.running(lease); }
-        else if (nativeOwnsLease) { MediaTaskCoordinator.cancelling(lease); }
+        if (started) {
+          MediaTaskCoordinator.running(lease);
+        } else if (nativeOwnsLease) {
+          MediaTaskCoordinator.cancelling(lease);
+        }
         if (!started) {
           this.buttonEnabled = !nativeOwnsLease;
           this.playbackViewModel.isSmartFluencyAvailable = false;
@@ -1646,8 +1658,11 @@ export struct Player {
             void MediaSessionStore.finish(reportContext, lease.id, report)
               .catch((error: Error): void => Logger.warn(TAG, 'Session report: ' + error.message));
           }
-        } catch (error) { Logger.warn(TAG, 'Session snapshot: ' + JSON.stringify(error)); }
-        finally { MediaTaskCoordinator.release(lease); }
+        } catch (error) {
+          Logger.warn(TAG, 'Session snapshot: ' + JSON.stringify(error));
+        } finally {
+          MediaTaskCoordinator.release(lease);
+        }
         if (this.playbackLease?.id === lease.id) { this.playbackLease = undefined; }
       }
       MediaFileActivity.endLaunch();
@@ -1901,12 +1916,13 @@ export struct Player {
       this.showSettingPicker(MediaSettingsLabels.getResolutionLabels(), this.recorderDraft.resolution,
         (index: number): void => { this.recorderDraft.resolution = index; });
     } else if (option === RecorderSettingsOption.VIDEO_FRAME_RATE) {
-      this.showSettingPicker(MediaSettingsLabels.getFrameRateLabels(), this.recorderDraft.frameRate, (index: number): void => {
-        this.recorderDraft.frameRate = index;
-        if (index === 0) {
-          this.recorderDraft.dropFrameRate = 0;
-        }
-      });
+      this.showSettingPicker(MediaSettingsLabels.getFrameRateLabels(), this.recorderDraft.frameRate,
+        (index: number): void => {
+          this.recorderDraft.frameRate = index;
+          if (index === 0) {
+            this.recorderDraft.dropFrameRate = 0;
+          }
+        });
     } else if (option === RecorderSettingsOption.SYNC_MODE) {
       this.showSettingPicker(MediaSettingsLabels.getSyncModeLabels(), this.recorderDraft.syncMode,
         (index: number): void => { this.recorderDraft.syncMode = index; });
@@ -1923,7 +1939,8 @@ export struct Player {
       this.showSettingPicker(MediaSettingsLabels.getRecorderAudioSampleRateLabels(), this.recorderDraft.audioSampleRate,
         (index: number): void => { this.recorderDraft.audioSampleRate = index; });
     } else if (option === RecorderSettingsOption.AUDIO_CHANNEL_COUNT) {
-      this.showSettingPicker(MediaSettingsLabels.getRecorderAudioChannelCountLabels(), this.recorderDraft.audioChannelCount,
+      this.showSettingPicker(MediaSettingsLabels.getRecorderAudioChannelCountLabels(),
+        this.recorderDraft.audioChannelCount,
         (index: number): void => { this.recorderDraft.audioChannelCount = index; });
     } else if (option === RecorderSettingsOption.AUDIO_BITRATE) {
       this.showSettingPicker(MediaSettingsLabels.getRecorderAudioBitrateLabels(), this.recorderDraft.audioBitrate,
@@ -2008,14 +2025,16 @@ export struct Player {
       bitrateModeText: MediaSettingsLabels.getRecorderBitrateModeLabels()[this.recorderDraft.bitrateMode],
       iFrameIntervalText: MediaSettingsLabels.getRecorderIFrameIntervalLabels()[this.recorderDraft.iFrameInterval],
       audioSampleRateText: MediaSettingsLabels.getRecorderAudioSampleRateLabels()[this.recorderDraft.audioSampleRate],
-      audioChannelCountText: MediaSettingsLabels.getRecorderAudioChannelCountLabels()[this.recorderDraft.audioChannelCount],
+      audioChannelCountText:
+        MediaSettingsLabels.getRecorderAudioChannelCountLabels()[this.recorderDraft.audioChannelCount],
       audioBitrateText: MediaSettingsLabels.getRecorderAudioBitrateLabels()[this.recorderDraft.audioBitrate],
       audioCaptureLatencyText: MediaSettingsLabels.getRecorderAudioLatencyLabels()[this.recorderDraft.audioLatency],
       videoStabilizationText: MediaSettingsLabels.getRecorderStabilizationLabels()[this.recorderDraft.stabilization],
       videoPreprocessingText: this.recorderDraft.preprocMode === Const.VIDEO_PREPROC_CROP ?
         LocalizedText.get($r('app.string.preprocess_center_crop_prefix')) + this.recorderDraft.cropPercent + '%）' :
         (this.recorderDraft.preprocMode === Const.VIDEO_PREPROC_DOWNSAMPLING ?
-          LocalizedText.get($r('app.string.preprocess_downsample_to_prefix')) + this.recorderDraft.downsamplingHeight + 'P' : Const.VIDEO_PREPROC_MODE[0]),
+          LocalizedText.get($r('app.string.preprocess_downsample_to_prefix')) +
+            this.recorderDraft.downsamplingHeight + 'P' : Const.VIDEO_PREPROC_MODE[0]),
       preprocessMode: this.recorderDraft.preprocMode,
       sourceWidth: this.recorderDraft.resolution === 0 ? Const.VIDEO_WIDTH_4K :
         (this.recorderDraft.resolution === 1 ? Const.VIDEO_WIDTH_1080P : Const.VIDEO_WIDTH_720P),
@@ -2194,7 +2213,9 @@ export struct Player {
         } else if (item.codecType === 0) {
           if (this.cameraData.preprocMode !== 0 || this.cameraData.enableDualOutput ||
             this.cameraData.dropToFrameRate > 0) {
-            this.getUIContext().getPromptAction().showToast({ message: LocalizedText.get($r('app.string.configuration_special_codec_name')) });
+            this.getUIContext().getPromptAction().showToast({
+              message: LocalizedText.get($r('app.string.configuration_special_codec_name'))
+            });
             return;
           }
           this.selectedEncoderName = item.codecName;

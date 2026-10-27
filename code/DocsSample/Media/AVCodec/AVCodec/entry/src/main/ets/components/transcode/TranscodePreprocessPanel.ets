@@ -33,10 +33,12 @@ export struct TranscodePreprocessPanel {
     return this.plan().width > 0 ? this.previewWidth() * this.plan().height / this.plan().width : 158;
   }
   private previewWidth(): number {
-    return this.plan().height > 0 ? Math.min(this.availableWidth, 220 * this.plan().width / this.plan().height) : this.availableWidth;
+    return this.plan().height > 0 ?
+      Math.min(this.availableWidth, 220 * this.plan().width / this.plan().height) : this.availableWidth;
   }
   private contentWidth(): number {
-    return this.plan().width > 0 ? this.previewWidth() * this.plan().contentWidth / this.plan().width : this.previewWidth();
+    return this.plan().width > 0 ?
+      this.previewWidth() * this.plan().contentWidth / this.plan().width : this.previewWidth();
   }
   private contentHeight(): number {
     return this.plan().height > 0 ? this.previewHeight() * this.plan().contentHeight / this.plan().height : 158;
@@ -47,7 +49,10 @@ export struct TranscodePreprocessPanel {
       Text($r('app.string.task_preview')).fontSize(17).fontWeight(FontWeight.Medium)
       Select(this.modes()).selected(this.model.resizeMode).value(this.modes()[this.model.resizeMode].value)
         .enabled(this.model.modeIndex === 0 && !this.model.busy && !this.model.queueRunning)
-        .onSelect((index: number): void => { this.model.resizeMode = index; void this.model.inspect(this.getUIContext()); })
+        .onSelect((index: number): void => {
+          this.model.resizeMode = index;
+          void this.model.inspect(this.getUIContext());
+        })
       Text($r('app.string.task_preview_hint')).fontSize(12).fontColor('#667085')
       if (this.plan().width > 0) {
         Stack({ alignContent: Alignment.Center }) {

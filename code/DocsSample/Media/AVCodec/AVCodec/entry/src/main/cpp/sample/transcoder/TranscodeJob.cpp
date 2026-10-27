@@ -179,8 +179,7 @@ bool TranscodeJob::ReadVideoProperties()
     if (videoFormat_ == nullptr || !OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_WIDTH, &sourceWidth_) ||
         !OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_HEIGHT, &sourceHeight_) ||
         !TranscodeFrames::OutputSize(sourceWidth_, sourceHeight_, options_.surface ? 0 : options_.longEdge,
-                                  static_cast<TranscodeFrames::ResizeMode>(options_.resizeMode), targetWidth_,
-                                  targetHeight_)) {
+            static_cast<TranscodeFrames::ResizeMode>(options_.resizeMode), targetWidth_, targetHeight_)) {
         return Fail("No supported video track or invalid video dimensions");
     }
     if (!ValidateSourceColor()) {
@@ -465,7 +464,7 @@ bool TranscodeJob::ProcessBufferFrame(OH_AVBuffer *input, OH_AVCodecBufferAttr &
     uint8_t *target = OH_AVBuffer_GetAddr(input);
     if (source == nullptr || sourceCapacity < 0 || targetCapacity < 0 || offset < 0 || offset > sourceCapacity ||
         !TranscodeFrames::Process(source + offset, sourceCapacity - offset, decodedLayout_, target, targetCapacity,
-                                  encodedLayout_, options_.grayscale, static_cast<TranscodeFrames::ResizeMode>(options_.resizeMode))) {
+            encodedLayout_, options_.grayscale, static_cast<TranscodeFrames::ResizeMode>(options_.resizeMode))) {
         return Fail("Process decoded image layout");
     }
     attr.size = static_cast<int32_t>(TranscodeFrames::RequiredBytes(encodedLayout_));
