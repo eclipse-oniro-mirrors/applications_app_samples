@@ -261,7 +261,8 @@ export class TranscodeModel {
   }
 
   private configuration(): string {
-    return (this.codecIndex === 0 ? 'H.264' : 'H.265') + ' · ' + (this.modeIndex === 0 ? 'Buffer' : '直连') +
+    const mode: string = this.modeIndex === 0 ? 'Buffer' : LocalizedText.get($r('app.string.transcode_window_mode'));
+    return (this.codecIndex === 0 ? 'H.264' : 'H.265') + ' · ' + mode +
       ' · ' + ([2, 4, 8, 16][this.bitrateIndex] ?? 8) + ' Mbps · gray=' + this.grayscale +
       ' · audio=' + ['copy', 'AAC-LC 128 kbps', 'none'][this.audioMode] + ' · track=' + this.audioTrack;
   }
