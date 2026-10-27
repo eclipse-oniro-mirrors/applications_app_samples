@@ -102,18 +102,18 @@ struct Index {
           .onClick(() => {
             const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
             if (!isNeedGetPermissionFromUser()) {
-              hilog.info(0xFF00, '[Sample_pasteboard]', "No need to bring up the permission pop-up window");
+              hilog.info(0xFF00, '[Sample_pasteboard]', "No neded to bring up the permission pop-up window");
               return;
             }
             let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
-            // requestPermissionsFromUser会判断权限的授权状态来决定是否唤起弹窗。
+            // requestPermissionsFromUser会判断权限的授权状态来决定是否唤起弹窗
             atManager.requestPermissionsFromUser(context, permissions).then((data) => {
               let grantStatus: number[] = data.authResults;
               for (const status of grantStatus) {
                 if (status === 0) {
-                  // 用户授权，使用get操作读取剪贴板内容。
+                  // 用户授权，使用get操作读取剪贴板内容
                   this.text = testNapi.pasteboard_test_get();
-                  // 执行判断口令逻辑，如果是本应用口令，建议获取完数据后使用cleardata清除剪贴板口令内容
+                  // 执行判断口令逻辑，如果是本应用口令，建议获取完数据后使用clearData清除剪贴板口令内容
                   systemPasteboard.clearData().then((data: void) => {
                     hilog.info(0xFF00, '[Sample_pasteboard]', 'Succeeded in clearing the pasteboard.');
                   }).catch((err: BusinessError) => {
@@ -129,7 +129,7 @@ struct Index {
                     hilog.info(0xFF00, '[Sample_pasteboard]', 'ChangeCount has been updated to: ' + currentChangeCount);
                   }
                 } else {
-                  // 用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限。
+                  // 用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限
                   return;
                 }
               }
