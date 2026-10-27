@@ -19,11 +19,19 @@ import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 // [Start Crash_Click_ArkTS_Header]
 // [Start AppEvent_Crash_Click_ArkTS_Header]
+// [Start AppHicollie_ArkTS_Header]
+// [Start MainThreadJank_ArkTS_Header]
 import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
+// [End AppHicollie_ArkTS_Header]
 // [End AppEvent_Crash_Click_ArkTS_Header]
 // [End PssLeakEvent_ArkTS_Header]
+// [StartExclude MainThreadJank_ArkTS_Header]
 import { deviceInfo } from '@kit.BasicServicesKit';
+// [EndExclude MainThreadJank_ArkTS_Header]
 // [End Crash_Click_ArkTS_Header]
+import { buffer, util } from '@kit.ArkTS';
+import { fileIo } from '@kit.CoreFileKit';
+// [End MainThreadJank_ArkTS_Header]
 import { hidebug } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 // [End EventSub_EntryAbility_Header]
@@ -34,6 +42,11 @@ import testNapi from 'libentry.so';
 // 该变量在/pages/ArkWebPage.ets文件中进行定义，用于实现webId到网页url的映射
 import { webIdToUrlMap } from '../pages/ArkWebPage';
 // [End ArkWeb_Fling_Jank_ArkTS_Add_Watcher_Header]
+
+// [Start appHicollieWatcher_Watcher_Header]
+let appHicollieWatcher: hiAppEvent.Watcher;
+// [End appHicollieWatcher_Watcher_Header]
+
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
@@ -457,6 +470,51 @@ export default class EntryAbility extends UIAbility {
       }
     });
     // [End TimeOutEvent_ArkTS_Add_Watcher]
+    // [Start AppHicollie_ArkTS_Add_Watcher]
+    // 订阅任务执行超时事件
+    appHicollieWatcher = {
+      // 开发者可以自定义观察者名称，系统会使用名称来标识不同的观察者
+      name: "appHicollieWatcher",
+      // 开发者可以订阅感兴趣的系统事件，此处是订阅了任务执行超时事件
+      appEventFilters: [
+        {
+          domain: hiAppEvent.domain.OS,
+          names: [hiAppEvent.event.APP_HICOLLIE]
+        }
+      ],
+      // 开发者可以自行实现订阅实时回调函数，以便对订阅获取到的事件数据进行自定义处理
+      onReceive: (domain: string, appEventGroups: Array<hiAppEvent.AppEventGroup>) => {
+        hilog.info(0x0000, 'testTag', `HiAppEvent onReceive: domain=${domain}`);
+        for (const eventGroup of appEventGroups) {
+          hilog.info(0x0000, 'testTag', `HiAppEvent eventName=${eventGroup.name}`);
+          for (const eventInfo of eventGroup.appEventInfos) {
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.domain=${eventInfo.domain}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.name=${eventInfo.name}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.eventType=${eventInfo.eventType}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.time=${eventInfo.params['time']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.foreground=${eventInfo.params['foreground']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.bundle_version=${eventInfo.params['bundle_version']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.process_name=${eventInfo.params['process_name']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.pid=${eventInfo.params['pid']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.uid=${eventInfo.params['uid']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.uuid=${eventInfo.params['uuid']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.exception=${eventInfo.params['exception']}`);
+            if (eventInfo.params['hilog'] != undefined) {
+              hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.hilog.size=${eventInfo.params['hilog'].length}`);
+            }
+            if (eventInfo.params['peer_binder'] != undefined) {
+              hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.peer_binder.size=${JSON.stringify(eventInfo.params['peer_binder'].length)}`);
+            }
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.memory=${eventInfo.params['memory']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.external_log=${JSON.stringify(eventInfo.params['external_log'])}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.log_over_limit=${eventInfo.params['log_over_limit']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.external_callback_log=${eventInfo.params['external_callback_log']}`);
+          }
+        }
+      }
+    };
+    hiAppEvent.addWatcher(appHicollieWatcher);
+    // [End AppHicollie_ArkTS_Add_Watcher]
     // [Start ArkWeb_Fling_Jank_ArkTS_Add_Watcher]
     // 添加ArkWeb抛滑丢帧事件观察者
     hiAppEvent.addWatcher({
@@ -497,6 +555,69 @@ export default class EntryAbility extends UIAbility {
       }
     });
     // [End ArkWeb_Fling_Jank_ArkTS_Add_Watcher]
+
+    // [Start MainThreadJank_ArkTS_Add_Watcher]
+    // 添加主线程超时事件观察者
+    hiAppEvent.addWatcher({
+      // 开发者可以自定义观察者名称，系统会使用名称来标识不同的观察者
+      name: "mainThreadWatcher",
+      // 开发者可以订阅感兴趣的系统事件，此处是订阅了主线程超时事件
+      appEventFilters: [
+        {
+          domain: hiAppEvent.domain.OS,
+          names: [hiAppEvent.event.MAIN_THREAD_JANK]
+        }
+      ],
+      // 开发者可以自行实现订阅实时回调函数，以便对订阅获取到的事件数据进行自定义处理
+      onReceive: (domain: string, appEventGroups: Array<hiAppEvent.AppEventGroup>) => {
+        hilog.info(0x0000, 'testTag', `HiAppEvent onReceive: domain=${domain}`);
+        for (const eventGroup of appEventGroups) {
+          // 开发者可以根据事件集合中的事件名称区分不同的系统事件
+          hilog.info(0x0000, 'testTag', `HiAppEvent eventName=${eventGroup.name}`);
+          for (const eventInfo of eventGroup.appEventInfos) {
+            // 开发者可以对事件集合中的事件数据进行自定义处理，此处是将事件数据打印在日志中
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.domain=${eventInfo.domain}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.name=${eventInfo.name}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.eventType=${eventInfo.eventType}`);
+            // 开发者可以获取到主线程超时事件发生的时间戳
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.time=${eventInfo.params['time']}`);
+            // 开发者可以获取到主线程超时应用的版本信息
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.bundle_version=${eventInfo.params['bundle_version']}`);
+            // 开发者可以获取到主线程超时应用的包名
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.bundle_name=${eventInfo.params['bundle_name']}`);
+            // 开发者可以获取到主线程超时应用的pid、uid
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.pid=${eventInfo.params['pid']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.uid=${eventInfo.params['uid']}`);
+            // 开发者可以获取主线程处理开始和结束时间
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.begin_time=${eventInfo.params['begin_time']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.end_time=${eventInfo.params['end_time']}`);
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.log_over_limit=${eventInfo.params['log_over_limit']}`);
+            // 开发者可以获取到主线程超时事件时，任务执行的开始时间（主线程超时采集堆栈参数）
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.app_start_jiffies_time=${JSON.stringify(eventInfo.params['app_start_jiffies_time'])}`);
+            // 开发者可以获取到生成的主线程超时日志文件中，打印最多次的调用栈（主线程超时采集堆栈参数）
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.heaviest_stack=${eventInfo.params['heaviest_stack']}`);
+
+            // 开发者可以获取到主线程超时事件发生时的故障日志文件
+            hilog.info(0x0000, 'testTag', `HiAppEvent eventInfo.params.external_log=${JSON.stringify(eventInfo.params['external_log'])}`);
+            // 开发者可以通过以下方式移动文件到新的目录
+            let path: string = String(eventInfo.params['external_log']);
+            // 自定义的新的存储路径
+            let targetPath: string = "";
+            if (path.endsWith(".txt")) {
+              targetPath= "/data/storage/el2/base/mainThreadJank.txt";
+            } else if (path.endsWith(".trace")) {
+              targetPath= "/data/storage/el2/base/mainThreadJank.trace";
+            }
+            try {
+              fileIo.copyFileSync(path.toString(), targetPath.toString());
+            } catch (e) {
+              hilog.error(0x0000, 'testTag', `copy file failed: ${e}`);
+            }
+          }
+        }
+      }
+    });
+    // [End MainThreadJank_ArkTS_Add_Watcher]
     // [Start EventSub_Call_Capi_Function]
     // 调用C++观察者
     testNapi.registerWatcher();
@@ -539,10 +660,20 @@ export default class EntryAbility extends UIAbility {
     // 启动时，注册按钮点击事件观察者
     testNapi.registerWatcherCrashEvent();
     // [End Sys_Crash_Event_Call_Capi_Function]
+
+    // [Start MainThreadJank_Event_Call_Capi_Function]
+   // 在onCreate()函数中新增接口调用。
+   // 启动时，注册系统事件观察者。
+   testNapi.RegisterMainThreadJankWatcher();
+   // [End MainThreadJank_Event_Call_Capi_Function]
   }
 
   onDestroy(): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
+    // [Start remove_hicollie_watcher]
+    // 移除该应用事件观察者以取消订阅事件
+    hiAppEvent.removeWatcher(appHicollieWatcher);
+    // [End remove_hicollie_watcher]
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
