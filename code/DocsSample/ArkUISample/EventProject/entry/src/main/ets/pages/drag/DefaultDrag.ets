@@ -187,10 +187,12 @@ export struct DefaultDrag {
                   event.dragBehavior = DragBehavior.COPY;
                 })
                 // [End set_drag_behavior_move]
+                // [EndExclude default_drag]
                 // [Start drag_allow_drop]
                 .allowDrop([uniformTypeDescriptor.UniformDataType.HYPERLINK,
                   uniformTypeDescriptor.UniformDataType.PLAIN_TEXT])
                 // [End drag_allow_drop]
+                // [EndExclude default_drag]
                 // [Start allow_drag_type]
                 .allowDrop([uniformTypeDescriptor.UniformDataType.IMAGE])
                 // [End allow_drag_type]
