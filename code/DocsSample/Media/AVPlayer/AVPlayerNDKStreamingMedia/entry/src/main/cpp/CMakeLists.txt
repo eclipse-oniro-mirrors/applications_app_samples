@@ -16,11 +16,16 @@ add_library(entry SHARED napi_init.cpp)
 target_link_libraries(entry PUBLIC
     libohaudio.so
     libace_napi.z.so
-    libhilog_ndk.z.so
     libace_ndk.z.so
     libnative_window.so
     libnative_drm.so
-    libavplayer.so
     libohfileuri.so
-    libnative_media_core.so
 )
+
+//[Start target_link_libraries]
+target_link_libraries(entry PUBLIC 
+    libavplayer.so 
+    libnative_media_core.so 
+    libhilog_ndk.z.so
+)
+//[End target_link_libraries]
