@@ -106,7 +106,7 @@ struct Index {
 
     if (this.avPlayer) {
       console.info(`${this.tag}: init avPlayer release2createNew`);
-      this.avPlayer?.release();
+      this.avPlayer.release();
       await this.msleepAsync(1500);
     }
     // 创建avPlayer实例对象
@@ -125,11 +125,11 @@ struct Index {
     });
 
     // 为fdSrc赋值触发initialized状态机上报
-    this.avPlayer!.fdSrc = avFileDescriptor;
+    this.avPlayer.fdSrc = avFileDescriptor;
 
     // 设定字幕
     let fileDescriptorSub = await this.context.resourceManager.getRawFd('test1.srt');
-    this.avPlayer!.addSubtitleFromFd(fileDescriptorSub.fd, fileDescriptorSub.offset, fileDescriptorSub.length);
+    this.avPlayer.addSubtitleFromFd(fileDescriptorSub.fd, fileDescriptorSub.offset, fileDescriptorSub.length);
     // [End addSubtitleFromFd]
   }
 
