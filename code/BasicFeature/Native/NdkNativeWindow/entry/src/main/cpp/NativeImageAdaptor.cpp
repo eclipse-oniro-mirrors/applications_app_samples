@@ -16,6 +16,7 @@
 #include "NativeImageAdaptor.h"
 #include "logger_common.h"
 #include "IPCKit/ipc_cparcel.h"
+#include "cmath"
 #include "cstdint"
 
 namespace NativeWindowSample {
@@ -29,6 +30,7 @@ constexpr const char *EGL_GET_PLATFORM_DISPLAY_EXT = "eglGetPlatformDisplayEXT";
 constexpr int32_t NATIVE_CACHE_BUFFER = 3;
 constexpr int32_t GSERROR_OK = 0;
 constexpr int32_t GSERROR_FAILD = 1;
+constexpr float ANGLE_COMPARE_EPSILON = 0.001f;
 NativeImageAdaptor *NativeImageAdaptor::GetInstance()
 {
     static NativeImageAdaptor imageAdaptor;
@@ -332,6 +334,29 @@ void NativeImageAdaptor::SetConfigAndGetValue()
     code = SET_COLOR_GAMUT;
     OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, NATIVEBUFFER_COLOR_GAMUT_SRGB);
     g_cnt++;
+    
+    code = OH_NATIVEWINDOW_SET_SCREEN_INFO;
+    OH_NativeWindow_ScreenInfoRect currentFrameRectSrc = { .x = 10, .y = 10, .w = 100, .h = 100};
+    OH_NativeWindow_ScreenInfoRect originalRectSrc = { .x = 20, .y = 20, .w = 200, .h = 200};
+    float angleSrc = 90.0;
+    ret = OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, &currentFrameRectSrc, &originalRectSrc, angleSrc);
+    if (ret != 0) {
+        LOGE("NativeWindowSetScreenInfo fail, ret: %{public}d", ret);
+    }
+    code = OH_NATIVEWINDOW_GET_SCREEN_INFO;
+    OH_NativeWindow_ScreenInfoRect currentFrameRectDst = { 0 };
+    OH_NativeWindow_ScreenInfoRect originalRectDst = { 0 };
+    float angleDst = 0;
+    ret = OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, &currentFrameRectDst, &originalRectDst, &angleDst);
+    bool isCurrentFrameRectEqual = currentFrameRectSrc.x == currentFrameRectDst.x &&
+        currentFrameRectSrc.y == currentFrameRectDst.y && currentFrameRectSrc.w == currentFrameRectDst.w &&
+        currentFrameRectSrc.h == currentFrameRectDst.h;
+    bool isOriginalRectEqual = originalRectSrc.x == originalRectDst.x && originalRectSrc.y == originalRectDst.y &&
+        originalRectSrc.w == originalRectDst.w && originalRectSrc.h == originalRectDst.h;
+    bool isAngleEqual = std::fabs(angleSrc - angleDst) < ANGLE_COMPARE_EPSILON;
+    if (ret != 0 || !isCurrentFrameRectEqual || !isOriginalRectEqual || !isAngleEqual) {
+        LOGE("NativeWindowGetScreenInfo ret: %{public}d", ret);
+    }
 }
 
 void NativeImageAdaptor::GetBufferMapPlanes(NativeWindowBuffer *buffer)
