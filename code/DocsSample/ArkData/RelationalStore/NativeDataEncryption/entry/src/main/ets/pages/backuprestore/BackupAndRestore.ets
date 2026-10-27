@@ -110,7 +110,7 @@ export async function backupManually(uiContext: UIContext) {
           if (err.code === 14800011) {
             // 执行下文的步骤，即关闭结果集之后进行数据的恢复
           }
-          hilog.info(DOMAIN, 'BackupAndRestore', JSON.stringify(err));
+          hilog.error(DOMAIN, 'BackupAndRestore', JSON.stringify(err));
         }
       })
   }
@@ -125,7 +125,7 @@ export async function backupManually(uiContext: UIContext) {
       resultSet.close();
     } catch (e) {
       if (e.code !== 14800014) {
-        hilog.info(DOMAIN, 'BackupAndRestore', `Code:${e.code}, message:${e.message}`);
+        hilog.error(DOMAIN, 'BackupAndRestore', `Code:${e.code}, message:${e.message}`);
       }
     }
   }
@@ -202,7 +202,7 @@ export async function restoringManualBackupData(uiContext: UIContext) {
       return;
     }
   } catch (e) {
-    hilog.info(DOMAIN, 'BackupAndRestore', `Code:${e.code}, message:${e.message}`);
+    hilog.error(DOMAIN, 'BackupAndRestore', `Code:${e.code}, message:${e.message}`);
   }
 
   try {
