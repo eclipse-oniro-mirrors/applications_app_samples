@@ -22,10 +22,10 @@ target_link_libraries(entry PUBLIC
     libohfileuri.so
 )
 
-//[Start target_link_libraries]
+// [Start target_link_libraries]
 target_link_libraries(entry PUBLIC 
     libavplayer.so 
     libnative_media_core.so 
     libhilog_ndk.z.so
 )
-//[End target_link_libraries]
+// [End target_link_libraries]
