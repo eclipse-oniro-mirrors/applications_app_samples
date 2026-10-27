@@ -133,12 +133,12 @@ struct Index {
     // [End addSubtitleFromFd]
   }
 
-  // [Start offSubtitleUpdate]
+  // [Start off('subtitleUpdate')]
   // (可选)当需要不显示字幕的时候，使用视频播放的AVPlayer实例注销字幕回调函数
-  // async avTurnOffSubtitle() {
-  //   this.avPlayer?.offSubtitleUpdate();
-  // }
-  // [End offSubtitleUpdate]
+  async avTurnOffSubtitle() {
+    this.avPlayer?.off('subtitleUpdate');
+  }
+  // [End off('subtitleUpdate')]
 
   avPlay(): void {
     if (this.avPlayer) {
@@ -313,7 +313,7 @@ struct Index {
     });
     // [Start onSubtitleUpdate]
     // 字幕回调函数
-    this.avPlayer!.onSubtitleUpdate((info: media.SubtitleInfo) => {
+    this.avPlayer.on('subtitleUpdate', (info: media.SubtitleInfo) => {
       if (!!info) {
         let text = (!info.text) ? '' : info.text;
         let startTime = (!info.startTime) ? 0 : info.startTime;
