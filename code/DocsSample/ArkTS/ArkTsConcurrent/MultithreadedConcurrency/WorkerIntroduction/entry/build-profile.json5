@@ -49,10 +49,12 @@
         "./src/main/ets/notrecommendedtwoworker/parentworker.ets",
         "./src/main/ets/notrecommendedtwoworker/childworker.ets",
         './src/main/ets/workers/ChildWorker.ets',
-        './src/main/ets/workers/ParentWorker.ets',
-        './src/main/ets/workers/worker.ets',
+        // [StartExclude manual_create_worker]
         './src/main/ets/workers/DataWorker.ets',
-        './src/main/ets/workers/DataWorker2.ets'
+        './src/main/ets/workers/DataWorker2.ets',
+        // [EndExclude manual_create_worker]
+        './src/main/ets/workers/ParentWorker.ets',
+        './src/main/ets/workers/worker.ets'
       ]
     }
   }

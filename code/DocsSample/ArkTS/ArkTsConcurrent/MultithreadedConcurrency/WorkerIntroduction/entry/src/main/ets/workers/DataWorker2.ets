@@ -20,7 +20,7 @@
 
 // workers/DataWorker2.ets
 import { MessageEvents, ThreadWorkerGlobalScope, worker } from '@kit.ArkTS';
-import { DataProcessor } from './business-worker';
+import { DataProcessor } from 'businessworker';
 // 只加载纯逻辑模块，不包含任何UI依赖
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
