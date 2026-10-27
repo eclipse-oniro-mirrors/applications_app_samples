@@ -21,6 +21,7 @@ export interface TranscodeRequest {
   longEdge: number;
   useSurfaceInput: boolean;
   grayscale: boolean;
+  resizeMode?: number;
   encoderCategory: number;
   audioMode: number;
   audioTrack: number;

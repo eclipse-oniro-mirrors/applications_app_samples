@@ -31,12 +31,9 @@ struct RecorderStreamInfo {
     double bitrate = 0;
     RecorderStreamMetricsInfo live;
     StageTimingInfo queueWait;
-    StageTimingInfo queueResidence;
     StageTimingInfo muxerWrite;
     StageTimingInfo dumpWrite;
     StageTimingInfo bufferHold;
-    uint64_t queueDepth = 0;
-    uint64_t queuePeak = 0;
     std::string requestedConfiguration;
     std::string codecDescription;
     int32_t codecWidth = 0;
@@ -130,15 +127,6 @@ public:
             (attr.flags & AVCODEC_BUFFER_FLAGS_SYNC_FRAME) != 0, RecorderClockUs());
     }
 
-    void SetQueue(const StageTimingInfo &wait, const StageTimingInfo &residence, uint64_t depth, uint64_t peak)
-    {
-        std::lock_guard<std::mutex> lock(mutex_);
-        info_.queueWait = wait;
-        info_.queueResidence = residence;
-        info_.queueDepth = depth;
-        info_.queuePeak = peak;
-    }
-
     void SetStorage(int64_t fileBytes, int64_t freeBytes, double growth, const std::string &dump, uint64_t dumpBytes)
     {
         std::lock_guard<std::mutex> lock(mutex_);
@@ -171,10 +159,7 @@ public:
         snapshot.muxerWrite = muxerTiming_.Snapshot();
         snapshot.dumpWrite = dumpTiming_.Snapshot();
         snapshot.bufferHold = holdTiming_.Snapshot();
-        const auto retrieval = retrievalTiming_.Snapshot();
-        if (retrieval.count > 0) {
-            snapshot.queueWait = retrieval;
-        }
+        snapshot.queueWait = retrievalTiming_.Snapshot();
         // Recorder 已将 Camera 纳秒 PTS 归一化为微秒；首帧前不凭配置帧率推算实测值。
         const double seconds = static_cast<double>(lastPtsUs_ - firstPtsUs_) / microsecondsPerSecond;
         if (seconds > 0 && info_.frames > 1) {

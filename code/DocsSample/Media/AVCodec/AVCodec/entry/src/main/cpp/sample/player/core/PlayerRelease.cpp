@@ -158,6 +158,7 @@ void Player::ReleasePlaybackResources()
     ReleaseVideoDecoder();
     // 每个 sink 持有当前解码器和 XComponent 的送显资源。全部释放后再创建新的 Surface 解码器。
     if (videoSink_ != nullptr) {
+        completedPlaybackInfo_.videoSinkDiagnostics = videoSink_->GetDiagnostics();
         videoSink_->Reset();
         videoSink_.reset();
         videoSinkRunMode_ = -1;
@@ -198,6 +199,8 @@ void Player::Release()
         failure_.Record("playback.output", AVCODEC_SAMPLE_ERR_ERROR,
             "播放未产生有效输出或工作线程异常结束；详细原因请结合日志检查");
     }
+    // 完成回调在资源释放后到达 ArkTS；先保存计数，避免结束报告读取到重置后的零值。
+    completedPlaybackInfo_ = GetPlaybackInfo();
     ReleasePlaybackResources();
     auto playDoneCallback = sampleInfo_.playback.playDoneCallback;
     void *playDoneCallbackData = sampleInfo_.playback.playDoneCallbackData;

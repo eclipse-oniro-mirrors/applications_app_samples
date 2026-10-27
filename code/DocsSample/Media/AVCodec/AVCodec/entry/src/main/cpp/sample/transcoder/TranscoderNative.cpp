@@ -153,6 +153,7 @@ bool ReadNumericOptions(napi_env env, napi_value object, TranscodeOptions &optio
     int64_t category = 0;
     int64_t audioMode = 0;
     int64_t audioTrack = 0;
+    int64_t resizeMode = 0;
     if (!ReadNumber(env, object, "inputFd", inputFd) || !ReadNumber(env, object, "outputFd", outputFd) ||
         !ReadNumber(env, object, "bitrate", options.bitrate) || !ReadNumber(env, object, "longEdge", longEdge) ||
         !ReadBool(env, object, "useSurfaceInput", options.surface) ||
@@ -162,12 +163,16 @@ bool ReadNumericOptions(napi_env env, napi_value object, TranscodeOptions &optio
         !ReadNumber(env, object, "audioTrack", audioTrack)) {
         return false;
     }
+    bool hasResizeMode = false;
+    if (napi_has_named_property(env, object, "resizeMode", &hasResizeMode) != napi_ok ||
+        (hasResizeMode && (!ReadNumber(env, object, "resizeMode", resizeMode) || resizeMode > 2))) { return false; }
     if (options.bitrate < MIN_BITRATE ||
         (longEdge != 0 && longEdge != HD_LONG_EDGE && longEdge != FULL_HD_LONG_EDGE && longEdge != UHD_LONG_EDGE) ||
-        (options.surface && (options.grayscale || longEdge != 0))) {
+        (options.surface && (options.grayscale || longEdge != 0 || resizeMode != 0))) {
         return false;
     }
     options.longEdge = static_cast<int32_t>(longEdge);
+    options.resizeMode = static_cast<int32_t>(resizeMode);
     options.encoderCategory = static_cast<int32_t>(category);
     options.audioMode = static_cast<int32_t>(audioMode);
     options.audioTrack = static_cast<int32_t>(audioTrack);

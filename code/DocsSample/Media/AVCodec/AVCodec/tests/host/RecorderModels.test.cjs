@@ -152,7 +152,7 @@ function testLiveDiagnostics() {
     outputIdleMs: 20, longestGapMs: 50, ptsRegressions: 0,
     keyFrames: 2, lastKeyFramePtsUs: 1000000, keyFrameIntervalMs: 1000, keyFrameRequests: 1,
     keyFrameRequest: 'observed', keyFrameWaitMs: 40, parameterAccepted: 2, parameterRejected: 1,
-    queueDepth: 1, queuePeak: 3, queueWait: timing, queueResidence: timing, muxerWrite: timing,
+    queueWait: timing, muxerWrite: timing,
     dumpWrite: timing, bufferHold: timing, fileBytes: -1, freeBytes: -1, fileBytesPerSecond: -1,
     dumpBytes: 0, dumpState: 'disabled', requestedConfiguration: 'requested', codecDescription: 'codec',
     codecWidth: 0, codecHeight: 0, codecFps: 0, codecBitrate: 0
@@ -383,112 +383,42 @@ async function testDumpExports() {
   console.log('Dump export: cancellation, activity recheck, space, ZIP cleanup, and fd cleanup passed');
 }
 
-async function testRecordingReports() {
-  const { RecordingReportStore } = load(path.join(sourceRoot, 'model/RecordingReportStore.ets'));
-  const { RecordingHistoryModel } = load(path.join(sourceRoot, 'model/RecordingHistoryModel.ets'));
+async function testMediaFileWriter() {
+  const { MediaFileWriter } = load(path.join(sourceRoot, 'model/MediaFileWriter.ets'));
   const io = mocks['@kit.CoreFileKit'].fileIo;
-  const original = { ...io };
-  const files = new Map();
-  const context = { filesDir: '/files' };
-  let failWrite = false;
-  let failureTriggered = false;
-  let concurrent = 0;
-  let peak = 0;
-  const operations = [];
-  io.mkdir = async () => {};
-  io.access = async (file) => files.has(file);
-  io.listFile = async (dir) => [...files.keys()].filter(x => x.startsWith(dir + '/')).map(x => x.slice(dir.length + 1));
-  io.open = async (file) => { files.set(file, Buffer.alloc(0)); return { fd: file }; };
-  io.close = async () => {};
-  io.fsync = async () => {};
-  io.write = async (fd, data) => {
-    if (failWrite && fd.includes('recording_900_1.json.pending')) {
-      failureTriggered = true; throw new Error('disk full');
-    }
-    concurrent++;
-    peak = Math.max(peak, concurrent);
-    await Promise.resolve();
-    const chunk = Buffer.from(data).subarray(0, 7);
-    files.set(fd, Buffer.concat([files.get(fd), chunk]));
-    concurrent--;
+  const originalWrite = io.write;
+  let output = Buffer.alloc(0);
+  io.write = async (_fd, data) => {
+    const chunk = Buffer.from(data).subarray(0, 3);
+    output = Buffer.concat([output, chunk]);
     return chunk.length;
   };
-  io.rename = async (src, dest) => { operations.push('rename:' + dest); files.set(dest, files.get(src)); files.delete(src); };
-  io.readText = async (file) => files.get(file).toString();
-  io.lstat = async (file) => {
-    if (!files.has(file)) { throw new Error('missing'); }
-    return { size: files.get(file).length, isFile: () => true, isSymbolicLink: () => false };
-  };
-  io.unlink = async (file) => { operations.push('unlink:' + file); files.delete(file); };
-  const timing = { count: 0, averageMs: 0, p95Ms: 0, maximumMs: 0 };
-  const stream = { frames: 0, bytes: 0, framesPerSecond: 0, bitrate: 0, recentFps: 0, recentBitrate: 0,
-    expectedFps: 30, targetBitrate: 10000000, outputIdleMs: -1, longestGapMs: 0, ptsRegressions: 0,
-    keyFrames: 0, lastKeyFramePtsUs: -1, keyFrameIntervalMs: -1, keyFrameRequests: 0, keyFrameRequest: 'none',
-    keyFrameWaitMs: -1, parameterAccepted: 0, parameterRejected: 0, queueDepth: 0, queuePeak: 0,
-    queueWait: timing, queueResidence: timing, muxerWrite: timing, dumpWrite: timing, bufferHold: timing,
-    fileBytes: -1, freeBytes: -1, fileBytesPerSecond: -1, dumpBytes: 0, dumpState: 'disabled',
-    requestedConfiguration: 'requested', codecDescription: 'codec', codecWidth: 0, codecHeight: 0,
-    codecFps: 0, codecBitrate: 0 };
-  const report = { version: 1, sessionId: 'recording_900_1', recordedAt: 1, durationSeconds: 2,
-    title: '本地秘密.mp4', primaryUri: 'file://private-video', secondaryUri: 'file://private-secondary',
-    primaryDump: '/private/dump', secondaryDump: '', fileMetadata: '1920 x 1080', text: '中文报告',
-    diagnostics: { requestedConfiguration: 'requested', observedConfiguration: 'actual', parameterChanges: '',
-      endReason: 'user_stop', failure: { stage: '', code: 0, message: '' }, timeline: [
-        { elapsedMs: 0, stage: 'initialize.begin', result: 'ok' }], primary: stream, secondary: stream } };
-  assert.equal(RecordingReportStore.validId('../recording_1_1'), false);
-  assert.equal(RecordingReportStore.validId('recording_1_1/../other'), false);
-  failWrite = true;
-  await assert.rejects(() => RecordingReportStore.save(context, report));
-  assert.equal(failureTriggered, true);
-  assert.equal((await RecordingReportStore.read(context, report.sessionId)).persistenceFailed, true);
-  assert.equal(files.has('/files/recording_reports/recording_900_1.json'), false);
-  failWrite = false;
-  report.persistenceFailed = true;
-  await RecordingReportStore.save(context, report);
-  assert.equal((await RecordingReportStore.read(context, report.sessionId)).persistenceFailed, false);
-  assert.equal(JSON.parse(files.get('/files/recording_reports/recording_900_1.json')).persistenceFailed, false);
-  assert.equal(files.get('/files/recording_reports/recording_900_1.txt').toString(), '中文报告');
-  const originalId = report.sessionId;
-  const firstSave = RecordingReportStore.save(context, report);
-  report.sessionId = 'recording_901_1';
-  const secondSave = RecordingReportStore.save(context, report);
-  await Promise.all([firstSave, secondSave]);
-  assert.equal(peak, 1);
-  assert.equal(JSON.parse(files.get('/files/recording_reports/' + originalId + '.json')).sessionId, originalId);
-  const originalPath = '/files/recording_reports/' + originalId + '.json';
-  const originalData = files.get(originalPath);
-  const damaged = JSON.parse(originalData);
-  delete damaged.diagnostics.primary;
-  files.set(originalPath, Buffer.from(JSON.stringify(damaged)));
-  await assert.rejects(() => RecordingReportStore.read(context, originalId), /Invalid recording diagnostics/);
-  files.set(originalPath, originalData);
-  assert.equal((await RecordingReportStore.read(context, originalId)).title, report.title);
-  for (let i = 1; i <= 35; i++) {
-    const id = 'recording_' + i + '_1';
-    files.set('/files/recording_reports/' + id + '.json', Buffer.from(JSON.stringify({ ...report, sessionId: id })));
-    files.set('/files/recording_reports/' + id + '.txt', Buffer.from('old'));
-  }
-  files.set('/files/recording_reports/keep.mp4', Buffer.from('media'));
-  files.set('/files/recording_reports/recording_2_1Xjson', Buffer.from('unrelated'));
-  await RecordingReportStore.save(context, report);
-  assert.equal([...files.keys()].filter(x => /recording_[0-9]+_[0-9]+\.json$/.test(x)).length, 30);
-  assert.equal(files.has('/files/recording_reports/keep.mp4'), true);
-  assert.equal(files.has('/files/recording_reports/recording_2_1Xjson'), true);
-  destinations = ['file://shared-report'];
-  onPicker = () => {};
-  assert.equal(await RecordingReportStore.export(context, report, true), true);
-  const shared = files.get(destinations[0]).toString();
-  assert.ok(!shared.includes('file://private') && !shared.includes('/private/dump') && !shared.includes('本地秘密'));
-  assert.equal(report.primaryUri, 'file://private-video');
+  try {
+    await MediaFileWriter.writeAll(1, 'media-state');
+    assert.equal(output.toString(), 'media-state');
+    io.write = async () => 0;
+    await assert.rejects(() => MediaFileWriter.writeAll(1, 'media-state'), /no progress/);
+  } finally { io.write = originalWrite; }
+  console.log('Media file writer: partial writes and zero-progress errors passed');
+}
+
+async function testRecordingHistory() {
+  const { RecordingHistoryModel } = load(path.join(sourceRoot, 'model/RecordingHistoryModel.ets'));
+  const legacy = { uri: 'file://old', title: 'old.mp4', secondaryUri: '', recordedAt: 100,
+    durationSeconds: 2, summary: 'legacy diagnostic summary', diagnostics: { frames: 60 } };
+  preferenceValues.set('entries', JSON.stringify([legacy, null, { sessionId: 123 }]));
   const history = new RecordingHistoryModel();
-  await history.load(context);
-  await history.add('', 'failed', '', 10, 0, '', '', 'recording_900_1');
-  assert.equal(history.getEntries()[0].sessionId, 'recording_900_1');
-  const reopened = new RecordingHistoryModel();
-  await reopened.load(context);
-  assert.equal(reopened.getEntries()[0].durationSeconds, 0);
-  Object.assign(io, original);
-  console.log('Recording reports: Unicode/partial writes, atomic JSON, retry, snapshots, redaction, bounded cleanup, and failed-session history passed');
+  await history.load({});
+  assert.deepEqual(JSON.parse(JSON.stringify(history.getEntries())), [{ uri: 'file://old', title: 'old.mp4',
+    secondaryUri: '', recordedAt: 100, durationSeconds: 2, sessionId: '' }]);
+  await history.add('file://new', 'new.mp4', 'file://secondary', 200, 3, 'recording_new', false);
+  const entries = JSON.parse(preferenceValues.get('entries'));
+  assert.equal(entries.length, 2);
+  assert.equal(entries[0].complete, false);
+  assert.equal(entries[0].secondaryUri, 'file://secondary');
+  assert.equal(entries[1].uri, 'file://old');
+  assert.equal(entries.some(entry => 'summary' in entry || 'diagnostics' in entry), false);
+  console.log('Recording history: legacy diagnostics stripped, file associations and result state retained');
 }
 
 function testStorageProtection() {
@@ -530,17 +460,13 @@ function testStorageProtection() {
 
 async function testRecordingLifecycle() {
   const { RecordingSessionController, RecordingPhase } = load(path.join(sourceRoot, 'controller/RecordingSessionController.ets'));
-  const { RecordingReportStore } = load(path.join(sourceRoot, 'model/RecordingReportStore.ets'));
   const api = mocks['librecorder.so'].default;
   const io = mocks['@kit.CoreFileKit'].fileIo;
   const originalApi = { ...api };
   const originalClose = io.close;
-  const originalSave = RecordingReportStore.save;
-  const originalText = RecordingReportStore.text;
   let stages = [];
   let releaseConfirmed = true;
   let failBegin = false;
-  let failSave = false;
   const events = [];
   const stream = { fileBytes: 10, width: 1920, height: 1080, frames: 5, framesPerSecond: 30, bitrate: 1000000 };
   api.getDiagnostics = () => ({ sessionId: 'recording_5000_1', endReason: 'user_stop',
@@ -554,8 +480,6 @@ async function testRecordingLifecycle() {
     return { code: releaseConfirmed ? 0 : -1 };
   };
   io.close = async (fd) => { events.push('close:' + fd); };
-  RecordingReportStore.text = () => 'report';
-  RecordingReportStore.save = async () => { events.push('report.save'); if (failSave) { throw new Error('disk full'); } };
   function data() {
     return { outputfd: 11, secondaryOutputfd: 12, outputTitle: 'video.mp4', outputUri: 'file://primary',
       secondaryOutputUri: 'file://secondary', primaryDumpPath: '', secondaryDumpPath: '' };
@@ -577,20 +501,21 @@ async function testRecordingLifecycle() {
     assert.equal(session.start(), false);
     assert.equal(events.includes('stop.begin'), false, 'Native EOS cannot start while camera stop is pending');
     unblock();
-    const report = await first;
-    assert.equal(report.primaryUri, 'file://primary');
-    assert.equal(report.secondaryUri, '');
+    const result = await first;
+    assert.equal(result.primaryUri, 'file://primary');
+    assert.equal(result.secondaryUri, '');
+    assert.equal(result.complete, true);
     assert.equal(model.outputfd, -1);
     assert.equal(events.filter(x => x === 'stop.end').length, 1);
     assert.ok(events.indexOf('close:11') > events.indexOf('stop.end'));
-    assert.ok(events.indexOf('report.save') > events.indexOf('camera.release'));
+    assert.equal(events.some(x => x === 'report.save'), false);
     assert.equal(session.phase, RecordingPhase.FINISHED);
-    stages = []; events.length = 0; failBegin = true; failSave = true;
+    stages = []; events.length = 0; failBegin = true;
     const interrupted = new RecordingSessionController();
-    const failedReport = await interrupted.finish({ filesDir: '/files' }, data(), async () => {}, cameraRelease);
-    assert.equal(failedReport.persistenceFailed, true);
+    const partialResult = await interrupted.finish({ filesDir: '/files' }, data(), async () => {}, cameraRelease);
+    assert.equal(partialResult.complete, true);
     assert.ok(events.includes('stop.end') && events.includes('close:11') && events.includes('camera.release'));
-    stages = []; events.length = 0; releaseConfirmed = false; failBegin = false; failSave = false;
+    stages = []; events.length = 0; releaseConfirmed = false; failBegin = false;
     const incomplete = new RecordingSessionController();
     const held = data();
     await assert.rejects(() => incomplete.finish({ filesDir: '/files' }, held, async () => {}, cameraRelease),
@@ -601,10 +526,8 @@ async function testRecordingLifecycle() {
   } finally {
     Object.assign(api, originalApi);
     io.close = originalClose;
-    RecordingReportStore.save = originalSave;
-    RecordingReportStore.text = originalText;
   }
-  console.log('Recording lifecycle: idempotent stop, camera-before-EOS, rejected begin, persistence failure, and descriptor ownership passed');
+  console.log('Recording lifecycle: idempotent stop, camera-before-EOS, rejected begin and descriptor ownership passed');
 }
 
 async function testCameraLifecycle() {
@@ -666,7 +589,8 @@ async function main() {
   await testDumpGroups();
   await testDumpExports();
   await testDumpCleanup();
-  await testRecordingReports();
+  await testMediaFileWriter();
+  await testRecordingHistory();
   testStorageProtection();
   await testRecordingLifecycle();
   await testCameraLifecycle();

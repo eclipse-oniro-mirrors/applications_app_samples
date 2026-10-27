@@ -39,6 +39,7 @@ struct TranscodeOptions {
     int32_t longEdge = 0;
     bool surface = false;
     bool grayscale = false;
+    int32_t resizeMode = 0;
     int32_t encoderCategory = 0;
     int32_t audioMode = 0;
     int32_t audioTrack = 0;

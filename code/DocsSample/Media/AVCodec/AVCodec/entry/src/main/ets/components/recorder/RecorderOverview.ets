@@ -53,12 +53,6 @@ export struct RecorderOverview {
           .fontColor('#182431').maxLines(1).textOverflow({ overflow: TextOverflow.Ellipsis })
         Text(`${this.formatRecordingDate(entry.recordedAt)} · ${this.formatRecordingDuration(entry.durationSeconds)}`)
           .width('100%').fontSize('12fp').fontColor('#66727D')
-        if ((entry.primarySummary ?? '').length > 0) {
-          Text(LocalizedText.get($r('app.string.recorder_primary_prefix')) + entry.primarySummary).width('100%').fontSize(11).fontColor('#66727D')
-        }
-        if ((entry.secondarySummary ?? '').length > 0) {
-          Text(LocalizedText.get($r('app.string.recorder_secondary_prefix')) + entry.secondarySummary).width('100%').fontSize(11).fontColor('#66727D')
-        }
       }
       .layoutWeight(1)
       Column({ space: 6 }) {
@@ -66,7 +60,11 @@ export struct RecorderOverview {
         Button($r('app.string.rec_result_open')).height(34).fontSize(11)
           .onClick((): void => {
             void this.getUIContext().getRouter().pushUrl({ url: 'recorder/pages/RecordingResult',
-              params: { sessionId: entry.sessionId } });
+              params: {
+                sessionId: entry.sessionId ?? '', recordedAt: entry.recordedAt,
+                durationSeconds: entry.durationSeconds, title: entry.title, primaryUri: entry.uri,
+                secondaryUri: entry.secondaryUri, complete: entry.complete ?? true
+              } });
           })
       }
       Button(entry.secondaryUri.length > 0 ? LocalizedText.get($r('app.string.recorder_primary')) : $r('app.string.recording_play'))

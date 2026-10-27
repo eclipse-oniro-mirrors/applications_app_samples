@@ -67,7 +67,6 @@ void Player::AudioDecInputSyncThread()
     while (isStarted_ && audioWorkerRunning_) {
         WaitIfPaused(true);
         CHECK_AND_BREAK_LOG(isStarted_ && audioWorkerRunning_, "Decoder input thread out");
-        std::unique_lock<std::mutex> lock(audioDecContext_->inputMutex);
         CodecBufferInfo bufferInfo;
         auto buffer = audioDecoder_->GetInputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
         CHECK_AND_CONTINUE_LOG(buffer != nullptr, "Get input buffer timeout, retry");
@@ -77,7 +76,6 @@ void Player::AudioDecInputSyncThread()
         AVCODEC_SAMPLE_LOGW("bufferInfo.attr.size:%{public}d", bufferInfo.attr.size);
         // [EndExclude Player::AudioDecInputSyncThread]
         audioDecContext_->inputFrameCount++;
-        lock.unlock();
         int32_t ret = demuxer_->ReadSample(demuxer_->GetAudioTrackId(), buffer, bufferInfo.attr);
         if (ret != AVCODEC_SAMPLE_ERR_OK) {
             AVCODEC_SAMPLE_LOGE("Read audio sample failed");

@@ -16,7 +16,7 @@
 import { common } from '@kit.AbilityKit';
 import { fileIo, picker } from '@kit.CoreFileKit';
 import { TranscodeStatus, TranscodeMeasurement } from 'libtranscoder.so';
-import { RecordingReportStore } from './RecordingReportStore';
+import { MediaFileWriter } from './MediaFileWriter';
 
 const reportTimestamp: Date = new Date(0);
 
@@ -61,7 +61,7 @@ export class TranscodeFilesModel {
     const file: fileIo.File = await fileIo.open(pending, fileIo.OpenMode.CREATE | fileIo.OpenMode.WRITE_ONLY |
       fileIo.OpenMode.TRUNC | fileIo.OpenMode.NOFOLLOW);
     try {
-      await RecordingReportStore.writeAll(file.fd, JSON.stringify(entry));
+      await MediaFileWriter.writeAll(file.fd, JSON.stringify(entry));
       await fileIo.fsync(file.fd);
     } finally { await fileIo.close(file); }
     await fileIo.rename(pending, directory + '/' + entry.id + '.json');
@@ -117,7 +117,7 @@ export class TranscodeFilesModel {
     if (paths.length === 0) { return false; }
     const target: fileIo.File = await fileIo.open(paths[0], fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC);
     try {
-      await RecordingReportStore.writeAll(target.fd, TranscodeFilesModel.report(entry));
+      await MediaFileWriter.writeAll(target.fd, TranscodeFilesModel.report(entry));
     } finally {
       await fileIo.close(target);
     }

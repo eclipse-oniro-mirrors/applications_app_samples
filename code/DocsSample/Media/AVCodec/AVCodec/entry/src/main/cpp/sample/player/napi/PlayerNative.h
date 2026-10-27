@@ -30,6 +30,7 @@ public:
     static napi_value SelectAudioTrack(napi_env env, napi_callback_info info);
     static napi_value GetState(napi_env env, napi_callback_info info);
     static napi_value GetPlaybackInfo(napi_env env, napi_callback_info info);
+    static napi_value GetCompletedPlaybackInfo(napi_env env, napi_callback_info info);
     static napi_value GetMediaInfo(napi_env env, napi_callback_info info);
     static napi_value IsSmartFluencyAvailable(napi_env env, napi_callback_info info);
     static napi_value SetPlaybackSpeed(napi_env env, napi_callback_info info);

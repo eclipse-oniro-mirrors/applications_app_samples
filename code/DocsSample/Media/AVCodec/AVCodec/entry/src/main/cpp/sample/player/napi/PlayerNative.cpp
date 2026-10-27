@@ -383,6 +383,19 @@ napi_value PlayerNative::GetPlaybackInfo(napi_env env, napi_callback_info info)
     return result;
 }
 
+napi_value PlayerNative::GetCompletedPlaybackInfo(napi_env env, napi_callback_info info)
+{
+    (void)info;
+    Player *player = GetPlayer(env, true);
+    const PlaybackInfo playbackInfo = player == nullptr ? PlaybackInfo {} : player->GetCompletedPlaybackInfo();
+    napi_value result = nullptr;
+    if (!PlayerNapiSerializer::CreatePlaybackInfo(env, playbackInfo, result)) {
+        napi_throw_error(env, nullptr, "Create completed playback info failed");
+        return nullptr;
+    }
+    return result;
+}
+
 napi_value PlayerNative::GetMediaInfo(napi_env env, napi_callback_info info)
 {
     (void)info;
@@ -420,6 +433,8 @@ static bool ExportPlayerMethods(napi_env env, napi_value exports)
             nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getState", nullptr, PlayerNative::GetState, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getPlaybackInfo", nullptr, PlayerNative::GetPlaybackInfo,
+            nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getCompletedPlaybackInfo", nullptr, PlayerNative::GetCompletedPlaybackInfo,
             nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getMediaInfo", nullptr, PlayerNative::GetMediaInfo,
             nullptr, nullptr, nullptr, napi_default, nullptr},

@@ -23,8 +23,7 @@ export interface RecordingHistoryEntry {
   secondaryUri: string;
   recordedAt: number;
   durationSeconds: number;
-  primarySummary?: string;
-  secondarySummary?: string;
+  complete?: boolean;
 }
 
 const RECORDING_PREFERENCES: string = 'recording_history';
@@ -42,6 +41,12 @@ export class RecordingHistoryModel {
       const parsed = JSON.parse(String(storedValue)) as Array<RecordingHistoryEntry>;
       if (Array.isArray(parsed)) {
         this.entries = parsed.filter((entry: RecordingHistoryEntry): boolean => this.isValidEntry(entry))
+          .map((entry: RecordingHistoryEntry): RecordingHistoryEntry => ({
+            uri: entry.uri, title: entry.title, secondaryUri: entry.secondaryUri, recordedAt: entry.recordedAt,
+            durationSeconds: entry.durationSeconds,
+            sessionId: typeof entry.sessionId === 'string' ? entry.sessionId : '',
+            complete: typeof entry.complete === 'boolean' ? entry.complete : undefined
+          }))
           .slice(0, MAX_RECORDING_ENTRIES);
       }
     } catch {
@@ -54,8 +59,7 @@ export class RecordingHistoryModel {
   }
 
   async add(uri: string, title: string, secondaryUri: string, recordedAt: number,
-    durationSeconds: number, primarySummary: string = '', secondarySummary: string = '',
-    sessionId: string = ''): Promise<void> {
+    durationSeconds: number, sessionId: string = '', complete?: boolean): Promise<void> {
     if ((uri.length === 0 && sessionId.length === 0) || title.length === 0 || recordedAt <= 0 || durationSeconds < 0) {
       return;
     }
@@ -64,8 +68,7 @@ export class RecordingHistoryModel {
     if (existingIndex >= 0) {
       this.entries.splice(existingIndex, 1);
     }
-    this.entries.unshift({ uri, title, secondaryUri, recordedAt, durationSeconds,
-      primarySummary, secondarySummary, sessionId });
+    this.entries.unshift({ uri, title, secondaryUri, recordedAt, durationSeconds, sessionId, complete });
     if (this.entries.length > MAX_RECORDING_ENTRIES) {
       this.entries.splice(MAX_RECORDING_ENTRIES);
     }
@@ -74,7 +77,8 @@ export class RecordingHistoryModel {
 
   private isValidEntry(entry: RecordingHistoryEntry): boolean {
     if (entry === null || typeof entry !== 'object') { return false; }
-    return typeof entry.uri === 'string' && (entry.uri.length > 0 || (entry.sessionId ?? '').length > 0) &&
+    return typeof entry.uri === 'string' && (entry.uri.length > 0 ||
+      (typeof entry.sessionId === 'string' && entry.sessionId.length > 0)) &&
       typeof entry.title === 'string' &&
       typeof entry.secondaryUri === 'string' && typeof entry.recordedAt === 'number' &&
       Number.isFinite(entry.recordedAt) && entry.recordedAt > 0 &&

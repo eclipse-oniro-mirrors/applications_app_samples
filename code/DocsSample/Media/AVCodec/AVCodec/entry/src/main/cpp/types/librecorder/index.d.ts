@@ -110,8 +110,6 @@ export interface RecorderStreamStats {
   parameterAccepted: number;
   parameterRejected: number;
   ptsRegressions: number;
-  queueDepth: number;
-  queuePeak: number;
   codecWidth: number;
   codecHeight: number;
   codecFps: number;
@@ -125,7 +123,6 @@ export interface RecorderStreamStats {
   codecDescription: string;
   dumpState: string;
   queueWait: RecorderStageTiming;
-  queueResidence: RecorderStageTiming;
   muxerWrite: RecorderStageTiming;
   dumpWrite: RecorderStageTiming;
   bufferHold: RecorderStageTiming;

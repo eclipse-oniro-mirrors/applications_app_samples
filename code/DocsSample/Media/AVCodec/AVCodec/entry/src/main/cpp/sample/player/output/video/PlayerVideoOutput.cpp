@@ -44,7 +44,6 @@ void Player::VideoDecInputSyncThread()
         WaitIfPaused();
         // [EndExclude decoder_sync_input_buffer]
         CHECK_AND_BREAK_LOG(isStarted_, "Decoder input thread out");
-        std::unique_lock<std::mutex> lock(videoDecContext_->inputMutex);
         CodecBufferInfo bufferInfo;
         int32_t ret = videoDecoder_->GetInputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
         // [StartExclude decoder_sync_input_buffer]
@@ -57,7 +56,6 @@ void Player::VideoDecInputSyncThread()
             break;
         }
         videoDecContext_->inputFrameCount++;
-        lock.unlock();
         ret = demuxer_->ReadSample(demuxer_->GetVideoTrackId(), bufferInfo.buffer, bufferInfo.attr);
         if (ret != AVCODEC_SAMPLE_ERR_OK) {
             AVCODEC_SAMPLE_LOGE("Read video sample failed");
@@ -385,10 +383,8 @@ void Player::VideoDecOutputSyncThread()
     while (isStarted_) {
         WaitIfPaused();
         CHECK_AND_BREAK_LOG(isStarted_, "VD Decoder output thread out");
-        std::unique_lock<std::mutex> lock(videoDecContext_->outputMutex);
         CodecBufferInfo bufferInfo;
         const int32_t ret = videoDecoder_->GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
-        lock.unlock();
         if (!isStarted_) {
             if (ret == AVCODEC_SAMPLE_ERR_OK &&
                 videoDecoder_->FreeOutputBuffer(bufferInfo, false) != AVCODEC_SAMPLE_ERR_OK) {

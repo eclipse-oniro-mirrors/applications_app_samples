@@ -55,7 +55,10 @@ function stat(file) {
 }
 const io = {
   OpenMode: { CREATE: 1, WRITE_ONLY: 2, TRUNC: 4, NOFOLLOW: 8, READ_ONLY: 16, READ_WRITE: 32 },
-  access: async file => files.has(file), mkdir: async file => { files.set(file, { kind: 'dir' }); },
+  access: async file => files.has(file), mkdir: async file => {
+    if (files.has(file)) { throw Object.assign(new Error('File exists'), { code: 13900015 }); }
+    files.set(file, { kind: 'dir' });
+  },
   lstat: async file => stat(file), stat: async file => stat(file),
   listFile: async directory => [...files.keys()].filter(file => file.startsWith(directory + '/') &&
     !file.slice(directory.length + 1).includes('/')).map(file => file.slice(directory.length + 1)),
@@ -70,6 +73,7 @@ const io = {
   unlink: async file => { removed.push(file); files.delete(file); }, copyFile: async () => {}
 };
 const mocks = {
+  '@kit.BasicServicesKit': { deviceInfo: { productModel: 'host', osFullName: 'mock', sdkApiVersion: 26 } },
   '@kit.ArkUI': {}, '@kit.AbilityKit': {}, '@kit.MediaLibraryKit': { photoAccessHelper: {} },
   '@kit.CoreFileKit': { fileIo: io, fileUri: { getUriFromPath: file => 'file://' + file },
     statfs: { getFreeSize: async () => 1e9 },
@@ -93,8 +97,8 @@ function load(name) {
       if (mocks[name]) { return mocks[name]; }
       if (name === '../common/LocalizedText') { return { LocalizedText: { get: key => key } }; }
       if (name === './PlaybackHistoryModel') { return { getPlaybackTitle: uri => uri.split('/').pop() }; }
-      if (name === './RecordingReportStore') {
-        return { RecordingReportStore: { writeAll: async (fd, value) => { files.get(fd).text = value; } } };
+      if (name === './MediaFileWriter') {
+        return { MediaFileWriter: { writeAll: async (fd, value) => { files.get(fd).text = value; } } };
       }
       if (name.startsWith('./')) { return load(name.slice(2)); }
       throw new Error('Unexpected dependency: ' + name);
@@ -105,6 +109,15 @@ function load(name) {
 const { TranscodeModel } = load('TranscodeModel');
 const { TranscodeFilesModel } = load('TranscodeFilesModel');
 const { MediaFileActivity } = load('MediaFileActivity');
+const { MediaTaskCoordinator } = load('MediaTaskCoordinator');
+const { TranscodeQueueModel } = load('TranscodeQueueModel');
+const { MediaStateFiles } = load('MediaStateFiles');
+const { MediaSessionStore } = load('MediaSessionStore');
+const { MediaReports } = load('MediaSessionReport');
+const { MediaPerformanceBaseline } = load('MediaPerformanceBaseline');
+const { MediaRecoveryFiles } = load('MediaRecoveryFiles');
+const { CodecCapabilityMatrix } = load('CodecCapabilityMatrix');
+const { TranscodeGeometryModel } = load('TranscodeGeometryModel');
 const ui = { getHostContext: () => ({ filesDir: '/private' }),
   getPromptAction: () => ({ showDialog: async () => {
     if (cancelDialog) { throw new Error('Dialog canceled'); }
@@ -239,9 +252,228 @@ async function testHistory() {
 }
 async function main() {
   files.set('/private/source.mp4', { kind: 'file' });
+  await testStateFiles();
   await testInspection();
   await testActivity();
   await testHistory();
+  await testSessionTasks();
+  await testQueue();
+  testCapabilityAndGeometry();
   console.log('Transcode models: inspection races, resource lease, failure/cancel cleanup, reports and history passed');
+}
+
+async function testStateFiles() {
+  const context = { filesDir: '/state-tests' };
+  const directory = context.filesDir + '/media_state';
+  const statePath = directory + '/pending_sessions.json';
+  assert.equal(await MediaStateFiles.read(context, 'pending_sessions.json', '[]'), '[]');
+  await MediaStateFiles.write(context, 'pending_sessions.json', '[1]');
+  assert.equal(files.get(directory).kind, 'dir');
+  assert.equal(await MediaStateFiles.read(context, 'pending_sessions.json', '[]'), '[1]');
+  await MediaStateFiles.write(context, 'pending_sessions.json', '[2]');
+  assert.equal(await MediaStateFiles.read(context, 'pending_sessions.json', '[]'), '[2]');
+  await Promise.all([MediaStateFiles.write(context, 'pending_sessions.json', '[3]'),
+    MediaStateFiles.write(context, 'pending_sessions.json', '[4]'),
+    MediaStateFiles.write(context, 'transcode_queue.json', '[5]')]);
+  assert.equal(await MediaStateFiles.read(context, 'pending_sessions.json', '[]'), '[4]');
+  assert.equal(await MediaStateFiles.read(context, 'transcode_queue.json', '[]'), '[5]');
+  assert.equal(files.has(statePath + '.pending'), false);
+  for (const kind of ['file', 'link']) {
+    const invalidContext = { filesDir: '/state-tests-' + kind };
+    const invalidDirectory = invalidContext.filesDir + '/media_state';
+    const existing = { kind, text: 'preserve' };
+    files.set(invalidDirectory, existing);
+    await assert.rejects(() => MediaStateFiles.write(invalidContext, 'pending_sessions.json', '[]'),
+      /Invalid media state directory/);
+    assert.equal(files.get(invalidDirectory), existing);
+    assert.equal(files.has(invalidDirectory + '/pending_sessions.json.pending'), false);
+  }
+  const permissionError = Object.assign(new Error('Permission denied'), { code: 13900012 });
+  const originalMkdir = io.mkdir;
+  io.mkdir = async () => { throw permissionError; };
+  try {
+    await assert.rejects(() => MediaStateFiles.write(context, 'pending_sessions.json', '[6]'),
+      error => error === permissionError);
+    assert.equal(files.get(statePath).text, '[4]');
+  } finally { io.mkdir = originalMkdir; }
+  await MediaStateFiles.write(context, 'pending_sessions.json', '[7]');
+  assert.equal(await MediaStateFiles.read(context, 'pending_sessions.json', '[]'), '[7]');
+  console.log('State files: repeated/concurrent writes, existing directory, unsafe paths, error propagation and recovery passed');
+}
+
+async function testSessionTasks() {
+  const first = MediaTaskCoordinator.acquire('playback');
+  assert(first);
+  assert.equal(MediaTaskCoordinator.acquire('recording'), undefined);
+  MediaTaskCoordinator.cancelling(first);
+  MediaTaskCoordinator.running(first);
+  assert.equal(MediaTaskCoordinator.currentPhase(), 'cancelling');
+  assert.equal(MediaFileActivity.beginCleanup(), false);
+  MediaTaskCoordinator.release(first);
+  const next = MediaTaskCoordinator.acquire('recording');
+  MediaTaskCoordinator.release(first);
+  assert.equal(MediaTaskCoordinator.current().id, next.id, 'Stale completion cannot release another session');
+  MediaTaskCoordinator.release(next);
+  const context = ui.getHostContext();
+  const playbackReport = MediaReports.playback('playback_final', {
+    videoOutputFrames: 123, videoDroppedFrames: 2,
+    failure: { stage: '', code: 0, message: '' },
+    videoSinkDiagnostics: { averageFrameUs: 1500 },
+    diagnostics: { sessionId: 'native_playback_final', requestedConfiguration: 'Surface',
+      observedConfiguration: 'hardware', presentCallP95Us: 2500,
+      events: [{ elapsedUs: 9000, stage: 'playback.completed' }] }
+  }, 'completed');
+  assert.equal(playbackReport.nativeSessionId, 'native_playback_final');
+  assert.equal(playbackReport.metrics.find(item => item.name === 'video.frames').amount, 123);
+  assert.equal(playbackReport.metrics.find(item => item.name === 'video.dropped').amount, 2);
+  assert.equal(playbackReport.metrics.find(item => item.name === 'sink.frame').amount, 1.5);
+  assert.equal(playbackReport.events[0].elapsedMs, 9);
+  const report = MediaReports.base('session_1', 'transcode', 'completed');
+  report.requested = 'file://private/secret.mp4';
+  report.observed = 'path=/storage/private/video.mp4';
+  report.error.detail = 'D:\\private\\video.mp4';
+  report.events = [{ elapsedMs: 10, stage: 'read /data/private/video.mp4' }];
+  report.metrics = [{ name: 'fps', amount: 30, unit: 'fps' }];
+  await Promise.all([MediaSessionStore.begin(context, { id: 'session_1', operation: 'transcode', startedAt: 123 }),
+    MediaSessionStore.begin(context, { id: 'session_2', operation: 'playback', startedAt: 456 })]);
+  await MediaSessionStore.finish(context, 'session_1', report);
+  assert.equal((await MediaSessionStore.pending(context)).length, 1);
+  assert.equal((await MediaSessionStore.reports(context))[0].id, 'session_1');
+  await MediaSessionStore.finish(context, 'session_1', report);
+  assert.equal((await MediaSessionStore.reports(context)).filter(item => item.id === 'session_1').length, 1);
+  const recordingReport = MediaReports.base('recording_legacy', 'recording', 'completed');
+  const journal = context.filesDir + '/media_state/session_reports.json';
+  files.set(journal, { kind: 'file', text: JSON.stringify([recordingReport, report]) });
+  assert.equal((await MediaSessionStore.reports(context)).length, 1, 'Legacy recording reports must be hidden');
+  assert.equal(MediaReports.parseList(JSON.stringify([recordingReport])).length, 0,
+    'Recording reports must also be excluded from baseline lists');
+  await MediaSessionStore.begin(context, { id: recordingReport.id, operation: 'recording', startedAt: 789 });
+  const previousReports = files.get(journal).text;
+  await MediaSessionStore.finish(context, recordingReport.id, recordingReport);
+  assert.equal(files.get(journal).text, previousReports, 'Finishing recording must not write a diagnostic report');
+  assert.equal((await MediaSessionStore.pending(context)).some(item => item.id === recordingReport.id), false);
+  await MediaSessionStore.finish(context, 'session_1', report);
+  assert.equal(JSON.parse(files.get(journal).text).some(item => item.operation === 'recording'), false,
+    'The next normal report write must discard legacy recording reports');
+  const shared = JSON.stringify(MediaReports.shareable(report));
+  assert.doesNotMatch(shared, /secret|private|video[.]mp4/);
+  assert.match(report.observed, /private/, 'Share export must not mutate local report');
+  assert.throws(() => MediaReports.parseList('{}'), /Invalid/);
+  assert.equal(MediaReports.parseList('[null,{},false]').length, 0);
+  const baseline = JSON.parse(JSON.stringify(report));
+  baseline.metrics[0].amount = 20;
+  assert.match(MediaPerformanceBaseline.compare(report, baseline), /[+]50[.]0%/);
+  baseline.api = 25;
+  assert.equal(MediaPerformanceBaseline.compare(report, baseline), '');
+  baseline.api = 26;
+  baseline.metrics[0].amount = 0;
+  assert.equal(MediaPerformanceBaseline.compare(report, baseline), '');
+  baseline.metrics[0].amount = 20;
+  baseline.outcome = 'failed';
+  assert.equal(MediaPerformanceBaseline.compare(report, baseline), '');
+  const directory = '/private/transcodes';
+  files.set(directory, { kind: 'dir' });
+  files.set(directory + '/transcoded_555.mp4.part', { kind: 'file' });
+  files.set(directory + '/transcoded_556.mp4.part', { kind: 'link' });
+  files.set(directory + '/transcoded_555.mp4', { kind: 'file' });
+  assert.equal((await MediaRecoveryFiles.list(context)).length, 1);
+  const active = MediaTaskCoordinator.acquire('transcode');
+  await assert.rejects(() => MediaRecoveryFiles.clear(context), /owns/);
+  MediaTaskCoordinator.release(active);
+  await MediaRecoveryFiles.clear(context);
+  assert(files.has(directory + '/transcoded_555.mp4'));
+  assert(files.has(directory + '/transcoded_556.mp4.part'));
+  assert(!files.has(directory + '/transcoded_555.mp4.part'));
+  console.log('Session tasks: stale lease, cancellation, atomic journals, report validation/redaction and partial recovery passed');
+}
+
+async function testQueue() {
+  files.set('/private/source.mp4', { kind: 'file' });
+  const model = new TranscodeModel();
+  const options = [0, 0, 0, 2, 0, 0, 0, 0];
+  model.queue.add('/private/source.mp4', 'one.mp4', options, false);
+  model.queue.add('/private/source.mp4', 'two.mp4', options, false);
+  const done = deferred();
+  const entered = deferred();
+  let started = 0;
+  start = () => { started++; entered.resolve(); return done.promise; };
+  const task = model.runQueue(ui);
+  await entered.promise;
+  await model.start(ui);
+  assert.equal(started, 1, 'Direct start cannot race queue');
+  model.queue.paused = true;
+  done.resolve(status());
+  await task;
+  assert.equal(model.queue.items[0].state, 'completed');
+  assert.equal(model.queue.items[1].state, 'waiting', 'Pause completes only current file');
+  assert.equal(model.queueRunning, false);
+  const restored = new TranscodeModel();
+  await restored.restoreQueue(ui);
+  assert.equal(restored.queue.paused, true);
+  assert.equal(restored.queue.items.length, 2);
+  restored.queue.items[1].state = 'running';
+  await restored.persistQueue(ui);
+  const interrupted = new TranscodeModel();
+  await interrupted.restoreQueue(ui);
+  assert.equal(interrupted.queue.items[1].state, 'interrupted');
+  interrupted.queue.retry(interrupted.queue.items[1].id);
+  assert.equal(interrupted.queue.items[1].state, 'waiting');
+  const invalid = JSON.parse(JSON.stringify(restored.queue.items));
+  invalid[0].options[0] = 999;
+  assert.equal(TranscodeQueueModel.validated(invalid).length, 1);
+  assert.equal(TranscodeQueueModel.validated([null, false, {}]).length, 0);
+  const abandoned = new TranscodeModel();
+  abandoned.queue.add('/private/source.mp4', 'abandoned.mp4', options, false);
+  const early = abandoned.runQueue(ui);
+  abandoned.dispose();
+  await early;
+  assert.equal(abandoned.queue.items[0].state, 'waiting');
+  assert.equal(started, 1, 'Disposal during queue persistence must not start native codec');
+  const busy = new TranscodeModel();
+  busy.status = status();
+  busy.queue.add('/private/source.mp4', 'blocked.mp4', options, false);
+  const owner = MediaTaskCoordinator.acquire('recording');
+  await busy.runQueue(ui);
+  assert.equal(busy.queue.items[0].state, 'waiting', 'Another owner must not complete a job from stale status');
+  MediaTaskCoordinator.release(owner);
+  const failedReport = new TranscodeModel();
+  failedReport.sourceUri = '/private/source.mp4';
+  const originalFinish = MediaSessionStore.finish;
+  MediaSessionStore.finish = () => { throw new Error('Report storage unavailable'); };
+  try {
+    start = async () => status();
+    await failedReport.start(ui);
+    assert.equal(failedReport.status.state, 2);
+    assert.equal(failedReport.busy, false);
+    assert.equal(MediaTaskCoordinator.busy(), false, 'Report errors must not retain Native ownership');
+  } finally { MediaSessionStore.finish = originalFinish; }
+  console.log('Queue: sequential dispatch, snapshot isolation, pause boundary, restart/retry, malformed input and dispose race passed');
+}
+
+function testCapabilityAndGeometry() {
+  const codec = { codecType: 1, mimeType: 'video/avc', codecName: 'decoder', hardware: true, maxInstances: 8,
+    videoPixelFormats: [2, 1], profiles: [2, 1], profileLevels: [{ profile: 1, levels: [3, 1] }],
+    audioSampleRates: [], audioSampleRateRanges: [] };
+  const before = CodecCapabilityMatrix.capture([codec]);
+  const reordered = CodecCapabilityMatrix.capture([{ ...codec, videoPixelFormats: [1, 2],
+    profiles: [1, 2], profileLevels: [{ profile: 1, levels: [1, 3] }] }]);
+  assert.equal(CodecCapabilityMatrix.compare(before, reordered).length, 1);
+  const changed = CodecCapabilityMatrix.capture([{ ...codec, hardware: false }]);
+  assert.match(CodecCapabilityMatrix.compare(changed, before).join('\n'), /before: HW/);
+  assert.throws(() => CodecCapabilityMatrix.parse('{"version":1,"rows":[null]}'), /Invalid/);
+  for (const width of [640, 1080, 1920]) {
+    for (const height of [360, 1080, 1920]) {
+      for (const mode of [0, 1, 2]) {
+        const plan = TranscodeGeometryModel.plan(width, height, 720, mode);
+        for (const value of Object.values(plan)) { assert.equal(value % 2, 0); }
+        assert(plan.left + plan.cropWidth <= width);
+        assert(plan.top + plan.cropHeight <= height);
+        assert(plan.contentLeft + plan.contentWidth <= plan.width);
+        assert(plan.contentTop + plan.contentHeight <= plan.height);
+      }
+    }
+  }
+  assert.equal(TranscodeGeometryModel.plan(0, 720, 720, 0).width, 0);
+  console.log('Capability matrix: stable ordering, HW/SW diffs and malformed snapshots; preview: 27 aligned geometries passed');
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });

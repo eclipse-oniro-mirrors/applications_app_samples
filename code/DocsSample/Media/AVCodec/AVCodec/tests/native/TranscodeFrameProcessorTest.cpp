@@ -16,6 +16,7 @@
 #include <array>
 #include <cstdlib>
 #include <iostream>
+#include <vector>
 #include "../../entry/src/main/cpp/sample/transcoder/TranscodeFrameProcessor.h"
 
 namespace {
@@ -178,6 +179,52 @@ void TestSameSizeNv12()
         destination[OUTPUT_FRAME_BYTES - 1] == CHROMA_PADDING && destination.back() == OUTPUT_CANARY,
         "Fast chroma padding and canary");
 }
+
+void TestCropAndLetterbox()
+{
+    const Layout sourceLayout {8, 8, 8, 8, Chroma::NV12};
+    const Layout targetLayout {16, 8, 16, 8, Chroma::NV12};
+    std::vector<uint8_t> source(RequiredBytes(sourceLayout), 128);
+    std::vector<uint8_t> target(RequiredBytes(targetLayout) + 1, 99);
+    for (int32_t y = 0; y < sourceLayout.height; ++y) {
+        for (int32_t x = 0; x < sourceLayout.width; ++x) { source[y * sourceLayout.stride + x] = y * 8 + x; }
+    }
+    Geometry crop {};
+    Require(PlanGeometry(sourceLayout, targetLayout, ResizeMode::CENTER_CROP, crop), "Crop geometry");
+    Require(crop.cropTop == 2 && crop.cropHeight == 4 && crop.cropWidth == 8, "Even crop coordinates");
+    Require(Process(source.data(), source.size(), sourceLayout, target.data(), target.size() - 1,
+        targetLayout, false, ResizeMode::CENTER_CROP), "Crop processing");
+    Require(target[0] == 16 && target[15] == 23 && target[7 * 16] == 40, "Crop samples retained rectangle");
+    Require(target.back() == 99, "Crop bounds canary");
+    Geometry bars {};
+    Require(PlanGeometry(sourceLayout, targetLayout, ResizeMode::LETTERBOX, bars), "Letterbox geometry");
+    Require(bars.contentLeft == 4 && bars.contentWidth == 8 && bars.contentHeight == 8, "Letterbox placement");
+    Require(Process(source.data(), source.size(), sourceLayout, target.data(), target.size() - 1,
+        targetLayout, false, ResizeMode::LETTERBOX), "Letterbox processing");
+    Require(target[0] == 16 && target[3] == 16 && target[4] == 0 && target[11] == 7 && target[12] == 16,
+        "Black luma bars and untouched visible data");
+    Require(target[16 * 8] == 128 && target.back() == 99, "Neutral chroma bars and bounds canary");
+    const auto unchanged = target;
+    Require(!Process(source.data(), source.size(), sourceLayout, target.data(), target.size() - 1,
+        targetLayout, false, static_cast<ResizeMode>(99)), "Reject invalid resize mode");
+    Require(target == unchanged, "Invalid plan must not write destination");
+    for (const int32_t width : {640, 1080, 1920}) {
+        for (const int32_t height : {360, 1080, 1920}) {
+            for (const auto mode : {ResizeMode::FIT, ResizeMode::CENTER_CROP, ResizeMode::LETTERBOX}) {
+                int32_t outWidth = 0;
+                int32_t outHeight = 0;
+                Require(OutputSize(width, height, 720, mode, outWidth, outHeight), "Plan output dimensions");
+                Geometry plan {};
+                Require(PlanGeometry({width, height, width, height, Chroma::NV12},
+                    {outWidth, outHeight, outWidth, outHeight, Chroma::NV12}, mode, plan), "Plan combinations");
+                Require(plan.cropLeft % 2 == 0 && plan.cropTop % 2 == 0 && plan.contentLeft % 2 == 0 &&
+                    plan.contentTop % 2 == 0 && plan.cropLeft + plan.cropWidth <= width &&
+                    plan.cropTop + plan.cropHeight <= height && plan.contentLeft + plan.contentWidth <= outWidth &&
+                    plan.contentTop + plan.contentHeight <= outHeight, "Aligned and bounded geometry");
+            }
+        }
+    }
+}
 }
 
 int main()
@@ -187,5 +234,6 @@ int main()
     TestPlanarAndScaling();
     TestBounds();
     TestSameSizeNv12();
+    TestCropAndLetterbox();
     std::cout << "TranscodeFrameProcessor tests passed\n";
 }
