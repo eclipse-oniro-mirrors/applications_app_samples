@@ -202,13 +202,13 @@ void Player::DumpOutput(CodecBufferInfo &bufferInfo)
     if (!IsBufferBasedRunMode(info.codec.codecRunMode) || usesSurfaceDecoder || !info.output.enableVideoDump) {
         return;
     }
-    // [Start decoder_outputFile]
     const OH_AVPixelFormat pixelFormat = GetOutputPixelFormat(info, videoDecContext_.get());
     uint64_t dumpByteCount = 0;
     CHECK_AND_RETURN_LOG(GetDumpByteCount(info, videoDecContext_.get(), pixelFormat, dumpByteCount),
         "Invalid video output layout");
     uint8_t *bufferAddr = GetBufferDataAddr(bufferInfo, dumpByteCount);
     CHECK_AND_RETURN_LOG(bufferAddr != nullptr, "Buffer is nullptr");
+    // [Start decoder_outputFile]
     if (outputFile_ == nullptr) {
         const auto time = std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
