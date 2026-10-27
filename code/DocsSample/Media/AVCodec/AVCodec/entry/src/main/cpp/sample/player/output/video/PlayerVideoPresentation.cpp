@@ -231,7 +231,9 @@ void Player::DumpOutput(CodecBufferInfo &bufferInfo)
             AVCODEC_SAMPLE_LOGE("Output file open failed");
             return;
         }
+        // [StartExclude decoder_outputFile]
         WriteDumpLayout(pixelFormat);
+        // [EndExclude decoder_outputFile]
     }
     // [End decoder_outputFile]
 
