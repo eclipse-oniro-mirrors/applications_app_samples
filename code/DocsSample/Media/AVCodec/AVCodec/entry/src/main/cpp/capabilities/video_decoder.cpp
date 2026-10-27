@@ -310,8 +310,8 @@ int32_t VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
             OH_AVBuffer *buffer = OH_VideoDecoder_GetInputBuffer(decoder_, info.bufferIndex);
             CHECK_AND_RETURN_RET_LOG(buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer is null");
             info.buffer = buffer;
-            return AVCODEC_SAMPLE_ERR_OK;
         /**
+            // 示例：调用方将待解码帧的数据与属性写入 Buffer。
             uint8_t *addr = OH_AVBuffer_GetAddr(buffer);
             CHECK_AND_RETURN_RET_LOG(addr != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer addr is null");
             // buffer数据填充。
@@ -332,12 +332,12 @@ int32_t VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
             } else {
                 attrInfo.flags = flags;
             }
-            OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(buffer, &info);
+            OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(buffer, &attrInfo);
             if (setBufferRet != AV_ERR_OK) {
                 // 异常处理。
-                return false;
             }
         **/
+            return AVCODEC_SAMPLE_ERR_OK;
         }
         case AV_ERR_TRY_AGAIN_LATER: {
             AVCODEC_SAMPLE_LOGE("Get input buffer timeout.");
