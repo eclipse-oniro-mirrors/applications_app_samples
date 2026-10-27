@@ -1382,6 +1382,10 @@ export struct Player {
   }
 
   play(startPositionUs: number = -1, recoverySnapshot?: PlaybackRecoverySnapshot): void {
+    if (MediaFileActivity.isTranscoding()) {
+      this.getUIContext().getPromptAction().showToast({ message: $r('app.string.transcode_resource_busy') });
+      return;
+    }
     if (!this.buttonEnabled || this.seekRequests.isBusy() || !this.pageActive || this.isStopping) {
       return;
     }
@@ -1624,6 +1628,10 @@ export struct Player {
   }
 
   async prepareRecording(): Promise<void> {
+    if (MediaFileActivity.isTranscoding()) {
+      this.getUIContext().getPromptAction().showToast({ message: $r('app.string.transcode_resource_busy') });
+      return;
+    }
     this.configurationTouched = true;
     const context = this.getUIContext().getHostContext();
     if (context === undefined || !await requestRecordPermissions(context)) {
@@ -2231,7 +2239,7 @@ export struct Player {
 
   @Builder
   TranscodeHomePage() {
-    TranscodePage({ model: this.transcodeModel })
+    TranscodePage({ model: this.transcodeModel, onPlayResult: (uri: string): void => this.playRecording(uri) })
   }
 
   @Builder

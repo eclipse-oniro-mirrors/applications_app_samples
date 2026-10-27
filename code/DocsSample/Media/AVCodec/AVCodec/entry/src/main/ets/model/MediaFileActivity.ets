@@ -17,9 +17,10 @@
 export class MediaFileActivity {
   private static launches: number = 0;
   private static cleaning: boolean = false;
+  private static transcoding: boolean = false;
 
   static beginLaunch(): boolean {
-    if (MediaFileActivity.cleaning) {
+    if (MediaFileActivity.cleaning || MediaFileActivity.transcoding) {
       return false;
     }
     MediaFileActivity.launches++;
@@ -31,7 +32,7 @@ export class MediaFileActivity {
   }
 
   static beginCleanup(): boolean {
-    if (MediaFileActivity.cleaning || MediaFileActivity.launches > 0) {
+    if (MediaFileActivity.cleaning || MediaFileActivity.launches > 0 || MediaFileActivity.transcoding) {
       return false;
     }
     MediaFileActivity.cleaning = true;
@@ -41,4 +42,13 @@ export class MediaFileActivity {
   static endCleanup(): void {
     MediaFileActivity.cleaning = false;
   }
+
+  static beginTranscode(): boolean {
+    if (MediaFileActivity.cleaning || MediaFileActivity.transcoding || MediaFileActivity.launches > 0) { return false; }
+    MediaFileActivity.transcoding = true;
+    return true;
+  }
+
+  static endTranscode(): void { MediaFileActivity.transcoding = false; }
+  static isTranscoding(): boolean { return MediaFileActivity.transcoding; }
 }

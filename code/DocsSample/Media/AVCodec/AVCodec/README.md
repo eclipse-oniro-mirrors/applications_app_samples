@@ -156,7 +156,10 @@ Recording also depends on device capability. The camera profile, encoder's suppo
 | Source and destination | Select one video from Files or Gallery; export a completed MP4 to either destination | [Transcoding](#transcoding) |
 | Buffer processing | Decode to YUV, optionally downscale or convert to grayscale, and submit encoder input buffers | [Buffer path](#transcode-buffer) |
 | Surface connection | Decode directly to the encoder input Surface at the original dimensions | [Surface path](#transcode-surface) |
-| Output and progress | H.264/H.265, target VBR bitrate, optional audio passthrough, progress, and cancellation | [Task lifecycle](#transcode-lifecycle) |
+| Output and progress | H.264/H.265, automatic/hardware/software encoder selection, VBR, progress and cancellation | [Task lifecycle](#transcode-lifecycle) |
+| Preflight and diagnostics | Source/track analysis, codec limits, stage timings and Buffer waits | [Diagnostics](#transcode-diagnostics) |
+| Audio policy | Selected original track, AAC-LC conversion, or no audio | [Audio pipeline](#transcode-audio) |
+| Results and storage | History, playback, report export, storage reserve and private-file cleanup | [Results](#transcode-results) |
 
 <a id="transcoding"></a>
 
@@ -173,7 +176,8 @@ The page uses a separate `libtranscoder.so`; it does not start the Player or Rec
 | Output size | Original, or long edge capped at 1920, 1080, or 720 pixels; Buffer only |
 | Target bitrate | 2, 4, 8, or 16 Mbps, using VBR; measured bitrate can differ |
 | Grayscale | Buffer only; keeps luma and makes chroma neutral |
-| Audio | Copy the first audio track without decoding or re-encoding, or produce video only |
+| Encoder selection | Automatic, hardware or software; the checked codec name is also used to create the instance |
+| Audio | Select the first or a specific track: passthrough, AAC-LC at 128 kbps, or no audio |
 
 The size limit describes the long edge, not the vertical resolution. A 1920 × 1080 source capped at 720 becomes 720 × 404; portrait video becomes 404 × 720. Dimensions are rounded down to even values for YUV 4:2:0. Smaller sources are not enlarged.
 
@@ -186,7 +190,7 @@ flowchart LR
   Decoder --> Surface[Encoder input Surface]
   Surface --> Encoder
   Encoder --> Mux[MP4 muxer]
-  Demux --> Audio[Optional original audio track]
+  Demux --> Audio[Optional selected audio track: copy or AAC conversion]
   Audio --> Mux
   Mux --> Result[Completed private file]
   Result --> Export[Files / Gallery]
@@ -199,6 +203,8 @@ flowchart LR
 `TranscodeJob` selects the first video track, configures the decoder for NV12 output, and configures an NV12 Buffer encoder. The worker obtains decoded frames with synchronous output queries. `TranscodeFrameProcessor.h` reads each side's actual width, height, stride, and slice height; decoder and encoder padding do not have to match.
 
 The processor accepts 8-bit NV12, NV21, and I420 layouts and writes NV12. It uses nearest-neighbor downscaling, which keeps the example small and makes the per-frame CPU processing visible. For grayscale, luma is retained and chroma is filled with 128. This path has CPU read/write and copy costs; it is intended to demonstrate decoded-pixel processing rather than match Surface throughput or a production-quality resampler.
+
+Layouts are cached after the first frame and read again on a decoder output-format change. Same-size NV12 uses row copies for both Y and UV, with independent source/destination strides. Source padding is not copied. Only destination padding and grayscale UV need initialization, so normal visible pixels are no longer cleared and overwritten. Scaling, NV21 and I420 retain their conversion branches. There is no additional full-frame intermediate allocation, and decoder buffer ownership is not transferred to the encoder.
 
 Only one decoded frame is retained while waiting for encoder input. After the pixels have been submitted, the decoder output index is returned. The next pass drains encoded output before obtaining more input, keeping codec queues bounded. Input EOS stops feeding compressed samples; the worker continues until encoded output EOS. If a decoded frame contains both pixels and EOS, it submits the pixels first and sends an empty encoder EOS separately.
 
@@ -214,15 +220,60 @@ This path keeps the original dimensions. Selecting Surface resets the size limit
 
 #### Task lifecycle, export, and limits
 
-The encoder's actual output description supplies the new video track. Source codec configuration cannot describe newly encoded H.264/H.265 data. Some devices omit MIME and other required muxing fields from the output description, so the track format is completed with the destination MIME, visible dimensions, and frame rate before adding it. Other encoder-provided configuration is preserved. The optional audio track keeps its original description and samples; audio is interleaved near video PTS. If MP4 cannot accept the original audio, the task reports an error and can be retried with audio preservation disabled. Additional video/audio tracks, subtitles, and attachments are not copied.
+The encoder's actual output description supplies the new video track. Source codec configuration cannot describe newly encoded H.264/H.265 data. Some devices omit MIME and other required muxing fields from the output description, so the track format is completed with the destination MIME, visible dimensions, and frame rate before adding it. Other encoder-provided configuration is preserved. Original audio uses the selected track's description and compressed samples. If MP4 rejects that format, retry with AAC conversion or no audio. Additional video/audio tracks, subtitles, and attachments are not copied.
 
 Native duplicates the input/output descriptors before queueing its asynchronous work. The job owns those duplicates and closes them after releasing the codecs and muxer. Status polling every 250 ms updates media progress, encoded frame count, video payload bytes, and output dimensions. The byte count excludes audio and MP4 overhead. A 30-second interval with no pipeline progress fails the task; cancellation is checked between codec operations.
 
-Output is first written to `filesDir/transcodes/transcoded_<timestamp>.mp4.part`. Only after output EOS, successful muxer finalization, and file flush is it renamed to `.mp4`. Cancellation and failure remove the incomplete file. Export then copies the complete file to a URI authorized by the system save dialog. It requests no broad media-write permission, and a failed export retains the private copy for retry. Completed private files remain in the app directory; this page currently exposes only the latest task result and does not provide a history or cleanup browser.
+Output is first written to `filesDir/transcodes/transcoded_<timestamp>.mp4.part`. Only after output EOS, successful muxer finalization, and file flush is it renamed to `.mp4`. Cancellation and failure remove the incomplete file. Export then copies the complete file to a URI authorized by the system save dialog. It requests no broad media-write permission, and a failed export retains the private copy for retry. Completed private files and reports remain available through recent transcodes and the cleanup action.
 
 This implementation accepts SDR input. It rejects HDR Vivid, PQ/HLG, and HEVC profiles outside Main because HDR transfer, 10-bit processing, and dynamic metadata preservation are not implemented. It does not turn an HDR input into an unmarked SDR file. Codec availability, supported dimensions, and synchronous Surface support still depend on the device; native `Configure()` is the final check.
 
-The host test `tests/native/TranscodeFrameProcessorTest.cpp` covers fit sizing, independent stride/slice padding, chroma order, grayscale, and short-buffer rejection. Codec scheduling, cancellation, and both export destinations need device verification.
+`tests/native/TranscodeFrameProcessorTest.cpp` covers fit sizing, independent stride/slice padding, chroma order, grayscale, short buffers and the same-size fast path. `TranscodeDiagnosticsTest.cpp` checks bounded sampling and wait spans. `TranscodeAudioPipelineTest.cpp` uses fake codecs to check PCM framing, backpressure, format events, the first packet, padded tail, EOS and failure cleanup. `tests/host/TranscodeModels.test.cjs` checks inspection races, task exclusion, cancellation, cleanup and reports. These checks do not replace real-device codec scheduling, output playback, Files or Gallery export verification.
+
+<a id="transcode-diagnostics"></a>
+
+#### Media analysis, codec checks and stage diagnostics
+
+Source selection and output-setting changes trigger an asynchronous Native inspection. It reports source MIME, dimensions, frame rate, duration, audio tracks and target dimensions. Checks cover decoder and encoder size/frame-rate combinations, encoder bitrate limits and NV12 Buffer input. A hardware/software choice does not silently fall back to another category. The capability name is also used to create the codec. Inspection starts no codecs; checks run again at launch, and Configure, Prepare and Start remain the final authority.
+
+The running result shows average output fps, processed media time divided by elapsed wall time, elapsed time and estimated remaining time. ETA stays unknown without source duration/output or during the first second. The report stores time to the first encoded video sample, excluding codec configuration. Initialization affects speed and ETA; neither guarantees a completion time.
+
+| Metric | Measured scope |
+|---|---|
+| demux | Compressed video sample read call |
+| decode-submit | Video decoder input submission call |
+| process-copy | Layout read, YUV processing and copy |
+| encode-submit | Buffer input submission, or decoded-frame submission to the encoder Surface |
+| mux | Video or passthrough-audio sample write call |
+| audio | One AAC pipeline pass (queries, PCM framing and audio writes), or original-audio sample reads |
+
+Each bucket has call count, total, average, maximum and P95 over the most recent 256 calls. These are application-thread wall times, not hardware execution latencies or an additive end-to-end frame latency. Buffer waits are measured separately across unsuccessful nonblocking Query polls until that channel next returns a result: decoder output, encoder input and encoder output. Wait intervals can overlap and include time spent on other pipeline work.
+
+The report distinguishes video payload bytes, audio output bytes, actual file size and visible destination-pixel bytes written by the processor. Pixel bytes exclude padding and are not measured memory bandwidth. Surface video has no application CPU pixel copy, so that counter stays zero.
+
+<a id="transcode-audio"></a>
+
+#### Audio selection and AAC conversion
+
+The default copies the first audio track; a specific track can also be selected. Entries show container track number, MIME, channels and sample rate. No-audio mode selects no audio track, creates no audio codec and adds no audio muxer track.
+
+Passthrough remuxes compressed samples. AAC conversion uses separate synchronous audio decoder/encoder instances and requests interleaved S16LE PCM. It preserves the source sample rate and mono/stereo channel count. There is no resampling or multichannel downmix. Unsupported capability or an unexpected decoded PCM layout fails explicitly rather than silently changing the configuration.
+
+Decoder PCM buffers need not match AAC frame lengths. TranscodeAudioPipeline holds at most one borrowed decoded output and one AAC-LC PCM frame. It submits 1024 samples per channel, calculating PTS from source PCM timestamps and consumed sample counts. A short final frame is zero-padded, adding less than one AAC frame of tail silence; an empty EOS follows separately. Encoded output must drain to EOS even after compressed input ends.
+
+The AAC encoder uses AAC-LC at 128 kbps. Muxing starts only after video and AAC output descriptions are ready; the first audio packet is retained while waiting. Backpressure does not build an unbounded application PCM queue. Cancellation/failure releases both audio codecs. Multiple output audio tracks, subtitle remuxing, loudness processing and gapless tail trimming are not implemented.
+
+<a id="transcode-results"></a>
+
+#### Results, history and storage protection
+
+Completed results can be played, exported again or saved as a TXT diagnostic report. Recent transcodes are restored from private task reports across application restarts. The list shows the latest 100 reports without automatically deleting older video files. A history card loads that result; successful results offer playback, while failures/cancellations retain final diagnostics. JSON is written to a pending file, flushed and renamed. Exported TXT excludes source URI, source filename and absolute paths; local history retains the title for identification.
+
+Before launch, output size is estimated from duration, target video bitrate and an audio budget, with 15% headroom. VBR makes this an estimate, not a bound. Native checks free space at startup and every second, keeping a 64 MiB reserve. Low space fails the task and removes the incomplete file. Export also checks local space for another complete copy. Provider/cloud destinations may not expose free-space information, so copy can still fail; the private result remains available for retry.
+
+Transcoding requires idle playback/recording and acquires its task marker before asynchronous file operations. New playback, recording and cleanup are blocked while it runs. Paused playback still owns resources and must be stopped first. Cancellation releases the marker only after Native exits, descriptors close and the report is saved. Other user tasks are never forcibly stopped.
+
+Cleanup requires confirmation and scans only generated MP4, part and report filenames in the private transcodes directory. Directory/file types are checked; symlinks and arbitrary external paths are rejected. Source files and exported videos are untouched. Running/exporting tasks block cleanup, while abandoned part files from a forced exit can be removed when idle.
 
 ### Preview
 
