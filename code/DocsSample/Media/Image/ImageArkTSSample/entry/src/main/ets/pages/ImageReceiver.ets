@@ -66,7 +66,7 @@ struct ImageCreationPage {
 
   build() {
     Column(undefined) {
-      // 返回
+      // 返回。
       Flex({ direction: FlexDirection.Row, justifyContent: FlexAlign.Center }) {
         Text('相机预览流')
       }.size({ width: '100%', height: '5%' })
@@ -90,7 +90,7 @@ struct ImageCreationPage {
       })
         .width('50%')
         .margin(10)
-      // 相机预览流输出
+      // 相机预览流输出。
       Column() {
         XComponent({
           type: XComponentType.SURFACE,
@@ -99,7 +99,7 @@ struct ImageCreationPage {
           .width(this.uiContext.px2vp(this.imageHeight))
           .height(this.uiContext.px2vp(this.imageWidth))
       }.visibility(Visibility.Visible).margin(10)
-      // receiverSurfaceId信息
+      // receiverSurfaceId信息。
       Text(`成功获取到receiver的id: ${this.receiverSurfaceId}`)
         .fontSize(20)
         .width('99%')
