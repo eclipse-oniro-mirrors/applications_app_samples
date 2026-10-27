@@ -96,6 +96,7 @@ struct Index {
   }
 
   async avSetupVideoAndSubtitle() {
+    // [Start addSubtitleFromFd]
     // 通过UIAbilityContext的resourceManager成员的getRawFd接口获取媒体资源播放地址。
     // 返回类型为{fd,offset,length},fd为HAP包fd地址，offset为媒体资源偏移量，length为播放长度。
     if (this.context == undefined) return;
@@ -129,12 +130,15 @@ struct Index {
     // 设定字幕
     let fileDescriptorSub = await this.context.resourceManager.getRawFd('test1.srt');
     this.avPlayer.addSubtitleFromFd(fileDescriptorSub.fd, fileDescriptorSub.offset, fileDescriptorSub.length);
+    // [End addSubtitleFromFd]
   }
 
+  // [Start off('subtitleUpdate')]
   // (可选)当需要不显示字幕的时候，使用视频播放的AVPlayer实例注销字幕回调函数
   // async avTurnOffSubtitle() {
   //   this.avPlayer?.off('subtitleUpdate');
   // }
+  // [End off('subtitleUpdate')]
 
   avPlay(): void {
     if (this.avPlayer) {
@@ -307,6 +311,7 @@ struct Index {
     this.avPlayer.on('timeUpdate', (time: number) => {
       this.currentTime = time;
     });
+    // [Start onSubtitleUpdate]
     // 字幕回调函数
     this.avPlayer.on('subtitleUpdate', (info: media.SubtitleInfo) => {
       if (!!info) {
@@ -319,6 +324,7 @@ struct Index {
         console.info(`${this.tag}: subtitleUpdate info is null`);
       }
     });
+    // [End onSubtitleUpdate]
   }
 
   aboutToAppear() {
