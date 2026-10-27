@@ -1988,3 +1988,527 @@ export default function resourceStringExpandedMatrixTest(): void {
      */
     it('stringExpanded095', 0, (): void => {
       const resourceName: string = 'product_75inch_4k';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_10600
+     * @tc.name stringExpanded096
+     * @tc.desc Verify resource string product_display_tech resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded096', 0, (): void => {
+      const resourceName: string = 'product_display_tech';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_10700
+     * @tc.name stringExpanded097
+     * @tc.desc Verify resource string product_miniled_backlight resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded097', 0, (): void => {
+      const resourceName: string = 'product_miniled_backlight';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_10800
+     * @tc.name stringExpanded098
+     * @tc.desc Verify resource string product_os resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded098', 0, (): void => {
+      const resourceName: string = 'product_os';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_10900
+     * @tc.name stringExpanded099
+     * @tc.desc Verify resource string product_memory_config resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded099', 0, (): void => {
+      const resourceName: string = 'product_memory_config';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_11000
+     * @tc.name stringExpanded100
+     * @tc.desc Verify resource string product_4gb_64gb resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded100', 0, (): void => {
+      const resourceName: string = 'product_4gb_64gb';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_11100
+     * @tc.name stringExpanded101
+     * @tc.desc Verify resource string product_processor resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded101', 0, (): void => {
+      const resourceName: string = 'product_processor';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_11200
+     * @tc.name stringExpanded102
+     * @tc.desc Verify resource string product_interface_config resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded102', 0, (): void => {
+      const resourceName: string = 'product_interface_config';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_11300
+     * @tc.name stringExpanded103
+     * @tc.desc Verify resource string product_hdmi21 resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded103', 0, (): void => {
+      const resourceName: string = 'product_hdmi21';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_11400
+     * @tc.name stringExpanded104
+     * @tc.desc Verify resource string product_27inch_1080p resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded104', 0, (): void => {
+      const resourceName: string = 'product_27inch_1080p';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_11500
+     * @tc.name stringExpanded105
+     * @tc.desc Verify resource string product_gk6320 resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded105', 0, (): void => {
+      const resourceName: string = 'product_gk6320';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_11600
+     * @tc.name stringExpanded106
+     * @tc.desc Verify resource string product_gk6780 resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded106', 0, (): void => {
+      const resourceName: string = 'product_gk6780';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_11700
+     * @tc.name stringExpanded107
+     * @tc.desc Verify resource string product_openharmony resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded107', 0, (): void => {
+      const resourceName: string = 'product_openharmony';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_11800
+     * @tc.name stringExpanded108
+     * @tc.desc Verify resource string media_4k_demo_title resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded108', 0, (): void => {
+      const resourceName: string = 'media_4k_demo_title';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_11900
+     * @tc.name stringExpanded109
+     * @tc.desc Verify resource string media_dolby_atmos_sound resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded109', 0, (): void => {
+      const resourceName: string = 'media_dolby_atmos_sound';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_12000
+     * @tc.name stringExpanded110
+     * @tc.desc Verify resource string media_smart_sound_field resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded110', 0, (): void => {
+      const resourceName: string = 'media_smart_sound_field';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_12100
+     * @tc.name stringExpanded111
+     * @tc.desc Verify resource string media_voice_enhancement resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded111', 0, (): void => {
+      const resourceName: string = 'media_voice_enhancement';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_12200
+     * @tc.name stringExpanded112
+     * @tc.desc Verify resource string media_hdr_support resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded112', 0, (): void => {
+      const resourceName: string = 'media_hdr_support';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_12300
+     * @tc.name stringExpanded113
+     * @tc.desc Verify resource string media_hdr10plus resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded113', 0, (): void => {
+      const resourceName: string = 'media_hdr10plus';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_12400
+     * @tc.name stringExpanded114
+     * @tc.desc Verify resource string media_refresh_rate resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded114', 0, (): void => {
+      const resourceName: string = 'media_refresh_rate';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_12500
+     * @tc.name stringExpanded115
+     * @tc.desc Verify resource string media_120hz_memc resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded115', 0, (): void => {
+      const resourceName: string = 'media_120hz_memc';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_12600
+     * @tc.name stringExpanded116
+     * @tc.desc Verify resource string media_color_depth resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded116', 0, (): void => {
+      const resourceName: string = 'media_color_depth';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_12700
+     * @tc.name stringExpanded117
+     * @tc.desc Verify resource string media_1_07_billion_colors resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded117', 0, (): void => {
+      const resourceName: string = 'media_1_07_billion_colors';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_12800
+     * @tc.name stringExpanded118
+     * @tc.desc Verify resource string media_contrast_ratio resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded118', 0, (): void => {
+      const resourceName: string = 'media_contrast_ratio';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_12900
+     * @tc.name stringExpanded119
+     * @tc.desc Verify resource string media_1000000_1 resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded119', 0, (): void => {
+      const resourceName: string = 'media_1000000_1';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_13000
+     * @tc.name stringExpanded120
+     * @tc.desc Verify resource string error_screen_params_invalid resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded120', 0, (): void => {
+      const resourceName: string = 'error_screen_params_invalid';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_13100
+     * @tc.name stringExpanded121
+     * @tc.desc Verify resource string error_get_screen_size_failed resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded121', 0, (): void => {
+      const resourceName: string = 'error_get_screen_size_failed';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_TV_DEMONSTRATION_STRING_EXPANDED_13200
+     * @tc.name stringExpanded122
+     * @tc.desc Verify resource string error_screensaver_failed resolves through base, en_US and zh_CN managers
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('stringExpanded122', 0, (): void => {
+      const resourceName: string = 'error_screensaver_failed';
+      const baseValue: string = baseManager.getStringByNameSync(resourceName);
+      const englishValue: string = englishManager.getStringByNameSync(resourceName);
+      const chineseValue: string = chineseManager.getStringByNameSync(resourceName);
+      expect(baseValue.trim().length > 0).assertTrue();
+      expect(englishValue.trim().length > 0).assertTrue();
+      expect(chineseValue.trim().length > 0).assertTrue();
+      expect(baseValue === englishValue || baseValue === chineseValue).assertTrue();
+    });
+
+  });
+}
