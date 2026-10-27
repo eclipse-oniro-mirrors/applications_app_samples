@@ -135,9 +135,9 @@ struct Index {
 
   // [Start off('subtitleUpdate')]
   // (可选)当需要不显示字幕的时候，使用视频播放的AVPlayer实例注销字幕回调函数
-  async avTurnOffSubtitle() {
-    this.avPlayer?.off('subtitleUpdate');
-  }
+  // async avTurnOffSubtitle() {
+  //   this.avPlayer?.off('subtitleUpdate');
+  // }
   // [End off('subtitleUpdate')]
 
   avPlay(): void {
