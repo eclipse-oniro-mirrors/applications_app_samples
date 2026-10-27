@@ -1278,6 +1278,8 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/UserAuthentication/screenshots/query.jpeg" desc="Provided by code/DocsSample/UserAuthentication"/>
 				<filteritem type="filepath" name="code/Project/HapBuild/compile-tool/tool/sign_tool/OpenHarmonyProfileDebug.pem" desc="Provided by code/Project/HapBuild"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIWindowSamples/WindowRestoreSample/screenshots/example.png" desc="Provided by code/DocsSample/ArkUISample/ArkUIWindowSamples/WindowRestoreSample"/>
+				<filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIWindowSamples/StartAbilityBelowLockScreenSample/screenshots/example.png" desc="Provided by code/DocsSample/ArkUISample/ArkUIWindowSamples/StartAbilityBelowLockScreenSample"/>
+				<filteritem type="filepath" name="code/DocsSample/ArkUISample/ArkUIWindowSamples/BelowLockScreenTargetSample/screenshots/example.png" desc="Provided by code/DocsSample/ArkUISample/ArkUIWindowSamples/BelowLockScreenTargetSample"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkWeb/ArkWebPageHeight/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/ArkWeb"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkWeb/ArkWebPageHeight/screenshots/scene1.png" desc="Provided by code/DocsSample/ArkWeb"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkWeb/ArkWebPageHeight/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/ArkWeb"/>

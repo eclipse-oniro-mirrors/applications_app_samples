@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-// [Start quick_start]
-import hilog from '@ohos.hilog';
+// [Start WindowRestore]
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -27,7 +27,7 @@ struct Index {
   mainWindow: window.Window | undefined;
 
   aboutToAppear() {
-    // 在 EntryAbility.ets 中通过 windowStage.getMainWindowSync() 保存主窗
+    // 在EntryAbility.ets中通过windowStage.getMainWindowSync()保存主窗
     this.mainWindow = AppStorage.get('mainWindow_Restore') as window.Window;
   }
 
@@ -75,5 +75,4 @@ struct Index {
     .width('100%')
   }
 }
-
-// [End quick_start]
+// [End WindowRestore]
