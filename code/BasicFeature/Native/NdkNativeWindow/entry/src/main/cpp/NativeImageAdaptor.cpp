@@ -334,15 +334,17 @@ void NativeImageAdaptor::SetConfigAndGetValue()
     code = SET_COLOR_GAMUT;
     OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, NATIVEBUFFER_COLOR_GAMUT_SRGB);
     g_cnt++;
+    SetAndGetScreenInfo();
 }
 
-void NativeImageAdaptor::SetScreenInfo()
+void NativeImageAdaptor::SetAndGetScreenInfo()
 {
     int32_t code = OH_NATIVEWINDOW_SET_SCREEN_INFO;
     OH_NativeWindow_ScreenInfoRect currentFrameRectSrc = { .x = 10, .y = 10, .w = 100, .h = 100};
     OH_NativeWindow_ScreenInfoRect originalRectSrc = { .x = 20, .y = 20, .w = 200, .h = 200};
     float angleSrc = 90.0;
-    int32_t ret = OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, &currentFrameRectSrc, &originalRectSrc, angleSrc);
+    int32_t ret = OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, 
+                                                        &currentFrameRectSrc, &originalRectSrc, angleSrc);
     if (ret != 0) {
         LOGE("NativeWindowSetScreenInfo fail, ret: %{public}d", ret);
     }
@@ -409,7 +411,6 @@ int32_t NativeImageAdaptor::ProduceBuffer(uint32_t value, OHNativeWindow *InNati
 {
     if (InNativeWindow == nativeWindow_) {
         SetConfigAndGetValue();
-        SetScreenInfo();
     }
     
     NativeWindowBuffer *buffer = nullptr;
