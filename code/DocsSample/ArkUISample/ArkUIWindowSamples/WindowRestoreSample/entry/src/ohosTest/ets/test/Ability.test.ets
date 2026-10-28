@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Driver, ON } from '@ohos.UiTest';
 import AbilityDelegatorRegistry from '@ohos.application.abilityDelegatorRegistry';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@ohos/hypium';
