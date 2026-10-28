@@ -3,6 +3,7 @@
     "pages/Index",
     "pages/StylesDecorator/StylesDecorator1",
     "pages/StylesDecorator/StylesDecorator2",
+    "pages/StylesDecorator/StylesVersionCondition",
     "pages/AnimatableExtendDecorator/AnimatablePropertyExample",
     "pages/AnimatableExtendDecorator/AnimatablePropertyText"
   ]

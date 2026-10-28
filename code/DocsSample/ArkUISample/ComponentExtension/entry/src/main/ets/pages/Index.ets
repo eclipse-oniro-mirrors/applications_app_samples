@@ -57,6 +57,7 @@ struct ComponentExtension {
       children: [
         { name: 'StylesDecorator1', label: $r('app.string.StylesDecorator1') },
         { name: 'StylesDecorator2', label: $r('app.string.StylesDecorator2') },
+        { name: 'StylesVersionCondition', label: $r('app.string.StylesVersionCondition') },
       ]
     },
   ];
