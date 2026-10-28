@@ -229,6 +229,10 @@ void TestCropAndLetterbox()
     Require(!Process(source.data(), source.size(), sourceLayout, target.data(), target.size() - 1,
         targetLayout, false, static_cast<ResizeMode>(INVALID_RESIZE_MODE)), "Reject invalid resize mode");
     Require(target == unchanged, "Invalid plan must not write destination");
+}
+
+void TestGeometryCombinations()
+{
     for (const int32_t width : { SMALL_WIDTH, FULL_HD_HEIGHT, FULL_HD_WIDTH }) {
         for (const int32_t height : { SMALL_HEIGHT, FULL_HD_HEIGHT, FULL_HD_WIDTH }) {
             for (const auto mode : {ResizeMode::FIT, ResizeMode::CENTER_CROP, ResizeMode::LETTERBOX}) {
@@ -257,5 +261,6 @@ int main()
     TestBounds();
     TestSameSizeNv12();
     TestCropAndLetterbox();
+    TestGeometryCombinations();
     std::cout << "TranscodeFrameProcessor tests passed\n";
 }

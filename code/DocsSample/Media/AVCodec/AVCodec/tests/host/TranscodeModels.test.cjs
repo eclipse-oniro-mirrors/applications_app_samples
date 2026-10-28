@@ -301,7 +301,33 @@ async function testStateFiles() {
   console.log('State files: repeated/concurrent writes, existing directory, unsafe paths, error propagation and recovery passed');
 }
 
+function testErrorClassification() {
+  const graphicsOperations = [
+    'Get encoder input Surface',
+    'Connect decoder to encoder Surface',
+    'Submit decoded Surface frame',
+    'Notify Surface encoder EOS',
+    'Create NativeWindow',
+    'Update NativeImage',
+    'Vulkan present failed',
+    'OpenGL render failed'
+  ];
+  for (const operation of graphicsOperations) {
+    assert.equal(MediaReports.error(operation, -1, '').category, 'graphics', operation);
+    assert.equal(MediaReports.error('', -1, operation.toUpperCase()).category, 'graphics', operation);
+  }
+  assert.equal(MediaReports.error('Get Buffer encoder input', -1, '').category, 'codec');
+  assert.equal(MediaReports.error('Configure decoder', -1, '').category, 'configuration');
+  assert.equal(MediaReports.error('Create NativeWindow', -1, 'Permission denied').category, 'permission');
+  assert.equal(MediaReports.error('Vulkan present', -1, 'Not supported').category, 'capability');
+  assert.equal(MediaReports.error('OpenGL render', -1, '', true).category, 'cancelled');
+  assert.equal(MediaReports.error('', 0, '').category, 'none');
+  assert.equal(MediaReports.error('Unrecognized stage', -1, '').category, 'unknown');
+  console.log('Error classification: graphics operations, case handling, Buffer input and priority passed');
+}
+
 async function testSessionTasks() {
+  testErrorClassification();
   const first = MediaTaskCoordinator.acquire('playback');
   assert(first);
   assert.equal(MediaTaskCoordinator.acquire('recording'), undefined);

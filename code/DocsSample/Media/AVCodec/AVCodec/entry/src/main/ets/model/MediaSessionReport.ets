@@ -31,6 +31,10 @@ export interface MediaSessionReport {
 }
 
 export class MediaReports {
+  private static readonly graphicsFailurePattern: RegExp = new RegExp(
+    'Vulkan|OpenGL|NativeImage|window|render|present|' +
+    'Get encoder input|Connect decoder to encoder|Submit decoded|Notify.*encoder EOS', 'i');
+
   static shareable(report: MediaSessionReport): MediaSessionReport {
     const shared: MediaSessionReport = JSON.parse(JSON.stringify(report)) as MediaSessionReport;
     shared.requested = MediaReports.redact(shared.requested);
@@ -89,7 +93,7 @@ export class MediaReports {
       category = 'capability';
     } else if (/configure|parameter|invalid/.test(hint)) {
       category = 'configuration';
-    } else if (/Surface|Vulkan|OpenGL|NativeImage|render|present/i.test(hint)) {
+    } else if (MediaReports.graphicsFailurePattern.test(hint)) {
       category = 'graphics';
     } else if (/mux|write sample/.test(hint)) {
       category = 'mux';
