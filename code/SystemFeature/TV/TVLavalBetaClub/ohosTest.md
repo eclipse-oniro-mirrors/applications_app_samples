@@ -26,7 +26,7 @@
 - 集中式套件清单：`List.test.ets` 通过 `SUITE_MANIFEST` 统一登记 112 个套件（名称、分类、能力描述、工厂函数），并提供 `validateManifest`、`countByCategory`、`findSuite` 自检用例，使覆盖度可在不跑真机的情况下审计
 - 统一驱动能力：所有 UI 套件复用 `BetaClubDriver` 的页面回归、文本轮询与按键模拟，避免各套件重复实现 UI 驱动细节
 - 返回优先而非重启：`ensureHomePage` 在检测到应用已在子页时优先连续 `router.back()` 回首页，只有确实不在应用内才重新拉起 `EntryAbility`，避免长链路执行时堆叠 ability 实例导致测试进程被杀
-- 权限弹窗前置处理：应用首次访问相册会弹出系统权限窗口，`dismissPermissionDialog` 在任何首页探针之前关闭该窗口，避免"弹窗标题与应用页头同名"造成的假通过
+- 权限弹窗前置处理：应用在访问相册时会弹出系统权限窗口，`dismissPermissionDialog` 在任何首页探针之前关闭该窗口，避免"弹窗标题与应用页头同名"造成的假通过
 - 串行化 UI 队列：TV 单 UI 线程渲染，所有 UiTest 调用与延时都进入 `_uiOperationQueue` 串行执行，消除并发用例之间的焦点竞争与丢键
 - 主线程节流：`serializedDelay` 使用 `setTimeout` 让出事件循环而非同步阻塞，规避长跑时 `THREAD_BLOCK_6S` 看门狗导致的 AppFreeze 与测试进程被杀
 - 组件计数避坑：`componentCount` 按 `Text/Image/List` 具名类型统计，避免 TV 版本不支持 `'*'` 通配查询导致的空结果与全量无障碍树转储开销

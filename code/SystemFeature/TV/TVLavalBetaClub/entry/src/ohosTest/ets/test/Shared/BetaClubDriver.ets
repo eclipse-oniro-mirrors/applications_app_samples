@@ -203,8 +203,8 @@ export async function componentCount(driver: Driver): Promise<number> {
   try {
     return await runSerializedUiOperation(async () => {
       // Query concrete component types instead of the unsupported '*' wildcard: the
-      // wildcard query returns an empty list on TV builds and stresses the UiTest
-      // service with a full accessibility tree dump on every call.
+      // wildcard query returns an empty list on TV builds and makes the UiTest service
+      // walk the whole component tree on every call.
       const textComponents = await driver.findComponents(ON.type('Text')) ?? [];
       const imageComponents = await driver.findComponents(ON.type('Image')) ?? [];
       const listComponents = await driver.findComponents(ON.type('List')) ?? [];
@@ -517,8 +517,8 @@ export async function dismissPermissionDialog(driver: Driver): Promise<boolean> 
 
 /**
  * Wait for the home menu entries. The first paint after a relaunch can expose the page
- * header while the entry list is still missing from the accessibility tree, so focus
- * moves are used to force the list to be rebuilt.
+ * header while the entry list has not been laid out yet, so focus moves are used to
+ * force the list to be rebuilt.
  */
 async function waitForHomeEntries(driver: Driver): Promise<boolean> {
   if (await waitForAnyText(driver, TEXT_CREATE_ISSUE_CANDIDATES, TIMEOUT_HOME_ENTRY) !== '') {
