@@ -399,7 +399,7 @@ async function testMediaFileWriter() {
     io.write = async () => 0;
     await assert.rejects(() => MediaFileWriter.writeAll(1, 'media-state'), /no progress/);
   } finally { io.write = originalWrite; }
-  console.log('Media file writer: partial writes and zero-progress errors passed');
+  console.info('Media file writer: partial writes and zero-progress errors passed');
 }
 
 async function testRecordingHistory() {
@@ -418,7 +418,7 @@ async function testRecordingHistory() {
   assert.equal(entries[0].secondaryUri, 'file://secondary');
   assert.equal(entries[1].uri, 'file://old');
   assert.equal(entries.some(entry => 'summary' in entry || 'diagnostics' in entry), false);
-  console.log('Recording history: legacy diagnostics stripped, file associations and result state retained');
+  console.info('Recording history: legacy diagnostics stripped, file associations and result state retained');
 }
 
 function testStorageProtection() {
@@ -527,7 +527,7 @@ async function testRecordingLifecycle() {
     Object.assign(api, originalApi);
     io.close = originalClose;
   }
-  console.log('Recording lifecycle: idempotent stop, camera-before-EOS, rejected begin and descriptor ownership passed');
+  console.info('Recording lifecycle: idempotent stop, camera-before-EOS, rejected begin and descriptor ownership passed');
 }
 
 async function testCameraLifecycle() {

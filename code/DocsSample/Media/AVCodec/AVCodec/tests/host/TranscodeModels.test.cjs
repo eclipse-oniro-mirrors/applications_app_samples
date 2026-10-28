@@ -298,7 +298,7 @@ async function testStateFiles() {
   } finally { io.mkdir = originalMkdir; }
   await MediaStateFiles.write(context, 'pending_sessions.json', '[7]');
   assert.equal(await MediaStateFiles.read(context, 'pending_sessions.json', '[]'), '[7]');
-  console.log('State files: repeated/concurrent writes, existing directory, unsafe paths, error propagation and recovery passed');
+  console.info('State files: repeated/concurrent writes, existing directory, unsafe paths, error propagation and recovery passed');
 }
 
 function testErrorClassification() {
@@ -323,7 +323,7 @@ function testErrorClassification() {
   assert.equal(MediaReports.error('OpenGL render', -1, '', true).category, 'cancelled');
   assert.equal(MediaReports.error('', 0, '').category, 'none');
   assert.equal(MediaReports.error('Unrecognized stage', -1, '').category, 'unknown');
-  console.log('Error classification: graphics operations, case handling, Buffer input and priority passed');
+  console.info('Error classification: graphics operations, case handling, Buffer input and priority passed');
 }
 
 async function testSessionTasks() {
@@ -410,7 +410,7 @@ async function testSessionTasks() {
   assert(files.has(directory + '/transcoded_555.mp4'));
   assert(files.has(directory + '/transcoded_556.mp4.part'));
   assert(!files.has(directory + '/transcoded_555.mp4.part'));
-  console.log('Session tasks: stale lease, cancellation, atomic journals, report validation/redaction and partial recovery passed');
+  console.info('Session tasks: stale lease, cancellation, atomic journals, report validation/redaction and partial recovery passed');
 }
 
 async function testQueue() {
@@ -473,7 +473,7 @@ async function testQueue() {
     assert.equal(failedReport.busy, false);
     assert.equal(MediaTaskCoordinator.busy(), false, 'Report errors must not retain Native ownership');
   } finally { MediaSessionStore.finish = originalFinish; }
-  console.log('Queue: sequential dispatch, snapshot isolation, pause boundary, restart/retry, malformed input and dispose race passed');
+  console.info('Queue: sequential dispatch, snapshot isolation, pause boundary, restart/retry, malformed input and dispose race passed');
 }
 
 function testCapabilityAndGeometry() {
@@ -500,6 +500,6 @@ function testCapabilityAndGeometry() {
     }
   }
   assert.equal(TranscodeGeometryModel.plan(0, 720, 720, 0).width, 0);
-  console.log('Capability matrix: stable ordering, HW/SW diffs and malformed snapshots; preview: 27 aligned geometries passed');
+  console.info('Capability matrix: stable ordering, HW/SW diffs and malformed snapshots; preview: 27 aligned geometries passed');
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });
