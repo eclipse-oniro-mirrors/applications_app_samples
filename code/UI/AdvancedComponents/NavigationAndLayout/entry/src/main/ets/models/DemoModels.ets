@@ -15,9 +15,9 @@
 
 /** Provides Detail Param helpers for the sample. */
 export class DetailParam {
-  id: number;
-  title: string;
-  description: string;
+  public id: number;
+  public title: string;
+  public description: string;
 
   constructor(id: number, title: string, description: string) {
     this.id = id;
