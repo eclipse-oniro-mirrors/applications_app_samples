@@ -14,36 +14,67 @@
  */
 import hilog from '@ohos.hilog';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { abilityAccessCtrl } from '@kit.AbilityKit';
+
+const TAG = 'BetaClubAbilityTest';
+
+const LOG_DOMAIN: number = 0x0102;
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
+    let bundleName: string = '';
+
     beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
-    })
+      const args = abilityDelegatorRegistry.getArguments();
+      bundleName = args.bundleName;
+      hilog.info(LOG_DOMAIN, TAG, 'beforeAll bundleName: %{public}s', bundleName);
+    });
+
     beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
-    })
+      hilog.info(LOG_DOMAIN, TAG, 'beforeEach test case start');
+    });
+
     afterEach(() => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
-    })
+      hilog.info(LOG_DOMAIN, TAG, 'afterEach test case end');
+    });
+
     afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
-    })
+      hilog.info(LOG_DOMAIN, TAG, 'afterAll test suite end');
+    });
+
     it('assertContain', 0, () => {
-      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
+      hilog.info(LOG_DOMAIN, TAG, 'it begin');
       let a = 'abc';
       let b = 'b';
-      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
       expect(a).assertContain(b);
       expect(a).assertEqual(a);
-    })
-  })
+    });
+
+    it('bundle_name_should_not_be_empty', 0, () => {
+      expect(bundleName.length).assertLarger(0);
+      expect(bundleName).assertContain('beta');
+    });
+
+    it('ability_delegator_should_be_available', 0, () => {
+      const delegator = abilityDelegatorRegistry.getAbilityDelegator();
+      expect(delegator !== undefined && delegator !== null).assertTrue();
+    });
+
+    it('test_ability_context_should_be_available', 0, () => {
+      const delegator = abilityDelegatorRegistry.getAbilityDelegator();
+      const abilityList = delegator.getCurrentTopAbility();
+      expect(abilityList !== undefined).assertTrue();
+    });
+
+    it('permission_manager_should_be_created', 0, () => {
+      const atManager = abilityAccessCtrl.createAtManager();
+      expect(atManager !== undefined).assertTrue();
+    });
+
+    it('hilog_domain_should_be_positive', 0, () => {
+      expect(LOG_DOMAIN).assertLarger(0);
+      expect(hilog.isLoggable(LOG_DOMAIN, TAG, hilog.LogLevel.INFO)).assertTrue();
+    });
+  });
 }
