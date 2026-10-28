@@ -198,5 +198,54 @@ export default function logicTest() {
         expect(loaded).assertEqual(22);
       }, done);
     });
-  });
+    /**
+     * @tc.number SUB_LISTPERF_BOUNDARY_0100
+     * @tc.name testListPerfBoundary0008
+     * @tc.desc Verify boundary values and fallback behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testListPerfBoundary0008', 0, async (done: Function) => {
+      await runCase('testListPerfBoundary0008', async () => {
+              expect(ListDataUtils.nextBatch(-1, 200, 20)).assertEqual(0);
+              expect(ListDataUtils.nextBatch(0, 0, 20)).assertEqual(0);
+              expect(ListDataUtils.nextBatch(180, 200, 20)).assertEqual(200);
+              expect(ListDataUtils.nextBatch(200, 200, 20)).assertEqual(200);
+              expect(PrefetchUtils.nextIndices(0, 0, 200).length).assertEqual(0);
+              expect(PrefetchUtils.nextIndices(199, 3, 200).length).assertEqual(0);
+              expect(PrefetchUtils.nextIndices(198, 3, 200).join(',')).assertEqual('199');
+              const registry = new PlaceholderRegistry(2);
+              registry.register(-1);
+              registry.register(2);
+              registry.registerRange(0, 5);
+              expect(registry.loadedCount()).assertEqual(2);
+              expect(BreakpointUtils.contentMaxWidth(600)).assertEqual(560);
+              expect(BreakpointUtils.contentMaxWidth(601)).assertEqual(720);
+              expect(BreakpointUtils.pagePadding(600)).assertEqual(16);
+              expect(BreakpointUtils.pagePadding(601)).assertEqual(24);
+      }, done);
+    });
+        /**
+     * @tc.number SUB_LISTPERF_LIMIT_0100
+     * @tc.name testListPerfLimit0009
+     * @tc.desc Verify additional boundary and empty-state behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testListPerfLimit0009', 0, async (done: Function) => {
+      await runCase('testListPerfLimit0009', async () => {
+              const emptyRegistry = new PlaceholderRegistry(0);
+              emptyRegistry.register(0);
+              emptyRegistry.register(1);
+              expect(emptyRegistry.loadedCount()).assertEqual(0);
+              expect(emptyRegistry.total()).assertEqual(0);
+              expect(PrefetchUtils.nextIndices(-5, 3, 200).length).assertEqual(0);
+              expect(ListDataUtils.nextBatch(199, 200, 20)).assertEqual(200);
+              expect(ListDataUtils.formatPlaceholder(0, 0)).assertEqual('loaded=0/0');
+              expect(ListDataUtils.formatPrefetch(0, 0, 0)).assertEqual('prefetched=0, loaded=0/0');
+      }, done);
+    });
+      });
 }
