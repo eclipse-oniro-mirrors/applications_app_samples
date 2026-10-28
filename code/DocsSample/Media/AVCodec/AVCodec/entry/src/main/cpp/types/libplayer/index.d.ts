@@ -191,6 +191,7 @@ export interface VideoSinkDiagnostics {
 }
 
 export const getPlaybackInfo: () => PlaybackInfo
+export const getCompletedPlaybackInfo: () => PlaybackInfo
 
 export interface VideoMediaInfo {
   codecMime: string;

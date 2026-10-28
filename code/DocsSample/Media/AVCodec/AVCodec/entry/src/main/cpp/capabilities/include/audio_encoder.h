@@ -42,8 +42,8 @@ public:
     // 同步模式下取得编码输出；调用方写入 Muxer 后必须调用 FreeOutputData 归还。
     int32_t GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     int32_t FreeOutputData(uint32_t bufferIndex);
-    // 提交 EOS 空输入 Buffer，通知编码器完成尾部数据输出；调用后仍需继续取输出直到收到 EOS。
-    int32_t NotifyEndOfStream();
+    // 使用按当前同步/异步模式取得的输入 Buffer 提交 EOS；调用后仍需取输出直到收到 EOS。
+    int32_t NotifyEndOfStream(CodecBufferInfo &bufferInfo);
     int32_t Flush();
     int32_t Reset();
     int32_t Stop();

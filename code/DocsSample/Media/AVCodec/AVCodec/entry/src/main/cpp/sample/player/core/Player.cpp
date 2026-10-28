@@ -91,6 +91,12 @@ PlaybackInfo Player::GetPlaybackInfo() const
     return info;
 }
 
+PlaybackInfo Player::GetCompletedPlaybackInfo() const
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    return completedPlaybackInfo_;
+}
+
 MediaInfo Player::GetMediaInfo() const
 {
     std::lock_guard<std::mutex> lock(mutex_);

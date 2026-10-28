@@ -263,6 +263,7 @@ int32_t Player::HandleInitError(std::unique_lock<std::mutex>& outerLock)
 void Player::ResetPlaybackState()
 {
     mediaInfo_ = {};
+    completedPlaybackInfo_ = {};
     dumpLayoutKey_ = 0;
     failure_.Reset(sampleInfo_.video.videoCodecMime, sampleInfo_.codec.codecName, sampleInfo_.codec.codecRunMode);
     diagnostics_.Reset();

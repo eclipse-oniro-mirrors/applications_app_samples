@@ -140,10 +140,6 @@ int32_t Recorder::InitializeSession(SampleInfo &sampleInfo)
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create video encoder failed");
     primaryStats_.Reset(sampleInfo_.video, true);
     secondaryStats_.Reset(secondarySampleInfo_.video, secondaryVideoEncoder_ != nullptr);
-    encContext_->outputBufferQueue.EnableDiagnostics();
-    if (secondaryEncContext_ != nullptr) {
-        secondaryEncContext_->outputBufferQueue.EnableDiagnostics();
-    }
     CaptureEncoderDescription(true);
     if (secondaryVideoEncoder_ != nullptr) {
         CaptureEncoderDescription(false);

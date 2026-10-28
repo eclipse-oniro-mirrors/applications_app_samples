@@ -22,13 +22,12 @@
 #include <memory>
 #include <mutex>
 #include <queue>
-#include "StageTiming.h"
 #include <multimedia/player_framework/native_avbuffer.h>
 
 // [Start codec_buffer_info]
-// buffer信息。
+// 回调buffer的信息。
 struct CodecBufferInfo {
-    // buffer。
+     // buffer。
     OH_AVBuffer *buffer = nullptr;
     // buffer对应的bufferIndex。
     uint32_t bufferIndex = 0;
@@ -56,52 +55,22 @@ public:
     {
         std::unique_lock<std::mutex> lock(mutex_);
         // 队列只共享描述对象，不取得 OH_AVBuffer 的所有权。消费者必须按所属编解码器归还bufferIndex。
-        bufferQueue_.push({bufferInfo, diagnosticsEnabled_ ? RecorderClockUs() : 0});
-        if (diagnosticsEnabled_) {
-            peakDepth_ = std::max(peakDepth_, bufferQueue_.size());
-        }
+        bufferQueue_.push(bufferInfo);
         cond_.notify_all();
     }
 
-    std::shared_ptr<CodecBufferInfo> Dequeue(int32_t timeoutMs = 1000, int64_t *receivedAtUs = nullptr)
+    std::shared_ptr<CodecBufferInfo> Dequeue(int32_t timeoutMs = 1000)
     {
         std::unique_lock<std::mutex> lock(mutex_);
-        const int64_t waitStart = diagnosticsEnabled_ ? RecorderClockUs() : 0;
         (void)cond_.wait_for(lock, std::chrono::milliseconds(timeoutMs),
             [this]() { return cancelled_ || !bufferQueue_.empty(); });
         // 返回空既可能是超时，也可能是解码器不处于Running状态；调用方应结合所属流水线的运行状态决定后续动作。
         if (cancelled_ || bufferQueue_.empty()) {
             return nullptr;
         }
-        const auto queued = bufferQueue_.front();
+        std::shared_ptr<CodecBufferInfo> bufferInfo = bufferQueue_.front();
         bufferQueue_.pop();
-        if (diagnosticsEnabled_) {
-            const int64_t now = RecorderClockUs();
-            waitTiming_.Record(now - waitStart);
-            residenceTiming_.Record(now - queued.receivedAtUs);
-            if (receivedAtUs != nullptr) {
-                *receivedAtUs = queued.receivedAtUs;
-            }
-        }
-        return queued.info;
-    }
-
-    void EnableDiagnostics()
-    {
-        std::lock_guard<std::mutex> lock(mutex_);
-        diagnosticsEnabled_ = true;
-        peakDepth_ = 0;
-        waitTiming_ = {};
-        residenceTiming_ = {};
-    }
-
-    void GetDiagnostics(StageTimingInfo &wait, StageTimingInfo &residence, size_t &depth, size_t &peak)
-    {
-        std::lock_guard<std::mutex> lock(mutex_);
-        wait = waitTiming_.Snapshot();
-        residence = residenceTiming_.Snapshot();
-        depth = bufferQueue_.size();
-        peak = peakDepth_;
+        return bufferInfo;
     }
 
     void Flush()
@@ -136,16 +105,8 @@ public:
 private:
     std::mutex mutex_;
     std::condition_variable cond_;
-    struct QueuedBuffer {
-        std::shared_ptr<CodecBufferInfo> info;
-        int64_t receivedAtUs;
-    };
-    std::queue<QueuedBuffer> bufferQueue_;
+    std::queue<std::shared_ptr<CodecBufferInfo>> bufferQueue_;
     bool cancelled_ = false;
-    bool diagnosticsEnabled_ = false;
-    size_t peakDepth_ = 0;
-    StageTiming waitTiming_;
-    StageTiming residenceTiming_;
 };
 // [End codec_buffer_queue]
 

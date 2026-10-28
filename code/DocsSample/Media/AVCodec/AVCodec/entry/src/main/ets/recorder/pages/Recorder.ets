@@ -19,8 +19,7 @@ import recorder from 'librecorder.so';
 import { LocalizedText } from '../../common/LocalizedText';
 import { dateTime } from '../../common/utils/DateTimeUtil';
 import { CameraDataModel } from '../../model/CameraDataModel';
-import { RecordingReport } from '../../model/RecordingReportStore';
-import { RecordingPhase, RecordingSessionController } from '../../controller/RecordingSessionController';
+import { RecordingPhase, RecordingResultInfo, RecordingSessionController } from '../../controller/RecordingSessionController';
 import { CameraSessionController } from '../../controller/CameraSessionController';
 import { RecorderDiagnosticsController } from '../../controller/RecorderDiagnosticsController';
 import { RecorderLiveParameters } from '../../components/recorder/RecorderLiveParameters';
@@ -40,7 +39,7 @@ struct Recorder {
   private diagnostics: RecorderDiagnosticsController = new RecorderDiagnosticsController();
   private previewController: XComponentController = new XComponentController();
   private finishTask: Promise<void> | undefined = undefined;
-  private result: RecordingReport | undefined = undefined;
+  private result: RecordingResultInfo | undefined = undefined;
   private startedAt: number = 0;
   private canNavigate: boolean = true;
   private navigating: boolean = false;
@@ -138,7 +137,7 @@ struct Recorder {
       this.phase = this.session.phase;
     } catch (error) {
       this.phase = RecordingPhase.FAILED;
-      this.compact = LocalizedText.get($r('app.string.rec_report_save_failed'));
+      this.compact = LocalizedText.get($r('app.string.recorder_finalize_failed'));
       Logger.error('Recorder', JSON.stringify(error));
     }
     this.navigate(showResult);
@@ -149,7 +148,7 @@ struct Recorder {
     this.navigating = true;
     if (showResult && this.result !== undefined) {
       void this.getUIContext().getRouter().replaceUrl({ url: 'recorder/pages/RecordingResult',
-        params: { sessionId: this.result.sessionId } }).catch((): void => {
+        params: this.result }).catch((): void => {
           this.navigating = false;
           this.getUIContext().getRouter().back();
         });

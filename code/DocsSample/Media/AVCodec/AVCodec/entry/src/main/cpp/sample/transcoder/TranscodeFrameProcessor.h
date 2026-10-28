@@ -21,6 +21,17 @@
 
 namespace TranscodeFrames {
 enum class Chroma { NV12, NV21, I420 };
+enum class ResizeMode { FIT, CENTER_CROP, LETTERBOX };
+struct Geometry {
+    int32_t cropLeft = 0;
+    int32_t cropTop = 0;
+    int32_t cropWidth = 0;
+    int32_t cropHeight = 0;
+    int32_t contentLeft = 0;
+    int32_t contentTop = 0;
+    int32_t contentWidth = 0;
+    int32_t contentHeight = 0;
+};
 struct Layout {
     int32_t width = 0;
     int32_t height = 0;
@@ -32,9 +43,13 @@ struct Layout {
 size_t RequiredBytes(const Layout &layout);
 bool FitSize(int32_t sourceWidth, int32_t sourceHeight, int32_t longEdge,
     int32_t &targetWidth, int32_t &targetHeight);
+bool OutputSize(int32_t sourceWidth, int32_t sourceHeight, int32_t longEdge, ResizeMode mode,
+    int32_t &targetWidth, int32_t &targetHeight);
+bool PlanGeometry(const Layout &input, const Layout &output, ResizeMode mode, Geometry &geometry);
 
 // 两侧 stride、sliceHeight 分别来自各自的 codec。只拷贝有效像素，不能假设两块 Buffer 的填充相同。
 bool Process(const uint8_t *source, size_t sourceCapacity, const Layout &input,
-    uint8_t *destination, size_t destinationCapacity, const Layout &output, bool grayscale);
+    uint8_t *destination, size_t destinationCapacity, const Layout &output, bool grayscale,
+    ResizeMode mode = ResizeMode::FIT);
 } // namespace TranscodeFrames
 #endif

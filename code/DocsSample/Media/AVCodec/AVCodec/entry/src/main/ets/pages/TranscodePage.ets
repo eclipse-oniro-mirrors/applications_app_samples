@@ -18,13 +18,18 @@ import { LocalizedText } from '../common/LocalizedText';
 import { TranscodeMeasurement } from 'libtranscoder.so';
 import { TranscodeHistoryEntry } from '../model/TranscodeFilesModel';
 import { fileUri } from '@kit.CoreFileKit';
+import { TranscodeQueuePanel } from '../components/transcode/TranscodeQueuePanel';
+import { TranscodePreprocessPanel } from '../components/transcode/TranscodePreprocessPanel';
 
 @Component
 export struct TranscodePage {
   @ObjectLink model: TranscodeModel;
   onPlayResult: (uri: string) => void = (): void => {};
 
-  aboutToAppear(): void { void this.model.loadHistory(this.getUIContext()); }
+  aboutToAppear(): void {
+    void this.model.loadHistory(this.getUIContext());
+    void this.model.restoreQueue(this.getUIContext());
+  }
 
   private categoryOptions(): SelectOption[] {
     return [{ value: $r('app.string.setting_decoder_auto') }, { value: $r('app.string.setting_decoder_hardware') },
@@ -78,7 +83,7 @@ export struct TranscodePage {
           .layoutWeight(1).fontSize(14)
           .onClick((): void => { void this.model.chooseSource(this.getUIContext(), true); })
       }
-      .enabled(!this.model.busy && !this.model.picking && !this.model.exporting)
+      .enabled(!this.model.busy && !this.model.queueRunning && !this.model.picking && !this.model.exporting)
     }
     .width('100%').padding(16).alignItems(HorizontalAlign.Start)
     .backgroundColor(Color.White).borderRadius(16)
@@ -160,7 +165,7 @@ export struct TranscodePage {
         $r('app.string.transcode_window_hint'))
         .fontSize(12).fontColor('#667085')
     }
-    .enabled(!this.model.busy && !this.model.exporting && !this.model.picking)
+    .enabled(!this.model.busy && !this.model.queueRunning && !this.model.exporting && !this.model.picking)
     .width('100%').padding(16).alignItems(HorizontalAlign.Start)
     .backgroundColor(Color.White).borderRadius(16)
   }
@@ -209,12 +214,12 @@ export struct TranscodePage {
       } else {
         Button($r('app.string.transcode_start')).width('100%')
           .enabled(this.model.sourceUri.length > 0 && !this.model.picking && !this.model.exporting &&
-            !this.model.inspecting && this.model.analysis.state === 2)
+            !this.model.inspecting && !this.model.queueRunning && this.model.analysis.state === 2)
           .onClick((): void => { void this.model.start(this.getUIContext()); })
       }
       if (this.model.resultPath.length > 0) {
         Button($r('app.string.transcode_play_result')).width('100%')
-          .enabled(!this.model.exporting && !this.model.busy)
+          .enabled(!this.model.exporting && !this.model.busy && !this.model.queueRunning)
           .onClick((): void => this.onPlayResult(fileUri.getUriFromPath(this.model.resultPath)))
         Row({ space: 8 }) {
           Button($r('app.string.transcode_save_files')).layoutWeight(1).fontSize(14)
@@ -222,12 +227,12 @@ export struct TranscodePage {
           Button($r('app.string.transcode_save_gallery')).layoutWeight(1).fontSize(14)
             .onClick((): void => { void this.model.save(this.getUIContext(), true); })
         }
-        .enabled(!this.model.exporting && !this.model.busy && !this.model.picking)
+        .enabled(!this.model.exporting && !this.model.busy && !this.model.queueRunning && !this.model.picking)
         Text($r('app.string.transcode_private_result')).fontSize(12).fontColor('#667085')
       }
       if (this.model.status.state >= 2) {
         Button($r('app.string.transcode_export_report')).width('100%')
-          .enabled(!this.model.busy && !this.model.exporting)
+          .enabled(!this.model.busy && !this.model.queueRunning && !this.model.exporting)
           .onClick((): void => { void this.model.exportReport(this.getUIContext()); })
       }
     }
@@ -275,7 +280,8 @@ export struct TranscodePage {
         .onClick((): void => { void this.model.openHistory(this.getUIContext(), entry); })
       }, (entry: TranscodeHistoryEntry): string => entry.id)
       Button($r('app.string.transcode_cleanup')).width('100%').fontSize(13)
-        .enabled(!this.model.busy && !this.model.exporting && !this.model.picking && !this.model.inspecting)
+        .enabled(!this.model.busy && !this.model.queueRunning && !this.model.exporting &&
+          !this.model.picking && !this.model.inspecting)
         .onClick((): void => { void this.model.clearHistory(this.getUIContext()); })
     }.width('100%').padding(16).alignItems(HorizontalAlign.Start).backgroundColor(Color.White).borderRadius(16)
   }
@@ -287,7 +293,16 @@ export struct TranscodePage {
         Text($r('app.string.transcode_description')).fontSize(14).fontColor('#667085')
         this.sourceCard()
         this.optionsCard()
+        TranscodePreprocessPanel({ model: this.model })
         this.analysisCard()
+        TranscodeQueuePanel({
+          queue: this.model.queue,
+          running: this.model.queueRunning,
+          canAdd: !this.model.busy && !this.model.queueRunning && this.model.analysis.state === 2,
+          onAdd: (): void => { void this.model.enqueue(this.getUIContext()); },
+          onRun: (): void => { void this.model.runQueue(this.getUIContext()); },
+          onChanged: (): void => { void this.model.persistQueue(this.getUIContext()); }
+        })
         this.resultCard()
         this.historyCard()
         Text($r('app.string.transcode_limits')).fontSize(12).fontColor('#667085')

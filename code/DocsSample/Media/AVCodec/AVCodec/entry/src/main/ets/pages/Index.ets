@@ -14,6 +14,7 @@
  */
 
 import { LocalizedText } from '../common/LocalizedText';
+import { MediaSettingsLabels } from '../model/MediaSettingsLabels';
 import { fileIo, picker } from '@kit.CoreFileKit'
 import { PiPWindow, window } from '@kit.ArkUI'
 import { camera } from '@kit.CameraKit'
@@ -73,6 +74,9 @@ import { ConfigurationStore, ConfigurationSnapshot } from '../model/Configuratio
 import { UserConfiguration } from '../model/UserConfiguration'
 import { ConfigurationFeedback } from '../model/ConfigurationFeedback'
 import { MediaFileActivity } from '../model/MediaFileActivity'
+import { MediaTaskCoordinator, MediaTaskLease } from '../model/MediaTaskCoordinator';
+import { MediaReports } from '../model/MediaSessionReport';
+import { MediaSessionStore } from '../model/MediaSessionStore';
 
 const TAG: string = 'Sample_Player';
 const DATETIME: DateTimeUtil = new DateTimeUtil();
@@ -139,6 +143,7 @@ export struct Player {
   private playbackSessionController: PlaybackSessionController = new PlaybackSessionController();
   private recovery: PlaybackRecoveryModel = new PlaybackRecoveryModel();
   private playbackSession: number = 0;
+  private playbackLease: MediaTaskLease | undefined = undefined;
   private seekRequestId: number = 0;
   private sliderDragging: boolean = false;
   private pageActive: boolean = true;
@@ -250,7 +255,8 @@ export struct Player {
     try {
       await ConfigurationStore.open(context);
       await ConfigurationStore.save(snapshot, custom);
-      this.configurationNotice = custom ? LocalizedText.get($r('app.string.configuration_custom_saved')) : LocalizedText.get($r('app.string.configuration_saved'));
+      this.configurationNotice = custom ? LocalizedText.get($r('app.string.configuration_custom_saved')) :
+        LocalizedText.get($r('app.string.configuration_saved'));
     } catch (_error) {
       this.configurationNotice = LocalizedText.get($r('app.string.configuration_save_failed'));
     }
@@ -895,7 +901,8 @@ export struct Player {
           const switched = player.selectAudioTrack(tracks[selected].index);
           if (!switched) {
             this.getUIContext().getPromptAction().showToast({
-              message: $r('app.string.playback_audio_track_unsupported'), duration: Const.DURATION,
+              message: $r('app.string.playback_audio_track_unsupported'),
+              duration: Const.DURATION,
               bottom: Const.BOTTOM
             });
             return;
@@ -1355,6 +1362,7 @@ export struct Player {
       return;
     }
     this.isStopping = true;
+    if (this.playbackLease !== undefined) { MediaTaskCoordinator.cancelling(this.playbackLease); }
     this.sliderDragging = false;
     this.recovery.cancel();
     this.seekRequests.cancel();
@@ -1378,7 +1386,9 @@ export struct Player {
     const failure = player.getPlaybackInfo().failure;
     this.playbackFailureText = failure.stage.length > 0 ?
       failure.stage + ' · ' + failure.code + '\n' + failure.message +
-      '\n' + failure.mime + ' · ' + (failure.codecName || LocalizedText.get($r('app.string.configuration_auto_select'))) : LocalizedText.get($r('app.string.playback_failed_hint'));
+      '\n' + failure.mime + ' · ' + (failure.codecName ||
+        LocalizedText.get($r('app.string.configuration_auto_select'))) :
+      LocalizedText.get($r('app.string.playback_failed_hint'));
   }
 
   play(startPositionUs: number = -1, recoverySnapshot?: PlaybackRecoverySnapshot): void {
@@ -1399,7 +1409,6 @@ export struct Player {
     }
 
     this.playbackFailureText = '';
-    const session = ++this.playbackSession;
     const playbackPath = this.selectFilePath;
     if (recoverySnapshot === undefined) {
       this.recovery.reset();
@@ -1414,9 +1423,21 @@ export struct Player {
     }
 
     if (!MediaFileActivity.beginLaunch()) {
-      this.getUIContext().getPromptAction().showToast({ message: LocalizedText.get($r('app.string.playback_cleanup_busy')) });
+      this.getUIContext().getPromptAction().showToast({
+        message: LocalizedText.get($r('app.string.playback_cleanup_busy'))
+      });
       return;
     }
+    const lease: MediaTaskLease | undefined = MediaTaskCoordinator.acquire('playback');
+    if (lease === undefined) { MediaFileActivity.endLaunch(); return; }
+    const session: number = ++this.playbackSession;
+    this.playbackLease = lease;
+    const reportContext = this.getUIContext().getHostContext();
+    if (reportContext !== undefined) {
+      void MediaSessionStore.begin(reportContext, { id: lease.id, operation: 'playback', startedAt: lease.startedAt })
+        .catch((error: Error): void => Logger.warn(TAG, 'Session journal: ' + error.message));
+    }
+    let nativeOwnsLease: boolean = false;
     this.configurationTouched = true;
     try {
       const inputFile = fileIo.openSync(playbackPath, fileIo.OpenMode.READ_ONLY);
@@ -1463,14 +1484,24 @@ export struct Player {
           inputFileSize: inputFileState.size,
           isSmartFluencySupported: this.isSmartFluencySupported
         }), (result) => {
-          if (result.reason === 'error') {
-            this.capturePlaybackFailure();
-          }
           Logger.info(TAG, 'Player JS callback, success: ' + result.success + ', reason: ' + result.reason);
           closeInputFile();
+          try {
+            if (reportContext !== undefined && MediaTaskCoordinator.owns(lease)) {
+              void MediaSessionStore.finish(reportContext, lease.id,
+                MediaReports.playback(lease.id, player.getCompletedPlaybackInfo(), result.reason))
+                .catch((error: Error): void => Logger.warn(TAG, 'Session report: ' + error.message));
+            }
+          } catch (error) {
+            Logger.warn(TAG, 'Session snapshot: ' + JSON.stringify(error));
+          } finally {
+            MediaTaskCoordinator.release(lease);
+          }
           if (session !== this.playbackSession) {
             return;
           }
+          this.playbackLease = undefined;
+          if (result.reason === 'error') { this.capturePlaybackFailure(); }
           const retry = result.reason === 'error' && this.autoRecoveryEnabled &&
             !this.isStopping && this.pageActive ? this.recovery.takeRetry() : undefined;
           if (result.reason === 'error' && retry !== undefined) {
@@ -1536,10 +1567,16 @@ export struct Player {
             void this.playbackSessionController.stop();
           }
         });
-        // 启动成功后回调接管文件描述符；失败时由 finally 关闭。
-        closeInCallback = started;
+        // A failed initialization may still be draining Native resources asynchronously.
+        nativeOwnsLease = started || player.getState() !== player.PlayerState.IDLE;
+        closeInCallback = nativeOwnsLease;
+        if (started) {
+          MediaTaskCoordinator.running(lease);
+        } else if (nativeOwnsLease) {
+          MediaTaskCoordinator.cancelling(lease);
+        }
         if (!started) {
-          this.buttonEnabled = true;
+          this.buttonEnabled = !nativeOwnsLease;
           this.playbackViewModel.isSmartFluencyAvailable = false;
           this.playbackViewModel.isHdrVividConfirmed = false;
           if (recoverySnapshot !== undefined) {
@@ -1613,6 +1650,21 @@ export struct Player {
         bottom: Const.BOTTOM
       });
     } finally {
+      if (!nativeOwnsLease) {
+        try {
+          if (reportContext !== undefined) {
+            const report = MediaReports.base(lease.id, 'playback', 'failed');
+            report.error = MediaReports.error('playback.prepare', -1, 'Playback preparation did not complete');
+            void MediaSessionStore.finish(reportContext, lease.id, report)
+              .catch((error: Error): void => Logger.warn(TAG, 'Session report: ' + error.message));
+          }
+        } catch (error) {
+          Logger.warn(TAG, 'Session snapshot: ' + JSON.stringify(error));
+        } finally {
+          MediaTaskCoordinator.release(lease);
+        }
+        if (this.playbackLease?.id === lease.id) { this.playbackLease = undefined; }
+      }
       MediaFileActivity.endLaunch();
     }
   }
@@ -1717,23 +1769,6 @@ export struct Player {
     }
   }
 
-  private getDecoderTypeLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_decoder_auto')),
-      this.getSettingText($r('app.string.setting_decoder_hardware')),
-      this.getSettingText($r('app.string.setting_decoder_software'))
-    ];
-  }
-
-  private getRenderModeLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_render_direct')),
-      this.getSettingText($r('app.string.setting_render_buffer')),
-      this.getSettingText($r('app.string.setting_render_opengl')),
-      this.getSettingText($r('app.string.setting_render_vulkan'))
-    ];
-  }
-
   private isHdrVividToBt709Supported(runMode: number): boolean {
     return runMode === Const.VIDEO_DECODER_RUN_MODE_DIRECT_OUTPUT;
   }
@@ -1746,95 +1781,6 @@ export struct Player {
     if (!this.isHdrVividToBt709Supported(index)) {
       this.playerDraft.convertHdrVividToBt709 = false;
     }
-  }
-
-  private getSyncModeLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_mode_async')),
-      this.getSettingText($r('app.string.setting_mode_sync'))
-    ];
-  }
-
-  private getRecorderCodecLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_codec_hdr_vivid')),
-      this.getSettingText($r('app.string.setting_codec_h264')),
-      this.getSettingText($r('app.string.setting_codec_h265'))
-    ];
-  }
-
-  private getResolutionLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_resolution_4k')),
-      this.getSettingText($r('app.string.setting_resolution_1080p')),
-      this.getSettingText($r('app.string.setting_resolution_720p'))
-    ];
-  }
-
-  private getFrameRateLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_fps_30')),
-      this.getSettingText($r('app.string.setting_fps_60'))
-    ];
-  }
-
-  private getRecorderBitrateLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_bitrate_10m')),
-      this.getSettingText($r('app.string.setting_bitrate_20m')),
-      this.getSettingText($r('app.string.setting_bitrate_30m'))
-    ];
-  }
-
-  private getRecorderBitrateModeLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_bitrate_mode_cbr')),
-      this.getSettingText($r('app.string.setting_bitrate_mode_vbr'))
-    ];
-  }
-
-  private getRecorderIFrameIntervalLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_i_frame_interval_100ms')),
-      this.getSettingText($r('app.string.setting_i_frame_interval_1s')),
-      this.getSettingText($r('app.string.setting_i_frame_interval_2s'))
-    ];
-  }
-
-  private getRecorderAudioSampleRateLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_audio_sample_rate_44100')),
-      this.getSettingText($r('app.string.setting_audio_sample_rate_48000'))
-    ];
-  }
-
-  private getRecorderAudioChannelCountLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_audio_channel_mono')),
-      this.getSettingText($r('app.string.setting_audio_channel_stereo'))
-    ];
-  }
-
-  private getRecorderAudioBitrateLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_audio_bitrate_32k')),
-      this.getSettingText($r('app.string.setting_audio_bitrate_64k')),
-      this.getSettingText($r('app.string.setting_audio_bitrate_128k'))
-    ];
-  }
-
-  private getRecorderAudioLatencyLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_audio_latency_normal')),
-      this.getSettingText($r('app.string.setting_audio_latency_low'))
-    ];
-  }
-
-  private getRecorderStabilizationLabels(): string[] {
-    return [
-      this.getSettingText($r('app.string.setting_stabilization_disabled')),
-      this.getSettingText($r('app.string.setting_stabilization_auto'))
-    ];
   }
 
   private showSettingPicker(range: string[], selected: number, onSelected: (index: number) => void): void {
@@ -1919,13 +1865,13 @@ export struct Player {
 
   private choosePlayerOption(option: PlayerSettingsOption): void {
     if (option === PlayerSettingsOption.DECODER_TYPE) {
-      this.showSettingPicker(this.getDecoderTypeLabels(), this.playerDraft.decoderType,
+      this.showSettingPicker(MediaSettingsLabels.getDecoderTypeLabels(), this.playerDraft.decoderType,
         (index: number): void => { this.playerDraft.decoderType = index; });
     } else if (option === PlayerSettingsOption.RUN_MODE) {
-      this.showSettingPicker(this.getRenderModeLabels(), this.playerDraft.runMode,
+      this.showSettingPicker(MediaSettingsLabels.getRenderModeLabels(), this.playerDraft.runMode,
         (index: number): void => this.selectPlayerRenderMode(index));
     } else if (option === PlayerSettingsOption.SYNC_MODE) {
-      this.showSettingPicker(this.getSyncModeLabels(), this.playerDraft.syncMode,
+      this.showSettingPicker(MediaSettingsLabels.getSyncModeLabels(), this.playerDraft.syncMode,
         (index: number): void => { this.playerDraft.syncMode = index; });
     }
   }
@@ -1964,44 +1910,46 @@ export struct Player {
       this.showSettingPicker(Const.OUTPUT_FORMAT, this.recorderDraft.outputFormat,
         (index: number): void => { this.recorderDraft.outputFormat = index; });
     } else if (option === RecorderSettingsOption.VIDEO_CODEC) {
-      this.showSettingPicker(this.getRecorderCodecLabels(), this.recorderDraft.codec,
+      this.showSettingPicker(MediaSettingsLabels.getRecorderCodecLabels(), this.recorderDraft.codec,
         (index: number): void => { this.recorderDraft.codec = index; });
     } else if (option === RecorderSettingsOption.VIDEO_RESOLUTION) {
-      this.showSettingPicker(this.getResolutionLabels(), this.recorderDraft.resolution,
+      this.showSettingPicker(MediaSettingsLabels.getResolutionLabels(), this.recorderDraft.resolution,
         (index: number): void => { this.recorderDraft.resolution = index; });
     } else if (option === RecorderSettingsOption.VIDEO_FRAME_RATE) {
-      this.showSettingPicker(this.getFrameRateLabels(), this.recorderDraft.frameRate, (index: number): void => {
-        this.recorderDraft.frameRate = index;
-        if (index === 0) {
-          this.recorderDraft.dropFrameRate = 0;
-        }
-      });
+      this.showSettingPicker(MediaSettingsLabels.getFrameRateLabels(), this.recorderDraft.frameRate,
+        (index: number): void => {
+          this.recorderDraft.frameRate = index;
+          if (index === 0) {
+            this.recorderDraft.dropFrameRate = 0;
+          }
+        });
     } else if (option === RecorderSettingsOption.SYNC_MODE) {
-      this.showSettingPicker(this.getSyncModeLabels(), this.recorderDraft.syncMode,
+      this.showSettingPicker(MediaSettingsLabels.getSyncModeLabels(), this.recorderDraft.syncMode,
         (index: number): void => { this.recorderDraft.syncMode = index; });
     } else if (option === RecorderSettingsOption.VIDEO_BITRATE) {
-      this.showSettingPicker(this.getRecorderBitrateLabels(), this.recorderDraft.bitrate,
+      this.showSettingPicker(MediaSettingsLabels.getRecorderBitrateLabels(), this.recorderDraft.bitrate,
         (index: number): void => { this.recorderDraft.bitrate = index; });
     } else if (option === RecorderSettingsOption.BITRATE_MODE) {
-      this.showSettingPicker(this.getRecorderBitrateModeLabels(), this.recorderDraft.bitrateMode,
+      this.showSettingPicker(MediaSettingsLabels.getRecorderBitrateModeLabels(), this.recorderDraft.bitrateMode,
         (index: number): void => { this.recorderDraft.bitrateMode = index; });
     } else if (option === RecorderSettingsOption.I_FRAME_INTERVAL) {
-      this.showSettingPicker(this.getRecorderIFrameIntervalLabels(), this.recorderDraft.iFrameInterval,
+      this.showSettingPicker(MediaSettingsLabels.getRecorderIFrameIntervalLabels(), this.recorderDraft.iFrameInterval,
         (index: number): void => { this.recorderDraft.iFrameInterval = index; });
     } else if (option === RecorderSettingsOption.AUDIO_SAMPLE_RATE) {
-      this.showSettingPicker(this.getRecorderAudioSampleRateLabels(), this.recorderDraft.audioSampleRate,
+      this.showSettingPicker(MediaSettingsLabels.getRecorderAudioSampleRateLabels(), this.recorderDraft.audioSampleRate,
         (index: number): void => { this.recorderDraft.audioSampleRate = index; });
     } else if (option === RecorderSettingsOption.AUDIO_CHANNEL_COUNT) {
-      this.showSettingPicker(this.getRecorderAudioChannelCountLabels(), this.recorderDraft.audioChannelCount,
+      this.showSettingPicker(MediaSettingsLabels.getRecorderAudioChannelCountLabels(),
+        this.recorderDraft.audioChannelCount,
         (index: number): void => { this.recorderDraft.audioChannelCount = index; });
     } else if (option === RecorderSettingsOption.AUDIO_BITRATE) {
-      this.showSettingPicker(this.getRecorderAudioBitrateLabels(), this.recorderDraft.audioBitrate,
+      this.showSettingPicker(MediaSettingsLabels.getRecorderAudioBitrateLabels(), this.recorderDraft.audioBitrate,
         (index: number): void => { this.recorderDraft.audioBitrate = index; });
     } else if (option === RecorderSettingsOption.AUDIO_CAPTURE_LATENCY) {
-      this.showSettingPicker(this.getRecorderAudioLatencyLabels(), this.recorderDraft.audioLatency,
+      this.showSettingPicker(MediaSettingsLabels.getRecorderAudioLatencyLabels(), this.recorderDraft.audioLatency,
         (index: number): void => { this.recorderDraft.audioLatency = index; });
     } else if (option === RecorderSettingsOption.VIDEO_STABILIZATION) {
-      this.showSettingPicker(this.getRecorderStabilizationLabels(), this.recorderDraft.stabilization,
+      this.showSettingPicker(MediaSettingsLabels.getRecorderStabilizationLabels(), this.recorderDraft.stabilization,
         (index: number): void => { this.recorderDraft.stabilization = index; });
     } else if (option === RecorderSettingsOption.VIDEO_PREPROCESSING) {
       this.showSettingPicker(Const.VIDEO_PREPROC_MODE, this.recorderDraft.preprocMode,
@@ -2019,9 +1967,9 @@ export struct Player {
   PlayerSettingsSheet() {
     PlayerSettingsPanel({
       capabilityHint: ConfigurationFeedback.playback(this.playerDraft.runMode, deviceInfo.sdkApiVersion),
-      decoderTypeText: this.getDecoderTypeLabels()[this.playerDraft.decoderType],
-      runModeText: this.getRenderModeLabels()[this.playerDraft.runMode],
-      syncModeText: this.getSyncModeLabels()[this.playerDraft.syncMode],
+      decoderTypeText: MediaSettingsLabels.getDecoderTypeLabels()[this.playerDraft.decoderType],
+      runModeText: MediaSettingsLabels.getRenderModeLabels()[this.playerDraft.runMode],
+      syncModeText: MediaSettingsLabels.getSyncModeLabels()[this.playerDraft.syncMode],
       dumpEnabled: this.playerDraft.dump,
       dumpAvailable: this.playerDraft.runMode === Const.VIDEO_DECODER_RUN_MODE_BUFFER,
       volumePercent: this.playerDraft.audioVolume,
@@ -2069,22 +2017,24 @@ export struct Player {
       advancedOptionsSupported: this.isAdvancedRecorderSupported,
       dropFrameRateEnabled: this.isAdvancedRecorderSupported && this.recorderDraft.frameRate > 0,
       outputFormatText: Const.OUTPUT_FORMAT[this.recorderDraft.outputFormat],
-      videoCodecText: this.getRecorderCodecLabels()[this.recorderDraft.codec],
-      videoResolutionText: this.getResolutionLabels()[this.recorderDraft.resolution],
-      videoFrameRateText: this.getFrameRateLabels()[this.recorderDraft.frameRate],
-      syncModeText: this.getSyncModeLabels()[this.recorderDraft.syncMode],
-      videoBitrateText: this.getRecorderBitrateLabels()[this.recorderDraft.bitrate],
-      bitrateModeText: this.getRecorderBitrateModeLabels()[this.recorderDraft.bitrateMode],
-      iFrameIntervalText: this.getRecorderIFrameIntervalLabels()[this.recorderDraft.iFrameInterval],
-      audioSampleRateText: this.getRecorderAudioSampleRateLabels()[this.recorderDraft.audioSampleRate],
-      audioChannelCountText: this.getRecorderAudioChannelCountLabels()[this.recorderDraft.audioChannelCount],
-      audioBitrateText: this.getRecorderAudioBitrateLabels()[this.recorderDraft.audioBitrate],
-      audioCaptureLatencyText: this.getRecorderAudioLatencyLabels()[this.recorderDraft.audioLatency],
-      videoStabilizationText: this.getRecorderStabilizationLabels()[this.recorderDraft.stabilization],
+      videoCodecText: MediaSettingsLabels.getRecorderCodecLabels()[this.recorderDraft.codec],
+      videoResolutionText: MediaSettingsLabels.getResolutionLabels()[this.recorderDraft.resolution],
+      videoFrameRateText: MediaSettingsLabels.getFrameRateLabels()[this.recorderDraft.frameRate],
+      syncModeText: MediaSettingsLabels.getSyncModeLabels()[this.recorderDraft.syncMode],
+      videoBitrateText: MediaSettingsLabels.getRecorderBitrateLabels()[this.recorderDraft.bitrate],
+      bitrateModeText: MediaSettingsLabels.getRecorderBitrateModeLabels()[this.recorderDraft.bitrateMode],
+      iFrameIntervalText: MediaSettingsLabels.getRecorderIFrameIntervalLabels()[this.recorderDraft.iFrameInterval],
+      audioSampleRateText: MediaSettingsLabels.getRecorderAudioSampleRateLabels()[this.recorderDraft.audioSampleRate],
+      audioChannelCountText:
+        MediaSettingsLabels.getRecorderAudioChannelCountLabels()[this.recorderDraft.audioChannelCount],
+      audioBitrateText: MediaSettingsLabels.getRecorderAudioBitrateLabels()[this.recorderDraft.audioBitrate],
+      audioCaptureLatencyText: MediaSettingsLabels.getRecorderAudioLatencyLabels()[this.recorderDraft.audioLatency],
+      videoStabilizationText: MediaSettingsLabels.getRecorderStabilizationLabels()[this.recorderDraft.stabilization],
       videoPreprocessingText: this.recorderDraft.preprocMode === Const.VIDEO_PREPROC_CROP ?
         LocalizedText.get($r('app.string.preprocess_center_crop_prefix')) + this.recorderDraft.cropPercent + '%）' :
         (this.recorderDraft.preprocMode === Const.VIDEO_PREPROC_DOWNSAMPLING ?
-          LocalizedText.get($r('app.string.preprocess_downsample_to_prefix')) + this.recorderDraft.downsamplingHeight + 'P' : Const.VIDEO_PREPROC_MODE[0]),
+          LocalizedText.get($r('app.string.preprocess_downsample_to_prefix')) +
+            this.recorderDraft.downsamplingHeight + 'P' : Const.VIDEO_PREPROC_MODE[0]),
       preprocessMode: this.recorderDraft.preprocMode,
       sourceWidth: this.recorderDraft.resolution === 0 ? Const.VIDEO_WIDTH_4K :
         (this.recorderDraft.resolution === 1 ? Const.VIDEO_WIDTH_1080P : Const.VIDEO_WIDTH_720P),
@@ -2263,7 +2213,9 @@ export struct Player {
         } else if (item.codecType === 0) {
           if (this.cameraData.preprocMode !== 0 || this.cameraData.enableDualOutput ||
             this.cameraData.dropToFrameRate > 0) {
-            this.getUIContext().getPromptAction().showToast({ message: LocalizedText.get($r('app.string.configuration_special_codec_name')) });
+            this.getUIContext().getPromptAction().showToast({
+              message: LocalizedText.get($r('app.string.configuration_special_codec_name'))
+            });
             return;
           }
           this.selectedEncoderName = item.codecName;

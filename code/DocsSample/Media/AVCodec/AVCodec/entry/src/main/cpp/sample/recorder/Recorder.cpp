@@ -193,7 +193,6 @@ void Recorder::VideoEncOutputSyncThread(VideoEncoder *encoder, CodecUserData *co
     // [Start encoder_sync_output_buffer]
     while (true) {
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
-        std::unique_lock<std::mutex> lock(context->outputMutex);
         const int64_t waitStart = RecorderClockUs();
         CodecBufferInfo bufferInfo;
         if (!encoder->GetOutputBuffer(bufferInfo, TIMEOUT_US)) {
@@ -208,7 +207,6 @@ void Recorder::VideoEncOutputSyncThread(VideoEncoder *encoder, CodecUserData *co
         const int64_t receivedAtUs = RecorderClockUs();
         (isPrimary ? primaryStats_ : secondaryStats_).RecordRetrieval(receivedAtUs - waitStart);
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
-        lock.unlock();
         if (!ProcessVideoOutputBuffer(encoder, context, muxer, bufferInfo, isPrimary, receivedAtUs)) {
             break;
         }
@@ -224,17 +222,19 @@ void Recorder::VideoEncOutputAsyncThread(VideoEncoder *encoder, CodecUserData *c
     while (true) {
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         // 获取输出buffer。
+        const int64_t waitStart = RecorderClockUs();
         std::shared_ptr<CodecBufferInfo> bufferInfo = context->outputBufferQueue.Dequeue();
+        const int64_t receivedAtUs = RecorderClockUs();
         std::shared_lock<std::shared_mutex> codecLock(context->codecMutex);
         // 开发者可根据业务需要，对输出数据进行保存/释放处理。
         // [StartExclude encoder_output_buffer]
-        const int64_t receivedAtUs = RecorderClockUs();
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         if (context->hasError.load()) {
             AbortRecording("Video codec callback failed");
             break;
         }
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
+        (isPrimary ? primaryStats_ : secondaryStats_).RecordRetrieval(receivedAtUs - waitStart);
         if (!ProcessVideoOutputBuffer(encoder, context, muxer, *bufferInfo, isPrimary, receivedAtUs)) {
             break;
         }
@@ -478,15 +478,6 @@ void Recorder::RefreshStreamStorage(bool primary, bool force)
         return;
     }
     auto &stats = primary ? primaryStats_ : secondaryStats_;
-    auto *context = primary ? encContext_ : secondaryEncContext_;
-    if (context != nullptr && !sampleInfo_.codec.codecSyncMode) {
-        StageTimingInfo wait;
-        StageTimingInfo residence;
-        size_t depth = 0;
-        size_t peak = 0;
-        context->outputBufferQueue.GetDiagnostics(wait, residence, depth, peak);
-        stats.SetQueue(wait, residence, depth, peak);
-    }
     const int fd = primary ? sampleInfo_.output.outputFd : sampleInfo_.output.secondaryOutputFd;
     struct stat file {};
     struct statvfs space {};
@@ -609,7 +600,22 @@ int32_t Recorder::SendAudioEndOfStream()
         audioEncInputThread_->join();
         audioEncInputThread_.reset();
     }
-    return audioEncoder_ == nullptr ? AVCODEC_SAMPLE_ERR_OK : audioEncoder_->NotifyEndOfStream();
+    if (audioEncoder_ == nullptr) {
+        return AVCODEC_SAMPLE_ERR_OK;
+    }
+    CodecBufferInfo bufferInfo;
+    if (sampleInfo_.codec.codecSyncMode) {
+        CHECK_AND_RETURN_RET_LOG(audioEncoder_->GetInputBuffer(bufferInfo, TIMEOUT_US) != nullptr,
+            AVCODEC_SAMPLE_ERR_ERROR, "Get synchronous audio EOS input buffer failed");
+    } else {
+        CHECK_AND_RETURN_RET_LOG(audioEncContext_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Audio context is null");
+        // 异步模式只能使用输入回调给出的 Buffer，不能调用同步 QueryInputBuffer 接口。
+        const auto input = audioEncContext_->inputBufferQueue.Dequeue(WAIT_TIME * UNIT_CONVERSION);
+        CHECK_AND_RETURN_RET_LOG(input != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
+            "Get asynchronous audio EOS input buffer failed");
+        bufferInfo = *input;
+    }
+    return audioEncoder_->NotifyEndOfStream(bufferInfo);
 }
 
 void Recorder::WaitForEncoderEndOfStream()

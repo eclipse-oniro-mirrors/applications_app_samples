@@ -17,12 +17,12 @@ import { LocalizedText } from '../common/LocalizedText';
 import { deviceInfo, pasteboard } from '@kit.BasicServicesKit';
 import { fileIo, picker } from '@kit.CoreFileKit';
 import player, { DeviceCodecCapability, DeviceCodecCapabilityRange, DeviceCodecProfileLevels, MediaInfo, PlaybackInfo, PlaybackTimelineEvent } from 'libplayer.so';
-import recorder, { RecorderDiagnostics, RecorderStreamStats } from 'librecorder.so';
 import { CameraDataModel } from '../model/CameraDataModel';
 import { DumpFilesPanel } from '../components/DumpFilesPanel';
 import { ConfigurationPanel } from '../components/ConfigurationPanel';
 import { PlaybackViewModel } from '../viewmodel/PlaybackViewModel';
-import { RecorderLiveDiagnosticsModel } from '../model/RecorderLiveDiagnosticsModel';
+import { MediaSessionsPanel } from '../components/MediaSessionsPanel';
+import { CodecCapabilityMatrixPanel } from '../components/CodecCapabilityMatrixPanel';
 
 const CAPABILITY_API_VERSION: number = 24;
 const VIDEO_DECODER_TYPE: number = 1;
@@ -272,48 +272,6 @@ export struct DeviceDiagnosticsPage {
       playback.state !== player.PlayerState.READY;
   }
 
-  private recorderStreamSummary(stats: RecorderStreamStats, name: string): string {
-    if (stats.frames <= 0 && stats.bytes <= 0) {
-      return '';
-    }
-    return name + ': ' + stats.width + 'x' + stats.height + ', ' + stats.frames + ' frames, ' +
-      stats.framesPerSecond.toFixed(1) + ' fps, ' + (stats.bitrate / 1000000).toFixed(2) +
-      ' Mbit/s, ' + (stats.bytes / 1048576).toFixed(2) + ' MiB';
-  }
-
-  private appendRecorderReport(reportLines: string[]): void {
-    try {
-      const diagnostics: RecorderDiagnostics = recorder.getDiagnostics();
-      if (diagnostics.sessionId.length > 0) {
-        reportLines.push('', 'Recording session: ' + diagnostics.sessionId,
-          'Requested configuration: ' + diagnostics.requestedConfiguration,
-          'Codec output description: ' + diagnostics.observedConfiguration,
-          'Dynamic parameter requests (accepted does not mean measured output):', diagnostics.parameterChanges);
-      }
-      const primary: string = this.recorderStreamSummary(diagnostics.primary, 'Primary');
-      const secondary: string = this.recorderStreamSummary(diagnostics.secondary, 'Secondary');
-      if (primary.length === 0 && secondary.length === 0 && diagnostics.failure.stage.length === 0 &&
-        diagnostics.sessionId.length === 0) {
-        return;
-      }
-      reportLines.push('', 'Recording output');
-      if (primary.length > 0) {
-        reportLines.push(primary);
-      }
-      if (secondary.length > 0) {
-        reportLines.push(secondary);
-      }
-      reportLines.push(RecorderLiveDiagnosticsModel.report(
-        diagnostics, diagnostics.secondary.requestedConfiguration.length > 0));
-      if (diagnostics.failure.stage.length > 0) {
-        reportLines.push('Recording failure: ' + diagnostics.failure.stage + ' · ' + diagnostics.failure.code,
-          diagnostics.failure.message);
-      }
-    } catch (_error) {
-      reportLines.push('', 'Recording output: unavailable');
-    }
-  }
-
   private buildReport(playback: PlaybackInfo, mediaInfo: MediaInfo): string {
     const reportLines: string[] = [
       this.text($r('app.string.device_report_title')),
@@ -355,7 +313,6 @@ export struct DeviceDiagnosticsPage {
     if (failureText.length > 0) {
       reportLines.push('', LocalizedText.get($r('app.string.diagnostics_last_failure')), failureText, LocalizedText.get($r('app.string.diagnostics_error_code_hint')));
     }
-    this.appendRecorderReport(reportLines);
     reportLines.push('', LocalizedText.get($r('app.string.diagnostics_timeline_report_title')));
     for (const event of playback.diagnostics.events) {
       reportLines.push('#' + event.sequence + ' +' + (event.elapsedUs / 1000).toFixed(1) + ' ms ' +
@@ -637,6 +594,8 @@ export struct DeviceDiagnosticsPage {
             this.capabilityGroup($r('app.string.device_codec_video_encoder'), VIDEO_ENCODER_TYPE)
             this.capabilityGroup($r('app.string.device_codec_audio_decoder'), AUDIO_DECODER_TYPE)
             this.capabilityGroup($r('app.string.device_codec_audio_encoder'), AUDIO_ENCODER_TYPE)
+            MediaSessionsPanel()
+            CodecCapabilityMatrixPanel({ codecs: this.capabilities })
             ConfigurationPanel({ ready: this.configurationReady, notice: this.configurationNotice,
               onPreset: this.onPreset, onSave: this.onSaveConfiguration, onLoad: this.onLoadConfiguration })
             DumpFilesPanel({ onPolicyChanged: this.onDumpPolicyChanged, policyRevision: this.configurationRevision })
