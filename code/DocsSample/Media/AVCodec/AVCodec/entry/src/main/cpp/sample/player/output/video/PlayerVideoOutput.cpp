@@ -98,27 +98,26 @@ void Player::VideoDecInputAsyncThread()
         std::shared_ptr<CodecBufferInfo> bufferInfo = videoDecContext_->inputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
         /**
-           *
-           * // 示例：将数据写入 Buffer，设置属性后送入解码器。
-           * uint8_t *addr = OH_AVBuffer_GetAddr(buffer);
-           * CHECK_AND_RETURN_RET_LOG(addr != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer addr is null");
-           * int32_t capacity = OH_AVBuffer_GetCapacity(buffer);
-           * if (size > capacity) {
-           *     // 异常处理。
-           * }
-           * memcpy(addr, frameData, size);
-           * OH_AVCodecBufferAttr info;
-           * info.size = size;
-           * info.offset = offset;
-           * info.pts = pts;
-           * info.flags = flags;
-           * OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(buffer, &info);
-           * if (setBufferRet != AV_ERR_OK) {
-           *     // 异常处理。
-           *     return false;
-           * }
-           *
-           */
+         *
+         * // 示例：将数据写入 Buffer，设置属性后送入解码器。
+         * uint8_t *addr = OH_AVBuffer_GetAddr(bufferInfo->buffer);
+         * CHECK_AND_RETURN_RET_LOG(addr != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer addr is null");
+         * int32_t capacity = OH_AVBuffer_GetCapacity(bufferInfo->buffer);
+         * if (size > capacity) {
+         *     // 异常处理。
+         * }
+         * memcpy(addr, frameData, size);
+         * OH_AVCodecBufferAttr attrInfo;
+         * attrInfo.size = size;
+         * attrInfo.offset = offset;
+         * attrInfo.pts = pts;
+         * attrInfo.flags = flags;
+         * OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(bufferInfo->buffer, &attrInfo);
+         * if (setBufferRet != AV_ERR_OK) {
+         *     // 异常处理。
+         * }
+         *
+         */
         // [StartExclude decoder_input_buffer]
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
@@ -381,8 +380,10 @@ void Player::VideoDecOutputSyncThread()
     thread_local auto lastPushTime = std::chrono::system_clock::now();
     // [Start decoder_sync_output_buffer]
     while (isStarted_) {
+        // [StartExclude decoder_sync_output_buffer]
         WaitIfPaused();
         CHECK_AND_BREAK_LOG(isStarted_, "VD Decoder output thread out");
+        // [EndExclude decoder_sync_output_buffer]
         CodecBufferInfo bufferInfo;
         const int32_t ret = videoDecoder_->GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
         if (!isStarted_) {
@@ -407,6 +408,7 @@ void Player::VideoDecOutputSyncThread()
             AVCODEC_SAMPLE_LOGI("Catch EOS, video output thread out");
             break;
         }
+        // [StartExclude decoder_sync_output_buffer]
         InitSyncVideoOutputContext();
         videoDecContext_->outputFrameCount++;
         AVCODEC_SAMPLE_LOGD_LIMIT(PLAYBACK_LOG_FREQUENCY,
@@ -417,6 +419,7 @@ void Player::VideoDecOutputSyncThread()
         if (!success) {
             break;
         }
+        // [EndExclude decoder_sync_output_buffer]
     }
     // [End decoder_sync_output_buffer]
     FinishVideoOutput();
