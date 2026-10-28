@@ -14,7 +14,7 @@
  */
 // [Start certificate_management_user_cred_guidance]
 // [Start certificate_management_user_cred_guidance_import]
-import { certificateManager, certificateManagerDialog  } from '@kit.DeviceCertificateKit';
+import { certificateManager, certificateManagerDialog } from '@kit.DeviceCertificateKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
 import { UIContext } from '@kit.ArkUI';
