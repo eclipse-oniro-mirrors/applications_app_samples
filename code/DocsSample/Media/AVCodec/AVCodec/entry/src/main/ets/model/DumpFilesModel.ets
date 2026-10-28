@@ -202,7 +202,8 @@ export class DumpFilesModel {
   }
 
   private static requireIdle(): void {
-    if (player.getState() !== player.PlayerState.IDLE || recorder.getDiagnostics().active) {
+    if (player.getState() !== player.PlayerState.IDLE || recorder.getDiagnostics().active ||
+      MediaFileActivity.isTranscoding()) {
       throw new Error(LocalizedText.get($r('app.string.dump_wait_operation')));
     }
   }

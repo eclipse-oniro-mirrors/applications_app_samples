@@ -23,10 +23,13 @@
 #include <string>
 #include <multimedia/player_framework/native_avcodec_videodecoder.h>
 #include <multimedia/player_framework/native_avcodec_videoencoder.h>
+#include <multimedia/player_framework/native_avcapability.h>
 #include <multimedia/player_framework/native_avdemuxer.h>
 #include <multimedia/player_framework/native_avmuxer.h>
 #include <multimedia/player_framework/native_avsource.h>
 #include "TranscodeFrameProcessor.h"
+#include "TranscodeDiagnostics.h"
+#include "TranscodeAudioPipeline.h"
 
 struct TranscodeOptions {
     int32_t inputFd = -1;
@@ -36,7 +39,11 @@ struct TranscodeOptions {
     int32_t longEdge = 0;
     bool surface = false;
     bool grayscale = false;
-    bool keepAudio = true;
+    int32_t resizeMode = 0;
+    int32_t encoderCategory = 0;
+    int32_t audioMode = 0;
+    int32_t audioTrack = 0;
+    bool inspectOnly = false;
 };
 
 struct TranscodeSnapshot {
@@ -50,6 +57,32 @@ struct TranscodeSnapshot {
     int32_t outputWidth = 0;
     int32_t outputHeight = 0;
     bool audioCopied = false;
+    double elapsedMs = 0;
+    double firstFrameMs = -1;
+    double fps = 0;
+    double speed = 0;
+    double remainingSeconds = -1;
+    double decoderWaitMs = 0;
+    double encoderInputWaitMs = 0;
+    double encoderOutputWaitMs = 0;
+    int64_t copiedBytes = 0;
+    int64_t fileBytes = 0;
+    std::vector<TranscodeMetrics::Measurement> diagnostics;
+    std::string decoderName;
+    std::string encoderName;
+    int64_t availableBytes = -1;
+    int64_t estimatedBytes = -1;
+    int32_t sourceWidth = 0;
+    int32_t sourceHeight = 0;
+    int64_t durationUs = 0;
+    double sourceFrameRate = 0;
+    std::string sourceMime;
+    std::vector<std::string> audioTracks;
+    std::vector<int32_t> audioTrackIds;
+    int64_t minBitrate = 0;
+    int64_t maxBitrate = 0;
+    int64_t audioBytes = 0;
+    int32_t audioMode = 0;
 };
 
 class TranscodeJob {
@@ -68,10 +101,18 @@ private:
     bool SubmitSurfaceFrame(bool eos, bool &advanced);
     bool ProcessBufferFrame(OH_AVBuffer *input, OH_AVCodecBufferAttr &attr);
     bool OpenSource();
+    bool ReadSourceMetadata();
+    bool ReadVideoProperties();
+    bool ValidateSelectedAudioTrack();
+    void UpdateVideoProgress(const OH_AVCodecBufferAttr &attr);
     bool InitializeDemuxer();
     bool ConfigureCodecs();
     bool ConfigureEncoderFormat();
     bool StartCodecs();
+    bool CheckStorage(bool initial);
+    bool ValidateEncoder(OH_AVCapability *capability);
+    bool InspectCodecs();
+    bool InspectAudio();
     bool StartMuxer();
     bool FeedDecoder(bool &advanced);
     bool DrainDecoder(bool &advanced);
@@ -85,6 +126,7 @@ private:
     bool FinalizeOutput();
     void Complete(bool success);
     void Cleanup();
+    void PublishDiagnostics();
 
     TranscodeOptions options_;
     mutable std::mutex snapshotMutex_;
@@ -126,5 +168,11 @@ private:
     OH_AVCodecBufferAttr pendingDecodedAttr_ {};
     TranscodeFrames::Layout decodedLayout_;
     TranscodeFrames::Layout encodedLayout_;
+    bool layoutsValid_ = false;
+    TranscodeMetrics::Diagnostics diagnostics_;
+    TranscodeMetrics::Clock::time_point startedAt_ {};
+    TranscodeMetrics::Clock::time_point publishedAt_ {};
+    TranscodeMetrics::Clock::time_point storageCheckedAt_ {};
+    std::unique_ptr<TranscodeAudioPipeline> audioPipeline_;
 };
 #endif

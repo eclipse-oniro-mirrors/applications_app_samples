@@ -21,7 +21,6 @@
 
 namespace {
 constexpr int LIMIT_LOGD_FREQUENCY = 50;
-constexpr int64_t TIMEOUT_US = 5000000;  // 5 秒
 }  // 匿名命名空间
 
 AudioEncoder::~AudioEncoder()
@@ -219,32 +218,17 @@ int32_t AudioEncoder::FreeOutputData(uint32_t bufferIndex)
 // [End AudioEncoder::FreeOutputData]
 
 // [Start AudioEncoder::NotifyEndOfStream]
-int32_t AudioEncoder::NotifyEndOfStream()
+int32_t AudioEncoder::NotifyEndOfStream(CodecBufferInfo &bufferInfo)
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
-
-    // 使用空输入Buffer携带EOS。即使没有媒体数据也必须提交该Buffer，编码器才会输出尾部数据。
-    CodecBufferInfo bufferInfo;
-    auto buffer = GetInputBuffer(bufferInfo, TIMEOUT_US);
-    if (buffer == nullptr) {
-        AVCODEC_SAMPLE_LOGW("GetInputBuffer for EOS failed");
-        return AVCODEC_SAMPLE_ERR_ERROR;
-    }
+    CHECK_AND_RETURN_RET_LOG(bufferInfo.buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "EOS input buffer is null");
 
     // EOS不包含有效音频字节；调用PushInputBuffer后该Buffer立即归codec管理。
     bufferInfo.attr.size = 0;
+    bufferInfo.attr.offset = 0;
+    bufferInfo.attr.pts = 0;
     bufferInfo.attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
-    int32_t ret = OH_AVBuffer_SetBufferAttr(buffer, &bufferInfo.attr);
-    if (ret != AV_ERR_OK) {
-        AVCODEC_SAMPLE_LOGE("SetBufferAttr for EOS failed, ret: %{public}d", ret);
-        return AVCODEC_SAMPLE_ERR_ERROR;
-    }
-
-    bufferInfo.buffer = buffer;
-    ret = OH_AudioCodec_PushInputBuffer(encoder_, bufferInfo.bufferIndex);
-    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
-                             "PushInputBuffer for EOS failed, ret: %{public}d", ret);
-    return AVCODEC_SAMPLE_ERR_OK;
+    return PushInputData(bufferInfo);
 }
 // [End AudioEncoder::NotifyEndOfStream]
 

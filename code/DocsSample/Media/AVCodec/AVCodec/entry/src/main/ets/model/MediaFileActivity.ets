@@ -13,13 +13,18 @@
  * limitations under the License.
  */
 
-// 只在 ArkTS 线程使用。覆盖 Native 尚未开始的异步启动阶段，清理期间不允许新任务进入。
+import { MediaTaskCoordinator, MediaTaskLease } from './MediaTaskCoordinator';
+
+// Compatibility gate for existing launch and cleanup callers.
 export class MediaFileActivity {
   private static launches: number = 0;
   private static cleaning: boolean = false;
+  private static transcoding: boolean = false;
+  private static transcodeLease: MediaTaskLease | undefined = undefined;
+  private static cleanupLease: MediaTaskLease | undefined = undefined;
 
   static beginLaunch(): boolean {
-    if (MediaFileActivity.cleaning) {
+    if (MediaFileActivity.cleaning || MediaFileActivity.transcoding || MediaTaskCoordinator.busy()) {
       return false;
     }
     MediaFileActivity.launches++;
@@ -31,14 +36,37 @@ export class MediaFileActivity {
   }
 
   static beginCleanup(): boolean {
-    if (MediaFileActivity.cleaning || MediaFileActivity.launches > 0) {
+    if (MediaFileActivity.cleaning || MediaFileActivity.launches > 0 || MediaFileActivity.transcoding) {
       return false;
     }
+    MediaFileActivity.cleanupLease = MediaTaskCoordinator.acquire('cleanup');
+    if (MediaFileActivity.cleanupLease === undefined) { return false; }
     MediaFileActivity.cleaning = true;
     return true;
   }
 
   static endCleanup(): void {
     MediaFileActivity.cleaning = false;
+    if (MediaFileActivity.cleanupLease !== undefined) {
+      MediaTaskCoordinator.release(MediaFileActivity.cleanupLease);
+      MediaFileActivity.cleanupLease = undefined;
+    }
   }
+
+  static beginTranscode(): boolean {
+    if (MediaFileActivity.cleaning || MediaFileActivity.transcoding || MediaFileActivity.launches > 0) { return false; }
+    MediaFileActivity.transcodeLease = MediaTaskCoordinator.acquire('transcode');
+    if (MediaFileActivity.transcodeLease === undefined) { return false; }
+    MediaFileActivity.transcoding = true;
+    return true;
+  }
+
+  static endTranscode(): void {
+    MediaFileActivity.transcoding = false;
+    if (MediaFileActivity.transcodeLease !== undefined) {
+      MediaTaskCoordinator.release(MediaFileActivity.transcodeLease);
+      MediaFileActivity.transcodeLease = undefined;
+    }
+  }
+  static isTranscoding(): boolean { return MediaFileActivity.transcoding; }
 }

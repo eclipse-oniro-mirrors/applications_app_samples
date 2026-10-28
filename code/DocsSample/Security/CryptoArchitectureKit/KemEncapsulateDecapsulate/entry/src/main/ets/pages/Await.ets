@@ -15,6 +15,7 @@
 
 // [Start kem_encapsulate_decapsulate_await_test]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 namespace Kem {
   export async function kemDecapsulateAwait() {

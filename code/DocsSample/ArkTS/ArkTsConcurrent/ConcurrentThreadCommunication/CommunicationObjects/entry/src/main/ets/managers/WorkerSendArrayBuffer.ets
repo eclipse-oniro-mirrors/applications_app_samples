@@ -27,6 +27,8 @@ workerInstance.postMessage(buffer, [buffer]);
 const buffer2: ArrayBuffer = new ArrayBuffer(1024 * 1024); // 1MB
 workerInstance.postMessage(buffer2);
 // 深拷贝，宿主线程与Worker线程各持有1MB数据，总内存占用翻倍
+
+// 实际使用应在任务完成后调用workerInstance.terminate()释放线程资源
 // [End worker_send]
 @Entry
 @Component

@@ -21,6 +21,7 @@
 #include "SampleInfo.h"
 #include "FrameQueue.h"
 #include "RoiQueue.h"
+#include "../../capbilities/camera/NativeCamera.h"
 
 #include <mutex>
 #include <memory>
@@ -61,6 +62,7 @@ public:
     void UpdateInfoForCamera(bool isFront);
     void UpdateCameraRotation(int rotation);
     void SetIsOpenROI(bool isOpenROI);
+    NativeCamera &GetNativeCamera() { return nativeCamera_; }
 private:
     void VideoEncOutputThread();
     void VideoEncBufferInputThread();
@@ -104,8 +106,10 @@ private:
     std::unique_ptr<std::thread> videoEncBufferInputThread_ = nullptr;
     std::unique_ptr<std::thread> audioEncInputThread_ = nullptr;
     std::unique_ptr<std::thread> audioEncOutputThread_ = nullptr;
+    std::mutex releaseMutex_;
     std::unique_ptr<std::thread> releaseThread_ = nullptr;
     std::condition_variable doneCond_;
+    bool releaseFinished_ = false; // Protected by mutex_.
     SampleInfo sampleInfo_;
     CodecUserData *encContext_ = nullptr;
     CodecUserData *audioEncContext_ = nullptr;
@@ -114,6 +118,7 @@ private:
     std::unique_ptr<NativeXComponentSample::RenderThread> renderThread_ = nullptr;
     std::unique_ptr<FrameQueue> frameQueue_ = nullptr;
     std::unique_ptr<RoiQueue> roiQueue_ = nullptr;
+    NativeCamera nativeCamera_;
 };
 
 #endif // RECODER_H

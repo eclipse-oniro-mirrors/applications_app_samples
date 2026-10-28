@@ -393,8 +393,6 @@ bool SetStreamStats(napi_env env, napi_value object, const char *key, const Reco
         SetStatNumber(env, stream, "parameterAccepted", stats.live.parameterAccepted) &&
         SetStatNumber(env, stream, "parameterRejected", stats.live.parameterRejected) &&
         SetStatNumber(env, stream, "ptsRegressions", stats.live.ptsRegressions) &&
-        SetStatNumber(env, stream, "queueDepth", stats.queueDepth) &&
-        SetStatNumber(env, stream, "queuePeak", stats.queuePeak) &&
         SetStatNumber(env, stream, "codecWidth", stats.codecWidth) &&
         SetStatNumber(env, stream, "codecHeight", stats.codecHeight) &&
         SetStatNumber(env, stream, "codecFps", stats.codecFps) &&
@@ -408,7 +406,6 @@ bool SetStreamStats(napi_env env, napi_value object, const char *key, const Reco
         SetReportString(env, stream, "codecDescription", stats.codecDescription) &&
         SetReportString(env, stream, "dumpState", stats.dumpState) &&
         SetTiming(env, stream, "queueWait", stats.queueWait) &&
-        SetTiming(env, stream, "queueResidence", stats.queueResidence) &&
         SetTiming(env, stream, "muxerWrite", stats.muxerWrite) &&
         SetTiming(env, stream, "dumpWrite", stats.dumpWrite) &&
         SetTiming(env, stream, "bufferHold", stats.bufferHold) &&

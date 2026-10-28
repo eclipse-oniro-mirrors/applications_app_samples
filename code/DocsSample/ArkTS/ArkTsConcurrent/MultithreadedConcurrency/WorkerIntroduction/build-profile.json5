@@ -73,6 +73,14 @@
     {
       "name": "mainAbility",
       "srcPath": "./mainAbility",
+    },
+    {
+      "name": "business",
+      "srcPath": "./business",
+    },
+    {
+      "name": "businessWorker",
+      "srcPath": "./businessWorker"
     }
   ]
 }

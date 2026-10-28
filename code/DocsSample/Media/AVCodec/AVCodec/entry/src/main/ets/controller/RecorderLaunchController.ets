@@ -25,6 +25,8 @@ import Logger from '../common/utils/Logger';
 import { deviceInfo } from '@kit.BasicServicesKit';
 import { ConfigurationFeedback } from '../model/ConfigurationFeedback';
 import { MediaFileActivity } from '../model/MediaFileActivity';
+import { MediaTaskCoordinator, MediaTaskLease } from '../model/MediaTaskCoordinator';
+import { MediaSessionStore } from '../model/MediaSessionStore';
 
 export class RecorderLaunchController {
   private launching: boolean = false;
@@ -50,11 +52,14 @@ export class RecorderLaunchController {
       return;
     }
     this.launching = true;
+    const lease: MediaTaskLease | undefined = MediaTaskCoordinator.acquire('recording');
+    if (lease === undefined) { this.launching = false; MediaFileActivity.endLaunch(); return; }
     let primary: fileIo.File | undefined = undefined;
     let secondary: fileIo.File | undefined = undefined;
     let initialized: boolean = false;
     let transferred: boolean = false;
     try {
+      await MediaSessionStore.begin(context, { id: lease.id, operation: 'recording', startedAt: lease.startedAt });
       const constraint: string = ConfigurationFeedback.recordingConstraint(data, deviceInfo.sdkApiVersion);
       if (constraint.length > 0) {
         throw new Error(constraint);
@@ -123,17 +128,22 @@ export class RecorderLaunchController {
       ui.getPromptAction().showToast({ message: String(error), duration: 5000 });
     } finally {
       if (!transferred) {
-        if (initialized) {
+        if (initialized || recorder.getDiagnostics().active) {
           try {
             await recorder.stopEndNative();
           } catch (error) {
             Logger.error('RecorderLaunch', 'Failed to release native recorder: ' + JSON.stringify(error));
           }
         }
-        await this.closeFileSafely(primary, 'primary output');
-        await this.closeFileSafely(secondary, 'secondary output');
-        data.outputfd = -1;
-        data.secondaryOutputfd = -1;
+        if (!recorder.getDiagnostics().active) {
+          await this.closeFileSafely(primary, 'primary output');
+          await this.closeFileSafely(secondary, 'secondary output');
+          data.outputfd = -1;
+          data.secondaryOutputfd = -1;
+          MediaTaskCoordinator.release(lease);
+          await MediaSessionStore.finish(context, lease.id)
+            .catch((error: Error): void => Logger.warn('RecorderLaunch', error.message));
+        }
       }
       this.launching = false;
       MediaFileActivity.endLaunch();

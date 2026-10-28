@@ -2,6 +2,73 @@
 
 English | [简体中文](./README_zh.md)
 
+New workflow sections: [Session coordination and reports](#media-session-tasks), [Interrupted tasks](#interrupted-media-tasks), [Transcoding queue](#transcoding-queue), [Capability matrix](#codec-capability-matrix), [Preprocessing preview](#transcode-preprocess-preview), [Performance baselines](#media-performance-baselines), and [Code ownership](#media-task-code-map).
+
+<a id="media-session-tasks"></a>
+### Session Coordination and Reports
+
+Playback, camera recording, transcoding, and private-file cleanup now use `MediaTaskCoordinator`. Each operation acquires an ID-bearing lease before opening its working files or creating Native resources. This keeps the sample's serial workflow consistent; it does not imply that the device supports only one codec instance. A busy operation is rejected rather than silently stopping another one.
+
+The coordinator tracks `preparing`, `running`, and `cancelling`. Cancellation does not release ownership: the original task keeps its files until Native completion or confirmed recording teardown. A late completion can release only its own lease ID. Playback initialization that returns false while Native remains in STOPPING also retains the lease until its completion callback. Native threads, Buffer ownership, and EOS draining remain the responsibility of their existing pipelines. `MediaFileActivity` remains a compatibility gate but routes transcoding and cleanup ownership through the coordinator.
+
+Open Device -> Session reports and recovery to expand a completed playback or transcoding report and export TXT/JSON through the system picker. Recording results remain available in the recorder history, but recording diagnostic snapshots are no longer persisted or included in shared reports. The common schema records task ID, operation, timestamp, device/system/API, requested and observed configurations, error category/stage/original code/detail, metrics, and events. Playback adapts its existing timeline; transcoding contributes its final stage and elapsed time. Error categories are a best-effort classification of the original failure, not a replacement for its code. Unclassified errors remain `unknown`.
+
+Shareable copies filter URIs and absolute paths without modifying local associations. Device and configuration information remains visible, so review the expanded report before sharing. State is stored under `filesDir/media_state/`. Writes are serialized, synced to a `.pending` file, then renamed. Common history retains up to 30 reports; baselines retain up to 20. Removing old reports never removes media or Dump files. JSON structure, counts, and file sizes are checked before use.
+
+Playback reports use a final Native snapshot captured before teardown, preserving frame counts, drops, and presentation timing. Live queries still reflect the current player state rather than displaying the previous session's counters while idle.
+
+<a id="interrupted-media-tasks"></a>
+### Interrupted Tasks
+
+Starting a task creates an entry in `pending_sessions.json`; normal completion removes it. After process termination or a device restart, Device lists entries without a completed handoff. The currently owned task is excluded from that list. Acknowledging an interrupted item records its interruption instead of treating it as successful.
+
+Recovery follows each pipeline's actual limits. Playback uses the existing history position. Transcoding restores its list and parameter snapshots, but an interrupted item must be retried from the beginning. Recording cannot append to the interrupted MP4. Codec instances, callback queues, and unfinalized Buffers are not process checkpoints. A selected provider URI may no longer be readable after restart; reselect the source and enqueue a replacement if access has expired or the file moved.
+
+Transcoding first writes `filesDir/transcodes/transcoded_<timestamp>.mp4.part` and renames it to `.mp4` only after successful finalization. Device shows leftover partial-file counts and sizes and offers a confirmed cleanup. Cleanup takes the same exclusive lease, considers only matching regular `.part` files in that private directory, skips symlinks, and leaves sources, finished MP4s, and gallery files untouched.
+
+<a id="transcoding-queue"></a>
+### Transcoding Queue
+
+Choose a source in Transcode, complete preflight, select output settings, and add it to the queue. Each item stores its own codec, Buffer/Surface mode, dimensions, bitrate, encoder category, audio strategy/track, grayscale, and geometry settings. Later edits do not change queued snapshots. The queue holds up to 30 items.
+
+Run dispatches one file at a time. Native cleanup for the current file completes before the next starts. Source and parameter editing is disabled during the entire queue run, including asynchronous persistence between files. Items show waiting, running, completed, failed, cancelled, or interrupted states and individual progress. Overall progress is the equal-weight average of item percentages, not a time or byte estimate.
+
+Pause lets the current file finish, then stops dispatch. Use the existing Cancel action to abort that file; cancellation still waits for cleanup. Failed, cancelled, and interrupted items can be retried independently. The queue does not run codecs in parallel or promise uninterrupted background execution.
+
+`media_state/transcode_queue.json` persists the list. Restored queues remain paused; a previously running item becomes interrupted. Completed files remain available through Recent transcodes for playback and export to Files or Gallery. This restores job descriptions, not partially encoded codec state.
+
+<a id="codec-capability-matrix"></a>
+### Codec Capability Matrix
+
+Device retains the expandable per-codec cards and adds local snapshots plus JSON import/export for cross-device comparison. Saving a local snapshot first compares it with the previous one, then replaces it. Rows are matched by codec type, MIME, and codec name; differences show added, missing, or changed entries, including hardware/software category.
+
+Snapshots include maximum instances, width/height/frame-rate ranges, alignment, pixel formats, Profiles/Levels, audio sample rates/channels, and encoder bitrate ranges. Lists are sorted before comparison so enumeration order alone does not create a change. Check current media candidates queries matching decoders using the active media MIME, size, and frame rate and displays support results without changing the selected decoder. Published capabilities are not a guarantee that creating/configuring a codec or several instances will succeed under current resource pressure.
+
+<a id="transcode-preprocess-preview"></a>
+### Transcoding Preprocessing Preview
+
+The preview shows the retained source rectangle and the output content area, with crop origins, sizes, content placement, and output dimensions. It is a geometry schematic, not a decoded or processed image preview. Existing recording previews still show primary/secondary sizes, downsampling, cropping, and output frame rates.
+
+Buffer transcoding now offers aspect-fit downscaling, centered 16:9 cropping, and 16:9 letterboxing. Fit preserves source proportions and does not deliberately upscale. Crop retains a centered region before scaling; letterbox retains the full frame and centers it inside the output. YUV420 crop origins, sizes, and content offsets are even-aligned. ArkTS planning mirrors Native `PlanGeometry()` rounding; Native also checks stride, slice height, and Buffer capacity.
+
+Processing remains nearest-neighbor NV12/NV21/I420-to-NV12 between decoder output and encoder input. Letterbox uses Y=16 and UV=128; it does not add full/limited-range conversion or new color management. Surface direct input bypasses CPU processing and allows original dimensions without grayscale or geometry filters. The existing SDR-only transcode restriction remains. Rectangles use encoded coordinates; container rotation is retained, and the schematic does not rotate itself.
+
+<a id="media-performance-baselines"></a>
+### Performance Baselines
+
+Expand a completed report in Device and save it as a baseline. Reports matching operation, device/system/API, requested configuration, and observed path show the current value, baseline value, and percentage delta. Incomplete tasks cannot become baselines; missing/invalid values and zero denominators do not produce percentage comparisons.
+
+Playback includes presentation P95, average Sink call time, and frame/drop counts. Transcoding includes FPS, first frame, elapsed time, copied bytes, and stage P95. Recording does not produce reports or participate in this baseline comparison. These adapt existing measurement points without adding per-frame file writes or sorting.
+
+Use the same source, playback interval or transcoding settings, temperature, battery conditions, and background load. The comparison key does not hash source contents, so a matching configuration permits comparison but cannot attribute a regression. API wall time is not hardware execution or completed display latency. The panel reports differences, not an automatic pass/fail verdict.
+
+<a id="media-task-code-map"></a>
+### Code Ownership
+
+`Index.ets` retains main-page state and event wiring; setting label lists move to `MediaSettingsLabels.ets`. New UI panels are separate from pure models. `MediaTaskCoordinator` owns operation sequencing, `MediaSessionReport` adapts data and builds shareable copies, `MediaStateFiles` serializes atomic replacements, and `MediaSessionStore` maintains pending/history records. `MediaRecoveryFiles` handles partial files, `TranscodeQueueModel` holds snapshots/states, and `TranscodeModel` invokes the existing single-file pipeline.
+
+`CodecCapabilityMatrix` handles snapshot validation/comparison, while `TranscodeGeometryModel` mirrors Native crop/letterbox planning. `MediaSessionsPanel`, `CodecCapabilityMatrixPanel`, and `components/transcode/` provide their respective UI. Native codec, audio, and storage preflight methods move from `TranscodeJob.cpp` to `TranscodeInspection.cpp`, leaving frame pumping, EOS, and cleanup together in the job implementation.
+
 ### Introduction
 
 AVCodecSample is an API 26 sample for video and audio playback, camera recording, encoding, demuxing, muxing, graphics output, and media lifecycle handling.
@@ -80,7 +147,7 @@ Configuration and diagnostics: [Presets](#configuration-presets) · [Capability 
 | Operation timeline | Session-relative initialization, pause/resume, seek stages, and completion events, plus Present-call P95/max duration | [Operation timeline](#diagnostic-timeline) |
 | Saved configuration and presets | Remembers applied playback, recording, and Dump limits; includes four built-in presets and one custom slot | [Configuration and presets](#configuration-presets) |
 | Configuration feedback | Refreshes constraints when draft settings change and checks recording size/rate combinations without claiming runtime success | [Capability feedback](#configuration-feedback) |
-| Session reports | Correlates requested settings, configured output, logs, Dump metadata, and runtime recording changes by session ID | [Session reports](#session-report) |
+| Session reports | Correlates playback and transcoding settings, output, errors, and timing by session ID | [Session reports](#session-report) |
 | A-B loop and frame stepping | Set A/B positions for looping and move one video frame at a time | [A-B loop and frame stepping](#ab-frame-control) |
 | Picture-in-picture and background playback | Continue viewing in the system PiP window and optionally enter PiP on home | [Picture-in-picture and background playback](#pip-background) |
 | System media controls | Publishes the current item and playback state to AVSession; lock screen, notification center, and headset keys control play/pause, seek, speed, and queue navigation | [System media controls](#av-session) |
@@ -97,9 +164,9 @@ Configuration and diagnostics: [Presets](#configuration-presets) · [Capability 
 | Encoded video stream dump | Optionally saves the encoder's raw H.264/H.265 output to the app's private files directory; dual-output recording saves each video stream separately | [Video encoding](#video-encoding) |
 | Structured recording options | Groups video, audio, preprocessing, secondary output, Dump, and container parameters into a validated startup snapshot | [Recording options](#recorder-options) |
 | Runtime recording parameters | Requests bitrate changes and key frames independently on the primary or secondary encoder without rebuilding the session | [Runtime recording parameters](#recorder-live-parameters) |
-| Live recording diagnostics | Per-stream recent and session bitrate, output cadence, key frames, queue/write timing, file and Dump status, with explicit configuration and measurement sources | [Live recording diagnostics](#recorder-diagnostics) |
+| Live recording diagnostics | Per-stream recent and session bitrate, output cadence, key frames, retrieval/write timing, file and Dump status, with explicit configuration and measurement sources | [Live recording diagnostics](#recorder-diagnostics) |
 | Recording timeline | Initialization, first output, stop, actual EOS, draining, resource release, and file-close stages | [Timeline and results](#recording-session-results) |
-| Historical reports and results | Retain up to 30 session reports, play finalized outputs, and copy or export TXT/JSON | [Reports and results](#recording-session-results) |
+| Recording results and history | Play finalized outputs and inspect basic completion/file metadata; detailed diagnostics remain live during recording | [Results and history](#recording-session-results) |
 | Audio diagnostics and storage protection | PCM backlog, AAC output, relative PTS progress, muxer timing, remaining-time estimates, and optional safe stop | [Audio and storage](#recorder-audio-storage) |
 | Preprocessing diagram | Shows the source frame, retained crop area, and primary/secondary target sizes as draft settings change | [Preprocessing visualization](#preprocess-preview) |
 | Encoder preprocessing | API 26+ downsampling, center crop, and target-rate frame dropping; downsampling and crop are exclusive, while frame dropping can combine with either | [Encoder preprocessing](#video-preprocessing) |
@@ -108,8 +175,8 @@ Configuration and diagnostics: [Presets](#configuration-presets) · [Capability 
 | HDR Vivid recording | Selects P010 and the corresponding color space when device capabilities support HDR recording | [Camera capture and recording](#camera-recording) |
 | MP4/FLV muxing | Concurrently writes encoded audio and video; MP4 also stores rotation metadata | [Muxing](#muxing) |
 | Recording finalization | Waits for CameraKit, encoder EOS, muxer release, and output-fd closure before returning | [Recording stop flow](#recording-stop) |
-| Recent recording outputs | Primary/secondary playback entries with output size, measured FPS, video bitrate, and file size | [Recording statistics](#output-management) |
-| Device codec checks and reports | Checks the current size/rate combination, selects a codec name for ordinary recording, and exports diagnosis including recording counters | [Device diagnostics](#output-management) |
+| Recent recording outputs | Primary/secondary playback, basic completion state, and finalized-file metadata; measured FPS and bitrate remain in live diagnostics | [Recording statistics](#output-management) |
+| Device codec checks | Checks the current size/rate combination and selects a codec name for ordinary recording; recording diagnostics are excluded from device reports | [Device diagnostics](#output-management) |
 | Automated and device tests | Hypium covers deterministic logic; device tests cover codecs, output, synchronization, recording, and errors | [Testing](#testing) |
 
 Recording settings use a draft-then-apply flow. Pickers edit temporary values only. **Apply** writes the complete set to `CameraDataModel` and then runs the CameraKit profile check, while **Cancel** discards the draft. This keeps the value shown in the sheet aligned with the configuration that will be passed to Native when resolution, frame rate, or preprocessing is changed.
@@ -156,7 +223,10 @@ Recording also depends on device capability. The camera profile, encoder's suppo
 | Source and destination | Select one video from Files or Gallery; export a completed MP4 to either destination | [Transcoding](#transcoding) |
 | Buffer processing | Decode to YUV, optionally downscale or convert to grayscale, and submit encoder input buffers | [Buffer path](#transcode-buffer) |
 | Surface connection | Decode directly to the encoder input Surface at the original dimensions | [Surface path](#transcode-surface) |
-| Output and progress | H.264/H.265, target VBR bitrate, optional audio passthrough, progress, and cancellation | [Task lifecycle](#transcode-lifecycle) |
+| Output and progress | H.264/H.265, automatic/hardware/software encoder selection, VBR, progress and cancellation | [Task lifecycle](#transcode-lifecycle) |
+| Preflight and diagnostics | Source/track analysis, codec limits, stage timings and Buffer waits | [Diagnostics](#transcode-diagnostics) |
+| Audio policy | Selected original track, AAC-LC conversion, or no audio | [Audio pipeline](#transcode-audio) |
+| Results and storage | History, playback, report export, storage reserve and private-file cleanup | [Results](#transcode-results) |
 
 <a id="transcoding"></a>
 
@@ -173,7 +243,8 @@ The page uses a separate `libtranscoder.so`; it does not start the Player or Rec
 | Output size | Original, or long edge capped at 1920, 1080, or 720 pixels; Buffer only |
 | Target bitrate | 2, 4, 8, or 16 Mbps, using VBR; measured bitrate can differ |
 | Grayscale | Buffer only; keeps luma and makes chroma neutral |
-| Audio | Copy the first audio track without decoding or re-encoding, or produce video only |
+| Encoder selection | Automatic, hardware or software; the checked codec name is also used to create the instance |
+| Audio | Select the first or a specific track: passthrough, AAC-LC at 128 kbps, or no audio |
 
 The size limit describes the long edge, not the vertical resolution. A 1920 × 1080 source capped at 720 becomes 720 × 404; portrait video becomes 404 × 720. Dimensions are rounded down to even values for YUV 4:2:0. Smaller sources are not enlarged.
 
@@ -186,7 +257,7 @@ flowchart LR
   Decoder --> Surface[Encoder input Surface]
   Surface --> Encoder
   Encoder --> Mux[MP4 muxer]
-  Demux --> Audio[Optional original audio track]
+  Demux --> Audio[Optional selected audio track: copy or AAC conversion]
   Audio --> Mux
   Mux --> Result[Completed private file]
   Result --> Export[Files / Gallery]
@@ -199,6 +270,8 @@ flowchart LR
 `TranscodeJob` selects the first video track, configures the decoder for NV12 output, and configures an NV12 Buffer encoder. The worker obtains decoded frames with synchronous output queries. `TranscodeFrameProcessor.h` reads each side's actual width, height, stride, and slice height; decoder and encoder padding do not have to match.
 
 The processor accepts 8-bit NV12, NV21, and I420 layouts and writes NV12. It uses nearest-neighbor downscaling, which keeps the example small and makes the per-frame CPU processing visible. For grayscale, luma is retained and chroma is filled with 128. This path has CPU read/write and copy costs; it is intended to demonstrate decoded-pixel processing rather than match Surface throughput or a production-quality resampler.
+
+Layouts are cached after the first frame and read again on a decoder output-format change. Same-size NV12 uses row copies for both Y and UV, with independent source/destination strides. Source padding is not copied. Only destination padding and grayscale UV need initialization, so normal visible pixels are no longer cleared and overwritten. Scaling, NV21 and I420 retain their conversion branches. There is no additional full-frame intermediate allocation, and decoder buffer ownership is not transferred to the encoder.
 
 Only one decoded frame is retained while waiting for encoder input. After the pixels have been submitted, the decoder output index is returned. The next pass drains encoded output before obtaining more input, keeping codec queues bounded. Input EOS stops feeding compressed samples; the worker continues until encoded output EOS. If a decoded frame contains both pixels and EOS, it submits the pixels first and sends an empty encoder EOS separately.
 
@@ -214,15 +287,60 @@ This path keeps the original dimensions. Selecting Surface resets the size limit
 
 #### Task lifecycle, export, and limits
 
-The encoder's actual output description supplies the new video track. Source codec configuration cannot describe newly encoded H.264/H.265 data. Some devices omit MIME and other required muxing fields from the output description, so the track format is completed with the destination MIME, visible dimensions, and frame rate before adding it. Other encoder-provided configuration is preserved. The optional audio track keeps its original description and samples; audio is interleaved near video PTS. If MP4 cannot accept the original audio, the task reports an error and can be retried with audio preservation disabled. Additional video/audio tracks, subtitles, and attachments are not copied.
+The encoder's actual output description supplies the new video track. Source codec configuration cannot describe newly encoded H.264/H.265 data. Some devices omit MIME and other required muxing fields from the output description, so the track format is completed with the destination MIME, visible dimensions, and frame rate before adding it. Other encoder-provided configuration is preserved. Original audio uses the selected track's description and compressed samples. If MP4 rejects that format, retry with AAC conversion or no audio. Additional video/audio tracks, subtitles, and attachments are not copied.
 
 Native duplicates the input/output descriptors before queueing its asynchronous work. The job owns those duplicates and closes them after releasing the codecs and muxer. Status polling every 250 ms updates media progress, encoded frame count, video payload bytes, and output dimensions. The byte count excludes audio and MP4 overhead. A 30-second interval with no pipeline progress fails the task; cancellation is checked between codec operations.
 
-Output is first written to `filesDir/transcodes/transcoded_<timestamp>.mp4.part`. Only after output EOS, successful muxer finalization, and file flush is it renamed to `.mp4`. Cancellation and failure remove the incomplete file. Export then copies the complete file to a URI authorized by the system save dialog. It requests no broad media-write permission, and a failed export retains the private copy for retry. Completed private files remain in the app directory; this page currently exposes only the latest task result and does not provide a history or cleanup browser.
+Output is first written to `filesDir/transcodes/transcoded_<timestamp>.mp4.part`. Only after output EOS, successful muxer finalization, and file flush is it renamed to `.mp4`. Cancellation and failure remove the incomplete file. Export then copies the complete file to a URI authorized by the system save dialog. It requests no broad media-write permission, and a failed export retains the private copy for retry. Completed private files and reports remain available through recent transcodes and the cleanup action.
 
 This implementation accepts SDR input. It rejects HDR Vivid, PQ/HLG, and HEVC profiles outside Main because HDR transfer, 10-bit processing, and dynamic metadata preservation are not implemented. It does not turn an HDR input into an unmarked SDR file. Codec availability, supported dimensions, and synchronous Surface support still depend on the device; native `Configure()` is the final check.
 
-The host test `tests/native/TranscodeFrameProcessorTest.cpp` covers fit sizing, independent stride/slice padding, chroma order, grayscale, and short-buffer rejection. Codec scheduling, cancellation, and both export destinations need device verification.
+`tests/native/TranscodeFrameProcessorTest.cpp` covers fit sizing, independent stride/slice padding, chroma order, grayscale, short buffers and the same-size fast path. `TranscodeDiagnosticsTest.cpp` checks bounded sampling and wait spans. `TranscodeAudioPipelineTest.cpp` uses fake codecs to check PCM framing, backpressure, format events, the first packet, padded tail, EOS and failure cleanup. `tests/host/TranscodeModels.test.cjs` checks inspection races, task exclusion, cancellation, cleanup and reports. These checks do not replace real-device codec scheduling, output playback, Files or Gallery export verification.
+
+<a id="transcode-diagnostics"></a>
+
+#### Media analysis, codec checks and stage diagnostics
+
+Source selection and output-setting changes trigger an asynchronous Native inspection. It reports source MIME, dimensions, frame rate, duration, audio tracks and target dimensions. Checks cover decoder and encoder size/frame-rate combinations, encoder bitrate limits and NV12 Buffer input. A hardware/software choice does not silently fall back to another category. The capability name is also used to create the codec. Inspection starts no codecs; checks run again at launch, and Configure, Prepare and Start remain the final authority.
+
+The running result shows average output fps, processed media time divided by elapsed wall time, elapsed time and estimated remaining time. ETA stays unknown without source duration/output or during the first second. The report stores time to the first encoded video sample, excluding codec configuration. Initialization affects speed and ETA; neither guarantees a completion time.
+
+| Metric | Measured scope |
+|---|---|
+| demux | Compressed video sample read call |
+| decode-submit | Video decoder input submission call |
+| process-copy | Layout read, YUV processing and copy |
+| encode-submit | Buffer input submission, or decoded-frame submission to the encoder Surface |
+| mux | Video or passthrough-audio sample write call |
+| audio | One AAC pipeline pass (queries, PCM framing and audio writes), or original-audio sample reads |
+
+Each bucket has call count, total, average, maximum and P95 over the most recent 256 calls. These are application-thread wall times, not hardware execution latencies or an additive end-to-end frame latency. Buffer waits are measured separately across unsuccessful nonblocking Query polls until that channel next returns a result: decoder output, encoder input and encoder output. Wait intervals can overlap and include time spent on other pipeline work.
+
+The report distinguishes video payload bytes, audio output bytes, actual file size and visible destination-pixel bytes written by the processor. Pixel bytes exclude padding and are not measured memory bandwidth. Surface video has no application CPU pixel copy, so that counter stays zero.
+
+<a id="transcode-audio"></a>
+
+#### Audio selection and AAC conversion
+
+The default copies the first audio track; a specific track can also be selected. Entries show container track number, MIME, channels and sample rate. No-audio mode selects no audio track, creates no audio codec and adds no audio muxer track.
+
+Passthrough remuxes compressed samples. AAC conversion uses separate synchronous audio decoder/encoder instances and requests interleaved S16LE PCM. It preserves the source sample rate and mono/stereo channel count. There is no resampling or multichannel downmix. Unsupported capability or an unexpected decoded PCM layout fails explicitly rather than silently changing the configuration.
+
+Decoder PCM buffers need not match AAC frame lengths. TranscodeAudioPipeline holds at most one borrowed decoded output and one AAC-LC PCM frame. It submits 1024 samples per channel, calculating PTS from source PCM timestamps and consumed sample counts. A short final frame is zero-padded, adding less than one AAC frame of tail silence; an empty EOS follows separately. Encoded output must drain to EOS even after compressed input ends.
+
+The AAC encoder uses AAC-LC at 128 kbps. Muxing starts only after video and AAC output descriptions are ready; the first audio packet is retained while waiting. Backpressure does not build an unbounded application PCM queue. Cancellation/failure releases both audio codecs. Multiple output audio tracks, subtitle remuxing, loudness processing and gapless tail trimming are not implemented.
+
+<a id="transcode-results"></a>
+
+#### Results, history and storage protection
+
+Completed results can be played, exported again or saved as a TXT diagnostic report. Recent transcodes are restored from private task reports across application restarts. The list shows the latest 100 reports without automatically deleting older video files. A history card loads that result; successful results offer playback, while failures/cancellations retain final diagnostics. JSON is written to a pending file, flushed and renamed. Exported TXT excludes source URI, source filename and absolute paths; local history retains the title for identification.
+
+Before launch, output size is estimated from duration, target video bitrate and an audio budget, with 15% headroom. VBR makes this an estimate, not a bound. Native checks free space at startup and every second, keeping a 64 MiB reserve. Low space fails the task and removes the incomplete file. Export also checks local space for another complete copy. Provider/cloud destinations may not expose free-space information, so copy can still fail; the private result remains available for retry.
+
+Transcoding requires idle playback/recording and acquires its task marker before asynchronous file operations. New playback, recording and cleanup are blocked while it runs. Paused playback still owns resources and must be stopped first. Cancellation releases the marker only after Native exits, descriptors close and the report is saved. Other user tasks are never forcibly stopped.
+
+Cleanup requires confirmation and scans only generated MP4, part and report filenames in the private transcodes directory. Directory/file types are checked; symlinks and arbitrary external paths are rejected. Source files and exported videos are untouched. Running/exporting tasks block cleanup, while abandoned part files from a forced exit can be removed when idle.
 
 ### Preview
 
@@ -262,7 +380,7 @@ A failed playback no longer collapses into a single “invalid file” message. 
 
 The recording page creates one CameraKit encoder input Surface. Native creates a Primary encoder and, when supported, a Secondary encoder derived from the Primary. Each output has its own Muxer and file descriptor. The secondary path defaults to a lower resolution and is useful for preview or upload; the primary path keeps the configured recording size.
 
-Both paths count successfully muxed video frames and bytes. Measured FPS and average video bitrate use the output PTS interval rather than the configured camera rate. After `stopEndNative()` finishes EOS and Muxer cleanup, the page reads these counters and file sizes before closing the descriptors. Recent recordings save the two playback entries and summaries when a nonempty primary file and a positive recording duration are available. The diagnostic report also includes the latest recording counters and failure, retained until the next recording initialization. Byte counts in that report describe video samples, not the complete container file.
+Both paths count successfully muxed video frames and bytes. Measured FPS and average video bitrate use the output PTS interval rather than the configured camera rate. After `stopEndNative()` finishes EOS and Muxer cleanup, the page reads these counters and file sizes before closing the descriptors. Recent recordings save the available primary and secondary file entries. Detailed recording diagnostics are shown during recording and are not persisted after finalization.
 
 #### Combination checks for the active configuration
 
@@ -296,9 +414,9 @@ Check current combination queries candidate codecs by MIME and any selected code
 
 #### Correlating diagnostics by session ID
 
-Each playback or recording initialization creates a session ID shared by the requested configuration, system log, and Dump `.session.txt` metadata. Reports separate requested settings from configured or observed output. Playback records the final path, dimensions, and software fallback. Recording reads the encoder output description and keeps measured FPS/bitrate statistics separate. Missing output-description fields remain unavailable instead of being filled with requested values.
+Each playback or recording initialization creates a session ID shared by the requested configuration, system log, and Dump `.session.txt` metadata. Shareable session reports cover playback and transcoding. Playback records the final path, dimensions, and software fallback. Recording configuration and output details are available in its live diagnostic panel, not in the session report list. Missing output-description fields remain unavailable instead of being filled with requested values.
 
-The configuration summary excludes descriptors, URIs, file names, and absolute paths. Playback retains up to 128 timeline events; recording separately retains the last 128 parameter changes with session-relative time, stream, request, and return code. The latest playback and recording snapshots remain available after completion and are replaced at the next initialization. This is not a persistent session-history database. Users should still review the device and media information in the full report before sharing it.
+Playback retains up to 128 timeline events. Recording timeline and parameter-change details are limited to the active recording diagnostic view and are not shared or retained after finalization. Recording history keeps only the file associations and basic result information needed to reopen a result.
 
 <a id="dump-sessions"></a>
 
@@ -1215,15 +1333,15 @@ Once recording starts, the preview offers bitrate and key-frame controls. The bi
 
 The UI calls `updateParameters(sessionId, primary, bitrate, requestKeyFrame)`. NAPI validates types, integer ranges, and the session ID, then runs the native request on a worker. Recorder holds its lifecycle lock, verifies that recording is active and EOS teardown has not started, selects the encoder, and calls `SetParameter()`. Stop closes the update window before draining. A queued request carrying an old session ID cannot modify a new recording.
 
-Success means that the encoder accepted the request. Diagnostics show the accepted target, recent one-second output bitrate, and session average separately. Use the recent output to observe a change; the session average still includes earlier output. Key-frame detection uses output Buffer flags. A key frame observed after an accepted request may also be a periodic key frame, so it does not establish causation. Unsupported or stale requests show a failure without stopping recording, and request values plus return codes are included in the session report.
+Success means that the encoder accepted the request. Diagnostics show the accepted target, recent one-second output bitrate, and session average separately. Use the recent output to observe a change; the session average still includes earlier output. Key-frame detection uses output Buffer flags. A key frame observed after an accepted request may also be a periodic key frame, so it does not establish causation. Unsupported or stale requests show a failure without stopping recording. Request values and return codes remain in the live recording diagnostics only.
 
 <a id="recording-session-results"></a>
 
-#### Recording timeline, historical reports, and results
+#### Recording timeline, results, and history
 
 Stop enters a finalizing state and ignores repeated clicks. Camera output stops first. Native then sends video/audio EOS, drains and returns output buffers, releases muxers and codecs, and resolves the stop request. Only then does ArkTS close the media-library descriptors and release the camera. The result page opens after cleanup. Back uses the same finalization task; backgrounding saves the result without unexpectedly navigating to another page.
 
-The result page offers primary/secondary playback, the full report, clipboard copy, and TXT/JSON export through the system file picker. New Recent recordings items also have a Result action. Reports survive app restarts and later recordings. Old entries without session IDs retain their playback actions. Failed starts and sub-second recordings can have report entries; empty files are not offered as playable outputs.
+The result page offers primary/secondary playback, a completion state, and metadata read from finalized files. New Recent recordings items also have a Result action. The result parameters are kept in the page route, not saved as a diagnostic report. Old entries without session IDs retain their playback actions. Failed starts and sub-second recordings can have result entries; empty files are not offered as playable outputs.
 
 The timeline records monotonic milliseconds from initialization:
 
@@ -1239,11 +1357,9 @@ The timeline records monotonic milliseconds from initialization:
 
 A timeline holds at most 128 distinct stages. Parameter changes retain their separate 128-entry bound. Neither stores a per-frame log or retains media buffers. End reasons distinguish user stop, storage protection, startup failure, output failure, and incomplete EOS draining. Failure details remain available alongside the timeline.
 
-Each session writes `filesDir/recording_reports/<sessionId>.json` and a matching TXT file in the app sandbox. Up to 30 sessions are retained. JSON holds requested settings, final stream/audio diagnostics, parameter changes, the timeline, end reason, and local media/Dump associations. Writes are serialized: write and sync temporary files, then rename, publishing JSON last. Report failure does not bypass codec or file cleanup; the latest result remains available in memory with a persistence warning. Retention removes only matching report/temporary files, never recordings or Dump data.
+The timeline and diagnostics are for the active recording view only. Recording completion does not write a diagnostic JSON/TXT snapshot, and the session reports panel excludes recording details. The recording history retains the output file references, timestamp, duration, and completion state needed to reopen results; existing media files and encoded Dumps are unaffected.
 
-The result page reopens finalized files with independent read-only descriptors to obtain dimensions, duration, container MIME, track count, and audio sample rate. The metadata extractor is released before its descriptor is closed. It does not reuse a descriptor owned by a muxer or player, and missing fields remain unavailable rather than falling back to requested settings. Container metadata does not prove valid HDR Vivid dynamic metadata. API 26 metadata retrieval uses a three-second timeout; unavailable extraction does not block the original diagnostic snapshot or export.
-
-Local JSON retains file associations. Clipboard/TXT output omits media locations; exported JSON also clears media URIs, titles, and absolute Dump paths.
+The result page reopens finalized files with independent read-only descriptors to obtain dimensions, duration, container MIME, track count, and audio sample rate. The metadata extractor is released before its descriptor is closed. It does not reuse a descriptor owned by a muxer or player, and missing fields remain unavailable rather than falling back to requested settings. Container metadata does not prove valid HDR Vivid dynamic metadata. API 26 metadata retrieval uses a three-second timeout; a metadata read failure does not affect the recording or its history entry.
 
 <a id="recorder-audio-storage"></a>
 
@@ -1260,7 +1376,7 @@ The capture callback counts S16LE bytes and pending PCM, converting them to samp
 
 The storage summary estimates time before the reserve boundary after at least three growth intervals and three seconds. It averages up to five recent intervals using both container files and Dump growth. Dual output uses the smaller available-space value with combined growth instead of adding shared-volume free space twice. Buffering, rate changes, other writers, and different storage locations affect this conservative estimate. Missing space data, zero growth, or insufficient samples show “--”.
 
-Stop safely when storage runs low is an opt-in recording setting, also saved in configurations/presets. Below the larger of 256 MiB or ten seconds of estimated growth, it requests normal finalization once: EOS, draining, muxer release, then file close. It does not destroy an encoder while the camera is still producing frames. Polling and buffered writes can lag, so this cannot guarantee that storage never fills. Real media write failures still take the error-cleanup path and remain in the report. Dump size/time/space limits stop Dump only.
+Stop safely when storage runs low is an opt-in recording setting, also saved in configurations/presets. Below the larger of 256 MiB or ten seconds of estimated growth, it requests normal finalization once: EOS, draining, muxer release, then file close. It does not destroy an encoder while the camera is still producing frames. Polling and buffered writes can lag, so this cannot guarantee that storage never fills. Real media write failures still take the error-cleanup path. Dump size/time/space limits stop Dump only.
 
 <a id="recorder-controller-ownership"></a>
 
@@ -1271,11 +1387,11 @@ The preview page renders the Surface, controls, and a projection of one phase en
 | Owner | Responsibility |
 |---|---|
 | `CameraSessionController` | Camera input, preview/output/session ownership, setup, start, stop, zoom, and idempotent release |
-| `RecordingSessionController` | Native finalization, descriptor closure, final snapshot, reports, and history; repeated stops share one promise |
+| `RecordingSessionController` | Native finalization, descriptor closure, basic result state, and history; repeated stops share one promise |
 | `RecorderDiagnosticsController` | Once-a-second snapshots, storage estimates, and opt-in stop evaluation; removes its timer on exit |
 | `RecordingMetadataReader` | Independent finalized-file metadata reads with extractor/descriptor cleanup |
 | `RecorderPage` | Recent-recording state and stale-load protection; Index only requests a refresh |
-| `RecordingResult` | Current/historical snapshots, playback actions, copy, and export; never substitutes a live encoder snapshot for a historical report |
+| `RecordingResult` | Current/historical playback actions and finalized-file metadata; does not load a persistent diagnostic snapshot |
 
 Playback remains with the existing playback controllers. Choosing a result passes its URI back to the existing Index playback entry. Recording controllers do not create a player or change Surface/Buffer/OpenGL/Vulkan selection.
 
@@ -1285,14 +1401,14 @@ Playback remains with the existing playback controllers. Choosing a result passe
 
 #### Live recording diagnostics
 
-During recording, a top overlay updates once a second with each stream's recent output FPS, video bitrate, and container file size. Expand recording diagnostics opens a scrollable detail area without resizing the camera Surface. Stop and runtime parameter controls stay at the bottom. The diagnostic report includes the same per-stream details. A finished session retains its final snapshot until the next initialization.
+During recording, a top overlay updates once a second with each stream's recent output FPS, video bitrate, and container file size. Expand recording diagnostics opens a scrollable detail area without resizing the camera Surface. Stop and runtime parameter controls stay at the bottom. Finalizing the session clears detailed diagnostics; history retains only basic result information.
 
 | Measurement | Source and interpretation |
 |---|---|
 | Target, recent, and session bitrate | The accepted target comes from Configure and successful SetParameter calls. Recent bitrate uses output-processing monotonic timestamps and bytes; the session average uses successfully muxed video bytes and their PTS span. Deviation from target helps comparison but is not a rate-control or quality pass criterion. |
 | Output cadence | Recent FPS, time since the last frame, longest output gap, and PTS regressions. Expected FPS uses the preprocessing drop target when configured, otherwise the input rate. Intentional 60-to-30-fps preprocessing is therefore compared against 30 fps. |
 | Key frames and runtime parameters | Key-frame count, latest key-frame PTS, latest interval, accepted request count, accepted/failed update counts, and time from the latest accepted request to an observed key frame. A request still pending at session end remains explicitly unobserved. |
-| Queue and write stages | Current/peak output queue depth, output-retrieval wait, asynchronous queue residence, muxer write, Dump write, and application-held output Buffer duration. Each stage includes sample count, mean, P95, and maximum. |
+| Retrieval and write stages | Output-retrieval wait, muxer write, Dump write, and application-held output Buffer duration. Each stage includes sample count, mean, P95, and maximum. Shared-queue depth and residence are no longer measured. |
 | Files and Dump | Container size, growth over the latest sampling interval, available storage, Dump state, written bytes, and stop reason. Failed space queries remain unavailable rather than appearing as zero free space. |
 | Requested and reported configuration | Requested settings, the codec's initial size/rate/bitrate description, and output measurements remain separate. Missing returned fields are unavailable. Bitstream dimensions and HDR remain unverified unless parsed independently. |
 
@@ -1302,9 +1418,9 @@ Low FPS just after startup or a parameter change needs context. The overlay wait
 
 Timing means and maxima cover the session; P95 uses the most recent 256 samples and sorts only when a snapshot is read. The recent output window retains at most 1024 timestamp/byte samples, with no Buffer or pixel retention. File size and space are sampled at most once per second, with an additional sample after finalization updates the file tail.
 
-Buffer-held duration starts after successful retrieval and ends after release in both codec modes. Asynchronous queue residence is reported separately. Retrieval wait includes ordinary waiting for the next frame and is not encoding compute time; muxer duration may include waiting for concurrent audio writes. EOS and codec configuration buffers do not count as recent video frames or key frames, although stage timing can include their processing. Disabled Dump and unavailable callback-queue timing are shown as having no samples.
+Recording workers measure retrieval wait in both synchronous and asynchronous modes, recording only successful retrievals; timeouts and cancelled empty returns are excluded. Shared `CodecBufferQueue` only handles enqueue, dequeue, and cancellation wakeups, without diagnostic timing. Buffer-held duration starts after successful retrieval and ends after release. Retrieval wait includes ordinary waiting for the next frame and is not encoding compute time; muxer duration may include waiting for concurrent audio writes. EOS and codec configuration buffers do not count as recent video frames or key frames, although stage timing can include their processing. Disabled Dump is shown as having no samples.
 
-`RecorderStreamMetrics` maintains each stream's recent window and key-frame state. `RecorderOutputStats` combines cumulative data and read-only snapshots, while `StageTiming` stores bounded timing samples. `RecorderLiveDiagnosticsModel` formats values and warnings without calling the encoder or changing EOS, Buffer return, or muxer finalization. The report identifies the codec description as an initialization snapshot so its bitrate cannot be mistaken for a later runtime target.
+`RecorderStreamMetrics` maintains each stream's recent window and key-frame state. `RecorderOutputStats` combines cumulative data and read-only snapshots, while `StageTiming` stores bounded timing samples. `RecorderLiveDiagnosticsModel` formats values and warnings without calling the encoder or changing EOS, Buffer return, or muxer finalization. The panel identifies the codec description as an initialization snapshot so its bitrate cannot be mistaken for a later runtime target.
 
 ##### How Recording Settings Reach the Two Encoding Paths
 

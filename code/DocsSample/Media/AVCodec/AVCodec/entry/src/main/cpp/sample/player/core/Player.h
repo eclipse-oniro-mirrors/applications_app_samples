@@ -117,6 +117,7 @@ public:
     int32_t SelectAudioTrack(int32_t trackIndex);
     PlayerState GetState() const;
     PlaybackInfo GetPlaybackInfo() const;
+    PlaybackInfo GetCompletedPlaybackInfo() const;
     MediaInfo GetMediaInfo() const;
     bool IsSmartFluencyAvailable() const;
     void SetSpeed(float multiplier);
@@ -243,6 +244,7 @@ private:
 
     OperationFailure failure_;
     mutable std::mutex mutex_;
+    PlaybackInfo completedPlaybackInfo_;
     // 切换音轨会暂时释放 mutex_ 并等待音频线程退出。
     // 此锁将该操作与 Stop()、Release() 串行，禁止并发销毁流水线。
     std::mutex audioTrackOperationMutex_;

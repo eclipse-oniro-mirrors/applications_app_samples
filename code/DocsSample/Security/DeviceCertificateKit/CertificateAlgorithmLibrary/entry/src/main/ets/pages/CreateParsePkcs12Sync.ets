@@ -159,7 +159,7 @@ async function doTestCreatePkcs12Sync() {
       needsOtherCerts: true,
     };
     let out: cert.Pkcs12Data = cert.parsePkcs12(p12, conf);
-    console.info(`parsePKCS12 result: success.`);
+    console.info(`parsePkcs12 result: success.`);
     if (out.privateKey) {
       console.info(`privateKey:` + out.privateKey.toString());
     }
@@ -175,7 +175,7 @@ async function doTestCreatePkcs12Sync() {
       console.info(`otherCerts is empty or not an array.`);
     }
   } catch (err) {
-    console.error(`doTestCreatePkcs12 failed: errCode: ${err.code}, message: ${err.message}`);
+    console.error(`doTestCreatePkcs12Sync failed: errCode: ${err.code}, message: ${err.message}`);
   }
 }
 

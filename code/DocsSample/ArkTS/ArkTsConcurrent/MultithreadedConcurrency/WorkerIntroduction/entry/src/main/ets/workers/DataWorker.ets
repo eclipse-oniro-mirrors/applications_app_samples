@@ -16,7 +16,7 @@
 // [Start data_worker]
 // workers/DataWorker.ets
 import { MessageEvents, ThreadWorkerGlobalScope, worker } from '@kit.ArkTS';
-import { DataProcessor, DataChart, DataTable } from './business';
+import { DataProcessor, DataChart, DataTable } from 'business';
 // business这个HAR同时导出了DataChart、DataTable等UI组件，
 // Worker线程启动时，这些UI模块及其依赖全部被初始化，占用内存且可能产生异常
 

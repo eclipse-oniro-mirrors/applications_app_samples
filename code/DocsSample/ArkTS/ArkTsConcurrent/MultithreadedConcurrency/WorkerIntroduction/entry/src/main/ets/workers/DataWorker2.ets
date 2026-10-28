@@ -15,12 +15,12 @@
 
 // [Start data_worker_next]
 // 将business拆分为两个HAR：
-// - business-ui：DataChart、DataTable等UI组件
-// - business-worker：DataProcessor等纯业务逻辑
+// - businessui：DataChart、DataTable等UI组件
+// - businessworker：DataProcessor等纯业务逻辑
 
 // workers/DataWorker2.ets
 import { MessageEvents, ThreadWorkerGlobalScope, worker } from '@kit.ArkTS';
-import { DataProcessor } from './business-worker';
+import { DataProcessor } from 'businessworker';
 // 只加载纯逻辑模块，不包含任何UI依赖
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;

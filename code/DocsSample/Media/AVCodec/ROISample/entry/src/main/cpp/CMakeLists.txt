@@ -30,6 +30,7 @@ set(BASE_LIBRARY
 
 add_library(recorder SHARED recorder/RecorderNative.cpp
                             recorder/Recorder.cpp
+                            capbilities/camera/NativeCamera.cpp
                             capbilities/codec/Muxer.cpp
                             capbilities/codec/VideoEncoder.cpp
                             capbilities/codec/AudioCapturer.cpp
@@ -41,7 +42,7 @@ add_library(recorder SHARED recorder/RecorderNative.cpp
                             common/RoiQueue.cpp
 )
 
-target_link_libraries(recorder PUBLIC ${BASE_LIBRARY} player)
+target_link_libraries(recorder PUBLIC ${BASE_LIBRARY} player libohcamera.so)
 # [End roi_cmake_link_libraries]
 
 add_library(player SHARED player/PlayerNative.cpp

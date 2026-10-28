@@ -89,9 +89,7 @@ export class RecorderLiveDiagnosticsModel {
       RecorderLiveDiagnosticsModel.text($r('app.string.rec_diag_parameters')) + ': ' +
         stats.parameterAccepted + ' / ' + stats.parameterRejected,
       '',
-      RecorderLiveDiagnosticsModel.text($r('app.string.rec_diag_queue')) + ': ' + stats.queueDepth + ' / ' + stats.queuePeak,
       RecorderLiveDiagnosticsModel.timing($r('app.string.rec_diag_wait'), stats.queueWait),
-      RecorderLiveDiagnosticsModel.timing($r('app.string.rec_diag_residence'), stats.queueResidence),
       RecorderLiveDiagnosticsModel.timing($r('app.string.rec_diag_muxer'), stats.muxerWrite),
       RecorderLiveDiagnosticsModel.timing($r('app.string.rec_diag_dump_write'), stats.dumpWrite),
       RecorderLiveDiagnosticsModel.timing($r('app.string.rec_diag_hold'), stats.bufferHold),
