@@ -69,6 +69,7 @@ public:
 
 private:
     void SetConfigAndGetValue();
+    void SetScreenInfo();
     void GetBufferMapPlanes(NativeWindowBuffer *buffer);
     void SetBufferColorSpace(NativeWindowBuffer *buffer);
     OHNativeWindow *nativeWindow_;
