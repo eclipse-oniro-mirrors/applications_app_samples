@@ -386,7 +386,6 @@ void Player::VideoDecOutputSyncThread()
         WaitIfPaused();
         CHECK_AND_BREAK_LOG(isStarted_, "VD Decoder output thread out");
         // [EndExclude decoder_sync_output_buffer]
-        std::unique_lock<std::mutex> lock(videoDecContext_->outputMutex);
         CodecBufferInfo bufferInfo;
         const int32_t ret = videoDecoder_->GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
         lock.unlock();
