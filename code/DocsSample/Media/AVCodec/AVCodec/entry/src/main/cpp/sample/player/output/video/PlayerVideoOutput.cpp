@@ -100,26 +100,26 @@ void Player::VideoDecInputAsyncThread()
         std::shared_ptr<CodecBufferInfo> bufferInfo = videoDecContext_->inputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
         /**
-           *
-           * // 示例：将数据写入 Buffer，设置属性后送入解码器。
-           * uint8_t *addr = OH_AVBuffer_GetAddr(bufferInfo->buffer);
-           * CHECK_AND_RETURN_RET_LOG(addr != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer addr is null");
-           * int32_t capacity = OH_AVBuffer_GetCapacity(bufferInfo->buffer);
-           * if (size > capacity) {
-           *     // 异常处理。
-           * }
-           * memcpy(addr, frameData, size);
-           * OH_AVCodecBufferAttr attrInfo;
-           * attrInfo.size = size;
-           * attrInfo.offset = offset;
-           * attrInfo.pts = pts;
-           * attrInfo.flags = flags;
-           * OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(bufferInfo->buffer, &attrInfo);
-           * if (setBufferRet != AV_ERR_OK) {
-           *     // 异常处理。
-           * }
-           *
-           */
+         *
+         * // 示例：将数据写入 Buffer，设置属性后送入解码器。
+         * uint8_t *addr = OH_AVBuffer_GetAddr(bufferInfo->buffer);
+         * CHECK_AND_RETURN_RET_LOG(addr != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer addr is null");
+         * int32_t capacity = OH_AVBuffer_GetCapacity(bufferInfo->buffer);
+         * if (size > capacity) {
+         *     // 异常处理。
+         * }
+         * memcpy(addr, frameData, size);
+         * OH_AVCodecBufferAttr attrInfo;
+         * attrInfo.size = size;
+         * attrInfo.offset = offset;
+         * attrInfo.pts = pts;
+         * attrInfo.flags = flags;
+         * OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(bufferInfo->buffer, &attrInfo);
+         * if (setBufferRet != AV_ERR_OK) {
+         *     // 异常处理。
+         * }
+         *
+         */
         // [StartExclude decoder_input_buffer]
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
