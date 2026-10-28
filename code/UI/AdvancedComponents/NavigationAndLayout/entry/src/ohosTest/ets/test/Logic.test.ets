@@ -154,5 +154,61 @@ export default function logicTest() {
         expect(WindowUtils.deviceType().length > 0).assertTrue();
       }, done);
     });
-  });
+    /**
+     * @tc.number SUB_NAVIGATION_BOUNDARY_0100
+     * @tc.name testNavigationBoundary0007
+     * @tc.desc Verify boundary values and fallback behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testNavigationBoundary0007', 0, async (done: Function) => {
+      await runCase('testNavigationBoundary0007', async () => {
+              expect(BreakpointUtils.resolve(599)).assertEqual(BreakpointUtils.SM);
+              expect(BreakpointUtils.resolve(600)).assertEqual(BreakpointUtils.SM);
+              expect(BreakpointUtils.resolve(601)).assertEqual(BreakpointUtils.MD);
+              expect(BreakpointUtils.resolve(840)).assertEqual(BreakpointUtils.MD);
+              expect(BreakpointUtils.resolve(841)).assertEqual(BreakpointUtils.LG);
+              expect(BreakpointUtils.contentMaxWidth(600)).assertEqual(560);
+              expect(BreakpointUtils.contentMaxWidth(601)).assertEqual(720);
+              expect(BreakpointUtils.contentMaxWidth(841)).assertEqual(960);
+              expect(BreakpointUtils.pagePadding(600)).assertEqual(16);
+              expect(BreakpointUtils.pagePadding(601)).assertEqual(24);
+              expect(BreakpointUtils.pagePadding(841)).assertEqual(32);
+              expect(FoldConfigUtils.ratioName(1)).assertEqual('1V1');
+              expect(FoldConfigUtils.ratioName(0.6666666666666666)).assertEqual('2V3');
+              expect(FoldConfigUtils.ratioName(1.5)).assertEqual('3V2');
+              expect(FoldConfigUtils.ratioName(0)).assertEqual('custom');
+              expect(FoldConfigUtils.positionName(1)).assertEqual('TOP');
+              expect(FoldConfigUtils.positionName(2)).assertEqual('BOTTOM');
+              expect(FoldConfigUtils.positionName(0)).assertEqual('UNKNOWN');
+              expect(NavigationUtils.pathSummary([])).assertEqual('(empty)');
+              expect(NavigationUtils.pathSummary(['Home', 'Detail'])).assertEqual('Home > Detail');
+      }, done);
+    });
+        /**
+     * @tc.number SUB_NAVIGATION_LIMIT_0100
+     * @tc.name testNavigationLimit0008
+     * @tc.desc Verify additional boundary and empty-state behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testNavigationLimit0008', 0, async (done: Function) => {
+      await runCase('testNavigationLimit0008', async () => {
+              expect(BreakpointUtils.isWide(600)).assertFalse();
+              expect(BreakpointUtils.isWide(601)).assertTrue();
+              expect(BreakpointUtils.columnCount(600)).assertEqual(1);
+              expect(BreakpointUtils.columnCount(601)).assertEqual(2);
+              expect(BreakpointUtils.columnCount(841)).assertEqual(3);
+              expect(BreakpointUtils.describe(601)).assertContain('breakpoint=md');
+              expect(NavigationUtils.policyName(SplitPolicy.HOME_PAGE)).assertEqual('HOME_PAGE');
+              expect(NavigationUtils.policyName(SplitPolicy.DETAIL_PAGE)).assertEqual('DETAIL_PAGE');
+              expect(NavigationUtils.policyName(SplitPolicy.FULL_PAGE)).assertEqual('FULL_PAGE');
+              const foldSummary = FoldConfigUtils.summary('1V1', 'TOP', true, false, true, '2V3', false);
+        expect(foldSummary).assertEqual('ratio=1V1, position=TOP, animation=true, ' +
+          'perp=false, showExtra=true, foldedRatio=2V3, extra=false');
+      }, done);
+    });
+      });
 }

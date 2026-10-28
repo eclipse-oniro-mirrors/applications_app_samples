@@ -123,5 +123,48 @@ export default function logicTest() {
         expect(DeviceInfoUtils.deviceType().length > 0).assertTrue();
       }, done);
     });
-  });
+    /**
+     * @tc.number SUB_POPUPS_BOUNDARY_0100
+     * @tc.name testPopupsBoundary0006
+     * @tc.desc Verify boundary values and fallback behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPopupsBoundary0006', 0, async (done: Function) => {
+      await runCase('testPopupsBoundary0006', async () => {
+              expect(PromptUtils.clampRange(-5, -1, 10).join('-')).assertEqual('0-0');
+              expect(PromptUtils.clampRange(8, 2, 10).join('-')).assertEqual('2-8');
+              expect(PromptUtils.clampRange(0, 20, 10).join('-')).assertEqual('0-10');
+              expect(PromptUtils.clampRange(5, 5, 10).join('-')).assertEqual('5-5');
+              expect(PromptUtils.selectionSummary(-5, 20, 10)).assertEqual('selected 0-10 of 10');
+              expect(PromptUtils.toggleShown(true)).assertFalse();
+              expect(PromptUtils.toggleShown(false)).assertTrue();
+              expect(PromptUtils.actionSummary('save', 0)).assertEqual('save x0');
+              expect(BreakpointUtils.pagePadding(600)).assertEqual(16);
+              expect(BreakpointUtils.contentMaxWidth(601)).assertEqual(720);
+      }, done);
+    });
+        /**
+     * @tc.number SUB_POPUPS_LIMIT_0100
+     * @tc.name testPopupsLimit0007
+     * @tc.desc Verify additional boundary and empty-state behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPopupsLimit0007', 0, async (done: Function) => {
+      await runCase('testPopupsLimit0007', async () => {
+              expect(PromptUtils.clampRange(10, 0, 0).join('-')).assertEqual('0-0');
+              expect(PromptUtils.clampRange(2, 8, 8).join('-')).assertEqual('2-8');
+              expect(PromptUtils.selectionSummary(8, 2, 10)).assertEqual('selected 2-8 of 10');
+              expect(PromptUtils.formatCount('item', 0)).assertEqual('item: 0');
+              expect(PromptUtils.describeRange(-1, 1)).assertEqual('range=-1-1');
+              expect(BreakpointUtils.contentMaxWidth(840)).assertEqual(720);
+              expect(BreakpointUtils.contentMaxWidth(841)).assertEqual(960);
+              expect(BreakpointUtils.pagePadding(840)).assertEqual(24);
+              expect(BreakpointUtils.pagePadding(841)).assertEqual(32);
+      }, done);
+    });
+      });
 }

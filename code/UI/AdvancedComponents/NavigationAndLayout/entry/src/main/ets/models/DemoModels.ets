@@ -28,10 +28,10 @@ export class DetailParam {
 
 /** Provides Demo Entry helpers for the sample. */
 export class DemoEntry {
-  id: string;
-  title: ResourceStr;
-  description: ResourceStr;
-  route: string;
+  public id: string;
+  public title: ResourceStr;
+  public description: ResourceStr;
+  public route: string;
 
   constructor(id: string, title: ResourceStr, description: ResourceStr, route: string) {
     this.id = id;

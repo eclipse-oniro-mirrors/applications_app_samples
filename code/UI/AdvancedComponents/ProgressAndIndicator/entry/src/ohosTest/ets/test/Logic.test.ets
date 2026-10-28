@@ -164,5 +164,61 @@ export default function logicTest() {
         expect(session.isCompleted()).assertFalse();
       }, done);
     });
-  });
+    /**
+     * @tc.number SUB_PROGRESS_BOUNDARY_0100
+     * @tc.name testProgressBoundary0007
+     * @tc.desc Verify boundary values and fallback behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testProgressBoundary0007', 0, async (done: Function) => {
+      await runCase('testProgressBoundary0007', async () => {
+              expect(ProgressUtils.clamp(-1)).assertEqual(0);
+              expect(ProgressUtils.clamp(101)).assertEqual(100);
+              expect(ProgressUtils.clamp(0.4)).assertEqual(0);
+              expect(ProgressUtils.clamp(99.6)).assertEqual(100);
+              expect(ProgressUtils.step(95, 10)).assertEqual(100);
+              expect(ProgressUtils.step(5, -10)).assertEqual(0);
+              expect(ProgressUtils.state(0)).assertEqual('idle');
+              expect(ProgressUtils.state(1)).assertEqual('running');
+              expect(ProgressUtils.state(99)).assertEqual('running');
+              expect(ProgressUtils.state(100)).assertEqual('completed');
+              expect(ProgressUtils.state(101)).assertEqual('completed');
+              expect(ProgressUtils.indicatorIndex(-1, 3)).assertEqual(0);
+              expect(ProgressUtils.indicatorIndex(3, 3)).assertEqual(2);
+              expect(ProgressUtils.indicatorIndex(0, 0)).assertEqual(0);
+              expect(ProgressUtils.indicatorIndex(0, 1)).assertEqual(0);
+              expect(BreakpointUtils.pagePadding(841)).assertEqual(32);
+      }, done);
+    });
+        /**
+     * @tc.number SUB_PROGRESS_LIMIT_0100
+     * @tc.name testProgressLimit0008
+     * @tc.desc Verify additional boundary and empty-state behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testProgressLimit0008', 0, async (done: Function) => {
+      await runCase('testProgressLimit0008', async () => {
+              const session = new DownloadSession();
+              session.begin();
+              for (let i = 0; i < 10; i++) {
+                session.advance();
+              }
+              expect(session.value()).assertEqual(100);
+              expect(session.isCompleted()).assertTrue();
+              expect(session.advance()).assertEqual(100);
+              session.reset();
+              expect(session.value()).assertEqual(0);
+              expect(session.isRunning()).assertFalse();
+              expect(ProgressUtils.formatPercent(-5)).assertEqual('0%');
+              expect(ProgressUtils.formatPercent(105)).assertEqual('100%');
+              expect(ProgressUtils.describeIndicator(2, 3, 'digit')).assertEqual('index=2/3, style=digit');
+              expect(BreakpointUtils.contentMaxWidth(840)).assertEqual(720);
+              expect(BreakpointUtils.contentMaxWidth(841)).assertEqual(960);
+      }, done);
+    });
+      });
 }

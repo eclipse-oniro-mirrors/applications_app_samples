@@ -14,9 +14,9 @@
  */
 
 class FeatureParam {
-  id: number = 0;
-  title: string = '';
-  description: string = '';
+  public id: number = 0;
+  public title: string = '';
+  public description: string = '';
 }
 
 @Builder

@@ -49,7 +49,7 @@ struct MultiNavigationStackDemo {
 
   private append(token: string): void {
     this.log = `${token}\n${this.log}`;
-    Logger.info(`stack api: ${token}`);
+    Logger.info('stack api updated');
   }
 
   private prepare(): void {

@@ -20,9 +20,9 @@ import { ProgressConstants } from '../utils/Constants';
 import { ProgressUtils } from '../utils/ProgressUtils';
 
 class IndicatorPage {
-  title: string;
-  description: string;
-  color: string;
+  public title: string;
+  public description: string;
+  public color: string;
 
   constructor(title: string, description: string, color: string) {
     this.title = title;

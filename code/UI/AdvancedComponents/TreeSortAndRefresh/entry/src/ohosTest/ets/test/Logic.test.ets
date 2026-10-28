@@ -199,5 +199,60 @@ export default function logicTest() {
         expect(session.count()).assertEqual(0);
       }, done);
     });
-  });
+    /**
+     * @tc.number SUB_TREESORT_BOUNDARY_0100
+     * @tc.name testTreeSortBoundary0009
+     * @tc.desc Verify boundary values and fallback behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTreeSortBoundary0009', 0, async (done: Function) => {
+      await runCase('testTreeSortBoundary0009', async () => {
+              const session = new RefreshSession();
+              expect(session.count()).assertEqual(0);
+              expect(session.begin()).assertTrue();
+              expect(session.begin()).assertFalse();
+              expect(session.complete()).assertEqual(1);
+              expect(session.complete()).assertEqual(1);
+              expect(session.begin()).assertTrue();
+              expect(session.stop()).assertEqual(1);
+              expect(session.isLoading()).assertFalse();
+              session.reset();
+              expect(session.count()).assertEqual(0);
+              expect(TreeSpecUtils.create([]).length).assertEqual(0);
+              expect(TreeSpecUtils.rootCount([])).assertEqual(0);
+              expect(TreeSpecUtils.childCount([], 0)).assertEqual(0);
+              expect(TreeSpecUtils.nodeById([], 0) === undefined).assertTrue();
+              expect(BreakpointUtils.contentMaxWidth(600)).assertEqual(560);
+              expect(BreakpointUtils.contentMaxWidth(601)).assertEqual(720);
+              expect(BreakpointUtils.pagePadding(600)).assertEqual(16);
+              expect(BreakpointUtils.pagePadding(601)).assertEqual(24);
+      }, done);
+    });
+        /**
+     * @tc.number SUB_TREESORT_LIMIT_0100
+     * @tc.name testTreeSortLimit0010
+     * @tc.desc Verify additional boundary and empty-state behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTreeSortLimit0010', 0, async (done: Function) => {
+      await runCase('testTreeSortLimit0010', async () => {
+              const specs: TreeNodeSpec[] = TreeSpecUtils.create(['A', 'B', 'C']);
+              expect(TreeSpecUtils.childCount(specs, -1)).assertEqual(2);
+              expect(TreeSpecUtils.childCount(specs, 99)).assertEqual(0);
+              expect(TreeSortUtils.nextSpanStyle(false)).assertTrue();
+              expect(TreeSortUtils.formStatus(0, '')).assertEqual('code=0, formId=none');
+              const session = new RefreshSession();
+              expect(session.stop()).assertEqual(0);
+              expect(session.isLoading()).assertFalse();
+              session.begin();
+              expect(session.begin()).assertFalse();
+              session.reset();
+              expect(session.count()).assertEqual(0);
+      }, done);
+    });
+      });
 }

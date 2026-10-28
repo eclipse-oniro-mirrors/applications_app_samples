@@ -152,5 +152,55 @@ export default function logicTest() {
         expect(DeviceInfoUtils.deviceType().length > 0).assertTrue();
       }, done);
     });
-  });
+    /**
+     * @tc.number SUB_PICKERS_BOUNDARY_0100
+     * @tc.name testPickersBoundary0007
+     * @tc.desc Verify boundary values and fallback behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPickersBoundary0007', 0, async (done: Function) => {
+      await runCase('testPickersBoundary0007', async () => {
+              expect(PickerUtils.formatDateParts(2026, 0, 1)).assertEqual('2026-01-01');
+              expect(PickerUtils.formatDateParts(2026, 11, 31)).assertEqual('2026-12-31');
+              expect(PickerUtils.formatTimeParts(0, 0, 0)).assertEqual('00:00:00');
+              expect(PickerUtils.formatTimeParts(23, 59, 59)).assertEqual('23:59:59');
+              expect(PickerUtils.clampIndex(-5, 3)).assertEqual(0);
+              expect(PickerUtils.clampIndex(0, 0)).assertEqual(0);
+              expect(PickerUtils.clampIndex(3, 3)).assertEqual(2);
+              const start = new Date(2020, 0, 1);
+              const end = new Date(2030, 11, 31);
+              expect(PickerUtils.isWithinRange(start, start, end)).assertTrue();
+              expect(PickerUtils.isWithinRange(end, start, end)).assertTrue();
+              expect(PickerUtils.isWithinRange(new Date(2019, 11, 31), start, end)).assertFalse();
+              expect(PickerUtils.formatDate(PickerUtils.clampDate(new Date(2040, 0, 1), start, end)))
+                .assertEqual('2030-12-31');
+              expect(BreakpointUtils.pagePadding(601)).assertEqual(24);
+              expect(BreakpointUtils.contentMaxWidth(841)).assertEqual(960);
+      }, done);
+    });
+        /**
+     * @tc.number SUB_PICKERS_LIMIT_0100
+     * @tc.name testPickersLimit0008
+     * @tc.desc Verify additional boundary and empty-state behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPickersLimit0008', 0, async (done: Function) => {
+      await runCase('testPickersLimit0008', async () => {
+              const start = new Date(2020, 0, 1);
+              const end = new Date(2030, 11, 31);
+              expect(PickerUtils.formatDateRange(start, end)).assertEqual('2020-01-01 ~ 2030-12-31');
+              expect(PickerUtils.formatDateParts(2024, 1, 29)).assertEqual('2024-02-29');
+              expect(PickerUtils.clampIndex(0, 1)).assertEqual(0);
+              expect(PickerUtils.clampIndex(-1, 0)).assertEqual(0);
+              expect(BreakpointUtils.isWide(600)).assertFalse();
+              expect(BreakpointUtils.isWide(601)).assertTrue();
+              expect(BreakpointUtils.columnCount(841)).assertEqual(3);
+              expect(BreakpointUtils.describe(600)).assertContain('breakpoint=sm');
+      }, done);
+    });
+      });
 }

@@ -155,5 +155,57 @@ export default function logicTest() {
         expect(actions.reset()).assertEqual('save=0, cancel=0, menu=0');
       }, done);
     });
-  });
+    /**
+     * @tc.number SUB_TITLEBARS_BOUNDARY_0100
+     * @tc.name testTitleBarsBoundary0007
+     * @tc.desc Verify boundary values and fallback behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTitleBarsBoundary0007', 0, async (done: Function) => {
+      await runCase('testTitleBarsBoundary0007', async () => {
+              expect(TitleBarUtils.clampIndex(-1, 3)).assertEqual(0);
+              expect(TitleBarUtils.clampIndex(2, 3)).assertEqual(2);
+              expect(TitleBarUtils.clampIndex(3, 3)).assertEqual(2);
+              expect(TitleBarUtils.clampIndex(0, 0)).assertEqual(0);
+              expect(TitleBarUtils.nextIndex(2, 3)).assertEqual(0);
+              expect(TitleBarUtils.nextIndex(-1, 3)).assertEqual(1);
+              expect(TitleBarUtils.nextIndex(0, 0)).assertEqual(0);
+              expect(TitleBarUtils.badgeText(-1)).assertEqual('');
+              expect(TitleBarUtils.badgeText(0)).assertEqual('');
+              expect(TitleBarUtils.badgeText(1)).assertEqual('1');
+              expect(TitleBarUtils.badgeText(99)).assertEqual('99');
+              expect(TitleBarUtils.badgeText(99.4)).assertEqual('99');
+              expect(TitleBarUtils.badgeText(99.6)).assertEqual('99+');
+              expect(TitleBarUtils.badgeText(100)).assertEqual('99+');
+              expect(BreakpointUtils.contentMaxWidth(600)).assertEqual(560);
+              expect(BreakpointUtils.contentMaxWidth(601)).assertEqual(720);
+              expect(BreakpointUtils.pagePadding(600)).assertEqual(16);
+              expect(BreakpointUtils.pagePadding(601)).assertEqual(24);
+      }, done);
+    });
+        /**
+     * @tc.number SUB_TITLEBARS_LIMIT_0100
+     * @tc.name testTitleBarsLimit0008
+     * @tc.desc Verify additional boundary and empty-state behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTitleBarsLimit0008', 0, async (done: Function) => {
+      await runCase('testTitleBarsLimit0008', async () => {
+              expect(TitleBarUtils.nextIndex(2, 1)).assertEqual(0);
+              expect(TitleBarUtils.nextIndex(0, 1)).assertEqual(0);
+              expect(TitleBarUtils.clampIndex(-2, 2)).assertEqual(0);
+              expect(TitleBarUtils.badgeText(1000)).assertEqual('99+');
+              expect(TitleBarUtils.describeTab(5, 'Overflow')).assertEqual('tab=2, title=Overflow');
+              expect(TitleBarUtils.describeToolbar(9, 'Overflow', 1)).assertEqual('index=9, label=Overflow, count=1');
+              expect(BreakpointUtils.contentMaxWidth(840)).assertEqual(720);
+              expect(BreakpointUtils.contentMaxWidth(841)).assertEqual(960);
+              expect(BreakpointUtils.pagePadding(840)).assertEqual(24);
+              expect(BreakpointUtils.pagePadding(841)).assertEqual(32);
+      }, done);
+    });
+      });
 }
