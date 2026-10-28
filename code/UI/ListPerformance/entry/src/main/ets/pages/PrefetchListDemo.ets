@@ -15,6 +15,7 @@
 
 import { BasicPrefetcher, router } from '@kit.ArkUI';
 import Logger from '../util/Logger';
+import { BreakpointUtils } from '../utils/BreakpointUtils';
 import { ListConstants } from '../utils/Constants';
 import { getSharedPrefetcher, ListRowData, PrefetchDataSource } from '../utils/ListDataSources';
 import { ListDataUtils } from '../utils/ListDataUtils';
@@ -25,6 +26,7 @@ import { PrefetchUtils } from '../utils/PrefetchUtils';
 @Entry
 @Component
 struct PrefetchListDemo {
+  @State widthVp: number = 0;
   @State status: string = ListDataUtils.formatPrefetch(0, 20, ListConstants.TOTAL);
   private registry: PlaceholderRegistry = new PlaceholderRegistry(ListConstants.TOTAL);
   private source: PrefetchDataSource = new PrefetchDataSource(ListConstants.TOTAL, this.registry,
@@ -145,6 +147,13 @@ struct PrefetchListDemo {
     }
     .width('100%')
     .height('100%')
-    .padding({ bottom: 12 })
+    .padding({
+      left: BreakpointUtils.pagePadding(this.widthVp),
+      right: BreakpointUtils.pagePadding(this.widthVp),
+      bottom: 12
+    })
+    .onAreaChange((oldArea: Area, newArea: Area) => {
+      this.widthVp = px2vp(Number(newArea.width));
+    })
   }
 }

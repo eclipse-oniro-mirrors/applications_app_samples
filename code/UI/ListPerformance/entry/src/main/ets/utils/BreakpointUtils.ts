@@ -58,6 +58,28 @@ export class BreakpointUtils {
     return 4;
   }
 
+  static contentMaxWidth(widthVp: number): number {
+    const breakpoint = BreakpointUtils.resolve(widthVp);
+    if (breakpoint === BreakpointUtils.LG) {
+      return 960;
+    }
+    if (breakpoint === BreakpointUtils.MD) {
+      return 720;
+    }
+    return 560;
+  }
+
+  static pagePadding(widthVp: number): number {
+    const breakpoint = BreakpointUtils.resolve(widthVp);
+    if (breakpoint === BreakpointUtils.LG) {
+      return 32;
+    }
+    if (breakpoint === BreakpointUtils.MD) {
+      return 24;
+    }
+    return 16;
+  }
+
   static isWide(widthVp: number): boolean {
     return widthVp > LayoutConstants.SM_MAX;
   }

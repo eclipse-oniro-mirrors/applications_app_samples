@@ -15,6 +15,7 @@
 
 import { router } from '@kit.ArkUI';
 import Logger from '../util/Logger';
+import { BreakpointUtils } from '../utils/BreakpointUtils';
 import { ListConstants } from '../utils/Constants';
 import { ListDataSource, ListRowData } from '../utils/ListDataSources';
 import { ListDataUtils } from '../utils/ListDataUtils';
@@ -24,6 +25,7 @@ import { PlaceholderRegistry } from '../utils/PlaceholderRegistry';
 @Entry
 @Component
 struct PlaceholderListDemo {
+  @State widthVp: number = 0;
   @State status: string = ListDataUtils.formatPlaceholder(0, ListConstants.TOTAL);
   private registry: PlaceholderRegistry = new PlaceholderRegistry(ListConstants.TOTAL);
   private source: ListDataSource = new ListDataSource(ListConstants.TOTAL, this.registry);
@@ -172,6 +174,13 @@ struct PlaceholderListDemo {
     }
     .width('100%')
     .height('100%')
-    .padding({ bottom: 12 })
+    .padding({
+      left: BreakpointUtils.pagePadding(this.widthVp),
+      right: BreakpointUtils.pagePadding(this.widthVp),
+      bottom: 12
+    })
+    .onAreaChange((oldArea: Area, newArea: Area) => {
+      this.widthVp = px2vp(Number(newArea.width));
+    })
   }
 }

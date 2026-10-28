@@ -86,14 +86,18 @@ struct Index {
         .fontSize(24)
         .fontWeight(FontWeight.Bold)
         .width('100%')
-        .padding({ left: 16, right: 16, top: 16 })
+        .padding({
+          left: BreakpointUtils.pagePadding(this.widthVp),
+          right: BreakpointUtils.pagePadding(this.widthVp), top: 16 })
 
       Text(this.deviceInfoText)
         .id('deviceInfoText')
         .fontSize(11)
         .fontColor('#999999')
         .width('100%')
-        .padding({ left: 16, right: 16 })
+        .padding({
+          left: BreakpointUtils.pagePadding(this.widthVp),
+          right: BreakpointUtils.pagePadding(this.widthVp) })
 
       Row({ space: 8 }) {
         Text($r('app.string.breakpoint_label'))
@@ -105,7 +109,9 @@ struct Index {
           .fontColor('#666666')
       }
       .width('100%')
-      .padding({ left: 16, right: 16, bottom: 8 })
+      .padding({
+          left: BreakpointUtils.pagePadding(this.widthVp),
+          right: BreakpointUtils.pagePadding(this.widthVp), bottom: 8 })
 
       Grid() {
         ForEach(this.demos, (item: DemoEntry) => {
