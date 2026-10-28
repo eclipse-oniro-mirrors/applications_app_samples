@@ -23,16 +23,16 @@ import webNativeMessagingExtensionManager from '@ohos.web.webNativeMessagingExte
 import dataShare from '@ohos.data.dataShare';
 
 class ExtensionConfig {
-  abilityName: string = '';
-  allowed_origins: string[] = new Array<string>();
+  abilityName:string = '';
+  allowed_origins:string[] = new Array<string>();
 }
 
-async function getManifestData(bundleName: string, connectExtensionOrigin: string) {
+async function getManifestData(bundleName:string, connectExtensionOrigin:string) {
   try {
     // 调用dataShare接口获取extension配置
     const dsProxyHelper = await dataShare.createDataProxyHandle();
     const urisToGet = [`datashareproxy://${bundleName}/browserNativeMessagingHosts`];
-    const config: dataShare.DataProxyConfig = {
+    const config : dataShare.DataProxyConfig = {
       type: dataShare.DataProxyType.SHARED_CONFIG,
     };
     const results = await dsProxyHelper.get(urisToGet, config);
@@ -44,12 +44,12 @@ async function getManifestData(bundleName: string, connectExtensionOrigin: strin
         if (typeof json !== "string") {
           continue;
         }
-        let jsonStr: string = json as string;
-        let parameters: Record<string, Any> = {
-          "abilityName": "",
+        let jsonStr:string = json as string;
+        let parameters : Record<string, Any> = {
+          "abilityName":"",
           'allowed_origins': new Array<string>(),
         }
-        let info: ExtensionConfig = new ExtensionConfig();
+        let info:ExtensionConfig = new ExtensionConfig();
         info.abilityName = parameters['abilityName'] as string;
         info.allowed_origins = parameters['allowed_origins'] as string[];
         Object.assign(parameters, jsonStr);
@@ -82,46 +82,50 @@ async function getManifestData(bundleName: string, connectExtensionOrigin: strin
 // [End web_native_messaging_get_manifest_data_sta]
 
 // [Start web_native_messaging_connect_native_sta]
+import UIAbility from '@ohos.app.ability.UIAbility';
+import Want from '@ohos.app.ability.Want';
+import common from '@ohos.app.ability.common';
+import webNativeMessagingExtensionManager from '@ohos.web.webNativeMessagingExtensionManager';
+
 class ConnectionCallback implements webNativeMessagingExtensionManager.WebExtensionConnectionCallback {
-  onConnect(connection: webNativeMessagingExtensionManager.ConnectionNativeInfo) {
-    // connected
-    console.error(`onConnect id ${connection.connectionId} is connected`);
-  }
-
-  onDisconnect(connection: webNativeMessagingExtensionManager.ConnectionNativeInfo) {
-    // disconnect
-    console.error(`onDisconnect id ${connection.connectionId} is connected`);
-  }
-
-  onFailed(code: webNativeMessagingExtensionManager.NmErrorCode, errMsg: string) {
-    console.error(`onFailed error code is ${code}, errMsg is ${errMsg}`);
-  }
+onConnect(connection:webNativeMessagingExtensionManager.ConnectionNativeInfo) {
+  // connected
+  console.error(`onConnect id ${connection.connectionId} is connected`);
+}
+onDisconnect(connection:webNativeMessagingExtensionManager.ConnectionNativeInfo) {
+  // disconnect
+  console.error(`onDisconnect id ${connection.connectionId} is connected`);
+}
+onFailed(code:webNativeMessagingExtensionManager.NmErrorCode, errMsg:string) {
+  console.error(`onFailed error code is ${code}, errMsg is ${errMsg}`);
+}
 }
 
 function connectNative(abilityContext: common.UIAbilityContext, bundleName: string, abilityName: string,
-  connectExtensionOrigin: string, readPipe: int, writePipe: int): void {
-  try {
-    let wantInfo: Want = {
-      bundleName: bundleName,
-      abilityName: abilityName,
-      parameters: {
-        'ohos.arkweb.messageReadPipe': { 'type': 'FD', 'value': readPipe },
-        'ohos.arkweb.messageWritePipe': { 'type': 'FD', 'value': writePipe },
-        'ohos.arkweb.extensionOrigin': connectExtensionOrigin
-      },
-    };
+connectExtensionOrigin: string, readPipe: number, writePipe: number) : void {
+try {
 
-    let options: ConnectionCallback = new ConnectionCallback;
-    let connectId = webNativeMessagingExtensionManager.connectNative(abilityContext, wantInfo, options);
-    console.info(`innerWebNativeMessageManager  connectionId : ${connectId}`);
-  } catch (error) {
-    console.info(`inner callback error Message: ${JSON.stringify(error)}`);
-  }
+  let parameters = new Record<string, Object>();
+  parameters.set("ohos.arkweb.messageReadPipe", readPipe)
+  parameters.set("ohos.arkweb.messageWritePipe", writePipe)
+  parameters.set("ohos.arkweb.extensionOrigin", connectExtensionOrigin)
+  let wantInfo:Want = {
+    bundleName: bundleName,
+    abilityName: abilityName,
+    parameters: parameters,
+  };
+
+  let options : ConnectionCallback = new ConnectionCallback;
+  let connectId = webNativeMessagingExtensionManager.connectNative(abilityContext, wantInfo, options);
+  console.info(`innerWebNativeMessageManager  connectionId : ${connectId}` );
+} catch (error) {
+  console.info(`inner callback error Message: ${JSON.stringify(error)}`);
+}
 }
 // [End web_native_messaging_connect_native_sta]
 
 // [Start web_native_messaging_disconnect_native_sta]
-function disconnencNative(connectId: int): void {
+function disconnencNative(connectId: int) : void {
   console.info(`NativeMessageDisconnect start connectionId is ${connectId}`);
   webNativeMessagingExtensionManager.disconnectNative(connectId);
 }

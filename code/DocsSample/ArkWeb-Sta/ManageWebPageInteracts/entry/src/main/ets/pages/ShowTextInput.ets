@@ -26,7 +26,7 @@ struct WebComponent {
   controller: webview.WebviewController = new webview.WebviewController();
   build() {
     Column() {
-      Web({ src: $rawfile("SetSKBModeIndex.html"), controller: this.controller})
+      Web({ src: $rawfile('SetSKBModeIndex.html'), controller: this.controller})
         .onPageEnd(() => {
           this.controller.runJavaScript(`document.getElementById('input_a').focus()`).then(() => {
             setTimeout(() => {

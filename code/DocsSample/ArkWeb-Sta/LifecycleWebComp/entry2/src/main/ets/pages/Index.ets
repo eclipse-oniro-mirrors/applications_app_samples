@@ -15,6 +15,7 @@
  */
 
 // [Start on_render_exited_index_static]
+// xxx.ets
 import webview from '@ohos.web.webview';
 import hilog from '@ohos.hilog'
 import { OnRenderExitedEvent, RenderExitReason, Entry, Component, Column, Web } from '@ohos.arkui.component';

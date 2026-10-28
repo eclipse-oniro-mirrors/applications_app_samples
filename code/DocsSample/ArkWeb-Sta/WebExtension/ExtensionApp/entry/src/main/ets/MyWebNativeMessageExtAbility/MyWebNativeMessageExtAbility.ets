@@ -23,11 +23,12 @@ import fileIo from '@ohos.file.fs';
 
 const TAG: string = '[MyWebNativeMessageExtAbility]';
 const DOMAIN_NUMBER = 0xFF00;
+
 export default class MyWebNativeMessageExtAbility extends WebNativeMessagingExtensionAbility {
   // 读取扩展发来的消息，并回复
   async ReadAsync(fdRead:int, fdWrite:int) : Promise<void> {
     try {
-      // read
+      // 读
       let arrayBuffer = new ArrayBuffer(1024);
       let readLen = await fileIo.read(fdRead, arrayBuffer);
       if (readLen <= 4) {
@@ -36,7 +37,7 @@ export default class MyWebNativeMessageExtAbility extends WebNativeMessagingExte
       }
       hilog.info(DOMAIN_NUMBER, TAG, 'read pipe %{public}s', buffer.from(arrayBuffer, 4, (readLen - 4) as int).toString());
 
-      // write
+      // 写
       let strResponse : string = "pong";
       const encoder = new util.TextEncoder("utf-8");
       const strBytes = encoder.encodeInto(strResponse);
@@ -51,7 +52,7 @@ export default class MyWebNativeMessageExtAbility extends WebNativeMessagingExte
       writeBuffer.set(strBytes, 4);
       let writeLen = await fileIo.write(fdWrite, writeBuffer.buffer);
       hilog.info(DOMAIN_NUMBER, TAG, 'write pipe length %{public}d', writeLen);
-    } catch (err) {
+    } catch (err: BusinessError) {
       hilog.error(DOMAIN_NUMBER, TAG, 'fileIo io failed, error code: ' + err.code + " message: " + err.code);
     }
   }

@@ -31,7 +31,7 @@ struct WebComponent {
   controller: webview.WebviewController = new webview.WebviewController();
 
   // 指定加载的页面。
-  url: string = "www.example.com";
+  url: string = 'www.example.com';
   build() {
     Column() {
       Web({ src: this.url, controller: this.controller })
