@@ -1,0 +1,144 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Navigation and layout advanced components sample"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Navigation and layout sample"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "NavigationAndLayout"
+    },
+    {
+      "name": "page_title",
+      "value": "Navigation and Layout"
+    },
+    {
+      "name": "breakpoint_label",
+      "value": "Current layout"
+    },
+    {
+      "name": "hub_multi_title",
+      "value": "MultiNavigation"
+    },
+    {
+      "name": "hub_multi_desc",
+      "value": "Split navigation with MultiNavPathStack and SplitPolicy"
+    },
+    {
+      "name": "hub_split_title",
+      "value": "SplitLayout"
+    },
+    {
+      "name": "hub_split_desc",
+      "value": "Responsive image and content split layout"
+    },
+    {
+      "name": "hub_fold_title",
+      "value": "FoldSplitContainer"
+    },
+    {
+      "name": "hub_fold_desc",
+      "value": "Folded, hover and expanded layouts with simulation"
+    },
+    {
+      "name": "hub_hsp_title",
+      "value": "HSP Navigation"
+    },
+    {
+      "name": "hub_hsp_desc",
+      "value": "Push NavDestination from an HSP with NavPushPathHelper"
+    },
+    {
+      "name": "multi_title",
+      "value": "MultiNavigation demo"
+    },
+    {
+      "name": "split_title",
+      "value": "SplitLayout demo"
+    },
+    {
+      "name": "fold_title",
+      "value": "FoldSplitContainer demo"
+    },
+    {
+      "name": "hsp_title",
+      "value": "HSP navigation demo"
+    },
+    {
+      "name": "open_detail",
+      "value": "Open detail page"
+    },
+    {
+      "name": "open_full",
+      "value": "Open full page"
+    },
+    {
+      "name": "back",
+      "value": "Back"
+    },
+    {
+      "name": "single_column",
+      "value": "Single column"
+    },
+    {
+      "name": "double_column",
+      "value": "Double column"
+    },
+    {
+      "name": "triple_column",
+      "value": "Triple column"
+    },
+    {
+      "name": "sim_folded",
+      "value": "Folded"
+    },
+    {
+      "name": "sim_hover",
+      "value": "Hover"
+    },
+    {
+      "name": "sim_expanded",
+      "value": "Expanded"
+    },
+    {
+      "name": "sim_preview",
+      "value": "Simulated preview"
+    },
+    {
+      "name": "push_hsp",
+      "value": "Push page from HSP"
+    },
+    {
+      "name": "push_local",
+      "value": "Open local fallback page"
+    },
+    {
+      "name": "split_primary",
+      "value": "Primary region"
+    },
+    {
+      "name": "split_secondary",
+      "value": "Secondary region"
+    },
+    {
+      "name": "split_extra",
+      "value": "Extra region"
+    },
+    {
+      "name": "split_content",
+      "value": "Custom container content: responsive area for lists, details or settings."
+    },
+    {
+      "name": "hub_stack_title",
+      "value": "Stack API demo"
+    },
+    {
+      "name": "hub_stack_desc",
+      "value": "MultiNavPathStack method coverage"
+    }
+  ]
+}
