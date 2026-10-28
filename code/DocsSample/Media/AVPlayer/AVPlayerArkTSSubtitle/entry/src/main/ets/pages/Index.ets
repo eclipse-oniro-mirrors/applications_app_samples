@@ -109,36 +109,36 @@ struct Index {
       this.avPlayer.release();
       await this.msleepAsync(1500);
     }
-    // 创建avPlayer实例对象
+    // 创建avPlayer实例对象。
     this.avPlayer = await media.createAVPlayer();
 
-    // 创建状态机变化回调函数
+    // 创建状态机变化回调函数。
     await this.setAVPlayerCallback((avPlayer: media.AVPlayer) => {
       this.percent = avPlayer.width / avPlayer.height;
       this.setVideoWH();
       this.durationTime = this.getDurationTime();
-      setInterval(() => { // 更新当前时间
+      setInterval(() => { // 更新当前时间。
         if (!this.isSwiping) {
           this.currentTime = this.getCurrentTime();
         }
       }, SET_INTERVAL);
     });
 
-    // 为fdSrc赋值触发initialized状态机上报
+    // 为fdSrc赋值触发initialized状态机上报。
     this.avPlayer.fdSrc = avFileDescriptor;
 
-    // 设定字幕
+    // 设定字幕。
     let fileDescriptorSub = await this.context.resourceManager.getRawFd('test1.srt');
     this.avPlayer.addSubtitleFromFd(fileDescriptorSub.fd, fileDescriptorSub.offset, fileDescriptorSub.length);
     // [End addSubtitleFromFd]
   }
 
-  // [Start off('subtitleUpdate')]
-  // (可选)当需要不显示字幕的时候，使用视频播放的AVPlayer实例注销字幕回调函数
-  // async avTurnOffSubtitle() {
-  //   this.avPlayer?.off('subtitleUpdate');
-  // }
-  // [End off('subtitleUpdate')]
+  // [Start offSubtitleUpdate]
+  // (可选)当需要不显示字幕的时候，使用视频播放的AVPlayer实例注销字幕回调函数。
+  async avTurnOffSubtitle() {
+    this.avPlayer?.off('subtitleUpdate');
+  }
+  // [End offSubtitleUpdate]
 
   avPlay(): void {
     if (this.avPlayer) {
@@ -312,7 +312,7 @@ struct Index {
       this.currentTime = time;
     });
     // [Start onSubtitleUpdate]
-    // 字幕回调函数
+    // 字幕回调函数。
     this.avPlayer.on('subtitleUpdate', (info: media.SubtitleInfo) => {
       if (!!info) {
         let text = (!info.text) ? '' : info.text;
