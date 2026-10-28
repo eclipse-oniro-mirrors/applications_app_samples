@@ -112,7 +112,7 @@ struct Index {
       return;
     }
     let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
-    // requestPermissionsFromUser会判断权限的授权状态来决定是否唤起弹窗。
+    // requestPermissionsFromUser会判断权限的授权状态来决定是否唤起弹窗
     let contexts: Context = this.getUIContext().getHostContext() as common.UIAbilityContext;
     let data: PermissionRequestResult;
     try { 
@@ -121,7 +121,7 @@ struct Index {
 
       let allGranted: boolean = grantStatus.some(status => status === 0);
       if (!allGranted) {
-        // 用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限。
+        // 用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限
         hilog.error(0xFF00, '[Sample_pasteboard]', 'All permissions denied');
         return;
       }
@@ -131,7 +131,7 @@ struct Index {
       hilog.error(0xFF00, '[Sample_pasteboard]', `Failed to request permissions from user. Cause: ${error.message}`);
       return;
     }
-    // 用户授权，使用get操作读取剪贴板内容。
+    // 用户授权，使用get操作读取剪贴板内容
     // [StartExclude pasteboard_permission]
     try {
       let ret: string = await TestJs.getPlainData(pasteboard.MIMETYPE_TEXT_PLAIN);
@@ -142,7 +142,7 @@ struct Index {
       return;
     }
     // [EndExclude pasteboard_permission]
-    // 执行判断口令逻辑，如果是本应用口令，建议获取完数据后使用cleardata清除剪贴板口令内容
+    // 执行判断口令逻辑，如果是本应用口令，建议获取完数据后使用clearData清除剪贴板口令内容
     try {
       await systemPasteboard.clearData();
       hilog.info(0xFF00, '[Sample_pasteboard]', 'Succeeded in clearing the pasteboard.');
