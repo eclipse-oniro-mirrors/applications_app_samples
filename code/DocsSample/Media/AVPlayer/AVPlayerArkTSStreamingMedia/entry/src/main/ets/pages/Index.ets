@@ -125,11 +125,13 @@ struct Index {
 
     // 情况四：通过setMediaSource设置自定义头域及播放优选参数实现初始播放参数设置，以流媒体HTTP点播为例
     /*
+    [Start setMediaSource]
     let mediaSource : media.MediaSource = media.createMediaSourceWithUrl("http://example/abc.mp4", {"":""});
     // 设置播放策略，设置为缓冲区数据为20s
     let playbackStrategy : media.PlaybackStrategy = {preferredBufferDuration: 20};
     // 为avPlayer设置媒体来源和播放策略
     this.avPlayer.setMediaSource(mediaSource, playbackStrategy);
+    [End setMediaSource]
     * */
 
     // 情况五：HLS切码率
