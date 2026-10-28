@@ -57,13 +57,10 @@ class WorkerManager {
         }
       }
     };
-    // API version 18及之后可以使用该方法捕获Worker线程生命周期内的各种异常
-    this.workerInstance.onAllErrors = (err: ErrorEvent) => {
-      // 处理捕获的异常逻辑
-    };
 
     this.workerInstance.onexit = (code) => {
       this.pending.clear();
+      this.rejectFuncs.forEach(reject => reject('Worker exited'));
       this.rejectFuncs.clear();
     };
   }
