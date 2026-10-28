@@ -13,38 +13,58 @@
  * limitations under the License.
  */
 
-// [Start AppRecovery_All]
+// [Start import_h]
+// [Start import_appRecovery_h]
+// [Start import_save_h]
 import {
+  appRecovery,
+// [StartExclude import_appRecovery_h]
   AbilityConstant,
+  errorManager,
+// [StartExclude import_save_h]
   UIAbility,
   Want,
-  AbilityStage,
-  appRecovery,
-  errorManager,
-  wantConstant
+  wantConstant,
+// [EndExclude import_save_h]
+// [EndExclude import_appRecovery_h]
 } from '@kit.AbilityKit';
+// [Start import_save_h]
+// [End import_appRecovery_h]
+// [End import_h]
+
+// [Start import_hilog_h]
+import { hilog } from '@kit.PerformanceAnalysisKit';
+// [Start import_hilog_h]
+
 import { window } from '@kit.ArkUI';
 
-let abilityWant: Want;
+// [Start domain_h]
+const DOMAIN = 0x0000;
+// [End domain_h]
+
+// [Start error_observer_callback]
 let registerId = -1;
 let callback: errorManager.ErrorObserver = {
   onUnhandledException(errMsg) {
-    console.error(errMsg);
+    hilog.error(DOMAIN, 'testRecoveryTag', `errMsg: ${errMsg}`);
     appRecovery.saveAppState();
     appRecovery.restartApp();
   }
 }
+// [End error_observer_callback]
 
 export default class EntryAbility extends UIAbility {
   storage: LocalStorage | undefined = undefined;
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    console.info('testTag', '%{public}s', 'Ability onCreate');
+    hilog.info(DOMAIN, 'testRecoveryTag', '%{public}s', 'Ability onCreate');
+    // [Start enable_app_recovery]
     appRecovery.enableAppRecovery(appRecovery.RestartFlag.ALWAYS_RESTART,
       appRecovery.SaveOccasionFlag.SAVE_WHEN_ERROR | appRecovery.SaveOccasionFlag.SAVE_WHEN_BACKGROUND,
       appRecovery.SaveModeFlag.SAVE_WITH_FILE);
+    // [End enable_app_recovery]
 
-    abilityWant = want;
+    // [Start on_create_recovery]
     if (launchParam.launchReason == AbilityConstant.LaunchReason.APP_RECOVERY) {
       this.storage = new LocalStorage();
       if (want.parameters) {
@@ -53,57 +73,65 @@ export default class EntryAbility extends UIAbility {
         this.context.restoreWindowStage(this.storage);
       }
     }
+    // [End on_create_recovery]
+    // [Start recovery_restart_flag]
     if (want.parameters === undefined) {
       return;
     }
     if (want.parameters[wantConstant.Params.ABILITY_RECOVERY_RESTART] != undefined &&
       want.parameters[wantConstant.Params.ABILITY_RECOVERY_RESTART] == true) {
-      console.info('This ability need to recovery');
+      hilog.info(DOMAIN, 'testRecoveryTag', 'This ability need to recovery');
     }
+    // [End recovery_restart_flag]
   }
 
   onDestroy(): void {
-    console.info('testTag', '%{public}s', 'Ability onDestroy');
+    hilog.info(DOMAIN, 'testRecoveryTag', '%{public}s', 'Ability onDestroy');
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
-    console.info('testTag', '%{public}s', 'Ability onWindowStageCreate');
+    hilog.info(DOMAIN, 'testRecoveryTag', '%{public}s', 'Ability onWindowStageCreate');
+    // [Start errormanager_on_callback]
     registerId = errorManager.on('error', callback);
+    // [End errormanager_on_callback]
 
     windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {
-        console.error('testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+        hilog.error(DOMAIN, 'testRecoveryTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
-      console.info('testTag', 'Succeeded in loading the content.');
+      hilog.info(DOMAIN, 'testRecoveryTag', 'Succeeded in loading the content.');
     });
   }
 
   onWindowStageDestroy() {
     // Main window is destroyed, release UI related resources
-    console.info('testTag', '%{public}s', 'Ability onWindowStageDestroy');
+    hilog.info(DOMAIN, 'testRecoveryTag', '%{public}s', 'Ability onWindowStageDestroy');
 
+    // [Start errormanager_off_callback]
     errorManager.off('error', registerId, (err) => {
-      console.error('[Demo] err:', err);
+      hilog.error(DOMAIN, 'testRecoveryTag', '[Demo] err:', err);
     });
+    // [End errormanager_off_callback]
   }
 
   onForeground(): void {
     // Ability has brought to foreground
-    console.info('testTag', '%{public}s', 'Ability onForeground');
+    hilog.info(DOMAIN, 'testRecoveryTag', '%{public}s', 'Ability onForeground');
   }
 
   onBackground(): void {
     // Ability has back to background
-    console.info('testTag', '%{public}s', 'Ability onBackground');
+    hilog.info(DOMAIN, 'testRecoveryTag', '%{public}s', 'Ability onBackground');
   }
 
+  // [Start on_save_state]
   onSaveState(state: AbilityConstant.StateType, wantParams: Record<string, Object>) {
     // Ability has called to save app data
-    console.info('[Demo] EntryAbility onSaveState');
+    hilog.info(DOMAIN, 'testRecoveryTag', '[Demo] EntryAbility onSaveState');
     wantParams['myData'] = 'my1234567';
     return AbilityConstant.OnSaveResult.ALL_AGREE;
   }
+  // [End on_save_state]
 }
-// [End AppRecovery_All]
