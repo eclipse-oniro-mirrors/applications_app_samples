@@ -52,8 +52,10 @@ uint8_t Interpolate(int32_t x, int32_t y, int32_t width, int32_t height, int32_t
     if (width <= 0 || height <= 0) {
         return 0;
     }
-    const double sx = std::clamp((x + 0.5) * width / targetWidth - 0.5, 0.0, static_cast<double>(width - 1));
-    const double sy = std::clamp((y + 0.5) * height / targetHeight - 0.5, 0.0, static_cast<double>(height - 1));
+    const double scaleX = targetWidth > 0 ? static_cast<double>(width) / targetWidth : 0.0;
+    const double scaleY = targetHeight > 0 ? static_cast<double>(height) / targetHeight : 0.0;
+    const double sx = std::clamp((x + 0.5) * scaleX - 0.5, 0.0, static_cast<double>(width - 1));
+    const double sy = std::clamp((y + 0.5) * scaleY - 0.5, 0.0, static_cast<double>(height - 1));
     const int32_t x0 = static_cast<int32_t>(sx);
     const int32_t y0 = static_cast<int32_t>(sy);
     const int32_t x1 = std::min(x0 + 1, width - 1);

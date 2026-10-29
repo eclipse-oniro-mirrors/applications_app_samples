@@ -424,8 +424,9 @@ void RunConverted(int32_t outputRate, int32_t outputChannels)
         "Converted fractional tail and AAC padding");
     Require(encodedPts.size() == static_cast<size_t>(packets), "Converted frame count");
     for (size_t index = 0; index < encodedPts.size(); ++index) {
-        Require(encodedPts[index] == K_FIRST_PTS + static_cast<int64_t>(index) * K_AAC_FRAME_SAMPLES *
-            K_MICROSECONDS_PER_SECOND / outputRate, "PTS follows output sample clock");
+        const int64_t expectedPts = outputRate > 0 ? K_FIRST_PTS + static_cast<int64_t>(index) *
+            K_AAC_FRAME_SAMPLES * K_MICROSECONDS_PER_SECOND / outputRate : -1;
+        Require(encodedPts[index] == expectedPts, "PTS follows output sample clock");
     }
     auto format = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>(pipeline.OutputFormat(),
         FakeAvFormatDestroy);

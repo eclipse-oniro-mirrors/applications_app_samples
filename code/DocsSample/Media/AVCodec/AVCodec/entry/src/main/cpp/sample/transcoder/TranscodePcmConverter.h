@@ -21,20 +21,20 @@
 
 // Linear interpolation retains two source sample frames, including across decoder Buffer boundaries.
 class TranscodePcmConverter {
-    static constexpr int32_t PCM_SAMPLE_BYTES = 2;
-    static constexpr int32_t PCM_SAMPLE_BITS_PER_BYTE = 8;
-    static constexpr int32_t PCM_CHANNEL_LIMIT = 2;
-    static constexpr int32_t PCM_MONO_CHANNEL_COUNT = 1;
-    static constexpr int32_t PCM_SAMPLE_RATE_LIMIT = 96000;
-    static constexpr int32_t PCM_SIGNED_SAMPLE_MIDPOINT = 1 << (PCM_SAMPLE_BYTES * PCM_SAMPLE_BITS_PER_BYTE - 1);
-    static constexpr int32_t PCM_SIGNED_SAMPLE_RANGE = static_cast<int32_t>(std::numeric_limits<uint16_t>::max()) + 1;
+    static constexpr int32_t pcmSampleBytes = 2;
+    static constexpr int32_t pcmSampleBitsPerByte = 8;
+    static constexpr int32_t pcmChannelLimit = 2;
+    static constexpr int32_t pcmMonoChannelCount = 1;
+    static constexpr int32_t pcmSampleRateLimit = 96000;
+    static constexpr int32_t pcmSignedSampleMidpoint = 1 << (pcmSampleBytes * pcmSampleBitsPerByte - 1);
+    static constexpr int32_t pcmSignedSampleRange = static_cast<int32_t>(std::numeric_limits<uint16_t>::max()) + 1;
 
 public:
     bool Configure(int32_t sourceRate, int32_t targetRate, int32_t sourceChannels, int32_t targetChannels)
     {
-        if (sourceRate <= 0 || sourceRate > PCM_SAMPLE_RATE_LIMIT || targetRate <= 0 ||
-            targetRate > PCM_SAMPLE_RATE_LIMIT || sourceChannels < 1 || sourceChannels > PCM_CHANNEL_LIMIT ||
-            targetChannels < 1 || targetChannels > PCM_CHANNEL_LIMIT) {
+        if (sourceRate <= 0 || sourceRate > pcmSampleRateLimit || targetRate <= 0 ||
+            targetRate > pcmSampleRateLimit || sourceChannels < 1 || sourceChannels > pcmChannelLimit ||
+            targetChannels < 1 || targetChannels > pcmChannelLimit) {
             return false;
         }
         sourceRate_ = sourceRate;
@@ -59,9 +59,9 @@ public:
     {
         previous_ = current_;
         int32_t left = Read(sample);
-        int32_t right = sourceChannels_ == PCM_CHANNEL_LIMIT ? Read(sample + PCM_SAMPLE_BYTES) : left;
-        current_[0] = targetChannels_ == PCM_MONO_CHANNEL_COUNT ?
-            (left + right) / PCM_CHANNEL_LIMIT : left;
+        int32_t right = sourceChannels_ == pcmChannelLimit ? Read(sample + pcmSampleBytes) : left;
+        current_[0] = targetChannels_ == pcmMonoChannelCount ?
+            (left + right) / pcmChannelLimit : left;
         current_[1] = right;
         ++inputs_;
         if (!initialized_) {
@@ -81,7 +81,7 @@ public:
                 current_[channel] * fraction) / targetRate_ : current_[channel];
             const uint16_t sample = static_cast<uint16_t>(static_cast<int16_t>(value));
             output.push_back(static_cast<uint8_t>(sample));
-            output.push_back(static_cast<uint8_t>(sample >> PCM_SAMPLE_BITS_PER_BYTE));
+            output.push_back(static_cast<uint8_t>(sample >> pcmSampleBitsPerByte));
         }
         ++count_;
         if (pending_) {
@@ -95,9 +95,9 @@ private:
     static int32_t Read(const uint8_t *data)
     {
         const uint16_t value = static_cast<uint16_t>(data[0]) |
-            static_cast<uint16_t>(data[1]) << PCM_SAMPLE_BITS_PER_BYTE;
-        return value >= PCM_SIGNED_SAMPLE_MIDPOINT ?
-            static_cast<int32_t>(value) - PCM_SIGNED_SAMPLE_RANGE : value;
+            static_cast<uint16_t>(data[1]) << pcmSampleBitsPerByte;
+        return value >= pcmSignedSampleMidpoint ?
+            static_cast<int32_t>(value) - pcmSignedSampleRange : value;
     }
     int32_t sourceRate_ = 1;
     int32_t targetRate_ = 1;
@@ -109,7 +109,7 @@ private:
     int64_t finalCount_ = 0;
     bool initialized_ = false;
     bool pending_ = false;
-    std::array<int32_t, PCM_CHANNEL_LIMIT> previous_ {};
-    std::array<int32_t, PCM_CHANNEL_LIMIT> current_ {};
+    std::array<int32_t, pcmChannelLimit> previous_ {};
+    std::array<int32_t, pcmChannelLimit> current_ {};
 };
 #endif
