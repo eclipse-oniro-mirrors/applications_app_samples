@@ -16,6 +16,7 @@
 export interface TranscodeQueueItem {
   id: string; uri: string; title: string; options: number[]; grayscale: boolean;
   state: string; progress: number; resultPath: string;
+  startTimeMs?: number; endTimeMs?: number;
 }
 
 @Observed
@@ -41,13 +42,23 @@ export class TranscodeQueueModel {
         (item.options.length === 8 && item.options[7] > 2) ||
         (item.options[1] === 1 && (item.options[2] !== 0 || item.grayscale || (item.options[7] ?? 0) !== 0)) ||
         !['waiting', 'running', 'completed', 'failed', 'cancelled', 'interrupted'].includes(item.state) ||
-        !Number.isFinite(item.progress) || item.progress < 0 || item.progress > 100) { return false; }
+        !Number.isFinite(item.progress) || item.progress < 0 || item.progress > 100 ||
+        !TranscodeQueueModel.validRange(item)) { return false; }
       seen.add(item.id);
       return true;
     }).slice(0, 30);
   }
 
-  add(uri: string, title: string, options: number[], grayscale: boolean): void {
+  private static validRange(item: TranscodeQueueItem): boolean {
+    const start: number = item.startTimeMs ?? 0;
+    const end: number = item.endTimeMs ?? 0;
+    return Number.isInteger(start) && Number.isInteger(end) && start >= 0 && end >= 0 &&
+      start <= 2147483647 && end <= 2147483647 && (end === 0 || end > start) &&
+      (item.options[1] === 0 || (start === 0 && end === 0));
+  }
+
+  add(uri: string, title: string, options: number[], grayscale: boolean, startTimeMs: number = 0,
+    endTimeMs: number = 0): void {
     if (this.items.length >= 30) { return; }
     this.items = this.items.concat([{
       id: 'queue_' + Date.now() + '_' + (++this.sequence),
@@ -57,7 +68,9 @@ export class TranscodeQueueModel {
       grayscale: grayscale,
       state: 'waiting',
       progress: 0,
-      resultPath: ''
+      resultPath: '',
+      startTimeMs: startTimeMs,
+      endTimeMs: endTimeMs
     }]);
   }
   update(id: string, state: string, progress: number, resultPath: string = ''): void {
@@ -70,8 +83,17 @@ export class TranscodeQueueModel {
         grayscale: item.grayscale,
         state: state,
         progress: progress,
-        resultPath: resultPath
+        resultPath: resultPath,
+        startTimeMs: item.startTimeMs,
+        endTimeMs: item.endTimeMs
       }));
+  }
+  reassociate(id: string, uri: string, title: string): void {
+    if (this.activeId.length > 0 || uri.length === 0) { return; }
+    this.items = this.items.map((item: TranscodeQueueItem): TranscodeQueueItem => item.id !== id ? item : ({
+      id: item.id, uri: uri, title: title, options: item.options, grayscale: item.grayscale,
+      state: 'waiting', progress: 0, resultPath: '', startTimeMs: item.startTimeMs, endTimeMs: item.endTimeMs
+    }));
   }
   next(): TranscodeQueueItem | undefined {
     return this.paused ? undefined : this.items.find((item: TranscodeQueueItem): boolean => item.state === 'waiting');

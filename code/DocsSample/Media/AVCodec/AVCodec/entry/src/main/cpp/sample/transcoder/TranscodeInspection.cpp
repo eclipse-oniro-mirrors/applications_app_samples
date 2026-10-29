@@ -95,7 +95,7 @@ bool TranscodeJob::CheckStorage(bool initial)
     struct statvfs space {};
     if (fstatvfs(options_.outputFd, &space) != 0) { return Fail("Query output storage", errno); }
     const uint64_t freeBytes = static_cast<uint64_t>(space.f_bavail) * space.f_frsize;
-    const double seconds = durationUs_ > 0 ? static_cast<double>(durationUs_) / US_PER_SECOND : -1;
+    const double seconds = selectedDurationUs_ > 0 ? static_cast<double>(selectedDurationUs_) / US_PER_SECOND : -1;
     int64_t audioBitrate = 0;
     if (audioFormat_ != nullptr) { OH_AVFormat_GetLongValue(audioFormat_.get(), OH_MD_KEY_BITRATE, &audioBitrate); }
     const double estimate = seconds > 0 ? seconds * (options_.bitrate + std::max<int64_t>(audioBitrate,

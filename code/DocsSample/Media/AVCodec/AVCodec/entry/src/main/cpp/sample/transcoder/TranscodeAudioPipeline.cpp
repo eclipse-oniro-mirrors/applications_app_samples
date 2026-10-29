@@ -30,6 +30,25 @@ constexpr int32_t SYNC_MODE_ENABLED = 1;
 constexpr int32_t ADTS_DISABLED = 0;
 using Format = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>;
 
+bool SamplesBefore(int64_t boundaryUs, int64_t ptsUs, int64_t samples, int32_t rate, bool roundUp,
+    int64_t &count)
+{
+    count = 0;
+    if (rate <= 0) { return false; }
+    if (boundaryUs <= ptsUs || samples == 0) { return true; }
+    // Cap large timestamp gaps before subtraction; a positive integer rate supplies at least one sample per second.
+    if (ptsUs <= boundaryUs - samples * US_PER_SECOND) {
+        count = samples;
+        return true;
+    }
+    const int64_t elapsedUs = boundaryUs - ptsUs;
+    const int64_t wholeSamples = (elapsedUs / US_PER_SECOND) * rate;
+    const int64_t rounding = roundUp ? US_PER_SECOND - 1 : 0;
+    const int64_t fractionalSamples = ((elapsedUs % US_PER_SECOND) * rate + rounding) / US_PER_SECOND;
+    count = std::min(samples, wholeSamples + fractionalSamples);
+    return true;
+}
+
 bool ConfigureDecoderFormat(OH_AVFormat *source)
 {
     return OH_AVFormat_SetIntValue(source, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, SAMPLE_S16LE) &&
@@ -95,10 +114,13 @@ bool TranscodeAudioPipeline::StartCodecs()
     return true;
 }
 
-bool TranscodeAudioPipeline::Configure(OH_AVFormat *source, OH_AVDemuxer *demuxer, int32_t track)
+bool TranscodeAudioPipeline::Configure(OH_AVFormat *source, OH_AVDemuxer *demuxer, int32_t track,
+    int64_t rangeStartUs, int64_t rangeEndUs)
 {
     demuxer_ = demuxer;
     track_ = track;
+    rangeStartUs_ = rangeStartUs;
+    rangeEndUs_ = rangeEndUs;
     const char *mime = nullptr;
     if (!ReadSourceFormat(source, mime)) { return false; }
     decoder_ = OH_AudioCodec_CreateByMime(mime, false);
@@ -126,9 +148,15 @@ bool TranscodeAudioPipeline::Feed(bool &advanced)
     OH_AVCodecBufferAttr attr {};
     if (buffer == nullptr) { return error_("Get audio decoder input", -1); }
     if (!Check(OH_AVDemuxer_ReadSampleBuffer(demuxer_, track_, buffer), "Read compressed audio") ||
-        !Check(OH_AVBuffer_GetBufferAttr(buffer, &attr), "Read compressed audio attributes") ||
-        !Check(OH_AudioCodec_PushInputBuffer(decoder_, index), "Submit compressed audio")) { return false; }
-    inputDone_ = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+        !Check(OH_AVBuffer_GetBufferAttr(buffer, &attr), "Read compressed audio attributes")) { return false; }
+    if (rangeEndUs_ > rangeStartUs_ && attr.pts >= rangeEndUs_) {
+        attr = {};
+        attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
+        if (!Check(OH_AVBuffer_SetBufferAttr(buffer, &attr), "Set AAC range EOS")) { return false; }
+        inputDone_ = true;
+    }
+    if (!Check(OH_AudioCodec_PushInputBuffer(decoder_, index), "Submit compressed audio")) { return false; }
+    inputDone_ = inputDone_ || (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
     advanced = true;
     return true;
 }
@@ -171,7 +199,33 @@ bool TranscodeAudioPipeline::Decode(bool &advanced)
         return error_("Invalid decoded PCM layout", -1);
     }
     pcmConsumed_ = 0;
+    if (!TrimPcm()) { return false; }
     advanced = true;
+    return true;
+}
+
+bool TranscodeAudioPipeline::TrimPcm()
+{
+    if (rangeEndUs_ <= 0) { return true; }
+    if (sampleRate_ <= 0 || channels_ <= 0) {
+        return error_("Invalid PCM sample rate or channel count", -1);
+    }
+    const int32_t bytesPerSample = channels_ * PCM_BYTES;
+    const int64_t samples = pcmAttr_.size / bytesPerSample;
+    int64_t first = 0;
+    int64_t last = 0;
+    if (!SamplesBefore(rangeStartUs_, pcmAttr_.pts, samples, sampleRate_, true, first) ||
+        !SamplesBefore(rangeEndUs_, pcmAttr_.pts, samples, sampleRate_, false, last)) {
+        return error_("Invalid PCM sample rate for time-range trimming", -1);
+    }
+    last = std::max(first, last);
+    pcmAttr_.offset += static_cast<int32_t>(first * bytesPerSample);
+    pcmAttr_.size = static_cast<int32_t>((last - first) * bytesPerSample);
+    if (pcmAttr_.size == 0) {
+        pcmAttr_.pts = 0;
+        return true;
+    }
+    pcmAttr_.pts = std::max<int64_t>(0, pcmAttr_.pts + first * US_PER_SECOND / sampleRate_ - rangeStartUs_);
     return true;
 }
 

@@ -171,6 +171,40 @@ export struct TranscodePage {
   }
 
   @Builder
+  private rangeCard() {
+    Column({ space: 10 }) {
+      Row() {
+        Text($r('app.string.transcode_range')).layoutWeight(1).fontSize(16).fontWeight(FontWeight.Medium)
+        Toggle({ type: ToggleType.Switch, isOn: this.model.rangeEnabled })
+          .enabled(this.model.modeIndex === 0 && (this.model.rangeEnabled || this.model.analysis.durationUs > 0) &&
+            !this.model.inspecting)
+          .onChange((checked: boolean): void => { this.model.setRangeEnabled(checked); })
+      }
+      if (this.model.rangeEnabled) {
+        Row({ space: 10 }) {
+          Column({ space: 4 }) {
+            Text($r('app.string.transcode_range_start')).fontSize(12).fontColor('#667085')
+            TextInput({ text: this.model.rangeStart, placeholder: '0' })
+              .enabled(!this.model.busy && !this.model.queueRunning)
+              .onChange((value: string): void => this.model.setRangeStart(value))
+          }.layoutWeight(1)
+          Column({ space: 4 }) {
+            Text($r('app.string.transcode_range_end')).fontSize(12).fontColor('#667085')
+            TextInput({ text: this.model.rangeEnd, placeholder: $r('app.string.transcode_range_to_end') })
+              .enabled(!this.model.busy && !this.model.queueRunning)
+              .onChange((value: string): void => this.model.setRangeEnd(value))
+          }.layoutWeight(1)
+        }.width('100%')
+        Text($r('app.string.transcode_range_hint')).fontSize(12).fontColor('#667085')
+        if (!this.model.isRangeValid()) {
+          Text($r('app.string.transcode_range_invalid')).fontSize(12).fontColor('#C00000')
+        }
+      }
+    }.width('100%').padding(16).alignItems(HorizontalAlign.Start).backgroundColor(Color.White).borderRadius(16)
+    .enabled(!this.model.busy && !this.model.queueRunning && !this.model.exporting && !this.model.picking)
+  }
+
+  @Builder
   private resultCard() {
     Column({ space: 12 }) {
       if (this.model.busy || this.model.status.state > 0) {
@@ -204,6 +238,11 @@ export struct TranscodePage {
           this.model.status.encoderOutputWaitMs.toFixed(0)))
           .fontSize(12).fontColor('#667085')
       }
+      if (this.model.status.outputValidation === 'passed') {
+        Text(LocalizedText.format($r('app.string.transcode_output_verified'),
+          ((this.model.status.outputDurationUs ?? 0) / 1000000).toFixed(2)))
+          .fontSize(12).fontColor('#16794B')
+      }
       if (this.model.notice.length > 0) {
         Text(this.model.notice).fontSize(14).fontColor('#344054').width('100%')
       }
@@ -214,7 +253,8 @@ export struct TranscodePage {
       } else {
         Button($r('app.string.transcode_start')).width('100%')
           .enabled(this.model.sourceUri.length > 0 && !this.model.picking && !this.model.exporting &&
-            !this.model.inspecting && !this.model.queueRunning && this.model.analysis.state === 2)
+            !this.model.inspecting && !this.model.queueRunning && this.model.analysis.state === 2 &&
+            this.model.isRangeValid())
           .onClick((): void => { void this.model.start(this.getUIContext()); })
       }
       if (this.model.resultPath.length > 0) {
@@ -294,14 +334,17 @@ export struct TranscodePage {
         this.sourceCard()
         this.optionsCard()
         TranscodePreprocessPanel({ model: this.model })
+        this.rangeCard()
         this.analysisCard()
         TranscodeQueuePanel({
           queue: this.model.queue,
           running: this.model.queueRunning,
-          canAdd: !this.model.busy && !this.model.queueRunning && this.model.analysis.state === 2,
+          canAdd: !this.model.busy && !this.model.queueRunning && !this.model.picking && !this.model.exporting &&
+            !this.model.inspecting && this.model.analysis.state === 2 && this.model.isRangeValid(),
           onAdd: (): void => { void this.model.enqueue(this.getUIContext()); },
           onRun: (): void => { void this.model.runQueue(this.getUIContext()); },
-          onChanged: (): void => { void this.model.persistQueue(this.getUIContext()); }
+          onChanged: (): void => { void this.model.persistQueue(this.getUIContext()); },
+          onRelink: (id: string): void => { void this.model.reassociateQueueItem(id, this.getUIContext()); }
         })
         this.resultCard()
         this.historyCard()

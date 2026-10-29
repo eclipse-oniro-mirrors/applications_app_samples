@@ -23,6 +23,7 @@ export struct TranscodeQueuePanel {
   onAdd: () => void = (): void => {};
   onRun: () => void = (): void => {};
   onChanged: () => void = (): void => {};
+  onRelink: (id: string) => void = (_id: string): void => {};
 
   private stateLabel(state: string): Resource {
     if (state === 'completed') { return $r('app.string.task_completed'); }
@@ -36,6 +37,7 @@ export struct TranscodeQueuePanel {
     Column({ space: 10 }) {
       Text($r('app.string.task_queue')).fontSize(17).fontWeight(FontWeight.Medium)
       Text($r('app.string.task_queue_hint')).fontSize(12).fontColor('#667085')
+      Text($r('app.string.transcode_relink_hint')).fontSize(12).fontColor('#667085')
       Progress({ value: this.queue.totalProgress(), total: 100, type: ProgressType.Linear }).width('100%')
       Row({ space: 8 }) {
         Button($r('app.string.task_enqueue')).layoutWeight(1).fontSize(13).enabled(this.canAdd)
@@ -54,6 +56,9 @@ export struct TranscodeQueuePanel {
           Progress({ value: item.progress, total: 100, type: ProgressType.Linear }).width('100%')
           if (item.id !== this.queue.activeId) {
             Row({ space: 8 }) {
+              Button($r('app.string.transcode_relink_source')).fontSize(12).onClick((): void => {
+                this.onRelink(item.id);
+              }).enabled(!this.running)
               if (item.state === 'failed' || item.state === 'cancelled' || item.state === 'interrupted') {
                 Button($r('app.string.task_retry')).fontSize(12).onClick((): void => {
                   this.queue.retry(item.id); this.onChanged();

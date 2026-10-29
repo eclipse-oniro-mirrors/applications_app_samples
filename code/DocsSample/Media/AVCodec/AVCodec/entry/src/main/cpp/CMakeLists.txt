@@ -110,5 +110,7 @@ add_library(transcoder SHARED sample/transcoder/TranscoderNative.cpp
                               sample/transcoder/TranscodeAudioPipeline.cpp
                               sample/transcoder/TranscodeJob.cpp
                               sample/transcoder/TranscodeInspection.cpp
+                              sample/transcoder/TranscodeOutputValidation.cpp
+                              sample/transcoder/TranscodeTimeRange.cpp
                               sample/transcoder/TranscodeFrameProcessor.cpp)
 target_link_libraries(transcoder PUBLIC ${BASE_LIBRARY})

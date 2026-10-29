@@ -1171,6 +1171,15 @@
     {"name":"transcode_inspecting","value":"正在读取媒体并检查设备能力…"},
     {"name":"transcode_history","value":"最近转码"},
     {"name":"transcode_export_space","value":"本地剩余空间不足以再保存一份视频并预留 64 MiB。"},
-    {"name":"transcode_space_estimate","value":"预计输出：%s MiB · 剩余：%s MiB。VBR 仅为估算，另保留 64 MiB。"}
+    {"name":"transcode_space_estimate","value":"预计输出：%s MiB · 剩余：%s MiB。VBR 仅为估算，另保留 64 MiB。"},
+    {"name":"transcode_relink_source","value":"重新选择源文件"},
+    {"name":"transcode_relink_hint","value":"文件移动或授权失效时，可以重新选择源文件并保留该项参数。启动任务时会重新检查文件和参数是否匹配。"},
+    {"name":"transcode_range","value":"按时间段转码"},
+    {"name":"transcode_range_start","value":"起点（秒）"},
+    {"name":"transcode_range_end","value":"终点（秒，不含该时刻）"},
+    {"name":"transcode_range_to_end","value":"源文件结尾"},
+    {"name":"transcode_range_hint","value":"仅 Buffer 模式，最多三位小数；终点留空表示到文件结尾。保留原音轨按压缩包边界截取，AAC 按 PCM 采样裁切，末帧补齐。为保留重排序帧，视频仍解码到源 EOS，短片段也可能耗时。"},
+    {"name":"transcode_range_invalid","value":"时间段无效。请输入非负秒数（最多三位小数），起点须早于终点，终点不能超过源文件时长。"},
+    {"name":"transcode_output_verified","value":"MP4 元数据校验通过 · 输出时长 %s 秒（未做完整解码校验）"}
   ]
 }

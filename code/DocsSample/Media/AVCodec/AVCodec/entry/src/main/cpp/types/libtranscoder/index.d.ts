@@ -25,6 +25,8 @@ export interface TranscodeRequest {
   encoderCategory: number;
   audioMode: number;
   audioTrack: number;
+  startTimeMs?: number;
+  endTimeMs?: number;
 }
 
 export interface TranscodeMeasurement {
@@ -73,6 +75,8 @@ export interface TranscodeStatus {
   maxBitrate: number;
   audioBytes: number;
   audioMode: number;
+  outputDurationUs?: number;
+  outputValidation?: string;
 }
 
 export const start: (options: TranscodeRequest) => Promise<TranscodeStatus>;

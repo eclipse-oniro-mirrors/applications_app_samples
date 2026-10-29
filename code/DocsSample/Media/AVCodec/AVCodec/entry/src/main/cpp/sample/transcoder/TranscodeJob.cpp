@@ -171,7 +171,7 @@ bool TranscodeJob::ReadSourceMetadata()
     int32_t trackCount = 0;
     OH_AVFormat_GetIntValue(sourceFormat.get(), OH_MD_KEY_TRACK_COUNT, &trackCount);
     OH_AVFormat_GetLongValue(sourceFormat.get(), OH_MD_KEY_DURATION, &durationUs_);
-    return ReadTracks(trackCount);
+    return ReadTracks(trackCount) && ConfigureTimeRange();
 }
 
 bool TranscodeJob::ReadVideoProperties()
@@ -227,11 +227,17 @@ bool TranscodeJob::InitializeDemuxer()
         if (options_.audioMode == AUDIO_MODE_AAC) {
             audioPipeline_ = std::make_unique<TranscodeAudioPipeline>(
                 [this](const char *operation, int32_t result) { return Fail(operation, result); });
-            if (!audioPipeline_->Configure(audioFormat_.get(), demuxer_, audioTrack_)) { return false; }
+            if (!audioPipeline_->Configure(audioFormat_.get(), demuxer_, audioTrack_, rangeStartUs_, rangeEndUs_)) {
+                return false;
+            }
         } else {
             audioBuffer_ = OH_AVBuffer_Create(AUDIO_BUFFER_BYTES);
             if (audioBuffer_ == nullptr) { return Fail("Create audio remux buffer"); }
         }
+    }
+    if (rangeStartUs_ > 0 && !Check(OH_AVDemuxer_SeekToTime(demuxer_, options_.startTimeMs,
+        SEEK_MODE_PREVIOUS_SYNC), "Seek source to range start")) {
+        return false;
     }
     return true;
 }
@@ -421,6 +427,8 @@ bool TranscodeJob::DrainDecoder(bool &advanced)
         pendingDecoded_ = nullptr;
         return Fail("Get decoded output Buffer");
     }
+    if (!DiscardOutsideRange(advanced)) { return false; }
+    if (pendingDecoded_ == nullptr) { return true; }
     advanced = true;
     return true;
 }
@@ -505,7 +513,7 @@ bool TranscodeJob::SubmitBufferFrame(bool eos, bool sendEmptyEos, bool &advanced
         return Fail("Get Buffer encoder input");
     }
     OH_AVCodecBufferAttr attr{};
-    attr.pts = pendingDecodedAttr_.pts;
+    attr.pts = std::max<int64_t>(0, pendingDecodedAttr_.pts - rangeStartUs_);
     const bool hasFrame = !sendEmptyEos && (!eos || pendingDecodedAttr_.size > 0);
     if (hasFrame) {
         if (!diagnostics_.Measure(TranscodeMetrics::Stage::PROCESS,
@@ -590,9 +598,9 @@ void TranscodeJob::UpdateVideoProgress(const OH_AVCodecBufferAttr &attr)
         }
         snapshot_.bytes += attr.size;
         snapshot_.stage = "transcode";
-        if (durationUs_ > 0) {
+        if (selectedDurationUs_ > 0) {
             snapshot_.progress =
-                std::clamp(static_cast<double>(videoPositionUs_) / durationUs_ * RUNNING_PROGRESS_LIMIT, 0.0,
+                std::clamp(static_cast<double>(videoPositionUs_) / selectedDurationUs_ * RUNNING_PROGRESS_LIMIT, 0.0,
                            RUNNING_PROGRESS_LIMIT);
         }
     }
@@ -618,6 +626,18 @@ bool TranscodeJob::CopyAudio(bool &advanced)
         !Check(OH_AVBuffer_GetBufferAttr(audioBuffer_, &attr), "Read audio sample attributes")) {
         return false;
     }
+    audioDone_ = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+    if (rangeEndUs_ > 0 && attr.pts >= rangeEndUs_) {
+        audioDone_ = true;
+        advanced = true;
+        return true;
+    }
+    if (rangeEndUs_ > 0 && attr.pts < rangeStartUs_) {
+        advanced = true;
+        return true;
+    }
+    attr.pts = std::max<int64_t>(0, attr.pts - rangeStartUs_);
+    if (!Check(OH_AVBuffer_SetBufferAttr(audioBuffer_, &attr), "Rebase original audio timestamps")) { return false; }
     if (attr.size > 0) {
         const int32_t writeResult = diagnostics_.Measure(TranscodeMetrics::Stage::MUX, [&] {
             return OH_AVMuxer_WriteSampleBuffer(muxer_, muxAudioTrack_, audioBuffer_);
@@ -644,7 +664,8 @@ bool TranscodeJob::FinalizeOutput()
     if (!Check(OH_AVMuxer_Stop(muxer_), "Finalize MP4 container")) {
         return false;
     }
-    return fsync(options_.outputFd) == 0 || Fail("Flush output file", errno);
+    if (fsync(options_.outputFd) != 0) { return Fail("Flush output file", errno); }
+    return ValidateOutput();
 }
 
 void TranscodeJob::Complete(bool success)
@@ -709,8 +730,9 @@ void TranscodeJob::PublishDiagnostics()
     snapshot_.elapsedMs = std::chrono::duration<double, std::milli>(now - startedAt_).count();
     snapshot_.fps = snapshot_.elapsedMs > 0 ? snapshot_.frames * MS_PER_SECOND / snapshot_.elapsedMs : 0;
     snapshot_.speed = snapshot_.elapsedMs > 0 ? videoPositionUs_ / (snapshot_.elapsedMs * US_PER_MS) : 0;
-    snapshot_.remainingSeconds = snapshot_.elapsedMs >= MS_PER_SECOND && snapshot_.speed > 0 && durationUs_ > 0 ?
-        std::max(0.0, (durationUs_ - videoPositionUs_) / (US_PER_SECOND * snapshot_.speed)) : -1;
+    snapshot_.remainingSeconds = snapshot_.elapsedMs >= MS_PER_SECOND && snapshot_.speed > 0 &&
+        selectedDurationUs_ > 0 ?
+        std::max(0.0, (selectedDurationUs_ - videoPositionUs_) / (US_PER_SECOND * snapshot_.speed)) : -1;
     snapshot_.decoderWaitMs = diagnostics_.WaitMs(WaitChannel::DECODER_OUTPUT);
     snapshot_.encoderInputWaitMs = diagnostics_.WaitMs(WaitChannel::ENCODER_INPUT);
     snapshot_.encoderOutputWaitMs = diagnostics_.WaitMs(WaitChannel::ENCODER_OUTPUT);
