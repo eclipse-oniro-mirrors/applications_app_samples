@@ -175,7 +175,7 @@ void SampleBitMap::DrawCustomFontText()
     const char* fontPath = "/system/fonts/NotoSerifTamil[wdth,wght].ttf"; 
     // [End custom_font_c_custom_font_text_step2]
     // [Start custom_font_c_custom_font_text_step3]
-    // 返回0为成功，1为文件不存在，2为打开文件失败，3为读取文件失败，4为寻找文件失败，5为获取大小失败，9文件损坏
+    // 返回0为成功，1为文件不存在，2为打开文件失败，3为读取文件失败，4为寻找文件失败，5为获取大小失败，9为文件损坏
     int errorCode = OH_Drawing_RegisterFont(fontCollection, fontFamily, fontPath);
     // 0表示注册成功，非0表示注册失败，失败时打印错误码并释放字体集对象后返回
     if (errorCode != 0) {
@@ -344,11 +344,11 @@ void SampleBitMap::DrawDisableSysFontText()
     OH_Drawing_TextStyle *textStyle = OH_Drawing_CreateTextStyle();
     // 禁用系统字体后的几种情况如下：
     // 情况一：如果此时设置使用了自定义字体，文本会正常显示
-    // 该路径是待注册的自定义字体文件在应用设备下的路径，确保该自定义字体文件已正确放置在该路径下
-    // 后续使用自定义字体时，需使用到该字体家族名
+    // 该路径是系统字体文件在应用设备下的路径，此处将系统字体文件注册到字体集中使用
+    // 后续使用该字体时，需使用到该字体家族名
     const char* fontFamily = "HarmonyOS_Sans"; 
     const char* fontPath = "/system/fonts/HarmonyOS_Sans.ttf"; 
-    // 返回0为成功，1为文件不存在，2为打开文件失败，3为读取文件失败，4为寻找文件失败，5为获取大小失败，9文件损坏
+    // 返回0为成功，1为文件不存在，2为打开文件失败，3为读取文件失败，4为寻找文件失败，5为获取大小失败，9为文件损坏
     int errorCode = OH_Drawing_RegisterFont(fontCollection, fontFamily, fontPath);
     DRAWING_LOGI("errorCode = %{public}d", errorCode);
     const char *myFontFamilies[] = {"HarmonyOS_Sans"}; // 确保已成功注册自定义字体，填入自定义字体的字体家族名

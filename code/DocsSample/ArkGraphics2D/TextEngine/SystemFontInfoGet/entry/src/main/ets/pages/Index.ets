@@ -74,7 +74,7 @@ class MyRenderNode extends RenderNode {
 
 // 创建 MyRenderNode 对象实例
 const textNode = new MyRenderNode();
-// 定义newNode的大小和位置
+// 定义textNode的大小和位置
 textNode.frame = { x: 0, y: 0, width: 400, height: 600 };
 
 
