@@ -112,7 +112,7 @@ async function packToDataFromPixelMap(pixelMap : image.PixelMap) {
   // [End packOpts_isHdr]
   try{
     let data = await imagePackerApi.packToData(pixelMap, packOpts);
-    // data 为编码获取到的文件流，写入文件保存即可得到一张图片。
+    // data为编码获取到的文件流，写入文件保存即可得到一张图片。
     // [StartExclude copyData_toShow]
     copyData = new ArrayBuffer(0);
     copyData = data;
@@ -290,7 +290,7 @@ export class ImageInterfaceCalled {
     };
 
     try {
-      // 生成 pixelMap 并返回。
+      // 生成pixelMap并返回。
       const pixelMap = await imageSource.createPixelMap(decodingOptions);
       if (pixelMap) {
         console.info('Create PixelMap successfully.');
