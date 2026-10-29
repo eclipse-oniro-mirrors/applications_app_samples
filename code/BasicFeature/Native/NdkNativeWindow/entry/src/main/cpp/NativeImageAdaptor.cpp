@@ -324,7 +324,7 @@ void NativeImageAdaptor::SetConfigAndGetValue()
         LOGE("SetConfigAndGetValue GET_COLOR_GAMUT fail");
     }
     code = SET_FORMAT;
-    if (g_cnt % 2 == 0) {  // 2 : 每次执行使用不同的format类型
+    if (g_cnt++ % 2 == 0) {  // 2 : 每次执行使用不同的format类型
         OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, NATIVEBUFFER_PIXEL_FMT_RGBA_8888);
     } else {
         OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, NATIVEBUFFER_PIXEL_FMT_YCBCR_420_SP);
@@ -333,7 +333,6 @@ void NativeImageAdaptor::SetConfigAndGetValue()
     OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, NATIVEBUFFER_ROTATE_NONE);
     code = SET_COLOR_GAMUT;
     OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, NATIVEBUFFER_COLOR_GAMUT_SRGB);
-    g_cnt++;
     SetAndGetScreenInfo();
 }
 
@@ -343,7 +342,7 @@ void NativeImageAdaptor::SetAndGetScreenInfo()
     OH_NativeWindow_ScreenInfoRect currentFrameRectSrc = { .x = 10, .y = 10, .w = 100, .h = 100};
     OH_NativeWindow_ScreenInfoRect originalRectSrc = { .x = 20, .y = 20, .w = 200, .h = 200};
     float angleSrc = 90.0;
-    int32_t ret = OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, 
+    int32_t ret = OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code,
                                                         &currentFrameRectSrc, &originalRectSrc, angleSrc);
     if (ret != 0) {
         LOGE("NativeWindowSetScreenInfo fail, ret: %{public}d", ret);
