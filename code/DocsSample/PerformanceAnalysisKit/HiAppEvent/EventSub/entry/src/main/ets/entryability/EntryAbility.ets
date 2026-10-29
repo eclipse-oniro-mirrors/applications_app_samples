@@ -36,8 +36,10 @@ import { hidebug } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 // [End EventSub_EntryAbility_Header]
 // [Start EventSub_Capi_Header]
+// [Start MainThreadJank_Header]
 import testNapi from 'libentry.so';
 // [End EventSub_Capi_Header]
+// [End MainThreadJank_Header]
 // [Start ArkWeb_Fling_Jank_ArkTS_Add_Watcher_Header]
 // 该变量在/pages/ArkWebPage.ets文件中进行定义，用于实现webId到网页url的映射
 import { webIdToUrlMap } from '../pages/ArkWebPage';
