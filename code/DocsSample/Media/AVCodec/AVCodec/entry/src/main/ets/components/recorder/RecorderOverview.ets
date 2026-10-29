@@ -1,0 +1,142 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { LocalizedText } from '../../common/LocalizedText';
+import { RecorderPreview } from './RecorderPreview';
+import { RecorderControlBar } from './RecorderControlBar';
+import { RecordingHistoryEntry } from '../../model/RecordingHistoryModel';
+
+@Component
+export struct RecorderOverview {
+  @Prop cameraWidth: number = 0;
+  @Prop cameraHeight: number = 0;
+  @Prop frameRate: number = 0;
+  @Prop buttonEnabled: boolean = true;
+  @Prop recordingEntries: RecordingHistoryEntry[] = [];
+  onOpenSettings: () => void = () => {};
+  onStartRecording: () => void = () => {};
+  onPlayRecording: (uri: string) => void = (_uri: string): void => {};
+
+  private formatRecordingDate(timestamp: number): string {
+    const date: Date = new Date(timestamp);
+    const year: number = date.getFullYear();
+    const month: string = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day: string = date.getDate().toString().padStart(2, '0');
+    const hour: string = date.getHours().toString().padStart(2, '0');
+    const minute: string = date.getMinutes().toString().padStart(2, '0');
+    return `${year}-${month}-${day} ${hour}:${minute}`;
+  }
+
+  private formatRecordingDuration(durationSeconds: number): string {
+    const minutes: number = Math.floor(durationSeconds / 60);
+    const seconds: string = Math.floor(durationSeconds % 60).toString().padStart(2, '0');
+    return `${minutes}:${seconds}`;
+  }
+
+  @Builder
+  private recordingEntryView(entry: RecordingHistoryEntry) {
+    Row({ space: '10vp' }) {
+      Column({ space: '4vp' }) {
+        Text(entry.title).width('100%').fontSize('14fp').fontWeight(FontWeight.Medium)
+          .fontColor('#182431').maxLines(1).textOverflow({ overflow: TextOverflow.Ellipsis })
+        Text(`${this.formatRecordingDate(entry.recordedAt)} · ${this.formatRecordingDuration(entry.durationSeconds)}`)
+          .width('100%').fontSize('12fp').fontColor('#66727D')
+      }
+      .layoutWeight(1)
+      Column({ space: 6 }) {
+      if ((entry.sessionId ?? '').length > 0) {
+        Button($r('app.string.rec_result_open')).height(34).fontSize(11)
+          .onClick((): void => {
+            void this.getUIContext().getRouter().pushUrl({ url: 'recorder/pages/RecordingResult',
+              params: {
+                sessionId: entry.sessionId ?? '', recordedAt: entry.recordedAt,
+                durationSeconds: entry.durationSeconds, title: entry.title, primaryUri: entry.uri,
+                secondaryUri: entry.secondaryUri, complete: entry.complete ?? true
+              } });
+          })
+      }
+      Button(entry.secondaryUri.length > 0 ? LocalizedText.get($r('app.string.recorder_primary')) : $r('app.string.recording_play'))
+        .height('34vp')
+        .fontSize('11fp')
+        .enabled(entry.uri.length > 0)
+        .onClick((): void => this.onPlayRecording(entry.uri))
+      if (entry.secondaryUri.length > 0) {
+        Button(LocalizedText.get($r('app.string.recorder_secondary'))).height('34vp').fontSize('11fp')
+          .onClick((): void => this.onPlayRecording(entry.secondaryUri))
+      }
+      }
+    }
+    .width('100%')
+    .padding('10vp')
+    .backgroundColor('#F5F7F9')
+    .borderRadius('10vp')
+  }
+
+  build() {
+    Scroll() {
+      Column({ space: '16vp' }) {
+        Column({ space: '4vp' }) {
+          Text($r('app.string.recorder_home_title'))
+            .fontSize('24fp')
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#101820')
+            .width('100%')
+          Text($r('app.string.recorder_home_description'))
+            .fontSize('14fp')
+            .fontColor('#667085')
+            .width('100%')
+        }.width('100%')
+
+        RecorderPreview({
+          cameraWidth: this.cameraWidth,
+          cameraHeight: this.cameraHeight,
+          frameRate: this.frameRate
+        })
+        RecorderControlBar({
+          buttonEnabled: this.buttonEnabled,
+          onOpenSettings: this.onOpenSettings,
+          onStartRecording: this.onStartRecording
+        })
+        if (!this.buttonEnabled) {
+          Text($r('app.string.recorder_playback_blocked_hint'))
+            .fontSize('13fp')
+            .fontColor('#667085')
+            .textAlign(TextAlign.Center)
+            .width('100%')
+        }
+        Column({ space: '10vp' }) {
+          Text($r('app.string.recording_history_title'))
+            .width('100%').fontSize('18fp').fontWeight(FontWeight.Bold).fontColor('#182431')
+          if (this.recordingEntries.length === 0) {
+            Text($r('app.string.recording_history_empty'))
+              .width('100%').fontSize('13fp').fontColor('#66727D')
+              .padding({ top: '14vp', bottom: '14vp' })
+          } else {
+            ForEach(this.recordingEntries, (entry: RecordingHistoryEntry) => this.recordingEntryView(entry),
+              (entry: RecordingHistoryEntry) => entry.sessionId || entry.uri)
+          }
+        }
+        .width('100%')
+        .margin({ top: '8vp' })
+      }
+      .width('100%')
+      .padding({ left: '16vp', right: '16vp', top: '20vp', bottom: '24vp' })
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor(Color.White)
+    .scrollBar(BarState.Auto)
+  }
+}
