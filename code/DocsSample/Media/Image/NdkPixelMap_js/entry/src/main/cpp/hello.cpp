@@ -398,8 +398,8 @@ napi_value Transform(napi_env env, napi_callback_info info)
     OH_PixelMap_Scale(native, scaleX, scaleY);
 
     // 设置平移。
-    // translateX: 向右平移50。
-    // translateY: 向下平移50。
+    // translateX: 向右平移50像素。
+    // translateY: 向下平移50像素。
     float translateX = 50;
     float translateY = 50;
     OH_PixelMap_Translate(native, translateX, translateY);
