@@ -15,6 +15,10 @@
     {
       "name": "web_path",
       "value": "https://www.example.com/test.pdf"
+    },
+    {
+      "name": "immersive_web_title",
+      "value": "沉浸式 Web 组件"
     }
   ]
 }

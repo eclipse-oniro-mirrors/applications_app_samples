@@ -147,12 +147,15 @@ struct Page{
     Row() {
       Column() {
         Stack() {
+          // [Start same_layer_and_same_tag_bundle]
           ForEach(this.componentIdArr, (componentId: string) => {
             NodeContainer(this.nodeControllerMap.get(componentId))
+              // 同层组件容器应与同层标签的宽高和位置绑定。
               .position(this.positionMap.get(componentId))
               .width(this.widthMap.get(componentId))
               .height(this.heightMap.get(componentId))
           }, (embedId: string) => embedId)
+          // [End same_layer_and_same_tag_bundle]
           // Web组件加载本地test2.html页面。
           // [Start enable_native_embedmode]
           // [Start register_object_label]

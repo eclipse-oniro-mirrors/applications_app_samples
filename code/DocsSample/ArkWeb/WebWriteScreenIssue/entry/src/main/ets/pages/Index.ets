@@ -49,6 +49,26 @@ struct Index {
             })
         })
 
+      Button('InterceptTelSchemeButton')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({
+            url: 'pages/InterceptTelScheme',
+          })
+            .catch((error: BusinessError) => {
+              console.info(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
+            })
+        })
+
+      Button('RenderAndCacheModeButton')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({
+            url: 'pages/RenderAndCacheMode',
+          })
+            .catch((error: BusinessError) => {
+              console.info(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
+            })
+        })
+
     }.height('100%')
     .width('100%')
   }

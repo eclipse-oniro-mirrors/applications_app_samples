@@ -3,6 +3,8 @@
     "pages/Index",
     "pages/OpenPermissions",
     "pages/ChangeUserAgent",
-    "pages/CrossDomainIntercept"
+    "pages/CrossDomainIntercept",
+    "pages/InterceptTelScheme",
+    "pages/RenderAndCacheMode"
   ]
 }
