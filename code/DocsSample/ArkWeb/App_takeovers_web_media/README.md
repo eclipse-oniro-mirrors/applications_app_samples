@@ -69,7 +69,7 @@
 ```
 git init
 git config core.sparsecheckout true
-echo ArkWeb/UsingWebMultimedia > .git/info/sparse-checkout
-git remote add origin https://gitee.com/harmonyos_samples/guide-snippets.git
+echo ArkWeb/App_takeovers_web_media > .git/info/sparse-checkout
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
