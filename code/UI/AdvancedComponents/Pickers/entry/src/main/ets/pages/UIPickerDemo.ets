@@ -54,7 +54,8 @@ struct UIPickerDemo {
 
   // Apply the selected option and update the status text.
   private selectIndex(index: number): void {
-    this.selectedIndex = PickerUtils.clampIndex(index, this.options.length);
+    this.selectedIndex = this.canLoop ? PickerUtils.wrapIndex(index, this.options.length) :
+      PickerUtils.clampIndex(index, this.options.length);
     this.selectedText = this.options[this.selectedIndex];
     this.changeDesc = `on change: ${this.selectedIndex}`;
     Logger.event('UIPickerDemo', 'selectIndex', `${this.selectedIndex}:${this.selectedText}`);

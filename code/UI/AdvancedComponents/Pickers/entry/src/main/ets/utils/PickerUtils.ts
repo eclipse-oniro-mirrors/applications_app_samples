@@ -60,6 +60,20 @@ export class PickerUtils {
     return `lunar=${lunar}, loop=${loop}, military=${military}, seconds=${seconds}`;
   }
 
+  static wrapIndex(index: number, length: number): number {
+    if (length <= 0) {
+      return 0;
+    }
+    return ((index % length) + length) % length;
+  }
+
+  static stepIndex(index: number, delta: number, length: number, loop: boolean): number {
+    if (loop) {
+      return PickerUtils.wrapIndex(index + delta, length);
+    }
+    return PickerUtils.clampIndex(index + delta, length);
+  }
+
   static clampIndex(index: number, length: number): number {
     if (length <= 0) {
       return 0;

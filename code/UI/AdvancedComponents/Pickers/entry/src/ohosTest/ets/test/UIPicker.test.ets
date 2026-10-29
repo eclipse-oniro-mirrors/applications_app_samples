@@ -107,6 +107,7 @@ export default function uiPickerTest() {
       await runCase('testPickersUiBounds0004', async () => {
         await startApp(BUNDLE_NAME, ABILITY_NAME);
         await clickId('cardUIPicker');
+        await clickId('uiLoopToggle');
         await clickId('uiPrevious');
         expect(await textOfId('uiSelected')).assertContain('Todo');
         for (let i = 0; i < 6; i++) {
@@ -134,5 +135,27 @@ export default function uiPickerTest() {
         expect(await textOfId('uiScrollStopDesc')).assertContain('on scroll stop');
       }, done);
     });
-  });
+    
+    /**
+     * @tc.number SUB_PICKERS_UIPICKER_0600
+     * @tc.name testPickersUiLoop0006
+     * @tc.desc Verify the remaining interaction and boundary behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPickersUiLoop0006', 0, async (done: Function) => {
+      await runCase('testPickersUiLoop0006', async () => {
+      await startApp(BUNDLE_NAME, ABILITY_NAME);
+      await clickId('cardUIPicker');
+      for (let i = 0; i < 5; i++) {
+        await clickId('uiNext');
+      }
+      expect(await textOfId('uiSelected')).assertContain('Todo');
+      await clickId('uiLoopToggle');
+      await clickId('uiPrevious');
+      expect(await textOfId('uiSelected')).assertContain('Todo');
+      }, done);
+    });
+      });
 }

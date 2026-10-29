@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { router } from '@kit.ArkUI';
+import { promptAction, router } from '@kit.ArkUI';
 import { MultiNavPathStack, SplitPolicy } from '@kit.ArkUI';
 import { DetailParam } from '../models/DemoModels';
 import { RouteConstants } from '../utils/Constants';
@@ -25,6 +25,8 @@ import Logger from '../util/Logger';
 struct MultiNavigationStackDemo {
   private stack: MultiNavPathStack = new MultiNavPathStack();
   @State log: string = 'idle';
+  @State operationCount: number = 0;
+  @State lastAction: string = 'idle';
 
   // Initialize page state and write the entry log.
   aboutToAppear(): void {
@@ -49,7 +51,33 @@ struct MultiNavigationStackDemo {
 
   private append(token: string): void {
     this.log = `${token}\n${this.log}`;
+    this.log = this.log.split('\n').slice(0, 5).join('\n');
+    this.operationCount++;
+    this.lastAction = token;
+    promptAction.showToast({ message: token, duration: 1500 });
     Logger.info('stack api updated');
+  }
+
+  @Builder
+  statCard(label: string, value: string, id: string) {
+    Column({ space: 2 }) {
+      Text(label)
+        .fontSize(11)
+        .fontColor('#666666')
+      Text(value)
+        .id(id)
+        .fontSize(15)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#0A59F7')
+        .maxLines(1)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
+    }
+    .layoutWeight(1)
+    .height(54)
+    .justifyContent(FlexAlign.Center)
+    .backgroundColor('#F1F3F5')
+    .borderRadius(10)
+    .padding({ left: 6, right: 6 })
   }
 
   private prepare(): void {
@@ -80,14 +108,51 @@ struct MultiNavigationStackDemo {
           .fontWeight(FontWeight.Bold)
       }
       .width('100%')
-      .padding(12)
+      .padding({ left: 12, right: 12, top: 12, bottom: 6 })
+
+      Row({ space: 8 }) {
+        this.statCard('Depth', `${this.stack.size()}`, 'stackDepth')
+        this.statCard('Actions', `${this.operationCount}`, 'stackOperations')
+        this.statCard('Last API', this.lastAction, 'stackLastAction')
+      }
+      .width('100%')
+      .padding({ left: 12, right: 12, bottom: 8 })
+
+      Row({ space: 8 }) {
+        Button('Clear log')
+          .id('stackClearLog')
+          .fontSize(12)
+          .height(30)
+          .onClick(() => {
+            this.log = 'idle';
+            this.lastAction = 'idle';
+            this.operationCount = 0;
+            promptAction.showToast({ message: 'Stack log cleared', duration: 1200 });
+          })
+        Button('Reset stack')
+          .id('stackReset')
+          .fontSize(12)
+          .height(30)
+          .onClick(() => {
+            this.prepare();
+            this.append('reset stack');
+          })
+      }
+      .width('100%')
+      .padding({ left: 12, right: 12, bottom: 8 })
 
       Text(this.log)
         .id('stackLog')
         .fontSize(11)
         .fontColor('#666666')
         .width('100%')
-        .padding({ left: 12, right: 12 })
+        .height(76)
+        .maxLines(4)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
+        .padding(8)
+        .backgroundColor('#F7F8FA')
+        .borderRadius(8)
+        .margin({ left: 12, right: 12, bottom: 8 })
 
       Scroll() {
         Column({ space: 8 }) {

@@ -202,5 +202,25 @@ export default function logicTest() {
               expect(BreakpointUtils.describe(600)).assertContain('breakpoint=sm');
       }, done);
     });
+    
+   /**
+     * @tc.number SUB_PICKERS_LOOP_0100
+     * @tc.name testPickersLogicLoop0009
+     * @tc.desc Verify the remaining interaction and boundary behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPickersLogicLoop0009', 0, async (done: Function) => {
+      await runCase('testPickersLogicLoop0009', async () => {
+      expect(PickerUtils.wrapIndex(-1, 5)).assertEqual(4);
+      expect(PickerUtils.wrapIndex(5, 5)).assertEqual(0);
+      expect(PickerUtils.wrapIndex(3, 0)).assertEqual(0);
+      expect(PickerUtils.stepIndex(4, 1, 5, true)).assertEqual(0);
+      expect(PickerUtils.stepIndex(4, 1, 5, false)).assertEqual(4);
+      expect(PickerUtils.stepIndex(0, -1, 5, true)).assertEqual(4);
+      expect(PickerUtils.stepIndex(0, -1, 5, false)).assertEqual(0);
+      }, done);
+    });
       });
 }

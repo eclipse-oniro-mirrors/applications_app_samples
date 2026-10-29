@@ -27,6 +27,8 @@ struct CalendarPickerDemo {
   @State selectedDate: Date = new Date();
   @State selectedText: string = PickerUtils.formatDate(new Date());
   @State lastEvent: string = 'ready';
+  @State operationCount: number = 0;
+  @State history: string[] = [];
 
   // Initialize page state and write the entry log.
   aboutToAppear(): void {
@@ -49,6 +51,34 @@ struct CalendarPickerDemo {
     Logger.hide('CalendarPickerDemo');
   }
 
+  private record(action: string): void {
+    this.operationCount++;
+    this.history = [`#${this.operationCount} ${action} ¡¤ ${this.selectedText}`, ...this.history].slice(0, 3);
+    Logger.event('CalendarPickerDemo', 'history', action);
+  }
+
+  @Builder
+  statCard(label: string, kind: string, id: string) {
+    Column({ space: 2 }) {
+      Text(label)
+        .fontSize(11)
+        .fontColor('#666666')
+      Text(kind === 'selected' ? this.selectedText : kind === 'events' ? `${this.operationCount}` : '2020-2030')
+        .id(id)
+        .fontSize(14)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#0A59F7')
+        .maxLines(1)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
+    }
+    .layoutWeight(1)
+    .height(54)
+    .justifyContent(FlexAlign.Center)
+    .backgroundColor('#F1F3F5')
+    .borderRadius(10)
+    .padding({ left: 6, right: 6 })
+  }
+
   // Compose the page layout and responsive controls.
   build() {
     Scroll() {
@@ -66,7 +96,15 @@ struct CalendarPickerDemo {
           .fontWeight(FontWeight.Bold)
       }
       .width('100%')
-      .padding(12)
+      .padding({ left: 12, right: 12, top: 12, bottom: 6 })
+
+      Row({ space: 8 }) {
+        this.statCard('Selected', 'selected', 'calendarSelectedCard')
+        this.statCard('Events', 'events', 'calendarEventCount')
+        this.statCard('Range', 'range', 'calendarRangeCard')
+      }
+      .width('100%')
+      .padding({ left: 12, right: 12, bottom: 8 })
 
       Text(PickerUtils.describeSelection('Selected', this.selectedText))
         .id('calendarSelected')
@@ -85,6 +123,7 @@ struct CalendarPickerDemo {
           this.selectedDate = PickerUtils.clampDate(value, PickerConstants.START_DATE, PickerConstants.END_DATE);
           this.selectedText = PickerUtils.formatDate(this.selectedDate);
           this.lastEvent = 'onChange';
+          this.record('change');
           Logger.event('CalendarPickerDemo', 'onChange', this.selectedText);
         })
 
@@ -95,6 +134,7 @@ struct CalendarPickerDemo {
           this.selectedDate = today;
           this.selectedText = PickerUtils.formatDate(today);
           this.lastEvent = 'today';
+          this.record('today');
           Logger.event('CalendarPickerDemo', 'today', this.selectedText);
         })
 
@@ -102,6 +142,45 @@ struct CalendarPickerDemo {
         .id('calendarEvent')
         .fontSize(12)
         .fontColor('#666666')
+
+      Column({ space: 2 }) {
+        Row() {
+          Text('Recent events')
+            .fontSize(11)
+            .fontColor('#666666')
+          Blank()
+          Button('Clear')
+            .id('calendarClearHistory')
+            .fontSize(10)
+            .height(22)
+            .onClick(() => {
+              this.history = [];
+              this.operationCount = 0;
+            })
+        }
+        .width('100%')
+        if (this.history.length === 0) {
+          Text('No events yet')
+            .fontSize(11)
+            .fontColor('#999999')
+            .width('100%')
+        } else {
+          ForEach(this.history, (item: string) => {
+            Text(item)
+              .fontSize(11)
+              .fontColor('#666666')
+              .maxLines(1)
+              .textOverflow({ overflow: TextOverflow.Ellipsis })
+              .width('100%')
+          }, (item: string) => item)
+        }
+      }
+      .id('calendarHistory')
+      .width('100%')
+      .height(88)
+      .padding(8)
+      .backgroundColor('#F7F8FA')
+      .borderRadius(10)
       }
       .width('100%')
       .padding({ left: 16, right: 16 })

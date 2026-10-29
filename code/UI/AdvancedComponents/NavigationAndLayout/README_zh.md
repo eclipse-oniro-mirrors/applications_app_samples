@@ -9,21 +9,53 @@
 - [FoldSplitContainer](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-FoldSplitContainer.md)：折叠屏折叠态/悬停态/展开态区域布局，支持三分栏与扩展区域；
 - [NavPushPathHelper](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-atomicservice-NavPushPathHelper.md)：从 HSP 分包动态加载 NavDestination 页面，加载失败时回退本地页面。
 
-工程同时封装了日志、断点、设备形态、导航栈等工具类，包含 24 条 ohosTest 用例（含纯逻辑单元测试）。
+工程同时封装了日志、断点、设备形态、导航栈等工具类，包含 54 条 ohosTest 用例与 3 条本地工具单测。
+
+### 功能特性
+
+- MultiNavigation 分栏导航：Home/Detail/Full/Placeholder 路由，支持 Pop、Move、Remove、Placeholder、Home 操作；
+- 栈状态可视化：Depth/Mode/Actions 统计卡、路径面包屑、最近操作历史与一键清空；
+- MultiNavPathStack APIs：pushPath、pushPathByName、replacePath、removeByIndexes、pop、popToName、popToIndex、moveIndexToTop、clear、查询与全屏状态等；
+- SplitLayout 自适应分栏：500/700/1000vp 预览宽度、可选文案开关、断点与栏数联动；
+- FoldSplitContainer 折叠形态：折叠/半折叠/展开模拟、比例与位置切换、额外区域开关；
+- HSP 导航：NavPushPathHelper 从 feature 模块加载页面，覆盖 push/replace/destination/onPop 场景；
+- 全流程日志：页面生命周期、导航动作、栈变化、设备/窗口/折叠状态。
+
+### 交互说明
+
+| 页面 | 主要操作 | 反馈 |
+|---|---|---|
+| MultiNavigation | 顶部栈操作、点击列表项 | Toast、统计卡、路径与历史同步更新 |
+| Stack API | 调用栈 API 按钮 | 日志面板、Last API 统计、Toast |
+| SplitLayout | 切换预览宽度/文案 | 分栏比例与断点文本实时变化 |
+| FoldSplit | 切换折叠模拟/比例/位置 | 布局、比例文本与动画状态更新 |
+| HSP | push/replace HSP 页面 | 页面跳转与栈摘要更新 |
+
+### 实现架构
+
+```text
+页面 UI（MultiNavigation/SplitLayout/FoldSplit/HSP）
+  -> MultiNavPathStack、NavPushPathHelper、FoldSplitContainer
+  -> NavigationUtils、FoldConfigUtils、WindowUtils、DeviceUtils
+  -> BreakpointUtils、Logger
+```
+
+页面只维护展示状态，导航栈、折叠配置、窗口信息与断点计算由工具类统一处理；所有关键操作统一 Toast + 日志。
+
+### 测试覆盖
+
+| 类型 | 数量 | 说明 |
+|---|---:|---|
+| ohosTest | 54 | 入口、MultiNavigation、Stack API、Split/Fold/HSP、稳定性、逻辑 |
+| 本地单测 | 3 | 断点、折叠加载配置、导航摘要 |
 
 ### 效果预览
 
-| 首页 | 折叠布局模拟 | HSP 导航 |
-|--------------------------------|--------------------------------|--------------------------------|
-| 运行后补充截图 | 运行后补充截图 | 运行后补充截图 |
+| 首页 | MultiNavigation |
+|:---:|:---:|
+| <img src="screenshots/index.jpeg" width="360" /> | <img src="screenshots/multiNavigation.jpeg" width="360" /> |
 
-使用说明：
-
-1. 首页展示 4 个专题入口与当前断点（width/breakpoint）；
-2. MultiNavigation：点击列表项进入详情（DETAIL_PAGE），点击“打开全屏页”进入 FULL_PAGE；大屏下详情与主页分栏显示；
-3. SplitLayout：拖动窗口宽度或旋转设备，观察 600vp/840vp 断点下布局变化；
-4. FoldSplitContainer：真实折叠状态由系统上报；非折叠设备可使用“折叠态/悬停态/展开态（模拟预览）”查看三种布局；
-5. HSP 导航：点击“从 HSP 打开页面”尝试加载 `feature` 分包；未安装分包或加载失败时自动回退本地兜底页。
+> 截图基于 OpenHarmony 7.0.0.47 真机（API 26）拍摄。
 
 ### 工程目录
 
@@ -83,8 +115,7 @@ entry/src/test/
 3. 本示例需要使用 DevEco Studio 26.0.0 及以上版本才可编译运行；
 4. 真实折叠/悬停状态需要折叠屏设备；非折叠设备仅能验证折叠态与模拟预览；
 5. HSP 分包的 `deviceTypes` 为 `default/tablet`，手机侧加载失败属预期，会走本地兜底页；
-6. 本示例包含 52 条 ohosTest 用例（6 功能入口 + 14 MultiNavigation + 4 SplitLayout + 7 FoldSplit + 12 HSP + 3 稳定性 + 6 逻辑单元测试），并提供 entry/src/test 下的本地工具类单元测试，用例说明见 [ohosTest.md](ohosTest.md)；
-7. 效果预览截图需在真机运行后补充。
+6. 本示例包含 54 条 ohosTest 用例，另有 3 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
 
 ### 下载
 

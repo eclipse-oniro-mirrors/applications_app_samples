@@ -95,5 +95,22 @@ export default function exceptionV2Test() {
         expect(await textOfId('exceptionV2Status')).assertContain('status=shown');
       }, done);
     });
-  });
+    
+    /**
+     * @tc.number SUB_POPUPS_EXCEPTIONV2_0400
+     * @tc.name testPopupsExceptionV2Tip0004
+     * @tc.desc Verify the remaining interaction and boundary behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPopupsExceptionV2Tip0004', 0, async (done: Function) => {
+      await runCase('testPopupsExceptionV2Tip0004', async () => {
+      await startApp(BUNDLE_NAME, ABILITY_NAME);
+      await clickId('cardExceptionV2');
+      await clickText('V2 network unavailable');
+      expect(await textOfId('exceptionV2Status')).assertContain('status=tip');
+      }, done);
+    });
+      });
 }

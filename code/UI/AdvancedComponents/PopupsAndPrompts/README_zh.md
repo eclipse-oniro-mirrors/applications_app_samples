@@ -9,20 +9,48 @@
 - [ExceptionPromptV2](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-ExceptionPromptV2.md)：API 26 新增、基于状态管理 V2 的异常提示；
 - [SelectionMenu](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-SelectionMenu.md)：文本选择菜单，通过 `RichEditor.bindSelectionMenu` 绑定自定义编辑菜单。
 
-工程包含日志、计数/区间工具、响应式断点等工具类，并包含 22 条 ohosTest 用例（含 3 条逻辑单测）与 2 条本地工具类单测。
+工程包含日志、计数/区间工具、响应式断点等工具类，并包含 28 条 ohosTest 用例与 2 条本地工具单测。
+
+### 功能特性
+
+- PopupV2：图标、标题、内容、关闭按钮、确认/取消按钮、状态与计数；
+- ExceptionPrompt：异常提示、操作文本、显示/隐藏、边距与点击回调；
+- ExceptionPromptV2：状态管理 V2 版本，支持动态重建提示配置；
+- SelectionMenu：RichEditor 自定义选择菜单，支持选区摘要与菜单动作计数；
+- PromptUtils：选区范围钳制、摘要、动作计数与显隐切换；
+- 响应式布局：内容最大宽度、断点边距、顶部对齐与滚动；
+- 可视化反馈：Confirm/Cancel/Actions 统计卡、操作历史与清空。
+
+### 交互说明
+
+| 页面 | 主要操作 | 反馈 |
+|---|---|---|
+| PopupV2 | 确认、取消、关闭 | 状态文本、统计卡、历史同步 |
+| ExceptionPrompt/V2 | 点击提示/操作文本、隐藏/显示 | 状态与动作计数更新 |
+| SelectionMenu | 选中文本、设置选区、菜单动作 | 选区摘要与菜单计数更新 |
+
+### 实现架构
+
+```text
+页面 -> PromptUtils（范围/摘要/状态）
+     -> PopupV2、ExceptionPrompt、SelectionMenu
+     -> BreakpointUtils、Logger
+```
+
+### 测试覆盖
+
+| 类型 | 数量 | 说明 |
+|---|---:|---|
+| ohosTest | 28 | 入口、PopupV2、ExceptionPrompt/V2、SelectionMenu、稳定性、逻辑 |
+| 本地单测 | 2 | 提示工具与断点 |
 
 ### 效果预览
 
-| 首页 | PopupV2 | 异常提示 | 选择菜单 |
-|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
-| 运行后补充截图 | 运行后补充截图 | 运行后补充截图 | 运行后补充截图 |
+| 首页 | PopupV2 |
+|:---:|:---:|
+| <img src="screenshots/index.jpeg" width="360" /> | <img src="screenshots/popup.jpeg" width="360" /> |
 
-使用说明：
-
-1. 首页展示 4 个入口与当前断点，入口随宽度按 1/2/3 栏排列；
-2. PopupV2：点击 Confirm/Cancel 更新计数与状态，关闭按钮更新 close 计数；
-3. ExceptionPrompt / ExceptionPromptV2：点击右侧操作文本更新 action 计数；使用“隐藏/再次显示”切换提示显示；
-4. SelectionMenu：RichEditor 中输入文本，设置选区后可长按/选中文本弹出自定义菜单；点击菜单项会更新动作计数。
+> 截图基于 OpenHarmony 7.0.0.47 真机（API 26）拍摄。
 
 ### 工程目录
 
@@ -73,8 +101,7 @@ entry/src/test/
 3. 本示例需要使用 DevEco Studio 26.0.0 及以上版本才可编译运行；
 4. PopupV2、ExceptionPromptV2 为 API 26 新增组件；`ExceptionPromptV2` 在 SDK 26.0.0 中从 `@ohos.arkui.advanced.ExceptionPromptV2` 导入；
 5. ExceptionPrompt 的 `marginTop` 已调整为 140vp，避免提示条与页面按钮重叠导致点击被拦截；
-6. 本示例包含 24 条 ohosTest 用例（6 入口 + 3 PopupV2 + 3 ExceptionPrompt + 3 ExceptionPromptV2 + 2 SelectionMenu + 2 稳定性 + 5 逻辑单测），另有 2 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
-7. 效果预览截图需在真机运行后补充。
+6. 本示例包含 28 条 ohosTest 用例，另有 2 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
 
 ### 下载
 

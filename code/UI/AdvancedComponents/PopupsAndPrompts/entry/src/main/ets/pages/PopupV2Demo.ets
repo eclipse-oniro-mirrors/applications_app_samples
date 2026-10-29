@@ -27,6 +27,8 @@ struct PopupV2Demo {
   @Local confirmCount: number = 0;
   @Local cancelCount: number = 0;
   @Local closeCount: number = 0;
+  @Local operationCount: number = 0;
+  @Local history: string[] = [];
 
   // Initialize page state and write the entry log.
   aboutToAppear(): void {
@@ -48,6 +50,32 @@ struct PopupV2Demo {
     Logger.hide('PopupV2Demo');
   }
 
+  private record(action: string): void {
+    this.operationCount++;
+    this.history = [`#${this.operationCount} ${action}`, ...this.history].slice(0, 3);
+    Logger.event('PopupV2Demo', 'history', action);
+  }
+
+  @Builder
+  statCard(label: string, kind: string, id: string) {
+    Column({ space: 2 }) {
+      Text(label)
+        .fontSize(11)
+        .fontColor('#666666')
+      Text(kind === 'confirm' ? `${this.confirmCount}` :
+        kind === 'cancel' ? `${this.cancelCount}` : `${this.operationCount}`)
+        .id(id)
+        .fontSize(17)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#0A59F7')
+    }
+    .layoutWeight(1)
+    .height(54)
+    .justifyContent(FlexAlign.Center)
+    .backgroundColor('#F1F3F5')
+    .borderRadius(10)
+  }
+
   // Compose the page layout and responsive controls.
   build() {
     Scroll() {
@@ -64,7 +92,15 @@ struct PopupV2Demo {
           .fontWeight(FontWeight.Bold)
       }
       .width('100%')
-      .padding(12)
+      .padding({ left: 12, right: 12, top: 12, bottom: 6 })
+
+      Row({ space: 8 }) {
+        this.statCard('Confirm', 'confirm', 'popupConfirmCount')
+        this.statCard('Cancel', 'cancel', 'popupCancelCount')
+        this.statCard('Actions', 'actions', 'popupActionCount')
+      }
+      .width('100%')
+      .padding({ left: 12, right: 12, bottom: 8 })
 
       PopupV2({
         icon: $r('app.media.icon'),
@@ -77,6 +113,7 @@ struct PopupV2Demo {
         onClose: () => {
           this.closeCount++;
           this.status = 'close';
+          this.record('close');
           Logger.event('PopupV2Demo', 'onClose', PromptUtils.formatCount('close', this.closeCount));
         },
         buttons: [{
@@ -84,6 +121,7 @@ struct PopupV2Demo {
           action: () => {
             this.confirmCount++;
             this.status = 'confirm';
+            this.record('confirm');
             Logger.event('PopupV2Demo', 'confirm', PromptUtils.formatCount('confirm', this.confirmCount));
           },
           buttonTextModifier: new TextModifier().fontSize(15).fontColor(Color.Black)
@@ -92,6 +130,7 @@ struct PopupV2Demo {
           action: () => {
             this.cancelCount++;
             this.status = 'cancel';
+            this.record('cancel');
             Logger.event('PopupV2Demo', 'cancel', PromptUtils.formatCount('cancel', this.cancelCount));
           },
           buttonTextModifier: new TextModifier().fontSize(15).fontColor(Color.Black)
@@ -101,8 +140,46 @@ struct PopupV2Demo {
       Text(`status=${this.status}, confirm=${this.confirmCount}, cancel=${this.cancelCount}, close=${this.closeCount}`)
         .id('popupStatus')
         .fontSize(13)
+
+      Column({ space: 2 }) {
+        Row() {
+          Text('Recent actions')
+            .fontSize(11)
+            .fontColor('#666666')
+          Blank()
+          Button('Clear')
+            .id('popupClearHistory')
+            .fontSize(10)
+            .height(22)
+            .onClick(() => {
+              this.history = [];
+              this.operationCount = 0;
+            })
+        }
+        .width('100%')
+        if (this.history.length === 0) {
+          Text('No actions yet')
+            .fontSize(11)
+            .fontColor('#999999')
+            .width('100%')
+        } else {
+          ForEach(this.history, (item: string) => {
+            Text(item)
+              .fontSize(11)
+              .fontColor('#666666')
+              .maxLines(1)
+              .width('100%')
+          }, (item: string) => item)
+        }
       }
+      .id('popupHistory')
       .width('100%')
+      .height(88)
+      .padding(8)
+      .backgroundColor('#F7F8FA')
+      .borderRadius(10)
+    }
+    .width('100%')
       .constraintSize({ maxWidth: BreakpointUtils.contentMaxWidth(this.widthVp) })
       .padding({
         left: BreakpointUtils.pagePadding(this.widthVp),

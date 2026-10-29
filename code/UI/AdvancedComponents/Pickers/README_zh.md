@@ -8,20 +8,47 @@
 - [DatePickerComponent](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-DatePickerComponent.md)：API 26 新增高级组件，支持日期（DATE）、时间（TIME）、日期时间（DATE_TIME）三种 `displayMode`，以及 `onChange/onScrollStop` 回调；
 - [UIPickerComponent](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-container-ui-picker-component.md)：API 22 起的立体滚轮单选容器，支持 `selectedIndex`、`onChange`、`onScrollStop`。
 
-工程包含日志、日期时间/区间格式化、设备信息、响应式断点等工具类，并包含 27 条 ohosTest 用例（含 6 条逻辑单测）与 3 条本地工具类单测。
+工程包含日志、日期时间/区间格式化、设备信息、响应式断点等工具类，并包含 31 条 ohosTest 用例与 3 条本地工具单测。
+
+### 功能特性
+
+- CalendarPicker：下拉日历、起止日期限制、今天快捷选择、选中日期与事件历史；
+- DatePickerComponent：DATE/TIME/DATE_TIME 三种模式，Lunar、Loop、24 小时制、秒显示；
+- UIPickerComponent：滚轮单选、上一项/下一项、循环开关、onChange/onScrollStop 回调；
+- 日期工具：`formatDate/formatDateParts/formatTimeParts`、范围判断与日期钳制；
+- 响应式布局：内容最大宽度、断点边距、顶部对齐与横向/矮窗口滚动；
+- 可视化反馈：Selected/Events/Range 统计卡、最近事件面板与清空。
+
+### 交互说明
+
+| 页面 | 主要操作 | 反馈 |
+|---|---|---|
+| CalendarPicker | 选择日期、点击今天 | 选中文本、事件、统计与历史更新 |
+| DatePicker | 切换模式/高级参数 | 选择器与结果文本同步刷新 |
+| UIPicker | 上/下切换、滚动、Loop | 选中项、回调与边界钳制生效 |
+
+### 实现架构
+
+```text
+页面 -> PickerUtils（格式化/范围/钳制）
+     -> PickerConstants、BreakpointUtils
+     -> Logger
+```
+
+### 测试覆盖
+
+| 类型 | 数量 | 说明 |
+|---|---:|---|
+| ohosTest | 31 | 入口、Calendar、DatePicker 三模式、UIPicker、边界、稳定性、逻辑 |
+| 本地单测 | 3 | 日期时间、范围、断点 |
 
 ### 效果预览
 
-| 首页 | 日历选择 | 日期/时间选择 | 滚轮选择 |
-|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
-| 运行后补充截图 | 运行后补充截图 | 运行后补充截图 | 运行后补充截图 |
+| 首页 | CalendarPicker |
+|:---:|:---:|
+| <img src="screenshots/index.jpeg" width="360" /> | <img src="screenshots/calendar.jpeg" width="360" /> |
 
-使用说明：
-
-1. 首页展示 3 个入口、当前断点与设备信息，入口随宽度按 1/2/3 栏排列；
-2. CalendarPicker：点击入口日期打开下拉日历选择日期，`onChange` 更新已选文本并限制在 2020~2030；点击“今天”快速回到当天；
-3. DatePickerComponent：在“日期/时间/日期+时间”之间切换，滚轮变化通过 `onChange/onScrollStop` 更新结果文本；Lunar/Loop/24h/Seconds 可切换；
-4. UIPickerComponent：使用“上一个/下一个”按钮或直接滚动滚轮切换选项，页面显示 `onChange` 与 `onScrollStop` 回调信息。
+> 截图基于 OpenHarmony 7.0.0.47 真机（API 26）拍摄。
 
 ### 工程目录
 
@@ -70,8 +97,7 @@ entry/src/test/
 2. 本示例基于 ArkTS 1.1 动态环境开发，已适配 API version 26 版本 SDK，版本号：26.0.0；
 3. 本示例需要使用 DevEco Studio 26.0.0 及以上版本才可编译运行；
 4. UIPickerComponent 自 API 22 起可用，DatePickerComponent 为 API 26 新增高级组件；
-5. 本示例包含 27 条 ohosTest 用例（5 入口 + 4 CalendarPicker + 5 DatePickerComponent + 5 UIPickerComponent + 2 稳定性 + 6 逻辑单测），另有 3 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
-6. 效果预览截图需在真机运行后补充。
+5. 本示例包含 31 条 ohosTest 用例，另有 3 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
 
 ### 下载
 
