@@ -21,12 +21,12 @@ import { BusinessError } from '@kit.BasicServicesKit';
 // [Start PssLeakEvent_Header]
 // [Start MainThreadJankEvent_Header]
 import { hiAppEvent, hilog } from '@kit.PerformanceAnalysisKit';
+// [End MainThreadJankEvent_Header]
 // [End EventSub_Header]
 // [Start EventSub_Index_Capi_Header]
 import testNapi from 'libentry.so';
 // [End EventSub_Index_Capi_Header]
 // [End PssLeakEvent_Header]
-// [End MainThreadJankEvent_Header]
 // [Start ArkWeb_Fling_Jank_Header]
 import { ArkWebPage } from './ArkWebPage';
 // [End ArkWeb_Fling_Jank_Header]
