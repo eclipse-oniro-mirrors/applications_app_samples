@@ -16,10 +16,10 @@
 // [Start reader_state]
 /** 页面可恢复状态：只包含可序列化的定位键与轻量数据，不放函数/类实例/Map。 */
 export class ReaderState {
-  bookId: string = '';
-  chapterIndex: number = 1;
-  progress: number = 0; // 阅读进度（百分比）
-  draft: string = '';   // 未提交的笔记草稿（超限时走落盘引用）
+  public bookId: string = '';
+  public chapterIndex: number = 1;
+  public progress: number = 0; // 阅读进度（百分比）
+  public draft: string = '';   // 未提交的笔记草稿（超限时走落盘引用）
 }
 // [End reader_state]
 

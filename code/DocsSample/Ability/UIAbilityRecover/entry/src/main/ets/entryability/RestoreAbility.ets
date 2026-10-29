@@ -90,8 +90,8 @@ export default class RestoreAbility extends UIAbility {
 
   // [Start restore_on_window_stage_create]
   onWindowStageCreate(windowStage: window.WindowStage): void {
-    // 若工程入口是广告页/闪屏页，恢复启动时应直接加载内容页绕过广告页：
-    // const entry = RestoreJudge.isRestoring() ? 'restore/RestoreIndex' : 'pages/Advert';
+    // 若工程入口是广告页/闪屏页，恢复启动时应直接加载内容页绕过广告页
+    //（根据 RestoreJudge.isRestoring() 选择加载 restore/RestoreIndex 或广告页）。
     windowStage.loadContent('restore/RestoreIndex', (err) => {
       if (err.code) {
         hilog.error(DOMAIN, TAG, 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));

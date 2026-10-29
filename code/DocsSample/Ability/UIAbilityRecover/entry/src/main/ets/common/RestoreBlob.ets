@@ -22,9 +22,9 @@ const EXPIRE_MS = 7 * 24 * 60 * 60 * 1000; // 与系统备份数据 7 天过期�
 
 /** 落盘引用：只包含文件名、版本与字节数，本身必须很小（小于 1KB），实际数据在沙箱文件中。 */
 export class BlobRef {
-  file: string = '';
-  ver: number = 1;
-  size: number = 0;
+  public file: string = '';
+  public ver: number = 1;
+  public size: number = 0;
 }
 // [End blob_ref]
 
@@ -40,8 +40,11 @@ export class RestoreBlob {
     const fileName = FILE_PREFIX + key + '.json';
     const file = context.filesDir + '/' + fileName;
     const f = fs.openSync(file, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
-    fs.writeSync(f.fd, data);
-    fs.closeSync(f);
+    try {
+      fs.writeSync(f.fd, data);
+    } finally {
+      fs.closeSync(f);
+    }
     const ref = new BlobRef();
     ref.file = fileName;
     ref.ver = 1;
