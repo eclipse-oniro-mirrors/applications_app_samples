@@ -220,7 +220,7 @@ struct Index {
   changeUrl() {
     // [Start changeUrl]
     // 更换url。
-    let url = 'https://xxx.xxx.xxx.mp4';
+    let url = '';
     if (this.avPlayer == null) {
         return;
     }
