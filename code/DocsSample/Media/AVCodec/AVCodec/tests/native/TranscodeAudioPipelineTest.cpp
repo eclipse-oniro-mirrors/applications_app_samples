@@ -391,8 +391,10 @@ void RunTimeRange(int64_t startUs, int64_t endUs, int32_t paddedSamples, int64_t
 
 void RunConverted(int32_t outputRate, int32_t outputChannels)
 {
-    Require(outputRate > 0, "Converted sample rate must be positive");
-    const int32_t safeOutputRate = std::max(1, outputRate);
+    if (outputRate <= 0) {
+        Require(false, "Converted sample rate must be positive");
+        return;
+    }
     g_sendFormatChange = true;
     g_paddedSamples = 0;
     g_inputEos = 0;
@@ -423,7 +425,7 @@ void RunConverted(int32_t outputRate, int32_t outputChannels)
     Require(encodedPts.size() == static_cast<size_t>(packets), "Converted frame count");
     for (size_t index = 0; index < encodedPts.size(); ++index) {
         Require(encodedPts[index] == K_FIRST_PTS + static_cast<int64_t>(index) * K_AAC_FRAME_SAMPLES *
-            K_MICROSECONDS_PER_SECOND / safeOutputRate, "PTS follows output sample clock");
+            K_MICROSECONDS_PER_SECOND / outputRate, "PTS follows output sample clock");
     }
     auto format = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>(pipeline.OutputFormat(),
         FakeAvFormatDestroy);
@@ -514,9 +516,9 @@ int main()
     RunSuccess(true);
     RunSuccess(false);
     RunConverted(K_SAMPLE_RATE_44100, 1);
-    RunConverted(K_SAMPLE_RATE_44100, 2);
+    RunConverted(K_SAMPLE_RATE_44100, K_CHANNELS);
     RunConverted(K_SAMPLE_RATE, 1);
-    RunConverted(K_SAMPLE_RATE, 2);
+    RunConverted(K_SAMPLE_RATE, K_CHANNELS);
     RunDiscontinuous();
     RunTimeRange(K_RANGE_START_US, K_RANGE_END_US, K_RANGE_PADDED_SAMPLES, 0);
     RunTimeRange(K_RANGE_START_US + 1, K_RANGE_END_US - 1, K_FRACTIONAL_RANGE_PADDED_SAMPLES,

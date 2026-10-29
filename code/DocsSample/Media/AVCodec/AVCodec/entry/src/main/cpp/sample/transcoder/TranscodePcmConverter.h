@@ -19,18 +19,16 @@
 #include <limits>
 #include <vector>
 
-namespace {
-constexpr int32_t PCM_SAMPLE_BYTES = 2;
-constexpr int32_t PCM_SAMPLE_BITS_PER_BYTE = 8;
-constexpr int32_t PCM_CHANNEL_LIMIT = 2;
-constexpr int32_t PCM_MONO_CHANNEL_COUNT = 1;
-constexpr int32_t PCM_SAMPLE_RATE_LIMIT = 96000;
-constexpr int32_t PCM_SIGNED_SAMPLE_MIDPOINT = 1 << (PCM_SAMPLE_BYTES * PCM_SAMPLE_BITS_PER_BYTE - 1);
-constexpr int32_t PCM_SIGNED_SAMPLE_RANGE = static_cast<int32_t>(std::numeric_limits<uint16_t>::max()) + 1;
-}
-
 // Linear interpolation retains two source sample frames, including across decoder Buffer boundaries.
 class TranscodePcmConverter {
+    static constexpr int32_t PCM_SAMPLE_BYTES = 2;
+    static constexpr int32_t PCM_SAMPLE_BITS_PER_BYTE = 8;
+    static constexpr int32_t PCM_CHANNEL_LIMIT = 2;
+    static constexpr int32_t PCM_MONO_CHANNEL_COUNT = 1;
+    static constexpr int32_t PCM_SAMPLE_RATE_LIMIT = 96000;
+    static constexpr int32_t PCM_SIGNED_SAMPLE_MIDPOINT = 1 << (PCM_SAMPLE_BYTES * PCM_SAMPLE_BITS_PER_BYTE - 1);
+    static constexpr int32_t PCM_SIGNED_SAMPLE_RANGE = static_cast<int32_t>(std::numeric_limits<uint16_t>::max()) + 1;
+
 public:
     bool Configure(int32_t sourceRate, int32_t targetRate, int32_t sourceChannels, int32_t targetChannels)
     {

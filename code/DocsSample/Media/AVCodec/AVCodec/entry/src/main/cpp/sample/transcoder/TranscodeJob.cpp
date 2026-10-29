@@ -646,6 +646,16 @@ bool TranscodeJob::CopyAudio(bool &advanced)
         advanced = true;
         return true;
     }
+    if (!WriteCopiedAudioSample(attr)) {
+        return false;
+    }
+    audioDone_ = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+    advanced = true;
+    return true;
+}
+
+bool TranscodeJob::WriteCopiedAudioSample(OH_AVCodecBufferAttr &attr)
+{
     if (!options_.remuxOnly) {
         attr.pts = std::max<int64_t>(0, attr.pts - rangeStartUs_);
         if (!Check(OH_AVBuffer_SetBufferAttr(audioBuffer_, &attr), "Rebase original audio timestamps")) {
@@ -665,8 +675,6 @@ bool TranscodeJob::CopyAudio(bool &advanced)
         std::lock_guard<std::mutex> lock(snapshotMutex_);
         snapshot_.audioBytes += std::max(0, attr.size);
     }
-    audioDone_ = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
-    advanced = true;
     return true;
 }
 

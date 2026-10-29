@@ -22,6 +22,9 @@
 namespace {
 constexpr int32_t CHROMA_SUBSAMPLING = 2;
 constexpr int32_t RGBA_CHANNEL_COUNT = 4;
+constexpr int32_t RGBA_GREEN_COMPONENT = 1;
+constexpr int32_t RGBA_BLUE_COMPONENT = 2;
+constexpr int32_t RGBA_ALPHA_COMPONENT = 3;
 constexpr int32_t YUV_CHROMA_OFFSET = 128;
 constexpr int32_t YUV_LUMA_OFFSET = 16;
 constexpr int32_t YUV_LUMA_RANGE = 219;
@@ -33,6 +36,34 @@ constexpr int32_t PREVIEW_IDLE_WAIT_MS = 2;
 constexpr int32_t DIAGNOSTICS_PUBLISH_INTERVAL_MS = 250;
 constexpr double COLOR_COEFFICIENT_SCALE = 2.0;
 constexpr int32_t PREVIEW_TIMEOUT_SECONDS = 15;
+
+std::vector<uint8_t> ConvertPreviewToRgba(const std::vector<uint8_t> &yuv,
+    const TranscodeFrames::Layout &layout, int32_t matrix, bool fullRange)
+{
+    const double kr = matrix == MATRIX_COEFFICIENT_BT709 ? 0.2126 : 0.299;
+    const double kb = matrix == MATRIX_COEFFICIENT_BT709 ? 0.0722 : 0.114;
+    const double kg = 1 - kr - kb;
+    std::vector<uint8_t> rgba(static_cast<size_t>(layout.width) * layout.height * RGBA_CHANNEL_COUNT);
+    const auto byte = [](double value) { return static_cast<uint8_t>(std::clamp(std::lround(value), 0L, 255L)); };
+    const size_t plane = static_cast<size_t>(layout.width) * layout.height;
+    for (int32_t y = 0; y < layout.height; ++y) {
+        for (int32_t x = 0; x < layout.width; ++x) {
+            const size_t pixel = static_cast<size_t>(y) * layout.width + x;
+            const size_t uv = plane + static_cast<size_t>(y / CHROMA_SUBSAMPLING) * layout.width + (x & ~1);
+            const double luma = fullRange ? yuv[pixel] :
+                (yuv[pixel] - YUV_LUMA_OFFSET) * 255.0 / YUV_LUMA_RANGE;
+            const double u = (yuv[uv] - YUV_CHROMA_OFFSET) * (fullRange ? 1 : 255.0 / YUV_CHROMA_RANGE);
+            const double v = (yuv[uv + 1] - YUV_CHROMA_OFFSET) * (fullRange ? 1 : 255.0 / YUV_CHROMA_RANGE);
+            const size_t rgbaIndex = pixel * RGBA_CHANNEL_COUNT;
+            rgba[rgbaIndex] = byte(luma + COLOR_COEFFICIENT_SCALE * (1 - kr) * v);
+            rgba[rgbaIndex + RGBA_GREEN_COMPONENT] = byte(luma - COLOR_COEFFICIENT_SCALE * kb * (1 - kb) / kg * u -
+                COLOR_COEFFICIENT_SCALE * kr * (1 - kr) / kg * v);
+            rgba[rgbaIndex + RGBA_BLUE_COMPONENT] = byte(luma + COLOR_COEFFICIENT_SCALE * (1 - kb) * u);
+            rgba[rgbaIndex + RGBA_ALPHA_COMPONENT] = RGBA_ALPHA_OPAQUE;
+        }
+    }
+    return rgba;
+}
 }
 
 double TranscodeJob::OutputFrameRate() const
@@ -95,28 +126,7 @@ bool TranscodeJob::CapturePreview()
     int32_t fullRange = 0;
     OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_MATRIX_COEFFICIENTS, &matrix);
     OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_RANGE_FLAG, &fullRange);
-    double kr = matrix == MATRIX_COEFFICIENT_BT709 ? 0.2126 : 0.299;
-    double kb = matrix == MATRIX_COEFFICIENT_BT709 ? 0.0722 : 0.114;
-    const double kg = 1 - kr - kb;
-    std::vector<uint8_t> rgba(static_cast<size_t>(output.width) * output.height * RGBA_CHANNEL_COUNT);
-    const auto byte = [](double value) { return static_cast<uint8_t>(std::clamp(std::lround(value), 0L, 255L)); };
-    const size_t plane = static_cast<size_t>(output.width) * output.height;
-    for (int32_t y = 0; y < output.height; ++y) {
-        for (int32_t x = 0; x < output.width; ++x) {
-            const size_t pixel = static_cast<size_t>(y) * output.width + x;
-            const size_t uv = plane + static_cast<size_t>(y / CHROMA_SUBSAMPLING) * output.width + (x & ~1);
-            const double luma = fullRange ? yuv[pixel] :
-                (yuv[pixel] - YUV_LUMA_OFFSET) * 255.0 / YUV_LUMA_RANGE;
-            const double u = (yuv[uv] - YUV_CHROMA_OFFSET) * (fullRange ? 1 : 255.0 / YUV_CHROMA_RANGE);
-            const double v = (yuv[uv + 1] - YUV_CHROMA_OFFSET) * (fullRange ? 1 : 255.0 / YUV_CHROMA_RANGE);
-            const size_t rgbaIndex = pixel * RGBA_CHANNEL_COUNT;
-            rgba[rgbaIndex] = byte(luma + COLOR_COEFFICIENT_SCALE * (1 - kr) * v);
-            rgba[rgbaIndex + 1] = byte(luma - COLOR_COEFFICIENT_SCALE * kb * (1 - kb) / kg * u -
-                COLOR_COEFFICIENT_SCALE * kr * (1 - kr) / kg * v);
-            rgba[rgbaIndex + 2] = byte(luma + COLOR_COEFFICIENT_SCALE * (1 - kb) * u);
-            rgba[rgbaIndex + 3] = RGBA_ALPHA_OPAQUE;
-        }
-    }
+    auto rgba = ConvertPreviewToRgba(yuv, output, matrix, fullRange != 0);
     std::lock_guard<std::mutex> lock(snapshotMutex_);
     snapshot_.previewWidth = output.width;
     snapshot_.previewHeight = output.height;

@@ -22,6 +22,7 @@
 namespace {
 constexpr int32_t TEST_SAMPLE_RATE_48000 = 48000;
 constexpr int32_t TEST_STEREO_CHANNELS = 2;
+constexpr int32_t TEST_UNSUPPORTED_CHANNELS = 6;
 constexpr int32_t TEST_PCM_SAMPLE_BYTES = 2;
 constexpr int32_t TEST_SOURCE_SAMPLE_COUNT = 1001;
 constexpr int32_t INVALID_FILTER_ID = 99;
@@ -84,7 +85,8 @@ void TestPcmRates()
     TranscodePcmConverter converter;
     Require(!converter.Configure(0, TEST_SAMPLE_RATE_48000, TEST_STEREO_CHANNELS, TEST_STEREO_CHANNELS),
         "Reject zero rate");
-    Require(!converter.Configure(TEST_SAMPLE_RATE_48000, TEST_SAMPLE_RATE_48000, 6, TEST_STEREO_CHANNELS),
+    Require(!converter.Configure(TEST_SAMPLE_RATE_48000, TEST_SAMPLE_RATE_48000,
+        TEST_UNSUPPORTED_CHANNELS, TEST_STEREO_CHANNELS),
         "Reject unsupported channels");
     Require(converter.Configure(TEST_SAMPLE_RATE_48000, TEST_SAMPLE_RATE_48000, 1, TEST_STEREO_CHANNELS),
         "Mono duplication configuration");

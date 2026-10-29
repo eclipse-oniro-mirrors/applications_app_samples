@@ -43,7 +43,13 @@ template<class Read>
 uint8_t Interpolate(int32_t x, int32_t y, int32_t width, int32_t height, int32_t targetWidth,
     int32_t targetHeight, Read read)
 {
-    if (width <= 0 || height <= 0 || targetWidth <= 0 || targetHeight <= 0) {
+    if (targetWidth <= 0) {
+        return 0;
+    }
+    if (targetHeight <= 0) {
+        return 0;
+    }
+    if (width <= 0 || height <= 0) {
         return 0;
     }
     const double sx = std::clamp((x + 0.5) * width / targetWidth - 0.5, 0.0, static_cast<double>(width - 1));

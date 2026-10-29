@@ -144,6 +144,7 @@ private:
     bool SubmitBufferFrame(bool eos, bool sendEmptyEos, bool &advanced);
     bool DrainEncoder(bool &advanced);
     bool CopyAudio(bool &advanced);
+    bool WriteCopiedAudioSample(OH_AVCodecBufferAttr &attr);
     bool ReadLayout(OH_AVFormat *format, TranscodeFrames::Layout &layout);
     bool Check(int32_t result, const char *operation);
     bool Fail(const char *operation, int32_t result = -1);
