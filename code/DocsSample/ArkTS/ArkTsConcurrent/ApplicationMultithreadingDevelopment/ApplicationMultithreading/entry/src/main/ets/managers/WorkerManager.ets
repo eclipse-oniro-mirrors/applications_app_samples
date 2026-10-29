@@ -14,7 +14,7 @@
  */
 
 // [Start worker_manager]
-import { worker, MessageEvents, ErrorEvent } from '@kit.ArkTS';
+import { worker, MessageEvents } from '@kit.ArkTS';
 
 // 宿主线程发给Worker的消息，通过type字段区分任务类型
 interface WorkerMessage {
