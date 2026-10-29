@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,6 +17,8 @@
 #include <cstdint>
 #include <cstdlib>
 #include <hilog/log.h>
+#include <usb/usb_ddk_api.h>
+#include <usb/usb_ddk_types.h>
 
 #define LOG_TAG "hidTag [NATIVE]"
 
@@ -41,25 +43,53 @@ uint32_t DataParser::StartWork()
         return ret;
     }
     // [End driver_hid_report_step1]
+
+    // [Start driver_hid_report_step2_1]
+    // 初始化USB DDK并获取deviceId
+    ret = OH_Usb_Init();
+    if (ret != USB_DDK_SUCCESS) {
+        OH_LOG_ERROR(LOG_APP, "OH_Usb_Init failed, ret: %{public}d", ret);
+        return ret;
+    }
+    constexpr size_t maxUsbDeviceNum = 255;
+    struct Usb_DeviceArray deviceArray;
+    deviceArray.deviceIds = new uint64_t[maxUsbDeviceNum];
+    ret = OH_Usb_GetDevices(&deviceArray);
+    if (ret != USB_DDK_SUCCESS) {
+        OH_LOG_ERROR(LOG_APP, "OH_Usb_GetDevices failed, ret: %{public}d", ret);
+        delete[] deviceArray.deviceIds;
+        return ret;
+    }
+    deviceID_ = deviceArray.deviceIds[0];
+    delete[] deviceArray.deviceIds;
+
+    // 获取配置描述符（configIndex默认取1），读取HID接口的bInterfaceNumber（这里用前两个HID类型的Interface为例）
+    struct UsbDdkConfigDescriptor *config = nullptr;
+    ret = OH_Usb_GetConfigDescriptor(deviceID_, 1, &config);
+    if (ret != USB_DDK_SUCCESS) {
+        OH_LOG_ERROR(LOG_APP, "OH_Usb_GetConfigDescriptor failed, ret: %{public}d", ret);
+        return ret;
+    }
+    uint8_t bInterfaceNum1 = config->interface[0].altsetting[0].interfaceDescriptor.bInterfaceNumber;
+    uint8_t bInterfaceNum2 = config->interface[1].altsetting[0].interfaceDescriptor.bInterfaceNumber;
+    OH_Usb_FreeConfigDescriptor(config);
+    // [End driver_hid_report_step2_1]
     
-    // [Start driver_hid_report_step2]
-    uint32_t bInterfaceNum1 = 0x00;
-    // 打开deviceId和interfaceIndex1指定的HID设备（一般为/dev/hidraw0设备文件）
+    // [Start driver_hid_report_step2_2]
+    // 使用从配置描述符中读取的bInterfaceNum打开HID设备（一般为/dev/hidraw*文件）
     ret = OH_Hid_Open(deviceID_, bInterfaceNum1, &hid_);
     if (ret != HID_DDK_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Failed to open hid device, interface number:%{public}u ret:%{public}d",
             bInterfaceNum1, ret);
         return ret;
     }
-    uint32_t bInterfaceNum2 = 0x01;
-    // 打开deviceId和interfaceIndex2指定的HID设备（一般为/dev/hidraw1设备文件）
     ret = OH_Hid_Open(deviceID_, bInterfaceNum2, &hid2_);
     if (ret != HID_DDK_SUCCESS) {
         OH_LOG_ERROR(LOG_APP, "Failed to open hid device, interface number:%{public}u ret:%{public}d",
             bInterfaceNum2, ret);
         return ret;
     }
-    // [End driver_hid_report_step2]
+    // [End driver_hid_report_step2_2]
 
     Init();
     OH_LOG_INFO(LOG_APP, "[%{public}s:%{public}d] %{public}s hid device initialized successfully", FILE_NAME, __LINE__,
