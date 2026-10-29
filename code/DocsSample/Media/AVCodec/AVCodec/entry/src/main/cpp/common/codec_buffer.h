@@ -25,13 +25,13 @@
 #include <multimedia/player_framework/native_avbuffer.h>
 
 // [Start codec_buffer_info]
-// Buffer信息。
+// buffer信息。
 struct CodecBufferInfo {
-    // Buffer。
+    // buffer。
     OH_AVBuffer *buffer = nullptr;
-    // Buffer对应的bufferIndex。
+    // buffer对应的bufferIndex。
     uint32_t bufferIndex = 0;
-    // Buffer的输入尺寸（size）、偏移量（offset）、时间戳（pts）、缓冲区标记（flags）信息。
+    // buffer的输入尺寸（size）、偏移量（offset）、时间戳（pts）、缓冲区标记（flags）信息。
     OH_AVCodecBufferAttr attr = {0, 0, 0, AVCODEC_BUFFER_FLAGS_NONE};
 
     CodecBufferInfo() = default;
@@ -39,7 +39,7 @@ struct CodecBufferInfo {
     CodecBufferInfo(uint32_t index, OH_AVBuffer *avBuffer)
         : buffer(avBuffer), bufferIndex(index)
     {
-        // 获取Buffer的attr信息。
+        // 获取buffer的attr信息。
         if (buffer != nullptr) {
             (void)OH_AVBuffer_GetBufferAttr(buffer, &attr);
         }
@@ -48,7 +48,7 @@ struct CodecBufferInfo {
 // [End codec_buffer_info]
 
 // [Start codec_buffer_queue]
-// 回调Buffer输入输出队列。
+// 回调buffer输入输出队列。
 class CodecBufferQueue {
 public:
     void Enqueue(const std::shared_ptr<CodecBufferInfo> bufferInfo)
@@ -79,8 +79,8 @@ public:
     void Flush()
     {
         std::unique_lock<std::mutex> lock(mutex_);
-        // 清空回调Buffer队列。
-        // 调用方需先与codec的Flush/Stop及工作线程完成同步，避免在其他线程仍访问Buffer时清空队列。
+        // 清空回调buffer队列。
+        // 调用方需先与codec的Flush/Stop及工作线程完成同步，避免在其他线程仍访问buffer时清空队列。
         while (!bufferQueue_.empty()) {
             bufferQueue_.pop();
         }

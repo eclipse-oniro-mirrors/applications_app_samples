@@ -313,7 +313,7 @@ bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool rend
         return false;
     }
     if (!IsVulkanSurfaceChainReady(sampleInfo_, videoSink_.get())) {
-        // Vulkan不允许退回decoder Buffer送显，避免切换模式后旧BufferRenderer继续接管画面。
+        // Vulkan不允许退回decoder buffer送显，避免切换模式后旧BufferRenderer继续接管画面。
         AVCODEC_SAMPLE_LOGE("Invalid Vulkan Surface chain");
         (void)videoDecoder_->FreeOutputBuffer(bufferInfo, false);
         return false;
@@ -347,7 +347,7 @@ bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool rend
 
 void Player::ConfirmHdrVividFromBuffer(const CodecBufferInfo &bufferInfo)
 {
-    // 容器声明不能证明码流确为HDR Vivid。仅以解码后Buffer的元数据为准；
+    // 容器声明不能证明码流确为HDR Vivid。仅以解码后buffer的元数据为准；
     // 直连Surface输出则在下方帧已送达XComponent后再检查。
     if (!hdrVividConfirmed_.load() && HdrMetadataHelper::IsHdrVivid(bufferInfo.buffer)) {
         hdrVividConfirmed_.store(true);
@@ -422,7 +422,7 @@ void Player::ProbeHdrVividFromSurface(bool render, uint64_t outputFrameCount)
         const bool usesVulkanSurface = sampleInfo_.codec.codecRunMode == VULKAN &&
             videoSink_ != nullptr && videoSink_->UsesSurfaceDecoder();
         // Vulkan的NativeImage生产者不是XComponent窗口，但Vulkan会把确认后的
-        // NativeBuffer元数据同步到最终窗口，因此应从该窗口读取最后送显的Buffer。
+        // NativeBuffer元数据同步到最终窗口，因此应从该窗口读取最后送显的buffer。
         if (windowLease) {
             const bool usesDirectSurface = sampleInfo_.video.window == windowLease.GetWindow();
             const bool hdrConfirmed = usesVulkanSurface ? videoSink_->IsHdrVividConfirmed() :

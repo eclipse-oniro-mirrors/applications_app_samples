@@ -279,7 +279,7 @@ int32_t VideoDecoder::QueryInputBuffer(uint32_t &bufferIndex, int64_t timeoutUs)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
 
-    // 查询成功后，bufferIndex仅在对应Buffer被PushInputBuffer归还前有效。
+    // 查询成功后，bufferIndex仅在对应buffer被PushInputBuffer归还前有效。
     const int32_t ret = OH_VideoDecoder_QueryInputBuffer(decoder_, &bufferIndex, timeoutUs);
     if (ret == AV_ERR_TRY_AGAIN_LATER) {
         return AVCODEC_SAMPLE_ERR_AGAIN;
@@ -293,7 +293,7 @@ OH_AVBuffer *VideoDecoder::GetInputBuffer(uint32_t bufferIndex)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, nullptr, "Decoder is null");
 
-    // 返回的Buffer由codec管理，调用方只能在PushInputBuffer前读取或写入其内容。
+    // 返回的buffer由codec管理，调用方只能在PushInputBuffer前读取或写入其内容。
     OH_AVBuffer *buffer = OH_VideoDecoder_GetInputBuffer(decoder_, bufferIndex);
     CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Input buffer is null, index: %{public}u", bufferIndex);
     return buffer;
@@ -311,17 +311,17 @@ int32_t VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
             CHECK_AND_RETURN_RET_LOG(buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer is null");
             info.buffer = buffer;
             /**
-             * // 示例：调用方将待解码帧的数据与属性写入Buffer。
+             * // 示例：调用方将待解码帧的数据与属性写入buffer。
              * uint8_t *addr = OH_AVBuffer_GetAddr(buffer);
              * CHECK_AND_RETURN_RET_LOG(addr != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer addr is null");
-             * // Buffer数据填充。
+             * // buffer数据填充。
              * int32_t capacity = OH_AVBuffer_GetCapacity(buffer);
              * if (size > capacity) {
              *     // 异常处理。
              * }
              * memcpy(addr, frameData, size);
              * OH_AVCodecBufferAttr attrInfo;
-             * // Buffer属性配置。
+             * // buffer属性配置。
              * // 配置帧数据的输入尺寸、偏移量、时间戳等字段信息。
              * attrInfo.size = size;
              * attrInfo.offset = offset;
@@ -369,7 +369,7 @@ OH_AVBuffer *VideoDecoder::GetOutputBuffer(uint32_t bufferIndex)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, nullptr, "Decoder is null");
 
-    // 输出Buffer归还后可能立即由codec复用，调用方不得缓存其地址或跨线程长期持有。
+    // 输出buffer归还后可能立即由codec复用，调用方不得缓存其地址或跨线程长期持有。
     OH_AVBuffer *buffer = OH_VideoDecoder_GetOutputBuffer(decoder_, bufferIndex);
     CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Output buffer is null, index: %{public}u", bufferIndex);
     return buffer;
@@ -473,7 +473,7 @@ int32_t VideoDecoder::Reset()
 // [End decoder_reset]
 
 // [Start decoder_push_input_buffer]
-// 送入解码输入队列进行解码，将填充好码流数据的Buffer推送给解码器。
+// 送入解码输入队列进行解码，将填充好码流数据的buffer推送给解码器。
 int32_t VideoDecoder::PushInputBuffer(CodecBufferInfo &info)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");

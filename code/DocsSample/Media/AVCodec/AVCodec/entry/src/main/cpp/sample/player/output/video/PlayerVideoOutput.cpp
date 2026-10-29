@@ -99,7 +99,7 @@ void Player::VideoDecInputAsyncThread()
         std::shared_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
         /**
          *
-         * // 示例：将数据写入Buffer，设置属性后送入解码器。
+         * // 示例：将数据写入buffer，设置属性后送入解码器。
          * uint8_t *addr = OH_AVBuffer_GetAddr(bufferInfo->buffer);
          * CHECK_AND_RETURN_RET_LOG(addr != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer addr is null");
          * int32_t capacity = OH_AVBuffer_GetCapacity(bufferInfo->buffer);
@@ -231,8 +231,8 @@ void Player::SetVolume(float volume)
 
 bool Player::RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame)
 {
-    // 60fps时提前渲染两帧是合理的，但在240fps时会占用约八个解码器输出Buffer。
-    // 将提前量限制为两个源帧，使硬件解码器在高帧率下仍可及时收回输出Buffer。
+    // 60fps时提前渲染两帧是合理的，但在240fps时会占用约八个解码器输出buffer。
+    // 将提前量限制为两个源帧，使硬件解码器在高帧率下仍可及时收回输出buffer。
     const int64_t sourceFrameIntervalUs = std::max<int64_t>(1, sampleInfo_.video.frameInterval);
     const int64_t maxRenderLeadUs = std::min(AvSyncController::renderAheadUs, sourceFrameIntervalUs * 2);
     const int64_t renderLeadUs = std::clamp(waitTimeUs, int64_t { 0 }, maxRenderLeadUs);
@@ -270,7 +270,7 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
     }
     AvSyncDecision decision;
     if (!CalculateSyncParameters(bufferInfo, framePosition, decision)) {
-        // 同步参数无效时没有送显路径会接管该Buffer，直接丢弃并归还。
+        // 同步参数无效时没有送显路径会接管该buffer，直接丢弃并归还。
         (void)videoDecoder_->FreeOutputBuffer(bufferInfo, false);
         playbackFailed_ = true;
         isStarted_ = false;
@@ -433,7 +433,7 @@ void Player::VideoDecOutputAsyncThread()
         WaitIfPaused();
         CHECK_AND_BREAK_LOG(isStarted_, "VD Decoder output thread out");
         // [Start decoder_output_buffer]
-        // 获取输出Buffer。
+        // 获取输出buffer。
         std::shared_ptr<CodecBufferInfo> bufferInfo = videoDecContext_->outputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
         // 开发者可根据业务需要，对输出数据进行送显/保存/释放处理。
