@@ -28,13 +28,13 @@ import {
 // [EndExclude import_save_h]
 // [EndExclude import_appRecovery_h]
 } from '@kit.AbilityKit';
-// [Start import_save_h]
+// [End import_save_h]
 // [End import_appRecovery_h]
 // [End import_h]
 
 // [Start import_hilog_h]
 import { hilog } from '@kit.PerformanceAnalysisKit';
-// [Start import_hilog_h]
+// [End import_hilog_h]
 
 import { window } from '@kit.ArkUI';
 
