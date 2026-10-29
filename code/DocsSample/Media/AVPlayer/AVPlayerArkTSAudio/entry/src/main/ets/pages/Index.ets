@@ -134,15 +134,19 @@ struct Index {
     let fdPath = 'fd://'; // 此处仅为示意，请替换为真实资源文件URL。
     let path : string = `${this.context?.filesDir}/${this.fileName}`; // 此处仅为示意，请替换为真实的应用沙箱文件路径。
     let file = await fs.open(path);
-    fdPath = fdPath + file.fd;
-    this.avPlayer = await media.createAVPlayer();
-    this.avPlayer.url = fdPath;
+    try {
+      fdPath = fdPath + file.fd;
+      this.avPlayer = await media.createAVPlayer();
+      this.avPlayer.url = fdPath;
+    } finally {
+      fs.closeSync(file);
+    }
     // [End setFdPath]
   }
 
   setUrl() {
     // [Start setUrl]
-    let url = 'https://abc.bcd.example.mp3'; // 此处仅为示意，请替换为真实资源文件URL。
+    let url = ''; // 此处仅为示意，请替换为真实资源文件URL。
     if (this.avPlayer == null) {
       return;
     }
