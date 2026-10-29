@@ -37,7 +37,7 @@ export default class RestoreAbility extends UIAbility {
     // 1. 开启备份恢复：必须在应用初始化阶段最先调用
     this.context.setRestoreEnabled(true);
 
-    // 2. 恢复判定（版本隔离）：不能单独依赖 launchReason
+    // 2. 恢复判定（版本隔离，低版本不单独依赖 launchReason）
     RestoreJudge.init(want, launchParam, [KEY_RESTORE_READER, KEY_RESTORE_NAV_PATH]);
 
     if (RestoreJudge.isRestoring()) {

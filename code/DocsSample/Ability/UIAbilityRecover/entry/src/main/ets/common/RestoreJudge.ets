@@ -15,13 +15,15 @@
 
 // [Start restore_judge]
 import { AbilityConstant, Want } from '@kit.AbilityKit';
+import { deviceInfo } from '@kit.BasicServicesKit';
 
 const RECOVERY_KEY = 'ohos.ability.params.abilityRecoveryRestart';
 
 /**
  * 恢复启动判定（版本隔离）。
  * 部分低版本系统中，设备重启后的重拉也会把 launchReason 标记为 APP_RECOVERY，
- * 因此不能单独依赖 launchReason 判定恢复，需要结合系统键与恢复数据存在性共同判定。
+ * 因此低版本不能单独依赖 launchReason 判定恢复，需要结合系统键与恢复数据存在性共同判定；
+ * API 26 起系统不再误标，launchReason 单独成立即可判定恢复启动。
  */
 export class RestoreJudge {
   private static restoring: boolean = false;
@@ -29,7 +31,7 @@ export class RestoreJudge {
   /**
    * 在 UIAbility 的 onCreate 中调用一次。
    * - flag：全版本保险信号，系统键 abilityRecoveryRestart 为 true 时一定是恢复启动；
-   * - byReason：launchReason 辅助信号，低版本系统可能误标，只能作为或条件；
+   * - byReason：launchReason 信号，API 26 起可信可单独成立，低版本可能误标只能作辅助；
    * - byData：本应用恢复键存在于 want.parameters 中——恢复键只在恢复启动时由系统合并回来，
    *   是低版本最可靠的信号，单独成立即可判定为恢复启动。
    */
@@ -38,7 +40,9 @@ export class RestoreJudge {
     const flag = raw === true || raw === 'true';
     const byReason = launchParam?.launchReason === AbilityConstant.LaunchReason.APP_RECOVERY;
     const byData = appRestoreKeys.some(k => want?.parameters?.[k] !== undefined);
-    RestoreJudge.restoring = flag || (byReason && byData) || byData;
+    // API 26 起 launchReason 可信；低版本误标风险，须系统键或恢复键佐证
+    const reasonTrusted: boolean = deviceInfo.sdkApiVersion >= 26;
+    RestoreJudge.restoring = flag || (reasonTrusted && byReason) || byData;
   }
 
   /** 页面/Ability 任意处调用：当前是否恢复启动（含恢复流程未结束期间）。 */
