@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start InterceptTelScheme]
 import { webview } from '@kit.ArkWeb';
 import { call } from '@kit.TelephonyKit';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -42,6 +41,7 @@ struct WebComponent {
       Web({ src: $rawfile('tel.html'), controller: this.controller })
         .javaScriptAccess(true)
         .domStorageAccess(true)
+        // [Start InterceptTelScheme]
         .onInterceptRequest((event) => {
           if (!event) {
             return null;
@@ -57,6 +57,7 @@ struct WebComponent {
           }
           return null;
         })
+        // [End InterceptTelScheme]
         // [Start intercept_tel]
         // 通过 javaScriptProxy 获取 H5 传递的 tel: URL 并调用拨号
         // 此方式不会触发页面导航，返回后页面内容保持不变，不会白屏
@@ -78,4 +79,3 @@ struct WebComponent {
     }
   }
 }
-// [End InterceptTelScheme]
