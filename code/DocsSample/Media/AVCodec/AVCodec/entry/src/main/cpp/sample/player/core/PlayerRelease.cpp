@@ -87,7 +87,7 @@ void Player::ReleaseVideoDecoder()
     if (sampleInfo_.video.window == decoderWindow) {
         sampleInfo_.video.window = nullptr;
     }
-    // OH_VideoDecoder_Destroy() 完成后，codec 不再访问输出 Surface，才能解除窗口引用。
+    // OH_VideoDecoder_Destroy()完成后，codec不再访问输出Surface，才能解除窗口引用。
     decoderWindowLease_ = {};
     if (videoDecContext_ != nullptr) {
         std::unique_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
@@ -153,10 +153,10 @@ void Player::ReleasePlaybackResources()
         demuxer_->Release();
         demuxer_.reset();
     }
-    // 先销毁 codec。OpenGL 的 NativeImage 和直连 XComponent Surface 仍是其输出端，
-    // 必须等 codec 完全释放后才能拆除 sink。
+    // 先销毁codec。OpenGL的NativeImage和直连XComponent Surface仍是其输出端，
+    // 必须等codec完全释放后才能拆除sink。
     ReleaseVideoDecoder();
-    // 每个 sink 持有当前解码器和 XComponent 的送显资源。全部释放后再创建新的 Surface 解码器。
+    // 每个sink持有当前解码器和XComponent的送显资源。全部释放后再创建新的Surface解码器。
     if (videoSink_ != nullptr) {
         completedPlaybackInfo_.videoSinkDiagnostics = videoSink_->GetDiagnostics();
         videoSink_->Reset();

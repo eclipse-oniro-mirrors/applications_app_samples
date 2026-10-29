@@ -99,7 +99,7 @@ void Player::VideoDecInputAsyncThread()
         std::shared_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
         /**
          *
-         * // 示例：将数据写入 Buffer，设置属性后送入解码器。
+         * // 示例：将数据写入Buffer，设置属性后送入解码器。
          * uint8_t *addr = OH_AVBuffer_GetAddr(bufferInfo->buffer);
          * CHECK_AND_RETURN_RET_LOG(addr != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer addr is null");
          * int32_t capacity = OH_AVBuffer_GetCapacity(bufferInfo->buffer);
@@ -231,15 +231,15 @@ void Player::SetVolume(float volume)
 
 bool Player::RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame)
 {
-    // 60fps 时提前渲染两帧是合理的，但在 240fps 时会占用约八个解码器输出 Buffer。
-    // 将提前量限制为两个源帧，使硬件解码器在高帧率下仍可及时收回输出 Buffer。
+    // 60fps时提前渲染两帧是合理的，但在240fps时会占用约八个解码器输出Buffer。
+    // 将提前量限制为两个源帧，使硬件解码器在高帧率下仍可及时收回输出Buffer。
     const int64_t sourceFrameIntervalUs = std::max<int64_t>(1, sampleInfo_.video.frameInterval);
     const int64_t maxRenderLeadUs = std::min(AvSyncController::renderAheadUs, sourceFrameIntervalUs * 2);
     const int64_t renderLeadUs = std::clamp(waitTimeUs, int64_t { 0 }, maxRenderLeadUs);
     if (waitTimeUs > maxRenderLeadUs) {
         std::this_thread::sleep_for(std::chrono::microseconds(waitTimeUs - maxRenderLeadUs));
     }
-    // 无论送显还是丢帧，该调用都会归还同一 bufferIndex；返回后不能访问 bufferInfo.buffer。
+    // 无论送显还是丢帧，该调用都会归还同一bufferIndex；返回后不能访问bufferInfo.buffer。
     return PresentAndReleaseVideoBuffer(bufferInfo, !dropFrame, renderLeadUs * NS_PER_US + GetCurrentTime());
 }
 
@@ -270,7 +270,7 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
     }
     AvSyncDecision decision;
     if (!CalculateSyncParameters(bufferInfo, framePosition, decision)) {
-        // 同步参数无效时没有送显路径会接管该 Buffer，直接丢弃并归还。
+        // 同步参数无效时没有送显路径会接管该Buffer，直接丢弃并归还。
         (void)videoDecoder_->FreeOutputBuffer(bufferInfo, false);
         playbackFailed_ = true;
         isStarted_ = false;
@@ -289,7 +289,7 @@ bool Player::GetAudioTimestampForVideo(CodecBufferInfo& bufferInfo, int64_t& fra
     {
         std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
         if (audioRenderer_ == nullptr) {
-            // 尚未进入 VideoSink，必须由当前输出线程归还该索引。
+            // 尚未进入VideoSink，必须由当前输出线程归还该索引。
             (void)videoDecoder_->FreeOutputBuffer(bufferInfo, false);
             playbackFailed_ = true;
             isStarted_ = false;
@@ -433,7 +433,7 @@ void Player::VideoDecOutputAsyncThread()
         WaitIfPaused();
         CHECK_AND_BREAK_LOG(isStarted_, "VD Decoder output thread out");
         // [Start decoder_output_buffer]
-        // 获取输出buffer。
+        // 获取输出Buffer。
         std::shared_ptr<CodecBufferInfo> bufferInfo = videoDecContext_->outputBufferQueue.Dequeue();
         std::shared_lock<std::shared_mutex> codecLock(videoDecContext_->codecMutex);
         // 开发者可根据业务需要，对输出数据进行送显/保存/释放处理。

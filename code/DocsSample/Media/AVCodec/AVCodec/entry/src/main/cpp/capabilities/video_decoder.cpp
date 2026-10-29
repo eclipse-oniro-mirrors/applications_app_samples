@@ -99,7 +99,7 @@ OH_AVCodec *VideoDecoder::GetCodecByCategory(const char *mime, bool isEncoder, O
 // [End decoder_create_byname]
 
 // [Start decoder_create_bymime]
-// 通过 MIME TYPE 创建解码器，只能创建系统推荐的特定编解码器。
+// 通过MIME TYPE创建解码器，只能创建系统推荐的特定编解码器。
 // 涉及创建多路编解码器时，优先创建硬件解码器实例，硬件资源不够时再创建软件解码器实例。
 OH_AVCodec *VideoDecoder::GetCodecByMime(const char *mime)
 {
@@ -109,7 +109,7 @@ OH_AVCodec *VideoDecoder::GetCodecByMime(const char *mime)
 // [End decoder_create_bymime]
 
 // [Start decoder_set_surface]
-// 设置解码器的送显窗口。调用时必须已经完成 Configure，window 的生命周期由调用方保证。
+// 设置解码器的送显窗口。调用时必须已经完成Configure，window的生命周期由调用方保证。
 int32_t VideoDecoder::SetSurface(OHNativeWindow *window)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
@@ -124,7 +124,7 @@ int32_t VideoDecoder::SetSurface(OHNativeWindow *window)
 // [End decoder_set_surface]
 
 // [Start decoder_prepare]
-// 申请解码器运行所需资源。Prepare 成功后才能调用 Start。
+// 申请解码器运行所需资源。Prepare成功后才能调用Start。
 int32_t VideoDecoder::Prepare()
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
@@ -181,7 +181,7 @@ int32_t VideoDecoder::CreateByName(const std::string &codecName)
     CHECK_AND_RETURN_RET_LOG(decoder_ == nullptr, AVCODEC_SAMPLE_ERR_ERROR,
         "Decoder already exists, release it before creating another one");
 
-    // 名称通常来自能力查询结果。由封装类持有 decoder_，避免调用方遗漏 Destroy。
+    // 名称通常来自能力查询结果。由封装类持有decoder_，避免调用方遗漏Destroy。
     decoder_ = OH_VideoDecoder_CreateByName(codecName.c_str());
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
         "Create decoder by name failed, name: %{public}s", codecName.c_str());
@@ -279,7 +279,7 @@ int32_t VideoDecoder::QueryInputBuffer(uint32_t &bufferIndex, int64_t timeoutUs)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
 
-    // 查询成功后，bufferIndex 仅在对应 Buffer 被 PushInputBuffer 归还前有效。
+    // 查询成功后，bufferIndex仅在对应Buffer被PushInputBuffer归还前有效。
     const int32_t ret = OH_VideoDecoder_QueryInputBuffer(decoder_, &bufferIndex, timeoutUs);
     if (ret == AV_ERR_TRY_AGAIN_LATER) {
         return AVCODEC_SAMPLE_ERR_AGAIN;
@@ -293,7 +293,7 @@ OH_AVBuffer *VideoDecoder::GetInputBuffer(uint32_t bufferIndex)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, nullptr, "Decoder is null");
 
-    // 返回的 Buffer 由 codec 管理，调用方只能在 PushInputBuffer 前读取或写入其内容。
+    // 返回的Buffer由codec管理，调用方只能在PushInputBuffer前读取或写入其内容。
     OH_AVBuffer *buffer = OH_VideoDecoder_GetInputBuffer(decoder_, bufferIndex);
     CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Input buffer is null, index: %{public}u", bufferIndex);
     return buffer;
@@ -311,17 +311,17 @@ int32_t VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
             CHECK_AND_RETURN_RET_LOG(buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer is null");
             info.buffer = buffer;
             /**
-             * // 示例：调用方将待解码帧的数据与属性写入 Buffer。
+             * // 示例：调用方将待解码帧的数据与属性写入Buffer。
              * uint8_t *addr = OH_AVBuffer_GetAddr(buffer);
              * CHECK_AND_RETURN_RET_LOG(addr != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer addr is null");
-             * // buffer数据填充。
+             * // Buffer数据填充。
              * int32_t capacity = OH_AVBuffer_GetCapacity(buffer);
              * if (size > capacity) {
              *     // 异常处理。
              * }
              * memcpy(addr, frameData, size);
              * OH_AVCodecBufferAttr attrInfo;
-             * // buffer属性配置。
+             * // Buffer属性配置。
              * // 配置帧数据的输入尺寸、偏移量、时间戳等字段信息。
              * attrInfo.size = size;
              * attrInfo.offset = offset;
@@ -355,7 +355,7 @@ int32_t VideoDecoder::QueryOutputBuffer(uint32_t &bufferIndex, int64_t timeoutUs
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
 
-    // 查询成功后必须尽快送显或释放该索引，否则 codec 的输出队列会被阻塞。
+    // 查询成功后必须尽快送显或释放该索引，否则codec的输出队列会被阻塞。
     const int32_t ret = OH_VideoDecoder_QueryOutputBuffer(decoder_, &bufferIndex, timeoutUs);
     if (ret == AV_ERR_TRY_AGAIN_LATER) {
         return AVCODEC_SAMPLE_ERR_AGAIN;
@@ -369,7 +369,7 @@ OH_AVBuffer *VideoDecoder::GetOutputBuffer(uint32_t bufferIndex)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, nullptr, "Decoder is null");
 
-    // 输出 Buffer 归还后可能立即由 codec 复用，调用方不得缓存其地址或跨线程长期持有。
+    // 输出Buffer归还后可能立即由codec复用，调用方不得缓存其地址或跨线程长期持有。
     OH_AVBuffer *buffer = OH_VideoDecoder_GetOutputBuffer(decoder_, bufferIndex);
     CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Output buffer is null, index: %{public}u", bufferIndex);
     return buffer;
@@ -465,7 +465,7 @@ int32_t VideoDecoder::Reset()
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
 
-    // Reset 将codec恢复到初始状态。之后必须重新 Configure、SetSurface（Surface模式）和 Prepare。
+    // Reset将codec恢复到初始状态。之后必须重新Configure、SetSurface（Surface模式）和Prepare。
     const int32_t ret = OH_VideoDecoder_Reset(decoder_);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Reset failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
@@ -473,7 +473,7 @@ int32_t VideoDecoder::Reset()
 // [End decoder_reset]
 
 // [Start decoder_push_input_buffer]
-// 送入解码输入队列进行解码，将填充好码流数据的buffer推送给解码器。
+// 送入解码输入队列进行解码，将填充好码流数据的Buffer推送给解码器。
 int32_t VideoDecoder::PushInputBuffer(CodecBufferInfo &info)
 {
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
@@ -585,7 +585,7 @@ int32_t VideoDecoder::SetDecryptionConfig(MediaKeySession *mediaKeySession, bool
     CHECK_AND_RETURN_RET_LOG(decoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Decoder is null");
     CHECK_AND_RETURN_RET_LOG(mediaKeySession != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Media key session is null");
 
-    // 该配置需在 Prepare 前完成；安全视频通路仅适用于 Surface 模式。
+    // 该配置需在Prepare前完成；安全视频通路仅适用于Surface模式。
     const int32_t ret = OH_VideoDecoder_SetDecryptionConfig(decoder_, mediaKeySession, secureVideoPath);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
         "Set decryption config failed, ret: %{public}d", ret);
