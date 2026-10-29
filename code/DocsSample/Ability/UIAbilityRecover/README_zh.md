@@ -20,6 +20,8 @@
 
 5）重启设备不支持还原备份；
 
+6）页面栈恢复示例：首页点击「页面栈恢复示例」进入 RestoreAbility，打开阅读页并模拟翻页/输入草稿，退到后台等待系统回收后，从桌面图标重新启动应用，验证页面栈与阅读进度恢复（注意：验证恢复必须通过桌面图标重拉，使用 aa start 命令走冷启动路径测不到恢复行为）；
+
 ### 工程目录
 ```
 UIAbilityLaunchType/
@@ -28,12 +30,22 @@ UIAbilityLaunchType/
 │   ├── app.json5                       // 应用级配置文件
 ├── entry/src/main
 │   ├── ets
+│   │   ├── common
+│   │   │   ├── RestoreJudge.ets        // 恢复启动判定（版本隔离）
+│   │   │   ├── RestoreBlob.ets         // 超限数据落盘引用
 │   │   ├── entryability
 │   │   │   ├── EntryAbility.ets
+│   │   │   ├── RestoreAbility.ets      // 页面栈恢复示例 Ability
 │   │   ├── entrybackupability
 │   │   │   ├── EntryBackupAbility.ets
 │   │   ├── pages
-│   │   │   ├── Index.ets               // 首页
+│   │   │   ├── Index.ets               // 首页（入口）
+│   │   ├── restore
+│   │   │   ├── RestoreIndex.ets        // Navigation 三件套示例首页
+│   │   │   ├── ReaderPage.ets          // 断点续读 NavDestination
+│   │   │   ├── DeepPage.ets            // 第三层页面（深栈补推演示）
+│   │   │   ├── RouterPage.ets          // router 页面恢复示例
+│   │   │   ├── AdvertPage.ets          // recoverable:false 排除示例
 │   ├── module.json5                    // 模块级配置文件
 │   └── resources
 ├── entry/src/ohosTest
@@ -47,6 +59,12 @@ UIAbilityLaunchType/
 * UIAbility备份恢复接口由UIAbilityContext模块提供，开发者可以通过在UIAbility中通过this.context直接调用。
     * 在应用模块初始化时，在UIAbility的onCreate()回调函数中启用UIAbility的备份恢复功能，源码参考[EntryAbility](/entry/src/main/ets/entryability/EntryAbility.ets)。
     * 开发者需要主动保存数据，调用onSaveState保存数据，以在UIAbility启动时恢复，源码参考[EntryAbility](/entry/src/main/ets/entryability/EntryAbility.ets)。
+* 页面栈与数据恢复适配指南示例（[应用状态恢复与页面栈恢复适配指南](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/application-models/app-restore-adaptation.md)）：
+    * 恢复启动判定（版本隔离，不能单独依赖launchReason），源码参考[RestoreJudge](/entry/src/main/ets/common/RestoreJudge.ets)。
+    * 方案A（Navigation栈恢复）：Navigation三件套（.id + .recoverable + NavDestination.recoverable）、深栈补推、finishRestore时机，源码参考[RestoreIndex](/entry/src/main/ets/restore/RestoreIndex.ets)。
+    * 断点续读页面：数据通道（平时发布AppStorage）、恢复消费（一次性）、空值兜底（防白屏），源码参考[ReaderPage](/entry/src/main/ets/restore/ReaderPage.ets)。
+    * 方案C（纯router）：页面默认参与恢复，无需恢复的页面用recoverable:false显式排除，源码参考[RouterPage](/entry/src/main/ets/restore/RouterPage.ets)。
+    * 方案D（超限数据落盘引用）：want.parameters只放轻量引用，数据本体写沙箱文件，源码参考[RestoreBlob](/entry/src/main/ets/common/RestoreBlob.ets)、[RestoreAbility](/entry/src/main/ets/entryability/RestoreAbility.ets)。
 
 ### 相关权限
 不涉及
