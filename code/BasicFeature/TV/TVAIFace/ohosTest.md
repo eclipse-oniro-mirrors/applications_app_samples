@@ -23,10 +23,10 @@
 
 测试中大量复用以下设计资产：
 
-- 集中式套件清单：`List.test.ets` 统一登记 83 个套件并顺序执行，覆盖核心主流程、设备认证、校验契约、安全、交互、生命周期、性能长稳与集成场景，套件总数与分类可直接审计
+- 集中式套件清单：`List.test.ets` 统一登记 83 个套件并顺序执行，覆盖核心主流程、设备验证、校验契约、安全、交互、生命周期、性能长稳与集成场景，套件总数与分类可直接审计
 - 统一驱动能力：所有 UI 套件复用 `AIFaceSharedDriver` 的页面回归、文本轮询与按键模拟，避免各套件重复实现 UI 驱动细节
 - 返回优先而非重启：`ensureHome` 在检测到应用已在子页时优先连续 `BACK` 回首页，只有确实不在应用内才重新拉起 `com.ohos.aiface/MainAbility`，避免长链路执行时堆叠 ability 实例导致测试进程被杀
-- 权限弹窗前置处理：应用首次启动会依次弹出相机、读媒体、媒体位置、分布式数据同步权限窗口，`acceptPermissionDialogs` 在首页探针之前按"允许 / Allow"关闭弹窗，避免权限窗口遮挡造成的假失败
+- 权限弹窗前置处理：应用初次启动会依次弹出相机、读媒体、媒体位置、分布式数据同步权限窗口，`acceptPermissionDialogs` 在首页探针之前按"允许 / Allow"关闭弹窗，避免权限窗口遮挡造成的假失败
 - 串行化 UI 队列：TV 单 UI 线程渲染，所有 UiTest 调用与延时都进入 `_uiOperationQueue` 串行执行，消除并发用例之间的焦点竞争与丢键
 - 主线程节流：`serializedDelay` 通过驱动延时让出事件循环而非同步阻塞，规避长跑时 `THREAD_BLOCK_6S` 看门狗导致的 AppFreeze 与测试进程被杀
 - 组件计数避坑：`getComponentCount` 在 `'*'` 通配查询为空时回退到 `Text`/`Image` 具名类型统计，避免 TV 版本不支持通配查询导致的空结果
@@ -43,7 +43,7 @@
 - 人脸框矩阵（`CaffeAnchorValidation`、`FaceModelDeep`、`FaceBoxModel`：anchor 比例 × 尺度 × `bbox_pred`/`landmark_pred` 输出、NMS 阈值与 IoU 去重、空输入与单点输入）
 - 摄像头矩阵（`CameraMenuConfiguration`、`CameraServiceValidation`、`AIFaceInputInteraction`：无摄像头 × 单摄像头 × 多摄像头切换 × 权限拒绝 × 模型缺失）
 - 图像矩阵（`AIFaceOperationCatalog`、`AIFaceOperationFlow`：内置示例图 × 图库缩略图 × 空图库 × 图片加载失败）
-- 设备认证矩阵（`DeviceAuthSession`、`DeviceDataSourceValidation`、`DeviceSessionValidation`：可信/非可信 × 发现中/空闲 × 绑定/解绑/重复绑定 × 服务不可用）
+- 设备验证矩阵（`DeviceAuthSession`、`DeviceDataSourceValidation`、`DeviceSessionValidation`：可信/非可信 × 发现中/空闲 × 绑定/解绑/重复绑定 × 服务不可用）
 - 按键矩阵（`KeyCodeValidation`、`FocusNavigation`、`FocusRingBehavior`：方向键、ENTER、BACK、HOME 与三个入口焦点 id `1/0/-1` 的组合）
 - 权限矩阵（`PermissionValidation`、`AIFaceSecurity`：授予/拒绝/撤销 × 相机/媒体/媒体位置/分布式数据同步）
 - 设备与兼容矩阵（`DeviceCompatibility`、`CompatibilityTesting`：rk3568/大屏 × 输入方式 × 分辨率与缩放）
@@ -216,7 +216,7 @@ TV 形态下，用户可能连续执行导航、切换入口、快速按键等�
 |---|---|---|
 | 共享驱动 | 1 | `Shared/AIFaceSharedDriver.ets`：串行 UI 队列、页面回归、文本/组件轮询、遥控与触摸模拟、权限弹窗处理、人脸框几何工具、时延与容差常量、双语文本候选 |
 | 核心主流程 `core` | 18 | `Ability`、`Index`、`AIFaceUI`、`AIFaceOperations`、`AIFaceOperationCatalog`、`AIFaceOperationFlow`、`AIFaceOperationWorkflow`、`FaceBoxModel`、`FaceModelDeep`、`CameraMenuConfiguration`、`AIFaceConcurrency`、`AIFaceConsistency`、`AIFaceEndToEnd`、`AIFaceErrorRecovery`、`AIFaceLifecycle`、`AIFaceStateManagement`、`AIFaceStress`、`AIFaceInputInteraction`：启动冒烟、首页三入口、摄像头/图片/设备三条主链路、人脸模型与框选、并发一致性与端到端回归 |
-| 设备认证专项 `device-validation` | 8 | `DeviceAppVersion`、`DeviceAuthSession`、`DeviceDataSourceValidation`、`DeviceEventValidation`、`DeviceInterruptionRecovery`、`DeviceNotification`、`DeviceOfflineNetwork`、`DeviceSessionValidation`：版本信息、认证会话、设备数据源与事件封装、中断恢复、离线网络与状态机 |
+| 设备验证专项 `device-validation` | 8 | `DeviceAppVersion`、`DeviceAuthSession`、`DeviceDataSourceValidation`、`DeviceEventValidation`、`DeviceInterruptionRecovery`、`DeviceNotification`、`DeviceOfflineNetwork`、`DeviceSessionValidation`：版本信息、验证会话、设备数据源与事件封装、中断恢复、离线网络与状态机 |
 | 校验与契约 `validation` | 14 | `CaffeAnchorValidation`、`BoundaryErrorTesting`、`EventUtilValidation`、`PermissionValidation`、`PageStateManagerValidation`、`FocusManagerValidation`、`InputValidation`、`KeyCodeValidation`、`LoggerValidation`、`PointerUtilValidation`、`ResourceLoaderValidation`、`UtilsValidation`、`CameraServiceValidation`、`RemoteDeviceModelValidation`：算法锚点与 NMS、边界与异常、权限与焦点契约、相机服务与设备模型、工具与资源加载 |
 | 生命周期与状态 `lifecycle` | 10 | `AbilityLifecycle`、`PageLifecycle`、`PageStateManagement`、`StatePersistence`、`StateRecovery`、`SessionManagement`、`ResourceManagement`、`ConfigurationChanges`、`ErrorRecovery`、`ExceptionHandling`：应用与页面生命周期、状态保存恢复、资源释放与配置变化 |
 | 交互与可达性 `interaction` | 14 | `FocusNavigation`、`FocusRingBehavior`、`ButtonInteraction`、`TouchInteraction`、`GestureRecognition`、`EventHandling`、`EventPropagation`、`AccessibilityNavigation`、`DataBinding`、`DialogPositioning`、`ContentScaling`、`ThemeVariation`、`VisualEffects`、`UIComponentRendering`：遥控焦点、触摸手势、事件分发、无障碍与视觉表现 |
@@ -233,7 +233,7 @@ TV 形态下，用户可能连续执行导航、切换入口、快速按键等�
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |-----------|---------|------|---------|------|------|
 | 应用启动与首页入口 | 1. 需在真机测试 <br/> 2. 构建并安装测试hap <br/> 3. 设备已正常启动 | 启动应用，使用方向键左右切换三个入口 | 首页展示人脸图像识别、摄像头人脸检测、设备验证三个入口，焦点与图标高亮同步 | 否 | Pass |
-| 权限申请 | 1. 需在真机测试 <br/> 2. 构建并安装测试hap <br/> 3. 首次安装未授权 | 首次启动后依次处理相机、媒体、媒体位置、分布式数据同步权限弹窗 | 允许后各功能可用；拒绝后相关功能给出提示且应用不崩溃 | 否 | Pass |
+| 权限申请 | 1. 需在真机测试 <br/> 2. 构建并安装测试hap <br/> 3. 初次安装未授权 | 初次启动后依次处理相机、媒体、媒体位置、分布式数据同步权限弹窗 | 允许后各功能可用；拒绝后相关功能给出提示且应用不崩溃 | 否 | Pass |
 | 图片人脸检测 | 1. 需在真机测试 <br/> 2. 构建并安装测试hap <br/> 3. 设备中保存有人脸的照片 | 点击人脸图像识别，选择照片 | 识别出人脸的位置 | 否 | Pass |
 | 摄像头人脸检测 | 1. 需在真机测试 <br/> 2. 构建并安装测试hap <br/> 3. TV设备连接摄像头 | 点击摄像头人脸检测，显示当前选择的摄像头画面 | 识别出人脸的位置 | 否 | Pass |
 | 设备连接验证 | 1. 需在真机测试 <br/> 2. 构建并安装测试hap <br/> 3. 同一网络下存在相同设备 | 1、点击设备验证 <br/> 2、搜索设备 <br/> 3、连接设备 | 能够看到连接设备的画面，识别出人脸位置 | 否 | Pass |
