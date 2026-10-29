@@ -124,17 +124,24 @@ struct Index {
 
     // 情况一：播放HTTP/HTTPS媒体资源
     // 设置对应的播放url
+    // [Start HTTP-HTTPS]
     let url = "https://vd3.bdstatic.com/mda-pdc2kmwtd2vxhiy4/cae_h264/1681502407203843413/mda-pdc2kmwtd2vxhiy4.mp4";
     this.avPlayer.url = url;
+    // [End HTTP-HTTPS]
 
     // 情况二：HLS媒体资源播放(点播/直播)
     // 设置对应的播放url
-    // let url = 'http://media.iyuns.top:1000/720-270-480.m3u8';
-    // this.avPlayer.url = url;
+    /*
+    // [Start HLS]
+    let url = 'http://media.iyuns.top:1000/720-270-480.m3u8';
+    this.avPlayer.url = url;
+    // [End HLS]
+    * */
 
     // 情况三：设置HTTP请求头信息播放
     /*
     // 设置对应的播放url
+    // [Start HTTP-Head]
     let url = 'https://vd3.bdstatic.com/mda-nmh2004d24kf4bjh/hd/h264/1671326683061787710/mda-nmh2004d24kf4bjh.mp4';
     // 创建mediaSource实例对象，设置媒体来源，定制HTTP请求，如需要，可以键值对的形式设置User-Agent、Cookie、Referer等字段
     let mediaSource : media.MediaSource = media.createMediaSourceWithUrl(url,  {'aa' : 'bb', 'cc' : 'dd'});
@@ -143,10 +150,12 @@ struct Index {
       {preferredWidth: 1, preferredHeight: 2, preferredBufferDuration: 3, preferredHdr: false};
     // 为avPlayer设置媒体来源和播放策略
     this.avPlayer.setMediaSource(mediaSource, playbackStrategy);
+    // [End HTTP-Head]
     * */
 
     // 情况四：通过本地Raw文件中的m3u8文件播放在线流媒体资源
     /*
+    // [Start raw-m3u8]
     // 通过本地m3u8文件名，获取文件描述符
     let fileDescriptor = await this.context.resourceManager.getRawFd(this.m3u8FileName);
     // 用文件描述符构造本地m3u8的URL
@@ -165,10 +174,12 @@ struct Index {
     let playbackStrategy : media.PlaybackStrategy = {preferredBufferDuration: 20};
     // 为avPlayer设置媒体来源和播放策略
     this.avPlayer.setMediaSource(mediaSource, playbackStrategy);
+    // [End raw-m3u8]
     * */
 
     // 情况五：通过应用沙箱中的m3u8文件播放在线流媒体资源
     /*
+    // [Start fd-m3u8]
     let filePath = `${this.context.filesDir}/${this.m3u8FileName}`;
     // 通过fs.openSync获取文件句柄
     let file = fs.openSync(filePath, fs.OpenMode.READ_ONLY);
@@ -189,11 +200,13 @@ struct Index {
     let playbackStrategy : media.PlaybackStrategy = {preferredBufferDuration: 20};
     // 为avPlayer设置媒体来源和播放策略
     this.avPlayer.setMediaSource(mediaSource, playbackStrategy);
+    // [End fd-m3u8]
     * */
 
     // 本地raw文件播放场景下设置URL
     /*
     // 情况一：应用沙箱文件播放
+    // [Start raw-url]
     let fdPath = 'fd://';
     // 通过UIAbilityContext获取沙箱地址filesDir，以Stage模型为例
     let path = `${this.context.filesDir}/${this.fileName}`;
@@ -201,10 +214,12 @@ struct Index {
     let file = await fs.open(path);
     fdPath = fdPath + '' + file.fd;
     this.avPlayer.url = fdPath;
+    // [End raw-url]
     * */
 
     // 情况二：本地文件播放
     /*
+    // [Start fdSrc]
     // 通过UIAbilityContext的resourceManager成员的getRawFd接口获取媒体资源播放地址
     // 返回类型为{fd,offset,length},fd为HAP包fd地址，offset为媒体资源偏移量，length为播放长度
     let fileDescriptor = await this.context.resourceManager.getRawFd(this.fileName);
@@ -212,6 +227,7 @@ struct Index {
       { fd: fileDescriptor.fd, offset: fileDescriptor.offset, length: fileDescriptor.length };
     // 为fdSrc赋值触发initialized状态机上报
     this.avPlayer.fdSrc = avFileDescriptor;
+    // [End fdSrc]
     * */
   }
 

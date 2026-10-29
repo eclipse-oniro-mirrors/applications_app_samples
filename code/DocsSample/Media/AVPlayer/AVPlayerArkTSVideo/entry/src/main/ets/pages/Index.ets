@@ -107,8 +107,10 @@ struct Index {
       this.avPlayer.release();
       await this.msleepAsync(1500);
     }
-    // 创建avPlayer实例对象
+    // [Start createAVPlayer]
+    // 创建avPlayer实例对象。
     this.avPlayer = await media.createAVPlayer();
+    // [End createAVPlayer]
 
     // 创建状态机变化回调函数
     await this.setAVPlayerCallback((avPlayer: media.AVPlayer) => {
@@ -127,6 +129,7 @@ struct Index {
   }
 
   avPlay(): void {
+    // [Start avPlay]
     if (this.avPlayer) {
       try {
         this.avPlayer.play();
@@ -134,9 +137,23 @@ struct Index {
         console.error(`${this.tag}: avPlay = ${JSON.stringify(e)}`);
       }
     }
+    // [End avPlay]
+  }
+
+  setSurfaceId(surfaceId: string): void {
+    // [Start setSurfaceId]
+    if (this.avPlayer) {
+      try {
+        this.avPlayer.surfaceId = this.xComponentController.getXComponentSurfaceId();
+      } catch (e) {
+        console.error(`${this.tag}: setSurfaceId = ${JSON.stringify(e)}`);
+      }
+    }
+    // [End setSurfaceId]
   }
 
   avPause(): void {
+    // [Start avPause]
     if (this.avPlayer) {
       try {
         this.avPlayer.pause();
@@ -145,9 +162,37 @@ struct Index {
         console.error(`${this.tag}: avPause== ${JSON.stringify(e)}`);
       }
     }
+    // [End avPause]
+  }
+
+  avStop(): void {
+    // [Start avStop]
+    if (this.avPlayer) {
+      try {
+        this.avPlayer.stop();
+        console.info(`${this.tag}: avStop==`);
+      } catch (e) {
+        console.error(`${this.tag}: avStop== ${JSON.stringify(e)}`);
+      }
+    }
+    // [End avStop]
+  }
+
+  avPrepare(): void {
+    // [Start avPrepare]
+    if (this.avPlayer) {
+      try {
+        this.avPlayer.prepare();
+        console.info(`${this.tag}: avPrepare==`);
+      } catch (e) {
+        console.error(`${this.tag}: avPrepare== ${JSON.stringify(e)}`);
+      }
+    }
+    // [End avPrepare]
   }
 
   async avSeek(seekTime: number, mode: SliderChangeMode): Promise<void> {
+    // [Start avSeek]
     if (this.avPlayer) {
       try {
         console.info(`${this.tag}: videoSeek  seekTime== ${seekTime}`);
@@ -157,6 +202,30 @@ struct Index {
         console.error(`${this.tag}: videoSeek== ${JSON.stringify(e)}`);
       }
     }
+    // [End avSeek]
+  }
+
+  avReset() {
+    // [Start avReset]
+    if (this.avPlayer) {
+      try {
+        this.avPlayer.reset();
+      } catch (e) {
+        console.error(`${this.tag}: reset== ${JSON.stringify(e)}`);
+      }
+    }
+    // [End avReset]
+  }
+
+  changeUrl() {
+    // [Start changeUrl]
+    // 更换url。
+    let url = 'https://xxx.xxx.xxx.mp4';
+    if (this.avPlayer == null) {
+        return;
+    }
+    this.avPlayer.url = url;
+    // [End changeUrl]
   }
 
   avSetSpeed(speed: number): void {
@@ -172,7 +241,7 @@ struct Index {
 
   // 注册avplayer回调函数
   async setAVPlayerCallback(callback: (avPlayer: media.AVPlayer) => void, vType?: number): Promise<void> {
-    // seek操作结果回调函数
+    // [Start setAVPlayerCallback]
     if (this.avPlayer == null) {
       console.error(`${this.tag}: avPlayer has not init!`);
       return;
@@ -297,6 +366,7 @@ struct Index {
     this.avPlayer.on('timeUpdate', (time: number) => {
       this.currentTime = time;
     });
+    // [End setAVPlayerCallback]
   }
 
   aboutToAppear() {
@@ -313,6 +383,7 @@ struct Index {
       console.info(`${this.tag}: avPlayer has not init aboutToDisappear`);
       return;
     }
+    // [Start release]
     this.avPlayer.release((err) => {
       if (err == null) {
         console.info(`${this.tag}: videoRelease release success`);
@@ -320,6 +391,7 @@ struct Index {
         console.error(`${this.tag}: videoRelease release failed, error message is = ${JSON.stringify(err.message)}`);
       }
     });
+    // [End release]
     emitter.off(innerEventFalse.eventId);
   }
 
