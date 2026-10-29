@@ -18,6 +18,7 @@
 #include <functional>
 #include <memory>
 #include <vector>
+#include "TranscodePcmConverter.h"
 #include <multimedia/player_framework/native_avcodec_audiocodec.h>
 #include <multimedia/player_framework/native_avdemuxer.h>
 #include <multimedia/player_framework/native_avmuxer.h>
@@ -29,7 +30,7 @@ public:
     explicit TranscodeAudioPipeline(Error error) : error_(std::move(error)) {}
     ~TranscodeAudioPipeline();
     bool Configure(OH_AVFormat *source, OH_AVDemuxer *demuxer, int32_t track, int64_t rangeStartUs = 0,
-        int64_t rangeEndUs = 0);
+        int64_t rangeEndUs = 0, int32_t targetRate = 0, int32_t targetChannels = 0, int64_t bitrate = 128000);
     bool Pump(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced);
     bool Ready() const { return ready_; }
     bool Done() const { return outputDone_; }
@@ -50,6 +51,7 @@ private:
     bool Drain(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced);
     bool ValidatePcm();
     bool TrimPcm();
+    bool FillPcmFrame(bool &advanced);
     Error error_;
     OH_AVDemuxer *demuxer_ = nullptr;
     int32_t track_ = -1;
@@ -60,9 +62,15 @@ private:
     OH_AVCodecBufferAttr pcmAttr_ {};
     int32_t pcmConsumed_ = 0;
     std::vector<uint8_t> frame_;
-    int64_t framePts_ = 0;
     int32_t channels_ = 0;
     int32_t sampleRate_ = 0;
+    int32_t targetRate_ = 0;
+    int32_t targetChannels_ = 0;
+    int64_t bitrate_ = 128000;
+    int64_t pcmStartPts_ = -1;
+    int64_t submittedSamples_ = 0;
+    int64_t consumedSourceSamples_ = 0;
+    TranscodePcmConverter converter_;
     bool decoderStarted_ = false;
     bool encoderStarted_ = false;
     bool inputDone_ = false;

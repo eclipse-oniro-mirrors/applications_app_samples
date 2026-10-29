@@ -13,10 +13,13 @@
  * limitations under the License.
  */
 
+import { TranscodeQualityModel, TranscodeQualitySnapshot } from './TranscodeQualityModel';
+
 export interface TranscodeQueueItem {
   id: string; uri: string; title: string; options: number[]; grayscale: boolean;
   state: string; progress: number; resultPath: string;
   startTimeMs?: number; endTimeMs?: number;
+  quality?: TranscodeQualitySnapshot;
 }
 
 @Observed
@@ -40,10 +43,14 @@ export class TranscodeQueueModel {
         item.options[0] > 1 || item.options[1] > 1 || item.options[2] > 3 || item.options[3] > 3 ||
         item.options[4] > 2 || item.options[5] > 2 || item.options[6] > 2147483647 ||
         (item.options.length === 8 && item.options[7] > 2) ||
-        (item.options[1] === 1 && (item.options[2] !== 0 || item.grayscale || (item.options[7] ?? 0) !== 0)) ||
+        (item.options[1] === 1 && (item.options[2] !== 0 || item.grayscale || (item.options[7] ?? 0) !== 0 ||
+          (item.quality?.filter ?? 0) !== 0)) ||
         !['waiting', 'running', 'completed', 'failed', 'cancelled', 'interrupted'].includes(item.state) ||
         !Number.isFinite(item.progress) || item.progress < 0 || item.progress > 100 ||
-        !TranscodeQueueModel.validRange(item)) { return false; }
+        !TranscodeQueueModel.validRange(item) || !TranscodeQualityModel.valid(item.quality) ||
+        (item.quality?.operation === 1 && (item.options[1] !== 0 || item.options[2] !== 0 || item.grayscale ||
+          (item.options[7] ?? 0) !== 0 || item.options[5] === 1 || (item.startTimeMs ?? 0) !== 0 ||
+          (item.endTimeMs ?? 0) !== 0 || item.quality.filter !== 0 || item.quality.frameRate !== 0))) { return false; }
       seen.add(item.id);
       return true;
     }).slice(0, 30);
@@ -58,7 +65,7 @@ export class TranscodeQueueModel {
   }
 
   add(uri: string, title: string, options: number[], grayscale: boolean, startTimeMs: number = 0,
-    endTimeMs: number = 0): void {
+    endTimeMs: number = 0, quality?: TranscodeQualitySnapshot): void {
     if (this.items.length >= 30) { return; }
     this.items = this.items.concat([{
       id: 'queue_' + Date.now() + '_' + (++this.sequence),
@@ -70,7 +77,7 @@ export class TranscodeQueueModel {
       progress: 0,
       resultPath: '',
       startTimeMs: startTimeMs,
-      endTimeMs: endTimeMs
+      endTimeMs: endTimeMs, quality: quality
     }]);
   }
   update(id: string, state: string, progress: number, resultPath: string = ''): void {
@@ -85,14 +92,15 @@ export class TranscodeQueueModel {
         progress: progress,
         resultPath: resultPath,
         startTimeMs: item.startTimeMs,
-        endTimeMs: item.endTimeMs
+        endTimeMs: item.endTimeMs, quality: item.quality
       }));
   }
   reassociate(id: string, uri: string, title: string): void {
     if (this.activeId.length > 0 || uri.length === 0) { return; }
     this.items = this.items.map((item: TranscodeQueueItem): TranscodeQueueItem => item.id !== id ? item : ({
       id: item.id, uri: uri, title: title, options: item.options, grayscale: item.grayscale,
-      state: 'waiting', progress: 0, resultPath: '', startTimeMs: item.startTimeMs, endTimeMs: item.endTimeMs
+      state: 'waiting', progress: 0, resultPath: '', startTimeMs: item.startTimeMs, endTimeMs: item.endTimeMs,
+      quality: item.quality
     }));
   }
   next(): TranscodeQueueItem | undefined {

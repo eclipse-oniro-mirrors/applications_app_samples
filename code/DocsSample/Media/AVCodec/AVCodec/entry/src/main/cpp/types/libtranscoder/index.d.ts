@@ -27,6 +27,14 @@ export interface TranscodeRequest {
   audioTrack: number;
   startTimeMs?: number;
   endTimeMs?: number;
+  remuxOnly?: boolean;
+  scalingFilter?: number;
+  frameRateLimit?: number;
+  bitrateMode?: number;
+  keyFrameIntervalMs?: number;
+  audioSampleRate?: number;
+  audioChannels?: number;
+  audioBitrate?: number;
 }
 
 export interface TranscodeMeasurement {
@@ -77,9 +85,16 @@ export interface TranscodeStatus {
   audioMode: number;
   outputDurationUs?: number;
   outputValidation?: string;
+  expectedDurationUs?: number;
+  validationNotes?: string[];
+  previewWidth?: number;
+  previewHeight?: number;
+  previewRgba?: ArrayBuffer;
+  droppedFrames?: number;
 }
 
 export const start: (options: TranscodeRequest) => Promise<TranscodeStatus>;
 export const inspect: (options: TranscodeRequest) => Promise<TranscodeStatus>;
+export const preview: (options: TranscodeRequest) => Promise<TranscodeStatus>;
 export const getStatus: () => TranscodeStatus;
 export const cancel: () => void;

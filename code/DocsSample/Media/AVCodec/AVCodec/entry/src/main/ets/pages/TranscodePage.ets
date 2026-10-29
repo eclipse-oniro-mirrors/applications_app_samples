@@ -20,10 +20,13 @@ import { TranscodeHistoryEntry } from '../model/TranscodeFilesModel';
 import { fileUri } from '@kit.CoreFileKit';
 import { TranscodeQueuePanel } from '../components/transcode/TranscodeQueuePanel';
 import { TranscodePreprocessPanel } from '../components/transcode/TranscodePreprocessPanel';
+import { TranscodeQualityPanel } from '../components/transcode/TranscodeQualityPanel';
+import { TranscodeQualityModel } from '../model/TranscodeQualityModel';
 
 @Component
 export struct TranscodePage {
   @ObjectLink model: TranscodeModel;
+  @ObjectLink quality: TranscodeQualityModel;
   onPlayResult: (uri: string) => void = (): void => {};
 
   aboutToAppear(): void {
@@ -39,6 +42,10 @@ export struct TranscodePage {
   private audioOptions(): SelectOption[] {
     return [{ value: $r('app.string.transcode_audio_copy') }, { value: $r('app.string.transcode_audio_aac') },
       { value: $r('app.string.transcode_audio_none') }];
+  }
+
+  private operations(): SelectOption[] {
+    return [{ value: $r('app.string.transcode_operation_encode') }, { value: $r('app.string.transcode_operation_remux') }];
   }
 
   private trackOptions(): SelectOption[] {
@@ -95,59 +102,78 @@ export struct TranscodePage {
       Text($r('app.string.transcode_output'))
         .fontSize(17).fontWeight(FontWeight.Medium)
       Row() {
-        Text($r('app.string.transcode_codec')).layoutWeight(1)
-        Select(this.codecOptions()).selected(this.model.codecIndex)
-          .value(this.codecOptions()[this.model.codecIndex].value)
+        Text($r('app.string.transcode_operation')).layoutWeight(1)
+        Select(this.operations()).selected(this.quality.operation)
+          .value(this.operations()[this.quality.operation].value)
           .onSelect((index: number): void => {
-            this.model.codecIndex = index; void this.model.inspect(this.getUIContext());
+            this.model.setOperation(index); void this.model.inspect(this.getUIContext());
           })
       }
-      Row() {
-        Text($r('app.string.transcode_mode')).layoutWeight(1)
-        Select(this.modeOptions()).selected(this.model.modeIndex)
-          .value(this.modeOptions()[this.model.modeIndex].value)
-          .onSelect((index: number): void => {
-            this.model.setMode(index); void this.model.inspect(this.getUIContext());
-          })
-      }
-      Row() {
-        Text($r('app.string.transcode_size')).layoutWeight(1)
-        Select(this.sizeOptions()).selected(this.model.sizeIndex)
-          .value(this.sizeOptions()[this.model.sizeIndex].value)
-          .enabled(this.model.modeIndex === 0)
-          .onSelect((index: number): void => {
-            this.model.sizeIndex = index; void this.model.inspect(this.getUIContext());
-          })
-      }
-      Row() {
-        Text($r('app.string.transcode_bitrate')).layoutWeight(1)
-        Select(this.bitrateOptions()).selected(this.model.bitrateIndex)
-          .value(this.bitrateOptions()[this.model.bitrateIndex].value)
-          .onSelect((index: number): void => {
-            this.model.bitrateIndex = index; void this.model.inspect(this.getUIContext());
-          })
-      }
-      Row() {
-        Text($r('app.string.transcode_encoder_category')).layoutWeight(1)
-        Select(this.categoryOptions()).selected(this.model.encoderCategory)
-          .value(this.categoryOptions()[this.model.encoderCategory].value)
-          .onSelect((index: number): void => {
-            this.model.encoderCategory = index; void this.model.inspect(this.getUIContext());
-          })
-      }
-      Row() {
-        Text($r('app.string.transcode_grayscale')).layoutWeight(1)
-        Toggle({ type: ToggleType.Switch, isOn: this.model.grayscale })
-          .enabled(this.model.modeIndex === 0)
-          .onChange((checked: boolean): void => { this.model.grayscale = checked; })
-      }
-      Row() {
-        Text($r('app.string.transcode_audio')).layoutWeight(1)
-        Select(this.audioOptions()).selected(this.model.audioMode)
-          .value(this.audioOptions()[this.model.audioMode].value)
-          .onSelect((index: number): void => {
-            this.model.audioMode = index; void this.model.inspect(this.getUIContext());
-          })
+      if (this.quality.operation === 0) {
+        Row() {
+          Text($r('app.string.transcode_codec')).layoutWeight(1)
+          Select(this.codecOptions()).selected(this.model.codecIndex)
+            .value(this.codecOptions()[this.model.codecIndex].value)
+            .onSelect((index: number): void => {
+              this.model.codecIndex = index; void this.model.inspect(this.getUIContext());
+            })
+        }
+        Row() {
+          Text($r('app.string.transcode_mode')).layoutWeight(1)
+          Select(this.modeOptions()).selected(this.model.modeIndex)
+            .value(this.modeOptions()[this.model.modeIndex].value)
+            .onSelect((index: number): void => {
+              this.model.setMode(index); void this.model.inspect(this.getUIContext());
+            })
+        }
+        Row() {
+          Text($r('app.string.transcode_size')).layoutWeight(1)
+          Select(this.sizeOptions()).selected(this.model.sizeIndex)
+            .value(this.sizeOptions()[this.model.sizeIndex].value)
+            .enabled(this.model.modeIndex === 0)
+            .onSelect((index: number): void => {
+              this.model.sizeIndex = index; void this.model.inspect(this.getUIContext());
+            })
+        }
+        Row() {
+          Text($r('app.string.transcode_bitrate')).layoutWeight(1)
+          Select(this.bitrateOptions()).selected(this.model.bitrateIndex)
+            .value(this.bitrateOptions()[this.model.bitrateIndex].value)
+            .onSelect((index: number): void => {
+              this.model.bitrateIndex = index; void this.model.inspect(this.getUIContext());
+            })
+        }
+        Row() {
+          Text($r('app.string.transcode_encoder_category')).layoutWeight(1)
+          Select(this.categoryOptions()).selected(this.model.encoderCategory)
+            .value(this.categoryOptions()[this.model.encoderCategory].value)
+            .onSelect((index: number): void => {
+              this.model.encoderCategory = index; void this.model.inspect(this.getUIContext());
+            })
+        }
+        Row() {
+          Text($r('app.string.transcode_grayscale')).layoutWeight(1)
+          Toggle({ type: ToggleType.Switch, isOn: this.model.grayscale })
+            .enabled(this.model.modeIndex === 0)
+            .onChange((checked: boolean): void => { this.model.grayscale = checked; this.model.clearPreview(); })
+        }
+        Row() {
+          Text($r('app.string.transcode_audio')).layoutWeight(1)
+          Select(this.audioOptions()).selected(this.model.audioMode)
+            .value(this.audioOptions()[this.model.audioMode].value)
+            .onSelect((index: number): void => {
+              this.model.audioMode = index; void this.model.inspect(this.getUIContext());
+            })
+        }
+      } else {
+        Text($r('app.string.transcode_remux_hint')).fontSize(12).fontColor('#667085')
+        Row() {
+          Text($r('app.string.transcode_audio_copy')).layoutWeight(1)
+          Toggle({ type: ToggleType.Switch, isOn: this.model.audioMode === 0 })
+            .onChange((checked: boolean): void => {
+              this.model.audioMode = checked ? 0 : 2; void this.model.inspect(this.getUIContext());
+            })
+        }
       }
       if (this.model.analysis.audioTracks.length > 0) {
         Row() {
@@ -161,9 +187,10 @@ export struct TranscodePage {
             })
         }
       }
-      Text(this.model.modeIndex === 0 ? $r('app.string.transcode_buffer_hint') :
-        $r('app.string.transcode_window_hint'))
-        .fontSize(12).fontColor('#667085')
+      if (this.quality.operation === 0) {
+        Text(this.model.modeIndex === 0 ? $r('app.string.transcode_buffer_hint') :
+          $r('app.string.transcode_window_hint')).fontSize(12).fontColor('#667085')
+      }
     }
     .enabled(!this.model.busy && !this.model.queueRunning && !this.model.exporting && !this.model.picking)
     .width('100%').padding(16).alignItems(HorizontalAlign.Start)
@@ -225,8 +252,10 @@ export struct TranscodePage {
         Text(LocalizedText.format($r('app.string.transcode_eta'), this.model.status.remainingSeconds < 0 ?
           '—' : this.model.status.remainingSeconds.toFixed(0)))
           .fontSize(13).fontColor('#667085')
-        Text(this.model.status.decoderName + ' → ' + this.model.status.encoderName)
-          .fontSize(12).fontColor('#667085').width('100%')
+        if (this.model.status.decoderName.length > 0 || this.model.status.encoderName.length > 0) {
+          Text(this.model.status.decoderName + ' → ' + this.model.status.encoderName)
+            .fontSize(12).fontColor('#667085').width('100%')
+        }
         ForEach(this.model.status.diagnostics, (metric: TranscodeMeasurement) => {
           Text(metric.name + ' · avg ' + metric.averageMs.toFixed(2) + ' ms · P95 ' +
             metric.p95Ms.toFixed(2) + ' ms · max ' + metric.maxMs.toFixed(2) + ' ms')
@@ -242,6 +271,12 @@ export struct TranscodePage {
         Text(LocalizedText.format($r('app.string.transcode_output_verified'),
           ((this.model.status.outputDurationUs ?? 0) / 1000000).toFixed(2)))
           .fontSize(12).fontColor('#16794B')
+      }
+      if (this.model.status.outputValidation === 'warning') {
+        Text($r('app.string.transcode_validation_warning')).fontSize(13).fontColor('#B54708')
+        ForEach(this.model.status.validationNotes ?? [], (note: string) => {
+          Text(note).fontSize(12).fontColor('#B54708').width('100%')
+        }, (note: string): string => note)
       }
       if (this.model.notice.length > 0) {
         Text(this.model.notice).fontSize(14).fontColor('#344054').width('100%')
@@ -290,7 +325,8 @@ export struct TranscodePage {
         Text(this.model.analysis.sourceMime + ' · ' + this.model.analysis.sourceWidth + ' × ' +
           this.model.analysis.sourceHeight + ' · ' + this.model.analysis.sourceFrameRate.toFixed(2) + ' fps · ' +
           (this.model.analysis.durationUs / 1000000).toFixed(1) + ' s').fontSize(13)
-        Text(this.model.analysis.decoderName + ' → ' + this.model.analysis.encoderName).fontSize(13)
+        Text(this.quality.operation === 1 ? $r('app.string.transcode_operation_remux') :
+          this.model.analysis.decoderName + ' → ' + this.model.analysis.encoderName).fontSize(13)
         Text(LocalizedText.format($r('app.string.transcode_space_estimate'),
           this.model.analysisSizeEstimate < 0 ? '—' : (this.model.analysisSizeEstimate / 1048576).toFixed(1),
           this.model.availableBytes < 0 ? '—' : (this.model.availableBytes / 1048576).toFixed(1)))
@@ -298,9 +334,11 @@ export struct TranscodePage {
         if (this.model.analysis.detail.length > 0) {
           Text(this.model.analysis.detail).fontSize(13).fontColor('#B42318')
         } else {
-          Text(this.model.analysis.outputWidth + ' × ' + this.model.analysis.outputHeight + ' · ' +
-            (this.model.analysis.minBitrate / 1000000).toFixed(2) + '–' +
-            (this.model.analysis.maxBitrate / 1000000).toFixed(2) + ' Mbps').fontSize(13)
+          Text(this.model.analysis.outputWidth + ' × ' + this.model.analysis.outputHeight).fontSize(13)
+          if (this.quality.operation === 0) {
+            Text((this.model.analysis.minBitrate / 1000000).toFixed(2) + '–' +
+              (this.model.analysis.maxBitrate / 1000000).toFixed(2) + ' Mbps').fontSize(13)
+          }
         }
       }
     }.width('100%').padding(16).alignItems(HorizontalAlign.Start).backgroundColor(Color.White).borderRadius(16)
@@ -333,8 +371,16 @@ export struct TranscodePage {
         Text($r('app.string.transcode_description')).fontSize(14).fontColor('#667085')
         this.sourceCard()
         this.optionsCard()
-        TranscodePreprocessPanel({ model: this.model })
-        this.rangeCard()
+        if (this.quality.operation === 0) {
+          TranscodeQualityPanel({ quality: this.quality, allowFilter: this.model.modeIndex === 0,
+            allowAudio: this.model.audioMode === 1,
+            allowEditing: !this.model.busy && !this.model.queueRunning && !this.model.picking && !this.model.exporting,
+            onChanged: (): void => {
+              this.model.clearPreview(); void this.model.inspect(this.getUIContext());
+            } })
+          TranscodePreprocessPanel({ model: this.model })
+          this.rangeCard()
+        }
         this.analysisCard()
         TranscodeQueuePanel({
           queue: this.model.queue,

@@ -51,9 +51,21 @@ export struct TranscodePreprocessPanel {
         .enabled(this.model.modeIndex === 0 && !this.model.busy && !this.model.queueRunning)
         .onSelect((index: number): void => {
           this.model.resizeMode = index;
+          this.model.clearPreview();
           void this.model.inspect(this.getUIContext());
         })
       Text($r('app.string.task_preview_hint')).fontSize(12).fontColor('#667085')
+      Button(this.model.previewing ? $r('app.string.transcode_preview_running') :
+        $r('app.string.transcode_preview_frame')).width('100%')
+        .enabled(this.model.modeIndex === 0 && !this.model.busy && !this.model.queueRunning &&
+          !this.model.inspecting && this.model.analysis.state === 2 && this.model.isRangeValid())
+        .onClick((): void => { void this.model.preview(this.getUIContext()); })
+      if (this.model.previewImage !== undefined) {
+        Image(this.model.previewImage).width('100%').height(220).objectFit(ImageFit.Contain)
+          .backgroundColor('#101828').borderRadius(10)
+        Text($r('app.string.transcode_preview_hint')).fontSize(12).fontColor('#667085')
+        Text(this.model.previewConfiguration).fontSize(11).fontColor('#667085').width('100%')
+      }
       if (this.plan().width > 0) {
         Stack({ alignContent: Alignment.Center }) {
           Column().width('100%').height('100%').backgroundColor('#344054')

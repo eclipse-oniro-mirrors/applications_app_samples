@@ -37,7 +37,6 @@ constexpr int32_t STATE_FINISHED = 2;
 constexpr int32_t STATE_CANCELLED = 3;
 constexpr int32_t STATE_FAILED = 4;
 constexpr double DEFAULT_FRAME_RATE = 30;
-constexpr int32_t I_FRAME_INTERVAL_MS = 2000;
 constexpr double RUNNING_PROGRESS_LIMIT = 99;
 constexpr double COMPLETE_PROGRESS = 100;
 constexpr int32_t AUDIO_MODE_AAC = 1;
@@ -151,7 +150,7 @@ bool TranscodeJob::OpenSource()
     struct stat inputStat {};
     struct stat outputStat {};
     if (fstat(options_.inputFd, &inputStat) != 0 || inputStat.st_size <= 0 ||
-        (!options_.inspectOnly && (fstat(options_.outputFd, &outputStat) != 0 ||
+        (!options_.inspectOnly && !options_.previewOnly && (fstat(options_.outputFd, &outputStat) != 0 ||
         (inputStat.st_dev == outputStat.st_dev && inputStat.st_ino == outputStat.st_ino)))) {
         return Fail("Invalid input/output descriptors or identical files");
     }
@@ -182,7 +181,8 @@ bool TranscodeJob::ReadVideoProperties()
             static_cast<TranscodeFrames::ResizeMode>(options_.resizeMode), targetWidth_, targetHeight_)) {
         return Fail("No supported video track or invalid video dimensions");
     }
-    if (!ValidateSourceColor()) {
+    if (options_.remuxOnly) { targetWidth_ = sourceWidth_; targetHeight_ = sourceHeight_; }
+    if (!options_.remuxOnly && !ValidateSourceColor()) {
         return false;
     }
     OH_AVFormat_GetIntValue(videoFormat_.get(), OH_MD_KEY_ROTATION, &rotation_);
@@ -201,6 +201,7 @@ bool TranscodeJob::ReadVideoProperties()
     const char *mime = nullptr;
     if (OH_AVFormat_GetStringValue(videoFormat_.get(), OH_MD_KEY_CODEC_MIME, &mime) && mime != nullptr) {
         snapshot_.sourceMime = mime;
+        if (options_.remuxOnly) { options_.mime = mime; }
     }
     return true;
 }
@@ -227,7 +228,8 @@ bool TranscodeJob::InitializeDemuxer()
         if (options_.audioMode == AUDIO_MODE_AAC) {
             audioPipeline_ = std::make_unique<TranscodeAudioPipeline>(
                 [this](const char *operation, int32_t result) { return Fail(operation, result); });
-            if (!audioPipeline_->Configure(audioFormat_.get(), demuxer_, audioTrack_, rangeStartUs_, rangeEndUs_)) {
+            if (!audioPipeline_->Configure(audioFormat_.get(), demuxer_, audioTrack_, rangeStartUs_, rangeEndUs_,
+                options_.audioSampleRate, options_.audioChannels, options_.audioBitrate)) {
                 return false;
             }
         } else {
@@ -250,9 +252,9 @@ bool TranscodeJob::ConfigureEncoderFormat()
         !OH_AVFormat_SetIntValue(output.get(), OH_MD_KEY_PIXEL_FORMAT,
                                  options_.surface ? AV_PIXEL_FORMAT_SURFACE_FORMAT : AV_PIXEL_FORMAT_NV12) ||
         !OH_AVFormat_SetLongValue(output.get(), OH_MD_KEY_BITRATE, options_.bitrate) ||
-        !OH_AVFormat_SetDoubleValue(output.get(), OH_MD_KEY_FRAME_RATE, frameRate_) ||
-        !OH_AVFormat_SetIntValue(output.get(), OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE, VBR) ||
-        !OH_AVFormat_SetIntValue(output.get(), OH_MD_KEY_I_FRAME_INTERVAL, I_FRAME_INTERVAL_MS)) {
+        !OH_AVFormat_SetDoubleValue(output.get(), OH_MD_KEY_FRAME_RATE, OutputFrameRate()) ||
+        !OH_AVFormat_SetIntValue(output.get(), OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE, options_.bitrateMode == 0 ? VBR : CBR) ||
+        !OH_AVFormat_SetIntValue(output.get(), OH_MD_KEY_I_FRAME_INTERVAL, options_.keyFrameIntervalMs)) {
         return Fail("Build video encoder format");
     }
     // 透传 SDR 的颜色描述；旋转保存为 MP4 元数据，不让解码器先转一次、播放器再转一次。
@@ -292,10 +294,11 @@ bool TranscodeJob::ConfigureCodecs()
     encoder_ = OH_VideoEncoder_CreateByName(selected.encoderName.c_str());
     if (decoder_ == nullptr || encoder_ == nullptr) { return Fail("Create selected video codecs"); }
     if (!ConfigureEncoderFormat()) { return false; }
-    if (!OH_AVFormat_SetIntValue(videoFormat_.get(), OH_MD_KEY_ENABLE_SYNC_MODE, 1) ||
-        !OH_AVFormat_SetIntValue(videoFormat_.get(), OH_MD_KEY_PIXEL_FORMAT, AV_PIXEL_FORMAT_NV12) ||
-        !OH_AVFormat_SetIntValue(videoFormat_.get(), OH_MD_KEY_ROTATION, 0) ||
-        !Check(OH_VideoDecoder_Configure(decoder_, videoFormat_.get()), "Configure video decoder")) { return false; }
+    Format decoded(OH_AVSource_GetTrackFormat(source_, videoTrack_), OH_AVFormat_Destroy);
+    if (decoded == nullptr || !OH_AVFormat_SetIntValue(decoded.get(), OH_MD_KEY_ENABLE_SYNC_MODE, 1) ||
+        !OH_AVFormat_SetIntValue(decoded.get(), OH_MD_KEY_PIXEL_FORMAT, AV_PIXEL_FORMAT_NV12) ||
+        !OH_AVFormat_SetIntValue(decoded.get(), OH_MD_KEY_ROTATION, 0) ||
+        !Check(OH_VideoDecoder_Configure(decoder_, decoded.get()), "Configure video decoder")) { return false; }
     if (!ConnectSurface() || !StartCodecs()) { return false; }
     muxer_ = OH_AVMuxer_Create(options_.outputFd, AV_OUTPUT_FORMAT_MPEG_4);
     if (muxer_ == nullptr) { return Fail("Create MP4 muxer"); }
@@ -317,7 +320,7 @@ bool TranscodeJob::StartMuxer()
     if (!OH_AVFormat_SetStringValue(format.get(), OH_MD_KEY_CODEC_MIME, options_.mime.c_str()) ||
         !OH_AVFormat_SetIntValue(format.get(), OH_MD_KEY_WIDTH, targetWidth_) ||
         !OH_AVFormat_SetIntValue(format.get(), OH_MD_KEY_HEIGHT, targetHeight_) ||
-        !OH_AVFormat_SetDoubleValue(format.get(), OH_MD_KEY_FRAME_RATE, frameRate_)) {
+        !OH_AVFormat_SetDoubleValue(format.get(), OH_MD_KEY_FRAME_RATE, OutputFrameRate())) {
         return Fail("Complete encoded video track format");
     }
     if (!Check(OH_AVMuxer_AddTrack(muxer_, &muxVideoTrack_, format.get()), "Add encoded video track")) {
@@ -429,6 +432,7 @@ bool TranscodeJob::DrainDecoder(bool &advanced)
     }
     if (!DiscardOutsideRange(advanced)) { return false; }
     if (pendingDecoded_ == nullptr) { return true; }
+    if (!DropFrame(advanced)) { return false; }
     advanced = true;
     return true;
 }
@@ -472,7 +476,8 @@ bool TranscodeJob::ProcessBufferFrame(OH_AVBuffer *input, OH_AVCodecBufferAttr &
     uint8_t *target = OH_AVBuffer_GetAddr(input);
     if (source == nullptr || sourceCapacity < 0 || targetCapacity < 0 || offset < 0 || offset > sourceCapacity ||
         !TranscodeFrames::Process(source + offset, sourceCapacity - offset, decodedLayout_, target, targetCapacity,
-            encodedLayout_, options_.grayscale, static_cast<TranscodeFrames::ResizeMode>(options_.resizeMode))) {
+            encodedLayout_, options_.grayscale, static_cast<TranscodeFrames::ResizeMode>(options_.resizeMode),
+            static_cast<TranscodeFrames::Filter>(options_.scalingFilter))) {
         return Fail("Process decoded image layout");
     }
     attr.size = static_cast<int32_t>(TranscodeFrames::RequiredBytes(encodedLayout_));
@@ -636,8 +641,10 @@ bool TranscodeJob::CopyAudio(bool &advanced)
         advanced = true;
         return true;
     }
-    attr.pts = std::max<int64_t>(0, attr.pts - rangeStartUs_);
-    if (!Check(OH_AVBuffer_SetBufferAttr(audioBuffer_, &attr), "Rebase original audio timestamps")) { return false; }
+    if (!options_.remuxOnly) {
+        attr.pts = std::max<int64_t>(0, attr.pts - rangeStartUs_);
+        if (!Check(OH_AVBuffer_SetBufferAttr(audioBuffer_, &attr), "Rebase original audio timestamps")) { return false; }
+    }
     if (attr.size > 0) {
         const int32_t writeResult = diagnostics_.Measure(TranscodeMetrics::Stage::MUX, [&] {
             return OH_AVMuxer_WriteSampleBuffer(muxer_, muxAudioTrack_, audioBuffer_);
@@ -684,7 +691,15 @@ void TranscodeJob::Run()
     startedAt_ = TranscodeMetrics::Clock::now();
     publishedAt_ = startedAt_;
     if (options_.inspectOnly) {
-        const bool success = !cancelled_.load() && OpenSource() && InspectCodecs();
+        const bool success = !cancelled_.load() && OpenSource() && (options_.remuxOnly || InspectCodecs());
+        Cleanup();
+        Complete(success);
+        return;
+    }
+    if (options_.previewOnly || options_.remuxOnly) {
+        const bool success = !cancelled_.load() && OpenSource() &&
+            (options_.previewOnly ? RunPreview() : RunRemux());
+        PublishDiagnostics();
         Cleanup();
         Complete(success);
         return;
@@ -773,6 +788,10 @@ void TranscodeJob::Cleanup()
     if (audioBuffer_ != nullptr) {
         OH_AVBuffer_Destroy(audioBuffer_);
         audioBuffer_ = nullptr;
+    }
+    if (videoCopyBuffer_ != nullptr) {
+        OH_AVBuffer_Destroy(videoCopyBuffer_);
+        videoCopyBuffer_ = nullptr;
     }
     if (demuxer_ != nullptr) {
         OH_AVDemuxer_Destroy(demuxer_);

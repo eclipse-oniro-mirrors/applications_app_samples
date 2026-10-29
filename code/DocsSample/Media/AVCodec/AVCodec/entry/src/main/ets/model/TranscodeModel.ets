@@ -29,6 +29,8 @@ import { MediaReports } from './MediaSessionReport';
 import { MediaStateFiles } from './MediaStateFiles';
 import { TranscodeQueueModel, TranscodeQueueItem } from './TranscodeQueueModel';
 import { TranscodeSourcePicker } from './TranscodeSourcePicker';
+import { TranscodeQualityModel } from './TranscodeQualityModel';
+import { image } from '@kit.ImageKit';
 
 function idleTranscodeStatus(): TranscodeStatus {
   return {
@@ -75,6 +77,10 @@ function idleTranscodeStatus(): TranscodeStatus {
 
 @Observed
 export class TranscodeModel {
+  public quality: TranscodeQualityModel = new TranscodeQualityModel();
+  public previewImage: image.PixelMap | undefined = undefined;
+  public previewing: boolean = false;
+  public previewConfiguration: string = '';
   public queue: TranscodeQueueModel = new TranscodeQueueModel();
   public queueRunning: boolean = false;
   public sourceUri: string = '';
@@ -114,11 +120,12 @@ export class TranscodeModel {
     this.inspecting = false;
   }
 
-  setRangeStart(value: string): void { this.rangeStart = value; this.updateSizeEstimate(); }
-  setRangeEnd(value: string): void { this.rangeEnd = value; this.updateSizeEstimate(); }
+  setRangeStart(value: string): void { this.rangeStart = value; this.clearPreview(); this.updateSizeEstimate(); }
+  setRangeEnd(value: string): void { this.rangeEnd = value; this.clearPreview(); this.updateSizeEstimate(); }
 
   setRangeEnabled(enabled: boolean): void {
     this.rangeEnabled = enabled && this.modeIndex === 0;
+    this.clearPreview();
     this.updateSizeEstimate();
   }
 
@@ -131,7 +138,9 @@ export class TranscodeModel {
       (request.endTimeMs || this.analysis.durationUs / 1000) * 1000 - (request.startTimeMs ?? 0) * 1000 :
       this.analysis.durationUs;
     this.analysisSizeEstimate = durationUs / 1000000 *
-      (request.bitrate + (request.audioMode === 2 ? 0 : 192000)) / 8 * 1.15;
+      (request.bitrate + (request.audioMode === 2 ? 0 : request.audioMode === 1 ?
+        (request.audioBitrate ?? 128000) : 192000)) / 8 * 1.15;
+    if (request.remuxOnly) { this.analysisSizeEstimate = -1; }
   }
 
   private rangeMilliseconds(value: string, allowEmpty: boolean): number {
@@ -177,6 +186,63 @@ export class TranscodeModel {
       this.sizeIndex = 0;
       this.grayscale = false;
       this.resizeMode = 0;
+      this.quality.filter = 0;
+    }
+  }
+
+  setOperation(index: number): void {
+    if (this.busy || this.queueRunning) { return; }
+    this.quality.operation = index;
+    if (index === 1) {
+      this.modeIndex = 0; this.sizeIndex = 0; this.grayscale = false; this.resizeMode = 0;
+      this.rangeEnabled = false; this.quality.filter = 0; this.quality.frameRate = 0;
+      if (this.audioMode === 1) { this.audioMode = 0; }
+    }
+    this.clearPreview();
+  }
+
+  clearPreview(): void {
+    const previous: image.PixelMap | undefined = this.previewImage;
+    this.previewImage = undefined; this.previewConfiguration = '';
+    if (previous !== undefined) { void previous.release().catch((): void => {}); }
+  }
+
+  async preview(ui: UIContext): Promise<void> {
+    if (this.busy || this.queueRunning || this.inspecting || this.picking || this.exporting || this.disposed ||
+      this.sourceUri.length === 0 || this.modeIndex !== 0 || this.quality.operation !== 0) { return; }
+    if (!this.validRange(this.analysis.durationUs)) {
+      this.notice = LocalizedText.get($r('app.string.transcode_range_invalid')); return;
+    }
+    if (player.getState() !== player.PlayerState.IDLE || recorder.getDiagnostics().active ||
+      !MediaFileActivity.beginTranscode()) {
+      this.notice = LocalizedText.get($r('app.string.transcode_resource_busy')); return;
+    }
+    this.busy = true; this.previewing = true; this.cancelRequested = false;
+    this.clearPreview();
+    let file: fileIo.File | undefined = undefined;
+    try {
+      file = await fileIo.open(this.sourceUri, fileIo.OpenMode.READ_ONLY);
+      if (this.disposed || this.cancelRequested) { return; }
+      const request: TranscodeRequest = this.request(file.fd, 0);
+      request.audioMode = 2;
+      const result: TranscodeStatus = await transcoder.preview(request);
+      const rgba: ArrayBuffer | undefined = result.previewRgba;
+      const width: number = result.previewWidth ?? 0;
+      const height: number = result.previewHeight ?? 0;
+      if (this.disposed || this.cancelRequested) { return; }
+      if (result.state !== 2 || rgba === undefined || width <= 0 || height <= 0) {
+        throw new Error(result.detail || 'Preview image unavailable');
+      }
+      const bitmap: image.PixelMap = await image.createPixelMap(rgba, {
+        size: { width: width, height: height }, pixelFormat: image.PixelMapFormat.RGBA_8888, editable: false
+      });
+      if (this.disposed || this.cancelRequested) { await bitmap.release(); return; }
+      this.previewImage = bitmap;
+      this.previewConfiguration = this.configuration();
+    } catch (error) { this.notice = JSON.stringify(error); }
+    finally {
+      if (file !== undefined) { await fileIo.close(file).catch((): void => {}); }
+      MediaFileActivity.endTranscode(); this.previewing = false; this.busy = false;
     }
   }
 
@@ -188,6 +254,7 @@ export class TranscodeModel {
     try {
       const uri: string = await TranscodeSourcePicker.select(ui, fromGallery);
       if (uri.length > 0 && !this.disposed) {
+        this.clearPreview();
         this.sourceUri = uri;
         this.sourceTitle = getPlaybackTitle(uri);
         this.notice = '';
@@ -383,6 +450,7 @@ export class TranscodeModel {
     this.historySequence++;
     this.cancel();
     this.clearPolling();
+    this.clearPreview();
   }
 
   private clearPolling(): void {
@@ -405,6 +473,14 @@ export class TranscodeModel {
       resizeMode: this.resizeMode,
       audioMode: this.audioMode,
       audioTrack: this.audioTrack,
+      remuxOnly: this.quality.operation === 1,
+      scalingFilter: this.quality.filter,
+      frameRateLimit: [0, 24, 30, 60, 120][this.quality.frameRate] ?? 0,
+      bitrateMode: this.quality.bitrateMode,
+      keyFrameIntervalMs: [1000, 2000, 3000, 5000][this.quality.keyFrame] ?? 2000,
+      audioSampleRate: [0, 44100, 48000][this.quality.audioRate] ?? 0,
+      audioChannels: this.quality.audioChannels,
+      audioBitrate: [64000, 128000, 192000][this.quality.audioBitrate] ?? 128000,
       startTimeMs: this.rangeEnabled ? Math.round(Number(this.rangeStart) * 1000) : 0,
       endTimeMs: this.rangeEnabled && this.rangeEnd.trim().length > 0 ?
         Math.round(Number(this.rangeEnd) * 1000) : 0
@@ -413,16 +489,27 @@ export class TranscodeModel {
 
   private configuration(): string {
     const mode: string = this.modeIndex === 0 ? 'Buffer' : LocalizedText.get($r('app.string.transcode_window_mode'));
+    if (this.quality.operation === 1) {
+      return 'MP4 remux · audio=' + (this.audioMode === 2 ? 'none' : 'copy') + ' · track=' + this.audioTrack;
+    }
     return (this.codecIndex === 0 ? 'H.264' : 'H.265') + ' · ' + mode +
       ' · ' + ([2, 4, 8, 16][this.bitrateIndex] ?? 8) + ' Mbps · gray=' + this.grayscale +
       ' · edge=' + [0, 1920, 1080, 720][this.sizeIndex] + ' · resize=' + this.resizeMode +
-      ' · audio=' + ['copy', 'AAC-LC 128 kbps', 'none'][this.audioMode] + ' · track=' + this.audioTrack +
+      ' · audio=' + ['copy', 'AAC-LC', 'none'][this.audioMode] + ' · track=' + this.audioTrack +
+      ' · filter=' + ['nearest', 'bilinear'][this.quality.filter] +
+      ' · fpsLimit=' + [0, 24, 30, 60, 120][this.quality.frameRate] +
+      ' · rateControl=' + ['VBR', 'CBR'][this.quality.bitrateMode] +
+      ' · keyFrameMs=' + [1000, 2000, 3000, 5000][this.quality.keyFrame] +
+      ' · audioRate=' + [0, 44100, 48000][this.quality.audioRate] +
+      ' · audioChannels=' + this.quality.audioChannels +
+      ' · audioBitrate=' + [64000, 128000, 192000][this.quality.audioBitrate] +
       (this.rangeEnabled ? ' · range=' + this.rangeStart + '..' + (this.rangeEnd || 'end') + ' s' : '');
   }
 
   async inspect(ui: UIContext): Promise<void> {
     if (this.busy || this.queueRunning || this.exporting || this.sourceUri.length === 0) { return; }
     const sequence: number = ++this.inspectionSequence;
+    this.clearPreview();
     const uri: string = this.sourceUri;
     this.inspecting = true;
     this.analysis = idleTranscodeStatus();
@@ -479,7 +566,7 @@ export class TranscodeModel {
     const request: TranscodeRequest = this.request(0, 0);
     this.queue.add(this.sourceUri, this.sourceTitle, [this.codecIndex, this.modeIndex, this.sizeIndex,
       this.bitrateIndex, this.encoderCategory, this.audioMode, this.audioTrack, this.resizeMode], this.grayscale,
-      request.startTimeMs ?? 0, request.endTimeMs ?? 0);
+      request.startTimeMs ?? 0, request.endTimeMs ?? 0, this.quality.snapshot());
     await this.persistQueue(ui);
   }
 
@@ -534,6 +621,8 @@ export class TranscodeModel {
         this.bitrateIndex = item.options[3]; this.encoderCategory = item.options[4];
         this.audioMode = item.options[5]; this.audioTrack = item.options[6]; this.grayscale = item.grayscale;
         this.resizeMode = item.options[7] ?? 0;
+        this.quality.restore(item.quality);
+        this.clearPreview();
         this.rangeEnabled = (item.startTimeMs ?? 0) > 0 || (item.endTimeMs ?? 0) > 0;
         this.rangeStart = ((item.startTimeMs ?? 0) / 1000).toString();
         this.rangeEnd = (item.endTimeMs ?? 0) > 0 ? ((item.endTimeMs ?? 0) / 1000).toString() : '';

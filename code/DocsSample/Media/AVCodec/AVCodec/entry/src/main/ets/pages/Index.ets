@@ -2189,7 +2189,8 @@ export struct Player {
 
   @Builder
   TranscodeHomePage() {
-    TranscodePage({ model: this.transcodeModel, onPlayResult: (uri: string): void => this.playRecording(uri) })
+    TranscodePage({ model: this.transcodeModel, quality: this.transcodeModel.quality,
+      onPlayResult: (uri: string): void => this.playRecording(uri) })
   }
 
   @Builder

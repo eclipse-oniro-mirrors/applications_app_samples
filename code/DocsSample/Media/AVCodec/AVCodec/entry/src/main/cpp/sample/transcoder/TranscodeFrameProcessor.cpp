@@ -15,6 +15,7 @@
 
 #include "TranscodeFrameProcessor.h"
 #include <algorithm>
+#include <cmath>
 
 namespace TranscodeFrames {
 namespace {
@@ -24,6 +25,58 @@ constexpr int32_t ASPECT_WIDTH = 16;
 constexpr int32_t ASPECT_HEIGHT = 9;
 constexpr uint8_t BLACK_LUMA = 16;
 constexpr uint8_t NEUTRAL_CHROMA = 128;
+
+template<class Read>
+uint8_t Interpolate(int32_t x, int32_t y, int32_t width, int32_t height, int32_t targetWidth,
+    int32_t targetHeight, Read read)
+{
+    const double sx = std::clamp((x + 0.5) * width / targetWidth - 0.5, 0.0, static_cast<double>(width - 1));
+    const double sy = std::clamp((y + 0.5) * height / targetHeight - 0.5, 0.0, static_cast<double>(height - 1));
+    const int32_t x0 = static_cast<int32_t>(sx);
+    const int32_t y0 = static_cast<int32_t>(sy);
+    const int32_t x1 = std::min(x0 + 1, width - 1);
+    const int32_t y1 = std::min(y0 + 1, height - 1);
+    const double fx = sx - x0;
+    const double fy = sy - y0;
+    const double top = read(x0, y0) * (1 - fx) + read(x1, y0) * fx;
+    const double bottom = read(x0, y1) * (1 - fx) + read(x1, y1) * fx;
+    return static_cast<uint8_t>(std::clamp(std::lround(top * (1 - fy) + bottom * fy), 0L, 255L));
+}
+
+void ProcessFiltered(const uint8_t *source, const Layout &input, uint8_t *destination, const Layout &output,
+    const Geometry &g, bool grayscale)
+{
+    for (int32_t y = 0; y < g.contentHeight; ++y) {
+        uint8_t *target = destination + static_cast<size_t>(y + g.contentTop) * output.stride + g.contentLeft;
+        for (int32_t x = 0; x < g.contentWidth; ++x) {
+            target[x] = Interpolate(x, y, g.cropWidth, g.cropHeight, g.contentWidth, g.contentHeight,
+                [&](int32_t sx, int32_t sy) {
+                    return source[static_cast<size_t>(sy + g.cropTop) * input.stride + sx + g.cropLeft];
+                });
+        }
+    }
+    if (grayscale) { return; }
+    const uint8_t *uv = source + static_cast<size_t>(input.stride) * input.sliceHeight;
+    const size_t plane = static_cast<size_t>(input.stride / 2) * (input.sliceHeight / 2);
+    uint8_t *outputUv = destination + static_cast<size_t>(output.stride) * output.sliceHeight;
+    for (int32_t y = 0; y < g.contentHeight / 2; ++y) {
+        uint8_t *target = outputUv + static_cast<size_t>(y + g.contentTop / 2) * output.stride + g.contentLeft;
+        for (int32_t x = 0; x < g.contentWidth / 2; ++x) {
+            for (int32_t channel = 0; channel < 2; ++channel) {
+                target[x * 2 + channel] = Interpolate(x, y, g.cropWidth / 2, g.cropHeight / 2,
+                    g.contentWidth / 2, g.contentHeight / 2, [&](int32_t sx, int32_t sy) {
+                        sx += g.cropLeft / 2;
+                        sy += g.cropTop / 2;
+                        if (input.chroma == Chroma::I420) {
+                            return uv[plane * channel + static_cast<size_t>(sy) * (input.stride / 2) + sx];
+                        }
+                        const int32_t component = input.chroma == Chroma::NV21 ? 1 - channel : channel;
+                        return uv[static_cast<size_t>(sy) * input.stride + sx * 2 + component];
+                    });
+            }
+        }
+    }
+}
 
 void ProcessLuma(const uint8_t *source, const Layout &input, uint8_t *destination, const Layout &output,
     const Geometry &geometry)
@@ -167,12 +220,13 @@ bool PlanGeometry(const Layout &input, const Layout &output, ResizeMode mode, Ge
 }
 
 bool Process(const uint8_t *source, size_t sourceCapacity, const Layout &input,
-    uint8_t *destination, size_t destinationCapacity, const Layout &output, bool grayscale, ResizeMode mode)
+    uint8_t *destination, size_t destinationCapacity, const Layout &output, bool grayscale, ResizeMode mode, Filter filter)
 {
     const size_t inputBytes = RequiredBytes(input);
     const size_t outputBytes = RequiredBytes(output);
     if (source == nullptr || destination == nullptr || inputBytes == 0 || outputBytes == 0 ||
-        inputBytes > sourceCapacity || outputBytes > destinationCapacity || output.chroma != Chroma::NV12) {
+        inputBytes > sourceCapacity || outputBytes > destinationCapacity || output.chroma != Chroma::NV12 ||
+        (filter != Filter::NEAREST && filter != Filter::BILINEAR)) {
         return false;
     }
     const size_t outputYBytes = static_cast<size_t>(output.stride) * output.sliceHeight;
@@ -199,6 +253,11 @@ bool Process(const uint8_t *source, size_t sourceCapacity, const Layout &input,
         // Initialize bars and padding without reading or copying destination pixels.
         std::fill_n(destination, outputYBytes, BLACK_LUMA);
         std::fill(destination + outputYBytes, destination + outputBytes, NEUTRAL_CHROMA);
+    }
+    if (filter == Filter::BILINEAR && (geometry.cropWidth != geometry.contentWidth ||
+        geometry.cropHeight != geometry.contentHeight)) {
+        ProcessFiltered(source, input, destination, output, geometry, grayscale);
+        return true;
     }
     ProcessLuma(source, input, destination, output, geometry);
     if (!grayscale) {

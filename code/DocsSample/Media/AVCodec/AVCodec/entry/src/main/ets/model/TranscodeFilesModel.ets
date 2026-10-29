@@ -43,13 +43,15 @@ export class TranscodeFilesModel {
       ' -> ' + status.outputWidth + 'x' + status.outputHeight,
       'elapsed=' + status.elapsedMs.toFixed(1) + 'ms firstFrame=' + status.firstFrameMs.toFixed(1) +
       'ms fps=' + status.fps.toFixed(2) + ' speed=' + status.speed.toFixed(2) + 'x',
-      'frames=' + status.frames + ' videoBytes=' + status.bytes + ' audioBytes=' + status.audioBytes +
+      'frames=' + status.frames + ' dropped=' + (status.droppedFrames ?? 0) +
+      ' videoBytes=' + status.bytes + ' audioBytes=' + status.audioBytes +
       ' fileBytes=' + status.fileBytes + ' copiedBytes=' + status.copiedBytes,
       'outputValidation=' + (status.outputValidation || 'not recorded') +
-      ' outputDurationUs=' + (status.outputDurationUs ?? 0),
+      ' outputDurationUs=' + (status.outputDurationUs ?? 0) + ' expectedDurationUs=' + (status.expectedDurationUs ?? 0),
       'waitMs: decoder=' + status.decoderWaitMs.toFixed(1) + ' encoderInput=' +
       status.encoderInputWaitMs.toFixed(1) + ' encoderOutput=' + status.encoderOutputWaitMs.toFixed(1),
       'API wall time; not hardware execution latency. P95 covers the most recent 256 calls.'];
+    (status.validationNotes ?? []).forEach((note: string): void => { lines.push('validation: ' + note); });
     status.diagnostics.forEach((metric: TranscodeMeasurement): void => {
       lines.push(metric.name + ': calls=' + metric.calls + ' avg=' + metric.averageMs.toFixed(3) +
         'ms p95=' + metric.p95Ms.toFixed(3) + 'ms max=' + metric.maxMs.toFixed(3) + 'ms');

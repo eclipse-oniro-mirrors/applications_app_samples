@@ -16,6 +16,7 @@
 #include "TranscodeAudioPipeline.h"
 #include <algorithm>
 #include <cstring>
+#include <cmath>
 #include <multimedia/player_framework/native_avcodec_base.h>
 #include <multimedia/player_framework/native_averrors.h>
 
@@ -55,11 +56,11 @@ bool ConfigureDecoderFormat(OH_AVFormat *source)
         OH_AVFormat_SetIntValue(source, OH_MD_KEY_ENABLE_SYNC_MODE, SYNC_MODE_ENABLED);
 }
 
-bool ConfigureEncoderFormat(OH_AVFormat *encoded)
+bool ConfigureEncoderFormat(OH_AVFormat *encoded, int64_t bitrate)
 {
     return OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_AUDIO_SAMPLE_FORMAT, SAMPLE_S16LE) &&
         OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_ENABLE_SYNC_MODE, SYNC_MODE_ENABLED) &&
-        OH_AVFormat_SetLongValue(encoded, OH_MD_KEY_BITRATE, AAC_BITRATE) &&
+        OH_AVFormat_SetLongValue(encoded, OH_MD_KEY_BITRATE, bitrate) &&
         OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_PROFILE, AAC_PROFILE_LC) &&
         OH_AVFormat_SetIntValue(encoded, OH_MD_KEY_AAC_IS_ADTS, ADTS_DISABLED);
 }
@@ -88,7 +89,7 @@ bool TranscodeAudioPipeline::ReadSourceFormat(OH_AVFormat *source, const char *&
 
 bool TranscodeAudioPipeline::ConfigureFormats(OH_AVFormat *source, OH_AVFormat *encoded)
 {
-    if (!ConfigureDecoderFormat(source) || !ConfigureEncoderFormat(encoded)) {
+    if (!ConfigureDecoderFormat(source) || !ConfigureEncoderFormat(encoded, bitrate_)) {
         return error_("Build audio decoder/AAC encoder format", -1);
     }
     return Check(OH_AudioCodec_Configure(decoder_, source), "Configure audio decoder") &&
@@ -115,7 +116,7 @@ bool TranscodeAudioPipeline::StartCodecs()
 }
 
 bool TranscodeAudioPipeline::Configure(OH_AVFormat *source, OH_AVDemuxer *demuxer, int32_t track,
-    int64_t rangeStartUs, int64_t rangeEndUs)
+    int64_t rangeStartUs, int64_t rangeEndUs, int32_t targetRate, int32_t targetChannels, int64_t bitrate)
 {
     demuxer_ = demuxer;
     track_ = track;
@@ -123,9 +124,15 @@ bool TranscodeAudioPipeline::Configure(OH_AVFormat *source, OH_AVDemuxer *demuxe
     rangeEndUs_ = rangeEndUs;
     const char *mime = nullptr;
     if (!ReadSourceFormat(source, mime)) { return false; }
+    targetRate_ = targetRate == 0 ? sampleRate_ : targetRate;
+    targetChannels_ = targetChannels == 0 ? channels_ : targetChannels;
+    bitrate_ = bitrate;
+    if (!converter_.Configure(sampleRate_, targetRate_, channels_, targetChannels_)) {
+        return error_("Invalid PCM conversion configuration", -1);
+    }
     decoder_ = OH_AudioCodec_CreateByMime(mime, false);
     encoder_ = OH_AudioCodec_CreateByMime(OH_AVCODEC_MIMETYPE_AUDIO_AAC, true);
-    Format encoded(OH_AVFormat_CreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, sampleRate_, channels_),
+    Format encoded(OH_AVFormat_CreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, targetRate_, targetChannels_),
         OH_AVFormat_Destroy);
     if (decoder_ == nullptr || encoder_ == nullptr || encoded == nullptr) {
         return error_("Create audio decoder/AAC encoder", -1);
@@ -133,7 +140,7 @@ bool TranscodeAudioPipeline::Configure(OH_AVFormat *source, OH_AVDemuxer *demuxe
     if (!ConfigureFormats(source, encoded.get()) || !PrepareCodecs() || !StartCodecs()) {
         return false;
     }
-    frame_.reserve(static_cast<size_t>(AAC_SAMPLES) * channels_ * PCM_BYTES);
+    frame_.reserve(static_cast<size_t>(AAC_SAMPLES) * targetChannels_ * PCM_BYTES);
     return true;
 }
 
@@ -229,29 +236,46 @@ bool TranscodeAudioPipeline::TrimPcm()
     return true;
 }
 
-bool TranscodeAudioPipeline::Encode(bool &advanced)
+bool TranscodeAudioPipeline::FillPcmFrame(bool &advanced)
 {
-    const size_t frameBytes = static_cast<size_t>(AAC_SAMPLES) * channels_ * PCM_BYTES;
-    if (pcm_ != nullptr && frame_.size() < frameBytes) {
+    const size_t frameBytes = static_cast<size_t>(AAC_SAMPLES) * targetChannels_ * PCM_BYTES;
+    while (frame_.size() < frameBytes && (pcm_ != nullptr || converter_.Pending())) {
+        if (converter_.Pending()) {
+            converter_.Pull(frame_);
+            advanced = true;
+            continue;
+        }
         const uint8_t *address = OH_AVBuffer_GetAddr(pcm_);
-        const size_t count = std::min(frameBytes - frame_.size(), static_cast<size_t>(pcmAttr_.size - pcmConsumed_));
-        if (count > 0) {
+        if (pcmConsumed_ < pcmAttr_.size) {
             if (address == nullptr) { return error_("Read PCM address", -1); }
-            if (frame_.empty()) {
-                framePts_ = pcmAttr_.pts + static_cast<int64_t>(pcmConsumed_ / (channels_ * PCM_BYTES)) *
-                    US_PER_SECOND / sampleRate_;
+            if (pcmConsumed_ == 0 && pcmStartPts_ >= 0) {
+                const int64_t expected = pcmStartPts_ + consumedSourceSamples_ / sampleRate_ * US_PER_SECOND +
+                    consumedSourceSamples_ % sampleRate_ * US_PER_SECOND / sampleRate_;
+                if (std::abs(static_cast<double>(pcmAttr_.pts) - expected) >
+                    std::max<int64_t>(2000, 2 * US_PER_SECOND / sampleRate_)) {
+                    return error_("Discontinuous PCM timestamps; conversion will not compress timeline gaps", -1);
+                }
             }
-            frame_.insert(frame_.end(), address + pcmAttr_.offset + pcmConsumed_,
-                address + pcmAttr_.offset + pcmConsumed_ + count);
-            pcmConsumed_ += static_cast<int32_t>(count);
+            if (pcmStartPts_ < 0) { pcmStartPts_ = pcmAttr_.pts; }
+            converter_.Push(address + pcmAttr_.offset + pcmConsumed_);
+            pcmConsumed_ += channels_ * PCM_BYTES;
+            ++consumedSourceSamples_;
             advanced = true;
         }
         if (pcmConsumed_ == pcmAttr_.size) {
             decodedDone_ = (pcmAttr_.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+            if (decodedDone_) { converter_.Finish(); }
             if (!Check(OH_AudioCodec_FreeOutputBuffer(decoder_, pcmIndex_), "Return decoded PCM")) { return false; }
             pcm_ = nullptr;
         }
     }
+    return true;
+}
+
+bool TranscodeAudioPipeline::Encode(bool &advanced)
+{
+    const size_t frameBytes = static_cast<size_t>(AAC_SAMPLES) * targetChannels_ * PCM_BYTES;
+    if (!FillPcmFrame(advanced)) { return false; }
     if (sentEos_ || (frame_.size() < frameBytes && !decodedDone_)) { return true; }
     uint32_t index = 0;
     const int32_t result = OH_AudioCodec_QueryInputBuffer(encoder_, &index, 0);
@@ -260,7 +284,8 @@ bool TranscodeAudioPipeline::Encode(bool &advanced)
     OH_AVBuffer *input = OH_AudioCodec_GetInputBuffer(encoder_, index);
     if (input == nullptr) { return error_("Get AAC encoder input", -1); }
     OH_AVCodecBufferAttr attr {};
-    attr.pts = framePts_;
+    attr.pts = std::max<int64_t>(0, pcmStartPts_) + submittedSamples_ / targetRate_ * US_PER_SECOND +
+        submittedSamples_ % targetRate_ * US_PER_SECOND / targetRate_;
     attr.size = static_cast<int32_t>(frame_.size());
     if (attr.size > 0) {
         // AAC-LC consumes 1024 samples; pad only the final partial PCM frame.
@@ -277,6 +302,7 @@ bool TranscodeAudioPipeline::Encode(bool &advanced)
     if (!Check(OH_AVBuffer_SetBufferAttr(input, &attr), "Set AAC input attributes") ||
         !Check(OH_AudioCodec_PushInputBuffer(encoder_, index), "Submit AAC PCM/EOS")) { return false; }
     sentEos_ = attr.size == 0;
+    if (!sentEos_) { submittedSamples_ += AAC_SAMPLES; }
     frame_.clear();
     advanced = true;
     return true;

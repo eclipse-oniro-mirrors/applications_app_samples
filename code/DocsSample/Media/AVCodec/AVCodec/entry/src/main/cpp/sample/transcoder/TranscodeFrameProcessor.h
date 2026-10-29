@@ -22,6 +22,7 @@
 namespace TranscodeFrames {
 enum class Chroma { NV12, NV21, I420 };
 enum class ResizeMode { FIT, CENTER_CROP, LETTERBOX };
+enum class Filter { NEAREST, BILINEAR };
 struct Geometry {
     int32_t cropLeft = 0;
     int32_t cropTop = 0;
@@ -50,6 +51,6 @@ bool PlanGeometry(const Layout &input, const Layout &output, ResizeMode mode, Ge
 // 两侧 stride、sliceHeight 分别来自各自的 codec。只拷贝有效像素，不能假设两块 Buffer 的填充相同。
 bool Process(const uint8_t *source, size_t sourceCapacity, const Layout &input,
     uint8_t *destination, size_t destinationCapacity, const Layout &output, bool grayscale,
-    ResizeMode mode = ResizeMode::FIT);
+    ResizeMode mode = ResizeMode::FIT, Filter filter = Filter::NEAREST);
 } // namespace TranscodeFrames
 #endif
