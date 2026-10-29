@@ -22,8 +22,8 @@ struct Index {
     Column({ space: 5 }) {
       Text(this.message)
         .fontWeight(FontWeight.Regular)
-        .fontSize(('sys.float.ohos_id_text_size_body1'))
-        .fontColor(('sys.color.ohos_id_color_text_primary'))
+        .fontSize($r('sys.float.ohos_id_text_size_body1'))
+        .fontColor($r('sys.color.ohos_id_color_text_primary'))
         .maxLines(Infinity)
         .textAlign(TextAlign.Start)
     }
