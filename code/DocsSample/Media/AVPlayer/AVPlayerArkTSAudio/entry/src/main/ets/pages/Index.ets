@@ -275,6 +275,7 @@ struct Index {
   // 注册avplayer回调函数
   async setAVPlayerCallback(callback: (avPlayer: media.AVPlayer) => void, vType?: number): Promise<void> {
     // seek操作结果回调函数
+    // [Start setAVPlayerCallback]
     if (this.avPlayer == null) {
       console.error(`${this.tag}: avPlayer has not init!`);
       return;
@@ -284,6 +285,18 @@ struct Index {
     });
     this.avPlayer.on('speedDone', (speed) => {
       console.info(`${this.tag}: setAVPlayerCallback AVPlayer speedDone, speed is ${speed}`);
+    });
+    this.avPlayer.on('durationUpdate', (duration: number) => {
+      console.info(`${this.tag}: setAVPlayerCallback AVPlayer durationUpdate, duration is ${duration}`);
+    });
+    this.avPlayer.on('volumeChange', (vol: number) => {
+      console.info(`${this.tag}: setAVPlayerCallback AVPlayer volumeChange, vol is ${vol}`);
+    });
+    this.avPlayer.on('bufferingUpdate', (infoType: media.BufferingInfoType, value: number) => {
+      console.info(`${this.tag}: setAVPlayerCallback AVPlayer bufferingUpdate, vol is ${infoType}, value is ${value}`);
+    });
+    this.avPlayer.on('audioInterrupt', (info: audio.InterruptEvent) => {
+      console.info(`${this.tag}: setAVPlayerCallback AVPlayer audioInterrupt, info is ${info}`);
     });
     // error回调监听函数,当avPlayer在操作过程中出现错误时调用reset接口触发重置流程
     this.avPlayer.on('error', (err) => {
@@ -411,6 +424,7 @@ struct Index {
     this.avPlayer.on('timeUpdate', (time: number) => {
       this.currentTime = time;
     });
+    // [End setAVPlayerCallback]
   }
 
   aboutToAppear() {
