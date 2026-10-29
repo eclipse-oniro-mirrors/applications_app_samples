@@ -130,7 +130,7 @@ struct Index {
   }
 
   async setFdPath() {
-    // [Start setUrl]
+    // [Start setFdPath]
     let fdPath = 'fd://'; // 此处仅为示意，请替换为真实资源文件URL。
     let path : string = `${this.context?.filesDir}/${this.fileName}`; // 此处仅为示意，请替换为真实的应用沙箱文件路径。
     let file = await fs.open(path);
