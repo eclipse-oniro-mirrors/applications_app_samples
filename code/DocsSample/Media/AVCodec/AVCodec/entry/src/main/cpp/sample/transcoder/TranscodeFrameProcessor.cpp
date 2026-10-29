@@ -25,11 +25,27 @@ constexpr int32_t ASPECT_WIDTH = 16;
 constexpr int32_t ASPECT_HEIGHT = 9;
 constexpr uint8_t BLACK_LUMA = 16;
 constexpr uint8_t NEUTRAL_CHROMA = 128;
+constexpr int32_t NV21_REVERSED_COMPONENT_OFFSET = CHROMA_SUBSAMPLING - 1;
+
+uint8_t ReadFilteredChroma(const uint8_t *uv, size_t plane, const Layout &input, int32_t channel,
+    int32_t x, int32_t y, const Geometry &geometry)
+{
+    const int32_t sourceX = x + geometry.cropLeft / CHROMA_SUBSAMPLING;
+    const int32_t sourceY = y + geometry.cropTop / CHROMA_SUBSAMPLING;
+    if (input.chroma == Chroma::I420) {
+        return uv[plane * channel + static_cast<size_t>(sourceY) * (input.stride / CHROMA_SUBSAMPLING) + sourceX];
+    }
+    const int32_t component = input.chroma == Chroma::NV21 ? NV21_REVERSED_COMPONENT_OFFSET - channel : channel;
+    return uv[static_cast<size_t>(sourceY) * input.stride + sourceX * CHROMA_SUBSAMPLING + component];
+}
 
 template<class Read>
 uint8_t Interpolate(int32_t x, int32_t y, int32_t width, int32_t height, int32_t targetWidth,
     int32_t targetHeight, Read read)
 {
+    if (width <= 0 || height <= 0 || targetWidth <= 0 || targetHeight <= 0) {
+        return 0;
+    }
     const double sx = std::clamp((x + 0.5) * width / targetWidth - 0.5, 0.0, static_cast<double>(width - 1));
     const double sy = std::clamp((y + 0.5) * height / targetHeight - 0.5, 0.0, static_cast<double>(height - 1));
     const int32_t x0 = static_cast<int32_t>(sx);
@@ -41,6 +57,16 @@ uint8_t Interpolate(int32_t x, int32_t y, int32_t width, int32_t height, int32_t
     const double top = read(x0, y0) * (1 - fx) + read(x1, y0) * fx;
     const double bottom = read(x0, y1) * (1 - fx) + read(x1, y1) * fx;
     return static_cast<uint8_t>(std::clamp(std::lround(top * (1 - fy) + bottom * fy), 0L, 255L));
+}
+
+uint8_t InterpolateChroma(const uint8_t *uv, size_t plane, const Layout &input, const Geometry &geometry,
+    int32_t channel, int32_t x, int32_t y)
+{
+    return Interpolate(x, y, geometry.cropWidth / CHROMA_SUBSAMPLING,
+        geometry.cropHeight / CHROMA_SUBSAMPLING, geometry.contentWidth / CHROMA_SUBSAMPLING,
+        geometry.contentHeight / CHROMA_SUBSAMPLING, [&](int32_t sx, int32_t sy) {
+            return ReadFilteredChroma(uv, plane, input, channel, sx, sy, geometry);
+        });
 }
 
 void ProcessFiltered(const uint8_t *source, const Layout &input, uint8_t *destination, const Layout &output,
@@ -57,22 +83,16 @@ void ProcessFiltered(const uint8_t *source, const Layout &input, uint8_t *destin
     }
     if (grayscale) { return; }
     const uint8_t *uv = source + static_cast<size_t>(input.stride) * input.sliceHeight;
-    const size_t plane = static_cast<size_t>(input.stride / 2) * (input.sliceHeight / 2);
+    const size_t plane = static_cast<size_t>(input.stride / CHROMA_SUBSAMPLING) *
+        (input.sliceHeight / CHROMA_SUBSAMPLING);
     uint8_t *outputUv = destination + static_cast<size_t>(output.stride) * output.sliceHeight;
-    for (int32_t y = 0; y < g.contentHeight / 2; ++y) {
-        uint8_t *target = outputUv + static_cast<size_t>(y + g.contentTop / 2) * output.stride + g.contentLeft;
-        for (int32_t x = 0; x < g.contentWidth / 2; ++x) {
-            for (int32_t channel = 0; channel < 2; ++channel) {
-                target[x * 2 + channel] = Interpolate(x, y, g.cropWidth / 2, g.cropHeight / 2,
-                    g.contentWidth / 2, g.contentHeight / 2, [&](int32_t sx, int32_t sy) {
-                        sx += g.cropLeft / 2;
-                        sy += g.cropTop / 2;
-                        if (input.chroma == Chroma::I420) {
-                            return uv[plane * channel + static_cast<size_t>(sy) * (input.stride / 2) + sx];
-                        }
-                        const int32_t component = input.chroma == Chroma::NV21 ? 1 - channel : channel;
-                        return uv[static_cast<size_t>(sy) * input.stride + sx * 2 + component];
-                    });
+    for (int32_t y = 0; y < g.contentHeight / CHROMA_SUBSAMPLING; ++y) {
+        uint8_t *target = outputUv + static_cast<size_t>(y + g.contentTop / CHROMA_SUBSAMPLING) * output.stride +
+            g.contentLeft;
+        for (int32_t x = 0; x < g.contentWidth / CHROMA_SUBSAMPLING; ++x) {
+            for (int32_t channel = 0; channel < CHROMA_SUBSAMPLING; ++channel) {
+                target[x * CHROMA_SUBSAMPLING + channel] =
+                    InterpolateChroma(uv, plane, input, g, channel, x, y);
             }
         }
     }
@@ -125,8 +145,10 @@ void ProcessChroma(const uint8_t *source, const Layout &input, uint8_t *destinat
                 target[targetX + 1] = source[planeBytes + offset];
             } else {
                 const size_t offset = static_cast<size_t>(sourceY) * input.stride + sourceX * CHROMA_SUBSAMPLING;
-                target[targetX] = source[offset + (input.chroma == Chroma::NV21 ? 1 : 0)];
-                target[targetX + 1] = source[offset + (input.chroma == Chroma::NV21 ? 0 : 1)];
+                target[targetX] = source[offset +
+                    (input.chroma == Chroma::NV21 ? NV21_REVERSED_COMPONENT_OFFSET : 0)];
+                target[targetX + 1] = source[offset +
+                    (input.chroma == Chroma::NV21 ? 0 : NV21_REVERSED_COMPONENT_OFFSET)];
             }
         }
     }
@@ -220,7 +242,8 @@ bool PlanGeometry(const Layout &input, const Layout &output, ResizeMode mode, Ge
 }
 
 bool Process(const uint8_t *source, size_t sourceCapacity, const Layout &input,
-    uint8_t *destination, size_t destinationCapacity, const Layout &output, bool grayscale, ResizeMode mode, Filter filter)
+    uint8_t *destination, size_t destinationCapacity, const Layout &output, bool grayscale,
+    ResizeMode mode, Filter filter)
 {
     const size_t inputBytes = RequiredBytes(input);
     const size_t outputBytes = RequiredBytes(output);

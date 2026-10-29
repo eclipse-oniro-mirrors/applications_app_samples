@@ -311,7 +311,7 @@ Native 在异步任务入队前复制输入、输出 fd，工作线程只使用�
 
 `TranscodeAudioPipeline` 最多借用一个解码输出，并保留一帧每声道 1024 采样点的 AAC-LC 拼帧区。输出 PTS 从第一个保留的 PCM 时间戳和整数输出采样时钟计算，避免逐包取整累积误差。源 PCM 时间戳跳变超过 2 ms 与两个源采样间隔中的较大值时明确失败，不悄悄压缩间隙。EOS 用末采样保持补齐重采样的小数尾部，再为不足一帧的 AAC 输入补零；额外静音仍小于一帧，随后单独送空 EOS，继续排空编码输出。
 
-视频和 AAC 实际输出描述都就绪后才启动封装，等待期间保留首个 AAC 数据包，避免丢失开头音频。背压不积累无限 PCM；取消和失败释放两侧音频 codec。暂不支持同时输出多音轨、字幕转封装、响度调整和无缝尾部裁切。
+视频和 AAC 输出描述都就绪后才启动封装，等待期间暂存第一个 AAC 数据包，避免丢失开头音频。背压不积累无限 PCM；取消和失败都会释放两侧音频 codec。暂不支持同时输出多音轨、字幕转封装、响度调整和无缝尾部裁切。
 
 <a id="transcode-results"></a>
 
@@ -2353,7 +2353,7 @@ Surface 模式保留原始尺寸，不开放 CPU 缩放、灰度和区间裁切�
 
 `MediaFileActivity` 还保留启动计数，挡住“启动已发起、活动状态尚未发布”时的清理操作。页面入口同时检查实际播放器和录制器状态。切换 Tab 本身不能当作任务完成；退出控制器需要按所属流程停止或取消，不能只清掉 UI 的 busy 状态。
 
-取消转码会设置 `cancelRequested`、暂停队列、把租约标记为 cancelling，并调用 Native `cancel()`。Native 工作线程观察标记，执行清理后返回；ArkTS 再关闭自己的文件、保存最终记录并释放租约。取消按钮按下后到这段收尾结束之间，其他媒体任务仍不能启动。
+收到转码取消请求后，应用暂停队列，将租约标记为 cancelling，并调用 Native `cancel()`。Native 工作线程检查取消标记并清理资源后返回；ArkTS 随后关闭文件、保存最终记录并释放租约。清理完成前，播放、录制和下一项转码均不能启动。
 
 #### 恢复的是记录和待执行任务
 
@@ -2369,7 +2369,7 @@ Surface 模式保留原始尺寸，不开放 CPU 缩放、灰度和区间裁切�
 
 #### 配置和任务数据保存在哪里
 
-下表中的 `filesDir` 是当前应用上下文返回的私有目录，不能在其他应用或不同设备上硬编码复用。
+下表中的 `filesDir` 是应用上下文返回的应用私有目录。该路径不能跨应用或跨设备硬编码复用。
 
 | 存储项 | 内容与使用方 | 写入和读取时点 |
 |---|---|---|
@@ -2404,17 +2404,17 @@ Surface 模式保留原始尺寸，不开放 CPU 缩放、灰度和区间裁切�
 
 ### 时间单位、诊断指标和基线
 
-媒体时间用于定位内容，经过时间用于测量执行。`Date.now()` 的毫秒时间戳用于记录和命名；转码阶段计时使用 `steady_clock`；传给 `RenderOutputBufferAtTime()` 的纳秒时间点来自播放器送显调度。不能将文件 PTS 直接当成系统绝对送显时间。
+媒体时间用于定位内容，经过时间用于测量执行。`Date.now()` 的毫秒时间戳用于记录和命名；转码阶段计时使用 `steady_clock`；播放器根据送显调度生成传给 `RenderOutputBufferAtTime()` 的纳秒时间点。文件 PTS 不能直接用作系统送显时刻。
 
 | 字段或指标 | 单位与计算位置 | 阅读时的边界 |
 |---|---|---|
 | Buffer `pts`、Native 区间和媒体位置 | 微秒；来自样本属性或时间线计算 | UI 区间请求为 ms，进度显示为秒，必须在接口边界换算 |
 | `PlaybackTimelineEvent.elapsedUs` / 报告 `elapsedMs` | 会话经过微秒 / 序列化后的毫秒 | 属于当前会话的事件时间，不是文件 PTS |
 | `avOffsetUs` | 视频同步决策前的微秒偏差 | 正值视频领先、负值落后；音频时钟不可用时不能当成有效同步结论 |
-| `seekRebuildUs` / `seekFirstOutputUs` | Seek 链路恢复 / 首个有效输出耗时，微秒 | 包含复用 Flush 等流程，不代表每次新建 decoder；未知值不当成 0 |
+| `seekRebuildUs` / `seekFirstOutputUs` | Seek 链路恢复 / 第一次有效输出耗时，微秒 | 包含复用 Flush 等流程，不代表每次新建 decoder；未知值不当成 0 |
 | Present 调用 P95/max、`VideoSinkDiagnostics` | 微秒；应用提交调用及后端阶段计时 | Present P95/max 来自最近最多 512 次记录；sink 平均值使用其累计计数；二者都不是 GPU 帧完成延迟 |
 | 转码阶段 calls/total/average/max | `TranscodeDiagnostics` 每阶段调用次数和毫秒 | total/average/max 覆盖任务内该阶段已记录的调用；P95 仅取最近 256 次样本 |
-| decoder-output / encoder-input / encoder-output 等待 | 从 TRY_AGAIN 到该通道下次非 TRY_AGAIN 结果的毫秒 | 含轮询间隔与其他处理时间；通道间可能重叠，不求和为端到端延迟 |
+| decoder-output / encoder-input / encoder-output 等待 | 从 TRY_AGAIN 到通道下次返回非 TRY_AGAIN 结果的毫秒数 | 包括轮询间隔与期间的处理耗时；通道间可能重叠，不能相加作为端到端延迟 |
 | 转码 frames、fps、速度、ETA | 有效视频输出计数和媒体/实际经过时间推算 | codec config 不算画面；含初始化影响，预计剩余时间在无有效样本时未知 |
 | copiedBytes、编码/音频字节、文件大小 | 累计字节 | copiedBytes 只统计目标有效像素，不含 padding；其余分别是样本负载和容器大小 |
 

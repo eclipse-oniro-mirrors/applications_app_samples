@@ -52,6 +52,9 @@ private:
     bool ValidatePcm();
     bool TrimPcm();
     bool FillPcmFrame(bool &advanced);
+    bool CheckPcmTimestampContinuity();
+    bool ConsumePcmSample(bool &advanced);
+    bool ReleasePcmOutput();
     Error error_;
     OH_AVDemuxer *demuxer_ = nullptr;
     int32_t track_ = -1;

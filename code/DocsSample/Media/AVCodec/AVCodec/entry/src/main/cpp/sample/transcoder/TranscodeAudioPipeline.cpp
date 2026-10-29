@@ -21,6 +21,8 @@
 #include <multimedia/player_framework/native_averrors.h>
 
 namespace {
+constexpr int64_t PCM_TIMESTAMP_TOLERANCE_US = 2000;
+constexpr int32_t PCM_TIMESTAMP_FRAME_TOLERANCE = 2;
 constexpr int32_t AAC_SAMPLES = 1024;
 constexpr int32_t PCM_BYTES = 2;
 constexpr int64_t AAC_BITRATE = 128000;
@@ -236,6 +238,53 @@ bool TranscodeAudioPipeline::TrimPcm()
     return true;
 }
 
+bool TranscodeAudioPipeline::CheckPcmTimestampContinuity()
+{
+    if (pcmConsumed_ != 0 || pcmStartPts_ < 0) {
+        return true;
+    }
+    const int64_t expected = pcmStartPts_ + consumedSourceSamples_ / sampleRate_ * US_PER_SECOND +
+        consumedSourceSamples_ % sampleRate_ * US_PER_SECOND / sampleRate_;
+    const int64_t tolerance = std::max<int64_t>(PCM_TIMESTAMP_TOLERANCE_US,
+        PCM_TIMESTAMP_FRAME_TOLERANCE * US_PER_SECOND / sampleRate_);
+    if (std::abs(static_cast<double>(pcmAttr_.pts) - expected) > tolerance) {
+        return error_("Discontinuous PCM timestamps; conversion will not compress timeline gaps", -1);
+    }
+    return true;
+}
+
+bool TranscodeAudioPipeline::ConsumePcmSample(bool &advanced)
+{
+    const uint8_t *address = OH_AVBuffer_GetAddr(pcm_);
+    if (address == nullptr) {
+        return error_("Read PCM address", -1);
+    }
+    if (!CheckPcmTimestampContinuity()) {
+        return false;
+    }
+    if (pcmStartPts_ < 0) {
+        pcmStartPts_ = pcmAttr_.pts;
+    }
+    converter_.Push(address + pcmAttr_.offset + pcmConsumed_);
+    pcmConsumed_ += channels_ * PCM_BYTES;
+    ++consumedSourceSamples_;
+    advanced = true;
+    return true;
+}
+
+bool TranscodeAudioPipeline::ReleasePcmOutput()
+{
+    decodedDone_ = (pcmAttr_.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+    if (decodedDone_) {
+        converter_.Finish();
+    }
+    if (!Check(OH_AudioCodec_FreeOutputBuffer(decoder_, pcmIndex_), "Return decoded PCM")) {
+        return false;
+    }
+    pcm_ = nullptr;
+    return true;
+}
+
 bool TranscodeAudioPipeline::FillPcmFrame(bool &advanced)
 {
     const size_t frameBytes = static_cast<size_t>(AAC_SAMPLES) * targetChannels_ * PCM_BYTES;
@@ -245,28 +294,15 @@ bool TranscodeAudioPipeline::FillPcmFrame(bool &advanced)
             advanced = true;
             continue;
         }
-        const uint8_t *address = OH_AVBuffer_GetAddr(pcm_);
         if (pcmConsumed_ < pcmAttr_.size) {
-            if (address == nullptr) { return error_("Read PCM address", -1); }
-            if (pcmConsumed_ == 0 && pcmStartPts_ >= 0) {
-                const int64_t expected = pcmStartPts_ + consumedSourceSamples_ / sampleRate_ * US_PER_SECOND +
-                    consumedSourceSamples_ % sampleRate_ * US_PER_SECOND / sampleRate_;
-                if (std::abs(static_cast<double>(pcmAttr_.pts) - expected) >
-                    std::max<int64_t>(2000, 2 * US_PER_SECOND / sampleRate_)) {
-                    return error_("Discontinuous PCM timestamps; conversion will not compress timeline gaps", -1);
-                }
+            if (!ConsumePcmSample(advanced)) {
+                return false;
             }
-            if (pcmStartPts_ < 0) { pcmStartPts_ = pcmAttr_.pts; }
-            converter_.Push(address + pcmAttr_.offset + pcmConsumed_);
-            pcmConsumed_ += channels_ * PCM_BYTES;
-            ++consumedSourceSamples_;
-            advanced = true;
         }
         if (pcmConsumed_ == pcmAttr_.size) {
-            decodedDone_ = (pcmAttr_.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
-            if (decodedDone_) { converter_.Finish(); }
-            if (!Check(OH_AudioCodec_FreeOutputBuffer(decoder_, pcmIndex_), "Return decoded PCM")) { return false; }
-            pcm_ = nullptr;
+            if (!ReleasePcmOutput()) {
+                return false;
+            }
         }
     }
     return true;

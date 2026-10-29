@@ -19,9 +19,26 @@
 #include <thread>
 #include <multimedia/player_framework/native_averrors.h>
 
+namespace {
+constexpr int32_t CHROMA_SUBSAMPLING = 2;
+constexpr int32_t RGBA_CHANNEL_COUNT = 4;
+constexpr int32_t YUV_CHROMA_OFFSET = 128;
+constexpr int32_t YUV_LUMA_OFFSET = 16;
+constexpr int32_t YUV_LUMA_RANGE = 219;
+constexpr int32_t YUV_CHROMA_RANGE = 224;
+constexpr int32_t RGBA_ALPHA_OPAQUE = 255;
+constexpr int32_t PREVIEW_MAX_LONG_EDGE = 640;
+constexpr int64_t VIDEO_COPY_BUFFER_SIZE = 32LL * 1024 * 1024;
+constexpr int32_t PREVIEW_IDLE_WAIT_MS = 2;
+constexpr int32_t DIAGNOSTICS_PUBLISH_INTERVAL_MS = 250;
+constexpr double COLOR_COEFFICIENT_SCALE = 2.0;
+constexpr int32_t PREVIEW_TIMEOUT_SECONDS = 15;
+}
+
 double TranscodeJob::OutputFrameRate() const
 {
-    return options_.frameRateLimit > 0 ? std::min(frameRate_, static_cast<double>(options_.frameRateLimit)) : frameRate_;
+    return options_.frameRateLimit > 0 ?
+        std::min(frameRate_, static_cast<double>(options_.frameRateLimit)) : frameRate_;
 }
 
 bool TranscodeJob::DropFrame(bool &advanced)
@@ -60,7 +77,10 @@ bool TranscodeJob::CapturePreview()
     TranscodeFrames::Layout input;
     if (!ReadLayout(description.get(), input)) { return false; }
     TranscodeFrames::Layout output;
-    if (!TranscodeFrames::FitSize(targetWidth_, targetHeight_, 640, output.width, output.height)) { return false; }
+    if (!TranscodeFrames::FitSize(targetWidth_, targetHeight_, PREVIEW_MAX_LONG_EDGE,
+        output.width, output.height)) {
+        return false;
+    }
     output.stride = output.width;
     output.sliceHeight = output.height;
     std::vector<uint8_t> yuv(TranscodeFrames::RequiredBytes(output));
@@ -78,20 +98,23 @@ bool TranscodeJob::CapturePreview()
     double kr = matrix == MATRIX_COEFFICIENT_BT709 ? 0.2126 : 0.299;
     double kb = matrix == MATRIX_COEFFICIENT_BT709 ? 0.0722 : 0.114;
     const double kg = 1 - kr - kb;
-    std::vector<uint8_t> rgba(static_cast<size_t>(output.width) * output.height * 4);
+    std::vector<uint8_t> rgba(static_cast<size_t>(output.width) * output.height * RGBA_CHANNEL_COUNT);
     const auto byte = [](double value) { return static_cast<uint8_t>(std::clamp(std::lround(value), 0L, 255L)); };
     const size_t plane = static_cast<size_t>(output.width) * output.height;
     for (int32_t y = 0; y < output.height; ++y) {
         for (int32_t x = 0; x < output.width; ++x) {
             const size_t pixel = static_cast<size_t>(y) * output.width + x;
-            const size_t uv = plane + static_cast<size_t>(y / 2) * output.width + (x & ~1);
-            const double luma = fullRange ? yuv[pixel] : (yuv[pixel] - 16) * 255.0 / 219;
-            const double u = (yuv[uv] - 128) * (fullRange ? 1 : 255.0 / 224);
-            const double v = (yuv[uv + 1] - 128) * (fullRange ? 1 : 255.0 / 224);
-            rgba[pixel * 4] = byte(luma + 2 * (1 - kr) * v);
-            rgba[pixel * 4 + 1] = byte(luma - 2 * kb * (1 - kb) / kg * u - 2 * kr * (1 - kr) / kg * v);
-            rgba[pixel * 4 + 2] = byte(luma + 2 * (1 - kb) * u);
-            rgba[pixel * 4 + 3] = 255;
+            const size_t uv = plane + static_cast<size_t>(y / CHROMA_SUBSAMPLING) * output.width + (x & ~1);
+            const double luma = fullRange ? yuv[pixel] :
+                (yuv[pixel] - YUV_LUMA_OFFSET) * 255.0 / YUV_LUMA_RANGE;
+            const double u = (yuv[uv] - YUV_CHROMA_OFFSET) * (fullRange ? 1 : 255.0 / YUV_CHROMA_RANGE);
+            const double v = (yuv[uv + 1] - YUV_CHROMA_OFFSET) * (fullRange ? 1 : 255.0 / YUV_CHROMA_RANGE);
+            const size_t rgbaIndex = pixel * RGBA_CHANNEL_COUNT;
+            rgba[rgbaIndex] = byte(luma + COLOR_COEFFICIENT_SCALE * (1 - kr) * v);
+            rgba[rgbaIndex + 1] = byte(luma - COLOR_COEFFICIENT_SCALE * kb * (1 - kb) / kg * u -
+                COLOR_COEFFICIENT_SCALE * kr * (1 - kr) / kg * v);
+            rgba[rgbaIndex + 2] = byte(luma + COLOR_COEFFICIENT_SCALE * (1 - kb) * u);
+            rgba[rgbaIndex + 3] = RGBA_ALPHA_OPAQUE;
         }
     }
     std::lock_guard<std::mutex> lock(snapshotMutex_);
@@ -116,7 +139,7 @@ bool TranscodeJob::RunPreview()
         !Check(OH_VideoDecoder_Prepare(decoder_), "Prepare preview decoder") ||
         !Check(OH_VideoDecoder_Start(decoder_), "Start preview decoder")) { return Fail("Initialize preview decoder"); }
     decoderStarted_ = true;
-    const auto deadline = std::chrono::steady_clock::now() + std::chrono::seconds(15);
+    const auto deadline = std::chrono::steady_clock::now() + std::chrono::seconds(PREVIEW_TIMEOUT_SECONDS);
     while (!cancelled_.load() && std::chrono::steady_clock::now() < deadline) {
         bool advanced = false;
         if (!DrainDecoder(advanced)) { return false; }
@@ -130,7 +153,7 @@ bool TranscodeJob::RunPreview()
         }
         if (decoderOutputDone_) { return Fail("No decoded frame within the selected preview range"); }
         if (!FeedDecoder(advanced)) { return false; }
-        if (!advanced) { std::this_thread::sleep_for(std::chrono::milliseconds(2)); }
+        if (!advanced) { std::this_thread::sleep_for(std::chrono::milliseconds(PREVIEW_IDLE_WAIT_MS)); }
     }
     return cancelled_.load() ? false : Fail("Preview timed out after 15 seconds");
 }
@@ -151,18 +174,24 @@ bool TranscodeJob::RunRemux()
 {
     if (!CheckStorage(true) || !InitializeDemuxer()) { return false; }
     muxer_ = OH_AVMuxer_Create(options_.outputFd, AV_OUTPUT_FORMAT_MPEG_4);
-    videoCopyBuffer_ = OH_AVBuffer_Create(32 * 1024 * 1024);
+    videoCopyBuffer_ = OH_AVBuffer_Create(VIDEO_COPY_BUFFER_SIZE);
     if (muxer_ == nullptr || videoCopyBuffer_ == nullptr ||
         !Check(OH_AVMuxer_SetRotation(muxer_, rotation_), "Set remux rotation") ||
-        !Check(OH_AVMuxer_AddTrack(muxer_, &muxVideoTrack_, videoFormat_.get()), "Source video is not MP4-compatible") ||
+        !Check(OH_AVMuxer_AddTrack(muxer_, &muxVideoTrack_, videoFormat_.get()),
+            "Source video is not MP4-compatible") ||
         (audioFormat_ != nullptr && !Check(OH_AVMuxer_AddTrack(muxer_, &muxAudioTrack_, audioFormat_.get()),
             "Source audio is not MP4-compatible; select no audio")) ||
         !Check(OH_AVMuxer_Start(muxer_), "Start remux container")) { return false; }
     muxStarted_ = true;
     while (!cancelled_.load() && !(encoderOutputDone_ && audioDone_)) {
         bool advanced = false;
-        if (!CheckStorage(false) || (!encoderOutputDone_ && !CopyVideoSample()) || !CopyAudio(advanced)) { return false; }
-        if (TranscodeMetrics::Clock::now() - publishedAt_ >= std::chrono::milliseconds(250)) { PublishDiagnostics(); }
+        if (!CheckStorage(false) || (!encoderOutputDone_ && !CopyVideoSample()) || !CopyAudio(advanced)) {
+            return false;
+        }
+        if (TranscodeMetrics::Clock::now() - publishedAt_ >=
+            std::chrono::milliseconds(DIAGNOSTICS_PUBLISH_INTERVAL_MS)) {
+            PublishDiagnostics();
+        }
     }
     return !cancelled_.load() && FinalizeOutput();
 }

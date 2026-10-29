@@ -239,8 +239,9 @@ export class TranscodeModel {
       if (this.disposed || this.cancelRequested) { await bitmap.release(); return; }
       this.previewImage = bitmap;
       this.previewConfiguration = this.configuration();
-    } catch (error) { this.notice = JSON.stringify(error); }
-    finally {
+    } catch (error) {
+      this.notice = JSON.stringify(error);
+    } finally {
       if (file !== undefined) { await fileIo.close(file).catch((): void => {}); }
       MediaFileActivity.endTranscode(); this.previewing = false; this.busy = false;
     }

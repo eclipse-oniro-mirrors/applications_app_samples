@@ -150,6 +150,7 @@ private:
     bool FinalizeOutput();
     bool ValidateOutput();
     bool ValidateOutputTrack(OH_AVFormat *format, int32_t type);
+    bool ValidateOutputTracks(OH_AVSource *source, int32_t count, int32_t expectedTracks);
     void ValidateOutputMetadata(OH_AVFormat *format, int32_t type);
     void AddValidationNote(const std::string &note);
     bool ConfigureTimeRange();

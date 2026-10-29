@@ -30,6 +30,33 @@ constexpr int64_t STORAGE_RESERVE_BYTES = 64LL * 1024 * 1024;
 constexpr int64_t US_PER_SECOND = 1000000;
 constexpr double BITS_PER_BYTE = 8;
 constexpr double STORAGE_ESTIMATE_MARGIN = 1.15;
+
+bool ReadAudioSourceProperties(OH_AVFormat *format, const char *&mime, int32_t &rate, int32_t &channels)
+{
+    return format != nullptr && OH_AVFormat_GetStringValue(format, OH_MD_KEY_CODEC_MIME, &mime) && mime != nullptr &&
+        OH_AVFormat_GetIntValue(format, OH_MD_KEY_AUD_SAMPLE_RATE, &rate) &&
+        OH_AVFormat_GetIntValue(format, OH_MD_KEY_AUD_CHANNEL_COUNT, &channels) &&
+        channels >= 1 && channels <= MAX_AUDIO_CHANNELS && rate > 0 && rate <= MAX_AUDIO_SAMPLE_RATE &&
+        OH_AVCodec_GetCapability(mime, false) != nullptr;
+}
+bool SupportsAacOutput(OH_AVCapability *encoder, int32_t rate, int32_t channels, int64_t bitrate)
+{
+    if (encoder == nullptr) {
+        return false;
+    }
+    OH_AVRange range {};
+    const int32_t *rates = nullptr;
+    uint32_t count = 0;
+    if (OH_AVCapability_GetAudioChannelCountRange(encoder, &range) != AV_ERR_OK ||
+        channels < range.minVal || channels > range.maxVal ||
+        OH_AVCapability_GetAudioSupportedSampleRates(encoder, &rates, &count) != AV_ERR_OK || rates == nullptr ||
+        std::find(rates, rates + count, rate) == rates + count ||
+        OH_AVCapability_GetEncoderBitrateRange(encoder, &range) != AV_ERR_OK ||
+        bitrate < range.minVal || bitrate > range.maxVal) {
+        return false;
+    }
+    return true;
+}
 } // namespace
 
 bool TranscodeJob::InspectCodecs()
@@ -129,25 +156,13 @@ bool TranscodeJob::InspectAudio()
     const char *mime = nullptr;
     int32_t rate = 0;
     int32_t channels = 0;
-    if (!OH_AVFormat_GetStringValue(audioFormat_.get(), OH_MD_KEY_CODEC_MIME, &mime) || mime == nullptr ||
-        !OH_AVFormat_GetIntValue(audioFormat_.get(), OH_MD_KEY_AUD_SAMPLE_RATE, &rate) ||
-        !OH_AVFormat_GetIntValue(audioFormat_.get(), OH_MD_KEY_AUD_CHANNEL_COUNT, &channels) ||
-        channels < 1 || channels > MAX_AUDIO_CHANNELS || rate <= 0 || rate > MAX_AUDIO_SAMPLE_RATE ||
-        OH_AVCodec_GetCapability(mime, false) == nullptr) {
+    if (!ReadAudioSourceProperties(audioFormat_.get(), mime, rate, channels)) {
         return Fail("AAC transcode requires an available decoder and a valid mono/stereo source");
     }
     OH_AVCapability *encoder = OH_AVCodec_GetCapability(OH_AVCODEC_MIMETYPE_AUDIO_AAC, true);
     rate = options_.audioSampleRate > 0 ? options_.audioSampleRate : rate;
     channels = options_.audioChannels > 0 ? options_.audioChannels : channels;
-    OH_AVRange range {};
-    const int32_t *rates = nullptr;
-    uint32_t count = 0;
-    if (encoder == nullptr || OH_AVCapability_GetAudioChannelCountRange(encoder, &range) != AV_ERR_OK ||
-        channels < range.minVal || channels > range.maxVal ||
-        OH_AVCapability_GetAudioSupportedSampleRates(encoder, &rates, &count) != AV_ERR_OK || rates == nullptr ||
-        std::find(rates, rates + count, rate) == rates + count ||
-        OH_AVCapability_GetEncoderBitrateRange(encoder, &range) != AV_ERR_OK ||
-        options_.audioBitrate < range.minVal || options_.audioBitrate > range.maxVal) {
+    if (!SupportsAacOutput(encoder, rate, channels, options_.audioBitrate)) {
         return Fail("AAC encoder does not support the selected sample rate, channels or bitrate");
     }
     return true;

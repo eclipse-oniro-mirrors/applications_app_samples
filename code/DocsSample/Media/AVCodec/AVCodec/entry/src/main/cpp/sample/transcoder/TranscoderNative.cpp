@@ -29,6 +29,16 @@ constexpr int64_t UHD_LONG_EDGE = 1920;
 constexpr int64_t MAX_ENCODER_CATEGORY = 2;
 constexpr int64_t MAX_AUDIO_MODE = 2;
 constexpr int64_t MAX_RESIZE_MODE = static_cast<int64_t>(TranscodeFrames::ResizeMode::LETTERBOX);
+constexpr int32_t MAX_SCALING_FILTER = 1;
+constexpr int32_t MAX_FRAME_RATE_LIMIT = 120;
+constexpr int32_t MAX_BITRATE_MODE = 1;
+constexpr int32_t MIN_KEY_FRAME_INTERVAL_MS = 500;
+constexpr int32_t MAX_KEY_FRAME_INTERVAL_MS = 10000;
+constexpr int32_t AUDIO_SAMPLE_RATE_44100 = 44100;
+constexpr int32_t AUDIO_SAMPLE_RATE_48000 = 48000;
+constexpr int32_t MAX_AUDIO_CHANNEL_COUNT = 2;
+constexpr int32_t MIN_AUDIO_BITRATE = 32000;
+constexpr int32_t MAX_AUDIO_BITRATE = 320000;
 struct TranscodeModuleState {
     std::shared_ptr<TranscodeJob> current;
 };
@@ -183,22 +193,44 @@ bool ReadOptionalNumber(napi_env env, napi_value object, const char *key, int32_
     return true;
 }
 
+bool ReadVideoQualityOptions(napi_env env, napi_value object, TranscodeOptions &options)
+{
+    return ReadOptionalNumber(env, object, "scalingFilter", options.scalingFilter) &&
+        options.scalingFilter <= MAX_SCALING_FILTER &&
+        ReadOptionalNumber(env, object, "frameRateLimit", options.frameRateLimit) &&
+        options.frameRateLimit <= MAX_FRAME_RATE_LIMIT &&
+        ReadOptionalNumber(env, object, "bitrateMode", options.bitrateMode) &&
+        options.bitrateMode <= MAX_BITRATE_MODE &&
+        ReadOptionalNumber(env, object, "keyFrameIntervalMs", options.keyFrameIntervalMs) &&
+        options.keyFrameIntervalMs >= MIN_KEY_FRAME_INTERVAL_MS &&
+        options.keyFrameIntervalMs <= MAX_KEY_FRAME_INTERVAL_MS;
+}
+
+bool ReadAudioQualityOptions(napi_env env, napi_value object, TranscodeOptions &options, int32_t &audioBitrate)
+{
+    return ReadOptionalNumber(env, object, "audioSampleRate", options.audioSampleRate) &&
+        (options.audioSampleRate == 0 || options.audioSampleRate == AUDIO_SAMPLE_RATE_44100 ||
+            options.audioSampleRate == AUDIO_SAMPLE_RATE_48000) &&
+        ReadOptionalNumber(env, object, "audioChannels", options.audioChannels) &&
+        options.audioChannels <= MAX_AUDIO_CHANNEL_COUNT &&
+        ReadOptionalNumber(env, object, "audioBitrate", audioBitrate) &&
+        audioBitrate >= MIN_AUDIO_BITRATE && audioBitrate <= MAX_AUDIO_BITRATE;
+}
+
+bool ReadRemuxOption(napi_env env, napi_value object, TranscodeOptions &options)
+{
+    bool hasRemux = false;
+    return napi_has_named_property(env, object, "remuxOnly", &hasRemux) == napi_ok &&
+        (!hasRemux || ReadBool(env, object, "remuxOnly", options.remuxOnly));
+}
+
 bool ReadQualityOptions(napi_env env, napi_value object, TranscodeOptions &options)
 {
     int32_t audioBitrate = static_cast<int32_t>(options.audioBitrate);
-    bool hasRemux = false;
-    if (options.previewOnly && options.surface) { return false; }
-    if (!ReadOptionalNumber(env, object, "scalingFilter", options.scalingFilter) || options.scalingFilter > 1 ||
-        !ReadOptionalNumber(env, object, "frameRateLimit", options.frameRateLimit) || options.frameRateLimit > 120 ||
-        !ReadOptionalNumber(env, object, "bitrateMode", options.bitrateMode) || options.bitrateMode > 1 ||
-        !ReadOptionalNumber(env, object, "keyFrameIntervalMs", options.keyFrameIntervalMs) ||
-        options.keyFrameIntervalMs < 500 || options.keyFrameIntervalMs > 10000 ||
-        !ReadOptionalNumber(env, object, "audioSampleRate", options.audioSampleRate) ||
-        (options.audioSampleRate != 0 && options.audioSampleRate != 44100 && options.audioSampleRate != 48000) ||
-        !ReadOptionalNumber(env, object, "audioChannels", options.audioChannels) || options.audioChannels > 2 ||
-        !ReadOptionalNumber(env, object, "audioBitrate", audioBitrate) || audioBitrate < 32000 || audioBitrate > 320000 ||
-        napi_has_named_property(env, object, "remuxOnly", &hasRemux) != napi_ok ||
-        (hasRemux && !ReadBool(env, object, "remuxOnly", options.remuxOnly))) { return false; }
+    if ((options.previewOnly && options.surface) || !ReadVideoQualityOptions(env, object, options) ||
+        !ReadAudioQualityOptions(env, object, options, audioBitrate) || !ReadRemuxOption(env, object, options)) {
+        return false;
+    }
     options.audioBitrate = audioBitrate;
     if (options.surface && options.scalingFilter != 0) { return false; }
     return !options.remuxOnly || (!options.surface && options.longEdge == 0 && !options.grayscale &&

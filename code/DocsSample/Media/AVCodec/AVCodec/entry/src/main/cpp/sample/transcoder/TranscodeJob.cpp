@@ -48,6 +48,7 @@ constexpr int64_t US_PER_MS = US_PER_SECOND / MS_PER_SECOND;
 constexpr int64_t DIAGNOSTIC_INTERVAL_MS = 250;
 constexpr int32_t YUV420_COMPONENTS = 3;
 constexpr int32_t YUV420_SUBSAMPLING = 2;
+constexpr int32_t BITRATE_MODE_VARIABLE = 0;
 using TranscodeMetrics::WaitChannel;
 } // namespace
 
@@ -181,7 +182,10 @@ bool TranscodeJob::ReadVideoProperties()
             static_cast<TranscodeFrames::ResizeMode>(options_.resizeMode), targetWidth_, targetHeight_)) {
         return Fail("No supported video track or invalid video dimensions");
     }
-    if (options_.remuxOnly) { targetWidth_ = sourceWidth_; targetHeight_ = sourceHeight_; }
+    if (options_.remuxOnly) {
+        targetWidth_ = sourceWidth_;
+        targetHeight_ = sourceHeight_;
+    }
     if (!options_.remuxOnly && !ValidateSourceColor()) {
         return false;
     }
@@ -253,7 +257,8 @@ bool TranscodeJob::ConfigureEncoderFormat()
                                  options_.surface ? AV_PIXEL_FORMAT_SURFACE_FORMAT : AV_PIXEL_FORMAT_NV12) ||
         !OH_AVFormat_SetLongValue(output.get(), OH_MD_KEY_BITRATE, options_.bitrate) ||
         !OH_AVFormat_SetDoubleValue(output.get(), OH_MD_KEY_FRAME_RATE, OutputFrameRate()) ||
-        !OH_AVFormat_SetIntValue(output.get(), OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE, options_.bitrateMode == 0 ? VBR : CBR) ||
+        !OH_AVFormat_SetIntValue(output.get(), OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE,
+            options_.bitrateMode == BITRATE_MODE_VARIABLE ? VBR : CBR) ||
         !OH_AVFormat_SetIntValue(output.get(), OH_MD_KEY_I_FRAME_INTERVAL, options_.keyFrameIntervalMs)) {
         return Fail("Build video encoder format");
     }
@@ -643,7 +648,9 @@ bool TranscodeJob::CopyAudio(bool &advanced)
     }
     if (!options_.remuxOnly) {
         attr.pts = std::max<int64_t>(0, attr.pts - rangeStartUs_);
-        if (!Check(OH_AVBuffer_SetBufferAttr(audioBuffer_, &attr), "Rebase original audio timestamps")) { return false; }
+        if (!Check(OH_AVBuffer_SetBufferAttr(audioBuffer_, &attr), "Rebase original audio timestamps")) {
+            return false;
+        }
     }
     if (attr.size > 0) {
         const int32_t writeResult = diagnostics_.Measure(TranscodeMetrics::Stage::MUX, [&] {

@@ -15,6 +15,7 @@
 
 // Host scheduling test with SDK declarations and fake codec/demux/mux implementations.
 #include <deque>
+#include <algorithm>
 #include <cstdlib>
 #include <iostream>
 #include <iterator>
@@ -56,6 +57,7 @@ namespace {
 constexpr int32_t K_CHANNELS = 2;
 constexpr int32_t K_SAMPLE_RATE = 48000;
 constexpr int32_t K_INVALID_SAMPLE_RATE = 44100;
+constexpr int32_t K_SAMPLE_RATE_44100 = 44100;
 constexpr int32_t K_INPUT_CHUNK_SAMPLES = 300;
 constexpr int32_t K_SECOND_CHUNK_SAMPLES = 1300;
 constexpr int32_t K_TAIL_CHUNK_SAMPLES = 37;
@@ -79,6 +81,9 @@ constexpr int64_t K_SECOND_PTS_MAX = 121334;
 constexpr int32_t K_OUTPUT_QUEUE_LIMIT = 2;
 constexpr int32_t K_QUERY_FREQUENCY = 3;
 constexpr int32_t K_PCM_FRAME_BYTES = 4096;
+constexpr int32_t K_AAC_FRAME_SAMPLES = 1024;
+constexpr int32_t K_DISCONTINUITY_US = 10000;
+constexpr int64_t K_TEST_AAC_BITRATE = 192000;
 constexpr int64_t K_MICROSECONDS_PER_SECOND = 1000000;
 bool g_sendFormatChange = true;
 bool g_invalidLayout = false;
@@ -104,7 +109,7 @@ void RecordEncoderInput(OH_AVCodec *codec)
         return;
     }
     const int32_t bytesPerSample = codec->channels * 2;
-    Require(codec->input.attr.size == 1024 * bytesPerSample, "PCM frame size");
+    Require(codec->input.attr.size == K_AAC_FRAME_SAMPLES * bytesPerSample, "PCM frame size");
     encodedPts.push_back(codec->input.attr.pts);
     for (int index = 0; index < codec->input.attr.size; index += bytesPerSample) {
         if (codec->input.data[index] == 0) {
@@ -299,7 +304,9 @@ extern "C" OH_AVErrCode FakeAvDemuxerReadSampleBuffer(OH_AVDemuxer *demuxer, uin
     constexpr int chunks[] = {K_INPUT_CHUNK_SAMPLES, K_SECOND_CHUNK_SAMPLES, K_TAIL_CHUNK_SAMPLES};
     buffer->attr = {};
     buffer->attr.pts = K_FIRST_PTS + static_cast<int64_t>(demuxer->samples) * K_MICROSECONDS_PER_SECOND / K_SAMPLE_RATE;
-    if (demuxer->discontinuous && demuxer->chunk > 0) { buffer->attr.pts += 10000; }
+    if (demuxer->discontinuous && demuxer->chunk > 0) {
+        buffer->attr.pts += K_DISCONTINUITY_US;
+    }
     if (static_cast<size_t>(demuxer->chunk) == std::size(chunks)) {
         buffer->attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
         return AV_ERR_OK;
@@ -384,6 +391,8 @@ void RunTimeRange(int64_t startUs, int64_t endUs, int32_t paddedSamples, int64_t
 
 void RunConverted(int32_t outputRate, int32_t outputChannels)
 {
+    Require(outputRate > 0, "Converted sample rate must be positive");
+    const int32_t safeOutputRate = std::max(1, outputRate);
     g_sendFormatChange = true;
     g_paddedSamples = 0;
     g_inputEos = 0;
@@ -394,8 +403,11 @@ void RunConverted(int32_t outputRate, int32_t outputChannels)
     auto source = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>(
         FakeAvFormatCreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, K_SAMPLE_RATE, K_CHANNELS),
         FakeAvFormatDestroy);
-    TranscodeAudioPipeline pipeline([&failed](const char *, int32_t) { failed = true; return false; });
-    Require(pipeline.Configure(source.get(), &demuxer, 1, 0, 0, outputRate, outputChannels, 192000),
+    TranscodeAudioPipeline pipeline([&failed](const char *, int32_t) {
+        failed = true;
+        return false;
+    });
+    Require(pipeline.Configure(source.get(), &demuxer, 1, 0, 0, outputRate, outputChannels, K_TEST_AAC_BITRATE),
         "Configure converted pipeline");
     for (int tick = 0; tick < K_MAX_TICKS && !pipeline.Done(); ++tick) {
         bool advanced = false;
@@ -403,14 +415,15 @@ void RunConverted(int32_t outputRate, int32_t outputChannels)
     }
     constexpr int64_t sourceSamples = K_INPUT_CHUNK_SAMPLES + K_SECOND_CHUNK_SAMPLES + K_TAIL_CHUNK_SAMPLES;
     const int64_t convertedSamples = (sourceSamples * outputRate + K_SAMPLE_RATE - 1) / K_SAMPLE_RATE;
-    const int64_t packets = (convertedSamples + 1023) / 1024;
+    const int64_t packets = (convertedSamples + K_AAC_FRAME_SAMPLES - 1) / K_AAC_FRAME_SAMPLES;
     Require(pipeline.Done() && !failed && muxer.packets == packets && g_inputEos == 1,
         "Converted audio drains exactly one EOS");
-    Require(g_paddedSamples == packets * 1024 - convertedSamples, "Converted fractional tail and AAC padding");
+    Require(g_paddedSamples == packets * K_AAC_FRAME_SAMPLES - convertedSamples,
+        "Converted fractional tail and AAC padding");
     Require(encodedPts.size() == static_cast<size_t>(packets), "Converted frame count");
     for (size_t index = 0; index < encodedPts.size(); ++index) {
-        Require(encodedPts[index] == K_FIRST_PTS + static_cast<int64_t>(index) * 1024 *
-            K_MICROSECONDS_PER_SECOND / outputRate, "PTS follows output sample clock");
+        Require(encodedPts[index] == K_FIRST_PTS + static_cast<int64_t>(index) * K_AAC_FRAME_SAMPLES *
+            K_MICROSECONDS_PER_SECOND / safeOutputRate, "PTS follows output sample clock");
     }
     auto format = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>(pipeline.OutputFormat(),
         FakeAvFormatDestroy);
@@ -427,7 +440,10 @@ void RunDiscontinuous()
     auto source = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>(
         FakeAvFormatCreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, K_SAMPLE_RATE, K_CHANNELS),
         FakeAvFormatDestroy);
-    TranscodeAudioPipeline pipeline([&failed](const char *, int32_t) { failed = true; return false; });
+    TranscodeAudioPipeline pipeline([&failed](const char *, int32_t) {
+        failed = true;
+        return false;
+    });
     Require(pipeline.Configure(source.get(), &demuxer, 1), "Configure discontinuous pipeline");
     for (int tick = 0; tick < K_MAX_TICKS && !failed; ++tick) {
         bool advanced = false;
@@ -497,10 +513,10 @@ int main()
 {
     RunSuccess(true);
     RunSuccess(false);
-    RunConverted(44100, 1);
-    RunConverted(44100, 2);
-    RunConverted(48000, 1);
-    RunConverted(48000, 2);
+    RunConverted(K_SAMPLE_RATE_44100, 1);
+    RunConverted(K_SAMPLE_RATE_44100, 2);
+    RunConverted(K_SAMPLE_RATE, 1);
+    RunConverted(K_SAMPLE_RATE, 2);
     RunDiscontinuous();
     RunTimeRange(K_RANGE_START_US, K_RANGE_END_US, K_RANGE_PADDED_SAMPLES, 0);
     RunTimeRange(K_RANGE_START_US + 1, K_RANGE_END_US - 1, K_FRACTIONAL_RANGE_PADDED_SAMPLES,

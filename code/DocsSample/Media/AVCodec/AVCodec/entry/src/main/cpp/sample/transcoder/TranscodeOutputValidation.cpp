@@ -19,6 +19,12 @@
 #include <sys/stat.h>
 #include <multimedia/player_framework/native_avcodec_base.h>
 
+namespace {
+constexpr int64_t TRACK_START_TOLERANCE_US = 100000;
+constexpr int64_t MIN_DURATION_TOLERANCE_US = 250000;
+constexpr int64_t US_PER_SECOND = 1000000;
+}
+
 void TranscodeJob::AddValidationNote(const std::string &note)
 {
     std::lock_guard<std::mutex> lock(snapshotMutex_);
@@ -33,8 +39,12 @@ void TranscodeJob::ValidateOutputMetadata(OH_AVFormat *format, int32_t type)
             int32_t actual = 0;
             if (audioFormat_ == nullptr || !OH_AVFormat_GetIntValue(audioFormat_.get(), key, &expected)) { continue; }
             if (options_.audioMode == 1) {
-                if (key == OH_MD_KEY_AUD_SAMPLE_RATE && options_.audioSampleRate > 0) { expected = options_.audioSampleRate; }
-                if (key == OH_MD_KEY_AUD_CHANNEL_COUNT && options_.audioChannels > 0) { expected = options_.audioChannels; }
+                if (key == OH_MD_KEY_AUD_SAMPLE_RATE && options_.audioSampleRate > 0) {
+                    expected = options_.audioSampleRate;
+                }
+                if (key == OH_MD_KEY_AUD_CHANNEL_COUNT && options_.audioChannels > 0) {
+                    expected = options_.audioChannels;
+                }
             }
             if (!OH_AVFormat_GetIntValue(format, key, &actual) || actual != expected) {
                 AddValidationNote(std::string("Audio metadata differs or is unavailable: ") + key +
@@ -78,25 +88,8 @@ bool TranscodeJob::ValidateOutputTrack(OH_AVFormat *format, int32_t type)
         expected != nullptr && std::string(mime) == expected;
 }
 
-bool TranscodeJob::ValidateOutput()
+bool TranscodeJob::ValidateOutputTracks(OH_AVSource *source, int32_t count, int32_t expectedTracks)
 {
-    {
-        std::lock_guard<std::mutex> lock(snapshotMutex_);
-        snapshot_.stage = "validate";
-        snapshot_.outputValidation = "checking";
-    }
-    struct stat file {};
-    if (fstat(options_.outputFd, &file) != 0 || file.st_size <= 0) { return Fail("Validate output file size"); }
-    std::unique_ptr<OH_AVSource, decltype(&OH_AVSource_Destroy)> output(
-        OH_AVSource_CreateWithFD(options_.outputFd, 0, file.st_size), OH_AVSource_Destroy);
-    if (output == nullptr) { return Fail("Reopen finalized MP4 for validation"); }
-    Format description(OH_AVSource_GetSourceFormat(output.get()), OH_AVFormat_Destroy);
-    int32_t count = 0;
-    int64_t duration = 0;
-    const int32_t expectedTracks = audioTrack_ >= 0 ? 2 : 1;
-    if (description == nullptr || !OH_AVFormat_GetIntValue(description.get(), OH_MD_KEY_TRACK_COUNT, &count) ||
-        !OH_AVFormat_GetLongValue(description.get(), OH_MD_KEY_DURATION, &duration) || duration <= 0 ||
-        count != expectedTracks) { return Fail("Validate MP4 duration and track count"); }
     int32_t videos = 0;
     int32_t audios = 0;
     int64_t videoStart = 0;
@@ -106,7 +99,7 @@ bool TranscodeJob::ValidateOutput()
     for (int32_t index = 0; index < count; ++index) {
         if (cancelled_.load()) { return false; }
         std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)> track(
-            OH_AVSource_GetTrackFormat(output.get(), index), OH_AVFormat_Destroy);
+            OH_AVSource_GetTrackFormat(source, index), OH_AVFormat_Destroy);
         int32_t type = -1;
         if (track == nullptr || !OH_AVFormat_GetIntValue(track.get(), OH_MD_KEY_TRACK_TYPE, &type) ||
             (type != MEDIA_TYPE_VID && type != MEDIA_TYPE_AUD) || !ValidateOutputTrack(track.get(), type)) {
@@ -122,17 +115,47 @@ bool TranscodeJob::ValidateOutput()
         }
     }
     if (videos != 1 || audios != expectedTracks - 1) { return Fail("Validate MP4 media tracks"); }
-    if (hasVideoStart && hasAudioStart && std::abs(static_cast<double>(audioStart) - videoStart) > 100000) {
+    if (hasVideoStart && hasAudioStart &&
+        std::abs(static_cast<double>(audioStart) - videoStart) > TRACK_START_TOLERANCE_US) {
         AddValidationNote("Audio/video track starts differ by more than 100 ms: videoUs=" +
             std::to_string(videoStart) + " audioUs=" + std::to_string(audioStart));
+    }
+    return true;
+}
+
+bool TranscodeJob::ValidateOutput()
+{
+    {
+        std::lock_guard<std::mutex> lock(snapshotMutex_);
+        snapshot_.stage = "validate";
+        snapshot_.outputValidation = "checking";
+    }
+    struct stat file {};
+    if (fstat(options_.outputFd, &file) != 0 || file.st_size <= 0) {
+        return Fail("Validate output file size");
+    }
+    std::unique_ptr<OH_AVSource, decltype(&OH_AVSource_Destroy)> output(
+        OH_AVSource_CreateWithFD(options_.outputFd, 0, file.st_size), OH_AVSource_Destroy);
+    if (output == nullptr) {
+        return Fail("Reopen finalized MP4 for validation");
+    }
+    Format description(OH_AVSource_GetSourceFormat(output.get()), OH_AVFormat_Destroy);
+    int32_t count = 0;
+    int64_t duration = 0;
+    const int32_t expectedTracks = audioTrack_ >= 0 ? 2 : 1;
+    if (description == nullptr || !OH_AVFormat_GetIntValue(description.get(), OH_MD_KEY_TRACK_COUNT, &count) ||
+        !OH_AVFormat_GetLongValue(description.get(), OH_MD_KEY_DURATION, &duration) || duration <= 0 ||
+        count != expectedTracks) {
+        return Fail("Validate MP4 duration and track count");
+    }
+    if (!ValidateOutputTracks(output.get(), count, expectedTracks)) {
+        return false;
     }
     std::lock_guard<std::mutex> lock(snapshotMutex_);
     snapshot_.outputDurationUs = duration;
     snapshot_.expectedDurationUs = selectedDurationUs_;
-    constexpr int64_t minimumToleranceUs = 250000;
-    constexpr double usPerSecond = 1000000;
-    const int64_t toleranceUs = std::max(minimumToleranceUs,
-        static_cast<int64_t>(2 * usPerSecond / std::max(1.0, OutputFrameRate())));
+    const int64_t toleranceUs = std::max(MIN_DURATION_TOLERANCE_US,
+        static_cast<int64_t>(2 * US_PER_SECOND / std::max(1.0, OutputFrameRate())));
     if (selectedDurationUs_ > 0 && std::abs(duration - selectedDurationUs_) > toleranceUs) {
         snapshot_.validationNotes.push_back("Duration differs: expectedUs=" + std::to_string(selectedDurationUs_) +
             " actualUs=" + std::to_string(duration) + " toleranceUs=" + std::to_string(toleranceUs));
