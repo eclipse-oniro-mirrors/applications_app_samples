@@ -42,16 +42,19 @@ import {
 import { CompletedRoutableCard } from '../../common/Card';
 import { ScrollModifierDestination } from './ScrollModifier/Index';
 import { ScrollSnapDestination } from './ScrollSnap/Index';
+import { ScrollLazyDemoDestination } from './ScrollLazyDemo/Index';
 import { Route } from '../../common/Route';
 import resource from '../../common/resource';
 
 export const ScrollSnap_ROUTE_PREFIX: string = 'ScrollSnap';
 export const ScrollModifier_ROUTE_PREFIX: string = 'ScrollModifier';
+export const ScrollLazyDemo_ROUTE_PREFIX: string = 'ScrollLazyDemo';
 export const Scroll_ROUTE_PREFIX: string = 'scroll';
 
 const routes: Route[] = [
   new Route('scroll/ScrollSnap/Index', resource.resourceToString($r('app.string.Scroll_Title'))),
-  new Route('scroll/ScrollModifier/Index', resource.resourceToString($r('app.string.ScrollModifier_Title')))
+  new Route('scroll/ScrollModifier/Index', resource.resourceToString($r('app.string.ScrollModifier_Title'))),
+  new Route('scroll/ScrollLazyDemo/Index', 'Scroll+LazyVGridLayout')
 ];
 
 @Builder
@@ -62,6 +65,8 @@ export function scrollDestination(name: string): void {
     ScrollSnapDestination();
   } else if (name.startsWith(routes[1].name)) {
     ScrollModifierDestination();
+  } else if (name.startsWith(routes[2].name)) {
+    ScrollLazyDemoDestination();
   }
 }
 
