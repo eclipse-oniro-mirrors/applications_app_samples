@@ -118,5 +118,24 @@ export default function progressButtonTest() {
         expect(await textOfId('pbEnabled')).assertContain('enabled=true');
       }, done);
     });
-  });
+    
+    /**
+     * @tc.number SUB_PROGRESS_PROGRESSBUTTON_0500
+     * @tc.name testProgressPbDisabledStart0005
+     * @tc.desc Verify the remaining interaction and boundary behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testProgressPbDisabledStart0005', 0, async (done: Function) => {
+      await runCase('testProgressPbDisabledStart0005', async () => {
+      await startApp(BUNDLE_NAME, ABILITY_NAME);
+      await clickId('cardProgressButton');
+      await clickId('pbToggle');
+      await clickId('pbStart');
+      expect(await textOfId('pbProgress')).assertContain('0%');
+      expect(await textOfId('pbState')).assertContain('state=idle');
+      }, done);
+    });
+      });
 }

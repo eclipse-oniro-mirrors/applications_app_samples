@@ -11,22 +11,50 @@
 - [SwipeRefresherV2](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-SwipeRefresherV2.md)：API 26 起、基于状态管理 V2 的下拉刷新加载提示，支持自定义文本与加载状态；
 - [ContainerSpan](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-basic-components-containerspan.md)：API 11 起的文本子容器，统一管理多个 `Span`/`ImageSpan` 的背景色与圆角。
 
-工程包含排序/刷新/树状态、设备信息与响应式断点工具类，包含 33 条 ohosTest 用例（含 8 条逻辑单测）与 6 条本地工具单测。
+工程包含排序/刷新/树状态、设备信息与响应式断点工具类，包含 35 条 ohosTest 用例与 6 条本地工具单测。
+
+### 功能特性
+
+- ContainerSpan：统一多个 Span/ImageSpan 的背景与圆角，深浅样式切换；
+- TreeView/TreeViewV2：6 节点层级树、点击选中、文件夹展开、最近事件与统计；
+- GridObjectSortComponent：编辑、添加、拖动排序、保存/取消；
+- FormMenu：长按卡片弹出“添加至桌面”菜单并记录回调；
+- SwipeRefresherV2：开始/停止刷新、加载状态与刷新计数；
+- 工具类：树结构、刷新状态机、选中统计、断点与内容边距；
+- 响应式布局：弹性高度、顶部对齐、内容滚动与断点适配。
+
+### 交互说明
+
+| 页面 | 主要操作 | 反馈 |
+|---|---|---|
+| ContainerSpan | 切换样式 | 背景/文字颜色与状态更新 |
+| TreeView/V2 | 点击节点、重置 | 选中节点、事件、统计与历史 |
+| GridSort | 编辑、添加、保存、取消 | 状态计数与排序结果更新 |
+| FormMenu | 长按卡片 | 弹出添加至桌面菜单 |
+| SwipeRefresh | 开始/停止刷新 | 加载状态、计数与状态文本 |
+
+### 实现架构
+
+```text
+页面 -> TreeSpecUtils（节点结构）
+     -> TreeSortUtils、RefreshController/RefreshSession
+     -> BreakpointUtils、DeviceInfoUtils、Logger
+```
+
+### 测试覆盖
+
+| 类型 | 数量 | 说明 |
+|---|---:|---|
+| ohosTest | 35 | 入口、6 类组件、树/排序/刷新、边界、稳定性、逻辑 |
+| 本地单测 | 6 | 树结构、刷新状态、排序、断点 |
 
 ### 效果预览
 
-| 首页 | TreeView | GridObjectSort | FormMenu | SwipeRefresherV2 |
-|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
-| 运行后补充截图 | 运行后补充截图 | 运行后补充截图 | 运行后补充截图 | 运行后补充截图 |
+| 首页 | TreeView |
+|:---:|:---:|
+| <img src="screenshots/index.jpeg" width="360" /> | <img src="screenshots/treeView.jpeg" width="360" /> |
 
-使用说明：
-
-1. 首页展示 6 个入口、当前断点与设备信息，入口随宽度按 1/2/3 栏排列；
-2. ContainerSpan：点击“切换样式”在深色/浅色背景间切换，文本与图标共享背景与圆角；
-3. TreeView / TreeViewV2：点击文档等节点选中并更新状态，点击“重置选择”清空状态；文件夹可展开/折叠；
-4. GridObjectSortComponent：点击右上角编辑图标进入编辑，可点击未选项添加、移除已选项并拖动排序；保存/取消会更新状态文本；
-5. FormMenu：长按“快捷笔记”卡片弹出“添加至桌面”菜单；示例未内置卡片提供方，实际加桌需配置 FormExtensionAbility 与 form_config；
-6. SwipeRefresherV2：点击“开始刷新”显示加载状态，1.2 秒后完成并更新刷新计数；可中途停止。
+> 截图基于 OpenHarmony 7.0.0.47 真机（API 26）拍摄。
 
 ### 工程目录
 
@@ -81,9 +109,8 @@ entry/src/test/
 2. 本示例基于 ArkTS 1.1 动态环境开发，已适配 API version 26 版本 SDK，版本号：26.0.0；
 3. 本示例需要使用 DevEco Studio 26.0.0 及以上版本才可编译运行；
 4. `TreeViewV2`、`SwipeRefresherV2` 为 API 26 新增组件；FormMenu 实际加桌需应用提供 FormExtensionAbility 与卡片配置，本示例重点演示长按菜单 UI 与回调；
-5. 本示例包含 33 条 ohosTest 用例（8 入口 + 2 ContainerSpan + 3 TreeView + 3 TreeViewV2 + 3 GridObjectSort + 1 FormMenu + 3 SwipeRefresherV2 + 2 稳定性 + 8 逻辑单测），另有 6 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
+5. 本示例包含 35 条 ohosTest 用例，另有 6 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
 6. 工程已配置本机 DevEco 调试签名，可直接在 IDE 部署；提交仓库前请清空 `signingConfigs` 并重新自动签名；
-7. 效果预览截图需在真机运行后补充。
 
 ### 下载
 

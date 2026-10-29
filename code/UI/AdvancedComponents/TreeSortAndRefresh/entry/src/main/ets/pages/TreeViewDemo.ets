@@ -32,6 +32,9 @@ import { TreeSortUtils } from '../utils/TreeSortUtils';
 struct TreeViewDemo {
   @State widthVp: number = 0;
   @State status: string = 'ready';
+  @State operationCount: number = 0;
+  @State lastNode: string = 'none';
+  @State history: string[] = [];
   private controller: TreeController = new TreeController();
   private listener = TreeListenerManager.getInstance().getTreeListener();
 
@@ -56,7 +59,9 @@ struct TreeViewDemo {
     }
     this.controller.buildDone();
     this.listener.on(TreeListenType.NODE_CLICK, (param: CallbackParam) => {
-      this.status = TreeSortUtils.treeStatus(param.currentNodeId, this.nodeLabel(param.currentNodeId));
+      const label = this.nodeLabel(param.currentNodeId);
+      this.status = TreeSortUtils.treeStatus(param.currentNodeId, label);
+      this.record(`node ${param.currentNodeId} ${label}`);
       Logger.event('TreeViewDemo', 'nodeClick', this.status);
     });
     Logger.event('TreeViewDemo', 'treeReady', `nodes=${specs.length}`);
@@ -76,6 +81,35 @@ struct TreeViewDemo {
   // Track page visibility for lifecycle logging.
   onPageHide(): void {
     Logger.hide('TreeViewDemo');
+  }
+
+  private record(action: string): void {
+    this.operationCount++;
+    this.lastNode = action;
+    this.history = [`#${this.operationCount} ${action}`, ...this.history].slice(0, 3);
+    Logger.event('TreeViewDemo', 'history', action);
+  }
+
+  @Builder
+  statCard(label: string, kind: string, id: string) {
+    Column({ space: 2 }) {
+      Text(label)
+        .fontSize(11)
+        .fontColor('#666666')
+      Text(kind === 'selected' ? this.lastNode : kind === 'events' ? `${this.operationCount}` : '6')
+        .id(id)
+        .fontSize(14)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#0A59F7')
+        .maxLines(1)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
+    }
+    .layoutWeight(1)
+    .height(54)
+    .justifyContent(FlexAlign.Center)
+    .backgroundColor('#F1F3F5')
+    .borderRadius(10)
+    .padding({ left: 6, right: 6 })
   }
 
   private nodeLabel(id: number): string {
@@ -102,7 +136,15 @@ struct TreeViewDemo {
           .fontWeight(FontWeight.Bold)
       }
       .width('100%')
-      .padding(12)
+      .padding({ left: 12, right: 12, top: 12, bottom: 6 })
+
+      Row({ space: 8 }) {
+        this.statCard('Selected', 'selected', 'treeSelectedCard')
+        this.statCard('Events', 'events', 'treeEventCount')
+        this.statCard('Nodes', 'nodes', 'treeNodeCount')
+      }
+      .width('100%')
+      .padding({ left: 12, right: 12, bottom: 8 })
 
       Text($r('app.string.tree_hint'))
         .fontSize(12)
@@ -122,6 +164,7 @@ struct TreeViewDemo {
         .id('treeReset')
         .onClick(() => {
           this.status = 'ready';
+          this.record('reset');
           Logger.event('TreeViewDemo', 'reset');
         })
 
@@ -129,7 +172,46 @@ struct TreeViewDemo {
         .id('treeStatus')
         .fontSize(13)
         .fontColor('#666666')
-        .padding({ bottom: 12 })
+
+      Column({ space: 2 }) {
+        Row() {
+          Text('Recent events')
+            .fontSize(11)
+            .fontColor('#666666')
+          Blank()
+          Button('Clear')
+            .id('treeClearHistory')
+            .fontSize(10)
+            .height(22)
+            .onClick(() => {
+              this.history = [];
+              this.operationCount = 0;
+              this.lastNode = 'none';
+            })
+        }
+        .width('100%')
+        if (this.history.length === 0) {
+          Text('No events yet')
+            .fontSize(11)
+            .fontColor('#999999')
+            .width('100%')
+        } else {
+          ForEach(this.history, (item: string) => {
+            Text(item)
+              .fontSize(11)
+              .fontColor('#666666')
+              .maxLines(1)
+              .width('100%')
+          }, (item: string) => item)
+        }
+      }
+      .id('treeHistory')
+      .width('100%')
+      .height(88)
+      .padding({ left: 12, right: 12, bottom: 12 })
+      .backgroundColor('#F7F8FA')
+      .borderRadius(10)
+      .margin({ left: 12, right: 12, bottom: 12 })
     }
     .width('100%')
     .height('100%')

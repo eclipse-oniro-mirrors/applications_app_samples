@@ -117,5 +117,24 @@ export default function indicatorTest() {
         expect(await textOfId('indicatorStatus')).assertContain('style=dot');
       }, done);
     });
-  });
+    
+    /**
+     * @tc.number SUB_PROGRESS_INDICATOR_0500
+     * @tc.name testProgressIndicatorLoopBoundary0005
+     * @tc.desc Verify the remaining interaction and boundary behavior
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testProgressIndicatorLoopBoundary0005', 0, async (done: Function) => {
+      await runCase('testProgressIndicatorLoopBoundary0005', async () => {
+      await startApp(BUNDLE_NAME, ABILITY_NAME);
+      await clickId('cardIndicator');
+      await clickId('indicatorJump');
+      await waitIdContains('indicatorStatus', 'index=2/3');
+      await clickId('indicatorNext');
+      expect(await textOfId('indicatorStatus')).assertContain('index=2/3');
+      }, done);
+    });
+      });
 }

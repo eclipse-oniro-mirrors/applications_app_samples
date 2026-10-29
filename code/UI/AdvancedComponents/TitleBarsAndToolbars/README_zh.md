@@ -10,22 +10,49 @@
 - [TabTitleBar](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-TabTitleBar.md)：API 10 起的页签型标题栏，页签与 `swiperContent` 内容联动，支持右侧菜单；
 - [ToolBarV2](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-ToolBarV2.md)：API 18 起、基于状态管理 V2 的底部工具栏，支持文本/图标、启用/禁用/激活状态、分割线与自定义高度/背景/内边距。
 
-工程包含标题栏索引/角标/描述、设备信息与响应式断点工具类，包含 34 条 ohosTest 用例（含 6 条逻辑单测）与 5 条本地工具单测。
+工程包含标题栏索引/角标/描述、设备信息与响应式断点工具类，包含 37 条 ohosTest 用例与 5 条本地工具单测。
+
+### 功能特性
+
+- EditableTitleBar：左侧取消/返回、头像、副标题、分享菜单、保存按钮、背景样式；
+- EditableTitleBarV2：状态管理 V2 配置对象，保存/取消/分享交互与 V1 对齐；
+- SelectTitleBar：下拉项目、角标、返回箭头、下一项/重置；
+- TabTitleBar：概览/详情/设置页签切换、右侧菜单、内容联动；
+- ToolBarV2：首页/编辑/分享/更多、激活索引、启用/禁用、自定义高度与背景；
+- 工具类与适配：TitleBarActions、索引循环、角标 99+、最大内容宽度与断点边距；
+- 可视化反馈：统计卡、最近操作历史、清空、Toast。
+
+### 交互说明
+
+| 页面 | 主要操作 | 反馈 |
+|---|---|---|
+| EditableTitleBar/V2 | 保存、取消、分享、切换副标题 | 计数、状态、统计与历史更新 |
+| SelectTitleBar | 选择下拉项、下一项、重置 | 当前索引同步 |
+| TabTitleBar | 切换页签、点击分享 | 内容与菜单计数更新 |
+| ToolBarV2 | 点击工具栏项 | 激活索引与动作计数更新 |
+
+### 实现架构
+
+```text
+页面 -> TitleBarActions（计数/摘要/日志）
+     -> TitleBarUtils（索引/角标/描述）
+     -> BreakpointUtils、DeviceInfoUtils、Logger
+```
+
+### 测试覆盖
+
+| 类型 | 数量 | 说明 |
+|---|---:|---|
+| ohosTest | 37 | 入口、5 类标题栏/工具栏、边界、稳定性、逻辑 |
+| 本地单测 | 5 | 操作计数、索引/角标、断点 |
 
 ### 效果预览
 
-| 首页 | EditableTitleBar | SelectTitleBar | TabTitleBar | ToolBarV2 |
-|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
-| 运行后补充截图 | 运行后补充截图 | 运行后补充截图 | 运行后补充截图 | 运行后补充截图 |
+| 首页 | EditableTitleBar |
+|:---:|:---:|
+| <img src="screenshots/index.jpeg" width="360" /> | <img src="screenshots/editableTitleBar.jpeg" width="360" /> |
 
-使用说明：
-
-1. 首页展示 5 个入口、当前断点与设备信息，入口随宽度按 1/2/3 栏排列；
-2. EditableTitleBar：左侧取消、右侧保存/分享图标；点击“切换副标题”可显示/隐藏副标题，页面同步展示各操作计数；
-3. EditableTitleBarV2：使用 V2 配置对象实现相同的取消/保存/分享交互，计数与 V1 一致；
-4. SelectTitleBar：点击标题打开下拉菜单选择项目；也可使用“下一个项目/重置项目”按钮，状态文本显示当前索引；
-5. TabTitleBar：点击“概览/详情/设置”页签切换关联内容，右侧分享图标更新计数；
-6. ToolBarV2：底部工具栏提供首页、编辑、分享、更多操作，前三个可点击并更新激活索引与计数，更多为禁用态。
+> 截图基于 OpenHarmony 7.0.0.47 真机（API 26）拍摄。
 
 ### 工程目录
 
@@ -78,9 +105,8 @@ entry/src/test/
 2. 本示例基于 ArkTS 1.1 动态环境开发，已适配 API version 26 版本 SDK，版本号：26.0.0；
 3. 本示例需要使用 DevEco Studio 26.0.0 及以上版本才可编译运行；
 4. `EditableTitleBarV2` 相关类型在 SDK 26.0.0 中需从 `@ohos.arkui.advanced.EditableTitleBarV2` 导入，`@kit.ArkUI` 未导出；其余组件可从 `@kit.ArkUI` 导入；
-5. 本示例包含 34 条 ohosTest 用例（7 入口 + 5 EditableTitleBar + 4 EditableTitleBarV2 + 3 SelectTitleBar + 3 TabTitleBar + 4 ToolBarV2 + 2 稳定性 + 6 逻辑单测），另有 5 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
+5. 本示例包含 37 条 ohosTest 用例，另有 5 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
 6. 工程使用 DevEco Studio 自动生成的调试签名，可直接在 IDE 部署；提交仓库前建议清空 `signingConfigs`，由使用者在 IDE 中重新自动签名；
-7. 效果预览截图需在真机运行后补充。
 
 ### 下载
 
