@@ -18,6 +18,7 @@ import router from '@ohos.router';
 import { Scene, Camera, Material, Node, Image, SceneResourceFactory, Geometry, EnvironmentBackgroundType,
   PostProcessSettings, ToneMappingType, MetallicRoughnessMaterial, Vec4 } from '@kit.ArkGraphics3D';
 import {lookAt, OrbitCameraHelper } from '../common/utils';
+
 // [End pbr_clearcoat_header]
 
 const RESO: number = 255;
