@@ -45,6 +45,8 @@ export class TranscodeFilesModel {
       'ms fps=' + status.fps.toFixed(2) + ' speed=' + status.speed.toFixed(2) + 'x',
       'frames=' + status.frames + ' videoBytes=' + status.bytes + ' audioBytes=' + status.audioBytes +
       ' fileBytes=' + status.fileBytes + ' copiedBytes=' + status.copiedBytes,
+      'outputValidation=' + (status.outputValidation || 'not recorded') +
+      ' outputDurationUs=' + (status.outputDurationUs ?? 0),
       'waitMs: decoder=' + status.decoderWaitMs.toFixed(1) + ' encoderInput=' +
       status.encoderInputWaitMs.toFixed(1) + ' encoderOutput=' + status.encoderOutputWaitMs.toFixed(1),
       'API wall time; not hardware execution latency. P95 covers the most recent 256 calls.'];

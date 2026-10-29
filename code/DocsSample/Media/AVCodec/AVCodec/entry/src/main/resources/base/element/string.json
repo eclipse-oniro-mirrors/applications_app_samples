@@ -1184,6 +1184,15 @@
     {"name":"transcode_inspecting","value":"Reading media and checking capabilities…"},
     {"name":"transcode_history","value":"Recent transcodes"},
     {"name":"transcode_export_space","value":"Not enough local free space for another video copy and the 64 MiB reserve."},
-    {"name":"transcode_space_estimate","value":"Estimated output: %s MiB · free: %s MiB. VBR estimate only; keep 64 MiB reserved."}
+    {"name":"transcode_space_estimate","value":"Estimated output: %s MiB · free: %s MiB. VBR estimate only; keep 64 MiB reserved."},
+    {"name":"transcode_relink_source","value":"Reselect source"},
+    {"name":"transcode_relink_hint","value":"If a source moved or access expired, reselect it without losing job settings. The source and settings are checked again when the job starts."},
+    {"name":"transcode_range","value":"Transcode a time range"},
+    {"name":"transcode_range_start","value":"Start (seconds)"},
+    {"name":"transcode_range_end","value":"End (seconds, exclusive)"},
+    {"name":"transcode_range_to_end","value":"End of source"},
+    {"name":"transcode_range_hint","value":"Buffer only. Up to 3 decimals; leave end empty for the source end. Original audio uses packet boundaries; AAC trims PCM samples and pads its final frame. Video decoding continues to source EOS to preserve reordered frames, so short clips may still take time."},
+    {"name":"transcode_range_invalid","value":"Invalid range. Use non-negative seconds (up to 3 decimals), with start before end and end within the source duration."},
+    {"name":"transcode_output_verified","value":"MP4 metadata checked · output duration %s s (not a full decode check)"}
   ]
 }

@@ -250,10 +250,52 @@ async function testHistory() {
   files.set(directory, { kind: 'link' });
   await assert.rejects(() => TranscodeFilesModel.clear(directory), /Unsafe cleanup directory/);
 }
+async function testTimeRanges() {
+  const model = new TranscodeModel();
+  model.sourceUri = '/private/source.mp4';
+  model.setRangeEnabled(true);
+  model.setRangeStart('');
+  let inspected = 0;
+  inspect = async request => {
+    inspected++;
+    assert.equal(request.startTimeMs, 0, 'Draft interval must not invalidate source inspection');
+    assert.equal(request.endTimeMs, 0);
+    return status({ durationUs: 10000000 });
+  };
+  await model.inspect(ui);
+  assert.equal(inspected, 1);
+  assert.equal(model.analysis.state, 2);
+  assert.equal(model.isRangeValid(), false);
+  assert.equal(model.analysisSizeEstimate, -1);
+  model.setRangeStart('1.250');
+  model.setRangeEnd('3.500');
+  assert.equal(model.isRangeValid(), true);
+  assert.equal(model.request(0, 0).startTimeMs, 1250);
+  assert.equal(model.request(0, 0).endTimeMs, 3500);
+  assert.equal(model.analysisSizeEstimate, 2.25 * (8000000 + 192000) / 8 * 1.15);
+  await model.enqueue(ui);
+  assert.equal(model.queue.items[0].startTimeMs, 1250);
+  assert.equal(model.queue.items[0].endTimeMs, 3500);
+  model.setRangeEnd('');
+  assert.equal(model.isRangeValid(), true);
+  assert.equal(model.request(0, 0).endTimeMs, 0);
+  for (const value of ['0', '1.250', '10.001', '-1', '1.0001', 'NaN', '2147483.648']) {
+    model.setRangeEnd(value);
+    assert.equal(model.isRangeValid(), false, 'Invalid interval end: ' + value);
+  }
+  model.setRangeEnd('3.500');
+  model.setMode(1);
+  assert.equal(model.rangeEnabled, false);
+  assert.equal(model.request(0, 0).startTimeMs, 0);
+  assert.equal(model.request(0, 0).endTimeMs, 0);
+  inspect = async () => status();
+  console.info('Time ranges: draft inspection, validation, size estimate, queue snapshot and Surface reset passed');
+}
 async function main() {
   files.set('/private/source.mp4', { kind: 'file' });
   await testStateFiles();
   await testInspection();
+  await testTimeRanges();
   await testActivity();
   await testHistory();
   await testSessionTasks();
@@ -419,6 +461,31 @@ async function testQueue() {
   const options = [0, 0, 0, 2, 0, 0, 0, 0];
   model.queue.add('/private/source.mp4', 'one.mp4', options, false);
   model.queue.add('/private/source.mp4', 'two.mp4', options, false);
+  const rangeQueue = new TranscodeQueueModel();
+  rangeQueue.add('/private/source.mp4', 'clip.mp4', options, true, 250, 1250);
+  const rangeId = rangeQueue.items[0].id;
+  rangeQueue.update(rangeId, 'failed', 40, '/private/partial.mp4');
+  rangeQueue.reassociate(rangeId, '/private/relinked.mp4', 'relinked.mp4');
+  assert.equal(rangeQueue.items[0].uri, '/private/relinked.mp4');
+  assert.equal(rangeQueue.items[0].title, 'relinked.mp4');
+  assert.deepEqual(rangeQueue.items[0].options, options);
+  assert.equal(rangeQueue.items[0].grayscale, true);
+  assert.equal(rangeQueue.items[0].state, 'waiting');
+  assert.equal(rangeQueue.items[0].progress, 0);
+  assert.equal(rangeQueue.items[0].resultPath, '');
+  assert.equal(rangeQueue.items[0].startTimeMs, 250);
+  assert.equal(rangeQueue.items[0].endTimeMs, 1250);
+  rangeQueue.activeId = rangeId;
+  rangeQueue.reassociate(rangeId, '/private/ignored.mp4', 'ignored.mp4');
+  assert.equal(rangeQueue.items[0].uri, '/private/relinked.mp4', 'Active queue item cannot be relinked');
+  const legacyItem = { ...rangeQueue.items[0], id: 'queue_7_1' };
+  delete legacyItem.startTimeMs;
+  delete legacyItem.endTimeMs;
+  assert.equal(TranscodeQueueModel.validated([legacyItem]).length, 1, 'Legacy full-file entries remain valid');
+  const invalidRange = { ...legacyItem, id: 'queue_7_2', startTimeMs: 2000, endTimeMs: 1000 };
+  const surfaceRange = { ...legacyItem, id: 'queue_7_3', options: [0, 1, 0, 2, 0, 0, 0, 0],
+    startTimeMs: 1000, endTimeMs: 2000 };
+  assert.equal(TranscodeQueueModel.validated([invalidRange, surfaceRange]).length, 0);
   const done = deferred();
   const entered = deferred();
   let started = 0;

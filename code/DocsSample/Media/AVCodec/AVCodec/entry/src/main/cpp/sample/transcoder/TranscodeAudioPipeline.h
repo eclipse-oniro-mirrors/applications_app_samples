@@ -28,7 +28,8 @@ public:
     using Error = std::function<bool(const char *, int32_t)>;
     explicit TranscodeAudioPipeline(Error error) : error_(std::move(error)) {}
     ~TranscodeAudioPipeline();
-    bool Configure(OH_AVFormat *source, OH_AVDemuxer *demuxer, int32_t track);
+    bool Configure(OH_AVFormat *source, OH_AVDemuxer *demuxer, int32_t track, int64_t rangeStartUs = 0,
+        int64_t rangeEndUs = 0);
     bool Pump(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced);
     bool Ready() const { return ready_; }
     bool Done() const { return outputDone_; }
@@ -48,6 +49,7 @@ private:
     bool Encode(bool &advanced);
     bool Drain(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced);
     bool ValidatePcm();
+    bool TrimPcm();
     Error error_;
     OH_AVDemuxer *demuxer_ = nullptr;
     int32_t track_ = -1;
@@ -71,6 +73,8 @@ private:
     bool outputDone_ = false;
     int64_t bytes_ = 0;
     int64_t positionUs_ = 0;
+    int64_t rangeStartUs_ = 0;
+    int64_t rangeEndUs_ = 0;
     OH_AVBuffer *pendingOutput_ = nullptr;
     uint32_t pendingOutputIndex_ = 0;
 };

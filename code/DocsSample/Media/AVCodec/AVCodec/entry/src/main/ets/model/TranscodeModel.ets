@@ -28,6 +28,7 @@ import { MediaSessionStore } from './MediaSessionStore';
 import { MediaReports } from './MediaSessionReport';
 import { MediaStateFiles } from './MediaStateFiles';
 import { TranscodeQueueModel, TranscodeQueueItem } from './TranscodeQueueModel';
+import { TranscodeSourcePicker } from './TranscodeSourcePicker';
 
 function idleTranscodeStatus(): TranscodeStatus {
   return {
@@ -66,7 +67,9 @@ function idleTranscodeStatus(): TranscodeStatus {
     minBitrate: 0,
     maxBitrate: 0,
     audioBytes: 0,
-    audioMode: 0
+    audioMode: 0,
+    outputDurationUs: 0,
+    outputValidation: ''
   };
 }
 
@@ -85,6 +88,9 @@ export class TranscodeModel {
   public encoderCategory: number = 0;
   public audioMode: number = 0;
   public audioTrack: number = 0;
+  public rangeEnabled: boolean = false;
+  public rangeStart: string = '0';
+  public rangeEnd: string = '';
   public inspecting: boolean = false;
   public analysis: TranscodeStatus = idleTranscodeStatus();
   public analysisSizeEstimate: number = -1;
@@ -108,10 +114,66 @@ export class TranscodeModel {
     this.inspecting = false;
   }
 
+  setRangeStart(value: string): void { this.rangeStart = value; this.updateSizeEstimate(); }
+  setRangeEnd(value: string): void { this.rangeEnd = value; this.updateSizeEstimate(); }
+
+  setRangeEnabled(enabled: boolean): void {
+    this.rangeEnabled = enabled && this.modeIndex === 0;
+    this.updateSizeEstimate();
+  }
+
+  isRangeValid(): boolean { return this.validRange(this.analysis.durationUs); }
+
+  private updateSizeEstimate(): void {
+    if (!this.isRangeValid() || this.analysis.durationUs <= 0) { this.analysisSizeEstimate = -1; return; }
+    const request: TranscodeRequest = this.request(0, 0);
+    const durationUs: number = this.rangeEnabled ?
+      (request.endTimeMs || this.analysis.durationUs / 1000) * 1000 - (request.startTimeMs ?? 0) * 1000 :
+      this.analysis.durationUs;
+    this.analysisSizeEstimate = durationUs / 1000000 *
+      (request.bitrate + (request.audioMode === 2 ? 0 : 192000)) / 8 * 1.15;
+  }
+
+  private rangeMilliseconds(value: string, allowEmpty: boolean): number {
+    const text: string = value.trim();
+    if (text.length === 0) { return allowEmpty ? 0 : -1; }
+    if (!/^\d+(?:\.\d{1,3})?$/.test(text)) { return -1; }
+    const milliseconds: number = Math.round(Number(text) * 1000);
+    return Number.isSafeInteger(milliseconds) && milliseconds <= 2147483647 ? milliseconds : -1;
+  }
+
+  private validRange(durationUs: number = 0): boolean {
+    if (!this.rangeEnabled) { return true; }
+    if (this.modeIndex !== 0) { return false; }
+    const start: number = this.rangeMilliseconds(this.rangeStart, false);
+    const end: number = this.rangeMilliseconds(this.rangeEnd, true);
+    const durationMs: number = durationUs / 1000;
+    if (start < 0 || end < 0 || (this.rangeEnd.trim().length > 0 && end <= start)) { return false; }
+    if (durationUs <= 0) { return true; }
+    const selectedEnd: number = end === 0 && this.rangeEnd.trim().length === 0 ? durationMs : end;
+    return start >= 0 && end >= 0 && selectedEnd > start && selectedEnd <= durationMs;
+  }
+
+  async reassociateQueueItem(id: string, ui: UIContext): Promise<void> {
+    if (this.busy || this.queueRunning || this.picking || this.exporting || this.inspecting || this.disposed ||
+      id === this.queue.activeId) { return; }
+    this.picking = true;
+    try {
+      const uri: string = await TranscodeSourcePicker.select(ui, false);
+      if (uri.length > 0 && !this.disposed && id !== this.queue.activeId) {
+        this.queue.reassociate(id, uri, getPlaybackTitle(uri));
+        await this.persistQueue(ui);
+      }
+    } catch (error) {
+      this.notice = LocalizedText.get($r('app.string.transcode_select_failed')) + ' ' + JSON.stringify(error);
+    } finally { this.picking = false; }
+  }
+
   setMode(index: number): void {
     if (this.busy || this.queueRunning || index < 0 || index > 1) { return; }
     this.modeIndex = index;
     if (index === 1) {
+      this.rangeEnabled = false;
       this.sizeIndex = 0;
       this.grayscale = false;
       this.resizeMode = 0;
@@ -124,23 +186,15 @@ export class TranscodeModel {
     if (context === undefined) { return; }
     this.picking = true;
     try {
-      let uri: string = '';
-      if (fromGallery) {
-        const selection: photoAccessHelper.PhotoSelectResult = await new photoAccessHelper.PhotoViewPicker().select({
-          MIMEType: photoAccessHelper.PhotoViewMIMETypes.VIDEO_TYPE, maxSelectNumber: 1
-        });
-        uri = selection.photoUris[0] ?? '';
-      } else {
-        const selection: string[] = await new picker.DocumentViewPicker(context).select({
-          maxSelectNumber: 1, fileSuffixFilters: ['Video|.mp4,.mkv,.mov,.webm,.ts,.3gp']
-        });
-        uri = selection[0] ?? '';
-      }
+      const uri: string = await TranscodeSourcePicker.select(ui, fromGallery);
       if (uri.length > 0 && !this.disposed) {
         this.sourceUri = uri;
         this.sourceTitle = getPlaybackTitle(uri);
         this.notice = '';
         this.audioTrack = 0;
+        this.rangeEnabled = false;
+        this.rangeStart = '0';
+        this.rangeEnd = '';
         await this.inspect(ui);
       }
     } catch (error) {
@@ -158,6 +212,10 @@ export class TranscodeModel {
   private async execute(ui: UIContext): Promise<boolean> {
     if (this.busy || this.picking || this.exporting || this.inspecting || this.disposed ||
       this.sourceUri.length === 0) { return false; }
+    if (!this.validRange()) {
+      this.notice = LocalizedText.get($r('app.string.transcode_range_invalid'));
+      return false;
+    }
     const context = ui.getHostContext();
     if (context === undefined) { return false; }
     if (player.getState() !== player.PlayerState.IDLE || recorder.getDiagnostics().active ||
@@ -190,6 +248,14 @@ export class TranscodeModel {
       }
       await MediaSessionStore.begin(context, { id: sessionId, operation: 'transcode', startedAt: Date.now() });
       input = await fileIo.open(this.sourceUri, fileIo.OpenMode.READ_ONLY);
+      const preflightRequest: TranscodeRequest = this.request(input.fd, 0);
+      const preflight: TranscodeStatus = await transcoder.inspect(preflightRequest);
+      if (preflight.state !== 2) { throw new Error(preflight.detail || 'Source preflight failed'); }
+      this.analysis = preflight;
+      if (!this.validRange(preflight.durationUs)) {
+        throw new Error(LocalizedText.get($r('app.string.transcode_range_invalid')));
+      }
+      this.updateSizeEstimate();
       output = await fileIo.open(partialPath,
         fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC | fileIo.OpenMode.NOFOLLOW);
       if (this.disposed || this.cancelRequested) {
@@ -338,7 +404,10 @@ export class TranscodeModel {
       encoderCategory: this.encoderCategory,
       resizeMode: this.resizeMode,
       audioMode: this.audioMode,
-      audioTrack: this.audioTrack
+      audioTrack: this.audioTrack,
+      startTimeMs: this.rangeEnabled ? Math.round(Number(this.rangeStart) * 1000) : 0,
+      endTimeMs: this.rangeEnabled && this.rangeEnd.trim().length > 0 ?
+        Math.round(Number(this.rangeEnd) * 1000) : 0
     };
   }
 
@@ -347,17 +416,20 @@ export class TranscodeModel {
     return (this.codecIndex === 0 ? 'H.264' : 'H.265') + ' · ' + mode +
       ' · ' + ([2, 4, 8, 16][this.bitrateIndex] ?? 8) + ' Mbps · gray=' + this.grayscale +
       ' · edge=' + [0, 1920, 1080, 720][this.sizeIndex] + ' · resize=' + this.resizeMode +
-      ' · audio=' + ['copy', 'AAC-LC 128 kbps', 'none'][this.audioMode] + ' · track=' + this.audioTrack;
+      ' · audio=' + ['copy', 'AAC-LC 128 kbps', 'none'][this.audioMode] + ' · track=' + this.audioTrack +
+      (this.rangeEnabled ? ' · range=' + this.rangeStart + '..' + (this.rangeEnd || 'end') + ' s' : '');
   }
 
   async inspect(ui: UIContext): Promise<void> {
     if (this.busy || this.queueRunning || this.exporting || this.sourceUri.length === 0) { return; }
     const sequence: number = ++this.inspectionSequence;
-    const request: TranscodeRequest = this.request(0, 0);
     const uri: string = this.sourceUri;
     this.inspecting = true;
     this.analysis = idleTranscodeStatus();
     this.analysisSizeEstimate = -1;
+    const request: TranscodeRequest = this.request(0, 0);
+    request.startTimeMs = 0;
+    request.endTimeMs = 0;
     let file: fileIo.File | undefined = undefined;
     try {
       file = await fileIo.open(uri, fileIo.OpenMode.READ_ONLY);
@@ -368,8 +440,7 @@ export class TranscodeModel {
       const available: number = context === undefined ? -1 : await statfs.getFreeSize(context.filesDir);
       if (sequence === this.inspectionSequence && !this.disposed) {
         this.analysis = result;
-        this.analysisSizeEstimate = result.durationUs > 0 ?
-          result.durationUs / 1000000 * (request.bitrate + (request.audioMode === 2 ? 0 : 192000)) / 8 * 1.15 : -1;
+        this.updateSizeEstimate();
         this.availableBytes = available;
       }
     } catch (error) {
@@ -402,8 +473,13 @@ export class TranscodeModel {
   async enqueue(ui: UIContext): Promise<void> {
     if (this.busy || this.queueRunning || this.sourceUri.length === 0 || this.inspecting ||
       this.analysis.state !== 2) { return; }
+    if (!this.validRange(this.analysis.durationUs)) {
+      this.notice = LocalizedText.get($r('app.string.transcode_range_invalid')); return;
+    }
+    const request: TranscodeRequest = this.request(0, 0);
     this.queue.add(this.sourceUri, this.sourceTitle, [this.codecIndex, this.modeIndex, this.sizeIndex,
-      this.bitrateIndex, this.encoderCategory, this.audioMode, this.audioTrack, this.resizeMode], this.grayscale);
+      this.bitrateIndex, this.encoderCategory, this.audioMode, this.audioTrack, this.resizeMode], this.grayscale,
+      request.startTimeMs ?? 0, request.endTimeMs ?? 0);
     await this.persistQueue(ui);
   }
 
@@ -458,6 +534,9 @@ export class TranscodeModel {
         this.bitrateIndex = item.options[3]; this.encoderCategory = item.options[4];
         this.audioMode = item.options[5]; this.audioTrack = item.options[6]; this.grayscale = item.grayscale;
         this.resizeMode = item.options[7] ?? 0;
+        this.rangeEnabled = (item.startTimeMs ?? 0) > 0 || (item.endTimeMs ?? 0) > 0;
+        this.rangeStart = ((item.startTimeMs ?? 0) / 1000).toString();
+        this.rangeEnd = (item.endTimeMs ?? 0) > 0 ? ((item.endTimeMs ?? 0) / 1000).toString() : '';
         if (!await this.execute(ui)) {
           this.queue.update(item.id, 'waiting', 0);
           this.queue.paused = true;

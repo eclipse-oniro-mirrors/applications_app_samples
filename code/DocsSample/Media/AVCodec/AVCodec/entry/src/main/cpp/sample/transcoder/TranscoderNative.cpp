@@ -65,13 +65,15 @@ bool SetSnapshotFields(napi_env env, napi_value result, const TranscodeSnapshot 
         {"estimatedBytes", snapshot.estimatedBytes}, {"sourceWidth", snapshot.sourceWidth},
         {"sourceHeight", snapshot.sourceHeight}, {"durationUs", snapshot.durationUs},
         {"sourceFrameRate", snapshot.sourceFrameRate}, {"minBitrate", snapshot.minBitrate},
-        {"maxBitrate", snapshot.maxBitrate}, {"audioBytes", snapshot.audioBytes}, {"audioMode", snapshot.audioMode}};
+        {"maxBitrate", snapshot.maxBitrate}, {"audioBytes", snapshot.audioBytes}, {"audioMode", snapshot.audioMode},
+        {"outputDurationUs", snapshot.outputDurationUs}};
     for (const auto &number : numbers) {
         if (!SetNumber(env, result, number.first, number.second)) { return false; }
     }
     const std::pair<const char *, const std::string &> strings[] = {
         {"stage", snapshot.stage}, {"detail", snapshot.detail}, {"decoderName", snapshot.decoderName},
-        {"encoderName", snapshot.encoderName}, {"sourceMime", snapshot.sourceMime}};
+        {"encoderName", snapshot.encoderName}, {"sourceMime", snapshot.sourceMime},
+        {"outputValidation", snapshot.outputValidation}};
     for (const auto &entry : strings) {
         if (!SetString(env, result, entry.first, entry.second)) { return false; }
     }
@@ -167,6 +169,18 @@ bool ReadProcessingOptions(napi_env env, napi_value object, TranscodeOptions &op
     return true;
 }
 
+bool ReadTimeRange(napi_env env, napi_value object, TranscodeOptions &options)
+{
+    bool hasStart = false;
+    bool hasEnd = false;
+    if (napi_has_named_property(env, object, "startTimeMs", &hasStart) != napi_ok ||
+        napi_has_named_property(env, object, "endTimeMs", &hasEnd) != napi_ok ||
+        (hasStart && !ReadNumber(env, object, "startTimeMs", options.startTimeMs)) ||
+        (hasEnd && !ReadNumber(env, object, "endTimeMs", options.endTimeMs))) { return false; }
+    return (options.endTimeMs == 0 || options.endTimeMs > options.startTimeMs) &&
+        (!options.surface || (options.startTimeMs == 0 && options.endTimeMs == 0));
+}
+
 bool ReadNumericOptions(napi_env env, napi_value object, TranscodeOptions &options, int64_t &inputFd, int64_t &outputFd)
 {
     int64_t category = 0;
@@ -178,7 +192,8 @@ bool ReadNumericOptions(napi_env env, napi_value object, TranscodeOptions &optio
         !ReadBool(env, object, "grayscale", options.grayscale) ||
         !ReadNumber(env, object, "encoderCategory", category) || category > MAX_ENCODER_CATEGORY ||
         !ReadNumber(env, object, "audioMode", audioMode) || audioMode > MAX_AUDIO_MODE ||
-        !ReadNumber(env, object, "audioTrack", audioTrack) || !ReadProcessingOptions(env, object, options)) {
+        !ReadNumber(env, object, "audioTrack", audioTrack) || !ReadProcessingOptions(env, object, options) ||
+        !ReadTimeRange(env, object, options)) {
         return false;
     }
     options.encoderCategory = static_cast<int32_t>(category);

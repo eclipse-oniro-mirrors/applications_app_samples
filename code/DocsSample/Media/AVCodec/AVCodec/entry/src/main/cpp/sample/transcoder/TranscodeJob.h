@@ -43,6 +43,8 @@ struct TranscodeOptions {
     int32_t encoderCategory = 0;
     int32_t audioMode = 0;
     int32_t audioTrack = 0;
+    int64_t startTimeMs = 0;
+    int64_t endTimeMs = 0;
     bool inspectOnly = false;
 };
 
@@ -83,6 +85,8 @@ struct TranscodeSnapshot {
     int64_t maxBitrate = 0;
     int64_t audioBytes = 0;
     int32_t audioMode = 0;
+    int64_t outputDurationUs = 0;
+    std::string outputValidation;
 };
 
 class TranscodeJob {
@@ -124,6 +128,10 @@ private:
     bool Check(int32_t result, const char *operation);
     bool Fail(const char *operation, int32_t result = -1);
     bool FinalizeOutput();
+    bool ValidateOutput();
+    bool ValidateOutputTrack(OH_AVFormat *format, int32_t type);
+    bool ConfigureTimeRange();
+    bool DiscardOutsideRange(bool &advanced);
     void Complete(bool success);
     void Cleanup();
     void PublishDiagnostics();
@@ -146,6 +154,9 @@ private:
     int32_t muxVideoTrack_ = -1;
     int32_t muxAudioTrack_ = -1;
     int64_t durationUs_ = 0;
+    int64_t rangeStartUs_ = 0;
+    int64_t rangeEndUs_ = 0;
+    int64_t selectedDurationUs_ = 0;
     int64_t videoPositionUs_ = 0;
     int64_t audioPositionUs_ = 0;
     int32_t sourceWidth_ = 0;

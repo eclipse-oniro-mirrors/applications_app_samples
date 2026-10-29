@@ -141,7 +141,9 @@ export class MediaReports {
     const report: MediaSessionReport = MediaReports.base(id, 'transcode',
       status.state === 2 ? 'completed' : status.state === 3 ? 'cancelled' : 'failed');
     report.requested = configuration; report.observed = status.decoderName + ' -> ' + status.encoderName +
-      ' / ' + status.outputWidth + 'x' + status.outputHeight;
+      ' / ' + status.outputWidth + 'x' + status.outputHeight +
+      ' / validation=' + (status.outputValidation || 'not recorded') +
+      ' / durationUs=' + (status.outputDurationUs ?? 0);
     report.error = MediaReports.error(status.state === 2 ? '' : status.stage, status.errorCode,
       status.state === 2 ? '' : status.detail, status.state === 3);
     report.metrics = [{ name: 'video.fps', amount: status.fps, unit: 'fps' },

@@ -60,8 +60,13 @@ constexpr int32_t K_TAIL_CHUNK_SAMPLES = 37;
 constexpr int32_t K_PCM_BYTES = 4;
 constexpr int32_t K_ENCODED_BYTES = 8;
 constexpr int32_t K_EXPECTED_PACKET_COUNT = 2;
-constexpr int32_t K_EXPECTED_DESTROYED = 10;
+constexpr int32_t K_EXPECTED_DESTROYED = 14;
 constexpr int32_t K_EXPECTED_PADDED_SAMPLES = 411;
+constexpr int32_t K_RANGE_PADDED_SAMPLES = 544;
+constexpr int64_t K_RANGE_START_US = 110000;
+constexpr int64_t K_RANGE_END_US = 120000;
+constexpr int32_t K_FRACTIONAL_RANGE_PADDED_SAMPLES = 546;
+constexpr int64_t K_FRACTIONAL_RANGE_FIRST_PTS = 19;
 constexpr int32_t K_MAX_TICKS = 1000;
 constexpr int32_t K_READY_TICKS = 100;
 constexpr int32_t K_MUX_START_TICK = 20;
@@ -340,6 +345,60 @@ void RunSuccess(bool formatEvent)
     }
 }
 
+void RunTimeRange(int64_t startUs, int64_t endUs, int32_t paddedSamples, int64_t firstPts)
+{
+    g_sendFormatChange = true;
+    g_paddedSamples = 0;
+    g_inputEos = 0;
+    encodedPts.clear();
+    OH_AVDemuxer demuxer;
+    OH_AVMuxer muxer;
+    bool failed = false;
+    auto source = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>(
+        FakeAvFormatCreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, K_SAMPLE_RATE, K_CHANNELS),
+        FakeAvFormatDestroy);
+    {
+        TranscodeAudioPipeline pipeline([&failed](const char *, int32_t) {
+            failed = true;
+            return false;
+        });
+        Require(pipeline.Configure(source.get(), &demuxer, 1, startUs, endUs),
+            "Configure range pipeline");
+        for (int tick = 0; tick < K_MAX_TICKS && !pipeline.Done(); ++tick) {
+            bool advanced = false;
+            Require(pipeline.Pump(pipeline.Ready() && tick > K_MUX_START_TICK ? &muxer : nullptr, 1, advanced),
+                "Pump range pipeline");
+        }
+        Require(pipeline.Done() && !failed && muxer.packets == 1 && g_inputEos == 1, "Complete range pipeline");
+        Require(g_paddedSamples == paddedSamples && encodedPts.size() == 1 && encodedPts[0] == firstPts,
+            "Trim PCM to range and rebase timestamp");
+        Require(pipeline.Bytes() == K_ENCODED_BYTES, "Range encoded byte count");
+    }
+}
+
+void RunInvalidSampleRate()
+{
+    constexpr int32_t invalidRates[] = {0, -1};
+    for (const int32_t rate : invalidRates) {
+        OH_AVDemuxer demuxer;
+        bool failed = false;
+        auto source = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>(
+            FakeAvFormatCreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, rate, K_CHANNELS),
+            FakeAvFormatDestroy);
+        const int destroyedBefore = g_destroyed;
+        {
+            TranscodeAudioPipeline pipeline([&failed](const char *, int32_t) {
+                failed = true;
+                return false;
+            });
+            Require(!pipeline.Configure(source.get(), &demuxer, 1, K_RANGE_START_US, K_RANGE_END_US),
+                "Reject nonpositive source sample rate");
+            Require(failed, "Invalid sample rate reports a transcode error");
+        }
+        Require(g_destroyed == destroyedBefore, "Invalid sample rate does not create codecs");
+    }
+}
+
 void RunInterrupted(bool writeFailure)
 {
     g_sendFormatChange = false;
@@ -378,6 +437,10 @@ int main()
 {
     RunSuccess(true);
     RunSuccess(false);
+    RunTimeRange(K_RANGE_START_US, K_RANGE_END_US, K_RANGE_PADDED_SAMPLES, 0);
+    RunTimeRange(K_RANGE_START_US + 1, K_RANGE_END_US - 1, K_FRACTIONAL_RANGE_PADDED_SAMPLES,
+        K_FRACTIONAL_RANGE_FIRST_PTS);
+    RunInvalidSampleRate();
     RunInterrupted(true);
     RunInterrupted(false);
     g_invalidLayout = true;
