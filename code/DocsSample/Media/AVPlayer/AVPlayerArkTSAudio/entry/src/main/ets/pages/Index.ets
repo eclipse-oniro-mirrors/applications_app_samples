@@ -276,7 +276,7 @@ struct Index {
     }
   }
 
-  // 注册avplayer回调函数
+  // 注册avplayer回调函数。
   async setAVPlayerCallback(callback: (avPlayer: media.AVPlayer) => void, vType?: number): Promise<void> {
     // seek操作结果回调函数
     // [Start setAVPlayerCallback]
@@ -302,7 +302,7 @@ struct Index {
     this.avPlayer.on('audioInterrupt', (info: audio.InterruptEvent) => {
       console.info(`${this.tag}: setAVPlayerCallback AVPlayer audioInterrupt, info is ${info}`);
     });
-    // error回调监听函数,当avPlayer在操作过程中出现错误时调用reset接口触发重置流程
+    // error回调监听函数,当avPlayer在操作过程中出现错误时调用reset接口触发重置流程。
     this.avPlayer.on('error', (err) => {
       console.error(`${this.tag}: setAVPlayerCallback Invoke avPlayer failed ${JSON.stringify(err)}`);
       if (this.avPlayer == null) {
@@ -311,32 +311,32 @@ struct Index {
       }
       this.avPlayer.reset();
     });
-    // 状态机变化回调函数
+    // 状态机变化回调函数。
     this.avPlayer.on('stateChange', async (state, reason) => {
       if (this.avPlayer == null) {
         console.info(`${this.tag}: avPlayer has not init on state change`);
         return;
       }
       switch (state) {
-        case 'idle': // 成功调用reset接口后触发该状态机上报
+        case 'idle': // 成功调用reset接口后触发该状态机上报。
           console.info(`${this.tag}: setAVPlayerCallback AVPlayer state idle called.`);
           break;
-        case 'initialized': // avplayer 设置播放源后触发该状态上报
+        case 'initialized': // avplayer 设置播放源后触发该状态上报。
           console.info(`${this.tag}: setAVPlayerCallback AVPlayer state initialized called.`);
           if (this.surfaceId) {
-            this.avPlayer.surfaceId = this.surfaceId; // 设置显示画面，当播放的资源为纯音频时无需设置
+            this.avPlayer.surfaceId = this.surfaceId; // 设置显示画面，当播放的资源为纯音频时无需设置。
             console.info(`${this.tag}: setAVPlayerCallback this.avPlayer.surfaceId = ${this.avPlayer.surfaceId}`);
             this.avPlayer.prepare();
           }
           break;
-        case 'prepared': // prepare调用成功后上报该状态机
+        case 'prepared': // prepare调用成功后上报该状态机。
           console.info(`${this.tag}: setAVPlayerCallback AVPlayer state prepared called.`);
           this.avPlayer.on('bufferingUpdate', (infoType: media.BufferingInfoType, value: number) => {
             console.info(`${this.tag}: bufferingUpdate called, infoType value: ${infoType}, value:${value}}`);
           })
           this.durationTime = this.avPlayer.duration;
           this.currentTime = this.avPlayer.currentTime;
-          this.avPlayer.play(); // 调用播放接口开始播放
+          this.avPlayer.play(); // 调用播放接口开始播放。
           console.info(`${this.tag}:
             setAVPlayerCallback speedSelect: ${this.speedSelect}, duration: ${this.durationTime}`);
           if (this.speedSelect != -1) {
@@ -357,13 +357,13 @@ struct Index {
           }
           callback(this.avPlayer);
           break;
-        case 'playing': // play成功调用后触发该状态机上报
+        case 'playing': // play成功调用后触发该状态机上报。
           console.info(`${this.tag}: setAVPlayerCallback AVPlayer state playing called.`);
           if (this.count !== 0) {
             if (this.intervalID != -1) {
               clearInterval(this.intervalID)
             }
-            this.intervalID = setInterval(() => { // 更新当前时间
+            this.intervalID = setInterval(() => { // 更新当前时间。
               AppStorage.setOrCreate('durationTime', this.durationTime);
               AppStorage.setOrCreate('currentTime', this.currentTime);
             }, 100);
@@ -385,7 +385,7 @@ struct Index {
           }
           this.count++;
           break;
-        case 'completed': // 播放结束后触发该状态机上报
+        case 'completed': // 播放结束后触发该状态机上报。
           console.info(`${this.tag}: setAVPlayerCallback AVPlayer state completed called.`);
           let eventDataFalse: emitter.EventData = {
             data: {
@@ -424,7 +424,7 @@ struct Index {
           break;
       }
     });
-    // 时间上报监听函数
+    // 时间上报监听函数。
     this.avPlayer.on('timeUpdate', (time: number) => {
       this.currentTime = time;
     });
