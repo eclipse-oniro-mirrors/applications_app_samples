@@ -21,37 +21,52 @@ import Want from '@ohos.app.ability.Want';
 import window from '@ohos.window';
 import { BusinessError } from '@ohos.base'
 import hilog from '@ohos.hilog'
-import { FaultLogExtensionAbility, hilog, hiAppEvent } from '@kit.PerformanceAnalysisKit';
+// [Start fault_log_extension_arkts_sta_code_entryability]
+import { hiAppEvent } from '@kit.PerformanceAnalysisKit';
+// [StartExclude fault_log_extension_arkts_sta_code_entryability]
 
 class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', 'EntryAbility onCreate');
-
+// [EndExclude fault_log_extension_arkts_sta_code_entryability]
     hiAppEvent.addWatcher({
+      // 开发者可以自定义观察者名称，系统会使用名称来标识不同的观察者
       name: "EntryAbilityWatcherNormal",
+      // 开发者可以订阅感兴趣的系统事件，此处是订阅了应用冻屏事件
       appEventFilters: [
         {
           domain: hiAppEvent.domain.OS,
           names: [hiAppEvent.event.APP_FREEZE]
         }
       ],
+      // 故障发生后，正常重启执行观察者A处理事件回调
       onReceive: (domain: string, appEventGroups: Array<hiAppEvent.AppEventGroup>) => {
+// [StartExclude fault_log_extension_arkts_sta_code_entryability]
         hilog.info(0x0001, "EntryAbility", `domain:${domain}, ${JSON.stringify(appEventGroups)}`);
+// [EndExclude fault_log_extension_arkts_sta_code_entryability]
       }
     })
 
+    // 在onCreate函数中添加系统事件的订阅，观察者B
     hiAppEvent.addWatcher({
+      // 开发者可以自定义观察者名称，系统会使用名称来标识不同的观察者
       name: "EntryAbilityWatcherExtension",
+      // 开发者可以订阅感兴趣的系统事件，此处是订阅了应用冻屏事件
       appEventFilters: [
         {
           domain: hiAppEvent.domain.OS,
           names: [hiAppEvent.event.APP_FREEZE]
         }
       ],
+      // 空实现，仅用于生成过滤规则，使故障事件在被处理前保留在应用沙箱内；
+      // 若应用正常重启，观察者A已处理相同事件，观察者B通过空处理消耗从沙箱获取的事件，不对事件重复处理。
       onReceive: (domain: string, appEventGroups: Array<hiAppEvent.AppEventGroup>) => {
+// [StartExclude fault_log_extension_arkts_sta_code_entryability]
         hilog.info(0x0001, "EntryAbility", `domain:${domain}, ${JSON.stringify(appEventGroups)}`);
+// [EndExclude fault_log_extension_arkts_sta_code_entryability]
       }
     })
+// [StartExclude fault_log_extension_arkts_sta_code_entryability]
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
@@ -70,3 +85,5 @@ class EntryAbility extends UIAbility {
     }
   }
 }
+// [EndExclude fault_log_extension_arkts_sta_code_entryability]
+// [End fault_log_extension_arkts_sta_code_entryability]
