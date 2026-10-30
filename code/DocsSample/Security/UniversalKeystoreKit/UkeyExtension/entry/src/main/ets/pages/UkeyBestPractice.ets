@@ -14,7 +14,7 @@
  */
 
 // [ukey_best_practice_arkts]
-import testNapi from "libentry.so";
+import testNapi from 'libentry.so';
 @Entry
 @Component
 struct Index {

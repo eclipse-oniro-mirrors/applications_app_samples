@@ -20,6 +20,7 @@
 #include "huks/native_huks_external_crypto_api.h"
 #include <cstring>
 #include <string.h>
+#include <stdint.h>
 #include <device_certificate/certmanager/cm_native_api.h>
 #include <device_certificate/certmanager/cm_native_type.h>
 
@@ -281,7 +282,7 @@ static napi_value GetUkeyCert(napi_env env, napi_callback_info info)
     /* 获取keyUri长度 */
     size_t length = 0;
     napi_get_value_string_utf8(env, argv[0], nullptr, 0, &length);
-    if (length == 0) {
+    if (length == 0 || length >= SIZE_MAX) {
         return nullptr;
     }
     /* 获取keyUri值 */
@@ -323,7 +324,7 @@ static napi_value BpOpenResource(napi_env env, napi_callback_info info)
     /* 获取keyUri长度 */
     size_t length = 0;
     napi_get_value_string_utf8(env, argv[0], nullptr, 0, &length);
-    if (length == 0) {
+    if (length == 0 || length >= SIZE_MAX) {
         return nullptr;
     }
     /* 获取keyUri值 */
@@ -374,7 +375,7 @@ static napi_value BpGetUkeyPinAuthState(napi_env env, napi_callback_info info)
     /* 获取keyUri长度 */
     size_t length = 0;
     napi_get_value_string_utf8(env, argv[0], nullptr, 0, &length);
-    if (length == 0) {
+    if (length == 0 || length >= SIZE_MAX) {
         return nullptr;
     }
     /* 获取keyUri值 */
