@@ -1,0 +1,289 @@
+/**
+ * CanvasShowcaseDemo 主页面
+ * 展示：画布演示区（Canvas 组件）/ 场景按钮（SceneRegistry 数据驱动）/ 事件日志面板
+ * 布局适配：sm（<600vp，手机竖屏）单栏上下；md/lg（平板/2in1/横屏）双栏（左按钮右日志）
+ * 每次场景绘制经 PerfTimer 计时，日志输出耗时。
+ */
+import { CanvasScenes } from '../model/CanvasScenes';
+import { LogUtil } from '../model/utils/LogUtil';
+import { DeviceUtil, Breakpoint } from '../model/utils/DeviceUtil';
+import { SceneRegistry, SceneInfo } from '../model/utils/SceneRegistry';
+import { PerfTimer } from '../model/utils/PerfTimer';
+
+const MAX_LOG_COUNT = 120;
+/** 渐变动画帧间隔 ms */
+const ANIM_INTERVAL_MS = 100;
+
+@Entry
+@Component
+struct Index {
+  @State logs: string[] = [];
+  @State bp: Breakpoint = 'sm';
+  @State deviceType: string = '';
+  @State osName: string = '';
+  @State apiVersion: number = 0;
+  @State sceneTitle: string = '（点击按钮开始演示）';
+  @State animRunning: boolean = false;
+  /** 当前已绘制场景 id，-1 表示无选中（动画/清空后复位） */
+  @State activeSceneId: number = -1;
+  private context: CanvasRenderingContext2D = new CanvasRenderingContext2D(new RenderingContextSettings(true));
+  private scenes: SceneInfo[] = SceneRegistry.getAll();
+  private animTimerId: number = -1;
+  private animT: number = 0;
+  private drawTimer: PerfTimer = new PerfTimer();
+
+  aboutToAppear(): void {
+    LogUtil.init((line: string) => {
+      this.pushLog(line);
+    });
+    this.deviceType = DeviceUtil.getDeviceType();
+    this.osName = DeviceUtil.getOsFullName();
+    this.apiVersion = DeviceUtil.getSdkApiVersion();
+    DeviceUtil.logDeviceProfile();
+    LogUtil.info('Index', `场景注册表加载完成：${SceneRegistry.count()} 个场景`);
+  }
+
+  aboutToDisappear(): void {
+    this.stopAnim();
+  }
+
+  private pushLog(line: string): void {
+    this.logs = [line, ...this.logs].slice(0, MAX_LOG_COUNT);
+  }
+
+  /** 执行场景前清屏并复位变换 */
+  private clearCanvas(): void {
+    this.context.setTransform(new Matrix2D().identity());
+    this.context.clearRect(0, 0, this.context.width, this.context.height);
+  }
+
+  private runScene(id: number): void {
+    this.stopAnim();
+    const scene: SceneInfo | null = SceneRegistry.getById(id);
+    if (scene === null) {
+      LogUtil.error('Index', `场景 ${id} 未注册`);
+      return;
+    }
+    this.clearCanvas();
+    this.sceneTitle = scene.title;
+    this.activeSceneId = id;
+    const w: number = this.context.width;
+    const h: number = this.context.height;
+    // 绘制计时：日志输出各场景耗时，便于性能对比
+    const cost: number = PerfTimer.time('Index', scene.title, (): number => {
+      const t: PerfTimer = new PerfTimer();
+      t.start();
+      scene.draw(this.context, w, h);
+      return t.stop();
+    });
+    LogUtil.info('Index', `场景 ${id} 绘制完成，耗时 ${cost}ms`);
+    this.drawTimer.start();
+    this.drawTimer.stop();
+  }
+
+  /** 渐变动画：定时器驱动 drawGradientFrame，t 在 [0,1) 循环 */
+  private startAnim(): void {
+    if (this.animRunning) {
+      return;
+    }
+    this.clearCanvas();
+    this.sceneTitle = '动画：渐变过渡（ColorUtil 插值驱动）';
+    this.activeSceneId = -1;
+    this.animRunning = true;
+    this.animT = 0;
+    LogUtil.info('Index', `渐变动画启动：间隔 ${ANIM_INTERVAL_MS}ms`);
+    this.animTimerId = setInterval(() => {
+      this.animT = (this.animT + 0.05) % 1;
+      CanvasScenes.drawGradientFrame(this.context, this.context.width, this.context.height, this.animT);
+    }, ANIM_INTERVAL_MS);
+  }
+
+  private stopAnim(): void {
+    if (this.animTimerId !== -1) {
+      clearInterval(this.animTimerId);
+      this.animTimerId = -1;
+      LogUtil.info('Index', '渐变动画停止');
+    }
+    this.animRunning = false;
+  }
+
+  /** 清空为不可恢复操作，先弹框二次确认 */
+  private confirmClear(): void {
+    this.getUIContext().showAlertDialog({
+      title: '确认清空',
+      message: '画布内容和事件日志将全部移除，且无法恢复。',
+      autoCancel: true,
+      primaryButton: {
+        value: '取消',
+        action: () => {
+          LogUtil.info('Index', '已取消清空');
+        }
+      },
+      secondaryButton: {
+        value: '清空',
+        fontColor: '#E53935',
+        action: () => {
+          this.stopAnim();
+          this.clearCanvas();
+          this.logs = [];
+          this.sceneTitle = '（已清空，点击按钮开始演示）';
+          this.activeSceneId = -1;
+          LogUtil.info('Index', '画布与日志已清空');
+        }
+      }
+    });
+  }
+
+  @Builder
+  buttonsArea() {
+    Column({ space: 6 }) {
+      ForEach(this.scenes, (s: SceneInfo) => {
+        Button(this.activeSceneId === s.id ? `${s.button}（当前）` : s.button)
+          .width('100%').height(36)
+          .backgroundColor(this.activeSceneId === s.id ? '#1565C0' : '#E3F2FD')
+          .fontColor(this.activeSceneId === s.id ? Color.White : '#1565C0')
+          .onClick(() => this.runScene(s.id))
+      }, (s: SceneInfo) => `${s.id}`)
+      Button(this.animRunning ? '停止渐变动画' : '动画：渐变过渡')
+        .width('100%').height(36)
+        .backgroundColor(this.animRunning ? '#E53935' : '#43A047')
+        .onClick(() => {
+          if (this.animRunning) {
+            this.stopAnim();
+          } else {
+            this.startAnim();
+          }
+        })
+      Button('清空画布与日志')
+        .width('100%').height(36)
+        .backgroundColor('#78909C')
+        .onClick(() => {
+          this.confirmClear();
+        })
+    }
+    .width('100%')
+  }
+
+  @Builder
+  logArea() {
+    Column({ space: 4 }) {
+      Row({ space: 8 }) {
+        Text('事件日志')
+          .fontSize(14)
+          .fontWeight(FontWeight.Medium)
+        Blank()
+        Text(`断点：${this.bp}`)
+          .fontSize(11)
+          .fontColor('#999999')
+      }
+      .width('100%')
+
+      List({ space: 4 }) {
+        ForEach(this.logs, (line: string, index: number) => {
+          ListItem() {
+            Text(line)
+              .fontSize(12)
+              .width('100%')
+          }
+        }, (line: string, index: number) => `${index}-${line}`)
+      }
+      .layoutWeight(1)
+      .width('100%')
+      .backgroundColor('#F5F5F5')
+      .borderRadius(8)
+      .padding(8)
+    }
+    .layoutWeight(1)
+    .width('100%')
+  }
+
+  build() {
+    Column({ space: 10 }) {
+      Text('Canvas 画布：渐变、图案与矩阵变换')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+      Text('CanvasGradient 渐变 · CanvasPattern 图案 · Matrix2D 矩阵变换 · OffscreenCanvas 离屏绘制 · ImageData 像素操作')
+        .fontSize(12)
+        .fontColor('#666666')
+        .width('100%')
+
+      // 设备信息卡（DAYU200 上用于确认运行环境与断点档位）
+      Row({ space: 10 }) {
+        Text(`设备：${this.deviceType}`)
+          .fontSize(12)
+        Text(`API：${this.apiVersion}`)
+          .fontSize(12)
+        Text(this.osName)
+          .fontSize(12)
+          .layoutWeight(1)
+          .maxLines(1)
+          .textOverflow({ overflow: TextOverflow.Ellipsis })
+      }
+      .width('100%')
+      .padding(8)
+      .backgroundColor('#E8F0FE')
+      .borderRadius(8)
+
+      // 画布演示区
+      Column({ space: 4 }) {
+        Text(this.sceneTitle)
+          .fontSize(13)
+          .fontColor('#333333')
+          .width('100%')
+        Canvas(this.context)
+          .width('100%')
+          .layoutWeight(1)
+          .backgroundColor('#FAFAFA')
+          .borderRadius(8)
+          .onReady(() => {
+            LogUtil.info('Index', `Canvas 就绪：${this.context.width}x${this.context.height}`);
+            this.runScene(1);
+          })
+      }
+      .width('100%')
+      .height(280)
+
+      if (this.bp === 'sm') {
+        // 窄屏：上下单栏
+        Scroll() {
+          this.buttonsArea()
+        }
+        .width('100%')
+        .height(180)
+        .scrollBar(BarState.Auto)
+        this.logArea()
+      } else {
+        // 宽屏：左按钮右日志双栏
+        Row({ space: 12 }) {
+          Column() {
+            Scroll() {
+              this.buttonsArea()
+            }
+            .width('100%')
+            .scrollBar(BarState.Auto)
+          }
+          .width('38%')
+
+          Column() {
+            this.logArea()
+          }
+          .width('62%')
+        }
+        .layoutWeight(1)
+        .alignItems(VerticalAlign.Top)
+      }
+    }
+    .padding(16)
+    .width('100%')
+    .height('100%')
+    .onAreaChange((_oldArea: Area, newArea: Area) => {
+      const widthVp: number = Number(newArea.width);
+      const next: Breakpoint = DeviceUtil.getBreakpoint(widthVp);
+      if (next !== this.bp) {
+        this.bp = next;
+        LogUtil.info('Index', `窗口宽度 ${widthVp.toFixed(0)}vp，断点切换为 ${next}`);
+      }
+    })
+  }
+}

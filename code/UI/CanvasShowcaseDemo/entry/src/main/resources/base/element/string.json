@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Canvas gradient, pattern and matrix demo module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Canvas gradient, pattern and matrix demo"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "CanvasShowcaseDemo"
+    }
+  ]
+}
