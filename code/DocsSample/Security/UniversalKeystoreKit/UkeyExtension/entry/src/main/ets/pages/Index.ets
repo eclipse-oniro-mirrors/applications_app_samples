@@ -14,7 +14,6 @@
  */
 
 import { huks, huksExternalCrypto } from '@kit.UniversalKeystoreKit';
-import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const DOMAIN: number = 0xFF00;
@@ -42,43 +41,42 @@ struct Index {
 
       Scroll() {
         Column({ space: 10 }) {
-          // API 22 基础能力
-          Text('API 22 基础能力')
+          Text($r('app.string.api_22_title'))
             .fontSize(18)
             .fontWeight(FontWeight.Medium)
-            .fontColor('#007DFF')
+            .fontColor($r('app.color.section_title_color'))
             .margin({ top: 10, bottom: 5 })
 
-          this.featureButton('注册Provider', () => this.registerProvider())
-          this.featureButton('注销单个Provider', () => this.unregisterSingle())
-          this.featureButton('批量注销Provider', () => this.unregisterAll())
-          this.featureButton('打开资源', () => this.openResource())
-          this.featureButton('关闭资源', () => this.closeResource())
-          this.featureButton('查询PIN认证状态', () => this.queryPinAuthState())
+          this.featureButton($r('app.string.register_provider'), () => this.registerProvider())
+          this.featureButton($r('app.string.unregister_single'), () => this.unregisterSingle())
+          this.featureButton($r('app.string.unregister_all'), () => this.unregisterAll())
+          this.featureButton($r('app.string.open_resource'), () => this.openResource())
+          this.featureButton($r('app.string.close_resource'), () => this.closeResource())
+          this.featureButton($r('app.string.query_pin_auth_state'), () => this.queryPinAuthState())
 
-          // API 26.0.0 增强能力
-          Text('API 26.0.0 增强能力')
+          Text($r('app.string.api_26_title'))
             .fontSize(18)
             .fontWeight(FontWeight.Medium)
-            .fontColor('#007DFF')
+            .fontColor($r('app.color.section_title_color'))
             .margin({ top: 20, bottom: 5 })
 
-          this.featureButton('注册Provider与定制化认证UI', () => this.registerProviderWithAuthUI())
-          this.featureButton('清除PIN认证状态', () => this.clearPinAuthState())
-          this.featureButton('获取资源ID', () => this.getResourceId())
-          this.featureButton('属性设置', () => this.setProperty())
-          this.featureButton('密钥生成', () => this.extensionKeyGeneration())
-          this.featureButton('公钥导出', () => this.extensionKeyExport())
-          this.featureButton('密钥导入', () => this.extensionKeyImport())
+          this.featureButton($r('app.string.register_provider_with_auth_ui'),
+            () => this.registerProviderWithAuthUI())
+          this.featureButton($r('app.string.clear_pin_auth_state'), () => this.clearPinAuthState())
+          this.featureButton($r('app.string.get_resource_id'), () => this.getResourceId())
+          this.featureButton($r('app.string.set_property'), () => this.setProperty())
+          this.featureButton($r('app.string.extension_key_generation'), () => this.extensionKeyGeneration())
+          this.featureButton($r('app.string.extension_key_export'), () => this.extensionKeyExport())
+          this.featureButton($r('app.string.extension_key_import'), () => this.extensionKeyImport())
 
-          // API 26.0.1 新增能力
-          Text('API 26.0.1 新增能力')
+          Text($r('app.string.api_26_1_title'))
             .fontSize(18)
             .fontWeight(FontWeight.Medium)
-            .fontColor('#007DFF')
+            .fontColor($r('app.color.section_title_color'))
             .margin({ top: 20, bottom: 5 })
 
-          this.featureButton('注册UkeyAuthExtensionAbility', () => this.registerUkeyAuthExtension())
+          this.featureButton($r('app.string.register_ukey_auth_extension'),
+            () => this.registerUkeyAuthExtension())
         }
         .padding(15)
       }
@@ -90,14 +88,14 @@ struct Index {
   }
 
   @Builder
-  featureButton(title: string, action: () => void) {
+  featureButton(title: Resource, action: () => void) {
     Button(title)
       .width('100%')
       .height(45)
       .fontSize(16)
       .margin({ bottom: 5 })
       .onClick(() => {
-        hilog.info(DOMAIN, TAG, `featureButton click: ${title}`);
+        hilog.info(DOMAIN, TAG, 'featureButton click');
         action();
       })
   }
@@ -288,7 +286,7 @@ struct Index {
       });
       await huksExternalCrypto.openResource(resourceId, []);
       const properties: huks.HuksParam[] = [
-        { tag: huks.HuksTag.HUKS_TAG_KEY_CLASS, value: huks.HuksKeyClass.HUKS_KEY_CLASS_EXTENSION },
+        { tag: huks.HuksTag.HUKS_TAG_KEY_CLASS, value: huks.HuksKeyClassType.HUKS_KEY_CLASS_EXTENSION },
         { tag: huks.HuksTag.HUKS_TAG_ALGORITHM, value: huks.HuksKeyAlg.HUKS_ALG_RSA },
         { tag: huks.HuksTag.HUKS_TAG_KEY_SIZE, value: huks.HuksKeySize.HUKS_RSA_KEY_SIZE_2048 },
         { tag: huks.HuksTag.HUKS_TAG_PURPOSE, value: huks.HuksKeyPurpose.HUKS_KEY_PURPOSE_SIGN }
@@ -313,7 +311,7 @@ struct Index {
       });
       await huksExternalCrypto.openResource(resourceId, []);
       const exportProperties: huks.HuksParam[] = [
-        { tag: huks.HuksTag.HUKS_TAG_KEY_CLASS, value: huks.HuksKeyClass.HUKS_KEY_CLASS_EXTENSION }
+        { tag: huks.HuksTag.HUKS_TAG_KEY_CLASS, value: huks.HuksKeyClassType.HUKS_KEY_CLASS_EXTENSION }
       ];
       const exportOptions: huks.HuksOptions = { properties: exportProperties };
       const data = await huks.exportKeyItem(resourceId, exportOptions);
@@ -335,7 +333,7 @@ struct Index {
       });
       await huksExternalCrypto.openResource(resourceId, []);
       const properties: huks.HuksParam[] = [
-        { tag: huks.HuksTag.HUKS_TAG_KEY_CLASS, value: huks.HuksKeyClass.HUKS_KEY_CLASS_EXTENSION },
+        { tag: huks.HuksTag.HUKS_TAG_KEY_CLASS, value: huks.HuksKeyClassType.HUKS_KEY_CLASS_EXTENSION },
         { tag: huks.HuksTag.HUKS_TAG_ALGORITHM, value: huks.HuksKeyAlg.HUKS_ALG_RSA },
         { tag: huks.HuksTag.HUKS_TAG_KEY_SIZE, value: huks.HuksKeySize.HUKS_RSA_KEY_SIZE_2048 },
         { tag: huks.HuksTag.HUKS_TAG_PURPOSE, value: huks.HuksKeyPurpose.HUKS_KEY_PURPOSE_ENCRYPT }

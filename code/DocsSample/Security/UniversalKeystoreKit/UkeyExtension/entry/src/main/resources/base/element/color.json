@@ -3,6 +3,10 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "section_title_color",
+      "value": "#007DFF"
     }
   ]
 }
