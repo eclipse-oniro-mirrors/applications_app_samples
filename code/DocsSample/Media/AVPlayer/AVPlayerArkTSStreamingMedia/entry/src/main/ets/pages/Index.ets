@@ -124,38 +124,52 @@ struct Index {
     // this.avPlayer.url = "http://example/abc.mpd";
 
     // 情况四：通过setMediaSource设置自定义头域及播放优选参数实现初始播放参数设置，以流媒体HTTP点播为例
-    /*
-    [Start setMediaSource]
-    let mediaSource : media.MediaSource = media.createMediaSourceWithUrl("http://example/abc.mp4", {"":""});
+    // this.setMediaSource();
+
+    // 情况五：HLS切码率
+    // this.availableBitrates();
+
+    // 情况六：DASH切换音视频轨道
+    // this.dashSelectTrack();
+
+  }
+
+  setMediaSource() {
+    // [Start setMediaSource]
+    let mediaSource : media.MediaSource = media.createMediaSourceWithUrl("http://example/abc.mpd",  {"User-Agent" : "User-Agent-Value"});
     // 设置视频宽度1920px、高度1080px起播。
     let playbackStrategy : media.PlaybackStrategy = {preferredWidth: 1920, preferredHeight: 1080};
     // 为avPlayer设置媒体来源和播放策略。
-    this.avPlayer.setMediaSource(mediaSource, playbackStrategy);
-    [End setMediaSource]
-    * */
+    this.avPlayer?.setMediaSource(mediaSource, playbackStrategy);
+    // [End setMediaSource]
+  }
 
-    // 情况五：HLS切码率
-    /*
+  availableBitrates() {
+    if (this.avPlayer == null) {
+      return;
+    }
     this.avPlayer.url = "https://example/abc.m3u8";
     let bitrate: number = 0;
     // 监听当前HLS协议流可用的码率
     // [Start availableBitrates]
-    this.avPlayer.on('availableBitrates', (bitrates: Array<number>) => {
+    this.avPlayer?.on('availableBitrates', (bitrates: Array<number>) => {
       console.info('availableBitrates called, and availableBitrates length is: ' + bitrates.length);
       this.bitrate = bitrates[0]; // 保存需要切换的码率
     })
     // [End availableBitrates]
     // 监听码率设置是否生效
-    this.avPlayer.on('bitrateDone', (bitrate: number) => {
+    this.avPlayer?.on('bitrateDone', (bitrate: number) => {
       console.info('bitrateDone called, and bitrate value is: ' + bitrate);
     })
-    * */
+  }
 
-    // 情况六：DASH切换音视频轨道
-    /*
+  dashSelectTrack() {
+    if (this.avPlayer == null) {
+      return;
+    }
     this.avPlayer.url = "http://example/abc.mpd";
     // [Start getTrackDescription] 
-    this.avPlayer.getTrackDescription((error: BusinessError, arrList: Array<media.MediaDescription>) => {
+    this.avPlayer?.getTrackDescription((error: BusinessError, arrList: Array<media.MediaDescription>) => {
       if (arrList != null) {
         for (let i = 0; i < arrList.length; i++) {
           let propertyIndex: Object = arrList[i][media.MediaDescriptionKey.MD_KEY_TRACK_INDEX];
@@ -171,7 +185,6 @@ struct Index {
       }
     });
     // [End getTrackDescription]
-    * */
   }
 
   // HLS切换码率
