@@ -2,7 +2,7 @@
 
 ## 介绍
 
-本示例基于AudioRender、AudioCapturer等能力，实现了多种方式起流录制以及音频耳返等功能，包含了功能调用接口的完整链路。
+本示例基于AudioRender、AudioCapturer等能力，实现了多种方式起流录制、音频耳返以及超低时延模式（AUDIOSTREAM_LATENCY_MODE_ULTRA_FAST）采集等功能，包含了功能调用接口的完整链路。
 
 ## 效果图预览
 
@@ -16,6 +16,10 @@
 - 点击'创建录制流（使用清零结构体初始化）'按钮，即可实现录制的全流程，与第一个按钮的流程差异在于使用了OH_AudioCapturer_Callbacks的方式设置回调函数，回调函数的初始化通过清零结构体进行。
 - 点击'创建耳返录制流'按钮，即可实现耳返录制的全流程，包括创建构造器、配置流参数、设置回调、构造录制流、设置低时延模式、销毁录制流以及注销回调监听等。
 - 点击'创建采集回环音效的录制流'按钮，即可通过`OH_AudioStreamBuilder_SetCapturerLoopbackEffectEnabled`创建用于采集回环音效数据的录制流。
+- 点击'查询超低时延录制支持'按钮，即可通过`OH_AudioStreamManager_IsUltraFastRecordingSupported`查询当前设备在指定流参数下是否支持超低时延录制。
+- 点击'创建超低时延录制流'按钮，即可实现超低时延录制的全流程，包括创建构造器、设置流参数与超低时延模式、配置读数据回调、构造并启动录制流，并通过`OH_AudioCapturer_GetFastStatus`展示实际工作状态（资源不足或设备不支持时系统自动回落到低时延或普通模式）。
+- 点击'查询超低时延流状态'按钮，即可查询录制流当前是否工作在超低时延状态及累计读入数据统计。
+- 点击'停止超低时延录制流'按钮，即可停止并释放超低时延录制流。
 - 点击'启动音频内录'按钮，即可通过`OH_AudioStreamBuilder_SetPlaybackCaptureMode`配置内录采集模式，并通过`OH_AudioCapturer_RequestPlaybackCaptureStart`请求启动音频内录；可通过'查询音频内录状态'和'停止音频内录'查看或释放内录流。
 - 点击'创建耳返播放流'按钮，即可实现耳返播放的全流程，包括创建构造器、配置流参数、设置回调、构造录制流、设置低时延模式、销毁录制流以及注销回调监听等。
 
@@ -56,6 +60,8 @@
 ## 相关权限
 
 麦克风使用权限：ohos.permission.MICROPHONE
+
+超低时延音频流权限（受限权限）：ohos.permission.USE_ULTRA_FAST_AUDIO_STREAM
 
 音频内录由`OH_AudioCapturer_RequestPlaybackCaptureStart`触发系统侧授权校验，授权结果通过异步回调返回。
 

@@ -212,6 +212,66 @@ struct AudioCaptureDemo {
               }
             })
 
+          Button('查询超低时延录制支持')
+            .width('90%')
+            .height(48)
+            .margin({ bottom: 12 })
+            .onClick(() => {
+              try {
+                let result: string = testNapi.QueryUltraFastSupport();
+                this.message = '查询完成';
+                this.updateNapiLog(result);
+              } catch (err) {
+                this.message = '查询失败';
+                this.updateNapiLog('错误: ' + JSON.stringify(err));
+              }
+            })
+
+          Button('创建超低时延录制流')
+            .width('90%')
+            .height(48)
+            .margin({ bottom: 12 })
+            .onClick(() => {
+              try {
+                let result: string = testNapi.CreateUltraFastCapturer();
+                this.message = result.includes('成功') ? '创建超低时延录制流成功' : '创建超低时延录制流失败';
+                this.updateNapiLog(result);
+              } catch (err) {
+                this.message = '创建超低时延录制流失败';
+                this.updateNapiLog('错误: ' + JSON.stringify(err));
+              }
+            })
+
+          Button('查询超低时延流状态')
+            .width('90%')
+            .height(48)
+            .margin({ bottom: 12 })
+            .onClick(() => {
+              try {
+                let result: string = testNapi.GetUltraFastStatus();
+                this.message = '查询完成';
+                this.updateNapiLog(result);
+              } catch (err) {
+                this.message = '查询失败';
+                this.updateNapiLog('错误: ' + JSON.stringify(err));
+              }
+            })
+
+          Button('停止超低时延录制流')
+            .width('90%')
+            .height(48)
+            .margin({ bottom: 12 })
+            .onClick(() => {
+              try {
+                let result: string = testNapi.StopUltraFastCapturer();
+                this.message = result.includes('成功') ? '已停止' : '停止失败';
+                this.updateNapiLog(result);
+              } catch (err) {
+                this.message = '停止失败';
+                this.updateNapiLog('错误: ' + JSON.stringify(err));
+              }
+            })
+
           Text('音频内录（Playback Capture）')
             .fontSize(16)
             .fontWeight(600)

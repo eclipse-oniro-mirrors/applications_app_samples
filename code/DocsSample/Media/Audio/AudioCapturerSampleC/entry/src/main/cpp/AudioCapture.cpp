@@ -18,6 +18,7 @@
 #include "ohaudio/native_audiorenderer.h"
 // [Start header_file]
 #include <ohaudio/native_audiocapturer.h>
+#include <ohaudio/native_audio_stream_manager.h>
 #include <ohaudio/native_audiostreambuilder.h>
 // [End header_file]
 #include <atomic>
@@ -26,9 +27,6 @@
 #include <mutex>
 #include <sstream>
 #include <string>
-
-extern "C" OH_AudioStream_Result OH_AudioStreamBuilder_SetCapturerLoopbackEffectEnabled(
-    OH_AudioStreamBuilder* builder, bool enabled) __attribute__((weak));
 
 namespace {
 // [Start PlaybackCaptureConstants]
@@ -69,6 +67,26 @@ const char* PlaybackCaptureStateToText(int32_t state)
     }
 }
 // [End PlaybackCaptureStateToText]
+
+// [Start UltraFastGlobalState]
+std::mutex g_ultraFastMutex;
+OH_AudioCapturer* g_ultraFastCapturer = nullptr;
+std::atomic<uint64_t> g_ultraFastReadBytes{0};
+// [End UltraFastGlobalState]
+
+const char* FastStatusToText(OH_AudioStream_FastStatus status)
+{
+    switch (status) {
+        case AUDIOSTREAM_FASTSTATUS_NORMAL:
+            return "NORMAL（普通模式，超低时延回落）";
+        case AUDIOSTREAM_FASTSTATUS_FAST:
+            return "FAST（低时延模式，超低时延回落）";
+        case AUDIOSTREAM_FASTSTATUS_ULTRA_FAST:
+            return "ULTRA_FAST（超低时延模式）";
+        default:
+            return "UNKNOWN";
+    }
+}
 } // namespace
 
 // [Start Set_AudioCallbackFunction]
@@ -480,6 +498,164 @@ napi_value CreateLowLatencyModeCapturer(napi_env env, napi_callback_info info)
     return retVal;
 }
 
+// [Start OnUltraFastReadData]
+void MyOnUltraFastReadData(
+    OH_AudioCapturer* capturer,
+    void* userData,
+    void* audioData,
+    int32_t audioDataSize)
+{
+    if (audioData == nullptr || audioDataSize <= 0) {
+        return;
+    }
+    // 超低时延模式下读数据回调触发频繁，此处仅统计数据，请避免任何耗时操作。
+    g_ultraFastReadBytes.fetch_add(static_cast<uint64_t>(audioDataSize));
+}
+// [End OnUltraFastReadData]
+
+// [Start QueryUltraFastSupport]
+napi_value QueryUltraFastSupport(napi_env env, napi_callback_info info)
+{
+    std::stringstream ss;
+    OH_AudioStreamManager* streamManager = nullptr;
+    OH_AudioCommon_Result ret = OH_AudioManager_GetAudioStreamManager(&streamManager);
+    if (ret != AUDIOCOMMON_RESULT_SUCCESS || streamManager == nullptr) {
+        ss << "获取 OH_AudioStreamManager 失败，返回码: " << ret;
+        return CreateStringResult(env, ss.str());
+    }
+
+    OH_AudioStreamInfo streamInfo;
+    streamInfo.samplingRate = 48000;
+    streamInfo.channelLayout = CH_LAYOUT_STEREO;
+    streamInfo.encodingType = AUDIOSTREAM_ENCODING_TYPE_RAW;
+    streamInfo.sampleFormat = AUDIOSTREAM_SAMPLE_S16LE;
+
+    // [Start IsUltraFastRecordingSupported]
+    bool supported = false;
+    OH_AudioCommon_Result queryRet = OH_AudioStreamManager_IsUltraFastRecordingSupported(
+        streamManager, &streamInfo, AUDIOSTREAM_SOURCE_TYPE_MIC, &supported);
+    // [End IsUltraFastRecordingSupported]
+    if (queryRet != AUDIOCOMMON_RESULT_SUCCESS) {
+        ss << "查询超低时延录制支持失败，返回码: " << queryRet;
+        return CreateStringResult(env, ss.str());
+    }
+
+    ss << "超低时延录制支持查询\n";
+    ss << "流参数: 48000Hz / 双声道 / S16LE / RAW\n";
+    ss << "查询结果: " << (supported ? "支持" : "不支持");
+    return CreateStringResult(env, ss.str());
+}
+// [End QueryUltraFastSupport]
+
+// 创建并启动超低时延模式录制流
+napi_value CreateUltraFastCapturer(napi_env env, napi_callback_info info)
+{
+    std::stringstream ss;
+    std::lock_guard<std::mutex> lock(g_ultraFastMutex);
+    if (g_ultraFastCapturer != nullptr) {
+        ss << "超低时延录制流已存在，请先停止再创建";
+        return CreateStringResult(env, ss.str());
+    }
+
+    OH_AudioStreamBuilder* builder;
+    OH_AudioStreamBuilder_Create(&builder, AUDIOSTREAM_TYPE_CAPTURER);
+
+    // [Start latencyMode_UltraFast_Capture]
+    OH_AudioStreamBuilder_SetLatencyMode(builder, AUDIOSTREAM_LATENCY_MODE_ULTRA_FAST);
+    // [End latencyMode_UltraFast_Capture]
+
+    const int SAMPLING_RATE_48K = 48000;
+    OH_AudioStreamBuilder_SetSamplingRate(builder, SAMPLING_RATE_48K);
+    const int channelCount = 2;
+    OH_AudioStreamBuilder_SetChannelCount(builder, channelCount);
+    OH_AudioStreamBuilder_SetChannelLayout(builder, CH_LAYOUT_STEREO);
+    // [Start frameSize_UltraFast_Capture]
+    // 超低时延模式回调数据长度为2.5ms：48000Hz下帧长须精确为120帧，否则建流失败。
+    // [End frameSize_UltraFast_Capture]
+    OH_AudioStreamBuilder_SetFrameSizeInCallback(builder, 120);
+    OH_AudioStreamBuilder_SetSampleFormat(builder, AUDIOSTREAM_SAMPLE_S16LE);
+    OH_AudioStreamBuilder_SetEncodingType(builder, AUDIOSTREAM_ENCODING_TYPE_RAW);
+    OH_AudioStreamBuilder_SetCapturerInfo(builder, AUDIOSTREAM_SOURCE_TYPE_MIC);
+
+    // [Start SetCapturerReadDataCallback_UltraFast]
+    OH_AudioCapturer_OnReadDataCallback readDataCb = MyOnUltraFastReadData;
+    OH_AudioStreamBuilder_SetCapturerReadDataCallback(builder, readDataCb, nullptr);
+    // [End SetCapturerReadDataCallback_UltraFast]
+    OH_AudioCapturer_OnInterruptCallback interruptCb = MyOnInterruptEvent_NewAPI;
+    OH_AudioStreamBuilder_SetCapturerInterruptCallback(builder, interruptCb, nullptr);
+    OH_AudioCapturer_OnErrorCallback errorCb = MyOnError_NewAPI;
+    OH_AudioStreamBuilder_SetCapturerErrorCallback(builder, errorCb, nullptr);
+
+    OH_AudioStream_Result result = OH_AudioStreamBuilder_GenerateCapturer(builder, &g_ultraFastCapturer);
+    OH_AudioStreamBuilder_Destroy(builder);
+    if (result != AUDIOSTREAM_SUCCESS || g_ultraFastCapturer == nullptr) {
+        ss << "构造超低时延录制流失败，返回码: " << result;
+        return CreateStringResult(env, ss.str());
+    }
+
+    g_ultraFastReadBytes.store(0);
+    result = OH_AudioCapturer_Start(g_ultraFastCapturer);
+    if (result != AUDIOSTREAM_SUCCESS) {
+        OH_AudioCapturer_Release(g_ultraFastCapturer);
+        g_ultraFastCapturer = nullptr;
+        ss << "启动超低时延录制流失败，返回码: " << result
+           << "（请确认已申请麦克风与超低时延音频流权限）";
+        return CreateStringResult(env, ss.str());
+    }
+
+    ss << "创建并启动超低时延录制流成功\n";
+    ss << "时延模式: ULTRA_FAST\n";
+
+    // [Start GetFastStatus_UltraFast]
+    OH_AudioStream_FastStatus fastStatus = AUDIOSTREAM_FASTSTATUS_NORMAL;
+    OH_AudioCapturer_GetFastStatus(g_ultraFastCapturer, &fastStatus);
+    // [End GetFastStatus_UltraFast]
+    ss << "当前工作状态: " << FastStatusToText(fastStatus) << "\n";
+    ss << "提示: 资源不足或设备不支持时，系统会自动回落到低时延或普通模式。";
+    return CreateStringResult(env, ss.str());
+}
+
+// 查询超低时延录制流工作状态
+napi_value GetUltraFastStatus(napi_env env, napi_callback_info info)
+{
+    std::stringstream ss;
+    std::lock_guard<std::mutex> lock(g_ultraFastMutex);
+    if (g_ultraFastCapturer == nullptr) {
+        ss << "当前无超低时延录制流，请先创建";
+        return CreateStringResult(env, ss.str());
+    }
+
+    OH_AudioStream_FastStatus fastStatus = AUDIOSTREAM_FASTSTATUS_NORMAL;
+    OH_AudioStream_Result result = OH_AudioCapturer_GetFastStatus(g_ultraFastCapturer, &fastStatus);
+    if (result != AUDIOSTREAM_SUCCESS) {
+        ss << "查询工作状态失败，返回码: " << result;
+        return CreateStringResult(env, ss.str());
+    }
+
+    ss << "当前工作状态: " << FastStatusToText(fastStatus) << "\n";
+    ss << "已读入数据: " << g_ultraFastReadBytes.load() << " 字节";
+    return CreateStringResult(env, ss.str());
+}
+
+// 停止并释放超低时延录制流
+napi_value StopUltraFastCapturer(napi_env env, napi_callback_info info)
+{
+    std::stringstream ss;
+    std::lock_guard<std::mutex> lock(g_ultraFastMutex);
+    if (g_ultraFastCapturer == nullptr) {
+        ss << "当前无超低时延录制流，无需停止";
+        return CreateStringResult(env, ss.str());
+    }
+
+    OH_AudioCapturer_Stop(g_ultraFastCapturer);
+    OH_AudioCapturer_Release(g_ultraFastCapturer);
+    g_ultraFastCapturer = nullptr;
+
+    ss << "停止并释放超低时延录制流成功\n";
+    ss << "累计读入数据: " << g_ultraFastReadBytes.load() << " 字节";
+    return CreateStringResult(env, ss.str());
+}
+
 // 创建耳返播放流
 napi_value CreateAudioRendererLoopback(napi_env env, napi_callback_info info)
 {
@@ -784,6 +960,10 @@ static napi_value Init(napi_env env, napi_value exports)
          napi_default, nullptr},
         {"CreateLowLatencyModeCapturer", nullptr, CreateLowLatencyModeCapturer, nullptr, nullptr, nullptr, napi_default,
          nullptr},
+        {"QueryUltraFastSupport", nullptr, QueryUltraFastSupport, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"CreateUltraFastCapturer", nullptr, CreateUltraFastCapturer, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"GetUltraFastStatus", nullptr, GetUltraFastStatus, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"StopUltraFastCapturer", nullptr, StopUltraFastCapturer, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"CreateAudioRendererLoopback", nullptr, CreateAudioRendererLoopback, nullptr, nullptr, nullptr, napi_default,
          nullptr},
         {"SetAudioCapturerMuteHint", nullptr, SetAudioCapturerMuteHint, nullptr, nullptr, nullptr, napi_default,
