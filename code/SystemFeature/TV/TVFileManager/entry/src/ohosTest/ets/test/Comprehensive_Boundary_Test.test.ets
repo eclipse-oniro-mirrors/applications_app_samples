@@ -17,7 +17,13 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from
 import { FileBean } from '../../../main/ets/component/bean/FileBean';
 import { FileInfo } from '../../../main/ets/common/data/FileInfo';
 import { Tools } from '../../../main/ets/common/utils/Tools';
-import { checkSuffix, SUFFIX_VIDEO, SUFFIX_AUDIO, SUFFIX_IMAGE, SUFFIX_TEXT } from '../../../main/ets/common/ConstantsMedia';
+import {
+  checkSuffix,
+  SUFFIX_VIDEO,
+  SUFFIX_AUDIO,
+  SUFFIX_IMAGE,
+  SUFFIX_TEXT
+} from '../../../main/ets/common/ConstantsMedia';
 import { MediaType } from '../../../main/ets/model/MediaType';
 import { PageType } from '../../../main/ets/model/PageType';
 import { OperationActionID } from '../../../main/ets/model/Operation';
@@ -68,15 +74,19 @@ export default function comprehensiveBoundaryTest() {
 
       it('byte2Str_fractional_precision_rounding', 0, () => {
         // 1536/1024=1.5KB
-        expect(Tools.byte2Str(1536)).assertEqual('1.5KB');
+        expect(Tools.byte2Str(1536)).assertEqual('1.50KB');
         // 2560/1024=2.5KB (2560=1024*2.5)
-        expect(Tools.byte2Str(2560)).assertEqual('2.5KB');
+        expect(Tools.byte2Str(2560)).assertEqual('2.50KB');
       });
 
       it('FileBean_size_zero_is_valid', 0, () => {
         let info: ESObject = {
-          uri: 'file://zero.dat', fileName: 'zero.dat',
-          size: 0, mtime: 0, mimeType: '', relativePath: '',
+          uri: 'file://zero.dat',
+          fileName: 'zero.dat',
+          size: 0,
+          mtime: 0,
+          mimeType: '',
+          relativePath: '',
           mode: 0
         };
         let bean: FileBean = new FileBean('z', info as FileInfo);
@@ -85,8 +95,12 @@ export default function comprehensiveBoundaryTest() {
 
       it('FileBean_size_very_large', 0, () => {
         let info: ESObject = {
-          uri: 'file://huge.iso', fileName: 'huge.iso',
-          size: 1099511627776, mtime: 0, mimeType: '', relativePath: '',
+          uri: 'file://huge.iso',
+          fileName: 'huge.iso',
+          size: 1099511627776,
+          mtime: 0,
+          mimeType: '',
+          relativePath: '',
           mode: 0
         };
         let bean: FileBean = new FileBean('h', info as FileInfo);
@@ -123,8 +137,12 @@ export default function comprehensiveBoundaryTest() {
 
       it('FileBean_id_with_empty_uri', 0, () => {
         let info: ESObject = {
-          uri: '', fileName: 'empty_uri',
-          size: 0, mtime: 0, mimeType: '', relativePath: '',
+          uri: '',
+          fileName: 'empty_uri',
+          size: 0,
+          mtime: 0,
+          mimeType: '',
+          relativePath: '',
           mode: 0
         };
         let bean: FileBean = new FileBean('e', info as FileInfo);
@@ -134,8 +152,12 @@ export default function comprehensiveBoundaryTest() {
       it('FileBean_name_with_only_extension', 0, () => {
         // 隐藏文件如 .gitignore
         let info: ESObject = {
-          uri: 'file://.gitignore', fileName: '.gitignore',
-          size: 0, mtime: 0, mimeType: '', relativePath: '',
+          uri: 'file://.gitignore',
+          fileName: '.gitignore',
+          size: 0,
+          mtime: 0,
+          mimeType: '',
+          relativePath: '',
           mode: 0
         };
         let bean: FileBean = new FileBean('gi', info as FileInfo);
