@@ -409,7 +409,7 @@ struct Index {
     this.surfaceW = this.windowWidth * SURFACE_W;
     this.surfaceH = this.surfaceW / SURFACE_H;
     this.isPaused = true;
-    this.context = getContext(this) as common.UIAbilityContext;
+    this.context = this.getUIContext().getHostContext() as common.UIAbilityContext;
   }
 
   aboutToDisappear() {

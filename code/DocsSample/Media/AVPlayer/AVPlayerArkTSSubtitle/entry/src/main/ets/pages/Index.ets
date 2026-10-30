@@ -133,6 +133,7 @@ struct Index {
     // [End addSubtitleFromFd]
   }
 
+  // <!--  -->
   // [Start offSubtitleUpdate]
   // (可选)当需要不显示字幕的时候，使用视频播放的AVPlayer实例注销字幕回调函数。
   async avTurnOffSubtitle() {
@@ -157,6 +158,17 @@ struct Index {
         console.info(`${this.tag}: avPause==`);
       } catch (e) {
         console.error(`${this.tag}: avPause== ${JSON.stringify(e)}`);
+      }
+    }
+  }
+
+  avStop(): void {
+    if (this.avPlayer) {
+      try {
+        this.avPlayer.stop();
+        console.info(`${this.tag}: avStop==`);
+      } catch (e) {
+        console.error(`${this.tag}: avStop== ${JSON.stringify(e)}`);
       }
     }
   }
