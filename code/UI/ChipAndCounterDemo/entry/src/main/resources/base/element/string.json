@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Chip, ChipV2, ChipGroupV2, CounterV2 and SegmentButtonV2 demo module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Chip and counter advanced components demo"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "ChipAndCounterDemo"
+    }
+  ]
+}
