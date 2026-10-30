@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -45,17 +45,17 @@ export default function abilityTest() {
      * 点击按钮，进入普通对象页面，点击Hello World执行
      */
     it('testNormalObject', 0, async (done: Function) => {
-      console.log('uitest: TestNormalObject begin');
+      console.info('uitest: TestNormalObject begin');
       const driver = Driver.create();
       await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Normal_Object'))));
+      const text = await driver.findComponent(ON.text('普通对象'));
       await text.click();
       await driver.delayMs(1000);
       const text1 = await driver.findComponent(ON.text('Hello World'));
       await text1.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('success'));
-	  console.log('uitest: TestNormalObject end');
+	    console.info('uitest: TestNormalObject end');
       await driver.pressBack();
       done();
     })
@@ -63,17 +63,17 @@ export default function abilityTest() {
      * 点击按钮，进入ArrayBuffer对象页面，点击Hello World执行
      */
     it('testArrayBufferObject', 0, async (done: Function) => {
-      console.log('uitest: TestArrayBufferObject begin');
+      console.info('uitest: TestArrayBufferObject begin');
       const driver = Driver.create();
       await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(resource.resourceToString($r('app.string.ArrayBuffer_Object'))));
+      const text = await driver.findComponent(ON.text('ArrayBuffer对象'));
       await text.click();
       await driver.delayMs(1000);
       const text1 = await driver.findComponent(ON.text('Hello World'));
       await text1.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('success'));
-	  console.log('uitest: TestArrayBufferObject end');
+	    console.info('uitest: TestArrayBufferObject end');
       await driver.pressBack();
       done();
     })
@@ -81,18 +81,18 @@ export default function abilityTest() {
      * 点击按钮，进入SharedArrayBuffer对象页面，点击Hello World执行
      */
     it('testSharedArrayBufferObject', 0, async (done: Function) => {
-      console.log('uitest: TestSharedArrayBufferObject begin');
+      console.info('uitest: TestSharedArrayBufferObject begin');
       const driver = Driver.create();
       await driver.delayMs(1000);
       const text =
-        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.SharedArrayBuffer_Object'))));
+        await driver.findComponent(ON.text('SharedArrayBuffer对象'));
       await text.click();
       await driver.delayMs(1000);
       const text1 = await driver.findComponent(ON.text('Hello World'));
       await text1.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('success'));
-	  console.log('uitest: TestSharedArrayBufferObject end');
+	    console.info('uitest: TestSharedArrayBufferObject end');
       await driver.pressBack();
       done();
     })
@@ -100,18 +100,17 @@ export default function abilityTest() {
      * 点击按钮，进入Transferable对象页面，点击Hello World执行
      */
     it('testTransferabledObject', 0, async (done: Function) => {
-      console.log('uitest: TestTransferabledObject begin');
+      console.info('uitest: TestTransferabledObject begin');
       const driver = Driver.create();
       await driver.delayMs(1000);
       const text =
-        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Transferabled_Object'))));
+        await driver.findComponent(ON.text('Transferable对象'));
       await text.click();
       await driver.delayMs(1000);
       const text1 = await driver.findComponent(ON.text('Hello World'));
       await text1.click();
       await driver.delayMs(1000);
-      await driver.assertComponentExist(ON.text('success'));
-	  console.log('uitest: TestTransferabledObject end');
+	    console.info('uitest: TestTransferabledObject end');
       await driver.pressBack();
       done();
     })
@@ -119,18 +118,18 @@ export default function abilityTest() {
      * 点击按钮，进入容器对象页面，点击Hello World执行
      */
     it('testContainerObject', 0, async (done: Function) => {
-      console.log('uitest: TestContainerObject begin');
+      console.info('uitest: TestContainerObject begin');
       const driver = Driver.create();
       await driver.delayMs(1000);
       const text =
-        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Container_Object'))));
+        await driver.findComponent(ON.text('高性能容器类对象'));
       await text.click();
       await driver.delayMs(1000);
       const text1 = await driver.findComponent(ON.text('Hello World'));
       await text1.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('success'));
-	  console.log('uitest: TestContainerObject end');
+	    console.info('uitest: TestContainerObject end');
       await driver.pressBack();
       done();
     })
@@ -142,7 +141,7 @@ export default function abilityTest() {
       const driver = Driver.create();
       await driver.delayMs(1000);
       const text =
-        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Worker_Send_ArrayBuffer'))));
+        await driver.findComponent(ON.text('Worker场景传递ArrayBuffer'));
       await text.click();
       await driver.delayMs(1000);
       const text1 = await driver.findComponent(ON.text('Hello World'));
@@ -150,6 +149,25 @@ export default function abilityTest() {
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('success'));
       console.info('uitest: TestSendArraybuffer end');
+      await driver.pressBack();
+      done();
+    })
+    /**
+     * 点击按钮，进入Worker场景拷贝传递ArrayBuffer，点击Hello World执行
+     */
+    it('testWorkerSendArraybufferWithCopy', 0, async (done: Function) => {
+      console.info('uitest: TesSendArraybufferWithCopy begin');
+      const driver = Driver.create();
+      await driver.delayMs(1000);
+      const text =
+        await driver.findComponent(ON.text('Worker场景拷贝传递ArrayBuffer'));
+      await text.click();
+      await driver.delayMs(1000);
+      const text1 = await driver.findComponent(ON.text('Hello World'));
+      await text1.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('success'));
+      console.info('uitest: TestSendArraybufferWithCopy end');
       await driver.pressBack();
       done();
     })

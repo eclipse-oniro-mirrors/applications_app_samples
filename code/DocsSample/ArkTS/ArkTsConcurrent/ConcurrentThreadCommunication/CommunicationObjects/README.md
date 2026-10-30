@@ -51,25 +51,26 @@ entry/src/
  │   │   ├── entryability
  │   │   ├── entrybackupability
  │   │   ├── managers
- │   │       ├── ArrayBufferObject.ets       // ArrayBuffer对象示例代码
- │   │       ├── ContainerObject.ets         // 容器对象示例代码
- │   │       ├── NormalObject.ets            // 普通对象示例代码
- │   │       ├── pixelMapTest.ets            // Transferable对象示例代码
- │   │       ├── SharedArrayBufferObject.ets // SharedArrayBuffer对象示例代码
- │   │       ├── Test.ets					 // 普通对象示例代码
- │   │       ├── TransferabledObject.ets     // Transferable对象示例代码
- │   │       ├── WorkerSendArrayBuffer.ets   // Worker发送ArrayBuffer示例代码
+ │   │       ├── ArrayBufferObject.ets               // ArrayBuffer对象示例代码
+ │   │       ├── ContainerObject.ets                 // 容器对象示例代码
+ │   │       ├── NormalObject.ets                    // 普通对象示例代码
+ │   │       ├── pixelMapTest.ets                    // Transferable对象示例代码
+ │   │       ├── SharedArrayBufferObject.ets         // SharedArrayBuffer对象示例代码
+ │   │       ├── Test.ets					         // 普通对象示例代码
+ │   │       ├── TransferabledObject.ets             // Transferable对象示例代码
+ │   │       ├── WorkerSendArrayBuffer.ets           // Worker发送ArrayBuffer示例代码
+ │   │       ├── WorkerSendArrayBufferWithCopy.ets   // Worker拷贝发送ArrayBuffer示例代码
  │   │   ├── pages
- │   │       ├── Index.ets                   // 首页
+ │   │       ├── Index.ets                           // 首页
  │   │   ├── util
- │   │       ├── CommonButton.ets 		     // 首页跳转UI
- │   │       ├── resource.ets 		         // 资源引用转换
+ │   │       ├── CommonButton.ets 		             // 首页跳转UI
+ │   │       ├── resource.ets 		                 // 资源引用转换
  │   ├── module.json5
  │   └── resources
  ├── ohosTest
  │   ├── ets
  │   │   ├── test
- │   │       ├── Ability.test.ets            // 自动化测试代码
+ │   │       ├── Ability.test.ets                    // 自动化测试代码
 ```
 
 ### 相关权限
