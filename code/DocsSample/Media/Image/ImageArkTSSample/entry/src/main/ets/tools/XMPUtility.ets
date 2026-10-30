@@ -166,9 +166,9 @@ export class XMPUtility {
   // [Start set_and_get_qualifier]
   async setAndGetQualifierValue(xmpMetadata: image.XMPMetadata): Promise<void> {
     try {
-      // 设置主标签 book:bookTitle。
+      // 设置主标签book:bookTitle。
       await xmpMetadata.setValue('book:bookTitle', image.XMPTagType.STRING, 'My Book Title');
-      // 为主标签添加限定符 book:lastUpdated。
+      // 为主标签添加限定符book:lastUpdated。
       await xmpMetadata.setValue('book:bookTitle/?book:lastUpdated', image.XMPTagType.STRING, '2024-01-15');
       console.info('Succeeded in setting tag and qualifier.');
 

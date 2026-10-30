@@ -42,7 +42,7 @@ export class ExifUtility {
     } else {
       info = 'getExif: The imageSourceApi is undefined.';
       console.info(info);
-      return info; // 如果 imageSourceApi 是 undefined，则直接返回信息。
+      return info; // 如果imageSourceApi是undefined，则直接返回信息。
     }
   }
   // [End get_exif]
@@ -74,7 +74,7 @@ export class ExifUtility {
     } else {
       info = 'modifyExif: The imageSourceApi is undefined.';
       console.info(info);
-      return info; // 如果 imageSourceApi 是 undefined，直接返回信息。
+      return info; // 如果imageSourceApi是undefined，直接返回信息。
     }
   }
   // [End modify_exif]
