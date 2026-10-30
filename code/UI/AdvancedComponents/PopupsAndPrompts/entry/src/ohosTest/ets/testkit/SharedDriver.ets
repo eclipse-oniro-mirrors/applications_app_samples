@@ -78,6 +78,15 @@ export async function clickText(text: string): Promise<void> {
   await delay(UI_DELAY);
 }
 
+export async function clickLastText(text: string): Promise<void> {
+  const components = await getDriver().findComponents(ON.text(text));
+  if (components.length === 0) {
+    throw new Error(`text not found: ${text}`);
+  }
+  await components[components.length - 1].click();
+  await delay(UI_DELAY);
+}
+
 export async function textOfId(id: string): Promise<string> {
   const component = await waitId(id);
   return await component.getText();

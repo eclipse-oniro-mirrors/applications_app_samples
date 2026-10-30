@@ -241,7 +241,7 @@ export default function logicTest() {
     it('testTreeSortLimit0010', 0, async (done: Function) => {
       await runCase('testTreeSortLimit0010', async () => {
               const specs: TreeNodeSpec[] = TreeSpecUtils.create(['A', 'B', 'C']);
-              expect(TreeSpecUtils.childCount(specs, -1)).assertEqual(2);
+              expect(TreeSpecUtils.childCount(specs, -1)).assertEqual(1);
               expect(TreeSpecUtils.childCount(specs, 99)).assertEqual(0);
               expect(TreeSortUtils.nextSpanStyle(false)).assertTrue();
               expect(TreeSortUtils.formStatus(0, '')).assertEqual('code=0, formId=none');

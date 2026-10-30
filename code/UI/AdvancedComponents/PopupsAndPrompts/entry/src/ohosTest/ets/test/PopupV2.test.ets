@@ -14,7 +14,7 @@
  */
 
 import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll } from '@ohos/hypium';
-import { clickId, clickText, runCase, startApp, textOfId, waitId } from '../testkit/SharedDriver';
+import { clickId, clickLastText, runCase, startApp, textOfId, waitId } from '../testkit/SharedDriver';
 
 const BUNDLE_NAME: string = 'com.samples.popupsandprompts';
 const ABILITY_NAME: string = 'EntryAbility';
@@ -69,7 +69,7 @@ export default function popupTest() {
       await runCase('testPopupsPopupConfirm0002', async () => {
         await startApp(BUNDLE_NAME, ABILITY_NAME);
         await clickId('cardPopupV2');
-        await clickText('Confirm');
+        await clickLastText('Confirm');
         expect(await textOfId('popupStatus')).assertContain('status=confirm');
         expect(await textOfId('popupStatus')).assertContain('confirm=1');
       }, done);
@@ -87,7 +87,7 @@ export default function popupTest() {
       await runCase('testPopupsPopupCancel0003', async () => {
         await startApp(BUNDLE_NAME, ABILITY_NAME);
         await clickId('cardPopupV2');
-        await clickText('Cancel');
+        await clickLastText('Cancel');
         expect(await textOfId('popupStatus')).assertContain('status=cancel');
         expect(await textOfId('popupStatus')).assertContain('cancel=1');
       }, done);

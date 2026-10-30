@@ -243,43 +243,63 @@ struct FoldSplitDemo {
         .width('100%')
         .padding({ left: 12, right: 12 })
 
-      Column() {
-        FoldSplitContainer({
-          primary: () => {
-            this.PrimaryRegion()
-          },
-          secondary: () => {
-            this.SecondaryRegion()
-          },
-          extra: () => {
-            this.ExtraRegion()
-          },
-          expandedLayoutOptions: {
-            horizontalSplitRatio: this.splitRatio,
-            verticalSplitRatio: PresetSplitRatio.LAYOUT_1V1,
-            extraRegionPosition: this.extraPosition,
-            isExtraRegionPerpendicular: this.perpendicular
-          },
-          hoverModeLayoutOptions: {
-            horizontalSplitRatio: this.splitRatio,
-            extraRegionPosition: this.extraPosition,
-            showExtraRegion: this.showExtraRegion
-          },
-          foldedLayoutOptions: {
-            verticalSplitRatio: this.foldedRatio
-          },
-          animationOptions: this.animationEnabled ? { duration: 300 } : null,
-          onHoverStatusChange: (status: HoverModeStatus) => {
-            this.hoverStatus = DeviceUtils.foldStatusName(status.foldStatus);
-            this.hoverDetail = `hover=${status.isHoverMode}, rotation=${status.appRotation}, window=${status.windowStatusType}`;
-            Logger.info(`onHoverStatusChange: ${this.hoverStatus}, ${this.hoverDetail}`);
-          }
-        })
+      if (this.foldable) {
+        Column() {
+          FoldSplitContainer({
+            primary: () => {
+              this.PrimaryRegion()
+            },
+            secondary: () => {
+              this.SecondaryRegion()
+            },
+            extra: () => {
+              this.ExtraRegion()
+            },
+            expandedLayoutOptions: {
+              horizontalSplitRatio: this.splitRatio,
+              verticalSplitRatio: PresetSplitRatio.LAYOUT_1V1,
+              extraRegionPosition: this.extraPosition,
+              isExtraRegionPerpendicular: this.perpendicular
+            },
+            hoverModeLayoutOptions: {
+              horizontalSplitRatio: this.splitRatio,
+              extraRegionPosition: this.extraPosition,
+              showExtraRegion: this.showExtraRegion
+            },
+            foldedLayoutOptions: {
+              verticalSplitRatio: this.foldedRatio
+            },
+            animationOptions: this.animationEnabled ? { duration: 300 } : null,
+            onHoverStatusChange: (status: HoverModeStatus) => {
+              this.hoverStatus = DeviceUtils.foldStatusName(status.foldStatus);
+              this.hoverDetail = `hover=${status.isHoverMode}, rotation=${status.appRotation}, ` +
+                `window=${status.windowStatusType}`;
+              Logger.info(`onHoverStatusChange: ${this.hoverStatus}, ${this.hoverDetail}`);
+            }
+          })
+        }
+        .id('foldRealContainer')
+        .height(240)
+        .width('100%')
+        .padding({ left: 12, right: 12 })
+      } else {
+        Column({ space: 8 }) {
+          Text('FoldSplitContainer is available on foldable devices')
+            .fontSize(14)
+            .fontColor('#666666')
+          Text('Use the simulation controls below to preview folded, hover, and expanded states.')
+            .fontSize(12)
+            .fontColor('#999999')
+            .textAlign(TextAlign.Center)
+        }
+        .id('foldRealContainer')
+        .height(240)
+        .width('100%')
+        .padding({ left: 12, right: 12 })
+        .justifyContent(FlexAlign.Center)
+        .backgroundColor('#F1F3F5')
+        .borderRadius(10)
       }
-      .id('foldRealContainer')
-      .height(240)
-      .width('100%')
-      .padding({ left: 12, right: 12 })
 
       Row({ space: 8 }) {
         Text($r('app.string.sim_preview'))
