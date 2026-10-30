@@ -113,7 +113,13 @@ export default function extendedManagersTest() {
 
       it('deviceTypeToString_all_branches_exhaustive', 0, () => {
         // 覆盖所有5个已知设备类型
-        let types: number[] = [0, 1, 2, 3, 4];
+        let types: number[] = [
+          fileExtensionInfo.DeviceType.DEVICE_LOCAL_DISK,
+          fileExtensionInfo.DeviceType.DEVICE_SHARED_DISK,
+          fileExtensionInfo.DeviceType.DEVICE_SHARED_TERMINAL,
+          fileExtensionInfo.DeviceType.DEVICE_EXTERNAL_USB,
+          fileExtensionInfo.DeviceType.DEVICE_NETWORK_NEIGHBORHOODS
+        ];
         let expected: string[] = ['Local', 'SHARED_DISK', 'SHARED_TERMINAL', 'DEVICE_EXTERNAL_USB', 'NETWORK_NEIGHBORHOODS'];
         for (let i: number = 0; i < types.length; i++) {
           expect(FileAccessManager.deviceTypeToString(types[i])).assertEqual(expected[i]);
@@ -122,28 +128,28 @@ export default function extendedManagersTest() {
 
       it('deviceTypeToString_out_of_range_default', 0, () => {
         // 超出0-4范围的任何值返回'Other'
-        let outOfRange: number[] = [-1, 5, 10, 100, 999];
+        let outOfRange: number[] = [-1, 0, 8, 10, 100, 999];
         for (let val of outOfRange) {
           expect(FileAccessManager.deviceTypeToString(val)).assertEqual('Other');
         }
       });
 
       it('isLocalDevice_exactly_zero', 0, () => {
-        // DEVICE_LOCAL_DISK = 0
-        expect(FileAccessManager.isLocalDevice(0)).assertEqual(true);
-        // 任何非0值返回false
-        expect(FileAccessManager.isLocalDevice(1)).assertEqual(false);
-        expect(FileAccessManager.isLocalDevice(3)).assertEqual(false);
+        // DEVICE_LOCAL_DISK
+        expect(FileAccessManager.isLocalDevice(fileExtensionInfo.DeviceType.DEVICE_LOCAL_DISK)).assertEqual(true);
+        // any other device type -> false
+        expect(FileAccessManager.isLocalDevice(fileExtensionInfo.DeviceType.DEVICE_SHARED_DISK)).assertEqual(false);
+        expect(FileAccessManager.isLocalDevice(fileExtensionInfo.DeviceType.DEVICE_SHARED_TERMINAL)).assertEqual(false);
       });
 
       it('isUsbDevice_exactly_three', 0, () => {
-        // DEVICE_EXTERNAL_USB = 3
-        expect(FileAccessManager.isUsbDevice(3)).assertEqual(true);
-        // 任何非3值返回false
-        expect(FileAccessManager.isUsbDevice(0)).assertEqual(false);
-        expect(FileAccessManager.isUsbDevice(1)).assertEqual(false);
-        expect(FileAccessManager.isUsbDevice(2)).assertEqual(false);
-        expect(FileAccessManager.isUsbDevice(4)).assertEqual(false);
+        // DEVICE_EXTERNAL_USB
+        expect(FileAccessManager.isUsbDevice(fileExtensionInfo.DeviceType.DEVICE_EXTERNAL_USB)).assertEqual(true);
+        // any other device type -> false
+        expect(FileAccessManager.isUsbDevice(fileExtensionInfo.DeviceType.DEVICE_LOCAL_DISK)).assertEqual(false);
+        expect(FileAccessManager.isUsbDevice(fileExtensionInfo.DeviceType.DEVICE_SHARED_DISK)).assertEqual(false);
+        expect(FileAccessManager.isUsbDevice(fileExtensionInfo.DeviceType.DEVICE_SHARED_TERMINAL)).assertEqual(false);
+        expect(FileAccessManager.isUsbDevice(fileExtensionInfo.DeviceType.DEVICE_NETWORK_NEIGHBORHOODS)).assertEqual(false);
       });
     });
 

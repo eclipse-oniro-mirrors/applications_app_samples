@@ -220,28 +220,33 @@ export default function fileAccessManagerDeepTest() {
      */
     describe('Static_DeviceType_String_All_Branches', () => {
       it('deviceTypeToString_Local', 0, () => {
-        expect(FileAccessManager.deviceTypeToString(0)).assertEqual('Local');
+        expect(FileAccessManager.deviceTypeToString(fileExtensionInfo.DeviceType.DEVICE_LOCAL_DISK))
+          .assertEqual('Local');
       });
 
       it('deviceTypeToString_SharedDisk', 0, () => {
-        expect(FileAccessManager.deviceTypeToString(1)).assertEqual('SHARED_DISK');
+        expect(FileAccessManager.deviceTypeToString(fileExtensionInfo.DeviceType.DEVICE_SHARED_DISK))
+          .assertEqual('SHARED_DISK');
       });
 
       it('deviceTypeToString_SharedTerminal', 0, () => {
-        expect(FileAccessManager.deviceTypeToString(2)).assertEqual('SHARED_TERMINAL');
+        expect(FileAccessManager.deviceTypeToString(fileExtensionInfo.DeviceType.DEVICE_SHARED_TERMINAL))
+          .assertEqual('SHARED_TERMINAL');
       });
 
       it('deviceTypeToString_NetworkNeighborhood', 0, () => {
-        expect(FileAccessManager.deviceTypeToString(4)).assertEqual('NETWORK_NEIGHBORHOODS');
+        expect(FileAccessManager.deviceTypeToString(fileExtensionInfo.DeviceType.DEVICE_NETWORK_NEIGHBORHOODS))
+          .assertEqual('NETWORK_NEIGHBORHOODS');
       });
 
       it('deviceTypeToString_ExternalUSB', 0, () => {
-        expect(FileAccessManager.deviceTypeToString(3)).assertEqual('DEVICE_EXTERNAL_USB');
+        expect(FileAccessManager.deviceTypeToString(fileExtensionInfo.DeviceType.DEVICE_EXTERNAL_USB))
+          .assertEqual('DEVICE_EXTERNAL_USB');
       });
 
       it('deviceTypeToString_default_Other', 0, () => {
         expect(FileAccessManager.deviceTypeToString(999)).assertEqual('Other');
-        expect(FileAccessManager.deviceTypeToString(5)).assertEqual('Other');
+        expect(FileAccessManager.deviceTypeToString(0)).assertEqual('Other');
         expect(FileAccessManager.deviceTypeToString(100)).assertEqual('Other');
       });
     });

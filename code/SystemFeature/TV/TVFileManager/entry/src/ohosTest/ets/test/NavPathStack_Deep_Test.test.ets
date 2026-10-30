@@ -212,8 +212,12 @@ export default function navPathStackDeepTest() {
       it('addStatusLis_multiple_registration', 0, () => {
         let nav: NavStack = new NavStack();
         let calls: string[] = [];
-        let lis1: StatusListener = (isSelect: boolean) => { calls.push('A'); };
-        let lis2: StatusListener = (isSelect: boolean) => { calls.push('B'); };
+        let lis1: StatusListener = (isSelect: boolean) => {
+          calls.push('A');
+        };
+        let lis2: StatusListener = (isSelect: boolean) => {
+          calls.push('B');
+        };
         nav.addStatusLis(lis1);
         nav.addStatusLis(lis2);
         nav.setCopyMode();
@@ -224,8 +228,12 @@ export default function navPathStackDeepTest() {
       it('removeStatusLis_middle_listener', 0, () => {
         let nav: NavStack = new NavStack();
         let calls: number[] = [];
-        let lis1: StatusListener = (isSelect: boolean) => { calls.push(1); };
-        let lis2: StatusListener = (isSelect: boolean) => { calls.push(2); };
+        let lis1: StatusListener = (isSelect: boolean) => {
+          calls.push(1);
+        };
+        let lis2: StatusListener = (isSelect: boolean) => {
+          calls.push(2);
+        };
         nav.addStatusLis(lis1);
         nav.addStatusLis(lis2);
         nav.removeStatusLis(lis1);
@@ -237,7 +245,8 @@ export default function navPathStackDeepTest() {
 
       it('removeStatusLis_non_existent_no_effect', 0, () => {
         let nav: NavStack = new NavStack();
-        let lis: StatusListener = (isSelect: boolean) => {};
+        let lis: StatusListener = (isSelect: boolean) => {
+        };
         // 移除未注册的监听器不应抛出异常
         nav.removeStatusLis(lis);
         expect(true).assertEqual(true);
@@ -337,7 +346,9 @@ export default function navPathStackDeepTest() {
     describe('BackPress_Callback_Chain', () => {
       it('regBackPressFun_null_or_falsy_ignored', 0, () => {
         let nav: NavStack = new NavStack();
-        nav.regBackPressFun(((): boolean => { return false; }));
+        nav.regBackPressFun(((): boolean => {
+          return false;
+        }));
         let result: boolean = nav.onBackPress();
         expect(result).assertEqual(false);
       });
@@ -345,8 +356,13 @@ export default function navPathStackDeepTest() {
       it('callback_that_returns_void_continues_chain', 0, () => {
         let nav: NavStack = new NavStack();
         let order: number[] = [];
-        let cb1: () => void = (): void => { order.push(1); }; // 返回void
-        let cb2: () => boolean = (): boolean => { order.push(2); return true; };
+        let cb1: () => void = (): void => {
+          order.push(1);
+        }; // 返回void
+        let cb2: () => boolean = (): boolean => {
+          order.push(2);
+          return true;
+        };
         nav.regBackPressFun(cb1);
         nav.regBackPressFun(cb2);
         nav.onBackPress();

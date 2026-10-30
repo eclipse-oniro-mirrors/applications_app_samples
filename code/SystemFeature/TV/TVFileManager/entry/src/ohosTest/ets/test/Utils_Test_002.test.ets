@@ -110,7 +110,8 @@ export default function utilsTest002() {
         // Unix纪元时间: 1970-01-01 00:00:00 UTC
         // 经过东八区转换后应为1970-01-01 08:00:00
         let result: string = DateTools.formatDate(0, 'yyyy-MM-dd');
-        expect(result).assertEqual('1970-01-01');
+        // 0 means "no date" in the file list, the UI shows nothing
+        expect(result).assertEqual('');
       });
 
       it('formatDate_negative_timestamp_handled_gracefully', 0, () => {

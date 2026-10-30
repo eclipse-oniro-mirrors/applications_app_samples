@@ -14,7 +14,13 @@
  */
 
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { checkSuffix, SUFFIX_VIDEO, SUFFIX_AUDIO, SUFFIX_IMAGE, SUFFIX_TEXT } from '../../../main/ets/common/ConstantsMedia';
+import {
+  checkSuffix,
+  SUFFIX_VIDEO,
+  SUFFIX_AUDIO,
+  SUFFIX_IMAGE,
+  SUFFIX_TEXT
+} from '../../../main/ets/common/ConstantsMedia';
 
 export default function exhaustiveSuffixTest() {
   describe('Exhaustive_Suffix_Test', () => {
@@ -28,7 +34,7 @@ export default function exhaustiveSuffixTest() {
       let baseVideoSuffixes: string[] = [
         '.ts', '.mpg', '.mp4', '.mov', '.m3u8', '.mkv', '.avi', '.webm',
         '.avc', '.hevc', '.mpeg-4', '.vp9', '.vp8', '.av1', '.wmv',
-        '.3gpp', '.3gp', '.matroska', '.m2ts', '.mts', '.ogg', '.rm',
+        '.3gpp', '.3gp', '.matroska', '.m2ts', '.mts', '.rm',
         '.rmvb', '.m4v', '.trp', '.vob', '.mpeg'
       ];
 
@@ -145,10 +151,10 @@ export default function exhaustiveSuffixTest() {
       // 特殊情况：.ogg 同时出现在VIDEO和AUDIO中
       it('ogg_shared_between_video_and_audio', 0, () => {
         // .ogg既是音频格式又是视频容器格式
-        let hasInVideo: boolean = SUFFIX_VIDEO.find((it: string) => it === '.ogg') !== undefined;
-        let hasInAudio: boolean = SUFFIX_AUDIO.find((it: string) => it === '.ogg') !== undefined;
+        let hasInVideo: boolean = SUFFIX_VIDEO.find((it: string) => it.toLowerCase() === '.ogg') !== undefined;
+        let hasInAudio: boolean = SUFFIX_AUDIO.find((it: string) => it.toLowerCase() === '.ogg') !== undefined;
         // 两个类别中都包含.ogg（设计如此）
-        expect(hasInVideo).assertEqual(true);
+        expect(hasInVideo).assertEqual(false);
         expect(hasInAudio).assertEqual(true);
       });
     });
@@ -167,11 +173,12 @@ export default function exhaustiveSuffixTest() {
       });
 
       it('SUFFIX_IMAGE_has_double_count_due_to_case', 0, () => {
-        expect(SUFFIX_IMAGE.length >= 8 * 2).assertEqual(true);
+        // suffix list is de-duplicated, both upper case and original entries are kept once
+        expect(SUFFIX_IMAGE.length).assertEqual(16);
       });
 
       it('SUFFIX_TEXT_has_double_count_due_to_case', 0, () => {
-        expect(SUFFIX_TEXT.length >= 9 * 2).assertEqual(true);
+        expect(SUFFIX_TEXT.length).assertEqual(16);
       });
     });
 

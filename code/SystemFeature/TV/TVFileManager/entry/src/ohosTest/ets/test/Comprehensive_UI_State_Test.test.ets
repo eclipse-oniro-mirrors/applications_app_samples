@@ -20,7 +20,13 @@ import { PageType } from '../../../main/ets/model/PageType';
 import { MediaType } from '../../../main/ets/model/MediaType';
 import { DeviceType } from '../../../main/ets/common/data/DeviceType';
 import { NavStack } from '../../../main/ets/common/manager/NavPathStackManager';
-import { TABS, MEDIA_TYPE, LIST_CACHE_COUNT, DEFAULT_THUMB_WIDTH, DEFAULT_THUMB_HEIGHT } from '../../../main/ets/common/Constants';
+import {
+  TABS,
+  MEDIA_TYPE,
+  LIST_CACHE_COUNT,
+  DEFAULT_THUMB_WIDTH,
+  DEFAULT_THUMB_HEIGHT
+} from '../../../main/ets/common/Constants';
 import { OperationActionID, OperationAction } from '../../../main/ets/model/Operation';
 
 export default function comprehensiveUIStateTest() {

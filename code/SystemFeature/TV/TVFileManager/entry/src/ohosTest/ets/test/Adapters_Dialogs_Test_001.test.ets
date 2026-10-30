@@ -268,6 +268,8 @@ export default function adaptersDialogsTest001() {
           onDatasetChange: (dataOperations: DataOperation[]): void => {
           }
         };
+        ds.registerDataChangeListener(listener);
+        ds.registerDataChangeListener(listener);
         ds.notifyDataReload();
         expect(callCount).assertEqual(1);
       });

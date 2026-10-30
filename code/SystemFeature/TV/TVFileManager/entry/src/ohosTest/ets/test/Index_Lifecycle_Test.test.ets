@@ -78,7 +78,7 @@ export default function indexLifecycleTest() {
      * 处理分享跳转(isFromShare)、USB设备检查、空间刷新。
      */
     describe('onPageShow_Visibility', () => {
-      it('onPageShow_handles_share_intent', 0, () => {
+      it('onPageShow_handles_share_want', 0, () => {
         // AppStorage.get('isFromShare')为true时
         // 获取Share目录→pushBean→AppStorage.SetOrCreate('isFromShare', undefined)
         expect(true).assertEqual(true);

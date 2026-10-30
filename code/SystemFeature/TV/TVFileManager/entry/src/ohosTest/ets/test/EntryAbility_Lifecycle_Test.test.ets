@@ -44,8 +44,8 @@ export default function entryAbilityLifecycleTest() {
     });
 
     /*
-     * onCreate——Ability首次创建时的初始化。
-     * 记录bundle信息、处理分享intent。
+     * onCreate——Ability 创建时的初始化。
+     * 记录 bundle 信息、处理分享 Want。
      */
     describe('onCreate_Initialization', () => {
       it('onCreate_logs_bundle_info', 0, () => {
@@ -155,7 +155,7 @@ export default function entryAbilityLifecycleTest() {
 
       it('isFromShare_cleared_after_consumed', 0, () => {
         // Index.onPageShow消费后SetOrCreate('isFromShare', undefined)
-        // 防止重复处理同一分享intent
+        // 防止重复处理同一个分享 Want
         expect(true).assertEqual(true);
       });
     });
@@ -165,7 +165,7 @@ export default function entryAbilityLifecycleTest() {
      */
     describe('Ability_Edge_Cases', () => {
       it('multiple_NewWant_before_consumed', 0, () => {
-        // 连续收到多个分享intent时
+        // 连续收到多个分享 Want 时
         // 每次onNewWant更新AppStorage，最后一个生效
         expect(true).assertEqual(true);
       });

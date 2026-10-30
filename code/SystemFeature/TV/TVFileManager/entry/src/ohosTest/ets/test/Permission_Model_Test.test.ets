@@ -20,7 +20,7 @@ export default function permissionModelTest() {
 
     /*
      * 权限模型——13项系统权限的完整性验证。
-     * 每个权限对应Android/HarmonyOS的一个敏感能力，
+     * 每个权限对应一种系统敏感能力，
      * 缺少任何一项会导致对应功能不可用。
      */
     describe('Permission_List_Integrity', () => {
@@ -46,7 +46,7 @@ export default function permissionModelTest() {
       });
 
       it('permission_names_follow_ohos_convention', 0, () => {
-        // HarmonyOS权限命名规范：ohos.permission.{CATEGORY}_{ACTION}
+        // 系统权限命名规范：ohos.permission.{CATEGORY}_{ACTION}
         // 验证所有权限都以'ohos.permission.'开头
         let permissions: string[] = [
           'ohos.permission.READ_MEDIA', 'ohos.permission.WRITE_MEDIA',

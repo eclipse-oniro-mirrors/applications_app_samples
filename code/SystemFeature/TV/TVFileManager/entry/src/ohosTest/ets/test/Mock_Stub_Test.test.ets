@@ -70,7 +70,7 @@ export default function mockStubTest() {
 
       it('mock_delete_returns_success_count', 0, () => {
         // 模拟删除操作返回成功删除的文件数
-        let mockDeleteResult: number = 3;  // 成功删除3个
+        let mockDeleteResult: number = 3; // 成功删除3个
         expect(mockDeleteResult).assertEqual(3);
       });
 
@@ -131,11 +131,41 @@ export default function mockStubTest() {
       it('create_test_file_beans_various_types', 0, () => {
         // 构造一组覆盖所有媒体类型的测试FileBean
         let testCases: ESObject[] = [
-          { name: 'video.mp4', isVideo: true, isAudio: false, isImage: false, isDoc: false },
-          { name: 'song.mp3', isVideo: false, isAudio: true, isImage: false, isDoc: false },
-          { name: 'photo.jpg', isVideo: false, isAudio: false, isImage: true, isDoc: false },
-          { name: 'doc.pdf', isVideo: false, isAudio: false, isImage: false, isDoc: true },
-          { name: 'unknown.xyz', isVideo: false, isAudio: false, isImage: false, isDoc: false }
+          {
+            name: 'video.mp4',
+            isVideo: true,
+            isAudio: false,
+            isImage: false,
+            isDoc: false
+          },
+          {
+            name: 'song.mp3',
+            isVideo: false,
+            isAudio: true,
+            isImage: false,
+            isDoc: false
+          },
+          {
+            name: 'photo.jpg',
+            isVideo: false,
+            isAudio: false,
+            isImage: true,
+            isDoc: false
+          },
+          {
+            name: 'doc.pdf',
+            isVideo: false,
+            isAudio: false,
+            isImage: false,
+            isDoc: true
+          },
+          {
+            name: 'unknown.xyz',
+            isVideo: false,
+            isAudio: false,
+            isImage: false,
+            isDoc: false
+          }
         ];
         expect(testCases.length).assertEqual(5);
       });

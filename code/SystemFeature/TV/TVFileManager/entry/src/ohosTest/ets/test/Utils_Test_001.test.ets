@@ -51,7 +51,7 @@ export default function utilsTest001() {
       it('byte2Str_KB_range_with_decimal', 0, () => {
         // 1.5KB = 1536B 应显示保留两位小数
         let result: string = Tools.byte2Str(1536);
-        expect(result).assertEqual('1.5KB');
+        expect(result).assertEqual('1.50KB');
       });
 
       it('byte2Str_MB_range_from_1MB_to_under_1GB', 0, () => {
@@ -59,7 +59,7 @@ export default function utilsTest001() {
         let result: string = Tools.byte2Str(1048576);
         expect(result).assertEqual('1MB');
         let result2: string = Tools.byte2Str(1048576 * 2.5);
-        expect(result2).assertEqual('2.5MB');
+        expect(result2).assertEqual('2.50MB');
       });
 
       it('byte2Str_GB_range_1GB_and_above', 0, () => {
@@ -128,7 +128,7 @@ export default function utilsTest001() {
       it('ArrayToString_converts_ArrayBuffer_to_string', 0, () => {
         // 模拟读取文件内容后转为字符串显示
         let encoder: util.TextEncoder = new util.TextEncoder();
-        let input: string = 'Hello HarmonyOS';
+        let input: string = 'Hello FileManager';
         let encoded: Uint8Array = encoder.encode(input);
         let result: string = Tools.arrayToString(encoded.buffer as ArrayBuffer);
         expect(result).assertEqual(input);

@@ -135,11 +135,11 @@ export default function parameterizedDataDriveTest() {
         { input: 512, expected: '512B' },
         { input: 1023, expected: '1023B' },
         { input: 1024, expected: '1KB' },
-        { input: 1536, expected: '1.5KB' },
+        { input: 1536, expected: '1.50KB' },
         { input: 2048, expected: '2KB' },
         { input: 10240, expected: '10KB' },
         { input: 1048576, expected: '1MB' },
-        { input: 1572864, expected: '1.5MB' },
+        { input: 1572864, expected: '1.50MB' },
         { input: 10485760, expected: '10MB' },
         { input: 1073741824, expected: '1GB' },
         { input: 5368709120, expected: '5GB' }
