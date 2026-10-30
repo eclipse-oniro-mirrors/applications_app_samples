@@ -1,6 +1,6 @@
 # 标题栏与工具栏（TitleBarsAndToolbars）测试用例归档
 
-> 已在 OpenHarmony 7.0.0.47（API 26）设备执行：34/34 通过（IDE 15s 超时配置）。标题栏内部图标通过 UiTest 查找标题栏内 Button 节点后点击；页签与工具栏文本同时兼容中英文资源。
+> 新增边界与状态用例已在 OpenHarmony 7.1.0.22（API 26）设备执行：4/4 通过；其余用例沿用既有验证结果。
 
 ## 用例表
 
@@ -54,4 +54,13 @@
 | 非功能 | 启动耗时、导航循环 | 2 条 |
 | 工具类 | TitleBarActions、TitleBarUtils、BreakpointUtils、DeviceInfoUtils | 6 条逻辑单测 + 本地单测 5 条 |
 
-覆盖统计：页面 6/6、组件 5/5、标题栏保存/取消 2/2、页签三页、工具栏启用/禁用态、断点 1/2/3 栏；共 34 条（另有本地单测 5 条）。
+覆盖统计：页面 6/6、组件 5/5、标题栏保存/取消 2/2、页签三页、工具栏启用/禁用态、断点 1/2/3 栏；共 41 条（另有本地单测 5 条）。
+
+## 补充用例
+
+| 用例编号 | 用例名称 | 测试说明 | 结果 |
+|---|---|---|---|
+| SUB_TITLEBARS_EDGE_0100 | testTitleBarsEdgeBadge0001 | 角标 0/1/99 舍入边界 | Pass（实测） |
+| SUB_TITLEBARS_EDGE_0200 | testTitleBarsEdgeIndex0002 | 负长度、超大索引与页签越界 | Pass（实测） |
+| SUB_TITLEBARS_EDGE_0300 | testTitleBarsEdgeActions0003 | 重复重置与多实例计数器隔离 | Pass（实测） |
+| SUB_TITLEBARS_EDGE_0400 | testTitleBarsEdgeHistory0004 | 可编辑标题栏历史与清空空态 | Pass（实测） |

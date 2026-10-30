@@ -20,6 +20,7 @@ import layoutTest from './SplitLayout.test';
 import foldTest from './FoldSplit.test';
 import hspTest from './Hsp.test';
 import stabilityTest from './Stability.test';
+import edgeTest from './Edge.test';
 import logicTest from './Logic.test';
 
 export default function testsuite() {
@@ -30,5 +31,6 @@ export default function testsuite() {
   foldTest();
   hspTest();
   stabilityTest();
+  edgeTest();
   logicTest();
 }

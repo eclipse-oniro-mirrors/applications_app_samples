@@ -1,6 +1,6 @@
 # 选择器（Pickers）测试用例归档
 
-> 已在 OpenHarmony 7.0.0.47（API 26）设备执行：27/27 通过（IDE 15s 超时配置）；DatePickerComponent 的滚轮滑动改变日期仅做人工验证，未纳入自动断言。
+> 新增边界与状态用例已在 OpenHarmony 7.1.0.22（API 26）设备执行：5/5 通过；其余用例沿用既有验证结果。
 
 ## 用例表
 
@@ -45,4 +45,14 @@
 | 非功能 | 启动耗时、导航循环 | 2 条 |
 | 工具类 | PickerUtils、BreakpointUtils、DeviceInfoUtils | 6 条逻辑单测 + 本地单测 3 条 |
 
-覆盖统计：页面 4/4、组件 3/3、DatePicker 三模式 3/3、UIPicker 边界、断点 1/2/3 栏、设备信息与日期区间；共 27 条（另有本地单测 3 条）。
+覆盖统计：页面 4/4、组件 3/3、DatePicker 三模式 3/3、UIPicker 边界、断点 1/2/3 栏、设备信息与日期区间；共 36 条（另有本地单测 3 条）。
+
+## 补充用例
+
+| 用例编号 | 用例名称 | 测试说明 | 结果 |
+|---|---|---|---|
+| SUB_PICKERS_EDGE_0100 | testPickersEdgeDefaults0001 | 可选日期/时间默认值、纪元与闰日格式 | Pass（实测） |
+| SUB_PICKERS_EDGE_0200 | testPickersEdgeWrap0002 | 大幅正负步进、负长度与单元素循环 | Pass（实测） |
+| SUB_PICKERS_EDGE_0300 | testPickersEdgeRange0003 | 单点区间、区间内日期钳制与闰日 | Pass（实测） |
+| SUB_PICKERS_EDGE_0400 | testPickersEdgeDateBack0004 | DatePicker 返回首页 | Pass（实测） |
+| SUB_PICKERS_EDGE_0500 | testPickersEdgeHistory0005 | 日历事件历史与清空空态 | Pass（实测） |

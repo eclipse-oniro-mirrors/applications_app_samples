@@ -10,7 +10,7 @@
 - [TabTitleBar](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-TabTitleBar.md)：API 10 起的页签型标题栏，页签与 `swiperContent` 内容联动，支持右侧菜单；
 - [ToolBarV2](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-ToolBarV2.md)：API 18 起、基于状态管理 V2 的底部工具栏，支持文本/图标、启用/禁用/激活状态、分割线与自定义高度/背景/内边距。
 
-工程包含标题栏索引/角标/描述、设备信息与响应式断点工具类，包含 37 条 ohosTest 用例与 5 条本地工具单测。
+工程包含标题栏索引/角标/描述、设备信息与响应式断点工具类，包含 41 条 ohosTest 用例与 5 条本地工具单测。
 
 ### 功能特性
 
@@ -43,7 +43,7 @@
 
 | 类型 | 数量 | 说明 |
 |---|---:|---|
-| ohosTest | 37 | 入口、5 类标题栏/工具栏、边界、稳定性、逻辑 |
+| ohosTest | 41 | 入口、5 类标题栏/工具栏、边界、稳定性、逻辑 |
 | 本地单测 | 5 | 操作计数、索引/角标、断点 |
 
 ### 效果预览
@@ -105,7 +105,7 @@ entry/src/test/
 2. 本示例基于 ArkTS 1.1 动态环境开发，已适配 API version 26 版本 SDK，版本号：26.0.0；
 3. 本示例需要使用 DevEco Studio 26.0.0 及以上版本才可编译运行；
 4. `EditableTitleBarV2` 相关类型在 SDK 26.0.0 中需从 `@ohos.arkui.advanced.EditableTitleBarV2` 导入，`@kit.ArkUI` 未导出；其余组件可从 `@kit.ArkUI` 导入；
-5. 本示例包含 37 条 ohosTest 用例，另有 5 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
+5. 本示例包含 41 条 ohosTest 用例，另有 5 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
 6. 工程使用 DevEco Studio 自动生成的调试签名，可直接在 IDE 部署；提交仓库前建议清空 `signingConfigs`，由使用者在 IDE 中重新自动签名；
 
 ### 下载

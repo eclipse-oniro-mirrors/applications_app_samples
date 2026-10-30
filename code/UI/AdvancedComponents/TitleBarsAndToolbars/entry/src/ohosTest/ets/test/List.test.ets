@@ -20,6 +20,7 @@ import selectTest from './SelectTitleBar.test';
 import tabTest from './TabTitleBar.test';
 import toolbarTest from './ToolBarV2.test';
 import stabilityTest from './Stability.test';
+import edgeTest from './Edge.test';
 import logicTest from './Logic.test';
 
 export default function testsuite() {
@@ -30,5 +31,6 @@ export default function testsuite() {
   tabTest();
   toolbarTest();
   stabilityTest();
+  edgeTest();
   logicTest();
 }

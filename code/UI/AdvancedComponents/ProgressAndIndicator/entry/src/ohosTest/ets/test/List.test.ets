@@ -19,6 +19,7 @@ import progressButtonTest from './ProgressButton.test';
 import progressButtonV2Test from './ProgressButtonV2.test';
 import indicatorTest from './Indicator.test';
 import stabilityTest from './Stability.test';
+import edgeTest from './Edge.test';
 import logicTest from './Logic.test';
 
 export default function testsuite() {
@@ -28,5 +29,6 @@ export default function testsuite() {
   progressButtonV2Test();
   indicatorTest();
   stabilityTest();
+  edgeTest();
   logicTest();
 }

@@ -68,7 +68,7 @@ struct EditableTitleBarDemo {
   private record(action: string): void {
     this.lastAction = action;
     this.operationCount++;
-    this.history = [`#${this.operationCount} ${action} ¡¤ ${this.actionText}`, ...this.history].slice(0, 3);
+    this.history = [`#${this.operationCount} ${action} Â· ${this.actionText}`, ...this.history].slice(0, 3);
     Logger.event('EditableTitleBarDemo', 'history', action);
   }
 

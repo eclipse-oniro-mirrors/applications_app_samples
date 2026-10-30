@@ -1,6 +1,6 @@
 # 弹窗与提示（PopupsAndPrompts）测试用例归档
 
-> 已在 OpenHarmony 7.0.0.47（API 26）设备执行：24/24 通过（IDE 15s 超时配置）。
+> 新增边界与状态用例已在 OpenHarmony 7.1.0.22（API 26）设备执行：3/3 通过；其余用例沿用既有验证结果。
 
 ## 用例表
 
@@ -43,4 +43,12 @@
 | 非功能 | 启动耗时、导航循环 | 2 条 |
 | 工具类 | PromptUtils、BreakpointUtils、DeviceInfoUtils | 5 条逻辑单测 + 本地单测 2 条 |
 
-覆盖统计：页面 5/5、组件 4/4、显示/隐藏路径 2/2、逻辑工具边界；共 24 条（另有本地单测 2 条）。SelectionMenu 菜单项点击需长按/选中文本触发，当前仅验证绑定与选区，菜单项点击未自动断言。
+覆盖统计：页面 5/5、组件 4/4、显示/隐藏路径 2/2、逻辑工具边界；共 31 条（另有本地单测 2 条）。SelectionMenu 菜单项点击需长按/选中文本触发，当前仅验证绑定与选区，菜单项点击未自动断言。
+
+## 补充用例
+
+| 用例编号 | 用例名称 | 测试说明 | 结果 |
+|---|---|---|---|
+| SUB_POPUPS_EDGE_0100 | testPopupsEdgeRange0001 | 零/负/反向/单项区间边界 | Pass（实测） |
+| SUB_POPUPS_EDGE_0200 | testPopupsEdgeSummary0002 | 空标签、负计数与重复切换 | Pass（实测） |
+| SUB_POPUPS_EDGE_0300 | testPopupsEdgeBacks0003 | ExceptionPrompt/V2 返回按钮 | Pass（实测） |

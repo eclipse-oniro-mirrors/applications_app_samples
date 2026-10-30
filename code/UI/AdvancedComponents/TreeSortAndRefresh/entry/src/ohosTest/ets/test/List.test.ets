@@ -21,6 +21,7 @@ import sortTest from './GridSort.test';
 import formMenuTest from './FormMenu.test';
 import refreshTest from './SwipeRefresh.test';
 import stabilityTest from './Stability.test';
+import edgeTest from './Edge.test';
 import logicTest from './Logic.test';
 
 export default function testsuite() {
@@ -32,5 +33,6 @@ export default function testsuite() {
   formMenuTest();
   refreshTest();
   stabilityTest();
+  edgeTest();
   logicTest();
 }

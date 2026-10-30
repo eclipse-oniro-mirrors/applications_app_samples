@@ -1,6 +1,6 @@
 # 长列表性能（ListPerformance）测试用例归档
 
-> 已在 OpenHarmony 7.0.0.47（API 26）设备执行：20/20 通过（IDE 15s 超时配置）。SDK 26.0.0 未导出 placeholderRegister，占位逻辑由 PlaceholderRegistry 等价实现；预取测试通过按钮与滚动窗口覆盖。
+> 新增边界与状态用例已在 OpenHarmony 7.1.0.22（API 26）设备执行：4/4 通过；其余用例沿用既有验证结果。
 
 ## 用例表
 
@@ -37,4 +37,13 @@
 | 非功能 | 启动耗时、导航循环 | 2 条 |
 | 工具类 | PlaceholderController、PlaceholderRegistry、PrefetchUtils、PrefetchDataSource、ListDataUtils、BreakpointUtils、DeviceInfoUtils | 7 条逻辑单测 + 本地单测 7 条 |
 
-覆盖统计：页面 3/3、占位加载 20/40/0 三种状态、预取 0/1 两种状态、批次与越界边界、断点 1/2 栏；共 20 条（另有本地单测 7 条）。
+覆盖统计：页面 3/3、占位加载 20/40/0 三种状态、预取 0/1 两种状态、批次与越界边界、断点 1/2 栏；共 26 条（另有本地单测 7 条）。
+
+## 补充用例
+
+| 用例编号 | 用例名称 | 测试说明 | 结果 |
+|---|---|---|---|
+| SUB_LISTPERF_EDGE_0100 | testListPerformanceEdgeBatch0001 | 零/负/超大批次边界 | Pass（实测） |
+| SUB_LISTPERF_EDGE_0200 | testListPerformanceEdgeRegistry0002 | 反向/负/重复占位区间 | Pass（实测） |
+| SUB_LISTPERF_EDGE_0300 | testListPerformanceEdgePrefetch0003 | 负窗口、空数据源与窗口耗尽 | Pass（实测） |
+| SUB_LISTPERF_EDGE_0400 | testListPerformanceEdgeHistory0004 | 占位列表历史与清空空态 | Pass（实测） |

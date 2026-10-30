@@ -11,20 +11,47 @@
 
 > **说明**：SDK 26.0.0 未导出 `@ohos.arkui.placeholderRegister` 模块；示例使用 `PlaceholderRegistry + LazyForEach` 实现等价的占位登记与替换逻辑，接口隔离在 `utils/PlaceholderRegistry.ts`，后续 SDK 提供该模块时可直接替换实现。
 
-工程包含占位/批次/预取状态、设备信息与响应式断点工具类，包含 20 条 ohosTest 用例（含 7 条逻辑单测）与 7 条本地工具单测。
+工程包含占位/批次/预取状态、设备信息与响应式断点工具类，包含 26 条 ohosTest 用例与 7 条本地工具单测。
+
+### 功能特性
+
+- 占位列表：PlaceholderRegistry 记录行加载状态，LazyForEach 渲染骨架/内容；
+- 分批加载：默认 20 条，加载更多、重置、Loaded/Remaining/Actions 统计；
+- 预取列表：BasicPrefetcher + IDataSourcePrefetching，预取下一条与滚动窗口补充；
+- 操作历史：最近 3 条加载/预取操作、清空、Toast 反馈；
+- 工具类：占位控制器、数据源、预取窗口、批次与状态格式化；
+- 响应式布局：断点边距、弹性列表、cachedCount；
+- 说明：SDK 26.0.0 未导出 placeholderRegister，使用等价占位注册实现。
+
+### 交互说明
+
+| 页面 | 主要操作 | 反馈 |
+|---|---|---|
+| PlaceholderList | 加载更多、重置 | 已加载/剩余/动作统计与骨架替换 |
+| PrefetchList | 预取下一条、清空统计、滚动 | 预取数、已加载数、状态文本更新 |
+
+### 实现架构
+
+```text
+页面 -> PlaceholderController/PrefetchDataSource
+     -> PlaceholderRegistry、ListDataUtils、PrefetchUtils
+     -> BreakpointUtils、DeviceInfoUtils、Logger
+```
+
+### 测试覆盖
+
+| 类型 | 数量 | 说明 |
+|---|---:|---|
+| ohosTest | 26 | 入口、占位列表、预取列表、边界、稳定性、逻辑 |
+| 本地单测 | 7 | 占位注册、批次、预取窗口、断点 |
 
 ### 效果预览
 
-| 首页 | 占位列表 | 预取列表 |
-|--------------------------------|--------------------------------|--------------------------------|
-| 运行后补充截图 | 运行后补充截图 | 运行后补充截图 |
+| 首页 | PlaceholderList |
+|:---:|:---:|
+| <img src="screenshots/index.jpeg" width="360" /> | <img src="screenshots/placeholderList.jpeg" width="360" /> |
 
-使用说明：
-
-1. 首页展示 2 个入口、当前断点与设备信息，入口随宽度按 1/2 栏排列；
-2. 占位列表：默认加载前 20 行，其余行显示骨架；点击“加载更多”每次追加 20 行，“重置”清空加载状态；
-3. 预取列表：默认加载前 20 行；点击“Prefetch next”预取一条未加载数据，“清空统计”重置预取计数；滚动时按窗口补充预取后 3 条；
-4. 两个列表均使用 `LazyForEach` 与 `cachedCount`，避免一次性创建全部条目。
+> 截图基于 OpenHarmony 7.0.0.47 真机（API 26）拍摄。
 
 ### 工程目录
 
@@ -75,9 +102,8 @@ entry/src/test/
 2. 本示例基于 ArkTS 1.1 动态环境开发，已适配 API version 26 版本 SDK，版本号：26.0.0；
 3. 本示例需要使用 DevEco Studio 26.0.0 及以上版本才可编译运行；
 4. SDK 26.0.0 未导出 `@ohos.arkui.placeholderRegister`，占位能力由 `PlaceholderRegistry` 等价实现；`BasicPrefetcher` 自 API 12 起可用；
-5. 本示例包含 20 条 ohosTest 用例（4 入口 + 4 占位列表 + 3 预取列表 + 2 稳定性 + 7 逻辑单测），另有 7 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
+5. 本示例包含 26 条 ohosTest 用例，另有 7 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
 6. 工程已配置本机 DevEco 调试签名，可直接在 IDE 部署；提交仓库前请清空 `signingConfigs` 并重新自动签名；
-7. 效果预览截图需在真机运行后补充。
 
 ### 下载
 

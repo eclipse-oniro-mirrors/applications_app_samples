@@ -17,6 +17,7 @@ import abilityTest from './Ability.test';
 import placeholderTest from './PlaceholderList.test';
 import prefetchTest from './PrefetchList.test';
 import stabilityTest from './Stability.test';
+import edgeTest from './Edge.test';
 import logicTest from './Logic.test';
 
 export default function testsuite() {
@@ -24,5 +25,6 @@ export default function testsuite() {
   placeholderTest();
   prefetchTest();
   stabilityTest();
+  edgeTest();
   logicTest();
 }

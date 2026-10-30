@@ -38,13 +38,14 @@ export class TitleBarUtils {
   }
 
   static badgeText(value: number): string {
-    if (value <= 0) {
+    const rounded = Math.round(value);
+    if (rounded <= 0) {
       return '';
     }
-    if (value > TitleBarConstants.BADGE_MAX) {
+    if (rounded > TitleBarConstants.BADGE_MAX) {
       return `${TitleBarConstants.BADGE_MAX}+`;
     }
-    return `${Math.round(value)}`;
+    return `${rounded}`;
   }
 
   static formatAction(action: string, count: number): string {

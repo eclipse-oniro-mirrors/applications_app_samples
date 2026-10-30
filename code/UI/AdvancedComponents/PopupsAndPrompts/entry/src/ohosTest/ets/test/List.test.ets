@@ -19,6 +19,7 @@ import exceptionTest from './Exception.test';
 import exceptionV2Test from './ExceptionV2.test';
 import selectionTest from './SelectionMenu.test';
 import stabilityTest from './Stability.test';
+import edgeTest from './Edge.test';
 import logicTest from './Logic.test';
 
 export default function testsuite() {
@@ -28,5 +29,6 @@ export default function testsuite() {
   exceptionV2Test();
   selectionTest();
   stabilityTest();
+  edgeTest();
   logicTest();
 }

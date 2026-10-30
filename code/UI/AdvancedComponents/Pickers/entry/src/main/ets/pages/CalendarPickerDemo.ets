@@ -53,7 +53,7 @@ struct CalendarPickerDemo {
 
   private record(action: string): void {
     this.operationCount++;
-    this.history = [`#${this.operationCount} ${action} ¡¤ ${this.selectedText}`, ...this.history].slice(0, 3);
+    this.history = [`#${this.operationCount} ${action} Â· ${this.selectedText}`, ...this.history].slice(0, 3);
     Logger.event('CalendarPickerDemo', 'history', action);
   }
 

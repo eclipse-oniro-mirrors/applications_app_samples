@@ -24,8 +24,11 @@ export class ListDataUtils {
   }
 
   static nextBatch(loaded: number, total: number, batch: number): number {
-    if (loaded < 0) {
+    if (loaded < 0 || batch <= 0 || total <= 0) {
       return 0;
+    }
+    if (loaded >= total) {
+      return total;
     }
     const next = loaded + batch;
     return next > total ? total : next;

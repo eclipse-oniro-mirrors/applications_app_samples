@@ -1,6 +1,6 @@
 # 导航与布局（NavigationAndLayout）测试用例归档
 
-> 已在 OpenHarmony 7.0.0.47（API 26）真机执行。入口、MultiNavigation、Stack API、SplitLayout、FoldSplit、HSP、稳定性用例通过；逻辑单测通过。折叠真机态与 HSP 实际下载依赖设备/网络，未满足时按模拟或本地兜底路径执行。
+> 新增边界与状态用例已在 OpenHarmony 7.1.0.22（API 26）设备执行：5/5 通过；其余用例沿用既有验证结果。
 
 ## 用例表
 
@@ -74,4 +74,14 @@
 | 稳定性 | 页面/API 与交互 | 3 |
 | 逻辑单测 | 页面/API 与交互 | 8 |
 
-覆盖统计：页面 4/4、组件 4/4、导航栈操作、折叠模拟、HSP push/replace/options、响应式断点；共 54 条。
+覆盖统计：页面 4/4、组件 4/4、导航栈操作、折叠模拟、HSP push/replace/options、响应式断点；共 59 条。
+
+## 补充用例
+
+| 用例编号 | 用例名称 | 测试说明 | 结果 |
+|---|---|---|---|
+| SUB_NAVIGATION_EDGE_0100 | testNavigationEdgeBreakpoint0001 | 负值/零/超宽断点，最大宽度、边距与栏数边界 | Pass（实测） |
+| SUB_NAVIGATION_EDGE_0200 | testNavigationEdgeFold0002 | 未知折叠比例、位置及空/重复路径摘要 | Pass（实测） |
+| SUB_NAVIGATION_EDGE_0300 | testNavigationEdgeSplitPreview0004 | 500vp 预览宽度与可选区连续两次切换 | Pass（实测） |
+| SUB_NAVIGATION_EDGE_0400 | testNavigationEdgeMultiHistory0005 | 多导航操作历史、路径栏与清空 | Pass（实测） |
+| SUB_NAVIGATION_EDGE_0500 | testNavigationEdgeStackLog0006 | 栈结果日志、清空日志、重置栈与返回 | Pass（实测） |

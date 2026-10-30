@@ -85,7 +85,7 @@ struct ProgressButtonDemo {
 
   private record(action: string): void {
     this.operationCount++;
-    this.history = [`#${this.operationCount} ${action} ¡¤ ${this.progress}%`, ...this.history].slice(0, 3);
+    this.history = [`#${this.operationCount} ${action} Â· ${this.progress}%`, ...this.history].slice(0, 3);
     Logger.event('ProgressButtonDemo', 'history', action);
   }
 

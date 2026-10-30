@@ -1,6 +1,6 @@
 # 进度与指示器（ProgressAndIndicator）测试用例归档
 
-> 已在 OpenHarmony 7.0.0.47（API 26）设备执行：29/29 通过（IDE 15s 超时配置）。ArcSlider 在手机形态下以限定区域展示，拖拽手势未纳入自动断言，按钮驱动的进度变化已覆盖。
+> 新增边界与状态用例已在 OpenHarmony 7.1.0.22（API 26）设备执行：4/4 通过；其余用例沿用既有验证结果。
 
 ## 用例表
 
@@ -48,4 +48,13 @@
 | 非功能 | 启动耗时、导航循环 | 2 条 |
 | 工具类 | ProgressUtils、DownloadSession、BreakpointUtils、DeviceInfoUtils | 6 条逻辑单测 + 本地单测 4 条 |
 
-覆盖统计：页面 5/5、组件 4/4、下载状态 idle/running/completed 3/3、指示器样式 2/2、断点 1/2/3 栏；共 29 条（另有本地单测 4 条）。
+覆盖统计：页面 5/5、组件 4/4、下载状态 idle/running/completed 3/3、指示器样式 2/2、断点 1/2/3 栏；共 37 条（另有本地单测 4 条）。
+
+## 补充用例
+
+| 用例编号 | 用例名称 | 测试说明 | 结果 |
+|---|---|---|---|
+| SUB_PROGRESS_EDGE_0100 | testProgressEdgeClamp0001 | 舍入边界与反向自定义区间 | Pass（实测） |
+| SUB_PROGRESS_EDGE_0200 | testProgressEdgeSession0002 | 下载会话重复开始、重置与完成后推进 | Pass（实测） |
+| SUB_PROGRESS_EDGE_0300 | testProgressEdgeIndicator0003 | 单项/空指示器与小数百分比 | Pass（实测） |
+| SUB_PROGRESS_EDGE_0400 | testProgressEdgeHistory0004 | 进度按钮历史与清空空态 | Pass（实测） |

@@ -105,8 +105,8 @@ export default function selectTest() {
       await runCase('testTitleBarsSelectDropdown0004', async () => {
       await startApp(BUNDLE_NAME, ABILITY_NAME);
       await clickId('cardSelect');
-      expect(await clickAnyText(['Project Alpha', '项目 Alpha'])).assertTrue();
-      expect(await clickAnyText(['Project Beta', '项目 Beta'])).assertTrue();
+      expect(await clickAnyText(['Project Alpha', '椤圭洰 Alpha'])).assertTrue();
+      expect(await clickAnyText(['Project Beta', '椤圭洰 Beta'])).assertTrue();
       expect(await textOfId('selectStatus')).assertContain('selected=1/3');
       }, done);
     });
