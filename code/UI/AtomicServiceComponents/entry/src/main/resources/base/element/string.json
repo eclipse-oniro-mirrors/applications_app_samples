@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "原子化服务高级组件示例"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "原子化服务高级组件示例"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "原子化服务组件"
+    }
+  ]
+}

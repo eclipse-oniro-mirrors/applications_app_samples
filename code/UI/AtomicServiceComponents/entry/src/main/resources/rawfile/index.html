@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AtomicServiceWeb 本地页面</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: "HarmonyOS Sans", "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #e7f0ff 0%, #f7faff 55%, #eef7f1 100%);
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+    .card {
+      max-width: 680px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 8px 30px rgba(10, 89, 247, 0.12);
+    }
+    h1 { margin: 0 0 6px; font-size: 22px; }
+    .sub { margin: 0 0 18px; color: #666; font-size: 13px; line-height: 1.6; }
+    .grid { display: flex; gap: 10px; margin-bottom: 16px; }
+    .stat {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      background: #f5f8ff;
+    }
+    .stat strong { display: block; font-size: 22px; color: #0a59f7; }
+    .stat span { font-size: 11px; color: #8a8a8a; }
+    button {
+      border: 0;
+      border-radius: 20px;
+      padding: 10px 18px;
+      font-size: 14px;
+      cursor: pointer;
+      margin: 4px 8px 4px 0;
+    }
+    .primary { background: #0a59f7; color: #fff; }
+    .secondary { background: #e8f0fe; color: #0a59f7; }
+    #status {
+      margin-top: 14px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: #f7f8fa;
+      color: #555;
+      font-size: 12px;
+      line-height: 1.6;
+      min-height: 38px;
+    }
+    .footer { margin-top: 14px; color: #999; font-size: 11px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>AtomicServiceWeb</h1>
+    <p class="sub">
+      这是放在 <code>resources/rawfile/index.html</code> 的本地页面。它完全离线，用来演示
+      AtomicServiceWeb 的加载、控制器操作和 H5 消息回传。
+    </p>
+
+    <div class="grid">
+      <div class="stat"><strong id="count">0</strong><span>页面点击次数</span></div>
+      <div class="stat"><strong id="theme">蓝色</strong><span>当前主题</span></div>
+      <div class="stat"><strong id="sdk">检测中</strong><span>JS SDK 状态</span></div>
+    </div>
+
+    <button class="primary" onclick="sendMessage()">向 ArkTS 发送消息</button>
+    <button class="secondary" onclick="changeTheme()">切换主题</button>
+    <button class="secondary" onclick="resetCount()">重置计数</button>
+    <button class="secondary" onclick="location.href = 'page2.html'">前往第二页</button>
+
+    <div id="status">等待操作。前往第二页再返回后，可用页面顶部的“后退 / 前进”观察浏览历史。</div>
+    <div class="footer">AtomicServiceComponents 示例 · 本地 H5 页面</div>
+  </div>
+
+  <script>
+    var clickCount = 0;
+    var darkTheme = false;
+
+    function updateCount() {
+      document.getElementById('count').textContent = String(clickCount);
+    }
+
+    function detectSdk() {
+      var sdk = (window.has && window.has.asWeb) ? '已注入' : '未注入';
+      document.getElementById('sdk').textContent = sdk;
+      return sdk === '已注入';
+    }
+
+    function sendMessage() {
+      clickCount++;
+      updateCount();
+      var message = {
+        name: 'AtomicServiceWeb',
+        clickCount: clickCount,
+        theme: darkTheme ? '深色' : '蓝色',
+        timestamp: new Date().toLocaleTimeString()
+      };
+
+      if (detectSdk()) {
+        window.has.asWeb.postMessage({
+          data: message,
+          callback: function (err) {
+            document.getElementById('status').textContent = err
+              ? '消息发送失败：' + JSON.stringify(err)
+              : '消息已发送到 ArkTS，返回上一页或离开页面时可在日志中看到 onMessage。';
+          }
+        });
+      } else {
+        document.getElementById('status').textContent =
+          '当前环境未注入 JS SDK，消息只更新了页面状态。ArkTS 侧仍然可以通过页面事件观察加载过程。';
+      }
+    }
+
+    function changeTheme() {
+      darkTheme = !darkTheme;
+      document.getElementById('theme').textContent = darkTheme ? '深色' : '蓝色';
+      document.body.style.background = darkTheme
+        ? 'linear-gradient(135deg, #1c2536 0%, #263449 100%)'
+        : 'linear-gradient(135deg, #e7f0ff 0%, #f7faff 55%, #eef7f1 100%)';
+      document.body.style.color = darkTheme ? '#f2f5fa' : '#1a1a1a';
+      var card = document.querySelector('.card');
+      card.style.background = darkTheme ? 'rgba(29, 40, 58, 0.95)' : 'rgba(255, 255, 255, 0.94)';
+      card.style.color = darkTheme ? '#f2f5fa' : '#1a1a1a';
+    }
+
+    function resetCount() {
+      clickCount = 0;
+      updateCount();
+      document.getElementById('status').textContent = '计数已重置。';
+    }
+
+    window.onload = function () {
+      detectSdk();
+    };
+  </script>
+</body>
+</html>
