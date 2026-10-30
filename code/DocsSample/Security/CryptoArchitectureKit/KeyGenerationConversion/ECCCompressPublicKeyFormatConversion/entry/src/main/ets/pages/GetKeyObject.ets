@@ -20,8 +20,8 @@ import { BusinessError } from '@kit.BasicServicesKit';
 async function eccPointCompressedToPoint() {
   try {
     let pkData =
-      new Uint8Array([2, 143, 39, 57, 249, 145, 50, 63, 222, 35, 70, 178, 121, 202, 154, 21, 146, 129, 75, 76, 63, 8, 195,
-        157, 111, 40, 217, 215, 148, 120, 224, 205, 82]);
+      new Uint8Array([2, 143, 39, 57, 249, 145, 50, 63, 222, 35, 70, 178, 121, 202, 154, 21, 146, 129, 75, 76, 63, 8,
+        195, 157, 111, 40, 217, 215, 148, 120, 224, 205, 82]);
     let returnPoint = cryptoFramework.ECCKeyUtil.convertPoint('NID_brainpoolP256r1', pkData);
     console.info('convertPoint result: success.');
     let eccCommonParamsSpec = cryptoFramework.ECCKeyUtil.genECCCommonParamsSpec('NID_brainpoolP256r1');

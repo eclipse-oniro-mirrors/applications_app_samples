@@ -45,8 +45,8 @@ async function genSymKeyByData(symKeyData: Uint8Array) {
 async function main() {
   try {
     let keyData =
-      new Uint8Array([238, 249, 61, 55, 128, 220, 183, 224, 139, 253, 248, 239, 239, 41, 71, 25, 235, 206, 230, 162, 249,
-        27, 234, 114]);
+      new Uint8Array([238, 249, 61, 55, 128, 220, 183, 224, 139, 253, 248, 239, 239, 41, 71, 25, 235, 206, 230, 162,
+        249, 27, 234, 114]);
     let symKey = await genSymKeyByData(keyData);
     let message = 'This is a test';
     let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
