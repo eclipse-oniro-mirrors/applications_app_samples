@@ -33,7 +33,6 @@ import { BusinessError } from '@kit.BasicServicesKit'; // 导入BusinessError。
 // [StartExclude enable]
 import { common, abilityAccessCtrl, PermissionRequestResult } from '@kit.AbilityKit'; // 导入UIAbilityContext。
 
-const TAG = 'AudioLoopbackDemo';
 // [EndExclude create_AudioLoopback]
 let mode: audio.AudioLoopbackMode = audio.AudioLoopbackMode.HARDWARE;
 let audioLoopback: audio.AudioLoopback | undefined = undefined;
