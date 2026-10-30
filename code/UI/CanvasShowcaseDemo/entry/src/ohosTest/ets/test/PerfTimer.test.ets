@@ -1,0 +1,134 @@
+import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { PerfTimer } from '../../../main/ets/model/utils/PerfTimer';
+
+/**
+ * PerfTimer 性能计时工具类设备侧测试
+ * 覆盖：静态 time() 返回值透传与耗时日志、实例采样统计
+ * （count/avg/min/max）、report 输出、reset 清空。
+ */
+export default function perfTimerTest() {
+  describe('perfTimerTest', () => {
+    beforeAll(() => {
+    });
+
+    /**
+     * @tc.number SUB_CANVAS_SHOWCASE_DEMO_PERFTIMER_0100
+     * @tc.name timeReturnsFnResult001
+     * @tc.desc Verify static time passes through the numeric result
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('time_returnsFnResult', 0, () => {
+      const result: number = PerfTimer.time('Test', '加法', (): number => {
+        return 1 + 2;
+      });
+      expect(result).assertEqual(3);
+    });
+
+    /**
+     * @tc.number SUB_CANVAS_SHOWCASE_DEMO_PERFTIMER_0200
+     * @tc.name timeWorksForObject002
+     * @tc.desc Verify static time passes through non-numeric results
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('time_worksForObject', 0, () => {
+      const result: string = PerfTimer.time('Test', '字符串', (): string => {
+        return 'ok';
+      });
+      expect(result).assertEqual('ok');
+    });
+
+    /**
+     * @tc.number SUB_CANVAS_SHOWCASE_DEMO_PERFTIMER_0300
+     * @tc.name instanceSamples003
+     * @tc.desc Verify an instance records one non-negative sample
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('instance_samples', 0, () => {
+      const t: PerfTimer = new PerfTimer();
+      t.start();
+      const cost: number = t.stop();
+      // 耗时非负
+      expect(cost >= 0).assertTrue();
+      expect(t.count()).assertEqual(1);
+    });
+
+    /**
+     * @tc.number SUB_CANVAS_SHOWCASE_DEMO_PERFTIMER_0400
+     * @tc.name instanceStatistics004
+     * @tc.desc Verify count, avg, min and max agree across three samples
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('instance_statistics', 0, () => {
+      const t: PerfTimer = new PerfTimer();
+      // 模拟 3 次采样（start/stop 间隔极短，统计逻辑正确性为主）
+      t.start();
+      t.stop();
+      t.start();
+      t.stop();
+      t.start();
+      t.stop();
+      expect(t.count()).assertEqual(3);
+      expect(t.avg() >= 0).assertTrue();
+      expect(t.min() <= t.avg()).assertTrue();
+      expect(t.max() >= t.avg()).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_CANVAS_SHOWCASE_DEMO_PERFTIMER_0500
+     * @tc.name emptyStatisticsReturnZero005
+     * @tc.desc Verify empty statistics report zeros
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('empty_statistics_returnZero', 0, () => {
+      const t: PerfTimer = new PerfTimer();
+      expect(t.count()).assertEqual(0);
+      expect(t.avg()).assertEqual(0);
+      expect(t.min()).assertEqual(0);
+      expect(t.max()).assertEqual(0);
+    });
+
+    /**
+     * @tc.number SUB_CANVAS_SHOWCASE_DEMO_PERFTIMER_0600
+     * @tc.name resetClearsSamples006
+     * @tc.desc Verify reset drops recorded samples
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('reset_clearsSamples', 0, () => {
+      const t: PerfTimer = new PerfTimer();
+      t.start();
+      t.stop();
+      expect(t.count()).assertEqual(1);
+      t.reset();
+      expect(t.count()).assertEqual(0);
+    });
+
+    /**
+     * @tc.number SUB_CANVAS_SHOWCASE_DEMO_PERFTIMER_0700
+     * @tc.name reportContainsKeywords007
+     * @tc.desc Verify the report includes the label and sample count
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('report_containsKeywords', 0, () => {
+      const t: PerfTimer = new PerfTimer();
+      t.start();
+      t.stop();
+      const line: string = t.report('测试场景');
+      expect(line.includes('测试场景')).assertTrue();
+      expect(line.includes('1 次采样')).assertTrue();
+    });
+  });
+}

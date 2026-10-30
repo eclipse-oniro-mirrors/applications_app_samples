@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "画布渐变、图案与矩阵变换演示模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "CanvasGradient/CanvasPattern/Matrix2D 演示"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "画布渐变图案矩阵"
+    }
+  ]
+}
