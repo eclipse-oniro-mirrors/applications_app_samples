@@ -2,14 +2,14 @@
 cmake_minimum_required(VERSION 3.5.0)
 project(UkeyExtension)
 
-set(CMAKE_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+set(SRC_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 if(DEFINED PACKAGE_FIND_FILE)
     include(${PACKAGE_FIND_FILE})
 endif()
 
-include_directories(${CMAKE_ROOT_PATH}
-                    ${CMAKE_ROOT_PATH}/include)
+include_directories(${SRC_ROOT_DIR}
+                    ${SRC_ROOT_DIR}/include)
 
 add_library(entry SHARED napi_init.cpp)
 target_link_libraries(entry PUBLIC libace_napi.z.so libhuks_ndk.z.so libhuks_external_crypto.z.so libohcert_manager.z.so)

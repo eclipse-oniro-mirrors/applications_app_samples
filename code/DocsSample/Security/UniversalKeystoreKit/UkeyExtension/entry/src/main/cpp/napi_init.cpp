@@ -23,7 +23,7 @@
 #include <device_certificate/certmanager/cm_native_api.h>
 #include <device_certificate/certmanager/cm_native_type.h>
 
-static inline OH_Huks_Result InitParamSet(
+static OH_Huks_Result InitParamSet(
     struct OH_Huks_ExternalCryptoParamSet **paramSet,
     const struct OH_Huks_ExternalCryptoParam *params,
     uint32_t paramCount)
@@ -45,7 +45,7 @@ static inline OH_Huks_Result InitParamSet(
     return ret;
 }
 
-static inline OH_Huks_Result InitHuksParamSet(
+static OH_Huks_Result InitHuksParamSet(
     struct OH_Huks_ParamSet **paramSet,
     const struct OH_Huks_Param *params,
     uint32_t paramCount)
@@ -159,15 +159,19 @@ static napi_value unregisterAllProvider(napi_env env, napi_callback_info info)
 // [unregister_all_cpp]
 
 // [open_resource_cpp]
-static const char *g_openResourceId = "{\"providerName\":\"testProviderName\",\"abilityName\":\"CryptoExtension\",\"bundleName\":\"com.example.cryptoapplication\",\"index\":{\"key\":\"testKey\"}}";
+static const char *OPEN_RESOURCE_ID =
+    "{\"providerName\":\"testProviderName\","
+    "\"abilityName\":\"CryptoExtension\","
+    "\"bundleName\":\"com.example.cryptoapplication\","
+    "\"index\":{\"key\":\"testKey\"}}";
 
 static struct OH_Huks_ExternalCryptoParam g_openResourceParamsTest[] = {};
 
 static napi_value OpenResource(napi_env env, napi_callback_info info)
 {
     struct OH_Huks_Blob resourceId = {
-        (uint32_t)strlen(g_openResourceId),
-        (uint8_t *)g_openResourceId
+        (uint32_t)strlen(OPEN_RESOURCE_ID),
+        (uint8_t *)OPEN_RESOURCE_ID
     };
     struct OH_Huks_ExternalCryptoParamSet *openResourceParamSet = nullptr;
     OH_Huks_Result ohResult;
@@ -191,15 +195,20 @@ static napi_value OpenResource(napi_env env, napi_callback_info info)
 // [open_resource_cpp]
 
 // [close_resource_cpp]
-static const char *g_closeResourceId = "{\"providerName\":\"testProviderName\",\"abilityName\":\"CryptoExtension\",\"bundleName\":\"com.example.cryptoapplication\",\"userid\":100,\"index\":{\"key\":\"testKey\"}}";
+static const char *CLOSE_RESOURCE_ID =
+    "{\"providerName\":\"testProviderName\","
+    "\"abilityName\":\"CryptoExtension\","
+    "\"bundleName\":\"com.example.cryptoapplication\","
+    "\"userid\":100,"
+    "\"index\":{\"key\":\"testKey\"}}";
 
 static struct OH_Huks_ExternalCryptoParam g_closeResourceParamsTest[] = {};
 
 static napi_value CloseResource(napi_env env, napi_callback_info info)
 {
     struct OH_Huks_Blob resourceId = {
-        (uint32_t)strlen(g_closeResourceId),
-        (uint8_t *)g_closeResourceId
+        (uint32_t)strlen(CLOSE_RESOURCE_ID),
+        (uint8_t *)CLOSE_RESOURCE_ID
     };
     struct OH_Huks_ExternalCryptoParamSet *closeResourceParamSet = nullptr;
     OH_Huks_Result ohResult;
@@ -223,15 +232,19 @@ static napi_value CloseResource(napi_env env, napi_callback_info info)
 // [close_resource_cpp]
 
 // [query_auth_state_cpp]
-static const char *g_queryResourceId = "{\"providerName\":\"testProviderName\",\"abilityName\":\"CryptoExtension\",\"bundleName\":\"com.example.cryptoapplication\",\"index\":{\"key\":\"testKey\"}}";
+static const char *QUERY_RESOURCE_ID =
+    "{\"providerName\":\"testProviderName\","
+    "\"abilityName\":\"CryptoExtension\","
+    "\"bundleName\":\"com.example.cryptoapplication\","
+    "\"index\":{\"key\":\"testKey\"}}";
 
 static struct OH_Huks_ExternalCryptoParam g_getPinStateParamsTest[] = {};
 
 static napi_value GetUkeyPinAuthState(napi_env env, napi_callback_info info)
 {
     struct OH_Huks_Blob g_resourceId = {
-        (uint32_t)strlen(g_queryResourceId),
-        (uint8_t *)g_queryResourceId
+        (uint32_t)strlen(QUERY_RESOURCE_ID),
+        (uint8_t *)QUERY_RESOURCE_ID
     };
     struct OH_Huks_ExternalCryptoParamSet *pinStateParamSet = nullptr;
     OH_Huks_ExternalPinAuthState authState = OH_HUKS_EXT_CRYPTO_PIN_NO_AUTH;
@@ -256,7 +269,7 @@ static napi_value GetUkeyPinAuthState(napi_env env, napi_callback_info info)
 // [query_auth_state_cpp]
 
 // [ukey_best_practice_cpp]
-/* 1. 调用证书管理的NDK接口解析用户选择的证书，获取对应的证书数据 */
+/* 1. 调用证书管理接口解析用户选择的证书，获取对应的证书数据 */
 static napi_value GetUkeyCert(napi_env env, napi_callback_info info)
 {
     size_t argc = 1;
@@ -268,14 +281,20 @@ static napi_value GetUkeyCert(napi_env env, napi_callback_info info)
     /* 获取keyUri长度 */
     size_t length = 0;
     napi_get_value_string_utf8(env, argv[0], nullptr, 0, &length);
+    if (length == 0) {
+        return nullptr;
+    }
     /* 获取keyUri值 */
     char *keyUriBuffer = static_cast<char*>(malloc(length + 1));
+    if (keyUriBuffer == nullptr) {
+        return nullptr;
+    }
     size_t result = 0;
     napi_get_value_string_utf8(env, argv[0], keyUriBuffer, length + 1, &result);
     OH_CM_Blob keyUri = { static_cast<uint32_t>(length + 1), (uint8_t*)keyUriBuffer };
 
     /* 定义UkeyInfo入参 */
-    OH_CM_UkeyInfo ukeyInfo = { OH_CM_CERT_PURPOSE_SIGN }; /* USB凭据的属性信息，此处省略 */
+    OH_CM_UkeyInfo ukeyInfo = { OH_CM_CERT_PURPOSE_SIGN };
 
     /* 获取keyUri对应的UKey证书详情 */
     OH_CM_CredentialDetailList credentialList = { 0, nullptr };
@@ -290,7 +309,7 @@ static napi_value GetUkeyCert(napi_env env, napi_callback_info info)
     return retNapi;
 }
 
-/* 2. 根据用户选中的keyUri作为resourceId，调用HUKS的NDK接口打开资源 */
+/* 2. 根据用户选中的keyUri作为resourceId，调用HUKS接口打开资源 */
 static struct OH_Huks_ExternalCryptoParam g_bpOpenResourceParamsTest[] = {};
 
 static napi_value BpOpenResource(napi_env env, napi_callback_info info)
@@ -304,11 +323,20 @@ static napi_value BpOpenResource(napi_env env, napi_callback_info info)
     /* 获取keyUri长度 */
     size_t length = 0;
     napi_get_value_string_utf8(env, argv[0], nullptr, 0, &length);
+    if (length == 0) {
+        return nullptr;
+    }
     /* 获取keyUri值 */
     char *keyUriBuffer = static_cast<char*>(malloc(length + 1));
+    if (keyUriBuffer == nullptr) {
+        return nullptr;
+    }
     size_t result = 0;
     napi_get_value_string_utf8(env, argv[0], keyUriBuffer, length + 1, &result);
-    OH_Huks_Blob resourceId = {.size = static_cast<uint32_t>(length), .data = (uint8_t*)keyUriBuffer};
+    OH_Huks_Blob resourceId = {
+        .size = static_cast<uint32_t>(length),
+        .data = (uint8_t*)keyUriBuffer
+    };
 
     struct OH_Huks_ExternalCryptoParamSet *openResourceParamSet = nullptr;
     OH_Huks_Result ohResult;
@@ -332,7 +360,7 @@ static napi_value BpOpenResource(napi_env env, napi_callback_info info)
     return ret;
 }
 
-/* 3. 调用HUKS的NDK接口查询PIN认证状态 */
+/* 3. 调用HUKS接口查询PIN认证状态 */
 static struct OH_Huks_ExternalCryptoParam g_bpGetPinStateParamsTest[] = {};
 
 static napi_value BpGetUkeyPinAuthState(napi_env env, napi_callback_info info)
@@ -346,11 +374,20 @@ static napi_value BpGetUkeyPinAuthState(napi_env env, napi_callback_info info)
     /* 获取keyUri长度 */
     size_t length = 0;
     napi_get_value_string_utf8(env, argv[0], nullptr, 0, &length);
+    if (length == 0) {
+        return nullptr;
+    }
     /* 获取keyUri值 */
     char *keyUriBuffer = static_cast<char*>(malloc(length + 1));
+    if (keyUriBuffer == nullptr) {
+        return nullptr;
+    }
     size_t result = 0;
     napi_get_value_string_utf8(env, argv[0], keyUriBuffer, length + 1, &result);
-    OH_Huks_Blob resourceId = {.size = static_cast<uint32_t>(length), .data = (uint8_t*)keyUriBuffer};
+    OH_Huks_Blob resourceId = {
+        .size = static_cast<uint32_t>(length),
+        .data = (uint8_t*)keyUriBuffer
+    };
 
     struct OH_Huks_ExternalCryptoParamSet *pinStateParamSet = nullptr;
     OH_Huks_ExternalPinAuthState authState = OH_HUKS_EXT_CRYPTO_PIN_NO_AUTH;
@@ -387,7 +424,7 @@ static napi_value Init(napi_env env, napi_value exports)
 }
 
 static napi_module demoModule = {
-    .nm_version =1,
+    .nm_version = 1,
     .nm_flags = 0,
     .nm_filename = nullptr,
     .nm_register_func = Init,
@@ -427,12 +464,10 @@ static struct OH_Huks_Param g_signParamsTest[] = {
 
 static const uint32_t RSA_COMMON_SIZE = 1024;
 static const char *DATA_TO_SIGN = "testData";
-// 此处的keyAlias可以参考第二步的resourceId获取方法，此处仅为示例
 static const char *KEY_ALIAS = "testKeyAlias";
 
 static napi_value Sign(napi_env env, napi_callback_info info)
 {
-    // 假设g_keyAlias是获取的resourceId
     struct OH_Huks_Blob keyAlias = {
         (uint32_t)strlen(KEY_ALIAS),
         (uint8_t *)KEY_ALIAS
@@ -444,18 +479,17 @@ static napi_value Sign(napi_env env, napi_callback_info info)
     struct OH_Huks_ParamSet *signParamSet = nullptr;
     OH_Huks_Result ohResult;
     do {
-        ohResult = InitHuksParamSet(&signParamSet, g_signParamsTest, sizeof(g_signParamsTest) / sizeof(OH_Huks_Param));
+        ohResult = InitHuksParamSet(&signParamSet, g_signParamsTest,
+            sizeof(g_signParamsTest) / sizeof(OH_Huks_Param));
         if (ohResult.errorCode != OH_HUKS_SUCCESS) {
             break;
         }
-        // Init
         uint8_t handleS[sizeof(uint64_t)] = {0};
         struct OH_Huks_Blob handleSign = { (uint32_t)sizeof(uint64_t), handleS };
         ohResult = OH_Huks_InitSession(&keyAlias, signParamSet, &handleSign, nullptr);
         if (ohResult.errorCode != OH_HUKS_SUCCESS) {
             break;
         }
-        // Finish
         uint8_t outDataS[RSA_COMMON_SIZE] = {0};
         struct OH_Huks_Blob outDataSign = { RSA_COMMON_SIZE, outDataS };
         ohResult = OH_Huks_FinishSession(&handleSign, signParamSet, &inData, &outDataSign);

@@ -1,13 +1,13 @@
 ﻿/*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an 'AS IS' BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -59,16 +59,16 @@ async function closeResource(resourceId: string): Promise<void> {
 async function extensionKeyGeneration(): Promise<void> {
   /* 1.准备资源ID（keyAlias使用resourceId） */
   const resourceId = JSON.stringify({
-    providerName: "testProviderName",
-    bundleName: "com.example.cryptoapplication",
-    abilityName: "CryptoExtension",
+    providerName: 'testProviderName',
+    bundleName: 'com.example.cryptoapplication',
+    abilityName: 'CryptoExtension',
     index: {
-      key: "testKey"
+      key: 'testKey'
     } as ESObject
   });
   const keyAlias = resourceId;
 
-  const properties: Array<huks.HuksParam> = [
+  const properties: huks.HuksParam[] = [
     {
       tag: huks.HuksTag.HUKS_TAG_KEY_CLASS,
       value: huks.HuksKeyClass.HUKS_KEY_CLASS_EXTENSION
