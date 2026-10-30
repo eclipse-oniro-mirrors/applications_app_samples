@@ -115,7 +115,7 @@ struct pbr_clearcoat {
           // [EndExclude pbr_clearcoat_loadScene]
         })
         .catch((err: BusinessError): void => {
-          console.error('Failed to load scene, code is %{public}%d, message is %{public}%s', err.code, err.message);
+          console.error('Failed to load scene, code is %{public}d, message is %{public}s', err.code, err.message);
         });
     }
     // [End pbr_clearcoat_loadScene]
