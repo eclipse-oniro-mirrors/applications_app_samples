@@ -70,12 +70,17 @@ struct Index {
   async testFetchMetadataFromFdSrcByCallback() {
     if (canIUse('SystemCapability.Multimedia.Media.AVMetadataExtractor')) {
       try {
+        // [Start AVMetadataExtractor_CreateAVMetadataExtractor]
         // 创建AVMetadataExtractor对象。
         let avMetadataExtractor: media.AVMetadataExtractor = await media.createAVMetadataExtractor();
+        // [End AVMetadataExtractor_CreateAVMetadataExtractor]
+        // [Start AVMetadataExtractor_SetFdSrc]
         // 设置fdSrc。
         let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
         avMetadataExtractor.fdSrc = await context.resourceManager.getRawFd('test.mp3');
+        // [End AVMetadataExtractor_SetFdSrc]
 
+        // [Start AVMetadataExtractor_FetchMetadata]
         // 获取元数据（callback模式）。
         avMetadataExtractor.fetchMetadata((error, metadata) => {
           if (error) {
@@ -84,7 +89,9 @@ struct Index {
           }
           console.info(TAG, `fetchMetadata callback success, genre: ${metadata.genre}`);
         })
+        // [End AVMetadataExtractor_FetchMetadata]
 
+        // [Start AVMetadataExtractor_fetchAlbumCover]
         //获取专辑封面（callback模式）。
         avMetadataExtractor.fetchAlbumCover((err, pixelMap) => {
           if (err) {
@@ -92,7 +99,8 @@ struct Index {
             return;
           }
           this.pixelMap = pixelMap;
-
+          // [StartExclude AVMetadataExtractor_fetchAlbumCover]
+          // [Start AVMetadataExtractor_Release]
           // 释放资源（callback模式）。
           avMetadataExtractor.release((error) => {
             if (error) {
@@ -101,7 +109,10 @@ struct Index {
             }
             console.info(TAG, `release success.`);
           })
+          // [End AVMetadataExtractor_Release]
+          // [EndExclude AVMetadataExtractor_fetchAlbumCover]
         })
+        // [End AVMetadataExtractor_fetchAlbumCover]
       } catch (e) {
         console.error(TAG + `FetchMetadataFromFdSrcByCallback, code is ${e.code}, message is ${e.message}`);
       }
@@ -146,7 +157,10 @@ struct Index {
 
         // 设置fdSrc。
         console.info(TAG, `path: ${this.rootPath + this.testFilename}`);
+        
+        // [Start AVMetadataExtractor_SetOpenSync]
         avMetadataExtractor.fdSrc = fs.openSync(this.rootPath + this.testFilename);
+        // [End AVMetadataExtractor_SetOpenSync]
 
         // 获取元数据（promise模式）。
         let metadata = await avMetadataExtractor.fetchMetadata();
@@ -169,6 +183,7 @@ struct Index {
   async testFetchMetadataFromDataSrc() {
     if (canIUse('SystemCapability.Multimedia.Media.AVMetadataExtractor')) {
       try {
+        // [Start AVMetadataExtractor_SetDataSrc]
         // 通过UIAbilityContext获取沙箱地址filesDir（以Stage模型为例）。
         let fd: number = fs.openSync(this.rootPath + this.testFilename).fd;
         let fileSize: number = fs.statSync(this.rootPath + this.testFilename).size;
@@ -197,16 +212,25 @@ struct Index {
         let avMetadataExtractor = await media.createAVMetadataExtractor();
         // 设置dataSrc。
         avMetadataExtractor.dataSrc = dataSrc;
-
+        // [End AVMetadataExtractor_SetDataSrc]
+        
+        
+        // [Start AVMetadataExtractor_FetchMetadataPromise]
         // 获取元数据（promise模式）。
         let metadata = await avMetadataExtractor.fetchMetadata();
         console.info(TAG, `get meta data, mimeType: ${metadata.mimeType}`);
+        // [End AVMetadataExtractor_FetchMetadataPromise]
 
+        // [Start AVMetadataExtractor_fetchAlbumCoverPromise]
         // 获取专辑封面（promise模式）。
         this.pixelMap = await avMetadataExtractor.fetchAlbumCover();
+        // [End AVMetadataExtractor_fetchAlbumCoverPromise]
 
+        // [Start AVMetadataExtractor_ReleasePromise]
         // 释放资源（promise模式）。
         avMetadataExtractor.release();
+        // [End AVMetadataExtractor_ReleasePromise]
+
         console.info(TAG, `release data source success.`);
       } catch (e) {
         console.error(TAG + `FetchMetadataFromDataSrc, code is ${e.code}, message is ${e.message}`);
