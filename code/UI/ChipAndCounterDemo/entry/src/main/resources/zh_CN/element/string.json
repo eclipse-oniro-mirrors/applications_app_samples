@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Chip、ChipV2、ChipGroupV2、CounterV2、SegmentButtonV2 演示模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Chip 与计数器高级组件演示"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "ChipAndCounterDemo"
+    }
+  ]
+}
