@@ -5,7 +5,6 @@
     "pages/InitiatePrintAppAPI",
     "pages/PreviewPDF",
     "pages/CalcAdjustSafeArea",
-    "pages/PdfEvent",
     "pages/ImmersiveWeb"
   ]
 }
