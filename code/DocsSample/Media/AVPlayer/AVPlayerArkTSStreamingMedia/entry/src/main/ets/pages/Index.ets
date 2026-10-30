@@ -136,7 +136,7 @@ struct Index {
 
   setMediaSource() {
     // [Start setMediaSource]
-    let mediaSource : media.MediaSource = media.createMediaSourceWithUrl("http://example/abc.mpd",  {"User-Agent" : "User-Agent-Value"});
+    let mediaSource : media.MediaSource = media.createMediaSourceWithUrl('http://example/abc.mpd',  {'User-Agent' : 'User-Agent-Value'});
     // 设置视频宽度1920px、高度1080px起播。
     let playbackStrategy : media.PlaybackStrategy = {preferredWidth: 1920, preferredHeight: 1080};
     // 为avPlayer设置媒体来源和播放策略。
@@ -148,7 +148,7 @@ struct Index {
     if (this.avPlayer == null) {
       return;
     }
-    this.avPlayer.url = "https://example/abc.m3u8";
+    this.avPlayer.url = 'https://example/abc.m3u8';
     let bitrate: number = 0;
     // 监听当前HLS协议流可用的码率
     // [Start availableBitrates]
@@ -167,7 +167,7 @@ struct Index {
     if (this.avPlayer == null) {
       return;
     }
-    this.avPlayer.url = "http://example/abc.mpd";
+    this.avPlayer.url = 'http://example/abc.mpd';
     // [Start getTrackDescription] 
     this.avPlayer?.getTrackDescription((error: BusinessError, arrList: Array<media.MediaDescription>) => {
       if (arrList != null) {
