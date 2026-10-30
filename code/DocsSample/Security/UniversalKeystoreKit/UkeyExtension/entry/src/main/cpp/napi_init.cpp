@@ -20,7 +20,7 @@
 #include "huks/native_huks_external_crypto_api.h"
 #include <cstring>
 #include <string.h>
-#include <stdint.h>
+#include <cstdint>
 #include <device_certificate/certmanager/cm_native_api.h>
 #include <device_certificate/certmanager/cm_native_type.h>
 
