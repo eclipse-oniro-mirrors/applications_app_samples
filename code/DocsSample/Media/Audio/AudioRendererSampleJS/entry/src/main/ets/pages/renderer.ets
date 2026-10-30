@@ -59,7 +59,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude render_start]
 // [StartExclude render_stop]
 // [StartExclude render_release]
-import { fileIo as fs } from '@kit.CoreFileKit';
+import { fileIo } from '@kit.CoreFileKit';
 import { common } from '@kit.AbilityKit';
 // [StartExclude init_oncallback]
 // [StartExclude render_process]
@@ -145,7 +145,7 @@ async function initArguments(context: common.UIAbilityContext) {
       return audio.AudioDataCallbackResult.INVALID;
     }
     try {
-      let bufferLength = fs.readSync(file.fd, buffer, options);
+      let bufferLength = fileIo.readSync(file.fd, buffer, options);
       bufferSize += buffer.byteLength;
       // 系统会判定buffer有效，正常播放。
       // [StartExclude init_oncallback]
