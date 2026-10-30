@@ -40,18 +40,30 @@ export default function adaptersDialogsTest002() {
         // 每次测试前重建数据源和3个测试FileBean
         ds = new FileDataSource({} as Context, []);
         let info1: ESObject = {
-          uri: 'file://test/a.mp4', fileName: 'a.mp4',
-          size: 100, mtime: 0, mimeType: 'video', relativePath: '/test/',
+          uri: 'file://test/a.mp4',
+          fileName: 'a.mp4',
+          size: 100,
+          mtime: 0,
+          mimeType: 'video',
+          relativePath: '/test/',
           mode: 0
         };
         let info2: ESObject = {
-          uri: 'file://test/b.mp3', fileName: 'b.mp3',
-          size: 200, mtime: 0, mimeType: 'audio', relativePath: '/test/',
+          uri: 'file://test/b.mp3',
+          fileName: 'b.mp3',
+          size: 200,
+          mtime: 0,
+          mimeType: 'audio',
+          relativePath: '/test/',
           mode: 0
         };
         let info3: ESObject = {
-          uri: 'file://test/c.jpg', fileName: 'c.jpg',
-          size: 300, mtime: 0, mimeType: 'image', relativePath: '/test/',
+          uri: 'file://test/c.jpg',
+          fileName: 'c.jpg',
+          size: 300,
+          mtime: 0,
+          mimeType: 'image',
+          relativePath: '/test/',
           mode: 0
         };
         bean1 = new FileBean('1', info1 as FileInfo);
@@ -157,8 +169,12 @@ export default function adaptersDialogsTest002() {
       it('totalCount_after_push_updates_correctly', 0, () => {
         // 连续push应该累加数据
         let info4: ESObject = {
-          uri: 'file://test/d.pdf', fileName: 'd.pdf',
-          size: 400, mtime: 0, mimeType: 'doc', relativePath: '/test/',
+          uri: 'file://test/d.pdf',
+          fileName: 'd.pdf',
+          size: 400,
+          mtime: 0,
+          mimeType: 'doc',
+          relativePath: '/test/',
           mode: 0
         };
         let bean4: FileBean = new FileBean('4', info4 as FileInfo);

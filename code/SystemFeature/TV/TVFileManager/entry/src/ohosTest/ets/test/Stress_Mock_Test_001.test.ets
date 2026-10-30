@@ -20,7 +20,13 @@ import { BasicDataSource } from '../../../main/ets/component/adapter/BasicDataSo
 import { NavStack, StatusListener } from '../../../main/ets/common/manager/NavPathStackManager';
 import { DeviceType } from '../../../main/ets/common/data/DeviceType';
 import { PageType } from '../../../main/ets/model/PageType';
-import { checkSuffix, SUFFIX_VIDEO, SUFFIX_AUDIO, SUFFIX_IMAGE, SUFFIX_TEXT } from '../../../main/ets/common/ConstantsMedia';
+import {
+  checkSuffix,
+  SUFFIX_VIDEO,
+  SUFFIX_AUDIO,
+  SUFFIX_IMAGE,
+  SUFFIX_TEXT
+} from '../../../main/ets/common/ConstantsMedia';
 
 export default function stressMockTest001() {
   describe('Stress_Mock_Test_001', () => {
@@ -54,16 +60,27 @@ export default function stressMockTest001() {
         let ds: BasicDataSource<number> = new BasicDataSource(arr);
         let changeCount: number = 0;
         let listener: DataChangeListener = {
-          onDataReloaded: (): void => {},
-          onDataAdd: (index: number): void => {},
-          onDataAdded: (index: number): void => {},
-          onDataChange: (index: number): void => { changeCount++; },
-          onDataChanged: (index: number): void => {},
-          onDataDelete: (index: number): void => {},
-          onDataDeleted: (index: number): void => {},
-          onDataMove: (from: number, to: number): void => {},
-          onDataMoved: (from: number, to: number): void => {},
-          onDatasetChange: (dataOperations: DataOperation[]): void => {}
+          onDataReloaded: (): void => {
+          },
+          onDataAdd: (index: number): void => {
+          },
+          onDataAdded: (index: number): void => {
+          },
+          onDataChange: (index: number): void => {
+            changeCount++;
+          },
+          onDataChanged: (index: number): void => {
+          },
+          onDataDelete: (index: number): void => {
+          },
+          onDataDeleted: (index: number): void => {
+          },
+          onDataMove: (from: number, to: number): void => {
+          },
+          onDataMoved: (from: number, to: number): void => {
+          },
+          onDatasetChange: (dataOperations: DataOperation[]): void => {
+          }
         };
         ds.registerDataChangeListener(listener);
         // 批量触发100次数据变更
@@ -85,9 +102,15 @@ export default function stressMockTest001() {
         let audioCount: number = 0;
         let imageCount: number = 0;
         for (let f of testFiles) {
-          if (checkSuffix(f, SUFFIX_VIDEO)) videoCount++;
-          if (checkSuffix(f, SUFFIX_AUDIO)) audioCount++;
-          if (checkSuffix(f, SUFFIX_IMAGE)) imageCount++;
+          if (checkSuffix(f, SUFFIX_VIDEO)) {
+            videoCount++;
+          }
+          if (checkSuffix(f, SUFFIX_AUDIO)) {
+            audioCount++;
+          }
+          if (checkSuffix(f, SUFFIX_IMAGE)) {
+            imageCount++;
+          }
         }
         expect(videoCount).assertEqual(100);
         expect(audioCount).assertEqual(100);
@@ -133,9 +156,18 @@ export default function stressMockTest001() {
         // 多个FileList注册的BackPress回调按注册顺序执行
         let nav: NavStack = new NavStack();
         let order: number[] = [];
-        let cb1: () => boolean = (): boolean => { order.push(1); return false; };
-        let cb2: () => boolean = (): boolean => { order.push(2); return true; };
-        let cb3: () => boolean = (): boolean => { order.push(3); return false; };
+        let cb1: () => boolean = (): boolean => {
+          order.push(1);
+          return false;
+        };
+        let cb2: () => boolean = (): boolean => {
+          order.push(2);
+          return true;
+        };
+        let cb3: () => boolean = (): boolean => {
+          order.push(3);
+          return false;
+        };
         nav.regBackPressFun(cb1);
         nav.regBackPressFun(cb2);
         nav.regBackPressFun(cb3);
@@ -181,7 +213,9 @@ export default function stressMockTest001() {
         // 模拟FileList反复创建销毁（页面切换）
         for (let cycle: number = 0; cycle < 50; cycle++) {
           let callCount: number = 0;
-          let listener: StatusListener = (isSelect: boolean) => { callCount++; };
+          let listener: StatusListener = (isSelect: boolean) => {
+            callCount++;
+          };
           nav.addStatusLis(listener);
           nav.setCopyMode();
           nav.removeStatusLis(listener);
@@ -194,7 +228,9 @@ export default function stressMockTest001() {
       it('backPress_callback_add_remove_cycle_no_leak', 0, () => {
         let nav: NavStack = new NavStack();
         for (let cycle: number = 0; cycle < 30; cycle++) {
-          let cb: () => boolean = (): boolean => { return false; };
+          let cb: () => boolean = (): boolean => {
+            return false;
+          };
           nav.regBackPressFun(cb);
           nav.unregBackPressFun(cb);
         }

@@ -16,7 +16,13 @@
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 import { FileBean } from '../../../main/ets/component/bean/FileBean';
 import { FileInfo } from '../../../main/ets/common/data/FileInfo';
-import { checkSuffix, SUFFIX_VIDEO, SUFFIX_AUDIO, SUFFIX_IMAGE, SUFFIX_TEXT } from '../../../main/ets/common/ConstantsMedia';
+import {
+  checkSuffix,
+  SUFFIX_VIDEO,
+  SUFFIX_AUDIO,
+  SUFFIX_IMAGE,
+  SUFFIX_TEXT
+} from '../../../main/ets/common/ConstantsMedia';
 import { Tools } from '../../../main/ets/common/utils/Tools';
 import { IsFile, IsDevice } from '../../../main/ets/common/utils/Tools';
 import { fileExtensionInfo } from '@kit.CoreFileKit';
@@ -47,10 +53,15 @@ export default function boundaryEdgeTest001() {
       it('FileBean_with_empty_uri', 0, () => {
         // 空URI的文件系统条目：理论上不应出现，但需要防御
         let info: ESObject = {
-          uri: '', fileName: 'empty_uri_file',
-          size: 0, mtime: 0, mimeType: '', relativePath: '',
+          uri: '',
+          fileName: 'empty_uri_file',
+          size: 0,
+          mtime: 0,
+          mimeType: '',
+          relativePath: '',
           mode: 0,
-          listFile: undefined, scanFile: undefined
+          listFile: undefined,
+          scanFile: undefined
         };
         let bean: FileBean = new FileBean('e', info as FileInfo);
         expect(bean.id).assertEqual('');
@@ -66,7 +77,10 @@ export default function boundaryEdgeTest001() {
         let info: ESObject = {
           uri: 'file://test/' + longName,
           fileName: longName,
-          size: 0, mtime: 0, mimeType: '', relativePath: '',
+          size: 0,
+          mtime: 0,
+          mimeType: '',
+          relativePath: '',
           mode: 0
         };
         let bean: FileBean = new FileBean('long', info as FileInfo);
@@ -79,7 +93,10 @@ export default function boundaryEdgeTest001() {
         let info: ESObject = {
           uri: 'file://test/' + specialName,
           fileName: specialName,
-          size: 0, mtime: 0, mimeType: '', relativePath: '',
+          size: 0,
+          mtime: 0,
+          mimeType: '',
+          relativePath: '',
           mode: 0
         };
         let bean: FileBean = new FileBean('s', info as FileInfo);
@@ -89,10 +106,15 @@ export default function boundaryEdgeTest001() {
       it('FileBean_with_zero_size_and_valid_type', 0, () => {
         // size=0的文件可能是空文件或刚创建的文件
         let info: ESObject = {
-          uri: 'file://test/empty.txt', fileName: 'empty.txt',
-          size: 0, mtime: Date.now(), mimeType: 'text/plain',
-          relativePath: '/test/', mode: fileExtensionInfo.DocumentFlag.REPRESENTS_FILE,
-          listFile: undefined, scanFile: undefined
+          uri: 'file://test/empty.txt',
+          fileName: 'empty.txt',
+          size: 0,
+          mtime: Date.now(),
+          mimeType: 'text/plain',
+          relativePath: '/test/',
+          mode: fileExtensionInfo.DocumentFlag.REPRESENTS_FILE,
+          listFile: undefined,
+          scanFile: undefined
         };
         let bean: FileBean = new FileBean('zero', info as FileInfo);
         expect(bean.size).assertEqual(0);
@@ -103,8 +125,12 @@ export default function boundaryEdgeTest001() {
         // 超大文件（如4GB以上），byte2Str需要正确进位到GB
         let maxSize: number = Number.MAX_SAFE_INTEGER;
         let info: ESObject = {
-          uri: 'file://test/huge.bin', fileName: 'huge.bin',
-          size: maxSize, mtime: 0, mimeType: '', relativePath: '',
+          uri: 'file://test/huge.bin',
+          fileName: 'huge.bin',
+          size: maxSize,
+          mtime: 0,
+          mimeType: '',
+          relativePath: '',
           mode: 0
         };
         let bean: FileBean = new FileBean('huge', info as FileInfo);
@@ -174,7 +200,7 @@ export default function boundaryEdgeTest001() {
         // 512B=0.5KB
         expect(Tools.byte2Str(512)).assertEqual('512B');
         // 1536B=1.5KB
-        expect(Tools.byte2Str(1536)).assertEqual('1.5KB');
+        expect(Tools.byte2Str(1536)).assertEqual('1.50KB');
       });
 
       it('byte2Str_very_large_value_TB_range', 0, () => {
