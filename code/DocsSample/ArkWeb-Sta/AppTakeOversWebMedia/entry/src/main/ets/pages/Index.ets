@@ -145,7 +145,7 @@ class AVPlayerListenerImpl implements AVPlayerListener {
     this.handler.handleEnded();
   }
   onError() {
-    console.info('AVPlayerListenerImpl.onError');
+    console.error('AVPlayerListenerImpl.onError');
     this.component.has_error = true;
     setTimeout(()=>{
       this.handler.handleError(webview.MediaError.NETWORK_ERROR, "Oops!");
