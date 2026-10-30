@@ -6,6 +6,7 @@
     "managers/SharedArrayBufferObject",
     "managers/TransferabledObject",
     "managers/ContainerObject",
-    "managers/WorkerSendArrayBuffer"
+    "managers/WorkerSendArrayBuffer",
+    "managers/WorkerSendArrayBufferWithCopy"
   ]
 }
