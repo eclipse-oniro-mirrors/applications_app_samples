@@ -14,11 +14,11 @@
  */
 // [Start arkts_child_process_noarg_one]
 // [Start arkts_child_process_noarg_two]
-import { childProcessManager } from '@kit.AbilityKit';
 // [Start arkts_child_process_arg]
+import { childProcessManager } from '@kit.AbilityKit';
 // [StartExclude arkts_child_process_noarg_one]
 // [StartExclude arkts_child_process_noarg_two]
-import { common, ChildProcessArgs, ChildProcessOptions, childProcessManager } from '@kit.AbilityKit';
+import { common, ChildProcessArgs, ChildProcessOptions } from '@kit.AbilityKit';
 // [EndExclude arkts_child_process_noarg_one]
 // [EndExclude arkts_child_process_noarg_two]
 import { BusinessError } from '@kit.BasicServicesKit';
