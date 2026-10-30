@@ -771,13 +771,13 @@ bool ParseSrcPortFromJson(const std::string& jsonStr, OH_TrafficFilter_RedirectR
     rule.srcPort.type = srcPortType.empty() ? OH_TRAFFICFILTER_PORT_MATCH_ANY
         : static_cast<OH_TrafficFilter_PortMatchType>(static_cast<int32_t>(std::stoul(srcPortType)));
     OH_LOG_INFO(LOG_APP,
-        "BuildRedirectRuleFromJson - src_port type: %{public}d", rule.srcPort.type);
+        "BuildRedirectRuleFromJson - srcPort type: %{public}d", rule.srcPort.type);
 
     std::string srcPortInvert = ExtractJsonValue(srcPortObj, "invert");
     rule.srcPort.invert = (srcPortInvert == "true");
 
     return ParsePortMatchValueFromJson(srcPortObj, rule.srcPort.type, rule.srcPort,
-                                       PORT_MIN_VALUE, "src_port");
+                                       PORT_MIN_VALUE, "srcPort");
 }
 
 bool ParseDstPortFromJson(const std::string& jsonStr, OH_TrafficFilter_RedirectRule& rule)
@@ -1167,7 +1167,7 @@ static std::string BuildQueryConnectionInfo(
         connectionInfo.srcIp.addr)) {
         return "ERROR: Invalid source IP address";
     }
-    connectionInfo.src_port = static_cast<uint16_t>(queryArgs.srcPort);
+    connectionInfo.srcPort = static_cast<uint16_t>(queryArgs.srcPort);
 
     connectionInfo.dstIp.family = DetectIPFamilyFromAddr(queryArgs.dstIp);
     if (!ParseIPAddressByFamily(queryArgs.dstIp, connectionInfo.dstIp.family,
