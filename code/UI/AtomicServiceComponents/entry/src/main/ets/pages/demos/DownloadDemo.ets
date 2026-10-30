@@ -1,0 +1,264 @@
+import {
+  DownloadContentOptions,
+  DownloadDescription,
+  DownloadFileButton,
+  DownloadIconStyle,
+  DownloadLayoutDirection,
+  DownloadStyleOptions
+} from '@kit.ArkUI';
+import { common } from '@kit.AbilityKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { DemoPageScaffold } from '../../components/DemoPageScaffold';
+import { LogPanel } from '../../components/LogPanel';
+import {
+  DownloadState,
+  downloadStateName,
+  nextDownloadState
+} from '../../model/DownloadFlow';
+import { buildDownloadContent, buildDownloadFileName, formatBytes } from '../../utils/FormatUtil';
+import { errorInfo, formatError } from '../../utils/ErrorUtil';
+import { saveTextToSandbox } from '../../utils/FileUtil';
+import { DownloadPicker, PickerOutcome } from '../../utils/PickerUtil';
+import { Logger } from '../../utils/Logger';
+import { DEFAULT_LAYOUT_PROFILE, LayoutProfile } from '../../model/DeviceProfile';
+import { PICKER_TIMEOUT_MS } from '../../common/AppConstants';
+import { AppColors, AppRadius, AppSize, AppSpacing, AppText } from '../../common/Theme';
+
+@Component
+export struct DownloadDemo {
+  navPathStack: NavPathStack = new NavPathStack();
+  @StorageProp('layoutProfile') layout: LayoutProfile = DEFAULT_LAYOUT_PROFILE;
+  @State iconFilled: boolean = true;
+  @State horizontal: boolean = true;
+  @State state: DownloadState = DownloadState.IDLE;
+  @State lastPath: string = '';
+  @State contentOptions: DownloadContentOptions = {
+    icon: DownloadIconStyle.FULL_FILLED,
+    text: DownloadDescription.DOWNLOAD
+  };
+  @State styleOptions: DownloadStyleOptions = {
+    iconSize: '28vp',
+    layoutDirection: DownloadLayoutDirection.HORIZONTAL,
+    fontSize: '16fp',
+    fontStyle: FontStyle.Normal,
+    fontWeight: FontWeight.Medium,
+    fontColor: AppColors.WHITE,
+    iconColor: AppColors.WHITE,
+    textIconSpace: '8vp'
+  };
+  private picker: DownloadPicker | null = null;
+
+  aboutToAppear(): void {
+    Logger.info('Download', '生命周期',
+      `进入下载演示页，设备形态 ${this.layout.form}，文档选择器${this.layout.pickerSupported ? '可用' : '不可用'}`);
+  }
+
+  aboutToDisappear(): void {
+    if (this.picker !== null) {
+      this.picker.dispose();
+      this.picker = null;
+    }
+    Logger.info('Download', '生命周期', `离开下载演示页，最终状态 ${downloadStateName(this.state)}`);
+  }
+
+  private toggleIcon(): void {
+    this.iconFilled = !this.iconFilled;
+    this.contentOptions = {
+      icon: this.iconFilled ? DownloadIconStyle.FULL_FILLED : DownloadIconStyle.LINES,
+      text: DownloadDescription.DOWNLOAD_FILE
+    };
+    Logger.info('Download', '样式', `图标切换为 ${this.iconFilled ? 'FULL_FILLED' : 'LINES'}`);
+  }
+
+  private toggleLayout(): void {
+    this.horizontal = !this.horizontal;
+    this.styleOptions = {
+      iconSize: '28vp',
+      layoutDirection: this.horizontal ? DownloadLayoutDirection.HORIZONTAL : DownloadLayoutDirection.VERTICAL,
+      fontSize: '16fp',
+      fontStyle: FontStyle.Normal,
+      fontWeight: FontWeight.Medium,
+      fontColor: AppColors.WHITE,
+      iconColor: AppColors.WHITE,
+      textIconSpace: '8vp'
+    };
+    Logger.info('Download', '样式', `排列切换为 ${this.horizontal ? 'HORIZONTAL' : 'VERTICAL'}`);
+  }
+
+  private downloadAction(): void {
+    this.state = DownloadState.PICKING;
+    Logger.info('Download', '下载',
+      `开始下载，pickerSupported=${this.layout.pickerSupported}，目标=${this.layout.pickerSupported ? '选择器' : '沙箱'}`);
+    if (!this.layout.pickerSupported) {
+      this.saveToSandbox(`设备形态 ${this.layout.form} 未提供文档选择器`);
+      return;
+    }
+    try {
+      const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+      this.picker = new DownloadPicker(context);
+      this.picker.open((outcome: PickerOutcome) => {
+        this.handlePickerOutcome(outcome);
+      });
+      Logger.info('Download', '下载', `已打开文档选择器（DOWNLOAD 模式），超时 ${PICKER_TIMEOUT_MS}ms`);
+    } catch (err) {
+      const error = err as BusinessError;
+      Logger.error('Download', '下载', formatError('打开文档选择器', error.code, error.message));
+      this.saveToSandbox(`选择器不可用：${error.message}`);
+    }
+  }
+
+  private handlePickerOutcome(outcome: PickerOutcome): void {
+    this.picker = null;
+    if (outcome.success) {
+      this.state = nextDownloadState(this.state, true);
+      this.lastPath = outcome.path;
+      Logger.info('Download', '下载', `选择器返回保存路径：${outcome.path}`);
+      return;
+    }
+    const info = errorInfo(outcome.code, outcome.message);
+    if (outcome.timedOut) {
+      Logger.warn('Download', '下载', `选择器超时：${info.describe()}`);
+      this.saveToSandbox(`${info.message}（超过 ${PICKER_TIMEOUT_MS / 1000} 秒）`);
+      return;
+    }
+    Logger.warn('Download', '下载', `选择器失败：${info.describe()}；${info.hint}`);
+    this.saveToSandbox(`选择器不可用 ${info.describe()}`);
+  }
+
+  private saveToSandbox(reason: string): void {
+    try {
+      const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+      const fileName = buildDownloadFileName(new Date());
+      const result = saveTextToSandbox(context.filesDir, fileName, buildDownloadContent(new Date()));
+      if (result.success) {
+        this.state = nextDownloadState(DownloadState.PICKING, false);
+        this.lastPath = result.path;
+        Logger.warn('Download', '下载',
+          `${reason}，已降级写入沙箱：${result.path}（${formatBytes(result.bytes)}）`);
+      } else {
+        this.state = DownloadState.FAILED;
+        Logger.error('Download', '下载', `${reason}；${result.message}`);
+      }
+    } catch (err) {
+      const error = err as BusinessError;
+      this.state = DownloadState.FAILED;
+      Logger.error('Download', '下载',
+        `${reason}；获取 UIAbilityContext 失败：${formatError('写入沙箱', error.code, error.message)}`);
+    }
+  }
+
+  build() {
+    DemoPageScaffold({
+      title: 'DownloadFileButton',
+      subtitle: '统一样式的下载按钮。点击后优先调用文档选择器，不可用时降级写入应用沙箱。',
+      logSource: 'Download',
+      navPathStack: this.navPathStack
+    }) {
+      Scroll() {
+        Column({ space: AppSpacing.XL }) {
+          Column({ space: AppSpacing.PAGE }) {
+            Text('下载按钮预览')
+              .fontSize(AppText.TITLE)
+              .fontColor(AppColors.TEXT_SECONDARY)
+              .width('100%')
+
+            ForEach([`${this.iconFilled}-${this.horizontal}`], (key: string) => {
+              DownloadFileButton({
+                contentOptions: this.contentOptions,
+                styleOptions: this.styleOptions
+              })
+                .backgroundColor(AppColors.PRIMARY)
+                .borderRadius(AppRadius.PILL)
+                .padding({
+                  top: AppSpacing.XL,
+                  bottom: AppSpacing.XL,
+                  left: AppSpacing.XLARGE,
+                  right: AppSpacing.XLARGE
+                })
+                .onClick(() => this.downloadAction())
+            }, (key: string) => key)
+
+            Text(`图标：${this.iconFilled ? 'FULL_FILLED（实心）' : 'LINES（线性）'} · 排列：${this.horizontal ? 'HORIZONTAL（水平）' : 'VERTICAL（垂直）'}`)
+              .fontSize(AppText.BODY)
+              .fontColor(AppColors.TEXT_TERTIARY)
+              .width('100%')
+
+            Row({ space: AppSpacing.MD }) {
+              Button('切换图标')
+                .fontSize(AppText.BODY)
+                .height(AppSize.BUTTON)
+                .backgroundColor(AppColors.PRIMARY_SOFT)
+                .fontColor(AppColors.PRIMARY)
+                .onClick(() => this.toggleIcon())
+              Button('切换排列')
+                .fontSize(AppText.BODY)
+                .height(AppSize.BUTTON)
+                .backgroundColor(AppColors.PRIMARY_SOFT)
+                .fontColor(AppColors.PRIMARY)
+                .onClick(() => this.toggleLayout())
+            }
+            .width('100%')
+          }
+          .width('100%')
+          .padding(AppSpacing.PAGE)
+          .backgroundColor(AppColors.CARD_BG)
+          .borderRadius(AppRadius.LARGE)
+          .alignItems(HorizontalAlign.Start)
+
+          Column({ space: AppSpacing.SM }) {
+            Row() {
+              Text('当前状态')
+                .fontSize(AppText.TITLE)
+                .fontColor(AppColors.TEXT_SECONDARY)
+              Blank()
+              Text(downloadStateName(this.state))
+                .fontSize(AppText.TITLE)
+                .fontColor(AppColors.PRIMARY)
+            }
+            .width('100%')
+
+            Text(`设备形态：${this.layout.form} · 文档选择器${this.layout.pickerSupported ? '可用' : '不可用'}`)
+              .fontSize(AppText.BODY)
+              .fontColor(AppColors.TEXT_TERTIARY)
+              .width('100%')
+
+            Text(this.lastPath.length > 0 ? this.lastPath : '尚未执行下载')
+              .fontSize(AppText.BODY)
+              .fontColor(AppColors.TEXT_TERTIARY)
+              .width('100%')
+              .maxLines(3)
+              .textOverflow({ overflow: TextOverflow.Ellipsis })
+          }
+          .width('100%')
+          .padding(AppSpacing.CARD)
+          .backgroundColor(AppColors.CARD_BG)
+          .borderRadius(AppRadius.LARGE)
+
+          Column({ space: AppSpacing.SM }) {
+            Text('实现说明')
+              .fontSize(AppText.TITLE)
+              .fontWeight(FontWeight.Medium)
+              .fontColor(AppColors.TEXT_PRIMARY)
+              .width('100%')
+            Text('DownloadFileButton 只负责统一的按钮样式，点击行为由通用 onClick 实现。示例使用 picker.DocumentViewPicker 的 DOWNLOAD 模式获取公共下载目录；如果开发板镜像没有文件选择器，则写入应用沙箱 filesDir 并显示真实路径。')
+              .fontSize(AppText.BODY)
+              .fontColor(AppColors.TEXT_SECONDARY)
+              .width('100%')
+          }
+          .width('100%')
+          .padding(AppSpacing.CARD)
+          .backgroundColor(AppColors.CARD_BG)
+          .borderRadius(AppRadius.LARGE)
+
+          LogPanel({ title: 'Download 事件', filterSource: 'Download' })
+        }
+        .width('100%')
+        .constraintSize({ maxWidth: this.layout.pageMaxWidth })
+        .padding(AppSpacing.PAGE)
+      }
+      .layoutWeight(1)
+      .align(Alignment.TopStart)
+      .scrollBar(BarState.Auto)
+    }
+  }
+}
