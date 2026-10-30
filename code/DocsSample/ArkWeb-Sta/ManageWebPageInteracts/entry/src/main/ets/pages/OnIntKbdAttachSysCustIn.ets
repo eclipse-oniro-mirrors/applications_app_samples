@@ -16,14 +16,14 @@
 
 // [Start soft_keyboard_web_static]
   // Index.ets
-  import { WebKeyboardCallbackInfo, WebKeyboardOptions, WebKeyboardController, $rawfile, Color, Text, Column, Row, Web, ColumnOptions, Entry, Component, Button } from '@ohos.arkui.component';
+  import { WebKeyboardCallbackInfo, WebKeyboardOptions, WebKeyboardController, $rawfile, Color, Text, Column, Row, Web, ColumnOptions, Entry, Component, Map, Button } from '@ohos.arkui.component';
   import webview from '@ohos.web.webview';
   import { inputMethodEngine } from '@kit.IMEKit';
 
   @Entry
   @Component
   struct WebComponent {
-    controller: webview.WebviewController = new webview.WebviewController();
+    controller: webview.WebviewController = new webview.WebviewController(undefined);
     webKeyboardController: WebKeyboardController = new WebKeyboardController();
     inputAttributeMap: Map<string, number> = new Map<string, number>([
         ['UNSPECIFIED', inputMethodEngine.ENTER_KEY_TYPE_UNSPECIFIED],
@@ -35,12 +35,12 @@
         ['PREVIOUS', inputMethodEngine.ENTER_KEY_TYPE_PREVIOUS]
       ])
 
-      /**
-       * 自定义键盘组件Builder
-       */
-      @Builder
-      customKeyboardBuilder() {
-		  // 这里实现自定义键盘组件，对接WebKeyboardController实现输入、删除、关闭等操作。
+    /**
+     * 自定义键盘组件Builder
+     */
+    @Builder
+    customKeyboardBuilder() {
+          // 这里实现自定义键盘组件，对接WebKeyboardController实现输入、删除、关闭等操作
         Row() {
           Text('完成')
             .fontSize(20)
@@ -48,25 +48,25 @@
             .onClick(() => {
               this.webKeyboardController.close();
             })
-          // 插入字符。
+          // 插入字符
           Button('insertText').onClick(() => {
             this.webKeyboardController.insertText('insert ');
           }).margin({
             bottom: 200,
           })
-          // 从后往前删除length参数指定长度的字符。
+          // 从后往前删除length参数指定长度的字符
           Button('deleteForward').onClick(() => {
             this.webKeyboardController.deleteForward(1);
           }).margin({
             bottom: 200,
           })
-          // 从前往后删除length参数指定长度的字符。
+          // 从前往后删除length参数指定长度的字符
           Button('deleteBackward').onClick(() => {
             this.webKeyboardController.deleteBackward(1);
           }).margin({
             left: -220,
           })
-          // 插入功能按键。
+          // 插入功能按键
           Button('sendFunctionKey').onClick(() => {
             this.webKeyboardController.sendFunctionKey(6);
           })
@@ -113,7 +113,7 @@
               if (enterKeyTypeStr != undefined) {
                 let enterKeyType: number | undefined = this.inputAttributeMap.get(enterKeyTypeStr);
                 if (enterKeyType != undefined) {
-                  option.enterKeyType = Double.toInt(enterKeyType);
+                  option.enterKeyType = enterKeyType as Int;
                 }                
               }
               return option;

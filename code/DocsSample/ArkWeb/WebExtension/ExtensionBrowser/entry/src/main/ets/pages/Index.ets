@@ -6,7 +6,7 @@ import { webNativeMessagingExtensionManager } from '@kit.ArkWeb'
 // [StartExclude web_native_messaging_connect_native]
 import testNapi from 'libentry.so';
 // [Start web_native_messaging_get_manifest_data]
-import dataShare from '@ohos.data.dataShare';
+import { dataShare } from '@kit.ArkData';
 // [StartExclude web_native_messaging_get_manifest_data]
 import { bundleManager } from '@kit.AbilityKit';
 // [EndExclude web_native_messaging_connect_native]
@@ -46,7 +46,7 @@ function connectNative(abilityContext: common.UIAbilityContext, bundleName: stri
 }
 // [End web_native_messaging_connect_native]
 // [EndExclude web_native_messaging_disconnect_native]
-function disconnencNative(connectId: number) : void {
+function disconnectNative(connectId: number) : void {
   console.info(`NativeMessageDisconnect start connectionId is ${connectId}`);
   webNativeMessagingExtensionManager.disconnectNative(connectId);
 }
@@ -60,7 +60,7 @@ interface ExtensionConfig {
 // [EndExclude web_native_messaging_get_manifest_data]
 async function getManifestData(bundleName:string, connectExtensionOrigin:string) {
   try {
-    // 调用dataShare接口获取extension配置
+   // 调用dataShare接口获取extension配置
     const dsProxyHelper = await dataShare.createDataProxyHandle();
     const urisToGet = [`datashareproxy://${bundleName}/browserNativeMessagingHosts`];
     const config : dataShare.DataProxyConfig = {
@@ -72,7 +72,7 @@ async function getManifestData(bundleName:string, connectExtensionOrigin:string)
       try {
         const result = results[i];
         const json = result.value;
-        if (typeof json !== "string") {
+        if (typeof json !== 'string') {
           continue;
         }
         let jsonStr:string = json as string;
