@@ -14,7 +14,7 @@
  */
 
 // [Start worker_send]
-import { worker, MessageEvents } from '@kit.ArkTS';
+import { worker, MessageEvents, ErrorEvent } from '@kit.ArkTS';
 
 const workerInstance = new worker.ThreadWorker('entry/ets/workers/Worker.ets');
 
@@ -23,7 +23,10 @@ workerInstance.postMessage(buffer, [buffer]);
 // 转移后，buffer的所有权转移到Worker线程，宿主线程无法再访问buffer
 workerInstance.onmessage = (e: MessageEvents) => {
   workerInstance.terminate();
-}
+};
+workerInstance.onerror = (err: ErrorEvent) => {
+  console.error('worker err:' + err.message);
+};
 // [End worker_send]
 @Entry
 @Component
