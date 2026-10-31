@@ -15,6 +15,7 @@
 
 // [Start generate_aes_key]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function testGenerateAesKey() {
   // 创建SymKeyGenerator实例
@@ -25,6 +26,8 @@ function testGenerateAesKey() {
     // 获取对称密钥的二进制数据，输出256位密钥。长度为32字节
     let encodedKey = key.getEncoded();
     console.info('key hex: ' + encodedKey.data);
+  }).catch((error: BusinessError) => {
+    console.error(`testGenerateAesKey failed: errCode: ${error.code}, message: ${error.message}`);
   });
 }
 // [End generate_aes_key]
