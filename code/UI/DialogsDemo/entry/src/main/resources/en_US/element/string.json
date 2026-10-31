@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "DialogV2 and InterstitialDialogAction dialogs demo module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Standard and interstitial dialogs demo"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "DialogsDemo"
+    }
+  ]
+}

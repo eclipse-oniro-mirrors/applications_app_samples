@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "DialogV2 与 InterstitialDialogAction 弹窗组件演示模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "标准弹窗与插屏弹窗演示"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "弹窗组件演示"
+    }
+  ]
+}
