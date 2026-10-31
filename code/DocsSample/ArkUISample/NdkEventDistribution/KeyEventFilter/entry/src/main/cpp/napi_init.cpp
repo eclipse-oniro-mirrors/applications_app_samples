@@ -15,7 +15,6 @@
 
 // [Start keyEventFilter]
 #include "napi/native_api.h"
-#include "window_manager/oh_window_comm.h"
 #include "window_manager/oh_window_event_filter.h"
 #include "multimodalinput/oh_input_manager.h"
 #include "multimodalinput/oh_key_code.h"
