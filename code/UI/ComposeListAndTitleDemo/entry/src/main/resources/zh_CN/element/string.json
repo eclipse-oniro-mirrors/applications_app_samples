@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "ComposeListItem/V2 与 ComposeTitleBar/V2 演示模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "列表项与标题栏高级组件演示"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "列表与标题"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "ComposeListItem/V2 and ComposeTitleBar/V2 demo module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Compose list item and title bar advanced components demo"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "List & Title"
+    }
+  ]
+}
