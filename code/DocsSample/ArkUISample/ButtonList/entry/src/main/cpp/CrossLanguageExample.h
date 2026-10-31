@@ -25,7 +25,6 @@
 
 namespace NativeModule {
 
-namespace {
 // 事件回调：在Native侧跨语言修改ArkTS侧创建的Scroll节点属性。
 void HandleCrossLanguageClick(ArkUI_NodeEvent *event)
 {
@@ -163,8 +162,6 @@ void CreateButtonNodes(ArkUI_NativeNodeAPI_1 *nodeAPI, ArkUI_NodeHandle row0)
     nodeAPI->addChild(row0, bt0);
     nodeAPI->addChild(row0, bt1);
 }
-
-} // namespace
 
 std::shared_ptr<ArkUIBaseNode> CreateCrossLanguageExample()
 {
