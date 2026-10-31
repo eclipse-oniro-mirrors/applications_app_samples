@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "FastBuffer and Stream demo module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "FastBuffer and Stream demo"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "FastBufferStreamDemo"
+    }
+  ]
+}

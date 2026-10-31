@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "FastBuffer 与 Stream 演示模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "FastBuffer 与 Stream 演示"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "高效缓冲与流式数据"
+    }
+  ]
+}
