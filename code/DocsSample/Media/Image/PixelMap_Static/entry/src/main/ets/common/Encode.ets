@@ -33,7 +33,8 @@ const imagePackerApi = image.createImagePacker();
  * @param pixelMap - 位图操作对象。
  * @param isHdr - 是否为HDR格式。
  **/
-export async function encodeToStreamByPixelMap(context: UIContext, pixelMap: image.PixelMap, isHdr: boolean): Promise<void> {
+export async function encodeToStreamByPixelMap(context: UIContext, pixelMap: image.PixelMap,
+  isHdr: boolean): Promise<void> {
   const path: string = context.getHostContext()!.cacheDir + '/pixel_map.jpg';
   let file = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE);
   // [Start pixelmap_set_image_packer_option]
@@ -63,7 +64,8 @@ export async function encodeToStreamByPixelMap(context: UIContext, pixelMap: ima
  * @param pixelMap - 位图操作对象。
  * @param isHdr - 是否为HDR格式。
  **/
-export async function encodeToStreamByImageSource(context: UIContext, imageSource: image.ImageSource, isHdr: boolean): Promise<void> {
+export async function encodeToStreamByImageSource(context: UIContext, imageSource: image.ImageSource,
+  isHdr: boolean): Promise<void> {
   let packOpts: image.PackingOption = { format: 'image/jpeg', quality: 98 };
   if (isHdr) {
     packOpts.desiredDynamicRange = image.PackingDynamicRange.AUTO;
@@ -89,7 +91,8 @@ export async function encodeToStreamByImageSource(context: UIContext, imageSourc
  * @param pixelMap - 位图操作对象。
  * @param isHdr - 是否为HDR格式。
  **/
-export async function encodeToFileByPixelMap(context: UIContext, pixelMap: image.PixelMap, isHdr: boolean): Promise<void> {
+export async function encodeToFileByPixelMap(context: UIContext, pixelMap: image.PixelMap,
+  isHdr: boolean): Promise<void> {
   let packOpts: image.PackingOption = { format: 'image/jpeg', quality: 98 };
   if (isHdr) {
     packOpts.desiredDynamicRange = image.PackingDynamicRange.AUTO;
@@ -114,7 +117,8 @@ export async function encodeToFileByPixelMap(context: UIContext, pixelMap: image
  * @param pixelMap - 位图操作对象。
  * @param isHdr - 是否为HDR格式。
  **/
-export async function encodeToFileByImageSource(context: UIContext, imageSource: image.ImageSource, isHdr: boolean): Promise<void> {
+export async function encodeToFileByImageSource(context: UIContext, imageSource: image.ImageSource,
+  isHdr: boolean): Promise<void> {
   let packOpts: image.PackingOption = { format: 'image/jpeg', quality: 98 };
   if (isHdr) {
     packOpts.desiredDynamicRange = image.PackingDynamicRange.AUTO;

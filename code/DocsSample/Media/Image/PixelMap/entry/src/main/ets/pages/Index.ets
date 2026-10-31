@@ -265,7 +265,7 @@ struct Index {
                 (): void => {
                   let fileName: string = getContext(this).cacheDir + '/pixel_map.jpg';
                   let fd: number = fs.openSync(fileName, fs.OpenMode.READ_WRITE).fd;
-                  readAndEditEXIF(fd);
+                  readAndEditEXIF(fd).finally(() => fs.closeSync(fd));
                 })
             }.justifyContent(FlexAlign.SpaceAround)
             .width('100%')

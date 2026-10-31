@@ -52,7 +52,8 @@ static Image_ErrorCode CreatePixelMap(OH_ImageSourceNative *source, OH_PixelmapN
     }
 
     // 获取指定属性键的值
-    uint32_t width, height;
+    uint32_t width;
+    uint32_t height;
     OH_ImageSourceInfo_GetWidth(imageInfo, &width);
     OH_ImageSourceInfo_GetHeight(imageInfo, &height);
     OH_ImageSourceInfo_Release(imageInfo);

@@ -189,7 +189,7 @@ struct Index {
                 (): void => {
                   let fileName: string = this.getUIContext().getHostContext()!.cacheDir + '/pixel_map.jpg';
                   let fd: int = fs.openSync(fileName, fs.OpenMode.READ_WRITE).fd;
-                  readAndEditEXIF(fd);
+                  readAndEditEXIF(fd).finally(() => { fs.closeSync(fd) });
                 })
             }
             .justifyContent(FlexAlign.SpaceAround)
