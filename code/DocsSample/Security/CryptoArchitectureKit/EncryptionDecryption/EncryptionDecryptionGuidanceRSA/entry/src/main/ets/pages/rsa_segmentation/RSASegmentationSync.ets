@@ -15,6 +15,7 @@
 
 // [Start rsa_segmentation_encrypt_decrypt_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { buffer } from '@kit.ArkTS';
 
 // 分段加密消息
@@ -58,24 +59,29 @@ function rsaDecryptBySegment(priKey: cryptoFramework.PriKey, cipherText: cryptoF
 }
 
 function main() {
-  let message = 'This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
-    'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
-    'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
-    'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
-    'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
-    'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
-    'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
-    'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!';
-  let asyKeyGenerator = cryptoFramework.createAsyKeyGenerator('RSA1024'); // 创建非对称密钥生成器对象
-  let keyPair = asyKeyGenerator.generateKeyPairSync(); // 随机生成RSA密钥
-  let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
-  let encryptText = rsaEncryptBySegment(keyPair.pubKey, plainText);
-  let decryptText = rsaDecryptBySegment(keyPair.priKey, encryptText);
-  if (plainText.data.toString() === decryptText.data.toString()) {
-    console.info('decrypt ok.');
-    console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
-  } else {
-    console.error('decrypt failed.');
+  try {
+    let message = 'This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
+      'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
+      'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
+      'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
+      'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
+      'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
+      'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
+      'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!';
+    let asyKeyGenerator = cryptoFramework.createAsyKeyGenerator('RSA1024'); // 创建非对称密钥生成器对象
+    let keyPair = asyKeyGenerator.generateKeyPairSync(); // 随机生成RSA密钥
+    let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
+    let encryptText = rsaEncryptBySegment(keyPair.pubKey, plainText);
+    let decryptText = rsaDecryptBySegment(keyPair.priKey, encryptText);
+    if (plainText.data.toString() === decryptText.data.toString()) {
+      console.info('decrypt ok.');
+      console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
+    } else {
+      console.error('decrypt failed.');
+    }
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
   }
 }
 

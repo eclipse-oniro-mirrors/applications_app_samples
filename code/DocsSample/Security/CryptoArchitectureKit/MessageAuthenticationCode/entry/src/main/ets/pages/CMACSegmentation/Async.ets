@@ -16,6 +16,7 @@
 // [Start message_authentication_code_calculation_cmac_segmentation_async]
 
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { buffer } from '@kit.ArkTS';
 
 async function genSymKeyByData(symKeyData: Uint8Array) {
@@ -26,28 +27,33 @@ async function genSymKeyByData(symKeyData: Uint8Array) {
   return symKey;
 }
 async function doLoopCmac() {
-  // 把字符串按utf-8编码为Uint8Array，使用固定的128位的密钥，即16字节。
-  let keyData = new Uint8Array(buffer.from('12345678abcdefgh', 'utf-8').buffer);
-  let key = await genSymKeyByData(keyData);
-  let spec: cryptoFramework.CmacSpec = {
-    algName: 'CMAC',
-    cipherName: 'AES128',
-  };
-  let mac = cryptoFramework.createMac(spec);
-  // 假设消息共43字节，根据UTF-8解码后，仍是43字节。
-  let messageText = 'aaaaa.....bbbbb.....ccccc.....ddddd.....eee';
-  let messageData = new Uint8Array(buffer.from(messageText, 'utf-8').buffer);
-  let updateLength = 20; // 假设以20字节为单位进行分段update，实际并无具体要求。
-  await mac.init(key);
-  for (let i = 0; i < messageData.length; i += updateLength) {
-    let updateMessage = messageData.subarray(i, i + updateLength);
-    let updateMessageBlob: cryptoFramework.DataBlob = { data: updateMessage };
-    await mac.update(updateMessageBlob);
+  try {
+    // 把字符串按utf-8编码为Uint8Array，使用固定的128位的密钥，即16字节。
+    let keyData = new Uint8Array(buffer.from('12345678abcdefgh', 'utf-8').buffer);
+    let key = await genSymKeyByData(keyData);
+    let spec: cryptoFramework.CmacSpec = {
+      algName: 'CMAC',
+      cipherName: 'AES128',
+    };
+    let mac = cryptoFramework.createMac(spec);
+    // 假设消息共43字节，根据UTF-8解码后，仍是43字节。
+    let messageText = 'aaaaa.....bbbbb.....ccccc.....ddddd.....eee';
+    let messageData = new Uint8Array(buffer.from(messageText, 'utf-8').buffer);
+    let updateLength = 20; // 假设以20字节为单位进行分段update，实际并无具体要求。
+    await mac.init(key);
+    for (let i = 0; i < messageData.length; i += updateLength) {
+      let updateMessage = messageData.subarray(i, i + updateLength);
+      let updateMessageBlob: cryptoFramework.DataBlob = { data: updateMessage };
+      await mac.update(updateMessageBlob);
+    }
+    let macOutput = await mac.doFinal();
+    console.info('CMAC result: ' + macOutput.data);
+    let macLen = mac.getMacLength();
+    console.info('CMAC len: ' + macLen);
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
   }
-  let macOutput = await mac.doFinal();
-  console.info('CMAC result: ' + macOutput.data);
-  let macLen = mac.getMacLength();
-  console.info('CMAC len: ' + macLen);
 }
 
 // [End message_authentication_code_calculation_cmac_segmentation_async]
