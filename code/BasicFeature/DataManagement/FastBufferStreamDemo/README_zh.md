@@ -6,7 +6,7 @@
 
 共 9 个演示场景，纯软件演示、零权限，模拟器/开发板安装即用；代码按样例目录表格直接导入 `@ohos.fastbuffer` / `@ohos.buffer` / `@ohos.util.stream`。
 
-- 应用标识：`com.example.fastbufferstreamdemo`，主 Ability 为 `EntryAbility`
+- 应用标识：`com.samples.fastbufferstreamdemo`，主 Ability 为 `EntryAbility`
 - 真机验证：RK3568 dayu200（OpenHarmony 7.0.0.46 Beta1 / API 26，720×1280，断点 `sm`）
 - 设备侧测试：**Tests run: 74, Failure: 0, Error: 0**
 
@@ -162,14 +162,14 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap --
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 
 # 运行设备侧测试
-hdc shell aa test -b com.example.fastbufferstreamdemo -m entry_test \
+hdc shell aa test -b com.samples.fastbufferstreamdemo -m entry_test \
   -s unittest OpenHarmonyTestRunner -s timeout 150000
 # 预期：Tests run: 74, Failure: 0, Error: 0
 
 # 构建主 HAP 并运行演示
 hvigorw --mode module -p module=entry@default -p product=default assembleHap --no-daemon
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
-hdc shell aa start -b com.example.fastbufferstreamdemo -a EntryAbility
+hdc shell aa start -b com.samples.fastbufferstreamdemo -a EntryAbility
 ```
 
 提示：安装 ohosTest HAP 可能顶替设备上的主模块，测试完重新安装主 HAP 即可；日志查看 `hdc shell hilog -T FastBufferStream`；设备自动锁屏会造成"应用消失"的假象，自动化前先 `power-shell wakeup` 并解锁。

@@ -1,6 +1,6 @@
 {
   "app": {
-    "bundleName": "com.example.fastbufferstreamdemo",
+    "bundleName": "com.samples.fastbufferstreamdemo",
     "vendor": "example",
     "versionCode": 1000000,
     "versionName": "1.0.0",
