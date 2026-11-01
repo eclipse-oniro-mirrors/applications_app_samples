@@ -1,7 +1,7 @@
 {
   "app": {
-    "bundleName": "com.example.canvasshowcasedemo",
-    "vendor": "example",
+    "bundleName": "com.samples.canvasshowcasedemo",
+    "vendor": "samples",
     "versionCode": 1000000,
     "versionName": "1.0.0",
     "buildVersion": "1",

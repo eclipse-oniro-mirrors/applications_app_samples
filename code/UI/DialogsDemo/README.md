@@ -70,10 +70,10 @@ Full Chinese documentation with scene tables, build/test commands, the test matr
 ```bash
 hvigorw --mode module -p module=entry@default assembleHap
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
-hdc shell aa start -b com.example.myapplication -a EntryAbility
+hdc shell aa start -b com.samples.dialogsdemo -a EntryAbility
 
 hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.example.myapplication -m entry_test \
+hdc shell aa test -b com.samples.dialogsdemo -m entry_test \
   -s unittest OpenHarmonyTestRunner -s timeout 150000
 ```

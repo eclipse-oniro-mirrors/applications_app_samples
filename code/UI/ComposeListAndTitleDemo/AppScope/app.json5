@@ -1,7 +1,7 @@
 ﻿{
   "app": {
     "bundleName": "com.samples.composelistandtitledemo",
-    "vendor": "example",
+    "vendor": "samples",
     "versionCode": 1000001,
     "versionName": "1.0.1",
     "buildVersion": "1",

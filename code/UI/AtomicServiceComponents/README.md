@@ -68,7 +68,7 @@ export DEVECO_SDK_HOME="<DevEco Studio>/sdk"
 
 ```bash
 hdc install -r <已签名 HAP>
-hdc shell aa start -a EntryAbility -b com.example.atomicservicecomponents
+hdc shell aa start -a EntryAbility -b com.samples.atomicservicecomponents
 ```
 
 ## 工程目录
@@ -165,7 +165,7 @@ Tab / Web 高度随视口推导并夹取：web `clamp(0.55×h, 320, 640)`，tabs
 "<DevEco Studio>/tools/node/node" "<DevEco Studio>/tools/hvigor/bin/hvigorw.js" \
   assembleHap --mode module -p module=entry@ohosTest -p product=default --no-daemon
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.example.atomicservicecomponents -m entry_test \
+hdc shell aa test -b com.samples.atomicservicecomponents -m entry_test \
   -s unittest OpenHarmonyTestRunner -s timeout 150000
 ```
 

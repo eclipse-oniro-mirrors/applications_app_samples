@@ -3,7 +3,7 @@
 ## 测试环境
 
 - 设备：RK3568 开发板（DAYU200），OpenHarmony 7.0.0.46 / API 26，分辨率 480×853vp
-- 应用：`com.example.canvasshowcasedemo`
+- 应用：`com.samples.canvasshowcasedemo`
 - 测试框架：Hypium，测试模块 `entry_test`，执行器 `OpenHarmonyTestRunner`
 - 开发环境：DevEco Studio 6.1.1，编译 SDK API 26，`compatibleSdkVersion 6.1.1(24)`
 - 测试代码：`entry/src/ohosTest/ets/test/`，11 个套件 88 条用例，由 `List.test.ets` 聚合
@@ -52,7 +52,7 @@
 "<DevEco Studio>/tools/node/node" "<DevEco Studio>/tools/hvigor/bin/hvigorw.js" \
   assembleHap --mode module -p module=entry@ohosTest -p product=default --no-daemon
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.example.canvasshowcasedemo -m entry_test \
+hdc shell aa test -b com.samples.canvasshowcasedemo -m entry_test \
   -s unittest OpenHarmonyTestRunner -s timeout 150000
 ```
 

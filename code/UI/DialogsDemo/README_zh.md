@@ -49,9 +49,9 @@ entry/src/main/ets/
 └── pages/Index.ets                     # 8 场景按钮 + 日志面板 + 各弹窗 @Builder
 entry/src/ohosTest/ets/test/            # 设备侧测试（hypium）
 ├── List.test.ets                       # 注册四套件
-├── DialogModels.test.ets               # 14 例：事件簿记/按钮工厂/SheetInfo/枚举/参数类
-├── LogUtil.test.ets                    # 6 例
-├── DeviceUtil.test.ets                 # 6 例
+├── DialogModels.test.ets               # 22 例：事件簿记/按钮工厂/SheetInfo/枚举/参数类
+├── LogUtil.test.ets                    # 12 例
+├── DeviceUtil.test.ets                 # 8 例
 └── Ability.test.ets                    # 1 例
 ```
 
@@ -116,12 +116,12 @@ hvigorw --mode module -p module=entry@default assembleHap
 # 安装
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
 # 启动
-hdc shell aa start -b com.example.myapplication -a EntryAbility
+hdc shell aa start -b com.samples.dialogsdemo -a EntryAbility
 
 # 设备侧测试（构建 ohosTest HAP 并执行）
 hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.example.myapplication -m entry_test \
+hdc shell aa test -b com.samples.dialogsdemo -m entry_test \
   -s unittest OpenHarmonyTestRunner -s timeout 150000
 ```
 

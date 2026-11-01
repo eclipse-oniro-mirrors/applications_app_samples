@@ -1,7 +1,7 @@
 import { describe, beforeAll, it, expect } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON, Component } from '@kit.TestKit';
 
-const BUNDLE_NAME = 'com.example.canvasshowcasedemo';
+const BUNDLE_NAME = 'com.samples.canvasshowcasedemo';
 const ABILITY_NAME = 'EntryAbility';
 const CLEARED_TITLE = '（已清空，点击按钮开始演示）';
 const SCENE1 = '场景1：线性渐变与渐变描边';

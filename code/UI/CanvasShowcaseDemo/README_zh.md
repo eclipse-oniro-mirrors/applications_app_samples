@@ -55,7 +55,7 @@ export DEVECO_SDK_HOME="<DevEco Studio>/sdk"
 "<DevEco Studio>/tools/node/node" "<DevEco Studio>/tools/hvigor/bin/hvigorw.js" \
   assembleHap --mode module -p product=default --no-daemon
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
-hdc shell aa start -a EntryAbility -b com.example.canvasshowcasedemo
+hdc shell aa start -a EntryAbility -b com.samples.canvasshowcasedemo
 ```
 
 未配置签名时产物为 `entry/build/default/outputs/default/entry-default-unsigned.hap`。
@@ -157,7 +157,7 @@ CanvasShowcaseDemo
 "<DevEco Studio>/tools/node/node" "<DevEco Studio>/tools/hvigor/bin/hvigorw.js" \
   assembleHap --mode module -p module=entry@ohosTest -p product=default --no-daemon
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.example.canvasshowcasedemo -m entry_test \
+hdc shell aa test -b com.samples.canvasshowcasedemo -m entry_test \
   -s unittest OpenHarmonyTestRunner -s timeout 150000
 ```
 
