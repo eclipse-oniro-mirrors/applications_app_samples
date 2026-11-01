@@ -1,19 +1,20 @@
 /*
-* Copyright (C) 2026 Huawei Device Co., Ltd.
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 // [Start getRoutingManager]
+// [Start getRendererDevices]
 // [Start getDevices]
 // [Start onDeviceChange]
 // [Start getPreferOutputDeviceForRendererInfo]
@@ -26,6 +27,7 @@ import { audio } from '@kit.AudioKit';
 // [StartExclude getRoutingManager]
 // [StartExclude getSessionManager]
 import { BusinessError } from '@kit.BasicServicesKit';
+// [StartExclude getRendererDevices]
 // [StartExclude getDevices]
 // [StartExclude getPreferOutputDeviceForRendererInfo]
 // [StartExclude onDeviceChange]
@@ -148,6 +150,35 @@ async function start() {
       }
     });
   }
+}
+
+async function getRendererDevices(){
+  // [EndExclude getRendererDevices]
+
+  if (audioRenderer !== undefined) {
+    audioRenderer.getCurrentOutputDevices().then((audioDeviceDescriptors: audio.
+      AudioDeviceDescriptors) => {
+        console.info(`Succeeded in getting renderer devices. AudioDeviceDescriptors: ${JSON.stringify(audioDeviceDescriptors)}`);
+        // [StartExclude getRendererDevices]
+        if (globalLogUpdate) {
+          let deviceInfo = 'Succeeded in getting renderer devices.\n';
+          deviceInfo += 'Device count: ' + audioDeviceDescriptors.length + '\n';
+          for (let i = 0; i < audioDeviceDescriptors.length; i++) {
+            deviceInfo += `Device ${i} - id: ${audioDeviceDescriptors[i].id} - name: ${audioDeviceDescriptors[i].name} - type: ${audioDeviceDescriptors[i].deviceType}\n`;
+          }
+          globalLogUpdate(deviceInfo, false);
+        }
+        // [EndExclude getRendererDevices]
+      }).catch((err: BusinessError) => {
+        console.error(`Failed to get renderer devices. Code: ${err.code}, message: ${err.message}`);
+        // [StartExclude getRendererDevices]
+        if (globalLogUpdate) {
+          globalLogUpdate(`Failed to get renderer devices. Code: ${err.code}, message: ${err.message}`, true);
+        }
+        // [EndExclude getRendererDevices]
+      });
+  }
+  // [End getRendererDevices]
 }
 
 async function stop() {
@@ -574,6 +605,22 @@ struct Index {
             .onClick(async (): Promise<void> => {
               await start();
               this.runningResult = 'Succeeded in starting audio renderer.';
+            })
+          }
+          .width('80%')
+          .height(50)
+          .justifyContent(FlexAlign.Center)
+
+          Row() {
+            Button() {
+              Text('获取音频流输出设备信息').fontSize(15).fontColor(Color.White)
+            }
+            .id('output_management_getRendererDevices')
+            .width('80%')
+            .height(40)
+            .onClick(async (): Promise<void> => {
+              await getRendererDevices();
+              this.runningResult = 'Succeeded in getting renderer devices.';
             })
           }
           .width('80%')
