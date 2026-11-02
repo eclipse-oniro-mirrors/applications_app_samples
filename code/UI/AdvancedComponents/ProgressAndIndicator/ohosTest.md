@@ -48,7 +48,7 @@
 | 非功能 | 启动耗时、导航循环 | 2 条 |
 | 工具类 | ProgressUtils、DownloadSession、BreakpointUtils、DeviceInfoUtils | 6 条逻辑单测 + 本地单测 4 条 |
 
-覆盖统计：页面 5/5、组件 4/4、下载状态 idle/running/completed 3/3、指示器样式 2/2、断点 1/2/3 栏；共 97 条（另有本地单测 4 条）。
+覆盖统计：页面 5/5、组件 4/4、下载状态 idle/running/completed 3/3、指示器样式 2/2、断点 1/2/3 栏；共 100 条（另有本地单测 4 条）。
 
 
 | 用例编号 | 用例名称 | 测试说明 | 结果 |

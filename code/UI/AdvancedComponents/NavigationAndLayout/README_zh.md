@@ -9,7 +9,7 @@
 - [FoldSplitContainer](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-FoldSplitContainer.md)：折叠屏折叠态/悬停态/展开态区域布局，支持三分栏与扩展区域；
 - [NavPushPathHelper](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-atomicservice-NavPushPathHelper.md)：从 HSP 分包动态加载 NavDestination 页面，加载失败时回退本地页面。
 
-工程同时封装了日志、断点、设备形态、导航栈等工具类，包含 121 条 ohosTest 用例与 3 条本地工具单测。
+工程同时封装了日志、断点、设备形态、导航栈等工具类，包含 124 条 ohosTest 用例与 3 条本地工具单测。
 
 ### 功能特性
 
@@ -46,7 +46,7 @@
 
 | 类型 | 数量 | 说明 |
 |---|---:|---|
-| ohosTest | 121 | 入口、MultiNavigation、Stack API、Split/Fold/HSP、稳定性、逻辑 |
+| ohosTest | 124 | 入口、MultiNavigation、Stack API、Split/Fold/HSP、稳定性、逻辑 |
 | 本地单测 | 3 | 断点、折叠加载配置、导航摘要 |
 
 ### 效果预览
@@ -115,7 +115,7 @@ entry/src/test/
 3. 本示例需要使用 DevEco Studio 26.0.0 及以上版本才可编译运行；
 4. 真实折叠/悬停状态需要折叠屏设备；非折叠设备仅能验证折叠态与模拟预览；
 5. HSP 分包的 `deviceTypes` 为 `default/tablet`，手机侧加载失败属预期，会走本地兜底页；
-6. 本示例包含 121 条 ohosTest 用例，另有 3 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
+6. 本示例包含 124 条 ohosTest 用例，另有 3 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
 
 ### 下载
 

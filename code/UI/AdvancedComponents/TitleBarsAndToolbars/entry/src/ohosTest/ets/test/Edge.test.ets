@@ -1253,7 +1253,7 @@ export default function edgeTest() {
       await runCase('testTitleBarsSceneToolbarShare0003', async () => {
         await startApp(BUNDLE_NAME, ABILITY_NAME);
         await clickId('cardToolbar');
-        expect(await clickAnyText(['Share', '·ÖÏí'])).assertTrue();
+        expect(await clickAnyText(['Share', 'åˆ†äº«'])).assertTrue();
         expect(await textOfId('toolbarStatus')).assertContain('label=Share');
         await clickId('toolbarBack');
         await waitId('pageTitle');

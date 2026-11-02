@@ -11,7 +11,7 @@
 
 > **说明**：SDK 26.0.0 未导出 `@ohos.arkui.placeholderRegister` 模块；示例使用 `PlaceholderRegistry + LazyForEach` 实现等价的占位登记与替换逻辑，接口隔离在 `utils/PlaceholderRegistry.ts`，后续 SDK 提供该模块时可直接替换实现。
 
-工程包含占位/批次/预取状态、设备信息与响应式断点工具类，包含 26 条 ohosTest 用例与 7 条本地工具单测。
+工程包含占位/批次/预取状态、设备信息与响应式断点工具类，包含 95 条 ohosTest 用例与 7 条本地工具单测。
 
 ### 功能特性
 
@@ -42,7 +42,7 @@
 
 | 类型 | 数量 | 说明 |
 |---|---:|---|
-| ohosTest | 26 | 入口、占位列表、预取列表、边界、稳定性、逻辑 |
+| ohosTest | 95 | 入口、占位列表、预取列表、边界、稳定性、逻辑 |
 | 本地单测 | 7 | 占位注册、批次、预取窗口、断点 |
 
 ### 效果预览
@@ -102,7 +102,7 @@ entry/src/test/
 2. 本示例基于 ArkTS 1.1 动态环境开发，已适配 API version 26 版本 SDK，版本号：26.0.0；
 3. 本示例需要使用 DevEco Studio 26.0.0 及以上版本才可编译运行；
 4. SDK 26.0.0 未导出 `@ohos.arkui.placeholderRegister`，占位能力由 `PlaceholderRegistry` 等价实现；`BasicPrefetcher` 自 API 12 起可用；
-5. 本示例包含 26 条 ohosTest 用例，另有 7 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
+5. 本示例包含 95 条 ohosTest 用例，另有 7 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
 6. 工程已配置本机 DevEco 调试签名，可直接在 IDE 部署；提交仓库前请清空 `signingConfigs` 并重新自动签名；
 
 ### 下载

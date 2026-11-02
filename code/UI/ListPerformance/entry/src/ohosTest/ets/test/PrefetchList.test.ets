@@ -14,7 +14,7 @@
  */
 
 import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll } from '@ohos/hypium';
-import { clickId, runCase, startApp, textOfId, waitId, waitIdContains } from '../testkit/SharedDriver';
+import { clickId, runCase, startApp, swipeOnId, textOfId, waitId, waitIdContains } from '../testkit/SharedDriver';
 
 const BUNDLE_NAME: string = 'com.samples.listperformance';
 const ABILITY_NAME: string = 'EntryAbility';
@@ -94,5 +94,145 @@ export default function prefetchTest() {
         expect(await textOfId('prefetchStatus')).assertContain('prefetched=0');
       }, done);
     });
+
+    /**
+     * @tc.number SUB_LISTPERF_PREFETCHLIST_0400
+     * @tc.name testListPerformancePrefetchScroll0004
+     * @tc.desc Verify scrolling triggers automatic prefetch
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testListPerformancePrefetchScroll0004', 0, async (done: Function) => {
+      await runCase('testListPerformancePrefetchScroll0004', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardPrefetch');
+        await waitId('prefetchList');
+        let status = await textOfId('prefetchStatus');
+        for (let i = 0; i < 5 && status.includes('prefetched=0'); i++) {
+          await swipeOnId('prefetchList');
+          status = await textOfId('prefetchStatus');
+        }
+        expect(status.includes('prefetched=0')).assertFalse();
+        expect(status.includes('loaded=20/')).assertFalse();
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_LISTPERF_PREFETCHLIST_0500
+     * @tc.name testListPerformancePrefetchLoadIncrease0005
+     * @tc.desc Verify scrolling increases the loaded row count
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testListPerformancePrefetchLoadIncrease0005', 0, async (done: Function) => {
+      await runCase('testListPerformancePrefetchLoadIncrease0005', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardPrefetch');
+        await waitId('prefetchList');
+        let status = await textOfId('prefetchStatus');
+        for (let i = 0; i < 5 && status.includes('loaded=20/'); i++) {
+          await swipeOnId('prefetchList');
+          status = await textOfId('prefetchStatus');
+        }
+        expect(status.includes('loaded=20/')).assertFalse();
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_LISTPERF_PREFETCHLIST_0600
+     * @tc.name testListPerformancePrefetchClearAfterScroll0006
+     * @tc.desc Verify clear stats resets prefetch count after scrolling
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testListPerformancePrefetchClearAfterScroll0006', 0, async (done: Function) => {
+      await runCase('testListPerformancePrefetchClearAfterScroll0006', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardPrefetch');
+        await waitId('prefetchList');
+        let status = await textOfId('prefetchStatus');
+        for (let i = 0; i < 5 && status.includes('prefetched=0'); i++) {
+          await swipeOnId('prefetchList');
+          status = await textOfId('prefetchStatus');
+        }
+        await clickId('prefetchClear');
+        expect(await textOfId('prefetchStatus')).assertContain('prefetched=0');
+        expect(await textOfId('prefetchStatus')).assertContain('loaded=');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_LISTPERF_PREFETCHLIST_0700
+     * @tc.name testListPerformancePrefetchRescroll0007
+     * @tc.desc Verify scrolling after clear triggers prefetch again
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testListPerformancePrefetchRescroll0007', 0, async (done: Function) => {
+      await runCase('testListPerformancePrefetchRescroll0007', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardPrefetch');
+        await waitId('prefetchList');
+        await swipeOnId('prefetchList');
+        await clickId('prefetchClear');
+        expect(await textOfId('prefetchStatus')).assertContain('prefetched=0');
+        let status = await textOfId('prefetchStatus');
+        for (let i = 0; i < 5 && status.includes('prefetched=0'); i++) {
+          await swipeOnId('prefetchList');
+          status = await textOfId('prefetchStatus');
+        }
+        expect(status.includes('prefetched=0')).assertFalse();
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_LISTPERF_PREFETCHLIST_0800
+     * @tc.name testListPerformancePrefetchDeepScroll0008
+     * @tc.desc Verify repeated scrolling keeps prefetch and load counters growing
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testListPerformancePrefetchDeepScroll0008', 0, async (done: Function) => {
+      await runCase('testListPerformancePrefetchDeepScroll0008', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardPrefetch');
+        await waitId('prefetchList');
+        for (let i = 0; i < 3; i++) {
+          await swipeOnId('prefetchList');
+        }
+        const status = await textOfId('prefetchStatus');
+        expect(status.includes('prefetched=0')).assertFalse();
+        expect(status.includes('loaded=20/')).assertFalse();
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_LISTPERF_PREFETCHLIST_0900
+     * @tc.name testListPerformancePrefetchReenter0009
+     * @tc.desc Verify re-entering the page resets prefetch and load counters
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testListPerformancePrefetchReenter0009', 0, async (done: Function) => {
+      await runCase('testListPerformancePrefetchReenter0009', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardPrefetch');
+        await waitId('prefetchList');
+        await swipeOnId('prefetchList');
+        await clickId('prefetchBack');
+        await waitId('pageTitle');
+        await clickId('cardPrefetch');
+        await waitId('prefetchList');
+        expect(await textOfId('prefetchStatus')).assertContain('prefetched=0');
+        expect(await textOfId('prefetchStatus')).assertContain('loaded=20/');
+      }, done);
+    });
+
   });
 }

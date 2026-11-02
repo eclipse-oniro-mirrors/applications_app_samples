@@ -1278,7 +1278,7 @@ export default function edgeTest() {
         await clickId('uiNext');
         expect(await textOfId('uiSelected')).assertContain('Review');
         await clickId('uiPrevious');
-        expect(await textOfId('uiSelected')).assertContain('Done');
+        expect(await textOfId('uiSelected')).assertContain('Blocked');
         await clickId('uiBack');
         await waitId('pageTitle');
       }, done);

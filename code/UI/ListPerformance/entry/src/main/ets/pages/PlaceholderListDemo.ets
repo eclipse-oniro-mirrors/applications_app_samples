@@ -27,6 +27,9 @@ import { PlaceholderRegistry } from '../utils/PlaceholderRegistry';
 struct PlaceholderListDemo {
   @State widthVp: number = 0;
   @State status: string = ListDataUtils.formatPlaceholder(0, ListConstants.TOTAL);
+  @State loadedCount: number = 0;
+  @State operationCount: number = 0;
+  @State history: string[] = [];
   private registry: PlaceholderRegistry = new PlaceholderRegistry(ListConstants.TOTAL);
   private source: ListDataSource = new ListDataSource(ListConstants.TOTAL, this.registry);
 
@@ -34,7 +37,9 @@ struct PlaceholderListDemo {
   aboutToAppear(): void {
     Logger.enter('PlaceholderListDemo');
     const loaded = this.source.loadNext();
+    this.loadedCount = loaded;
     this.status = ListDataUtils.formatPlaceholder(loaded, ListConstants.TOTAL);
+    this.record('initial load');
     Logger.event('PlaceholderListDemo', 'initialLoad', this.status);
   }
 
@@ -56,15 +61,45 @@ struct PlaceholderListDemo {
   // Load the next data batch and refresh the list.
   private loadMore(): void {
     const loaded = this.source.loadNext();
+    this.loadedCount = loaded;
     this.status = ListDataUtils.formatPlaceholder(loaded, ListConstants.TOTAL);
+    this.record('load more');
     Logger.event('PlaceholderListDemo', 'loadMore', this.status);
   }
 
   // Restore the demo state to its initial value.
   private resetList(): void {
     this.source.reset();
+    this.loadedCount = 0;
     this.status = ListDataUtils.formatPlaceholder(0, ListConstants.TOTAL);
+    this.record('reset');
     Logger.event('PlaceholderListDemo', 'reset', this.status);
+  }
+
+  private record(action: string): void {
+    this.operationCount++;
+    this.history = [`#${this.operationCount} ${action} · loaded ${this.loadedCount}`, ...this.history].slice(0, 3);
+    Logger.event('PlaceholderListDemo', 'history', action);
+  }
+
+  @Builder
+  statCard(label: string, kind: string, id: string) {
+    Column({ space: 2 }) {
+      Text(label)
+        .fontSize(11)
+        .fontColor('#666666')
+      Text(kind === 'loaded' ? `${this.loadedCount}` :
+        kind === 'remaining' ? `${ListConstants.TOTAL - this.loadedCount}` : `${this.operationCount}`)
+        .id(id)
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#0A59F7')
+    }
+    .layoutWeight(1)
+    .height(54)
+    .justifyContent(FlexAlign.Center)
+    .backgroundColor('#F1F3F5')
+    .borderRadius(10)
   }
 
   @Builder
@@ -134,7 +169,24 @@ struct PlaceholderListDemo {
           .fontWeight(FontWeight.Bold)
       }
       .width('100%')
-      .padding(12)
+      .padding({
+        left: BreakpointUtils.pagePadding(this.widthVp),
+        right: BreakpointUtils.pagePadding(this.widthVp),
+        top: 12,
+        bottom: 6
+      })
+
+      Row({ space: 8 }) {
+        this.statCard('Loaded', 'loaded', 'placeholderLoadedCard')
+        this.statCard('Remaining', 'remaining', 'placeholderRemainingCard')
+        this.statCard('Actions', 'actions', 'placeholderActionCount')
+      }
+      .width('100%')
+      .padding({
+        left: BreakpointUtils.pagePadding(this.widthVp),
+        right: BreakpointUtils.pagePadding(this.widthVp),
+        bottom: 8
+      })
 
       Text($r('app.string.placeholder_hint'))
         .fontSize(12)
@@ -158,6 +210,45 @@ struct PlaceholderListDemo {
       Text(this.status)
         .id('placeholderStatus')
         .fontSize(14)
+
+      Column({ space: 2 }) {
+        Row() {
+          Text('Recent actions')
+            .fontSize(11)
+            .fontColor('#666666')
+          Blank()
+          Button('Clear')
+            .id('placeholderClearHistory')
+            .fontSize(10)
+            .height(22)
+            .onClick(() => {
+              this.history = [];
+              this.operationCount = 0;
+            })
+        }
+        .width('100%')
+        if (this.history.length === 0) {
+          Text('No actions yet')
+            .fontSize(11)
+            .fontColor('#999999')
+            .width('100%')
+        } else {
+          ForEach(this.history, (item: string) => {
+            Text(item)
+              .fontSize(11)
+              .fontColor('#666666')
+              .maxLines(1)
+              .width('100%')
+          }, (item: string) => item)
+        }
+      }
+      .id('placeholderHistory')
+      .width('100%')
+      .height(88)
+      .padding(8)
+      .backgroundColor('#F7F8FA')
+      .borderRadius(10)
+      .margin({ left: BreakpointUtils.pagePadding(this.widthVp), right: BreakpointUtils.pagePadding(this.widthVp) })
 
       List({ space: 8 }) {
         LazyForEach(this.source, (row: ListRowData) => {
