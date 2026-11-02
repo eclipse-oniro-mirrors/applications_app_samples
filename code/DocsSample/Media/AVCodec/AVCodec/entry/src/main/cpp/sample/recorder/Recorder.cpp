@@ -224,10 +224,12 @@ void Recorder::VideoEncOutputAsyncThread(VideoEncoder *encoder, CodecUserData *c
         // 获取输出buffer。
         const int64_t waitStart = RecorderClockUs();
         std::shared_ptr<CodecBufferInfo> bufferInfo = context->outputBufferQueue.Dequeue();
+        // 开发者可根据业务需要，对输出数据进行保存/释放处理。
+        // 示例：将编码完成帧数据buffer写入到对应输出文件中。
+        // outputFile->write(reinterpret_cast<char *>(OH_AVBuffer_GetAddr(bufferInfo->buffer)), bufferInfo->attr.size);
+        // [StartExclude encoder_output_buffer]
         const int64_t receivedAtUs = RecorderClockUs();
         std::shared_lock<std::shared_mutex> codecLock(context->codecMutex);
-        // 开发者可根据业务需要，对输出数据进行保存/释放处理。
-        // [StartExclude encoder_output_buffer]
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         if (context->hasError.load()) {
             AbortRecording("Video codec callback failed");
@@ -235,10 +237,10 @@ void Recorder::VideoEncOutputAsyncThread(VideoEncoder *encoder, CodecUserData *c
         }
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
         (isPrimary ? primaryStats_ : secondaryStats_).RecordRetrieval(receivedAtUs - waitStart);
+        // [EndExclude encoder_output_buffer]
         if (!ProcessVideoOutputBuffer(encoder, context, muxer, *bufferInfo, isPrimary, receivedAtUs)) {
             break;
         }
-        // [EndExclude encoder_output_buffer]
     }
     // [End encoder_output_buffer]
     FinishVideoOutputThread(context, isPrimary);
@@ -367,6 +369,7 @@ void Recorder::ReleaseThread()
 // [Start recorder_release]
 void Recorder::ReleaseVideoEncoder()
 {
+    // [StartExclude recorder_release]
     // API 26 要求先销毁副编码器，再销毁主编码器；主路拥有共享输入的生命周期。
     if (secondaryVideoEncoder_ != nullptr) {
         if (secondaryEncContext_ != nullptr) {
@@ -381,6 +384,7 @@ void Recorder::ReleaseVideoEncoder()
             secondaryEncContext_ = nullptr;
         }
     }
+    // [EndExclude recorder_release]
     if (videoEncoder_ != nullptr) {
         if (encContext_ != nullptr) {
             // 回调只借用上下文。先拒绝迟到回调，再销毁 codec 和上下文。

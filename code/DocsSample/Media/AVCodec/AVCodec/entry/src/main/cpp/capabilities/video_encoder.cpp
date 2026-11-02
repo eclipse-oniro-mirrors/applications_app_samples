@@ -396,8 +396,8 @@ bool VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
                 CHECK_AND_RETURN_RET_LOG(getBufferRet == AV_ERR_OK, false,
                     "Get buffer attr error, ret: %{public}d", getBufferRet);
                 info.buffer = buffer;
+                // 开发者可根据业务需要，对输出数据进行保存/释放处理
                 return true;
-                // 开发者可根据业务需要，对输出数据进行保存/释放处理。
             }
             case AV_ERR_TRY_AGAIN_LATER: {
                 AVCODEC_SAMPLE_LOGE("Get output buffer timeout.");
@@ -454,46 +454,38 @@ OH_AVBuffer *VideoEncoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
     // Buffer 和 bufferIndex 必须成对保存，后续 PushInputBuffer 会使用同一个索引归还给编码器。
     info.buffer = buffer;
     /**
-        uint8_t *addr = OH_AVBuffer_GetAddr(buffer);
-        CHECK_AND_RETURN_RET_LOG(addr != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer addr is null");
-        // 写入图像数据。
-        int32_t frameSize = 0;
-        if (widthStride == width && heightStride == height) {
-            // NV12像素格式下，每帧数据大小的计算公式。
-            frameSize = width * height * 3 / 2;
-            int32_t capacity = OH_AVBuffer_GetCapacity(buffer);
-            if (frameSize > capacity) {
-                // 异常处理。
-            }
-            // 处理文件流得到帧的长度，再将需要编码的数据写入到对应index的buffer中。
-            memcpy(addr, frameData, frameSize);
-        } else {
-            // 如果跨距不等于宽，需要开发者按照跨距进行偏移。
-        }
-
-        OH_AVCodecBufferAttr attr;
-        // buffer属性配置。
-        // 配置帧数据的输入尺寸、偏移量、时间戳等字段信息。
-        attr.size = frameSize;
-        attr.offset = offset;
-        attr.pts = pts;
-        // 避免flags随机初始化为AVCODEC_BUFFER_FLAGS_EOS导致使用异常，flags需要赋值如0（普通帧标识）。
-        attr.flags = flags;
-        OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(buffer, &attr);
-        if (setBufferRet != AV_ERR_OK) {
-            // 异常处理。
-            return false;
-        }
-
-        OH_AVErrCode pushInputRet = OH_VideoEncoder_PushInputBuffer(videoEnc, index);
-        if (pushInputRet != AV_ERR_OK) {
-            // 异常处理。
-            return false;
-        }
-        if (inFile_->eof()) {
-            inputDone = 1;
-        }
-    **/
+     * // 示例：待编码帧写入buffer。
+     * uint8_t *addr = OH_AVBuffer_GetAddr(buffer);
+     * CHECK_AND_RETURN_RET_LOG(addr != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer addr is null");
+     * // 写入图像数据。
+     * int32_t frameSize = 0;
+     * if (widthStride == width && heightStride == height) {
+     *     // NV12像素格式下，每帧数据大小的计算公式。
+     *     frameSize = width * height * 3 / 2;
+     *     int32_t capacity = OH_AVBuffer_GetCapacity(buffer);
+     *     if (frameSize > capacity) {
+     *         // 异常处理。
+     *     }
+     *     // 处理文件流得到帧的长度，再将需要编码的数据写入到对应index的buffer中。
+     *     memcpy(addr, frameData, frameSize);
+     * } else {
+     *     // 如果跨距不等于宽，需要开发者按照跨距进行偏移。
+     * }
+     *
+     * OH_AVCodecBufferAttr attr;
+     * // buffer属性配置。
+     * // 配置帧数据的输入尺寸、偏移量、时间戳等字段信息。
+     * attr.size = frameSize;
+     * attr.offset = offset;
+     * attr.pts = pts;
+     * // 避免flags随机初始化为AVCODEC_BUFFER_FLAGS_EOS导致使用异常，flags需要赋值如0（普通帧标识）。
+     * attr.flags = flags;
+     * OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(buffer, &attr);
+     * if (setBufferRet != AV_ERR_OK) {
+     *     // 异常处理。
+     *     return false;
+     * }
+     */
     return buffer;
 }
 // [End encoder_sync_get_inputbuffer]
@@ -740,6 +732,7 @@ int32_t VideoEncoder::Configure(const SampleInfo &sampleInfo)
 
 // [Start encoder_get_surface]
 // 获取编码器Surface模式的OHNativeWindow输入，需要在调用OH_VideoEncoder_Prepare接口之前完成。
+// 通过OHNativeWindow*获取生产者待填充数据地址。
 int32_t VideoEncoder::GetSurface(SampleInfo &sampleInfo)
 {
     int32_t ret = OH_VideoEncoder_GetSurface(encoder_, &sampleInfo.video.window);
