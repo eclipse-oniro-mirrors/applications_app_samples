@@ -28,7 +28,6 @@
 #include "av_codec_sample_log.h"
 
 namespace {
-constexpr int64_t POLL_TIMEOUT_US = 0;
 constexpr int32_t AUDIO_BUFFER_BYTES = 1024 * 1024;
 constexpr int64_t AUDIO_LEAD_US = 500000;
 constexpr auto STALL_LIMIT = std::chrono::seconds(30);
@@ -171,6 +170,8 @@ bool TranscodeJob::ReadSourceMetadata()
     int32_t trackCount = 0;
     OH_AVFormat_GetIntValue(sourceFormat.get(), OH_MD_KEY_TRACK_COUNT, &trackCount);
     OH_AVFormat_GetLongValue(sourceFormat.get(), OH_MD_KEY_DURATION, &durationUs_);
+    OH_AVFormat_GetLongValue(sourceFormat.get(), OH_MD_KEY_START_TIME, &sourceStartUs_);
+    sourceStartUs_ = std::max<int64_t>(0, sourceStartUs_);
     return ReadTracks(trackCount) && ConfigureTimeRange();
 }
 
@@ -241,7 +242,10 @@ bool TranscodeJob::InitializeDemuxer()
             if (audioBuffer_ == nullptr) { return Fail("Create audio remux buffer"); }
         }
     }
-    if (rangeStartUs_ > 0 && !Check(OH_AVDemuxer_SeekToTime(demuxer_, options_.startTimeMs,
+    // A nonzero source origin can accompany approximate TS seeks that start on a non-keyframe.
+    // Decode those sources from the beginning so range filtering retains the required reference frames.
+    if (options_.startTimeMs > 0 && sourceStartUs_ == 0 &&
+        !Check(OH_AVDemuxer_SeekToTime(demuxer_, options_.startTimeMs,
         SEEK_MODE_PREVIOUS_SYNC), "Seek source to range start")) {
         return false;
     }
@@ -252,7 +256,8 @@ bool TranscodeJob::ConfigureEncoderFormat()
 {
     Format output(OH_AVFormat_CreateVideoFormat(options_.mime.c_str(), targetWidth_, targetHeight_),
                   OH_AVFormat_Destroy);
-    if (output == nullptr || !OH_AVFormat_SetIntValue(output.get(), OH_MD_KEY_ENABLE_SYNC_MODE, 1) ||
+    if (output == nullptr ||
+        !OH_AVFormat_SetIntValue(output.get(), OH_MD_KEY_ENABLE_SYNC_MODE, options_.codecMode == 0 ? 1 : 0) ||
         !OH_AVFormat_SetIntValue(output.get(), OH_MD_KEY_PIXEL_FORMAT,
                                  options_.surface ? AV_PIXEL_FORMAT_SURFACE_FORMAT : AV_PIXEL_FORMAT_NV12) ||
         !OH_AVFormat_SetLongValue(output.get(), OH_MD_KEY_BITRATE, options_.bitrate) ||
@@ -298,9 +303,10 @@ bool TranscodeJob::ConfigureCodecs()
     decoder_ = OH_VideoDecoder_CreateByName(selected.decoderName.c_str());
     encoder_ = OH_VideoEncoder_CreateByName(selected.encoderName.c_str());
     if (decoder_ == nullptr || encoder_ == nullptr) { return Fail("Create selected video codecs"); }
-    if (!ConfigureEncoderFormat()) { return false; }
+    if (!RegisterCodecCallbacks() || !ConfigureEncoderFormat()) { return false; }
     Format decoded(OH_AVSource_GetTrackFormat(source_, videoTrack_), OH_AVFormat_Destroy);
-    if (decoded == nullptr || !OH_AVFormat_SetIntValue(decoded.get(), OH_MD_KEY_ENABLE_SYNC_MODE, 1) ||
+    if (decoded == nullptr ||
+        !OH_AVFormat_SetIntValue(decoded.get(), OH_MD_KEY_ENABLE_SYNC_MODE, options_.codecMode == 0 ? 1 : 0) ||
         !OH_AVFormat_SetIntValue(decoded.get(), OH_MD_KEY_PIXEL_FORMAT, AV_PIXEL_FORMAT_NV12) ||
         !OH_AVFormat_SetIntValue(decoded.get(), OH_MD_KEY_ROTATION, 0) ||
         !Check(OH_VideoDecoder_Configure(decoder_, decoded.get()), "Configure video decoder")) { return false; }
@@ -353,15 +359,16 @@ bool TranscodeJob::FeedDecoder(bool &advanced)
     if (decoderInputDone_) {
         return true;
     }
-    uint32_t index = 0;
-    const int32_t result = OH_VideoDecoder_QueryInputBuffer(decoder_, &index, POLL_TIMEOUT_US);
+    TranscodeCodecBuffer available;
+    const int32_t result = AcquireCodecBuffer(false, true, available);
     if (result == AV_ERR_TRY_AGAIN_LATER) {
         return true;
     }
-    if (!Check(result, "Query decoder input")) {
+    if (!Check(result, "Acquire decoder input")) {
         return false;
     }
-    OH_AVBuffer *buffer = OH_VideoDecoder_GetInputBuffer(decoder_, index);
+    const uint32_t index = available.index;
+    OH_AVBuffer *buffer = available.buffer;
     OH_AVCodecBufferAttr attr{};
     if (buffer == nullptr) {
         return Fail("Get decoder input Buffer");
@@ -416,7 +423,8 @@ bool TranscodeJob::DrainDecoder(bool &advanced)
     if (decoderOutputDone_ || pendingDecoded_ != nullptr) {
         return true;
     }
-    const int32_t result = OH_VideoDecoder_QueryOutputBuffer(decoder_, &pendingDecodedIndex_, POLL_TIMEOUT_US);
+    TranscodeCodecBuffer available;
+    const int32_t result = AcquireCodecBuffer(false, false, available);
     diagnostics_.Availability(WaitChannel::DECODER_OUTPUT, result != AV_ERR_TRY_AGAIN_LATER);
     if (result == AV_ERR_TRY_AGAIN_LATER) {
         return true;
@@ -426,10 +434,11 @@ bool TranscodeJob::DrainDecoder(bool &advanced)
         advanced = true;
         return true;
     }
-    if (!Check(result, "Query decoder output")) {
+    if (!Check(result, "Acquire decoder output")) {
         return false;
     }
-    pendingDecoded_ = OH_VideoDecoder_GetOutputBuffer(decoder_, pendingDecodedIndex_);
+    pendingDecodedIndex_ = available.index;
+    pendingDecoded_ = available.buffer;
     if (pendingDecoded_ == nullptr ||
         !Check(OH_AVBuffer_GetBufferAttr(pendingDecoded_, &pendingDecodedAttr_), "Read decoded frame attributes")) {
         pendingDecoded_ = nullptr;
@@ -509,16 +518,17 @@ bool TranscodeJob::SubmitDecodedFrame(bool &advanced)
 
 bool TranscodeJob::SubmitBufferFrame(bool eos, bool sendEmptyEos, bool &advanced)
 {
-    uint32_t index = 0;
-    const int32_t result = OH_VideoEncoder_QueryInputBuffer(encoder_, &index, POLL_TIMEOUT_US);
+    TranscodeCodecBuffer available;
+    const int32_t result = AcquireCodecBuffer(true, true, available);
     diagnostics_.Availability(WaitChannel::ENCODER_INPUT, result != AV_ERR_TRY_AGAIN_LATER);
     if (result == AV_ERR_TRY_AGAIN_LATER) {
         return true;
     }
-    if (!Check(result, "Query Buffer encoder input")) {
+    if (!Check(result, "Acquire Buffer encoder input")) {
         return false;
     }
-    OH_AVBuffer *input = OH_VideoEncoder_GetInputBuffer(encoder_, index);
+    const uint32_t index = available.index;
+    OH_AVBuffer *input = available.buffer;
     if (input == nullptr) {
         return Fail("Get Buffer encoder input");
     }
@@ -561,8 +571,8 @@ bool TranscodeJob::DrainEncoder(bool &advanced)
     if (encoderOutputDone_) {
         return true;
     }
-    uint32_t index = 0;
-    const int32_t result = OH_VideoEncoder_QueryOutputBuffer(encoder_, &index, POLL_TIMEOUT_US);
+    TranscodeCodecBuffer available;
+    const int32_t result = AcquireCodecBuffer(true, false, available);
     diagnostics_.Availability(WaitChannel::ENCODER_OUTPUT, result != AV_ERR_TRY_AGAIN_LATER);
     if (result == AV_ERR_TRY_AGAIN_LATER) {
         return true;
@@ -571,15 +581,21 @@ bool TranscodeJob::DrainEncoder(bool &advanced)
         advanced = true;
         return StartMuxer();
     }
-    if (!Check(result, "Query encoded output")) {
+    if (!Check(result, "Acquire encoded output")) {
         return false;
     }
-    OH_AVBuffer *buffer = OH_VideoEncoder_GetOutputBuffer(encoder_, index);
+    const uint32_t index = available.index;
+    OH_AVBuffer *buffer = available.buffer;
     OH_AVCodecBufferAttr attr{};
     if (buffer == nullptr || !Check(OH_AVBuffer_GetBufferAttr(buffer, &attr), "Read encoded output attributes")) {
         return Fail("Get encoded output Buffer");
     }
     bool success = StartMuxer();
+    if (success && options_.surface && attr.size > 0) {
+        // Surface carries the decoder's original PTS; Buffer input was already rebased before encoding.
+        attr.pts = std::max<int64_t>(0, attr.pts - rangeStartUs_);
+        success = Check(OH_AVBuffer_SetBufferAttr(buffer, &attr), "Rebase Surface video timestamps");
+    }
     if (success && attr.size > 0) {
         const int32_t writeResult = diagnostics_.Measure(TranscodeMetrics::Stage::MUX, [&] {
             return OH_AVMuxer_WriteSampleBuffer(muxer_, muxVideoTrack_, buffer);
@@ -656,11 +672,9 @@ bool TranscodeJob::CopyAudio(bool &advanced)
 
 bool TranscodeJob::WriteCopiedAudioSample(OH_AVCodecBufferAttr &attr)
 {
-    if (!options_.remuxOnly) {
-        attr.pts = std::max<int64_t>(0, attr.pts - rangeStartUs_);
-        if (!Check(OH_AVBuffer_SetBufferAttr(audioBuffer_, &attr), "Rebase original audio timestamps")) {
-            return false;
-        }
+    attr.pts = std::max<int64_t>(0, attr.pts - rangeStartUs_);
+    if (!Check(OH_AVBuffer_SetBufferAttr(audioBuffer_, &attr), "Rebase original audio timestamps")) {
+        return false;
     }
     if (attr.size > 0) {
         const int32_t writeResult = diagnostics_.Measure(TranscodeMetrics::Stage::MUX, [&] {
@@ -724,8 +738,9 @@ void TranscodeJob::Run()
     auto lastProgress = std::chrono::steady_clock::now();
     // 输入 EOS 只结束输入；编码输出 EOS 和音轨都处理完，才能停止封装并报告完成。
     while (success && !cancelled_.load() && !(encoderOutputDone_ && audioDone_)) {
+        const uint64_t revision = options_.codecMode == 1 ? codecCallbacks_.Revision() : 0;
         bool advanced = false;
-        success = CheckStorage(false) && DrainEncoder(advanced) && SubmitDecodedFrame(advanced) &&
+        success = CheckCodecCallbacks() && CheckStorage(false) && DrainEncoder(advanced) && SubmitDecodedFrame(advanced) &&
             DrainDecoder(advanced) && FeedDecoder(advanced) && CopyAudio(advanced);
         if (TranscodeMetrics::Clock::now() - publishedAt_ >= std::chrono::milliseconds(DIAGNOSTIC_INTERVAL_MS)) {
             PublishDiagnostics();
@@ -734,6 +749,9 @@ void TranscodeJob::Run()
             lastProgress = std::chrono::steady_clock::now();
         } else if (std::chrono::steady_clock::now() - lastProgress > STALL_LIMIT) {
             success = Fail("Codec pipeline made no progress for 30 seconds");
+        } else if (options_.codecMode == 1) {
+            // Audio conversion still polls; bound the wait even when no video callback arrives.
+            codecCallbacks_.Wait(revision, POLL_INTERVAL);
         } else {
             std::this_thread::sleep_for(POLL_INTERVAL);
         }
@@ -743,7 +761,7 @@ void TranscodeJob::Run()
             std::lock_guard<std::mutex> lock(snapshotMutex_);
             snapshot_.stage = "finalize";
         }
-        success = FinalizeOutput();
+        success = CheckCodecCallbacks() && FinalizeOutput() && CheckCodecCallbacks();
     }
     diagnostics_.FinishWaits();
     PublishDiagnostics();
@@ -775,6 +793,8 @@ void TranscodeJob::PublishDiagnostics()
 
 void TranscodeJob::Cleanup()
 {
+    // Reject late events before Stop, but retain callback contexts until both codecs are destroyed.
+    codecCallbacks_.Close();
     audioPipeline_.reset();
     // Surface 由编码器创建，解码器借用。先销毁解码器，再销毁编码器和窗口引用。
     if (decoder_ != nullptr) {

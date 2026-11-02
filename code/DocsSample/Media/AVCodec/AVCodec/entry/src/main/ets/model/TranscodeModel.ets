@@ -475,6 +475,7 @@ export class TranscodeModel {
       audioMode: this.audioMode,
       audioTrack: this.audioTrack,
       remuxOnly: this.quality.operation === 1,
+      codecMode: this.quality.codecMode,
       scalingFilter: this.quality.filter,
       frameRateLimit: [0, 24, 30, 60, 120][this.quality.frameRate] ?? 0,
       bitrateMode: this.quality.bitrateMode,
@@ -494,6 +495,7 @@ export class TranscodeModel {
       return 'MP4 remux · audio=' + (this.audioMode === 2 ? 'none' : 'copy') + ' · track=' + this.audioTrack;
     }
     return (this.codecIndex === 0 ? 'H.264' : 'H.265') + ' · ' + mode +
+      ' · codecMode=' + (this.quality.codecMode === 1 ? 'async' : 'sync') +
       ' · ' + ([2, 4, 8, 16][this.bitrateIndex] ?? 8) + ' Mbps · gray=' + this.grayscale +
       ' · edge=' + [0, 1920, 1080, 720][this.sizeIndex] + ' · resize=' + this.resizeMode +
       ' · audio=' + ['copy', 'AAC-LC', 'none'][this.audioMode] + ' · track=' + this.audioTrack +

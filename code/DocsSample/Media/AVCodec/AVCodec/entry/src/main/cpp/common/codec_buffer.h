@@ -55,10 +55,7 @@ public:
     {
         std::unique_lock<std::mutex> lock(mutex_);
         // 队列只共享描述对象，不取得OH_AVBuffer的所有权。消费者必须按所属编解码器归还bufferIndex。
-        bufferQueue_.push({bufferInfo, diagnosticsEnabled_ ? RecorderClockUs() : 0});
-        if (diagnosticsEnabled_) {
-            peakDepth_ = std::max(peakDepth_, bufferQueue_.size());
-        }
+        bufferQueue_.push(bufferInfo);
         cond_.notify_all();
     }
 

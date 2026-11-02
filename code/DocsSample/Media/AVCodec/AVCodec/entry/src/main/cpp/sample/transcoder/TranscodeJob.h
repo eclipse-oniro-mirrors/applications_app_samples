@@ -30,6 +30,7 @@
 #include "TranscodeFrameProcessor.h"
 #include "TranscodeDiagnostics.h"
 #include "TranscodeAudioPipeline.h"
+#include "TranscodeCodecCallbacks.h"
 
 struct TranscodeOptions {
     int32_t inputFd = -1;
@@ -48,6 +49,7 @@ struct TranscodeOptions {
     bool inspectOnly = false;
     bool previewOnly = false;
     bool remuxOnly = false;
+    int32_t codecMode = 0;
     int32_t scalingFilter = 0;
     int32_t frameRateLimit = 0;
     int32_t bitrateMode = 0;
@@ -109,7 +111,7 @@ public:
     explicit TranscodeJob(TranscodeOptions options);
     ~TranscodeJob();
     void Run();
-    void Cancel() { cancelled_.store(true); }
+    void Cancel() { cancelled_.store(true); codecCallbacks_.Close(); }
     TranscodeSnapshot Snapshot() const;
     void DiscardPreviewPixels()
     {
@@ -133,6 +135,9 @@ private:
     bool ConfigureCodecs();
     bool ConfigureEncoderFormat();
     bool StartCodecs();
+    bool RegisterCodecCallbacks();
+    bool CheckCodecCallbacks();
+    int32_t AcquireCodecBuffer(bool encoder, bool input, TranscodeCodecBuffer &buffer);
     bool CheckStorage(bool initial);
     bool ValidateEncoder(OH_AVCapability *capability);
     bool InspectCodecs();
@@ -170,6 +175,8 @@ private:
     mutable std::mutex snapshotMutex_;
     TranscodeSnapshot snapshot_;
     std::atomic<bool> cancelled_ { false };
+    // Kept alive through Stop/Destroy, including callbacks racing with cancellation.
+    TranscodeCodecCallbacks codecCallbacks_;
     OH_AVSource *source_ = nullptr;
     OH_AVDemuxer *demuxer_ = nullptr;
     OH_AVCodec *decoder_ = nullptr;
@@ -184,6 +191,7 @@ private:
     int32_t muxVideoTrack_ = -1;
     int32_t muxAudioTrack_ = -1;
     int64_t durationUs_ = 0;
+    int64_t sourceStartUs_ = 0;
     int64_t rangeStartUs_ = 0;
     int64_t rangeEndUs_ = 0;
     int64_t selectedDurationUs_ = 0;

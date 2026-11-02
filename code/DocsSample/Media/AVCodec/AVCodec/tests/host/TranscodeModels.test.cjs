@@ -463,7 +463,8 @@ async function testQueue() {
   files.set('/private/source.mp4', { kind: 'file' });
   const model = new TranscodeModel();
   const options = [0, 0, 0, 2, 0, 0, 0, 0];
-  model.queue.add('/private/source.mp4', 'one.mp4', options, false);
+  model.quality.codecMode = 1;
+  model.queue.add('/private/source.mp4', 'one.mp4', options, false, 0, 0, model.quality.snapshot());
   model.queue.add('/private/source.mp4', 'two.mp4', options, false);
   const rangeQueue = new TranscodeQueueModel();
   rangeQueue.add('/private/source.mp4', 'clip.mp4', options, true, 250, 1250);
@@ -493,7 +494,11 @@ async function testQueue() {
   const done = deferred();
   const entered = deferred();
   let started = 0;
-  start = () => { started++; entered.resolve(); return done.promise; };
+  start = request => {
+    assert.equal(request.codecMode, 1, 'Queue dispatch restores asynchronous scheduling');
+    started++; entered.resolve(); return done.promise;
+  };
+  model.quality.codecMode = 0;
   const task = model.runQueue(ui);
   await entered.promise;
   await model.start(ui);
@@ -508,6 +513,7 @@ async function testQueue() {
   await restored.restoreQueue(ui);
   assert.equal(restored.queue.paused, true);
   assert.equal(restored.queue.items.length, 2);
+  assert.equal(restored.queue.items[0].quality.codecMode, 1, 'Scheduling survives queue persistence');
   restored.queue.items[1].state = 'running';
   await restored.persistQueue(ui);
   const interrupted = new TranscodeModel();
@@ -577,10 +583,19 @@ async function testQualityProfiles() {
   const model = new TranscodeModel();
   model.sourceUri = '/private/source.mp4';
   model.sourceTitle = 'source.mp4';
+  assert.equal(model.request(1, 2).codecMode, 0, 'Synchronous remains the default');
+  const legacyQuality = model.quality.snapshot();
+  delete legacyQuality.codecMode;
+  model.quality.codecMode = 1;
+  model.quality.restore(legacyQuality);
+  assert.equal(model.quality.codecMode, 0, 'Old snapshots restore synchronous mode');
+  model.quality.codecMode = 1;
   model.quality.filter = 1; model.quality.frameRate = 2; model.quality.bitrateMode = 1;
   model.quality.keyFrame = 3; model.quality.audioRate = 2; model.quality.audioChannels = 1;
   model.quality.audioBitrate = 2;
   const request = model.request(1, 2);
+  assert.equal(request.codecMode, 1);
+  assert.match(model.configuration(), /codecMode=async/);
   assert.equal(request.scalingFilter, 1); assert.equal(request.frameRateLimit, 30);
   assert.equal(request.bitrateMode, 1); assert.equal(request.keyFrameIntervalMs, 5000);
   assert.equal(request.audioSampleRate, 48000); assert.equal(request.audioChannels, 1);
@@ -588,12 +603,23 @@ async function testQualityProfiles() {
   const queue = new TranscodeQueueModel();
   queue.add(model.sourceUri, model.sourceTitle, [0, 0, 0, 2, 0, 1, 0, 0], false, 0, 0, model.quality.snapshot());
   model.quality.filter = 0;
+  model.quality.codecMode = 0;
+  assert.equal(queue.items[0].quality.codecMode, 1, 'Queue retains its codec scheduling');
   assert.equal(queue.items[0].quality.filter, 1, 'Queue must retain independent quality settings');
   queue.update(queue.items[0].id, 'failed', 10);
   queue.reassociate(queue.items[0].id, '/private/new.mp4', 'new.mp4');
   assert.equal(queue.items[0].quality.audioChannels, 1);
   const invalid = JSON.parse(JSON.stringify(queue.items[0])); invalid.quality.audioRate = 9;
   assert.equal(TranscodeQueueModel.validated([invalid]).length, 0);
+  for (const codecMode of [-1, 2, 0.5, null, '1']) {
+    const invalidMode = JSON.parse(JSON.stringify(queue.items[0])); invalidMode.quality.codecMode = codecMode;
+    assert.equal(TranscodeQueueModel.validated([invalidMode]).length, 0, 'Reject invalid scheduling');
+  }
+  const legacy = JSON.parse(JSON.stringify(queue.items[0])); delete legacy.quality.codecMode;
+  assert.equal(TranscodeQueueModel.validated([legacy]).length, 1, 'Legacy quality remains valid');
+  const surfaceAsync = JSON.parse(JSON.stringify(queue.items[0]));
+  surfaceAsync.options[1] = 1; surfaceAsync.quality.filter = 0;
+  assert.equal(TranscodeQueueModel.validated([surfaceAsync]).length, 1, 'Surface supports asynchronous scheduling');
   const surfaceFilter = JSON.parse(JSON.stringify(queue.items[0]));
   surfaceFilter.options[1] = 1;
   assert.equal(TranscodeQueueModel.validated([surfaceFilter]).length, 0, 'Surface cannot restore CPU filtering');
@@ -616,7 +642,11 @@ async function testQualityProfiles() {
   done.resolve(status({ state: 3 })); await task;
   assert.equal(model.previewImage, undefined); assert.equal(model.busy, false);
   assert.equal(MediaFileActivity.isTranscoding(), false);
-  preview = async () => status({ previewWidth: 2, previewHeight: 2, previewRgba: new ArrayBuffer(16) });
+  model.quality.codecMode = 1;
+  preview = async request => {
+    assert.equal(request.codecMode, 1, 'Preview accepts a draft selecting asynchronous transcoding');
+    return status({ previewWidth: 2, previewHeight: 2, previewRgba: new ArrayBuffer(16) });
+  };
   await model.preview(ui); assert(model.previewImage);
   model.dispose(); assert.equal(model.previewImage, undefined);
   console.info('Quality: request mapping, queue snapshots, remux resets and preview cancellation lease passed');

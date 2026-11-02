@@ -215,7 +215,10 @@ bool TranscodeAudioPipeline::Decode(bool &advanced)
 
 bool TranscodeAudioPipeline::TrimPcm()
 {
-    if (rangeEndUs_ <= 0) { return true; }
+    if (rangeEndUs_ <= 0) {
+        pcmAttr_.pts = std::max<int64_t>(0, pcmAttr_.pts - rangeStartUs_);
+        return true;
+    }
     if (sampleRate_ <= 0 || channels_ <= 0) {
         return error_("Invalid PCM sample rate or channel count", -1);
     }

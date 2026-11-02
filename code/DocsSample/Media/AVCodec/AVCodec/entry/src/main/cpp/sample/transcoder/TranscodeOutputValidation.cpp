@@ -18,6 +18,7 @@
 #include <cmath>
 #include <sys/stat.h>
 #include <multimedia/player_framework/native_avcodec_base.h>
+#include "av_codec_sample_log.h"
 
 namespace {
 constexpr int64_t TRACK_START_TOLERANCE_US = 100000;
@@ -27,6 +28,7 @@ constexpr int64_t US_PER_SECOND = 1000000;
 
 void TranscodeJob::AddValidationNote(const std::string &note)
 {
+    AVCODEC_SAMPLE_LOGW("Transcode output validation: %{public}s", note.c_str());
     std::lock_guard<std::mutex> lock(snapshotMutex_);
     snapshot_.validationNotes.push_back(note);
 }
@@ -151,15 +153,18 @@ bool TranscodeJob::ValidateOutput()
     if (!ValidateOutputTracks(output.get(), count, expectedTracks)) {
         return false;
     }
-    std::lock_guard<std::mutex> lock(snapshotMutex_);
-    snapshot_.outputDurationUs = duration;
-    snapshot_.expectedDurationUs = selectedDurationUs_;
     const int64_t toleranceUs = std::max(MIN_DURATION_TOLERANCE_US,
         static_cast<int64_t>(2 * US_PER_SECOND / std::max(1.0, OutputFrameRate())));
     if (selectedDurationUs_ > 0 && std::abs(duration - selectedDurationUs_) > toleranceUs) {
-        snapshot_.validationNotes.push_back("Duration differs: expectedUs=" + std::to_string(selectedDurationUs_) +
+        AddValidationNote("Duration differs: expectedUs=" + std::to_string(selectedDurationUs_) +
             " actualUs=" + std::to_string(duration) + " toleranceUs=" + std::to_string(toleranceUs));
     }
+    std::lock_guard<std::mutex> lock(snapshotMutex_);
+    snapshot_.outputDurationUs = duration;
+    snapshot_.expectedDurationUs = selectedDurationUs_;
     snapshot_.outputValidation = snapshot_.validationNotes.empty() ? "passed" : "warning";
+    AVCODEC_SAMPLE_LOGI("Transcode output validation: %{public}s, sourceStartUs=%{public}" PRId64
+        ", expectedUs=%{public}" PRId64 ", actualUs=%{public}" PRId64,
+        snapshot_.outputValidation.c_str(), sourceStartUs_, selectedDurationUs_, duration);
     return true;
 }

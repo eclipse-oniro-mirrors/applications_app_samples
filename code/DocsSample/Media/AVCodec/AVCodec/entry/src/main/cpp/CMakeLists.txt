@@ -109,6 +109,8 @@ target_link_libraries(recorder PUBLIC ${BASE_LIBRARY})
 add_library(transcoder SHARED sample/transcoder/TranscoderNative.cpp
                               sample/transcoder/TranscodeAudioPipeline.cpp
                               sample/transcoder/TranscodeJob.cpp
+                              sample/transcoder/TranscodeCodecCallbacks.cpp
+                              sample/transcoder/TranscodeCodecIO.cpp
                               sample/transcoder/TranscodeInspection.cpp
                               sample/transcoder/TranscodeOutputValidation.cpp
                               sample/transcoder/TranscodeTimeRange.cpp
