@@ -31,8 +31,7 @@ UIAbilityLaunchType/
 ├── entry/src/main
 │   ├── ets
 │   │   ├── common
-│   │   │   ├── RestoreJudge.ets        // 恢复启动判定（版本隔离）
-│   │   │   ├── RestoreBlob.ets         // 超限数据落盘引用
+│   │   │   ├── RestoreUtil.ets         // 恢复启动判定、超限数据落盘引用等工具函数
 │   │   ├── entryability
 │   │   │   ├── EntryAbility.ets
 │   │   │   ├── RestoreAbility.ets      // 页面栈恢复示例 Ability
@@ -60,11 +59,11 @@ UIAbilityLaunchType/
     * 在应用模块初始化时，在UIAbility的onCreate()回调函数中启用UIAbility的备份恢复功能，源码参考[EntryAbility](/entry/src/main/ets/entryability/EntryAbility.ets)。
     * 开发者需要主动保存数据，调用onSaveState保存数据，以在UIAbility启动时恢复，源码参考[EntryAbility](/entry/src/main/ets/entryability/EntryAbility.ets)。
 * 页面栈与数据恢复适配指南示例（[应用状态恢复与页面栈恢复适配指南](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/application-models/app-restore-adaptation.md)）：
-    * 恢复启动判定（版本隔离，不能单独依赖launchReason），源码参考[RestoreJudge](/entry/src/main/ets/common/RestoreJudge.ets)。
-    * 方案A（Navigation栈恢复）：Navigation三件套（.id + .recoverable + NavDestination.recoverable）、深栈补推、finishRestore时机，源码参考[RestoreIndex](/entry/src/main/ets/restore/RestoreIndex.ets)。
+    * 恢复启动判定（三信号合判，低版本不能单独依赖launchReason）与超限数据落盘引用，源码参考[RestoreUtil](/entry/src/main/ets/common/RestoreUtil.ets)。
+    * 方案A（Navigation栈恢复）：Navigation三件套（.id + .recoverable + NavDestination.recoverable）、深栈补推时机，源码参考[RestoreIndex](/entry/src/main/ets/restore/RestoreIndex.ets)。
     * 断点续读页面：数据通道（平时发布AppStorage）、恢复消费（一次性）、空值兜底（防白屏），源码参考[ReaderPage](/entry/src/main/ets/restore/ReaderPage.ets)。
     * 方案C（纯router）：页面默认参与恢复，无需恢复的页面用recoverable:false显式排除，源码参考[RouterPage](/entry/src/main/ets/restore/RouterPage.ets)。
-    * 方案D（超限数据落盘引用）：want.parameters只放轻量引用，数据本体写沙箱文件，源码参考[RestoreBlob](/entry/src/main/ets/common/RestoreBlob.ets)、[RestoreAbility](/entry/src/main/ets/entryability/RestoreAbility.ets)。
+    * 方案D（超限数据落盘引用）：want.parameters只放轻量引用，数据本体写沙箱文件，源码参考[RestoreUtil](/entry/src/main/ets/common/RestoreUtil.ets)、[RestoreAbility](/entry/src/main/ets/entryability/RestoreAbility.ets)。
 
 ### 相关权限
 不涉及

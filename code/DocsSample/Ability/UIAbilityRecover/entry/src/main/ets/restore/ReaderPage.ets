@@ -13,19 +13,9 @@
  * limitations under the License.
  */
 
-// [Start reader_state]
-/** 页面可恢复状态：只包含可序列化的定位键与轻量数据，不放函数/类实例/Map。 */
-export class ReaderState {
-  public bookId: string = '';
-  public chapterIndex: number = 1;
-  public progress: number = 0; // 阅读进度（百分比）
-  public draft: string = '';   // 未提交的笔记草稿（超限时走落盘引用）
-}
-// [End reader_state]
-
 /**
  * 断点续读页面（方案 A 的 NavDestination 示例）。
- * 演示：页面数据通道（平时发布）、恢复消费（一次性）、空值兜底（防白屏）、.recoverable(true)。
+ * 演示：数据通道（平时发布）、恢复消费（一次性）、空值兜底（防白屏）、.recoverable(true)。
  */
 @Component
 export struct ReaderPage {
@@ -38,32 +28,42 @@ export struct ReaderPage {
 
   // [Start page_consume]
   aboutToAppear(): void {
-    // 恢复消费：优先使用 Ability 层中转的恢复数据，一次性消费防重复
-    const restored = AppStorage.get<ReaderState>('restore.reader');
+    // 恢复消费：优先使用 Ability 层中转的恢复数据，取出即删，防止重复消费
+    const restored = AppStorage.get<Record<string, Object>>('restore.reader');
     if (restored !== undefined) {
       AppStorage.delete('restore.reader');
       this.restoredFromChannel = true;
-      this.applyRestored(restored);
+      this.bookId = (restored['bookId'] as string) ?? '';
+      this.chapterIndex = (restored['chapterIndex'] as number) ?? 1;
+      this.progress = (restored['progress'] as number) ?? 0;
+      // 超限草稿单独走落盘通道，恢复成功时优先于随数据带回的短草稿
+      const draftFromBlob = AppStorage.get<string>('restore.reader.draft');
+      if (draftFromBlob !== undefined) {
+        AppStorage.delete('restore.reader.draft');
+        this.draft = draftFromBlob;
+      } else {
+        this.draft = (restored['draft'] as string) ?? '';
+      }
+      this.source = '恢复启动';
+      this.reportState();
       return; // 不走正常冷启初始化
     }
   }
   // [End page_consume]
 
-  private applyRestored(st: ReaderState): void {
-    this.bookId = st.bookId;
-    this.chapterIndex = st.chapterIndex;
-    this.progress = st.progress;
-    // 落盘引用读回的超限草稿（方案 D）
-    const draftFromBlob = AppStorage.get<string>('restore.reader.draft');
-    if (draftFromBlob !== undefined) {
-      AppStorage.delete('restore.reader.draft');
-      this.draft = draftFromBlob;
-    } else {
-      this.draft = st.draft;
-    }
-    this.source = '恢复启动';
-    this.reportState();
+  // [Start reader_state_report]
+  /** 数据通道：关键状态变化时把可序列化状态发布到 AppStorage，onSaveState 同步读取。
+   *  只放定位键与轻量数据，不放函数/类实例/Map。 */
+  private reportState(): void {
+    AppStorage.setOrCreate('reader.state', {
+      'bookId': this.bookId,
+      'chapterIndex': this.chapterIndex,
+      'progress': this.progress
+    } as Record<string, Object>);
+    // 草稿单独一路发布，onSaveState 按长度决定随数据保存还是落盘引用
+    AppStorage.setOrCreate('reader.draft', this.draft);
   }
+  // [End reader_state_report]
 
   /** 正常冷启：按定位键重新加载初始状态。 */
   private loadFresh(): void {
@@ -72,18 +72,6 @@ export struct ReaderPage {
     this.source = '冷启加载';
     this.reportState();
   }
-
-  // [Start data_channel_report]
-  /** 数据通道：关键状态变化时把可序列化状态发布到 AppStorage，onSaveState 同步读取。 */
-  private reportState(): void {
-    const st = new ReaderState();
-    st.bookId = this.bookId;
-    st.chapterIndex = this.chapterIndex;
-    st.progress = this.progress;
-    st.draft = this.draft;
-    AppStorage.setOrCreate('reader.state', st);
-  }
-  // [End data_channel_report]
 
   build() {
     NavDestination() {
@@ -132,18 +120,24 @@ export struct ReaderPage {
   private handleParam(ctx: NavDestinationContext): void {
     const param = ctx.pathInfo?.param as Record<string, Object> | undefined;
     // 路径 1：param 有效 → 用定位键重新加载数据，不依赖原始 param 中的类实例/回调
-    if (param !== undefined && param.bookId !== undefined) {
-      this.bookId = param.bookId as string;
+    if (param !== undefined && param['bookId'] !== undefined) {
+      this.bookId = param['bookId'] as string;
       if (!this.restoredFromChannel) {
         this.loadFresh();
       }
       return;
     }
     // 路径 2：系统恢复但 param 为空 → 尝试从 AppStorage 恢复通道取
-    const restored = AppStorage.get<ReaderState>('restore.reader');
+    const restored = AppStorage.get<Record<string, Object>>('restore.reader');
     if (restored !== undefined) {
       AppStorage.delete('restore.reader');
-      this.applyRestored(restored);
+      this.restoredFromChannel = true;
+      this.bookId = (restored['bookId'] as string) ?? '';
+      this.chapterIndex = (restored['chapterIndex'] as number) ?? 1;
+      this.progress = (restored['progress'] as number) ?? 0;
+      this.draft = (restored['draft'] as string) ?? '';
+      this.source = '恢复启动';
+      this.reportState();
       return;
     }
     // 路径 3：兜底 → 退回上一页，避免白屏

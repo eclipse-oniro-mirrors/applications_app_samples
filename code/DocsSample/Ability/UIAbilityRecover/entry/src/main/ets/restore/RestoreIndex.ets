@@ -14,7 +14,6 @@
  */
 
 import { router } from '@kit.ArkUI';
-import { RestoreJudge } from '../common/RestoreJudge';
 import { ReaderPage } from './ReaderPage';
 import { DeepPage } from './DeepPage';
 
@@ -23,7 +22,7 @@ const KEY_RESTORE_NAV_PATH = 'restore.navPath';
 
 /**
  * 方案 A 示例首页：Navigation 三件套（.id + .recoverable + NavDestination.recoverable）、
- * 深栈补推、finishRestore 时机（onPageShow）。
+ * 深栈补推。
  */
 @Entry
 @Component
@@ -40,16 +39,14 @@ struct RestoreIndex {
     }
   }
 
-  // [Start finish_restore_timing]
+  // [Start deep_stack_replay_timing]
   onPageShow(): void {
-    // finishRestore 的正确时机：首页 onPageShow——此时 Navigation 栈已重建、页面已渲染。
-    // 禁止在 loadContent 回调中调用（系统栈恢复尚未执行，守卫会过早失效）。
-    if (RestoreJudge.isRestoring()) {
-      this.replayDeepStack();
-      RestoreJudge.finishRestore();
-    }
+    // 深栈补推时机：首页 onPageShow——此时系统已自动恢复 Navigation 栈顶前 2 页并完成渲染。
+    // 禁止在 loadContent 回调中补推（系统栈恢复尚未执行，会与系统恢复互相冲突）。
+    // 若首页有"自动跳转广告页/闪屏页"等逻辑，恢复启动这一跳必须跳过，否则会把恢复出来的栈顶页挤掉。
+    this.replayDeepStack();
   }
-  // [End finish_restore_timing]
+  // [End deep_stack_replay_timing]
 
   // [Start deep_stack_replay]
   /** 深栈补推：系统只自动恢复栈顶前 2 页，更深层级按保存的路径快照逐层补推。 */
