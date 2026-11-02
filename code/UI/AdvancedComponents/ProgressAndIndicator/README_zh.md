@@ -9,7 +9,7 @@
 - [ProgressButtonV2](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-ProgressButtonV2.md)：API 18 起、基于状态管理 V2 的下载按钮，参数通过 `@Param` 传入；
 - Indicator：导航点组件，提供圆点（`DotIndicator`）与数字（`DigitIndicator`）两种样式，支持 `count/initialIndex/loop/vertical/onChange` 与 `IndicatorComponentController`。
 
-工程包含进度/区间/指示器工具类、设备信息与响应式断点工具类，包含 37 条 ohosTest 用例与 4 条本地工具单测。
+工程包含进度/区间/指示器工具类、设备信息与响应式断点工具类，包含 94 条 ohosTest 用例与 4 条本地工具单测。
 
 ### 功能特性
 
@@ -40,7 +40,7 @@
 
 | 类型 | 数量 | 说明 |
 |---|---:|---|
-| ohosTest | 37 | 入口、ArcSlider、ProgressButton/V2、Indicator、边界、稳定性、逻辑 |
+| ohosTest | 94 | 入口、ArcSlider、ProgressButton/V2、Indicator、边界、稳定性、逻辑 |
 | 本地单测 | 4 | 进度、下载状态、指示器、断点 |
 
 ### 效果预览
@@ -100,7 +100,7 @@ entry/src/test/
 2. 本示例基于 ArkTS 1.1 动态环境开发，已适配 API version 26 版本 SDK，版本号：26.0.0；
 3. 本示例需要使用 DevEco Studio 26.0.0 及以上版本才可编译运行；
 4. ArcSlider 面向圆形穿戴屏幕设计，在手机/平板上以限定区域展示；ProgressButton 自 API 10 起可用，ProgressButtonV2 自 API 18 起可用，IndicatorComponent 自 API 15 起可用；
-5. 本示例包含 37 条 ohosTest 用例，另有 4 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
+5. 本示例包含 94 条 ohosTest 用例，另有 4 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
 6. 工程使用 DevEco Studio 自动生成的调试签名，可直接部署；提交仓库前建议将 `signingConfigs` 置空，由使用者在 IDE 中重新自动签名；
 
 ### 下载
