@@ -150,13 +150,13 @@ struct Index {
   async testFetchMetadataFromFdSrc() {
     if (canIUse('SystemCapability.Multimedia.Media.AVMetadataExtractor')) {
       try {
-        // 创建AVMetadataExtractor对象。
-        let avMetadataExtractor = await media.createAVMetadataExtractor();
-
-        // 设置fdSrc。
-        console.info(TAG, `path: ${this.rootPath + this.testFilename}`);
-        
         // [Start AVMetadataExtractor_SetOpenSync]
+        // 创建AVMetadataExtractor对象。
+        let avMetadataExtractor: media.AVMetadataExtractor = await media.createAVMetadataExtractor();
+        // 使用fileIo文件系统打开沙箱地址获取媒体文件地址，设置fdSrc属性。
+        let context: Context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+        let rootPath: string = context.filesDir; // 应用文件目录。
+        let testFilename: string = '/test.mp3'; // test.mp3为应用文件目录下的预置资源，需要开发者根据实际情况进行替换。
         avMetadataExtractor.fdSrc = fs.openSync(this.rootPath + this.testFilename);
         // [End AVMetadataExtractor_SetOpenSync]
 
@@ -182,6 +182,12 @@ struct Index {
     if (canIUse('SystemCapability.Multimedia.Media.AVMetadataExtractor')) {
       try {
         // [Start AVMetadataExtractor_SetDataSrc]
+        // 创建AVMetadataExtractor对象。
+        let avMetadataExtractor: media.AVMetadataExtractor = await media.createAVMetadataExtractor();
+        let context: Context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+        let rootPath: string = context.filesDir; // 应用文件目录。
+        let testFilename: string = '/test.mp3'; // test.mp3为应用文件目录下的预置资源，需要开发者根据实际情况进行替换。
+        // 使用fileIo文件系统打开沙箱地址获取媒体文件地址，设置dataSrc属性。
         // 通过UIAbilityContext获取沙箱地址filesDir（以Stage模型为例）。
         let fd: number = fs.openSync(this.rootPath + this.testFilename).fd;
         let fileSize: number = fs.statSync(this.rootPath + this.testFilename).size;
@@ -205,9 +211,6 @@ struct Index {
             return -1;
           }
         };
-
-        // 创建AVMetadataExtractor对象。
-        let avMetadataExtractor = await media.createAVMetadataExtractor();
         // 设置dataSrc。
         avMetadataExtractor.dataSrc = dataSrc;
         // [End AVMetadataExtractor_SetDataSrc]
