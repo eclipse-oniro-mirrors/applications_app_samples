@@ -1,0 +1,66 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+{
+  "app": {
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": "26.1.0",
+        "compatibleSdkVersion": "26.0.0",
+        "runtimeOS": "OpenHarmony",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:/Users/ISSUSER/.ohos/config/openharmony/default_SystemLoad_YACjbMeDjlwr4Yka7CAiCKdasuIlvtmz9FNbQ8Dg_BU=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B884AEC32D341D4554B8786B575017AE5C1FCA65F58A366E9FFC7D2B896E81A08E33D2905A53533",
+          "profile": "C:/Users/ISSUSER/.ohos/config/openharmony/default_SystemLoad_YACjbMeDjlwr4Yka7CAiCKdasuIlvtmz9FNbQ8Dg_BU=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/ISSUSER/.ohos/config/openharmony/default_SystemLoad_YACjbMeDjlwr4Yka7CAiCKdasuIlvtmz9FNbQ8Dg_BU=.p12",
+          "storePassword": "0000001B6D8368BC86D61067DD95EB72218EC5D4B8FF02FF2DB1F5EA5A4C8564EB50603900BE4CDFCA02C5"
+        }
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "library",
+      "srcPath": "./library"
+    }
+  ]
+}
