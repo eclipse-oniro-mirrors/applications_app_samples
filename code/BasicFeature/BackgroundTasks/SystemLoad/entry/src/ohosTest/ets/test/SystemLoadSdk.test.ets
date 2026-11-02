@@ -1,0 +1,352 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { BusinessError, systemLoad } from '@kit.BasicServicesKit';
+import { afterEach, describe, expect, it } from '@ohos/hypium';
+import { logger } from '../util/Logger';
+
+const BUNDLE: string = 'SystemLoadSdk_';
+const PARAMETER_ERROR: number = 401;
+const VALID_LEVELS: systemLoad.SystemLoadLevel[] = [
+  systemLoad.SystemLoadLevel.LOW,
+  systemLoad.SystemLoadLevel.NORMAL,
+  systemLoad.SystemLoadLevel.MEDIUM,
+  systemLoad.SystemLoadLevel.HIGH,
+  systemLoad.SystemLoadLevel.OVERHEATED,
+  systemLoad.SystemLoadLevel.WARNING,
+  systemLoad.SystemLoadLevel.EMERGENCY,
+  systemLoad.SystemLoadLevel.ESCAPE
+];
+
+type SystemLoadCallback = (level: systemLoad.SystemLoadLevel) => void;
+
+interface CallbackRecorder {
+  levels: systemLoad.SystemLoadLevel[];
+  callback: SystemLoadCallback;
+}
+
+class InvalidCallback {
+}
+
+function createRecorder(): CallbackRecorder {
+  const levels: systemLoad.SystemLoadLevel[] = [];
+  return {
+    levels: levels,
+    callback: (level: systemLoad.SystemLoadLevel): void => {
+      levels.push(level);
+    }
+  };
+}
+
+function assertRecordedLevelsValid(recorder: CallbackRecorder): void {
+  for (const level of recorder.levels) {
+    expect(isValidLevel(level)).assertTrue();
+  }
+}
+
+function isValidLevel(level: systemLoad.SystemLoadLevel): boolean {
+  return VALID_LEVELS.indexOf(level) >= 0;
+}
+
+async function assertParameterError(operation: () => void): Promise<void> {
+  let actualCode = 0;
+  try {
+    operation();
+  } catch (error) {
+    actualCode = Number((error as BusinessError).code);
+  }
+  logger.info(`${BUNDLE}assert callback parameter error code ${PARAMETER_ERROR}`);
+  expect(actualCode).assertEqual(PARAMETER_ERROR);
+}
+
+function registerRecorder(recorder: CallbackRecorder, registeredCallbacks: SystemLoadCallback[]): void {
+  systemLoad.on('systemLoadChange', recorder.callback);
+  registeredCallbacks.push(recorder.callback);
+}
+
+function unregisterRecorder(recorder: CallbackRecorder, registeredCallbacks: SystemLoadCallback[]): void {
+  systemLoad.off('systemLoadChange', recorder.callback);
+  const callbackIndex = registeredCallbacks.indexOf(recorder.callback);
+  if (callbackIndex >= 0) {
+    registeredCallbacks.splice(callbackIndex, 1);
+  }
+}
+
+export default function systemLoadSdkTest() {
+  let registeredCallbacks: SystemLoadCallback[] = [];
+
+  describe('SystemLoadSdkTest', () => {
+    afterEach(() => {
+      for (const callback of registeredCallbacks) {
+        try {
+          systemLoad.off('systemLoadChange', callback);
+        } catch (error) {
+          logger.warn(`${BUNDLE}cleanup callback failed: ${JSON.stringify(error)}`);
+        }
+      }
+      registeredCallbacks = [];
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_GETLEVEL_0100
+     * @tc.name: systemLoad_getLevel_0001
+     * @tc.desc: Query the current system load and verify that it is a valid eight-level enum value.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_getLevel_0001', 0, async () => {
+      logger.info(`${BUNDLE}getLevel_0001, begin`);
+      const level = await systemLoad.getLevel();
+      logger.info(`${BUNDLE}getLevel_0001, assert level ${level} belongs to the enum`);
+      expect(isValidLevel(level)).assertTrue();
+      logger.info(`${BUNDLE}getLevel_0001, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_GETLEVEL_0200
+     * @tc.name: systemLoad_getLevel_0002
+     * @tc.desc: Query repeatedly with an active listener and verify every result without assuming equality.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_getLevel_0002', 0, async () => {
+      logger.info(`${BUNDLE}getLevel_0002, begin`);
+      const recorder = createRecorder();
+      registerRecorder(recorder, registeredCallbacks);
+      for (let index = 0; index < 3; index++) {
+        const level = await systemLoad.getLevel();
+        logger.info(`${BUNDLE}getLevel_0002, assert repeated query ${index} returned ${level}`);
+        expect(isValidLevel(level)).assertTrue();
+      }
+      logger.info(`${BUNDLE}getLevel_0002, assert any delivered callback contains a valid level`);
+      assertRecordedLevelsValid(recorder);
+      unregisterRecorder(recorder, registeredCallbacks);
+      logger.info(`${BUNDLE}getLevel_0002, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_ON_0100
+     * @tc.name: systemLoad_on_0001
+     * @tc.desc: Register one listener and validate any real callback delivered during the test.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_on_0001', 0, async () => {
+      logger.info(`${BUNDLE}on_0001, begin`);
+      const recorder = createRecorder();
+      registerRecorder(recorder, registeredCallbacks);
+      logger.info(`${BUNDLE}on_0001, assert registration succeeds and delivered levels are valid`);
+      assertRecordedLevelsValid(recorder);
+      unregisterRecorder(recorder, registeredCallbacks);
+      logger.info(`${BUNDLE}on_0001, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_ON_0200
+     * @tc.name: systemLoad_on_0002
+     * @tc.desc: Register two distinct listeners and validate any real callback delivered during the test.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_on_0002', 0, async () => {
+      logger.info(`${BUNDLE}on_0002, begin`);
+      const primary = createRecorder();
+      const secondary = createRecorder();
+      registerRecorder(primary, registeredCallbacks);
+      registerRecorder(secondary, registeredCallbacks);
+      logger.info(`${BUNDLE}on_0002, assert both registrations succeed and delivered levels are valid`);
+      assertRecordedLevelsValid(primary);
+      assertRecordedLevelsValid(secondary);
+      unregisterRecorder(primary, registeredCallbacks);
+      unregisterRecorder(secondary, registeredCallbacks);
+      logger.info(`${BUNDLE}on_0002, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_ON_0300
+     * @tc.name: systemLoad_on_0003
+     * @tc.desc: Verify duplicate registration is idempotent and one unregistration removes the callback.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_on_0003', 0, async () => {
+      logger.info(`${BUNDLE}on_0003, begin`);
+      const recorder = createRecorder();
+      registerRecorder(recorder, registeredCallbacks);
+      systemLoad.on('systemLoadChange', recorder.callback);
+      logger.info(`${BUNDLE}on_0003, assert duplicate registration is idempotent`);
+      assertRecordedLevelsValid(recorder);
+      unregisterRecorder(recorder, registeredCallbacks);
+      logger.info(`${BUNDLE}on_0003, assert one unregistration removes the callback completely`);
+      await assertParameterError(() => {
+        systemLoad.off('systemLoadChange', recorder.callback);
+      });
+      logger.info(`${BUNDLE}on_0003, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_ON_0400
+     * @tc.name: systemLoad_on_0004
+     * @tc.desc: Reject an invalid listener callback with error 401.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_on_0004', 0, async () => {
+      logger.info(`${BUNDLE}on_0004, begin`);
+      const invalidCallback = new InvalidCallback() as SystemLoadCallback;
+      await assertParameterError(() => {
+        systemLoad.on('systemLoadChange', invalidCallback);
+      });
+      logger.info(`${BUNDLE}on_0004, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_ON_0500
+     * @tc.name: systemLoad_on_0005
+     * @tc.desc: Repeat listener registration and unregistration to verify that no stale state remains.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_on_0005', 0, async () => {
+      logger.info(`${BUNDLE}on_0005, begin`);
+      const recorder = createRecorder();
+      let completedCycles = 0;
+      for (let cycle = 0; cycle < 3; cycle++) {
+        registerRecorder(recorder, registeredCallbacks);
+        logger.info(`${BUNDLE}on_0005, assert cycle ${cycle} registration succeeds and levels are valid`);
+        assertRecordedLevelsValid(recorder);
+        unregisterRecorder(recorder, registeredCallbacks);
+        completedCycles++;
+      }
+      logger.info(`${BUNDLE}on_0005, assert all register and unregister cycles completed`);
+      expect(completedCycles).assertEqual(3);
+      logger.info(`${BUNDLE}on_0005, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_OFF_0100
+     * @tc.name: systemLoad_off_0001
+     * @tc.desc: Unregister a listener and verify that the same callback can be registered again.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_off_0001', 0, async () => {
+      logger.info(`${BUNDLE}off_0001, begin`);
+      const recorder = createRecorder();
+      registerRecorder(recorder, registeredCallbacks);
+      unregisterRecorder(recorder, registeredCallbacks);
+      registerRecorder(recorder, registeredCallbacks);
+      logger.info(`${BUNDLE}off_0001, assert re-registration succeeds and delivered levels are valid`);
+      assertRecordedLevelsValid(recorder);
+      unregisterRecorder(recorder, registeredCallbacks);
+      logger.info(`${BUNDLE}off_0001, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_OFF_0200
+     * @tc.name: systemLoad_off_0002
+     * @tc.desc: Reject unregistration of a callback that was never registered with error 401.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_off_0002', 0, async () => {
+      logger.info(`${BUNDLE}off_0002, begin`);
+      const unknownRecorder = createRecorder();
+      await assertParameterError(() => {
+        systemLoad.off('systemLoadChange', unknownRecorder.callback);
+      });
+      logger.info(`${BUNDLE}off_0002, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_OFF_0300
+     * @tc.name: systemLoad_off_0003
+     * @tc.desc: Reject a second unregistration of the same callback with error 401.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_off_0003', 0, async () => {
+      logger.info(`${BUNDLE}off_0003, begin`);
+      const recorder = createRecorder();
+      registerRecorder(recorder, registeredCallbacks);
+      unregisterRecorder(recorder, registeredCallbacks);
+      await assertParameterError(() => {
+        systemLoad.off('systemLoadChange', recorder.callback);
+      });
+      logger.info(`${BUNDLE}off_0003, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_OFF_0400
+     * @tc.name: systemLoad_off_0004
+     * @tc.desc: Unregister all callbacks with targeted fallback and verify both can register again.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_off_0004', 0, async () => {
+      logger.info(`${BUNDLE}off_0004, begin`);
+      const primary = createRecorder();
+      const secondary = createRecorder();
+      registerRecorder(primary, registeredCallbacks);
+      registerRecorder(secondary, registeredCallbacks);
+      try {
+        systemLoad.off('systemLoadChange');
+      } catch (error) {
+        logger.warn(`${BUNDLE}off_0004, unregister-all failed, use targeted fallback: ${JSON.stringify(error)}`);
+        expect(Number((error as BusinessError).code)).assertEqual(PARAMETER_ERROR);
+        for (const callback of registeredCallbacks) {
+          systemLoad.off('systemLoadChange', callback);
+        }
+      }
+      registeredCallbacks = [];
+      registerRecorder(primary, registeredCallbacks);
+      registerRecorder(secondary, registeredCallbacks);
+      logger.info(`${BUNDLE}off_0004, assert both callbacks re-register and delivered levels are valid`);
+      assertRecordedLevelsValid(primary);
+      assertRecordedLevelsValid(secondary);
+      unregisterRecorder(primary, registeredCallbacks);
+      unregisterRecorder(secondary, registeredCallbacks);
+      logger.info(`${BUNDLE}off_0004, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_OFF_0500
+     * @tc.name: systemLoad_off_0005
+     * @tc.desc: Reject an invalid callback during unregistration with error 401.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_off_0005', 0, async () => {
+      logger.info(`${BUNDLE}off_0005, begin`);
+      const invalidCallback = new InvalidCallback() as SystemLoadCallback;
+      await assertParameterError(() => {
+        systemLoad.off('systemLoadChange', invalidCallback);
+      });
+      logger.info(`${BUNDLE}off_0005, end`);
+    });
+  });
+}
