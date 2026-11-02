@@ -79,7 +79,7 @@ static struct OH_Huks_Param g_encryptParams[] = {
     {.tag = OH_HUKS_TAG_IV,
      .blob = {
          .size = IV_SIZE,
-         .data = (uint8_t *)IV // this is a test value, for real use the iv should be different every time
+         .data = (uint8_t *)IV // 此处仅为测试值，实际使用时每次都应不同
      }}};
 
 static struct OH_Huks_Param g_decryptParams[] = {
@@ -91,7 +91,7 @@ static struct OH_Huks_Param g_decryptParams[] = {
     {.tag = OH_HUKS_TAG_IV,
      .blob = {
          .size = IV_SIZE,
-         .data = (uint8_t *)IV // this is a test value, for real use the iv should be different every time
+         .data = (uint8_t *)IV // 此处仅为测试值，实际使用时每次都应不同
      }}};
 
 static const uint32_t DES_CBC_SIZE = 1024;

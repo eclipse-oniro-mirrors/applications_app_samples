@@ -84,6 +84,8 @@ static struct OH_Huks_Blob g_keyAlias02001 = {(uint32_t)strlen("HksX25519AgreeKe
                                               (uint8_t *)"HksX25519AgreeKeyAliasTest001_2"};
 
 // [End prepare_X25519_cpp]
+
+// [Start key_agreement_X25519_cpp]
 static OH_Huks_Result MallocAndCheckBlobData(struct OH_Huks_Blob *blob, const uint32_t blobSize)
 {
     struct OH_Huks_Result ret;
@@ -99,7 +101,6 @@ static OH_Huks_Result MallocAndCheckBlobData(struct OH_Huks_Blob *blob, const ui
     return ret;
 }
 
-// [Start key_agreement_X25519_cpp]
 /* 导出密钥 */
 OH_Huks_Result HksX25519AgreeExport(const struct OH_Huks_Blob *keyAlias1, const struct OH_Huks_Blob *keyAlias2,
     struct OH_Huks_Blob *publicKey1, struct OH_Huks_Blob *publicKey2,
