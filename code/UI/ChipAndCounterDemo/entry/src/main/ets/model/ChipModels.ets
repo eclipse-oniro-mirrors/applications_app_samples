@@ -1,17 +1,25 @@
-/**
- * ChipModels 反馈组件业务模型
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * - TagItem/TagStore：标签数据仓库（增删、激活/禁用切换、转 ChipGroupV2ItemConfig）
- * - CounterLogic：计数逻辑（min/max 截断、步进累加，与 CounterV2 联动）
- * - ChipConfigFactory：ChipV2/ChipGroupV2/SegmentButtonV2 配置工厂（统一构建入口）
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 纯逻辑无 UI 依赖（仅配置工厂引用 kit 类型），全部可单元测试。
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 import { LogUtil } from './utils/LogUtil';
 import {
-  ChipSymbolGlyphOptions, ChipV2LabelConfig, ChipV2PrefixImageIconConfig, ChipGroupV2ItemConfig,
+  ChipSymbolGlyphOptions, ChipSuffixSymbolGlyphOptions, ChipV2LabelConfig, ChipV2PrefixImageIconConfig,
+  ChipGroupV2ItemConfig, ChipGroupV2IconItemConfig, ChipGroupV2SymbolItemConfig,
   ChipGroupV2ItemStyle, ChipGroupV2ItemStyleConfig, ChipGroupV2Space, ChipGroupV2SpaceConfig,
-  ChipV2CloseIcon, ChipV2CloseConfig, ChipV2PrefixSymbolIcon, ChipV2PrefixSymbolIconConfig, ChipV2Size,
+  ChipGroupV2Padding, ChipGroupV2PaddingConfig,
+  ChipV2CloseIcon, ChipV2CloseConfig, ChipV2PrefixSymbolIcon, ChipV2PrefixSymbolIconConfig,
+  ChipV2SuffixSymbolIcon, ChipV2SuffixSymbolIconConfig, ChipV2Size,
   SegmentButtonV2ItemOptions, SymbolGlyphModifier, LengthMetrics, ColorMetrics
 } from '@kit.ArkUI';
 
@@ -267,5 +275,70 @@ export class ChipConfigFactory {
       { symbol: symbolA, text: '收藏' } as SegmentButtonV2ItemOptions,
       { symbol: symbolB, text: '星标' } as SegmentButtonV2ItemOptions
     ];
+  }
+
+  /** Chip V1 后缀 Symbol 的可点击配置（suffixSymbol 负责外观，suffixSymbolOptions 负责点击） */
+  static buildSuffixSymbolOptions(action: VoidCallback): ChipSuffixSymbolGlyphOptions {
+    return { action: action } as ChipSuffixSymbolGlyphOptions;
+  }
+
+  /** ChipV2 后缀 Symbol 图标：普通态/激活态两种颜色 + 点击回调 */
+  static buildSuffixSymbolIcon(normal: SymbolGlyphModifier, activated: SymbolGlyphModifier,
+    action: VoidCallback): ChipV2SuffixSymbolIcon {
+    return new ChipV2SuffixSymbolIcon({ normal: normal, activated: activated, action: action } as ChipV2SuffixSymbolIconConfig);
+  }
+
+  /** ChipV2 自定义内边距：左右 start/end 可调，上下固定 6vp */
+  static buildChipV2Padding(startVp: number, endVp: number): LocalizedPadding {
+    return {
+      start: LengthMetrics.vp(startVp),
+      end: LengthMetrics.vp(endVp),
+      top: LengthMetrics.vp(6),
+      bottom: LengthMetrics.vp(6)
+    } as LocalizedPadding;
+  }
+
+  /** ChipGroupV2 组内容器的上下内边距 */
+  static buildGroupPadding(topVp: number, bottomVp: number): ChipGroupV2Padding {
+    return new ChipGroupV2Padding({ top: topVp, bottom: bottomVp } as ChipGroupV2PaddingConfig);
+  }
+
+  /** ChipGroupV2 尾部图标组：Image 图标 + 若干 Symbol 图标，onFlags[i] 为 true 时点亮为橙色（点赞/收藏态），否则灰色；点击各自触发回调 */
+  static buildGroupSuffixItems(icon: ResourceStr, symbols: Resource[],
+    onIconAction: VoidCallback, onSymbolAction: (index: number) => void, onFlags?: boolean[]):
+    Array<ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig> {
+    const items: Array<ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig> = [];
+    items.push({ icon: ChipConfigFactory.buildPrefixIcon(icon), action: onIconAction } as ChipGroupV2IconItemConfig);
+    for (let i = 0; i < symbols.length; i++) {
+      const idx: number = i;
+      const lit: boolean = onFlags !== undefined && onFlags[i] === true;
+      items.push({
+        symbol: ChipConfigFactory.buildSymbolModifier(symbols[i], lit ? '#E65100' : '#BDBDBD'),
+        action: (): void => onSymbolAction(idx)
+      } as ChipGroupV2SymbolItemConfig);
+    }
+    return items;
+  }
+
+  /** SegmentButtonV2 纯 Symbol 条目（图标无文本，靠无障碍文案兜底） */
+  static buildSymbolSegmentItems(symbols: Resource[]): SegmentButtonV2ItemOptions[] {
+    const items: SegmentButtonV2ItemOptions[] = [];
+    for (let i = 0; i < symbols.length; i++) {
+      items.push({
+        symbol: symbols[i],
+        accessibilityText: `第 ${i + 1} 个图标选项`
+      } as SegmentButtonV2ItemOptions);
+    }
+    return items;
+  }
+
+  /** SegmentButtonV2 条目：disabledIndex 位置（-1 表示无）置为 enabled=false */
+  static buildSegmentItemsWithDisabled(texts: string[], disabledIndex: number): SegmentButtonV2ItemOptions[] {
+    const items: SegmentButtonV2ItemOptions[] = [];
+    for (let i = 0; i < texts.length; i++) {
+      const disabled: boolean = i === disabledIndex;
+      items.push({ text: texts[i], enabled: !disabled } as SegmentButtonV2ItemOptions);
+    }
+    return items;
   }
 }

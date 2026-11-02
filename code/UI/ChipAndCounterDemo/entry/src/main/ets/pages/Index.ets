@@ -1,8 +1,16 @@
-/**
- * ChipAndCounterDemo 主页面
- * 分区展示：Chip V1 / ChipV2 / ChipGroupV2 / CounterV2（四类型）/ SegmentButtonV2（三形态）
- * 布局适配：sm（<600vp）单栏；md/lg（平板/2in1/横屏）左演示右日志双栏
- * 所有交互（激活切换/关闭/选择变化/计数变化）均输出日志。
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 import { LogUtil } from '../model/utils/LogUtil';
 import { DeviceUtil, Breakpoint } from '../model/utils/DeviceUtil';
@@ -12,6 +20,7 @@ import {
   ChipV2, ChipV2Options, ChipV2Size, ChipV2Label, ChipV2PrefixImageIcon,
   ChipV2SuffixImageIcon, ChipV2SuffixImageIconConfig,
   ChipGroupV2, ChipGroupV2Items, ChipGroupV2ItemStyle, ChipGroupV2Space,
+  ChipGroupV2Padding, ChipGroupV2IconGroupSuffix, ChipGroupV2IconItemConfig, ChipGroupV2SymbolItemConfig,
   CounterV2Component, CounterV2Options, CounterV2Type, CounterV2DateData,
   TabSegmentButtonV2, CapsuleSegmentButtonV2, MultiCapsuleSegmentButtonV2, SegmentButtonV2Items,
   ColorMetrics, LengthMetrics
@@ -55,12 +64,27 @@ struct Index {
   @State tabSel: number = 0;
   @State capsuleSel: number = 1;
   @State multiSel: number[] = [0];
+  // 进阶分区状态
+  @State advEnabled: boolean = true;
+  @State advSuffixClicksV1: number = 0;
+  @State advSuffixClicksV2: number = 0;
+  @State advGroupSel: number[] = [1];
+  @State advListValue: number = 4;
+  @State advInlineValue: number = 20;
+  @State advDateText: string = '2026-11-02';
+  @State advYear: number = 2026;
+  @State advMonth: number = 11;
+  @State advDay: number = 2;
+  @State advSymbolSel: number = 0;
+  @State advDisabledSel: number = 0;
   private store: TagStore = new TagStore();
   private logSeq: number = 0;
   private demoScroller: Scroller = new Scroller();
   private listLogic: CounterLogic = new CounterLogic(5, 0, 20, 1);
   private compactLogic: CounterLogic = new CounterLogic(1, 1, 9, 1);
   private inlineLogic: CounterLogic = new CounterLogic(10, 0, 100, 5);
+  private advListLogic: CounterLogic = new CounterLogic(4, 0, 12, 2);
+  private advInlineLogic: CounterLogic = new CounterLogic(20, 0, 100, 5);
   // 条目/样式对象只创建一次：写日志触发页面重绘时若在 build 里重建，会让同组 Chip 重新挂载而闪烁
   private singleGroupItems: ChipGroupV2Items = new ChipGroupV2Items(
     ChipConfigFactory.buildGroupItemConfigs(GROUP_SINGLE_LABELS, $r('app.media.startIcon')));
@@ -77,6 +101,22 @@ struct Index {
       $r('app.media.startIcon'), $r('sys.symbol.heart'), $r('sys.symbol.star')));
   private multiSegmentItems: SegmentButtonV2Items =
     new SegmentButtonV2Items(ChipConfigFactory.buildSegmentItems(['A', 'B', 'C']));
+  // 进阶分区条目/配置
+  private advGroupItems: ChipGroupV2Items = new ChipGroupV2Items(
+    ChipConfigFactory.buildGroupItemConfigs(['推荐', '关注', '热榜'], $r('app.media.startIcon')));
+  private advGroupPadding: ChipGroupV2Padding = ChipConfigFactory.buildGroupPadding(10, 10);
+  @State advSuffixOn: boolean[] = [false, false];
+  @State advSuffixFlip: boolean = false;
+  private advGroupSuffixItems: Array<ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig> =
+    ChipConfigFactory.buildGroupSuffixItems(
+      $r('app.media.startIcon'), [$r('sys.symbol.heart'), $r('sys.symbol.star')],
+      (): void => this.logSuffixImageTap(),
+      (index: number): void => this.toggleSuffixSymbol(index));
+  private symbolSegmentItems: SegmentButtonV2Items = new SegmentButtonV2Items(
+    ChipConfigFactory.buildSymbolSegmentItems(
+      [$r('sys.symbol.heart'), $r('sys.symbol.star'), $r('sys.symbol.checkmark_circle')]));
+  private disabledSegmentItems: SegmentButtonV2Items = new SegmentButtonV2Items(
+    ChipConfigFactory.buildSegmentItemsWithDisabled(['可用 A', '已禁用', '可用 B'], 1));
 
   aboutToAppear(): void {
     LogUtil.init((line: string) => {
@@ -119,6 +159,26 @@ struct Index {
   private cycleV2Bg(): void {
     this.v2BgIndex = (this.v2BgIndex + 1) % 3;
     LogUtil.info('Index', `点击「V2 背景+圆角」→ 背景变为${this.v2BgName()}（${this.v2BgColor()}，第 ${this.v2BgIndex + 1}/3 种），borderRadius 固定 6vp`);
+  }
+
+  /** 分区7 尾部 Image 图标点击：仅记日志，不参与选中 */
+  private logSuffixImageTap(): void {
+    LogUtil.info('Index', '点击进阶分组尾部 Image 图标 → ChipGroupV2IconGroupSuffix 的图标条目 action 被触发（不改变组内选中）');
+  }
+
+  /** 分区7 尾部 Symbol 图标点击：切换点亮态（灰↔橙），重建 suffix 条目并强制分组重渲染使图标刷新 */
+  private toggleSuffixSymbol(index: number): void {
+    this.advSuffixOn[index] = !this.advSuffixOn[index];
+    this.advGroupSuffixItems = ChipConfigFactory.buildGroupSuffixItems(
+      $r('app.media.startIcon'), [$r('sys.symbol.heart'), $r('sys.symbol.star')],
+      (): void => this.logSuffixImageTap(),
+      (i: number): void => this.toggleSuffixSymbol(i),
+      this.advSuffixOn.slice());
+    // ChipGroupV2IconGroupSuffix 的 items 为 @Param 且不会驱动 ChipGroupV2 重渲染其 suffix @BuilderParam：
+    // 通过 if/else 分支翻转强制销毁重建整个分组，尾部图标以最新点亮色重建，选中项由 selectedIndexes 参数保持
+    this.advSuffixFlip = !this.advSuffixFlip;
+    const label: string = index === 0 ? '点赞' : '收藏';
+    LogUtil.info('Index', `点击尾部「${label}」图标 → ${this.advSuffixOn[index] ? '点亮（灰→橙）' : '熄灭（橙→灰）'}，与组内选中互不影响`);
   }
 
   @Builder
@@ -520,6 +580,9 @@ struct Index {
           type: CounterV2Type.LIST,
           numberOptions: {
             value: this.listCounterValue,
+            min: 0,
+            max: 20,
+            step: 1,
             onChange: (v: number): void => {
               this.listCounterValue = v;
               this.listLogic.setValue(v);
@@ -534,6 +597,9 @@ struct Index {
           type: CounterV2Type.COMPACT,
           numberOptions: {
             value: this.compactCounterValue,
+            min: 1,
+            max: 9,
+            step: 1,
             onChange: (v: number): void => {
               this.compactCounterValue = v;
               this.compactLogic.setValue(v);
@@ -550,6 +616,7 @@ struct Index {
             value: this.inlineValue,
             min: 0,
             max: 100,
+            step: 5,
             onChange: (v: number): void => {
               this.inlineValue = v;
               this.inlineLogic.setValue(v);
@@ -627,6 +694,283 @@ struct Index {
     .backgroundColor('#FAFAFA')
   }
 
+  /** 分区6：Chip 进阶——后缀 Symbol 点击、ChipV2 字号与内边距、无障碍描述、动态启用/禁用 */
+  @Builder
+  sectionChipAdvanced() {
+    this.sectionTitle('6. Chip 进阶（V1 / V2）',
+      '后缀 Symbol 图标带独立点击回调、ChipV2 自定义 fontSize/padding、accessibilityDescription 无障碍描述、动态启用/禁用')
+    Column({ space: 10 }) {
+      Text('V1：suffixSymbol 外观 + suffixSymbolOptions.action 点击').fontSize(12).fontColor('#666666').width('100%')
+      Row({ space: 8 }) {
+        Chip({
+          label: { text: '后缀 Symbol' } as LabelOptions,
+          suffixSymbol: ChipConfigFactory.buildV1SymbolOptions(
+            ChipConfigFactory.buildSymbolModifier($r('sys.symbol.chevron_right'), '#424242')),
+          suffixSymbolOptions: ChipConfigFactory.buildSuffixSymbolOptions((): void => {
+            this.advSuffixClicksV1 += 1;
+            LogUtil.info('Index', `点击「V1 后缀 Symbol」右侧箭头 → suffixSymbolOptions.action 被触发（第 ${this.advSuffixClicksV1} 次）`);
+          }),
+          allowClose: false,
+          onClicked: (): void => {
+            LogUtil.info('Index', '点击「V1 后缀 Symbol」标签本体 → 无状态变化，右侧箭头才是独立点击热点');
+          }
+        })
+        Chip({
+          label: { text: '无障碍描述' } as LabelOptions,
+          accessibilityDescription: '该标签演示 accessibilityDescription：读屏会朗读这句补充说明',
+          allowClose: false,
+          onClicked: (): void => {
+            LogUtil.info('Index', '点击「无障碍描述」→ ChipOptions.accessibilityDescription 已配置，读屏可朗读补充说明');
+          }
+        })
+      }
+      Text('动态启用/禁用：enabled 切换后点击行为立即变化').fontSize(12).fontColor('#666666').width('100%')
+      Row({ space: 8 }) {
+        Chip({
+          label: { text: this.advEnabled ? '当前可点击' : '已禁用，点击无响应' } as LabelOptions,
+          enabled: this.advEnabled,
+          allowClose: false,
+          onClicked: (): void => {
+            LogUtil.info('Index', '点击「动态启用/禁用」标签 → enabled=true 时点击有响应');
+          }
+        })
+        Text(this.advEnabled ? '点我禁用 →' : '点我启用 →')
+          .fontSize(12)
+          .fontColor('#1565C0')
+          .padding({ left: 8, right: 8, top: 4, bottom: 4 })
+          .borderRadius(14)
+          .backgroundColor('#E3F2FD')
+          .onClick((): void => {
+            this.advEnabled = !this.advEnabled;
+            LogUtil.info('Index', `点击「启用/禁用切换」→ 标签 enabled=${this.advEnabled}：${this.advEnabled ? '恢复可点击' : '禁用后点击无任何响应'}`);
+          })
+      }
+      Text('ChipV2：suffixIcon（Symbol）+ fontSize + padding').fontSize(12).fontColor('#666666').width('100%')
+      Row({ space: 8 }) {
+        ChipV2({
+          chipV2Options: new ChipV2Options({
+            label: new ChipV2Label(ChipConfigFactory.buildLabelConfig('V2 后缀 Symbol')),
+            suffixIcon: ChipConfigFactory.buildSuffixSymbolIcon(
+              ChipConfigFactory.buildSymbolModifier($r('sys.symbol.chevron_right'), '#424242'),
+              ChipConfigFactory.buildSymbolModifier($r('sys.symbol.chevron_right'), '#FFFFFF'),
+              (): void => {
+                this.advSuffixClicksV2 += 1;
+                LogUtil.info('Index', `点击「V2 后缀 Symbol」右侧箭头 → ChipV2SuffixSymbolIcon.action 被触发（第 ${this.advSuffixClicksV2} 次）`);
+              }),
+            allowClose: false,
+            onClicked: (): void => {
+              LogUtil.info('Index', '点击「V2 后缀 Symbol」标签本体 → 无状态变化，右侧箭头才是独立点击热点');
+            }
+          })
+        })
+        ChipV2({
+          chipV2Options: new ChipV2Options({
+            label: new ChipV2Label(ChipConfigFactory.buildLabelConfig('大字号 + 宽内边距')),
+            fontSize: LengthMetrics.fp(15),
+            padding: ChipConfigFactory.buildChipV2Padding(16, 16),
+            allowClose: false,
+            onClicked: (): void => {
+              LogUtil.info('Index', '点击「大字号 + 宽内边距」→ fontSize=fp(15)、padding.start/end=16vp 生效，标签比默认更宽更高');
+            }
+          })
+        })
+      }
+      Row({ space: 8 }) {
+        ChipV2({
+          chipV2Options: new ChipV2Options({
+            label: new ChipV2Label(ChipConfigFactory.buildLabelConfig('无障碍描述')),
+            accessibilityDescription: '该 ChipV2 演示 accessibilityDescription 无障碍说明',
+            allowClose: false,
+            onClicked: (): void => {
+              LogUtil.info('Index', '点击「V2 无障碍描述」→ accessibilityDescription 已配置，读屏可朗读补充说明');
+            }
+          })
+        })
+        Text(`后缀 Symbol 点击：V1 ${this.advSuffixClicksV1} 次 · V2 ${this.advSuffixClicksV2} 次`)
+          .fontSize(11)
+          .fontColor('#999999')
+          .layoutWeight(1)
+      }
+      Text(`状态：动态标签${this.advEnabled ? '启用' : '禁用'} · 后缀箭头点击 V1 ${this.advSuffixClicksV1} 次 / V2 ${this.advSuffixClicksV2} 次`)
+        .fontSize(11)
+        .fontColor('#666666')
+        .width('100%')
+    }
+    .width('100%')
+    .padding(10)
+    .borderRadius(10)
+    .backgroundColor('#FAFAFA')
+  }
+
+  /** 分区7：ChipGroupV2 进阶——chipGroupPadding 留白 + 尾部图标组（点赞/收藏可点亮） */
+  @Builder
+  sectionGroupAdvanced() {
+    this.sectionTitle('7. ChipGroupV2 进阶',
+      'chipGroupPadding 调整分组上下留白、suffix 传入 ChipGroupV2IconGroupSuffix 尾部图标组（Image + 点赞/收藏 Symbol，点击点亮/熄灭）')
+    Column({ space: 10 }) {
+      Text(`当前选中：${this.namesOf(this.advGroupSel, ['推荐', '关注', '热榜'])}（分组上下各留 10vp）`).fontSize(12).fontColor('#666666').width('100%')
+      // 翻转分支以销毁重建分组：suffix 图标组仅在分组挂载时以当次 items 构建点亮色
+      if (this.advSuffixFlip) {
+        this.advancedChipGroup()
+      } else {
+        this.advancedChipGroup()
+      }
+      Text(`尾部图标：点赞${this.advSuffixOn[0] ? '已点亮（橙）' : '未点亮（灰）'} · 收藏${this.advSuffixOn[1] ? '已点亮（橙）' : '未点亮（灰）'}`).fontSize(12).fontColor('#666666').width('100%')
+      Text('   ↳ 右侧图标来自 suffix → ChipGroupV2IconGroupSuffix：点赞/收藏点击切换灰↔橙，且不改变组内选中项').fontSize(11).fontColor('#1565C0').width('100%')
+    }
+    .width('100%')
+    .padding(10)
+    .borderRadius(10)
+    .backgroundColor('#FAFAFA')
+  }
+
+  /** 分区7 进阶分组主体（在 if/else 两分支中复用，分支翻转时整体重建） */
+  @Builder
+  advancedChipGroup() {
+    ChipGroupV2({
+      items: this.advGroupItems,
+      selectedIndexes: this.advGroupSel,
+      $selectedIndexes: (v: number[]): void => {
+        this.advGroupSel = v;
+        LogUtil.info('Index', `点击「进阶分组」→ 选中「${this.namesOf(v, ['推荐', '关注', '热榜'])}」（单选；chipGroupPadding 上下 10vp）`);
+      },
+      multiple: false,
+      chipGroupPadding: this.advGroupPadding,
+      suffix: (): void => {
+        this.advancedGroupSuffix()
+      }
+    })
+  }
+
+  /** 分区7 尾部图标组（ChipGroupV2IconGroupSuffix） */
+  @Builder
+  advancedGroupSuffix() {
+    ChipGroupV2IconGroupSuffix({ items: this.advGroupSuffixItems })
+  }
+
+  /** 分区8：CounterV2 进阶——label/step/textWidth/focus/hover/blur/日期初始值 */
+  @Builder
+  sectionCounterAdvanced() {
+    this.sectionTitle('8. CounterV2 进阶',
+      'label 文案、step 步进、textWidth 文本宽度、focus/blur/hover 业务回调、日期初始值（year/month/day）与日期变化')
+    Column({ space: 10 }) {
+      Text(`带 label 的列表型（step=2）：${this.advListValue} 份`).fontSize(12).fontColor('#666666').width('100%')
+      CounterV2Component({
+        options: {
+          type: CounterV2Type.LIST,
+          numberOptions: {
+            value: this.advListValue,
+            min: 0,
+            max: 12,
+            step: 2,
+            label: '份数',
+            onChange: (v: number): void => {
+              this.advListValue = v;
+              this.advListLogic.setValue(v);
+              LogUtil.info('Index', `点击「带 label 列表型」→ 当前 ${v} 份（范围 0-12，步进 2，label=份数）`);
+            },
+            onFocusIncrease: (): void => {
+              LogUtil.info('Index', '「带 label 列表型」加号获得焦点（键盘 / Tab 可达）');
+            },
+            onBlurIncrease: (): void => {
+              LogUtil.info('Index', '「带 label 列表型」加号失去焦点');
+            },
+            onHoverIncrease: (isHover: boolean): void => {
+              LogUtil.info('Index', `「带 label 列表型」加号悬停${isHover ? '进入' : '离开'}（需鼠标）`);
+            },
+            onHoverDecrease: (isHover: boolean): void => {
+              LogUtil.info('Index', `「带 label 列表型」减号悬停${isHover ? '进入' : '离开'}（需鼠标）`);
+            }
+          }
+        } as CounterV2Options
+      })
+      Text(`textWidth 的数值内联型（step=5）：${this.advInlineValue}`).fontSize(12).fontColor('#666666').width('100%')
+      CounterV2Component({
+        options: {
+          type: CounterV2Type.INLINE,
+          inlineOptions: {
+            value: this.advInlineValue,
+            min: 0,
+            max: 100,
+            step: 5,
+            textWidth: 48,
+            onChange: (v: number): void => {
+              this.advInlineValue = v;
+              this.advInlineLogic.setValue(v);
+              LogUtil.info('Index', `点击「textWidth 内联型」→ 当前值 ${v}（范围 0-100，步进 5，textWidth=48）`);
+            }
+          }
+        } as CounterV2Options
+      })
+      Text(`日期内联型（初始 ${this.advDateText}）：`).fontSize(12).fontColor('#666666').width('100%')
+      CounterV2Component({
+        options: {
+          type: CounterV2Type.INLINE_DATE,
+          dateOptions: {
+            year: this.advYear,
+            month: this.advMonth,
+            day: this.advDay,
+            onDateChange: (d: CounterV2DateData): void => {
+              this.advDateText = d.toString();
+              LogUtil.info('Index', `点击「进阶日期型」→ 当前日期 ${d.toString()}（初始 year/month/day 来自 dateOptions）`);
+            }
+          }
+        } as CounterV2Options
+      })
+    }
+    .width('100%')
+    .padding(10)
+    .borderRadius(10)
+    .backgroundColor('#FAFAFA')
+  }
+
+  /** 分区9：SegmentButtonV2 进阶——纯 Symbol / 禁用条目 / onItemClicked / 图标样式 */
+  @Builder
+  sectionSegmentAdvanced() {
+    this.sectionTitle('9. SegmentButtonV2 进阶',
+      '纯 Symbol 条目（无文本）、禁用条目（enabled=false 点击无响应）、onItemClicked 回调、图标字号与选中色、自定义内边距与底色')
+    Column({ space: 10 }) {
+      Text(`纯 Symbol 胶囊（当前第 ${this.advSymbolSel + 1} 个图标）`).fontSize(12).fontColor('#666666').width('100%')
+      CapsuleSegmentButtonV2({
+        items: this.symbolSegmentItems,
+        selectedIndex: this.advSymbolSel,
+        $selectedIndex: (v: number): void => {
+          this.advSymbolSel = v;
+          LogUtil.info('Index', `点击「纯 Symbol 胶囊」→ 选中第 ${v + 1} 个图标（itemSymbolFontSize=fp(18)，选中色 #0D47A1）`);
+        },
+        onItemClicked: (v: number): void => {
+          LogUtil.info('Index', `「纯 Symbol 胶囊」onItemClicked → 第 ${v + 1} 个条目被点击（与 $selectedIndex 同步触发）`);
+        },
+        itemSpace: LengthMetrics.vp(6),
+        itemSymbolFontSize: LengthMetrics.fp(18),
+        itemSymbolFontColor: ColorMetrics.resourceColor('#666666'),
+        itemSelectedSymbolFontColor: ColorMetrics.resourceColor('#0D47A1'),
+        itemPadding: {
+          start: LengthMetrics.vp(14),
+          end: LengthMetrics.vp(14),
+          top: LengthMetrics.vp(6),
+          bottom: LengthMetrics.vp(6)
+        } as LocalizedPadding,
+        buttonBackgroundColor: ColorMetrics.resourceColor('#F1F3F5'),
+        itemMinHeight: LengthMetrics.vp(34)
+      })
+      Text(`禁用条目（第 2 项 enabled=false，当前：${['可用 A', '已禁用', '可用 B'][this.advDisabledSel]}）`).fontSize(12).fontColor('#666666').width('100%')
+      CapsuleSegmentButtonV2({
+        items: this.disabledSegmentItems,
+        selectedIndex: this.advDisabledSel,
+        $selectedIndex: (v: number): void => {
+          this.advDisabledSel = v;
+          LogUtil.info('Index', `点击「禁用条目胶囊」→ 选中「${['可用 A', '已禁用', '可用 B'][v]}」（第 2 项禁用时点击无响应）`);
+        },
+        itemSpace: LengthMetrics.vp(6)
+      })
+    }
+    .width('100%')
+    .padding(10)
+    .borderRadius(10)
+    .backgroundColor('#FAFAFA')
+  }
+
   @Builder
   logArea() {
     Column({ space: 4 }) {
@@ -678,7 +1022,7 @@ struct Index {
       .borderRadius(8)
 
       Row({ space: 8 }) {
-        Text('共 5 个分区，演示区可上下滑动').fontSize(11).fontColor('#888888')
+        Text('共 9 个分区，演示区可上下滑动').fontSize(11).fontColor('#888888')
         Blank()
         Text('跳到计数与分段 ↓')
           .fontSize(12)
@@ -688,7 +1032,7 @@ struct Index {
           .backgroundColor('#E3F2FD')
           .onClick(() => {
             this.demoScroller.scrollToIndex(3, false, ScrollAlign.START);
-            LogUtil.info('Index', '点击「跳到计数与分段」→ 定位到第 4 分区（计数），继续下滑可看第 5 分区（分段按钮）');
+            LogUtil.info('Index', '点击「跳到计数与分段」→ 定位到第 4 分区（计数），继续下滑可看第 5 分区（分段按钮）与第 6-9 分区（进阶演示）');
           })
       }
       .width('100%')
@@ -719,6 +1063,26 @@ struct Index {
           ListItem() {
             Column() {
               this.sectionSegment()
+            }
+          }
+          ListItem() {
+            Column() {
+              this.sectionChipAdvanced()
+            }
+          }
+          ListItem() {
+            Column() {
+              this.sectionGroupAdvanced()
+            }
+          }
+          ListItem() {
+            Column() {
+              this.sectionCounterAdvanced()
+            }
+          }
+          ListItem() {
+            Column() {
+              this.sectionSegmentAdvanced()
             }
           }
         }
@@ -757,6 +1121,26 @@ struct Index {
             ListItem() {
               Column() {
                 this.sectionSegment()
+              }
+            }
+            ListItem() {
+              Column() {
+                this.sectionChipAdvanced()
+              }
+            }
+            ListItem() {
+              Column() {
+                this.sectionGroupAdvanced()
+              }
+            }
+            ListItem() {
+              Column() {
+                this.sectionCounterAdvanced()
+              }
+            }
+            ListItem() {
+              Column() {
+                this.sectionSegmentAdvanced()
               }
             }
           }

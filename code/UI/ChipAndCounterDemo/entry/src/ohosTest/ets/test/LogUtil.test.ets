@@ -1,11 +1,16 @@
-
-/**
- * 文件：entry/src/ohosTest/ets/test/LogUtil.test.ets
- * 套件：logUtilTest（8 条用例）
- * 内容：LogUtil 日志工具类设备侧测试
- * 覆盖：init 注入与替换回调、行格式（时间戳/级别/标签）、级别过滤、
- * levelMark 映射、formatTime 补零、错误级别通道
- * 运行：aa test -b com.samples.chipandcounterdemo -m entry_test -s unittest OpenHarmonyTestRunner
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 import { describe, beforeAll, it, expect } from '@ohos/hypium';
 import { LogUtil, LogLevel, LogSink } from '../../../main/ets/model/utils/LogUtil';
@@ -13,6 +18,22 @@ import { LogUtil, LogLevel, LogSink } from '../../../main/ets/model/utils/LogUti
 export default function logUtilTest() {
   describe('logUtilTest', () => {
     beforeAll(() => {
+    });
+
+    /**
+     * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTIL_0050
+     * @tc.name log_withoutInit_noThrow
+     * @tc.desc Verify logging before any init (no sink) does not throw and is harmless
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('log_withoutInit_noThrow', 0, () => {
+      // 本用例为套件内首个用例且先序套件不注入回调：此时 uiSink 尚为 null
+      LogUtil.info('NoInit', '未初始化 info');
+      LogUtil.warn('NoInit', '未初始化 warn');
+      LogUtil.error('NoInit', '未初始化 error');
+      LogUtil.debug('NoInit', '未初始化 debug');
     });
 
     /**
@@ -164,6 +185,41 @@ export default function logUtilTest() {
       expect(first.length).assertEqual(firstCountBefore);
       expect(second.length).assertEqual(1);
       expect(second[0].includes('replaced sink 消息')).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTIL_0900
+     * @tc.name sink_linesPreserveOrder
+     * @tc.desc Verify multiple logs at mixed levels arrive at the sink in call order
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('sink_linesPreserveOrder', 0, () => {
+      const lines: string[] = [];
+      LogUtil.init((line: string) => {
+        lines.push(line);
+      }, LogLevel.DEBUG);
+      LogUtil.warn('Order', '第一条');
+      LogUtil.debug('Order', '第二条');
+      LogUtil.error('Order', '第三条');
+      expect(lines.length).assertEqual(3);
+      expect(lines[0].includes('[W][Order] 第一条')).assertTrue();
+      expect(lines[1].includes('[D][Order] 第二条')).assertTrue();
+      expect(lines[2].includes('[E][Order] 第三条')).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTIL_1000
+     * @tc.name levelMark_unknown
+     * @tc.desc Verify levelMark falls back to '?' for an out-of-enum level value
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('levelMark_unknown', 0, () => {
+      expect(LogUtil.levelMark(99 as LogLevel)).assertEqual('?');
+      expect(LogUtil.levelMark(-1 as LogLevel)).assertEqual('?');
     });
   });
 }

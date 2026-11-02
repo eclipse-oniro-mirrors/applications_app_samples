@@ -25,28 +25,29 @@
 
 主要功能：
 
-- **5 大演示分区**：Chip V1、ChipV2、ChipGroupV2、CounterV2、SegmentButtonV2，V1 / V2 同屏对比；
-- **标签能力全覆盖**：激活态、Image / Symbol 前后缀图标、自定义样式、尺寸切换、可关闭与恢复、禁用；
-- **分组选择**：ChipGroupV2 单选组、多选组、自定义样式组，支持 `itemStyle`、`chipGroupSpace`、`suffix` 与 `onChange`；
-- **计数器四类型**：列表型、紧凑型、数值内联型（min / max / step）、日期内联型；
-- **分段按钮三形态**：页签型单选、胶囊型图文混合单选、胶囊型多选；
+- **9 大演示分区**：Chip V1、ChipV2、ChipGroupV2、CounterV2、SegmentButtonV2 五个基础分区，加上 Chip 进阶（V1/V2）、ChipGroupV2 进阶、CounterV2 进阶、SegmentButtonV2 进阶四个高级用法分区，V1 / V2 同屏对比；
+- **标签能力全覆盖**：激活态、Image / Symbol 前后缀图标、后缀 Symbol 独立点击回调、无障碍描述、动态启用/禁用、自定义样式、尺寸切换、可关闭与恢复、禁用；
+- **分组选择**：ChipGroupV2 单选组、多选组、自定义样式组，支持 `itemStyle`、`chipGroupSpace`、`chipGroupPadding`、`suffix`（含尾部图标组）与 `onChange`；
+- **计数器四类型**：列表型、紧凑型、数值内联型（min / max / step / textWidth / label）、日期内联型（`onDateChange` 与 year / month / day 初始值），并演示 `onFocus` / `onBlur` / `onHover` 业务回调；
+- **分段按钮三形态**：页签型单选、胶囊型图文混合单选、胶囊型多选；进阶分区补充纯 Symbol 胶囊（`onItemClicked`、图标字号 / 内边距 / 底色 / 最小高度）与禁用条目（`enabled=false`）；
 - **交互可读**：每个分区底部有实时状态行，日志带递增序号并写明操作结果，激活态使用深蓝底 + 白字 + ✓ 明确区分；
 - **断点自适应**：sm（<600vp）上下单栏，md / lg 左右双栏，顶部提供“跳到计数与分段”快捷入口；
-- **数据与 UI 分离**：`TagStore`、`CounterLogic`、`ChipConfigFactory` 为纯逻辑 / 配置构建层，配套 32 条模型用例。
+- **数据与 UI 分离**：`TagStore`、`CounterLogic`、`ChipConfigFactory` 为纯逻辑 / 配置构建层，配套 202 条设备侧用例。
 
 ## 效果预览
 
-运行后页面从上到下依次为：标题与说明、设备信息卡、分区导航提示、5 个演示分区列表和事件日志面板。窄屏下演示区可滚动、日志固定在底部；宽屏下左侧演示区、右侧日志面板。每个分区标题下方有一行说明，分区底部显示当前选中 / 计数值。
+运行后页面从上到下依次为：标题与说明、设备信息卡、分区导航提示、9 个演示分区列表和事件日志面板。窄屏下演示区可滚动、日志固定在底部；宽屏下左侧演示区、右侧日志面板。每个分区标题下方有一行说明，分区底部显示当前选中 / 计数值。
 
 > 本仓库暂未附带运行截图，按下方“使用说明”在设备上运行即可查看全部组件效果。
 
 ### 使用说明
 
-1. 用 DevEco Studio 打开工程，为 `default` 产品配置自动签名，运行到 RK3568 / DAYU200（API 26 镜像）；
+1. 用 DevEco Studio 打开工程，使用 SDK 自带的 OpenHarmony 默认调试签名（或 DevEco Studio 自动签名），运行到 RK3568 / DAYU200（API 26 镜像）；
 2. 在分区 1 / 2 中点击标签切换激活态，点击后缀图标触发 `suffixIcon.action`，点击“可关闭”标签右侧的 × 移除后可通过“＋ 恢复可关闭标签”恢复；
 3. 分区 3 中分别操作单选组、多选组和自定义样式组，观察状态行与日志中的“替换 / 新增 / 取消”动作；
 4. 分区 4 / 5 可点击顶部“跳到计数与分段 ↓”快速定位；计数器四种类型分别调整数值或日期，分段按钮演示三种形态；
-5. 页面右侧（或底部）日志面板显示最近 120 条事件，最新日志置顶并带 `#序号`；同时输出到 hilog：
+5. 分区 6 演示后缀 Symbol 独立点击（V1 `suffixSymbolOptions.action` 与 V2 `ChipV2SuffixSymbolIcon.action`）、无障碍描述标签与动态启用/禁用切换；分区 7 演示分组上下留白与尾部图标组（Image + 点赞/收藏 Symbol，点击在灰↔橙间点亮/熄灭，不影响组内选中）；分区 8 演示 label / step / textWidth / focus / blur / hover 与日期初始值；分区 9 演示纯 Symbol 胶囊与禁用条目；
+6. 页面右侧（或底部）日志面板显示最近 120 条事件，最新日志置顶并带 `#序号`；同时输出到 hilog：
 
    ```bash
    hdc shell hilog | grep ChipAndCounter
@@ -62,7 +63,7 @@ export DEVECO_SDK_HOME="<DevEco Studio>/sdk"
   assembleHap --mode module -p product=default --no-daemon
 ```
 
-未配置签名时产物为 `entry/build/default/outputs/default/entry-default-unsigned.hap`。安装到设备前需完成签名：在 DevEco Studio 的 `File > Project Structure > Signing Configs` 中启用自动签名后直接运行，或在命令行构建后使用自己的签名材料签名，再执行：
+未配置签名时产物为 `entry/build/default/outputs/default/entry-default-unsigned.hap`。本地开发使用 SDK 自带的 OpenHarmony 默认调试签名（仓库内不保存任何证书与口令），或用 DevEco Studio 自动签名后直接运行；也可在命令行构建后使用自己的签名材料签名，再执行：
 
 ```bash
 hdc install -r <已签名 HAP>
@@ -82,12 +83,12 @@ ChipAndCounterDemo
 │   │   │       ├── LogUtil.ets               统一日志（hilog + UI 面板双通道、级别过滤）
 │   │   │       └── DeviceUtil.ets            设备档案读取与 sm / md / lg 断点划分
 │   │   ├── pages
-│   │   │   └── Index.ets                     5 大分区演示 + 分区导航 + 日志面板
+│   │   │   └── Index.ets                     9 大分区演示 + 分区导航 + 日志面板
 │   │   ├── entryability                      应用入口与生命周期日志
 │   │   └── entrybackupability                备份扩展
 │   └── resources                             字符串、颜色、图标等资源
 ├── entry/src/test                            本地单测（1 条冒烟用例）
-├── entry/src/ohosTest                        设备侧测试（4 个套件，49 条用例）
+├── entry/src/ohosTest                        设备侧测试（9 个套件，202 条用例）
 ├── ohosTest.md                               设备侧测试用例归档
 └── README_zh.md
 ```
@@ -96,14 +97,14 @@ ChipAndCounterDemo
 
 ### 1. 页面与分区导航
 
-[`Index.ets`](entry/src/main/ets/pages/Index.ets) 使用 `List` + `Scroller` 承载 5 个分区，分区内容由 `@Builder` 拆分；顶部显示“共 5 个分区，演示区可上下滑动”，并提供“跳到计数与分段 ↓”按钮，通过 `scrollToIndex(3, false, ScrollAlign.START)` 定位到第 4 分区，避免窄屏下被日志遮挡。
+[`Index.ets`](entry/src/main/ets/pages/Index.ets) 使用 `List` + `Scroller` 承载 9 个分区，分区内容由 `@Builder` 拆分；顶部显示“共 9 个分区，演示区可上下滑动”，并提供“跳到计数与分段 ↓”按钮，通过 `scrollToIndex(3, false, ScrollAlign.START)` 定位到第 4 分区，继续下滑可到达第 5 分区（分段按钮）与第 6–9 分区（进阶演示），避免窄屏下被日志遮挡。
 
 布局由 `onAreaChange` 读取窗口宽度并调用 `DeviceUtil.getBreakpoint()`：
 
 - `sm`（<600vp）：演示区 `layoutWeight(1)` 滚动，日志面板固定高度 200vp；
 - `md` / `lg`（≥600vp）：左侧演示区 `layoutWeight(1)`，右侧日志面板宽度 38%。
 
-### 2. 五大演示分区
+### 2. 九大演示分区
 
 | 分区 | 演示内容 | 关键 API |
 | --- | --- | --- |
@@ -112,6 +113,10 @@ ChipAndCounterDemo
 | 3. ChipGroupV2 | 单选组、多选组、自定义样式组（itemStyle、间距、suffix、onChange） | `ChipGroupV2` / `ChipGroupV2Items` / `ChipGroupV2ItemStyle` / `ChipGroupV2Space` / `onChange` / `suffix` |
 | 4. CounterV2 | LIST / COMPACT / INLINE（min / max / step）/ INLINE_DATE 四种类型 | `CounterV2Component` / `CounterV2Options` / `CounterV2Type` |
 | 5. SegmentButtonV2 | 页签型单选、胶囊型图文混合单选、胶囊型多选 | `TabSegmentButtonV2` / `CapsuleSegmentButtonV2` / `MultiCapsuleSegmentButtonV2` / `SegmentButtonV2Items` |
+| 6. Chip 进阶（V1/V2） | V1 后缀 Symbol 外观 + `suffixSymbolOptions.action` 独立点击、无障碍描述标签、动态启用/禁用切换；ChipV2 后缀 Symbol 图标（`ChipV2SuffixSymbolIcon`）、自定义 fontSize 与 padding、`accessibilityDescription` | `ChipSuffixSymbolGlyphOptions` / `ChipV2SuffixSymbolIcon` / `LocalizedPadding` / `LengthMetrics` / `accessibilityDescription` |
+| 7. ChipGroupV2 进阶 | `chipGroupPadding` 调整分组上下留白、`suffix` 传入 `ChipGroupV2IconGroupSuffix` 尾部图标组（Image + 点赞/收藏 Symbol，点击点亮/熄灭，不影响组内选中） | `ChipGroupV2Padding` / `ChipGroupV2IconGroupSuffix` / `ChipGroupV2IconItemConfig` / `ChipGroupV2SymbolItemConfig` |
+| 8. CounterV2 进阶 | LIST 带 label 文案与 step=2、INLINE step=5 与 `textWidth`、`onFocus` / `onBlur` / `onHover` 业务回调、日期内联型 year / month / day 初始值与 `onDateChange` | `CounterV2NumberStyleOptions` / `CounterV2DateStyleOptions` / `textWidth` / `label` / `onDateChange` |
+| 9. SegmentButtonV2 进阶 | 纯 Symbol 胶囊单选（`onItemClicked`、`itemSymbolFontSize`、`itemPadding`、`buttonBackgroundColor`、`itemMinHeight`）、禁用条目（`enabled=false` 点击无响应） | `SegmentButtonV2ItemOptions` / `onItemClicked` / `itemSymbolFontSize` / `itemPadding` / `buttonBackgroundColor` / `itemMinHeight` / `enabled` |
 
 ### 3. Chip 与 ChipV2
 
@@ -120,6 +125,13 @@ ChipAndCounterDemo
 - **关闭按钮可定制**：V1 通过 `closeOptions` 设置 `accessibilityText` 与 `fontSize: 20`；V2 通过 `ChipV2CloseIcon` 设置可访问文案与 `LengthMetrics.vp(20)`，点击后走 `onClose` 移除并显示“恢复”入口；
 - **`allowClose` 默认为 `true`**：展示类标签必须显式设置 `allowClose: false`，只有“可关闭”标签绑定 `onClose`；
 - **禁用标签独立成行**：本 ROM 上 `enabled: false` 标签与可关闭标签同排时，点击禁用标签可能穿透触发相邻标签的 `onClose`，因此禁用示例单独占一行。
+
+分区 6 补充进阶用法：
+
+- **后缀 Symbol 独立点击**：V1 通过 `suffixSymbol`（外观）+ `suffixSymbolOptions.action`（点击回调）实现“标签本体切换激活态、右侧箭头单独响应”；V2 通过 `ChipV2SuffixSymbolIcon({ normal, activated, action })` 达到同样效果，点击计数在状态行以“V1 N 次 / V2 N 次”并列展示；
+- **无障碍描述**：V1 与 V2 均支持 `accessibilityDescription`，示例各提供一个带描述的标签供读屏场景使用；
+- **动态启用/禁用**：一个按钮切换标签 `enabled`，禁用后点击无任何响应，状态行同步提示；
+- **ChipV2 字号与内边距**：`fontSize` 使用 `LengthMetrics.fp(15)`、`padding` 使用 `LocalizedPadding`（start / end 各 16vp），展示 V2 的精细化样式控制。
 
 ### 4. ChipGroupV2
 

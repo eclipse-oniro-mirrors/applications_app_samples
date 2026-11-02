@@ -1,12 +1,18 @@
-
-/**
- * 文件：entry/src/ohosTest/ets/test/DeviceUtil.test.ets
- * 套件：deviceUtilTest（8 条用例）
- * 内容：DeviceUtil 设备形态工具类设备侧测试（DAYU200 / RK3568）
- * 覆盖：设备档案字段非空、形态判断互斥、断点阈值边界（0/599/600/839/840/超大宽度）、宽屏判断、双栏选择
- * 注意：DAYU200（OpenHarmony）deviceInfo.deviceType 上报 'default'，不是 phone/tablet/2in1
- * 运行：aa test -b com.samples.chipandcounterdemo -m entry_test -s unittest OpenHarmonyTestRunner
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 import { describe, beforeAll, it, expect } from '@ohos/hypium';
 import { DeviceUtil, Breakpoint } from '../../../main/ets/model/utils/DeviceUtil';
 
@@ -136,6 +142,34 @@ export default function deviceUtilTest() {
     it('breakpoint_extremes', 0, () => {
       expect(DeviceUtil.getBreakpoint(0)).assertEqual('sm');
       expect(DeviceUtil.getBreakpoint(100000)).assertEqual('lg');
+    });
+
+    /**
+     * @tc.number SUB_CHIP_COUNTER_DEMO_DEVICEUTIL_0900
+     * @tc.name breakpoint_exactThresholds
+     * @tc.desc Verify widths equal to 600vp and 840vp land exactly on md and lg
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('breakpoint_exactThresholds', 0, () => {
+      expect(DeviceUtil.getBreakpoint(600)).assertEqual('md');
+      expect(DeviceUtil.getBreakpoint(840)).assertEqual('lg');
+    });
+
+    /**
+     * @tc.number SUB_CHIP_COUNTER_DEMO_DEVICEUTIL_1000
+     * @tc.name breakpoint_fractionalAndNegative
+     * @tc.desc Verify negative and sub-600 fractional widths stay sm while 600.5 is md
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('breakpoint_fractionalAndNegative', 0, () => {
+      expect(DeviceUtil.getBreakpoint(-1)).assertEqual('sm');
+      expect(DeviceUtil.getBreakpoint(0.5)).assertEqual('sm');
+      expect(DeviceUtil.getBreakpoint(599.5)).assertEqual('sm');
+      expect(DeviceUtil.getBreakpoint(600.5)).assertEqual('md');
     });
   });
 }
