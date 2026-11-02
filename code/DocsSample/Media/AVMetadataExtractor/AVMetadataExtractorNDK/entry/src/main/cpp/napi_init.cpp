@@ -370,7 +370,7 @@ static napi_value OhAVMetadataExtractorFetchMetadata(napi_env env, napi_callback
     }
     // [Start OH_AVMetadataExtractor_FetchMetadata]
     // 获取元数据。
-    avErrCode = OH_AVMetadataExtractor_FetchMetadata(mainExtractor, avMetadata);.
+    avErrCode = OH_AVMetadataExtractor_FetchMetadata(mainExtractor, avMetadata);
     // [End OH_AVMetadataExtractor_FetchMetadata]
     // 异常处理。
     if (avErrCode != AV_ERR_OK) {
