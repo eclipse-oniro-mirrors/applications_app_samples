@@ -194,7 +194,7 @@ struct Index {
         // 设置dataSrc描述符，通过callback从文件中获取资源，写入buffer中。
         let dataSrc: media.AVDataSrcDescriptor = {
           fileSize: fileSize,
-          callback: (buffer, len, pos) => {
+          callback: (buffer, len: number, pos: number) => {
             if (buffer == undefined || len == undefined || pos == undefined) {
               console.error(TAG, `dataSrc callback param invalid`);
               return -1;
