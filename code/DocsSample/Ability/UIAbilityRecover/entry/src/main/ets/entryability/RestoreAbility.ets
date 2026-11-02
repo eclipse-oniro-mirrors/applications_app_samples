@@ -25,8 +25,8 @@ const TAG = 'RestoreAbility';
 const KEY_READER_STATE = 'reader.state';
 const KEY_READER_DRAFT = 'reader.draft';
 const KEY_NAV_SNAPSHOT = 'reader.navSnapshot';
-// 恢复键：onSaveState 写入 want.parameters 的键名，恢复启动时由系统原样带回
-// （键名自定义即可，保存与读取两侧保持一致）
+// 恢复键：onSaveState 写入 want.parameters 的键名，恢复启动时由系统带回
+// （键名自定义，保存与读取两侧一致即可）
 const KEY_RESTORE_READER = 'restore.reader';
 const KEY_RESTORE_DRAFT = 'restore.reader.draft';
 const KEY_RESTORE_DRAFT_FILE = 'restore.reader.draftFile';
@@ -35,20 +35,20 @@ const KEY_RESTORE_NAV_PATH = 'restore.navPath';
 export default class RestoreAbility extends UIAbility {
   // [Start restore_on_create]
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    // 1. 开启备份恢复总开关：不开启则系统不会保存/恢复任何数据
+    // 开启备份恢复总开关：不开启则系统不会保存/恢复任何数据
     this.context.setRestoreEnabled(true);
 
-    // 2. 判断本次启动是否恢复启动（restoreKeys 传入本应用的全部恢复键）
+    // 判断是否恢复启动（restoreKeys 传入本应用的全部恢复键）
     const restoreKeys: string[] = [KEY_RESTORE_READER, KEY_RESTORE_DRAFT,
       KEY_RESTORE_DRAFT_FILE, KEY_RESTORE_NAV_PATH];
     if (isRestoreLaunch(want, launchParam, restoreKeys)) {
-      // 3. 系统把上次保存的数据放在 want.parameters 中带回（仅此一次，取出后即清除）。
-      //    页面此时还未创建，先经 AppStorage 中转，页面挂载后取用。
+      // 系统在恢复启动时把上次保存的数据放入 want.parameters 带回（仅此一次）；
+      // 页面尚未创建，先经 AppStorage 中转，页面挂载后取用
       const reader = want?.parameters?.[KEY_RESTORE_READER] as Record<string, Object> | undefined;
       if (reader !== undefined) {
         AppStorage.setOrCreate(KEY_RESTORE_READER, reader);
       }
-      // 草稿两路：短草稿随数据带回；超长草稿按文件名从沙箱读回（读不到降级为空）
+      // 短草稿随数据带回；超长草稿按文件名从沙箱读回（读不到降级为空）
       const draftInline = want?.parameters?.[KEY_RESTORE_DRAFT] as string | undefined;
       if (draftInline !== undefined) {
         AppStorage.setOrCreate(KEY_RESTORE_DRAFT, draftInline);
@@ -63,7 +63,7 @@ export default class RestoreAbility extends UIAbility {
         AppStorage.setOrCreate(KEY_RESTORE_NAV_PATH, navPath);
       }
     } else {
-      // 非恢复启动（正常冷启）：清理历史落盘文件
+      // 正常冷启：清理历史落盘文件
       cleanupBlob(this.context);
     }
   }
@@ -77,14 +77,14 @@ export default class RestoreAbility extends UIAbility {
     if (st !== undefined) {
       wantParam[KEY_RESTORE_READER] = st;
     }
-    // 草稿单独保存：短草稿直接放；超过 2048 字节走落盘，want.parameters 只放文件名
+    // 超过 2048 字节的草稿走落盘引用，want.parameters 只放文件名
     const draft = AppStorage.get<string>(KEY_READER_DRAFT) ?? '';
     if (draft.length > 2048) {
       wantParam[KEY_RESTORE_DRAFT_FILE] = saveBlob(this.context, 'reader', draft);
     } else if (draft !== '') {
       wantParam[KEY_RESTORE_DRAFT] = draft;
     }
-    // 深栈补推：保存当前 Navigation 路径快照（自动恢复不保证覆盖到深层级）
+    // 深栈补推用的 Navigation 路径快照
     const navSnapshot = AppStorage.get<string>(KEY_NAV_SNAPSHOT);
     if (navSnapshot !== undefined) {
       wantParam[KEY_RESTORE_NAV_PATH] = navSnapshot;
@@ -95,9 +95,9 @@ export default class RestoreAbility extends UIAbility {
   // [End restore_on_save_state]
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
-    // 恢复启动时系统会自动恢复 Navigation 栈顶前 2 页，正常加载首页即可。
-    // 若工程入口是广告页/闪屏页，恢复启动时应直接加载内容页绕过广告页
-    // （按 isRestoreLaunch 的结果选择加载 restore/RestoreIndex 还是广告页）。
+    // 恢复启动时系统会自动恢复 Navigation 页面栈，正常加载首页即可；
+    // 若工程入口是广告页/闪屏页，恢复启动时应绕过直接加载内容页
+    // （按 isRestoreLaunch 的结果选择加载内容页还是广告页）。
     windowStage.loadContent('restore/RestoreIndex', (err) => {
       if (err.code) {
         hilog.error(DOMAIN, TAG, 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));

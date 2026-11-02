@@ -22,13 +22,10 @@ const BLOB_EXPIRE_MS = 7 * 24 * 60 * 60 * 1000; // 与系统备份数据 7 天�
 
 // [Start restore_launch]
 /**
- * 判断本次启动是否为恢复启动（应用被系统回收后，用户点击桌面图标重新拉起）。
- * 满足以下任一信号即为恢复启动：
- * 1. 系统键 ohos.ability.params.abilityRecoveryRestart 为 true（全版本可靠）；
- * 2. want.parameters 中存在本应用保存的恢复键（恢复键只在恢复启动时由系统合并回来）；
- * 3. launchReason 为 APP_RECOVERY 且设备 API 版本不低于 26（低版本设备重启后的启动
- *    也可能被误标为该值，不能单独采信）。
- * restoreKeys：本应用在 onSaveState 中写入 want.parameters 的全部键名。
+ * 三信号合判是否恢复启动：系统键为 true（全版本可靠）/ want.parameters 中存在
+ * 恢复键（仅恢复启动时由系统带回）/ launchReason 为 APP_RECOVERY（仅 API 26+
+ * 可信，低版本可能误标，不能单独采信）。
+ * restoreKeys：onSaveState 写入 want.parameters 的全部键名。
  */
 export function isRestoreLaunch(want: Want, launchParam: AbilityConstant.LaunchParam,
   restoreKeys: string[]): boolean {
@@ -42,10 +39,7 @@ export function isRestoreLaunch(want: Want, launchParam: AbilityConstant.LaunchP
 // [End restore_launch]
 
 // [Start blob_save]
-/**
- * 超大数据（如长草稿）塞不进 want.parameters 时的落盘方法：
- * 数据本体写入应用沙箱文件，返回文件名。want.parameters 中只保存这个文件名。
- */
+/** 超大数据落盘：数据本体写入沙箱文件，返回文件名，want.parameters 只保存文件名。 */
 export function saveBlob(context: common.Context, key: string, data: string): string {
   const fileName = BLOB_FILE_PREFIX + key + '.txt';
   const file = context.filesDir + '/' + fileName;
@@ -60,10 +54,7 @@ export function saveBlob(context: common.Context, key: string, data: string): st
 // [End blob_save]
 
 // [Start blob_load]
-/**
- * 按文件名读回超大数据。文件不存在或读取失败（如设备重启后备份不还原）返回 null，
- * 调用方按空数据降级处理，不能白屏。
- */
+/** 按文件名读回落盘数据；读不到（如设备重启后不还原）返回 null，调用方按空数据降级。 */
 export function loadBlob(context: common.Context, fileName: string): string | null {
   try {
     const file = context.filesDir + '/' + fileName;
@@ -77,7 +68,7 @@ export function loadBlob(context: common.Context, fileName: string): string | nu
 }
 // [End blob_load]
 
-/** 非恢复启动时清理历史落盘文件，防止残留堆积（超过 7 天未使用即删除）。 */
+/** 非恢复启动时清理超过 7 天的历史落盘文件。 */
 export function cleanupBlob(context: common.Context): void {
   try {
     const names = fs.listFileSync(context.filesDir);

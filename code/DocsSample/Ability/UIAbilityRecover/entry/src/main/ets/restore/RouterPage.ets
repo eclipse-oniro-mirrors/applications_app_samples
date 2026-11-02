@@ -16,9 +16,8 @@
 import { router } from '@kit.ArkUI';
 
 /**
- * 方案 C 示例：纯 @ohos.router 工程。
- * router 页面自 API 14 起 recoverable 默认为 true，无需逐页改造，
- * 应用只需开启 setRestoreEnabled 并保存/恢复业务数据。
+ * 方案 C 示例：纯 @ohos.router。页面自 API 14 起 recoverable 默认 true，
+ * 应用只需开启总开关并保存/恢复业务数据。
  */
 @Entry
 @Component
@@ -41,7 +40,7 @@ struct RouterPage {
         .onClick(() => {
           router.pushUrl({
             url: 'restore/AdvertPage',
-            // recoverable 默认 true；广告页/登录页等无需恢复的页面显式排除
+            // 广告页等无需恢复的页面显式排除
             recoverable: false
           });
         })

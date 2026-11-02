@@ -20,10 +20,7 @@ import { DeepPage } from './DeepPage';
 const KEY_NAV_SNAPSHOT = 'reader.navSnapshot';
 const KEY_RESTORE_NAV_PATH = 'restore.navPath';
 
-/**
- * 方案 A 示例首页：Navigation 三件套（.id + .recoverable + NavDestination.recoverable）、
- * 深栈补推。
- */
+/** 方案 A 示例首页：Navigation 三件套与深栈补推。 */
 @Entry
 @Component
 struct RestoreIndex {
@@ -41,15 +38,15 @@ struct RestoreIndex {
 
   // [Start deep_stack_replay_timing]
   onPageShow(): void {
-    // 深栈补推时机：首页 onPageShow——此时系统页面栈恢复已完成、页面已渲染。
-    // 禁止在 loadContent 回调中补推（系统栈恢复尚未执行，会与系统恢复互相冲突）。
-    // 若首页有"自动跳转广告页/闪屏页"等逻辑，恢复启动这一跳必须跳过，否则会把恢复出来的栈顶页挤掉。
+    // 深栈补推时机：此时系统栈恢复已完成、页面已渲染；禁止提前到 loadContent 回调
+    // （系统恢复尚未执行，会互相冲突）。恢复启动时首页的自动跳转（如广告页）必须跳过，
+    // 否则会把恢复出来的栈顶页挤掉。
     this.replayDeepStack();
   }
   // [End deep_stack_replay_timing]
 
   // [Start deep_stack_replay]
-  /** 深栈补推：与系统已恢复的页面对齐后，按保存的路径快照补齐缺失的更深层级。 */
+  /** 按保存的路径快照补齐系统未恢复的深层级。 */
   private replayDeepStack(): void {
     const navPath = AppStorage.get<string>(KEY_RESTORE_NAV_PATH);
     if (navPath === undefined) {
@@ -70,7 +67,7 @@ struct RestoreIndex {
   // [End deep_stack_replay]
 
   // [Start nav_snapshot_report]
-  /** 深栈补推数据通道：每次导航后把当前栈路径快照发布到 AppStorage，onSaveState 同步读取。 */
+  /** 每次导航后把路径快照发布到 AppStorage，onSaveState 同步读取。 */
   private reportNavSnapshot(): void {
     AppStorage.setOrCreate(KEY_NAV_SNAPSHOT, JSON.stringify(this.pathStack.getAllPathName()));
   }

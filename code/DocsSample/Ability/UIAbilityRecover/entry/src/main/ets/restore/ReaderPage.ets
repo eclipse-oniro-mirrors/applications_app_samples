@@ -13,10 +13,7 @@
  * limitations under the License.
  */
 
-/**
- * 断点续读页面（方案 A 的 NavDestination 示例）。
- * 演示：数据通道（平时发布）、恢复消费（一次性）、空值兜底（防白屏）、.recoverable(true)。
- */
+/** 断点续读页面：数据通道、恢复消费、空值兜底与 .recoverable(true) 示例。 */
 @Component
 export struct ReaderPage {
   @State bookId: string = '';
@@ -28,7 +25,7 @@ export struct ReaderPage {
 
   // [Start page_consume]
   aboutToAppear(): void {
-    // 恢复消费：优先使用 Ability 层中转的恢复数据，取出即删，防止重复消费
+    // 恢复消费：使用 Ability 层中转的恢复数据，取出即删，防止重复消费
     const restored = AppStorage.get<Record<string, Object>>('restore.reader');
     if (restored !== undefined) {
       AppStorage.delete('restore.reader');
@@ -36,7 +33,7 @@ export struct ReaderPage {
       this.bookId = (restored['bookId'] as string) ?? '';
       this.chapterIndex = (restored['chapterIndex'] as number) ?? 1;
       this.progress = (restored['progress'] as number) ?? 0;
-      // 超限草稿单独走落盘通道，恢复成功时优先于随数据带回的短草稿
+      // 落盘草稿优先于随数据带回的短草稿
       const draftFromBlob = AppStorage.get<string>('restore.reader.draft');
       if (draftFromBlob !== undefined) {
         AppStorage.delete('restore.reader.draft');
@@ -52,15 +49,14 @@ export struct ReaderPage {
   // [End page_consume]
 
   // [Start reader_state_report]
-  /** 数据通道：关键状态变化时把可序列化状态发布到 AppStorage，onSaveState 同步读取。
-   *  只放定位键与轻量数据，不放函数/类实例/Map。 */
+  /** 数据通道：状态变化时发布到 AppStorage，onSaveState 同步读取；只放可序列化的轻量数据。 */
   private reportState(): void {
     AppStorage.setOrCreate('reader.state', {
       'bookId': this.bookId,
       'chapterIndex': this.chapterIndex,
       'progress': this.progress
     } as Record<string, Object>);
-    // 草稿单独一路发布，onSaveState 按长度决定随数据保存还是落盘引用
+    // 草稿单独发布，onSaveState 按长度决定随数据保存还是落盘引用
     AppStorage.setOrCreate('reader.draft', this.draft);
   }
   // [End reader_state_report]
@@ -116,10 +112,10 @@ export struct ReaderPage {
   }
 
   // [Start empty_param_fallback]
-  /** 空值兜底：系统恢复的页面 param 经序列化窄约束后可能为空/残缺，必须处理，否则白屏。 */
+  /** 空值兜底：恢复的 param 可能为空/残缺，不处理会白屏。 */
   private handleParam(ctx: NavDestinationContext): void {
     const param = ctx.pathInfo?.param as Record<string, Object> | undefined;
-    // 路径 1：param 有效 → 用定位键重新加载数据，不依赖原始 param 中的类实例/回调
+    // param 有效：用定位键重新加载数据
     if (param !== undefined && param['bookId'] !== undefined) {
       this.bookId = param['bookId'] as string;
       if (!this.restoredFromChannel) {
@@ -127,7 +123,7 @@ export struct ReaderPage {
       }
       return;
     }
-    // 路径 2：系统恢复但 param 为空 → 尝试从 AppStorage 恢复通道取
+    // param 为空：从 AppStorage 恢复通道取
     const restored = AppStorage.get<Record<string, Object>>('restore.reader');
     if (restored !== undefined) {
       AppStorage.delete('restore.reader');
@@ -140,7 +136,7 @@ export struct ReaderPage {
       this.reportState();
       return;
     }
-    // 路径 3：兜底 → 退回上一页，避免白屏
+    // 兜底：退回上一页
     ctx.pathStack?.pop();
   }
   // [End empty_param_fallback]
