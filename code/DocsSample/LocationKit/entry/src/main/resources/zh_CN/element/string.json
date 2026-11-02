@@ -1,0 +1,369 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "位置服务示例代码入口模块。",
+      "description": "入口模块的描述信息。"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "位置服务示例代码。",
+      "description": "Ability的描述信息。"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "位置服务示例",
+      "description": "应用在桌面显示的名称。"
+    },
+    {
+      "name": "permission_reason_location",
+      "value": "用于获取设备位置信息及地理围栏监听。",
+      "description": "申请位置权限的原因说明。"
+    },
+    {
+      "name": "operation_log",
+      "value": "操作日志",
+      "description": "操作日志区域标题。"
+    },
+    {
+      "name": "no_logs_yet",
+      "value": "暂无日志",
+      "description": "无日志时的占位文本。"
+    },
+    {
+      "name": "app_title",
+      "value": "位置服务",
+      "description": "主页应用标题。"
+    },
+    {
+      "name": "app_subtitle",
+      "value": "功能演示",
+      "description": "主页应用副标题。"
+    },
+    {
+      "name": "section_location_features",
+      "value": "基础定位",
+      "description": "基础定位分组标题。"
+    },
+    {
+      "name": "section_advanced_features",
+      "value": "进阶功能",
+      "description": "进阶功能分组标题。"
+    },
+    {
+      "name": "menu_location",
+      "value": "位置获取",
+      "description": "位置获取菜单项标题。"
+    },
+    {
+      "name": "menu_location_desc",
+      "value": "单次定位 / 缓存位置 / 持续定位",
+      "description": "位置获取菜单项副标题。"
+    },
+    {
+      "name": "menu_geocode",
+      "value": "地理编码",
+      "description": "地理编码菜单项标题。"
+    },
+    {
+      "name": "menu_geocode_desc",
+      "value": "正地理编码 / 逆地理编码",
+      "description": "地理编码菜单项副标题。"
+    },
+    {
+      "name": "menu_geofence",
+      "value": "地理围栏",
+      "description": "地理围栏菜单项标题。"
+    },
+    {
+      "name": "menu_geofence_desc",
+      "value": "GNSS围栏进出事件",
+      "description": "地理围栏菜单项副标题。"
+    },
+    {
+      "name": "menu_location_capi",
+      "value": "定位C API",
+      "description": "定位C API菜单项标题。"
+    },
+    {
+      "name": "menu_location_capi_desc",
+      "value": "Native侧定位",
+      "description": "定位C API菜单项副标题。"
+    },
+    {
+      "name": "nav_location",
+      "value": "位置获取",
+      "description": "位置获取页面导航标题。"
+    },
+    {
+      "name": "nav_geocode",
+      "value": "地理编码",
+      "description": "地理编码页面导航标题。"
+    },
+    {
+      "name": "nav_geofence",
+      "value": "地理围栏",
+      "description": "地理围栏页面导航标题。"
+    },
+    {
+      "name": "nav_location_capi",
+      "value": "定位C API",
+      "description": "定位C API页面导航标题。"
+    },
+    {
+      "name": "status_enabled",
+      "value": "已开启",
+      "description": "开关开启状态文本。"
+    },
+    {
+      "name": "status_disabled",
+      "value": "已关闭",
+      "description": "开关关闭状态文本。"
+    },
+    {
+      "name": "location_description",
+      "value": "通过Location Kit获取设备当前位置、最近一次缓存位置，并支持订阅持续的位置变化。",
+      "description": "位置获取页面说明。"
+    },
+    {
+      "name": "section_location_switch",
+      "value": "位置开关",
+      "description": "位置开关区域标题。"
+    },
+    {
+      "name": "label_switch_state",
+      "value": "开关状态",
+      "description": "位置开关状态标签。"
+    },
+    {
+      "name": "label_unknown",
+      "value": "未知",
+      "description": "状态未知时的占位文本。"
+    },
+    {
+      "name": "btn_check_switch",
+      "value": "查询开关状态",
+      "description": "查询位置开关状态按钮。"
+    },
+    {
+      "name": "section_single_location",
+      "value": "单次定位",
+      "description": "单次定位区域标题。"
+    },
+    {
+      "name": "btn_get_last_location",
+      "value": "获取缓存位置",
+      "description": "获取最近一次缓存位置按钮。"
+    },
+    {
+      "name": "btn_get_current_location",
+      "value": "获取当前位置",
+      "description": "获取当前位置按钮。"
+    },
+    {
+      "name": "label_latitude",
+      "value": "纬度",
+      "description": "纬度标签。"
+    },
+    {
+      "name": "label_longitude",
+      "value": "经度",
+      "description": "经度标签。"
+    },
+    {
+      "name": "label_accuracy",
+      "value": "精度(米)",
+      "description": "定位精度标签。"
+    },
+    {
+      "name": "label_time",
+      "value": "时间",
+      "description": "定位时间标签。"
+    },
+    {
+      "name": "no_location_result",
+      "value": "暂无定位结果",
+      "description": "无定位结果时的占位文本。"
+    },
+    {
+      "name": "section_continuous_location",
+      "value": "持续定位",
+      "description": "持续定位区域标题。"
+    },
+    {
+      "name": "btn_start_continuous",
+      "value": "开始持续定位",
+      "description": "开始持续定位按钮。"
+    },
+    {
+      "name": "btn_stop_continuous",
+      "value": "结束持续定位",
+      "description": "结束持续定位按钮。"
+    },
+    {
+      "name": "label_location_count",
+      "value": "已上报位置数:",
+      "description": "已上报位置数量标签。"
+    },
+    {
+      "name": "geocode_description",
+      "value": "通过正地理编码与逆地理编码实现地理描述与经纬度坐标的相互转换，需要设备联网。",
+      "description": "地理编码页面说明。"
+    },
+    {
+      "name": "section_geocoder_availability",
+      "value": "服务可用性",
+      "description": "地理编码服务可用性区域标题。"
+    },
+    {
+      "name": "label_geocoder_state",
+      "value": "服务状态",
+      "description": "地理编码服务状态标签。"
+    },
+    {
+      "name": "btn_check_availability",
+      "value": "查询服务可用性",
+      "description": "查询地理编码服务可用性按钮。"
+    },
+    {
+      "name": "section_reverse_geocode",
+      "value": "逆地理编码（坐标转地址）",
+      "description": "逆地理编码区域标题。"
+    },
+    {
+      "name": "placeholder_latitude",
+      "value": "纬度，如31.12",
+      "description": "纬度输入框占位文本。"
+    },
+    {
+      "name": "placeholder_longitude",
+      "value": "经度，如121.11",
+      "description": "经度输入框占位文本。"
+    },
+    {
+      "name": "btn_reverse_geocode",
+      "value": "转换为地址",
+      "description": "逆地理编码转换按钮。"
+    },
+    {
+      "name": "section_forward_geocode",
+      "value": "正地理编码（地址转坐标）",
+      "description": "正地理编码区域标题。"
+    },
+    {
+      "name": "placeholder_address_description",
+      "value": "地址描述，如上海市浦东新区世纪大道100号",
+      "description": "地址描述输入框占位文本。"
+    },
+    {
+      "name": "btn_forward_geocode",
+      "value": "转换为坐标",
+      "description": "正地理编码转换按钮。"
+    },
+    {
+      "name": "no_geocode_result",
+      "value": "暂无编码结果",
+      "description": "无编码结果时的占位文本。"
+    },
+    {
+      "name": "geofence_description",
+      "value": "创建GNSS圆形地理围栏并接收进入/退出围栏事件。仅在室外开阔区域才能准确识别进出围栏。",
+      "description": "地理围栏页面说明。"
+    },
+    {
+      "name": "section_fence_params",
+      "value": "围栏参数",
+      "description": "围栏参数区域标题。"
+    },
+    {
+      "name": "label_fence_latitude",
+      "value": "圆心纬度",
+      "description": "围栏圆心纬度标签。"
+    },
+    {
+      "name": "label_fence_longitude",
+      "value": "圆心经度",
+      "description": "围栏圆心经度标签。"
+    },
+    {
+      "name": "label_fence_radius",
+      "value": "半径(米)",
+      "description": "围栏半径标签。"
+    },
+    {
+      "name": "btn_add_fence",
+      "value": "添加围栏",
+      "description": "添加围栏按钮。"
+    },
+    {
+      "name": "btn_remove_fence",
+      "value": "删除围栏",
+      "description": "删除围栏按钮。"
+    },
+    {
+      "name": "label_fence_id",
+      "value": "围栏ID",
+      "description": "围栏ID标签。"
+    },
+    {
+      "name": "no_fence_added",
+      "value": "尚未添加围栏",
+      "description": "未添加围栏时的占位文本。"
+    },
+    {
+      "name": "section_fence_events",
+      "value": "围栏事件",
+      "description": "围栏进出事件区域标题。"
+    },
+    {
+      "name": "no_fence_events",
+      "value": "暂无围栏事件",
+      "description": "无围栏事件时的占位文本。"
+    },
+    {
+      "name": "location_capi_description",
+      "value": "在Native侧使用位置服务C API查询位置开关并订阅位置变化，结果回传到ArkTS界面展示。",
+      "description": "定位C API页面说明。"
+    },
+    {
+      "name": "section_native_switch",
+      "value": "Native开关状态",
+      "description": "Native位置开关状态区域标题。"
+    },
+    {
+      "name": "label_native_switch_state",
+      "value": "开关状态",
+      "description": "Native位置开关状态标签。"
+    },
+    {
+      "name": "btn_native_check_switch",
+      "value": "查询开关状态",
+      "description": "查询Native位置开关状态按钮。"
+    },
+    {
+      "name": "section_native_locating",
+      "value": "Native持续定位",
+      "description": "Native持续定位区域标题。"
+    },
+    {
+      "name": "btn_native_start",
+      "value": "开始Native定位",
+      "description": "开始Native定位按钮。"
+    },
+    {
+      "name": "btn_native_stop",
+      "value": "结束Native定位",
+      "description": "结束Native定位按钮。"
+    },
+    {
+      "name": "label_native_report_count",
+      "value": "已上报位置数:",
+      "description": "Native已上报位置数量标签。"
+    },
+    {
+      "name": "label_time_since_boot",
+      "value": "开机后毫秒数",
+      "description": "设备开机起的毫秒数。"
+    }
+  ]
+}
