@@ -396,7 +396,7 @@ bool VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
                 CHECK_AND_RETURN_RET_LOG(getBufferRet == AV_ERR_OK, false,
                     "Get buffer attr error, ret: %{public}d", getBufferRet);
                 info.buffer = buffer;
-                // 开发者可根据业务需要，对输出数据进行保存/释放处理
+                // 开发者可根据业务需要，对输出数据进行保存/释放处理。
                 return true;
             }
             case AV_ERR_TRY_AGAIN_LATER: {
