@@ -4,7 +4,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -143,13 +143,16 @@ export class MediaReports {
     report.requested = configuration; report.observed = status.decoderName + ' -> ' + status.encoderName +
       ' / ' + status.outputWidth + 'x' + status.outputHeight +
       ' / validation=' + (status.outputValidation || 'not recorded') +
-      ' / durationUs=' + (status.outputDurationUs ?? 0);
+      ' / durationUs=' + (status.outputDurationUs ?? 0) +
+      ' / expectedDurationUs=' + (status.expectedDurationUs ?? 0) +
+      ' / validationNotes=' + (status.validationNotes ?? []).join('; ');
     report.error = MediaReports.error(status.state === 2 ? '' : status.stage, status.errorCode,
       status.state === 2 ? '' : status.detail, status.state === 3);
     report.metrics = [{ name: 'video.fps', amount: status.fps, unit: 'fps' },
       { name: 'first.frame', amount: status.firstFrameMs, unit: 'ms' },
       { name: 'elapsed', amount: status.elapsedMs, unit: 'ms' },
-      { name: 'copied', amount: status.copiedBytes, unit: 'bytes' }];
+      { name: 'copied', amount: status.copiedBytes, unit: 'bytes' },
+      { name: 'video.dropped', amount: status.droppedFrames ?? 0, unit: 'frames' }];
     status.diagnostics.forEach((metric: TranscodeMeasurement): void => {
       report.metrics.push({ name: metric.name + '.p95', amount: metric.p95Ms, unit: 'ms' });
     });

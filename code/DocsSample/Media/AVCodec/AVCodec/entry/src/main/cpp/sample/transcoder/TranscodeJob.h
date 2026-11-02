@@ -46,6 +46,15 @@ struct TranscodeOptions {
     int64_t startTimeMs = 0;
     int64_t endTimeMs = 0;
     bool inspectOnly = false;
+    bool previewOnly = false;
+    bool remuxOnly = false;
+    int32_t scalingFilter = 0;
+    int32_t frameRateLimit = 0;
+    int32_t bitrateMode = 0;
+    int32_t keyFrameIntervalMs = 2000;
+    int32_t audioSampleRate = 0;
+    int32_t audioChannels = 0;
+    int64_t audioBitrate = 128000;
 };
 
 struct TranscodeSnapshot {
@@ -87,6 +96,12 @@ struct TranscodeSnapshot {
     int32_t audioMode = 0;
     int64_t outputDurationUs = 0;
     std::string outputValidation;
+    std::vector<std::string> validationNotes;
+    int64_t expectedDurationUs = 0;
+    int32_t previewWidth = 0;
+    int32_t previewHeight = 0;
+    std::vector<uint8_t> previewRgba;
+    int64_t droppedFrames = 0;
 };
 
 class TranscodeJob {
@@ -96,6 +111,11 @@ public:
     void Run();
     void Cancel() { cancelled_.store(true); }
     TranscodeSnapshot Snapshot() const;
+    void DiscardPreviewPixels()
+    {
+        std::lock_guard<std::mutex> lock(snapshotMutex_);
+        std::vector<uint8_t>().swap(snapshot_.previewRgba);
+    }
 
 private:
     using Format = std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)>;
@@ -124,17 +144,27 @@ private:
     bool SubmitBufferFrame(bool eos, bool sendEmptyEos, bool &advanced);
     bool DrainEncoder(bool &advanced);
     bool CopyAudio(bool &advanced);
+    bool WriteCopiedAudioSample(OH_AVCodecBufferAttr &attr);
     bool ReadLayout(OH_AVFormat *format, TranscodeFrames::Layout &layout);
     bool Check(int32_t result, const char *operation);
     bool Fail(const char *operation, int32_t result = -1);
     bool FinalizeOutput();
     bool ValidateOutput();
     bool ValidateOutputTrack(OH_AVFormat *format, int32_t type);
+    bool ValidateOutputTracks(OH_AVSource *source, int32_t count, int32_t expectedTracks);
+    void ValidateOutputMetadata(OH_AVFormat *format, int32_t type);
+    void AddValidationNote(const std::string &note);
     bool ConfigureTimeRange();
     bool DiscardOutsideRange(bool &advanced);
     void Complete(bool success);
     void Cleanup();
     void PublishDiagnostics();
+    bool RunPreview();
+    bool CapturePreview();
+    bool RunRemux();
+    bool CopyVideoSample();
+    double OutputFrameRate() const;
+    bool DropFrame(bool &advanced);
 
     TranscodeOptions options_;
     mutable std::mutex snapshotMutex_;
@@ -165,6 +195,8 @@ private:
     int32_t targetHeight_ = 0;
     int32_t rotation_ = 0;
     double frameRate_ = 30;
+    int64_t lastSubmittedPts_ = -1;
+    OH_AVBuffer *videoCopyBuffer_ = nullptr;
     bool decoderInputDone_ = false;
     bool decoderOutputDone_ = false;
     bool encoderOutputDone_ = false;

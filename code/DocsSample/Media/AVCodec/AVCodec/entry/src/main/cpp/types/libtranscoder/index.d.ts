@@ -4,7 +4,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,6 +27,14 @@ export interface TranscodeRequest {
   audioTrack: number;
   startTimeMs?: number;
   endTimeMs?: number;
+  remuxOnly?: boolean;
+  scalingFilter?: number;
+  frameRateLimit?: number;
+  bitrateMode?: number;
+  keyFrameIntervalMs?: number;
+  audioSampleRate?: number;
+  audioChannels?: number;
+  audioBitrate?: number;
 }
 
 export interface TranscodeMeasurement {
@@ -77,9 +85,16 @@ export interface TranscodeStatus {
   audioMode: number;
   outputDurationUs?: number;
   outputValidation?: string;
+  expectedDurationUs?: number;
+  validationNotes?: string[];
+  previewWidth?: number;
+  previewHeight?: number;
+  previewRgba?: ArrayBuffer;
+  droppedFrames?: number;
 }
 
 export const start: (options: TranscodeRequest) => Promise<TranscodeStatus>;
 export const inspect: (options: TranscodeRequest) => Promise<TranscodeStatus>;
+export const preview: (options: TranscodeRequest) => Promise<TranscodeStatus>;
 export const getStatus: () => TranscodeStatus;
 export const cancel: () => void;

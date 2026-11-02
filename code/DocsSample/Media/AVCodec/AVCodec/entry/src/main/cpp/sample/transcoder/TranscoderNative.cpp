@@ -14,6 +14,7 @@
  */
 
 #include <cmath>
+#include <algorithm>
 #include <climits>
 #include <fcntl.h>
 #include <unistd.h>
@@ -28,6 +29,16 @@ constexpr int64_t UHD_LONG_EDGE = 1920;
 constexpr int64_t MAX_ENCODER_CATEGORY = 2;
 constexpr int64_t MAX_AUDIO_MODE = 2;
 constexpr int64_t MAX_RESIZE_MODE = static_cast<int64_t>(TranscodeFrames::ResizeMode::LETTERBOX);
+constexpr int32_t MAX_SCALING_FILTER = 1;
+constexpr int32_t MAX_FRAME_RATE_LIMIT = 120;
+constexpr int32_t MAX_BITRATE_MODE = 1;
+constexpr int32_t MIN_KEY_FRAME_INTERVAL_MS = 500;
+constexpr int32_t MAX_KEY_FRAME_INTERVAL_MS = 10000;
+constexpr int32_t AUDIO_SAMPLE_RATE_44100 = 44100;
+constexpr int32_t AUDIO_SAMPLE_RATE_48000 = 48000;
+constexpr int32_t MAX_AUDIO_CHANNEL_COUNT = 2;
+constexpr int32_t MIN_AUDIO_BITRATE = 32000;
+constexpr int32_t MAX_AUDIO_BITRATE = 320000;
 struct TranscodeModuleState {
     std::shared_ptr<TranscodeJob> current;
 };
@@ -66,7 +77,9 @@ bool SetSnapshotFields(napi_env env, napi_value result, const TranscodeSnapshot 
         {"sourceHeight", snapshot.sourceHeight}, {"durationUs", snapshot.durationUs},
         {"sourceFrameRate", snapshot.sourceFrameRate}, {"minBitrate", snapshot.minBitrate},
         {"maxBitrate", snapshot.maxBitrate}, {"audioBytes", snapshot.audioBytes}, {"audioMode", snapshot.audioMode},
-        {"outputDurationUs", snapshot.outputDurationUs}};
+        {"outputDurationUs", snapshot.outputDurationUs}, {"expectedDurationUs", snapshot.expectedDurationUs},
+        {"previewWidth", snapshot.previewWidth}, {"previewHeight", snapshot.previewHeight},
+        {"droppedFrames", snapshot.droppedFrames}};
     for (const auto &number : numbers) {
         if (!SetNumber(env, result, number.first, number.second)) { return false; }
     }
@@ -116,15 +129,35 @@ bool SetAudioTracks(napi_env env, napi_value result, const TranscodeSnapshot &sn
         napi_set_named_property(env, result, "audioTrackIds", ids) == napi_ok;
 }
 
+bool SetValidationNotes(napi_env env, napi_value result, const TranscodeSnapshot &snapshot)
+{
+    napi_value notes = nullptr;
+    if (napi_create_array(env, &notes) != napi_ok) { return false; }
+    for (uint32_t index = 0; index < snapshot.validationNotes.size(); ++index) {
+        napi_value note = nullptr;
+        if (napi_create_string_utf8(env, snapshot.validationNotes[index].c_str(), NAPI_AUTO_LENGTH, &note) != napi_ok ||
+            napi_set_element(env, notes, index, note) != napi_ok) { return false; }
+    }
+    return napi_set_named_property(env, result, "validationNotes", notes) == napi_ok;
+}
+
 napi_value ToValue(napi_env env, const TranscodeSnapshot &snapshot)
 {
     napi_value result = nullptr;
     napi_value audio = nullptr;
     if (napi_create_object(env, &result) != napi_ok || !SetSnapshotFields(env, result, snapshot) ||
         !SetDiagnostics(env, result, snapshot) || !SetAudioTracks(env, result, snapshot) ||
+        !SetValidationNotes(env, result, snapshot) ||
         napi_get_boolean(env, snapshot.audioCopied, &audio) != napi_ok ||
         napi_set_named_property(env, result, "audioCopied", audio) != napi_ok) {
         return nullptr;
+    }
+    if (!snapshot.previewRgba.empty()) {
+        napi_value pixels = nullptr;
+        void *data = nullptr;
+        if (napi_create_arraybuffer(env, snapshot.previewRgba.size(), &data, &pixels) != napi_ok) { return nullptr; }
+        std::copy(snapshot.previewRgba.begin(), snapshot.previewRgba.end(), static_cast<uint8_t *>(data));
+        if (napi_set_named_property(env, result, "previewRgba", pixels) != napi_ok) { return nullptr; }
     }
     return result;
 }
@@ -148,6 +181,61 @@ bool ReadBool(napi_env env, napi_value object, const char *key, bool &flag)
     napi_value value = nullptr;
     return napi_get_named_property(env, object, key, &value) == napi_ok &&
            napi_get_value_bool(env, value, &flag) == napi_ok;
+}
+
+bool ReadOptionalNumber(napi_env env, napi_value object, const char *key, int32_t &number)
+{
+    bool present = false;
+    int64_t value = number;
+    if (napi_has_named_property(env, object, key, &present) != napi_ok ||
+        (present && !ReadNumber(env, object, key, value))) { return false; }
+    number = static_cast<int32_t>(value);
+    return true;
+}
+
+bool ReadVideoQualityOptions(napi_env env, napi_value object, TranscodeOptions &options)
+{
+    return ReadOptionalNumber(env, object, "scalingFilter", options.scalingFilter) &&
+        options.scalingFilter <= MAX_SCALING_FILTER &&
+        ReadOptionalNumber(env, object, "frameRateLimit", options.frameRateLimit) &&
+        options.frameRateLimit <= MAX_FRAME_RATE_LIMIT &&
+        ReadOptionalNumber(env, object, "bitrateMode", options.bitrateMode) &&
+        options.bitrateMode <= MAX_BITRATE_MODE &&
+        ReadOptionalNumber(env, object, "keyFrameIntervalMs", options.keyFrameIntervalMs) &&
+        options.keyFrameIntervalMs >= MIN_KEY_FRAME_INTERVAL_MS &&
+        options.keyFrameIntervalMs <= MAX_KEY_FRAME_INTERVAL_MS;
+}
+
+bool ReadAudioQualityOptions(napi_env env, napi_value object, TranscodeOptions &options, int32_t &audioBitrate)
+{
+    return ReadOptionalNumber(env, object, "audioSampleRate", options.audioSampleRate) &&
+        (options.audioSampleRate == 0 || options.audioSampleRate == AUDIO_SAMPLE_RATE_44100 ||
+            options.audioSampleRate == AUDIO_SAMPLE_RATE_48000) &&
+        ReadOptionalNumber(env, object, "audioChannels", options.audioChannels) &&
+        options.audioChannels <= MAX_AUDIO_CHANNEL_COUNT &&
+        ReadOptionalNumber(env, object, "audioBitrate", audioBitrate) &&
+        audioBitrate >= MIN_AUDIO_BITRATE && audioBitrate <= MAX_AUDIO_BITRATE;
+}
+
+bool ReadRemuxOption(napi_env env, napi_value object, TranscodeOptions &options)
+{
+    bool hasRemux = false;
+    return napi_has_named_property(env, object, "remuxOnly", &hasRemux) == napi_ok &&
+        (!hasRemux || ReadBool(env, object, "remuxOnly", options.remuxOnly));
+}
+
+bool ReadQualityOptions(napi_env env, napi_value object, TranscodeOptions &options)
+{
+    int32_t audioBitrate = static_cast<int32_t>(options.audioBitrate);
+    if ((options.previewOnly && options.surface) || !ReadVideoQualityOptions(env, object, options) ||
+        !ReadAudioQualityOptions(env, object, options, audioBitrate) || !ReadRemuxOption(env, object, options)) {
+        return false;
+    }
+    options.audioBitrate = audioBitrate;
+    if (options.surface && options.scalingFilter != 0) { return false; }
+    return !options.remuxOnly || (!options.surface && options.longEdge == 0 && !options.grayscale &&
+        options.resizeMode == 0 && options.frameRateLimit == 0 && options.scalingFilter == 0 &&
+        options.startTimeMs == 0 && options.endTimeMs == 0 && options.audioMode != 1);
 }
 
 bool ReadProcessingOptions(napi_env env, napi_value object, TranscodeOptions &options)
@@ -199,7 +287,7 @@ bool ReadNumericOptions(napi_env env, napi_value object, TranscodeOptions &optio
     options.encoderCategory = static_cast<int32_t>(category);
     options.audioMode = static_cast<int32_t>(audioMode);
     options.audioTrack = static_cast<int32_t>(audioTrack);
-    return true;
+    return ReadQualityOptions(env, object, options);
 }
 
 bool ReadOptions(napi_env env, napi_value object, TranscodeOptions &options)
@@ -223,8 +311,9 @@ bool ReadOptions(napi_env env, napi_value object, TranscodeOptions &options)
     }
     // 工作入队前复制 fd，后台任务只使用自己的描述符。
     options.inputFd = fcntl(static_cast<int32_t>(inputFd), F_DUPFD_CLOEXEC, 0);
-    options.outputFd = options.inspectOnly ? -1 : fcntl(static_cast<int32_t>(outputFd), F_DUPFD_CLOEXEC, 0);
-    if (options.inputFd < 0 || (!options.inspectOnly && options.outputFd < 0)) {
+    options.outputFd = options.inspectOnly || options.previewOnly ? -1 :
+        fcntl(static_cast<int32_t>(outputFd), F_DUPFD_CLOEXEC, 0);
+    if (options.inputFd < 0 || (!options.inspectOnly && !options.previewOnly && options.outputFd < 0)) {
         if (options.inputFd >= 0) {
             close(options.inputFd);
         }
@@ -246,6 +335,7 @@ void Complete(napi_env env, napi_status status, void *data)
 {
     std::unique_ptr<TranscodeAsyncWork> work(static_cast<TranscodeAsyncWork *>(data));
     napi_value result = ToValue(env, work->job->Snapshot());
+    work->job->DiscardPreviewPixels();
     if (status == napi_ok && result != nullptr) {
         (void)napi_resolve_deferred(env, work->deferred, result);
     } else {
@@ -259,7 +349,7 @@ void Complete(napi_env env, napi_status status, void *data)
     (void)napi_delete_async_work(env, work->work);
 }
 
-napi_value StartWork(napi_env env, napi_callback_info info, bool inspect)
+napi_value StartWork(napi_env env, napi_callback_info info, bool inspect, bool preview = false)
 {
     size_t argc = 1;
     napi_value argument = nullptr;
@@ -275,6 +365,7 @@ napi_value StartWork(napi_env env, napi_callback_info info, bool inspect)
     }
     TranscodeOptions options;
     options.inspectOnly = inspect;
+    options.previewOnly = preview;
     if (!ReadOptions(env, argument, options)) {
         napi_throw_type_error(env, nullptr, "Invalid transcode options or descriptors");
         return nullptr;
@@ -301,6 +392,7 @@ napi_value StartWork(napi_env env, napi_callback_info info, bool inspect)
 
 napi_value Start(napi_env env, napi_callback_info info) { return StartWork(env, info, false); }
 napi_value Inspect(napi_env env, napi_callback_info info) { return StartWork(env, info, true); }
+napi_value Preview(napi_env env, napi_callback_info info) { return StartWork(env, info, false, true); }
 
 napi_value Status(napi_env env, napi_callback_info info)
 {
@@ -346,6 +438,7 @@ napi_value Init(napi_env env, napi_value exports)
     napi_property_descriptor methods[] = {
         {"start", nullptr, Start, nullptr, nullptr, nullptr, napi_default, state.get()},
         {"inspect", nullptr, Inspect, nullptr, nullptr, nullptr, napi_default, state.get()},
+        {"preview", nullptr, Preview, nullptr, nullptr, nullptr, napi_default, state.get()},
         {"getStatus", nullptr, Status, nullptr, nullptr, nullptr, napi_default, state.get()},
         {"cancel", nullptr, Cancel, nullptr, nullptr, nullptr, napi_default, state.get()}};
     if (napi_define_properties(env, exports, sizeof(methods) / sizeof(methods[0]), methods) != napi_ok ||

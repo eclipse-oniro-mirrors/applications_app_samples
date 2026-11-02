@@ -28,10 +28,12 @@ let playbackState = 0;
 let recordingActive = false;
 let inspect = async () => status();
 let start = async () => status();
+let preview = async () => status({ previewWidth: 2, previewHeight: 2, previewRgba: new ArrayBuffer(16) });
 let canceled = 0;
 let cancelDialog = false;
 let pickerPaths = ['file://report'];
 const transcoder = { inspect: request => inspect(request), start: request => start(request),
+  preview: request => preview(request),
   getStatus: () => status({ state: 1 }), cancel: () => { canceled++; } };
 function status(patch = {}) {
   return { state: 2, stage: 'complete', detail: '', errorCode: 0, progress: 100, frames: 30, bytes: 100,
@@ -73,6 +75,8 @@ const io = {
   unlink: async file => { removed.push(file); files.delete(file); }, copyFile: async () => {}
 };
 const mocks = {
+  '@kit.ImageKit': { image: { PixelMapFormat: { RGBA_8888: 3 },
+    createPixelMap: async () => ({ release: async () => {} }) } },
   '@kit.BasicServicesKit': { deviceInfo: { productModel: 'host', osFullName: 'mock', sdkApiVersion: 26 } },
   '@kit.ArkUI': {}, '@kit.AbilityKit': {}, '@kit.MediaLibraryKit': { photoAccessHelper: {} },
   '@kit.CoreFileKit': { fileIo: io, fileUri: { getUriFromPath: file => 'file://' + file },
@@ -569,4 +573,52 @@ function testCapabilityAndGeometry() {
   assert.equal(TranscodeGeometryModel.plan(0, 720, 720, 0).width, 0);
   console.info('Capability matrix: stable ordering, HW/SW diffs and malformed snapshots; preview: 27 aligned geometries passed');
 }
-main().catch(error => { console.error(error); process.exitCode = 1; });
+async function testQualityProfiles() {
+  const model = new TranscodeModel();
+  model.sourceUri = '/private/source.mp4';
+  model.sourceTitle = 'source.mp4';
+  model.quality.filter = 1; model.quality.frameRate = 2; model.quality.bitrateMode = 1;
+  model.quality.keyFrame = 3; model.quality.audioRate = 2; model.quality.audioChannels = 1;
+  model.quality.audioBitrate = 2;
+  const request = model.request(1, 2);
+  assert.equal(request.scalingFilter, 1); assert.equal(request.frameRateLimit, 30);
+  assert.equal(request.bitrateMode, 1); assert.equal(request.keyFrameIntervalMs, 5000);
+  assert.equal(request.audioSampleRate, 48000); assert.equal(request.audioChannels, 1);
+  assert.equal(request.audioBitrate, 192000);
+  const queue = new TranscodeQueueModel();
+  queue.add(model.sourceUri, model.sourceTitle, [0, 0, 0, 2, 0, 1, 0, 0], false, 0, 0, model.quality.snapshot());
+  model.quality.filter = 0;
+  assert.equal(queue.items[0].quality.filter, 1, 'Queue must retain independent quality settings');
+  queue.update(queue.items[0].id, 'failed', 10);
+  queue.reassociate(queue.items[0].id, '/private/new.mp4', 'new.mp4');
+  assert.equal(queue.items[0].quality.audioChannels, 1);
+  const invalid = JSON.parse(JSON.stringify(queue.items[0])); invalid.quality.audioRate = 9;
+  assert.equal(TranscodeQueueModel.validated([invalid]).length, 0);
+  const surfaceFilter = JSON.parse(JSON.stringify(queue.items[0]));
+  surfaceFilter.options[1] = 1;
+  assert.equal(TranscodeQueueModel.validated([surfaceFilter]).length, 0, 'Surface cannot restore CPU filtering');
+  const remuxFilter = JSON.parse(JSON.stringify(queue.items[0]));
+  remuxFilter.quality.operation = 1; remuxFilter.options[5] = 0;
+  assert.equal(TranscodeQueueModel.validated([remuxFilter]).length, 0, 'Remux cannot restore processing controls');
+  model.audioMode = 1; model.rangeEnabled = true; model.sizeIndex = 2; model.grayscale = true;
+  model.setOperation(1);
+  assert.equal(model.request(1, 2).remuxOnly, true);
+  assert.equal(model.audioMode, 0); assert.equal(model.rangeEnabled, false);
+  assert.equal(model.sizeIndex, 0); assert.equal(model.grayscale, false);
+  model.setOperation(0);
+  const done = deferred(); const entered = deferred();
+  preview = () => { entered.resolve(); return done.promise; };
+  const task = model.preview(ui); await entered.promise;
+  assert.equal(MediaFileActivity.isTranscoding(), true);
+  assert.equal(MediaFileActivity.beginLaunch(), false);
+  model.cancel();
+  assert.equal(MediaFileActivity.isTranscoding(), true, 'Preview cancellation holds resources until completion');
+  done.resolve(status({ state: 3 })); await task;
+  assert.equal(model.previewImage, undefined); assert.equal(model.busy, false);
+  assert.equal(MediaFileActivity.isTranscoding(), false);
+  preview = async () => status({ previewWidth: 2, previewHeight: 2, previewRgba: new ArrayBuffer(16) });
+  await model.preview(ui); assert(model.previewImage);
+  model.dispose(); assert.equal(model.previewImage, undefined);
+  console.info('Quality: request mapping, queue snapshots, remux resets and preview cancellation lease passed');
+}
+main().then(testQualityProfiles).catch(error => { console.error(error); process.exitCode = 1; });
