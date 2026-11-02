@@ -100,7 +100,6 @@ struct Index {
           }
           this.pixelMap = pixelMap;
           // [StartExclude AVMetadataExtractor_fetchAlbumCover]
-          // [Start AVMetadataExtractor_Release]
           // 释放资源（callback模式）。
           avMetadataExtractor.release((error) => {
             if (error) {
@@ -109,7 +108,6 @@ struct Index {
             }
             console.info(TAG, `release success.`);
           })
-          // [End AVMetadataExtractor_Release]
           // [EndExclude AVMetadataExtractor_fetchAlbumCover]
         })
         // [End AVMetadataExtractor_fetchAlbumCover]
@@ -331,6 +329,17 @@ struct Index {
       // 批量获取缩略图任务耗时可能较长，可以调用cancelAllFetchFrames停止在当前extractor上所有缩略图获取任务（仅对批量获取接口生效）。
       avMetadataExtractor.cancelAllFetchFrames();
       // [End AVMetadataExtractor_FetchFramesByTimes]
+
+      // [Start AVMetadataExtractor_Release]
+      // 释放资源（callback模式）。
+      avMetadataExtractor.release((error) => {
+        if (error) {
+          console.error(TAG, `release failed, err = ${JSON.stringify(error)}`);
+          return;
+        }
+        console.info(TAG, `release success.`);
+      })
+      // [End AVMetadataExtractor_Release]
     } catch (err) {
       console.error(`sunyin>>FetchFrameByTimes error, code is ${err.code}, message is ${err.message}`);
     }
