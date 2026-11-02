@@ -19,6 +19,7 @@ import { common } from '@kit.AbilityKit';
 
 // [Start import_the_aip_module]
 import { intelligence } from '@kit.ArkData';
+import { BusinessError } from '@kit.BasicServicesKit';
 // [End import_the_aip_module]
 
 // [Start aip_getTextEmbeddingModel_operating_parameter]
@@ -53,6 +54,12 @@ struct Index {
         if (info.length > 0) {
           modelInfo = info[0];
         }
+      })
+      .catch((err) => {
+        console.error('Failed to get supported model and code is ' + err.code);
+        // [StartExclude aip_getSupportedCloudModel_operating]
+        this.message = 'aip getSupportedCloudModel';
+        // [EndExclude aip_getSupportedCloudModel_operating]
       })
     // [End aip_getSupportedCloudModel_operating]
   }
@@ -294,47 +301,47 @@ struct Index {
   build() {
     Column(undefined) {
       Text(this.message).fontSize(20)
-      Button($r('app.string.button_get_cloud_model'))
+      Button('app.string.button_get_cloud_model')
         .margin(10)
         .width('30%')
         .onClick(() => this.getSupportedCloudModel())
-      Button($r('app.string.button_get_cloud_text_model'))
+      Button('app.string.button_get_cloud_text_model')
         .margin(10)
         .width('30%')
         .onClick(() => this.getCloudTextEmbeddingModel())
-      Button($r('app.string.button_get_text_model'))
+      Button('app.string.button_get_text_model')
         .margin(10)
         .width('30%')
         .onClick(() => this.getTextEmbeddingModel())
-      Button($r('app.string.button_load_text_model'))
+      Button('app.string.button_load_text_model')
         .margin(10)
         .width('30%')
         .onClick(() => this.loadTextModel())
-      Button($r('app.string.button_get_text_embedding'))
+      Button('app.string.button_get_text_embedding')
         .margin(10)
         .width('30%')
         .onClick(() => this.getTextEmbedding())
-      Button($r('app.string.button_release_text_model'))
+      Button('app.string.button_release_text_model')
         .margin(10)
         .width('30%')
         .onClick(() => this.releaseTextModel())
-      Button($r('app.string.button_split_text'))
+      Button('app.string.button_split_text')
         .margin(10)
         .width('30%')
         .onClick(() => this.splitText())
-      Button($r('app.string.button_get_image_model'))
+      Button('app.string.button_get_image_model')
         .margin(10)
         .width('30%')
         .onClick(() => this.getImageEmbeddingModel())
-      Button($r('app.string.button_load_image_model'))
+      Button('app.string.button_load_image_model')
         .margin(10)
         .width('30%')
         .onClick(() => this.loadImageModel())
-      Button($r('app.string.button_get_image_embedding'))
+      Button('app.string.button_get_image_embedding')
         .margin(10)
         .width('30%')
         .onClick(() => this.getImageEmbedding())
-      Button($r('app.string.button_release_image_model'))
+      Button('app.string.button_release_image_model')
         .margin(10)
         .width('30%')
         .onClick(() => this.releaseImageModel())
