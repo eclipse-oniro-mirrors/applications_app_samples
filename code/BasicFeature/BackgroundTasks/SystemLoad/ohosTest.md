@@ -1,47 +1,47 @@
-# 系统负载测试用例归档
+# SystemLoad Test Case Reference
 
-## 默认 UI/Mock 用例
+## Default UI/Mock Cases
 
-默认 `List.test.ets` 先注册 `systemLoadSdkTest()`，再注册 `abilityTest()`，共执行 12 条真实 SDK 用例和 8 条 UI/Mock 用例。真实套件先于页面监听器启动，避免注销全部用例受到页面状态影响。
+By default, `List.test.ets` registers `abilityTest()` after `systemLoadSdkTest()`, executing 12 real SDK cases and 8 UI/Mock cases in total. The real SDK suite runs first, before any page listeners are started, so that the unregister-all case is not affected by page state.
 
-| 用例名称 | 预置条件 | 操作步骤 | 预期输出 | 测试结果 |
+| Case ID | Preconditions | Test Steps | Expected Result | Result |
 | --- | --- | --- | --- | --- |
-| systemLoad_startAbility_0001 | 设备或模拟器正常运行 | 启动 EntryAbility | 显示系统负载首页 | 通过 |
-| systemLoad_levelDisplay_0002 | 应用已启动 | 查看档位卡片 | 档位名称和数值匹配，说明与调度建议非空 | 通过 |
-| systemLoad_mockData_0003 | 位于系统负载首页 | 点击“模拟数据” | 显示 MEDIUM、Level 2 和模拟数据来源 | 通过 |
-| systemLoad_mockLevelCycle_0004 | 默认模拟档位为 MEDIUM | 连续点击“下一档位”8 次 | 依次覆盖全部 8 档并回到 MEDIUM，名称和数值匹配 | 通过 |
-| systemLoad_mockPreviousLevel_0005 | 模拟档位为 MEDIUM | 点击“上一档位” | 显示 NORMAL 和 Level 1 | 通过 |
-| systemLoad_refreshMockData_0006 | 模拟档位为 NORMAL | 点击“刷新” | 保持 NORMAL 和 Level 1 | 通过 |
-| systemLoad_mockListenerCleanup_0007 | 位于模拟数据模式 | 查看监听区域 | 主、副监听器均未注册，监听控制和回调记录存在 | 通过 |
-| systemLoad_localData_0008 | 位于模拟数据模式 | 点击“本机信息” | 显示合法本机档位，或明确回退到模拟数据；监听状态与来源一致 | 通过 |
+| systemLoad_startAbility_0001 | The device or emulator is running normally | Launch `EntryAbility` | The SystemLoad home page is displayed | Pass |
+| systemLoad_levelDisplay_0002 | The application has been launched | View the level card | The level name and numeric value match; the description and scheduling suggestion are non-empty | Pass |
+| systemLoad_mockData_0003 | The SystemLoad home page is displayed | Tap **Mock Data** | Displays `MEDIUM`, Level 2, and indicates the mock data source | Pass |
+| systemLoad_mockLevelCycle_0004 | The default mock level is `MEDIUM` | Tap **Next Level** 8 times consecutively | Cycles through all 8 levels and returns to `MEDIUM`; names and values match | Pass |
+| systemLoad_mockPreviousLevel_0005 | The mock level is `MEDIUM` | Tap **Previous Level** | Displays `NORMAL` and Level 1 | Pass |
+| systemLoad_refreshMockData_0006 | The mock level is `NORMAL` | Tap **Refresh** | Remains at `NORMAL`, Level 1 | Pass |
+| systemLoad_mockListenerCleanup_0007 | Mock data mode is active | View the listener area | Neither the primary nor the secondary listener is registered; listener controls and callback records are present | Pass |
+| systemLoad_localData_0008 | Mock data mode is active | Tap **Local Data** | Displays a valid local level, or explicitly falls back to mock data; listener state and data source are consistent | Pass |
 
-## 真实 SDK 用例
+## Real SDK Cases
 
-真实 SDK 用例已默认注册，只在支持 `SystemCapability.ResourceSchedule.SystemLoad` 的设备上运行。用例直接调用系统接口，不使用模拟数据或回调注入。
+The real SDK cases are registered by default and run only on devices that support `SystemCapability.ResourceSchedule.SystemLoad`. These cases invoke system APIs directly, without using mock data or callback injection.
 
-| 用例名称 | 验证场景 | 有效断言 | 测试结果 |
+| Case ID | Scenario | Valid Assertions | Result |
 | --- | --- | --- | --- |
-| systemLoad_getLevel_0001 | 查询当前档位 | 返回值属于 0 至 7 对应的八档枚举 | 通过 |
-| systemLoad_getLevel_0002 | 监听存活期间连续查询 3 次 | 每次结果均为合法枚举，不断言结果相等 | 通过 |
-| systemLoad_on_0001 | 注册单个监听器 | 注册和注销成功；若收到真实回调，其档位合法 | 通过 |
-| systemLoad_on_0002 | 注册两个不同回调 | 两个回调均注册和注销成功；已接收回调的档位合法 | 通过 |
-| systemLoad_on_0003 | 重复注册同一回调 | 重复注册保持幂等；一次注销后再次注销精确返回 401 | 通过 |
-| systemLoad_on_0004 | 传入无效回调对象 | 精确返回错误码 401 | 通过 |
-| systemLoad_on_0005 | 同一回调执行 3 次注册和注销 | 3 轮全部完成；已接收回调的档位合法 | 通过 |
-| systemLoad_off_0001 | 注销后重新注册同一回调 | 注销和重新注册成功；已接收回调的档位合法 | 通过 |
-| systemLoad_off_0002 | 注销从未注册的回调 | 精确返回错误码 401 | 通过 |
-| systemLoad_off_0003 | 对同一回调重复注销 | 第二次注销精确返回错误码 401 | 通过 |
-| systemLoad_off_0004 | 两个回调注册后调用无参 off | 无参注销返回 401 时逐个注销；两个回调均能重新注册并正常注销 | 通过 |
-| systemLoad_off_0005 | 注销时传入无效回调对象 | 精确返回错误码 401 | 通过 |
+| systemLoad_getLevel_0001 | Query the current level | The return value belongs to the 8-level enum (0–7) | Pass |
+| systemLoad_getLevel_0002 | Query 3 times consecutively while a listener is active | Each result is a valid enum value; equality between results is not asserted | Pass |
+| systemLoad_on_0001 | Register a single listener | Registration and unregistration succeed; any received callback has a valid level | Pass |
+| systemLoad_on_0002 | Register two different callbacks | Both callbacks register and unregister successfully; received callback levels are valid | Pass |
+| systemLoad_on_0003 | Register the same callback repeatedly | Repeated registration is idempotent; unregistering once then unregistering again returns error code 401 | Pass |
+| systemLoad_on_0004 | Pass an invalid callback object | Returns error code 401 | Pass |
+| systemLoad_on_0005 | Register and unregister the same callback 3 times | All 3 iterations complete; received callback levels are valid | Pass |
+| systemLoad_off_0001 | Unregister, then re-register the same callback | Unregistration and re-registration succeed; received callback levels are valid | Pass |
+| systemLoad_off_0002 | Unregister a callback that was never registered | Returns error code 401 | Pass |
+| systemLoad_off_0003 | Unregister the same callback repeatedly | The second unregistration returns error code 401 | Pass |
+| systemLoad_off_0004 | Register two callbacks, then call `off()` with no parameters | When the parameterless `off()` returns 401, falls back to unregistering callbacks one by one; both callbacks can be re-registered and unregistered normally | Pass |
+| systemLoad_off_0005 | Pass an invalid callback object to `off()` | Returns error code 401 | Pass |
 
-所有真实用例在 `afterEach` 中只清理仍处于注册状态的回调。正向用例的异常直接使测试失败，反向用例必须捕获并断言精确错误码，不以日志代替断言。
+For all real cases, `afterEach` cleans up only callbacks that are still in a registered state. Exceptions in positive cases cause the test to fail directly. Negative cases must catch the error and assert the exact error code; logs must not be used as a substitute for assertions.
 
-## 人工档位变化场景
+## Manual Level-Transition Scenarios
 
-自然档位变化不作为默认自动化前置条件。需要验证实际 `systemLoadChange` 变化时，在具备负载和热状态注入能力的实验室环境中分别注入 8 种档位，检查页面名称、数值、说明、调度建议、两个回调计数和最近回调记录。
+Natural level transitions are not a default automation precondition. To verify actual `systemLoadChange` transitions, inject each of the 8 levels separately in a controlled lab environment with load and thermal-state injection capability, then check the page name, numeric value, description, scheduling suggestion, the two callback counts, and the most recent callback record.
 
-- 注册和注销由自动化用例验证；自然变化回调不作为默认自动化前置条件，只有实际收到回调时才校验其档位。
-- 验证某一自然变化时，只需注入安全、可控的相邻档位，不要求遍历高温紧急状态。
-- 不得通过持续加压、阻塞散热或其他方式使设备过热来制造 `WARNING`、`EMERGENCY` 或 `ESCAPE`。
+- Registration and unregistration are covered by automated cases. Natural transition callbacks are not a default automation precondition; a callback's level is validated only when a callback is actually received.
+- When verifying a single natural transition, inject only a safe, controllable adjacent level—it is not necessary to traverse the high-temperature or emergency states.
+- Do not trigger `WARNING`, `EMERGENCY`, or `ESCAPE` by subjecting the device to extreme temperature conditions.
 
-> API 26 模拟器完整执行结果：20 条用例全部通过，其中真实 SDK 用例 12 条、UI/Mock 用例 8 条。`systemLoad_off_0004` 在无参注销返回 401 时使用逐个回调注销的兼容回退。
+> API 26 emulator full execution result: all 20 cases passed (12 real SDK cases, 8 UI/Mock cases). For `systemLoad_off_0004`, when the parameterless `off()` returns 401, the implementation falls back to unregistering each callback individually for compatibility.

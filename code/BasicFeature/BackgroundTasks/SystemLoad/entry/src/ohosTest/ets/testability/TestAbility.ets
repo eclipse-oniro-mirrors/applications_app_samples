@@ -27,7 +27,15 @@ const TEST_TIMEOUT_MS: string = '180000';
 
 export default class TestAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    logger.info(`TestAbility onCreate: ${JSON.stringify(want)}, ${JSON.stringify(launchParam)}`);
+    let wantInfo = '';
+    let launchParamInfo = '';
+    try {
+      wantInfo = JSON.stringify(want);
+      launchParamInfo = JSON.stringify(launchParam);
+    } catch (error) {
+      logger.error(`Failed to serialize onCreate parameters: ${(error as Error).message}`);
+    }
+    logger.info(`TestAbility onCreate: ${wantInfo}, ${launchParamInfo}`);
     const abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
     const abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
     abilityDelegatorArguments.parameters['timeout'] = TEST_TIMEOUT_MS;

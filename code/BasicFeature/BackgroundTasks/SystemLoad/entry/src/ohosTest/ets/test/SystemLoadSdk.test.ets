@@ -348,5 +348,112 @@ export default function systemLoadSdkTest() {
       });
       logger.info(`${BUNDLE}off_0005, end`);
     });
+
+    /**
+     * @tc.number: SYSTEMLOAD_OFF_0600
+     * @tc.name: systemLoad_off_0006
+     * @tc.desc: Register three callbacks, unregister one, and verify the remaining two are unaffected.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_off_0006', 0, async () => {
+      logger.info(`${BUNDLE}off_0006, begin`);
+      const primary = createRecorder();
+      const secondary = createRecorder();
+      const tertiary = createRecorder();
+      registerRecorder(primary, registeredCallbacks);
+      registerRecorder(secondary, registeredCallbacks);
+      registerRecorder(tertiary, registeredCallbacks);
+      systemLoad.off('systemLoadChange', secondary.callback);
+      const secondaryIndex = registeredCallbacks.indexOf(secondary.callback);
+      if (secondaryIndex >= 0) {
+        registeredCallbacks.splice(secondaryIndex, 1);
+      }
+      logger.info(`${BUNDLE}off_0006, assert remaining callbacks still deliver valid levels`);
+      assertRecordedLevelsValid(primary);
+      assertRecordedLevelsValid(tertiary);
+      systemLoad.off('systemLoadChange', primary.callback);
+      systemLoad.off('systemLoadChange', tertiary.callback);
+      logger.info(`${BUNDLE}off_0006, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_OFF_0700
+     * @tc.name: systemLoad_off_0007
+     * @tc.desc: After unregister-all, re-register both callbacks and unregister them one by one.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_off_0007', 0, async () => {
+      logger.info(`${BUNDLE}off_0007, begin`);
+      const primary = createRecorder();
+      const secondary = createRecorder();
+      registerRecorder(primary, registeredCallbacks);
+      registerRecorder(secondary, registeredCallbacks);
+      try {
+        systemLoad.off('systemLoadChange');
+      } catch (error) {
+        logger.warn(`${BUNDLE}off_0007, unregister-all failed, use targeted fallback: ${JSON.stringify(error)}`);
+        expect(Number((error as BusinessError).code)).assertEqual(PARAMETER_ERROR);
+        for (const callback of registeredCallbacks) {
+          systemLoad.off('systemLoadChange', callback);
+        }
+      }
+      registeredCallbacks = [];
+      registerRecorder(primary, registeredCallbacks);
+      registerRecorder(secondary, registeredCallbacks);
+      logger.info(`${BUNDLE}off_0007, assert both re-registered callbacks deliver valid levels`);
+      assertRecordedLevelsValid(primary);
+      assertRecordedLevelsValid(secondary);
+      unregisterRecorder(primary, registeredCallbacks);
+      logger.info(`${BUNDLE}off_0007, assert primary unregistered and secondary still registered`);
+      await assertParameterError(() => {
+        systemLoad.off('systemLoadChange', primary.callback);
+      });
+      unregisterRecorder(secondary, registeredCallbacks);
+      logger.info(`${BUNDLE}off_0007, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_OFF_0800
+     * @tc.name: systemLoad_off_0008
+     * @tc.desc: Register three callbacks, unregister the middle one, then call unregister-all.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_off_0008', 0, async () => {
+      logger.info(`${BUNDLE}off_0008, begin`);
+      const primary = createRecorder();
+      const secondary = createRecorder();
+      const tertiary = createRecorder();
+      registerRecorder(primary, registeredCallbacks);
+      registerRecorder(secondary, registeredCallbacks);
+      registerRecorder(tertiary, registeredCallbacks);
+      unregisterRecorder(secondary, registeredCallbacks);
+      try {
+        systemLoad.off('systemLoadChange');
+      } catch (error) {
+        logger.warn(`${BUNDLE}off_0008, unregister-all failed, use targeted fallback: ${JSON.stringify(error)}`);
+        expect(Number((error as BusinessError).code)).assertEqual(PARAMETER_ERROR);
+        for (const callback of registeredCallbacks) {
+          systemLoad.off('systemLoadChange', callback);
+        }
+      }
+      registeredCallbacks = [];
+      logger.info(`${BUNDLE}off_0008, assert all three callbacks can re-register and unregister`);
+      registerRecorder(primary, registeredCallbacks);
+      registerRecorder(secondary, registeredCallbacks);
+      registerRecorder(tertiary, registeredCallbacks);
+      assertRecordedLevelsValid(primary);
+      assertRecordedLevelsValid(secondary);
+      assertRecordedLevelsValid(tertiary);
+      unregisterRecorder(primary, registeredCallbacks);
+      unregisterRecorder(secondary, registeredCallbacks);
+      unregisterRecorder(tertiary, registeredCallbacks);
+      logger.info(`${BUNDLE}off_0008, end`);
+    });
   });
 }

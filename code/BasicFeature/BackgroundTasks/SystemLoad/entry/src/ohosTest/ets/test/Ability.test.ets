@@ -239,5 +239,74 @@ export default function abilityTest() {
       expect(listener === (isLocal ? registered : unregistered)).assertTrue();
       logger.info(`${BUNDLE}${caseName}, end`);
     });
+
+    /**
+     * @tc.number: SYSTEMLOAD_UI_0900
+     * @tc.name: systemLoad_mockModeOperationStatus_0009
+     * @tc.desc: Enter mock mode and verify the operation status text updates.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_mockModeOperationStatus_0009', 0, async () => {
+      const caseName = 'mockModeOperationStatus_0009';
+      logger.info(`${BUNDLE}${caseName}, begin`);
+      await clickComponent(driver, 'mock_data_button');
+      const mockSource = await resourceManager.getStringByName('mock_data');
+      logger.info(`${BUNDLE}${caseName}, assert data source is mock`);
+      expect(await getComponentText(driver, 'data_source_text')).assertEqual(mockSource);
+      const operationText = await resourceManager.getStringByName('operation_mock_selected');
+      logger.info(`${BUNDLE}${caseName}, assert operation status shows mock selected`);
+      expect(await getComponentText(driver, 'operation_status_text')).assertEqual(operationText);
+      logger.info(`${BUNDLE}${caseName}, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_UI_1000
+     * @tc.name: systemLoad_callbackCountReset_0010
+     * @tc.desc: Verify callback counts display zero in mock mode.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_callbackCountReset_0010', 0, async () => {
+      const caseName = 'callbackCountReset_0010';
+      logger.info(`${BUNDLE}${caseName}, begin`);
+      await clickComponent(driver, 'mock_data_button');
+      const primaryCountText = await getComponentText(driver, 'primary_callback_count');
+      logger.info(`${BUNDLE}${caseName}, assert primary callback count shows zero`);
+      expect(primaryCountText.endsWith('0')).assertTrue();
+      const secondaryCountText = await getComponentText(driver, 'secondary_callback_count');
+      logger.info(`${BUNDLE}${caseName}, assert secondary callback count shows zero`);
+      expect(secondaryCountText.endsWith('0')).assertTrue();
+      logger.info(`${BUNDLE}${caseName}, end`);
+    });
+
+    /**
+     * @tc.number: SYSTEMLOAD_UI_1100
+     * @tc.name: systemLoad_localModeSwitch_0011
+     * @tc.desc: Switch from mock to local mode and verify the operation status changes.
+     * @tc.size: MEDIUM
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('systemLoad_localModeSwitch_0011', 0, async () => {
+      const caseName = 'localModeSwitch_0011';
+      logger.info(`${BUNDLE}${caseName}, begin`);
+      await clickComponent(driver, 'mock_data_button');
+      const mockOperation = await resourceManager.getStringByName('operation_mock_selected');
+      logger.info(`${BUNDLE}${caseName}, assert operation status shows mock selected`);
+      expect(await getComponentText(driver, 'operation_status_text')).assertEqual(mockOperation);
+      await clickComponent(driver, 'local_data_button');
+      const source = await getComponentText(driver, 'data_source_text');
+      const localSource = await resourceManager.getStringByName('local_data');
+      const fallbackSource = await resourceManager.getStringByName('mock_fallback');
+      logger.info(`${BUNDLE}${caseName}, assert source changed to local or fallback`);
+      expect(source === localSource || source === fallbackSource).assertTrue();
+      const currentOperation = await getComponentText(driver, 'operation_status_text');
+      logger.info(`${BUNDLE}${caseName}, assert operation status changed from mock`);
+      expect(currentOperation !== mockOperation).assertTrue();
+      logger.info(`${BUNDLE}${caseName}, end`);
+    });
   });
 }
