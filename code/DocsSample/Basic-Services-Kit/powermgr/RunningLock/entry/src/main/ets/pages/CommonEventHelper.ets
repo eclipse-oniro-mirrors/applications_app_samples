@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 // [Start common_event_utility_class]
-import { commonEventManager } from '@kit.BasicServicesKit';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { commonEventManager, BusinessError} from '@kit.BasicServicesKit';
 
 type SubscriberInfo = commonEventManager.CommonEventSubscribeInfo;
 type Subscriber = commonEventManager.CommonEventSubscriber;
