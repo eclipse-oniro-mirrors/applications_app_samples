@@ -18,6 +18,6 @@ An OpenHarmony sample that demonstrates **efficient buffering and streaming data
 
 Zero permissions, no network. Demo files live in the app sandbox and are removed on uninstall.
 
-Verified on RK3568 (dayu200, OpenHarmony 7.0.0.46 Beta1 / API 26); device-side hypium suite: **74 tests, all passing**.
+Verified on RK3568 (dayu200, OpenHarmony 7.0.0.46 Beta1 / API 26). The device-side hypium suite has **16 suites / 248 cases**, all passing on device (`Tests run: 248, Failure: 0, Error: 0`); every case is written explicitly with full @tc annotations.
 
 See [README_zh.md](README_zh.md) for the full guide: scene table, project layout, ROM-specific adaptation notes (stream/fastbuffer behavioral quirks on API 26), build/install/test commands, and real-device screenshots under [docs/screenshots/](docs/screenshots/).

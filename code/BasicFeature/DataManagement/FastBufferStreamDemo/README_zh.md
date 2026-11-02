@@ -8,11 +8,11 @@
 
 - 应用标识：`com.samples.fastbufferstreamdemo`，主 Ability 为 `EntryAbility`
 - 真机验证：RK3568 dayu200（OpenHarmony 7.0.0.46 Beta1 / API 26，720×1280，断点 `sm`）
-- 设备侧测试：**Tests run: 74, Failure: 0, Error: 0**
+- 设备侧测试：**16 个套件 248 例**，已在 RK3568 真机全量通过（`Tests run: 248, Failure: 0, Error: 0`）
 
 ## 环境要求
 
-* DevEco Studio 6.1.1+，SDK API 26（工程 `targetSdkVersion 26.0.0`，`compatibleSdkVersion: 6.1.1(24)`）
+* DevEco Studio 6.1.1+，SDK API 26（工程 `compileSdkVersion` / `targetSdkVersion` / `compatibleSdkVersion` 均为 `26.0.0`，`runtimeOS: OpenHarmony`）
 * 已在 RK3568 开发板（dayu200，OpenHarmony 7.0.0.46 Beta1 / API 26）真机验证
 * 无需任何权限、无网络依赖；演示文件均写入应用沙箱 `filesDir`，卸载即清除
 
@@ -63,7 +63,7 @@ entry/src/main/ets/                              # 业务与 UI（约 1630 行�
 │   │   ├── PerfTimer.ets                        // 性能计时器：start/stop/measure/summary
 │   │   └── DeviceUtil.ets                       // 设备信息与断点档位
 └── pages/Index.ets                              // 演示界面：9 按钮 + 事件日志面板 + 断点自适应布局
-entry/src/ohosTest/ets/test/                     // 设备侧测试（74 例，约 940 行，hypium）
+entry/src/ohosTest/ets/test/                     // 设备侧测试（16 套件 248 例，约 4400 行，hypium）
 docs/screenshots/                                // 真机截图
 ```
 
@@ -152,7 +152,7 @@ docs/screenshots/                                // 真机截图
 
 ## 构建、安装与测试
 
-使用 SDK 默认签名即可本地开发运行（无需自行生成证书）：
+仓库不包含签名配置与证书。本地运行前先在 DevEco Studio 的 `File > Project Structure > Signing Configs` 勾选 **Automatically generate signature**（使用调试证书自动签名，无需自行生成证书），再构建安装；提交 / 打包示例时请把 `build-profile.json5` 恢复为 `"signingConfigs": []`。
 
 ```bash
 # 构建 ohosTest HAP（含设备侧测试）
@@ -164,7 +164,7 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 # 运行设备侧测试
 hdc shell aa test -b com.samples.fastbufferstreamdemo -m entry_test \
   -s unittest OpenHarmonyTestRunner -s timeout 150000
-# 预期：Tests run: 74, Failure: 0, Error: 0
+# 预期：Tests run: 248, Failure: 0, Error: 0
 
 # 构建主 HAP 并运行演示
 hvigorw --mode module -p module=entry@default -p product=default assembleHap --no-daemon
@@ -172,11 +172,11 @@ hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
 hdc shell aa start -b com.samples.fastbufferstreamdemo -a EntryAbility
 ```
 
-提示：安装 ohosTest HAP 可能顶替设备上的主模块，测试完重新安装主 HAP 即可；日志查看 `hdc shell hilog -T FastBufferStream`；设备自动锁屏会造成"应用消失"的假象，自动化前先 `power-shell wakeup` 并解锁。
+提示：安装 ohosTest HAP 可能顶替设备上的主模块，测试完重新安装主 HAP 即可；日志查看 `hdc shell hilog -T FastBufferStream`；设备自动锁屏会造成"应用消失"的假象，自动化前先 `power-shell wakeup` 并解锁。未配置签名时产物为 unsigned HAP，`bm install` 会报 `no signature file`，需先完成上述签名配置。
 
 ## 测试矩阵
 
-设备侧 hypium 测试 74 例（`entry/src/ohosTest/ets/test/`），真机 API 26 全部通过：
+设备侧 hypium 测试 16 个套件 248 例（`entry/src/ohosTest/ets/test/`），已在 RK3568（API 26）真机全量通过。组合用例按「取值 × 字节序」「编码 × 边界」「记录数 × value 长度 × 噪声」「级别 × 级别」等维度逐条展开，每条均为显式 `it` 并带完整 `@tc` 注释头：
 
 | 套件 | 用例数 | 用例 |
 | --- | ---: | --- |
@@ -189,8 +189,15 @@ hdc shell aa start -b com.samples.fastbufferstreamdemo -a EntryAbility
 | deviceUtilTest | 6 | `deviceType_nonEmpty` `isXxx_mutuallyExclusive` `breakpoint_boundaries` `breakpoint_typeSafe` `profileFields_nonEmpty` `wideScreen_consistentWithBreakpoint` |
 | logUtilTest | 6 | `init_deliversToSink` `lineFormat_timestamp` `levelFilter` `levelMark_mapping` `formatTime_format` `errorLevel_delivered` |
 | ActsAbilityTest | 1 | `assertContain` |
+| fastBufferMatrixTest | 48 | `uint32_roundtrip_*`（10）`uint16_roundtrip_*`（6）int16 / int32 极值（6）3B 通用字节序（2）多字段偏移（1）subarray 视图（5）`copy_*`（4）concat（3）fill（3）equals / compare（4）indexOf / includes（2）byteLength / isBuffer（2） |
+| fastBufferUtilMatrixTest | 55 | `utf8_byteLength_*`（5）视图解码（4）hex 合法（4）hex 非法（5）`base64_rfc_vector_*`（7）长文本 / 中文往返（2）`util_uint32_*`（8）偏移（1）concatAll（4）hexDump 行宽 / 边界（6）CRC32 向量（5）crc32Hex（2）toHex / 空串（2） |
+| tlvMatrixTest | 22 | `roundtrip_*`（4）`truncate_*`（4）整条丢弃 / errorIndex（2）坏 CRC 首中末（3）值篡改（1）长度字段（2）value 前缀（1）噪声计数 / 魔数残片（3）空缓冲 / 默认值（2） |
+| logUtilMatrixTest | 14 | `filter_min_*`（4）级别标记（1）setMinLevel 即时（1）回调替换（1）`formatTime_*`（4）行格式（1）空标签 / 方括号消息（2） |
+| deviceUtilMatrixTest | 11 | `breakpoint_*`（8）599/600 双栏阈值（1）单调性（1）宽屏标志（1） |
+| perfTimerMatrixTest | 12 | 多标签 / restart（2）重复 stop（1）measure 返回 number / string / boolean / 数组（4）summary（2）clear（1）顺序 / 忙循环（2） |
+| streamFileMatrixTest | 12 | 写入 1B / 4KB / 5KB（3）3×4KB 进度读取（1）读取 1B / 4097B（2）多块内容还原（1）拷贝 1B / 100B / 8193B（3）写入后大小 / 缺失文件拒绝（2） |
 
-测试分层：工具/纯逻辑（FastBufferUtil、TlvUtil、PerfTimer、LogUtil、DeviceUtil、Ability）走设备侧断言；文件流用真实沙箱文件与真实 stream；场景 3–5/8/9 直接调用业务方法后断言落盘文件与日志。弹窗之外的 UI 呈现由真机点按 + 截图验证。
+测试分层：工具/纯逻辑（FastBufferUtil、TlvUtil、PerfTimer、LogUtil、DeviceUtil、Ability）走设备侧断言；文件流用真实沙箱文件与真实 stream；场景 3–5/8/9 直接调用业务方法后断言落盘文件与日志。组合用例按「取值 × 字节序」「编码 × 边界」「记录数 × value 长度 × 噪声」「级别 × 级别」等维度逐条展开，断言直接落在真实实现上，不复制业务常量。界面呈现由真机点按 + 截图验证。
 
 ## 已知限制
 
