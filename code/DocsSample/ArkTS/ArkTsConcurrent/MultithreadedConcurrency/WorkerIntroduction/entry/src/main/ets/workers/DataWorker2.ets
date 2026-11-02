@@ -25,7 +25,11 @@ import { DataProcessor } from 'businessworker';
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 workerPort.onmessage = (e: MessageEvents) => {
-  const result = new DataProcessor().process(e.data as string);
-  workerPort.postMessage(result);
+  try {
+    const result = new DataProcessor().process(e.data as string);
+    workerPort.postMessage(result);
+  } catch (error) {
+    console.error(`Process err. Code: ${error.code}, message: ${error.message}`);
+  }
 };
 // [End data_worker_next]

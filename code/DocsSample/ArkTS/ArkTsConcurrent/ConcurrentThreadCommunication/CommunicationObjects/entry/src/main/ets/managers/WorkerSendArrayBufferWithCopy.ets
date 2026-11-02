@@ -14,7 +14,7 @@
  */
 
 // [Start worker_send_copy]
-import { worker, MessageEvents } from '@kit.ArkTS';
+import { worker, MessageEvents, ErrorEvent } from '@kit.ArkTS';
 
 const workerInstance = new worker.ThreadWorker('entry/ets/workers/Worker.ets');
 
@@ -23,7 +23,10 @@ workerInstance.postMessage(buffer);
 // 深拷贝，宿主线程与Worker线程各持有1MB数据，总内存占用翻倍
 workerInstance.onmessage = (e: MessageEvents) => {
   workerInstance.terminate();
-}
+};
+workerInstance.onerror = (err: ErrorEvent) => {
+  console.error('worker err:' + err.message);
+};
 // [End worker_send_copy]
 @Entry
 @Component

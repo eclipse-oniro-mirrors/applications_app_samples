@@ -90,6 +90,16 @@ class WorkerManager {
 
 // 全局单例，通过该管理类复用单个Worker处理可串行的多类任务(需独立并行的任务应由单独的Worker处理)
 const dispatcher: WorkerManager = new WorkerManager();
+
+async function executeDemo() {
+  try {
+    let result = await dispatcher.execute('logReport', 'payload');
+    console.info(`Execute result: ${result}`);
+  } catch (e) {
+    console.error(`Execute error: ${e}`);
+  }
+}
+executeDemo();
 // [End worker_manager]
 @Entry
 @Component
