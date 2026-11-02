@@ -1,24 +1,18 @@
-/**
- * FastBuffer 基础能力与性能对比演示
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * 场景1：FastBuffer 基础操作（原生 API 演示）
- *   创建（from/alloc）、二进制读写（writeUInt32BE/readUInt32BE）、
- *   编码转换（utf8/hex/base64）、concat 拼接、copy 复制、subarray 切片、equals/compare 比较
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 场景2：FastBuffer vs Buffer 性能对比（PerfTimer 计时）
- *   同负载（10 万次 4 字节写读 + 2000 片 concat）分别用
- *   @ohos.fastbuffer（API 20+）与 @ohos.buffer（API 9+）执行并计时对比
- *
- * 场景6：工具类实战——协议封包与解包
- *   用 FastBufferUtil 构造 [魔数][版本][长度][payload][CRC32] 数据包，
- *   hexDump 可视化、解包校验、篡改检测，展示工具类组合价值
- *
- * 场景7：TLV 多记录协议流解析
- *   在含噪声的字节流中定位魔数（indexOf）、逐记录解析（tag/length/value）、
- *   subarray 截取、逐记录 CRC32 校验、截断记录报错，展示二进制协议解析实战
- *
- * API 依据：docs/zh-cn/application-dev/reference/apis-arkts/js-apis-fastbuffer.md
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+ 
 import fastbuffer from '@ohos.fastbuffer';
 import buffer from '@ohos.buffer';
 import { LogUtil } from './utils/LogUtil';

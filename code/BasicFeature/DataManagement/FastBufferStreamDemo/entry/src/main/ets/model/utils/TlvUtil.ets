@@ -1,15 +1,18 @@
-/**
- * TlvUtil TLV 二进制协议流解析工具类
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * 演示 fastbuffer 在真实协议解析场景的组合应用：
- *   记录格式 = [魔数 4B][tag 1B][length 4B 大端][value length B][CRC32 4B]
- *   buildTlvStream   构造多记录字节流（可在记录间注入噪声字节）
- *   parseTlvStream   从含噪声的缓冲区中定位魔数（indexOf）、逐记录解析、
- *                    subarray 截取 value、逐记录 CRC32 校验，截断记录报错
- *   makeBadCrcStream 构造一条 CRC 被篡改的流，用于演示坏记录检出
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 纯函数实现，不内嵌日志：结果以带类型对象返回，便于演示层展示与设备测试断言。
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+ 
 import fastbuffer from '@ohos.fastbuffer';
 import { FastBufferUtil } from './FastBufferUtil';
 

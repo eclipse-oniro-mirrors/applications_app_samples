@@ -1,11 +1,18 @@
-/**
- * FastBufferUtil 二进制缓冲工具类
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * 基于 @ohos.fastbuffer（API 20+）封装高频二进制操作：
- * hex/base64 编解码、utf8 转换、字节序读写封装、批量拼接、
- * hexDump 可视化（地址 + 十六进制 + ASCII 三列）、CRC32 校验（IEEE 802.3 查表法）。
- * 所有方法为纯内存操作，无外部依赖。
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+ 
 import fastbuffer from '@ohos.fastbuffer';
 import { LogUtil } from './LogUtil';
 

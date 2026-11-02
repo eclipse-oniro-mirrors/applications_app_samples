@@ -1,30 +1,18 @@
-/**
- * stream 流式数据处理演示
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * 场景3：Writable 流式写入
- *   使用 StreamFileUtil 提供的 FileWritable 分块落盘到应用沙箱文件；
- *   演示 cork/uncork 强制缓冲、水位线背压（write() 返回 false）、finish 事件收尾
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 场景4：Readable 流式读取
- *   使用 StreamFileUtil 提供的 FileReadable 分块读取沙箱文件并 push；
- *   data 事件逐块消费，统计块数与字节数，全程不整载文件
- *
- * 场景5：三流完整流水线
- *   Readable（内存产数）→ Transform（大写加工 + doFlush 尾部处理）→ Writable（落盘），
- *   结束后用 FastBuffer 读回文件头校验加工结果，串联两个模块
- *
- * 场景8：pipe 一行流水线
- *   与场景5 相同的三流拓扑改用官方 pipe() 接线：
- *   source.pipe(transform) → transform.pipe(sink)，框架自动转发 data/end，
- *   对比手工事件级联，展示标准流水线写法
- *
- * 场景9：Duplex 双工流
- *   同一个流上写侧 write 转大写入队、读侧 data 事件回送，
- *   验证 Duplex 读写双向通路与写侧 end → 读侧 EOF 的时序
- *
- * API 依据：docs/zh-cn/application-dev/reference/apis-arkts/js-apis-stream.md
- * （stream 首批接口 API 12+；数据单元为 string | Uint8Array）
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+ 
 import stream from '@ohos.util.stream';
 import { emitter } from '@kit.BasicServicesKit';
 import { fileIo as fs } from '@kit.CoreFileKit';

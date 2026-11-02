@@ -1,13 +1,18 @@
-/**
- * StreamFileUtil 流式文件工具类
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * 将 stream.Writable / stream.Readable 的设备侧实现（doWrite/doRead 落盘与分块读取）
- * 封装为一行调用的 Promise API：
- *   writeFileStreaming  —— 分块流式写入文件（水位线背压由框架处理）
- *   readFileStreaming   —— 分块流式读取文件（data 事件逐块回调，不整载）
- *   copyFileStreaming   —— Readable → Writable 流式拷贝
- * 同时导出 FileWritable / FileReadable 供演示层（StreamPipeline）复用。
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+ 
 import stream from '@ohos.util.stream';
 import fastbuffer from '@ohos.fastbuffer';
 import { emitter } from '@kit.BasicServicesKit';
