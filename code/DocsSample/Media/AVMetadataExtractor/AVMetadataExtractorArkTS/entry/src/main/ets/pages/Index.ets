@@ -215,7 +215,6 @@ struct Index {
         avMetadataExtractor.dataSrc = dataSrc;
         // [End AVMetadataExtractor_SetDataSrc]
         
-        
         // [Start AVMetadataExtractor_FetchMetadataPromise]
         // 获取元数据（promise模式）。
         let metadata = await avMetadataExtractor.fetchMetadata();
