@@ -264,7 +264,7 @@ VideoEncoder::~VideoEncoder()
 }
 
 // [Start encoder_create_bymime]
-// 通过 MIME TYPE 创建编码器，由系统选择对应的编码器实现。
+// 通过MIME TYPE创建编码器，由系统选择对应的编码器实现。
 OH_AVCodec *VideoEncoder::GetCodecByMime(const char *mime)
 {
     CHECK_AND_RETURN_RET_LOG(mime != nullptr, nullptr, "Codec mime is nullptr");
@@ -298,7 +298,7 @@ int32_t VideoEncoder::Create(const std::string &videoCodecMime)
 
 int32_t VideoEncoder::CreateByName(const std::string &videoCodecName)
 {
-    // 仅在能力查询已经明确选定实现时使用名称创建。与 MIME 创建不同，名称不匹配时不会自动选择其他实现。
+    // 仅在能力查询已经明确选定实现时使用名称创建。与MIME创建不同，名称不匹配时不会自动选择其他实现。
     CHECK_AND_RETURN_RET_LOG(encoder_ == nullptr, AVCODEC_SAMPLE_ERR_ERROR,
         "Encoder already exists, release it before creating another one");
     encoder_ = OH_VideoEncoder_CreateByName(videoCodecName.c_str());
@@ -324,7 +324,7 @@ int32_t VideoEncoder::CreatePrimaryWithPreproc(const std::string &videoCodecMime
 
 int32_t VideoEncoder::CreateSecondaryFromPrimary(VideoEncoder &primaryEncoder)
 {
-    // 副编码器复用主编码器的输入源；为避免主编码器先释放导致副编码器失效，调用方需先 Release 副编码器。
+    // 副编码器复用主编码器的输入源；为避免主编码器先释放导致副编码器失效，调用方需先Release副编码器。
     CHECK_AND_RETURN_RET_LOG(this != &primaryEncoder, AVCODEC_SAMPLE_ERR_ERROR,
         "Primary encoder and secondary encoder cannot be the same instance");
     CHECK_AND_RETURN_RET_LOG(encoder_ == nullptr, AVCODEC_SAMPLE_ERR_ERROR,
@@ -367,7 +367,7 @@ int32_t VideoEncoder::Config(SampleInfo &sampleInfo, CodecUserData *codecUserDat
 }
 
 // [Start encoder_prepare]
-// 申请编码器运行所需资源。Prepare 成功后才能调用 Start。
+// 申请编码器运行所需资源。Prepare成功后才能调用Start。
 int32_t VideoEncoder::Prepare()
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
@@ -384,7 +384,7 @@ bool VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
     info.buffer = nullptr;
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, false, "Encoder is null");
     // [StartExclude encoder_sync_get_outputbuffer]
-    // 格式变化后只重试一次，避免递归重入同一个 shared_mutex；持续变化由下次轮询继续处理。
+    // 格式变化后只重试一次，避免递归重入同一个shared_mutex；持续变化由下次轮询继续处理。
     for (uint32_t retry = 0; retry < OUTPUT_BUFFER_QUERY_RETRY_COUNT; ++retry) {
     // [EndExclude encoder_sync_get_outputbuffer]
         const int32_t ret = OH_VideoEncoder_QueryOutputBuffer(encoder_, &info.bufferIndex, timeoutUs);
@@ -451,7 +451,7 @@ OH_AVBuffer *VideoEncoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeout
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, nullptr, "Query input buffer failed, ret: %{public}d", ret);
     OH_AVBuffer *buffer = OH_VideoEncoder_GetInputBuffer(encoder_, info.bufferIndex);
     CHECK_AND_RETURN_RET_LOG(buffer != nullptr, nullptr, "Input buffer is null");
-    // Buffer 和 bufferIndex 必须成对保存，后续 PushInputBuffer 会使用同一个索引归还给编码器。
+    // buffer和bufferIndex必须成对保存，后续PushInputBuffer会使用同一个索引归还给编码器。
     info.buffer = buffer;
     /**
      * // 示例：待编码帧写入buffer。
@@ -516,7 +516,7 @@ int32_t VideoEncoder::Start()
 // [Start encoder_flush]
 int32_t VideoEncoder::Flush()
 {
-    // Flush 会使此前通过回调或同步查询取得的 Buffer 索引失效，调用方需先结束对这些 Buffer 的访问。
+    // Flush会使此前通过回调或同步查询取得的buffer索引失效，调用方需先结束对这些buffer的访问。
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_Flush(encoder_);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
@@ -528,7 +528,7 @@ int32_t VideoEncoder::Flush()
 // [Start encoder_reset]
 int32_t VideoEncoder::Reset()
 {
-    // Reset 会丢弃当前配置与缓存，编码器回到初始状态；不能将其当作可直接继续编码的 Flush 使用。
+    // Reset会丢弃当前配置与缓存，编码器回到初始状态；不能将其当作可直接继续编码的Flush使用。
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_Reset(encoder_);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
@@ -540,7 +540,7 @@ int32_t VideoEncoder::Reset()
 // [Start encoder_setparameter]
 int32_t VideoEncoder::SetParameter(OH_AVFormat *format)
 {
-    // 参数对象由调用方创建和销毁。本方法仅在编码器已启动期间转交参数，不保存 format 指针。
+    // 参数对象由调用方创建和销毁。本方法仅在编码器已启动期间转交参数，不保存format指针。
     CHECK_AND_RETURN_RET_LOG(format != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Parameter format is null");
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_SetParameter(encoder_, format);
@@ -553,7 +553,7 @@ int32_t VideoEncoder::SetParameter(OH_AVFormat *format)
 // [Start encoder_register_parameter_callback]
 int32_t VideoEncoder::RegisterParameterCallback(OH_VideoEncoder_OnNeedInputParameter callback, void *userData)
 {
-    // 该回调仅适用于 surface 编码。userData 属于业务侧，必须在编码器停止回调前保持有效，避免异步回调访问悬空地址。
+    // 该回调仅适用于surface编码。userData属于业务侧，必须在编码器停止回调前保持有效，避免异步回调访问悬空地址。
     CHECK_AND_RETURN_RET_LOG(callback != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input parameter callback is null");
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_RegisterParameterCallback(encoder_, callback, userData);
@@ -567,7 +567,7 @@ int32_t VideoEncoder::RegisterParameterCallback(OH_VideoEncoder_OnNeedInputParam
 // 送入编码输入队列进行编码，将填充好图像数据的buffer推送给编码器。
 int32_t VideoEncoder::PushInputBuffer(CodecBufferInfo &info)
 {
-    // GetInputBuffer 返回的 buffer 只在归还给 codec 前有效；空指针不可传给 OH_AVBuffer_SetBufferAttr。
+    // GetInputBuffer返回的buffer只在归还给codec前有效；空指针不可传给OH_AVBuffer_SetBufferAttr。
     CHECK_AND_RETURN_RET_LOG(info.buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Input buffer is null");
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
 
@@ -582,7 +582,7 @@ int32_t VideoEncoder::PushInputBuffer(CodecBufferInfo &info)
 // [Start encoder_push_input_parameter]
 int32_t VideoEncoder::PushInputParameter(uint32_t bufferIndex)
 {
-    // 参数索引来自 RegisterParameterCallback；不能使用普通输入 Buffer 的索引替代。
+    // 参数索引来自RegisterParameterCallback；不能使用普通输入buffer的索引替代。
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
     const int32_t ret = OH_VideoEncoder_PushInputParameter(encoder_, bufferIndex);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
@@ -620,7 +620,7 @@ int32_t VideoEncoder::NotifyEndOfStream()
 // [Start encoder_stop]
 int32_t VideoEncoder::Stop()
 {
-    // Stop 前先清除缓存，确保已排队但尚未输出的编码数据不会落入下一次 Start。
+    // Stop前先清除缓存，确保已排队但尚未输出的编码数据不会落入下一次Start。
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
 
     int32_t ret = OH_VideoEncoder_Flush(encoder_);
@@ -637,7 +637,7 @@ int32_t VideoEncoder::Stop()
 int32_t VideoEncoder::Release()
 {
     if (encoder_ != nullptr) {
-        // Destroy 是编码器句柄的最终释放点。销毁后立即置空，避免后续调用继续使用失效句柄。
+        // Destroy是编码器句柄的最终释放点。销毁后立即置空，避免后续调用继续使用失效句柄。
         const int32_t ret = OH_VideoEncoder_Destroy(encoder_);
         encoder_ = nullptr;
         CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
@@ -662,7 +662,7 @@ OH_AVFormat *VideoEncoder::GetInputDescription()
 int32_t VideoEncoder::IsValid(bool &isValid)
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
-    // 先置为 false，确保底层查询失败时调用方不会误用上一次查询留下的结果。
+    // 先置为false，确保底层查询失败时调用方不会误用上一次查询留下的结果。
     isValid = false;
     const int32_t ret = OH_VideoEncoder_IsValid(encoder_, &isValid);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
@@ -708,8 +708,8 @@ int32_t VideoEncoder::Configure(const SampleInfo &sampleInfo)
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_PROFILE, sampleInfo.video.hevcProfile);
     OH_AVFormat_SetIntValue(format, OH_MD_KEY_I_FRAME_INTERVAL, sampleInfo.video.iFrameInterval);
     // [StartExclude encoder_configure]
-    // B 帧间隔保持编码器默认值。部分设备没有暴露 VIDEO_ENCODER_B_FRAME 能力，
-    // 对该可选 Key 做查询或赋值可能产生能力告警，甚至让原本可用的录制配置被拒绝。
+    // B帧间隔保持编码器默认值。部分设备没有暴露VIDEO_ENCODER_B_FRAME能力，
+    // 对该可选Key做查询或赋值可能产生能力告警，甚至让原本可用的录制配置被拒绝。
     if (!SetOptionalFormatFeatures(format, sampleInfo)) {
         OH_AVFormat_Destroy(format);
         return AVCODEC_SAMPLE_ERR_ERROR;
