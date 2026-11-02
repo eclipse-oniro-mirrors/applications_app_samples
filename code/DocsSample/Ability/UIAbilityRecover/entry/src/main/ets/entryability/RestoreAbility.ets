@@ -84,7 +84,7 @@ export default class RestoreAbility extends UIAbility {
     } else if (draft !== '') {
       wantParam[KEY_RESTORE_DRAFT] = draft;
     }
-    // 深栈补推：保存当前 Navigation 路径快照（系统只自动恢复栈顶前 2 页）
+    // 深栈补推：保存当前 Navigation 路径快照（自动恢复不保证覆盖到深层级）
     const navSnapshot = AppStorage.get<string>(KEY_NAV_SNAPSHOT);
     if (navSnapshot !== undefined) {
       wantParam[KEY_RESTORE_NAV_PATH] = navSnapshot;

@@ -41,7 +41,7 @@ struct RestoreIndex {
 
   // [Start deep_stack_replay_timing]
   onPageShow(): void {
-    // 深栈补推时机：首页 onPageShow——此时系统已自动恢复 Navigation 栈顶前 2 页并完成渲染。
+    // 深栈补推时机：首页 onPageShow——此时系统页面栈恢复已完成、页面已渲染。
     // 禁止在 loadContent 回调中补推（系统栈恢复尚未执行，会与系统恢复互相冲突）。
     // 若首页有"自动跳转广告页/闪屏页"等逻辑，恢复启动这一跳必须跳过，否则会把恢复出来的栈顶页挤掉。
     this.replayDeepStack();
@@ -49,7 +49,7 @@ struct RestoreIndex {
   // [End deep_stack_replay_timing]
 
   // [Start deep_stack_replay]
-  /** 深栈补推：系统只自动恢复栈顶前 2 页，更深层级按保存的路径快照逐层补推。 */
+  /** 深栈补推：与系统已恢复的页面对齐后，按保存的路径快照补齐缺失的更深层级。 */
   private replayDeepStack(): void {
     const navPath = AppStorage.get<string>(KEY_RESTORE_NAV_PATH);
     if (navPath === undefined) {
@@ -58,8 +58,9 @@ struct RestoreIndex {
     AppStorage.delete(KEY_RESTORE_NAV_PATH);
     try {
       const names: string[] = JSON.parse(navPath) as string[];
-      for (let i = 2; i < names.length; i++) {
-        // 补推失败则停在已恢复页，不白屏
+      const current: string[] = this.pathStack.getAllPathName();
+      // 从系统已恢复的层数起逐层补齐；补推失败则停在已恢复页，不白屏
+      for (let i = current.length; i < names.length; i++) {
         this.pathStack.pushPathByName(names[i], {} as Record<string, Object>);
       }
     } catch (e) {
