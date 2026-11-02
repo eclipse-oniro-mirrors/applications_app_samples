@@ -6,6 +6,18 @@ import downloadFlowTest from './DownloadFlow.test';
 import errorUtilTest from './ErrorUtil.test';
 import formatUtilTest from './FormatUtil.test';
 import logStoreTest from './LogStore.test';
+import deviceProfileMatrixTest from './DeviceProfileMatrix.test';
+import formatUtilMatrixTest from './FormatUtilMatrix.test';
+import logStoreMatrixTest from './LogStoreMatrix.test';
+import downloadFlowMatrixTest from './DownloadFlowMatrix.test';
+import errorUtilMatrixTest from './ErrorUtilMatrix.test';
+import demoLogicMatrixTest from './DemoLogicMatrix.test';
+import constantsAndThemeMatrixTest from './ConstantsAndThemeMatrix.test';
+import abilityJumpTest from './AbilityJump.test';
+import sheetFlowTest from './SheetFlow.test';
+import prefsStoreTest from './PrefsStore.test';
+import enrichmentDeviceTest from './EnrichmentDevice.test';
+import indexUiTest from './IndexUi.test';
 
 export default function testsuite() {
   atomicServiceComponentsTest();
@@ -16,4 +28,16 @@ export default function testsuite() {
   formatUtilTest();
   errorUtilTest();
   constantsAndThemeTest();
+  deviceProfileMatrixTest();
+  formatUtilMatrixTest();
+  logStoreMatrixTest();
+  downloadFlowMatrixTest();
+  errorUtilMatrixTest();
+  demoLogicMatrixTest();
+  constantsAndThemeMatrixTest();
+  abilityJumpTest();
+  sheetFlowTest();
+  prefsStoreTest();
+  enrichmentDeviceTest();
+  indexUiTest();
 }

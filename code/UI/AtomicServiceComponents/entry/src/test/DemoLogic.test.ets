@@ -39,7 +39,7 @@ export default function demoLogicTest() {
     // 按分类过滤时只返回该分类的条目；空分类与"全部"等价
     it('filterDemos_filtersByCategory', 0, () => {
       const result = filterDemos(DEMO_ITEMS, '', '能力');
-      expect(result.length).assertEqual(3);
+      expect(result.length).assertEqual(5);
       for (const item of result) {
         expect(item.category).assertEqual('能力');
       }
@@ -56,7 +56,7 @@ export default function demoLogicTest() {
 
     // 关键字可以命中分类名本身（"容器"/"交互"命中对应分类的全部条目）
     it('filterDemos_matchesCategoryKeyword', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, '交互', '全部').length).assertEqual(2);
+      expect(filterDemos(DEMO_ITEMS, '交互', '全部').length).assertEqual(3);
       expect(filterDemos(DEMO_ITEMS, '容器', '全部').length).assertEqual(1);
     });
 
@@ -114,7 +114,7 @@ export default function demoLogicTest() {
 
     // 目录固定 6 项，key 齐全，且每项的标题/副标题/分类都非空（卡片渲染依赖三个字段）
     it('catalog_hasSixDemoItems', 0, () => {
-      expect(DEMO_ITEMS.length).assertEqual(6);
+      expect(DEMO_ITEMS.length).assertEqual(9);
       const keys: string[] = DEMO_ITEMS.map((item) => item.key);
       expect(keys.includes('navigation')).assertTrue();
       expect(keys.includes('search')).assertTrue();
@@ -137,7 +137,7 @@ export default function demoLogicTest() {
         expect(unique.includes(key)).assertFalse();
         unique.push(key);
       }
-      expect(unique.length).assertEqual(6);
+      expect(unique.length).assertEqual(9);
     });
 
     // 每个 key 都必须能通过 isRouteKey 校验，保证 pageMap 全覆盖
@@ -160,8 +160,8 @@ export default function demoLogicTest() {
     // 容器/交互/能力三组的条目数固定为 1/2/3
     it('catalog_containsSingleColumnAndInteractiveGroups', 0, () => {
       expect(filterDemos(DEMO_ITEMS, '', '容器').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, '', '交互').length).assertEqual(2);
-      expect(filterDemos(DEMO_ITEMS, '', '能力').length).assertEqual(3);
+      expect(filterDemos(DEMO_ITEMS, '', '交互').length).assertEqual(3);
+      expect(filterDemos(DEMO_ITEMS, '', '能力').length).assertEqual(5);
     });
   });
 }

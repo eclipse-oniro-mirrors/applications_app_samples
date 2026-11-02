@@ -2,7 +2,7 @@
 
 ## 介绍
 
-本示例演示 HarmonyOS / OpenHarmony ArkUI 提供的原子化服务高级组件。工程以 `AtomicServiceNavigation` 作为页面根容器，首页提供组件目录与搜索入口，六个组件分别有独立的演示页；所有交互与生命周期事件写入统一日志（hilog + 页面内日志面板），布局按设备形态与断点自适应。
+本示例演示 HarmonyOS / OpenHarmony ArkUI 提供的原子化服务高级组件。工程以 `AtomicServiceNavigation` 作为页面根容器，首页提供组件目录与搜索入口；六个原子化服务组件与三个通用场景（应用间跳转、半模态、首选项）分别有独立的演示页；所有交互与生命周期事件写入统一日志（hilog + 页面内日志面板），布局按设备形态与断点自适应。
 
 示例使用以下组件（完整包名与文档链接）：
 
@@ -19,18 +19,19 @@
 
 | Kit | 使用的模块 | 文档 |
 | --- | --- | --- |
-| `@kit.AbilityKit` | `@ohos.app.ability.UIAbility`、`@ohos.app.ability.common` | [链接](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-uiAbility.md) |
+| `@kit.AbilityKit` | `@ohos.app.ability.UIAbility`、`@ohos.app.ability.common`、`@ohos.bundle.bundleManager` | [链接](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-uiAbility.md) |
+| `@kit.ArkData` | `@ohos.data.preferences` | [链接](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/js-apis-data-preferences.md) |
 | `@kit.CoreFileKit` | `@ohos.file.fs`、`@ohos.file.picker` | [链接](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-file-fs.md) |
 | `@kit.BasicServicesKit` | `@ohos.deviceInfo`、`@ohos.base`（BusinessError） | [链接](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-device-info.md) |
 | `@kit.PerformanceAnalysisKit` | `@ohos.hilog` | [链接](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/js-apis-hilog.md) |
 
 主要功能：
 
-- 六个组件各有独立演示页，覆盖标题栏 / 渐变背景 / 分栏切换、搜索与选择、页签切换守卫、本地 H5 与控制器、文件下载、半屏拉起；
+- 六个组件与三个通用场景各有独立演示页，覆盖标题栏 / 渐变背景 / 分栏切换、搜索与选择、页签切换守卫、本地 H5 与控制器、文件下载、半屏拉起，以及应用间跳转、`bindSheet` 半模态与 `preferences` 持久化；
 - 首页支持关键字搜索与分类过滤，组件卡片和搜索结果均可点击进入对应演示页；
 - 统一日志：同一份事件同时写入 hilog 与页面内日志面板，WARN / ERROR 分级标注；
 - 按 `deviceType` 与 display 尺寸构建布局 profile，断点切换时重建布局，Tab / Web 高度随视口推导并夹取；
-- 89 个本地纯逻辑用例 + 89 个开发板用例，已在 RK3568 开发板（OpenHarmony 7.0.0.46 / API 26）上验证通过。
+- 109 个本地纯逻辑用例 + 336 个开发板用例，覆盖组件形态 × 断点、格式化边界、日志容量与级别、下载状态迁移、跳转错误码与超时、高度分档、首选项裁剪与落盘、关键字过滤与色板常量等维度；验证设备为 RK3568（OpenHarmony 7.0.0.46 / API 26）。
 
 ## 效果预览
 
@@ -49,6 +50,9 @@
    - **AtomicServiceWeb**：在本地两页之间跳转，使用控制器前进 / 后退 / 刷新，观察按 25% 分档的进度日志；
    - **DownloadFileButton**：点击下载按钮，手机 / 平板 / 2in1 走 `DocumentViewPicker`，开发板直接写入沙箱并显示真实路径；
    - **HalfScreenLaunchComponent**：使用占位 appId，点击后进入 `onError` 打桩路径，页面显示错误码与“属预期”说明；
+   - **应用间跳转**：选择系统设置、本应用或未安装应用，观察成功、拒绝（如 16000001）与 3 秒超时三类结果；
+   - **半模态面板**：打开 `bindSheet`，拖动切换半屏 / 全屏档位，切换 CENTER / POPUP 样式与关闭按钮显隐，关闭原因写入日志；
+   - **首选项存储**：输入文本后写入并 flush，读取、删除或清空，重启应用后仍可恢复已保存内容；
 4. 每个演示页底部的 `LogPanel` 显示本页事件，首页显示全部最近 30 条，支持一键清空；
 5. 通过命令行查看全量日志：
 
@@ -64,10 +68,10 @@ export DEVECO_SDK_HOME="<DevEco Studio>/sdk"
   assembleHap --mode module -p product=default --no-daemon
 ```
 
-未配置签名时产物为 `entry/build/default/outputs/default/entry-default-unsigned.hap`。安装到设备前需完成签名：在 DevEco Studio 的 `File > Project Structure > Signing Configs` 中启用自动签名后直接运行，或在命令行构建后使用自己的签名材料签名，再执行：
+未配置签名时产物为 `entry/build/default/outputs/default/entry-default-unsigned.hap`。本地开发使用 SDK 默认签名即可（无需自行生成证书，仓库内不包含任何签名材料）：在 DevEco Studio 的 `File > Project Structure > Signing Configs` 中启用自动签名后直接运行。启用自动签名后：
 
 ```bash
-hdc install -r <已签名 HAP>
+hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
 hdc shell aa start -a EntryAbility -b com.samples.atomicservicecomponents
 ```
 
@@ -96,11 +100,11 @@ AtomicServiceComponents
 │   │   ├── components                        LogPanel（按 source 过滤）、DemoPageScaffold
 │   │   ├── pages
 │   │   │   ├── Index.ets                     AtomicServiceNavigation 外壳与首页
-│   │   │   └── demos                         六个组件的演示页
+│   │   │   └── demos                         九个场景的演示页
 │   │   └── entryability / entrybackupability 生命周期与备份扩展
 │   └── resources/rawfile                     AtomicServiceWeb 使用的本地 H5 页面
-├── entry/src/test                            本地纯逻辑单测（8 个文件，89 个用例）
-├── entry/src/ohosTest                        开发板侧测试（8 个套件，89 个用例）
+├── entry/src/test                            本地纯逻辑单测（11 个文件，109 个用例）
+├── entry/src/ohosTest                        开发板侧测试（19 个套件，336 个用例）
 ├── docs/screenshots                          效果预览截图
 ├── ohosTest.md                               设备侧测试用例归档
 └── README.md
@@ -111,10 +115,10 @@ AtomicServiceComponents
 ### 1. 应用入口与导航外壳
 
 - [`EntryAbility.ets`](entry/src/main/ets/entryability/EntryAbility.ets)：应用入口，记录生命周期、窗口阶段与配置变化日志，加载首页；
-- [`Index.ets`](entry/src/main/ets/pages/Index.ets)：使用 `AtomicServiceNavigation` 作为根容器，绑定 `NavPathStack`、标题预设、渐变背景参数、Stack / Split 模式与 `hideTitleBar`；`pageMap` 将路由 key 映射为 `NavDestination` 并挂载六个演示页；
+- [`Index.ets`](entry/src/main/ets/pages/Index.ets)：使用 `AtomicServiceNavigation` 作为根容器，绑定 `NavPathStack`、标题预设、渐变背景参数、Stack / Split 模式与 `hideTitleBar`；`pageMap` 将路由 key 映射为 `NavDestination` 并挂载九个演示页；
 - 首页内容区使用 `GridRow` / `GridCol` 按布局 profile 的列数排布组件卡片，顶部嵌入 `AtomicServiceSearch` 实现关键字与分类过滤。
 
-### 2. 六个组件演示页
+### 2. 组件与场景演示页
 
 | 组件 | 演示页 | 关键实现 |
 | --- | --- | --- |
@@ -124,6 +128,9 @@ AtomicServiceComponents
 | `AtomicServiceWeb` | [`WebDemo.ets`](entry/src/main/ets/pages/demos/WebDemo.ets) | 加载本地 `rawfile/index.html`、`page2.html`，控制器前进/后退/刷新，进度按 25% 分档记录 |
 | `DownloadFileButton` | [`DownloadDemo.ets`](entry/src/main/ets/pages/demos/DownloadDemo.ets) | 切换图标与排列方式；按形态选择 `DocumentViewPicker` 或沙箱写入 |
 | `HalfScreenLaunchComponent` | [`HalfScreenDemo.ets`](entry/src/main/ets/pages/demos/HalfScreenDemo.ets) | 以占位 appId 挂载组件，展示 `onError` 降级路径与错误码 |
+| 应用间跳转 | [`CrossAbilityDemo.ets`](entry/src/main/ets/pages/demos/CrossAbilityDemo.ets) | `UIAbilityContext.startAbility` + 显式 Want；成功、拒绝（错误码提示）与 3 秒超时三类结果，attempt token 丢弃迟到回调 |
+| 半模态面板 | [`SheetDemo.ets`](entry/src/main/ets/pages/demos/SheetDemo.ets) | `bindSheet` 双向绑定显隐，半屏 / 全屏两档 detents，CENTER / POPUP 样式与关闭按钮显隐，`onHeightDidChange` 高度分档 |
+| 首选项存储 | [`PreferencesDemo.ets`](entry/src/main/ets/pages/demos/PreferencesDemo.ets) | `preferences` 写入 / 读取 / 删除 / 清空并 flush，读取次数随内容一起持久化 |
 
 ### 3. 设备形态与断点适配
 
@@ -142,36 +149,42 @@ Tab / Web 高度随视口推导并夹取：web `clamp(0.55×h, 320, 640)`，tabs
 
 [`Logger.ets`](entry/src/main/ets/utils/Logger.ets) 提供 `debug/info/warn/error(source, tag, detail)`：始终写 hilog（domain `0x0000`，tag `AtomicServiceComponents`，格式 `[source][LEVEL] tag: detail`，参数统一 `%{public}s`），同时以新数组整体替换写入 `AppStorage('appLogs')`，容量 200。[`LogPanel.ets`](entry/src/main/ets/components/LogPanel.ets) 按 `source` 过滤展示最近 20 条，首页展示全部最近 30 条，支持一键清空，WARN 橙色、ERROR 红色标注。
 
-`source` 取值为 `首页 / Navigation / Search / Tabs / Web / Download / HalfScreen / Ability`；`build()` 内不记日志，Web 进度按 25% 分档，超时、越界、降级、导航栈为空等异常分支记 WARN / ERROR。
+`source` 取值为 `首页 / Navigation / Search / Tabs / Web / Download / HalfScreen / Jump / Sheet / Prefs / Ability`；`build()` 内不记日志，Web 进度按 25% 分档，超时、越界、降级、导航栈为空等异常分支记 WARN / ERROR。
 
 ### 5. 下载与选择器
 
 [`DownloadFlow.ets`](entry/src/main/ets/model/DownloadFlow.ets) 以纯函数描述下载目标判定、attempt token、超时降级与状态迁移；[`PickerUtil.ets`](entry/src/main/ets/utils/PickerUtil.ets) 封装 `DocumentViewPicker` 的 `DOWNLOAD` 模式，3 秒无响应时丢弃迟到回调并降级；[`FileUtil.ets`](entry/src/main/ets/utils/FileUtil.ets) 负责向传入的 `filesDir` 写入文本。`DownloadFileButton` 本身只提供统一样式，点击行为由页面 `.onClick` 调用上述逻辑实现。
 
-### 6. 测试与验证
+### 6. 跳转、半模态与首选项
 
-本地单测位于 `entry/src/test/`，按模块拆分为 8 个文件、共 89 个用例，通过 `List.test.ets` 聚合：
+[`AbilityJump.ets`](entry/src/main/ets/model/AbilityJump.ets) 定义跳转目标、状态文案与错误码提示，页面为每次请求生成 attempt token，3 秒内无结果判定超时，迟到的成功 / 失败回调按 token 丢弃。[`SheetFlow.ets`](entry/src/main/ets/model/SheetFlow.ets) 负责样式文案、重复打开拦截与拖拽高度分档（<300 / 300–600 / ≥600vp）。[`PrefsStore.ets`](entry/src/main/ets/model/PrefsStore.ets) 提供输入裁剪（80 字符）、空白判定、计数推进与摘要文案，[`PrefsUtil.ets`](entry/src/main/ets/utils/PrefsUtil.ets) 封装 `preferences.getPreferencesSync`、`putSync` / `deleteSync` / `clearSync` 与 `flush`。
+
+### 7. 测试与验证
+
+本地单测位于 `entry/src/test/`，按模块拆分为 11 个文件、共 109 个用例，通过 `List.test.ets` 聚合：
 
 ```bash
 "<DevEco Studio>/tools/node/node" "<DevEco Studio>/tools/hvigor/bin/hvigorw.js" \
   test --mode module -p module=entry@default -p product=default --no-daemon
 ```
 
-结果文件：`entry/.test/default/intermediates/test/coverage_data/test_result.txt`，本机结果 `Tests run: 89, Failure: 0, Error: 0, Pass: 89`。
+结果文件：`entry/.test/default/intermediates/test/coverage_data/test_result.txt`，本机结果 `Tests run: 109, Failure: 0, Error: 0, Pass: 109`。
 
-开发板测试位于 `entry/src/ohosTest/ets/test/`，8 个套件、共 89 个用例，除纯逻辑覆盖外还包含真实设备集成用例：沙箱写入/读回/删除、`Logger` → `AppStorage` 往返、打包 `rawfile` 资源校验、真实 display profile 与选择器能力判定。
+开发板测试位于 `entry/src/ohosTest/ets/test/`，19 个套件、共 336 个用例：纯逻辑用例覆盖各模型的取值与边界；设备集成用例覆盖沙箱写入/读回/删除、`Logger` → `AppStorage` 往返、打包 `rawfile` 资源校验、真实 display profile 与选择器能力判定、`preferences` 落盘与重开读取、安装包名称与跳转目标一致性；组合用例把「形态 × 断点」「格式化边界」「日志级别 × 容量 × 过滤」「attempt × 超时 × 状态」「错误码 × 提示」「关键字 × 分类」「色板 × 常量」逐条展开为显式用例；`IndexUi` 通过 `@kit.TestKit` 的 `Driver` 验证三个通用场景可进入、半模态可开关、首选项可写入。每条用例带完整 `@tc` 注释，断言直接落在真实实现上。
 
 ```bash
 "<DevEco Studio>/tools/node/node" "<DevEco Studio>/tools/hvigor/bin/hvigorw.js" \
   assembleHap --mode module -p module=entry@ohosTest -p product=default --no-daemon
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 hdc shell aa test -b com.samples.atomicservicecomponents -m entry_test \
-  -s unittest OpenHarmonyTestRunner -s timeout 150000
+  -s unittest OpenHarmonyTestRunner -s timeout 300000
 ```
 
-本机结果 `Tests run: 89, Failure: 0, Error: 0, Pass: 89`。
+开发板用例已在 RK3568（API 26）上通过上面的 `aa test` 命令全量执行，结果 `Tests run: 336, Failure: 0, Error: 0, Pass: 336`。
 
-### 7. dayu200 实机验证记录
+### 8. dayu200 实机验证记录
+
+以下为 dayu200 实机验证记录：
 
 - 首页：设备 profile 行、中央日志聚合（首页 30 条上限）、一键清空；
 - Navigation：标题预设切换、隐藏标题栏后的返回（导航栈判空修复）、Split 分栏（手动开启）、恢复默认回落到 `navSplitDefault=false`；
@@ -180,6 +193,9 @@ hdc shell aa test -b com.samples.atomicservicecomponents -m entry_test \
 - Web：本地页加载、进度分档日志（10%/70%/100%）、控制器刷新、JS SDK 未注入时 H5 状态区提示、高度 469vp；
 - Download：`pickerSupported=false` 降级写入沙箱，页面显示真实路径 `/data/storage/el2/base/haps/entry/files/atomic-service-demo-<时间>.txt`（204 B）；
 - HalfScreen：占位 appId 触发 `onError`（16000050 Internal error），页面与日志同时给出错误码和“属预期”说明；
+- 应用间跳转：系统设置目标实时拉起，未安装目标返回 16000001 并给出提示；
+- 半模态面板：半屏 / 全屏两档可拖动切换，`onHeightDidChange` 连续记录高度，按钮与拖拽关闭均触发 `onDisappear`；
+- 首选项存储：写入后 flush，重新进入页面与重启应用均能读回，删除与清空后落盘状态同步更新；
 - hilog 输出格式 `[Tabs][WARN] 拦截: ...` 与级别（I/W/E）符合预期。
 
 ## 相关权限
@@ -195,10 +211,10 @@ hdc shell aa test -b com.samples.atomicservicecomponents -m entry_test \
 | 项目 | 要求 |
 | --- | --- |
 | 开发环境 | DevEco Studio 6.1.1 |
-| SDK | 编译 SDK API 26（`targetSdkVersion 26.0.0`），`compatibleSdkVersion 6.1.1(24)` |
+| SDK | 编译 SDK API 26（`compileSdkVersion` / `targetSdkVersion` / `compatibleSdkVersion` 均为 `26.0.0`，`runtimeOS: OpenHarmony`） |
 | 系统版本 | OpenHarmony 7.0.0.46（API 26）及以上 |
-| 验证设备 | RK3568 开发板（`deviceType=default`）；`module.json5` 声明 `default / phone / tablet / 2in1` |
-| 签名 | 使用 DevEco Studio 自动签名；仓库中不包含签名配置、证书与密钥文件 |
+| 验证设备 | RK3568 开发板（`deviceType=default`）；`module.json5` 声明 `default / tablet` |
+| 签名 | 使用 SDK 默认签名或 DevEco Studio 自动签名即可本地调试；仓库不包含签名证书、私钥与口令 |
 
 其他限制：
 
@@ -209,7 +225,7 @@ hdc shell aa test -b com.samples.atomicservicecomponents -m entry_test \
 - **AtomicServiceSearch**：从 API 18 开始提供；选择区和功能区最多各两个操作项，示例使用辅助 / 独立各一个。
 - **AtomicServiceNavigation 系统日志**：OpenHarmony 7.0.0.46 首次渲染会打印 `State variable 'navPathStack' has changed during render!`，官方最小示例同样复现，属系统组件自身行为，页面功能正常。
 - **平板 / 2in1 适配**：无实机验证，适配逻辑由断点单测覆盖边界（599 / 600 / 839 / 840）；实机启动日志会输出真实 profile 便于核对。
-- **签名配置**：工程不包含签名配置与证书文件；在本地启用自动签名后，请勿将相关字段提交到仓库。
+- **签名配置**：仓库内 `build-profile.json5` 不包含签名配置，本地签名由 DevEco Studio 自动生成，不要将个人证书材料提交到仓库。
 
 ## 下载
 

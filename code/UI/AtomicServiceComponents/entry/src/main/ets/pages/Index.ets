@@ -13,6 +13,9 @@ import { TabsDemo } from './demos/TabsDemo';
 import { WebDemo } from './demos/WebDemo';
 import { DownloadDemo } from './demos/DownloadDemo';
 import { HalfScreenDemo } from './demos/HalfScreenDemo';
+import { CrossAbilityDemo } from './demos/CrossAbilityDemo';
+import { SheetDemo } from './demos/SheetDemo';
+import { PreferencesDemo } from './demos/PreferencesDemo';
 
 @Entry
 @Component
@@ -281,6 +284,21 @@ struct Index {
         HalfScreenDemo({ navPathStack: this.navPathStack })
       }
       .title('HalfScreenLaunchComponent')
+    } else if (name === RouteKey.JUMP) {
+      NavDestination() {
+        CrossAbilityDemo({ navPathStack: this.navPathStack })
+      }
+      .title('应用间跳转')
+    } else if (name === RouteKey.SHEET) {
+      NavDestination() {
+        SheetDemo({ navPathStack: this.navPathStack })
+      }
+      .title('半模态面板')
+    } else if (name === RouteKey.PREFS) {
+      NavDestination() {
+        PreferencesDemo({ navPathStack: this.navPathStack })
+      }
+      .title('首选项存储')
     }
   }
 

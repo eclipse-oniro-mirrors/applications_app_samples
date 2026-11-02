@@ -5,6 +5,9 @@ import deviceProfileTest from './DeviceProfile.test';
 import logStoreTest from './LogStore.test';
 import downloadFlowTest from './DownloadFlow.test';
 import appConstantsTest from './AppConstants.test';
+import abilityJumpTest from './AbilityJump.test';
+import sheetFlowTest from './SheetFlow.test';
+import prefsStoreTest from './PrefsStore.test';
 
 export default function testsuite() {
   demoLogicTest();
@@ -14,4 +17,7 @@ export default function testsuite() {
   logStoreTest();
   downloadFlowTest();
   appConstantsTest();
+  abilityJumpTest();
+  sheetFlowTest();
+  prefsStoreTest();
 }

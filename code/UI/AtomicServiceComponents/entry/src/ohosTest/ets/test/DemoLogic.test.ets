@@ -7,13 +7,13 @@ export default function demoLogicTest() {
     /**
      * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_DEMOLOGIC_0100
      * @tc.name demoItemsCatalogShape001
-     * @tc.desc Verify the demo catalog exposes six unique entries with non-empty fields and known categories
+     * @tc.desc Verify the demo catalog exposes nine unique entries with non-empty fields and known categories
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
     it('demoItems_catalogShape', 0, () => {
-      expect(DEMO_ITEMS.length).assertEqual(6);
+      expect(DEMO_ITEMS.length).assertEqual(9);
       const keys: string[] = DEMO_ITEMS.map((item: DemoItem) => item.key);
       for (const key of keys) {
         expect(keys.indexOf(key)).assertEqual(keys.lastIndexOf(key));
@@ -37,7 +37,7 @@ export default function demoLogicTest() {
       expect(filterDemos(DEMO_ITEMS, 'web', '全部').length).assertEqual(1);
       expect(filterDemos(DEMO_ITEMS, 'WEB', '全部').length).assertEqual(1);
       expect(filterDemos(DEMO_ITEMS, '  web  ', '全部').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, '', '全部').length).assertEqual(6);
+      expect(filterDemos(DEMO_ITEMS, '', '全部').length).assertEqual(9);
       expect(filterDemos(DEMO_ITEMS, '不存在的组件', '全部').length).assertEqual(0);
     });
 
@@ -64,10 +64,10 @@ export default function demoLogicTest() {
      * @tc.level Level 1
      */
     it('filterDemos_categoryBuckets', 0, () => {
-      expect(filterDemos(DEMO_ITEMS, '', '').length).assertEqual(6);
+      expect(filterDemos(DEMO_ITEMS, '', '').length).assertEqual(9);
       expect(filterDemos(DEMO_ITEMS, '', '容器').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, '', '交互').length).assertEqual(2);
-      expect(filterDemos(DEMO_ITEMS, '', '能力').length).assertEqual(3);
+      expect(filterDemos(DEMO_ITEMS, '', '交互').length).assertEqual(3);
+      expect(filterDemos(DEMO_ITEMS, '', '能力').length).assertEqual(5);
       expect(filterDemos(DEMO_ITEMS, '', '未知分类').length).assertEqual(0);
     });
 
@@ -95,10 +95,10 @@ export default function demoLogicTest() {
      */
     it('filterDemos_doesNotMutateInput', 0, () => {
       const result = filterDemos(DEMO_ITEMS, '', '交互');
-      expect(result.length).assertEqual(2);
+      expect(result.length).assertEqual(3);
       result.pop();
-      expect(result.length).assertEqual(1);
-      expect(DEMO_ITEMS.length).assertEqual(6);
+      expect(result.length).assertEqual(2);
+      expect(DEMO_ITEMS.length).assertEqual(9);
     });
 
     /**

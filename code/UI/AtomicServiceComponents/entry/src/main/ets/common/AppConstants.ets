@@ -13,12 +13,16 @@ export enum RouteKey {
   TABS = 'tabs',
   WEB = 'web',
   DOWNLOAD = 'download',
-  HALF_SCREEN = 'halfScreen'
+  HALF_SCREEN = 'halfScreen',
+  JUMP = 'jump',
+  SHEET = 'sheet',
+  PREFS = 'prefs'
 }
 
 export function isRouteKey(value: string): boolean {
   return value === RouteKey.NAVIGATION || value === RouteKey.SEARCH || value === RouteKey.TABS ||
-    value === RouteKey.WEB || value === RouteKey.DOWNLOAD || value === RouteKey.HALF_SCREEN;
+    value === RouteKey.WEB || value === RouteKey.DOWNLOAD || value === RouteKey.HALF_SCREEN ||
+    value === RouteKey.JUMP || value === RouteKey.SHEET || value === RouteKey.PREFS;
 }
 
 export const DEFAULT_NAV_TITLE: string = '原子化服务组件';
@@ -26,6 +30,7 @@ export const NAV_TITLE_PRESETS: string[] = ['原子化服务组件', '组件演�
 
 export const TAB_COUNT: number = 3;
 export const PICKER_TIMEOUT_MS: number = 3000;
+export const JUMP_TIMEOUT_MS: number = 3000;
 
 export const LOG_STORE_CAPACITY: number = 200;
 export const PAGE_LOG_LIMIT: number = 20;

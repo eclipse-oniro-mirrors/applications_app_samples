@@ -29,13 +29,13 @@ export default function atomicServiceComponentsTest() {
     /**
      * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_COMPONENTS_0100
      * @tc.name demoCatalogComplete001
-     * @tc.desc Verify the home catalog exposes six demo entries with non-empty fields and known categories
+     * @tc.desc Verify the home catalog exposes nine demo entries with non-empty fields and known categories
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
     it('demoCatalog_complete', 0, () => {
-      expect(DEMO_ITEMS.length).assertEqual(6);
+      expect(DEMO_ITEMS.length).assertEqual(9);
       const keys: string[] = DEMO_ITEMS.map((item) => item.key);
       expect(keys.includes('navigation')).assertTrue();
       expect(keys.includes('search')).assertTrue();
@@ -43,6 +43,9 @@ export default function atomicServiceComponentsTest() {
       expect(keys.includes('web')).assertTrue();
       expect(keys.includes('download')).assertTrue();
       expect(keys.includes('halfScreen')).assertTrue();
+      expect(keys.includes('jump')).assertTrue();
+      expect(keys.includes('sheet')).assertTrue();
+      expect(keys.includes('prefs')).assertTrue();
       for (const item of DEMO_ITEMS) {
         expect(item.title.length > 0).assertTrue();
         expect(item.subtitle.length > 0).assertTrue();
@@ -61,7 +64,7 @@ export default function atomicServiceComponentsTest() {
     it('searchArea_filterWorks', 0, () => {
       expect(filterDemos(DEMO_ITEMS, 'web', '全部').length).assertEqual(1);
       expect(filterDemos(DEMO_ITEMS, '页签', '全部').length).assertEqual(1);
-      expect(filterDemos(DEMO_ITEMS, '', '交互').length).assertEqual(2);
+      expect(filterDemos(DEMO_ITEMS, '', '交互').length).assertEqual(3);
       expect(filterDemos(DEMO_ITEMS, '不存在的组件', '全部').length).assertEqual(0);
     });
 
@@ -294,7 +297,7 @@ export default function atomicServiceComponentsTest() {
     });
 
     /**
-     * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_COMPONENTS_1600
+     * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_COMPONENTS_1500
      * @tc.name webRawfilePage2Linked016
      * @tc.desc Verify the packaged rawfile page2.html exists and index.html links to it
      * @tc.size MediumTest
@@ -314,7 +317,7 @@ export default function atomicServiceComponentsTest() {
     });
 
     /**
-     * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_COMPONENTS_1500
+     * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_COMPONENTS_1600
      * @tc.name progressBucketAndNavStackDevice015
      * @tc.desc Verify progress bucketing and navigation stack pop rules on the real device
      * @tc.size MediumTest
