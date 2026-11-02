@@ -1,13 +1,18 @@
-/**
- * DialogModels 弹窗演示模型层
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * 纯逻辑封装，不依赖 UIContext，可被 ohosTest 设备测试覆盖：
- *  - DialogEventLog：弹窗生命周期事件簿记（打开/关闭/选中/勾选/错误），静态 format* 生成统一格式行
- *  - buildPrimaryButton / buildSecondaryButton：AdvancedDialogV2Button 默认样式封装
- *  - buildSheetInfos：SelectDialogV2 单选数据构造
- *  - InterstitialConfig：InterstitialDialogAction 的 DialogOptions 描述（UIContext 由页面注入）
- *  - ConfirmParams 等参数类：ComponentContent builder 载荷
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+ 
 import { AdvancedDialogV2Button, AdvancedDialogV2ButtonOptions } from '@kit.ArkUI';
 import { IconStyle, TitlePosition, BottomOffset } from '@kit.ArkUI';
 
@@ -196,4 +201,72 @@ export class CustomParams {
   primaryTitle: string = '';
   secondaryTitle: string = '';
   buttons: AdvancedDialogV2Button[] = [];
+}
+
+/** 场景元数据：id、中文标题、核心 API、分组 */
+export class ScenarioInfo {
+  id: number;
+  title: string;
+  api: string;
+  group: string;
+
+  constructor(id: number, title: string, api: string, group: string) {
+    this.id = id;
+    this.title = title;
+    this.api = api;
+    this.group = group;
+  }
+}
+
+/** 全部场景目录（1-14），供页面与测试共用 */
+export function listScenarios(): ScenarioInfo[] {
+  return [
+    new ScenarioInfo(1, '确认对话框', 'ConfirmDialogV2', 'DialogV2'),
+    new ScenarioInfo(2, '警告详情弹窗', 'AlertDialogV2', 'DialogV2'),
+    new ScenarioInfo(3, '单选列表弹窗', 'SelectDialogV2', 'DialogV2'),
+    new ScenarioInfo(4, '图示提示弹窗', 'TipsDialogV2', 'DialogV2'),
+    new ScenarioInfo(5, '加载弹窗', 'LoadingDialogV2', 'DialogV2'),
+    new ScenarioInfo(6, '自定义内容弹窗', 'CustomContentDialogV2', 'DialogV2'),
+    new ScenarioInfo(7, '气泡弹窗', 'PopoverDialogV2', 'DialogV2'),
+    new ScenarioInfo(8, '插屏弹窗', 'InterstitialDialogAction', 'Interstitial'),
+    new ScenarioInfo(9, '操作列表弹窗', 'showActionSheet', 'SystemPrompt'),
+    new ScenarioInfo(10, '日期选择弹窗', 'showDatePickerDialog', 'SystemPicker'),
+    new ScenarioInfo(11, '时间选择弹窗', 'showTimePickerDialog', 'SystemPicker'),
+    new ScenarioInfo(12, '文本选择弹窗', 'showTextPickerDialog', 'SystemPicker'),
+    new ScenarioInfo(13, '轻提示', 'openToast', 'SystemPrompt'),
+    new ScenarioInfo(14, '系统按钮弹窗', 'showDialog', 'SystemPrompt')
+  ];
+}
+
+/** 按 id 查场景；不存在返回 null */
+export function getScenario(id: number): ScenarioInfo | null {
+  const all: ScenarioInfo[] = listScenarios();
+  for (const item of all) {
+    if (item.id === id) {
+      return item;
+    }
+  }
+  return null;
+}
+
+function pad2(value: number): string {
+  return value < 10 ? `0${value}` : `${value}`;
+}
+
+/** 日期选择结果格式：YYYY-MM-DD */
+export function formatDateValue(date: Date): string {
+  const year: number = date.getFullYear();
+  const month: string = pad2(date.getMonth() + 1);
+  const day: string = pad2(date.getDate());
+  return `${year}-${month}-${day}`;
+}
+
+/** 时间选择结果格式：HH:mm */
+export function formatTimeValue(hour: number, minute: number): string {
+  return `${pad2(hour)}:${pad2(minute)}`;
+}
+
+/** 文本选择结果格式：index=n value=xxx */
+export function formatTextValue(value: string, index: number): string {
+  return `index=${index} value=${value}`;
 }

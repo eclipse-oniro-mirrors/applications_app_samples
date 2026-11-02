@@ -1,12 +1,18 @@
-/**
- * ChipModels 反馈组件业务模型
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * - TagItem/TagStore：标签数据仓库（增删、激活/禁用切换、转 ChipGroupV2ItemConfig）
- * - CounterLogic：计数逻辑（min/max 截断、步进累加，与 CounterV2 联动）
- * - ChipConfigFactory：ChipV2/ChipGroupV2/SegmentButtonV2 配置工厂（统一构建入口）
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 纯逻辑无 UI 依赖（仅配置工厂引用 kit 类型），全部可单元测试。
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+ 
 import { LogUtil } from './utils/LogUtil';
 import { ChipV2LabelConfig, ChipV2PrefixImageIconConfig, ChipGroupV2ItemConfig, SegmentButtonV2ItemOptions } from '@kit.ArkUI';
 

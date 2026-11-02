@@ -1,19 +1,27 @@
-/**
- * DialogsDemo 主页面
- * 展示：设备信息卡 / 8 个弹窗场景按钮 / 事件日志面板
- * 场景1-6：DialogV2 家族（ComponentContent + getPromptAction().openCustomDialog 呈现）
- * 场景7：PopoverDialogV2（直接内嵌组件树的气泡弹窗）
- * 场景8：InterstitialDialogAction 插屏弹窗（原子化服务弹框 API）
- * 布局适配：sm（<600vp）单栏上下；md/lg 双栏（左按钮右日志）
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+ 
 import {
   ComponentContent, AlertDialogV2, ConfirmDialogV2, SelectDialogV2, TipsDialogV2,
   LoadingDialogV2, CustomContentDialogV2, PopoverDialogV2, PopoverDialogV2Options,
-  InterstitialDialogAction, IconStyle, TitlePosition, BottomOffset
+  InterstitialDialogAction, IconStyle, TitlePosition, BottomOffset, ShowDialogSuccessResponse
 } from '@kit.ArkUI';
 import {
   DialogEventLog, InterstitialConfig, buildPrimaryButton, buildSecondaryButton, buildSheetInfos,
-  ConfirmParams, AlertParams, SelectParams, TipsParams, LoadingParams, CustomParams
+  ConfirmParams, AlertParams, SelectParams, TipsParams, LoadingParams, CustomParams,
+  formatDateValue, formatTimeValue, formatTextValue
 } from '../model/DialogModels';
 import { LogUtil } from '../model/utils/LogUtil';
 import { DeviceUtil, Breakpoint } from '../model/utils/DeviceUtil';
@@ -424,6 +432,148 @@ struct Index {
     }
   }
 
+  /** 场景9：ActionSheet 操作列表弹窗 */
+  private showActionSheet(): void {
+    this.activeScene = 9;
+    this.logEvent(9, DialogEventLog.formatOpen(9, '操作列表 ActionSheet'));
+    this.getUIContext().showActionSheet({
+      title: '文件操作',
+      subtitle: 'example.png · 2.4MB',
+      message: '选择要执行的操作',
+      autoCancel: true,
+      confirm: {
+        value: '取消',
+        action: (): void => {
+          this.logEvent(9, DialogEventLog.formatClose(9, '操作列表（取消）'));
+        }
+      },
+      cancel: (): void => {
+        this.logEvent(9, DialogEventLog.formatClose(9, '操作列表（点遮罩）'));
+      },
+      sheets: [
+        {
+          title: '重命名',
+          action: (): void => {
+            this.logEvent(9, `${DialogEventLog.formatClick(9)} → 重命名`);
+            this.logEvent(9, DialogEventLog.formatClose(9, '操作列表'));
+          }
+        },
+        {
+          title: '分享',
+          action: (): void => {
+            this.logEvent(9, `${DialogEventLog.formatClick(9)} → 分享`);
+            this.logEvent(9, DialogEventLog.formatClose(9, '操作列表'));
+          }
+        },
+        {
+          title: '删除',
+          action: (): void => {
+            this.logEvent(9, `${DialogEventLog.formatClick(9)} → 删除`);
+            this.logEvent(9, DialogEventLog.formatClose(9, '操作列表'));
+          }
+        }
+      ]
+    });
+  }
+
+  /** 场景10：DatePickerDialog 日期选择弹窗 */
+  private showDatePicker(): void {
+    this.activeScene = 10;
+    this.logEvent(10, DialogEventLog.formatOpen(10, '日期选择 DatePickerDialog'));
+    const now: Date = new Date();
+    const start: Date = new Date(now.getFullYear() - 1, 0, 1);
+    const end: Date = new Date(now.getFullYear() + 1, 11, 31);
+    this.getUIContext().showDatePickerDialog({
+      start: start,
+      end: end,
+      selected: now,
+      lunar: false,
+      onDateAccept: (value: Date): void => {
+        this.logEvent(10, `${DialogEventLog.formatClick(10)} → ${formatDateValue(value)}`);
+        this.logEvent(10, DialogEventLog.formatClose(10, '日期选择'));
+      },
+      onCancel: (): void => {
+        this.logEvent(10, DialogEventLog.formatClose(10, '日期选择（取消）'));
+      }
+    });
+  }
+
+  /** 场景11：TimePickerDialog 时间选择弹窗 */
+  private showTimePicker(): void {
+    this.activeScene = 11;
+    this.logEvent(11, DialogEventLog.formatOpen(11, '时间选择 TimePickerDialog'));
+    this.getUIContext().showTimePickerDialog({
+      selected: new Date(),
+      useMilitaryTime: true,
+      onAccept: (value: TimePickerResult): void => {
+        this.logEvent(11, `${DialogEventLog.formatClick(11)} → ${formatTimeValue(value.hour, value.minute)}`);
+        this.logEvent(11, DialogEventLog.formatClose(11, '时间选择'));
+      },
+      onCancel: (): void => {
+        this.logEvent(11, DialogEventLog.formatClose(11, '时间选择（取消）'));
+      }
+    });
+  }
+
+  /** 场景12：TextPickerDialog 文本选择弹窗 */
+  private showTextPicker(): void {
+    this.activeScene = 12;
+    this.logEvent(12, DialogEventLog.formatOpen(12, '文本选择 TextPickerDialog'));
+    this.getUIContext().showTextPickerDialog({
+      range: ['北京', '上海', '广州', '深圳'],
+      selected: 1,
+      onAccept: (value: TextPickerResult): void => {
+        const rawValue: string | string[] = value.value;
+        const rawIndex: number | number[] = value.index;
+        const text: string = typeof rawValue === 'string' ? rawValue : rawValue[0];
+        const index: number = typeof rawIndex === 'number' ? rawIndex : rawIndex[0];
+        this.logEvent(12, `${DialogEventLog.formatClick(12)} → ${formatTextValue(text, index)}`);
+        this.logEvent(12, DialogEventLog.formatClose(12, '文本选择'));
+      },
+      onCancel: (): void => {
+        this.logEvent(12, DialogEventLog.formatClose(12, '文本选择（取消）'));
+      }
+    });
+  }
+
+  /** 场景13：Toast 轻提示（openToast + closeToast） */
+  private showToast(): void {
+    this.activeScene = 13;
+    this.logEvent(13, DialogEventLog.formatOpen(13, '轻提示 Toast'));
+    this.getUIContext().getPromptAction().openToast({
+      message: '已保存到相册',
+      duration: 3000,
+      bottom: '80vp'
+    }).then((toastId: number): void => {
+      this.logEvent(13, `toastId=${toastId}`);
+      setTimeout((): void => {
+        this.getUIContext().getPromptAction().closeToast(toastId);
+        this.logEvent(13, DialogEventLog.formatClose(13, '轻提示'));
+      }, 1000);
+    }).catch((err: Error): void => {
+      this.logEvent(13, DialogEventLog.formatError(13, err.message));
+    });
+  }
+
+  /** 场景14：PromptAction.showDialog 系统按钮弹窗 */
+  private showSystemDialog(): void {
+    this.activeScene = 14;
+    this.logEvent(14, DialogEventLog.formatOpen(14, '系统按钮弹窗 showDialog'));
+    this.getUIContext().getPromptAction().showDialog({
+      title: '保存更改？',
+      message: '你有未保存的更改，是否保存后退出？',
+      buttons: [
+        { text: '不保存', color: '#666666' },
+        { text: '保存', color: '#007DFF' }
+      ]
+    }).then((result: ShowDialogSuccessResponse): void => {
+      this.logEvent(14, `${DialogEventLog.formatClick(14)} → index=${result.index}`);
+      this.logEvent(14, DialogEventLog.formatClose(14, '系统按钮弹窗'));
+    }).catch((err: Error): void => {
+      this.logEvent(14, DialogEventLog.formatError(14, err.message));
+    });
+  }
+
   @Builder
   buttonsArea() {
     Column({ space: 8 }) {
@@ -484,6 +634,48 @@ struct Index {
         .fontColor(this.activeScene === 8 ? '#FFFFFF' : '#182431')
         .onClick(() => {
           this.showInterstitial();
+        })
+      Button('场景9：ActionSheet 操作列表弹窗（多项操作/取消）')
+        .width('100%')
+        .backgroundColor(this.activeScene === 9 ? '#007DFF' : '#F1F3F5')
+        .fontColor(this.activeScene === 9 ? '#FFFFFF' : '#182431')
+        .onClick(() => {
+          this.showActionSheet();
+        })
+      Button('场景10：DatePickerDialog 日期选择弹窗')
+        .width('100%')
+        .backgroundColor(this.activeScene === 10 ? '#007DFF' : '#F1F3F5')
+        .fontColor(this.activeScene === 10 ? '#FFFFFF' : '#182431')
+        .onClick(() => {
+          this.showDatePicker();
+        })
+      Button('场景11：TimePickerDialog 时间选择弹窗')
+        .width('100%')
+        .backgroundColor(this.activeScene === 11 ? '#007DFF' : '#F1F3F5')
+        .fontColor(this.activeScene === 11 ? '#FFFFFF' : '#182431')
+        .onClick(() => {
+          this.showTimePicker();
+        })
+      Button('场景12：TextPickerDialog 文本选择弹窗')
+        .width('100%')
+        .backgroundColor(this.activeScene === 12 ? '#007DFF' : '#F1F3F5')
+        .fontColor(this.activeScene === 12 ? '#FFFFFF' : '#182431')
+        .onClick(() => {
+          this.showTextPicker();
+        })
+      Button('场景13：Toast 轻提示（openToast/closeToast）')
+        .width('100%')
+        .backgroundColor(this.activeScene === 13 ? '#007DFF' : '#F1F3F5')
+        .fontColor(this.activeScene === 13 ? '#FFFFFF' : '#182431')
+        .onClick(() => {
+          this.showToast();
+        })
+      Button('场景14：showDialog 系统按钮弹窗')
+        .width('100%')
+        .backgroundColor(this.activeScene === 14 ? '#007DFF' : '#F1F3F5')
+        .fontColor(this.activeScene === 14 ? '#FFFFFF' : '#182431')
+        .onClick(() => {
+          this.showSystemDialog();
         })
     }
     .width('100%')
@@ -547,7 +739,7 @@ struct Index {
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
         .width('100%')
-      Text('DialogV2（API 18+）标准弹窗家族 · InterstitialDialogAction（API 12+）插屏弹窗 · 保持上下文的临时交互')
+      Text('DialogV2 标准弹窗家族 · InterstitialDialogAction 插屏 · ActionSheet/选择器/Toast/showDialog 系统弹窗')
         .fontSize(12)
         .fontColor('#666666')
         .width('100%')

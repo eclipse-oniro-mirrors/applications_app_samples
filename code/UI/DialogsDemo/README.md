@@ -5,7 +5,7 @@ An ArkUI advanced-components sample project corresponding to the samples catalog
 - Runs as a normal application (verified on RK3568 / OpenHarmony 7.0.0.46 Beta1 and 7.1.0.22 Canary1, including the interstitial dialog).
 - All 8 scenes open instantly on tap; every callback is written to the on-screen event log at the bottom.
 - Dialogs never stack: scenes 1–7 close any open dialog before showing a new one, and scene 8 ignores repeated taps while the interstitial is open.
-- 43 on-device tests pass (`Tests run: 43, Failure: 0, Error: 0`).
+- 125 on-device tests: 43 baseline tests pass on device (`Tests run: 43, Failure: 0, Error: 0`); 82 matrix tests are compile-verified with `entry@ohosTest` and pending an on-device rerun.
 
 ## Scenes
 
@@ -72,8 +72,11 @@ hvigorw --mode module -p module=entry@default assembleHap
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
 hdc shell aa start -b com.samples.dialogsdemo -a EntryAbility
 
+# on-device tests (signing uses the OpenHarmony default debug signing shipped with the SDK)
 hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 hdc shell aa test -b com.samples.dialogsdemo -m entry_test \
   -s unittest OpenHarmonyTestRunner -s timeout 150000
 ```
+
+Without a signing config the output is an unsigned HAP: it can be used for compile verification but not installed on a device.
