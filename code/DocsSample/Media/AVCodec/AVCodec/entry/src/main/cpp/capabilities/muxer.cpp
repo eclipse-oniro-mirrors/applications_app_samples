@@ -1,0 +1,191 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include "muxer.h"
+
+#undef LOG_TAG
+#define LOG_TAG "Muxer"
+
+namespace {
+constexpr int32_t VERTICAL_ANGLE = 90;
+constexpr int32_t HORIZONTAL_ANGLE = 0;
+}
+
+Muxer::~Muxer()
+{
+    Release();
+}
+
+// [Start Muxer::Create]
+int32_t Muxer::Create(int32_t fd, int32_t outputFormat)
+{
+    outputFormat_ = outputFormat;
+    muxer_ = OH_AVMuxer_Create(fd, static_cast<OH_AVOutputFormat>(outputFormat));
+    CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer create failed, fd: %{public}d", fd);
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+// [End Muxer::Create]
+
+int32_t Muxer::Config(SampleInfo &sampleInfo)
+{
+    CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
+
+    int32_t ret = AddAudioTrack(sampleInfo);
+    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Add audio track failed");
+
+    ret = AddVideoTrack(sampleInfo);
+    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Add video track failed");
+
+    return SetRotation();
+}
+
+// [Start Muxer::SetRotation]
+int32_t Muxer::SetRotation()
+{
+    CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
+
+    // flv不支持旋转元数据。
+    if (outputFormat_ == AV_OUTPUT_FORMAT_FLV) {
+        return AVCODEC_SAMPLE_ERR_OK;
+    }
+    // 由于相机的profile只有1920×1080，没有1080×1920，所以得往文件中封装一个90度的角度信息，后续播放才会是竖屏显示。
+    int32_t ret = OH_AVMuxer_SetRotation(muxer_, VERTICAL_ANGLE);
+    if (ret != AV_ERR_OK) {
+        AVCODEC_SAMPLE_LOGW("Set rotation failed, ret: %{public}d", ret);
+    }
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+// [End Muxer::SetRotation]
+
+// [Start Muxer::AddAudioTrack]
+int32_t Muxer::AddAudioTrack(SampleInfo &sampleInfo)
+{
+    CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
+
+    // 添加音频轨：用OH_AVFormat_CreateAudioFormat创建format，这里以封装AAC音频为例。
+    OH_AVFormat *formatAudio = OH_AVFormat_CreateAudioFormat(sampleInfo.audio.audioCodecMime.data(),
+        sampleInfo.audio.audioSampleRate, sampleInfo.audio.audioChannelCount);
+    CHECK_AND_RETURN_RET_LOG(formatAudio != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create audio format failed");
+    // 设置音频profile，选填。
+    OH_AVFormat_SetIntValue(formatAudio, OH_MD_KEY_PROFILE, AAC_PROFILE_LC);
+    int32_t ret = OH_AVMuxer_AddTrack(muxer_, &audioTrackId_, formatAudio);
+    OH_AVFormat_Destroy(formatAudio);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && audioTrackId_ >= 0, AVCODEC_SAMPLE_ERR_ERROR,
+        "Add audio track failed, ret: %{public}d", ret);
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+// [End Muxer::AddAudioTrack]
+
+// [Start Muxer::AddVideoTrack]
+int32_t Muxer::AddVideoTrack(SampleInfo &sampleInfo)
+{
+    CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
+
+    // 添加视频轨：用OH_AVFormat_CreateVideoFormat创建format。
+    int32_t encodedWidth = sampleInfo.video.videoWidth;
+    int32_t encodedHeight = sampleInfo.video.videoHeight;
+    if (sampleInfo.video.preprocMode == VIDEO_PREPROC_DOWNSAMPLING) {
+        encodedWidth = sampleInfo.video.downsamplingWidth;
+        encodedHeight = sampleInfo.video.downsamplingHeight;
+    } else if (sampleInfo.video.preprocMode == VIDEO_PREPROC_CROP) {
+        encodedWidth = sampleInfo.video.cropRight - sampleInfo.video.cropLeft + 1;
+        encodedHeight = sampleInfo.video.cropBottom - sampleInfo.video.cropTop + 1;
+    }
+    OH_AVFormat *formatVideo = OH_AVFormat_CreateVideoFormat(sampleInfo.video.videoCodecMime.data(),
+        encodedWidth, encodedHeight);
+    CHECK_AND_RETURN_RET_LOG(formatVideo != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create video format failed");
+
+    OH_AVFormat_SetDoubleValue(formatVideo, OH_MD_KEY_FRAME_RATE, sampleInfo.video.frameRate);
+    OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_WIDTH, encodedWidth);
+    OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_HEIGHT, encodedHeight);
+    OH_AVFormat_SetStringValue(formatVideo, OH_MD_KEY_CODEC_MIME, sampleInfo.video.videoCodecMime.data());
+    // HDR Vivid视频需要设置色彩信息相关key，选填。
+    if (sampleInfo.video.isHDRVivid) {
+        OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_VIDEO_IS_HDR_VIVID, 1);
+        OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_RANGE_FLAG, sampleInfo.video.rangFlag);
+        OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_COLOR_PRIMARIES, sampleInfo.video.primary);
+        OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_TRANSFER_CHARACTERISTICS, sampleInfo.video.transfer);
+        OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_MATRIX_COEFFICIENTS, sampleInfo.video.matrix);
+    }
+
+    int32_t ret = OH_AVMuxer_AddTrack(muxer_, &videoTrackId_, formatVideo);
+    OH_AVFormat_Destroy(formatVideo);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && videoTrackId_ >= 0, AVCODEC_SAMPLE_ERR_ERROR, "AddTrack failed");
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+// [End Muxer::AddVideoTrack]
+
+// [Start Muxer::Start]
+int32_t Muxer::Start()
+{
+    CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
+
+    int ret = OH_AVMuxer_Start(muxer_);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Start failed, ret: %{public}d", ret);
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+// [End Muxer::Start]
+
+// [Start Muxer::WriteSample]
+int32_t Muxer::WriteSample(int32_t trackId, OH_AVBuffer *buffer, OH_AVCodecBufferAttr &attr)
+{
+    // 音视频编码输出可能由不同线程到达；整个“更新属性并写入容器”过程需要保持原子性。
+    std::lock_guard<std::mutex> lock(writeMutex_);
+
+    CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
+    CHECK_AND_RETURN_RET_LOG(buffer != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Get a empty buffer");
+
+    int32_t ret = OH_AVBuffer_SetBufferAttr(buffer, &attr);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "SetBufferAttr failed");
+
+    ret = OH_AVMuxer_WriteSampleBuffer(muxer_, trackId, buffer);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Write sample failed");
+    // Muxer不接管编码器输出Buffer；调用方仍需使用原bufferIndex将该Buffer归还给编码器。
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+// [End Muxer::WriteSample]
+
+// [Start Muxer::Stop]
+int32_t Muxer::Stop()
+{
+    CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
+
+    int32_t ret = OH_AVMuxer_Stop(muxer_);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Muxer stop failed");
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+// [End Muxer::Stop]
+
+// [Start Muxer::Release]
+int32_t Muxer::Release()
+{
+    if (muxer_ != nullptr) {
+        // Destroy只释放封装器资源，不关闭Create()时由业务侧传入的文件描述符。
+        OH_AVMuxer_Destroy(muxer_);
+        muxer_ = nullptr;
+    }
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+// [End Muxer::Release]
+
+int32_t Muxer::GetVideoTrackId()
+{
+    return videoTrackId_;
+}
+
+int32_t Muxer::GetAudioTrackId()
+{
+    return audioTrackId_;
+}

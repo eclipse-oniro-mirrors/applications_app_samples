@@ -1,0 +1,1185 @@
+{
+  "string": [
+    {"name":"task_partials","value":"未完成的转码文件"},
+    {"name":"task_partial_confirm","value":"清理沙箱中未完成的 .part 文件？不会删除已完成的视频、图库文件和源文件。中断任务重试时从头开始。"},
+    {"name":"task_clear_partials","value":"清理未完成文件"},
+    {"name":"task_keep","value":"保留"},
+    {"name":"task_queue","value":"转码队列"},
+    {"name":"task_queue_hint","value":"每次处理一个文件。暂停队列会等当前文件完成；中断文件重试时从头开始。"},
+    {"name":"task_enqueue","value":"加入当前文件"},
+    {"name":"task_pause_queue","value":"暂停队列"},
+    {"name":"task_run_queue","value":"执行队列"},
+    {"name":"task_completed","value":"已完成"},
+    {"name":"task_failed","value":"失败"},
+    {"name":"task_cancelled","value":"已取消"},
+    {"name":"task_interrupted","value":"已中断，需重试"},
+    {"name":"task_running","value":"处理中"},
+    {"name":"task_waiting","value":"等待中"},
+    {"name":"task_retry","value":"重试"},
+    {"name":"task_remove","value":"移出队列"},
+    {"name":"task_recovery","value":"中断任务"},
+    {"name":"task_recovery_hint","value":"进程退出后无法保留编解码器状态。播放可从历史续播，转码可在队列中重新执行；录制不能续写原文件。"},
+    {"name":"task_acknowledge","value":"标记已处理"},
+    {"name":"task_sessions","value":"会话报告"},
+    {"name":"task_refresh","value":"刷新"},
+    {"name":"task_export_json","value":"导出 JSON"},
+    {"name":"task_export_text","value":"导出 TXT"},
+    {"name":"task_baseline","value":"性能基线"},
+    {"name":"task_save_baseline","value":"设为基线"},
+    {"name":"task_baseline_hint","value":"仅对比设备/API、配置和实际链路一致的报告。API 调用耗时不代表硬件执行时延；对比前请使用相同素材和运行条件。"},
+    {"name":"task_no_baseline","value":"暂无匹配基线"},
+    {"name":"task_capability_matrix","value":"能力快照对比"},
+    {"name":"task_capability_save","value":"保存当前快照"},
+    {"name":"task_capability_import","value":"导入对比快照"},
+    {"name":"task_capability_export","value":"导出当前快照"},
+    {"name":"task_capability_same","value":"能力无差异"},
+    {"name":"task_capability_hint","value":"对比 codec 名称、软硬件类型、范围、profile 和实例数上限。单项范围符合，不代表分辨率与帧率组合一定可用。"},
+    {"name":"task_recommend","value":"检查当前素材"},
+    {"name":"task_recommend_empty","value":"请先在播放页选择视频"},
+    {"name":"task_recommend_hint","value":"当前素材的可用候选（不会自动应用）"},
+    {"name":"task_no_reports","value":"暂无已结束的会话报告"},
+    {"name":"task_preview","value":"前处理预览"},
+    {"name":"task_preview_hint","value":"此处展示几何范围，不解码或渲染处理后的像素。YUV420 裁剪按偶数对齐，Surface 直连保持源尺寸。"},
+    {"name":"task_fit","value":"保持源比例"},
+    {"name":"task_crop","value":"居中裁剪 16:9"},
+    {"name":"task_letterbox","value":"补边适配 16:9"},
+    {"name":"rec_audio_output","value":"AAC 输出帧数"},
+    {"name":"rec_audio_rate","value":"AAC 短时码率"},
+    {"name":"rec_audio_idle","value":"距上次 AAC 输出"},
+    {"name":"rec_end_user","value":"用户停止"},
+    {"name":"rec_end_space","value":"存储保护触发停止"},
+    {"name":"rec_end_running","value":"进行中 / 尚未记录结束原因"},
+    {"name":"rec_stage_init_begin","value":"开始初始化"},
+    {"name":"rec_stage_init_end","value":"初始化结束"},
+    {"name":"rec_stage_encoder","value":"编码器启动"},
+    {"name":"rec_stage_camera","value":"相机输出启动"},
+    {"name":"rec_stage_first_primary","value":"主路首个视频输出"},
+    {"name":"rec_stage_first_secondary","value":"副路首个视频输出"},
+    {"name":"rec_stage_first_audio","value":"首个 AAC 输出"},
+    {"name":"rec_stage_stop","value":"请求停止"},
+    {"name":"rec_stage_eos_primary","value":"主路收到 EOS"},
+    {"name":"rec_stage_eos_secondary","value":"副路收到 EOS"},
+    {"name":"rec_stage_eos_audio","value":"音频收到 EOS"},
+    {"name":"rec_stage_muxer_primary","value":"主封装器释放"},
+    {"name":"rec_stage_muxer_secondary","value":"副封装器释放"},
+    {"name":"rec_stage_native","value":"Native 释放完成"},
+    {"name":"rec_stage_files","value":"输出文件关闭"},
+    {"name":"rec_stage_camera_release","value":"相机释放"},
+    {"name":"rec_result_open","value":"结果"},
+    {"name":"rec_result_title","value":"录制结果"},
+    {"name":"rec_result_complete","value":"录制已完成收尾"},
+    {"name":"rec_result_partial","value":"请检查结束原因和时间线，文件可能不完整。"},
+    {"name":"rec_result_primary","value":"播放主文件"},
+    {"name":"rec_result_secondary","value":"播放副文件"},
+    {"name":"rec_result_back","value":"返回"},
+    {"name":"rec_result_finalizing","value":"正在收尾…"},
+    {"name":"rec_result_metadata_unavailable","value":"无法读取成品文件信息"},
+    {"name":"rec_result_metadata_note","value":"这里读取的是成品文件信息，不是请求配置；不据此确认 HDR Vivid 码流元数据。"},
+    {"name":"recorder_finalize_failed","value":"录制收尾失败，请检查系统日志。"},
+    {"name":"rec_storage_remaining","value":"预计距存储保留线"},
+    {"name":"rec_storage_protect","value":"空间不足时安全停止"},
+    {"name":"rec_storage_note","value":"默认关闭。开启后按正常 EOS 流程收尾，预留至少 256 MiB 或预计 10 秒文件增长空间。剩余时间仅为估算。"},
+    {"name":"rec_audio_title","value":"音频诊断"},
+    {"name":"rec_audio_pcm","value":"已采集样本帧 / 待编码 PCM"},
+    {"name":"rec_audio_pts","value":"音频减主路视频 PTS（首帧 / 最近）"},
+    {"name":"rec_audio_secondary_pts","value":"音频减副路视频 PTS（首帧 / 最近）"},
+    {"name":"rec_audio_muxer_primary","value":"音频写主容器（均值/P95/最大）"},
+    {"name":"rec_audio_muxer_secondary","value":"音频写副容器（均值/P95/最大）"},
+    {"name":"rec_audio_write_failures","value":"音频写入失败（主 / 副）"},
+    {"name":"rec_audio_note","value":"PCM 按采集的 S16LE 样本帧计数，AAC 码率按最近一秒输出到达统计。视频 PTS 分路归零，这里的差值只反映相对时间线进度，不代表物理音画延迟或口型同步误差。"},
+    {"name":"rec_timeline_title","value":"录制生命周期时间线"},
+    {"name":"setting_dump_buffer_only","value":"仅 Buffer 模式可用"},
+    {"name":"playback_seek_preview_unavailable","value":"暂时无法获取预览"},
+    {"name":"dump_size_unlimited","value":"大小不限"},
+    {"name":"dump_duration_unlimited","value":"时长不限"},
+    {"name":"dump_unlimited_hint","value":"不限的项目不触发自动停止；若两项都不限，请留意剩余存储空间。"},
+    {
+      "name": "smart_fluency_x2",
+      "value": "X2（智能流畅）"
+    },
+    {
+      "name": "smart_fluency_x3",
+      "value": "X3（智能流畅）"
+    },
+    {
+      "name": "module_desc",
+      "value": "AVCodec 播放与录制示例模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "提供 AVCodec 播放与录制能力"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "AVCodec"
+    },
+    {
+      "name": "reason",
+      "value": "允许应用使用麦克风"
+    },
+    {
+      "name": "camera_reason",
+      "value": "允许应用使用相机"
+    },
+    {
+      "name": "playing",
+      "value": "播放中"
+    },
+    {
+      "name": "play",
+      "value": "播放"
+    },
+    {
+      "name": "stop_playback",
+      "value": "停止"
+    },
+    {
+      "name": "stopping",
+      "value": "停止中"
+    },
+    {
+      "name": "alert",
+      "value": "未选择视频！"
+    },
+    {
+      "name": "alert1",
+      "value": "本设备相机不支持此类型录像流，将切换至默认配置"
+    },
+    {
+      "name": "alert2",
+      "value": "播放时长按播放窗口也可倍速播放"
+    },
+    {
+      "name": "success",
+      "value": "成功"
+    },
+    {
+      "name": "record",
+      "value": "录制"
+    },
+    {
+      "name": "saveButtonNote",
+      "value": "是否允许AVCodecVideo保存拍摄的视频到图库？"
+    },
+    {
+      "name": "saveButtonCancel",
+      "value": "取消"
+    },
+    {
+      "name": "saveButtonTitle",
+      "value": "视频保存位置确认"
+    },
+    {
+      "name": "full_width",
+      "value": "100%"
+    },
+    {
+      "name": "full_height",
+      "value": "100%"
+    },
+    {
+      "name": "NATIVEBUFFER_ROTATE_NONE",
+      "value": "不旋转"
+    },
+    {
+      "name": "NATIVEBUFFER_ROTATE_90",
+      "value": "旋转90度"
+    },
+    {
+      "name": "NATIVEBUFFER_ROTATE_180",
+      "value": "旋转180度"
+    },
+    {
+      "name": "NATIVEBUFFER_ROTATE_270",
+      "value": "旋转270度"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_H",
+      "value": "水平翻转"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_V",
+      "value": "垂直翻转"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_H_ROT90",
+      "value": "水平翻转并旋转90度"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_V_ROT90",
+      "value": "垂直翻转并旋转90度"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_H_ROT180",
+      "value": "水平翻转并旋转180度"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_V_ROT180",
+      "value": "垂直翻转并旋转180度"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_H_ROT270",
+      "value": "水平翻转并旋转270度"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_V_ROT270",
+      "value": "垂直翻转并旋转270度"
+    },
+    {
+      "name": "select_from_filemanager",
+      "value": "从文件管理选取"
+    },
+    {
+      "name": "select_from_album",
+      "value": "从相册选取"
+    },
+    {
+      "name": "setting",
+      "value": "设置"
+    },
+    {
+      "name": "player_settings_title",
+      "value": "播放设置"
+    },
+    {
+      "name": "player_settings_subtitle",
+      "value": "配置解码、送显、同步和调试选项"
+    },
+    {
+      "name": "recorder_settings_title",
+      "value": "录制设置"
+    },
+    {
+      "name": "recorder_settings_subtitle",
+      "value": "配置音视频编码参数、分辨率和封装输出"
+    },
+    {
+      "name": "setting_decoder_type",
+      "value": "解码器类型"
+    },
+    {
+      "name": "setting_run_mode",
+      "value": "送显模式"
+    },
+    {
+      "name": "setting_sync_mode",
+      "value": "同步模式"
+    },
+    {
+      "name": "setting_dump",
+      "value": "保存解码帧"
+    },
+    {
+      "name": "setting_retain_last_frame",
+      "value": "停止时保留最后一帧"
+    },
+    {
+      "name": "setting_low_latency",
+      "value": "低时延解码"
+    },
+    {
+      "name": "setting_decoding_order_output",
+      "value": "按解码顺序输出"
+    },
+    {
+      "name": "setting_hdr_vivid_to_bt709",
+      "value": "HDR Vivid 转 BT.709"
+    },
+    {
+      "name": "setting_hdr_vivid_to_bt709_gpu_unavailable",
+      "value": "仅 Surface模式直接送显支持实时转换"
+    },
+    {
+      "name": "setting_audio_volume",
+      "value": "音频音量"
+    },
+    {
+      "name": "setting_audio_latency",
+      "value": "音频输出低时延"
+    },
+    {
+      "name": "setting_auto_hide_controls",
+      "value": "播放控件自动隐藏"
+    },
+    {
+      "name": "playback_controls_auto_hide_tip",
+      "value": "播放控件已自动隐藏，可在播放设置中关闭自动隐藏。"
+    },
+    {
+      "name": "setting_codec",
+      "value": "编码格式"
+    },
+    {
+      "name": "setting_output_format",
+      "value": "封装格式"
+    },
+    {
+      "name": "setting_resolution",
+      "value": "分辨率"
+    },
+    {
+      "name": "setting_frame_rate",
+      "value": "帧率"
+    },
+    {
+      "name": "setting_video_bitrate",
+      "value": "视频码率"
+    },
+    {
+      "name": "setting_bitrate_mode",
+      "value": "码率模式"
+    },
+    {
+      "name": "setting_i_frame_interval",
+      "value": "关键帧间隔"
+    },
+    {
+      "name": "setting_bitrate_10m",
+      "value": "10 Mbps"
+    },
+    {
+      "name": "setting_bitrate_20m",
+      "value": "20 Mbps"
+    },
+    {
+      "name": "setting_bitrate_30m",
+      "value": "30 Mbps"
+    },
+    {
+      "name": "setting_bitrate_mode_cbr",
+      "value": "恒定码率（CBR）"
+    },
+    {
+      "name": "setting_bitrate_mode_vbr",
+      "value": "可变码率（VBR）"
+    },
+    {
+      "name": "setting_i_frame_interval_100ms",
+      "value": "100 毫秒"
+    },
+    {
+      "name": "setting_i_frame_interval_1s",
+      "value": "1 秒"
+    },
+    {
+      "name": "setting_i_frame_interval_2s",
+      "value": "2 秒"
+    },
+    {
+      "name": "setting_audio_sample_rate",
+      "value": "音频采样率"
+    },
+    {
+      "name": "setting_audio_channel_count",
+      "value": "音频声道"
+    },
+    {
+      "name": "setting_audio_bitrate",
+      "value": "音频码率"
+    },
+    {
+      "name": "setting_audio_sample_rate_44100",
+      "value": "44.1 kHz"
+    },
+    {
+      "name": "setting_audio_sample_rate_48000",
+      "value": "48 kHz"
+    },
+    {
+      "name": "setting_audio_channel_mono",
+      "value": "单声道"
+    },
+    {
+      "name": "setting_audio_channel_stereo",
+      "value": "双声道"
+    },
+    {
+      "name": "setting_audio_bitrate_32k",
+      "value": "32 kbps"
+    },
+    {
+      "name": "setting_audio_bitrate_64k",
+      "value": "64 kbps"
+    },
+    {
+      "name": "setting_audio_bitrate_128k",
+      "value": "128 kbps"
+    },
+    {
+      "name": "setting_decoder_auto",
+      "value": "自动选择"
+    },
+    {
+      "name": "setting_decoder_hardware",
+      "value": "硬件解码"
+    },
+    {
+      "name": "setting_decoder_software",
+      "value": "软件解码"
+    },
+    {
+      "name": "setting_render_direct",
+      "value": "Surface模式直接送显"
+    },
+    {
+      "name": "setting_render_buffer",
+      "value": "Buffer模式拷贝送显"
+    },
+    {
+      "name": "setting_render_opengl",
+      "value": "Surface模式 OpenGL送显"
+    },
+    {
+      "name": "setting_render_vulkan",
+      "value": "Surface模式 Vulkan送显"
+    },
+    {
+      "name": "setting_mode_async",
+      "value": "异步模式"
+    },
+    {
+      "name": "setting_mode_sync",
+      "value": "同步模式"
+    },
+    {
+      "name": "setting_codec_hdr_vivid",
+      "value": "HDR Vivid 录制"
+    },
+    {
+      "name": "setting_codec_h264",
+      "value": "H.264 编码"
+    },
+    {
+      "name": "setting_codec_h265",
+      "value": "H.265 编码"
+    },
+    {
+      "name": "setting_resolution_4k",
+      "value": "4K（3840×2160）"
+    },
+    {
+      "name": "setting_resolution_1080p",
+      "value": "1080P（1920×1080）"
+    },
+    {
+      "name": "setting_resolution_720p",
+      "value": "720P（1280×720）"
+    },
+    {
+      "name": "setting_fps_30",
+      "value": "30 帧/秒"
+    },
+    {
+      "name": "setting_fps_60",
+      "value": "60 帧/秒"
+    },
+    {
+      "name": "setting_restore_defaults",
+      "value": "恢复默认"
+    },
+    {
+      "name": "setting_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "setting_apply",
+      "value": "应用"
+    },
+    {
+      "name": "adjust_playback_speed",
+      "value": "倍速"
+    },
+    {
+      "name": "start_recording",
+      "value": "开始录制"
+    },
+    {
+      "name": "end_recording",
+      "value": "结束录制"
+    },
+    {
+      "name": "record_mp4",
+      "value": "MP4录制"
+    },
+    {
+      "name": "record_flv",
+      "value": "FLV录制"
+    },
+    {
+      "name": "record_permission_required",
+      "value": "录制需要相机和麦克风权限，请在权限设置中授权。"
+    },
+    {
+      "name": "recorder_configuration_unsupported",
+      "value": "当前录制配置不受设备支持，请调整编码格式、分辨率或帧率。"
+    },
+    {
+      "name": "media_file_empty",
+      "value": "媒体文件为空，无法播放。"
+    },
+    {
+      "name": "media_file_invalid",
+      "value": "媒体文件已损坏或格式不受支持，无法播放。"
+    },
+    {
+      "name": "media_file_open_failed",
+      "value": "媒体文件打开失败，请重新选择。"
+    },
+    {
+      "name": "media_file_select_failed",
+      "value": "媒体文件选择失败，请重试。"
+    },
+    {
+      "name": "media_file_not_selected",
+      "value": "未选择媒体文件，请重新选择。"
+    },
+    {
+      "name": "playback_pause",
+      "value": "暂停"
+    },
+    {
+      "name": "playback_resume",
+      "value": "继续播放"
+    },
+    {
+      "name": "playback_gesture_play",
+      "value": "播放"
+    },
+    {
+      "name": "playback_speed_x1",
+      "value": "X1"
+    },
+    {
+      "name": "playback_speed_x2",
+      "value": "X2"
+    },
+    {
+      "name": "playback_rewind_15s",
+      "value": "快退15秒"
+    },
+    {
+      "name": "playback_forward_15s",
+      "value": "快进15秒"
+    },
+    {
+      "name": "playback_replay",
+      "value": "重播"
+    },
+    { "name": "playback_more", "value": "更多" },
+    { "name": "playback_more_title", "value": "更多播放选项" },
+    { "name": "playback_queue", "value": "播放队列" },
+    { "name": "playback_diagnostics", "value": "性能诊断" },
+    { "name": "playback_diagnostics_close", "value": "关闭诊断" },
+    { "name": "playback_fullscreen", "value": "全屏" },
+    { "name": "playback_exit_fullscreen", "value": "退出全屏" },
+    { "name": "playback_display_scale", "value": "显示比例" },
+    { "name": "playback_resume_position", "value": "已恢复上次播放位置" },
+    { "name": "playback_mute", "value": "静音" },
+    { "name": "playback_unmute", "value": "取消静音" },
+    { "name": "playback_audio_track", "value": "音轨" },
+    { "name": "playback_subtitle", "value": "字幕" },
+    { "name": "playback_no_audio_track", "value": "当前文件只有一个音轨" },
+    { "name": "playback_audio_track_failed", "value": "读取音轨信息失败" },
+    { "name": "playback_audio_track_unsupported", "value": "当前音轨不支持播放" },
+    { "name": "playback_subtitle_loaded", "value": "字幕已加载" },
+    { "name": "playback_subtitle_empty", "value": "没有找到有效字幕内容" },
+    { "name": "playback_subtitle_failed", "value": "字幕加载失败" },
+    { "name": "playback_subtitle_clear", "value": "清除" },
+    { "name": "playback_ab_set_start", "value": "设置 A 点" },
+    { "name": "playback_ab_set_start_done", "value": "A 点已设置" },
+    { "name": "playback_ab_set_end", "value": "设置 B 点" },
+    { "name": "playback_ab_set_end_done", "value": "B 点已启用" },
+    { "name": "playback_ab_clear", "value": "清除 A-B" },
+    { "name": "playback_ab_start_set", "value": "A 点已设置" },
+    { "name": "playback_ab_start_required", "value": "请先设置 A 点" },
+    { "name": "playback_ab_end_invalid", "value": "B 点必须晚于 A 点" },
+    { "name": "playback_ab_enabled", "value": "A-B 循环已启用" },
+    { "name": "playback_previous_frame", "value": "上一帧" },
+    { "name": "playback_next_frame", "value": "下一帧" },
+    { "name": "playback_frame_step_failed", "value": "单帧跳转失败" },
+    { "name": "playback_pip_enter", "value": "画中画" },
+    { "name": "playback_pip_exit", "value": "退出画中画" },
+    { "name": "playback_pip_unsupported", "value": "当前设备不支持画中画" },
+    { "name": "playback_pip_failed", "value": "画中画启动失败" },
+    { "name": "playback_background_on", "value": "后台播放：开" },
+    { "name": "playback_background_off", "value": "后台播放：关" },
+    { "name": "playback_background_enabled", "value": "已允许后台自动进入画中画" },
+    { "name": "playback_background_disabled", "value": "已关闭后台自动进入画中画" },
+    {
+      "name": "seek_failed",
+      "value": "无法跳转到所选播放位置。"
+    },
+    {
+      "name": "setting_group_output",
+      "value": "封装与输出"
+    },
+    {
+      "name": "setting_group_video",
+      "value": "视频编码"
+    },
+    {
+      "name": "setting_group_audio",
+      "value": "音频编码"
+    },
+    {
+      "name": "setting_group_control",
+      "value": "编码控制"
+    },
+    {
+      "name": "setting_audio_capture_latency",
+      "value": "音频采集时延"
+    },
+    {
+      "name": "setting_audio_latency_normal",
+      "value": "普通时延"
+    },
+    {
+      "name": "setting_audio_latency_low",
+      "value": "低时延"
+    },
+    {
+      "name": "setting_video_stabilization",
+      "value": "视频防抖"
+    },
+    {
+      "name": "setting_stabilization_disabled",
+      "value": "关闭"
+    },
+    {
+      "name": "setting_stabilization_auto",
+      "value": "自动"
+    },
+    {
+      "name": "media_info",
+      "value": "信息"
+    },
+    {
+      "name": "media_info_title",
+      "value": "媒体信息"
+    },
+    {
+      "name": "media_info_subtitle",
+      "value": "解封装媒体源、轨道与解码输出详情"
+    },
+    { "name": "media_info_raw_show", "value": "展开原始格式信息" },
+    { "name": "media_info_raw_hide", "value": "收起原始格式信息" },
+    { "name": "playback_display_scale_fit", "value": "适应窗口" },
+    { "name": "playback_display_scale_fill", "value": "铺满窗口" },
+    { "name": "playback_audio_track_switched", "value": " 已切换" },
+    { "name": "playback_queue_add", "value": "添加到播放队列" },
+    { "name": "playback_queue_clear", "value": "清空队列" },
+    { "name": "playback_queue_current", "value": "当前队列（播放结束后自动播放下一项）" },
+    { "name": "playback_queue_playing", "value": "播放中" },
+    { "name": "playback_recent", "value": "最近播放" },
+    { "name": "playback_recent_empty", "value": "暂无播放记录" },
+    { "name": "playback_recent_position", "value": "上次播放至 " },
+    { "name": "playback_recent_completed", "value": "已播放完成" },
+    { "name": "playback_recent_play", "value": "播放" },
+    { "name": "playback_queue_sheet_title", "value": "播放队列与最近播放" },
+    { "name": "playback_diagnostics_state", "value": "状态 " },
+    { "name": "playback_diagnostics_position", "value": "位置 " },
+    { "name": "playback_diagnostics_speed", "value": "  速度 X" },
+    { "name": "playback_diagnostics_output", "value": "输出 " },
+    { "name": "playback_diagnostics_rendered", "value": "  送显 " },
+    { "name": "playback_diagnostics_dropped", "value": "  丢帧 " },
+    { "name": "playback_diagnostics_output_fps", "value": "输出帧率 " },
+    { "name": "playback_diagnostics_drop_rate", "value": "  丢帧率 " },
+    { "name": "playback_diagnostics_audio_buffers", "value": "音频输出 Buffer " },
+    { "name": "playback_diagnostics_smart_fluency", "value": "智能流畅 " },
+    { "name": "playback_diagnostics_hdr_vivid", "value": "  HDR Vivid " },
+    { "name": "playback_diagnostics_available", "value": "可用" },
+    { "name": "playback_diagnostics_unavailable", "value": "不可用" },
+    { "name": "playback_diagnostics_confirmed", "value": "已确认" },
+    { "name": "playback_diagnostics_unconfirmed", "value": "未确认" },
+    { "name": "playback_audio_channel_unit", "value": " 声道" },
+    { "name": "playback_subtitle_sync", "value": "字幕同步" },
+    { "name": "playback_subtitle_style", "value": "字幕样式" },
+    { "name": "playback_subtitle_early", "value": "字幕提前 0.5 秒" },
+    { "name": "playback_subtitle_late", "value": "字幕延后 0.5 秒" },
+    { "name": "playback_subtitle_style_small", "value": "小号字幕" },
+    { "name": "playback_subtitle_style_medium", "value": "中号字幕" },
+    { "name": "playback_subtitle_style_large", "value": "大号字幕" },
+    { "name": "playback_diagnostics_buffer_present", "value": "Buffer/GPU 送显 " },
+    { "name": "playback_diagnostics_buffer_average", "value": "  平均 " },
+    { "name": "playback_diagnostics_buffer_failures", "value": "  失败 " },
+    { "name": "playback_diagnostics_vulkan_present", "value": "Vulkan Surface 分阶段 " },
+    { "name": "playback_diagnostics_average", "value": "平均 " },
+    { "name": "playback_diagnostics_vulkan_frame", "value": " 帧 " },
+    { "name": "playback_diagnostics_vulkan_failures", "value": " 失败 " },
+    { "name": "playback_diagnostics_vulkan_wait", "value": "  NativeImage 等待 " },
+    { "name": "playback_diagnostics_vulkan_acquire", "value": "  获取 " },
+    { "name": "playback_diagnostics_vulkan_fence", "value": "  fence " },
+    { "name": "playback_diagnostics_vulkan_import", "value": "  导入 " },
+    { "name": "playback_diagnostics_vulkan_gpu", "value": "  GPU 等待 " },
+    { "name": "playback_diagnostics_vulkan_record", "value": "  录制命令 " },
+    { "name": "playback_diagnostics_vulkan_submit", "value": "  提交 " },
+    { "name": "playback_diagnostics_vulkan_cache", "value": "  缓存命中/未命中 " },
+    { "name": "playback_diagnostics_software_fallback", "value": "软件解码回退 " },
+    { "name": "playback_diagnostics_used", "value": "已启用" },
+    { "name": "playback_diagnostics_not_used", "value": "未启用" },
+    { "name": "playback_diagnostics_recovery", "value": "异常恢复 " },
+    { "name": "playback_diagnostics_recovery_idle", "value": "未触发" },
+    { "name": "playback_diagnostics_recovery_pending", "value": "恢复中" },
+    { "name": "playback_diagnostics_recovery_succeeded", "value": "已成功" },
+    { "name": "playback_diagnostics_recovery_failed", "value": "失败" },
+    { "name": "playback_diagnostics_recovery_attempt", "value": "，第 " },
+    { "name": "playback_diagnostics_recovery_attempt_suffix", "value": " 次" },
+    { "name": "playback_diagnostics_recovery_reason", "value": "，原因：运行期播放异常" },
+    { "name": "playback_audio_only", "value": "纯音频播放" },
+    { "name": "playback_mode_sequential", "value": "顺序播放" },
+    { "name": "playback_mode_repeat_one", "value": "单曲循环" },
+    { "name": "playback_mode_repeat_all", "value": "列表循环" },
+    { "name": "playback_mode_shuffle", "value": "随机播放" },
+    { "name": "playback_mode_hint", "value": "播放结束后按所选模式接播；停止或失败时不接播。" },
+    { "name": "playback_auto_recovery", "value": "播放异常后尝试恢复一次" },
+    { "name": "playback_recovering", "value": "播放发生异常，正在尝试恢复原位置" },
+    { "name": "playback_recovered", "value": "已恢复播放位置" },
+    { "name": "playback_seek_busy", "value": "正在定位，请稍后再执行此操作" },
+    { "name": "subtitle_visible", "value": "显示字幕" },
+    { "name": "subtitle_size", "value": "字号" },
+    { "name": "subtitle_color", "value": "文字颜色" },
+    { "name": "subtitle_white", "value": "白色" },
+    { "name": "subtitle_yellow", "value": "黄色" },
+    { "name": "subtitle_cyan", "value": "青色" },
+    { "name": "subtitle_background", "value": "字幕背景" },
+    { "name": "subtitle_transparent", "value": "透明" },
+    { "name": "subtitle_translucent", "value": "半透明黑色" },
+    { "name": "subtitle_dark", "value": "深黑色" },
+    { "name": "subtitle_position", "value": "字幕位置" },
+    { "name": "subtitle_bottom", "value": "画面下方" },
+    { "name": "subtitle_top", "value": "画面上方" },
+    { "name": "subtitle_preview", "value": "字幕样式预览" },
+    { "name": "subtitle_reset", "value": "恢复默认样式" },
+    { "name": "diagnostics_av_offset", "value": "同步决策偏差 %s（正值：视频超前）" },
+    { "name": "diagnostics_av_range", "value": "偏差幅度 均值 %s / 最大 %s" },
+    { "name": "diagnostics_audio_queue", "value": "音频 PCM 排队 %s / 设备待播 %s" },
+    { "name": "diagnostics_starvation", "value": "补静音回调 %d / 同步丢帧 %d" },
+    { "name": "diagnostics_seek_time", "value": "Seek 重建 %s / 目标输出 %s" },
+    { "name": "diagnostics_seek_queue", "value": "Seek 请求 %d / 合并 %d / 完成 %d" },
+    { "name": "diagnostics_measurement_note", "value": "送显计数是提交次数；偏差采于等待/丢帧前，不代表屏幕与扬声器的实测延迟。" },
+    { "name": "diagnostics_audio_interrupt_active", "value": "音频中断 %d 次（已暂停，等待恢复）" },
+    { "name": "diagnostics_audio_interrupt_idle", "value": "音频中断 %d 次（未中断）" },
+    { "name": "diagnostics_background_paused", "value": "后台状态：已暂停，返回前台后自动恢复" },
+    { "name": "setting_advanced", "value": "高级设置" },
+    { "name": "playback_section_controls", "value": "播放控制" },
+    { "name": "playback_previous_frame_short", "value": "上一帧" },
+    { "name": "playback_next_frame_short", "value": "下一帧" },
+    { "name": "playback_transform", "value": "画面变换" },
+    { "name": "playback_section_media", "value": "音频与字幕" },
+    { "name": "playback_section_pipeline", "value": "播放链路" },
+    { "name": "recorder_home_title", "value": "视频录制" },
+    { "name": "recorder_home_description", "value": "配置并录制视频" },
+    { "name": "recorder_home_ready", "value": "准备就绪" },
+    { "name": "recorder_home_settings_hint", "value": "开始录制前可先检查录制设置" },
+    { "name": "recording_history_title", "value": "最近录制" },
+    { "name": "recording_history_empty", "value": "录制完成后，文件会显示在这里" },
+    { "name": "recording_play", "value": "播放" },
+    { "name": "recorder_playback_blocked_hint", "value": "当前正在播放，请结束播放后再使用录制功能" },
+    { "name": "tab_player", "value": "播放" },
+    { "name": "tab_library", "value": "媒体库" },
+    { "name": "tab_recorder", "value": "录制" },
+    { "name": "tab_device", "value": "设备" },
+    { "name": "library_title", "value": "媒体库" },
+    { "name": "library_description", "value": "选择文件，或继续播放最近观看的内容" },
+    { "name": "library_open_files", "value": "打开文件" },
+    { "name": "library_add_queue", "value": "添加到队列" },
+    { "name": "library_queue_empty", "value": "播放队列为空" },
+    { "name": "library_queue_empty_hint", "value": "添加视频后，可按顺序连续播放" },
+    { "name": "library_recent", "value": "最近播放" },
+    { "name": "library_recent_empty_hint", "value": "播放过的视频会显示在这里" },
+    { "name": "playback_rewind_short", "value": "后退15s" },
+    { "name": "playback_resume_short", "value": "继续" },
+    { "name": "playback_pause_short", "value": "暂停" },
+    { "name": "playback_forward_short", "value": "前进15s" },
+    { "name": "setting_group_preproc", "value": "编码前处理" },
+    { "name": "setting_video_preproc", "value": "前处理方式" },
+    { "name": "setting_drop_frame_rate", "value": "丢帧目标帧率" },
+    { "name": "setting_dual_output", "value": "一入二出" },
+    { "name": "setting_recorder_dump", "value": "保存编码视频码流" },
+    { "name": "device_page_title", "value": "设备编解码能力" },
+    { "name": "device_codec_refresh", "value": "刷新" },
+    { "name": "device_codec_description", "value": "以下内容来自系统编解码能力列表，仅表示系统公布的能力，不代表已实测实例创建或特定规格播放成功。" },
+    { "name": "device_codec_api_unsupported", "value": "系统能力枚举接口需要 API 24 或更高版本。" },
+    { "name": "device_codec_loading", "value": "正在读取系统能力…" },
+    { "name": "device_codec_empty", "value": "系统未返回此类编解码器能力。" },
+    { "name": "device_codec_video_decoder", "value": "视频解码" },
+    { "name": "device_codec_video_encoder", "value": "视频编码" },
+    { "name": "device_codec_audio_decoder", "value": "音频解码" },
+    { "name": "device_codec_audio_encoder", "value": "音频编码" },
+    { "name": "device_codec_hardware", "value": "硬件" },
+    { "name": "device_codec_software", "value": "软件" },
+    { "name": "device_codec_max_instances", "value": "系统公布的最大实例数" },
+    { "name": "device_codec_expand_hint", "value": "点击编解码类型查看列表，再点击 codec 名称查看详细能力范围。" },
+    { "name": "device_codec_details", "value": "支持的能力" },
+    { "name": "device_codec_video_width_range", "value": "视频宽度范围" },
+    { "name": "device_codec_video_height_range", "value": "视频高度范围" },
+    { "name": "device_codec_video_frame_rate_range", "value": "帧率范围" },
+    { "name": "device_codec_video_width_alignment", "value": "宽度对齐值" },
+    { "name": "device_codec_video_height_alignment", "value": "高度对齐值" },
+    { "name": "device_codec_video_pixel_formats", "value": "像素格式（系统枚举值）" },
+    { "name": "device_codec_profiles", "value": "Profile（系统枚举值）" },
+    { "name": "device_codec_profile_levels", "value": "Profile / Level" },
+    { "name": "device_codec_audio_sample_rates", "value": "支持的采样率（Hz）" },
+    { "name": "device_codec_audio_sample_rate_ranges", "value": "采样率范围（Hz）" },
+    { "name": "device_codec_audio_channel_count_range", "value": "声道数范围" },
+    { "name": "device_codec_encoder_bitrate_range", "value": "编码码率范围（bps）" },
+    { "name": "device_report_section_title", "value": "诊断报告" },
+    { "name": "device_report_description", "value": "报告包含设备、当前播放配置和可用性能统计；不会写入媒体完整路径。" },
+    { "name": "device_report_copy", "value": "复制报告" },
+    { "name": "device_report_save", "value": "保存 TXT" },
+    { "name": "device_report_ready", "value": "报告已生成；保存或复制前会重新读取当前数据。" },
+    { "name": "device_report_title", "value": "AVCodec 播放诊断报告" },
+    { "name": "device_report_time", "value": "生成时间" },
+    { "name": "device_report_device", "value": "设备型号" },
+    { "name": "device_report_system", "value": "系统版本" },
+    { "name": "device_report_api", "value": "API 版本" },
+    { "name": "device_report_playback", "value": "播放状态" },
+    { "name": "device_report_speed", "value": "播放倍速" },
+    { "name": "device_report_decoder", "value": "解码器选择" },
+    { "name": "device_report_render_mode", "value": "送显模式" },
+    { "name": "device_report_fallback", "value": "是否回退软件解码" },
+    { "name": "device_report_yes", "value": "是" },
+    { "name": "device_report_no", "value": "否" },
+    { "name": "device_report_video", "value": "视频" },
+    { "name": "device_report_audio", "value": "音频" },
+    { "name": "device_report_no_media", "value": "当前没有可用媒体信息" },
+    { "name": "device_report_hdr_confirmed", "value": "HDR Vivid 已确认" },
+    { "name": "device_report_hdr_unconfirmed", "value": "HDR Vivid 未确认" },
+    { "name": "device_report_frames", "value": "解码输出帧" },
+    { "name": "device_report_rendered", "value": "送显帧" },
+    { "name": "device_report_dropped", "value": "丢帧" },
+    { "name": "device_report_output_fps", "value": "近期输出帧率" },
+    { "name": "device_report_seek_rebuild", "value": "最近一次 Seek 重建" },
+    { "name": "device_report_seek_first_frame", "value": "最近一次 Seek 到首帧输出" },
+    { "name": "device_report_av_offset", "value": "音画同步决策偏差" },
+    { "name": "device_report_audio_sync", "value": "音频与同步" },
+    { "name": "device_report_audio_queue", "value": "音频 PCM 排队" },
+    { "name": "device_report_audio_pending", "value": "音频设备待播" },
+    { "name": "device_report_underruns", "value": "补静音回调次数" },
+    { "name": "device_report_sync_drops", "value": "同步丢帧次数" },
+    { "name": "device_report_sink_performance", "value": "送显分阶段统计（微秒）" },
+    { "name": "device_report_sink_frames", "value": "Sink 帧数" },
+    { "name": "device_report_sink_import", "value": "Buffer 导入均值" },
+    { "name": "device_report_sink_submit", "value": "GPU 提交均值" },
+    { "name": "device_report_sink_fence", "value": "Fence 等待均值" },
+    { "name": "device_report_sink_gpu", "value": "GPU 等待均值" },
+    { "name": "device_report_sink_cache", "value": "导入缓存命中 / 未命中" },
+    { "name": "device_report_sink_failures", "value": "Sink 失败数" },
+    { "name": "device_report_codec_capabilities", "value": "系统编解码能力列表（不是实例创建测试结果）" },
+    { "name": "device_report_privacy", "value": "隐私说明：未包含媒体完整路径、URI 或文件描述符。" },
+    { "name": "device_report_measurement_note", "value": "送显计数表示提交次数；音画偏差是同步决策采样值，不代表屏幕与扬声器的实测延迟。缺少数据时显示 --。" },
+    { "name": "device_report_state_playing", "value": "播放中" },
+    { "name": "device_report_state_paused", "value": "已暂停" },
+    { "name": "device_report_state_seeking", "value": "Seek 中" },
+    { "name": "device_report_state_ready", "value": "就绪" },
+    { "name": "device_report_state_idle", "value": "空闲" },
+    { "name": "device_report_decoder_hardware", "value": "硬件" },
+    { "name": "device_report_decoder_software", "value": "软件" },
+    { "name": "device_report_decoder_auto", "value": "自动" },
+    { "name": "device_report_copied", "value": "诊断报告已复制" },
+    { "name": "device_report_copy_failed", "value": "复制失败，请重试" },
+    { "name": "device_report_saved", "value": "诊断报告已保存" },
+    { "name": "device_report_save_failed", "value": "保存失败，请重试" },
+    { "name": "device_report_generation_failed", "value": "读取诊断信息失败" },
+    {"name":"media_info_source_raw","value":"Source Format 原始信息"},
+    {"name":"media_info_track_raw","value":"Track %1$s（%2$s）原始信息"},
+    {"name":"media_info_source","value":"媒体源"},
+    {"name":"media_info_file_name","value":"文件名"},
+    {"name":"media_info_not_provided","value":"未提供"},
+    {"name":"media_info_file_size","value":"文件大小"},
+    {"name":"media_info_duration","value":"总时长"},
+    {"name":"media_info_duration_value","value":"%1$s（%2$s us）"},
+    {"name":"media_info_track_count","value":"轨道数量"},
+    {"name":"media_info_video_track","value":"视频轨"},
+    {"name":"media_info_codec","value":"编码格式"},
+    {"name":"media_info_resolution","value":"分辨率"},
+    {"name":"media_info_frame_rate","value":"帧率"},
+    {"name":"media_info_bitrate","value":"码率"},
+    {"name":"media_info_profile","value":"Profile"},
+    {"name":"media_info_rotation","value":"旋转角度"},
+    {"name":"media_info_hdr_container","value":"HDR Vivid 封装声明"},
+    {"name":"media_info_hdr_confirmed","value":"HDR Vivid 码流确认"},
+    {"name":"media_info_audio_track","value":"音频轨"},
+    {"name":"media_info_sample_rate","value":"采样率"},
+    {"name":"media_info_channel_count","value":"声道数"},
+    {"name":"media_info_channel_layout","value":"声道布局"},
+    {"name":"media_info_sample_format","value":"采样格式"},
+    {"name":"media_info_aac_adts","value":"AAC ADTS"},
+    {"name":"media_info_codec_config","value":"Codec Config"},
+    {"name":"media_info_decoder_output","value":"解码与输出"},
+    {"name":"media_info_video_decoder","value":"视频解码器"},
+    {"name":"media_info_run_mode","value":"运行模式"},
+    {"name":"media_info_codec_mode","value":"Codec 模式"},
+    {"name":"media_info_video_dump","value":"视频 Dump"},
+    {"name":"media_info_no_data","value":"无可用信息"},
+    {"name":"media_info_unknown_value","value":"未知（%1$s）"},
+    {"name":"media_info_track_audio","value":"音频"},
+    {"name":"media_info_track_video","value":"视频"},
+    {"name":"media_info_track_other","value":"其他类型 %1$s"},
+    {"name":"media_info_file_size_value","value":"%1$s %2$s（%3$s bytes）"},
+    {"name":"media_info_enabled","value":"开启"},
+    {"name":"media_info_disabled","value":"关闭"},
+    {"name":"media_info_yes","value":"是"},
+    {"name":"media_info_no","value":"否"},
+    {"name":"frame_retention_full","value":"FULL(全量直通)"},
+    {"name":"frame_retention_adaptive","value":"ADAPTIVE(感知自适应)"},
+    {"name":"frame_retention_uniform","value":"UNIFORM(平滑定比)"},
+    {"name":"configuration_title","value":"配置与预设"},
+    {"name":"configuration_description","value":"应用后的设置自动保存。预设同时替换播放和录制设置，从下次任务生效；不改变正在运行的任务。"},
+    {"name":"configuration_default","value":"默认"},
+    {"name":"configuration_buffer","value":"Buffer 检查"},
+    {"name":"configuration_720p","value":"720P 录制"},
+    {"name":"configuration_save_custom","value":"保存自定义"},
+    {"name":"configuration_load_custom","value":"载入自定义"},
+    {"name":"dump_list_failed","value":"读取 Dump 文件列表失败"},
+    {"name":"dump_wait_export","value":"请先结束播放或录制，待文件写入完成后再导出"},
+    {"name":"dump_exported_prefix","value":"已导出："},
+    {"name":"dump_export_cancelled","value":"已取消导出"},
+    {"name":"dump_export_failed_prefix","value":"导出失败："},
+    {"name":"dump_exporting_prefix","value":"正在打包并导出："},
+    {"name":"dump_group_exported_prefix","value":"已整组导出："},
+    {"name":"dump_group_failed_prefix","value":"整组导出失败："},
+    {"name":"dump_cleanup_title","value":"清理这组 Dump？"},
+    {"name":"dump_cleanup_message_prefix","value":"\n仅删除应用私有目录中的 "},
+    {"name":"dump_cleanup_message_suffix","value":" 个 Dump 文件，不删除录制视频和已导出的副本。此操作无法撤销。"},
+    {"name":"action_cancel","value":"取消"},
+    {"name":"action_cleanup","value":"清理"},
+    {"name":"dump_cleaned_prefix","value":"已清理 "},
+    {"name":"dump_cleaned_suffix","value":" 个 Dump 文件"},
+    {"name":"dump_cleanup_failed_prefix","value":"清理未全部完成："},
+    {"name":"dump_files_title","value":"Dump 文件"},
+    {"name":"dump_total_prefix","value":"累计 "},
+    {"name":"dump_available_prefix","value":" MiB · 可用 "},
+    {"name":"dump_policy_hint","value":"每个文件达到容量或时长上限即停止写入，不影响播放或录制；设置从下次任务生效。"},
+    {"name":"action_refresh","value":"刷新"},
+    {"name":"dump_layout_hint","value":"解码裸帧仅限 Buffer 输出；.layout.txt 记录尺寸、格式、行布局和旋转信息，请一并导出。"},
+    {"name":"dump_space_hint","value":"空间保护保留 128 MiB；即使选择不限，空间不足也只停止 Dump，不中断播放或录制。"},
+    {"name":"dump_files_empty","value":"暂无 Dump 文件"},
+    {"name":"dump_file_count_suffix","value":" 个文件 · "},
+    {"name":"dump_export_session","value":"整组导出"},
+    {"name":"dump_files_collapse","value":"收起文件 ▴"},
+    {"name":"dump_files_expand","value":"展开文件 ▾"},
+    {"name":"dump_cleanup_session","value":"清理这组 Dump"},
+    {"name":"action_export","value":"导出"},
+    {"name":"recorder_keyframe_accepted","value":"关键帧请求已接受，实际输出以编码帧 flags 为准"},
+    {"name":"recorder_bitrate_accepted","value":"码率请求已接受，实际码率见上方统计"},
+    {"name":"recorder_update_failed_prefix","value":"调整未成功（"},
+    {"name":"recorder_update_failed_suffix","value":"），当前编码器或状态不支持该请求"},
+    {"name":"recorder_update_failed","value":"参数调整失败，录制继续使用原参数"},
+    {"name":"recorder_primary","value":"主路"},
+    {"name":"recorder_secondary","value":"副路"},
+    {"name":"recorder_change_bitrate","value":"调整码率"},
+    {"name":"recorder_request_keyframe","value":"请求关键帧"},
+    {"name":"preprocess_preview_title","value":"前处理示意"},
+    {"name":"preprocess_retained_area","value":"保留区域"},
+    {"name":"preprocess_full_frame","value":"完整输入画面"},
+    {"name":"preprocess_input_prefix","value":"输入 "},
+    {"name":"preprocess_crop_origin_prefix","value":"裁剪起点 ("},
+    {"name":"preprocess_primary_prefix","value":"主路目标 "},
+    {"name":"preprocess_secondary_prefix","value":"副路目标 "},
+    {"name":"preprocess_secondary_hint","value":"副路独立使用完整源画面，不继承主路裁剪；丢帧目标由主副路分别配置。"},
+    {"name":"preprocess_preview_hint","value":"这是参数示意，不是实时相机预览；尺寸不放大并按偶数对齐，是否支持仍以设备 Configure 结果为准。"},
+    {"name":"recorder_cleanup_busy","value":"正在清理 Dump，请稍后再录制"},
+    {"name":"recorder_configuration_failed_prefix","value":"录制配置失败："},
+    {"name":"configuration_playback_next","value":"设置从下次播放生效。"},
+    {"name":"configuration_buffer_hint","value":"保存解码帧需要 Buffer 链路；Surface、OpenGL 和 Vulkan 不提供 CPU 裸帧。"},
+    {"name":"configuration_direct_output_hint","value":"保留尾帧和 HDR 转 BT.709 仅用于直接 Surface 送显。"},
+    {"name":"configuration_decoder_hint","value":"低时延、解码序输出等选项仍以实际解码器 Configure 结果为准。"},
+    {"name":"configuration_api26_required","value":"前处理、丢帧和一入二出需要 API 26，当前设备不可用。"},
+    {"name":"configuration_async_required","value":"前处理和一入二出需要异步 Surface 编码，且不能指定 codec name。请先恢复自动选择编码器。"},
+    {"name":"configuration_flv_codec","value":"本示例 FLV 录制仅支持 H.264，请更换编码格式或改用 MP4。"},
+    {"name":"configuration_drop_rate","value":"丢帧目标必须小于输入帧率；先选择 60 fps，再选择降至 30 fps。"},
+    {"name":"configuration_capability_api","value":"当前版本不能枚举组合能力；实际创建结果为准。"},
+    {"name":"configuration_encoder_missing","value":"未找到匹配 MIME 的编码器"},
+    {"name":"configuration_primary_prefix","value":"主路："},
+    {"name":"configuration_secondary_prefix","value":"副路："},
+    {"name":"configuration_actual_configure","value":"。能力查询不能替代实际 Configure。"},
+    {"name":"configuration_combination_passed","value":"输出尺寸与帧率的组合查询通过；相机、HDR、前处理及双路并发仍以实际配置结果为准。"},
+    {"name":"configuration_query_failed","value":"组合能力查询失败，尚不能判断是否支持。实际创建结果为准。"},
+    {"name":"configuration_store_unopened","value":"配置存储尚未打开"},
+    {"name":"dump_media_busy","value":"正在启动媒体任务或清理 Dump，请稍后重试"},
+    {"name":"dump_cleanup_rejected","value":"拒绝清理非 Dump 文件"},
+    {"name":"dump_legacy_status","value":"旧版文件，无状态记录"},
+    {"name":"dump_status_read_failed","value":"状态文件读取失败"},
+    {"name":"dump_status_writing","value":"写入中（任务已结束时表示上次未正常收尾）"},
+    {"name":"dump_status_completed","value":"已结束"},
+    {"name":"dump_status_limit","value":"达到容量或时长限制"},
+    {"name":"dump_status_size_limit","value":"达到容量限制"},
+    {"name":"dump_status_duration_limit","value":"达到时长限制"},
+    {"name":"dump_status_low_space","value":"空间不足，已停止 Dump"},
+    {"name":"dump_status_space_query_failed","value":"无法查询空间，已停止 Dump"},
+    {"name":"dump_status_write_failed","value":"写入失败"},
+    {"name":"dump_status_open_failed","value":"创建失败"},
+    {"name":"dump_status_layout_changed","value":"帧布局变化，已停止 Dump"},
+    {"name":"dump_status_invalid_buffer","value":"输出数据无效，已停止 Dump"},
+    {"name":"dump_status_unknown","value":"未知状态"},
+    {"name":"dump_archive_space","value":"临时打包空间不足，仍可逐文件导出"},
+    {"name":"dump_wait_operation","value":"请先结束播放或录制，待文件写入完成后再处理 Dump"},
+    {"name":"recorder_frames_suffix","value":" 帧 · "},
+    {"name":"recorder_file_prefix","value":" Mbit/s · 文件 "},
+    {"name":"recorder_primary_prefix","value":"主路 "},
+    {"name":"recorder_secondary_line_prefix","value":"\n副路 "},
+    {"name":"recorder_secondary_prefix","value":"副路 "},
+    {"name":"configuration_check_combination","value":"检查当前组合能力"},
+    {"name":"preprocess_crop_percent_prefix","value":"中心裁剪保留 "},
+    {"name":"preprocess_adjust_suffix","value":"% · 点击调整"},
+    {"name":"preprocess_downsample_prefix","value":"降采样目标 "},
+    {"name":"preprocess_height_adjust_suffix","value":"P · 点击调整"},
+    {"name":"diagnostics_present_prefix","value":"Present 调用 · P95 "},
+    {"name":"diagnostics_max_prefix","value":" ms · 最大 "},
+    {"name":"diagnostics_samples_suffix","value":" 个样本"},
+    {"name":"diagnostics_present_empty","value":"暂无成功送显调用样本"},
+    {"name":"diagnostics_timeline_empty","value":"暂无操作记录"},
+    {"name":"configuration_auto_select","value":"自动选择"},
+    {"name":"diagnostics_prepare_matching_media","value":"：请先准备相同 MIME 的视频或录制配置，且帧率必须有效"},
+    {"name":"diagnostics_supported_prefix","value":"支持："},
+    {"name":"diagnostics_unsupported_prefix","value":"不支持："},
+    {"name":"diagnostics_rate_range_prefix","value":"\n该尺寸帧率范围："},
+    {"name":"diagnostics_combination_unknown","value":"组合能力查询失败，未把失败当作“不支持”"},
+    {"name":"diagnostics_last_failure","value":"最近一次失败"},
+    {"name":"diagnostics_error_code_hint","value":"说明：封装层的 -1 为示例错误码；codec.callback 为系统回调返回码。"},
+    {"name":"diagnostics_timeline_report_title","value":"操作时间线（最近 128 条，时间相对本次初始化）"},
+    {"name":"diagnostics_pts_prefix","value":" · PTS/目标 "},
+    {"name":"diagnostics_present_report_prefix","value":"Present 调用耗时：P95 "},
+    {"name":"diagnostics_report_max_prefix","value":" ms，最大 "},
+    {"name":"diagnostics_recent_prefix","value":" ms，最近 "},
+    {"name":"diagnostics_present_hint","value":"首帧提交和 Present 返回不等于屏幕已经显示；GPU 异步处理请结合链路分阶段统计。"},
+    {"name":"diagnostics_combination_title","value":"组合能力检查"},
+    {"name":"diagnostics_decoder_prefix","value":"指定解码器："},
+    {"name":"diagnostics_encoder_prefix","value":"指定编码器："},
+    {"name":"configuration_auto","value":"自动"},
+    {"name":"diagnostics_check_video","value":"检查当前视频"},
+    {"name":"diagnostics_check_recording","value":"检查当前录制配置"},
+    {"name":"diagnostics_use_decoder","value":"用于下次解码"},
+    {"name":"diagnostics_use_encoder","value":"用于下次编码"},
+    {"name":"diagnostics_encoder_line_prefix","value":"\n指定编码器："},
+    {"name":"diagnostics_restore_auto","value":"恢复自动选择"},
+    {"name":"diagnostics_timeline_title","value":"操作时间线"},
+    {"name":"action_collapse","value":"收起"},
+    {"name":"action_expand","value":"展开"},
+    {"name":"diagnostics_timeline_hint","value":"保留最近 128 条事件；Seek 编号关联同一次跳转，首帧提交不代表屏幕实际显示。"},
+    {"name":"configuration_recorder_requirements","value":"前处理和一入二出需要 API 26、异步 Surface 编码；丢帧目标需要小于输入帧率。"},
+    {"name":"configuration_load_default","value":"无法读取保存的配置，本次使用默认设置"},
+    {"name":"configuration_custom_saved","value":"已保存自定义配置"},
+    {"name":"configuration_saved","value":"设置已保存"},
+    {"name":"configuration_save_failed","value":"保存配置失败，本次设置仍然有效"},
+    {"name":"configuration_wait_idle","value":"请先结束播放或录制，再切换整套预设"},
+    {"name":"configuration_custom_missing","value":"尚未保存自定义配置"},
+    {"name":"configuration_load_failed","value":"载入配置失败，原设置保持不变"},
+    {"name":"playback_failed_hint","value":"播放失败，请查看诊断报告和系统日志"},
+    {"name":"playback_cleanup_busy","value":"正在清理 Dump，请稍后再播放"},
+    {"name":"configuration_updated_hint","value":"参数已更新，可点击检查当前组合。API 26 前处理和一入二出仅支持异步 Surface 编码；30 fps 输入不能降至 30 fps。"},
+    {"name":"configuration_camera_query_failed","value":"相机能力查询失败，设置未保存；请检查权限后重新应用"},
+    {"name":"preprocess_center_crop_prefix","value":"中心裁剪（"},
+    {"name":"preprocess_downsample_to_prefix","value":"降采样至 "},
+    {"name":"configuration_special_codec_name","value":"前处理和一入二出使用专用创建接口，不能指定 codec name"},
+    {"name":"recorder_start_failed","value":"启动编码器失败，请返回后检查录制配置"},
+    {"name":"rec_diag_expand","value":"展开录制诊断"},
+    {"name":"rec_diag_collapse","value":"收起录制诊断"},
+    {"name":"rec_diag_target","value":"已接受目标"},
+    {"name":"rec_diag_recent","value":"近 1 秒"},
+    {"name":"rec_diag_average","value":"全程平均"},
+    {"name":"rec_diag_expected","value":"预期输出"},
+    {"name":"rec_diag_idle","value":"距上一帧"},
+    {"name":"rec_diag_gap","value":"最长输出间隔"},
+    {"name":"rec_diag_low_fps","value":"输出帧率偏低（不等同于编码器丢帧）"},
+    {"name":"rec_diag_stalled","value":"暂未收到新的视频输出"},
+    {"name":"rec_diag_keyframes","value":"关键帧数"},
+    {"name":"rec_diag_key_pts","value":"最近关键帧 PTS"},
+    {"name":"rec_diag_key_interval","value":"最近关键帧间隔"},
+    {"name":"rec_diag_key_pending","value":"请求已接受，等待后续关键帧"},
+    {"name":"rec_diag_key_observed","value":"请求后检测到关键帧（不证明由请求触发）"},
+    {"name":"rec_diag_key_ended","value":"录制结束，未检测到后续关键帧"},
+    {"name":"rec_diag_key_none","value":"未请求关键帧"},
+    {"name":"rec_diag_parameters","value":"动态参数：接受 / 失败"},
+    {"name":"rec_diag_wait","value":"取输出等待"},
+    {"name":"rec_diag_muxer","value":"封装写入"},
+    {"name":"rec_diag_dump_write","value":"Dump 写入"},
+    {"name":"rec_diag_hold","value":"应用持有输出 Buffer"},
+    {"name":"rec_diag_timing_note","value":"耗时单位 ms：全程平均 / 最近 256 次 P95 / 全程最大。取输出等待由录制工作线程统计，包含正常等帧时间，不是纯编码耗时。"},
+    {"name":"rec_diag_file","value":"容器文件"},
+    {"name":"rec_diag_growth","value":"文件增长"},
+    {"name":"rec_diag_free","value":"可用存储（最近采样）"},
+    {"name":"rec_diag_space_low","value":"存储空间偏低，请留意写入结果"},
+    {"name":"rec_diag_dump","value":"Dump 状态 / 已写入"},
+    {"name":"rec_diag_disabled","value":"未开启"},
+    {"name":"rec_diag_requested","value":"请求配置"},
+    {"name":"rec_diag_codec","value":"编码器返回描述（初始化时查询）"},
+    {"name":"rec_diag_verified","value":"码流尺寸 / HDR：未解析确认；配置成功不代表已验证 HDR。"},
+    {"name":"rec_diag_unknown","value":"未提供 / 尚无样本"},
+    {"name":"rec_diag_pts","value":"PTS 回退次数"},
+    {"name":"rec_diag_storage_note","value":"文件增长包含容器及音频，与视频码率不同；文件缓存会带来短时波动。空间查询失败显示未提供，不当作 0。"},
+    {"name":"rec_diag_recent_note","value":"近 1 秒按应用处理视频输出的单调时钟统计；全程平均按成功写入的视频样本 PTS 统计，两者不混用。"},
+    {"name":"rec_diag_no_error","value":"未记录写入错误"},
+    {"name":"rec_diag_bitrate_delta","value":"短时码率相对目标偏差"},
+    {"name":"rec_diag_key_requests","value":"已接受关键帧请求数"},
+    {"name":"rec_diag_codec_size","value":"返回尺寸（非码流解析）"},
+    {"name":"rec_diag_codec_fps","value":"返回帧率（非实测）"},
+    {"name":"rec_diag_codec_bitrate","value":"返回码率（初始化值）"},
+    {"name":"tab_transcode","value":"转码"},
+    {"name":"transcode_description","value":"选择视频，解码处理并重新编码，导出为 MP4。"},
+    {"name":"transcode_source","value":"输入视频"},
+    {"name":"transcode_no_source","value":"尚未选择视频"},
+    {"name":"transcode_from_files","value":"文件管理"},
+    {"name":"transcode_from_gallery","value":"图库"},
+    {"name":"transcode_output","value":"输出设置"},
+    {"name":"transcode_codec","value":"视频编码"},
+    {"name":"transcode_mode","value":"编码输入模式"},
+    {"name":"transcode_size","value":"输出尺寸"},
+    {"name":"transcode_bitrate","value":"目标码率（VBR）"},
+    {"name":"transcode_grayscale","value":"灰度处理"},
+    {"name":"transcode_audio","value":"保留首条音轨"},
+    {"name":"transcode_original_size","value":"原始尺寸"},
+    {"name":"transcode_size_1920","value":"长边 ≤ 1920"},
+    {"name":"transcode_size_1080","value":"长边 ≤ 1080"},
+    {"name":"transcode_size_720","value":"长边 ≤ 720"},
+    {"name":"transcode_buffer_hint","value":"Buffer：通过 CPU 处理解码帧，按原比例缩小，可选灰度。不放大视频。"},
+    {"name":"transcode_window_hint","value":"Surface：解码器直接输出到编码器输入 Surface，保留原始尺寸，不支持缩放和灰度。"},
+    {"name":"transcode_window_mode","value":"Surface"},
+    {"name":"transcode_limits","value":"仅支持 SDR 视频，输出 H.264/H.265 MP4，需设备支持。音频可选保留原轨、转 AAC-LC 128 kbps（单/双声道、保留原采样率）或无音频。不处理 HDR 转换、字幕及其他轨道。"},
+    {"name":"transcode_running","value":"正在转码"},
+    {"name":"transcode_result","value":"任务结果"},
+    {"name":"transcode_progress","value":"%s%% · %s 帧 · %s MiB"},
+    {"name":"transcode_start","value":"开始转码"},
+    {"name":"transcode_cancel","value":"取消任务"},
+    {"name":"transcode_cancelling","value":"正在取消…"},
+    {"name":"transcode_save_files","value":"保存到文件"},
+    {"name":"transcode_save_gallery","value":"保存到图库"},
+    {"name":"transcode_private_result","value":"已完成文件保存在应用内，请选择位置导出。"},
+    {"name":"transcode_select_failed","value":"选择视频失败。"},
+    {"name":"transcode_complete","value":"转码完成，可以导出。"},
+    {"name":"transcode_cancelled","value":"任务已取消，未完成文件已清理。"},
+    {"name":"transcode_failed","value":"转码失败。"},
+    {"name":"transcode_saved","value":"文件已保存。"},
+    {"name":"transcode_save_failed","value":"保存失败，应用内文件仍保留，可以重试。"},
+    {"name":"transcode_resource_busy","value":"请先结束播放或录制再转码。转码期间也不能启动新的播放或录制任务。"},
+    {"name":"transcode_history_failed","value":"视频已保留，但历史报告保存失败。"},
+    {"name":"transcode_cleanup","value":"清理应用内转码文件"},
+    {"name":"transcode_cleanup_hint","value":"删除应用内的转码视频、报告和未完成文件？不影响已导出的视频和源文件。"},
+    {"name":"transcode_encoder_category","value":"编码器"},
+    {"name":"transcode_audio_copy","value":"保留原音轨"},
+    {"name":"transcode_audio_aac","value":"转 AAC-LC · 128 kbps"},
+    {"name":"transcode_audio_none","value":"无音频"},
+    {"name":"transcode_first_audio","value":"首条音轨"},
+    {"name":"transcode_audio_track","value":"音轨"},
+    {"name":"transcode_eta","value":"预计剩余：%s 秒"},
+    {"name":"transcode_metrics_hint","value":"统计接口调用耗时，不是硬件编解码延迟。P95 取最近 256 次调用。各项等待时间可能重叠。"},
+    {"name":"transcode_wait","value":"Buffer 等待：解码输出 %s ms · 编码输入 %s ms · 编码输出 %s ms"},
+    {"name":"transcode_play_result","value":"播放结果"},
+    {"name":"transcode_export_report","value":"导出诊断报告"},
+    {"name":"transcode_preflight","value":"媒体分析与能力检查"},
+    {"name":"transcode_inspecting","value":"正在读取媒体并检查设备能力…"},
+    {"name":"transcode_history","value":"最近转码"},
+    {"name":"transcode_export_space","value":"本地剩余空间不足以再保存一份视频并预留 64 MiB。"},
+    {"name":"transcode_space_estimate","value":"预计输出：%s MiB · 剩余：%s MiB。VBR 仅为估算，另保留 64 MiB。"},
+    {"name":"transcode_relink_source","value":"重新选择源文件"},
+    {"name":"transcode_relink_hint","value":"文件移动或授权失效时，可以重新选择源文件并保留该项参数。启动任务时会重新检查文件和参数是否匹配。"},
+    {"name":"transcode_range","value":"按时间段转码"},
+    {"name":"transcode_range_start","value":"起点（秒）"},
+    {"name":"transcode_range_end","value":"终点（秒，不含该时刻）"},
+    {"name":"transcode_range_to_end","value":"源文件结尾"},
+    {"name":"transcode_range_hint","value":"仅 Buffer 模式，最多三位小数；终点留空表示到文件结尾。保留原音轨按压缩包边界截取，AAC 按 PCM 采样裁切，末帧补齐。为保留重排序帧，视频仍解码到源 EOS，短片段也可能耗时。"},
+    {"name":"transcode_range_invalid","value":"时间段无效。请输入非负秒数（最多三位小数），起点须早于终点，终点不能超过源文件时长。"},
+    {"name":"transcode_output_verified","value":"MP4 元数据校验通过 · 输出时长 %s 秒（未做完整解码校验）"}
+  ]
+}

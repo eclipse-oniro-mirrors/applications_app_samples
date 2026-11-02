@@ -1,0 +1,1198 @@
+{
+  "string": [
+    {"name":"task_partials","value":"Unfinished transcoding files"},
+    {"name":"task_partial_confirm","value":"Delete unfinished private .part files? Completed videos, gallery files and source files will not be removed. Interrupted jobs restart from the beginning."},
+    {"name":"task_clear_partials","value":"Clear unfinished files"},
+    {"name":"task_keep","value":"Keep"},
+    {"name":"task_queue","value":"Transcode queue"},
+    {"name":"task_queue_hint","value":"Runs one file at a time. Pause takes effect after the current file. Interrupted files restart from the beginning."},
+    {"name":"task_enqueue","value":"Add current file"},
+    {"name":"task_pause_queue","value":"Pause queue"},
+    {"name":"task_run_queue","value":"Run queue"},
+    {"name":"task_completed","value":"Completed"},
+    {"name":"task_failed","value":"Failed"},
+    {"name":"task_cancelled","value":"Cancelled"},
+    {"name":"task_interrupted","value":"Interrupted; retry required"},
+    {"name":"task_running","value":"Running"},
+    {"name":"task_waiting","value":"Waiting"},
+    {"name":"task_retry","value":"Retry"},
+    {"name":"task_remove","value":"Remove from queue"},
+    {"name":"task_recovery","value":"Interrupted tasks"},
+    {"name":"task_recovery_hint","value":"No codec state survives a process exit. Reopen playback from history; restart interrupted transcodes from the queue. Recording cannot continue into the previous file."},
+    {"name":"task_acknowledge","value":"Mark handled"},
+    {"name":"task_sessions","value":"Session reports"},
+    {"name":"task_refresh","value":"Refresh"},
+    {"name":"task_export_json","value":"Export JSON"},
+    {"name":"task_export_text","value":"Export TXT"},
+    {"name":"task_baseline","value":"Performance baseline"},
+    {"name":"task_save_baseline","value":"Save as baseline"},
+    {"name":"task_baseline_hint","value":"Compare only matching device/API, configuration and observed pipeline. API wall times are not hardware execution latency. Use the same media and operating conditions."},
+    {"name":"task_no_baseline","value":"No matching baseline"},
+    {"name":"task_capability_matrix","value":"Capability snapshots"},
+    {"name":"task_capability_save","value":"Save device snapshot"},
+    {"name":"task_capability_import","value":"Import comparison"},
+    {"name":"task_capability_export","value":"Export snapshot"},
+    {"name":"task_capability_same","value":"No capability differences"},
+    {"name":"task_capability_hint","value":"Compares codec names, hardware/software category, ranges, profiles and instance limits. A saved range does not guarantee that a size/rate combination works."},
+    {"name":"task_recommend","value":"Check current media"},
+    {"name":"task_recommend_empty","value":"Select a video on the playback page first"},
+    {"name":"task_recommend_hint","value":"Candidates for this media (not applied automatically)"},
+    {"name":"task_no_reports","value":"No completed session reports yet"},
+    {"name":"task_preview","value":"Preprocessing preview"},
+    {"name":"task_preview_hint","value":"Geometry preview only; it does not decode or render the processed pixels. Cropping is even-aligned for YUV420. Surface direct mode keeps the source size."},
+    {"name":"task_fit","value":"Fit source ratio"},
+    {"name":"task_crop","value":"Center crop 16:9"},
+    {"name":"task_letterbox","value":"Letterbox 16:9"},
+    {"name":"rec_audio_output","value":"AAC output frames"},
+    {"name":"rec_audio_rate","value":"Recent AAC bitrate"},
+    {"name":"rec_audio_idle","value":"Time since last AAC output"},
+    {"name":"rec_end_user","value":"Stopped by user"},
+    {"name":"rec_end_space","value":"Stopped by storage protection"},
+    {"name":"rec_end_running","value":"In progress / end reason not recorded"},
+    {"name":"rec_stage_init_begin","value":"Initialization started"},
+    {"name":"rec_stage_init_end","value":"Initialization finished"},
+    {"name":"rec_stage_encoder","value":"Encoders started"},
+    {"name":"rec_stage_camera","value":"Camera output started"},
+    {"name":"rec_stage_first_primary","value":"First primary output"},
+    {"name":"rec_stage_first_secondary","value":"First secondary output"},
+    {"name":"rec_stage_first_audio","value":"First AAC output"},
+    {"name":"rec_stage_stop","value":"Stop requested"},
+    {"name":"rec_stage_eos_primary","value":"Primary EOS observed"},
+    {"name":"rec_stage_eos_secondary","value":"Secondary EOS observed"},
+    {"name":"rec_stage_eos_audio","value":"Audio EOS observed"},
+    {"name":"rec_stage_muxer_primary","value":"Primary muxer released"},
+    {"name":"rec_stage_muxer_secondary","value":"Secondary muxer released"},
+    {"name":"rec_stage_native","value":"Native release finished"},
+    {"name":"rec_stage_files","value":"Output files closed"},
+    {"name":"rec_stage_camera_release","value":"Camera released"},
+    {"name":"rec_result_open","value":"Result"},
+    {"name":"rec_result_title","value":"Recording result"},
+    {"name":"rec_result_complete","value":"Recording finalized"},
+    {"name":"rec_result_partial","value":"Review the end reason and timeline; the file may be incomplete."},
+    {"name":"rec_result_primary","value":"Play primary"},
+    {"name":"rec_result_secondary","value":"Play secondary"},
+    {"name":"rec_result_back","value":"Back"},
+    {"name":"rec_result_finalizing","value":"Finalizing…"},
+    {"name":"rec_result_metadata_unavailable","value":"Finalized file metadata unavailable"},
+    {"name":"rec_result_metadata_note","value":"Metadata is read from the finalized file, not the requested configuration. It does not verify HDR Vivid bitstream metadata."},
+    {"name":"recorder_finalize_failed","value":"Recording finalization failed. Check the system log."},
+    {"name":"rec_storage_remaining","value":"Estimated time before storage reserve"},
+    {"name":"rec_storage_protect","value":"Stop safely when storage runs low"},
+    {"name":"rec_storage_note","value":"Off by default. Uses normal EOS finalization; keeps at least 256 MiB or 10 seconds of estimated file growth. Remaining time is an estimate, not a guarantee."},
+    {"name":"rec_audio_title","value":"Audio diagnostics"},
+    {"name":"rec_audio_pcm","value":"Captured sample frames / pending PCM"},
+    {"name":"rec_audio_pts","value":"Audio minus primary video PTS (first / latest)"},
+    {"name":"rec_audio_secondary_pts","value":"Audio minus secondary video PTS (first / latest)"},
+    {"name":"rec_audio_muxer_primary","value":"Audio write to primary (mean/P95/max)"},
+    {"name":"rec_audio_muxer_secondary","value":"Audio write to secondary (mean/P95/max)"},
+    {"name":"rec_audio_write_failures","value":"Audio write failures (primary / secondary)"},
+    {"name":"rec_audio_note","value":"PCM uses captured S16LE sample frames. AAC bitrate uses the last second of output arrival. Video PTS is normalized per stream; these differences describe relative timeline progress, not physical A/V latency or lip-sync."},
+    {"name":"rec_timeline_title","value":"Recording lifecycle timeline"},
+    {"name":"setting_dump_buffer_only","value":"Available only in Buffer mode"},
+    {"name":"playback_seek_preview_unavailable","value":"Preview unavailable"},
+    {"name":"dump_size_unlimited","value":"No size limit"},
+    {"name":"dump_duration_unlimited","value":"No time limit"},
+    {"name":"dump_unlimited_hint","value":"Unlimited settings do not stop dumping. If both limits are disabled, monitor free storage."},
+    {
+      "name": "module_desc",
+      "value": "AVCodec playback and recording sample module."
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Provides AVCodec playback and recording capabilities."
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "AVCodec"
+    },
+    {
+      "name": "ability_desc",
+      "value": "Loads the AVCodec sample home page"
+    },
+    {
+      "name": "reason",
+      "value": "allows an app to use the microphone"
+    },
+    {
+      "name": "camera_reason",
+      "value": "allows an app to use the camera"
+    },
+    {
+      "name": "playing",
+      "value": "playing"
+    },
+    {
+      "name": "play",
+      "value": "play"
+    },
+    {
+      "name": "stop_playback",
+      "value": "stop"
+    },
+    {
+      "name": "stopping",
+      "value": "stopping"
+    },
+    {
+      "name": "alert",
+      "value": "None video selected"
+    },
+    {
+      "name": "alert1",
+      "value": "This device camera does not support this type of video stream, it will switch to the default configuration"
+    },
+    {
+      "name": "alert2",
+      "value": "Press and hold the play window during playback to adjust playback speed"
+    },
+    {
+      "name": "success",
+      "value": "Success"
+    },
+    {
+      "name": "record",
+      "value": "Record"
+    },
+    {
+      "name": "saveButtonNote",
+      "value": "Allow AVCodecVideo to save captured video to gallery?"
+    },
+    {
+      "name": "saveButtonCancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "saveButtonTitle",
+      "value": "Confirm the video storage location"
+    },
+    {
+      "name": "full_width",
+      "value": "100%"
+    },
+    {
+      "name": "full_height",
+      "value": "100%"
+    },
+    {
+      "name": "NATIVEBUFFER_ROTATE_NONE",
+      "value": "NATIVEBUFFER_ROTATE_NONE"
+    },
+    {
+      "name": "NATIVEBUFFER_ROTATE_90",
+      "value": "NATIVEBUFFER_ROTATE_90"
+    },
+    {
+      "name": "NATIVEBUFFER_ROTATE_180",
+      "value": "NATIVEBUFFER_ROTATE_180"
+    },
+    {
+      "name": "NATIVEBUFFER_ROTATE_270",
+      "value": "NATIVEBUFFER_ROTATE_270"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_H",
+      "value": "NATIVEBUFFER_FLIP_H"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_V",
+      "value": "NATIVEBUFFER_FLIP_V"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_H_ROT90",
+      "value": "NATIVEBUFFER_FLIP_H_ROT90"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_V_ROT90",
+      "value": "NATIVEBUFFER_FLIP_V_ROT90"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_H_ROT180",
+      "value": "NATIVEBUFFER_FLIP_H_ROT180"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_V_ROT180",
+      "value": "NATIVEBUFFER_FLIP_V_ROT180"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_H_ROT270",
+      "value": "NATIVEBUFFER_FLIP_H_ROT270"
+    },
+    {
+      "name": "NATIVEBUFFER_FLIP_V_ROT270",
+      "value": "NATIVEBUFFER_FLIP_V_ROT270"
+    },
+    {
+      "name": "select_from_filemanager",
+      "value": "select_from_filemanager"
+    },
+    {
+      "name": "select_from_album",
+      "value": "select_from_album"
+    },
+    {
+      "name": "setting",
+      "value": "setting"
+    },
+    {
+      "name": "player_settings_title",
+      "value": "Playback settings"
+    },
+    {
+      "name": "player_settings_subtitle",
+      "value": "Configure decoding, rendering, synchronization and debug options"
+    },
+    {
+      "name": "recorder_settings_title",
+      "value": "Recording settings"
+    },
+    {
+      "name": "recorder_settings_subtitle",
+      "value": "Configure audio/video encoding, resolution, and container output"
+    },
+    {
+      "name": "setting_decoder_type",
+      "value": "Decoder type"
+    },
+    {
+      "name": "setting_run_mode",
+      "value": "Rendering mode"
+    },
+    {
+      "name": "setting_sync_mode",
+      "value": "Sync mode"
+    },
+    {
+      "name": "setting_dump",
+      "value": "Save decoded frames"
+    },
+    {
+      "name": "setting_retain_last_frame",
+      "value": "Retain last frame on stop"
+    },
+    {
+      "name": "setting_low_latency",
+      "value": "Low-latency decoding"
+    },
+    {
+      "name": "setting_decoding_order_output",
+      "value": "Output in decoding order"
+    },
+    {
+      "name": "setting_hdr_vivid_to_bt709",
+      "value": "Convert HDR Vivid to BT.709"
+    },
+    {
+      "name": "setting_hdr_vivid_to_bt709_gpu_unavailable",
+      "value": "Available only with direct Surface presentation"
+    },
+    {
+      "name": "setting_audio_volume",
+      "value": "Audio volume"
+    },
+    {
+      "name": "setting_audio_latency",
+      "value": "Low-latency audio output"
+    },
+    {
+      "name": "setting_auto_hide_controls",
+      "value": "Auto-hide playback controls"
+    },
+    {
+      "name": "playback_controls_auto_hide_tip",
+      "value": "Playback controls are hidden. You can disable auto-hide in Playback Settings."
+    },
+    {
+      "name": "setting_codec",
+      "value": "Codec"
+    },
+    {
+      "name": "setting_output_format",
+      "value": "Container format"
+    },
+    {
+      "name": "setting_resolution",
+      "value": "Resolution"
+    },
+    {
+      "name": "setting_frame_rate",
+      "value": "Frame rate"
+    },
+    {
+      "name": "setting_video_bitrate",
+      "value": "Video bitrate"
+    },
+    {
+      "name": "setting_bitrate_mode",
+      "value": "Bitrate mode"
+    },
+    {
+      "name": "setting_i_frame_interval",
+      "value": "Key-frame interval"
+    },
+    {
+      "name": "setting_bitrate_10m",
+      "value": "10 Mbps"
+    },
+    {
+      "name": "setting_bitrate_20m",
+      "value": "20 Mbps"
+    },
+    {
+      "name": "setting_bitrate_30m",
+      "value": "30 Mbps"
+    },
+    {
+      "name": "setting_bitrate_mode_cbr",
+      "value": "Constant bitrate (CBR)"
+    },
+    {
+      "name": "setting_bitrate_mode_vbr",
+      "value": "Variable bitrate (VBR)"
+    },
+    {
+      "name": "setting_i_frame_interval_100ms",
+      "value": "100 ms"
+    },
+    {
+      "name": "setting_i_frame_interval_1s",
+      "value": "1 second"
+    },
+    {
+      "name": "setting_i_frame_interval_2s",
+      "value": "2 seconds"
+    },
+    {
+      "name": "setting_audio_sample_rate",
+      "value": "Audio sample rate"
+    },
+    {
+      "name": "setting_audio_channel_count",
+      "value": "Audio channels"
+    },
+    {
+      "name": "setting_audio_bitrate",
+      "value": "Audio bitrate"
+    },
+    {
+      "name": "setting_audio_sample_rate_44100",
+      "value": "44.1 kHz"
+    },
+    {
+      "name": "setting_audio_sample_rate_48000",
+      "value": "48 kHz"
+    },
+    {
+      "name": "setting_audio_channel_mono",
+      "value": "Mono"
+    },
+    {
+      "name": "setting_audio_channel_stereo",
+      "value": "Stereo"
+    },
+    {
+      "name": "setting_audio_bitrate_32k",
+      "value": "32 kbps"
+    },
+    {
+      "name": "setting_audio_bitrate_64k",
+      "value": "64 kbps"
+    },
+    {
+      "name": "setting_audio_bitrate_128k",
+      "value": "128 kbps"
+    },
+    {
+      "name": "setting_decoder_auto",
+      "value": "Auto select"
+    },
+    {
+      "name": "setting_decoder_hardware",
+      "value": "Hardware decoding"
+    },
+    {
+      "name": "setting_decoder_software",
+      "value": "Software decoding"
+    },
+    {
+      "name": "setting_render_direct",
+      "value": "Surface rendering"
+    },
+    {
+      "name": "setting_render_buffer",
+      "value": "Buffer copy rendering"
+    },
+    {
+      "name": "setting_render_opengl",
+      "value": "Surface-window OpenGL output"
+    },
+    {
+      "name": "setting_render_vulkan",
+      "value": "Surface-window Vulkan output"
+    },
+    {
+      "name": "setting_mode_async",
+      "value": "Asynchronous"
+    },
+    {
+      "name": "setting_mode_sync",
+      "value": "Synchronous"
+    },
+    {
+      "name": "setting_codec_hdr_vivid",
+      "value": "HDR Vivid recording"
+    },
+    {
+      "name": "setting_codec_h264",
+      "value": "H.264 encoding"
+    },
+    {
+      "name": "setting_codec_h265",
+      "value": "H.265 encoding"
+    },
+    {
+      "name": "setting_resolution_4k",
+      "value": "4K (3840x2160)"
+    },
+    {
+      "name": "setting_resolution_1080p",
+      "value": "1080P (1920x1080)"
+    },
+    {
+      "name": "setting_resolution_720p",
+      "value": "720P (1280x720)"
+    },
+    {
+      "name": "setting_fps_30",
+      "value": "30 fps"
+    },
+    {
+      "name": "setting_fps_60",
+      "value": "60 fps"
+    },
+    {
+      "name": "setting_restore_defaults",
+      "value": "Reset"
+    },
+    {
+      "name": "setting_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "setting_apply",
+      "value": "Apply"
+    },
+    {
+      "name": "adjust_playback_speed",
+      "value": "adjust_playback_speed"
+    },
+    {
+      "name": "start_recording",
+      "value": "Start recording"
+    },
+    {
+      "name": "end_recording",
+      "value": "End recording"
+    },
+    {
+      "name": "record_mp4",
+      "value": "MP4 Record"
+    },
+    {
+      "name": "record_flv",
+      "value": "FLV Record"
+    },
+    {
+      "name": "smart_fluency_enabled",
+      "value": "Smart Fluency Enabled"
+    },
+    {
+      "name": "smart_fluency_not_supported",
+      "value": "Smart fluency decoding requires API 26+"
+    },
+    {
+      "name": "smart_fluency_x2",
+      "value": "X2 (Smart Fluency)"
+    },
+    {
+      "name": "smart_fluency_x3",
+      "value": "X3 (Smart Fluency)"
+    },
+    {
+      "name": "record_permission_required",
+      "value": "Camera and microphone permissions are required for recording. Please grant them in Settings."
+    },
+    {
+      "name": "recorder_configuration_unsupported",
+      "value": "The recording configuration is not supported. Adjust the codec, resolution, or frame rate."
+    },
+    {
+      "name": "media_file_empty",
+      "value": "The media file is empty and cannot be played."
+    },
+    {
+      "name": "media_file_invalid",
+      "value": "The media file is corrupted or its format is not supported."
+    },
+    {
+      "name": "media_file_open_failed",
+      "value": "Failed to open the media file. Please select it again."
+    },
+    {
+      "name": "media_file_select_failed",
+      "value": "Failed to select the media file. Please try again."
+    },
+    {
+      "name": "media_file_not_selected",
+      "value": "No media file selected."
+    },
+    {
+      "name": "playback_pause",
+      "value": "Pause"
+    },
+    {
+      "name": "playback_resume",
+      "value": "Resume"
+    },
+    {
+      "name": "playback_gesture_play",
+      "value": "Play"
+    },
+    {
+      "name": "playback_speed_x1",
+      "value": "X1"
+    },
+    {
+      "name": "playback_speed_x2",
+      "value": "X2"
+    },
+    {
+      "name": "playback_rewind_15s",
+      "value": "Rewind 15s"
+    },
+    {
+      "name": "playback_forward_15s",
+      "value": "Forward 15s"
+    },
+    {
+      "name": "playback_replay",
+      "value": "Replay"
+    },
+    { "name": "playback_more", "value": "More" },
+    { "name": "playback_more_title", "value": "More playback options" },
+    { "name": "playback_queue", "value": "Playback queue" },
+    { "name": "playback_diagnostics", "value": "Performance diagnostics" },
+    { "name": "playback_diagnostics_close", "value": "Close diagnostics" },
+    { "name": "playback_fullscreen", "value": "Fullscreen" },
+    { "name": "playback_exit_fullscreen", "value": "Exit fullscreen" },
+    { "name": "playback_display_scale", "value": "Display ratio" },
+    { "name": "playback_resume_position", "value": "Resumed from the last position" },
+    { "name": "playback_mute", "value": "Mute" },
+    { "name": "playback_unmute", "value": "Unmute" },
+    { "name": "playback_audio_track", "value": "Audio track" },
+    { "name": "playback_subtitle", "value": "Subtitle" },
+    { "name": "playback_no_audio_track", "value": "The file has only one audio track" },
+    { "name": "playback_audio_track_failed", "value": "Failed to read audio tracks" },
+    { "name": "playback_audio_track_unsupported", "value": "The selected audio track is not supported" },
+    { "name": "playback_subtitle_loaded", "value": "Subtitle loaded" },
+    { "name": "playback_subtitle_empty", "value": "No valid subtitle cues found" },
+    { "name": "playback_subtitle_failed", "value": "Failed to load subtitle" },
+    { "name": "playback_subtitle_clear", "value": "Clear" },
+    { "name": "playback_ab_set_start", "value": "Set A" },
+    { "name": "playback_ab_set_start_done", "value": "A is set" },
+    { "name": "playback_ab_set_end", "value": "Set B" },
+    { "name": "playback_ab_set_end_done", "value": "B is active" },
+    { "name": "playback_ab_clear", "value": "Clear A-B" },
+    { "name": "playback_ab_start_set", "value": "A point set" },
+    { "name": "playback_ab_start_required", "value": "Set A before B" },
+    { "name": "playback_ab_end_invalid", "value": "B must be later than A" },
+    { "name": "playback_ab_enabled", "value": "A-B loop enabled" },
+    { "name": "playback_previous_frame", "value": "Previous frame" },
+    { "name": "playback_next_frame", "value": "Next frame" },
+    { "name": "playback_frame_step_failed", "value": "Frame step failed" },
+    { "name": "playback_pip_enter", "value": "Picture in picture" },
+    { "name": "playback_pip_exit", "value": "Exit picture in picture" },
+    { "name": "playback_pip_unsupported", "value": "Picture in picture is not supported" },
+    { "name": "playback_pip_failed", "value": "Failed to start picture in picture" },
+    { "name": "playback_background_on", "value": "Background playback: On" },
+    { "name": "playback_background_off", "value": "Background playback: Off" },
+    { "name": "playback_background_enabled", "value": "Background PiP is enabled" },
+    { "name": "playback_background_disabled", "value": "Background PiP is disabled" },
+    {
+      "name": "seek_failed",
+      "value": "Unable to seek to the selected position."
+    },
+    {
+      "name": "setting_group_output",
+      "value": "Container and output"
+    },
+    {
+      "name": "setting_group_video",
+      "value": "Video encoding"
+    },
+    {
+      "name": "setting_group_audio",
+      "value": "Audio encoding"
+    },
+    {
+      "name": "setting_group_control",
+      "value": "Encoding control"
+    },
+    {
+      "name": "setting_audio_capture_latency",
+      "value": "Audio capture latency"
+    },
+    {
+      "name": "setting_audio_latency_normal",
+      "value": "Normal latency"
+    },
+    {
+      "name": "setting_audio_latency_low",
+      "value": "Low latency"
+    },
+    {
+      "name": "setting_video_stabilization",
+      "value": "Video stabilization"
+    },
+    {
+      "name": "setting_stabilization_disabled",
+      "value": "Disabled"
+    },
+    {
+      "name": "setting_stabilization_auto",
+      "value": "Auto"
+    },
+    {
+      "name": "media_info",
+      "value": "Info"
+    },
+    {
+      "name": "media_info_title",
+      "value": "Media information"
+    },
+    {
+      "name": "media_info_subtitle",
+      "value": "Demuxed source, track, and decoder details"
+    },
+    { "name": "media_info_raw_show", "value": "Show raw format data" },
+    { "name": "media_info_raw_hide", "value": "Hide raw format data" },
+    { "name": "playback_display_scale_fit", "value": "Fit to window" },
+    { "name": "playback_display_scale_fill", "value": "Fill window" },
+    { "name": "playback_audio_track_switched", "value": " switched" },
+    { "name": "playback_queue_add", "value": "Add to queue" },
+    { "name": "playback_queue_clear", "value": "Clear queue" },
+    { "name": "playback_queue_current", "value": "Current queue (automatically plays the next item when playback ends)" },
+    { "name": "playback_queue_playing", "value": "Playing" },
+    { "name": "playback_recent", "value": "Recently played" },
+    { "name": "playback_recent_empty", "value": "No playback history" },
+    { "name": "playback_recent_position", "value": "Last played at " },
+    { "name": "playback_recent_completed", "value": "Playback completed" },
+    { "name": "playback_recent_play", "value": "Play" },
+    { "name": "playback_queue_sheet_title", "value": "Playback queue and recent history" },
+    { "name": "playback_diagnostics_state", "value": "State " },
+    { "name": "playback_diagnostics_position", "value": "Position " },
+    { "name": "playback_diagnostics_speed", "value": "  Speed X" },
+    { "name": "playback_diagnostics_output", "value": "Output " },
+    { "name": "playback_diagnostics_rendered", "value": "  Rendered " },
+    { "name": "playback_diagnostics_dropped", "value": "  Dropped " },
+    { "name": "playback_diagnostics_output_fps", "value": "Output fps " },
+    { "name": "playback_diagnostics_drop_rate", "value": "  Drop rate " },
+    { "name": "playback_diagnostics_audio_buffers", "value": "Audio output buffers " },
+    { "name": "playback_diagnostics_smart_fluency", "value": "Smart fluency " },
+    { "name": "playback_diagnostics_hdr_vivid", "value": "  HDR Vivid " },
+    { "name": "playback_diagnostics_available", "value": "Available" },
+    { "name": "playback_diagnostics_unavailable", "value": "Unavailable" },
+    { "name": "playback_diagnostics_confirmed", "value": "Confirmed" },
+    { "name": "playback_diagnostics_unconfirmed", "value": "Unconfirmed" },
+    { "name": "playback_audio_channel_unit", "value": " ch" },
+    { "name": "playback_subtitle_sync", "value": "Subtitle timing" },
+    { "name": "playback_subtitle_style", "value": "Subtitle style" },
+    { "name": "playback_subtitle_early", "value": "Subtitle early by 0.5 s" },
+    { "name": "playback_subtitle_late", "value": "Subtitle late by 0.5 s" },
+    { "name": "playback_subtitle_style_small", "value": "Small subtitle" },
+    { "name": "playback_subtitle_style_medium", "value": "Medium subtitle" },
+    { "name": "playback_subtitle_style_large", "value": "Large subtitle" },
+    { "name": "playback_diagnostics_buffer_present", "value": "Buffer/GPU present " },
+    { "name": "playback_diagnostics_buffer_average", "value": "  Average " },
+    { "name": "playback_diagnostics_buffer_failures", "value": "  Failures " },
+    { "name": "playback_diagnostics_vulkan_present", "value": "Vulkan Surface stages " },
+    { "name": "playback_diagnostics_average", "value": "Average " },
+    { "name": "playback_diagnostics_vulkan_frame", "value": " frame " },
+    { "name": "playback_diagnostics_vulkan_failures", "value": " failures " },
+    { "name": "playback_diagnostics_vulkan_wait", "value": "  NativeImage wait " },
+    { "name": "playback_diagnostics_vulkan_acquire", "value": "  Acquire " },
+    { "name": "playback_diagnostics_vulkan_fence", "value": "  fence " },
+    { "name": "playback_diagnostics_vulkan_import", "value": "  import " },
+    { "name": "playback_diagnostics_vulkan_gpu", "value": "  GPU wait " },
+    { "name": "playback_diagnostics_vulkan_record", "value": "  record " },
+    { "name": "playback_diagnostics_vulkan_submit", "value": "  submit " },
+    { "name": "playback_diagnostics_vulkan_cache", "value": "  cache hit/miss " },
+    { "name": "playback_diagnostics_software_fallback", "value": "Software fallback " },
+    { "name": "playback_diagnostics_used", "value": "Used" },
+    { "name": "playback_diagnostics_not_used", "value": "Not used" },
+    { "name": "playback_diagnostics_recovery", "value": "Recovery " },
+    { "name": "playback_diagnostics_recovery_idle", "value": "Not triggered" },
+    { "name": "playback_diagnostics_recovery_pending", "value": "In progress" },
+    { "name": "playback_diagnostics_recovery_succeeded", "value": "Succeeded" },
+    { "name": "playback_diagnostics_recovery_failed", "value": "Failed" },
+    { "name": "playback_diagnostics_recovery_attempt", "value": ", attempt " },
+    { "name": "playback_diagnostics_recovery_attempt_suffix", "value": "" },
+    { "name": "playback_diagnostics_recovery_reason", "value": ", reason: runtime playback error" },
+    { "name": "playback_audio_only", "value": "Audio-only playback" },
+    { "name": "playback_mode_sequential", "value": "Sequential" },
+    { "name": "playback_mode_repeat_one", "value": "Repeat one" },
+    { "name": "playback_mode_repeat_all", "value": "Repeat all" },
+    { "name": "playback_mode_shuffle", "value": "Shuffle" },
+    { "name": "playback_mode_hint", "value": "The mode applies at the end of a file. Stop and errors do not advance the queue." },
+    { "name": "playback_auto_recovery", "value": "Retry once after a playback error" },
+    { "name": "playback_recovering", "value": "Playback interrupted. Restoring the saved position…" },
+    { "name": "playback_recovered", "value": "Playback position restored" },
+    { "name": "playback_seek_busy", "value": "Seeking. Please wait before using this control." },
+    { "name": "subtitle_visible", "value": "Show subtitles" },
+    { "name": "subtitle_size", "value": "Font size" },
+    { "name": "subtitle_color", "value": "Text color" },
+    { "name": "subtitle_white", "value": "White" },
+    { "name": "subtitle_yellow", "value": "Yellow" },
+    { "name": "subtitle_cyan", "value": "Cyan" },
+    { "name": "subtitle_background", "value": "Subtitle background" },
+    { "name": "subtitle_transparent", "value": "Transparent" },
+    { "name": "subtitle_translucent", "value": "Translucent black" },
+    { "name": "subtitle_dark", "value": "Dark black" },
+    { "name": "subtitle_position", "value": "Subtitle position" },
+    { "name": "subtitle_bottom", "value": "Bottom" },
+    { "name": "subtitle_top", "value": "Top" },
+    { "name": "subtitle_preview", "value": "Subtitle style preview" },
+    { "name": "subtitle_reset", "value": "Reset style" },
+    { "name": "diagnostics_av_offset", "value": "Sync decision offset %s (+ means video ahead)" },
+    { "name": "diagnostics_av_range", "value": "Offset magnitude: mean %s / max %s" },
+    { "name": "diagnostics_audio_queue", "value": "Audio PCM queue %s / device pending %s" },
+    { "name": "diagnostics_starvation", "value": "Silence-fill callbacks %d / sync drops %d" },
+    { "name": "diagnostics_seek_time", "value": "Seek rebuild %s / target output %s" },
+    { "name": "diagnostics_seek_queue", "value": "Seek requested %d / merged %d / completed %d" },
+    { "name": "diagnostics_measurement_note", "value": "Presentation counts submissions. Offset is sampled before wait/drop, not measured screen/speaker latency." },
+    { "name": "diagnostics_audio_interrupt_active", "value": "Audio interruptions %d (paused; waiting to resume)" },
+    { "name": "diagnostics_audio_interrupt_idle", "value": "Audio interruptions %d (not interrupted)" },
+    { "name": "diagnostics_background_paused", "value": "Background: paused; resumes in foreground" },
+    { "name": "setting_advanced", "value": "Advanced settings" },
+    { "name": "playback_section_controls", "value": "Playback controls" },
+    { "name": "playback_previous_frame_short", "value": "Previous frame" },
+    { "name": "playback_next_frame_short", "value": "Next frame" },
+    { "name": "playback_transform", "value": "Transform" },
+    { "name": "playback_section_media", "value": "Audio and subtitles" },
+    { "name": "playback_section_pipeline", "value": "Playback pipeline" },
+    { "name": "recorder_home_title", "value": "Video recorder" },
+    { "name": "recorder_home_description", "value": "Configure and record video" },
+    { "name": "recorder_home_ready", "value": "Ready to record" },
+    { "name": "recorder_home_settings_hint", "value": "Review recording settings before starting" },
+    { "name": "recording_history_title", "value": "Recent recordings" },
+    { "name": "recording_history_empty", "value": "Recordings will appear here after you finish" },
+    { "name": "recording_play", "value": "Play" },
+    { "name": "recorder_playback_blocked_hint", "value": "Recording is available after playback stops" },
+    { "name": "tab_player", "value": "Player" },
+    { "name": "tab_library", "value": "Library" },
+    { "name": "tab_recorder", "value": "Recorder" },
+    { "name": "library_title", "value": "Media library" },
+    { "name": "library_description", "value": "Choose a file or continue from recent playback" },
+    { "name": "library_open_files", "value": "Open files" },
+    { "name": "library_add_queue", "value": "Add to queue" },
+    { "name": "library_queue_empty", "value": "The playback queue is empty" },
+    { "name": "library_queue_empty_hint", "value": "Add videos here to play them in order" },
+    { "name": "library_recent", "value": "Recently played" },
+    { "name": "library_recent_empty_hint", "value": "Videos you play will appear here" },
+    { "name": "playback_rewind_short", "value": "Back 15s" },
+    { "name": "playback_resume_short", "value": "Resume" },
+    { "name": "playback_pause_short", "value": "Pause" },
+    { "name": "playback_forward_short", "value": "Forward 15s" },
+    { "name": "setting_group_preproc", "value": "Encoder preprocessing" },
+    { "name": "setting_video_preproc", "value": "Preprocessing mode" },
+    { "name": "setting_drop_frame_rate", "value": "Drop to frame rate" },
+    { "name": "setting_dual_output", "value": "One input, dual output" },
+    { "name": "setting_recorder_dump", "value": "Save encoded video stream" },
+    { "name": "tab_device", "value": "Device" },
+    { "name": "device_page_title", "value": "Device Codec Capabilities" },
+    { "name": "device_codec_refresh", "value": "Refresh" },
+    { "name": "device_codec_description", "value": "These entries come from the system codec capability list. They do not prove that an instance was created or that a specific media format was tested." },
+    { "name": "device_codec_api_unsupported", "value": "Codec capability enumeration requires API 24 or later." },
+    { "name": "device_codec_loading", "value": "Reading system capabilities…" },
+    { "name": "device_codec_empty", "value": "The system returned no capabilities for this codec type." },
+    { "name": "device_codec_video_decoder", "value": "Video decoders" },
+    { "name": "device_codec_video_encoder", "value": "Video encoders" },
+    { "name": "device_codec_audio_decoder", "value": "Audio decoders" },
+    { "name": "device_codec_audio_encoder", "value": "Audio encoders" },
+    { "name": "device_codec_hardware", "value": "Hardware" },
+    { "name": "device_codec_software", "value": "Software" },
+    { "name": "device_codec_max_instances", "value": "System-reported maximum instances" },
+    { "name": "device_codec_expand_hint", "value": "Tap a codec type to view its entries, then tap a codec name for detailed limits." },
+    { "name": "device_codec_details", "value": "Supported capabilities" },
+    { "name": "device_codec_video_width_range", "value": "Video width range" },
+    { "name": "device_codec_video_height_range", "value": "Video height range" },
+    { "name": "device_codec_video_frame_rate_range", "value": "Frame rate range" },
+    { "name": "device_codec_video_width_alignment", "value": "Width alignment" },
+    { "name": "device_codec_video_height_alignment", "value": "Height alignment" },
+    { "name": "device_codec_video_pixel_formats", "value": "Pixel formats (system values)" },
+    { "name": "device_codec_profiles", "value": "Profiles (system values)" },
+    { "name": "device_codec_profile_levels", "value": "Profile / levels" },
+    { "name": "device_codec_audio_sample_rates", "value": "Supported sample rates (Hz)" },
+    { "name": "device_codec_audio_sample_rate_ranges", "value": "Sample rate ranges (Hz)" },
+    { "name": "device_codec_audio_channel_count_range", "value": "Channel count range" },
+    { "name": "device_codec_encoder_bitrate_range", "value": "Encoder bitrate range (bps)" },
+    { "name": "device_report_section_title", "value": "Diagnostic report" },
+    { "name": "device_report_description", "value": "Includes device, current playback configuration, and available performance metrics. Full media paths are excluded." },
+    { "name": "device_report_copy", "value": "Copy report" },
+    { "name": "device_report_save", "value": "Save TXT" },
+    { "name": "device_report_ready", "value": "Report generated. Data is refreshed when you copy or save it." },
+    { "name": "device_report_title", "value": "AVCodec Playback Diagnostic Report" },
+    { "name": "device_report_time", "value": "Generated" },
+    { "name": "device_report_device", "value": "Device model" },
+    { "name": "device_report_system", "value": "System version" },
+    { "name": "device_report_api", "value": "API version" },
+    { "name": "device_report_playback", "value": "Playback state" },
+    { "name": "device_report_speed", "value": "Playback speed" },
+    { "name": "device_report_decoder", "value": "Decoder selection" },
+    { "name": "device_report_render_mode", "value": "Output mode" },
+    { "name": "device_report_fallback", "value": "Software decoder fallback" },
+    { "name": "device_report_yes", "value": "Yes" },
+    { "name": "device_report_no", "value": "No" },
+    { "name": "device_report_video", "value": "Video" },
+    { "name": "device_report_audio", "value": "Audio" },
+    { "name": "device_report_media", "value": "Media" },
+    { "name": "device_report_no_media", "value": "No media information is available" },
+    { "name": "device_report_hdr_confirmed", "value": "HDR Vivid confirmed" },
+    { "name": "device_report_hdr_unconfirmed", "value": "HDR Vivid not confirmed" },
+    { "name": "device_report_frames", "value": "Decoded output frames" },
+    { "name": "device_report_rendered", "value": "Presented frames" },
+    { "name": "device_report_dropped", "value": "Dropped frames" },
+    { "name": "device_report_output_fps", "value": "Recent output FPS" },
+    { "name": "device_report_seek_rebuild", "value": "Latest seek rebuild" },
+    { "name": "device_report_seek_first_frame", "value": "Latest seek to first output" },
+    { "name": "device_report_av_offset", "value": "A/V sync decision offset" },
+    { "name": "device_report_audio_sync", "value": "Audio and synchronization" },
+    { "name": "device_report_audio_queue", "value": "Audio PCM queue" },
+    { "name": "device_report_audio_pending", "value": "Audio device pending" },
+    { "name": "device_report_underruns", "value": "Silence-fill callbacks" },
+    { "name": "device_report_sync_drops", "value": "Sync drops" },
+    { "name": "device_report_sink_performance", "value": "Output stage metrics (microseconds)" },
+    { "name": "device_report_sink_frames", "value": "Sink frames" },
+    { "name": "device_report_sink_import", "value": "Average buffer import" },
+    { "name": "device_report_sink_submit", "value": "Average GPU submit" },
+    { "name": "device_report_sink_fence", "value": "Average fence wait" },
+    { "name": "device_report_sink_gpu", "value": "Average GPU wait" },
+    { "name": "device_report_sink_cache", "value": "Import cache hits / misses" },
+    { "name": "device_report_sink_failures", "value": "Sink failures" },
+    { "name": "device_report_codec_capabilities", "value": "System codec capability list (not instance-creation test results)" },
+    { "name": "device_report_privacy", "value": "Privacy: full media paths, URIs, and file descriptors are not included." },
+    { "name": "device_report_measurement_note", "value": "Presentation counts submissions. A/V offset is sampled for sync decisions, not measured screen/speaker latency. Missing data is shown as --." },
+    { "name": "device_report_state_playing", "value": "Playing" },
+    { "name": "device_report_state_paused", "value": "Paused" },
+    { "name": "device_report_state_seeking", "value": "Seeking" },
+    { "name": "device_report_state_ready", "value": "Ready" },
+    { "name": "device_report_state_idle", "value": "Idle" },
+    { "name": "device_report_decoder_hardware", "value": "Hardware" },
+    { "name": "device_report_decoder_software", "value": "Software" },
+    { "name": "device_report_decoder_auto", "value": "Automatic" },
+    { "name": "device_report_copied", "value": "Diagnostic report copied" },
+    { "name": "device_report_copy_failed", "value": "Copy failed. Try again." },
+    { "name": "device_report_saved", "value": "Diagnostic report saved" },
+    { "name": "device_report_save_failed", "value": "Save failed. Try again." },
+    { "name": "device_report_generation_failed", "value": "Failed to read diagnostic information" },
+    {"name":"media_info_source_raw","value":"Source Format raw data"},
+    {"name":"media_info_track_raw","value":"Track %1$s (%2$s) raw data"},
+    {"name":"media_info_source","value":"Media source"},
+    {"name":"media_info_file_name","value":"File name"},
+    {"name":"media_info_not_provided","value":"Not provided"},
+    {"name":"media_info_file_size","value":"File size"},
+    {"name":"media_info_duration","value":"Duration"},
+    {"name":"media_info_duration_value","value":"%1$s (%2$s us)"},
+    {"name":"media_info_track_count","value":"Track count"},
+    {"name":"media_info_video_track","value":"Video track"},
+    {"name":"media_info_codec","value":"Codec"},
+    {"name":"media_info_resolution","value":"Resolution"},
+    {"name":"media_info_frame_rate","value":"Frame rate"},
+    {"name":"media_info_bitrate","value":"Bitrate"},
+    {"name":"media_info_profile","value":"Profile"},
+    {"name":"media_info_rotation","value":"Rotation"},
+    {"name":"media_info_hdr_container","value":"HDR Vivid container signaling"},
+    {"name":"media_info_hdr_confirmed","value":"HDR Vivid bitstream confirmation"},
+    {"name":"media_info_audio_track","value":"Audio track"},
+    {"name":"media_info_sample_rate","value":"Sample rate"},
+    {"name":"media_info_channel_count","value":"Channel count"},
+    {"name":"media_info_channel_layout","value":"Channel layout"},
+    {"name":"media_info_sample_format","value":"Sample format"},
+    {"name":"media_info_aac_adts","value":"AAC ADTS"},
+    {"name":"media_info_codec_config","value":"Codec Config"},
+    {"name":"media_info_decoder_output","value":"Decoding and output"},
+    {"name":"media_info_video_decoder","value":"Video decoder"},
+    {"name":"media_info_run_mode","value":"Run mode"},
+    {"name":"media_info_codec_mode","value":"Codec mode"},
+    {"name":"media_info_video_dump","value":"Video Dump"},
+    {"name":"media_info_no_data","value":"No information available"},
+    {"name":"media_info_unknown_value","value":"Unknown (%1$s)"},
+    {"name":"media_info_track_audio","value":"Audio"},
+    {"name":"media_info_track_video","value":"Video"},
+    {"name":"media_info_track_other","value":"Other type %1$s"},
+    {"name":"media_info_file_size_value","value":"%1$s %2$s (%3$s bytes)"},
+    {"name":"media_info_enabled","value":"On"},
+    {"name":"media_info_disabled","value":"Off"},
+    {"name":"media_info_yes","value":"Yes"},
+    {"name":"media_info_no","value":"No"},
+    {"name":"frame_retention_full","value":"FULL (All frames)"},
+    {"name":"frame_retention_adaptive","value":"ADAPTIVE (Perceptually adaptive)"},
+    {"name":"frame_retention_uniform","value":"UNIFORM (Uniform ratio)"},
+    {"name":"configuration_title","value":"Configuration and presets"},
+    {"name":"configuration_description","value":"Applied settings are saved automatically. Presets replace playback and recording settings for the next task, without changing active tasks."},
+    {"name":"configuration_default","value":"Default"},
+    {"name":"configuration_buffer","value":"Buffer inspection"},
+    {"name":"configuration_720p","value":"720P recording"},
+    {"name":"configuration_save_custom","value":"Save custom"},
+    {"name":"configuration_load_custom","value":"Load custom"},
+    {"name":"dump_list_failed","value":"Failed to read Dump files"},
+    {"name":"dump_wait_export","value":"End playback or recording and wait for file writes to finish before exporting."},
+    {"name":"dump_exported_prefix","value":"Exported: "},
+    {"name":"dump_export_cancelled","value":"Export cancelled"},
+    {"name":"dump_export_failed_prefix","value":"Export failed: "},
+    {"name":"dump_exporting_prefix","value":"Packaging and exporting: "},
+    {"name":"dump_group_exported_prefix","value":"Session exported: "},
+    {"name":"dump_group_failed_prefix","value":"Session export failed: "},
+    {"name":"dump_cleanup_title","value":"Clean up this Dump session?"},
+    {"name":"dump_cleanup_message_prefix","value":"\nDelete only the "},
+    {"name":"dump_cleanup_message_suffix","value":" Dump files in app-private storage. Recorded videos and exported copies are not deleted. This cannot be undone."},
+    {"name":"action_cancel","value":"Cancel"},
+    {"name":"action_cleanup","value":"Clean up"},
+    {"name":"dump_cleaned_prefix","value":"Cleaned up "},
+    {"name":"dump_cleaned_suffix","value":" Dump files"},
+    {"name":"dump_cleanup_failed_prefix","value":"Cleanup incomplete: "},
+    {"name":"dump_files_title","value":"Dump files"},
+    {"name":"dump_total_prefix","value":"Total "},
+    {"name":"dump_available_prefix","value":" MiB · Available "},
+    {"name":"dump_policy_hint","value":"Writing stops at the size or duration limit without interrupting playback or recording. Changes apply to the next task."},
+    {"name":"action_refresh","value":"Refresh"},
+    {"name":"dump_layout_hint","value":"Raw decoded frames require Buffer output. Export the .layout.txt sidecar too: it records dimensions, format, row layout, and rotation."},
+    {"name":"dump_space_hint","value":"Dump keeps 128 MiB of free space. Low space stops only Dump writing, even with no limit, without interrupting playback or recording."},
+    {"name":"dump_files_empty","value":"No Dump files"},
+    {"name":"dump_file_count_suffix","value":" files · "},
+    {"name":"dump_export_session","value":"Export session"},
+    {"name":"dump_files_collapse","value":"Hide files ▴"},
+    {"name":"dump_files_expand","value":"Show files ▾"},
+    {"name":"dump_cleanup_session","value":"Clean up session"},
+    {"name":"action_export","value":"Export"},
+    {"name":"recorder_keyframe_accepted","value":"Keyframe request accepted. Check encoded frame flags for actual output."},
+    {"name":"recorder_bitrate_accepted","value":"Bitrate request accepted. See the statistics above for the measured bitrate."},
+    {"name":"recorder_update_failed_prefix","value":"Update failed ("},
+    {"name":"recorder_update_failed_suffix","value":"): the current encoder or state does not support this request."},
+    {"name":"recorder_update_failed","value":"Parameter update failed. Recording continues with the previous settings."},
+    {"name":"recorder_primary","value":"Primary"},
+    {"name":"recorder_secondary","value":"Secondary"},
+    {"name":"recorder_change_bitrate","value":"Change bitrate"},
+    {"name":"recorder_request_keyframe","value":"Request keyframe"},
+    {"name":"preprocess_preview_title","value":"Preprocessing plan"},
+    {"name":"preprocess_retained_area","value":"Retained area"},
+    {"name":"preprocess_full_frame","value":"Full input frame"},
+    {"name":"preprocess_input_prefix","value":"Input "},
+    {"name":"preprocess_crop_origin_prefix","value":"Crop origin ("},
+    {"name":"preprocess_primary_prefix","value":"Primary target "},
+    {"name":"preprocess_secondary_prefix","value":"Secondary target "},
+    {"name":"preprocess_secondary_hint","value":"The secondary stream uses the full source frame independently of primary cropping. Each stream has its own frame-drop target."},
+    {"name":"preprocess_preview_hint","value":"This diagram shows settings, not a live camera preview. Dimensions are even-aligned and never upscaled. Device Configure results determine support."},
+    {"name":"recorder_cleanup_busy","value":"Dump cleanup is running. Try recording again shortly."},
+    {"name":"recorder_configuration_failed_prefix","value":"Recording configuration failed: "},
+    {"name":"configuration_playback_next","value":"Changes apply to the next playback."},
+    {"name":"configuration_buffer_hint","value":"Saving decoded frames requires Buffer output. Surface, OpenGL, and Vulkan do not expose CPU raw frames."},
+    {"name":"configuration_direct_output_hint","value":"Last-frame retention and HDR-to-BT.709 conversion apply only to direct Surface output."},
+    {"name":"configuration_decoder_hint","value":"Low latency, decode-order output, and similar options depend on actual decoder Configure results."},
+    {"name":"configuration_api26_required","value":"Preprocessing, frame dropping, and dual output require API 26 and are unavailable on this device."},
+    {"name":"configuration_async_required","value":"Preprocessing and dual output require asynchronous Surface encoding with automatic encoder selection. Clear the selected codec name first."},
+    {"name":"configuration_flv_codec","value":"This sample supports only H.264 for FLV recording. Change the codec or use MP4."},
+    {"name":"configuration_drop_rate","value":"The frame-drop target must be below the input frame rate. Select 60 fps input before choosing 30 fps output."},
+    {"name":"configuration_capability_api","value":"This API version cannot query combined capabilities. The actual creation result determines support."},
+    {"name":"configuration_encoder_missing","value":"No encoder matches this MIME type"},
+    {"name":"configuration_primary_prefix","value":"Primary: "},
+    {"name":"configuration_secondary_prefix","value":"Secondary: "},
+    {"name":"configuration_actual_configure","value":". Capability queries do not replace actual Configure results."},
+    {"name":"configuration_combination_passed","value":"Output dimensions and frame rate passed the capability query. Camera, HDR, preprocessing, and dual-output concurrency still depend on actual configuration results."},
+    {"name":"configuration_query_failed","value":"The combined capability query failed, so support is unknown. Check the actual creation result."},
+    {"name":"configuration_store_unopened","value":"Configuration storage has not been opened"},
+    {"name":"dump_media_busy","value":"A media task is starting or Dump cleanup is running. Try again shortly."},
+    {"name":"dump_cleanup_rejected","value":"Refusing to delete a non-Dump file"},
+    {"name":"dump_legacy_status","value":"Legacy file without a status record"},
+    {"name":"dump_status_read_failed","value":"Failed to read the status file"},
+    {"name":"dump_status_writing","value":"Writing (if the task has ended, the previous session did not close normally)"},
+    {"name":"dump_status_completed","value":"Completed"},
+    {"name":"dump_status_limit","value":"Size or duration limit reached"},
+    {"name":"dump_status_size_limit","value":"Size limit reached"},
+    {"name":"dump_status_duration_limit","value":"Duration limit reached"},
+    {"name":"dump_status_low_space","value":"Dump stopped: low disk space"},
+    {"name":"dump_status_space_query_failed","value":"Dump stopped: disk space query failed"},
+    {"name":"dump_status_write_failed","value":"Write failed"},
+    {"name":"dump_status_open_failed","value":"Creation failed"},
+    {"name":"dump_status_layout_changed","value":"Dump stopped: frame layout changed"},
+    {"name":"dump_status_invalid_buffer","value":"Dump stopped: invalid output data"},
+    {"name":"dump_status_unknown","value":"Unknown state"},
+    {"name":"dump_archive_space","value":"Not enough temporary space for an archive. You can still export files individually."},
+    {"name":"dump_wait_operation","value":"End playback or recording and wait for file writes to finish before working with Dump files."},
+    {"name":"recorder_frames_suffix","value":" frames · "},
+    {"name":"recorder_file_prefix","value":" Mbit/s · File "},
+    {"name":"recorder_primary_prefix","value":"Primary "},
+    {"name":"recorder_secondary_line_prefix","value":"\nSecondary "},
+    {"name":"recorder_secondary_prefix","value":"Secondary "},
+    {"name":"configuration_check_combination","value":"Check current combination"},
+    {"name":"preprocess_crop_percent_prefix","value":"Center crop retains "},
+    {"name":"preprocess_adjust_suffix","value":"% · Tap to adjust"},
+    {"name":"preprocess_downsample_prefix","value":"Downsampling target "},
+    {"name":"preprocess_height_adjust_suffix","value":"P · Tap to adjust"},
+    {"name":"diagnostics_present_prefix","value":"Present calls · P95 "},
+    {"name":"diagnostics_max_prefix","value":" ms · Max "},
+    {"name":"diagnostics_samples_suffix","value":" samples"},
+    {"name":"diagnostics_present_empty","value":"No successful presentation call samples"},
+    {"name":"diagnostics_timeline_empty","value":"No operations recorded"},
+    {"name":"configuration_auto_select","value":"Automatic selection"},
+    {"name":"diagnostics_prepare_matching_media","value":": prepare a video or recording configuration with the same MIME type and a valid frame rate."},
+    {"name":"diagnostics_supported_prefix","value":"Supported: "},
+    {"name":"diagnostics_unsupported_prefix","value":"Not supported: "},
+    {"name":"diagnostics_rate_range_prefix","value":"\nFrame-rate range at these dimensions: "},
+    {"name":"diagnostics_combination_unknown","value":"The combination query failed. Support is unknown, not unsupported."},
+    {"name":"diagnostics_last_failure","value":"Most recent failure"},
+    {"name":"diagnostics_error_code_hint","value":"The wrapper uses -1 as a sample error code; codec.callback contains the system callback result."},
+    {"name":"diagnostics_timeline_report_title","value":"Operation timeline (latest 128 events, time relative to initialization)"},
+    {"name":"diagnostics_pts_prefix","value":" · PTS/target "},
+    {"name":"diagnostics_present_report_prefix","value":"Present call duration: P95 "},
+    {"name":"diagnostics_report_max_prefix","value":" ms, max "},
+    {"name":"diagnostics_recent_prefix","value":" ms, recent "},
+    {"name":"diagnostics_present_hint","value":"Submitting the first frame or returning from Present does not mean the frame is on screen. Use per-stage statistics for asynchronous GPU processing."},
+    {"name":"diagnostics_combination_title","value":"Combined capability check"},
+    {"name":"diagnostics_decoder_prefix","value":"Selected decoder: "},
+    {"name":"diagnostics_encoder_prefix","value":"Selected encoder: "},
+    {"name":"configuration_auto","value":"Automatic"},
+    {"name":"diagnostics_check_video","value":"Check current video"},
+    {"name":"diagnostics_check_recording","value":"Check recording settings"},
+    {"name":"diagnostics_use_decoder","value":"Use for next decode"},
+    {"name":"diagnostics_use_encoder","value":"Use for next encode"},
+    {"name":"diagnostics_encoder_line_prefix","value":"\nSelected encoder: "},
+    {"name":"diagnostics_restore_auto","value":"Use automatic selection"},
+    {"name":"diagnostics_timeline_title","value":"Operation timeline"},
+    {"name":"action_collapse","value":"Collapse"},
+    {"name":"action_expand","value":"Expand"},
+    {"name":"diagnostics_timeline_hint","value":"Keeps the latest 128 events. Seek IDs link events from the same seek. First-frame submission does not mean the frame is on screen."},
+    {"name":"configuration_recorder_requirements","value":"Preprocessing and dual output require API 26 and asynchronous Surface encoding. The frame-drop target must be below the input frame rate."},
+    {"name":"configuration_load_default","value":"Saved configuration could not be read. Using defaults for this session."},
+    {"name":"configuration_custom_saved","value":"Custom configuration saved"},
+    {"name":"configuration_saved","value":"Settings saved"},
+    {"name":"configuration_save_failed","value":"Configuration could not be saved. Current settings still apply to this session."},
+    {"name":"configuration_wait_idle","value":"End playback or recording before switching presets."},
+    {"name":"configuration_custom_missing","value":"No custom configuration has been saved"},
+    {"name":"configuration_load_failed","value":"Configuration could not be loaded. Previous settings are unchanged."},
+    {"name":"playback_failed_hint","value":"Playback failed. Check the diagnostic report and system log."},
+    {"name":"playback_cleanup_busy","value":"Dump cleanup is running. Try playback again shortly."},
+    {"name":"configuration_updated_hint","value":"Settings updated. You can check the current combination. API 26 preprocessing and dual output require asynchronous Surface encoding. A 30 fps input cannot be reduced to 30 fps."},
+    {"name":"configuration_camera_query_failed","value":"Camera capability query failed. Settings were not saved. Check permissions and apply again."},
+    {"name":"preprocess_center_crop_prefix","value":"Center crop ("},
+    {"name":"preprocess_downsample_to_prefix","value":"Downsample to "},
+    {"name":"configuration_special_codec_name","value":"Preprocessing and dual output use dedicated creation APIs and do not allow a codec name."},
+    {"name":"recorder_start_failed","value":"Failed to start the encoder. Go back and check the recording settings."},
+    {"name":"rec_diag_expand","value":"Expand recording diagnostics"},
+    {"name":"rec_diag_collapse","value":"Collapse recording diagnostics"},
+    {"name":"rec_diag_target","value":"Accepted target"},
+    {"name":"rec_diag_recent","value":"Last 1 s"},
+    {"name":"rec_diag_average","value":"Session average"},
+    {"name":"rec_diag_expected","value":"Expected output"},
+    {"name":"rec_diag_idle","value":"Since last output"},
+    {"name":"rec_diag_gap","value":"Longest output gap"},
+    {"name":"rec_diag_low_fps","value":"Low output frame rate (not a confirmed encoder drop)"},
+    {"name":"rec_diag_stalled","value":"No recent video output"},
+    {"name":"rec_diag_keyframes","value":"Key frames"},
+    {"name":"rec_diag_key_pts","value":"Last key-frame PTS"},
+    {"name":"rec_diag_key_interval","value":"Last key-frame interval"},
+    {"name":"rec_diag_key_pending","value":"Request accepted; awaiting a subsequent key frame"},
+    {"name":"rec_diag_key_observed","value":"Key frame observed after request; causation not confirmed"},
+    {"name":"rec_diag_key_ended","value":"Recording ended without a subsequent key frame"},
+    {"name":"rec_diag_key_none","value":"No key-frame request"},
+    {"name":"rec_diag_parameters","value":"Parameter requests: accepted / failed"},
+    {"name":"rec_diag_wait","value":"Output retrieval wait"},
+    {"name":"rec_diag_muxer","value":"Muxer write"},
+    {"name":"rec_diag_dump_write","value":"Dump write"},
+    {"name":"rec_diag_hold","value":"Application output-buffer hold"},
+    {"name":"rec_diag_timing_note","value":"Timings in ms: session mean / last 256 samples P95 / session max. Retrieval wait is measured by recording workers and includes normal frame waiting, not encoding latency."},
+    {"name":"rec_diag_file","value":"Container file"},
+    {"name":"rec_diag_growth","value":"File growth"},
+    {"name":"rec_diag_free","value":"Free storage (last sample)"},
+    {"name":"rec_diag_space_low","value":"Storage is low; watch for write failures"},
+    {"name":"rec_diag_dump","value":"Dump state / bytes written"},
+    {"name":"rec_diag_disabled","value":"Disabled"},
+    {"name":"rec_diag_requested","value":"Requested configuration"},
+    {"name":"rec_diag_codec","value":"Codec description (queried at initialization)"},
+    {"name":"rec_diag_verified","value":"Bitstream dimensions / HDR: not parsed or verified; configuration success does not verify HDR."},
+    {"name":"rec_diag_unknown","value":"Unavailable / no samples"},
+    {"name":"rec_diag_pts","value":"PTS regressions"},
+    {"name":"rec_diag_storage_note","value":"File growth includes container and audio data, not just video; buffering can cause fluctuations. Failed space queries show unavailable, not zero."},
+    {"name":"rec_diag_recent_note","value":"Last-1-s metrics use the application output-processing monotonic clock; session averages use PTS of successfully muxed video samples."},
+    {"name":"rec_diag_no_error","value":"No recorded write failure"},
+    {"name":"rec_diag_bitrate_delta","value":"Recent bitrate deviation from target"},
+    {"name":"rec_diag_key_requests","value":"Accepted key-frame requests"},
+    {"name":"rec_diag_codec_size","value":"Reported size (not bitstream-parsed)"},
+    {"name":"rec_diag_codec_fps","value":"Reported frame rate (not measured)"},
+    {"name":"rec_diag_codec_bitrate","value":"Reported bitrate (initial snapshot)"},
+    {"name":"tab_transcode","value":"Transcode"},
+    {"name":"transcode_description","value":"Choose a video, process and encode it, then save an MP4."},
+    {"name":"transcode_source","value":"Source video"},
+    {"name":"transcode_no_source","value":"No video selected"},
+    {"name":"transcode_from_files","value":"Files"},
+    {"name":"transcode_from_gallery","value":"Gallery"},
+    {"name":"transcode_output","value":"Output settings"},
+    {"name":"transcode_codec","value":"Video codec"},
+    {"name":"transcode_mode","value":"Encoding input"},
+    {"name":"transcode_size","value":"Output size"},
+    {"name":"transcode_bitrate","value":"Target bitrate (VBR)"},
+    {"name":"transcode_grayscale","value":"Grayscale"},
+    {"name":"transcode_audio","value":"Preserve first audio track"},
+    {"name":"transcode_original_size","value":"Original size"},
+    {"name":"transcode_size_1920","value":"Long edge ≤ 1920"},
+    {"name":"transcode_size_1080","value":"Long edge ≤ 1080"},
+    {"name":"transcode_size_720","value":"Long edge ≤ 720"},
+    {"name":"transcode_buffer_hint","value":"Buffer: CPU image processing, aspect-ratio scaling without upscaling, and optional grayscale."},
+    {"name":"transcode_window_hint","value":"Surface: decode directly into the encoder input Surface at the original size. Scaling and grayscale are unavailable."},
+    {"name":"transcode_window_mode","value":"Surface"},
+    {"name":"transcode_limits","value":"SDR video only. MP4 with H.264/H.265; device codec support is required. Audio: selected original track, AAC-LC at 128 kbps (mono/stereo, unchanged sample rate), or none. No HDR conversion, subtitles or extra tracks."},
+    {"name":"transcode_running","value":"Transcoding"},
+    {"name":"transcode_result","value":"Task result"},
+    {"name":"transcode_progress","value":"%s%% · %s frames · %s MiB"},
+    {"name":"transcode_start","value":"Start transcoding"},
+    {"name":"transcode_cancel","value":"Cancel task"},
+    {"name":"transcode_cancelling","value":"Cancelling…"},
+    {"name":"transcode_save_files","value":"Save to Files"},
+    {"name":"transcode_save_gallery","value":"Save to Gallery"},
+    {"name":"transcode_private_result","value":"The completed file is kept in the app. Choose a destination to export it."},
+    {"name":"transcode_select_failed","value":"Could not select video."},
+    {"name":"transcode_complete","value":"Transcoding complete. Ready to export."},
+    {"name":"transcode_cancelled","value":"Task cancelled. The incomplete file has been removed."},
+    {"name":"transcode_failed","value":"Transcoding failed."},
+    {"name":"transcode_saved","value":"File saved."},
+    {"name":"transcode_save_failed","value":"Could not save the file. The app copy is still available for retry."},
+    {"name":"transcode_resource_busy","value":"Stop playback or recording before transcoding. Transcoding also blocks new playback and recording tasks."},
+    {"name":"transcode_history_failed","value":"The video is retained, but its history report could not be saved."},
+    {"name":"transcode_cleanup","value":"Clear app transcode files"},
+    {"name":"transcode_cleanup_hint","value":"Delete all app-private transcode videos, reports and incomplete files? Exported videos and source files are not affected."},
+    {"name":"transcode_encoder_category","value":"Encoder"},
+    {"name":"transcode_audio_copy","value":"Keep original track"},
+    {"name":"transcode_audio_aac","value":"AAC-LC · 128 kbps"},
+    {"name":"transcode_audio_none","value":"No audio"},
+    {"name":"transcode_first_audio","value":"First audio track"},
+    {"name":"transcode_audio_track","value":"Audio track"},
+    {"name":"transcode_eta","value":"Estimated remaining: %s s"},
+    {"name":"transcode_metrics_hint","value":"API wall time, not codec hardware latency. P95 uses the latest 256 calls. Waits can overlap."},
+    {"name":"transcode_wait","value":"Buffer waits: decoder %s ms · encoder input %s ms · encoder output %s ms"},
+    {"name":"transcode_play_result","value":"Play result"},
+    {"name":"transcode_export_report","value":"Export diagnostic report"},
+    {"name":"transcode_preflight","value":"Media and capability check"},
+    {"name":"transcode_inspecting","value":"Reading media and checking capabilities…"},
+    {"name":"transcode_history","value":"Recent transcodes"},
+    {"name":"transcode_export_space","value":"Not enough local free space for another video copy and the 64 MiB reserve."},
+    {"name":"transcode_space_estimate","value":"Estimated output: %s MiB · free: %s MiB. VBR estimate only; keep 64 MiB reserved."},
+    {"name":"transcode_relink_source","value":"Reselect source"},
+    {"name":"transcode_relink_hint","value":"If a source moved or access expired, reselect it without losing job settings. The source and settings are checked again when the job starts."},
+    {"name":"transcode_range","value":"Transcode a time range"},
+    {"name":"transcode_range_start","value":"Start (seconds)"},
+    {"name":"transcode_range_end","value":"End (seconds, exclusive)"},
+    {"name":"transcode_range_to_end","value":"End of source"},
+    {"name":"transcode_range_hint","value":"Buffer only. Up to 3 decimals; leave end empty for the source end. Original audio uses packet boundaries; AAC trims PCM samples and pads its final frame. Video decoding continues to source EOS to preserve reordered frames, so short clips may still take time."},
+    {"name":"transcode_range_invalid","value":"Invalid range. Use non-negative seconds (up to 3 decimals), with start before end and end within the source duration."},
+    {"name":"transcode_output_verified","value":"MP4 metadata checked · output duration %s s (not a full decode check)"}
+  ]
+}
