@@ -19,6 +19,7 @@ import { DeviceInfoUtils } from '../../../main/ets/utils/DeviceInfoUtils';
 import { TitleBarActions } from '../../../main/ets/utils/TitleBarActions';
 import { TitleBarUtils } from '../../../main/ets/utils/TitleBarUtils';
 import {
+  clickAnyText,
   clickChildButton,
   clickId,
   existsId,
@@ -26,7 +27,8 @@ import {
   scrollToId,
   startApp,
   textOfId,
-  waitText
+  waitText,
+  waitId
 } from '../testkit/SharedDriver';
 
 const BUNDLE_NAME: string = 'com.samples.titlebarsandtoolbars';
@@ -1135,6 +1137,126 @@ export default function edgeTest() {
         expect(BreakpointUtils.gridTemplate(2000)).assertEqual('1fr 1fr 1fr');
         expect(BreakpointUtils.isWide(2000)).assertTrue();
         expect(BreakpointUtils.describe(2000)).assertEqual('width=2000vp, breakpoint=lg');
+      }, done);
+    });
+
+
+    /**
+     * @tc.number SUB_TITLEBARS_REAL_0100
+     * @tc.name testTitleBarsRealEditableV2Back0001
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTitleBarsRealEditableV2Back0001', 0, async (done: Function) => {
+      await runCase('testTitleBarsRealEditableV2Back0001', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardEditableV2');
+        await waitId('editableV2PageTitle');
+        await clickId('editableV2Back');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_TITLEBARS_REAL_0200
+     * @tc.name testTitleBarsRealSelectBack0002
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTitleBarsRealSelectBack0002', 0, async (done: Function) => {
+      await runCase('testTitleBarsRealSelectBack0002', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardSelect');
+        await waitId('selectPageTitle');
+        await clickId('selectBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_TITLEBARS_REAL_0300
+     * @tc.name testTitleBarsRealToolbarBack0003
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTitleBarsRealToolbarBack0003', 0, async (done: Function) => {
+      await runCase('testTitleBarsRealToolbarBack0003', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardToolbar');
+        await waitId('toolbarPageTitle');
+        await clickId('toolbarBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+
+    /**
+     * @tc.number SUB_TITLEBARS_SCENE_0100
+     * @tc.name testTitleBarsSceneEditableV2Actions0001
+     * @tc.desc Verify editable title bar V2 save, cancel, and menu actions
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTitleBarsSceneEditableV2Actions0001', 0, async (done: Function) => {
+      await runCase('testTitleBarsSceneEditableV2Actions0001', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardEditableV2');
+        await clickChildButton('editableTitleBarV2', -1);
+        expect(await textOfId('editableV2Counts')).assertContain('save=1');
+        await clickChildButton('editableTitleBarV2', 0);
+        expect(await textOfId('editableV2Counts')).assertContain('cancel=1');
+        await clickChildButton('editableTitleBarV2', 1);
+        expect(await textOfId('editableV2Counts')).assertContain('menu=1');
+        await clickId('editableV2Back');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_TITLEBARS_SCENE_0200
+     * @tc.name testTitleBarsSceneSelectReset0002
+     * @tc.desc Verify select title bar advances twice and resets
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTitleBarsSceneSelectReset0002', 0, async (done: Function) => {
+      await runCase('testTitleBarsSceneSelectReset0002', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardSelect');
+        await clickId('selectNext');
+        await clickId('selectNext');
+        expect(await textOfId('selectStatus')).assertContain('selected=2/3');
+        await clickId('selectReset');
+        expect(await textOfId('selectStatus')).assertContain('selected=0/3');
+        await clickId('selectBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_TITLEBARS_SCENE_0300
+     * @tc.name testTitleBarsSceneToolbarShare0003
+     * @tc.desc Verify toolbar share action and page back
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTitleBarsSceneToolbarShare0003', 0, async (done: Function) => {
+      await runCase('testTitleBarsSceneToolbarShare0003', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardToolbar');
+        expect(await clickAnyText(['Share', '·ÖÏí'])).assertTrue();
+        expect(await textOfId('toolbarStatus')).assertContain('label=Share');
+        await clickId('toolbarBack');
+        await waitId('pageTitle');
       }, done);
     });
 

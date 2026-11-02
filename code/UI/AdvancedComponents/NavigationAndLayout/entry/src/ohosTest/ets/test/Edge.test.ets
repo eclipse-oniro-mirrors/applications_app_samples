@@ -1257,5 +1257,130 @@ export default function edgeTest() {
       }, done);
     });
 
+
+    /**
+     * @tc.number SUB_NAVIGATION_REAL_0100
+     * @tc.name testNavigationRealHspBack0001
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testNavigationRealHspBack0001', 0, async (done: Function) => {
+      await runCase('testNavigationRealHspBack0001', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardHsp');
+        await waitId('hspTitle');
+        await clickId('hspBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_NAVIGATION_REAL_0200
+     * @tc.name testNavigationRealSplitBack0002
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testNavigationRealSplitBack0002', 0, async (done: Function) => {
+      await runCase('testNavigationRealSplitBack0002', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardSplit');
+        await waitId('splitTitle');
+        await clickId('splitBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_NAVIGATION_REAL_0300
+     * @tc.name testNavigationRealStackBack0003
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testNavigationRealStackBack0003', 0, async (done: Function) => {
+      await runCase('testNavigationRealStackBack0003', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardStack');
+        await waitId('stackTitle');
+        await clickId('stackBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+
+    /**
+     * @tc.number SUB_NAVIGATION_SCENE_0100
+     * @tc.name testNavigationSceneMultiBack0001
+     * @tc.desc Verify multi navigation detail back and page back sequence
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testNavigationSceneMultiBack0001', 0, async (done: Function) => {
+      await runCase('testNavigationSceneMultiBack0001', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardMulti');
+        await clickId('homeItem_1');
+        await waitId('detailTitle');
+        await clickId('detailBack');
+        await waitId('homeItem_1');
+        await clickId('multiBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_NAVIGATION_SCENE_0200
+     * @tc.name testNavigationSceneStackLog0002
+     * @tc.desc Verify stack action, clear log, and page back sequence
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testNavigationSceneStackLog0002', 0, async (done: Function) => {
+      await runCase('testNavigationSceneStackLog0002', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardStack');
+        await waitId('stackTitle');
+        await scrollToId('stackPushOptions');
+        await clickId('stackPushOptions');
+        expect(await textOfId('stackLog')).assertContain('pushPathOptions');
+        await clickId('stackClearLog');
+        expect(await textOfId('stackLog')).assertEqual('idle');
+        await clickId('stackBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_NAVIGATION_SCENE_0300
+     * @tc.name testNavigationSceneSplitOptional0003
+     * @tc.desc Verify split preview and optional region toggle sequence
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testNavigationSceneSplitOptional0003', 0, async (done: Function) => {
+      await runCase('testNavigationSceneSplitOptional0003', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardSplit');
+        await waitId('splitTitle');
+        await clickId('preview500');
+        expect(await textOfId('splitPreviewLabel')).assertContain('500vp');
+        await scrollToId('splitToggleOptional');
+        await clickId('splitToggleOptional');
+        expect(await textOfId('splitOptionalState')).assertEqual('primary only');
+        await clickId('splitToggleOptional');
+        expect(await textOfId('splitOptionalState')).assertEqual('full text');
+        await clickId('splitBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
   });
 }

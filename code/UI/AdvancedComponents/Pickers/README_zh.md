@@ -8,7 +8,7 @@
 - [DatePickerComponent](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-DatePickerComponent.md)：API 26 新增高级组件，支持日期（DATE）、时间（TIME）、日期时间（DATE_TIME）三种 `displayMode`，以及 `onChange/onScrollStop` 回调；
 - [UIPickerComponent](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-container-ui-picker-component.md)：API 22 起的立体滚轮单选容器，支持 `selectedIndex`、`onChange`、`onScrollStop`。
 
-工程包含日志、日期时间/区间格式化、设备信息、响应式断点等工具类，并包含 93 条 ohosTest 用例与 3 条本地工具单测。
+工程包含日志、日期时间/区间格式化、设备信息、响应式断点等工具类，并包含 96 条 ohosTest 用例与 3 条本地工具单测。
 
 ### 功能特性
 
@@ -39,7 +39,7 @@
 
 | 类型 | 数量 | 说明 |
 |---|---:|---|
-| ohosTest | 93 | 入口、Calendar、DatePicker 三模式、UIPicker、边界、稳定性、逻辑 |
+| ohosTest | 96 | 入口、Calendar、DatePicker 三模式、UIPicker、边界、稳定性、逻辑 |
 | 本地单测 | 3 | 日期时间、范围、断点 |
 
 ### 效果预览
@@ -97,7 +97,7 @@ entry/src/test/
 2. 本示例基于 ArkTS 1.1 动态环境开发，已适配 API version 26 版本 SDK，版本号：26.0.0；
 3. 本示例需要使用 DevEco Studio 26.0.0 及以上版本才可编译运行；
 4. UIPickerComponent 自 API 22 起可用，DatePickerComponent 为 API 26 新增高级组件；
-5. 本示例包含 93 条 ohosTest 用例，另有 3 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
+5. 本示例包含 96 条 ohosTest 用例，另有 3 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
 
 ### 下载
 

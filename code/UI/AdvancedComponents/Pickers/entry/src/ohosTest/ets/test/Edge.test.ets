@@ -1179,5 +1179,130 @@ export default function edgeTest() {
       }, done);
     });
 
+
+    /**
+     * @tc.number SUB_PICKERS_REAL_0100
+     * @tc.name testPickersRealDateBack0001
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPickersRealDateBack0001', 0, async (done: Function) => {
+      await runCase('testPickersRealDateBack0001', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardDatePicker');
+        await waitId('dateTitle');
+        await clickId('dateBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_PICKERS_REAL_0200
+     * @tc.name testPickersRealUiBack0002
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPickersRealUiBack0002', 0, async (done: Function) => {
+      await runCase('testPickersRealUiBack0002', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardUIPicker');
+        await waitId('uiTitle');
+        await clickId('uiBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_PICKERS_REAL_0300
+     * @tc.name testPickersRealCalendarBack0003
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPickersRealCalendarBack0003', 0, async (done: Function) => {
+      await runCase('testPickersRealCalendarBack0003', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardCalendar');
+        await waitId('calendarTitle');
+        await clickId('calendarBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+
+    /**
+     * @tc.number SUB_PICKERS_SCENE_0100
+     * @tc.name testPickersSceneModeCycle0001
+     * @tc.desc Verify date, time, and date-time modes can be cycled
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPickersSceneModeCycle0001', 0, async (done: Function) => {
+      await runCase('testPickersSceneModeCycle0001', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardDatePicker');
+        await clickId('dateModeTime');
+        await waitId('timePicker');
+        await clickId('dateModeDateTime');
+        await waitId('dateTimePicker');
+        await clickId('dateModeDate');
+        await waitId('datePicker');
+        await clickId('dateBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_PICKERS_SCENE_0200
+     * @tc.name testPickersSceneUiLoopOff0002
+     * @tc.desc Verify UIPicker next and previous stay inside bounds without looping
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPickersSceneUiLoopOff0002', 0, async (done: Function) => {
+      await runCase('testPickersSceneUiLoopOff0002', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardUIPicker');
+        await clickId('uiLoopToggle');
+        for (let i = 0; i < 5; i++) {
+          await clickId('uiNext');
+        }
+        expect(await textOfId('uiSelected')).assertContain('Review');
+        await clickId('uiNext');
+        expect(await textOfId('uiSelected')).assertContain('Review');
+        await clickId('uiPrevious');
+        expect(await textOfId('uiSelected')).assertContain('Done');
+        await clickId('uiBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_PICKERS_SCENE_0300
+     * @tc.name testPickersSceneCalendarToday0003
+     * @tc.desc Verify calendar today selection and page back
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPickersSceneCalendarToday0003', 0, async (done: Function) => {
+      await runCase('testPickersSceneCalendarToday0003', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardCalendar');
+        await clickId('calendarToday');
+        expect(await textOfId('calendarEvent')).assertContain('today');
+        expect(await textOfId('calendarSelected')).assertContain(`${new Date().getFullYear()}`);
+        await clickId('calendarBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
   });
 }

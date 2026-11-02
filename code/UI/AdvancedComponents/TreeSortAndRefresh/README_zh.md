@@ -11,7 +11,7 @@
 - [SwipeRefresherV2](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-SwipeRefresherV2.md)：API 26 起、基于状态管理 V2 的下拉刷新加载提示，支持自定义文本与加载状态；
 - [ContainerSpan](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-basic-components-containerspan.md)：API 11 起的文本子容器，统一管理多个 `Span`/`ImageSpan` 的背景色与圆角。
 
-工程包含排序/刷新/树状态、设备信息与响应式断点工具类，包含 96 条 ohosTest 用例与 6 条本地工具单测。
+工程包含排序/刷新/树状态、设备信息与响应式断点工具类，包含 99 条 ohosTest 用例与 6 条本地工具单测。
 
 ### 功能特性
 
@@ -45,7 +45,7 @@
 
 | 类型 | 数量 | 说明 |
 |---|---:|---|
-| ohosTest | 96 | 入口、6 类组件、树/排序/刷新、边界、稳定性、逻辑 |
+| ohosTest | 99 | 入口、6 类组件、树/排序/刷新、边界、稳定性、逻辑 |
 | 本地单测 | 6 | 树结构、刷新状态、排序、断点 |
 
 ### 效果预览
@@ -109,7 +109,7 @@ entry/src/test/
 2. 本示例基于 ArkTS 1.1 动态环境开发，已适配 API version 26 版本 SDK，版本号：26.0.0；
 3. 本示例需要使用 DevEco Studio 26.0.0 及以上版本才可编译运行；
 4. `TreeViewV2`、`SwipeRefresherV2` 为 API 26 新增组件；FormMenu 实际加桌需应用提供 FormExtensionAbility 与卡片配置，本示例重点演示长按菜单 UI 与回调；
-5. 本示例包含 96 条 ohosTest 用例，另有 6 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
+5. 本示例包含 99 条 ohosTest 用例，另有 6 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
 6. 工程已配置本机 DevEco 调试签名，可直接在 IDE 部署；提交仓库前请清空 `signingConfigs` 并重新自动签名；
 
 ### 下载

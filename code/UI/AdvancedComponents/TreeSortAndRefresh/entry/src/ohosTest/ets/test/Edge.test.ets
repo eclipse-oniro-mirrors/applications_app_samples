@@ -26,7 +26,8 @@ import {
   scrollToId,
   startApp,
   textOfId,
-  waitText
+  waitText,
+  waitId
 } from '../testkit/SharedDriver';
 
 const BUNDLE_NAME: string = 'com.samples.treesortandrefresh';
@@ -1177,6 +1178,126 @@ export default function edgeTest() {
         expect(BreakpointUtils.gridTemplate(2000)).assertEqual('1fr 1fr 1fr');
         expect(BreakpointUtils.isWide(2000)).assertTrue();
         expect(BreakpointUtils.describe(2000)).assertEqual('width=2000vp, breakpoint=lg');
+      }, done);
+    });
+
+
+    /**
+     * @tc.number SUB_TREESORT_REAL_0100
+     * @tc.name testTreeSortRealTreeV2Back0001
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTreeSortRealTreeV2Back0001', 0, async (done: Function) => {
+      await runCase('testTreeSortRealTreeV2Back0001', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardTreeV2');
+        await waitId('treeV2PageTitle');
+        await clickId('treeV2Back');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_TREESORT_REAL_0200
+     * @tc.name testTreeSortRealRefreshBack0002
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTreeSortRealRefreshBack0002', 0, async (done: Function) => {
+      await runCase('testTreeSortRealRefreshBack0002', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardRefresh');
+        await waitId('refreshPageTitle');
+        await clickId('refreshBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_TREESORT_REAL_0300
+     * @tc.name testTreeSortRealFormBack0003
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTreeSortRealFormBack0003', 0, async (done: Function) => {
+      await runCase('testTreeSortRealFormBack0003', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardForm');
+        await waitId('formPageTitle');
+        await clickId('formBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+
+    /**
+     * @tc.number SUB_TREESORT_SCENE_0100
+     * @tc.name testTreeSortSceneTreeV2Reset0001
+     * @tc.desc Verify TreeViewV2 reset restores the ready state
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTreeSortSceneTreeV2Reset0001', 0, async (done: Function) => {
+      await runCase('testTreeSortSceneTreeV2Reset0001', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardTreeV2');
+        await waitId('treeViewV2');
+        await clickId('treeV2Reset');
+        expect(await textOfId('treeV2Status')).assertContain('ready');
+        await clickId('treeV2Back');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_TREESORT_SCENE_0200
+     * @tc.name testTreeSortSceneSpanToggle0002
+     * @tc.desc Verify container span toggles dark and light twice
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTreeSortSceneSpanToggle0002', 0, async (done: Function) => {
+      await runCase('testTreeSortSceneSpanToggle0002', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardSpan');
+        expect(await textOfId('spanStatus')).assertContain('style=dark');
+        await clickId('spanToggle');
+        expect(await textOfId('spanStatus')).assertContain('style=light');
+        await clickId('spanToggle');
+        expect(await textOfId('spanStatus')).assertContain('style=dark');
+        await clickId('spanBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_TREESORT_SCENE_0300
+     * @tc.name testTreeSortSceneRefreshStop0003
+     * @tc.desc Verify swipe refresh starts and stops cleanly
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testTreeSortSceneRefreshStop0003', 0, async (done: Function) => {
+      await runCase('testTreeSortSceneRefreshStop0003', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardRefresh');
+        await waitId('swipeRefresher');
+        await clickId('refreshStart');
+        expect(await textOfId('refreshStatus')).assertContain('loading=true');
+        await clickId('refreshStop');
+        expect(await textOfId('refreshStatus')).assertContain('loading=false');
+        await clickId('refreshBack');
+        await waitId('pageTitle');
       }, done);
     });
 

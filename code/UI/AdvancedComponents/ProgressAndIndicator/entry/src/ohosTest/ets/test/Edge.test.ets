@@ -25,6 +25,7 @@ import {
   scrollToId,
   startApp,
   textOfId,
+  waitId,
   waitText
 } from '../testkit/SharedDriver';
 
@@ -1177,6 +1178,129 @@ export default function edgeTest() {
         expect(BreakpointUtils.gridTemplate(2000)).assertEqual('1fr 1fr 1fr');
         expect(BreakpointUtils.isWide(2000)).assertTrue();
         expect(BreakpointUtils.describe(2000)).assertEqual('width=2000vp, breakpoint=lg');
+      }, done);
+    });
+
+
+    /**
+     * @tc.number SUB_PROGRESS_REAL_0100
+     * @tc.name testProgressRealPbv2Back0001
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testProgressRealPbv2Back0001', 0, async (done: Function) => {
+      await runCase('testProgressRealPbv2Back0001', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardProgressButtonV2');
+        await waitId('pbv2Title');
+        await clickId('pbv2Back');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_PROGRESS_REAL_0200
+     * @tc.name testProgressRealIndicatorBack0002
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testProgressRealIndicatorBack0002', 0, async (done: Function) => {
+      await runCase('testProgressRealIndicatorBack0002', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardIndicator');
+        await waitId('indicatorTitle');
+        await clickId('indicatorBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_PROGRESS_REAL_0300
+     * @tc.name testProgressRealArcBack0003
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testProgressRealArcBack0003', 0, async (done: Function) => {
+      await runCase('testProgressRealArcBack0003', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardArcSlider');
+        await waitId('arcTitle');
+        await clickId('arcBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+
+    /**
+     * @tc.number SUB_PROGRESS_SCENE_0100
+     * @tc.name testProgressSceneIndicatorSequence0001
+     * @tc.desc Verify indicator jump, next, and previous sequence
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testProgressSceneIndicatorSequence0001', 0, async (done: Function) => {
+      await runCase('testProgressSceneIndicatorSequence0001', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardIndicator');
+        await clickId('indicatorJump');
+        expect(await textOfId('indicatorPageTitle')).assertContain('Page 3');
+        await clickId('indicatorNext');
+        expect(await textOfId('indicatorStatus')).assertContain('index=2/3');
+        await clickId('indicatorPrev');
+        expect(await textOfId('indicatorStatus')).assertContain('index=1/3');
+        await clickId('indicatorBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_PROGRESS_SCENE_0200
+     * @tc.name testProgressSceneArcSequence0002
+     * @tc.desc Verify arc steps accumulate and reset to the initial value
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testProgressSceneArcSequence0002', 0, async (done: Function) => {
+      await runCase('testProgressSceneArcSequence0002', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardArcSlider');
+        await clickId('arcPlus');
+        await clickId('arcPlus');
+        await clickId('arcPlus');
+        expect(await textOfId('arcProgress')).assertContain('progress=70');
+        await clickId('arcReset');
+        expect(await textOfId('arcProgress')).assertContain('progress=40');
+        await clickId('arcBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_PROGRESS_SCENE_0300
+     * @tc.name testProgressScenePbv2Toggle0003
+     * @tc.desc Verify progress button V2 disable and enable sequence
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testProgressScenePbv2Toggle0003', 0, async (done: Function) => {
+      await runCase('testProgressScenePbv2Toggle0003', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardProgressButtonV2');
+        await clickId('pbv2Toggle');
+        expect(await textOfId('pbv2Enabled')).assertContain('enabled=false');
+        await clickId('pbv2Toggle');
+        expect(await textOfId('pbv2Enabled')).assertContain('enabled=true');
+        await clickId('pbv2Back');
+        await waitId('pageTitle');
       }, done);
     });
 

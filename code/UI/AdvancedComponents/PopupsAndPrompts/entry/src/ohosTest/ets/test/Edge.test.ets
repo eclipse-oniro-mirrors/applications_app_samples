@@ -19,6 +19,7 @@ import { DeviceInfoUtils } from '../../../main/ets/utils/DeviceInfoUtils';
 import { PromptUtils } from '../../../main/ets/utils/PromptUtils';
 import {
   clickId,
+  clickLastText,
   clickText,
   existsId,
   pressBack,
@@ -1086,6 +1087,123 @@ export default function edgeTest() {
         expect(BreakpointUtils.gridTemplate(2000)).assertEqual('1fr 1fr 1fr');
         expect(BreakpointUtils.isWide(2000)).assertTrue();
         expect(BreakpointUtils.describe(2000)).assertEqual('width=2000vp, breakpoint=lg');
+      }, done);
+    });
+
+
+    /**
+     * @tc.number SUB_POPUPS_REAL_0100
+     * @tc.name testPopupsRealPopupBack0001
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPopupsRealPopupBack0001', 0, async (done: Function) => {
+      await runCase('testPopupsRealPopupBack0001', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardPopupV2');
+        await waitId('popupTitle');
+        await clickId('popupBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_POPUPS_REAL_0200
+     * @tc.name testPopupsRealExceptionBack0002
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPopupsRealExceptionBack0002', 0, async (done: Function) => {
+      await runCase('testPopupsRealExceptionBack0002', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardException');
+        await waitId('exceptionStatus');
+        await clickId('exceptionBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_POPUPS_REAL_0300
+     * @tc.name testPopupsRealExceptionV2Back0003
+     * @tc.desc Verify page opens and returns through its back button
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPopupsRealExceptionV2Back0003', 0, async (done: Function) => {
+      await runCase('testPopupsRealExceptionV2Back0003', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardExceptionV2');
+        await waitId('exceptionV2Status');
+        await clickId('exceptionV2Back');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+
+    /**
+     * @tc.number SUB_POPUPS_SCENE_0100
+     * @tc.name testPopupsSceneExceptionToggle0001
+     * @tc.desc Verify exception prompt hide and show sequence
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPopupsSceneExceptionToggle0001', 0, async (done: Function) => {
+      await runCase('testPopupsSceneExceptionToggle0001', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardException');
+        await clickId('exceptionHide');
+        expect(await textOfId('exceptionStatus')).assertContain('status=hidden');
+        await clickId('exceptionShow');
+        expect(await textOfId('exceptionStatus')).assertContain('status=shown');
+        await clickId('exceptionBack');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_POPUPS_SCENE_0200
+     * @tc.name testPopupsSceneExceptionV2Toggle0002
+     * @tc.desc Verify exception prompt V2 hide and show sequence
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPopupsSceneExceptionV2Toggle0002', 0, async (done: Function) => {
+      await runCase('testPopupsSceneExceptionV2Toggle0002', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardExceptionV2');
+        await clickId('exceptionV2Hide');
+        expect(await textOfId('exceptionV2Status')).assertContain('status=hidden');
+        await clickId('exceptionV2Show');
+        expect(await textOfId('exceptionV2Status')).assertContain('status=shown');
+        await clickId('exceptionV2Back');
+        await waitId('pageTitle');
+      }, done);
+    });
+
+    /**
+     * @tc.number SUB_POPUPS_SCENE_0300
+     * @tc.name testPopupsScenePopupConfirm0003
+     * @tc.desc Verify popup confirm action and page back
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testPopupsScenePopupConfirm0003', 0, async (done: Function) => {
+      await runCase('testPopupsScenePopupConfirm0003', async () => {
+        await startApp(BUNDLE_NAME, ABILITY_NAME);
+        await clickId('cardPopupV2');
+        await clickLastText('Confirm');
+        expect(await textOfId('popupStatus')).assertContain('confirm=1');
+        await clickId('popupBack');
+        await waitId('pageTitle');
       }, done);
     });
 

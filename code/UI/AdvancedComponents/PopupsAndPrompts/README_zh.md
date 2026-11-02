@@ -9,7 +9,7 @@
 - [ExceptionPromptV2](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-ExceptionPromptV2.md)：API 26 新增、基于状态管理 V2 的异常提示；
 - [SelectionMenu](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-SelectionMenu.md)：文本选择菜单，通过 `RichEditor.bindSelectionMenu` 绑定自定义编辑菜单。
 
-工程包含日志、计数/区间工具、响应式断点等工具类，并包含 88 条 ohosTest 用例与 2 条本地工具单测。
+工程包含日志、计数/区间工具、响应式断点等工具类，并包含 91 条 ohosTest 用例与 2 条本地工具单测。
 
 ### 功能特性
 
@@ -41,7 +41,7 @@
 
 | 类型 | 数量 | 说明 |
 |---|---:|---|
-| ohosTest | 88 | 入口、PopupV2、ExceptionPrompt/V2、SelectionMenu、稳定性、逻辑 |
+| ohosTest | 91 | 入口、PopupV2、ExceptionPrompt/V2、SelectionMenu、稳定性、逻辑 |
 | 本地单测 | 2 | 提示工具与断点 |
 
 ### 效果预览
@@ -101,7 +101,7 @@ entry/src/test/
 3. 本示例需要使用 DevEco Studio 26.0.0 及以上版本才可编译运行；
 4. PopupV2、ExceptionPromptV2 为 API 26 新增组件；`ExceptionPromptV2` 在 SDK 26.0.0 中从 `@ohos.arkui.advanced.ExceptionPromptV2` 导入；
 5. ExceptionPrompt 的 `marginTop` 已调整为 140vp，避免提示条与页面按钮重叠导致点击被拦截；
-6. 本示例包含 88 条 ohosTest 用例，另有 2 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
+6. 本示例包含 91 条 ohosTest 用例，另有 2 条本地工具单测，用例说明见 [ohosTest.md](ohosTest.md)；
 
 ### 下载
 
