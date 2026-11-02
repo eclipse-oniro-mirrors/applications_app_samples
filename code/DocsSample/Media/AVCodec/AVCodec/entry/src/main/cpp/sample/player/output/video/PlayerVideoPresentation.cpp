@@ -294,9 +294,10 @@ bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool rend
     if (!render) {
         videoDroppedFrames_.fetch_add(1);
     }
-    // Surface 解码器的 OH_AVBuffer 没有应用侧内存，调用 GetNativeBuffer 只会产生
-    // “buffer's memory is nullptr” 日志；Surface/OpenGL/Vulkan 的 HDR 状态由各自
-    // 的 NativeWindow/NativeImage 路径确认，Buffer 模式才读取 OH_AVBuffer 元数据。
+
+    // Surface解码器的OH_AVBuffer没有应用侧内存，调用GetNativeBuffer只会产生
+    // “buffer's memory is nullptr” 日志；Surface/OpenGL/Vulkan的HDR状态由各自
+    // 的NativeWindow/NativeImage路径确认，Buffer模式才读取OH_AVBuffer元数据。
     if (UsesBufferMetadataPresentation(sampleInfo_, videoSink_.get())) {
         ConfirmHdrVividFromBuffer(bufferInfo);
     }
@@ -312,7 +313,7 @@ bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool rend
         return false;
     }
     if (!IsVulkanSurfaceChainReady(sampleInfo_, videoSink_.get())) {
-        // Vulkan 不允许退回 decoder Buffer 送显，避免切换模式后旧 BufferRenderer 继续接管画面。
+        // Vulkan不允许退回decoder buffer送显，避免切换模式后旧BufferRenderer继续接管画面。
         AVCODEC_SAMPLE_LOGE("Invalid Vulkan Surface chain");
         (void)videoDecoder_->FreeOutputBuffer(bufferInfo, false);
         return false;
@@ -346,8 +347,8 @@ bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool rend
 
 void Player::ConfirmHdrVividFromBuffer(const CodecBufferInfo &bufferInfo)
 {
-    // 容器声明不能证明码流确为 HDR Vivid。仅以解码后 Buffer 的元数据为准；
-    // 直连 Surface 输出则在下方帧已送达 XComponent 后再检查。
+    // 容器声明不能证明码流确为HDR Vivid。仅以解码后buffer的元数据为准；
+    // 直连Surface输出则在下方帧已送达XComponent后再检查。
     if (!hdrVividConfirmed_.load() && HdrMetadataHelper::IsHdrVivid(bufferInfo.buffer)) {
         hdrVividConfirmed_.store(true);
         AVCODEC_SAMPLE_LOGI("HDR Vivid confirmed from decoded bitstream metadata");
@@ -390,7 +391,7 @@ int32_t Player::PresentVideoBuffer(const VideoPresentRequest &request, bool meas
     const auto presentStart = measureBufferPresent ? std::chrono::steady_clock::now() :
         std::chrono::steady_clock::time_point {};
     const int32_t result = videoSink_->Present(request);
-    // UI 每 250 ms 拉取一次快照，送显线程不需要为每一帧争用诊断锁。
+    // UI每250ms拉取一次快照，送显线程不需要为每一帧争用诊断锁。
     if ((videoOutputFrames_.load() & 0x7U) == 0U) {
         const VideoSinkDiagnostics snapshot = videoSink_->GetDiagnostics();
         std::lock_guard<std::mutex> lock(videoSinkDiagnosticsMutex_);
@@ -420,8 +421,8 @@ void Player::ProbeHdrVividFromSurface(bool render, uint64_t outputFrameCount)
         auto windowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
         const bool usesVulkanSurface = sampleInfo_.codec.codecRunMode == VULKAN &&
             videoSink_ != nullptr && videoSink_->UsesSurfaceDecoder();
-        // Vulkan 的 NativeImage 生产者不是 XComponent 窗口，但 Vulkan 会把确认后的
-        // NativeBuffer 元数据同步到最终窗口，因此应从该窗口读取最后送显的 Buffer。
+        // Vulkan的NativeImage生产者不是XComponent窗口，但Vulkan会把确认后的
+        // NativeBuffer元数据同步到最终窗口，因此应从该窗口读取最后送显的buffer。
         if (windowLease) {
             const bool usesDirectSurface = sampleInfo_.video.window == windowLease.GetWindow();
             const bool hdrConfirmed = usesVulkanSurface ? videoSink_->IsHdrVividConfirmed() :
