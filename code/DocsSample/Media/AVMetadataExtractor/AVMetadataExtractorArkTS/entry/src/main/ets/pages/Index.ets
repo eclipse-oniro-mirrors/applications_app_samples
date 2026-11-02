@@ -244,9 +244,9 @@ struct Index {
       // 创建AVMetadataExtractor对象
       let avMetadataExtractor: media.AVMetadataExtractor = await media.createAVMetadataExtractor();
       // 调用setUrlSource设置网络点播媒体资源URL，用来获取在线音视频元数据和在线视频缩略图。
-      let url = "http://test.mp4";
+      let url = '/videos/test.mp4';
       let headers: Record<string, string> = {
-        "User-Agent" : "User-Agent-Value"
+        'User-Agent' : 'User-Agent-Value'
       };
       avMetadataExtractor.setUrlSource(url, headers);
       // [End AVMetadataExtractor_SetUrlSource]
@@ -317,7 +317,8 @@ struct Index {
         height : 300
       }
       // 获取视频缩略图（callback模式）。
-      avMetadataExtractor.fetchFramesByTimes(timesUs, queryOption, param, (frameInfo: media.FrameInfo, err: BusinessError) => {
+      avMetadataExtractor.fetchFramesByTimes(timesUs, queryOption, param, (frameInfo: media.FrameInfo,
+        err: BusinessError) => {
         if (err) {
           console.error(TAG, `fetch frame failed, error code: ${err.code}, error message: ${err.message}`);
           return;
