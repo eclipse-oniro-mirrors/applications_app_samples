@@ -214,7 +214,7 @@ static void AvTranscoderStateChangeFuncs(NdkAVTransCoderUser *transcoderUser)
         {TRANSCODER_PREPARED, [transcoderUser]() {
             // 状态为AVTRANSCODER_PREPARED时开始转码
             // [Start doStart]
-            OH_AVErrCode errCode = OH_AVTranscoder_Start(transcoderUser->transcoder);
+            OH_AVErrCode errCode = OH_AVTranscoder_Start(transcoderUser->transcoder); // 开始转码。
             // [End doStart]
             transcoderUser->errorCode = errCode;
             LOG("OH_AVTranscoder_Start errCode:%{public}d", errCode);
@@ -234,7 +234,7 @@ static OH_AVTranscoder_Config *createDefaultTransCoderConfig(int32_t dstFd)
     OH_AVTranscoder_Config *config = OH_AVTranscoderConfig_Create();
     // [End createTranscoderConfig]
     // [Start setFddst]
-    OH_AVTranscoderConfig_SetDstFD(config, dstFd);                                  // 设置转码的目标文件属dstFd。
+    OH_AVTranscoderConfig_SetDstFD(config, dstFd);                                  // 设置转码的目标文件描述符dstFd。
     // [End setFddst]
     // [Start setFileType]
     OH_AVTranscoderConfig_SetDstFileType(config, AV_OUTPUT_FORMAT_MPEG_4);          // 封装格式。
@@ -246,7 +246,7 @@ static OH_AVTranscoder_Config *createDefaultTransCoderConfig(int32_t dstFd)
     OH_AVTranscoderConfig_SetDstAudioType(config, "audio/mp4a-latm");               // 音频编码格式，可选。
     // [End setAudioType]
     // [Start setAudioBitrate]
-    OH_AVTranscoderConfig_SetDstAudioBitrate(config, AUDIO_BITRATE);                // 音频比特率，可选。
+    OH_AVTranscoderConfig_SetDstAudioBitrate(config, AUDIO_BITRATE);                // 参考avcodec音频编码器码率设置，具体根据实际需要设置。
     // [End setAudioBitrate]
     // [Start setVideoBitrate]
     OH_AVTranscoderConfig_SetDstVideoBitrate(config, VIDEO_BITRATE);                // 视频比特率，可选。
@@ -283,7 +283,7 @@ static napi_value OHAvTranscoderNdkPlay(napi_env env, napi_callback_info info)
     g_ctx.config = createDefaultTransCoderConfig(dstFd);
 
     // [Start setFdsrc]
-    OH_AVErrCode errCode = OH_AVTranscoderConfig_SetSrcFD(g_ctx.config, srcFd, srcOffset, length); // 设置转码源视频FD
+    OH_AVErrCode errCode = OH_AVTranscoderConfig_SetSrcFD(g_ctx.config, srcFd, srcOffset, length); // 设置转码源视频FD。
     // [End setFdsrc]
     // [EndExclude setTranscoderCallback]
     OH_AVTranscoder_SetStateCallback(transcoder, AvTranscoderStateChangeCbImpl, transcoderUser); // 设置状态回调
@@ -313,7 +313,7 @@ static napi_value OHAvTranscoderNdkPause(napi_env env, napi_callback_info info)
 {
     int ret = 100;
     // [Start doPause]
-    ret = OH_AVTranscoder_Pause(g_ctx.transcoder); // 暂停转码
+    ret = OH_AVTranscoder_Pause(g_ctx.transcoder); // 暂停转码。
     // [End doPause]
     LOG("OH_AVTranscoder_Pause ret:%{public}d", ret);
     napi_value value;
@@ -325,7 +325,7 @@ static napi_value OHAvTranscoderNdkResume(napi_env env, napi_callback_info info)
 {
     int ret = 100;
     // [Start doResume]
-    ret = OH_AVTranscoder_Resume(g_ctx.transcoder); // 恢复转码
+    ret = OH_AVTranscoder_Resume(g_ctx.transcoder); // 恢复转码。
     // [End doResume]
     LOG("OH_AVTranscoder_Resume ret:%{public}d", ret);
     napi_value value;
@@ -337,7 +337,7 @@ static napi_value OHAvTranscoderNdkCancel(napi_env env, napi_callback_info info)
 {
     int ret = 100;
     // [Start doCancel]
-    ret = OH_AVTranscoder_Cancel(g_ctx.transcoder); // 取消转码
+    ret = OH_AVTranscoder_Cancel(g_ctx.transcoder); // 取消转码。
     // [End doCancel]
     LOG("OH_AVTranscoder_Cancel ret:%{public}d", ret);
     napi_value value;

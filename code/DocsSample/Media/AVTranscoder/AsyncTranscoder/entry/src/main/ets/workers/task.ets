@@ -53,7 +53,7 @@ async function doSome(context: common.Context) {
     let transcoder = await media.createAVTranscoder();
     
     // [Start transcoderCompleteCallback]
-    // 转码完成回调函数
+    // 转码完成回调函数。
     transcoder.on('complete', async () => {
       console.info(`transcode complete`);
       await transcoder?.release()
@@ -78,7 +78,7 @@ async function doSome(context: common.Context) {
         fs.closeSync(transcoder.fdSrc.fd);
       }
     })
-    // 转码进度更新
+    // 转码进度更新回调函数。
     transcoder.on('progressUpdate', (progress: number) => {
       console.info(`AVTranscoder progressUpdate = ${progress}`);
       workerPort.postMessage(progress);

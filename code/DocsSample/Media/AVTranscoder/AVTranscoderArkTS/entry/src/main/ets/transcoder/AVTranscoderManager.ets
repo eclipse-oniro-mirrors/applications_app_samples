@@ -47,14 +47,14 @@ export class AVTranscoderDemo {
       if (this.avTranscoder != undefined) {
         // 转码完成回调函数。
         this.avTranscoder.on('complete', async () => {
-          console.log(`AVTranscoder is completed`);
+          console.info(`AVTranscoder is completed`);
           await this.releaseTranscoderingProcess();
         });
         // 错误上报回调函数。
         this.avTranscoder.on('error', (err: BusinessError) => {
           console.error(`AVTranscoder failed, code is ${err.code}, message is ${err.message}`);
         });
-        // 进度上报回调函数
+        // 进度上报回调函数。
         this.avTranscoder.on('progressUpdate', (progress: number) => {
           console.info(`AVTranscoder progressUpdate = ${progress}`);
           this.currentProgress = progress;
@@ -72,7 +72,7 @@ export class AVTranscoderDemo {
         this.avTranscoder = undefined;
       }
       // [Start createInstance]
-      // 1.创建转码实例。
+      // 创建转码实例。
       this.avTranscoder = await media.createAVTranscoder();
       // [End createInstance]
       this.setAVTranscoderCallback();
@@ -82,6 +82,7 @@ export class AVTranscoderDemo {
         try {
           // 获取输入文件fd，H264_AAC.mp4为rawfile目录下的预置资源，需要开发者根据实际情况进行替换。
           let fileDescriptor = await this.context.resourceManager.getRawFd('H264_AAC.mp4');
+          // 设置转码的源文件属性fdSrc。
           this.avTranscoder.fdSrc = fileDescriptor;
         } catch (error) {
           console.error('Failed to get the file descriptor, please check the resource and path.');
@@ -90,6 +91,7 @@ export class AVTranscoderDemo {
         // [Start createFddst]
         let outputFilePath = this.context.filesDir + '/output.mp4';
         let file = fileIo.openSync(outputFilePath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
+        // 设置转码的目标文件属性fdDst。
         this.avTranscoder.fdDst = file.fd;
         // [End createFddst]
         this.currentProgress = 0;
@@ -141,6 +143,7 @@ export class AVTranscoderDemo {
         if (lastFdDst != undefined) {
           fileIo.closeSync(lastFdDst);
         }
+        // 3.关闭转码源文件fd。
         if (lastFdSrc != undefined) {
           fileIo.closeSync(lastFdSrc.fd);
         }
@@ -161,7 +164,7 @@ export class AVTranscoderDemo {
   // 一个完整的【开始转码-暂停转码-恢复转码-转码完成】示例。
   async avTranscoderDemo() {
     await this.startTranscoderingProcess(); // 开始转码。
-    await this.pauseTranscoderingProcess(); //暂停转码。
+    await this.pauseTranscoderingProcess(); // 暂停转码。
     await this.resumeTranscoderingProcess(); // 恢复转码。
   }
   // [End transcoderProcess]
