@@ -33,10 +33,10 @@ export struct SystemLoadPage {
   @State private secondaryCallbackCount: number = 0;
   @State private isMock: boolean = false;
   @State private isLoading: boolean = false;
+  @State private isActive: boolean = false;
   @StorageLink(SYSTEM_LOAD_PAGE_VISIBLE) @Watch('onPageVisibleChange') private isPageVisible: boolean = true;
   private isPrimarySubscribed: boolean = false;
   private isSecondarySubscribed: boolean = false;
-  private isActive: boolean = false;
   private requestId: number = 0;
   private mockLevelIndex: number = 2;
   private callbackRecords: string[] = [];
@@ -285,30 +285,16 @@ export struct SystemLoadPage {
     }
   }
 
-  private async requestLocalLevel(): Promise<systemLoad.SystemLoadLevel | undefined> {
-    try {
-      return await SystemLoadService.getLocalLevel();
-    } catch (error) {
-      let err: BusinessError = error as BusinessError;
-      logger.error(`Failed to load local system load, code: ${err.code}, message: ${err.message}`);
-      return undefined;
-    }
+  private async requestLocalLevel(): Promise<systemLoad.SystemLoadLevel> {
+    return await SystemLoadService.getLocalLevel();
   }
 
   private async loadLocalSystemLoad(): Promise<void> {
     const requestId = ++this.requestId;
     this.isLoading = true;
     try {
-      const level: systemLoad.SystemLoadLevel | undefined = await this.requestLocalLevel();
+      const level: systemLoad.SystemLoadLevel = await this.requestLocalLevel();
       if (requestId !== this.requestId || !this.isActive) {
-        return;
-      }
-      if (level === undefined) {
-        this.isMock = true;
-        this.sourceText = $r('app.string.mock_fallback');
-        this.unsubscribeAllListeners(false);
-        this.updateLevel(this.mockLevels[this.mockLevelIndex]);
-        this.operationText = $r('app.string.operation_local_unavailable');
         return;
       }
       this.isMock = false;
@@ -317,6 +303,17 @@ export struct SystemLoadPage {
       this.operationText = $r('app.string.operation_local_loaded');
       this.subscribePrimarySystemLoad(false);
       logger.info(`Local system load loaded: ${level}`);
+    } catch (error) {
+      if (requestId !== this.requestId || !this.isActive) {
+        return;
+      }
+      let err: BusinessError = error as BusinessError;
+      logger.error(`Failed to load local system load, code: ${err.code}, message: ${err.message}`);
+      this.isMock = true;
+      this.sourceText = $r('app.string.mock_fallback');
+      this.unsubscribeAllListeners(false);
+      this.updateLevel(this.mockLevels[this.mockLevelIndex]);
+      this.operationText = $r('app.string.operation_local_unavailable');
     } finally {
       if (requestId === this.requestId) {
         this.isLoading = false;
