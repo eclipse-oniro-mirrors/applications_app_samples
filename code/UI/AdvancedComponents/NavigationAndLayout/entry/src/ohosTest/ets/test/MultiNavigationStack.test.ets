@@ -160,12 +160,12 @@ export default function stackApiTest() {
         await scrollToId('stackHomeWidth');
         await clickId('stackHomeWidth');
         expect(await textOfId('stackLog')).assertContain('setHomeWidthRange');
-        await scrollToId('stackKeepBottom');
-        await clickId('stackKeepBottom');
-        expect(await textOfId('stackLog')).assertContain('keepBottomPage');
         await scrollToId('stackPlaceholder');
         await clickId('stackPlaceholder');
         expect(await textOfId('stackLog')).assertContain('setPlaceholderPage');
+        await scrollToId('stackKeepBottom');
+        await clickId('stackKeepBottom');
+        expect(await textOfId('stackLog')).assertContain('keepBottomPage');
       }, done);
     });
   });
