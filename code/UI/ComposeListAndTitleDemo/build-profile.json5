@@ -4,9 +4,10 @@
     "products": [
       {
         "name": "default",
+        "compileSdkVersion": "26.0.0",
         "targetSdkVersion": "26.0.0",
-        "compatibleSdkVersion": "6.1.1(24)",
-        "runtimeOS": "HarmonyOS",
+        "compatibleSdkVersion": "26.0.0",
+        "runtimeOS": "OpenHarmony",
         "signingConfig": "default",
         "buildOption": {
           "strictMode": {
@@ -18,7 +19,7 @@
     ],
     "buildModeSet": [
       {
-        "name": "debug",
+        "name": "debug"
       },
       {
         "name": "release"

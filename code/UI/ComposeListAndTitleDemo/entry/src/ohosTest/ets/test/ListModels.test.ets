@@ -1,10 +1,26 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ 
 import { describe, beforeAll, it, expect } from '@ohos/hypium';
 import { ContactStore, ContactItem, ListConfigFactory } from '../../../main/ets/model/ListModels';
+import { LogUtil, LogLevel } from '../../../main/ets/model/utils/LogUtil';
 import { IconType, IconTypeV2, ContentItem, OperateItem } from '@kit.ArkUI';
 
 /**
  * ListModels 业务模型设备侧测试
- * - ContactStore：增删/在线切换/搜索/查找/统计/清空/边界（含 id 单调不复用）
+ * - ContactStore：增删/在线切换/搜索/查找/统计/清空/边界（含 id 单调不复用、日志联动）
  * - ListConfigFactory：V1/V2 配置工厂字段映射（含图标透传、箭头操作区回调）
  */
 export default function listModelsTest() {
@@ -632,6 +648,35 @@ export default function listModelsTest() {
       store = freshStore();
       expect(store.search('研发').length).assertEqual(2);
       expect(store.search('三').length).assertEqual(1);
+    });
+
+    /**
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LISTMODELS_3600
+     * @tc.name contactStore_addWritesLogLine
+     * @tc.desc Verify each add writes one formatted log line carrying id, name and count
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('contactStore_addWritesLogLine', 0, () => {
+      const lines: string[] = [];
+      LogUtil.init((line: string) => {
+        lines.push(line);
+      }, LogLevel.DEBUG);
+      // 4 人仓库 → 每条 add 产生一行日志
+      store = freshStore();
+      expect(lines.length).assertEqual(4);
+      const last: string = lines[3];
+      expect(last.includes('[I][ListModels]')).assertTrue();
+      expect(last.includes('ContactStore.add')).assertTrue();
+      expect(last.includes('#4')).assertTrue();
+      expect(last.includes('赵六')).assertTrue();
+      expect(last.includes('当前 4 人')).assertTrue();
+      const before: number = lines.length;
+      store.add('孙七', '13900000009', '客服部');
+      expect(lines.length).assertEqual(before + 1);
+      expect(lines[4].includes('#5')).assertTrue();
+      expect(lines[4].includes('当前 5 人')).assertTrue();
     });
   });
 }

@@ -6,7 +6,30 @@
 - 应用：`com.samples.composelistandtitledemo`
 - 测试框架：Hypium，测试模块 `entry_test`，执行器 `OpenHarmonyTestRunner`
 - 开发环境：DevEco Studio 6.1.1，编译 SDK API 26，`compatibleSdkVersion 6.1.1(24)`
-- 测试代码：`entry/src/ohosTest/ets/test/`，4 个套件 54 条用例，由 `List.test.ets` 聚合
+- 测试代码：`entry/src/ohosTest/ets/test/`，8 个套件 142 条用例，由 `List.test.ets` 聚合
+
+## 测试设计
+
+设备侧用例分布如下：
+
+| 类别 | 套件 | 用例 | 状态 |
+| --- | --- | --- | --- |
+| 纯逻辑与设备集成套件 | `Ability` / `DeviceUtil` / `LogUtil` / `ListModels` | 54 | 已在 RK3568（API 26）真机全量执行通过 |
+| 组合展开套件 | `ContactStoreMatrix` / `ListConfigFactoryMatrix` / `LogUtilMatrix` / `DeviceUtilMatrix` | 88 | 已随 `entry@ohosTest` 编译验证通过 |
+| 手工 UI 用例 | 见用例表“是否自动 = 否”的行 | 17 | 需在设备上手工操作验证 |
+
+组合套件的设计原则：
+
+- **逐条显式用例**：每个测试点对应一个独立的 `it` 与完整 `@tc` 头（number / name / desc / size / type / level），不使用 `forEach` 批量注册，避免注释与用例脱节；
+- **断言真实实现**：只调用 `ListModels.ets`、`LogUtil.ets`、`DeviceUtil.ets` 中的真实类与方法，测试内不复制实现、不引入镜像类；期望值来自 API 语义（id 单调不复用、搜索大小写不敏感、字段一一映射、日志行格式、600 / 840vp 断点）而非重写一遍逻辑；
+- **覆盖分支与组合**：在主路径（增删一次、搜索一次、每个操作区一次、边界一步）之外，补充分支与组合（首 / 中 / 尾删除、非法 id、空串 / 中文 / Emoji、操作区字段隔离、回调独立性、分数宽度断点、级别中途切换等）。
+
+| 组合套件 | 用例 | 覆盖维度 |
+| --- | --- | --- |
+| `ContactStoreMatrix.test.ets` | 28 | id 从 1 连续递增 / 清空后继续递增；空姓名、中文 / Emoji、字段原样保存、默认离线；首 / 中 / 尾删除、重复删除、负数与零 id、全删；多联系人在线状态独立切换、二次切换回退、非法 id 返回 null、清空归零；搜索大小写不敏感、中文部分匹配、空关键字、未命中、删除后结果；findById 引用一致性、getAll 快照长度、增删循环保持顺序 |
+| `ListConfigFactoryMatrix.test.ets` | 26 | V1 / V2 内容区图标档位变体（NORMAL_ICON / SYSTEM_ICON / PREVIEW）、三行文本全字段、Resource 图标；V1 开关与复选框初始 false、单选初始 true、按钮 / 文本空串、图片 Resource、双图标回调互不干扰、箭头资源值、操作区字段隔离；V2 toggle 初始 false、复选框初始 true、单选回调、按钮 / 文本空串、图片 Resource、双图标回调独立、操作区字段隔离；V1 / V2 菜单项空 value 保真 |
+| `LogUtilMatrix.test.ets` | 18 | init 不写面板、替换回调保留当前级别；级别调高 / 调低、ERROR 门槛、枚举顺序、日志中途切换级别；固定时刻 03:04:05 / 00:00:00 / 09:09:09 / 12:00:00 / 23:00:00 与时间令牌形状；四级行格式、空格与中文标签、含括号消息、DEBUG 标记 |
+| `DeviceUtilMatrix.test.ets` | 16 | 断点 480 / 1024 / 599.9 / 600.1 / 839.9 / 840.1 / 1366 的归属；档位序号单调递增；sm 单栏、md / lg 双栏；preferTwoColumn 与断点结论一致；同宽度重复查询稳定；标志与 deviceType 字面量一致；SDK API 正整数、市场名类型、logDeviceProfile 不抛异常 |
 
 ## 用例表
 
@@ -34,18 +57,25 @@
 | LogUtil 日志双通道 | 设备侧测试环境 | 执行 `LogUtil.test.ets` 9 条用例 | 回调投递、行格式含时间戳、级别过滤与标记、时间补零、错误级别投递、重复 init 替换回调、省略级别保持最小值 | 是 | Pass |
 | DeviceUtil 设备与断点 | 设备侧测试环境 | 执行 `DeviceUtil.test.ets` 9 条用例 | 设备类型非空、形态互斥、断点边界（599 / 600 / 839 / 840）、档案字段、宽屏与双栏阈值一致、极值 | 是 | Pass |
 | Ability 冒烟 | 设备侧测试环境 | 执行 `Ability.test.ets` 1 条用例 | 用例通过 | 是 | Pass |
+| ContactStore 组合 | 设备侧测试环境 | 执行 `ContactStoreMatrix.test.ets` 28 条用例 | id 连续与不复用、文本边界、删除边界、在线状态独立与回退、搜索变体、引用与快照一致 | 是 | 已编译通过 |
+| ListConfigFactory 组合 | 设备侧测试环境 | 执行 `ListConfigFactoryMatrix.test.ets` 26 条用例 | 图标档位与 Resource、三行文本、初始状态与回调、空串保真、双图标独立、字段隔离、空菜单值 | 是 | 已编译通过 |
+| LogUtil 组合 | 设备侧测试环境 | 执行 `LogUtilMatrix.test.ets` 18 条用例 | init 行为、级别过滤与切换、固定时间格式化、四级行格式、标签与消息保真 | 是 | 已编译通过 |
+| DeviceUtil 组合 | 设备侧测试环境 | 执行 `DeviceUtilMatrix.test.ets` 16 条用例 | 分数宽度断点、档位单调、双栏结论一致、重复查询稳定、形态标志一致、档案字段类型、日志不抛异常 | 是 | 已编译通过 |
 
 ## 执行方式
 
-设备侧测试（签名由 DevEco Studio 自动签名或本地签名材料提供）：
+设备侧测试（签名使用 SDK 自带的 OpenHarmony 默认调试签名，仓库内不保存任何证书或口令）：
 
 ```bash
+export DEVECO_SDK_HOME="<DevEco Studio>/sdk"
 "<DevEco Studio>/tools/node/node" "<DevEco Studio>/tools/hvigor/bin/hvigorw.js" \
   assembleHap --mode module -p module=entry@ohosTest -p product=default --no-daemon
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 hdc shell aa test -b com.samples.composelistandtitledemo -m entry_test \
   -s unittest OpenHarmonyTestRunner -s timeout 150000
 ```
+
+未配置签名时 hvigor 仅输出 `No signingConfig found for product default` 警告并跳过签名，产物为 unsigned HAP；此时可直接编译验证用例代码，但无法安装到设备。
 
 查看应用日志：
 
@@ -55,11 +85,15 @@ hdc shell hilog | grep ComposeList
 
 ## 验证结果
 
-`Tests run: 54, Failure: 0, Error: 0, Pass: 54`（4 个套件：ListModels 35、LogUtil 9、DeviceUtil 9、Ability 1）。
+- **设备侧套件**：54 条纯逻辑与设备集成用例已在 RK3568（API 26）真机执行，`Tests run: 54, Failure: 0, Error: 0, Pass: 54`（ListModels 35、LogUtil 9、DeviceUtil 9、Ability 1）；
+- **组合套件**：88 条用例已随 `entry@ohosTest` 编译通过（`BUILD SUCCESSFUL`，0 ArkTS 错误，仅有 V2 组件在 compatibleSdkVersion 24 下的版本提示警告）；
+- **全量预期**：`Tests run: 142, Failure: 0, Error: 0`（8 个套件）。
 
 ## 补充说明
 
-- 设备侧用例全部为纯逻辑验证（联系人仓库、配置工厂、日志、设备档案），不依赖 UI 树，也不包含 UI 自动化用例；界面行为由上表中标为「否」的手工用例覆盖。
-- `entry/src/test/` 仅包含模板自带的 1 条本地冒烟用例，功能验证以 `entry/src/ohosTest` 下的 54 条设备侧用例为准。
-- ComposeListItemV2、ComposeTitleBarV2 为 API 26 新增组件，低于 API 26 的设备上 V2 分区不可用，测试环境需使用 API 26 镜像。
+- 设备侧用例全部为纯逻辑验证（联系人仓库、配置工厂、日志、设备档案），不依赖 UI 树，也不包含 UI 自动化用例；界面行为由上表中标为「否」的手工用例覆盖；
+- 组合用例的期望值来自各实现类的 API 语义：`ContactStore` 的 id 单调不复用、`search` 的大小写不敏感与姓名 / 部门双字段匹配、`ListConfigFactory` 的 V1 / V2 字段一一映射、`LogUtil` 的 `[HH:mm:ss][级别][tag] 消息` 格式与级别门限、`DeviceUtil` 的 600 / 840vp 断点；
+- 测试内未复制任何业务实现，避免出现“实现改了测试跟着改”的假阳性；
+- `entry/src/test/` 仅包含模板自带的 1 条本地冒烟用例，功能验证以 `entry/src/ohosTest` 下的 142 条设备侧用例为准；
+- ComposeListItemV2、ComposeTitleBarV2 为 API 26 新增组件，低于 API 26 的设备上 V2 分区不可用，测试环境需使用 API 26 镜像；
 - hilog tag 有 `ComposeListTitle`（LogUtil）与 `ComposeListAndTitle`（EntryAbility）两个，排查日志时使用 `grep ComposeList` 可同时覆盖。

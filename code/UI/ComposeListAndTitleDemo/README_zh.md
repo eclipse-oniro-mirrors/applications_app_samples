@@ -31,7 +31,7 @@
 - **搜索实时过滤**：按姓名或部门关键字过滤联系人，列表与标题栏人数同步刷新；
 - **交互可读**：菜单、箭头、开关、按钮、复选框等交互全部写入带时间戳的日志，面板最新置顶、最多 120 条；
 - **断点自适应**：sm（<600vp）单栏上下布局，md / lg 左右双栏；
-- **数据与 UI 分离**：`ContactStore`、`ListConfigFactory` 为纯逻辑 / 配置构建层，配套 54 条设备侧用例。
+- **数据与 UI 分离**：`ContactStore`、`ListConfigFactory` 为纯逻辑 / 配置构建层，配套 142 条设备侧用例。
 
 ## 效果预览
 
@@ -41,7 +41,7 @@
 
 ### 使用说明
 
-1. 用 DevEco Studio 打开工程，为 `default` 产品配置自动签名，运行到 RK3568 / DAYU200（API 26 镜像）；
+1. 用 DevEco Studio 打开工程，使用 SDK 自带的 OpenHarmony 默认调试签名（或 DevEco Studio 自动签名），运行到 RK3568 / DAYU200（API 26 镜像）；
 2. 点击顶部标题栏的头像、“刷新”、“设置”，观察日志；点击“刷新”后列表与标题栏人数同步更新；
 3. 在搜索框输入姓名或部门关键字，列表实时过滤；清空关键字恢复全部联系人；
 4. 分区 2（V1）与分区 3（V2）分别操作箭头、开关 / toggle、按钮、复选框、双图标，观察日志；V2 联系人开关会同步修改在线人数，分区 1 的副标题随之变化；
@@ -61,7 +61,7 @@ export DEVECO_SDK_HOME="<DevEco Studio>/sdk"
   assembleHap --mode module -p product=default --no-daemon
 ```
 
-未配置签名时产物为 `entry/build/default/outputs/default/entry-default-unsigned.hap`。安装到设备前需完成签名：在 DevEco Studio 的 `File > Project Structure > Signing Configs` 中启用自动签名后直接运行，或在命令行构建后使用自己的签名材料签名，再执行：
+未配置签名时产物为 `entry/build/default/outputs/default/entry-default-unsigned.hap`。本地开发使用 SDK 自带的 OpenHarmony 默认调试签名（仓库内不保存任何证书与口令），或用 DevEco Studio 自动签名后直接运行；也可在命令行构建后使用自己的签名材料签名，再执行：
 
 ```bash
 hdc install -r <已签名 HAP>
@@ -86,7 +86,7 @@ ComposeListAndTitleDemo
 │   │   └── entrybackupability                备份扩展
 │   └── resources                             字符串、颜色、图标等资源
 ├── entry/src/test                            本地单测（1 条冒烟用例）
-├── entry/src/ohosTest                        设备侧测试（4 个套件，54 条用例）
+├── entry/src/ohosTest                        设备侧测试（8 个套件，142 条用例）
 ├── ohosTest.md                               设备侧测试用例归档
 └── README_zh.md
 ```
@@ -152,7 +152,13 @@ ComposeListAndTitleDemo
 
 ### 8. 测试
 
-设备侧测试位于 `entry/src/ohosTest/ets/test/`，共 4 个套件、54 条用例，通过 `List.test.ets` 聚合：
+设备侧测试位于 `entry/src/ohosTest/ets/test/`，共 8 个套件、142 条用例，通过 `List.test.ets` 聚合。用例分布如下：
+
+| 类别 | 套件 | 用例 | 状态 |
+| --- | --- | --- | --- |
+| 纯逻辑与设备集成套件 | `Ability` / `DeviceUtil` / `LogUtil` / `ListModels` | 54 | 已在 RK3568（API 26）真机全量通过 |
+| 组合展开套件 | `ContactStoreMatrix` / `ListConfigFactoryMatrix` / `LogUtilMatrix` / `DeviceUtilMatrix` | 88 | 已随 `entry@ohosTest` 编译验证通过 |
+| 手工 UI 用例 | 见 `ohosTest.md` 用例表 | 17 | 需在设备上手工操作 |
 
 | 套件 | 用例 | 覆盖 |
 | --- | --- | --- |
@@ -160,8 +166,14 @@ ComposeListAndTitleDemo
 | `LogUtil.test.ets` | 9 | 回调投递、行格式与时间戳、级别过滤与标记、时间补零、错误级别投递、重复 init 替换回调、省略级别时保持最小值 |
 | `DeviceUtil.test.ets` | 9 | 设备类型非空、形态互斥、断点边界（599 / 600 / 839 / 840）、档案字段、宽屏与双栏阈值一致性、极值 |
 | `Ability.test.ets` | 1 | Ability 冒烟用例 |
+| `ContactStoreMatrix.test.ets` | 28 | id 从 1 连续且清空后继续递增、空姓名 / 中文 / Emoji、字段原样保存与默认离线、首 / 中 / 尾删除与重复删除、非法 id、多联系人在线状态独立与回退、搜索大小写不敏感 / 中文部分匹配 / 未命中 / 删除后结果、findById 引用一致性、增删循环保持顺序 |
+| `ListConfigFactoryMatrix.test.ets` | 26 | V1 / V2 图标档位变体与 Resource 图标、三行文本全字段、V1 开关 / 复选框 / 单选初始状态与回调、V2 toggle / 复选框 / 单选、按钮与文本空串、图片 Resource、双图标回调独立、操作区字段隔离、菜单项空 value 保真 |
+| `LogUtilMatrix.test.ets` | 18 | init 不写面板且替换回调保留级别、级别调高调低与中途切换、ERROR 门槛、枚举顺序、03:04:05 / 00:00:00 / 09:09:09 / 12:00:00 / 23:00:00 固定时刻格式化、四级行格式、标签与消息保真 |
+| `DeviceUtilMatrix.test.ets` | 16 | 断点 480 / 1024 / 599.9 / 600.1 / 839.9 / 840.1 / 1366 归属、档位单调、sm 单栏与 md / lg 双栏、同宽度重复查询稳定、形态标志与 deviceType 一致、档案字段类型、logDeviceProfile 不抛异常 |
 
-本地单测位于 `entry/src/test/`，为 1 条冒烟用例。设备侧测试执行命令：
+组合用例逐条显式书写并带完整 `@tc` 头（number / name / desc / size / type / level），只调用 `ListModels.ets`、`LogUtil.ets`、`DeviceUtil.ets` 中的真实实现，测试内不复制业务逻辑；期望值来自 API 语义（id 单调不复用、搜索大小写不敏感、V1 / V2 字段一一映射、日志行格式、600 / 840vp 断点）。
+
+本地单测位于 `entry/src/test/`，为 1 条冒烟用例。设备侧测试执行命令（签名使用 SDK 自带的 OpenHarmony 默认调试签名）：
 
 ```bash
 "<DevEco Studio>/tools/node/node" "<DevEco Studio>/tools/hvigor/bin/hvigorw.js" \
@@ -170,6 +182,8 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 hdc shell aa test -b com.samples.composelistandtitledemo -m entry_test \
   -s unittest OpenHarmonyTestRunner -s timeout 150000
 ```
+
+未配置签名时产物为 unsigned HAP，可用于编译验证，但无法安装到设备。
 
 ## 相关权限
 
@@ -187,7 +201,7 @@ hdc shell aa test -b com.samples.composelistandtitledemo -m entry_test \
 | SDK | 编译 SDK API 26（`targetSdkVersion 26.0.0`），`compatibleSdkVersion 6.1.1(24)` |
 | 系统版本 | **API 26 及以上**：ComposeListItemV2、ComposeTitleBarV2 为 API 26 新增组件，低于 API 26 的设备上 V2 分区不可用 |
 | 验证设备 | RK3568 / DAYU200（API 26）；`module.json5` 声明 `phone / tablet / 2in1` |
-| 签名 | 使用 DevEco Studio 自动签名；仓库中不包含签名配置、证书与密钥文件 |
+| 签名 | 本地开发使用 SDK 自带的 OpenHarmony 默认调试签名；仓库内不保存任何证书、密钥或口令 |
 
 其他限制：
 

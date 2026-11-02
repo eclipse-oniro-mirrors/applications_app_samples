@@ -1,15 +1,54 @@
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ 
 import { describe, beforeAll, it, expect } from '@ohos/hypium';
 import { LogUtil, LogLevel, LogSink } from '../../../main/ets/model/utils/LogUtil';
 
 /**
  * LogUtil 日志工具类设备侧测试
- * 覆盖：init 注入后回调送达、行格式（时间戳/级别/标签）、级别过滤、
- * levelMark 映射、formatTime 格式与补零、恢复默认级别、重复 init 替换 sink、
- * 省略 minLevel 时保留原级别
+ * 覆盖：未初始化安全（仅 hilog）、init 注入后回调送达、行格式（时间戳/级别/标签）、
+ * 级别过滤、levelMark 映射（含未知级别兜底）、formatTime 格式与补零、
+ * 恢复默认级别、重复 init 替换 sink、省略 minLevel 时保留原级别、多级别写入顺序
  */
 export default function logUtilTest() {
   describe('logUtilTest', () => {
     beforeAll(() => {
+    });
+
+    /**
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0050
+     * @tc.name log_withoutInit_noThrow
+     * @tc.desc Verify logging before any init only writes hilog and never throws
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('log_withoutInit_noThrow', 0, () => {
+      // 本套件先于其他套件执行且未注入 sink：未初始化路径仅输出 hilog，不应抛异常
+      let ok: boolean = false;
+      try {
+        LogUtil.debug('NoInit', '未初始化 debug');
+        LogUtil.info('NoInit', '未初始化 info');
+        LogUtil.warn('NoInit', '未初始化 warn');
+        LogUtil.error('NoInit', '未初始化 error');
+        ok = true;
+      } catch (e) {
+        ok = false;
+      }
+      expect(ok).assertTrue();
     });
 
     /**
@@ -182,6 +221,40 @@ export default function logUtilTest() {
       expect(first.length).assertEqual(0);
       expect(second.length).assertEqual(1);
       expect(second[0].includes('替换后消息')).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_1000
+     * @tc.name sink_linesPreserveOrder
+     * @tc.desc Verify mixed-level messages arrive at the sink in call order
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('sink_linesPreserveOrder', 0, () => {
+      const lines: string[] = [];
+      LogUtil.init((line: string) => {
+        lines.push(line);
+      }, LogLevel.DEBUG);
+      LogUtil.warn('Order', '第一条');
+      LogUtil.debug('Order', '第二条');
+      LogUtil.error('Order', '第三条');
+      expect(lines.length).assertEqual(3);
+      expect(lines[0].includes('[W][Order]')).assertTrue();
+      expect(lines[1].includes('[D][Order]')).assertTrue();
+      expect(lines[2].includes('[E][Order]')).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_1100
+     * @tc.name levelMark_unknown
+     * @tc.desc Verify an out-of-range level falls back to the question-mark mark
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('levelMark_unknown', 0, () => {
+      expect(LogUtil.levelMark(99 as LogLevel)).assertEqual('?');
     });
   });
 }

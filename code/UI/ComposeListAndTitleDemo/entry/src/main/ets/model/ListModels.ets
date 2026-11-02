@@ -1,11 +1,19 @@
-/**
- * ListModels 组合列表与标题栏业务模型
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * - ContactItem/ContactStore：联系人数据仓库（增删、搜索、转 V1/V2 列表项配置）
- * - ListConfigFactory：ComposeListItem/V2、ComposeTitleBar/V2 配置工厂（统一构建入口）
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 纯逻辑无 UI 依赖（仅配置工厂引用 kit 类型），全部可单元测试。
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+ 
+
 import { LogUtil } from './utils/LogUtil';
 import {
   ContentItem, OperateItem, OperateIcon, OperateCheck, OperateButton, IconType,

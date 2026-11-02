@@ -1,10 +1,25 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ 
 import { describe, beforeAll, it, expect } from '@ohos/hypium';
 import { DeviceUtil, Breakpoint } from '../../../main/ets/model/utils/DeviceUtil';
 
 /**
  * DeviceUtil 设备形态工具类设备侧测试（DAYU200 / RK3568）
  * 覆盖：设备档案字段非空、形态判断互斥、断点阈值边界（599/600/839/840）、
- * 断点极值、宽屏判断、preferTwoColumn 阈值、宽屏与形态一致性
+ * 断点极值与小数 / 负数宽度、宽屏判断、preferTwoColumn 阈值、宽屏与形态一致性
  * 注意：DAYU200（OpenHarmony）deviceInfo.deviceType 上报 'default'，不是 phone/tablet/2in1
  */
 export default function deviceUtilTest() {
@@ -147,6 +162,21 @@ export default function deviceUtilTest() {
      */
     it('isWideScreen_matchesFormFlags', 0, () => {
       expect(DeviceUtil.isWideScreen()).assertEqual(DeviceUtil.isTablet() || DeviceUtil.is2in1());
+    });
+
+    /**
+     * @tc.number SUB_COMPOSE_LIST_DEMO_DEVICEUTIL_1000
+     * @tc.name breakpoint_fractionalAndNegative
+     * @tc.desc Verify fractional and negative widths map to sm unless past 600vp
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('breakpoint_fractionalAndNegative', 0, () => {
+      expect(DeviceUtil.getBreakpoint(-1)).assertEqual('sm');
+      expect(DeviceUtil.getBreakpoint(0.5)).assertEqual('sm');
+      expect(DeviceUtil.getBreakpoint(599.5)).assertEqual('sm');
+      expect(DeviceUtil.getBreakpoint(600.5)).assertEqual('md');
     });
   });
 }
