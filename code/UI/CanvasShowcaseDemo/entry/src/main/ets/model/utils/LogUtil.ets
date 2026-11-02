@@ -1,12 +1,18 @@
-/**
- * LogUtil 统一日志工具类
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * 双通道输出：hilog（设备日志，可用 hdc shell hilog 查看日志）+ UI 日志面板回调。
- * 支持级别过滤（DEBUG/INFO/WARN/ERROR），统一时间戳与格式，供业务层与工具类共用。
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * UI 层在 aboutToAppear 中调用 LogUtil.init(sink) 注入面板回调；
- * 未注入时仅输出 hilog，不影响任何功能。
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+ 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 /** UI 日志回调类型：参数为已格式化的单行日志 */

@@ -1,10 +1,18 @@
-/**
- * PixelMapUtil 图案素材工具类
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * 用代码直接生成 createPattern 所需的图案素材（棋盘格/斜纹/圆点），
- * 工程自包含、不依赖外部图片资源，且便于单元测试做像素级校验。
- * 颜色统一用 rgba(r,g,b,a) 打包为 RGBA_8888 格式像素值。
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+ 
 import { image } from '@kit.ImageKit';
 import { LogUtil } from './LogUtil';
 

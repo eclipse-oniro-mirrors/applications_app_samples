@@ -1,9 +1,18 @@
-/**
- * PerfTimer 绘制性能计时工具类
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * - 静态 time()：同步代码块计时包装（自动输出耗时日志）
- * - 实例模式：多次采样统计（count/avg/min/max），用于对比各场景绘制开销
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+ 
 import { LogUtil } from './LogUtil';
 
 const TAG = 'PerfTimer';

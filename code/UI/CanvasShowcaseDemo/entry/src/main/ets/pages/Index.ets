@@ -1,9 +1,18 @@
-/**
- * CanvasShowcaseDemo 主页面
- * 展示：画布演示区（Canvas 组件）/ 场景按钮（SceneRegistry 数据驱动）/ 事件日志面板
- * 布局适配：sm（<600vp，手机竖屏）单栏上下；md/lg（平板/2in1/横屏）双栏（左按钮右日志）
- * 每次场景绘制经 PerfTimer 计时，日志输出耗时。
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+ 
 import { CanvasScenes } from '../model/CanvasScenes';
 import { LogUtil } from '../model/utils/LogUtil';
 import { DeviceUtil, Breakpoint } from '../model/utils/DeviceUtil';

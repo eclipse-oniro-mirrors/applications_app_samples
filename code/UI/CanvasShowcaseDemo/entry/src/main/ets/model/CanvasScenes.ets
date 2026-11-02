@@ -1,18 +1,18 @@
-/**
- * CanvasScenes 画布场景绘制逻辑
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * 场景1 CanvasGradient：线性渐变（多断点）、径向渐变（光晕）、渐变描边
- * 场景2 CanvasPattern：createPattern + repeat/repeat-x/no-repeat 图案填充
- * 场景3 Matrix2D：translate/scale/rotate（弧度）单变换与组合变换、identity 复位、invert 逆变换
- * 场景4 综合：OffscreenCanvas 离屏绘制（渐变+图案）→ transferToImageBitmap →
- *            主画布 setTransform(Matrix2D) 变换贴图，三特性串联
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 所有函数参数为 CanvasRenderer（主画布与离屏画布上下文的共同基类），
- * 因此同一套绘制逻辑可直接在单元测试中用 OffscreenCanvas 无头执行。
- *
- * API 依据：docs/zh-cn/application-dev/reference/apis-arkui/ts-components-canvas-*.md
- * （CanvasGradient/CanvasPattern/Matrix2D 均为 API 8+，Matrix2D 构造与 rotate 为 API 10+）
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+ 
 import { LogUtil } from './utils/LogUtil';
 import { ColorUtil } from './utils/ColorUtil';
 import { GeometryUtil, Point } from './utils/GeometryUtil';
