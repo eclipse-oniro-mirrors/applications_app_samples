@@ -174,8 +174,9 @@ export struct SystemLoadPage {
         this.operationText = $r('app.string.primary_registered');
       }
     } catch (error) {
-      logger.error(`Failed to register primary listener: ${JSON.stringify(error)}`);
-      this.setOperationError(error as BusinessError);
+      let err: BusinessError = error as BusinessError;
+      logger.error(`Failed to register primary listener, code: ${err.code}, message: ${err.message}`);
+      this.setOperationError(err);
     }
   }
 
@@ -190,8 +191,9 @@ export struct SystemLoadPage {
       this.listenerText = $r('app.string.not_listening');
       this.operationText = $r('app.string.primary_unregistered');
     } catch (error) {
-      logger.error(`Failed to unregister primary listener: ${JSON.stringify(error)}`);
-      this.setOperationError(error as BusinessError);
+      let err: BusinessError = error as BusinessError;
+      logger.error(`Failed to unregister primary listener, code: ${err.code}, message: ${err.message}`);
+      this.setOperationError(err);
     }
   }
 
@@ -206,8 +208,9 @@ export struct SystemLoadPage {
       this.secondaryListenerText = $r('app.string.listening');
       this.operationText = $r('app.string.secondary_registered');
     } catch (error) {
-      logger.error(`Failed to register secondary listener: ${JSON.stringify(error)}`);
-      this.setOperationError(error as BusinessError);
+      let err: BusinessError = error as BusinessError;
+      logger.error(`Failed to register secondary listener, code: ${err.code}, message: ${err.message}`);
+      this.setOperationError(err);
     }
   }
 
@@ -222,8 +225,9 @@ export struct SystemLoadPage {
       this.secondaryListenerText = $r('app.string.not_listening');
       this.operationText = $r('app.string.secondary_unregistered');
     } catch (error) {
-      logger.error(`Failed to unregister secondary listener: ${JSON.stringify(error)}`);
-      this.setOperationError(error as BusinessError);
+      let err: BusinessError = error as BusinessError;
+      logger.error(`Failed to unregister secondary listener, code: ${err.code}, message: ${err.message}`);
+      this.setOperationError(err);
     }
   }
 
@@ -236,7 +240,8 @@ export struct SystemLoadPage {
         this.listenerText = $r('app.string.not_listening');
       } catch (error) {
         allUnregistered = false;
-        logger.error(`Failed to unregister primary listener during fallback: ${JSON.stringify(error)}`);
+        let err: BusinessError = error as BusinessError;
+        logger.error(`Failed to unregister primary listener during fallback, code: ${err.code}, message: ${err.message}`);
       }
     }
     if (this.isSecondarySubscribed) {
@@ -246,7 +251,8 @@ export struct SystemLoadPage {
         this.secondaryListenerText = $r('app.string.not_listening');
       } catch (error) {
         allUnregistered = false;
-        logger.error(`Failed to unregister secondary listener during fallback: ${JSON.stringify(error)}`);
+        let err: BusinessError = error as BusinessError;
+        logger.error(`Failed to unregister secondary listener during fallback, code: ${err.code}, message: ${err.message}`);
       }
     }
     return allUnregistered;
@@ -269,11 +275,12 @@ export struct SystemLoadPage {
         this.operationText = $r('app.string.all_unregistered');
       }
     } catch (error) {
-      logger.error(`Failed to unregister all listeners: ${JSON.stringify(error)}`);
+      let err: BusinessError = error as BusinessError;
+      logger.error(`Failed to unregister all listeners, code: ${err.code}, message: ${err.message}`);
       const allUnregistered = this.unsubscribeRegisteredCallbacks();
       if (showOperation) {
         this.operationText = allUnregistered ? $r('app.string.all_unregistered') : $r('app.string.operation_failed',
-          (error as BusinessError).code);
+          err.code);
       }
     }
   }
@@ -282,7 +289,8 @@ export struct SystemLoadPage {
     try {
       return await SystemLoadService.getLocalLevel();
     } catch (error) {
-      logger.error(`Failed to load local system load: ${JSON.stringify(error)}`);
+      let err: BusinessError = error as BusinessError;
+      logger.error(`Failed to load local system load, code: ${err.code}, message: ${err.message}`);
       return undefined;
     }
   }

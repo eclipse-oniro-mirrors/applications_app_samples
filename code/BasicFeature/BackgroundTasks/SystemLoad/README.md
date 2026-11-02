@@ -32,7 +32,7 @@ SystemLoad
 │       └── ohosTest/ets/test
 │           ├── Ability.test.ets
 │           ├── List.test.ets
-│           └── SystemLoadSdkTest.test.ets
+│           └── SystemLoadSdk.test.ets
 └── library
     ├── Index.ets
     └── src/main/ets/systemload
@@ -45,7 +45,7 @@ SystemLoad
 1. [SystemLoadService.ets](library/src/main/ets/systemload/feature/SystemLoadService.ets) directly wraps `getLevel()`, `on('systemLoadChange')`, targeted `off()` and `off()` without a callback. It preserves SDK errors so callers and XTS can verify the original API contract.
 2. [SystemLoadPage.ets](entry/src/main/ets/systemload/SystemLoadPage.ets) maps all eight levels to localized descriptions and application recommendations. It guards duplicate UI operations, switches data sources, records two callbacks and cleans up listeners during lifecycle changes.
 3. Request IDs prevent stale asynchronous query results from overwriting a newer user selection.
-4. [Ability.test.ets](entry/src/ohosTest/ets/test/Ability.test.ets) provides eight repeatable UI/mock cases. [SystemLoadSdkTest.test.ets](entry/src/ohosTest/ets/test/SystemLoadSdk.test.ets) provides twelve real SDK cases with valid-level and exact error-code assertions.
+4. [Ability.test.ets](entry/src/ohosTest/ets/test/Ability.test.ets) provides eight repeatable UI/mock cases. [SystemLoadSdk.test.ets](entry/src/ohosTest/ets/test/SystemLoadSdk.test.ets) provides twelve real SDK cases with valid-level and exact error-code assertions.
 
 ### Tests
 

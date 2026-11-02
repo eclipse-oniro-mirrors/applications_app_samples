@@ -35,7 +35,7 @@ SystemLoad
 │       └── ohosTest/ets/test
 │           ├── Ability.test.ets
 │           ├── List.test.ets
-│           └── SystemLoadSdkTest.test.ets
+│           └── SystemLoadSdk.test.ets
 └── library
     ├── Index.ets
     └── src/main/ets/systemload
@@ -48,7 +48,7 @@ SystemLoad
 1. [SystemLoadService.ets](library/src/main/ets/systemload/feature/SystemLoadService.ets) 直接封装 `getLevel()`、`on('systemLoadChange')`、指定回调的 `off()` 和不传回调的 `off()`，保留原始 SDK 异常，便于调用方和 XTS 验证接口契约。
 2. [SystemLoadPage.ets](entry/src/main/ets/systemload/SystemLoadPage.ets) 将 8 种档位映射为中英文说明和应用调度建议，提供页面防重复操作、双回调记录、数据来源切换和生命周期清理。
 3. 通过请求序号避免较早的异步查询结果覆盖用户后续选择。
-4. [Ability.test.ets](entry/src/ohosTest/ets/test/Ability.test.ets) 提供 8 条可重复的 UI/Mock 用例；[SystemLoadSdkTest.test.ets](entry/src/ohosTest/ets/test/SystemLoadSdk.test.ets) 提供 12 条真实 SDK 用例，断言合法档位和精确错误码。
+4. [Ability.test.ets](entry/src/ohosTest/ets/test/Ability.test.ets) 提供 8 条可重复的 UI/Mock 用例；[SystemLoadSdk.test.ets](entry/src/ohosTest/ets/test/SystemLoadSdk.test.ets) 提供 12 条真实 SDK 用例，断言合法档位和精确错误码。
 
 ### 测试
 
