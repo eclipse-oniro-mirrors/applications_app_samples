@@ -237,4 +237,102 @@ struct Index {
       }
     }
   }
+
+  async fetchUrlMetadata() {
+    try {
+      // [Start AVMetadataExtractor_SetUrlSource]
+      // 创建AVMetadataExtractor对象
+      let avMetadataExtractor: media.AVMetadataExtractor = await media.createAVMetadataExtractor();
+      // 调用setUrlSource设置网络点播媒体资源URL，用来获取在线音视频元数据和在线视频缩略图。
+      let url = "http://vd3.bdstatic.com/mda-pdc2kmwtd2vxhiy4/cae_h264/1681502407203843413/mda-pdc2kmwtd2vxhiy4.mp4";
+      let headers: Record<string, string> = {
+        "User-Agent" : "User-Agent-Value"
+      };
+      avMetadataExtractor.setUrlSource(url, headers);
+      // [End AVMetadataExtractor_SetUrlSource]
+      let metadata = await avMetadataExtractor.fetchMetadata();
+      console.info(`meta data: ${JSON.stringify(metadata)}`);
+      // 释放资源（promise模式）
+      avMetadataExtractor.release();
+      console.info(`Release avMetadataExtractor successfully`);
+    } catch (e) {
+      console.error(`FetchUrlMetadata error, code is ${e.code}, message is ${e.message}`);
+    }
+  }
+
+  async testFetchUrlMetadata() {
+    try {
+      // 创建AVMetadataExtractor对象。
+      let avMetadataExtractor: media.AVMetadataExtractor = await media.createAVMetadataExtractor();
+      // 设置fdSrc。
+      let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+      avMetadataExtractor.fdSrc = await context.resourceManager.getRawFd('test.mp3');
+      
+      // [Start AVMetadataExtractor_Width_Height]
+      // 获取视频资源的宽和高。
+      let metadata = await avMetadataExtractor.fetchMetadata();
+      let width = metadata.videoWidth;
+      let height = metadata.videoHeight;
+      // [End AVMetadataExtractor_Width_Height]
+      
+      console.info(`meta data width: ${JSON.stringify(width)}`);
+      console.info(`meta data height: ${JSON.stringify(height)}`);
+      // 释放资源（promise模式）
+      avMetadataExtractor.release();
+      console.info(`Release avMetadataExtractor successfully`);
+    } catch (e) {
+      console.error(`FetchUrlMetadata error, code is ${e.code}, message is ${e.message}`);
+    }
+  }
+
+  async fetchFrameByTime() {
+    // 创建AVMetadataExtractor对象
+    let avMetadataExtractor: media.AVMetadataExtractor = await media.createAVMetadataExtractor();
+    
+    // [Start AVMetadataExtractor_FetchFrameByTime]
+    // 接口入参声明。
+    let timeUs: number = 0;
+    let queryOption: media.AVImageQueryOptions = media.AVImageQueryOptions.AV_IMAGE_QUERY_PREVIOUS_SYNC;
+    let param: media.PixelMapParams = {
+      width : 300,
+      height : 300
+    }
+    // 获取视频缩略图（promise模式）。
+    this.pixelMap = await avMetadataExtractor.fetchFrameByTime(timeUs, queryOption, param);
+    // [End AVMetadataExtractor_FetchFrameByTime]
+    // 释放资源（promise模式）
+    avMetadataExtractor.release();
+  }
+
+  async FetchFrameByTimes() {
+    try {
+      let avMetadataExtractor: media.AVMetadataExtractor = await media.createAVMetadataExtractor();
+      
+      // [Start AVMetadataExtractor_FetchFramesByTimes]
+      // 接口入参声明。
+      let timesUs: number[] = [0];
+      let queryOption: media.AVImageQueryOptions = media.AVImageQueryOptions.AV_IMAGE_QUERY_PREVIOUS_SYNC;
+      let param: media.PixelMapParams = {
+        width : 300,
+        height : 300
+      }
+      // 获取视频缩略图（callback模式）。
+      avMetadataExtractor.fetchFramesByTimes(timesUs, queryOption, param, (frameInfo: media.FrameInfo, err: BusinessError) => {
+        if (err) {
+          console.error(TAG, `fetch frame failed, error code: ${err.code}, error message: ${err.message}`);
+          return;
+        }
+        console.info(TAG, `fetch frame successfully.`);
+        if (frameInfo !== undefined && frameInfo.image !== undefined) {
+          this.pixelMap = frameInfo.image;
+        }
+      });
+
+      // 批量获取缩略图任务耗时可能较长，可以调用cancelAllFetchFrames停止在当前extractor上所有缩略图获取任务（仅对批量获取接口生效）。
+      avMetadataExtractor.cancelAllFetchFrames();
+      // [End AVMetadataExtractor_FetchFramesByTimes]
+    } catch (err) {
+      console.error(`sunyin>>FetchFrameByTimes error, code is ${err.code}, message is ${err.message}`);
+    }
+  }
 }
