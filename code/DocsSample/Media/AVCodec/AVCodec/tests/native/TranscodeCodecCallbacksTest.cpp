@@ -25,6 +25,13 @@ struct OH_AVBuffer { OH_AVCodecBufferAttr attr {}; };
 namespace {
 constexpr int32_t EVENT_LIMIT = 128;
 constexpr int32_t RACE_ITERATIONS = 1000;
+constexpr uint32_t ENCODER_INPUT_INDEX = 7;
+constexpr uint32_t DECODER_OUTPUT_INDEX = 8;
+constexpr uint32_t DECODER_EOS_INDEX = 9;
+constexpr uint32_t ENCODER_OUTPUT_INDEX = 10;
+constexpr uint32_t LATE_OUTPUT_INDEX = 2;
+constexpr auto CALLBACK_WAIT_TIMEOUT = std::chrono::seconds(5);
+constexpr auto WAKEUP_LIMIT = std::chrono::seconds(1);
 
 void Require(bool condition, const char *message)
 {
@@ -42,28 +49,31 @@ void TestOrderingAndOwnership()
     OH_AVBuffer frame;
     OH_AVBuffer eos;
     eos.attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
-    callback.onNeedInputBuffer(nullptr, 7, &input, queues.EncoderContext());
+    callback.onNeedInputBuffer(nullptr, ENCODER_INPUT_INDEX, &input, queues.EncoderContext());
     callback.onStreamChanged(nullptr, nullptr, queues.DecoderContext());
-    callback.onNewOutputBuffer(nullptr, 8, &frame, queues.DecoderContext());
-    callback.onNewOutputBuffer(nullptr, 9, &eos, queues.DecoderContext());
+    callback.onNewOutputBuffer(nullptr, DECODER_OUTPUT_INDEX, &frame, queues.DecoderContext());
+    callback.onNewOutputBuffer(nullptr, DECODER_EOS_INDEX, &eos, queues.DecoderContext());
     TranscodeCodecBuffer buffer;
     Require(queues.Take(false, true, buffer) == AV_ERR_TRY_AGAIN_LATER, "Input channels must remain separate");
-    Require(queues.Take(true, true, buffer) == AV_ERR_OK && buffer.index == 7 && buffer.buffer == &input,
+    Require(queues.Take(true, true, buffer) == AV_ERR_OK &&
+        buffer.index == ENCODER_INPUT_INDEX && buffer.buffer == &input,
         "Encoder input uses the callback Buffer, not a new allocation");
     Require(queues.Take(false, false, buffer) == AV_ERR_STREAM_CHANGED && buffer.buffer == nullptr,
         "Format marker precedes decoded output and retains no format pointer");
-    Require(queues.Take(false, false, buffer) == AV_ERR_OK && buffer.index == 8 && buffer.buffer == &frame,
+    Require(queues.Take(false, false, buffer) == AV_ERR_OK &&
+        buffer.index == DECODER_OUTPUT_INDEX && buffer.buffer == &frame,
         "Borrow decoded frame");
     // Waiting for encoder input does not invalidate a borrowed decoder output.
     TranscodeCodecBuffer unavailable;
     Require(queues.Take(true, true, unavailable) == AV_ERR_TRY_AGAIN_LATER && buffer.buffer == &frame,
         "Backpressure retains the borrowed frame");
-    Require(queues.Take(false, false, buffer) == AV_ERR_OK && buffer.index == 9 &&
+    Require(queues.Take(false, false, buffer) == AV_ERR_OK && buffer.index == DECODER_EOS_INDEX &&
         (buffer.buffer->attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0, "EOS remains ordered behind the tail frame");
     Require(queues.Take(false, false, buffer) == AV_ERR_TRY_AGAIN_LATER && buffer.buffer == nullptr,
         "Consumed buffers are delivered once");
-    callback.onNewOutputBuffer(nullptr, 10, &frame, queues.EncoderContext());
-    Require(queues.Take(true, false, buffer) == AV_ERR_OK && buffer.index == 10, "Encoder output channel");
+    callback.onNewOutputBuffer(nullptr, ENCODER_OUTPUT_INDEX, &frame, queues.EncoderContext());
+    Require(queues.Take(true, false, buffer) == AV_ERR_OK && buffer.index == ENCODER_OUTPUT_INDEX,
+        "Encoder output channel");
 }
 
 void TestErrorsAndBounds()
@@ -97,22 +107,22 @@ void TestWakeAndClose()
     // An event arriving between the worker pump and Wait must not be lost.
     callback.onNewOutputBuffer(nullptr, 1, &frame, queues.DecoderContext());
     const auto begin = std::chrono::steady_clock::now();
-    queues.Wait(revision, std::chrono::seconds(5));
-    Require(std::chrono::steady_clock::now() - begin < std::chrono::seconds(1), "No lost callback wakeup");
+    queues.Wait(revision, CALLBACK_WAIT_TIMEOUT);
+    Require(std::chrono::steady_clock::now() - begin < WAKEUP_LIMIT, "No lost callback wakeup");
     std::atomic<bool> entered {false};
-    std::thread waiter([&] {
+    std::thread waiter([&queues, &entered] {
         const auto current = queues.Revision();
         entered.store(true);
-        queues.Wait(current, std::chrono::seconds(5));
+        queues.Wait(current, CALLBACK_WAIT_TIMEOUT);
     });
     while (!entered.load()) { std::this_thread::yield(); }
     const auto closing = std::chrono::steady_clock::now();
     queues.Close();
     waiter.join();
-    Require(std::chrono::steady_clock::now() - closing < std::chrono::seconds(1), "Cancellation wakes the worker");
-    std::thread late([&] {
+    Require(std::chrono::steady_clock::now() - closing < WAKEUP_LIMIT, "Cancellation wakes the worker");
+    std::thread late([&callback, &frame, &queues] {
         for (int32_t i = 0; i < RACE_ITERATIONS; ++i) {
-            callback.onNewOutputBuffer(nullptr, 2, &frame, queues.DecoderContext());
+            callback.onNewOutputBuffer(nullptr, LATE_OUTPUT_INDEX, &frame, queues.DecoderContext());
             callback.onStreamChanged(nullptr, nullptr, queues.EncoderContext());
             callback.onError(nullptr, AV_ERR_UNKNOWN, queues.EncoderContext());
         }

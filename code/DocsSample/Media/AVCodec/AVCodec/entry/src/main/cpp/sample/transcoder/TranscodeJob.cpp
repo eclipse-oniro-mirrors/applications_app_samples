@@ -740,8 +740,8 @@ void TranscodeJob::Run()
     while (success && !cancelled_.load() && !(encoderOutputDone_ && audioDone_)) {
         const uint64_t revision = options_.codecMode == 1 ? codecCallbacks_.Revision() : 0;
         bool advanced = false;
-        success = CheckCodecCallbacks() && CheckStorage(false) && DrainEncoder(advanced) && SubmitDecodedFrame(advanced) &&
-            DrainDecoder(advanced) && FeedDecoder(advanced) && CopyAudio(advanced);
+        success = CheckCodecCallbacks() && CheckStorage(false) && DrainEncoder(advanced) &&
+            SubmitDecodedFrame(advanced) && DrainDecoder(advanced) && FeedDecoder(advanced) && CopyAudio(advanced);
         if (TranscodeMetrics::Clock::now() - publishedAt_ >= std::chrono::milliseconds(DIAGNOSTIC_INTERVAL_MS)) {
             PublishDiagnostics();
         }
@@ -791,11 +791,8 @@ void TranscodeJob::PublishDiagnostics()
     publishedAt_ = now;
 }
 
-void TranscodeJob::Cleanup()
+void TranscodeJob::ReleaseCodecs()
 {
-    // Reject late events before Stop, but retain callback contexts until both codecs are destroyed.
-    codecCallbacks_.Close();
-    audioPipeline_.reset();
     // Surface 由编码器创建，解码器借用。先销毁解码器，再销毁编码器和窗口引用。
     if (decoder_ != nullptr) {
         if (decoderStarted_) {
@@ -816,6 +813,14 @@ void TranscodeJob::Cleanup()
         OH_NativeWindow_DestroyNativeWindow(encoderWindow_);
         encoderWindow_ = nullptr;
     }
+}
+
+void TranscodeJob::Cleanup()
+{
+    // Reject late events before Stop, but retain callback contexts until both codecs are destroyed.
+    codecCallbacks_.Close();
+    audioPipeline_.reset();
+    ReleaseCodecs();
     if (muxer_ != nullptr) {
         OH_AVMuxer_Destroy(muxer_);
         muxer_ = nullptr;

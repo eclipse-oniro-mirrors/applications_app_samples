@@ -76,6 +76,7 @@ constexpr int32_t K_READY_TICKS = 100;
 constexpr int32_t K_MUX_START_TICK = 20;
 constexpr int32_t K_EXPECTED_BYTES = 16;
 constexpr int64_t K_FIRST_PTS = 100000;
+constexpr int64_t K_PARTIAL_SOURCE_START_US = 50000;
 constexpr int64_t K_SECOND_PTS_MIN = 121332;
 constexpr int64_t K_SECOND_PTS_MAX = 121334;
 constexpr int32_t K_OUTPUT_QUEUE_LIMIT = 2;
@@ -518,7 +519,7 @@ int main()
     RunSuccess(true);
     RunSuccess(false);
     RunSuccess(true, K_FIRST_PTS);
-    RunSuccess(false, K_FIRST_PTS / 2);
+    RunSuccess(false, K_PARTIAL_SOURCE_START_US);
     RunConverted(K_SAMPLE_RATE_44100, 1);
     RunConverted(K_SAMPLE_RATE_44100, K_CHANNELS);
     RunConverted(K_SAMPLE_RATE, 1);

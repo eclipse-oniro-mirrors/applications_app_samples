@@ -111,7 +111,11 @@ public:
     explicit TranscodeJob(TranscodeOptions options);
     ~TranscodeJob();
     void Run();
-    void Cancel() { cancelled_.store(true); codecCallbacks_.Close(); }
+    void Cancel()
+    {
+        cancelled_.store(true);
+        codecCallbacks_.Close();
+    }
     TranscodeSnapshot Snapshot() const;
     void DiscardPreviewPixels()
     {
@@ -162,6 +166,7 @@ private:
     bool ConfigureTimeRange();
     bool DiscardOutsideRange(bool &advanced);
     void Complete(bool success);
+    void ReleaseCodecs();
     void Cleanup();
     void PublishDiagnostics();
     bool RunPreview();
