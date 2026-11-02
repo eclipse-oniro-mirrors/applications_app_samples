@@ -73,6 +73,8 @@ async function registWithFD(context: common.UIAbilityContext) {
     offset: hapticFile.offset,
     length: hapticFile.length,
   };
+  let idForFd = 0;
+
   audioHapticManagerInstance.registerSourceFromFd(audioFd, hapticFd).then((value: number) => {
     console.info(`Succeeded in registering source from fd, sourceId is ${value}.`);
     idForFd = value;
@@ -82,12 +84,14 @@ async function registWithFD(context: common.UIAbilityContext) {
     }
     // [Start set_hapticparam]
     let latencyMode: audioHaptic.AudioLatencyMode = audioHaptic.AudioLatencyMode.AUDIO_LATENCY_MODE_NORMAL;
+    // idForFd为步骤1中获取的资源ID，这里以Fd注册的资源为例。
     audioHapticManagerInstance.setAudioLatencyMode(idForFd, latencyMode);
 
     let usage: audio.StreamUsage = audio.StreamUsage.STREAM_USAGE_NOTIFICATION;
     audioHapticManagerInstance.setStreamUsage(idForFd, usage);
     // [End set_hapticparam]
     // [EndExclude create_haptic]
+    // idForFd为步骤1中获取的资源ID，这里以Fd注册的资源为例。
     audioHapticManagerInstance.createPlayer(idForFd, options).then((value: audioHaptic.AudioHapticPlayer) => {
       console.info('Succeeded in creating player.');
       audioHapticPlayer = value;
@@ -196,6 +200,7 @@ async function release(){
     });
     // [End haptic_release]
     // [Start haptic_unregist]
+    // idForFd为步骤1中获取的资源ID，这里以Fd注册的资源为例。
     audioHapticManagerInstance.unregisterSource(idForFd).then(() => {
       console.info('Succeeded in unregistering source.');
       // [StartExclude haptic_unregist]
