@@ -38,11 +38,11 @@
 
 | 首页 | 场景1 基础操作 | 场景5 流水线 |
 | --- | --- | --- |
-| ![首页](screenshots/1_home.png) | ![场景1](screenshots/2_scene1.png) | ![场景5](screenshots/3_scene5.png) |
+| ![首页](screenshots/1_home.svg) | ![场景1](screenshots/2_scene1.svg) | ![场景5](screenshots/3_scene5.svg) |
 
 | 场景6 封包/CRC | 场景7 TLV 解析 | 场景8 pipe | 场景9 Duplex |
 | --- | --- | --- | --- |
-| ![场景6](screenshots/4_scene6.png) | ![场景7](screenshots/5_scene7.png) | ![场景8](screenshots/6_scene8.png) | ![场景9](screenshots/7_scene9.png) |
+| ![场景6](screenshots/4_scene6.svg) | ![场景7](screenshots/5_scene7.svg) | ![场景8](screenshots/6_scene8.svg) | ![场景9](screenshots/7_scene9.svg) |
 
 场景 3/4（Writable/Readable 单流）的界面形态与场景 5 相同，可参考场景 5 截图；日志内容分别为 cork/背压记录与分块消费记录。
 

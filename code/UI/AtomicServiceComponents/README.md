@@ -37,7 +37,7 @@
 
 首页（渐变背景、组件目录、设备 profile 与中央日志）：
 
-![首页](screenshots/gradient_home.png)
+![首页](screenshots/gradient_home.svg)
 
 ### 使用说明
 
