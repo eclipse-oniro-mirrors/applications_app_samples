@@ -104,7 +104,7 @@ async function selectOption(selectId: string, optionText: string): Promise<void>
   }
   await select.click();
   await getDriver().waitForIdle(UI_IDLE_TIME, UI_IDLE_TIMEOUT);
-  const options: Array<Component> = await getDriver().findComponents(ON.text(optionText));
+  const options: Component[] = await getDriver().findComponents(ON.text(optionText));
   for (const option of options) {
     const componentType: string = await option.getType();
     const clickable: boolean = await option.isClickable();

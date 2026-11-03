@@ -61,15 +61,18 @@ struct PluginManagerHome {
         return;
       }
       const selectedUri = selectedUris[0];
-      const sourceFile = fileIo.openSync(selectedUri, fileIo.OpenMode.READ_ONLY);
-      const sandboxPath = `${context.cacheDir}/${new fileUri.FileUri(selectedUri).name}`;
+      let sourceFile: fileIo.File | undefined = undefined;
       try {
+        sourceFile = fileIo.openSync(selectedUri, fileIo.OpenMode.READ_ONLY);
+        const sandboxPath = `${context.cacheDir}/${new fileUri.FileUri(selectedUri).name}`;
         fileIo.copyFileSync(sourceFile.fd, sandboxPath);
+        this.pluginFilePath = sandboxPath;
+        this.operationResult = $r('app.string.select_success');
       } finally {
-        fileIo.closeSync(sourceFile.fd);
+        if (sourceFile !== undefined) {
+          fileIo.closeSync(sourceFile.fd);
+        }
       }
-      this.pluginFilePath = sandboxPath;
-      this.operationResult = $r('app.string.select_success');
     } catch (error) {
       this.showError(error as BusinessError);
     } finally {

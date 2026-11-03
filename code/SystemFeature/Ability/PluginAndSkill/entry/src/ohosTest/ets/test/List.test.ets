@@ -147,11 +147,20 @@ export default function testsuite(): void {
   hilog.info(DOMAIN, TAG, 'Starting %{public}d test suites (%{public}d total cases)',
     SUITE_MANIFEST.length, getTotalCaseCount());
 
-  // 按清单顺序挂载套件
-  for (let i = 0; i < SUITE_MANIFEST.length; i++) {
-    const suite: SuiteManifest = SUITE_MANIFEST[i];
-    hilog.info(DOMAIN, TAG, '  [%{public}s] %{public}s - %{public}s (%{public}d cases)',
-      suite.category, suite.name, suite.description, suite.caseCount);
-    suite.factory();
-  }
+  // 直接调用各测试套件（IDE 静态分析需要直接函数调用，不能使用 for + factory 间接调用）
+  hilog.info(DOMAIN, TAG, '  [%{public}s] %{public}s - %{public}s (%{public}d cases)',
+    CATEGORY_ABILITY, 'PluginAndSkillAbilityTest', '应用启动与首页元素完整性验证', 2);
+  abilityTest();
+
+  hilog.info(DOMAIN, TAG, '  [%{public}s] %{public}s - %{public}s (%{public}d cases)',
+    CATEGORY_SKILL_QUERY, 'SelfSkillQueryTest', '自有技能查询：参数校验、成功、异常、Flag 验证', 15);
+  selfSkillQueryTest();
+
+  hilog.info(DOMAIN, TAG, '  [%{public}s] %{public}s - %{public}s (%{public}d cases)',
+    CATEGORY_SKILL_QUERY, 'BundleSkillQueryTest', '应用技能查询：参数校验、成功、异常、Flag 验证', 17);
+  bundleSkillQueryTest();
+
+  hilog.info(DOMAIN, TAG, '  [%{public}s] %{public}s - %{public}s (%{public}d cases)',
+    CATEGORY_SKILL_QUERY, 'AllSkillsQueryTest', '设备全部技能查询：基础查询、Flag 验证', 8);
+  allSkillsQueryTest();
 }

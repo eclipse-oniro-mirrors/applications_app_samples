@@ -7,7 +7,7 @@
 **功能特性：**
 
 1. 使用 `pluginBundleManager` 安装和卸载本地插件（HSP 文件）。
-2. 使用 `skillManager` 查询当前应用或其他应用注册的技能信息。
+2. 使用 `skillManager` 查询当前应用或其余应用注册的技能信息。
 3. 使用 `scriptManager` 执行应用技能脚本。
 
 ## 效果预览

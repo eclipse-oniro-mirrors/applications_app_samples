@@ -239,10 +239,3 @@ entry/src/ohosTest/
   - 2 条基础查询
   - 6 条 Flag 验证（Default + 4 个单独 Flag + All flags）
 
-## 执行说明
-
-真机执行时需要：
-1. 连接 OpenHarmony 设备
-2. 安装测试 HAP：`hdc install entry-ohosTest-signed.hap`
-3. 启动测试：`hdc shell aa start -d 0 -a TestAbility -b com.samples.pluginandskill`
-4. 查看日志：`hdc shell hilog | grep "Sample_PluginAndSkill"`

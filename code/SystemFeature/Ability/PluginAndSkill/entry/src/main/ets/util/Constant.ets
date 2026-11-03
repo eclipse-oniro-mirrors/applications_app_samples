@@ -47,7 +47,7 @@ export const MODULE_NAME_ARRAY: string[] = ['entry', 'nonexistent_module'];
 
 export const BUNDLE_NAME_ARRAY: string[] = ['com.samples.pluginandskill', 'com.nonexistent.bundle'];
 
-export const SKILL_ARRAY: Array<string> =
+export const SKILL_ARRAY: string[] =
   ['skill-nonexistent', 'skill-test', 'skill-echo', 'skill-calculator', 'skill-validation'];
 
 export const DEFAULT_SKILL_NAME: string = 'skill-test';
@@ -63,10 +63,10 @@ export const SKILL_INFO_FLAGS: number = skillManager.SkillInfoFlag.GET_SKILL_INF
   skillManager.SkillInfoFlag.GET_SKILL_INFO_WITH_REQUEST_PERMISSIONS;
 
 // Flag selector options
-export const FLAG_LABELS: Array<string> =
+export const FLAG_LABELS: string[] =
   ['All flags', 'Default', '+ Description', '+ SrcEntries', '+ Permissions', '+ RequestPermissions'];
 
-export const FLAG_VALUES: Array<number> = [
+export const FLAG_VALUES: number[] = [
   skillManager.SkillInfoFlag.GET_SKILL_INFO_DEFAULT |
     skillManager.SkillInfoFlag.GET_SKILL_INFO_WITH_DESCRIPTION |
     skillManager.SkillInfoFlag.GET_SKILL_INFO_WITH_SRC_ENTRIES |
