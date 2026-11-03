@@ -12,3 +12,5 @@
 /.appanalyzer
 /oh-package-lock.json5
 *.log
+.cache
+wecode-cpp.db
