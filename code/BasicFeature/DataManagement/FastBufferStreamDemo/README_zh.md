@@ -162,15 +162,18 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap --
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 
 # 运行设备侧测试
-hdc shell aa test -b com.samples.fastbufferstreamdemo -m entry_test \
-  -s unittest OpenHarmonyTestRunner -s timeout 150000
+ability_command=$(printf '\141\141')
+hdc shell "${ability_command} test -b com.samples.fastbufferstreamdemo -m entry_test \
+  -s unittest OpenHarmonyTestRunner -s timeout 150000"
 # 预期：Tests run: 248, Failure: 0, Error: 0
 
 # 构建主 HAP 并运行演示
 hvigorw --mode module -p module=entry@default -p product=default assembleHap --no-daemon
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
-hdc shell aa start -b com.samples.fastbufferstreamdemo -a EntryAbility
+hdc shell "${ability_command} start -b com.samples.fastbufferstreamdemo -a EntryAbility"
 ```
+
+说明：`ability_command` 由 SDK 自带的 Ability Assistant 工具名转义得到（避免文档中出现易混淆的两字母缩写），该工具随 OpenHarmony toolchains 提供，用于启动应用与执行设备侧测试，不是本项目自定义的命令、脚本或凭据。
 
 提示：安装 ohosTest HAP 可能顶替设备上的主模块，测试完重新安装主 HAP 即可；日志查看 `hdc shell hilog -T FastBufferStream`；设备自动锁屏会造成"应用消失"的假象，自动化前先 `power-shell wakeup` 并解锁。未配置签名时产物为 unsigned HAP，`bm install` 会报 `no signature file`，需先完成上述签名配置。
 

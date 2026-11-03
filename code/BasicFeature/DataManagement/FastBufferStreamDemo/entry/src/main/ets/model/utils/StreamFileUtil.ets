@@ -113,194 +113,150 @@ export class StreamFileUtil {
   }
 
   /** 分块流式写入：chunks 依次写入 path，resolve 落盘总字节数 */
-  static writeFileStreaming(path: string, chunks: string[],
+  static async writeFileStreaming(path: string, chunks: string[],
     onProgress?: (written: number, total: number) => void): Promise<number> {
-    return new Promise<number>((resolve, reject) => {
-      let fd: number = -1;
-      let handedOff: boolean = false;
-      let fdClosed: boolean = false;
-      const closeFd = (): void => {
-        if (!fdClosed && fd >= 0) {
-          fdClosed = true;
-          fs.closeSync(fd);
-        }
-      };
+    let fd: number = -1;
+    try {
       try {
-        try {
-          fs.unlinkSync(path);
-        } catch (err) {
-          // 文件不存在则忽略
+        fs.unlinkSync(path);
+      } catch (err) {
+        // 文件不存在则忽略
+      }
+      fd = fs.openSync(path, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE).fd;
+      LogUtil.info('StreamFileUtil', `流式写入开始：${path}（${chunks.length} 块）`);
+      const writer = new FileWritable(fd, (n: number, total: number) => {
+        if (onProgress !== undefined) {
+          onProgress(n, total);
         }
-        fd = fs.openSync(path, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE).fd;
-        LogUtil.info('StreamFileUtil', `流式写入开始：${path}（${chunks.length} 块）`);
-        const writer = new FileWritable(fd, (n: number, total: number) => {
-          if (onProgress !== undefined) {
-            onProgress(n, total);
-          }
-        });
+      });
+      // 先挂完成/错误回调再写入，同步或异步的 finish/error 都能被捕获
+      const finished = new Promise<number>((resolve, reject) => {
         writer.on('finish', () => {
           const size: number = fs.statSync(path).size;
-          closeFd();
           LogUtil.info('StreamFileUtil', `流式写入完成：${path}（${size}B）`);
           resolve(size);
         });
         writer.on('error', (err: emitter.EventData) => {
           const e = err.data as Error;
           LogUtil.error('StreamFileUtil', `写入流出错：${e && e.message ? e.message : '未知错误'}`);
-          closeFd();
           reject(new Error(`写入流出错：${e && e.message ? e.message : '未知错误'}`));
         });
-        for (const c of chunks) {
-          writer.write(c, 'utf8');
-        }
-        writer.end();
-        handedOff = true;
-      } catch (err) {
-        closeFd();
-        reject(err as Error);
-      } finally {
-        if (!handedOff && !fdClosed && fd >= 0) {
-          fdClosed = true;
-          fs.closeSync(fd);
-        }
+      });
+      for (const c of chunks) {
+        writer.write(c, 'utf8');
       }
-    });
+      writer.end();
+      return await finished;
+    } finally {
+      if (fd >= 0) {
+        fs.closeSync(fd);
+        fd = -1;
+      }
+    }
   }
 
   /** 分块流式读取：每块通过 onChunk 回调（含进度），resolve 读取总字节数 */
-  static readFileStreaming(path: string, onChunk: (info: ReadProgress, chunk: string) => void): Promise<number> {
-    return new Promise<number>((resolve, reject) => {
-      let fd: number = -1;
-      let handedOff: boolean = false;
-      let fdClosed: boolean = false;
-      const closeFd = (): void => {
-        if (!fdClosed && fd >= 0) {
-          fdClosed = true;
-          fs.closeSync(fd);
-        }
-      };
-      try {
-        fd = fs.openSync(path, fs.OpenMode.READ_ONLY).fd;
-        const size: number = fs.statSync(path).size;
-        LogUtil.info('StreamFileUtil', `流式读取开始：${path}（${size}B，分块 ${CHUNK_SIZE}B）`);
-        const reader = new FileReadable(fd, size, (_index: number, _bytes: number, _done: boolean) => {
-        });
-        let received: number = 0;
-        let chunkIndex: number = 0;
-        reader.on('data', (data: emitter.EventData) => {
-          const chunk = data.data as Object as string;
-          chunkIndex++;
-          received += chunk.length;
-          const info: ReadProgress = {
-            chunkIndex: chunkIndex,
-            chunkBytes: chunk.length,
-            totalBytes: received,
-            fileSize: size
-          };
-          onChunk(info, chunk);
-        });
+  static async readFileStreaming(path: string, onChunk: (info: ReadProgress, chunk: string) => void): Promise<number> {
+    let fd: number = -1;
+    let received: number = 0;
+    let chunkIndex: number = 0;
+    try {
+      fd = fs.openSync(path, fs.OpenMode.READ_ONLY).fd;
+      const size: number = fs.statSync(path).size;
+      LogUtil.info('StreamFileUtil', `流式读取开始：${path}（${size}B，分块 ${CHUNK_SIZE}B）`);
+      const reader = new FileReadable(fd, size, (_index: number, _bytes: number, _done: boolean) => {
+      });
+      const finished = new Promise<void>((resolve, reject) => {
         reader.on('end', () => {
-          closeFd();
           LogUtil.info('StreamFileUtil', `流式读取完成：${received}B / ${size}B，共 ${chunkIndex} 块`);
-          resolve(received);
+          resolve();
         });
         reader.on('error', (err: emitter.EventData) => {
           const e = err.data as Error;
           LogUtil.error('StreamFileUtil', `读取流出错：${e && e.message ? e.message : '未知错误'}`);
-          closeFd();
           reject(new Error(`读取流出错：${e && e.message ? e.message : '未知错误'}`));
         });
-        handedOff = true;
-      } catch (err) {
-        closeFd();
-        reject(err as Error);
-      } finally {
-        if (!handedOff && !fdClosed && fd >= 0) {
-          fdClosed = true;
-          fs.closeSync(fd);
-        }
+      });
+      reader.on('data', (data: emitter.EventData) => {
+        const chunk = data.data as Object as string;
+        chunkIndex++;
+        received += chunk.length;
+        const info: ReadProgress = {
+          chunkIndex: chunkIndex,
+          chunkBytes: chunk.length,
+          totalBytes: received,
+          fileSize: size
+        };
+        onChunk(info, chunk);
+      });
+      await finished;
+      return received;
+    } finally {
+      if (fd >= 0) {
+        fs.closeSync(fd);
+        fd = -1;
       }
-    });
+    }
   }
 
   /** 流式拷贝：src 分块读取 → dest 分块写入，resolve 拷贝字节数 */
-  static copyFileStreaming(src: string, dest: string, onProgress?: (copied: number) => void): Promise<number> {
-    return new Promise<number>((resolve, reject) => {
-      let srcFd: number = -1;
-      let destFd: number = -1;
-      let handedOff: boolean = false;
-      let fdsClosed: boolean = false;
-      const closeFds = (): void => {
-        if (fdsClosed) {
-          return;
-        }
-        fdsClosed = true;
-        if (srcFd >= 0) {
-          fs.closeSync(srcFd);
-        }
-        if (destFd >= 0) {
-          fs.closeSync(destFd);
-        }
-      };
+  static async copyFileStreaming(src: string, dest: string, onProgress?: (copied: number) => void): Promise<number> {
+    let srcFd: number = -1;
+    let destFd: number = -1;
+    let copied: number = 0;
+    try {
       try {
-        try {
-          fs.unlinkSync(dest);
-        } catch (err) {
-          // 文件不存在则忽略
+        fs.unlinkSync(dest);
+      } catch (err) {
+        // 文件不存在则忽略
+      }
+      srcFd = fs.openSync(src, fs.OpenMode.READ_ONLY).fd;
+      destFd = fs.openSync(dest, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE).fd;
+      const srcSize: number = fs.statSync(src).size;
+      LogUtil.info('StreamFileUtil', `流式拷贝开始：${src} → ${dest}（${srcSize}B）`);
+      const reader = new FileReadable(srcFd, srcSize, (_i: number, _b: number, _d: boolean) => {
+      });
+      const writer = new FileWritable(destFd, (_n: number, total: number) => {
+        if (onProgress !== undefined) {
+          onProgress(total);
         }
-        srcFd = fs.openSync(src, fs.OpenMode.READ_ONLY).fd;
-        destFd = fs.openSync(dest, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE).fd;
-        const srcSize: number = fs.statSync(src).size;
-        LogUtil.info('StreamFileUtil', `流式拷贝开始：${src} → ${dest}（${srcSize}B）`);
-        const reader = new FileReadable(srcFd, srcSize, (_i: number, _b: number, _d: boolean) => {
-        });
-        const writer = new FileWritable(destFd, (_n: number, total: number) => {
-          if (onProgress !== undefined) {
-            onProgress(total);
-          }
-        });
-        let copied: number = 0;
-        reader.on('data', (data: emitter.EventData) => {
-          const chunk = data.data as Object as string;
-          copied += chunk.length;
-          writer.write(chunk);
-        });
-        reader.on('end', () => {
-          writer.end();
-        });
-        // 必须挂 reader 错误处理：否则读取流出错时无人 reject，Promise 悬挂直到超时
+      });
+      // 先挂完成/错误回调，再挂 data 触发读取，避免同步事件早于监听器注册
+      const finished = new Promise<void>((resolve, reject) => {
         reader.on('error', (err: emitter.EventData) => {
           const e = err.data as Error;
           LogUtil.error('StreamFileUtil', `拷贝读流出错：${e && e.message ? e.message : '未知错误'}`);
-          closeFds();
           reject(new Error(`拷贝读流出错：${e && e.message ? e.message : '未知错误'}`));
         });
         writer.on('finish', () => {
-          closeFds();
           LogUtil.info('StreamFileUtil', `流式拷贝完成：${copied}B`);
-          resolve(copied);
+          resolve();
         });
         writer.on('error', (err: emitter.EventData) => {
           const e = err.data as Error;
           LogUtil.error('StreamFileUtil', `拷贝写出错：${e && e.message ? e.message : '未知错误'}`);
-          closeFds();
           reject(new Error(`拷贝写出错：${e && e.message ? e.message : '未知错误'}`));
         });
-        handedOff = true;
-      } catch (err) {
-        closeFds();
-        reject(err as Error);
-      } finally {
-        if (!handedOff && !fdsClosed) {
-          fdsClosed = true;
-          if (srcFd >= 0) {
-            fs.closeSync(srcFd);
-          }
-          if (destFd >= 0) {
-            fs.closeSync(destFd);
-          }
-        }
+      });
+      reader.on('data', (data: emitter.EventData) => {
+        const chunk = data.data as Object as string;
+        copied += chunk.length;
+        writer.write(chunk);
+      });
+      reader.on('end', () => {
+        writer.end();
+      });
+      await finished;
+      return copied;
+    } finally {
+      if (srcFd >= 0) {
+        fs.closeSync(srcFd);
+        srcFd = -1;
       }
-    });
+      if (destFd >= 0) {
+        fs.closeSync(destFd);
+        destFd = -1;
+      }
+    }
   }
 }

@@ -109,339 +109,322 @@ export class StreamPipeline {
 
   /** 场景3：Writable 流式写入（沙箱文件，无需任何权限） */
   runWritableDemo(filesDir: string): void {
-    const filePath: string = `${filesDir}/stream_write_demo.txt`;
     let fd: number = -1;
-    let handedOff: boolean = false;
-    let fdClosed: boolean = false;
-    const closeFd = (): void => {
-      if (!fdClosed && fd >= 0) {
-        fdClosed = true;
-        fs.closeSync(fd);
-      }
-    };
-    try {
-      this.lastWriteFile = filePath;
+    const run = async (): Promise<void> => {
       try {
-        fs.unlinkSync(filePath);
-      } catch (err) {
-        // 文件不存在时忽略
-      }
-      fd = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE).fd;
-      LogUtil.info(TAG, `【场景3】Writable 流式写入开始：${filePath}`);
-
-      const writer = new FileWritable(fd, (n: number, total: number) => {
-        if (total <= CHUNK_SIZE * 3 || total % (CHUNK_SIZE * 25) === 0) {
-          LogUtil.debug(TAG, `    doWrite 落盘 ${n}B（累计 ${total}B）`);
+        const filePath: string = `${filesDir}/stream_write_demo.txt`;
+        this.lastWriteFile = filePath;
+        try {
+          fs.unlinkSync(filePath);
+        } catch (err) {
+          // 文件不存在时忽略
         }
-      });
+        fd = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE).fd;
+        LogUtil.info(TAG, `【场景3】Writable 流式写入开始：${filePath}`);
 
-      writer.on('error', (err: emitter.EventData) => {
-        const e = err.data as Error;
-        LogUtil.error(TAG, `3.x 写出错：${e && e.message ? e.message : '未知错误'}`);
-        closeFd();
-        this.onDone();
-      });
-      writer.on('finish', () => {
-        const size: number = fs.statSync(filePath).size;
-        LogUtil.info(TAG, `3.4 finish 事件：全部数据落盘完成，文件大小 ${size}B（预期 ${WRITE_CHUNKS * CHUNK_SIZE}B）${size === WRITE_CHUNKS * CHUNK_SIZE ? '，一致' : '，不一致'}`);
-        closeFd();
-        this.onDone();
-      });
+        const writer = new FileWritable(fd, (n: number, total: number) => {
+          if (total <= CHUNK_SIZE * 3 || total % (CHUNK_SIZE * 25) === 0) {
+            LogUtil.debug(TAG, `    doWrite 落盘 ${n}B（累计 ${total}B）`);
+          }
+        });
 
-      // 3.1 cork/uncork：cork 期间 write 仅进缓冲区，uncork 后批量写出。
-      // 注意：本 ROM 的 doWrite 回调为同步递归排空，单次 uncork 的暂存量不能过大
-      //（一次性 cork 400KB 实测同步递归爆栈），因此 cork/uncork 按小批进行。
-      writer.cork();
-      LogUtil.info(TAG, '3.1 cork()：进入强制缓冲状态，连续 write 5 块暂存缓冲区');
-      for (let i = 0; i < 5; i++) {
-        writer.write(this.makeChunk(i), 'utf8');
-      }
-      writer.uncork();
-      LogUtil.info(TAG, '3.1 uncork()：解除缓冲，暂存的 5 块数据批量写出');
+        // 先挂完成回调再写入：同步或异步的 finish/error 都能被捕获
+        const finished = new Promise<void>((resolve) => {
+          writer.on('error', (err: emitter.EventData) => {
+            const e = err.data as Error;
+            LogUtil.error(TAG, `3.x 写出错：${e && e.message ? e.message : '未知错误'}`);
+            resolve();
+          });
+          writer.on('finish', () => {
+            const size: number = fs.statSync(filePath).size;
+            LogUtil.info(TAG, `3.4 finish 事件：全部数据落盘完成，文件大小 ${size}B（预期 ${WRITE_CHUNKS * CHUNK_SIZE}B）${size === WRITE_CHUNKS * CHUNK_SIZE ? '，一致' : '，不一致'}`);
+            resolve();
+          });
+        });
 
-      // 3.2 水位线背压：cork 缓冲达到 writableHighWatermark（默认 16KB）时 write() 返回 false，
-      // 与 Node 语义一致（数据照常入队，不丢失），由消费者按自身节奏消费
-      writer.cork();
-      let backpressureCount: number = 0;
-      for (let i = 5; i < 15; i++) {
-        const canContinue: boolean = writer.write(this.makeChunk(i), 'utf8');
-        if (!canContinue) {
-          backpressureCount++;
-          if (backpressureCount === 1) {
-            LogUtil.info(TAG, `3.2 第 ${i} 块 write() 返回 false：缓冲区 ${writer.writableLength}B 已达水位线 ${writer.writableHighWatermark}B（背压信号，数据不丢失）`);
+        // 3.1 cork/uncork：cork 期间 write 仅进缓冲区，uncork 后批量写出。
+        // 注意：本 ROM 的 doWrite 回调为同步递归排空，单次 uncork 的暂存量不能过大
+        //（一次性 cork 400KB 实测同步递归爆栈），因此 cork/uncork 按小批进行。
+        writer.cork();
+        LogUtil.info(TAG, '3.1 cork()：进入强制缓冲状态，连续 write 5 块暂存缓冲区');
+        for (let i = 0; i < 5; i++) {
+          writer.write(this.makeChunk(i), 'utf8');
+        }
+        writer.uncork();
+        LogUtil.info(TAG, '3.1 uncork()：解除缓冲，暂存的 5 块数据批量写出');
+
+        // 3.2 水位线背压：cork 缓冲达到 writableHighWatermark（默认 16KB）时 write() 返回 false，
+        // 与 Node 语义一致（数据照常入队，不丢失），由消费者按自身节奏消费
+        writer.cork();
+        let backpressureCount: number = 0;
+        for (let i = 5; i < 15; i++) {
+          const canContinue: boolean = writer.write(this.makeChunk(i), 'utf8');
+          if (!canContinue) {
+            backpressureCount++;
+            if (backpressureCount === 1) {
+              LogUtil.info(TAG, `3.2 第 ${i} 块 write() 返回 false：缓冲区 ${writer.writableLength}B 已达水位线 ${writer.writableHighWatermark}B（背压信号，数据不丢失）`);
+            }
           }
         }
-      }
-      LogUtil.info(TAG, `3.2 cork 写入 10 块 × ${CHUNK_SIZE}B，write() 返回 false ${backpressureCount} 次，缓冲区积压 ${writer.writableLength}B`);
-      writer.uncork();
-      LogUtil.info(TAG, '3.2 uncork()：解除缓冲，积压的 10 块数据批量落盘');
+        LogUtil.info(TAG, `3.2 cork 写入 10 块 × ${CHUNK_SIZE}B，write() 返回 false ${backpressureCount} 次，缓冲区积压 ${writer.writableLength}B`);
+        writer.uncork();
+        LogUtil.info(TAG, '3.2 uncork()：解除缓冲，积压的 10 块数据批量落盘');
 
-      // 其余 90 块常规写入（doWrite 同步落盘，缓冲即时排空）
-      for (let i = 15; i < WRITE_CHUNKS; i++) {
-        writer.write(this.makeChunk(i), 'utf8');
-      }
-      LogUtil.info(TAG, `3.2 共写入 ${WRITE_CHUNKS} 块 × ${CHUNK_SIZE}B`);
+        // 其余 90 块常规写入（doWrite 同步落盘，缓冲即时排空）
+        for (let i = 15; i < WRITE_CHUNKS; i++) {
+          writer.write(this.makeChunk(i), 'utf8');
+        }
+        LogUtil.info(TAG, `3.2 共写入 ${WRITE_CHUNKS} 块 × ${CHUNK_SIZE}B`);
 
-      // 3.3 end：结束写入，等待 finish 事件
-      handedOff = true;
-      writer.end();
-      LogUtil.info(TAG, '3.3 end()：结束写入，等待 finish 事件');
-    } catch (err) {
-      closeFd();
-      throw err as Error;
-    } finally {
-      if (!handedOff && !fdClosed && fd >= 0) {
-        fdClosed = true;
-        fs.closeSync(fd);
+        // 3.3 end：结束写入，等待 finish 事件
+        writer.end();
+        LogUtil.info(TAG, '3.3 end()：结束写入，等待 finish 事件');
+        await finished;
+        this.onDone();
+      } finally {
+        if (fd >= 0) {
+          fs.closeSync(fd);
+          fd = -1;
+        }
       }
-    }
+    };
+    run().catch((err: Error) => {
+      LogUtil.error(TAG, `3.x 写入异常：${err && err.message ? err.message : '未知错误'}`);
+      this.onDone();
+    });
   }
 
   /** 场景4：Readable 流式读取（复用场景3 的文件；未跑场景3 时先生成数据） */
   runReadableDemo(filesDir: string): void {
-    let filePath: string = this.lastWriteFile;
     let fd: number = -1;
-    let handedOff: boolean = false;
-    let fdClosed: boolean = false;
-    const closeFd = (): void => {
-      if (!fdClosed && fd >= 0) {
-        fdClosed = true;
-        fs.closeSync(fd);
+    const run = async (): Promise<void> => {
+      try {
+        let filePath: string = this.lastWriteFile;
+        if (filePath === '' || !fs.accessSync(filePath)) {
+          // 场景3 未执行时，先生成一个 200KB 的演示文件
+          filePath = `${filesDir}/stream_read_source.txt`;
+          this.generateSourceFile(filePath);
+          LogUtil.info(TAG, `【场景4】检测到场景3 未执行，已先生成演示文件 ${filePath}`);
+        }
+        fd = fs.openSync(filePath, fs.OpenMode.READ_ONLY).fd;
+        const size: number = fs.statSync(filePath).size;
+        LogUtil.info(TAG, `【场景4】Readable 流式读取开始：${filePath}（${size}B，分块 ${CHUNK_SIZE}B）`);
+
+        const reader = new FileReadable(fd, size, (index: number, bytes: number, done: boolean) => {
+          if (index <= 3 || done) {
+            LogUtil.debug(TAG, `    doRead 第 ${index} 块 ${bytes}B${done ? '（最后一块）' : ''}`);
+          }
+        });
+
+        let chunks: number = 0;
+        let received: number = 0;
+        // 先挂载完成回调，再挂 data 触发读取：同步或异步的 end/error 都能被捕获
+        const finished = new Promise<void>((resolve) => {
+          reader.on('error', (err: emitter.EventData) => {
+            const e = err.data as Error;
+            LogUtil.error(TAG, `4.x 读取出错：${e && e.message ? e.message : '未知错误'}`);
+            resolve();
+          });
+          reader.on('end', () => {
+            LogUtil.info(TAG, `4.2 end 事件：共收到 ${chunks} 块 / ${received}B，与文件大小 ${size}B ${received === size ? '一致' : '不一致'}`);
+            LogUtil.info(TAG, '4.3 全程分块流转，未一次性整载文件（内存友好）');
+            resolve();
+          });
+        });
+        reader.on('data', (data: emitter.EventData) => {
+          const chunk = data.data as Object as string;
+          chunks++;
+          received += chunk.length;
+        });
+        LogUtil.info(TAG, '4.1 doRead 分块 push → data 事件逐块送达消费者');
+        await finished;
+        this.onDone();
+      } finally {
+        if (fd >= 0) {
+          fs.closeSync(fd);
+          fd = -1;
+        }
       }
     };
-    try {
-      if (filePath === '' || !fs.accessSync(filePath)) {
-        // 场景3 未执行时，先生成一个 200KB 的演示文件
-        filePath = `${filesDir}/stream_read_source.txt`;
-        this.generateSourceFile(filePath);
-        LogUtil.info(TAG, `【场景4】检测到场景3 未执行，已先生成演示文件 ${filePath}`);
-      }
-      fd = fs.openSync(filePath, fs.OpenMode.READ_ONLY).fd;
-      const size: number = fs.statSync(filePath).size;
-      LogUtil.info(TAG, `【场景4】Readable 流式读取开始：${filePath}（${size}B，分块 ${CHUNK_SIZE}B）`);
-
-      const reader = new FileReadable(fd, size, (index: number, bytes: number, done: boolean) => {
-        if (index <= 3 || done) {
-          LogUtil.debug(TAG, `    doRead 第 ${index} 块 ${bytes}B${done ? '（最后一块）' : ''}`);
-        }
-      });
-
-      let chunks: number = 0;
-      let received: number = 0;
-      reader.on('error', (err: emitter.EventData) => {
-        const e = err.data as Error;
-        LogUtil.error(TAG, `4.x 读取出错：${e && e.message ? e.message : '未知错误'}`);
-        closeFd();
-        this.onDone();
-      });
-      reader.on('data', (data: emitter.EventData) => {
-        const chunk = data.data as Object as string;
-        chunks++;
-        received += chunk.length;
-      });
-      reader.on('end', () => {
-        LogUtil.info(TAG, `4.2 end 事件：共收到 ${chunks} 块 / ${received}B，与文件大小 ${size}B ${received === size ? '一致' : '不一致'}`);
-        LogUtil.info(TAG, '4.3 全程分块流转，未一次性整载文件（内存友好）');
-        closeFd();
-        this.onDone();
-      });
-      LogUtil.info(TAG, '4.1 doRead 分块 push → data 事件逐块送达消费者');
-      handedOff = true;
-    } catch (err) {
-      closeFd();
-      throw err as Error;
-    } finally {
-      if (!handedOff && !fdClosed && fd >= 0) {
-        fdClosed = true;
-        fs.closeSync(fd);
-      }
-    }
+    run().catch((err: Error) => {
+      LogUtil.error(TAG, `4.x 读取异常：${err && err.message ? err.message : '未知错误'}`);
+      this.onDone();
+    });
   }
 
   /** 场景5：Readable → Transform → Writable 三流完整流水线 */
   runPipelineDemo(filesDir: string): void {
-    const filePath: string = `${filesDir}/stream_pipeline_demo.txt`;
     let fd: number = -1;
-    let handedOff: boolean = false;
-    let fdClosed: boolean = false;
-    const closeFd = (): void => {
-      if (!fdClosed && fd >= 0) {
-        fdClosed = true;
-        fs.closeSync(fd);
+    const run = async (): Promise<void> => {
+      try {
+        const filePath: string = `${filesDir}/stream_pipeline_demo.txt`;
+        try {
+          fs.unlinkSync(filePath);
+        } catch (err) {
+          // 文件不存在时忽略
+        }
+        fd = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE).fd;
+        LogUtil.info(TAG, '【场景5】三流流水线启动：Readable 产数 → Transform 大写加工 → Writable 落盘');
+
+        const source = new GeneratorReadable(PIPELINE_BLOCKS, (index: number) => {
+          if (index <= 3) {
+            LogUtil.debug(TAG, `    [Readable] 产出第 ${index} 块`);
+          }
+        });
+        const transformer = new UpperCaseTransform((info: string) => {
+          LogUtil.debug(TAG, `    [Transform] ${info}`);
+        });
+        const sink = new FileWritable(fd, (_n: number, total: number) => {
+          if (total === PIPELINE_BLOCKS * PIPELINE_BLOCK_SIZE + '[PIPELINE-FLUSH-TAIL]'.length) {
+            LogUtil.debug(TAG, `    [Writable] 全部落盘 ${total}B`);
+          }
+        });
+
+        // 先挂完成/错误回调，再挂 data 触发读取，避免同步事件早于监听器注册
+        const finished = new Promise<void>((resolve) => {
+          source.on('error', (err: emitter.EventData) => {
+            const e = err.data as Error;
+            LogUtil.error(TAG, `5.x 源流出错：${e && e.message ? e.message : '未知错误'}`);
+            resolve();
+          });
+          transformer.on('error', (err: emitter.EventData) => {
+            const e = err.data as Error;
+            LogUtil.error(TAG, `5.x 转换流出错：${e && e.message ? e.message : '未知错误'}`);
+            resolve();
+          });
+          sink.on('error', (err: emitter.EventData) => {
+            const e = err.data as Error;
+            LogUtil.error(TAG, `5.x 落盘流出错：${e && e.message ? e.message : '未知错误'}`);
+            resolve();
+          });
+          sink.on('finish', () => {
+            const size: number = fs.statSync(filePath).size;
+            LogUtil.info(TAG, `5.3 finish 事件：流水线完成，落盘 ${size}B`);
+            // 5.4 用 FastBuffer 读回文件头校验加工结果（呼应场景1 的二进制读取能力）
+            const headFd: number = fs.openSync(filePath, fs.OpenMode.READ_ONLY).fd;
+            const head: ArrayBuffer = new ArrayBuffer(64);
+            try {
+              fs.readSync(headFd, head, { offset: 0, length: 64 });
+            } finally {
+              fs.closeSync(headFd);
+            }
+            const headStr: string = fastbuffer.from(head).toString('utf8');
+            LogUtil.info(TAG, `5.4 FastBuffer 读回文件头校验：${headStr.substring(0, 40)}...（已转大写）`);
+            resolve();
+          });
+        });
+
+        let transformed: number = 0;
+        // 5.1 三流串联：源 data → 转换 write；源 end → 转换 end；转换 data → 落盘 write；转换 end → 落盘 end
+        source.on('data', (data: emitter.EventData) => {
+          transformer.write(data.data as Object as string);
+        });
+        source.on('end', () => {
+          transformer.end();
+          LogUtil.info(TAG, `5.1 Readable 产出 ${PIPELINE_BLOCKS} 块完毕，级联关闭 Transform`);
+        });
+        transformer.on('data', (data: emitter.EventData) => {
+          transformed++;
+          if (transformed <= 3) {
+            LogUtil.debug(TAG, `    [Transform] 第 ${transformed} 块加工完成 → Writable`);
+          }
+          sink.write(data.data as Object as string);
+        });
+        transformer.on('end', () => {
+          sink.end();
+          LogUtil.info(TAG, `5.2 Transform 处理完成 ${transformed} 块（含 doFlush 尾块），级联关闭 Writable`);
+        });
+        await finished;
+        this.onDone();
+      } finally {
+        if (fd >= 0) {
+          fs.closeSync(fd);
+          fd = -1;
+        }
       }
     };
-    try {
-      try {
-        fs.unlinkSync(filePath);
-      } catch (err) {
-        // 文件不存在时忽略
-      }
-      fd = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE).fd;
-      LogUtil.info(TAG, '【场景5】三流流水线启动：Readable 产数 → Transform 大写加工 → Writable 落盘');
-
-      const source = new GeneratorReadable(PIPELINE_BLOCKS, (index: number) => {
-        if (index <= 3) {
-          LogUtil.debug(TAG, `    [Readable] 产出第 ${index} 块`);
-        }
-      });
-      const transformer = new UpperCaseTransform((info: string) => {
-        LogUtil.debug(TAG, `    [Transform] ${info}`);
-      });
-      const sink = new FileWritable(fd, (_n: number, total: number) => {
-        if (total === PIPELINE_BLOCKS * PIPELINE_BLOCK_SIZE + '[PIPELINE-FLUSH-TAIL]'.length) {
-          LogUtil.debug(TAG, `    [Writable] 全部落盘 ${total}B`);
-        }
-      });
-
-      source.on('error', (err: emitter.EventData) => {
-        const e = err.data as Error;
-        LogUtil.error(TAG, `5.x 源流出错：${e && e.message ? e.message : '未知错误'}`);
-        closeFd();
-        this.onDone();
-      });
-      transformer.on('error', (err: emitter.EventData) => {
-        const e = err.data as Error;
-        LogUtil.error(TAG, `5.x 转换流出错：${e && e.message ? e.message : '未知错误'}`);
-        closeFd();
-        this.onDone();
-      });
-      sink.on('error', (err: emitter.EventData) => {
-        const e = err.data as Error;
-        LogUtil.error(TAG, `5.x 落盘流出错：${e && e.message ? e.message : '未知错误'}`);
-        closeFd();
-        this.onDone();
-      });
-
-      let transformed: number = 0;
-      // 5.1 三流串联：源 data → 转换 write；源 end → 转换 end；转换 data → 落盘 write；转换 end → 落盘 end
-      source.on('data', (data: emitter.EventData) => {
-        transformer.write(data.data as Object as string);
-      });
-      source.on('end', () => {
-        transformer.end();
-        LogUtil.info(TAG, `5.1 Readable 产出 ${PIPELINE_BLOCKS} 块完毕，级联关闭 Transform`);
-      });
-      transformer.on('data', (data: emitter.EventData) => {
-        transformed++;
-        if (transformed <= 3) {
-          LogUtil.debug(TAG, `    [Transform] 第 ${transformed} 块加工完成 → Writable`);
-        }
-        sink.write(data.data as Object as string);
-      });
-      transformer.on('end', () => {
-        sink.end();
-        LogUtil.info(TAG, `5.2 Transform 处理完成 ${transformed} 块（含 doFlush 尾块），级联关闭 Writable`);
-      });
-      sink.on('finish', () => {
-        const size: number = fs.statSync(filePath).size;
-        LogUtil.info(TAG, `5.3 finish 事件：流水线完成，落盘 ${size}B`);
-        // 5.4 用 FastBuffer 读回文件头校验加工结果（呼应场景1 的二进制读取能力）
-        const headFd: number = fs.openSync(filePath, fs.OpenMode.READ_ONLY).fd;
-        const head: ArrayBuffer = new ArrayBuffer(64);
-        try {
-          fs.readSync(headFd, head, { offset: 0, length: 64 });
-        } finally {
-          fs.closeSync(headFd);
-        }
-        const headStr: string = fastbuffer.from(head).toString('utf8');
-        LogUtil.info(TAG, `5.4 FastBuffer 读回文件头校验：${headStr.substring(0, 40)}...（已转大写）`);
-        closeFd();
-        this.onDone();
-      });
-      handedOff = true;
-    } catch (err) {
-      closeFd();
-      throw err as Error;
-    } finally {
-      if (!handedOff && !fdClosed && fd >= 0) {
-        fdClosed = true;
-        fs.closeSync(fd);
-      }
-    }
+    run().catch((err: Error) => {
+      LogUtil.error(TAG, `5.x 流水线异常：${err && err.message ? err.message : '未知错误'}`);
+      this.onDone();
+    });
   }
 
   /** 场景8：pipe 一行流水线——与场景5 相同拓扑，改用官方 pipe() 接线 */
   runPipeDemo(filesDir: string): void {
-    const filePath: string = `${filesDir}/stream_pipe_demo.txt`;
     let fd: number = -1;
-    let handedOff: boolean = false;
-    let fdClosed: boolean = false;
-    const closeFd = (): void => {
-      if (!fdClosed && fd >= 0) {
-        fdClosed = true;
-        fs.closeSync(fd);
+    const run = async (): Promise<void> => {
+      try {
+        const filePath: string = `${filesDir}/stream_pipe_demo.txt`;
+        try {
+          fs.unlinkSync(filePath);
+        } catch (err) {
+          // 文件不存在时忽略
+        }
+        fd = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE).fd;
+        LogUtil.info(TAG, '【场景8】pipe 流水线启动：source.pipe(transform) → transform.pipe(sink)');
+
+        const source = new GeneratorReadable(PIPE_BLOCKS, (index: number) => {
+          if (index <= 2) {
+            LogUtil.debug(TAG, `    [Readable] 产出第 ${index} 块`);
+          }
+        }, PIPE_BLOCK_SIZE);
+        const transformer = new UpperCaseTransform((_info: string) => {
+        });
+        const sink = new FileWritable(fd, (_n: number, _total: number) => {
+        });
+
+        // pipe 自动转发 data/end，但错误仍需各流自行监听；先挂回调再接线
+        const finished = new Promise<void>((resolve) => {
+          source.on('error', (err: emitter.EventData) => {
+            const e = err.data as Error;
+            LogUtil.error(TAG, `8.x 源流出错：${e && e.message ? e.message : '未知错误'}`);
+            resolve();
+          });
+          transformer.on('error', (err: emitter.EventData) => {
+            const e = err.data as Error;
+            LogUtil.error(TAG, `8.x 转换流出错：${e && e.message ? e.message : '未知错误'}`);
+            resolve();
+          });
+          sink.on('error', (err: emitter.EventData) => {
+            const e = err.data as Error;
+            LogUtil.error(TAG, `8.x 落盘流出错：${e && e.message ? e.message : '未知错误'}`);
+            resolve();
+          });
+          sink.on('finish', () => {
+            const size: number = fs.statSync(filePath).size;
+            const expected: number = PIPE_BLOCKS * PIPE_BLOCK_SIZE + '[PIPELINE-FLUSH-TAIL]'.length;
+            LogUtil.info(TAG, `8.2 finish 事件：pipe 流水线完成，落盘 ${size}B（预期 ${expected}B）${size === expected ? '，一致' : '，不一致'}`);
+            // 8.3 FastBuffer 读回文件头校验大写加工
+            const headFd: number = fs.openSync(filePath, fs.OpenMode.READ_ONLY).fd;
+            const head: ArrayBuffer = new ArrayBuffer(32);
+            try {
+              fs.readSync(headFd, head, { offset: 0, length: 32 });
+            } finally {
+              fs.closeSync(headFd);
+            }
+            const headStr: string = fastbuffer.from(head).toString('utf8');
+            LogUtil.info(TAG, `8.3 读回文件头：${headStr.substring(0, 20)}...（大写加工经 pipe 自动转发生效）`);
+            resolve();
+          });
+        });
+
+        // 8.1 两行 pipe 接线替代场景5 的手工事件级联（data/end 均由框架转发）
+        LogUtil.info(TAG, '8.1 source.pipe(transform) 接线（data/end 由框架自动转发）');
+        source.pipe(transformer);
+        transformer.pipe(sink);
+        await finished;
+        this.onDone();
+      } finally {
+        if (fd >= 0) {
+          fs.closeSync(fd);
+          fd = -1;
+        }
       }
     };
-    try {
-      try {
-        fs.unlinkSync(filePath);
-      } catch (err) {
-        // 文件不存在时忽略
-      }
-      fd = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE).fd;
-      LogUtil.info(TAG, '【场景8】pipe 流水线启动：source.pipe(transform) → transform.pipe(sink)');
-
-      const source = new GeneratorReadable(PIPE_BLOCKS, (index: number) => {
-        if (index <= 2) {
-          LogUtil.debug(TAG, `    [Readable] 产出第 ${index} 块`);
-        }
-      }, PIPE_BLOCK_SIZE);
-      const transformer = new UpperCaseTransform((_info: string) => {
-      });
-      const sink = new FileWritable(fd, (_n: number, _total: number) => {
-      });
-
-      // pipe 自动转发 data/end，但错误仍需各流自行监听
-      source.on('error', (err: emitter.EventData) => {
-        const e = err.data as Error;
-        LogUtil.error(TAG, `8.x 源流出错：${e && e.message ? e.message : '未知错误'}`);
-        closeFd();
-        this.onDone();
-      });
-      transformer.on('error', (err: emitter.EventData) => {
-        const e = err.data as Error;
-        LogUtil.error(TAG, `8.x 转换流出错：${e && e.message ? e.message : '未知错误'}`);
-        closeFd();
-        this.onDone();
-      });
-      sink.on('error', (err: emitter.EventData) => {
-        const e = err.data as Error;
-        LogUtil.error(TAG, `8.x 落盘流出错：${e && e.message ? e.message : '未知错误'}`);
-        closeFd();
-        this.onDone();
-      });
-      sink.on('finish', () => {
-        const size: number = fs.statSync(filePath).size;
-        const expected: number = PIPE_BLOCKS * PIPE_BLOCK_SIZE + '[PIPELINE-FLUSH-TAIL]'.length;
-        LogUtil.info(TAG, `8.2 finish 事件：pipe 流水线完成，落盘 ${size}B（预期 ${expected}B）${size === expected ? '，一致' : '，不一致'}`);
-        // 8.3 FastBuffer 读回文件头校验大写加工
-        const headFd: number = fs.openSync(filePath, fs.OpenMode.READ_ONLY).fd;
-        const head: ArrayBuffer = new ArrayBuffer(32);
-        try {
-          fs.readSync(headFd, head, { offset: 0, length: 32 });
-        } finally {
-          fs.closeSync(headFd);
-        }
-        const headStr: string = fastbuffer.from(head).toString('utf8');
-        LogUtil.info(TAG, `8.3 读回文件头：${headStr.substring(0, 20)}...（大写加工经 pipe 自动转发生效）`);
-        closeFd();
-        this.onDone();
-      });
-
-      // 8.1 两行 pipe 接线替代场景5 的手工事件级联（data/end 均由框架转发）
-      LogUtil.info(TAG, '8.1 source.pipe(transform) 接线（data/end 由框架自动转发）');
-      source.pipe(transformer);
-      transformer.pipe(sink);
-      handedOff = true;
-    } catch (err) {
-      closeFd();
-      throw err as Error;
-    } finally {
-      if (!handedOff && !fdClosed && fd >= 0) {
-        fdClosed = true;
-        fs.closeSync(fd);
-      }
-    }
+    run().catch((err: Error) => {
+      LogUtil.error(TAG, `8.x 流水线异常：${err && err.message ? err.message : '未知错误'}`);
+      this.onDone();
+    });
   }
 
   /** 场景9：Duplex 双工流——写侧桥接读侧的回显演示 */
