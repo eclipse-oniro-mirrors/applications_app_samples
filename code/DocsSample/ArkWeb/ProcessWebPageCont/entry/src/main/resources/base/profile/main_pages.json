@@ -4,6 +4,7 @@
     "pages/InitiatePrintW3CAPI",
     "pages/InitiatePrintAppAPI",
     "pages/PreviewPDF",
-    "pages/CalcAdjustSafeArea"
+    "pages/CalcAdjustSafeArea",
+    "pages/ImmersiveWeb"
   ]
 }
