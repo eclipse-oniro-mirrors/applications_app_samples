@@ -32,6 +32,7 @@ constexpr int64_t MAX_RESIZE_MODE = static_cast<int64_t>(TranscodeFrames::Resize
 constexpr int32_t MAX_SCALING_FILTER = 1;
 constexpr int32_t MAX_FRAME_RATE_LIMIT = 120;
 constexpr int32_t MAX_BITRATE_MODE = 1;
+constexpr int32_t MAX_CODEC_MODE = 1;
 constexpr int32_t MIN_KEY_FRAME_INTERVAL_MS = 500;
 constexpr int32_t MAX_KEY_FRAME_INTERVAL_MS = 10000;
 constexpr int32_t AUDIO_SAMPLE_RATE_44100 = 44100;
@@ -195,7 +196,8 @@ bool ReadOptionalNumber(napi_env env, napi_value object, const char *key, int32_
 
 bool ReadVideoQualityOptions(napi_env env, napi_value object, TranscodeOptions &options)
 {
-    return ReadOptionalNumber(env, object, "scalingFilter", options.scalingFilter) &&
+    return ReadOptionalNumber(env, object, "codecMode", options.codecMode) && options.codecMode <= MAX_CODEC_MODE &&
+        ReadOptionalNumber(env, object, "scalingFilter", options.scalingFilter) &&
         options.scalingFilter <= MAX_SCALING_FILTER &&
         ReadOptionalNumber(env, object, "frameRateLimit", options.frameRateLimit) &&
         options.frameRateLimit <= MAX_FRAME_RATE_LIMIT &&

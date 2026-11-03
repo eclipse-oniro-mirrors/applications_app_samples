@@ -16,6 +16,7 @@
 export interface TranscodeQualitySnapshot {
   operation: number; filter: number; frameRate: number; bitrateMode: number; keyFrame: number;
   audioRate: number; audioChannels: number; audioBitrate: number;
+  codecMode?: number;
 }
 
 @Observed
@@ -28,10 +29,13 @@ export class TranscodeQualityModel {
   public audioRate: number = 0;
   public audioChannels: number = 0;
   public audioBitrate: number = 1;
+  public codecMode: number = 0;
 
   static valid(snapshot: TranscodeQualitySnapshot | undefined): boolean {
     if (snapshot === undefined) { return true; }
     if (snapshot === null || typeof snapshot !== 'object') { return false; }
+    if (snapshot.codecMode !== undefined &&
+      (!Number.isInteger(snapshot.codecMode) || snapshot.codecMode < 0 || snapshot.codecMode > 1)) { return false; }
     const values: number[] = [snapshot.operation, snapshot.filter, snapshot.frameRate, snapshot.bitrateMode,
       snapshot.keyFrame, snapshot.audioRate, snapshot.audioChannels, snapshot.audioBitrate];
     const limits: number[] = [1, 1, 4, 1, 3, 2, 2, 2];
@@ -42,7 +46,7 @@ export class TranscodeQualityModel {
   snapshot(): TranscodeQualitySnapshot {
     return { operation: this.operation, filter: this.filter, frameRate: this.frameRate,
       bitrateMode: this.bitrateMode, keyFrame: this.keyFrame, audioRate: this.audioRate,
-      audioChannels: this.audioChannels, audioBitrate: this.audioBitrate };
+      audioChannels: this.audioChannels, audioBitrate: this.audioBitrate, codecMode: this.codecMode };
   }
 
   restore(snapshot: TranscodeQualitySnapshot | undefined): void {
@@ -50,5 +54,6 @@ export class TranscodeQualityModel {
     this.frameRate = snapshot?.frameRate ?? 0; this.bitrateMode = snapshot?.bitrateMode ?? 0;
     this.keyFrame = snapshot?.keyFrame ?? 1; this.audioRate = snapshot?.audioRate ?? 0;
     this.audioChannels = snapshot?.audioChannels ?? 0; this.audioBitrate = snapshot?.audioBitrate ?? 1;
+    this.codecMode = snapshot?.codecMode ?? 0;
   }
 }

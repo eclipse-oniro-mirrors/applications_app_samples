@@ -28,6 +28,8 @@ export interface TranscodeRequest {
   startTimeMs?: number;
   endTimeMs?: number;
   remuxOnly?: boolean;
+  /** Video decoder/encoder: 0 synchronous (default), 1 callbacks. Preview stays synchronous; remux ignores it. */
+  codecMode?: number;
   scalingFilter?: number;
   frameRateLimit?: number;
   bitrateMode?: number;

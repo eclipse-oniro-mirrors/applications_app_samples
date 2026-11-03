@@ -64,7 +64,7 @@ constexpr int32_t K_TAIL_CHUNK_SAMPLES = 37;
 constexpr int32_t K_PCM_BYTES = 4;
 constexpr int32_t K_ENCODED_BYTES = 8;
 constexpr int32_t K_EXPECTED_PACKET_COUNT = 2;
-constexpr int32_t K_EXPECTED_DESTROYED = 24;
+constexpr int32_t K_EXPECTED_DESTROYED = 28;
 constexpr int32_t K_EXPECTED_PADDED_SAMPLES = 411;
 constexpr int32_t K_RANGE_PADDED_SAMPLES = 544;
 constexpr int64_t K_RANGE_START_US = 110000;
@@ -76,6 +76,7 @@ constexpr int32_t K_READY_TICKS = 100;
 constexpr int32_t K_MUX_START_TICK = 20;
 constexpr int32_t K_EXPECTED_BYTES = 16;
 constexpr int64_t K_FIRST_PTS = 100000;
+constexpr int64_t K_PARTIAL_SOURCE_START_US = 50000;
 constexpr int64_t K_SECOND_PTS_MIN = 121332;
 constexpr int64_t K_SECOND_PTS_MAX = 121334;
 constexpr int32_t K_OUTPUT_QUEUE_LIMIT = 2;
@@ -326,7 +327,7 @@ extern "C" OH_AVErrCode FakeAvMuxerWriteSampleBuffer(OH_AVMuxer *muxer, uint32_t
     return AV_ERR_OK;
 }
 
-void RunSuccess(bool formatEvent)
+void RunSuccess(bool formatEvent, int64_t originUs = 0)
 {
     g_sendFormatChange = formatEvent;
     g_paddedSamples = 0;
@@ -343,7 +344,7 @@ void RunSuccess(bool formatEvent)
             failed = true;
             return false;
         });
-        Require(pipeline.Configure(source.get(), &demuxer, 1), "Configure success pipeline");
+        Require(pipeline.Configure(source.get(), &demuxer, 1, originUs), "Configure success pipeline");
         for (int tick = 0; tick < K_MAX_TICKS && !pipeline.Done(); ++tick) {
             bool advanced = false;
             Require(pipeline.Pump(pipeline.Ready() && tick > K_MUX_START_TICK ? &muxer : nullptr, 1, advanced),
@@ -352,8 +353,9 @@ void RunSuccess(bool formatEvent)
         Require(pipeline.Done() && !failed && muxer.packets == K_EXPECTED_PACKET_COUNT && g_inputEos == 1,
             "Complete success pipeline");
         Require(g_paddedSamples == K_EXPECTED_PADDED_SAMPLES && encodedPts.size() == K_EXPECTED_PACKET_COUNT &&
-            encodedPts[0] == K_FIRST_PTS, "PCM padding and first PTS");
-        Require(encodedPts[1] >= K_SECOND_PTS_MIN && encodedPts[1] <= K_SECOND_PTS_MAX, "Second PTS");
+            encodedPts[0] == K_FIRST_PTS - originUs, "PCM padding and first PTS on the shared timeline");
+        Require(encodedPts[1] >= K_SECOND_PTS_MIN - originUs && encodedPts[1] <= K_SECOND_PTS_MAX - originUs,
+            "Second PTS retains sample spacing after rebasing");
         Require(pipeline.Bytes() == K_EXPECTED_BYTES, "Encoded byte count");
     }
 }
@@ -516,6 +518,8 @@ int main()
 {
     RunSuccess(true);
     RunSuccess(false);
+    RunSuccess(true, K_FIRST_PTS);
+    RunSuccess(false, K_PARTIAL_SOURCE_START_US);
     RunConverted(K_SAMPLE_RATE_44100, 1);
     RunConverted(K_SAMPLE_RATE_44100, K_CHANNELS);
     RunConverted(K_SAMPLE_RATE, 1);

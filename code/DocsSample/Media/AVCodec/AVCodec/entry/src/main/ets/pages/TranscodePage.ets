@@ -66,6 +66,10 @@ export struct TranscodePage {
     return [{ value: 'Buffer' }, { value: $r('app.string.transcode_window_mode') }];
   }
 
+  private codecModeOptions(): SelectOption[] {
+    return [{ value: $r('app.string.transcode_codec_sync') }, { value: $r('app.string.transcode_codec_async') }];
+  }
+
   private sizeOptions(): SelectOption[] {
     return [{ value: $r('app.string.transcode_original_size') }, { value: $r('app.string.transcode_size_1920') },
       { value: $r('app.string.transcode_size_1080') }, { value: $r('app.string.transcode_size_720') }];
@@ -135,6 +139,15 @@ export struct TranscodePage {
               this.model.sizeIndex = index; void this.model.inspect(this.getUIContext());
             })
         }
+        Row() {
+          Text($r('app.string.transcode_codec_mode')).layoutWeight(1)
+          Select(this.codecModeOptions()).selected(this.quality.codecMode)
+            .value(this.codecModeOptions()[this.quality.codecMode].value)
+            .onSelect((index: number): void => {
+              this.quality.codecMode = index; void this.model.inspect(this.getUIContext());
+            })
+        }
+        Text($r('app.string.transcode_codec_mode_hint')).fontSize(12).fontColor('#667085')
         Row() {
           Text($r('app.string.transcode_bitrate')).layoutWeight(1)
           Select(this.bitrateOptions()).selected(this.model.bitrateIndex)

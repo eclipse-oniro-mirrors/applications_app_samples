@@ -20,6 +20,9 @@
 bool TranscodeJob::ConfigureTimeRange()
 {
     selectedDurationUs_ = durationUs_;
+    // File-relative selection and raw demuxer PTS use different origins for sources such as MPEG-TS.
+    // Both tracks subtract this same origin so their relative start times remain unchanged.
+    rangeStartUs_ = sourceStartUs_;
     if (options_.startTimeMs == 0 && options_.endTimeMs == 0) { return true; }
     constexpr int64_t usPerMs = 1000;
     if (options_.surface || durationUs_ <= 0 || options_.startTimeMs < 0 || options_.endTimeMs < 0 ||
@@ -30,6 +33,9 @@ bool TranscodeJob::ConfigureTimeRange()
     rangeEndUs_ = options_.endTimeMs > 0 ? options_.endTimeMs * usPerMs : durationUs_;
     if (rangeStartUs_ >= rangeEndUs_ || rangeEndUs_ > durationUs_) { return Fail("Invalid transcode time range"); }
     selectedDurationUs_ = rangeEndUs_ - rangeStartUs_;
+    if (sourceStartUs_ > INT64_MAX - rangeEndUs_) { return Fail("Source time range exceeds timestamp limits"); }
+    rangeStartUs_ += sourceStartUs_;
+    rangeEndUs_ += sourceStartUs_;
     return true;
 }
 

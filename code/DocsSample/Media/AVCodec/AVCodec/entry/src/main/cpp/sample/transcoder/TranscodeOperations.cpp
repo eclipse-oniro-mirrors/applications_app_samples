@@ -173,6 +173,10 @@ bool TranscodeJob::CopyVideoSample()
     OH_AVCodecBufferAttr attr {};
     if (!Check(OH_AVDemuxer_ReadSampleBuffer(demuxer_, videoTrack_, videoCopyBuffer_), "Read remux video") ||
         !Check(OH_AVBuffer_GetBufferAttr(videoCopyBuffer_, &attr), "Read remux video attributes")) { return false; }
+    attr.pts = std::max<int64_t>(0, attr.pts - rangeStartUs_);
+    if (!Check(OH_AVBuffer_SetBufferAttr(videoCopyBuffer_, &attr), "Rebase original video timestamps")) {
+        return false;
+    }
     if (attr.size > 0 && !Check(OH_AVMuxer_WriteSampleBuffer(muxer_, muxVideoTrack_, videoCopyBuffer_),
         "Write original video sample")) { return false; }
     encoderOutputDone_ = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;

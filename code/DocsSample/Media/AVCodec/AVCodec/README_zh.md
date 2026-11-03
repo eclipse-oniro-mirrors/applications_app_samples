@@ -167,6 +167,7 @@
 | 输入与输出 | 从文件管理或图库选择一个视频，将完成的 MP4 导出到任一位置 | [视频转码](#transcoding) |
 | Buffer 处理 | 解码得到 YUV，按需缩小或转为灰度，再填入编码器输入 Buffer | [Buffer 链路](#transcode-buffer) |
 | Surface 对接 | 解码器直接输出到编码器输入 Surface，保留原始尺寸 | [Surface 链路](#transcode-surface) |
+| 同步与异步调度 | 视频解码和编码均支持同步查询或异步回调队列，可搭配 Buffer 或 Surface 输入 | [编解码调度](#transcode-codec-mode) |
 | 编码参数 | 编码器选择、帧率上限、CBR/VBR 和关键帧间隔 | [编码质量](#transcode-quality) |
 | 处理预览 | 解码一帧，显示处理后的缩略图；保留裁剪与留边示意图 | [Buffer 链路](#transcode-buffer) |
 | MP4 转封装 | 不创建 codec，复制整段原视频和可选音轨 | [原码流转封装](#transcode-remux) |
@@ -186,7 +187,8 @@
 | 参数 | 选项与行为 |
 |---|---|
 | 编码与封装 | H.264 或 H.265，统一封装为 MP4，设备须提供对应编码器 |
-| 编码输入 | Buffer 或 Surface，均由 Native 工作线程同步查询 Buffer |
+| 编码输入 | Buffer 或 Surface，两条路径都支持同步查询和异步回调 |
+| 视频编解码调度 | 默认同步；异步同时作用于视频解码和编码，随队列任务保存 |
 | 输出尺寸 | 原始尺寸，或限制长边为 1920、1080、720 像素，仅 Buffer 可选 |
 | 目标码率 | 2、4、8、16 Mbps，可选 VBR 或 CBR，实际码率可能有波动 |
 | 帧率上限 | 跟随源视频，或限制为 24、30、60、120 fps；不提高源帧率 |
@@ -222,7 +224,7 @@ flowchart LR
 
 #### Buffer 链路
 
-`TranscodeJob` 选择首条视频轨，将解码输出配置为 NV12，并创建接收 NV12 Buffer 的编码器。工作线程同步查询解码输出，再交给 `TranscodeFrameProcessor.h` 处理。帧处理器分别读取解码侧和编码侧的实际宽高、stride、sliceHeight，两块 Buffer 的行跨距和填充行数不必一致。
+`TranscodeJob` 选择首条视频轨，将解码输出配置为 NV12，并创建接收 NV12 Buffer 的编码器。工作线程按“视频编解码调度”选项同步查询解码输出，或从异步回调队列取帧，两种模式共用像素处理和提交代码。`TranscodeFrameProcessor.h` 分别读取解码侧和编码侧的实际宽高、stride、sliceHeight，两块 Buffer 的行跨距和填充行数不必一致。
 
 支持 8 bit NV12、NV21、I420 输入布局，处理后写成 NV12。默认使用最近邻；双线性对亮度和色度分别插值，边缘通常更平滑，但 CPU 开销更高，也不等于大比例缩小时的抗混叠滤波。灰度处理保留 Y，把 UV 填成 128。这条链路会读写和拷贝像素，用来展示解码后的图像处理，不以 Surface 的吞吐率为目标。
 
@@ -236,11 +238,11 @@ flowchart LR
 
 #### 帧率、码率模式与关键帧
 
-帧率限制位于 CPU 处理或 Surface 提交之前，按目标帧率划分 PTS 时间桶，每桶最多保留一帧。保留帧沿用源时间戳，选择时间段时减去开始时间；不补帧，也不改变播放速度。编码器使用源帧率和上限中的较小值。丢弃帧单独计数，带 EOS 的帧即使被丢弃，也会继续触发编码结束流程。
+帧率限制位于 CPU 处理或 Surface 提交之前，按目标帧率划分 PTS 时间桶，每桶最多保留一帧。保留帧减去源文件的公共起始偏移和所选片段开始时间，保留帧间的相对时间；不补帧，也不改变播放速度。编码器使用源帧率和上限中的较小值。丢弃帧单独计数，带 EOS 的帧即使被丢弃，也会继续触发编码结束流程。
 
 默认 VBR。CBR 请求编码器的恒定码率模式，不保证每个短时间窗口都输出相同字节数。预检检查所选编码器的模式、帧率和码率范围，参数组合最终仍由 Configure 校验。关键帧间隔以毫秒传入编码器，应用不强制某个精确时间点产生关键帧。
 
-`TranscodeQualityModel.ets` 集中保存这些参数与 AAC 配置。队列项持有独立的命名快照，后续修改不会改变已排队任务。旧队列缺少质量配置时沿用默认值：最近邻、源帧率、VBR、两秒关键帧间隔、源音频布局和 128 kbps AAC。
+`TranscodeQualityModel.ets` 集中保存这些参数、视频编解码调度与 AAC 配置。队列项持有独立的命名快照，后续修改不会改变已排队任务。旧队列缺少质量配置时沿用默认值：同步视频编解码、最近邻、源帧率、VBR、两秒关键帧间隔、源音频布局和 128 kbps AAC。
 
 <a id="transcode-surface"></a>
 
@@ -254,7 +256,7 @@ flowchart LR
 
 #### 原码流 MP4 转封装
 
-选择“原码流转封装”后，读取首条视频轨和一条可选音轨，将原轨道描述加入 MP4，再复制压缩样本及其时间戳、属性。不创建音视频 codec，不读写像素。MP4 是否接受源格式，以 AddTrack 结果为准，不在失败后偷偷重编码；音频不兼容时，可关闭音频，或回到普通转码选择 AAC。
+选择“原码流转封装”后，读取首条视频轨和一条可选音轨，将原轨道描述加入 MP4，再复制压缩样本及其包属性，保留样本间的相对时间。音视频在写入封装器前减去同一个源文件起始偏移。不创建音视频 codec，不读写像素。MP4 是否接受源格式，以 AddTrack 结果为准，不在失败后偷偷重编码；音频不兼容时，可关闭音频，或回到普通转码选择 AAC。
 
 只处理完整文件。尺寸调整、裁剪留边、灰度、滤镜、帧率修改、时间段裁切和 AAC 转码均不可用，切换模式时重置不兼容设置。编码器、码率和关键帧控件隐藏，因为它们不能改变复制的码流。其余视频轨、字幕和附件不复制。此路径不会仅因源视频是 HDR 就拒绝，但复制压缩样本不保证封装器完整保留所有格式特有的 HDR 元数据。
 
@@ -268,11 +270,17 @@ flowchart LR
 
 Native 在异步任务入队前复制输入、输出 fd，工作线程只使用自己持有的描述符，释放 codec 和封装器后再关闭它们。页面每 250 ms 查询一次媒体进度、已编码帧数、视频码流字节数和输出尺寸。字节数不包含音频和 MP4 开销。链路连续 30 秒没有进展会报错；取消请求在 codec 操作之间检查。
 
-输出先写入 `filesDir/transcodes/transcoded_<时间戳>.mp4.part`，等输出 EOS、封装结束和文件刷新均成功后，重新打开 MP4 检查正时长、轨道数量、音视频 MIME 和视频尺寸。结构错误会阻止发布。另外比对所选时长、旋转、源文件中可用的色彩描述，以及目标音频采样率、声道数。时长容差取 250 ms 与两帧输出间隔中的较大值；音视频都提供轨道开始时间时，起点差超过 100 ms 会提示。
+`ReadSourceMetadata()` 从源描述读取 `OH_MD_KEY_START_TIME`。正值作为音视频共用的时间原点，缺失或非正值按零处理。例如，MPEG-TS 文件的音频从 1,405,333 微秒开始，视频从 1,440,000 微秒开始，换算后的 PTS 分别为 0 和 34,667 微秒。这样既保留音视频相对偏移，也避免把起始偏移的约 1.4 秒计入 MP4 时长。
+
+Buffer 编码在提交编码器输入前换算 PTS，Surface 编码和原码流转封装在写入封装器前换算。AAC 转码在处理完整文件时也会减去同一时间原点。片段选择以文件开头为零点，`ConfigureTimeRange()` 比较原始解码 PTS 前会加上源文件起点。
+
+源起始时间为正值时，区间转码从头解码，再按区间筛选画面。TS 的近似 Seek 即使用 `PREVIOUS_SYNC` 也可能落在非关键帧上，从头解码能保留参考帧，代价是增加解码耗时。源起始时间为零时，继续向 Seek 接口传入文件内的相对时间。
+
+输出先写入 `filesDir/transcodes/transcoded_<时间戳>.mp4.part`，等输出 EOS、封装结束和文件刷新均成功后，重新打开 MP4 检查正时长、轨道数量、音视频 MIME 和视频尺寸。结构错误会阻止发布。另外比对所选时长、旋转、源文件中可用的色彩描述，以及目标音频采样率、声道数。时长容差取 250 ms 与两帧输出间隔中的较大值；音视频都提供轨道开始时间时，起点差超过 100 ms 会提示。校验差异及源文件起点、预期时长、实际时长也会写入日志，便于定位问题。
 
 元数据差异记为警告，不删除结构有效的文件；结果卡片、TXT 和会话报告都保留明细。不编造缺失的源元数据，缺少轨道起点也不代表已确认同步。这些检查不重新解码整段码流，不等于逐帧完整性或完整音画同步验证。失败、取消清理未完成文件。导出时复制到系统对话框授权的 URI，不申请全量图库写权限；导出失败保留应用内副本，可再次重试。
 
-视频重编码和实际画面预览只接收 SDR。HDR Vivid、PQ/HLG 和 HEVC 非 Main Profile 会明确拒绝，因为尚未实现 HDR 转换、10 bit 处理和动态元数据保留，不能把它们当成未标记的 SDR 输出。原码流转封装适用前文单独列出的限制。编码器、尺寸和同步 Surface 支持仍以设备及 Native `Configure()` 结果为准。
+视频重编码和实际画面预览只接收 SDR。HDR Vivid、PQ/HLG 和 HEVC 非 Main Profile 会明确拒绝，因为尚未实现 HDR 转换、10 bit 处理和动态元数据保留，不能把它们当成未标记的 SDR 输出。原码流转封装适用前文单独列出的限制。编解码器、尺寸以及所选调度模式与 Surface 的组合支持，仍以设备及 Native `Configure()` 结果为准。
 
 `tests/native/TranscodeFrameProcessorTest.cpp` 覆盖横竖尺寸、两侧不同的 stride/sliceHeight、色度顺序、灰度、短 Buffer 校验和同尺寸快路径。`TranscodeDiagnosticsTest.cpp` 检查有界采样和等待计时；`TranscodeAudioPipelineTest.cpp` 用模拟 codec 检查 PCM 拼帧、背压、输出格式事件、首包、尾帧补零、EOS 和失败回收。`tests/host/TranscodeModels.test.cjs` 检查预检请求覆盖、任务互斥、取消、文件清理和报告。上述检查不代替真机 codec 调度、播放观感、文件管理或图库导出验证。
 
@@ -280,7 +288,7 @@ Native 在异步任务入队前复制输入、输出 fd，工作线程只使用�
 
 #### 媒体分析、能力检查与分阶段诊断
 
-`TranscodeQualityTest.cpp` 检查双线性亮度/色度、同尺寸精确复制、Buffer 边界和 32 种采样率/声道组合的采样数。音频管线测试还覆盖目标布局、输出采样时钟、尾部和时间戳跳变；模型测试覆盖质量快照、不兼容队列配置和预览取消。这些 Host 检查不代表已确认真机转封装兼容性、编码画质或实际音画同步。
+`TranscodeQualityTest.cpp` 检查双线性亮度/色度、同尺寸精确复制、Buffer 边界和 32 种采样率/声道组合的采样数。音频管线测试还覆盖目标布局、输出采样时钟、尾部和时间戳跳变；`TranscodeCodecCallbacksTest.cpp` 检查四路回调隔离、格式与 EOS 顺序、缓冲借用、队列上限、错误来源，以及取消和晚到回调。模型测试覆盖质量快照、旧队列兼容、同步/异步选项恢复、不兼容配置和预览取消。这些 Host 检查不代表已确认真机回调时序、转封装兼容性、编码画质或实际音画同步。
 
 选源和修改输出配置后，Native 异步读取媒体描述，显示源 MIME、宽高、帧率、时长、可选音轨和预计输出尺寸。检查覆盖解码和编码的尺寸/帧率组合、编码码率范围，以及 Buffer 输入所需的 NV12 布局。指定硬件或软件时不静默换类别，查询到的名称也用于创建实例。预检不启动 codec；启动时重新检查，最终以 Configure、Prepare、Start 结果为准。
 
@@ -598,6 +606,8 @@ AVCodec/
     │   │   │   ├── transcoder                # 转码、转封装、预览与结果检查
     │   │   │   │   ├── TranscoderNative.cpp  # 请求校验、复制 fd 和 N-API 工作项
     │   │   │   │   ├── TranscodeJob.cpp/.h   # 主循环、Buffer/Surface 交接和收尾
+    │   │   │   │   ├── TranscodeCodecIO.cpp # 同步查询或异步回调消费
+    │   │   │   │   ├── TranscodeCodecCallbacks.cpp/.h # 有界回调队列与退出通知
     │   │   │   │   ├── TranscodeOperations.cpp # 帧率限制、首帧预览和转封装
     │   │   │   │   ├── TranscodeFrameProcessor.cpp/.h # YUV 布局、缩放、裁剪、灰度
     │   │   │   │   ├── TranscodeAudioPipeline.cpp/.h # 音轨解码、AAC 拼帧和编码
@@ -2274,14 +2284,28 @@ TranscodePage / TranscodeModel.start()
 
 ArkTS 保留自己打开的文件对象。Native 在工作入队前用 `F_DUPFD_CLOEXEC` 复制描述符，后台任务只关闭自己的副本；复制的 fd 仍指向同一个文件，不会复制媒体内容。页面每 250 ms 通过 `getStatus()` 读取快照，最终结果以 `start()` 的 Promise 为准。正常失败或取消会尝试删除 `.part`；进程意外退出遗留的文件由[任务恢复与文件清理](#task-recovery)处理。
 
-`Run()` 依次执行 `OpenSource()`、`InspectCodecs()`、`CheckStorage(true)`、`InitializeDemuxer()` 和 `ConfigureCodecs()`。`OpenSource()` 检查输入非空及输入输出不是同一文件，读取轨道、色彩和选中音轨。`InitializeDemuxer()` 选择轨道，按音频模式建立直通 Buffer 或 AAC 管线，并在区间转码时定位到起点前的同步帧。`ConfigureCodecs()` 按预检得到的名字创建实例，配置同步模式，先启动 encoder，再启动 decoder。能力查询通过后，仍逐项检查 Configure、Prepare、Start 的结果。
+`Run()` 依次执行 `OpenSource()`、`InspectCodecs()`、`CheckStorage(true)`、`InitializeDemuxer()` 和 `ConfigureCodecs()`。`OpenSource()` 检查输入非空及输入输出不是同一文件，读取轨道、色彩和选中音轨。`InitializeDemuxer()` 选择轨道，按音频模式建立直通 Buffer 或 AAC 管线，并在区间转码时定位到起点前的同步帧。`ConfigureCodecs()` 按预检得到的名字创建实例，仅在异步模式注册回调，配置选定的调度模式，先启动 encoder，再启动 decoder。能力查询通过后，仍逐项检查 Configure、Prepare、Start 的结果。
+
+<a id="transcode-codec-mode"></a>
+
+#### 同步查询与异步回调如何共用流水线
+
+“视频编解码调度”独立于 Buffer/Surface 输入模式。`TranscodeRequest.codecMode` 为 `0` 时同步查询，为 `1` 时使用异步回调；不传时保持同步。视频解码和编码同时使用该选项。AAC 转换仍使用同步编解码器，实际画面预览始终创建同步 decoder，原码流转封装不创建编解码器。NAPI Promise 在两种模式下都运行 Native 工作项，不能把 Promise 与编解码器异步模式混为一谈。
+
+`RegisterCodecCallbacks()` 在 Configure 和 Prepare 前向两侧注册 `OH_AVCodecCallback`。异步配置把 `OH_MD_KEY_ENABLE_SYNC_MODE` 设为 `0`，不调用视频 Query/GetInputBuffer/GetOutputBuffer。`onNeedInputBuffer` 和 `onNewOutputBuffer` 只把借用的 Buffer/index 放入解码输入、解码输出、编码输入、编码输出四个独立队列，不读文件、不拷贝像素、不写 muxer，也不在回调里 Push 或 Free。工作线程通过 `AcquireCodecBuffer()` 取队列事件，之后沿用同步模式的像素处理、背压和 EOS 规则。
+
+格式变化标记与输出 Buffer 按到达顺序入队。回调传入的 `OH_AVFormat *` 只在回调期间有效，因此队列不保存该指针。工作线程收到标记后重新获取描述：解码侧使布局缓存失效，编码侧用实际输出描述启动封装。每个队列最多保存 128 个事件，超限时任务失败，避免丢弃仍需归还的输出 Buffer。错误回调只记录最先收到的错误码及解码或编码来源；工作线程每轮检查该错误，即使没有新 Buffer 到达也能退出并清理资源。
+
+没有进展时，异步工作线程通过条件变量最多等待 2 ms，以便继续推进同步 AAC 和存储检查；回调提前唤醒它。每轮处理前记录事件版本，避免回调恰好发生在入睡前而丢失通知。取消会关闭队列并唤醒等待，清理在 Stop 前拒绝新事件，但回调上下文一直保留到两侧 Destroy 完成。取消或失败时仍借用的 Buffer 由 Stop/Destroy 失效，不在回调里逐个 Free。
+
+队列快照保存 `codecMode`，重启恢复后按各任务自己的模式执行；旧记录缺少该字段时恢复为同步。任务报告的配置字符串同时记录 `codecMode=sync/async`，便于区分相同画面链路下的两种调度方式。
 
 #### 为什么先排空输出，再推进输入
 
 完整视频转码每轮按以下顺序推进；任一步失败即退出主循环。
 
 ```text
-CheckStorage(false)
+CheckCodecCallbacks() -> CheckStorage(false)
   -> DrainEncoder()        编码输出写入 MP4，再归还编码输出
   -> SubmitDecodedFrame() 将已借出的解码帧交给编码器
   -> DrainDecoder()        最多借出一帧解码输出
@@ -2289,7 +2313,7 @@ CheckStorage(false)
   -> CopyAudio()           推进直通音轨或 AAC 管线
 ```
 
-这些视频 Query 使用零超时。`AV_ERR_TRY_AGAIN_LATER` 表示当前一步没有可用 Buffer，留到下一轮重试；它不会直接结束任务。先消费编码输出可以减少输出池占满后输入无法继续的问题。`pendingDecoded_` 最多保留一个尚未提交的解码帧，未处理完时 `DrainDecoder()` 不再取新帧。某轮没有进展会等待 2 ms；连续 30 秒没有进展则报告停滞，取消标记也在循环边界检查。
+同步视频 Query 使用零超时，异步模式则从回调队列取 Buffer/index。Query 暂不可用或回调队列为空都返回 `AV_ERR_TRY_AGAIN_LATER`，留到下一轮重试，不直接结束任务。先消费编码输出可以减少输出池占满后输入无法继续的问题。`pendingDecoded_` 最多保留一个尚未提交的解码帧，未处理完时 `DrainDecoder()` 不再取新帧。某轮没有进展最多等待 2 ms，异步模式可由回调提前唤醒；连续 30 秒没有进展则报告停滞，取消标记也在循环边界检查。
 
 `DrainEncoder()` 等待 AAC 实际输出描述就绪后，才处理视频编码输出。`StartMuxer()` 使用编码器实际输出描述加视频轨，补齐 MIME、尺寸和帧率，保留编码器产生的 codec config；音轨使用源描述或 AAC 输出描述。源视频的 AVC/HEVC 配置不能直接拿来描述重新编码后的码流。
 
@@ -2299,7 +2323,7 @@ CheckStorage(false)
 DrainDecoder()
   -> pendingDecoded_ / pendingDecodedIndex_ / pendingDecodedAttr_
 SubmitDecodedFrame() -> SubmitBufferFrame()
-  -> OH_VideoEncoder_QueryInputBuffer / GetInputBuffer
+  -> AcquireCodecBuffer(true, true): 同步 Query/GetInputBuffer 或取 onNeedInputBuffer 队列
   -> ProcessBufferFrame()
      -> ReadLayout(): 读取两侧实际宽高、stride、slice height
      -> TranscodeFrames::Process(): 读取源像素，写入编码输入 Buffer

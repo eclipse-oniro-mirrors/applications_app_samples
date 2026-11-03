@@ -169,6 +169,7 @@ Recording also depends on device capability. The camera profile, encoder's suppo
 | Source and destination | Select one video from Files or Gallery; export a completed MP4 to either destination | [Transcoding](#transcoding) |
 | Buffer processing | Decode to YUV, optionally downscale or convert to grayscale, and submit encoder input buffers | [Buffer path](#transcode-buffer) |
 | Surface connection | Decode directly to the encoder input Surface at the original dimensions | [Surface path](#transcode-surface) |
+| Synchronous/asynchronous scheduling | Both video codecs support synchronous queries or callback queues, with Buffer or Surface input | [Codec scheduling](#transcode-codec-mode) |
 | Encoding quality | Encoder selection, frame-rate cap, CBR/VBR and keyframe interval | [Quality settings](#transcode-quality) |
 | Processing preview | Decode one frame and display a processed thumbnail alongside the geometry diagram | [Buffer path](#transcode-buffer) |
 | MP4 remux | Copy the full original video and optional audio without creating codecs | [Remux](#transcode-remux) |
@@ -188,7 +189,8 @@ The page uses a separate `libtranscoder.so`; it does not start the Player or Rec
 | Setting | Available values and behavior |
 |---|---|
 | Codec / container | H.264 or H.265 in MP4; the device must provide the requested encoder |
-| Encoder input | Buffer or Surface; both use synchronous codec queries on a Native worker |
+| Encoder input | Buffer or Surface; both support synchronous queries and asynchronous callbacks |
+| Video codec scheduling | Synchronous by default; asynchronous mode applies to both video decoding and encoding, and is saved with queue settings |
 | Output size | Original, or long edge capped at 1920, 1080, or 720 pixels; Buffer only |
 | Target bitrate | 2, 4, 8, or 16 Mbps, with VBR or CBR; measured bitrate can differ |
 | Frame-rate cap | Source rate, 24, 30, 60 or 120 fps; never raises the source rate |
@@ -224,7 +226,7 @@ flowchart LR
 
 #### Buffer path
 
-`TranscodeJob` selects the first video track, configures the decoder for NV12 output, and configures an NV12 Buffer encoder. The worker obtains decoded frames with synchronous output queries. `TranscodeFrameProcessor.h` reads each side's actual width, height, stride, and slice height; decoder and encoder padding do not have to match.
+`TranscodeJob` selects the first video track, configures the decoder for NV12 output, and configures an NV12 Buffer encoder. The worker obtains decoded frames through synchronous queries or asynchronous callback queues, according to **Video codec scheduling**. Pixel processing and submission use the same code in both modes. `TranscodeFrameProcessor.h` reads each side's actual width, height, stride, and slice height; decoder and encoder padding do not have to match.
 
 The processor accepts 8-bit NV12, NV21, and I420 layouts and writes NV12. Nearest-neighbor is the default; bilinear interpolates luma and chroma at greater CPU cost. Bilinear is not an anti-aliasing filter for large downscales. For grayscale, luma is retained and chroma is filled with 128. This path reads, writes and copies pixels; it demonstrates decoded-pixel processing rather than matching Surface throughput.
 
@@ -238,11 +240,23 @@ The geometry diagram shows crop bounds, output dimensions and padding; it is not
 
 #### Frame rate, bitrate mode and keyframes
 
-The frame-rate cap is applied before CPU processing or Surface submission. Each PTS bucket at the requested rate retains at most one frame. Retained timestamps stay on the source timeline, minus the selected range start; there is no duplication or playback-speed change. The encoder uses the lower of the source rate and selected cap. Dropped frames are counted separately, and a dropped frame carrying EOS still triggers encoder EOS.
+The frame-rate cap is applied before CPU processing or Surface submission. Each PTS bucket at the requested rate retains at most one frame. Retained timestamps subtract the common source start offset and selected range start, preserving relative frame spacing; there is no duplication or playback-speed change. The encoder uses the lower of the source rate and selected cap. Dropped frames are counted separately, and a dropped frame carrying EOS still triggers encoder EOS.
 
 VBR is the default. CBR requests the codec's constant-bitrate mode but does not promise identical byte counts in each short interval. Preflight checks the selected encoder's mode, rate and bitrate limits; Configure remains the final check for combined settings. Keyframe interval is passed in milliseconds, not enforced by the application at exact timestamps.
 
-`TranscodeQualityModel.ets` holds these options and AAC settings. Queue entries store a separate named snapshot, so later edits do not alter queued tasks. Older entries use the existing defaults: nearest-neighbor, source fps, VBR, two-second keyframe interval, source audio layout and 128 kbps AAC.
+`TranscodeQualityModel.ets` holds these options, video codec scheduling and AAC settings. Queue entries store a separate named snapshot, so later edits do not alter queued tasks. Older entries use the existing defaults: synchronous video codecs, nearest-neighbor, source fps, VBR, two-second keyframe interval, source audio layout and 128 kbps AAC.
+
+<a id="transcode-codec-mode"></a>
+
+#### Synchronous and asynchronous video codecs
+
+The scheduling selector is independent of Buffer/Surface input. `TranscodeRequest.codecMode` is `0` for synchronous queries and `1` for asynchronous callbacks; omitted values keep the synchronous default. Both video codecs use the selected mode. AAC conversion remains synchronous, processed-frame preview always creates a synchronous decoder, and remuxing does not create codecs. The NAPI Promise runs a Native worker in either mode; a Promise by itself does not enable asynchronous codec callbacks.
+
+`RegisterCodecCallbacks()` registers `OH_AVCodecCallback` on both codecs before configuration and Prepare. Asynchronous mode sets `OH_MD_KEY_ENABLE_SYNC_MODE` to `0` and does not call video Query/GetInputBuffer/GetOutputBuffer APIs. `onNeedInputBuffer` and `onNewOutputBuffer` pass their borrowed Buffer/index to separate decoder/encoder input/output queues. The callbacks do not read files, copy pixels, write the muxer, submit input or free output. `AcquireCodecBuffer()` lets the worker consume those queues while keeping the same processing, backpressure and EOS rules as synchronous mode.
+
+Format-change markers are ordered with output events. The callback-scoped `OH_AVFormat *` is not retained: the worker reads its own current description, invalidates decoded layouts, or starts the muxer from actual encoder output metadata. Each queue is capped at 128 events; overflow fails the task instead of silently dropping a borrowed output. Codec errors retain the first error and its decoder/encoder origin, including when no buffer arrives.
+
+When idle, the asynchronous worker waits on a condition variable for up to 2 ms, so synchronous AAC work and storage checks still advance. A revision captured before pumping avoids losing a callback arriving just before the wait. Cancel closes the queues and wakes the worker; cleanup rejects late events before stopping the codecs and keeps callback contexts alive until both codecs have been destroyed. Buffers still borrowed on failure or cancellation are invalidated by Stop/Destroy, not individually freed from a callback.
 
 <a id="transcode-surface"></a>
 
@@ -256,7 +270,7 @@ This path keeps the original dimensions. Selecting Surface resets size and filte
 
 #### Full-file MP4 remux
 
-**Remux original streams** reads the first video track and an optional selected audio track, adds their original descriptions to the MP4 muxer, then copies compressed samples with their timestamps and attributes. It creates no codecs and performs no pixel copy. AddTrack determines MP4 compatibility; there is no hidden re-encoding fallback. Rejected audio requires no-audio mode or normal transcoding with AAC conversion.
+**Remux original streams** reads the first video track and an optional selected audio track, adds their original descriptions to the MP4 muxer, then copies compressed samples with their packet attributes and relative timestamps. Both tracks subtract the same source start offset before muxing. It creates no codecs and performs no pixel copy. AddTrack determines MP4 compatibility; there is no hidden re-encoding fallback. Rejected audio requires no-audio mode or normal transcoding with AAC conversion.
 
 Remux covers the whole file. Size changes, crop/padding, grayscale, filtering, frame-rate changes, time cuts and AAC conversion are unavailable; switching operation resets incompatible controls. Codec, bitrate and keyframe controls are hidden because they cannot change copied streams. Other video tracks, subtitles and attachments are not copied. HDR is not rejected merely for being HDR, but compressed copying does not guarantee preservation of every format-specific HDR metadata item through the muxer.
 
@@ -270,13 +284,15 @@ The encoder's actual output description supplies the new video track. Source cod
 
 Native duplicates the input/output descriptors before queueing its asynchronous work. The job owns those duplicates and closes them after releasing the codecs and muxer. Status polling every 250 ms updates media progress, encoded frame count, video payload bytes, and output dimensions. The byte count excludes audio and MP4 overhead. A 30-second interval with no pipeline progress fails the task; cancellation is checked between codec operations.
 
-Output is first written to `filesDir/transcodes/transcoded_<timestamp>.mp4.part`. After output EOS, successful muxer finalization and file flush, Native reopens the MP4 and checks positive duration, track count, audio/video MIME and video dimensions. Structural failures prevent publication. It also compares selected duration, rotation, available source color descriptors and requested audio rate/channel count. Duration tolerance is the greater of 250 ms and two output-frame intervals. When both track-start timestamps are available, an audio/video start difference over 100 ms is reported.
+`ReadSourceMetadata()` reads `OH_MD_KEY_START_TIME` from the source description. A positive source start becomes the shared timestamp origin; a missing or nonpositive value uses zero. This matters for MPEG-TS files: audio starting at 1,405,333 microseconds and video at 1,440,000 microseconds should become 0 and 34,667 microseconds, keeping their relative offset without adding about 1.4 seconds to MP4 duration. Buffer encoding subtracts the origin before submitting encoder input; Surface encoding and remuxing do so before muxing. AAC conversion also rebases PCM timestamps when processing the full file. Range selection remains relative to the beginning of the file; `ConfigureTimeRange()` adds the source origin when comparing against raw decoder PTS. Sources with a positive origin are decoded from the beginning for range selection: an approximate TS seek can land on a non-keyframe even with `PREVIOUS_SYNC`. This preserves reference frames at the cost of extra decoding. Other sources still seek using file-relative time.
+
+Output is first written to `filesDir/transcodes/transcoded_<timestamp>.mp4.part`. After output EOS, successful muxer finalization and file flush, Native reopens the MP4 and checks positive duration, track count, audio/video MIME and video dimensions. Structural failures prevent publication. It also compares selected duration, rotation, available source color descriptors and requested audio rate/channel count. Duration tolerance is the greater of 250 ms and two output-frame intervals. When both track-start timestamps are available, an audio/video start difference over 100 ms is reported. Validation differences and the source origin, expected duration and actual duration are logged for diagnosis.
 
 Metadata differences produce a warning rather than deleting a structurally valid file. The result card, TXT and session reports retain the details. Missing source metadata is not invented; unavailable track-start data does not imply synchronization. These checks do not decode the result or establish per-frame integrity or end-to-end A/V synchronization. Cancellation and failure remove incomplete files. Export copies the completed file to a URI authorized by the system dialog without broad media-write permission. Failed export retains the private copy for retry.
 
-Video re-encoding and processed-frame preview accept SDR input. They reject HDR Vivid, PQ/HLG and HEVC profiles outside Main because HDR transfer, 10-bit processing and dynamic metadata preservation are not implemented. They do not turn HDR into unmarked SDR. Full-file remux has the separate limits described above. Codec availability, dimensions and synchronous Surface support depend on the device; native `Configure()` is the final check.
+Video re-encoding and processed-frame preview accept SDR input. They reject HDR Vivid, PQ/HLG and HEVC profiles outside Main because HDR transfer, 10-bit processing and dynamic metadata preservation are not implemented. They do not turn HDR into unmarked SDR. Full-file remux has the separate limits described above. Codec availability, dimensions and the selected scheduling/Surface combination depend on the device; native `Configure()` is the final check.
 
-`tests/native/TranscodeFrameProcessorTest.cpp` covers fit sizing, independent stride/slice padding, chroma order, grayscale, short buffers and the same-size fast path. `TranscodeDiagnosticsTest.cpp` checks bounded sampling and wait spans. `TranscodeAudioPipelineTest.cpp` uses fake codecs to check PCM framing, backpressure, format events, the first packet, padded tail, EOS and failure cleanup. `tests/host/TranscodeModels.test.cjs` checks inspection races, task exclusion, cancellation, cleanup and reports. These checks do not replace real-device codec scheduling, output playback, Files or Gallery export verification.
+`tests/native/TranscodeFrameProcessorTest.cpp` covers fit sizing, independent stride/slice padding, chroma order, grayscale, short buffers and the same-size fast path. `TranscodeDiagnosticsTest.cpp` checks bounded sampling and wait spans. `TranscodeAudioPipelineTest.cpp` uses fake codecs to check PCM framing, backpressure, format events, the first packet, padded tail, EOS and failure cleanup. `TranscodeCodecCallbacksTest.cpp` checks four isolated channels, format/EOS ordering, borrowed buffers, queue limits, error origin, cancellation and late callbacks. `tests/host/TranscodeModels.test.cjs` checks inspection races, task exclusion, cancellation, cleanup, reports, legacy queue compatibility and scheduling restoration. These checks do not replace real-device codec scheduling, output playback, Files or Gallery export verification.
 
 <a id="transcode-diagnostics"></a>
 
@@ -586,6 +602,8 @@ AVCodec/
     │   │   │   ├── transcoder/
     │   │   │   │   ├── TranscoderNative.cpp # Request validation, fd duplication and async work
     │   │   │   │   ├── TranscodeJob.cpp/.h  # Main loop, Buffer/Surface handoff and cleanup
+    │   │   │   │   ├── TranscodeCodecIO.cpp # Sync queries or async callback consumption
+    │   │   │   │   ├── TranscodeCodecCallbacks.cpp/.h # Bounded callback queues and shutdown
     │   │   │   │   ├── TranscodeOperations.cpp # Rate cap, first-frame preview and remux
     │   │   │   │   ├── TranscodeFrameProcessor.cpp/.h # YUV layout, resizing, crop and grayscale
     │   │   │   │   ├── TranscodeAudioPipeline.cpp/.h # Audio decoding, AAC framing and encoding
@@ -1879,14 +1897,14 @@ TranscodePage / TranscodeModel.start()
 
 ArkTS keeps its own open file objects. Before queuing work, Native duplicates the descriptors with `F_DUPFD_CLOEXEC` and closes only those duplicates. Both descriptors refer to the same file; this does not copy media content. The page polls `getStatus()` every 250 ms, while the `start()` Promise supplies the final result. Handled failures and cancellation attempt to remove the partial file; leftovers after process termination are covered by [task recovery](#task-recovery).
 
-`Run()` calls `OpenSource()`, `InspectCodecs()`, `CheckStorage(true)`, `InitializeDemuxer()` and `ConfigureCodecs()`. Source opening rejects an empty source and identical input/output files, then reads tracks, color information and the selected audio track. Demuxer initialization selects tracks, prepares passthrough audio or the AAC pipeline, and seeks to the preceding sync frame for a selected range. Codec setup creates the inspected codec names, enables synchronous operation, and starts the encoder before the decoder. Configure, Prepare and Start are checked even after capability inspection succeeds.
+`Run()` calls `OpenSource()`, `InspectCodecs()`, `CheckStorage(true)`, `InitializeDemuxer()` and `ConfigureCodecs()`. Source opening rejects an empty source and identical input/output files, then reads tracks, color information and the selected audio track. Demuxer initialization selects tracks, prepares passthrough audio or the AAC pipeline, and seeks to the preceding sync frame for a selected range. Codec setup creates the inspected codec names, registers callbacks only for asynchronous mode, configures the selected scheduling mode, and starts the encoder before the decoder. Configure, Prepare and Start are checked even after capability inspection succeeds.
 
 #### Why output is drained before more input is fed
 
 The full video-transcode loop advances in this order and exits on any failed step:
 
 ```text
-CheckStorage(false)
+CheckCodecCallbacks() -> CheckStorage(false)
   -> DrainEncoder()        write encoded output, then return it
   -> SubmitDecodedFrame() submit the already borrowed decoded frame
   -> DrainDecoder()        borrow at most one decoded output
@@ -1894,7 +1912,7 @@ CheckStorage(false)
   -> CopyAudio()           advance passthrough or AAC audio
 ```
 
-Video Query calls use zero timeout. `AV_ERR_TRY_AGAIN_LATER` leaves that step for the next iteration rather than failing the job. Draining encoded output first reduces input stalls caused by a full output pool. `pendingDecoded_` holds at most one frame awaiting submission; `DrainDecoder()` will not borrow another until it is handled. An iteration without progress waits 2 ms; 30 seconds without progress fails the job. Cancellation is checked at loop boundaries.
+Synchronous video Query calls use zero timeout; asynchronous mode takes the callback's Buffer/index from its queue instead. Either an empty queue or Query timeout yields `AV_ERR_TRY_AGAIN_LATER`, leaving that step for the next iteration rather than failing the job. Draining encoded output first reduces input stalls caused by a full output pool. `pendingDecoded_` holds at most one frame awaiting submission; `DrainDecoder()` will not borrow another until it is handled. An iteration without progress waits up to 2 ms (a callback wakes asynchronous mode early); 30 seconds without progress fails the job. Cancellation is checked at loop boundaries.
 
 `DrainEncoder()` waits for the AAC output description when AAC is selected. `StartMuxer()` adds the video track from the actual encoder output description, fills MIME, size and frame rate, and retains the encoder's codec config. The audio track uses the source description or actual AAC description. Source AVC/HEVC codec config must not describe a newly encoded stream.
 
@@ -1904,7 +1922,7 @@ Video Query calls use zero timeout. `AV_ERR_TRY_AGAIN_LATER` leaves that step fo
 DrainDecoder()
   -> pendingDecoded_ / pendingDecodedIndex_ / pendingDecodedAttr_
 SubmitDecodedFrame() -> SubmitBufferFrame()
-  -> OH_VideoEncoder_QueryInputBuffer / GetInputBuffer
+  -> AcquireCodecBuffer(true, true): Query/GetInputBuffer or queued onNeedInputBuffer
   -> ProcessBufferFrame()
      -> ReadLayout(): actual size, stride and slice height on both sides
      -> TranscodeFrames::Process(): read source pixels, write encoder input

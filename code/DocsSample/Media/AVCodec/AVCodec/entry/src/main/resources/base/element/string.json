@@ -1216,6 +1216,10 @@
     {"name":"transcode_preview_frame","value":"Preview processed frame"},
     {"name":"transcode_preview_running","value":"Generating preview…"},
     {"name":"transcode_preview_hint","value":"First retained frame processed at thumbnail resolution with the Buffer processor, capped at a 640 px long edge. Encoding and container rotation are not simulated."},
-    {"name":"transcode_validation_warning","value":"Output is available, but metadata checks found differences. See the report before sharing."}
+    {"name":"transcode_validation_warning","value":"Output is available, but metadata checks found differences. See the report before sharing."},
+    {"name":"transcode_codec_mode","value":"Video codec scheduling"},
+    {"name":"transcode_codec_sync","value":"Synchronous"},
+    {"name":"transcode_codec_async","value":"Asynchronous"},
+    {"name":"transcode_codec_mode_hint","value":"Applies to video decoding and encoding, with Buffer or Surface input. AAC conversion and frame preview remain synchronous; remuxing uses no codecs."}
   ]
 }

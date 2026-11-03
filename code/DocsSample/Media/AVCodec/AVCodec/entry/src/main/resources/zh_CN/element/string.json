@@ -1203,6 +1203,10 @@
     {"name":"transcode_preview_frame","value":"预览处理后画面"},
     {"name":"transcode_preview_running","value":"正在生成预览…"},
     {"name":"transcode_preview_hint","value":"首个保留帧使用 Buffer 处理函数，在长边不超过 640 像素的缩略图尺寸完成处理。不模拟编码压缩或容器旋转。"},
-    {"name":"transcode_validation_warning","value":"文件已生成，但元数据校验发现差异，分享前请查看报告。"}
+    {"name":"transcode_validation_warning","value":"文件已生成，但元数据校验发现差异，分享前请查看报告。"},
+    {"name":"transcode_codec_mode","value":"视频编解码调度"},
+    {"name":"transcode_codec_sync","value":"同步模式"},
+    {"name":"transcode_codec_async","value":"异步模式"},
+    {"name":"transcode_codec_mode_hint","value":"同时作用于视频解码和编码，支持 Buffer 和 Surface 输入。AAC 转换与画面预览仍用同步模式；原码流转封装不创建编解码器。"}
   ]
 }
