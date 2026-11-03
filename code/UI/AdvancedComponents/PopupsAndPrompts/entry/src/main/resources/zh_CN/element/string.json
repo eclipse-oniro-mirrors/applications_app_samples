@@ -1,0 +1,108 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "弹窗、异常提示与选择菜单示例"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "弹窗与提示示例"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "弹窗与提示"
+    },
+    {
+      "name": "page_title",
+      "value": "弹窗与提示"
+    },
+    {
+      "name": "breakpoint_label",
+      "value": "当前布局"
+    },
+    {
+      "name": "hub_popup_title",
+      "value": "PopupV2"
+    },
+    {
+      "name": "hub_popup_desc",
+      "value": "带按钮与关闭操作的气泡"
+    },
+    {
+      "name": "hub_exception_title",
+      "value": "ExceptionPrompt"
+    },
+    {
+      "name": "hub_exception_desc",
+      "value": "带操作文本的异常提示"
+    },
+    {
+      "name": "hub_exception_v2_title",
+      "value": "ExceptionPromptV2"
+    },
+    {
+      "name": "hub_exception_v2_desc",
+      "value": "基于状态管理 V2 的异常提示"
+    },
+    {
+      "name": "hub_selection_title",
+      "value": "SelectionMenu"
+    },
+    {
+      "name": "hub_selection_desc",
+      "value": "RichEditor 自定义文本选择菜单"
+    },
+    {
+      "name": "popup_title",
+      "value": "PopupV2 示例"
+    },
+    {
+      "name": "exception_title",
+      "value": "ExceptionPrompt 示例"
+    },
+    {
+      "name": "exception_v2_title",
+      "value": "ExceptionPromptV2 示例"
+    },
+    {
+      "name": "selection_title",
+      "value": "SelectionMenu 示例"
+    },
+    {
+      "name": "back",
+      "value": "返回"
+    },
+    {
+      "name": "confirm",
+      "value": "确认"
+    },
+    {
+      "name": "cancel",
+      "value": "取消"
+    },
+    {
+      "name": "show",
+      "value": "再次显示"
+    },
+    {
+      "name": "action",
+      "value": "设置"
+    },
+    {
+      "name": "set_selection",
+      "value": "设置选区"
+    },
+    {
+      "name": "selected_label",
+      "value": "已选择"
+    },
+    {
+      "name": "menu_action",
+      "value": "菜单操作"
+    },
+    {
+      "name": "hide",
+      "value": "隐藏"
+    }
+  ]
+}
