@@ -87,11 +87,8 @@ static Image_ErrorCode CreatePixelMap(OH_PixelmapNative **pixelmap)
     }
 
     // 获取图片的宽、高、像素格式、透明度类型等信息。
-    uint32_t width;
-    uint32_t height;
-    uint32_t rowStride;
-    int32_t pixelFormat;
-    int32_t alphaType;
+    uint32_t width, height, rowStride;
+    int32_t pixelFormat, alphaType;
     OH_PixelmapImageInfo_GetWidth(imageInfo, &width);
     OH_PixelmapImageInfo_GetHeight(imageInfo, &height);
     OH_PixelmapImageInfo_GetRowStride(imageInfo, &rowStride);
