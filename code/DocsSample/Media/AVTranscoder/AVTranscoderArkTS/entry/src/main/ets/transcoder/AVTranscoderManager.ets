@@ -72,7 +72,7 @@ export class AVTranscoderDemo {
         this.avTranscoder = undefined;
       }
       // [Start createInstance]
-      // 创建转码实例。
+      // 1.创建转码实例。
       this.avTranscoder = await media.createAVTranscoder();
       // [End createInstance]
       this.setAVTranscoderCallback();
