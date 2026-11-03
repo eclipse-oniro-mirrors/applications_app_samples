@@ -473,7 +473,7 @@ export default function fastBufferUtilMatrixTest() {
     /**
      * @tc.number SUB_FASTBUFFER_STREAM_FASTBUFFERUTILMATRIX_3200
      * @tc.name util_uint32_one_be
-     * @tc.desc Verify util uint32 big-endian write of one places the byte last
+     * @tc.desc Verify util uint32 big-endian write of one puts the byte last
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -488,7 +488,7 @@ export default function fastBufferUtilMatrixTest() {
     /**
      * @tc.number SUB_FASTBUFFER_STREAM_FASTBUFFERUTILMATRIX_3300
      * @tc.name util_uint32_one_le
-     * @tc.desc Verify util uint32 little-endian write of one places the byte first
+     * @tc.desc Verify util uint32 little-endian write of one puts the byte first
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

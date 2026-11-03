@@ -25,22 +25,22 @@ const CRC_SIZE: number = 4;
 
 /** 单条 TLV 记录解析结果 */
 export class TlvRecord {
-  tag: number = 0;
-  length: number = 0;
-  value: fastbuffer.FastBuffer = fastbuffer.alloc(0);
-  crcOk: boolean = false;
+  public tag: number = 0;
+  public length: number = 0;
+  public value: fastbuffer.FastBuffer = fastbuffer.alloc(0);
+  public crcOk: boolean = false;
 }
 
 /** 整条字节流的解析汇总结果 */
 export class TlvParseResult {
   /** 结构完整（所有记录完整解析到流末尾）；坏 CRC 不影响 ok */
-  ok: boolean = false;
-  records: TlvRecord[] = [];
+  public ok: boolean = false;
+  public records: TlvRecord[] = [];
   /** 因噪声跳过的字节数 */
-  noiseBytes: number = 0;
+  public noiseBytes: number = 0;
   /** 截断记录的起始偏移（ok=true 时为 -1） */
-  errorIndex: number = -1;
-  errorMessage: string = '';
+  public errorIndex: number = -1;
+  public errorMessage: string = '';
 }
 
 export class TlvUtil {

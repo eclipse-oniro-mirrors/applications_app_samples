@@ -125,7 +125,7 @@ docs/screenshots/                                // 真机截图
 
 ## 本 ROM（API 26 开发板）适配说明
 
-示例在 RK3568 API 26 镜像上调通，过程中确认了若干与文档/Node.js 语义有差异的行为。在其他 ROM 版本或模拟器上复现本示例时，若遇到异常请先对照以下各条：
+示例在 RK3568 API 26 镜像上调通，过程中确认了若干与文档/Node.js 语义有差异的行为。在其它 ROM 版本或模拟器上复现本示例时，若遇到异常请先对照以下各条：
 
 1. **stream 子类不得声明名为 `buf` 的字段**：`stream.Writable/Readable` 基类内部持有 `private buf: Array<number>`，子类同名私有字段会覆盖基类缓冲区，运行时报 `cannot Callspread`。本示例 FileReadable 的读取缓冲命名为 `readBuf`。
 2. **`doWrite` 必须同步调用 `callback()`**：框架以同步递归方式排空写队列，延迟回调会导致排队块丢失（实测 3 块只落盘 2 块）。由此 Cork 期间单次积压不可过大（实测一次性 cork 400KB 会同步递归爆栈），示例仅 cork 5/10 块。
@@ -144,7 +144,7 @@ docs/screenshots/                                // 真机截图
 | 1 万次 4B 写读 | 67ms | 1478ms | FastBuffer 约快 22 倍 |
 | 2000 片拼接 | 133ms | 733ms | FastBuffer 约快 5.5 倍 |
 
-两套 API 的校验和与拼接长度一致（正确性校验通过）。工程只做同负载对比，不下绝对快慢结论。
+两套 API 的校验和与拼接长度一致（正确性校验通过）。工程只做同负载对比，不给出普适的快慢结论。
 
 流式场景实测：场景 3 `finish` 后文件 **409600B**（与预期一致，cork 期间出现多次 `write()=false` 背压信号）；场景 4 分块读回总量与文件大小一致；场景 5 落盘 **20502B** 且文件头已大写；场景 8 落盘 **2582B** 且大写加工生效；场景 9 回显 `HELLOSTREAM` 往返一致。
 
@@ -174,7 +174,7 @@ hdc shell aa start -b com.samples.fastbufferstreamdemo -a EntryAbility
 
 提示：安装 ohosTest HAP 可能顶替设备上的主模块，测试完重新安装主 HAP 即可；日志查看 `hdc shell hilog -T FastBufferStream`；设备自动锁屏会造成"应用消失"的假象，自动化前先 `power-shell wakeup` 并解锁。未配置签名时产物为 unsigned HAP，`bm install` 会报 `no signature file`，需先完成上述签名配置。
 
-## 测试矩阵
+## 设备侧测试（248 例）
 
 设备侧 hypium 测试 16 个套件 248 例（`entry/src/ohosTest/ets/test/`），已在 RK3568（API 26）真机全量通过。组合用例按「取值 × 字节序」「编码 × 边界」「记录数 × value 长度 × 噪声」「级别 × 级别」等维度逐条展开，每条均为显式 `it` 并带完整 `@tc` 注释头：
 
@@ -201,7 +201,7 @@ hdc shell aa start -b com.samples.fastbufferstreamdemo -a EntryAbility
 
 ## 已知限制
 
-* 场景 2 性能结论依设备而异（本示例只做同负载计时与正确性对比，不下绝对快慢结论）。
+* 场景 2 性能结论依设备而异（本示例只做同负载计时与正确性对比，不给出普适的快慢结论）。
 * 场景 8 的两跳 `pipe()` 链与场景 9 的 Duplex 在部分较早 ROM 版本上存在行为差异（见适配说明第 2/5 条）；若在低版本上挂起，可退化为单跳 `source.pipe(sink)` + Transform 手动中转。
 * `FileReadable` 按 4KB 字节边界切分后转 utf8 字符串，仅适用于分块边界落在字符边界的内容（演示数据均为 ASCII）；处理任意二进制/多字节文本应改用 `Uint8Array` 推送（需先在目标 ROM 复验适配第 3 条）。
 * 流式场景的进度日志做了抽样输出（避免日志面板过载），完整数据以 `finish` 校验为准。

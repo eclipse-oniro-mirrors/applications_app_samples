@@ -117,6 +117,14 @@ export class StreamFileUtil {
     onProgress?: (written: number, total: number) => void): Promise<number> {
     return new Promise<number>((resolve, reject) => {
       let fd: number = -1;
+      let handedOff: boolean = false;
+      let fdClosed: boolean = false;
+      const closeFd = (): void => {
+        if (!fdClosed && fd >= 0) {
+          fdClosed = true;
+          fs.closeSync(fd);
+        }
+      };
       try {
         try {
           fs.unlinkSync(path);
@@ -132,25 +140,29 @@ export class StreamFileUtil {
         });
         writer.on('finish', () => {
           const size: number = fs.statSync(path).size;
-          fs.closeSync(fd);
+          closeFd();
           LogUtil.info('StreamFileUtil', `流式写入完成：${path}（${size}B）`);
           resolve(size);
         });
         writer.on('error', (err: emitter.EventData) => {
           const e = err.data as Error;
           LogUtil.error('StreamFileUtil', `写入流出错：${e && e.message ? e.message : '未知错误'}`);
-          fs.closeSync(fd);
+          closeFd();
           reject(new Error(`写入流出错：${e && e.message ? e.message : '未知错误'}`));
         });
         for (const c of chunks) {
           writer.write(c, 'utf8');
         }
         writer.end();
+        handedOff = true;
       } catch (err) {
-        if (fd >= 0) {
+        closeFd();
+        reject(err as Error);
+      } finally {
+        if (!handedOff && !fdClosed && fd >= 0) {
+          fdClosed = true;
           fs.closeSync(fd);
         }
-        reject(err as Error);
       }
     });
   }
@@ -159,6 +171,14 @@ export class StreamFileUtil {
   static readFileStreaming(path: string, onChunk: (info: ReadProgress, chunk: string) => void): Promise<number> {
     return new Promise<number>((resolve, reject) => {
       let fd: number = -1;
+      let handedOff: boolean = false;
+      let fdClosed: boolean = false;
+      const closeFd = (): void => {
+        if (!fdClosed && fd >= 0) {
+          fdClosed = true;
+          fs.closeSync(fd);
+        }
+      };
       try {
         fd = fs.openSync(path, fs.OpenMode.READ_ONLY).fd;
         const size: number = fs.statSync(path).size;
@@ -180,21 +200,25 @@ export class StreamFileUtil {
           onChunk(info, chunk);
         });
         reader.on('end', () => {
-          fs.closeSync(fd);
+          closeFd();
           LogUtil.info('StreamFileUtil', `流式读取完成：${received}B / ${size}B，共 ${chunkIndex} 块`);
           resolve(received);
         });
         reader.on('error', (err: emitter.EventData) => {
           const e = err.data as Error;
           LogUtil.error('StreamFileUtil', `读取流出错：${e && e.message ? e.message : '未知错误'}`);
-          fs.closeSync(fd);
+          closeFd();
           reject(new Error(`读取流出错：${e && e.message ? e.message : '未知错误'}`));
         });
+        handedOff = true;
       } catch (err) {
-        if (fd >= 0) {
+        closeFd();
+        reject(err as Error);
+      } finally {
+        if (!handedOff && !fdClosed && fd >= 0) {
+          fdClosed = true;
           fs.closeSync(fd);
         }
-        reject(err as Error);
       }
     });
   }
@@ -204,6 +228,20 @@ export class StreamFileUtil {
     return new Promise<number>((resolve, reject) => {
       let srcFd: number = -1;
       let destFd: number = -1;
+      let handedOff: boolean = false;
+      let fdsClosed: boolean = false;
+      const closeFds = (): void => {
+        if (fdsClosed) {
+          return;
+        }
+        fdsClosed = true;
+        if (srcFd >= 0) {
+          fs.closeSync(srcFd);
+        }
+        if (destFd >= 0) {
+          fs.closeSync(destFd);
+        }
+      };
       try {
         try {
           fs.unlinkSync(dest);
@@ -234,31 +272,34 @@ export class StreamFileUtil {
         reader.on('error', (err: emitter.EventData) => {
           const e = err.data as Error;
           LogUtil.error('StreamFileUtil', `拷贝读流出错：${e && e.message ? e.message : '未知错误'}`);
-          fs.closeSync(srcFd);
-          fs.closeSync(destFd);
+          closeFds();
           reject(new Error(`拷贝读流出错：${e && e.message ? e.message : '未知错误'}`));
         });
         writer.on('finish', () => {
-          fs.closeSync(srcFd);
-          fs.closeSync(destFd);
+          closeFds();
           LogUtil.info('StreamFileUtil', `流式拷贝完成：${copied}B`);
           resolve(copied);
         });
         writer.on('error', (err: emitter.EventData) => {
           const e = err.data as Error;
           LogUtil.error('StreamFileUtil', `拷贝写出错：${e && e.message ? e.message : '未知错误'}`);
-          fs.closeSync(srcFd);
-          fs.closeSync(destFd);
+          closeFds();
           reject(new Error(`拷贝写出错：${e && e.message ? e.message : '未知错误'}`));
         });
+        handedOff = true;
       } catch (err) {
-        if (srcFd >= 0) {
-          fs.closeSync(srcFd);
-        }
-        if (destFd >= 0) {
-          fs.closeSync(destFd);
-        }
+        closeFds();
         reject(err as Error);
+      } finally {
+        if (!handedOff && !fdsClosed) {
+          fdsClosed = true;
+          if (srcFd >= 0) {
+            fs.closeSync(srcFd);
+          }
+          if (destFd >= 0) {
+            fs.closeSync(destFd);
+          }
+        }
       }
     });
   }

@@ -29,7 +29,8 @@ export default function abilityTest() {
     /**
      * @tc.number SUB_FASTBUFFER_STREAM_ABILITY_0100
      * @tc.name abilityAssertContain001
-     * @tc.desc Verify the ability smoke case runs under the real test runner with basic string containment and equality assertions
+     * @tc.desc Verify the ability smoke case runs under the real test runner
+     * with basic string containment and equality assertions
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

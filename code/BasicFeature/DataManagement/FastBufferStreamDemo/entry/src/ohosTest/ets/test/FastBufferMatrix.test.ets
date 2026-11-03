@@ -62,7 +62,7 @@ export default function fastBufferMatrixTest() {
     /**
      * @tc.number SUB_FASTBUFFER_STREAM_FASTBUFFERMATRIX_0300
      * @tc.name uint32_roundtrip_one_be
-     * @tc.desc Verify uint32 big-endian round-trip of one places the byte at the most significant position
+     * @tc.desc Verify uint32 big-endian round-trip of one puts the byte at the most significant position
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -77,7 +77,7 @@ export default function fastBufferMatrixTest() {
     /**
      * @tc.number SUB_FASTBUFFER_STREAM_FASTBUFFERMATRIX_0400
      * @tc.name uint32_roundtrip_one_le
-     * @tc.desc Verify uint32 little-endian round-trip of one places the byte at the least significant position
+     * @tc.desc Verify uint32 little-endian round-trip of one puts the byte at the least significant position
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -212,7 +212,7 @@ export default function fastBufferMatrixTest() {
     /**
      * @tc.number SUB_FASTBUFFER_STREAM_FASTBUFFERMATRIX_1300
      * @tc.name uint16_roundtrip_ff_be
-     * @tc.desc Verify uint16 big-endian round-trip of 0x00FF places the byte last
+     * @tc.desc Verify uint16 big-endian round-trip of 0x00FF puts the byte last
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -227,7 +227,7 @@ export default function fastBufferMatrixTest() {
     /**
      * @tc.number SUB_FASTBUFFER_STREAM_FASTBUFFERMATRIX_1400
      * @tc.name uint16_roundtrip_ff_le
-     * @tc.desc Verify uint16 little-endian round-trip of 0x00FF places the byte first
+     * @tc.desc Verify uint16 little-endian round-trip of 0x00FF puts the byte first
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
