@@ -234,22 +234,22 @@ static OH_AVTranscoder_Config *createDefaultTransCoderConfig(int32_t dstFd)
     OH_AVTranscoder_Config *config = OH_AVTranscoderConfig_Create();
     // [End createTranscoderConfig]
     // [Start setFddst]
-    OH_AVTranscoderConfig_SetDstFD(config, dstFd);                                  // 设置转码的目标文件描述符dstFd。
+    OH_AVTranscoderConfig_SetDstFD(config, dstFd); // 设置转码的目标文件描述符dstFd。
     // [End setFddst]
     // [Start setFileType]
-    OH_AVTranscoderConfig_SetDstFileType(config, AV_OUTPUT_FORMAT_MPEG_4);          // 封装格式。
+    OH_AVTranscoderConfig_SetDstFileType(config, AV_OUTPUT_FORMAT_MPEG_4); // 封装格式。
     // [End setFileType]
     // [Start setVideoType]
-    OH_AVTranscoderConfig_SetDstVideoType(config, "video/avc");                     // 视频编码格式，可选。
+    OH_AVTranscoderConfig_SetDstVideoType(config, "video/avc"); // 视频编码格式，可选。
     // [End setVideoType]
     // [Start setAudioType]
-    OH_AVTranscoderConfig_SetDstAudioType(config, "audio/mp4a-latm");               // 音频编码格式，可选。
+    OH_AVTranscoderConfig_SetDstAudioType(config, "audio/mp4a-latm"); // 音频编码格式，可选。
     // [End setAudioType]
     // [Start setAudioBitrate]
-    OH_AVTranscoderConfig_SetDstAudioBitrate(config, AUDIO_BITRATE);                // 参考avcodec音频编码器码率设置，具体根据实际需要设置。
+    OH_AVTranscoderConfig_SetDstAudioBitrate(config, AUDIO_BITRATE); // 参考avcodec音频编码器码率设置，具体根据实际需要设置。
     // [End setAudioBitrate]
     // [Start setVideoBitrate]
-    OH_AVTranscoderConfig_SetDstVideoBitrate(config, VIDEO_BITRATE);                // 视频比特率，可选。
+    OH_AVTranscoderConfig_SetDstVideoBitrate(config, VIDEO_BITRATE); // 视频比特率，可选。
     // [End setVideoBitrate]
     return config;
 }
@@ -286,9 +286,9 @@ static napi_value OHAvTranscoderNdkPlay(napi_env env, napi_callback_info info)
     OH_AVErrCode errCode = OH_AVTranscoderConfig_SetSrcFD(g_ctx.config, srcFd, srcOffset, length); // 设置转码源视频FD。
     // [End setFdsrc]
     // [EndExclude setTranscoderCallback]
-    OH_AVTranscoder_SetStateCallback(transcoder, AvTranscoderStateChangeCbImpl, transcoderUser); // 设置状态回调
-    OH_AVTranscoder_SetErrorCallback(transcoder, AvTranscoderErrorCbImpl, transcoderUser); // 设置错误码回调
-    OH_AVTranscoder_SetProgressUpdateCallback(transcoder, AvTranscoderProgressUpdateCbImpl, transcoderUser); // 设置进度值回调
+    OH_AVTranscoder_SetStateCallback(transcoder, AvTranscoderStateChangeCbImpl, transcoderUser); // 设置状态回调。
+    OH_AVTranscoder_SetErrorCallback(transcoder, AvTranscoderErrorCbImpl, transcoderUser); // 设置错误码回调。
+    OH_AVTranscoder_SetProgressUpdateCallback(transcoder, AvTranscoderProgressUpdateCbImpl, transcoderUser); // 设置进度值回调。
     // [StartExclude setTranscoderCallback]
     g_ctx.transcoderUser = transcoderUser;
     AvTranscoderStateChangeFuncs(transcoderUser);
@@ -297,7 +297,7 @@ static napi_value OHAvTranscoderNdkPlay(napi_env env, napi_callback_info info)
         LOG("Transcoder setSrcFD failed, ret %{public}d", backParam);
     }
     // [Start doPrepare]
-    errCode = OH_AVTranscoder_Prepare(transcoder, g_ctx.config);
+    errCode = OH_AVTranscoder_Prepare(transcoder, g_ctx.config); // 准备转码。
     // [End doPrepare]
     if (errCode != AV_ERR_OK) {
         backParam = errCode;
@@ -351,14 +351,14 @@ static napi_value OHAvTranscoderNdkRelease(napi_env env, napi_callback_info info
     LOG("OH_AVTranscoder_Release ret:%{public}d", ret);
     if (g_ctx.transcoder != nullptr) {
         // [Start doReleaseTranscoder]
-        ret = OH_AVTranscoder_Release(g_ctx.transcoder); // 释放转码实例
+        ret = OH_AVTranscoder_Release(g_ctx.transcoder); // 释放转码实例。
         // [End doReleaseTranscoder]
         LOG("OH_AVTranscoder_Release ret:%{public}d", ret);
         g_ctx.transcoder = nullptr;
     }
     if (g_ctx.config != nullptr) {
         // [Start doReleaseConfig]
-        ret = OH_AVTranscoderConfig_Release(g_ctx.config); // 释放转码配置实例
+        ret = OH_AVTranscoderConfig_Release(g_ctx.config); // 释放转码配置实例。
         // [End doReleaseConfig]
         LOG("OH_AVTranscoderConfig_Release ret:%{public}d", ret);
         g_ctx.config = nullptr;
