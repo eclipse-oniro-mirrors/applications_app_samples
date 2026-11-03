@@ -14,27 +14,17 @@
  */
  
 import stream from '@ohos.util.stream';
-import { util } from '@kit.ArkTS';
 import { emitter } from '@kit.BasicServicesKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import fastbuffer from '@ohos.fastbuffer';
 import { LogUtil } from './utils/LogUtil';
 import { FileWritable, FileReadable } from './utils/StreamFileUtil';
+import { eventDataToText, decodeUtf8 } from './utils/EventDataUtil';
 
 const TAG = 'StreamPipeline';
-const UTF8_DECODER: util.TextDecoder = new util.TextDecoder('utf-8');
-
-/** 从流事件的 data 中安全取出字符串（替代不安全的 as Object as string） */
-function eventDataToText(data: emitter.EventData): string {
-  const value: Object | undefined = data.data;
-  if (typeof value === 'string') {
-    return value;
-  }
-  if (value instanceof Uint8Array) {
-    return UTF8_DECODER.decodeToString(value);
-  }
-  return '';
-}
+type StreamCallback = (err?: Error | null) => void;
+type FlushCallback = (err?: Error | null, data?: string) => void;
+const FLUSH_TAIL: string = '[PIPELINE-FLUSH-TAIL]';
 
 /** 场景3 写入的块数：100 块 × 4KB = 400KB，足以触发默认 16KB 水位线 */
 const WRITE_CHUNKS: number = 100;
@@ -84,16 +74,16 @@ class UpperCaseTransform extends stream.Transform {
     this.notify = notify;
   }
 
-  doTransform(chunk: string, encoding: string, callback: Function): void {
+  doTransform(chunk: string, encoding: string, callback: StreamCallback): void {
     const out: string = chunk.toUpperCase();
     this.notify(`块加工 ${chunk.length}B → ${out.length}B（转大写）`);
     this.push(out);
     callback();
   }
 
-  doFlush(callback: Function): void {
+  doFlush(callback: FlushCallback): void {
     this.notify('doFlush：流结束，追加尾部标记');
-    callback(null, '[PIPELINE-FLUSH-TAIL]');
+    callback(null, FLUSH_TAIL);
   }
 }
 
@@ -102,8 +92,8 @@ class UpperCaseTransform extends stream.Transform {
  *  因此不能采用"写侧入队、end 后再读"的回显模式，必须写读同步桥接。
  *  注意：内部不能声明名为 buf 的字段（会覆盖基类字节数组导致框架异常） */
 class EchoDuplex extends stream.Duplex {
-  doWrite(chunk: string | Uint8Array, encoding: string, callback: Function): void {
-    const text: string = typeof chunk === 'string' ? chunk : UTF8_DECODER.decodeToString(chunk);
+  doWrite(chunk: string | Uint8Array, encoding: string, callback: StreamCallback): void {
+    const text: string = typeof chunk === 'string' ? chunk : decodeUtf8(chunk);
     this.push(text.toUpperCase());
     callback();
   }
@@ -289,7 +279,7 @@ export class StreamPipeline {
           LogUtil.debug(TAG, `    [Transform] ${info}`);
         });
         const sink = new FileWritable(fd, (_n: number, total: number) => {
-          if (total === PIPELINE_BLOCKS * PIPELINE_BLOCK_SIZE + '[PIPELINE-FLUSH-TAIL]'.length) {
+          if (total === PIPELINE_BLOCKS * PIPELINE_BLOCK_SIZE + FLUSH_TAIL.length) {
             LogUtil.debug(TAG, `    [Writable] 全部落盘 ${total}B`);
           }
         });
@@ -447,10 +437,17 @@ export class StreamPipeline {
 
     const duplex = new EchoDuplex();
     const received: string[] = [];
+    let finished: boolean = false;
+    const doneOnce = (): void => {
+      if (!finished) {
+        finished = true;
+        this.onDone();
+      }
+    };
     duplex.on('error', (err: emitter.EventData) => {
       const e = err.data as Error;
       LogUtil.error(TAG, `9.x 双流出错：${e && e.message ? e.message : '未知错误'}`);
-      this.onDone();
+      doneOnce();
     });
     duplex.on('finish', () => {
       LogUtil.info(TAG, '9.1 finish 事件：写侧数据全部消费完毕');
@@ -464,7 +461,7 @@ export class StreamPipeline {
       const joined: string = received.join('');
       LogUtil.info(TAG, `9.3 end 事件：EOF 回送完成，共读回 ${received.length} 块：${received.join(' ')}`);
       LogUtil.info(TAG, `9.3 往返校验：${joined === 'HELLOSTREAM' ? '一致' : '不一致'}（hello/stream → 大写回显）`);
-      this.onDone();
+      doneOnce();
     });
 
     // 9.1 先进入流动模式再写入：写侧数据经 doWrite 桥接直达读侧 data 事件

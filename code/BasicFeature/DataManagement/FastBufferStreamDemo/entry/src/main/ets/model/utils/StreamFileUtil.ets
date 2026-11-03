@@ -18,21 +18,9 @@ import fastbuffer from '@ohos.fastbuffer';
 import { emitter } from '@kit.BasicServicesKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import { LogUtil } from './LogUtil';
-import { util } from '@kit.ArkTS';
+import { eventDataToText } from './EventDataUtil';
 
-const UTF8_DECODER: util.TextDecoder = new util.TextDecoder('utf-8');
-
-/** 从流事件的 data 中安全取出字符串（替代不安全的 as Object as string） */
-function eventDataToText(data: emitter.EventData): string {
-  const value: Object | undefined = data.data;
-  if (typeof value === 'string') {
-    return value;
-  }
-  if (value instanceof Uint8Array) {
-    return UTF8_DECODER.decodeToString(value);
-  }
-  return '';
-}
+type StreamCallback = (err?: Error | null) => void;
 
 /** 分块大小（4KB） */
 const CHUNK_SIZE: number = 4096;
@@ -57,19 +45,24 @@ export class FileWritable extends stream.Writable {
     this.notify = notify;
   }
 
-  doWrite(chunk: string | Uint8Array, encoding: string, callback: Function): void {
-    let n: number = 0;
-    if (typeof chunk === 'string') {
-      n = fs.writeSync(this.fd, chunk);
-    } else {
-      // Uint8Array → 拷贝为独立 ArrayBuffer 后落盘（避免底层缓冲被复用覆盖）
-      const ab: ArrayBuffer = chunk.buffer.slice(chunk.byteOffset, chunk.byteOffset + chunk.byteLength);
-      n = fs.writeSync(this.fd, ab);
+  doWrite(chunk: string | Uint8Array, encoding: string, callback: StreamCallback): void {
+    try {
+      let n: number = 0;
+      if (typeof chunk === 'string') {
+        n = fs.writeSync(this.fd, chunk);
+      } else {
+        // Uint8Array → 拷贝为独立 ArrayBuffer 后落盘（避免底层缓冲被复用覆盖）
+        const ab: ArrayBuffer = chunk.buffer.slice(chunk.byteOffset, chunk.byteOffset + chunk.byteLength);
+        n = fs.writeSync(this.fd, ab);
+      }
+      this.written += n;
+      this.notify(n, this.written);
+      // 本 ROM 要求 doWrite 同步回调：延迟回调会让框架提前判 finish/丢弃排队块（实测 3 块只落盘 2 块）
+      callback();
+    } catch (err) {
+      // 写入失败必须把错误回传给框架，否则流会永久等待回调而挂起
+      callback(err as Error);
     }
-    this.written += n;
-    this.notify(n, this.written);
-    // 本 ROM 要求 doWrite 同步回调：延迟回调会让框架提前判 finish/丢弃排队块（实测 3 块只落盘 2 块）
-    callback();
   }
 }
 
@@ -82,6 +75,8 @@ export class FileReadable extends stream.Readable {
   // 框架 push()/read() 随即在 ArrayBuffer 上调 push() 抛 cannot Callspread
   private readBuf: ArrayBuffer = new ArrayBuffer(CHUNK_SIZE);
   private chunkIndex: number = 0;
+  private eofTimer: number = -1;
+  private eofSent: boolean = false;
   private notify: (index: number, bytes: number, done: boolean) => void;
 
   constructor(fd: number, fileSize: number, notify: (index: number, bytes: number, done: boolean) => void) {
@@ -92,7 +87,11 @@ export class FileReadable extends stream.Readable {
   }
 
   doRead(size: number): void {
+    if (this.eofSent) {
+      return;
+    }
     if (this.offset >= this.fileSize) {
+      this.eofSent = true;
       this.push(null);
       return;
     }
@@ -109,10 +108,23 @@ export class FileReadable extends stream.Readable {
     if (done) {
       // 同一 doRead 内先 push 数据再 push(null) 会让框架的 EOF 处理与数据出队竞态，
       // 延迟一拍再送 EOF（单独 push(null) 的 doRead 已验证可用）
-      setTimeout(() => {
-        this.push(null);
-      }, 0);
+      this.pushEof();
     }
+  }
+
+  /** 延迟一拍发送 EOF；通过 eofSent/eofTimer 保证只发送一次，避免重复 timer 或重复 push(null) */
+  private pushEof(): void {
+    if (this.eofSent || this.eofTimer >= 0) {
+      return;
+    }
+    this.eofTimer = setTimeout(() => {
+      this.eofTimer = -1;
+      if (this.eofSent) {
+        return;
+      }
+      this.eofSent = true;
+      this.push(null);
+    }, 0);
   }
 }
 
