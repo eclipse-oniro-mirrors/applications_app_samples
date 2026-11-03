@@ -1245,6 +1245,25 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/Media/Audio/AudioEffectManagement/screenshots/device/index.jpg" desc="Provided by code/DocsSample/Media/Audio/AudioEffectManagement"/>
 				<filteritem type="filepath" name="code/DocsSample/Media/Audio/AudioEffectManagement/screenshots/device/PresetEffect.jpg" desc="Provided by code/DocsSample/Media/Audio/AudioEffectManagement"/>
 				<filteritem type="filepath" name="code/DocsSample/Media/Audio/AudioEffectManagement/screenshots/device/RealtimeEffect.jpg" desc="Provided by code/DocsSample/Media/Audio/AudioEffectManagement"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmArkTS/AppScope/resources/base/media/background.png" desc="Provided by code/DocsSample/Media/Drm/DrmArkTS"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmArkTS/AppScope/resources/base/media/foreground.png" desc="Provided by code/DocsSample/Media/Drm/DrmArkTS"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmArkTS/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/Media/Drm/DrmArkTS"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmArkTS/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/Media/Drm/DrmArkTS"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmArkTS/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/Media/Drm/DrmArkTS"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmArkTS/screenshots/main.jpeg" desc="Provided by code/DocsSample/Media/Drm/DrmArkTS"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmArkTS/screenshots/query_supported_list.jpeg" desc="Provided by code/DocsSample/Media/Drm/DrmArkTS"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmNDK/AppScope/resources/base/media/background.png" desc="Provided by code/DocsSample/Media/Drm/DrmNDK"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmNDK/AppScope/resources/base/media/foreground.png" desc="Provided by code/DocsSample/Media/Drm/DrmNDK"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmNDK/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/Media/Drm/DrmNDK"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmNDK/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/Media/Drm/DrmNDK"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmNDK/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/Media/Drm/DrmNDK"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmNDK/screenshots/main.jpeg" desc="Provided by code/DocsSample/Media/Drm/DrmNDK"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmAVPlayer/AppScope/resources/base/media/background.png" desc="Provided by code/DocsSample/Media/Drm/DrmAVPlayer"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmAVPlayer/AppScope/resources/base/media/foreground.png" desc="Provided by code/DocsSample/Media/Drm/DrmAVPlayer"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmAVPlayer/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/Media/Drm/DrmAVPlayer"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmAVPlayer/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/Media/Drm/DrmAVPlayer"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmAVPlayer/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/Media/Drm/DrmAVPlayer"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/Drm/DrmAVPlayer/screenshots/main.jpeg" desc="Provided by code/DocsSample/Media/Drm/DrmAVPlayer"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkTSUtilsDocModule/entry/src/main/resources/base/media/icon.png" desc="Provided by code/DocsSample/ArkTSUtilsDocModule"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkTSUtilsDocModule/entry/src/main/resources/rawfile/startIcon.png" desc="Provided by code/DocsSample/ArkTSUtilsDocModule"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkTSUtilsDocModule/screenshots/device/image1.jpeg" desc="Provided by code/DocsSample/ArkTSUtilsDocModule"/>
