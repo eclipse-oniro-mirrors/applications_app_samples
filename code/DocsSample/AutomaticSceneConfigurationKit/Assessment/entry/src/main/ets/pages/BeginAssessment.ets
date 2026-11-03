@@ -46,7 +46,7 @@ const assessmentCallback: assessment.IAssessmentCallback = {
 @Component
 struct Index {
   build() {
-    Button('开始评估')
+    Button($r('app.string.begin_button'))
       .onClick(() => {
         this.beginAssessment();
       })

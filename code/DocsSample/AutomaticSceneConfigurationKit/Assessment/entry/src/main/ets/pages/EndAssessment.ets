@@ -25,7 +25,7 @@ const TAG: string = '[Sample_Assessment]';
 @Component
 struct Index {
   build() {
-    Button('交卷')
+    Button($r('app.string.exam_submit'))
       .onClick(() => {
         this.endAssessment();
       })

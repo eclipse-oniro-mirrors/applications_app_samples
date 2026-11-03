@@ -61,7 +61,7 @@ struct ExamPageLifecycle {
 
   build() {
     Column() {
-      Text('Assessment hardening')
+      Text($r('app.string.hardening_title'))
         .fontSize(16)
     }
     .width('100%')
