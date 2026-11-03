@@ -1,0 +1,236 @@
+{
+    "string": [
+        {
+            "name": "module_desc",
+            "value": "Local plugin management sample"
+        },
+        {
+            "name": "EntryAbility_desc",
+            "value": "Local plugin management entry"
+        },
+        {
+            "name": "EntryAbility_label",
+            "value": "PluginAndSkill"
+        },
+        {
+            "name": "home_description",
+            "value": "Select a feature page."
+        },
+        {
+            "name": "page_title",
+            "value": "Local Plugin Management"
+        },
+        {
+            "name": "page_description",
+            "value": "Install, uninstall, and query self-distributed plugins."
+        },
+        {
+            "name": "plugin_path_empty",
+            "value": "No HSP file selected."
+        },
+        {
+            "name": "plugin_bundle_placeholder",
+            "value": "Plugin bundle name"
+        },
+        {
+            "name": "select_plugin_button",
+            "value": "Select HSP file"
+        },
+        {
+            "name": "install_button",
+            "value": "Install plugin"
+        },
+        {
+            "name": "uninstall_button",
+            "value": "Uninstall plugin"
+        },
+        {
+            "name": "query_button",
+            "value": "Query plugins"
+        },
+        {
+            "name": "installed_plugins_title",
+            "value": "Installed plugins"
+        },
+        {
+            "name": "no_plugins",
+            "value": "No local plugins found."
+        },
+        {
+            "name": "operation_ready",
+            "value": "Ready"
+        },
+        {
+            "name": "select_success",
+            "value": "HSP file copied to the application sandbox."
+        },
+        {
+            "name": "install_success",
+            "value": "Plugin installed successfully."
+        },
+        {
+            "name": "uninstall_success",
+            "value": "Plugin uninstalled successfully."
+        },
+        {
+            "name": "query_success",
+            "value": "Plugin information refreshed."
+        },
+        {
+            "name": "path_required",
+            "value": "Select an HSP file."
+        },
+        {
+            "name": "bundle_required",
+            "value": "Enter a plugin bundle name."
+        },
+        {
+            "name": "modules_label",
+            "value": "Modules"
+        },
+        {
+            "name": "plugin_tab_title",
+            "value": "Plugins"
+        },
+        {
+            "name": "skill_tab_title",
+            "value": "Skills"
+        },
+        {
+            "name": "skill_page_title",
+            "value": "Skill Management"
+        },
+        {
+            "name": "skill_page_description",
+            "value": "Query skills for this application, a specified application, or the device."
+        },
+        {
+            "name": "self_skill_query_title",
+            "value": "Query Own Skills"
+        },
+        {
+            "name": "bundle_skill_query_title",
+            "value": "Query Application Skills"
+        },
+        {
+            "name": "all_skills_query_title",
+            "value": "Query All Device Skills"
+        },
+        {
+            "name": "skill_bundle_placeholder",
+            "value": "Application bundle name"
+        },
+        {
+            "name": "skill_module_placeholder",
+            "value": "Module name"
+        },
+        {
+            "name": "skill_name_placeholder",
+            "value": "Skill name"
+        },
+        {
+            "name": "skill_empty_option",
+            "value": "Not set (empty value)"
+        },
+        {
+            "name": "query_self_skill_button",
+            "value": "Query own skill"
+        },
+        {
+            "name": "query_self_skills_button",
+            "value": "Query all own skills"
+        },
+        {
+            "name": "query_bundle_skill_button",
+            "value": "Query application skill"
+        },
+        {
+            "name": "query_bundle_skills_button",
+            "value": "Query application skills"
+        },
+        {
+            "name": "query_all_skills_button",
+            "value": "Query all device skills"
+        },
+        {
+            "name": "skill_results_title",
+            "value": "Skill information"
+        },
+        {
+            "name": "no_skills",
+            "value": "No skill information found."
+        },
+        {
+            "name": "skill_query_success",
+            "value": "Skill information refreshed."
+        },
+        {
+            "name": "skill_bundle_required",
+            "value": "Enter an application bundle name."
+        },
+        {
+            "name": "skill_module_required",
+            "value": "Enter a module name."
+        },
+        {
+            "name": "skill_name_required",
+            "value": "Enter a skill name."
+        },
+        {
+            "name": "skill_bundle_label",
+            "value": "Bundle"
+        },
+        {
+            "name": "skill_module_label",
+            "value": "Module"
+        },
+        {
+            "name": "skill_name_label",
+            "value": "Skill"
+        },
+        {
+            "name": "skill_type_label",
+            "value": "Type"
+        },
+        {
+            "name": "skill_path_label",
+            "value": "Path"
+        },
+        {
+            "name": "skill_ability_label",
+            "value": "Ability"
+        },
+        {
+            "name": "skill_version_code_label",
+            "value": "Version code"
+        },
+        {
+            "name": "skill_version_label",
+            "value": "Version"
+        },
+        {
+            "name": "skill_visibility_label",
+            "value": "Visibility"
+        },
+        {
+            "name": "skill_description_label",
+            "value": "Description"
+        },
+        {
+            "name": "skill_src_entries_label",
+            "value": "Source entries"
+        },
+        {
+            "name": "skill_permissions_label",
+            "value": "Permissions"
+        },
+        {
+            "name": "skill_request_permissions_label",
+            "value": "Requested permissions"
+        },
+        {
+            "name": "skill_flag_placeholder",
+            "value": "Query flags"
+        }
+    ]
+}

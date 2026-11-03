@@ -1,0 +1,236 @@
+{
+    "string": [
+        {
+            "name": "module_desc",
+            "value": "本地插件管理示例"
+        },
+        {
+            "name": "EntryAbility_desc",
+            "value": "本地插件管理入口"
+        },
+        {
+            "name": "EntryAbility_label",
+            "value": "插件与技能"
+        },
+        {
+            "name": "home_description",
+            "value": "请选择功能页面。"
+        },
+        {
+            "name": "page_title",
+            "value": "本地插件管理"
+        },
+        {
+            "name": "page_description",
+            "value": "安装、卸载和查询自分发插件。"
+        },
+        {
+            "name": "plugin_path_empty",
+            "value": "未选择 HSP 文件。"
+        },
+        {
+            "name": "plugin_bundle_placeholder",
+            "value": "插件包名"
+        },
+        {
+            "name": "select_plugin_button",
+            "value": "选择 HSP 文件"
+        },
+        {
+            "name": "install_button",
+            "value": "安装插件"
+        },
+        {
+            "name": "uninstall_button",
+            "value": "卸载插件"
+        },
+        {
+            "name": "query_button",
+            "value": "查询插件"
+        },
+        {
+            "name": "installed_plugins_title",
+            "value": "已安装插件"
+        },
+        {
+            "name": "no_plugins",
+            "value": "未找到本地插件。"
+        },
+        {
+            "name": "operation_ready",
+            "value": "就绪"
+        },
+        {
+            "name": "select_success",
+            "value": "HSP 文件已复制到应用沙箱。"
+        },
+        {
+            "name": "install_success",
+            "value": "插件安装成功。"
+        },
+        {
+            "name": "uninstall_success",
+            "value": "插件卸载成功。"
+        },
+        {
+            "name": "query_success",
+            "value": "插件信息已刷新。"
+        },
+        {
+            "name": "path_required",
+            "value": "请选择 HSP 文件。"
+        },
+        {
+            "name": "bundle_required",
+            "value": "请输入插件包名。"
+        },
+        {
+            "name": "modules_label",
+            "value": "模块"
+        },
+        {
+            "name": "plugin_tab_title",
+            "value": "插件"
+        },
+        {
+            "name": "skill_tab_title",
+            "value": "技能"
+        },
+        {
+            "name": "skill_page_title",
+            "value": "技能管理"
+        },
+        {
+            "name": "skill_page_description",
+            "value": "查询本应用、指定应用或设备的技能。"
+        },
+        {
+            "name": "self_skill_query_title",
+            "value": "查询自有技能"
+        },
+        {
+            "name": "bundle_skill_query_title",
+            "value": "查询应用技能"
+        },
+        {
+            "name": "all_skills_query_title",
+            "value": "查询设备全部技能"
+        },
+        {
+            "name": "skill_bundle_placeholder",
+            "value": "应用包名"
+        },
+        {
+            "name": "skill_module_placeholder",
+            "value": "模块名"
+        },
+        {
+            "name": "skill_name_placeholder",
+            "value": "技能名"
+        },
+        {
+            "name": "skill_empty_option",
+            "value": "未设置（空值）"
+        },
+        {
+            "name": "query_self_skill_button",
+            "value": "查询自有技能"
+        },
+        {
+            "name": "query_self_skills_button",
+            "value": "查询全部自有技能"
+        },
+        {
+            "name": "query_bundle_skill_button",
+            "value": "查询应用技能"
+        },
+        {
+            "name": "query_bundle_skills_button",
+            "value": "查询应用全部技能"
+        },
+        {
+            "name": "query_all_skills_button",
+            "value": "查询设备全部技能"
+        },
+        {
+            "name": "skill_results_title",
+            "value": "技能信息"
+        },
+        {
+            "name": "no_skills",
+            "value": "未找到技能信息。"
+        },
+        {
+            "name": "skill_query_success",
+            "value": "技能信息已刷新。"
+        },
+        {
+            "name": "skill_bundle_required",
+            "value": "请输入应用包名。"
+        },
+        {
+            "name": "skill_module_required",
+            "value": "请输入模块名。"
+        },
+        {
+            "name": "skill_name_required",
+            "value": "请输入技能名。"
+        },
+        {
+            "name": "skill_bundle_label",
+            "value": "包名"
+        },
+        {
+            "name": "skill_module_label",
+            "value": "模块"
+        },
+        {
+            "name": "skill_name_label",
+            "value": "技能"
+        },
+        {
+            "name": "skill_type_label",
+            "value": "类型"
+        },
+        {
+            "name": "skill_path_label",
+            "value": "路径"
+        },
+        {
+            "name": "skill_ability_label",
+            "value": "Ability"
+        },
+        {
+            "name": "skill_version_code_label",
+            "value": "版本号"
+        },
+        {
+            "name": "skill_version_label",
+            "value": "版本"
+        },
+        {
+            "name": "skill_visibility_label",
+            "value": "可见性"
+        },
+        {
+            "name": "skill_description_label",
+            "value": "描述"
+        },
+        {
+            "name": "skill_src_entries_label",
+            "value": "源入口"
+        },
+        {
+            "name": "skill_permissions_label",
+            "value": "权限"
+        },
+        {
+            "name": "skill_request_permissions_label",
+            "value": "申请权限"
+        },
+        {
+            "name": "skill_flag_placeholder",
+            "value": "查询标志位"
+        }
+    ]
+}

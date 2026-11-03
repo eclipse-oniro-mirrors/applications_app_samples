@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/Index",
+    "pluginandskill/pages/PluginManagerHome",
+    "pluginandskill/pages/SkillManagerHome",
+    "pluginandskill/pages/SelfSkillQueryPage",
+    "pluginandskill/pages/BundleSkillQueryPage",
+    "pluginandskill/pages/AllSkillsQueryPage"
+  ]
+}

@@ -1,0 +1,294 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Local plugin management sample",
+      "description": "Entry module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Local plugin management entry",
+      "description": "Entry ability description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "PluginAndSkill",
+      "description": "Entry ability label"
+    },
+    {
+      "name": "home_description",
+      "value": "Select a feature page.",
+      "description": "Home page feature description"
+    },
+    {
+      "name": "page_title",
+      "value": "Local Plugin Management",
+      "description": "Page title"
+    },
+    {
+      "name": "page_description",
+      "value": "Install, uninstall, and query self-distributed plugins.",
+      "description": "Page feature description"
+    },
+    {
+      "name": "plugin_path_empty",
+      "value": "No HSP file selected.",
+      "description": "Empty plugin path hint"
+    },
+    {
+      "name": "plugin_bundle_placeholder",
+      "value": "Plugin bundle name",
+      "description": "Plugin bundle name input placeholder"
+    },
+    {
+      "name": "select_plugin_button",
+      "value": "Select HSP file",
+      "description": "Select plugin button text"
+    },
+    {
+      "name": "install_button",
+      "value": "Install plugin",
+      "description": "Install button text"
+    },
+    {
+      "name": "uninstall_button",
+      "value": "Uninstall plugin",
+      "description": "Uninstall button text"
+    },
+    {
+      "name": "query_button",
+      "value": "Query plugins",
+      "description": "Query button text"
+    },
+    {
+      "name": "installed_plugins_title",
+      "value": "Installed plugins",
+      "description": "Plugin list title"
+    },
+    {
+      "name": "no_plugins",
+      "value": "No local plugins found.",
+      "description": "Empty plugin list hint"
+    },
+    {
+      "name": "operation_ready",
+      "value": "Ready",
+      "description": "Initial operation result"
+    },
+    {
+      "name": "select_success",
+      "value": "HSP file copied to the application sandbox.",
+      "description": "Plugin selection success message"
+    },
+    {
+      "name": "install_success",
+      "value": "Plugin installed successfully.",
+      "description": "Install success message"
+    },
+    {
+      "name": "uninstall_success",
+      "value": "Plugin uninstalled successfully.",
+      "description": "Uninstall success message"
+    },
+    {
+      "name": "query_success",
+      "value": "Plugin information refreshed.",
+      "description": "Query success message"
+    },
+    {
+      "name": "path_required",
+      "value": "Select an HSP file.",
+      "description": "Empty plugin path error"
+    },
+    {
+      "name": "bundle_required",
+      "value": "Enter a plugin bundle name.",
+      "description": "Empty plugin bundle name error"
+    },
+    {
+      "name": "modules_label",
+      "value": "Modules",
+      "description": "Plugin module list label"
+    },
+    {
+      "name": "plugin_tab_title",
+      "value": "Plugins",
+      "description": "Plugin management tab title"
+    },
+    {
+      "name": "skill_tab_title",
+      "value": "Skills",
+      "description": "Skill query tab title"
+    },
+    {
+      "name": "skill_page_title",
+      "value": "Skill Management",
+      "description": "Skill page title"
+    },
+    {
+      "name": "skill_page_description",
+      "value": "Query skills for this application, a specified application, or the device.",
+      "description": "Skill page feature description"
+    },
+    {
+      "name": "self_skill_query_title",
+      "value": "Query Own Skills",
+      "description": "Self skill query page title"
+    },
+    {
+      "name": "bundle_skill_query_title",
+      "value": "Query Application Skills",
+      "description": "Bundle skill query page title"
+    },
+    {
+      "name": "all_skills_query_title",
+      "value": "Query All Device Skills",
+      "description": "All skills query page title"
+    },
+    {
+      "name": "skill_bundle_placeholder",
+      "value": "Application bundle name",
+      "description": "Skill bundle selector label"
+    },
+    {
+      "name": "skill_module_placeholder",
+      "value": "Module name",
+      "description": "Skill module selector label"
+    },
+    {
+      "name": "skill_name_placeholder",
+      "value": "Skill name",
+      "description": "Skill name selector label"
+    },
+    {
+      "name": "skill_empty_option",
+      "value": "Not set (empty value)",
+      "description": "Skill selector empty value option"
+    },
+    {
+      "name": "query_self_skill_button",
+      "value": "Query own skill",
+      "description": "Query own skill button text"
+    },
+    {
+      "name": "query_self_skills_button",
+      "value": "Query all own skills",
+      "description": "Query own skills button text"
+    },
+    {
+      "name": "query_bundle_skill_button",
+      "value": "Query application skill",
+      "description": "Query application skill button text"
+    },
+    {
+      "name": "query_bundle_skills_button",
+      "value": "Query application skills",
+      "description": "Query application skills button text"
+    },
+    {
+      "name": "query_all_skills_button",
+      "value": "Query all device skills",
+      "description": "Query device skills button text"
+    },
+    {
+      "name": "skill_results_title",
+      "value": "Skill information",
+      "description": "Skill result list title"
+    },
+    {
+      "name": "no_skills",
+      "value": "No skill information found.",
+      "description": "Empty skill list hint"
+    },
+    {
+      "name": "skill_query_success",
+      "value": "Skill information refreshed.",
+      "description": "Skill query success message"
+    },
+    {
+      "name": "skill_bundle_required",
+      "value": "Enter an application bundle name.",
+      "description": "Empty skill bundle name error"
+    },
+    {
+      "name": "skill_module_required",
+      "value": "Enter a module name.",
+      "description": "Empty skill module name error"
+    },
+    {
+      "name": "skill_name_required",
+      "value": "Enter a skill name.",
+      "description": "Empty skill name error"
+    },
+    {
+      "name": "skill_bundle_label",
+      "value": "Bundle",
+      "description": "Skill bundle name label"
+    },
+    {
+      "name": "skill_module_label",
+      "value": "Module",
+      "description": "Skill module name label"
+    },
+    {
+      "name": "skill_name_label",
+      "value": "Skill",
+      "description": "Skill name label"
+    },
+    {
+      "name": "skill_type_label",
+      "value": "Type",
+      "description": "Skill type label"
+    },
+    {
+      "name": "skill_path_label",
+      "value": "Path",
+      "description": "Skill path label"
+    },
+    {
+      "name": "skill_ability_label",
+      "value": "Ability",
+      "description": "Skill ability name label"
+    },
+    {
+      "name": "skill_version_code_label",
+      "value": "Version code",
+      "description": "Skill version code label"
+    },
+    {
+      "name": "skill_version_label",
+      "value": "Version",
+      "description": "Skill version label"
+    },
+    {
+      "name": "skill_visibility_label",
+      "value": "Visibility",
+      "description": "Skill visibility label"
+    },
+    {
+      "name": "skill_description_label",
+      "value": "Description",
+      "description": "Skill description label"
+    },
+    {
+      "name": "skill_src_entries_label",
+      "value": "Source entries",
+      "description": "Skill source entries label"
+    },
+    {
+      "name": "skill_permissions_label",
+      "value": "Permissions",
+      "description": "Skill permissions label"
+    },
+    {
+      "name": "skill_request_permissions_label",
+      "value": "Requested permissions",
+      "description": "Skill requested permissions label"
+    },
+    {
+      "name": "skill_flag_placeholder",
+      "value": "Query flags",
+      "description": "Skill flag selector label"
+    }
+  ]
+}
