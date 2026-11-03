@@ -131,6 +131,7 @@ bool GetFetchFrameByTimeParams(napi_env env, napi_callback_info info, FetchFrame
  * 指定时间点与视频帧的对应关系options、媒体源在文件描述符中的偏移量offset。
  * 返回PixelMap对象。
  */
+// [Start OH_AVImageGenerator_FetchFrameByTime]
 static napi_value OhAvImageGeneratorFetchFrameByTime(napi_env env, napi_callback_info info)
 {
     FetchFrameParams fetchFrameParams;
@@ -142,13 +143,18 @@ static napi_value OhAvImageGeneratorFetchFrameByTime(napi_env env, napi_callback
     int32_t fileDescribe = fetchFrameParams.fileDescribe;
     int64_t fileSize = fetchFrameParams.fileSize;
     int32_t options = fetchFrameParams.options;
+
+    // [Start OH_AVImageGenerator_Create]
     // 创建OH_AVImageGenerator实例。
     OH_AVImageGenerator* generator = OH_AVImageGenerator_Create();
+    // [End OH_AVImageGenerator_Create]
     // 异常处理。
     if (!generator) {
         napi_throw_error(env, "EFAILED", "Create generator failed");
         return nullptr;
     }
+
+    // [Start OH_AVImageGenerator_SetFDSource]
     // 设置视频资源的文件描述符。
     OH_AVErrCode avErrCode = OH_AVImageGenerator_SetFDSource(generator, fileDescribe, offset, fileSize);
     // 异常处理。
@@ -157,6 +163,7 @@ static napi_value OhAvImageGeneratorFetchFrameByTime(napi_env env, napi_callback
         napi_throw_error(env, "EFAILED", "SetFDSource failed");
         return nullptr;
     }
+    // [End OH_AVImageGenerator_SetFDSource]
     // 取指定时间的视频帧。
     OH_PixelmapNative* pixelMap = nullptr;
     avErrCode = OH_AVImageGenerator_FetchFrameByTime(generator, timeUs,
@@ -172,8 +179,12 @@ static napi_value OhAvImageGeneratorFetchFrameByTime(napi_env env, napi_callback
     Image_ErrorCode errCode = OH_PixelmapNative_ConvertPixelmapNativeToNapi(env, pixelMap, &pixelmapNapi);
     // 释放OH_PixelmapNative资源。
     OH_PixelmapNative_Release(pixelMap);
+    
+    // [Start OH_AVImageGenerator_Release]
     // 释放OH_AVImageGenerator资源。
     OH_AVImageGenerator_Release(generator);
+    // [End OH_AVImageGenerator_Release]
+
     // 异常处理。
     if (errCode != IMAGE_SUCCESS) {
         napi_throw_error(env, "EFAILED", "Convert PixelMap failed");
@@ -181,6 +192,7 @@ static napi_value OhAvImageGeneratorFetchFrameByTime(napi_env env, napi_callback
     }
     return pixelmapNapi;
 }
+// [End OH_AVImageGenerator_FetchFrameByTime]
 
 // 辅助函数：获取GetDuration的输入参数
 bool GetGetDurationParams(napi_env env, napi_callback_info info, int64_t &offset, int32_t &fileDescribe,
@@ -204,6 +216,7 @@ bool GetGetDurationParams(napi_env env, napi_callback_info info, int64_t &offset
     return true;
 }
 
+// [Start OH_AVImageGenerator_GetDuration]
 static napi_value OhAVMetadataExtractorGetDuration(napi_env env, napi_callback_info info)
 {
     int64_t offset = 0;
@@ -244,6 +257,7 @@ static napi_value OhAVMetadataExtractorGetDuration(napi_env env, napi_callback_i
     OH_AVMetadataExtractor_Release(mainExtractor);
     return duration;
 }
+// [End OH_AVImageGenerator_GetDuration]
 
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)

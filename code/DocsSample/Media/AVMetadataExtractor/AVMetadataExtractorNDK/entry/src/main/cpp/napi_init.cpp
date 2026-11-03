@@ -178,13 +178,16 @@ static napi_value OhAVMetadataExtractorFetchAlbumCover(napi_env env, napi_callba
     if (!GetInputParams(env, info, offset, fileDescribe, fileSize)) {
         return nullptr;
     }
+    // [Start OH_AVMetadataExtractor_Create]
     // 创建OH_AVMetadataExtractor实例。
     OH_AVMetadataExtractor* mainExtractor = OH_AVMetadataExtractor_Create();
+    // [End OH_AVMetadataExtractor_Create]
     // 处理异常。
     if (!mainExtractor) {
         napi_throw_error(env, "EFAILED", "Create metadata extractor failed");
         return nullptr;
     }
+    // [Start OH_AVMetadataExtractor_SetFDSource]
     // 设置视频资源的文件描述符。
     OH_AVErrCode avErrCode = OH_AVMetadataExtractor_SetFDSource(mainExtractor, fileDescribe, offset, fileSize);
     // 处理异常。
@@ -193,9 +196,12 @@ static napi_value OhAVMetadataExtractorFetchAlbumCover(napi_env env, napi_callba
         napi_throw_error(env, "EFAILED", "SetFDSource for metadata extractor failed");
         return nullptr;
     }
+    // [End OH_AVMetadataExtractor_SetFDSource]
+    // [Start OH_AVMetadataExtractor_FetchAlbumCover]
     // 获取专辑封面。
     OH_PixelmapNative* pixelMap = nullptr;
     avErrCode = OH_AVMetadataExtractor_FetchAlbumCover(mainExtractor, &pixelMap);
+    // [End OH_AVMetadataExtractor_FetchAlbumCover]
     // 处理异常。
     if (avErrCode != AV_ERR_OK || !pixelMap) {
         OH_AVMetadataExtractor_Release(mainExtractor);
@@ -251,7 +257,10 @@ void GetIntMetaData(struct OH_AVFormat *avMetadata, napi_env env, napi_value &Js
     const char* out = nullptr;
     bool ret = false;
     int32_t value = 0;
+    
+    // [Start OH_AVMetadataExtractor_AVFormat]
     ret = OH_AVFormat_GetIntValue(avMetadata, key, &value);
+    // [End OH_AVMetadataExtractor_AVFormat]
     std::string result = std::string(key) + " : %{public}d";
     H_LOGI(result.c_str(), value);
     if (ret) {
@@ -359,8 +368,10 @@ static napi_value OhAVMetadataExtractorFetchMetadata(napi_env env, napi_callback
         napi_throw_error(env, "EFAILED", "Create AVFormat failed");
         return nullptr;
     }
+    // [Start OH_AVMetadataExtractor_FetchMetadata]
     // 获取元数据。
     avErrCode = OH_AVMetadataExtractor_FetchMetadata(mainExtractor, avMetadata);
+    // [End OH_AVMetadataExtractor_FetchMetadata]
     // 异常处理。
     if (avErrCode != AV_ERR_OK) {
         OH_AVFormat_Destroy(avMetadata);
@@ -383,8 +394,11 @@ static napi_value OhAVMetadataExtractorFetchMetadata(napi_env env, napi_callback
     GetOtherValueFromAVFormat(avMetadata, env, JsMetadata);
     // 释放OH_AVFormat资源。
     OH_AVFormat_Destroy(avMetadata);
+
+    // [Start OH_AVMetadataExtractor_Release]
     // 释放OH_AVMetadataExtractor资源。
     OH_AVMetadataExtractor_Release(mainExtractor);
+    // [End OH_AVMetadataExtractor_Release]
     return JsMetadata;
 }
 

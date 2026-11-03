@@ -57,12 +57,18 @@ struct Index {
   // 获取视频指定时间的缩略图，并通过Image控件显示在屏幕上。
   async testFetchFrameByTime() {
     try {
+      // [Start AVImageGenerator_CreateAVImageGenerator]
       // 创建AVImageGenerator对象。
       let avImageGenerator: media.AVImageGenerator = await media.createAVImageGenerator();
+      // [End AVImageGenerator_CreateAVImageGenerator]
+
+      // [Start AVImageGenerator_SetFdSrc]
       // 设置fdSrc。
       let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
       avImageGenerator.fdSrc = await context.resourceManager.getRawFd('H264_AAC.mp4');
+      // [End AVImageGenerator_SetFdSrc]
 
+      // [Start AVImageGenerator_fetchFrameByTime]
       // 初始化入参。
       let timeUs = 0;
       let queryOption = media.AVImageQueryOptions.AV_IMAGE_QUERY_NEXT_SYNC;
@@ -73,9 +79,12 @@ struct Index {
 
       // 获取缩略图（promise模式）。
       this.pixelMap = await avImageGenerator.fetchFrameByTime(timeUs, queryOption, param);
+      // [End AVImageGenerator_fetchFrameByTime]
 
+      // [Start AVImageGenerator_release]
       // 释放资源（promise模式）。
       avImageGenerator.release();
+      // [End AVImageGenerator_release]
       console.info(TAG, `release success.`);
     } catch (err) {
       console.error(`FetchFrameByTime errCode is ${err.code}, message is ${err.message}`);
