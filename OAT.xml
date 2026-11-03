@@ -2081,6 +2081,7 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/ArkUISample/StateMgmtV2MVVM/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/DocsSample/ArkUISample/StateMgmtV2MVVM"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkUISample/StateMgmtV2MVVM/entry/src/main/resources/base/media/unfinished.png" desc="Provide by code/DocsSample/ArkUISample/StateMgmtV2MVVM"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkUISample/StateMgmtV2MVVM/AppScope/resources/base/media/app_icon.png" desc="Provide by code/DocsSample/ArkUISample/StateMgmtV2MVVM"/>
+				<filteritem type="filepath" name="code/DocsSample/ArkUISample/DepthComponentSample/entry/src/main/resources/base/media/depthcomponent_background.png" desc="Provided by code/DocsSample/ArkUISample/DepthComponentSample"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkTS/NodeAPI/NodeApiUse/NodeAPIObject/screenshots/NodeAPIObject1.png" desc="Provided by code/DocsSample/ArkTS"/>
                 <filteritem type="filepath" name="code/DocsSample/ArkTS/NodeAPI/NodeApiUse/NodeAPIObject/screenshots/NodeAPIObject2.png" desc="Provided by code/DocsSample/ArkTS"/>
                 <filteritem type="filepath" name="code/DocsSample/ArkTS/NodeAPI/NodeApiUse/NodeAPIPrimitive/screenshots/NodeAPIPrimitive1.png" desc="Provided by code/DocsSample/ArkTS"/>
