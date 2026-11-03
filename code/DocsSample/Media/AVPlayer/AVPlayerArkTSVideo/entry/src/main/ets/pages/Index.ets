@@ -16,7 +16,9 @@
 import display from '@ohos.display';
 import emitter from '@ohos.events.emitter';
 import { common } from '@kit.AbilityKit';
-import media from '@ohos.multimedia.media';
+// [Start createAVPlayer]
+import { media } from '@kit.MediaKit';
+// [StartExclude createAVPlayer]
 import audio from '@ohos.multimedia.audio';
 
 const PROPORTION = 0.99; // 占屏幕比例
@@ -108,7 +110,7 @@ struct Index {
       this.avPlayer.release();
       await this.msleepAsync(1500);
     }
-    // [Start createAVPlayer]
+    // [EndExclude createAVPlayer]
     // 创建avPlayer实例对象。
     this.avPlayer = await media.createAVPlayer();
     // [End createAVPlayer]
