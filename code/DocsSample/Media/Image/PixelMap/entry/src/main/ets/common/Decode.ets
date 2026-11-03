@@ -71,7 +71,7 @@ export class Decode {
     // fd为已获得的文件描述符
     // [Start pixelmap_create_image_source_by_fd]
     const imageSource: image.ImageSource = image.createImageSource(fd);
-    // [End pixelmap_create_image_source_by_fd]+
+    // [End pixelmap_create_image_source_by_fd]
     fs.closeSync(file);
     return imageSource;
   }
