@@ -27,8 +27,12 @@ const TAG = 'FastBufferBasics';
 const BENCH_ROUNDS = 10000;
 /** 场景2 拼接片段数 */
 const BENCH_PARTS = 2000;
+/** 场景2 每执行多少轮让出一帧，避免长时间阻塞 UI */
+const BENCH_YIELD_CHUNK = 2000;
 
 export class FastBufferBasics {
+  private benchmarkRunning: boolean = false;
+
   /** 场景1：FastBuffer 基础操作（纯内存，无外部依赖） */
   runBasics(): void {
     LogUtil.info(TAG, '【场景1】FastBuffer 基础操作开始');
@@ -77,64 +81,95 @@ export class FastBufferBasics {
 
   /** 场景2：FastBuffer vs Buffer 性能对比（PerfTimer 计时 + 系统时钟） */
   runBenchmark(): void {
-    LogUtil.info(TAG, `【场景2】性能对比开始（同负载：4 字节写读 ×${BENCH_ROUNDS} + ${BENCH_PARTS} 片 concat）`);
-    PerfTimer.clear();
+    if (this.benchmarkRunning) {
+      LogUtil.warn(TAG, '【场景2】性能对比正在执行，忽略重复点击');
+      return;
+    }
+    this.benchmarkRunning = true;
+    this.runBenchmarkAsync().catch((err: Error) => {
+      LogUtil.error(TAG, `【场景2】性能对比异常：${err.message}`);
+    });
+  }
 
-    // —— FastBuffer（API 20+）——
-    PerfTimer.start('fb_writeRead');
-    const fb: fastbuffer.FastBuffer = fastbuffer.alloc(BENCH_ROUNDS * 4);
-    for (let i = 0; i < BENCH_ROUNDS; i++) {
-      fb.writeUInt32BE(i, i * 4);
-    }
-    let sumFb: number = 0;
-    for (let i = 0; i < BENCH_ROUNDS; i++) {
-      sumFb += fb.readUInt32BE(i * 4);
-    }
-    const fbRwMs: number = PerfTimer.stop('fb_writeRead');
+  /** 分块执行 + 每块后让出一帧：总负载与结论不变，避免 10k 轮循环长时间冻结 UI */
+  private async runBenchmarkAsync(): Promise<void> {
+    try {
+      LogUtil.info(TAG, `【场景2】性能对比开始（同负载：4 字节写读 ×${BENCH_ROUNDS} + ${BENCH_PARTS} 片 concat）`);
+      PerfTimer.clear();
 
-    PerfTimer.start('fb_concat');
-    const fbParts: fastbuffer.FastBuffer[] = [];
-    for (let i = 0; i < BENCH_PARTS; i++) {
-      fbParts.push(fastbuffer.from(`chunk-${i}-`));
-    }
-    const fbJoined: fastbuffer.FastBuffer = fastbuffer.concat(fbParts);
-    const fbConcatMs: number = PerfTimer.stop('fb_concat');
-    LogUtil.info(TAG, `2.1 FastBuffer：写读 ${fbRwMs}ms（校验和 ${sumFb % 100000007}），拼接 ${fbConcatMs}ms（${fbJoined.length}B）`);
+      // —— FastBuffer（API 20+）——
+      PerfTimer.start('fb_writeRead');
+      const fb: fastbuffer.FastBuffer = fastbuffer.alloc(BENCH_ROUNDS * 4);
+      let sumFb: number = 0;
+      for (let base = 0; base < BENCH_ROUNDS; base += BENCH_YIELD_CHUNK) {
+        const limit: number = Math.min(base + BENCH_YIELD_CHUNK, BENCH_ROUNDS);
+        for (let i = base; i < limit; i++) {
+          fb.writeUInt32BE(i, i * 4);
+        }
+        for (let i = base; i < limit; i++) {
+          sumFb += fb.readUInt32BE(i * 4);
+        }
+        await FastBufferBasics.yieldToUi();
+      }
+      const fbRwMs: number = PerfTimer.stop('fb_writeRead');
 
-    // —— Buffer（@ohos.buffer，API 9+）——
-    PerfTimer.start('buffer_writeRead');
-    const bf: buffer.Buffer = buffer.alloc(BENCH_ROUNDS * 4);
-    for (let i = 0; i < BENCH_ROUNDS; i++) {
-      bf.writeUInt32BE(i, i * 4);
-    }
-    let sumBf: number = 0;
-    for (let i = 0; i < BENCH_ROUNDS; i++) {
-      sumBf += bf.readUInt32BE(i * 4);
-    }
-    const bfRwMs: number = PerfTimer.stop('buffer_writeRead');
+      PerfTimer.start('fb_concat');
+      const fbParts: fastbuffer.FastBuffer[] = [];
+      for (let i = 0; i < BENCH_PARTS; i++) {
+        fbParts.push(fastbuffer.from(`chunk-${i}-`));
+      }
+      const fbJoined: fastbuffer.FastBuffer = fastbuffer.concat(fbParts);
+      const fbConcatMs: number = PerfTimer.stop('fb_concat');
+      LogUtil.info(TAG, `2.1 FastBuffer：写读 ${fbRwMs}ms（校验和 ${sumFb % 100000007}），拼接 ${fbConcatMs}ms（${fbJoined.length}B）`);
+      await FastBufferBasics.yieldToUi();
 
-    PerfTimer.start('buffer_concat');
-    const bfParts: buffer.Buffer[] = [];
-    for (let i = 0; i < BENCH_PARTS; i++) {
-      bfParts.push(buffer.from(`chunk-${i}-`));
-    }
-    const bfJoined: buffer.Buffer = buffer.concat(bfParts);
-    const bfConcatMs: number = PerfTimer.stop('buffer_concat');
-    LogUtil.info(TAG, `2.2 Buffer：写读 ${bfRwMs}ms（校验和 ${sumBf % 100000007}），拼接 ${bfConcatMs}ms（${bfJoined.length}B）`);
+      // —— Buffer（@ohos.buffer，API 9+）——
+      PerfTimer.start('buffer_writeRead');
+      const bf: buffer.Buffer = buffer.alloc(BENCH_ROUNDS * 4);
+      let sumBf: number = 0;
+      for (let base = 0; base < BENCH_ROUNDS; base += BENCH_YIELD_CHUNK) {
+        const limit: number = Math.min(base + BENCH_YIELD_CHUNK, BENCH_ROUNDS);
+        for (let i = base; i < limit; i++) {
+          bf.writeUInt32BE(i, i * 4);
+        }
+        for (let i = base; i < limit; i++) {
+          sumBf += bf.readUInt32BE(i * 4);
+        }
+        await FastBufferBasics.yieldToUi();
+      }
+      const bfRwMs: number = PerfTimer.stop('buffer_writeRead');
 
-    // 2.3 结果对比与正确性校验
-    if (sumFb === sumBf && fbJoined.length === bfJoined.length) {
-      LogUtil.info(TAG, '2.3 正确性校验：两套结果校验和与长度一致，数据正确');
-      const rwDiff: number = bfRwMs - fbRwMs;
-      const rwWinner: string = rwDiff > 0 ? 'FastBuffer 更快' : (rwDiff < 0 ? 'Buffer 更快' : '两者持平');
-      const concatDiff: number = bfConcatMs - fbConcatMs;
-      const concatWinner: string = concatDiff > 0 ? 'FastBuffer 更快' : (concatDiff < 0 ? 'Buffer 更快' : '两者持平');
-      LogUtil.info(TAG, `2.3 结论：写读 ${rwWinner}（差 ${Math.abs(rwDiff)}ms），拼接 ${concatWinner}（差 ${Math.abs(concatDiff)}ms）`);
-      LogUtil.info(TAG, `2.3 PerfTimer 汇总：${PerfTimer.summary()}`);
-    } else {
-      LogUtil.error(TAG, '2.3 正确性校验失败：两套结果不一致，请检查运行环境');
+      PerfTimer.start('buffer_concat');
+      const bfParts: buffer.Buffer[] = [];
+      for (let i = 0; i < BENCH_PARTS; i++) {
+        bfParts.push(buffer.from(`chunk-${i}-`));
+      }
+      const bfJoined: buffer.Buffer = buffer.concat(bfParts);
+      const bfConcatMs: number = PerfTimer.stop('buffer_concat');
+      LogUtil.info(TAG, `2.2 Buffer：写读 ${bfRwMs}ms（校验和 ${sumBf % 100000007}），拼接 ${bfConcatMs}ms（${bfJoined.length}B）`);
+
+      // 2.3 结果对比与正确性校验
+      if (sumFb === sumBf && fbJoined.length === bfJoined.length) {
+        LogUtil.info(TAG, '2.3 正确性校验：两套结果校验和与长度一致，数据正确');
+        const rwDiff: number = bfRwMs - fbRwMs;
+        const rwWinner: string = rwDiff > 0 ? 'FastBuffer 更快' : (rwDiff < 0 ? 'Buffer 更快' : '两者持平');
+        const concatDiff: number = bfConcatMs - fbConcatMs;
+        const concatWinner: string = concatDiff > 0 ? 'FastBuffer 更快' : (concatDiff < 0 ? 'Buffer 更快' : '两者持平');
+        LogUtil.info(TAG, `2.3 结论：写读 ${rwWinner}（差 ${Math.abs(rwDiff)}ms），拼接 ${concatWinner}（差 ${Math.abs(concatDiff)}ms）`);
+        LogUtil.info(TAG, `2.3 PerfTimer 汇总：${PerfTimer.summary()}`);
+      } else {
+        LogUtil.error(TAG, '2.3 正确性校验失败：两套结果不一致，请检查运行环境');
+      }
+      LogUtil.info(TAG, '【场景2】完成');
+    } finally {
+      this.benchmarkRunning = false;
     }
-    LogUtil.info(TAG, '【场景2】完成');
+  }
+
+  private static yieldToUi(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => resolve(), 0);
+    });
   }
 
   /** 场景6：工具类实战——协议封包与解包（FastBufferUtil 组合应用） */

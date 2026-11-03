@@ -18,7 +18,7 @@ import fastbuffer from '@ohos.fastbuffer';
 import { emitter } from '@kit.BasicServicesKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import { LogUtil } from './LogUtil';
-import { eventDataToText } from './EventDataUtil';
+import { eventDataToText, eventDataToError } from './EventDataUtil';
 
 type StreamCallback = (err?: Error | null) => void;
 
@@ -61,7 +61,7 @@ export class FileWritable extends stream.Writable {
       callback();
     } catch (err) {
       // 写入失败必须把错误回传给框架，否则流会永久等待回调而挂起
-      callback(err as Error);
+      callback(err instanceof Error ? err : new Error('写入文件失败'));
     }
   }
 }
@@ -77,6 +77,8 @@ export class FileReadable extends stream.Readable {
   private chunkIndex: number = 0;
   private eofTimer: number = -1;
   private eofSent: boolean = false;
+  /** doRead 内部读取/推送失败时记录，消费方在 end 时检查并据此 reject */
+  public readError: Error | null = null;
   private notify: (index: number, bytes: number, done: boolean) => void;
 
   constructor(fd: number, fileSize: number, notify: (index: number, bytes: number, done: boolean) => void) {
@@ -96,15 +98,41 @@ export class FileReadable extends stream.Readable {
       return;
     }
     const len: number = Math.min(CHUNK_SIZE, this.fileSize - this.offset);
-    const bytes: number = fs.readSync(this.fd, this.readBuf, { offset: this.offset, length: len });
+    let bytes: number = 0;
+    try {
+      bytes = fs.readSync(this.fd, this.readBuf, { offset: this.offset, length: len });
+    } catch (err) {
+      const e: Error = err instanceof Error ? err : new Error('读取文件失败');
+      LogUtil.error('StreamFileUtil', `doRead 读取失败：${e.message}`);
+      this.readError = e;
+      this.eofSent = true;
+      this.push(null);
+      return;
+    }
+    if (bytes <= 0) {
+      // 异常情况下 readSync 可能返回 0；若不推进 offset 会陷入 doRead 死循环
+      LogUtil.warn('StreamFileUtil', `doRead 读取 0 字节（offset=${this.offset}），按 EOF 处理`);
+      this.readError = new Error(`读取到 0 字节（offset=${this.offset}）`);
+      this.pushEof();
+      return;
+    }
     this.offset += bytes;
     this.chunkIndex++;
     const done: boolean = this.offset >= this.fileSize;
-    this.notify(this.chunkIndex, bytes, done);
-    // 本 ROM 的 stream 实现对 push(Uint8Array) 送达不可靠（data 事件收不到有效数据），
-    // push(string) 为验证过的路径：用 fastbuffer 把字节块解码为 utf8 字符串再入流
-    // 注：分块边界按字节切分，仅适用于分块边界恰好落在字符边界的内容（演示数据均为 ASCII）
-    this.push(fastbuffer.from(this.readBuf.slice(0, bytes)).toString('utf8'));
+    try {
+      this.notify(this.chunkIndex, bytes, done);
+      // 本 ROM 的 stream 实现对 push(Uint8Array) 送达不可靠（data 事件收不到有效数据），
+      // push(string) 为验证过的路径：用 fastbuffer 把字节块解码为 utf8 字符串再入流
+      // 注：分块边界按字节切分，仅适用于分块边界恰好落在字符边界的内容（演示数据均为 ASCII）
+      this.push(fastbuffer.from(this.readBuf.slice(0, bytes)).toString('utf8'));
+    } catch (err) {
+      const e: Error = err instanceof Error ? err : new Error('推送数据失败');
+      LogUtil.error('StreamFileUtil', `doRead 推送失败：${e.message}`);
+      this.readError = e;
+      this.eofSent = true;
+      this.push(null);
+      return;
+    }
     if (done) {
       // 同一 doRead 内先 push 数据再 push(null) 会让框架的 EOF 处理与数据出队竞态，
       // 延迟一拍再送 EOF（单独 push(null) 的 doRead 已验证可用）
@@ -159,12 +187,17 @@ export class StreamFileUtil {
       // 先挂完成/错误回调再写入，同步或异步的 finish/error 都能被捕获
       const finished = new Promise<number>((resolve, reject) => {
         writer.on('finish', () => {
-          const size: number = fs.statSync(path).size;
-          LogUtil.info('StreamFileUtil', `流式写入完成：${path}（${size}B）`);
-          resolve(size);
+          try {
+            const size: number = fs.statSync(path).size;
+            LogUtil.info('StreamFileUtil', `流式写入完成：${path}（${size}B）`);
+            resolve(size);
+          } catch (err) {
+            LogUtil.error('StreamFileUtil', `finish 后读取文件大小失败：${err instanceof Error ? err.message : '未知错误'}`);
+            reject(err instanceof Error ? err : new Error('读取文件大小失败'));
+          }
         });
         writer.on('error', (err: emitter.EventData) => {
-          const e = err.data as Error;
+          const e: Error = eventDataToError(err);
           LogUtil.error('StreamFileUtil', `写入流出错：${e && e.message ? e.message : '未知错误'}`);
           reject(new Error(`写入流出错：${e && e.message ? e.message : '未知错误'}`));
         });
@@ -176,7 +209,11 @@ export class StreamFileUtil {
       return await finished;
     } finally {
       if (fd >= 0) {
-        fs.closeSync(fd);
+        try {
+          fs.closeSync(fd);
+        } catch (err) {
+          LogUtil.error('StreamFileUtil', `关闭 fd 失败：${err instanceof Error ? err.message : '未知错误'}`);
+        }
         fd = -1;
       }
     }
@@ -195,11 +232,16 @@ export class StreamFileUtil {
       });
       const finished = new Promise<void>((resolve, reject) => {
         reader.on('end', () => {
+          if (reader.readError !== null) {
+            LogUtil.error('StreamFileUtil', `读取流出错：${reader.readError.message}`);
+            reject(reader.readError);
+            return;
+          }
           LogUtil.info('StreamFileUtil', `流式读取完成：${received}B / ${size}B，共 ${chunkIndex} 块`);
           resolve();
         });
         reader.on('error', (err: emitter.EventData) => {
-          const e = err.data as Error;
+          const e: Error = eventDataToError(err);
           LogUtil.error('StreamFileUtil', `读取流出错：${e && e.message ? e.message : '未知错误'}`);
           reject(new Error(`读取流出错：${e && e.message ? e.message : '未知错误'}`));
         });
@@ -220,7 +262,11 @@ export class StreamFileUtil {
       return received;
     } finally {
       if (fd >= 0) {
-        fs.closeSync(fd);
+        try {
+          fs.closeSync(fd);
+        } catch (err) {
+          LogUtil.error('StreamFileUtil', `关闭 fd 失败：${err instanceof Error ? err.message : '未知错误'}`);
+        }
         fd = -1;
       }
     }
@@ -251,16 +297,24 @@ export class StreamFileUtil {
       // 先挂完成/错误回调，再挂 data 触发读取，避免同步事件早于监听器注册
       const finished = new Promise<void>((resolve, reject) => {
         reader.on('error', (err: emitter.EventData) => {
-          const e = err.data as Error;
+          const e: Error = eventDataToError(err);
           LogUtil.error('StreamFileUtil', `拷贝读流出错：${e && e.message ? e.message : '未知错误'}`);
           reject(new Error(`拷贝读流出错：${e && e.message ? e.message : '未知错误'}`));
+        });
+        reader.on('end', () => {
+          if (reader.readError !== null) {
+            LogUtil.error('StreamFileUtil', `拷贝读流出错：${reader.readError.message}`);
+            reject(reader.readError);
+            return;
+          }
+          writer.end();
         });
         writer.on('finish', () => {
           LogUtil.info('StreamFileUtil', `流式拷贝完成：${copied}B`);
           resolve();
         });
         writer.on('error', (err: emitter.EventData) => {
-          const e = err.data as Error;
+          const e: Error = eventDataToError(err);
           LogUtil.error('StreamFileUtil', `拷贝写出错：${e && e.message ? e.message : '未知错误'}`);
           reject(new Error(`拷贝写出错：${e && e.message ? e.message : '未知错误'}`));
         });
@@ -270,18 +324,23 @@ export class StreamFileUtil {
         copied += chunk.length;
         writer.write(chunk);
       });
-      reader.on('end', () => {
-        writer.end();
-      });
       await finished;
       return copied;
     } finally {
       if (srcFd >= 0) {
-        fs.closeSync(srcFd);
+        try {
+          fs.closeSync(srcFd);
+        } catch (err) {
+          LogUtil.error('StreamFileUtil', `关闭源 fd 失败：${err instanceof Error ? err.message : '未知错误'}`);
+        }
         srcFd = -1;
       }
       if (destFd >= 0) {
-        fs.closeSync(destFd);
+        try {
+          fs.closeSync(destFd);
+        } catch (err) {
+          LogUtil.error('StreamFileUtil', `关闭目标 fd 失败：${err instanceof Error ? err.message : '未知错误'}`);
+        }
         destFd = -1;
       }
     }

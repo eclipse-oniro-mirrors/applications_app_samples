@@ -19,7 +19,7 @@ import { fileIo as fs } from '@kit.CoreFileKit';
 import fastbuffer from '@ohos.fastbuffer';
 import { LogUtil } from './utils/LogUtil';
 import { FileWritable, FileReadable } from './utils/StreamFileUtil';
-import { eventDataToText, decodeUtf8 } from './utils/EventDataUtil';
+import { eventDataToText, eventDataToError, decodeUtf8 } from './utils/EventDataUtil';
 
 const TAG = 'StreamPipeline';
 type StreamCallback = (err?: Error | null) => void;
@@ -135,14 +135,19 @@ export class StreamPipeline {
         // 先挂完成回调再写入：同步或异步的 finish/error 都能被捕获
         const finished = new Promise<void>((resolve) => {
           writer.on('error', (err: emitter.EventData) => {
-            const e = err.data as Error;
+            const e: Error = eventDataToError(err);
             LogUtil.error(TAG, `3.x 写出错：${e && e.message ? e.message : '未知错误'}`);
             resolve();
           });
           writer.on('finish', () => {
-            const size: number = fs.statSync(filePath).size;
-            LogUtil.info(TAG, `3.4 finish 事件：全部数据落盘完成，文件大小 ${size}B（预期 ${WRITE_CHUNKS * CHUNK_SIZE}B）${size === WRITE_CHUNKS * CHUNK_SIZE ? '，一致' : '，不一致'}`);
-            resolve();
+            try {
+              const size: number = fs.statSync(filePath).size;
+              LogUtil.info(TAG, `3.4 finish 事件：全部数据落盘完成，文件大小 ${size}B（预期 ${WRITE_CHUNKS * CHUNK_SIZE}B）${size === WRITE_CHUNKS * CHUNK_SIZE ? '，一致' : '，不一致'}`);
+            } catch (err) {
+              LogUtil.error(TAG, `3.y finish 后读取文件大小失败：${err instanceof Error ? err.message : '未知错误'}`);
+            } finally {
+              resolve();
+            }
           });
         });
 
@@ -187,7 +192,11 @@ export class StreamPipeline {
         this.onDone();
       } finally {
         if (fd >= 0) {
-          fs.closeSync(fd);
+          try {
+            fs.closeSync(fd);
+          } catch (err) {
+            LogUtil.error(TAG, `关闭 fd 失败：${err instanceof Error ? err.message : '未知错误'}`);
+          }
           fd = -1;
         }
       }
@@ -225,11 +234,16 @@ export class StreamPipeline {
         // 先挂载完成回调，再挂 data 触发读取：同步或异步的 end/error 都能被捕获
         const finished = new Promise<void>((resolve) => {
           reader.on('error', (err: emitter.EventData) => {
-            const e = err.data as Error;
+            const e: Error = eventDataToError(err);
             LogUtil.error(TAG, `4.x 读取出错：${e && e.message ? e.message : '未知错误'}`);
             resolve();
           });
           reader.on('end', () => {
+            if (reader.readError !== null) {
+              LogUtil.error(TAG, `4.x 读取出错：${reader.readError.message}`);
+              resolve();
+              return;
+            }
             LogUtil.info(TAG, `4.2 end 事件：共收到 ${chunks} 块 / ${received}B，与文件大小 ${size}B ${received === size ? '一致' : '不一致'}`);
             LogUtil.info(TAG, '4.3 全程分块流转，未一次性整载文件（内存友好）');
             resolve();
@@ -245,7 +259,11 @@ export class StreamPipeline {
         this.onDone();
       } finally {
         if (fd >= 0) {
-          fs.closeSync(fd);
+          try {
+            fs.closeSync(fd);
+          } catch (err) {
+            LogUtil.error(TAG, `关闭 fd 失败：${err instanceof Error ? err.message : '未知错误'}`);
+          }
           fd = -1;
         }
       }
@@ -287,34 +305,43 @@ export class StreamPipeline {
         // 先挂完成/错误回调，再挂 data 触发读取，避免同步事件早于监听器注册
         const finished = new Promise<void>((resolve) => {
           source.on('error', (err: emitter.EventData) => {
-            const e = err.data as Error;
+            const e: Error = eventDataToError(err);
             LogUtil.error(TAG, `5.x 源流出错：${e && e.message ? e.message : '未知错误'}`);
             resolve();
           });
           transformer.on('error', (err: emitter.EventData) => {
-            const e = err.data as Error;
+            const e: Error = eventDataToError(err);
             LogUtil.error(TAG, `5.x 转换流出错：${e && e.message ? e.message : '未知错误'}`);
             resolve();
           });
           sink.on('error', (err: emitter.EventData) => {
-            const e = err.data as Error;
+            const e: Error = eventDataToError(err);
             LogUtil.error(TAG, `5.x 落盘流出错：${e && e.message ? e.message : '未知错误'}`);
             resolve();
           });
           sink.on('finish', () => {
-            const size: number = fs.statSync(filePath).size;
-            LogUtil.info(TAG, `5.3 finish 事件：流水线完成，落盘 ${size}B`);
-            // 5.4 用 FastBuffer 读回文件头校验加工结果（呼应场景1 的二进制读取能力）
-            const headFd: number = fs.openSync(filePath, fs.OpenMode.READ_ONLY).fd;
-            const head: ArrayBuffer = new ArrayBuffer(64);
+            let headFd: number = -1;
             try {
+              const size: number = fs.statSync(filePath).size;
+              LogUtil.info(TAG, `5.3 finish 事件：流水线完成，落盘 ${size}B`);
+              // 5.4 用 FastBuffer 读回文件头校验加工结果（呼应场景1 的二进制读取能力）
+              headFd = fs.openSync(filePath, fs.OpenMode.READ_ONLY).fd;
+              const head: ArrayBuffer = new ArrayBuffer(64);
               fs.readSync(headFd, head, { offset: 0, length: 64 });
+              const headStr: string = fastbuffer.from(head).toString('utf8');
+              LogUtil.info(TAG, `5.4 FastBuffer 读回文件头校验：${headStr.substring(0, 40)}...（已转大写）`);
+            } catch (err) {
+              LogUtil.error(TAG, `5.y finish 后处理失败：${err instanceof Error ? err.message : '未知错误'}`);
             } finally {
-              fs.closeSync(headFd);
+              if (headFd >= 0) {
+                try {
+                  fs.closeSync(headFd);
+                } catch (err) {
+                  LogUtil.error(TAG, `5.y 关闭校验 fd 失败：${err instanceof Error ? err.message : '未知错误'}`);
+                }
+              }
+              resolve();
             }
-            const headStr: string = fastbuffer.from(head).toString('utf8');
-            LogUtil.info(TAG, `5.4 FastBuffer 读回文件头校验：${headStr.substring(0, 40)}...（已转大写）`);
-            resolve();
           });
         });
 
@@ -342,7 +369,11 @@ export class StreamPipeline {
         this.onDone();
       } finally {
         if (fd >= 0) {
-          fs.closeSync(fd);
+          try {
+            fs.closeSync(fd);
+          } catch (err) {
+            LogUtil.error(TAG, `关闭 fd 失败：${err instanceof Error ? err.message : '未知错误'}`);
+          }
           fd = -1;
         }
       }
@@ -380,35 +411,44 @@ export class StreamPipeline {
         // pipe 自动转发 data/end，但错误仍需各流自行监听；先挂回调再接线
         const finished = new Promise<void>((resolve) => {
           source.on('error', (err: emitter.EventData) => {
-            const e = err.data as Error;
+            const e: Error = eventDataToError(err);
             LogUtil.error(TAG, `8.x 源流出错：${e && e.message ? e.message : '未知错误'}`);
             resolve();
           });
           transformer.on('error', (err: emitter.EventData) => {
-            const e = err.data as Error;
+            const e: Error = eventDataToError(err);
             LogUtil.error(TAG, `8.x 转换流出错：${e && e.message ? e.message : '未知错误'}`);
             resolve();
           });
           sink.on('error', (err: emitter.EventData) => {
-            const e = err.data as Error;
+            const e: Error = eventDataToError(err);
             LogUtil.error(TAG, `8.x 落盘流出错：${e && e.message ? e.message : '未知错误'}`);
             resolve();
           });
           sink.on('finish', () => {
-            const size: number = fs.statSync(filePath).size;
-            const expected: number = PIPE_BLOCKS * PIPE_BLOCK_SIZE + '[PIPELINE-FLUSH-TAIL]'.length;
-            LogUtil.info(TAG, `8.2 finish 事件：pipe 流水线完成，落盘 ${size}B（预期 ${expected}B）${size === expected ? '，一致' : '，不一致'}`);
-            // 8.3 FastBuffer 读回文件头校验大写加工
-            const headFd: number = fs.openSync(filePath, fs.OpenMode.READ_ONLY).fd;
-            const head: ArrayBuffer = new ArrayBuffer(32);
+            let headFd: number = -1;
             try {
+              const size: number = fs.statSync(filePath).size;
+              const expected: number = PIPE_BLOCKS * PIPE_BLOCK_SIZE + FLUSH_TAIL.length;
+              LogUtil.info(TAG, `8.2 finish 事件：pipe 流水线完成，落盘 ${size}B（预期 ${expected}B）${size === expected ? '，一致' : '，不一致'}`);
+              // 8.3 FastBuffer 读回文件头校验大写加工
+              headFd = fs.openSync(filePath, fs.OpenMode.READ_ONLY).fd;
+              const head: ArrayBuffer = new ArrayBuffer(32);
               fs.readSync(headFd, head, { offset: 0, length: 32 });
+              const headStr: string = fastbuffer.from(head).toString('utf8');
+              LogUtil.info(TAG, `8.3 读回文件头：${headStr.substring(0, 20)}...（大写加工经 pipe 自动转发生效）`);
+            } catch (err) {
+              LogUtil.error(TAG, `8.y finish 后处理失败：${err instanceof Error ? err.message : '未知错误'}`);
             } finally {
-              fs.closeSync(headFd);
+              if (headFd >= 0) {
+                try {
+                  fs.closeSync(headFd);
+                } catch (err) {
+                  LogUtil.error(TAG, `8.y 关闭校验 fd 失败：${err instanceof Error ? err.message : '未知错误'}`);
+                }
+              }
+              resolve();
             }
-            const headStr: string = fastbuffer.from(head).toString('utf8');
-            LogUtil.info(TAG, `8.3 读回文件头：${headStr.substring(0, 20)}...（大写加工经 pipe 自动转发生效）`);
-            resolve();
           });
         });
 
@@ -420,7 +460,11 @@ export class StreamPipeline {
         this.onDone();
       } finally {
         if (fd >= 0) {
-          fs.closeSync(fd);
+          try {
+            fs.closeSync(fd);
+          } catch (err) {
+            LogUtil.error(TAG, `关闭 fd 失败：${err instanceof Error ? err.message : '未知错误'}`);
+          }
           fd = -1;
         }
       }
@@ -445,7 +489,7 @@ export class StreamPipeline {
       }
     };
     duplex.on('error', (err: emitter.EventData) => {
-      const e = err.data as Error;
+      const e: Error = eventDataToError(err);
       LogUtil.error(TAG, `9.x 双流出错：${e && e.message ? e.message : '未知错误'}`);
       doneOnce();
     });
@@ -465,9 +509,15 @@ export class StreamPipeline {
     });
 
     // 9.1 先进入流动模式再写入：写侧数据经 doWrite 桥接直达读侧 data 事件
-    duplex.write('hello');
-    duplex.write('stream');
-    duplex.end();
+    try {
+      duplex.write('hello');
+      duplex.write('stream');
+      duplex.end();
+    } catch (err) {
+      const e: Error = err instanceof Error ? err : new Error('双工流写入失败');
+      LogUtil.error(TAG, `9.x 双工流写入异常：${e.message}`);
+      doneOnce();
+    }
   }
 
   /** 生成 4KB 文本块：块号前缀 + 填充字符 */

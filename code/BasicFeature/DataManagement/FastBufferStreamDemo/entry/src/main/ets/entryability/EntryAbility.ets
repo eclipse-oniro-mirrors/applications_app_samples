@@ -19,7 +19,7 @@ export default class EntryAbility extends UIAbility {
     hilog.info(DOMAIN, 'FastBufferStreamDemo', '%{public}s', 'Ability onWindowStageCreate');
 
     windowStage.loadContent('pages/Index', (err: BusinessError) => {
-      if (err.code) {
+      if (err?.code) {
         hilog.error(DOMAIN, 'FastBufferStreamDemo', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
         return;
       }

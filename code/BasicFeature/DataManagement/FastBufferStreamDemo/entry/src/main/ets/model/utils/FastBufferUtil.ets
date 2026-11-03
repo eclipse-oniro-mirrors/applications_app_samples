@@ -102,13 +102,15 @@ export class FastBufferUtil {
     if (fb.length === 0) {
       return '（空缓冲区）';
     }
-    const half: number = Math.floor(bytesPerLine / 2);
+    // bytesPerLine <= 0 会导致 off 不递增而死循环，统一回退到默认值
+    const width: number = bytesPerLine > 0 ? bytesPerLine : DUMP_BYTES_PER_LINE;
+    const half: number = Math.floor(width / 2);
     const lines: string[] = [];
-    for (let off = 0; off < fb.length; off += bytesPerLine) {
-      const end: number = Math.min(off + bytesPerLine, fb.length);
+    for (let off = 0; off < fb.length; off += width) {
+      const end: number = Math.min(off + width, fb.length);
       let hexPart: string = '';
       let asciiPart: string = '';
-      for (let i = off; i < off + bytesPerLine; i++) {
+      for (let i = off; i < off + width; i++) {
         if (i < end) {
           const b: number = fb.readUInt8(i);
           hexPart += b.toString(16).padStart(2, '0') + ' ';

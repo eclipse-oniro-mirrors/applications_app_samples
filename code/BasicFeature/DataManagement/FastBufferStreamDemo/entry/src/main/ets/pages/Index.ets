@@ -19,11 +19,17 @@ import { LogUtil } from '../model/utils/LogUtil';
 import { DeviceUtil, Breakpoint } from '../model/utils/DeviceUtil';
 
 const MAX_LOG_COUNT = 120;
+const LOG_FLUSH_INTERVAL_MS = 50;
+
+interface LogEntry {
+  id: number;
+  text: string;
+}
 
 @Entry
 @Component
 struct Index {
-  @State logs: string[] = [];
+  @State logs: LogEntry[] = [];
   @State busy: boolean = false;
   @State bp: Breakpoint = 'sm';
   @State deviceType: string = '';
@@ -33,6 +39,9 @@ struct Index {
   @State activeScene: number = -1;
   private basics: FastBufferBasics = new FastBufferBasics();
   private pipeline: StreamPipeline = new StreamPipeline();
+  private nextLogId: number = 0;
+  private pendingLogs: LogEntry[] = [];
+  private flushTimer: number = -1;
 
   aboutToAppear(): void {
     // 统一日志：工具类与业务层都走 LogUtil，UI 面板只做展示
@@ -49,12 +58,47 @@ struct Index {
     DeviceUtil.logDeviceProfile();
   }
 
+  aboutToDisappear(): void {
+    if (this.flushTimer !== -1) {
+      clearTimeout(this.flushTimer);
+      this.flushTimer = -1;
+    }
+    this.flushLogs();
+  }
+
+  /** 日志先入队，每 50ms 合并刷新一次，避免每条日志都触发整列表重建 */
   private pushLog(line: string): void {
-    this.logs = [line, ...this.logs].slice(0, MAX_LOG_COUNT);
+    this.pendingLogs.push({ id: this.nextLogId++, text: line });
+    if (this.flushTimer === -1) {
+      this.flushTimer = setTimeout(() => {
+        this.flushTimer = -1;
+        this.flushLogs();
+      }, LOG_FLUSH_INTERVAL_MS);
+    }
+  }
+
+  private flushLogs(): void {
+    if (this.pendingLogs.length === 0) {
+      return;
+    }
+    const batch: LogEntry[] = this.pendingLogs;
+    this.pendingLogs = [];
+    batch.reverse();
+    this.logs = batch.concat(this.logs).slice(0, MAX_LOG_COUNT);
+  }
+
+  /** 下一帧再执行场景，保证按钮高亮/执行中状态先完成渲染 */
+  private defer(task: () => void): void {
+    setTimeout(task, 0);
   }
 
   private filesDir(): string {
-    return getContext(this).filesDir;
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) {
+      LogUtil.error('Index', '无法获取 HostContext，filesDir 回退为空');
+      return '';
+    }
+    return context.filesDir;
   }
 
   @Builder
@@ -66,7 +110,9 @@ struct Index {
         .fontColor(this.activeScene === 1 ? Color.White : '#1565C0')
         .onClick(() => {
           this.activeScene = 1;
-          this.basics.runBasics();
+          this.defer(() => {
+            this.basics.runBasics();
+          });
         })
       Button('场景2：FastBuffer vs Buffer 性能对比')
         .width('100%')
@@ -74,7 +120,9 @@ struct Index {
         .fontColor(this.activeScene === 2 ? Color.White : '#1565C0')
         .onClick(() => {
           this.activeScene = 2;
-          this.basics.runBenchmark();
+          this.defer(() => {
+            this.basics.runBenchmark();
+          });
         })
       Button('场景3：Writable 流式写入（水位线背压）')
         .width('100%')
@@ -84,7 +132,9 @@ struct Index {
         .onClick(() => {
           this.activeScene = 3;
           this.busy = true;
-          this.pipeline.runWritableDemo(this.filesDir());
+          this.defer(() => {
+            this.pipeline.runWritableDemo(this.filesDir());
+          });
         })
       Button('场景4：Readable 流式读取（分块消费）')
         .width('100%')
@@ -94,7 +144,9 @@ struct Index {
         .onClick(() => {
           this.activeScene = 4;
           this.busy = true;
-          this.pipeline.runReadableDemo(this.filesDir());
+          this.defer(() => {
+            this.pipeline.runReadableDemo(this.filesDir());
+          });
         })
       Button('场景5：三流流水线 Readable→Transform→Writable')
         .width('100%')
@@ -104,7 +156,9 @@ struct Index {
         .onClick(() => {
           this.activeScene = 5;
           this.busy = true;
-          this.pipeline.runPipelineDemo(this.filesDir());
+          this.defer(() => {
+            this.pipeline.runPipelineDemo(this.filesDir());
+          });
         })
       Button('场景6：工具类实战（协议封包/CRC 校验/hexDump）')
         .width('100%')
@@ -112,7 +166,9 @@ struct Index {
         .fontColor(this.activeScene === 6 ? Color.White : '#1565C0')
         .onClick(() => {
           this.activeScene = 6;
-          this.basics.runPacketDemo();
+          this.defer(() => {
+            this.basics.runPacketDemo();
+          });
         })
       Button('场景7：TLV 协议流解析（噪声定位/CRC 检出/截断防护）')
         .width('100%')
@@ -120,7 +176,9 @@ struct Index {
         .fontColor(this.activeScene === 7 ? Color.White : '#1565C0')
         .onClick(() => {
           this.activeScene = 7;
-          this.basics.runTlvDemo();
+          this.defer(() => {
+            this.basics.runTlvDemo();
+          });
         })
       Button('场景8：pipe 一行流水线（Readable→Transform→Writable）')
         .width('100%')
@@ -130,7 +188,9 @@ struct Index {
         .onClick(() => {
           this.activeScene = 8;
           this.busy = true;
-          this.pipeline.runPipeDemo(this.filesDir());
+          this.defer(() => {
+            this.pipeline.runPipeDemo(this.filesDir());
+          });
         })
       Button('场景9：Duplex 双工流（写侧回显/读侧回送）')
         .width('100%')
@@ -140,7 +200,9 @@ struct Index {
         .onClick(() => {
           this.activeScene = 9;
           this.busy = true;
-          this.pipeline.runDuplexDemo();
+          this.defer(() => {
+            this.pipeline.runDuplexDemo();
+          });
         })
     }
     .width('100%')
@@ -166,13 +228,13 @@ struct Index {
       .width('100%')
 
       List({ space: 4 }) {
-        ForEach(this.logs, (line: string, index: number) => {
+        ForEach(this.logs, (item: LogEntry, index: number) => {
           ListItem() {
-            Text(line)
+            Text(item.text)
               .fontSize(12)
               .width('100%')
           }
-        }, (line: string, index: number) => `${index}-${line}`)
+        }, (item: LogEntry, index: number) => item.id.toString())
       }
       .layoutWeight(1)
       .width('100%')

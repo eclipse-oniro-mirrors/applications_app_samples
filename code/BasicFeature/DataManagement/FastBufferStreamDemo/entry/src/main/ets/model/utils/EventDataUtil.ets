@@ -23,6 +23,15 @@ export function decodeUtf8(value: Uint8Array): string {
   return UTF8_DECODER.decodeToString(value);
 }
 
+/** 从流事件的 data 中安全取出 Error（替代不安全的 as Error） */
+export function eventDataToError(data: emitter.EventData): Error {
+  const value: Object | undefined = data.data;
+  if (value instanceof Error) {
+    return value;
+  }
+  return new Error(typeof value === 'string' ? value : '未知错误');
+}
+
 /** 从流事件的 data 中安全取出字符串（替代不安全的 as Object as string） */
 export function eventDataToText(data: emitter.EventData): string {
   const value: Object | undefined = data.data;
