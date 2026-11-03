@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import { AbilityConstant, Want, common } from '@kit.AbilityKit';
-import { deviceInfo } from '@kit.BasicServicesKit';
+import { Want, common } from '@kit.AbilityKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 
 const BLOB_FILE_PREFIX = 'restore_blob_';
@@ -22,19 +21,16 @@ const BLOB_EXPIRE_MS = 7 * 24 * 60 * 60 * 1000; // 与系统备份数据 7 天�
 
 // [Start restore_launch]
 /**
- * 三信号合判是否恢复启动：系统键为 true（全版本可靠）/ want.parameters 中存在
- * 恢复键（仅恢复启动时由系统带回）/ launchReason 为 APP_RECOVERY（仅 API 26+
- * 可信，低版本可能误标，不能单独采信）。
+ * 判定是否恢复启动：系统键为 true（全版本可靠），或 want.parameters 中存在
+ * 恢复键（仅恢复启动时由系统带回）。
+ * launchReason 为 APP_RECOVERY 在部分系统版本存在误标场景，不能单独采信，不参与判定。
  * restoreKeys：onSaveState 写入 want.parameters 的全部键名。
  */
-export function isRestoreLaunch(want: Want, launchParam: AbilityConstant.LaunchParam,
-  restoreKeys: string[]): boolean {
+export function isRestoreLaunch(want: Want, restoreKeys: string[]): boolean {
   const sysFlag = want?.parameters?.['ohos.ability.params.abilityRecoveryRestart'];
   const bySysKey: boolean = sysFlag === true || sysFlag === 'true';
   const byRestoreKey: boolean = restoreKeys.some(k => want?.parameters?.[k] !== undefined);
-  const byReason: boolean = launchParam?.launchReason === AbilityConstant.LaunchReason.APP_RECOVERY
-    && deviceInfo.sdkApiVersion >= 26;
-  return bySysKey || byRestoreKey || byReason;
+  return bySysKey || byRestoreKey;
 }
 // [End restore_launch]
 

@@ -41,7 +41,7 @@ export default class RestoreAbility extends UIAbility {
     // 判断是否恢复启动（restoreKeys 传入本应用的全部恢复键）
     const restoreKeys: string[] = [KEY_RESTORE_READER, KEY_RESTORE_DRAFT,
       KEY_RESTORE_DRAFT_FILE, KEY_RESTORE_NAV_PATH];
-    if (isRestoreLaunch(want, launchParam, restoreKeys)) {
+    if (isRestoreLaunch(want, restoreKeys)) {
       // 系统在恢复启动时把上次保存的数据放入 want.parameters 带回（仅此一次）；
       // 页面尚未创建，先经 AppStorage 中转，页面挂载后取用
       const reader = want?.parameters?.[KEY_RESTORE_READER] as Record<string, Object> | undefined;
