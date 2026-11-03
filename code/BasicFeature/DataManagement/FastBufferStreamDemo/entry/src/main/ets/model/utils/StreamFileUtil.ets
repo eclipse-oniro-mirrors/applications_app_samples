@@ -18,6 +18,21 @@ import fastbuffer from '@ohos.fastbuffer';
 import { emitter } from '@kit.BasicServicesKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import { LogUtil } from './LogUtil';
+import { util } from '@kit.ArkTS';
+
+const UTF8_DECODER: util.TextDecoder = new util.TextDecoder('utf-8');
+
+/** 从流事件的 data 中安全取出字符串（替代不安全的 as Object as string） */
+function eventDataToText(data: emitter.EventData): string {
+  const value: Object | undefined = data.data;
+  if (typeof value === 'string') {
+    return value;
+  }
+  if (value instanceof Uint8Array) {
+    return UTF8_DECODER.decodeToString(value);
+  }
+  return '';
+}
 
 /** 分块大小（4KB） */
 const CHUNK_SIZE: number = 4096;
@@ -178,7 +193,7 @@ export class StreamFileUtil {
         });
       });
       reader.on('data', (data: emitter.EventData) => {
-        const chunk = data.data as Object as string;
+        const chunk: string = eventDataToText(data);
         chunkIndex++;
         received += chunk.length;
         const info: ReadProgress = {
@@ -239,7 +254,7 @@ export class StreamFileUtil {
         });
       });
       reader.on('data', (data: emitter.EventData) => {
-        const chunk = data.data as Object as string;
+        const chunk: string = eventDataToText(data);
         copied += chunk.length;
         writer.write(chunk);
       });

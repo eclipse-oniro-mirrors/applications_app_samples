@@ -198,7 +198,7 @@ export class FastBufferBasics {
     // 7.3 坏 CRC 检出：第 2 条记录 CRC 被篡改，解析应标记 crcOk=false
     const badStream: fastbuffer.FastBuffer = TlvUtil.makeBadCrcStream(3, 48);
     const badResult: TlvParseResult = TlvUtil.parseTlvStream(badStream);
-    const badRecord = badResult.records.find((r: TlvRecord) => !r.crcOk);
+    const badRecord: TlvRecord | undefined = badResult.records.find((r: TlvRecord) => !r.crcOk);
     if (badRecord) {
       // 视图不可再嵌套切片，直接整段 hexDump（readUInt8 对一级视图按偏移读取）
       LogUtil.info(TAG, `7.3 坏 CRC 检出：tag=${badRecord.tag} 校验失败（其余 ${badResult.records.length - 1} 条正常），value hexDump：\n${FastBufferUtil.hexDump(badRecord.value)}`);

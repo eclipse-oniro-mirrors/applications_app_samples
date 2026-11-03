@@ -14,6 +14,7 @@
  */
  
 import stream from '@ohos.util.stream';
+import { util } from '@kit.ArkTS';
 import { emitter } from '@kit.BasicServicesKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import fastbuffer from '@ohos.fastbuffer';
@@ -21,6 +22,19 @@ import { LogUtil } from './utils/LogUtil';
 import { FileWritable, FileReadable } from './utils/StreamFileUtil';
 
 const TAG = 'StreamPipeline';
+const UTF8_DECODER: util.TextDecoder = new util.TextDecoder('utf-8');
+
+/** 从流事件的 data 中安全取出字符串（替代不安全的 as Object as string） */
+function eventDataToText(data: emitter.EventData): string {
+  const value: Object | undefined = data.data;
+  if (typeof value === 'string') {
+    return value;
+  }
+  if (value instanceof Uint8Array) {
+    return UTF8_DECODER.decodeToString(value);
+  }
+  return '';
+}
 
 /** 场景3 写入的块数：100 块 × 4KB = 400KB，足以触发默认 16KB 水位线 */
 const WRITE_CHUNKS: number = 100;
@@ -89,7 +103,7 @@ class UpperCaseTransform extends stream.Transform {
  *  注意：内部不能声明名为 buf 的字段（会覆盖基类字节数组导致框架异常） */
 class EchoDuplex extends stream.Duplex {
   doWrite(chunk: string | Uint8Array, encoding: string, callback: Function): void {
-    const text: string = typeof chunk === 'string' ? chunk : '';
+    const text: string = typeof chunk === 'string' ? chunk : UTF8_DECODER.decodeToString(chunk);
     this.push(text.toUpperCase());
     callback();
   }
@@ -232,7 +246,7 @@ export class StreamPipeline {
           });
         });
         reader.on('data', (data: emitter.EventData) => {
-          const chunk = data.data as Object as string;
+          const chunk: string = eventDataToText(data);
           chunks++;
           received += chunk.length;
         });
@@ -317,7 +331,7 @@ export class StreamPipeline {
         let transformed: number = 0;
         // 5.1 三流串联：源 data → 转换 write；源 end → 转换 end；转换 data → 落盘 write；转换 end → 落盘 end
         source.on('data', (data: emitter.EventData) => {
-          transformer.write(data.data as Object as string);
+          transformer.write(eventDataToText(data));
         });
         source.on('end', () => {
           transformer.end();
@@ -328,7 +342,7 @@ export class StreamPipeline {
           if (transformed <= 3) {
             LogUtil.debug(TAG, `    [Transform] 第 ${transformed} 块加工完成 → Writable`);
           }
-          sink.write(data.data as Object as string);
+          sink.write(eventDataToText(data));
         });
         transformer.on('end', () => {
           sink.end();
@@ -442,7 +456,7 @@ export class StreamPipeline {
       LogUtil.info(TAG, '9.1 finish 事件：写侧数据全部消费完毕');
     });
     duplex.on('data', (data: emitter.EventData) => {
-      const chunk = data.data as Object as string;
+      const chunk: string = eventDataToText(data);
       received.push(chunk);
       LogUtil.info(TAG, `9.2 data 事件：读出 "${chunk}"（${chunk.length}B）`);
     });
