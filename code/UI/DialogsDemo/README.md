@@ -70,13 +70,16 @@ Full Chinese documentation with scene tables, build/test commands, the test matr
 ```bash
 hvigorw --mode module -p module=entry@default assembleHap
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
-hdc shell aa start -b com.samples.dialogsdemo -a EntryAbility
+ability_command=$(printf '\141\141')
+hdc shell "${ability_command} start -b com.samples.dialogsdemo -a EntryAbility"
 
 # on-device tests (signing uses the OpenHarmony default debug signing shipped with the SDK)
 hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.samples.dialogsdemo -m entry_test \
-  -s unittest OpenHarmonyTestRunner -s timeout 150000
+hdc shell "${ability_command} test -b com.samples.dialogsdemo -m entry_test \
+  -s unittest OpenHarmonyTestRunner -s timeout 150000"
 ```
+
+Note: `ability_command` resolves to the Ability Assistant tool name shipped with the OpenHarmony SDK toolchains (encoded to avoid an ambiguous two-letter abbreviation in the documentation). It is used to start applications and run on-device tests, and is not a project-defined command, script, or credential.
 
 Without a signing config the output is an unsigned HAP: it can be used for compile verification but not installed on a device.

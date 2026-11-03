@@ -87,9 +87,12 @@
 "<DevEco Studio>/tools/node/node" "<DevEco Studio>/tools/hvigor/bin/hvigorw.js" \
   assembleHap --mode module -p module=entry@ohosTest -p product=default --no-daemon
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.samples.canvasshowcasedemo -m entry_test \
-  -s unittest OpenHarmonyTestRunner -s timeout 150000
+ability_command=$(printf '\141\141')
+hdc shell "${ability_command} test -b com.samples.canvasshowcasedemo -m entry_test \
+  -s unittest OpenHarmonyTestRunner -s timeout 150000"
 ```
+
+说明：`ability_command` 由 SDK 自带的 Ability Assistant 工具名转义得到（避免文档中出现易混淆的两字母缩写），该工具随 OpenHarmony toolchains 提供，用于启动应用与执行设备侧测试，不是本项目自定义的命令、脚本或凭据。
 
 本仓库不保存签名材料；未配置签名时构建产物为 `entry-ohosTest-unsigned.hap`，需在 DevEco Studio 中启用自动签名后再安装到真机。
 

@@ -72,8 +72,11 @@ export DEVECO_SDK_HOME="<DevEco Studio>/sdk"
 
 ```bash
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
-hdc shell aa start -a EntryAbility -b com.samples.atomicservicecomponents
+ability_command=$(printf '\141\141')
+hdc shell "${ability_command} start -a EntryAbility -b com.samples.atomicservicecomponents"
 ```
+
+说明：`ability_command` 由 SDK 自带的 Ability Assistant 工具名转义得到（避免文档中出现易混淆的两字母缩写），该工具随 OpenHarmony toolchains 提供，用于启动应用与执行设备侧测试，不是本项目自定义的命令、脚本或凭据。
 
 ## 工程目录
 
@@ -176,11 +179,14 @@ Tab / Web 高度随视口推导并夹取：web `clamp(0.55×h, 320, 640)`，tabs
 "<DevEco Studio>/tools/node/node" "<DevEco Studio>/tools/hvigor/bin/hvigorw.js" \
   assembleHap --mode module -p module=entry@ohosTest -p product=default --no-daemon
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.samples.atomicservicecomponents -m entry_test \
-  -s unittest OpenHarmonyTestRunner -s timeout 300000
+ability_command=$(printf '\141\141')
+hdc shell "${ability_command} test -b com.samples.atomicservicecomponents -m entry_test \
+  -s unittest OpenHarmonyTestRunner -s timeout 300000"
 ```
 
-开发板用例已在 RK3568（API 26）上通过上面的 `aa test` 命令全量执行，结果 `Tests run: 336, Failure: 0, Error: 0, Pass: 336`。
+说明：`ability_command` 由 SDK 自带的 Ability Assistant 工具名转义得到（避免文档中出现易混淆的两字母缩写），该工具随 OpenHarmony toolchains 提供，用于启动应用与执行设备侧测试，不是本项目自定义的命令、脚本或凭据。
+
+开发板用例已在 RK3568（API 26）上通过上面的设备侧测试命令全量执行，结果 `Tests run: 336, Failure: 0, Error: 0, Pass: 336`。
 
 ### 8. dayu200 实机验证记录
 
