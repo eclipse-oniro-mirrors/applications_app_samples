@@ -37,7 +37,7 @@
 
 首页（渐变背景、组件目录、设备 profile 与中央日志）：
 
-![首页](docs/screenshots/gradient_home.jpeg)
+![首页](screenshots/gradient_home.png)
 
 ### 使用说明
 
@@ -105,7 +105,7 @@ AtomicServiceComponents
 │   └── resources/rawfile                     AtomicServiceWeb 使用的本地 H5 页面
 ├── entry/src/test                            本地纯逻辑单测（11 个文件，109 个用例）
 ├── entry/src/ohosTest                        开发板侧测试（19 个套件，336 个用例）
-├── docs/screenshots                          效果预览截图
+├── screenshots                          效果预览截图
 ├── ohosTest.md                               设备侧测试用例归档
 └── README.md
 ```

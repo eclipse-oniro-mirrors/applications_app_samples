@@ -34,11 +34,11 @@
 
 | 首页 | 确认框 | 警告框 | 单选框 |
 | --- | --- | --- | --- |
-| ![首页](docs/screenshots/1_home.jpeg) | ![确认框](docs/screenshots/2_confirm.jpeg) | ![警告框](docs/screenshots/3_alert.jpeg) | ![单选框](docs/screenshots/4_select.jpeg) |
+| ![首页](screenshots/1_home.png) | ![确认框](screenshots/2_confirm.png) | ![警告框](screenshots/3_alert.png) | ![单选框](screenshots/4_select.png) |
 
 | 图示提示 | 加载框 | 自定义内容 | 插屏弹窗 | 气泡 |
 | --- | --- | --- | --- | --- |
-| ![图示提示](docs/screenshots/5_tips.jpeg) | ![加载框](docs/screenshots/6_loading.jpeg) | ![自定义内容](docs/screenshots/7_custom.jpeg) | ![插屏弹窗](docs/screenshots/8_interstitial.jpeg) | ![气泡](docs/screenshots/9_popover.jpeg) |
+| ![图示提示](screenshots/5_tips.png) | ![加载框](screenshots/6_loading.png) | ![自定义内容](screenshots/7_custom.png) | ![插屏弹窗](screenshots/8_interstitial.png) | ![气泡](screenshots/9_popover.png) |
 
 > 加载框 2 秒自动关闭，截图为出现瞬间；插屏弹窗呈现为屏幕底部横幅样式。
 

@@ -24,11 +24,11 @@ An ArkUI advanced-components sample project corresponding to the samples catalog
 
 | Home | Confirm | Alert | Select |
 | --- | --- | --- | --- |
-| ![Home](docs/screenshots/1_home.jpeg) | ![Confirm](docs/screenshots/2_confirm.jpeg) | ![Alert](docs/screenshots/3_alert.jpeg) | ![Select](docs/screenshots/4_select.jpeg) |
+| ![Home](screenshots/1_home.png) | ![Confirm](screenshots/2_confirm.png) | ![Alert](screenshots/3_alert.png) | ![Select](screenshots/4_select.png) |
 
 | Tips | Loading | Custom | Interstitial | Popover |
 | --- | --- | --- | --- | --- |
-| ![Tips](docs/screenshots/5_tips.jpeg) | ![Loading](docs/screenshots/6_loading.jpeg) | ![Custom](docs/screenshots/7_custom.jpeg) | ![Interstitial](docs/screenshots/8_interstitial.jpeg) | ![Popover](docs/screenshots/9_popover.jpeg) |
+| ![Tips](screenshots/5_tips.png) | ![Loading](screenshots/6_loading.png) | ![Custom](screenshots/7_custom.png) | ![Interstitial](screenshots/8_interstitial.png) | ![Popover](screenshots/9_popover.png) |
 
 ## Implementation notes
 

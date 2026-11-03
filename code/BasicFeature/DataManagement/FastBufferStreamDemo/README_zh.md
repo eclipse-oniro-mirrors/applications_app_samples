@@ -34,15 +34,15 @@
 
 ## 预览
 
-主界面（设备信息卡 + 9 个场景按钮 + 事件日志面板），截图见 [docs/screenshots/](docs/screenshots/)：
+主界面（设备信息卡 + 9 个场景按钮 + 事件日志面板），截图见 [screenshots/](screenshots/)：
 
 | 首页 | 场景1 基础操作 | 场景5 流水线 |
 | --- | --- | --- |
-| ![首页](docs/screenshots/1_home.jpeg) | ![场景1](docs/screenshots/2_scene1.jpeg) | ![场景5](docs/screenshots/3_scene5.jpeg) |
+| ![首页](screenshots/1_home.png) | ![场景1](screenshots/2_scene1.png) | ![场景5](screenshots/3_scene5.png) |
 
 | 场景6 封包/CRC | 场景7 TLV 解析 | 场景8 pipe | 场景9 Duplex |
 | --- | --- | --- | --- |
-| ![场景6](docs/screenshots/4_scene6.jpeg) | ![场景7](docs/screenshots/5_scene7.jpeg) | ![场景8](docs/screenshots/6_scene8.jpeg) | ![场景9](docs/screenshots/7_scene9.jpeg) |
+| ![场景6](screenshots/4_scene6.png) | ![场景7](screenshots/5_scene7.png) | ![场景8](screenshots/6_scene8.png) | ![场景9](screenshots/7_scene9.png) |
 
 场景 3/4（Writable/Readable 单流）的界面形态与场景 5 相同，可参考场景 5 截图；日志内容分别为 cork/背压记录与分块消费记录。
 
@@ -64,7 +64,7 @@ entry/src/main/ets/                              # 业务与 UI（约 1630 行�
 │   │   └── DeviceUtil.ets                       // 设备信息与断点档位
 └── pages/Index.ets                              // 演示界面：9 按钮 + 事件日志面板 + 断点自适应布局
 entry/src/ohosTest/ets/test/                     // 设备侧测试（16 套件 248 例，约 4400 行，hypium）
-docs/screenshots/                                // 真机截图
+screenshots/                                // 真机截图
 ```
 
 ## 总体架构与运行机制
@@ -210,5 +210,5 @@ hdc shell aa start -b com.samples.fastbufferstreamdemo -a EntryAbility
 ## 相关文档
 
 * [README.md](README.md)：English overview
-* [docs/screenshots/](docs/screenshots/)：真机截图
+* [screenshots/](screenshots/)：真机截图
 * 系统 API 参考：`@ohos.fastbuffer`、`@ohos.buffer`、`@ohos.util.stream`（SDK 内置 d.ts 与官方文档）
