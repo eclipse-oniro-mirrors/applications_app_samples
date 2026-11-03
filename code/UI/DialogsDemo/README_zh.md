@@ -9,7 +9,7 @@
 ## 环境要求
 
 - DevEco Studio（OpenHarmony SDK API 26，compileSdkVersion / compatibleSdkVersion 26.0.0，runtimeOS: OpenHarmony）
-- OpenHarmony / HarmonyOS 真机或模拟器（本工程在 RK3568 dayu200 真机验证）
+- OpenHarmony 真机或模拟器（本工程在 RK3568 dayu200 真机验证）
 
 ## 场景一览
 
@@ -173,10 +173,10 @@ hdc shell aa test -b com.samples.dialogsdemo -m entry_test \
 ## 已知限制
 
 1. **弹窗表面为固定白色**：`ComponentContent` 呈现路径不提供容器背景，工程在各 `@Builder` 根节点自绘白色圆角表面（90% 宽、最大 400vp），未适配深色模式；如需跟随系统主题，可改用 `$r('sys.color.ohos_id_color_dialog_bg')` 等系统色或按主题切换背景色。
-2. **插屏弹窗可用性**：`InterstitialDialogAction` 标注 @atomicservice，本工程在**普通应用**（非原子化服务）真机验证可正常弹出与关闭（底部横幅样式）；在其他 ROM/版本上的行为以实际运行为准。
+2. **插屏弹窗可用性**：`InterstitialDialogAction` 标注 @atomicservice，本工程在**普通应用**（非原子化服务）真机验证可正常弹出与关闭（底部横幅样式）；在其它 ROM/版本上的行为以实际运行为准。
 3. **气泡显隐同步**：气泡被模态弹窗等外层交互打断消失时，锚点按钮文案可能与实际显隐短暂不一致，再次点击锚点即可同步。
 4. **SheetInfo**：`SelectDialogV2` 的 `radioContent` 中每项 `action` 回调为必填，本工程在 action 内记录选中下标。
-5. **SelectDialogV2 选项点击行为**：本 ROM（OpenHarmony-7.1.0.22 Canary1 / API 26）点击单选项后组件内部会直接关闭弹窗（`autoCancel:false` 与 `onWillDismiss` 均无法拦截，与文档“仅确定按钮关闭”不一致）。示例在 `SheetInfo.action` 中用新选中项重新呈现同一弹窗，并以 `TransitionEffect.IDENTITY` 关闭显隐动画，保持“先选择、再点确定关闭”的交互且不闪动；其他 ROM 若行为不同，可移除该重开逻辑。
+5. **SelectDialogV2 选项点击行为**：本 ROM（OpenHarmony-7.1.0.22 Canary1 / API 26）点击单选项后组件内部会直接关闭弹窗（`autoCancel:false` 与 `onWillDismiss` 均无法拦截，与文档“仅确定按钮关闭”不一致）。示例在 `SheetInfo.action` 中用新选中项重新呈现同一弹窗，并以 `TransitionEffect.IDENTITY` 关闭显隐动画，保持“先选择、再点确定关闭”的交互且不闪动；其它 ROM 若行为不同，可移除该重开逻辑。
 6. **弹窗不叠加**：连续点按场景按钮不会叠加多个弹窗——场景 1–7 在打开新弹窗前会关闭已存在的弹窗（`showContent` 预关闭），场景 8 在插屏已打开时忽略重复点击并记录日志；点击插屏本体或应用从后台回到前台时会清空插屏打开状态，因此可随时再次点击场景 8 重新弹出。
 7. 加载框 2 秒自动关闭，README 截图为出现瞬间画面。
 8. **系统弹窗样式由系统提供**：场景 9–14 使用 `showActionSheet` / 选择器 / `showDialog` / `openToast`，其外观、按钮文案与主题跟随系统，不同 ROM 可能略有差异；样例只保证数据组织与回调/日志时序。

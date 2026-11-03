@@ -242,7 +242,8 @@ export class ListConfigFactory {
   // ---------- ComposeListItem V2（class，constructor(options)） ----------
 
   /** V2 内容区 */
-  static buildV2ContentItem(icon: ResourceStr, iconStyle: IconTypeV2, primary: string, secondary: string): ContentItemV2 {
+  static buildV2ContentItem(icon: ResourceStr, iconStyle: IconTypeV2, primary: string,
+    secondary: string): ContentItemV2 {
     return new ContentItemV2({
       icon: icon,
       iconStyle: iconStyle,
