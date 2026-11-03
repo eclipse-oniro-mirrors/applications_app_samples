@@ -16,7 +16,9 @@
 import display from '@ohos.display';
 import emitter from '@ohos.events.emitter';
 import { common } from '@kit.AbilityKit';
-import media from '@ohos.multimedia.media';
+// [Start createAVPlayer]
+import { media } from '@kit.MediaKit';
+// [StartExclude media-exclude-createAVPlayer]
 import { fileIo as fs } from '@kit.CoreFileKit';
 import audio from '@ohos.multimedia.audio';
 
@@ -110,8 +112,10 @@ struct Index {
       this.avPlayer.release();
       await this.msleepAsync(1500);
     }
+    // [EndExclude media-exclude]
     // 创建avPlayer实例对象
     this.avPlayer = await media.createAVPlayer();
+    // [End createAVPlayer]
 
     // 创建状态机变化回调函数
     await this.setAVPlayerCallback((avPlayer: media.AVPlayer) => {
