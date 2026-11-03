@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+// [Start app-takeovers-web-media-index]
 // Index.ets
 import { Observed, State, AppStorage, ObjectLink } from '@ohos.arkui.stateManagement';
 import { XComponent, XComponentType, XComponentController, Text, Alignment, Resource, ForEach, Area, XComponentOptions,
@@ -590,3 +591,4 @@ export struct WebComponent {
     return this.native_player_info_list.find((item)=> item.embed_id == embedId);
   }
 }
+// [End app-takeovers-web-media-index]

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+// [Start app-takeovers-web-media-ability]
 import UIAbility from '@ohos.app.ability.UIAbility';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import Want from '@ohos.app.ability.Want';
@@ -46,3 +47,4 @@ class EntryAbility extends UIAbility {
     }
   }
 }
+// [End app-takeovers-web-media-ability]

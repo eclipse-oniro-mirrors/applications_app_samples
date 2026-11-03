@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+// [Start app-takeovers-web-media-player]
 import media from '@ohos.multimedia.media';
 import { BusinessError } from '@ohos.base';
 
@@ -296,3 +297,4 @@ export class AVPlayerDemo {
     this.schedule();
   }
 }
+// [End app-takeovers-web-media-player]
