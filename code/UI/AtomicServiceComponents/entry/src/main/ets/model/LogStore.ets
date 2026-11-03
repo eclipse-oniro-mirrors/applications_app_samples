@@ -25,12 +25,12 @@ export enum LogLevel {
 
 export class LogItem {
   private static nextId: number = 0;
-  id: number;
-  time: string;
-  source: string;
-  tag: string;
-  detail: string;
-  level: LogLevel;
+  public id: number;
+  public time: string;
+  public source: string;
+  public tag: string;
+  public detail: string;
+  public level: LogLevel;
 
   constructor(source: string, tag: string, detail: string,
               level: LogLevel = LogLevel.INFO, date: Date = new Date()) {

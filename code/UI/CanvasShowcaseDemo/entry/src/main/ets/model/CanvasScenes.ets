@@ -429,4 +429,254 @@ export class CanvasScenes {
     LogUtil.info(TAG, 'P.9 断点颜色：ColorMetrics.rgba（alpha 可选）与 resourceColor 混用');
     LogUtil.info(TAG, '【补充】完成');
   }
+
+  /** 场景1：圆锥渐变（createConicGradient，API 12+）——六段色环 + 中心留白圆 */
+  static drawConicGradient(ctx: CanvasRenderer, w: number, h: number): void {
+    LogUtil.info(TAG, '【场景1】createConicGradient：圆锥渐变开始（API 12+）');
+    const cx: number = w / 2;
+    const cy: number = h / 2;
+    // createConicGradient(startAngle, x, y)：起始角为弧度，绕圆心按角度铺开
+    const grad: CanvasGradient = ctx.createConicGradient(0, cx, cy);
+    const colors: string[] = ['#E53935', '#FB8C00', '#FDD835', '#43A047', '#1E88E5', '#8E24AA'];
+    for (let i = 0; i < colors.length; i++) {
+      grad.addColorStop(i / colors.length, colors[i]);
+    }
+    grad.addColorStop(1, colors[0]);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+    // 中心留白圆强调圆心与起始角位置
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.arc(cx, cy, Math.min(w, h) * 0.12, 0, Math.PI * 2);
+    ctx.fill();
+    LogUtil.info(TAG, `C.1 圆锥渐变：起始角 0rad，圆心(${Math.round(cx)},${Math.round(cy)})，${colors.length} 段色环 + 中心圆`);
+    LogUtil.info(TAG, '【场景1】完成');
+  }
+
+  /** 扩展：自由路径——三次贝塞尔波形、二次贝塞尔心形、arcTo 圆角矩形 */
+  static drawPathCurves(ctx: CanvasRenderer, w: number, h: number): void {
+    LogUtil.info(TAG, '【扩展】Path：贝塞尔与 arcTo 路径开始');
+    // E.6 三次贝塞尔：两段 bezierCurveTo 组成波形
+    ctx.strokeStyle = '#1E88E5';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(w * 0.05, h * 0.2);
+    ctx.bezierCurveTo(w * 0.3, h * 0.02, w * 0.45, h * 0.38, w * 0.7, h * 0.2);
+    ctx.bezierCurveTo(w * 0.85, h * 0.1, w * 0.9, h * 0.24, w * 0.95, h * 0.2);
+    ctx.stroke();
+    LogUtil.info(TAG, 'E.6 bezierCurveTo：两段三次贝塞尔连成波形，stroke 描边');
+
+    // E.7 二次贝塞尔：两段 quadraticCurveTo 组成心形
+    const hx: number = w * 0.28;
+    const hy: number = h * 0.56;
+    const s: number = Math.min(w, h) * 0.13;
+    ctx.fillStyle = '#E91E63';
+    ctx.beginPath();
+    ctx.moveTo(hx, hy + s);
+    ctx.quadraticCurveTo(hx - s * 1.6, hy - s * 0.6, hx, hy - s * 0.7);
+    ctx.quadraticCurveTo(hx + s * 1.6, hy - s * 0.6, hx, hy + s);
+    ctx.fill();
+    LogUtil.info(TAG, 'E.7 quadraticCurveTo：两段二次贝塞尔组成心形并 fill');
+
+    // E.8 arcTo：四个圆角拼接圆角矩形
+    const rx: number = w * 0.55;
+    const ry: number = h * 0.45;
+    const rw: number = w * 0.38;
+    const rh: number = h * 0.35;
+    const r: number = Math.min(rw, rh) * 0.25;
+    ctx.strokeStyle = '#00897B';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(rx + r, ry);
+    ctx.lineTo(rx + rw - r, ry);
+    ctx.arcTo(rx + rw, ry, rx + rw, ry + r, r);
+    ctx.lineTo(rx + rw, ry + rh - r);
+    ctx.arcTo(rx + rw, ry + rh, rx + rw - r, ry + rh, r);
+    ctx.lineTo(rx + r, ry + rh);
+    ctx.arcTo(rx, ry + rh, rx, ry + rh - r, r);
+    ctx.lineTo(rx, ry + r);
+    ctx.arcTo(rx, ry, rx + r, ry, r);
+    ctx.closePath();
+    ctx.stroke();
+    LogUtil.info(TAG, `E.8 arcTo：四个圆角半径 ${Math.round(r)}，closePath 后 stroke`);
+    LogUtil.info(TAG, '【扩展】完成');
+  }
+
+  /** 扩展：clip 裁剪 + globalCompositeOperation 合成模式 */
+  static drawClipComposite(ctx: CanvasRenderer, w: number, h: number): void {
+    LogUtil.info(TAG, '【扩展】clip + globalCompositeOperation 开始');
+    // E.9 圆形裁剪：裁剪区内绘制渐变，区域外不落笔
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(w * 0.25, h * 0.25, Math.min(w, h) * 0.2, 0, Math.PI * 2);
+    ctx.clip();
+    const grad: CanvasGradient = ctx.createLinearGradient(0, 0, w * 0.5, h * 0.5);
+    grad.addColorStop(0, '#FFEB3B');
+    grad.addColorStop(1, '#E53935');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w * 0.5, h * 0.5);
+    ctx.restore();
+    LogUtil.info(TAG, 'E.9 clip()：圆形裁剪区内绘制渐变，restore 恢复裁剪区域');
+
+    // E.10 矩形裁剪 + 条纹填充
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(w * 0.6, h * 0.05, w * 0.35, h * 0.4);
+    ctx.clip();
+    for (let i = 0; i < 6; i++) {
+      ctx.fillStyle = i % 2 === 0 ? '#26C6DA' : '#00695C';
+      ctx.fillRect(w * 0.6, h * 0.05 + i * h * 0.07, w * 0.35, h * 0.07);
+    }
+    ctx.restore();
+    LogUtil.info(TAG, 'E.10 clip()：矩形裁剪区内填充六条交替色带');
+
+    // E.11 三种合成模式：同位置双圆叠加
+    const modes: string[] = ['source-over', 'multiply', 'screen'];
+    const baseY: number = h * 0.75;
+    const cr: number = Math.min(w, h) * 0.11;
+    for (let i = 0; i < modes.length; i++) {
+      const cx: number = w * (0.2 + 0.3 * i);
+      ctx.globalCompositeOperation = modes[i];
+      ctx.fillStyle = '#1E88E5';
+      ctx.beginPath();
+      ctx.arc(cx - cr * 0.5, baseY, cr, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#FDD835';
+      ctx.beginPath();
+      ctx.arc(cx + cr * 0.5, baseY, cr, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalCompositeOperation = 'source-over';
+      LogUtil.info(TAG, `E.11 globalCompositeOperation=${modes[i]}：蓝/黄双圆叠加`);
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    LogUtil.info(TAG, '【扩展】完成');
+  }
+
+  /** 扩展：文字绘制——fillText / strokeText / measureText / 渐变文字 */
+  static drawTextStyles(ctx: CanvasRenderer, w: number, h: number): void {
+    LogUtil.info(TAG, '【扩展】文字绘制开始');
+    const bg: CanvasGradient = ctx.createLinearGradient(0, 0, 0, h);
+    bg.addColorStop(0, '#263238');
+    bg.addColorStop(1, '#455A64');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, w, h);
+
+    // E.12 measureText：先量宽再绘制
+    ctx.font = '20px sans-serif';
+    const metrics: TextMetrics = ctx.measureText('fillText');
+    LogUtil.info(TAG, `E.12 measureText('fillText') 宽度 ${metrics.width.toFixed(2)}`);
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = '#FFEB3B';
+    ctx.fillText('fillText', w * 0.05, h * 0.08);
+
+    // E.13 strokeText：描边文字
+    ctx.font = '24px sans-serif';
+    ctx.strokeStyle = '#26C6DA';
+    ctx.lineWidth = 1.5;
+    ctx.strokeText('strokeText', w * 0.05, h * 0.38);
+    LogUtil.info(TAG, 'E.13 strokeText：24px 描边文字');
+
+    // E.14 渐变文字：fillStyle 使用渐变对象
+    const grad: CanvasGradient = ctx.createLinearGradient(0, 0, w, 0);
+    grad.addColorStop(0, '#FF5252');
+    grad.addColorStop(1, '#448AFF');
+    ctx.fillStyle = grad;
+    ctx.font = 'bold 26px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('GRADIENT', w / 2, h * 0.7);
+    LogUtil.info(TAG, 'E.14 渐变文字：textAlign=center，fillStyle 为线性渐变');
+
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    LogUtil.info(TAG, '【扩展】完成');
+  }
+
+  /** 扩展：虚线描边——setLineDash / lineDashOffset / lineCap / lineJoin */
+  static drawLineDash(ctx: CanvasRenderer, w: number, h: number): void {
+    LogUtil.info(TAG, '【扩展】虚线描边样式开始');
+    // E.15 setLineDash：实线段 12、间隔 6
+    ctx.strokeStyle = '#1E88E5';
+    ctx.lineWidth = 3;
+    ctx.setLineDash([12, 6]);
+    ctx.beginPath();
+    ctx.moveTo(w * 0.05, h * 0.18);
+    ctx.lineTo(w * 0.95, h * 0.18);
+    ctx.stroke();
+    LogUtil.info(TAG, 'E.15 setLineDash([12, 6])：虚线段 12、间隔 6');
+
+    // E.16 lineDashOffset：相位偏移 6 的对比线
+    ctx.strokeStyle = '#E53935';
+    ctx.lineDashOffset = 6;
+    ctx.beginPath();
+    ctx.moveTo(w * 0.05, h * 0.36);
+    ctx.lineTo(w * 0.95, h * 0.36);
+    ctx.stroke();
+    ctx.lineDashOffset = 0;
+    LogUtil.info(TAG, 'E.16 lineDashOffset=6：虚线相位偏移，与上一行错开');
+
+    // E.17 三种线帽：butt / round / square
+    ctx.setLineDash([]);
+    const caps: CanvasLineCap[] = ['butt', 'round', 'square'];
+    const capColors: string[] = ['#43A047', '#FDD835', '#8E24AA'];
+    for (let i = 0; i < caps.length; i++) {
+      ctx.lineCap = caps[i];
+      ctx.strokeStyle = capColors[i];
+      ctx.lineWidth = 10;
+      ctx.beginPath();
+      ctx.moveTo(w * (0.12 + 0.3 * i), h * 0.58);
+      ctx.lineTo(w * (0.26 + 0.3 * i), h * 0.58);
+      ctx.stroke();
+      LogUtil.info(TAG, `E.17 lineCap=${caps[i]}：粗线段端点样式`);
+    }
+    ctx.lineCap = 'butt';
+
+    // E.18 三种拐角：miter / round / bevel
+    const joins: CanvasLineJoin[] = ['miter', 'round', 'bevel'];
+    ctx.lineWidth = 6;
+    for (let i = 0; i < joins.length; i++) {
+      ctx.lineJoin = joins[i];
+      ctx.strokeStyle = capColors[i];
+      const jx: number = w * (0.18 + 0.3 * i);
+      ctx.beginPath();
+      ctx.moveTo(jx, h * 0.92);
+      ctx.lineTo(jx + 10, h * 0.76);
+      ctx.lineTo(jx + 20, h * 0.92);
+      ctx.stroke();
+      LogUtil.info(TAG, `E.18 lineJoin=${joins[i]}：折线拐角样式`);
+    }
+    ctx.lineJoin = 'miter';
+    LogUtil.info(TAG, '【扩展】完成');
+  }
+
+  /** 扩展：ImageData 回读——getImageData 取中心区域像素反相后 putImageData */
+  static drawImageDataReadback(ctx: CanvasRenderer, w: number, h: number): void {
+    LogUtil.info(TAG, '【扩展】getImageData 回读与反相开始');
+    // E.19 先铺满渐变背景
+    const bg: CanvasGradient = ctx.createLinearGradient(0, 0, w, h);
+    bg.addColorStop(0, '#E53935');
+    bg.addColorStop(0.5, '#FDD835');
+    bg.addColorStop(1, '#1E88E5');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, w, h);
+
+    // E.20 回读中心方块像素，RGB 反相后原位置写回
+    const size: number = Math.max(8, Math.floor(Math.min(w, h) * 0.5));
+    const sx: number = Math.floor((w - size) / 2);
+    const sy: number = Math.floor((h - size) / 2);
+    const img: ImageData = ctx.getImageData(sx, sy, size, size);
+    const data: Uint8ClampedArray = img.data;
+    const beforeR: number = data[0];
+    const beforeG: number = data[1];
+    const beforeB: number = data[2];
+    for (let i = 0; i < data.length; i += 4) {
+      data[i] = 255 - data[i];
+      data[i + 1] = 255 - data[i + 1];
+      data[i + 2] = 255 - data[i + 2];
+    }
+    ctx.putImageData(img, sx, sy);
+    LogUtil.info(TAG, `E.20 getImageData(${size}x${size}) 回读像素 (${beforeR},${beforeG},${beforeB}) → 反相 (${255 - beforeR},${255 - beforeG},${255 - beforeB})`);
+    LogUtil.info(TAG, '【扩展】完成');
+  }
 }

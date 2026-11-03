@@ -14,12 +14,12 @@
  */
  
 export class StorageKeys {
-  static readonly NAV_TITLE: string = 'navTitle';
-  static readonly NAV_GRADIENT: string = 'navGradient';
-  static readonly NAV_HIDE_TITLE: string = 'navHideTitle';
-  static readonly NAV_SPLIT: string = 'navSplit';
-  static readonly APP_LOGS: string = 'appLogs';
-  static readonly LAYOUT_PROFILE: string = 'layoutProfile';
+  public static readonly NAV_TITLE: string = 'navTitle';
+  public static readonly NAV_GRADIENT: string = 'navGradient';
+  public static readonly NAV_HIDE_TITLE: string = 'navHideTitle';
+  public static readonly NAV_SPLIT: string = 'navSplit';
+  public static readonly APP_LOGS: string = 'appLogs';
+  public static readonly LAYOUT_PROFILE: string = 'layoutProfile';
 }
 
 export enum RouteKey {

@@ -325,5 +325,99 @@ export default function canvasScenesTest() {
       const ctx = off.getContext('2d');
       CanvasScenes.drawColorMetricsGradient(ctx, W, H);
     });
+
+    /**
+     * @tc.number SUB_CANVAS_SHOWCASE_DEMO_CANVASSENCES_1800
+     * @tc.name drawConicGradientNoThrow018
+     * @tc.desc Verify the conic gradient scene draws
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('drawConicGradient_noThrow', 0, () => {
+      // createConicGradient（API 12+）：六段色环 + 中心圆
+      const off = new OffscreenCanvas(W, H);
+      const ctx = off.getContext('2d');
+      CanvasScenes.drawConicGradient(ctx, W, H);
+    });
+
+    /**
+     * @tc.number SUB_CANVAS_SHOWCASE_DEMO_CANVASSENCES_1900
+     * @tc.name drawPathCurvesNoThrow019
+     * @tc.desc Verify bezier, quadratic and arcTo paths draw
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('drawPathCurves_noThrow', 0, () => {
+      // 三次贝塞尔波形 + 二次贝塞尔心形 + arcTo 圆角矩形
+      const off = new OffscreenCanvas(W, H);
+      const ctx = off.getContext('2d');
+      CanvasScenes.drawPathCurves(ctx, W, H);
+    });
+
+    /**
+     * @tc.number SUB_CANVAS_SHOWCASE_DEMO_CANVASSENCES_2000
+     * @tc.name drawClipCompositeNoThrow020
+     * @tc.desc Verify clip regions and composite modes draw and reset state
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('drawClipComposite_noThrow', 0, () => {
+      // 圆形/矩形裁剪 + source-over / multiply / screen 三种合成模式
+      const off = new OffscreenCanvas(W, H);
+      const ctx = off.getContext('2d');
+      CanvasScenes.drawClipComposite(ctx, W, H);
+    });
+
+    /**
+     * @tc.number SUB_CANVAS_SHOWCASE_DEMO_CANVASSENCES_2100
+     * @tc.name drawTextStylesMeasure021
+     * @tc.desc Verify text scenes draw and measureText returns a positive width
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('drawTextStyles_measure', 0, () => {
+      // fillText / strokeText / 渐变文字 + measureText
+      const off = new OffscreenCanvas(W, H);
+      const ctx = off.getContext('2d');
+      CanvasScenes.drawTextStyles(ctx, W, H);
+      expect(ctx.measureText('measureText').width > 0).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_CANVAS_SHOWCASE_DEMO_CANVASSENCES_2200
+     * @tc.name drawLineDashResetsDashArray022
+     * @tc.desc Verify the dash scene draws and restores an empty dash array
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('drawLineDash_resetsDashArray', 0, () => {
+      // setLineDash / lineDashOffset / lineCap / lineJoin，结束后虚线复位
+      const off = new OffscreenCanvas(W, H);
+      const ctx = off.getContext('2d');
+      CanvasScenes.drawLineDash(ctx, W, H);
+      expect(ctx.getLineDash().length).assertEqual(0);
+    });
+
+    /**
+     * @tc.number SUB_CANVAS_SHOWCASE_DEMO_CANVASSENCES_2300
+     * @tc.name drawImageDataReadbackOpaque023
+     * @tc.desc Verify getImageData readback and inversion keep center pixels opaque
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('drawImageDataReadback_opaque', 0, () => {
+      // 回读中心区域反相后写回，中心像素 alpha 保持不透明
+      const off = new OffscreenCanvas(W, H);
+      const ctx = off.getContext('2d');
+      CanvasScenes.drawImageDataReadback(ctx, W, H);
+      const pixel = ctx.getImageData(Math.floor(W / 2), Math.floor(H / 2), 1, 1);
+      expect(pixel.data[3]).assertEqual(255);
+    });
   });
 }

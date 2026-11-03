@@ -107,7 +107,7 @@ struct Index {
   private advGroupPadding: ChipGroupV2Padding = ChipConfigFactory.buildGroupPadding(10, 10);
   @State advSuffixOn: boolean[] = [false, false];
   @State advSuffixFlip: boolean = false;
-  private advGroupSuffixItems: Array<ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig> =
+  private advGroupSuffixItems: (ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig)[] =
     ChipConfigFactory.buildGroupSuffixItems(
       $r('app.media.startIcon'), [$r('sys.symbol.heart'), $r('sys.symbol.star')],
       (): void => this.logSuffixImageTap(),
@@ -734,7 +734,7 @@ struct Index {
             LogUtil.info('Index', '点击「动态启用/禁用」标签 → enabled=true 时点击有响应');
           }
         })
-        Text(this.advEnabled ? '点我禁用 →' : '点我启用 →')
+        Text(this.advEnabled ? '点此禁用 →' : '点此启用 →')
           .fontSize(12)
           .fontColor('#1565C0')
           .padding({ left: 8, right: 8, top: 4, bottom: 4 })

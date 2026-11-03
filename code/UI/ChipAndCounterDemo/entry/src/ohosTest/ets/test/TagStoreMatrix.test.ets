@@ -32,13 +32,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_0100
-     * @tc.name tagIdsSequentialFromOne001
+     * @tc.name tagIdsSequentialFromOne0001
      * @tc.desc Verify tag ids start at 1 and increase by one per add
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagIdsSequentialFromOne001', 0, () => {
+    it('tagIdsSequentialFromOne0001', 0, () => {
       const store: TagStore = freshAbc();
       const all: TagItem[] = store.getAll();
       expect(all[0].id).assertEqual(1);
@@ -48,13 +48,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_0200
-     * @tc.name addEmptyTextKeepsEntry002
+     * @tc.name addEmptyTextKeepsEntry0002
      * @tc.desc Verify adding an empty text still creates an entry with that text
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addEmptyTextKeepsEntry002', 0, () => {
+    it('addEmptyTextKeepsEntry0002', 0, () => {
       const store: TagStore = freshAbc();
       const item: TagItem = store.add('');
       expect(store.count()).assertEqual(4);
@@ -64,13 +64,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_0300
-     * @tc.name addUnicodeTextPreserved003
+     * @tc.name addUnicodeTextPreserved0003
      * @tc.desc Verify Chinese and Emoji text is stored verbatim
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addUnicodeTextPreserved003', 0, () => {
+    it('addUnicodeTextPreserved0003', 0, () => {
       const store: TagStore = freshAbc();
       const item: TagItem = store.add('中文✓标签😀');
       expect(item.text).assertEqual('中文✓标签😀');
@@ -80,13 +80,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_0400
-     * @tc.name addDuplicateTextsGetDistinctIds004
+     * @tc.name addDuplicateTextsGetDistinctIds0004
      * @tc.desc Verify two tags with identical text receive distinct ids
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addDuplicateTextsGetDistinctIds004', 0, () => {
+    it('addDuplicateTextsGetDistinctIds0004', 0, () => {
       const store: TagStore = freshAbc();
       const a: TagItem = store.add('重复');
       const b: TagItem = store.add('重复');
@@ -97,13 +97,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_0500
-     * @tc.name addDefaultsInactiveEnabled005
+     * @tc.name addDefaultsInactiveEnabled0005
      * @tc.desc Verify a new tag starts inactive with enabled true
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addDefaultsInactiveEnabled005', 0, () => {
+    it('addDefaultsInactiveEnabled0005', 0, () => {
       const store: TagStore = new TagStore();
       const item: TagItem = store.add('X');
       expect(item.id).assertEqual(1);
@@ -114,13 +114,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_0600
-     * @tc.name removeMiddleKeepsRemainingOrder006
+     * @tc.name removeMiddleKeepsRemainingOrder0006
      * @tc.desc Verify removing the middle tag keeps the order of the others
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeMiddleKeepsRemainingOrder006', 0, () => {
+    it('removeMiddleKeepsRemainingOrder0006', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.remove(2)).assertTrue();
       const texts: string[] = store.getAll().map((t: TagItem): string => t.text);
@@ -129,13 +129,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_0700
-     * @tc.name removeLastByIdSucceeds007
+     * @tc.name removeLastByIdSucceeds0007
      * @tc.desc Verify removing the last tag by its id succeeds and hides it
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeLastByIdSucceeds007', 0, () => {
+    it('removeLastByIdSucceeds0007', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.remove(3)).assertTrue();
       expect(store.count()).assertEqual(2);
@@ -144,13 +144,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_0800
-     * @tc.name removeTwiceSecondReturnsFalse008
+     * @tc.name removeTwiceSecondReturnsFalse0008
      * @tc.desc Verify removing the same id twice returns true then false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeTwiceSecondReturnsFalse008', 0, () => {
+    it('removeTwiceSecondReturnsFalse0008', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.remove(1)).assertTrue();
       expect(store.remove(1)).assertFalse();
@@ -159,13 +159,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_0900
-     * @tc.name removeNegativeIdReturnsFalse009
+     * @tc.name removeNegativeIdReturnsFalse0009
      * @tc.desc Verify removing a negative id returns false and keeps the store
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeNegativeIdReturnsFalse009', 0, () => {
+    it('removeNegativeIdReturnsFalse0009', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.remove(-1)).assertFalse();
       expect(store.count()).assertEqual(3);
@@ -173,13 +173,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_1000
-     * @tc.name removeZeroIdReturnsFalse010
+     * @tc.name removeZeroIdReturnsFalse0010
      * @tc.desc Verify id 0 never exists so removal returns false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeZeroIdReturnsFalse010', 0, () => {
+    it('removeZeroIdReturnsFalse0010', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.remove(0)).assertFalse();
       expect(store.count()).assertEqual(3);
@@ -187,13 +187,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_1100
-     * @tc.name toggleMultipleIndependentStates011
+     * @tc.name toggleMultipleIndependentStates0011
      * @tc.desc Verify activating multiple tags keeps each state independent
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toggleMultipleIndependentStates011', 0, () => {
+    it('toggleMultipleIndependentStates0011', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.toggleActivated(1)).assertTrue();
       expect(store.toggleActivated(3)).assertTrue();
@@ -206,13 +206,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_1200
-     * @tc.name toggleTwiceRestoresState012
+     * @tc.name toggleTwiceRestoresState0012
      * @tc.desc Verify toggling the same tag twice restores the inactive state
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toggleTwiceRestoresState012', 0, () => {
+    it('toggleTwiceRestoresState0012', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.toggleActivated(1)).assertTrue();
       expect(store.toggleActivated(1)).assertFalse();
@@ -222,13 +222,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_1300
-     * @tc.name toggleNegativeIdReturnsNull013
+     * @tc.name toggleNegativeIdReturnsNull0013
      * @tc.desc Verify toggling a negative id returns null
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toggleNegativeIdReturnsNull013', 0, () => {
+    it('toggleNegativeIdReturnsNull0013', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.toggleActivated(-5) === null).assertTrue();
       expect(store.activatedCount()).assertEqual(0);
@@ -236,26 +236,26 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_1400
-     * @tc.name toggleFractionalIdReturnsNull014
+     * @tc.name toggleFractionalIdReturnsNull0014
      * @tc.desc Verify toggling a fractional id that matches no tag returns null
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('toggleFractionalIdReturnsNull014', 0, () => {
+    it('toggleFractionalIdReturnsNull0014', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.toggleActivated(2.5) === null).assertTrue();
     });
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_1500
-     * @tc.name setEnabledReEnable015
+     * @tc.name setEnabledReEnable0015
      * @tc.desc Verify a disabled tag can be enabled again
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('setEnabledReEnable015', 0, () => {
+    it('setEnabledReEnable0015', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.setEnabled(1, false)).assertTrue();
       expect(store.setEnabled(1, true)).assertTrue();
@@ -265,13 +265,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_1600
-     * @tc.name setEnabledMissingNegative016
+     * @tc.name setEnabledMissingNegative0016
      * @tc.desc Verify setEnabled on a negative id returns false
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('setEnabledMissingNegative016', 0, () => {
+    it('setEnabledMissingNegative0016', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.setEnabled(-1, true)).assertFalse();
       expect(store.count()).assertEqual(3);
@@ -279,13 +279,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_1700
-     * @tc.name setEnabledDoesNotChangeActivated017
+     * @tc.name setEnabledDoesNotChangeActivated0017
      * @tc.desc Verify enable/disable toggling leaves the activated flag untouched
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('setEnabledDoesNotChangeActivated017', 0, () => {
+    it('setEnabledDoesNotChangeActivated0017', 0, () => {
       const store: TagStore = freshAbc();
       store.setEnabled(1, false);
       store.setEnabled(1, true);
@@ -296,13 +296,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_1800
-     * @tc.name findByIdFields018
+     * @tc.name findByIdFields0018
      * @tc.desc Verify findById returns the matching tag with all default fields
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('findByIdFields018', 0, () => {
+    it('findByIdFields0018', 0, () => {
       const store: TagStore = freshAbc();
       const t: TagItem | null = store.findById(2);
       expect(t !== null).assertTrue();
@@ -316,13 +316,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_1900
-     * @tc.name findByIdSharesReferenceWithGetAll019
+     * @tc.name findByIdSharesReferenceWithGetAll0019
      * @tc.desc Verify getAll returns shallow copies sharing the same tag objects
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('findByIdSharesReferenceWithGetAll019', 0, () => {
+    it('findByIdSharesReferenceWithGetAll0019', 0, () => {
       const store: TagStore = freshAbc();
       const snapshot: TagItem[] = store.getAll();
       expect(store.findById(1) === snapshot[0]).assertTrue();
@@ -332,13 +332,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_2000
-     * @tc.name clearThenAddContinuesIdSequence020
+     * @tc.name clearThenAddContinuesIdSequence0020
      * @tc.desc Verify clear keeps the id counter so new tags continue the sequence
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clearThenAddContinuesIdSequence020', 0, () => {
+    it('clearThenAddContinuesIdSequence0020', 0, () => {
       const store: TagStore = freshAbc();
       store.clear();
       const item: TagItem = store.add('D');
@@ -348,13 +348,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_2100
-     * @tc.name clearTwiceStaysEmpty021
+     * @tc.name clearTwiceStaysEmpty0021
      * @tc.desc Verify clearing an empty store is a no-op and stays empty
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('clearTwiceStaysEmpty021', 0, () => {
+    it('clearTwiceStaysEmpty0021', 0, () => {
       const store: TagStore = freshAbc();
       store.clear();
       store.clear();
@@ -364,13 +364,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_2200
-     * @tc.name getAllLengthMatchesCount022
+     * @tc.name getAllLengthMatchesCount0022
      * @tc.desc Verify the getAll snapshot length always matches count
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('getAllLengthMatchesCount022', 0, () => {
+    it('getAllLengthMatchesCount0022', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.getAll().length).assertEqual(store.count());
       store.remove(2);
@@ -379,13 +379,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_2300
-     * @tc.name getAllElementsMatchFindById023
+     * @tc.name getAllElementsMatchFindById0023
      * @tc.desc Verify every snapshot element can be located by findById with the same text
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('getAllElementsMatchFindById023', 0, () => {
+    it('getAllElementsMatchFindById0023', 0, () => {
       const store: TagStore = freshAbc();
       let matched: number = 0;
       for (const t of store.getAll()) {
@@ -399,13 +399,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_2400
-     * @tc.name activatedCountZeroAfterClear024
+     * @tc.name activatedCountZeroAfterClear0024
      * @tc.desc Verify clear resets the activated count after activations
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('activatedCountZeroAfterClear024', 0, () => {
+    it('activatedCountZeroAfterClear0024', 0, () => {
       const store: TagStore = freshAbc();
       store.toggleActivated(1);
       store.toggleActivated(2);
@@ -416,13 +416,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_2500
-     * @tc.name removeAllLeavesEmptyStore025
+     * @tc.name removeAllLeavesEmptyStore0025
      * @tc.desc Verify removing every tag one by one leaves an empty store
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeAllLeavesEmptyStore025', 0, () => {
+    it('removeAllLeavesEmptyStore0025', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.remove(1)).assertTrue();
       expect(store.remove(2)).assertTrue();
@@ -433,13 +433,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_2600
-     * @tc.name addRemoveCycleKeepsCountConsistent026
+     * @tc.name addRemoveCycleKeepsCountConsistent0026
      * @tc.desc Verify an add-remove cycle keeps the count and order consistent
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addRemoveCycleKeepsCountConsistent026', 0, () => {
+    it('addRemoveCycleKeepsCountConsistent0026', 0, () => {
       const store: TagStore = freshAbc();
       const item: TagItem = store.add('D');
       expect(store.count()).assertEqual(4);
@@ -451,13 +451,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_2700
-     * @tc.name disabledTagStillToggleable027
+     * @tc.name disabledTagStillToggleable0027
      * @tc.desc Verify activation is not gated by the enabled flag in TagStore
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('disabledTagStillToggleable027', 0, () => {
+    it('disabledTagStillToggleable0027', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.setEnabled(1, false)).assertTrue();
       expect(store.toggleActivated(1)).assertTrue();
@@ -467,13 +467,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_2800
-     * @tc.name removeKeepsOtherTagEnabledState028
+     * @tc.name removeKeepsOtherTagEnabledState0028
      * @tc.desc Verify removing one tag preserves the enabled state of the others
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('removeKeepsOtherTagEnabledState028', 0, () => {
+    it('removeKeepsOtherTagEnabledState0028', 0, () => {
       const store: TagStore = freshAbc();
       store.setEnabled(2, false);
       expect(store.remove(1)).assertTrue();
@@ -484,13 +484,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_2900
-     * @tc.name fractionalIdRejectedEverywhere029
+     * @tc.name fractionalIdRejectedEverywhere0029
      * @tc.desc Verify a fractional id is uniformly rejected by find, toggle, remove and setEnabled
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fractionalIdRejectedEverywhere029', 0, () => {
+    it('fractionalIdRejectedEverywhere0029', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.findById(1.5) === null).assertTrue();
       expect(store.toggleActivated(1.5) === null).assertTrue();
@@ -502,13 +502,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_3000
-     * @tc.name addFiftyIdsAndCounts030
+     * @tc.name addFiftyIdsAndCounts0030
      * @tc.desc Verify fifty adds keep ids 1..50 sequential, order intact and counts consistent
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('addFiftyIdsAndCounts030', 0, () => {
+    it('addFiftyIdsAndCounts0030', 0, () => {
       const store: TagStore = new TagStore();
       for (let i = 1; i <= 50; i++) {
         store.add(`标签${i}`);
@@ -525,13 +525,13 @@ export default function tagStoreMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_TAGSTOREMATRIX_3100
-     * @tc.name disableToggleRemoveFlow031
+     * @tc.name disableToggleRemoveFlow0031
      * @tc.desc Verify disable, toggle and remove combine: removed head leaves disabled-activated middle intact
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('disableToggleRemoveFlow031', 0, () => {
+    it('disableToggleRemoveFlow0031', 0, () => {
       const store: TagStore = freshAbc();
       expect(store.setEnabled(2, false)).assertTrue();
       expect(store.toggleActivated(2)).assertTrue();

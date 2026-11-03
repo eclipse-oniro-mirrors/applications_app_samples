@@ -30,9 +30,9 @@ export const BREAKPOINT_MD_VP: number = 600;
 export const BREAKPOINT_LG_VP: number = 840;
 
 export class DisplaySnapshot {
-  widthVp: number;
-  heightVp: number;
-  density: number;
+  public widthVp: number;
+  public heightVp: number;
+  public density: number;
 
   constructor(widthVp: number, heightVp: number, density: number) {
     this.widthVp = widthVp > 0 ? widthVp : 360;
@@ -42,17 +42,17 @@ export class DisplaySnapshot {
 }
 
 export class LayoutProfile {
-  form: DeviceForm;
-  breakpoint: Breakpoint;
-  columns: number;
-  widthVp: number;
-  heightVp: number;
-  density: number;
-  pageMaxWidth: number;
-  webHeight: number;
-  tabsHeight: number;
-  navSplitDefault: boolean;
-  pickerSupported: boolean;
+  public form: DeviceForm;
+  public breakpoint: Breakpoint;
+  public columns: number;
+  public widthVp: number;
+  public heightVp: number;
+  public density: number;
+  public pageMaxWidth: number;
+  public webHeight: number;
+  public tabsHeight: number;
+  public navSplitDefault: boolean;
+  public pickerSupported: boolean;
 
   constructor(form: DeviceForm, breakpoint: Breakpoint, columns: number, snapshot: DisplaySnapshot,
               pageMaxWidth: number, webHeight: number, tabsHeight: number,

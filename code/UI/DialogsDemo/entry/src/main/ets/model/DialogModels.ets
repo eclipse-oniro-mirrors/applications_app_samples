@@ -132,11 +132,11 @@ export function buildSheetInfos(labels: string[], onPick: (index: number) => voi
 
 /** 插屏弹窗配置描述（不含 UIContext，页面组装 DialogOptions 时注入） */
 export class InterstitialConfig {
-  title: string;
-  subtitle: string;
-  titlePosition: TitlePosition;
-  iconStyle: IconStyle;
-  bottomOffsetType: BottomOffset;
+  public title: string;
+  public subtitle: string;
+  public titlePosition: TitlePosition;
+  public iconStyle: IconStyle;
+  public bottomOffsetType: BottomOffset;
 
   constructor(title: string, subtitle: string, titlePosition: TitlePosition,
     iconStyle: IconStyle, bottomOffsetType: BottomOffset) {
@@ -150,65 +150,65 @@ export class InterstitialConfig {
 
 /** 场景1 ConfirmDialogV2 载荷 */
 export class ConfirmParams {
-  sceneId: number = 1;
-  title: string = '';
-  content: string = '';
-  checkTips: string = '';
-  primaryButton: AdvancedDialogV2Button | null = null;
-  secondaryButton: AdvancedDialogV2Button | null = null;
+  public sceneId: number = 1;
+  public title: string = '';
+  public content: string = '';
+  public checkTips: string = '';
+  public primaryButton: AdvancedDialogV2Button | null = null;
+  public secondaryButton: AdvancedDialogV2Button | null = null;
 }
 
 /** 场景2 AlertDialogV2 载荷 */
 export class AlertParams {
-  sceneId: number = 2;
-  primaryTitle: string = '';
-  secondaryTitle: string = '';
-  content: string = '';
-  primaryButton: AdvancedDialogV2Button | null = null;
-  secondaryButton: AdvancedDialogV2Button | null = null;
+  public sceneId: number = 2;
+  public primaryTitle: string = '';
+  public secondaryTitle: string = '';
+  public content: string = '';
+  public primaryButton: AdvancedDialogV2Button | null = null;
+  public secondaryButton: AdvancedDialogV2Button | null = null;
 }
 
 /** 场景3 SelectDialogV2 载荷 */
 export class SelectParams {
-  sceneId: number = 3;
-  title: string = '';
-  content: string = '';
-  selectedIndex: number = 0;
-  radioContent: SheetInfo[] = [];
-  confirm: AdvancedDialogV2Button | null = null;
+  public sceneId: number = 3;
+  public title: string = '';
+  public content: string = '';
+  public selectedIndex: number = 0;
+  public radioContent: SheetInfo[] = [];
+  public confirm: AdvancedDialogV2Button | null = null;
 }
 
 /** 场景4 TipsDialogV2 载荷 */
 export class TipsParams {
-  sceneId: number = 4;
-  imageRes: ResourceStr = $r('app.media.startIcon');
-  title: string = '';
-  content: string = '';
-  checkTips: string = '';
-  primaryButton: AdvancedDialogV2Button | null = null;
-  secondaryButton: AdvancedDialogV2Button | null = null;
+  public sceneId: number = 4;
+  public imageRes: ResourceStr = $r('app.media.startIcon');
+  public title: string = '';
+  public content: string = '';
+  public checkTips: string = '';
+  public primaryButton: AdvancedDialogV2Button | null = null;
+  public secondaryButton: AdvancedDialogV2Button | null = null;
 }
 
 /** 场景5 LoadingDialogV2 载荷 */
 export class LoadingParams {
-  sceneId: number = 5;
-  content: string = '';
+  public sceneId: number = 5;
+  public content: string = '';
 }
 
 /** 场景6 CustomContentDialogV2 载荷 */
 export class CustomParams {
-  sceneId: number = 6;
-  primaryTitle: string = '';
-  secondaryTitle: string = '';
-  buttons: AdvancedDialogV2Button[] = [];
+  public sceneId: number = 6;
+  public primaryTitle: string = '';
+  public secondaryTitle: string = '';
+  public buttons: AdvancedDialogV2Button[] = [];
 }
 
 /** 场景元数据：id、中文标题、核心 API、分组 */
 export class ScenarioInfo {
-  id: number;
-  title: string;
-  api: string;
-  group: string;
+  public id: number;
+  public title: string;
+  public api: string;
+  public group: string;
 
   constructor(id: number, title: string, api: string, group: string) {
     this.id = id;

@@ -78,7 +78,7 @@ export struct CrossAbilityDemo {
     this.state = JumpState.WAITING;
     this.message = `正在拉起 ${target.title}…`;
     Logger.info('Jump', '跳转',
-      `startAbility → ${target.describe()}（token=${token}，超时 ${JUMP_TIMEOUT_MS}ms）`);
+      `startAbility → ${target.describe()}（超时 ${JUMP_TIMEOUT_MS}ms）`);
     this.clearTimer();
     this.timeoutId = setTimeout(() => {
       this.timeoutId = -1;

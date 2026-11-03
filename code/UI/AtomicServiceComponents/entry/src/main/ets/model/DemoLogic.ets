@@ -14,10 +14,10 @@
  */
  
 export class DemoItem {
-  key: string;
-  title: string;
-  subtitle: string;
-  category: string;
+  public key: string;
+  public title: string;
+  public subtitle: string;
+  public category: string;
 
   constructor(key: string, title: string, subtitle: string, category: string) {
     this.key = key;

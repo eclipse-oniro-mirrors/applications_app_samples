@@ -43,6 +43,11 @@ export class ColorUtil {
       return null;
     }
     const body: string = s.substring(1);
+    // parseInt 会接受尾部非十六进制字符（如 '5G' 得到 5），必须先整体校验
+    if (!new RegExp('^[0-9a-fA-F]+$').test(body)) {
+      LogUtil.warn(TAG, `parseHex 含非法十六进制字符：${hex}`);
+      return null;
+    }
     let r = 0;
     let g = 0;
     let b = 0;
@@ -133,10 +138,10 @@ export class ColorUtil {
  * 或直接作为 createLinearGradient 的断点颜色。
  */
 export class GradientPreset {
-  static readonly SKY: string[] = ['#0D47A1', '#1976D2', '#64B5F6', '#BBDEFB'];
-  static readonly SUNSET: string[] = ['#FF1744', '#FF6D00', '#FFD600', '#FFF59D'];
-  static readonly OCEAN: string[] = ['#004D40', '#00897B', '#4DB6AC', '#B2DFDB'];
-  static readonly FOREST: string[] = ['#1B5E20', '#43A047', '#9CCC65', '#DCEDC8'];
+  public static readonly SKY: string[] = ['#0D47A1', '#1976D2', '#64B5F6', '#BBDEFB'];
+  public static readonly SUNSET: string[] = ['#FF1744', '#FF6D00', '#FFD600', '#FFF59D'];
+  public static readonly OCEAN: string[] = ['#004D40', '#00897B', '#4DB6AC', '#B2DFDB'];
+  public static readonly FOREST: string[] = ['#1B5E20', '#43A047', '#9CCC65', '#DCEDC8'];
 
   private static readonly PRESETS: Map<string, string[]> = new Map([
     ['sky', GradientPreset.SKY],

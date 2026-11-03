@@ -171,6 +171,54 @@ export class SceneRegistry {
       draw: (ctx: CanvasRenderer, w: number, h: number): void => {
         CanvasScenes.drawColorMetricsGradient(ctx, w, h);
       }
+    },
+    {
+      id: 18,
+      button: '场景1：圆锥渐变色环（API 12+）',
+      title: '场景1：createConicGradient 圆锥渐变色环',
+      draw: (ctx: CanvasRenderer, w: number, h: number): void => {
+        CanvasScenes.drawConicGradient(ctx, w, h);
+      }
+    },
+    {
+      id: 19,
+      button: '扩展：贝塞尔与二次曲线路径',
+      title: '扩展：Path 绘制（bezierCurveTo / quadraticCurveTo / arcTo）',
+      draw: (ctx: CanvasRenderer, w: number, h: number): void => {
+        CanvasScenes.drawPathCurves(ctx, w, h);
+      }
+    },
+    {
+      id: 20,
+      button: '扩展：clip 裁剪与合成模式',
+      title: '扩展：clip 裁剪 + globalCompositeOperation 合成模式',
+      draw: (ctx: CanvasRenderer, w: number, h: number): void => {
+        CanvasScenes.drawClipComposite(ctx, w, h);
+      }
+    },
+    {
+      id: 21,
+      button: '扩展：文字绘制与 measureText',
+      title: '扩展：fillText / strokeText / measureText 文字绘制',
+      draw: (ctx: CanvasRenderer, w: number, h: number): void => {
+        CanvasScenes.drawTextStyles(ctx, w, h);
+      }
+    },
+    {
+      id: 22,
+      button: '扩展：虚线描边与线帽拐角',
+      title: '扩展：setLineDash / lineCap / lineJoin 描边样式',
+      draw: (ctx: CanvasRenderer, w: number, h: number): void => {
+        CanvasScenes.drawLineDash(ctx, w, h);
+      }
+    },
+    {
+      id: 23,
+      button: '扩展：ImageData 回读反相',
+      title: '扩展：getImageData 回读与像素反相',
+      draw: (ctx: CanvasRenderer, w: number, h: number): void => {
+        CanvasScenes.drawImageDataReadback(ctx, w, h);
+      }
     }
   ];
 

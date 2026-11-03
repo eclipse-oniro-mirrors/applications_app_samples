@@ -101,5 +101,5 @@ hdc shell hilog | grep DialogsDemo
 - `entry/src/test/` 仅包含模板自带的 1 条本地冒烟用例，功能验证以 `entry/src/ohosTest` 下的 144 条设备侧用例为准。
 - 系统弹窗（场景 9–14：ActionSheet / 日期 / 时间 / 文本选择 / Toast / showDialog）的外观与按钮文案跟随系统，不同 ROM 可能略有差异；用例只校验收到的回调与日志时序。
 - hilog tag 为 `DialogsDemo`（LogUtil 与 EntryAbility 共用），domain `0x0001`，排查时直接 `grep DialogsDemo`。
-- 本 ROM 上 `SelectDialogV2` 点击选项后组件内部会关闭弹窗（`autoCancel:false` 与 `onWillDismiss` 无法拦截），示例在 `SheetInfo.action` 中重开同一弹窗并以 `TransitionEffect.IDENTITY` 关闭显隐动画；其他 ROM 行为不同时可移除该重开逻辑。
-- `InterstitialDialogAction` 标注 `@atomicservice`，本工程在普通应用上验证通过；其他 ROM / 版本的行为以实际运行为准。
+- 本 ROM 上 `SelectDialogV2` 点击选项后组件内部会关闭弹窗（`autoCancel:false` 与 `onWillDismiss` 无法拦截），示例在 `SheetInfo.action` 中重开同一弹窗并以 `TransitionEffect.IDENTITY` 关闭显隐动画；其它 ROM 行为不同时可移除该重开逻辑。
+- `InterstitialDialogAction` 标注 `@atomicservice`，本工程在普通应用上验证通过；其它 ROM / 版本的行为以实际运行为准。

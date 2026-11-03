@@ -141,6 +141,12 @@ ChipAndCounterDemo
 - 自定义样式组通过 `itemStyle` 配置 SMALL 尺寸、浅橙底橙字与橙色选中，`chipGroupSpace` 设置 `itemSpace=12`、首尾各 8，`suffix` 传入 `@Builder` 渲染“更多 ›”入口，`onChange` 额外输出业务回调日志；
 - 每组下方状态行实时显示当前选中项，日志写明“替换 / 新增 / 取消”动作。
 
+分区 7 补充分组进阶用法：
+
+- `chipGroupPadding` 通过 `ChipGroupV2Padding` 设置分组上下各 10vp 留白，与默认分组同屏对比；
+- `suffix` 传入 `ChipGroupV2IconGroupSuffix`，其 `items` 由 `ChipConfigFactory.buildGroupSuffixItems` 构建：1 个 Image 图标条目（`ChipGroupV2IconItemConfig`）+ 2 个 Symbol 图标条目（`ChipGroupV2SymbolItemConfig`，heart / star），每个图标条目绑定独立 `action`；
+- 点赞 / 收藏 Symbol 点击后在灰色（`#BDBDBD`）与橙色（`#E65100`）间切换，页面以 if/else 分支翻转强制分组以最新点亮色重建（`ChipGroupV2IconGroupSuffix.items` 为 `@Param`，仅在分组重渲染时生效），同时不影响组内选中项。
+
 ### 5. CounterV2
 
 分区 4 展示四种 `CounterV2Type`：
@@ -152,6 +158,13 @@ ChipAndCounterDemo
 
 数值型计数器同时通过 `CounterLogic` 做 min / max 截断与步进计算，`onChange` 回调同步 `@State` 与业务逻辑。
 
+分区 8 补充计数器进阶参数：
+
+- LIST 型设置 `label: '份数'` 与 `step: 2`，加减号按步进 2 移动并显示左侧文案；
+- INLINE 型设置 `step: 5` 与 `textWidth: 48`，数值文本宽度固定，界面不因位数变化抖动；
+- 通过 `onFocus` / `onBlur` / `onHover` 回调演示业务侧感知焦点与悬停（写日志）；
+- INLINE_DATE 型通过 `CounterV2DateStyleOptions` 的 year / month / day 指定初始日期 2026-11-02，`onDateChange` 输出当前日期。
+
 ### 6. SegmentButtonV2
 
 分区 5 展示三种形态：
@@ -160,13 +173,18 @@ ChipAndCounterDemo
 - `CapsuleSegmentButtonV2`：胶囊型单选，条目支持 `text` / `icon` / `symbol` 组合，演示 Image 图标 + 文本、Symbol 图标 + 文本混排；
 - `MultiCapsuleSegmentButtonV2`：胶囊型多选，通过 `selectedIndexes` / `$selectedIndexes` 同步多个选中项。
 
+分区 9 补充分段按钮进阶用法：
+
+- **纯 Symbol 胶囊**：条目仅含 `symbol` 字段（heart / star / checkmark_circle，无文本），通过 `onItemClicked` 回调记录点击项；同时设置 `itemSymbolFontSize: fp(18)`、`itemPadding`（`LocalizedPadding`）、`buttonBackgroundColor` 与 `itemMinHeight: 34` 展示样式定制；
+- **禁用条目**：`SegmentButtonV2ItemOptions.enabled = false` 的条目置灰且点击无响应，与两个可用条目同组对照。
+
 ### 7. 数据模型与配置工厂
 
 [`ChipModels.ets`](entry/src/main/ets/model/ChipModels.ets) 提供三层纯逻辑：
 
 - `TagStore`：标签增删、激活 / 禁用切换、`getAll()` 返回副本、id 不复用、顺序保持、激活数量统计与清空；
 - `CounterLogic`：构造时截断初始值，`increase` / `decrease` / `setValue` 均按 `[min, max]` 截断，并提供 `atMax` / `atMin`；
-- `ChipConfigFactory`：统一构建 `ChipV2LabelConfig`、`ChipGroupV2ItemConfig`、`ChipGroupV2ItemStyle`、`ChipGroupV2Space`、`ChipV2CloseIcon`、`SymbolGlyphModifier` 与 `SegmentButtonV2ItemOptions`，测试可直接断言字段映射。
+- `ChipConfigFactory`：统一构建 `ChipV2LabelConfig`、`ChipGroupV2ItemConfig`、`ChipGroupV2ItemStyle`、`ChipGroupV2Space`、`ChipV2CloseIcon`、`SymbolGlyphModifier` 与 `SegmentButtonV2ItemOptions`，并覆盖进阶配置：`buildSuffixSymbolOptions`（V1 后缀 Symbol + action）、`buildSuffixSymbolIcon`（V2 后缀 Symbol 三态）、`buildChipV2Padding` / `buildGroupPadding`（LocalizedPadding / ChipGroupV2Padding）、`buildGroupSuffixItems`（分组尾部图标组条目，支持点亮标记）、`buildSymbolSegmentItems` / `buildSegmentItemsWithDisabled`（纯 Symbol 分段条目与指定禁用项），测试可直接断言字段映射。
 
 分组的条目对象、`itemStyle` 与 `chipGroupSpace` 在页面中只初始化一次并传稳定引用，避免日志触发重绘时同组 Chip 重新挂载而闪烁。
 
@@ -180,16 +198,29 @@ ChipAndCounterDemo
 
 ### 9. 测试
 
-设备侧测试位于 `entry/src/ohosTest/ets/test/`，共 4 个套件、49 条用例，通过 `List.test.ets` 聚合：
+设备侧测试位于 `entry/src/ohosTest/ets/test/`，共 9 个套件、202 条用例，通过 `List.test.ets` 聚合。用例分布如下：
+
+| 类别 | 套件 | 用例 | 状态 |
+| --- | --- | --- | --- |
+| 纯逻辑与设备集成套件 | `ChipModels` / `LogUtil` / `DeviceUtil` / `Ability` | 67 | 已在 RK3568（API 26）真机全量通过 |
+| 组合展开套件 | `TagStoreMatrix` / `CounterLogicMatrix` / `ChipConfigFactoryMatrix` / `LogUtilMatrix` / `DeviceUtilMatrix` | 135 | 已在 RK3568（API 26）真机全量通过 |
+| 手工 UI 用例 | 见 `ohosTest.md` 用例表 | 31 | 需在设备上手工操作 |
 
 | 套件 | 用例 | 覆盖 |
 | --- | --- | --- |
-| `ChipModels.test.ets` | 32 | TagStore 增删 / 缺失删除 / 激活切换 / 禁用 / 副本 / 清空 / id 不复用 / 顺序 / 激活计数；CounterLogic 截断 / 初始值 / 步进 / 边界 / 越界；配置工厂全部字段映射与空数组 |
-| `LogUtil.test.ets` | 8 | 回调投递、行格式与时间戳、级别过滤与标记、时间格式补零、错误级别投递、重复 init 替换回调 |
-| `DeviceUtil.test.ets` | 8 | 设备类型非空、形态互斥、断点边界（599 / 600 / 839 / 840）、档位类型安全、档案字段、宽屏与双栏阈值一致性 |
+| `ChipModels.test.ets` | 45 | TagStore 增删 / 缺失删除 / 激活切换 / 禁用 / 副本与浅拷贝语义 / 清空 / id 不复用 / 顺序 / 激活计数 / 空白文本 / 日志联动；CounterLogic 截断 / 初始值 / 步进 / 边界 / 越界 / 负步进 / 退化区间；配置工厂全部字段映射、空数组与进阶构建（后缀 Symbol、LocalizedPadding、分组留白、尾部图标组含点亮标记、纯 Symbol / 禁用分段条目） |
+| `LogUtil.test.ets` | 11 | 未初始化安全性、回调投递、行格式与时间戳、级别过滤与标记、时间格式补零、错误级别投递、重复 init 替换回调、多条日志顺序、未知级别标记 |
+| `DeviceUtil.test.ets` | 10 | 设备类型非空、形态互斥、断点边界（599 / 600 / 839 / 840 / 精确阈值 / 负数与小数宽度）、档位类型安全、档案字段、宽屏与双栏阈值一致性 |
 | `Ability.test.ets` | 1 | Ability 冒烟用例 |
+| `TagStoreMatrix.test.ets` | 31 | id 连续与不复用、空串 / 中文 / 重复 / 空白文本、首中尾删除与非法 / 零 / 小数 id、多标签激活独立、禁用与激活互不影响、findById 引用与 getAll 快照一致性、全删与增删循环、50 条批量压测、小数 id 全接口拒绝、禁用+激活+删除组合流 |
+| `CounterLogicMatrix.test.ets` | 23 | clamp 边界 / 退化区间 / 负数区间 / 无穷大边界、构造截断、step=0 与小数步进、跨上下限、连续步进到达边界、setValue 越界、atMax / atMin 迁移、实例隔离 |
+| `ChipConfigFactoryMatrix.test.ets` | 42 | 标签空串 / 中文 / 可选激活色、前缀图标来源、分组条目顺序与 allowClose 语义、分段条目顺序与重复项、Symbol 引用一致性、关闭图标字号 12 / 24、样式与间距、重复调用独立；后缀 Symbol action 与三态图标、ChipV2 / 分组 LocalizedPadding 精确值与零值、分组尾部图标组组合与索引分发、点亮标记重建、长短标记表、无 Symbol 列表、纯 Symbol 分段条目（含空数组）、指定索引禁用（首 / 中 / 尾 / 无） |
+| `LogUtilMatrix.test.ets` | 22 | init 不写面板与沿用 / 显式级别、级别调高调低与中途切换、固定时刻与两位数时刻格式化、时间令牌形状、四级行格式、标签与消息保真（空格 / 中文 / 括号 / 空消息 / 多行消息）、DEBUG 标记 |
+| `DeviceUtilMatrix.test.ets` | 17 | 分数宽度断点、档位单调、双栏结论一致、形态标志一致、档案字段类型、logDeviceProfile 不抛异常且写入档案行 |
 
-本地单测位于 `entry/src/test/`，为 1 条冒烟用例。设备侧测试执行命令：
+组合用例逐条显式书写并带完整 `@tc` 头（number / name / desc / size / type / level），只调用 `ChipModels.ets`、`LogUtil.ets`、`DeviceUtil.ets` 中的真实实现，测试内不复制业务逻辑；期望值来自 API 语义（`[min, max]` 截断、id 不复用、600 / 840vp 断点、日志行格式）。
+
+本地单测位于 `entry/src/test/`，为 1 条冒烟用例。设备侧测试执行命令（签名使用 SDK 自带的 OpenHarmony 默认调试签名）：
 
 ```bash
 "<DevEco Studio>/tools/node/node" "<DevEco Studio>/tools/hvigor/bin/hvigorw.js" \
@@ -199,32 +230,34 @@ hdc shell aa test -b com.samples.chipandcounterdemo -m entry_test \
   -s unittest OpenHarmonyTestRunner -s timeout 150000
 ```
 
+未配置签名时产物为 unsigned HAP，可用于编译验证，但无法安装到设备。
+
 ## 相关权限
 
-无。所有组件均在应用页面内运行，数据为内存中的示例数据，不需要网络、存储或其他权限。
+无。所有组件均在应用页面内运行，数据为内存中的示例数据，不需要网络、存储或其它权限。
 
 ## 依赖
 
-无第三方运行时依赖，也不依赖其他 sample。`oh-package.json5` 中仅包含测试框架依赖 `@ohos/hypium` 与 `@ohos/hamock`。
+无第三方运行时依赖，也不依赖其它 sample。`oh-package.json5` 中仅包含测试框架依赖 `@ohos/hypium` 与 `@ohos/hamock`。
 
 ## 约束与限制
 
 | 项目 | 要求 |
 | --- | --- |
 | 开发环境 | DevEco Studio 6.1.1 |
-| SDK | 编译 SDK API 26（`targetSdkVersion 26.0.0`），`compatibleSdkVersion 6.1.1(24)`，`runtimeOS` 为 HarmonyOS |
-| 系统版本 | **API 26 及以上**：ChipV2、ChipGroupV2、CounterV2 为 API 26 新增组件，低于 API 26 的设备上这些分区不可用 |
-| 验证设备 | RK3568 / DAYU200（API 26）；`module.json5` 声明 `phone / tablet / 2in1` |
-| 签名 | 使用 DevEco Studio 自动签名；仓库中不包含签名配置、证书与密钥文件 |
+| SDK | 编译 SDK API 26（`compileSdkVersion` / `targetSdkVersion` / `compatibleSdkVersion` 均为 `26.0.0`），`runtimeOS` 为 OpenHarmony |
+| 系统版本 | **API 26 及以上**：ChipV2、ChipGroupV2、CounterV2 为 API 26 组件，低于 API 26 的设备上这些分区不可用 |
+| 验证设备 | RK3568 / DAYU200（API 26）；`module.json5` 声明 `default / tablet` |
+| 签名 | 本地开发使用 SDK 自带的 OpenHarmony 默认调试签名；仓库内不保存任何证书、密钥或口令 |
 
-其他限制：
+其它限制：
 
 - **截图**：仓库暂未附带运行截图，效果以设备实际运行为准；
 - **`allowClose` 默认值**：Chip / ChipV2 未显式设置时默认为 `true` 并渲染关闭图标，展示类标签需设置 `allowClose: false`；
 - **禁用标签点击穿透**：本 ROM 上禁用标签与可关闭标签同排时可能触发相邻标签的 `onClose`，示例将禁用标签单独成行规避；
 - **条目重建闪烁**：分组条目与样式对象必须在 `build()` 外只创建一次，否则写日志触发重绘会导致同组 Chip 重新挂载而闪烁；
 - **激活态样式**：不同系统主题下默认激活色可能不易区分，示例显式指定深蓝底 + 白字 + ✓；
-- **V2 图标资源**：Symbol 图标使用系统资源 `sys.symbol.heart` / `sys.symbol.star`，需设备支持 HM Symbol。
+- **V2 图标资源**：Symbol 图标使用系统资源 `sys.symbol.heart` / `sys.symbol.star` / `sys.symbol.checkmark_circle` / `sys.symbol.chevron_right`，需设备支持 HM Symbol。
 
 ## 下载
 

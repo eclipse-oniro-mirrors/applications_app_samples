@@ -212,7 +212,7 @@ struct Index {
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
         .width('100%')
-      Text('CanvasGradient 渐变 · CanvasPattern 图案 · Matrix2D 矩阵变换 · OffscreenCanvas 离屏绘制 · ImageData 像素操作')
+      Text('CanvasGradient 渐变 · CanvasPattern 图案 · Matrix2D 矩阵 · 路径 / 文字 / 裁剪合成 / 描边 · OffscreenCanvas 离屏 · ImageData 像素')
         .fontSize(12)
         .fontColor('#666666')
         .width('100%')

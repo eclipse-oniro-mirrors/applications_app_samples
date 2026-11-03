@@ -353,7 +353,7 @@ export default function chipModelsTest() {
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_CHIPMODELS_2100
      * @tc.name factory_buildCloseIcon
-     * @tc.desc Verify the close icon keeps accessibility text and font size
+     * @tc.desc Verify the close icon keeps hint text and font size
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -618,7 +618,7 @@ export default function chipModelsTest() {
     it('factory_buildGroupSuffixItems', 0, () => {
       let iconHits: number = 0;
       const seen: number[] = [];
-      const items: Array<ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig> =
+      const items: (ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig)[] =
         ChipConfigFactory.buildGroupSuffixItems('icon.png', [$r('sys.symbol.heart'), $r('sys.symbol.star')],
           (): void => {
             iconHits += 1;
@@ -637,7 +637,7 @@ export default function chipModelsTest() {
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_CHIPMODELS_3800
      * @tc.name factory_buildSymbolSegmentItems
-     * @tc.desc Verify symbol-only segment items carry a symbol plus accessibility text
+     * @tc.desc Verify symbol-only segment items carry a symbol plus a text hint
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -680,7 +680,7 @@ export default function chipModelsTest() {
     it('factory_buildGroupSuffixItemsLitFlags', 0, () => {
       const iconHits: number[] = [];
       const seen: number[] = [];
-      const items: Array<ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig> =
+      const items: (ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig)[] =
         ChipConfigFactory.buildGroupSuffixItems('icon.png', [$r('sys.symbol.heart'), $r('sys.symbol.star')],
           (): void => {
             iconHits.push(1);

@@ -22,11 +22,11 @@ export enum JumpState {
 }
 
 export class JumpTarget {
-  key: string;
-  title: string;
-  bundleName: string;
-  abilityName: string;
-  expectation: string;
+  public key: string;
+  public title: string;
+  public bundleName: string;
+  public abilityName: string;
+  public expectation: string;
 
   constructor(key: string, title: string, bundleName: string, abilityName: string, expectation: string) {
     this.key = key;

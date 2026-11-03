@@ -25,9 +25,9 @@ import {
 } from '../model/DeviceProfile';
 
 export class DeviceSnapshot {
-  deviceType: string;
-  display: DisplaySnapshot;
-  profile: LayoutProfile;
+  public deviceType: string;
+  public display: DisplaySnapshot;
+  public profile: LayoutProfile;
 
   constructor(deviceType: string, displaySnapshot: DisplaySnapshot, profile: LayoutProfile) {
     this.deviceType = deviceType;

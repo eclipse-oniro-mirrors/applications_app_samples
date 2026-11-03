@@ -18,10 +18,10 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { formatError } from './ErrorUtil';
 
 export class SaveResult {
-  success: boolean;
-  path: string;
-  bytes: number;
-  message: string;
+  public success: boolean;
+  public path: string;
+  public bytes: number;
+  public message: string;
 
   constructor(success: boolean, path: string, bytes: number, message: string) {
     this.success = success;

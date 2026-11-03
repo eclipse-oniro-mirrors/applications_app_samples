@@ -174,7 +174,7 @@ struct Index {
   private selectedNetworkIndex: number = 1;
   @State customValue: number = 30;
   @State customCount: number = 0;
-  private eventLog: DialogEventLog = new DialogEventLog();
+  private dialogLog: DialogEventLog = new DialogEventLog();
   private current: ComponentContent<Object> | null = null;
   private interstitial: InterstitialDialogAction | null = null;
 
@@ -200,7 +200,7 @@ struct Index {
 
   /** 统一事件出口：模型簿记 + 面板日志 */
   private logEvent(sceneId: number, line: string): void {
-    this.eventLog.record(line);
+    this.dialogLog.record(line);
     LogUtil.info(TAG, line);
   }
 
@@ -326,7 +326,7 @@ struct Index {
     params.imageRes = $r('app.media.startIcon');
     params.title = '开启智能同步';
     params.content = '开启后在 WLAN 环境自动备份相册与联系人。';
-    params.checkTips = '记住我的选择';
+    params.checkTips = '记住本次选择';
     params.primaryButton = buildPrimaryButton('立即开启', () => {
       this.logEvent(4, DialogEventLog.formatClick(4) + ' → 主按钮“立即开启”');
       this.logEvent(4, DialogEventLog.formatClose(4, '提示框'));
@@ -714,23 +714,40 @@ struct Index {
       }
       .width('100%')
 
-      List({ space: 4 }) {
-        ForEach(this.logs, (line: string, index: number) => {
-          ListItem() {
-            Text(line)
-              .fontSize(12)
-              .width('100%')
-          }
-        }, (line: string, index: number) => `${index}-${line}`)
+      if (this.bp === 'sm') {
+        Column() {
+          this.logList()
+        }
+        .height(240)
+        .width('100%')
+      } else {
+        Column() {
+          this.logList()
+        }
+        .layoutWeight(1)
+        .width('100%')
       }
-      .layoutWeight(1)
-      .width('100%')
-      .backgroundColor('#F5F5F5')
-      .borderRadius(8)
-      .padding(8)
     }
-    .layoutWeight(1)
+    .layoutWeight(this.bp === 'sm' ? 0 : 1)
     .width('100%')
+  }
+
+  @Builder
+  logList() {
+    List({ space: 4 }) {
+      ForEach(this.logs, (line: string, index: number) => {
+        ListItem() {
+          Text(line)
+            .fontSize(12)
+            .width('100%')
+        }
+      }, (line: string, index: number) => `${index}-${line}`)
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor('#F5F5F5')
+    .borderRadius(8)
+    .padding(8)
   }
 
   build() {
@@ -761,8 +778,17 @@ struct Index {
       .borderRadius(8)
 
       if (this.bp === 'sm') {
-        this.buttonsArea()
-        this.logArea()
+        Scroll() {
+          Column({ space: 12 }) {
+            this.buttonsArea()
+            this.logArea()
+          }
+          .width('100%')
+        }
+        .layoutWeight(1)
+        .width('100%')
+        .scrollBar(BarState.Auto)
+        .edgeEffect(EdgeEffect.Spring)
       } else {
         Row({ space: 12 }) {
           Column() {
@@ -779,7 +805,7 @@ struct Index {
         .alignItems(VerticalAlign.Top)
       }
     }
-    .padding(16)
+    .padding({ left: 16, right: 16, top: 16, bottom: 24 })
     .width('100%')
     .height('100%')
     .onAreaChange((_oldArea: Area, newArea: Area) => {

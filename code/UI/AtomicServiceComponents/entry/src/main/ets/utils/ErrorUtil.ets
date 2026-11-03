@@ -14,9 +14,9 @@
  */
  
 export class ErrorInfo {
-  code: number;
-  message: string;
-  hint: string;
+  public code: number;
+  public message: string;
+  public hint: string;
 
   constructor(code: number, message: string, hint: string) {
     this.code = code;

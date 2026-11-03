@@ -209,13 +209,13 @@ export default function dialogScenariosMatrixTest() {
 
     /**
      * @tc.number SUB_DIALOGS_DEMO_SCENARIOSMATRIX_1200
-     * @tc.name eventLogTwoDigitSceneIds
+     * @tc.name dialogLogTwoDigitSceneIds
      * @tc.desc Verify event line formats keep two-digit scene ids intact
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('eventLogTwoDigitSceneIds', 0, () => {
+    it('dialogLogTwoDigitSceneIds', 0, () => {
       expect(DialogEventLog.formatOpen(10, '日期')).assertEqual('open#10 日期');
       expect(DialogEventLog.formatClose(14, '弹窗')).assertEqual('close#14 弹窗');
       expect(DialogEventLog.formatClick(12)).assertEqual('click#12');

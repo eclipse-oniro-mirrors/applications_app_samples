@@ -8,10 +8,10 @@
 
 | 组件 | 完整包名 | 起始 API | 文档 |
 | --- | --- | --- | --- |
-| `ComposeListItem` | `@ohos.arkui.advanced.ComposeListItem` | 10 | [链接](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ohos-arkui-advanced-composelistitem) |
-| `ComposeListItemV2` | `@ohos.arkui.advanced.ComposeListItemV2` | 26 | [链接](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ohos-arkui-advanced-composelistitemv2) |
-| `ComposeTitleBar` | `@ohos.arkui.advanced.ComposeTitleBar` | 10 | [链接](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ohos-arkui-advanced-composetitlebar) |
-| `ComposeTitleBarV2` | `@ohos.arkui.advanced.ComposeTitleBarV2` | 26 | [链接](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ohos-arkui-advanced-composetitlebarv2) |
+| `ComposeListItem` | `@ohos.arkui.advanced.ComposeListItem` | 10 | [ComposeListItem](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-ComposeListItem.md) |
+| `ComposeListItemV2` | `@ohos.arkui.advanced.ComposeListItemV2` | 26 | [ComposeListItemV2](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-ComposeListItemV2.md) |
+| `ComposeTitleBar` | `@ohos.arkui.advanced.ComposeTitleBar` | 10 | [ComposeTitleBar](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-ComposeTitleBar.md) |
+| `ComposeTitleBarV2` | `@ohos.arkui.advanced.ComposeTitleBarV2` | 26 | [ComposeTitleBarV2](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ohos-arkui-advanced-ComposeTitleBarV2.md) |
 
 组件统一从 `@kit.ArkUI` 导入；工程还使用了以下能力：
 
@@ -31,7 +31,7 @@
 - **搜索实时过滤**：按姓名或部门关键字过滤联系人，列表与标题栏人数同步刷新；
 - **交互可读**：菜单、箭头、开关、按钮、复选框等交互全部写入带时间戳的日志，面板最新置顶、最多 120 条；
 - **断点自适应**：sm（<600vp）单栏上下布局，md / lg 左右双栏；
-- **数据与 UI 分离**：`ContactStore`、`ListConfigFactory` 为纯逻辑 / 配置构建层，配套 142 条设备侧用例。
+- **数据与 UI 分离**：`ContactStore`、`ListConfigFactory` 为纯逻辑 / 配置构建层，配套 158 条设备侧用例。
 
 ## 效果预览
 
@@ -86,7 +86,7 @@ ComposeListAndTitleDemo
 │   │   └── entrybackupability                备份扩展
 │   └── resources                             字符串、颜色、图标等资源
 ├── entry/src/test                            本地单测（1 条冒烟用例）
-├── entry/src/ohosTest                        设备侧测试（8 个套件，142 条用例）
+├── entry/src/ohosTest                        设备侧测试（8 个套件，158 条用例）
 ├── ohosTest.md                               设备侧测试用例归档
 └── README_zh.md
 ```
@@ -152,24 +152,24 @@ ComposeListAndTitleDemo
 
 ### 8. 测试
 
-设备侧测试位于 `entry/src/ohosTest/ets/test/`，共 8 个套件、142 条用例，通过 `List.test.ets` 聚合。用例分布如下：
+设备侧测试位于 `entry/src/ohosTest/ets/test/`，共 8 个套件、158 条用例，通过 `List.test.ets` 聚合。用例分布如下：
 
 | 类别 | 套件 | 用例 | 状态 |
 | --- | --- | --- | --- |
-| 纯逻辑与设备集成套件 | `Ability` / `DeviceUtil` / `LogUtil` / `ListModels` | 54 | 已在 RK3568（API 26）真机全量通过 |
-| 组合展开套件 | `ContactStoreMatrix` / `ListConfigFactoryMatrix` / `LogUtilMatrix` / `DeviceUtilMatrix` | 88 | 已随 `entry@ohosTest` 编译验证通过 |
+| 纯逻辑与设备集成套件 | `Ability` / `DeviceUtil` / `LogUtil` / `ListModels` | 59 | 已在 RK3568（API 26）真机全量通过 |
+| 组合展开套件 | `ContactStoreMatrix` / `ListConfigFactoryMatrix` / `LogUtilMatrix` / `DeviceUtilMatrix` | 99 | 已在 RK3568（API 26）真机全量通过 |
 | 手工 UI 用例 | 见 `ohosTest.md` 用例表 | 17 | 需在设备上手工操作 |
 
 | 套件 | 用例 | 覆盖 |
 | --- | --- | --- |
-| `ListModels.test.ets` | 35 | ContactStore 增删 / 缺失删除 / 在线切换 / 搜索（含特殊字符与部分关键字）/ 副本返回 / 清空 / id 不复用与单调递增 / findById（15 条）；配置工厂 V1/V2 内容项、7 种操作区、菜单项与字段透传（20 条） |
-| `LogUtil.test.ets` | 9 | 回调投递、行格式与时间戳、级别过滤与标记、时间补零、错误级别投递、重复 init 替换回调、省略级别时保持最小值 |
-| `DeviceUtil.test.ets` | 9 | 设备类型非空、形态互斥、断点边界（599 / 600 / 839 / 840）、档案字段、宽屏与双栏阈值一致性、极值 |
+| `ListModels.test.ets` | 36 | ContactStore 增删 / 缺失删除 / 在线切换 / 搜索（含特殊字符与部分关键字）/ 副本返回 / 清空 / id 不复用与单调递增 / findById（15 条）、add 写入日志行（1 条）；配置工厂 V1/V2 内容项、7 种操作区、菜单项与字段透传（20 条） |
+| `LogUtil.test.ets` | 12 | 回调投递、行格式与时间戳、级别过滤与标记、时间补零、错误级别投递、重复 init 替换回调、省略级别时保持最小值、未初始化时调用不抛异常、多行消息按序投递、未知级别标记 |
+| `DeviceUtil.test.ets` | 10 | 设备类型非空、形态互斥、断点边界（599 / 600 / 839 / 840）、档案字段、宽屏与双栏阈值一致性、极值、小数与负数宽度 |
 | `Ability.test.ets` | 1 | Ability 冒烟用例 |
-| `ContactStoreMatrix.test.ets` | 28 | id 从 1 连续且清空后继续递增、空姓名 / 中文 / Emoji、字段原样保存与默认离线、首 / 中 / 尾删除与重复删除、非法 id、多联系人在线状态独立与回退、搜索大小写不敏感 / 中文部分匹配 / 未命中 / 删除后结果、findById 引用一致性、增删循环保持顺序 |
-| `ListConfigFactoryMatrix.test.ets` | 26 | V1 / V2 图标档位变体与 Resource 图标、三行文本全字段、V1 开关 / 复选框 / 单选初始状态与回调、V2 toggle / 复选框 / 单选、按钮与文本空串、图片 Resource、双图标回调独立、操作区字段隔离、菜单项空 value 保真 |
-| `LogUtilMatrix.test.ets` | 18 | init 不写面板且替换回调保留级别、级别调高调低与中途切换、ERROR 门槛、枚举顺序、03:04:05 / 00:00:00 / 09:09:09 / 12:00:00 / 23:00:00 固定时刻格式化、四级行格式、标签与消息保真 |
-| `DeviceUtilMatrix.test.ets` | 16 | 断点 480 / 1024 / 599.9 / 600.1 / 839.9 / 840.1 / 1366 归属、档位单调、sm 单栏与 md / lg 双栏、同宽度重复查询稳定、形态标志与 deviceType 一致、档案字段类型、logDeviceProfile 不抛异常 |
+| `ContactStoreMatrix.test.ets` | 31 | id 从 1 连续且清空后继续递增、空姓名 / 中文 / Emoji、字段原样保存与默认离线、首 / 中 / 尾删除与重复删除、非法 id、小数 id 拒绝、50 人批量 id 连续、多联系人在线状态独立与回退、搜索大小写不敏感 / 中文部分匹配 / 空白关键字 / 未命中 / 删除后结果、findById 引用一致性、增删循环保持顺序 |
+| `ListConfigFactoryMatrix.test.ets` | 30 | V1 / V2 图标档位变体与 Resource 图标、三行文本全字段、V1 开关 / 复选框 / 单选初始状态与回调、V2 toggle / 复选框 / 单选、按钮与文本空串、图片 Resource、双图标回调独立、操作区字段隔离、菜单项空 value 保真与 Unicode 值、构建器每次返回新实例、无 description 时字段省略 |
+| `LogUtilMatrix.test.ets` | 21 | init 不写面板且替换回调保留级别、级别调高调低与中途切换、ERROR 门槛、枚举顺序、03:04:05 / 00:00:00 / 09:09:09 / 12:00:00 / 23:00:00 / 12:34:56 / 23:45:59 / 10:00:00 固定时刻格式化、四级行格式、标签与消息保真、空消息与多行消息 |
+| `DeviceUtilMatrix.test.ets` | 17 | 断点 480 / 1024 / 599.9 / 600.1 / 839.9 / 840.1 / 1366 归属、档位单调、sm 单栏与 md / lg 双栏、同宽度重复查询稳定、形态标志与 deviceType 一致、档案字段类型、logDeviceProfile 不抛异常且日志行送达面板 |
 
 组合用例逐条显式书写并带完整 `@tc` 头（number / name / desc / size / type / level），只调用 `ListModels.ets`、`LogUtil.ets`、`DeviceUtil.ets` 中的真实实现，测试内不复制业务逻辑；期望值来自 API 语义（id 单调不复用、搜索大小写不敏感、V1 / V2 字段一一映射、日志行格式、600 / 840vp 断点）。
 
@@ -187,11 +187,11 @@ hdc shell aa test -b com.samples.composelistandtitledemo -m entry_test \
 
 ## 相关权限
 
-无。组件数据为内存中的示例数据，图标来自工程资源，不需要网络、存储或其他权限。
+无。组件数据为内存中的示例数据，图标来自工程资源，不需要网络、存储或其它权限。
 
 ## 依赖
 
-无第三方运行时依赖，也不依赖其他 sample。`oh-package.json5` 中仅包含测试框架依赖 `@ohos/hypium` 与 `@ohos/hamock`。
+无第三方运行时依赖，也不依赖其它 sample。`oh-package.json5` 中仅包含测试框架依赖 `@ohos/hypium` 与 `@ohos/hamock`。
 
 ## 约束与限制
 
@@ -203,7 +203,7 @@ hdc shell aa test -b com.samples.composelistandtitledemo -m entry_test \
 | 验证设备 | RK3568 / DAYU200（API 26）；`module.json5` 声明 `phone / tablet / 2in1` |
 | 签名 | 本地开发使用 SDK 自带的 OpenHarmony 默认调试签名；仓库内不保存任何证书、密钥或口令 |
 
-其他限制：
+其它限制：
 
 - **V1 字面量类型**：`ContentItem` / `OperateItem` 等 V1 类型无构造函数，对象字面量必须 `as 显式类型`，否则 ArkTS 严格模式编译报错；
 - **V2 构造方式**：V2 类型必须使用 `new` + Options 接口构造，直接写字面量无法通过编译；

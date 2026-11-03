@@ -43,13 +43,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_0100
-     * @tc.name initDoesNotEmitSinkLine001
+     * @tc.name initDoesNotEmitSinkLine0001
      * @tc.desc Verify init itself writes to hilog only and never pushes a panel line
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('initDoesNotEmitSinkLine001', 0, () => {
+    it('initDoesNotEmitSinkLine0001', 0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -59,13 +59,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_0200
-     * @tc.name initWithoutLevelPreservesMinLevel002
+     * @tc.name initWithoutLevelPreservesMinLevel0002
      * @tc.desc Verify init without a level keeps the previously configured minimum level
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('initWithoutLevelPreservesMinLevel002', 0, () => {
+    it('initWithoutLevelPreservesMinLevel0002', 0, () => {
       LogUtil.setMinLevel(LogLevel.WARN);
       const lines: string[] = [];
       LogUtil.init((line: string) => {
@@ -80,13 +80,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_0300
-     * @tc.name setMinLevelUpFiltersInfo003
+     * @tc.name setMinLevelUpFiltersInfo0003
      * @tc.desc Verify raising the minimum level filters debug and info but passes warn
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('setMinLevelUpFiltersInfo003', 0, () => {
+    it('setMinLevelUpFiltersInfo0003', 0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -102,13 +102,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_0400
-     * @tc.name setMinLevelDownRestoresDelivery004
+     * @tc.name setMinLevelDownRestoresDelivery0004
      * @tc.desc Verify lowering the minimum level lets info messages through again
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('setMinLevelDownRestoresDelivery004', 0, () => {
+    it('setMinLevelDownRestoresDelivery0004', 0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -122,13 +122,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_0500
-     * @tc.name errorGateFiltersWarn005
+     * @tc.name errorGateFiltersWarn0005
      * @tc.desc Verify an ERROR minimum level passes only error messages
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('errorGateFiltersWarn005', 0, () => {
+    it('errorGateFiltersWarn0005', 0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -142,13 +142,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_0600
-     * @tc.name levelEnumOrder006
+     * @tc.name levelEnumOrder0006
      * @tc.desc Verify the LogLevel enum numeric order is DEBUG<INFO<WARN<ERROR
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('levelEnumOrder006', 0, () => {
+    it('levelEnumOrder0006', 0, () => {
       expect(LogLevel.DEBUG).assertEqual(0);
       expect(LogLevel.INFO).assertEqual(1);
       expect(LogLevel.WARN).assertEqual(2);
@@ -160,49 +160,49 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_0700
-     * @tc.name formatTimeFixedMorning007
+     * @tc.name formatTimeFixedMorning0007
      * @tc.desc Verify a fixed morning moment formats as 03:04:05
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTimeFixedMorning007', 0, () => {
+    it('formatTimeFixedMorning0007', 0, () => {
       expect(LogUtil.formatTime(new Date(2024, 0, 2, 3, 4, 5))).assertEqual('03:04:05');
     });
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_0800
-     * @tc.name formatTimeEvening008
+     * @tc.name formatTimeEvening0008
      * @tc.desc Verify a late evening moment formats as 23:59:58
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTimeEvening008', 0, () => {
+    it('formatTimeEvening0008', 0, () => {
       expect(LogUtil.formatTime(new Date(2024, 5, 15, 23, 59, 58))).assertEqual('23:59:58');
     });
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_0900
-     * @tc.name formatTimeMidnight009
+     * @tc.name formatTimeMidnight0009
      * @tc.desc Verify midnight formats as 00:00:00
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTimeMidnight009', 0, () => {
+    it('formatTimeMidnight0009', 0, () => {
       expect(LogUtil.formatTime(new Date(2024, 0, 1, 0, 0, 0))).assertEqual('00:00:00');
     });
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_1000
-     * @tc.name formatTimeTokenShape010
+     * @tc.name formatTimeTokenShape0010
      * @tc.desc Verify the formatted time matches the HH:mm:ss token shape
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTimeTokenShape010', 0, () => {
+    it('formatTimeTokenShape0010', 0, () => {
       expect(isTimeToken(LogUtil.formatTime(new Date()))).assertTrue();
       expect(isTimeToken('12:34:56')).assertTrue();
       expect(isTimeToken('12:34:5')).assertFalse();
@@ -211,13 +211,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_1100
-     * @tc.name fourLevelLineFormat011
+     * @tc.name fourLevelLineFormat0011
      * @tc.desc Verify each level produces a line with its own mark and tag prefix
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('fourLevelLineFormat011', 0, () => {
+    it('fourLevelLineFormat0011', 0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -235,13 +235,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_1200
-     * @tc.name sinkReplacementPreservesLevel012
+     * @tc.name sinkReplacementPreservesLevel0012
      * @tc.desc Verify replacing the sink keeps the current minimum level
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('sinkReplacementPreservesLevel012', 0, () => {
+    it('sinkReplacementPreservesLevel0012', 0, () => {
       LogUtil.init((line: string) => {
       }, LogLevel.DEBUG);
       LogUtil.setMinLevel(LogLevel.WARN);
@@ -258,13 +258,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_1300
-     * @tc.name tagWithSpacesPreserved013
+     * @tc.name tagWithSpacesPreserved0013
      * @tc.desc Verify a tag containing spaces is preserved inside brackets
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagWithSpacesPreserved013', 0, () => {
+    it('tagWithSpacesPreserved0013', 0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -276,13 +276,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_1400
-     * @tc.name tagChinesePreserved014
+     * @tc.name tagChinesePreserved0014
      * @tc.desc Verify a Chinese tag is preserved inside brackets
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('tagChinesePreserved014', 0, () => {
+    it('tagChinesePreserved0014', 0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -294,13 +294,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_1500
-     * @tc.name debugMarkDelivered015
+     * @tc.name debugMarkDelivered0015
      * @tc.desc Verify debug messages reach the sink with the [D] mark
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('debugMarkDelivered015', 0, () => {
+    it('debugMarkDelivered0015', 0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -312,13 +312,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_1600
-     * @tc.name messageWithBracketsPreserved016
+     * @tc.name messageWithBracketsPreserved0016
      * @tc.desc Verify brackets inside the message body are kept verbatim
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('messageWithBracketsPreserved016', 0, () => {
+    it('messageWithBracketsPreserved0016', 0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -331,13 +331,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_1700
-     * @tc.name midStreamLevelChange017
+     * @tc.name midStreamLevelChange0017
      * @tc.desc Verify changing the level mid-stream affects only subsequent messages
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('midStreamLevelChange017', 0, () => {
+    it('midStreamLevelChange0017', 0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -355,25 +355,25 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_1800
-     * @tc.name formatTimeSingleDigitBoth018
+     * @tc.name formatTimeSingleDigitBoth0018
      * @tc.desc Verify every single-digit field is zero padded
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTimeSingleDigitBoth018', 0, () => {
+    it('formatTimeSingleDigitBoth0018', 0, () => {
       expect(LogUtil.formatTime(new Date(2024, 11, 31, 9, 9, 9))).assertEqual('09:09:09');
     });
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_1900
-     * @tc.name initExplicitLevelFiltersBelow019
+     * @tc.name initExplicitLevelFiltersBelow0019
      * @tc.desc Verify init with an explicit minLevel filters info and delivers error
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('initExplicitLevelFiltersBelow019', 0, () => {
+    it('initExplicitLevelFiltersBelow0019', 0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -389,13 +389,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_2000
-     * @tc.name emptyMessagePreserved020
+     * @tc.name emptyMessagePreserved0020
      * @tc.desc Verify an empty message still produces a well-formed line with trailing separator
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('emptyMessagePreserved020', 0, () => {
+    it('emptyMessagePreserved0020', 0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -408,13 +408,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_2100
-     * @tc.name multilineMessagePreserved021
+     * @tc.name multilineMessagePreserved0021
      * @tc.desc Verify newline characters inside a message are passed through untouched
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('multilineMessagePreserved021', 0, () => {
+    it('multilineMessagePreserved0021', 0, () => {
       const lines: string[] = [];
       LogUtil.init((line: string) => {
         lines.push(line);
@@ -427,13 +427,13 @@ export default function logUtilMatrixTest() {
 
     /**
      * @tc.number SUB_CHIP_COUNTER_DEMO_LOGUTILMATRIX_2200
-     * @tc.name formatTimeDoubleDigits022
+     * @tc.name formatTimeDoubleDigits0022
      * @tc.desc Verify two-digit hour/minute/second values are formatted without padding artifacts
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
      */
-    it('formatTimeDoubleDigits022', 0, () => {
+    it('formatTimeDoubleDigits0022', 0, () => {
       expect(LogUtil.formatTime(new Date(2024, 5, 15, 12, 34, 56))).assertEqual('12:34:56');
       expect(LogUtil.formatTime(new Date(2024, 5, 15, 23, 45, 59))).assertEqual('23:45:59');
       expect(LogUtil.formatTime(new Date(2024, 5, 15, 10, 0, 0))).assertEqual('10:00:00');

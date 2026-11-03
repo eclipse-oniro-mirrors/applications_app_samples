@@ -20,11 +20,11 @@ import { PICKER_TIMEOUT_MS } from '../common/AppConstants';
 import { beginAttempt, isStaleAttempt, shouldFallbackOnTimeout } from '../model/DownloadFlow';
 
 export class PickerOutcome {
-  success: boolean;
-  path: string;
-  code: number;
-  message: string;
-  timedOut: boolean;
+  public success: boolean;
+  public path: string;
+  public code: number;
+  public message: string;
+  public timedOut: boolean;
 
   constructor(success: boolean, path: string, code: number, message: string, timedOut: boolean) {
     this.success = success;
@@ -67,7 +67,7 @@ export class DownloadPicker {
       const options = new picker.DocumentSaveOptions();
       options.pickerMode = picker.DocumentPickerMode.DOWNLOAD;
       const documentPicker = new picker.DocumentViewPicker(this.context);
-      documentPicker.save(options, (err: BusinessError, result: Array<string>) => {
+      documentPicker.save(options, (err: BusinessError, result: string[]) => {
         if (this.disposed || this.settled || isStaleAttempt(token, this.activeToken)) {
           return;
         }

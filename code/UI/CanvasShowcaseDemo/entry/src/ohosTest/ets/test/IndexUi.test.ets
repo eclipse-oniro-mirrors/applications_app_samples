@@ -33,7 +33,8 @@ const SWIPE_BOTTOM_Y = 950;
  * 在按钮列表内滑动直至目标文本可见。
  * swipeUp=true 向上滑（找列表底部按钮），false 向下滑（回到列表顶部）。
  */
-async function revealButton(driver: Driver, texts: string[], swipeUp: boolean, maxSwipes: number): Promise<Component | null> {
+async function revealButton(driver: Driver, texts: string[], swipeUp: boolean,
+  maxSwipes: number): Promise<Component | null> {
   const findAny = async (): Promise<Component | null> => {
     for (const t of texts) {
       const c: Component | null = await driver.findComponent(ON.text(t));

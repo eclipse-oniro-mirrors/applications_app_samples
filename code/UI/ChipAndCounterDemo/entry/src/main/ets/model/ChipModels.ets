@@ -203,7 +203,8 @@ export class ChipConfigFactory {
   }
 
   /** 文本数组 → ChipGroupV2 条目配置（默认不带关闭按钮，避免与“选择”交互混淆） */
-  static buildGroupItemConfigs(texts: string[], icon: ResourceStr, allowClose: boolean = false): ChipGroupV2ItemConfig[] {
+  static buildGroupItemConfigs(texts: string[], icon: ResourceStr,
+    allowClose: boolean = false): ChipGroupV2ItemConfig[] {
     const configs: ChipGroupV2ItemConfig[] = [];
     for (const t of texts) {
       configs.push({
@@ -269,7 +270,8 @@ export class ChipConfigFactory {
   }
 
   /** SegmentButtonV2 图文混合条目：Image 图标+文本、两个 Symbol 图标+文本 */
-  static buildHybridSegmentItems(icon: ResourceStr, symbolA: Resource, symbolB: Resource): SegmentButtonV2ItemOptions[] {
+  static buildHybridSegmentItems(icon: ResourceStr, symbolA: Resource,
+    symbolB: Resource): SegmentButtonV2ItemOptions[] {
     return [
       { icon: icon, text: '图片' } as SegmentButtonV2ItemOptions,
       { symbol: symbolA, text: '收藏' } as SegmentButtonV2ItemOptions,
@@ -285,7 +287,8 @@ export class ChipConfigFactory {
   /** ChipV2 后缀 Symbol 图标：普通态/激活态两种颜色 + 点击回调 */
   static buildSuffixSymbolIcon(normal: SymbolGlyphModifier, activated: SymbolGlyphModifier,
     action: VoidCallback): ChipV2SuffixSymbolIcon {
-    return new ChipV2SuffixSymbolIcon({ normal: normal, activated: activated, action: action } as ChipV2SuffixSymbolIconConfig);
+    return new ChipV2SuffixSymbolIcon(
+      { normal: normal, activated: activated, action: action } as ChipV2SuffixSymbolIconConfig);
   }
 
   /** ChipV2 自定义内边距：左右 start/end 可调，上下固定 6vp */
@@ -306,8 +309,8 @@ export class ChipConfigFactory {
   /** ChipGroupV2 尾部图标组：Image 图标 + 若干 Symbol 图标，onFlags[i] 为 true 时点亮为橙色（点赞/收藏态），否则灰色；点击各自触发回调 */
   static buildGroupSuffixItems(icon: ResourceStr, symbols: Resource[],
     onIconAction: VoidCallback, onSymbolAction: (index: number) => void, onFlags?: boolean[]):
-    Array<ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig> {
-    const items: Array<ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig> = [];
+    (ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig)[] {
+    const items: (ChipGroupV2IconItemConfig | ChipGroupV2SymbolItemConfig)[] = [];
     items.push({ icon: ChipConfigFactory.buildPrefixIcon(icon), action: onIconAction } as ChipGroupV2IconItemConfig);
     for (let i = 0; i < symbols.length; i++) {
       const idx: number = i;

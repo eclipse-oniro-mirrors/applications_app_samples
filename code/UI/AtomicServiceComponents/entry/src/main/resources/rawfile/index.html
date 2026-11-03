@@ -80,15 +80,15 @@
   </div>
 
   <script>
-    var clickCount = 0;
-    var darkTheme = false;
+    let clickCount = 0;
+    let darkTheme = false;
 
     function updateCount() {
       document.getElementById('count').textContent = String(clickCount);
     }
 
     function detectSdk() {
-      var sdk = (window.has && window.has.asWeb) ? '已注入' : '未注入';
+      const sdk = (window.has && window.has.asWeb) ? '已注入' : '未注入';
       document.getElementById('sdk').textContent = sdk;
       return sdk === '已注入';
     }
@@ -96,7 +96,7 @@
     function sendMessage() {
       clickCount++;
       updateCount();
-      var message = {
+      const message = {
         name: 'AtomicServiceWeb',
         clickCount: clickCount,
         theme: darkTheme ? '深色' : '蓝色',
@@ -125,7 +125,7 @@
         ? 'linear-gradient(135deg, #1c2536 0%, #263449 100%)'
         : 'linear-gradient(135deg, #e7f0ff 0%, #f7faff 55%, #eef7f1 100%)';
       document.body.style.color = darkTheme ? '#f2f5fa' : '#1a1a1a';
-      var card = document.querySelector('.card');
+      const card = document.querySelector('.card');
       card.style.background = darkTheme ? 'rgba(29, 40, 58, 0.95)' : 'rgba(255, 255, 255, 0.94)';
       card.style.color = darkTheme ? '#f2f5fa' : '#1a1a1a';
     }
