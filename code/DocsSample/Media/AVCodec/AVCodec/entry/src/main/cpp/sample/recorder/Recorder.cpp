@@ -39,7 +39,7 @@ constexpr int32_t AUDIO_INPUT_STOP_POLL_INTERVAL_MS = 10;
 
 Recorder::~Recorder()
 {
-    // Release 线程会访问 Recorder 成员；析构前必须等待它和所有工作线程退出。
+    // Release线程会访问Recorder成员；析构前必须等待它和所有工作线程退出。
     StartRelease();
     (void)WaitForDone();
 }
@@ -87,7 +87,7 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
         sessionReport_.Event("initialize.end", std::to_string(ret));
         sessionReport_.End("initialize_failed");
         AVCODEC_SAMPLE_LOGE("Recorder session initialization failed, ret: %{public}d", ret);
-        // 初始化可能已经创建了部分 codec、Muxer 或采集器；统一走收尾线程，避免下一次录制复用残留资源。
+        // 初始化可能已经创建了部分codec、Muxer或采集器；统一走收尾线程，避免下一次录制复用残留资源。
         lock.unlock();
         StartRelease();
         (void)WaitForDone();
@@ -101,7 +101,7 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
 
 void Recorder::JoinPreviousSessionThreads(std::unique_lock<std::mutex> &lock)
 {
-    // 已完成的收尾线程不再访问录制资源，移出锁后回收线程对象，避免 join 时阻塞 Release 获取 mutex_。
+    // 已完成的收尾线程不再访问录制资源，移出锁后回收线程对象，避免join时阻塞Release获取mutex_。
     std::unique_ptr<std::thread> completedReleaseThread;
     if (releaseThread_ != nullptr) {
         completedReleaseThread = std::move(releaseThread_);
@@ -112,7 +112,7 @@ void Recorder::JoinPreviousSessionThreads(std::unique_lock<std::mutex> &lock)
         lock.lock();
     }
 
-    // 初始化新会话前先回收上一会话的线程对象；保留 joinable 线程会在析构时触发异常终止。
+    // 初始化新会话前先回收上一会话的线程对象；保留joinable线程会在析构时触发异常终止。
     if (audioEncInputThread_ && audioEncInputThread_->joinable()) {
         audioEncInputThread_->join();
     }
@@ -151,7 +151,7 @@ int32_t Recorder::Start()
 
 int32_t Recorder::StartAudioPipeline(std::unique_lock<std::mutex> &lock)
 {
-    // 先清缓存再启动采集，避免在采集回调运行时无锁修改 cache。
+    // 先清缓存再启动采集，避免在采集回调运行时无锁修改cache。
     audioEncContext_->ClearCache();
     if (!audioCapturer_->AudioCapturerStart()) {
         failure_.Record("recorder.audio.capture", AVCODEC_SAMPLE_ERR_ERROR, "Start audio capturer failed");
@@ -224,10 +224,12 @@ void Recorder::VideoEncOutputAsyncThread(VideoEncoder *encoder, CodecUserData *c
         // 获取输出buffer。
         const int64_t waitStart = RecorderClockUs();
         std::shared_ptr<CodecBufferInfo> bufferInfo = context->outputBufferQueue.Dequeue();
+        // 开发者可根据业务需要，对输出数据进行保存/释放处理。
+        // 示例：将编码完成帧数据buffer写入到对应输出文件中。
+        // outputFile->write(reinterpret_cast<char *>(OH_AVBuffer_GetAddr(bufferInfo->buffer)), bufferInfo->attr.size);
+        // [StartExclude encoder_output_buffer]
         const int64_t receivedAtUs = RecorderClockUs();
         std::shared_lock<std::shared_mutex> codecLock(context->codecMutex);
-        // 开发者可根据业务需要，对输出数据进行保存/释放处理。
-        // [StartExclude encoder_output_buffer]
         CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
         if (context->hasError.load()) {
             AbortRecording("Video codec callback failed");
@@ -235,10 +237,10 @@ void Recorder::VideoEncOutputAsyncThread(VideoEncoder *encoder, CodecUserData *c
         }
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
         (isPrimary ? primaryStats_ : secondaryStats_).RecordRetrieval(receivedAtUs - waitStart);
+        // [EndExclude encoder_output_buffer]
         if (!ProcessVideoOutputBuffer(encoder, context, muxer, *bufferInfo, isPrimary, receivedAtUs)) {
             break;
         }
-        // [EndExclude encoder_output_buffer]
     }
     // [End encoder_output_buffer]
     FinishVideoOutputThread(context, isPrimary);
@@ -266,7 +268,7 @@ bool Recorder::ProcessVideoOutputBuffer(VideoEncoder *encoder, CodecUserData *co
             (isPrimary ? primaryStats_ : secondaryStats_).Record(bufferInfo.attr);
         }
     }
-    // 每个输出 Buffer 都必须按原索引归还，包括 EOS 和 Muxer 写入失败的情况。
+    // 每个输出buffer都必须按原索引归还，包括EOS和Muxer写入失败的情况。
     const int32_t freeRet = encoder->FreeOutputBuffer(bufferInfo);
     stats.RecordStages(muxerUs, dumpUs, RecorderClockUs() - receivedAtUs);
     RefreshStreamStorage(isPrimary);
@@ -315,7 +317,7 @@ void Recorder::StartRelease()
 {
     std::lock_guard<std::mutex> lock(mutex_);
     if (releaseThread_ == nullptr) {
-        // 只创建一个收尾线程，防止多个路径重复销毁 codec、窗口或回调上下文。
+        // 只创建一个收尾线程，防止多个路径重复销毁codec、窗口或回调上下文。
         AVCODEC_SAMPLE_LOGI("StartRelease: Creating release thread");
         releaseCompleted_ = false;
         releaseThread_ = std::make_unique<std::thread>(&Recorder::Release, this);
@@ -367,7 +369,8 @@ void Recorder::ReleaseThread()
 // [Start recorder_release]
 void Recorder::ReleaseVideoEncoder()
 {
-    // API 26 要求先销毁副编码器，再销毁主编码器；主路拥有共享输入的生命周期。
+    // [StartExclude recorder_release]
+    // API 26要求先销毁副编码器，再销毁主编码器；主路拥有共享输入的生命周期。
     if (secondaryVideoEncoder_ != nullptr) {
         if (secondaryEncContext_ != nullptr) {
             secondaryEncContext_->isDestroyed.store(true);
@@ -381,15 +384,16 @@ void Recorder::ReleaseVideoEncoder()
             secondaryEncContext_ = nullptr;
         }
     }
+    // [EndExclude recorder_release]
     if (videoEncoder_ != nullptr) {
         if (encContext_ != nullptr) {
-            // 回调只借用上下文。先拒绝迟到回调，再销毁 codec 和上下文。
+            // 回调只借用上下文。先拒绝迟到回调，再销毁codec和上下文。
             encContext_->isDestroyed.store(true);
-            // 清空回调队列并取得写锁后，再释放 codec Buffer。
+            // 清空回调队列并取得写锁后，再释放codec buffer。
             std::unique_lock<std::shared_mutex> codecLock(encContext_->codecMutex);
             encContext_->ClearQueue();
         }
-        // codec 销毁前仍可能访问其输出 Surface，因此先释放 codec，再归还应用持有的窗口引用。
+        // codec销毁前仍可能访问其输出surface，因此先释放codec，再归还应用持有的窗口引用。
         videoEncoder_->Release();
         videoEncoder_.reset();
         if (sampleInfo_.video.window != nullptr) {
@@ -404,7 +408,7 @@ void Recorder::ReleaseAudioEncoder()
 {
     if (audioEncoder_ != nullptr) {
         if (audioEncContext_ != nullptr) {
-            // 回调只借用上下文。停止 codec 前先使迟到回调直接返回。
+            // 回调只借用上下文。停止codec前先使迟到回调直接返回。
             audioEncContext_->isDestroyed.store(true);
             audioEncContext_->inputCond.notify_all();
             std::unique_lock<std::shared_mutex> codecLock(audioEncContext_->codecMutex);
@@ -419,7 +423,7 @@ void Recorder::ReleaseAudioEncoder()
         audioCapturer_.reset();
     }
     if (audioEncContext_ != nullptr) {
-        // 该上下文只在所有音频线程结束且 codec 回调已停止后释放。
+        // 该上下文只在所有音频线程结束且codec回调已停止后释放。
         delete audioEncContext_;
         audioEncContext_ = nullptr;
     }
@@ -458,7 +462,7 @@ void Recorder::Release()
         }
         sessionActive_.store(false);
         if (encContext_ != nullptr) {
-            // 视频 codec 已释放且输出线程已 join，回调上下文不再会被访问。
+            // 视频codec已释放且输出线程已join，回调上下文不再会被访问。
             delete encContext_;
             encContext_ = nullptr;
         }
@@ -498,7 +502,7 @@ void Recorder::AbortRecording(const char *reason)
     sessionReport_.Event("recording.aborted", reason);
     sessionReport_.End("output_failed");
     failure_.Record("recorder.output", AVCODEC_SAMPLE_ERR_ERROR, reason);
-    // 输入 Buffer 已交给应用但无法安全提交时，直接结束本次会话，避免 Buffer 永久滞留在应用侧。
+    // 输入buffer已交给应用但无法安全提交时，直接结束本次会话，避免buffer永久滞留在应用侧。
     AVCODEC_SAMPLE_LOGE("Abort recording: %{public}s", reason);
     const bool wasStopping = isStopping_.exchange(true);
     isEos_.store(true);
@@ -554,7 +558,7 @@ int32_t Recorder::StopStart()
 int32_t Recorder::StopEnd()
 {
     {
-        // 先关闭动态参数入口，再给相机排空和编码器 EOS 留出收尾时间。
+        // 先关闭动态参数入口，再给相机排空和编码器EOS留出收尾时间。
         std::lock_guard<std::mutex> lock(mutex_);
         isStopping_.store(true);
     }
@@ -581,7 +585,7 @@ int32_t Recorder::StopEnd()
 
 int32_t Recorder::SendVideoEndOfStream()
 {
-    // EOS 入队后仍需消费输出，直到每路视频线程归还 EOS Buffer。
+    // EOS入队后仍需消费输出，直到每路视频线程归还EOS buffer。
     int32_t ret = videoEncoder_->NotifyEndOfStream();
     if (ret != AVCODEC_SAMPLE_ERR_OK || secondaryVideoEncoder_ == nullptr) {
         return ret;
@@ -591,7 +595,7 @@ int32_t Recorder::SendVideoEndOfStream()
 
 int32_t Recorder::SendAudioEndOfStream()
 {
-    // 先结束并 join AAC 输入线程，再发 EOS；输出线程会排空剩余编码数据。
+    // 先结束并join AAC输入线程，再发EOS；输出线程会排空剩余编码数据。
     isEos_.store(true);
     if (audioEncContext_ != nullptr) {
         audioEncContext_->inputCond.notify_all();
@@ -609,7 +613,7 @@ int32_t Recorder::SendAudioEndOfStream()
             AVCODEC_SAMPLE_ERR_ERROR, "Get synchronous audio EOS input buffer failed");
     } else {
         CHECK_AND_RETURN_RET_LOG(audioEncContext_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Audio context is null");
-        // 异步模式只能使用输入回调给出的 Buffer，不能调用同步 QueryInputBuffer 接口。
+        // 异步模式只能使用输入回调给出的buffer，不能调用同步QueryInputBuffer接口。
         const auto input = audioEncContext_->inputBufferQueue.Dequeue(WAIT_TIME * UNIT_CONVERSION);
         CHECK_AND_RETURN_RET_LOG(input != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
             "Get asynchronous audio EOS input buffer failed");
@@ -654,7 +658,7 @@ int32_t Recorder::CreateAudioEncoder()
                              sampleInfo_.audio.audioCodecMime.c_str());
     AVCODEC_SAMPLE_LOGI("Create audio encoder(%{public}s)", sampleInfo_.audio.audioCodecMime.c_str());
 
-    // Config 失败时先销毁 codec，再回收临时上下文，避免已注册回调借用悬空指针。
+    // Config失败时先销毁codec，再回收临时上下文，避免已注册回调借用悬空指针。
     std::unique_ptr<CodecUserData> context = std::make_unique<CodecUserData>();
     context->recordingAudioStats = &audioStats_;
     context->failureDetails = &failure_;
@@ -708,7 +712,7 @@ bool Recorder::WaitForAudioInputFrame(std::chrono::milliseconds timeout)
 
 bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo, OH_AVBuffer *buffer, bool synchronous)
 {
-    // Buffer 地址仅在填充并提交给编码器期间有效，不跨回调或工作线程保存。
+    // buffer地址仅在填充并提交给编码器期间有效，不跨回调或工作线程保存。
     const int32_t inputSize = sampleInfo_.audio.audioMaxInputSize;
     const int32_t capacity = buffer == nullptr ? -1 : OH_AVBuffer_GetCapacity(buffer);
     uint8_t *inputBufferAddr = buffer == nullptr ? nullptr : OH_AVBuffer_GetAddr(buffer);
@@ -733,7 +737,7 @@ bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo, OH_AVBuffer *b
     bufferInfo.buffer = buffer;
     bufferInfo.attr.size = inputSize;
     bufferInfo.attr.offset = 0;
-    // PCM 没有容器时间戳，按已提交的 S16LE 样本帧生成微秒 PTS，避免重复使用零时间戳。
+    // PCM没有容器时间戳，按已提交的S16LE样本帧生成微秒PTS，避免重复使用零时间戳。
     bufferInfo.attr.pts = audioSubmittedFrames_ * MICROSECOND / sampleInfo_.audio.audioSampleRate;
     bufferInfo.attr.flags = isAudioEncFirstFrame_ ? AVCODEC_BUFFER_FLAGS_CODEC_DATA : AVCODEC_BUFFER_FLAGS_NONE;
     isAudioEncFirstFrame_ = false;
@@ -778,7 +782,7 @@ void Recorder::AudioEncInputSyncThread()
 {
     while (true) {
         CHECK_AND_BREAK_LOG(isStarted_, "Audio encoder sync thread out");
-        // 收到 EOS 后停止提交新输入，但输出线程仍会继续排空已编码样本。
+        // 收到EOS后停止提交新输入，但输出线程仍会继续排空已编码样本。
         if (isEos_.load()) {
             AVCODEC_SAMPLE_LOGI("Audio input thread received EOS signal, stopping input");
             break;
@@ -790,13 +794,13 @@ void Recorder::AudioEncInputSyncThread()
             }
             continue;
         }
-        // 数据充足后才可以申请codec输入Buffer；减少申请成功后因缓存不足无法及时归还的风险。
+        // 数据充足后才可以申请codec输入buffer；减少申请成功后因缓存不足无法及时归还的风险。
         CodecBufferInfo bufferInfo;
         bufferInfo.bufferIndex = std::numeric_limits<uint32_t>::max();
         auto buffer = audioEncoder_->GetInputBuffer(bufferInfo, TIMEOUT_US);
         if (buffer == nullptr) {
             if (bufferInfo.bufferIndex != std::numeric_limits<uint32_t>::max()) {
-                // Query 已成功但 Get 失败时，索引可能仍由应用持有；结束会话交由 codec 回收。
+                // Query已成功但Get失败时，索引可能仍由应用持有；结束会话交由codec回收。
                 AbortRecording("Synchronous audio input buffer retrieval failed");
                 break;
             }
@@ -836,12 +840,12 @@ void Recorder::AudioEncOutputSyncThread()
             break;
         }
     }
-    // 同步模式仍由视频线程触发释放；音频先结束时，视频仍在使用 Muxer。
+    // 同步模式仍由视频线程触发释放；音频先结束时，视频仍在使用Muxer。
     AVCODEC_SAMPLE_LOGI("Audio output thread exited, waiting for video thread to trigger release");
 }
 // [End Recorder::AudioEncOutputSyncThread]
 
-// 同步和异步模式共用写入路径，保证两种模式对 Buffer 归还和错误处理的规则一致。
+// 同步和异步模式共用写入路径，保证两种模式对buffer归还和错误处理的规则一致。
 bool Recorder::ProcessAudioOutputBuffer(CodecBufferInfo &bufferInfo)
 {
     ++audioEncContext_->outputFrameCount;
@@ -930,7 +934,7 @@ void Recorder::RecordVideoOutput(CodecUserData *context, CodecBufferInfo &buffer
 
 void Recorder::ReleaseMuxers()
 {
-    // 所有输出线程已 join；先结束容器写入并刷新文件尾，再销毁 codec。
+    // 所有输出线程已join；先结束容器写入并刷新文件尾，再销毁codec。
     if (muxer_ != nullptr) {
         const int32_t ret = muxer_->Release();
         sessionReport_.Event("primary.muxer_released", std::to_string(ret));
