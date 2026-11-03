@@ -18,7 +18,7 @@ import emitter from '@ohos.events.emitter';
 import { common } from '@kit.AbilityKit';
 // [Start createAVPlayer]
 import { media } from '@kit.MediaKit';
-// [StartExclude media-exclude-createAVPlayer]
+// [StartExclude createAVPlayer]
 import { fileIo as fs } from '@kit.CoreFileKit';
 import audio from '@ohos.multimedia.audio';
 
@@ -112,7 +112,7 @@ struct Index {
       this.avPlayer.release();
       await this.msleepAsync(1500);
     }
-    // [EndExclude media-exclude]
+    // [EndExclude createAVPlayer]
     // 创建avPlayer实例对象
     this.avPlayer = await media.createAVPlayer();
     // [End createAVPlayer]
