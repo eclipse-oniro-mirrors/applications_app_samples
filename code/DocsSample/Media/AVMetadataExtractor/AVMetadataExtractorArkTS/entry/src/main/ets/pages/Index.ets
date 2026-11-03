@@ -15,7 +15,8 @@
 import { media } from '@kit.MediaKit';
 import { image } from '@kit.ImageKit';
 import { common } from '@kit.AbilityKit';
-import { fileIo as fs, ReadOptions } from '@kit.CoreFileKit';
+import { fileIo, ReadOptions } from '@kit.CoreFileKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 const TAG = 'MetadataDemo';
 
@@ -52,6 +53,14 @@ struct Index {
           await this.testFetchMetadataFromFdSrc();
           // 设置dataSrc, 获取沙箱路径下音频元数据和专辑封面（文件必须在沙箱路径里存在）。
           await this.testFetchMetadataFromDataSrc();
+          // 设置网络URL源，获取在线音视频元数据。
+          await this.fetchUrlMetadata();
+          // 通过fdSrc获取视频资源的宽和高。
+          await this.testFetchUrlMetadata();
+          // 获取指定时间点的视频缩略图（promise模式）。
+          await this.fetchFrameByTime();
+          // 批量获取视频缩略图（callback模式）。
+          await this.FetchFrameByTimes();
         })
         .id('FetchMetadataButton')
 
@@ -145,10 +154,11 @@ struct Index {
     }
   }
 
-  // 在以下demo中，使用fs文件系统打开沙箱地址获取媒体文件地址，设置fdSrc属性，获取音频元数据并打印。
+  // 在以下demo中，使用fileIo文件系统打开沙箱地址获取媒体文件地址，设置fdSrc属性，获取音频元数据并打印。
   // 获取音频专辑封面并通过Image控件显示在屏幕上。
   async testFetchMetadataFromFdSrc() {
     if (canIUse('SystemCapability.Multimedia.Media.AVMetadataExtractor')) {
+      let file: fileIo.File | undefined = undefined;
       try {
         // [Start AVMetadataExtractor_SetOpenSync]
         // 创建AVMetadataExtractor对象。
@@ -157,7 +167,8 @@ struct Index {
         let context: Context = this.getUIContext().getHostContext() as common.UIAbilityContext;
         let rootPath: string = context.filesDir; // 应用文件目录。
         let testFilename: string = '/test.mp3'; // test.mp3为应用文件目录下的预置资源，需要开发者根据实际情况进行替换。
-        avMetadataExtractor.fdSrc = fs.openSync(this.rootPath + this.testFilename);
+        file = fileIo.openSync(this.rootPath + this.testFilename);
+        avMetadataExtractor.fdSrc = file;
         // [End AVMetadataExtractor_SetOpenSync]
 
         // 获取元数据（promise模式）。
@@ -172,14 +183,24 @@ struct Index {
         console.info(TAG, `release data source success.`);
       } catch (e) {
         console.error(TAG + `FetchMetadataFromFdSrc, code is ${e.code}, message is ${e.message}`);
+      } finally {
+        // 确保文件流关闭
+        if (file) {
+          try {
+            fileIo.closeSync(file);
+          } catch (e) {
+            console.error(TAG + `closeSync failed, code is ${e.code}, message is ${e.message}`);
+          }
+        }
       }
     }
   }
 
-  // 在以下demo中，使用fs文件系统打开沙箱地址获取媒体文件地址，设置dataSrc属性，获取音频元数据并打印。
+  // 在以下demo中，使用fileIo文件系统打开沙箱地址获取媒体文件地址，设置dataSrc属性，获取音频元数据并打印。
   // 获取音频专辑封面并通过Image控件显示在屏幕上。
   async testFetchMetadataFromDataSrc() {
     if (canIUse('SystemCapability.Multimedia.Media.AVMetadataExtractor')) {
+      let file: fileIo.File | undefined = undefined;
       try {
         // [Start AVMetadataExtractor_SetDataSrc]
         // 创建AVMetadataExtractor对象。
@@ -189,8 +210,9 @@ struct Index {
         let testFilename: string = '/test.mp3'; // test.mp3为应用文件目录下的预置资源，需要开发者根据实际情况进行替换。
         // 使用fileIo文件系统打开沙箱地址获取媒体文件地址，设置dataSrc属性。
         // 通过UIAbilityContext获取沙箱地址filesDir（以Stage模型为例）。
-        let fd: number = fs.openSync(this.rootPath + this.testFilename).fd;
-        let fileSize: number = fs.statSync(this.rootPath + this.testFilename).size;
+        file = fileIo.openSync(this.rootPath + this.testFilename);
+        let fd: number = file.fd;
+        let fileSize: number = fileIo.statSync(this.rootPath + this.testFilename).size;
         // 设置dataSrc描述符，通过callback从文件中获取资源，写入buffer中。
         let dataSrc: media.AVDataSrcDescriptor = {
           fileSize: fileSize,
@@ -203,7 +225,7 @@ struct Index {
               offset: pos,
               length: len
             };
-            let num = fs.readSync(fd, buffer, options);
+            let num = fileIo.readSync(fd, buffer, options);
             console.info(TAG, 'readAt end, num: ' + num);
             if (num > 0 && fileSize >= pos) {
               return num;
@@ -234,6 +256,15 @@ struct Index {
         console.info(TAG, `release data source success.`);
       } catch (e) {
         console.error(TAG + `FetchMetadataFromDataSrc, code is ${e.code}, message is ${e.message}`);
+      } finally {
+        // 确保文件流关闭
+        if (file) {
+          try {
+            fileIo.closeSync(file);
+          } catch (e) {
+            console.error(TAG + `closeSync failed, code is ${e.code}, message is ${e.message}`);
+          }
+        }
       }
     }
   }
