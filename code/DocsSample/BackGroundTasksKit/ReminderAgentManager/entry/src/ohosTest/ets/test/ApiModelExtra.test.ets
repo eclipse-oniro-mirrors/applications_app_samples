@@ -16,6 +16,7 @@
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { reminderAgentManager } from '@kit.BackgroundTasksKit';
 import { notificationManager } from '@kit.NotificationKit';
+import { installCaseIsolation } from './TestRuntime';
 
 const TITLE: string = 'modelTitle';
 const CONTENT: string = 'modelContent';
@@ -72,6 +73,7 @@ function calendarRequest(year: number, month: number, day: number, hour: number,
 
 export default function apiModelExtraTest(): void {
   describe('ReminderApiModelExtraTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_API_MODEL_EXTRA_0100
      * @tc.name      testReminderApiModelExtra0001
@@ -81,7 +83,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 1, 'modelTitle', 'modelContent', 1);
           const actualType: string = String(request.reminderType);
@@ -90,8 +92,6 @@ export default function apiModelExtraTest(): void {
           expect(request.title).assertEqual('modelTitle');
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -104,7 +104,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(0, 1, 'modelTitle', 'modelContent', 1);
           expect(request.triggerTimeInSeconds).assertEqual(0);
@@ -112,8 +112,6 @@ export default function apiModelExtraTest(): void {
           expect(request.notificationId).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -126,7 +124,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(1, 1, 'modelTitle', 'modelContent', 1);
           expect(request.triggerTimeInSeconds).assertEqual(1);
@@ -134,8 +132,6 @@ export default function apiModelExtraTest(): void {
           expect(request.content).assertEqual('modelContent');
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -148,7 +144,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(59, 1, 'modelTitle', 'modelContent', 1);
           expect(request.triggerTimeInSeconds).assertEqual(59);
@@ -156,8 +152,6 @@ export default function apiModelExtraTest(): void {
           expect(request.notificationId).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -170,7 +164,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 1, 'modelTitle', 'modelContent', 1);
           expect(request.triggerTimeInSeconds).assertEqual(60);
@@ -178,8 +172,6 @@ export default function apiModelExtraTest(): void {
           expect(request.content).assertEqual('modelContent');
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -192,7 +184,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(3600, 1, 'modelTitle', 'modelContent', 1);
           expect(request.triggerTimeInSeconds).assertEqual(3600);
@@ -200,8 +192,6 @@ export default function apiModelExtraTest(): void {
           expect(request.notificationId).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -214,7 +204,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0007',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(86400, 1, 'modelTitle', 'modelContent', 1);
           expect(request.triggerTimeInSeconds).assertEqual(86400);
@@ -222,8 +212,6 @@ export default function apiModelExtraTest(): void {
           expect(request.content).assertEqual('modelContent');
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -236,7 +224,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0008',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(2147483647, 1, 'modelTitle', 'modelContent', 1);
           expect(request.triggerTimeInSeconds).assertEqual(2147483647);
@@ -244,8 +232,6 @@ export default function apiModelExtraTest(): void {
           expect(request.notificationId).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -258,7 +244,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0009',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 0, 'modelTitle', 'modelContent', 1);
           expect(request.ringDuration).assertEqual(0);
@@ -266,8 +252,6 @@ export default function apiModelExtraTest(): void {
           expect(request.notificationId).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -280,7 +264,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0010',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 1, 'modelTitle', 'modelContent', 1);
           expect(request.ringDuration).assertEqual(1);
@@ -288,8 +272,6 @@ export default function apiModelExtraTest(): void {
           expect(request.content).assertEqual('modelContent');
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -302,7 +284,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0011',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 30, 'modelTitle', 'modelContent', 1);
           expect(request.ringDuration).assertEqual(30);
@@ -310,8 +292,6 @@ export default function apiModelExtraTest(): void {
           expect(request.notificationId).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -324,7 +304,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0012',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 1, '', 'modelContent', 1);
           expect(request.title).assertEqual('');
@@ -332,8 +312,6 @@ export default function apiModelExtraTest(): void {
           expect(request.ringDuration).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -346,7 +324,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0013',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 1, 'titleTitleTitleTitleTitleTitleTitleTitle', 'modelContent', 1);
           expect(request.title).assertEqual('titleTitleTitleTitleTitleTitleTitleTitle');
@@ -354,8 +332,6 @@ export default function apiModelExtraTest(): void {
           expect(request.ringDuration).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -368,7 +344,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0014',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 1, 'modelTitle', '', 1);
           expect(request.content).assertEqual('');
@@ -376,8 +352,6 @@ export default function apiModelExtraTest(): void {
           expect(request.ringDuration).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -390,7 +364,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0015',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 1, 'modelTitle', 'contentContentContentContentContentContent', 1);
           expect(request.content).assertEqual('contentContentContentContentContentContent');
@@ -398,8 +372,6 @@ export default function apiModelExtraTest(): void {
           expect(request.ringDuration).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -412,7 +384,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0016',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 1, 'modelTitle', 'modelContent', 0);
           expect(request.notificationId).assertEqual(0);
@@ -420,8 +392,6 @@ export default function apiModelExtraTest(): void {
           expect(request.ringDuration).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -434,7 +404,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0017',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 1, 'modelTitle', 'modelContent', 1);
           expect(request.notificationId).assertEqual(1);
@@ -442,8 +412,6 @@ export default function apiModelExtraTest(): void {
           expect(request.content).assertEqual('modelContent');
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -456,7 +424,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0018',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 1, 'modelTitle', 'modelContent', 2147483647);
           expect(request.notificationId).assertEqual(2147483647);
@@ -464,8 +432,6 @@ export default function apiModelExtraTest(): void {
           expect(request.ringDuration).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -478,7 +444,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0019',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 1, 'modelTitle', 'modelContent', 1);
           expect(String(request.slotType)).assertEqual(String(notificationManager.SlotType.CONTENT_INFORMATION));
@@ -486,8 +452,6 @@ export default function apiModelExtraTest(): void {
           expect(request.ringDuration).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -500,7 +464,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0020',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 1, 'modelTitle', 'modelContent', 1);
           expect(request.wantAgent?.pkgName).assertEqual('com.example.reminderagentmanager');
@@ -508,8 +472,6 @@ export default function apiModelExtraTest(): void {
           expect(request.ringDuration).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -522,7 +484,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0021',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = timerRequest(60, 1, 'modelTitle', 'modelContent', 1);
           expect(request.wantAgent?.abilityName).assertEqual('EntryAbility');
@@ -530,8 +492,6 @@ export default function apiModelExtraTest(): void {
           expect(request.ringDuration).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -544,7 +504,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0022',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = alarmRequest(0, 0, []);
           expect(request.hour).assertEqual(0);
@@ -552,8 +512,6 @@ export default function apiModelExtraTest(): void {
           expect(request.daysOfWeek?.length).assertEqual(0);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -566,7 +524,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0023',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = alarmRequest(23, 0, []);
           expect(request.hour).assertEqual(23);
@@ -574,8 +532,6 @@ export default function apiModelExtraTest(): void {
           expect(request.daysOfWeek?.length).assertEqual(0);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -588,7 +544,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0024',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = alarmRequest(1, 0, []);
           expect(request.hour).assertEqual(1);
@@ -596,8 +552,6 @@ export default function apiModelExtraTest(): void {
           expect(request.daysOfWeek?.length).assertEqual(0);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -610,7 +564,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0025',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = alarmRequest(1, 59, []);
           expect(request.hour).assertEqual(1);
@@ -618,8 +572,6 @@ export default function apiModelExtraTest(): void {
           expect(request.daysOfWeek?.length).assertEqual(0);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -632,7 +584,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0026',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = alarmRequest(1, 1, []);
           expect(request.daysOfWeek?.length).assertEqual(0);
@@ -640,8 +592,6 @@ export default function apiModelExtraTest(): void {
           expect(request.minute).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -654,7 +604,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0027',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = alarmRequest(1, 1, [1]);
           expect(request.daysOfWeek?.length).assertEqual(1);
@@ -662,8 +612,6 @@ export default function apiModelExtraTest(): void {
           expect(request.minute).assertEqual(1);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -676,7 +624,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0028',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = alarmRequest(1, 1, [1,3,5]);
           expect(request.daysOfWeek?.length).assertEqual(3);
@@ -684,8 +632,6 @@ export default function apiModelExtraTest(): void {
           expect(request.daysOfWeek?.[2]).assertEqual(5);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -698,7 +644,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0029',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = calendarRequest(2024, 2, 29, 0, 0);
           expect(request.dateTime.year).assertEqual(2024);
@@ -706,8 +652,6 @@ export default function apiModelExtraTest(): void {
           expect(request.dateTime.day).assertEqual(29);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -720,7 +664,7 @@ export default function apiModelExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiModelExtra0030',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request = calendarRequest(2026, 11, 4, 23, 59);
           expect(request.dateTime.hour).assertEqual(23);
@@ -728,8 +672,6 @@ export default function apiModelExtraTest(): void {
           expect(request.dateTime.year).assertEqual(2026);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
