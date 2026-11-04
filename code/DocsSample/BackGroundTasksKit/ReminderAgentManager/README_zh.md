@@ -102,11 +102,13 @@ entry/src/main/ets/
 
 ### 约束与限制
 
-1.本示例仅支持标准系统上运行，支持设备：RK3568。
+1.本示例仅支持标准系统上运行，支持设备：RK3568 及 deviceType 为 `default` 的开发板。
 
-2.本示例已适配API version 20版本SDK，版本号：6.0.0(20)。
+2.本示例已适配 API version 26.0.0 版本 SDK（OpenHarmony 26.0.0.38 Release）。
 
-3.本示例需要使用DevEco Studio 6.0.0 Release (Build Version: 6.0.0.868, built on October 22, 2025)及以上版本才可编译运行。
+3.本示例需要使用 DevEco Studio 26.0.0 Release 及以上版本才可编译运行。
+
+4.首次启动会请求通知授权，需点击“允许”，否则后台代理提醒无法发布（错误码 1700001）。
 
 ### 下载
 
