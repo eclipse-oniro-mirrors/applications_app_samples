@@ -15,9 +15,11 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import TimeConversion from '../../../main/ets/util/TimeConversion';
+import { installCaseIsolation } from './TestRuntime';
 
 export default function dateRolloverExtraTest(): void {
   describe('ReminderDateRolloverExtraTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_TESTREMINDERDATEROLLOVEREXTRA_0100
      * @tc.name      testReminderDateRolloverExtra0001
@@ -27,7 +29,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 2, 15, 0, 0);
@@ -37,8 +39,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 2592000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -51,7 +51,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 2, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 3, 15, 0, 0);
@@ -61,8 +61,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 2592000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -75,7 +73,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 3, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 4, 15, 0, 0);
@@ -85,8 +83,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 2592000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -99,7 +95,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 4, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 5, 15, 0, 0);
@@ -109,8 +105,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 2592000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -123,7 +117,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 5, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 6, 15, 0, 0);
@@ -133,8 +127,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 2592000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -147,7 +139,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 6, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 7, 15, 0, 0);
@@ -157,8 +149,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 2592000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -171,7 +161,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0007',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 7, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 8, 15, 0, 0);
@@ -181,8 +171,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 2592000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -195,7 +183,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0008',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 8, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 9, 15, 0, 0);
@@ -205,8 +193,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 2592000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -219,7 +205,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0009',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 9, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 10, 15, 0, 0);
@@ -229,8 +215,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 2592000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -243,7 +227,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0010',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 10, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 11, 15, 0, 0);
@@ -253,8 +237,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 2592000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -267,7 +249,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0011',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 11, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 12, 15, 0, 0);
@@ -277,8 +259,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 2592000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -291,7 +271,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0012',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2023, 6, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 6, 15, 0, 0);
@@ -301,8 +281,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 31536000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -315,7 +293,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0013',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(1999, 6, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2000, 6, 15, 0, 0);
@@ -325,8 +303,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 31536000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -339,7 +315,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0014',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2099, 6, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2100, 6, 15, 0, 0);
@@ -349,8 +325,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 31536000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -363,7 +337,7 @@ export default function dateRolloverExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateRolloverExtra0015',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(1970, 6, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2000, 6, 15, 0, 0);
@@ -373,8 +347,6 @@ export default function dateRolloverExtraTest(): void {
           expect(diff <= 946080000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
