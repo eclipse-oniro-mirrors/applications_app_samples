@@ -16,9 +16,11 @@
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import TimeConversion from '../../../main/ets/util/TimeConversion';
 import Constant from '../../../main/ets/common/Constant';
+import { installCaseIsolation } from './TestRuntime';
 
 export default function boundaryTest() {
   describe('ReminderBoundaryTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_AGENT_BOUNDARY_0100
      * @tc.name      testReminderAgentBoundaryFutureHour0001
@@ -28,7 +30,7 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryFutureHour0001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 1 * 3600 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -37,8 +39,6 @@ export default function boundaryTest() {
           expect(value <= 3601).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -51,7 +51,7 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryFutureHour0002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 2 * 3600 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -60,8 +60,6 @@ export default function boundaryTest() {
           expect(value <= 7201).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -74,7 +72,7 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryFutureHour0003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 6 * 3600 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -83,8 +81,6 @@ export default function boundaryTest() {
           expect(value <= 21601).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -97,7 +93,7 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryFutureHour0004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 12 * 3600 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -106,8 +102,6 @@ export default function boundaryTest() {
           expect(value <= 43201).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -120,7 +114,7 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryFutureHour0005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 18 * 3600 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -129,8 +123,6 @@ export default function boundaryTest() {
           expect(value <= 64801).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -143,7 +135,7 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryFutureHour0006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 23 * 3600 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -152,8 +144,6 @@ export default function boundaryTest() {
           expect(value <= 82801).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -166,7 +156,7 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryPastHour0007',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 1 * 3600 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -175,8 +165,6 @@ export default function boundaryTest() {
           expect(value >= -3660).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -189,7 +177,7 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryPastHour0008',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 2 * 3600 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -198,8 +186,6 @@ export default function boundaryTest() {
           expect(value >= -7260).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -212,7 +198,7 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryPastHour0009',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 6 * 3600 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -221,8 +207,6 @@ export default function boundaryTest() {
           expect(value >= -21660).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -235,7 +219,7 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryPastHour0010',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 12 * 3600 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -244,8 +228,6 @@ export default function boundaryTest() {
           expect(value >= -43260).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -258,7 +240,7 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryPastHour0011',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 18 * 3600 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -267,8 +249,6 @@ export default function boundaryTest() {
           expect(value >= -64860).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -281,7 +261,7 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryPastHour0012',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 23 * 3600 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -290,8 +270,6 @@ export default function boundaryTest() {
           expect(value >= -90000).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -304,14 +282,12 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryConstant0013',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.VERTICAL_CLOCK_HEIGHT).assertEqual(250);
           expect(Constant.VERTICAL_CLOCK_WIDTH).assertEqual(250);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -324,14 +300,12 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryConstant0014',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.VERTICAL_CENTER_Y).assertEqual(125);
           expect(Constant.VERTICAL_PICKER_HEIGHT).assertEqual(128);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -344,14 +318,12 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryConstant0015',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HORIZONTAL_CLOCK_HEIGHT).assertEqual(188);
           expect(Constant.HORIZONTAL_CLOCK_WIDTH).assertEqual(188);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -364,14 +336,12 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryConstant0016',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HORIZONTAL_CENTER_Y).assertEqual(99);
           expect(Constant.VERTICAL_LINE_LENGTH).assertEqual(410);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -384,14 +354,12 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryConstant0017',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HORIZONTAL_LINE_LENGTH).assertEqual(345);
           expect(Constant.VERTICAL_POINTER_HEIGHT).assertEqual(375);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -404,14 +372,12 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryConstant0018',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HORIZONTAL_CLOCK_DIAL_HEIGHT).assertEqual(212);
           expect(Constant.HORIZONTAL_CLOCK_DIAL_WIDTH).assertEqual(212);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -424,14 +390,12 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryConstant0019',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.VERTICAL_CLOCK_DIAL_HEIGHT).assertEqual(280);
           expect(Constant.VERTICAL_CLOCK_DIAL_WIDTH).assertEqual(280);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -444,14 +408,12 @@ export default function boundaryTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderAgentBoundaryConstant0020',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.PROMPT_DURATION).assertEqual(300);
           expect(Constant.REMINDER_DURATION).assertEqual(30);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });  });
 }
