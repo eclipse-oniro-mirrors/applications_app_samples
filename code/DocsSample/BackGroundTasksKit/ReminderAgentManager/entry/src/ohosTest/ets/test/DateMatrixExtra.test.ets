@@ -15,9 +15,11 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import TimeConversion from '../../../main/ets/util/TimeConversion';
+import { installCaseIsolation } from './TestRuntime';
 
 export default function dateMatrixExtraTest(): void {
   describe('ReminderDateMatrixExtraTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_DATE_MATRIX_EXTRA_0100
      * @tc.name      testReminderDateMatrixExtra0001
@@ -27,7 +29,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 1, 3, 0, 0);
@@ -37,8 +39,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -50,7 +50,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 1, 4, 0, 0);
@@ -60,8 +60,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -73,7 +71,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 1, 5, 0, 0);
@@ -83,8 +81,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 345600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -96,7 +92,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 1, 6, 0, 0);
@@ -106,8 +102,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 432000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -119,7 +113,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 1, 7, 0, 0);
@@ -129,8 +123,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 518400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -142,7 +134,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 1, 8, 0, 0);
@@ -152,8 +144,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 604800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -165,7 +155,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0007',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 1, 9, 0, 0);
@@ -175,8 +165,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 691200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -188,7 +176,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0008',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 2, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 2, 3, 0, 0);
@@ -198,8 +186,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -211,7 +197,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0009',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 2, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 2, 4, 0, 0);
@@ -221,8 +207,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -234,7 +218,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0010',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 2, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 2, 5, 0, 0);
@@ -244,8 +228,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 345600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -257,7 +239,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0011',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 2, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 2, 6, 0, 0);
@@ -267,8 +249,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 432000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -280,7 +260,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0012',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 2, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 2, 7, 0, 0);
@@ -290,8 +270,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 518400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -303,7 +281,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0013',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 2, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 2, 8, 0, 0);
@@ -313,8 +291,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 604800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -326,7 +302,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0014',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 2, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 2, 9, 0, 0);
@@ -336,8 +312,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 691200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -349,7 +323,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0015',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 3, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 3, 3, 0, 0);
@@ -359,8 +333,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -372,7 +344,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0016',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 3, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 3, 4, 0, 0);
@@ -382,8 +354,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -395,7 +365,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0017',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 3, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 3, 5, 0, 0);
@@ -405,8 +375,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 345600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -418,7 +386,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0018',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 3, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 3, 6, 0, 0);
@@ -428,8 +396,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 432000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -441,7 +407,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0019',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 3, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 3, 7, 0, 0);
@@ -451,8 +417,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 518400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -464,7 +428,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0020',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 3, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 3, 8, 0, 0);
@@ -474,8 +438,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 604800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -487,7 +449,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0021',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 3, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 3, 9, 0, 0);
@@ -497,8 +459,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 691200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -510,7 +470,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0022',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 4, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 4, 3, 0, 0);
@@ -520,8 +480,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -533,7 +491,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0023',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 4, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 4, 4, 0, 0);
@@ -543,8 +501,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -556,7 +512,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0024',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 4, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 4, 5, 0, 0);
@@ -566,8 +522,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 345600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -579,7 +533,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0025',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 4, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 4, 6, 0, 0);
@@ -589,8 +543,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 432000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -602,7 +554,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0026',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 4, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 4, 7, 0, 0);
@@ -612,8 +564,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 518400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -625,7 +575,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0027',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 4, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 4, 8, 0, 0);
@@ -635,8 +585,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 604800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -648,7 +596,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0028',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 4, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 4, 9, 0, 0);
@@ -658,8 +606,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 691200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -671,7 +617,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0029',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 5, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 5, 3, 0, 0);
@@ -681,8 +627,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -694,7 +638,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0030',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 5, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 5, 4, 0, 0);
@@ -704,8 +648,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -717,7 +659,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0031',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 5, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 5, 5, 0, 0);
@@ -727,8 +669,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 345600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -740,7 +680,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0032',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 5, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 5, 6, 0, 0);
@@ -750,8 +690,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 432000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -763,7 +701,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0033',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 5, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 5, 7, 0, 0);
@@ -773,8 +711,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 518400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -786,7 +722,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0034',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 5, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 5, 8, 0, 0);
@@ -796,8 +732,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 604800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -809,7 +743,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0035',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 5, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 5, 9, 0, 0);
@@ -819,8 +753,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 691200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -832,7 +764,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0036',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 6, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 6, 3, 0, 0);
@@ -842,8 +774,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -855,7 +785,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0037',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 6, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 6, 4, 0, 0);
@@ -865,8 +795,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -878,7 +806,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0038',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 6, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 6, 5, 0, 0);
@@ -888,8 +816,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 345600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -901,7 +827,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0039',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 6, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 6, 6, 0, 0);
@@ -911,8 +837,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 432000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -924,7 +848,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0040',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 6, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 6, 7, 0, 0);
@@ -934,8 +858,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 518400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -947,7 +869,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0041',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 6, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 6, 8, 0, 0);
@@ -957,8 +879,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 604800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -970,7 +890,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0042',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 6, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 6, 9, 0, 0);
@@ -980,8 +900,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 691200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -993,7 +911,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0043',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 7, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 7, 3, 0, 0);
@@ -1003,8 +921,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1016,7 +932,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0044',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 7, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 7, 4, 0, 0);
@@ -1026,8 +942,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1039,7 +953,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0045',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 7, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 7, 5, 0, 0);
@@ -1049,8 +963,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 345600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1062,7 +974,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0046',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 7, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 7, 6, 0, 0);
@@ -1072,8 +984,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 432000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1085,7 +995,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0047',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 7, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 7, 7, 0, 0);
@@ -1095,8 +1005,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 518400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1108,7 +1016,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0048',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 7, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 7, 8, 0, 0);
@@ -1118,8 +1026,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 604800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1131,7 +1037,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0049',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 7, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 7, 9, 0, 0);
@@ -1141,8 +1047,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 691200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1154,7 +1058,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0050',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 8, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 8, 3, 0, 0);
@@ -1164,8 +1068,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1177,7 +1079,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0051',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 8, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 8, 4, 0, 0);
@@ -1187,8 +1089,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1200,7 +1100,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0052',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 8, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 8, 5, 0, 0);
@@ -1210,8 +1110,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 345600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1223,7 +1121,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0053',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 8, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 8, 6, 0, 0);
@@ -1233,8 +1131,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 432000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1246,7 +1142,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0054',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 8, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 8, 7, 0, 0);
@@ -1256,8 +1152,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 518400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1269,7 +1163,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0055',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 8, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 8, 8, 0, 0);
@@ -1279,8 +1173,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 604800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1292,7 +1184,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0056',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 8, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 8, 9, 0, 0);
@@ -1302,8 +1194,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 691200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1315,7 +1205,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0057',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 9, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 9, 3, 0, 0);
@@ -1325,8 +1215,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1338,7 +1226,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0058',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 9, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 9, 4, 0, 0);
@@ -1348,8 +1236,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1361,7 +1247,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0059',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 9, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 9, 5, 0, 0);
@@ -1371,8 +1257,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 345600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1384,7 +1268,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0060',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 9, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 9, 6, 0, 0);
@@ -1394,8 +1278,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 432000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1407,7 +1289,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0061',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 9, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 9, 7, 0, 0);
@@ -1417,8 +1299,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 518400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1430,7 +1310,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0062',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 9, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 9, 8, 0, 0);
@@ -1440,8 +1320,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 604800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1453,7 +1331,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0063',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 9, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 9, 9, 0, 0);
@@ -1463,8 +1341,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 691200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1476,7 +1352,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0064',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 10, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 10, 3, 0, 0);
@@ -1486,8 +1362,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1499,7 +1373,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0065',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 10, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 10, 4, 0, 0);
@@ -1509,8 +1383,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1522,7 +1394,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0066',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 10, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 10, 5, 0, 0);
@@ -1532,8 +1404,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 345600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1545,7 +1415,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0067',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 10, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 10, 6, 0, 0);
@@ -1555,8 +1425,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 432000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1568,7 +1436,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0068',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 10, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 10, 7, 0, 0);
@@ -1578,8 +1446,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 518400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1591,7 +1457,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0069',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 10, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 10, 8, 0, 0);
@@ -1601,8 +1467,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 604800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1614,7 +1478,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0070',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 10, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 10, 9, 0, 0);
@@ -1624,8 +1488,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 691200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1637,7 +1499,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0071',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 11, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 11, 3, 0, 0);
@@ -1647,8 +1509,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1660,7 +1520,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0072',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 11, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 11, 4, 0, 0);
@@ -1670,8 +1530,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1683,7 +1541,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0073',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 11, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 11, 5, 0, 0);
@@ -1693,8 +1551,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 345600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1706,7 +1562,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0074',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 11, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 11, 6, 0, 0);
@@ -1716,8 +1572,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 432000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1729,7 +1583,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0075',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 11, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 11, 7, 0, 0);
@@ -1739,8 +1593,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 518400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1752,7 +1604,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0076',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 11, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 11, 8, 0, 0);
@@ -1762,8 +1614,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 604800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1775,7 +1625,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0077',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 11, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 11, 9, 0, 0);
@@ -1785,8 +1635,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 691200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1798,7 +1646,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0078',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 12, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 12, 3, 0, 0);
@@ -1808,8 +1656,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1821,7 +1667,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0079',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 12, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 12, 4, 0, 0);
@@ -1831,8 +1677,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1844,7 +1688,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0080',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 12, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 12, 5, 0, 0);
@@ -1854,8 +1698,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 345600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1867,7 +1709,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0081',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 12, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 12, 6, 0, 0);
@@ -1877,8 +1719,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 432000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1890,7 +1730,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0082',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 12, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 12, 7, 0, 0);
@@ -1900,8 +1740,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 518400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1913,7 +1751,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0083',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 12, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 12, 8, 0, 0);
@@ -1923,8 +1761,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 604800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1936,7 +1772,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0084',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 12, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 12, 9, 0, 0);
@@ -1946,8 +1782,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 691200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -1959,7 +1793,7 @@ export default function dateMatrixExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateMatrixExtra0085',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 2, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 2, 10, 0, 0);
@@ -1969,8 +1803,6 @@ export default function dateMatrixExtraTest(): void {
           expect(diff <= 777600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });  });
 }
