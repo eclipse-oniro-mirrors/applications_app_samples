@@ -39,5 +39,5 @@ target_link_libraries(player PUBLIC liblowpower_avsink.so)
 // [End OH_Libraries_Lowpower_Avsink]
 
 // [Start OH_Libraries_Hilog]
-target_link_libraries(sample PUBLIC libhilog_ndk.z.so)
+target_link_libraries(player PUBLIC libhilog_ndk.z.so)
 // [End OH_Libraries_Hilog]
