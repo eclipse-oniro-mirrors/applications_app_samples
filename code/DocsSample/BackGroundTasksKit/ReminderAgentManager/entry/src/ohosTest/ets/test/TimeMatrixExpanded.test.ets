@@ -1778,5 +1778,244 @@ export default function expandedTimeTest() {
           done();
         }
       });
+    /**
+     * @tc.number    SUB_REMINDER_TIME_EXPANDED_8900
+     * @tc.name      testReminderTimeExpanded0089
+     * @tc.desc      Verify 22:05 conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderTimeExpanded0089',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(22, 5);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_TIME_EXPANDED_9000
+     * @tc.name      testReminderTimeExpanded0090
+     * @tc.desc      Verify 22:10 conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderTimeExpanded0090',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(22, 10);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_TIME_EXPANDED_9100
+     * @tc.name      testReminderTimeExpanded0091
+     * @tc.desc      Verify 22:15 conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderTimeExpanded0091',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(22, 15);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_TIME_EXPANDED_9200
+     * @tc.name      testReminderTimeExpanded0092
+     * @tc.desc      Verify 22:20 conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderTimeExpanded0092',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(22, 20);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_TIME_EXPANDED_9300
+     * @tc.name      testReminderTimeExpanded0093
+     * @tc.desc      Verify 23:25 conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderTimeExpanded0093',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(23, 25);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_TIME_EXPANDED_9400
+     * @tc.name      testReminderTimeExpanded0094
+     * @tc.desc      Verify 23:35 conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderTimeExpanded0094',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(23, 35);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_TIME_EXPANDED_9500
+     * @tc.name      testReminderTimeExpanded0095
+     * @tc.desc      Verify 23:40 conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderTimeExpanded0095',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(23, 40);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_TIME_EXPANDED_9600
+     * @tc.name      testReminderTimeExpanded0096
+     * @tc.desc      Verify 23:50 conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderTimeExpanded0096',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(23, 50);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_TIME_EXPANDED_9700
+     * @tc.name      testReminderTimeExpanded0097
+     * @tc.desc      Verify 00:55 conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderTimeExpanded0097',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(0, 55);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_TIME_EXPANDED_9800
+     * @tc.name      testReminderTimeExpanded0098
+     * @tc.desc      Verify 01:25 conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderTimeExpanded0098',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(1, 25);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_TIME_EXPANDED_9900
+     * @tc.name      testReminderTimeExpanded0099
+     * @tc.desc      Verify 02:25 conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderTimeExpanded0099',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(2, 25);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_TIME_EXPANDED_10000
+     * @tc.name      testReminderTimeExpanded0100
+     * @tc.desc      Verify 03:25 conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderTimeExpanded0100',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(3, 25);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
       });  });
 }
