@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/PrivatePreview"
+  ],
+  "window": {
+    "autoDesignWidth": false,
+    "designWidth": 1920
+  }
+}
