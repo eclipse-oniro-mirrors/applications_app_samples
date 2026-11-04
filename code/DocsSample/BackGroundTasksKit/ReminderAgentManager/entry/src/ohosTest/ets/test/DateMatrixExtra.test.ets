@@ -1789,5 +1789,188 @@ export default function dateMatrixExtraTest(): void {
           done();
         }
       });
+    /**
+     * @tc.number    SUB_REMINDER_DATE_MATRIX_EXTRA_7800
+     * @tc.name      testReminderDateMatrixExtra0078
+     * @tc.desc      Verify month 12 day 01 to day 03 spans 2 days.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderDateMatrixExtra0078',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const from: number = TimeConversion.dateToMillisecond(2025, 12, 1, 0, 0);
+          const to: number = TimeConversion.dateToMillisecond(2025, 12, 3, 0, 0);
+          const diff: number = to - from;
+          expect(diff === diff).assertTrue();
+          expect(diff >= 172800 - 2).assertTrue();
+          expect(diff <= 172800 + 2).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_DATE_MATRIX_EXTRA_7900
+     * @tc.name      testReminderDateMatrixExtra0079
+     * @tc.desc      Verify month 12 day 01 to day 04 spans 3 days.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderDateMatrixExtra0079',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const from: number = TimeConversion.dateToMillisecond(2025, 12, 1, 0, 0);
+          const to: number = TimeConversion.dateToMillisecond(2025, 12, 4, 0, 0);
+          const diff: number = to - from;
+          expect(diff === diff).assertTrue();
+          expect(diff >= 259200 - 2).assertTrue();
+          expect(diff <= 259200 + 2).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_DATE_MATRIX_EXTRA_8000
+     * @tc.name      testReminderDateMatrixExtra0080
+     * @tc.desc      Verify month 12 day 01 to day 05 spans 4 days.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderDateMatrixExtra0080',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const from: number = TimeConversion.dateToMillisecond(2025, 12, 1, 0, 0);
+          const to: number = TimeConversion.dateToMillisecond(2025, 12, 5, 0, 0);
+          const diff: number = to - from;
+          expect(diff === diff).assertTrue();
+          expect(diff >= 345600 - 2).assertTrue();
+          expect(diff <= 345600 + 2).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_DATE_MATRIX_EXTRA_8100
+     * @tc.name      testReminderDateMatrixExtra0081
+     * @tc.desc      Verify month 12 day 01 to day 06 spans 5 days.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderDateMatrixExtra0081',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const from: number = TimeConversion.dateToMillisecond(2025, 12, 1, 0, 0);
+          const to: number = TimeConversion.dateToMillisecond(2025, 12, 6, 0, 0);
+          const diff: number = to - from;
+          expect(diff === diff).assertTrue();
+          expect(diff >= 432000 - 2).assertTrue();
+          expect(diff <= 432000 + 2).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_DATE_MATRIX_EXTRA_8200
+     * @tc.name      testReminderDateMatrixExtra0082
+     * @tc.desc      Verify month 12 day 01 to day 07 spans 6 days.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderDateMatrixExtra0082',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const from: number = TimeConversion.dateToMillisecond(2025, 12, 1, 0, 0);
+          const to: number = TimeConversion.dateToMillisecond(2025, 12, 7, 0, 0);
+          const diff: number = to - from;
+          expect(diff === diff).assertTrue();
+          expect(diff >= 518400 - 2).assertTrue();
+          expect(diff <= 518400 + 2).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_DATE_MATRIX_EXTRA_8300
+     * @tc.name      testReminderDateMatrixExtra0083
+     * @tc.desc      Verify month 12 day 01 to day 08 spans 7 days.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderDateMatrixExtra0083',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const from: number = TimeConversion.dateToMillisecond(2025, 12, 1, 0, 0);
+          const to: number = TimeConversion.dateToMillisecond(2025, 12, 8, 0, 0);
+          const diff: number = to - from;
+          expect(diff === diff).assertTrue();
+          expect(diff >= 604800 - 2).assertTrue();
+          expect(diff <= 604800 + 2).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_DATE_MATRIX_EXTRA_8400
+     * @tc.name      testReminderDateMatrixExtra0084
+     * @tc.desc      Verify month 12 day 01 to day 09 spans 8 days.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderDateMatrixExtra0084',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const from: number = TimeConversion.dateToMillisecond(2025, 12, 1, 0, 0);
+          const to: number = TimeConversion.dateToMillisecond(2025, 12, 9, 0, 0);
+          const diff: number = to - from;
+          expect(diff === diff).assertTrue();
+          expect(diff >= 691200 - 2).assertTrue();
+          expect(diff <= 691200 + 2).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+    /**
+     * @tc.number    SUB_REMINDER_DATE_MATRIX_EXTRA_8500
+     * @tc.name      testReminderDateMatrixExtra0085
+     * @tc.desc      Verify month 02 day 01 to day 10 spans 9 days.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderDateMatrixExtra0085',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const from: number = TimeConversion.dateToMillisecond(2025, 2, 1, 0, 0);
+          const to: number = TimeConversion.dateToMillisecond(2025, 2, 10, 0, 0);
+          const diff: number = to - from;
+          expect(diff === diff).assertTrue();
+          expect(diff >= 777600 - 2).assertTrue();
+          expect(diff <= 777600 + 2).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
       });  });
 }
