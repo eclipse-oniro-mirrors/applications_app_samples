@@ -15,9 +15,11 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import TimeConversion from '../../../main/ets/util/TimeConversion';
+import { installCaseIsolation } from './TestRuntime';
 
 export default function qualityTimeTest(): void {
   describe('ReminderQualityTimeTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_QUALITY_TIME_0100
      * @tc.name      testReminderQualityTimeFuture0001
@@ -27,7 +29,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimeFuture0001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 1 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -36,8 +38,6 @@ export default function qualityTimeTest(): void {
           expect(value <= 61).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -49,7 +49,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimeFuture0002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 2 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -58,8 +58,6 @@ export default function qualityTimeTest(): void {
           expect(value <= 121).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -71,7 +69,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimeFuture0003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 3 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -80,8 +78,6 @@ export default function qualityTimeTest(): void {
           expect(value <= 181).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -93,7 +89,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimeFuture0004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 5 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -102,8 +98,6 @@ export default function qualityTimeTest(): void {
           expect(value <= 301).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -115,7 +109,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimeFuture0005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 7 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -124,8 +118,6 @@ export default function qualityTimeTest(): void {
           expect(value <= 421).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -137,7 +129,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimeFuture0006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 10 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -146,8 +138,6 @@ export default function qualityTimeTest(): void {
           expect(value <= 601).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -159,7 +149,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimeFuture0007',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 15 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -168,8 +158,6 @@ export default function qualityTimeTest(): void {
           expect(value <= 901).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -181,7 +169,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimeFuture0008',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 20 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -190,8 +178,6 @@ export default function qualityTimeTest(): void {
           expect(value <= 1201).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -203,7 +189,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimeFuture0009',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 30 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -212,8 +198,6 @@ export default function qualityTimeTest(): void {
           expect(value <= 1801).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -225,7 +209,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimeFuture0010',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 45 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -234,8 +218,6 @@ export default function qualityTimeTest(): void {
           expect(value <= 2701).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -247,7 +229,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimeFuture0011',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 60 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -256,8 +238,6 @@ export default function qualityTimeTest(): void {
           expect(value <= 3601).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -269,7 +249,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimeFuture0012',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 90 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -278,8 +258,6 @@ export default function qualityTimeTest(): void {
           expect(value <= 5401).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -291,7 +269,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimeFuture0013',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 120 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -300,8 +278,6 @@ export default function qualityTimeTest(): void {
           expect(value <= 7201).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -313,7 +289,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimePast0014',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 1 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -322,8 +298,6 @@ export default function qualityTimeTest(): void {
           expect(value >= -120).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -335,7 +309,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimePast0015',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 2 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -344,8 +318,6 @@ export default function qualityTimeTest(): void {
           expect(value >= -180).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -357,7 +329,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimePast0016',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 3 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -366,8 +338,6 @@ export default function qualityTimeTest(): void {
           expect(value >= -240).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -379,7 +349,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimePast0017',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 5 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -388,8 +358,6 @@ export default function qualityTimeTest(): void {
           expect(value >= -360).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -401,7 +369,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimePast0018',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 7 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -410,8 +378,6 @@ export default function qualityTimeTest(): void {
           expect(value >= -480).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -423,7 +389,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimePast0019',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 10 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -432,8 +398,6 @@ export default function qualityTimeTest(): void {
           expect(value >= -660).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -445,7 +409,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimePast0020',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 15 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -454,8 +418,6 @@ export default function qualityTimeTest(): void {
           expect(value >= -960).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -467,7 +429,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimePast0021',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 20 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -476,8 +438,6 @@ export default function qualityTimeTest(): void {
           expect(value >= -1260).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -489,7 +449,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimePast0022',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 30 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -498,8 +458,6 @@ export default function qualityTimeTest(): void {
           expect(value >= -1860).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -511,7 +469,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimePast0023',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 45 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -520,8 +478,6 @@ export default function qualityTimeTest(): void {
           expect(value >= -2760).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -533,7 +489,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimePast0024',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 60 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -542,8 +498,6 @@ export default function qualityTimeTest(): void {
           expect(value >= -3660).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -555,7 +509,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimePast0025',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 90 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -564,8 +518,6 @@ export default function qualityTimeTest(): void {
           expect(value >= -5460).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -577,7 +529,7 @@ export default function qualityTimeTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityTimePast0026',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() - 120 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -586,8 +538,6 @@ export default function qualityTimeTest(): void {
           expect(value >= -7260).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });  });
 }
