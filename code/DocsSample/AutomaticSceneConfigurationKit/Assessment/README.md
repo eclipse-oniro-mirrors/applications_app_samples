@@ -8,7 +8,7 @@
 
 - [@ohos.customization.assessment（评估管理）](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-assessment-kit/js-apis-customization-assessment.md)：提供begin、end、isActive、getConfiguration四个接口，以及AssessmentConfig、AssessmentError、AssessmentInterruptInfo、IAssessmentCallback、AssessmentErrorCode等类型。
 - [@kit.AbilityKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/Readme-CN.md)：提供UIAbilityContext，评估接口需要传入需要进入或退出评估模式的UIAbility上下文。
-- [@kit.BasicServicesKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/Readme-CN.md)：提供BusinessError用于处理接口抛出的业务错误，提供pasteboard用于清空剪切板数据。
+- [@kit.BasicServicesKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/Readme-CN.md)：提供BusinessError用于处理接口抛出的业务错误，提供pasteboard用于清空剪贴板数据。
 - [@kit.ArkUI](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/Readme-CN.md)：提供router和promptAction用于页面跳转与结果提示，提供window用于设置窗口沉浸式与隐私模式。
 - [@kit.IMEKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ime-kit/Readme-CN.md)：提供inputMethod，用于开启简单键盘模式。
 - [@kit.PerformanceAnalysisKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/Readme-CN.md)：提供hilog，用于打印示例日志。
@@ -55,7 +55,7 @@ entry/src/main/ets/
 |   |---pages
 |   |   |---ExamPage.ets                     // 答题页面，倒计时、作答、交卷、中断处理与应用侧加固
 |   |---utils
-|   |   |---ExamHardeningUtil.ets            // 应用侧加固工具类，含窗口沉浸式、隐私模式、清空剪切板与简单键盘
+|   |   |---ExamHardeningUtil.ets            // 应用侧加固工具类，含窗口沉浸式、隐私模式、清空剪贴板与简单键盘
 |---pages
 |   |---Index.ets                            // 主页面，评估参数配置、接口调用与状态展示
 entry/src/ohosTest/ets/test/
@@ -91,7 +91,7 @@ entry/src/ohosTest/ets/test/
 
 * 窗口沉浸式：通过window.getLastWindow获取当前窗口，调用setWindowLayoutFullScreen使内容延伸至状态栏与导航栏区域。
 * 隐私模式：调用setWindowPrivacyMode禁止窗口被截屏与录屏，需申请ohos.permission.PRIVACY_WINDOW权限。
-* 清空剪切板：调用pasteboard.getSystemPasteboard().clearData清除残留数据，避免借助剪切板传入答案。
+* 清空剪贴板：调用pasteboard.getSystemPasteboard().clearData清除残留数据，避免借助剪贴板传入答案。
 * 简单键盘模式：调用inputMethod.setSimpleKeyboardEnabled将输入法面板限制为基础按键。
 * 每项措施单独捕获异常并记录错误码与错误描述，单项失败不影响其余措施生效。
 
