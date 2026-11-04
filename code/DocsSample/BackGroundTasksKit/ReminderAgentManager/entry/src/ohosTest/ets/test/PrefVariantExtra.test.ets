@@ -16,6 +16,7 @@
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { preferences } from '@kit.ArkData';
+import { installCaseIsolation } from './TestRuntime';
 
 const PREF_NAME: string = 'ReminderAgentManager';
 const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
@@ -23,6 +24,7 @@ const appContext = delegator.getAppContext();
 
 export default function prefVariantExtraTest(): void {
   describe('ReminderPrefVariantExtraTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_PREF_VARIANT_EXTRA_0100
      * @tc.name      testReminderPrefVariantExtra0001
@@ -32,22 +34,20 @@ export default function prefVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefVariantExtra0001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk';
-          await pref.put(key, 'prefVariant1');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('prefVariant1');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'prefVariant1');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('prefVariant1');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -60,22 +60,20 @@ export default function prefVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefVariantExtra0002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = '提醒键';
-          await pref.put(key, 'prefVariant2');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('prefVariant2');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'prefVariant2');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('prefVariant2');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -88,22 +86,20 @@ export default function prefVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefVariantExtra0003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'variant/slash/key';
-          await pref.put(key, 'prefVariant3');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('prefVariant3');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'prefVariant3');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('prefVariant3');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -116,22 +112,20 @@ export default function prefVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefVariantExtra0004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'variant\\backslash\\key';
-          await pref.put(key, 'prefVariant4');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('prefVariant4');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'prefVariant4');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('prefVariant4');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -144,22 +138,20 @@ export default function prefVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefVariantExtra0005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'variant|pipe|key';
-          await pref.put(key, 'prefVariant5');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('prefVariant5');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'prefVariant5');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('prefVariant5');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -172,28 +164,26 @@ export default function prefVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefVariantExtra0006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const keys: Array<string> = ['bulkKey0', 'bulkKey1', 'bulkKey2', 'bulkKey3', 'bulkKey4',
             'bulkKey5', 'bulkKey6', 'bulkKey7', 'bulkKey8', 'bulkKey9'];
           for (let index: number = 0; index < keys.length; index++) {
-            await pref.put(keys[index], 'bulkValue' + index);
+            pref.putSync(keys[index], 'bulkValue' + index);
           }
-          await pref.flush();
-          expect(String(await pref.get(keys[0], ''))).assertEqual('bulkValue0');
-          expect(String(await pref.get(keys[4], ''))).assertEqual('bulkValue4');
-          expect(String(await pref.get(keys[9], ''))).assertEqual('bulkValue9');
+          pref.flushSync();
+          expect(String(pref.getSync(keys[0], ''))).assertEqual('bulkValue0');
+          expect(String(pref.getSync(keys[4], ''))).assertEqual('bulkValue4');
+          expect(String(pref.getSync(keys[9], ''))).assertEqual('bulkValue9');
           for (let index: number = 0; index < keys.length; index++) {
-            await pref.delete(keys[index]);
+            pref.deleteSync(keys[index]);
           }
-          await pref.flush();
-          expect(await pref.has(keys[0])).assertFalse();
+          pref.flushSync();
+          expect(pref.hasSync(keys[0])).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
