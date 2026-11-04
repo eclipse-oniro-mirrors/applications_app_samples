@@ -15,9 +15,11 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import TimeConversion from '../../../main/ets/util/TimeConversion';
+import { installCaseIsolation } from './TestRuntime';
 
 export default function timeMatrix2Test(): void {
   describe('ReminderTimeMatrix2Test', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_TIME_MATRIX2_0100
      * @tc.name      testReminderTimeMatrix20001
@@ -27,7 +29,7 @@ export default function timeMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix20001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(0, 46);
           expect(value >= -2).assertTrue();
@@ -35,8 +37,6 @@ export default function timeMatrix2Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -48,7 +48,7 @@ export default function timeMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix20002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(0, 47);
           expect(value >= -2).assertTrue();
@@ -56,8 +56,6 @@ export default function timeMatrix2Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });  });
 }
