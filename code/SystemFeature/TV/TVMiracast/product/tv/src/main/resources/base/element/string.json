@@ -1,0 +1,80 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "快速投屏"
+    },
+    {
+      "name": "wireless_projection_screen",
+      "value": "无线投屏"
+    },
+    {
+      "name": "waiting_for_conning",
+      "value": "等待连接中..."
+    },
+    {
+      "name": "screen_projection_device_name",
+      "value": "投屏设备名称"
+    },
+    {
+      "name": "trusted_device_list",
+      "value": "可信设备列表"
+    },
+    {
+      "name": "confirm_modification",
+      "value": "确认修改"
+    },
+    {
+      "name": "quick_screen_projection",
+      "value": "快速投屏"
+    },
+    {
+      "name": "miracast_screen_casting",
+      "value": "Miracast投屏"
+    },
+    {
+      "name": "projection_Settings",
+      "value": "投屏设置"
+    },
+    {
+      "name": "tip",
+      "value": "提示"
+    },
+    {
+      "name": "first_connect",
+      "value": "设备初次连接显示屏，是否信任该设备并继续连接？"
+    },
+    {
+      "name": "permanent_trust",
+      "value": "永久信任"
+    },
+    {
+      "name": "only_for_this_time",
+      "value": "仅限本次"
+    },
+    {
+      "name": "cancel",
+      "value": "取消"
+    },
+    {
+      "name": "PlayerAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "PlayerAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "trun_on_switch",
+      "value": "请在设置->更多连接中打开投屏开关"
+    }
+  ]
+}

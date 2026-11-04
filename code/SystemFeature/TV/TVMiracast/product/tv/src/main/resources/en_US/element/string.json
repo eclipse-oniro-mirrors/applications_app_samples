@@ -1,0 +1,80 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "quick screen projection"
+    },
+    {
+      "name": "wireless_projection_screen",
+      "value": "wireless projection screen"
+    },
+    {
+      "name": "waiting_for_conning",
+      "value": "waiting for connecting"
+    },
+    {
+      "name": "screen_projection_device_name",
+      "value": "screen projection device name"
+    },
+    {
+      "name": "trusted_device_list",
+      "value": "trusted device list"
+    },
+    {
+      "name": "confirm_modification",
+      "value": "confirm modification"
+    },
+    {
+      "name": "quick_screen_projection",
+      "value": "quick screen projection"
+    },
+    {
+      "name": "miracast_screen_casting",
+      "value": "miracast screen casting"
+    },
+    {
+      "name": "projection_Settings",
+      "value": "projection Settings"
+    },
+    {
+      "name": "tip",
+      "value": "tip"
+    },
+    {
+      "name": "first_connect",
+      "value": "Does the device trust the display screen for the first time and continue to connect?"
+    },
+    {
+      "name": "permanent_trust",
+      "value": "permanent trust"
+    },
+    {
+      "name": "only_for_this_time",
+      "value": "only for this time"
+    },
+    {
+      "name": "cancel",
+      "value": "cancel"
+    },
+    {
+      "name": "PlayerAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "PlayerAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "trun_on_switch",
+      "value": "Please turn on the screen mirroring switch in Settings -> More Connections"
+    }
+  ]
+}
