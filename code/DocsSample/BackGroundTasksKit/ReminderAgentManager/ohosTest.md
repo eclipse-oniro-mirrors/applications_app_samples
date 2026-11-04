@@ -169,23 +169,16 @@
 - 测试目录：`entry/src/ohosTest/ets/test/`
 - 用例格式：`@tc.number` / `@tc.name` / `@tc.desc` / `@tc.type` / `@tc.size` / `@tc.level`；JSDoc `@tc.level` 统一 `LEVEL0`，`it()` 第三参为 `Level.LEVEL0`
 
-运行命令：
+运行方式：
 
-```bash
-hdc shell aa test -b com.example.reminderagentmanager -m entry_test \
-  -s unittest /ets/TestRunner/OpenHarmonyTestRunner \
-  -s class ActsAbilityTest -s timeout 15000
-```
-
-> Git Bash 下需加 `MSYS_NO_PATHCONV=1`，否则 `/ets/TestRunner/...` 会被转换成 Windows 路径。
-> 运行前需唤醒并解锁设备，并设置 `power-shell timeout -o 600000`。
+使用 OpenHarmony 测试框架执行 `ActsAbilityTest`，指定运行器 `/ets/TestRunner/OpenHarmonyTestRunner` 和超时时间 15000。运行前需唤醒并解锁设备，并设置 `power-shell timeout -o 600000`。
 
 ### 手工用例表
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 测试结果 |
 |---|---|---|---|---|
 | 拉起应用 | 应用已安装 | 以 bundle `com.example.reminderagentmanager`、ability `EntryAbility` 启动 | 应用启动，闹钟 Tab 可见 | Pass |
-| 通知授权 | 首次启动弹出通知授权框 | 点击“允许” | `isNotificationEnabled()` 返回 true | Pass |
+| 通知授权 | 应用启动时弹出通知授权框 | 点击“允许” | `isNotificationEnabled()` 返回 true | Pass |
 | Tab 切换 | 应用位于主页 | 依次点击日历、计时器、闹钟 Tab | 分别出现 `addCalendar`、`countDown`、`addClock` | Pass |
 | 闹钟时间选择 | 位于闹钟页 | 点击“+”，再点击“取消” | 弹出系统时间选择框，取消后回到闹钟页 | Pass |
 | 日历日期选择 | 位于日历页 | 点击“+”，再点击“取消” | 弹出系统日期选择框，取消后回到日历页 | Pass |
