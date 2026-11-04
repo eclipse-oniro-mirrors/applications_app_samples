@@ -1079,3 +1079,1084 @@ void MatrixSearch::ProcessOneDmi(const RowExtendParam &p, PoolPosType dmiPos, ui
 
     // For example, if "gao" is extended, "g ao" is not allowed.
     // or "zh" has been passed, "z h" is not allowed.
+    if (longestExt > p.extLen) {
+        if (dmi == nullptr && matrix_[p.oldrow].dmiHasFullId == 0) {
+            return;
+        }
+        if (dmi != nullptr && splTrie_->IsHalfId(dmi->splId)) {
+            return;
+        }
+    }
+
+    dep_->splidsExtended = 0;
+    if (dmi != nullptr) {
+        if (!FillDepSplidsFromDmi(dmi)) {
+            return;
+        }
+    }
+    dep_->splids[dep_->splidsExtended] = p.splIdx;
+    dep_->extLen = p.extLen;
+    dep_->splidEndSplit = p.splidEndSplit;
+
+    dep_->idNum = 1;
+    dep_->idStart = p.splIdx;
+    if (splTrie_->IsHalfId(p.splIdx)) {
+        // Get the full id list
+        dep_->idNum = splTrie_->HalfToFull(p.splIdx, &(dep_->idStart));
+        ASSERT(dep_->idNum > 0);
+    }
+
+    uint16 newDmiNum = ExtendDmiAndCount(dmi, p.splIdx);
+
+    // If get candiate lemmas, try to extend the path
+    if (lpiTotal_ > 0) {
+        uint16 frRow;
+        if (dmi == nullptr) {
+            frRow = p.oldrow;
+        } else {
+            ASSERT(p.oldrow >= dmi->splstrLen);
+            frRow = p.oldrow - dmi->splstrLen;
+        }
+        ExtendFromMatrixRow(frRow, newDmiNum, p.extLen, longestExt);
+    }
+}
+
+void MatrixSearch::ProcessOldRow(uint16 oldrow, uint16 extLen, uint16 splIdx, bool splidEndSplit, uint16 &longestExt)
+{
+    RowExtendParam p = {oldrow, extLen, splIdx, splidEndSplit};
+    // + 1 is to extend an extra node from the root
+    PoolPosType dmiEnd = matrix_[oldrow].dmiPos + matrix_[oldrow].dmiNum + 1;
+    for (PoolPosType dmiPos = matrix_[oldrow].dmiPos; dmiPos < dmiEnd; dmiPos++) {
+        ProcessOneDmi(p, dmiPos, longestExt);
+    }
+}
+
+void MatrixSearch::ExtendFromMatrixRow(uint16 frRow, size_t newDmiNum, uint16 extLen, uint16 &longestExt)
+{
+    for (PoolPosType mtrxNdPos = matrix_[frRow].mtrxNdPos;
+         mtrxNdPos < matrix_[frRow].mtrxNdPos + matrix_[frRow].mtrxNdNum; mtrxNdPos++) {
+        MatrixNode *mtrxNd = mtrxNdPool_ + mtrxNdPos;
+        ExtendMtrxNd(mtrxNd, lpiItems_, lpiTotal_, dmiPoolUsed_ - newDmiNum, pysDecodedLen_);
+        if (longestExt == 0) {
+            longestExt = extLen;
+        }
+    }
+}
+
+bool MatrixSearch::FillDepSplidsFromDmi(DictMatchInfo *dmi)
+{
+    uint16 prevIdsNum = dmi->dictLevel;
+    if ((!dmiCPhrase_ && prevIdsNum >= K_MAX_LEMMA_SIZE) || (dmiCPhrase_ && prevIdsNum >= K_MAX_ROW_NUM)) {
+        return false;
+    }
+
+    DictMatchInfo *d = dmi;
+    while (d) {
+        dep_->splids[--prevIdsNum] = d->splId;
+        if (d->dmiFr == static_cast<PoolPosType>(-1)) {
+            break;
+        }
+        d = dmiPool_ + d->dmiFr;
+    }
+    ASSERT(prevIdsNum == 0);
+    dep_->splidsExtended = dmi->dictLevel;
+    return true;
+}
+
+bool MatrixSearch::AddCharQwerty()
+{
+    matrix_[pysDecodedLen_].mtrxNdNum = 0;
+
+    bool splMatched = false;
+    uint16 longestExt = 0;
+    // Extend the Search matrix, from the oldest unfixed row. extLen means
+    // extending length.
+    for (uint16 extLen = K_MAX_PINYIN_SIZE + 1; extLen > 0; extLen--) {
+        if (extLen > pysDecodedLen_ - splStart_[fixedHzs_]) {
+            continue;
+        }
+
+        // Refer to the declaration of the variable dmiHasFullId for the
+        // explanation of this piece of code. In one word, it is used to prevent
+        // from the unwise extending of "shoud ou" but allow the reasonable
+        // extending of "heng ao", "lang a", etc.
+        if (extLen > 1 && longestExt != 0 && matrix_[pysDecodedLen_ - extLen].dmiHasFullId == 0) {
+            if (xiAnEnabled_) {
+                continue;
+            } else {
+                break;
+            }
+        }
+
+        uint16 oldrow = pysDecodedLen_ - extLen;
+
+        // 0. If that row is before the last fixed step, ignore.
+        if (splStart_[fixedHzs_] > oldrow) {
+            continue;
+        }
+
+        // 1. Check if that old row has valid MatrixNode. If no, means that row is
+        // not a boundary, either a word boundary or a spelling boundary.
+        // If it is for extending composing phrase, it's OK to ignore the 0.
+        if (matrix_[oldrow].mtrxNdNum == 0 && !dmiCPhrase_) {
+            continue;
+        }
+
+        // 2. Get spelling id(s) for the last extLen chars.
+        uint16 splIdx;
+        bool isPre = false;
+        splIdx = splParser_->GetSplidByStr(pys_ + oldrow, extLen, &isPre);
+        if (isPre) {
+            splMatched = true;
+        }
+
+        if (splIdx == 0) {
+            continue;
+        }
+
+        bool splidEndSplit = IsSplitAt(oldrow + extLen);
+        ProcessOldRow(oldrow, extLen, splIdx, splidEndSplit, longestExt);
+    } // for extLen
+    mtrxNdPoolUsed_ += matrix_[pysDecodedLen_].mtrxNdNum;
+
+    if (dmiCPhrase_) {
+        return true;
+    }
+
+    return (matrix_[pysDecodedLen_].mtrxNdNum != 0 || splMatched);
+}
+
+void MatrixSearch::PrepareCandidates()
+{
+    // Get candiates from the first un-fixed step.
+    uint16 lmaSizeMax = K_MAX_LEMMA_SIZE;
+    if (lmaSizeMax > splIdNum_ - fixedHzs_) {
+        lmaSizeMax = splIdNum_ - fixedHzs_;
+    }
+
+    uint16 lmaSize = lmaSizeMax;
+
+    // If the full sentense candidate's unfixed part may be the same with a normal
+    // lemma. Remove the lemma candidate in this case.
+    char16 fullsent[K_MAX_LEMMA_SIZE + 1];
+    char16 *pfullsent = nullptr;
+    uint16 sentLen;
+    pfullsent = GetCandidate0(fullsent, K_MAX_LEMMA_SIZE + 1, &sentLen, true);
+
+    // If the unfixed part contains more than one ids, it is not necessary to
+    // check whether a lemma's string is the same to the unfixed part of the full
+    // sentence candidate, so, set it to nullptr;
+    if (sentLen > K_MAX_LEMMA_SIZE) {
+        pfullsent = nullptr;
+    }
+
+    lpiTotal_ = 0;
+    size_t lpiNumFullMatch = 0; // Number of items which are fully-matched.
+    while (lmaSize > 0) {
+        SplIdStrLen splid = {splId_ + fixedHzs_, lmaSize};
+        size_t lmaNum = GetLpis(splid, lpiItems_ + lpiTotal_, size_t(kMaxLmaPsbItems - lpiTotal_), pfullsent,
+                                lmaSize == lmaSizeMax);
+        if (lmaNum > 0) {
+            lpiTotal_ += lmaNum;
+            // For next lemma candidates which are not the longest, it is not
+            // necessary to compare with the full sentence candiate.
+            pfullsent = nullptr;
+        }
+        if (lmaSize == lmaSizeMax) {
+            lpiNumFullMatch = lpiTotal_;
+        }
+        lmaSize--;
+    }
+
+    // Sort those partially-matched items by their unified scores.
+    Myqsort(lpiItems_ + lpiNumFullMatch, lpiTotal_ - lpiNumFullMatch, sizeof(LmaPsbItem), CmpLpiWithUnifiedPsb);
+
+    if (K_PRINT_DEBUG0) {
+        printf("-----Prepare candidates, score:\n");
+        for (size_t a = 0; a < lpiTotal_; a++) {
+            printf("[%03d]%d    ", a, lpiItems_[a].psb);
+            if ((a + 1) % 0 == K_MAGIC_6) {
+                printf("\n");
+            }
+        }
+        printf("\n");
+    }
+
+    if (K_PRINT_DEBUG0) {
+        printf("--- lpiTotal_ = %d\n", lpiTotal_);
+    }
+}
+
+const char *MatrixSearch::GetPystr(size_t *decodedLen)
+{
+    if (!inited_ || decodedLen == nullptr) {
+        return nullptr;
+    }
+
+    *decodedLen = pysDecodedLen_;
+    return pys_;
+}
+
+void MatrixSearch::MergeFixedLmasFirst(size_t delSplPos, uint16 &phraseLen)
+{
+    uint16 bp = 1; // Begin position of real fixed lemmas.
+    // There is no existing composing phrase.
+    if (lmaId_[0] != K_LEMMA_ID_COMPOSING) {
+        cPhrase_.sublmaNum = 0;
+        bp = 0;
+    }
+
+    uint16 subNum = cPhrase_.sublmaNum;
+    for (uint16 pos = bp; pos <= fixedLmas_; pos++) {
+        cPhrase_.sublmaStart[subNum + pos - bp] = lmaStart_[pos];
+        if (lmaStart_[pos] > delSplPos) {
+            cPhrase_.sublmaStart[subNum + pos - bp] -= 1;
+        }
+
+        if (pos == fixedLmas_) {
+            break;
+        }
+
+        uint16 lmaLen;
+        char16 *lmaStr = cPhrase_.chnStr + cPhrase_.sublmaStart[subNum] + phraseLen;
+
+        lmaLen = GetLemmaStr(lmaId_[pos], lmaStr, K_MAX_ROW_NUM - phraseLen);
+        ASSERT(lmaLen == lmaStart_[pos + 1] - lmaStart_[pos]);
+        phraseLen += lmaLen;
+    }
+    ASSERT(phraseLen == lmaStart_[fixedLmas_]);
+    cPhrase_.length = phraseLen; // will be deleted by 1
+    cPhrase_.sublmaNum += fixedLmas_ - bp;
+}
+
+void MatrixSearch::MergeFixedLmasExisting(size_t delSplPos, uint16 &phraseLen)
+{
+    for (uint16 pos = 0; pos <= cPhrase_.sublmaNum; pos++) {
+        if (cPhrase_.sublmaStart[pos] > delSplPos) {
+            cPhrase_.sublmaStart[pos] -= 1;
+        }
+    }
+    phraseLen = cPhrase_.length;
+}
+
+void MatrixSearch::MergeFixedLmas(size_t delSplPos)
+{
+    if (fixedLmas_ == 0) {
+        return;
+    }
+    // Update spelling segmentation information first.
+    splIdNum_ -= 1;
+    uint16 delPyLen = splStart_[delSplPos + 1] - splStart_[delSplPos];
+    for (size_t pos = delSplPos; pos <= splIdNum_; pos++) {
+        splStart_[pos] = splStart_[pos + 1] - delPyLen;
+        if (pos == splIdNum_) {
+            break;
+        }
+        splId_[pos] = splId_[pos + 1];
+    }
+
+    uint16 phraseLen = 0;
+
+    // Update the spelling ids to the composing phrase.
+    // We need to convert these ids into full id in the future.
+    ImeMemcpy(cPhrase_.splIds, splIdNum_ * sizeof(uint16), splId_, splIdNum_ * sizeof(uint16));
+    ImeMemcpy(cPhrase_.splStart, (splIdNum_ + 1) * sizeof(uint16), splStart_, (splIdNum_ + 1) * sizeof(uint16));
+
+    // If composing phrase has not been created, first merge all fixed
+    //  lemmas into a composing phrase without deletion.
+    if (fixedLmas_ > 1 || lmaId_[0] != K_LEMMA_ID_COMPOSING) {
+        MergeFixedLmasFirst(delSplPos, phraseLen);
+    } else {
+        MergeFixedLmasExisting(delSplPos, phraseLen);
+    }
+
+    ASSERT(phraseLen > 0);
+    if (phraseLen == 1) {
+        // After the only one is deleted, nothing will be left.
+        fixedLmas_ = 0;
+        return;
+    }
+
+    // Delete the Chinese character in the merged phrase.
+    // The corresponding elements in splIds and splStart of the
+    // phrase have been deleted.
+    char16 *chnStr = cPhrase_.chnStr + delSplPos;
+    for (uint16 pos = 0; pos < cPhrase_.sublmaStart[cPhrase_.sublmaNum] - delSplPos; pos++) {
+        chnStr[pos] = chnStr[pos + 1];
+    }
+    cPhrase_.length -= 1;
+
+    // If the deleted spelling id is in a sub lemma which contains more than
+    // one id, delASub will be false; but if the deleted id is in a sub lemma
+    // which only contains 1 id, the whole sub lemma needs to be deleted, so
+    // delASub will be true.
+    bool delASub = false;
+    for (uint16 pos = 1; pos <= cPhrase_.sublmaNum; pos++) {
+        if (cPhrase_.sublmaStart[pos - 1] == cPhrase_.sublmaStart[pos]) {
+            delASub = true;
+        }
+        if (delASub) {
+            cPhrase_.sublmaStart[pos - 1] = cPhrase_.sublmaStart[pos];
+        }
+    }
+    if (delASub) {
+        cPhrase_.sublmaNum -= 1;
+    }
+
+    return;
+}
+
+void MatrixSearch::CollectSplAndLma()
+{
+    MatrixNode *mtrxNd = mtrxNdPool_ + matrix_[pysDecodedLen_].mtrxNdPos;
+    while (mtrxNd != mtrxNdPool_) {
+        if (fixedHzs_ > 0) {
+            if (mtrxNd->step <= splStart_[fixedHzs_]) {
+                break;
+            }
+        }
+
+        // Update the spelling segamentation information
+        unsigned char wordSplstrLen = 0;
+        PoolPosType dmiFr = mtrxNd->dmiFr;
+        if (dmiFr != static_cast<PoolPosType>(-1)) {
+            wordSplstrLen = dmiPool_[dmiFr].splstrLen;
+        }
+
+        while (dmiFr != static_cast<PoolPosType>(-1)) {
+            splStart_[splIdNum_ + 1] = mtrxNd->step - (wordSplstrLen - dmiPool_[dmiFr].splstrLen);
+            splId_[splIdNum_] = dmiPool_[dmiFr].splId;
+            splIdNum_++;
+            dmiFr = dmiPool_[dmiFr].dmiFr;
+        }
+
+        // Update the lemma segmentation information
+        lmaStart_[lmaIdNum_ + 1] = splIdNum_;
+        lmaId_[lmaIdNum_] = mtrxNd->id;
+        lmaIdNum_++;
+
+        mtrxNd = mtrxNd->from;
+    }
+}
+
+void MatrixSearch::ReverseSplInfo()
+{
+    for (size_t pos = fixedHzs_; pos < fixedHzs_ + (splIdNum_ - fixedHzs_ + 1) / K_MAGIC_2; pos++) {
+        if (splIdNum_ + fixedHzs_ - pos != pos + 1) {
+            splStart_[pos + 1] ^= splStart_[splIdNum_ - pos + fixedHzs_];
+            splStart_[splIdNum_ - pos + fixedHzs_] ^= splStart_[pos + 1];
+            splStart_[pos + 1] ^= splStart_[splIdNum_ - pos + fixedHzs_];
+
+            splId_[pos] ^= splId_[splIdNum_ + fixedHzs_ - pos - 1];
+            splId_[splIdNum_ + fixedHzs_ - pos - 1] ^= splId_[pos];
+            splId_[pos] ^= splId_[splIdNum_ + fixedHzs_ - pos - 1];
+        }
+    }
+}
+
+void MatrixSearch::ReverseLmaInfo()
+{
+    for (size_t pos = fixedLmas_; pos < fixedLmas_ + (lmaIdNum_ - fixedLmas_ + 1) / K_MAGIC_2; pos++) {
+        ASSERT(lmaIdNum_ + fixedLmas_ - pos - pos >= 1);
+
+        if (lmaIdNum_ + fixedLmas_ - pos > pos + 1) {
+            lmaStart_[pos + 1] ^= lmaStart_[lmaIdNum_ - pos + fixedLmas_];
+            lmaStart_[lmaIdNum_ - pos + fixedLmas_] ^= lmaStart_[pos + 1];
+            lmaStart_[pos + 1] ^= lmaStart_[lmaIdNum_ - pos + fixedLmas_];
+
+            lmaId_[pos] ^= lmaId_[lmaIdNum_ - 1 - pos + fixedLmas_];
+            lmaId_[lmaIdNum_ - 1 - pos + fixedLmas_] ^= lmaId_[pos];
+            lmaId_[pos] ^= lmaId_[lmaIdNum_ - 1 - pos + fixedLmas_];
+        }
+    }
+}
+
+void MatrixSearch::AdjustLmaStart()
+{
+    for (size_t pos = fixedLmas_ + 1; pos <= lmaIdNum_; pos++) {
+        if (pos < lmaIdNum_) {
+            lmaStart_[pos] = lmaStart_[pos - 1] + (lmaStart_[pos] - lmaStart_[pos + 1]);
+        } else {
+            lmaStart_[pos] = lmaStart_[pos - 1] + lmaStart_[pos] - lmaStart_[fixedLmas_];
+        }
+    }
+}
+
+void MatrixSearch::FindLastFixedSplId()
+{
+    fixedHzs_ = 0;
+    for (size_t pos = splIdNum_; pos > 0; pos--) {
+        if (matrix_[splStart_[pos]].mtrxNdFixed != nullptr) {
+            fixedHzs_ = pos;
+            break;
+        }
+    }
+}
+
+void MatrixSearch::GetSplStartId()
+{
+    lmaIdNum_ = 0;
+    lmaStart_[0] = 0;
+
+    splIdNum_ = 0;
+    splStart_[0] = 0;
+    if (!inited_ || pysDecodedLen_ == 0 || matrix_[pysDecodedLen_].mtrxNdNum == 0) {
+        return;
+    }
+
+    // Calculate number of lemmas and spellings
+    // Only scan those part which is not fixed.
+    lmaIdNum_ = fixedLmas_;
+    splIdNum_ = fixedHzs_;
+
+    CollectSplAndLma();
+    ReverseSplInfo();
+    ReverseLmaInfo();
+    AdjustLmaStart();
+    FindLastFixedSplId();
+}
+
+size_t MatrixSearch::GetSplStart(const uint16 *&splStart)
+{
+    GetSplStartId();
+    splStart = splStart_;
+    return splIdNum_;
+}
+
+void MatrixSearch::ExtendDmiSystemDict(DictExtPara *dep, DictMatchInfo *dmiS, const MileStoneHandle *fromH,
+                                       MileStoneHandle *handles)
+{
+    size_t lpiNum = 0;
+    if (fromH[0] > 0 || dmiS == nullptr) {
+        handles[0] = dictTrie_->ExtendDict(fromH[0], dep, lpiItems_, kMaxLmaPsbItems, &lpiNum);
+    }
+    if (handles[0] > 0) {
+        lpiTotal_ = lpiNum;
+    }
+    if (dmiS == nullptr) { // from root
+        ASSERT(handles[0] != 0);
+    }
+}
+
+void MatrixSearch::ExtendDmiUserDict(DictExtPara *dep, DictMatchInfo *dmiS, const MileStoneHandle *fromH,
+                                     MileStoneHandle *handles)
+{
+    if (userDict_ == nullptr || (fromH[1] == 0 && dmiS != nullptr)) {
+        return;
+    }
+    size_t lpiNum = 0;
+    handles[1] = userDict_->ExtendDict(fromH[1], dep, lpiItems_ + lpiTotal_, kMaxLmaPsbItems - lpiTotal_, &lpiNum);
+    if (handles[1] > 0) {
+        if (K_PRINT_DEBUG0) {
+            for (size_t t = 0; t < lpiNum; t++) {
+                printf("--Extend in user dict: uid:%d uscore:%d\n", lpiItems_[lpiTotal_ + t].id,
+                       lpiItems_[lpiTotal_ + t].psb);
+            }
+        }
+        lpiTotal_ += lpiNum;
+    }
+}
+
+int MatrixSearch::AddDmiForHandles(DictExtPara *dep, DictMatchInfo *dmiS, const MileStoneHandle *handles,
+                                   uint16 splid)
+{
+    if (handles[0] == 0 && handles[1] == 0) {
+        return 0;
+    }
+    if (dmiPoolUsed_ >= kDmiPoolSize) {
+        return -1;
+    }
+
+    DictMatchInfo *dmiAdd = dmiPool_ + dmiPoolUsed_;
+    if (dmiS == nullptr) {
+        FillDmiParam p = {static_cast<PoolPosType>(-1),
+                          splid,
+                          1,
+                          1,
+                          dep->splidEndSplit,
+                          static_cast<unsigned char>(dep->extLen),
+                          static_cast<unsigned char>(splTrie_->IsHalfId(splid) ? 0 : 1)};
+        FillDmi(dmiAdd, handles, p);
+    } else {
+        FillDmiParam p = {static_cast<PoolPosType>(dmiS - dmiPool_),
+                          splid,
+                          1,
+                          static_cast<unsigned char>(dmiS->dictLevel + 1),
+                          dep->splidEndSplit,
+                          static_cast<unsigned char>(dmiS->splstrLen + dep->extLen),
+                          static_cast<unsigned char>(splTrie_->IsHalfId(splid) ? 0 : dmiS->allFullId)};
+        FillDmi(dmiAdd, handles, p);
+    }
+    return 1;
+}
+
+size_t MatrixSearch::FinalizeLpiCache(LpiCache &lpiCache, uint16 splid, bool cached, DictMatchInfo *dmiS,
+                                      size_t retVal)
+{
+    if (cached) {
+        ASSERT(splTrie_->IsHalfId(splid));
+        lpiTotal_ = lpiCache.GetCache(splid, lpiItems_, kMaxLmaPsbItems);
+        return retVal;
+    }
+
+    if (lpiTotal_ == 0) {
+        return retVal;
+    }
+
+    if (K_PRINT_DEBUG0) {
+        printf("--- lpiTotal_ = %d\n", lpiTotal_);
+    }
+
+    Myqsort(lpiItems_, lpiTotal_, sizeof(LmaPsbItem), CmpLpiWithPsb);
+    if (dmiS == nullptr && splTrie_->IsHalfId(splid)) {
+        lpiTotal_ = lpiCache.PutCache(splid, lpiItems_, lpiTotal_);
+    }
+    return retVal;
+}
+
+size_t MatrixSearch::ExtendDmi(DictExtPara *dep, DictMatchInfo *dmiS)
+{
+    if (dmiPoolUsed_ >= kDmiPoolSize) {
+        return 0;
+    }
+
+    if (dmiCPhrase_) {
+        return ExtendDmiC(dep, dmiS);
+    }
+
+    LpiCache &lpiCache = LpiCache::GetInstance();
+    uint16 splid = dep->splids[dep->splidsExtended];
+
+    bool cached = false;
+    if (dep->splidsExtended == 0) {
+        cached = lpiCache.IsCached(splid);
+    }
+
+    lpiTotal_ = 0;
+
+    MileStoneHandle fromH[3];
+    fromH[0] = 0;
+    fromH[1] = 0;
+    if (dep->splidsExtended != 0) {
+        fromH[0] = dmiS->dictHandles[0];
+        fromH[1] = dmiS->dictHandles[1];
+    }
+
+    MileStoneHandle handles[2];
+    handles[0] = handles[1] = 0;
+
+    // 2. Begin exgtending in the system dictionary
+    ExtendDmiSystemDict(dep, dmiS, fromH, handles);
+
+    // 3. Begin extending in the user dictionary
+    ExtendDmiUserDict(dep, dmiS, fromH, handles);
+
+    int dmiResult = AddDmiForHandles(dep, dmiS, handles, splid);
+    if (dmiResult < 0) {
+        return 0;
+    }
+    size_t retVal = dmiResult > 0 ? 1 : 0;
+
+    return FinalizeLpiCache(lpiCache, splid, cached, dmiS, retVal);
+}
+
+size_t MatrixSearch::ExtendDmiC(DictExtPara *dep, DictMatchInfo *dmiS)
+{
+    lpiTotal_ = 0;
+
+    uint16 pos = dep->splidsExtended;
+    ASSERT(dmiCPhrase_);
+    if (pos >= cPhrase_.length) {
+        return 0;
+    }
+
+    uint16 splid = dep->splids[pos];
+    if (splid == cPhrase_.splIds[pos]) {
+        DictMatchInfo *dmiAdd = dmiPool_ + dmiPoolUsed_;
+        MileStoneHandle handles[2]; // Actually never used.
+        if (dmiS == nullptr) {
+            FillDmiParam p = {static_cast<PoolPosType>(-1),
+                              splid,
+                              1,
+                              1,
+                              dep->splidEndSplit,
+                              static_cast<unsigned char>(dep->extLen),
+                              static_cast<unsigned char>(splTrie_->IsHalfId(splid) ? 0 : 1)};
+            FillDmi(dmiAdd, handles, p);
+        } else {
+            FillDmiParam p = {static_cast<PoolPosType>(dmiS - dmiPool_),
+                              splid,
+                              1,
+                              static_cast<unsigned char>(dmiS->dictLevel + 1),
+                              dep->splidEndSplit,
+                              static_cast<unsigned char>(dmiS->splstrLen + dep->extLen),
+                              static_cast<unsigned char>(splTrie_->IsHalfId(splid) ? 0 : dmiS->allFullId)};
+            FillDmi(dmiAdd, handles, p);
+        }
+
+        if (pos == cPhrase_.length - 1) {
+            lpiItems_[0].id = K_LEMMA_ID_COMPOSING;
+            lpiItems_[0].psb = 0; // 0 is bigger than normal lemma score.
+            lpiTotal_ = 1;
+        }
+        return 1;
+    }
+    return 0;
+}
+
+size_t MatrixSearch::ExtendMtrxNd(MatrixNode *mtrxNd, LmaPsbItem lpiItems[], size_t lpiNum, PoolPosType dmiFr,
+                                  size_t resRow)
+{
+    ASSERT(mtrxNd != nullptr);
+    matrix_[resRow].mtrxNdFixed = nullptr;
+
+    if (mtrxNdPoolUsed_ >= kMtrxNdPoolSize - kMaxNodeARow) {
+        return 0;
+    }
+
+    if (mtrxNd->step == 0) {
+        // Because the list is sorted, if the source step is 0, it is only
+        // necessary to pick up the first kMaxNodeARow items.
+        if (lpiNum > kMaxNodeARow) {
+            lpiNum = kMaxNodeARow;
+        }
+    }
+
+    MatrixNode *mtrxNdResMin = mtrxNdPool_ + matrix_[resRow].mtrxNdPos;
+    for (size_t pos = 0; pos < lpiNum; pos++) {
+        float score = mtrxNd->score + lpiItems[pos].psb;
+        if (pos > 0 && score - mtrxNdResMin->score > PRUMING_SCORE) {
+            break;
+        }
+
+        // Try to add a new node
+        size_t mtrxNdNum = matrix_[resRow].mtrxNdNum;
+        MatrixNode *mtrxNdRes = mtrxNdResMin + mtrxNdNum;
+        bool replace = false;
+        // Find its position
+        while (mtrxNdRes > mtrxNdResMin && score < (mtrxNdRes - 1)->score) {
+            if (static_cast<size_t>(mtrxNdRes - mtrxNdResMin) < kMaxNodeARow) {
+                *mtrxNdRes = *(mtrxNdRes - 1);
+            }
+            mtrxNdRes--;
+            replace = true;
+        }
+        if (replace || (mtrxNdNum < kMaxNodeARow && matrix_[resRow].mtrxNdPos + mtrxNdNum < kMtrxNdPoolSize)) {
+            mtrxNdRes->id = lpiItems[pos].id;
+            mtrxNdRes->score = score;
+            mtrxNdRes->from = mtrxNd;
+            mtrxNdRes->dmiFr = dmiFr;
+            mtrxNdRes->step = resRow;
+            if (matrix_[resRow].mtrxNdNum < kMaxNodeARow) {
+                matrix_[resRow].mtrxNdNum++;
+            }
+        }
+    }
+    return matrix_[resRow].mtrxNdNum;
+}
+
+PoolPosType MatrixSearch::MatchDmi(size_t stepTo, const uint16 splIds[], uint16 splIdNum)
+{
+    if (pysDecodedLen_ < stepTo || matrix_[stepTo].dmiNum == 0) {
+        return static_cast<PoolPosType>(-1);
+    }
+
+    for (PoolPosType dmiPos = 0; dmiPos < matrix_[stepTo].dmiNum; dmiPos++) {
+        DictMatchInfo *dmi = dmiPool_ + matrix_[stepTo].dmiPos + dmiPos;
+
+        if (dmi->dictLevel != splIdNum) {
+            continue;
+        }
+
+        bool matched = true;
+        for (uint16 splPos = 0; splPos < splIdNum; splPos++) {
+            if (splIds[splIdNum - splPos - 1] != dmi->splId) {
+                matched = false;
+                break;
+            }
+
+            dmi = dmiPool_ + dmi->dmiFr;
+        }
+        if (matched) {
+            return matrix_[stepTo].dmiPos + dmiPos;
+        }
+    }
+
+    return static_cast<PoolPosType>(-1);
+}
+
+void MatrixSearch::CollectSentenceIdxs(MatrixNode *mtrxNd, LemmaIdType *idxs, size_t &idNum)
+{
+    while (mtrxNd != nullptr) {
+        idxs[idNum] = mtrxNd->id;
+        idNum++;
+
+        if (K_PRINT_DEBUG1) {
+            printf("---MatrixNode [step: %d, lma_idx: %d, total score:%.5f]\n", mtrxNd->step, mtrxNd->id,
+                   mtrxNd->score);
+            DebugPrintDmi(mtrxNd->dmiFr, 1);
+        }
+
+        mtrxNd = mtrxNd->from;
+    }
+}
+
+bool MatrixSearch::BuildCandidateStr(LemmaIdType *idxs, size_t idNum, const CandStrBuf &buf, size_t &retPos,
+                                     bool onlyUnfixed)
+{
+    do {
+        idNum--;
+        if (idxs[idNum] == 0) {
+            continue;
+        }
+
+        char16 str[K_MAX_LEMMA_SIZE + 1];
+        uint16 strLen = GetLemmaStr(idxs[idNum], str, K_MAX_LEMMA_SIZE + 1);
+        if (strLen > 0 && ((!onlyUnfixed && buf.maxLen - retPos > strLen) ||
+                           (onlyUnfixed && buf.maxLen - retPos + fixedHzs_ > strLen))) {
+            if (!onlyUnfixed) {
+                Utf16Strncpy(buf.candStr + retPos, str, strLen);
+            } else if (retPos >= fixedHzs_) {
+                Utf16Strncpy(buf.candStr + retPos - fixedHzs_, str, strLen);
+            }
+
+            retPos += strLen;
+        } else {
+            return false;
+        }
+    } while (idNum != 0);
+    return true;
+}
+
+char16 *MatrixSearch::GetCandidate0(char16 *candStr, size_t maxLen, uint16 *retstrLen, bool onlyUnfixed)
+{
+    if (pysDecodedLen_ == 0 || matrix_[pysDecodedLen_].mtrxNdNum == 0) {
+        return nullptr;
+    }
+
+    LemmaIdType idxs[K_MAX_ROW_NUM];
+    size_t idNum = 0;
+
+    MatrixNode *mtrxNd = mtrxNdPool_ + matrix_[pysDecodedLen_].mtrxNdPos;
+
+    if (K_PRINT_DEBUG0) {
+        printf("--- sentence score: %f\n", mtrxNd->score);
+    }
+
+    if (K_PRINT_DEBUG1) {
+        printf("==============Sentence DMI (reverse order) Begin===========>>\n");
+    }
+
+    CollectSentenceIdxs(mtrxNd, idxs, idNum);
+
+    if (K_PRINT_DEBUG1) {
+        printf("<<==============Sentence DMI (reverse order) end=============\n");
+    }
+
+    size_t retPos = 0;
+    if (!BuildCandidateStr(idxs, idNum, {candStr, maxLen}, retPos, onlyUnfixed)) {
+        return nullptr;
+    }
+
+    if (!onlyUnfixed) {
+        if (retstrLen != nullptr) {
+            *retstrLen = retPos;
+        }
+        candStr[retPos] = static_cast<char16>('\0');
+    } else {
+        if (retstrLen != nullptr) {
+            *retstrLen = retPos - fixedHzs_;
+        }
+        candStr[retPos - fixedHzs_] = static_cast<char16>('\0');
+    }
+    return candStr;
+}
+
+size_t MatrixSearch::DedupByString(LmaPsbItem *lmaBuf, size_t num, size_t maxLmaBuf, const char16 *pfullsent)
+{
+    LmaPsbStrItem *lpsis = reinterpret_cast<LmaPsbStrItem *>(lmaBuf + num);
+    size_t lpsiNum = (maxLmaBuf - num) * sizeof(LmaPsbItem) / sizeof(LmaPsbStrItem);
+
+    if (num > lpsiNum) {
+        num = lpsiNum;
+    }
+    lpsiNum = num;
+
+    for (size_t pos = 0; pos < lpsiNum; pos++) {
+        lpsis[pos].lpi = lmaBuf[pos];
+        GetLemmaStr(lmaBuf[pos].id, lpsis[pos].str, K_MAX_LEMMA_SIZE + 1);
+    }
+
+    Myqsort(lpsis, lpsiNum, sizeof(LmaPsbStrItem), CmpLpsiWithStr);
+
+    size_t remainNum = 0;
+    for (size_t pos = 0; pos < lpsiNum; pos++) {
+        if (pfullsent != nullptr && Utf16Strcmp(lpsis[pos].str, pfullsent) == 0) {
+            continue;
+        }
+
+        lmaBuf[remainNum] = lpsis[pos].lpi;
+        remainNum++;
+    }
+    return remainNum;
+}
+
+size_t MatrixSearch::DedupSingleChar(LmaPsbItem *lmaBuf, size_t num, const char16 *pfullsent)
+{
+    // For single character lemmas, Hanzis will be gotten
+    for (size_t pos = 0; pos < num; pos++) {
+        char16 hanzis[2];
+        GetLemmaStr(lmaBuf[pos].id, hanzis, K_MAGIC_2);
+        lmaBuf[pos].hanzi = hanzis[0];
+    }
+
+    Myqsort(lmaBuf, num, sizeof(LmaPsbItem), CmpLpiWithHanzi);
+
+    size_t remainNum = 0;
+    for (size_t pos = 0; pos < num; pos++) {
+        if (pos > 0 && lmaBuf[pos].hanzi == lmaBuf[pos - 1].hanzi) {
+            if (pfullsent != nullptr && pfullsent[1] == static_cast<char16>(0) && lmaBuf[pos].hanzi == pfullsent[0]) {
+                continue;
+            }
+
+            if (lmaBuf[pos].psb < lmaBuf[pos - 1].psb) {
+                ASSERT(remainNum > 0);
+                ASSERT(lmaBuf[remainNum - 1].hanzi == lmaBuf[pos].hanzi);
+                lmaBuf[remainNum - 1] = lmaBuf[pos];
+            }
+            continue;
+        }
+        if (pfullsent != nullptr && pfullsent[1] == static_cast<char16>(0) && lmaBuf[pos].hanzi == pfullsent[0]) {
+            continue;
+        }
+
+        lmaBuf[remainNum] = lmaBuf[pos];
+        remainNum++;
+    }
+    return remainNum;
+}
+
+size_t MatrixSearch::GetLpis(const SplIdStrLen &splid, LmaPsbItem *lmaBuf, size_t maxLmaBuf, const char16 *pfullsent,
+                             bool sortByPsb)
+{
+    if (splid.len > K_MAX_LEMMA_SIZE) {
+        return 0;
+    }
+
+    size_t num1 = dictTrie_->GetLpis(splid.str, static_cast<uint16>(splid.len), lmaBuf, maxLmaBuf);
+    size_t num2 = 0;
+    if (userDict_ != nullptr) {
+        num2 = userDict_->GetLpis(splid.str, static_cast<uint16>(splid.len), lmaBuf + num1, maxLmaBuf - num1);
+    }
+
+    size_t num = num1 + num2;
+
+    if (num == 0) {
+        return 0;
+    }
+
+    // Remove repeated items.
+    if (splid.len > 1) {
+        num = DedupByString(lmaBuf, num, maxLmaBuf, pfullsent);
+    } else {
+        // For single character, some characters have more than one spelling, for
+        // example, "de" and "di" are all valid for a Chinese character, so when
+        // the user input  "d", repeated items are generated.
+        num = DedupSingleChar(lmaBuf, num, pfullsent);
+    }
+
+    if (sortByPsb) {
+        Myqsort(lmaBuf, num, sizeof(LmaPsbItem), CmpLpiWithPsb);
+    }
+    return num;
+}
+
+uint16 MatrixSearch::GetLemmaStr(LemmaIdType idLemma, char16 *strBuf, uint16 strMax)
+{
+    uint16 strLen = 0;
+
+    if (IsSystemLemma(idLemma)) {
+        strLen = dictTrie_->GetLemmaStr(idLemma, strBuf, strMax);
+    } else if (IsUserLemma(idLemma)) {
+        if (userDict_ != nullptr) {
+            strLen = userDict_->GetLemmaStr(idLemma, strBuf, strMax);
+        } else {
+            strLen = 0;
+            strBuf[0] = static_cast<char16>('\0');
+        }
+    } else if (IsComposingLemma(idLemma)) {
+        if (strMax <= 1) {
+            return 0;
+        }
+        strLen = cPhrase_.sublmaStart[cPhrase_.sublmaNum];
+        if (strLen > strMax - 1) {
+            strLen = strMax - 1;
+        }
+        Utf16Strncpy(strBuf, cPhrase_.chnStr, strLen);
+        strBuf[strLen] = static_cast<char16>('\0');
+        return strLen;
+    }
+
+    return strLen;
+}
+
+uint16 MatrixSearch::GetLemmaSplids(LemmaIdType idLemma, uint16 *splids, uint16 splidsMax, bool argValid)
+{
+    uint16 splidNum = 0;
+
+    if (argValid) {
+        for (splidNum = 0; splidNum < splidsMax; splidNum++) {
+            if (splTrie_->IsHalfId(splids[splidNum])) {
+                break;
+            }
+        }
+        if (splidNum == splidsMax) {
+            return splidNum;
+        }
+    }
+
+    if (IsSystemLemma(idLemma)) {
+        splidNum = dictTrie_->GetLemmaSplids(idLemma, splids, splidsMax, argValid);
+    } else if (IsUserLemma(idLemma)) {
+        if (userDict_ != nullptr) {
+            splidNum = userDict_->GetLemmaSplids(idLemma, splids, splidsMax, argValid);
+        } else {
+            splidNum = 0;
+        }
+    } else if (IsComposingLemma(idLemma)) {
+        if (cPhrase_.length > splidsMax) {
+            return 0;
+        }
+        for (uint16 pos = 0; pos < cPhrase_.length; pos++) {
+            splids[pos] = cPhrase_.splIds[pos];
+            if (splTrie_->IsHalfId(splids[pos])) {
+                return 0;
+            }
+        }
+    }
+    return splidNum;
+}
+
+bool MatrixSearch::HasNearestNWord(const char16 *fixedBuf, uint16 fixedLen)
+{
+    for (size_t nlen = 2; nlen <= fixedLen; nlen++) {
+        if (dictTrie_->GetLemmaId(fixedBuf + fixedLen - nlen, nlen) > 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+size_t MatrixSearch::LimitPredictNum(size_t resThis, size_t len)
+{
+    if (len > K_MAGIC_3) {
+        if (resThis > K_MAX_PREDICT_NUM_BY_GT3) {
+            return K_MAX_PREDICT_NUM_BY_GT3;
+        }
+    } else if (len == K_MAGIC_3) {
+        if (resThis > K_MAX_PREDICT_NUM_BY3) {
+            return K_MAX_PREDICT_NUM_BY3;
+        }
+    } else if (len == K_MAGIC_2) {
+        if (resThis > K_MAX_PREDICT_NUM_BY2) {
+            return K_MAX_PREDICT_NUM_BY2;
+        }
+    }
+    return resThis;
+}
+
+size_t MatrixSearch::PredictForLen(const char16 *fixedBuf, uint16 fixedLen, size_t len, size_t resTotal,
+                                   size_t thisMax)
+{
+    size_t resThis = 0;
+    if (!kOnlyUserDictPredict) {
+        resThis = dictTrie_->Predict(fixedBuf + fixedLen - len, len, npreItems_ + resTotal, thisMax, resTotal);
+    }
+
+    if (userDict_ != nullptr) {
+        resThis = resThis + userDict_->Predict(fixedBuf + fixedLen - len, len, npreItems_ + resTotal + resThis,
+                                               thisMax - resThis, resTotal + resThis);
+    }
+
+    if (kPredictLimitGt1) {
+        Myqsort(npreItems_ + resTotal, resThis, sizeof(NPredictItem), CmpNpreByScore);
+        resThis = LimitPredictNum(resThis, len);
+    }
+    return resThis;
+}
+
+size_t MatrixSearch::InnerPredict(const char16 *fixedBuf, uint16 fixedLen, char16 predictBuf[][K_MAX_PREDICT_SIZE + 1],
+                                  size_t bufLen)
+{
+    size_t resTotal = 0;
+    ImeMemset(npreItems_, sizeof(NPredictItem) * npreItemsLen_, 0, sizeof(NPredictItem) * npreItemsLen_);
+    // In order to shorten the comments, j-character candidates predicted by
+    // i-character prefix are called P(i,j). All candiates predicted by
+    // i-character prefix are called P(i,*)
+    // Step 1. Get P(K_MAX_PREDICT_SIZE, *) and sort them, here
+    // P(K_MAX_PREDICT_SIZE, *) == P(K_MAX_PREDICT_SIZE, 1)
+    for (size_t len = fixedLen; len > 0; len--) {
+        // How many blank items are available
+        size_t thisMax = npreItemsLen_ - resTotal;
+        size_t resThis;
+        // If the history is longer than 1, and we can not get prediction from
+        // lemmas longer than 2, in this case, we will add lemmas with
+        // highest scores as the prediction result.
+        if (fixedLen > 1 && len == 1 && resTotal == 0) {
+            // Try to find if recent n (n>1) characters can be a valid lemma in system
+            // dictionary.
+            bool nearestNWord = HasNearestNWord(fixedBuf, fixedLen);
+            resThis = dictTrie_->PredictTopLmas(nearestNWord ? len : 0, npreItems_ + resTotal, thisMax, resTotal);
+            resTotal += resThis;
+        }
+
+        // How many blank items are available
+        thisMax = npreItemsLen_ - resTotal;
+        resThis = PredictForLen(fixedBuf, fixedLen, len, resTotal, thisMax);
+
+        resTotal += resThis;
+    }
+
+    resTotal = RemoveDuplicateNpre(npreItems_, resTotal);
+
+    if (kPreferLongHistoryPredict) {
+        Myqsort(npreItems_, resTotal, sizeof(NPredictItem), CmpNpreByHislenScore);
+    } else {
+        Myqsort(npreItems_, resTotal, sizeof(NPredictItem), CmpNpreByScore);
+    }
+
+    if (bufLen < resTotal) {
+        resTotal = bufLen;
+    }
+
+    if (K_PRINT_DEBUG2) {
+        printf("/////////////////Predicted Items Begin////////////////////>>\n");
+        for (size_t i = 0; i < resTotal; i++) {
+            printf("---");
+            for (size_t j = 0; j < K_MAX_PREDICT_SIZE; j++) {
+                printf("%d  ", npreItems_[i].preHzs[j]);
+            }
+            printf("\n");
+        }
+        printf("<<///////////////Predicted Items End////////////////////////\n");
+    }
+
+    for (size_t i = 0; i < resTotal; i++) {
+        Utf16Strncpy(predictBuf[i], npreItems_[i].preHzs, K_MAX_PREDICT_SIZE);
+        predictBuf[i][K_MAX_PREDICT_SIZE] = '\0';
+    }
+
+    return resTotal;
+}
+
+size_t MatrixSearch::GetPredicts(const char16 fixedBuf[], char16 predictBuf[][K_MAX_PREDICT_SIZE + 1], size_t bufLen)
+{
+    size_t fixedLen = Utf16Strlen(fixedBuf);
+    if (fixedLen == 0 || fixedLen > K_MAX_PREDICT_SIZE || bufLen == 0) {
+        return 0;
+    }
+
+    return InnerPredict(fixedBuf, fixedLen, predictBuf, bufLen);
+}
+
+} // namespace ime_pinyin
