@@ -18,6 +18,7 @@ import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry
 import { preferences } from '@kit.ArkData';
 import TimeConversion from '../../../main/ets/util/TimeConversion';
 import Constant from '../../../main/ets/common/Constant';
+import { installCaseIsolation } from './TestRuntime';
 
 const PREF_NAME: string = 'ReminderAgentManager';
 const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
@@ -25,6 +26,7 @@ const appContext = delegator.getAppContext();
 
 export default function extraTest() {
   describe('ReminderExtraTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_EXTRA_0100
      * @tc.name      testReminderExtraTime0001
@@ -34,15 +36,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(0, 5);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -54,15 +54,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(0, 10);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -74,15 +72,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(0, 20);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -94,15 +90,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(0, 40);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -114,15 +108,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(0, 50);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -134,15 +126,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(6, 5);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -154,15 +144,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0007',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(6, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -174,15 +162,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0008',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(12, 5);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -194,15 +180,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0009',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(12, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -214,15 +198,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0010',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 5);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -234,15 +216,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0011',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -254,15 +234,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0012',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 5);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -274,15 +252,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0013',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 10);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -294,15 +270,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0014',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 20);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -314,15 +288,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraTime0015',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 55);
           expect(value >= -2).assertTrue();
           expect(value <= 86398).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -334,7 +306,7 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraDate0016',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const now: Date = new Date();
           const date: Date = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate(),
@@ -345,8 +317,6 @@ export default function extraTest() {
           expect(value < 3000000).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -358,7 +328,7 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraDate0017',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const now: Date = new Date();
           const date: Date = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate(),
@@ -369,8 +339,6 @@ export default function extraTest() {
           expect(value > -3000000).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -382,7 +350,7 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraDate0018',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const now: Date = new Date();
           const date: Date = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate(),
@@ -393,8 +361,6 @@ export default function extraTest() {
           expect(value < 32000000).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -406,7 +372,7 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraDate0019',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const now: Date = new Date();
           const date: Date = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate(),
@@ -417,8 +383,6 @@ export default function extraTest() {
           expect(value > -32000000).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -430,7 +394,7 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraDate0020',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const now: Date = new Date();
           const date: Date = new Date(now.getFullYear() + 2, 1, 29, 12, 0);
@@ -440,8 +404,6 @@ export default function extraTest() {
           expect(value > 31000000).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -453,7 +415,7 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraDate0021',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const now: Date = new Date();
           const date: Date = new Date(now.getFullYear() + 5, 11, 31, 23, 59);
@@ -463,8 +425,6 @@ export default function extraTest() {
           expect(value > 155000000).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -476,15 +436,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraConstant0022',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.PROMPT_DURATION).assertEqual(300);
           expect(Constant.REMINDER_DURATION).assertEqual(30);
           expect(Constant.FONT_WEIGHT).assertEqual(400);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -496,15 +454,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraConstant0023',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.VIBRATOR_DURATION).assertEqual(3000);
           expect(Constant.SECONDS_MILLISECONDS).assertEqual(1000);
           expect(Constant.ANGLE).assertEqual(360);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -516,15 +472,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraConstant0024',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HOUR_SECONDS).assertEqual(3600);
           expect(Constant.TIME_COUNTDOWN).assertEqual(59);
           expect(Constant.MINUTES_SECONDS).assertEqual(60);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -536,15 +490,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraConstant0025',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HORIZONTAL_POINTER_HEIGHT).assertEqual(310);
           expect(Constant.HORIZONTAL_LINE_LENGTH).assertEqual(345);
           expect(Constant.HORIZONTAL_CLOCK_DIAL_HEIGHT).assertEqual(212);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -556,15 +508,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraConstant0026',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HORIZONTAL_CLOCK_DIAL_WIDTH).assertEqual(212);
           expect(Constant.HORIZONTAL_CLOCK_HEIGHT).assertEqual(188);
           expect(Constant.HORIZONTAL_CLOCK_WIDTH).assertEqual(188);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -576,15 +526,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraConstant0027',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HORIZONTAL_CENTER_Y).assertEqual(99);
           expect(Constant.VERTICAL_POINTER_HEIGHT).assertEqual(375);
           expect(Constant.VERTICAL_LINE_LENGTH).assertEqual(410);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -596,15 +544,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraConstant0028',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.VERTICAL_CLOCK_DIAL_HEIGHT).assertEqual(280);
           expect(Constant.VERTICAL_CLOCK_DIAL_WIDTH).assertEqual(280);
           expect(Constant.VERTICAL_CLOCK_HEIGHT).assertEqual(250);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -616,15 +562,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraConstant0029',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.VERTICAL_CLOCK_WIDTH).assertEqual(250);
           expect(Constant.VERTICAL_CENTER_Y).assertEqual(125);
           expect(Constant.VERTICAL_PICKER_HEIGHT).assertEqual(128);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -636,21 +580,19 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraPref0030',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
-          await pref.put('extraOverwriteKey', 'first');
-          await pref.put('extraOverwriteKey', 'second');
-          await pref.flush();
-          expect(String(await pref.get('extraOverwriteKey', ''))).assertEqual('second');
-          expect(await pref.has('extraOverwriteKey')).assertTrue();
-          await pref.delete('extraOverwriteKey');
-          await pref.flush();
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
+          pref.putSync('extraOverwriteKey', 'first');
+          pref.putSync('extraOverwriteKey', 'second');
+          pref.flushSync();
+          expect(String(pref.getSync('extraOverwriteKey', ''))).assertEqual('second');
+          expect(pref.hasSync('extraOverwriteKey')).assertTrue();
+          pref.deleteSync('extraOverwriteKey');
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -662,16 +604,14 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraPref0031',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
-          expect(String(await pref.get('extraMissingKey', 'fallback'))).assertEqual('fallback');
-          expect(await pref.has('extraMissingKey')).assertFalse();
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
+          expect(String(pref.getSync('extraMissingKey', 'fallback'))).assertEqual('fallback');
+          expect(pref.hasSync('extraMissingKey')).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -683,18 +623,16 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraPref0032',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
-          await pref.delete('extraNeverCreatedKey');
-          await pref.flush();
-          expect(String(await pref.get('extraNeverCreatedKey', 'fallback'))).assertEqual('fallback');
-          expect(await pref.has('extraNeverCreatedKey')).assertFalse();
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
+          pref.deleteSync('extraNeverCreatedKey');
+          pref.flushSync();
+          expect(String(pref.getSync('extraNeverCreatedKey', 'fallback'))).assertEqual('fallback');
+          expect(pref.hasSync('extraNeverCreatedKey')).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -706,7 +644,7 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraDate45Minutes0033',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 45 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -715,8 +653,6 @@ export default function extraTest() {
           expect(value <= 2701).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -729,7 +665,7 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraDate90Minutes0034',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 90 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -738,8 +674,6 @@ export default function extraTest() {
           expect(value <= 5401).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -752,7 +686,7 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraDate120Minutes0035',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const date: Date = new Date(Date.now() + 120 * 60 * 1000);
           const value: number = TimeConversion.dateToMillisecond(date.getFullYear(),
@@ -761,8 +695,6 @@ export default function extraTest() {
           expect(value <= 7201).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -775,22 +707,20 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraPrefSpecial0036',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'extraSpecialKey';
           const value: string = '提醒 <tag> "quote" \\n 100%';
-          await pref.put(key, value);
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual(value);
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, value);
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual(value);
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -803,23 +733,21 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraPrefLong0037',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'extraLongKey';
           const value: string = 'a'.repeat(512);
-          await pref.put(key, value);
-          await pref.flush();
-          const readValue: string = String(await pref.get(key, ''));
+          pref.putSync(key, value);
+          pref.flushSync();
+          const readValue: string = String(pref.getSync(key, ''));
           expect(readValue.length).assertEqual(512);
           expect(readValue).assertEqual(value);
-          await pref.delete(key);
-          await pref.flush();
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -832,22 +760,20 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraPrefUnicode0038',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'extraUnicodeKey';
           const value: string = '提醒⏰日历';
-          await pref.put(key, value);
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual(value);
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, value);
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual(value);
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -861,21 +787,19 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraPrefNumber0039',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'extraNumberKey';
-          await pref.put(key, 2026);
-          await pref.flush();
-          expect(Number(await pref.get(key, 0))).assertEqual(2026);
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 2026);
+          pref.flushSync();
+          expect(Number(pref.getSync(key, 0))).assertEqual(2026);
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -888,21 +812,19 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraPrefBoolean0040',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'extraBooleanKey';
-          await pref.put(key, true);
-          await pref.flush();
-          expect(Boolean(await pref.get(key, false))).assertTrue();
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, true);
+          pref.flushSync();
+          expect(Boolean(pref.getSync(key, false))).assertTrue();
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -915,15 +837,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraPastDate0041',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.dateToMillisecond(2000, 1, 1, 0, 0);
           expect(value < 0).assertTrue();
           expect(value > -900000000).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -936,15 +856,13 @@ export default function extraTest() {
      * @tc.level     LEVEL0
      */
     it('testReminderExtraFutureDate0042',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.dateToMillisecond(2099, 12, 31, 23, 59);
           expect(value > 0).assertTrue();
           expect(value < 3000000000).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
