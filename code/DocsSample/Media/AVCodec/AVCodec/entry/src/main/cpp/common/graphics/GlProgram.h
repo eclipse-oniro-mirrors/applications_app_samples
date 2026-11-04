@@ -31,6 +31,17 @@ inline GLuint CompileShader(GLenum type, const char *source)
     return 0;
 }
 
+inline GLuint CheckLinkedProgram(GLuint program)
+{
+    GLint linked = GL_FALSE;
+    glGetProgramiv(program, GL_LINK_STATUS, &linked);
+    if (linked != GL_TRUE) {
+        glDeleteProgram(program);
+        return 0;
+    }
+    return program;
+}
+
 inline GLuint LinkProgram(GLuint vertex, GLuint fragment)
 {
     const GLuint program = glCreateProgram();
@@ -40,10 +51,7 @@ inline GLuint LinkProgram(GLuint vertex, GLuint fragment)
     glAttachShader(program, vertex);
     glAttachShader(program, fragment);
     glLinkProgram(program);
-    GLint linked = GL_FALSE;
-    glGetProgramiv(program, GL_LINK_STATUS, &linked);
-    if (linked != GL_TRUE) { glDeleteProgram(program); }
-    return linked == GL_TRUE ? program : 0;
+    return CheckLinkedProgram(program);
 }
 
 inline void DeleteShaders(GLuint vertex, GLuint fragment)

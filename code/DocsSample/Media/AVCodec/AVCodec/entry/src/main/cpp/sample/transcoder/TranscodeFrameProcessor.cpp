@@ -27,6 +27,15 @@ constexpr uint8_t BLACK_LUMA = 16;
 constexpr uint8_t NEUTRAL_CHROMA = 128;
 constexpr int32_t NV21_REVERSED_COMPONENT_OFFSET = CHROMA_SUBSAMPLING - 1;
 
+double DivideByPositive(double numerator, int32_t denominator)
+{
+    double quotient = 0.0;
+    if (denominator > 0) {
+        quotient = numerator / denominator;
+    }
+    return quotient;
+}
+
 uint8_t ReadFilteredChroma(const uint8_t *uv, size_t plane, const Layout &input, int32_t channel,
     int32_t x, int32_t y, const Geometry &geometry)
 {
@@ -77,12 +86,10 @@ uint8_t SampleArea(int32_t x, int32_t y, int32_t width, int32_t height, int32_t 
     if (filter != Filter::AREA || targetWidth > width || targetHeight > height) {
         return Interpolate(x, y, width, height, targetWidth, targetHeight, read);
     }
-    const int32_t divisorWidth = std::max(1, targetWidth);
-    const int32_t divisorHeight = std::max(1, targetHeight);
-    const double left = static_cast<double>(x) * width / divisorWidth;
-    const double right = static_cast<double>(x + 1) * width / divisorWidth;
-    const double top = static_cast<double>(y) * height / divisorHeight;
-    const double bottom = static_cast<double>(y + 1) * height / divisorHeight;
+    const double left = DivideByPositive(static_cast<double>(x) * width, targetWidth);
+    const double right = DivideByPositive(static_cast<double>(x + 1) * width, targetWidth);
+    const double top = DivideByPositive(static_cast<double>(y) * height, targetHeight);
+    const double bottom = DivideByPositive(static_cast<double>(y + 1) * height, targetHeight);
     double sum = 0;
     const int32_t endY = std::min(height, static_cast<int32_t>(std::ceil(bottom)));
     const int32_t endX = std::min(width, static_cast<int32_t>(std::ceil(right)));
