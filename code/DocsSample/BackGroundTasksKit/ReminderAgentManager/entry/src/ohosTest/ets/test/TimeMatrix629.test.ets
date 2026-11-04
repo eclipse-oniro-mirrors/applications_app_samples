@@ -8568,8 +8568,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8581,7 +8579,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290451',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 26);
           expect(value >= -2).assertTrue();
@@ -8589,8 +8587,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8602,7 +8598,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290452',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 28);
           expect(value >= -2).assertTrue();
@@ -8610,8 +8606,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8623,7 +8617,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290453',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 31);
           expect(value >= -2).assertTrue();
@@ -8631,8 +8625,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8644,7 +8636,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290454',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 33);
           expect(value >= -2).assertTrue();
@@ -8652,8 +8644,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8665,7 +8655,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290455',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 34);
           expect(value >= -2).assertTrue();
@@ -8673,8 +8663,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8686,7 +8674,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290456',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 35);
           expect(value >= -2).assertTrue();
@@ -8694,8 +8682,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8707,7 +8693,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290457',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 37);
           expect(value >= -2).assertTrue();
@@ -8715,8 +8701,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8728,7 +8712,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290458',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 38);
           expect(value >= -2).assertTrue();
@@ -8736,8 +8720,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8749,7 +8731,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290459',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 39);
           expect(value >= -2).assertTrue();
@@ -8757,8 +8739,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8770,7 +8750,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290460',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 40);
           expect(value >= -2).assertTrue();
@@ -8778,8 +8758,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8791,7 +8769,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290461',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 42);
           expect(value >= -2).assertTrue();
@@ -8799,8 +8777,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8812,7 +8788,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290462',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 43);
           expect(value >= -2).assertTrue();
@@ -8820,8 +8796,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8833,7 +8807,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290463',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 44);
           expect(value >= -2).assertTrue();
@@ -8841,8 +8815,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8854,7 +8826,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290464',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 47);
           expect(value >= -2).assertTrue();
@@ -8862,8 +8834,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8875,7 +8845,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290465',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 48);
           expect(value >= -2).assertTrue();
@@ -8883,8 +8853,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8896,7 +8864,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290466',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 49);
           expect(value >= -2).assertTrue();
@@ -8904,8 +8872,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8917,7 +8883,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290467',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 51);
           expect(value >= -2).assertTrue();
@@ -8925,8 +8891,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8938,7 +8902,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290468',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 52);
           expect(value >= -2).assertTrue();
@@ -8946,8 +8910,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8959,7 +8921,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290469',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 53);
           expect(value >= -2).assertTrue();
@@ -8967,8 +8929,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -8980,7 +8940,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290470',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 56);
           expect(value >= -2).assertTrue();
@@ -8988,8 +8948,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9001,7 +8959,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290471',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 57);
           expect(value >= -2).assertTrue();
@@ -9009,8 +8967,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9022,7 +8978,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290472',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(18, 58);
           expect(value >= -2).assertTrue();
@@ -9030,8 +8986,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9043,7 +8997,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290473',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 17);
           expect(value >= -2).assertTrue();
@@ -9051,8 +9005,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9064,7 +9016,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290474',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 18);
           expect(value >= -2).assertTrue();
@@ -9072,8 +9024,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9085,7 +9035,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290475',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 19);
           expect(value >= -2).assertTrue();
@@ -9093,8 +9043,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9106,7 +9054,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290476',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 22);
           expect(value >= -2).assertTrue();
@@ -9114,8 +9062,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9127,7 +9073,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290477',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 23);
           expect(value >= -2).assertTrue();
@@ -9135,8 +9081,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9148,7 +9092,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290478',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 26);
           expect(value >= -2).assertTrue();
@@ -9156,8 +9100,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9169,7 +9111,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290479',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 27);
           expect(value >= -2).assertTrue();
@@ -9177,8 +9119,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9190,7 +9130,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290480',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 28);
           expect(value >= -2).assertTrue();
@@ -9198,8 +9138,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9211,7 +9149,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290481',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 30);
           expect(value >= -2).assertTrue();
@@ -9219,8 +9157,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9232,7 +9168,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290482',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 31);
           expect(value >= -2).assertTrue();
@@ -9240,8 +9176,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9253,7 +9187,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290483',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 32);
           expect(value >= -2).assertTrue();
@@ -9261,8 +9195,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9274,7 +9206,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290484',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 33);
           expect(value >= -2).assertTrue();
@@ -9282,8 +9214,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9295,7 +9225,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290485',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 35);
           expect(value >= -2).assertTrue();
@@ -9303,8 +9233,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9316,7 +9244,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290486',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 36);
           expect(value >= -2).assertTrue();
@@ -9324,8 +9252,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9337,7 +9263,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290487',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 37);
           expect(value >= -2).assertTrue();
@@ -9345,8 +9271,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9358,7 +9282,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290488',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 39);
           expect(value >= -2).assertTrue();
@@ -9366,8 +9290,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9379,7 +9301,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290489',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 40);
           expect(value >= -2).assertTrue();
@@ -9387,8 +9309,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9400,7 +9320,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290490',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 41);
           expect(value >= -2).assertTrue();
@@ -9408,8 +9328,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9421,7 +9339,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290491',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 43);
           expect(value >= -2).assertTrue();
@@ -9429,8 +9347,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9442,7 +9358,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290492',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 44);
           expect(value >= -2).assertTrue();
@@ -9450,8 +9366,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9463,7 +9377,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290493',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 45);
           expect(value >= -2).assertTrue();
@@ -9471,8 +9385,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9484,7 +9396,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290494',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 47);
           expect(value >= -2).assertTrue();
@@ -9492,8 +9404,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9505,7 +9415,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290495',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 48);
           expect(value >= -2).assertTrue();
@@ -9513,8 +9423,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9526,7 +9434,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290496',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 49);
           expect(value >= -2).assertTrue();
@@ -9534,8 +9442,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9547,7 +9453,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290497',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 51);
           expect(value >= -2).assertTrue();
@@ -9555,8 +9461,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9568,7 +9472,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290498',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 52);
           expect(value >= -2).assertTrue();
@@ -9576,8 +9480,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9589,7 +9491,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290499',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 53);
           expect(value >= -2).assertTrue();
@@ -9597,8 +9499,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9610,7 +9510,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290500',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 55);
           expect(value >= -2).assertTrue();
@@ -9618,8 +9518,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9631,7 +9529,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290501',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 56);
           expect(value >= -2).assertTrue();
@@ -9639,8 +9537,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9652,7 +9548,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290502',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(19, 57);
           expect(value >= -2).assertTrue();
@@ -9660,8 +9556,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9673,7 +9567,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290503',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 17);
           expect(value >= -2).assertTrue();
@@ -9681,8 +9575,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9694,7 +9586,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290504',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 18);
           expect(value >= -2).assertTrue();
@@ -9702,8 +9594,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9715,7 +9605,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290505',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 21);
           expect(value >= -2).assertTrue();
@@ -9723,8 +9613,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9736,7 +9624,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290506',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 22);
           expect(value >= -2).assertTrue();
@@ -9744,8 +9632,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9757,7 +9643,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290507',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 23);
           expect(value >= -2).assertTrue();
@@ -9765,8 +9651,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9778,7 +9662,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290508',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 24);
           expect(value >= -2).assertTrue();
@@ -9786,8 +9670,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9799,7 +9681,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290509',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 26);
           expect(value >= -2).assertTrue();
@@ -9807,8 +9689,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9820,7 +9700,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290510',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 27);
           expect(value >= -2).assertTrue();
@@ -9828,8 +9708,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9841,7 +9719,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290511',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 28);
           expect(value >= -2).assertTrue();
@@ -9849,8 +9727,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9862,7 +9738,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290512',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 30);
           expect(value >= -2).assertTrue();
@@ -9870,8 +9746,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9883,7 +9757,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290513',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 31);
           expect(value >= -2).assertTrue();
@@ -9891,8 +9765,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9904,7 +9776,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290514',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 32);
           expect(value >= -2).assertTrue();
@@ -9912,8 +9784,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9925,7 +9795,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290515',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 34);
           expect(value >= -2).assertTrue();
@@ -9933,8 +9803,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9946,7 +9814,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290516',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 35);
           expect(value >= -2).assertTrue();
@@ -9954,8 +9822,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9967,7 +9833,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290517',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 36);
           expect(value >= -2).assertTrue();
@@ -9975,8 +9841,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -9988,7 +9852,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290518',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 38);
           expect(value >= -2).assertTrue();
@@ -9996,8 +9860,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10009,7 +9871,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290519',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 39);
           expect(value >= -2).assertTrue();
@@ -10017,8 +9879,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10030,7 +9890,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290520',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 40);
           expect(value >= -2).assertTrue();
@@ -10038,8 +9898,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10051,7 +9909,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290521',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 42);
           expect(value >= -2).assertTrue();
@@ -10059,8 +9917,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10072,7 +9928,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290522',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 43);
           expect(value >= -2).assertTrue();
@@ -10080,8 +9936,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10093,7 +9947,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290523',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 44);
           expect(value >= -2).assertTrue();
@@ -10101,8 +9955,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10114,7 +9966,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290524',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 46);
           expect(value >= -2).assertTrue();
@@ -10122,8 +9974,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10135,7 +9985,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290525',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 47);
           expect(value >= -2).assertTrue();
@@ -10143,8 +9993,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10156,7 +10004,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290526',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 48);
           expect(value >= -2).assertTrue();
@@ -10164,8 +10012,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10177,7 +10023,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290527',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 50);
           expect(value >= -2).assertTrue();
@@ -10185,8 +10031,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10198,7 +10042,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290528',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 51);
           expect(value >= -2).assertTrue();
@@ -10206,8 +10050,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10219,7 +10061,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290529',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 54);
           expect(value >= -2).assertTrue();
@@ -10227,8 +10069,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10240,7 +10080,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290530',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 55);
           expect(value >= -2).assertTrue();
@@ -10248,8 +10088,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10261,7 +10099,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290531',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 56);
           expect(value >= -2).assertTrue();
@@ -10269,8 +10107,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10282,7 +10118,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290532',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 57);
           expect(value >= -2).assertTrue();
@@ -10290,8 +10126,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10303,7 +10137,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290533',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(20, 59);
           expect(value >= -2).assertTrue();
@@ -10311,8 +10145,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10324,7 +10156,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290534',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 17);
           expect(value >= -2).assertTrue();
@@ -10332,8 +10164,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10345,7 +10175,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290535',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 18);
           expect(value >= -2).assertTrue();
@@ -10353,8 +10183,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10366,7 +10194,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290536',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 21);
           expect(value >= -2).assertTrue();
@@ -10374,8 +10202,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10387,7 +10213,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290537',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 22);
           expect(value >= -2).assertTrue();
@@ -10395,8 +10221,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10408,7 +10232,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290538',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 23);
           expect(value >= -2).assertTrue();
@@ -10416,8 +10240,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10429,7 +10251,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290539',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 25);
           expect(value >= -2).assertTrue();
@@ -10437,8 +10259,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10450,7 +10270,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290540',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 26);
           expect(value >= -2).assertTrue();
@@ -10458,8 +10278,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10471,7 +10289,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290541',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 27);
           expect(value >= -2).assertTrue();
@@ -10479,8 +10297,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10492,7 +10308,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290542',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 29);
           expect(value >= -2).assertTrue();
@@ -10500,8 +10316,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10513,7 +10327,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290543',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 30);
           expect(value >= -2).assertTrue();
@@ -10521,8 +10335,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10534,7 +10346,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290544',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 31);
           expect(value >= -2).assertTrue();
@@ -10542,8 +10354,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10555,7 +10365,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290545',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 33);
           expect(value >= -2).assertTrue();
@@ -10563,8 +10373,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10576,7 +10384,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290546',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 34);
           expect(value >= -2).assertTrue();
@@ -10584,8 +10392,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10597,7 +10403,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290547',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 35);
           expect(value >= -2).assertTrue();
@@ -10605,8 +10411,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10618,7 +10422,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290548',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 37);
           expect(value >= -2).assertTrue();
@@ -10626,8 +10430,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10639,7 +10441,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290549',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 38);
           expect(value >= -2).assertTrue();
@@ -10647,8 +10449,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10660,7 +10460,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290550',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 39);
           expect(value >= -2).assertTrue();
@@ -10668,8 +10468,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10681,7 +10479,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290551',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 41);
           expect(value >= -2).assertTrue();
@@ -10689,8 +10487,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10702,7 +10498,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290552',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 42);
           expect(value >= -2).assertTrue();
@@ -10710,8 +10506,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10723,7 +10517,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290553',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 43);
           expect(value >= -2).assertTrue();
@@ -10731,8 +10525,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10744,7 +10536,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290554',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 46);
           expect(value >= -2).assertTrue();
@@ -10752,8 +10544,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10765,7 +10555,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290555',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 47);
           expect(value >= -2).assertTrue();
@@ -10773,8 +10563,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10786,7 +10574,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290556',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 48);
           expect(value >= -2).assertTrue();
@@ -10794,8 +10582,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10807,7 +10593,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290557',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 50);
           expect(value >= -2).assertTrue();
@@ -10815,8 +10601,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10828,7 +10612,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290558',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 51);
           expect(value >= -2).assertTrue();
@@ -10836,8 +10620,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10849,7 +10631,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290559',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 52);
           expect(value >= -2).assertTrue();
@@ -10857,8 +10639,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10870,7 +10650,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290560',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 54);
           expect(value >= -2).assertTrue();
@@ -10878,8 +10658,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10891,7 +10669,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290561',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 55);
           expect(value >= -2).assertTrue();
@@ -10899,8 +10677,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10912,7 +10688,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290562',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 56);
           expect(value >= -2).assertTrue();
@@ -10920,8 +10696,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10933,7 +10707,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290563',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 58);
           expect(value >= -2).assertTrue();
@@ -10941,8 +10715,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10954,7 +10726,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290564',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(21, 59);
           expect(value >= -2).assertTrue();
@@ -10962,8 +10734,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10975,7 +10745,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290565',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 17);
           expect(value >= -2).assertTrue();
@@ -10983,8 +10753,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -10996,7 +10764,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290566',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 19);
           expect(value >= -2).assertTrue();
@@ -11004,8 +10772,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11017,7 +10783,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290567',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 21);
           expect(value >= -2).assertTrue();
@@ -11025,8 +10791,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11038,7 +10802,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290568',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 22);
           expect(value >= -2).assertTrue();
@@ -11046,8 +10810,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11059,7 +10821,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290569',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 24);
           expect(value >= -2).assertTrue();
@@ -11067,8 +10829,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11080,7 +10840,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290570',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 25);
           expect(value >= -2).assertTrue();
@@ -11088,8 +10848,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11101,7 +10859,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290571',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 26);
           expect(value >= -2).assertTrue();
@@ -11109,8 +10867,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11122,7 +10878,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290572',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 28);
           expect(value >= -2).assertTrue();
@@ -11130,8 +10886,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11143,7 +10897,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290573',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 29);
           expect(value >= -2).assertTrue();
@@ -11151,8 +10905,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11164,7 +10916,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290574',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 30);
           expect(value >= -2).assertTrue();
@@ -11172,8 +10924,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11185,7 +10935,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290575',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 32);
           expect(value >= -2).assertTrue();
@@ -11193,8 +10943,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11206,7 +10954,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290576',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 33);
           expect(value >= -2).assertTrue();
@@ -11214,8 +10962,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11227,7 +10973,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290577',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 34);
           expect(value >= -2).assertTrue();
@@ -11235,8 +10981,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11248,7 +10992,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290578',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 36);
           expect(value >= -2).assertTrue();
@@ -11256,8 +11000,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11269,7 +11011,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290579',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 38);
           expect(value >= -2).assertTrue();
@@ -11277,8 +11019,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11290,7 +11030,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290580',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 39);
           expect(value >= -2).assertTrue();
@@ -11298,8 +11038,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11311,7 +11049,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290581',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 41);
           expect(value >= -2).assertTrue();
@@ -11319,8 +11057,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11332,7 +11068,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290582',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 42);
           expect(value >= -2).assertTrue();
@@ -11340,8 +11076,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11353,7 +11087,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290583',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 43);
           expect(value >= -2).assertTrue();
@@ -11361,8 +11095,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11374,7 +11106,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290584',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 45);
           expect(value >= -2).assertTrue();
@@ -11382,8 +11114,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11395,7 +11125,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290585',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 46);
           expect(value >= -2).assertTrue();
@@ -11403,8 +11133,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11416,7 +11144,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290586',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 47);
           expect(value >= -2).assertTrue();
@@ -11424,8 +11152,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11437,7 +11163,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290587',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 49);
           expect(value >= -2).assertTrue();
@@ -11445,8 +11171,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11458,7 +11182,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290588',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 50);
           expect(value >= -2).assertTrue();
@@ -11466,8 +11190,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11479,7 +11201,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290589',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 51);
           expect(value >= -2).assertTrue();
@@ -11487,8 +11209,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11500,7 +11220,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290590',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 53);
           expect(value >= -2).assertTrue();
@@ -11508,8 +11228,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11521,7 +11239,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290591',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 54);
           expect(value >= -2).assertTrue();
@@ -11529,8 +11247,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11542,7 +11258,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290592',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 55);
           expect(value >= -2).assertTrue();
@@ -11550,8 +11266,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11563,7 +11277,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290593',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 57);
           expect(value >= -2).assertTrue();
@@ -11571,8 +11285,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11584,7 +11296,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290594',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 58);
           expect(value >= -2).assertTrue();
@@ -11592,8 +11304,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11605,7 +11315,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290595',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(22, 59);
           expect(value >= -2).assertTrue();
@@ -11613,8 +11323,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11626,7 +11334,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290596',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 3);
           expect(value >= -2).assertTrue();
@@ -11634,8 +11342,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11647,7 +11353,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290597',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 4);
           expect(value >= -2).assertTrue();
@@ -11655,8 +11361,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11668,7 +11372,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290598',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 6);
           expect(value >= -2).assertTrue();
@@ -11676,8 +11380,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11689,7 +11391,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290599',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 8);
           expect(value >= -2).assertTrue();
@@ -11697,8 +11399,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11710,7 +11410,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290600',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 9);
           expect(value >= -2).assertTrue();
@@ -11718,8 +11418,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11731,7 +11429,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290601',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 11);
           expect(value >= -2).assertTrue();
@@ -11739,8 +11437,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11752,7 +11448,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290602',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 13);
           expect(value >= -2).assertTrue();
@@ -11760,8 +11456,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11773,7 +11467,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290603',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 14);
           expect(value >= -2).assertTrue();
@@ -11781,8 +11475,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11794,7 +11486,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290604',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 17);
           expect(value >= -2).assertTrue();
@@ -11802,8 +11494,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11815,7 +11505,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290605',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 19);
           expect(value >= -2).assertTrue();
@@ -11823,8 +11513,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11836,7 +11524,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290606',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 21);
           expect(value >= -2).assertTrue();
@@ -11844,8 +11532,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11857,7 +11543,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290607',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 22);
           expect(value >= -2).assertTrue();
@@ -11865,8 +11551,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11878,7 +11562,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290608',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 24);
           expect(value >= -2).assertTrue();
@@ -11886,8 +11570,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11899,7 +11581,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290609',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 26);
           expect(value >= -2).assertTrue();
@@ -11907,8 +11589,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11920,7 +11600,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290610',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 27);
           expect(value >= -2).assertTrue();
@@ -11928,8 +11608,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11941,7 +11619,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290611',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 29);
           expect(value >= -2).assertTrue();
@@ -11949,8 +11627,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11962,7 +11638,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290612',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 31);
           expect(value >= -2).assertTrue();
@@ -11970,8 +11646,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -11983,7 +11657,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290613',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 32);
           expect(value >= -2).assertTrue();
@@ -11991,8 +11665,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12004,7 +11676,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290614',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 34);
           expect(value >= -2).assertTrue();
@@ -12012,8 +11684,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12025,7 +11695,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290615',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 36);
           expect(value >= -2).assertTrue();
@@ -12033,8 +11703,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12046,7 +11714,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290616',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 37);
           expect(value >= -2).assertTrue();
@@ -12054,8 +11722,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12067,7 +11733,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290617',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 39);
           expect(value >= -2).assertTrue();
@@ -12075,8 +11741,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12088,7 +11752,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290618',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 41);
           expect(value >= -2).assertTrue();
@@ -12096,8 +11760,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12109,7 +11771,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290619',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 42);
           expect(value >= -2).assertTrue();
@@ -12117,8 +11779,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12130,7 +11790,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290620',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 44);
           expect(value >= -2).assertTrue();
@@ -12138,8 +11798,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12151,7 +11809,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290621',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 46);
           expect(value >= -2).assertTrue();
@@ -12159,8 +11817,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12172,7 +11828,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290622',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 47);
           expect(value >= -2).assertTrue();
@@ -12180,8 +11836,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12193,7 +11847,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290623',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 49);
           expect(value >= -2).assertTrue();
@@ -12201,8 +11855,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12214,7 +11866,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290624',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 51);
           expect(value >= -2).assertTrue();
@@ -12222,8 +11874,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12235,7 +11885,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290625',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 52);
           expect(value >= -2).assertTrue();
@@ -12243,8 +11893,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12256,7 +11904,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290626',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 54);
           expect(value >= -2).assertTrue();
@@ -12264,8 +11912,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12277,7 +11923,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290627',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 56);
           expect(value >= -2).assertTrue();
@@ -12285,8 +11931,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12298,7 +11942,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290628',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 57);
           expect(value >= -2).assertTrue();
@@ -12306,8 +11950,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -12319,7 +11961,7 @@ export default function timeMatrix629Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderTimeMatrix6290629',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(23, 58);
           expect(value >= -2).assertTrue();
@@ -12327,8 +11969,6 @@ export default function timeMatrix629Test(): void {
           expect(value === value).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });  });
 }
