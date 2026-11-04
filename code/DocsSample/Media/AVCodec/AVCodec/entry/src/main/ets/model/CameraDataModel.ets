@@ -22,6 +22,10 @@ export class CameraDataModel {
   public primaryDumpPath: string = '';
   public secondaryDumpPath: string = '';
   public stopOnLowSpace: boolean = false;
+  public segmentSeconds: number = 0;
+  public segmentMiB: number = 0;
+  public recordingGroupId: string = '';
+  public segmentIndex: number = 1;
   public videoCodecName: string = '';
   public outputUri: string = '';
   public outputTitle: string = '';

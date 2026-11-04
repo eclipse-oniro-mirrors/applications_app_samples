@@ -19,17 +19,22 @@ import { photoAccessHelper } from '@kit.MediaLibraryKit';
 
 export class TranscodeSourcePicker {
   static async select(ui: UIContext, fromGallery: boolean): Promise<string> {
+    const selection: string[] = await TranscodeSourcePicker.selectMany(ui, fromGallery, 1);
+    return selection[0] ?? '';
+  }
+
+  static async selectMany(ui: UIContext, fromGallery: boolean, limit: number): Promise<string[]> {
     const context = ui.getHostContext();
-    if (context === undefined) { return ''; }
+    if (context === undefined || limit <= 0) { return []; }
     if (fromGallery) {
       const selection: photoAccessHelper.PhotoSelectResult = await new photoAccessHelper.PhotoViewPicker().select({
-        MIMEType: photoAccessHelper.PhotoViewMIMETypes.VIDEO_TYPE, maxSelectNumber: 1
+        MIMEType: photoAccessHelper.PhotoViewMIMETypes.VIDEO_TYPE, maxSelectNumber: Math.min(30, limit)
       });
-      return selection.photoUris[0] ?? '';
+      return selection.photoUris;
     }
     const selection: string[] = await new picker.DocumentViewPicker(context).select({
-      maxSelectNumber: 1, fileSuffixFilters: ['Video|.mp4,.mkv,.mov,.webm,.ts,.3gp']
+      maxSelectNumber: Math.min(30, limit), fileSuffixFilters: ['Video|.mp4,.mkv,.mov,.webm,.ts,.3gp']
     });
-    return selection[0] ?? '';
+    return selection;
   }
 }

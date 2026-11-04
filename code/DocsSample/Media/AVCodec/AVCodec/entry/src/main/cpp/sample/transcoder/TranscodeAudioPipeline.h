@@ -30,7 +30,8 @@ public:
     explicit TranscodeAudioPipeline(Error error) : error_(std::move(error)) {}
     ~TranscodeAudioPipeline();
     bool Configure(OH_AVFormat *source, OH_AVDemuxer *demuxer, int32_t track, int64_t rangeStartUs = 0,
-        int64_t rangeEndUs = 0, int32_t targetRate = 0, int32_t targetChannels = 0, int64_t bitrate = 128000);
+        int64_t rangeEndUs = 0, int32_t targetRate = 0, int32_t targetChannels = 0, int64_t bitrate = 128000,
+        bool lowPass = false);
     bool Pump(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced);
     bool Ready() const { return ready_; }
     bool Done() const { return outputDone_; }

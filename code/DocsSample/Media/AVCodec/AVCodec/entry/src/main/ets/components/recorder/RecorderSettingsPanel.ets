@@ -15,6 +15,8 @@
 
 import { LocalizedText } from '../../common/LocalizedText';
 import { RecorderPreprocessPreview } from './RecorderPreprocessPreview';
+import { RecorderSegmentSettings } from './RecorderSegmentSettings';
+import { RecorderSettingsDraft } from '../../model/SettingsDraftModels';
 
 export enum RecorderSettingsOption {
   OUTPUT_FORMAT,
@@ -47,6 +49,7 @@ interface RecorderSettingRowOptions {
 
 @Component
 export struct RecorderSettingsPanel {
+  @ObjectLink draft: RecorderSettingsDraft;
   @Prop capabilityHint: string = '';
   onCheckCapabilities: () => void = (): void => {};
   @Prop videoDumpEnabled: boolean = false;
@@ -222,6 +225,7 @@ export struct RecorderSettingsPanel {
               .onChange((enabled: boolean): void => this.onStorageProtectionChanged(enabled))
           }.width('100%').padding({ top: 8, bottom: 8 })
           Text($r('app.string.rec_storage_note')).fontSize(12).fontColor('#667085').width('100%')
+          RecorderSegmentSettings({ draft: this.draft })
           this.OptionRow({ title: $r('app.string.setting_sync_mode'), selectedText: this.syncModeText,
             onClick: (): void => this.onChooseOption(RecorderSettingsOption.SYNC_MODE),
             available: true })

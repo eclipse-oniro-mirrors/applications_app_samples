@@ -14,8 +14,7 @@
  */
 
 import { UIContext } from '@kit.ArkUI';
-import { fileIo, fileUri, picker, statfs } from '@kit.CoreFileKit';
-import { photoAccessHelper } from '@kit.MediaLibraryKit';
+import { fileIo, statfs } from '@kit.CoreFileKit';
 import transcoder, { TranscodeRequest, TranscodeStatus } from 'libtranscoder.so';
 import { LocalizedText } from '../common/LocalizedText';
 import { getPlaybackTitle } from './PlaybackHistoryModel';
@@ -31,6 +30,9 @@ import { TranscodeQueueModel, TranscodeQueueItem } from './TranscodeQueueModel';
 import { TranscodeSourcePicker } from './TranscodeSourcePicker';
 import { TranscodeQualityModel } from './TranscodeQualityModel';
 import { image } from '@kit.ImageKit';
+import { TranscodePreviewController } from '../controller/TranscodePreviewController';
+import { TranscodeQueueRunner, TranscodeQueueHost, TranscodeQueueResult } from '../controller/TranscodeQueueRunner';
+import { TranscodeExportController } from '../controller/TranscodeExportController';
 
 function idleTranscodeStatus(): TranscodeStatus {
   return {
@@ -78,11 +80,14 @@ function idleTranscodeStatus(): TranscodeStatus {
 @Observed
 export class TranscodeModel {
   public quality: TranscodeQualityModel = new TranscodeQualityModel();
-  public previewImage: image.PixelMap | undefined = undefined;
+  public previewState: TranscodePreviewController = new TranscodePreviewController();
+  get previewImage(): image.PixelMap | undefined { return this.previewState.processed; }
   public previewing: boolean = false;
   public previewConfiguration: string = '';
   public queue: TranscodeQueueModel = new TranscodeQueueModel();
   public queueRunning: boolean = false;
+  public exports: TranscodeExportController = new TranscodeExportController();
+  private queueRunner: TranscodeQueueRunner = new TranscodeQueueRunner();
   public sourceUri: string = '';
   public sourceTitle: string = '';
   public codecIndex: number = 0;
@@ -110,6 +115,7 @@ export class TranscodeModel {
   public exporting: boolean = false;
   public cancelRequested: boolean = false;
   public resultPath: string = '';
+  public resultSourceUri: string = '';
   public notice: string = '';
   public status: TranscodeStatus = idleTranscodeStatus();
   private pollTimer: number = 0;
@@ -124,7 +130,7 @@ export class TranscodeModel {
   setRangeEnd(value: string): void { this.rangeEnd = value; this.clearPreview(); this.updateSizeEstimate(); }
 
   setRangeEnabled(enabled: boolean): void {
-    this.rangeEnabled = enabled && this.modeIndex === 0;
+    this.rangeEnabled = enabled && this.modeIndex !== 1;
     this.clearPreview();
     this.updateSizeEstimate();
   }
@@ -153,7 +159,7 @@ export class TranscodeModel {
 
   private validRange(durationUs: number = 0): boolean {
     if (!this.rangeEnabled) { return true; }
-    if (this.modeIndex !== 0) { return false; }
+    if (this.modeIndex === 1) { return false; }
     const start: number = this.rangeMilliseconds(this.rangeStart, false);
     const end: number = this.rangeMilliseconds(this.rangeEnd, true);
     const durationMs: number = durationUs / 1000;
@@ -179,8 +185,9 @@ export class TranscodeModel {
   }
 
   setMode(index: number): void {
-    if (this.busy || this.queueRunning || index < 0 || index > 1) { return; }
+    if (this.busy || this.queueRunning || index < 0 || index > 2) { return; }
     this.modeIndex = index;
+    if (index === 2 && this.quality.filter === 2) { this.quality.filter = 1; }
     if (index === 1) {
       this.rangeEnabled = false;
       this.sizeIndex = 0;
@@ -188,6 +195,7 @@ export class TranscodeModel {
       this.resizeMode = 0;
       this.quality.filter = 0;
     }
+    this.clearPreview();
   }
 
   setOperation(index: number): void {
@@ -202,14 +210,23 @@ export class TranscodeModel {
   }
 
   clearPreview(): void {
-    const previous: image.PixelMap | undefined = this.previewImage;
-    this.previewImage = undefined; this.previewConfiguration = '';
-    if (previous !== undefined) { void previous.release().catch((): void => {}); }
+    this.previewState.clear();
+    this.previewConfiguration = '';
+  }
+
+  previewTimeMs(): number {
+    const request: TranscodeRequest = this.request(0, 0);
+    const start: number = request.startTimeMs ?? 0;
+    const end: number = request.endTimeMs || this.analysis.durationUs / 1000;
+    const frameRate: number = Number.isFinite(this.analysis.sourceFrameRate) && this.analysis.sourceFrameRate > 0 ?
+      this.analysis.sourceFrameRate : 30;
+    const lastFrame: number = Math.max(start, end - Math.max(1, 1000 / frameRate));
+    return Math.floor(start + (lastFrame - start) * this.previewState.position / 100);
   }
 
   async preview(ui: UIContext): Promise<void> {
     if (this.busy || this.queueRunning || this.inspecting || this.picking || this.exporting || this.disposed ||
-      this.sourceUri.length === 0 || this.modeIndex !== 0 || this.quality.operation !== 0) { return; }
+      this.sourceUri.length === 0 || this.modeIndex === 1 || this.quality.operation !== 0) { return; }
     if (!this.validRange(this.analysis.durationUs)) {
       this.notice = LocalizedText.get($r('app.string.transcode_range_invalid')); return;
     }
@@ -219,30 +236,14 @@ export class TranscodeModel {
     }
     this.busy = true; this.previewing = true; this.cancelRequested = false;
     this.clearPreview();
-    let file: fileIo.File | undefined = undefined;
     try {
-      file = await fileIo.open(this.sourceUri, fileIo.OpenMode.READ_ONLY);
-      if (this.disposed || this.cancelRequested) { return; }
-      const request: TranscodeRequest = this.request(file.fd, 0);
-      request.audioMode = 2;
-      const result: TranscodeStatus = await transcoder.preview(request);
-      const rgba: ArrayBuffer | undefined = result.previewRgba;
-      const width: number = result.previewWidth ?? 0;
-      const height: number = result.previewHeight ?? 0;
-      if (this.disposed || this.cancelRequested) { return; }
-      if (result.state !== 2 || rgba === undefined || width <= 0 || height <= 0) {
-        throw new Error(result.detail || 'Preview image unavailable');
-      }
-      const bitmap: image.PixelMap = await image.createPixelMap(rgba, {
-        size: { width: width, height: height }, pixelFormat: image.PixelMapFormat.RGBA_8888, editable: false
-      });
-      if (this.disposed || this.cancelRequested) { await bitmap.release(); return; }
-      this.previewImage = bitmap;
+      const request: TranscodeRequest = this.request(0, 0);
+      request.previewTimeMs = this.previewTimeMs();
+      await this.previewState.load(this.sourceUri, request, this.configuration());
       this.previewConfiguration = this.configuration();
     } catch (error) {
       this.notice = JSON.stringify(error);
     } finally {
-      if (file !== undefined) { await fileIo.close(file).catch((): void => {}); }
       MediaFileActivity.endTranscode(); this.previewing = false; this.busy = false;
     }
   }
@@ -296,6 +297,7 @@ export class TranscodeModel {
     this.cancelRequested = false;
     this.notice = '';
     this.resultPath = '';
+    this.resultSourceUri = '';
     this.activeEntry = undefined;
     this.status = idleTranscodeStatus();
     const directory: string = context.filesDir + '/transcodes';
@@ -305,6 +307,7 @@ export class TranscodeModel {
     const lease: MediaTaskLease | undefined = MediaTaskCoordinator.current();
     const sessionId: string = lease?.id ?? id;
     const title: string = this.sourceTitle;
+    const sourceUri: string = this.sourceUri;
     const configuration: string = this.configuration();
     let input: fileIo.File | undefined = undefined;
     let output: fileIo.File | undefined = undefined;
@@ -346,6 +349,7 @@ export class TranscodeModel {
       if (this.status.state === 2) {
         await fileIo.rename(partialPath, outputPath);
         this.resultPath = outputPath;
+        this.resultSourceUri = sourceUri;
         this.notice = LocalizedText.get($r('app.string.transcode_complete'));
       } else if (this.status.state === 3) {
         this.notice = LocalizedText.get($r('app.string.transcode_cancelled'));
@@ -397,6 +401,7 @@ export class TranscodeModel {
   cancel(): void {
     if (!this.busy) { return; }
     this.cancelRequested = true;
+    if (this.previewing) { this.clearPreview(); }
     this.queue.paused = true;
     const lease: MediaTaskLease | undefined = MediaTaskCoordinator.current();
     if (lease?.kind === 'transcode') { MediaTaskCoordinator.cancelling(lease); }
@@ -405,41 +410,31 @@ export class TranscodeModel {
 
   async save(ui: UIContext, toGallery: boolean): Promise<void> {
     if (this.busy || this.queueRunning || this.picking || this.exporting || this.resultPath.length === 0) { return; }
+    await this.savePaths(ui, [this.resultPath], toGallery);
+  }
+
+  async exportCompleted(ui: UIContext, toGallery: boolean): Promise<void> {
+    if (this.busy || this.queueRunning || this.picking || this.exporting || this.inspecting) { return; }
+    const context = ui.getHostContext();
+    if (context === undefined) { return; }
+    const directory: string = context.filesDir + '/transcodes/';
+    const paths: string[] = this.queue.items.filter((item: TranscodeQueueItem): boolean =>
+      item.state === 'completed' && item.resultPath.startsWith(directory) &&
+      TranscodeFilesModel.validId(item.resultPath.substring(directory.length).replace(/\.mp4$/, '')))
+      .map((item: TranscodeQueueItem): string => item.resultPath);
+    await this.savePaths(ui, paths, toGallery);
+  }
+
+  private async savePaths(ui: UIContext, paths: string[], toGallery: boolean): Promise<void> {
     const context = ui.getHostContext();
     if (context === undefined) { return; }
     this.exporting = true;
-    let helper: photoAccessHelper.PhotoAccessHelper | undefined = undefined;
-    let target: fileIo.File | undefined = undefined;
     try {
-      let destinations: string[] = [];
-      const fileTitle: string = 'transcoded_' + Date.now();
-      if (toGallery) {
-        helper = photoAccessHelper.getPhotoAccessHelper(context);
-        const creation: photoAccessHelper.PhotoCreationConfig = {
-          title: fileTitle, fileNameExtension: 'mp4', photoType: photoAccessHelper.PhotoType.VIDEO
-        };
-        destinations = await helper.showAssetsCreationDialog(
-          [fileUri.getUriFromPath(this.resultPath)], [creation]);
-      } else {
-        destinations = await new picker.DocumentViewPicker(context).save({
-          newFileNames: [fileTitle + '.mp4']
-        });
-      }
-      if (destinations.length === 0) { return; }
-      // Gallery/provider URIs do not necessarily expose destination free space. copyFile errors remain retryable.
-      const bytes: number = (await fileIo.stat(this.resultPath)).size;
-      const free: number = await statfs.getFreeSize(context.filesDir);
-      if (free < bytes + 64 * 1024 * 1024) {
-        throw new Error(LocalizedText.get($r('app.string.transcode_export_space')));
-      }
-      target = await fileIo.open(destinations[0], fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC);
-      await fileIo.copyFile(this.resultPath, target.fd);
-      this.notice = LocalizedText.get($r('app.string.transcode_saved'));
+      await this.exports.save(context, paths, toGallery);
+      this.notice = LocalizedText.get($r('app.string.transcode_export_summary'));
     } catch (error) {
       this.notice = LocalizedText.get($r('app.string.transcode_save_failed')) + ' ' + JSON.stringify(error);
     } finally {
-      if (target !== undefined) { await fileIo.close(target).catch((): void => {}); }
-      if (helper !== undefined) { await helper.release().catch((): void => {}); }
       this.exporting = false;
     }
   }
@@ -468,7 +463,8 @@ export class TranscodeModel {
       mime: this.codecIndex === 0 ? 'video/avc' : 'video/hevc',
       bitrate: [2000000, 4000000, 8000000, 16000000][this.bitrateIndex] ?? 8000000,
       longEdge: [0, 1920, 1080, 720][this.sizeIndex] ?? 0,
-      useSurfaceInput: this.modeIndex === 1,
+      useSurfaceInput: this.modeIndex !== 0,
+      gpuProcessing: this.modeIndex === 2,
       grayscale: this.grayscale,
       encoderCategory: this.encoderCategory,
       resizeMode: this.resizeMode,
@@ -482,6 +478,7 @@ export class TranscodeModel {
       keyFrameIntervalMs: [1000, 2000, 3000, 5000][this.quality.keyFrame] ?? 2000,
       audioSampleRate: [0, 44100, 48000][this.quality.audioRate] ?? 0,
       audioChannels: this.quality.audioChannels,
+      audioResampler: this.quality.audioResampler,
       audioBitrate: [64000, 128000, 192000][this.quality.audioBitrate] ?? 128000,
       startTimeMs: this.rangeEnabled ? Math.round(Number(this.rangeStart) * 1000) : 0,
       endTimeMs: this.rangeEnabled && this.rangeEnd.trim().length > 0 ?
@@ -490,7 +487,8 @@ export class TranscodeModel {
   }
 
   private configuration(): string {
-    const mode: string = this.modeIndex === 0 ? 'Buffer' : LocalizedText.get($r('app.string.transcode_window_mode'));
+    const mode: string = this.modeIndex === 0 ? 'Buffer' : this.modeIndex === 2 ? 'OpenGL' :
+      LocalizedText.get($r('app.string.transcode_window_mode'));
     if (this.quality.operation === 1) {
       return 'MP4 remux · audio=' + (this.audioMode === 2 ? 'none' : 'copy') + ' · track=' + this.audioTrack;
     }
@@ -499,12 +497,13 @@ export class TranscodeModel {
       ' · ' + ([2, 4, 8, 16][this.bitrateIndex] ?? 8) + ' Mbps · gray=' + this.grayscale +
       ' · edge=' + [0, 1920, 1080, 720][this.sizeIndex] + ' · resize=' + this.resizeMode +
       ' · audio=' + ['copy', 'AAC-LC', 'none'][this.audioMode] + ' · track=' + this.audioTrack +
-      ' · filter=' + ['nearest', 'bilinear'][this.quality.filter] +
+      ' · filter=' + ['nearest', 'bilinear', 'area'][this.quality.filter] +
       ' · fpsLimit=' + [0, 24, 30, 60, 120][this.quality.frameRate] +
       ' · rateControl=' + ['VBR', 'CBR'][this.quality.bitrateMode] +
       ' · keyFrameMs=' + [1000, 2000, 3000, 5000][this.quality.keyFrame] +
       ' · audioRate=' + [0, 44100, 48000][this.quality.audioRate] +
       ' · audioChannels=' + this.quality.audioChannels +
+      ' · resampler=' + ['linear', 'low-pass'][this.quality.audioResampler] +
       ' · audioBitrate=' + [64000, 128000, 192000][this.quality.audioBitrate] +
       (this.rangeEnabled ? ' · range=' + this.rangeStart + '..' + (this.rangeEnd || 'end') + ' s' : '');
   }
@@ -573,12 +572,30 @@ export class TranscodeModel {
     await this.persistQueue(ui);
   }
 
+  async enqueueMany(ui: UIContext, gallery: boolean): Promise<void> {
+    if (this.busy || this.queueRunning || this.picking || this.exporting || this.inspecting || this.disposed ||
+      !this.validRange()) { return; }
+    this.picking = true;
+    try {
+      const uris: string[] = await TranscodeSourcePicker.selectMany(ui, gallery, 30 - this.queue.items.length);
+      if (this.disposed) { return; }
+      const request: TranscodeRequest = this.request(0, 0);
+      uris.forEach((uri: string): void => {
+        this.queue.add(uri, getPlaybackTitle(uri), [this.codecIndex, this.modeIndex, this.sizeIndex, this.bitrateIndex,
+          this.encoderCategory, this.audioMode, this.audioTrack, this.resizeMode], this.grayscale,
+          request.startTimeMs ?? 0, request.endTimeMs ?? 0, this.quality.snapshot());
+      });
+      await this.persistQueue(ui);
+    } catch (error) { this.notice = JSON.stringify(error); } finally { this.picking = false; }
+  }
+
   async persistQueue(ui: UIContext): Promise<boolean> {
     const context = ui.getHostContext();
     if (context === undefined) { return false; }
     const snapshot: string = JSON.stringify(this.queue.items);
     try {
       await MediaStateFiles.write(context, 'transcode_queue.json', snapshot);
+      await MediaStateFiles.write(context, 'transcode_queue_policy.json', JSON.stringify(this.queue.stopOnFailure));
       return true;
     } catch (error) { this.notice = JSON.stringify(error); return false; }
   }
@@ -591,6 +608,7 @@ export class TranscodeModel {
         await MediaStateFiles.read(context, 'transcode_queue.json', '[]')) as TranscodeQueueItem[];
       if (this.queue.items.length > 0 || this.queueRunning || this.disposed) { return; }
       this.queue.items = TranscodeQueueModel.validated(entries);
+      this.queue.stopOnFailure = await MediaStateFiles.read(context, 'transcode_queue_policy.json', 'false') === 'true';
       this.queue.items.forEach((item: TranscodeQueueItem): void => {
         if (item.state === 'running') { this.queue.update(item.id, 'interrupted', 0); }
       });
@@ -602,48 +620,35 @@ export class TranscodeModel {
     if (this.queueRunning || this.busy || this.picking || this.exporting || this.inspecting || this.disposed) {
       return;
     }
-    this.queueRunning = true; this.queue.paused = false;
+    this.queueRunning = true;
     try {
-      let item: TranscodeQueueItem | undefined = this.queue.next();
-      while (item !== undefined && !this.disposed && !this.queue.paused) {
-        if (MediaTaskCoordinator.busy() || player.getState() !== player.PlayerState.IDLE ||
-          recorder.getDiagnostics().active) { this.queue.paused = true; break; }
-        this.queue.activeId = item.id;
-        this.queue.update(item.id, 'running', 0);
-        if (!await this.persistQueue(ui)) {
-          this.queue.update(item.id, 'waiting', 0); this.queue.paused = true; break;
-        }
-        if (this.disposed || this.queue.paused) {
-          this.queue.update(item.id, 'waiting', 0);
-          await this.persistQueue(ui);
-          break;
-        }
-        this.sourceUri = item.uri; this.sourceTitle = item.title;
-        this.analysis = idleTranscodeStatus();
-        this.codecIndex = item.options[0]; this.modeIndex = item.options[1]; this.sizeIndex = item.options[2];
-        this.bitrateIndex = item.options[3]; this.encoderCategory = item.options[4];
-        this.audioMode = item.options[5]; this.audioTrack = item.options[6]; this.grayscale = item.grayscale;
-        this.resizeMode = item.options[7] ?? 0;
-        this.quality.restore(item.quality);
-        this.clearPreview();
-        this.rangeEnabled = (item.startTimeMs ?? 0) > 0 || (item.endTimeMs ?? 0) > 0;
-        this.rangeStart = ((item.startTimeMs ?? 0) / 1000).toString();
-        this.rangeEnd = (item.endTimeMs ?? 0) > 0 ? ((item.endTimeMs ?? 0) / 1000).toString() : '';
-        if (!await this.execute(ui)) {
-          this.queue.update(item.id, 'waiting', 0);
-          this.queue.paused = true;
-          await this.persistQueue(ui);
-          break;
-        }
-        this.analysis = this.status;
-        this.queue.update(item.id, this.status.state === 2 ? 'completed' :
-          this.status.state === 3 ? 'cancelled' : 'failed', this.status.progress, this.resultPath);
-        this.queue.activeId = '';
-        if (!await this.persistQueue(ui)) { this.queue.paused = true; break; }
-        if (this.cancelRequested) { this.queue.paused = true; }
-        item = this.queue.next();
-      }
+      const host: TranscodeQueueHost = {
+        available: (): boolean => !MediaTaskCoordinator.busy() &&
+          player.getState() === player.PlayerState.IDLE && !recorder.getDiagnostics().active,
+        disposed: (): boolean => this.disposed,
+        execute: (item: TranscodeQueueItem): Promise<TranscodeQueueResult | undefined> =>
+          this.executeQueueItem(ui, item),
+        persist: (): Promise<boolean> => this.persistQueue(ui)
+      };
+      await this.queueRunner.run(this.queue, host);
     } finally { this.queue.activeId = ''; this.queueRunning = false; }
+  }
+
+  private async executeQueueItem(ui: UIContext, item: TranscodeQueueItem): Promise<TranscodeQueueResult | undefined> {
+    this.sourceUri = item.uri; this.sourceTitle = item.title;
+    this.analysis = idleTranscodeStatus();
+    this.codecIndex = item.options[0]; this.modeIndex = item.options[1]; this.sizeIndex = item.options[2];
+    this.bitrateIndex = item.options[3]; this.encoderCategory = item.options[4];
+    this.audioMode = item.options[5]; this.audioTrack = item.options[6]; this.grayscale = item.grayscale;
+    this.resizeMode = item.options[7] ?? 0;
+    this.quality.restore(item.quality);
+    this.clearPreview();
+    this.rangeEnabled = (item.startTimeMs ?? 0) > 0 || (item.endTimeMs ?? 0) > 0;
+    this.rangeStart = ((item.startTimeMs ?? 0) / 1000).toString();
+    this.rangeEnd = (item.endTimeMs ?? 0) > 0 ? ((item.endTimeMs ?? 0) / 1000).toString() : '';
+    if (!await this.execute(ui)) { return undefined; }
+    this.analysis = this.status;
+    return { state: this.status.state, progress: this.status.progress, path: this.resultPath };
   }
 
   async openHistory(ui: UIContext, entry: TranscodeHistoryEntry): Promise<void> {
@@ -653,6 +658,7 @@ export class TranscodeModel {
     }
     if (!TranscodeFilesModel.validId(entry.id)) { return; }
     this.activeEntry = entry;
+    this.resultSourceUri = '';
     this.status = entry.status;
     this.resultPath = entry.hasFile ? context.filesDir + '/transcodes/' + entry.id + '.mp4' : '';
     this.notice = entry.title;

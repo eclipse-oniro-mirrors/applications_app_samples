@@ -32,7 +32,7 @@ export class UserConfiguration {
         recorder.audioBitRate, recorder.audioCaptureLatencyMode, recorder.videoStabilizationMode,
         recorder.preprocMode, recorder.cropPercent, recorder.downsamplingTargetHeight, recorder.secondaryTargetHeight,
         recorder.dropToFrameRate, Number(recorder.enableDualOutput), Number(recorder.enableVideoDump),
-        Number(recorder.stopOnLowSpace)],
+        Number(recorder.stopOnLowSpace), recorder.segmentSeconds, recorder.segmentMiB],
       dump: [DumpPolicyModel.maxMiB, DumpPolicyModel.maxSeconds]
     };
   }
@@ -76,7 +76,9 @@ export class UserConfiguration {
       recorder.dropToFrameRate = r[19] < r[5] ? r[19] : 0;
       recorder.enableDualOutput = r[20] === 1;
       recorder.enableVideoDump = r[21] === 1;
-      recorder.stopOnLowSpace = r.length === 23 && r[22] === 1;
+      recorder.stopOnLowSpace = r.length >= 23 && r[22] === 1;
+      recorder.segmentSeconds = r.length === 25 && r[0] === 2 ? r[23] : 0;
+      recorder.segmentMiB = r.length === 25 && r[0] === 2 ? r[24] : 0;
       RecorderPreprocessModel.apply(recorder);
     }
     if (snapshot.dump.length === 2 &&
@@ -114,7 +116,9 @@ export class UserConfiguration {
   }
 
   private static validRecorder(r: number[]): boolean {
-    return (r.length === 22 || r.length === 23) && UserConfiguration.integers(r) &&
+    return (r.length === 22 || r.length === 23 || r.length === 25) && UserConfiguration.integers(r) &&
+      (r.length !== 25 || (UserConfiguration.choice(r[23], [0, 60, 180, 300]) &&
+        UserConfiguration.choice(r[24], [0, 256, 512, 1024]))) &&
       (r.length === 22 || UserConfiguration.choice(r[22], [0, 1])) &&
       UserConfiguration.choice(r[0], [2, 14]) && UserConfiguration.choice(r[1], [0, 1]) &&
       UserConfiguration.choice(r[2], [0, 1]) && (r[1] === 0 || r[2] === 1) &&

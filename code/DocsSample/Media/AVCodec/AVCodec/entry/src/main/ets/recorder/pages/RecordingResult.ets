@@ -16,6 +16,7 @@
 import { RecordingResultInfo } from '../../controller/RecordingSessionController';
 import { LocalizedText } from '../../common/LocalizedText';
 import { RecordingMetadataReader } from '../../controller/RecordingMetadataReader';
+import { RecordingSegmentInfo } from '../../model/RecordingHistoryModel';
 
 @Entry
 @Component
@@ -61,6 +62,26 @@ struct RecordingResult {
             Text(this.fileMetadata || LocalizedText.get($r('app.string.rec_result_metadata_unavailable')))
               .fontSize(13).width('100%')
             Text($r('app.string.rec_result_metadata_note')).fontSize(12).fontColor('#667085').width('100%')
+            if ((this.result.segments?.length ?? 0) > 1) {
+              Text($r('app.string.rec_segments_group')).fontSize(16)
+              ForEach(this.result.segments ?? [], (segment: RecordingSegmentInfo, index: number) => {
+                Column({ space: 4 }) {
+                  Text(LocalizedText.get($r('app.string.rec_segments_number')) + ' ' + (index + 1) +
+                    ' · ' + segment.durationSeconds.toFixed(1) + ' s').fontSize(13)
+                  Text(segment.title).fontSize(12).width('100%')
+                  Text(segment.complete ? $r('app.string.rec_result_complete') :
+                    $r('app.string.rec_result_partial')).fontSize(12)
+                  Row({ space: 8 }) {
+                    Button($r('app.string.rec_result_primary')).fontSize(12).enabled(segment.uri.length > 0)
+                      .onClick((): void => this.play(segment.uri))
+                    if (segment.secondaryUri.length > 0) {
+                      Button($r('app.string.rec_result_secondary')).fontSize(12)
+                        .onClick((): void => this.play(segment.secondaryUri))
+                    }
+                  }
+                }.width('100%').alignItems(HorizontalAlign.Start).padding(8).backgroundColor(Color.White)
+              }, (segment: RecordingSegmentInfo): string => segment.sessionId)
+            }
             Flex({ wrap: FlexWrap.Wrap }) {
               Button($r('app.string.rec_result_primary')).margin(4).fontSize(13)
                 .enabled(this.result.primaryUri.length > 0).onClick((): void => this.play(this.result?.primaryUri ?? ''))
