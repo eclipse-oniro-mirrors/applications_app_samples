@@ -15,9 +15,11 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import Constant from '../../../main/ets/common/Constant';
+import { installCaseIsolation } from './TestRuntime';
 
 export default function constantRelationExtraTest(): void {
   describe('ReminderConstantRelationExtraTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_CONSTANT_RELATION_EXTRA_0100
      * @tc.name      testReminderConstantRelationExtra0001
@@ -27,15 +29,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HOUR_SECONDS).assertEqual(Constant.MINUTES_SECONDS * 60);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -48,15 +48,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.PROMPT_DURATION * 10).assertEqual(Constant.VIBRATOR_DURATION);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -69,15 +67,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.SECONDS_MILLISECONDS).assertEqual(1000);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -90,15 +86,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.ANGLE).assertEqual(360);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -111,15 +105,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.TIME_COUNTDOWN).assertEqual(59);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -132,15 +124,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HORIZONTAL_CLOCK_DIAL_HEIGHT).assertEqual(Constant.HORIZONTAL_CLOCK_DIAL_WIDTH);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -153,15 +143,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0007',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.VERTICAL_CLOCK_DIAL_HEIGHT).assertEqual(Constant.VERTICAL_CLOCK_DIAL_WIDTH);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -174,15 +162,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0008',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HORIZONTAL_CENTER_Y > Constant.HORIZONTAL_CLOCK_HEIGHT / 2).assertTrue();
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -195,15 +181,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0009',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.VERTICAL_CENTER_Y).assertEqual(Constant.VERTICAL_CLOCK_HEIGHT / 2);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -216,15 +200,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0010',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HORIZONTAL_LINE_LENGTH > Constant.HORIZONTAL_POINTER_HEIGHT).assertEqual(true);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -237,15 +219,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0011',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.VERTICAL_LINE_LENGTH > Constant.VERTICAL_POINTER_HEIGHT).assertEqual(true);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -258,15 +238,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0012',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HORIZONTAL_CLOCK_HEIGHT < Constant.HORIZONTAL_CLOCK_DIAL_HEIGHT).assertEqual(true);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -279,15 +257,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0013',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.VERTICAL_CLOCK_HEIGHT < Constant.VERTICAL_CLOCK_DIAL_HEIGHT).assertEqual(true);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -300,15 +276,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0014',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.VERTICAL_PICKER_HEIGHT < Constant.VERTICAL_CLOCK_DIAL_HEIGHT).assertEqual(true);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -321,15 +295,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0015',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HORIZONTAL_POINTER_HEIGHT + Constant.VERTICAL_POINTER_HEIGHT > 0).assertEqual(true);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -342,15 +314,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0016',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.PROMPT_DURATION % 1).assertEqual(0);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -363,15 +333,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0017',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.REMINDER_DURATION < Constant.PROMPT_DURATION).assertEqual(true);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -384,15 +352,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0018',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.TIME_COUNTDOWN < Constant.MINUTES_SECONDS).assertEqual(true);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -405,15 +371,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0019',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.HOUR_SECONDS > Constant.MINUTES_SECONDS).assertEqual(true);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -426,15 +390,13 @@ export default function constantRelationExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderConstantRelationExtra0020',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           expect(Constant.ANGLE > Constant.TIME_COUNTDOWN).assertEqual(true);
           expect(Constant.PROMPT_DURATION > 0).assertTrue();
           expect(Constant.VIBRATOR_DURATION > 0).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
