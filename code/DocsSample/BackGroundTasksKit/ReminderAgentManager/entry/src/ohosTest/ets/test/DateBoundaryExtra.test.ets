@@ -15,9 +15,11 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import TimeConversion from '../../../main/ets/util/TimeConversion';
+import { installCaseIsolation } from './TestRuntime';
 
 export default function dateBoundaryExtraTest(): void {
   describe('ReminderDateBoundaryExtraTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_DATE_BOUNDARY_EXTRA_0100
      * @tc.name      testReminderDateBoundaryExtra0001
@@ -27,7 +29,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 15, 10, 30);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 15, 10, 30);
@@ -37,8 +39,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 0 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -51,7 +51,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 15, 10, 30);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 15, 10, 31);
@@ -61,8 +61,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 60 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -75,7 +73,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 15, 10, 30);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 15, 10, 29);
@@ -85,8 +83,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= -60 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -99,7 +95,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 15, 10, 30);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 15, 11, 30);
@@ -109,8 +105,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 3600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -123,7 +117,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 15, 10, 30);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 15, 9, 30);
@@ -133,8 +127,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= -3600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -147,7 +139,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 16, 0, 0);
@@ -157,8 +149,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 86400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -171,7 +161,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0007',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 14, 0, 0);
@@ -181,8 +171,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= -86400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -195,7 +183,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0008',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 8, 0, 0);
@@ -205,8 +193,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 604800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -219,7 +205,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0009',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 8, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
@@ -229,8 +215,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= -604800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -243,7 +227,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0010',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 2, 1, 0, 0);
@@ -253,8 +237,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 2592000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -267,7 +249,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0011',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 2, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
@@ -277,8 +259,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= -2592000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -291,7 +271,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0012',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 1, 1, 0, 0);
@@ -301,8 +281,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 31536000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -315,7 +293,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0013',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
@@ -325,8 +303,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= -31536000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -339,7 +315,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0014',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2034, 1, 1, 0, 0);
@@ -349,8 +325,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 315360000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -363,7 +337,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0015',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2034, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
@@ -373,8 +347,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= -315360000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -387,7 +359,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0016',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 2, 28, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 2, 29, 0, 0);
@@ -397,8 +369,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 86400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -411,7 +381,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0017',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 2, 29, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 3, 1, 0, 0);
@@ -421,8 +391,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -435,7 +403,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0018',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2000, 2, 29, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2000, 3, 1, 0, 0);
@@ -445,8 +413,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -459,7 +425,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0019',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2028, 2, 29, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2028, 3, 1, 0, 0);
@@ -469,8 +435,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -483,7 +447,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0020',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 2, 29, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 2, 29, 12, 0);
@@ -493,8 +457,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 43200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -507,7 +469,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0021',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 2, 29, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 2, 29, 23, 59);
@@ -517,8 +479,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 86340 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -531,7 +491,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0022',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2000, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2000, 1, 1, 0, 1);
@@ -541,8 +501,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 60 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -555,7 +513,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0023',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(1970, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(1970, 1, 2, 0, 0);
@@ -565,8 +523,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 86400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -579,7 +535,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0024',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2000, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2100, 1, 1, 0, 0);
@@ -589,8 +545,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 3153600000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -603,7 +557,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0025',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 1, 23, 59);
@@ -613,8 +567,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 86340 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -627,7 +579,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0026',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 1, 12, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 2, 0, 0);
@@ -637,8 +589,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 43200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -651,7 +601,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0027',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 1);
@@ -661,8 +611,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 60 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -675,7 +623,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0028',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 1, 23, 59);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 2, 0, 0);
@@ -685,8 +633,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 60 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -699,7 +645,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0029',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 1, 12, 0);
@@ -709,8 +655,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 43200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -723,7 +667,7 @@ export default function dateBoundaryExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateBoundaryExtra0030',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 2, 29, 12, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 2, 29, 13, 0);
@@ -733,8 +677,6 @@ export default function dateBoundaryExtraTest(): void {
           expect(diff <= 3600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
