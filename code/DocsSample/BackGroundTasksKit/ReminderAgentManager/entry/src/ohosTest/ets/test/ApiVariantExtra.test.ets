@@ -15,9 +15,11 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { reminderAgentManager } from '@kit.BackgroundTasksKit';
+import { installCaseIsolation } from './TestRuntime';
 
 export default function apiVariantExtraTest(): void {
   describe('ReminderApiVariantExtraTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_API_VARIANT_EXTRA_0100
      * @tc.name      testReminderApiVariantExtra0001
@@ -27,7 +29,7 @@ export default function apiVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiVariantExtra0001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request: reminderAgentManager.ReminderRequestTimer = {
             reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_TIMER,
@@ -40,8 +42,6 @@ export default function apiVariantExtraTest(): void {
           expect(request.triggerTimeInSeconds).assertEqual(60);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -54,7 +54,7 @@ export default function apiVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiVariantExtra0002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request: reminderAgentManager.ReminderRequestTimer = {
             reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_TIMER,
@@ -67,8 +67,6 @@ export default function apiVariantExtraTest(): void {
           expect(request.triggerTimeInSeconds).assertEqual(90);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -81,7 +79,7 @@ export default function apiVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiVariantExtra0003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request: reminderAgentManager.ReminderRequestTimer = {
             reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_TIMER,
@@ -94,8 +92,6 @@ export default function apiVariantExtraTest(): void {
           expect(request.triggerTimeInSeconds).assertEqual(60);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -108,7 +104,7 @@ export default function apiVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiVariantExtra0004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request: reminderAgentManager.ReminderRequestTimer = {
             reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_TIMER,
@@ -122,8 +118,6 @@ export default function apiVariantExtraTest(): void {
           expect(request.snoozeContent).assertEqual('');
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -136,7 +130,7 @@ export default function apiVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiVariantExtra0005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request: reminderAgentManager.ReminderRequestTimer = {
             reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_TIMER,
@@ -149,8 +143,6 @@ export default function apiVariantExtraTest(): void {
           expect(request.triggerTimeInSeconds).assertEqual(60);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -163,7 +155,7 @@ export default function apiVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiVariantExtra0006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request: reminderAgentManager.ReminderRequestAlarm = {
             reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_ALARM,
@@ -177,8 +169,6 @@ export default function apiVariantExtraTest(): void {
           expect(request.minute).assertEqual(30);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -191,7 +181,7 @@ export default function apiVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiVariantExtra0007',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request: reminderAgentManager.ReminderRequestCalendar = {
             reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_CALENDAR,
@@ -212,8 +202,6 @@ export default function apiVariantExtraTest(): void {
           expect(request.repeatDays?.[2]).assertEqual(31);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -226,7 +214,7 @@ export default function apiVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderApiVariantExtra0008',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const request: reminderAgentManager.ReminderRequestCalendar = {
             reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_CALENDAR,
@@ -243,8 +231,6 @@ export default function apiVariantExtraTest(): void {
           expect(request.daysOfWeek?.[1]).assertEqual(7);
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
