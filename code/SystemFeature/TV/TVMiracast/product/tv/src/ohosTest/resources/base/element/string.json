@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Miracast TV test module"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "the miracast test ability"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "miracast test"
+    }
+  ]
+}
