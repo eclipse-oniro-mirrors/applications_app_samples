@@ -15,9 +15,11 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import TimeConversion from '../../../main/ets/util/TimeConversion';
+import { installCaseIsolation } from './TestRuntime';
 
 export default function dateLeapExtraTest(): void {
   describe('ReminderDateLeapExtraTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_DATE_LEAP_EXTRA_0100
      * @tc.name      testReminderDateLeapExtra0001
@@ -27,7 +29,7 @@ export default function dateLeapExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateLeapExtra0001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 3, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 2, 29, 0, 0);
@@ -37,8 +39,6 @@ export default function dateLeapExtraTest(): void {
           expect(diff <= -172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -51,7 +51,7 @@ export default function dateLeapExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateLeapExtra0002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2020, 2, 28, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2020, 2, 29, 0, 0);
@@ -61,8 +61,6 @@ export default function dateLeapExtraTest(): void {
           expect(diff <= 86400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -75,7 +73,7 @@ export default function dateLeapExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateLeapExtra0003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2020, 3, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2020, 2, 29, 0, 0);
@@ -85,8 +83,6 @@ export default function dateLeapExtraTest(): void {
           expect(diff <= -172800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -99,7 +95,7 @@ export default function dateLeapExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateLeapExtra0004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(1900, 2, 28, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(1900, 3, 1, 0, 0);
@@ -109,8 +105,6 @@ export default function dateLeapExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -123,7 +117,7 @@ export default function dateLeapExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateLeapExtra0005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2100, 2, 28, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2100, 3, 1, 0, 0);
@@ -133,8 +127,6 @@ export default function dateLeapExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -147,7 +139,7 @@ export default function dateLeapExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateLeapExtra0006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2023, 2, 28, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2023, 3, 1, 0, 0);
@@ -157,8 +149,6 @@ export default function dateLeapExtraTest(): void {
           expect(diff <= 259200 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -171,7 +161,7 @@ export default function dateLeapExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateLeapExtra0007',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 6, 15, 6, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 6, 15, 0, 0);
@@ -181,8 +171,6 @@ export default function dateLeapExtraTest(): void {
           expect(diff <= -21600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -195,7 +183,7 @@ export default function dateLeapExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateLeapExtra0008',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 6, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 6, 15, 6, 0);
@@ -205,8 +193,6 @@ export default function dateLeapExtraTest(): void {
           expect(diff <= 21600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -219,7 +205,7 @@ export default function dateLeapExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateLeapExtra0009',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 6, 15, 23, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 6, 15, 0, 0);
@@ -229,8 +215,6 @@ export default function dateLeapExtraTest(): void {
           expect(diff <= -82800 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -243,7 +227,7 @@ export default function dateLeapExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateLeapExtra0010',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 6, 16, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 6, 15, 23, 0);
@@ -253,8 +237,6 @@ export default function dateLeapExtraTest(): void {
           expect(diff <= -3600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
