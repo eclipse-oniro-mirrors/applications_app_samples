@@ -49,14 +49,8 @@ export struct AlarmClock {
               selected: new Date,
               useMilitaryTime: true,
               onAccept: async (value: TimePickerResult) => {
-                await AlarmClockReminder.setAlarmReminder(value)
-                if (AlarmClockReminder.alarmClockReminders.length !== 0) {
-                  for (let i = 0; i < AlarmClockReminder.alarmClockReminders.length; i++) {
-                    this.alarmClockName[i] = AlarmClockReminder.alarmClockReminders[i].reminderName
-                  }
-                } else {
-                  this.alarmClockName = []
-                }
+                await AlarmClockReminder.setAlarmReminder(value, this.getUIContext().getHostContext())
+                this.refreshAlarmNames()
               }
             })
           })
@@ -130,17 +124,18 @@ export struct AlarmClock {
     })
   }
 
+  refreshAlarmNames(): void {
+    let names: string[] = []
+    for (let i = 0; i < AlarmClockReminder.alarmClockReminders.length; i++) {
+      names.push(AlarmClockReminder.alarmClockReminders[i].reminderName)
+    }
+    this.alarmClockName = names
+  }
+
   deleteItem(index: number): boolean {
     AlarmClockReminder.deleteAlarmReminder(index)
       .then(() => {
-        this.alarmClockName = []
-        if (AlarmClockReminder.alarmClockReminders.length !== 0) {
-          for (let i = 0;
-               i < AlarmClockReminder.alarmClockReminders.length;
-               i++) {
-            this.alarmClockName[i] = AlarmClockReminder.alarmClockReminders[i].reminderName
-          }
-        }
+        this.refreshAlarmNames()
         this.isEdit = false
       }
       )
@@ -151,9 +146,7 @@ export struct AlarmClock {
     PreferencesDataManager.getData('alarmClock').then((result) => {
       if (result !== undefined) {
         AlarmClockReminder.alarmClockReminders = result
-        for (let i = 0; i < AlarmClockReminder.alarmClockReminders.length; i++) {
-          this.alarmClockName[i] = AlarmClockReminder.alarmClockReminders[i].reminderName
-        }
+        this.refreshAlarmNames()
       }
     })
   }

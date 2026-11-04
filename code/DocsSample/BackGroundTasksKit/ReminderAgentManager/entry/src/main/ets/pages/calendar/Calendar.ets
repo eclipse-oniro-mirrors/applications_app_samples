@@ -46,14 +46,8 @@ export struct ReminderCalendar {
               showTime: true,
               useMilitaryTime: true,
               onDateAccept: async (value: Date) => {
-                await CalendarReminder.setCalendar(value)
-                if (CalendarReminder.calendarReminders.length !== 0) {
-                  for (let i = 0; i < CalendarReminder.calendarReminders.length; i++) {
-                    this.calendarNames[i] = CalendarReminder.calendarReminders[i].reminderName
-                  }
-                } else {
-                  this.calendarNames = []
-                }
+                await CalendarReminder.setCalendar(value, this.getUIContext().getHostContext())
+                this.refreshCalendarNames()
               }
             })
           })
@@ -114,14 +108,17 @@ export struct ReminderCalendar {
     .height('100%')
   }
 
+  refreshCalendarNames(): void {
+    let names: string[] = []
+    for (let i = 0; i < CalendarReminder.calendarReminders.length; i++) {
+      names.push(CalendarReminder.calendarReminders[i].reminderName)
+    }
+    this.calendarNames = names
+  }
+
   deleteItem(index: number): boolean {
     CalendarReminder.deleteCalendar(index).then(() => {
-      this.calendarNames = []
-      if (CalendarReminder.calendarReminders.length !== 0) {
-        for (let i = 0; i < CalendarReminder.calendarReminders.length; i++) {
-          this.calendarNames[i] = CalendarReminder.calendarReminders[i].reminderName
-        }
-      }
+      this.refreshCalendarNames()
       this.isEdit = false
     })
     return true
@@ -131,9 +128,7 @@ export struct ReminderCalendar {
     PreferencesDataManager.getData('Calendar').then((result) => {
       if (result !== undefined) {
         CalendarReminder.calendarReminders = result
-        for (let i = 0; i < CalendarReminder.calendarReminders.length; i++) {
-          this.calendarNames[i] = CalendarReminder.calendarReminders[i].reminderName
-        }
+        this.refreshCalendarNames()
       }
     })
   }

@@ -24,6 +24,7 @@ import PreferencesDataManager from './PreferencesDataManager';
 import { Reminder } from '../common/Reminder';
 import TimeConversion from './TimeConversion';
 import { UIContext } from '@kit.ArkUI';
+import { common } from '@kit.AbilityKit';
 
 const TAG: string = 'AlarmClockReminder';
 
@@ -31,16 +32,19 @@ class AlarmClockReminder {
   public alarmClockReminders: Reminder[] = []
   private date: Date = new Date();
 
-  async setAlarmReminder(time: TimePickerResult) {
+  async setAlarmReminder(time: TimePickerResult, hostContext?: common.Context) {
     try {
-      let context = UIContext.getCallingScopeUIContext()?.getHostContext()
+      let context = hostContext ?? UIContext.getCallingScopeUIContext()?.getHostContext()
+      Logger.info(TAG, `setAlarmReminder context=${context === undefined ? 'undefined' : 'defined'}`)
       if (context == undefined) {
         return
       }
+      let resourceContext = context.createModuleContext('entry')
       let hour = time.hour! < 10 ? `0${time.hour}` : time.hour;
       let minute = time.minute! < 10 ? `0${time.minute}` : time.minute;
       let selectTime: string = `${hour}:${minute}`
       let isExistName = this.alarmClockReminders.find(element => element.reminderName === selectTime) !== undefined
+      Logger.info(TAG, `alarm selectTime=${selectTime}, isExistName=${isExistName}`)
       if (!isExistName) {
         let reminder: Reminder = {
           audioSrc: '',
@@ -64,13 +68,11 @@ class AlarmClockReminder {
           actionButton: // 设置弹出的提醒通知信息上显示的按钮类型和标题
           [
             {
-              title: context.resourceManager.getStringSync($r('app.string.alarm_clock_close')
-                .id), // "app.string.alarm_clock_close"资源文件中的value值为"关闭闹钟"
+              title: resourceContext.resourceManager.getStringByNameSync('alarm_clock_close'), // "app.string.alarm_clock_close"资源文件中的value值为"关闭闹钟"
               type: reminderAgentManager.ActionButtonType.ACTION_BUTTON_TYPE_CLOSE
             },
             {
-              title: context.resourceManager.getStringSync($r('app.string.alarm_clock_postpone')
-                .id), // "app.string.alarm_clock_postpone"资源文件中的value值为"推迟闹钟"
+              title: resourceContext.resourceManager.getStringByNameSync('alarm_clock_postpone'), // "app.string.alarm_clock_postpone"资源文件中的value值为"推迟闹钟"
               type: reminderAgentManager.ActionButtonType.ACTION_BUTTON_TYPE_SNOOZE
             }
           ],
@@ -81,10 +83,8 @@ class AlarmClockReminder {
             pkgName: 'com.example.reminderagentmanager',
             abilityName: 'EntryAbility'
           },
-          title: context.resourceManager.getStringSync($r('app.string.alarm_clock')
-            .id), // 指明提醒标题, "app.string.alarm_clock"资源文件中的value值为"闹钟"
-          content: context.resourceManager.getStringSync($r('app.string.alarm_clock_reach')
-            .id), // 指明提醒内容, "app.string.alarm_clock_reach"资源文件中的value值为"闹钟时间已到"
+          title: resourceContext.resourceManager.getStringByNameSync('alarm_clock'), // 指明提醒标题, "app.string.alarm_clock"资源文件中的value值为"闹钟"
+          content: resourceContext.resourceManager.getStringByNameSync('alarm_clock_reach'), // 指明提醒内容, "app.string.alarm_clock_reach"资源文件中的value值为"闹钟时间已到"
           snoozeTimes: 0, // 指明延迟提醒次数
           timeInterval: 0, // 执行延迟提醒间隔（单位：秒）
           daysOfWeek: []  // 指明每周哪几天需要重复提醒
@@ -94,15 +94,18 @@ class AlarmClockReminder {
         reminder.reminderRequestAlarm = alarm
         reminder.isStart = false
         this.alarmClockReminders.push(reminder)
+        Logger.info(TAG, `setAlarmReminder pushed, length=${this.alarmClockReminders.length}`)
         Logger.info(TAG, `setAlarmReminder this all alarmclock is ${JSON.stringify(this.alarmClockReminders)}`)
         await PreferencesDataManager.putData('alarmClock', this.alarmClockReminders)
       } else {
         UIContext.getCallingScopeUIContext()?.getPromptAction().showToast({
-          message: context.resourceManager.getStringSync($r('app.string.alarm_clock_existence').id),
+          message: resourceContext.resourceManager.getStringByNameSync('alarm_clock_existence'),
           duration: Constant.PROMPT_DURATION
         })
       }
-    } catch(err) {}
+    } catch(err) {
+      Logger.error(TAG, `setAlarmReminder error: ${JSON.stringify(err)}`)
+    }
   }
 
   async setToggle(isOn: boolean, index: number) {
