@@ -16,6 +16,7 @@
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { preferences } from '@kit.ArkData';
+import { installCaseIsolation } from './TestRuntime';
 
 const PREF_NAME: string = 'ReminderAgentManager';
 const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
@@ -23,6 +24,7 @@ const appContext = delegator.getAppContext();
 
 export default function prefKeyExtraTest(): void {
   describe('ReminderPrefKeyExtraTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_PREF_KEY_EXTRA_0100
      * @tc.name      testReminderPrefKeyExtra0001
@@ -32,22 +34,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder.key.dot';
-          await pref.put(key, 'value1');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value1');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value1');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value1');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -60,22 +60,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder_key_underscore';
-          await pref.put(key, 'value2');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value2');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value2');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value2');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -88,22 +86,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder-key-dash';
-          await pref.put(key, 'value3');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value3');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value3');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value3');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -116,22 +112,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder:key:colon';
-          await pref.put(key, 'value4');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value4');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value4');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value4');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -144,22 +138,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder@key';
-          await pref.put(key, 'value5');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value5');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value5');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value5');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -172,22 +164,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder#key';
-          await pref.put(key, 'value6');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value6');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value6');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value6');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -200,22 +190,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0007',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder$key';
-          await pref.put(key, 'value7');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value7');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value7');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value7');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -228,22 +216,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0008',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder%key';
-          await pref.put(key, 'value8');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value8');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value8');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value8');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -256,22 +242,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0009',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder&key';
-          await pref.put(key, 'value9');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value9');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value9');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value9');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -284,22 +268,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0010',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder+key';
-          await pref.put(key, 'value10');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value10');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value10');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value10');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -312,22 +294,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0011',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder=key';
-          await pref.put(key, 'value11');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value11');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value11');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value11');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -340,22 +320,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0012',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder~key';
-          await pref.put(key, 'value12');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value12');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value12');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value12');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -368,22 +346,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0013',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder,key';
-          await pref.put(key, 'value13');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value13');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value13');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value13');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -396,22 +372,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0014',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder;key';
-          await pref.put(key, 'value14');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value14');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value14');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value14');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -424,22 +398,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0015',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder!key';
-          await pref.put(key, 'value15');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value15');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value15');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value15');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -452,22 +424,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0016',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder?key';
-          await pref.put(key, 'value16');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value16');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value16');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value16');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -480,22 +450,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0017',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder*key';
-          await pref.put(key, 'value17');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value17');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value17');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value17');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -508,22 +476,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0018',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder(key)';
-          await pref.put(key, 'value18');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value18');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value18');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value18');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -536,22 +502,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0019',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder[key]';
-          await pref.put(key, 'value19');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value19');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value19');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value19');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -564,22 +528,20 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0020',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'reminder{key}';
-          await pref.put(key, 'value20');
-          await pref.flush();
-          expect(String(await pref.get(key, ''))).assertEqual('value20');
-          expect(await pref.has(key)).assertTrue();
-          await pref.delete(key);
-          await pref.flush();
-          expect(await pref.has(key)).assertFalse();
+          pref.putSync(key, 'value20');
+          pref.flushSync();
+          expect(String(pref.getSync(key, ''))).assertEqual('value20');
+          expect(pref.hasSync(key)).assertTrue();
+          pref.deleteSync(key);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertFalse();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -592,31 +554,29 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0021',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const keyA: string = 'multiKeyA1';
           const keyB: string = 'multiKeyB1';
           const keyC: string = 'multiKeyC1';
-          await pref.put(keyA, 'alpha1');
-          await pref.put(keyB, 'beta1');
-          await pref.put(keyC, 'gamma1');
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha1');
-          expect(String(await pref.get(keyB, ''))).assertEqual('beta1');
-          await pref.delete(keyB);
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha1');
-          expect(String(await pref.get(keyC, ''))).assertEqual('gamma1');
-          expect(await pref.has(keyB)).assertFalse();
-          await pref.delete(keyA);
-          await pref.delete(keyC);
-          await pref.flush();
+          pref.putSync(keyA, 'alpha1');
+          pref.putSync(keyB, 'beta1');
+          pref.putSync(keyC, 'gamma1');
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha1');
+          expect(String(pref.getSync(keyB, ''))).assertEqual('beta1');
+          pref.deleteSync(keyB);
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha1');
+          expect(String(pref.getSync(keyC, ''))).assertEqual('gamma1');
+          expect(pref.hasSync(keyB)).assertFalse();
+          pref.deleteSync(keyA);
+          pref.deleteSync(keyC);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -629,31 +589,29 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0022',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const keyA: string = 'multiKeyA2';
           const keyB: string = 'multiKeyB2';
           const keyC: string = 'multiKeyC2';
-          await pref.put(keyA, 'alpha2');
-          await pref.put(keyB, 'beta2');
-          await pref.put(keyC, 'gamma2');
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha2');
-          expect(String(await pref.get(keyB, ''))).assertEqual('beta2');
-          await pref.delete(keyB);
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha2');
-          expect(String(await pref.get(keyC, ''))).assertEqual('gamma2');
-          expect(await pref.has(keyB)).assertFalse();
-          await pref.delete(keyA);
-          await pref.delete(keyC);
-          await pref.flush();
+          pref.putSync(keyA, 'alpha2');
+          pref.putSync(keyB, 'beta2');
+          pref.putSync(keyC, 'gamma2');
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha2');
+          expect(String(pref.getSync(keyB, ''))).assertEqual('beta2');
+          pref.deleteSync(keyB);
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha2');
+          expect(String(pref.getSync(keyC, ''))).assertEqual('gamma2');
+          expect(pref.hasSync(keyB)).assertFalse();
+          pref.deleteSync(keyA);
+          pref.deleteSync(keyC);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -666,31 +624,29 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0023',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const keyA: string = 'multiKeyA3';
           const keyB: string = 'multiKeyB3';
           const keyC: string = 'multiKeyC3';
-          await pref.put(keyA, 'alpha3');
-          await pref.put(keyB, 'beta3');
-          await pref.put(keyC, 'gamma3');
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha3');
-          expect(String(await pref.get(keyB, ''))).assertEqual('beta3');
-          await pref.delete(keyB);
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha3');
-          expect(String(await pref.get(keyC, ''))).assertEqual('gamma3');
-          expect(await pref.has(keyB)).assertFalse();
-          await pref.delete(keyA);
-          await pref.delete(keyC);
-          await pref.flush();
+          pref.putSync(keyA, 'alpha3');
+          pref.putSync(keyB, 'beta3');
+          pref.putSync(keyC, 'gamma3');
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha3');
+          expect(String(pref.getSync(keyB, ''))).assertEqual('beta3');
+          pref.deleteSync(keyB);
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha3');
+          expect(String(pref.getSync(keyC, ''))).assertEqual('gamma3');
+          expect(pref.hasSync(keyB)).assertFalse();
+          pref.deleteSync(keyA);
+          pref.deleteSync(keyC);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -703,31 +659,29 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0024',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const keyA: string = 'multiKeyA4';
           const keyB: string = 'multiKeyB4';
           const keyC: string = 'multiKeyC4';
-          await pref.put(keyA, 'alpha4');
-          await pref.put(keyB, 'beta4');
-          await pref.put(keyC, 'gamma4');
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha4');
-          expect(String(await pref.get(keyB, ''))).assertEqual('beta4');
-          await pref.delete(keyB);
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha4');
-          expect(String(await pref.get(keyC, ''))).assertEqual('gamma4');
-          expect(await pref.has(keyB)).assertFalse();
-          await pref.delete(keyA);
-          await pref.delete(keyC);
-          await pref.flush();
+          pref.putSync(keyA, 'alpha4');
+          pref.putSync(keyB, 'beta4');
+          pref.putSync(keyC, 'gamma4');
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha4');
+          expect(String(pref.getSync(keyB, ''))).assertEqual('beta4');
+          pref.deleteSync(keyB);
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha4');
+          expect(String(pref.getSync(keyC, ''))).assertEqual('gamma4');
+          expect(pref.hasSync(keyB)).assertFalse();
+          pref.deleteSync(keyA);
+          pref.deleteSync(keyC);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -740,31 +694,29 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0025',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const keyA: string = 'multiKeyA5';
           const keyB: string = 'multiKeyB5';
           const keyC: string = 'multiKeyC5';
-          await pref.put(keyA, 'alpha5');
-          await pref.put(keyB, 'beta5');
-          await pref.put(keyC, 'gamma5');
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha5');
-          expect(String(await pref.get(keyB, ''))).assertEqual('beta5');
-          await pref.delete(keyB);
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha5');
-          expect(String(await pref.get(keyC, ''))).assertEqual('gamma5');
-          expect(await pref.has(keyB)).assertFalse();
-          await pref.delete(keyA);
-          await pref.delete(keyC);
-          await pref.flush();
+          pref.putSync(keyA, 'alpha5');
+          pref.putSync(keyB, 'beta5');
+          pref.putSync(keyC, 'gamma5');
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha5');
+          expect(String(pref.getSync(keyB, ''))).assertEqual('beta5');
+          pref.deleteSync(keyB);
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha5');
+          expect(String(pref.getSync(keyC, ''))).assertEqual('gamma5');
+          expect(pref.hasSync(keyB)).assertFalse();
+          pref.deleteSync(keyA);
+          pref.deleteSync(keyC);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -777,31 +729,29 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0026',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const keyA: string = 'multiKeyA6';
           const keyB: string = 'multiKeyB6';
           const keyC: string = 'multiKeyC6';
-          await pref.put(keyA, 'alpha6');
-          await pref.put(keyB, 'beta6');
-          await pref.put(keyC, 'gamma6');
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha6');
-          expect(String(await pref.get(keyB, ''))).assertEqual('beta6');
-          await pref.delete(keyB);
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha6');
-          expect(String(await pref.get(keyC, ''))).assertEqual('gamma6');
-          expect(await pref.has(keyB)).assertFalse();
-          await pref.delete(keyA);
-          await pref.delete(keyC);
-          await pref.flush();
+          pref.putSync(keyA, 'alpha6');
+          pref.putSync(keyB, 'beta6');
+          pref.putSync(keyC, 'gamma6');
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha6');
+          expect(String(pref.getSync(keyB, ''))).assertEqual('beta6');
+          pref.deleteSync(keyB);
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha6');
+          expect(String(pref.getSync(keyC, ''))).assertEqual('gamma6');
+          expect(pref.hasSync(keyB)).assertFalse();
+          pref.deleteSync(keyA);
+          pref.deleteSync(keyC);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -814,31 +764,29 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0027',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const keyA: string = 'multiKeyA7';
           const keyB: string = 'multiKeyB7';
           const keyC: string = 'multiKeyC7';
-          await pref.put(keyA, 'alpha7');
-          await pref.put(keyB, 'beta7');
-          await pref.put(keyC, 'gamma7');
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha7');
-          expect(String(await pref.get(keyB, ''))).assertEqual('beta7');
-          await pref.delete(keyB);
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha7');
-          expect(String(await pref.get(keyC, ''))).assertEqual('gamma7');
-          expect(await pref.has(keyB)).assertFalse();
-          await pref.delete(keyA);
-          await pref.delete(keyC);
-          await pref.flush();
+          pref.putSync(keyA, 'alpha7');
+          pref.putSync(keyB, 'beta7');
+          pref.putSync(keyC, 'gamma7');
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha7');
+          expect(String(pref.getSync(keyB, ''))).assertEqual('beta7');
+          pref.deleteSync(keyB);
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha7');
+          expect(String(pref.getSync(keyC, ''))).assertEqual('gamma7');
+          expect(pref.hasSync(keyB)).assertFalse();
+          pref.deleteSync(keyA);
+          pref.deleteSync(keyC);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -851,31 +799,29 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0028',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const keyA: string = 'multiKeyA8';
           const keyB: string = 'multiKeyB8';
           const keyC: string = 'multiKeyC8';
-          await pref.put(keyA, 'alpha8');
-          await pref.put(keyB, 'beta8');
-          await pref.put(keyC, 'gamma8');
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha8');
-          expect(String(await pref.get(keyB, ''))).assertEqual('beta8');
-          await pref.delete(keyB);
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha8');
-          expect(String(await pref.get(keyC, ''))).assertEqual('gamma8');
-          expect(await pref.has(keyB)).assertFalse();
-          await pref.delete(keyA);
-          await pref.delete(keyC);
-          await pref.flush();
+          pref.putSync(keyA, 'alpha8');
+          pref.putSync(keyB, 'beta8');
+          pref.putSync(keyC, 'gamma8');
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha8');
+          expect(String(pref.getSync(keyB, ''))).assertEqual('beta8');
+          pref.deleteSync(keyB);
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha8');
+          expect(String(pref.getSync(keyC, ''))).assertEqual('gamma8');
+          expect(pref.hasSync(keyB)).assertFalse();
+          pref.deleteSync(keyA);
+          pref.deleteSync(keyC);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -888,31 +834,29 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0029',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const keyA: string = 'multiKeyA9';
           const keyB: string = 'multiKeyB9';
           const keyC: string = 'multiKeyC9';
-          await pref.put(keyA, 'alpha9');
-          await pref.put(keyB, 'beta9');
-          await pref.put(keyC, 'gamma9');
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha9');
-          expect(String(await pref.get(keyB, ''))).assertEqual('beta9');
-          await pref.delete(keyB);
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha9');
-          expect(String(await pref.get(keyC, ''))).assertEqual('gamma9');
-          expect(await pref.has(keyB)).assertFalse();
-          await pref.delete(keyA);
-          await pref.delete(keyC);
-          await pref.flush();
+          pref.putSync(keyA, 'alpha9');
+          pref.putSync(keyB, 'beta9');
+          pref.putSync(keyC, 'gamma9');
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha9');
+          expect(String(pref.getSync(keyB, ''))).assertEqual('beta9');
+          pref.deleteSync(keyB);
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha9');
+          expect(String(pref.getSync(keyC, ''))).assertEqual('gamma9');
+          expect(pref.hasSync(keyB)).assertFalse();
+          pref.deleteSync(keyA);
+          pref.deleteSync(keyC);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -925,31 +869,29 @@ export default function prefKeyExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderPrefKeyExtra0030',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const keyA: string = 'multiKeyA10';
           const keyB: string = 'multiKeyB10';
           const keyC: string = 'multiKeyC10';
-          await pref.put(keyA, 'alpha10');
-          await pref.put(keyB, 'beta10');
-          await pref.put(keyC, 'gamma10');
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha10');
-          expect(String(await pref.get(keyB, ''))).assertEqual('beta10');
-          await pref.delete(keyB);
-          await pref.flush();
-          expect(String(await pref.get(keyA, ''))).assertEqual('alpha10');
-          expect(String(await pref.get(keyC, ''))).assertEqual('gamma10');
-          expect(await pref.has(keyB)).assertFalse();
-          await pref.delete(keyA);
-          await pref.delete(keyC);
-          await pref.flush();
+          pref.putSync(keyA, 'alpha10');
+          pref.putSync(keyB, 'beta10');
+          pref.putSync(keyC, 'gamma10');
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha10');
+          expect(String(pref.getSync(keyB, ''))).assertEqual('beta10');
+          pref.deleteSync(keyB);
+          pref.flushSync();
+          expect(String(pref.getSync(keyA, ''))).assertEqual('alpha10');
+          expect(String(pref.getSync(keyC, ''))).assertEqual('gamma10');
+          expect(pref.hasSync(keyB)).assertFalse();
+          pref.deleteSync(keyA);
+          pref.deleteSync(keyC);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
