@@ -1435,5 +1435,348 @@ export default function abilityTest() {
         }
       });
 
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_3100
+     * @tc.name      testReminderAgentMatrixInvalidCalendar0031
+     * @tc.desc      Verify a calendar request without dateTime is rejected.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixInvalidCalendar0031',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const request: reminderAgentManager.ReminderRequest = {
+            reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_CALENDAR,
+            title: REMINDER_TITLE
+          };
+          let failed: boolean = false;
+          try {
+            await reminderAgentManager.publishReminder(request);
+          } catch (err) {
+            failed = true;
+          }
+          expect(failed).assertTrue();
+          expect(typeof failed).assertEqual('boolean');
+        } catch (err) {
+          Logger.error(`${TAG} testReminderAgentMatrixInvalidCalendar0031 failed: ${String(err)}`);
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_3300
+     * @tc.name      testReminderAgentMatrixTabCycle0033
+     * @tc.desc      Verify switching through all three tabs and back to alarm.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixTabCycle0033',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const driver: Driver = Driver.create();
+          for (let i = 1; i <= 2; i++) {
+            const tab: Component = await driver.waitForComponent(ON.id(`tab${i}`), 3000);
+            await tab.click();
+            await sleep(500);
+            expect(await existsById(driver, `tab${i}`)).assertTrue();
+          }
+          const alarmTab: Component = await driver.waitForComponent(ON.id('tab0'), 3000);
+          await alarmTab.click();
+          await sleep(500);
+          expect(await existsById(driver, 'addClock')).assertTrue();
+        } catch (err) {
+          Logger.error(`${TAG} testReminderAgentMatrixTabCycle0033 failed: ${String(err)}`);
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_3600
+     * @tc.name      testReminderAgentMatrixTimerResume0036
+     * @tc.desc      Verify pause freezes the countdown and resume makes it advance again.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixTimerResume0036',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const driver: Driver = Driver.create();
+          const timerTab: Component = await driver.waitForComponent(ON.id('tab2'), 3000);
+          await timerTab.click();
+          await sleep(500);
+          const picker: Component = await driver.waitForComponent(ON.id('secondPicker'), 3000);
+          const rect = await picker.getBounds();
+          const x: number = (rect.left + rect.right) / 2;
+          const y: number = (rect.top + rect.bottom) / 2;
+          for (let i = 0; i < 3; i++) {
+            await driver.swipe(x, y + 30, x, y - 30, 300);
+            await sleep(300);
+          }
+          let start: Component = await driver.findComponent(ON.id('startCalculagraph'));
+          await start.click();
+          await sleep(1200);
+          start = await driver.findComponent(ON.id('startCalculagraph'));
+          await start.click();
+          await sleep(300);
+          const paused: string = await (await driver.findComponent(ON.id('countDown'))).getText();
+          await sleep(1200);
+          expect(await (await driver.findComponent(ON.id('countDown'))).getText()).assertEqual(paused);
+          start = await driver.findComponent(ON.id('startCalculagraph'));
+          await start.click();
+          await sleep(1200);
+          expect((await (await driver.findComponent(ON.id('countDown'))).getText()) === paused).assertFalse();
+          await (await driver.findComponent(ON.id('resetCalculagraph'))).click();
+        } catch (err) {
+          Logger.error(`${TAG} testReminderAgentMatrixTimerResume0036 failed: ${String(err)}`);
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_3700
+     * @tc.name      testReminderAgentMatrixTimerResetTwice0037
+     * @tc.desc      Verify resetting an idle timer twice keeps it at zero.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixTimerResetTwice0037',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const driver: Driver = Driver.create();
+          const timerTab: Component = await driver.waitForComponent(ON.id('tab2'), 3000);
+          await timerTab.click();
+          await sleep(500);
+          for (let i = 0; i < 2; i++) {
+            const reset: Component = await driver.findComponent(ON.id('resetCalculagraph'));
+            await reset.click();
+            await sleep(300);
+          }
+          expect(await (await driver.findComponent(ON.id('countDown'))).getText()).assertEqual('00:00:00');
+          expect(await existsById(driver, 'countDown')).assertTrue();
+        } catch (err) {
+          Logger.error(`${TAG} testReminderAgentMatrixTimerResetTwice0037 failed: ${String(err)}`);
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_4000
+     * @tc.name      testReminderAgentMatrixAlarmCancel0040
+     * @tc.desc      Verify alarm setting cancel discards a repeat-day change.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixAlarmCancel0040',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const driver: Driver = Driver.create();
+          expect(await ensureOneAlarm(driver)).assertTrue();
+          const name: string = AlarmClockReminder.alarmClockReminders[0].reminderName;
+          const row: Component = await driver.waitForComponent(ON.text(name), 3000);
+          await shellClickComponent(row);
+          await sleep(500);
+          await driver.waitForComponent(ON.id('alarmSettingCancel'), 3000);
+          expect(await clickId(driver, 'day00', 3000)).assertTrue();
+          expect(await clickId(driver, 'alarmSettingCancel', 3000)).assertTrue();
+          await sleep(500);
+          expect(AlarmClockReminder.alarmClockReminders[0].reminderRequestAlarm!.daysOfWeek!.includes(1))
+            .assertFalse();
+        } catch (err) {
+          Logger.error(`${TAG} testReminderAgentMatrixAlarmCancel0040 failed: ${String(err)}`);
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_4100
+     * @tc.name      testReminderAgentMatrixTimeZero0041
+     * @tc.desc      Verify midnight conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixTimeZero0041',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(0, 0);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_4200
+     * @tc.name      testReminderAgentMatrixTimeOneMinute0042
+     * @tc.desc      Verify one-minute conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixTimeOneMinute0042',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(0, 1);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_4300
+     * @tc.name      testReminderAgentMatrixTimeNoon0043
+     * @tc.desc      Verify noon conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixTimeNoon0043',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(12, 0);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_4400
+     * @tc.name      testReminderAgentMatrixTimeLastMinute0044
+     * @tc.desc      Verify 23:59 conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixTimeLastMinute0044',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(23, 59);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_4500
+     * @tc.name      testReminderAgentMatrixTimeHalfDay0045
+     * @tc.desc      Verify 06:30 conversion stays within one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixTimeHalfDay0045',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const value: number = TimeConversion.timeToMillisecond(6, 30);
+          expect(value >= -2).assertTrue();
+          expect(value <= 86398).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_4600
+     * @tc.name      testReminderAgentMatrixDateFiveMinutes0046
+     * @tc.desc      Verify a five-minute future date converts to a positive delay.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixDateFiveMinutes0046',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const future: Date = new Date(Date.now() + 5 * 60 * 1000);
+          const value: number = TimeConversion.dateToMillisecond(future.getFullYear(),
+            future.getMonth() + 1, future.getDate(), future.getHours(), future.getMinutes());
+          expect(value > 0).assertTrue();
+          expect(value <= 301).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_4700
+     * @tc.name      testReminderAgentMatrixDateFiveMinutesPast0047
+     * @tc.desc      Verify a five-minute past date converts to a negative delay.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixDateFiveMinutesPast0047',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const past: Date = new Date(Date.now() - 5 * 60 * 1000);
+          const value: number = TimeConversion.dateToMillisecond(past.getFullYear(),
+            past.getMonth() + 1, past.getDate(), past.getHours(), past.getMinutes());
+          expect(value < 0).assertTrue();
+          expect(value >= -361).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_4800
+     * @tc.name      testReminderAgentMatrixDateCurrent0048
+     * @tc.desc      Verify the current minute is between minus one minute and zero.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixDateCurrent0048',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const now: Date = new Date();
+          const value: number = TimeConversion.dateToMillisecond(now.getFullYear(),
+            now.getMonth() + 1, now.getDate(), now.getHours(), now.getMinutes());
+          expect(value <= 0).assertTrue();
+          expect(value >= -90000).assertTrue();
+          expect(value >= -60).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
   });
 }
