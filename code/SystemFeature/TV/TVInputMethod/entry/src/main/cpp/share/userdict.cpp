@@ -1107,3 +1107,1112 @@ bool UserDict::Reset(const char *file)
     UserDictInfo info;
     ImeMemset(&info, sizeof(info), 0, sizeof(info));
     // By default, no limitation for lemma count and size
+    // thereby, reclaimRatio is never used
+    if (fwrite(&info, 1, sizeof(info), fp) != sizeof(info)) {
+        (void)fclose(fp);
+        unlink(file);
+        return false;
+    }
+    if (fclose(fp) != 0) {
+        unlink(file);
+        return false;
+    }
+    return true;
+}
+
+bool UserDict::Validate(const char *file)
+{
+    // b is ignored in POSIX compatible os including Linux
+    // while b is important flag for Windows to specify binary mode
+    FILE *fp = fopen(file, "rb");
+    if (!fp) {
+        return false;
+    }
+
+    size_t size;
+    size_t readed;
+    uint32 version;
+    UserDict::UserDictInfo dictInfo;
+
+    // Validate
+    int err = fseek(fp, 0, SEEK_END);
+    if (err) {
+        goto error;
+    }
+
+    size = ftell(fp);
+    if (size < K_MAGIC_4 + sizeof(dictInfo)) {
+        goto error;
+    }
+
+    err = fseek(fp, 0, SEEK_SET);
+    if (err) {
+        goto error;
+    }
+
+    readed = fread(&version, 1, sizeof(version), fp);
+    if (readed < sizeof(version)) {
+        goto error;
+    }
+    if (version != kUserDictVersion) {
+        goto error;
+    }
+
+    err = fseek(fp, -1 * sizeof(dictInfo), SEEK_END);
+    if (err) {
+        goto error;
+    }
+
+    readed = fread(&dictInfo, 1, sizeof(dictInfo), fp);
+    if (readed != sizeof(dictInfo)) {
+        goto error;
+    }
+
+    if (size != GetDictFileSize(&dictInfo)) {
+        goto error;
+    }
+
+    if (fclose(fp) != 0) {
+        return false;
+    }
+    return true;
+
+error:
+    (void)fclose(fp);
+    return false;
+}
+
+bool UserDict::LoadReadExact(FILE *fp, uint8 *dst, size_t bytes)
+{
+    size_t readed = 0;
+    while (readed < bytes && !ferror(fp) && !feof(fp)) {
+        readed += fread(dst + readed, 1, bytes - readed, fp);
+    }
+    return readed >= bytes;
+}
+
+bool UserDict::LoadAllocBuffers(const UserDictInfo &dictInfo, UserDictLoadBuffer &buf)
+{
+    buf.lemmas =
+        (uint8 *)malloc(dictInfo.lemmaSize + (kUserDictPreAlloc * (K_MAGIC_2 + (kUserDictAverageNchar << K_MAGIC_2))));
+    if (!buf.lemmas) {
+        return false;
+    }
+    buf.offsets = (uint32 *)malloc((dictInfo.lemmaCount + kUserDictPreAlloc) << K_MAGIC_2);
+    if (!buf.offsets) {
+        return false;
+    }
+#ifdef PREDICT_ENABLED
+    buf.predicts = (uint32 *)malloc((dictInfo.lemmaCount + kUserDictPreAlloc) << K_MAGIC_2);
+    if (!buf.predicts) {
+        return false;
+    }
+#endif
+#ifdef SYNC_ENABLED
+    buf.syncs = (uint32 *)malloc((dictInfo.syncCount + kUserDictPreAlloc) << K_MAGIC_2);
+    if (!buf.syncs) {
+        return false;
+    }
+#endif
+    buf.scores = (uint32 *)malloc((dictInfo.lemmaCount + kUserDictPreAlloc) << K_MAGIC_2);
+    if (!buf.scores) {
+        return false;
+    }
+    buf.ids = (uint32 *)malloc((dictInfo.lemmaCount + kUserDictPreAlloc) << K_MAGIC_2);
+    if (!buf.ids) {
+        return false;
+    }
+    buf.offsetsById = (uint32 *)malloc((dictInfo.lemmaCount + kUserDictPreAlloc) << K_MAGIC_2);
+    return buf.offsetsById != nullptr;
+}
+
+void UserDict::FreeLoadBuffers(UserDictLoadBuffer &buf)
+{
+    if (buf.lemmas) {
+        free(buf.lemmas);
+    }
+    if (buf.offsets) {
+        free(buf.offsets);
+    }
+#ifdef SYNC_ENABLED
+    if (buf.syncs) {
+        free(buf.syncs);
+    }
+#endif
+    if (buf.scores) {
+        free(buf.scores);
+    }
+    if (buf.ids) {
+        free(buf.ids);
+    }
+    if (buf.offsetsById) {
+        free(buf.offsetsById);
+    }
+#ifdef PREDICT_ENABLED
+    if (buf.predicts) {
+        free(buf.predicts);
+    }
+#endif
+}
+
+bool UserDict::LoadReadArrays(FILE *fp, const UserDictInfo &dictInfo, const UserDictLoadBuffer &buf)
+{
+    if (fseek(fp, K_MAGIC_4, SEEK_SET) != 0) {
+        return false;
+    }
+    if (!LoadReadExact(fp, buf.lemmas, dictInfo.lemmaSize)) {
+        return false;
+    }
+
+    size_t toread = (dictInfo.lemmaCount << K_MAGIC_2);
+    if (!LoadReadExact(fp, reinterpret_cast<uint8 *>(buf.offsets), toread)) {
+        return false;
+    }
+#ifdef PREDICT_ENABLED
+    if (!LoadReadExact(fp, reinterpret_cast<uint8 *>(buf.predicts), toread)) {
+        return false;
+    }
+#endif
+    if (!LoadReadExact(fp, reinterpret_cast<uint8 *>(buf.scores), toread)) {
+        return false;
+    }
+#ifdef SYNC_ENABLED
+    toread = (dictInfo.syncCount << K_MAGIC_2);
+    if (!LoadReadExact(fp, reinterpret_cast<uint8 *>(buf.syncs), toread)) {
+        return false;
+    }
+#endif
+    return true;
+}
+
+bool UserDict::LoadPrepare(FILE *fp, UserDictInfo &dictInfo, UserDictLoadBuffer &buf)
+{
+    if (fseek(fp, -1 * static_cast<int>(sizeof(dictInfo)), SEEK_END) != 0) {
+        return false;
+    }
+    if (fread(&dictInfo, 1, sizeof(dictInfo), fp) != sizeof(dictInfo)) {
+        return false;
+    }
+    if (!LoadAllocBuffers(dictInfo, buf)) {
+        return false;
+    }
+    return LoadReadArrays(fp, dictInfo, buf);
+}
+
+bool UserDict::Load(const char *file, LemmaIdType startId)
+{
+    if (pthread_mutex_trylock(&g_mutex) != 0) {
+        return false;
+    }
+    // b is ignored in POSIX compatible os including Linux
+    // while b is important flag for Windows to specify binary mode
+    FILE *fp = fopen(file, "rb");
+    if (!fp) {
+        pthread_mutex_unlock(&g_mutex);
+        return false;
+    }
+
+    UserDict::UserDictInfo dictInfo;
+    UserDictLoadBuffer buf;
+    if (!LoadPrepare(fp, dictInfo, buf)) {
+        FreeLoadBuffers(buf);
+        (void)fclose(fp);
+        pthread_mutex_unlock(&g_mutex);
+        return false;
+    }
+
+    for (size_t i = 0; i < dictInfo.lemmaCount; i++) {
+        buf.ids[i] = startId + i;
+        buf.offsetsById[i] = buf.offsets[i];
+    }
+
+    lemmas_ = buf.lemmas;
+    offsets_ = buf.offsets;
+#ifdef SYNC_ENABLED
+    syncs_ = buf.syncs;
+    syncCountSize_ = dictInfo.syncCount + UserDict::kUserDictPreAlloc;
+#endif
+    offsetsById_ = buf.offsetsById;
+    scores_ = buf.scores;
+    ids_ = buf.ids;
+#ifdef PREDICT_ENABLED
+    predicts_ = buf.predicts;
+#endif
+    lemmaCountLeft_ = UserDict::kUserDictPreAlloc;
+    lemmaSizeLeft_ = UserDict::kUserDictPreAlloc * (K_MAGIC_2 + (UserDict::kUserDictAverageNchar << K_MAGIC_2));
+    if (ImeMemcpy(&dictInfo_, sizeof(dictInfo), &dictInfo, sizeof(dictInfo)) != 0) {
+        return false;
+    }
+    state_ = USER_DICT_SYNC;
+
+    if (fclose(fp) != 0) {
+        pthread_mutex_unlock(&g_mutex);
+        return false;
+    }
+
+    pthread_mutex_unlock(&g_mutex);
+    return true;
+}
+
+void UserDict::WriteBack()
+{
+    // XXX write back is only allowed from CloseDict due to thread-safe sake
+    if (state_ == USER_DICT_NONE || state_ == USER_DICT_SYNC) {
+        return;
+    }
+    int fd = open(dictFile_, O_WRONLY);
+    if (fd == -1) {
+        return;
+    }
+    switch (state_) {
+        case USER_DICT_DEFRAGMENTED:
+            WriteBackAll(fd);
+            break;
+        case USER_DICT_LEMMA_DIRTY:
+            WriteBackLemma(fd);
+            break;
+        case USER_DICT_OFFSET_DIRTY:
+            WriteBackOffset(fd);
+            break;
+        case USER_DICT_SCORE_DIRTY:
+            WriteBackScore(fd);
+            break;
+#ifdef SYNC_ENABLED
+        case USER_DICT_SYNC_DIRTY:
+            WriteBackSync(fd);
+            break;
+#endif
+        default:
+            break;
+    }
+    // It seems truncate is not need on Linux, Windows except Mac
+    // I am doing it here anyway for safety.
+    off_t cur = lseek(fd, 0, SEEK_CUR);
+    ftruncate(fd, cur);
+    close(fd);
+    state_ = USER_DICT_SYNC;
+}
+
+#ifdef SYNC_ENABLED
+void UserDict::WriteBackSync(int fd)
+{
+    off_t seekOffset = 4 + dictInfo_.lemmaSize + (dictInfo_.lemmaCount << K_MAGIC_3);
+#ifdef PREDICT_ENABLED
+    seekOffset += (dictInfo_.lemmaCount << K_MAGIC_2);
+#endif
+    int err = lseek(fd, seekOffset, SEEK_SET);
+    if (err == -1) {
+        return;
+    }
+    write(fd, syncs_, dictInfo_.syncCount << K_MAGIC_2);
+    write(fd, &dictInfo_, sizeof(dictInfo_));
+}
+#endif
+
+void UserDict::WriteBackOffset(int fd)
+{
+    int err = lseek(fd, 4 + dictInfo_.lemmaSize, SEEK_SET);
+    if (err == -1) {
+        return;
+    }
+    write(fd, offsets_, dictInfo_.lemmaCount << K_MAGIC_2);
+#ifdef PREDICT_ENABLED
+    write(fd, predicts_, dictInfo_.lemmaCount << K_MAGIC_2);
+#endif
+    write(fd, scores_, dictInfo_.lemmaCount << K_MAGIC_2);
+#ifdef SYNC_ENABLED
+    write(fd, syncs_, dictInfo_.syncCount << K_MAGIC_2);
+#endif
+    write(fd, &dictInfo_, sizeof(dictInfo_));
+}
+
+void UserDict::WriteBackScore(int fd)
+{
+    off_t seekOffset = 4 + dictInfo_.lemmaSize + (dictInfo_.lemmaCount << K_MAGIC_2);
+#ifdef PREDICT_ENABLED
+    seekOffset += (dictInfo_.lemmaCount << K_MAGIC_2);
+#endif
+    int err = lseek(fd, seekOffset, SEEK_SET);
+    if (err == -1) {
+        return;
+    }
+    write(fd, scores_, dictInfo_.lemmaCount << K_MAGIC_2);
+#ifdef SYNC_ENABLED
+    write(fd, syncs_, dictInfo_.syncCount << K_MAGIC_2);
+#endif
+    write(fd, &dictInfo_, sizeof(dictInfo_));
+}
+
+void UserDict::WriteBackLemma(int fd)
+{
+    int err = lseek(fd, K_MAGIC_4, SEEK_SET);
+    if (err == -1) {
+        return;
+    }
+    // New lemmas are always appended, no need to write whole lemma block
+    size_t needWrite =
+        UserDict::kUserDictPreAlloc * (K_MAGIC_2 + (UserDict::kUserDictAverageNchar << K_MAGIC_2)) - lemmaSizeLeft_;
+    err = lseek(fd, dictInfo_.lemmaSize - needWrite, SEEK_CUR);
+    if (err == -1) {
+        return;
+    }
+    write(fd, lemmas_ + dictInfo_.lemmaSize - needWrite, needWrite);
+
+    write(fd, offsets_, dictInfo_.lemmaCount << K_MAGIC_2);
+#ifdef PREDICT_ENABLED
+    write(fd, predicts_, dictInfo_.lemmaCount << K_MAGIC_2);
+#endif
+    write(fd, scores_, dictInfo_.lemmaCount << K_MAGIC_2);
+#ifdef SYNC_ENABLED
+    write(fd, syncs_, dictInfo_.syncCount << K_MAGIC_2);
+#endif
+    write(fd, &dictInfo_, sizeof(dictInfo_));
+}
+
+void UserDict::WriteBackAll(int fd)
+{
+    // XXX lemmaSize is handled differently in writeall
+    // and writelemma. I update lemmaSize and lemmaCount in different
+    // cases for these two situations. Should fix it to make it consistent.
+    int err = lseek(fd, K_MAGIC_4, SEEK_SET);
+    if (err == -1) {
+        return;
+    }
+    write(fd, lemmas_, dictInfo_.lemmaSize);
+    write(fd, offsets_, dictInfo_.lemmaCount << K_MAGIC_2);
+#ifdef PREDICT_ENABLED
+    write(fd, predicts_, dictInfo_.lemmaCount << K_MAGIC_2);
+#endif
+    write(fd, scores_, dictInfo_.lemmaCount << K_MAGIC_2);
+#ifdef SYNC_ENABLED
+    write(fd, syncs_, dictInfo_.syncCount << K_MAGIC_2);
+#endif
+    write(fd, &dictInfo_, sizeof(dictInfo_));
+}
+
+#ifdef CACHE_ENABLED
+bool UserDict::LoadCache(UserDictSearchable *searchable, uint32 *offset, uint32 *length)
+{
+    UserDictCache *cache = &caches_[searchable->splidsLen - 1];
+    if (cache->head == cache->tail) {
+        return false;
+    }
+
+    uint16 j;
+    uint16 sigLen = K_MAX_LEMMA_SIZE / 4;
+    uint16 i = cache->head;
+    while (1) {
+        j = 0;
+        for (; j < sigLen; j++) {
+            if (cache->signatures[i][j] != searchable->signature[j]) {
+                break;
+            }
+        }
+        if (j < sigLen) {
+            i++;
+            if (i >= kUserDictCacheSize) {
+                i -= kUserDictCacheSize;
+            }
+            if (i == cache->tail) {
+                break;
+            }
+            continue;
+        }
+        *offset = cache->offsets[i];
+        *length = cache->lengths[i];
+        return true;
+    }
+    return false;
+}
+
+void UserDict::SaveCache(UserDictSearchable *searchable, uint32 offset, uint32 length)
+{
+    UserDictCache *cache = &caches_[searchable->splidsLen - 1];
+    uint16 next = cache->tail;
+
+    cache->offsets[next] = offset;
+    cache->lengths[next] = length;
+    uint16 sigLen = K_MAX_LEMMA_SIZE / 4;
+    uint16 j = 0;
+    for (; j < sigLen; j++) {
+        cache->signatures[next][j] = searchable->signature[j];
+    }
+
+    if (++next >= kUserDictCacheSize) {
+        next -= kUserDictCacheSize;
+    }
+    if (next == cache->head) {
+        cache->head++;
+        if (cache->head >= kUserDictCacheSize) {
+            cache->head -= kUserDictCacheSize;
+        }
+    }
+    cache->tail = next;
+}
+
+void UserDict::ResetCache() { ImeMemset(caches_, sizeof(caches_), 0, sizeof(caches_)); }
+
+bool UserDict::LoadMissCache(UserDictSearchable *searchable)
+{
+    UserDictMissCache *cache = &missCaches_[searchable->splidsLen - 1];
+    if (cache->head == cache->tail) {
+        return false;
+    }
+
+    uint16 j;
+    uint16 sigLen = K_MAX_LEMMA_SIZE / 4;
+    uint16 i = cache->head;
+    while (1) {
+        j = 0;
+        for (; j < sigLen; j++) {
+            if (cache->signatures[i][j] != searchable->signature[j]) {
+                break;
+            }
+        }
+        if (j < sigLen) {
+            i++;
+            if (i >= kUserDictMissCacheSize) {
+                i -= kUserDictMissCacheSize;
+            }
+            if (i == cache->tail) {
+                break;
+            }
+            continue;
+        }
+        return true;
+    }
+    return false;
+}
+
+void UserDict::SaveMissCache(UserDictSearchable *searchable)
+{
+    UserDictMissCache *cache = &missCaches_[searchable->splidsLen - 1];
+    uint16 next = cache->tail;
+
+    uint16 sigLen = K_MAX_LEMMA_SIZE / 4;
+    uint16 j = 0;
+    for (; j < sigLen; j++) {
+        cache->signatures[next][j] = searchable->signature[j];
+    }
+
+    if (++next >= kUserDictMissCacheSize) {
+        next -= kUserDictMissCacheSize;
+    }
+    if (next == cache->head) {
+        cache->head++;
+        if (cache->head >= kUserDictMissCacheSize) {
+            cache->head -= kUserDictMissCacheSize;
+        }
+    }
+    cache->tail = next;
+}
+
+void UserDict::ResetMissCache() { ImeMemset(missCaches_, sizeof(missCaches_), 0, sizeof(missCaches_)); }
+
+void UserDict::CacheInit()
+{
+    ResetCache();
+    ResetMissCache();
+}
+
+bool UserDict::CacheHit(UserDictSearchable *searchable, uint32 *offset, uint32 *length)
+{
+    bool hit = LoadMissCache(searchable);
+    if (hit) {
+        *offset = 0;
+        *length = 0;
+        return true;
+    }
+    hit = LoadCache(searchable, offset, length);
+    if (hit) {
+        return true;
+    }
+    return false;
+}
+
+void UserDict::CachePush(UserDictCacheType type, UserDictSearchable *searchable, uint32 offset, uint32 length)
+{
+    switch (type) {
+        case USER_DICT_MISS_CACHE:
+            SaveMissCache(searchable);
+            break;
+        case USER_DICT_CACHE:
+            SaveCache(searchable, offset, length);
+            break;
+        default:
+            break;
+    }
+}
+
+#endif
+
+size_t UserDict::CompactOffsetsAndScores()
+{
+    size_t firstFreed = 0;
+    size_t firstInuse = 0;
+    while (firstFreed < dictInfo_.lemmaCount) {
+        // Find first freed offset
+        while ((offsets_[firstFreed] & kUserDictOffsetFlagRemove) == 0 && firstFreed < dictInfo_.lemmaCount) {
+            firstFreed++;
+        }
+        if (firstFreed < dictInfo_.lemmaCount) {
+            // Save REMOVE flag to lemma flag
+            int off = offsets_[firstFreed];
+            SetLemmaFlag(off, kUserDictLemmaFlagRemove);
+        } else {
+            break;
+        }
+        // Find first inuse offse after firstFreed
+        firstInuse = firstFreed + 1;
+        while ((offsets_[firstInuse] & kUserDictOffsetFlagRemove) && (firstInuse < dictInfo_.lemmaCount)) {
+            // Save REMOVE flag to lemma flag
+            int off = offsets_[firstInuse];
+            SetLemmaFlag(off, kUserDictLemmaFlagRemove);
+            firstInuse++;
+        }
+        if (firstInuse >= dictInfo_.lemmaCount) {
+            break;
+        }
+        // Swap offsets_
+        int tmp = offsets_[firstInuse];
+        offsets_[firstInuse] = offsets_[firstFreed];
+        offsets_[firstFreed] = tmp;
+        // Move scores_, no need to Swap
+        tmp = scores_[firstInuse];
+        scores_[firstInuse] = scores_[firstFreed];
+        scores_[firstFreed] = tmp;
+        // Swap ids_
+        LemmaIdType tmpid = ids_[firstInuse];
+        ids_[firstInuse] = ids_[firstFreed];
+        ids_[firstFreed] = tmpid;
+        // Go on
+        firstFreed++;
+    }
+    return firstFreed;
+}
+
+#ifdef PREDICT_ENABLED
+void UserDict::CompactPredicts()
+{
+    size_t firstFreed = 0;
+    size_t firstInuse = 0;
+    while (firstFreed < dictInfo_.lemmaCount) {
+        // Find first freed offset
+        while ((predicts_[firstFreed] & kUserDictOffsetFlagRemove) == 0 && firstFreed < dictInfo_.lemmaCount) {
+            firstFreed++;
+        }
+        if (firstFreed >= dictInfo_.lemmaCount) {
+            break;
+        }
+        // Find first inuse offse after firstFreed
+        firstInuse = firstFreed + 1;
+        while ((predicts_[firstInuse] & kUserDictOffsetFlagRemove) && (firstInuse < dictInfo_.lemmaCount)) {
+            firstInuse++;
+        }
+        if (firstInuse >= dictInfo_.lemmaCount) {
+            break;
+        }
+        // Swap offsets_
+        int tmp = predicts_[firstInuse];
+        predicts_[firstInuse] = predicts_[firstFreed];
+        predicts_[firstFreed] = tmp;
+        // Go on
+        firstFreed++;
+    }
+}
+#endif
+
+bool UserDict::SkipInUseLemmas(size_t realSize, size_t &dst)
+{
+    while (dst < realSize) {
+        unsigned char flag = GetLemmaFlag(dst);
+        unsigned char nchr = GetLemmaNchar(dst);
+        if ((flag & kUserDictLemmaFlagRemove) == 0) {
+            dst += nchr * K_MAGIC_4 + K_MAGIC_2;
+            continue;
+        }
+        break;
+    }
+    return dst < realSize;
+}
+
+void UserDict::AdjustMovedOffsets(size_t begin, size_t end, size_t dst)
+{
+    for (size_t j = 0; j < dictInfo_.lemmaCount; j++) {
+        if (offsets_[j] >= begin && offsets_[j] < end) {
+            offsets_[j] -= (begin - dst);
+            offsetsById_[ids_[j] - startId_] = offsets_[j];
+        }
+#ifdef PREDICT_ENABLED
+        if (predicts_[j] >= begin && predicts_[j] < end) {
+            predicts_[j] -= (begin - dst);
+        }
+#endif
+    }
+#ifdef SYNC_ENABLED
+    for (size_t j = 0; j < dictInfo_.syncCount; j++) {
+        if (syncs_[j] >= begin && syncs_[j] < end) {
+            syncs_[j] -= (begin - dst);
+        }
+    }
+#endif
+}
+
+bool UserDict::CompactLemmaRange(size_t realSize, size_t &dst)
+{
+    if (!SkipInUseLemmas(realSize, dst)) {
+        return false;
+    }
+
+    size_t end = dst;
+    while (end < realSize) {
+        size_t begin = end + GetLemmaNchar(end) * K_MAGIC_4 + K_MAGIC_2;
+        unsigned char nchr = 0;
+        while (begin < realSize) {
+            unsigned char flag = GetLemmaFlag(begin);
+            nchr = GetLemmaNchar(begin);
+            if ((flag & kUserDictLemmaFlagRemove) == 0) {
+                break;
+            }
+            begin += nchr * K_MAGIC_4 + K_MAGIC_2;
+        }
+        if (begin >= realSize) {
+            break;
+        }
+        end = begin + nchr * K_MAGIC_4 + K_MAGIC_2;
+        while (end < realSize) {
+            unsigned char eflag = GetLemmaFlag(end);
+            unsigned char enchr = GetLemmaNchar(end);
+            if ((eflag & kUserDictLemmaFlagRemove) == 0) {
+                end += enchr * K_MAGIC_4 + K_MAGIC_2;
+                continue;
+            }
+            break;
+        }
+        if (ImeMemmove(lemmas_ + dst, end - begin, lemmas_ + begin, end - begin) != 0) {
+            return false;
+        }
+        AdjustMovedOffsets(begin, end, dst);
+        dst += (end - begin);
+    }
+    return true;
+}
+
+void UserDict::CompactLemmas()
+{
+    int totalSize = dictInfo_.lemmaSize + lemmaSizeLeft_;
+    int totalCount = dictInfo_.lemmaCount + lemmaCountLeft_;
+    size_t realSize = totalSize - lemmaSizeLeft_;
+    size_t dst = 0;
+
+    if (!CompactLemmaRange(realSize, dst)) {
+        return;
+    }
+
+    dictInfo_.freeCount = 0;
+    dictInfo_.freeSize = 0;
+    dictInfo_.lemmaSize = dst;
+    lemmaSizeLeft_ = totalSize - dictInfo_.lemmaSize;
+    lemmaCountLeft_ = totalCount - dictInfo_.lemmaCount;
+}
+
+void UserDict::Defragment(void)
+{
+#ifdef DEBUG_PERF
+    DEBUG_PERF_BEGIN;
+#endif
+    if (IsValidState() == false) {
+        return;
+    }
+    // Fixup offsets_, set REMOVE flag to lemma's flag if needed
+    size_t firstFreed = CompactOffsetsAndScores();
+#ifdef PREDICT_ENABLED
+    CompactPredicts();
+#endif
+    dictInfo_.lemmaCount = firstFreed;
+    // Fixup lemmas_
+    CompactLemmas();
+
+    // XXX Without following code,
+    // offsetsById_ is not reordered.
+    // That's to say, all removed lemmas' ids are not collected back.
+    // There may not be room for addition of new lemmas due to
+    // offsests_by_id_ reason, although lemmaSizeLeft_ is fixed.
+    // By default, we do want defrag as fast as possible, because
+    // during defrag procedure, other peers can not write new lemmas
+    // to user dictionary file.
+    // XXX If write-back is invoked immediately after
+    // this Defragment, no need to fix up following in-mem data.
+    for (uint32 i = 0; i < dictInfo_.lemmaCount; i++) {
+        ids_[i] = startId_ + i;
+        offsetsById_[i] = offsets_[i];
+    }
+
+    state_ = USER_DICT_DEFRAGMENTED;
+
+#ifdef DEBUG_PERF
+    DEBUG_PERF_END;
+    LogdPerf("Defragment");
+#endif
+}
+
+
+bool UserDict::State(UserDictStat *stat)
+{
+    if (IsValidState() == false) {
+        return false;
+    }
+    if (!stat) {
+        return false;
+    }
+    stat->version = version_;
+    stat->fileName = dictFile_;
+    stat->loadTime.tv_sec = loadTime_.tv_sec;
+    stat->loadTime.tv_usec = loadTime_.tv_usec;
+    pthread_mutex_lock(&g_mutex);
+    stat->lastUpdate.tv_sec = g_lastUpdate.tv_sec;
+    stat->lastUpdate.tv_usec = g_lastUpdate.tv_usec;
+    pthread_mutex_unlock(&g_mutex);
+    stat->diskSize = GetDictFileSize(&dictInfo_);
+    stat->lemmaCount = dictInfo_.lemmaCount;
+    stat->lemmaSize = dictInfo_.lemmaSize;
+    stat->deleteCount = dictInfo_.freeCount;
+    stat->deleteSize = dictInfo_.freeSize;
+#ifdef SYNC_ENABLED
+    stat->syncCount = dictInfo_.syncCount;
+#endif
+    stat->limitLemmaCount = dictInfo_.limitLemmaCount;
+    stat->limitLemmaSize = dictInfo_.limitLemmaSize;
+    stat->reclaimRatio = dictInfo_.reclaimRatio;
+    return true;
+}
+
+void UserDict::SetLimit(uint32 maxLemmaCount, uint32 maxLemmaSize, uint32 reclaimRatio)
+{
+    dictInfo_.limitLemmaCount = maxLemmaCount;
+    dictInfo_.limitLemmaSize = maxLemmaSize;
+    if (reclaimRatio > K_MAGIC_100) {
+        reclaimRatio = K_MAGIC_100;
+    }
+    dictInfo_.reclaimRatio = reclaimRatio;
+}
+
+void UserDict::Reclaim()
+{
+    if (IsValidState() == false) {
+        return;
+    }
+
+    switch (dictInfo_.reclaimRatio) {
+        case 0:
+            return;
+        case K_MAGIC_100:
+            ASSERT(false);
+            return;
+        default:
+            break;
+    }
+
+    // XXX Reclaim is only based on count, not size
+    uint32 count = dictInfo_.lemmaCount;
+    int rc = count * dictInfo_.reclaimRatio / 100;
+
+    UserDictScoreOffsetPair *scoreOffsetPairs = nullptr;
+    scoreOffsetPairs = (UserDictScoreOffsetPair *)malloc(sizeof(UserDictScoreOffsetPair) * rc);
+    if (scoreOffsetPairs == nullptr) {
+        return;
+    }
+
+    for (int i = 0; i < rc; i++) {
+        int s = scores_[i];
+        scoreOffsetPairs[i].score = s;
+        scoreOffsetPairs[i].offsetIndex = i;
+    }
+
+    for (int i = (rc + 1) / 2; i >= 0; i--) {
+        ShiftDown(scoreOffsetPairs, i, rc);
+    }
+
+    for (uint32 i = rc; i < dictInfo_.lemmaCount; i++) {
+        int s = scores_[i];
+        if (s < scoreOffsetPairs[0].score) {
+            scoreOffsetPairs[0].score = s;
+            scoreOffsetPairs[0].offsetIndex = i;
+            ShiftDown(scoreOffsetPairs, 0, rc);
+        }
+    }
+
+    for (int i = 0; i < rc; i++) {
+        int off = scoreOffsetPairs[i].offsetIndex;
+        RemoveLemmaByOffsetIndex(off);
+    }
+    if (rc > 0) {
+        if (state_ < USER_DICT_OFFSET_DIRTY) {
+            state_ = USER_DICT_OFFSET_DIRTY;
+        }
+    }
+
+    free(scoreOffsetPairs);
+}
+
+void UserDict::Swap(UserDictScoreOffsetPair *sop, int i, int j)
+{
+    int s = sop[i].score;
+    int p = sop[i].offsetIndex;
+    sop[i].score = sop[j].score;
+    sop[i].offsetIndex = sop[j].offsetIndex;
+    sop[j].score = s;
+    sop[j].offsetIndex = p;
+}
+
+void UserDict::ShiftDown(UserDictScoreOffsetPair *sop, int i, int n)
+{
+    int par = i;
+    while (par < n) {
+        int left = par * K_MAGIC_2 + 1;
+        int right = left + 1;
+        if (left >= n && right >= n) {
+            break;
+        }
+        if (right >= n) {
+            if (sop[left].score > sop[par].score) {
+                Swap(sop, left, par);
+                par = left;
+                continue;
+            }
+        } else if (sop[left].score > sop[right].score && sop[left].score > sop[par].score) {
+            Swap(sop, left, par);
+            par = left;
+            continue;
+        } else if (sop[right].score > sop[left].score && sop[right].score > sop[par].score) {
+            Swap(sop, right, par);
+            par = right;
+            continue;
+        }
+        break;
+    }
+}
+
+LemmaIdType UserDict::PutLemma(char16 lemmaStr[], uint16 splids[], uint16 lemmaLen, uint16 count)
+{
+    return PutLemmaInternal(lemmaStr, splids, lemmaLen, count, time(nullptr));
+}
+
+LemmaIdType UserDict::PutLemmaInternal(char16 lemmaStr[], uint16 splids[], uint16 lemmaLen, uint16 count, uint64 lmt)
+{
+#ifdef DEBUG_PERF
+    DEBUG_PERF_BEGIN;
+#endif
+    if (IsValidState() == false) {
+        return 0;
+    }
+    int32 off = LocateInOffsets(lemmaStr, splids, lemmaLen);
+    if (off != -1) {
+        int deltaScore = count - scores_[off];
+        dictInfo_.totalNfreq += deltaScore;
+        scores_[off] = BuildScore(lmt, count);
+        if (state_ < USER_DICT_SCORE_DIRTY) {
+            state_ = USER_DICT_SCORE_DIRTY;
+        }
+#ifdef DEBUG_PERF
+        DEBUG_PERF_END;
+        LogdPerf("PutLemmaInternal(update)");
+#endif
+        return ids_[off];
+    } else {
+        if ((dictInfo_.limitLemmaCount > 0 && dictInfo_.lemmaCount >= dictInfo_.limitLemmaCount) ||
+            (dictInfo_.limitLemmaSize > 0 &&
+             dictInfo_.lemmaSize + (K_MAGIC_2 + (lemmaLen << K_MAGIC_2)) > dictInfo_.limitLemmaSize)) {
+            // XXX Don't Defragment here, it's too time-consuming.
+            return 0;
+        }
+        int flushed = 0;
+        if (lemmaCountLeft_ == 0 || lemmaSizeLeft_ < static_cast<size_t>((K_MAGIC_2 + (lemmaLen << K_MAGIC_2)))) {
+            // XXX When there is no space for new lemma, we flush to disk
+            // FlushCache() may be called by upper user
+            // and better place shoule be found instead of here
+            FlushCache();
+            flushed = 1;
+            // Or simply return and do nothing
+        }
+#ifdef DEBUG_PERF
+        DEBUG_PERF_END;
+        LogdPerf(flushed ? "PutLemmaInternal(flush+add)" : "PutLemmaInternal(add)");
+#endif
+        LemmaIdType id = AppendALemma(lemmaStr, splids, lemmaLen, count, lmt);
+#ifdef SYNC_ENABLED
+        if (syncs_ && id != 0) {
+            QueueLemmaForSync(id);
+        }
+#endif
+        return id;
+    }
+    return 0;
+}
+
+#ifdef SYNC_ENABLED
+void UserDict::QueueLemmaForSync(LemmaIdType id)
+{
+    if (dictInfo_.syncCount < syncCountSize_) {
+        syncs_[dictInfo_.syncCount++] = offsetsById_[id - startId_];
+    } else {
+        uint32 *syncs = static_cast<uint32 *>(malloc((syncCountSize_ + UserDict::kUserDictPreAlloc) << K_MAGIC_2));
+        if (syncs) {
+            if (syncs_ != nullptr) {
+                ImeMemcpy(syncs, syncCountSize_ << K_MAGIC_2, syncs_, syncCountSize_ << K_MAGIC_2);
+                free(syncs_);
+            }
+            syncCountSize_ += UserDict::kUserDictPreAlloc;
+            syncs_ = syncs;
+            syncs_[dictInfo_.syncCount++] = offsetsById_[id - startId_];
+        }
+    }
+}
+#endif
+
+LemmaIdType UserDict::UpdateLemma(LemmaIdType lemmaId, int16 deltaCount, bool selected)
+{
+#ifdef DEBUG_PERF
+    DEBUG_PERF_BEGIN;
+#endif
+    if (IsValidState() == false) {
+        return 0;
+    }
+    if (IsValidLemmaId(lemmaId) == false) {
+        return 0;
+    }
+    uint32 offset = offsetsById_[lemmaId - startId_];
+    uint8 lemmaLen = GetLemmaNchar(offset);
+    char16 *lemmaStr = GetLemmaWord(offset);
+    uint16 *splids = GetLemmaSpellIds(offset);
+
+    int32 off = LocateInOffsets(lemmaStr, splids, lemmaLen);
+    if (off != -1) {
+        int score = scores_[off];
+        int count = ExtractScoreFreq(score);
+        uint64 lmt = ExtractScoreLmt(score);
+        if (count + deltaCount > kUserDictMaxFrequency || count + deltaCount < count) {
+            deltaCount = kUserDictMaxFrequency - count;
+        }
+        count += deltaCount;
+        dictInfo_.totalNfreq += deltaCount;
+        if (selected) {
+            lmt = time(nullptr);
+        }
+        scores_[off] = BuildScore(lmt, count);
+        if (state_ < USER_DICT_SCORE_DIRTY) {
+            state_ = USER_DICT_SCORE_DIRTY;
+        }
+#ifdef DEBUG_PERF
+        DEBUG_PERF_END;
+        LogdPerf("UpdateLemma");
+#endif
+#ifdef SYNC_ENABLED
+        QueueLemmaForSync(ids_[off]);
+#endif
+        return ids_[off];
+    }
+    return 0;
+}
+
+size_t UserDict::GetTotalLemmaCount() { return dictInfo_.totalNfreq; }
+
+void UserDict::SetTotalLemmaCountOfOthers(size_t count) { totalOtherNfreq_ = count; }
+
+bool UserDict::InsertLemmaSorted(uint32 off, const uint16 *splids, uint16 lemmaLen)
+{
+    UserDictSearchable searchable;
+    PrepareLocate(&searchable, splids, lemmaLen);
+
+    size_t i = 0;
+    while (i < off) {
+        uint32 offset = offsets_[i];
+        uint32 nchar = GetLemmaNchar(offset);
+        uint16 *spl = GetLemmaSpellIds(offset);
+
+        if (FuzzyCompareSpellId(spl, nchar, &searchable) <= 0) {
+            break;
+        }
+        i++;
+    }
+    if (i != off) {
+        uint32 temp = offsets_[off];
+        if (ImeMemmove(offsets_ + i + 1, (off - i) << K_MAGIC_2, offsets_ + i, (off - i) << K_MAGIC_2) != 0) {
+            return false;
+        }
+        offsets_[i] = temp;
+
+        temp = scores_[off];
+        if (ImeMemmove(scores_ + i + 1, (off - i) << K_MAGIC_2, scores_ + i, (off - i) << K_MAGIC_2) != 0) {
+            return false;
+        }
+        scores_[i] = temp;
+
+        temp = ids_[off];
+        if (ImeMemmove(ids_ + i + 1, (off - i) << K_MAGIC_2, ids_ + i, (off - i) << K_MAGIC_2) != 0) {
+            return false;
+        }
+        ids_[i] = temp;
+    }
+
+#ifdef PREDICT_ENABLED
+    uint32 j = LocateWhereToInsertInPredicts(GetLemmaWord(predicts_[off]), lemmaLen);
+    if (j != off) {
+        uint32 temp = predicts_[off];
+        if (ImeMemmove(predicts_ + j + 1, (off - j) << K_MAGIC_2, predicts_ + j, (off - j) << K_MAGIC_2) != 0) {
+            return false;
+        }
+        predicts_[j] = temp;
+    }
+#endif
+
+    return true;
+}
+
+LemmaIdType UserDict::AppendALemma(const char16 lemmaStr[], uint16 splids[], uint16 lemmaLen, uint16 count,
+                                   uint64 lmt)
+{
+    LemmaIdType id = GetMaxLemmaId() + 1;
+    size_t offset = dictInfo_.lemmaSize;
+    if (offset > kUserDictOffsetMask) {
+        return 0;
+    }
+
+    lemmas_[offset] = 0;
+    lemmas_[offset + 1] = static_cast<uint8>(lemmaLen);
+    for (size_t i = 0; i < lemmaLen; i++) {
+        *(reinterpret_cast<uint16 *>(&lemmas_[offset + K_MAGIC_2 + (i << 1)])) = splids[i];
+        *(reinterpret_cast<char16 *>(&lemmas_[offset + K_MAGIC_2 + (lemmaLen << 1) + (i << 1)])) = lemmaStr[i];
+    }
+    uint32 off = dictInfo_.lemmaCount;
+    offsets_[off] = offset;
+    scores_[off] = BuildScore(lmt, count);
+    ids_[off] = id;
+#ifdef PREDICT_ENABLED
+    predicts_[off] = offset;
+#endif
+
+    offsetsById_[id - startId_] = offset;
+
+    dictInfo_.lemmaCount++;
+    dictInfo_.lemmaSize += (K_MAGIC_2 + (lemmaLen << K_MAGIC_2));
+    lemmaCountLeft_--;
+    lemmaSizeLeft_ -= (K_MAGIC_2 + (lemmaLen << K_MAGIC_2));
+
+    // Sort
+    if (!InsertLemmaSorted(off, splids, lemmaLen)) {
+        return 0;
+    }
+
+    if (state_ < USER_DICT_LEMMA_DIRTY) {
+        state_ = USER_DICT_LEMMA_DIRTY;
+    }
+
+#ifdef CACHE_ENABLED
+    CacheInit();
+#endif
+
+    dictInfo_.totalNfreq += count;
+    return id;
+}
+} // namespace ime_pinyin
