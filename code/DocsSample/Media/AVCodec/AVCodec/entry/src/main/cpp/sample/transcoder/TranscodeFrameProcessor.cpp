@@ -77,10 +77,12 @@ uint8_t SampleArea(int32_t x, int32_t y, int32_t width, int32_t height, int32_t 
     if (filter != Filter::AREA || targetWidth > width || targetHeight > height) {
         return Interpolate(x, y, width, height, targetWidth, targetHeight, read);
     }
-    const double left = static_cast<double>(x) * width / targetWidth;
-    const double right = static_cast<double>(x + 1) * width / targetWidth;
-    const double top = static_cast<double>(y) * height / targetHeight;
-    const double bottom = static_cast<double>(y + 1) * height / targetHeight;
+    const int32_t divisorWidth = std::max(1, targetWidth);
+    const int32_t divisorHeight = std::max(1, targetHeight);
+    const double left = static_cast<double>(x) * width / divisorWidth;
+    const double right = static_cast<double>(x + 1) * width / divisorWidth;
+    const double top = static_cast<double>(y) * height / divisorHeight;
+    const double bottom = static_cast<double>(y + 1) * height / divisorHeight;
     double sum = 0;
     const int32_t endY = std::min(height, static_cast<int32_t>(std::ceil(bottom)));
     const int32_t endX = std::min(width, static_cast<int32_t>(std::ceil(right)));

@@ -42,11 +42,8 @@ inline GLuint LinkProgram(GLuint vertex, GLuint fragment)
     glLinkProgram(program);
     GLint linked = GL_FALSE;
     glGetProgramiv(program, GL_LINK_STATUS, &linked);
-    if (linked == GL_TRUE) {
-        return program;
-    }
-    glDeleteProgram(program);
-    return 0;
+    if (linked != GL_TRUE) { glDeleteProgram(program); }
+    return linked == GL_TRUE ? program : 0;
 }
 
 inline void DeleteShaders(GLuint vertex, GLuint fragment)
