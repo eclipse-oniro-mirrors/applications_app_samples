@@ -367,7 +367,7 @@ static napi_value OhAVMetadataExtractorFetchMetadata(napi_env env, napi_callback
         napi_throw_error(env, "EFAILED", "SetFDSource for metadata extractor failed");
         return nullptr;
     }
-    // [Start OH_AVMetadataExtractor_SetFDSource]
+    // [End OH_AVMetadataExtractor_SetFDSource]
     // 创建OH_AVFormat对象。
     OH_AVFormat* avMetadata = OH_AVFormat_Create();
     // 异常处理。
