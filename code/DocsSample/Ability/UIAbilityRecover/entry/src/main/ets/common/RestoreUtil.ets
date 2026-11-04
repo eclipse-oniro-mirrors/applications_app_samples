@@ -23,7 +23,7 @@ const BLOB_EXPIRE_MS = 7 * 24 * 60 * 60 * 1000; // 与系统备份数据 7 天�
 // [Start restore_launch]
 /**
  * 三信号合判是否恢复启动：系统键为 true（全版本可靠）/ want.parameters 中存在
- * 恢复键（仅恢复启动时由系统带回）/ launchReason 为 APP_RECOVERY（API 26.0.0 起
+ * 恢复键（仅恢复启动时由系统带回）/ launchReason 为 APP_RECOVERY（API版本26.0.0 起
  * 可信；之前版本从系统设置强行停止后的重拉也会被误标，不能单独采信）。
  * restoreKeys：onSaveState 写入 want.parameters 的全部键名。
  */

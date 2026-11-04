@@ -98,7 +98,7 @@ struct RestoreIndex {
             this.pathStack.pushPathByName('DeepPage', {} as Record<string, Object>);
             this.reportNavSnapshot();
           })
-        Button('router 页面恢复示例（方案 C）')
+        Button('router页面恢复示例')
           .width('80%')
           .onClick(() => {
             router.pushUrl({ url: 'restore/RouterPage' });
@@ -114,7 +114,7 @@ struct RestoreIndex {
     .navDestination(this.PageMap)
     // 三件套之 1：恢复按 navigationId 匹配，必须设置
     .id('restore-nav')
-    // 三件套之 2：默认 false，必须显式开启（API 14+）
+    // 三件套之 2：默认 false，必须显式开启（API版本14+）
     .recoverable(true)
     .mode(NavigationMode.Stack)
     // [End nav_three_piece]
