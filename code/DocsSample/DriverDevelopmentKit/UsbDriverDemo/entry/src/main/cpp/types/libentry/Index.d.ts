@@ -22,5 +22,8 @@ declare namespace testNapi {
   function setOneButtonMapping(index:number, value:number):void;
   function setDirection(direction:number):void;
   function getDirection():number;
+  function getBoardInputWithBuffer():Promise<void>;
+  function writePipeWithBuffer():void;
+  function releaseResourceWithBuffer():void;
 }
 export default testNapi;
