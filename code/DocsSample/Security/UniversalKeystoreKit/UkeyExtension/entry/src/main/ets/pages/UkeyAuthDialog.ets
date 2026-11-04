@@ -17,22 +17,38 @@
 import { certificateManagerDialog } from '@kit.DeviceCertificateKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
-import { UIContext } from '@kit.ArkUI';
 
-/* context为应用的上下文信息，调用方自行获取，此处仅为示例 */
-let context: common.Context = new UIContext().getHostContext() as common.Context;
-/* keyUri为证书凭据的唯一标识符，在第一步中已记录了keyUri，此处仅为示例 */
-let keyUri: string = 'testKeyAlias';
-let ukeyAuthRequest: certificateManagerDialog.UkeyAuthRequest = { keyUri: keyUri };
-try {
-  certificateManagerDialog.openUkeyAuthDialog(context, ukeyAuthRequest)
-    .then(() => {
-      console.info('Succeeded in opening ukey authorization dialog.');
-    }).catch((err: BusinessError) => {
-      console.error(`Failed to open ukey authorization dialog. Code: ${err.code}, message: ${err.message}`);
-    });
-} catch (err) {
-  let error = err as BusinessError;
-  console.error(`Failed to open ukey authorization dialog. Code: ${error.code}, message: ${error.message}`);
+@Entry
+@Component
+struct UkeyAuthDialogPage {
+  private context: common.Context = getContext(this) as common.Context;
+  /* keyUri为证书凭据的唯一标识符，在第一步中已记录了keyUri，此处仅为示例 */
+  private keyUri: string = 'testKeyAlias';
+
+  build() {
+    Column() {
+      Button('拉起PIN认证弹窗')
+        .onClick(() => {
+          this.openUkeyAuthDialog();
+        })
+    }
+    .width('100%')
+    .height('100%')
+  }
+
+  private openUkeyAuthDialog(): void {
+    let ukeyAuthRequest: certificateManagerDialog.UkeyAuthRequest = { keyUri: this.keyUri };
+    try {
+      certificateManagerDialog.openUkeyAuthDialog(this.context, ukeyAuthRequest)
+        .then(() => {
+          console.info('Succeeded in opening ukey authorization dialog.');
+        }).catch((err: BusinessError) => {
+          console.error(`Failed to open ukey authorization dialog. Code: ${err.code}, message: ${err.message}`);
+        });
+    } catch (err) {
+      let error = err as BusinessError;
+      console.error(`Failed to open ukey authorization dialog. Code: ${error.code}, message: ${error.message}`);
+    }
+  }
 }
 // [open_ukey_auth_dialog_ets]

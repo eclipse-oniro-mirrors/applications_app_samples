@@ -18,7 +18,6 @@
 #include "huks/native_huks_type.h"
 #include "huks/native_huks_param.h"
 #include "huks/native_huks_external_crypto_api.h"
-#include <cstring>
 #include <string.h>
 #include <cstdint>
 #include <device_certificate/certmanager/cm_native_api.h>
@@ -292,7 +291,7 @@ static napi_value GetUkeyCert(napi_env env, napi_callback_info info)
     }
     size_t result = 0;
     napi_get_value_string_utf8(env, argv[0], keyUriBuffer, length + 1, &result);
-    OH_CM_Blob keyUri = { static_cast<uint32_t>(length + 1), (uint8_t*)keyUriBuffer };
+    OH_CM_Blob keyUri = { static_cast<uint32_t>(length), (uint8_t*)keyUriBuffer };
 
     /* 定义UkeyInfo入参 */
     OH_CM_UkeyInfo ukeyInfo = { OH_CM_CERT_PURPOSE_SIGN };
@@ -355,9 +354,8 @@ static napi_value BpOpenResource(napi_env env, napi_callback_info info)
     free(keyUriBuffer);
     OH_Huks_FreeExternalCryptoParamSet(&openResourceParamSet);
 
-    OH_Huks_Result res = OH_Huks_OpenResource(&resourceId, openResourceParamSet);
     napi_value ret;
-    napi_create_int32(env, res.errorCode, &ret);
+    napi_create_int32(env, ohResult.errorCode, &ret);
     return ret;
 }
 
