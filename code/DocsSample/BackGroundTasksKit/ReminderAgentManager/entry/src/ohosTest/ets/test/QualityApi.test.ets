@@ -16,6 +16,7 @@
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { reminderAgentManager } from '@kit.BackgroundTasksKit';
 import { notificationManager } from '@kit.NotificationKit';
+import { installCaseIsolation } from './TestRuntime';
 
 const TITLE: string = 'qualityReminder';
 const CONTENT: string = 'qualityContent';
@@ -86,6 +87,7 @@ async function cancelQuietly(id: number): Promise<void> {
 
 export default function qualityApiTest(): void {
   describe('ReminderQualityApiTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_QUALITY_API_0000
      * @tc.name      testReminderQualityApiSlot0001
