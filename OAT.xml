@@ -103,6 +103,11 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="network/Bluetooth/entry/src/main/java/ohos/samples/bluetooth/adapter/" desc="Not contains 3rd code，license file is not required in this subdirectory."/>
             </filefilter>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies" >
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleStatic/AppScope/resources/base/media/app_icon.png" desc="Copied from code/DocsSample/InputMethod/SimpleKeyboard/AppScope/resources/base/media/app_icon.png" />
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleStatic/entry/src/main/resources/base/media/app_icon.png" desc="Copied from code/DocsSample/InputMethod/SimpleKeyboard/AppScope/resources/base/media/app_icon.png" />
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleStatic/screenshots/IDE-Build.jpg" desc="Provided by code/DocsSample/InputMethod/PreviewTextStyleStatic" />
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleStatic/screenshots/STA-Preview.jpeg" desc="Provided by code/DocsSample/InputMethod/PreviewTextStyleStatic" />
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleStatic/screenshots/STA-Finished.jpeg" desc="Provided by code/DocsSample/InputMethod/PreviewTextStyleStatic" />
 				<filteritem type="filepath" name="code/BasicFeature/Connectivity/Socket/AppScope/resources/base/media/app_icon.png" desc="Provide by code/BasicFeature/Connectivity/Socket"/>
 				<filteritem type="filepath" name="code/BasicFeature/Connectivity/Socket/entry/src/main/resources/base/media/startIcon.png" desc="Provide by code/BasicFeature/Connectivity/Socket"/>
 				<filteritem type="filepath" name="code/BasicFeature/Connectivity/Socket/entry/src/main/resources/base/media/background.png" desc="Provide by code/BasicFeature/Connectivity/Socket"/>
