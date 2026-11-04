@@ -15,10 +15,12 @@
 
 #include "lpp_video_streamer.h"
 #include "lppCallback.h"
+// [Start OH_Include_Lowpower]
 #include "multimedia/player_framework/lowpower_audio_sink_base.h"
 #include "multimedia/player_framework/lowpower_audio_sink.h"
 #include "multimedia/player_framework/lowpower_video_sink.h"
 #include "multimedia/player_framework/lowpower_video_sink_base.h"
+// [End OH_Include_Lowpower]
 #include "multimedia/player_framework/lowpower_avsink_base.h"
 
 
