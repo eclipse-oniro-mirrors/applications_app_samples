@@ -15,9 +15,11 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import TimeConversion from '../../../main/ets/util/TimeConversion';
+import { installCaseIsolation } from './TestRuntime';
 
 export default function invalidInputExtraTest(): void {
   describe('ReminderInvalidInputExtraTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_INVALID_INPUT_EXTRA_0100
      * @tc.name      testReminderInvalidInputExtra0001
@@ -27,7 +29,7 @@ export default function invalidInputExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderInvalidInputExtra0001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(24, 0);
           expect(value === value).assertTrue();
@@ -35,8 +37,6 @@ export default function invalidInputExtraTest(): void {
           expect(value < 86400).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -49,7 +49,7 @@ export default function invalidInputExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderInvalidInputExtra0002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(0, 60);
           const expected: number = TimeConversion.timeToMillisecond(1, 0);
@@ -58,8 +58,6 @@ export default function invalidInputExtraTest(): void {
           expect(value - expected <= 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -72,7 +70,7 @@ export default function invalidInputExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderInvalidInputExtra0003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(-1, 0);
           expect(value === value).assertTrue();
@@ -80,8 +78,6 @@ export default function invalidInputExtraTest(): void {
           expect(value < 86400).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -94,7 +90,7 @@ export default function invalidInputExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderInvalidInputExtra0004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(99, 99);
           expect(value === value).assertTrue();
@@ -102,8 +98,6 @@ export default function invalidInputExtraTest(): void {
           expect(value < 400000).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -116,7 +110,7 @@ export default function invalidInputExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderInvalidInputExtra0005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const value: number = TimeConversion.timeToMillisecond(0, -1);
           expect(value === value).assertTrue();
@@ -124,8 +118,6 @@ export default function invalidInputExtraTest(): void {
           expect(value < 86400).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -138,7 +130,7 @@ export default function invalidInputExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderInvalidInputExtra0006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 0, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 12, 1, 0, 0);
@@ -148,8 +140,6 @@ export default function invalidInputExtraTest(): void {
           expect(diff <= 31104000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -162,7 +152,7 @@ export default function invalidInputExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderInvalidInputExtra0007',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 13, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
@@ -172,8 +162,6 @@ export default function invalidInputExtraTest(): void {
           expect(diff <= -31104000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -186,7 +174,7 @@ export default function invalidInputExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderInvalidInputExtra0008',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 0, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
@@ -196,8 +184,6 @@ export default function invalidInputExtraTest(): void {
           expect(diff <= 86400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -210,7 +196,7 @@ export default function invalidInputExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderInvalidInputExtra0009',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 32, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
@@ -220,8 +206,6 @@ export default function invalidInputExtraTest(): void {
           expect(diff <= -2678400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -234,7 +218,7 @@ export default function invalidInputExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderInvalidInputExtra0010',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 1, 1, 24, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 1, 1, 0, 0);
@@ -244,8 +228,6 @@ export default function invalidInputExtraTest(): void {
           expect(diff <= -86400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
