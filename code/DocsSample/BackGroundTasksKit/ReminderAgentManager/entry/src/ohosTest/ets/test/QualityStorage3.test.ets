@@ -16,6 +16,7 @@
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { preferences } from '@kit.ArkData';
+import { installCaseIsolation } from './TestRuntime';
 
 const PREF_NAME: string = 'ReminderAgentManager';
 const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
@@ -23,6 +24,7 @@ const appContext = delegator.getAppContext();
 
 export default function qualityStorage3Test(): void {
   describe('ReminderQualityStorage3Test', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_QUALITY_STORAGE3_0100
      * @tc.name      testReminderQualityStorage30001
@@ -32,21 +34,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key1';
-          await pref.put(key, '');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, '');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -58,21 +58,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key2';
-          await pref.put(key, '0');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('0');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, '0');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('0');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -84,21 +82,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key3';
-          await pref.put(key, 'false');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('false');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'false');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('false');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -110,21 +106,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key4';
-          await pref.put(key, 'null');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('null');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'null');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('null');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -136,21 +130,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key5';
-          await pref.put(key, 'undefined');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('undefined');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'undefined');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('undefined');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -162,21 +154,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key6';
-          await pref.put(key, '   ');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('   ');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, '   ');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('   ');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -188,21 +178,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30007',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key7';
-          await pref.put(key, '中文测试');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('中文测试');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, '中文测试');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('中文测试');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -214,21 +202,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30008',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key8';
-          await pref.put(key, 'emoji⏰');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('emoji⏰');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'emoji⏰');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('emoji⏰');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -240,10 +226,10 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30009',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key9';
           const longValue: string =
             'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
@@ -253,16 +239,14 @@ export default function qualityStorage3Test(): void {
             'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
             'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
             'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-          await pref.put(key, longValue);
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual(longValue);
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, longValue);
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual(longValue);
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -274,21 +258,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30010',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key10';
-          await pref.put(key, 'special\\nline');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('special\\nline');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'special\\nline');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('special\\nline');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -300,21 +282,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30011',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key11';
-          await pref.put(key, 'alpha');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('alpha');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'alpha');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('alpha');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -326,21 +306,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30012',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key12';
-          await pref.put(key, 'beta');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('beta');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'beta');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('beta');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -352,21 +330,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30013',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key13';
-          await pref.put(key, 'gamma');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('gamma');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'gamma');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('gamma');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -378,21 +354,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30014',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key14';
-          await pref.put(key, 'delta');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('delta');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'delta');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('delta');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -404,21 +378,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30015',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key15';
-          await pref.put(key, 'epsilon');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('epsilon');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'epsilon');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('epsilon');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -430,21 +402,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30016',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key16';
-          await pref.put(key, 'zeta');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('zeta');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'zeta');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('zeta');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -456,21 +426,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30017',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key17';
-          await pref.put(key, 'eta');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('eta');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'eta');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('eta');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -482,21 +450,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30018',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key18';
-          await pref.put(key, 'theta');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('theta');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'theta');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('theta');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -508,21 +474,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30019',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key19';
-          await pref.put(key, 'iota');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('iota');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'iota');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('iota');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -534,21 +498,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30020',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key20';
-          await pref.put(key, 'kappa');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('kappa');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'kappa');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('kappa');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -560,21 +522,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30021',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key21';
-          await pref.put(key, '中文值');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('中文值');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, '中文值');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('中文值');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -586,21 +546,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30022',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key22';
-          await pref.put(key, '日本語');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('日本語');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, '日本語');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('日本語');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -612,21 +570,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30023',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key23';
-          await pref.put(key, '한국어');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('한국어');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, '한국어');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('한국어');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -638,21 +594,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30024',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key24';
-          await pref.put(key, 'emoji⏰⏳');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('emoji⏰⏳');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'emoji⏰⏳');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('emoji⏰⏳');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -664,21 +618,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30025',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key25';
-          await pref.put(key, '<tag>');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('<tag>');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, '<tag>');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('<tag>');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -690,21 +642,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30026',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key26';
-          await pref.put(key, 'quote"');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('quote"');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'quote"');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('quote"');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -716,21 +666,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30027',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key27';
-          await pref.put(key, "single'");
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual("single'");
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, "single'");
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual("single'");
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -742,21 +690,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30028',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key28';
-          await pref.put(key, 'path/to/file');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('path/to/file');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'path/to/file');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('path/to/file');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -768,21 +714,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30029',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key29';
-          await pref.put(key, 'key=value');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('key=value');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'key=value');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('key=value');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
     /**
@@ -794,21 +738,19 @@ export default function qualityStorage3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderQualityStorage30030',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const context = appContext.createModuleContext('entry');
-          const pref = await preferences.getPreferences(context, { name: PREF_NAME });
+          const pref = preferences.getPreferencesSync(context, { name: PREF_NAME });
           const key: string = 'quality3Key30';
-          await pref.put(key, 'trailing ');
-          await pref.flush();
-          expect(await pref.has(key)).assertTrue();
-          expect(String(await pref.get(key, ''))).assertEqual('trailing ');
-          await pref.delete(key);
-          await pref.flush();
+          pref.putSync(key, 'trailing ');
+          pref.flushSync();
+          expect(pref.hasSync(key)).assertTrue();
+          expect(String(pref.getSync(key, ''))).assertEqual('trailing ');
+          pref.deleteSync(key);
+          pref.flushSync();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });  });
 }
