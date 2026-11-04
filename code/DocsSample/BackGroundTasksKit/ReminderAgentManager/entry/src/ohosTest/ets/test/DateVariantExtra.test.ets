@@ -15,9 +15,11 @@
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import TimeConversion from '../../../main/ets/util/TimeConversion';
+import { installCaseIsolation } from './TestRuntime';
 
 export default function dateVariantExtraTest(): void {
   describe('ReminderDateVariantExtraTest', () => {
+    installCaseIsolation();
     /**
      * @tc.number    SUB_REMINDER_DATE_VARIANT_EXTRA_0100
      * @tc.name      testReminderDateVariantExtra0001
@@ -27,7 +29,7 @@ export default function dateVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateVariantExtra0001',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 7, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 7, 2, 0, 0);
@@ -37,8 +39,6 @@ export default function dateVariantExtraTest(): void {
           expect(diff <= 86400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -51,7 +51,7 @@ export default function dateVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateVariantExtra0002',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2025, 3, 1, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2025, 3, 2, 0, 0);
@@ -61,8 +61,6 @@ export default function dateVariantExtraTest(): void {
           expect(diff <= 86400 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -75,7 +73,7 @@ export default function dateVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateVariantExtra0003',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2000, 12, 15, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2001, 12, 15, 0, 0);
@@ -85,8 +83,6 @@ export default function dateVariantExtraTest(): void {
           expect(diff <= 31536000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -99,7 +95,7 @@ export default function dateVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateVariantExtra0004',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2010, 5, 10, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2020, 5, 10, 0, 0);
@@ -109,8 +105,6 @@ export default function dateVariantExtraTest(): void {
           expect(diff <= 315360000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -123,7 +117,7 @@ export default function dateVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateVariantExtra0005',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 2, 29, 0, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 3, 1, 12, 0);
@@ -133,8 +127,6 @@ export default function dateVariantExtraTest(): void {
           expect(diff <= 216000 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
@@ -147,7 +139,7 @@ export default function dateVariantExtraTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReminderDateVariantExtra0006',
-      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
         try {
           const from: number = TimeConversion.dateToMillisecond(2024, 2, 29, 12, 0);
           const to: number = TimeConversion.dateToMillisecond(2024, 3, 1, 0, 0);
@@ -157,8 +149,6 @@ export default function dateVariantExtraTest(): void {
           expect(diff <= 129600 + 2).assertTrue();
         } catch (err) {
           expect().assertFail();
-        } finally {
-          done();
         }
       });
 
