@@ -21,7 +21,7 @@ struct CustomNode {
   pathStack: NavPathStack = new NavPathStack();
 
   aboutToAppear() {
-    // query navigation info
+    // 查询navigation信息
     let navigationInfo: NavigationInfo = this.queryNavigationInfo() as NavigationInfo;
     if (navigationInfo !== undefined) {
       this.pathStack = navigationInfo.pathStack ;

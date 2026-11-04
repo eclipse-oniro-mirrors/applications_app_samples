@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 // [Start PageDisplayType]
-// Dialog NavDestination
+// NavDestination弹窗类型
 @Entry
 @Component
 struct PageDisplayType {
