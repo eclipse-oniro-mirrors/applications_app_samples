@@ -56,7 +56,10 @@ public:
     bool Pending() const { return filtered_ ? lowPass_.Pending() : pending_ || count_ < finalCount_; }
     void Finish()
     {
-        if (filtered_) { lowPass_.Finish(); return; }
+        if (filtered_) {
+            lowPass_.Finish();
+            return;
+        }
         finalCount_ = inputs_ / sourceRate_ * targetRate_ +
             (inputs_ % sourceRate_ * targetRate_ + sourceRate_ - 1) / sourceRate_;
     }
@@ -68,7 +71,10 @@ public:
         current_[0] = targetChannels_ == pcmMonoChannelCount ?
             (left + right) / pcmChannelLimit : left;
         current_[1] = right;
-        if (filtered_) { lowPass_.Push(current_); return; }
+        if (filtered_) {
+            lowPass_.Push(current_);
+            return;
+        }
         ++inputs_;
         if (!initialized_) {
             previous_ = current_;

@@ -139,6 +139,10 @@ private:
     bool ConnectSurface();
     bool SubmitSurfaceFrame(bool eos, bool &advanced);
     bool SubmitGpuFrame(bool &advanced);
+    bool SubmitPendingGpuFrame(bool &advanced);
+    bool QueueGpuFrame(bool &advanced);
+    bool NotifyGpuRangeEnd(bool &advanced);
+    bool ValidateGpuOutputResolution();
     bool ProcessBufferFrame(OH_AVBuffer *input, OH_AVCodecBufferAttr &attr);
     bool OpenSource();
     bool ReadSourceMetadata();

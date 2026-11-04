@@ -48,6 +48,7 @@ constexpr int32_t AUDIO_AMPLITUDE = 12000;
 constexpr int32_t AUDIO_PASSBAND_HZ = 1000;
 constexpr int32_t AUDIO_STOPBAND_HZ = 12000;
 constexpr int32_t AUDIO_EDGE_SKIP = 100;
+constexpr int32_t AUDIO_EDGE_COUNT = 2;
 constexpr double PI = 3.14159265358979323846;
 constexpr double MAX_ALIAS_RATIO = 0.02;
 constexpr double MIN_PASSBAND_RMS = 8000;
@@ -204,7 +205,7 @@ double ResampleTone(int32_t frequency, bool lowPass)
             static_cast<uint16_t>(output[i * TEST_PCM_SAMPLE_BYTES + 1]) << PCM_HIGH_BYTE_SHIFT);
         energy += static_cast<double>(value) * value;
     }
-    return std::sqrt(energy / (AUDIO_TARGET_RATE - AUDIO_EDGE_SKIP * 2));
+    return std::sqrt(energy / (AUDIO_TARGET_RATE - AUDIO_EDGE_SKIP * AUDIO_EDGE_COUNT));
 }
 
 void TestLowPass()

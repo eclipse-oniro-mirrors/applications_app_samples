@@ -1587,7 +1587,7 @@ API 26、相机或编码器能力缺失时，初始化返回不支持当前录�
 
 录制设置可以把每段限制为 60／180／300 秒、256／512／1024 MiB，也可以分别选择“不限”。该功能仅对 MP4 开放。任一已启用的限制达到后触发切段；双路录制按较大的文件检查，并同时切换两路。文件大小每秒检查一次，因此这是切段触发值，不是精确的字节上限。
 
-`RecorderSegmentController` 判断切段条件并汇总结果。录制页先停止相机投喂，再请求 codec EOS、排空音视频输出、结束封装，等待 Native 释放后才关闭 fd。下一段经 `RecorderLaunchController` 与 `RecorderOutputController` 创建全新的相机、codec 和文件。每段都从新的编码会话生成独立 MP4，不在任意压缩包处切断，也不向上一段追加内容。重新初始化期间会有短暂录制间隔。
+`RecorderSegmentController` 判断切段条件并汇总结果。录制页先停止相机投喂，再请求 codec EOS、排空音视频输出、结束封装，等待 Native 释放后才关闭 fd。下一段由 `RecorderLaunchController` 与 `RecorderOutputController` 创建相机、codec 和文件。每段都由独立编码会话生成 MP4，不在任意压缩包处切断，也不向上一段追加内容。重新初始化期间会有短暂录制间隔。
 
 每段完成后，`RecordingHistoryModel` 立即按录制组 ID 保存文件关联。历史列表显示为同一次录制，结果页列出各段的主路／辅路播放入口；总时长不计段间间隔。后续初始化或空间不足时，已经完成的段继续保留，当前结果提示不完整。手动结束、返回或页面隐藏都会先设置结束标记，并等待在途切换，避免退出后又启动一段。
 
@@ -2420,7 +2420,7 @@ Surface 直连保留原始尺寸，不开放像素缩放、灰度和区间裁切
 
 `RunRemux()` 直接使用源轨道描述建立 MP4，`CopyVideoSample()` 将 demuxer 读出的压缩样本写入 muxer，音频按直通或不保留处理。它不创建视频 decoder/encoder，但仍会在 demuxer 和应用 Buffer 之间读写压缩字节。当前只处理整段文件，不做区间裁切、缩放、灰度或 AAC 转换；容器不接受源轨道时明确失败。
 
-`RunPreview()` 只创建同步 decoder，在所选范围内取请求预览时间或其后的首个画面。`CapturePreview()` 从同一个解码 Buffer 分别生成原图和处理图，两者长边均不超过 640，再转换为 RGBA。`TranscodePreviewController` 管理成对 PixelMap 并释放晚到结果。预览最多等待 15 秒，可取消，不创建视频 encoder 或目标 MP4。它用于检查画面构图和基本效果，不能预测 GPU 色彩转换、编码画质、完整任务耗时或全部帧的兼容性。
+`RunPreview()` 只创建同步 decoder，在所选范围内读取请求预览时间对应的画面；该时间不可用时，读取之后可用的画面。`CapturePreview()` 从同一个解码 Buffer 分别生成原图和处理图，两者长边均不超过 640，再转换为 RGBA。`TranscodePreviewController` 管理成对 PixelMap 并释放晚到结果。预览最多等待 15 秒，可取消，不创建视频 encoder 或目标 MP4。它用于检查画面构图和基本效果，不能预测 GPU 色彩转换、编码画质、完整任务耗时或全部帧的兼容性。
 
 <a id="task-recovery"></a>
 

@@ -49,7 +49,7 @@ export class TranscodePreviewController {
       if (sequence !== this.sequence) { return; }
       request.inputFd = file.fd;
       request.audioMode = 2;
-      // A Surface job uses a synchronous Buffer decoder only for the pixel preview.
+      // Pixel preview uses a synchronous decoder that exposes readable Buffers.
       request.useSurfaceInput = false;
       request.gpuProcessing = false;
       const result: TranscodeStatus = await transcoder.preview(request);

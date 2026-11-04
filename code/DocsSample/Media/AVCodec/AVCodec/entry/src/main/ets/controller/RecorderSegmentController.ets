@@ -19,7 +19,7 @@ import { RecordingResultInfo } from './RecordingSessionController';
 import { RecordingSegmentInfo } from '../model/RecordingHistoryModel';
 
 export class RecorderSegmentController {
-  static readonly MAX_SEGMENTS: number = 1000;
+  public static readonly MAX_SEGMENTS: number = 1000;
   private startedAt: number = 0;
   private pieces: RecordingSegmentInfo[] = [];
   private allComplete: boolean = true;

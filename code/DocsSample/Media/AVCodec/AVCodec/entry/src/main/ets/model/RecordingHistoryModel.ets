@@ -113,7 +113,8 @@ export class RecordingHistoryModel {
     this.entries = this.entries.filter((entry: RecordingHistoryEntry): boolean => entry.sessionId !== groupId);
     this.entries.unshift({ sessionId: groupId, uri: first.uri, title: first.title, secondaryUri: first.secondaryUri,
       recordedAt: first.recordedAt,
-      durationSeconds: segments.reduce((sum: number, item: RecordingSegmentInfo): number => sum + item.durationSeconds, 0),
+      durationSeconds: segments.reduce((sum: number, item: RecordingSegmentInfo): number =>
+        sum + item.durationSeconds, 0),
       complete: segments.every((item: RecordingSegmentInfo): boolean => item.complete), segments: segments });
     this.entries = this.entries.slice(0, MAX_RECORDING_ENTRIES);
     await this.save();

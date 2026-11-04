@@ -55,7 +55,10 @@ bool TranscodeGpuProcessor::Initialize(OHNativeWindow *encoder, int32_t width, i
         OH_NativeWindow_NativeWindowHandleOpt(encoder, SET_FORMAT, NATIVEBUFFER_PIXEL_FMT_RGBA_8888) != 0 ||
         OH_NativeWindow_SetColorSpace(encoder, OH_COLORSPACE_BT709_FULL) != 0 ||
         !egl_.Initialize(encoder)) { return false; }
-    width_ = width; height_ = height; targetWidth_ = targetWidth; targetHeight_ = targetHeight;
+    width_ = width;
+    height_ = height;
+    targetWidth_ = targetWidth;
+    targetHeight_ = targetHeight;
     grayscale_ = grayscale;
     program_ = AvCodecGraphics::CreateProgram(VERTEX, FRAGMENT);
     if (program_ == 0) { return false; }

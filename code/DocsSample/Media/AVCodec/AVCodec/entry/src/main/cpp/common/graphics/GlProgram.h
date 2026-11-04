@@ -31,24 +31,40 @@ inline GLuint CompileShader(GLenum type, const char *source)
     return 0;
 }
 
+inline GLuint LinkProgram(GLuint vertex, GLuint fragment)
+{
+    const GLuint program = glCreateProgram();
+    if (program == 0) {
+        return 0;
+    }
+    glAttachShader(program, vertex);
+    glAttachShader(program, fragment);
+    glLinkProgram(program);
+    GLint linked = GL_FALSE;
+    glGetProgramiv(program, GL_LINK_STATUS, &linked);
+    if (linked == GL_TRUE) {
+        return program;
+    }
+    glDeleteProgram(program);
+    return 0;
+}
+
+inline void DeleteShaders(GLuint vertex, GLuint fragment)
+{
+    if (vertex != 0) { glDeleteShader(vertex); }
+    if (fragment != 0) { glDeleteShader(fragment); }
+}
+
 inline GLuint CreateProgram(const char *vertexSource, const char *fragmentSource)
 {
     const GLuint vertex = CompileShader(GL_VERTEX_SHADER, vertexSource);
     const GLuint fragment = CompileShader(GL_FRAGMENT_SHADER, fragmentSource);
-    GLuint program = 0;
-    if (vertex != 0 && fragment != 0) {
-        program = glCreateProgram();
-        if (program != 0) {
-            glAttachShader(program, vertex);
-            glAttachShader(program, fragment);
-            glLinkProgram(program);
-            GLint linked = GL_FALSE;
-            glGetProgramiv(program, GL_LINK_STATUS, &linked);
-            if (linked != GL_TRUE) { glDeleteProgram(program); program = 0; }
-        }
+    if (vertex == 0 || fragment == 0) {
+        DeleteShaders(vertex, fragment);
+        return 0;
     }
-    if (vertex != 0) { glDeleteShader(vertex); }
-    if (fragment != 0) { glDeleteShader(fragment); }
+    const GLuint program = LinkProgram(vertex, fragment);
+    DeleteShaders(vertex, fragment);
     return program;
 }
 }

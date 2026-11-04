@@ -22,8 +22,21 @@
 
 // Windowed-sinc downsampling. Drain Pending() before Push(); no decoder Buffer pointers are retained.
 class TranscodeLowPassResampler {
+private:
+    static constexpr size_t channelCount = 2;
+    static constexpr int32_t secondHarmonic = 2;
+    static constexpr int32_t radius = 32;
+    static constexpr int32_t historyPadding = 3;
+    static constexpr int32_t historySize = radius * secondHarmonic + historyPadding;
+    static constexpr double pi = 3.14159265358979323846;
+    static constexpr double passband = 0.94;
+    static constexpr double windowCenter = 0.42;
+    static constexpr double windowCosine = 0.5;
+    static constexpr double windowSecond = 0.08;
+    static constexpr double epsilon = 1e-12;
+
 public:
-    using Frame = std::array<int32_t, 2>;
+    using Frame = std::array<int32_t, channelCount>;
     void Configure(int32_t sourceRate, int32_t targetRate)
     {
         sourceRate_ = sourceRate;
@@ -36,14 +49,14 @@ public:
     void Push(const Frame &frame)
     {
         if (inputs_ == 0) { first_ = frame; }
-        history_[inputs_ % HISTORY_SIZE] = frame;
+        history_[inputs_ % historySize] = frame;
         last_ = frame;
         ++inputs_;
     }
     bool Pending() const
     {
         if (inputs_ == 0) { return false; }
-        return finished_ ? outputs_ < finalCount_ : Position() + RADIUS < inputs_;
+        return finished_ ? outputs_ < finalCount_ : Position() + radius < inputs_;
     }
     void Finish()
     {
@@ -55,18 +68,21 @@ public:
     {
         const int64_t center = Position();
         const double fraction = static_cast<double>(outputs_ % targetRate_ * sourceRate_ % targetRate_) / targetRate_;
-        const double cutoff = PASSBAND * targetRate_ / sourceRate_;
-        std::array<double, 2> sum {};
+        const double cutoff = passband * targetRate_ / sourceRate_;
+        std::array<double, channelCount> sum {};
         double weights = 0;
-        for (int32_t tap = -RADIUS; tap <= RADIUS; ++tap) {
+        for (int32_t tap = -radius; tap <= radius; ++tap) {
             const double distance = tap - fraction;
-            const double window = std::abs(distance) >= RADIUS ? 0 :
-                WINDOW_CENTER + WINDOW_COSINE * std::cos(PI * distance / RADIUS) +
-                WINDOW_SECOND * std::cos(2 * PI * distance / RADIUS);
-            const double phase = PI * cutoff * distance;
-            const double weight = (std::abs(phase) < EPSILON ? cutoff : cutoff * std::sin(phase) / phase) * window;
+            const double window = std::abs(distance) >= radius ? 0 : windowCenter +
+                windowCosine * std::cos(pi * distance / radius) +
+                windowSecond * std::cos(secondHarmonic * pi * distance / radius);
+            const double phase = pi * cutoff * distance;
+            const double weight = (std::abs(phase) < epsilon ? cutoff :
+                cutoff * std::sin(phase) / phase) * window;
             const Frame sample = Read(center + tap);
-            for (size_t channel = 0; channel < sum.size(); ++channel) { sum[channel] += sample[channel] * weight; }
+            for (size_t channel = 0; channel < sum.size(); ++channel) {
+                sum[channel] += sample[channel] * weight;
+            }
             weights += weight;
         }
         ++outputs_;
@@ -75,14 +91,6 @@ public:
     int64_t Count() const { return outputs_; }
 
 private:
-    static constexpr int32_t RADIUS = 32;
-    static constexpr int32_t HISTORY_SIZE = RADIUS * 2 + 3;
-    static constexpr double PI = 3.14159265358979323846;
-    static constexpr double PASSBAND = 0.94;
-    static constexpr double WINDOW_CENTER = 0.42;
-    static constexpr double WINDOW_COSINE = 0.5;
-    static constexpr double WINDOW_SECOND = 0.08;
-    static constexpr double EPSILON = 1e-12;
     static int32_t Clamp(double sample)
     {
         return static_cast<int32_t>(std::clamp(std::lround(sample),
@@ -97,9 +105,9 @@ private:
     {
         if (index < 0) { return first_; }
         if (index >= inputs_) { return last_; }
-        return history_[index % HISTORY_SIZE];
+        return history_[index % historySize];
     }
-    std::array<Frame, HISTORY_SIZE> history_ {};
+    std::array<Frame, historySize> history_ {};
     Frame first_ {};
     Frame last_ {};
     int32_t sourceRate_ = 1;

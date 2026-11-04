@@ -33,6 +33,7 @@ constexpr int32_t RGBA_ALPHA_OPAQUE = 255;
 constexpr int32_t PREVIEW_MAX_LONG_EDGE = 640;
 constexpr int64_t VIDEO_COPY_BUFFER_SIZE = 32LL * 1024 * 1024;
 constexpr int32_t PREVIEW_IDLE_WAIT_MS = 2;
+constexpr int64_t MICROSECONDS_PER_MILLISECOND = 1000;
 constexpr int32_t DIAGNOSTICS_PUBLISH_INTERVAL_MS = 250;
 constexpr double COLOR_COEFFICIENT_SCALE = 2.0;
 constexpr int32_t PREVIEW_TIMEOUT_SECONDS = 15;
@@ -147,7 +148,8 @@ bool TranscodeJob::CapturePreview()
     snapshot_.originalWidth = original.width;
     snapshot_.originalHeight = original.height;
     snapshot_.originalRgba = std::move(originalRgba);
-    snapshot_.previewTimeMs = std::max<int64_t>(0, pendingDecodedAttr_.pts - sourceStartUs_) / 1000;
+    snapshot_.previewTimeMs = std::max<int64_t>(0, pendingDecodedAttr_.pts - sourceStartUs_) /
+        MICROSECONDS_PER_MILLISECOND;
     return true;
 }
 

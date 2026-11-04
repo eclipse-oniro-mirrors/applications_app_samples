@@ -71,6 +71,9 @@ template<class Read>
 uint8_t SampleArea(int32_t x, int32_t y, int32_t width, int32_t height, int32_t targetWidth,
     int32_t targetHeight, Read read, Filter filter)
 {
+    if (width <= 0 || height <= 0 || targetWidth <= 0 || targetHeight <= 0) {
+        return 0;
+    }
     if (filter != Filter::AREA || targetWidth > width || targetHeight > height) {
         return Interpolate(x, y, width, height, targetWidth, targetHeight, read);
     }
@@ -79,9 +82,11 @@ uint8_t SampleArea(int32_t x, int32_t y, int32_t width, int32_t height, int32_t 
     const double top = static_cast<double>(y) * height / targetHeight;
     const double bottom = static_cast<double>(y + 1) * height / targetHeight;
     double sum = 0;
-    for (int32_t sy = static_cast<int32_t>(top); sy < std::min(height, static_cast<int32_t>(std::ceil(bottom))); ++sy) {
+    const int32_t endY = std::min(height, static_cast<int32_t>(std::ceil(bottom)));
+    const int32_t endX = std::min(width, static_cast<int32_t>(std::ceil(right)));
+    for (int32_t sy = static_cast<int32_t>(top); sy < endY; ++sy) {
         const double weightY = std::min(bottom, sy + 1.0) - std::max(top, static_cast<double>(sy));
-        for (int32_t sx = static_cast<int32_t>(left); sx < std::min(width, static_cast<int32_t>(std::ceil(right))); ++sx) {
+        for (int32_t sx = static_cast<int32_t>(left); sx < endX; ++sx) {
             const double weightX = std::min(right, sx + 1.0) - std::max(left, static_cast<double>(sx));
             sum += read(sx, sy) * weightX * weightY;
         }
