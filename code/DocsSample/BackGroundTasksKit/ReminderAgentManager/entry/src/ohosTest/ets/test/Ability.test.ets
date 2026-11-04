@@ -1778,5 +1778,365 @@ export default function abilityTest() {
         }
       });
 
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_4900
+     * @tc.name      testReminderAgentMatrixDateTomorrow0049
+     * @tc.desc      Verify tomorrow at the current time converts to about one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixDateTomorrow0049',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const now: Date = new Date();
+          const tomorrow: Date = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+          const value: number = TimeConversion.dateToMillisecond(tomorrow.getFullYear(),
+            tomorrow.getMonth() + 1, tomorrow.getDate(), now.getHours(), now.getMinutes());
+          expect(value >= 86000).assertTrue();
+          expect(value <= 86400).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_5000
+     * @tc.name      testReminderAgentMatrixDateYesterday0050
+     * @tc.desc      Verify yesterday at the current time converts to about minus one day.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixDateYesterday0050',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const now: Date = new Date();
+          const yesterday: Date = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+          const value: number = TimeConversion.dateToMillisecond(yesterday.getFullYear(),
+            yesterday.getMonth() + 1, yesterday.getDate(), now.getHours(), now.getMinutes());
+          expect(value <= 0).assertTrue();
+          expect(value >= -90000).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_5100
+     * @tc.name      testReminderAgentMatrixTimerOneSecond0051
+     * @tc.desc      Verify a one-second timer can be published and cancelled.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixTimerOneSecond0051',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        let reminderId: number = 0;
+        try {
+          reminderId = await reminderAgentManager.publishReminder(createTimerRequest(1, 9401));
+          expect(reminderId).assertLarger(0);
+          expect(typeof reminderId).assertEqual('number');
+          await reminderAgentManager.cancelReminder(reminderId);
+          reminderId = 0;
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          if (reminderId > 0) {
+            try {
+              await reminderAgentManager.cancelReminder(reminderId);
+            } catch (err) {}
+          }
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_5200
+     * @tc.name      testReminderAgentMatrixAlarmMidnight0052
+     * @tc.desc      Verify an alarm at 00:00 can be published and cancelled.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixAlarmMidnight0052',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        let reminderId: number = 0;
+        try {
+          const request: reminderAgentManager.ReminderRequestAlarm = {
+            reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_ALARM,
+            hour: 0,
+            minute: 0,
+            title: REMINDER_TITLE,
+            content: REMINDER_CONTENT,
+            ringDuration: 1,
+            wantAgent: createWantAgent(),
+            slotType: notificationManager.SlotType.CONTENT_INFORMATION
+          };
+          reminderId = await reminderAgentManager.publishReminder(request);
+          expect(reminderId).assertLarger(0);
+          expect(typeof reminderId).assertEqual('number');
+          await reminderAgentManager.cancelReminder(reminderId);
+          reminderId = 0;
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          if (reminderId > 0) {
+            try {
+              await reminderAgentManager.cancelReminder(reminderId);
+            } catch (err) {}
+          }
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_5300
+     * @tc.name      testReminderAgentMatrixAlarmLastMinute0053
+     * @tc.desc      Verify an alarm at 23:59 can be published and cancelled.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixAlarmLastMinute0053',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        let reminderId: number = 0;
+        try {
+          const request: reminderAgentManager.ReminderRequestAlarm = {
+            reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_ALARM,
+            hour: 23,
+            minute: 59,
+            title: REMINDER_TITLE,
+            content: REMINDER_CONTENT,
+            ringDuration: 1,
+            wantAgent: createWantAgent(),
+            slotType: notificationManager.SlotType.CONTENT_INFORMATION
+          };
+          reminderId = await reminderAgentManager.publishReminder(request);
+          expect(reminderId).assertLarger(0);
+          expect(typeof reminderId).assertEqual('number');
+          await reminderAgentManager.cancelReminder(reminderId);
+          reminderId = 0;
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          if (reminderId > 0) {
+            try {
+              await reminderAgentManager.cancelReminder(reminderId);
+            } catch (err) {}
+          }
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_5400
+     * @tc.name      testReminderAgentMatrixCalendarTwoMinutes0054
+     * @tc.desc      Verify a calendar reminder two minutes ahead can be published and cancelled.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixCalendarTwoMinutes0054',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        let reminderId: number = 0;
+        try {
+          const date: Date = new Date(Date.now() + 2 * 60 * 1000);
+          const request: reminderAgentManager.ReminderRequestCalendar = {
+            reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_CALENDAR,
+            dateTime: {
+              year: date.getFullYear(),
+              month: date.getMonth() + 1,
+              day: date.getDate(),
+              hour: date.getHours(),
+              minute: date.getMinutes()
+            },
+            title: REMINDER_TITLE,
+            content: REMINDER_CONTENT,
+            ringDuration: 1,
+            wantAgent: createWantAgent(),
+            slotType: notificationManager.SlotType.CONTENT_INFORMATION
+          };
+          reminderId = await reminderAgentManager.publishReminder(request);
+          expect(reminderId).assertLarger(0);
+          expect(typeof reminderId).assertEqual('number');
+          await reminderAgentManager.cancelReminder(reminderId);
+          reminderId = 0;
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          if (reminderId > 0) {
+            try {
+              await reminderAgentManager.cancelReminder(reminderId);
+            } catch (err) {}
+          }
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_5500
+     * @tc.name      testReminderAgentMatrixTimerNegative0055
+     * @tc.desc      Verify a negative timer trigger is rejected.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixTimerNegative0055',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        let failed: boolean = false;
+        try {
+          await reminderAgentManager.publishReminder(createTimerRequest(-1, 9402));
+        } catch (err) {
+          failed = true;
+        }
+        expect(failed).assertTrue();
+        expect(typeof failed).assertEqual('boolean');
+        expect(failed === true).assertTrue();
+        done();
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_5600
+     * @tc.name      testReminderAgentMatrixAlarmHourInvalid0056
+     * @tc.desc      Verify an alarm hour of 24 is rejected.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixAlarmHourInvalid0056',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        let failed: boolean = false;
+        try {
+          const request: reminderAgentManager.ReminderRequestAlarm = {
+            reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_ALARM,
+            hour: 24,
+            minute: 0,
+            title: REMINDER_TITLE,
+            content: REMINDER_CONTENT,
+            ringDuration: 1,
+            wantAgent: createWantAgent(),
+            slotType: notificationManager.SlotType.CONTENT_INFORMATION
+          };
+          await reminderAgentManager.publishReminder(request);
+        } catch (err) {
+          failed = true;
+        }
+        expect(failed).assertTrue();
+        expect(typeof failed).assertEqual('boolean');
+        expect(failed === true).assertTrue();
+        done();
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_5700
+     * @tc.name      testReminderAgentMatrixCalendarMonthInvalid0057
+     * @tc.desc      Verify a calendar month of 13 is rejected.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixCalendarMonthInvalid0057',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        let failed: boolean = false;
+        try {
+          const request: reminderAgentManager.ReminderRequestCalendar = {
+            reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_CALENDAR,
+            dateTime: { year: 2026, month: 13, day: 1, hour: 0, minute: 0 },
+            title: REMINDER_TITLE,
+            content: REMINDER_CONTENT,
+            ringDuration: 1,
+            wantAgent: createWantAgent(),
+            slotType: notificationManager.SlotType.CONTENT_INFORMATION
+          };
+          await reminderAgentManager.publishReminder(request);
+        } catch (err) {
+          failed = true;
+        }
+        expect(failed).assertTrue();
+        expect(typeof failed).assertEqual('boolean');
+        expect(failed === true).assertTrue();
+        done();
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_5800
+     * @tc.name      testReminderAgentMatrixCalendarDayInvalid0058
+     * @tc.desc      Verify a calendar day of 32 is rejected.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixCalendarDayInvalid0058',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        let failed: boolean = false;
+        try {
+          const request: reminderAgentManager.ReminderRequestCalendar = {
+            reminderType: reminderAgentManager.ReminderType.REMINDER_TYPE_CALENDAR,
+            dateTime: { year: 2026, month: 1, day: 32, hour: 0, minute: 0 },
+            title: REMINDER_TITLE,
+            content: REMINDER_CONTENT,
+            ringDuration: 1,
+            wantAgent: createWantAgent(),
+            slotType: notificationManager.SlotType.CONTENT_INFORMATION
+          };
+          await reminderAgentManager.publishReminder(request);
+        } catch (err) {
+          failed = true;
+        }
+        expect(failed).assertTrue();
+        expect(typeof failed).assertEqual('boolean');
+        expect(failed === true).assertTrue();
+        done();
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_5900
+     * @tc.name      testReminderAgentMatrixValidList0059
+     * @tc.desc      Verify the valid reminder list is an array.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixValidList0059',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          const valid: Array<reminderAgentManager.ReminderInfo> =
+            await reminderAgentManager.getAllValidReminders();
+          expect(Array.isArray(valid)).assertTrue();
+          expect(valid.length >= 0).assertTrue();
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_REMINDER_AGENT_MANAGER_6000
+     * @tc.name      testReminderAgentMatrixConstants0060
+     * @tc.desc      Verify key reminder constants keep their declared values.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testReminderAgentMatrixConstants0060',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        try {
+          expect(Constant.PROMPT_DURATION).assertEqual(300);
+          expect(Constant.REMINDER_DURATION).assertEqual(30);
+          expect(Constant.VIBRATOR_DURATION).assertEqual(3000);
+          expect(Constant.SECONDS_MILLISECONDS).assertEqual(1000);
+          expect(Constant.TIME_COUNTDOWN).assertEqual(59);
+        } catch (err) {
+          expect().assertFail();
+        } finally {
+          done();
+        }
+      });
   });
 }
