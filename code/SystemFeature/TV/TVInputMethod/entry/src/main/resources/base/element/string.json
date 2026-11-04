@@ -1,0 +1,128 @@
+{
+  "string": [
+    {
+      "name": "entry_desc",
+      "value": "kikaInput extension"
+    },
+    {
+      "name": "extension_ability_descripter",
+      "value": "soft input extension by kika"
+    },
+    {
+      "name": "MainAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "MainAbility_label",
+      "value": "chineseInput"
+    },
+    {
+      "name": "selection",
+      "value": "Selection"
+    },
+    {
+      "name": "edit",
+      "value": "Edit"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "chineseInput"
+    },
+    {
+      "name": "Private_data",
+      "value": "Private data"
+    },
+    {
+      "name": "Preview_Text",
+      "value": "Preview Text"
+    },
+    {
+      "name": "Private_tip",
+      "value": "Please input account number"
+    },
+    {
+      "name": "Preview_tip",
+      "value": "Please input preview content"
+    },
+    {
+      "name": "ZN_CN",
+      "value": "中"
+    },
+    {
+      "name": "en",
+      "value": "英"
+    },
+    {
+      "name": "pinyin_nine",
+      "value": "拼音9键"
+    },
+    {
+      "name": "clear_all",
+      "value": "清空"
+    },
+    {
+      "name": "symbol",
+      "value": "符号"
+    },
+    {
+      "name": "symbol_1",
+      "value": "。"
+    },
+    {
+      "name": "symbol_2",
+      "value": "，"
+    },
+    {
+      "name": "CN_en",
+      "value": "中/英"
+    },
+    {
+      "name": "text_complete",
+      "value": "完成"
+    },
+    {
+      "name": "symbol_123",
+      "value": "123"
+    },
+    {
+      "name": "symbol_3",
+      "value": "！"
+    },
+    {
+      "name": "symbol_4",
+      "value": "？"
+    },
+    {
+      "name": "string_text_space",
+      "value": "Space"
+    },
+    {
+      "name": "string_text_123",
+      "value": "?123"
+    },
+    {
+      "name": "string_text_ABC",
+      "value": "ABC"
+    },
+    {
+      "name": "string_text_inputCN",
+      "value": "The system default input method"
+    },
+    {
+      "name": "turnPage",
+      "value": "翻页"
+    },
+    {
+      "name": "string_text_DeleteX",
+      "value": "X"
+    },
+    {
+      "name": "string_text_Complete",
+      "value": "完成"
+    }
+  ]
+}
